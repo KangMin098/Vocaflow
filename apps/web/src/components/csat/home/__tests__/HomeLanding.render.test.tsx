@@ -10,6 +10,8 @@ import { describe, expect, it, vi } from 'vitest'
 // 오류 안내의 「다시 열기」 가 router.refresh 를 쓴다 — 정적 렌더에는 앱 라우터가 없으니 대역
 vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh: () => undefined }) }))
 
+import { parseMapReturn } from '@/lib/csat/map-return'
+
 import { HomeLanding } from '../HomeLanding'
 
 const exams = [{ exam_id: '2026', label: '2026학년도 수능', items: 28 }]
@@ -27,10 +29,17 @@ describe('HomeLanding — 첫 제안 분기', () => {
     expect(html).toMatch(/<button type="button"[^>]*data-testid="home-map-retry"/)
   })
   it('지도에서 하던 일 — 확인 중 과제 카드는 그 과제 · 묶음으로 지도를 다시 여는 링크', () => {
-    const progress = { check: { task: 'claim-support', name: '주장과 근거', ws: 'ws.evidence-locate' }, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2 } }
+    // T-0080 — progress.check.task 는 지도 TASK id(home-progress) → map_task 로 보낸다(task = 과거 활동 키 칸 아님)
+    const progress = { check: { task: 'e.evidence_location', name: '근거 찾기', ws: 'ws.evidence-locate' }, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2 } }
     const html = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="step" returned={null} progress={progress} />)
     expect(html).toContain('data-kind="continue_check"')
-    expect(html).toContain('href="/csat?task=claim-support&amp;ws=ws.evidence-locate"')
+    const tag = html.match(/<a[^>]*data-testid="home-continue-check-go"[^>]*>/)![0]
+    const href = tag.match(/href="([^"]+)"/)![1].replace(/&amp;/g, '&')
+    const ctx = parseMapReturn(Object.fromEntries(new URL(href as string, 'http://x').searchParams))
+    expect(ctx.mapTask).toBe(progress.check.task)
+    expect(ctx.ws).toBe(progress.check.ws)
+    expect(ctx.task ?? null).toBeNull()
+    for (const k of ['map_item', 'map_attempt', 'map_plan', 'map_goal']) expect(href).not.toContain(k)
     expect(html).not.toContain('data-testid="home-continue-plan"')
   })
   it('지도에서 하던 일 — 확인 중 과제가 없으면 저장 계획 카드(진행 수 · 그 묶음으로)', () => {

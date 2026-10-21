@@ -13,10 +13,10 @@ const URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
 const SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
 const SET_DIR = path.resolve(__dirname, '../../src/lib/knowledge/authored')
 type Item = { id: string; gold: Record<string, any>; body: Record<string, any> } // eslint-disable-line @typescript-eslint/no-explicit-any
-const ITEMS = new Map<string, { item: Item; format: string }>()
+const ITEMS = new Map<string, { item: Item; format: string; taskId: string | null }>()
 for (const f of fs.readdirSync(SET_DIR).filter((x) => x.endsWith('.json'))) {
-  const s = JSON.parse(fs.readFileSync(path.join(SET_DIR, f), 'utf8')) as { format?: string; items: Item[] }
-  for (const it of s.items) ITEMS.set(it.id, { item: it, format: s.format ?? 'central_meaning' })
+  const s = JSON.parse(fs.readFileSync(path.join(SET_DIR, f), 'utf8')) as { format?: string; taskId?: string; items: Item[] }
+  for (const it of s.items) ITEMS.set(it.id, { item: it, format: s.format ?? 'central_meaning', taskId: s.taskId ?? null })
 }
 
 test.beforeAll(() => {
@@ -113,14 +113,30 @@ for (const width of [1440, 1280]) {
     await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid)).data ?? []).filter((b) => b.evidence).length, { timeout: 15_000 }).toBe(1)
     expect(await sessions(), '시험 기록 0 유지').toBe(0)
 
-    // 홈 — 기록 없음으로 되돌리지 않는다 · 지도 다음 학습(키보드로 지도 진입)
+    // 같은 탭에서 지도의 다른 TASK 를 먼저 고른다(옛 선택) — 홈 링크가 그 선택을 덮고 요청한 TASK 로 돌아오는지 본다
+    await page.goto('/csat/diagnosis?tab=map&view=full', { waitUntil: 'domcontentloaded' })
+    const other = page.locator(`[data-testid="umap-node"]:not([data-node="${meta.taskId ?? ''}"])`).first()
+    await other.focus(); await page.keyboard.press('Enter'); await page.keyboard.press('Escape')
+
+    // 홈 — 기록 없음으로 되돌리지 않는다. 혼자 확인 1회(판정 전) = 확인 이어하기 카드 → 그 링크를 키보드로 따라가면 같은 TASK · 묶음 지도
     await page.goto('/csat', { waitUntil: 'domcontentloaded' })
     await expect(sug).not.toHaveAttribute('data-kind', 'no_records', { timeout: 60_000 })
     await expect(sug).not.toHaveAttribute('data-kind', 'error')
     await expect(sug).not.toContainText('시험 기록이 없')
-    const toMap = sug.locator('a[href="#umap-h"]')
-    await toMap.focus(); await page.keyboard.press('Enter')
-    await expect(page.locator('[data-testid="home-map"]')).toBeVisible()
+    await expect(sug).toHaveAttribute('data-kind', 'continue_check')
+    const card = page.locator('[data-testid="home-continue-check"]')
+    const target = (await card.getAttribute('data-target-task'))!
+    const go = card.locator('[data-testid="home-continue-check-go"]')
+    const href = (await go.getAttribute('href'))!
+    const q = new globalThis.URL(href, 'http://x').searchParams
+    expect(q.get('map_task'), 'T-0080 — 학습 TASK 는 map_task').toBe(target)
+    expect(q.get('task')).toBeNull()
+    await go.focus(); await page.keyboard.press('Enter')
+    await page.waitForURL((u) => u.searchParams.get('map_task') === target)
+    const homeMap = page.locator('[data-testid="home-map"] [data-testid="unified-map"]')
+    await expect(homeMap, '요청한 TASK 로 복귀(옛 선택 아님)').toHaveAttribute('data-selected', target, { timeout: 60_000 })
+    if (q.get('ws')) await expect(homeMap).toHaveAttribute('data-ws', q.get('ws')!)
+    expect(await sessions(), '시험 기록 0 유지').toBe(0)
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1)
     await test.info().attach(`home-map-evidence-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
   })

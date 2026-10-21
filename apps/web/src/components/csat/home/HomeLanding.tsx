@@ -196,6 +196,7 @@ export function HomeLanding({
             ) : suggest === 'resume' ? (
               <ContinueCard state={rec} />
             ) : suggest === 'continue_check' && progress?.check ? (
+              // T-0080 — 학습 TASK 는 map_task(지도 TASK 선택)로 보낸다. task 는 과거 활동 키 칸이라 지도가 TASK 로 쓰지 않아 옛 선택이 남았다
               <div className={home.card} data-testid="home-continue-check" data-target-task={progress.check.task}>
                 <p className={home.cardBack}>
                   <ClipboardCheck size={13} aria-hidden="true" /> 확인하던 항목
@@ -205,7 +206,7 @@ export function HomeLanding({
                     <b>{progress.check.name}</b> 확인 문항을 풀기 시작했어요. 아직 확인 결과가 나오지 않았어요.
                   </p>
                   <div className={home.cardActions}>
-                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ task: progress.check.task, ws: progress.check.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_check', from: 'home' } })} data-testid="home-continue-check-go">
+                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ mapTask: progress.check.task, ws: progress.check.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_check', from: 'home' } })} data-testid="home-continue-check-go">
                       지도에서 이어서 확인 <ArrowRight size={14} aria-hidden="true" />
                     </Link>
                   </div>
