@@ -1,0 +1,7 @@
+merge: integrate accepted T0083 instructional attachment entry
+
+Preserve FactoryDcpCard and instructional supplement in WorkspaceModal.
+Verify combined main: 89 scoped tests, typecheck/lint, four Chromium controls.
+Authenticated Next/DB and content release remain separately unverified.
+
+Co-Authored-By: Codex <noreply@openai.com>

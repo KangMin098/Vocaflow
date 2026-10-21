@@ -1,0 +1,51 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "started_at": "2026-10-21T18:46:50Z",
+  "observed_at": "2026-10-21T18:50:02.451Z",
+  "commit": "e7679345e2bc2a533b2c6862c37eebf2b228d9ff",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "type": "ui",
+  "artifact_path_or_url": "verification/reviews/T-0083-r2-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0083-r2-independent/browser/learn-rows-1440.png",
+    "verification/reviews/T-0083-r2-independent/browser/learn-rows-1280.png"
+  ],
+  "urls": [
+    "http://127.0.0.1/ (ephemeral actual-component harness)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual React AuthoredSupplyCard/Chromium1440+1280; scoped role/copy/links/keyboard/state checks, modules only. HTTP/router/link shims. Authenticated Next+DB and whole-app3B/reference audit NOT_VERIFIED.",
+  "command_or_protocol": "Independent mixed-role and support-control4/4 plus inspected owner final14/14 normal states/keyboard/overflow/errors. Existing card CSS/classes, names/focus mechanics and navigation unchanged; scoped source reuse, no whole-app visual certification.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [
+    {
+      "kind": "suggestion",
+      "claim": "Authenticated journey is unrun and may accept empty response; not eligible-supply evidence. Validate the complete journey in the existing official bundle.",
+      "status": "open"
+    }
+  ],
+  "note": "Ten checks concern this changed component role projection and reused unchanged card controls/styles only. No new visual pattern/CSS/token/control. Layout checks mean scoped overflow/status readability; accessibility means existing keyboard/names and unchanged focus mechanics. Full shell/reference geometry/contrast were not remeasured and are not certified."
+}

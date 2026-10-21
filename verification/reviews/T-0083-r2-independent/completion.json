@@ -1,0 +1,43 @@
+{
+  "task": "T-0083",
+  "revision": "rev1",
+  "source_head": "e7679345e2bc2a533b2c6862c37eebf2b228d9ff",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "verified_fixed": ["T0083-P1-1"],
+  "task_status": "COMPLETED",
+  "independent_evidence": ["T-0083-R2-E04", "T-0083-R2-E05", "T-0083-R2-E06"],
+  "integration": {
+    "worktree": "D:/workspace/Vocaflow-main-serving",
+    "base": "18129b11bda032afa2b066d0a3d6b19689af810e",
+    "merge_commit": "030006f6a7d9aa6b69fd35f9c348ba1f3edad6c0",
+    "tested_and_committed_tree": "2b5f08ce026fc590c056e22a49c525280917905a",
+    "scope_files": 11,
+    "resolution": "WorkspaceModal import conflict only: preserve both FactoryDcpCard and supplementsOfTemplate.",
+    "clean_after_commit": true,
+    "lock_released": true,
+    "remote_push": false,
+    "remote_ci_run": false
+  },
+  "combined_checks": {
+    "typecheck_exit": 0,
+    "changed_product_eslint_exit": 0,
+    "tests": {"files": 7, "passed": 89, "failed": 0, "skipped": 0},
+    "chromium": {"passed": 4, "failed": 0, "widths": [1440, 1280], "scope": "Instructional mixed-role projection and unchanged support-card controls; actual React with HTTP/router/link shims, not authenticated Next/DB."}
+  },
+  "goal_check": {
+    "artifact": "verification/goal-check/GC-2026-10-21T18-53-49-075Z.json",
+    "head": "030006f6a7d9aa6b69fd35f9c348ba1f3edad6c0",
+    "unknown": 33,
+    "fail": 1,
+    "external_input_required": 1,
+    "note": "Unchanged known evidence/metrics criteria; UNKNOWN is not a count of unimplemented product functions."
+  },
+  "limits": [
+    "Authenticated Next+DB attachment journey NOT_VERIFIED; conditional empty-stock assertions are not successful-supply evidence.",
+    "Actual content registration, rights/Gold decisions and release eligibility are separate from code acceptance.",
+    "No full-shell 3B geometry, contrast or actual educational-effect claim."
+  ],
+  "db_writes": 0,
+  "other_worker_changes_preserved": true,
+  "immutable_prior_artifacts": ["REVIEW.md", "results.json", "review.json", "integration.json", "ui.json", "browser/results.json"]
+}

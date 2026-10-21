@@ -1,0 +1,25 @@
+{
+  "task": "T-0083",
+  "head": "e7679345e2bc2a533b2c6862c37eebf2b228d9ff",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "verified_fixed": [
+    "T0083-P1-1"
+  ],
+  "browser": {
+    "passed": 4,
+    "failed": 0,
+    "environment": "Actual React Chromium; HTTP/router/link shims; no authenticated Next/DB"
+  },
+  "current_focused": {
+    "passed": 5,
+    "failed": 0,
+    "skipped": 0
+  },
+  "unchanged_r1_reuse": {
+    "passed": 55,
+    "failed": 0,
+    "skipped": 0
+  },
+  "main_combination": "PENDING",
+  "db_writes": 0
+}

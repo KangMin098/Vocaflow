@@ -1,0 +1,16 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/app/api/csat/authored/supply/route.test.ts",
+    "apps/web/src/app/api/csat/authored/supply/route.ts",
+    "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/instructional-supplement.test.tsx",
+    "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/instructional-supplement.test.ts",
+    "apps/web/src/lib/csat/map/v62/demand.ts",
+    "apps/web/src/lib/csat/map/v62/instructional-supplement.ts",
+    "apps/web/tests/e2e-isolated/attachment-instructional.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

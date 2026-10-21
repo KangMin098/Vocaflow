@@ -1,0 +1,16 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "started_at": "2026-10-21T18:46:50Z",
+  "observed_at": "2026-10-21T18:50:02.451Z",
+  "commit": "e7679345e2bc2a533b2c6862c37eebf2b228d9ff",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "type": "review",
+  "artifact_path_or_url": "verification/reviews/T-0083-r2-independent/REVIEW.md",
+  "command_or_protocol": "Independent final-source acceptance, P1 fixed, no P0/P1; explicit auth/style/supply limits"
+}
