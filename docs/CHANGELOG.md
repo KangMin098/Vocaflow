@@ -2,6 +2,7 @@
 
 - fix(factory): DCP 미리보기를 실제 중첩 메타데이터 투영과 현재 문항 조회에 맞추고, 납품이 목표·계획 writer와 같은 잠금을 쓰게 했다. 실제 Supabase 기본 권한에서 발견한 영수증 직접 쓰기도 차단했다. 최종 관련 회귀 139 통과·공유 DB 변경 없음.
 
+- feat(factory): 1D 납품된 공장 DCP 지도 연습을 학습자가 Workspace 카드 → `/csat/factory/[deliveryId]`(기존 DcpPlayer) → 서버 제출(실제 `grade_dcp_item`+결속 영수증, 멱등) → Workspace 복귀로 푼다. 보류 SQL `_pending_factory_dcp_learning.sql`(**미적용**). 연습은 근거 아님(evidence=false). 완료 주문의 받은 자료 열기 · 채점 시도 FK/일치 확인 · writer 가드 · 1C 잠금 순서 · 계측 3종 포함. 검증 결과는 `01D-LEARNER-RESULT.md`.
 - feat(factory): 1C 원문 파생 DCP 후보 등록 계획(`dcp-admission.ts`)·관리자/학습자 세션 분리 공급 경계(`dcp-supply.ts`)·CLI `admission-plan`(dry-run)과 보류 SQL `_pending_factory_dcp_admission.sql`(**미적용**)을 추가했다. 격리 PGlite에서 등록→AI 검수 자격→별도 승인→학습자 본인 공급→원문 변경 시 무효까지 확인(신규 16·관련 회귀 258 통과). 공유 DB 쓰기·권리 발급·납품은 없다. Codex 반례 수정: 멱등 자격 RPC `factory_dcp_qualify`(실패·응답 유실 복구)·공급 시 현재 개인 계보+D3 제품주문 링크 원자 검사·관리자 `POST /api/admin/csat/dcp-admission`(preview/admit)·CLI `admission-preview`(관련 315·CLI 20 통과).
 
 - feat(factory): 주문·원문에 결속된 로컬 소량 제작 패킷/검증/HTML·manifest CLI를 추가했다. 실제 문항 3개 제작과 파일 충돌·오류 주입 복구를 확인했다(웹167·CLI18·타입 포함 검사6). 결과는 합성 수요 기반 검토 후보이며 DB 등록·발행·납품은 미실행이다.

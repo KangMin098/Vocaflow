@@ -1097,6 +1097,12 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 - 2026-10-17 연습 ↔ 독립 확인 경계(#281 E01): 지도가 독립 확인 문항으로 쓰는 문항(과제 키 무관)은 그 학습자가 어떤 경로로도 아직 안 봤으면 연습에서 뺀다(`practiceReservation` — 노출 원장 `lib/csat/map/v62/exposure-ledger.ts`: G2 시도 · 세션(삭제 포함) · 함정 · 문제지 · 복습 큐 · 진단 응답 + 정규화 지문). 제출 · 해설 열람 · 복습 예약 API 도 409로 막는다. 원장을 못 읽으면 전부 예약(fail-closed). 남는 문항이 없으면 404 대신 `PracticeReservedNotice`(학습 지도 확인 과제 안내). 전이(주제 · 제목) 문항은 이 화면이 전이 수행 경로라 예약하지 않는다.
 - 같은 날 공급 판정(`supply.ts`): 독립 확인 · 전이 · 지연 줄은 정식 자격(FQ) reader 가 적격이라 한 미노출 문항만 `available`. 기존 출시 경로로 열 수 있을 뿐이면 `open_unqualified`(「기존 과제로 풀 수 있어요 · 정식 자격 확인 전」 · 7필드 true 없음 · 공급 수 0). FQ 표가 없으면 `not_installed`, 조회 실패는 `error`로 구별한다(`loadFqReader`).
 
+## 공장 DCP 안내 연습 — `/csat/factory/[deliveryId]` (1D · 2026-10-21)
+
+- 진입: 학습 지도 Workspace 팝업 `FactoryDcpCard`(r.central_meaning · 납품이 있을 때만). 화면 `components/csat/factory/FactoryDcpRunner.tsx` 가 기존 `DcpPlayer` 를 쓰고, 채점만 `POST /api/csat/factory/[id]/attempt`(실제 `grade_dcp_item` + 납품 결속 영수증, 같은 응답 = 같은 UUID 키로 멱등) 로 바꾼다. 서비스 `lib/csat/map/v62/factory-bridge/dcp-learning.ts`.
+- 저장 실패 · 모양이 다른 200(영수증 · 실제 채점 시도 id 없음)은 「채점을 못 했어요」(오답 · 완료 아님 · 고른 답 유지). 완료 문구는 `DcpPlayer` 의 `doneCopy` 로 연습 기록 경계를 말하고, 돌아가기는 같은 Workspace 의 기존 다음 행동으로 간다. 근거 경계는 [LEARNING_MODEL](./LEARNING_MODEL.md) §공장 DCP 안내 연습.
+- 계측 `csat_factory_dcp_opened`(type · attempts) · `_submitted`(type · correct · replayed) · `_returned`(finished). DB 허용 목록은 보류 SQL 에 있어 적용 전에는 0건이다.
+
 ---
 
 ## 기출 해부 — 예측 · 대조 · 공식 (2026-09-17)

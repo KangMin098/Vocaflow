@@ -434,3 +434,10 @@ R5 독립 수용 보완(2026-10-17 · PR #285): `phase=transfer`인 연습 화�
 - 해설 극장의 탐구(장면 이동 · 비교 열람 · 원리 노트 · 자기 설명)는 **해설이 열린 뒤의 학습 활동**이다. 그 기록(`reasoningNotes` · `explanations` · `compares`)은 독립 수행 · 능력 달성 판정에 쓰지 않는다(`afterExplanation: true`).
 - 독립 확인 · 전이는 기존 경로(지도 확인 링크 `?check=1` · 주석 채택 · blind judge · B7 승인)로만 판정한다. 지도에서 온 학습자가 해설로 넘어가면 그 뒤는 탐구다.
 - 교육 효과는 미검증이다 — 실제 학습자 · 독립 평가 과제 · 지연 전이 측정이 없다. 클릭 · 체류 · 노트 수는 효과의 대리지표가 아니다.
+
+### 공장 DCP 안내 연습은 근거가 아니다 (1D · 2026-10-21)
+
+- Workspace 로 납품된 공장 DCP 안내 연습(`guided_practice` · `r.central_meaning` · `/csat/factory/[deliveryId]`)의 정오는 **연습 기록**이다. 영수증 `factory_dcp_attempt` 는 `evidence=false`(`role_not_evidence`) 가 CHECK 로 고정이고, 목표 달성 · 독립 확인 · 실력 향상 판정에 쓰지 않는다.
+- 완료 화면은 기본 격려(「꾸준함이 실력이 돼요」) 대신 연습 기록 경계를 말하고, 다음 할 일은 새로 정하지 않고 Workspace 의 기존 다음 행동으로 돌려보낸다(같은 Workspace 문맥 · 로그인 반환 포함).
+- 이미 받은 자료는 생산 주문이 완료(delivered · partial)돼도 열 수 있다. 다만 Workspace 닫힘 · goal/plan 판본 변경 · 주문 failed · 승인 철회 · 구 문항 판본이면 새로 풀 수 없다(지난 제출 재전송은 저장된 결과 그대로).
+- 계획 전체 재평가 · 저장과 독립 미노출 자료 결합은 단계 2(실제 독립 평가)의 범위다. 이 단계가 그것을 완료하지 않았다.

@@ -107,7 +107,7 @@ export function mapReturnQuery(ctx: MapReturnCtx): string {
  * 해시(#principle)는 끝에 유지하고, 이미 있는 같은 키는 덮어쓴다.
  */
 export function withMapReturn(href: string, ctx: MapReturnCtx): string {
-  if (!href.startsWith('/csat/item/') && !href.startsWith('/csat/learn/') && !VOCAB_PATHS.some((p) => href === p || href.startsWith(p + '?'))) return href
+  if (!href.startsWith('/csat/item/') && !href.startsWith('/csat/learn/') && !href.startsWith('/csat/factory/') && !VOCAB_PATHS.some((p) => href === p || href.startsWith(p + '?'))) return href
   const hashAt = href.indexOf('#')
   const hash = hashAt < 0 ? '' : href.slice(hashAt)
   const u = new URL(hashAt < 0 ? href : href.slice(0, hashAt), 'http://x')
