@@ -1,0 +1,31 @@
+{
+  "task_id": "T-0075",
+  "head": "7cc5b08f868273f94c08d1fc0b85f738cba622c3",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "status": "COMPLETED",
+  "review": "verification/reviews/T-0075-r2-independent/REVIEW.md",
+  "local_main_merge": "959961adcb41b8d0c592d44cf1ce0b834ea559ac",
+  "combined_typecheck": {
+    "command": "pnpm --filter web exec tsc --noEmit --pretty false",
+    "exit_code": 0
+  },
+  "combined_unit": {
+    "passed": 23,
+    "failed": 0,
+    "skipped": 0,
+    "artifact": "verification/reviews/T-0075-r2-independent/main-focused-results.json"
+  },
+  "local_main_clean_after_checks": true,
+  "main_writer_lock_released": true,
+  "original_failure_preserved": "verification/reviews/T-0075-r1-independent/race-results.json",
+  "remote_pr": null,
+  "remote_ci": null,
+  "remote_merge": null,
+  "authenticated_next_db": "NOT_VERIFIED",
+  "fullapp_3000_refresh": "NOT_VERIFIED",
+  "human_gold_rights": "NOT_APPROVED_BY_AI",
+  "handoff": "planning/handoff/T0074-T0075-INTEGRATION-UTF8.md",
+  "handoff_delivery": "QUEUED",
+  "acknowledged": false,
+  "observed_at": "2026-10-21T10:02:42.407Z"
+}

@@ -1,0 +1,35 @@
+{
+  "head": "7cc5b08f868273f94c08d1fc0b85f738cba622c3",
+  "environment": "actual React/Chromium + controlled delayed binding HTTP; not authenticated Next/DB",
+  "url": "http://127.0.0.1:5173/",
+  "results": [
+    {
+      "width": 1440,
+      "passed": true,
+      "retryEnabled": false,
+      "postsDuringBind": 1,
+      "firstHref": "/csat/diagnosis?tab=map&view=full&map_task=e.task_demand&map_item=authored%3Asynthetic-probe&map_attempt=41",
+      "restored": true,
+      "secondHref": "/csat/diagnosis?tab=map&view=full&map_task=e.task_demand&map_item=authored%3Asynthetic-probe&map_attempt=42",
+      "distinct": true,
+      "attemptPosts": 2,
+      "bindPosts": 1,
+      "errors": [],
+      "overflow": 0
+    },
+    {
+      "width": 1280,
+      "passed": true,
+      "retryEnabled": false,
+      "postsDuringBind": 1,
+      "firstHref": "/csat/diagnosis?tab=map&view=full&map_task=e.task_demand&map_item=authored%3Asynthetic-probe&map_attempt=41",
+      "restored": true,
+      "secondHref": "/csat/diagnosis?tab=map&view=full&map_task=e.task_demand&map_item=authored%3Asynthetic-probe&map_attempt=42",
+      "distinct": true,
+      "attemptPosts": 2,
+      "bindPosts": 1,
+      "errors": [],
+      "overflow": 0
+    }
+  ]
+}

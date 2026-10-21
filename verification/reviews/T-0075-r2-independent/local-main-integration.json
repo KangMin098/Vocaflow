@@ -1,0 +1,62 @@
+{
+  "task_ids": [
+    "T-0074",
+    "T-0075"
+  ],
+  "source_head": "7cc5b08f868273f94c08d1fc0b85f738cba622c3",
+  "target_worktree": "D:/workspace/Vocaflow-main-serving",
+  "base": "bc57b8b3c239c0a222ac2b47b1c3cee57061cff0",
+  "merge_sha": "959961adcb41b8d0c592d44cf1ce0b834ea559ac",
+  "tree": "05cfa8f127197e4df4b819796398da281854e3bd",
+  "expected_tree": "05cfa8f127197e4df4b819796398da281854e3bd",
+  "commits": [
+    "eb7c92b8373a5a3eb897a7bd175c498c659de17d",
+    "1914edb8d24638fde95eb20cc6d66a1a2184784c",
+    "023c8474dbb286a19039117634bc40aa515665ba",
+    "7cc5b08f868273f94c08d1fc0b85f738cba622c3"
+  ],
+  "scopes": [
+    {
+      "task_id": "T-0074",
+      "head": "eb7c92b8373a5a3eb897a7bd175c498c659de17d",
+      "base": "c14b63e3ee49c124a090db02cffdc019647f9ec6",
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+        "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+        "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/criterion-scope.test.tsx",
+        "apps/web/src/components/csat/diagnosis/map/unified.module.css",
+        "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ]
+    },
+    {
+      "task_id": "T-0075",
+      "head": "7cc5b08f868273f94c08d1fc0b85f738cba622c3",
+      "base": "1914edb8d24638fde95eb20cc6d66a1a2184784c",
+      "files": [
+        "apps/web/src/app/api/csat/delivery/bind/__tests__/route.test.ts",
+        "apps/web/src/app/api/csat/delivery/bind/route.ts",
+        "apps/web/src/components/csat/authored/AuthoredRunner.tsx",
+        "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+        "apps/web/src/lib/csat/authored/__tests__/binding-feedback.test.ts",
+        "apps/web/src/lib/csat/authored/binding-feedback.ts",
+        "apps/web/src/lib/csat/authored/server.ts",
+        "apps/web/src/lib/csat/map/v62/delivery-binding.ts",
+        "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ]
+    }
+  ],
+  "followup": "1914edb8d test-only correction independently reviewed",
+  "source_unrelated_audit_edits_preserved": [
+    "scripts/audit/learner-linkgraph.result.json",
+    "scripts/audit/shell-reach.result.json"
+  ],
+  "method": "Existing per-task staticGates on actual task deltas + existing integrate helper on clean locked canonical local main. Single-task CLI failure retained; no broadening task scopes or editing gates.",
+  "authenticated_e2e": "NOT_VERIFIED; next daily official sync bundle",
+  "remote_push": false,
+  "ci": false,
+  "db_write": false,
+  "observed_at": "2026-10-21T10:00:00.892Z"
+}

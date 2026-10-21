@@ -1,0 +1,43 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T09:54:52.516Z",
+  "commit": "7cc5b08f868273f94c08d1fc0b85f738cba622c3",
+  "type": "ui",
+  "covers": [
+    0,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0075-r2-independent/race-results.json",
+  "screenshots": [
+    "verification/reviews/T-0075-r2-independent/pending-1440.png",
+    "verification/reviews/T-0075-r2-independent/new-result-1280.png"
+  ],
+  "command_or_protocol": "node verification/reviews/T-0075-r2-independent/race.mjs; actual React/Chromium keyboard pending lock → unlock → explicit new submission. Both captures independently opened.",
+  "urls": [
+    "http://127.0.0.1:5173/"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual component with controlled HTTP and synthetic text1440x900/1280x900. No auth Next/DB/fullapp shell or global skin. Existing CSS unchanged; task-scoped visual/control regression only.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "Checks restricted to changed control/status behavior: disabled/busy text, keyboard cannot retry pending, unlocks and returns exact new attempt, readable statuses/no overflow. Source confirms existing CSS/skin/no new screen. No full3B/pixel-reference, contrast audit, fullapp navigation or authenticated journey claim; those remain next official combined-main bundle. Unchanged error/unknown/normal controls reuse prior independent16/16 and owner current16/16."
+}
