@@ -1,0 +1,26 @@
+{
+  "recorded_at": "2026-10-21T02:36:06.161Z",
+  "task_id": "T-0070",
+  "status": "COMPLETED",
+  "run_seq": 3,
+  "verified_commit": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "reviewed_by": "final-independent-accept",
+  "review_record": "verification/reviews/PR326-final-independent/T-0070-REVIEW.md",
+  "review_record_sha256": "fdf4877355f3b98e6bcfc208be48d03e0e7eec075fc12239936904e23462993e",
+  "independent_evidence": "T-0070-R3-E10",
+  "all_r3_hashes_match": true,
+  "ui_hashes_match": 4,
+  "canonical_e02_unchanged": true,
+  "new_code_or_test_execution": false,
+  "previous_refusal_preserved": "T-0070-completion.json",
+  "goal_check": {
+    "report": "verification/goal-check/GC-2026-10-21T02-36-52-248Z.json",
+    "distribution": {
+      "UNKNOWN": 33,
+      "FAIL": 2
+    },
+    "changes": 0,
+    "ci": false,
+    "note": "Existing local/integration checker, not a fresh audit of merged main."
+  }
+}
