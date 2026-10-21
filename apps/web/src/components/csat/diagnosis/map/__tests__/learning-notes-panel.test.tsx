@@ -61,3 +61,23 @@ describe('NotesBody', () => {
     expect(html({ status: 'unknown', reason: 'error' })).toContain('노트가 없다는 뜻이 아니에요')
   })
 })
+
+// T0071-P1-1 — 화면 상태는 최신 납품 범위 · 상태로만: 다른 범위에서 읽은 노트 · 이전 링크를 쓰지 않는다
+describe('notesView(범위 · 최신 납품)', async () => {
+  const { notesView } = await import('../LearningNotesPanel')
+  const notes = [n('n1')]
+  const SC = `A|t|${D}`
+  it('같은 범위 · installed = 최신 rows 로 묶고 링크 자격도 최신 current', () => {
+    expect(notesView({ status: 'ok', scope: SC, notes }, SC, 'installed', rows)).toMatchObject({ status: 'ok', groups: [{ current: true }] })
+    expect(notesView({ status: 'ok', scope: SC, notes }, SC, 'installed', [{ ...rows[0], current: false }])).toMatchObject({ status: 'ok', groups: [{ current: false }] })
+  })
+  it('납품 목록 오류 · 미설치 · 준비 중 = 확인 못 함(이전 노트 · 링크 없음)', () => {
+    expect(notesView({ status: 'ok', scope: SC, notes }, SC, 'error', rows)).toEqual({ status: 'unknown', reason: 'error' })
+    expect(notesView({ status: 'ok', scope: SC, notes }, SC, 'loading', rows)).toEqual({ status: 'unknown', reason: 'error' })
+    expect(notesView({ status: 'ok', scope: SC, notes }, SC, 'not_installed', rows)).toEqual({ status: 'unknown', reason: 'not_installed' })
+  })
+  it('범위(보는 사람 · 납품)가 바뀌면 이전 범위 노트를 쓰지 않는다', () => {
+    expect(notesView({ status: 'ok', scope: SC, notes }, `B|t|${D}`, 'installed', rows)).toEqual({ status: 'loading' })
+    expect(notesView({ status: 'idle' }, SC, 'installed', rows)).toEqual({ status: 'idle' })
+  })
+})

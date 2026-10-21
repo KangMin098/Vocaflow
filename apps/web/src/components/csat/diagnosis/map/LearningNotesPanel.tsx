@@ -11,6 +11,7 @@ import Link from 'next/link'
 import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { withMapReturn, type MapReturnCtx } from '@/lib/csat/map-return'
+import type { ReasoningNote } from '@/lib/csat/dissect'
 import { notesForTask, notesFromStateResponse, type DeliveredRow, type NotesState } from '@/lib/csat/map/v62/learning-notes'
 
 import p from './popup.module.css'
@@ -23,48 +24,88 @@ const UNKNOWN_LABEL = {
   not_installed: '자료 공급을 준비하고 있어 노트를 연결해 볼 수 없어요.',
 } as const
 
-export function LearningNotesPanel({ task, rows, listed, past, ctx, testPrefix = 'ws-notes' }: {
+export function LearningNotesPanel({ task, rows, listed, past, ctx, viewer = null, testPrefix = 'ws-notes' }: {
   task: string
-  /** 그 TASK 의 본인 납품(카드가 이미 받은 것) */
+  /** 그 TASK 의 본인 납품(카드가 이미 받은 것) — 링크 자격(current)은 렌더마다 이 최신 값으로 다시 계산한다 */
   rows: readonly DeliveredRow[]
-  /** 납품 목록 상태 — installed 가 아니면 노트를 잇지 않는다 */
+  /** 납품 목록 상태 — installed 가 아니면 노트를 잇지 않는다(이전 링크도 남기지 않는다) */
   listed: 'loading' | 'installed' | 'not_installed' | 'error'
   past: boolean
   ctx?: MapReturnCtx
+  /** 지금 보는 사람 — 바뀌면 이전 범위의 노트 · 요청을 버린다 */
+  viewer?: string | null
   testPrefix?: string
 }) {
-  const [state, setState] = useState<NotesState>({ status: 'idle' })
+  // T0071-P1-1 — 조회 범위 = 보는 사람 · TASK · 납품 id 집합(안정적인 문자열 — 부모의 rows 배열 참조가 바뀌어도 재조회하지 않는다)
+  const scope = `${viewer ?? ''}|${task}|${rows.map((r) => r.deliveryId).sort().join(',')}`
+  // 저장하는 것은 그 범위에서 읽은 **노트 원본**뿐 — 묶음 · 현재 자격 · 링크는 렌더마다 최신 rows 로 계산한다
+  const [loaded, setLoaded] = useState<Loaded>({ status: 'idle' })
+  const [open, setOpen] = useState(false)
   const seq = useRef(0)
-
-  // TASK 가 바뀌면 지난 결과를 지운다(늦은 응답도 순번으로 버린다 · 부모는 key={task} 로 새로 그린다)
-  useEffect(() => { seq.current++; setState({ status: 'idle' }) }, [task])
+  /** 지금 서버에 묻는 중인 범위(같은 범위로 두 번 묻지 않게) */
+  const inflight = useRef<string | null>(null)
+  const scopeRef = useRef(scope)
+  scopeRef.current = scope
 
   const load = useCallback(async () => {
-    if (listed === 'not_installed') { setState({ status: 'unknown', reason: 'not_installed' }); return }
-    if (listed !== 'installed') { setState({ status: 'unknown', reason: 'error' }); return }
     const my = ++seq.current
-    setState({ status: 'loading' })
+    const sc = scope
+    inflight.current = sc
+    setLoaded({ status: 'loading', scope: sc })
     try {
       const r = await fetch('/api/csat/state', { cache: 'no-store' })
       const body = await r.json().catch(() => null)
-      if (my !== seq.current) return
+      // 늦은 응답 — 그 사이 다른 요청이 시작됐거나 범위(보는 사람 · TASK · 납품)가 바뀌었으면 버린다
+      if (my !== seq.current || sc !== scopeRef.current) return
       const got = notesFromStateResponse(r.status, body)
-      setState(got.ok ? { status: 'ok', groups: notesForTask(got.notes, rows) } : { status: 'unknown', reason: got.reason })
+      setLoaded(got.ok ? { status: 'ok', scope: sc, notes: got.notes } : { status: 'unknown', scope: sc, reason: got.reason })
     } catch {
-      if (my === seq.current) setState({ status: 'unknown', reason: 'error' })
+      if (my === seq.current && sc === scopeRef.current) setLoaded({ status: 'unknown', scope: sc, reason: 'error' })
+    } finally {
+      if (inflight.current === sc && my === seq.current) inflight.current = null
     }
-  }, [listed, rows])
+  }, [scope])
 
+  // 펼쳐 있을 때만 읽는다. 범위가 바뀌면 이전 요청은 순번으로 무효 · 새 범위로 다시 읽는다. 납품 목록이 아직 · 실패면 묻지 않는다(화면은 확인 못 함)
+  useEffect(() => {
+    if (!open) return
+    const fresh = loaded.status !== 'idle' && loaded.scope === scope
+    if (listed !== 'installed') {
+      if (!fresh) { seq.current++; inflight.current = null; setLoaded({ status: 'loading', scope }) }
+      return
+    }
+    if (fresh && loaded.status !== 'loading') return
+    if (inflight.current === scope) return
+    void load()
+  }, [open, scope, listed, loaded, load])
+
+  const view = notesView(loaded, scope, listed, rows)
   return (
     <details className={p.notes} data-testid={testPrefix} data-task={task}
-      onToggle={(e) => { if ((e.currentTarget as HTMLDetailsElement).open && state.status === 'idle') void load() }}>
+      onToggle={(e) => setOpen((e.currentTarget as HTMLDetailsElement).open)}>
       <summary className={p.notesSum}>
         <NotebookPen size={14} strokeWidth={1.9} aria-hidden="true" />
         내 원리 노트 — 설명을 보고 쓴 내 설명 · 고쳐 쓴 설명 다시 보기
       </summary>
-      <NotesBody state={state} past={past} ctx={ctx} testPrefix={testPrefix} onRetry={() => void load()} />
+      <NotesBody state={view} past={past} ctx={ctx} testPrefix={testPrefix} onRetry={() => void load()} />
     </details>
   )
+}
+
+type Loaded =
+  | { status: 'idle' }
+  | { status: 'loading'; scope: string }
+  | { status: 'ok'; scope: string; notes: ReasoningNote[] }
+  | { status: 'unknown'; scope: string; reason: 'unauthenticated' | 'held' | 'error' }
+
+/** 화면 상태 — 납품 목록이 준비되지 않았거나 실패하면 이전 노트 · 링크 없이 확인 못 함 · 다른 범위에서 읽은 노트는 쓰지 않는다 · 링크 자격은 최신 rows */
+export function notesView(loaded: Loaded, scope: string, listed: 'loading' | 'installed' | 'not_installed' | 'error', rows: readonly DeliveredRow[]): NotesState {
+  if (loaded.status === 'idle') return { status: 'idle' }
+  if (listed === 'not_installed') return { status: 'unknown', reason: 'not_installed' }
+  if (listed !== 'installed') return { status: 'unknown', reason: 'error' }
+  if (loaded.scope !== scope || loaded.status === 'loading') return { status: 'loading' }
+  if (loaded.status === 'unknown') return { status: 'unknown', reason: loaded.reason }
+  return { status: 'ok', groups: notesForTask(loaded.notes, rows) }
 }
 
 /** 펼친 패널 내용(상태별) — 조회 없이 그리기만 한다 */
