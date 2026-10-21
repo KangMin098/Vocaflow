@@ -1100,6 +1100,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 ## 원문 교수 자기 설명 — `/csat/factory/[deliveryId]` 안 (2B · 2026-10-21)
 
 - 교수 자료 원문의 납품이면 `page.tsx`가 단계별 답변 전 지원(`beforeAnswerSupport`)만 `FactoryDcpRunner`에 넘긴다. 풀이 저장(영수증 id) 뒤 `SourceLessonPanel`이 열린다: 번호 붙은 문장 목록 · 주장/근거 선택 · 관계 · (요지) 시범 + 비교 · (주제) 절차 → `POST …/lesson`. 같은 본문 재시도 = 같은 키, 실패해도 글 유지, 저장 확인 뒤 「다음: 같은 글의 제목/주제」 또는 Workspace 복귀.
+- 2C 재진입: `page.tsx` 가 `savedReflection`(본인 · 납품 · Workspace · 교수 자료 SHA 로 좁힌 닫힌 값)을 읽어 `lesson.restored` 로 넘기면 Runner 는 풀이 칸을 그리지 않고 패널을 저장값으로 잠가 보여 주며 다음 단계/Workspace 링크를 낸다. 읽기 실패는 `restoreFailed` 안내(새 풀이로 덮지 않음).
 - 코드: `lib/csat/map/v62/factory-bridge/source-lesson.ts` · `components/csat/factory/SourceLessonPanel.tsx` · `app/api/csat/factory/[deliveryId]/lesson/route.ts`. `FactoryDcpCard` 목록 응답은 `readFactoryList`로 닫힌 모양만 받는다(미상 수치를 0으로 바꾸지 않음).
 
 ## 공장 DCP 안내 연습 — `/csat/factory/[deliveryId]` (1D · 2026-10-21)

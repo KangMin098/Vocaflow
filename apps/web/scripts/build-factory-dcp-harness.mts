@@ -21,7 +21,7 @@ import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
 
 import { CONTENT } from '../src/lib/csat/map/v62/factory-bridge/__tests__/dcp-fixture'
-import { beforeAnswerSupport, LESSON_SENTENCES } from '../src/lib/csat/map/v62/factory-bridge/source-lesson'
+import { beforeAnswerSupport, formativeFeedback, LESSON_SENTENCES } from '../src/lib/csat/map/v62/factory-bridge/source-lesson'
 
 const ROOT = path.resolve('.')
 const require = createRequire(path.join(ROOT, 'package.json'))
@@ -82,6 +82,14 @@ const lessonItems = Object.fromEntries(reviewed.map((it) => [it.type, {
 }]))
 // Compute server-only lesson projections here: the browser bundle receives no model/Gold asset.
 const lessonBefore = Object.fromEntries((['main_point', 'title', 'topic'] as const).map((s) => [s, beforeAnswerSupport(s)]))
+// 2C — savedReflection 이 돌려주는 닫힌 복원 값(본인 본문 · 형성 피드백 · 다음 단계). 실제 SQL 복원은 reassess-plan.pglite 가 검증한다
+const NEXT_OF = { main_point: 'title', title: 'topic', topic: null } as const
+const restoredFixtures = Object.fromEntries((['main_point', 'title', 'topic'] as const).map((s, i) => {
+  const body = { step: s, claim: s === 'title' ? null : 6, support: s === 'title' ? [8] : s === 'topic' ? [1, 5] : [3], relation: `저장해 둔 ${s} 관계 설명이에요.`,
+    comparison: s === 'main_point' ? '저장해 둔 비교 — 나는 사례에 머물렀다.' : null, procedure: s === 'topic' ? '저장해 둔 절차 — 사례와 설명을 가른다.' : null }
+  const next = NEXT_OF[s] ? { type: NEXT_OF[s], deliveryId: `00000000-0000-4000-8000-00000000dd0${i + 2}`, state: 'ok', attempted: false, reflected: false } : null
+  return [s, { reflectionId: `00000000-0000-4000-8000-00000000ee0${i + 1}`, attemptId: `00000000-0000-4000-8000-00000000ef0${i + 1}`, step: s, body, feedback: formativeFeedback(s, body.claim, body.support), next }]
+}))
 
 const shims: Record<string, string> = {
   'next/link': `import { createElement } from 'react'; export default function Link({ href, children, ...rest }) { return createElement('a', { href: typeof href === 'string' ? href : String(href), ...rest }, children) }`,
@@ -100,8 +108,11 @@ const step = (/lesson=(main_point|title|topic)/.exec(location.hash) || [])[1]
 const items = ${JSON.stringify(lessonItems)}
 const before = ${JSON.stringify(lessonBefore)}
 const sentences = ${JSON.stringify(LESSON_SENTENCES)}
+// 2C — #restore=1 이면 page.tsx 가 savedReflection 으로 읽어 넘기는 것과 같은 닫힌 복원 값 · #restore=fail 이면 읽기 실패
+const restoredOf = ${JSON.stringify(restoredFixtures)}
+const restore = (/restore=(1|fail)/.exec(location.hash) || [])[1]
 const props = step ? { ...base, item: items[step],
-  lesson: { step, before: before[step], sentences, returnQuery: '?from=map' } } : base
+  lesson: { step, before: before[step], sentences, returnQuery: '?from=map', restored: restore === '1' ? restoredOf[step] : null, restoreFailed: restore === 'fail' } } : base
 createRoot(document.getElementById('root')).render(createElement(FactoryDcpRunner, props))
 `
 

@@ -1,7 +1,10 @@
 # CHANGELOG
 
+- docs(csat): 2C 설명 복원/격리 계획 저장25개 재확인. 목적 검토에서 source 안내 기록의 canonical repair 진행 연결과 실제 compose/route 검증이 빠져 있음을 확인해 2D로 명시했다.
+
 - fix(csat): 교수 설명 저장에 기대 납품을 DB에서 선검사하고 잘못된200을 완료로 처리하지 않게 했다. 제출 답 비교·시범 재시도와 사람 대기 문구도 정리했다(관련79·브라우저4 통과). 독립 평가→재계획은 2C로 이어진다.
 
+- feat(csat): 2C 저장한 원문 설명 재진입 복원(새 채점·INSERT 없음) + 결합 설치 PGlite 종단 — 설명 → AI 검토 5문항 → 같은 Workspace 미노출 혼자 확인 2 → 실제 채점·G2 → 기존 계획 계산 → `learner_workspace_plan_commit` 으로 `check_result` plan_version 2 저장 확인. 새 SQL 없음.
 - feat(csat): 2B 원문 교수 — 요지 전략→저장된 첫 답 뒤 시범→첫 답과 시범 비교 설명 저장→제목 cue→주제 단서 없음·자기 절차를 기존 공장 DCP 화면에 붙였다(`source_lesson_reflection` 추가 전용·evidence=false · `GET/POST /api/csat/factory/[deliveryId]/lesson` · SQL 미적용). 독립 평가→재계획 저장 종단 시험은 남은 일.
 
 - docs(learning): Claude·Codex A/B 역할 요청24회와 사전2회, 두 독립 채점·반례 검토의 원본 증거를 보존했다. 모든 전이 응답 만점으로 교수 우위는 판정 불가이며, 실제 학생 효과·지연 기억·제품 종단 검증으로 사용하지 않는다. 비교 설명 미수집 한계를 2B 설계에 반영했다.

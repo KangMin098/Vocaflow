@@ -21,7 +21,7 @@ const D = '00000000-0000-4000-8000-00000000dd01'
 const NEXT = '00000000-0000-4000-8000-00000000dd02'
 const RECEIPT = '00000000-0000-4000-8000-00000000ee01'
 
-async function mount(page: Page, step: 'main_point' | 'title' | 'topic', reflect: (body: Record<string, unknown>, n: number) => { status: number; json: unknown }) {
+async function mount(page: Page, step: 'main_point' | 'title' | 'topic', reflect: (body: Record<string, unknown>, n: number) => { status: number; json: unknown }, extra = '') {
   expect(fs.existsSync(HTML), 'harness not built — run scripts/build-factory-dcp-harness.mts first').toBe(true)
   const seen = { gets: 0, posts: [] as Record<string, unknown>[] }
   await page.route(`${ORIGIN}/`, (r) => r.fulfill({ contentType: 'text/html; charset=utf-8', body: fs.readFileSync(HTML, 'utf8') }))
@@ -45,7 +45,7 @@ async function mount(page: Page, step: 'main_point' | 'title' | 'topic', reflect
   })
   const errors: string[] = []
   page.on('pageerror', (e) => errors.push(e.message))
-  await page.goto(`${ORIGIN}/#lesson=${step}`)
+  await page.goto(`${ORIGIN}/#lesson=${step}${extra}`)
   return { seen, errors }
 }
 const ok = (step: string, support: string) => ({ status: 200, json: {
@@ -130,5 +130,41 @@ test('주제 — 새 단서 없음 · 자기 절차 필수 · 저장 뒤 Workspa
   await page.getByTestId('reflect-save').click()
   await expect(page.getByTestId('lesson-return')).toHaveAttribute('href', '/csat/diagnosis?tab=map&view=full')
   await page.screenshot({ path: path.join(SHOTS, '05-topic-saved.png'), fullPage: true })
+  expect(errors).toEqual([])
+})
+
+// 2C — 다시 열기: page.tsx 가 savedReflection 으로 읽은 닫힌 복원 값(하네스 #restore=1). 실제 SQL 복원 판정은 reassess-plan.pglite.test.ts
+test('2C 요지 다시 열기: 저장한 설명 · 다음 단계 복원 — 풀이 칸 없음 · 제출/저장 POST 0', async ({ page }) => {
+  let attemptPosts = 0
+  page.on('request', (r) => { if (r.method() === 'POST' && r.url().endsWith('/attempt')) attemptPosts++ })
+  const { seen, errors } = await mount(page, 'main_point', () => ({ status: 500, json: {} }), '&restore=1')
+  await expect(page.getByTestId('lesson-restored')).toBeVisible()
+  await expect(page.getByRole('button', { name: '제출' })).toHaveCount(0)
+  await expect(page.getByTestId('reflect-relation')).toHaveValue('저장해 둔 main_point 관계 설명이에요.')
+  await expect(page.getByTestId('reflect-comparison')).toHaveValue('저장해 둔 비교 — 나는 사례에 머물렀다.')
+  await expect(page.getByTestId('reflect-relation')).toBeDisabled()
+  await expect(page.getByTestId('claim-6')).toBeChecked()
+  await expect(page.getByTestId('reflect-save')).toHaveCount(0)
+  await expect(page.getByTestId('reflect-saved')).toContainText('앞서 저장한 설명이에요')
+  await expect(page.getByTestId('lesson-next')).toHaveAttribute('href', '/csat/factory/00000000-0000-4000-8000-00000000dd02?from=map')
+  await expect(page.getByTestId('source-lesson-model').locator('li')).toHaveCount(3)
+  expect(seen.posts).toEqual([])
+  expect(attemptPosts).toBe(0)
+  await page.screenshot({ path: path.join(SHOTS, '06-main-restored.png'), fullPage: true })
+  expect(errors).toEqual([])
+})
+
+test('2C 주제 다시 열기: 절차 복원 · Workspace 로 독립 확인 이어가기 / 읽기 실패 = 새 풀이로 덮지 않음', async ({ page }) => {
+  const { seen, errors } = await mount(page, 'topic', () => ({ status: 500, json: {} }), '&restore=1')
+  await expect(page.getByTestId('reflect-procedure')).toHaveValue('저장해 둔 절차 — 사례와 설명을 가른다.')
+  await expect(page.getByTestId('lesson-return')).toHaveAttribute('href', '/csat/diagnosis?tab=map&view=full')
+  await expect(page.getByTestId('lesson-return')).toContainText('혼자 확인')
+  await page.screenshot({ path: path.join(SHOTS, '07-topic-restored.png'), fullPage: true })
+  await page.goto(`${ORIGIN}/#lesson=topic&restore=fail`)
+  await page.reload()
+  await expect(page.getByTestId('lesson-restore-failed')).toBeVisible()
+  await expect(page.getByRole('button', { name: '제출' })).toHaveCount(0)
+  await expect(page.getByTestId('source-lesson-panel')).toHaveCount(0)
+  expect(seen.posts).toEqual([])
   expect(errors).toEqual([])
 })

@@ -12,7 +12,7 @@ import { useEffect, useRef, useState } from 'react'
 
 import { track } from '@/lib/analytics/client'
 import { isUuid } from '@/lib/csat/map/v62/factory-bridge/dcp-learning'
-import type { Formative, LessonStep, ModelPart, ProgressStep } from '@/lib/csat/map/v62/factory-bridge/source-lesson'
+import type { Formative, LessonStep, ModelPart, ProgressStep, SavedReflection } from '@/lib/csat/map/v62/factory-bridge/source-lesson'
 
 import { newMutationKey } from './FactoryDcpRunner'
 
@@ -39,21 +39,24 @@ export function readReflectionResponse(value: unknown, deliveryId: string, attem
   return { feedback: f, replayed: r.replayed }
 }
 
-export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, returnHref, returnQuery }: {
+export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, returnHref, returnQuery, restored = null }: {
   deliveryId: string; step: LessonStep; attemptId: string; sentences: readonly string[]; returnHref: string; returnQuery: string
+  /** 2C — 서버가 읽은 저장된 본인 설명. 있으면 칸을 그 값으로 채워 잠그고 저장 버튼 없이 다음 단계를 보인다 */
+  restored?: SavedReflection | null
 }) {
+  const r0 = restored?.step === step ? restored : null
   const [model, setModel] = useState<ModelPart[] | null>(null)
   const [loadErr, setLoadErr] = useState<string | null>(null)
   const [modelRetry, setModelRetry] = useState(0)
-  const [claim, setClaim] = useState<number | null>(null)
-  const [support, setSupport] = useState<number[]>([])
-  const [relation, setRelation] = useState('')
-  const [comparison, setComparison] = useState('')
-  const [procedure, setProcedure] = useState('')
+  const [claim, setClaim] = useState<number | null>(r0?.body.claim ?? null)
+  const [support, setSupport] = useState<number[]>(r0?.body.support ?? [])
+  const [relation, setRelation] = useState(r0?.body.relation ?? '')
+  const [comparison, setComparison] = useState(r0?.body.comparison ?? '')
+  const [procedure, setProcedure] = useState(r0?.body.procedure ?? '')
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
-  const [saved, setSaved] = useState<Saved | null>(null)
-  const [next, setNext] = useState<ProgressStep | null | undefined>(undefined)
+  const [saved, setSaved] = useState<Saved | null>(r0 ? { feedback: r0.feedback, replayed: true } : null)
+  const [next, setNext] = useState<ProgressStep | null | undefined>(r0 ? r0.next : undefined)
   const keys = useRef(new Map<string, string>())
 
   // 시범은 저장된 풀이 뒤에만 — 서버가 DB 진행(attempted)을 보고 내려 준다
@@ -205,7 +208,7 @@ export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, retu
       {saved && (
         <div className={box} data-testid="reflect-saved" data-support={saved.feedback.support}>
           <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
-            설명을 저장했어요. {saved.feedback.note}
+            {r0 ? '앞서 저장한 설명이에요.' : '설명을 저장했어요.'} {saved.feedback.note}
             {saved.feedback.claim === 'discussable' && ' 고른 중심 문장도 다른 후보와 함께 다시 견주어 볼 만해요.'}
             {' '}이 설명은 연습 기록이라 실력 향상의 근거로 세지 않아요.
           </p>

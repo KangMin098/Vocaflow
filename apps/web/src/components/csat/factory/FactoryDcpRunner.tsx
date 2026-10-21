@@ -12,7 +12,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { DcpPlayer } from '@/components/practice/DcpPlayer'
 import { track } from '@/lib/analytics/client'
-import type { LessonStep } from '@/lib/csat/map/v62/factory-bridge/source-lesson'
+import type { LessonStep, SavedReflection } from '@/lib/csat/map/v62/factory-bridge/source-lesson'
 import type { DcpGradeResult, DcpItem } from '@/lib/learner/dcp'
 
 import { SourceLessonPanel } from './SourceLessonPanel'
@@ -59,11 +59,15 @@ export function readAttemptResponse(j: unknown, deliveryId: string): { correct: 
 }
 
 /** 2B 교수 자료가 붙는 납품일 때만 — 답변 전 지원(전략/cue/없음)과 문장 목록. 시범은 여기 없다(저장된 풀이 뒤 서버가 내려 준다) */
-export interface LessonProps { step: LessonStep; before: { kind: 'strategy' | 'cue' | 'none'; text: string | null; prompt: string }; sentences: readonly string[]; returnQuery: string }
+/** 2C — restored = 서버가 읽은 본인의 저장된 설명(있으면 새로 풀지 않고 그 설명과 다음 단계를 보여 준다) · restoreFailed = 읽기 실패(새 풀이로 덮지 않는다) */
+export interface LessonProps {
+  step: LessonStep; before: { kind: 'strategy' | 'cue' | 'none'; text: string | null; prompt: string }; sentences: readonly string[]; returnQuery: string
+  restored?: SavedReflection | null; restoreFailed?: boolean
+}
 
 export function FactoryDcpRunner({ deliveryId, item, returnHref, attempts, lesson }: { deliveryId: string; item: DcpItem; returnHref: string; attempts: number; lesson?: LessonProps }) {
-  // 실제로 저장된 풀이 영수증 id — 이것이 있어야 자기 설명 칸이 열린다
-  const [receipt, setReceipt] = useState<string | null>(null)
+  // 실제로 저장된 풀이 영수증 id — 이것이 있어야 자기 설명 칸이 열린다(복원이면 저장된 설명의 영수증)
+  const [receipt, setReceipt] = useState<string | null>(lesson?.restored?.attemptId ?? null)
   const [submittedChoice, setSubmittedChoice] = useState<number | null>(null)
   // 응답(선택 번호)마다 키 하나 — 같은 답 재시도는 같은 키, 다른 답은 새 키
   const keys = useRef(new Map<number, string>())
@@ -126,11 +130,21 @@ export function FactoryDcpRunner({ deliveryId, item, returnHref, attempts, lesso
         </p>
       )}
       {lesson && <p className="break-keep font-body text-[13px] text-[var(--t2)]" data-testid="lesson-prompt">{lesson.before.prompt}</p>}
-      <DcpPlayer items={[item]} grade={grade} backHref={returnHref} backCta="Workspace 로 돌아가기" doneCopy={doneCopy} onBack={onBack} />
+      {lesson?.restored ? (
+        <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] p-3 font-body text-[13px] text-[var(--t2)]" data-testid="lesson-restored">
+          이 단계는 이미 풀고 설명을 저장했어요. 저장한 설명을 그대로 보여 드려요 — 다시 채점하거나 새로 저장하지 않아요.
+        </p>
+      ) : lesson?.restoreFailed ? (
+        <p role="alert" className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] p-3 font-body text-[13px] text-[var(--risk,#9C3A30)]" data-testid="lesson-restore-failed">
+          저장한 설명을 불러오지 못했어요. 앞서 저장한 기록은 그대로예요 — 잠시 뒤 새로 고쳐 주세요.
+        </p>
+      ) : (
+        <DcpPlayer items={[item]} grade={grade} backHref={returnHref} backCta="Workspace 로 돌아가기" doneCopy={doneCopy} onBack={onBack} />
+      )}
       {lesson && receipt && (
         <>
           {submittedChoice !== null && <p className="break-keep rounded-[var(--r-md)] border border-[var(--bd)] p-3 text-[13px]" data-testid="lesson-submitted-answer">방금 제출한 내 답: {submittedChoice}번 · {'choices' in item.payload ? item.payload.choices?.[submittedChoice - 1] : null}</p>}
-          <SourceLessonPanel deliveryId={deliveryId} step={lesson.step} attemptId={receipt} sentences={lesson.sentences} returnHref={returnHref} returnQuery={lesson.returnQuery} />
+          <SourceLessonPanel deliveryId={deliveryId} step={lesson.step} attemptId={receipt} sentences={lesson.sentences} returnHref={returnHref} returnQuery={lesson.returnQuery} restored={lesson.restored ?? null} />
         </>
       )}
     </div>

@@ -13,7 +13,7 @@ import { CsatShell } from '@/components/csat/home/CsatShell'
 import { FactoryDcpRunner } from '@/components/csat/factory/FactoryDcpRunner'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { isUuid, openFactoryDelivery, STATE_COPY } from '@/lib/csat/map/v62/factory-bridge/dcp-learning'
-import { beforeAnswerSupport, LESSON_SENTENCES, LESSON_SOURCE_ID, LESSON_STEPS, type LessonStep } from '@/lib/csat/map/v62/factory-bridge/source-lesson'
+import { beforeAnswerSupport, LESSON_SENTENCES, LESSON_SOURCE_ID, LESSON_STEPS, savedReflection, type LessonStep, type ReflectionReader } from '@/lib/csat/map/v62/factory-bridge/source-lesson'
 import type { SupplyClient } from '@/lib/csat/map/v62/factory-bridge/dcp-supply'
 import { mapReturnQuery, parseMapReturn, returnQueryOf } from '@/lib/csat/map-return'
 import { railExams } from '@/lib/csat/rail-data'
@@ -65,7 +65,12 @@ export default async function FactoryDcpPage({ params, searchParams }: { params:
   }
   // 2B — 교수 자료의 원문이면 단계별 답변 전 지원만 싣는다(시범 없음). 원문 content SHA · 순서는 저장 때 DB 가 다시 확인한다
   const step = o.sourceId === LESSON_SOURCE_ID && (LESSON_STEPS as readonly string[]).includes(o.item.type) ? (o.item.type as LessonStep) : null
-  const lesson = step ? { step, before: beforeAnswerSupport(step), sentences: LESSON_SENTENCES, returnQuery: fromMap ? `?from=map${ctxQuery}` : '' } : undefined
+  // 2C — 이미 저장한 설명이 있으면 새 채점 없이 그 설명을 복원한다(본인 · 이 납품 · 현재 판본만). 읽기 실패는 복원 실패로 알린다
+  const restore = step ? await savedReflection(db as unknown as ReflectionReader, user.id, o.deliveryId) : null
+  const lesson = step ? {
+    step, before: beforeAnswerSupport(step), sentences: LESSON_SENTENCES, returnQuery: fromMap ? `?from=map${ctxQuery}` : '',
+    restored: restore?.ok ? restore.saved : null, restoreFailed: !!restore && !restore.ok && restore.code !== 'not_installed',
+  } : undefined
   return (
     <CsatShell place="practice" exams={await railExams()} pill={pill} bare>
       <div className={styles.page} data-testid="factory-dcp-page">

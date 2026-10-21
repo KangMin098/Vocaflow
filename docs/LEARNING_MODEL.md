@@ -443,6 +443,12 @@ R5 독립 수용 보완(2026-10-17 · PR #285): `phase=transfer`인 연습 화�
 - 형성 피드백: 요지 근거 2/3/4/5 중 하나 · 주장 6/7 동등, 제목 3/4/8, 주제 [1,5]/[1,2]/[2,5](내부 0-based). 목록 밖 근거는 「함께 검토」이지 오답이 아니다. 자유 설명은 어휘로 채점하지 않고 저장 여부만 말한다. 선택 정오와 분리.
 - 설명 기록은 `evidence=false`(`guided_reflection`) — G2·독립 확인·향상 근거가 아니다. 이 순서가 학습 효과를 낸다는 검증은 없다(AI 비교 24회는 전이 천장으로 판정 불가).
 
+### 설명 재진입 → 독립 확인 → 재계획 저장 (2C · 2026-10-21)
+
+- 다시 열면 서버가 본인 · 이 납품 · 현재 판본(`source_lesson_progress` ok)의 저장된 설명을 읽어 복원한다 — 새 채점 · 새 설명 INSERT 없음. 철회 · 닫힘 · 구 goal/plan · 타인은 진행 단계에서 막혀 현재 학습으로 보이지 않는다(저장 이력은 보존).
+- 주제 설명 뒤 같은 Workspace 로 돌아가면 기존 창작 공급이 검토된 미노출 혼자 확인만 낸다. 그 실제 채점 · G2 결속만 As-Is 근거가 되고, 원문 3문항(같은 지문)과 설명은 입력에 섞이지 않는다.
+- 재계획은 새 엔진이 아니다: 기존 asIsMap → toBeMap → planWorkspaces → workspacePlan 결과를 `buildCommitPayload` → `learner_workspace_plan_commit` 으로 `check_result` 새 plan_version 에 저장해야 완료다. 새 계획이 생기면 구 계획에 묶인 원문 연습은 `lineage_not_current`.
+
 ### 공장 DCP 안내 연습은 근거가 아니다 (1D · 2026-10-21)
 
 - Workspace 로 납품된 공장 DCP 안내 연습(`guided_practice` · `r.central_meaning` · `/csat/factory/[deliveryId]`)의 정오는 **연습 기록**이다. 영수증 `factory_dcp_attempt` 는 `evidence=false`(`role_not_evidence`) 가 CHECK 로 고정이고, 목표 달성 · 독립 확인 · 실력 향상 판정에 쓰지 않는다.

@@ -112,6 +112,35 @@ export function modelAfterAttempt(p: LessonProgress): ModelPart[] | null {
   return me && me.type === 'main_point' && me.attempted && me.state === 'ok' ? lessonModel() : null
 }
 
+/** 2C — 다시 열었을 때 복원하는 본인 설명(닫힌 모양). 본인 본문 · 형성 피드백 · 다음 단계뿐 — 시범 · 정답 키는 없다 */
+export interface SavedReflection { reflectionId: string; attemptId: string; step: LessonStep; body: ReflectionBody; feedback: Formative; next: ProgressStep | null }
+type Row = Record<string, unknown>
+interface Filter { eq(col: string, v: unknown): Filter; limit(n: number): PromiseLike<{ data: Row[] | null; error: { message: string; code?: string } | null }> }
+export interface ReflectionReader extends SupplyClient { from(table: 'source_lesson_reflection'): { select(cols: string): Filter } }
+
+/**
+ * 2C — 저장된 설명 읽기(새 채점 · INSERT 없음). DB 진행(source_lesson_progress)이 현재(ok)이고 이 납품 단계가 reflected 일 때만 읽는다 —
+ * 철회 · 닫힌 Workspace · 구계획 · 타인은 진행 단계에서 실패 코드로 끝난다(현재 학습 가능으로 보이지 않음).
+ * 행은 본인(user_id) · 이 납품 · 진행이 확인한 Workspace · 교수 자료 SHA 로 좁힌다(RLS 본인 SELECT 와 이중). 모르는 모양은 bad_shape.
+ */
+export async function savedReflection(c: ReflectionReader, userId: string, deliveryId: string): Promise<{ ok: true; saved: SavedReflection | null } | LessonFail> {
+  if (!isUuid(userId)) return { ok: false, code: 'invalid_input' }
+  const p = await lessonProgress(c, deliveryId)
+  if (!p.ok) return p
+  const me = p.progress.steps.find((s) => s.deliveryId === deliveryId)!
+  if (!me.reflected) return { ok: true, saved: null }
+  const { data, error } = await c.from('source_lesson_reflection').select('id, attempt_id, mutation_id, step, body')
+    .eq('user_id', userId).eq('delivery_id', deliveryId).eq('workspace_id', p.progress.workspaceId).eq('lesson_sha256', LESSON_SHA256).limit(2)
+  if (error) return classify(error)
+  if (!data || data.length !== 1) return { ok: false, code: 'bad_shape' }
+  const r = data[0]!
+  const parsed = parseReflectionRequest({ attemptId: r.attempt_id, body: r.body, mutationId: r.mutation_id })
+  if (!isUuid(r.id) || !parsed || r.step !== me.type || parsed.body.step !== me.type) return { ok: false, code: 'bad_shape' }
+  const want = LESSON_STEPS[LESSON_STEPS.indexOf(me.type) + 1]
+  const next = want ? p.progress.steps.find((s) => s.type === want && s.state === 'ok') ?? null : null
+  return { ok: true, saved: { reflectionId: r.id, attemptId: parsed.attemptId, step: me.type, body: parsed.body, feedback: formativeFeedback(me.type, parsed.body.claim, parsed.body.support), next } }
+}
+
 export interface ReflectionResult { reflectionId: string; attemptId: string; deliveryId: string; step: LessonStep; recorded: true; evidence: false; replayed: boolean }
 
 export async function submitReflection(c: SupplyClient, attemptId: string, req: { body: ReflectionBody; mutationId: string; deliveryId?: string }): Promise<{ ok: true; result: ReflectionResult } | LessonFail> {
