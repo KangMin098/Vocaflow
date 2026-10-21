@@ -243,6 +243,11 @@ function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | nu
   return pick ? { href: pick.href, label: pick.label } : null
 }
 
+/** T-0070 — 이 묶음에 지금 실제로 쓸 수 있는 단계 자료가 있는가(어느 단계가 열렸거나 · 단계 자료 링크가 하나라도 있다) */
+function hasUsableContent(home: WorkspaceView): boolean {
+  return Object.values(home.stages).some((s) => s.ready) || Object.values(home.stageItems).some((l) => l.length > 0)
+}
+
 /** 보조 TASK 의 home — 그 TASK 를 보조로 든 묶음 중 그 TASK 자신의 창작 자료 보기가 있는 첫 묶음(core 는 이 TASK 로 바꿔 단계 계산이 이 TASK 를 보게) */
 export function supportHome(ws: readonly WorkspaceView[], id: TaskId): WorkspaceView | null {
   const w = ws.find((x) => x.support.includes(id) && x.supportViews?.[id])
@@ -269,7 +274,9 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
   const unresolved: TaskPlan['unresolved'] = []
   if (stage === 'transfer' && planned !== null && (available ?? 0) < planned) unresolved.push('transfer_shortage')
   if (def.status === 'hold') unresolved.push('canon_hold')
-  else if (!home || home.readiness !== 'live') unresolved.push('no_content')
+  // T-0070 — 「콘텐츠 없음」은 실제로 쓸 단계 자료가 하나도 없을 때만. 정본 readiness 가 live 가 아니어도 창작 납품으로 단계 · 링크가 열렸으면
+  //   그 단계의 실제 상태(부족 · 잠김)로 말한다. readiness 를 live 로 올리지 않는다(정본 상태는 그대로 · 가용량은 실제 단계 값만)
+  else if (!home || (home.readiness !== 'live' && !hasUsableContent(home))) unresolved.push('no_content')
   // 단계가 열릴 차례인데 그 단계 자료를 다 썼거나 없다(앞 단계 미완료가 아니다) — 「새 자료가 필요해요」로 정확히 안내
   else if (stage && !st?.ready) unresolved.push(st?.blocked === 'no_repair_items' ? 'repair_material_needed' : st?.blocked === 'no_unseen_items' || st?.blocked === 'not_enough_unseen' || st?.blocked === 'no_transfer_items' ? 'material_needed' : 'stage_locked')
   if (t.basis !== 'direct_check' && def.status !== 'hold') unresolved.push('needs_direct_check')

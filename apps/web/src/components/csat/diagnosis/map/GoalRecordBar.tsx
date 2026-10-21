@@ -37,7 +37,10 @@ export type MapState = 'no_goal' | 'no_record' | 'ready' | 'none'
 
 /** 지금 상태 — 목표 저장 여부 · 기록 수 · 지금 할 수 있는 행동 수만으로(새 판정 없음) */
 export function mapStateOf(goalSet: boolean, asIs: AsIsMap, ranks: Ranks | null): MapState {
-  return !goalSet ? 'no_goal' : asIs.sessions.length === 0 ? 'no_record' : ranks?.actionRank.length ? 'ready' : 'none'
+  // T-0070 — 시험 기록 없음 ≠ TASK 근거 없음. 기록이 0 이어도 직접 확인(direct_check) 근거가 있는 TASK 가 있으면 다음 행동을 숨기지 않는다
+  //   (시험 proxy · 연습 · 교수 · 어휘 자기 평가는 direct_check 가 아니다 — As-Is 판정을 그대로 읽고 새 판정을 만들지 않는다)
+  const direct = Object.values(asIs.tasks).some((t) => t?.basis === 'direct_check')
+  return !goalSet ? 'no_goal' : asIs.sessions.length === 0 && !direct ? 'no_record' : ranks?.actionRank.length ? 'ready' : 'none'
 }
 
 const LEAD: Record<MapState, { h: string; p: string }> = {

@@ -319,3 +319,33 @@ describe('T-0056 rev2 — 보조 TASK 의 집(host shell): 중심 자료가 없�
     }
   })
 })
+
+// T-0070 — 정본 readiness(별도 상태)와 지금 쓸 수 있는 단계 자료를 가른다(Codex NEXT-PRODUCT-CORE probe 이식 · 정상 대조 보존)
+describe('T-0070 readiness ≠ 현재 단계 자료', async () => {
+  const { taskPlan } = await import('../plan')
+  const { AUTHORED_TASK_KEYS } = await import('@/lib/knowledge/authored/tasks')
+  const AT = '2026-10-21T00:00:00.000Z'
+  const fixture = (task: string) => {
+    const key = AUTHORED_TASK_KEYS[task]
+    const ids = ['authored:probe-ind-1', 'authored:probe-ind-2']
+    const asIs = asIsMap({ asOf: AT, sessions: [], axisProxy: null, checks: [{ taskKey: key, items: ids }], attempts: [] })
+    const homes = planWorkspaces({ asIs, toBe: null, confirmLinks: { [key]: ids.map((target) => ({ target, href: `/csat/learn/${target}`, label: target })) }, transferItems: {} })
+    const views = [homes.primary, ...homes.others].filter((w): w is NonNullable<typeof w> => !!w)
+    const toBe = { needs: [{ task, type: 'CONFIRM', relevance: { items: 1, pointsPerExam: 2 }, priority: 1, executable: null, workspaces: [] }] } as never
+    return { p: taskPlan(task as never, asIs, toBe, views, []), views }
+  }
+  for (const task of ['r.inference', 'r.relation', 's.form_scope', 'v.contextual_sense']) it(`${task}: 실제 링크된 확인 자료가 있으면 콘텐츠 없음이 아니다 · 정본 readiness 는 그대로`, () => {
+    const { p, views } = fixture(task)
+    expect(views.find((w) => w.core.includes(task as never))!.readiness, 'readiness 를 live 로 올리지 않는다').not.toBe('live')
+    expect(p.next).not.toBeNull()
+    expect(p.quantity.available).toBe(2)
+    expect(p.unresolved).not.toContain('no_content')
+  })
+  it('정상 대조 — 실제 자료가 없으면 가용 · 계획 null · 링크 없음 · no_content 유지', () => {
+    const asIs = asIsMap({ asOf: AT, sessions: [], axisProxy: null, checks: [], attempts: [] })
+    const homes = planWorkspaces({ asIs, toBe: null, confirmLinks: {}, transferItems: {} })
+    const p = taskPlan('v.contextual_sense', asIs, null, [homes.primary, ...homes.others].filter((w): w is NonNullable<typeof w> => !!w), [])
+    expect(p.next).toBeNull(); expect(p.quantity.available).toBeNull(); expect(p.quantity.planned).toBeNull()
+    expect(p.unresolved).toContain('no_content')
+  })
+})

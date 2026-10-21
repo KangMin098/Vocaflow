@@ -1598,3 +1598,92 @@ p.dockL {
   outline: 2px solid var(--m-ink);
   outline-offset: 2px;
 }
+
+/* T-0070 — 목표 · 계획 요약(접기). 상단 띠 아래 한 줄로 시작해 지도 · 하단 Workspace 를 밀어내지 않는다 */
+.gp {
+  background: var(--m-bg);
+  border: 1px solid var(--m-line);
+  border-radius: 12px;
+  min-width: 0;
+}
+.gpSum {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 8px 14px;
+  cursor: pointer;
+  list-style: none;
+  font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale)));
+  word-break: keep-all;
+}
+.gpSum::-webkit-details-marker { display: none; }
+.gpSum:focus-visible { outline: 2px solid var(--m-ink); outline-offset: 2px; border-radius: 12px; }
+.gpSumText { flex: 1; min-width: 0; }
+.gpSumNote { margin-left: 8px; color: var(--m-ink2); }
+.gpOpen { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.gp[open] .gpOpen::after { content: ' ▲'; }
+.gp:not([open]) .gpOpen::after { content: ' ▼'; }
+.gpNote {
+  margin: 0 14px 10px;
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  color: var(--m-ink2);
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  word-break: keep-all;
+}
+.gpList {
+  display: grid;
+  gap: 8px;
+  margin: 0 14px 12px;
+  padding: 0;
+  list-style: none;
+  max-height: 520px;
+  overflow-y: auto;
+}
+.gpRow {
+  display: grid;
+  gap: 6px;
+  padding: 10px 12px;
+  border: 1px solid var(--m-line);
+  border-radius: 10px;
+  min-width: 0;
+}
+.gpHead { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.gpRank {
+  display: inline-grid;
+  place-items: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 999px;
+  border: 1px solid var(--m-line);
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+  font-weight: 600;
+  flex: none;
+}
+.gpTask {
+  min-height: 44px;
+  padding: 0 4px;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 600;
+  text-align: left;
+  cursor: pointer;
+  word-break: keep-all;
+}
+.gpTask:focus-visible { outline: 2px solid var(--m-ink); outline-offset: 2px; border-radius: 6px; }
+.gpDomain { margin-left: auto; color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); white-space: nowrap; }
+.gpFacts {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 4px 16px;
+  margin: 0;
+  font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale)));
+}
+.gpFacts div { display: grid; gap: 2px; min-width: 0; }
+.gpFacts dt { color: var(--m-ink2); }
+.gpFacts dd { margin: 0; word-break: keep-all; }
+.gpActs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.gpBlocked { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); word-break: keep-all; }

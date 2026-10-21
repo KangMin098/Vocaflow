@@ -610,3 +610,28 @@
 .tipBtn span {
   white-space: nowrap;
 }
+
+/* T-0071 — 받은 자료 카드 안의 접힌 「내 원리 노트」(펼칠 때만 읽기 · 기본은 한 줄) */
+.notes {
+  border-top: 1px solid var(--m-line);
+  padding-top: 8px;
+  min-width: 0;
+}
+.notesSum {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  cursor: pointer;
+  font-weight: 600;
+  word-break: keep-all;
+}
+.notesSum:focus-visible { outline: 2px solid var(--m-ink); outline-offset: 1px; border-radius: 6px; }
+.notesList { display: grid; gap: 10px; margin: 6px 0 0; padding: 0; list-style: none; }
+.notesList > li { display: grid; gap: 6px; padding: 10px 12px; border: 1px solid var(--m-line); border-radius: 10px; min-width: 0; }
+.notesHead { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px; }
+.notesChain { display: grid; gap: 8px; margin: 0; padding: 0; list-style: none; }
+.notesChain > li { display: grid; gap: 2px; padding-left: 10px; border-left: 2px solid var(--m-line); }
+.notesChain > li[data-revision='true'] { border-left-color: var(--m-ink2); }
+.notesTag { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.notesText { margin: 0; word-break: keep-all; white-space: pre-wrap; }

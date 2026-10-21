@@ -10,6 +10,7 @@ import { useCallback, useEffect, useState } from 'react'
 import Link from 'next/link'
 import { PackageOpen } from 'lucide-react'
 
+import { LearningNotesPanel } from './LearningNotesPanel'
 import p from './popup.module.css'
 import u from './unified.module.css'
 import { withMapReturn, type MapReturnCtx } from '@/lib/csat/map-return'
@@ -73,7 +74,7 @@ export function supplyOutcome(raw: unknown): SupplyOutcome {
 }
 
 /** kind=support — 이 Workspace 의 보조 TASK 자료(T-0056). 시험 id · 제목이 중심 카드와 겹치지 않게 접미사 · TASK 이름을 붙인다 */
-export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind = 'core', taskName }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx; kind?: 'core' | 'support'; taskName?: string }) {
+export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind = 'core', taskName, viewer = null }: { task: string; template: string; planSaved: boolean; past: boolean; ctx?: MapReturnCtx; kind?: 'core' | 'support'; taskName?: string; viewer?: string | null }) {
   const tid = (x: string) => (kind === 'support' ? x.replace('ws-authored', 'ws-authored-support') : x)
   const hid = kind === 'support' ? 'ws-authored-' + task.replace(/[^a-z0-9]/gi, '-') : 'ws-authored'
   const [listed, setListed] = useState<Listed>({ status: 'loading' })
@@ -148,6 +149,8 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
           <button type="button" className={p.whitePill} onClick={() => void load()} data-testid={tid('ws-authored-recheck')}>다시 확인하기</button>
         </p>
       )}
+      {/* T-0071 — 이 TASK 에서 쓴 내 원리 노트(펼칠 때만 읽기 · 정확한 납품 결속만) */}
+      <LearningNotesPanel key={task} task={task} rows={rows} listed={listed.status} past={past} ctx={ctx} viewer={viewer} testPrefix={tid('ws-authored').replace('ws-authored', 'ws-notes')} />
       {msg && <p className={p.cardDesc} aria-live="polite" data-testid={tid('ws-authored-msg')}>{msg}</p>}
       {outcome && (
         <div aria-live="polite" data-testid={tid('ws-authored-msg')} data-unknown={outcome.unknown} data-retry={outcome.retry}>

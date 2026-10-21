@@ -186,6 +186,33 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
       console.log(`RECAP_REOPEN_${width}=${JSON.stringify(reopen)}`)
       expect(reopen, '새 제출 없음 = 이번 활동 특정 안 함').toContain('이번 활동을 특정하지 못했어요')
       expect(reopen).not.toMatch(/이번 활동\(/)
+
+      // T-0071 — 같은 TASK 의 받은 자료 카드에서 내 원리 노트 다시 찾기(키보드 펼치기 · 처음/고친 계보) → 유효 교수 자료로 이어 보기 → 같은 지도 복귀
+      const ov = dlg.locator('[data-testid="ws-tab-overview"]')
+      if ((await ov.getAttribute('aria-selected')) !== 'true') await ov.click()
+      const notes = dlg.locator(`[data-testid="ws-authored-support"][data-task="${TASK}"] [data-testid="ws-notes-support"]`)
+      await expect(notes, '접힌 내 원리 노트').toBeVisible()
+      await expect(notes).not.toHaveAttribute('open', '')
+      await notes.locator('summary').focus(); await page.keyboard.press('Enter')
+      const chain = notes.locator('[data-testid="ws-notes-support-chain"]')
+      await expect(chain, '처음 → 고친 설명').toHaveAttribute('data-count', '2', { timeout: 30_000 })
+      const chainText = await chain.innerText()
+      expect(chainText.indexOf(ORIGINAL)).toBeGreaterThanOrEqual(0)
+      expect(chainText.indexOf(ORIGINAL)).toBeLessThan(chainText.indexOf(REVISED))
+      await expect(notes).toContainText('실력 판정이나 계획 진전으로 세지 않아요')
+      const before = { binds: (await admin().from('workspace_delivery_attempt').select('attempt_id', { count: 'exact', head: true }).eq('user_id', uid)).count, plans: (await admin().from('learner_workspace_plan').select('id', { count: 'exact', head: true }).eq('user_id', uid)).count }
+      await shot(page, `notes-reentry-${width}`)
+      const open = notes.locator('[data-testid="ws-notes-support-open"]')
+      const openHref = (await open.getAttribute('href'))!
+      const oq = new globalThis.URL(openHref, 'http://x').searchParams
+      expect(oq.get('from')).toBe('map'); expect(oq.get('map_task')).toBe(TASK)
+      expect(oq.has('map_item') || oq.has('map_attempt'), '옛 영수증을 넘기지 않는다').toBe(false)
+      await open.focus(); await page.keyboard.press('Enter')
+      await expect(page.locator('[data-testid="reasoning-note"]'), '유효 교수 자료로 이동').toBeVisible({ timeout: 30_000 })
+      await page.locator('[data-testid="authored-result"] a', { hasText: '학습 지도로' }).click()
+      await expect(page.locator(`[role="dialog"][data-ws="${T}"]`), '같은 지도 복귀').toBeVisible({ timeout: 60_000 })
+      // 노트 조회 · 이어 보기는 근거 · 계획을 바꾸지 않는다
+      expect({ binds: (await admin().from('workspace_delivery_attempt').select('attempt_id', { count: 'exact', head: true }).eq('user_id', uid)).count, plans: (await admin().from('learner_workspace_plan').select('id', { count: 'exact', head: true }).eq('user_id', uid)).count }).toEqual(before)
       await page.keyboard.press('Escape')
     }
 
