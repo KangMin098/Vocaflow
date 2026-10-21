@@ -5,6 +5,7 @@
 // 순서: fetch → 앞선 커밋 수 확인 → sync/main-YYYYMMDD push(force 없음) → PR 1개 → CI 대기 →
 //       scope 계약 생성 → safe-merge(VFC_DEV_MODE=GITHUB) → main-serving 이 잠금 없고 깨끗하면 병합 커밋 역동기화.
 // 보호 규칙 · 필수 CI · safe-merge 게이트를 그대로 거친다. 실패는 기록만 하고 로컬 개발을 멈추지 않는다(exit 0).
+// 로컬 main 에 있는 것을 그대로 전달한다 — main 은 검증을 통과한 통합 결과만 받는다(진행 중 작업은 기능 브랜치).
 import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import os from 'node:os'
@@ -86,15 +87,29 @@ try {
 
   rec.step = 'back-sync'
   git('fetch', '-q', 'origin')
-  if (fs.existsSync(path.join(repo, '.agent-lock')) || git('status', '--porcelain')) {
+  // 역동기화는 이 실행이 만든 병합만 다룬다. 다른 세션의 커밋 · 작업 트리는 어떤 경우에도 되돌리지 않는다.
+  const lockFile = path.join(repo, '.agent-lock')
+  const head0 = git('rev-parse', 'HEAD')
+  let clean = true
+  try { git('merge-tree', '--write-tree', 'HEAD', 'origin/main') } catch { clean = false }
+  if (fs.existsSync(lockFile) || git('status', '--porcelain')) {
     rec.back_sync = 'skipped: main-serving 잠금 또는 미커밋 변경 — 다음 작업 세션이 origin/main 을 합친다'
+  } else if (!clean) {
+    rec.back_sync = 'skipped: 로컬 main 과 origin/main 이 충돌 — 병합을 시작하지 않았다(작업 세션이 해결)'
   } else {
     try {
       git('merge', '-q', '--no-ff', '-m', `merge: origin/main(PR #${rec.pr} 병합 커밋) 역동기화`, 'origin/main')
       rec.back_sync = git('rev-parse', '--short', 'HEAD')
     } catch (e) {
-      try { git('merge', '--abort') } catch { /* 병합이 시작되지 않았으면 되돌릴 것도 없다 */ }
-      rec.back_sync = `skipped: 역동기화 병합 실패(되돌림) — ${String(e.stderr || e.message).slice(0, 160)}`
+      const why = String(e.stderr || e.message).slice(0, 160)
+      const inMerge = fs.existsSync(path.join(git('rev-parse', '--absolute-git-dir'), 'MERGE_HEAD'))
+      // 병합 시작 전 HEAD 그대로 · 잠금 없음일 때만 이 실행의 병합 상태를 취소한다. 아니면 손대지 않고 멈춘다.
+      if (inMerge && git('rev-parse', 'HEAD') === head0 && !fs.existsSync(lockFile)) {
+        git('merge', '--abort')
+        rec.back_sync = `skipped: 역동기화 병합 실패 → 이 실행의 병합만 취소(HEAD ${head0.slice(0, 9)} 유지) — ${why}`
+      } else {
+        rec.back_sync = `halted: 역동기화 실패 · HEAD 변경 또는 잠금 등장 — 아무것도 되돌리지 않음(수동 확인) — ${why}`
+      }
     }
   }
   rec.step = 'done'
