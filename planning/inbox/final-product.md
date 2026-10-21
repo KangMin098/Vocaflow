@@ -978,3 +978,23 @@ HEADe355869eae9ae61943f2deb48a4218905c6b5fa1 · ACCEPT_WITH_LIMITS / COMPLETED. 
 - 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
 - 인수: `node bin/vfc.mjs task start T-0081 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0081 <경로> --by final-product --branch <브랜치>`)
 - 메모: T0080 LOCAL_ACCEPT_WITH_LIMITS/main824618f2b. 다음 T-0081 rev1: planning/handoff/FINAL-HOME-PLAN-RESUME-CONTEXT-rev1.json. 계속저장계획카드도요청묶음복원이안되는실제두너비반례(계획에TASK문맥없음). 기존sourcee355위LOCAL_FAST, 강제main재통합/작업별PR없음. 실제ACK전착수기록없음.
+
+## 2026-10-21T12:33:40.000Z · T-0080 · ACKNOWLEDGED
+- T-0080 수용 · 로컬 main 824618f2b 통합 수신. HEAD e355869ea 보존 · 재병합/작업별 PR 없음.
+
+## 2026-10-21T12:33:40.000Z · T-0081 · ACKNOWLEDGED
+- Claude 세션 c513ff5b · owner final-product · rev1 FINAL-HOME-PLAN-RESUME-CONTEXT 수신 · task start IN_PROGRESS · HEAD e355869ea
+
+## 2026-10-21T12:40:41.342Z · REWORK · T-0081
+- 목표: VG-L3-A3-02 「저장 계획 이어보기가 실제 미완료 TASK·Workspace로 연결」 · 설계 v- · 기준 []
+- 작업: 저장 계획 이어보기가 실제 미완료 TASK·Workspace로 연결
+- 허용 경로: apps/web/src/lib/csat/map/home-progress.ts, apps/web/src/lib/csat/map/__tests__/home-progress.test.ts, apps/web/src/components/csat/home/HomeLanding.tsx, apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx, apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts, docs/final/FINAL_LEDGER.md, .agent-goal.md
+- 금지: .env*, supabase/**, **/*.sql, .github/**, agents/**, goals/**, apps/web/src/lib/knowledge/**, apps/web/src/lib/csat/skill-diagnosis.ts, apps/web/src/lib/csat/map/load.ts, apps/web/src/lib/csat/map/lifecycle-evidence.ts, apps/web/src/lib/csat/map/v4/**, apps/web/src/lib/csat/map/v62/evidence-read.ts, apps/web/src/lib/csat/map/v62/next-action.ts, apps/web/src/components/csat/diagnosis/map/**, scripts/audit/**
+- 수용 기준 0: 기존 mapProgressOf의 저장계획 추천에 그계획의 실제미완료TASK문맥을 실어 홈continue_plan이 map_task+ws로 요청한묶음을연다. 선택설계는이미계산한applySaved(v.plans[id], sw.latest)의현재TASK행에서 계획량/수행량상미완료인실제행을기존순서로선택; 기존Workspace우선순위·계획량·수행량·목표·단계판정은변경하지않는다. 임의TASK/핵심TASK를복사해넣거나없는수행을만들지않는다. 구현중같은기존함수로더간단히선택가능하면 근거와함께간소화가능. 실제남은행을확인못하는경우엉뚱한TASK를추정하지않고그이어하기제안을닫는다. 과거보기/목표없음/저장소미설치·조회실패/수행원장미확인/계획완료의기존보호유지.
+- 수용 기준 1: HomeLanding continue_plan href는실제계획이어가기TASK와Workspace만기존mapReturnQuery로직렬화하고현재지도파서parseMapReturn이읽는mapTask/ws와같다. map_item/map_attempt/map_plan/map_goal·새수행영수증을이동만으로발급하지않는다. 그묶음의현재계획/재확정관문을우회하거나자동저장하지않는다. continue_check/T0080과홈오류/보류/복귀/진행중우선순위·수치문구는그대로, 새화면없음.
+- 수용 기준 2: 관련 L2/L3: 실제반례두너비에서먼저다른TASK/묶음을선택→실제계획카드href파싱으로재진입→요청한TASK/Workspace복원. actual mapProgressOf가core0·support미완료같은케이스도현재남은행에서선택하는지합성계획재료로확인; 현재mock progress-only시험은새계약을표현하는최소유효TASK행만추가하고완료/없음/에러단언은보존. 기존수행/진단/순위suite재실행불필요. 타입/lint/해당mapper·렌더·파서와실제React/Chromium1440/1280만. 인증home-map-evidence의평가본문첫노출전에(예: 계획/실제공급/재확정뒤start클릭전)계획카드복귀를단언해기존G2독립1과시험0보존; 여건없으면NOT_VERIFIED로다음일일공식묶음에남김. 작업별push/PR/CI·새실행기없음.
+- UI 수용 기준 0: 홈저장계획카드의키보드이어서보기로실제남은TASK와그Workspace로돌아간다. 현재수행량과저장계획을과장하지않고없는행은추정하지않는다.1440/1280의옛선택반례와실제파서/지도복원을확인한다.
+- **UI Quality Gate**: 화면 포함 작업 — 구현·테스트·디자인 검증이 한 단위다. 완료 전에 실제 브라우저 검증 증거 `task evidence <id> --file <ui.json>` (type "ui" · urls · commit · viewport ≥1280 · environment · screenshots · checks 10개 · defects{objective|suggestion} · ui_acceptance_results). 도구: playwright · `pnpm design:ref-compare` · scripts/design/capture-*.mjs. 실행 안 한 검사는 skip(=통과 아님). 형식 docs/UI_QUALITY_GATE.md
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0081 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0081 <경로> --by final-product --branch <브랜치>`)
+- 메모: T0081-P1-1 only · 同一rev1. verification/reviews/T-0081-r1-independent/REWORK.md / probe.test.ts / results.json. ActualapplySaved5cases2fail3pass; submitted14passareinsufficientduetomockedaggregate. Core2/2+support4/1 and core-null+support4/1 must stillresume actualsupportrow; keep coretotals/unknownunchanged and label resumedTASK amount separately. Existingpaths·LOCAL_FAST·no fullsuite/PR/SQL. ActualACK/startrequired; no newtask.

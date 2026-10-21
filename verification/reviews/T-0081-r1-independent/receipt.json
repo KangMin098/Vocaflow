@@ -1,0 +1,33 @@
+{
+  "task_id": "T-0081",
+  "design_revision": "rev1",
+  "head": "39051223d85e80188a22307bdc9939aeeb4ac7eb",
+  "verdict": "REQUEST_CHANGES",
+  "decision": "REWORK",
+  "findings": [
+    {
+      "id": "T0081-P1-1",
+      "severity": "P1",
+      "scope": "in",
+      "file": "apps/web/src/lib/csat/map/home-progress.ts",
+      "function": "mapProgressOf saved plan branch",
+      "issue": "Outer applied.progress (core-only) gate hides real unfinished support rows when core is complete or unallocated. Submitted support-case fixture mocks an inconsistent aggregate6/3 and does not exercise actual applySaved2/2 or null."
+    }
+  ],
+  "ran_tests": true,
+  "verification": {
+    "actual_applySaved": "Independent5 cases:3 pass2 fail, skip0; compose projection supplied but saved row ordering/core aggregate use actual production applySaved.",
+    "focused": "Independent submitted home-progress7 + HomeLanding render7 pass14; those use a mocked aggregate and do not discharge the failing dependency case.",
+    "authenticated_e2e": "NOT_VERIFIED",
+    "db_write": false
+  },
+  "provenance": {
+    "contract": "local-roles/1",
+    "task_id": "T-0081",
+    "head": "39051223d85e80188a22307bdc9939aeeb4ac7eb",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "owner": "final-independent-accept",
+    "session_id": "01a14de8-2485-7a53-b530-d5612f35e57a"
+  }
+}
