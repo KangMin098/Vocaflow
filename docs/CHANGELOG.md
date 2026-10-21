@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- docs(learning): Claude·Codex A/B 역할 요청24회와 사전2회, 두 독립 채점·반례 검토의 원본 증거를 보존했다. 모든 전이 응답 만점으로 교수 우위는 판정 불가이며, 실제 학생 효과·지연 기억·제품 종단 검증으로 사용하지 않는다. 비교 설명 미수집 한계를 2B 설계에 반영했다.
+
 - feat(admin): AI 검수 등록 서비스에 원본 입력·응답·완료 세션을 요구하는 실제 preview/register API를 연결했다. 미리보기 쓰기0·등록은 관리자 본인 세션·관련42 통과. 공유 DB 적용은 미실행.
 
 - feat(csat): 2A 두 AI(Claude·Codex) 검토 영수증으로 창작 R5 v3 중 5문항만 등록→AI 결정→자격·승인→공급→채점→G2 결속하는 경로(`ai-review.ts` · 미적용 `_pending_authored_ai_review.sql`). 사람 결정 0 · 권리 부여 아님 · 결합 설치에서 1C/1D 회귀 통과.
