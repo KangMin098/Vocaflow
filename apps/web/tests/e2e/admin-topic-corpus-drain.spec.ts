@@ -24,6 +24,7 @@ test.beforeAll(async () => {
         if(String(url).endsWith('/drain')){
           window.drainCalls++;
           const mode=new URL(location.href).searchParams.get('mode');
+          if(mode==='opaque')return Promise.resolve(new Response('<html>owned gateway failure</html>',{status:502,headers:{'content-type':'text/html'}}));
           const data=mode==='empty'?{claimed:0,failed:0}:mode==='partial'?{claimed:1,harvested:1,failed:1,message:'release failure'}:{claimed:1,harvested:0,failed:1,drained:false};
           return Promise.resolve(new Response(JSON.stringify(data),{status:mode==='partial'?500:200,headers:{'content-type':'application/json'}}));
         }
@@ -74,5 +75,12 @@ test('처리 가능한 대기 없음은 실패 없음으로 표시하지 않는�
   await page.getByRole('button', { name: '드레인', exact: true }).click()
   await expect(page.getByText('owned-test 처리 가능한 대기 작업이 없습니다. 실패·재시도 상태를 확인하세요.')).toBeVisible()
   expect(await page.evaluate(() => (window as unknown as { refreshes: number }).refreshes)).toBe(0)
+  expect(await page.evaluate(() => (window as unknown as { drainCalls: number }).drainCalls)).toBe(1)
+})
+test('응답 파싱 실패로 실행 결과를 모르면 상태를 다시 읽는다', async ({ page }) => {
+  await page.goto(origin + '/?mode=opaque')
+  await page.getByRole('button', { name: '드레인', exact: true }).click()
+  await expect(page.getByText(/owned-test 드레인 오류/)).toBeVisible()
+  await expect.poll(() => page.evaluate(() => (window as unknown as { refreshes: number }).refreshes), { timeout: 1500 }).toBe(1)
   expect(await page.evaluate(() => (window as unknown as { drainCalls: number }).drainCalls)).toBe(1)
 })

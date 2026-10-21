@@ -160,7 +160,7 @@ export function TopicCorpusClient({
   const drain = useCallback(
     async (sourceId: string) => {
       setBusy(sourceId)
-      let progressed = false
+      let refreshNeeded = false
       try {
         // 큐가 마를 때까지 반복. 상한을 둬 무한 루프를 만들지 않는다.
         for (let round = 1; round <= 200; round += 1) {
@@ -170,7 +170,7 @@ export function TopicCorpusClient({
             body: JSON.stringify({ sourceId, max: 10 }),
           })
           const json = (await res.json()) as DrainResponse
-          if ((json.claimed ?? 0) > 0) progressed = true
+          if ((json.claimed ?? 0) > 0) refreshNeeded = true
           if (!res.ok) {
             push(`${sourceId} 드레인 실패 — ${json.message ?? res.status}`, 'warn')
             return
@@ -194,11 +194,13 @@ export function TopicCorpusClient({
         }
         push(`${sourceId} 반복 상한 도달 — 남은 큐가 있으면 다시 실행하세요.`, 'warn')
       } catch (err) {
-        push(`${sourceId} 드레인 오류 — ${String(err)}`, 'warn')
+        // 응답이 끊기거나 JSON이 아니면 서버의 실제 처리 여부를 알 수 없다.
+        refreshNeeded = true
+        push(`${sourceId} 드레인 오류 — ${String(err)}. 처리 여부를 확인할 수 없어 큐 상태를 다시 읽습니다.`, 'warn')
       } finally {
         setBusy(null)
-        // 한 편이라도 처리했으면 단어·대기 수치가 바뀌었다 — 승격 버튼의 잠금이 여기에 달려 있다.
-        if (progressed) refresh()
+        // 처리된 작업이나 결과 불명 요청은 실제 상태를 다시 읽어 다음 조작을 판단한다.
+        if (refreshNeeded) refresh()
       }
     },
     [push, refresh],
