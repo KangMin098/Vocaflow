@@ -28,9 +28,9 @@ export const dynamic = 'force-dynamic'
 const MAP_HREF = '/csat/diagnosis?tab=map&view=full'
 
 export default async function FactoryDcpPage({ params, searchParams }: { params: { deliveryId: string }; searchParams: Record<string, string | string[] | undefined> }) {
-  // 돌아가는 곳 = 링크를 건 같은 Workspace(전체 지도 · 받은 자료 카드). 지도 문맥은 형식만 검증해 그대로 돌려준다
+  // 같은 Workspace로 복귀하되, 들어온 창작 수행 문맥은 버린다(공장 수행의 영수증이 아니다).
   const fromMap = searchParams.from === 'map'
-  const ctxQuery = fromMap ? mapReturnQuery(parseMapReturn(returnQueryOf(searchParams))) : ''
+  const ctxQuery = fromMap ? mapReturnQuery(parseMapReturn({ ...returnQueryOf(searchParams), map_item: undefined, map_attempt: undefined })) : ''
   const returnHref = `${MAP_HREF}${ctxQuery}`
   if (!isUuid(params.deliveryId)) notFound()
   const db = await createClient()
