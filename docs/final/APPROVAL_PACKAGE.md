@@ -3,6 +3,21 @@
 > 한 번에 확정할 수 있는 사람 입력을 한 곳에 모았다. **아무것도 실행하지 않았다.** 개발 DB `jajenrevcbmrpaliomxv` 기준.
 > 승인은 항목별이다 — A 승인이 B · C 승인을 뜻하지 않는다. 원장: [FINAL_LEDGER](./FINAL_LEDGER.md).
 
+## 현재 실파일 수량 · 해시(2026-10-21 재계산 · 승인 범위 아님)
+
+| 범위 | 세트 | 문항 | 평가 역할(혼자 확인 · 전이 · 지연 확인) |
+|---|---|---|---|
+| 전체 실파일 `apps/web/src/lib/knowledge/authored/*.json` | 17 | 152 | 117 |
+| R5 `r5-central-meaning`(B) | 1 | 11 | 8 |
+| TASK 확장(B2) | 16 | 141 | 109 |
+| s.attachment — canon_candidate · Workspace 미연결(정본 hold TASK 아님 · 출시 승인 아님) | 1 | 6 | 4 |
+| s.attachment 를 뺀 나머지 | 16 | 146 | 113 |
+
+- 17세트 SHA-256 전부 아래 B · B2 표의 값과 일치. SQL 제안본 `supabase/migrations/_pending_authored_supply.sql` · 배포 사본 `supabase/deploy/authored-supply/20261020090000_authored_supply.sql` 모두 `dfb29f2d…c93ac229`(바이트 불변).
+- 아래 표제 · 실행 단계의 「9문항 · 각 6문항 · 9/6」은 그 문단을 쓸 때(FI-011 · T-0068 추가 전)의 수다. **승인 · 등록 · 출시는 사람이 승인한 개별 revision · 역할만** — 위 152 문항을 한꺼번에 자동 출시하지 않는다.
+- 개발 DB 관찰(2026-10-21T13:07:50Z · 읽기 전용 SELECT): `authored_item` · `content_human_decision` · `content_human_decision_revocation` 표 없음 · 자격 0 · 납품 0. 오프라인 사람 검수 여부는 이 SELECT 로 단정하지 않는다.
+- A 는 스키마 적용 승인이다 — B · B2 · C(Gold · 권리)나 데이터 등록 · 공급 승인이 아니다. 현행 개발 정책(dev-minimal-20261020): SQL · 영향 범위를 제시하고 대화에서 사용자가 승인하면 기존 apply_migration 경로로 적용할 수 있다(지금은 승인 전 · DB 쓰기 0).
+
 ## A. DB 변경 — 창작 산출물 · 사람 결정 원장
 
 | 항목 | 값 |
@@ -22,7 +37,7 @@
 | 권한 | 학습자: `workspace_delivery_record` · `workspace_delivery_attempt_record` · `workspace_delivery_current` 실행 · `supply_delivery_valid` 는 service_role 만 · anon 실행 0(파일 끝 검증 블록) |
 | 증거 | PGlite 격리 SQL · 종단 146건(`apps/web/src/lib/csat/{map/v62,authored}/__tests__/*authored*`) · CI 격리 브라우저(R5 + 9형식 × 1280/1440) |
 
-## B. 사람 Gold — R5 창작 9문항(v2)
+## B. 사람 Gold — R5 창작(v2) · 현재 11문항 · 평가 8(표제를 처음 쓸 때 9문항)
 
 - 콘텐츠: `apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json`(세트 `r5-central-meaning.v2` · 주석 ref 끝 `.v2`) · SHA-256 `78ddc60e5f10dde35c6838b3df211f9a566ddd076bf15e6a7b8ee0b203505d2f`(설명 글 문장 번호 1부터 · 내용 판단은 v2 그대로)
 - 평가 계약: 정답 = 한 줄 요지 선택 ✓ **그리고** 중심 문장 ✓(주장 또는 그 다시 말하기 문장). 근거 · 관계는 피드백. 화면 발문에 「같은 뜻을 다시 말한 문장도 돼요」를 명시해 발문 ↔ 채점을 맞췄다.
@@ -36,7 +51,7 @@
 - **2026-10-19 추가(FI-011 B · 다시 확인 재고)**: `r5-cm-ind-3`(기억과 망각) · `r5-cm-ind-4`(도로와 교통량) 독립 확인 2문항 — 서로 다른 지문 · 기존 9문항 내용 · 순서 불변. **맹검 검토 대기 · 사람 Gold 대기 · 권리 대기**(이전 revision 승인 승계 없음).
 - 평가 역할 8문항(ind ×4 · transfer ×2 · delayed ×2)만 사람 Gold 가 필수. 교수 · 안내 3문항은 Gold 없이 공급 가능(권리는 필요).
 
-## B2. 사람 Gold — TASK 확장 16세트(각 6문항 · 평가 역할 4문항씩)
+## B2. 사람 Gold — TASK 확장 16세트 · 현재 141문항 · 평가 109(처음 쓸 때 각 6문항 · 평가 4 — T-0068 +3 · s.attachment 6/4 는 canon_candidate · Workspace 미연결)
 
 > 형식별 채점 계약: `apps/web/src/lib/knowledge/authored/formats.ts` · 작성 계약 `docs/final/AUTHORING_SPEC.md`. AI 작성 → 맹검 검토(`docs/final/review/expansion-*.json`) → 저자 수정까지. **사람 Gold 아님.**
 
@@ -74,7 +89,7 @@
 ## 승인 후 실행 순서(승인된 단계만)
 
 1. A 적용 — 승인형 러너 `scripts/db/authored-supply/deploy.mjs`(r5-bind 와 같은 계약 · 본문 `supabase/deploy/authored-supply/20261020090000_authored_supply.sql` = 보류 SQL 바이트 동일 · SHA `dfb29f2d…`). 사람 터미널(TTY)에서 `apply --stage authored --confirm-sha <SHA>` 뒤 `APPLY authored <SHA>` 입력. 사전 이력 대조(2026-10-20 · 읽기 전용): DB-2 · I2 · G2(SHA 일치) 있음 · 대상 표 없음 · 자격/납품 0행 → 차단 없음. 러너는 사람 결정 행을 쓰지 않는다(사후 검증 0행). 앞뒤 `/db-checkpoint`.
-2. 관리자 로그인 세션으로 9문항 `authored_item_register`(인자 = `registrationArgs`) → `content_qualification_record`(FQ1.1).
-3. **사람이** C 확인 뒤 `content_human_decision_record('rights', … 'human-reviewed')`, B 확인 뒤 평가 6문항 `('gold', …)` — 에이전트가 대신 기록하지 않는다.
-4. `content_release_approve` public(9) · assessment(6).
+2. 관리자 로그인 세션으로 승인된 revision 의 문항만(처음 쓸 때 R5 9문항) `authored_item_register`(인자 = `registrationArgs`) → `content_qualification_record`(FQ1.1).
+3. **사람이** C 확인 뒤 `content_human_decision_record('rights', … 'human-reviewed')`, B 확인 뒤 그 revision 의 평가 역할 문항만(처음 쓸 때 6) `('gold', …)` — 에이전트가 대신 기록하지 않는다.
+4. `content_release_approve` public · assessment — 승인된 문항 · 역할 수만큼(처음 쓸 때 9 · 6).
 5. 검증 계정으로 지도 → 「자료 받기」 → `/csat/learn/*` 풀이 → `workspace_delivery_attempt.evidence` 확인 → 지도 복귀(DEV_DB_E2E).
