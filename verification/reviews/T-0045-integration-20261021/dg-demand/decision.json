@@ -125,10 +125,12 @@
     "actual_ack": false,
     "started": false,
     "goal_check": {
-      "report": "verification/goal-check/GC-2026-10-21T13-42-17-554Z.json",
+      "report": "verification/goal-check/GC-2026-10-21T13-50-39-079Z.json",
       "head": {
-        "main_sha": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e"
+        "main_sha": "f8a1de9a475e7d12f86a006f6fb0caefa26975a8"
       },
+      "ref": "main",
+      "worktree": "D:/workspace/Vocaflow-main-serving",
       "distribution": {
         "UNKNOWN": 33,
         "FAIL": 1,
@@ -136,7 +138,8 @@
       },
       "changes": [],
       "ci_read": false,
-      "note": "Evidence states, not counts of product bugs or unimplemented functions."
+      "note": "Read canonical main through existing per-call config dependency; global config unchanged. Prior CLI report13:42 used old local/integration and is retained as non-final evidence only.",
+      "supersedes_nonfinal_report": "verification/goal-check/GC-2026-10-21T13-42-17-554Z.json"
     },
     "db_write": false,
     "at": "2026-10-21T13:50:01.637Z"
