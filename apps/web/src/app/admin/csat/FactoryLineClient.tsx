@@ -18,6 +18,7 @@
 // (파일이 저장소에 실제로 있는지 본다).
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { ClipboardCheck, Copy, Sparkles, TriangleAlert } from 'lucide-react'
 import { useState } from 'react'
@@ -63,11 +64,11 @@ function Gauge({ g }: { g: StageGauge }) {
         </span>
       </div>
       {g.num == null ? (
-        <p className="break-keep font-body text-[11px] text-[var(--memory-new)]">
+        <p className="break-keep font-body text-[11px] text-[var(--t2)]">
           {g.unmeasuredReason ?? '아직 안 쟀다'}
         </p>
       ) : g.approx && g.unmeasuredReason ? (
-        <p className="break-keep font-body text-[11px] text-[var(--memory-shaky)]">{g.unmeasuredReason}</p>
+        <p className="break-keep font-body text-[11px] text-[var(--warning-ink)]">{g.unmeasuredReason}</p>
       ) : g.den ? (
         <div className="h-1.5 overflow-hidden rounded-full bg-[var(--bd)]">
           <div
@@ -111,7 +112,7 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageState['nextCommands']
           className="inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)] text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)]"
         >
           {copied ? (
-            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[var(--memory-stable)]" aria-hidden />
+            <ClipboardCheck size={15} strokeWidth={1.75} className="text-[var(--success-ink)]" aria-hidden />
           ) : (
             <Copy size={15} strokeWidth={1.75} aria-hidden />
           )}
@@ -125,7 +126,7 @@ function CommandRow({ cmd, why, writes, claudeCode }: StageState['nextCommands']
           </span>
         ) : null}
         {writes ? (
-          <span className="mr-1 rounded bg-[color-mix(in_srgb,var(--memory-risk)_12%,transparent)] px-1 py-0.5 text-[10px] font-[600] text-[var(--memory-risk)]">
+          <span className="mr-1 rounded bg-[color-mix(in_srgb,var(--memory-risk)_12%,transparent)] px-1 py-0.5 text-[10px] font-[600] text-[var(--error-ink)]">
             씀
           </span>
         ) : null}
@@ -165,7 +166,7 @@ function StageDetail({ s }: { s: StageState }) {
         </div>
         <span
           className="shrink-0 rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]"
-          style={{ background: `color-mix(in srgb, ${st.color} 12.2%, transparent)`, color: st.color }}
+          style={{ background: `color-mix(in srgb, ${st.color} 12.2%, transparent)`, color: adminTextInk(st.color) }}
         >
           {st.label}
         </span>
@@ -187,7 +188,7 @@ function StageDetail({ s }: { s: StageState }) {
           <TriangleAlert
             size={13}
             strokeWidth={1.75}
-            className="mt-0.5 shrink-0 text-[var(--memory-shaky)]"
+            className="mt-0.5 shrink-0 text-[var(--warning-ink)]"
             aria-hidden
           />
           {s.blocker}
@@ -245,7 +246,7 @@ export function FactoryLineClient({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
         >
           {loadError}
         </p>
@@ -264,7 +265,7 @@ export function FactoryLineClient({
               </span>
             </>
           ) : (
-            <span className="text-[var(--memory-stable)]">생산 라인이 게이트를 다 넘었다</span>
+            <span className="text-[var(--success-ink)]">생산 라인이 게이트를 다 넘었다</span>
           )}
           <span className="ml-2 font-mono text-[12px] font-[400] tabular-nums text-[var(--t3)]">
             {passed}/{total}

@@ -210,7 +210,7 @@ export default async function ItemDetailPage({ params }: { params: { slug: strin
             ) : (
               <ul className="space-y-1 text-sm">
                 {itemApps.map((a) => (
-                  <li key={a.id}><Link href="/admin/knowledge/product" className={LINK_CLASS}>{a.surfaceRef}</Link> · {APP_SURFACE_LABEL[a.surface]} · {APP_STATUS_LABEL[a.status]}</li>
+                  <li key={a.id}><Link href={`/admin/knowledge/product/${a.id}`} className={LINK_CLASS}>{a.surfaceRef}</Link> · {APP_SURFACE_LABEL[a.surface]} · {APP_STATUS_LABEL[a.status]}</li>
                 ))}
               </ul>
             )}

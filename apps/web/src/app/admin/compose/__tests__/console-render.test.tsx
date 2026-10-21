@@ -7,7 +7,9 @@
 // 터지기 쉬운데, 그때는 이미 관리자가 쓰고 있다. 빈 상태와 채워진 상태를 둘 다 그려 둔다.
 
 import { renderToString } from 'react-dom/server'
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+vi.mock('next/navigation', () => ({ useSearchParams: () => new URLSearchParams() }))
+vi.mock('@/lib/auth/require-admin', () => ({ requireAdmin: vi.fn().mockResolvedValue({ id: 'admin' }) }))
 
 import { COMPOSE_TABS } from '@/lib/admin/compose-tabs'
 

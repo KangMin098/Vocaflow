@@ -31,7 +31,7 @@ export function SourceOperations({ queue, onQueue, reason, onReason, source, onS
   const selectedHeading = useRef<HTMLHeadingElement>(null)
   const trigger = useRef<HTMLButtonElement | null>(null)
   const [showReasons, setShowReasons] = useState(false)
-  const { data: summary } = useSWR<Summary>(`${API}?summary=1`, get)
+  const { data: summary, error: summaryError, mutate: retrySummary } = useSWR<Summary>(`${API}?summary=1`, get, { shouldRetryOnError: false, revalidateOnFocus: false })
   useEffect(() => { setPage(0); setSelected(null) }, [queue, term, reason, source])
   const key = `${API}?queue=${queue}&page=${page}&q=${encodeURIComponent(term)}${reason ? `&reason=${encodeURIComponent(reason)}` : ''}${source ? `&source=${encodeURIComponent(source)}` : ''}`
   const { data, error, isLoading, mutate: reload } = useSWR<{ rows: SourceOperationRow[]; count: number }>(key, get)
@@ -53,6 +53,7 @@ export function SourceOperations({ queue, onQueue, reason, onReason, source, onS
     finally { setBusy(false) }
   }
   return <div className={styles.root}>
+    {summaryError ? <p role="alert">요약 집계를 읽지 못했습니다. 표시된 수치는 마지막 조회 값일 수 있습니다. <button type="button" onClick={() => void retrySummary()}>요약 다시 읽기</button></p> : !summary ? <p role="status">요약을 순서대로 집계하고 있습니다. 목록은 먼저 사용할 수 있습니다.</p> : null}
     <div className={styles.queues} aria-label="원문 검토 큐">
       {(Object.entries(SOURCE_QUEUES) as [SourceQueue, string][]).map(([key, name]) => <button key={key} aria-pressed={queue === key} onClick={() => { onQueue(key); onReason(null) }}>{name}</button>)}
     </div>

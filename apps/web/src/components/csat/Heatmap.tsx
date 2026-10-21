@@ -1,6 +1,5 @@
-'use client'
-
 // apps/web/src/components/csat/Heatmap.tsx
+'use client'
 //
 // **① 지형 — 이 화면의 주인공.**
 //
@@ -97,7 +96,7 @@ export function Heatmap({ data, onPick }: HeatmapProps) {
       </ul>
 
       {/* ⚠️ 가로 스크롤은 **격자 안에서만**. 페이지 본문은 375px 에서 안 밀린다(G7). */}
-      <div className="overflow-x-auto">
+      <div role="region" aria-label="유형별 연도 격자" className="overflow-x-auto">
         {/* ⚠️ `data-proof` — 계측기(`csat-surface-measure.mts`)가 「접힌 위 증명」을
             셀 때 보는 표식이다. 이 격자는 실데이터를 그린 조작 가능한 증명인데 svg 가
             아니라 div 라 표식 없이는 **0 으로 세어졌다**(실측 2026-09-16 · 지형 0).
@@ -109,7 +108,7 @@ export function Heatmap({ data, onPick }: HeatmapProps) {
             {years.map((y) => (
               <div
                 key={y}
-                className="w-8 shrink-0 text-center text-[10px] tabular-nums text-[var(--t3)]"
+                className="w-11 shrink-0 text-center text-[10px] tabular-nums text-[var(--t3)]"
               >
                 {String(y).slice(2)}
               </div>
@@ -148,7 +147,7 @@ export function Heatmap({ data, onPick }: HeatmapProps) {
                     onKeyDown={(e) => onKey(e, ri, ci)}
                     aria-label={`${r.name} ${c.year}년 ${c.n}문항${c.hard ? `, 3점 ${c.hard}문항` : ''}`}
                     className={[
-                      'relative h-8 w-8 shrink-0 text-[11px] tabular-nums',
+                      'relative h-11 w-11 shrink-0 text-[11px] tabular-nums',
                       'border transition-colors duration-[var(--dur-fast)] ease-[var(--ease)] motion-reduce:transition-none',
                       'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-1 focus-visible:outline-[var(--p)]',
                       on ? 'border-[var(--t1)] font-[800]' : 'border-[var(--bd)] hover:border-[var(--p)]',

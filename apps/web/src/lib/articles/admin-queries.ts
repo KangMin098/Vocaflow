@@ -21,6 +21,7 @@ import { cache } from 'react'
 
 import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
+import { requireAdmin } from '@/lib/auth/require-admin'
 import { pagedSelect } from '@/lib/supabase/paged-select'
 
 import { CEFR_ORDER, REGISTERS, coverageKey } from './source-guide'
@@ -282,7 +283,10 @@ export async function listAdminArticles(
   const page = Math.max(0, options.page ?? 0)
   const from = page * pageSize
 
-  const sb = await db()
+  // The ready-list RLS plan evaluates is_admin_or_curator() for every candidate row.
+  // Check the same identity/status gate once, then use the existing server-only admin reader.
+  await requireAdmin('/admin/articles')
+  const sb = createAdminClient() as unknown as LooseDb
   let q = sb.from(TABLE).select(LIST_COLUMNS)
   if (statuses && statuses.length > 0) q = q.in('status', statuses)
   if (source) q = q.eq('source', source)

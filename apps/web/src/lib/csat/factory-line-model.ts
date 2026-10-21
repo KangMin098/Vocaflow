@@ -147,6 +147,8 @@ export interface ReviewLayer {
 }
 
 export interface ReviewVolumeRow {
+  series?: string
+  step?: number | null
   band: number
   volumeTitle: string | null
   items: number
@@ -240,6 +242,8 @@ export interface PressVolumeRow {
 
 export interface PressView {
   volumes: PressVolumeRow[]
+  /** 선택 권의 카탈로그 단계. 전체 사다리와 분모를 혼합하지 않는다. */
+  selectedStep?: number
   /** 사다리 계단 수 — 분모. 계단마다 권이 하나씩 있어야 브랜드가 학령 전체를 덮는다. */
   rungs: number
   /** 현재 브랜드 지문(fingerprint). 다른 값으로 찍힌 권은 **옛 규격**이다. */

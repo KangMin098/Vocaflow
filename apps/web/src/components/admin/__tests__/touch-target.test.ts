@@ -19,6 +19,7 @@ import { join, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 import { describe, expect, it } from 'vitest'
+import ts from 'typescript'
 
 import { type Finding, judgeTag, scanAdmin } from './touch-target-scan'
 
@@ -48,14 +49,14 @@ const CHECKBOX = 'input[checkbox|radio]'
  * 이 목록을 늘리려면 위 (a)/(b) 중 하나를 실제로 하거나, 왜 못 하는지를 여기에 적어야 한다.
  */
 const CHECKBOX_ALLOWLIST: { file: string; count: number; labelWrapped: number }[] = [
-  { file: 'apps/web/src/app/admin/articles/BulkArticlesTab.tsx', count: 3, labelWrapped: 2 },
-  { file: 'apps/web/src/app/admin/comic/AdminComicClient.tsx', count: 1, labelWrapped: 0 },
+  { file: 'apps/web/src/app/admin/articles/BulkArticlesTab.tsx', count: 3, labelWrapped: 3 },
+  { file: 'apps/web/src/app/admin/comic/AdminComicClient.tsx', count: 1, labelWrapped: 1 },
   // 영어 진단(2026-10-01): 「채점 가능한 시험만 보기」 · 「미완료만 보기」 — 둘 다 min-h-[44px] <label> 안
   { file: 'apps/web/src/app/admin/csat/diagnosis/exams/ExamsTable.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/app/admin/csat/diagnosis/exams/[examId]/TaggingBoard.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/curation/AdvancedFetchPanel.tsx', count: 1, labelWrapped: 1 },
   { file: 'apps/web/src/components/admin/curation/BulkFetchTab.tsx', count: 1, labelWrapped: 1 },
-  { file: 'apps/web/src/components/admin/curation/MyLibraryTab.tsx', count: 2, labelWrapped: 0 },
+  { file: 'apps/web/src/components/admin/curation/MyLibraryTab.tsx', count: 2, labelWrapped: 2 },
   // 학습 원리(2026-09-28): 라디오·체크박스는 전부 min-h-11(44px) <label> 안에 있다 — 라벨이 탭 타깃
   { file: 'apps/web/src/components/admin/knowledge/ItemEditor.tsx', count: 2, labelWrapped: 2 },
   { file: 'apps/web/src/components/admin/knowledge/NewItemForm.tsx', count: 4, labelWrapped: 4 }, // + 종류 라디오(2026-10-08 vNext)
@@ -190,6 +191,27 @@ describe('44px 미만 터치 타깃 — 체크박스 외 0', () => {
 })
 
 describe('허용 목록 — 체크박스·라디오', () => {
+  it('도서·만화·기사 선택은 실제 44px label과 접근성 이름을 갖는다', () => {
+    for (const file of ['app/admin/comic/AdminComicClient.tsx', 'app/admin/pd-comics/AdminPdComicsClient.tsx', 'components/admin/TaxonomyBrowser.tsx', 'components/admin/curation/MyLibraryTab.tsx', 'app/admin/articles/BulkArticlesTab.tsx']) {
+      const source = readFileSync(join(WEB_SRC, file), 'utf8')
+      const ast = ts.createSourceFile(file, source, ts.ScriptTarget.Latest, true, ts.ScriptKind.TSX)
+      let checked = 0
+      const visit = (node: ts.Node) => {
+        if (ts.isJsxSelfClosingElement(node) && node.tagName.getText(ast) === 'input' && node.attributes.properties.some(a => ts.isJsxAttribute(a) && a.name.getText(ast) === 'type' && a.initializer?.getText(ast) === '"checkbox"')) {
+          checked++
+          let parent: ts.Node | undefined = node.parent
+          while (parent && !(ts.isJsxElement(parent) && parent.openingElement.tagName.getText(ast) === 'label')) parent = parent.parent
+          expect(parent && ts.isJsxElement(parent) && /min-h-\[44px\]|min-h-11/.test(parent.openingElement.getText(ast)), file).toBe(true)
+          const named = node.attributes.properties.some(a => ts.isJsxAttribute(a) && ['aria-label', 'aria-labelledby'].includes(a.name.getText(ast)) && a.initializer)
+          const labelText = parent && ts.isJsxElement(parent) && parent.children.some(c => ts.isJsxElement(c) || ts.isJsxExpression(c) && c.expression || ts.isJsxText(c) && c.getText(ast).trim())
+          expect(Boolean(named || labelText), `${file}: 선택 이름`).toBe(true)
+        }
+        ts.forEachChild(node, visit)
+      }
+      visit(ast)
+      expect(checked, file).toBeGreaterThan(0)
+    }
+  })
   const actual = new Map<string, number>()
   for (const f of violations.filter((v) => v.tag === CHECKBOX)) {
     actual.set(f.file, (actual.get(f.file) ?? 0) + 1)
@@ -212,7 +234,7 @@ describe('허용 목록 — 체크박스·라디오', () => {
     const total = CHECKBOX_ALLOWLIST.reduce((n, e) => n + e.count, 0)
     const wrapped = CHECKBOX_ALLOWLIST.reduce((n, e) => n + e.labelWrapped, 0)
     // 학습 원리 vNext(2026-10-08) +6 — 종류 라디오 1 · 탐구 영역 · 잇기 대상 · 전이 · 합성 5, 전부 44px label 로 감쌈
-    expect([total, wrapped]).toEqual([25, 21])
+    expect([total, wrapped]).toEqual([25, 25])
   })
 })
 

@@ -1,0 +1,11 @@
+/* apps/web/src/components/admin/AdminShell.module.css */
+/* Existing 3B measurement: docs/design/refs/3b/admin/spec.json. */
+.shell {
+  --admin-rail-width: 216px;
+  --admin-header-height: 56px;
+  --admin-frame-gap: 12px;
+  --admin-panel-top-gap: 2px;
+  --admin-panel-min-height: calc(
+    100dvh - var(--admin-header-height) - var(--admin-panel-top-gap) - var(--admin-frame-gap)
+  );
+}

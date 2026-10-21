@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/ResponsibilitiesSection.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // 사전DB 모니터링 v3 Section 2 — 4 Responsibilities (R1-R4) ⭐ 핵심 섹션.
 //
@@ -55,11 +56,11 @@ export function ResponsibilitiesSection({ snapshot }: ResponsibilitiesSectionPro
               className="font-display text-[24px] font-[800] leading-none"
               style={{
                 color:
-                  pipelineFitness.status === 'critical'
+                  adminTextInk(pipelineFitness.status === 'critical'
                     ? 'var(--error)'
                     : pipelineFitness.status === 'warning'
                       ? 'var(--active)'
-                      : 'var(--success)',
+                      : 'var(--success)'),
               }}
             >
               {pipelineFitness.score}

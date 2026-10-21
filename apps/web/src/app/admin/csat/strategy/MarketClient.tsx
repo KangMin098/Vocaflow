@@ -12,6 +12,7 @@
 // 지표에 배치를 계속 돌린다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useState } from 'react'
 
@@ -59,7 +60,7 @@ function PublisherCard({ p, target }: { p: BenchPublisher; target: number }) {
         </div>
         <span
           className="rounded-[var(--r-full)] px-2 py-1 font-display text-[11px] font-[700]"
-          style={{ background: `color-mix(in srgb, ${k.color} 12.2%, transparent)`, color: k.color }}
+          style={{ background: `color-mix(in srgb, ${k.color} 12.2%, transparent)`, color: adminTextInk(k.color) }}
           title={k.hint}
         >
           {k.label}
@@ -151,7 +152,7 @@ function PlatformGapPanel({ platform }: { platform: MarketView['platform'] }) {
         <span className="font-body text-[11px] text-[var(--t3)]">기출 문항 시도</span>
         <span
           className="font-mono text-[20px] font-[700] tabular-nums"
-          style={{ color: usable ? 'var(--memory-stable)' : 'var(--memory-risk)' }}
+          style={{ color: adminTextInk(usable ? 'var(--memory-stable)' : 'var(--memory-risk)') }}
         >
           {n == null ? '못 잼' : n.toLocaleString()}
         </span>
@@ -289,7 +290,7 @@ export function MarketClient({ warehouse, volume, benchAgeDays, target, platform
       {staleDays != null && staleDays >= 7 ? (
         <p
           role="status"
-          className="break-keep rounded-[var(--r-md)] border border-[var(--memory-shaky)] bg-[var(--bg)] p-3 font-body text-[12px] text-[var(--memory-shaky)]"
+          className="break-keep rounded-[var(--r-md)] border border-[var(--memory-shaky)] bg-[var(--bg)] p-3 font-body text-[12px] text-[var(--warning-ink)]"
         >
           ⚠ 이 수치는 {staleDays}일 전 리포트다 — 사람이 벤치마크를 다시 돌려야 갱신된다. 그동안
           쌓인 재고는 여기 안 들어 있다.
@@ -299,7 +300,7 @@ export function MarketClient({ warehouse, volume, benchAgeDays, target, platform
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
         >
           {loadError}
         </p>

@@ -28,6 +28,7 @@ import { notFound } from 'next/navigation'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import { ScopeTabs } from '@/components/admin/csat/ScopeTabs'
 import { parseScope, withScope } from '@/lib/csat/scope'
+import { filterKiceItems, kiceListHref, parseKiceListState } from '@/lib/admin/kice-list-state'
 import { LocusBar } from '@/components/csat/LocusBar'
 import { ReportText } from '@/components/csat/ReportText'
 import { TrapAtlas } from '@/components/csat/TrapAtlas'
@@ -64,7 +65,9 @@ export default async function CsatTypePage({
   searchParams: Promise<Record<string, string | string[] | undefined>>
 }) {
   const { typeId } = await params
-  const scope = parseScope(await searchParams)
+  const query = await searchParams
+  const scope = parseScope(query)
+  const listState = parseKiceListState(query)
   const [{ detail, error }, { items, error: itemsError }] = await Promise.all([
     loadCsatTypeDetail(typeId, scope),
     loadCsatTypeItems(typeId, scope),
@@ -76,6 +79,12 @@ export default async function CsatTypePage({
   // **이미 불러온 목록**이라 추가 조회가 없고, 여기 없는 인용은 평문으로 남는다 —
   // 없는 문항으로 가는 링크는 막다른 화면이다(실측: 인용의 98.5%가 이 목록 안에 있다).
   const knownItems = new Set(items.map((it) => it.id))
+  const filtered = filterKiceItems(items, listState)
+  const pages = Math.max(1, Math.ceil(filtered.length / 20))
+  const page = Math.min(listState.page, pages)
+  const currentState = { ...listState, page }
+  const shown = filtered.slice((page - 1) * 20, page * 20)
+  const returnTo = kiceListHref(typeId, currentState, scope)
 
   // **이 유형의 기출을 실제로 세어** 근거 자리의 분포를 낸다. DB 를 치지 않는다 —
   // 커밋된 골격이 type_id 를 들고 있다. 표본이 8문항 미만이면 null 이고, 그때는 안 그린다:
@@ -293,22 +302,28 @@ export default async function CsatTypePage({
               )}
             </h2>
 
+            <form action={`/admin/kice/${encodeURIComponent(typeId)}#items-h`} className="my-3 flex flex-wrap items-end gap-2 text-xs">
+              {scope.set === 'hakpyeong' && <><input type="hidden" name="set" value="hakpyeong" /><input type="hidden" name="grade" value={scope.grade} /></>}
+              <label className="flex flex-col gap-1">회차·문항 검색<input name="q" defaultValue={listState.q} className="min-h-11 rounded border border-[var(--bd)] bg-[var(--bg)] px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]" /></label>
+              <label className="flex flex-col gap-1">시험 회차<select name="exam" defaultValue={listState.exam} className="min-h-11 rounded border border-[var(--bd)] bg-[var(--bg)] px-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]"><option value="">전체</option>{[...new Map(items.map(i => [i.id.split('#')[0], i.exam_label])).entries()].map(([id, label]) => <option key={id} value={id}>{label}</option>)}</select></label>
+              <button type="submit" className="min-h-11 rounded border border-[var(--bd)] px-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]">목록 검색</button>
+            </form>
             {itemsError ? (
               <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
                 지금은 기출 목록을 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.
               </p>
-            ) : items.length === 0 ? (
+            ) : filtered.length === 0 ? (
               <p className="mt-2 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4 text-sm text-[var(--t2)]">
-                이 유형의 기출을 아직 연결하지 못했어요. 위의 절차와 함정만으로도 한 번 풀어 볼 수 있어요.
+                {items.length === 0 ? '이 유형의 기출을 아직 연결하지 못했어요.' : '이 조건에 맞는 기출이 없습니다.'}
               </p>
             ) : null}
 
-            {items.length > 0 ? (
+            {shown.length > 0 ? (
               <ul className="mt-2 grid grid-cols-1 gap-2 sm:grid-cols-2">
-                {items.map((it) => (
+                {shown.map((it) => (
                   <li key={it.id}>
                     <Link
-                      href={`/admin/kice/item/${it.slug}`}
+                      href={`/admin/kice/item/${it.slug}?${new URLSearchParams({ returnTo })}`}
                       className="flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-2 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--p)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
                     >
                       <span className="text-sm text-[var(--t1)]">
@@ -323,6 +338,11 @@ export default async function CsatTypePage({
                 ))}
               </ul>
             ) : null}
+            {!itemsError && <nav aria-label="기출 목록 페이지" className="mt-3 flex min-h-11 items-center gap-4 text-xs">
+              {page > 1 && <Link href={kiceListHref(typeId, { ...currentState, page: page - 1 }, scope)} className="inline-flex min-h-11 items-center underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]">이전</Link>}
+              <span>{filtered.length}문항 · {page}/{pages}쪽</span>
+              {page < pages && <Link href={kiceListHref(typeId, { ...currentState, page: page + 1 }, scope)} className="inline-flex min-h-11 items-center underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]">다음</Link>}
+            </nav>}
           </section>
 
           <p className="mt-8 break-keep text-xs leading-relaxed text-[var(--t3)]">

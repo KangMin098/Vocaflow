@@ -1,6 +1,7 @@
 // apps/web/src/components/admin/vcb/VcbCurationList.tsx
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useRef } from 'react'
 import { useVirtualizer } from '@tanstack/react-virtual'
@@ -44,9 +45,8 @@ export function VcbCurationList({
           const isMultiSelected = selectedIds.has(item.queue_id)
 
           return (
-            <button
+            <div
               key={item.queue_id}
-              type="button"
               className="flex items-center gap-2 w-full px-3 text-left border-b"
               style={{
                 position: 'absolute',
@@ -59,10 +59,23 @@ export function VcbCurationList({
                   : isMultiSelected
                     ? 'var(--bg3)'
                     : 'transparent',
-                color: isSelected ? 'var(--p)' : 'var(--t1)',
+                color: adminTextInk(isSelected ? 'var(--p)' : 'var(--t1)'),
                 borderColor: 'var(--bd)',
               }}
-              onClick={(e) => {
+            >
+              <label className="flex min-h-11 min-w-11 shrink-0 items-center justify-center focus-within:outline focus-within:outline-2 focus-within:outline-[var(--p)]">
+                <input
+                  type="checkbox"
+                  checked={isMultiSelected}
+                  onChange={() => onToggleMultiSelect(item.queue_id)}
+                  aria-label={`${item.lemma} 선택`}
+                />
+              </label>
+              <button
+                type="button"
+                className="flex min-h-11 min-w-0 flex-1 items-center gap-2 text-left focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+                aria-pressed={isSelected}
+                onClick={(e) => {
                 if (e.shiftKey || e.metaKey || e.ctrlKey) {
                   onToggleMultiSelect(item.queue_id)
                 } else {
@@ -70,15 +83,6 @@ export function VcbCurationList({
                 }
               }}
             >
-              <input
-                type="checkbox"
-                checked={isMultiSelected}
-                readOnly
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onToggleMultiSelect(item.queue_id)
-                }}
-              />
               <span className="flex-1 font-display font-medium text-sm">{item.lemma}</span>
               <span
                 className="text-[10px] px-2 py-1 rounded-[var(--r-sm)]"
@@ -91,7 +95,7 @@ export function VcbCurationList({
                   className="text-[10px] px-2 py-1 rounded-[var(--r-sm)] font-mono"
                   style={{
                     background: `var(--cefr-${item.cefr}-bg)`,
-                    color: `var(--cefr-${item.cefr}-text)`,
+                    color: adminTextInk(`var(--cefr-${item.cefr}-text)`),
                   }}
                 >
                   {item.cefr}
@@ -100,7 +104,7 @@ export function VcbCurationList({
               {item.qa_flags.length > 0 && (
                 <span
                   className="font-mono text-[10px]"
-                  style={{ color: 'var(--warning)' }}
+                  style={{ color: adminTextInk('var(--warning)') }}
                 >
                   {item.qa_flags.join(',')}
                 </span>
@@ -108,7 +112,7 @@ export function VcbCurationList({
               {item.seed_origin === 'ai_generated' && (
                 <span
                   className="text-[10px] px-2 py-1 rounded-[var(--r-sm)]"
-                  style={{ background: 'var(--info-light)', color: 'var(--info)' }}
+                  style={{ background: 'var(--info-light)', color: adminTextInk('var(--info)') }}
                 >
                   AI
                 </span>
@@ -118,11 +122,11 @@ export function VcbCurationList({
                   className="text-sm"
                   style={{
                     color:
-                      item.latest_decision === 'approve'
+                      adminTextInk(item.latest_decision === 'approve'
                         ? 'var(--success)'
                         : item.latest_decision === 'reject'
                           ? 'var(--error)'
-                          : 'var(--t3)',
+                          : 'var(--t3)'),
                   }}
                 >
                   {item.latest_decision === 'approve'
@@ -133,6 +137,7 @@ export function VcbCurationList({
                 </span>
               )}
             </button>
+            </div>
           )
         })}
       </div>

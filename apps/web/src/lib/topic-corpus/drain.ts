@@ -43,6 +43,8 @@ export interface DrainBatchOptions {
   sourceId?: string | null
   /** 이번 배치 최대 편수 (1..MAX_PER_CALL) */
   max?: number
+  /** 재수확 문서의 큐 종료 시각. 격리 검증은 고정 시각을 주입한다. */
+  now?: () => string
 }
 
 export interface DrainBatchResult {
@@ -58,6 +60,7 @@ export interface DrainBatchResult {
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
+const systemNow = () => new Date().toISOString()
 
 /**
  * 한 배치를 드레인한다. 던지지 않는다 — 실패는 `error` 로 돌려준다
@@ -87,6 +90,7 @@ export async function drainTopicCorpusBatch(
   let harvested = 0
   let skipped = 0
   let failed = 0
+  const releaseErrors: string[] = []
 
   for (let i = 0; i < rows.length; i += 1) {
     const row = rows[i]!
@@ -95,6 +99,24 @@ export async function drainTopicCorpusBatch(
     const outcome = await harvestTedTalk(supabase, row.source_id, row.url)
 
     if (outcome.ok) {
+      // 이미 수확한 문서는 ingest RPC 가 조기에 반환하므로 현재 claim 을 별도로 닫는다.
+      if (outcome.alreadyIngested) {
+        let closeError: string | undefined
+        try {
+          const closed = await supabase.from('topic_corpus_queue')
+            .update({ status: 'done', claimed_at: null, completed_at: (opts.now ?? systemNow)(), last_error: null })
+            .eq('id', row.id).eq('status', 'claimed').select('id').maybeSingle()
+          closeError = closed.error?.message ?? (!closed.data ? 'queue claim changed; inspect before retrying' : undefined)
+        } catch (error) {
+          closeError = error instanceof Error ? error.message : String(error)
+        }
+        if (closeError) {
+          failed += 1
+          releaseErrors.push(`${row.id}: ${closeError}`)
+          results.push({ queue_id: row.id, source_id: row.source_id, external_id: outcome.externalId, ok: false, already_ingested: true, release_failed: true, release_error: closeError })
+          continue
+        }
+      }
       harvested += 1
       results.push({
         queue_id: row.id,
@@ -110,20 +132,28 @@ export async function drainTopicCorpusBatch(
         truncated: outcome.truncated,
         ted_topics: outcome.tedTopics,
       })
-      // ingest RPC 안에서 큐를 done 으로 닫는다 — 여기서 또 건드리지 않는다.
+      // 새 문서의 큐는 ingest RPC 안에서 이미 닫았다.
       continue
     }
 
     // 실패: 영구/일시를 구분해 되돌린다. 이 구분이 없으면 자막 없는 강연이 큐에 영원히 남는다.
     const nextStatus = outcome.permanent ? 'skipped' : 'pending'
-    if (outcome.permanent) skipped += 1
+    let releaseError: string | undefined
+    try {
+      const released = await supabase.rpc('release_topic_corpus_claim', {
+        p_id: row.id,
+        p_status: nextStatus,
+        p_error: outcome.reason,
+      })
+      releaseError = released.error?.message
+    } catch (error) {
+      releaseError = error instanceof Error ? error.message : String(error)
+    }
+    if (releaseError) {
+      failed += 1
+      releaseErrors.push(`${row.id}: ${releaseError}`)
+    } else if (outcome.permanent) skipped += 1
     else failed += 1
-
-    await supabase.rpc('release_topic_corpus_claim', {
-      p_id: row.id,
-      p_status: nextStatus,
-      p_error: outcome.reason,
-    })
 
     results.push({
       queue_id: row.id,
@@ -132,8 +162,12 @@ export async function drainTopicCorpusBatch(
       ok: false,
       permanent: outcome.permanent,
       reason: outcome.reason,
+      ...(releaseError ? { release_failed: true, release_error: releaseError } : {}),
     })
   }
 
-  return { claimed: rows.length, harvested, skipped, failed, drained: false, results }
+  return {
+    claimed: rows.length, harvested, skipped, failed, drained: false, results,
+    ...(releaseErrors.length ? { error: `release_topic_corpus_claim 실패 — ${releaseErrors.join('; ')}` } : {}),
+  }
 }

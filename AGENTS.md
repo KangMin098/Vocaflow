@@ -91,7 +91,7 @@ I1–I4 · I6 · I8 · D1 · D4 · D5 는 DD-66 으로 삭제(회귀 `activation
 
 - 인터랙티브 요소에 보이는 focus 표시(접근성).
 - 파일 첫 줄 경로 주석(`// apps/web/src/components/ui/Button.tsx`) · 코드 완성형만(TODO·생략·placeholder 금지).
-- **마이그레이션 자동 적용 금지** — SQL 을 보여주고 사용자 승인 후 적용. 정식 경로는 승인형 배포 러너(`scripts/db/<id>/deploy.mjs apply --stage --confirm-sha`) — Claude Code 승인 창 클릭이 1회용 티켓이 된다(`agents/scripts/db-approval.mjs`). 이 명령에 allow 규칙을 두지 않는다.
+- **마이그레이션 자동 적용 금지** — SQL(대상·영향 범위)을 보여주고 사용자가 대화에서 승인하면 그 자리에서 `apply_migration` 으로 적용한다(2026-10-21 · 도구 권한 허용됨). 데이터 삭제·DROP·TRUNCATE 는 그 내용을 따로 밝혀 명시 승인을 받는다. 대량·단계 배포는 승인형 배포 러너(`scripts/db/<id>/deploy.mjs apply --stage --confirm-sha`) — Claude Code 승인 창 클릭이 1회용 티켓이 된다(`agents/scripts/db-approval.mjs`). 이 명령에 allow 규칙을 두지 않는다.
 
 ## LLM 판단이 필요한 일 = 에이전트가 직접 하는 배치 드레인
 
@@ -155,7 +155,8 @@ L1 문구·스타일·비기능 문서 → 관련 정적 검사 + 화면이 바�
 **③ Git** — 논리적 변경 완료 시 자기 파일만 커밋한다. LOCAL_FAST 일반 개발은 로컬 통합하며 작업별 push·PR·CI 대기를 요구하지 않는다. 원격은 백업 또는 공식 제품 통합 시에만 사용한다. 범위 계약(HEAD/base SHA·정확한 경로·커밋 수)을 확인하고 공식 원격 납품에는 `VFC_DEV_MODE=GITHUB`를 명시한다.
 - Conventional commits(`feat:` `fix:` `chore:` `docs:` `refactor:` `perf:`) · 첫 줄 ≤72자(한국어 가능) · 본문에 핵심 변경 3–5개 · 마이그레이션/라우트/RPC 명시 · 끝에 작성 에이전트의 `Co-Authored-By` 줄.
 - **main 직접 push 금지**(PR) · force push 금지 · `--no-verify` 금지(훅 실패는 원인을 고친다) · main 병합은 `safe-merge.mjs` 정책 게이트로만(자동 병합 활성화 조건은 정본 §4).
-- **작업 브랜치 수명 ≤ 2주, main 기준 분기** — 넘기면 main 에 먼저 합친다(2026-09-19 사용자 승인 · DD-41: 두 달 산 브랜치가 PR 을 커밋 2,413개로 만들었다).
+- **브랜치 연속성(2026-10-21)** — 같은 목적·관련 수정·기획→설계→구현→테스트→개선·AI 교대는 현재 브랜치 유지. 다른 목적도 기존 기능 공간부터 재사용하고, 독립 신규 개발/동시 쓰기 충돌에만 분리한다. 미커밋 공간은 임의 전환하지 않는다. 통합 완료 후 새 독립 작업은 확인된 최신 main 기준. 읽기 전용은 새 브랜치 불필요. 2주 이상은 통합 누락 점검 기준이며 자동 전환·폐기 사유가 아니다. 상세 [WORKTREE](./docs/WORKTREE.md).
+- **main 일일 동기화(2026-10-21)** — 로컬 main(`Vocaflow-main-serving`, 3000)이 정본. 하루 1회 `sync/main-YYYYMMDD` PR 하나로 origin/main 에 반영(CI 1회 · `VFC_DEV_MODE=GITHUB` 로 safe-merge). GitHub PR 로 직접 병합한 세션은 같은 날 로컬 main 에 origin/main 을 합친다. 정본 `dev-mode.json` `main_sync`.
 - 하지 않는다(안전 중단): `.env*` 커밋 · 새 키/secret 포함 · 빌드/테스트 실패 상태 push. 데이터 손실(DROP/TRUNCATE)은 승인 대상. PR 은 그 작업 범위만 담는다(무관한 커밋을 섞지 않는다) · 파일 ≥30 PR 은 본문에 `## 검증` 한 단락(safe-merge 가 확인 — CI 결과를 옮기면 된다).
 
 **④ 분기 플랫폼 진단** — 1·4·7·10월 첫 주(다음 **2026-10**), 즉시 트리거는 PLATFORM_AUDIT 참조. 실패 모드는 "공급망 비대 / 수요 검증 0". **문서의 수치를 근거로 쓰지 않는다**(DB 질의 + 저장소 실계수 + 1차 공개자료). 측정 → 기록 → 결정 → 수정 순서(같은 턴에 고치면 측정이 오염 — 단 공개 라우트의 허위 수치는 즉시 제거). 산출물: 리포트 + PLATFORM_AUDIT §7 한 행 + CHANGELOG 한 줄. 기준선·산술은 [PLATFORM_AUDIT](./docs/PLATFORM_AUDIT.md).

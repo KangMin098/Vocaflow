@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/BacklogSection.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // Section 8-A — Improvement Backlog.
 //
@@ -89,7 +90,7 @@ export function BacklogSection() {
             R3 <strong className="text-[var(--error-ink)]">{summary.byResponsibility.R3}</strong>
           </span>
           <span className="rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1">
-            R4 <strong className="text-[var(--active)]">{summary.byResponsibility.R4}</strong>
+            R4 <strong className="text-[var(--active-ink)]">{summary.byResponsibility.R4}</strong>
           </span>
         </div>
       </header>
@@ -162,16 +163,16 @@ export function BacklogSection() {
               className="flex items-center gap-2 rounded-[var(--r-md)] px-3 py-2"
               style={{ backgroundColor: g.bg }}
             >
-              <GIcon size={13} strokeWidth={2} style={{ color: g.color }} aria-hidden />
+              <GIcon size={13} strokeWidth={2} style={{ color: adminTextInk(g.color) }} aria-hidden />
               <h3
                 className="font-display text-[12px] font-[700]"
-                style={{ color: g.color }}
+                style={{ color: adminTextInk(g.color) }}
               >
                 {g.label}
               </h3>
               <span
                 className="ml-auto rounded-full bg-[var(--bg)] px-2 py-1 font-mono text-[10px] font-[700]"
-                style={{ color: g.color }}
+                style={{ color: adminTextInk(g.color) }}
               >
                 {items.length}
               </span>

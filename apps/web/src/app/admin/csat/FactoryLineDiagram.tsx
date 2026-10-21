@@ -20,6 +20,7 @@
 // 미세 모션은 금지 — 학습 제품의 Calm UI 는 콘솔에도 적용된다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { STATUS_KO, type StageState, type StageStatus } from '@/lib/csat/factory-model'
 
@@ -141,13 +142,13 @@ export function FactoryLineDiagram({ stages, selectedId, onSelect, bottleneckOrd
                     {s.def.name}
                   </span>
                   {/* 색이 안 보여도 상태를 읽을 수 있게 **글자로도** 적는다 */}
-                  <span className="font-body text-[10px]" style={{ color: st.color }}>
+                  <span className="font-body text-[10px]" style={{ color: adminTextInk(st.color) }}>
                     {st.label}
                   </span>
                 </button>
 
                 {isBottleneck ? (
-                  <span className="mt-1 break-keep rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--memory-shaky)_15%,transparent)] px-1.5 py-0.5 font-display text-[9.5px] font-[700] text-[var(--memory-shaky)]">
+                  <span className="mt-1 break-keep rounded-[var(--r-full)] bg-[color-mix(in_srgb,var(--memory-shaky)_15%,transparent)] px-1.5 py-0.5 font-display text-[9.5px] font-[700] text-[var(--warning-ink)]">
                     여기서 막힘
                   </span>
                 ) : null}

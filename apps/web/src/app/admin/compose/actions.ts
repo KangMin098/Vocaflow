@@ -1,7 +1,8 @@
 // apps/web/src/app/admin/compose/actions.ts
 // ACP §20 재저작 콘솔 — 서버 액션 (피드 등록 · 취재 묶음 · 발주 큐).
 //
-// 권한은 RLS 가 본다(article_compose_* 정책 = is_admin_or_curator). 요청 스코프 클라이언트를
+// 모든 액션은 외부 요청·입력 처리 전에 requireAdmin으로 역할·계정 상태를 검사한다.
+// RLS(article_compose_* = is_admin_or_curator)도 유지한다. 요청 스코프 클라이언트를
 // 쓰므로 서비스 키로 우회하지 않는다 — 관리자가 아니면 INSERT 가 정책에서 막힌다.
 //
 // 검증은 화면이 아니라 **레지스트리**가 한다. buildJobSpec 이 유형·레벨·글유형·어휘기능의
@@ -10,6 +11,7 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
+import { requireAdmin } from '@/lib/auth/require-admin'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import {
   COMPOSE_USER_AGENT,
@@ -96,6 +98,8 @@ export async function verifyFeedUrlAction(
   sourceKey: string,
   url: string,
 ): Promise<DiscoverResult> {
+  await requireAdmin(PATH)
+
   const spec = FACT_SOURCES[sourceKey]
   if (!spec) return { ok: false, error: `알 수 없는 소스 키: ${sourceKey}` }
   try {
@@ -117,6 +121,8 @@ export async function verifyFeedUrlAction(
  * robots·요청 간격은 패키지 게이트가 지킨다.
  */
 export async function discoverFeedsForSource(sourceKey: string): Promise<DiscoverResult> {
+  await requireAdmin(PATH)
+
   const spec = FACT_SOURCES[sourceKey]
   if (!spec) return { ok: false, error: `알 수 없는 소스 키: ${sourceKey}` }
 
@@ -150,6 +156,8 @@ export async function addFeed(input: {
   url: string
   label: string
 }): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const spec = FACT_SOURCES[input.sourceKey]
   if (!spec) return { ok: false, error: `알 수 없는 소스 키: ${input.sourceKey}` }
   if (!spec.access.termsReviewed) {
@@ -191,6 +199,8 @@ export async function addFeed(input: {
 
 /** 활성/비활성. 켜는 순간부터 다음 수집에 포함된다. */
 export async function setFeedEnabled(id: string, enabled: boolean): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const { error } = await (await db())
     .from('article_compose_feeds')
     .update({ enabled })
@@ -201,6 +211,8 @@ export async function setFeedEnabled(id: string, enabled: boolean): Promise<Acti
 }
 
 export async function deleteFeed(id: string): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const { error } = await (await db()).from('article_compose_feeds').delete().eq('id', id)
   if (error) return { ok: false, error: error.message }
   revalidatePath(PATH)
@@ -238,6 +250,8 @@ export interface DiscoveryRunResult extends ActionResult {
  * 관리자가 "취재 시작"을 누른 묶음뿐이다.
  */
 export async function runDiscovery(): Promise<DiscoveryRunResult> {
+  await requireAdmin(PATH)
+
   const client = await db()
   const { data, error } = await client
     .from('article_compose_feeds')
@@ -383,6 +397,8 @@ export async function runDiscovery(): Promise<DiscoveryRunResult> {
  * 나중에 원문을 다시 열어 볼 수 없다 — 그래서 사실 원장을 이때 성실히 채워야 한다.
  */
 export async function startCoverage(cluster: ClusterView): Promise<ActionResult & { id?: string }> {
+  await requireAdmin(PATH)
+
   if (cluster.independentLines < 2) {
     return { ok: false, error: '독립 취재 계통이 2개 미만이라 취재를 시작할 수 없습니다' }
   }
@@ -471,6 +487,8 @@ export async function addFactCard(input: {
   quote?: string
   quoteIsPublic?: boolean
 }): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const claim = input.claim.trim()
   if (claim.length < 5) return { ok: false, error: '사실을 5자 이상 적어 주세요' }
   if (input.kind === 'utterance') {
@@ -498,6 +516,8 @@ export async function addAttestation(input: {
   sourceId: string
   ordinal: number
 }): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   if (!Number.isInteger(input.ordinal) || input.ordinal < 0) {
     return { ok: false, error: '등장 순서는 0 이상의 정수입니다' }
   }
@@ -515,6 +535,8 @@ export async function addAttestation(input: {
 }
 
 export async function deleteFactCard(id: string): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const { error } = await (await db()).from('article_fact_ledger').delete().eq('id', id)
   if (error) return { ok: false, error: error.message }
   revalidatePath(PATH)
@@ -530,6 +552,8 @@ export async function deleteFactCard(id: string): Promise<ActionResult> {
  * 실패하면 트리거의 메시지를 그대로 보여 준다 — 무엇이 막았는지가 거기 적혀 있다.
  */
 export async function publishComposedArticle(articleId: string): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const client = await db()
   const { error } = await client
     .from('library_articles')
@@ -597,6 +621,8 @@ export interface ContentGateScan {
  * 상한을 넘긴 것은 **조용히 자르지 않고** skipped 로 말한다.
  */
 export async function fetchContentGates(articleIds: string[]): Promise<ContentGateScan> {
+  await requireAdmin(PATH)
+
   const plan = planContentGateScan(articleIds)
   if (plan.scanned.length === 0) {
     return { rows: [], checked: [], skipped: plan.skipped, failed: [] }
@@ -654,6 +680,8 @@ export async function createBatch(input: {
   topic: string
   eventOccurredAt: string | null
 }): Promise<ActionResult & { id?: string }> {
+  await requireAdmin(PATH)
+
   const topic = input.topic.trim()
   if (topic.length < 4) return { ok: false, error: '사건/주제를 4자 이상 적어 주세요' }
 
@@ -689,6 +717,8 @@ export async function createComposeJob(input: {
   register?: Register
   skillFocus?: LexicalSkill
 }): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const spec = buildJobSpec(input.track, input.targetVLevel, {
     register: input.register,
     skillFocus: input.skillFocus,
@@ -732,6 +762,8 @@ export async function runComposeJobAction(
   id: string,
   action: JobActionKey,
 ): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const spec = JOB_ACTIONS[action]
   if (!spec) return { ok: false, error: `알 수 없는 발주 동작: ${String(action)}` }
 
@@ -776,6 +808,8 @@ export async function runBatchAction(
   id: string,
   action: BatchActionKey,
 ): Promise<ActionResult> {
+  await requireAdmin(PATH)
+
   const spec = BATCH_ACTIONS[action]
   if (!spec) return { ok: false, error: `알 수 없는 묶음 동작: ${String(action)}` }
   const client = await db()
@@ -866,6 +900,8 @@ export async function startCoverageFromUrls(input: {
   topic: string
   eventOccurredAt: string | null
 }): Promise<ScrapeResult> {
+  await requireAdmin(PATH)
+
   const topic = input.topic.trim()
   if (topic.length < 4) return { ok: false, error: '사건/주제를 4자 이상 적어 주세요' }
 

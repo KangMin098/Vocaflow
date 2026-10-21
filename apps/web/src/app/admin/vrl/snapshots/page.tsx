@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/snapshots/page.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 // VRL Pipeline · Level Snapshots Audit (실 구현)
 
 import { Suspense } from 'react'
@@ -86,9 +87,9 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
       {/* 요약 분포 */}
       <section className="grid grid-cols-1 gap-3 md:grid-cols-2">
         <div className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+          <h2 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             snapshot_type
-          </h3>
+          </h2>
           <div className="flex flex-wrap gap-2">
             {data.byType.map((t) => {
               const b = TYPE_BADGE[t.type] ?? { color: 'var(--t3)', bg: 'var(--bg3)' }
@@ -96,7 +97,7 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
                 <span
                   key={t.type}
                   className="inline-flex items-center gap-2 rounded-full px-3 py-1 font-display text-[11px] font-[700]"
-                  style={{ backgroundColor: b.bg, color: b.color }}
+                  style={{ backgroundColor: b.bg, color: adminTextInk(b.color) }}
                 >
                   {t.type}
                   <span className="font-mono opacity-80">{t.n}</span>
@@ -106,9 +107,9 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
           </div>
         </div>
         <div className="rounded-[var(--r-xl)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)]">
-          <h3 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
+          <h2 className="mb-2 font-display text-[12px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]">
             taken_reason
-          </h3>
+          </h2>
           <div className="flex flex-wrap gap-2">
             {data.byReason.map((r) => (
               <span
@@ -162,12 +163,12 @@ function SnapshotsView({ data }: { data: VrlSnapshotsData }) {
                   <td className="px-3 py-2">
                     <span
                       className="rounded-full px-2 py-1 font-display text-[10px] font-[700]"
-                      style={{ backgroundColor: tb.bg, color: tb.color }}
+                      style={{ backgroundColor: tb.bg, color: adminTextInk(tb.color) }}
                     >
                       {r.snapshotType ?? '—'}
                     </span>
                   </td>
-                  <td className="px-3 py-2 font-mono text-[10px]" style={{ color: trigColor }}>
+                  <td className="px-3 py-2 font-mono text-[10px]" style={{ color: adminTextInk(trigColor) }}>
                     {r.triggeredBy ?? '—'}
                   </td>
                   <td className="px-3 py-2 font-mono text-[11px] text-[var(--t2)]">

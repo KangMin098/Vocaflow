@@ -6,9 +6,10 @@
 
 'use client'
 
-import { useEffect, useState, useTransition } from 'react'
+import { useState, useTransition } from 'react'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { useQueryTab } from '@/lib/admin/use-query-tab'
 import { COMPOSE_TABS, type ComposeTab } from '@/lib/admin/compose-tabs'
 
 import {
@@ -201,27 +202,7 @@ const TAB_STORE = 'vocaflow-compose-tab'
  * (2026-08-17 사용자 보고). 작업하던 자리에서 튕기면 무엇이 반영됐는지도 알 수 없다.
  */
 function usePersistedTab(initial?: Tab): [Tab, (t: Tab) => void] {
-  const [tab, setTab] = useState<Tab>(initial ?? '소스')
-
-  useEffect(() => {
-    if (initial) return // 렌더 스모크 등 진입 탭이 지정된 경우는 그대로 둔다
-    try {
-      const saved = sessionStorage.getItem(TAB_STORE)
-      if (saved && (COMPOSE_TABS as ReadonlyArray<string>).includes(saved)) setTab(saved as Tab)
-    } catch {
-      /* private mode — 세션 한정으로만 동작 */
-    }
-  }, [initial])
-
-  const set = (t: Tab): void => {
-    setTab(t)
-    try {
-      sessionStorage.setItem(TAB_STORE, t)
-    } catch {
-      /* private mode */
-    }
-  }
-  return [tab, set]
+  return useQueryTab(COMPOSE_TABS, '소스', initial, TAB_STORE)
 }
 
 export function ComposeConsoleClient({
@@ -1008,10 +989,10 @@ function TrackTable({ tracks, acpOverlap }: { tracks: TrackRow[]; acpOverlap: st
 
       {/* 표에 ACP 소스가 함께 보이므로 "겹치는데?" 라는 물음이 반드시 나온다. 표 옆에 답을 둔다. */}
       <div className="rounded-lg border border-bd bg-bg2 p-s-4">
-        <h3 className="font-display text-sm font-bold text-t1">
+        <h2 className="font-display text-sm font-bold text-t1">
           ACP 와 같은 소스가 {acpOverlap.length}곳 있습니다 — 겹치는 것은 소스이지 산출물이
           아닙니다
-        </h3>
+        </h2>
         <p className="mt-s-2 max-w-[60rem] font-body text-sm text-t2">
           같은 기관이 두 파이프라인에서 다른 역할을 합니다. <b>ACP</b> 는 그 소스의{' '}
           <b>본문이 그 자체로 학습 지문</b>일 때 씁니다(NOAA 기후 해설, VOA 기사).{' '}
@@ -1283,7 +1264,7 @@ function DiscoverPanel({ feedCount }: { feedCount: number }) {
                 <li key={c.headline} className="rounded-lg border border-bd bg-bg p-s-4">
                   <div className="flex flex-wrap items-start gap-s-3">
                     <div className="min-w-0 flex-1">
-                      <h3 className="font-display text-sm font-bold text-t1">{c.headline}</h3>
+                      <h2 className="font-display text-sm font-bold text-t1">{c.headline}</h2>
                       <p className="font-mono text-[11px] text-t3">
                         독립 계통 {c.independentLines} · 최초 보도{' '}
                         {c.earliestAt ? new Date(c.earliestAt).toLocaleString('ko-KR') : '—'}
@@ -1391,9 +1372,9 @@ function LedgerPanel({
       </label>
 
       <div className="rounded-lg border border-bd bg-bg p-s-4">
-        <h3 className="font-display text-sm font-bold text-t1">
+        <h2 className="font-display text-sm font-bold text-t1">
           이 묶음의 소스 {batchSources.length}건
-        </h3>
+        </h2>
         <ul className="mt-s-2 flex flex-col gap-s-1 font-mono text-[11px] text-t2">
           {batchSources.map((s, i) => (
             <li key={s.id}>
@@ -1779,7 +1760,7 @@ function PublishPanel({
             <li key={a.id} className="rounded-lg border border-bd bg-bg p-s-4">
               <div className="flex flex-wrap items-start gap-s-3">
                 <div className="min-w-0 flex-1">
-                  <h3 className="font-display text-sm font-bold text-t1">{a.title}</h3>
+                  <h2 className="font-display text-sm font-bold text-t1">{a.title}</h2>
                   <p className="font-mono text-[11px] text-t3">
                     {a.status} · {a.register ?? '—'} · {a.cefr_level ?? '—'} ·{' '}
                     {a.word_count ?? '—'}어 · 음성 {a.audio_url ? '있음' : '없음'}

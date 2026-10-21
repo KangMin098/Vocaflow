@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/DimensionCard.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // 9 차원 개별 카드 — DimensionsGrid 의 자식.
 // 각 차원: score (0-100) + status + bar + summary + weight.
@@ -62,7 +63,7 @@ export function DimensionCard({ dimension: d }: DimensionCardProps) {
         <div className="flex items-center gap-2">
           <span
             className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-md)]"
-            style={{ backgroundColor: color.bg, color: color.fg }}
+            style={{ backgroundColor: color.bg, color: adminTextInk(color.fg) }}
             aria-hidden
           >
             <Icon size={15} strokeWidth={1.75} />
@@ -79,7 +80,7 @@ export function DimensionCard({ dimension: d }: DimensionCardProps) {
       <div className="flex items-end gap-2">
         <p
           className="font-display text-[28px] font-[800] leading-none"
-          style={{ color: color.fg }}
+          style={{ color: adminTextInk(color.fg) }}
         >
           {d.score}
         </p>

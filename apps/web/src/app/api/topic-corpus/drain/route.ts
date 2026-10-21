@@ -44,7 +44,15 @@ export async function POST(request: Request) {
   const out = await drainTopicCorpusBatch(supabase, { sourceId: body.sourceId ?? null, max: body.max })
 
   if (out.error) {
-    return NextResponse.json({ error: 'claim_failed', message: out.error }, { status: 500 })
+    return NextResponse.json({
+      error: out.claimed > 0 ? 'release_failed' : 'claim_failed',
+      message: out.error,
+      claimed: out.claimed,
+      harvested: out.harvested,
+      skipped: out.skipped,
+      failed: out.failed,
+      results: out.results,
+    }, { status: 500 })
   }
 
   return NextResponse.json({

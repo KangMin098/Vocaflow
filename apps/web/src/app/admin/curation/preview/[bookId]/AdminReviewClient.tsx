@@ -1,8 +1,10 @@
 // apps/web/src/app/admin/curation/preview/[bookId]/AdminReviewClient.tsx
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { adminCurationReturn } from '@/lib/admin/curation-view'
 import { BookContentReader } from '@/components/library/reader/BookContentReader'
 import {
   archiveBook,
@@ -31,6 +33,7 @@ interface Props {
   /** v06.34 — chapter list 옆 원본 소스 외부링크 */
   source?: string | null
   sourceId?: string | null
+  returnTo?: string
 }
 
 export function AdminReviewClient({
@@ -45,6 +48,7 @@ export function AdminReviewClient({
   chapters,
   source,
   sourceId,
+  returnTo,
 }: Props) {
   const router = useRouter()
   const [pending, setPending] = useState<string | null>(null)
@@ -52,13 +56,14 @@ export function AdminReviewClient({
 
   const statusInfo = classifyStatus(status as BookStatus)
   const publishGate = computePublishGate(status, copyrightSafeInKr)
+  const returnHref = adminCurationReturn(returnTo)
 
   async function runAction(label: string, fn: () => Promise<void>) {
     setPending(label)
     setError(null)
     try {
       await fn()
-      router.push('/admin/curation')
+      router.push(returnHref)
       router.refresh()
     } catch (e) {
       setError(e instanceof Error ? e.message : 'unknown')
@@ -72,7 +77,7 @@ export function AdminReviewClient({
       {/* Top bar — back + meta */}
       <div className="flex flex-wrap items-center justify-between gap-3">
         <Link
-          href="/admin/curation"
+          href={returnHref}
           className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden />
@@ -84,7 +89,7 @@ export function AdminReviewClient({
             className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
             style={{
               backgroundColor: getToneStyle(statusInfo.tone).bg,
-              color: getToneStyle(statusInfo.tone).text,
+              color: adminTextInk(getToneStyle(statusInfo.tone).text),
             }}
           >
             {statusInfo.label}
@@ -119,7 +124,7 @@ export function AdminReviewClient({
         footerSlot={
           <div className="flex flex-wrap items-center justify-between gap-3">
             {error ? (
-              <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error)]">
+              <span className="inline-flex items-center gap-2 font-body text-[12px] text-[var(--learn-error-ink)]">
                 <AlertCircle size={12} aria-hidden /> {error}
               </span>
             ) : (
@@ -231,7 +236,7 @@ function PublishControl({
   }
   if (gate === 'published') {
     return (
-      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--learn-known)_40%,transparent)] bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known)]">
+      <span className="inline-flex min-h-[36px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--learn-known)_40%,transparent)] bg-[var(--learn-known-light)] px-3 font-display text-[12px] font-[700] text-[var(--learn-known-ink)]">
         <CheckCircle2 size={13} aria-hidden />
         게시됨
       </span>

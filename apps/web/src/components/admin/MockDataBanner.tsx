@@ -41,7 +41,7 @@ export interface MockDataBannerProps {
 
 export function MockDataBanner({ what, why, instead = [], plan, className }: MockDataBannerProps) {
   return (
-    <aside
+    <div
       role="status"
       aria-label="실측 아님 안내"
       className={`flex items-start gap-3 rounded-[var(--r-md)] border border-[var(--warning)] bg-[var(--warning-light)] px-4 py-3 ${className ?? ''}`}
@@ -77,6 +77,6 @@ export function MockDataBanner({ what, why, instead = [], plan, className }: Moc
 
         {plan && <p className="mt-1 font-mono text-[11px] text-[var(--t2)]">{plan}</p>}
       </div>
-    </aside>
+    </div>
   )
 }

@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/HeroSection.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // Section 1 — Overall Health Hero.
 //
@@ -95,7 +96,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
 
         {errorCount > 0 && (
           <span
-            className="inline-flex items-center gap-1 rounded-full bg-[var(--warning-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--active)]"
+            className="inline-flex items-center gap-1 rounded-full bg-[var(--warning-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--active-ink)]"
             role="alert"
           >
             <AlertTriangle size={11} strokeWidth={2} aria-hidden />
@@ -112,7 +113,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
           </p>
           <p
             className="font-display text-[64px] font-[800] leading-none"
-            style={{ color: status.fg }}
+            style={{ color: adminTextInk(status.fg) }}
           >
             {snapshot.overallScore}
             <span className="ml-1 font-body text-[18px] font-[500] text-[var(--t2)]">/ 100</span>
@@ -120,7 +121,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
         </div>
         <span
           className="mb-2 inline-flex items-center gap-1 rounded-full px-3 py-2 font-display text-[11px] font-[700]"
-          style={{ backgroundColor: status.bg, color: status.fg }}
+          style={{ backgroundColor: status.bg, color: adminTextInk(status.fg) }}
         >
           <StatusIcon size={13} strokeWidth={2} aria-hidden />
           {status.label}
@@ -158,8 +159,8 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
               }`}
             >
               <span
-                className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] font-mono text-[10px] font-[800] text-white"
-                style={{ backgroundColor: accent }}
+                className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-sm)] font-mono text-[10px] font-[800] text-[var(--on-p)]"
+                style={{ backgroundColor: adminTextInk(accent) }}
                 aria-hidden
               >
                 {r.id}
@@ -170,7 +171,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
                 </p>
                 <p
                   className="font-display text-[18px] font-[800] leading-none"
-                  style={{ color: accent }}
+                  style={{ color: adminTextInk(accent) }}
                 >
                   {r.score}
                 </p>
@@ -204,7 +205,7 @@ export function HeroSection({ snapshot }: HeroSectionProps) {
                 </p>
                 <p
                   className="font-display text-[20px] font-[800] leading-none"
-                  style={{ color: accent }}
+                  style={{ color: adminTextInk(accent) }}
                 >
                   {d.score}
                 </p>

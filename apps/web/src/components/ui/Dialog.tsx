@@ -28,13 +28,30 @@
 'use client'
 
 import { ArrowLeft, ArrowRight, X } from 'lucide-react'
-import { useEffect, useId, useRef, useState, type ReactNode } from 'react'
+import { createContext, useContext, useEffect, useLayoutEffect, useId, useRef, useState, type ReactNode } from 'react'
 import { createPortal } from 'react-dom'
 
 import { DIALOG, TINT_PANEL } from './tines-kit'
 import { cn } from '@/lib/utils/cn'
-import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
-import { useFocusTrap } from '@/lib/ui/use-focus-trap'
+import { useCloseOnBack, type CloseOnBackOptions } from '@/lib/ui/use-close-on-back'
+
+const useClientLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
+import { isTopFocusPanel, useFocusTrap } from '@/lib/ui/use-focus-trap'
+
+const DialogDepth = createContext(0)
+const scrollLocks = new Set<object>()
+let originalOverflow = ''
+
+function lockDialogScroll(): () => void {
+  const token = {}
+  if (!scrollLocks.size) originalOverflow = document.body.style.overflow
+  scrollLocks.add(token)
+  document.body.style.overflow = 'hidden'
+  return () => {
+    scrollLocks.delete(token)
+    if (!scrollLocks.size) document.body.style.overflow = originalOverflow
+  }
+}
 
 // ══════════════════════════════════════════════════════════════
 // 크기 — 참조 예제 모달은 1142px(xl). 결정만 받는 팝업은 좁게.
@@ -53,6 +70,11 @@ export type DialogTone = 'lavender' | 'green' | 'peach' | 'yellow' | 'pink' | 't
 
 export interface DialogProps {
   onClose: () => void
+  closeDisabled?: boolean
+  /** 닫힌 뒤 페이지 이동은 오버레이 이력을 걷은 다음 실행한다. */
+  afterUnwindRef?: CloseOnBackOptions['afterUnwindRef']
+  /** Closed same-page URL stored below a URL-selected overlay. */
+  historyReturnHref?: string
   /** 제목 — 참조처럼 크게 나간다. 문자열이 아니어도 된다. */
   title: ReactNode
   /** 빵부스러기. 첫 칸은 알약, 나머지는 `›` 로 잇는다. */
@@ -89,6 +111,9 @@ export interface DialogProps {
 
 export function Dialog({
   onClose,
+  closeDisabled = false,
+  afterUnwindRef,
+  historyReturnHref,
   title,
   crumbs,
   byline,
@@ -111,31 +136,33 @@ export function Dialog({
   children,
 }: DialogProps) {
   const panelRef = useRef<HTMLDivElement>(null)
+  const depth = useContext(DialogDepth)
   const titleId = useId()
   const [shown, setShown] = useState(false)
 
   // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다.
-  useCloseOnBack(true, onClose)
+  useCloseOnBack(true, onClose, { afterUnwindRef, canClose: !closeDisabled, returnHref: historyReturnHref })
   // 포커스는 패널 자체로 들어간다(긴 팝업에서 첫 버튼으로 뛰면 제목을 건너뛴다).
   useFocusTrap(true, panelRef)
 
-  useEffect(() => {
+  useClientLayoutEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && !closeDisabled) {
+        if (e.defaultPrevented || !isTopFocusPanel(panelRef.current)) return
+        e.preventDefault()
         e.stopPropagation()
         onClose()
       }
     }
     document.addEventListener('keydown', onKey)
-    const prevOverflow = document.body.style.overflow
-    document.body.style.overflow = 'hidden'
+    const unlockScroll = lockDialogScroll()
     const raf = requestAnimationFrame(() => setShown(true))
     return () => {
       document.removeEventListener('keydown', onKey)
-      document.body.style.overflow = prevOverflow
+      unlockScroll()
       cancelAnimationFrame(raf)
     }
-  }, [onClose])
+  }, [onClose, closeDisabled])
 
   // SSR 가드 — 포털은 브라우저에서만.
   if (typeof document === 'undefined') return null
@@ -145,21 +172,22 @@ export function Dialog({
   const closeRow = (
     <div className="absolute right-4 top-4 z-20 flex items-center gap-2 sm:right-6 sm:top-6">
       {headerActions}
-      <button type="button" onClick={onClose} aria-label="닫기" className={DIALOG.iconBtn}>
+      <button type="button" disabled={closeDisabled} onClick={onClose} aria-label="닫기" className={DIALOG.iconBtn}>
         <X size={18} aria-hidden />
       </button>
     </div>
   )
 
   return createPortal(
-    <div
+    <DialogDepth.Provider value={depth + 1}><div
+      style={{ zIndex: 300 + depth }}
       className={cn(
         DIALOG.overlay,
         'transition-opacity duration-[var(--dur-normal)] ease-[var(--ease-out-quint)]',
         shown ? 'opacity-100' : 'opacity-0',
       )}
       onClick={(e) => {
-        if (closeOnBackdrop && e.target === e.currentTarget) onClose()
+        if (closeOnBackdrop && !closeDisabled && e.target === e.currentTarget) onClose()
       }}
       role="presentation"
     >
@@ -205,6 +233,7 @@ export function Dialog({
       >
         {hasHeader ? (
           <header
+            role="presentation"
             className={cn(
               DIALOG.header,
               'relative',
@@ -261,11 +290,11 @@ export function Dialog({
           closeRow
         )}
 
-        <div className={cn(bare ? 'flex-1 overflow-y-auto' : DIALOG.body)}>{children}</div>
+        <div tabIndex={0} role="region" aria-label="대화상자 본문" className={cn(bare ? 'flex-1 overflow-y-auto' : DIALOG.body, 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]')}>{children}</div>
 
         {footer && <footer className={DIALOG.footer}>{footer}</footer>}
       </div>
-    </div>,
+    </div></DialogDepth.Provider>,
     document.body,
   )
 }

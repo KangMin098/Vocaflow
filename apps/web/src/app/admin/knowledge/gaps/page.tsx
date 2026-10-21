@@ -30,7 +30,7 @@ export default async function GapsPage() {
           {gaps.map((g) => (
             <li key={g.id} className="grid gap-2 py-4 md:grid-cols-[1fr_14rem]">
               <div className="min-w-0">
-                <h3 className="font-semibold text-[var(--t1)]">{g.question}</h3>
+                <h2 className="font-semibold text-[var(--t1)]">{g.question}</h2>
                 <p className="mt-1 text-sm text-[var(--t2)]">다음 행동 — {g.nextAction}</p>
               </div>
               <dl className="grid grid-cols-[auto_1fr] gap-x-3 text-sm md:text-right">

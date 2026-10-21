@@ -219,7 +219,7 @@ export function AlertTriage({
           <table className="w-full min-w-[720px] border-collapse">
             <thead>
               <tr className="border-b border-[var(--bd)] text-left">
-                {['', '등급', '축', '내용', '열린 지', '관측', '조치'].map((h, i) => (
+                {['상세', '등급', '축', '내용', '열린 지', '관측', '조치'].map((h, i) => (
                   <th
                     key={h || `c${i}`}
                     className="py-1.5 font-display text-[10px] font-[700] uppercase tracking-[0.06em] text-[var(--t2)]"

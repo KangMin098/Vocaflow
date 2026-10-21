@@ -1,5 +1,5 @@
 // scripts/ci/factory-i1-prerequisites.mjs
-// Empty Supabase CI loses these two canonical helpers when known legacy migrations roll back.
+// Empty Supabase CI loses canonical helpers when known legacy migrations roll back.
 // Restore only their versioned definitions/ACLs in the disposable CI DB. Never a production migration.
 import fs from 'node:fs'
 import path from 'node:path'
@@ -14,7 +14,8 @@ const read = (p) => fs.readFileSync(path.join(sourceDirectory(ROOT), p), 'utf8')
 const admin = read('20260706010000_vrl_admin_read_policies.sql').match(/CREATE OR REPLACE FUNCTION is_admin\(\)[\s\S]*?GRANT EXECUTE ON FUNCTION is_admin\(\) TO authenticated;/)?.[0]
 const eligible = read('20260924170000_eligibility_policy_v4_only.sql').match(/CREATE OR REPLACE FUNCTION public\.csat_source_is_eligible\(p_article_id uuid\)[\s\S]*?\$function\$;/)?.[0]
 const eligibleAcl = read('20260918140000_csat_source_eligibility_cache.sql').match(/REVOKE ALL ON FUNCTION public\.csat_source_is_eligible\(uuid\) FROM PUBLIC;\s*GRANT EXECUTE ON FUNCTION public\.csat_source_is_eligible\(uuid\) TO authenticated, service_role;/)?.[0]
-if (!admin || !eligible || !eligibleAcl) throw new Error('Canonical CI prerequisite definitions/ACLs not found')
+export const canonicalHistory = read('20260918140000_csat_source_eligibility_cache.sql').match(/CREATE FUNCTION public\.retain_source_eligibility_history\(\) RETURNS trigger[\s\S]*?END \$\$;/)?.[0]
+if (!admin || !eligible || !eligibleAcl || !canonicalHistory) throw new Error('Canonical CI prerequisite definitions/ACLs not found')
 
 export const prerequisiteSQL = `set local search_path = public, pg_catalog;
 -- Preserve canonical SQL bodies even where the legacy article tables were never versioned.
@@ -23,6 +24,7 @@ set local check_function_bodies = off;
 do $ci$ begin
   if to_regprocedure('public.is_admin()') is null then execute $admin$${admin}$admin$; end if;
   if to_regprocedure('public.csat_source_is_eligible(uuid)') is null then execute $eligible$${eligible}\n${eligibleAcl}$eligible$; end if;
+  if to_regprocedure('public.retain_source_eligibility_history()') is null then execute $history$${canonicalHistory}$history$; end if;
 end $ci$;`
 
 export function ciTargetAllowed(raw, env = process.env) {

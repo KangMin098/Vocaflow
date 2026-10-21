@@ -1,131 +1,183 @@
 // apps/web/src/app/admin/curation/AdminCurationClient.tsx
 // LCP v2.0 Phase 12 묶음 D — 4탭 통합 클라이언트 컴포넌트
 
-'use client';
+'use client'
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import { BookOpen, FolderOpen, GraduationCap, Globe, Hash, Library, ScrollText, Download, Palette } from 'lucide-react';
-import type {
-  CurationStats,
-  LibraryBookAdminRow,
-  SourceCatalog,
-} from '@/lib/library/admin-queries';
-import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp';
-import { SourceCatalogTab } from '@/components/admin/curation/SourceCatalogTab';
-import { SeedTab } from '@/components/admin/curation/SeedTab';
-import { BulkFetchTab } from '@/components/admin/curation/BulkFetchTab';
-import { GutenbergIdTab } from '@/components/admin/curation/GutenbergIdTab';
-import { WikibooksIdTab } from '@/components/admin/curation/WikibooksIdTab';
-import { WikisourceIdTab } from '@/components/admin/curation/WikisourceIdTab';
-import { OpenStaxIdTab } from '@/components/admin/curation/OpenStaxIdTab';
-import { StoryWeaverIdTab } from '@/components/admin/curation/StoryWeaverIdTab';
-import { MyLibraryTab } from '@/components/admin/curation/MyLibraryTab';
+import { useEffect, useState } from 'react'
+import { useRouter, useSearchParams } from 'next/navigation'
 import {
-  EnqueueModal,
-  type EnqueueSource,
-} from '@/components/admin/curation/EnqueueModal';
-import type { SeedItem } from '@/components/admin/curation/SeedCard';
-import type { GutenbergPreview } from '@/components/admin/curation/GutenbergIdTab';
-import type { WikibooksPreview } from '@/components/admin/curation/WikibooksIdTab';
-import type { WikisourcePreview } from '@/components/admin/curation/WikisourceIdTab';
-import type { OpenStaxPreview } from '@/components/admin/curation/OpenStaxIdTab';
-import type { StoryWeaverPreview } from '@/components/admin/curation/StoryWeaverIdTab';
+  CURATION_VIEWS,
+  CURATION_METHODS,
+  curationLocation,
+  curationHref,
+  curationViewHref,
+  type CurationView,
+  type CurationMethod,
+} from '@/lib/admin/curation-view'
+import { updateAdminUrl } from '@/lib/admin/navigation'
 
-type TabKey =
-  | 'sources'
-  | 'bulk'
-  | 'seed'
-  | 'id'
-  | 'wikibooks'
-  | 'wikisource'
-  | 'openstax'
-  | 'storyweaver'
-  | 'mine';
-
-type StatTone = 'neutral' | 'success' | 'info' | 'danger';
+import type { CurationStats, LibraryBookAdminRow, SourceCatalog } from '@/lib/library/admin-queries'
+import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
+import { SourceCatalogTab } from '@/components/admin/curation/SourceCatalogTab'
+import { SeedTab } from '@/components/admin/curation/SeedTab'
+import { BulkFetchTab } from '@/components/admin/curation/BulkFetchTab'
+import { GutenbergIdTab } from '@/components/admin/curation/GutenbergIdTab'
+import { WikibooksIdTab } from '@/components/admin/curation/WikibooksIdTab'
+import { WikisourceIdTab } from '@/components/admin/curation/WikisourceIdTab'
+import { OpenStaxIdTab } from '@/components/admin/curation/OpenStaxIdTab'
+import { StoryWeaverIdTab } from '@/components/admin/curation/StoryWeaverIdTab'
+import { MyLibraryTab } from '@/components/admin/curation/MyLibraryTab'
+import { EnqueueModal, type EnqueueSource } from '@/components/admin/curation/EnqueueModal'
+import type { SeedItem } from '@/components/admin/curation/SeedCard'
+import type { GutenbergPreview } from '@/components/admin/curation/GutenbergIdTab'
+import type { WikibooksPreview } from '@/components/admin/curation/WikibooksIdTab'
+import type { WikisourcePreview } from '@/components/admin/curation/WikisourceIdTab'
+import type { OpenStaxPreview } from '@/components/admin/curation/OpenStaxIdTab'
+import type { StoryWeaverPreview } from '@/components/admin/curation/StoryWeaverIdTab'
 
 interface AdminCurationClientProps {
-  catalogs: SourceCatalog[];
-  books: LibraryBookAdminRow[];
-  stats: CurationStats;
+  catalogs: SourceCatalog[]
+  books: LibraryBookAdminRow[]
+  stats: CurationStats
 }
 
-export function AdminCurationClient({
-  catalogs,
-  books,
-  stats,
-}: AdminCurationClientProps) {
-  const router = useRouter();
-  const [tab, setTab] = useState<TabKey>('mine');
-  const [enqueueSource, setEnqueueSource] = useState<EnqueueSource | null>(null);
+export function AdminCurationClient({ catalogs, books, stats }: AdminCurationClientProps) {
+  const router = useRouter()
+  const params = useSearchParams()
+  const { view, method: tab } = curationLocation(params)
+  const setTab = (method: CurationMethod | 'mine') => {
+    const next = new URLSearchParams(params.toString())
+    if (method === 'mine')
+      for (const key of ['q', 'source', 'level', 'status', 'selected', 'page']) next.delete(key)
+    updateAdminUrl(
+      curationHref(
+        next,
+        method === 'mine' ? 'library' : 'collect',
+        method === 'mine' ? undefined : method
+      )
+    )
+  }
+  const setView = (value: CurationView) =>
+    updateAdminUrl(curationViewHref(new URLSearchParams(params.toString()), value), 'push')
+  const [enqueueSource, setEnqueueSource] = useState<EnqueueSource | null>(null)
+  const [ready, setReady] = useState(false)
+  useEffect(() => {
+    setReady(true)
+  }, [])
 
   function handlePickSeed(seed: SeedItem) {
-    setEnqueueSource({ kind: 'seed', data: seed });
+    setEnqueueSource({ kind: 'seed', data: seed })
   }
   function handlePickPreview(preview: GutenbergPreview) {
-    setEnqueueSource({ kind: 'preview', data: preview });
+    setEnqueueSource({ kind: 'preview', data: preview })
   }
   function handlePickWikibooks(preview: WikibooksPreview) {
-    setEnqueueSource({ kind: 'wikibooks', data: preview });
+    setEnqueueSource({ kind: 'wikibooks', data: preview })
   }
   function handlePickWikisource(preview: WikisourcePreview) {
-    setEnqueueSource({ kind: 'wikisource', data: preview });
+    setEnqueueSource({ kind: 'wikisource', data: preview })
   }
   function handlePickOpenStax(preview: OpenStaxPreview) {
-    setEnqueueSource({ kind: 'openstax', data: preview });
+    setEnqueueSource({ kind: 'openstax', data: preview })
   }
   function handlePickStoryWeaver(preview: StoryWeaverPreview) {
-    setEnqueueSource({ kind: 'storyweaver', data: preview });
+    setEnqueueSource({ kind: 'storyweaver', data: preview })
   }
   function handleSourceClick(source: string) {
     // 구현된 소스: gutenberg/standard_ebooks → 시드 탭, 그 외는 전용 ID 탭.
     if (source === 'gutenberg' || source === 'standard_ebooks') {
-      setTab('seed');
+      setTab('seed')
     } else if (source === 'wikibooks') {
-      setTab('wikibooks');
+      setTab('wikibooks')
     } else if (source === 'wikisource') {
-      setTab('wikisource');
+      setTab('wikisource')
     } else if (source === 'openstax') {
-      setTab('openstax');
+      setTab('openstax')
     } else if (source === 'storyweaver') {
-      setTab('storyweaver');
+      setTab('storyweaver')
     }
   }
   function refetchAll() {
-    router.refresh();
+    router.refresh()
   }
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6" data-curation-ready={ready || undefined}>
       <StatsBar stats={stats} />
 
       {/* 화면 도움말 — 탭을 옮기면 그 탭의 도움말로 바뀐다 (라벨 문자열로 조회). */}
       <AdminScreenHelp
         screen="curation"
-        tab={TABS.find((t) => t.key === tab)?.label}
+        tab={
+          view === 'collect'
+            ? CURATION_METHODS.find((item) => item.key === tab)?.label
+            : view === 'review'
+              ? '검토 대기'
+              : '도서 목록'
+        }
         className="-mb-2"
       />
 
-      <TabList tab={tab} onChange={setTab} stats={stats} />
+      <nav aria-label="도서 작업" className="flex flex-wrap gap-1 border-b border-[var(--bd)]">
+        {CURATION_VIEWS.map((item) => (
+          <button
+            key={item.key}
+            type="button"
+            aria-current={view === item.key ? 'page' : undefined}
+            onClick={() => setView(item.key)}
+            className={
+              'inline-flex min-h-11 items-center border-b-2 px-4 text-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)] ' +
+              (view === item.key
+                ? 'border-[var(--p)] font-semibold text-[var(--t1)]'
+                : 'border-transparent text-[var(--t2)]')
+            }
+          >
+            {item.label}
+          </button>
+        ))}
+      </nav>
+      {view === 'collect' && (
+        <div className="flex flex-wrap items-center gap-3">
+          <label htmlFor="curation-method" className="text-sm font-semibold text-[var(--t1)]">
+            수집 방식
+          </label>
+          <select
+            id="curation-method"
+            value={tab}
+            onChange={(event) => setTab(event.target.value as CurationMethod)}
+            className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 text-sm text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)]"
+          >
+            {CURATION_METHODS.map((item) => (
+              <option key={item.key} value={item.key}>
+                {item.label}
+              </option>
+            ))}
+          </select>
+        </div>
+      )}
 
-      <div role="tabpanel" id={`panel-${tab}`} aria-labelledby={`tab-${tab}`}>
-        {tab === 'sources' && (
-          <SourceCatalogTab
-            catalogs={catalogs}
-            onSelectSource={handleSourceClick}
+      <div aria-label={view === 'collect' ? '도서 수집' : '도서 목록'}>
+        {view === 'collect' && (
+          <div>
+            {tab === 'sources' && (
+              <SourceCatalogTab catalogs={catalogs} onSelectSource={handleSourceClick} />
+            )}
+            {tab === 'bulk' && <BulkFetchTab />}
+            {tab === 'seed' && <SeedTab existingBooks={books} onPickSeed={handlePickSeed} />}
+            {tab === 'id' && <GutenbergIdTab onPickPreview={handlePickPreview} />}
+            {tab === 'wikibooks' && <WikibooksIdTab onPickPreview={handlePickWikibooks} />}
+            {tab === 'wikisource' && <WikisourceIdTab onPickPreview={handlePickWikisource} />}
+            {tab === 'openstax' && <OpenStaxIdTab onPickPreview={handlePickOpenStax} />}
+            {tab === 'storyweaver' && <StoryWeaverIdTab onPickPreview={handlePickStoryWeaver} />}
+          </div>
+        )}
+        {view !== 'collect' && (
+          <MyLibraryTab
+            books={books}
+            onRefetch={refetchAll}
+            initialStatus={view === 'review' ? 'ready' : undefined}
           />
         )}
-        {tab === 'bulk' && <BulkFetchTab />}
-        {tab === 'seed' && (
-          <SeedTab existingBooks={books} onPickSeed={handlePickSeed} />
-        )}
-        {tab === 'id' && <GutenbergIdTab onPickPreview={handlePickPreview} />}
-        {tab === 'wikibooks' && <WikibooksIdTab onPickPreview={handlePickWikibooks} />}
-        {tab === 'wikisource' && <WikisourceIdTab onPickPreview={handlePickWikisource} />}
-        {tab === 'openstax' && <OpenStaxIdTab onPickPreview={handlePickOpenStax} />}
-        {tab === 'storyweaver' && <StoryWeaverIdTab onPickPreview={handlePickStoryWeaver} />}
-        {tab === 'mine' && <MyLibraryTab books={books} onRefetch={refetchAll} />}
       </div>
 
       <EnqueueModal
@@ -134,12 +186,12 @@ export function AdminCurationClient({
         onSuccess={() => {
           // 큐 추가 직후 Curated Books 탭으로 자동 이동 — 새 책 상태 추적이
           // 사용자의 다음 자연스러운 행동. router.refresh 로 RSC 재페치.
-          setTab('mine');
-          setTimeout(() => router.refresh(), 400);
+          setTab('mine')
+          setTimeout(() => router.refresh(), 400)
         }}
       />
     </div>
-  );
+  )
 }
 
 // ─────────────────────────────────────────────
@@ -147,124 +199,23 @@ export function AdminCurationClient({
 // ─────────────────────────────────────────────
 
 function StatsBar({ stats }: { stats: CurationStats }) {
-  const items: Array<{ label: string; value: number; tone: StatTone }> = [
-    { label: '전체', value: stats.total, tone: 'neutral' },
-    { label: '게시됨', value: stats.published, tone: 'success' },
-    { label: '처리 중', value: stats.inProgress, tone: 'info' },
-    { label: '실패', value: stats.failed, tone: 'danger' },
-  ];
+  const items = [
+    { label: '전체', value: stats.total },
+    { label: '게시됨', value: stats.published },
+    { label: '처리 중', value: stats.inProgress },
+    { label: '실패', value: stats.failed },
+  ]
   return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <dl
+      aria-label="도서 처리 요약"
+      className="flex flex-wrap gap-x-6 gap-y-2 text-sm text-[var(--t2)]"
+    >
       {items.map((item) => (
-        <StatTile key={item.label} {...item} />
+        <div key={item.label} className="flex items-baseline gap-2">
+          <dt>{item.label}</dt>
+          <dd className="font-semibold tabular-nums text-[var(--t1)]">{item.value}</dd>
+        </div>
       ))}
-    </div>
-  );
-}
-
-function StatTile({
-  label,
-  value,
-  tone,
-}: {
-  label: string;
-  value: number;
-  tone: StatTone;
-}) {
-  const colorMap: Record<StatTone, { bg: string; text: string; valueColor: string }> = {
-    neutral: { bg: 'var(--bg2)', text: 'var(--t3)', valueColor: 'var(--t1)' },
-    success: { bg: 'var(--learn-known-light)', text: 'var(--learn-known)', valueColor: 'var(--learn-known)' },
-    info: { bg: 'var(--learn-fresh-light)', text: 'var(--learn-fresh)', valueColor: 'var(--learn-fresh)' },
-    danger: { bg: 'var(--learn-error-light)', text: 'var(--learn-error)', valueColor: 'var(--learn-error)' },
-  };
-  const c = colorMap[tone];
-
-  return (
-    <div
-      className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-4 py-3"
-      style={{ backgroundColor: c.bg }}
-    >
-      <span
-        className="font-mono text-[10px] uppercase tracking-wider"
-        style={{ color: c.text }}
-      >
-        {label}
-      </span>
-      <span
-        className="font-display text-[24px] font-[700] tabular-nums"
-        style={{ color: c.valueColor }}
-      >
-        {value}
-      </span>
-    </div>
-  );
-}
-
-// ─────────────────────────────────────────────
-// Tab list
-// ─────────────────────────────────────────────
-
-interface TabListProps {
-  tab: TabKey;
-  onChange: (t: TabKey) => void;
-  stats: CurationStats;
-}
-
-const TABS: Array<{ key: TabKey; label: string; Icon: typeof BookOpen }> = [
-  { key: 'mine', label: 'Curated Books', Icon: FolderOpen },
-  { key: 'bulk', label: '소스 GET (대량)', Icon: Download },
-  { key: 'sources', label: '소스 카탈로그', Icon: Library },
-  { key: 'seed', label: '추천 시드', Icon: BookOpen },
-  { key: 'id', label: 'Gutenberg ID', Icon: Hash },
-  { key: 'wikibooks', label: 'Wikibooks', Icon: Globe },
-  { key: 'wikisource', label: 'Wikisource', Icon: ScrollText },
-  { key: 'openstax', label: 'OpenStax', Icon: GraduationCap },
-  { key: 'storyweaver', label: 'StoryWeaver', Icon: Palette },
-];
-
-function TabList({ tab, onChange, stats }: TabListProps) {
-  return (
-    <div
-      role="tablist"
-      aria-label="큐레이션 탭"
-      className="flex flex-wrap gap-1 border-b border-[var(--bd)]"
-    >
-      {TABS.map(({ key, label, Icon }) => {
-        const active = tab === key;
-        const badge = key === 'mine' && stats.total > 0 ? stats.total : null;
-        return (
-          <button
-            key={key}
-            role="tab"
-            id={`tab-${key}`}
-            aria-selected={active}
-            aria-controls={`panel-${key}`}
-            type="button"
-            onClick={() => onChange(key)}
-            className={[
-              'inline-flex min-h-[44px] items-center gap-2',
-              'border-b-2 px-3 -mb-px',
-              'font-display text-[13px] font-[600]',
-              'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
-              active
-                ? 'border-[var(--p)] text-[var(--p)]'
-                : 'border-transparent text-[var(--t2)] hover:text-[var(--t1)]',
-            ].join(' ')}
-          >
-            <Icon size={14} aria-hidden />
-            {label}
-            {badge != null && (
-              <span
-                className="inline-flex min-w-[18px] items-center justify-center rounded-[var(--r-full)] bg-[var(--bg2)] px-2 font-mono text-[10px] font-[700] text-[var(--t2)]"
-                aria-label={`${badge}건`}
-              >
-                {badge}
-              </span>
-            )}
-          </button>
-        );
-      })}
-    </div>
-  );
+    </dl>
+  )
 }

@@ -14,7 +14,7 @@
   background: var(--ju-wash); color: var(--ju-ink);
   font-size: 13px; line-height: 1.5; word-break: keep-all;
 }
-.lead .more { margin-left: auto; white-space: nowrap; color: var(--t3); font-size: 12px; }
+.lead .more { display: inline-flex; min-height: 44px; align-items: center; margin-left: auto; white-space: nowrap; color: var(--t3); font-size: 12px; }
 
 .guide {
   display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px;
@@ -80,6 +80,7 @@
 .table td { padding: 7px 8px 7px 0; border-bottom: 1px solid var(--bdf, var(--bd)); color: var(--t2); vertical-align: top; }
 .table td:first-child { color: var(--t1); max-width: 0; width: 100%; }
 .table td:first-child a, .table td:first-child span { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; color: inherit; }
+.table td:first-child a { display: flex; min-height: 44px; align-items: center; }
 .table td:first-child a:hover { text-decoration: underline; }
 .table td:first-child a:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; border-radius: 2px; }
 .tag { font-size: 10px; color: var(--t3); border: 1px solid var(--bd); border-radius: 4px; padding: 0 4px; margin-left: 6px; }
@@ -92,7 +93,7 @@
 /* 소스 이름 버튼 — 목록 안에서 이름 자리에 그대로 선다 */
 .nameButton {
   all: unset; cursor: pointer; color: inherit; font: inherit;
-  display: inline-flex; min-height: 44px; align-items: center;
+  display: inline-flex; min-height: 44px; min-width: 44px; align-items: center;
   border-bottom: 1px dashed var(--bd-strong);
 }
 .nameButton:hover { border-bottom-color: var(--p); color: var(--p); }

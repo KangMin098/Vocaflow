@@ -42,7 +42,7 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
   const [result, setResult] = useState<EnqueueResult | null>(null);
 
   // Esc · 바깥 · 뒤로가기 · 포커스 가둠 · 스크롤 잠금은 `ui/Dialog` 의 계약이다.
-  // 전송 중에는 닫히면 안 되므로 `onClose` 자체를 빈 함수로 넘긴다(아래 return).
+  // 전송 중에는 닫기와 Back 이력 소비를 함께 막는다.
 
   useEffect(() => {
     if (source) setResult(null);
@@ -74,7 +74,8 @@ export function EnqueueModal({ source, onClose, onSuccess }: EnqueueModalProps) 
 
   return (
     <Dialog
-      onClose={submitting ? () => {} : onClose}
+      onClose={onClose}
+      closeDisabled={submitting}
       size="md"
       crumbs={['Admin', '도서 큐레이션', '큐 추가']}
       title="큐에 책 추가"

@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/SchemaEvolutionSection.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // Section 6 — Schema Evolution.
 //
@@ -98,7 +99,7 @@ export function SchemaEvolutionSection({ snapshot }: SchemaEvolutionSectionProps
               <p
                 className="font-display text-[18px] font-[800] leading-none"
                 style={{
-                  color: TIER_COLOR[summary.nextRecommendedTier]?.fg,
+                  color: adminTextInk(TIER_COLOR[summary.nextRecommendedTier]?.fg),
                 }}
               >
                 Tier {summary.nextRecommendedTier}
@@ -179,7 +180,7 @@ function ProgressRing({ pct, dimScore }: { pct: number; dimScore: number }) {
         </p>
         <p
           className="font-display text-[18px] font-[800] leading-none"
-          style={{ color }}
+            style={{ color: adminTextInk(color) }}
         >
           {dimScore}
           <span className="ml-0.5 font-body text-[11px] font-[500] text-[var(--t2)]">
@@ -239,7 +240,7 @@ function TierCard({
         <div className="text-right">
           <p
             className="font-display text-[18px] font-[800] leading-none"
-            style={{ color: color.fg }}
+            style={{ color: adminTextInk(color.fg) }}
           >
             {present}
             <span className="font-body text-[12px] font-[500] text-[var(--t2)]">

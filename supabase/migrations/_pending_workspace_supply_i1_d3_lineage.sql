@@ -1,4 +1,7 @@
 -- supabase/migrations/_pending_workspace_supply_i1_d3_lineage.sql
+-- ARCHIVED: 계약 미완성 당시 회귀 시험용 초안. 실제 적용 금지.
+-- 대체 정본은 scripts/db/factory-i1/d3.sql 및 docs/admin-restructure/product-order-lineage.md.
+-- 두 SQL을 함께 적용하지 않는다. 이 초안의 기존 시험은 새 D3 구현의 수용 근거가 아니다.
 -- ⚠️ 보류(적용 안 함) — Factory I1-D3 공용 Product Order 계보. **D1/D2(safety) 와 따로 승인한다** — 이 파일 없이도 D1/D2 는 완결된다.
 -- 적용 순서: C → B → I1 safety → (P) → **이 파일**. I0 delta(PR #277) 의 D3 표 초안을 대체한다(함께 적용하지 않는다).
 --

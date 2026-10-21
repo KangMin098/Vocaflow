@@ -46,7 +46,7 @@ export const CCP_HELP: HelpRegistry = {
           '적재는 큐에 줄만 세운다. 이어서 드레인(generate-comic.mjs)을 돌리지 않으면 상태가 pending 에서 영원히 멈춰 있다.',
         ],
       },
-      'Published': {
+      '제작본': {
         summary: '만화 헤더가 있는 도서의 발행 스위치. 초안·보관본도 같은 표에 섞여 나온다.',
         fields: [
           {
@@ -196,7 +196,7 @@ export const CCP_HELP: HelpRegistry = {
             { label: '진행 바', says: '적재된 컷 / 전체. 실패가 있으면 앰버로 바뀐다' },
             { label: '컷 pass율', says: 'qc.failed 에 들어간 컷만 fail 로 센다' },
             { label: '자기발전 반복', says: '폐루프가 컷을 다시 뽑은 횟수' },
-            { label: '비용 0', says: '자가호스트 실행은 대개 기록되지 않는다 — 공짜라는 뜻이 아니다' },
+              { label: '비용 미기록', says: '금액이 없는 실행은 미기록으로 표시한다 — 공짜라는 뜻이 아니다' },
             { label: '평가 이력', says: '가장 최근 실행분만 · 최대 40건' },
           ],
         },
@@ -205,12 +205,13 @@ export const CCP_HELP: HelpRegistry = {
         { label: '진행 바', detail: '적재된 컷 / 전체 컷. 실패 컷이 있으면 막대가 앰버로 바뀐다.' },
         { label: '자기발전 반복', detail: 'pages.json 의 run.iterations — 폐루프가 컷을 다시 뽑은 횟수. 스크립트가 넘기지 않으면 0으로 남는다.' },
         { label: '컷 pass율', detail: 'panels_pass / panels_total. qc.failed 에 들어간 컷만 fail 로 센다.' },
-        { label: '비용(USD)', detail: 'run.cost_usd. 자가호스트 실행은 대개 기록되지 않아 0으로 보인다.' },
+          { label: '비용(USD)', detail: 'run.cost_usd. 값이 없으면 미기록이며 실제 0달러와 구분한다. GPU 대여 시간은 여기 집계되지 않는다.' },
+          { label: '실행 시각', detail: '서버와 브라우저 모두 KST 기준으로 표시한다. 새로고침은 실행 이력만 다시 읽으며 생성·적재를 실행하지 않는다.' },
         { label: '컷 상태 그리드', detail: '컷마다 마지막 시도 하나만 보여준다. 우상단 작은 숫자는 그 컷을 몇 번 시도했는지다.' },
         {
           label: '발행 차단 / 대기',
           detail:
-            '판정 권위는 comic_books.panels_pass 다. 실행이 완료여도 헤더 게이트가 false 면 차단으로 뜬다 — 검수 화면·Published 탭과 같은 값을 본다.',
+            '판정 권위는 comic_books.panels_pass 다. 실행이 완료여도 헤더 게이트가 false 면 차단으로 뜬다 — 검수 화면·제작본 탭과 같은 값을 본다.',
         },
         { label: '평가 이력', detail: '가장 최근 실행의 컷 이벤트 최대 40건. 이전 실행의 이벤트는 여기 안 나온다.' },
         { label: '실행 이력', detail: '실행이 2회 이상일 때만 나타난다.' },

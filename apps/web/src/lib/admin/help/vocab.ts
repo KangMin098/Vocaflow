@@ -10,7 +10,7 @@ const RUNS_ENTRY: ScreenHelpEntry = {
   title: 'VCB Pipeline Runs',
   screen: {
     summary:
-      '공용 단어장 하나를 만드는 실행 단위(run)를 만들고, 각 run 이 8단계 중 어디서 멈춰 있는지 본다.',
+      "공용 단어장 하나를 만드는 실행 단위(run)를 만들고, 각 run 이 8단계 중 어디서 멈춰 있는지 본다. 단어장 공간에서 기존 사전 조립·새 seed 제작·발행 컬렉션을 구별합니다. 보강 완료와 후처리·발행 완료는 별도입니다.",
     when: '새 공용 단어장을 시작할 때, 또는 진행 중인 run 을 이어서 처리할 때.',
     diagrams: [
       {
@@ -323,7 +323,7 @@ export const VCB_HELP: HelpRegistry = {
         {
           title: '발행 (Step 8)',
           detail:
-            '사전점검이 통과하고 확인 체크를 해야 버튼이 열린다. 발행은 세트·단어·컬렉션을 한 트랜잭션으로 커밋하므로 중간에 끊겨도 반쪽 상태가 남지 않는다.',
+            '사전점검이 통과하고 확인 체크를 해야 버튼이 열린다. 실행 상태 전이가 실패하거나 다른 실행이 상태를 바꿨으면 발행을 시작하지 않는다. 세트·단어·컬렉션은 한 트랜잭션으로 커밋한다. 실패한 재발행은 기존 공개 판과 published 상태를 유지하며, 상태 복구도 실패하면 오류에 함께 표시한다.',
           done: '발행 결과 섹션에 세트가 뜨고 상태 배지가 발행됨 이 된다.',
         },
       ],
@@ -378,8 +378,8 @@ export const VCB_HELP: HelpRegistry = {
           {
             title: 'DB import',
             detail:
-              'validation 이 ok 인 chunk 에만 DB import 버튼이 생긴다. chunk 마다 눌러 넣거나, 터미널에서 pnpm vcb:import-enriched --file exports/vcb-jobs/<...>-enriched-01ofNN.jsonl 로 넣는다.',
-            done: '지표의 대기 중 이 줄고 보강 완료 가 그만큼 는다.',
+              'validation 이 ok 인 chunk 에만 DB import 버튼이 생긴다. 저장 오류가 한 건이라도 있으면 import 전체 결과는 실패이며, 실제 imported·failed 수를 확인한 뒤 같은 파일로 재시도한다. 이미 저장된 항목도 같은 queue 행을 갱신하므로 중복 행은 생기지 않는다.',
+            done: 'imported·failed 수와 실제 큐 상태를 대조한다. validation 통과만으로 DB 저장 완료를 판단하지 않는다.',
           },
         ],
         verify: [
@@ -733,6 +733,10 @@ export const VCB_HELP: HelpRegistry = {
             '누르는 즉시 서버에 결정이 쌓이고 다음 항목으로 넘어간다. 결정은 이력으로 누적되고 최신 것만 유효하므로, 같은 항목을 다시 골라 반대 결정을 내리면 뒤집힌다.',
         },
         {
+          label: '목록 체크박스 · 단어 상세',
+          detail: '체크박스는 일괄 대상 선택만 바꾼다. 옆의 단어 버튼은 상세를 연다. Tab으로 각각 접근하고 Space로 체크할 수 있다. 체크만으로 승인·거절이 저장되지는 않는다.',
+        },
+        {
           label: '수정',
           detail:
             '내용을 직접 고쳐 저장하면 수정 결정으로 기록되고, 승인과 똑같이 발행 대상에 포함된다.',
@@ -790,3 +794,9 @@ export const VCB_HELP: HelpRegistry = {
     },
   },
 }
+
+// 어휘·사전: 기존 사전으로 조립(Studio), 새 seed로 제작(Runs), 입력 자료와 발행 컬렉션을 구분합니다. Runs의 보강·검수·발행은 유지하며 pending_words 사전 보강 드레인과 합치지 않습니다.
+RUNS_ENTRY.screen.fields = [
+  ...(RUNS_ENTRY.screen.fields ?? []),
+  { label: '제작 방식 선택', detail: '이미 있는 사전으로 조립하려면 기존 사전으로 조립(Studio), 새 seed의 보강·검수·발행을 이어가려면 새 seed로 제작(Runs)을 사용합니다. 학습 중 발견한 사전 공백은 별도 사전 보강에서 처리합니다.' },
+]

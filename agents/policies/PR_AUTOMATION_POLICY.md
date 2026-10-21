@@ -8,6 +8,8 @@
 
 ## 1. 기본값 = AUTO_CONTINUE
 
+브랜치 선택은 [WORKTREE](../../docs/WORKTREE.md)의 연속성 정책을 따른다. 작업 단계·AI 교체·작은 수정만으로 새 브랜치나 PR을 만들지 않는다. `main`은 최종 기준, `local/integration`은 임시 통합이며 통합 검증 뒤 main으로 수렴한다. 코드 병합·원격 반영·DB 적용·서버 실행 버전은 각각 확인한다.
+
 **실행 모드와 승인 범위를 구분한다.** 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`은 `LOCAL_FAST`다. 중앙 `lib/devmode.mjs`는 LOCAL_FAST에서도 공식 원격 통합을 허용한다. 로컬 개발/검증과 승인된 공식 납품 단계를 분리해 기존 구조를 재사용하고 이 저장소의 원격 납품은 `VFC_DEV_MODE=GITHUB`를 명시한다. push·PR·CI·safe-merge에 단계별 사람 승인을 새로 요구하지 않는다. 중앙 모드·기준 ref·백업 상한의 정본이나 전역 기본값은 이 작업에서 바꾸지 않는다.
 
 - LOCAL_FAST: 로컬 구현 → 영향 범위 검증 → 로컬 커밋 → 중앙 `bin/local-integrate.mjs --task <ID>`. 일반 개발 push·PR·Actions 조회·CI 대기·원격 병합을 하지 않는다. 원격 CI 부재는 로컬 개발의 blocker가 아니다. 미실행 검증·로컬 리뷰 실패는 계속 미충족으로 남긴다.

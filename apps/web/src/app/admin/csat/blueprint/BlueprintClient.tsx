@@ -13,6 +13,7 @@
 //   ③ 단계 게이트 임계 — 설계가 정한 합격선(커버리지·WPM·정답률). 근거 없이 정한 값이 아니다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { Lock } from 'lucide-react'
 
@@ -138,7 +139,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
         >
           {loadError}
         </p>
@@ -148,7 +149,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
         {broken.length ? (
           <>
             <p className="font-body text-[12px] text-[var(--t3)]">끊긴 계단</p>
-            <p className="mt-1 break-keep font-display text-[16px] font-[800] text-[var(--memory-risk)]">
+            <p className="mt-1 break-keep font-display text-[16px] font-[800] text-[var(--error-ink)]">
               {broken.map((r) => `${r.schoolBand}(${r.emptyTypes.join('·')})`).join(' · ')}
             </p>
             <p className="mt-1.5 break-keep font-body text-[12px] text-[var(--t3)]">
@@ -157,7 +158,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
             </p>
           </>
         ) : (
-          <p className="font-display text-[15px] font-[700] text-[var(--memory-stable)]">
+          <p className="font-display text-[15px] font-[700] text-[var(--success-ink)]">
             학령 {rungs.length}단이 끊긴 데 없이 이어진다
           </p>
         )}
@@ -173,7 +174,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
           아니라 규격에서 뺀 것이다. 「함수」는 사전에서 그 자리에서 만들어 DB 에 저장하지 않는
           초등 3종이다.
         </p>
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]" role="region" aria-label="학령·수준·유형 설계표" tabIndex={0}>
           <table className="w-full min-w-[860px] border-collapse text-[12px]">
             <thead>
               <tr className="border-b border-[var(--bd)] text-[11px] text-[var(--t3)]">
@@ -209,6 +210,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
                       return (
                         <td key={t.type} className="px-2 py-2 text-center">
                           <span
+                            role="img"
                             className="inline-block h-5 w-full rounded border border-dashed border-[var(--bd)]"
                             title="이 계단은 이 유형을 쓰지 않는다"
                             aria-label="규격 밖"
@@ -220,7 +222,7 @@ export function BlueprintClient({ rungs, gates, typeAxis, loadError }: Blueprint
                       <td key={t.type} className="px-2 py-2 text-center" title={tone.title}>
                         <span
                           className="inline-block min-w-[46px] rounded-[var(--r-sm)] px-1.5 py-1 font-mono text-[11.5px] tabular-nums"
-                          style={{ background: tone.bg, color: tone.fg }}
+                          style={{ background: tone.bg, color: adminTextInk(tone.fg) }}
                         >
                           {tone.text}
                         </span>

@@ -115,7 +115,11 @@ type Scanner = {
 // 140 → 141(2026-10-10): scripts/csat/lure-drain-import.mjs 끌리는 구절 반영 — choice_analysis 원소 하나에 키만 더하는
 // 부분 jsonb 갱신이라 묶음 upsert(전 행 필수 칸 필요)로 바꿀 수 없다. 버전 CAS(.eq version) 순차 PATCH 뒤 100ms 대기,
 // 평가원 분석 최대 802행(2026-10-10 승인 실행 493행) · 관리자가 드레인 끝에 한 번 돌린다 — 쓰기 폭주 경로가 아니다.
-const BASELINE = 141
+// 141 → 151 (2026-10-21): CRLF 오프셋/끝난 형제 루프/40줄 탐색 제한을 함께 수정했다.
+// 같은 수정 검사기로 origin/main 150, 통합본 151을 전량 대조했다. 새 1건은 TCP의
+// 이미 수확된 claim 종료 CAS다(호출당 최대 10편, 편당 1.2초 간격). 나머지는 기존 쓰기다.
+// 재검출 19건과 오탐 제외 12건을 모두 읽었으며 실제 바깥 루프를 40줄 밖에서도 유지한다.
+const BASELINE = 151
 
 let scanner: Scanner
 
@@ -230,6 +234,71 @@ export async function probe(table: string, updates: Array<{ row: any; next: stri
 }
 `)
     expect(clean).toHaveLength(0)
+  })
+})
+
+describe('쓰기 검사기의 경계와 줄바꿈', () => {
+  it('40줄보다 긴 실제 루프도 놓치지 않는다', () => {
+    const padding = Array.from({ length: 45 }, (_, i) => `    const value${i} = ${i}`).join('\n')
+    expect(scanSource(`async function probe(db: any, ids: string[]) {
+  for (const id of ids) {
+${padding}
+    await db.from('shared_dictionary').update({ word: 'x' }).eq('id', id)
+  }
+}`)).toHaveLength(1)
+  })
+  it('CRLF와 LF에서 같은 단건 쓰기를 찾는다', () => {
+    const source = `export async function probe(db: any, ids: string[]) {
+  for (const id of ids) {
+    await db.from('shared_dictionary').update({ word: 'x' }).eq('id', id)
+  }
+}`
+    const lf = scanSource(source).map((hit) => ({ ...hit, file: 'probe' }))
+    const crlf = scanSource(source.replace(/\n/g, '\r\n')).map((hit) => ({ ...hit, file: 'probe' }))
+    expect(crlf).toEqual(lf)
+    expect(lf).toHaveLength(1)
+  })
+
+  it('끝난 형제 루프 뒤의 콜백 쓰기는 루프 안으로 세지 않는다', () => {
+    const source = `export async function probe(db: any, ids: string[]) {
+  const operations: Array<() => Promise<void>> = []
+  for (const id of ids) operations.push(async () => {
+    await db.rpc('close_one', { id })
+  })
+  operations.push(async () => {
+    if (ids.length) {
+      await db.from('learner_workspace').update({ status: 'closed' }).eq('id', 'owned')
+    }
+  })
+}`
+    expect(scanSource(source)).toHaveLength(0)
+    expect(scanSource(source.replace('operations.push(async () => {\n    if', 'for (const id of ids) operations.push(async () => {\n    if'))).toHaveLength(1)
+  })
+
+  it('끝난 형제 루프와 그 바깥을 실제로 감싸는 루프를 구분한다', () => {
+    const body = `  for (const id of ids) {
+    await db.rpc('close_one', { id })
+  }
+  if (ids.length) {
+    await db.from('learner_workspace').update({ status: 'closed' }).eq('id', 'owned')
+  }`
+    expect(scanSource(`async function probe(db: any, ids: string[]) {\n${body}\n}`)).toHaveLength(0)
+    expect(scanSource(`async function probe(db: any, ids: string[]) {\n  while (ids.length) {\n${body.split('\n').map((line) => `  ${line}`).join('\n')}\n  }\n}`)).toHaveLength(1)
+  })
+
+  it('부모 범위 안의 500개 DELETE 배치와 한 행 DELETE를 구분한다', () => {
+    const source = `async function probe(db: any, words: string[]) {
+  for (let i = 0; i < words.length; i += 500) {
+    await db.from('library_article_vocabularies')
+      .delete()
+      .eq('library_article_id', 'owned')
+      .in('word', words.slice(i, i + 500))
+  }
+}`
+    expect(scanSource(source)).toHaveLength(0)
+    expect(scanSource(source.replace('i + 500)', 'i + 1)'))).toHaveLength(1)
+    expect(scanSource(source.replace('words.slice(i, i + 500)', '[words[i]]'))).toHaveLength(1)
+    expect(scanSource(source.replace(".in('word', words.slice(i, i + 500))", ".eq('word', words[i])\n    await db.from('other').delete().eq('parent', 'owned').in('word', words.slice(i, i + 500))"))).toHaveLength(1)
   })
 })
 

@@ -16,6 +16,11 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { ROOT, chromium } from './lib/ref-page.mjs'
 
+if (process.argv.includes('--admin')) {
+  await import('./admin-ref-compare.mjs')
+  process.exit(0)
+}
+
 const argv = process.argv.slice(2)
 const arg = (k, d) => {
   const i = argv.indexOf(k)

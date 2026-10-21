@@ -1,0 +1,2208 @@
+{
+  "schema": 1,
+  "status": "proposal_not_applied",
+  "baseline": "fcb40034d43ccfbf1a429c76de97ed840d0bac5d",
+  "date": "2026-10-19",
+  "sections": [
+    {
+      "id": "home",
+      "label": "작업 홈",
+      "workspaces": []
+    },
+    {
+      "id": "content",
+      "label": "콘텐츠",
+      "workspaces": [
+        {
+          "id": "content.books",
+          "label": "도서",
+          "entry": "/admin/curation"
+        },
+        {
+          "id": "content.articles",
+          "label": "짧은 글",
+          "entry": "/admin/articles"
+        },
+        {
+          "id": "content.comics",
+          "label": "만화",
+          "entry": "/admin/comic"
+        }
+      ]
+    },
+    {
+      "id": "factory",
+      "label": "교재 제작",
+      "workspaces": [
+        {
+          "id": "factory.overview",
+          "label": "제작 현황",
+          "entry": "/admin/csat"
+        },
+        {
+          "id": "factory.process",
+          "label": "제작 공정",
+          "entry": "/admin/csat/new"
+        },
+        {
+          "id": "factory.catalog",
+          "label": "발행 교재",
+          "entry": "/admin/csat/catalog"
+        }
+      ]
+    },
+    {
+      "id": "words",
+      "label": "어휘·사전",
+      "workspaces": [
+        {
+          "id": "words.dictionary",
+          "label": "사전",
+          "entry": "/admin/vocabulary"
+        },
+        {
+          "id": "words.decks",
+          "label": "단어장",
+          "entry": "/admin/vocab/studio"
+        },
+        {
+          "id": "words.pending",
+          "label": "사전 보강",
+          "entry": "/admin/pending-words"
+        },
+        {
+          "id": "words.observations",
+          "label": "관측·분류",
+          "entry": "/admin/topic-corpus"
+        }
+      ]
+    },
+    {
+      "id": "learners",
+      "label": "학습자·진단",
+      "workspaces": [
+        {
+          "id": "learners.records",
+          "label": "학습자 기록",
+          "entry": "/admin/csat/diagnosis/learners"
+        },
+        {
+          "id": "learners.diagnostics",
+          "label": "진단 운영",
+          "entry": "/admin/csat/diagnosis"
+        },
+        {
+          "id": "learners.analytics",
+          "label": "활동 분석",
+          "entry": "/admin/analytics"
+        }
+      ]
+    },
+    {
+      "id": "research",
+      "label": "연구·기준",
+      "workspaces": [
+        {
+          "id": "research.overview",
+          "label": "연구 현황",
+          "entry": "/admin/knowledge"
+        },
+        {
+          "id": "research.evidence",
+          "label": "탐구·근거",
+          "entry": "/admin/knowledge/lab"
+        },
+        {
+          "id": "research.kice",
+          "label": "기출 분석",
+          "entry": "/admin/kice"
+        },
+        {
+          "id": "research.principles",
+          "label": "역량·원리",
+          "entry": "/admin/knowledge/map"
+        },
+        {
+          "id": "research.design",
+          "label": "설계·검증",
+          "entry": "/admin/knowledge/design"
+        },
+        {
+          "id": "research.application",
+          "label": "적용·성과",
+          "entry": "/admin/knowledge/product"
+        }
+      ]
+    },
+    {
+      "id": "operations",
+      "label": "운영·시스템",
+      "workspaces": [
+        {
+          "id": "operations.quality",
+          "label": "품질·실행",
+          "entry": "/admin/quality"
+        },
+        {
+          "id": "operations.database",
+          "label": "DB 점검",
+          "entry": "/admin/db"
+        },
+        {
+          "id": "operations.video",
+          "label": "홍보 영상",
+          "entry": "/admin/video"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "route": "/admin",
+      "file": "apps/web/src/app/admin/page.tsx",
+      "original": {
+        "group": "대시보드",
+        "label": "대시보드",
+        "href": "/admin",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "home",
+        "workspace": null
+      },
+      "section": "home",
+      "workspace": null,
+      "view": "처리할 일·최근 변경(조회 투영 제안)",
+      "disposition": "retain",
+      "target": "/admin",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/analytics",
+      "file": "apps/web/src/app/admin/analytics/page.tsx",
+      "original": {
+        "group": "운영",
+        "label": "플랫폼 분석",
+        "href": "/admin/analytics",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "activity"
+      },
+      "section": "learners",
+      "workspace": "learners.analytics",
+      "view": "활동 / 리텐션 / 교사 퍼널",
+      "disposition": "retain",
+      "target": "/admin/analytics",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/analytics/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/articles",
+      "file": "apps/web/src/app/admin/articles/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "짧은 글",
+        "href": "/admin/articles",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "articles"
+      },
+      "section": "content",
+      "workspace": "content.articles",
+      "view": "원문 수집 / 커버리지·수집·검수·게시",
+      "disposition": "retain",
+      "target": "/admin/articles",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/articles/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/articles/preview/[id]",
+      "file": "apps/web/src/app/admin/articles/preview/[id]/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "짧은 글",
+        "href": "/admin/articles",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "articles"
+      },
+      "section": "content",
+      "workspace": "content.articles",
+      "view": "원문 수집 / 글 상세",
+      "disposition": "detail",
+      "target": "/admin/articles/preview/[id]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/articles/preview/[id]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/billing",
+      "file": "apps/web/src/app/admin/billing/page.tsx",
+      "original": {
+        "group": "운영",
+        "label": "결제/구독",
+        "href": "/admin/billing",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "connections"
+      },
+      "section": "operations",
+      "workspace": "operations.quality",
+      "view": "연결·지원 상태(정보 패널·기존 URL 보존)",
+      "disposition": "alias",
+      "target": "/admin/settings#billing",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/billing/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/comic",
+      "file": "apps/web/src/app/admin/comic/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "만화",
+        "href": "/admin/comic",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "comics"
+      },
+      "section": "content",
+      "workspace": "content.comics",
+      "view": "디지털 제작 / 후보·처리·검수·발행",
+      "disposition": "retain",
+      "target": "/admin/comic",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/comic/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/comic/[bookId]",
+      "file": "apps/web/src/app/admin/comic/[bookId]/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "만화",
+        "href": "/admin/comic",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "comics"
+      },
+      "section": "content",
+      "workspace": "content.comics",
+      "view": "디지털 제작 / 도서 상세",
+      "disposition": "detail",
+      "target": "/admin/comic/[bookId]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/comic/[bookId]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/comic/[bookId]/drain",
+      "file": "apps/web/src/app/admin/comic/[bookId]/drain/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "만화",
+        "href": "/admin/comic",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "comics"
+      },
+      "section": "content",
+      "workspace": "content.comics",
+      "view": "디지털 제작 / 도서별 실행",
+      "disposition": "detail",
+      "target": "/admin/comic/[bookId]/drain",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/comic/[bookId]/drain/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/compose",
+      "file": "apps/web/src/app/admin/compose/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "사실 재저작",
+        "href": "/admin/compose",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "articles"
+      },
+      "section": "content",
+      "workspace": "content.articles",
+      "view": "사실 재저작 / 자료·사실·작성·발행",
+      "disposition": "retain",
+      "target": "/admin/compose",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/compose/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat",
+      "file": "apps/web/src/app/admin/csat/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "교재 공장",
+        "href": "/admin/csat",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "factory-overview"
+      },
+      "section": "factory",
+      "workspace": "factory.overview",
+      "view": "전체 제작 현황",
+      "disposition": "retain",
+      "target": "/admin/csat",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/authoring",
+      "file": "apps/web/src/app/admin/csat/authoring/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "stepName('items')",
+        "href": "/admin/csat/authoring",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "make"
+      },
+      "section": "factory",
+      "workspace": "factory.process",
+      "view": "문항·해설",
+      "disposition": "retain",
+      "target": "/admin/csat/authoring",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/authoring/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/blueprint",
+      "file": "apps/web/src/app/admin/csat/blueprint/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "labName('blueprint')",
+        "href": "/admin/csat/blueprint",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "textbook-criteria"
+      },
+      "section": "research",
+      "workspace": "research.design",
+      "view": "교재 설계 / 설계 기준",
+      "disposition": "move",
+      "target": "/admin/csat/blueprint",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/blueprint/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/catalog",
+      "file": "apps/web/src/app/admin/csat/catalog/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "stepName('after')",
+        "href": "/admin/csat/catalog",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "catalog"
+      },
+      "section": "factory",
+      "workspace": "factory.catalog",
+      "view": "렌더·발행본 목록",
+      "disposition": "retain",
+      "target": "/admin/csat/catalog",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/catalog/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/details",
+      "file": "apps/web/src/app/admin/csat/details/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "숫자로 자세히",
+        "href": "/admin/csat/details",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "factory-overview"
+      },
+      "section": "factory",
+      "workspace": "factory.overview",
+      "view": "전체 재고 상세",
+      "disposition": "retain",
+      "target": "/admin/csat/details",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/details/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/diagnosis",
+      "file": "apps/web/src/app/admin/csat/diagnosis/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "영어 진단",
+        "href": "/admin/csat/diagnosis",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "english-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.diagnostics",
+      "view": "영어 / 현황",
+      "disposition": "move",
+      "target": "/admin/csat/diagnosis",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/diagnosis/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/diagnosis/exams",
+      "file": "apps/web/src/app/admin/csat/diagnosis/exams/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "영어 진단",
+        "href": "/admin/csat/diagnosis",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "english-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.diagnostics",
+      "view": "영어 / 시험·태깅",
+      "disposition": "retain",
+      "target": "/admin/csat/diagnosis/exams",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/diagnosis/exams/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/diagnosis/exams/[examId]",
+      "file": "apps/web/src/app/admin/csat/diagnosis/exams/[examId]/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "영어 진단",
+        "href": "/admin/csat/diagnosis",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "english-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.diagnostics",
+      "view": "영어 / 시험·태깅",
+      "disposition": "detail",
+      "target": "/admin/csat/diagnosis/exams/[examId]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/diagnosis/exams/[examId]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/diagnosis/learners",
+      "file": "apps/web/src/app/admin/csat/diagnosis/learners/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "영어 진단",
+        "href": "/admin/csat/diagnosis",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "english-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.records",
+      "view": "영어 진단 참여자",
+      "disposition": "move",
+      "target": "/admin/csat/diagnosis/learners",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/diagnosis/learners/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/diagnosis/learners/[id]",
+      "file": "apps/web/src/app/admin/csat/diagnosis/learners/[id]/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "영어 진단",
+        "href": "/admin/csat/diagnosis",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "english-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.records",
+      "view": "영어 진단 / 학습자 상세",
+      "disposition": "detail",
+      "target": "/admin/csat/diagnosis/learners/[id]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/diagnosis/learners/[id]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/diagnosis/settings",
+      "file": "apps/web/src/app/admin/csat/diagnosis/settings/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "영어 진단",
+        "href": "/admin/csat/diagnosis",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "english-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.diagnostics",
+      "view": "영어 / 엔진 버전 설정",
+      "disposition": "retain",
+      "target": "/admin/csat/diagnosis/settings",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/diagnosis/settings/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/evidence",
+      "file": "apps/web/src/app/admin/csat/evidence/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "labName('evidence')",
+        "href": "/admin/csat/evidence",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "kice"
+      },
+      "section": "research",
+      "workspace": "research.kice",
+      "view": "분석 운영 / 처리 대기·유형 리포트",
+      "disposition": "retain",
+      "target": "/admin/csat/evidence",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/evidence/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/explain",
+      "file": "apps/web/src/app/admin/csat/explain/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "stepName('explain')",
+        "href": "/admin/csat/explain",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "make"
+      },
+      "section": "factory",
+      "workspace": "factory.process",
+      "view": "문항·해설 / 해설(호환)",
+      "disposition": "alias",
+      "target": "/admin/csat/authoring?view=explanation",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/explain/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/help",
+      "file": "apps/web/src/app/admin/csat/help/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "용어집",
+        "href": "/admin/csat/help",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "factory-overview"
+      },
+      "section": "factory",
+      "workspace": "factory.overview",
+      "view": "공정 용어 도움말",
+      "disposition": "retain",
+      "target": "/admin/csat/help",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/help/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/new",
+      "file": "apps/web/src/app/admin/csat/new/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "stepName('order')",
+        "href": "/admin/csat/new",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "make"
+      },
+      "section": "factory",
+      "workspace": "factory.process",
+      "view": "제작 기준 선택(저장 주문 아님)",
+      "disposition": "retain",
+      "target": "/admin/csat/new",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/new/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/press",
+      "file": "apps/web/src/app/admin/csat/press/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "stepName('publish')",
+        "href": "/admin/csat/press",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "make"
+      },
+      "section": "factory",
+      "workspace": "factory.process",
+      "view": "발행 승인",
+      "disposition": "retain",
+      "target": "/admin/csat/press",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/press/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/review",
+      "file": "apps/web/src/app/admin/csat/review/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "stepName('check')",
+        "href": "/admin/csat/review",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "make"
+      },
+      "section": "factory",
+      "workspace": "factory.process",
+      "view": "검수",
+      "disposition": "retain",
+      "target": "/admin/csat/review",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/review/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/sources",
+      "file": "apps/web/src/app/admin/csat/sources/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "`${stepName('gather')} · 고르기`",
+        "href": "/admin/csat/sources",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "make"
+      },
+      "section": "factory",
+      "workspace": "factory.process",
+      "view": "글감 후보 선택",
+      "disposition": "retain",
+      "target": "/admin/csat/sources",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/sources/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/sourcing",
+      "file": "apps/web/src/app/admin/csat/sourcing/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "stepName('passage')",
+        "href": "/admin/csat/sourcing",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "factory",
+        "workspace": "make"
+      },
+      "section": "factory",
+      "workspace": "factory.process",
+      "view": "지문 제작",
+      "disposition": "retain",
+      "target": "/admin/csat/sourcing",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/sourcing/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/csat/strategy",
+      "file": "apps/web/src/app/admin/csat/strategy/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "labName('market')",
+        "href": "/admin/csat/strategy",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "textbook-criteria"
+      },
+      "section": "research",
+      "workspace": "research.design",
+      "view": "교재 설계 / 시중 교재 비교",
+      "disposition": "move",
+      "target": "/admin/csat/strategy",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/csat/strategy/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/curation",
+      "file": "apps/web/src/app/admin/curation/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "도서 수집",
+        "href": "/admin/curation",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "books"
+      },
+      "section": "content",
+      "workspace": "content.books",
+      "view": "도서 목록 / 수집 / 검토 대기",
+      "disposition": "retain",
+      "target": "/admin/curation",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/curation/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/curation/preview/[bookId]",
+      "file": "apps/web/src/app/admin/curation/preview/[bookId]/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "도서 수집",
+        "href": "/admin/curation",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "books"
+      },
+      "section": "content",
+      "workspace": "content.books",
+      "view": "도서 상세·미리보기",
+      "disposition": "detail",
+      "target": "/admin/curation/preview/[bookId]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/curation/preview/[bookId]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/db",
+      "file": "apps/web/src/app/admin/db/page.tsx",
+      "original": {
+        "group": "품질 · 시스템",
+        "label": "DB 헬스",
+        "href": "/admin/db",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "database"
+      },
+      "section": "operations",
+      "workspace": "operations.database",
+      "view": "발견 / 점검 / 허용 조치·이력",
+      "disposition": "retain",
+      "target": "/admin/db",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/db/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/kice",
+      "file": "apps/web/src/app/admin/kice/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "기출 분석 뷰",
+        "href": "/admin/kice",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "kice"
+      },
+      "section": "research",
+      "workspace": "research.kice",
+      "view": "시험·유형 개요 / 관리자 개인 내 기록 칩 분리 필요",
+      "disposition": "retain",
+      "target": "/admin/kice",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/kice/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/kice/[typeId]",
+      "file": "apps/web/src/app/admin/kice/[typeId]/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "기출 분석 뷰",
+        "href": "/admin/kice",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "kice"
+      },
+      "section": "research",
+      "workspace": "research.kice",
+      "view": "유형 분석 상세",
+      "disposition": "detail",
+      "target": "/admin/kice/[typeId]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/kice/[typeId]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/kice/item/[slug]",
+      "file": "apps/web/src/app/admin/kice/item/[slug]/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "기출 분석 뷰",
+        "href": "/admin/kice",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "kice"
+      },
+      "section": "research",
+      "workspace": "research.kice",
+      "view": "문항 분석 상세",
+      "disposition": "detail",
+      "target": "/admin/kice/item/[slug]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/kice/item/[slug]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/kice/map",
+      "file": "apps/web/src/app/admin/kice/map/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "기출 분석 뷰",
+        "href": "/admin/kice",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "kice"
+      },
+      "section": "research",
+      "workspace": "research.kice",
+      "view": "분포·출제 빈도 / 지도",
+      "disposition": "retain",
+      "target": "/admin/kice/map",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/kice/map/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/kice/plan",
+      "file": "apps/web/src/app/admin/kice/plan/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "기출 분석 뷰",
+        "href": "/admin/kice",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "kice"
+      },
+      "section": "research",
+      "workspace": "research.kice",
+      "view": "분석 우선순위 / 관리자 개인 이력 분리 필요",
+      "disposition": "retain",
+      "target": "/admin/kice/plan",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/kice/plan/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/kice/predict",
+      "file": "apps/web/src/app/admin/kice/predict/page.tsx",
+      "original": {
+        "group": "교재",
+        "label": "기출 분석 뷰",
+        "href": "/admin/kice",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "kice"
+      },
+      "section": "research",
+      "workspace": "research.kice",
+      "view": "분포·출제 빈도 / 최근 관측",
+      "disposition": "retain",
+      "target": "/admin/kice/predict",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/kice/predict/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge",
+      "file": "apps/web/src/app/admin/knowledge/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "원리 운영실",
+        "href": "/admin/knowledge",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-ops"
+      },
+      "section": "research",
+      "workspace": "research.overview",
+      "view": "탐구·검토·적용 현황",
+      "disposition": "retain",
+      "target": "/admin/knowledge",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/design",
+      "file": "apps/web/src/app/admin/knowledge/design/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "학습 설계 · 검증",
+        "href": "/admin/knowledge/design",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-design"
+      },
+      "section": "research",
+      "workspace": "research.design",
+      "view": "학습 과제·trial 설계",
+      "disposition": "retain",
+      "target": "/admin/knowledge/design",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/design/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/experts",
+      "file": "apps/web/src/app/admin/knowledge/experts/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "전문가 · 채널",
+        "href": "/admin/knowledge/experts",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "전문가·채널 자료",
+      "disposition": "retain",
+      "target": "/admin/knowledge/experts",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/experts/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/gaps",
+      "file": "apps/web/src/app/admin/knowledge/gaps/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "공백",
+        "href": "/admin/knowledge/gaps",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "탐구 공백",
+      "disposition": "retain",
+      "target": "/admin/knowledge/gaps",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/gaps/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/item/[slug]",
+      "file": "apps/web/src/app/admin/knowledge/item/[slug]/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "원리 운영실",
+        "href": "/admin/knowledge",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-map"
+      },
+      "section": "research",
+      "workspace": "research.principles",
+      "view": "원리·방법·과제 상세",
+      "disposition": "detail",
+      "target": "/admin/knowledge/item/[slug]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/item/[slug]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/lab",
+      "file": "apps/web/src/app/admin/knowledge/lab/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "탐구 · 근거 연구소",
+        "href": "/admin/knowledge/lab",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "탐구 질문",
+      "disposition": "retain",
+      "target": "/admin/knowledge/lab",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/lab/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/lab/[slug]",
+      "file": "apps/web/src/app/admin/knowledge/lab/[slug]/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "탐구 · 근거 연구소",
+        "href": "/admin/knowledge/lab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "탐구 질문 상세",
+      "disposition": "detail",
+      "target": "/admin/knowledge/lab/[slug]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/lab/[slug]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/lab/compare",
+      "file": "apps/web/src/app/admin/knowledge/lab/compare/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "탐구 · 근거 연구소",
+        "href": "/admin/knowledge/lab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "주장·근거 비교",
+      "disposition": "retain",
+      "target": "/admin/knowledge/lab/compare",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/lab/compare/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/lab/research",
+      "file": "apps/web/src/app/admin/knowledge/lab/research/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "연구 서지",
+        "href": "/admin/knowledge/lab/research",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "연구 서지",
+      "disposition": "retain",
+      "target": "/admin/knowledge/lab/research",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/lab/research/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/map",
+      "file": "apps/web/src/app/admin/knowledge/map/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "역량 · 원리 지도",
+        "href": "/admin/knowledge/map",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-map"
+      },
+      "section": "research",
+      "workspace": "research.principles",
+      "view": "관계 지도",
+      "disposition": "retain",
+      "target": "/admin/knowledge/map",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/map/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/methods",
+      "file": "apps/web/src/app/admin/knowledge/methods/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "방법론 · 공부법",
+        "href": "/admin/knowledge/methods",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-map"
+      },
+      "section": "research",
+      "workspace": "research.principles",
+      "view": "방법·과제",
+      "disposition": "retain",
+      "target": "/admin/knowledge/methods",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/methods/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/principles",
+      "file": "apps/web/src/app/admin/knowledge/principles/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "본질 · 원리",
+        "href": "/admin/knowledge/principles",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-map"
+      },
+      "section": "research",
+      "workspace": "research.principles",
+      "view": "기제·원리",
+      "disposition": "retain",
+      "target": "/admin/knowledge/principles",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/principles/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/product",
+      "file": "apps/web/src/app/admin/knowledge/product/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "제품 적용 · 품질",
+        "href": "/admin/knowledge/product",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-product"
+      },
+      "section": "research",
+      "workspace": "research.application",
+      "view": "적용·배포",
+      "disposition": "retain",
+      "target": "/admin/knowledge/product",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/product/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/product/[id]",
+      "file": "apps/web/src/app/admin/knowledge/product/[id]/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "제품 적용 · 품질",
+        "href": "/admin/knowledge/product",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-product"
+      },
+      "section": "research",
+      "workspace": "research.application",
+      "view": "제품 적용 상세",
+      "disposition": "detail",
+      "target": "/admin/knowledge/product/[id]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/product/[id]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/review",
+      "file": "apps/web/src/app/admin/knowledge/review/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "검토 대기",
+        "href": "/admin/knowledge/review",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "채택 검토 대기",
+      "disposition": "retain",
+      "target": "/admin/knowledge/review",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/review/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/signals",
+      "file": "apps/web/src/app/admin/knowledge/signals/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "원리 운영실",
+        "href": "/admin/knowledge",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-product"
+      },
+      "section": "research",
+      "workspace": "research.application",
+      "view": "성과 재검토 신호",
+      "disposition": "retain",
+      "target": "/admin/knowledge/signals",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/signals/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/sources",
+      "file": "apps/web/src/app/admin/knowledge/sources/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "근거 · 출처",
+        "href": "/admin/knowledge/sources",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "근거·출처",
+      "disposition": "retain",
+      "target": "/admin/knowledge/sources",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/sources/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/knowledge/sources/csat",
+      "file": "apps/web/src/app/admin/knowledge/sources/csat/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "기출 원천",
+        "href": "/admin/knowledge/sources/csat",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "기출 원천(정본 소속, 기출 분석에서 교차 연결)",
+      "disposition": "retain",
+      "target": "/admin/knowledge/sources/csat",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/knowledge/sources/csat/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/library",
+      "file": "apps/web/src/app/admin/library/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "콘텐츠",
+        "href": "/admin/library",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "books"
+      },
+      "section": "content",
+      "workspace": "content.books",
+      "view": "도서 목록 / 수집 / 검토 대기",
+      "disposition": "alias",
+      "target": "/admin/curation?view=library",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/library/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/methodology",
+      "file": "apps/web/src/app/admin/methodology/page.tsx",
+      "original": {
+        "group": "학습 원리",
+        "label": "가져오기 원장",
+        "href": "/admin/methodology",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "research",
+        "workspace": "knowledge-lab"
+      },
+      "section": "research",
+      "workspace": "research.evidence",
+      "view": "가져오기 원장",
+      "disposition": "retain",
+      "target": "/admin/methodology",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/methodology/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/pd-comics",
+      "file": "apps/web/src/app/admin/pd-comics/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "스캔 만화",
+        "href": "/admin/pd-comics",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "comics"
+      },
+      "section": "content",
+      "workspace": "content.comics",
+      "view": "스캔 복원 / 수집·처리·권리검수·발행",
+      "disposition": "retain",
+      "target": "/admin/pd-comics",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/pd-comics/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/pd-comics/reader/[issueId]",
+      "file": "apps/web/src/app/admin/pd-comics/reader/[issueId]/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "스캔 만화",
+        "href": "/admin/pd-comics",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "comics"
+      },
+      "section": "content",
+      "workspace": "content.comics",
+      "view": "스캔 복원 / 호 상세",
+      "disposition": "detail",
+      "target": "/admin/pd-comics/reader/[issueId]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/pd-comics/reader/[issueId]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/pending-words",
+      "file": "apps/web/src/app/admin/pending-words/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "대기 단어",
+        "href": "/admin/pending-words",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "pending"
+      },
+      "section": "words",
+      "workspace": "words.pending",
+      "view": "누락 판정 / 보강 / 적재 확인",
+      "disposition": "retain",
+      "target": "/admin/pending-words",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/pending-words/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/quality",
+      "file": "apps/web/src/app/admin/quality/page.tsx",
+      "original": {
+        "group": "품질 · 시스템",
+        "label": "품질 지표",
+        "href": "/admin/quality",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "quality"
+      },
+      "section": "operations",
+      "workspace": "operations.quality",
+      "view": "품질 지표 / 도메인별 실행 연결(공통 조회는 신규)",
+      "disposition": "retain",
+      "target": "/admin/quality",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/quality/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/quality/gates",
+      "file": "apps/web/src/app/admin/quality/gates/page.tsx",
+      "original": {
+        "group": "품질 · 시스템",
+        "label": "품질 게이트",
+        "href": "/admin/quality/gates",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "quality"
+      },
+      "section": "operations",
+      "workspace": "operations.quality",
+      "view": "품질 검사 실행",
+      "disposition": "retain",
+      "target": "/admin/quality/gates",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/quality/gates/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/quality/judge",
+      "file": "apps/web/src/app/admin/quality/judge/page.tsx",
+      "original": {
+        "group": "품질 · 시스템",
+        "label": "추출 판정",
+        "href": "/admin/quality/judge",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "quality"
+      },
+      "section": "operations",
+      "workspace": "operations.quality",
+      "view": "추출 판정 작업",
+      "disposition": "retain",
+      "target": "/admin/quality/judge",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/quality/judge/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/reports",
+      "file": "apps/web/src/app/admin/reports/page.tsx",
+      "original": {
+        "group": "운영",
+        "label": "신고/문의",
+        "href": "/admin/reports",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "connections"
+      },
+      "section": "operations",
+      "workspace": "operations.quality",
+      "view": "연결·지원 상태(정보 패널·기존 URL 보존)",
+      "disposition": "alias",
+      "target": "/admin/settings#reports",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/reports/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/settings",
+      "file": "apps/web/src/app/admin/settings/page.tsx",
+      "original": {
+        "group": "품질 · 시스템",
+        "label": "시스템 설정",
+        "href": "/admin/settings",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "connections"
+      },
+      "section": "operations",
+      "workspace": "operations.quality",
+      "view": "연결·지원 상태(정보 패널·기존 URL 보존)",
+      "disposition": "move",
+      "target": "/admin/settings",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/settings/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/topic-corpus",
+      "file": "apps/web/src/app/admin/topic-corpus/page.tsx",
+      "original": {
+        "group": "콘텐츠 공급",
+        "label": "주제 코퍼스",
+        "href": "/admin/topic-corpus",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "content",
+        "workspace": "corpus"
+      },
+      "section": "words",
+      "workspace": "words.observations",
+      "view": "주제 관측 / 수집·드레인·승격",
+      "disposition": "move",
+      "target": "/admin/topic-corpus",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/topic-corpus/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/users",
+      "file": "apps/web/src/app/admin/users/page.tsx",
+      "original": {
+        "group": "운영",
+        "label": "사용자",
+        "href": "/admin/users",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "users"
+      },
+      "section": "learners",
+      "workspace": "learners.records",
+      "view": "사용자 집계·미구현 범위 안내",
+      "disposition": "move",
+      "target": "/admin/users",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/users/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/video",
+      "file": "apps/web/src/app/admin/video/page.tsx",
+      "original": {
+        "group": "운영",
+        "label": "영상 공장",
+        "href": "/admin/video",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "video"
+      },
+      "section": "operations",
+      "workspace": "operations.video",
+      "view": "요청·제작 / 발행 영상 / 성과·점검",
+      "disposition": "retain",
+      "target": "/admin/video",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/video/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/video/requests/[id]",
+      "file": "apps/web/src/app/admin/video/requests/[id]/page.tsx",
+      "original": {
+        "group": "운영",
+        "label": "영상 공장",
+        "href": "/admin/video",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "operations",
+        "workspace": "video"
+      },
+      "section": "operations",
+      "workspace": "operations.video",
+      "view": "제작 요청 상세",
+      "disposition": "detail",
+      "target": "/admin/video/requests/[id]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/video/requests/[id]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab",
+      "file": "apps/web/src/app/admin/vocab/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "새 seed 제작 / run 목록",
+      "disposition": "alias",
+      "target": "/admin/vocab/runs",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/collections",
+      "file": "apps/web/src/app/admin/vocab/collections/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "발행 컬렉션",
+      "disposition": "retain",
+      "target": "/admin/vocab/collections",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/collections/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/curate/[run_id]",
+      "file": "apps/web/src/app/admin/vocab/curate/[run_id]/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "새 seed 제작 / 큐레이션 상세",
+      "disposition": "detail",
+      "target": "/admin/vocab/curate/[run_id]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/curate/[run_id]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/runs",
+      "file": "apps/web/src/app/admin/vocab/runs/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "새 seed 제작 / run 목록",
+      "disposition": "retain",
+      "target": "/admin/vocab/runs",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/runs/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/runs/[id]",
+      "file": "apps/web/src/app/admin/vocab/runs/[id]/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "새 seed 제작 / 생성·run 상세",
+      "disposition": "detail",
+      "target": "/admin/vocab/runs/[id]",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/runs/[id]/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/runs/[id]/seed",
+      "file": "apps/web/src/app/admin/vocab/runs/[id]/seed/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "새 seed 제작 / seed 생성",
+      "disposition": "detail",
+      "target": "/admin/vocab/runs/[id]/seed",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/runs/[id]/seed/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/runs/[id]/seed/preview",
+      "file": "apps/web/src/app/admin/vocab/runs/[id]/seed/preview/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "새 seed 제작 / seed 검토",
+      "disposition": "detail",
+      "target": "/admin/vocab/runs/[id]/seed/preview",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/runs/[id]/seed/preview/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/runs/new",
+      "file": "apps/web/src/app/admin/vocab/runs/new/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "새 seed 제작 / 생성·run 상세",
+      "disposition": "detail",
+      "target": "/admin/vocab/runs/new",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/runs/new/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/sources",
+      "file": "apps/web/src/app/admin/vocab/sources/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "입력 자료 / 등록·목록",
+      "disposition": "retain",
+      "target": "/admin/vocab/sources",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/sources/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/sources/new",
+      "file": "apps/web/src/app/admin/vocab/sources/new/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "입력 자료 / 등록·목록",
+      "disposition": "detail",
+      "target": "/admin/vocab/sources/new",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/sources/new/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocab/studio",
+      "file": "apps/web/src/app/admin/vocab/studio/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 빌드",
+        "href": "/admin/vocab",
+        "derived": "prefix"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "decks"
+      },
+      "section": "words",
+      "workspace": "words.decks",
+      "view": "기존 사전 조립 / 조건·미리보기·발행",
+      "disposition": "retain",
+      "target": "/admin/vocab/studio",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocab/studio/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vocabulary",
+      "file": "apps/web/src/app/admin/vocabulary/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "단어장 마스터",
+        "href": "/admin/vocabulary",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "dictionary"
+      },
+      "section": "words",
+      "workspace": "words.dictionary",
+      "view": "사전 목록·단어 상세",
+      "disposition": "retain",
+      "target": "/admin/vocabulary",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vocabulary/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vrl",
+      "file": "apps/web/src/app/admin/vrl/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "어휘 레벨",
+        "href": "/admin/vrl",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "word-quality"
+      },
+      "section": "words",
+      "workspace": "words.observations",
+      "view": "사전 품질 / 지표·결함·이력",
+      "disposition": "retain",
+      "target": "/admin/vrl",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vrl/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vrl/automation",
+      "file": "apps/web/src/app/admin/vrl/automation/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "자동화",
+        "href": "/admin/vrl/automation",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "word-quality"
+      },
+      "section": "words",
+      "workspace": "words.observations",
+      "view": "분류 / 자동화",
+      "disposition": "retain",
+      "target": "/admin/vrl/automation",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vrl/automation/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vrl/concerns",
+      "file": "apps/web/src/app/admin/vrl/concerns/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "의심 단어",
+        "href": "/admin/vrl/concerns",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "word-quality"
+      },
+      "section": "words",
+      "workspace": "words.observations",
+      "view": "분류 / 의심 단어",
+      "disposition": "retain",
+      "target": "/admin/vrl/concerns",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vrl/concerns/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vrl/diagnostic",
+      "file": "apps/web/src/app/admin/vrl/diagnostic/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "진단",
+        "href": "/admin/vrl/diagnostic",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "word-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.diagnostics",
+      "view": "어휘 / 검사·문항·결과(조회)",
+      "disposition": "move",
+      "target": "/admin/vrl/diagnostic",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vrl/diagnostic/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vrl/snapshots",
+      "file": "apps/web/src/app/admin/vrl/snapshots/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "변경 이력",
+        "href": "/admin/vrl/snapshots",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "word-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.records",
+      "view": "어휘 / 수준 이력",
+      "disposition": "move",
+      "target": "/admin/vrl/snapshots",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vrl/snapshots/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vrl/taxonomy",
+      "file": "apps/web/src/app/admin/vrl/taxonomy/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "분류 기준표",
+        "href": "/admin/vrl/taxonomy",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "words",
+        "workspace": "word-quality"
+      },
+      "section": "words",
+      "workspace": "words.observations",
+      "view": "분류 / 수준·트랙·도메인·스킬",
+      "disposition": "retain",
+      "target": "/admin/vrl/taxonomy",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vrl/taxonomy/page.tsx"
+      ]
+    },
+    {
+      "route": "/admin/vrl/users",
+      "file": "apps/web/src/app/admin/vrl/users/page.tsx",
+      "original": {
+        "group": "어휘",
+        "label": "사용자 레벨",
+        "href": "/admin/vrl/users",
+        "derived": "direct"
+      },
+      "v1": {
+        "section": "learners",
+        "workspace": "word-diagnosis"
+      },
+      "section": "learners",
+      "workspace": "learners.records",
+      "view": "어휘 / 사용자 수준",
+      "disposition": "move",
+      "target": "/admin/vrl/users",
+      "status": "proposed",
+      "evidence": [
+        "apps/web/src/app/admin/vrl/users/page.tsx"
+      ]
+    }
+  ]
+}

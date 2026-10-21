@@ -57,12 +57,12 @@ export function VcbSourceCard({ source }: Props) {
     >
       <header className="flex items-start justify-between gap-3">
         <div className="flex-1 min-w-0">
-          <h3
+          <h2
             className="font-display font-semibold text-base m-0 truncate"
             style={{ color: 'var(--t1)' }}
           >
             {source.title}
-          </h3>
+          </h2>
           <p
             className="font-mono text-xs m-0 mt-0.5 truncate"
             style={{ color: 'var(--t3)' }}

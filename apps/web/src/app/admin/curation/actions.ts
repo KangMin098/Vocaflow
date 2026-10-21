@@ -14,12 +14,6 @@ import {
   deleteBook,
   enqueueQuizJobs,
   enqueueReviewJobs,
-  fetchCurationJobs,
-  fetchQuizJobs,
-  fetchReviewJobs,
-  type CurationJobRow,
-  type QuizJobRow,
-  type ReviewJobRow,
   type ReviewTaskType,
 } from '@/lib/library/admin-queries'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -142,21 +136,6 @@ export async function bulkRequeueBooksAction(
   }
 }
 
-/** 큐 상태 뷰용 — 최근 작업 목록 조회. */
-export async function fetchCurationJobsAction(): Promise<ActionResult<CurationJobRow[]>> {
-  try {
-    await requireAdmin('/admin/curation')
-    const client = (await createClient()) as unknown as SupabaseClient
-    const jobs = await fetchCurationJobs(client)
-    return { ok: true, data: jobs }
-  } catch (e) {
-    return {
-      ok: false,
-      error: e instanceof Error ? e.message : '큐 조회 실패',
-    }
-  }
-}
-
 /**
  * 선택 도서를 스크립트 퀴즈 생성 큐(book_quiz_jobs)에 적재.
  * RPC enqueue_quiz_jobs 가 자격(ready/published + 챕터 존재) 판정 + V-Level별 목표 문항 스냅샷.
@@ -178,21 +157,6 @@ export async function enqueueQuizJobsAction(
     return {
       ok: false,
       error: e instanceof Error ? e.message : '퀴즈 큐 적재 실패',
-    }
-  }
-}
-
-/** 퀴즈 큐 상태 뷰용 — 최근 작업 목록 조회. */
-export async function fetchQuizJobsAction(): Promise<ActionResult<QuizJobRow[]>> {
-  try {
-    await requireAdmin('/admin/curation')
-    const client = (await createClient()) as unknown as SupabaseClient
-    const jobs = await fetchQuizJobs(client)
-    return { ok: true, data: jobs }
-  } catch (e) {
-    return {
-      ok: false,
-      error: e instanceof Error ? e.message : '퀴즈 큐 조회 실패',
     }
   }
 }
@@ -219,21 +183,6 @@ export async function enqueueReviewJobsAction(
     return {
       ok: false,
       error: e instanceof Error ? e.message : '검토 큐 적재 실패',
-    }
-  }
-}
-
-/** 검토 큐 상태 뷰용 — 최근 작업 목록 조회. */
-export async function fetchReviewJobsAction(): Promise<ActionResult<ReviewJobRow[]>> {
-  try {
-    await requireAdmin('/admin/curation')
-    const client = (await createClient()) as unknown as SupabaseClient
-    const jobs = await fetchReviewJobs(client)
-    return { ok: true, data: jobs }
-  } catch (e) {
-    return {
-      ok: false,
-      error: e instanceof Error ? e.message : '검토 큐 조회 실패',
     }
   }
 }

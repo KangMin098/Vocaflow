@@ -20,6 +20,7 @@
 // 이제 `csat_item_reviews` 를 **직접** 읽어 ③ 상태 매트릭스와 ⑤ 실패 목록을 낸다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import {
@@ -70,7 +71,7 @@ export function ReviewClient({
   // 후자는 문항을 고친다). 이 화면이 그 둘을 섞던 것이 B4 0점의 실체였다.
   const blocks: StageBlock[] = [
     {
-      what: '3인 판정에서 막힌 문항 (revise · fail 미해소)',
+      what: '전체 문항 결함 — 선택 권과 별도 (revise · fail 미해소)',
       count: defects.available ? defects.itemsBlocked : null,
       unmeasuredReason: defects.loadError ?? '검수 기록을 못 읽었다',
     },
@@ -106,7 +107,7 @@ export function ReviewClient({
       //    같은 문장을 두 곳에 두면 한쪽만 고쳐져 갈린다(명령을 한자리로 모은 것과 같은 이유).
       commands={layers.map((l) => ({
         cmd: l.cmd,
-        why: `${l.id} ${l.name} 층을 돌린다`,
+        why: l.id === 'L2' ? '독해 V5 고정 예시 — 선택 권과 무관. 실행 전 시리즈·V밴드를 확인하세요.' : `${l.id} ${l.name} · 전체 범위 명령`,
         writes: l.cmd.includes('--commit'),
         claudeCode: l.id === 'L2',
       }))}
@@ -115,7 +116,7 @@ export function ReviewClient({
       }
       failures={
         <StageFailures
-          title="막힌 문항 — 개별 판정"
+          title="전체 문항 결함 — 선택 권과 별도 집계"
           total={defects.available ? (defects.byVerdict.revise ?? 0) + (defects.byVerdict.fail ?? 0) : null}
           rows={failureRows}
           emptyNote={
@@ -129,7 +130,7 @@ export function ReviewClient({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
         >
           {loadError}
         </p>
@@ -168,7 +169,7 @@ export function ReviewClient({
                 {defects.itemsAllPass?.toLocaleString()}
               </>
             ) : (
-              <span className="text-[var(--memory-new)]">못 잼</span>
+              <span className="text-[var(--t2)]">못 잼</span>
             )}
           </span>
         </div>
@@ -177,7 +178,7 @@ export function ReviewClient({
           둘이 갈라져 있으면 조판 뒤에 들어온 판정이 있다는 뜻이다 — 다시 찍어야 한다.
         </p>
         {!defects.available ? (
-          <p className="font-body text-[12px] text-[var(--memory-new)]">
+          <p className="font-body text-[12px] text-[var(--t2)]">
             {defects.loadError ?? '검수 기록을 못 읽었다'} — 0건이 아니다.
           </p>
         ) : defects.matrix.length === 0 ? (
@@ -200,19 +201,19 @@ export function ReviewClient({
                     <td className="py-2 pr-3 font-mono text-[var(--t1)]">
                       {m.vLevel == null ? (
                         // 문항을 못 찾은 판정 — 「없다」가 아니라 「못 찾았다」.
-                        <span className="text-[var(--memory-new)]">못 찾음</span>
+                        <span className="text-[var(--t2)]">못 찾음</span>
                       ) : (
                         `V${m.vLevel}`
                       )}
                     </td>
                     <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t2)]">{m.items}</td>
-                    <td className="py-2 pr-3 font-mono tabular-nums" style={{ color: 'var(--memory-stable)' }}>
+                    <td className="py-2 pr-3 font-mono tabular-nums" style={{ color: adminTextInk('var(--memory-stable)') }}>
                       {m.pass}
                     </td>
-                    <td className="py-2 pr-3 font-mono tabular-nums" style={{ color: 'var(--memory-shaky)' }}>
+                    <td className="py-2 pr-3 font-mono tabular-nums" style={{ color: adminTextInk('var(--memory-shaky)') }}>
                       {m.revise}
                     </td>
-                    <td className="py-2 font-mono tabular-nums" style={{ color: 'var(--memory-risk)' }}>
+                    <td className="py-2 font-mono tabular-nums" style={{ color: adminTextInk('var(--memory-risk)') }}>
                       {m.fail}
                     </td>
                   </tr>
@@ -250,27 +251,27 @@ export function ReviewClient({
             </thead>
             <tbody>
               {volumes.map((v) => (
-                <tr key={`${v.volumeTitle ?? ''}|${v.band}`} className="border-b border-[var(--bd)] last:border-0">
+                <tr key={`${v.series ?? 'unknown'}|${v.band}`} className="border-b border-[var(--bd)] last:border-0">
                   <td className="py-2 pr-3 text-[var(--t1)]">
                     <span className="font-mono text-[10px] text-[var(--t3)]">V{v.band}</span>{' '}
                     {v.volumeTitle ?? '—'}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t2)]">{v.items}</td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
-                    <span style={{ color: v.autoPassed >= v.autoTotal ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}>
+                    <span style={{ color: adminTextInk(v.autoPassed >= v.autoTotal ? 'var(--memory-stable)' : 'var(--memory-shaky)') }}>
                       {v.autoPassed}/{v.autoTotal}
                     </span>
                     {v.failedChecks.length ? (
-                      <span className="ml-1 break-keep text-[10.5px] text-[var(--memory-shaky)]">
+                      <span className="ml-1 break-keep text-[10.5px] text-[var(--warning-ink)]">
                         {v.failedChecks.join(' · ')}
                       </span>
                     ) : null}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.answerBias == null ? (
-                      <span className="text-[var(--memory-new)]">기록 없음</span>
+                      <span className="text-[var(--t2)]">기록 없음</span>
                     ) : (
-                      <span style={{ color: v.answerBias.biased ? 'var(--memory-risk)' : 'var(--memory-stable)' }}>
+                      <span style={{ color: adminTextInk(v.answerBias.biased ? 'var(--memory-risk)' : 'var(--memory-stable)') }}>
                         {v.answerBias.chi2.toFixed(1)} · {v.answerBias.cramersV.toFixed(3)}
                         {v.answerBias.biased ? ' 편향' : ' 균등'}
                       </span>
@@ -278,9 +279,9 @@ export function ReviewClient({
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.proofread == null ? (
-                      <span className="text-[var(--memory-new)]">기록 없음</span>
+                      <span className="text-[var(--t2)]">기록 없음</span>
                     ) : (
-                      <span style={{ color: v.proofread.defective ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}>
+                      <span style={{ color: adminTextInk(v.proofread.defective ? 'var(--memory-shaky)' : 'var(--memory-stable)') }}>
                         {v.proofread.defective}/{v.proofread.passages}
                       </span>
                     )}
@@ -290,20 +291,20 @@ export function ReviewClient({
                       「덜 봤다」와 「봤는데 막혔다」를 가른다 — 할 일이 정반대다. */}
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.personaReview == null ? (
-                      <span className="text-[var(--memory-new)]">기록 없음</span>
+                      <span className="text-[var(--t2)]">기록 없음</span>
                     ) : (
                       <>
                         <span
                           style={{
                             color:
-                              v.personaReview.passed >= v.personaReview.items ? 'var(--memory-stable)' : 'var(--memory-shaky)',
+                              adminTextInk(v.personaReview.passed >= v.personaReview.items ? 'var(--memory-stable)' : 'var(--memory-shaky)'),
                           }}
                         >
                           {v.personaReview.passed}/{v.personaReview.items}
                         </span>
                         {v.personaReview.settled != null &&
                         v.personaReview.settled > v.personaReview.passed ? (
-                          <span className="ml-1 break-keep text-[10.5px] text-[var(--memory-risk)]">
+                          <span className="ml-1 break-keep text-[10.5px] text-[var(--error-ink)]">
                             {v.personaReview.settled - v.personaReview.passed}건 막힘
                           </span>
                         ) : null}

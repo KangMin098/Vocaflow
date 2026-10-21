@@ -17,6 +17,7 @@
 // 「냈음」으로 서고 공개 URL 로 열려 있었다. 이 화면이 그 사실을 적는다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useState, useTransition } from 'react'
 
@@ -115,7 +116,7 @@ function DecideButtons({
             onClick={() =>
               start(async () => setSays((await onDecide(v.series, v.band, 'approved')).says))
             }
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-stable)] hover:text-[var(--memory-stable)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-stable)] hover:text-[var(--success-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
           >
             {pending ? '남기는 중…' : '발행 승인'}
           </button>
@@ -137,7 +138,7 @@ function DecideButtons({
                 ),
               )
             }
-            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-risk)] hover:text-[var(--memory-risk)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] px-2.5 font-display text-[11.5px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--memory-risk)] hover:text-[var(--error-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-45"
           >
             {pending ? '남기는 중…' : '내린다'}
           </button>
@@ -155,6 +156,7 @@ function DecideButtons({
 export function PressClient({
   volumes,
   rungs,
+  selectedStep,
   brandFingerprint,
   brand,
   loadError,
@@ -222,17 +224,17 @@ export function PressClient({
           why: '찍을 후보 권과 권마다의 차단 사유를 낸다. 읽기만 하고 재실행 안전',
         },
         {
-          cmd: 'pnpm dlx tsx scripts/textbook/build-volume.mjs --band 6 --units 20',
-          why: '읽기만 하며 3관점 채점표를 낸다',
+          cmd: 'pnpm dlx tsx scripts/textbook/build-volume.mjs --series reading --band 6 --units 20',
+          why: '독해 V6 예시·선택 권 무관. 읽기 전용.',
         },
         {
-          cmd: 'pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html',
-          why: '지정한 파일을 덮어쓴다 — 되돌릴 원장이 없다',
+          cmd: 'pnpm dlx tsx scripts/textbook/render-volume.mjs --series reading --band 6 --units 20 --out volume-v6.html',
+          why: '독해 V6 예시·선택 권 무관. 파일 덮어씀·복구본 없음.',
           writes: true,
         },
         {
           cmd: 'npx tsx --tsconfig apps/web/tsconfig.json scripts/textbook/contents-snapshot.mjs --series vocab --units 20',
-          why: '그 시리즈의 목차 스냅샷을 굽는다 — 없으면 학습자 상세면에 목차 절이 안 나간다',
+          why: '어휘 시리즈 전체 예시(선택 권 무관). 목차 스냅샷 덮어씀.',
           writes: true,
         },
       ]}
@@ -255,7 +257,7 @@ export function PressClient({
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
         >
           {loadError}
         </p>
@@ -268,14 +270,14 @@ export function PressClient({
             {new Set(volumes.map((v) => v.band)).size} / {rungs}
           </p>
           <p className="mt-1 break-keep font-body text-[11px] text-[var(--t3)]">
-            빈 계단에서 학습자는 다른 출판사로 간다
+            {selectedStep == null ? '전체 학령 단계 기준' : `선택한 ${selectedStep}단계 한 권 기준`}
           </p>
         </div>
         <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
           <p className="font-body text-[11px] text-[var(--t3)]">옛 규격으로 찍힌 권</p>
           <p
             className="mt-1 font-mono text-[20px] font-[700] tabular-nums"
-            style={{ color: stale.length ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}
+            style={{ color: adminTextInk(stale.length ? 'var(--memory-shaky)' : 'var(--memory-stable)') }}
           >
             {stale.length}
           </p>
@@ -287,7 +289,7 @@ export function PressClient({
           <p className="font-body text-[11px] text-[var(--t3)]">해설 안 붙은 문항</p>
           <p
             className="mt-1 font-mono text-[20px] font-[700] tabular-nums"
-            style={{ color: missingExpl ? 'var(--memory-risk)' : 'var(--memory-stable)' }}
+            style={{ color: adminTextInk(missingExpl ? 'var(--memory-risk)' : 'var(--memory-stable)') }}
           >
             {missingExpl.toLocaleString()}
           </p>
@@ -300,7 +302,7 @@ export function PressClient({
       {/* 사다리 — 어느 학령이 비었는지 숫자 대신 계단으로. 브랜드는 채울 수 있는 계단이다. */}
       <section className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4">
         <h3 className="mb-2 font-display text-[13px] font-[700] text-[var(--t1)]">학령 사다리</h3>
-        <LadderFill volumes={volumes} rungs={rungs} />
+        <LadderFill volumes={volumes} rungs={rungs} selectedStep={selectedStep} />
       </section>
 
       {/* ── 학습자 도달 ────────────────────────────────────────────────
@@ -347,16 +349,16 @@ export function PressClient({
                     <td className="py-1.5 pr-3">
                       {v.publish == null ? (
                         // ⚠️ 「찍힘」으로 채우지 않는다 — 사람이 그렇게 판정한 것과 다르다.
-                        <span className="text-[var(--memory-new)]">판정 없음</span>
+                        <span className="text-[var(--t2)]">판정 없음</span>
                       ) : (
                         <span
                           style={{
                             color:
-                              v.publish.status === 'published' || v.publish.status === 'approved'
+                              adminTextInk(v.publish.status === 'published' || v.publish.status === 'approved'
                                 ? 'var(--memory-stable)'
                                 : v.publish.status === 'withdrawn'
                                   ? 'var(--memory-risk)'
-                                  : 'var(--memory-shaky)',
+                                  : 'var(--memory-shaky)'),
                           }}
                         >
                           {PUBLISH_KO[v.publish.status]}
@@ -370,14 +372,14 @@ export function PressClient({
                     </td>
                     <td className="py-1.5 pr-3">
                       {v.reach.hasContents ? (
-                        <span style={{ color: 'var(--memory-stable)' }}>있음</span>
+                        <span style={{ color: adminTextInk('var(--memory-stable)') }}>있음</span>
                       ) : (
-                        <span style={{ color: 'var(--memory-risk)' }}>없음 — 목차 절이 안 나간다</span>
+                        <span style={{ color: adminTextInk('var(--memory-risk)') }}>없음 — 목차 절이 안 나간다</span>
                       )}
                     </td>
                     <td className="break-keep py-1.5 pr-3 text-[11px]">
                       {why.length ? (
-                        <span style={{ color: 'var(--memory-shaky)' }}>{why.join(' · ')}</span>
+                        <span style={{ color: adminTextInk('var(--memory-shaky)') }}>{why.join(' · ')}</span>
                       ) : (
                         <span className="text-[var(--t3)]">없음</span>
                       )}
@@ -392,7 +394,7 @@ export function PressClient({
                         </a>
                       ) : (
                         // 단이 없으면 주소를 지어내지 않는다.
-                        <span className="text-[var(--memory-new)]">단 없음</span>
+                        <span className="text-[var(--t2)]">단 없음</span>
                       )}
                     </td>
                     <td className="py-1.5">
@@ -443,27 +445,27 @@ export function PressClient({
                     {v.units} · {v.items}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
-                    <span style={{ color: v.missingExplanations > 0 ? 'var(--memory-risk)' : 'var(--memory-stable)' }}>
+                    <span style={{ color: adminTextInk(v.missingExplanations > 0 ? 'var(--memory-risk)' : 'var(--memory-stable)') }}>
                       {v.missingExplanations}
                     </span>
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.typeMixFit == null ? (
-                      <span className="text-[var(--memory-new)]">못 잼</span>
+                      <span className="text-[var(--t2)]">못 잼</span>
                     ) : (
-                      <span style={{ color: v.typeMixFit >= 0.8 ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}>
+                      <span style={{ color: adminTextInk(v.typeMixFit >= 0.8 ? 'var(--memory-stable)' : 'var(--memory-shaky)') }}>
                         {Math.round(v.typeMixFit * 100)}%
                       </span>
                     )}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums text-[var(--t2)]">
-                    {v.distinctVolumes ?? <span className="text-[var(--memory-new)]">해당 없음</span>}
+                    {v.distinctVolumes ?? <span className="text-[var(--t2)]">해당 없음</span>}
                   </td>
                   <td className="py-2 pr-3 font-mono tabular-nums">
                     {v.articlesIdle == null ? (
-                      <span className="text-[var(--memory-new)]">못 잼</span>
+                      <span className="text-[var(--t2)]">못 잼</span>
                     ) : (
-                      <span style={{ color: v.articlesIdle > 0 ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}>
+                      <span style={{ color: adminTextInk(v.articlesIdle > 0 ? 'var(--memory-shaky)' : 'var(--memory-stable)') }}>
                         {v.articlesIdle.toLocaleString()}
                         {v.articlesWithItems != null ? (
                           <span className="ml-1 text-[10.5px] text-[var(--t3)]">
@@ -475,9 +477,9 @@ export function PressClient({
                   </td>
                   <td className="py-2">
                     {v.brandCurrent ? (
-                      <span className="text-[11px] text-[var(--memory-stable)]">최신</span>
+                      <span className="text-[11px] text-[var(--success-ink)]">최신</span>
                     ) : (
-                      <span className="text-[11px] text-[var(--memory-shaky)]">옛 규격</span>
+                      <span className="text-[11px] text-[var(--warning-ink)]">옛 규격</span>
                     )}
                   </td>
                 </tr>
@@ -495,12 +497,12 @@ export function PressClient({
       </section>
 
       <section className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-4">
-        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">다시 찍는 법</h3>
+        <h3 className="font-display text-[13px] font-[700] text-[var(--t1)]">독해 V6 조판 예시 — 현재 선택 권과 무관</h3>
         <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-          pnpm dlx tsx scripts/textbook/build-volume.mjs --band 6 --units 20
+          pnpm dlx tsx scripts/textbook/build-volume.mjs --series reading --band 6 --units 20
         </code>
         <code className="break-all font-mono text-[11.5px] text-[var(--t1)]">
-          pnpm dlx tsx scripts/textbook/render-volume.mjs --band 6 --units 20 --out volume-v6.html
+          pnpm dlx tsx scripts/textbook/render-volume.mjs --series reading --band 6 --units 20 --out volume-v6.html
         </code>
         <p className="break-keep font-body text-[11.5px] leading-snug text-[var(--t3)]">
           첫 명령은 읽기만 하며 3관점 채점표를 낸다. 둘째는 <strong>지정한 파일을 덮어쓴다.</strong>

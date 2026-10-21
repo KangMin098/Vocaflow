@@ -15,9 +15,9 @@ export const PDCP_HELP: HelpRegistry = {
     title: 'PD Comic Pipeline — 퍼블릭도메인 만화 복원',
     screen: {
       summary:
-        '옛 스캔 만화를 호(issue) 단위로 받아 복원·컷분할·대사추출까지 밀어 올리고, PD 근거를 확정해야만 발행되는 큐.',
+        '옛 스캔 만화를 호(issue) 단위로 받아 복원·컷분할·대사추출까지 밀어 올리고, PD 근거를 확정해야만 발행되는 큐. 테스트 모드와 개별 호 선택은 체크박스 주변 레이블까지 누를 수 있다. 선택만으로 큐에 적재되지는 않는다.',
       when:
-        'AI 생성 만화(/admin/comic)와 테이블·화면·발행 게이트가 전부 분리돼 있다. 원본 스캔이 실재하는 옛 만화만 여기서 다룬다.',
+        'AI 생성 만화(/admin/comic)와 테이블·화면·발행 게이트가 전부 분리돼 있다. 원본 스캔이 실재하는 옛 만화만 여기서 다룬다. 긴 명령·로그는 Tab으로 스크롤 영역에 들어가 방향키로 확인한다. 명령을 읽는 것과 실행 버튼을 누르는 것은 별개다.',
       diagrams: [
         {
           kind: 'flow',
@@ -77,6 +77,7 @@ export const PDCP_HELP: HelpRegistry = {
         },
       ],
       cautions: [
+        '대사 정제 CLI는 hOCR 기본 출력 bubbles.manifest.json과 자체 OCR 출력 bubbles.local.manifest.json을 모두 받는다. 둘 다 있으면 자체 OCR을 우선하며 정제 intake·결과에 실제 입력 파일명을 기록한다. 정제 실패는 같은 intake에서 재실행할 수 있다.',
         '드레인 · 라이브 진행 · 모던 리더 · 브라우저 보조는 모두 dev 전용이다 — 배포 환경에서는 403/404 로 막힌다(서버 프로세스가 ffmpeg 을 돌려야 하기 때문).',
         '1964년 이후 발행분은 저작권이 자동 갱신돼 사용할 수 없고, 1930~1963 은 갱신 기록 확인 전까지 PD 가 아니다. Classics Illustrated Junior 는 제외 대상.',
         '잘못 담은 호를 큐에서 빼는 버튼은 화면에 없다 — DELETE /api/pdcp/issue?id=<uuid>(발행본은 409로 거부). 작업 디렉터리는 기본 보존되고 purge=1 일 때만 함께 지워진다.',

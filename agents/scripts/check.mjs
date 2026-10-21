@@ -20,6 +20,24 @@ export const AGENTS_MAX_LINES = 200
 export const AGENTS_MAX_BYTES = 32 * 1024
 export const GITIGNORE_LOCAL = ['.claude/settings.local.json', '.agent-handoff/', '.agent-lock', '.agent-logs/']
 
+// #122의 기존 라쳇을 보존한다. 새로운 승인/세션 시작 절차를 추가하지 않는다.
+export const KNOWN_DUPLICATE_MIGRATION_VERSIONS = new Set([
+  '20260606140000', '20260608120000', '20260614130000', '20260614200000', '20260614220000', '20260614230000',
+  '20260708120000', '20260712160000', '20260712165000', '20260712170000', '20260712180000', '20260713100000',
+  '20260808240000', '20260809120000', '20260830170000', '20260906030000', '20260924150000',
+])
+
+export function duplicateMigrationVersions(names, known = KNOWN_DUPLICATE_MIGRATION_VERSIONS) {
+  const byVersion = new Map()
+  for (const name of names) {
+    const match = name.match(/^(\d{8})_?(\d{6})?_.+\.sql$/)
+    if (!match) continue
+    const version = match[1] + (match[2] ?? '')
+    byVersion.set(version, [...(byVersion.get(version) ?? []), name])
+  }
+  return [...byVersion].filter(([version, files]) => files.length > 1 && !known.has(version)).map(([, files]) => files)
+}
+
 /** 에이전트가 읽는 설정·지시 파일 전부 */
 function agentConfigFiles() {
   const fixed = ['AGENTS.md', 'CLAUDE.md', '.mcp.json', '.claude/settings.json', 'apps/web/CLAUDE.md', 'apps/mobile/CLAUDE.md', 'packages/design-tokens/CLAUDE.md']
@@ -85,6 +103,11 @@ export function runChecks() {
   const orphanAgents = claudeAgents.filter((n) => !fs.existsSync(rel('.codex', 'agents', `${n}.toml`)))
   add('D9', `서브에이전트 ${claudeAgents.length}개 Codex 짝 존재`, orphanAgents.length === 0,
     orphanAgents.length ? `Codex 짝 없음: ${orphanAgents.join(', ')}` : claudeAgents.join(' · '))
+
+  const migrationDir = rel('supabase', 'migrations')
+  const duplicateVersions = fs.existsSync(migrationDir) ? duplicateMigrationVersions(fs.readdirSync(migrationDir)) : []
+  add('D10', '마이그레이션 새 버전 중복 0', duplicateVersions.length === 0,
+    duplicateVersions.length ? duplicateVersions.map(files => files.join(' = ')).join(' / ') : '0')
 
   // D11 — PR 자동화 정책(v1.1 · 2026-10-11). 모든 세션이 같은 정본을 읽어야 한다 — AGENTS.md 의 정책 줄 버전과 JSON 버전이 어긋나면
   //   한쪽 세션은 옛 승인 규칙으로 돈다. DECISIONS 에 그 버전의 이력이 있어야 한다.

@@ -14,7 +14,6 @@
 
 import { useState } from 'react'
 
-import { useCloseOnBack } from '@/lib/ui/use-close-on-back'
 
 import GameBriefModal, { type BriefEntry } from '@/components/game/brief/GameBriefModal'
 
@@ -49,8 +48,7 @@ export default function BriefButton({
 }: Props) {
   const [open, setOpen] = useState(false)
 
-  // 뒤로가기로 닫는다 — 폰에는 Esc 가 없다(lib/ui/use-close-on-back.ts).
-  useCloseOnBack(open, () => setOpen(false))
+  // GameBriefModal의 공통 Dialog가 이력·뒤로가기를 소유한다.
 
   return (
     <>

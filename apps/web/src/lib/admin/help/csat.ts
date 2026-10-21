@@ -710,7 +710,7 @@ export const CSAT_HELP: HelpRegistry = {
     screen: {
       summary:
         '원고를 쓰기 전에 정하는 표 — **어느 학년(연령)에 · 어느 수준(V-Level)으로 · 어느 유형을** 낼 것인가. 이 표가 없으면 집필이 있는 소재대로 흘러가고 학년별 난이도 사다리가 들쭉날쭉해진다.',
-      when: '새 학년대를 열 때, 계단이 끊겼다는 보고를 받았을 때, 게이트 임계를 손대기 전.',
+      when: '새 학년대를 열 때, 계단이 끊겼다는 보고를 받았을 때, 게이트 임계를 손대기 전. 넓은 설계표는 Tab으로 영역에 들어가 좌우로 스크롤할 수 있다. 규격 밖 표시와 제작 상태 기호에는 읽어 주는 이름이 있다.',
       diagrams: [
         contractOf('blueprint'),
         {
@@ -1728,4 +1728,22 @@ export const CSAT_HELP: HelpRegistry = {
       ],
     },
   },
+}
+
+// 교재 공정과 연구/진단은 영역별 메뉴에서 찾습니다. 문항·해설은 같은 작업면의 두 보기이며, 기존 해설 URL은 해설 보기로 연결됩니다. 선택한 시리즈·단계는 공정 링크에 유지하지만 전체 재고를 주문별 진행률로 해석하지 않습니다.
+CSAT_HELP['csat-new'].screen.fields = [
+  ...(CSAT_HELP['csat-new'].screen.fields ?? []),
+  { label: '제작 기준', detail: '고른 시리즈·단계는 URL에 남고 공정 링크로 이어집니다. 공정의 재고 수치는 전체 현황이며 이 한 권의 진행률을 뜻하지 않습니다.' },
+]
+CSAT_HELP['csat-authoring'].screen.fields = [
+  ...(CSAT_HELP['csat-authoring'].screen.fields ?? []),
+  { label: '문항·해설 보기', detail: '같은 작업면에서 문항 제작과 해설 작성·검토를 전환합니다. 생성·검수·완료 조건은 각각 유지됩니다. 옛 해설 URL은 해설 보기로 연결됩니다.' },
+]
+
+for (const screen of ['csat-review', 'csat-press'] as const) {
+  CSAT_HELP[screen].screen.fields = [
+    ...(CSAT_HELP[screen].screen.fields ?? []),
+    { label: '선택 범위와 명령', detail: '선택하면 시리즈+카탈로그 단계로 조판 기록을 제한합니다. URL band는 단계이며 스크립트의 V밴드와 다릅니다. 복사 명령은 전체/고정 예시로 현재 선택 권에 자동 결속되지 않습니다. 실행 전에 실제 시리즈·V밴드·출력 경로를 확인하세요. 검수의 문항 결함은 전체 원장으로 별도 집계합니다.' },
+    { label: '잘못된 제작 기준', detail: '시리즈·단계가 없거나 서로 맞지 않으면 조회·승인 액션을 열지 않고 입력 오류를 표시합니다. 제작 기준 다시 선택으로 돌아가 올바른 시리즈·단계를 고릅니다. 실제 존재하지 않는 주소의 404와 구분합니다.' },
+  ]
 }

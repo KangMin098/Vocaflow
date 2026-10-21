@@ -2,9 +2,11 @@
 // LCP v2.0 Phase 12 묶음 C — 책 상세 + 액션 모달
 
 'use client';
+import { adminTextInk } from '@/lib/admin/text-ink'
 
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import {
   Loader2, RefreshCw, CheckCircle2, Archive, AlertCircle, ExternalLink, BookOpen, Play, Undo2, Trash2, ListChecks,
 } from 'lucide-react';
@@ -25,11 +27,15 @@ import {
 } from '@/lib/library/admin-queries';
 import { bookSourceUrl, sourceLabel } from '@/lib/library/source-urls';
 import { Dialog } from '@/components/ui/Dialog';
+import { useFocusTrap } from '@/lib/ui/use-focus-trap';
+import { useCloseOnBack } from '@/lib/ui/use-close-on-back';
+import { curationPreviewHref } from '@/lib/admin/curation-view';
 
 interface BookDetailModalProps {
   book: LibraryBookAdminRow | null;
   onClose: () => void;
   onChanged: () => void;
+  returnTo?: string;
 }
 
 interface ChapterStats {
@@ -40,7 +46,9 @@ interface ChapterStats {
 
 type ToneKey = 'success' | 'warning' | 'info' | 'danger' | 'neutral';
 
-export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalProps) {
+export function BookDetailModal({ book, onClose, onChanged, returnTo = '/admin/curation' }: BookDetailModalProps) {
+  const router = useRouter();
+  const afterUnwindRef = useRef<(() => void) | null>(null);
   const [actionPending, setActionPending] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [stats, setStats] = useState<ChapterStats | null>(null);
@@ -74,6 +82,9 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
   }, [book]);
 
   if (!book) return null;
+  const historyReturnUrl = new URL(returnTo, 'http://local');
+  historyReturnUrl.searchParams.delete('selected');
+  const historyReturnHref = `${historyReturnUrl.pathname}${historyReturnUrl.search}${historyReturnUrl.hash}`;
 
   async function runAction(
     label: string,
@@ -133,7 +144,15 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
     <>
         {(book.status === 'published' || book.status === 'ready') && (
           <Link
-            href={`/admin/curation/preview/${book.id}`}
+            href={curationPreviewHref(book.id, returnTo)}
+            onClick={event => {
+              if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+              event.preventDefault();
+              if (actionPending) return;
+              const href = curationPreviewHref(book.id, returnTo);
+              afterUnwindRef.current = () => router.push(href);
+              onClose();
+            }}
             className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--p)] bg-[var(--p-light)] px-3 font-display text-[12px] font-[600] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
           >
             <BookOpen size={12} aria-hidden />
@@ -228,7 +247,10 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
 
   return (
     <Dialog
-      onClose={actionPending ? () => {} : onClose}
+      onClose={onClose}
+      closeDisabled={!!actionPending}
+      afterUnwindRef={afterUnwindRef}
+      historyReturnHref={historyReturnHref}
       size="xl"
       crumbs={['Admin', '도서 큐레이션', statusInfo.label]}
       title={book.title}
@@ -374,7 +396,7 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
 
         {book.status === 'failed' && book.status_message && (
           <Section title="실패 메시지" tone="danger">
-            <pre className="whitespace-pre-wrap font-mono text-[11px] leading-relaxed text-[var(--learn-error)]">
+            <pre className="whitespace-pre-wrap font-mono text-[11px] leading-relaxed text-[var(--learn-error-ink)]">
               {book.status_message}
             </pre>
           </Section>
@@ -406,8 +428,8 @@ export function BookDetailModal({ book, onClose, onChanged }: BookDetailModalPro
 
         {error && (
           <div role="alert" className="flex items-start gap-2 rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-3 py-2">
-            <AlertCircle size={14} className="mt-0.5 shrink-0 text-[var(--learn-error)]" aria-hidden />
-            <span className="font-body text-[12px] text-[var(--learn-error)]">{error}</span>
+            <AlertCircle size={14} className="mt-0.5 shrink-0 text-[var(--learn-error-ink)]" aria-hidden />
+            <span className="font-body text-[12px] text-[var(--learn-error-ink)]">{error}</span>
           </div>
         )}
         {successMessage && (
@@ -470,8 +492,14 @@ function DeleteConfirmDialog({
   const [typed, setTyped] = useState('');
   const required = '삭제';
   const canDelete = typed.trim() === required;
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(true, panelRef);
+  useCloseOnBack(true, onCancel, { canClose: !pending });
   return (
     <div
+      ref={panelRef}
+      tabIndex={-1}
+      onKeyDownCapture={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); if (!pending) onCancel(); } }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="delete-confirm-title"
@@ -480,7 +508,7 @@ function DeleteConfirmDialog({
       <div className="w-full max-w-md rounded-[var(--r-2xl)] border border-[var(--error)] bg-[var(--bg)] p-6 shadow-[var(--sh-float)]">
         <h3
           id="delete-confirm-title"
-          className="font-display text-[15px] font-[700] text-[var(--learn-error)]"
+          className="font-display text-[15px] font-[700] text-[var(--learn-error-ink)]"
         >
           영구 삭제 — 되돌릴 수 없음
         </h3>
@@ -497,7 +525,7 @@ function DeleteConfirmDialog({
         </ul>
         <label className="mt-4 block">
           <span className="font-mono text-[11px] text-[var(--t2)]">
-            확인을 위해 <strong className="text-[var(--learn-error)]">{required}</strong> 를 입력하세요
+            확인을 위해 <strong className="text-[var(--learn-error-ink)]">{required}</strong> 를 입력하세요
           </span>
           <input
             type="text"
@@ -544,8 +572,14 @@ function RevertConfirmDialog({
   onCancel: () => void;
   onConfirm: () => void;
 }) {
+  const panelRef = useRef<HTMLDivElement>(null);
+  useFocusTrap(true, panelRef);
+  useCloseOnBack(true, onCancel, { canClose: !pending });
   return (
     <div
+      ref={panelRef}
+      tabIndex={-1}
+      onKeyDownCapture={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); if (!pending) onCancel(); } }}
       role="dialog"
       aria-modal="true"
       aria-labelledby="revert-confirm-title"
@@ -653,16 +687,16 @@ function CoverageCurve({
               title={`V${l} 학습자가 이 도서 토큰의 ${pct}% 를 안다`}
             >
               <span className="text-[var(--t2)]">V{l}</span>
-              <strong style={{ color: colorOf(pct) }}>{pct}%</strong>
+              <strong style={{ color: adminTextInk(colorOf(pct)) }}>{pct}%</strong>
             </span>
           );
         })}
       </div>
       <p className="font-body text-[10px] leading-relaxed text-[var(--t2)]">
         V레벨 학습자가 아는 토큰 비율 ·{' '}
-        <span style={{ color: 'var(--learn-known)' }}>≥95 이해가능</span> ·{' '}
-        <span style={{ color: 'var(--learn-review)' }}>85–95 i+1 도전</span> ·{' '}
-        <span style={{ color: 'var(--learn-error)' }}>&lt;85 과난</span>
+        <span style={{ color: adminTextInk('var(--learn-known)') }}>≥95 이해가능</span> ·{' '}
+        <span style={{ color: adminTextInk('var(--learn-review)') }}>85–95 i+1 도전</span> ·{' '}
+        <span style={{ color: adminTextInk('var(--learn-error)') }}>&lt;85 과난</span>
       </p>
     </div>
   );
@@ -682,7 +716,7 @@ function Section({
       <h3
         className={[
           'font-mono text-[10px] uppercase tracking-wider',
-          tone === 'danger' ? 'text-[var(--learn-error)]' : 'text-[var(--t2)]',
+          tone === 'danger' ? 'text-[var(--learn-error-ink)]' : 'text-[var(--t2)]',
         ].join(' ')}
       >
         {title}
@@ -717,7 +751,7 @@ function DataRow({
           'flex-1 text-[13px] font-[600]',
           mono ? 'font-mono tabular-nums' : 'font-body',
         ].join(' ')}
-        style={{ color: valueColor }}
+        style={{ color: adminTextInk(valueColor) }}
       >
         {value}
       </span>
@@ -756,7 +790,7 @@ function StatusPill({
   return (
     <span
       className="inline-flex shrink-0 items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
-      style={{ backgroundColor: bg, color: text }}
+      style={{ backgroundColor: bg, color: adminTextInk(text) }}
     >
       {label}
     </span>
@@ -780,7 +814,7 @@ function DryRunResult({
   const changed = now != null && currentChapters != null && now !== currentChapters;
   return (
     <div className="border-t border-[var(--bd)] px-5 py-3" style={{ background: tone.bg }}>
-      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px]" style={{ color: tone.fg }}>
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 font-mono text-[11px]" style={{ color: adminTextInk(tone.fg) }}>
         <span className="font-[700]">{tone.icon} dry-run: {result.verdict}</span>
         <span>
           예상 챕터 <strong>{now ?? '—'}</strong>
@@ -794,7 +828,7 @@ function DryRunResult({
       {result.warnings.length > 0 && (
         <ul className="mt-1.5 flex flex-col gap-1">
           {result.warnings.map((w, i) => (
-            <li key={i} className="font-body text-[11px]" style={{ color: tone.fg }}>· {w}</li>
+            <li key={i} className="font-body text-[11px]" style={{ color: adminTextInk(tone.fg) }}>· {w}</li>
           ))}
         </ul>
       )}
@@ -822,7 +856,7 @@ function ActionButton({
     tone === 'primary'
       ? 'bg-[var(--p)] hover:bg-[var(--p-hover)] text-[var(--on-p)]'
       : tone === 'danger'
-        ? 'border border-[var(--learn-error)] bg-[var(--learn-error-light)] hover:bg-[var(--learn-error)] hover:text-[var(--ti)] text-[var(--learn-error)]'
+        ? 'border border-[var(--learn-error)] bg-[var(--learn-error-light)] hover:bg-[var(--learn-error)] hover:text-[var(--ti)] text-[var(--learn-error-ink)]'
         : 'border border-[var(--bd)] bg-[var(--bg)] hover:bg-[var(--bg2)] text-[var(--t2)]';
   return (
     <button

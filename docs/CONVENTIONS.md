@@ -1,5 +1,18 @@
 # Conventions
 
+## 공유 PC의 프로덕션 빌드
+
+Next 14의 Terser 병렬도는 `experimental.cpus`를 따른다. 전체 CPU 수로 큰 청크를 Worker에 보내면 공유 16GB PC에서 `DataCloneError: Data cannot be cloned, out of memory`가 발생해, 기본 병렬도를 2로 제한한다. SWC 대체·minify 비활성화로 검사나 산출물 형식을 바꾸지 않는다. 검증 빌드는 실행 서버와 별도 `NEXT_DIST_DIR`을 사용한다. 실패 로그와 재실행 로그는 구분해 보존한다.
+
+## 관리자 화면의 읽기 폴링
+
+URL 선택·팝업과 함께 실행되는 초기 조회/폴링은 관리자 GET API로 읽고 캐시를 금지한다. 읽기 Server Action이 진행 중일 때 History API의 URL 복원이 끼어들면 Next가 재갱신을 예약하고 화면을 재마운트할 수 있다. 도서 큐에서 실제 상세 자동 닫힘을 재현했다. 큐 조회는 `GET /api/admin/library/curation-jobs`와 기존 세션/RLS 조회를 사용하며, 적재·삭제 같은 변경만 기존 Server Action에 둔다. 가드 실패·종류 오류의 데이터 조회 금지와 통신 실패의 명시적 실패 결과를 회귀로 지킨다.
+
+## 공유 DB 쓰기 테스트
+
+환경 키가 있다는 이유만으로 공유 DB에 쓰는 테스트를 실행하지 않는다. `allowMutatingSharedDbTests(process.env)`는 승인된 명시적 로컬 실행의 `RUN_MUTATING_DB_TESTS=1`만 허용하고 CI에서는 플래그가 있어도 차단한다. 플래그는 사용자 DB 승인을 대신하지 않는다. 일반 로컬 회귀·중앙 related 검증은 쓰기 없이 실행한다. `loadMapPage`처럼 조회 안에서 결정을 기록하는 함수도 쓰기 경로다.
+
+계측 probe는 한 번에 삽입하고 `meta.selftest_run_id` UUID로 실행 소유를 표시한다. 정리는 `surface=selftest`와 실행 UUID 두 조건으로 제한하며 다른 실행의 행을 지우지 않는다. 같은 범위의 exact count로 잔여 0을 확인하며 null·오류·잔여 행을 성공으로 삼키지 않는다. 삽입·정리 오류를 모두 전파한다. 가드/실패/정리 계약은 fake DB로 검증하며, 실제 쓰기 테스트의 생략을 DB 검증 성공으로 세지 않는다.
 서버 GET 쓰기 보완(2026-10-20): 인증된 `/library/scripts/[id]`도 진입 시 본문 생성/단어 구독을 실행한다. 개인 `/text/*`·교사·인증 초대와 함께 `read-only-context.mjs`에서 서버 도달 전에 차단하며, 쿠키 없는 공개 글 미리보기만 통과한다. POST/RPC 차단만으로 DB 무변경을 선언하지 않는다. 최초 탐색에서 발생한42행 사고·백업·복구 승인 대기는 [감사 §0-25](design/learner-tines-audit.md)에 기록했다. 알려진 경로 가드와 실제 전후 DB 확인을 구분한다.
 
 읽기 캡처 주의(2026-10-20): `/text/[id]` GET도 서버에서 진도/학습 활성화를 기록한다. 브라우저의 POST 차단만으로 해당 화면을 읽기 전용이라 부르지 않는다. 데이터 없는 팝업 검증은 `scripts/design/workspace-popup-isolated-check.mjs`를 사용하고 정상 계정 라우트 수용과 구분한다. 기존 `reader-popover-check.mjs`는 별도 DB 쓰기 승인과 `--allow-learning-writes`가 있어야 실행한다. [근거: 감사 §0-24](design/learner-tines-audit.md).
@@ -34,6 +47,11 @@ DB 가 **25분간 전면 정지**했다. 원인은 사전 드레인이 `/rest/v1
 스캐너는 같은 500자 창의 **첫 DB 연산**을 기준으로 판정한다. 앞의 `.select()`와 뒤의
 `.update()`를 한 쓰기로 두 번 세면 예산을 낮춘 것이 아니라 오탐을 쌓은 것이므로, 조회 줄은
 후속 쓰기에 귀속하지 않는다(`row-write-budget.test.ts`가 이 순서를 회귀로 고정).
+줄바꿈은 CRLF/LF를 정규화한다. 끝난 형제 루프는 제외하고, 실제 감싸는 루프는 40줄 밖에서도
+찾는다. 부모 ID 범위를 제한한 뒤 2개 이상씩 `slice`하는 DELETE 배치는 단건으로 세지 않는다.
+2026-10-21 동일 검사기 전량 대조는 origin/main 150건, 통합본 151건이다. 차이는 TCP의 재수확
+claim 종료 CAS 1곳(호출당 최대 10편·편당 1.2초 간격)이며, 검사기 변경으로 재검출 19건과
+오탐 제외 12건을 모두 확인했다. 새 반복 쓰기를 묵인하기 위한 상한 변경과 구별한다.
 2026-09-06 기준 **후보 135건**(`shared_dictionary` 58 · `library_books` 17 · `library_articles` 14).
 2026-09-08 재측정 **140건**(`shared_dictionary` 58 · `library_articles` 19 · `library_books` 17) —
 늘어난 9건은 전부 09-07 에 들어온 **일회성 백필·수확기**(backfill-source-ids · harvest-voa-sitemap 등)이고
