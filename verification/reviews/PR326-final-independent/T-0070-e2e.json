@@ -1,0 +1,17 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T02:27:32.052Z",
+  "commit": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "type": "e2e",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/PR326-final-independent/ci-inspection.json",
+  "command_or_protocol": "PR #326 pull_request CI run 39530426670 격리 e2e 31/31 — goal-plan-summary 시나리오 A 1440(시험 기록 → 목표 → PLAN → 실제 공급 → 요약 행 data-planned/done = PLAN 편집기 행 · 요약 실행 링크(from=map) 키보드 → 독립 확인 2 오답(서버 채점) → 같은 Workspace 팝업 복귀 → 재확정 → 요약 행 data-stage=repair · data-evidence=verified_need · basis direct_check · 계획 이력 initial/content_change/check_result) · 시나리오 B 1280(정답 2 → direct_check · repair 아님 · verified_need 아님 = 규칙상 서버 계산 그대로) · 가로 넘침 0. 기존 16 TASK 순환 · 형식 UI 는 같은 run 통과(재사용)",
+  "note": "묶음 PR #326 tested HEAD f9d66f487 = origin/main 8905f3214 + ce6f16eab · 7c8eefe21(T-0070) + f573e3124 · f9d66f487(T-0071). T-0070 코드 수용 HEAD 7c8eefe21 → 묶음 HEAD 사이 변경은 T-0071 파일(LearningNotesPanel · learning-notes · AuthoredSupplyCard · WorkspaceModal viewer 전달 · popup.module.css · map-return-recap spec 확장 · FINAL_LEDGER)만 — T-0070 소스(goal-plan · GoalPlanSummary · plan.ts · GoalRecordBar · UnifiedLearningMap) 무변경. 첫 실행 성공(재실행 없음). https://github.com/KangMin098/Vocaflow/actions/runs/39530426670 Reviewer independently fetched official job log, report stats and capture provenance; author-provided evidence adopted after independent inspection. No new test execution."
+}

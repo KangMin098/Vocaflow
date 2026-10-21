@@ -1,0 +1,14 @@
+{
+  "inputs": [
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/bundle326-T-0070-0.json",
+      "sha256": "6bc572f7910ec5881cb12af4ec0a0c39602412aea7ad76200235a122608f8313"
+    },
+    {
+      "path": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/bundle326-T-0070-1.json",
+      "sha256": "bd4c4813c49e934a5c39c770d124e6811c5889c42996c419c3700b96c0abe7ca"
+    }
+  ],
+  "head": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "adoption": "Independently checked; stable local copies retained; original E02 preserved."
+}

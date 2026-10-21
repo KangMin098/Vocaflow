@@ -1,0 +1,17 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T02:27:32.052Z",
+  "commit": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "type": "e2e",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/PR326-final-independent/ci-inspection.json",
+  "command_or_protocol": "같은 run 격리 e2e 31/31 — map-return-recap 1440/1280 확장: 기존 T-0063 경로로 안내 연습 노트 작성 · 대조 · 고쳐 쓰기 → 새로고침 → 지도 복귀 → 같은 TASK(e.task_demand) 보조 카드의 접힌 ws-notes-support 키보드 펼치기 → chain data-count=2 처음→고친 순 · '실력 판정이나 계획 진전으로 세지 않아요' → ws-notes-support-open(from=map · map_task · map_item/map_attempt 없음) 키보드 → 안내 연습 화면 → 학습 지도로 → 같은 Workspace 팝업 · workspace_delivery_attempt/learner_workspace_plan 행 수 불변 · 이후 기존 단언(처음 독립 2 + 적용 1 근거 · 안내 연습 비근거 · 계획 이력 4) 통과",
+  "note": "묶음 PR #326 tested HEAD f9d66f487 = origin/main 8905f3214 + ce6f16eab · 7c8eefe21(T-0070) + f573e3124 · f9d66f487(T-0071). T-0070 코드 수용 HEAD 7c8eefe21 → 묶음 HEAD 사이 변경은 T-0071 파일(LearningNotesPanel · learning-notes · AuthoredSupplyCard · WorkspaceModal viewer 전달 · popup.module.css · map-return-recap spec 확장 · FINAL_LEDGER)만 — T-0070 소스(goal-plan · GoalPlanSummary · plan.ts · GoalRecordBar · UnifiedLearningMap) 무변경. 첫 실행 성공(재실행 없음). https://github.com/KangMin098/Vocaflow/actions/runs/39530426670 Reviewer independently fetched official job log, report stats and capture provenance; author-provided evidence adopted after independent inspection. No new test execution."
+}

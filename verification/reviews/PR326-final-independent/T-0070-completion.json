@@ -1,0 +1,5 @@
+{
+  "task": "T-0070",
+  "completed": false,
+  "error": "거부 [EVIDENCE_COMMIT_MIXED] 이번 run 증거가 서로 다른 커밋을 가리킨다(7c8eefe21f6b6cbcf8b470888a7de33b9edbe14a, f9d66f487072b56a64d76ebe70fb668920a8576e) — 최종 커밋에서 모든 완료 조건을 다시 검증하라\n"
+}

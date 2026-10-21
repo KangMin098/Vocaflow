@@ -1,0 +1,111 @@
+{
+  "stats": {
+    "total": 31,
+    "expected": 31,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": true
+  },
+  "selected": [
+    {
+      "test": "T-0070 목표 요약 — 시나리오 A · 1440px",
+      "attachment": "goalplan-A-before-1440",
+      "artifact": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/24a639f2ca647d88b4aba21f008a61da9e5f4692.png",
+      "captures": [
+        "verification/ui/T-0070/ci-39530426670-10.png",
+        "verification/ui/T-0071/ci-39530426670-10.png"
+      ],
+      "sha256": "2fbdfc5cf5ae0e6b5fb56888e6ee383908aea1f7587fc52d328d4db22e91e131",
+      "width": 1440,
+      "height": 2066
+    },
+    {
+      "test": "T-0070 목표 요약 — 시나리오 A · 1440px",
+      "attachment": "goalplan-A-after-1440",
+      "artifact": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/b2e01a7d18db196f1ddb720315bb265dac0eff82.png",
+      "captures": [
+        "verification/ui/T-0070/ci-39530426670-38.png",
+        "verification/ui/T-0071/ci-39530426670-38.png"
+      ],
+      "sha256": "d1006c91e8b1f4ac30e48093024f86ae6739094c87af930890c6d303afaa958d",
+      "width": 1440,
+      "height": 2066
+    },
+    {
+      "test": "T-0070 목표 요약 — 시나리오 B · 1280px",
+      "attachment": "goalplan-B-before-1280",
+      "artifact": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/119c95d4c9cb0b0d8e2183bf643b01bd9147eb41.png",
+      "captures": [
+        "verification/ui/T-0070/ci-39530426670-3.png",
+        "verification/ui/T-0071/ci-39530426670-3.png"
+      ],
+      "sha256": "d8f14ab0902ced8853e6da90844d7dcc4c0575f212cb9006396c83d32812a7cc",
+      "width": 1280,
+      "height": 2171
+    },
+    {
+      "test": "T-0070 목표 요약 — 시나리오 B · 1280px",
+      "attachment": "goalplan-B-after-1280",
+      "artifact": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/47b61ea753f0916da2454f5cdcca31a4de7cc977.png",
+      "captures": [
+        "verification/ui/T-0070/ci-39530426670-19.png",
+        "verification/ui/T-0071/ci-39530426670-19.png"
+      ],
+      "sha256": "616605bd69bc1940e9caf2d9bd9b331773bbab7fee6e4d3796db310c411824fc",
+      "width": 1280,
+      "height": 2191
+    },
+    {
+      "test": "돌아온 뒤 — 이번 기록 · 근거 채택 · 적용 1/2편 · 저장 계획과 제안 (1440×900)",
+      "attachment": "note-revised-1440",
+      "artifact": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/c01403909e0b27fd1d1310778518ee84334325d2.png",
+      "captures": [
+        "verification/ui/T-0070/ci-39530426670-39.png",
+        "verification/ui/T-0071/ci-39530426670-39.png"
+      ],
+      "sha256": "d59b6f1e015fdaece1385050a40d4147d2d9967ccca0dec1ef4e37ffdf10c661",
+      "width": 1440,
+      "height": 2369
+    },
+    {
+      "test": "돌아온 뒤 — 이번 기록 · 근거 채택 · 적용 1/2편 · 저장 계획과 제안 (1440×900)",
+      "attachment": "notes-reentry-1440",
+      "artifact": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/110afb6c308c4788a6fd8fbb88e8c0f9bb880260.png",
+      "captures": [
+        "verification/ui/T-0070/ci-39530426670-2.png",
+        "verification/ui/T-0071/ci-39530426670-2.png"
+      ],
+      "sha256": "2fe9405378acb6143262f56e60b8bf1d858d4d68f6b26269c8e320d61abdde81",
+      "width": 1440,
+      "height": 1481
+    },
+    {
+      "test": "돌아온 뒤 — 이번 기록 · 근거 채택 · 적용 1/2편 · 저장 계획과 제안 (1280×800)",
+      "attachment": "note-revised-1280",
+      "artifact": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/7f1af2709510dd24fb5c0de80ab419a82daf90d0.png",
+      "captures": [
+        "verification/ui/T-0070/ci-39530426670-29.png",
+        "verification/ui/T-0071/ci-39530426670-29.png"
+      ],
+      "sha256": "3cac31f2d88750d6e22304bd0939f915c67b08b8ee7de2cdc4eeb009d2dfa989",
+      "width": 1280,
+      "height": 2369
+    },
+    {
+      "test": "돌아온 뒤 — 이번 기록 · 근거 채택 · 적용 1/2편 · 저장 계획과 제안 (1280×800)",
+      "attachment": "notes-reentry-1280",
+      "artifact": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/12f958d6b30d40590347b9771d96f3a3735ad4a3.png",
+      "captures": [
+        "verification/ui/T-0070/ci-39530426670-4.png",
+        "verification/ui/T-0071/ci-39530426670-4.png"
+      ],
+      "sha256": "ef41a257147b8aded873bee4de1c97e26ab5ce2c3c990b70692e7c329fa94784",
+      "width": 1280,
+      "height": 1606
+    }
+  ],
+  "official_unique_png": 59,
+  "named_html_attachments": 48,
+  "both_task_copies_match": true
+}

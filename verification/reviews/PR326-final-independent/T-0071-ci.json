@@ -1,0 +1,17 @@
+{
+  "type": "ci",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T02:27:32.052Z",
+  "commit": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/PR326-final-independent/ci-inspection.json",
+  "command_or_protocol": "Independent official PR326 pull_request CI39530426670 attempt1 exact-head check: verify/build/e2e/faultclosed/TypeScript success; isolated31/31 skip0. Shared-dev deliberately skipped, not accepted as passing dev validation.",
+  "note": "Existing scoped code verification reused; CI is not actual DB deployment, Gold, rights or learner effectiveness approval."
+}

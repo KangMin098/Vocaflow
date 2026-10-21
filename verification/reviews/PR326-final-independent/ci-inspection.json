@@ -1,0 +1,41 @@
+{
+  "head": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "run": "39530426670",
+  "attempt": 1,
+  "event": "pull_request",
+  "conclusion": "success",
+  "jobs": [
+    {
+      "name": "verify",
+      "result": "success"
+    },
+    {
+      "name": "e2e-gate-faultclosed",
+      "result": "success"
+    },
+    {
+      "name": "e2e",
+      "result": "success"
+    },
+    {
+      "name": "build",
+      "result": "success"
+    },
+    {
+      "name": "e2e-shared-dev",
+      "result": "skipped"
+    },
+    {
+      "name": "TypeScript 0 error",
+      "result": "success"
+    }
+  ],
+  "selected_log": [
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T02:04:30.0126224Z Running 31 tests using 1 worker",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T02:09:15.1505188Z   ✓  17 [chromium] › tests/e2e-isolated/goal-plan-summary.isolated.spec.ts:29:7 › T-0070 목표 요약 — 시나리오 A · 1440px (10.4s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T02:09:23.9976174Z   ✓  18 [chromium] › tests/e2e-isolated/goal-plan-summary.isolated.spec.ts:29:7 › T-0070 목표 요약 — 시나리오 B · 1280px (8.8s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T02:11:16.9276925Z   ✓  26 [chromium] › tests/e2e-isolated/map-return-recap.isolated.spec.ts:83:7 › 돌아온 뒤 — 이번 기록 · 근거 채택 · 적용 1/2편 · 저장 계획과 제안 (1440×900) (23.2s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T02:11:39.0169396Z   ✓  27 [chromium] › tests/e2e-isolated/map-return-recap.isolated.spec.ts:83:7 › 돌아온 뒤 — 이번 기록 · 근거 채택 · 적용 1/2편 · 저장 계획과 제안 (1280×800) (22.1s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T02:12:01.6684934Z   31 passed (7.5m)"
+  ]
+}

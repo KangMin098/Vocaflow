@@ -1,0 +1,479 @@
+{
+  "official_png": 59,
+  "named_html_attachments": 48,
+  "copies": [
+    {
+      "sha256": "60f88ab1e52233f8c7c122ba08207856aff3f754d1dfab1d060931158c676b83",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/0c3c465cd8c7b5c5964898daaae8be42984b8b79.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-1.png",
+        "verification/ui/T-0071/ci-39530426670-1.png"
+      ]
+    },
+    {
+      "sha256": "2fbdfc5cf5ae0e6b5fb56888e6ee383908aea1f7587fc52d328d4db22e91e131",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/24a639f2ca647d88b4aba21f008a61da9e5f4692.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-10.png",
+        "verification/ui/T-0071/ci-39530426670-10.png"
+      ]
+    },
+    {
+      "sha256": "9f228370c9a2fa44ac974a7d88d964f5d3e333df40e4ff3008087c2f6351acf1",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/258ead7c2401196732b4c8dd4aacfae4002283e7.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-11.png",
+        "verification/ui/T-0071/ci-39530426670-11.png"
+      ]
+    },
+    {
+      "sha256": "34e9982bd0c031f70315be7cbba69dc8fd611f2fe2eff40ce35496e15d914b8b",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/2b7b84338154e0fc43c5f855e69d7db6efdb548f.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-12.png",
+        "verification/ui/T-0071/ci-39530426670-12.png"
+      ]
+    },
+    {
+      "sha256": "73e0ae33f39eca998e338f92992042d40e68b5b9332e245d0144be4f6d36f6fb",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/2f475df8359b91b408230c4f501b554b55e98cb5.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-13.png",
+        "verification/ui/T-0071/ci-39530426670-13.png"
+      ]
+    },
+    {
+      "sha256": "9dc7d5fb3b4ae22e51577a06c20d3d171d2061da827f0557019a34a03240da93",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/3076708408607194a2a5ee2fb714c7f240ad0a47.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-14.png",
+        "verification/ui/T-0071/ci-39530426670-14.png"
+      ]
+    },
+    {
+      "sha256": "3b85c86bb034412a1ace49b45a145d23ed800ad01dc76ece884a8e5042e38b46",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/36232e529f84a363550db9ad44418ec0aca91713.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-15.png",
+        "verification/ui/T-0071/ci-39530426670-15.png"
+      ]
+    },
+    {
+      "sha256": "4086d2ae7d62d42a39c4afe60bf9577bc2b3da4173e34f4127518d4793360f3d",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/3914419375b2c4f001e49fca0f60b7260f4fc9e9.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-16.png",
+        "verification/ui/T-0071/ci-39530426670-16.png"
+      ]
+    },
+    {
+      "sha256": "778b10b37f2dc4d32e52b598b515bfa765b346ea84fc1a8c4d76842936ee3318",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/3b3f1da58ab473bd8bbeafe6470f059ad1e1d308.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-17.png",
+        "verification/ui/T-0071/ci-39530426670-17.png"
+      ]
+    },
+    {
+      "sha256": "9af58fcc97067fae6c2a663b9627c1c83ea0ed0f569a5998678f3cccb72a1e5f",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/3d7c4898cb07e0ca1b08611b48e1693ed2f38321.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-18.png",
+        "verification/ui/T-0071/ci-39530426670-18.png"
+      ]
+    },
+    {
+      "sha256": "616605bd69bc1940e9caf2d9bd9b331773bbab7fee6e4d3796db310c411824fc",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/47b61ea753f0916da2454f5cdcca31a4de7cc977.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-19.png",
+        "verification/ui/T-0071/ci-39530426670-19.png"
+      ]
+    },
+    {
+      "sha256": "2fe9405378acb6143262f56e60b8bf1d858d4d68f6b26269c8e320d61abdde81",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/110afb6c308c4788a6fd8fbb88e8c0f9bb880260.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-2.png",
+        "verification/ui/T-0071/ci-39530426670-2.png"
+      ]
+    },
+    {
+      "sha256": "0417fd466d012b92ecaccc4fb19ecd6fa5090de242a9e60cd2e395c9d30435ef",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/57f8dcda90bf56b24fe95c079c02b63c9313bc43.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-20.png",
+        "verification/ui/T-0071/ci-39530426670-20.png"
+      ]
+    },
+    {
+      "sha256": "db7c4c067cec37e1e63ab83739921321ce2c0da76308aea555e513f7fe73064d",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/5864450192d644615e790247654a176039b69c44.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-21.png",
+        "verification/ui/T-0071/ci-39530426670-21.png"
+      ]
+    },
+    {
+      "sha256": "f0b413a14265f90a1d9cd58e7f73645c6bc2d14ea16e8933dac2466b3298f77b",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/59ed4389cb93a8a4c3ecbb3f2ba2da3f8b97e076.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-22.png",
+        "verification/ui/T-0071/ci-39530426670-22.png"
+      ]
+    },
+    {
+      "sha256": "a4ba311a6316e06201714e30ed74d7faf3f36818925665f3649b9f1a17b11345",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/5acddf19a9cd6776e07f980d32f75ec917245194.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-23.png",
+        "verification/ui/T-0071/ci-39530426670-23.png"
+      ]
+    },
+    {
+      "sha256": "dce2aae44550cf3b3b39c039d79f621025944eb480e43069ba1e893cc730714c",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/62ae903d7fa2bb108cfa8f0932b0fbc3cf2607b5.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-24.png",
+        "verification/ui/T-0071/ci-39530426670-24.png"
+      ]
+    },
+    {
+      "sha256": "9d34b0c72b0d21114f251c9c2716df1b08d57f3e88810d50a3244bb9a65e3f50",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/6436e86510580b11ab920cbc26ce50d778808c1b.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-25.png",
+        "verification/ui/T-0071/ci-39530426670-25.png"
+      ]
+    },
+    {
+      "sha256": "55d184f1a88a98987b0eb609ed2be48fa13f3f73fa63c742225a19356c65bd86",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/68225d663e725763d4a3d382172715545e009d79.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-26.png",
+        "verification/ui/T-0071/ci-39530426670-26.png"
+      ]
+    },
+    {
+      "sha256": "139792de61ecac46ebea1e228c497a70df3bedde96a5d4291f8fa5d86cfd870e",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/6b0a91dd5101789117f3a0a919dd155381ca50bd.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-27.png",
+        "verification/ui/T-0071/ci-39530426670-27.png"
+      ]
+    },
+    {
+      "sha256": "5f71928553c2f4fbd4cb11f5b6e3a5de15a9521a2cbee5b3aefd17aa27028f84",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/7e6dc300c6f6ccf179435f0dd4432922faf4f25b.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-28.png",
+        "verification/ui/T-0071/ci-39530426670-28.png"
+      ]
+    },
+    {
+      "sha256": "3cac31f2d88750d6e22304bd0939f915c67b08b8ee7de2cdc4eeb009d2dfa989",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/7f1af2709510dd24fb5c0de80ab419a82daf90d0.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-29.png",
+        "verification/ui/T-0071/ci-39530426670-29.png"
+      ]
+    },
+    {
+      "sha256": "d8f14ab0902ced8853e6da90844d7dcc4c0575f212cb9006396c83d32812a7cc",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/119c95d4c9cb0b0d8e2183bf643b01bd9147eb41.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-3.png",
+        "verification/ui/T-0071/ci-39530426670-3.png"
+      ]
+    },
+    {
+      "sha256": "e99208e893e1abf833f629eaffab7947f4b98eb86b92a1db7a47f6e57e122bb8",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/8aac2f0491c098c521a7ddbae3ea73dc0f80cfd5.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-30.png",
+        "verification/ui/T-0071/ci-39530426670-30.png"
+      ]
+    },
+    {
+      "sha256": "dedc4b0cd9dd3e770281a7c6328290aeb4e5e0a5cbffd88877dd12262026d8f7",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/8da59cf25a247e5cd7a9b94aa2a81c8214af9bee.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-31.png",
+        "verification/ui/T-0071/ci-39530426670-31.png"
+      ]
+    },
+    {
+      "sha256": "ad1dd84b4611e4324887fa57dfe0b60b6e8d43ce7254a6bfecbd2f7618ef105f",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/902732bb79ffb2a3be8de256d3a7f6c0b67e3ba6.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-32.png",
+        "verification/ui/T-0071/ci-39530426670-32.png"
+      ]
+    },
+    {
+      "sha256": "d4203536b7ce0a189287d3a8f1dc7c562e3f19b6a784ea31c8ac183eb38d2302",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/965755d4d89d5146aa508d93fec66909b7a81728.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-33.png",
+        "verification/ui/T-0071/ci-39530426670-33.png"
+      ]
+    },
+    {
+      "sha256": "119af2d6a57ea7e1a2ecc192664e5974d4ac8cf3a49953ac1ed2316b27449442",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/9cfc5312bc006a7cbdd16fbd5ed8a691660fc054.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-34.png",
+        "verification/ui/T-0071/ci-39530426670-34.png"
+      ]
+    },
+    {
+      "sha256": "90f8976a8993de1748a11355d10a2697bbe99f42a2fc684f1d5337657fe0aa7c",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/a75602d63c8a606652fefbeb006c3e47333eecc0.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-35.png",
+        "verification/ui/T-0071/ci-39530426670-35.png"
+      ]
+    },
+    {
+      "sha256": "a543226df47cb8beb8495772851b7d16fb816433748a6efb808e2f6c9c1329ae",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/ac10647f2a7f4fc81f3d2d075f091c1d660aac15.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-36.png",
+        "verification/ui/T-0071/ci-39530426670-36.png"
+      ]
+    },
+    {
+      "sha256": "3d44da5d2080345cb3b71bb48f636099ec46710fd1b62dfc39ad8bb6d9e9393b",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/b0558c84b42bdecdc42e2da76ca6b1f75b10529f.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-37.png",
+        "verification/ui/T-0071/ci-39530426670-37.png"
+      ]
+    },
+    {
+      "sha256": "d1006c91e8b1f4ac30e48093024f86ae6739094c87af930890c6d303afaa958d",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/b2e01a7d18db196f1ddb720315bb265dac0eff82.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-38.png",
+        "verification/ui/T-0071/ci-39530426670-38.png"
+      ]
+    },
+    {
+      "sha256": "d59b6f1e015fdaece1385050a40d4147d2d9967ccca0dec1ef4e37ffdf10c661",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/c01403909e0b27fd1d1310778518ee84334325d2.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-39.png",
+        "verification/ui/T-0071/ci-39530426670-39.png"
+      ]
+    },
+    {
+      "sha256": "ef41a257147b8aded873bee4de1c97e26ab5ce2c3c990b70692e7c329fa94784",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/12f958d6b30d40590347b9771d96f3a3735ad4a3.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-4.png",
+        "verification/ui/T-0071/ci-39530426670-4.png"
+      ]
+    },
+    {
+      "sha256": "b67ff5ca29710714559940471dc0da4843d94e3e4e4497256dcd1b765772af97",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/c0e344284534a5ca8b6164084dd2f423a4398f1a.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-40.png",
+        "verification/ui/T-0071/ci-39530426670-40.png"
+      ]
+    },
+    {
+      "sha256": "d68ba536ac00b82901d75bf042002fffaa90fa2b14ede603b075e796b31d4202",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/c5d9f2d5fa158f4eaf49e8c2020255bf0749b733.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-41.png",
+        "verification/ui/T-0071/ci-39530426670-41.png"
+      ]
+    },
+    {
+      "sha256": "0d08920b9fb15bcbb68d786300044bf8e58d90ded9c395c835669848bcc8869d",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/dabf30c2177d7819133d7122346eee63ae300685.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-42.png",
+        "verification/ui/T-0071/ci-39530426670-42.png"
+      ]
+    },
+    {
+      "sha256": "cb4521a7f9277df485b9959c34ad62750fe98f392f3c8a63a775f217a3f5d268",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/ebff6808ce7e02c2219663cdbb269fc8508fd935.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-43.png",
+        "verification/ui/T-0071/ci-39530426670-43.png"
+      ]
+    },
+    {
+      "sha256": "b6230ae99bf022e9fa48c78636c0cc04e7a80b90b1e12060ce10dbc1556ba382",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/fb648b21ba68316dcd047ee2e391a53a34499676.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-44.png",
+        "verification/ui/T-0071/ci-39530426670-44.png"
+      ]
+    },
+    {
+      "sha256": "fbc2a20d55f276cdb507e61b6ea07c3b40945ebed92993234aafd2796cf033f6",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/fc5997686a1ee8f34fa30a4b174b874458ea478b.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-45.png",
+        "verification/ui/T-0071/ci-39530426670-45.png"
+      ]
+    },
+    {
+      "sha256": "32832bdd35039f35a134aa1b044bcfe3d2d4a4bb8dfdd2c0d1ebf93209ec8fe9",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/fd35e41466ddfa172f21e61dcd659d539bbfce9d.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-46.png",
+        "verification/ui/T-0071/ci-39530426670-46.png"
+      ]
+    },
+    {
+      "sha256": "ce19135be37b1091cf499ab19ae5c420226cc0efc9db09226a6dae066b2b4377",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/fdfe01b4c8a6cec77ecf80f3a24be4eada64c32a.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-47.png",
+        "verification/ui/T-0071/ci-39530426670-47.png"
+      ]
+    },
+    {
+      "sha256": "059bd3d0f55bb5635e5be9c9fb852d9a2604b4adf7ff745b8872c2d63e67c4de",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/ff813ae89c704162bd1f0778016a797309695c3f.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-48.png",
+        "verification/ui/T-0071/ci-39530426670-48.png"
+      ]
+    },
+    {
+      "sha256": "58f090f7ca2bc9f1378e81efd44b85fe20e270e0ff791d54ed795c64682fb76c",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-fai-5fb7e-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/learn-guided-retry-after-right-1280.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-49.png",
+        "verification/ui/T-0071/ci-39530426670-49.png"
+      ]
+    },
+    {
+      "sha256": "22e37af8b7eb420a13b6ea42ee74d74c0a1385cdf590fc9981adb0a1e20c2ee0",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/15cff6b4e826a4a2f9cb722067aa5459c7ac4a19.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-5.png",
+        "verification/ui/T-0071/ci-39530426670-5.png"
+      ]
+    },
+    {
+      "sha256": "cddef161e7db845c1d50b7c79db698ddf1a1a0526f5c4a81c41d88b0ab4d1675",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-fai-5fb7e-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-recheck-fail-1280.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-50.png",
+        "verification/ui/T-0071/ci-39530426670-50.png"
+      ]
+    },
+    {
+      "sha256": "5a8d915d5039165780e0b01ae5b3729e0ca004e81b3414c5599d35ab3190c9d6",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-fai-5fb7e-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-recheck-material-needed-1280.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-51.png",
+        "verification/ui/T-0071/ci-39530426670-51.png"
+      ]
+    },
+    {
+      "sha256": "6bbd898120ceceac29d97100c2d8c11b3ea786d9f08015a2af0b83a788546943",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-fai-5fb7e-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-recheck-next-1280.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-52.png",
+        "verification/ui/T-0071/ci-39530426670-52.png"
+      ]
+    },
+    {
+      "sha256": "8563dae437a0a20add4b8c3de029bf3a7e8c0c1b78ab1248fae9b257fbd35690",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-fai-5fb7e-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-repair-guided-next-1280.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-53.png",
+        "verification/ui/T-0071/ci-39530426670-53.png"
+      ]
+    },
+    {
+      "sha256": "00489ed7e8fded0e3c0780a80c9dfb9b983eb530b65de87fb57b202631d6012a",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-fai-5fb7e-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-repair-material-needed-1280.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-54.png",
+        "verification/ui/T-0071/ci-39530426670-54.png"
+      ]
+    },
+    {
+      "sha256": "b3eb1823377cbb0db5c3036ccc2308bc0ea56d2c9f930fe02f932d79275e3313",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-pas-4071f-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-recheck-material-needed-1440.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-55.png",
+        "verification/ui/T-0071/ci-39530426670-55.png"
+      ]
+    },
+    {
+      "sha256": "dbf71f2b8b97b318266ad7db11dfdac3a138e03724a6b7a15bd47ff7e404d6b1",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-pas-4071f-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-recheck-next-1440.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-56.png",
+        "verification/ui/T-0071/ci-39530426670-56.png"
+      ]
+    },
+    {
+      "sha256": "ecf67e88158ad4e4c3d44b3529aa5fa001f1c80bd648451db22c818af04740ba",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-pas-4071f-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-recheck-pass-1440.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-57.png",
+        "verification/ui/T-0071/ci-39530426670-57.png"
+      ]
+    },
+    {
+      "sha256": "f098c3c2ee1b0db3697de3532eef9318e28f44de195c853bcc964b0c7a6cc2e0",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-pas-4071f-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-repair-guided-next-1440.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-58.png",
+        "verification/ui/T-0071/ci-39530426670-58.png"
+      ]
+    },
+    {
+      "sha256": "5ad66baad9f2caf507da2523abf1478a61281efc23361db22c65af1f7ddfdf8b",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/test-results/journey.isolated-양성-경로-pas-4071f-PLAN-확인-→-바로잡기-→-적용-→-다시-확인-chromium/map-repair-material-needed-1440.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-59.png",
+        "verification/ui/T-0071/ci-39530426670-59.png"
+      ]
+    },
+    {
+      "sha256": "e8c34bb171d73b9031a0ce01de08ddca245fba23fb8cd8f50b5febcf04dbaa7a",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/16587750a0eee881b83f515dee8c59b87b56c7be.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-6.png",
+        "verification/ui/T-0071/ci-39530426670-6.png"
+      ]
+    },
+    {
+      "sha256": "823d296932df832387edc0c95d3b9234d4f08ec88f106d83993b90dba57bd62d",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/1b468082530eb3929e6b551b8030038d3854ef4d.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-7.png",
+        "verification/ui/T-0071/ci-39530426670-7.png"
+      ]
+    },
+    {
+      "sha256": "ffcab78f8141ffa851f42638ff531b99ddca56bb4d5a4e0c3a74555556a930fb",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/1d9bb49cc17611acecc46e2a26088d9b313d27ed.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-8.png",
+        "verification/ui/T-0071/ci-39530426670-8.png"
+      ]
+    },
+    {
+      "sha256": "e60001ee09af8f603859b94dbc7cfca9e2e797a2c177cab2d2fd8f9c7fed254b",
+      "official": "verification/reviews/PR326-final-independent/artifact/apps/web/playwright-report-isolated/data/228fd70bef44dc707a884609fef31df46b9238ff.png",
+      "copies": [
+        "verification/ui/T-0070/ci-39530426670-9.png",
+        "verification/ui/T-0071/ci-39530426670-9.png"
+      ]
+    }
+  ],
+  "all_copies_match": true
+}

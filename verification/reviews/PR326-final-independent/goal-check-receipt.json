@@ -1,0 +1,10 @@
+{
+  "report": "verification/goal-check/GC-2026-10-21T02-32-23-557Z.json",
+  "distribution": {
+    "UNKNOWN": 33,
+    "FAIL": 2
+  },
+  "changes": [],
+  "ci": false,
+  "note": "Existing checker uses local/integration, not a new audit of merged main. Do not reinterpret its pending/unknown as failure or success of PR326."
+}

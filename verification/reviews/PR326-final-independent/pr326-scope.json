@@ -1,0 +1,30 @@
+{
+  "version": 1,
+  "head_sha": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "base_ref": "main",
+  "base_sha": "8905f321440abeaac6f7cdb74b8e38b50fa5ced8",
+  "expected_commits": 4,
+  "expected_paths": [
+    "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+    "apps/web/src/components/csat/diagnosis/map/LearningNotesPanel.tsx",
+    "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/goal-plan-summary.test.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/learning-notes-panel.test.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/map-state-direct.test.ts",
+    "apps/web/src/components/csat/diagnosis/map/popup.module.css",
+    "apps/web/src/components/csat/diagnosis/map/unified.module.css",
+    "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/plan.test.ts",
+    "apps/web/src/lib/csat/map/v4/plan.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/goal-plan.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/learning-notes.test.ts",
+    "apps/web/src/lib/csat/map/v62/goal-plan.ts",
+    "apps/web/src/lib/csat/map/v62/learning-notes.ts",
+    "apps/web/tests/e2e-isolated/goal-plan-summary.isolated.spec.ts",
+    "apps/web/tests/e2e-isolated/map-return-recap.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}
