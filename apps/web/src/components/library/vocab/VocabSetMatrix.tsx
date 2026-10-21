@@ -382,10 +382,10 @@ export function VocabSetMatrix({
                 role="radio"
                 aria-checked={active}
                 onClick={() => setAxis(opt.id)}
-                className={`relative inline-flex flex-col items-center gap-0 rounded-[var(--r-md)] px-4 py-2 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 ${
+                className={`relative inline-flex flex-col items-center gap-0 rounded-[var(--r-md)] px-4 py-2 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--t1)_30%,transparent)] ${
                   active
                     ? 'bg-[var(--bg)] shadow-[var(--sh-sm)]'
-                    : 'hover:bg-[var(--bg)]/60'
+                    : 'hover:bg-[color-mix(in_srgb,var(--bg)_60%,transparent)]'
                 }`}
               >
                 <span
@@ -442,7 +442,7 @@ export function VocabSetMatrix({
             type="button"
             onClick={() => setCompact((v) => !v)}
             aria-pressed={compact}
-            className={`inline-flex items-center gap-2 rounded-[var(--r-full)] border px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 ${
+            className={`inline-flex items-center gap-2 rounded-[var(--r-full)] border px-3 py-1 font-mono text-[10px] font-[700] uppercase tracking-wider transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--t1)_30%,transparent)] ${
               compact
                 ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)]'
                 : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:text-[var(--t1)]'
@@ -640,7 +640,7 @@ export function VocabSetMatrix({
                       onSelectCategory(cat.id as VocabCategoryId)
                     }
                     disabled={isEmptyRow}
-                    className="flex w-full items-center gap-3 px-3 py-3 text-left transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--t1)]/30 disabled:cursor-not-allowed disabled:opacity-50"
+                    className="flex w-full items-center gap-3 px-3 py-3 text-left transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[color-mix(in_srgb,var(--t1)_30%,transparent)] disabled:cursor-not-allowed disabled:opacity-50"
                     aria-label={`${cat.label} 카테고리만 보기 · ${total}개`}
                   >
                     <SealMark label={cat.label} size="sm" />
@@ -808,9 +808,9 @@ function MatrixSetChip({
       onClick={onClick}
       title={`${set.title} · ${set.wordCount}단어${cefr ? ` · CEFR ${cefr}` : ''}${vLevel !== '—' ? ` · ${vLevel}` : ''}`}
       aria-label={`${set.title} — ${set.wordCount}단어${cefr ? `, CEFR ${cefr}` : ''}${vLevel !== '—' ? `, ${vLevel}` : ''}${isSubscribed ? ', 구독중' : ''}`}
-      className={`group/chip relative flex w-full items-center gap-2 overflow-hidden rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 focus-visible:ring-offset-1 ${
+      className={`group/chip relative flex w-full items-center gap-2 overflow-hidden rounded-[var(--r-sm)] border px-2 py-1 text-left transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--t1)_30%,transparent)] focus-visible:ring-offset-1 ${
         isSubscribed
-          ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)] hover:bg-[var(--t1)]/90'
+          ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)] hover:bg-[color-mix(in_srgb,var(--t1)_90%,transparent)]'
           : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t1)] hover:-translate-y-[1px] hover:border-[var(--t1)] hover:shadow-[var(--sh-sm)]'
       }`}
     >
@@ -828,7 +828,7 @@ function MatrixSetChip({
         <span
           className={`shrink-0 rounded-[3px] px-1 font-mono text-[9px] font-[800] leading-[14px] tabular-nums ${
             isSubscribed
-              ? 'bg-[var(--bg)]/20 text-[var(--bg)]'
+              ? 'bg-[color-mix(in_srgb,var(--bg)_20%,transparent)] text-[var(--bg)]'
               : 'bg-[var(--bg3)] text-[var(--t2)]'
           }`}
         >
@@ -855,7 +855,7 @@ function MatrixSetChip({
       </span>
       <span
         className={`shrink-0 font-mono text-[10px] tabular-nums ${
-          isSubscribed ? 'text-[var(--bg)]/70' : 'text-[var(--t2)]'
+          isSubscribed ? 'text-[color-mix(in_srgb,var(--bg)_70%,transparent)]' : 'text-[var(--t2)]'
         }`}
       >
         {set.wordCount}

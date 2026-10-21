@@ -3,32 +3,44 @@
 'use client'
 
 import type { FlashcardWord } from '@/types/flashcard'
+import { useCallback, useState } from 'react'
 import { Volume2 } from 'lucide-react'
 import { matchSurface } from '@/lib/text/surface-match'
 import { ZoomableImage } from '@/components/ui/ZoomableImage'
 import { JuMark } from '@/components/ui/press'
+import { Dialog } from '@/components/ui/Dialog'
 
 interface CardBackProps {
   word: FlashcardWord
   isExampleAudioPlaying: boolean
+  desktopLearner?: boolean
 }
 
-export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
+export function CardBack({ word, isExampleAudioPlaying, desktopLearner = false }: CardBackProps) {
+  const [zoomed, setZoomed] = useState(false)
+  const closeZoom = useCallback(() => setZoomed(false), [])
   return (
     <>
       {/* 그림책 삽화 — Dual Coding(Paivio): 정답 공개 시 단어+의미+장면 동시 부호화 */}
       {word.illustrationUrl && (
-        <div className="-mx-8 -mt-8 mb-4 overflow-hidden border-b border-[var(--bd)]">
-          <ZoomableImage
+        <div data-card-illustration className="-mx-8 -mt-8 mb-4 overflow-hidden border-b border-[var(--bd)]" onClick={desktopLearner ? e => e.stopPropagation() : undefined}>
+          {desktopLearner ? <button type="button" aria-label="삽화 확대" onClick={() => setZoomed(true)} className="block min-h-[44px] w-full focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--p)]">
+            {/* eslint-disable-next-line @next/next/no-img-element -- retain the original content illustration URL */}
+            <img src={word.illustrationUrl} alt={word.text} className="block h-24 w-full object-cover" />
+          </button> : <ZoomableImage
             src={word.illustrationUrl}
             alt={word.text}
             className="block h-24 w-full object-cover"
-          />
+          />}
+          {desktopLearner && zoomed && <Dialog title="삽화 확대" onClose={closeZoom}>
+            {/* eslint-disable-next-line @next/next/no-img-element -- original content, no generated replacement */}
+            <img src={word.illustrationUrl} alt={word.text} className="mx-auto max-h-[65vh] max-w-full object-contain" />
+          </Dialog>}
         </div>
       )}
 
-      <div className="mb-6 flex items-center justify-between opacity-50">
-        <span className="font-body text-[10px] italic text-[var(--t2)]">{word.textTitle}에서</span>
+      <div data-card-meta className="mb-6 flex items-center justify-between opacity-50">
+        <span data-card-meta className="font-body text-[10px] italic text-[var(--t2)]">{word.textTitle}에서</span>
       </div>
 
       <h3 className="mb-1.5 text-center font-english text-[22px] font-[600] text-[var(--t2)]">
@@ -91,6 +103,7 @@ export function CardBack({ word, isExampleAudioPlaying }: CardBackProps) {
       {/* Example with audio indicator */}
       <div className="relative mt-auto rounded-[0_var(--r-md)_var(--r-md)_0] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)]">
         <span
+          data-example-audio
           className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-[4px] font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--on-p)] transition-opacity duration-[var(--dur-normal)] ${isExampleAudioPlaying ? 'opacity-100' : 'opacity-70'} `}
         >
           <Volume2

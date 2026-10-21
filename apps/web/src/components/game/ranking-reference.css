@@ -1,0 +1,37 @@
+/* apps/web/src/components/game/ranking-reference.css */
+.ranking-reference__scene { display: none; }
+.ranking-reference .rkp-head > div { display: contents; }
+@media (min-width: 1024px) {
+  body:has(.ranking-reference) [data-module-banner] { display: none; }
+  .rkp.ranking-reference { background: var(--bg); color: var(--t1); padding: 28px 40px 72px; }
+  .rkp.ranking-reference > * { max-width: 1200px; }
+  .ranking-reference .rkp-head { display: grid; grid-template-columns: 1.4fr 1fr; align-items: center; gap: 64px; margin-bottom: 40px; }
+  .ranking-reference .rkp-head > div { display: block; }
+  .ranking-reference__scene { display: block; width: 100%; height: auto; max-width: 380px; justify-self: end; }
+  .ranking-reference .rkp-eyebrow { color: var(--ju-ink); letter-spacing: .04em; }
+  .ranking-reference .rkp-title { font-family: var(--font-display); font-size: 44px; font-weight: 500; }
+  .ranking-reference .rkp-sub { font-size: 16px; line-height: 1.8; color: var(--t2); }
+  .ranking-reference .rkp-sub strong { color: inherit; }
+  .ranking-reference .rkp-periods { border-bottom: 1px solid var(--bd); gap: 24px; }
+  .ranking-reference .rkp-period { border: 0; border-radius: 0; background: transparent; padding: 12px 4px; min-width: 120px; }
+  .ranking-reference .rkp-period[data-active] { background: transparent; box-shadow: inset 0 -2px var(--p); }
+  .ranking-reference .rkp-period-label, .ranking-reference .rkp-period-note { color: var(--t1); }
+  .ranking-reference .rkp-period-label { font-size: 16px; }
+  .ranking-reference .rkp-period-note { font-size: 12px; color: var(--t2); }
+  .ranking-reference .rkp-gate { max-width: 1200px; border: 0; border-left: 3px solid var(--bd); border-radius: 0; background: transparent; color: var(--ju-ink); }
+  .ranking-reference .rkp-gate a, .ranking-reference .rkp-me-empty a, .ranking-reference .rkp-more a { display: inline-flex; min-height: 44px; align-items: center; color: var(--ju-ink); }
+  .ranking-reference a:focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
+  .ranking-reference .rkp-me, .ranking-reference .rkp-stat, .ranking-reference .rkp-mine-link { border: 0; border-radius: 0; background: transparent; color: var(--ju-ink); box-shadow: none; }
+  .ranking-reference .rkp-stat { border-left: 1px solid var(--bd); }
+  .ranking-reference .rkp-stat-k, .ranking-reference .rkp-mine-name, .ranking-reference .rkp-mine-plays, .ranking-reference .rkp-mine-line, .ranking-reference .rkp-me-empty { color: var(--t2); }
+  .ranking-reference .rkp-boards-title { font-size: 28px; font-weight: 500; margin-block: 40px 24px; }
+  .ranking-reference .rkp-grid { gap: 32px 48px; }
+  .ranking-reference .rk { background: transparent; border: 0; border-top: 1px solid var(--bd); border-radius: 0; padding: 24px 0; color: var(--t1); }
+  .ranking-reference .rk-mark { width: 40px; height: 40px; color: var(--area-ink, var(--t1)); }
+  .ranking-reference .rk-title { font-size: 20px; font-weight: 500; color: var(--ju-ink); }
+  .ranking-reference .rk-note, .ranking-reference .rk-empty, .ranking-reference .rkp-more { font-size: 14px; line-height: 1.7; color: var(--t2); }
+  .ranking-reference .rk-row, .ranking-reference .rk-num, .ranking-reference .rk-row:first-child .rk-num, .ranking-reference .rk-meta, .ranking-reference .rk-score { color: var(--t1); }
+  .ranking-reference .rk-row:nth-child(odd) { background: var(--bg2); }
+  .ranking-reference .rk-row[data-me] { background: var(--area-surface, var(--bg3)); color: var(--area-ink, var(--t1)); box-shadow: inset 0 0 0 1px var(--bd); }
+  .ranking-reference .rk-mine { background: var(--area-surface, var(--bg3)); color: var(--area-ink, var(--t1)); }
+}

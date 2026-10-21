@@ -49,6 +49,17 @@ export const CARD = {
   charcoal: 'rounded-[14px] bg-[var(--deep-charcoal)] text-[var(--on-deep)]',
 } as const
 
+/**
+ * 앵커형 팝오버 껍데기 — **역할별 두 벌**(2026-10-18 tines.com 실측 · learner-tines-audit §0-3 팝오버 판정).
+ * S2 에서 6종을 한 껍데기(12px · 불투명 라벤더 테두리)로 묶었는데, 참조는 역할에 따라 다르게 쓴다:
+ *   MENU — 목록·설정형(장 목록 · 타이포 설정). 참조 Library 하위 내비 드롭다운: 모서리 10 · 1px 보라 12% · 그림자 없음.
+ *   CARD — 본문 위 떠 있는 내용 면(단어 풀이 · 회상 카드 · 보조 풀이 · 추천). 참조 홈 검색 패널: 모서리 16 · 1px 보라 14% · 옅은 그림자 0 20px 60px 5%.
+ * 테두리 색은 `--ju-ink`/`--ju` 를 섞어 다크에서도 같은 관계를 유지한다(참조에는 다크 화면이 없다 — 자체 대응).
+ */
+export const POPOVER_MENU = 'rounded-[10px] border border-[color-mix(in_srgb,var(--ju-ink)_12%,transparent)] bg-[var(--bg)]'
+export const POPOVER_CARD =
+  'rounded-[16px] border border-[color-mix(in_srgb,var(--ju)_14%,transparent)] bg-[var(--bg)] shadow-[0_20px_60px_color-mix(in_srgb,var(--t1)_5%,transparent)]'
+
 /** 분절 — 반투명 트랙 + 켠 칸 크림 (참조 aria-pressed 10.5px · 45px) */
 export const SEG = {
   track: 'inline-flex items-center gap-1 rounded-[14px] bg-[color-mix(in_srgb,var(--ju)_14%,transparent)] p-1',

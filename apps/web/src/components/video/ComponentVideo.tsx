@@ -1,6 +1,5 @@
-'use client'
-
 // apps/web/src/components/video/ComponentVideo.tsx
+'use client'
 //
 // **구성요소 옆에 붙는 영상 한 편.**
 //
@@ -20,16 +19,23 @@
 // "영상 준비 중" 자리를 만들지 않는 이유: 지키지 못할 약속을 화면에 두지 않는다.
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Play } from 'lucide-react'
+import Image from 'next/image'
+import { Play, VideoOff } from 'lucide-react'
+import { usePathname } from 'next/navigation'
 
 import { track } from '@/lib/analytics/client'
 import type { ResolvedVideo } from '@/lib/video/catalog'
+import { videoPosterArt } from '@/lib/video/poster-art'
+import { getLearnerPalette } from '@/lib/design/learner-palette'
+import { editorialPoster } from '@/lib/design/editorial-art'
 
 export interface ComponentVideoProps {
   video: ResolvedVideo | null
   /** 좁은 자리에 넣을 때. 기본은 본문 폭을 채운다. */
   maxWidth?: number
   className?: string
+  /** 외부 포스터를 못 읽을 때 사용하는 로컬 그림. 지정한 호출부에만 적용한다. */
+  posterFallback?: string
 }
 
 function mmss(seconds: number): string {
@@ -38,18 +44,37 @@ function mmss(seconds: number): string {
   return `${m}:${String(s).padStart(2, '0')}`
 }
 
-export function ComponentVideo({ video, maxWidth, className }: ComponentVideoProps) {
+export function ComponentVideo({ video, maxWidth, className, posterFallback }: ComponentVideoProps) {
+  const learnerScope = getLearnerPalette(usePathname()) !== null
+  const desktopPoster = learnerScope && video ? editorialPoster(videoPosterArt(video)) : undefined
   const ref = useRef<HTMLVideoElement | null>(null)
+  const retryRef = useRef<HTMLButtonElement | null>(null)
   /** 눌렀는가 — 누르기 전에는 플레이어를 만들지 않는다. */
   const [activated, setActivated] = useState(false)
+  const [failedPoster, setFailedPoster] = useState<string | null>(null)
+  const [failedPlayback, setFailedPlayback] = useState<string | null>(null)
   // 시작 이벤트는 **한 번만** 보낸다 — 일시정지 후 재생마다 세면 분모가 부풀어
   // 완주율이 거짓으로 낮아진다.
   const startedRef = useRef(false)
 
+  const onVideoFailure = useCallback(() => {
+    if (video && learnerScope && window.matchMedia('(min-width: 1024px)').matches) setFailedPlayback(video.src)
+  }, [learnerScope, video])
+
+  const retryPlayback = useCallback(() => {
+    setFailedPlayback(null)
+    ref.current?.load()
+    void ref.current?.play()?.catch(onVideoFailure)
+  }, [onVideoFailure])
+
   // 붙자마자 재생한다. 이건 자동재생이 아니다 — **사람이 누른 결과**다.
   useEffect(() => {
-    if (activated) void ref.current?.play()
-  }, [activated])
+    if (activated) void ref.current?.play()?.catch(onVideoFailure)
+  }, [activated, onVideoFailure])
+
+  useEffect(() => {
+    if (video && failedPlayback === video.src) retryRef.current?.focus()
+  }, [failedPlayback, video])
 
   const onPlay = useCallback(() => {
     if (!video || startedRef.current) return
@@ -78,7 +103,14 @@ export function ComponentVideo({ video, maxWidth, className }: ComponentVideoPro
     })
   }, [video])
 
+  const onPlaybackRequested = useCallback(() => {
+    // PC learner analytics count decoded playback, rather than a failed play request.
+    if (!learnerScope || !window.matchMedia('(min-width: 1024px)').matches) onPlay()
+  }, [learnerScope, onPlay])
+
   if (!video) return null
+  const posterFailed = failedPoster === video.poster
+  const playbackFailed = failedPlayback === video.src
 
   return (
     <figure
@@ -90,15 +122,18 @@ export function ComponentVideo({ video, maxWidth, className }: ComponentVideoPro
         style={{ aspectRatio: `${video.width} / ${video.height}` }}
       >
         {activated ? (
+          <>
           <video
             ref={ref}
             src={video.src}
             poster={video.poster}
             controls
             playsInline
-            onPlay={onPlay}
+            onPlay={onPlaybackRequested}
+            onPlaying={onPlay}
             onEnded={onEnded}
-            className="h-full w-full"
+            onError={onVideoFailure}
+            className={`h-full w-full${playbackFailed ? ' lg:hidden' : ''}`}
           >
             {/*
               ⚠️ **`default` 를 걸지 않는다.** 우리 영상에는 자막이 **화면에 구워져 있다**
@@ -109,6 +144,15 @@ export function ComponentVideo({ video, maxWidth, className }: ComponentVideoPro
             */}
             <track kind="captions" srcLang="ko" label="한국어" src={video.captions} />
           </video>
+          {playbackFailed && (
+            <div role="alert" className="absolute inset-0 hidden flex-col items-center justify-center gap-4 bg-[var(--bg2)] px-8 text-center text-[var(--t1)] lg:flex">
+              <VideoOff size={32} className="text-[var(--t3)]" aria-hidden />
+              <p className="break-keep font-display text-[18px] font-[600]">영상을 불러오지 못했어요</p>
+              <p className="break-keep text-[14px] text-[var(--t2)]">연결을 확인하고 다시 재생해 주세요.</p>
+              <button ref={retryRef} type="button" onClick={retryPlayback} className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-[var(--p)] px-6 text-[14px] font-[600] text-[var(--on-p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[var(--p)]">다시 재생</button>
+            </div>
+          )}
+          </>
         ) : (
           <button
             type="button"
@@ -116,16 +160,27 @@ export function ComponentVideo({ video, maxWidth, className }: ComponentVideoPro
             aria-label={`${video.title} 영상 재생 · ${mmss(video.seconds)}`}
             className="group absolute inset-0 block h-full w-full focus-visible:outline focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-[var(--p)]"
           >
-            {/* eslint-disable-next-line @next/next/no-img-element -- 외부 스토리지 URL · 리사이즈 불필요(이미 규격 고정) */}
+            {posterFailed && desktopPoster && (
+              <Image src={desktopPoster} alt="" fill sizes={maxWidth ? `${maxWidth}px` : '100vw'} className="hidden object-contain lg:block" data-video-poster-fallback="desktop" />
+            )}
+            {posterFailed && posterFallback ? (
+              <Image src={posterFallback} alt="" fill sizes={maxWidth ? `${maxWidth}px` : '100vw'} className={`object-contain${desktopPoster ? ' lg:hidden' : ''}`} />
+            ) : (
+            /* eslint-disable-next-line @next/next/no-img-element -- 외부 스토리지 URL · 리사이즈 불필요(이미 규격 고정) */
             <img
               src={video.poster}
+              onError={posterFallback || desktopPoster ? () => setFailedPoster(video.poster) : undefined}
+              ref={(posterFallback || desktopPoster) && !posterFailed ? (img) => {
+                if (img?.complete && img.naturalWidth === 0 && img.getAttribute('src') === video.poster) setFailedPoster(video.poster)
+              } : undefined}
               alt=""
               loading="lazy"
               decoding="async"
               width={video.width}
               height={video.height}
-              className="h-full w-full object-cover"
+              className={`h-full w-full object-cover${posterFailed && desktopPoster ? ' lg:hidden' : ''}`}
             />
+            )}
             <span className="absolute inset-0 flex items-center justify-center bg-[color-mix(in_srgb,var(--bg)_18%,transparent)] transition-colors duration-[var(--dur-normal)] group-hover:bg-[color-mix(in_srgb,var(--bg)_8%,transparent)]">
               <span className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[var(--p)] text-[var(--ti)] shadow-[var(--sh-md)] transition-transform duration-[var(--dur-normal)] ease-[var(--ease)] group-hover:scale-105 group-active:scale-95">
                 <Play size={26} aria-hidden />
@@ -144,6 +199,7 @@ export function ComponentVideo({ video, maxWidth, className }: ComponentVideoPro
 
       <figcaption className="mt-2 break-keep text-[13px] leading-relaxed text-[var(--t3)]">
         {video.subtitle}
+        {!activated && posterFailed && desktopPoster && <span className="mt-1 hidden text-[12px] lg:block" data-video-poster-note>영상 내용을 나타내는 안내 그림입니다.</span>}
       </figcaption>
     </figure>
   )

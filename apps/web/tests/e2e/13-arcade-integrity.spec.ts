@@ -301,10 +301,10 @@ test.describe('아케이드 자료 연계', () => {
     await page.goto(`/text/${FIXTURE_TEXT.id}`, { waitUntil: 'domcontentloaded' });
     // ⚠️ 사이드바에도 "아케이드" 링크가 있다(스코프 없는 /arcade). 반드시 ModePills 안으로
     // 한정해야 한다 — 안 그러면 사이드바를 잡고 "스코프가 없다"고 잘못 실패한다.
-    const pill = page
-      .locator('nav[aria-label="학습 단계 선택"]')
-      .getByRole('link', { name: /Game Lab/ })
-      .first();
+    // Game Lab 은 「연습」 펼침 메뉴 안이다(2026-10-19) — 메뉴를 열어야 링크 역할로 보인다
+    const pills = page.locator('nav[aria-label="학습 단계 선택"]');
+    await pills.getByRole('button', { name: /연습/ }).click();
+    const pill = pills.getByRole('link', { name: /Game Lab/ }).first();
     await expect(pill).toBeVisible({ timeout: 30_000 });
     const href = (await pill.getAttribute('href')) ?? '';
     // 스코프가 허브로 넘어가야 19종 전부에 적용된다.

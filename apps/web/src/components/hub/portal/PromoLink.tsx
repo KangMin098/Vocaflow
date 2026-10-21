@@ -10,6 +10,7 @@ import type { ReactNode } from 'react'
 
 import { track } from '@/lib/analytics/client'
 import type { PublicEvent } from '@/lib/analytics/events'
+import type { LearnerPalette } from '@/lib/design/learner-palette'
 
 export type PromoSlot = Extract<PublicEvent, { name: 'hub_promo_clicked' }>['props']['slot']
 
@@ -20,6 +21,8 @@ export function PromoLink({
   className,
   children,
   ariaLabel,
+  learningPalette,
+  learnerTone,
 }: {
   href: string
   slot: PromoSlot
@@ -27,12 +30,16 @@ export function PromoLink({
   className?: string
   children: ReactNode
   ariaLabel?: string
+  learningPalette?: LearnerPalette
+  learnerTone?: LearnerPalette
 }) {
   return (
     <Link
       href={href}
       aria-label={ariaLabel}
       className={className}
+      data-learning-palette={learningPalette}
+      data-learner-tone={learnerTone}
       onClick={() => track({ name: 'hub_promo_clicked', props: { slot, index } })}
     >
       {children}

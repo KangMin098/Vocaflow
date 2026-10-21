@@ -1,0 +1,138 @@
+/* packages/design-tokens/src/skins/learner-pc.css */
+/* 2026-10-20: Tines uses multiple surface/ink pairs. Brand purple is a role, not every text node.
+   Web-only PC overlay. Base tines.css / tines.ts and mobile/3B values remain unchanged.
+   Warm neutral reading text is an application adaptation; tint/ink pairs reuse the measured palette. */
+@media screen and (min-width: 1024px) {
+  :root[data-skin="tines"]:has([data-learner-pc-color="tines"]) {
+    --t1: #39333f;
+    --t2: #655e6b;
+    --t3: #746b7c;
+    --t4: rgba(57, 51, 63, 0.2);
+    --bd: #dfd8e2;
+    --bd-input: #94829f;
+    --bd-strong: #a597b0;
+    --area-ink: var(--t1);
+    --area-tint: var(--bg3);
+    --area-surface: var(--area-tint);
+    --ju-ink: var(--area-ink);
+    --learner-text: var(--t1);
+    --learner-meta: var(--t2);
+    --learner-line: var(--bd);
+  }
+  :root[data-skin="tines"][data-theme="dark"]:has([data-learner-pc-color="tines"]) {
+    --bg: #1d1c23;
+    --bg2: #26242d;
+    --bg3: #302d37;
+    --canvas: #1d1c23;
+    --t1: #eee8ee;
+    --t2: #c7bfcb;
+    --t3: #b1a7b8;
+    --t4: rgba(238, 232, 238, 0.2);
+    --bd: #47404f;
+    --bd-input: #8b7c99;
+    --bd-strong: #a294ae;
+  }
+  /* Assign the same role to list/detail/session siblings; do not recolor the brand or game boards. */
+  :root[data-skin="tines"]:has([data-learner-pc-palette="green"]) { --area-ink: var(--tint-green-ink); --area-tint: var(--tint-green); }
+  :root[data-skin="tines"]:has([data-learner-pc-palette="peach"]) { --area-ink: var(--tint-peach-ink); --area-tint: var(--tint-peach); }
+  :root[data-skin="tines"]:has([data-learner-pc-palette="pink"]) { --area-ink: var(--tint-pink-ink); --area-tint: var(--tint-pink); }
+  :root[data-skin="tines"]:has([data-learner-pc-palette="teal"]) { --area-ink: var(--tint-teal-ink); --area-tint: var(--tint-teal); }
+  :root[data-skin="tines"]:has([data-learner-pc-palette="yellow"]) { --area-ink: var(--tint-yellow-ink); --area-tint: var(--tint-yellow); }
+  :root[data-skin="tines"]:has([data-learner-pc-palette="lavender"]) { --area-ink: var(--tint-lavender-ink); --area-tint: var(--tint-lavender); }
+  /* Repeated work gets less colored area, never weaker text contrast or a popularity score. */
+  :root[data-skin="tines"]:has([data-learner-pc-cadence="frequent"]) { --area-surface: color-mix(in srgb, var(--area-tint) 32%, var(--bg)); }
+  :root:has([data-learner-pc-color="tines"]):not(:has([data-learner-pc-mode="game"])) h1:not(:where([class*="tone-"] *)) { color: var(--area-ink); }
+  :root:has([data-learner-pc-color="tines"]) [data-dialog-title]:not(:where([class*="tone-"] *)) { color: var(--area-ink); }
+  :root:has([data-learner-pc-color="tines"]) [data-dialog-title] [data-learning-activity="recall"] { color: var(--tint-lavender-ink); }
+  :root:has([data-learner-pc-color="tines"]) [data-dialog-title] [data-learning-activity="produce"] { color: var(--tint-yellow-ink); }
+  :root:has([data-learner-pc-color="tines"]) [data-dialog-title] [data-learning-activity="reason"] { color: var(--tint-peach-ink); }
+  :root:has([data-learner-pc-attention="focus"]):not(:has([data-learner-pc-mode="game"])) h1:not(:where([class*="tone-"] *)) { color: var(--t1); }
+  /* Custom properties alone do not recompute an ancestor's inherited color on a tint surface. */
+  :root:has([data-learner-pc-color="tines"]) :is(.tone-lavender, .tone-green, .tone-peach, .tone-yellow, .tone-pink, .tone-teal, .tone-deep-purple, .tone-deep-green, .tone-deep-orange, .tone-deep-magenta, .tone-deep-ink, .tone-deep-charcoal) { color: var(--t1); }
+
+  /* Reading recommendations are small content surfaces, not a single colored hero block. */
+  :root:has([data-learner-pc-color="tines"]) .book-feature-card {
+    --t1: inherit;
+    --t2: inherit;
+    --t3: inherit;
+    background: color-mix(in srgb, var(--tint-green) 48%, var(--bg));
+    border: 0;
+    border-radius: 18px;
+    padding: 24px;
+  }
+  :root:has([data-learner-pc-color="tines"]) .book-feature-card h3,
+  :root:has([data-learner-pc-color="tines"]) .book-feature-card__cover { color: var(--tint-green-ink); }
+  :root:has([data-learner-pc-color="tines"]) .book-feature-card__top > svg { right: 20px; top: 24px; }
+
+  /* Recall/history and vocabulary are different tasks; their content has different ink/surface pairs. */
+  :root:has([data-learner-pc-color="tines"]) .dashboard-reference__memory {
+    --t1: inherit; --t2: inherit; --t3: inherit;
+    --ju-ink: var(--tint-teal-ink);
+    padding: 28px; border-radius: 18px; background: color-mix(in srgb, var(--tint-teal) 32%, var(--bg));
+  }
+  :root:has([data-learner-pc-color="tines"]) .dashboard-reference__memory .growth-memory-detail {
+    --t1: inherit; --t2: inherit; --t3: inherit;
+    --ju: var(--tint-teal-ink); --ju-ink: var(--tint-teal-ink);
+  }
+  :root:has([data-learner-pc-color="tines"]) .dashboard-reference__history > div > section:first-child {
+    --t1: inherit; --t2: inherit; --t3: inherit;
+    background: var(--bg2); border: 0; border-radius: 18px;
+  }
+  :root:has([data-learner-pc-color="tines"]) .vault-reference > .vault-reference__identity {
+    --t1: inherit; --t2: inherit; --t3: inherit;
+    --ju: var(--tint-pink-ink); --ju-ink: var(--tint-pink-ink);
+    padding: 0; border-radius: 0; background: transparent;
+  }
+  :root:has([data-learner-pc-color="tines"]) .vault-reference > .vault-reference__identity > .grid {
+    padding: 24px; border-radius: 18px; background: color-mix(in srgb, var(--tint-pink) 24%, var(--bg));
+  }
+  :root:has([data-learner-pc-color="tines"]) .vault-reference > section[aria-label="단어 수준 지도"] {
+    --t1: inherit; --t2: inherit; --t3: inherit;
+    padding: 28px; border-radius: 18px; background: var(--bg2);
+  }
+  :root:has([data-learner-pc-color="tines"]) .vault-reference > section[aria-label="다음 한 단계"] {
+    --t1: inherit; --t2: inherit; --t3: inherit;
+    padding: 28px; border-radius: 18px; background: var(--bg2); border-top: 2px solid var(--p);
+  }
+  :root:has([data-learner-pc-color="tines"]) [data-learning-material="article"] {
+    --t1: inherit; --t2: inherit; --t3: inherit;
+    background: color-mix(in srgb, var(--tint-peach) 24%, var(--bg));
+    color: var(--t1); background-image: none;
+  }
+  :root:has([data-learner-pc-color="tines"]) .hub-reference [data-hub-benefits] a[data-learning-palette] { background: var(--bg2); color: var(--t1); }
+  :root:has([data-learner-pc-color="tines"]) .hub-reference [data-hub-benefits] a[data-learning-palette="teal"] { background: color-mix(in srgb, var(--tint-teal) 48%, var(--bg)); color: var(--tint-teal-ink); }
+  :root:has([data-learner-pc-color="tines"]) .hub-reference [data-hub-benefits] a[data-learning-palette="pink"] { background: color-mix(in srgb, var(--tint-pink) 48%, var(--bg)); color: var(--tint-pink-ink); }
+
+  /* Activity/material identity is explicit; the old rotation remains a small-screen compatibility layer. */
+  [data-learner-tone="lavender"] { --learning-surface: var(--tint-lavender); --learning-ink: var(--tint-lavender-ink); }
+  [data-learner-tone="green"] { --learning-surface: var(--tint-green); --learning-ink: var(--tint-green-ink); }
+  [data-learner-tone="peach"] { --learning-surface: var(--tint-peach); --learning-ink: var(--tint-peach-ink); }
+  [data-learner-tone="yellow"] { --learning-surface: var(--tint-yellow); --learning-ink: var(--tint-yellow-ink); }
+  [data-learner-tone="pink"] { --learning-surface: var(--tint-pink); --learning-ink: var(--tint-pink-ink); }
+  [data-learner-tone="teal"] { --learning-surface: var(--tint-teal); --learning-ink: var(--tint-teal-ink); }
+  :root:has([data-learner-pc-color="tines"]) [data-learner-tone] {
+    --t1: var(--learner-text);
+    --t2: var(--learner-meta);
+    --t3: var(--learner-meta);
+    --bd: var(--learner-line);
+    --ju: var(--p);
+    --on-ju: var(--on-p);
+    --p-light: color-mix(in srgb, var(--p) 12%, transparent);
+    --on-p-tint: var(--p);
+    background: color-mix(in srgb, var(--learning-surface) 24%, var(--bg));
+    color: var(--t1);
+  }
+  :root:has([data-learner-pc-color="tines"]) [data-learner-facet] :is(h2, [data-facet-label]) { color: var(--learning-ink); }
+  :root:has([data-learner-pc-color="tines"]) [data-learner-stage]:not([aria-current="step"]) { background: var(--bg2); }
+  :root:has([data-learner-pc-color="tines"]) [data-learner-stage] { border-color: var(--bd); }
+  :root:has([data-learner-pc-color="tines"]) [data-learner-stage][aria-current="step"] { border-color: var(--learning-ink); --tw-ring-color: var(--learning-ink); }
+
+  /* Both faces occupy one intrinsic grid cell: a long explanation determines a stable, unclipped height. */
+  :root:has([data-learner-pc-color="tines"]) [data-learner-flashcard] { display: grid; height: auto; min-height: 380px; }
+  :root:has([data-learner-pc-color="tines"]) [data-learner-flashcard] > [data-card-face] { position: relative; inset: auto; grid-area: 1 / 1; min-width: 0; overflow-wrap: anywhere; }
+  :root:has([data-learner-pc-color="tines"]) [data-learner-flashcard] [data-card-meta] { opacity: 1; font-size: 12px; }
+  :root:has([data-learner-pc-color="tines"]) [data-learner-flashcard] [data-card-instruction] { opacity: 1; font-size: 12px; }
+  :root:has([data-learner-pc-color="tines"]) [data-card-illustration] { margin: 0 0 16px; border: 0; border-radius: 12px; background: var(--bg2); }
+  :root:has([data-learner-pc-color="tines"]) [data-card-illustration] > button > img { height: 160px; object-fit: contain; }
+  :root:has([data-learner-pc-color="tines"]) [data-example-audio] { position: static; display: flex; width: fit-content; margin-bottom: 8px; }
+}

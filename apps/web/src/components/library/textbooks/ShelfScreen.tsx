@@ -15,7 +15,7 @@ import { LevelChart } from '@/components/library/textbooks/LevelChart'
 import { SeriesTabs } from '@/components/library/textbooks/SeriesTabs'
 import { MATERIAL_TONE } from '@/lib/design/tone'
 import { TextbookShelf } from '@/components/library/textbooks/TextbookShelf'
-import { Screen } from '@/components/ui/ios'
+import { LibraryBrowseFrame } from '@/components/library/LibraryBrowseFrame'
 import { ComponentVideo } from '@/components/video/ComponentVideo'
 import { seriesVideo } from '@/lib/video/catalog'
 import type { MySelection } from '@/lib/textbook/my-shelf-query'
@@ -33,8 +33,9 @@ export function ShelfScreen({
   /** 레벨 차트는 **서버에서** 만든다 — 시장 규격이 클라이언트로 갈 이유가 없다. */
   chart: ReturnType<typeof buildLevelChart>
 }) {
+  const series = SERIES_CATALOG.find((s) => s.id === shelf.seriesId)
   return (
-    <Screen width="wide" background="bg2" padX="md">
+    <LibraryBrowseFrame>
       <div className="flex flex-col gap-4 py-6 md:py-8">
         {/* 이름은 **보여야 한다.** 2026-08-23 에는 sr-only h1 하나였다(Calm UI) — 스크린리더는
             "여기가 어디" 를 알 수 있었지만 눈으로 보는 학습자는 못 알아봤고, 이웃 서가(도서 ·
@@ -43,9 +44,10 @@ export function ShelfScreen({
             DD-68 · tines-mapping §24. */}
         <AreaHero
           kicker="서가 · 교재"
-          title={`${shelf.brand} 교재 서가`}
-          sub={SERIES_CATALOG.find((s) => s.id === shelf.seriesId)?.question ?? '학년을 잇는 단계별 교재 서가.'}
+          title={`${series?.brand ?? shelf.brand} 교재 서가`}
+          sub={series?.question ?? '학년을 잇는 단계별 교재 서가.'}
           tile="tile-textbooks"
+          desktopScene="scene-library-v4"
           tint={MATERIAL_TONE.textbook.tint}
           stats={
             shelf.volumes.length > 0
@@ -67,7 +69,7 @@ export function ShelfScreen({
           "말하는 것" 이 "보이는 것" 을 밀어낸다(§3 증명 먼저).
           아직 발행 전이면 `ComponentVideo` 가 **아무것도 그리지 않는다** — 빈 자리를 두지 않는다.
         */}
-        <ComponentVideo video={seriesVideo(shelf.seriesId)} maxWidth={420} />
+        <ComponentVideo video={seriesVideo(shelf.seriesId)} maxWidth={420} posterFallback="/illustrations/tines/scene-journey-v4.webp" />
 
         <TextbookShelf
           shelf={shelf}
@@ -93,7 +95,7 @@ export function ShelfScreen({
           </div>
         </details>
       </div>
-    </Screen>
+    </LibraryBrowseFrame>
   )
 }
 

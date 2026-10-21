@@ -32,10 +32,10 @@ export function CardFront({
   return (
     <>
       {/* Meta Row */}
-      <div className="mb-6 flex items-center justify-between opacity-50 transition-opacity duration-[var(--dur-normal)] group-hover/card:opacity-100">
+      <div data-card-meta className="mb-6 flex items-center justify-between opacity-50 transition-opacity duration-[var(--dur-normal)] group-hover/card:opacity-100">
         {/* v07 — `italic` 을 뺐다. 한글에는 이탤릭 자형이 없어서 브라우저가 **기울여 그린다**
             (가짜 이탤릭). 사람의 목소리는 Lora italic 이 영문에서 맡는다(DESIGN_SYSTEM §6). */}
-        <span className="font-display text-[10.5px] text-[var(--t2)]">{word.textTitle}에서</span>
+        <span data-card-meta className="font-display text-[10.5px] text-[var(--t2)]">{word.textTitle}에서</span>
         <button
           onClick={(e) => {
             e.stopPropagation()
@@ -102,6 +102,7 @@ export function CardFront({
 
       {/* Flip Hint */}
       <p
+        data-card-instruction={showFlipHint ? '' : undefined}
         className={`mt-3 flex h-4 items-center justify-center gap-2 text-center font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)] opacity-60 transition-opacity duration-[var(--dur-normal)] ${showFlipHint ? 'opacity-60' : 'pointer-events-none opacity-0'} `}
       >
         <span>탭 또는</span>

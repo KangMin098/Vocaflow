@@ -75,7 +75,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
   }
 
   return (
-    <main className="mx-auto w-full max-w-3xl px-4 py-10 sm:px-6">
+    <article className="video-detail-reference mx-auto w-full max-w-3xl px-4 py-10 sm:px-6">
       {/* 구조화 데이터 — 이게 있어야 검색이 영상으로 취급한다. */}
       <script
         type="application/ld+json"
@@ -101,7 +101,7 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
       </p>
 
       <div className="mt-6">
-        <ComponentVideo video={video} />
+        <ComponentVideo video={video} posterFallback="/illustrations/tines/scene-video-v1.webp" />
       </div>
 
       {/* 자막 전문 — **이 페이지의 존재 이유**. 영상 안의 말은 픽셀이라 기계가 못 읽는다. */}
@@ -174,6 +174,6 @@ export default function VideoDetailPage({ params }: { params: { id: string } }) 
           </ul>
         </section>
       )}
-    </main>
+    </article>
   )
 }

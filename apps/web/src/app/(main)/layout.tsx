@@ -19,6 +19,8 @@ import { AppHeader } from '@/components/layout/AppHeader'
 import { CompassRibbon } from '@/components/layout/CompassRibbon'
 import { computeTodayStatus } from '@/lib/learner/today-status'
 import { fetchWayfinder } from '@/lib/learner/wayfinder-query'
+import '@/components/layout/learner-reference.css'
+import '@/components/layout/account-reference.css'
 
 export default async function MainLayout({ children }: { children: React.ReactNode }) {
   // 셸 상태 1회 조회 — 내부적으로 fetchGrowthStats·fetchTodayPrescription 을 재사용한다(cache()).
@@ -28,7 +30,7 @@ export default async function MainLayout({ children }: { children: React.ReactNo
   const wayfinder = await fetchWayfinder()
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--bg2)]">
+    <div className="flex min-h-screen flex-col bg-[var(--canvas,var(--bg2))]">
       {/*
         건너뛰기 링크 — **키보드만 쓰는 학습자의 첫 번째 문.**
 

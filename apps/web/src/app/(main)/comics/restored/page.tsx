@@ -23,7 +23,9 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { ComicInfoDialog } from '@/components/comic/ComicInfoDialog'
 import { AreaHero } from '@/components/layout/AreaHero'
-import { Screen } from '@/components/ui/ios'
+import { LibraryBrowseFrame } from '@/components/library/LibraryBrowseFrame'
+import { ReferenceBookImage } from '@/components/library/ReferenceBookImage'
+import { ComicsTabs } from '@/components/comic/ComicsTabs'
 import { listPdComics, listPdComicShelf } from '@/lib/pd-comic/queries'
 import type { PdComicIssue, PdComicShelfKind } from '@/lib/pd-comic/model'
 import { createClient } from '@/lib/supabase/server'
@@ -49,8 +51,8 @@ export default async function PdComicsPage({
   ])
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-5 py-6 md:py-8">
+    <LibraryBrowseFrame rail={<ComicsTabs variant="rail" />}>
+      <div className="comics-reference flex flex-col gap-5 py-6 md:py-8">
         {/* DD-68 — 서가 · 책 만화와 같은 구역 머리(타일 tile-comics · 수치 알약은 살구 틴트).
             화면 문구는 **실제로 배달되는 것**을 말해야 한다. 지금 발행되는 것은 복원된 원본
             페이지다(컷 분할본이 아니라). 예전 문구는 "컷 단위로 나눠 폰에서도 읽힌다"고
@@ -60,6 +62,8 @@ export default async function PdComicsPage({
           title="옛 영어 만화책"
           sub="저작권이 만료된 1940~50년대 만화를 디지털 복원했습니다. 종이 변색과 인쇄 망점을 걷어내고 해상도를 두 배로 올려, 원본 지면 그대로 읽습니다."
           tile="tile-comics"
+          desktopScene="scene-comics-v1"
+          desktopSub="복원한 원본 지면으로 옛 영어 만화를 읽어보세요."
           tint="peach"
         />
 
@@ -84,7 +88,7 @@ export default async function PdComicsPage({
           </>
         )}
       </div>
-    </Screen>
+    </LibraryBrowseFrame>
   )
 }
 
@@ -144,14 +148,13 @@ function KindSection({ kind }: { kind: PdComicShelfKind }) {
               <div className="relative aspect-[2/3] w-full overflow-hidden bg-[var(--bg3)]">
                 {s.coverUrl ? (
                   // 외부 스토리지 버킷이라 next/image 최적화 대상이 아니다.
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={s.coverUrl} alt="" loading="lazy" className="h-full w-full object-cover" />
+                  <ReferenceBookImage src={s.coverUrl} title={s.seriesTitle} kind="comic" className="h-full w-full" />
                 ) : (
                   <span className="flex h-full items-center justify-center font-mono text-[11px] text-[var(--t2)]">
                     no cover
                   </span>
                 )}
-                <span className="absolute left-2 top-2 rounded-[var(--r-full)] bg-[rgba(23,17,10,.82)] px-2 py-1 font-mono text-[10px] font-[700] text-[#E6C275] backdrop-blur">
+                <span data-comic-year className="absolute left-2 top-2 rounded-[var(--r-full)] bg-[rgba(23,17,10,.82)] px-2 py-1 font-mono text-[10px] font-[700] text-[#E6C275] backdrop-blur">
                   {s.yearFrom === s.yearTo || !s.yearTo
                     ? `${s.yearFrom ?? '연도 미상'}${s.yearFrom ? ' 원본' : ''}`
                     : `${s.yearFrom}–${s.yearTo} 원본`}
@@ -245,15 +248,14 @@ function SeriesView({
             >
               <div className="relative aspect-[2/3] w-full overflow-hidden bg-[var(--bg3)]">
                 {it.coverUrl ? (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img src={it.coverUrl} alt="" loading="lazy" className="h-full w-full object-cover" />
+                  <ReferenceBookImage src={it.coverUrl} title={it.title} kind="comic" className="h-full w-full" />
                 ) : (
                   <span className="flex h-full items-center justify-center font-mono text-[11px] text-[var(--t2)]">
                     no cover
                   </span>
                 )}
                 {it.publishedYear && (
-                  <span className="absolute left-2 top-2 rounded-[var(--r-full)] bg-[rgba(23,17,10,.82)] px-2 py-1 font-mono text-[10px] font-[700] text-[#E6C275] backdrop-blur">
+                  <span data-comic-year className="absolute left-2 top-2 rounded-[var(--r-full)] bg-[rgba(23,17,10,.82)] px-2 py-1 font-mono text-[10px] font-[700] text-[#E6C275] backdrop-blur">
                     {it.publishedYear} 원본 · 복원
                   </span>
                 )}

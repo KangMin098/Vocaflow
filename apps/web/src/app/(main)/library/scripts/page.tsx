@@ -7,7 +7,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { AreaHero } from '@/components/layout/AreaHero'
 import { MATERIAL_TONE } from '@/lib/design/tone'
-import { Screen } from '@/components/ui/ios'
+import { LibraryBrowseFrame } from '@/components/library/LibraryBrowseFrame'
 import { createClient } from '@/lib/supabase/server'
 import { ScriptsBrowser } from '@/components/library/browse/ScriptsBrowser'
 import { applyArticleCatalogGate } from '@/lib/library/publish-gate'
@@ -71,7 +71,7 @@ export default async function LibraryScriptsPage({
   const totalWords = articles.reduce((s, a) => s + (a.word_count ?? 0), 0)
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
+    <LibraryBrowseFrame>
       <div className="flex flex-col gap-5 py-6 md:py-8">
         {/* DD-68 — 참조 도서관 머리(tines-mapping §24): 기사 범주 색 진한 판 · 오른쪽 tile-articles. 수치는 방금 받은 카탈로그에서 센다. */}
         <AreaHero
@@ -79,6 +79,8 @@ export default async function LibraryScriptsPage({
           title={MATERIAL_LABEL.article}
           sub="큐레이션된 짧은 영어 글 — 당신 수준에 맞는 추천부터 편하게 시작해요."
           tile="tile-articles"
+          desktopScene="scene-dispatch-news-v1"
+          desktopSub="관심 있는 주제로 짧게 읽어보세요."
           tint={MATERIAL_TONE.article.tint}
           stats={
             articles.length > 0
@@ -92,6 +94,6 @@ export default async function LibraryScriptsPage({
 
         <ScriptsBrowser articles={articles} series={searchParams.series ?? null} loadError={loadError} />
       </div>
-    </Screen>
+    </LibraryBrowseFrame>
   )
 }

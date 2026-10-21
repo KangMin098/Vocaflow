@@ -7,6 +7,8 @@ import { useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { Check, Clock, Circle, X } from 'lucide-react';
 import type { BookContextChapter } from './WorkspaceBookContext';
+import { POPOVER_MENU } from '@/components/ui/tines-kit'
+import { usePopoverFocus } from '@/lib/ui/use-popover-focus'
 
 interface WorkspaceChapterNavProps {
   bookTitle: string;
@@ -25,6 +27,7 @@ export function WorkspaceChapterNav({
 }: WorkspaceChapterNavProps) {
   const ref = useRef<HTMLDivElement>(null);
   const listRef = useRef<HTMLUListElement>(null);
+  usePopoverFocus(ref);
 
   useEffect(() => {
     function onKey(e: KeyboardEvent) {
@@ -62,7 +65,7 @@ export function WorkspaceChapterNav({
       id="chapter-nav-popover"
       role="dialog"
       aria-label="장 목록"
-      className="absolute right-5 top-[calc(100%+4px)] z-40 max-h-[60vh] w-[320px] overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-md)]"
+      className={`absolute right-5 top-[calc(100%+4px)] z-40 max-h-[60vh] w-[320px] overflow-hidden ${POPOVER_MENU}`}
     >
       <header className="flex items-start justify-between gap-2 border-b border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
         <div className="min-w-0 flex-1">
@@ -79,7 +82,7 @@ export function WorkspaceChapterNav({
           type="button"
           onClick={onClose}
           aria-label="닫기"
-          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex h-6 w-6 shrink-0 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] lg:h-11 lg:w-11"
         >
           <X size={12} aria-hidden />
         </button>
@@ -100,7 +103,7 @@ export function WorkspaceChapterNav({
                 onClick={onClose}
                 aria-current={active ? 'page' : undefined}
                 className={[
-                  'group flex items-center gap-3 rounded-[var(--r-sm)] px-3 py-2',
+                  'group flex items-center gap-3 rounded-[var(--r-sm)] px-3 py-2 lg:min-h-11',
                   'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
                   'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
                   active

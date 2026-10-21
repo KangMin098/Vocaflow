@@ -88,7 +88,7 @@ export function NextStepList({ sets, status, vLevel }: NextStepListProps) {
       meta={vLevel != null ? `V${vLevel} 기준` : undefined}
     >
       <div className="overflow-hidden rounded-[var(--r-2xl)] bg-[var(--bg2)]">
-        <div className="divide-y divide-[var(--bd)]/60 bg-[var(--bg)]">
+        <div className="divide-y divide-[color-mix(in_srgb,var(--bd)_60%,transparent)] bg-[var(--bg)]">
           {sets.map((set) => {
             // 방어 — recommend RPC 가 TYPE_META 미등록 tier 를 반환하면 undefined.tone 크래시 (v06.183 /hub 복구)
             const typeMeta = TYPE_META[set.type as RecommendationType] ?? TYPE_META.fallback
@@ -111,7 +111,7 @@ export function NextStepList({ sets, status, vLevel }: NextStepListProps) {
                   </div>
                 </div>
 
-                <ChevronRight size={16} className="shrink-0 text-[var(--t2)]/70" aria-hidden />
+                <ChevronRight size={16} className="shrink-0 text-[color-mix(in_srgb,var(--t2)_70%,transparent)]" aria-hidden />
               </Link>
             )
           })}

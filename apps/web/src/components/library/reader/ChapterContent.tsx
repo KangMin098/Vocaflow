@@ -4,6 +4,7 @@
 
 import { type MouseEvent, type ReactNode } from 'react'
 import type { ChapterContent, SampleWord } from '@/lib/library/reader-queries'
+import { parseChapterMarker } from '@/lib/reader/chapter-marker'
 
 interface ChapterContentViewProps {
   content: ChapterContent
@@ -11,6 +12,11 @@ interface ChapterContentViewProps {
   sampleWords: SampleWord[]
   /** 단어 클릭 시 호출 (word, 클릭한 단어의 viewport rect). 미지정 시 단어 비클릭. */
   onWordClick?: (word: string, rect: DOMRect) => void
+  /**
+   * 첫 문단이 장 표식 줄(제목 + U+001E + 원문 URL)이면 본문에서 빼고 머리의 출처 링크로 보인다(표시 단계만 — 원본 · DB 그대로).
+   * 학습자 미리보기만 켠다. 관리자 검수는 원본을 그대로 봐야 해 기본값은 끔.
+   */
+  hideChapterMarker?: boolean
 }
 
 export function ChapterContentView({
@@ -18,8 +24,12 @@ export function ChapterContentView({
   showParagraphMarkers,
   sampleWords,
   onWordClick,
+  hideChapterMarker = false,
 }: ChapterContentViewProps) {
-  const paragraphs = splitByOffsets(content.content, content.paragraph_offsets)
+  const allParagraphs = splitByOffsets(content.content, content.paragraph_offsets)
+  const marker = hideChapterMarker && allParagraphs.length > 0 ? parseChapterMarker(allParagraphs[0]!) : null
+  // 문단 번호 표식(showParagraphMarkers)은 원래 번호를 쓴다 — 표식 문단을 빼도 2번부터 시작한다
+  const paragraphs = allParagraphs.map((text, i) => ({ text, index: i + 1 })).filter((_, i) => !(marker && i === 0))
   const sampleSet = new Set(sampleWords.map((w) => w.word.toLowerCase()))
   const clickable = !!onWordClick
 
@@ -51,6 +61,16 @@ export function ChapterContentView({
         <span className="mt-2 inline-block font-mono text-[10px] text-[var(--t5)]">
           {content.word_count.toLocaleString()} 단어
         </span>
+        {marker && (
+          <a
+            href={marker.sourceHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="ml-3 inline-flex min-h-11 items-center font-mono text-[10px] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          >
+            원문 출처 ↗
+          </a>
+        )}
       </header>
 
       {/* eslint-disable-next-line jsx-a11y/no-static-element-interactions, jsx-a11y/click-events-have-key-events */}
@@ -58,11 +78,11 @@ export function ChapterContentView({
         className="flex flex-col gap-4 font-serif text-[16px] leading-[1.75] text-[var(--t1)]"
         onClick={clickable ? handleClick : undefined}
       >
-        {paragraphs.map((para, i) => (
+        {paragraphs.map((para) => (
           <Paragraph
-            key={i}
-            text={para}
-            index={i + 1}
+            key={para.index}
+            text={para.text}
+            index={para.index}
             showMarker={showParagraphMarkers}
             sampleSet={sampleSet}
             clickable={clickable}

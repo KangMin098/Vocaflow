@@ -49,8 +49,12 @@ export function PairFlipCardView({ card, onClick }: CardProps) {
   return (
     <button
       type="button"
-      onClick={onClick}
-      disabled={disabled}
+      // 뒤집힘 · 짝 맞음 · 흔들림은 누를 수 없지만 **포커스는 남는다**(aria-disabled + 누름 무시).
+      // 예전에는 `disabled` 라 방금 누른 카드가 비활성화되는 순간 포커스가 BODY 로 빠져 키보드 사용자가 자리를 잃었다
+      // (2026-10-19 pairflip-check 실측 — 기준선 · 변경 후 동일). 판에서 사라진 카드(gone)만 진짜 비활성화한다.
+      onClick={disabled ? undefined : onClick}
+      disabled={card.state === 'gone'}
+      aria-disabled={disabled || undefined}
       aria-label={ariaLabel}
       className={`pf-card group relative ${isShaking ? 'pf-card-shake' : ''} ${
         isMatched ? 'pf-card-matched' : ''

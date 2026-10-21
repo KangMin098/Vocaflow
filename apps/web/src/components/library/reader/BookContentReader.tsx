@@ -331,6 +331,8 @@ export function BookContentReader({
               <>
                 <ChapterContentView
                   content={activeContent}
+                  // 학습자 미리보기에서만 장 표식 줄을 출처 링크로 바꿔 보인다 — 관리자 검수는 원본 그대로
+                  hideChapterMarker={mode === 'user-preview'}
                   showParagraphMarkers={showParagraphMarkers}
                   sampleWords={showSampleWords ? activeSamples : []}
                   onWordClick={(word, rect) => setLookup({ word, rect })}
@@ -362,6 +364,7 @@ export function BookContentReader({
       <WordLookupPopover
         surface={lookup.word}
         anchorRect={lookup.rect}
+        desktopLearner={mode === 'user-preview'}
         onClose={() => setLookup(null)}
       />
     )}

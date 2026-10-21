@@ -6,7 +6,7 @@
 
 'use client'
 
-import { Search, X } from 'lucide-react'
+import { BookOpen, Compass, Languages, PlayCircle, Search, X } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useCallback, useEffect, useId, useRef, useState } from 'react'
@@ -146,7 +146,7 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
           {state.kind === 'done' && total > 0 && GROUP_ORDER.filter((g) => state.groups[g].length > 0).map((g) => (
             <section key={g} className="mb-2">
               <p className="px-3 pb-1 pt-3 font-display text-[12px] font-[700] tracking-[0.06em] text-[var(--ju)]">{GROUP_LABEL[g]}</p>
-              <ul>{state.groups[g].map((h) => <Hit key={`${g}-${h.href ?? h.title}`} hit={h} onNavigate={onClose} />)}</ul>
+              <ul>{state.groups[g].map((h) => <Hit key={`${g}-${h.href ?? h.title}`} hit={h} group={g} onNavigate={onClose} />)}</ul>
             </section>
           ))}
           {state.kind === 'done' && state.partial.length > 0 && (
@@ -160,19 +160,25 @@ function SearchDialog({ onClose }: { onClose: () => void }) {
   )
 }
 
-function Hit({ hit, onNavigate }: { hit: SearchHit; onNavigate: () => void }) {
+function Hit({ hit, group, onNavigate }: { hit: SearchHit; group: keyof SearchGroups; onNavigate: () => void }) {
+  const Icon = { pages: Compass, books: BookOpen, words: Languages, videos: PlayCircle }[group]
   const body = (
     <>
-      <span className="block font-display text-[15px] font-[600] text-[var(--t1)]">{hit.title}</span>
-      {hit.sub && <span className="mt-0.5 block break-keep font-body text-[13px] text-[var(--t2)]">{hit.sub}</span>}
+      <span aria-hidden className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-[10px] bg-[var(--bg2)] text-[var(--ju)]">
+        <Icon size={20} strokeWidth={1.4} />
+      </span>
+      <span className="min-w-0">
+        <span className="block font-display text-[15px] font-[600] text-[var(--t1)]">{hit.title}</span>
+        {hit.sub && <span className="mt-0.5 block break-keep font-body text-[13px] text-[var(--t2)]">{hit.sub}</span>}
+      </span>
     </>
   )
   return (
     <li>
       {hit.href ? (
-        <Link href={hit.href} onClick={onNavigate} className={`block rounded-[var(--r-lg)] px-3 py-2.5 hover:bg-[var(--bg2)] ${FOCUS}`}>{body}</Link>
+        <Link href={hit.href} onClick={onNavigate} className={`flex min-h-11 items-center gap-3 rounded-[var(--r-lg)] px-3 py-2.5 hover:bg-[var(--bg2)] ${FOCUS}`}>{body}</Link>
       ) : (
-        <div className="rounded-[var(--r-lg)] px-3 py-2.5">{body}</div>
+        <div className="flex min-h-11 items-center gap-3 rounded-[var(--r-lg)] px-3 py-2.5">{body}</div>
       )}
     </li>
   )

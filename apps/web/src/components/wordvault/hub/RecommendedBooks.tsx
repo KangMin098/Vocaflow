@@ -12,11 +12,11 @@
 'use client'
 
 import { Compass } from 'lucide-react'
-import Image from 'next/image'
 import Link from 'next/link'
 import { useMemo } from 'react'
 
 import { Frame, PrimaryButton } from '@/components/ui/ios'
+import { ReferenceBookImage } from '@/components/library/ReferenceBookImage'
 import { judgeIPlusOne } from '@/lib/library/i-plus-one'
 import { scoreBook } from '@/lib/library/recommend-books'
 import type { PublishedBook } from '@/lib/library/published-book'
@@ -155,16 +155,9 @@ function BookCard({
       style={{ scrollSnapAlign: 'start' }}
     >
       {/* Cover */}
-      <div className="motion-safe:transition-transform motion-safe:duration-[var(--dur-ios-normal)] motion-safe:ease-ios-standard motion-safe:group-hover:-translate-y-1 motion-safe:group-active:scale-[0.97] relative aspect-[2/3] w-full overflow-hidden rounded-[var(--r-2xl)] shadow-[0_4px_16px_-4px_rgba(0,0,0,0.18)]">
+      <div data-vault-book-cover className="motion-safe:transition-transform motion-safe:duration-[var(--dur-ios-normal)] motion-safe:ease-ios-standard motion-safe:group-hover:-translate-y-1 motion-safe:group-active:scale-[0.97] relative aspect-[2/3] w-full overflow-hidden rounded-[var(--r-2xl)] shadow-[0_4px_16px_-4px_rgba(0,0,0,0.18)]">
         {coverUrl ? (
-          <Image
-            src={coverUrl}
-            alt={book.title}
-            fill
-            sizes="156px"
-            className="object-cover"
-            unoptimized
-          />
+          <ReferenceBookImage src={coverUrl} title={book.title} className="absolute inset-0" />
         ) : (
           <div
             className="h-full w-full"

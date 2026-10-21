@@ -1,0 +1,106 @@
+{
+  "method": "Built-in image_gen; generated PNGs copied unchanged. Original revisions retained.",
+  "reference": "https://www.tines.com/; local rendered reference tmp/s8/tines/product-0.png for palette/line/geometry only.",
+  "assets": [
+    {
+      "role": "recall",
+      "path": "apps/web/public/illustrations/tines/scene-recall-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "produce",
+      "path": "apps/web/public/illustrations/tines/scene-produce-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "listen",
+      "path": "apps/web/public/illustrations/tines/scene-listen-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "build",
+      "path": "apps/web/public/illustrations/tines/scene-build-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "reason",
+      "path": "apps/web/public/illustrations/tines/scene-reason-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "fluency",
+      "path": "apps/web/public/illustrations/tines/scene-fluency-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "library",
+      "path": "apps/web/public/illustrations/tines/scene-library-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "vault",
+      "path": "apps/web/public/illustrations/tines/scene-vault-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "growth",
+      "path": "apps/web/public/illustrations/tines/scene-growth-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    },
+    {
+      "role": "journey",
+      "path": "apps/web/public/illustrations/tines/scene-journey-v5.png",
+      "scope": "PC decorative slot; never an answer illustration/content cover"
+    }
+  ],
+  "prompts": [
+    {
+      "key": "recall",
+      "prompt": "Create an original premium editorial illustration for Vocaflow, an English learning web platform. Visual language: the sophisticated architectural/technical editorial drawings of tines.com Stories/Product: precise fine consistent dark aubergine outlines, flat spot colors on distinct geometric planes, elegant shallow axonometric depth, deliberate open negative space and small functional construction details. NOT a cute app icon, NOT a generic stock education illustration, NOT a glossy 3D render, NOT watercolor, NO sparkles, NO central square tile, NO background rectangle, NO blurry gradients or shadows. Palette: crisp lavender #d3caff and #bcabff balanced with mint #aedac2 / #57be90, warm apricot #ff9f5f, pink #ff97d0, yellow #ffd077, cream, outlines #412478. Keep vivid accents deliberately distributed, not everything purple. Fine engraved guides, apertures, joints, rails, tabs and offset planes should express how the object works. Hero image must have a memorable designed silhouette readable at 420 CSS pixels, with subordinate details visible on close inspection. Landscape 3:2 canvas; all artwork contained with ~5% clear padding and ~85% occupied silhouette width. Truly transparent background, no text/logos/letters/numbers. One coherent conceptual object rather than a bag of floating unrelated stationery.\nSubject: MEMORY RETRIEVAL OBSERVATORY. Design an ingenious compact architectural instrument: an open circular card-index carousel on a precise rotating spindle, a tall offset portal/aperture selecting a single cream card, a curved return rail leading into layered archive fins. Show index tabs, evenly spaced radial slots, a small suspended selector arm, solid lavender structural planes, mint return rail, peach counterweight, pink hinges. Suggest retrieving and returning a memory through this engineered loop. Asymmetric, elegant and purposeful, not a file drawer, not a book stack, not a clock, not a toaster or casino gadget. Large dominant carousel/portal with a small secondary rail, 3-4 clear masses; professional technical drawing quality."
+    },
+    {
+      "key": "library",
+      "prompt": "Create an original premium editorial illustration for Vocaflow, an English learning web platform. Visual language: the sophisticated architectural/technical editorial drawings of tines.com Stories/Product: precise fine consistent dark aubergine outlines, flat spot colors on distinct geometric planes, elegant shallow axonometric depth, deliberate open negative space and small functional construction details. NOT a cute app icon, NOT a generic stock education illustration, NOT a glossy 3D render, NOT watercolor, NO sparkles, NO central square tile, NO background rectangle, NO blurry gradients or shadows. Palette: crisp lavender #d3caff and #bcabff balanced with mint #aedac2 / #57be90, warm apricot #ff9f5f, pink #ff97d0, yellow #ffd077, cream, outlines #412478. Keep vivid accents deliberately distributed, not everything purple. Fine engraved guides, apertures, joints, rails, tabs and offset planes should express how the object works. Hero image must have a memorable designed silhouette readable at 420 CSS pixels, with subordinate details visible on close inspection. Landscape 3:2 canvas; all artwork contained with ~5% clear padding and ~85% occupied silhouette width. Truly transparent background, no text/logos/letters/numbers. One coherent conceptual object rather than a bag of floating unrelated stationery.\nSubject: LITERARY ATLAS PAVILION. A distinctive architectural reading instrument: an open folio becomes an elegant three-arched reading gallery with stepped shelf planes, precisely tiered book spines, one large turned page forming a suspended bridge into a slim indexing tower. Add page-edge layers, inset label plates without text, bookbinding stitches, finely aligned annotation tabs, a small rolling reading ladder integrated with the structure. A mint bridge, apricot page edge, pink inset doors, lavender shelves, cream pages with limited neat rule lines. A surprising composed cutaway structure, not a generic bookshelf/desk/books-and-lamp pile. Sophisticated readable editorial architecture with meaningful small details. Entire subject fits landscape canvas."
+    },
+    {
+      "key": "recall-cutout",
+      "prompt": "Background extraction / precise alpha cutout ONLY. Keep the illustrated object, every line, every color, geometry and composition exactly unchanged. Remove the large diffuse purple/grey cloudy GLOW that surrounds the object, including underneath it and between disconnected parts. Do not paint a background. All empty space must be truly transparent alpha 0. All solid planes of the actual illustrated object must be fully opaque alpha 255, including cream cards/pages. Only use partial alpha on a narrow antialiased edge, never as a large halo. No shadow, no lighting effect, no tinted haze. This will sit on both cream and dark webpage backgrounds. Preserve full resolution and complete subject. Do not simplify or redesign."
+    },
+    {
+      "key": "library-final",
+      "prompt": "Image1 is the illustration to refine; Image2 is a STYLE REFERENCE ONLY, showing the real Tines product hero. Do not reproduce its webpage, text, logo or exact composition. Match Image2's exceptionally clean flat technical/architectural drawing: thin perfectly consistent aubergine vector-like outlines, large SOLID flat color planes, clean cutaway edges and limited shallow axonometric depth. Every plane must be a single solid color. REMOVE ALL painterly gradients, textures, glows and drop shadows, including the cloudy halo around the cutout. Transparent pixels around the object must be completely clear, not tinted translucent fog. Palette should match Image2: lavender plus clearly visible apricot, pink, mint, cream; avoid everything being purple or pastel grey. Art-directed and detailed through designed structure rather than random decoration. NO letters or text. High-end professional editorial illustration, not a toy render or children's fantasy book. Landscape3:2 full object with 6% transparent margins. Keep the surprising book-as-arched-reading-gallery concept and the page bridge, but redesign the architecture as crisp contemporary geometric blocks. Remove all foliage, vintage railings, decorative gold finials, domed tower, tassels, engraving, tiny busy book spines and Victorian ornament. Use three simple rectilinear arches, a stepped book gallery with clearly spaced colored spines, a folded page bridge and one open rectangular index tower. Preserve functional page layers, tabs, ladder and inset panels. Strong 3-mass architectural silhouette with a few well-drawn construction details."
+    },
+    {
+      "key": "produce",
+      "prompt": "Professional flat vector editorial illustration for an adult learning product. Style of Tines.com geometric architectural illustrations: clean thin uniform purple strokes (#412478), hard-edged solid color fills ONLY, precise parallel edges, deliberate axonometric geometry. Screen-print-like planes, completely flat, no rendering, absolutely no gradients anywhere, no glow, no light falloff, no shadows, no textures, no haze, no white sticker border. Colors: lavender #d3caff/#bcabff, mint #aedac2/#57be90, peach #ff9f5f, pink #ff97d0, yellow #ffd077, cream. Distribute accent colors across the subject. Make an original ingenious functional construction, not a generic app icon or collection of stationery. Elegant structural complexity and memorable silhouette, with a few precise small construction details readable at 400px. No text, letters, numbers or logos. Wide 3:2, subject fully inside 8% margins, transparent EMPTY background with no drawn atmosphere.\nA typography composing workshop: two open modular type cases with many clearly organized blank geometric type blocks; a long composing stick aligns six different upright block shapes; a precise sliding press above it connects to an offset cylindrical roller. One block suspended at the assembly point by a slim arm. Architectural stepped frame, mint insert rails, peach roller, pink locking pins, lavender type cases, cream block faces. Show grooves, registration marks as simple lines, interlocking slots and an ink tray. Not a generic pencil or toy typewriter."
+    },
+    {
+      "key": "listen",
+      "prompt": "Professional flat vector editorial illustration for an adult learning product. Style of Tines.com geometric architectural illustrations: clean thin uniform purple strokes (#412478), hard-edged solid color fills ONLY, precise parallel edges, deliberate axonometric geometry. Screen-print-like planes, completely flat, no rendering, absolutely no gradients anywhere, no glow, no light falloff, no shadows, no textures, no haze, no white sticker border. Colors: lavender #d3caff/#bcabff, mint #aedac2/#57be90, peach #ff9f5f, pink #ff97d0, yellow #ffd077, cream. Distribute accent colors across the subject. Make an original ingenious functional construction, not a generic app icon or collection of stationery. Elegant structural complexity and memorable silhouette, with a few precise small construction details readable at 400px. No text, letters, numbers or logos. Wide 3:2, subject fully inside 8% margins, transparent EMPTY background with no drawn atmosphere.\nAn acoustic translation instrument: a mint circular diaphragm held in a thin offset frame, three beautifully drawn nested soundwave ribbons passing through a rectangular lavender resonator arch and emerging as a cream folded score strip. A peach tuning wheel and pink sliding signal gates with small engraved guide lines; two simple cone apertures and connecting slim rods. A sophisticated sculptural sound laboratory, not a microphone/headphones icon, no musical note decoration."
+    },
+    {
+      "key": "build",
+      "prompt": "Professional flat vector editorial illustration for an adult learning product. Style of Tines.com geometric architectural illustrations: clean thin uniform purple strokes (#412478), hard-edged solid color fills ONLY, precise parallel edges, deliberate axonometric geometry. Screen-print-like planes, completely flat, no rendering, absolutely no gradients anywhere, no glow, no light falloff, no shadows, no textures, no haze, no white sticker border. Colors: lavender #d3caff/#bcabff, mint #aedac2/#57be90, peach #ff9f5f, pink #ff97d0, yellow #ffd077, cream. Distribute accent colors across the subject. Make an original ingenious functional construction, not a generic app icon or collection of stationery. Elegant structural complexity and memorable silhouette, with a few precise small construction details readable at 400px. No text, letters, numbers or logos. Wide 3:2, subject fully inside 8% margins, transparent EMPTY background with no drawn atmosphere.\nAn exploded morphology bridge: three different interlocking architectural word-piece modules suspended precisely along a fine assembly rail, with visible tongue-and-groove edges, complementary cavities and registration pins. A folded mint ribbon joins through the central lavender arch as a peach block slides into place; cream interior surfaces, pink joints, yellow end-stop. Integrate a small organized tray of alternate module shapes. Clearly a system of meaningful assembly and decomposition, not a pile of jigsaw pieces or toy blocks."
+    },
+    {
+      "key": "reason",
+      "prompt": "Professional flat vector editorial illustration for an adult learning product. Style of Tines.com geometric architectural illustrations: clean thin uniform purple strokes (#412478), hard-edged solid color fills ONLY, precise parallel edges, deliberate axonometric geometry. Screen-print-like planes, completely flat, no rendering, absolutely no gradients anywhere, no glow, no light falloff, no shadows, no textures, no haze, no white sticker border. Colors: lavender #d3caff/#bcabff, mint #aedac2/#57be90, peach #ff9f5f, pink #ff97d0, yellow #ffd077, cream. Distribute accent colors across the subject. Make an original ingenious functional construction, not a generic app icon or collection of stationery. Elegant structural complexity and memorable silhouette, with a few precise small construction details readable at 400px. No text, letters, numbers or logos. Wide 3:2, subject fully inside 8% margins, transparent EMPTY background with no drawn atmosphere.\nA contextual reasoning desk as an elegant exploded architectural proof: two cream manuscript planes with sparse fine rule lines, a raised lavender annotation frame bridges between them, and a mint branching path precisely connects three colored inset evidence panels. A peach sliding alignment gauge reveals a matching shape through a rectangular aperture; pink tabs mark corresponding positions. Make relationships readable through aligned planes, connectors and framing, not through text. No generic clipboard or magnifying-glass icon. Compact clever structure with a strong asymmetric silhouette."
+    },
+    {
+      "key": "fluency",
+      "prompt": "Original premium adult-learning editorial artwork. Match the thin purple outlines and geometric flat-color architecture of tines.com/product illustrations. Hard-edge solid lavender, mint, peach, pink, yellow and cream planes; tiny purposeful guide lines/slots/joints, clean asymmetric silhouette, sophisticated structural detail that reads at 400px. No stock book-and-pencil collage, no toy icon, no sparkles or opaque tile background. No text/labels/numbers/logo. Wide3:2 transparent cutout, full subject inside8% margins. Avoid diffuse glows, shadows, watercolor and rendered lighting.\nPRECISION RHYTHM ESCAPEMENT: a circular segmented track with an elegant offset balance gate, a fine tension filament and two linked flywheels. Small cream memory tokens enter in a spaced rhythm and leave perfectly aligned along a mint track; a peach balance arm and pink adjustment pins with neatly spaced guide ticks. Expose the ingenious structure in a clean technical cutaway, no clock face, no stopwatch, no lightning-bolt icon, no racecar. Strong loop-and-rail silhouette, different from a file carousel."
+    },
+    {
+      "key": "vault",
+      "prompt": "Original premium adult-learning editorial artwork. Match the thin purple outlines and geometric flat-color architecture of tines.com/product illustrations. Hard-edge solid lavender, mint, peach, pink, yellow and cream planes; tiny purposeful guide lines/slots/joints, clean asymmetric silhouette, sophisticated structural detail that reads at 400px. No stock book-and-pencil collage, no toy icon, no sparkles or opaque tile background. No text/labels/numbers/logo. Wide3:2 transparent cutout, full subject inside8% margins. Avoid diffuse glows, shadows, watercolor and rendered lighting.\nLEXICON ARCHIVE ATELIER: a contemporary three-level open index gallery on slim mint rails, elegant offset sliding lavender archive cases revealing cream folios with colored tabs, a long apricot indexing bridge with inset compartments and pink hinges. A single large opened folio rests on a cantilevered shelf. Show page-edge layers, carefully spaced partitions, a few shaped handles and registration grooves. No cabinet+hourglass+book pile, no vintage ornament. Architectural storage system with a clear distinct stepped silhouette."
+    },
+    {
+      "key": "growth",
+      "prompt": "Original premium adult-learning editorial artwork. Match the thin purple outlines and geometric flat-color architecture of tines.com/product illustrations. Hard-edge solid lavender, mint, peach, pink, yellow and cream planes; tiny purposeful guide lines/slots/joints, clean asymmetric silhouette, sophisticated structural detail that reads at 400px. No stock book-and-pencil collage, no toy icon, no sparkles or opaque tile background. No text/labels/numbers/logo. Wide3:2 transparent cutout, full subject inside8% margins. Avoid diffuse glows, shadows, watercolor and rendered lighting.\nMEMORY GROWTH PAVILION: an elegant rising sequence of interlocking folded planes connected by one flowing mint ribbon. Three substantial lavender/cream stepped modules show layered sheets and recurring paths; an apricot curved supporting arch and pink inset observation windows. A few precise aligned tick marks and pin joints show continuity without chart labels or invented statistics. A designed cutaway structure of gradual consolidation, no flower garden, no trophy, no generic rising bar chart/calendar/hourglass collage."
+    },
+    {
+      "key": "journey",
+      "prompt": "Original premium adult-learning editorial artwork. Match the thin purple outlines and geometric flat-color architecture of tines.com/product illustrations. Hard-edge solid lavender, mint, peach, pink, yellow and cream planes; tiny purposeful guide lines/slots/joints, clean asymmetric silhouette, sophisticated structural detail that reads at 400px. No stock book-and-pencil collage, no toy icon, no sparkles or opaque tile background. No text/labels/numbers/logo. Wide3:2 transparent cutout, full subject inside8% margins. Avoid diffuse glows, shadows, watercolor and rendered lighting.\nLEARNING TRANSIT ATLAS: a distinctive contemporary architectural landscape of four compact stations connected by a continuous folded cream ribbon: a reading arch, an indexing alcove, an acoustic ring and an assembly gate. Vary their silhouettes, align their linking route deliberately, reveal neat page rails and joint details, distribute lavender structural planes/mint paths/peach and pink inset panels. Not a city or fantasy castle, not isolated stationery, no traditional book pile/headphones. Memorable open horizontal composition with sophisticated geometry."
+    }
+  ]
+}

@@ -763,7 +763,7 @@ function VocabBody({ v }: { v: VocabVariant }) {
           <p className="mb-2 inline-flex items-center gap-2 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--t2)]">
             <Gwonjeom size={11} aria-hidden /> 단어 미리보기 ({v.samples.length})
           </p>
-          <ul className="grid grid-cols-1 gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)]/40 p-3 sm:grid-cols-2">
+          <ul className="grid grid-cols-1 gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg2)_40%,transparent)] p-3 sm:grid-cols-2">
             {v.samples.slice(0, 8).map((w) => (
               <li key={w.word} className="flex items-baseline justify-between gap-2">
                 <span className="font-english text-[14px] font-[600] text-[var(--t1)]">

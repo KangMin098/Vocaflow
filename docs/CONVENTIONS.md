@@ -1,5 +1,9 @@
 # Conventions
 
+서버 GET 쓰기 보완(2026-10-20): 인증된 `/library/scripts/[id]`도 진입 시 본문 생성/단어 구독을 실행한다. 개인 `/text/*`·교사·인증 초대와 함께 `read-only-context.mjs`에서 서버 도달 전에 차단하며, 쿠키 없는 공개 글 미리보기만 통과한다. POST/RPC 차단만으로 DB 무변경을 선언하지 않는다. 최초 탐색에서 발생한42행 사고·백업·복구 승인 대기는 [감사 §0-25](design/learner-tines-audit.md)에 기록했다. 알려진 경로 가드와 실제 전후 DB 확인을 구분한다.
+
+읽기 캡처 주의(2026-10-20): `/text/[id]` GET도 서버에서 진도/학습 활성화를 기록한다. 브라우저의 POST 차단만으로 해당 화면을 읽기 전용이라 부르지 않는다. 데이터 없는 팝업 검증은 `scripts/design/workspace-popup-isolated-check.mjs`를 사용하고 정상 계정 라우트 수용과 구분한다. 기존 `reader-popover-check.mjs`는 별도 DB 쓰기 승인과 `--allow-learning-writes`가 있어야 실행한다. [근거: 감사 §0-24](design/learner-tines-audit.md).
+
 > Vocaflow 코드 작성 패턴 · 네이밍 · 안티패턴. 새 PR 머지 전 체크리스트로 활용.
 > 작성 시점: 2026-06-08 (v06.34).
 

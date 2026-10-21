@@ -316,7 +316,7 @@ export function PublicFitClient({
   const glossCount = profile && profile.uniqueContentWords > 0 ? buildGloss(profile, tokens, level).length : 0
 
   return (
-    <div className="flex flex-col gap-5">
+    <div className="fit-tool flex flex-col gap-5">
       {/*
         ── 골격: 칠해지는 입력칸 (발산 A) ──
         입력칸이 곧 결과다. 붙여 넣으면 이 자리에서 원문이 칠해지고, 아래 학년 눈금이 곧 커버리지다.
@@ -384,6 +384,7 @@ export function PublicFitClient({
         {/* ── 빈 상태 (D5) — 무엇을 하면 무엇이 보이는지, 그리고 다음 한 걸음 ── */}
         {empty && (
           <div className="flex flex-col gap-3 border-t border-[var(--bd)] pt-4">
+            <FileText size={28} strokeWidth={1.5} aria-hidden className="hidden text-[var(--p)] lg:block" />
             <p className="m-0 break-keep font-ko-display text-[16px] font-[600] leading-[1.5] text-[var(--t1)]">
               붙여 넣으면 이 자리에서 바로 칠해져요.
             </p>

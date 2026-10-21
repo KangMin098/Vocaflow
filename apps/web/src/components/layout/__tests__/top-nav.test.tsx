@@ -121,8 +121,8 @@ describe('상단 메뉴 — 현재 위치를 정확히 한 번 말한다', () =>
   const cases: Array<[string, string]> = [
     ['/hub', '/hub'],
     ['/wordvault', '/wordvault'],
-    // 하위 라우트에서도 그 항목이 위치를 말한다
-    ['/wordvault/study', '/wordvault'],
+    // 하위 라우트에서도 그 항목이 위치를 말한다 — 아래 '/diagnostic/history' 가 이 규칙을 맡는다.
+    // ('/wordvault/study' 는 2026-10-18 전체화면 세션이 되어 헤더 자체가 없다 → 아래 검색 묶음에서 확인)
     // 접힌 도구들(`owns`)은 Practice 가 대신 말한다
     ['/flashcard', '/practice'],
     ['/spellforge', '/practice'],
@@ -191,5 +191,22 @@ describe('상단 메뉴 — 패널 구성', () => {
         ).toBeGreaterThan(0)
       }
     }
+  })
+})
+
+// 전역 검색 — 학습자 셸에도 공개 화면과 같은 검색 원이 있다(DD-83 · learner-tines-audit B2).
+// 세션 화면에서는 헤더가 통째로 빠지므로 Ctrl/⌘+K 가 학습 중 단축키를 가로채지 않는다.
+describe('학습자 헤더 검색', () => {
+  it('일반 화면에는 검색 단추가 있다', () => {
+    const html = render('/hub')
+    expect(html).toContain('aria-label="검색 (Ctrl+K)"')
+    expect(html).toContain('aria-haspopup="dialog"')
+  })
+
+  it('세션(전체화면) 화면에는 헤더도 검색도 없다', () => {
+    expect(render('/flashcard/play')).toBe('')
+    // 단어장 학습·복습도 세션이다(2026-10-18 — 다른 모듈 세션과 같은 틀)
+    expect(render('/wordvault/study')).toBe('')
+    expect(render('/wordvault/review')).toBe('')
   })
 })

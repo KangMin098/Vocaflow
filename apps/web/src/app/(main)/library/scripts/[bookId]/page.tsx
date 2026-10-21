@@ -206,7 +206,7 @@ function ArticlePreview({
     : null
 
   return (
-    <div className="mx-auto flex w-full max-w-[720px] flex-col gap-5 px-4 py-6 md:px-6">
+    <div className="article-reference catalog-detail-reference mx-auto flex w-full max-w-[720px] flex-col gap-5 px-4 py-6 md:px-6">
       {/* 검색엔진에 **글로** 보이게 한다 — 제목만이 아니라 저자·출처·라이선스까지. */}
       <script
         type="application/ld+json"

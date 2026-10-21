@@ -6,6 +6,7 @@
 import { ArrowRight, CalendarRange, Clock, RefreshCw } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import Link from 'next/link'
+import Image from 'next/image'
 import { useRouter } from 'next/navigation'
 import { useState, useTransition } from 'react'
 
@@ -35,8 +36,8 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
   }
 
   return (
-    <div className="mx-auto flex max-w-2xl flex-col gap-5 px-4 py-10">
-      <header className="flex items-center gap-2">
+    <div className="reports-reference mx-auto flex max-w-2xl flex-col gap-5 px-4 py-10">
+      <header className="account-reference__intro flex items-center gap-2">
         <span
           className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p-light)] text-[var(--on-p-tint)]"
           aria-hidden
@@ -57,6 +58,7 @@ export function ReportsClient({ reports }: { reports: WeeklyReport[] }) {
           <RefreshCw size={13} strokeWidth={2} className={pending ? 'animate-spin' : ''} aria-hidden />
           {pending ? '갱신 중…' : '이번 주 갱신'}
         </button>
+        <Image src="/illustrations/tines/scene-report-analysis-v1.webp" alt="" width={1200} height={800} sizes="320px" className="account-reference__scene hidden lg:block" />
       </header>
 
       {error && (

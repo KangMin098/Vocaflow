@@ -35,7 +35,7 @@ import { Dialog } from '@/components/ui/Dialog'
 import { BTN, SEG } from '@/components/ui/tines-kit'
 import { GAME_BRIEFS, gaugesOf, slotStepOf } from '@/lib/game/brief'
 import type { BriefGaugeState } from '@/lib/game/brief'
-import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog'
+import { GAME_BY_SLUG, GAME_MARKS, trackOf, type GameSlug } from '@/lib/game/catalog'
 
 export interface BriefEntry {
   slug: GameSlug
@@ -48,6 +48,8 @@ export interface BriefEntry {
 }
 
 interface Props {
+  /** Game Lab PC 목록의 설명에만 적용. 게임 안의 브리핑은 기본 표현을 유지한다. */
+  catalogPresentation?: boolean
   entries: BriefEntry[]
   /** 계열 카드에서 열었을 때의 계열명 */
   familyName?: string
@@ -65,6 +67,7 @@ interface Props {
 }
 
 export default function GameBriefModal({
+  catalogPresentation = false,
   entries,
   familyName,
   onClose,
@@ -94,6 +97,7 @@ export default function GameBriefModal({
 
   return (
     <Dialog
+      className={catalogPresentation ? 'arc-catalog-dialog' : undefined}
       onClose={onClose}
       size="lg"
       crumbs={[
@@ -101,7 +105,7 @@ export default function GameBriefModal({
         ...(familyName ? [familyName] : []),
         game.layer,
       ]}
-      title={game.name}
+      title={<span data-learning-activity={trackOf(entry.slug)}>{game.name}</span>}
       byline={game.tagline}
       tags={[game.layer, game.ref, ...(game.is3d ? ['3D'] : [])]}
       media={
@@ -182,8 +186,16 @@ export default function GameBriefModal({
         style={styleVars}
       >
         <section className="bf-sec">
+          <div className={catalogPresentation ? 'lg:hidden' : undefined}>
           <h3 className="bf-sec-title">Objective</h3>
           <p className="bf-obj">{brief.objective}</p>
+          </div>
+          {catalogPresentation && <details className="hidden lg:block">
+            <summary className="flex min-h-11 cursor-pointer items-center gap-3 font-display text-[14px] font-semibold text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
+              <span aria-hidden>＋</span> 게임 규칙 자세히 보기
+            </summary>
+            <p className="bf-obj mt-3">{brief.objective}</p>
+          </details>}
         </section>
 
         {/* ── 짙은 액자 — 참조 팝업의 제품 화면 자리. 보드와 트라이얼은 게임 화면 그대로다 ── */}

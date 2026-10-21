@@ -29,6 +29,7 @@ import { FrameBar, MonitorCluster, PatternWord, Ribbon, SourceMarquee } from '@/
 import { BTN } from '@/components/ui/tines-kit'
 import { ToneTabs } from '@/components/ui/ToneTabs'
 import { DEEP_CLASS, MATERIAL_TONE, MODULE_TONE } from '@/lib/design/tone'
+import { editorialModuleArtwork } from '@/lib/design/editorial-art'
 import { SiteFooter } from '@/components/marketing/site/SiteFooter'
 import { SiteHeader } from '@/components/marketing/site/SiteHeader'
 import { SectionBeacon } from '@/components/marketing/SectionBeacon'
@@ -36,6 +37,7 @@ import { DIFFERENTIATORS } from '@/lib/marketing/differentiators'
 import { buildHeroDemo } from '@/lib/marketing/hero-demo'
 import { fetchTrustSignals } from '@/lib/marketing/trust-signals'
 import { CONTENT_SOURCES } from '@/lib/marketing/sources'
+import '@/components/marketing/public-reference.css'
 
 export const metadata: Metadata = {
   // ⚠️ `absolute` — 루트 `title.template`("%s | Vocaflow")을 **거친다.**
@@ -67,12 +69,14 @@ export default async function LandingPage() {
   const [signals, demo] = await Promise.all([fetchTrustSignals(), buildHeroDemo()])
 
   return (
-    <div className="flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
+    <div className="public-reference flex min-h-screen flex-col bg-[var(--bg)] text-[var(--t1)]">
       <SiteHeader />
 
       <main className="flex-1">
         {/* ── 히어로 — 왼쪽 정렬 · 64px 두 줄 · 세리프 부제 ── */}
-        <section className="mx-auto max-w-[1360px] px-4 pb-10 pt-6 lg:px-10 lg:pt-4">
+        <section className="home-reference mx-auto max-w-[1360px] px-4 pb-10 pt-6 lg:px-10 lg:pt-4">
+          <div className="home-reference__hero">
+          <div>
           <Link
             href="/fit"
             className="inline-flex min-h-[44px] items-center rounded-full border border-[var(--ju)] text-[14px] text-[var(--ju)] transition-colors duration-[var(--dur-quick)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
@@ -84,9 +88,8 @@ export default async function LandingPage() {
           </Link>
 
           <h1 className="mt-7 max-w-[20ch] break-keep font-display text-[40px] font-[400] leading-[1.08] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]">
-            글이 어려운 게 아니라
-            <br />
-            내가 아는 비율이 다른 겁니다.
+            <span className="home-reference__original">글이 어려운 게 아니라<br />내가 아는 비율이 다른 겁니다.</span>
+            <span className="home-reference__short">내가 아는 비율로<br />읽기를 시작합니다.</span>
           </h1>
           <p className="mt-6 max-w-[52ch] break-keep font-serif text-[20px] leading-[1.35] text-[var(--ju)] md:text-[26px]">
             이 글이 편하게 읽히기까지 몇 단어가 남았는지 계산해 드려요.
@@ -94,6 +97,9 @@ export default async function LandingPage() {
 
           <div className="mt-8">
             <LandingCta />
+          </div>
+          </div>
+          <Image src={`${ILLO}/scene-library-v5.png`} alt="" width={1200} height={800} priority sizes="(min-width: 1024px) 560px, 1px" className="home-reference__scene" />
           </div>
 
           {/* 이름 흐름 띠 — 참조 고객 로고 줄 자리. 로고를 지어내지 않고 **실제로 읽을거리를 가져오는 곳**의 이름만. */}
@@ -226,7 +232,8 @@ export default async function LandingPage() {
                         {m.cta}
                       </Link>
                     </div>
-                    <Image src={`${ILLO}/${m.tile}.webp`} alt="" width={1328} height={1328} className="w-[220px] select-none justify-self-center rounded-[14px] md:w-[300px]" />
+                    <Image src={`${ILLO}/${m.tile}.webp`} alt="" width={1328} height={1328} className="w-[220px] select-none justify-self-center rounded-[14px] md:w-[300px] lg:hidden" />
+                    <Image src={editorialModuleArtwork(m.tile) ?? `${ILLO}/${m.tile}.webp`} alt="" width={1536} height={1024} sizes="380px" className="hidden h-auto w-[380px] select-none justify-self-center object-contain lg:block" />
                   </div>
                 ),
               }))}
@@ -278,6 +285,7 @@ export default async function LandingPage() {
 
 /** 문 카드 — 참조 사례 카드처럼 범주 색의 진한 면(도서 초록 · 교사 청록), 구석에 타일. */
 function DoorCard({ href, title, body, cta, illo, tone }: { href: string; title: string; body: string; cta: string; illo: string; tone: string }) {
+  const desktopArt = editorialModuleArtwork(illo)
   return (
     <Link
       href={href}
@@ -288,7 +296,8 @@ function DoorCard({ href, title, body, cta, illo, tone }: { href: string; title:
       <span className="mt-auto inline-flex items-center gap-1.5 font-display text-[14px] font-[700] tracking-[0.02em]">
         {cta} <ArrowRight size={14} aria-hidden />
       </span>
-      <Image src={`/illustrations/tines/${illo}.webp`} alt="" width={1328} height={1328} className="absolute bottom-6 right-6 w-[170px] rounded-[14px]" />
+      <Image src={`/illustrations/tines/${illo}.webp`} alt="" width={1328} height={1328} className={`absolute bottom-6 right-6 w-[170px] rounded-[14px] ${desktopArt ? 'lg:hidden' : ''}`} />
+      {desktopArt && <Image src={desktopArt} alt="" width={1536} height={1024} sizes="220px" className="absolute bottom-6 right-6 hidden h-auto w-[220px] object-contain lg:block" />}
     </Link>
   )
 }
