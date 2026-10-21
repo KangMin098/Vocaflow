@@ -1,0 +1,61 @@
+{
+  "environment": "actual Chromium + actual React GoalRecordBar; fixed data; no auth Next/DB",
+  "results": [
+    {
+      "case": "기록 0 · 목표 → 미측정 안내 + 계획 확정(키보드 → 같은 Workspace 계획 탭) + 기록 보조 · 1440",
+      "passed": true,
+      "state": "no_record",
+      "kind": "plan",
+      "record": "또는 기출 한 회 기록하기",
+      "focused": true,
+      "opened": [
+        [
+          "ws.central-meaning",
+          "plan"
+        ]
+      ],
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "case": "기록 0 · 목표 → 미측정 안내 + 계획 확정(키보드 → 같은 Workspace 계획 탭) + 기록 보조 · 1280",
+      "passed": true,
+      "state": "no_record",
+      "kind": "plan",
+      "record": "또는 기출 한 회 기록하기",
+      "focused": true,
+      "opened": [
+        [
+          "ws.central-meaning",
+          "plan"
+        ]
+      ],
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "case": "대조 — 목표 없음: 실행 행동 없음",
+      "passed": true,
+      "n": 0
+    },
+    {
+      "case": "대조 — 과거 보기: 실행 행동 없음",
+      "passed": true,
+      "n": 0
+    },
+    {
+      "case": "Independent: actual start is a return-context link, not data-kind start",
+      "passed": true,
+      "tag": "A",
+      "kind": null,
+      "href": "/csat/learn/cm-ind-1?d=11111111-2222-4333-8444-555555555555&from=map&map_task=r.central_meaning&ws=ws.central-meaning&map_ws=11111111-2222-4333-8444-555555555555&map_plan=1&map_goal=10"
+    },
+    {
+      "case": "Independent: existing direct evidence changes no-record state even with zero exams",
+      "passed": true,
+      "state": "none"
+    }
+  ],
+  "passed": 6,
+  "failed": 0
+}
