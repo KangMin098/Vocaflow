@@ -221,6 +221,8 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   // 다시 풀기(교수 자료만) — 새 세션 · 새 제출 id 로 append-only 새 시도. 앞 결과 · 결속은 그대로 남는다.
   //   해설을 본 뒤라 도움 상태는 viewed_first 로 정직하게 남긴다(안내 연습은 원래 근거가 아니다)
   function again() {
+    // T-0075-P1-1 — 다시 연결 중에는 새 시도로 넘어가지 않는다(늦은 응답이 새 결과에 앞 제출의 수행 id 를 붙인다)
+    if (rebinding) return
     mutation.current = null
     setSessionId(uuid()); setHelp('viewed_first'); setHintsOpen(0)
     setGraded(null); setReveal(null); setBinding(null); setError(null); setSavedAttempt(null); setRebindFailed(false)
@@ -237,17 +239,21 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   async function rebind() {
     if (!mutation.current || rebinding) return
     setRebinding(true); setRebindFailed(false)
+    // 응답이 왔을 때 화면의 제출이 바뀌었으면(새 시도) 그 응답은 버린다 — 지금 결과에 앞 제출의 결속 · 수행 id 를 붙이지 않는다
+    const sent = mutation.current
+    const stale = () => mutation.current !== sent
     try {
       const r = await fetch('/api/csat/delivery/bind', { method: 'POST', headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ kind: 'authored_item', itemRef: `authored:${p.id}`, clientMutationId: mutation.current.id, deliveryId: p.deliveryId }) })
+        body: JSON.stringify({ kind: 'authored_item', itemRef: `authored:${p.id}`, clientMutationId: sent.id, deliveryId: p.deliveryId }) })
       const j = await r.json().catch(() => null) as { binding?: unknown; attemptId?: unknown } | null
       const b = j?.binding as Binding | undefined
+      if (stale()) return
       if (!r.ok || !b || typeof b !== 'object' || typeof b.status !== 'string') { setRebindFailed(true); return }
       setBinding(b)
       const id = attemptIdOf(j?.attemptId)
       if (id) setSavedAttempt(id)
     } catch {
-      setRebindFailed(true)
+      if (!stale()) setRebindFailed(true)
     } finally { setRebinding(false) }
   }
 
@@ -513,7 +519,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
           {/* 교수 자료(안내 연습 · 원리 설명)는 맞혔어도 다시 풀 수 있다 — 다시 확인에서 막혀 새 바로잡기 회차가 열리면 지도가 같은 안내 연습을 다시 내민다(T-0050 Codex P1).
               평가 자료(혼자 · 다른 날 확인 · 전이)는 p.retry=false 라 첫 결과로 잠긴다 */}
           {p.retry && (
-            <button type="button" className={styles.primary} onClick={again} data-testid="authored-retry" data-after={wrong ? 'wrong' : 'right'}>{wrong ? '다시 풀기' : '한 번 더 풀어 보기'}</button>
+            <button type="button" className={styles.primary} onClick={again} disabled={rebinding} data-testid="authored-retry" data-after={wrong ? 'wrong' : 'right'}>{wrong ? '다시 풀기' : '한 번 더 풀어 보기'}</button>
           )}
           {explain && (
             <ReasoningNoteForm

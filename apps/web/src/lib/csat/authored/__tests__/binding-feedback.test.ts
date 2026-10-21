@@ -23,6 +23,7 @@ describe('bindingFeedback', () => {
     expect(Object.keys(NON_EVIDENCE_LABEL).sort()).toEqual(['approval_revoked', 'delivery_invalid', 'exposure_unverifiable', 'help_state_mismatch', 'not_first_exposure', 'qualification_superseded', 'role_not_evidence'])
     expect(bindingFeedback({ status: 'bound', evidence: false, reason: 'made_up' }).kind).toBe('unknown')
     expect(bindingFeedback({ status: 'bound', evidence: false, reason: null }).kind).toBe('unknown')
+    for (const k of ['toString', 'constructor', '__proto__']) expect(bindingFeedback({ status: 'bound', evidence: false, reason: k }).kind, k).toBe('unknown')
   })
   it('정상 대조 — evidence true 만 「혼자 해낸 근거」 · 교수 자료(role_not_evidence)는 연습 기록', () => {
     expect(bindingFeedback({ status: 'bound', evidence: true, reason: null })).toMatchObject({ kind: 'evidence' })

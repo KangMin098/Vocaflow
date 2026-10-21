@@ -25,7 +25,7 @@ export function bindingFeedback(b: { status?: unknown; evidence?: unknown; reaso
   if (!b || typeof b.status !== 'string') return { kind: 'unknown', text: '받은 자료와 연결됐는지 확인하지 못했어요.' }
   if (b.status !== 'bound') return { kind: 'unbound', status: b.status }
   if (b.evidence === true) return { kind: 'evidence', text: '이 풀이는 받은 자료에 연결돼 학습 지도에 「혼자 해낸 근거」로 반영돼요.' }
-  if (b.evidence === false && typeof b.reason === 'string' && NON_EVIDENCE_LABEL[b.reason]) {
+  if (b.evidence === false && typeof b.reason === 'string' && Object.hasOwn(NON_EVIDENCE_LABEL, b.reason)) {
     return { kind: 'not_evidence', reason: b.reason, text: `이 풀이는 받은 자료에 연결돼 기록으로 남아요. ${NON_EVIDENCE_LABEL[b.reason]}` }
   }
   return { kind: 'unknown', text: '이 풀이는 받은 자료에 연결됐지만, 근거로 셌는지는 확인하지 못했어요.' }
