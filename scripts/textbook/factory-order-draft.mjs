@@ -9,7 +9,8 @@
 // Cookie 는 http loopback origin(localhost · 127.0.0.1 · [::1])에만 보내고 redirect 는 따라가지 않는다.
 // 출력은 새 파일에만(wx) 쓴다 — 기존 파일은 거절하고, 실패하면 산출물을 만들지 않는다.
 
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import * as fs from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
@@ -27,6 +28,86 @@ const FLAGS = {
 }
 
 export class CliError extends Error {}
+
+/**
+ * 새 파일 쓰기 실패. message 는 코드와 경로만 담는다(본문 · Cookie 를 싣지 않는다).
+ * cleanup_failed=true 면 이번 실행이 만든 파일이 남았을 수 있다 — paths 를 사람이 확인해야 한다.
+ */
+export class NewFileError extends Error {
+  constructor(code, paths, causes) {
+    super(`${code}: ${paths.join(', ')}${causes.length ? ` (${causes.join('; ')})` : ''}`)
+    this.code = code
+    this.paths = paths
+    this.cleanup_failed = code.startsWith('cleanup_failed')
+  }
+}
+
+const errCode = (e) => (e && typeof e.code === 'string' ? e.code : 'unknown')
+
+/**
+ * open(wx) 로 소유를 먼저 확보한 뒤 fd 로 끝까지 쓰고 닫는다. 이미 있으면(EEXIST) 아무것도 지우지 않는다.
+ * 소유 확보 뒤 쓰기 · close 가 실패하면 fd 를 닫고 **이번에 만든 그 파일만** 지운다.
+ * 정리도 실패하면 숨기지 않고 cleanup_failed 로 던진다. fsImpl 은 시험용 주입.
+ */
+export function writeNewFile(path, data, fsImpl = fs) {
+  const bytes = typeof data === 'string' ? Buffer.from(data, 'utf8') : Buffer.from(data.buffer, data.byteOffset, data.byteLength)
+  let fd
+  try {
+    fd = fsImpl.openSync(path, 'wx')
+  } catch (e) {
+    throw new NewFileError(errCode(e) === 'EEXIST' ? 'exists' : 'open_failed', [path], [errCode(e)])
+  }
+  let open = true
+  try {
+    let off = 0
+    while (off < bytes.byteLength) off += fsImpl.writeSync(fd, bytes, off, bytes.byteLength - off)
+    open = false
+    fsImpl.closeSync(fd)
+  } catch (e) {
+    const causes = [errCode(e)]
+    if (open) {
+      try {
+        fsImpl.closeSync(fd)
+      } catch (ce) {
+        causes.push(`close:${errCode(ce)}`)
+      }
+    }
+    try {
+      fsImpl.unlinkSync(path)
+    } catch (ue) {
+      causes.push(`unlink:${errCode(ue)}`)
+      throw new NewFileError('cleanup_failed_after_write_error', [path], causes)
+    }
+    throw new NewFileError('write_failed_removed', [path], causes)
+  }
+}
+
+/**
+ * 여러 새 파일을 한 묶음으로 만든다. rollback() 은 이번 묶음이 만든 파일만 역순으로 지우고(재귀 삭제 없음)
+ * 남은 경로 목록을 돌려준다 — 빈 배열이어야 정리 완료다.
+ */
+export function newFileSet(fsImpl = fs) {
+  const created = []
+  return {
+    created,
+    write(path, data) {
+      writeNewFile(path, data, fsImpl)
+      created.push(path)
+    },
+    rollback() {
+      const left = []
+      for (const p of [...created].reverse()) {
+        try {
+          fsImpl.unlinkSync(p)
+        } catch (e) {
+          if (errCode(e) !== 'ENOENT') left.push(`${p} (${errCode(e)})`)
+        }
+      }
+      created.length = 0
+      return left
+    },
+  }
+}
 
 /** argv(명령 이후) → { command, flags }. 모르는 명령·플래그·중복·빈 값은 거절한다. */
 export function parseArgs(argv) {
@@ -128,7 +209,7 @@ export async function run(argv, deps = {}) {
   const fetchImpl = deps.fetch ?? globalThis.fetch
   const readFile = deps.readFile ?? ((p) => readFileSync(p, 'utf8'))
   const exists = deps.exists ?? existsSync
-  const writeNew = deps.writeNew ?? ((p, text) => writeFileSync(p, text, { encoding: 'utf8', flag: 'wx' }))
+  const writeNew = deps.writeNew ?? ((p, text) => writeNewFile(p, text))
   const out = deps.stdout ?? ((s) => process.stdout.write(`${s}\n`))
   const err = deps.stderr ?? ((s) => process.stderr.write(`${s}\n`))
 
@@ -187,8 +268,12 @@ export async function run(argv, deps = {}) {
   }
   try {
     writeNew(outPath, `${JSON.stringify(body, null, 2)}\n`)
-  } catch {
-    err('--out 파일을 새로 만들지 못했습니다(이미 있거나 쓸 수 없음).')
+  } catch (e) {
+    if (e instanceof NewFileError && e.cleanup_failed) {
+      err(`--out 파일 쓰기에 실패했고 부분 파일을 지우지 못했습니다 — 직접 확인하세요: ${e.message}`)
+    } else {
+      err('--out 파일을 새로 만들지 못했습니다(이미 있거나 쓸 수 없음).')
+    }
     return 1
   }
   for (const line of summarize(command, body)) out(line)

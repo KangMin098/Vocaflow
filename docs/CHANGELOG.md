@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(factory): 주문·원문에 결속된 로컬 소량 제작 패킷/검증/HTML·manifest CLI를 추가했다. 실제 문항 3개 제작과 파일 충돌·오류 주입 복구를 확인했다(웹167·CLI18·타입 포함 검사6). 결과는 합성 수요 기반 검토 후보이며 DB 등록·발행·납품은 미실행이다.
+
 - feat(admin): 저장된 Workspace 수요·현재 목표/계획을 검증한 뒤 실제 공장 설계기로 주문 초안을 계산하는 `POST /api/admin/csat/factory-order-draft`와 관리자용 읽기 전용 CLI 추가. 비영속 초안·미검증 대응·생산/납품 미실행을 구분한다. 웹 205·공장 설계 5·Codex 반례 6·CLI 9·호출부 5 통과, DB 변경 없음.
 
 - feat(csat): FINAL §5 TASK 확장 — 과제 형식 레지스트리 위에 창작 세트 6개(E 근거 위치 · E 선지 대응 · R 추론 · R 문장 관계 · S 형태 범위 · V 문맥 의미, 각 6문항 · 맹검 검토 반영). 설명 글 문장 번호를 화면과 같은 1부터로 통일(세트마다 proseNumbering 필수). §6 ⑤ 기출분석 「글 전체 구조」 먼저 예측 → 서버 대조(POST /api/csat/item/[slug]/structure) → 도식. 사람 Gold · 권리 전.
