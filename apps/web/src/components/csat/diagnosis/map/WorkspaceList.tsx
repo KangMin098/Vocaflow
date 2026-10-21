@@ -51,6 +51,7 @@ const WHY_NOT: Record<NotActionableReason, string> = {
   canon_hold: '측정 방법 정하는 중',
   relevance_unknown: '목표 시험과의 연결 확인 전',
   no_next_activity: '지금 이어 할 활동 없음',
+  maintain_pending: '지금 확인 통과 · 다른 날 유지 확인 기준 미정',
 }
 
 export const taskLabel = (id: TaskId) => {

@@ -19,6 +19,7 @@ import type { TaskId } from '../v4/definition'
 import type { TaskPlan } from '../v4/plan'
 import type { Need } from '../v4/to-be'
 import type { NotActionableReason, Ranks } from './rank'
+import { MAINTAIN_PASSED_LABEL } from './maintenance-state'
 
 export type NextActionKind = 'start' | 'plan' | 'supply' | 'wait'
 
@@ -94,7 +95,11 @@ export function wsForTask(task: string, view: Pick<V4View, 'plans'>): string | n
 export function nextActionOf(view: V4View, ranks: Ranks | null, saved: Saved): NextAction | null {
   if (!ranks) return null
   const first = ranks.actionRank[0]
-  const target = first?.task ?? ranks.notActionable.find((n) => n.reason !== 'relevance_unknown')?.task ?? null
+  // T-0082 — 지금 할 수 없는 것 중에서도 실제 행동(계획 · 자료 받기 · 기다림 이유)이 있는 TASK 가 먼저, 「지금 확인 통과 · 유지 확인 미정」은 마지막
+  const target = first?.task
+    ?? ranks.notActionable.find((n) => n.reason !== 'relevance_unknown' && n.reason !== 'maintain_pending')?.task
+    ?? ranks.notActionable.find((n) => n.reason === 'maintain_pending')?.task
+    ?? null
   if (!target) return null
   const plan = view.taskPlans.find((p) => p.task === target) ?? null
   const need = view.toBe?.needs.find((n) => n.task === target) ?? null
@@ -119,6 +124,8 @@ export function nextActionOf(view: V4View, ranks: Ranks | null, saved: Saved): N
   if (ws && !isSaved && blocked !== 'canon_hold') return { ...base, kind: 'plan', href: null, label: null, blocked }
   // T-0072 P1-2 — 지금 할 활동이 없어도(자료 받기 · 기다림 분기) 저장 PLAN 이 다른 목표에 묶였으면 같은 묶음 계획 다시 확정이 먼저(보류 · 저장 전 · 같은 목표 부족=자료 받기는 그대로)
   if (ws && isSaved && blocked !== 'canon_hold' && goalMismatch(ws, saved)) return { ...base, kind: 'plan', replan: true, replanWhy: 'goal', href: null, label: null, blocked }
+  // T-0082 — 지금 확인 통과 · 유지 확인 미정: 기존 보호(저장 전 계획 확정 · 목표 변경 재확정)는 위에서 그대로, 그 뒤엔 자료 받기를 내밀지 않고 이유만(같은 계획을 반복 저장시키지 않는다)
+  if (blocked === 'maintain_pending') return { ...base, kind: 'wait', href: null, label: null, blocked }
   // 확인 단계가 「확인 문항 연결 없음」으로 막힌 창작 TASK 는 첫 확인 자료 공급이 그 다음 행동이다(단계 잠금 그대로가 아님)
   const firstCheckLocked = blocked === 'stage_locked' && (!plan?.stage || plan.stage === 'check')
   const supplyable = ws && AUTHORED_TASKS.includes(target) && (firstCheckLocked || blocked === 'content_gap' || blocked === 'material_needed' || blocked === 'repair_material_needed' || blocked === 'no_next_activity')
@@ -134,4 +141,5 @@ export const WAIT_LABEL: Record<NotActionableReason, string> = {
   canon_hold: '이 TASK 는 정의를 정비하는 중이라 지금은 학습하지 않아요',
   relevance_unknown: '목표 시험과의 연결을 아직 확인하지 못했어요',
   no_next_activity: '지금 열 수 있는 활동을 찾지 못했어요 — 정확한 원인은 아직 몰라요',
+  maintain_pending: MAINTAIN_PASSED_LABEL,
 }
