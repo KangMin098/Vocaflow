@@ -13,6 +13,9 @@ URL 선택·팝업과 함께 실행되는 초기 조회/폴링은 관리자 GET 
 환경 키가 있다는 이유만으로 공유 DB에 쓰는 테스트를 실행하지 않는다. `allowMutatingSharedDbTests(process.env)`는 승인된 명시적 로컬 실행의 `RUN_MUTATING_DB_TESTS=1`만 허용하고 CI에서는 플래그가 있어도 차단한다. 플래그는 사용자 DB 승인을 대신하지 않는다. 일반 로컬 회귀·중앙 related 검증은 쓰기 없이 실행한다. `loadMapPage`처럼 조회 안에서 결정을 기록하는 함수도 쓰기 경로다.
 
 계측 probe는 한 번에 삽입하고 `meta.selftest_run_id` UUID로 실행 소유를 표시한다. 정리는 `surface=selftest`와 실행 UUID 두 조건으로 제한하며 다른 실행의 행을 지우지 않는다. 같은 범위의 exact count로 잔여 0을 확인하며 null·오류·잔여 행을 성공으로 삼키지 않는다. 삽입·정리 오류를 모두 전파한다. 가드/실패/정리 계약은 fake DB로 검증하며, 실제 쓰기 테스트의 생략을 DB 검증 성공으로 세지 않는다.
+서버 GET 쓰기 보완(2026-10-20): 인증된 `/library/scripts/[id]`도 진입 시 본문 생성/단어 구독을 실행한다. 개인 `/text/*`·교사·인증 초대와 함께 `read-only-context.mjs`에서 서버 도달 전에 차단하며, 쿠키 없는 공개 글 미리보기만 통과한다. POST/RPC 차단만으로 DB 무변경을 선언하지 않는다. 최초 탐색에서 발생한42행 사고·백업·복구 승인 대기는 [감사 §0-25](design/learner-tines-audit.md)에 기록했다. 알려진 경로 가드와 실제 전후 DB 확인을 구분한다.
+
+읽기 캡처 주의(2026-10-20): `/text/[id]` GET도 서버에서 진도/학습 활성화를 기록한다. 브라우저의 POST 차단만으로 해당 화면을 읽기 전용이라 부르지 않는다. 데이터 없는 팝업 검증은 `scripts/design/workspace-popup-isolated-check.mjs`를 사용하고 정상 계정 라우트 수용과 구분한다. 기존 `reader-popover-check.mjs`는 별도 DB 쓰기 승인과 `--allow-learning-writes`가 있어야 실행한다. [근거: 감사 §0-24](design/learner-tines-audit.md).
 
 > Vocaflow 코드 작성 패턴 · 네이밍 · 안티패턴. 새 PR 머지 전 체크리스트로 활용.
 > 작성 시점: 2026-06-08 (v06.34).

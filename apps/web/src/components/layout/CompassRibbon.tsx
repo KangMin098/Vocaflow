@@ -118,39 +118,46 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
   }
 
   return (
-    <div className="border-b border-[var(--bd)] bg-[var(--bg)]">
+    // 2026-10-19 재참조(tines.com /customers · /library · /university 1440): 막대 아래 둘째 줄은
+    // **왼쪽 옅은 라벤더 알약 하나(지금 위치) + 오른쪽 굵은 글자 링크** 뿐이다. 진한 채움 버튼 · 회색 눈썹 · 아래 괘선은 참조에 없다.
+    <div className="bg-[var(--bg)]">
       <div
         aria-label="오늘 상태"
-        className="flex flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2 md:px-6"
+        data-compass-row
+        className="mx-auto flex w-full max-w-[1360px] flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2.5 lg:px-10"
       >
         {/* ① 나는 어디에 있나 — 데스크톱에서만. 모바일은 하단 탭이 이미 위치를 말한다 */}
         {model.surface && (
-          <span className="hidden shrink-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)] md:inline">
+          <span className="hidden shrink-0 rounded-full bg-[var(--tint-lavender)] px-3 py-1 font-display text-[14px] font-[600] text-[var(--ju)] md:inline">
             {model.surface.name}
           </span>
         )}
+
+        <div data-area-nav-slot className="hidden min-w-0 lg:block" />
 
         {/* ② 오늘 어디까지 왔나 — 계단이 있을 때만 그린다 */}
         {model.steps.length > 0 && <StepDots model={model} />}
 
         {/* ③ 지금 누를 한 개 */}
-        <p className="flex min-w-0 flex-1 items-baseline gap-2">
-          <span className="shrink-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--active-ink)]">
+        <p data-compass-message className="flex min-w-0 flex-1 items-baseline gap-2">
+          <span className="shrink-0 font-mono text-[11px] font-[700] uppercase tracking-[0.08em] text-[var(--active-ink)]">
             {model.now.kicker}
           </span>
-          <span className="min-w-0 truncate break-keep font-display text-[13px] font-[600] text-[var(--t1)]">
+          <span className="min-w-0 truncate break-keep font-display text-[14px] font-[500] text-[var(--ju)]">
             {model.now.headline}
           </span>
         </p>
 
         <Link
           href={model.now.href}
+          title={model.now.headline}
           onClick={() =>
             track({ name: 'wayfinder_cta_clicked', props: { phase: model.phase, done: model.done } })
           }
-          className="inline-flex min-h-11 shrink-0 items-center rounded-[var(--r-md)] bg-[var(--ju)] px-4 font-display text-[12.5px] font-[600] text-[var(--on-ju)] transition-[background-color,transform] duration-[var(--dur-fast)] ease-[var(--ease)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2 active:translate-y-[1px]"
+          className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-full px-2 font-display text-[14px] font-[700] text-[var(--p)] underline-offset-4 transition-colors duration-[var(--dur-fast)] hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           {model.now.cta}
+          <span aria-hidden>→</span>
         </Link>
 
         <button
@@ -158,7 +165,7 @@ export function CompassRibbon({ data }: CompassRibbonProps) {
           onClick={toggle}
           aria-expanded={open}
           aria-controls={panelId}
-          className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-[var(--r-md)] px-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 shrink-0 items-center gap-1.5 rounded-full px-2 font-display text-[14px] font-[600] text-[var(--ju)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           나의 자리
           {/*

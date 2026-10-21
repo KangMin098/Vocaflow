@@ -34,6 +34,15 @@ export function Card({
 }: CardProps) {
   const [isBookmarked, setIsBookmarked] = useState(false)
   const [entering, setEntering] = useState(false)
+  const [desktopLearner, setDesktopLearner] = useState(false)
+
+  useEffect(() => {
+    const query = window.matchMedia('(min-width: 1024px)')
+    const update = () => setDesktopLearner(query.matches && !!document.querySelector('[data-learner-pc-color="tines"]'))
+    update()
+    query.addEventListener('change', update)
+    return () => query.removeEventListener('change', update)
+  }, [])
 
   // 카드 변경 시 entering 애니메이션
   useEffect(() => {
@@ -57,6 +66,7 @@ export function Card({
       role="button"
       tabIndex={isLocked ? -1 : 0}
       aria-label={isFlipped ? '카드 앞면 보기' : '카드 뒤집어 정답 확인'}
+      data-learner-flashcard
       className={`group/card relative h-[380px] w-full ${isLocked ? 'cursor-default' : 'cursor-pointer'} ${swipeDirection === 'left' ? 'animate-[card-out-left_var(--dur-slow)_var(--ease)_forwards]' : ''} ${swipeDirection === 'right' ? 'animate-[card-out-right_var(--dur-slow)_var(--ease)_forwards]' : ''} ${entering ? 'animate-[card-in_var(--dur-slow)_var(--ease-spring)]' : ''} `}
       style={{
         transformStyle: 'preserve-3d',
@@ -66,6 +76,9 @@ export function Card({
     >
       {/* Front Face */}
       <div
+        data-card-face="front"
+        aria-hidden={desktopLearner ? isFlipped : undefined}
+        ref={node => { if (node) node.inert = desktopLearner && isFlipped }}
         className="absolute inset-0 flex flex-col overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-8 shadow-[var(--sh-card)]"
         style={{
           backfaceVisibility: 'hidden',
@@ -86,6 +99,9 @@ export function Card({
 
       {/* Back Face */}
       <div
+        data-card-face="back"
+        aria-hidden={desktopLearner ? !isFlipped : undefined}
+        ref={node => { if (node) node.inert = desktopLearner && !isFlipped }}
         className="absolute inset-0 flex flex-col overflow-hidden rounded-[var(--r-2xl)] border border-[var(--bd)] bg-[var(--bg)] p-8 shadow-[var(--sh-card)]"
         style={{
           backfaceVisibility: 'hidden',
@@ -93,7 +109,7 @@ export function Card({
           transform: 'rotateY(180deg)',
         }}
       >
-        <CardBack word={word} isExampleAudioPlaying={isExampleAudioPlaying} />
+        <CardBack word={word} isExampleAudioPlaying={isExampleAudioPlaying} desktopLearner={desktopLearner} />
       </div>
     </div>
   )

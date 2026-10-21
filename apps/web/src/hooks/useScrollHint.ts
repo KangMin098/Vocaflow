@@ -22,7 +22,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 export type ScrollHint = 'none' | 'start' | 'end' | 'both'
 
-export function useScrollHint<T extends HTMLElement>() {
+export function useScrollHint<T extends HTMLElement>(watch?: unknown) {
   const ref = useRef<T | null>(null)
   const [hint, setHint] = useState<ScrollHint>('none')
 
@@ -56,7 +56,7 @@ export function useScrollHint<T extends HTMLElement>() {
       el.removeEventListener('scroll', measure)
       ro.disconnect()
     }
-  }, [measure])
+  }, [measure, watch])
 
   return { ref, hint, measure }
 }

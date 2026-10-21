@@ -4,7 +4,7 @@
 //
 // 표면은 `--mat-glass-*`(테마별 종이/먹 글라스), 글자는 ink 토큰(--t1/t2/t3),
 // 액센트는 --p(비텍스트만) + ink-flip(--t1/--bg, 텍스트 동반 버튼). 라이트·다크 모두 대비 충분.
-//   (이전 `bg-[var(--t1)]/95 + text-white` 는 --t1=텍스트 토큰이라 다크모드 흰-위-흰 가독성 0 버그였음.)
+//   (이전 `bg-[color-mix(in_srgb,var(--t1)_95%,transparent)] + text-white` 는 --t1=텍스트 토큰이라 다크모드 흰-위-흰 가독성 0 버그였음.)
 //
 // 디자인 원칙:
 //   · 하단 고정 바 — fixed bottom-0 가장자리 flush(여백·radius 없음) + 상단 hairline + 위로 향한 soft shadow

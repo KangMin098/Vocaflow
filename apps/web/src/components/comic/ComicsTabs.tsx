@@ -18,6 +18,7 @@
 
 import { BookImage, ScanLine } from 'lucide-react'
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 import { AreaNav } from '@/components/layout/AreaNav'
 
@@ -26,8 +27,19 @@ const TABS = [
   { label: 'Vintage Comics', ko: '옛 영어 만화책', href: '/comics/restored', icon: ScanLine },
 ] as const
 
-export function ComicsTabs() {
+export function ComicsTabs({ variant = 'row' }: { variant?: 'row' | 'rail' }) {
   const pathname = usePathname()
+  if (variant === 'rail') return (
+    <nav aria-label="만화 자료 유형" className="flex flex-col py-3">
+      {TABS.map(({ href, label, ko, icon: Icon }) => (
+        <Link key={href} href={href} aria-current={pathname.startsWith(href) ? 'page' : undefined}
+          className="flex min-h-11 items-center gap-3 rounded-lg px-3 py-3 font-display text-[14px] text-[var(--ju)] hover:bg-[var(--tint-lavender)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] aria-[current=page]:font-[700]">
+          <Icon size={18} strokeWidth={1.5} aria-hidden />
+          <span><span className="block">{label}</span><span className="mt-1 block text-[12px] font-normal text-[var(--t2)]">{ko}</span></span>
+        </Link>
+      ))}
+    </nav>
+  )
   return (
     <AreaNav
       area="만화"

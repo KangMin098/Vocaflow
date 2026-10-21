@@ -467,8 +467,6 @@ export default function WorkspacePage({ params }: PageProps) {
     },
   })
 
-  // M11(기억 상태 목업)은 이 작업 범위 밖이라 그대로 둔다 — 실데이터 경로가 아직 없다.
-  const memoryStats = { stable: 97, shaky: 28, risk: 14, newWords: 17 }
 
   // 인사이트 패널의 북마크 목록 — 저장된 값에서 만든다(목업 인용문 2개를 지웠다).
   //   북마크 단위는 "이 글/챕터" 다(texts.is_bookmarked). 문장 단위 북마크를 담을 곳이
@@ -629,6 +627,7 @@ export default function WorkspacePage({ params }: PageProps) {
 
       {lookupSurface && lookupAnchor && (
         <WordLookupPopover
+            desktopLearner
           surface={lookupSurface}
           anchorRect={lookupAnchor}
           onClose={handleLookupClose}
@@ -656,9 +655,9 @@ export default function WorkspacePage({ params }: PageProps) {
       <InsightPanel
         isOpen={isInsightOpen}
         onClose={() => setIsInsightOpen(false)}
-        softQuote="Page 3까지 왔어요. 이번 chapter의 1/4. 좋은 흐름이에요."
         bookmarks={bookmarks}
-        memoryStats={memoryStats}
+        memoryStats={null}
+        memoryHref={wordsHref}
         libraryBookId={ctx?.libraryBookId ?? null}
         chapterIdx={ctx?.chapterIdx ?? null}
       />

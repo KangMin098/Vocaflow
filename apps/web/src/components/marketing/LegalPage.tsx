@@ -48,7 +48,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
   }, [sections])
 
   return (
-    <div className="bg-[var(--bg)]">
+    <div className="legal-reference bg-[var(--bg)]">
       {/* ── Header ── */}
       <header className="border-b border-[var(--bd)] bg-[var(--bg2)]">
         <div className="mx-auto max-w-5xl px-6 py-12">
@@ -89,6 +89,7 @@ export function LegalPage({ title, intro, effectiveDate, version, sections }: Le
                 <a
                   key={s.id}
                   href={`#${s.id}`}
+                  aria-current={activeId === s.id ? 'location' : undefined}
                   className={`block py-1 font-body text-[12px] leading-snug transition-colors duration-[var(--dur-normal)] ${
                     activeId === s.id
                       ? 'font-[600] text-[var(--p)]'

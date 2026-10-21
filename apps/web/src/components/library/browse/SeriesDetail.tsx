@@ -94,9 +94,9 @@ export function SeriesDetail({
         <div className="flex items-start gap-3">
           <SealMark label={track.title} size="lg" />
           <div className="flex min-w-0 flex-1 flex-col gap-1">
-            <h1 className="font-editorial text-[26px] font-[500] leading-[1.1] tracking-[-0.01em] text-[var(--t1)] md:text-[30px]">
+            <h2 className="font-editorial text-[26px] font-[500] leading-[1.1] tracking-[-0.01em] text-[var(--t1)] md:text-[30px]">
               {track.title}
-            </h1>
+            </h2>
             <p className="font-body text-[13.5px] leading-[1.5] text-[var(--t2)]">{track.oneLine}</p>
           </div>
         </div>

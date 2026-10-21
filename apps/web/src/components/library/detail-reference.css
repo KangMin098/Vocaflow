@@ -1,0 +1,27 @@
+/* apps/web/src/components/library/detail-reference.css */
+.volume-practice-reference__icon { display: none; }
+@media (min-width: 1024px) {
+  body:has(.catalog-detail-reference) [data-module-banner] { display: none; }
+  .book-preview-reference { max-width: 1200px; width: 100%; margin-inline: auto; padding: 24px 32px 64px; }
+  .book-preview-reference > section[aria-label="난이도 지수"] { background: transparent; border-width: 0 0 1px; border-radius: 0; padding-inline: 0; }
+  .book-preview-reference > div:first-of-type a, .article-reference > div:first-of-type a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; }
+  .book-preview-reference footer button { min-height: 44px; }
+  .book-preview-reference button[aria-label="이 챕터에서 익힐 단어 보기"] { min-height: 44px; min-width: 44px; }
+  .article-reference { max-width: 800px; padding-top: 40px; }
+  .article-reference h1 { font-size: 36px; line-height: 1.3; }
+  .article-reference article { font-size: 17px; line-height: 1.9; }
+  .volume-reference > main { max-width: 1200px; padding-inline: 32px; }
+  .volume-reference > main > div { gap: 32px; }
+  .volume-reference section { border: 0; border-radius: 0; box-shadow: none; background: transparent; padding-inline: 0; }
+  .volume-reference > main > div > section { border-top: 1px solid var(--bd); padding-block: 32px; }
+  .volume-reference section h1 { font-size: 44px; line-height: 1.2; }
+  .volume-reference [data-apparatus="cover"] dl { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); background: transparent; border: 0; border-radius: 0; gap: 0; }
+  .volume-reference [data-apparatus="cover"] dl > div { background: transparent; border-left: 1px solid var(--bd); }
+  .volume-reference section h2 { font-family: var(--font-display); font-weight: 500; }
+  .volume-reference section > p { max-width: 64ch; font-size: 16px; line-height: 1.8; }
+  .volume-practice-reference > main { max-width: 880px; padding-block: 32px; }
+  .volume-practice-reference h1 { font-family: var(--font-display); font-size: 36px; font-weight: 500; }
+  .volume-practice-reference__icon { display: block; color: var(--ju-ink); }
+  .volume-practice-reference > main > div > header a { min-height: 44px; min-width: 44px; display: inline-flex; align-items: center; }
+  .volume-practice-reference section { border-width: 1px 0 0; border-radius: 0; background: transparent; box-shadow: none; padding-inline: 0; text-align: left; }
+}

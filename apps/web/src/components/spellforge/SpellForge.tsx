@@ -4,6 +4,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { X } from 'lucide-react'
 
 import { ConfirmButton } from './ConfirmButton'
@@ -24,6 +25,7 @@ import { useTypingMode } from '@/hooks/useTypingMode'
 import { SpellForgeCompletion } from './SpellForgeCompletion'
 
 import { useSessionEscape } from '@/components/layout/session-escape'
+import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import { evaluateInput, generateReflectionMessage } from '@/lib/spellforge/scoring'
 import { applyReview, createNewCard } from '@/lib/srs'
@@ -87,6 +89,8 @@ const SUCCESS_MESSAGES = [
 
 export function SpellForge({ textId, textTitle, words, backHref, content }: SpellForgeProps) {
   const inputRef = useRef<HTMLInputElement>(null)
+  // 세션 틀(SessionFrame)이 위에 있으면 나가기는 틀이 맡는다 — 아래 닫기 단추 주석 참조
+  const inSessionFrame = isFullScreenRoute(usePathname())
 
   // Hooks
   const { mode, setMode } = useTypingMode()
@@ -429,8 +433,10 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         <IMEIndicator status={imeStatus} />
       </div>
 
-      {/* 닫기 — 학습하던 스크립트로 복귀 (우상단 fixed) */}
-      <Link
+      {/* 닫기 — 학습하던 스크립트로 복귀 (우상단 fixed).
+          전체화면 세션(/spellforge/play)에서는 세션 틀이 같은 자리에 「세션 닫기」를 둔다 — 둘이 겹쳐 닫기가 두 개였다
+          (2026-10-18 session-audit: x1376 · x1380). 읽기 화면 안(?mode=spellforge)에서 열 때만 이 단추를 그린다. */}
+      {!inSessionFrame && <Link
         href={backHref}
         aria-label="스펠 닫기 — 스크립트로 돌아가기"
         title="스크립트로 돌아가기"
@@ -438,7 +444,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         className="fixed right-4 top-4 z-[55] inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--error-light)] hover:text-[var(--error-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <X size={18} strokeWidth={2} aria-hidden />
-      </Link>
+      </Link>}
 
       {/* Word Stage */}
       <section className="flex flex-1 flex-col items-center justify-center px-8 py-8">

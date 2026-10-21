@@ -261,7 +261,7 @@ export function Dialog({
                   </nav>
                 )}
                 <div className="flex flex-col gap-2">
-                  <h2 id={titleId} className={cn(DIALOG.title, !crumbs?.length && 'pr-24 sm:pr-28')}>
+                  <h2 id={titleId} data-dialog-title className={cn(DIALOG.title, !crumbs?.length && 'pr-24 sm:pr-28')}>
                     {title}
                   </h2>
                   {byline && <p className={DIALOG.byline}>{byline}</p>}

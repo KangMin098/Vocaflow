@@ -36,7 +36,7 @@ const SCRIPT = join(ROOT, 'scripts', 'audit', 'learner-linkgraph.mjs')
  *                    정상이다(`lib/teacher/invite-link.ts` 가 주소를 만들어 교사에게 준다).
  * (`/csat/practice/[slug]` 는 2026-10-09 E11 에서 기출 문항 확인 과제 아래 진입 링크를 달아 목록에서 뺐다.)
  */
-const ALLOWED_ORPHAN_PAGES = ['/hub-lab', '/join/[code]']
+const ALLOWED_ORPHAN_PAGES = ['/join/[code]']
 
 /**
  * 앱이 부르지 않는 것이 정상인 API — 손으로/외부에서 부른다.

@@ -1,0 +1,37 @@
+/* apps/web/src/components/layout/account-reference.css */
+/* PC 개인 관리: 열린 제목/장면, 목차 레일, 실제 컨트롤. 데이터/저장 동작과 모바일은 유지한다. */
+@media (min-width: 1024px) {
+  main:has(.settings-reference, .plan-reference, .reports-reference, .history-reference) { max-width: 1280px; width: 100%; padding-inline: 40px; }
+  body:has(.settings-reference, .plan-reference, .reports-reference, .history-reference) [data-module-banner] { display: none; }
+  .settings-reference, .plan-reference, .reports-reference, .history-reference { max-width: none; padding: 18px 0 64px; }
+  .account-reference__intro { position: relative; display: grid; grid-template-columns: minmax(0, 1fr) 320px; align-content: center; align-items: center; min-height: 240px; column-gap: 48px; row-gap: 12px; margin-bottom: 24px; padding: 0; }
+  .account-reference__intro > :not(.account-reference__scene) { grid-column: 1; margin: 0; }
+  .account-reference__intro h1 { font: 400 44px/1.15 var(--font-display); letter-spacing: -.025em; word-break: keep-all; }
+  .account-reference__intro p { font-size: 16px; line-height: 1.65; word-break: keep-all; }
+  .account-reference__intro > .account-reference__scene { display: block; grid-column: 2; grid-row: 1 / span 4; width: 320px; height: 220px; object-fit: contain; }
+  .account-reference__intro h1 > span[aria-hidden] { display: none; }
+  .settings-reference { display: grid; grid-template-columns: 224px minmax(0, 1fr); gap: 32px 56px; }
+  .settings-reference > .account-reference__intro { grid-column: 1 / -1; }
+  .settings-reference > nav { position: sticky; top: 88px; align-self: start; display: flex; flex-direction: column; gap: 4px; margin: 0; padding: 0; }
+  .settings-reference > nav a { justify-content: flex-start; border: 0; border-bottom: 1px solid var(--bd); border-radius: 0; background: transparent; box-shadow: none; font-size: 15px; min-height: 48px; }
+  .settings-reference section button, .settings-reference section input[type="range"] { min-height: 44px; min-width: 44px; }
+  .settings-reference > .space-y-5 { grid-column: 2; }
+  .settings-reference > .space-y-5 > section { --t1: var(--ju-ink); --t2: inherit; --t3: inherit; background: transparent; background-image: none; border: 0; border-top: 1px solid var(--bd); border-radius: 0; box-shadow: none; padding: 28px 0; }
+  .settings-reference section > header { margin-bottom: 20px; }
+  .settings-reference section > header h2 { font-size: 26px; font-weight: 500; }
+  .settings-reference > p:last-child { grid-column: 2; }
+  .plan-reference > .account-reference__intro { margin-bottom: 8px; }
+  .plan-reference > section[aria-label="주간 보드"] { border-width: 1px 0; border-radius: 0; background: transparent; padding: 24px 0; }
+  .plan-reference > section[aria-label="자료 추가·구성"] { gap: 32px; }
+  .plan-reference > section[aria-label="자료 추가·구성"] > div { border-width: 1px 0 0; border-radius: 0; background: transparent; padding: 24px 0; box-shadow: none; }
+  .plan-reference [role="tablist"] { gap: 0; border-bottom: 1px solid var(--bd); }
+  .plan-reference [role="tab"] { border: 0; border-radius: 0; background: transparent; color: var(--p); min-height: 48px; }
+  .plan-reference [role="tab"][aria-selected="true"] { box-shadow: inset 0 -2px var(--p); }
+  .reports-reference > .account-reference__intro > span[aria-hidden] { display: none; }
+  .reports-reference > .account-reference__intro button { justify-self: start; border-radius: 24px; }
+  .reports-reference > div:not([role="alert"]) { border-width: 1px 0 0; border-radius: 0; background: transparent; align-items: flex-start; text-align: left; padding: 40px 0; }
+  .reports-reference > ul { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 32px; }
+  .reports-reference > ul article { border-width: 1px 0 0; border-radius: 0; background: transparent; padding: 24px 0; box-shadow: none; }
+  .history-reference > .account-reference__intro > a { justify-self: start; min-height: 44px; }
+  .history-reference > .account-reference__intro + div { border-width: 1px 0 0; border-radius: 0; background: transparent; box-shadow: none; padding: 32px 0; }
+}

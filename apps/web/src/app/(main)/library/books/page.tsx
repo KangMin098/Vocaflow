@@ -381,15 +381,14 @@ export default async function LibraryBooksPage({
   ).length;
   const inProgressCount = books.filter((b) => b.enrollment_state === 'in_progress').length;
 
-  return (
-    <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-5 py-6 md:py-8">
-        {/* DD-68 — 참조 도서관 머리: 도서 범주 색 진한 판 · 오른쪽 tile-books · 아랫변 탭(둘러보기 / 전체 보기 = ?show=all). 수치는 방금 받은 카탈로그에서 센다. */}
+  const header = (
         <AreaHero
           kicker="서가 · 영어 원서"
           title={MATERIAL_LABEL.book}
           sub="큐레이션된 영어 원서 — i+1 수준에 맞춘 도서를 추천해드려요."
           tile="tile-books"
+          desktopScene="scene-library-v4"
+          desktopSub="읽고 싶은 책을 골라보세요."
           tint={MATERIAL_TONE.book.tint}
           tabs={
             totalBooks > 0
@@ -411,13 +410,27 @@ export default async function LibraryBooksPage({
                 ]
               : undefined
           }
-        />
-
-        {comicHeroes.length > 0 && <ComicHeroCard items={comicHeroes} />}
-
+        >
+          {/* 전체 탐색으로 바로 — 추천 선반은 그대로 두고, 조건 레일 + 결과(아래 「전체 탐색」 구획)로 건너뛰는 길.
+              결과 격자가 y≈2491(세 번째 화면) 에서 시작해서다(2026-10-19 learner-tines-audit S4). */}
+          {totalBooks > 0 && (
+            <a
+              href="#browse"
+              className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[color-mix(in_srgb,var(--on-deep)_14%,transparent)] px-5 font-display text-[14px] font-[600] transition-colors duration-[var(--dur-quick)] hover:bg-[color-mix(in_srgb,var(--on-deep)_24%,transparent)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--on-deep)]"
+            >
+              조건으로 찾기 — 전체 탐색 ↓
+            </a>
+          )}
+        </AreaHero>
+  );
+  const feature = comicHeroes.length > 0 ? <ComicHeroCard items={comicHeroes} /> : null;
+  return (
+    <Screen width="shelf" background="bg2" padX="md">
+      <div data-shelf-wide className="books-reference-page flex flex-col gap-5 py-6 md:py-8">
         {/* 「아직 없다」와 「못 읽었다」를 가른다 — 조회가 실패했을 때 빈 서가를 보여 주면
             학습자는 재고가 없다고 읽고 돌아오지 않는다(`ComicsBrowser` 와 같은 규칙). */}
         {catalogFailed ? (
+          <>{header}{feature}
           <ShelfEmptyState
             tone="error"
             title="지금 도서 목록을 불러오지 못했어요"
@@ -425,12 +438,15 @@ export default async function LibraryBooksPage({
             ctaHref="/library/scripts"
             ctaLabel="짧은 글 보러 가기"
           />
+          </>
         ) : (
           <BooksExplorer
             books={books}
             userVLevel={userVLevel}
             userMastery={userMastery}
             showAll={showAll}
+            header={header}
+            feature={feature}
           />
         )}
       </div>

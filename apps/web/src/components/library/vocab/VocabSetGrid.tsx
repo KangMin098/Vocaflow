@@ -299,7 +299,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             onChange={(e) => setQuery(e.target.value)}
             placeholder="단어장 이름·설명 검색"
             aria-label="공용 단어장 검색"
-            className="focus:ring-[var(--t1)]/10 h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] transition-colors placeholder:text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2"
+            className="focus:ring-[color-mix(in_srgb,var(--t1)_10%,transparent)] h-11 w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] pl-9 pr-3 font-body text-[14px] text-[var(--t1)] transition-colors placeholder:text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2"
           />
         </div>
 
@@ -311,7 +311,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
             id="vocab-sort"
             value={sort}
             onChange={(e) => setSort(e.target.value as SortKey)}
-            className="focus:ring-[var(--t1)]/10 h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2"
+            className="focus:ring-[color-mix(in_srgb,var(--t1)_10%,transparent)] h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[13px] font-[600] text-[var(--t2)] focus:border-[var(--t1)] focus:outline-none focus:ring-2"
           >
             <option value="recommended">추천순</option>
             <option value="most_words">단어 많은 순</option>
@@ -324,7 +324,7 @@ export function VocabSetGrid({ sets, subscribedIds, isLoggedIn, userVLevel, reco
               type="button"
               onClick={() => setMineOnly(!mineOnly)}
               aria-pressed={mineOnly}
-              className={`focus-visible:ring-[var(--t1)]/20 inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
+              className={`focus-visible:ring-[color-mix(in_srgb,var(--t1)_20%,transparent)] inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] border px-3 font-display text-[13px] font-[600] transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-1 ${
                 mineOnly
                   ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)]'
                   : 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)] hover:bg-[var(--bg2)]'

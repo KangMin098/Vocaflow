@@ -9,11 +9,14 @@
 import { cache } from 'react'
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import Image from 'next/image'
 import { notFound } from 'next/navigation'
 import { ArrowLeft, BookImage, Layers } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { Screen } from '@/components/ui/ios'
+import { LibraryBrowseFrame } from '@/components/library/LibraryBrowseFrame'
+import { ReferenceBookImage } from '@/components/library/ReferenceBookImage'
+import { ComicsTabs } from '@/components/comic/ComicsTabs'
 import { createClient } from '@/lib/supabase/server'
 import { fetchComicCatalog, fetchComicPreview } from '@/lib/comic/catalog'
 import { prescribeFormat } from '@/lib/comic/prescribe'
@@ -165,8 +168,8 @@ export default async function ComicDetailPage({ params }: PageProps) {
   const readerTarget = resumeTextId ?? firstTextId
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-6 py-5 md:py-7">
+    <LibraryBrowseFrame rail={<ComicsTabs variant="rail" />}>
+      <div className="comics-detail-reference flex flex-col gap-6 py-5 md:py-7">
         <div>
           <Link
             href="/comics/adapted"
@@ -178,6 +181,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
 
         {/* 헤더 */}
         <header className="flex flex-col gap-2 px-1">
+          <div>
           <span
             className="font-display text-[10px] font-[800] uppercase tracking-[0.16em]"
             style={{ color: 'var(--active-ink)' }}
@@ -194,24 +198,24 @@ export default async function ComicDetailPage({ params }: PageProps) {
             {fit && <Meta>{fit.label}</Meta>}
             {comicProgressPct > 0 && !comicCompleted && <Meta>{comicProgressPct}% 봄</Meta>}
           </div>
+          </div>
+          <Image src="/illustrations/tines/scene-comics-v1.webp" alt="" width={1200} height={800} sizes="(min-width: 1024px) 460px, 50vw" className="reference-scene hidden h-auto w-full lg:block" />
         </header>
 
         {/* 프리뷰 — 아트만 (정본 대사는 리더에서) */}
         {panels.length > 0 && (
           <section aria-label="만화 미리보기" className="flex flex-col gap-2">
             <div className="grid grid-cols-1 gap-3 sm:grid-cols-3">
-              {panels.map((p) => (
+              {panels.map((p, index) => (
                 <div
                   key={`${p.chapterIdx}-${p.pageOrder}`}
                   className="relative aspect-[4/3] overflow-hidden rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)]"
                 >
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img
+                  <ReferenceBookImage
                     src={p.imageUrl}
-                    alt=""
-                    aria-hidden
-                    loading="lazy"
-                    className="absolute inset-0 h-full w-full object-cover"
+                    title={`${title} · ${index + 1}컷`}
+                    kind="preview"
+                    className="absolute inset-0 h-full w-full"
                   />
                 </div>
               ))}
@@ -259,7 +263,7 @@ export default async function ComicDetailPage({ params }: PageProps) {
           </p>
         </div>
       </div>
-    </Screen>
+    </LibraryBrowseFrame>
   )
 }
 

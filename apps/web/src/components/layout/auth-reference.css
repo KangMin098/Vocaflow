@@ -1,0 +1,24 @@
+/* apps/web/src/components/layout/auth-reference.css — PC auth entry, no account logic. */
+@media screen and (min-width: 1024px) {
+  .auth-reference > main { padding-block: 48px; }
+  .auth-reference__grid { max-width: 1120px; grid-template-columns: minmax(0, 1fr) minmax(0, 440px); gap: 80px; overflow: visible; border: 0; border-radius: 0; background: transparent; box-shadow: none; align-items: start; }
+  .auth-reference__art { flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: 36px 0; background: transparent; color: var(--t1); }
+  .auth-reference__art > img:not(.reference-scene) { display: none; }
+  .auth-reference__art .reference-scene { width: 100%; max-width: 520px; height: auto; object-fit: contain; margin-top: 32px; }
+  .auth-reference__art h2 { max-width: 18ch; font-family: var(--font-serif); font-size: 38px; font-weight: 500; line-height: 1.35; word-break: keep-all; color: var(--area-ink, var(--t1)); }
+  .auth-reference__art p { max-width: 34ch; margin-top: 20px; font-size: 16px; line-height: 1.75; word-break: keep-all; color: var(--t2); }
+  .auth-reference__form { border-top: 1px solid var(--bd); padding-top: 24px; }
+  .auth-reference__form > * { padding: 0; background: transparent; }
+  .auth-reference__form > * > div:first-child { text-align: left; }
+  .auth-reference__form h1 { font-size: 36px; font-weight: 500; line-height: 1.35; word-break: keep-all; }
+  .auth-reference__form h1 br { display: none; }
+  .auth-reference__form form { margin-top: 28px; }
+  .auth-reference__form input:not([type="checkbox"]) { min-height: 48px; }
+  .auth-reference__form button[type="submit"] { border-radius: 999px; box-shadow: none; }
+  .auth-reference__form form > div:has(> label input[type="checkbox"]) { padding: 16px 0; border-width: 1px 0; border-radius: 0; background: transparent; }
+  .auth-reference__form a, .auth-reference__form button:not([type="submit"]) { min-height: 44px; min-width: 44px; }
+  .auth-reference__form a { display: inline-flex; align-items: center; }
+  .auth-reference__form [data-testid="auth-error"] { line-height: 1.7; word-break: keep-all; }
+  .auth-reference a:focus-visible, .auth-reference button:focus-visible { outline: 2px solid var(--p); outline-offset: 3px; }
+  .auth-reference > footer a { display: inline-flex; align-items: center; min-height: 44px; }
+}

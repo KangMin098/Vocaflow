@@ -330,7 +330,7 @@ function ResetPasswordInner() {
         </p>
 
         <h1 className="mb-s-3 font-editorial text-2xl font-[600] leading-[1.1] tracking-[-0.02em] text-t1 sm:text-3xl">
-          비밀번호를
+          비밀번호를{' '}
           <br />
           잊으셨나요?
         </h1>

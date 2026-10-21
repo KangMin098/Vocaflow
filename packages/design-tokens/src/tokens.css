@@ -433,6 +433,8 @@
   /*  iOS Reading 폭, contents margin (iPad ≈ 720pt) */
   --ios-content-max: 820px;
   --ios-content-wide-max: 1024px;
+  /* 서가(탐색) 폭 — 참조 tines.com/library 실측: 본문 = 뷰포트 − 좌우 40px, 1440 에서 1360(2026-10-18 layout-measure). */
+  --content-shelf-max: 1440px;
   --ios-inset-x: 20px;       /* iPhone safe area horizontal */
   --ios-inset-x-compact: 16px;
   --ios-inset-y: 24px;       /* section vertical rhythm */

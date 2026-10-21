@@ -3,8 +3,11 @@
 'use client'
 
 import { ChapterLevelWords } from '@/components/library/reader/ChapterLevelWords'
-import { Bookmark, Info, Layers, X } from 'lucide-react'
-import { useEffect } from 'react'
+import { ArrowUpRight, Bookmark, Info, Layers, X } from 'lucide-react'
+import Link from 'next/link'
+import { useEffect, useRef } from 'react'
+import { useEscapeKey } from '@/lib/ui/use-escape-key'
+import { useFocusTrap } from '@/lib/ui/use-focus-trap'
 
 interface MemoryStats {
   stable: number
@@ -23,9 +26,10 @@ interface BookmarkItem {
 interface InsightPanelProps {
   isOpen: boolean
   onClose: () => void
-  softQuote: string
   bookmarks: BookmarkItem[]
-  memoryStats: MemoryStats
+  /** null means not connected/available, never four assumed zero counts. */
+  memoryStats: MemoryStats | null
+  memoryHref?: string
   /**
    * v06.35 (ADR 0004 D7) — 도서 챕터일 때 이 챕터의 개인화 학습 단어를 함께 낸다.
    * 이 패널을 여는 버튼은 라벨이 "챕터 단어장 N/M" 인데 정작 안에 단어가 없었다.
@@ -39,28 +43,26 @@ interface InsightPanelProps {
 export function InsightPanel({
   isOpen,
   onClose,
-  softQuote,
   bookmarks,
   memoryStats,
+  memoryHref = '/wordvault',
   libraryBookId,
   chapterIdx,
 }: InsightPanelProps) {
+  const panelRef = useRef<HTMLElement>(null)
+  useFocusTrap(isOpen, panelRef)
   // 패널 열릴 때 body 스크롤 잠금 — Stale-safe: cleanup 항상 reset
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    }
+    if (!isOpen) return
+    const previousOverflow = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
     return () => {
-      document.body.style.overflow = ''
+      document.body.style.overflow = previousOverflow
     }
   }, [isOpen])
 
-  // unmount 시 (라우트 이동 등) 강제 reset
-  useEffect(() => {
-    return () => {
-      document.body.style.overflow = ''
-    }
-  }, [])
+  // 열린 곁 패널은 Esc 로 닫힌다(B4 — 이전에는 배경 누르기·닫기 단추만 됐다).
+  useEscapeKey(isOpen, onClose)
 
   return (
     <>
@@ -73,9 +75,16 @@ export function InsightPanel({
 
       {/* Panel */}
       <aside
+        ref={panelRef}
+        tabIndex={-1}
         role="dialog"
+        aria-modal={isOpen ? true : undefined}
         aria-label="학습 인사이트"
         aria-hidden={!isOpen}
+        // 닫힌 패널은 화면 밖으로 밀려 있을 뿐 DOM 에 남는다 — aria-hidden 만으로는 안의 단추에
+        // Tab 이 들어간다(2026-10-18 learner-overlay-check 실측). inert 로 포커스까지 막는다.
+        // React 18 타입에 inert 가 없어 속성 객체로 넘긴다.
+        {...({ inert: isOpen ? undefined : '' } as Record<string, string | undefined>)}
         className={`fixed bottom-0 right-0 top-0 z-[90] w-full overflow-y-auto border-l border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-xl)] transition-transform duration-[var(--dur-slow)] ease-[var(--ease)] md:w-[420px] ${isOpen ? 'translate-x-0' : 'translate-x-full'} `}
       >
         <header className="sticky top-0 z-10 flex items-center justify-between border-b border-[var(--bd)] bg-[var(--bg)] px-6 py-5">
@@ -86,20 +95,13 @@ export function InsightPanel({
           <button
             onClick={onClose}
             aria-label="닫기"
-            className="flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg3)] hover:text-[var(--t1)]"
+            className="flex h-8 w-8 items-center justify-center rounded-[var(--r-md)] bg-[var(--bg2)] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg3)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] lg:h-11 lg:w-11"
           >
             <X size={14} strokeWidth={2} aria-hidden="true" />
           </button>
         </header>
 
         <div className="p-6">
-          {/* Soft Quote */}
-          <div className="mb-8">
-            <p className="rounded-[var(--r-md)] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)]">
-              &ldquo;{softQuote}&rdquo;
-            </p>
-          </div>
-
           {/* 이 챕터에서 익힐 단어 (도서 챕터에서만) — 패널이 열릴 때만 조회한다 */}
           {isOpen && libraryBookId && chapterIdx != null && (
             <div className="mb-8">
@@ -149,7 +151,7 @@ export function InsightPanel({
               기억 상태
             </h3>
 
-            <div className="grid grid-cols-2 gap-2">
+            {memoryStats ? <div className="grid grid-cols-2 gap-2">
               <DecayCard
                 color="var(--memory-stable)"
                 label="안정"
@@ -176,7 +178,12 @@ export function InsightPanel({
                 count={memoryStats.newWords}
                 hint="처음 만난 단어"
               />
-            </div>
+            </div> : (
+              <Link href={memoryHref} className="flex min-h-11 items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-3 font-body text-[12px] text-[var(--t2)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
+                <span className="break-keep">기억 상태는 단어장에서 확인할 수 있어요</span>
+                <ArrowUpRight size={16} className="shrink-0" aria-hidden />
+              </Link>
+            )}
           </section>
         </div>
       </aside>

@@ -7,11 +7,13 @@
 
 import { ModuleBanner } from '@/components/layout/ModuleBanner'
 import { LibraryTabs } from '@/components/library/LibraryTabs'
+import '@/components/library/detail-reference.css'
 
 export default function LibraryLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5">
+      {/* 서가 탐색 폭을 쓰는 화면(data-shelf-wide)이면 구역 머리도 같은 폭으로 맞춘다. */}
+      <div data-area-layout className="mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5 [body:has([data-shelf-wide])_&]:max-w-[var(--content-shelf-max)] lg:[body:has([data-shelf-wide])_&]:px-10">
         <LibraryTabs />
         <div className="mt-4">
           <ModuleBanner slot="library" />

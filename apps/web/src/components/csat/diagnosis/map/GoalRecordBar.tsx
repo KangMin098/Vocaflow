@@ -211,7 +211,7 @@ function NextActionFacts({ next, selected }: { next: NextAction; selected: TaskI
     <ul className={`${u.topFacts} ${u.topSub} break-keep`} data-testid="umap-next-facts" aria-label="추천 TASK 의 이번 학습">
       <li data-testid="umap-next-amount">이번 학습량 · {amount}</li>
       {next.criterion && <li data-testid="umap-next-criterion">확인 조건 · {next.criterion}</li>}
-      {next.kind === 'plan' && <li data-testid="umap-next-plan-note">{next.replan ? '저장한 뒤 자료 · 단계가 바뀌었어요 — 계획을 다시 확정하면 새 학습량이 정해져요.' : '계획을 확정하면 자료 · 기록이 이 계획에 묶여요.'}</li>}
+      {next.kind === 'plan' && <li data-testid="umap-next-plan-note">{next.replan ? (next.replanWhy === 'goal' ? '목표가 바뀌었어요 — 저장한 계획은 그때 목표 기준이에요. 지금 목표로 다시 확정하면 이 목표의 학습량이 정해져요.' : '저장한 뒤 자료 · 단계가 바뀌었어요 — 계획을 다시 확정하면 새 학습량이 정해져요.') : '계획을 확정하면 자료 · 기록이 이 계획에 묶여요.'}</li>}
       {next.kind === 'supply' && <li>받을 수 있는 자료가 있는지는 자료 받기에서 서버가 확인해요 — 준비 시각은 약속하지 않아요.</li>}
       {next.kind === 'wait' && next.blocked && <li data-testid="umap-next-wait">{WAIT_LABEL[next.blocked]}</li>}
       {selected && selected !== next.task && <li data-testid="umap-next-selected">지금 지도에서 고른 TASK 는 추천과 달라요 — 아래 TASK 정보는 고른 TASK 기준이에요.</li>}
