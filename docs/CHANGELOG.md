@@ -1,5 +1,43 @@
 # CHANGELOG
 
+- test(learning): 최신 로컬 main과 공장→교수→미노출 평가→실제 재계획·FAST·기존 문항 재사용을 결합 검증했다. 관련1,356개·PC 격리8개·웹/스크립트 타입·전체 빌드 통과. AI 비교 우위는 천장으로 판정 불가이며 7단계 DB 적용 SQL은 승인 대기다.
+
+- fix(admin): FAST는 종합 pass 외에 내용 B/C/D를 각각 통과해야 문제지·해설지를 출력한다. 실제 CLI 편집본 신규 AI 검수/HTML 브라우저 확인, 관련19·격리1 통과. 하네스 타입 경계를 정리해 scripts 타입 검사도 통과했다.
+
+- feat(csat): 3 FAST 빠른 학습지 — `/admin/csat/new/fast` + `POST /api/admin/csat/fast-worksheet`(preview/export, DB 쓰기 없음) + CLI `scripts/textbook/fast-worksheet.mts`(bundle/verify/export). 기존 1B 팩 전체의 순서·발문·선지 편집 → 새 바이트 신규 AI 검수 → 학생용 문제지/교사용 해설지/manifest. 원천은 has_items 만 다를 때만 재사용, FQ·출시 주장 없음.
+- feat(csat): 기존 DCP 두 행을 id·본문·검수 해시에 묶어 영수증만 입고하는 재사용 API/CLI를 구현했다. 내용 B/C/D 미통과는 모든 입고 RPC 전에 차단한다. 두 해설 보완안과 조건부 정방향/복구 DATA SQL은 독립 AI 검수·격리 검증을 마쳤으며 실제 DB 적용은 승인 대기다.
+
+- fix(learning): 실제 AI 응답·독립 반례 검토에 따라 모호한 관계 질문을 보충 세트 v2로 바꾸고 과도한 ‘무관한 문장’ 피드백을 수정했다. 역사적 판본/응답은 보존하며 활성 v2의 두 AI 검토를 해시로 검증한다.
+
+- fix(csat): 공장 자료 재수령과 승인 재응답에 현재 납품·원천 적격·제품주문을 재확인하고 교수 원문 판본의 3활동만 공급한다. 변경 본문/부적격 승인 반례 수정 후 관련41 통과.
+
+- feat(csat): 2F 공장 연습 자료 실제 공급 호출부 — Workspace `FactoryDcpCard` 요청 단추 → `POST /api/csat/factory/request`(서버 수요 재계산 · 학습자 세션 쓰기 · 기존 D3 링크 읽기 확인 · 링크 없으면 주문 보존 대기) → `receiveForLearner`. 관리자 `dcp-admission` `approve` 동작이 등록 공장 후보 결속 확인 뒤 `approveForGuidedPractice` 호출. 계측 `csat_factory_dcp_requested`(보류 SQL CHECK 확장 · 미적용). 격리 PGlite 실제 API→서비스→SQL 확인.
+
+- test(csat): 2E의 복제 계획 저장 코드를 실제 plan POST·composeV4·nextActionOf 호출로 대체했다. 신규 Codex 응답으로 전이·미노출 재확인 후 실제 MAINTAIN 계획 저장, 관련97 통과. 근거/관계 하위 판정 불일치는 원시 AI 증거에 보존했다.
+
+- feat(csat): 2D 원문 안내 연습 수행 영수증(`_pending_source_lesson_repair_receipt.sql` · 보류 SQL) → `loadMapPage` 바로잡기 자료·수행 연결. 같은 목표의 다음 계획 뒤에도 끝난 바로잡기 사실 보존(구계획 신규 열기는 계속 차단) · 안내 연습 기본 수량 = 교수 청사진 3활동. 격리 PGlite 로 check→repair(실제 buildDemand)→원문 교수→transfer 계획 저장 확인. 2E: 영수증 성공 = 세 단계 완료 시각(과거 asOf 재생 반례 수정) · RPC `source_lesson_repair_receipts(p_user, p_as_of)` 본인/service_role 전용 · 권한/DB 오류는 던짐 · 보충 세트 `r5-central-meaning-cycle.v1`(등록 부분집합 정책) 실제 AI 검토 등록 → transfer 2지문 → recheck 새 2 → 다음 계획 저장(격리 PGlite).
+
+- docs(csat): 2C 설명 복원/격리 계획 저장25개 재확인. 목적 검토에서 source 안내 기록의 canonical repair 진행 연결과 실제 compose/route 검증이 빠져 있음을 확인해 2D로 명시했다.
+
+- fix(csat): 교수 설명 저장에 기대 납품을 DB에서 선검사하고 잘못된200을 완료로 처리하지 않게 했다. 제출 답 비교·시범 재시도와 사람 대기 문구도 정리했다(관련79·브라우저4 통과). 독립 평가→재계획은 2C로 이어진다.
+
+- feat(csat): 2C 저장한 원문 설명 재진입 복원(새 채점·INSERT 없음) + 결합 설치 PGlite 종단 — 설명 → AI 검토 5문항 → 같은 Workspace 미노출 혼자 확인 2 → 실제 채점·G2 → 기존 계획 계산 → `learner_workspace_plan_commit` 으로 `check_result` plan_version 2 저장 확인. 새 SQL 없음.
+- feat(csat): 2B 원문 교수 — 요지 전략→저장된 첫 답 뒤 시범→첫 답과 시범 비교 설명 저장→제목 cue→주제 단서 없음·자기 절차를 기존 공장 DCP 화면에 붙였다(`source_lesson_reflection` 추가 전용·evidence=false · `GET/POST /api/csat/factory/[deliveryId]/lesson` · SQL 미적용). 독립 평가→재계획 저장 종단 시험은 남은 일.
+
+- docs(learning): Claude·Codex A/B 역할 요청24회와 사전2회, 두 독립 채점·반례 검토의 원본 증거를 보존했다. 모든 전이 응답 만점으로 교수 우위는 판정 불가이며, 실제 학생 효과·지연 기억·제품 종단 검증으로 사용하지 않는다. 비교 설명 미수집 한계를 2B 설계에 반영했다.
+
+- feat(admin): AI 검수 등록 서비스에 원본 입력·응답·완료 세션을 요구하는 실제 preview/register API를 연결했다. 미리보기 쓰기0·등록은 관리자 본인 세션·관련42 통과. 공유 DB 적용은 미실행.
+
+- feat(csat): 2A 두 AI(Claude·Codex) 검토 영수증으로 창작 R5 v3 중 5문항만 등록→AI 결정→자격·승인→공급→채점→G2 결속하는 경로(`ai-review.ts` · 미적용 `_pending_authored_ai_review.sql`). 사람 결정 0 · 권리 부여 아님 · 결합 설치에서 1C/1D 회귀 통과.
+
+- fix(factory): DCP 미리보기를 실제 중첩 메타데이터 투영과 현재 문항 조회에 맞추고, 납품이 목표·계획 writer와 같은 잠금을 쓰게 했다. 실제 Supabase 기본 권한에서 발견한 영수증 직접 쓰기도 차단했다. 최종 관련 회귀 139 통과·공유 DB 변경 없음.
+
+- feat(factory): 1D 납품된 공장 DCP 지도 연습을 학습자가 Workspace 카드 → `/csat/factory/[deliveryId]`(기존 DcpPlayer) → 서버 제출(실제 `grade_dcp_item`+결속 영수증, 멱등) → Workspace 복귀로 푼다. 보류 SQL `_pending_factory_dcp_learning.sql`(**미적용**). 연습은 근거 아님(evidence=false). 완료 주문의 받은 자료 열기 · 채점 시도 FK/일치 확인 · writer 가드 · 1C 잠금 순서 · 계측 3종 포함. 검증 결과는 `01D-LEARNER-RESULT.md`.
+- feat(factory): 1C 원문 파생 DCP 후보 등록 계획(`dcp-admission.ts`)·관리자/학습자 세션 분리 공급 경계(`dcp-supply.ts`)·CLI `admission-plan`(dry-run)과 보류 SQL `_pending_factory_dcp_admission.sql`(**미적용**)을 추가했다. 격리 PGlite에서 등록→AI 검수 자격→별도 승인→학습자 본인 공급→원문 변경 시 무효까지 확인(신규 16·관련 회귀 258 통과). 공유 DB 쓰기·권리 발급·납품은 없다. Codex 반례 수정: 멱등 자격 RPC `factory_dcp_qualify`(실패·응답 유실 복구)·공급 시 현재 개인 계보+D3 제품주문 링크 원자 검사·관리자 `POST /api/admin/csat/dcp-admission`(preview/admit)·CLI `admission-preview`(관련 315·CLI 20 통과).
+
+- feat(factory): 주문·원문에 결속된 로컬 소량 제작 패킷/검증/HTML·manifest CLI를 추가했다. 실제 문항 3개 제작과 파일 충돌·오류 주입 복구를 확인했다(웹167·CLI18·타입 포함 검사6). 결과는 합성 수요 기반 검토 후보이며 DB 등록·발행·납품은 미실행이다.
+
+- feat(admin): 저장된 Workspace 수요·현재 목표/계획을 검증한 뒤 실제 공장 설계기로 주문 초안을 계산하는 `POST /api/admin/csat/factory-order-draft`와 관리자용 읽기 전용 CLI 추가. 비영속 초안·미검증 대응·생산/납품 미실행을 구분한다. 웹 205·공장 설계 5·Codex 반례 6·CLI 9·호출부 5 통과, DB 변경 없음.
 - docs(audit): 3회차 정기 플랫폼 진단(2026-10-21) — 실가입 1(계정 65 중 합성 64) · 공급:수요 3,855:1(악화) · DB 6,344MB(Pro 8GB의 79%) · 발행 312권은 PD 고전 서사라 F6 미해소 · AIDT 활용 5.2% · 판정 risk. PLATFORM_AUDIT §7.
 
 - 개발 운영: 일반 작업의 TASK 없는 로컬 main 통합과 일일 원격 PR 경로를 공통 지침에 명시하고, 단계별 등록·AI 리뷰·보고 의무의 모호함을 제거했다.

@@ -161,7 +161,9 @@ describe('공급 요청 — 수요 · 공급 · 주문', () => {
     if (r.status !== 'ok') return
     const byRole = Object.fromEntries(r.lines.map((l) => [l.role, l]))
     expect(byRole.model_explanation.delivered).toEqual([ref('r5-cm-teach-1')])
-    expect(byRole.guided_practice.delivered).toHaveLength(1)
+    // 2D — 안내 연습 기본 수량 = 교수 청사진 활동 수 3(demand.ts GUIDED_LESSON_ITEMS) → 창작 재고 2 전부 + 부족 1 은 생산 주문(초과 납품 아님 · 요구량 안)
+    expect(byRole.guided_practice.delivered).toHaveLength(2)
+    expect(byRole.guided_practice.orderOpened).toBe(true)
     expect(byRole.source_analysis).toMatchObject({ delivered: [], orderOpened: true })
   })
 

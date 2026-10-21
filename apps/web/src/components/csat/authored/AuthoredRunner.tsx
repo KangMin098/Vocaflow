@@ -98,9 +98,9 @@ const uuid = () => crypto.randomUUID()
 
 /**
  * 자기 설명과 나란히 볼 공급 설명 — 응답 뒤 공개분(reveal)의 설명 문장 + 교수 단계 글. 새로 지어내지 않는다.
- * 창작 설명은 사람 검수 전이라 「검수된 원리」로 부르지 않는다(MODEL_LABEL). 설명이 없으면 null(비교 자료 부족 안내)
+ * 공용 표시에서 개별 검수 상태를 추정하지 않고 「제공된 설명」으로 부른다. 설명이 없으면 null(비교 자료 부족 안내)
  */
-export const MODEL_LABEL = '제공된 설명(사람 검수 전)'
+export const MODEL_LABEL = '제공된 설명'
 export function modelOf(reveal: Record<string, unknown> | null, teach: readonly TeachStep[] | null): InquiryPrinciple | null {
   const text = (['gist', 'rationale', 'why', 'reason', 'senseGloss'] as const).map((k) => reveal?.[k]).find((v): v is string => typeof v === 'string' && v.trim().length > 0)
   const steps = (teach ?? []).map((t) => t.text).filter((x) => typeof x === 'string' && x.trim())
@@ -554,7 +554,7 @@ function RevealBody({ format, reveal: rv, graded: g, probe, choices }: { format:
           {g && (
             <ul className={styles.note}>
               <li>중심 문장: {g.claimOk ? '맞음' : g.claimRestated ? '중심을 다시 말한 문장을 골랐어요 — 같은 뜻이라 맞음으로 봐요' : `문장 ${num(rv.claim)}이 중심이에요`}</li>
-              <li>떠받치는 문장: {g.supportOk ? '맞음' : (g.supportMissed as number[] | undefined)?.length ? `문장 ${list(g.supportMissed)}도 중심을 떠받쳐요` : '중심과 관계없는 문장을 함께 골랐어요'}</li>
+              <li>떠받치는 문장: {g.supportOk ? '맞음' : (g.supportMissed as number[] | undefined)?.length ? `문장 ${list(g.supportMissed)}도 중심을 떠받쳐요` : '해설과 다른 문장도 골랐어요. 필자의 주장과 어떤 관계인지 다시 구분해 보세요'}</li>
               {probe !== null && <li>관계: {g.relationOk ? '맞음' : '다시 볼 곳 — 표시된 문장이 중심을 어떻게 돕는지 보세요'}</li>}
               <li>요지 선택: {g.choiceOk ? '맞음' : '다시 볼 곳'}</li>
               {picked}

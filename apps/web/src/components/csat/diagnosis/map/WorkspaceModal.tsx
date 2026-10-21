@@ -22,6 +22,7 @@ import type { WsRow } from '@/lib/csat/map/v62/workspace-list'
 import { AUTHORED_TASKS } from '@/lib/knowledge/authored/tasks'
 
 import { AuthoredSupplyCard } from './AuthoredSupplyCard'
+import { FactoryDcpCard } from './FactoryDcpCard'
 import { EvidenceChips } from './EvidenceClaims'
 import { MapDialog } from './MapDialog'
 import { PlanSection } from './PlanSection'
@@ -180,6 +181,10 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
 
           {row.core[0] && AUTHORED_TASKS.includes(row.core[0]) && (
             <AuthoredSupplyCard viewer={data.v4?.viewer ?? null} task={row.core[0]} template={row.id} planSaved={!!data.v4?.saved?.byTemplate[row.id]} past={past} ctx={outgoingCtx(data.v4?.saved, row.core[0], row.id)} />
+          )}
+          {/* 1D — 공장 DCP 지도 연습(r.central_meaning)은 창작 자료와 별개 카드 · 납품이 없거나 미설치면 그리지 않는다 */}
+          {row.core.includes('r.central_meaning') && !past && (
+            <FactoryDcpCard template={row.id} ctx={outgoingCtx(data.v4?.saved, 'r.central_meaning', row.id)} />
           )}
           {/* T-0056 — 이 Workspace 의 보조 TASK 자료(창작 세트가 있는 것만). 핵심/보조 표기 그대로 · 서버가 TASK 소속을 다시 확인한다 */}
           {row.support.filter((t) => AUTHORED_TASKS.includes(t)).map((t) => (
