@@ -3,6 +3,7 @@
 - fix(admin): FAST는 종합 pass 외에 내용 B/C/D를 각각 통과해야 문제지·해설지를 출력한다. 실제 CLI 편집본 신규 AI 검수/HTML 브라우저 확인, 관련19·격리1 통과. 하네스 타입 경계를 정리해 scripts 타입 검사도 통과했다.
 
 - feat(csat): 3 FAST 빠른 학습지 — `/admin/csat/new/fast` + `POST /api/admin/csat/fast-worksheet`(preview/export, DB 쓰기 없음) + CLI `scripts/textbook/fast-worksheet.mts`(bundle/verify/export). 기존 1B 팩 전체의 순서·발문·선지 편집 → 새 바이트 신규 AI 검수 → 학생용 문제지/교사용 해설지/manifest. 원천은 has_items 만 다를 때만 재사용, FQ·출시 주장 없음.
+- feat(csat): 기존 DCP 두 행을 id·본문·검수 해시에 묶어 영수증만 입고하는 재사용 API/CLI를 구현했다. 내용 B/C/D 미통과는 모든 입고 RPC 전에 차단한다. 두 해설 보완안과 조건부 정방향/복구 DATA SQL은 독립 AI 검수·격리 검증을 마쳤으며 실제 DB 적용은 승인 대기다.
 
 - fix(learning): 실제 AI 응답·독립 반례 검토에 따라 모호한 관계 질문을 보충 세트 v2로 바꾸고 과도한 ‘무관한 문장’ 피드백을 수정했다. 역사적 판본/응답은 보존하며 활성 v2의 두 AI 검토를 해시로 검증한다.
 

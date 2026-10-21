@@ -74,7 +74,7 @@ grant select on public.factory_dcp_admission to authenticated;
 create function public.factory_dcp_admit(p_request_key uuid, p_body jsonb)
 returns jsonb language plpgsql security definer set search_path to 'public', 'pg_temp' as $$
 declare
-  prev record; v_hash text; v_src uuid; v_content text; v_id uuid; v_rev text;
+  prev record; ex record; v_hash text; v_src uuid; v_content text; v_id uuid; v_rev text;
   r jsonb := p_body->'row'; o jsonb := p_body->'order'; rv jsonb := p_body->'review';
 begin
   if auth.uid() is null or public.is_admin_or_curator() is not true then raise exception 'Forbidden' using errcode = '42501'; end if;
@@ -124,15 +124,37 @@ begin
   if public.csat_source_is_eligible(v_src) is not true then raise exception 'admission: source not eligible'; end if;
   if (r->>'ref_id')::uuid is distinct from v_src then raise exception 'admission: row source mismatch'; end if;
 
-  -- ⑤ 기존 문항 자리를 덮어쓰지 않는다
-  if exists (select 1 from csat_dcp_items i where i.kind = 'article' and i.ref_id = v_src and i.type = r->>'type'
-             and i.paragraph_idx = (r->>'paragraph_idx')::int) then
-    raise exception 'admission: dcp slot occupied (kind, ref_id, type, paragraph_idx)' using errcode = '23505';
-  end if;
+  if p_body ? 'existing' then
+    -- ⑤' 명시적 재사용(04-EXISTING-DCP-REUSE-SPEC) — 지정한 현재 행을 잠그고 자연키 · practice · 본문 JSONB 동등성을 다시 잰다.
+    --     기존 행은 수정 · 삭제하지 않고 영수증만 더한다. 새 id 를 만들지 않는다.
+    if jsonb_typeof(p_body->'existing') <> 'object' or coalesce(p_body->'existing'->>'dcp_item_id', '') !~ '^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$'
+       or coalesce(p_body->'existing'->>'row_sha256', '') !~ '^[0-9a-f]{64}$' then
+      raise exception 'admission: existing reference shape';
+    end if;
+    v_id := (p_body->'existing'->>'dcp_item_id')::uuid;
+    select * into ex from csat_dcp_items i where i.id = v_id for update;
+    if not found then raise exception 'admission: existing dcp item not found'; end if;
+    if ex.kind is distinct from 'article' or ex.ref_id is distinct from v_src or ex.type is distinct from r->>'type'
+       or ex.paragraph_idx is distinct from (r->>'paragraph_idx')::int or ex.item_role is distinct from 'practice' then
+      raise exception 'admission: existing dcp item identity mismatch';
+    end if;
+    if ex.payload is distinct from r->'payload' or ex.answer_key is distinct from r->'answer_key' then
+      raise exception 'admission: existing dcp item changed since review';
+    end if;
+    if exists (select 1 from factory_dcp_admission a where a.dcp_item_id = v_id) then
+      raise exception 'admission: existing dcp item already admitted' using errcode = '23505';
+    end if;
+  else
+    -- ⑤ 기존 문항 자리를 덮어쓰지 않는다
+    if exists (select 1 from csat_dcp_items i where i.kind = 'article' and i.ref_id = v_src and i.type = r->>'type'
+               and i.paragraph_idx = (r->>'paragraph_idx')::int) then
+      raise exception 'admission: dcp slot occupied (kind, ref_id, type, paragraph_idx)' using errcode = '23505';
+    end if;
 
-  insert into csat_dcp_items (kind, ref_id, type, item_role, payload, answer_key, paragraph_idx)
-  values ('article', v_src, r->>'type', 'practice', r->'payload', r->'answer_key', (r->>'paragraph_idx')::int)
-  returning id into v_id;
+    insert into csat_dcp_items (kind, ref_id, type, item_role, payload, answer_key, paragraph_idx)
+    values ('article', v_src, r->>'type', 'practice', r->'payload', r->'answer_key', (r->>'paragraph_idx')::int)
+    returning id into v_id;
+  end if;
   v_rev := public.supply_artifact_revision_pre_dcp_admission('dcp_item', v_id::text);
   if v_rev is null then raise exception 'admission: revision unavailable'; end if;
 
