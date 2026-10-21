@@ -30,7 +30,7 @@ describe('HomeLanding — 첫 제안 분기', () => {
   })
   it('지도에서 하던 일 — 확인 중 과제 카드는 그 과제 · 묶음으로 지도를 다시 여는 링크', () => {
     // T-0080 — progress.check.task 는 지도 TASK id(home-progress) → map_task 로 보낸다(task = 과거 활동 키 칸 아님)
-    const progress = { check: { task: 'e.evidence_location', name: '근거 찾기', ws: 'ws.evidence-locate' }, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2 } }
+    const progress = { check: { task: 'e.evidence_location', name: '근거 찾기', ws: 'ws.evidence-locate' }, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2, task: 'r.relation', resume: { name: '문장 관계', planned: 4, done: 1, unit: '문항' } } }
     const html = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="step" returned={null} progress={progress} />)
     expect(html).toContain('data-kind="continue_check"')
     const tag = html.match(/<a[^>]*data-testid="home-continue-check-go"[^>]*>/)![0]
@@ -43,11 +43,19 @@ describe('HomeLanding — 첫 제안 분기', () => {
     expect(html).not.toContain('data-testid="home-continue-plan"')
   })
   it('지도에서 하던 일 — 확인 중 과제가 없으면 저장 계획 카드(진행 수 · 그 묶음으로)', () => {
-    const progress = { check: null, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2 } }
+    const progress = { check: null, plan: { ws: 'ws.cohesion', name: '연결', planned: 6, done: 2, task: 'r.relation', resume: { name: '문장 관계', planned: 4, done: 1, unit: '문항' } } }
     const html = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="step" returned={null} progress={progress} />)
     expect(html).toContain('data-kind="continue_plan"')
     expect(html).toContain('6개 중 2개')
-    expect(html).toContain('href="/csat?ws=ws.cohesion"')
+    expect(html).toContain('이어갈 항목: 문장 관계 4문항 중 1문항')
+    // T-0081 — 실제 미완료 TASK 행 + 묶음을 지도 파서가 읽는 map_task · ws 로(수행 문맥 키 없음)
+    const tag = html.match(/<a[^>]*data-testid="home-continue-plan-go"[^>]*>/)![0]
+    const href = tag.match(/href="([^"]+)"/)![1].replace(/&amp;/g, '&')
+    const ctx = parseMapReturn(Object.fromEntries(new URL(href, 'http://x').searchParams))
+    expect(ctx.mapTask).toBe(progress.plan.task)
+    expect(ctx.ws).toBe(progress.plan.ws)
+    expect(ctx.task ?? null).toBeNull()
+    for (const k of ['map_item', 'map_attempt', 'map_plan', 'map_goal']) expect(href).not.toContain(k)
   })
   it('정상 복귀는 탐구 복귀 카드 · 그 문항 링크 · 오류 문구 없음', () => {
     const html = renderToStaticMarkup(<HomeLanding exams={exams} map="preparing" mapData={null} focusKind={null} returned={returned} />)
@@ -74,5 +82,11 @@ describe('HomeLanding — 첫 제안 분기', () => {
     expect(waiting).toContain('data-kind="records_only"')
     expect(waiting).toContain('다음 단계(자료 · 대기 이유 포함)')
     expect(waiting).not.toMatch(/기록이 없어요|처음 시작/)
+  })
+  it('T-0081 — 묶음 집계 배정 없음(null) = 0 으로 말하지 않고 이어갈 TASK 양만', () => {
+    const progress = { check: null, plan: { ws: 'ws.central-meaning', name: '글의 핵심', planned: null, done: null, task: 'e.task_demand', resume: { name: '발문 요구', planned: 4, done: 1, unit: '문항' } } }
+    const html = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="step" returned={null} progress={progress} />)
+    expect(html).not.toMatch(/0개 중|개 중 0개/)
+    expect(html).toContain('이어갈 항목: 발문 요구 4문항 중 1문항')
   })
 })
