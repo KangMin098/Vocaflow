@@ -1,0 +1,68 @@
+{
+  "observed_at": "2026-10-21T14:44:49.733Z",
+  "task": "T-0045",
+  "base": "f3fbcabeb64403a824710504a0ab77ddbc6974d6",
+  "head": "9ce04cb2e2ceb8e9dc67ad7098ba2f4c7bd6d8c6",
+  "severity": "P1 inaccurate activity attribution",
+  "first_failure": {
+    "tests": 6,
+    "passed": 2,
+    "failed": 4,
+    "skipped": 0,
+    "actual": "Past own authored attempt returned as this factory activity; also survived login redirect"
+  },
+  "fix": "Discard incoming map_item and map_attempt before creating all factory return/login/lesson context. Preserve validated Workspace, TASK, plan and goal hints.",
+  "verification": {
+    "actual_async_page_to_existing_recap": true,
+    "mocks": [
+      "auth/session",
+      "RPC transport",
+      "shell/runner rendering"
+    ],
+    "focused": {
+      "files": 6,
+      "passed": 55,
+      "failed": 0,
+      "skipped": 0
+    },
+    "final_login_positive_control": {
+      "file": "factory-map-return.test.tsx",
+      "passed": 6,
+      "failed": 0,
+      "skipped": 0
+    },
+    "typecheck_exit": 0,
+    "eslint_exit": 0,
+    "authenticated_next_db_browser": "NOT_RUN",
+    "db_writes": 0,
+    "sql_changes": 0
+  },
+  "integration": {
+    "mode": "LOCAL_FAST main commit",
+    "files": 2,
+    "main_clean": true,
+    "lock_released": true,
+    "remote_push_pr_ci": "NOT_RUN_PER_POLICY"
+  },
+  "independent_peer_review": "REQUESTED_NOT_YET_ACKNOWLEDGED",
+  "goal_check": {
+    "report": "verification/goal-check/GC-2026-10-21T14-44-49-051Z.json",
+    "head": "9ce04cb2e2ceb8e9dc67ad7098ba2f4c7bd6d8c6",
+    "distribution": {
+      "UNKNOWN": 33,
+      "FAIL": 1,
+      "EXTERNAL_INPUT_REQUIRED": 1
+    },
+    "changes": [],
+    "interpretation": "Evidence statuses; UNKNOWN is not a missing feature count. Existing internal-account metrics finding and external E2E gate remain separate."
+  },
+  "development_db_read": {
+    "observed_at": "2026-10-21T14:45:09.720343Z",
+    "authored_item": null,
+    "content_human_decision": null,
+    "factory_attempt_table": null,
+    "reflection_table": null,
+    "lesson_receipts_rpc": null,
+    "write": false
+  }
+}
