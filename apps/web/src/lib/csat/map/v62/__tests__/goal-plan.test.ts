@@ -27,9 +27,20 @@ const saved = (tasks: { task: string; stage: string; planned: number | null; ava
 }) as never
 
 describe('goalPlanRows', () => {
+  it('P1-1 — 상단 CTA 와 같은 관문: 저장 계획 없음 = plan · 저장 뒤 자료 변화 = replan · 그때는 실행 링크 없음', () => {
+    const v = view([tp('a.one')])
+    expect(goalPlanRows(v, ranks(['a.one'], ['a.one']), { status: 'installed', byTemplate: {}, goalVersionId: 1 } as never).rows[0]).toMatchObject({ action: null, planGate: 'plan', blocked: null })
+    expect(goalPlanRows(v, ranks(['a.one'], ['a.one']), saved([{ task: 'a.one', stage: 'check', planned: 1, available: 1 }])).rows[0]).toMatchObject({ action: null, planGate: 'replan' })
+    expect(goalPlanRows(v, ranks(['a.one'], ['a.one']), saved([{ task: 'a.one', stage: 'check', planned: 1, available: 2 }])).rows[0]).toMatchObject({ planGate: null, action: { rank: 1 } })
+  })
+  it('P1-2 — 관련성 미확인은 목표 필요 수에 넣지 않는다(행은 지우지 않음)', () => {
+    const r = { needRank: [{ rank: 1, task: 'a.one', need: 'CONFIRM' }, { rank: 2, task: 'b.two', need: 'RELEVANCE_UNKNOWN' }], actionRank: [], notActionable: [{ task: 'b.two', reason: 'relevance_unknown' }] } as never
+    const d = goalPlanRows(view([tp('a.one'), tp('b.two')]), r, null)
+    expect([d.rows.length, d.required, d.relevanceUnknown]).toEqual([2, 1, 1])
+  })
   it('행 순서 = NeedRank · 실행 번호 = ActionRank(서로 다를 수 있다) · 못 하는 이유는 따로', () => {
     const v = view([tp('a.one'), tp('b.two')])
-    const d = goalPlanRows(v, ranks(['a.one', 'b.two'], ['b.two'], { 'a.one': 'material_needed' }), null)
+    const d = goalPlanRows(v, ranks(['a.one', 'b.two'], ['b.two'], { 'a.one': 'material_needed' }), saved([{ task: 'a.one', stage: 'check', planned: 2, available: 2 }, { task: 'b.two', stage: 'check', planned: 2, available: 2 }]))
     expect(d.rows.map((r) => [r.task, r.needRank, r.action?.rank ?? null, r.blocked])).toEqual([['a.one', 1, null, 'material_needed'], ['b.two', 2, 1, null]])
     expect(d.actionable).toBe(1)
   })

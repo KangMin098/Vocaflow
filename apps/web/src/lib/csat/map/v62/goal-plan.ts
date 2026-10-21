@@ -12,6 +12,7 @@ import type { TaskPlan } from '../v4/plan'
 import type { SavedPlans } from '../v4/plan-store'
 import type { StageKey } from '../v4/workspace'
 import type { NeedRankEntry, NotActionableReason, Ranks } from './rank'
+import { replanNeeded, wsForTask } from './next-action'
 import { quantityBasis } from './saved-plan'
 
 export type QuantitySource =
@@ -44,8 +45,10 @@ export interface GoalPlanRow {
   /** 도달 조건(코드북 learner_criterion) — 목표 점수 달성이 아니다 */
   criterion: string | null
   achievement: TaskPlan['achievement'] | null
-  /** ActionRank — 지금 실제로 할 수 있으면 실행 순서 · 링크 */
+  /** ActionRank — 지금 실제로 할 수 있으면 실행 순서 · 링크. 계획 확정 · 다시 확정이 먼저면 null(상단 CTA nextActionOf 와 같은 관문) */
   action: { rank: number; href: string; label: string } | null
+  /** T-0070 P1-1 — 실행 링크가 있어도 그 묶음 계획을 아직 저장하지 않았거나(plan) 저장 뒤 자료 · 단계가 바뀌었으면(replan) 계획이 먼저 */
+  planGate: 'plan' | 'replan' | null
   /** 지금 못 하는 이유(학생 결손이 아니라 자료 · 단계 상태) */
   blocked: NotActionableReason | null
   /** 계획량이 없는 이유(needs_direct_check 제외) */
@@ -56,6 +59,9 @@ export interface GoalPlanSummaryData {
   rows: GoalPlanRow[]
   /** 기록한 시험 수 · 직접 확인 근거가 있는 TASK 수 — 「시험 기록 없음」과 「TASK 근거 없음」을 나눠 보인다 */
   examSessions: number
+  /** T-0070 P1-2 — 목표 학습 요구로 확정된 행 수(관련성 미확인 제외) · 관련성 확인 전 행 수 */
+  required: number
+  relevanceUnknown: number
   directTasks: number
   actionable: number
 }
@@ -79,7 +85,11 @@ export function goalPlanRows(view: V4View, ranks: Ranks | null, saved: SavedPlan
     const q = shown?.quantity ?? null
     const sameStageSaved = !!latest && !!shown && latest.plan.tasks.some((t) => t.task === e.task && t.stage === shown.stage && t.planned !== null)
     const source: QuantitySource = store?.error ? 'unknown' : !q || q.planned === null ? 'none' : sameStageSaved ? 'saved' : 'proposed'
-    const a = actions.get(e.task)
+    const a0 = actions.get(e.task)
+    // 상단 CTA(nextActionOf)와 같은 관문 — 같은 묶음 · 같은 저장 · 같은 planDrift 판정
+    const gws = wsForTask(e.task, view)
+    const planGate: GoalPlanRow['planGate'] = !a0 || !gws ? null : !saved?.byTemplate?.[gws] ? 'plan' : replanNeeded(e.task, gws, view, saved) ? 'replan' : null
+    const a = planGate ? undefined : a0
     const t = view.asIs.tasks[e.task]
     return {
       task: e.task,
@@ -95,13 +105,16 @@ export function goalPlanRows(view: V4View, ranks: Ranks | null, saved: SavedPlan
       criterion: shown?.criterion ?? null,
       achievement: shown?.achievement ?? null,
       action: a ? { rank: a.rank, href: a.href, label: a.label } : null,
-      blocked: a ? null : blocked.get(e.task) ?? null,
+      planGate,
+      blocked: a || planGate ? null : blocked.get(e.task) ?? null,
       unresolved: (shown?.unresolved ?? []).filter((u) => u !== 'needs_direct_check'),
     }
   })
   return {
     rows,
     examSessions: view.asIs.sessions.length,
+    required: rows.filter((r) => r.need !== 'RELEVANCE_UNKNOWN').length,
+    relevanceUnknown: rows.filter((r) => r.need === 'RELEVANCE_UNKNOWN').length,
     directTasks: Object.values(view.asIs.tasks).filter((t) => t?.basis === 'direct_check').length,
     actionable: rows.filter((r) => r.action).length,
   }

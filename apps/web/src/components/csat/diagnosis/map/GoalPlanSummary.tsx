@@ -53,8 +53,10 @@ function amount(r: GoalPlanRow): string {
   return `${q.source === 'saved' ? '저장한 계획' : '제안(저장 전)'} ${q.planned}${q.unit} · 수행 ${q.done} · 남음 ${q.remaining ?? '—'}`
 }
 
-export function GoalPlanSummary({ data, goalSet, saved = null, onSelect, onOpenWs }: {
+export function GoalPlanSummary({ data, goalSet, saved = null, past = false, onSelect, onOpenWs }: {
   data: GoalPlanSummaryData
+  /** 지난 기준으로 보는 중 — 보기 전용(실행 링크 · 계획/자료 조작 없음). 학습은 지금 기준에서 */
+  past?: boolean
   /** 상단 CTA 와 같은 지도 복귀 문맥(outgoingCtx)을 실행 링크에 싣는다 */
   saved?: SavedPlans | null
   goalSet: boolean
@@ -68,11 +70,14 @@ export function GoalPlanSummary({ data, goalSet, saved = null, onSelect, onOpenW
       <summary className={u.gpSum}>
         <Target size={15} strokeWidth={1.9} aria-hidden="true" />
         <span className={u.gpSumText}>
-          <strong>목표에 필요한 TASK {data.rows.length}개</strong> · 지금 할 수 있는 것 {data.actionable}개
+          {data.required > 0 && <strong>목표에 필요한 TASK {data.required}개</strong>}
+          {data.relevanceUnknown > 0 && <>{data.required > 0 ? ' · ' : ''}<strong>목표와의 관련성 확인 전 {data.relevanceUnknown}개</strong></>}
+          {past ? ' · 지난 기준 보기 전용' : <> · 지금 할 수 있는 것 {data.actionable}개</>}
           <span className={u.gpSumNote}>{evidenceLine}</span>
         </span>
         <span className={u.gpOpen}>계획 펼치기</span>
       </summary>
+      {past && <p className={u.gpNote} data-testid="goal-plan-past">지난 기준으로 계산한 요약이에요 — 여기서는 보기만 하고, 학습 · 계획은 지금 기준 지도에서 해요.</p>}
       <p className={u.gpNote}>
         순서는 목표에 비춰 먼저 볼 TASK 예요. 「지금 할 수 있어요」 번호는 지금 열리는 활동 순서예요. TASK 의 도달 조건을 통과해도 목표 점수 달성은 아니에요 — 점수 · 기간 예측은 하지 않아요.
       </p>
@@ -95,14 +100,16 @@ export function GoalPlanSummary({ data, goalSet, saved = null, onSelect, onOpenW
                 {r.criterion && <div><dt>도달 조건</dt><dd>{r.achievement ? `${ACHIEVEMENT_LABEL[r.achievement]} · ` : ''}{r.criterion}</dd></div>}
               </dl>
               <div className={u.gpActs}>
-                {r.action ? (
+                {past ? null : r.planGate ? (
+                  <span className={u.gpBlocked} data-testid="goal-plan-gate" data-gate={r.planGate}>{r.planGate === 'replan' ? '자료 · 단계가 바뀌었어요 — 계획을 다시 확정한 뒤 시작해요' : '이 묶음 계획을 먼저 확정해요'}</span>
+                ) : r.action ? (
                   <Link className={u.ghost} href={withMapReturn(r.action.href, outgoingCtx(saved, r.task, r.workspace))} data-testid="goal-plan-do" onClick={() => onSelect(r.task)}>
                     <PlayCircle size={14} strokeWidth={1.9} aria-hidden="true" />지금 할 수 있어요 {r.action.rank} · {r.action.label}
                   </Link>
                 ) : (
                   <span className={u.gpBlocked} data-testid="goal-plan-blocked">{r.blocked ? BLOCKED_LABEL[r.blocked] : '지금 바로 할 활동은 없어요'}</span>
                 )}
-                {r.workspace && (
+                {!past && r.workspace && (
                   <>
                     <button type="button" className={u.ghost} onClick={() => onOpenWs(r.workspace!, 'plan')} data-testid="goal-plan-open-plan">
                       <ClipboardList size={14} strokeWidth={1.9} aria-hidden="true" />계획 보기

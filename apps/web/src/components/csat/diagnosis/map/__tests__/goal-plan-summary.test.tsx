@@ -10,14 +10,14 @@ import { GoalPlanSummary } from '../GoalPlanSummary'
 const row = (o: Partial<GoalPlanSummaryData['rows'][number]>) => ({
   task: 'r.inference', needRank: 1, need: 'CONFIRM', evidence: 'unmeasured', basis: 'none', independentItems: null, relevance: { items: 3, pointsPerExam: 6 },
   stage: 'check', workspace: 'ws.inference', quantity: { unit: '문항', planned: 2, done: 0, remaining: 2, source: 'proposed' }, criterion: '근거를 대며 추론한다',
-  achievement: 'not_checked', action: null, blocked: null, unresolved: [], ...o,
+  achievement: 'not_checked', action: null, planGate: null, blocked: null, unresolved: [], ...o,
 }) as GoalPlanSummaryData['rows'][number]
 const data: GoalPlanSummaryData = {
   rows: [
     row({ task: 'r.inference', blocked: 'material_needed', quantity: { unit: '지문', planned: null, done: 0, remaining: null, source: 'none' }, unresolved: ['material_needed'], stage: 'transfer' }),
     row({ task: 'r.relation', needRank: 2, workspace: 'ws.cohesion', action: { rank: 1, href: '/csat/learn/rel-ind-1?d=x', label: '혼자 확인' }, quantity: { unit: '문항', planned: 1, done: 0, remaining: 1, source: 'saved' }, basis: 'direct_check', evidence: 'checking', independentItems: 1 }),
   ],
-  examSessions: 0, directTasks: 1, actionable: 1,
+  examSessions: 0, directTasks: 1, actionable: 1, required: 2, relevanceUnknown: 0,
 }
 const html = renderToStaticMarkup(<GoalPlanSummary data={data} goalSet onSelect={() => undefined} onOpenWs={() => undefined} />)
 
@@ -44,6 +44,23 @@ describe('GoalPlanSummary', () => {
   it('점수 · 기간 예측 · 숙달률 없음 · 조건 통과 ≠ 목표 점수', () => {
     expect(html).toContain('목표 점수 달성은 아니에요')
     expect(html).not.toMatch(/점 오|점 상승|주 뒤|일 뒤|숙달률|%/)
+  })
+  it('P1-1 — 계획 확정 · 다시 확정이 먼저인 행은 실행 링크 대신 그 안내 + 계획 보기', () => {
+    const h = renderToStaticMarkup(<GoalPlanSummary data={{ ...data, rows: [row({ planGate: 'replan' })] }} goalSet onSelect={() => undefined} onOpenWs={() => undefined} />)
+    expect(h).toContain('data-gate="replan"')
+    expect(h).not.toContain('goal-plan-do')
+    expect(h).toContain('goal-plan-open-plan')
+  })
+  it('P1-2 — 관련성 확인 전은 목표 필요로 세지 않는다', () => {
+    const h = renderToStaticMarkup(<GoalPlanSummary data={{ ...data, rows: [row({ need: 'RELEVANCE_UNKNOWN', relevance: null })], required: 0, relevanceUnknown: 1, actionable: 0 }} goalSet onSelect={() => undefined} onOpenWs={() => undefined} />)
+    expect(h).not.toContain('목표에 필요한 TASK')
+    expect(h).toContain('목표와의 관련성 확인 전 1개')
+  })
+  it('P1-3 — 지난 기준은 보기 전용: 실행 링크 · 계획/자료 버튼 없음 · 지금 기준 안내', () => {
+    const h = renderToStaticMarkup(<GoalPlanSummary data={data} goalSet past onSelect={() => undefined} onOpenWs={() => undefined} />)
+    expect(h).toContain('data-testid="goal-plan-past"')
+    expect(h).toContain('지난 기준 보기 전용')
+    for (const t of ['goal-plan-do', 'goal-plan-open-plan', 'goal-plan-open-material', 'goal-plan-gate']) expect(h).not.toContain(t)
   })
   it('목표 없음 · 요구 없음이면 그리지 않는다', () => {
     expect(renderToStaticMarkup(<GoalPlanSummary data={data} goalSet={false} onSelect={() => undefined} onOpenWs={() => undefined} />)).toBe('')
