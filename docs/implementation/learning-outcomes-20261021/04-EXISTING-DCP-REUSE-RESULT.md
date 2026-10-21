@@ -3,6 +3,8 @@
 
 ## 루트 실제 검수·보완 결과
 
+최종 결합 검증에서 B/C/D 미통과 9조합을 포함한 재사용18개·DATA SQL5개가 통과했다. 기존 harness 타입 오류는 FAST 커밋에서 수정되어 결합 웹/스크립트 타입 검사가 모두 통과했다. 전체 관련 회귀1,356개·격리 PC 브라우저8개·전체 빌드도 통과했다([원시 로그](./evidence/final/combined-verification.json)). 아래의 미커밋/독립 검수 부재/scripts 실패 표기는 구현자 종료 당시의 역사 기록이다.
+
 아래 신규 구현자 기록 뒤 Codex가 실제 두 모델 검수를 실행했다. 기존 title/topic 해설은 내용 검수에서 실패했으며, 원본은 보존했다. 같은 두 id의 `answer_key.rationale_ko`만 보완한 **미적용 수정안**을 새 Claude `8547b6f4-2dd5-40be-9988-895ffa7bab82` · Codex `01a15e81-0369-75d2-bcd4-769c56bcba98` 세션이 각각 B/C/D pass로 판정했다. 원문·발문·선지 순서·정답·기존 시도는 바꾸지 않는다. 원시 요청/응답/세션과 두 판본은 [휴대 가능한 증거](./evidence/4-reuse/proposed-reuse-evidence.json)에 있다.
 
 실제 `planExistingDcpReuse`가 수정안 행으로 통과하고, 현재 DB에서 읽었던 원본 행으로는 `reuse_review_target_mismatch`를 내는 것을 확인했다. **현재 DB 행에 대한 검수 통과·입고 성공으로 보고하지 않는다.** 출력 SHA `eaca439e11cada998e3cf6a442911a0950fff10b3120ba5c59f10da3c0b901b2`.

@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- test(learning): 최신 로컬 main과 공장→교수→미노출 평가→실제 재계획·FAST·기존 문항 재사용을 결합 검증했다. 관련1,356개·PC 격리8개·웹/스크립트 타입·전체 빌드 통과. AI 비교 우위는 천장으로 판정 불가이며 7단계 DB 적용 SQL은 승인 대기다.
+
 - fix(admin): FAST는 종합 pass 외에 내용 B/C/D를 각각 통과해야 문제지·해설지를 출력한다. 실제 CLI 편집본 신규 AI 검수/HTML 브라우저 확인, 관련19·격리1 통과. 하네스 타입 경계를 정리해 scripts 타입 검사도 통과했다.
 
 - feat(csat): 3 FAST 빠른 학습지 — `/admin/csat/new/fast` + `POST /api/admin/csat/fast-worksheet`(preview/export, DB 쓰기 없음) + CLI `scripts/textbook/fast-worksheet.mts`(bundle/verify/export). 기존 1B 팩 전체의 순서·발문·선지 편집 → 새 바이트 신규 AI 검수 → 학생용 문제지/교사용 해설지/manifest. 원천은 has_items 만 다를 때만 재사용, FQ·출시 주장 없음.
