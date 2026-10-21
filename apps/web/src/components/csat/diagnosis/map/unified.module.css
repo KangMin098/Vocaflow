@@ -1687,3 +1687,12 @@ p.dockL {
 .gpFacts dd { margin: 0; word-break: keep-all; }
 .gpActs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .gpBlocked { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); word-break: keep-all; }
+
+/* T-0073 — 시험 기록 0 · 목표 있음: 지금 할 행동(주) + 기출 기록(보조)을 한 칸에 */
+.topActs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+}

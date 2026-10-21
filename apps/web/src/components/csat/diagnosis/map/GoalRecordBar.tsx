@@ -77,7 +77,9 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
   const state = mapStateOf(goalSet, asIs, ranks)
   const first = state === 'ready' ? ranks!.actionRank[0] : null
   // T-0061 — 추천 TASK 의 이유 · 이번 학습량 · 확인 조건 · 다음 한 행동(같은 순위 · 계획 · 저장 상태에서)
-  const next = state === 'ready' || state === 'none' ? nextActionOf(view, ranks, data.v4?.saved) : null
+  // T-0073 — 시험 기록 0(no_record)이어도 목표가 있으면 같은 다음 행동(계획 확정 · 자료 받기 · 시작 · 기다림 이유)을 쓴다. 상태 · 안내는 미측정 그대로(부족 · 숙달로 올리지 않음)
+  const acting = state === 'ready' || state === 'none' || state === 'no_record'
+  const next = acting ? nextActionOf(view, ranks, data.v4?.saved) : null
   return (
     <section className={u.top} aria-label="목표 · 기록 · 지금 상태" data-testid="umap-top" data-past={past} data-state={state}>
       {past && (
@@ -133,6 +135,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
             <>
               <h3 className={u.topHead} data-testid="umap-next-task" data-task={next.task} data-kind={next.kind}>추천 · {next.name}</h3>
               <p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p>
+              {state === 'no_record' && <p className={`${u.topSub} break-keep`} data-testid="umap-no-record-note">{LEAD.no_record.p} 직접 확인으로 지금 수준부터 봐요.</p>}
             </>
           ) : (
             <>
@@ -143,6 +146,15 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
         </div>
         {past ? (
           <p className={u.topSub}>과거 기준 보기에서는 학습을 시작하지 않아요.</p>
+        ) : state === 'no_record' && next ? (
+          // 시험 한 회 기록은 직접 확인의 필수 선행이 아니다 — 지금 할 실제 행동이 주 행동, 기록은 보조
+          <div className={u.topActs}>
+            <NextActionButton next={next} data={data} view={view} onSelect={onSelect} onOpenWs={onOpenWs} />
+            <Link href={recordHref} className={u.ghost} data-testid="focus-record">
+              <ClipboardList size={14} strokeWidth={1.9} aria-hidden="true" />
+              또는 기출 한 회 기록하기
+            </Link>
+          </div>
         ) : state === 'no_record' ? (
           <Link href={recordHref} className={u.cta} data-testid="focus-record">
             <ClipboardList size={15} strokeWidth={1.9} aria-hidden="true" />
@@ -165,7 +177,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           </Link>
         ) : null}
       </div>
-      {!past && next && (state === 'ready' || state === 'none') && <NextActionFacts next={next} selected={selected} />}
+      {!past && next && acting && <NextActionFacts next={next} selected={selected} />}
     </section>
   )
 }
