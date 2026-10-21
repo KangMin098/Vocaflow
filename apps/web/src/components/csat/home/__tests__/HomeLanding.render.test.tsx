@@ -55,4 +55,15 @@ describe('HomeLanding — 첫 제안 분기', () => {
   it('복귀 문맥이 없으면 지도 초점 안내(확인 필요 · 목표 · 기록 없음)', () => {
     expect(renderToStaticMarkup(<HomeLanding exams={exams} map="preparing" mapData={null} focusKind={null} returned={null} />)).toContain('data-kind="preparing"')
   })
+  it('T-0079 — 기록 0(no_records) = 미측정 · 시작 전(시험 기록이 필수라 하지 않음) · 대기(records_only) = 기록 없음이라 하지 않음', () => {
+    const none = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="record" returned={null} />)
+    expect(none).toContain('data-kind="no_records"')
+    expect(none).toContain('약점을 정한 것은 아니에요')
+    expect(none).toContain('계획을 정하고 받은 자료로 바로 확인을 시작할 수 있어요')
+    expect(none).not.toContain('기록을 넣으면 그려져요')
+    const waiting = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="pending" returned={null} />)
+    expect(waiting).toContain('data-kind="records_only"')
+    expect(waiting).toContain('다음 단계(자료 · 대기 이유 포함)')
+    expect(waiting).not.toMatch(/기록이 없어요|처음 시작/)
+  })
 })
