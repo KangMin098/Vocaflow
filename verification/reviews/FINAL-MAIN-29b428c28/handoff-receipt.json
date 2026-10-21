@@ -1,0 +1,16 @@
+{
+  "task_id": "T-0074",
+  "design_revision": "rev1",
+  "owner": "final-product",
+  "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "inbox": "D:\\workspace\\Vocaflow-AI-Control\\planning\\inbox\\final-product.md",
+  "queued_at": "2026-10-21T08:39:47.213Z",
+  "status": "READY",
+  "acknowledged": false,
+  "implementation_started": false,
+  "accepted_at": null,
+  "accepted_session": null,
+  "result_returned": false,
+  "run": null,
+  "observed_at": "2026-10-21T08:42:58.170Z"
+}

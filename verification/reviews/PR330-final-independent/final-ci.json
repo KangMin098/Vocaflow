@@ -1,0 +1,15 @@
+{
+  "type": "ci",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T07:35:45.719Z",
+  "commit": "e9f74bd222b49a7715ba7605a79a17d10e024e35",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "https://github.com/KangMin098/Vocaflow/actions/runs/39560914648",
+  "command_or_protocol": "Independent exact-head official pull_request CI39560914648 attempt1; authenticated isolated35/35 skip0/flaky0, build/verify/TypeScript/faultclosed pass. Shared-dev skipped, not dev verification."
+}

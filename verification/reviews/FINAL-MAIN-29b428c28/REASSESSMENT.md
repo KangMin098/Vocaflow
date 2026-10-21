@@ -1,0 +1,25 @@
+<!-- verification/reviews/FINAL-MAIN-29b428c28/REASSESSMENT.md -->
+# FINAL MISSION — main29b428c28
+
+Latest fetched origin/main **29b428c286ec8decd73ec8db26c29010158dd54e**. Protected PR330 merge is complete and its full Git tree matches tested **e9f74bd222b49a7715ba7605a79a17d10e024e35**. T0073 rev1 **ACCEPT / COMPLETED**. Official CI39560914648 attempt1: authenticated isolated35/35, no failure/flaky/skip; verify/build/TypeScript/faultclosed success. Shared-dev skipped, not dev verification. All67 submitted capture hashes match official bytes; four1440/1280 before/after full-page images opened independently. Existing independent SSR3/3, focused29/29 and Chromium6/6 reused in unchanged scope.
+
+Exam-record0 learner can set a goal, confirm PLAN, request actual isolated qualified materials, complete the first independent response and return to the same Workspace. G2 evidence becomes1 while exam sessions remain0; actual UI says directly checking and1/2, not mastery. No fabricated exam session was created. Run1's two unexecuted test-assumption defects were corrected before official CI, not concealed by removing first-entry checkpoints. Foreign audit edits preserved; server-side main update was legitimate and did not synchronize the dirty local worktree.
+
+Latest-main existing Goal Check **UNKNOWN33 / FAIL1 / EXTERNAL_INPUT_REQUIRED1** (35 instantiated criteria/five templates excluded). UNKNOWN is not unimplemented. Details: three implemented in tested scope,19 partial, two partial evidence, seven evidence missing, two externally blocked, two criteria affected by one retained account-metric defect. T0072 goal-version and T0073 first-entry gaps are fixed; neither remains a current failure. Remaining FAIL is aggregate internal/QA account contamination: dashboard-stats counts all profiles/today activity as learners, including the admin '오늘 학습자' display. Retention-only T0006 does not fix those other metrics. Admin owner scope is preserved; no conflicting rewrite is assigned here. Deployment smoke/actual learner-effect evidence remain unverified.
+
+| A–H | Product evidence now | Remaining boundary |
+|---|---|---|
+| A current ability | Exam observation/direct TASK evidence separate; no-record→first real direct check verified | Actual external learner interpretation and broader bad-data coverage missing |
+| B goal | Exam/score/grade/date and immutable versions; goal-change reconfirmation verified | No guaranteed score attainment |
+| C map/amount/criteria | Goal/TASK relevance, saved/proposed quantities, PLAN gating and real action connected | Current-policy versus full qualitative condition should be clearer in summary; T0074 |
+| D principles | Existing KICE/authored explanation and original/revised reasoning notes reused | Human teaching/Gold/rights review and effects missing |
+| E qualified supply | Isolated permission/rights/Gold/revision/exposure controls verified | Actual authored installation and recorded human qualification absent |
+| F actual learning | Representative teaching/practice/note/WordVault/Workspace returns and first entry verified | Actual learner operation/content unavailable pending release conditions |
+| G independence/transfer | Distinct passage cycles and first evidence verified in isolation | Approved delayed-retention interval/instrument NOT_ESTABLISHED; no real effect evidence |
+| H feedback | G2/As-Is/repair/recheck/goal-version/PLAN-history connections verified | No claim that version increments prove learning; actual outcomes missing |
+
+Actual dev read-only SELECT **2026-10-21T08:37:47.952435Z** confirms authored_item/content_human_decision/revocation still absent. Delivery/binding presence was verified earlier at06:51Z; no writes performed.17sets/152items still match approval package17/17. Pending SQL and deploy copy SHA256 **dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229**. A installation, B/B2 human Gold per revision and C rights remain separate human decisions in existing docs/final/APPROVAL_PACKAGE.md. Offline human review is not inferred either way; no AI-generated human approval.
+
+Next **T0074/rev1**, owner final-product, existing session c513ff5b: connect existing EvidenceChips/EvidenceView to the newer goal summary/top criterion surface so current-policy success does not appear to establish 'another day' retention. Baseline SSR1fail2pass; detailed EvidenceClaims already does the right thing and is reused. This is P2 scoped presentation work, not a new scoring defect or a new required release gate. No canon, interval, SQL, diagnosis or G2 changes; LOCAL_FAST related tests only, no task PR/CI. Gate passed and shared inbox queued; real ACK/start must be observed separately. Source paths are identical between dirty localc14 and current main, so no forced pull/stash/reset/foreign commit is authorized.
+
+Overall FINAL remains **IN PROGRESS / REWORK**, not FINAL_COMPLETE or RELEASE_READY. Representative code/isolated acceptance is distinct from actual installation, human content approval and actual educational effectiveness.

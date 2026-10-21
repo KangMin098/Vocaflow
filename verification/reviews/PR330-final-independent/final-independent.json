@@ -1,0 +1,15 @@
+{
+  "type": "review",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T07:35:45.720Z",
+  "commit": "e9f74bd222b49a7715ba7605a79a17d10e024e35",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/PR330-final-independent/FINAL-REVIEW.md",
+  "command_or_protocol": "Independent source-scope equivalence and prior probe3/3+focused29/29+Chromium6/6 reuse; authenticated first-entry/G2/return assertions, four full-page1440/1280 captures and all67 submitted hashes independently inspected."
+}

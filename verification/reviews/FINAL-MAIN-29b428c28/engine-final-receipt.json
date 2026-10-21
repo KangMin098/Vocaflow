@@ -1,0 +1,13 @@
+{
+  "main": "29b428c286ec8decd73ec8db26c29010158dd54e",
+  "ref": "origin/main",
+  "report": "verification/goal-check/GC-2026-10-21T07-39-36-709Z.json",
+  "distribution": {
+    "UNKNOWN": 33,
+    "FAIL": 1,
+    "EXTERNAL_INPUT_REQUIRED": 1
+  },
+  "changes": [],
+  "config_globally_unchanged": true,
+  "ci_source": "Official PR330 inspected log/report, no new run; actual head retained."
+}

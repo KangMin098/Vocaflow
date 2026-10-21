@@ -1,0 +1,13 @@
+{
+  "headRefOid": "e9f74bd222b49a7715ba7605a79a17d10e024e35",
+  "mergeCommit": {
+    "oid": "29b428c286ec8decd73ec8db26c29010158dd54e"
+  },
+  "mergedAt": "2026-10-21T07:35:59Z",
+  "state": "MERGED",
+  "url": "https://github.com/KangMin098/Vocaflow/pull/330",
+  "main": "29b428c286ec8decd73ec8db26c29010158dd54e",
+  "identical_tree": true,
+  "tested_tree": "ac2e12b7c9afa94c605275044fef9bf7a50b1acd",
+  "merged_tree": "ac2e12b7c9afa94c605275044fef9bf7a50b1acd"
+}

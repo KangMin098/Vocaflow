@@ -1,0 +1,82 @@
+{
+  "head": "e9f74bd222b49a7715ba7605a79a17d10e024e35",
+  "attempt": 1,
+  "conclusion": "success",
+  "stats": {
+    "total": 35,
+    "expected": 35,
+    "unexpected": 0,
+    "flaky": 0,
+    "skipped": 0,
+    "ok": true
+  },
+  "jobs": [
+    {
+      "name": "e2e-gate-faultclosed",
+      "conclusion": "success"
+    },
+    {
+      "name": "e2e",
+      "conclusion": "success"
+    },
+    {
+      "name": "verify",
+      "conclusion": "success"
+    },
+    {
+      "name": "build",
+      "conclusion": "success"
+    },
+    {
+      "name": "e2e-shared-dev",
+      "conclusion": "skipped"
+    },
+    {
+      "name": "TypeScript 0 error",
+      "conclusion": "success"
+    }
+  ],
+  "selected": [
+    {
+      "test": "T-0073 시험 기록 0 → 목표 → 첫 직접 확인 → 같은 Workspace 복귀 · 1440px",
+      "attachment": "norecord-plan-1440",
+      "file": "D:\\workspace\\Vocaflow-final-independent\\tmp\\pr330\\artifact\\apps\\web\\playwright-report-isolated\\data\\3ed6798ef2d18bb7595abb1b55c6309889011139.png",
+      "sha256": "d22cf7fa22e73f4fa676bd41b0f35e7dd5ac08795d45ac4847fd2c5d2776725c",
+      "width": 1440,
+      "height": 1514
+    },
+    {
+      "test": "T-0073 시험 기록 0 → 목표 → 첫 직접 확인 → 같은 Workspace 복귀 · 1440px",
+      "attachment": "norecord-after-1440",
+      "file": "D:\\workspace\\Vocaflow-final-independent\\tmp\\pr330\\artifact\\apps\\web\\playwright-report-isolated\\data\\5403511812bda87e794165b5430c4a29c2f3c787.png",
+      "sha256": "6bde67f8ce4b87175e4222324fb8a5577049b3c0efad83895c70f60fb561e1d6",
+      "width": 1440,
+      "height": 1481
+    },
+    {
+      "test": "T-0073 시험 기록 0 → 목표 → 첫 직접 확인 → 같은 Workspace 복귀 · 1280px",
+      "attachment": "norecord-plan-1280",
+      "file": "D:\\workspace\\Vocaflow-final-independent\\tmp\\pr330\\artifact\\apps\\web\\playwright-report-isolated\\data\\c49b243baa2c8823b98b6fc0d652b077b207e606.png",
+      "sha256": "32e1c6dd66c1ce869ff116ba07ca65997f20b28d3aa3e0b8b578ff0990eb7ef3",
+      "width": 1280,
+      "height": 1617
+    },
+    {
+      "test": "T-0073 시험 기록 0 → 목표 → 첫 직접 확인 → 같은 Workspace 복귀 · 1280px",
+      "attachment": "norecord-after-1280",
+      "file": "D:\\workspace\\Vocaflow-final-independent\\tmp\\pr330\\artifact\\apps\\web\\playwright-report-isolated\\data\\5ff62381978103446da1f20f557ab3c97e162bd9.png",
+      "sha256": "b07989ec2112699bc331f62454260bd6298645338cfcec51d2a364a9ef3fc342",
+      "width": 1280,
+      "height": 1586
+    }
+  ],
+  "testTitles": [
+    "T-0073 시험 기록 0 → 목표 → 첫 직접 확인 → 같은 Workspace 복귀 · 1440px",
+    "T-0073 시험 기록 0 → 목표 → 첫 직접 확인 → 같은 Workspace 복귀 · 1280px"
+  ],
+  "selectedLog": [
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T07:30:19.0335847Z   ✓  28 [chromium] › tests/e2e-isolated/map-no-record-start.isolated.spec.ts:56:7 › T-0073 시험 기록 0 → 목표 → 첫 직접 확인 → 같은 Workspace 복귀 · 1440px (9.4s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T07:30:27.8349781Z   ✓  29 [chromium] › tests/e2e-isolated/map-no-record-start.isolated.spec.ts:56:7 › T-0073 시험 기록 0 → 목표 → 첫 직접 확인 → 같은 Workspace 복귀 · 1280px (8.8s)",
+    "e2e\t격리 E2E(실제 브라우저 + DB 단언)\t2026-10-21T07:31:34.7268676Z   35 passed (7.9m)"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "head_sha": "e9f74bd222b49a7715ba7605a79a17d10e024e35",
+  "base_ref": "main",
+  "base_sha": "479f1a88cf04a146a7fcab93c2812ef3654e53af",
+  "expected_commits": 3,
+  "expected_paths": [
+    "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/no-record-start.test.tsx",
+    "apps/web/src/components/csat/diagnosis/map/unified.module.css",
+    "apps/web/tests/e2e-isolated/map-no-record-start.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "goal_id":"VG-L3-A3-02",
+  "related_goal_ids":["VG-L3-A1-01","VG-L3-B2-02"],
+  "title":"지도 도달 조건과 현재 확인한 범위를 구분해 보여 주기",
+  "description":"FINAL C/G/H. main29b428c28의 완료 T0070~73 재사용. 목표 요약은 '다시 확인 통과'와 정본 '다른 날 새 지문 재확인'을 함께 보여 주지만 현재 정책 통과와 지연 유지 미확립을 구분하지 않는다. 기존 EvidenceClaims/EvidenceView는 이 구분을 이미 정확히 제공한다. 신규 판정 없이 새 요약/상단에도 기존 범위를 연결해 학습자가 무엇이 확인됐고 무엇은 아직인지 이해하게 한다. 엔진의 허위 판정을 발견한 것이 아니라 표시 범위의 누락이다.",
+  "priority":"P2",
+  "owner_id":"final-product",
+  "roles":{"analyst":"codex","planner":"codex","architect":"codex","implementer":"claude","reviewer":"codex","verifier":"codex"},
+  "branch":"feat/vocaflow-final-product",
+  "worktree":"D:/workspace/Vocaflow-final-product",
+  "base_commit":"29b428c286ec8decd73ec8db26c29010158dd54e",
+  "depends_on":["T-0073"],
+  "duplicate_reason":"T0042/LM-G1.4의 EvidenceClaims와 현재 EvidenceChips는 완료 자산으로 재사용한다. T0070에서 추가된 GoalPlanSummary 및 상단의 criterion 표시만 범위 연결이 빠졌다. 진단/도달 조건/시간 정책을 다시 구현하지 않는다. T0020·관리자 T0047~51은 다른 owner 범위로 보존한다. final-product 활성 작업0 확인.",
+  "allowed_paths":["apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx","apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx","apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx","apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx","apps/web/src/components/csat/diagnosis/map/unified.module.css","apps/web/src/lib/csat/map/v62/goal-plan.ts","apps/web/src/components/csat/diagnosis/map/__tests__/goal-plan-summary.test.tsx","apps/web/src/components/csat/diagnosis/map/__tests__/criterion-scope.test.tsx","apps/web/src/lib/csat/map/v62/__tests__/goal-plan.test.ts","apps/web/tests/e2e-isolated/journey.isolated.spec.ts","docs/final/FINAL_LEDGER.md",".agent-goal.md"],
+  "forbidden_paths":[".env*","supabase/**","**/*.sql",".github/**","agents/**","goals/**","apps/web/src/app/api/**","apps/web/src/lib/knowledge/**","apps/web/src/lib/csat/map/v4/**","apps/web/src/lib/csat/map/v62/evidence-claims.ts","docs/csat-learner/v4/**","scripts/audit/**"],
+  "db_scope":{"mode":"none","targets":[]},
+  "acceptance":[
+    "현재 정책 확인 통과와 정본의 전체 도달 조건을 동일한 완료로 보이지 않는다. 상단/목표 요약에서 통과를 제시할 때 기존 view.evidence의 currentCheck와 delayedRetention 범위를 함께 읽을 수 있다. learner_criterion 원문은 목표 조건으로 보존한다. 지연 유지는 현재 NOT_ESTABLISHED이며 다른 날 자료를 풀었다는 사실·120일 만료·PLAN 증가만으로 승격하지 않는다.",
+    "기존 EvidenceClaims/EvidenceChips/CURRENT_CHECK_LABEL을 우선 재사용하고 필요한 최소 projection/prop만 연결한다. 새 평가·시간 간격·숫자·숙달률·학습 효과 판단 없음. 근거 view 없음/원장 unknown은 확인 불가임을 구분하고 0건·확인 완료로 대체하지 않는다. 현재 확인의 과거 사실을 삭제하거나 G2/As-Is/PLAN을 바꾸지 않는다.",
+    "기존 단일3B 지도·접힌 목표 요약·Workspace/서랍을 유지한다. 현재 정책 통과/미측정/원장 불명확 대표 상태를1440/1280 실제 React+Chromium에서 확인한다. 과거 보기는 표시만, 실행/목표 재확정/자료 받기/복귀는 T0072~73 그대로다. 새 화면·알림·대시보드·정본 없음.",
+    "제공 SSR baseline1fail2pass와 정상 대조를 관련 회귀로 이식한다(문구 일치보다 범위 의미로 조정 가능). 관련 단위·타입·lint만 실행하고 영향 없는1335/전체 suite를 반복하지 않는다. 기존 journey pass 분기에 요약의 현재 통과+지연 미확립 표시 단언만 추가하고 인증 미실행은 NOT_VERIFIED로 남긴다. LOCAL_FAST 작업별 push/PR/CI 없음, 다음 공식 묶음에서만 인증 검증. 외부 감사2파일 보존·stash/reset/강제pull/대신커밋 금지. 허용 파일이 최신 main과 동일함을 확인하면 기존 로컬 기준에서 계속 작업하고 원격 통합/소유권 정리는 별도로 보고한다."
+  ],
+  "ui_acceptance":["확인한 것/아직 확인하지 못한 것을 간결한 기존 증거 칩·설명으로 구분한다. 통과 행과 상단에서 지연 유지가 아직 확인되지 않았음을 찾을 수 있어야 한다. 기존 수량·현재 체크 결과·코드북 목표 조건을 바꾸거나 경고를 모든 행에 과도하게 반복하지 않는다.1440/1280 키보드·읽기·넘침 확인."],
+  "impact":{"kind":"platform","parent_goal_id":"VG-L3-A3-02","acceptance_ids":["VG-L3-A3-02-AC1"],"current_gap":"GoalPlanSummary는 현재 정책의 resolved 라벨과 '다른 날'을 포함한 정본 조건을 함께 표시하지만 기존 EvidenceView의 지연 미확립 범위는 노출하지 않는다. SSR1fail2pass. 상세 증거 패널은 이미 구현돼 있다.","expected_impact":"advances","dependency_type":"direct","evidence_required":["현재 통과/지연 미확립 구분","원장 unknown·근거 없음 정상 대조","기존 도달 조건·G2·PLAN 불변·실제 PC 화면"],"out_of_scope":["지연 확인 도구/시간 기준 신설","학습 효과 평가","정본·평가·SQL 변경","관리자 지표 수정","완료 기능 재구현","외부 감사 파일 정리"],"next_dependency":"실제 설치A·사람Gold B/B2·권리C는 별도 대기한다. 제품 표시 개선 후 다음 실제 A~H 공백을 재평가한다."},
+  "source":{"mission":"FINAL-MISSION-A~H","design_revision":"rev1","design_id":"FINAL-CRITERION-EVIDENCE-SCOPE-rev1","goals_ah":["C","G","H"],"from_owner":"final-independent-accept","from_session":"01a14de8-2485-7a53-b530-d5612f35e57a","to_session":"c513ff5b-86ef-44a3-8efd-7925a229614b","probe":"verification/reviews/FINAL-MAIN-29b428c28/criterion-scope.test.ts","baseline":"verification/reviews/FINAL-MAIN-29b428c28/criterion-scope-results.json","delivery":"QUEUED until genuine ACK/start; existing interactive session, no new worker"}
+}
