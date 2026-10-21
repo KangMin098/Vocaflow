@@ -38,3 +38,16 @@ describe('POST /api/csat/authored/supply — TASK 소속 검증(T-0056)', () => 
     expect(loadMapPage).toHaveBeenCalledTimes(2)
   })
 })
+
+describe('POST /api/csat/authored/supply — 원장 미확인(T-0078)', () => {
+  beforeEach(() => { loadMapPage.mockReset(); requestAuthoredSupply.mockReset() })
+  it('저장 계획이 있어도 첫 시도 · 수행 기록을 못 읽으면 503 evidence_unavailable · 공급 0회', async () => {
+    for (const o of [{ findAttempts: undefined, lifecycleActivity: [] }, { findAttempts: [], lifecycleActivity: undefined }]) {
+      loadMapPage.mockResolvedValueOnce({ now: '2026-10-21T00:00:00Z', ...o, model: { goal: 80, goalSet: true }, v4: { saved: { goalVersionId: 10, byTemplate: { 'ws.evidence-locate': { workspaceId: 'w1', latest: { version: 1 } } } } } })
+      const r = await post({ task: 'e.evidence_location', template: 'ws.evidence-locate' })
+      expect(r.status).toBe(503)
+      expect((await r.json()).code).toBe('evidence_unavailable')
+    }
+    expect(requestAuthoredSupply).not.toHaveBeenCalled()
+  })
+})

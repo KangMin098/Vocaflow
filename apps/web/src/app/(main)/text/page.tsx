@@ -36,7 +36,7 @@ export default async function TextViewerHubPage({
   const [mine, shelf] = await Promise.all([fetchMyTextbooks(), fetchTextbookShelf()])
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
+    <Screen width="wide" background="bg2" padX="md" className="my-library-reference">
       <TextHubContent
         view={view}
         // 못 읽었을 때 0 을 세지 않는다 — 0 권과 "확인 못 함" 은 다른 말이다(MyTextbooks 가 구별해 말한다).

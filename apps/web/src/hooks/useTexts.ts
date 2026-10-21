@@ -267,14 +267,20 @@ function aggregateBookChapters(
 function useAuthUserId() {
   const [userId, setUserId] = useState<string | null>(null)
   const [authReady, setAuthReady] = useState(false)
+  const [authError, setAuthError] = useState<Error | null>(null)
 
   useEffect(() => {
     const supabase = createClient()
     let mounted = true
 
-    supabase.auth.getUser().then(({ data }) => {
+    supabase.auth.getUser().then(({ data, error }) => {
       if (!mounted) return
       setUserId(data.user?.id ?? null)
+      setAuthError(error ? new Error('계정을 확인하지 못했습니다') : null)
+      setAuthReady(true)
+    }).catch(() => {
+      if (!mounted) return
+      setAuthError(new Error('계정을 확인하지 못했습니다'))
       setAuthReady(true)
     })
 
@@ -297,10 +303,10 @@ function useAuthUserId() {
     }
   }, [])
 
-  return { userId, authReady }
+  return { userId, authReady, authError }
 }
 
-async function fetchTexts(userId: string): Promise<LibraryText[]> {
+export async function fetchTexts(userId: string): Promise<LibraryText[]> {
   const supabase = createClient()
   const { data, error } = await supabase
     .from('texts')
@@ -311,9 +317,7 @@ async function fetchTexts(userId: string): Promise<LibraryText[]> {
     .order('last_opened', { ascending: false, nullsFirst: false })
 
   if (error) {
-    // eslint-disable-next-line no-console
-    console.error('[useTexts] fetch error:', error)
-    return []
+    throw new Error('내 라이브러리를 불러오지 못했습니다')
   }
 
   const rows = (data ?? []) as unknown as JoinedRow[]
@@ -408,7 +412,7 @@ export interface UseTextsResult {
 }
 
 export function useTexts(): UseTextsResult {
-  const { userId, authReady } = useAuthUserId()
+  const { userId, authReady, authError } = useAuthUserId()
 
   const swr = useSWR(
     userId ? ['texts', userId] : null,
@@ -443,7 +447,7 @@ export function useTexts(): UseTextsResult {
   return {
     texts,
     isLoading: !authReady || (!!userId && swr.isLoading),
-    error: (swr.error as Error | undefined) ?? null,
+    error: authError ?? (swr.error as Error | undefined) ?? null,
     stats,
     continueText,
     refresh: () => {

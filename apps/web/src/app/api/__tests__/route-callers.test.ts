@@ -37,6 +37,7 @@ const SCRIPTS_DIR = resolve(process.cwd(), '..', '..', 'scripts')
  * 키는 `src/app/api/` 기준 상대 경로(디렉터리), POSIX 구분자.
  */
 const EXTERNAL: ReadonlyArray<{ route: string; why: string }> = [
+  { route: 'admin/csat/product-order-lineage', why: '관리자 HTTP 자동화 계약: scripts/db/factory-i1/d3-live-check.mts가 명시적 실행에서 조회/등록/철회를 호출한다. 화면은 같은 서버 로더를 직접 사용한다.' },
   { route: 'csat/session/reveal', why: '기존 풀이 클라이언트 호환 API. /csat 해부는 정답 선공개지만 사용자 지시에 따라 기존 인증·API 계약은 보존한다. 신규 UI 호출은 없다.' },
   {
     route: 'auth/callback',

@@ -167,6 +167,7 @@ export default async function PdComicReaderPage({ params }: { params: { slug: st
 
       {/* 발행된 현대화 페이지 — 공개 URL + 모던 말풍선 오버레이 + 학습(TTS·단어뜻) */}
       <PdModernReader
+        publicPresentation
         title={info ? pdComicDisplayTitle(info) : '복원 만화'}
         pages={panels.map((p) => ({
           index: p.panelOrder,

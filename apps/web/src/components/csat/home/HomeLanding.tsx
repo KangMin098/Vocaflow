@@ -196,6 +196,7 @@ export function HomeLanding({
             ) : suggest === 'resume' ? (
               <ContinueCard state={rec} />
             ) : suggest === 'continue_check' && progress?.check ? (
+              // T-0080 — 학습 TASK 는 map_task(지도 TASK 선택)로 보낸다. task 는 과거 활동 키 칸이라 지도가 TASK 로 쓰지 않아 옛 선택이 남았다
               <div className={home.card} data-testid="home-continue-check" data-target-task={progress.check.task}>
                 <p className={home.cardBack}>
                   <ClipboardCheck size={13} aria-hidden="true" /> 확인하던 항목
@@ -205,7 +206,7 @@ export function HomeLanding({
                     <b>{progress.check.name}</b> 확인 문항을 풀기 시작했어요. 아직 확인 결과가 나오지 않았어요.
                   </p>
                   <div className={home.cardActions}>
-                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ task: progress.check.task, ws: progress.check.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_check', from: 'home' } })} data-testid="home-continue-check-go">
+                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ mapTask: progress.check.task, ws: progress.check.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_check', from: 'home' } })} data-testid="home-continue-check-go">
                       지도에서 이어서 확인 <ArrowRight size={14} aria-hidden="true" />
                     </Link>
                   </div>
@@ -218,10 +219,12 @@ export function HomeLanding({
                 </p>
                 <div className={home.cardFront}>
                   <p className={`${home.cardLead} break-keep`}>
-                    <b>{progress.plan.name}</b> 계획에서 {progress.plan.planned}개 중 {progress.plan.done}개를 했어요.
+                    {/* T-0081 — 묶음 집계(기존 · 배정 없으면 말하지 않음)와 이어갈 TASK 의 양을 따로 */}
+                    <b>{progress.plan.name}</b> 계획{progress.plan.planned !== null && progress.plan.done !== null ? `에서 ${progress.plan.planned}개 중 ${progress.plan.done}개를 했어요` : '을 이어서 할 수 있어요'}.{' '}
+                    <span data-testid="home-continue-plan-resume" data-task={progress.plan.task}>이어갈 항목: {progress.plan.resume.name} {progress.plan.resume.planned}{progress.plan.resume.unit} 중 {progress.plan.resume.done}{progress.plan.resume.unit}</span>
                   </p>
                   <div className={home.cardActions}>
-                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ ws: progress.plan.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_plan', from: 'home' } })} data-testid="home-continue-plan-go">
+                    <Link className={home.primary} href={`/csat?${mapReturnQuery({ mapTask: progress.plan.task, ws: progress.plan.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_plan', from: 'home' } })} data-testid="home-continue-plan-go">
                       계획 이어서 보기 <ArrowRight size={14} aria-hidden="true" />
                     </Link>
                   </div>
@@ -236,8 +239,9 @@ export function HomeLanding({
                   : suggest === 'check'
                   ? '지도가 지금 근거로 먼저 확인할 것 하나를 골라 두었어요.'
                   : suggest === 'no_records'
-                    ? '아직 시험 기록이 없어요. 지도는 기록을 넣으면 그려져요. 기출 탐구는 기록 없이도 쓸 수 있어요.'
-                    : '기록이 쌓이는 중이에요. 지도에서 지금 근거로 보이는 것을 확인하세요.'}{' '}
+                    // T-0079 — 기록 0 = 미측정 · 시작 전(약점 아님). 시험 기록은 필수 조건이 아니다 — 지도에서 계획 → 자료 → 직접 확인으로 시작할 수 있다
+                    ? '아직 시험 기록도 직접 확인도 없어요 — 약점을 정한 것은 아니에요. 지도에서 계획을 정하고 받은 자료로 바로 확인을 시작할 수 있어요. 시험 기록 입력 · 기출 탐구도 언제든 열려 있어요.'
+                    : '지도에서 지금 근거와 다음 단계(자료 · 대기 이유 포함)를 확인하세요.'}{' '}
                 <a href="#umap-h" className={l.inlineLink}>지도에서 보기</a>
               </p>
             )}

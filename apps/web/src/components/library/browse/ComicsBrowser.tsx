@@ -15,6 +15,7 @@ import { ArrowRight, BookImage, PlayCircle } from 'lucide-react'
 import { V_BANDS, vBandOf, type VBand } from '@/lib/library/genres'
 import { readEnumParam, useShelfUrlState } from '@/lib/library/shelf-url-state'
 import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
+import { ReferenceBookImage } from '@/components/library/ReferenceBookImage'
 
 export interface ComicBrowseItem {
   bookId: string
@@ -187,13 +188,11 @@ function ComicCard({ item }: { item: ComicBrowseItem }) {
       {/* 아트 */}
       <div className="relative aspect-[4/3] w-full overflow-hidden bg-[var(--bg2)]">
         {item.coverArt ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <ReferenceBookImage
             src={item.coverArt}
-            alt=""
-            aria-hidden
-            loading="lazy"
-            className="absolute inset-0 h-full w-full object-cover transition-transform duration-[var(--dur-slower)] ease-[var(--ease)] group-hover:scale-[1.04] motion-reduce:transition-none motion-reduce:group-hover:scale-100"
+            title={item.title}
+            kind="comic"
+            className="absolute inset-0 h-full w-full"
           />
         ) : (
           <div className="absolute inset-0 grid place-items-center text-[var(--t2)]">

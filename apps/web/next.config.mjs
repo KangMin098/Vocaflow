@@ -1,7 +1,12 @@
 // apps/web/next.config.mjs
 import fs from 'node:fs'
 import path from 'node:path'
-import { PHASE_DEVELOPMENT_SERVER, PHASE_PRODUCTION_BUILD } from 'next/constants.js'
+import {
+  PHASE_DEVELOPMENT_SERVER,
+  PHASE_PRODUCTION_BUILD,
+  PHASE_PRODUCTION_SERVER,
+} from 'next/constants.js'
+import { pruneDistDirs } from './scripts/dist-dir-retention.mjs'
 
 // ══════════════════════════════════════════════════════════════════
 // distDir 소유권 — dev 서버가 쓰는 디렉터리를 빌드가 지우지 못하게 한다
@@ -101,8 +106,12 @@ function ownerPath(distDir) {
  * 그래서 ① 표식은 마지막에 쓴 쪽 PID 를 갖고 ② 지울 때는 **내 PID 로 적힌 것만** 지운다
  * (부모가 먼저 끝나며 자식의 표식을 지워 보호가 조용히 풀리는 것을 막는다).
  * heartbeat 도 touch 가 아니라 다시 쓰기다 — 표식이 사라졌으면 스스로 되살린다.
+ *
+ * `next start` 도 같은 표식을 남긴다(`rivalCheck: false`) — 그래야 빌드 시점의 사본 정리
+ * (`scripts/dist-dir-retention.mjs`)가 서빙 중인 사본을 지우지 않는다. start 끼리는 한 사본을
+ * 함께 읽어도 깨지지 않으므로 dev 와 달리 경쟁 검사를 하지 않는다.
  */
-function claimDistDir(distDir) {
+function claimDistDir(distDir, { rivalCheck = true } = {}) {
   const file = ownerPath(distDir)
   // 부모(CLI)가 조 번호를 만들고 환경으로 넘긴다 — 자식(start-server)이 물려받아
   // 자기 부모를 "남의 서버" 로 오해하지 않는다.
@@ -112,7 +121,7 @@ function claimDistDir(distDir) {
     process.env[DEV_GROUP_ENV] = group
   }
   // ⚠️ 표식을 쓰기 **전에** 본다 — 먼저 쓰면 남의 표식을 덮어 검사가 무의미해진다.
-  assertNoRivalDevServer(distDir, group)
+  if (rivalCheck) assertNoRivalDevServer(distDir, group)
   const stamp = () => {
     fs.mkdirSync(path.dirname(file), { recursive: true })
     fs.writeFileSync(
@@ -178,8 +187,8 @@ function assertDistDirFree(distDir) {
   throw new Error(
     [
       '',
-      `이 빌드는 dev 서버(PID ${owner.pid}, ${owner.startedAt} 기동)가 쓰는 중인 "${distDir}" 를 지우려 했다.`,
-      '그대로 두면 dev 서버는 살아 있는데 정적 자산만 사라져 모든 화면이 CSS 없이 렌더된다.',
+      `이 빌드는 서버(PID ${owner.pid}, ${owner.startedAt} 기동)가 쓰는 중인 "${distDir}" 를 지우려 했다.`,
+      '그대로 두면 서버는 살아 있는데 정적 자산만 사라져 모든 화면이 CSS 없이 렌더된다.',
       '',
       '  검증 빌드:  NEXT_DIST_DIR=.next-verify pnpm --filter web build',
       '  배포 빌드:  dev 서버를 먼저 종료한 뒤 다시 실행',
@@ -234,6 +243,9 @@ const nextConfig = {
   // "failed to parse input file: Syntax Error" 로 실패. Terser minifier 로 폴백.
   // (기존 main 부터 깨진 상태 — CI 가 typecheck/lint 만 게이트해 미발견.)
   swcMinify: false,
+  // 공유 PC의 전체 CPU 수만큼 Terser Worker를 만들면 큰 청크 전달 중
+  // DataCloneError/OOM이 난다(2026-10-21 격리 빌드 실측). 빌드 병렬도를 제한한다.
+  experimental: { cpus: 2 },
   // v06.92 — 기존 lint 부채(74건)로 `next build` 산출물 생성이 막혀 임시로 lint 를 빌드에서 분리했었음.
   // v06.117 — 부채 청산 완료(`next lint` = 0 error / 6 warning). 빌드-타임 lint 게이트 복원.
   //   build 는 error 만 차단(warning 은 통과) — exhaustive-deps 잔여 6건은 warning 이라 무영향.
@@ -309,7 +321,20 @@ export default (phase) => {
   const isDev = phase === PHASE_DEVELOPMENT_SERVER
   const distDir = process.env.NEXT_DIST_DIR || (isDev ? '.next-dev' : '.next')
   if (isDev) claimDistDir(distDir)
-  else if (phase === PHASE_PRODUCTION_BUILD) assertDistDirFree(distDir)
+  else if (phase === PHASE_PRODUCTION_SERVER) claimDistDir(distDir, { rivalCheck: false })
+  else if (phase === PHASE_PRODUCTION_BUILD) {
+    assertDistDirFree(distDir)
+    // 검증 빌드가 회차마다 새 이름으로 쌓은 사본을 정리한다(2026-10-21 한 워크트리 25.8 GB).
+    // 빌드 프로세스 트리에서 한 번만 — 자식(worker)이 설정을 다시 읽어도 반복하지 않는다.
+    if (process.env.NEXT_KEEP_DIST_DIRS !== '1' && !process.env.VOCAFLOW_DIST_PRUNED) {
+      process.env.VOCAFLOW_DIST_PRUNED = '1'
+      try {
+        pruneDistDirs({ webDir: process.cwd(), target: distDir, now: Date.now(), log: console.log })
+      } catch (err) {
+        console.warn(`[distDir 보존 한도] 정리 건너뜀: ${err instanceof Error ? err.message : err}`)
+      }
+    }
+  }
   // CI는 동일 SHA의 필수 verify에서 lint/typecheck를 병렬 실행한다.
   // verify 실패·취소·미실행은 별도 필수 체크로 병합을 차단한다.
   // 로컬 빌드와 근거 없는 환경에서는 기존 검사를 그대로 실행한다.

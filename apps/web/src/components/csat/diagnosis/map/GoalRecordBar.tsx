@@ -77,7 +77,9 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
   const state = mapStateOf(goalSet, asIs, ranks)
   const first = state === 'ready' ? ranks!.actionRank[0] : null
   // T-0061 — 추천 TASK 의 이유 · 이번 학습량 · 확인 조건 · 다음 한 행동(같은 순위 · 계획 · 저장 상태에서)
-  const next = state === 'ready' || state === 'none' ? nextActionOf(view, ranks, data.v4?.saved) : null
+  // T-0073 — 시험 기록 0(no_record)이어도 목표가 있으면 같은 다음 행동(계획 확정 · 자료 받기 · 시작 · 기다림 이유)을 쓴다. 상태 · 안내는 미측정 그대로(부족 · 숙달로 올리지 않음)
+  const acting = state === 'ready' || state === 'none' || state === 'no_record'
+  const next = acting ? nextActionOf(view, ranks, data.v4?.saved) : null
   return (
     <section className={u.top} aria-label="목표 · 기록 · 지금 상태" data-testid="umap-top" data-past={past} data-state={state}>
       {past && (
@@ -133,6 +135,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
             <>
               <h3 className={u.topHead} data-testid="umap-next-task" data-task={next.task} data-kind={next.kind}>추천 · {next.name}</h3>
               <p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p>
+              {state === 'no_record' && <p className={`${u.topSub} break-keep`} data-testid="umap-no-record-note">{LEAD.no_record.p} 직접 확인으로 지금 수준부터 봐요.</p>}
             </>
           ) : (
             <>
@@ -143,6 +146,15 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
         </div>
         {past ? (
           <p className={u.topSub}>과거 기준 보기에서는 학습을 시작하지 않아요.</p>
+        ) : state === 'no_record' && next ? (
+          // 시험 한 회 기록은 직접 확인의 필수 선행이 아니다 — 지금 할 실제 행동이 주 행동, 기록은 보조
+          <div className={u.topActs}>
+            <NextActionButton next={next} data={data} view={view} onSelect={onSelect} onOpenWs={onOpenWs} />
+            <Link href={recordHref} className={u.ghost} data-testid="focus-record">
+              <ClipboardList size={14} strokeWidth={1.9} aria-hidden="true" />
+              또는 기출 한 회 기록하기
+            </Link>
+          </div>
         ) : state === 'no_record' ? (
           <Link href={recordHref} className={u.cta} data-testid="focus-record">
             <ClipboardList size={15} strokeWidth={1.9} aria-hidden="true" />
@@ -165,7 +177,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           </Link>
         ) : null}
       </div>
-      {!past && next && (state === 'ready' || state === 'none') && <NextActionFacts next={next} selected={selected} />}
+      {!past && next && acting && <NextActionFacts next={next} selected={selected} />}
     </section>
   )
 }
@@ -176,6 +188,8 @@ function whyText(n: NextAction): string {
   if (n.why.need) parts.push(`${NEED_LABEL[n.why.need]}이 필요한 TASK`)
   if (n.why.evidence) parts.push(TASK_EVIDENCE_LABEL[n.why.evidence])
   if (n.why.items) parts.push(`목표 시험에서 이 힘을 쓰는 문항 ${n.why.items}개${n.why.pointsPerExam ? `(회당 ${n.why.pointsPerExam}점)` : ''}`)
+  // T-0074 — 지금 정책 통과는 도달 조건 전체가 아니다(시간 지나 다시 확인은 아직 근거 없음)
+  if (n.why.evidence === 'resolved') parts.push('시간 지나 다시 확인은 아직 근거 없음')
   return parts.length ? parts.join(' · ') : '목표와 관련된 순서의 첫 TASK 예요 — 약점 확정이 아니에요.'
 }
 
@@ -211,7 +225,7 @@ function NextActionFacts({ next, selected }: { next: NextAction; selected: TaskI
     <ul className={`${u.topFacts} ${u.topSub} break-keep`} data-testid="umap-next-facts" aria-label="추천 TASK 의 이번 학습">
       <li data-testid="umap-next-amount">이번 학습량 · {amount}</li>
       {next.criterion && <li data-testid="umap-next-criterion">확인 조건 · {next.criterion}</li>}
-      {next.kind === 'plan' && <li data-testid="umap-next-plan-note">{next.replan ? '저장한 뒤 자료 · 단계가 바뀌었어요 — 계획을 다시 확정하면 새 학습량이 정해져요.' : '계획을 확정하면 자료 · 기록이 이 계획에 묶여요.'}</li>}
+      {next.kind === 'plan' && <li data-testid="umap-next-plan-note">{next.replan ? (next.replanWhy === 'goal' ? '목표가 바뀌었어요 — 저장한 계획은 그때 목표 기준이에요. 지금 목표로 다시 확정하면 이 목표의 학습량이 정해져요.' : '저장한 뒤 자료 · 단계가 바뀌었어요 — 계획을 다시 확정하면 새 학습량이 정해져요.') : '계획을 확정하면 자료 · 기록이 이 계획에 묶여요.'}</li>}
       {next.kind === 'supply' && <li>받을 수 있는 자료가 있는지는 자료 받기에서 서버가 확인해요 — 준비 시각은 약속하지 않아요.</li>}
       {next.kind === 'wait' && next.blocked && <li data-testid="umap-next-wait">{WAIT_LABEL[next.blocked]}</li>}
       {selected && selected !== next.task && <li data-testid="umap-next-selected">지금 지도에서 고른 TASK 는 추천과 달라요 — 아래 TASK 정보는 고른 TASK 기준이에요.</li>}

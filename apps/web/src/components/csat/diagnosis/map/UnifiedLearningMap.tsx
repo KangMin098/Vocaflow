@@ -13,7 +13,8 @@
 'use client'
 
 import { Headphones, MoreVertical, Search, Timer, X } from 'lucide-react'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useTransition, type ReactNode } from 'react'
+import { useRouter } from 'next/navigation'
 
 import { track } from '@/lib/analytics/client'
 import type { MapPageData } from '@/lib/csat/map/load'
@@ -28,13 +29,18 @@ import { ranksOf } from '@/lib/csat/map/v62/rank'
 import { RETURN_NOTE_LABEL, returnNotes } from '@/lib/csat/map/v62/return-ctx'
 import { taskForWs, workspaceRows, wsForTask, wsLinkOf, type WsLink } from '@/lib/csat/map/v62/workspace-list'
 
+import type { CoreCode } from '@/lib/csat/map/core'
+
 import { useGoal } from './GoalBar'
 import { GoalPlanSummary } from './GoalPlanSummary'
+import { AXIS_ICON } from './icons'
 import { GoalRecordBar } from './GoalRecordBar'
 import { MapDialog } from './MapDialog'
 import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor, TaskInspector } from './TaskInspector'
 import { TaskPopup } from './TaskPopup'
 import u from './unified.module.css'
+import { MapReadUnavailable } from './MapReadUnavailable'
+import { evidenceReadOf } from '@/lib/csat/map/v62/evidence-read'
 import { WorkspaceList } from './WorkspaceList'
 import { WorkspaceModal, type WsTab } from './WorkspaceModal'
 
@@ -64,7 +70,22 @@ export function wsSlug(id: string | null): WsSlug | null {
   return s === 'central-meaning' || s === 'option-match' || s === 'evidence-locate' || s === 'cohesion' ? s : null
 }
 
-export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = null, viewToggle = null }: { data: MapPageData; mode: UnifiedMode; recordHref: string; asOf?: string; restore?: MapReturnCtx | null; viewToggle?: ReactNode }) {
+type UnifiedProps = { data: MapPageData; mode: UnifiedMode; recordHref: string; asOf?: string; restore?: MapReturnCtx | null; viewToggle?: ReactNode }
+
+/**
+ * T-0078 — 필수 원장(확인 첫 시도 · 수행 기록)을 못 읽으면 지도를 0건으로 계산하지 않고 복구 상태만 그린다.
+ *   지도 본체는 읽힌 데이터가 왔을 때 새로 마운트돼 복귀 문맥(map_task · ws · map_plan)으로 처음 상태를 잡는다(빈 데이터로 굳은 상태를 잇지 않는다)
+ */
+export function UnifiedLearningMap(props: UnifiedProps) {
+  const router = useRouter()
+  const [retrying, startRetry] = useTransition()
+  if (props.data.v4 && props.data.now && evidenceReadOf(props.data) !== 'ok') {
+    return <MapReadUnavailable retrying={retrying} onRetry={() => startRetry(() => router.refresh())} />
+  }
+  return <UnifiedLearningMapView {...props} />
+}
+
+function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, viewToggle = null }: UnifiedProps) {
   const g = useGoal(data)
   const goalSet = data.model.goalSet || g.saved
   const view = useMemo(() => composeV4(data, { score: g.goal, set: goalSet }, asOf), [data, g.goal, goalSet, asOf])
@@ -112,6 +133,8 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 
   // 고른 문맥 → 탭 기억 · 주소(replaceState — 새로 고침 · 뒤로가기에서 같은 문맥). 다른 쿼리(tab · view · asof)는 그대로 둔다
   useEffect(() => {
+    // T-0078 — 계산 결과가 없으면(읽기 실패) 대체 TASK 로 탭 기억 · 주소 문맥(map_task · ws · 일회성 복귀 키)을 덮지 않는다 — 재조회 뒤 같은 문맥에서 잇는다
+    if (!view) return
     SESSION_CTX.selected = selected
     SESSION_CTX.ws = ws
     SESSION_CTX.modal = modal
@@ -124,7 +147,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
     if (lit && ws) url.searchParams.set('ws', ws)
     else url.searchParams.delete('ws')
     if (url.href !== window.location.href) window.history.replaceState(window.history.state, '', url.href)
-  }, [selected, ws, modal, lit])
+  }, [selected, ws, modal, lit, view])
   // 지도 진입(목표 점수만 — 숫자) · TASK 열기(닫힌 열거형). 옛 지도가 보내던 계측을 그대로 잇는다(D2 · D3)
   useEffect(() => {
     track({ name: 'csat_map_viewed', props: { goal: goalSet ? g.goal : 0 } })
@@ -255,7 +278,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
     <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet}>
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
-      <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>
@@ -447,6 +470,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 }
 
 function Node({ t, wide, selected, order, link, faded, dim, need, evidence, onClick }: { t: GraphTask; wide: boolean; selected: boolean; order: number | null; link: WsLink | null; faded: boolean; dim: boolean; need: string | null; evidence: string; onClick: () => void }) {
+  const Icon = AXIS_ICON[t.domain as CoreCode]
   return (
     <button
       type="button"
@@ -466,9 +490,13 @@ function Node({ t, wide, selected, order, link, faded, dim, need, evidence, onCl
       aria-label={`${t.display} ${t.name} — ${evidence}${need ? ` · ${NEED_V62_LABEL[need as keyof typeof NEED_V62_LABEL] ?? ''}` : ''}${order ? ` · 먼저 볼 순서 ${order}` : ''}${link ? ` · 고른 Workspace 의 ${link === 'core' ? '중심' : '지원'} TASK` : ''} · ${selected ? '다시 누르면 자세히 · Esc 초점 해제' : '누르면 초점 · 다시 누르면 자세히'}`}
       onClick={onClick}
     >
-      <span className={u.nodeName}>
-        <span className={u.nodeCode}>{t.display}</span>{' '}{t.name.replace(/\(통합 관찰\)$/, '')}</span>
-      {wide && <span className={u.nodeState}>{t.hold ? '보류 · 측정 방법 정하는 중' : evidence}</span>}
+      {/* 3B Access map 노드 — 아이콘 타일(영역) + 이름 한 줄 + 보조 한 줄. 좁은 개요 열에서는 타일 · 보조 줄 없이 이름만 */}
+      {wide && <span className={u.nodeTile} data-domain={t.domain} aria-hidden="true"><Icon size={16} strokeWidth={1.8} /></span>}
+      <span className={u.nodeText}>
+        <span className={u.nodeName}>
+          <span className={u.nodeCode}>{t.display}</span>{' '}{t.name.replace(/\(통합 관찰\)$/, '')}</span>
+        {wide && <span className={u.nodeState}>{t.hold ? '보류 · 측정 방법 정하는 중' : evidence}</span>}
+      </span>
       {order !== null && <span className={u.nodeOrder} aria-hidden="true">{order}</span>}
       {selected && <span className={u.nodeMore} data-testid="node-more" aria-hidden="true"><MoreVertical size={12} /></span>}
     </button>

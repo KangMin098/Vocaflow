@@ -493,7 +493,13 @@ test.describe('내비게이션 기본기', () => {
 
     for (const h of samples) {
       await page.goto(textHref, { waitUntil: 'domcontentloaded', timeout: 45_000 });
-      await pills.locator(`a[href="${h}"]`).first().click();
+      // 활동은 그룹 펼침 메뉴 안에 있다(2026-10-19) — 닫혀 있으면 그 링크를 가진 메뉴부터 연다
+      const link = pills.locator(`a[href="${h}"]`).first();
+      if (!(await link.isVisible())) {
+        const panelId = await link.evaluate((e) => e.closest('[id]')?.id ?? '');
+        await pills.locator(`button[aria-controls="${panelId}"]`).click();
+      }
+      await link.click();
       const target = h.split('?')[0];
       await page.waitForURL((u) => u.pathname === target, { timeout: 90_000 });
       await expect(page.getByText(ERROR_SCREEN)).toHaveCount(0);

@@ -19,7 +19,7 @@
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
-import { ArrowLeft } from 'lucide-react'
+import { ArrowLeft, LogIn } from 'lucide-react'
 
 
 import { DcpPlayer } from '@/components/practice/DcpPlayer'
@@ -77,7 +77,7 @@ export default async function TextbookPracticePage({
   const loginHref = `/login?${RETURN_PARAM}=${encodeURIComponent(`/library/textbooks/${series}/${step}/practice`)}`
 
   return (
-    <Screen width="compact" background="bg2" padX="md">
+      <Screen width="compact" background="bg2" padX="md" className="volume-practice-reference catalog-detail-reference">
       <div className="flex flex-col gap-4 py-6 md:py-8">
         <header className="flex flex-col gap-1">
           <Link
@@ -102,6 +102,7 @@ export default async function TextbookPracticePage({
             }
             className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-8 text-center shadow-[var(--sh-sm)]"
           >
+            {signedOut && <LogIn size={40} strokeWidth={1.4} aria-hidden className="volume-practice-reference__icon" />}
             {/* ⚠️ 상태 **셋**을 구별한다 — 로그인 필요 · 조회 실패 · 재고 없음.
                 셋을 뭉개면 각각 할 일이 다른데 같은 말을 듣는다.
                 특히 로그인 필요를 '잠시 뒤 다시' 로 적으면 **영원히 안 되는 것을 기다리게** 한다

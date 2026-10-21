@@ -13,7 +13,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { AreaHero } from '@/components/layout/AreaHero'
 import { MATERIAL_TONE } from '@/lib/design/tone'
-import { Screen } from '@/components/ui/ios'
+import { LibraryBrowseFrame } from '@/components/library/LibraryBrowseFrame'
+import { ComicsTabs } from '@/components/comic/ComicsTabs'
 import { createClient } from '@/lib/supabase/server'
 import { fetchComicCatalogResult } from '@/lib/comic/catalog'
 import {
@@ -132,14 +133,16 @@ export default async function LibraryComicsPage() {
   const readingCount = items.filter((i) => i.progressPct > 0 && !i.completed).length
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-5 py-6 md:py-8">
+    <LibraryBrowseFrame rail={<ComicsTabs variant="rail" />}>
+      <div className="comics-reference flex flex-col gap-5 py-6 md:py-8">
         {/* DD-68 — 서가와 같은 구역 머리. 타일은 tile-comics, 수치 알약은 만화 범주 색(MATERIAL_TONE.comic). */}
         <AreaHero
           kicker="만화 · Book Comics"
           title="책 만화"
           sub="같은 책, 그림으로 먼저 만나는 입구 — 줄거리를 잡고 나면 본문이 한결 수월해져요."
           tile="tile-comics"
+          desktopScene="scene-comics-v1"
+          desktopSub="그림으로 이야기를 잡고, 원문으로 이어가세요."
           tint={MATERIAL_TONE.comic.tint}
           stats={
             items.length > 0
@@ -154,6 +157,6 @@ export default async function LibraryComicsPage() {
 
         <ComicsBrowser items={items} loadError={catalogFailed} />
       </div>
-    </Screen>
+    </LibraryBrowseFrame>
   )
 }

@@ -1,0 +1,44 @@
+/* apps/web/src/components/textfit/fit-reference.css — public diagnosis PC only. */
+@media screen and (min-width: 1024px) {
+  .fit-reference__hero { display: grid; grid-template-columns: 1.25fr .85fr; align-items: center; gap: 48px; min-height: 270px; padding-top: 28px; padding-bottom: 28px; }
+  .fit-reference__hero > div { min-width: 0; }
+  .fit-reference__hero h1 { max-width: 18ch; margin-top: 12px; font-family: var(--font-serif); font-size: 48px; font-weight: 500; line-height: 1.2; }
+  .fit-reference__hero > div > p:last-child { margin-top: 16px; font-size: 18px; line-height: 1.65; color: var(--t2); }
+  .fit-reference__hero .reference-scene { width: 100%; max-width: 440px; height: 240px; object-fit: contain; justify-self: end; }
+  .fit-reference__stage { margin-top: 12px; }
+  /* Keep the existing small-screen Frame markup, open all three enclosing layers on PC. */
+  .fit-reference__stage > div,
+  .fit-reference__stage > div > div,
+  .fit-reference__stage > div > div > div,
+  .fit-reference__stage > div > div > div > div { padding: 0; border: 0; border-radius: 0; background: transparent; overflow: visible; }
+  .fit-tool { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, .9fr); gap: 32px 48px; align-items: start; }
+  .fit-tool > section { min-width: 0; padding: 0; border: 0; border-radius: 0; background: transparent; }
+  .fit-tool > [aria-label="칠해진 지문"] { grid-column: 1; grid-row: 1 / 3; border-top: 1px solid var(--bd); padding-top: 16px; }
+  .fit-tool > [aria-label="칠해진 지문"] > div:first-child label { font-size: 17px; }
+  .fit-tool > [aria-label="칠해진 지문"] > div:first-child { align-items: center; }
+  .fit-tool > [aria-label="칠해진 지문"] > div:first-child button { border-radius: 999px; }
+  .fit-tool > [aria-label="레벨 프로파일"] { grid-column: 2; grid-row: 1; border-top: 1px solid var(--bd); padding-top: 16px; gap: 20px; }
+  .fit-tool > [aria-label="레벨 프로파일"] > header > p:first-child { font-size: 22px; line-height: 1.5; }
+  .fit-tool [data-fit-words] { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 24px; }
+  .fit-tool [data-fit-words] > li { min-width: 0; border-width: 0 0 1px; border-radius: 0; background: transparent; padding: 10px 0; }
+  .fit-tool [data-fit-words] > li > span:first-child { overflow-wrap: anywhere; }
+  .fit-tool [data-fit-words] > li > span:last-child { margin-left: auto; flex-shrink: 0; }
+  .fit-tool > [aria-label="교육과정 기본 어휘"] { grid-column: 2; border-top: 1px solid var(--bd); padding-top: 20px; }
+  .fit-tool > [aria-label="수업에 쓰기"] { grid-column: 1 / -1; border-top: 1px solid var(--bd); padding-top: 28px; }
+  .fit-tool:not(:has(> [aria-label="레벨 프로파일"])) > [aria-label="칠해진 지문"] { grid-column: 1 / -1; max-width: 900px; }
+  .fit-reference__steps { margin-top: 88px; }
+  .fit-reference__steps > div { border-radius: 0; background: transparent; border-block: 1px solid var(--bd); padding: 32px 0; gap: 56px; }
+  .fit-reference__steps h2 { font-size: 32px; font-weight: 500; }
+  .fit-reference__steps ol { gap: 24px; }
+  .fit-reference__steps li img { width: 96px; }
+  .fit-reference__steps li > span:nth-last-child(2) { font-size: 16px; }
+  .fit-reference__faq { margin-top: 88px; }
+  .fit-reference__method { margin-top: 88px; }
+  .fit-reference__method > div { padding: 32px 0; border-width: 1px 0 0; border-radius: 0; background: transparent; gap: 56px; }
+  .fit-reference__method ul { list-style: none; padding: 0; gap: 24px; }
+  .fit-reference__method li { position: relative; padding-left: 44px; font-size: 15px; color: var(--t2); }
+  .fit-reference__method > div > div > p { color: var(--t2); }
+  .fit-reference__method li > svg { position: absolute; top: 3px; left: 0; }
+  .fit-reference--shared { max-width: 1360px; padding: 28px 40px 64px; }
+  .fit-reference--shared .fit-reference__hero { padding-top: 0; }
+}

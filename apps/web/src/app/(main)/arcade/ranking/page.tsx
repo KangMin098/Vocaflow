@@ -19,6 +19,8 @@
 import Link from 'next/link'
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import Image from 'next/image'
+import '@/components/game/ranking-reference.css'
 import RankingBoard, { RANKING_CSS } from '@/components/game/RankingBoard'
 import { GAME_CATALOG, type GameSlug } from '@/lib/game/catalog'
 import {
@@ -69,16 +71,19 @@ export default async function ArcadeRankingPage({
   )
 
   return (
-    <div className="rkp">
+    <div className="rkp ranking-reference">
       <style dangerouslySetInnerHTML={{ __html: RANKING_CSS + PAGE_CSS }} />
 
       <header className="rkp-head">
+        <div>
         <p className="rkp-eyebrow">Game Lab · Standings</p>
         <h1 className="rkp-title">랭킹</h1>
         <p className="rkp-sub">
           점수는 <strong>게임 안에서만</strong> 비교해요. 게임마다 점수 단위가 다르고
           단어 수에 따라 커지기 때문에, 전부 더해 줄 세우면 “누가 큰 단어장을 골랐나”를 재게 됩니다.
         </p>
+        </div>
+        <Image src="/illustrations/tines/scene-growth-v5.png" alt="" width={1200} height={800} sizes="(min-width: 1024px) 380px, 1px" className="ranking-reference__scene" />
       </header>
 
       <nav className="rkp-periods" aria-label="기간 선택">

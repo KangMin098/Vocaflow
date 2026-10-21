@@ -1,0 +1,17 @@
+// scripts/design/detail-reference-check.mjs — remaining actual public details, with learning writes blocked.
+import fs from 'node:fs'
+import path from 'node:path'
+import {createRequire} from 'node:module'
+import {blockLearningWrites} from './lib/read-only-context.mjs'
+import {installFreezeMotion,freezeMotion,settleImages} from './lib/freeze-motion.mjs'
+const require_=createRequire(path.join(process.cwd(),'apps/web/package.json')),{chromium}=require_('@playwright/test'),b=await chromium.launch(),rows=[],blocked=[]
+const phase='after',out=process.env.CAPTURE_OUT??'tmp/s19/after';fs.mkdirSync(out,{recursive:true})
+const routes=[['books','/library/books'],['book','/library/books/42f3bce4-5cae-4cda-ae40-f1da16d8ad99?preview=1'],['article','/library/scripts/14378d44-2e70-46d3-80a2-2dcf1def75c0'],['comic','/comics/restored/super-mystery-comics-csv06n06'],['volume','/library/textbooks/reading/1'],['practice','/library/textbooks/reading/1/practice'],['ranking','/arcade/ranking'],['library-redirect','/library','/library/books'],['comics-redirect','/comics','/comics/adapted']]
+try{for(const width of [1440,1280])for(const theme of ['light','dark']){const c=await b.newContext({viewport:{width,height:900},colorScheme:theme,reducedMotion:'reduce'});await blockLearningWrites(c,blocked);await c.addInitScript(t=>localStorage.setItem('vocaflow-theme',t),theme);const p=await c.newPage();await installFreezeMotion(p)
+for(const [state,route,destination] of routes){try{const response=await p.goto('http://localhost:3041'+route,{waitUntil:'domcontentloaded',timeout:60000});if(destination)await p.waitForURL(u=>u.pathname===destination,{timeout:15000});await p.waitForTimeout(900);await p.evaluate(()=>document.fonts.ready);await settleImages(p);await freezeMotion(p)
+const info=await p.evaluate(()=>({pathname:location.pathname,headings:[...document.querySelectorAll('h1')].filter(e=>e.getClientRects().length).map(e=>e.textContent),theme:document.documentElement.getAttribute('data-theme'),overflow:document.documentElement.scrollWidth>innerWidth+1,height:document.documentElement.scrollHeight,errorLike:/Application error|Unhandled Runtime Error|문제가 생겼습니다|페이지를 찾을 수 없|404: This page/.test(document.body.innerText),failedImages:[...document.images].filter(i=>i.complete&&!i.naturalWidth).length,links:[...document.querySelectorAll('main a')].map(a=>({text:a.textContent?.trim().slice(0,60),href:a.getAttribute('href')}))}))
+await p.screenshot({path:`${out}/${state}@${width}-${theme}.png`});if(width===1440&&theme==='light'&&info.height<=40000)await p.screenshot({path:`${out}/${state}@1440-light-full.png`,fullPage:true})
+const expected=destination??new URL(route,'http://localhost:3041').pathname,ok=response.status()===200&&info.pathname===expected&&!info.errorLike&&!info.overflow&&info.headings.length===1&&info.theme===theme
+rows.push({state,route,width,theme,status:response.status(),expected,ok,normalContent:!['practice','ranking'].includes(state)&&!(state==='comic'&&info.failedImages>0),...info});console.log(`${ok?'PASS':'FAIL'} ${state}@${width}-${theme}: ${info.pathname}`)
+}catch(e){rows.push({state,route,width,theme,ok:false,error:e.name,code:e.message.match(/net::[A-Z_]+/)?.[0]??null});console.log(`FAIL ${state}@${width}-${theme}: ${e.name}`)}}await c.close()}}finally{await b.close();fs.writeFileSync(`${out}/_report.json`,JSON.stringify({at:new Date().toISOString(),base:'http://localhost:3041',rows,blockedWrites:blocked.length},null,2))}
+console.log(`Renders ${rows.filter(r=>r.ok).length}/${rows.length}`)

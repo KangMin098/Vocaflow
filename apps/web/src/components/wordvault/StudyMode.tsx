@@ -13,6 +13,7 @@ import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-s
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
+import { useSessionEscape } from '@/components/layout/session-escape'
 import { useSpeech } from './hooks/useSpeech'
 import type { StudyState, WordItem } from './types'
 
@@ -56,9 +57,8 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
   const w = words[studyIndex]
   const progress = words.length > 0 ? Math.round((studyIndex / words.length) * 100) : 0
 
-  // **화면 안의 "← 종료" 를 안 눌러도** 평가가 남는다 — 이 화면은 풀스크린이 아니라
-  // 사이드바 링크·뒤로가기·새로고침으로 나가는 경로가 오히려 흔하고, 그 경로들은
-  // `finish()` 를 지나지 않는다(실측 2026-09-05).
+  // **종료 조작을 안 거쳐도** 평가가 남는다 — 세션 틀의 「세션 닫기」(링크) · 뒤로가기 · 새로고침으로
+  // 나가는 경로는 `finish()` 를 지나지 않는다(실측 2026-09-05 · 2026-10-18 전체화면 세션으로 옮긴 뒤에도 같다).
   useSrsFlushOnLeave()
 
   // 세션 종료(또는 마지막 단어 완료) 시 SRS 큐 → DB flush (멱등 가드, 1회)
@@ -167,30 +167,28 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
         else playMain()
       } else if (['1', '2', '3', '4', '5'].includes(e.key) && state === 'example-shown') {
         rateWord(parseInt(e.key) as 1 | 2 | 3 | 4 | 5)
-      } else if (e.key === 'Escape') {
-        finish('aborted')
       }
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [state, revealMeaning, revealExample, playMain, rateWord, finish])
+  }, [state, revealMeaning, revealExample, playMain, rateWord])
+
+  // Esc = 세션 종료. 이 화면은 이제 전체화면 세션 틀(SessionFrame) 안이라, 틀도 Esc 로 닫으려 한다 —
+  // 둘이 함께 들으면 이동이 두 번 일어난다. 세션 Esc 로 등록해 저장(flush) 후 종료를 이쪽이 맡는다.
+  useSessionEscape(() => {
+    finish('aborted')
+    return true
+  })
 
   if (!w) return null
 
   return (
     <div className="mx-auto max-w-[680px] px-s-4 py-s-2">
       {/* 상단 바 */}
+      {/* 나가기는 세션 틀 오른쪽 위 「세션 닫기」가 맡는다(다른 모듈 세션과 같은 자리 · 2026-10-18).
+          이 줄에는 진행과 이 세션만의 설정이 남는다. */}
       <div className="mb-s-6 flex items-center justify-between rounded-xl border border-bd bg-bg px-s-5 py-s-3">
-        <button
-          type="button"
-          onClick={() => finish('aborted')}
-          /* 66×36 이었다 — 44px 미만 탭 대상이었다(CLAUDE.md 절대 금지 · 실측 390px). 세로만 늘려 줄 배치는 그대로 둔다. */
-          className="py-s-2 inline-flex min-h-[44px] items-center gap-s-2 rounded-md px-s-3 font-display text-[13px] font-semibold text-t2 transition-all duration-fast hover:bg-bg2 hover:text-t1"
-        >
-          ← 종료
-        </button>
-
-        <div className="mx-s-5 flex flex-1 items-center gap-s-3">
+        <div className="mr-s-5 flex flex-1 items-center gap-s-3">
           <div className="h-[6px] flex-1 overflow-hidden rounded-[3px] bg-bg2">
             <div
               className="h-full rounded-[3px] shadow-[0_0_6px_rgba(59,130,246,0.3)] transition-all duration-slow"

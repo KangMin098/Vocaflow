@@ -23,6 +23,8 @@
 // 색: 단일 액센트(--p)의 밝기 변조만 — 사다리는 순서가 있는 축이라 4색 상태 토큰을 쓰면
 // 안 된다(그 토큰은 R(t) 4상태 전용이고, 여기 5칸과 의미가 다르다).
 
+import Image from 'next/image'
+
 import { RUNGS, formatDuration, type Ladder } from '@/lib/learner/growth-math'
 
 /** 칸이 오를수록 진해진다 — 순서 있는 축의 시각 부호. */
@@ -42,9 +44,9 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
     return (
       <section
         aria-label="기억이 버티는 시간"
-        className="tone-lavender rounded-[var(--r-2xl)] px-5 py-6 md:px-8 md:py-8"
+        className="growth-memory-detail tone-lavender rounded-[var(--r-2xl)] px-5 py-6 md:px-8 md:py-8"
       >
-        <Eyebrow />
+        <Image src="/illustrations/tines/spot-memory.webp" alt="" width={1328} height={1328} sizes="144px" className="mb-6 hidden h-36 w-36 object-contain lg:block" />
         <p className="mt-4 max-w-[42ch] font-editorial text-[24px] font-[500] leading-[1.3] tracking-[-0.014em] text-[var(--t1)] [word-break:keep-all] md:text-[30px]">
           {unseen > 0
             ? '아직 한 번도 다시 만난 단어가 없어요.'
@@ -66,9 +68,8 @@ export function DurabilityLadder({ ladder }: { ladder: Ladder }) {
   return (
     <section
       aria-label="기억이 버티는 시간"
-      className="tone-lavender rounded-[var(--r-2xl)] px-5 py-6 md:px-8 md:py-8"
+      className="growth-memory-detail tone-lavender rounded-[var(--r-2xl)] px-5 py-6 md:px-8 md:py-8"
     >
-      <Eyebrow />
 
       {/* 히어로 수치 — 중앙값. 평균이 아니라 중앙값인 이유: 한 단어가 유난히 오래 버티면
           평균이 통째로 끌려가 "내 기억이 이만큼 간다" 는 착각을 만든다. */}
@@ -189,10 +190,3 @@ function fmtFirstMet(iso: string): string {
   return `${parseInt(m, 10)}월 ${parseInt(d, 10)}일`
 }
 
-function Eyebrow() {
-  return (
-    <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t3)]">
-      기억이 버티는 시간
-    </p>
-  )
-}

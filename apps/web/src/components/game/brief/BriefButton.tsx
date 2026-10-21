@@ -18,6 +18,8 @@ import { useState } from 'react'
 import GameBriefModal, { type BriefEntry } from '@/components/game/brief/GameBriefModal'
 
 interface Props {
+  /** PC 서가에서만 열린 규칙/그림 표현을 쓴다. 실제 게임 호출부는 기존 표현을 유지한다. */
+  catalogPresentation?: boolean
   entries: BriefEntry[]
   /** 계열 카드에서 열 때의 계열명 — 다이얼로그 머리글에 표기 */
   familyName?: string
@@ -37,6 +39,7 @@ interface Props {
 }
 
 export default function BriefButton({
+  catalogPresentation = false,
   entries,
   familyName,
   subject,
@@ -70,7 +73,7 @@ export default function BriefButton({
       </button>
 
       {open && (
-        <GameBriefModal entries={entries} familyName={familyName} onClose={() => setOpen(false)} />
+        <GameBriefModal catalogPresentation={catalogPresentation} entries={entries} familyName={familyName} onClose={() => setOpen(false)} />
       )}
     </>
   )

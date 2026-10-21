@@ -7,13 +7,13 @@
 //
 // 사용:
 //   node scripts/worktree.mjs list                 # 전체 worktree + ahead/behind
-//   node scripts/worktree.mjs new <suffix> [base]  # 기존 공간 재사용, 없을 때 생성 (base 기본 origin/main)
+//   node scripts/worktree.mjs new <suffix> [base]  # 기존 공간 재사용, 없을 때 최신 main 계열 기준 생성
 //   node scripts/worktree.mjs remove <suffix> [--del-branch]
 //   node scripts/worktree.mjs sync                 # fetch --all --prune + 상태 요약
 //
 // pnpm 별칭: pnpm wt <subcommand>
 //
-// 규약: 디렉터리 = <parent>/Vocaflow-<suffix>, 브랜치 = feat/<suffix> (base 분기)
+// 규약: 디렉터리 = <parent>/Vocaflow-<suffix>, 브랜치 = feat/<suffix> (뒤처지지 않은 main 기준)
 //       new 시 pnpm install --frozen-lockfile 자동 실행 (worktree 마다 node_modules 필요).
 
 import { execSync, execFileSync } from 'node:child_process'
@@ -86,7 +86,7 @@ function aheadBehind(branch) {
 function cmdList() {
   const wts = listWorktrees()
   console.log('')
-  console.log(`  \x1b[1mVocaflow worktrees\x1b[0m (vs ${MAIN_BRANCH})`)
+  console.log(`  \x1b[1mVocaflow worktrees\x1b[0m (origin/main 우선 비교 · 로컬 ref, 원격 최신 확인 별도)`)
   console.log('  ' + '─'.repeat(72))
   for (const w of wts) {
     const isRoot = path.resolve(w.dir) === REPO_ROOT
@@ -103,14 +103,21 @@ function validSuffix(suffix) {
 }
 
 function defaultBase() {
-  try { sh('git rev-parse --verify refs/remotes/origin/main'); return 'origin/main' }
+  try { sh('git rev-parse --verify refs/remotes/origin/main') }
   catch { return MAIN_BRANCH }
+  const ancestor = (left, right) => {
+    try { execFileSync('git', ['merge-base', '--is-ancestor', left, right], { cwd: REPO_ROOT, stdio: 'pipe' }); return true }
+    catch { return false }
+  }
+  if (ancestor('origin/main', MAIN_BRANCH)) return MAIN_BRANCH
+  if (ancestor(MAIN_BRANCH, 'origin/main')) return 'origin/main'
+  fail('main과 origin/main이 갈라졌습니다. 통합 기준을 확인하고 base를 명시하세요.')
 }
 
-function cmdNew(suffix, base = defaultBase(), install = true) {
+function cmdNew(suffix, base, install = true) {
   if (!suffix) fail('suffix 필요. 예: node scripts/worktree.mjs new payments')
   validSuffix(suffix)
-  if (!/^[a-zA-Z0-9][a-zA-Z0-9/_.-]*$/.test(base) || base.includes('..')) fail('base 는 유효한 ref 이름이어야 합니다.')
+  if (base !== undefined && (!/^[a-zA-Z0-9][a-zA-Z0-9/_.-]*$/.test(base) || base.includes('..'))) fail('base 는 유효한 ref 이름이어야 합니다.')
 
   const dir = path.join(PARENT, `${NAME_PREFIX}${suffix}`)
   const branch = `feat/${suffix}`
@@ -121,6 +128,7 @@ function cmdNew(suffix, base = defaultBase(), install = true) {
     console.log(`기존 작업 공간 재사용: ${existing.dir} [${branch}] (변경·브랜치·서버 유지)`)
     return
   }
+  base ??= defaultBase()
   if (fs.existsSync(dir)) fail(`등록되지 않은 디렉터리를 덮어쓰지 않습니다: ${dir}`)
   let branchExists = false
   try {
@@ -220,7 +228,7 @@ switch (sub) {
     console.log(`Vocaflow worktree 헬퍼
 
   node scripts/worktree.mjs list                 전체 worktree + main 대비 ahead/behind
-  node scripts/worktree.mjs new <suffix> [base]  기존 feat/<suffix> 공간 재사용, 없으면 origin/main 기준 생성 + pnpm install
+  node scripts/worktree.mjs new <suffix> [base]  기존 feat/<suffix> 공간 재사용, 없으면 최신 main 계열 기준 생성 + pnpm install
                                                --no-install: 의존성 설치 생략
   node scripts/worktree.mjs remove <suffix> [--del-branch]
   node scripts/worktree.mjs sync                 fetch --all --prune 후 상태 요약

@@ -311,7 +311,7 @@ function EmptyRow({ text, href }: { text: string; href: string }) {
       className="flex items-center justify-between px-4 py-4 transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)]"
     >
       <span className="font-body text-[13px] text-[var(--t2)]">{text}</span>
-      <ChevronRight size={16} className="text-[var(--t2)]/70" aria-hidden />
+      <ChevronRight size={16} className="text-[color-mix(in_srgb,var(--t2)_70%,transparent)]" aria-hidden />
     </Link>
   )
 }

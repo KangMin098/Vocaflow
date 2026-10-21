@@ -23,14 +23,14 @@ const ranks = (order: string[], action: string[], blocked: Record<string, string
   notActionable: Object.entries(blocked).map(([task, reason]) => ({ task, reason })),
 }) as never
 const saved = (tasks: { task: string; stage: string; planned: number | null; available: number | null }[]) => ({
-  status: 'installed', goalVersionId: 1, byTemplate: { 'ws.a': { latest: { version: 3, plan: { order: tasks.map((t) => t.task), tasks }, canon: 'x' } } },
+  status: 'installed', goalVersionId: 1, byTemplate: { 'ws.a': { latest: { version: 3, goalVersionId: 1, plan: { order: tasks.map((t) => t.task), tasks }, canon: 'x' } } },
 }) as never
 
 describe('goalPlanRows', () => {
   it('P1-1 — 상단 CTA 와 같은 관문: 저장 계획 없음 = plan · 저장 뒤 자료 변화 = replan · 그때는 실행 링크 없음', () => {
     const v = view([tp('a.one')])
     expect(goalPlanRows(v, ranks(['a.one'], ['a.one']), { status: 'installed', byTemplate: {}, goalVersionId: 1 } as never).rows[0]).toMatchObject({ action: null, planGate: 'plan', blocked: null })
-    expect(goalPlanRows(v, ranks(['a.one'], ['a.one']), saved([{ task: 'a.one', stage: 'check', planned: 1, available: 1 }])).rows[0]).toMatchObject({ action: null, planGate: 'replan' })
+    expect(goalPlanRows(v, ranks(['a.one'], ['a.one']), saved([{ task: 'a.one', stage: 'check', planned: 1, available: 1 }])).rows[0]).toMatchObject({ action: null, planGate: 'replan', replanWhy: 'content' })
     expect(goalPlanRows(v, ranks(['a.one'], ['a.one']), saved([{ task: 'a.one', stage: 'check', planned: 1, available: 2 }])).rows[0]).toMatchObject({ planGate: null, action: { rank: 1 } })
   })
   it('P1-2 — 관련성 미확인은 목표 필요 수에 넣지 않는다(행은 지우지 않음)', () => {

@@ -218,3 +218,71 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 - 이어 보기: 지금 유효(current=true)한 교수 납품만 「이어서 보기 · 대조하기」(withMapReturn + outgoingCtx · map_item/map_attempt 제거). 철회 · 미확인 · 지난 기준은 노트만. 지금 설명판과의 대조 완료를 주장하지 않는다(학습 화면 판 검사에 맡김). 노트 조회는 G2 · As-Is · PLAN · 숙달로 세지 않는다.
 - 검증(로컬): learning-notes 7 · learning-notes-panel 5(렌더 · 상태 · 링크 문맥) · web vitest 515 files · tsc 0 · lint 0. 인증 격리: map-return-recap 의 T-0063 노트 여정을 확장(키보드 펼치기 → 처음/고친 계보 → 유효 안내 연습으로 이동 → 같은 지도 복귀 · 결속/계획 행 수 불변) — 미실행 NOT_VERIFIED, T-0070 A/B 와 같은 공식 통합 묶음 CI 에서 실행. jsdom/testing-library 가 없어 늦은 응답 버림은 단위가 아닌 코드 구조(순번)로만 보장.
 - rev1 REWORK R1(Codex T0071-P1-1): 패널은 그 범위(보는 사람 · TASK · 납품 id 집합 — 안정 문자열)에서 읽은 노트 원본만 저장하고, 묶음 · 현재 자격 · 링크는 렌더마다 최신 rows 로 계산(notesView). 범위가 바뀌면 이전 결과 · 진행 중 요청을 순번으로 버리고 열려 있으면 다시 읽음 · rows 배열 참조만 바뀌면 재조회 없음. 납품 목록 오류 · 미설치 · 준비 중이면 이전 노트 · 링크 없이 확인 못 함. 철회 뒤 같은 본인 노트는 읽기만. viewer 를 WorkspaceModal → AuthoredSupplyCard → 패널로 전달. 검증: Codex Chromium 컴포넌트 프로토콜 수정 사본 11/11(완료 대기만 새 정상 동작으로) · 단위 15 · csat 2696.
+
+## 19. T-0072 — 목표 변경 뒤 이전 PLAN 구분 · 새 목표 계획 확정 연결 (2026-10-21)
+
+- 판정: `next-action.goalMismatch(ws, saved)` — 그 묶음 최신 저장 PLAN 의 goalVersionId ≠ 지금 목표 버전이면(옛 계획 null 포함 · 저장본 조회 실패/없음은 판단 안 함) 단계 · 자료 · 수량이 같아도 지금 목표의 확정 계획이 아니다. replanNeeded 가 이를 포함 → 상단 CTA(nextActionOf · replanWhy=goal) · 요약(goalPlanRows · planGate=replan · replanWhy) · 편집기(PlanSection)가 같은 판정.
+- 화면: 상단 「계획 다시 확정하기」 + 목표 변경 이유 문구 · 요약 「목표가 바뀌었어요 — 지금 목표로 다시 확정한 뒤 시작」 · 편집기는 「저장됨」 대신 그때 목표 기준 안내(plan-goal-changed · 저장/지금 목표 버전) · 기본 저장 사유 goal_change. 같은 목표는 저장량 · 실행 링크 그대로. 과거 모드는 보기 전용.
+- 저장: 기존 PlanSection 제출 · 서버 CAS(expectedVersion = 현재 저장 버전 · expectedGoalVersion = 지금 목표) · 멱등 키 재사용 — 학습자가 누를 때만 append-only 새 버전, 숨은 POST 없음. 확정 뒤 router.refresh 재조회로 새 목표 결속이 확인돼야 저장됨(확정 중 목표가 또 바뀌면 저장됨 아님). 이전 PLAN · 목표 이력 · G2 · 최초 독립 근거는 그대로.
+- 검증(로컬): Codex goal-version probe 5/5(반례 3 · 정상 2) · next-action 목표 결속 5(옛 계획 · 조회 실패 대조 포함) · plan-goal-refresh 렌더 3 · csat 2704 · tsc 0 · lint 0. 실제 Chromium(실제 React PlanSection · POST 모의 · refresh=재조회 흉내) 5/5: 1440/1280 새 목표 → 안내 → 키보드 재확정(body reason=goal_change · expectedGoalVersion=지금 · expectedVersion=현재) → 재조회 뒤 저장됨 · 확정 중 목표 재변경 → 저장됨 아님 · 같은 목표 정상(숨은 POST 0) · 과거 보기 전용. 인증 격리 `goal-plan-version` 1440/1280 작성 — NOT_VERIFIED, 다음 공식 통합 묶음 CI.
+- PR #328 REWORK(Codex T0072-P1-2): 첫 CI 39551480304 의 상단 CTA 는 같은 TASK(r.central_meaning · data-kind=supply) — 지금 할 활동이 없을 때 nextActionOf 가 자료 받기/기다림 분기를 목표 판정보다 먼저 골랐다(앞선 「다른 TASK」 설명은 틀렸다 · 정정). 최소 수정: 저장 PLAN 이 다른 목표에 묶였으면(goalMismatch) 보류 아닌 한 자료 받기·기다림 전에 같은 묶음 계획 다시 확정(replanWhy=goal). 저장 전 · 같은 목표 부족=자료 받기 · 보류 · 조회 실패는 그대로. 반례(실제 ranksOf · 자료 0) 이식 · goal-plan-version 에 재확정 전 상단 단언 복원 + 재확정 뒤 같은 TASK 자료 받기.
+
+## 20. T-0073 — 시험 기록 없는 학습자의 목표에서 첫 직접 확인까지 (2026-10-21)
+
+- GoalRecordBar: 목표 있음 · 시험 기록 0 · 직접 근거 0(no_record)에서도 기존 nextActionOf 의 다음 행동(저장 전 계획 확정 · 자료 받기 · 시작 · 기다림 이유)을 상단 주 행동으로 쓴다. 상태는 no_record 그대로 · 추천 아래 「기출 기록이 없어 근거가 부족해요 — 약점으로 정한 것은 없어요」 안내 유지(umap-no-record-note) · 「또는 기출 한 회 기록하기」는 보조. 다음 행동이 없으면 예전처럼 기록 CTA. 목표 없음 · 과거 보기는 실행 행동 없음. T-0072 목표 재확정 보호 그대로. 새 순위 · 진단 · 수량 · 저장 없음.
+- 검증(로컬): Codex no-record-start probe 3/3(기준 1 실패 → 통과 · 대조 2 유지) · no-record-start 5(계획 확정 · 같은 목표 자료 0 = 자료 받기 · 목표 변경 재확정 · 목표 없음 · 과거) · map-state-direct 3 · map/diagnosis 1335 · tsc 0 · lint 0. 실제 Chromium(실제 GoalRecordBar · 고정 데이터) 4/4: 1440/1280 미측정 안내 + plan CTA 키보드 → 같은 Workspace 계획 탭 · 기록 보조 · 넘침 0 / 목표 없음 · 과거 대조. 인증 격리 `map-no-record-start` 1440/1280(기록 0 → 목표 → plan 확정 → 자료 받기 → 필요 시 재확정 → start → 혼자 확인 1회 → 같은 Workspace → G2 근거 1 · 시험 기록 0 유지) 작성 — NOT_VERIFIED, 다음 공식 통합 묶음.
+
+## 21. T-0074 — 지금 확인한 범위 vs 정본 도달 조건 (2026-10-21)
+
+- GoalPlanSummary: 직접 확인(basis direct_check) 행에 기존 근거 칩(EvidenceChips · view.evidence)을 함께 보인다 — 지금 정책 통과여도 「시간 지나 다시 확인 · 아직 근거 없음」(delayedRetention NOT_ESTABLISHED)이 옆에 남고, 통과 행에는 「지금 정책의 다시 확인은 통과했어요 — 도달 조건의 「다른 날」 유지는 아직 확인하지 않았어요」 안내. 범위 자료 없음 = 「확인할 수 없어요 — 0개라는 뜻은 아니에요」 · 원장 불명확 = 범위 확인 불가 안내. 직접 근거 없는 행에는 칩 · 안내 없음. GoalRecordBar 이유 문구에도 다시 확인 근거 없음. 정본 도달 조건 원문 · 새 판정 · 숙달/학습 효과/장기 유지 문구 없음.
+- 검증(로컬): Codex criterion-scope probe 3/3 · criterion-scope 렌더 5 · 관련 21 · tsc 0 · lint 0. 실제 Chromium(실제 React GoalPlanSummary · 고정 데이터) 2/2: 1440/1280 통과 · 미측정 · 원장 불명확 행 · 키보드 펼치기 · 넘침 0. 인증 격리 journey pass 분기에 요약 칩 · 안내 단언 추가 — NOT_VERIFIED, 다음 공식 통합 묶음.
+
+## 22. T-0075 — 풀이 저장 뒤 자료 연결 실패 복구 · 같은 수행 지도 복귀 (2026-10-21)
+
+- AuthoredRunner 「다시 연결하기」: fetch 거절 · HTTP 오류 · JSON 모양 이상을 잡아 「방금 다시 연결하지 못했어요 — 풀이와 답은 그대로」 + 같은 버튼(키보드)으로 재시도. 결과 · 답 · clientMutationId · deliveryId 보존, 답 재전송 · 새 시도 없음, 반복 클릭 잠금 · finally 복원 유지. 첫 응답에 결속 메타가 없으면 「연결됐는지 확인하지 못했어요」 + 다시 연결하기(이전엔 아무것도 안 보였다).
+- 결속 문구(binding-feedback.ts): evidence===true 만 「혼자 해낸 근거」. false 는 DB CHECK 닫힌 사유 7개만 사실대로(철회 · 첫 노출 아님 · 노출 확인 불가 · 자격 변경 · 납품 무효 · 도움 상태 불일치 · 연습 자료). 누락 · null · 미지 사유 = 확인 못 함 — 「연습 · 도움 받은 풀이」로 추정하던 문구 제거.
+- 복귀: bind API 가 boundAttemptId(학습자 세션 · user_id · 결속 id 로 결속 행의 attempt_id — server.ts 정상 제출과 같은 helper)를 함께 돌려주고, Runner 는 양의 정수만 받아 map_attempt 로 잇는다. 조회 실패 · 남의 결속 · 없음 = null(이번 활동 특정 안 함). 새 표 · SQL · 판정 없음.
+- 검증(로컬): binding-feedback 6 · bind route 3 · PGlite authored-flow 45(복구 멱등 · 같은 수행 id · 시도/결속 행 수 불변 · 다른 학습자/결속 아님/모르는 id null 포함) · authored Runner/delivery-binding 관련 · tsc 0 · lint 0. 실제 Chromium(실제 AuthoredRunner · 통제 HTTP 응답 · 인증/DB 아님) 16/16: 1440/1280 × unknown · revoked · network(첫 거절 → 키보드 재시도 성공) · http · shape · recovered · 메타 손실 · normal — 시도 POST 1 · bind 같은 제출 id/납품 · 오류 0 · 넘침 0. 인증 journey 에 통제 손실(실제 저장 · 결속 후 첫 응답 메타만 삭제) → 실제 bind API → 같은 attempt 복귀 · 시도/G2/PLAN 행 수 불변 단언 추가 — NOT_VERIFIED, T0074 와 한 공식 통합 묶음.
+- REWORK(Codex T0075-P1-1 · 023c8474d): 안내 연습 A 다시 연결 대기 중 「다시 풀기」 → 새 제출 B 저장 → 늦은 A 응답이 B 결과에 map_attempt=41 을 붙였다. 수정: 다시 연결 중 again 핸들러 · 버튼 잠금 + 응답 도착 시 보낸 제출과 지금 제출이 다르면 응답 버림(stale). P2: 비근거 사유는 표의 자기 키만(Object.hasOwn — toString 등 상속 키 = 확인 못 함). 검증: Codex race 장치 1440/1280 통과(재시도 비활성 · 오류 0) · 기존 16/16 재통과 · 관련 26 · tsc 0 · lint 0.
+
+## 23. T-0076 — 지도 근거 설명을 창작 학습 순환의 기록 · 바로잡기 판정에 맞춤 (2026-10-21)
+
+- evidence-claims: 읽기 키 = PLAN · As-Is 와 같은 evidenceKeysOfTask(정본 확인 키 + 창작 채점 키) · 대표 키는 정본 키 우선. 바로잡기 = repairGate · lifecycle 와 같은 repairSuccess(막힌 기출 재시도 · 결속된 같은 TASK 안내 연습, 판단 · 서버 수신 모두 회차 뒤) — 결속 없음 · 수신 없음 · 이전 회차 · 다른 TASK · 창작 평가 재풀이는 성공 아님(PLAN 과 일치). 창작 첫 시도 결속 없음/불일치 = 「받은 자료와의 연결을 확인할 수 없음」(도움 · 해설 뒤라고 쓰지 않음).
+- compose: 정본 확인 키가 없어도 창작 키가 있는 TASK(e.task_demand 등)의 근거 설명 생성 · 키가 전혀 없는 TASK 는 계속 생략.
+- EvidenceBlock: 「이번 판정의 독립 확인 N문항」(currentCheck 원값)과 상세 기록(현재 주석까지 확인된 독립 확인 · 전체 기간 / 원장 못 읽음 = 확인 보류)을 분리. hashes 없는 창작 기록 = 주석 UNKNOWN 유지. PLAN · 진단 · 정본 · SQL · API 변경 없음.
+- 검증(로컬): Codex probe 6/6(기준선 4 fail · 2 pass) · evidence-claims-independent 12(probe 이식 + 원인별 대조 + 결속 불일치) · compose-authored-evidence 3(실제 composeV4) · vitest related 19 파일 217 · tsc 0 · lint 0. 실제 Chromium(실제 React EvidenceBlock · evidenceView 실제 계산 · 고정 데이터) 14/14: 1440/1280 안내 연습 오답 = 해 봤어요 · 정답 = 맞혀 봤어요 · 창작 직접 확인 · 평가 재풀이(성공 아님) · 기출 재시도 · 원장 불명확(확인 보류) · 이번 판정 2문항 · 키보드 · 넘침 0. 인증 journey 의 안내 연습 오답 · 정답 직후 근거 상세(팝업 → 자세히 키보드) 단언 추가 — NOT_VERIFIED, 다음 공식 일일 sync 묶음.
+- REWORK(Codex T0076-P1-1 · f9c036845): 원장(첫 시도 · 수행)을 다 읽지 못했는데 헤더가 「이번 판정의 독립 확인 0문항」이라 했다. 수정: ledger unknown 이면 「이번 판정 문항 수 확인 보류」 · data-current-items 생략(읽힌 빈 원장의 0 은 그대로). 검증: Codex probe + unknown-count 9/9(이전 7 · 2 fail) · 근거 관련 16 파일 143 · Chromium 14/14(원장 불명확 행 = 확인 보류) · tsc 0 · lint 0.
+
+## 24. T-0077 — 계획 재확정 전후의 단계 · 학습량 변화 설명 (2026-10-21)
+
+- PlanSection(기존 Workspace 계획 패널): ① 저장 전 — 최신 저장본 → 지금 화면 제안(shown = applySaved · quantityBasis · applyDraft 결과)의 바뀐 TASK 만 「단계 · 계획량 · 쓸 수 있는 자료 old → new」 + 「아직 저장하지 않았어요」, 목표가 바뀌었으면 기존 goalLabel 로 그때 → 지금. 순서만 바뀌면 순서 변화. 저장본 없음 = 비교할 저장본 없음 · 조회 실패 = 비교 불가 · 과거 보기 = 제안 비교 없음. ② 이력 — 각 버전 TASK 에 저장 당시 단계 + 계획량(같은 2문항의 확인 · 바로잡기 구분, 미정은 미정). ③ 저장된 변화 한 번 — 최신과 바로 앞 버전(version-1)만, 잘린 이력 = 비교 불가, 사유는 저장된 사유 라벨.
+- plan-change.ts(순수): 단위는 각 쪽 단계 단위(적용 = 지문 · 그 밖 = 문항) · 서로 빼거나 합하지 않음 · null 은 미정. 판정 · 수량 · 순위 · 자동 POST 없음. submit · 저장 상태 · 409 · 복원 · 초안 핸들러 변경 없음.
+- 검증(로컬): Codex NEXT-PLAN-CHANGE probe 3/3(기준선 1 fail · 2 pass) · plan-change 5 · plan-change-summary 7(실제 PlanSection 렌더) · PlanSection related 13 · tsc 0 · lint 0. 실제 Chromium(실제 React PlanSection · 고정 데이터 · router shim) 16/16: 1440/1280 제안 check2 → repair2 · 저장된 변화(이력 details 키보드 펼침) · 같은 저장본(저장됨 · 비교 없음) · 가용 null(미정) · 목표만 변경 · 조회 실패 · 과거 보기 · 넘침 0. 인증 goal-plan-version 에 재확정 전 제안(그때/지금 목표) · 저장 뒤 저장된 변화 · 이력 단계 단언 추가 — NOT_VERIFIED, 다음 공식 일일 묶음.
+
+## 25. T-0078 — 수행 기록 조회 실패 때 MAP · PLAN 을 0건으로 다시 만들지 않고 복구 (2026-10-21)
+
+- 판정 한 곳(v62/evidence-read.ts): 확인 첫 시도 · 수행 기록이 배열(빈 [] 포함)이면 ok, undefined 면 읽지 못함. composeV4 는 읽지 못함이면 null(0건 진단 · repair 재계획 · not_checked 계획 없음). instrumentHashes 만 모르는 경우는 기존 UNKNOWN 표시 그대로.
+- load.ts — 이미 하던 조회의 오류를 같은 신호로: 창작 첫 시도 결속 오류(이전: 결속 없음으로 삼킴) → 첫 시도 원장 undefined · 안내 연습 결속 오류 → 수행 기록 undefined · 창작 납품(확인 · 바로잡기) · 확인 연결 오류 → 둘 다 undefined. 정상 0행 · 명시 비유효(철회) · 미설치 표(정상 []) 의미 그대로. 새 조회 · SQL · 권한 변경 없음.
+- API: POST 계획 저장 · POST 자료 받기 — 읽지 못함이면 503 evidence_unavailable, commitPlan · requestAuthoredSupply 0회. 같은 clientKey 의 이미 성공한 영수증(prior)은 그 앞에서 그대로 · 본문 다르면 기존 409.
+- 화면: UnifiedLearningMap 은 읽지 못함이면 MapReadUnavailable(읽지 못했음 · 0건/부족 아님 · 계획 확정/자료 받기 안 엶 · 다시 불러오기 한 번 = router.refresh). 지도 본체는 읽힌 데이터가 오면 새로 마운트돼 복귀 문맥으로 시작, 읽지 못한 동안 SESSION_CTX · 주소(map_task · ws · 일회성 키) 덮어쓰기 없음. PlanSection · AuthoredSupplyCard 는 503 evidence_unavailable 을 미설치 · 공급 준비 중과 다른 문구로.
+- 검증(로컬): Codex probe 4/4(기준선 2 fail · 2 pass) · evidence-read 2 · compose-evidence-read 6 · compose-authored-evidence 4(원장 못 읽음 기대 = null 로 갱신 · 이유 주석) · load-evidence-read 5(결속 · 안내 연습 · 납품 오류 vs 정상 0행 · 철회 · 미설치) · plan route 3(503 · 저장 0 · 영수증 우선 · 409) · supply 4 · map-read-unavailable 2 · tsc 0 · lint 0. related 첫 실행 첫 실패 보존: plan-goal-binding 6건(모의 로드에 원장 필드 없음 → 503) — Codex 범위 승인 뒤 그 모의에 읽힌 빈 원장 [] 만 추가, 6/6. 실제 Chromium(실제 React 지도 · 계획 · 자료 받기 · 모의 HTTP) 12/12: 1440/1280 복구 화면(행동 CTA 0 · POST 0) → 키보드 재조회 1회 → 같은 map_task · ws · map_item 으로 정상 지도 · 계획/자료 받기 503 문구 · 넘침 0. 인증 격리 map-read-recovery(읽힌 빈 원장 첫 사용자 = 복구 화면 아님 · 계획 저장 200) 작성 — NOT_VERIFIED. 한계: 서버 원장 조회만 실패시키는 장애 주입은 격리 e2e 로 만들 수 없어 실패 경로는 단위 · 라우트 · 컴포넌트 시험만.
+- REWORK(Codex T0078-P1-1 · f6876bd3b): 납품 유효성 RPC(workspace_delivery_current · supply_delivery_valid)가 둘 다 오류 · null 이어도 비유효로 접어 [] 를 돌려줬다(두 독립 실패를 「받은 자료 없음」으로). 수정: 성공한 명시 boolean 만 판정(본인 false = 비유효 · 대체 true/false = 그 판정), 둘 다 아니면 던져 기존 deliveriesRead=false → 원장 미확인. SQL · RPC · 권한 변경 없음. 검증: Codex delivery-validity 4/4 · load-evidence-read 7 · tsc 0 · lint 0.
+
+## 26. T-0079 — 홈 첫 제안을 현재 TASK 근거 · 지도 읽기 상태와 연결 (2026-10-21)
+
+- home-focus.homeFocusOf: 시험 기록 0 이어도 As-Is 에 basis direct_check 가 있으면 record(기록 없음)를 먼저 내지 않고 ranksOf 첫 행동(step)을 쓴다. 직접 근거는 있는데 행동이 없으면 pending(자료 · 단계 대기 — 「처음 시작 전」 아님). 직접 근거를 새로 계산 · 승격하지 않음.
+- home-focus.homeMapStateOf(새 · page.tsx 가 사용): 없음 = preparing · 보류 판정 실패 = error · 현대 DTO(v4 · now)인데 필수 원장 못 읽음(T-0078 evidenceReadOf) = error · held = withheld · 그 밖 ok(읽힌 빈 [] = 정상 첫 진입). 기존 pickHomeSuggestion 우선순위 그대로.
+- HomeLanding 문구: no_records = 「아직 시험 기록도 직접 확인도 없어요 — 약점을 정한 것은 아니에요. 지도에서 계획을 정하고 받은 자료로 바로 확인을 시작할 수 있어요 …」(시험 기록 입력 필수 문구 삭제) · records_only = 다음 단계(자료 · 대기 이유 포함) 확인. 새 CTA · 저장 · API 없음.
+- 검증(로컬): Codex NEXT-HOME-MAP-ALIGNMENT probe 3/3(기준선 1 fail · 2 pass) · home-focus 4(직접 근거 · 목표 없음 · 진짜 빈 원장 · 원장 undefined = error · held · failed · null) · HomeLanding render + home-suggestion 22 · tsc 0 · lint 0. 실제 Chromium(실제 React HomeLanding · mapData null · router/link shim) 6/6: 1440/1280 직접 근거(check · 키보드 「지도에서 보기」 → #umap-h) · 오류(키보드 다시 열기 = refresh 1회) · 진짜 첫 사용자(no_records 새 문구) · 넘침 0 · 계획/공급 POST 0(분석 이벤트 beacon 은 기존 D2 · 별도 집계). 인증 격리 home-map-evidence(기록 0 → 목표 → 계획 → 자료 → 혼자 확인 1 → 홈이 no_records 아님 · 시험 기록 0 유지) 작성 — NOT_VERIFIED, 다음 공식 일일 묶음.
+
+## 27. T-0080 — 홈 「확인 이어하기」가 실제 TASK · Workspace 를 복원 (2026-10-21)
+
+- HomeLanding continue_check 링크: mapReturnQuery({ task }) → mapReturnQuery({ mapTask, ws }). home-progress 의 check.task 는 지도 TASK id 인데 과거 활동 키 칸(task)으로 보내 지도가 TASK 선택으로 쓰지 않았다 — 같은 탭의 옛 SESSION_CTX 선택이 남았다. map_item · map_attempt · map_plan · map_goal 은 만들지 않음. 저장 계획 관문 · 추천 우선순위 · 진단 · 계획 이어하기 분기 무변경.
+- 검증(로컬): HomeLanding render 7(진짜 링크를 parseMapReturn 으로 읽어 mapTask · ws = progress · task null · 수행 문맥 키 없음) · tsc 0 · lint 0. 실제 Chromium(실제 React UnifiedLearningMap · Codex T-0078 compose fixture · 같은 모듈 런타임 재마운트) 4/4: 1440/1280 다른 TASK(v.core_meaning) 키보드 선택 뒤 map_task 링크 문맥 → r.central_meaning · ws.central-meaning 복원 / 대조 옛 task 링크 → 옛 선택 남음(반례 재현). 인증 home-map-evidence(T0079-P2-1 보완): 독립 확인 1회 뒤 continue_check 카드 링크(map_task · task 없음)를 키보드로 따라 같은 TASK · 묶음 지도, 앞서 지도에서 다른 TASK 선택 — NOT_VERIFIED, 다음 공식 일일 묶음.
+
+## 28. T-0081 — 홈 저장 계획 이어보기가 실제 미완료 TASK · Workspace 로 (2026-10-21)
+
+- home-progress.mapProgressOf: 저장 계획 제안에 task 추가 — 이미 계산한 applySaved(v.plans[id], sw.latest) 의 TASK 행 중 계획량이 있고 수행량이 못 미친 첫 행(계획 순서). 못 찾으면 그 묶음 이어보기를 닫는다(핵심 TASK 복사 · 추정 없음). 묶음 우선순위 · 계획량 · 수행량 · 단계 판정 · 과거 보기/목표 없음/미설치/조회 실패/원장 미확인/완료 보호 그대로.
+- HomeLanding continue_plan 링크: mapReturnQuery({ ws }) → ({ mapTask: plan.task, ws }). 수행 문맥 키 없음 · 재확정 관문 우회 · 자동 저장 없음. continue_check(T-0080) · 다른 우선순위 무변경.
+- 검증(로컬): home-progress 7(최소 유효 TASK 행 추가 · 중심 완료 + 보조 남음 = 보조 행 · 남은 행 없음 = 닫음 · 기존 완료/없음/에러 단언 보존) · HomeLanding render 7(계획 링크 parseMapReturn = mapTask/ws · task null · 수행 키 없음) · tsc 0 · lint 0. 실제 Chromium(실제 mapProgressOf + UnifiedLearningMap · Codex compose fixture + 저장 계획) 2/2: 1440/1280 다른 TASK(v.core_meaning) 키보드 선택 → 계획 카드 링크 문맥 재진입 = r.central_meaning · ws.central-meaning 복원. 인증 home-map-evidence: 평가 본문 첫 노출 전(계획 · 공급 뒤 start 전) 다른 TASK 선택 → 홈 continue_plan 키보드 → 같은 TASK · 묶음(기존 G2 독립 1 · 시험 0 단언 유지) — NOT_VERIFIED, 다음 공식 일일 묶음.
+- REWORK(Codex T0081-P1-1 · 39051223d): 이어갈 행 선택이 묶음 집계(applySaved progress · 정본상 중심 TASK 만) 게이트 안에 있어 중심 2/2 완료 · 중심 배정 null 인데 보조 4/1 이 남은 실제 계획을 닫았다(제출 시험은 집계를 6/3 으로 흉내 내 가렸다). 수정: 실제 TASK 행에서 미완료 첫 행을 집계와 무관하게 선택 · 집계 값은 그대로(null = 말하지 않음) · 카드에 「이어갈 항목: TASK 행 양 · 단위」를 따로. 옛 모의 시험은 완료/계획량 없음을 행 값으로 표현하게 고침. 검증: Codex 실제 applySaved 5/5 · home-progress(실제 applySaved 3 포함) + render 18 · tsc 0 · lint 0 · Chromium 2/2(카드 이름/양 출처 · map_task/ws 복원).

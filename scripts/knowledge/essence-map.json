@@ -1,0 +1,64 @@
+{
+  "note": "영역별 본질·원리·방법론 초안(분석자 추론). 전부 in_review 로 적재하고 공부법(L4) 118 → 방법론(L3) → 원리(L2) → 본질(L1) 을 implements 로 잇는다. 기존 원리 7개(LEARNING_MODEL)는 slug 로 재사용한다.",
+  "essence": [
+    { "slug": "essence-meaning-processing", "title": "의미 처리", "skills": ["skill:reading", "skill:listening"], "statement": "글과 말의 의미 구조를 영어 어순대로 누적 복원하고, 문장 사이를 연결 단서로 이으며, 과제가 요구하는 정보를 끝까지 붙잡는다. (분석자 추론 초안 — 독해·듣기 공부법에서 도출)" },
+    { "slug": "essence-memory-retrieval", "title": "기억 · 인출", "skills": ["skill:vocabulary"], "statement": "소리·뜻·쓰임을 한 덩어리로 묶어 저장하고, 간격을 두고 스스로 꺼내 보며 필요한 순간 빠르게 인출한다. (분석자 추론 초안 — 어휘·학습 관리 공부법에서 도출)" },
+    { "slug": "essence-sound-meaning", "title": "소리 ↔ 의미", "skills": ["skill:listening", "skill:pronunciation"], "statement": "조음 위치와 연결·축약·리듬·억양을 듣고 재현해, 이어진 소리를 실시간으로 의미 단위에 대응시킨다. (분석자 추론 초안 — 듣기·발음 공부법에서 도출)" },
+    { "slug": "essence-production", "title": "산출", "skills": ["skill:speaking", "skill:writing", "skill:grammar"], "statement": "아는 표현을 즉시 꺼내 쓰는 자동화와, 먼저 만들어 본 뒤 모범과 대조해 고치는 순환으로 산출 능력을 키운다. 모르는 것은 아는 말로 풀어 전달한다. (분석자 추론 초안 — 말하기·쓰기·문법 공부법에서 도출)" }
+  ],
+  "principles_new": [
+    { "slug": "sequential-processing", "title": "순차 누적 처리", "essence": "essence-meaning-processing", "statement": "영어 문장은 앞에서부터 의미 덩어리를 쌓으며 처리하고, 동사를 만나면 뒤에 올 정보를 예상한다. 되돌아 읽기보다 어순대로의 누적이 실시간 이해의 조건이다. (추론 초안)" },
+    { "slug": "cohesion-cues", "title": "응집 단서", "essence": "essence-meaning-processing", "statement": "연결사·지시어·반복되는 핵심어가 문장과 문단을 잇는다. 이 단서를 추적하면 글의 구조와 요지가 드러난다. (추론 초안)" },
+    { "slug": "task-directed-attention", "title": "과제 지향 주의", "essence": "essence-meaning-processing", "statement": "질문이 요구하는 대상·조건을 먼저 잡고 그 기준으로 끝까지 정보를 선별해야 오답 유인을 피한다. (추론 초안)" },
+    { "slug": "phonological-decoding", "title": "소리 해독", "essence": "essence-sound-meaning", "statement": "연결·축약·약형·묵음 같은 실제 소리 변화를 인식하고 재현할 수 있어야 들은 소리를 단어와 의미로 대응시킨다. 부분→전체, 느리게→빠르게로 쌓는다. (추론 초안)" },
+    { "slug": "output-automatization", "title": "산출 자동화", "essence": "essence-production", "statement": "아는 구조라도 반복해서 직접 말하고 써야 즉시 꺼낼 수 있다. 문장 틀을 바꿔 쓰고 실제 상황에서 쓰는 것이 자동화를 만든다. (추론 초안)" },
+    { "slug": "feedback-comparison", "title": "피드백 대조", "essence": "essence-production", "statement": "먼저 스스로 판단·산출하고 그 근거를 모범(해설·시범·이전 녹음)과 대조할 때 오류가 드러나고 고쳐진다. (추론 초안)" }
+  ],
+  "principles_existing": [
+    { "slug": "active-recall", "essence": "essence-memory-retrieval" },
+    { "slug": "spaced-repetition", "essence": "essence-memory-retrieval" },
+    { "slug": "dual-coding", "essence": "essence-memory-retrieval" },
+    { "slug": "context-dependent", "essence": "essence-memory-retrieval" },
+    { "slug": "desirable-difficulty", "essence": "essence-meaning-processing" }
+  ],
+  "methods": [
+    { "slug": "method-cumulative-reading", "title": "어순대로 누적 해석", "skills": ["skill:reading"], "principles": ["sequential-processing"], "statement": "문장을 의미 덩어리로 끊어 앞에서부터 뜻을 쌓고, 동사 뒤 정보를 예상하며, 부정 표현처럼 뜻을 뒤집는 요소를 놓치지 않는다." },
+    { "slug": "method-cohesion-tracking", "title": "연결 단서로 글 잇기", "skills": ["skill:reading"], "principles": ["cohesion-cues"], "statement": "연결사·지시어·정관사가 가리키는 대상을 찾아 문장과 문단의 앞뒤 관계를 판단한다(순서·삽입·문맥 어휘)." },
+    { "slug": "method-gist-synthesis", "title": "반복 메시지로 요지 잡기", "skills": ["skill:reading", "skill:listening"], "principles": ["cohesion-cues"], "statement": "반복되는 핵심어와 소재·필자 생각을 합쳐 주제·제목·목적·빈칸 내용을 판단한다." },
+    { "slug": "method-task-cue-marking", "title": "과제 조건 먼저 잡기", "skills": ["skill:listening", "skill:reading"], "principles": ["task-directed-attention"], "statement": "질문이 묻는 대상·조건·선지 차이를 먼저 표시하고, 시간·풀이 순서를 정한 뒤 끝까지 그 기준으로 정보를 선별한다." },
+    { "slug": "method-reasoned-review", "title": "근거 기록 후 해설 대조", "skills": ["skill:reading"], "principles": ["feedback-comparison"], "statement": "풀이할 때 판단 근거를 적고, 맞힌 문제까지 해설과 근거를 대조해 판단 방식을 교정하고 다른 기출에 적용한다." },
+    { "slug": "method-judge-then-explain", "title": "먼저 판단·산출 후 설명과 비교", "skills": ["skill:grammar", "skill:speaking", "skill:writing"], "principles": ["feedback-comparison"], "statement": "표현·문장의 적절성을 먼저 스스로 판단하거나 만들어 본 뒤, 설명과 비교해 차이를 확인한다." },
+    { "slug": "method-sound-image-mnemonic", "title": "소리·장면·동작으로 단어 묶기", "skills": ["skill:vocabulary"], "principles": ["dual-coding"], "statement": "단어 소리와 닮은 장면, 그림, 몸짓을 뜻과 연결해 하나의 기억 덩어리로 만든다." },
+    { "slug": "method-retrieval-check", "title": "회상 · 자기 시험", "skills": ["skill:vocabulary"], "principles": ["active-recall"], "statement": "보기 전에 먼저 뜻을 떠올리고(3초 회상·그림 회상·플래시카드), 떠오르지 않는 것을 다시 익힌다." },
+    { "slug": "method-contextual-usage", "title": "맥락 속 쓰임 넓히기", "skills": ["skill:vocabulary"], "principles": ["context-dependent"], "statement": "표현의 용례·제약을 다른 맥락 예문으로 확인하고 원래 장면으로 돌아가며, 예문·관련어로 단어장을 보강한다." },
+    { "slug": "method-listen-then-verify", "title": "먼저 듣고 나중에 확인", "skills": ["skill:listening"], "principles": ["phonological-decoding", "feedback-comparison"], "statement": "자막·대본 없이 듣고 안 들린 곳을 표시한 뒤, 자막·질문으로 이해를 확인하고 다시 듣는다." },
+    { "slug": "method-graded-input", "title": "난도 조절된 입력", "skills": ["skill:listening", "skill:reading"], "principles": ["desirable-difficulty"], "statement": "대부분 이해되되 새 표현을 문맥으로 짐작할 수 있는 자료를 고르고, 한 화자→여러 화자, 기출→새 문제처럼 단계적으로 난도를 올린다." },
+    { "slug": "method-articulation-buildup", "title": "조음 위치에서 문장까지", "skills": ["skill:pronunciation"], "principles": ["phonological-decoding"], "statement": "혀 위치·소리 하나를 잡고 음절→단어→문장으로, 느리게→빠르게 확장한다." },
+    { "slug": "method-shadowing", "title": "따라 말하기 · 쉐도잉", "skills": ["skill:pronunciation", "skill:speaking"], "principles": ["phonological-decoding", "output-automatization"], "statement": "모델 음성을 멈춤 구간이나 거의 동시에 따라 말하며 연결·억양·리듬을 재현한다. 한 번에 특징 하나에 집중한다." },
+    { "slug": "method-record-compare", "title": "녹음·관찰로 비교", "skills": ["skill:pronunciation"], "principles": ["feedback-comparison"], "statement": "연습 전후 녹음을 비교하거나 소리 내어 읽는 모습을 관찰해 변화와 현재 상태를 확인한다." },
+    { "slug": "method-frame-substitution", "title": "문장 틀 바꿔 말하기", "skills": ["skill:speaking"], "principles": ["output-automatization"], "statement": "익힌 문장 틀의 동사·명사·의도·시제를 바꿔 여러 문장을 직접 만들어 말한다. 완벽보다 끝까지 만드는 데 우선한다." },
+    { "slug": "method-immediate-use", "title": "배운 표현 즉시 실제 사용", "skills": ["skill:speaking", "skill:writing"], "principles": ["output-automatization", "context-dependent"], "statement": "배운 표현을 그날 AI·사람과의 대화, 질문 답변, 짧은 글에서 의도적으로 사용한다." },
+    { "slug": "method-circumlocution", "title": "아는 말로 풀어 말하기", "skills": ["skill:speaking"], "principles": ["output-automatization"], "statement": "정확한 단어·속담이 떠오르지 않으면 뜻을 아는 문장 구조로 풀어 전달한다." },
+    { "slug": "method-sustainable-routine", "title": "지킬 분량 매일 · 약점 집중", "skills": [], "principles": ["spaced-repetition"], "statement": "현실적으로 지킬 분량을 매일 반복하고 계획표를 보이는 곳에 두며, 약점 하나에 시간을 정해 집중한다. 중요 자료는 간격을 두고 여러 번 다시 본다." }
+  ],
+  "practice_to_method": {
+    "method-cumulative-reading": ["yt-99a68bb0de0b", "yt-c57564aec01e", "yt-d397a709a6ad"],
+    "method-cohesion-tracking": ["yt-1ef6021a4c42", "yt-35075c1a4ca6", "yt-5f25a9aaae31", "yt-73acacd051f9", "yt-ad1b08cb178f"],
+    "method-gist-synthesis": ["yt-1593238b1044", "yt-87bfa6b5023d", "yt-c95774942e97", "yt-e425f865bb34", "yt-e4ce5f5963d2"],
+    "method-task-cue-marking": ["yt-03953d81e1e1", "yt-2c8187e0c925", "yt-3e249cb13916", "yt-54db10ebf0c4", "yt-591b9f0f6092", "yt-5e0a34c46d8d", "yt-8d7512fb4476", "yt-967ea91ce0b3", "yt-bac70bcdb538", "yt-c0edf3599d26", "yt-d56b79303664"],
+    "method-reasoned-review": ["yt-1305414fbff0", "yt-39182b3161fb", "yt-5c042469425f", "yt-702197df7425", "yt-7463360832d2", "yt-d3d809b498b9", "yt-dc602af3162a", "yt-fd1a7c8788d4"],
+    "method-judge-then-explain": ["yt-02ac85cd0e3f", "yt-082fa254eca2", "yt-1b254ffeb8b5", "yt-6ae9674915e3", "yt-fa839681ebd6"],
+    "method-sound-image-mnemonic": ["yt-0aee231700b9", "yt-0d4d7cff2ed2", "yt-38746c8a2adc", "yt-6b4377ac07c3", "yt-88613c9e216e", "yt-8d07340ca704", "yt-8feac374f068", "yt-ae3d4fc0fc95", "yt-af0706b042eb", "yt-d763c78b13bd", "yt-dd7570ab30c6", "yt-fc1a9e45f0b9"],
+    "method-retrieval-check": ["yt-7763b1b74490", "yt-84cc4b15e8b8", "yt-e1d46b370ddb", "yt-eff8141ae54d"],
+    "method-contextual-usage": ["yt-0da0aca1b535", "yt-499bd0ab09f2", "yt-68556dc67235", "yt-85ed834c1c9f", "yt-936fa988d291", "yt-d726be9a169f", "yt-f40252e03593"],
+    "method-listen-then-verify": ["yt-8a004f6678db", "yt-963226b269ea", "yt-dcee68458747"],
+    "method-graded-input": ["yt-27abead1f353", "yt-65001f929393", "yt-6eaeebc6d413", "yt-8c94b34b43ea"],
+    "method-articulation-buildup": ["yt-0759a8572920", "yt-41638cd4d6cc", "yt-4e924feba71d", "yt-54e5f31cd4c4", "yt-96f6faf06cfe", "yt-aced784373a0", "yt-f9786c68e8fd"],
+    "method-shadowing": ["yt-139e69ec0972", "yt-43aac30cf57e", "yt-45b7b755323d", "yt-4ca9bfd5d239", "yt-5a19693c15bd", "yt-5a8a72639f3a", "yt-647f1d756a53", "yt-72c1bb5af9f2", "yt-7d7417de13f5", "yt-8f4b63d61ae8", "yt-c4c44412c35c", "yt-ceb7a02fc3d1", "yt-d42c013a01d3", "yt-d7e75f718da1", "yt-e78e1f681bda", "yt-f71e37afd7cd"],
+    "method-record-compare": ["yt-3d2bae45c9f5", "yt-40db2769b879"],
+    "method-frame-substitution": ["yt-08fb151ededc", "yt-439ba6689717", "yt-5408a3165940", "yt-82297a3baefe", "yt-a0dd760bdef5", "yt-ababfaf8fd7a", "yt-cb80fb2ccd13", "yt-d4f74691bc3f", "yt-d7356bc92086"],
+    "method-immediate-use": ["yt-13c697f09cc4", "yt-3d636e55f672", "yt-3f749d15f565", "yt-928527bfa980", "yt-96b74334a8cb", "yt-9c5de396956b", "yt-b0958d2f9d43", "yt-c20b85938175", "yt-e07f1ea8ee22", "yt-fb85f881ce90"],
+    "method-circumlocution": ["yt-1035be840630", "yt-e5307ae493e0"],
+    "method-sustainable-routine": ["yt-343c533a8131", "yt-348c658dee97", "yt-43bc67f9799d", "yt-55b4889ef98e", "yt-db02a23c1dbb"]
+  }
+}

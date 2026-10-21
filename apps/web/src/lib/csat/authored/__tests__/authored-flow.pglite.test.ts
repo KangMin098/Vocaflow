@@ -20,6 +20,7 @@ import { planWorkspaces } from '../../map/v4/workspace'
 import type { AttemptWrite, AttemptWriter } from '@/lib/knowledge/practice-writer'
 import { AUTHORED_SETS, R5_AUTHORED_SET, authoredRef, isAssessmentRole, registrationArgs, type AuthoredGold, type AuthoredSet } from '@/lib/knowledge/authored/authored-items'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
+import { bindDeliveryAttempt, boundAttemptId } from '../../map/v62/delivery-binding'
 import { applyAuthoredBindings } from '../evidence'
 import { listDelivered, openDelivered, recordAuthoredAttempt, requestAuthoredSupply } from '../server'
 import { FakeClient } from './pglite-supabase'
@@ -199,6 +200,25 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
     const again = await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-ind-1'), body, Date.now(), writer)
     expect(again.binding).toMatchObject({ status: 'bound', evidence: true })
     expect((await q1<{ n: number }>(`select count(*)::int n from public.workspace_delivery_attempt where user_id = $1 and artifact_ref = $2`, [A, ref('r5-cm-ind-1')])).n).toBe(1)
+  })
+
+  it('T-0075 복구 — 같은 제출 id 다시 연결 = 같은 결속 · 본인 결속 행의 같은 수행 id · 시도/결속 행 수 불변 · 다른 학습자는 특정 불가', async () => {
+    // 앞 시험에서 이미 저장 · 결속된 제출(새 시도를 만들지 않는다 — 이 화면의 「다시 연결하기」와 같은 조건)
+    const saved = await q1<{ id: string; cmid: string; bid: string; ev: boolean }>(`select a.id::text id, a.client_mutation_id::text cmid, w.id::text bid, w.evidence ev from public.learning_task_attempts a join public.workspace_delivery_attempt w on w.attempt_id = a.id where a.user_id = $1 and a.item_ref = $2 order by a.id limit 1`, [A, ref('r5-cm-ind-1')])
+    const body = { deliveryId: await dOf(A, ref('r5-cm-ind-1')), clientMutationId: saved.cmid }
+    const first = { attemptId: saved.id, binding: { id: saved.bid, evidence: saved.ev } }
+    expect(first.attemptId).toMatch(/^[1-9][0-9]*$/)
+    const count = async () => (await q1<{ a: number; b: number }>(`select (select count(*)::int from public.learning_task_attempts where user_id = $1) a, (select count(*)::int from public.workspace_delivery_attempt where user_id = $1) b`, [A]))
+    const before = await count()
+    const input = { userId: A, itemRef: ref('r5-cm-ind-1'), clientMutationId: body.clientMutationId as string, artifactKind: 'authored_item' as const, deliveryId: body.deliveryId }
+    const rebound = await bindDeliveryAttempt(learner(A), input)
+    expect(rebound).toMatchObject({ status: 'bound', id: first.binding.id, evidence: first.binding.evidence })
+    expect(await boundAttemptId(learner(A), A, rebound)).toBe(first.attemptId)
+    expect(await count()).toEqual(before)
+    // 다른 학습자 · 결속 아님 · 모르는 id → 특정 불가(null) — 추정하지 않는다
+    expect(await boundAttemptId(learner(B), B, rebound)).toBeNull()
+    expect(await boundAttemptId(learner(A), A, { status: 'error' })).toBeNull()
+    expect(await boundAttemptId(learner(A), A, { status: 'bound', id: '00000000-0000-4000-8000-00000000dead' })).toBeNull()
   })
 
   it('단서를 연 혼자 확인 = 비근거(도움) · 교수 자료 풀이 = 연습 기록', async () => {

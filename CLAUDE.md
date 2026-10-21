@@ -17,7 +17,7 @@
 ## Supabase MCP (Claude 쪽)
 
 - 서버 이름 `supabase` — 정의는 `agents/mcp.source.json`, `.mcp.json` 은 생성물. 토큰은 셸 환경의 `SUPABASE_ACCESS_TOKEN`.
-- `mcp__supabase__apply_migration` 은 사용자가 SQL 을 본 뒤 승인한 경우에만 호출한다. 조회는 `execute_sql`.
+- `mcp__supabase__apply_migration` · `execute_sql` 은 도구 권한이 허용돼 있다(2026-10-21). 쓰기는 사용자가 대화에서 SQL 을 보고 승인하면 바로 호출한다 — 승인 전 호출 금지. 조회는 `execute_sql`.
 - 모델과 사고 수준은 작업 난도·지연·비용에 맞춰 선택한다. 특정 고비용 조합을 프로젝트에서 강제하지 않는다.
 
 ## 커밋 서명
@@ -28,6 +28,6 @@
 ## Codex 와 함께 일할 때
 
 - 분담·폴백 규칙: `agents/router.md`. 공통 브랜치 판단은 `AGENTS.md`와 `docs/WORKTREE.md`를 따르며 AI 교대·작업 단계 변경만으로 공간을 새로 만들지 않는다.
-- 자동 Codex 리뷰는 없다(2026-10-10 사용자 결정). Stop 훅·DB 게이트·오케스트레이터 모두 Codex 를 부르지 않는다. `review.mjs` · `codex review` 는 사용자가 요청할 때만 쓴다. 계획·머지 전에 Codex 리뷰를 돌리지 않는다.
+- 자동 Codex 리뷰는 없다(2026-10-10 사용자 결정). Stop 훅·DB 게이트·오케스트레이터 모두 Codex를 자동 호출하지 않는다. `review.mjs` · `codex review`는 실제 필요하거나 명시적 요청·독립 검토 계약이 있을 때만 선택한다. 일반 작업의 계획·커밋·통합에 추가 AI 리뷰를 강제하지 않는다.
 - 사용량 한도 메시지를 보면 즉시 `node agents/scripts/handoff.mjs claude codex` → 출력된 시작 명령을 사용자에게 전달.
 - 세션 시작 훅이 `.agent-handoff/latest.md` 요약을 주입하면, 첫 동작은 그 파일의 **수용 기준 재확인**이다.

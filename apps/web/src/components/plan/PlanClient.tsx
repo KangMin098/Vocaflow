@@ -370,9 +370,9 @@ export function PlanClient({
 
   return (
     // 폭/가로 패딩은 페이지의 <Screen width="wide" padX> 가 담당 — 내부 이중 제약(max-w-3xl·px) 금지
-    <div className="flex w-full flex-col gap-5 py-6 md:py-8">
+    <div className="plan-reference flex w-full flex-col gap-5 py-6 md:py-8">
       {/* Hero */}
-      <header>
+      <header className="account-reference__intro">
         {/* v07 — 둥근 아이콘 칩 + `Sparkles` 를 주묵 획으로. `Sparkles` 는 지금 AI 생성 UI 의
             공통 표식이라 화면마다 붙이면 출신 표시가 된다(00-inventory C4). */}
         <h1 className="flex items-center gap-2.5 font-editorial text-[24px] font-[600] text-[var(--t1)] md:text-[28px]">
@@ -387,6 +387,8 @@ export function PlanClient({
         <p className="mt-1.5 font-body text-[14px] leading-[1.6] text-[var(--t2)] [word-break:keep-all]">
           자료를 고르고 — 챕터·활동·요일을 클릭, 주간 보드에 쌓여요.
         </p>
+        {/* eslint-disable-next-line @next/next/no-img-element -- 자체 장면, PC 머리에서만 표시. */}
+        <img src="/illustrations/tines/scene-plan-board-v1.webp" alt="" width={1200} height={800} className="account-reference__scene hidden lg:block" />
       </header>
 
       {error && (
@@ -1220,10 +1222,15 @@ function ChapterList({
 // ── 도서 표지 (img + onError 폴백) ──
 function Cover({ url, title, className }: { url: string | null; title: string; className?: string }) {
   const [broken, setBroken] = useState(false)
+  const image = useRef<HTMLImageElement>(null)
+  useEffect(() => {
+    if (window.matchMedia('(min-width: 1024px)').matches && image.current?.complete && image.current.naturalWidth === 0) setBroken(true)
+  }, [url])
   if (url && !broken) {
     return (
       // eslint-disable-next-line @next/next/no-img-element
       <img
+        ref={image}
         src={url}
         alt={`${title} 표지`}
         loading="lazy"
@@ -1234,7 +1241,7 @@ function Cover({ url, title, className }: { url: string | null; title: string; c
   }
   return (
     <span
-      className={`flex items-center justify-center bg-gradient-to-br from-[var(--p-light)] to-[var(--bg3)] text-[var(--p)] ${className ?? ''}`}
+      className={`flex items-center justify-center bg-gradient-to-br from-[var(--p-light)] to-[var(--bg3)] text-[var(--p)] lg:bg-none lg:bg-[var(--tint-lavender)] ${className ?? ''}`}
       aria-hidden
     >
       <BookMarked size={16} strokeWidth={1.5} />

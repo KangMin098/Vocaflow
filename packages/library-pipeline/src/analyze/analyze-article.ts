@@ -70,14 +70,21 @@ export async function analyzeArticle(
     context_pos: w.context_pos,
   }))
 
-  // 6. library_article_vocabularies INSERT (chunk 분할 — 대용량 article 대비)
-  //    재처리 멱등 — 기존 vocab 전량 삭제 후 재삽입 (재분석 시 중복 누적 방지).
-  await client.from('library_article_vocabularies').delete().eq('library_article_id', articleId)
+  // 6. 새 분석을 먼저 저장한다. 선삭제하면 INSERT 실패 때 기존 어휘도 사라진다.
+  //    모든 upsert가 성공한 뒤, 시작 시점에 있던 불필요 어휘만 제거한다.
+  //    여러 요청을 묶은 트랜잭션은 아니므로 실패를 보고하고 같은 입력으로 재실행한다.
+  const { data: previous, error: readError } = await client
+    .from('library_article_vocabularies')
+    .select('word')
+    .eq('library_article_id', articleId)
+  if (readError) {
+    throw new Error(`library_article_vocabularies read failed: ${readError.message}`)
+  }
   if (words.length > 0) {
     const CHUNK = 500
     for (let i = 0; i < words.length; i += CHUNK) {
       const chunk = words.slice(i, i + CHUNK)
-      const { error } = await client.from('library_article_vocabularies').insert(
+      const { error } = await client.from('library_article_vocabularies').upsert(
         chunk.map((w) => ({
           library_article_id: articleId,
           word: w.word,
@@ -86,10 +93,25 @@ export async function analyzeArticle(
           base_learning_value: w.base_learning_value,
           context_pos: w.context_pos,
         })),
+        { onConflict: 'library_article_id,word' },
       )
       if (error) {
-        throw new Error(`library_article_vocabularies insert failed: ${error.message}`)
+        throw new Error(`library_article_vocabularies upsert failed: ${error.message}`)
       }
+    }
+  }
+  const currentWords = new Set(words.map((word) => word.word))
+  const staleWords = (previous ?? [])
+    .map((row: { word: string }) => row.word)
+    .filter((word: string) => !currentWords.has(word))
+  for (let i = 0; i < staleWords.length; i += 500) {
+    const { error } = await client
+      .from('library_article_vocabularies')
+      .delete()
+      .eq('library_article_id', articleId)
+      .in('word', staleWords.slice(i, i + 500))
+    if (error) {
+      throw new Error(`library_article_vocabularies cleanup failed: ${error.message}`)
     }
   }
 

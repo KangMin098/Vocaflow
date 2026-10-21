@@ -15,6 +15,7 @@
 
 import Link from 'next/link'
 import type { CSSProperties } from 'react'
+import { Layers3 } from 'lucide-react'
 
 import { GAME_MARKS, gamePlayHref, type GameEntry, type GameSlug } from '@/lib/game/catalog'
 import type { ResolvedCourse } from '@/lib/game/sets'
@@ -31,10 +32,12 @@ export interface CourseScope {
 const ROLE_ORDINAL = ['①', '②', '③', '④'] as const
 
 export default function CourseBoard({
+  catalogPresentation = false,
   resolved,
   scope,
   resourceLabel,
 }: {
+  catalogPresentation?: boolean
   resolved: ResolvedCourse
   scope: CourseScope
   /** 자료명 — "《오즈의 마법사》 Chapter 3" 처럼 이미 조립된 문자열 */
@@ -47,6 +50,7 @@ export default function CourseBoard({
   if (playable === 0) {
     return (
       <section className="crs" aria-labelledby="crs-title">
+        {catalogPresentation && <Layers3 size={52} strokeWidth={1.25} aria-hidden className="arc-course-icon hidden lg:block" />}
         <div className="crs-head">
           <p className="crs-eyebrow">Course</p>
           <h2 id="crs-title" className="crs-title">
@@ -70,6 +74,7 @@ export default function CourseBoard({
 
   return (
     <section className="crs" aria-labelledby="crs-title">
+      {catalogPresentation && <Layers3 size={52} strokeWidth={1.25} aria-hidden className="arc-course-icon hidden lg:block" />}
       <div className="crs-head">
         <p className="crs-eyebrow">Course · {playable}단계</p>
         <h2 id="crs-title" className="crs-title">

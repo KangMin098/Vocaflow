@@ -20,7 +20,7 @@ import {
   mapAuthError,
   mapCallbackError,
 } from '@/lib/auth/errors'
-import { resolveReturnTo } from '@/lib/auth/redirect'
+import { loginUrlWithReturn, resolveReturnTo } from '@/lib/auth/redirect'
 import { isValidEmail } from '@/lib/auth/validation'
 import { createClient } from '@/lib/supabase/client'
 
@@ -121,7 +121,7 @@ function LoginForm() {
         </h1>
         <p className="font-body text-sm text-t2">
           처음 오셨나요?{' '}
-          <Link href="/signup" className="font-semibold text-p underline-offset-4 hover:underline">
+          <Link href={loginUrlWithReturn(resolveReturnTo(searchParams), '/signup')} className="font-semibold text-p underline-offset-4 hover:underline">
             회원가입
           </Link>
         </p>

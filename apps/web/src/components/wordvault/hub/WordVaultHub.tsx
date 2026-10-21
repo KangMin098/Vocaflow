@@ -75,7 +75,7 @@ export function WordVaultHub({ data, facets, state }: WordVaultHubProps) {
   }
 
   return (
-    <div className="mx-auto flex max-w-[820px] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
+    <div className="vault-reference mx-auto flex max-w-[820px] flex-col gap-4 px-4 py-6 md:px-6 md:py-8">
       {/* Section 1 — Identity Hero: 자산 + V-Level + 4 bucket + 주간 목표 + 단일 CTA */}
       <VaultIdentity
         total={data.total}

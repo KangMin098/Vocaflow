@@ -49,7 +49,7 @@ const TYPE_BADGE: Record<BookType, { label: string; className: string }> = {
   },
   shared: {
     label: '공용 단어장',
-    className: 'bg-[var(--p)]/10 text-[#6D28D9]',
+    className: 'bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[#6D28D9]',
   },
   level: {
     label: '레벨',

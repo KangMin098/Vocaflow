@@ -10,7 +10,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { Volume2, X, Loader2, BookOpen } from 'lucide-react'
+import { Volume2, X, Loader2, BookOpen, ImageOff, RotateCcw } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
 
@@ -30,7 +30,7 @@ function tokenize(text: string): { raw: string; word: string | null }[] {
 }
 
 // issueId → admin preview(dev artifact). pages → 발행 학습자 경로(공개 URL, 서버가 주입).
-export default function PdModernReader({ issueId, pages: pagesProp, title: titleProp }: { issueId?: string; pages?: Page[]; title?: string }) {
+export default function PdModernReader({ issueId, pages: pagesProp, title: titleProp, publicPresentation = false }: { issueId?: string; pages?: Page[]; title?: string; publicPresentation?: boolean }) {
   const [pages, setPages] = useState<Page[] | null>(pagesProp ?? null)
   const [title, setTitle] = useState(titleProp ?? '복원 만화')
   const [err, setErr] = useState<string | null>(null)
@@ -38,6 +38,8 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
   const [vocabInfo, setVocabInfo] = useState<VocabInfo | null>(null)
   const [vocabBusy, setVocabBusy] = useState(false)
   const triggerRef = useRef<HTMLElement | null>(null)
+  const [failedPages, setFailedPages] = useState<string[]>([])
+  const [imageAttempts, setImageAttempts] = useState<Record<string, number>>({})
 
   useEffect(() => {
     if (pagesProp || !issueId) return // 발행 경로는 서버가 pages 주입 — fetch 안 함
@@ -88,7 +90,7 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
   if (!pages.length) return <div className="mx-auto max-w-[560px] px-4 py-16 text-center font-body text-[13px] text-[var(--t2)]">아직 페이지가 없습니다.</div>
 
   return (
-    <div className="mx-auto w-full max-w-[820px] px-3 pb-24 md:px-4">
+    <div data-public-reader={publicPresentation ? '' : undefined} className="mx-auto w-full max-w-[820px] px-3 pb-24 md:px-4">
       <header className="flex items-center gap-2 py-3">
         <BookOpen size={15} className="text-[var(--p)]" aria-hidden />
         <h1 className="truncate font-editorial text-[15px] font-[800] text-[var(--t1)]">{title}</h1>
@@ -96,16 +98,34 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
       </header>
 
       <ol className="flex flex-col gap-3">
-        {pages.map((pg) => (
+        {pages.map((pg, pageIndex) => (
           <li key={pg.page}>
-            <figure className="pd-page relative m-0 overflow-hidden rounded-[var(--r-md)] bg-[var(--bg3)] leading-[0] shadow-[0_2px_14px_rgba(0,0,0,0.14)]">
+            <figure tabIndex={publicPresentation ? -1 : undefined} data-public-pd={publicPresentation ? '' : undefined} data-image-failed={publicPresentation && failedPages.includes(pg.page) ? '' : undefined} className="pd-page relative m-0 overflow-hidden rounded-[var(--r-md)] bg-[var(--bg3)] leading-[0] shadow-[0_2px_14px_rgba(0,0,0,0.14)]">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
+                key={imageAttempts[pg.page] ?? 0}
                 src={pg.imageUrl ?? `/api/pdcp/artifact?issueId=${encodeURIComponent(issueId ?? '')}&rel=${encodeURIComponent(pg.imageRel ?? '')}`}
                 alt={pg.balloons.length ? pg.balloons.map((b) => b.text).join(' ') : `${pg.page} 페이지`}
-                loading="lazy"
+                loading={publicPresentation && (imageAttempts[pg.page] ?? 0) > 0 ? 'eager' : 'lazy'}
                 className="block w-full"
+                ref={publicPresentation ? (img) => {
+                  if (img?.complete && img.naturalWidth === 0) setFailedPages(previous => previous.includes(pg.page) ? previous : [...previous, pg.page])
+                } : undefined}
+                onError={publicPresentation ? () => setFailedPages(previous => previous.includes(pg.page) ? previous : [...previous, pg.page]) : undefined}
+                onLoad={publicPresentation ? (event) => {
+                  const figure = event.currentTarget.closest('figure')
+                  const restoreFocus = figure?.querySelector('.pd-image-failure')?.contains(document.activeElement)
+                  setFailedPages(previous => previous.filter(page => page !== pg.page))
+                  if (restoreFocus) requestAnimationFrame(() => figure?.focus({ preventScroll: true }))
+                } : undefined}
               />
+              {publicPresentation && failedPages.includes(pg.page) && (
+                <div className="pd-image-failure">
+                  <ImageOff size={28} strokeWidth={1.4} aria-hidden />
+                  <span>{pageIndex + 1}페이지 그림을 불러오지 못했어요.</span>
+                  <button type="button" onClick={() => setImageAttempts(previous => ({ ...previous, [pg.page]: (previous[pg.page] ?? 0) + 1 }))} aria-label={`${pageIndex + 1}페이지 그림 다시 불러오기`}><RotateCcw size={16} aria-hidden /> 다시 시도</button>
+                </div>
+              )}
               {pg.balloons.map((b, bi) => (
                 <div
                   key={bi}
@@ -168,6 +188,18 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
       {/* 오버레이 스타일 — 컨테이너 쿼리로 페이지 폭에 비례한 폰트(반응형). 원작 위 덮어쓰기 아님(HTML 레이어). */}
       <style jsx>{`
         .pd-page { container-type: inline-size; }
+        .pd-image-failure { display: none; }
+        @media (min-width: 1024px) {
+          [data-public-reader] > header { align-items: flex-start; padding-block: 24px; gap: 16px; }
+          [data-public-reader] > header h1 { font-family: var(--font-display); font-size: 28px; font-weight: 500; }
+          [data-public-reader] > header > span { font-size: 12px; line-height: 1.8; }
+          [data-public-pd][data-image-failed] { background: transparent; border-radius: 0; box-shadow: none; border-bottom: 1px solid var(--bd); }
+          [data-public-pd][data-image-failed] > img, [data-public-pd][data-image-failed] > .pd-lt { display: none; }
+          .pd-image-failure { display: flex; align-items: center; gap: 16px; min-height: 88px; padding: 16px; color: var(--ju-ink); font: 14px/1.6 var(--font-body); }
+          .pd-image-failure button { display: inline-flex; align-items: center; justify-content: center; gap: 8px; margin-left: auto; min-width: 112px; min-height: 44px; border: 1px solid var(--bd); border-radius: 999px; }
+          .pd-image-failure button:focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
+          [data-public-pd]:focus-visible { outline: 2px solid var(--p); outline-offset: 4px; }
+        }
         .pd-lt { position: absolute; display: flex; align-items: center; justify-content: center; padding: 1% 1.3%; text-align: center; }
         .pd-text { display: block; width: 100%; line-height: 1.16; font-weight: 600; letter-spacing: 0.1px; color: #1a1a1a; font-size: 2.3cqw; }
         .pd-bal { background: rgba(255,255,255,0.97); border: 0.28cqw solid #2a2a2a; border-radius: 46% / 52%; box-shadow: 0 0.2cqw 0.5cqw rgba(0,0,0,0.18); }

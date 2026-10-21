@@ -204,14 +204,16 @@ async function cmdVoice(): Promise<void> {
   const force = has('force')
   let made = 0
   let skipped = 0
+  let failed = 0
   for (const spec of specs) {
     const r = await synthesizeSpec(spec, { force })
     made += r.made
     skipped += r.skipped
+    failed += r.failed
     const missing = spec.scenes.length - Object.keys(r.manifest).length
-    // 구운 컷이 하나도 없으면 실패로 남긴다 — 콘솔에만 찍고 사라지면 아무도 모른다.
-    if (Object.keys(r.manifest).length === 0) {
-      await advance(spec.id, spec.kind, 'failed', { scenes: spec.scenes.length }, '나레이션을 한 컷도 못 구웠다')
+    // 일부 실패도 작업 원장에 남긴다. 이전 음성을 보존했어도 이번 재생성 실패는 실패다.
+    if (!r.complete || r.failed > 0) {
+      await advance(spec.id, spec.kind, 'failed', { scenes: spec.scenes.length, voice_clips: Object.keys(r.manifest).length }, `나레이션 실패 ${r.failed}컷 · 미완료 ${missing}컷 · 이전 유효 음성 유지 ${r.retained}컷`)
     } else {
       await advance(spec.id, spec.kind, 'voiced', {
         scenes: spec.scenes.length,
@@ -221,11 +223,13 @@ async function cmdVoice(): Promise<void> {
     }
     console.log(
       `${spec.id.padEnd(28)} 새로 ${String(r.made).padStart(2)} · 건너뜀 ${String(r.skipped).padStart(2)}` +
+        (r.failed > 0 ? ` · 실패 ${r.failed} · 이전 음성 유지 ${r.retained}` : '') +
         (missing > 0 ? `  ⚠ 못 구운 컷 ${missing}` : ''),
     )
   }
   const index = writeVoiceIndex()
-  console.log(`\n새로 ${made} · 건너뜀 ${skipped} · manifest ${Object.keys(index).length}편`)
+  console.log(`\n새로 ${made} · 건너뜀 ${skipped} · 실패 ${failed} · manifest ${Object.keys(index).length}편`)
+  if (failed > 0) process.exitCode = 1
 }
 
 async function renderOne(

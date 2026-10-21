@@ -6,6 +6,7 @@
 import type { Metadata, Viewport } from "next";
 import { ToastProvider } from "@/components/ui/Toast";
 import { DevicePreferences } from "@/components/layout/DevicePreferences";
+import { LearnerColorScope } from "@/components/layout/LearnerColorScope";
 import { SITE_URL } from "@/lib/seo/site";
 import "./globals.css";
 
@@ -98,10 +99,11 @@ const FONT_VARIABLE_CLASSES = [
 ].join(" ");
 
 /**
- * 화면 스킨 — 기본은 `tines`(사용자 결정 2026-09-21 「가장 닮음으로 우선 진행 후 평가」).
- * `NEXT_PUBLIC_SKIN=off` 로 기본을 끄고, 브라우저에서는 `?skin=off|tines` 가 localStorage 에 남는다.
+ * 화면 스킨 — 항상 `tines`(DESIGN.md · DD-83, 2026-10-03 사용자 결정: 학습자 PC = Tines).
+ * 예전의 끄는 길(환경변수 · 주소 쿼리 → localStorage)은 지웠다 — 기준을 해제하는 장치가
+ * 남아 있으면 검증 화면과 실제 화면이 갈린다. 관리자는 이 위에 `admin-app.css` 를 얹는다.
  */
-const DEFAULT_SKIN = process.env.NEXT_PUBLIC_SKIN ?? "tines";
+const SKIN = "tines";
 
 export const metadata: Metadata = {
   // 이게 없으면 Next 는 OG·canonical 을 **상대경로**로 내보내고, 상대 OG URL 은 대부분의
@@ -154,7 +156,7 @@ export default function RootLayout({
     <html
       lang="ko"
       className={FONT_VARIABLE_CLASSES}
-      data-skin={DEFAULT_SKIN === "off" ? undefined : DEFAULT_SKIN}
+      data-skin={SKIN}
       suppressHydrationWarning
     >
       <head>
@@ -167,11 +169,8 @@ export default function RootLayout({
                   var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
                   var theme = stored || (prefersDark ? 'dark' : 'light');
                   document.documentElement.setAttribute('data-theme', theme);
-                  var q = new URLSearchParams(location.search).get('skin');
-                  if (q === 'off' || q === 'tines') localStorage.setItem('vocaflow-skin', q);
-                  var skin = localStorage.getItem('vocaflow-skin');
-                  if (skin === 'off') document.documentElement.removeAttribute('data-skin');
-                  else if (skin) document.documentElement.setAttribute('data-skin', skin);
+                  // 옛 스킨 해제 저장값은 더 읽지 않고 지운다(DD-83).
+                  localStorage.removeItem('vocaflow-skin');
                   // 모션 취향도 **첫 페인트 전에** 칠한다 — globals.css §4.5 의 상시 루프는
                   // 마운트 뒤에 칠하면 끈 사람에게 한 프레임 번쩍인다(전환만 낮추던 때는 늦어도 됐다).
                   // 저장·동기화는 DevicePreferences 가 계속 맡는다(여기는 첫 칠만).
@@ -195,6 +194,7 @@ export default function RootLayout({
             저장은 설정 화면이 하지만 적용은 여기 한 곳이다. 테마는 위 선행 스크립트가
             첫 페인트 전에 칠하므로 여기서 다시 만지지 않는다(두 곳이 칠하면 깜빡인다). */}
         <DevicePreferences />
+        <LearnerColorScope />
         <ToastProvider>{children}</ToastProvider>
       </body>
     </html>

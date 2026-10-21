@@ -242,6 +242,7 @@ export function VocabSetCarousel({ sets, subscribedIds, pendingId, isLoggedIn, o
         키보드: 표지 묶음은 탭 정지 하나(roving tabindex) — ←/→ 한 권, ↑/↓ 한 선반, Home/End 처음·끝.
       */}
       <div
+        data-vocab-wall
         className="relative mx-[calc(50%-50vw)] self-stretch overflow-hidden bg-[var(--bg2)]"
         style={{ fontFamily: 'var(--font-admin-sans), "Pretendard Variable", Pretendard, system-ui, sans-serif' }}
       >
@@ -396,6 +397,7 @@ const EditionCover = forwardRef<
   const [hot, setHot] = useState(false)
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const [moving, setMoving] = useState(false)
+  const [failedCover, setFailedCover] = useState<string | null>(null)
   const ed = set.coverImageMeta?.edition
 
   function onMove(e: React.PointerEvent<HTMLButtonElement>) {
@@ -433,9 +435,9 @@ const EditionCover = forwardRef<
       }}
     >
       <span className="absolute inset-0 overflow-hidden rounded-[2px] bg-[#1d1d1f]">
-        {ed ? (
+        {ed && failedCover !== ed.src ? (
           <>
-            <Image src={`${ed.src}?v=${ed.v}`} alt="" fill sizes="220px" className="object-cover" draggable={false} />
+            <Image src={`${ed.src}?v=${ed.v}`} alt="" fill sizes="220px" className="object-cover" draggable={false} onError={() => setFailedCover(ed.src)} />
             {/* 제목 — 표지 위쪽 30% 의 조용한 면에 앉는다(생성 프롬프트가 비워 둔 자리). 굵고 촘촘하게. */}
             <span
               className={`absolute inset-x-0 top-0 px-3 pt-3 text-left text-[21px] font-[800] leading-[1.02] tracking-[-0.03em] break-keep ${

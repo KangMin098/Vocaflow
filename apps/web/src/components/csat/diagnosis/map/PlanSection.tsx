@@ -17,16 +17,19 @@ import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 import { CANON_VERSION, taskOf, templateOf, templates } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
 import { acknowledgePlan, bindPlanDraft, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
+import { goalMismatch } from '@/lib/csat/map/v62/next-action'
 import { quantityBasis } from '@/lib/csat/map/v62/saved-plan'
 import { REASON_LABEL, applySaved, transferRestoreShortage, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
 import { STAGE_LABEL } from '@/lib/csat/map/v4/workspace'
+import { planChange, previousOf, unitOf, type PlanSide } from '@/lib/csat/map/v62/plan-change'
 import { GOAL_EXAM_LABEL } from '@/lib/csat/map/v62/target-goal'
 import { withMapReturn } from '@/lib/csat/map-return'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 
 import n from './needs.module.css'
+import { PlanChangeSummary } from './PlanChangeSummary'
 
 const UNRESOLVED_LABEL: Record<TaskPlan['unresolved'][number], string> = {
   transfer_shortage: '기본 적용 계획보다 자료가 부족해요',
@@ -107,7 +110,9 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   // 자료 없을 때 저장한 빈 행(계획량 · 가용량 null)으로 지금 계획량을 덮지 않는다(T-0061 · quantityBasis) — 재계획 판정은 원본으로
   const base = useMemo(() => applySaved(view, quantityBasis(sw?.latest ?? null)), [view, sw])
   const drift = useMemo(() => planDrift(sw?.latest ?? null, view), [sw, view])
-  const needsReplan = !past && !!drift && (drift.content.length > 0 || drift.definition || drift.stages.length > 0)
+  // T-0072 — 저장 PLAN 의 목표 버전 ≠ 지금 목표(상단 CTA · 요약과 같은 goalMismatch). 같은 목표면 저장 상태 · 수량 그대로
+  const goalChanged = !past && !!store && !!sw && goalMismatch(view.workspace, saved)
+  const needsReplan = !past && (goalChanged || (!!drift && (drift.content.length > 0 || drift.definition || drift.stages.length > 0)))
   const goalVersion = saved?.goalVersionId ?? null
   const key = draftKey(viewer, view.workspace, goal, savedVersion, goalVersion)
   const legacyKey = draftKey(viewer, view.workspace, goal, savedVersion)
@@ -134,7 +139,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const dirty = (draft !== null && (!sameAsSaved(shown, base) || shown.tasks.map((x) => x.task).join() !== base.tasks.map((x) => x.task).join())) || note.trim().length > 0
   const [save, setSave] = useState<SaveState>({ kind: 'idle' })
   const [pending, setPending] = useState<{ key: string; sig: string } | null>(null)
-  const defaultReason: PlanReason = !sw ? 'initial' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : drift && drift.stages.length ? 'check_result' : 'learner_adjust'
+  const defaultReason: PlanReason = !sw ? 'initial' : goalChanged ? 'goal_change' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : drift && drift.stages.length ? 'check_result' : 'learner_adjust'
   const [why, setWhy] = useState<PlanReason>(defaultReason)
   const live = useRef({ key, mounted: true, request: 0, edit: 0 })
   // Ref changes synchronously, before an old response can arrive ahead of passive effects.
@@ -249,6 +254,8 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     network: '연결이 끊겨 저장됐는지 알 수 없어요. 다시 누르면 같은 요청으로 확인해요(두 번 저장되지 않아요).',
     planned_over_available: '그 사이 쓸 수 있는 문항 수가 바뀌었어요. 계획량을 줄이거나 화면을 새로 불러와 주세요.',
     not_installed: '계획 저장이 아직 열리지 않았어요. 조정은 이 기기에 남아 있어요.',
+    // T-0078 — 수행 기록 조회 실패(서버 503) · 미설치 · 자료 0 이 아니다
+    evidence_unavailable: '수행 기록을 지금 읽지 못해 계획을 저장하지 않았어요 — 기록은 그대로예요. 잠시 뒤 다시 확인해 주세요.',
     canon_mismatch: '학습 기준이 바뀌었어요 — 사유를 「학습 기준이 바뀜」으로 골라 다시 저장해 주세요.',
   }
 
@@ -278,12 +285,25 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           )}
         </p>
       )}
+      {goalChanged && sw && (
+        <p className={n.notice} data-testid="plan-goal-changed" data-saved-goal={sw.latest.goalVersionId ?? ''} data-current-goal={goalVersion ?? ''}>
+          <TriangleAlert size={13} aria-hidden="true" /> 목표가 바뀌었어요 — 저장한 계획(버전 {sw.latest.version})은 {goalLabel(sw.latest.goalVersionId ?? null, saved)} 기준이에요. 지금 목표로 다시 확정해야 이 계획대로 학습해요(이전 기록 · 근거는 그대로 남아요).
+        </p>
+      )}
       {store && drift && needsReplan && (
         <p className={n.notice} data-testid="plan-drift">
           <TriangleAlert size={13} aria-hidden="true" /> 저장한 뒤 {drift.definition ? '학습 기준이' : drift.stages.length ? '학습 단계가' : '쓸 수 있는 문항 수가'} 바뀌었어요
           {drift.overAvailable.length ? ` — ${drift.overAvailable.length}개 항목의 계획량이 현재 가용 자료보다 많아요` : ''}. 계획을 확인하고 다시 저장해 주세요.
         </p>
       )}
+      {/* T-0077 — 다시 확정하면 무엇이 바뀌나: 최신 저장본 → 지금 화면의 제안(아직 저장 전). 저장본이 없거나 못 읽으면 비교하지 않는다 */}
+      {!past && store && sw && (dirty || needsReplan) && (
+        <PlanChangeSummary testId="plan-change-proposal" change={planChange(savedSides(sw.latest.plan), shown.tasks.map((p) => ({ task: p.task, stage: p.stage, planned: p.quantity.planned, available: p.quantity.available })))}
+          lead={`저장본 버전 ${sw.latest.version} → 지금 제안(아직 저장하지 않았어요)`}
+          goal={goalChanged ? `목표: ${goalLabel(sw.latest.goalVersionId ?? null, saved)} → ${goalLabel(goalVersion, saved)}` : null} />
+      )}
+      {!past && store && !sw && <p className={n.fine} data-testid="plan-change-none">아직 저장한 계획이 없어 비교할 저장본이 없어요 — 지금 보이는 계획은 제안이에요.</p>}
+      {saved?.error && <p className={n.fine} data-testid="plan-change-unavailable">저장한 계획을 불러오지 못해 무엇이 바뀌는지 비교할 수 없어요.</p>}
       {reason && <p className={n.sub}>{reason}</p>}
       {legacyDraft && <p className={n.sub}>목표 버전이 없는 이전 기기 초안은 보관하고, 지금 계획에 자동 적용하지 않아요.</p>}
       <ol className={n.planList}>
@@ -381,6 +401,16 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       {store && sw && sw.history.length > 0 && (
         <details className={n.history} data-testid="plan-history">
           <summary><History size={13} aria-hidden="true" /> 이전 계획 {sw.history.length}개</summary>
+          {/* T-0077 — 최신 저장과 바로 앞 저장 버전의 변화(한 번만). 앞 버전이 이력에 없으면 비교 불가 · 사유는 저장된 사유일 뿐 원인 판정이 아니다 */}
+          {(() => {
+            const prev = previousOf(sw.history, sw.latest)
+            if (!prev) return sw.latest.version > 1 ? <p className={n.fine} data-testid="plan-change-saved-unknown">바로 앞 버전 기록이 없어 저장된 변화를 비교할 수 없어요.</p> : null
+            return (
+              <PlanChangeSummary testId="plan-change-saved" change={planChange(savedSides(prev.plan), savedSides(sw.latest.plan))}
+                lead={`저장된 변화 · 버전 ${prev.version} → ${sw.latest.version} · 저장 사유 「${REASON_LABEL[sw.latest.reason]}」`}
+                goal={(prev.goalVersionId ?? null) !== (sw.latest.goalVersionId ?? null) ? `목표: ${goalLabel(prev.goalVersionId ?? null, saved)} → ${goalLabel(sw.latest.goalVersionId ?? null, saved)}` : null} />
+            )
+          })()}
           <ol>
             {sw.history.map((h) => (
               <li key={h.version} data-version={h.version}>
@@ -390,7 +420,8 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                   {goalLabel(h.goalVersionId ?? null, saved)}
                   {h.goalVersionId !== (saved?.goalVersionId ?? null) && h.version !== sw.latest.version ? ' — 되돌려도 지금 목표는 바뀌지 않아요' : ''}
                 </span>
-                <span className={n.historyPlan}>{h.plan.tasks.filter((x) => x.planned !== null).map((x) => `${taskOf(x.task).name} ${x.planned}${x.stage === 'transfer' ? '지문' : '문항'}`).join(' · ') || '계획량 없음'}</span>
+                {/* T-0077 — 저장 당시 단계와 계획량을 함께(같은 2문항이라도 확인 · 바로잡기는 다르다). 미정은 미정 그대로 */}
+                <span className={n.historyPlan} data-testid="plan-history-tasks">{h.plan.tasks.map((x) => `${taskOf(x.task).name} ${x.stage ? STAGE_LABEL[x.stage as keyof typeof STAGE_LABEL] ?? x.stage : '단계 미정'} ${x.planned === null ? '계획량 미정' : `${x.planned}${unitOf(x.stage)}`}`).join(' · ') || '계획 항목 없음'}</span>
                 {!past && h.version !== sw.latest.version && (
                   <button type="button" className={n.ghost} onClick={() => submit('restore', h.version)} disabled={save.kind === 'saving' || !!transferRestoreShortage(view, h.version)} data-testid="plan-restore">
                     <RotateCcw size={13} aria-hidden="true" /> 이 버전으로 되돌리기
@@ -420,6 +451,12 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       </div>
     </section>
   )
+}
+
+/** 저장 payload → 비교 쪽(저장 순서대로) */
+function savedSides(plan: { order: readonly string[]; tasks: readonly PlanSide[] }): PlanSide[] {
+  const rank = new Map(plan.order.map((t, i) => [t, i]))
+  return [...plan.tasks].sort((a, b) => (rank.get(a.task) ?? 1e9) - (rank.get(b.task) ?? 1e9)).map((x) => ({ task: x.task, stage: x.stage, planned: x.planned, available: x.available }))
 }
 
 /** 계획이 저장될 때의 목표(LM-G1.3a) — 목표 이력 id → 「목표 80점 · 수능」. 이력 밖이거나 없으면 그대로 말한다 */

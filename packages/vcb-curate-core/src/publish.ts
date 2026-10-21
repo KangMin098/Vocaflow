@@ -76,7 +76,16 @@ export async function publishRun(
   }
   const category = SEGMENT_TO_CATEGORY[segment]
 
-  await client.from('vocab_runs').update({ status: 'publishing' }).eq('id', runId)
+  const { data: startedRun, error: startError } = await client
+    .from('vocab_runs')
+    .update({ status: 'publishing' })
+    .eq('id', runId)
+    .eq('status', run.status)
+    .select('id')
+    .maybeSingle()
+  if (startError || !startedRun) {
+    return { ok: false, error: `publishing state transition failed: ${startError?.message ?? 'run status changed; reload before retrying'}` }
+  }
 
   try {
     const items = await fetchPublishableItems(client, runId)
@@ -141,10 +150,14 @@ export async function publishRun(
       published_count: res.published_count,
     }
   } catch (err) {
-    // RPC 가 원자적이라 부분 상태가 없음 — status 만 curating 으로 되돌린다.
-    await client.from('vocab_runs').update({ status: 'curating' }).eq('id', runId)
+    // 실패한 재발행은 이미 공개된 판의 상태를 유지한다. 다른 실행의 완료를 되돌리지 않는다.
+    const { error: restoreError } = await client
+      .from('vocab_runs')
+      .update({ status: run.status === 'publishing' ? 'curating' : run.status })
+      .eq('id', runId)
+      .eq('status', 'publishing')
     const msg = err instanceof Error ? err.message : String(err)
-    return { ok: false, error: msg }
+    return { ok: false, error: restoreError ? `${msg}; run state recovery failed: ${restoreError.message}` : msg }
   }
 }
 

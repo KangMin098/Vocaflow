@@ -96,7 +96,7 @@ export function RecentActivity({ data }: { data: RecentActivityData }) {
           type="button"
           onClick={() => startRetry(() => router.refresh())}
           disabled={retrying}
-          className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
+          className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99] disabled:cursor-not-allowed disabled:opacity-60"
         >
           <RotateCcw size={13} className={retrying ? 'animate-spin' : undefined} aria-hidden />
           다시 시도
@@ -133,7 +133,7 @@ export function RecentActivity({ data }: { data: RecentActivityData }) {
       <ul
         // 가로 스크롤 영역은 키보드로도 스크롤할 수 있어야 한다(axe scrollable-region-focusable).
         tabIndex={0}
-        className="flex flex-1 items-center gap-2 overflow-x-auto rounded-[var(--r-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]/40 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex flex-1 items-center gap-2 overflow-x-auto rounded-[var(--r-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
         role="list"
       >
         {groups.length === 0 ? (

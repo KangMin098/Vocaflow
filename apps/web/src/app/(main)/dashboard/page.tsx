@@ -33,9 +33,9 @@
 // 이 화면은 "얼마나 오래 가나"(backward)를 맡는다.
 
 import Image from 'next/image'
+import { ChartNoAxesCombined, History, Hourglass, PanelsTopLeft, type LucideIcon } from 'lucide-react'
 
 import { Screen } from '@/components/ui/ios'
-import { Rule } from '@/components/ui/press'
 import { ActivityTrace } from '@/components/dashboard/ActivityTrace'
 import { DurabilityLadder } from '@/components/dashboard/DurabilityLadder'
 import { LexicalReach } from '@/components/dashboard/LexicalReach'
@@ -60,6 +60,15 @@ function kstDateLabel(): string {
   })
 }
 
+/** 참조 도서관 「Featured stories」 구간 제목 — 번호 괘선(01 · 02 …) 대신 큰 제목과 여백으로 가른다(2026-10-19). */
+function SectionTitle({ children, icon: Icon }: { children: React.ReactNode; icon: LucideIcon }) {
+  return (
+    <h2 className="mt-12 break-keep font-display text-[28px] font-[500] leading-[1.15] tracking-[-0.02em] text-[var(--ju-ink)] md:text-[32px]">
+      <Icon aria-hidden className="mr-3 hidden h-7 w-7 shrink-0 align-middle lg:inline-block" strokeWidth={1.4} />{children}
+    </h2>
+  )
+}
+
 export default async function DashboardPage() {
   // ⚠️ 이 화면의 조회는 **여기서 끝난다** — 하위 컴포넌트는 스스로 조회하지 않는다.
   //    (실측 2026-09-06: 마지막 줄 `RecentActivity` 가 `useHubData()` 를 부르는 바람에
@@ -82,8 +91,8 @@ export default async function DashboardPage() {
   }
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
-      <div className="flex flex-col gap-4 py-6 md:py-8">
+    <Screen width="shelf" background="bg2" padX="md">
+      <div className="dashboard-reference flex flex-col gap-4 py-6 md:py-8">
         {/* 1. 헤더 — 날짜와 이름만. 오늘 진행·연속일은 셸 상태 띠가 이미 판다.
             v07 — 이름을 `--p`(딥 잉크)로 칠하던 것을 주묵 표식으로 바꿨다. 한 화면에서
             "여기가 당신" 이라고 말하는 자리는 하나이고, 그 표식은 브랜드 색이 맡는다. */}
@@ -104,8 +113,9 @@ export default async function DashboardPage() {
             width={1328}
             height={1328}
             priority
-            className="hidden w-[120px] shrink-0 select-none md:block"
+            className="hidden w-[120px] shrink-0 select-none md:block lg:hidden"
           />
+          <Image src="/illustrations/tines/scene-growth-v5.png" alt="" width={1200} height={800} priority sizes="400px" className="reference-scene hidden h-auto w-[400px] shrink-0 select-none lg:block" />
         </header>
 
         {/* ── v07 「주묵 판면」 ────────────────────────────────────────────────
@@ -117,16 +127,16 @@ export default async function DashboardPage() {
 
         {/* 2. 히어로 — 기억이 버티는 시간 */}
         {horizon && (
-          <>
-            <Rule n="01" label="기억이 버티는 시간" tone="ju" className="mt-2" />
+          <div className="dashboard-reference__memory">
+            <SectionTitle icon={Hourglass}>기억이 버티는 시간</SectionTitle>
             <DurabilityLadder ladder={horizon.ladder} />
-          </>
+          </div>
         )}
 
         {/* 3·4. 되찾은 단어 + 28일 흐름 — 한 줄에 나란히 (좌: 결과 · 우: 노정) */}
         {horizon && (
-          <>
-            <Rule n="02" label="되찾은 것과 지나온 날" className="mt-4" />
+          <div className="dashboard-reference__history">
+            <SectionTitle icon={History}>되찾은 것과 지나온 날</SectionTitle>
             <div className="grid gap-4 lg:grid-cols-2">
               <RescuedWords rescued={horizon.rescued} />
               <ActivityTrace
@@ -135,32 +145,25 @@ export default async function DashboardPage() {
                 activeDays={horizon.activeDays}
               />
             </div>
-          </>
+          </div>
         )}
 
         {/* 5. 어휘의 무게중심 — 순위를 아는 단어가 없으면 스스로 사라진다 */}
         {horizon && (
-          <>
-            <Rule n="03" label="어휘의 무게중심" className="mt-4" />
+          <div className="dashboard-reference__reach">
+            <SectionTitle icon={ChartNoAxesCombined}>어휘의 무게중심</SectionTitle>
             <LexicalReach reach={horizon.reach} />
-          </>
+          </div>
         )}
 
         {/* 6·7. 학습 관리 + 최근 학습 — 회고가 아니라 **조작**이라 한 구획으로 묶는다 */}
-        <Rule n="04" label="학습 관리" className="mt-4" />
-        <ManageSection overview={overview} />
-        <RecentActivity data={recent} />
+        <div className="dashboard-reference__manage">
+          <SectionTitle icon={PanelsTopLeft}>학습 관리</SectionTitle>
+          <ManageSection overview={overview} />
+          <RecentActivity data={recent} />
+        </div>
 
-        {/* Calm closing — 정서적 부호화. 모바일 하단 탭에 가리지 않도록 여백을 둔다
-            (이전에는 관리 카드가 탭 뒤로 잘렸다 — 390px 실측). */}
-        <footer className="mt-4 pb-20 text-center md:pb-4">
-          <p className="font-english text-[14px] italic leading-relaxed text-[var(--t2)]">
-            “Slow is smooth, smooth is fast.”
-          </p>
-          <p className="mt-1 font-body text-[12px] text-[var(--t2)]">
-            오늘도 차분한 페이스로 잘 해내고 있어요.
-          </p>
-        </footer>
+        <div className="pb-20 md:pb-8" />
       </div>
     </Screen>
   )

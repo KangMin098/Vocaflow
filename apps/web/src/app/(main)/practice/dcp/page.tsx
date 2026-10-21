@@ -7,11 +7,16 @@
 //    라우트 계층상 이 화면의 부모). 예전에는 복귀 링크 세 곳이 전부 `/hub` 하드코딩이라
 //    `/practice` 에서 들어온 학습자는 **온 곳으로 돌아갈 수단이 화면에 하나도 없었다**.
 //    이제 `?from=` 을 `resolveSessionReturnHref` 로 읽는다(오픈 리다이렉트는 그 안에서 차단).
+//
+// 2026-10-19(learner-tines-audit S4) — **푸는 동안만 세션**이다. 이 주소는 안내 화면(문항 없음 · 오늘 완료)이고,
+// 풀 문항이 있으면 `?from=` 을 그대로 실어 `/practice/dcp/session`(전체화면 세션 틀)으로 넘긴다.
+// 전체화면 판정이 주소 기준이라(`full-screen-routes`) 데이터 상태로 틀을 켜고 끌 수 없어서 주소를 나눴다.
+// 채점(grade_dcp_item) · 오답 원인 기록 · 요약은 세션 화면의 같은 `DcpPlayer` 가 그대로 한다.
 
 import Link from 'next/link'
+import { redirect } from 'next/navigation'
 import { ArrowLeft } from 'lucide-react'
 
-import { DcpPlayer } from '@/components/practice/DcpPlayer'
 import { Screen } from '@/components/ui/ios'
 import { fetchDcpPracticeItems } from '@/lib/learner/dcp-actions'
 import { resolveSessionReturnHref } from '@/lib/layout/session-return'
@@ -37,6 +42,11 @@ export default async function DcpPracticePage({
   const backLabel = BACK_LABEL[backHref.split('?')[0] ?? ''] ?? null
   const backCta = backLabel ? backLabel + '로 돌아가기' : '돌아가기'
 
+  if (active && items.length > 0) {
+    const from = searchParams?.from
+    redirect(from ? `/practice/dcp/session?from=${encodeURIComponent(from)}` : '/practice/dcp/session')
+  }
+
   return (
     <Screen width="compact" background="bg2" padX="md">
       <div className="flex flex-col gap-4 py-6 md:py-8">
@@ -55,9 +65,7 @@ export default async function DcpPracticePage({
           </p>
         </header>
 
-        {active && items.length > 0 ? (
-          <DcpPlayer items={items} backHref={backHref} backCta={backCta} />
-        ) : (
+        {(
           /* ⚠️ **다 푼 날과 아직 안 열린 날을 갈라 말한다.** 하나로 뭉개던 동안 오늘 몫을
              방금 마친 학습자에게 "학습 단계가 무르익으면 열려요"(잠김 안내)라고 말했다. */
           <section

@@ -62,10 +62,10 @@ export default function AboutPage() {
   const benefitVideos = videosByKind().benefit
 
   return (
-    <div className="bg-[var(--bg)]">
+    <div className="about-reference bg-[var(--bg)]">
       {/* ── 참조 제품 페이지(3B) 상단 — 라벤더 면 전체 · 구역 막대 · 2열 히어로(오른쪽 근거 카드 + 꽃밭) ·
              이름표 막대 + 폭 전체 영상 · 문단형 세리프 선언 + 모니터 무리(tines-mapping §22) ── */}
-      <div className="tone-lavender">
+      <div className="tone-teal">
         <div className={`${WRAP} flex min-h-[56px] flex-wrap items-center justify-between gap-2 border-t border-[var(--bd)] py-2`}>
           <span className="inline-flex h-8 items-center rounded-full bg-[color-mix(in_srgb,var(--ju)_12%,transparent)] px-3 font-display text-[14px] font-[600]">소개</span>
           <nav aria-label="소개 구역" className="flex flex-wrap items-center gap-1">
@@ -88,7 +88,7 @@ export default function AboutPage() {
           </div>
           {/* 참조의 고객 인용 자리 — 추천사를 지어내지 않고 이 페이지가 기대는 **연구 근거**를 출처와 함께 */}
           <figure className="relative">
-            <div className="relative z-10 rounded-[24px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_60%,var(--tint-lavender))] p-7 md:p-9">
+            <div className="relative z-10 rounded-[24px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--bg)_60%,var(--tint-teal))] p-7 md:p-9">
               <blockquote className="break-keep font-serif text-[22px] leading-[1.4] md:text-[26px]">떠올리는 연습이, 다시 읽는 연습보다 오래 남는 기억을 만듭니다.</blockquote>
               <figcaption className="mt-5 font-display text-[13.5px] leading-snug">
                 <span className="block font-[700]">Karpicke &amp; Roediger (2008)</span>
@@ -106,7 +106,10 @@ export default function AboutPage() {
             {intro ? (
               <ComponentVideo video={intro} />
             ) : (
-              <Image src="/illustrations/tines/tile-about.webp" alt="" width={1328} height={1328} priority sizes="100vw" className="mx-auto h-auto w-full max-w-[520px]" />
+              <>
+                <Image src="/illustrations/tines/tile-about.webp" alt="" width={1328} height={1328} priority sizes="100vw" className="mx-auto h-auto w-full max-w-[520px] lg:hidden" />
+                <Image src="/illustrations/tines/scene-journey-v5.png" alt="" width={1536} height={1024} sizes="520px" className="mx-auto hidden h-auto w-full max-w-[520px] lg:block" />
+              </>
             )}
           </Frame>
         </section>

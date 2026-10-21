@@ -38,16 +38,16 @@ $env:PLAYWRIGHT_BASE_URL = 'http://localhost:3000'
 pnpm --filter web test:design
 ```
 
-기본 대상은 로그인 없는 `/fit`. 375×812, 390×844, 768×1024, 1280×900, 1440×900의
+기본 대상은 로그인 없는 `/fit`. **기본은 PC 1440×900 · 1280×900**(디자인 범위 PC 웹만 — DESIGN.md). 375/390/768 프로젝트는 설정에 남아 있지만 별도 요청 때만 돌린다. 기본 조건의
 밝은/어두운 테마를 검사한다. 첫 화면(`fold.png`)과 전체 화면(`full.png`)을 모두 남긴다.
 `/fit`에서는 예시 결과가 있는지 확인하고 지우기 버튼을 키보드로 실행해 입력·disabled 상태 변화를 검증한다.
 
 ```powershell
 # 수정 중인 화면 조건만 빠르게 확인
-pnpm --filter web test:design screens --project=390-light
+pnpm --filter web test:design screens --project=1440-light
 
 # 로그인·헤딩·넘침 가드 자체의 회귀 (실제 앱·DB 내용과 독립)
-pnpm --filter web test:design checks --project=390-light
+pnpm --filter web test:design checks --project=1440-light
 
 # 기존 검증 세션을 재사용 — 인증 파일 내용을 출력하거나 커밋하지 않는다
 $env:DESIGN_STORAGE_STATE = 'playwright-auth/.auth-csat-learner.json'

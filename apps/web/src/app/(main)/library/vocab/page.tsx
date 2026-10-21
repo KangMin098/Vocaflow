@@ -5,7 +5,8 @@
 
 import { rungForVLevel } from '@vocaflow/library-pipeline/vocab-brand'
 
-import { Capsule, Screen } from '@/components/ui/ios'
+import { Capsule } from '@/components/ui/ios'
+import { LibraryBrowseFrame } from '@/components/library/LibraryBrowseFrame'
 import { VocabSetGrid } from '@/components/library/vocab/VocabSetGrid'
 import { VocabSeriesHeader } from '@/components/library/vocab/VocabSeriesHeader'
 import { createClient } from '@/lib/supabase/server'
@@ -67,7 +68,7 @@ export default async function LibraryVocabPage() {
   const learnerStep = userVLevel > 0 ? (rungForVLevel(userVLevel)?.step ?? null) : null
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
+    <LibraryBrowseFrame>
       <div className="flex flex-col gap-3 py-4 sm:gap-5 sm:py-6 md:py-8">
         <VocabSeriesHeader
           fill={ladder}
@@ -89,6 +90,6 @@ export default async function LibraryVocabPage() {
           recommended={recommended}
         />
       </div>
-    </Screen>
+    </LibraryBrowseFrame>
   )
 }

@@ -152,3 +152,68 @@ describe('quantityBasis — 자료 없을 때 저장한 빈 행은 계획량을 
     expect(quantityBasis(null)).toBeNull()
   })
 })
+
+// T-0072 — 저장 PLAN 의 목표 버전 ≠ 지금 목표면 단계 · 수량이 같아도 지금 목표의 확정 계획이 아니다(상단 CTA · 요약이 같은 판정)
+//   Codex FINAL-MAIN-0649f8c0b goal-version 반례 3 · 정상 2 이식 + 옛 계획(목표 기록 없음) · 저장본 조회 실패 대조
+describe('T-0072 목표 버전 결속', async () => {
+  const { CANON_VERSION } = await import('@/lib/csat/map/v4/definition')
+  const { goalPlanRows } = await import('../goal-plan')
+  const { goalMismatch } = await import('../next-action')
+  const task = 'r.central_meaning', ws = 'ws.central-meaning'
+  function fixture(currentGoal: number | null = 11, savedGoal: number | null | undefined = 10) {
+    const row = { task, name: 'core', goal: 'g', criterion: 'c', basis: 'none', evidence: 'unmeasured', need: 'CONFIRM', stage: 'check', quantity: { unit: '문항', available: 3, planned: 3, done: 0, remaining: 3 }, achievement: 'not_checked', unresolved: [], next: { href: '/csat/item/E-Q1?check=1', label: 'check' } }
+    const pv = { workspace: ws, core: [task], tasks: [row], progress: { planned: 3, done: 0 } }
+    const view = { taskPlans: [row], plans: { [ws]: pv }, asIs: { tasks: { [task]: { basis: 'none', status: 'unmeasured', check: null } }, sessions: [] }, toBe: { needs: [{ task, type: 'CONFIRM', relevance: { items: 3, pointsPerExam: 6 } }], relevanceUnknown: [] } }
+    const ranks = { needRank: [{ rank: 1, task, need: 'CONFIRM', evidence: 'unmeasured' }], actionRank: [{ rank: 1, task, needRank: 1, href: row.next.href, label: 'check' }], notActionable: [] }
+    const latest = { version: 2, canon: CANON_VERSION, ...(savedGoal === undefined ? {} : { goalVersionId: savedGoal }), reason: 'initial', createdAt: '2026-10-20T00:00:00Z', asOf: '2026-10-20T00:00:00Z', note: null, restoredFrom: null, plan: { order: [task], tasks: [{ task, stage: 'check', planned: 1, available: 3 }] } }
+    const saved = { status: 'installed', goalVersionId: currentGoal, byTemplate: { [ws]: { workspaceId: '11111111-2222-4333-8444-555555555555', template: ws, latest, history: [latest] } } }
+    return { view: view as never, ranks: ranks as never, saved: saved as never }
+  }
+
+    it('반례 — 상단 행동은 같은 묶음 계획 다시 확정', () => {
+      const x = fixture()
+      expect(goalMismatch(ws, x.saved)).toBe(true)
+      expect(nextActionOf(x.view, x.ranks, x.saved)).toMatchObject({ kind: 'plan', replan: true, replanWhy: 'goal', href: null })
+    })
+    it('반례 — 요약은 옛 목표 PLAN 으로 바로 실행시키지 않는다', () => {
+      const r = goalPlanRows(fixture().view, fixture().ranks, fixture().saved).rows[0]
+      expect({ gate: r.planGate, why: r.replanWhy, action: r.action }).toEqual({ gate: 'replan', why: 'goal', action: null })
+    })
+    it('정상 — 같은 목표면 저장량 · 실행 링크 그대로', () => {
+      const x = fixture(10)
+      expect(goalMismatch(ws, x.saved)).toBe(false)
+      expect(nextActionOf(x.view, x.ranks, x.saved)?.kind).toBe('start')
+      expect(goalPlanRows(x.view, x.ranks, x.saved).rows[0]).toMatchObject({ planGate: null, action: { rank: 1 }, quantity: { planned: 1, source: 'saved' } })
+    })
+    it('옛 계획(저장 당시 목표 기록 없음)은 지금 목표가 있으면 지금 목표 확정으로 올리지 않는다 · 둘 다 없으면 같음', () => {
+      expect(goalMismatch(ws, fixture(11, undefined).saved)).toBe(true)
+      expect(goalMismatch(ws, fixture(11, null).saved)).toBe(true)
+      expect(goalMismatch(ws, fixture(null, null).saved)).toBe(false)
+    })
+    it('저장본 조회 실패 · 저장 없음은 목표 판정을 하지 않는다(추측 없음)', () => {
+      expect(goalMismatch(ws, { status: 'installed', error: true, goalVersionId: 11, byTemplate: {} } as never)).toBe(false)
+      expect(goalMismatch(ws, { status: 'installed', goalVersionId: 11, byTemplate: {} } as never)).toBe(false)
+    })
+})
+
+// T-0072 P1-2 — 지금 할 활동이 없는(자료 부족) 상태에서도 다른 목표에 묶인 저장 PLAN 은 자료 받기보다 다시 확정이 먼저(Codex PR328 consistent-shortage 이식 · 실제 ranksOf)
+describe('T-0072 자료 부족 + 목표 변경', async () => {
+  const { CANON_VERSION } = await import('@/lib/csat/map/v4/definition')
+  const task = 'r.central_meaning', ws = 'ws.central-meaning'
+  const shortage = (currentGoal: number, holdCanon = false) => {
+    const row = { task, name: 'core', goal: 'g', criterion: 'c', basis: 'none', evidence: 'unmeasured', need: 'CONFIRM', stage: 'check', quantity: { unit: '문항', available: 0, planned: null, done: 0, remaining: null }, achievement: 'not_checked', unresolved: [holdCanon ? 'canon_hold' : 'material_needed'], next: null }
+    const view = { taskPlans: [row], plans: { [ws]: { workspace: ws, core: [task], tasks: [row], progress: null } }, asIs: { tasks: { [task]: { basis: 'none', status: 'unmeasured', check: null } }, sessions: [] }, toBe: { needs: [{ task, type: 'CONFIRM', relevance: { items: 3, pointsPerExam: 6 }, evidence: 'unmeasured' }], relevanceUnknown: [] } } as unknown as V4View
+    const latest = { version: 2, canon: CANON_VERSION, goalVersionId: 10, reason: 'initial', createdAt: '2026-10-20T00:00:00Z', asOf: '2026-10-20T00:00:00Z', note: null, restoredFrom: null, plan: { order: [task], tasks: [{ task, stage: 'check', planned: null, available: 0 }] } }
+    const saved = { status: 'installed', goalVersionId: currentGoal, byTemplate: { [ws]: { workspaceId: '11111111-2222-4333-8444-555555555555', template: ws, latest, history: [latest] } } } as never
+    return { view, ranks: ranksOf(view), saved }
+  }
+  it('반례 — 목표가 바뀌었으면 자료 받기 전에 같은 묶음 계획 다시 확정(이유 goal)', () => {
+    const x = shortage(11)
+    expect(x.ranks.actionRank).toHaveLength(0)
+    expect(nextActionOf(x.view, x.ranks, x.saved)).toMatchObject({ ws, task, kind: 'plan', replan: true, replanWhy: 'goal' })
+  })
+  it('대조 — 같은 목표의 자료 부족은 그대로 자료 받기', () => {
+    const x = shortage(10)
+    expect(nextActionOf(x.view, x.ranks, x.saved)).toMatchObject({ ws, task, kind: 'supply' })
+  })
+})

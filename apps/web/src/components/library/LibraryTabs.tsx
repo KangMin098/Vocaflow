@@ -10,6 +10,7 @@
 'use client'
 
 import { usePathname } from 'next/navigation'
+import Link from 'next/link'
 
 import { AreaNav } from '@/components/layout/AreaNav'
 import { routeArt } from '@/lib/design/route-art'
@@ -22,8 +23,20 @@ import { LIBRARY_TABS } from '@/lib/library/tabs'
 //    네 번째 탭(Textbooks)이 32px 만 보이고, 모바일에는 사이드바가 없어서 그 탭이 교재로 가는
 //    유일한 통로인데도 없는 것처럼 보였다(실측 2026-08-22).
 
-export function LibraryTabs() {
+export function LibraryTabs({ variant = 'row' }: { variant?: 'row' | 'rail' }) {
   const pathname = usePathname()
+  if (variant === 'rail') {
+    return (
+      <nav aria-label="서가 자료 유형" className="flex flex-col py-3">
+        {LIBRARY_TABS.map(({ href, label, icon: Icon }) => (
+          <Link key={href} href={href} aria-current={pathname.startsWith(href) ? 'page' : undefined}
+            className="flex min-h-11 items-center gap-3 rounded-lg px-3 font-display text-[14px] text-[var(--ju)] transition-colors hover:bg-[var(--tint-lavender)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] aria-[current=page]:font-[700]">
+            <Icon size={16} strokeWidth={1.5} aria-hidden />{label}
+          </Link>
+        ))}
+      </nav>
+    )
+  }
   return (
     <AreaNav
       area="서가"

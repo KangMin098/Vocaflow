@@ -1,7 +1,7 @@
 // scripts/ci/factory-i1-prerequisites.test.mjs
 import assert from 'node:assert/strict'
 import { test } from 'node:test'
-import { ciTargetAllowed, prerequisiteSQL, sourceDirectory } from './factory-i1-prerequisites.mjs'
+import { canonicalHistory, ciTargetAllowed, prerequisiteSQL, sourceDirectory } from './factory-i1-prerequisites.mjs'
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
@@ -31,5 +31,14 @@ test('canonical prerequisite recovery only accepts disposable GitHub Actions Sup
 test('prerequisite SQL uses canonical non-permissive bodies and creates no tables/history', () => {
   assert.ok(prerequisiteSQL.includes("e.policy_version = 4"))
   assert.ok(prerequisiteSQL.includes("WHERE user_id = auth.uid() AND role = 'admin'"))
-  assert.ok(!/create\s+table|insert\s+into|schema_migrations|select\s+true/i.test(prerequisiteSQL))
+  assert.ok(!/create\s+table|create\s+trigger|insert\s+into|schema_migrations|select\s+true/i.test(prerequisiteSQL.replace(canonicalHistory, '')))
+})
+
+test('history recovery preserves the exact canonical trigger body without calling it', () => {
+  const source=fs.readFileSync(path.join(sourceDirectory(path.resolve(import.meta.dirname,'../..')),'20260918140000_csat_source_eligibility_cache.sql'),'utf8')
+  assert.ok(canonicalHistory)
+  assert.ok(source.includes(canonicalHistory))
+  assert.match(canonicalHistory,/RETURNS trigger/)
+  assert.ok(prerequisiteSQL.includes(`execute $history$${canonicalHistory}$history$`))
+  assert.doesNotMatch(prerequisiteSQL,/CREATE TRIGGER|perform public\.retain_source_eligibility_history/i)
 })

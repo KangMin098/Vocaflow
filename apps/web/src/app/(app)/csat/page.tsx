@@ -29,7 +29,7 @@ import { SpaceScreen } from '@/components/csat/space/SpaceScreen'
 import { learnerSession, loadHomeDiagnosis } from '@/lib/csat/diagnosis/learner'
 import { parseHomeReturn, type HomeFocusKind, type MapLoadState } from '@/lib/csat/home-suggestion'
 import { mapProgressOf, type MapProgress } from '@/lib/csat/map/home-progress'
-import { homeFocusOf } from '@/lib/csat/map/v62/home-focus'
+import { homeFocusOf, homeMapStateOf } from '@/lib/csat/map/v62/home-focus'
 import { parseMapReturn, returnQueryOf, type MapReturnCtx } from '@/lib/csat/map-return'
 import { loadMapPage, type MapPageData } from '@/lib/csat/map/load'
 import { createAdminClient } from '@/lib/supabase/admin'
@@ -89,7 +89,8 @@ async function MapHome({ from, item, restore }: { from?: string; item?: string; 
   try {
     mapData = await loadMapPage(createAdminClient() as unknown as SupabaseClient, userId, new Date())
     // 보류 판정 실패는 오류(기록 0 으로 삼키지 않는다) · 보류 시험 기록은 권한 · 보류 안내
-    map = !mapData ? 'preparing' : mapData.heldGate === 'failed' ? 'error' : mapData.heldGate === 'held' ? 'withheld' : 'ok'
+    // T-0079 — 지도와 같은 필수 원장 판정(T-0078) 포함 · 못 읽음은 오류 카드(기록 없음으로 안내하지 않는다)
+    map = homeMapStateOf(mapData)
   } catch {
     map = 'error'
   }

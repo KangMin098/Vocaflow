@@ -29,7 +29,8 @@ function ComicEmpty({ textId, message }: { textId: string; message: string }) {
       <div className="py-3">
         <Link
           href={`/text/${textId}?mode=read`}
-          className="inline-flex items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)]"
+          // 63×18 이었다 — 44px 미만 탭 대상 · 포커스 표시 없음(2026-10-18 session-audit 실측). 높이와 포커스만 더한다.
+          className="inline-flex min-h-11 items-center gap-2 rounded-[var(--r-md)] pr-2 font-body text-[12px] font-[500] text-[var(--t2)] transition-colors hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
         >
           <ArrowLeft size={14} aria-hidden /> 본문으로
         </Link>

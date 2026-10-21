@@ -36,7 +36,7 @@ const SCRIPT = join(ROOT, 'scripts', 'audit', 'learner-linkgraph.mjs')
  *                    정상이다(`lib/teacher/invite-link.ts` 가 주소를 만들어 교사에게 준다).
  * (`/csat/practice/[slug]` 는 2026-10-09 E11 에서 기출 문항 확인 과제 아래 진입 링크를 달아 목록에서 뺐다.)
  */
-const ALLOWED_ORPHAN_PAGES = ['/hub-lab', '/join/[code]']
+const ALLOWED_ORPHAN_PAGES = ['/join/[code]']
 
 /**
  * 앱이 부르지 않는 것이 정상인 API — 손으로/외부에서 부른다.
@@ -44,6 +44,8 @@ const ALLOWED_ORPHAN_PAGES = ['/hub-lab', '/join/[code]']
  * 여기 없는 새 고아가 생기면 둘 중 하나다: 부르는 곳을 안 붙였거나, 안 쓰는 것을 남겼거나.
  */
 const ALLOWED_ORPHAN_APIS = [
+  // HTTP automation is called by scripts/db/factory-i1/d3-live-check.mts; RSC uses the same server loader directly.
+  '/api/admin/csat/product-order-lineage',
   // Analysis redesign preserves the old answer-reveal API for existing clients.
   '/api/csat/session/reveal',
   '/api/acp/dev-enqueue',

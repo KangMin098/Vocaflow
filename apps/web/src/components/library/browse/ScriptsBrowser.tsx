@@ -22,7 +22,7 @@ import { useMemo, useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, ChevronRight, Info, Volume2 } from 'lucide-react'
+import { ArrowRight, ChevronRight, Info, Volume2, Radio, Feather, FlaskConical, Newspaper, MessagesSquare, ChartColumn, Compass, type LucideIcon } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { useUserVLevel } from '@/hooks/useUserVLevel'
@@ -53,6 +53,11 @@ const TRACK_SPOT: Record<string, string> = {
   argue: 'spot-topic-talk',
   data: 'spot-topic-data',
   reference: 'spot-topic-travel',
+}
+
+const TRACK_ICON: Record<string, LucideIcon> = {
+  listen: Radio, easy: Feather, topic: FlaskConical, news: Newspaper,
+  argue: MessagesSquare, data: ChartColumn, reference: Compass,
 }
 
 function sourceHint(stat: TrackStat): string {
@@ -213,6 +218,7 @@ function SeriesHero({
   const { track, fit, cefrLabel, count, hasAudio } = stat
   const fitMeta = TRACK_FIT_META[fit]
   const heroForm = dominantMediaForm(track.sources)
+  const TrackIcon = TRACK_ICON[track.key] ?? Newspaper
   return (
     <div
       className="group overflow-hidden rounded-[var(--r-lg)] border shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:shadow-[var(--sh-md)]"
@@ -262,7 +268,8 @@ function SeriesHero({
             )}
           </div>
           {/* DD-68 · tines-mapping §17 — 참조 사례 카드의 구석 타일(기사 범주 색) */}
-          <Image src="/illustrations/tines/tile-articles.webp" alt="" width={1328} height={1328} className="hidden w-[104px] shrink-0 select-none rounded-[12px] md:block" />
+          <Image src="/illustrations/tines/tile-articles.webp" alt="" width={1328} height={1328} className="hidden w-[104px] shrink-0 select-none rounded-[12px] md:block lg:hidden" />
+          <TrackIcon size={56} strokeWidth={1.25} aria-hidden className="hidden shrink-0 text-[var(--p)] lg:block" />
         </div>
 
         {/* 왼쪽=팝업 어포던스 */}
@@ -315,9 +322,10 @@ function SeriesRow({
 }) {
   const { track, cefrLabel, count } = stat
   const rowForm = dominantMediaForm(track.sources)
+  const TrackIcon = TRACK_ICON[track.key] ?? Newspaper
   return (
     // DD-68 · tines-mapping §25 — 참조 featured 카드: 항목마다 옅은 면 색 + 점 격자. 글자·테두리는 그 면의 색을 따른다(`.tone-*`).
-    <li className={`${TINT_CLASS[TINT_ROTATION[tintIndex % TINT_ROTATION.length]]} dots flex min-h-[60px] items-stretch overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t1)]`}>
+    <li data-learning-material="article" className={`${TINT_CLASS[TINT_ROTATION[tintIndex % TINT_ROTATION.length]]} dots flex min-h-[60px] items-stretch overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:border-[var(--t1)]`}>
       {/* 왼쪽 = 학습 안내 팝업 */}
       <button
         type="button"
@@ -330,8 +338,9 @@ function SeriesRow({
         </span>
         {/* DD-68 · tines-mapping §18 — 주제마다 물건 소품(참조 목록 행의 아이콘 자리) */}
         {TRACK_SPOT[track.key] && (
-          <Image src={`/illustrations/tines/${TRACK_SPOT[track.key]}.webp`} alt="" width={96} height={96} className="hidden h-11 w-11 shrink-0 select-none sm:block" />
+          <Image src={`/illustrations/tines/${TRACK_SPOT[track.key]}.webp`} alt="" width={96} height={96} className="hidden h-11 w-11 shrink-0 select-none sm:block lg:hidden" />
         )}
+        <TrackIcon size={28} strokeWidth={1.5} aria-hidden className="hidden shrink-0 text-[var(--p)] lg:block" />
         <span className="flex min-w-0 flex-1 flex-col gap-1">
           <span className="truncate font-display text-[14px] font-[700] text-[var(--t1)]">
             {track.title}

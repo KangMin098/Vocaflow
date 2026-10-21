@@ -90,6 +90,8 @@ DB286 최종: 기존 배포 **47/47**·동시성 **33/33**·추가 반례 **8/8*
 
 DB286의 첫 빈 Supabase CI에서는 기존 migration 롤백으로 helper 두 개가 사라져 DB-1이 전제 검사에서 안전하게 거절됐다. [최초 실패](../../research/factory-i1-deploy-286-independent/first-ci-failure.json)를 보존했다. CI 준비 단계만 `scripts/ci/factory-i1-prerequisites.mjs`로 두 함수의 **저장소 정본 본문과 ACL**을 복구한다. GitHub Actions의 loopback:54322/postgres에만 쓰며 query/포트 재정의는 거절한다. `check_function_bodies=off`는 이 fixture 트랜잭션에서만 사용하고, 미버전 원천 표가 없으면 실제 호출은 오류로 닫힌다. 새 표·운영 이력 생성이나 운영 migration 전제 완화는 없다. N03/N04 PostgreSQL 시험에서 이 경계와 원장 1행을 보존한 DB-2 적용을 확인했다. 전체 운영 스키마 복원 성공을 의미하지 않는다.
 
+2026-10-21 보안 이력 복원 PR #327에서는 같은 CI 준비 단계에 `retain_source_eligibility_history()`의 저장소 정본 정의도 추가했다. 빈 DB에서 원천 migration이 롤백되면 뒤의 실제 REVOKE migration이 함수 부재로 실패하기 때문이다. 트리거를 연결하거나 함수를 호출하지 않고, 운영 SQL 바이트·기존 실패 기준선·운영 DB는 바꾸지 않는다. CI loopback 제한과 정본 본문 보존 회귀 4개를 통과했다. 원격 전체 E2E 결과는 별도 확인한다.
+
 | 실행 | 결과 | 증거 |
 |---|---|---|
 | `isolated.mjs` 배포 절차 | **47/47** | `evidence/isolated-deploy.json` |

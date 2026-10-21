@@ -4,6 +4,7 @@
 
 import type { FlashcardPhase, SRSRating } from '@/types/flashcard'
 import { useEffect } from 'react'
+import { learnerModalOwnsKeyboard } from '@/lib/ui/learner-keyboard-scope'
 
 interface UseFlashcardKeyboardParams {
   phase: FlashcardPhase
@@ -31,6 +32,7 @@ export function useFlashcardKeyboard({
 }: UseFlashcardKeyboardParams) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
+      if (learnerModalOwnsKeyboard()) return
       const target = e.target as HTMLElement
       if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA') return
       if (target.isContentEditable) return

@@ -37,8 +37,6 @@ const SKIP = /node_modules|\.next|dist|build|__tests__|\.test\.|\.spec\./;
 
 /** 체인을 이어 붙여 보는 길이 — 체이닝이 여러 줄에 걸친다. */
 const CHAIN_CHARS = 500;
-/** 루프 머리를 위로 몇 줄까지 찾을까. */
-const LOOP_LOOKBACK = 40;
 
 const LOOP_HEAD = /(^|[^\w])(for\s*\(|for\s+await\s*\(|while\s*\(|\.map\s*\(|\.forEach\s*\(|\.flatMap\s*\()/;
 const BATCHY = /\b(batch|batches|rows|chunk|chunks|slice|payload|items|records|values)\b/i;
@@ -66,20 +64,22 @@ function indentOf(line) {
 
 /** 이 줄이 루프 안에 있나 — 위로 훑어 같거나 얕은 들여쓰기의 루프 머리를 찾는다. */
 function loopContext(lines, idx) {
-  const mine = indentOf(lines[idx]);
-  for (let i = idx - 1; i >= 0 && i >= idx - LOOP_LOOKBACK; i -= 1) {
+  let enclosingIndent = indentOf(lines[idx]);
+  // 닫힌 내부 루프를 건너뛴 뒤 실제 바깥 루프가 40줄 밖에 있어도 찾는다.
+  for (let i = idx - 1; i >= 0; i -= 1) {
     const line = lines[i];
     if (!line.trim()) continue;
     const ind = indentOf(line);
-    if (ind >= mine) continue; // 더 깊거나 같은 자리는 형제 — 머리가 아니다
+    if (ind >= enclosingIndent) continue; // 같은 깊이의 형제 문장은 감싸는 루프가 아니다.
     if (LOOP_HEAD.test(line)) return { line: i + 1, text: line.trim().slice(0, 90) };
+    enclosingIndent = ind;
     if (ind === 0) break; // 최상위까지 올라왔다
   }
   return null;
 }
 
-function scanFile(file) {
-  const src = fs.readFileSync(file, 'utf8');
+function scanFile(file, source = fs.readFileSync(file, 'utf8')) {
+  const src = source.replace(/\r\n/g, '\n');
   const lines = src.split(/\r?\n/);
   const hits = [];
 
@@ -108,6 +108,11 @@ function scanFile(file) {
     // 한 행을 겨냥하는가 — eq/match 가 있어야 단건이다.
     const targetsOne = /\.(eq|match)\s*\(/.test(window);
     if (!targetsOne) continue;
+
+    // 부모 ID로 범위를 제한한 뒤 2개 이상씩 slice하는 DELETE는 배치 쓰기다.
+    // 한 ID짜리 in([id])나 뒤따르는 별도 쿼리를 근거로 단건 쓰기를 숨기지 않는다.
+    const batchDelete = /^\.delete\(\s*\)\s*(?:\.eq\([^\n)]*\)\s*)+\.in\(\s*['"][\w]+['"]\s*,\s*[\w$]+\.slice\(\s*([\w$]+)\s*,\s*\1\s*\+\s*(\d+)\s*\)\s*\)/.exec(window.slice(firstWrite));
+    if (batchDelete && Number(batchDelete[2]) > 1) continue;
 
     // 배치 관용구면 뺀다.
     if (/\.upsert\s*\(/.test(window) && /onConflict/.test(window)) continue;
@@ -140,7 +145,7 @@ function main() {
   const max = maxIdx >= 0 ? Number(args[maxIdx + 1]) : 60;
 
   const files = ROOTS.flatMap((r) => walk(r));
-  const hits = files.flatMap(scanFile);
+  const hits = files.flatMap((file) => scanFile(file));
 
   if (asJson) {
     process.stdout.write(JSON.stringify({ scanned: files.length, hits }, null, 2));
