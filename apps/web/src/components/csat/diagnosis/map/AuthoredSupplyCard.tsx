@@ -112,7 +112,9 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
     finally { setBusy(false) }
   }
 
-  const rows = listed.status === 'installed' ? [...listed.rows].sort((a, b) => ORDER.indexOf(a.role) - ORDER.indexOf(b.role)) : []
+  // T-0083(P1-1) — 학습 전용 진입은 교수 2역할만 보인다(목록은 TASK 단위라 같은 TASK 의 평가 · 미지 역할 납품도 온다 — 원장은 그대로 두고 이 카드 · 노트 투영에서만 뺀다)
+  const shownRow = (r: Row) => kind !== 'instructional' || r.role === 'model_explanation' || r.role === 'guided_practice'
+  const rows = listed.status === 'installed' ? [...listed.rows].filter(shownRow).sort((a, b) => ORDER.indexOf(a.role) - ORDER.indexOf(b.role)) : []
   return (
     <section className={p.card} aria-labelledby={hid} data-testid={tid('ws-authored')} data-task={task}>
       <div className={p.cardHead}>
