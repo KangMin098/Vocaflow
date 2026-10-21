@@ -61,5 +61,46 @@
     "handoff": "QUEUED",
     "actual_ack": false
   },
-  "observed_at": "2026-10-21T13:11:02.955Z"
+  "observed_at": "2026-10-21T13:11:02.955Z",
+  "followup": {
+    "at": "2026-10-21T13:33:48.294Z",
+    "implementation_head": "ad22826906b554a76bce054b5309ec24929a44fe",
+    "scope": "docs/final/APPROVAL_PACKAGE.md only; product/SQL unchanged",
+    "verdict": "ACCEPT_WITH_LIMITS",
+    "local_main": "f8a1de9a475e7d12f86a006f6fb0caefa26975a8",
+    "main_clean": true,
+    "lock_released": true,
+    "remote_sync": "NOT_RUN_LOCAL_FAST",
+    "functional_ui": {
+      "environment": "Owner actual React/Chromium synthetic inputs/router+HTTP mocks; reviewer read harness/results and inspected two PNGs; not independently rerun browser",
+      "cases": 4,
+      "widths": [
+        1440,
+        1280
+      ],
+      "saved_plan": [
+        false,
+        true
+      ],
+      "outcomes": "transfer material_needed; missing links 0; unsaved plan -> plan, saved plan -> supply; automatic mutation POST 0",
+      "evidence": "verification/ui/FINAL-DG-transfer-zero/results.json",
+      "authenticated_next_db": "NOT_VERIFIED",
+      "global_skin_and_layout": "NOT_VERIFIED: submitted modal capture visibly overlaps underlying text; no production defect conclusion from this harness"
+    },
+    "screenshots_on_disk": {
+      "png_files": 6,
+      "unique_byte_sequences": 4,
+      "reported_by_sender": 8
+    },
+    "safety": {
+      "db_write": false,
+      "human_gold_or_rights_written": false,
+      "role_or_interval_changed": false
+    },
+    "p2": [
+      "REPAIR label particle typo",
+      "Workspace need label could be mistaken for current transfer stage"
+    ],
+    "next": "Approval A pending explicit user approval; B/B2/C separate. Do not repeat passed tests or create a per-task PR."
+  }
 }
