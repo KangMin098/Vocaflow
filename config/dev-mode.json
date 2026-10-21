@@ -24,7 +24,10 @@
     "ordinary_work": "일반 개발에 AI 교차 리뷰·worker·subagent·새 worktree·작업 큐·handoff·세션 시작 동기화·별도 보고서를 강제하지 않는다. 문서는 계약이 바뀐 정본만 고친다. 모델·사고 수준은 작업에 맞춰 선택한다. LOCAL_FAST는 작업별 원격 CI를 기다리지 않는다. 기존 검증은 HEAD·범위·환경이 같으면 재사용한다.",
     "safety": "DB 변경·데이터 삭제 승인, 비밀정보, 인증·접근 통제, 다른 작업자의 변경, 파괴적 Git 차단, PR 범위·HEAD 결속, 필요한 테스트 실제 통과를 유지한다. skip·미실행·REVIEW_UNKNOWN을 PASS로 만들지 않는다. 기존 명시적 독립 검토 계약은 자동 완화하지 않는다.",
     "db_apply": "DB 마이그레이션·쓰기: 에이전트가 SQL·영향 범위를 보여주고 사용자가 대화에서 승인하면 그 자리에서 apply_migration(Claude는 mcp__supabase__*, 도구 권한 허용됨 2026-10-21)으로 적용한다. 승인 전 실행 금지. 데이터 삭제·DROP·TRUNCATE는 내용을 따로 밝혀 별도 명시 승인. 대량·단계 배포는 승인형 배포 러너.",
-    "main_sync": "로컬 main이 정본이다(D:/workspace/Vocaflow-main-serving, 3000). 하루 1회(백업 시점) 로컬 main을 sync/main-YYYYMMDD 브랜치로 push하고 PR 하나를 열어 CI 1회 뒤 safe-merge(VFC_DEV_MODE=GITHUB 일시 전환, scope-file 계약)로 origin/main에 반영한다. GitHub PR로 origin/main에 직접 병합한 세션은 같은 날 fetch 후 로컬 main에 origin/main을 합친다(fast-forward 또는 충돌 해결 병합). 반영 대상 PR은 원격 main 병합 후 자동 병합 처리를 확인한다."
+    "main_sync": "로컬 main(main_worktree, 3000)이 정본이다. 원격 반영은 bin/main-sync.mjs가 미반영 커밋이 있을 때만 하루 1회 sync/main-YYYYMMDD PR 하나로 CI→safe-merge(VFC_DEV_MODE=GITHUB, scope 계약) 처리하고, main-serving이 잠금 없고 깨끗하면 병합 커밋을 역동기화한다(Windows 작업 스케줄러 VocaflowMainSync가 매일 실행). 실패는 기록만 하고 로컬 개발을 막지 않는다. GitHub PR로 origin/main에 직접 병합한 세션은 같은 날 로컬 main에 origin/main을 합친다.",
+    "local_integration": "등록 TASK가 있으면 bin/local-integrate.mjs --task <ID>. 등록 TASK 없는 일반 개발은 영향 범위 검증 뒤 main_worktree에서 작업 브랜치를 git merge(잠금이 없고 미커밋 변경이 없을 때만, 충돌은 목적 기준 해결 후 관련 검사)로 로컬 main에 통합한다. 같은 워크트리에서 직접 한 작업은 그 자리 커밋이 곧 통합이다.",
+    "task_registration": "단일 AI 세션이 끝낼 수 있는 일반 개발은 VFC TASK 등록 없이 진행한다. 여러 세션의 공식 분담·추적이 필요할 때만 등록하고, 등록 전 기존 TASK 중복을 확인한다. 단계(기획→설계→구현→검증→개선)가 바뀌어도 새 TASK·브랜치·세션·PR을 만들지 않는다.",
+    "reporting": "일반 개발 최종 보고는 ① 구현·개선된 기능 ② 테스트·검증·통합 결과 ③ 미완료·실제 차단 사항만. 단순 변경마다 설계서·검토서·결과 보고서를 만들지 않고, 계약·제품 방향이 바뀐 정본만 갱신한다."
   },
   "$auto_codex_review": "2026-10-20: 일반 개발은 테스트·타입·영향 범위 검증으로 완료한다. 독립 AI 검토·동적 역할은 작업에서 명시적으로 요청할 때만 사용한다.",
   "integration_branch": "local/integration",
@@ -93,5 +96,6 @@
       ],
       "timeout_ms": 1800000
     }
-  ]
+  ],
+  "main_worktree": "D:/workspace/Vocaflow-main-serving"
 }
