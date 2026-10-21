@@ -1,0 +1,65 @@
+{
+  "mission": "FINAL-MISSION-A~H",
+  "parent_task": "T-0045",
+  "source_main": "865c1fdb15ef5cd1789e2eb691bbeab281403124",
+  "source_contract_unchanged_since": "c695198bd27742f7d60e506d010d10d3158249dd",
+  "scope": "D/G demand role and zero-transfer calculation; pending approval artifact bytes",
+  "environment": "Windows Node24.15/Vitest1.6, actual source projections with synthetic As-Is states; no DB write or authenticated browser",
+  "checks": {
+    "projection_pass": 3,
+    "projection_fail": 0,
+    "skipped": 0,
+    "authenticated_browser": "NOT_VERIFIED"
+  },
+  "database": {
+    "observed_at": "2026-10-21T13:07:50.432295Z",
+    "read_only": true,
+    "authored_item": null,
+    "human_decision": null,
+    "human_revocation": null,
+    "qualification_rows": 0,
+    "delivery_rows": 0,
+    "offline_human_review": "UNKNOWN",
+    "prerequisite_functions_missing": [],
+    "g2_ledger": "workspace_delivery_attempt",
+    "migration_versions": [
+      "20261017200000",
+      "20261017200100",
+      "20261018120000",
+      "20261018120100"
+    ],
+    "g2_migration_sha256": "8043ce3bc712c26c0d0e42b11db2f2f7144848af2f2c7077fa57edc953dd4c2f"
+  },
+  "content": {
+    "sets": 17,
+    "items": 152,
+    "assessment_items": 117,
+    "package_hash_matches": 17,
+    "attachment": {
+      "canon_status": "canon_candidate",
+      "workspace": "NOT_CONNECTED",
+      "items": 6,
+      "assessment_items": 4
+    },
+    "other_sets": {
+      "sets": 16,
+      "items": 146,
+      "assessment_items": 113
+    }
+  },
+  "sql": {
+    "sha256": "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+    "pending_and_deploy_bytes_equal": true,
+    "applied": false
+  },
+  "decision": {
+    "recheck_role_substitution": "NOT_AUTHORIZED_AS_A_STOCK_WORKAROUND",
+    "maintain_delayed_branch": "SHADOWED_IN_NORMAL_STAGE_PROJECTION",
+    "immediate_recheck": "independent_check x2; preserve",
+    "delayed_retention": "NOT_ESTABLISHED",
+    "next": "Claude: existing package count correction + transfer-stock-zero rendering; preserve canon, role/rights/Gold and first exposure",
+    "handoff": "QUEUED",
+    "actual_ack": false
+  },
+  "observed_at": "2026-10-21T13:11:02.955Z"
+}

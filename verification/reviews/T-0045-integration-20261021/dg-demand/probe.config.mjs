@@ -1,0 +1,1 @@
+export default {root:'D:/workspace/Vocaflow-AI-Control/verification/reviews/T-0045-integration-20261021/dg-demand',resolve:{alias:{'@':'D:/workspace/Vocaflow-main-serving/apps/web/src'}},test:{include:['probe.test.ts'],environment:'node'}}
