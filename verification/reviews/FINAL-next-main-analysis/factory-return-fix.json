@@ -44,7 +44,25 @@
     "lock_released": true,
     "remote_push_pr_ci": "NOT_RUN_PER_POLICY"
   },
-  "independent_peer_review": "REQUESTED_NOT_YET_ACKNOWLEDGED",
+  "independent_peer_review": {
+    "status": "RESULT_RETURNED",
+    "owner": "final-product",
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "reported_at": "2026-10-21T14:49:02.000Z",
+    "head": "9ce04cb2e2ceb8e9dc67ad7098ba2f4c7bd6d8c6",
+    "p0": 0,
+    "p1": 0,
+    "review_scope": [
+      "ctxQuery consumers: return link, runner, login, next lesson",
+      "normal map context preserved",
+      "ordinary entry remains context-free"
+    ],
+    "independent_command": "vitest run src/app/__tests__/factory-map-return.test.tsx",
+    "passed": 6,
+    "failed": 0,
+    "skipped": 0,
+    "source": "planning/inbox/final-product.md REVIEW_REPLY and user-delivered matching report"
+  },
   "goal_check": {
     "report": "verification/goal-check/GC-2026-10-21T14-44-49-051Z.json",
     "head": "9ce04cb2e2ceb8e9dc67ad7098ba2f4c7bd6d8c6",
@@ -64,5 +82,15 @@
     "reflection_table": null,
     "lesson_receipts_rpc": null,
     "write": false
+  },
+  "decision": {
+    "status": "ACCEPT_WITH_LIMITS",
+    "defect": "VERIFIED_FIXED",
+    "scope": "Discard stale authored activity attribution on factory return only",
+    "limitations": [
+      "Authenticated Next+DB/browser not run",
+      "Factory activity positive attribution is separate and not implemented by this fix",
+      "No database deployment or content approval implied"
+    ]
   }
 }
