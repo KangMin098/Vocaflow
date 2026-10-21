@@ -1,0 +1,99 @@
+{
+  "head": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "environment": "actual Chromium + actual React, next/link shim, synthetic GET and viewer transitions; NOT authenticated Next/DB or full visual acceptance",
+  "results": [
+    {
+      "case": "lazy GET-only normal read and same-scope reopen",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "latest current=false makes own note readonly without refetch",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "latest current=null makes own note readonly without refetch",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "listed error removes stale notes and links",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "listed not_installed removes stale notes and links",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "listed loading removes stale notes and links",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "same-TASK new viewer and delivery excludes old scope notes",
+      "passed": true,
+      "requests": [
+        "GET",
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "viewer-only change fetches new scope once",
+      "passed": true,
+      "requests": [
+        "GET",
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "late response cannot overwrite newer viewer-delivery result",
+      "passed": true,
+      "requests": [
+        "GET",
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "TASK-key remount control discards prior response",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "fresh equivalent rows references do not refetch",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    }
+  ],
+  "passed": 11,
+  "failed": 0
+}

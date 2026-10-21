@@ -1,0 +1,11 @@
+{
+  "type": "unit",
+  "result": "pass",
+  "skip_count": 0,
+  "command_or_protocol": "Independent exact-head related unit/SSR15/15 + actual React/Chromium mocked-GET lifecycle11/11; T0071-P1-1 VERIFIED_FIXED; code acceptance only, not authenticated Next/DB or UI acceptance",
+  "observed_at": "2026-10-21T01:54:13Z",
+  "commit": "f9d66f487072b56a64d76ebe70fb668920a8576e",
+  "artifact_path_or_url": "verification/reviews/T-0071-r2-independent/REVIEW.md",
+  "covers": [1, 2, 3],
+  "note": "LOCAL_ONLY. Formal REVIEW remains; no completion, local integration, official merge, DB writes or human approvals. T0070 canonical R2-E02 unchanged. Authenticated A/B and notes roundtrip/UI must be verified in the combined official bundle."
+}
