@@ -8,10 +8,15 @@
   "local_main": "6b32496be4eefdf12b1dc7d14292de983f381f1b",
   "post_merge_unit": 59,
   "typecheck_exit": 0,
-  "delivery": "QUEUED",
-  "actual_ack": null,
+  "delivery": "ACKNOWLEDGED",
+  "actual_ack": {
+    "source": "User-delivered Claude T0076 ACK in this turn; existing final-product session reported inbox ACKNOWLEDGED",
+    "head": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+    "local_main_preserved": "6b32496be4eefdf12b1dc7d14292de983f381f1b"
+  },
   "authenticated_next_db": "NOT_VERIFIED",
   "remote_ci_for_this_head": "NOT_RUN",
   "db_writes": 0,
-  "recorded_at": "2026-10-21T10:36:47.702Z"
+  "recorded_at": "2026-10-21T10:36:47.702Z",
+  "ack_observed_at": "2026-10-21T10:43:20.751Z"
 }

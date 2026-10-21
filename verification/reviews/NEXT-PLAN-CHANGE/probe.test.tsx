@@ -1,0 +1,11 @@
+﻿import {renderToStaticMarkup} from 'react-dom/server';import{describe,it,expect,vi}from'vitest';
+vi.mock('next/navigation',()=>({useRouter:()=>({refresh(){}})}));
+import{PlanSection}from'@/components/csat/diagnosis/map/PlanSection';import{CANON_VERSION}from'@/lib/csat/map/v4/definition';
+const task='r.central_meaning',workspace='ws.central-meaning',at='2026-10-20T00:00:00Z';
+const ver=(version:number,stage:string)=>({version,canon:CANON_VERSION,goalVersionId:10,reason:version===1?'initial':'check_result',createdAt:at,asOf:at,note:null,restoredFrom:null,plan:{order:[task],tasks:[{task,stage,planned:2,available:2,rule:stage==='check'?'unseen_check_items':'blocked_items'}]}});
+function html(stage:string,versions:any[],error=false){const latest=versions[0];const row={task,name:'중심 의미',goal:'g',criterion:'c',basis:'direct_check',evidence:'verified_need',need:'REPAIR',stage,quantity:{unit:'문항',available:2,planned:2,done:0,remaining:2,rule:'blocked_items'},achievement:'need_confirmed',unresolved:[],next:null};const saved={status:'installed',error,goalVersionId:10,goalHistory:[{id:10,score:80,exam:'kice6',grade:null,date:null,createdAt:at}],byTemplate:{[workspace]:{workspaceId:'11111111-2222-4333-8444-555555555555',template:workspace,latest,history:versions}}};return renderToStaticMarkup(<PlanSection view={{workspace,core:[task],tasks:[row],progress:{planned:2,done:0}} as never} saved={saved as never} viewer="fixture" goal={80} past={false} reason={null}/>)}
+describe('learner can see actual saved stage changes',()=>{
+ it('same quantity is not the same plan: stored check2 versus repair2 must have distinct stage labels in history',()=>{const h=html('repair',[ver(2,'repair'),ver(1,'check')]);const history=h.slice(h.indexOf('data-testid="plan-history"'));const v1=history.slice(history.indexOf('data-version="1"'));expect(v1).toContain('확인');expect(v1).toContain('2문항');expect(history.slice(history.indexOf('data-version="2"'),history.indexOf('data-version="1"'))).toContain('바로잡기')});
+ it('unchanged saved plan remains saved, not an automatic new revision',()=>{expect(html('check',[ver(1,'check')])).toContain('data-state="saved"')});
+ it('failed store read does not resurrect its supplied history rows',()=>{const h=html('repair',[ver(2,'repair'),ver(1,'check')],true);expect(h).not.toContain('data-testid="plan-history"')});
+});

@@ -1,0 +1,24 @@
+{
+  "task_id": "T-0077",
+  "design_revision": "rev1",
+  "main": "6b32496be4eefdf12b1dc7d14292de983f381f1b",
+  "source_start_head": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+  "source_paths_identical": [
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+    "apps/web/src/lib/csat/map/v4/plan-commit.ts",
+    "apps/web/src/lib/csat/map/v4/plan-store.ts"
+  ],
+  "baseline": {
+    "pass": 2,
+    "fail": 1,
+    "harness_setup_failure": "initial-harness-results.json excluded from product verdict"
+  },
+  "goal_alignment": "passed addTask/alignmentGate",
+  "owner": "final-product",
+  "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "delivery": "QUEUED",
+  "actual_ack": null,
+  "implementation_started": false,
+  "result_returned": false,
+  "observed_at": "2026-10-21T10:43:20.750Z"
+}

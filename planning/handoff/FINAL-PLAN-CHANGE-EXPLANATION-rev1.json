@@ -1,0 +1,113 @@
+{
+  "goal_id": "VG-L3-B2-02",
+  "related_goal_ids": [
+    "VG-L3-B2-01",
+    "VG-L3-A3-02"
+  ],
+  "title": "계획 재확정 전후의 단계·학습량 변화를 기존 Workspace에서 설명",
+  "description": "FINAL C/H. 현재 PlanSection은 변경 알림과 새 계획을 보여주지만 이력은 단계 없이 수량만 보여 준다. 실제 SSR 반례: 저장 check2→repair2가 동일한 중심 의미2문항으로 보임. 학습자가 왜 무엇을 다시 확정하는지, 실제로 무엇을 저장했는지 알아보도록 기존 저장 계획과 현재 화면을 읽기 전용 비교한다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "6b32496be4eefdf12b1dc7d14292de983f381f1b",
+  "depends_on": [
+    "T-0076"
+  ],
+  "duplicate_reason": "final-product 활성 작업0. T0070은 목표/TASK 요약, T0072는 목표 버전 재확정 관문, T0076은 실제 수행 근거 projection이며 이번 저장 계획 old/new 설명은 구현하지 않았다. T0020 구 지도 작업에 PlanSection 파일 없음. 다른 관리자/데이터 owner 경로를 인수하지 않는다. 완료 기능의 재구현이 아닌 기존 저장 원장 읽기 UX 추가.",
+  "allowed_paths": [
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+    "apps/web/src/components/csat/diagnosis/map/PlanChangeSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/plan-change-summary.test.tsx",
+    "apps/web/src/lib/csat/map/v62/plan-change.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/plan-change.test.ts",
+    "apps/web/tests/e2e-isolated/goal-plan-version.isolated.spec.ts",
+    "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "apps/web/src/app/api/**",
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+    "apps/web/src/lib/csat/map/v4/**",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/lib/csat/map/v62/goal-plan.ts",
+    "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+    "docs/csat-learner/v4/**",
+    "scripts/audit/**"
+  ],
+  "db_scope": {
+    "mode": "none",
+    "targets": []
+  },
+  "approval_required": false,
+  "requires_ci": false,
+  "criterion_claims": [
+    {
+      "criterion_id": "VG-L3-B2-02-AC1",
+      "claim": "partial"
+    }
+  ],
+  "acceptance": [
+    "기존 PlanSection 안에서 최신 저장본과 화면의 현재 제안(shown=기존 applySaved/quantityBasis/applyDraft 결과)을 비교한다. 변한 TASK만 단계·계획량·가용량의 저장값→지금 값을 짧게 표시하고 목표 변경은 기존 goalLabel/goalHistory로 그때·지금 기준을 표시한다. 순서 변경만 있으면 순서 변화로 설명한다. 아직 저장하지 않은 비교는 제안임을 명시하고 실제 저장 성공·재조회 전 저장됐다고 표시하지 않는다. 새 판정/수량/순위/자동 POST를 만들지 않는다.",
+    "기존 계획 이력의 각 TASK에 저장 당시 stage와 planned를 함께 표시한다. 최신과 실제 직전 저장 버전이 모두 있으면 저장된 변화도 한 번 요약한다(기존 이력 목록을 큰 새 표로 중복하지 않음). 같은2문항 check→repair도 구분하고 transfer 지문→recheck 문항은 단위별 old/new로 표시하며 서로 빼거나 합산하지 않는다. null/미조회/역사 밖 목표는 미정·확인 불가로 표시하고0이나 현재 값으로 소급 대체하지 않는다. reason은 저장된 사유이지 근거 없는 인과·실력 향상 아님. 저장 이력에 없는 과거 수행/정오/숙달 변화는 재구성하지 않는다.",
+    "미저장 계획은 비교할 저장본 없음을 구분하고, 저장본 조회 실패/미설치면 과거 값·변경 없음으로 보이지 않는다. history가 잘려 직전 버전이 없으면 비교 불가. past는 조회만 하고 행동을 추가하지 않는다. 비교 때문에 저장/목표 변경/복원/충돌409/초안 인수/멱등/이력 보존 핸들러를 바꾸지 않는다. 학습자 조정과 실제 자료 변화는 가능하면 사실로 나눠 표시하되 판별 불가한 사유를 추정하지 않는다.",
+    "LOCAL_FAST: 제공 baseline(설정 실패 파일은 제품 실패 아님)1fail2pass를 새 worktree 별칭으로 재검증하고 관련 순수/렌더·타입·변경 lint만 실행한다. 실제 React PlanSection1440/1280에서 저장check2→제안repair2, 동일 저장 정상, 가용null, 목표만 변경, 조회 실패, past와 키보드 펼침·읽기·넘침을 확인한다. 변경 표시 추가만이므로 기존 저장 동작/다른2700시험은 반복하지 않는다. 기존 인증 journey 또는 goal-plan-version에 실제 저장 전후/PLAN 불변 단언만 보강해 다음 공식 일일 묶음에서 실행하며 미실행은 NOT_VERIFIED. 작업별push/PR/CI·새작업실행기/워크트리 없음."
+  ],
+  "ui_acceptance": [
+    "기존3B Workspace 계획 패널·details·문구/아이콘/토큰 재사용. 실제1440/1280에서 저장본/제안/저장된 변화가 구분되고 키보드와 null/오류/과거 보기 상태를 확인한다. 새 화면/대시보드/전체 디자인 재작성 없이 짧은 단계·수량 변화만 읽기 쉽게 표시한다."
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-B2-02",
+    "acceptance_ids": [
+      "VG-L3-B2-02-AC1"
+    ],
+    "current_gap": "최신 로컬main6b32496be SSR1fail2pass: 이력에 check/repair 단계가 없어2문항→2문항 변화가 동일하게 보이고 현재 drift는 바뀌었다고만 알림. 저장 원장에는 stage/planned/available/goalVersion가 이미 있어 실제 변화 설명 가능. 과거 성취 근거는 저장하지 않아 복원 금지.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "저장 값과 현재 제안의 정확한 읽기 전용 비교",
+      "저장된 단계/단위별 계획 변화와 미조회 보호",
+      "PC1440/1280 실제 PlanSection"
+    ],
+    "next_dependency": "로컬 수용→기존 로컬main 통합→다음 공식 일일 묶음 인증 실행. 실제 DB설치/사람Gold·권리/효과와 별개.",
+    "out_of_scope": [
+      "PLAN 계산·저장/RPC/SQL 변경",
+      "자동 확정·과거 진단/정오 재구성",
+      "전체 새 UI·관리 시스템",
+      "외부 승인 승격"
+    ],
+    "dependency_type": "direct"
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_revision": "rev1",
+    "design_id": "FINAL-PLAN-CHANGE-EXPLANATION-rev1",
+    "goals_ah": [
+      "C",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "probe": "verification/reviews/NEXT-PLAN-CHANGE/probe.test.tsx",
+    "baseline": "verification/reviews/NEXT-PLAN-CHANGE/baseline-results.json",
+    "delivery": "QUEUED until actual ACK/start"
+  }
+}
