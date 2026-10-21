@@ -1,0 +1,15 @@
+{
+  "task_id": "T-0081",
+  "status": "IN_PROGRESS",
+  "queued": "2026-10-21T12:32:56.590Z",
+  "acknowledged": "2026-10-21T12:33:39.079Z",
+  "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "started": "2026-10-21T12:33:39.079Z",
+  "pid": 19636,
+  "process_alive": true,
+  "product_lock_matches_pid": true,
+  "product_lock_agent": "claude",
+  "delivery": "IMPLEMENTATION_STARTED",
+  "result_returned": false,
+  "at": "2026-10-21T12:34:06.912Z"
+}
