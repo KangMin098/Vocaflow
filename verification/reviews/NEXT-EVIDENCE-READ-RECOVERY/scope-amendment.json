@@ -1,0 +1,20 @@
+{
+  "task_id": "T-0078",
+  "design_revision": "rev1",
+  "at": "2026-10-21T11:17:30.037Z",
+  "by": "final-independent-accept",
+  "kind": "exact_test_fixture_scope_addition",
+  "path": "apps/web/src/lib/csat/map/v62/__tests__/plan-goal-binding.test.ts",
+  "allowed_change": "Only add findAttempts: [], lifecycleActivity: [] to the existing normal-success loadMapPage mock at line25. Preserve all200/409/no-write/missing-result assertions and explicit unavailable-source tests. Same task/rev1, no policy/ownership/DB/canon changes.",
+  "reason": "Source inspected: all six goal-binding cases presume a successful map read. Omitted arrays are now intentionally unavailable; explicit readable-empty arrays restore the original fixture intent rather than weaken product checks.",
+  "verification": "Run only this six-case file plus already affected unavailable route controls; preserve original failures. No full related195 rerun required solely for the fixture annotation.",
+  "alignment": {
+    "checks": [
+      "gap: VG-L3-A1-02 UNKNOWN",
+      "duplicate: 없음"
+    ]
+  },
+  "delivery": "QUEUED",
+  "actual_ack": null,
+  "product_file_modified_by_codex": false
+}
