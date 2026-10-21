@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-27-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#27",
+      "verdict": "pass",
+      "content_hash": "ac306e22ee465f1d",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "5821b83891fb77c0",
+        "basePublicHash": "85423982004919e2ac69b0c207b6c5b8719336af209b8c9500ab7903ffd8ea9c",
+        "sourceSnapshotHash": "81df95c182078421"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u1 쉬운 말이 짧아지고 전 학년·2025년 12월 12일·MP3 로만·1MB·과정 설명을 모두 보존. u2 세 개·학생 투표가 정답 선지 4 와 연결, u3 각자·미래 표현 보존. 우승자 수 미확정을 limit 로 정직하게 둠."
+    }
+  ]
+}

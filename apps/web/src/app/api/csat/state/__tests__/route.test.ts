@@ -23,8 +23,20 @@ vi.mock('@/lib/supabase/admin', () => ({
       const q = {
         select: () => q,
         eq: (k: string, v: unknown) => { h.eqs.push([k, v]); return q },
-        maybeSingle: async () => ({ data: { record: h.stored }, error: null }),
+        maybeSingle: async () => ({ data: { record: h.stored, updated_at: '2026-10-18T00:00:00.000Z' }, error: null }),
         upsert: async (row: unknown) => { h.upserts.push(row); return { error: null } },
+        // FI-015 — PUT 은 비교 갱신(update … eq updated_at … select)으로 쓴다. 쓴 행은 upserts 에 같은 모양(user_id · record)으로 남긴다
+        update: (patch: Record<string, unknown>) => {
+          const row: Record<string, unknown> = { ...patch }
+          h.upserts.push(row)
+          const u = {
+            eq: (k: string, v: unknown) => { h.eqs.push([k, v]); if (k === 'user_id') row.user_id = v; return u },
+            is: () => u,
+            select: async () => ({ data: [{ user_id: row.user_id }], error: null }),
+          }
+          return u
+        },
+        insert: async (row: unknown) => { h.upserts.push(row); return { error: null } },
         delete: () => q,
       }
       return q

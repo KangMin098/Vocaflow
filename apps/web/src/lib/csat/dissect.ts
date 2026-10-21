@@ -1,6 +1,7 @@
 // apps/web/src/lib/csat/dissect.ts
 // Pure prediction/session rules. Passage text never belongs to this model.
 import type { LearnerCatalog } from './session/catalog'
+import type { MeaningNote } from './meaning-note'
 import type { CatalogItem } from './session/model'
 import type { RevealAnchor } from './session/reveal'
 import { countedPredictions, type LearningSession } from './learning-session'
@@ -80,6 +81,8 @@ export interface DissectionRecord {
   compares?: { id: string; item: string; other: string; at: number }[]
   /** 원리 노트(v3 M4) — 해설 뒤 학습자가 쓴 조건부 원리 · 근거 · 적용 경계. 병합은 id 단위(새로 고친 쪽) · 자동 채점 없음 · 독립 진단 아님 */
   reasoningNotes?: ReasoningNote[]
+  /** 원문 이해 「내 말로」 노트(v3.2 · `lib/csat/meaning-note.ts`) — 의미 하나에 하나. 병합은 id 단위(새로 고친 쪽) · 자동 채점 없음 */
+  meaningNotes?: MeaningNote[]
 }
 
 /**
@@ -139,6 +142,13 @@ export interface ReasoningNote {
   helpAtReveal?: 'independent' | 'hint' | 'viewed_first'
   /** 쓴 뒤 검수된 원리와 스스로 대조했는가 */
   comparedWithModel: boolean
+  /**
+   * FI-011 C — 창작 교수 자료(안내 연습 · 원리 설명)에서 쓴 노트의 결속. 서버(state PUT)가 본인 · 지금 유효한 교수 납품 ·
+   * 현재 주석 hash 와 맞을 때만 받는다. 기출 노트에는 없다(기존 노트 호환)
+   */
+  authored?: { deliveryId: string; annotationHash: string }
+  /** T-0063 — 고쳐 쓴 노트면 고친 대상 노트 id(같은 문항). 원본은 덮어쓰지 않고 새 노트로 남는다 · 없으면 처음 쓴 노트(옛 노트 호환) */
+  revisionOf?: string
   at: number
   updatedAt: number
 }
@@ -163,6 +173,9 @@ export function normalizeReasoningNote(x: Partial<ReasoningNote> | null | undefi
     afterExplanation: true,
     ...(x.helpAtReveal === 'independent' || x.helpAtReveal === 'hint' || x.helpAtReveal === 'viewed_first' ? { helpAtReveal: x.helpAtReveal } : {}),
     comparedWithModel: x.comparedWithModel === true,
+    ...(x.authored && typeof x.authored.deliveryId === 'string' && /^[0-9a-f-]{36}$/i.test(x.authored.deliveryId) && typeof x.authored.annotationHash === 'string' && /^[0-9a-f]{16,128}$/i.test(x.authored.annotationHash)
+      ? { authored: { deliveryId: x.authored.deliveryId, annotationHash: x.authored.annotationHash } } : {}),
+    ...(typeof x.revisionOf === 'string' && x.revisionOf !== x.id && /^[A-Za-z0-9-]{8,64}$/.test(x.revisionOf) ? { revisionOf: x.revisionOf } : {}),
     at, updatedAt: Number.isFinite(x.updatedAt) ? Number(x.updatedAt) : at,
   }
 }

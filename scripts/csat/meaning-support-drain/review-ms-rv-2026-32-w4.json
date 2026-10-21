@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-32-w4",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#32",
+      "verdict": "pass",
+      "content_hash": "8fcd74c6297df466",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "0cae42a4b9958014",
+        "basePublicHash": "fb4a3a1ceb24a842392a16ff33a2e04fd98c9e3607f0962d8bf0980ff1dac472",
+        "sourceSnapshotHash": "a0ada9d2619c0ec5"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u4.simpleKo 가 (빈칸)·재진술(다시 말해)·양쪽 모두·해야 를 보존하고 정답 선지 문구를 쓰지 않는다. p4 와 limitKo(「작가의 몫과 대화 상대의 몫」), whole.summaryKo 도 원문 「양쪽 절반」 재진술 범위에 머문다. r3.changeKo 「빠진 것(상대의 반응)을 작가가 직접 채워야」는 6번 문장의 피드백 부재를 받는 말로, 선지 ⑤의 「예상」 행위를 직접 옮기지 않아 노출로 보지 않는다(경계 사례 — 더 줄이려면 「빠진 것(즉각적 피드백)」). u1~u3 문제없음."
+    }
+  ]
+}

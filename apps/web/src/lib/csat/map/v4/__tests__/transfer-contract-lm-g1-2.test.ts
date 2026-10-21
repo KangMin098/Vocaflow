@@ -118,9 +118,10 @@ describe('LM-G1.2 TRANSFER 계약 — 경험 · 진행 · 준비 · 증거 분�
     expect(transferTarget(0, 1, 2)).toBeNull()
   })
 
-  it('적용 자료 없음 → 적용을 건너뛰되 완료로 꾸미지 않는다(준비 null · 성취 그대로)', () => {
+  it('적용 자료 없음 → 적용 단계에 머물러 자료 필요(완료로 꾸미지 않음 · 준비 null · 성취 그대로 · T-0052 Codex P1)', () => {
     const p = build(asIs({ attempts: VERIFIED }), [FIXED], 0)
-    expect(p.stage).not.toBe('transfer')
+    expect(p.stage).toBe('transfer')
+    expect(p.unresolved).toContain('material_needed')
     expect(p.achievement).toBe('need_confirmed')
     expect(transferContract(null, 0, null)).toMatchObject({ ready: null, evidence: 'none' })
   })

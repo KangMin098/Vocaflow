@@ -1,0 +1,441 @@
+{
+  "writer_run": "ms-wr-2026-27-w3",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#27",
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "5821b83891fb77c0",
+      "basePublicHash": "85423982004919e2ac69b0c207b6c5b8719336af209b8c9500ab7903ffd8ea9c",
+      "sourceSnapshotHash": "81df95c182078421"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 27,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u1",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 0,
+          "end": 27,
+          "spanHash": "885f72e77b8b9aaee3c41ca76ad1805606df08b3cd9c55766f34ac3cb14d5db9"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 3,
+        "quote": "students of all grades",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 109,
+          "end": 143,
+          "spanHash": "48b10ab8c56df03fdc2722d4ee6807c8f68356acc5faa615fabbd7899cf8d536"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 3,
+        "quote": "Upload entries to our school website",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 184,
+          "end": 204,
+          "spanHash": "8b62bf8066f3b04327e30a46df1ffa3cc71ae57f30ead91ed4a167a8c10fbd86"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 209,
+          "end": 263,
+          "spanHash": "65469ba09e19b2ea69bc5a78e39b0f78d4118a2cc5124f15d646741328a1fb89"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 4,
+        "quote": "Three school bell sounds will be selected",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 4,
+        "sourceRange": {
+          "start": 61,
+          "end": 76,
+          "spanHash": "a6a0a952c6305e7edbea44f68bf29c56089eec44039a8b4ca5a0b44de2d827f0"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 4,
+        "sourceRange": {
+          "start": 78,
+          "end": 113,
+          "spanHash": "c618fd998921dfa918620eaea35a02c901c348ad97b6ebdc2535ee441f98f39e"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 5,
+        "sourceRange": {
+          "start": 9,
+          "end": 77,
+          "spanHash": "40df846004b841066527e8228a91e191d597a5fc3e3b436ae33405778d58eaee"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 5,
+        "quote": "will each get a wireless speaker",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p1",
+        "textKo": "참가 대상은 Wakeville 고등학교의 전 학년 학생이고, 마감일은 2025년 12월 12일이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1",
+          "a2"
+        ]
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p2",
+        "textKo": "출품작은 MP3 형식으로만 내고, 1MB 이하 파일로 학교 웹사이트에 올리며, 소리를 만든 과정 설명을 함께 넣어야 한다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3",
+          "a4",
+          "a5",
+          "a6"
+        ]
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p3",
+        "textKo": "학교 종소리 세 개가 창의성과 적합성을 기준으로 학생 투표를 통해 뽑힌다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a7",
+          "a8",
+          "a9"
+        ]
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p4",
+        "textKo": "뽑힌 종소리는 지금 쓰는 종소리를 대신하고, 우승자는 각자 무선 스피커를 받는다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a10",
+          "a11"
+        ]
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          3
+        ],
+        "legacyMeaningIds": [
+          "m2",
+          "m3"
+        ],
+        "labelKo": "누가 · 언제까지 · 어떻게 내나",
+        "exactKo": "2025년 12월 12일까지 Wakeville 고등학교 전 학년 학생이 참가할 수 있고, 출품작은 MP3 형식으로만 1MB 이하 파일로 학교 웹사이트에 올리며 소리 제작 과정 설명을 포함해야 한다.",
+        "simpleKo": "전 학년 누구나 2025년 12월 12일까지, MP3 파일로만(1MB 이하) 학교 웹사이트에 올리고 만든 과정 설명도 함께 낸다.",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "전 학년",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "학년 제한이 없다는 범위다. 대신 「Wakeville 고등학교 학생」이라는 소속 제한은 그대로 남는다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "2025년 12월 12일 마감",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "제출할 수 있는 마지막 날이다. 날짜가 바뀌면 다른 안내가 된다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "MP3 형식으로만",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "「만」이 다른 파일 형식을 막는다. 쉬운 말에서 이 한정이 빠지면 여러 형식이 허용되는 것처럼 읽힌다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "파일 크기 1MB 제한",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "업로드 방법에 붙은 상한이다. 웹사이트에 올린다는 사실과 함께 지켜야 하는 조건이다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "제작 과정 설명 포함",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "소리 파일만으로는 제출 요건이 다 채워지지 않는다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "출품작은 MP3 같은 음성 파일로 학교 웹사이트에 올리면 된다.",
+          "lostFacet": "condition",
+          "anchorIds": [
+            "a3",
+            "a5"
+          ],
+          "whyWrongKo": "「같은」이라고 넓히면 MP3 한 형식으로만 내라는 한정이 사라지고, 1MB 제한과 과정 설명이라는 다른 조건도 빠진다. 안내문에서는 이런 조건 하나하나가 따로 확인할 사실이다."
+        }
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          4
+        ],
+        "legacyMeaningIds": [
+          "m4"
+        ],
+        "labelKo": "몇 개를 · 누가 · 무엇으로 뽑나",
+        "exactKo": "학교 종소리 세 개가 창의성과 적합성을 기준으로 학생 투표에 의해 선정될 것이다.",
+        "simpleKo": "학생들이 창의성과 어울림을 보고 투표해서 종소리 세 개를 고른다.",
+        "propositionIds": [
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "세 개",
+            "anchorIds": [
+              "a7"
+            ],
+            "explanationKo": "선정되는 종소리의 수다. 방식이 같아도 수가 다르면 안내 내용과 어긋난다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "학생 투표로",
+            "anchorIds": [
+              "a8"
+            ],
+            "explanationKo": "고르는 주체는 교사나 심사위원이 아니라 학생들의 투표다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "창의성과 적합성을 기준으로",
+            "anchorIds": [
+              "a9"
+            ],
+            "explanationKo": "투표가 아무렇게나 이루어지는 것이 아니라 두 기준에 근거한다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "학생 투표로 종소리 네 개가 선정된다.",
+          "lostFacet": "quantity",
+          "anchorIds": [
+            "a7",
+            "a8"
+          ],
+          "whyWrongKo": "「학생 투표」라는 방식은 원문과 같아서 맞는 문장처럼 보이지만, 수량이 셋에서 넷으로 바뀌었다. 방식과 수량이 한 줄에 함께 있으면 둘 다 대조해야 한다."
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          5
+        ],
+        "legacyMeaningIds": [
+          "m5"
+        ],
+        "labelKo": "뽑히면 무엇이 달라지나",
+        "exactKo": "우승한 학교 종소리는 현재의 종소리를 대체하고, 대회 우승자는 각자 무선 스피커를 받을 것이다.",
+        "simpleKo": "뽑힌 소리가 실제 학교 종소리가 되고, 우승자 한 명 한 명이 무선 스피커를 받는다.",
+        "propositionIds": [
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "각자",
+            "anchorIds": [
+              "a11"
+            ],
+            "explanationKo": "우승자들이 스피커 하나를 나눠 갖는 것이 아니라 한 사람마다 받는다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "우승한 종소리",
+            "anchorIds": [
+              "a10"
+            ],
+            "explanationKo": "앞 항목에서 학생 투표로 뽑힌 종소리를 다시 가리킨다. 그래서 바뀌는 종소리의 수도 그 선정 결과에 묶인다."
+          },
+          {
+            "facet": "time",
+            "valueKo": "~할 것이다(앞으로의 일)",
+            "anchorIds": [
+              "a10",
+              "a11"
+            ],
+            "explanationKo": "대회가 끝난 뒤 일어날 일로 안내된다. 이미 바뀐 것이 아니다."
+          }
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "warrantsKo": [
+          "안내문이 제출(Application Details) → 선정(Selection Method) 순서로 항목을 나눈다",
+          "선정 대상은 제출된 출품작일 수밖에 없다"
+        ],
+        "limitKo": "선정 시점이 마감 뒤라는 날짜는 원문에 따로 적혀 있지 않다. 순서는 항목 배열과 절차의 성격에서 읽은 것이다.",
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a1",
+          "a7"
+        ],
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "temporal",
+        "beforeKo": "조건에 맞춰 마감일까지 출품작을 올린다.",
+        "afterKo": "올라온 출품작 가운데 세 개를 학생 투표로 고른다.",
+        "changeKo": "누가 낼 수 있는지·어떻게 내는지에서, 낸 것 가운데 무엇이 남는지로 넘어간다. 제출 조건은 그대로 유지되고, 그 위에 선정 수량과 방식이 새로 정해진다.",
+        "basis": "bridging_inference"
+      },
+      {
+        "warrantsKo": [
+          "5번 문장의 「우승한 종소리」·「우승자」는 4번 문장의 선정 결과 말고는 가리킬 대상이 없다"
+        ],
+        "limitKo": "우승자가 꼭 세 명이라고는 원문이 말하지 않는다. 한 사람이 여러 개를 냈을 가능성은 안내문이 다루지 않는다.",
+        "propositionIds": [
+          "p3",
+          "p4"
+        ],
+        "anchorIds": [
+          "a7",
+          "a10"
+        ],
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "cause",
+        "beforeKo": "학생 투표로 종소리 세 개가 뽑힌다.",
+        "afterKo": "뽑힌 종소리가 현재 종소리를 대신하고 우승자는 각자 스피커를 받는다.",
+        "changeKo": "선정 결과가 실제 변화로 이어진다. 「우승한 종소리」가 앞의 선정 결과를 다시 받으므로, 상과 교체의 대상은 투표에서 뽑힌 것에만 한정된다.",
+        "basis": "bridging_inference"
+      }
+    ],
+    "whole": {
+      "limitsKo": [
+        "2번 문장의 주제(행복한 학교생활)는 unit 으로 따로 다루지 않았다."
+      ],
+      "genre": "practical",
+      "summaryKo": "학교 종소리 대회 안내문으로, 전 학년 학생이 정해진 마감일까지 MP3·1MB·과정 설명 조건을 지켜 웹사이트에 내면, 학생 투표로 세 개를 뽑아 실제 종소리로 바꾸고 우승자에게 각각 스피커를 준다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4"
+      ],
+      "relationIds": [
+        "r1",
+        "r2"
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m2",
+          "m3"
+        ],
+        "choiceNumbers": [
+          2,
+          3
+        ],
+        "designClaimIndices": []
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          4
+        ],
+        "designClaimIndices": [
+          1,
+          2
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": []
+      }
+    ]
+  }
+}

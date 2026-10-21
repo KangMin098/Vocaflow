@@ -2,7 +2,7 @@
 
 2026-10-12 사용자 첨부 보완안에 대한 **구현 설계와 Claude Code 작업 지시문**이다. 제품 구현 완료 문서가 아니다.
 
-Claude Code는 [CLAUDE_CODE_WORK_ORDER.md](CLAUDE_CODE_WORK_ORDER.md)를 읽고 시작한다. 설명의 근거는 [CURRENT_STATE_AUDIT.md](CURRENT_STATE_AUDIT.md), 교수·화면·콘텐츠 계약과 실제 제시 사례는 [MEANING_SUPPORT_DESIGN.md](MEANING_SUPPORT_DESIGN.md)에 있다. 새 설명의 검수 기준은 [CONTENT_REVIEW_CRITERIA.md](CONTENT_REVIEW_CRITERIA.md), 독립 계획 검토는 [REVIEW.md](REVIEW.md)에 기록한다.
+Claude Code는 [CLAUDE_CODE_WORK_ORDER.md](CLAUDE_CODE_WORK_ORDER.md)를 읽고 시작한다. 설명의 근거는 [CURRENT_STATE_AUDIT.md](CURRENT_STATE_AUDIT.md), 교수·화면·콘텐츠 계약과 실제 제시 사례는 [MEANING_SUPPORT_DESIGN.md](MEANING_SUPPORT_DESIGN.md)에 있다. 새 설명의 검수 기준은 [CONTENT_REVIEW_CRITERIA.md](CONTENT_REVIEW_CRITERIA.md), 독립 계획 검토는 [REVIEW.md](REVIEW.md)에 기록한다. v3.2 「내 말로 이해하기」(노트 저장 · 대조 · 고쳐 쓰기 · 27문항 감사)는 [MY_WORDS_V32.md](MY_WORDS_V32.md).
 
 앱·공개 자료 기준: `521944f227c9cf5b957cb8b366fb27a6d81a3d42`(PR #235). 최종 main 대조: `b691cb7f2d93df46725c2bd87483b2b49f1998c6`(PR #236, E2E/문서 보강). 두 커밋 사이 앱/공개 자료 diff 0. 착수 때 최신 main과 다시 대조한다.
 

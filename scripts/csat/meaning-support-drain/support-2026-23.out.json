@@ -1,55 +1,278 @@
 {
-  "writer_run": "ms-wr-2026-23",
+  "writer_run": "ms-wr-2026-23-w3",
   "status": "ok",
   "support": {
     "schema": "meaning-support/1",
     "itemId": "2026#23",
-    "binding": { "analysisVersion": 5, "unitsHash": "6a3df5e5826c01bc", "basePublicHash": "d52bf6f0f390f8b2631d121304cb7e76214b55bc55ef45ed953798194cb692f0", "sourceSnapshotHash": "08e3bab86ba923bb" },
-    "sourceRef": { "organizer": "kice", "examId": "2026", "itemNo": 23, "inputRef": "inquiry-origin:chunk-inq-15" },
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "6a3df5e5826c01bc",
+      "basePublicHash": "d52bf6f0f390f8b2631d121304cb7e76214b55bc55ef45ed953798194cb692f0",
+      "sourceSnapshotHash": "08e3bab86ba923bb"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 23,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
     "defaultUnitId": "u1",
     "anchors": [
-      { "id": "a1", "sentence": 1, "quote": "Emphasizing speed over frequency can make sense", "occurrence": 1, "mode": "original" },
-      { "id": "a2", "sentence": 1, "sourceRange": { "start": 48, "end": 115, "spanHash": "6a262b337d78e54d94de1453b1835d093a926284a2931c851f89225c158e956c" }, "mode": "original" },
-      { "id": "a3", "sentence": 2, "sourceRange": { "start": 0, "end": 21, "spanHash": "a7ad9e53d1ca0cee4803d5eb6c27ca0ffb858da8cfd1dfd0de76ba86b39099d1" }, "mode": "original" },
-      { "id": "a4", "sentence": 2, "quote": "it seems to be a common motorist’s error", "occurrence": 1, "mode": "original" },
-      { "id": "a5", "sentence": 4, "quote": "transit is only there if it’s coming soon", "occurrence": 1, "mode": "original" },
-      { "id": "a6", "sentence": 6, "sourceRange": { "start": 54, "end": 80, "spanHash": "90c8379ec7e40f55cadcaa6dcf64283727f7893a789b1587d02ed5bbd5ddb7b8" }, "mode": "original" },
-      { "id": "a7", "sentence": 7, "sourceRange": { "start": 0, "end": 9, "spanHash": "a24ed934b61eb16e5df1a53b391a4545e2f00c4505fe1d887cc8bd5ec905e6ae" }, "mode": "original" },
-      { "id": "a8", "sentence": 7, "quote": "waiting time will wipe out any time savings", "occurrence": 1, "mode": "original" },
-      { "id": "a9", "sentence": 8, "sourceRange": { "start": 0, "end": 79, "spanHash": "e66bf08bf36fb63121ec95baa572376c13b14e93d9f69ffa7e586eefc2513b32" }, "mode": "original" },
-      { "id": "a10", "sentence": 8, "quote": "speed is worthless without frequency", "occurrence": 1, "mode": "original" },
-      { "id": "a11", "sentence": 8, "quote": "a transit map that screams about speed", "occurrence": 1, "mode": "original" }
+      {
+        "id": "a1",
+        "sentence": 1,
+        "quote": "Emphasizing speed over frequency can make sense",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 1,
+        "sourceRange": {
+          "start": 48,
+          "end": 115,
+          "spanHash": "6a262b337d78e54d94de1453b1835d093a926284a2931c851f89225c158e956c"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 2,
+        "sourceRange": {
+          "start": 0,
+          "end": 21,
+          "spanHash": "a7ad9e53d1ca0cee4803d5eb6c27ca0ffb858da8cfd1dfd0de76ba86b39099d1"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 2,
+        "quote": "it seems to be a common motorist’s error",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 4,
+        "quote": "transit is only there if it’s coming soon",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 6,
+        "sourceRange": {
+          "start": 54,
+          "end": 80,
+          "spanHash": "90c8379ec7e40f55cadcaa6dcf64283727f7893a789b1587d02ed5bbd5ddb7b8"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 0,
+          "end": 9,
+          "spanHash": "a24ed934b61eb16e5df1a53b391a4545e2f00c4505fe1d887cc8bd5ec905e6ae"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 7,
+        "quote": "waiting time will wipe out any time savings",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 8,
+        "sourceRange": {
+          "start": 0,
+          "end": 79,
+          "spanHash": "e66bf08bf36fb63121ec95baa572376c13b14e93d9f69ffa7e586eefc2513b32"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 8,
+        "quote": "speed is worthless without frequency",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 8,
+        "quote": "a transit map that screams about speed",
+        "occurrence": 1,
+        "mode": "original"
+      }
     ],
     "propositions": [
-      { "id": "p1", "textKo": "모두가 시간표에 맞춰 움직이리라 기대되는 맥락(출퇴근 시간 전용 노선, 수요가 적은 아주 먼 노선)에서는 빈도보다 속도를 앞세우는 것이 말이 될 수 있다.", "basis": "source_observation", "anchorIds": ["a1", "a2"], "warrantsKo": [], "limitKo": "" },
-      { "id": "p2", "textKo": "그 밖의 모든 맥락에서는 속도를 앞세우는 것이 운전자들이 흔히 저지르는 오류로 보인다.", "basis": "source_observation", "anchorIds": ["a3", "a4"], "warrantsKo": [], "limitKo": "" },
-      { "id": "p3", "textKo": "도로는 늘 있지만 대중교통은 곧 올 때에만 비로소 쓸 수 있는 것이 된다. 필요할 때 운행하고 곧 와야 하며, 그렇지 않으면 기다리는 시간이 더 빠른 운행으로 아낀 시간을 없앤다.", "basis": "source_observation", "anchorIds": ["a5", "a6", "a7", "a8"], "warrantsKo": [], "limitKo": "" },
-      { "id": "p4", "textKo": "특정 시간표에 맞춰 생활하는 것이 편한 사람이 아니라면, 빈도 없는 속도는 가치가 없다. 그래서 속도를 크게 내세우고 빈도는 작게 다루는 노선도는 혼란을 심고 있을 수 있다.", "basis": "source_observation", "anchorIds": ["a9", "a10", "a11"], "warrantsKo": [], "limitKo": "" },
-      { "id": "p5", "textKo": "1번 문장의 예외 맥락과 8번 문장의 조건절은 같은 경우, 곧 이용자가 시간표에 맞춰 사는 경우를 가리키므로, 글은 처음과 끝에서 같은 예외를 인정하고 나머지에 대해 빈도의 필요를 주장한다.", "basis": "bridging_inference", "anchorIds": ["a2", "a9"], "warrantsKo": ["두 구간 모두 시간표에 맞춰 계획하는 이용자를 조건으로 든다", "2번 문장이 1번의 예외를 뺀 나머지 전부로 범위를 넓힌다"], "limitKo": "두 조건이 낱말까지 같지는 않다. 1번은 맥락(노선 종류), 8번은 이용자 개인의 생활 방식으로 표현된다." }
+      {
+        "id": "p1",
+        "textKo": "모두가 시간표에 맞춰 움직이리라 기대되는 맥락(출퇴근 시간 전용 노선, 수요가 적은 아주 먼 노선)에서는 빈도보다 속도를 앞세우는 것이 말이 될 수 있다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1",
+          "a2"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "그 밖의 모든 맥락에서는 속도를 앞세우는 것이 운전자들이 흔히 저지르는 오류로 보인다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a3",
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "도로는 늘 있지만 대중교통은 곧 올 때에만 비로소 쓸 수 있는 것이 된다. 필요할 때 운행하고 곧 와야 하며, 그렇지 않으면 기다리는 시간이 더 빠른 운행으로 아낀 시간을 없앤다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a5",
+          "a6",
+          "a7",
+          "a8"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p4",
+        "textKo": "특정 시간표에 맞춰 생활하는 것이 편한 사람이 아니라면, 빈도 없는 속도는 가치가 없다. 그래서 속도를 크게 내세우고 빈도는 작게 다루는 노선도는 혼란을 심고 있을 수 있다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a9",
+          "a10",
+          "a11"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "1번 문장의 예외 맥락과 8번 문장의 조건절은 같은 경우, 곧 이용자가 시간표에 맞춰 사는 경우를 가리키므로, 글은 처음과 끝에서 같은 예외를 인정하고 나머지에 대해 빈도의 필요를 주장한다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a2",
+          "a9"
+        ],
+        "warrantsKo": [
+          "두 구간 모두 시간표에 맞춰 계획하는 이용자를 조건으로 든다",
+          "2번 문장이 1번의 예외를 뺀 나머지 전부로 범위를 넓힌다"
+        ],
+        "limitKo": "두 조건이 낱말까지 같지는 않다. 1번은 맥락(노선 종류), 8번은 이용자 개인의 생활 방식으로 표현된다."
+      }
     ],
     "units": [
       {
-        "id": "u1", "sentences": [1, 2], "legacyMeaningIds": ["m1", "m2"],
+        "id": "u1",
+        "sentences": [
+          1,
+          2
+        ],
+        "legacyMeaningIds": [
+          "m1",
+          "m2"
+        ],
         "labelKo": "예외를 인정하고 나머지를 오류로",
         "exactKo": "모두가 시간표에 맞춰 계획하리라 기대되는 맥락에서는 빈도보다 속도를 강조하는 것이 말이 될 수 있다. 하지만 그 밖의 모든 맥락에서 그것은 운전자들이 흔히 저지르는 오류로 보인다.",
-        "simpleKo": "정해진 시간표에 맞춰 타는 노선이라면 빠른 게 중요할 수 있다. 하지만 그 밖의 경우엔 '빠르면 됐다'는 생각은 운전자식 착각으로 보인다.",
-        "propositionIds": ["p1", "p2", "p5"],
+        "simpleKo": "모두가 시간표에 맞춰 타는 노선이라면 자주 오는 것보다 빠른 게 중요할 수 있다. 하지만 그 밖의 경우엔 속도를 앞세우는 건 운전자들이 흔히 하는 착각으로 보인다.",
+        "propositionIds": [
+          "p1",
+          "p2",
+          "p5"
+        ],
         "preserves": [
-          { "facet": "modality", "valueKo": "말이 될 수 있다", "anchorIds": ["a1"], "explanationKo": "속도 강조가 옳다고 단정하지 않고, 그럴 수 있다는 가능성만 인정한다." },
-          { "facet": "condition", "valueKo": "모두가 시간표에 맞춰 계획하리라 기대되는 맥락에서", "anchorIds": ["a2"], "explanationKo": "이 인정은 시간표를 전제로 하는 맥락에만 걸린다. 이 조건을 빼면 속도 강조 전반을 인정하는 말이 된다." },
-          { "facet": "quantity", "valueKo": "그 밖의 모든 맥락", "anchorIds": ["a3"], "explanationKo": "예외를 뺀 나머지 전부로 주장의 범위를 넓힌다. 예외가 오히려 소수라는 점이 드러난다." },
-          { "facet": "modality", "valueKo": "오류로 보인다", "anchorIds": ["a4"], "explanationKo": "필자는 단정 대신 '그렇게 보인다'로 판단을 낸다." }
+          {
+            "facet": "modality",
+            "valueKo": "말이 될 수 있다",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "속도 강조가 옳다고 단정하지 않고, 그럴 수 있다는 가능성만 인정한다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "모두가 시간표에 맞춰 계획하리라 기대되는 맥락에서",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "이 인정은 시간표를 전제로 하는 맥락에만 걸린다. 이 조건을 빼면 속도 강조 전반을 인정하는 말이 된다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "그 밖의 모든 맥락",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "예외를 뺀 나머지 전부로 주장의 범위를 넓힌다. 예외가 오히려 소수라는 점이 드러난다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "오류로 보인다",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "필자는 단정 대신 '그렇게 보인다'로 판단을 낸다."
+          }
         ],
         "syntax": {
           "parts": [
-            { "id": "s1", "role": "main", "anchorIds": ["a1"], "meaningKo": "빈도보다 속도를 강조하는 것이 말이 될 수 있다 — 인정하는 내용" },
-            { "id": "s2", "role": "modifier", "anchorIds": ["a2"], "meaningKo": "시간표에 맞춰 계획하는 맥락에서 — 인정의 범위" },
-            { "id": "s3", "role": "connector", "anchorIds": ["a3"], "meaningKo": "그 밖의 모든 맥락에서는, 하지만 — 범위를 바꾸며 판단을 뒤집음" },
-            { "id": "s4", "role": "main", "anchorIds": ["a4"], "meaningKo": "그것은 흔한 운전자식 오류로 보인다 — 필자가 유지하는 판단" }
+            {
+              "id": "s1",
+              "role": "main",
+              "anchorIds": [
+                "a1"
+              ],
+              "meaningKo": "빈도보다 속도를 강조하는 것이 말이 될 수 있다 — 인정하는 내용"
+            },
+            {
+              "id": "s2",
+              "role": "modifier",
+              "anchorIds": [
+                "a2"
+              ],
+              "meaningKo": "시간표에 맞춰 계획하는 맥락에서 — 인정의 범위"
+            },
+            {
+              "id": "s3",
+              "role": "connector",
+              "anchorIds": [
+                "a3"
+              ],
+              "meaningKo": "그 밖의 모든 맥락에서는, 하지만 — 범위를 바꾸며 판단을 뒤집음"
+            },
+            {
+              "id": "s4",
+              "role": "main",
+              "anchorIds": [
+                "a4"
+              ],
+              "meaningKo": "그것은 흔한 운전자식 오류로 보인다 — 필자가 유지하는 판단"
+            }
           ],
           "attachments": [
-            { "fromPart": "s2", "toPart": "s1", "whyKo": "인정은 이 맥락 안에서만 성립한다." },
-            { "fromPart": "s3", "toPart": "s4", "whyKo": "앞의 예외 맥락을 뺀 나머지에 대해 반대 판단을 건다." }
+            {
+              "fromPart": "s2",
+              "toPart": "s1",
+              "whyKo": "인정은 이 맥락 안에서만 성립한다."
+            },
+            {
+              "fromPart": "s3",
+              "toPart": "s4",
+              "whyKo": "앞의 예외 맥락을 뺀 나머지에 대해 반대 판단을 건다."
+            }
           ],
           "recombinedKo": "시간표에 맞춰 사는 경우라면 속도 우선도 괜찮을 수 있지만, 그 밖에서는 잘못으로 보인다."
         },
@@ -57,48 +280,156 @@
           "alteredKo": "필자는 빠른 대중교통이 언제나 쓸모없다고 본다.",
           "lostFacet": "condition",
           "whyWrongKo": "필자는 시간표를 전제로 하는 맥락에서는 속도 강조가 말이 될 수 있다고 먼저 인정한다. 비판 대상은 속도 자체가 아니라 그 밖의 맥락에서 빈도 없이 속도를 앞세우는 일이다.",
-          "anchorIds": ["a1", "a2", "a3"]
+          "anchorIds": [
+            "a1",
+            "a2",
+            "a3"
+          ]
         }
       },
       {
-        "id": "u2", "sentences": [4, 6, 7], "legacyMeaningIds": ["m3", "m4"],
+        "id": "u2",
+        "sentences": [
+          4,
+          6,
+          7
+        ],
+        "legacyMeaningIds": [
+          "m3",
+          "m4"
+        ],
         "labelKo": "곧 와야만 있는 것",
         "exactKo": "대중교통은 곧 올 때에만 거기 있는 셈이다. 필요할 때 운행해야 하고 곧 와야 하며, 그렇지 않으면 기다리는 시간이 더 빠른 서비스로 아낀 시간을 모두 없앤다.",
         "simpleKo": "버스나 전철은 금방 와야 탈 수 있는 것이다. 오래 기다리면 빨리 달려서 아낀 시간이 다 사라진다.",
-        "propositionIds": ["p3"],
+        "propositionIds": [
+          "p3"
+        ],
         "preserves": [
-          { "facet": "condition", "valueKo": "곧 올 때에만", "anchorIds": ["a5"], "explanationKo": "대중교통이 쓸모 있게 '있는' 것을 곧 온다는 조건 하나에 묶는다. '곧 오면 좋다' 정도로 약하게 바꾸면 필수 조건이라는 뜻이 사라진다." },
-          { "facet": "condition", "valueKo": "그렇지 않으면", "anchorIds": ["a7", "a6"], "explanationKo": "기다림이 이점을 없애는 것은 필요할 때 운행하고 곧 온다는 조건이 깨졌을 때에 한한다." },
-          { "facet": "quantity", "valueKo": "아낀 시간을 모두", "anchorIds": ["a8"], "explanationKo": "일부가 아니라 빠른 운행의 이점 전체가 사라질 수 있다는 말이다." }
+          {
+            "facet": "condition",
+            "valueKo": "곧 올 때에만",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "대중교통이 쓸모 있게 '있는' 것을 곧 온다는 조건 하나에 묶는다. '곧 오면 좋다' 정도로 약하게 바꾸면 필수 조건이라는 뜻이 사라진다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "그렇지 않으면",
+            "anchorIds": [
+              "a7",
+              "a6"
+            ],
+            "explanationKo": "기다림이 이점을 없애는 것은 필요할 때 운행하고 곧 온다는 조건이 깨졌을 때에 한한다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "아낀 시간을 모두",
+            "anchorIds": [
+              "a8"
+            ],
+            "explanationKo": "일부가 아니라 빠른 운행의 이점 전체가 사라질 수 있다는 말이다."
+          }
         ],
         "misunderstanding": {
           "alteredKo": "기다리는 시간이 있으면 빠른 운행은 언제나 손해다.",
           "lostFacet": "condition",
           "whyWrongKo": "원문은 곧 오지 않을 때에 한해 기다림이 이점을 없앤다고 말한다. 자주 오는 노선이라면 빠른 운행의 이점은 그대로 남을 수 있다.",
-          "anchorIds": ["a7", "a8"]
+          "anchorIds": [
+            "a7",
+            "a8"
+          ]
         }
       },
       {
-        "id": "u3", "sentences": [8], "legacyMeaningIds": ["m5", "m6"],
+        "id": "u3",
+        "sentences": [
+          8
+        ],
+        "legacyMeaningIds": [
+          "m5",
+          "m6"
+        ],
         "labelKo": "빈도 없는 속도는 무가치 (핵심 명제)",
         "exactKo": "특정 시간표의 운행에 맞춰 생활을 계획하는 것이 편한 경우가 아니라면, 빈도 없는 속도는 가치가 없다. 그러므로 속도는 크게 외치고 빈도는 작게 말하는 노선도는 그저 혼란을 심고 있을 수 있다.",
-        "simpleKo": "시간표대로 사는 사람이 아니라면, 자주 오지 않는 빠른 차는 쓸모가 없다. 그러니 속도만 크게 보여 주는 노선도는 사람들을 헷갈리게 할 수 있다.",
-        "propositionIds": ["p4", "p5"],
+        "simpleKo": "시간표대로 사는 게 편한 사람이 아니라면, 자주 오지 않는 빠른 차는 쓸모가 없다. 그러니 속도는 크게, 배차는 작게 보여 주는 노선도는 사람들을 헷갈리게 할 수 있다.",
+        "propositionIds": [
+          "p4",
+          "p5"
+        ],
         "preserves": [
-          { "facet": "condition", "valueKo": "특정 시간표에 맞춰 생활하는 것이 편한 경우가 아니라면", "anchorIds": ["a9"], "explanationKo": "1번 문장의 예외를 다시 열어 둔다. 이 조건을 빼면 '속도는 언제나 무가치'라는 보편 단정이 된다." },
-          { "facet": "condition", "valueKo": "빈도 없이는", "anchorIds": ["a10"], "explanationKo": "속도 자체를 부정하지 않는다. 빈도가 없을 때 속도의 가치가 사라진다는 종속 관계다." },
-          { "facet": "modality", "valueKo": "혼란을 심고 있을 수 있다", "anchorIds": ["a11"], "explanationKo": "노선도가 꼭 혼란을 준다고 단정하지 않는다." },
-          { "facet": "causality", "valueKo": "그러므로 — 명제에서 노선도 사례로", "anchorIds": ["a10", "a11"], "explanationKo": "노선도는 앞 명제를 적용한 귀결이다. 글 전체의 주제가 아니다." }
+          {
+            "facet": "condition",
+            "valueKo": "특정 시간표에 맞춰 생활하는 것이 편한 경우가 아니라면",
+            "anchorIds": [
+              "a9"
+            ],
+            "explanationKo": "1번 문장의 예외를 다시 열어 둔다. 이 조건을 빼면 '속도는 언제나 무가치'라는 보편 단정이 된다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "빈도 없이는",
+            "anchorIds": [
+              "a10"
+            ],
+            "explanationKo": "속도 자체를 부정하지 않는다. 빈도가 없을 때 속도의 가치가 사라진다는 종속 관계다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "혼란을 심고 있을 수 있다",
+            "anchorIds": [
+              "a11"
+            ],
+            "explanationKo": "노선도가 꼭 혼란을 준다고 단정하지 않는다."
+          },
+          {
+            "facet": "causality",
+            "valueKo": "그러므로 — 명제에서 노선도 사례로",
+            "anchorIds": [
+              "a10",
+              "a11"
+            ],
+            "explanationKo": "노선도는 앞 명제를 적용한 귀결이다. 글 전체의 주제가 아니다."
+          }
         ],
         "syntax": {
           "parts": [
-            { "id": "s1", "role": "clause", "anchorIds": ["a9"], "meaningKo": "시간표에 맞춰 사는 게 편한 경우가 아니라면 — 판단의 조건" },
-            { "id": "s2", "role": "main", "anchorIds": ["a10"], "meaningKo": "빈도 없는 속도는 가치가 없다 — 핵심 판단" },
-            { "id": "s3", "role": "clause", "anchorIds": ["a11"], "meaningKo": "그래서 속도만 외치는 노선도는 혼란을 줄 수 있다 — 귀결 사례" }
+            {
+              "id": "s1",
+              "role": "clause",
+              "anchorIds": [
+                "a9"
+              ],
+              "meaningKo": "시간표에 맞춰 사는 게 편한 경우가 아니라면 — 판단의 조건"
+            },
+            {
+              "id": "s2",
+              "role": "main",
+              "anchorIds": [
+                "a10"
+              ],
+              "meaningKo": "빈도 없는 속도는 가치가 없다 — 핵심 판단"
+            },
+            {
+              "id": "s3",
+              "role": "clause",
+              "anchorIds": [
+                "a11"
+              ],
+              "meaningKo": "그래서 속도만 외치는 노선도는 혼란을 줄 수 있다 — 귀결 사례"
+            }
           ],
           "attachments": [
-            { "fromPart": "s1", "toPart": "s2", "whyKo": "조건절이 핵심 판단의 적용 범위를 정한다." },
-            { "fromPart": "s3", "toPart": "s2", "whyKo": "앞 판단을 노선도에 적용한 결과로 덧붙는다." }
+            {
+              "fromPart": "s1",
+              "toPart": "s2",
+              "whyKo": "조건절이 핵심 판단의 적용 범위를 정한다."
+            },
+            {
+              "fromPart": "s3",
+              "toPart": "s2",
+              "whyKo": "앞 판단을 노선도에 적용한 결과로 덧붙는다."
+            }
           ],
           "recombinedKo": "시간표대로 사는 경우를 빼면 빈도가 있어야 속도가 의미가 있고, 그래서 속도만 강조한 노선도는 오해를 낳을 수 있다."
         },
@@ -106,43 +437,138 @@
           "alteredKo": "빠른 교통은 언제나 가치가 없다.",
           "lostFacet": "condition",
           "whyWrongKo": "원문은 조건절로 시간표에 맞춰 사는 경우를 예외로 두고, 속도를 '빈도가 없을 때' 무가치하다고 한다. 두 조건을 모두 지우면 필자가 1번 문장에서 인정한 내용과도 어긋난다.",
-          "anchorIds": ["a9", "a10"]
+          "anchorIds": [
+            "a9",
+            "a10"
+          ]
         }
       }
     ],
     "relations": [
       {
-        "id": "r1", "from": ["u1"], "to": ["u2"], "kind": "cause",
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "cause",
         "beforeKo": "예외 맥락을 빼면 속도 우선은 흔한 운전자식 오류다.",
         "afterKo": "대중교통은 곧 와야만 쓸 수 있고, 기다림이 속도 이점을 없앨 수 있다.",
         "changeKo": "2번 문장의 판단을 유지한 채 그 이유를 댄다. 도로는 늘 있어서 속도가 중요하지만, 대중교통은 곧 와야 한다는 조건이 먼저라서 운전자의 기준을 그대로 옮기면 틀린다.",
-        "propositionIds": ["p2", "p3"], "anchorIds": ["a4", "a5", "a8"],
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a4",
+          "a5",
+          "a8"
+        ],
         "basis": "bridging_inference",
-        "warrantsKo": ["3~4번 문장이 도로와 대중교통을 대비해 '운전자식' 오류의 근거를 보인다", "6~7번 문장이 대중교통에 필요한 조건을 구체화한다"],
+        "warrantsKo": [
+          "3~4번 문장이 도로와 대중교통을 대비해 '운전자식' 오류의 근거를 보인다",
+          "6~7번 문장이 대중교통에 필요한 조건을 구체화한다"
+        ],
         "limitKo": "원문에 '왜냐하면' 같은 표지는 없다. 이유 관계는 도로·대중교통 대비에서 읽어 낸 연결이다."
       },
       {
-        "id": "r2", "from": ["u1", "u2"], "to": ["u3"], "kind": "concession",
+        "id": "r2",
+        "from": [
+          "u1",
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "concession",
         "beforeKo": "시간표 맥락에서는 속도 강조가 말이 될 수 있고, 그 밖에서는 곧 와야만 대중교통이 쓸모 있다.",
         "afterKo": "시간표에 맞춰 사는 경우가 아니라면 빈도 없는 속도는 가치가 없다.",
         "changeKo": "인정한 것: 시간표를 전제로 하는 경우에는 속도를 앞세울 수 있다는 점을 조건절로 다시 남겨 둔다. 유지한 판단: 그 밖에서는 빈도가 있어야 속도 이점이 작동한다는 것을 핵심 명제로 굳힌다. 예외를 지우지 않고 범위를 한정해 주장을 세운다.",
-        "propositionIds": ["p1", "p4", "p5"], "anchorIds": ["a1", "a2", "a9", "a10"],
+        "propositionIds": [
+          "p1",
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a1",
+          "a2",
+          "a9",
+          "a10"
+        ],
         "basis": "bridging_inference",
-        "warrantsKo": ["1번의 예외 맥락과 8번의 조건절이 모두 시간표에 맞춰 사는 경우를 가리킨다", "8번의 without 이 앞 문장들의 빈도 조건을 한 명제로 모은다"],
+        "warrantsKo": [
+          "1번의 예외 맥락과 8번의 조건절이 모두 시간표에 맞춰 사는 경우를 가리킨다",
+          "8번의 without 이 앞 문장들의 빈도 조건을 한 명제로 모은다"
+        ],
         "limitKo": "8번 문장이 1번 문장을 직접 가리키는 표지는 없다. 두 조건이 같은 범위라는 것은 내용으로 이은 연결이다."
       }
     ],
     "whole": {
       "genre": "argument",
       "summaryKo": "필자는 시간표에 맞춰 이용하는 경우에는 속도 강조가 통할 수 있다고 인정하면서도, 그 밖의 대중교통에서는 자주 와야만 속도가 의미를 가진다고 주장한다. 따라서 이 글의 중심은 대중교통에서 빈도를 중요하게 여겨야 한다는 명제이고, 노선도 이야기는 그 귀결 사례다.",
-      "propositionIds": ["p1", "p2", "p3", "p4", "p5"],
-      "relationIds": ["r1", "r2"],
-      "limitsKo": ["실제 출제 의도는 확인할 수 없다.", "속도 자체를 무가치하다고 하는 글이 아니다 — 조건(시간표 예외, 빈도 없음)을 보존해야 한다."]
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2"
+      ],
+      "limitsKo": [
+        "실제 출제 의도는 확인할 수 없다.",
+        "속도 자체를 무가치하다고 하는 글이 아니다 — 조건(시간표 예외, 빈도 없음)을 보존해야 한다."
+      ]
     },
     "bridges": [
-      { "unitId": "u1", "meaningIds": ["m1", "m2"], "choiceNumbers": [4, 5], "designClaimIndices": [1, 3] },
-      { "unitId": "u2", "meaningIds": ["m3", "m4"], "choiceNumbers": [3, 4], "designClaimIndices": [] },
-      { "unitId": "u3", "meaningIds": ["m5", "m6"], "choiceNumbers": [1, 2, 3, 5], "designClaimIndices": [2, 3] }
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1",
+          "m2"
+        ],
+        "choiceNumbers": [
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1,
+          3
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3",
+          "m4"
+        ],
+        "choiceNumbers": [
+          3,
+          4
+        ],
+        "designClaimIndices": []
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m5",
+          "m6"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3,
+          5
+        ],
+        "designClaimIndices": [
+          2,
+          3
+        ]
+      }
     ]
   }
 }

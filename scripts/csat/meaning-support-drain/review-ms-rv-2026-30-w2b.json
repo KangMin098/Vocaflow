@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-30-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#30",
+      "verdict": "pass",
+      "content_hash": "6586bab2e773e275",
+      "binding": {
+        "analysisVersion": 8,
+        "unitsHash": "0081ae79d542e531",
+        "basePublicHash": "1339190787c40efe46ec3859118f27a274d5c3e9b0bc69294944379a70ea360c",
+        "sourceSnapshotHash": "dfad632a30635c1f"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "w2 지적 반영 확인: u1.simpleKo 에 주체(지지자)·양태(받아들임)·조건(보편 기준이 없을 때) 복원. p2·u2.simpleKo 가 maybe(어쩌면)와 기회(계속 경기할 수 있게 됨) 복원, u2.preserves 와 일치. u4.labelKo·simpleKo·whole.summaryKo 가 원문 진술(들키지 않고 넘어가는 행동을 최대한 많이)과 연결 추론(목적은 유리함을 얻는 쪽, p5)을 명시적으로 구별(MS03·MS06 해소). 전체 재대조: most·as many as possible·may 보존, r1~r3 실제 변화와 warrant·limit 적정, bridges ①~⑤ referent 일치, 대체 낱말 영어 미도입. MS08 a1~a12 재계산 일치, MS10 새 영어 없음."
+    }
+  ]
+}

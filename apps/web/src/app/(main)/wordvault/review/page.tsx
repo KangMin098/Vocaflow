@@ -8,6 +8,7 @@
 import { redirect } from 'next/navigation'
 
 import { WordVaultStudyClient } from '@/components/wordvault/WordVaultStudyClient'
+import { vocabMapReturnHref } from '@/lib/csat/map-return'
 import { createClient } from '@/lib/supabase/server'
 import { vocabRowToWord, type BrowseWord } from '@/lib/wordvault/browse-queries'
 import { fetchStudyVocabularies } from '@/lib/wordvault/study-queries'
@@ -18,7 +19,9 @@ export const metadata = {
 
 export const dynamic = 'force-dynamic'
 
-export default async function WordVaultReviewPage() {
+export default async function WordVaultReviewPage({ searchParams = {} }: { searchParams?: Record<string, string | string[] | undefined> }) {
+  // T-0069 — 지도(V1 기본 의미)에서 왔으면 같은 TASK · Workspace 로 돌아갈 주소(검증한 문맥만). 아니면 null — 일반 진입은 그대로
+  const mapBack = vocabMapReturnHref(searchParams)
   const supabase = await createClient()
   const {
     data: { user },
@@ -28,8 +31,15 @@ export default async function WordVaultReviewPage() {
     redirect('/login?next=/wordvault/review')
   }
 
-  const rows = await fetchStudyVocabularies(supabase, user.id)
+  // 조회 실패를 「복습할 단어 0」 으로 보이지 않게 — 지도에서 온 화면은 실패를 그대로 알리고 돌아갈 길을 둔다(일반 진입은 예전처럼 오류 경계)
+  let rows: Awaited<ReturnType<typeof fetchStudyVocabularies>>
+  try {
+    rows = await fetchStudyVocabularies(supabase, user.id)
+  } catch (e) {
+    if (!mapBack) throw e
+    return <WordVaultStudyClient words={[]} mode="review" mapBack={mapBack} loadFailed />
+  }
   const words: BrowseWord[] = rows.map((r, i) => vocabRowToWord(r, i))
 
-  return <WordVaultStudyClient words={words} mode="review" />
+  return <WordVaultStudyClient words={words} mode="review" {...(mapBack ? { mapBack, backHref: mapBack } : {})} />
 }

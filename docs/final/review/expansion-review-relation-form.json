@@ -1,0 +1,18 @@
+{
+  "r-relation": {
+    "item-1": {"[1]→[2]": {"relation": "contrast", "also_defensible": []}, "[3]→[4]": {"relation": "cause_effect", "also_defensible": []}, "[5]→[6]": {"relation": "restatement", "also_defensible": ["addition"]}, "issues": ["[5]→[6]: [6] elaborates [5]; restatement vs addition borderline"]},
+    "item-2": {"[2]→[3]": {"relation": "cause_effect", "also_defensible": []}, "[3]→[4]": {"relation": "addition", "also_defensible": []}, "[5]→[6]": {"relation": "example", "also_defensible": ["restatement"]}, "issues": ["[2]→[3] has no connector; cause_effect is implicit (response to problem)", "[5]→[6]: [6] lists concrete costs — example vs restatement ambiguous"]},
+    "item-3": {"[1]→[2]": {"relation": "sequence", "also_defensible": []}, "[3]→[4]": {"relation": "contrast", "also_defensible": []}, "[5]→[6]": {"relation": "cause_effect", "also_defensible": ["restatement"]}, "issues": ["[5]→[6]: [6] explains why selection is an advantage (reason) — cause_effect direction reversed (effect→cause) and restatement/elaboration also defensible"]},
+    "item-4": {"[1]→[2]": {"relation": "example", "also_defensible": []}, "[4]→[5]": {"relation": "addition", "also_defensible": []}, "[6]→[7]": {"relation": "conclusion", "also_defensible": []}, "issues": []},
+    "item-5": {"[1]→[2]": {"relation": "cause_effect", "also_defensible": []}, "[4]→[5]": {"relation": "sequence", "also_defensible": []}, "[6]→[7]": {"relation": "conclusion", "also_defensible": ["cause_effect"]}, "issues": []},
+    "item-6": {"[1]→[2]": {"relation": "contrast", "also_defensible": []}, "[2]→[3]": {"relation": "example", "also_defensible": []}, "[6]→[7]": {"relation": "cause_effect", "also_defensible": []}, "issues": []}
+  },
+  "s-form-scope": {
+    "item-1": {"wrong": 3, "correction": "change", "category": "agreement", "other_wrong": false, "why": "subject 'The details' is plural; others correct", "issues": []},
+    "item-2": {"wrong": 5, "correction": "What", "category": "noun_clause", "other_wrong": false, "why": "'value' lacks object so What needed; where/which/located fine", "issues": []},
+    "item-3": {"wrong": 1, "correction": "surprised", "category": "participle", "other_wrong": false, "why": "students are surprised (passive sense); 'encouraging' OC fine", "issues": []},
+    "item-4": {"wrong": 4, "correction": "repeat", "category": "parallelism", "other_wrong": false, "why": "lean/ask/repeat parallel", "issues": []},
+    "item-5": {"wrong": 2, "correction": "their course", "category": "pronoun_reference", "other_wrong": false, "why": "antecedent 'The rivers' plural; inversions correct", "issues": ["'The rivers ... have shifted their course' plus 'the simple irrigation ditch' in [1] — passage coherence weak (ditch vs rivers), minor"]},
+    "item-6": {"wrong": 3, "correction": "to be produced", "category": "voice", "other_wrong": false, "why": "materials are produced", "issues": []}
+  }
+}

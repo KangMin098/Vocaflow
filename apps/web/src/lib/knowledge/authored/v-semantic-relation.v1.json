@@ -1,0 +1,369 @@
+{
+  "set": "v-semantic-relation.v1",
+  "taskId": "v.semantic_relation",
+  "taskKey": "authored-semantic-relation",
+  "format": "equivalence",
+  "proseNumbering": "1-based",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "sem-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "sem-t1",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "Our town library used to close every evening at six.",
+          "Many people who worked during the day could never visit it.",
+          "Last spring, the library began opening until ten on weekdays.",
+          "Within a month, the number of adult visitors almost doubled.",
+          "Those four extra hours every weekday evening had clearly reached readers the old schedule left out."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 2,
+            "text": "opening until ten on weekdays"
+          },
+          "b": {
+            "sentence": 4,
+            "text": "four extra hours every weekday evening"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오.",
+        "teach": [
+          {
+            "step": "겉모양이 아니라 가리키는 대상 보기",
+            "text": "3번 문장의 'opening until ten on weekdays'(평일 10시까지 문을 엶)와 5번 문장의 'four extra hours every weekday evening'(평일 저녁마다 늘어난 네 시간)은 낱말이 거의 겹치지 않는다. 그러나 1번 문장의 '6시 마감'에서 계산하면 6시→10시, 곧 평일 저녁 네 시간이다.",
+            "sentences": [
+              0,
+              2,
+              4
+            ]
+          },
+          {
+            "step": "범위가 같은지 재기",
+            "text": "두 표현은 같은 요일(평일), 같은 시간대(저녁 6시~10시)를 가리킨다. 한쪽이 다른 쪽을 포함하는 더 넓은 말이 아니므로 상위어·하위어가 아니다.",
+            "sentences": [
+              0,
+              2,
+              4
+            ]
+          },
+          {
+            "step": "관계 이름 붙이기",
+            "text": "낱말 하나를 바꾼 synonym 이 아니라, 마감 시각으로 말한 것을 늘어난 시간의 양으로 다시 쓴 paraphrase(바꿔 말하기)다. 수능 선지는 이렇게 같은 사실을 다른 단위로 다시 말한다.",
+            "sentences": [
+              2,
+              4
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "same": true,
+        "relation": "paraphrase",
+        "cue": [
+          0,
+          2,
+          4
+        ],
+        "why": "6시 마감(1번)에서 평일 10시까지 연장(3번)한 것은 평일 저녁 네 시간(5번)과 범위가 정확히 같다. 시각을 시간의 양으로 바꿔 쓴 바꿔 말하기다."
+      }
+    },
+    {
+      "id": "sem-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "sem-t2",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "Jun helped his grandfather clean out the garage last weekend.",
+          "They found boxes of old tools covered in dust.",
+          "Among them was a wooden-handled hammer his grandfather had used for forty years.",
+          "Jun cleaned it carefully and hung it on the wall.",
+          "His grandfather smiled and told him a story about every nail it had driven."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 2,
+            "text": "hammer"
+          },
+          "b": {
+            "sentence": 1,
+            "text": "tools"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오.",
+        "hints": [
+          "표현 A 'hammer'가 표현 B 'tools'에 대해 갖는 관계를 묻습니다. 둘 중 어느 쪽이 더 넓은 범주인지 먼저 정하세요.",
+          "3번 문장의 'Among them'(그것들 가운데)이 무엇을 가리키는지 2번 문장에서 찾아보세요."
+        ]
+      },
+      "gold": {
+        "same": false,
+        "relation": "hyponym",
+        "cue": [
+          1,
+          2
+        ],
+        "why": "'Among them'이 2번의 old tools 를 받으므로 hammer 는 tools 가운데 하나다. A 가 B 에 포함되는 더 좁은 말이라 하위어이며 같은 뜻은 아니다."
+      }
+    },
+    {
+      "id": "sem-ind-1",
+      "role": "independent_check",
+      "passageGroup": "sem-t3",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "Scientists placed small cameras along a forest stream for a year.",
+          "The recordings showed that many mammals came to drink at night.",
+          "Foxes appeared most often, usually just after sunset.",
+          "Deer and raccoons visited less regularly but stayed longer.",
+          "The study suggests that the stream matters to the whole animal community, not to a single species."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 1,
+            "text": "mammals"
+          },
+          "b": {
+            "sentence": 2,
+            "text": "Foxes"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+      },
+      "gold": {
+        "same": false,
+        "relation": "hypernym",
+        "cue": [
+          1,
+          2,
+          3
+        ],
+        "why": "mammals(포유동물)는 foxes·deer·raccoons 를 모두 포함하는 상위어이고, Foxes 는 그 한 예다. 표현 a 가 b 의 상위 범주이므로 상위어 관계이며 같은 뜻은 아니다."
+      }
+    },
+    {
+      "id": "sem-ind-2",
+      "role": "independent_check",
+      "passageGroup": "sem-t4",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "The new manager was known for making quick decisions.",
+          "During the budget crisis, however, she did something unexpected.",
+          "She was far from hasty, spending two weeks studying every report.",
+          "Her staff, who expected a fast answer, were at first impatient.",
+          "In the end, her slow and careful plan saved the company money."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 2,
+            "text": "far from hasty"
+          },
+          "b": {
+            "sentence": 4,
+            "text": "slow and careful"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+      },
+      "gold": {
+        "same": true,
+        "relation": "paraphrase",
+        "cue": [
+          2,
+          4
+        ],
+        "why": "hasty(성급한)는 slow and careful 의 반의어지만 'far from'(전혀 ~가 아닌)이 부정하므로 'far from hasty'는 '신중한'이 된다. 부정 뒤에 숨은 반의어를 뒤집으면 5번의 'slow and careful'과 같은 뜻이다."
+      }
+    },
+    {
+      "id": "sem-transfer-1",
+      "role": "transfer",
+      "passageGroup": "sem-t5",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "Some schools now let students choose their own reading books.",
+          "Teachers at first worried that students would pick only easy titles.",
+          "Instead, many students moved on to harder books once they found topics they cared about.",
+          "Being free to decide what to read seemed to build a lasting habit.",
+          "The schools plan to give students the same choice in other subjects."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 0,
+            "text": "let students choose their own reading books"
+          },
+          "b": {
+            "sentence": 3,
+            "text": "Being free to decide what to read"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+      },
+      "gold": {
+        "same": true,
+        "relation": "paraphrase",
+        "cue": [
+          0,
+          3
+        ],
+        "why": "1번의 '학생이 읽을 책을 스스로 고르게 한다'를 4번이 학생 입장에서 '무엇을 읽을지 정할 자유'로 다시 썼다. 주어와 구조가 바뀌었지만 같은 제도를 가리키는 구 단위 바꿔 말하기다."
+      }
+    },
+    {
+      "id": "sem-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "sem-t6",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "A small bakery tried selling bread without plastic bags.",
+          "Customers were asked to bring their own cloth bags.",
+          "Some people complained that the rule was inconvenient.",
+          "Others said it was not a burden at all and soon got used to it.",
+          "After six months, the bakery's sales had stayed about the same."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 2,
+            "text": "inconvenient"
+          },
+          "b": {
+            "sentence": 3,
+            "text": "not a burden"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+      },
+      "gold": {
+        "same": false,
+        "relation": "antonym",
+        "cue": [
+          2,
+          3
+        ],
+        "why": "burden(부담)은 inconvenient 와 비슷한 쪽이지만 'not'이 붙어 '부담이 아니다'가 된다. 3번의 불만과 4번의 'Others said'가 대조되므로 두 표현은 반대 평가다."
+      }
+    },
+    {
+      "id": "sem-ind-3",
+      "role": "independent_check",
+      "passageGroup": "sem-t7",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "A coach told her new runners that sleep was vital to their training.",
+          "Many of them had been staying up late to study or play games.",
+          "She explained that muscles repair themselves mostly during deep sleep.",
+          "Without enough rest, even hard practice would not make them faster.",
+          "By the end of the season, the runners agreed that sleep was as essential as running itself."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 0,
+            "text": "vital"
+          },
+          "b": {
+            "sentence": 4,
+            "text": "essential"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+      },
+      "gold": {
+        "same": true,
+        "relation": "synonym",
+        "cue": [
+          0,
+          3,
+          4
+        ],
+        "why": "1번의 vital(꼭 필요한)과 5번의 essential(필수적인)은 둘 다 수면을 서술하며, 4번이 '충분히 쉬지 않으면 연습해도 빨라지지 않는다'고 그 필요성을 확인한다. 낱말 하나가 같은 뜻의 다른 낱말로 바뀐 동의어다."
+      }
+    },
+    {
+      "id": "sem-ind-4",
+      "role": "independent_check",
+      "passageGroup": "sem-t8",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "Two cafés opened on the same street last year.",
+          "The first hired extra staff so that customers were served almost at once.",
+          "At the second, orders often took twenty minutes, and people grew tired of waiting.",
+          "Reviews praised the first café as prompt and called the second sluggish.",
+          "By winter, the second café had closed."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 3,
+            "text": "prompt"
+          },
+          "b": {
+            "sentence": 3,
+            "text": "sluggish"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+      },
+      "gold": {
+        "same": false,
+        "relation": "antonym",
+        "cue": [
+          1,
+          2,
+          3
+        ],
+        "why": "prompt 는 2번의 '거의 즉시 응대'를, sluggish 는 3번의 '주문에 20분'을 받아 각각 빠름과 느림을 평가한다. 같은 기준(응대 속도)의 양 끝이므로 반의어이며 같은 뜻이 아니다."
+      }
+    },
+    {
+      "id": "sem-transfer-2",
+      "role": "transfer",
+      "passageGroup": "sem-t9",
+      "body": {
+        "format": "equivalence",
+        "sentences": [
+          "The city pool is open on weekdays from early morning until late evening.",
+          "On weekends it closes at noon for cleaning.",
+          "Swimming lessons for children are held only on Wednesday afternoons.",
+          "Parents who work late have asked for a second lesson on Saturday morning.",
+          "The pool manager said she would consider adding one next month."
+        ],
+        "pair": {
+          "a": {
+            "sentence": 2,
+            "text": "Wednesday"
+          },
+          "b": {
+            "sentence": 0,
+            "text": "weekdays"
+          }
+        },
+        "stem": "표시된 두 표현의 관계로 알맞은 것을 고르시오."
+      },
+      "gold": {
+        "same": false,
+        "relation": "hyponym",
+        "cue": [
+          0,
+          1,
+          2
+        ],
+        "why": "weekdays(평일)는 월~금을 모두 포함하는 범주이고 Wednesday 는 그 가운데 하루다. 1번의 평일과 2번의 주말로 나뉘는 틀 안에서 수요일은 평일에 속하므로, A 가 B 에 포함되는 하위어이며 같은 뜻은 아니다."
+      }
+    }
+  ]
+}

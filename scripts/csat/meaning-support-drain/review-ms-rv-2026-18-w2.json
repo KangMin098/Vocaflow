@@ -1,0 +1,22 @@
+{
+  "reviewer": "ms-rv-2026-18-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#18",
+      "verdict": "pass",
+      "content_hash": "d57fae075775ab12",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "d9da3df3b80606c4",
+        "basePublicHash": "a9d958acee841177fbe544401d7e19b6154ac5c4f7c50d019de4eb8d55314214",
+        "sourceSnapshotHash": "550059ac7fe3a6e2"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS01"
+      ],
+      "why": "pass. MS01 1번 문장의 화자(I = 동아리 담당자)·수신자(you = 학생), 6번 문장 encouraging(담당자)/submit(학생), 7번 문장 this = 6번 문장의 proposal 이 정확하다. MS02 u2 의 decided(완료)·can make(가능), u3 의 마감(이번 주 말까지)을 보존한다. MS04 r1(수신자→요구 행위자)·r2(Therefore 로 배경→요구) 모두 실제 의미 변화를 설명하고, r2·p6 은 bridging_inference 로 warrant·limit 가 있다. MS05 실용문 목적 구조와 맞고, 2·8번 문장 미처리 한계를 적었다. MS07 bridges 의 선지·designClaimIndices(1=배경/요구 구분, 2=오답 변형, 3=설계 가설)가 실제 referent 와 맞는다. MS08 a1~a5 인용이 모두 해당 문장에 있고 8단어 이하, occurrence 1 정확. MS09 n/a. MS10 새 영어 인용 없음, 전체 번역 재구성 아님. 경미(판정 영향 없음): u1.simpleKo 의 「선생님이」는 원문 school club director 보다 좁힌 말이다 — 「동아리 담당자가」로 쓰면 더 정확하다."
+    }
+  ]
+}

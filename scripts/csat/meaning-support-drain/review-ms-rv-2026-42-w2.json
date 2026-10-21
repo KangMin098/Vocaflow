@@ -1,0 +1,22 @@
+{
+  "reviewer": "ms-rv-2026-42-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#42",
+      "verdict": "revise",
+      "content_hash": "1e9d6d5aaff736dd",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "450799188f6ecd9f",
+        "basePublicHash": "8f3044fa6a3b2465e0a3aa7b2c6f085c802f954c4218f77d365845ade3eb1d04",
+        "sourceSnapshotHash": "49945168bf2ab839"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02"
+      ],
+      "why": "MS02(조건 삭제): 2번 문장의 inevitable 은 to give the study of dress equal significance to other areas ...라는 목적 조건 아래의 필연이다. 그런데 p1(source_observation) 「1번 문장의 증거 공백 때문에, 다른 예술 영역이 자료를 대는 것은 피할 수 없는 일이었다」와 u1.simpleKo 「다른 예술에서 자료를 가져오는 것 말고는 방법이 없었다」가 이 조건을 지워 무조건적 필연으로 만들었다(u1.exactKo 에는 조건이 있어 단위 안에서 어긋난다). u1.simpleKo 는 much of(상당 부분)도 지웠다. 수정: p1 「2번 문장: 1번 문장의 증거 공백 때문에, 복식 연구에 다른 영역과 같은 무게를 주려면 그 다른 영역이 자료의 상당 부분을 대는 것은 피할 수 없는 일이었다.」 u1.simpleKo 「옷 증거가 비어 있으니, 복식 연구를 다른 예술만큼 다루려면 자료의 많은 부분을 다른 예술에서 가져올 수밖에 없었다.」 그 외 — MS01 (b) not frozen, (c) 느끼는 주체 = 일부 현대 저자 정확 · MS03 u4 syntax(Without 조건 / 가능성 판단 / that 절) 재결합 일치, 원문 오류와 교정 방향 구별(limit: 바른 낱말 단정 없음) · MS04 r2 조건 제거 → 귀결 방향 설명 · MS05 · MS06 p4 bridging warrant·limit 정직 · MS07 bridges((a)→claim 2, (e)→claim 1) 일치 · MS08 a1~a6 위치 확인 · MS09 공유 지문·밑줄 표지 처리 적절 · MS10 문제 없음."
+    }
+  ]
+}

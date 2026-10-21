@@ -1,0 +1,23 @@
+{
+  "reviewer": "ms-rv-2026-36-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#36",
+      "verdict": "revise",
+      "content_hash": "b6a72bc5e3a76b69",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "79c616281a5e44a2",
+        "basePublicHash": "450991f7d0ecdfb7471146e0587f69b8b692bebbd6991831b22d5f6ef209c175",
+        "sourceSnapshotHash": "8ad76ca7dac03572"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02",
+        "MS06"
+      ],
+      "why": "(1) u4.simpleKo 가 preserves comparison(「훨씬 긴 척도」)과 polarity 의 조건(「큰 척도에서」 연속처럼 보임)을 빼고, 연결 추론(p6, 양초와 같은 종류)을 원문 사실처럼 단정했다. 수정안 u4.simpleKo: 「방사성 탄소는 훨씬 긴 척도의 또 하나의 시계로, 이것도 이와 같아 보인다. 매끄럽게 흐르는 듯 보여도 실은 탄소-14 붕괴의 반복이고, 큰 척도에서 연속처럼 보일 뿐이다.」 (2) u3.simpleKo(수정 대상)가 preserves quantity 의 「쉽게」 한정을 뺐다. 수정안: 「반복 없는 시계는 거의 떠올릴 수 없다. 쉽게 떠오르는 유일한 예인 양초조차, 처음엔 가려져 있을 뿐 왁스가 되풀이해 타는 반복이다.」"
+    }
+  ]
+}

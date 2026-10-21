@@ -8,10 +8,10 @@
 //   · 학습자 조정(순서 · 계획량)은 계획만 바꾼다. 근거 상태 · 직접 확인 판정 · 요구 유형은 바뀌지 않는다(adjust 는 그 칸을 읽지도 쓰지도 않는다).
 // 순수 함수(DB · 시계 없음).
 
-import { passageIdentity, repairAttempts, repairWindow, transferTarget } from '../lifecycle-evidence'
+import { isInstructional, isKiceRepairTarget, passageIdentity, repairSuccess, repairWindow, transferTarget } from '../lifecycle-evidence'
 
 import type { AsIsMap, AsIsTask, TaskEvidence } from './as-is'
-import { checkKeysOfTask, taskOf, tasks, type TaskId } from './definition'
+import { evidenceKeysOfTask, taskOf, tasks, type TaskId } from './definition'
 import type { Need, ToBeMap } from './to-be'
 import { TRANSFER_PASSAGES, type StageKey, type WorkspacePlan, type WorkspaceView } from './workspace'
 
@@ -80,7 +80,7 @@ export interface TaskPlan {
   quantity: PlanQuantity
   achievement: Achievement
   /** 아직 풀리지 않은 것(문구 키) */
-  unresolved: ('no_content' | 'stage_locked' | 'canon_hold' | 'needs_direct_check' | 'not_goal_related' | 'transfer_shortage')[]
+  unresolved: ('no_content' | 'stage_locked' | 'material_needed' | 'repair_material_needed' | 'canon_hold' | 'needs_direct_check' | 'not_goal_related' | 'transfer_shortage')[]
 }
 
 export interface PlanActivity {
@@ -91,6 +91,11 @@ export interface PlanActivity {
   answeredAt: string | null
   /** 정오(G2 원장 is_correct 그대로) — 바로잡기 성공은 true 만. 없거나 null 이면 성공 근거가 아니다(LM-G1.1) */
   isCorrect?: boolean | null
+  /** 서버 수신 시각(원장 그대로) — 안내 연습이 이번 회차를 진전시키려면 회차 시작 뒤여야 한다(FI-011) */
+  receivedAt?: string | null
+  activity?: string | null
+  /** 서버가 확인한 정확한 바로잡기 납품 결속(lifecycle-evidence ActivityRow.repairRole) */
+  repairRole?: 'guided_practice'
 }
 
 export interface WorkspacePlanView {
@@ -117,7 +122,7 @@ function progressOf(core: readonly TaskId[], list: readonly TaskPlan[]): Workspa
  * 같은 문항 반복은 1, 다른 TASK 키의 시도는 0. 정오는 따지지 않는다(적용 경험 · 결과는 CHECK 가 판정).
  */
 export function transferDoneOf(id: TaskId, since: string | null, activity: readonly Pick<PlanActivity, 'itemRef' | 'taskKey' | 'phase' | 'answeredAt' | 'passageKey'>[]): number {
-  const keys = new Set(checkKeysOfTask(id))
+  const keys = new Set(evidenceKeysOfTask(id))
   const after = since ? new Date(since).getTime() : null
   return uniq(activity.filter((a) => a.itemRef && keys.has(a.taskKey.replace(/-skeleton$/, '')) && (a.phase === 'transfer' || a.taskKey.endsWith('-skeleton')) && (after === null || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after))).map((a) => passageIdentity(a.itemRef, a.passageKey)).filter((x): x is string => !!x)).length
 }
@@ -125,7 +130,7 @@ export function transferDoneOf(id: TaskId, since: string | null, activity: reado
 /** 단계별 수행 수 — 이 TASK 의 확인 키 기록에서, 단계에 맞는 것만(서로 다른 문항) */
 export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly PlanActivity[]): number {
   if (!stage) return 0
-  const keys = new Set(checkKeysOfTask(t.id))
+  const keys = new Set(evidenceKeysOfTask(t.id))
   const after = t.check?.verifiedAt ?? null
   const mine = activity.filter((a) => keys.has(a.taskKey.replace(/-skeleton$/, '')) && a.itemRef)
   const since = (a: PlanActivity) => !after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > new Date(after).getTime())
@@ -134,14 +139,16 @@ export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly P
       // 수행량 = 실제로 푼 확인 문항(도움 · 합성 여부 무관). 독립성은 성취(achievement · 직접 확인)에서만 따진다 — 수행량 ≠ 검증된 성취(4차)
       return t.check?.attemptedItems ?? 0
     case 'repair': {
+      // 막힌 기출 재시도 + 이번 회차의 결속된 안내 연습(서로 다른 문항) — 교수 자료 수행은 바로잡기에만 센다(FI-011)
       const targets = new Set([...(t.check?.verifiedItems ?? []), ...(t.check?.wrongItems ?? [])])
-      return uniq(mine.filter((a) => a.phase !== 'transfer' && targets.has(a.itemRef!) && since(a)).map((a) => a.itemRef)).length
+      const gate = repairGate(t, activity)
+      return uniq([...mine.filter((a) => !isInstructional(a) && isKiceRepairTarget(a) && a.phase !== 'transfer' && targets.has(a.itemRef!) && since(a)).map((a) => a.itemRef), ...gate.guidedTried]).length
     }
     case 'transfer':
       return transferDoneOf(t.id, after, activity)
     case 'recheck': {
       const used = new Set([...(t.check?.verifiedItems ?? [])])
-      return uniq(mine.filter((a) => a.phase === 'practice' && !used.has(a.itemRef!) && since(a) && !!after).map((a) => a.itemRef)).length
+      return uniq(mine.filter((a) => a.phase === 'practice' && !isInstructional(a) && !used.has(a.itemRef!) && since(a) && !!after).map((a) => a.itemRef)).length
     }
   }
 }
@@ -151,15 +158,18 @@ export function doneOf(stage: StageKey | null, t: AsIsTask, activity: readonly P
  *   이번 회차(확정 뒤 · 다시 확인에서 막혔으면 그 뒤)의 막힌 문항 시도 중 정답(true)이 하나라도 있으면 성공.
  *   retry = 아직 이번 회차에 맞히지 못한 막힌 문항(시도했다가 틀린 문항도 포함 — 재시도 대상).
  */
-export function repairGate(t: AsIsTask, activity: readonly PlanActivity[]): { succeeded: boolean; tried: number; retry: string[] } {
+export function repairGate(t: AsIsTask, activity: readonly PlanActivity[]): { succeeded: boolean; tried: number; retry: string[]; guidedRight: string[]; guidedTried: string[] } {
   const c = t.check
-  if (!c?.verifiedAt) return { succeeded: false, tried: 0, retry: [] }
+  if (!c?.verifiedAt) return { succeeded: false, tried: 0, retry: [], guidedRight: [], guidedTried: [] }
   const skill = { status: c.status, verifiedAt: c.verifiedAt, verifiedItems: c.verifiedItems, check: { wrongItems: c.wrongItems, lastWrongAt: c.lastWrongAt ?? null } }
-  const keys = new Set(checkKeysOfTask(t.id))
-  const tries = repairAttempts(skill, keys, activity.map((a) => ({ ...a, taskKey: a.taskKey.replace(/-skeleton$/, '') })))
-  const right = new Set(tries.filter((a) => a.isCorrect === true).map((a) => a.itemRef))
+  const keys = new Set(evidenceKeysOfTask(t.id))
+  // FI-011 — lifecycle repairAt 과 **같은 판정**(repairSuccess): 막힌 기출 재시도 정답 또는 정확히 결속된 안내 연습 정답(판단 · 서버 수신 모두 회차 뒤)
+  const r = repairSuccess(skill, keys, activity.map((a) => ({ ...a, isCorrect: a.isCorrect ?? null, taskKey: a.taskKey.replace(/-skeleton$/, '') })))
+  const right = new Set(r.retried.filter((a) => a.isCorrect === true).map((a) => a.itemRef))
   const blocked = repairWindow(skill)?.blocked ?? []
-  return { succeeded: right.size > 0, tried: new Set(tries.map((a) => a.itemRef)).size, retry: blocked.filter((i) => !right.has(i)) }
+  const guidedRight = uniq(r.guided.filter((a) => a.isCorrect === true).map((a) => a.itemRef as string))
+  const guidedTried = uniq(r.guided.map((a) => a.itemRef as string))
+  return { succeeded: r.at !== null, tried: new Set([...r.retried, ...r.guided].map((a) => a.itemRef)).size, retry: blocked.filter((i) => !right.has(i)), guidedRight, guidedTried }
 }
 
 /**
@@ -174,6 +184,11 @@ export interface PlanOpts {
 export function transferPlanned(t: AsIsTask, home: WorkspaceView | null, opts?: PlanOpts): number | null {
   const st = home?.stages.transfer
   return transferTarget(st?.ready ? st.count : 0, opts?.savedTransfer?.[t.id], TRANSFER_PASSAGES)
+}
+
+/** 자료가 아직 없을 때의 적용 목표 — 저장 계획량(1 이상)이 있으면 그것, 없으면 정본 2지문(transferTarget 과 같은 정책 · 가용량 없이) */
+function transferGoal(saved: number | null | undefined): number {
+  return saved !== null && saved !== undefined && Number.isInteger(saved) && saved >= 1 ? saved : TRANSFER_PASSAGES
 }
 
 const RULE_OF: Record<StageKey, QuantityRule> = { check: 'unseen_check_items', repair: 'blocked_items', transfer: 'transfer_pool', recheck: 'recheck_items' }
@@ -191,10 +206,14 @@ export function stageNow(need: Need | null, t: AsIsTask, home: WorkspaceView | n
   if (need.type !== 'REPAIR' || !home) return base
   if (!repairGate(t, activity).succeeded) return 'repair'
   // 적용 — 운영 계획량(저장 계획량 · 정본 2지문)을 채울 때까지. 1회 경험 ≠ 계획 완료. 자료가 없으면(null) 건너뛴다(완료로 꾸미지 않는다)
-  const planned = transferPlanned(t, home, opts)
-  if (planned !== null && doneOf('transfer', t, activity) < planned) return 'transfer'
-  if (home.stages.recheck.ready) return 'recheck'
-  return base
+  // 적용 목표 = 운영 계획량(저장 계획량 · 정본 2지문). 아직 전이 자료를 **받지 않았다는 것**은 적용을 마친 것이 아니다(T-0052 Codex P1 —
+  //   전이 링크가 있어야 transfer 가 열리고 공급은 현재 단계로만 요청하던 순환). 목표가 남으면 transfer 에 머물고, 자료가 없으면 그 단계의
+  //   부족(no_transfer_items → material_needed)으로 보이며 수요는 전이 역할로 난다. 가용량 · 수행량은 만들어내지 않는다
+  const planned = transferPlanned(t, home, opts) ?? transferGoal(opts?.savedTransfer?.[t.id])
+  if (doneOf('transfer', t, activity) < planned) return 'transfer'
+  // 바로잡기 성공 · 적용 운영 조건 충족 뒤에는 「다시 확인」 단계다 — 다시 확인 문항이 부족해도 성공한 바로잡기로 되돌리지 않는다(FI-011 B · 순환 방지).
+  //   부족은 recheck.ready=false → material_needed(새 독립 확인 자료 필요)로 안내하고, 수요는 그 단계 역할(independent_check)로 만든다
+  return 'recheck'
 }
 
 /**
@@ -207,16 +226,33 @@ function stageLink(stage: StageKey | null, t: AsIsTask, home: WorkspaceView | nu
   if (!home || !stage || !home.stages[stage].ready) return null
   if (stage === 'check' || stage === 'recheck') return home.next ? { href: home.next.href, label: home.next.label } : null
   if (stage === 'repair') {
-    const retry = new Set(repairGate(t, activity).retry)
-    const pick = home.stageItems.repair.find((l) => retry.has(l.target)) ?? null
+    const gate = repairGate(t, activity)
+    const retry = new Set(gate.retry)
+    // 기출 막힌 문항(재시도) → 아직 맞히지 못한 안내 연습 → 원리 설명 순. 창작 평가 자료는 repairable 에서 이미 빠졌다
+    const pick = home.stageItems.repair.find((l) => !l.role && retry.has(l.target))
+      ?? home.stageItems.repair.find((l) => l.role === 'guided_practice' && !gate.guidedRight.includes(l.target))
+      ?? home.stageItems.repair.find((l) => l.role === 'model_explanation')
+      ?? null
     return pick ? { href: pick.href, label: pick.label } : null
   }
   const after = t.check?.verifiedAt ? new Date(t.check.verifiedAt).getTime() : null
   // 수행량(doneOf)과 같은 TASK 키 범위. 다른 과제로 같은 지문을 푼 기록은 이 과제의 적용 링크를 소진하지 않는다.
-  const keys = new Set(checkKeysOfTask(t.id))
+  const keys = new Set(evidenceKeysOfTask(t.id))
   const did = new Set(activity.filter((a) => keys.has(a.taskKey.replace(/-skeleton$/, '')) && a.itemRef && (!after || (!!a.answeredAt && new Date(a.answeredAt).getTime() > after)) && (stage === 'transfer' ? a.phase === 'transfer' || a.taskKey.endsWith('-skeleton') : a.phase !== 'transfer')).map((a) => passageIdentity(a.itemRef, a.passageKey)).filter((x): x is string => !!x))
   const pick = home.stageItems[stage].find((l) => { const key = passageIdentity(l.target, l.passageKey); return !!key && !did.has(key) }) ?? null
   return pick ? { href: pick.href, label: pick.label } : null
+}
+
+/** T-0070 — 이 묶음에 지금 실제로 쓸 수 있는 단계 자료가 있는가(어느 단계가 열렸거나 · 단계 자료 링크가 하나라도 있다) */
+function hasUsableContent(home: WorkspaceView): boolean {
+  return Object.values(home.stages).some((s) => s.ready) || Object.values(home.stageItems).some((l) => l.length > 0)
+}
+
+/** 보조 TASK 의 home — 그 TASK 를 보조로 든 묶음 중 그 TASK 자신의 창작 자료 보기가 있는 첫 묶음(core 는 이 TASK 로 바꿔 단계 계산이 이 TASK 를 보게) */
+export function supportHome(ws: readonly WorkspaceView[], id: TaskId): WorkspaceView | null {
+  const w = ws.find((x) => x.support.includes(id) && x.supportViews?.[id])
+  const v = w?.supportViews?.[id]
+  return w && v ? { ...w, core: [id], support: [], stages: v.stages, next: v.next, stageItems: v.stageItems, readiness: v.readiness, supportViews: undefined } : null
 }
 
 export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: readonly WorkspaceView[], activity: readonly PlanActivity[], opts?: PlanOpts): TaskPlan {
@@ -224,7 +260,9 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
   const t = asIs.tasks[id]
   const need = toBe?.needs.find((n) => n.task === id) ?? null
   // 단계 가용량은 이 TASK 를 **중심**으로 하는 Workspace 에서만(보조로 든 곳의 수를 더하지 않는다 — 증거 · 자료 중복 금지)
-  const home = ws.find((w) => w.core.includes(id)) ?? null
+  // T-0056 — 어느 묶음의 중심도 아니면, 보조로 든 묶음에서 **이 TASK 자신의** 단계 보기(supportViews)를 home 으로(자료 · 수행 · 단계는 이 TASK 것만).
+  //   진행 합(progressOf)은 그대로 중심 TASK 만 센다 — 보조 TASK 수행이 묶음 진전에 섞이지 않는다
+  const home = ws.find((w) => w.core.includes(id)) ?? supportHome(ws, id)
   const stage = stageNow(need, t, home, activity, opts)
   const st = home && stage ? home.stages[stage] : null
   const done = doneOf(stage, t, activity)
@@ -236,8 +274,11 @@ export function taskPlan(id: TaskId, asIs: AsIsMap, toBe: ToBeMap | null, ws: re
   const unresolved: TaskPlan['unresolved'] = []
   if (stage === 'transfer' && planned !== null && (available ?? 0) < planned) unresolved.push('transfer_shortage')
   if (def.status === 'hold') unresolved.push('canon_hold')
-  else if (!home || home.readiness !== 'live') unresolved.push('no_content')
-  else if (stage && !st?.ready) unresolved.push('stage_locked')
+  // T-0070 — 「콘텐츠 없음」은 실제로 쓸 단계 자료가 하나도 없을 때만. 정본 readiness 가 live 가 아니어도 창작 납품으로 단계 · 링크가 열렸으면
+  //   그 단계의 실제 상태(부족 · 잠김)로 말한다. readiness 를 live 로 올리지 않는다(정본 상태는 그대로 · 가용량은 실제 단계 값만)
+  else if (!home || (home.readiness !== 'live' && !hasUsableContent(home))) unresolved.push('no_content')
+  // 단계가 열릴 차례인데 그 단계 자료를 다 썼거나 없다(앞 단계 미완료가 아니다) — 「새 자료가 필요해요」로 정확히 안내
+  else if (stage && !st?.ready) unresolved.push(st?.blocked === 'no_repair_items' ? 'repair_material_needed' : st?.blocked === 'no_unseen_items' || st?.blocked === 'not_enough_unseen' || st?.blocked === 'no_transfer_items' ? 'material_needed' : 'stage_locked')
   if (t.basis !== 'direct_check' && def.status !== 'hold') unresolved.push('needs_direct_check')
   if (toBe && !need && def.status !== 'hold') unresolved.push('not_goal_related')
   return {

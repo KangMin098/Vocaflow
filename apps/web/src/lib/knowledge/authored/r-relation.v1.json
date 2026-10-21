@@ -1,0 +1,519 @@
+{
+  "set": "r-relation.v1",
+  "taskId": "r.relation",
+  "taskKey": "authored-cohesion",
+  "format": "sentence_relation",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "rel-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "rel-t1",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "Students often assume that the hours spent sleeping are simply lost from their study time.",
+          "However, the sleeping brain is far from idle.",
+          "During deep sleep, it replays the patterns formed during the day and strengthens the connections that support them.",
+          "As a result, material reviewed before bed is often remembered better the next morning than material reviewed in the early afternoon.",
+          "Students who cut their sleep in order to study longer therefore lose part of the very benefit they are working for.",
+          "Every hour they win at the desk is an hour taken from the process that turns study into lasting memory.",
+          "Sleep, in short, is not a break from learning but one of its stages."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "teach": [
+          {
+            "step": "연결어가 있으면 먼저 읽는다",
+            "text": "1→2: 1번은 '잠자는 시간은 공부에서 빠진 시간'이라는 흔한 생각, 2번은 'However'로 그 생각을 부정한다. 앞의 믿음과 뒤의 사실이 맞서므로 contrast. 출제자는 연결어가 분명한 쌍을 하나 두어 '연결어 → 관계' 대응을 먼저 확인하게 했다.",
+            "sentences": [
+              0,
+              1
+            ]
+          },
+          {
+            "step": "원인과 결과의 방향 확인",
+            "text": "3→4: 3번(잠자는 동안 뇌가 낮의 패턴을 되풀이해 강화한다)이 일어나기 때문에 4번(자기 전에 복습한 것이 더 잘 기억된다)이 생긴다. 'As a result'가 단서지만, 연결어를 가려도 '앞이 이유, 뒤가 결과'인지 스스로 확인하는 습관이 중요하다. 단순히 덧붙인 정보(addition)로 고르면 '왜'의 연결을 놓친 것이다.",
+            "sentences": [
+              2,
+              3
+            ]
+          },
+          {
+            "step": "연결어가 없을 때 — 내용을 겹쳐 본다",
+            "text": "[5]→[6]: 사이에 연결어가 없다. 두 문장을 맞대어 보면 [6]의 'win at the desk'는 [5]의 'study longer'를, 'taken from the process that turns study into lasting memory'는 'lose part of the very benefit'을 다른 말로 풀었다. 새 정보가 더해진 것이 아니라 같은 주장을 다시 말했으므로 restatement. 출제자는 이 쌍에서 연결어 없이 관계를 '구성'하는 힘을 재려 했고, 오답 함정은 '뒤 문장이 새 내용'이라고 보는 addition이다.",
+            "sentences": [
+              4,
+              5
+            ]
+          },
+          {
+            "step": "판단 순서 정리",
+            "text": "① 두 문장 사이 연결어 · 지시어를 찾는다 → ② 없으면 뒤 문장이 앞 문장의 '이유/결과', '반대', '사례', '같은 말', '새 항목', '다음 단계' 중 무엇인지 물어본다 → ③ 마지막 문장(7번 'in short')처럼 요약 표지도 restatement 단서가 된다.",
+            "sentences": [
+              6
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "contrast",
+            "alt": [],
+            "cue": "However"
+          },
+          {
+            "relation": "cause_effect",
+            "alt": [],
+            "cue": "As a result"
+          },
+          {
+            "relation": "restatement",
+            "alt": [],
+            "cue": "(연결어 없음: [6]이 [5]의 '더 오래 공부하다 · 바로 그 이득을 잃다'를 '책상 앞에서 얻은 시간 = 기억으로 바꾸는 과정에서 빼앗은 시간'으로 다시 말한다)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "rel-g1",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "Birds that live in cities face a problem their forest relatives rarely meet: constant noise from traffic.",
+          "Low-pitched engine sounds can easily drown out a song sung in the usual range.",
+          "Many urban birds now sing at a higher pitch, above the range where engine noise is loudest.",
+          "Some also shift their singing to the early hours, before the morning rush begins.",
+          "These changes are not free, however.",
+          "A higher song may travel a shorter distance, and females in some species still prefer the lower notes.",
+          "Adapting to the city, then, means trading one disadvantage for another."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ],
+        "hints": [
+          "2번과 3번 사이에는 연결어가 없어요. 3번의 행동이 2번의 상황 때문에 생긴 것인지 물어보세요.",
+          "'also'가 무엇을 하나 더 늘어놓고 있는지 확인해 보세요.",
+          "5번의 '대가가 있다'는 말을 6번이 어떤 방식으로 채우는지 보세요 — 같은 말을 되풀이하나요, 구체적인 경우를 드나요?"
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "cause_effect",
+            "alt": [],
+            "cue": "(연결어 없음: 엔진 소음이 낮은 노래를 덮는다(원인) → 그래서 더 높은 음으로 노래한다(결과))"
+          },
+          {
+            "relation": "addition",
+            "alt": [],
+            "cue": "also"
+          },
+          {
+            "relation": "example",
+            "alt": [
+              "restatement"
+            ],
+            "cue": "(연결어 없음: 5번의 '대가'를 6번이 '짧아진 전달 거리 · 암컷의 선호'라는 구체적 사례로 보여 준다)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-ind-1",
+      "role": "independent_check",
+      "passageGroup": "rel-i1",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "In one common classroom experiment, half the students take notes by hand while the other half type them on laptops.",
+          "Afterward, both groups are tested on the content of the lecture.",
+          "Typists usually record far more words, often copying the speaker almost exactly.",
+          "Hand-writers, by contrast, cannot keep up and must decide what is worth writing down.",
+          "That forced selection turns out to be an advantage.",
+          "Having to leave things out, rather than holding the students back, actually helps them learn.",
+          "To choose what to record, they must process the ideas in their own words, and on questions that ask them to explain concepts, the hand-writers tend to perform better."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "sequence",
+            "alt": [],
+            "cue": "Afterward"
+          },
+          {
+            "relation": "contrast",
+            "alt": [],
+            "cue": "by contrast"
+          },
+          {
+            "relation": "restatement",
+            "alt": [],
+            "cue": "(연결어 없음: [6]의 '빠뜨려야 하는 것이 오히려 돕는다'는 [5]의 '강제된 선별이 이점이다'를 다른 말로 다시 말한다)"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-ind-2",
+      "role": "independent_check",
+      "passageGroup": "rel-i2",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "Many neighborhoods now run libraries that lend tools instead of books.",
+          "A resident who needs a drill for one afternoon can borrow it rather than buy one that will sit in a drawer for years.",
+          "The idea saves money, but its effects reach further.",
+          "Fewer tools need to be manufactured, shipped, and eventually thrown away.",
+          "In addition, borrowers often meet their neighbors at the counter and trade advice about repairs.",
+          "Some libraries even report that members have begun fixing broken items for one another.",
+          "What starts as a way to share objects can thus end up building a community."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "example",
+            "alt": [],
+            "cue": "(연결어 없음: 2번은 1번 '공구 도서관'이 어떻게 쓰이는지 한 주민의 구체적 경우로 보여 준다)"
+          },
+          {
+            "relation": "addition",
+            "alt": [],
+            "cue": "In addition"
+          },
+          {
+            "relation": "conclusion",
+            "alt": [
+              "cause_effect"
+            ],
+            "cue": "thus"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-transfer-1",
+      "role": "transfer",
+      "passageGroup": "rel-x1",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "In the past century, engineers straightened many winding rivers so that water would drain from farmland more quickly.",
+          "This made floods worse in the towns farther downstream.",
+          "Water that had once spread slowly across the bends now arrived all at once.",
+          "Today, some regions are digging out new curves and reconnecting the wetlands that were drained.",
+          "Once this work is finished, the river is left to shape its own course again.",
+          "In several places, downstream floods have already become smaller and slower.",
+          "This pattern suggests that a river's crooked path was never a flaw that needed correcting."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            5,
+            6
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "cause_effect",
+            "alt": [],
+            "cue": "This (made) — 지시어 'This'가 1번의 '강을 곧게 편 일' 전체를 받아 그 결과를 말한다"
+          },
+          {
+            "relation": "sequence",
+            "alt": [],
+            "cue": "Once this work is finished — 'this work'가 4번의 복원 공사를 받고, 그 뒤 단계를 잇는다"
+          },
+          {
+            "relation": "conclusion",
+            "alt": [
+              "cause_effect"
+            ],
+            "cue": "This pattern (suggests) — 6번의 관찰 결과를 'This pattern'으로 묶어 그로부터 결론을 끌어낸다"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "rel-d1",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "Taste seems to be a simple matter of what is on the tongue.",
+          "In reality, it is shaped heavily by what we expect before the first bite.",
+          "In one kind of study, people drink the same juice from two cups, one labeled as a premium brand and the other as a store brand.",
+          "Then they rate each cup, and most report that the premium cup tastes sweeter and richer.",
+          "Expectation works almost like an ingredient that we add without noticing.",
+          "Food companies understand this effect well.",
+          "Consequently, they often spend as much effort on packaging colors and labels as on the recipe itself."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            1,
+            2
+          ],
+          [
+            2,
+            3
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "contrast",
+            "alt": [],
+            "cue": "In reality"
+          },
+          {
+            "relation": "example",
+            "alt": [],
+            "cue": "(연결어 없음: 3번은 2번 '기대가 맛을 바꾼다'를 보여 주는 한 연구 사례다 — 'In one kind of study'가 사례 도입을 알린다)"
+          },
+          {
+            "relation": "sequence",
+            "alt": [],
+            "cue": "Then"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-ind-3",
+      "role": "independent_check",
+      "passageGroup": "rel-i3",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "Coral reefs cover less than one percent of the ocean floor.",
+          "Yet they are home to about a quarter of all known marine species.",
+          "When ocean water grows too warm, corals push out the tiny algae that live inside them.",
+          "Without these algae, the corals lose their color and slowly starve.",
+          "Scientists call this process bleaching.",
+          "In 2016, for example, nearly a third of the corals on one large Australian reef died after a single hot summer."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "contrast",
+            "alt": [],
+            "cue": "Yet — 1번의 '바다 밑바닥의 1%도 안 된다'와 2번의 '해양 생물의 4분의 1이 산다'를 맞세운다"
+          },
+          {
+            "relation": "cause_effect",
+            "alt": [],
+            "cue": "(연결어 없음: 'Without these algae'가 3번에서 산호가 내보낸 조류를 받아, 그 결과 색을 잃고 굶주린다고 말한다)"
+          },
+          {
+            "relation": "example",
+            "alt": [],
+            "cue": "for example"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-ind-4",
+      "role": "independent_check",
+      "passageGroup": "rel-i4",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "Most people assume that a longer meeting produces a better decision.",
+          "In other words, they treat time spent talking as a sign of careful thought.",
+          "One imagined team that timed its own meetings for a year found otherwise.",
+          "After about forty minutes, its members tended to repeat earlier points and grew less open to new ideas.",
+          "Moreover, decisions made late in its long meetings were more often reversed the following week.",
+          "Short, focused meetings may therefore serve a team better than long ones."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            3,
+            4
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "restatement",
+            "alt": [],
+            "cue": "In other words"
+          },
+          {
+            "relation": "addition",
+            "alt": [],
+            "cue": "Moreover"
+          },
+          {
+            "relation": "conclusion",
+            "alt": [
+              "cause_effect"
+            ],
+            "cue": "therefore — 4~5번에서 그 팀이 겪은 일로부터 짧은 회의가 낫다는 결론을 끌어낸다"
+          }
+        ]
+      }
+    },
+    {
+      "id": "rel-transfer-2",
+      "role": "transfer",
+      "passageGroup": "rel-x2",
+      "body": {
+        "format": "sentence_relation",
+        "sentences": [
+          "The old mill on the hill stopped grinding grain in 1962.",
+          "Cheaper flour from large factories had made its work unprofitable.",
+          "For decades the building stood empty.",
+          "Then a group of residents bought it and repaired the great wooden wheel.",
+          "Today it grinds flour again, though mostly for visitors.",
+          "Unlike the factory flour that once replaced it, this flour is ground slowly and sold only at the mill door."
+        ],
+        "stem": "표시된 두 문장 사이의 관계로 알맞은 것을 고르시오.",
+        "pairs": [
+          [
+            0,
+            1
+          ],
+          [
+            2,
+            3
+          ],
+          [
+            4,
+            5
+          ]
+        ]
+      },
+      "gold": {
+        "pairs": [
+          {
+            "relation": "cause_effect",
+            "alt": [],
+            "cue": "(연결어 없음: 과거완료 'had made'가 2번이 1번보다 먼저 일어난 일, 곧 방앗간이 멈춘 원인임을 보여 준다 — 결과가 먼저, 원인이 뒤에 온다)"
+          },
+          {
+            "relation": "sequence",
+            "alt": [],
+            "cue": "Then — 수십 년 비어 있던 뒤에 주민들이 사들여 고친 다음 단계를 잇는다"
+          },
+          {
+            "relation": "contrast",
+            "alt": [],
+            "cue": "Unlike — 방앗간의 천천히 빻는 밀가루를 예전에 그것을 밀어낸 공장 밀가루와 맞세운다"
+          }
+        ]
+      }
+    }
+  ],
+  "proseNumbering": "1-based"
+}

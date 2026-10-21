@@ -1,14 +1,13 @@
 {
-  "generatedAt": "2026-10-20T09:45:53.931Z",
+  "generatedAt": "2026-10-21T06:09:46.426Z",
   "totals": {
-    "pageRoutes": 200,
-    "learnerPages": 102,
-    "apiRoutes": 97,
+    "pageRoutes": 201,
+    "learnerPages": 103,
+    "apiRoutes": 102,
     "linkedLearnerPages": 71
   },
   "deadLinks": [],
   "orphanLearnerPages": [
-    "/hub-lab",
     "/join/[code]"
   ],
   "redirectAliasesExcluded": [

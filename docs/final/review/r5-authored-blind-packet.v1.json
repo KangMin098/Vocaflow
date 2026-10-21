@@ -1,0 +1,175 @@
+[
+  {
+    "id": "item-1",
+    "sentences": [
+      "[0] Many learners treat errors during practice as signs that they are not yet ready to perform.",
+      "[1] They slow down, choose only easy tasks, and feel relieved when nothing goes wrong.",
+      "[2] Yet a practice session without mistakes usually teaches very little.",
+      "[3] In fact, errors made while practicing are among the most useful information a learner can get.",
+      "[4] Each mistake shows exactly where current skill ends, so attention can be directed to that point instead of being spread over what is already known.",
+      "[5] Researchers who study musicians, for example, find that the best performers spend most of their practice time on the passages they still play poorly.",
+      "[6] In other words, a mistake in practice is not a failure but a map of what to learn next."
+    ],
+    "stem": "다음 글의 요지로 가장 적절한 것은?",
+    "choices": [
+      "(0) 연습 중의 실수는 다음에 배울 지점을 알려 주는 유용한 정보이다.",
+      "(1) 실수를 줄이려면 쉬운 과제부터 차근차근 연습해야 한다.",
+      "(2) 뛰어난 음악가는 연습 시간의 대부분을 어려운 부분에 쓴다.",
+      "(3) 연습의 양보다 실전 경험이 실력 향상에 더 중요하다.",
+      "(4) 학습자는 실수를 했을 때 감정을 잘 다스려야 한다."
+    ]
+  },
+  {
+    "id": "item-2",
+    "sentences": [
+      "[0] On a hot summer afternoon, the air above a parking lot can be several degrees warmer than the air in a nearby park.",
+      "[1] This difference is not simply a matter of shade.",
+      "[2] Trees also release water vapor through their leaves, and this process uses heat from the surrounding air.",
+      "[3] A single large tree can move hundreds of liters of water into the air on a sunny day.",
+      "[4] For this reason, planting trees is one of the most effective and least expensive ways for cities to cool themselves.",
+      "[5] Air conditioners, by contrast, cool the inside of buildings while pushing even more heat into the streets.",
+      "[6] A city that wants cooler summers should therefore think of its trees as part of its infrastructure, not as decoration."
+    ],
+    "stem": "다음 글의 요지로 가장 적절한 것은?",
+    "choices": [
+      "(0) 도시의 주차장은 공원보다 기온이 높다.",
+      "(1) 나무는 잎을 통해 많은 양의 물을 공기 중으로 내보낸다.",
+      "(2) 나무를 심는 것은 도시의 기온을 낮추는 효과적이고 저렴한 방법이다.",
+      "(3) 에어컨 사용을 줄이면 도시 전체의 에너지를 아낄 수 있다.",
+      "(4) 도시의 아름다움을 위해 나무를 장식으로 활용해야 한다."
+    ]
+  },
+  {
+    "id": "item-3",
+    "sentences": [
+      "[0] Many new employees hesitate to ask questions because they worry that colleagues will think they are incompetent.",
+      "[1] Studies of workplaces suggest that this worry is mostly unfounded.",
+      "[2] People who ask for advice are usually judged as more capable, not less, especially when the question is specific.",
+      "[3] Being asked for help also makes the person asked feel respected, which tends to improve the relationship.",
+      "[4] Newcomers, then, gain far more than they lose by asking thoughtful questions early.",
+      "[5] Waiting too long can be costly, since small misunderstandings grow into larger mistakes."
+    ],
+    "stem": "다음 글의 요지로 가장 적절한 것은?",
+    "choices": [
+      "(0) 신입 직원은 동료의 평가를 지나치게 의식한다.",
+      "(1) 구체적인 질문이 막연한 질문보다 답을 얻기 쉽다.",
+      "(2) 도움을 청하면 상대방과의 관계가 좋아진다.",
+      "(3) 신입 직원은 일찍 사려 깊은 질문을 하는 것이 훨씬 이롭다.",
+      "(4) 작은 오해는 시간이 지나면 저절로 풀린다."
+    ]
+  },
+  {
+    "id": "item-4",
+    "sentences": [
+      "[0] Parents often rush to fill every empty moment of a child's day with activities.",
+      "[1] The intention is good, but it may take away something valuable.",
+      "[2] Periods of boredom push children to invent their own games, stories, and projects.",
+      "[3] When nothing is provided, the mind starts to look for something to do, and that search is where creativity often begins.",
+      "[4] In one study, children who first copied numbers from a list for fifteen minutes later came up with more original uses for a paper cup.",
+      "[5] A certain amount of unplanned, even dull, time is therefore something children need rather than something to be avoided."
+    ],
+    "stem": "다음 글의 요지로 가장 적절한 것은?",
+    "choices": [
+      "(0) 아이들의 하루를 다양한 활동으로 채워 주어야 한다.",
+      "(1) 지루한 반복 작업은 아이들의 집중력을 높인다.",
+      "(2) 아이들에게는 계획되지 않은 지루한 시간이 어느 정도 필요하다.",
+      "(3) 창의성은 타고난 재능보다 노력으로 길러진다.",
+      "(4) 부모는 아이와 함께 놀이를 만들어야 한다."
+    ]
+  },
+  {
+    "id": "item-5",
+    "sentences": [
+      "[0] Relying on turn-by-turn directions may be weakening our ability to understand the places we live in.",
+      "[1] When a device tells us where to turn, we no longer need to build a mental picture of how streets connect.",
+      "[2] Drivers who navigate this way often cannot draw even a rough map of a route they have taken many times.",
+      "[3] Some people argue that this hardly matters, since the device is always available.",
+      "[4] But devices fail, batteries die, and signals disappear, and a person with no sense of direction is then truly lost.",
+      "[5] Moreover, the effort of finding our way seems to keep the brain's memory system active."
+    ],
+    "stem": "다음 글의 요지로 가장 적절한 것은?",
+    "choices": [
+      "(0) 길 안내 기기는 운전자의 안전을 높여 준다.",
+      "(1) 길 안내 기기에 의존하면 장소를 이해하는 능력이 약해질 수 있다.",
+      "(2) 배터리와 신호 문제 때문에 길 안내 기기는 믿을 수 없다.",
+      "(3) 기억력을 높이려면 지도를 직접 그려 보아야 한다.",
+      "(4) 기기는 늘 쓸 수 있으므로 방향 감각은 중요하지 않다."
+    ]
+  },
+  {
+    "id": "item-6",
+    "sentences": [
+      "[0] Shoppers tend to trust products labeled \"natural\" more than those without such a label.",
+      "[1] Many assume the word guarantees that the food is healthier or safer.",
+      "[2] In most countries, however, there is no legal definition of \"natural\" for food.",
+      "[3] A sugary drink full of additives can carry the label as easily as fresh fruit.",
+      "[4] The word, in short, tells buyers far less than they believe it does.",
+      "[5] Reading the list of ingredients is a much more reliable way to judge what is inside the package."
+    ],
+    "stem": "다음 글의 제목으로 가장 적절한 것은?",
+    "choices": [
+      "(0) Why Natural Foods Taste Better",
+      "(1) The Empty Promise of the \"Natural\" Label",
+      "(2) How Additives Make Drinks Sweeter",
+      "(3) Laws That Protect Shoppers Everywhere",
+      "(4) Fresh Fruit: The Healthiest Choice"
+    ]
+  },
+  {
+    "id": "item-7",
+    "sentences": [
+      "[0] Most students study in order to pass an exam.",
+      "[1] A different goal, however, may lead to deeper learning: preparing to explain the material to someone else.",
+      "[2] To teach, one must organize ideas into a clear order and find the links between them.",
+      "[3] Gaps in understanding become obvious when one tries to put an idea into simple words.",
+      "[4] In experiments, students told they would have to teach a passage remembered more of it than students told they would be tested, even though no one actually taught.",
+      "[5] The expectation of teaching, it seems, changes the way people study."
+    ],
+    "stem": "다음 글의 주제로 가장 적절한 것은?",
+    "choices": [
+      "(0) the stress students feel before exams",
+      "(1) the difficulty of explaining ideas in simple words",
+      "(2) the learning benefit of preparing to teach others",
+      "(3) the best way for teachers to design tests",
+      "(4) why studying alone is better than studying in groups"
+    ]
+  },
+  {
+    "id": "item-8",
+    "sentences": [
+      "[0] It seems logical that working longer hours without stopping should get more done.",
+      "[1] Yet the mind does not work like a machine that runs at the same speed all day.",
+      "[2] Attention fades after a period of focused effort, and mistakes begin to increase.",
+      "[3] Short breaks allow that attention to recover, so the work that follows is faster and more accurate.",
+      "[4] Office workers who took a few minutes off every hour, for instance, finished tasks with fewer errors than those who worked straight through.",
+      "[5] Regular breaks are thus not a loss of working time but a way to make that time count."
+    ],
+    "stem": "다음 글의 요지로 가장 적절한 것은?",
+    "choices": [
+      "(0) 일을 잘하려면 쉬지 않고 오래 일해야 한다.",
+      "(1) 집중력은 하루 중 아침 시간에 가장 높다.",
+      "(2) 실수를 줄이려면 작업 결과를 꼼꼼히 검토해야 한다.",
+      "(3) 사무실 환경이 업무 성과를 좌우한다.",
+      "(4) 규칙적인 짧은 휴식은 일하는 시간을 더 가치 있게 만든다."
+    ]
+  },
+  {
+    "id": "item-9",
+    "sentences": [
+      "[0] Good writers, it is often assumed, produce excellent sentences on the first try.",
+      "[1] In reality, almost every strong piece of writing begins as a messy first draft.",
+      "[2] The first draft is where writers discover what they actually want to say.",
+      "[3] Only after the ideas are on the page can they be rearranged, cut, and sharpened.",
+      "[4] Professional editors report that most published articles have gone through several rounds of revision.",
+      "[5] Learning to write well, then, is largely learning to revise."
+    ],
+    "stem": "다음 글의 요지로 가장 적절한 것은?",
+    "choices": [
+      "(0) 훌륭한 작가는 첫 문장부터 완벽하게 쓴다.",
+      "(1) 글을 잘 쓰는 법을 배우는 것은 대부분 고쳐 쓰는 법을 배우는 것이다.",
+      "(2) 출판된 글은 여러 번 편집자의 손을 거친다.",
+      "(3) 초고에서는 문장보다 생각을 먼저 정리해야 한다.",
+      "(4) 글쓰기 능력은 많이 읽을수록 향상된다."
+    ]
+  }
+]

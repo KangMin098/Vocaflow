@@ -8,13 +8,15 @@
 
 'use client'
 
-import { ArrowRight, ClipboardList, Pencil, PlayCircle, Target } from 'lucide-react'
+import { ArrowRight, ClipboardList, PackageOpen, Pencil, PlayCircle, Target } from 'lucide-react'
 import Link from 'next/link'
 
 import { goalSummary, gradeOf } from '@/lib/csat/map/goal-view'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
-import type { AsIsMap } from '@/lib/csat/map/v4/as-is'
+import { TASK_EVIDENCE_LABEL, type AsIsMap } from '@/lib/csat/map/v4/as-is'
+import { NEED_LABEL } from '@/lib/csat/map/v4/to-be'
+import { nextActionOf, WAIT_LABEL, type NextAction } from '@/lib/csat/map/v62/next-action'
 import type { V4View } from '@/lib/csat/map/v4/compose'
 import type { TaskId } from '@/lib/csat/map/v4/definition'
 import type { Ranks } from '@/lib/csat/map/v62/rank'
@@ -35,7 +37,10 @@ export type MapState = 'no_goal' | 'no_record' | 'ready' | 'none'
 
 /** 지금 상태 — 목표 저장 여부 · 기록 수 · 지금 할 수 있는 행동 수만으로(새 판정 없음) */
 export function mapStateOf(goalSet: boolean, asIs: AsIsMap, ranks: Ranks | null): MapState {
-  return !goalSet ? 'no_goal' : asIs.sessions.length === 0 ? 'no_record' : ranks?.actionRank.length ? 'ready' : 'none'
+  // T-0070 — 시험 기록 없음 ≠ TASK 근거 없음. 기록이 0 이어도 직접 확인(direct_check) 근거가 있는 TASK 가 있으면 다음 행동을 숨기지 않는다
+  //   (시험 proxy · 연습 · 교수 · 어휘 자기 평가는 direct_check 가 아니다 — As-Is 판정을 그대로 읽고 새 판정을 만들지 않는다)
+  const direct = Object.values(asIs.tasks).some((t) => t?.basis === 'direct_check')
+  return !goalSet ? 'no_goal' : asIs.sessions.length === 0 && !direct ? 'no_record' : ranks?.actionRank.length ? 'ready' : 'none'
 }
 
 const LEAD: Record<MapState, { h: string; p: string }> = {
@@ -45,7 +50,7 @@ const LEAD: Record<MapState, { h: string; p: string }> = {
   none: { h: '지금 이어서 할 활동이 없어요', p: '자료가 준비 중이거나 앞 단계 뒤에 열려요 — 학생의 부족이 아니에요.' },
 }
 
-export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref, past = false, currentHref, onSelect }: {
+export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref, past = false, currentHref, onSelect, selected = null, onOpenWs }: {
   data: MapPageData
   g: ReturnType<typeof useGoal>
   goalSet: boolean
@@ -56,6 +61,10 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
   past?: boolean
   currentHref?: string
   onSelect: (id: TaskId) => void
+  /** 지금 지도에서 고른 TASK — 추천과 다르면 둘을 나눠 보인다 */
+  selected?: TaskId | null
+  /** 같은 TASK 의 Workspace 를 개요(자료 받기) · 계획 탭으로 연다 */
+  onOpenWs?: (ws: string, tab: 'overview' | 'plan') => void
 }) {
   const gs = goalSummary({ goal: g.goal, goalSet }, data.records)
   const total = asIs.sessions.length
@@ -67,6 +76,8 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
   const now = currentHref ?? '/csat/diagnosis?tab=map'
   const state = mapStateOf(goalSet, asIs, ranks)
   const first = state === 'ready' ? ranks!.actionRank[0] : null
+  // T-0061 — 추천 TASK 의 이유 · 이번 학습량 · 확인 조건 · 다음 한 행동(같은 순위 · 계획 · 저장 상태에서)
+  const next = state === 'ready' || state === 'none' ? nextActionOf(view, ranks, data.v4?.saved) : null
   return (
     <section className={u.top} aria-label="목표 · 기록 · 지금 상태" data-testid="umap-top" data-past={past} data-state={state}>
       {past && (
@@ -118,8 +129,17 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
       </div>
       <div className={u.topState} data-testid="umap-state" data-state={state}>
         <div className={u.topText}>
-          <h3 className={u.topHead}>{LEAD[state].h}</h3>
-          <p className={u.topSub}>{LEAD[state].p}</p>
+          {!past && next ? (
+            <>
+              <h3 className={u.topHead} data-testid="umap-next-task" data-task={next.task} data-kind={next.kind}>추천 · {next.name}</h3>
+              <p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p>
+            </>
+          ) : (
+            <>
+              <h3 className={u.topHead}>{LEAD[state].h}</h3>
+              <p className={u.topSub}>{LEAD[state].p}</p>
+            </>
+          )}
         </div>
         {past ? (
           <p className={u.topSub}>과거 기준 보기에서는 학습을 시작하지 않아요.</p>
@@ -128,6 +148,8 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
             <ClipboardList size={15} strokeWidth={1.9} aria-hidden="true" />
             기출 한 회 기록하기
           </Link>
+        ) : state === 'no_goal' ? null : next ? (
+          <NextActionButton next={next} data={data} view={view} onSelect={onSelect} onOpenWs={onOpenWs} />
         ) : first ? (
           <Link
             href={withMapReturn(first.href, outgoingCtx(data.v4?.saved, first.task, homeWsOf(first.task, view, null)))}
@@ -143,7 +165,57 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           </Link>
         ) : null}
       </div>
+      {!past && next && (state === 'ready' || state === 'none') && <NextActionFacts next={next} selected={selected} />}
     </section>
+  )
+}
+
+/** 추천 이유 — 요구 종류 · 관찰 근거 · 목표 시험 관련 문항 수(사실만 · 점수 향상 · 능력 수치로 바꾸지 않는다) */
+function whyText(n: NextAction): string {
+  const parts: string[] = []
+  if (n.why.need) parts.push(`${NEED_LABEL[n.why.need]}이 필요한 TASK`)
+  if (n.why.evidence) parts.push(TASK_EVIDENCE_LABEL[n.why.evidence])
+  if (n.why.items) parts.push(`목표 시험에서 이 힘을 쓰는 문항 ${n.why.items}개${n.why.pointsPerExam ? `(회당 ${n.why.pointsPerExam}점)` : ''}`)
+  return parts.length ? parts.join(' · ') : '목표와 관련된 순서의 첫 TASK 예요 — 약점 확정이 아니에요.'
+}
+
+/** 다음 한 행동 — 시작 · 계획 확정 · 자료 받기는 실제로 갈 곳이 있을 때만, 기다림은 이유만(재요청 버튼 없음) */
+function NextActionButton({ next, data, view, onSelect, onOpenWs }: { next: NextAction; data: MapPageData; view: V4View; onSelect: (id: TaskId) => void; onOpenWs?: (ws: string, tab: 'overview' | 'plan') => void }) {
+  if (next.kind === 'start' && next.href) {
+    return (
+      <Link href={withMapReturn(next.href, outgoingCtx(data.v4?.saved, next.task, next.ws ?? homeWsOf(next.task, view, null)))} className={u.cta} data-testid="umap-top-next" data-task={next.task} title={next.label ?? undefined} onClick={() => onSelect(next.task)}>
+        <PlayCircle size={15} strokeWidth={1.9} aria-hidden="true" />
+        <span className={u.ctaText}>{next.label}</span>
+        <ArrowRight size={14} aria-hidden="true" />
+      </Link>
+    )
+  }
+  if ((next.kind === 'plan' || next.kind === 'supply') && next.ws && onOpenWs) {
+    const tab = next.kind === 'plan' ? 'plan' : 'overview'
+    return (
+      <button type="button" className={u.cta} data-testid="umap-top-next" data-task={next.task} data-kind={next.kind} onClick={() => { onSelect(next.task); onOpenWs(next.ws!, tab) }}>
+        {next.kind === 'plan' ? <ClipboardList size={15} strokeWidth={1.9} aria-hidden="true" /> : <PackageOpen size={15} strokeWidth={1.9} aria-hidden="true" />}
+        <span className={u.ctaText}>{next.kind === 'plan' ? (next.replan ? '계획 다시 확정하기' : '학습계획 확정하기') : '자료 받으러 가기'}</span>
+        <ArrowRight size={14} aria-hidden="true" />
+      </button>
+    )
+  }
+  return null
+}
+
+/** 이번 학습량 · 확인 조건 · 기다림 이유 · 고른 TASK 와 추천의 구분(한 줄 목록) */
+function NextActionFacts({ next, selected }: { next: NextAction; selected: TaskId | null }) {
+  const q = next.quantity
+  const amount = q && q.planned !== null ? `${q.done} / ${q.planned}${q.unit} ${q.source === 'saved' ? '(저장한 계획)' : '(제안 — 아직 확정 전)'}` : '계획량 없음 — 쓸 수 있는 자료가 생기면 정해져요'
+  return (
+    <ul className={`${u.topFacts} ${u.topSub} break-keep`} data-testid="umap-next-facts" aria-label="추천 TASK 의 이번 학습">
+      <li data-testid="umap-next-amount">이번 학습량 · {amount}</li>
+      {next.criterion && <li data-testid="umap-next-criterion">확인 조건 · {next.criterion}</li>}
+      {next.kind === 'plan' && <li data-testid="umap-next-plan-note">{next.replan ? '저장한 뒤 자료 · 단계가 바뀌었어요 — 계획을 다시 확정하면 새 학습량이 정해져요.' : '계획을 확정하면 자료 · 기록이 이 계획에 묶여요.'}</li>}
+      {next.kind === 'supply' && <li>받을 수 있는 자료가 있는지는 자료 받기에서 서버가 확인해요 — 준비 시각은 약속하지 않아요.</li>}
+      {next.kind === 'wait' && next.blocked && <li data-testid="umap-next-wait">{WAIT_LABEL[next.blocked]}</li>}
+      {selected && selected !== next.task && <li data-testid="umap-next-selected">지금 지도에서 고른 TASK 는 추천과 달라요 — 아래 TASK 정보는 고른 TASK 기준이에요.</li>}
+    </ul>
   )
 }
 

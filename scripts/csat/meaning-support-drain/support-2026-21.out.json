@@ -1,0 +1,386 @@
+{
+  "writer_run": "ms-wr-2026-21-w3",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#21",
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "dd5f994711abc1e0",
+      "basePublicHash": "e433f056a312c0f0fc59107934db4d6471a789a0c01c483770e0ed1fe25ec2c0",
+      "sourceSnapshotHash": "1df8a04025ad30fb"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 21,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u1",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 1,
+        "quote": "made a lot of work less sticky",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 2,
+        "quote": "ties between service work and particular places",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 2,
+        "quote": "can be disconnected",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 3,
+        "quote": "geographically non-proximate work",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 5,
+        "quote": "no local regulations are observed",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 6,
+        "quote": "by simply sending some emails or clicking",
+        "occurrence": 1,
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "id": "p1",
+        "textKo": "디지털 플랫폼이 많은 일을 덜 달라붙게 만들었다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p2",
+        "textKo": "서비스 업무와 특정 장소 사이의 결속이 끊어질 수 있다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a2",
+          "a3"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p3",
+        "textKo": "밑줄의 달라붙는 성질은 일이 특정 장소에 묶여 있는 정도를 가리킨다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a1",
+          "a2"
+        ],
+        "warrantsKo": [
+          "2번 문장이 1번 문장의 비유를 장소와의 결속이라는 일반 진술로 이어서 풀어 쓴다."
+        ],
+        "limitKo": "비유의 뜻을 이 글의 문맥에서 정한 것이다. 이 낱말이 늘 이 뜻이라는 말은 아니다."
+      },
+      {
+        "id": "p4",
+        "textKo": "클라우드 작업은 지리적으로 가깝지 않은 곳에서 하는 일의 규모와 단위를 바꾼다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a4"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      },
+      {
+        "id": "p5",
+        "textKo": "사무실이나 공장이 필요 없고 현지 규제가 지켜지지 않으며, 생산망 전환이 이메일 몇 통이나 클릭 몇 번으로 일어난다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a5",
+          "a6"
+        ],
+        "warrantsKo": [],
+        "limitKo": ""
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          1
+        ],
+        "legacyMeaningIds": [
+          "m1"
+        ],
+        "labelKo": "밑줄 — 덜 달라붙게",
+        "exactKo": "디지털 플랫폼 때문에 많은 일이 전보다 덜 달라붙게 되었다.",
+        "simpleKo": "디지털 플랫폼 때문에 많은 일이 한곳에 덜 묶이게 됐다.",
+        "propositionIds": [
+          "p1",
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "quantity",
+            "valueKo": "많은 일(전부가 아님)",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "모든 일이 아니라 많은 일이다. 범위를 모든 일로 넓히지 않는다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "덜 달라붙게(정도의 감소)",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "완전히 떨어졌다가 아니라 전보다 덜 묶였다는 비교다."
+          },
+          {
+            "facet": "agent",
+            "valueKo": "변화를 만든 것 = 디지털 플랫폼",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "변화의 원인이 플랫폼으로 정해져 있다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          2,
+          3
+        ],
+        "legacyMeaningIds": [
+          "m2",
+          "m3",
+          "m4"
+        ],
+        "labelKo": "비유를 푼 말 — 장소와의 결속",
+        "exactKo": "일이 모듈화·표준화되고 디지털 일 시장이 생기면서, 서비스 업무와 특정 장소 사이의 결속이 끊어질 수 있고, 멀리 떨어진 곳에서 하는 일의 규모와 단위가 달라진다.",
+        "simpleKo": "일이 꼭 특정 장소에서 이뤄지지 않아도 되게 되었다는 뜻이다.",
+        "propositionIds": [
+          "p2",
+          "p4"
+        ],
+        "preserves": [
+          {
+            "facet": "modality",
+            "valueKo": "끊어질 수 있다(가능)",
+            "anchorIds": [
+              "a3"
+            ],
+            "explanationKo": "모든 결속이 이미 끊어졌다는 단정이 아니라 끊어질 수 있게 되었다는 가능성이다."
+          },
+          {
+            "facet": "reference",
+            "valueKo": "결속 = 업무와 특정 장소 사이",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "끊어지는 것은 사람 사이나 회사 사이의 관계가 아니라 업무와 장소의 연결이다."
+          },
+          {
+            "facet": "condition",
+            "valueKo": "일이 표준화되고 시장이 생기면서",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "2번 문장 앞부분의 조건이 갖춰질 때의 변화로 제시된다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "일이 덜 복잡해져서 사람을 뽑기가 쉬워졌다.",
+          "lostFacet": "reference",
+          "whyWrongKo": "원문이 풀어 쓴 결속의 상대는 특정 장소다. 장소라는 지시 대상을 지우면 비유가 공간과 상관없는 쉬움으로 바뀐다.",
+          "anchorIds": [
+            "a2",
+            "a4"
+          ]
+        }
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          5,
+          6
+        ],
+        "legacyMeaningIds": [
+          "m5",
+          "m6"
+        ],
+        "labelKo": "그 뒤에 생기는 결과",
+        "exactKo": "사무실이나 공장을 지을 필요가 없고, 현지 규제는 지켜지지 않으며, 생산망을 바꾸는 일이 이메일 몇 통이나 버튼 몇 번 누르는 것으로 일어난다.",
+        "simpleKo": "장소에 묶이지 않으니 고용주는 현지 규제를 지키지 않고, 클릭 몇 번으로 일 맡길 사람과 곳을 바꾼다.",
+        "propositionIds": [
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "causality",
+            "valueKo": "결속이 풀린 뒤의 결과",
+            "anchorIds": [
+              "a5",
+              "a6"
+            ],
+            "explanationKo": "이 문장들은 밑줄의 뜻이 아니라 그 변화가 낳은 결과를 나열한다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "규제가 지켜지지 않는다",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "규제가 완화되었다는 말이 아니라 현지 규제를 따르지 않게 된다는 말이다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "밑줄은 지역 아웃소싱의 엄격한 법 절차를 덜어 주었다는 뜻이다.",
+          "lostFacet": "causality",
+          "whyWrongKo": "규제 관련 내용은 결속 해제의 결과 가운데 하나이고, 밑줄 자체의 뜻이 아니다. 원인과 결과를 바꿔 읽으면 범위가 좁아진다.",
+          "anchorIds": [
+            "a5"
+          ]
+        }
+      }
+    ],
+    "relations": [
+      {
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "reference",
+        "beforeKo": "많은 일이 덜 달라붙게 되었다.",
+        "afterKo": "업무와 특정 장소 사이의 결속이 끊어질 수 있다.",
+        "changeKo": "1번 문장의 비유를 2번 문장이 장소와의 결속이라는 말로 바꿔, 달라붙는다는 것이 무엇에 붙는지를 정해 준다.",
+        "propositionIds": [
+          "p1",
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a1",
+          "a2"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "비유와 일반 진술이 이어진 두 문장에 놓이고, 둘 다 일이 무엇에 묶이는지를 다룬다."
+        ],
+        "limitKo": "원문이 두 말이 같다고 직접 선언하지는 않는다. 문맥으로 이은 해석이다."
+      },
+      {
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "cause",
+        "beforeKo": "업무가 장소에 덜 묶이게 되었다.",
+        "afterKo": "현지 규제를 지키지 않고, 대부분의 경우 현지 세금도 내지 않으며, 클릭 몇 번으로 일할 곳을 바꾼다.",
+        "changeKo": "장소와의 결속이 풀린 변화를 받아, 그것이 낳는 구체적 결과로 넘어간다. 밑줄의 뜻은 그대로 두고 그 영향을 보여 준다.",
+        "propositionIds": [
+          "p2",
+          "p5"
+        ],
+        "anchorIds": [
+          "a3",
+          "a5",
+          "a6"
+        ],
+        "basis": "bridging_inference",
+        "warrantsKo": [
+          "4번 문장의 뉴욕·나이로비 예와 5~6번 문장이 장소에 얽매이지 않는 일의 모습을 보여 준다."
+        ],
+        "limitKo": "결과 문장들은 밑줄 뜻의 증거로 쓰일 뿐, 밑줄의 뜻 자체는 아니다."
+      }
+    ],
+    "whole": {
+      "genre": "expository",
+      "summaryKo": "디지털 플랫폼이 일과 특정 장소 사이의 결속을 느슨하게 만들어, 멀리 떨어진 사람에게 일을 쉽게 맡기고 바꿀 수 있게 되었으며 그 결과 고용주가 머물던 곳에 흔적을 남기지 않게 되었다는 설명이다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2"
+      ],
+      "limitsKo": [
+        "4번 문장의 예와 7번 문장의 흔적 이야기는 단위로 따로 다루지 않았다.",
+        "세금에 관한 5번 문장의 한정(대부분의 경우)은 이 설명에서 다루지 않았다."
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1"
+        ],
+        "choiceNumbers": [
+          2
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m2",
+          "m3",
+          "m4"
+        ],
+        "choiceNumbers": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m5",
+          "m6"
+        ],
+        "choiceNumbers": [
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          2,
+          3
+        ]
+      }
+    ]
+  }
+}

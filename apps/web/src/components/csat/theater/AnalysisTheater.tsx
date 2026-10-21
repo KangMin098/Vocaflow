@@ -56,6 +56,7 @@ import {
 } from '@/lib/csat/theater'
 import { useTheaterSfx } from '@/lib/csat/theater-sfx'
 import { track } from '@/lib/analytics/client'
+import type { MeaningNote } from '@/lib/csat/meaning-note'
 import { touchedItems, withView } from '@/lib/csat/continuity'
 import { pickNextItem } from '@/lib/csat/next-item'
 import { distractorsAreTrue, teachingModelOf } from '@/lib/csat/teaching-contract'
@@ -97,7 +98,8 @@ import { PaperResizer } from './PaperResizer'
 import { ReasoningNoteForm } from './ReasoningNoteForm'
 import { V3CompareExplorer, type PairWithheldView } from './V3CompareExplorer'
 import { V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './InquiryV3Panels'
-import { DesignSelection, DistractorDesign, PrincipleDesign, StructureDiagram, TransformDiagram } from './SceneDiagrams'
+import { DesignSelection, DistractorDesign, PrincipleDesign, TransformDiagram } from './SceneDiagrams'
+import { StructurePredict } from './StructurePredict'
 import type { InquiryRecord, PairAbsence, V3PairView } from '@/lib/csat/inquiry/labels'
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
 import { MeaningSupportPanel } from './MeaningSupportPanel'
@@ -333,7 +335,19 @@ export function AnalysisTheater({
   const pickExplained = (r: DissectionRecord) => setExplained((r.explanations ?? []).filter((x) => x.item === itemId))
   // 원리 노트(v3 M4) — 이 문항 것만. 저장은 id 단위 교체(대조 표시도 같은 경로)
   const [notes, setNotes] = useState<ReasoningNote[]>([])
-  const pickNotes = (r: DissectionRecord) => setNotes((r.reasoningNotes ?? []).filter((x) => x.item === itemId))
+  const pickNotes = (r: DissectionRecord) => {
+    setNotes((r.reasoningNotes ?? []).filter((x) => x.item === itemId))
+    setMeaningNotes((r.meaningNotes ?? []).filter((x) => x.item === itemId))
+  }
+  // 원문 이해 「내 말로」 노트(v3.2) — 이 문항 것만. 저장은 id(문항|의미) 단위 교체 · 실제 저장 결과를 돌려준다
+  const [meaningNotes, setMeaningNotes] = useState<MeaningNote[]>([])
+  const saveMeaningNote = (x: MeaningNote): Promise<boolean> =>
+    persist((r) => ({ ...r, meaningNotes: [...(r.meaningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
+      .then(({ record, saved }) => {
+        if (saved) pickNotes(record)
+        return saved
+      })
+      .catch(() => false)
   // 실제 저장 결과를 돌려준다 — 실패면 화면이 입력을 지키고 「다시 저장」을 연다(낙관적 완료 표시 금지 · M5)
   const saveNote = (x: ReasoningNote): Promise<boolean> =>
     persist((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
@@ -581,6 +595,8 @@ export function AnalysisTheater({
   const [msDepth, setMsDepth] = useState<MsDepth>(initialDepth)
   const [msBridge, setMsBridge] = useState(initialBridge)
   //   원문 이해 초안은 의미 단위 id(u1 …)가 문항마다 겹치므로 문항 키 아래에 둔다
+  // 원문 이해 읽어 주기 — 지금 말하는 설명의 원문 문장(지도 강조가 따라간다)
+  const [msSpeak, setMsSpeak] = useState<number[]>([])
   const [msDrafts, setMsDrafts] = useState<Record<string, string>>(() => tabMemory.meaning[itemId] ?? {})
   useEffect(() => {
     tabMemory.meaning[itemId] = msDrafts
@@ -601,7 +617,8 @@ export function AnalysisTheater({
     buildItemUrl(new URL(window.location.href), { scene: sceneId, meaning: o.unit, depth: o.depth, rel: o.rel, bridge: o.bridge })
   const writeMs = (o: { unit: string | null; depth: MsDepth; rel: string | null }) =>
     window.history.replaceState(window.history.state, '', msHref(scene, { ...o, bridge: false }))
-  const pickMsUnit = (id: string | null) => {
+  const pickMsUnit = (id: string | null, from: 'chip' | 'map' | 'relation' = 'chip') => {
+    if (id) track({ name: 'csat_meaning_unit_selected', props: { from, depth: msDepth } })
     setMsUnit(id)
     setMsRelation(null)
     setMsPick(null)
@@ -609,7 +626,22 @@ export function AnalysisTheater({
     setMsPhrase(null)
     writeMs({ unit: id, depth: msDepth, rel: null })
   }
+  // 전체 통합 · 경계에서 거슬러 오르기 — 의미와 관계를 한 번에(관계는 그 의미에 이어진 것만 주소에 실린다)
+  const traceMs = (unitId: string, relationId: string | null, target: 'step' | 'link' | 'boundary' = relationId ? 'link' : 'step') => {
+    track({ name: 'csat_meaning_whole_traced', props: { target } })
+    const rk = relationId ? ms?.relations.find((r) => r.id === relationId)?.kind : undefined
+    if (rk) track({ name: 'csat_meaning_relation_opened', props: { kind: rk, from: 'trace' } })
+    else track({ name: 'csat_meaning_unit_selected', props: { from: 'trace', depth: msDepth } })
+    setMsUnit(unitId)
+    setMsRelation(relationId)
+    setMsPick(null)
+    setMsChip(false)
+    setMsPhrase(null)
+    writeMs({ unit: unitId, depth: msDepth, rel: relationId })
+  }
   const pickMsRelation = (id: string | null) => {
+    const rk = id ? ms?.relations.find((r) => r.id === id)?.kind : undefined
+    if (rk) track({ name: 'csat_meaning_relation_opened', props: { kind: rk, from: 'unit' } })
     setMsRelation(id)
     setMsPick(null)
     setMsChip(false)
@@ -626,6 +658,7 @@ export function AnalysisTheater({
     }
   }
   const pickMsDepth = (d: MsDepth) => {
+    if (d !== msDepth) track({ name: 'csat_meaning_depth_changed', props: { depth: d } })
     setMsDepth(d)
     writeMs({ unit: msUnit, depth: d, rel: msRelation })
   }
@@ -634,7 +667,7 @@ export function AnalysisTheater({
     if (!ms) return
     setMsChip(false)
     const hits = unitsForSentence(ms, n)
-    if (hits.length === 1) return pickMsUnit(hits[0].id)
+    if (hits.length === 1) return pickMsUnit(hits[0].id, 'map')
     setMsPick({ n, unitIds: hits.map((u) => u.id) })
     setMsRelation(null)
     setMsPhrase(null)
@@ -670,6 +703,7 @@ export function AnalysisTheater({
   }
   // 원문 이해 → 문항 성립 · 설계 재구성: 이 의미가 걸린 선택지 · 설계 근거를 들고 간다(주소 bridge=1 — 뒤로가기로 원래 의미에 돌아온다)
   const goBridge = (target: 'judgment' | 'design') => {
+    track({ name: 'csat_meaning_bridge_followed', props: { scene: target } })
     stashScene()
     setScene(target)
     // 이어 온 맥락(bridge)이 근거를 대신 짚는다 — 이 장면의 지난 선택은 되살리지 않는다
@@ -925,13 +959,14 @@ export function AnalysisTheater({
   // 근거·관계 판의 「관계」 보기 — 이 장면에 검수된 설계 도식이 있을 때만(없으면 지도 · 빈 상태). 관계선을 새로 만들지 않는다
   const relation =
     !gate.design ? null
-      : scene === 'meaning' ? <StructureDiagram design={gate.design} sentenceCount={map ? map.sentences.length : null} />
+      // FINAL §6 ⑤ — 구조 도식을 바로 보이지 않고 먼저 예측하게 한다(서버 대조 뒤 도식). 예측 없이 보기도 된다
+      : scene === 'meaning' ? <StructurePredict key={itemId} slug={toItemSlug(itemId)} design={gate.design} sentenceCount={map ? map.sentences.length : null} />
         : scene === 'judgment' ? <TransformDiagram design={gate.design} />
           : scene === 'design' ? <DesignSelection design={gate.design} />
             : null
   const showRelation = Boolean(relation && evidenceView === 'relation')
   // 지도에 비출 근거 — 원문 이해는 v3.1 의미 대조, 그 밖은 검수된 v3 근거(분할이 같을 때만)
-  const mapFocus = msActive ? (msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
+  const mapFocus = msActive ? (msMapOk && msSpeak.length ? msSpeak.map((n) => n - 1) : msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
   const focusSummary = msActive ? (msMapOk && msFocus.length ? msFocus : []) : v3Linkable && evidence ? evidence.sentences : []
   const evidenceLabel = focusSummary.length ? `${focusSummary.join(' · ')}번 문장` : '고른 근거 없음'
   // 노트에 연결할 수 있는 근거 — 지금 고른 문장 근거 중 이 문항 지도 범위 안(결속 확인된 v3 근거만)
@@ -1215,6 +1250,9 @@ export function AnalysisTheater({
                       relationId={msRelation}
                       depth={msDepth}
                       draft={msUnit ? msDrafts[msUnit] ?? '' : ''}
+                      notes={meaningNotes}
+                      analysisVersion={inquiry?.analysis_version ?? null}
+                      onSaveNote={saveMeaningNote}
                       pick={msPick}
                       phraseId={msPhrase}
                       textAlign={msText}
@@ -1226,6 +1264,8 @@ export function AnalysisTheater({
                       onDepth={pickMsDepth}
                       onDraft={(t) => { if (msUnit) setMsDrafts((cur) => ({ ...cur, [msUnit]: t })) }}
                       onGo={goBridge}
+                      onTrace={traceMs}
+                      onSpeaking={setMsSpeak}
                     />
                   ) : null}
                   {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}

@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-43-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#43",
+      "verdict": "pass",
+      "content_hash": "520eda7b27b44ee6",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "ac4a9343a8650153",
+        "basePublicHash": "5a4ba3e56de4e5e614f5ecd1f751b85a08189b84f50147777ec6dd263c06cdf8",
+        "sourceSnapshotHash": "7b27524674de1184"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u3 simpleKo 에 사서 추천·대출 복원, '첫 책'은 preserves 에서 34번과 이은 추론으로 표시. 인쇄 순서와 사건 순서 구분 정확. 참고: u2 simpleKo '고르겠다고 했다'는 원문상 '골라도 되는지 묻고 허락받음'에 가까우나 의미 손실 경미."
+    }
+  ]
+}

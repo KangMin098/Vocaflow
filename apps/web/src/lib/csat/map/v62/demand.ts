@@ -125,7 +125,8 @@ export function buildDemand(view: V4View, task: TaskId, template: string | null,
     if (stage) for (const s of STAGE_ROLES[stage]) lines.push(base(s.role, s.reason))
     else if (plan?.need === 'MAINTAIN') lines.push(base('delayed_check', 'maintain'))
     // 단계가 없어도(콘텐츠 없음 · 목표 없음) 교육적 필요가 있으면 확인 수요를 남긴다 — 재고 0 을 「무관」으로 바꾸지 않는다
-    else if (plan?.need || !view.toBe) lines.push(base('independent_check', 'need_without_stage'))
+    // T-0056 — 그 묶음의 보조 TASK 가 아직 직접 확인 전이면 목표 요구가 없어도 확인부터(첫 공급). 확인 기록이 생기면 단계 · 요구 규칙을 따른다
+    else if (plan?.need || !view.toBe || (!!tpl?.support.includes(task) && !asIs.check)) lines.push(base('independent_check', 'need_without_stage'))
   }
   const unknowns: string[] = []
   if (csatTypes.length === 0) unknowns.push('csat_type_condition_unknown')

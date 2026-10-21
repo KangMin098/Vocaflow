@@ -1,5 +1,7 @@
 # DB Schema
 
+> **미적용 승인안 FINAL 창작 공급**(2026-10-18): `supabase/migrations/_pending_authored_supply.sql` — `authored_item`(자체 창작 산출물 · 추가 전용 · revision/Gold hash DB 계산) · `content_human_decision`(+철회 · 권리/Gold 사람 결정) · 공급/유효성/노출/G2 결속 래퍼(모든 신규 공급에 권리 결정 · 평가 역할 창작물에 사람 Gold). DB-1/2 · I2 · G2(모두 2026-10-18 적용됨) 위에 한 트랜잭션. 승인 범위: [승인 패키지](./final/APPROVAL_PACKAGE.md).
+
 > **DB286 독립 배포 보완(미적용)**: 최신 main의 B NULL 버전 거절과 기존 권한 helper의 search_path 외 속성 불변 가드를 배포 정본에 반영했다. 영구 객체 범위는 기존 DB-1/2와 같고 I2 annotation binding은 제외한다. 전체 SHA·승인 차이·실제 이력 대기는 [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)·[독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md). 개발 DB는 읽기 전용 감사만 수행했다.
 
 > **미적용 승인안** Factory I1 독립 수정(2026-10-17): C/B→S에서 자격 supersede·현재 원천/Reveal Gate·NULL 축·경합을 재검사하고 P에서 종결 시 유효 수량만 센다. search_path와 부분 승인 롤백도 보완. 개발 DB 객체 변경 없음. 객체/hash/DB-1·2·3 범위: [승인 패키지](./csat-learner/v62/FACTORY_I1_APPROVAL_PACKAGE.md)·[독립 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).
@@ -1262,6 +1264,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 | `funnel_events_event_check` | `video_started` · `video_completed` 추가 (17 → 19종) |
 | `funnel_events_event_check` (2026-09-19 · 사용자 승인 후 적용, DB 버전 `20260918232454`) | `fit_level_moved` · `fit_sheet_opened` 추가 (38 → 40종) — `20260919100000_funnel_allow_fit_paint.sql`. 목록은 적용 시점 DB 제약에서 옮겼다 |
 | `funnel_events_event_check` (2026-09-22 · 사용자 승인 후 적용, DB 버전 `20260922004102`) | `hub_promo_clicked` · `hub_hero_moved` 추가 (40 → 42종) — `20260922090000_funnel_allow_hub_portal.sql`. 목록은 2026-09-22 DB 제약에서 옮겼다 |
+| `funnel_events_event_check` (2026-10-14 · 사용자 승인 후 적용) | 원문 이해 교수 판 6종 `csat_meaning_unit_selected` · `csat_meaning_depth_changed` · `csat_meaning_relation_opened` · `csat_meaning_whole_traced` · `csat_meaning_draft_compared` · `csat_meaning_bridge_followed` 추가 (83 → 89종) — `20261014091841_funnel_allow_csat_meaning.sql`. 목록은 적용 직전 DB 제약에서 옮겼다(재조회로 83 확인 뒤 적용) |
 
 ⚠️ **왜 공개 버킷인가**: 이 영상의 첫 독자는 로그인하지 않은 **교사**다
 (허용 CAC ₩400 → 교사→학급 경로만 성립, `PLATFORM_AUDIT.md`). 로그인 뒤에 두면
@@ -1298,6 +1301,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 20260930203522  csat_review_ledgers                          ← 학평 검수 모니터 원장 3개: csat_review_prechecks(사전 검사 · 키=분석·분석 해시·단위 해시·검사기 버전) · csat_review_batches(배치 비용 · tokens null=미기록) · csat_review_followups(추적 목록) — RLS on · anon/authenticated 권한 없음
 20261001062641  csat_review_prechecks_input_hash             ← csat_review_prechecks 에 input_hash(지문 입력 해시) 추가 · PK 에 포함 — units_hash 는 경계만 해시해 지문 글자 변경을 못 가른다(Codex 리뷰). 기존 행은 '' → 화면에서 「사전 검사 다시」
 20261001101635  csat_scope_type_reports_coverage             ← 학평 전면 적용 P1: csat_type_reports 에 organizer(kice·edu_office)·grade(평가원 0 · 학평 1~3) 열 + 짝 CHECK — 기존 26행 kice·0, 키는 아직 type_id(옛 importer 호환 · 확장은 P4) · csat_coverage_scoped(p_organizer, p_grade) 신설(service_role 만) — 기존 csat_coverage() 무변
+20261014091841  funnel_allow_csat_meaning                     ← 원문 이해 교수 판 계측 6종(83 → 89종 · 속성은 닫힌 열거형만 · 의미 id · 학습자 글 없음)
 20261002060000  csat_type_reports_scope_pk                    ← 학평 전면 적용 P4: csat_type_reports 기본 키 (type_id) → (type_id, organizer, grade) — 한 유형에 평가원(kice·0)과 학평(edu_office·1~3) 리포트가 함께 있게 · 기존 26행은 전부 (kice, 0) · importer upsert onConflict 동반 변경
 20261001110017  csat_hakpyeong_learner_exposure              ← 학평 전면 적용 P2: csat_items_public = 평가원 + 발행된 분석이 있는 학평(뷰가 정본) · 끝에 organizer·grade 열(+authenticated 열 권한, stem 차단 유지) · csat_item_skeletons(학평 골격 — 학평 원문 조각을 저장소 대신 DB에, 학습자는 발행분만 RLS, 쓰기 서비스 역할, item_id like 'H%' CHECK)
 20260913000100  video_bucket                               ← 공개 Storage 버킷 `video` + 정책 3 (아래 참조)

@@ -8,7 +8,7 @@ on:
   # 모든 base 의 PR — 종속 PR(base ≠ main)에도 필수 CI 가 돌아야 safe-merge 가 판정할 수 있다(정책 v1.1 · 2026-10-11)
   pull_request:
 
-# 최신 PR 커밋만 검증한다. main의 공유 DB 검사는 중간 취소하지 않는다.
+# 같은 PR 의 앞선 실행은 새 커밋이 오면 취소(main push 는 취소하지 않음)
 concurrency:
   group: ci-${{ github.event.pull_request.number || github.ref }}
   cancel-in-progress: ${{ github.event_name == 'pull_request' }}
@@ -17,6 +17,16 @@ permissions:
   contents: read
 
 jobs:
+  # 서버 보호 체크 이름을 보존한다. 실제 타입 검사는 verify에서 한 번만 실행한다.
+  typecheck:
+    name: TypeScript 0 error
+    needs: verify
+    if: always()
+    runs-on: ubuntu-latest
+    steps:
+      - name: 실제 verify 결과 확인 (타입 검사 재실행 없음)
+        run: test '${{ needs.verify.result }}' = 'success'
+
   verify:
     runs-on: ubuntu-latest
     steps:
@@ -65,6 +75,8 @@ jobs:
   # (CI 시뮬레이션으로 .env.local 없이 green 확인). lint 는 verify job 이 담당.
   build:
     runs-on: ubuntu-latest
+    env:
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
 
@@ -79,6 +91,13 @@ jobs:
 
       - run: pnpm install --frozen-lockfile
 
+      # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
+      - uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**', 'apps/web/next.config.*', 'packages/**/src/**') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
       - run: pnpm --filter web build
         env:
           NEXT_PUBLIC_SUPABASE_URL: https://placeholder.supabase.co
@@ -102,6 +121,8 @@ jobs:
   e2e-shared-dev:
     if: github.event_name != 'pull_request'
     runs-on: ubuntu-latest
+    env:
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     steps:
       - uses: actions/checkout@v4
 
@@ -130,6 +151,14 @@ jobs:
       - if: steps.guard.outputs.ready == 'true'
         run: pnpm --filter web exec playwright install --with-deps chromium
 
+      # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
+      - if: steps.guard.outputs.ready == 'true'
+        uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**', 'apps/web/next.config.*', 'packages/**/src/**') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
       - if: steps.guard.outputs.ready == 'true'
         run: pnpm --filter web build
         env:
@@ -177,6 +206,8 @@ jobs:
   #   → 실제 Next.js 빌드 · 기동 → Playwright 실제 브라우저 → DB 단언(목표 행 · RLS) → 러너와 함께 폐기
   e2e:
     runs-on: ubuntu-latest
+    env:
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
@@ -234,6 +265,29 @@ jobs:
           VOCAFLOW_CSAT_ISOLATED_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
         run: node scripts/csat/meaning-support-isolated-seed.mjs --commit
 
+      # FINAL — 보류 창작 공급 SQL 을 **러너 DB 에만** 적용(개발 DB 무관 · 승인 전 SQL 의 실제 Postgres 검증). 그 위에 R5 창작 fixture
+      # (자격 · 결정 · 승인 = 「CI 격리 fixture — 사람 결정 아님」)를 적재한다. 가드: loopback:54321 · CI 러너
+      - name: 격리 전용 — 보류 창작 공급 SQL 적용 + R5 창작 fixture
+        run: |
+          case "$NEXT_PUBLIC_SUPABASE_URL" in http://127.0.0.1:54321*) ;; *) echo "::error::격리 DB 가 아니다"; exit 1 ;; esac
+          psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f supabase/_all_migrations/_pending_authored_supply.sql
+          psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f scripts/ci/authored-open-fault.sql
+          psql "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')" -q -X -v ON_ERROR_STOP=1 -1 -f scripts/ci/journey-exam-fixture.sql
+          node scripts/ci/authored-isolated-seed.mjs --commit
+
+      # FI-006(#298) — 보류 창작 공급 SQL 의 동시 공급 직렬화를 **실제 PostgreSQL 17 두 연결**로(임시 클러스터 · 러너 안에서 폐기)
+      - name: 격리 전용 — 창작 공급 동시성(실제 Postgres)
+        run: |
+          mkdir -p /tmp/pgconc && cd /tmp/pgconc && npm init -y >/dev/null && npm i --silent embedded-postgres@17.10.0-beta.17 pg@8.13.1
+          cd "$GITHUB_WORKSPACE" && node scripts/csat/map/v62/authored-concurrency.mjs --deps /tmp/pgconc
+
+      # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
+      - uses: actions/cache@v4
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**', 'apps/web/next.config.*', 'packages/**/src/**') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
       - run: pnpm --filter web build
 
       - name: 앱 기동 후 대기
@@ -246,7 +300,9 @@ jobs:
 
       - if: always()
         name: 서버 로그
-        run: tail -n 80 /tmp/next.log || true
+        run: |
+          grep -nE 'csat-learn|authored|Error:|digest' /tmp/next.log | tail -n 60 || true
+          tail -n 80 /tmp/next.log || true
 
       - if: always()
         uses: actions/upload-artifact@v4
@@ -267,24 +323,41 @@ jobs:
   #   앱 플래그 · 가짜 RPC 없음. 이 job 의 spec 은 tests/e2e-isolated-fault(playwright.isolated-fault.config.ts)만 — 주 격리 job 과 겹치지 않는다.
   e2e-gate-faultclosed:
     runs-on: ubuntu-latest
+    env:
+      VOCAFLOW_STATIC_CHECK_SHA: ${{ github.sha }}
     timeout-minutes: 45
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      # 게이트 고장 시험은 DB · 게이트 · 원문 이해 경로가 바뀐 PR 에서만 돈다(필수 체크 아님 · main push 와 수동 실행은 항상) — 생략 사유를 로그에 남긴다
+      - name: 실행 범위 판정
+        id: scope
+        run: |
+          if [ "${{ github.event_name }}" != "pull_request" ]; then echo run=true >> "$GITHUB_OUTPUT"; exit 0; fi
+          changed=$(git diff --name-only "origin/${{ github.base_ref }}...HEAD")
+          if echo "$changed" | grep -Eq '^(supabase/|scripts/csat/meaning-support|scripts/ci/|apps/web/tests/e2e-isolated-fault/|apps/web/playwright.isolated-fault|apps/web/src/(lib|app/api)/csat/|apps/web/src/components/csat/|.github/workflows/ci.yml)'; then echo run=true >> "$GITHUB_OUTPUT"
+          else echo run=false >> "$GITHUB_OUTPUT"; echo '::notice::e2e-gate-faultclosed 생략 — DB·게이트·csat 경로 변경 없음'; fi
 
       - uses: pnpm/action-setup@v3
+        if: steps.scope.outputs.run == 'true'
         with:
           version: 9
 
       - uses: actions/setup-node@v4
+        if: steps.scope.outputs.run == 'true'
         with:
           node-version-file: .nvmrc
           cache: pnpm
 
       - uses: supabase/setup-cli@v1
+        if: steps.scope.outputs.run == 'true'
         with:
           version: latest
 
       - name: 격리 Supabase 기동(빈 DB)
+        if: steps.scope.outputs.run == 'true'
         run: |
           mv supabase/migrations supabase/_all_migrations
           mkdir supabase/migrations
@@ -293,16 +366,21 @@ jobs:
           grep -E '^(API_URL|ANON_KEY|SERVICE_ROLE_KEY|DB_URL)=' /tmp/sb.env | sed 's/^/LOCAL_/' >> "$GITHUB_ENV"
 
       - name: Factory I1 CI 전제 helper 복구(정본 정의만)
+        if: steps.scope.outputs.run == 'true'
         run: node scripts/ci/factory-i1-prerequisites.mjs
 
       - name: 저장소 마이그레이션 적용(파일별)
+        if: steps.scope.outputs.run == 'true'
         run: bash scripts/ci/apply-migrations.sh supabase/_all_migrations "$(grep '^DB_URL=' /tmp/sb.env | cut -d= -f2- | tr -d '"')"
 
       - run: pnpm install --frozen-lockfile
+        if: steps.scope.outputs.run == 'true'
 
       - run: pnpm --filter web exec playwright install --with-deps chromium
+        if: steps.scope.outputs.run == 'true'
 
       - name: 격리 환경 변수(로컬 데모 키 — 비밀값 아님)
+        if: steps.scope.outputs.run == 'true'
         run: |
           strip() { echo "$1" | tr -d '"'; }
           echo "NEXT_PUBLIC_SUPABASE_URL=$(strip "$LOCAL_API_URL")" >> "$GITHUB_ENV"
@@ -312,32 +390,45 @@ jobs:
 
       # 정상 게이트에서 먼저 seed(RPC 있음 · 보류 없음 확인) → 그 다음 고장 주입. 둘 다 가드(namespace · run ID · loopback · 소유 marker)를 안에서 돈다
       - name: 격리 fixture 적재(v3.1 원문 이해 문항)
+        if: steps.scope.outputs.run == 'true'
         env:
           VOCAFLOW_CSAT_ISOLATED_NAMESPACE: csat-v31
           VOCAFLOW_CSAT_ISOLATED_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
         run: node scripts/csat/meaning-support-isolated-seed.mjs --commit
 
       - name: 게이트 고장 주입(RPC 실제 부재 · 일회용 DB)
+        if: steps.scope.outputs.run == 'true'
         env:
           VOCAFLOW_CSAT_ISOLATED_NAMESPACE: csat-v31
           VOCAFLOW_CSAT_ISOLATED_RUN_ID: ${{ github.run_id }}-${{ github.run_attempt }}
         run: node scripts/csat/meaning-support-isolated-gate-fault.mjs --mode absent --commit
 
+      # Next 컴파일 캐시 — 같은 소스면 재사용(빌드 · 시험 대상은 그대로 · 결과 불변). 2026-10-19 계측: web build 217~277s × 3 job
+      - uses: actions/cache@v4
+        if: steps.scope.outputs.run == 'true'
+        with:
+          path: apps/web/.next/cache
+          key: nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-${{ hashFiles('apps/web/src/**', 'apps/web/next.config.*', 'packages/**/src/**') }}
+          restore-keys: |
+            nextjs-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}-
       - run: pnpm --filter web build
+        if: steps.scope.outputs.run == 'true'
 
       - name: 앱 기동 후 대기
+        if: steps.scope.outputs.run == 'true'
         run: |
           pnpm --filter web exec next start -p 3000 > /tmp/next.log 2>&1 &
           npx --yes wait-on http://localhost:3000 --timeout 120000
 
       - name: 격리 E2E(게이트 고장 → fail-closed)
+        if: steps.scope.outputs.run == 'true'
         run: pnpm --filter web exec playwright test -c playwright.isolated-fault.config.ts
 
-      - if: always()
+      - if: always() && steps.scope.outputs.run == 'true'
         name: 서버 로그
         run: tail -n 80 /tmp/next.log || true
 
-      - if: always()
+      - if: always() && steps.scope.outputs.run == 'true'
         uses: actions/upload-artifact@v4
         with:
           name: e2e-isolated-fault-report
@@ -347,6 +438,6 @@ jobs:
             migration-failures.txt
           retention-days: 7
 
-      - if: always()
+      - if: always() && steps.scope.outputs.run == 'true'
         name: 격리 환경 폐기
         run: supabase stop --no-backup || true

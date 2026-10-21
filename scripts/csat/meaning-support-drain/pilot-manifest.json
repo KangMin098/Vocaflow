@@ -1,17 +1,36 @@
 {
  "contract": {
-  "id": "v31-pilot-1",
-  "decidedAt": "2026-10-12",
-  "why": "설계 C2 2문항 + C3 6문항 — 독립 검수 pass 를 받은 8문항 전부 공개(#25 는 도표 수치 보류 · 언어 부분 공개)",
+  "id": "v31-wave-2",
+  "decidedAt": "2026-10-14",
+  "why": "파일럿 8문항 + 확대 회차 19문항(2026 수능 공개 v3 27문항 전부) — 사용자 승인(권장 우선순위 1: 교수 콘텐츠 확대). 19문항 모두 작성과 분리된 독립 검수 pass(1차 6 pass · 13 revise → 수정 뒤 재검수 13 pass)",
   "expectedPublic": [
+   "2026#18",
+   "2026#20",
+   "2026#21",
    "2026#22",
    "2026#23",
+   "2026#24",
    "2026#25",
+   "2026#26",
+   "2026#27",
+   "2026#28",
    "2026#29",
+   "2026#30",
+   "2026#31",
+   "2026#32",
+   "2026#33",
    "2026#34",
+   "2026#35",
    "2026#36",
+   "2026#37",
    "2026#38",
-   "2026#43"
+   "2026#39",
+   "2026#40",
+   "2026#41",
+   "2026#42",
+   "2026#43",
+   "2026#44",
+   "2026#45"
   ]
  },
  "note": "v3.1 원문 이해 교수 파일럿 manifest — meaning-support-export.mjs 가 생성. 원문 본문 없음(결속 · 기준선만).",
@@ -261,6 +280,580 @@
    "legacyMeanings": 6,
    "status": "ok",
    "note": "43~45 공유 장문 — 44 · 45 는 이번 파일럿 밖"
+  },
+  {
+   "itemId": "2026#18",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-PURPOSE",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "d9da3df3b80606c4",
+    "basePublicHash": "a9d958acee841177fbe544401d7e19b6154ac5c4f7c50d019de4eb8d55314214",
+    "sourceSnapshotHash": "550059ac7fe3a6e2"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 9,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 36,
+    "coveredChars": 183,
+    "passageChars": 690,
+    "ratio": 0.2652
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#20",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-CLAIM",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "8965cdd326c69d54",
+    "basePublicHash": "47461f05409209b6cf35950f0a030a6ce3e5c905291f1b50acb992709cce1f4e",
+    "sourceSnapshotHash": "f968e4e73935970e"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 5,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 23,
+    "coveredChars": 150,
+    "passageChars": 890,
+    "ratio": 0.1685
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#21",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-IMPLY",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "dd5f994711abc1e0",
+    "basePublicHash": "e433f056a312c0f0fc59107934db4d6471a789a0c01c483770e0ed1fe25ec2c0",
+    "sourceSnapshotHash": "1df8a04025ad30fb"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 7,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 6,
+    "quoteWords": 32,
+    "coveredChars": 203,
+    "passageChars": 1013,
+    "ratio": 0.2004
+   },
+   "legacyMeanings": 6,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#24",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-TITLE",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "a44261d498185788",
+    "basePublicHash": "9d7e2a664d0635755cb015e3af5eb5a3875844882a794e8dd475627bd56cd5ca",
+    "sourceSnapshotHash": "652fe4afe9943d26"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 7,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 28,
+    "coveredChars": 185,
+    "passageChars": 1085,
+    "ratio": 0.1705
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#26",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-FACT",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "6d3946110368189d",
+    "basePublicHash": "6668d3aabc4749824d133d1e2a227b0f4b8b9ea14cc03cac09bbf87c634c08c5",
+    "sourceSnapshotHash": "d6aaf7955660942b"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 8,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 34,
+    "coveredChars": 230,
+    "passageChars": 890,
+    "ratio": 0.2584
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#27",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-NOTICE",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "5821b83891fb77c0",
+    "basePublicHash": "85423982004919e2ac69b0c207b6c5b8719336af209b8c9500ab7903ffd8ea9c",
+    "sourceSnapshotHash": "81df95c182078421"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 5,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 29,
+    "coveredChars": 164,
+    "passageChars": 651,
+    "ratio": 0.2519
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#28",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole",
+    "inference"
+   ],
+   "type": "R-NOTICE",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "9feee04dcf54fe88",
+    "basePublicHash": "4fc9cf20e98b2596e99db019e1aa1d1c7813be99533444cbb0ae65ff7377c464",
+    "sourceSnapshotHash": "f6a28d2f8729fc71"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 4,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 25,
+    "coveredChars": 134,
+    "passageChars": 681,
+    "ratio": 0.1968
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#30",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole",
+    "inference"
+   ],
+   "type": "R-VOCAB",
+   "binding": {
+    "analysisVersion": 8,
+    "unitsHash": "0081ae79d542e531",
+    "basePublicHash": "1339190787c40efe46ec3859118f27a274d5c3e9b0bc69294944379a70ea360c",
+    "sourceSnapshotHash": "dfad632a30635c1f"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 8,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 31,
+    "coveredChars": 174,
+    "passageChars": 1086,
+    "ratio": 0.1602
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#31",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-BLANK",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "972c593c500f847c",
+    "basePublicHash": "5c70a8ad18edfb267e2169b595b83ae6788959d6b5939d3768a0e2285f62a5c0",
+    "sourceSnapshotHash": "939a3eef506b89a5"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 7,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 28,
+    "coveredChars": 156,
+    "passageChars": 1060,
+    "ratio": 0.1472
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#32",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-BLANK",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "0cae42a4b9958014",
+    "basePublicHash": "fb4a3a1ceb24a842392a16ff33a2e04fd98c9e3607f0962d8bf0980ff1dac472",
+    "sourceSnapshotHash": "a0ada9d2619c0ec5"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 7,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 26,
+    "coveredChars": 172,
+    "passageChars": 998,
+    "ratio": 0.1723
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#33",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-BLANK",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "e3b063c3f4169175",
+    "basePublicHash": "497fd93f5f06eb934b8abecf0a6c238499c32701dc5b34d66e3c6542e3e6953f",
+    "sourceSnapshotHash": "03971581fa526ae8"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 8,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 30,
+    "coveredChars": 196,
+    "passageChars": 1103,
+    "ratio": 0.1777
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#35",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-IRRELEVANT",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "8caef659ab8b5e82",
+    "basePublicHash": "434b6e79ffcaaf96bdebc5aef04ebc41956bcc96176ed9d40630a8e19332dbf5",
+    "sourceSnapshotHash": "8b83816f8ea882bd"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 7,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 30,
+    "coveredChars": 172,
+    "passageChars": 940,
+    "ratio": 0.183
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#37",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-ORDER",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "3adc09f62f16b6d7",
+    "basePublicHash": "54c3b2dd7253b1abb519fbf18cc806d4c89812198b5e2777f3170fa5a4ec2cf7",
+    "sourceSnapshotHash": "eaa118b85f1d3f4d"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-15",
+   "sentences": 7,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 6,
+    "quoteWords": 36,
+    "coveredChars": 286,
+    "passageChars": 1145,
+    "ratio": 0.2498
+   },
+   "legacyMeanings": 6,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#39",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-INSERT",
+   "binding": {
+    "analysisVersion": 5,
+    "unitsHash": "61ab9c3e9c947652",
+    "basePublicHash": "45ebfe515d93de4fc7dd8b25ccd352fda20cf7d141debfca069fbfd46c59675e",
+    "sourceSnapshotHash": "05bc91ab97ac6ac4"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-16",
+   "sentences": 7,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 26,
+    "coveredChars": 141,
+    "passageChars": 992,
+    "ratio": 0.1421
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#40",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "R-SUMMARY",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "b295ad1a07b37b9e",
+    "basePublicHash": "30b0828436f2c8713b7ad3c3cca10e735a0b7df0a30ff49fd4b321bcb501ff49",
+    "sourceSnapshotHash": "0c24452a9c1f412d"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-16",
+   "sentences": 8,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 26,
+    "coveredChars": 195,
+    "passageChars": 1270,
+    "ratio": 0.1535
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#41",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "X-TITLE",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "450799188f6ecd9f",
+    "basePublicHash": "3fc9c73a87fef768712cdfa9d3c4c2121222ef5983e31fe0e4aea5b0bf6896cc",
+    "sourceSnapshotHash": "fa5ad2c0f157f192"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-16",
+   "sentences": 9,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 5,
+    "quoteWords": 38,
+    "coveredChars": 229,
+    "passageChars": 1660,
+    "ratio": 0.138
+   },
+   "legacyMeanings": 5,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#42",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "X-VOCAB",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "450799188f6ecd9f",
+    "basePublicHash": "8f3044fa6a3b2465e0a3aa7b2c6f085c802f954c4218f77d365845ade3eb1d04",
+    "sourceSnapshotHash": "49945168bf2ab839"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-16",
+   "sentences": 9,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 6,
+    "quoteWords": 31,
+    "coveredChars": 182,
+    "passageChars": 1660,
+    "ratio": 0.1096
+   },
+   "legacyMeanings": 6,
+   "status": "ok"
+  },
+  {
+   "itemId": "2026#44",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "X-REFER",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "ac4a9343a8650153",
+    "basePublicHash": "054f1651344870e271d25fb940f31b382fce28749632ebc7c2cdb8a68bfd8a03",
+    "sourceSnapshotHash": "dfde740f671b3244"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-16",
+   "sentences": 35,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 6,
+    "quoteWords": 28,
+    "coveredChars": 165,
+    "passageChars": 2067,
+    "ratio": 0.0798
+   },
+   "legacyMeanings": 6,
+   "status": "ok",
+   "note": "43~45 공유 장문 — 43 의 의미 단위와 겹쳐도 문항별로 따로 쓴다"
+  },
+  {
+   "itemId": "2026#45",
+   "stage": "W2",
+   "plannedSupports": [
+    "meaning",
+    "simple",
+    "preserve",
+    "relation",
+    "whole"
+   ],
+   "type": "X-FACT",
+   "binding": {
+    "analysisVersion": 4,
+    "unitsHash": "ac4a9343a8650153",
+    "basePublicHash": "89646b0e7b1d57d78beb70017a4a8da7a28e0d3db23c90afa89ed48508445bdc",
+    "sourceSnapshotHash": "5f6c7161e1f7ee33"
+   },
+   "inputRef": "inquiry-origin:chunk-inq-16",
+   "sentences": 35,
+   "chart": null,
+   "quoteBaseline": {
+    "expressions": 6,
+    "quoteWords": 36,
+    "coveredChars": 221,
+    "passageChars": 2067,
+    "ratio": 0.1069
+   },
+   "legacyMeanings": 6,
+   "status": "ok",
+   "note": "43~45 공유 장문 — 43 의 의미 단위와 겹쳐도 문항별로 따로 쓴다"
   }
  ]
 }

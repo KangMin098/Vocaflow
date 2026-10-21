@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-44-w2",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#44",
+      "verdict": "pass",
+      "content_hash": "d23005ebc5b79d90",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "ac4a9343a8650153",
+        "basePublicHash": "054f1651344870e271d25fb940f31b382fce28749632ebc7c2cdb8a68bfd8a03",
+        "sourceSnapshotHash": "dfde740f671b3244"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "pass. MS01 (a)=8번 문장 Sam→Julia 대화 속 3인칭 Mia, (b) his daughter=Mia, (c)=25번 문장 목적어(비재귀) → 24번 문장에서 책을 건넨 사서, (d)=26~28번 문장 인용 화자 Mia, (e)=32번 문장 주어 Mia 를 잇는다 — 모두 정확하다. 24번 문장의 밑줄 없는 her(=Mia)와 25번 (c) her(=사서) 구분도 정확. MS02 u3 의 immediately(첫 반응), u4 의 화자 전환 보존. MS04 r1~r3 가 장면 전환과 지칭 유지/변화를 설명하고 추론 관계는 warrant·limit(시간 간격 미상) 있음. MS05 서사를 주장-근거로 강요하지 않고, 단락 표지와 사건 순서 차이를 limits 에 적었다. MS07 bridges 선지·claims(1=무명 여성 인물, 2=her 연속, 3=설계 가설) 일치. MS08 a1~a6 위치·occurrence 확인. MS09 43~45 공유 지문 번호 처리 적절. MS10 새 영어 인용 없음. 경미(판정 영향 없음): p5 의 (b)·(e) 해소는 p1·p3 처럼 대명사/명사구 해소라 bridging_inference 로 두는 편이 일관되지만, 바로 앞 문장의 주어를 잇는 수준이라 source_observation 도 허용 범위다. u2.misunderstanding.alteredKo 「자기 자신에게 만족했다」는 술어까지 바뀌므로 「자기 자신에게 고마워했다」가 lostFacet(reference)만 드러내기에 더 낫다."
+    }
+  ]
+}

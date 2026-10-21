@@ -23,14 +23,16 @@ import { taskOf, type Domain, type TaskId } from '@/lib/csat/map/v4/definition'
 import { goalCoverageLedger } from '@/lib/csat/map/v62/coverage'
 import { domainTaskGraph, taskInspector, type GraphTask } from '@/lib/csat/map/v62/graph'
 import type { WorkspacePlan } from '@/lib/csat/map/v4/workspace'
+import { goalPlanRows } from '@/lib/csat/map/v62/goal-plan'
 import { ranksOf } from '@/lib/csat/map/v62/rank'
 import { RETURN_NOTE_LABEL, returnNotes } from '@/lib/csat/map/v62/return-ctx'
 import { taskForWs, workspaceRows, wsForTask, wsLinkOf, type WsLink } from '@/lib/csat/map/v62/workspace-list'
 
 import { useGoal } from './GoalBar'
+import { GoalPlanSummary } from './GoalPlanSummary'
 import { GoalRecordBar } from './GoalRecordBar'
 import { MapDialog } from './MapDialog'
-import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, TaskInspector } from './TaskInspector'
+import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor, TaskInspector } from './TaskInspector'
 import { TaskPopup } from './TaskPopup'
 import u from './unified.module.css'
 import { WorkspaceList } from './WorkspaceList'
@@ -251,7 +253,9 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
 
   return (
     <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet}>
-      <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} />
+      <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
+      <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>
@@ -410,6 +414,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
             restoreWs={ws}
             planOpen={false}
             returned={restore?.mapTask === selected ? notes : null}
+            returnRef={restore ? { item: restore.mapItem ?? null, attempt: restore.mapAttempt ?? null } : null}
             onTogglePlan={(id) => {
               setDrawer(false)
               openWs(id, opener.current, 'plan')
@@ -428,6 +433,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
           reason={modalRow.id === view.plan.primary?.id && view.plan.reason ? REASON_LABEL[view.plan.reason] : null}
           tab={modal.tab}
           onTab={(tab) => setModal({ id: modalRow.id, tab })}
+          returned={restore?.mapTask && (modalRow.core.includes(restore.mapTask as TaskId) || modalRow.support.includes(restore.mapTask as TaskId)) ? { task: restore.mapTask as TaskId, lines: returnLinesFor(restore.mapTask as TaskId, view, data, modalRow.id, notes, { item: restore.mapItem ?? null, attempt: restore.mapAttempt ?? null }) } : null}
           onClose={closeModal}
           onPickTask={(id) => {
             setModal(null)

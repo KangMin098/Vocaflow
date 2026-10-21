@@ -1,0 +1,22 @@
+{
+  "reviewer": "ms-rv-2026-29-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#29",
+      "verdict": "revise",
+      "content_hash": "25866bddb7d322a9",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "a8a8d67346afd05e",
+        "basePublicHash": "d3e158def62cb55488918ce93b09329998c261c8adba423f08243f6fa1bd363d",
+        "sourceSnapshotHash": "8eef55ee9132e60a"
+      },
+      "schema": "meaning-support/1",
+      "codes": [
+        "MS02"
+      ],
+      "why": "u1.simpleKo 가 preserves quantity(「어떤 집단이든」)와 「채집」 집단 한정을 뺐다. 「집단이 쓰는」은 특정·일반이 흐려진다. 수정안 u1.simpleKo: 「어느 채집 집단이든 쓰는 도구·채집 기술·생태 지식·사회적 관계 묶음은, 어떤 한 사람도 혼자 만들기엔 너무 복잡하다.」 u3.simpleKo(개인 한정·강한 부정 보존)와 나머지(구문 s1~s4, correction is, 관계 r1·r2 의 한계 표기)는 문제없다."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-44-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#44",
+      "verdict": "pass",
+      "content_hash": "033d431e83856504",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "ac4a9343a8650153",
+        "basePublicHash": "054f1651344870e271d25fb940f31b382fce28749632ebc7c2cdb8a68bfd8a03",
+        "sourceSnapshotHash": "dfde740f671b3244"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "pass. 변경 확인. p5 가 bridging_inference 로 바뀌었다. warrant 는 둘이다: 17번 문장 his = 주어 Sam 이고 그 딸은 3번 문장부터 Mia 라는 것, 33번 문장 (e) 가 32번 문장의 주어 Mia 를 잇고 34번 문장의 화자도 Mia 라는 것. limit 는 이름이 다시 나오지 않는다는 점이다. 둘 다 원문과 맞고, 이제 p1·p3 와 basis 처리가 일관된다. u2.misunderstanding.alteredKo 「Mia 가 고마워한 (c) 그녀는 Mia 자신이다」는 술어를 바꾸지 않아 lostFacet(reference)만 드러낸다. 나머지 필드는 w2 검토 때와 같고, 앵커 인용은 모두 해당 문장에 그대로 있다(재확인). MS01~MS10 다른 축 문제 없음."
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-40-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#40",
+      "verdict": "pass",
+      "content_hash": "a52fa0966eb98155",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "b295ad1a07b37b9e",
+        "basePublicHash": "30b0828436f2c8713b7ad3c3cca10e735a0b7df0a30ff49fd4b321bcb501ff49",
+        "sourceSnapshotHash": "0c24452a9c1f412d"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u3 simpleKo 의 지어낸 인과 제거, '대량까지는 아니어도 많은' 범위와 7번 문장(전통·지역 문화) 보존. 요약문 (A)/(B) 연결 정확."
+    }
+  ]
+}

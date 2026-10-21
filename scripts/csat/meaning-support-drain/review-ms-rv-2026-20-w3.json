@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-20-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#20",
+      "verdict": "pass",
+      "content_hash": "5d0aaee898102f39",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "8965cdd326c69d54",
+        "basePublicHash": "47461f05409209b6cf35950f0a030a6ce3e5c905291f1b50acb992709cce1f4e",
+        "sourceSnapshotHash": "f968e4e73935970e"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u2 에 이미지·이야기를 되살려 선지 1(기법 처방)과 이미 한 일의 서술 구분이 가능. u3 당위·지시(그들의=현대 작사가)·범위(현대 문학 분야) 보존. r1·r2 의 부당함·그러므로가 원문에 없음을 limit 로 정직하게 표시."
+    }
+  ]
+}

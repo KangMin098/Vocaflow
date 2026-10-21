@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-31-w5",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#31",
+      "verdict": "pass",
+      "content_hash": "1e7a36d80b400c7a",
+      "binding": {
+        "analysisVersion": 5,
+        "unitsHash": "972c593c500f847c",
+        "basePublicHash": "5c70a8ad18edfb267e2169b595b83ae6788959d6b5939d3768a0e2285f62a5c0",
+        "sourceSnapshotHash": "939a3eef506b89a5"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "p3 가 「정보가 새어 나가면 회사가 잃게 되는 것」으로 범위만 좁히고 정답 ①의 뜻(수익·이득)을 말하지 않는다. r2 의 changeKo·limitKo 「사업을 지키는 수단」, r1 의 「자산」, whole 의 「핵심 자산」도 선지 뜻을 옮기지 않는다. u1~u4 simpleKo 는 양쪽 지역·지시·원인(정보가 열쇠 → 비밀)·비교적·흔히·여러 시장·가능성을 보존하고, u2 오해는 가족·신뢰를 원인으로 바꾸는 오독을 정확히 짚는다. 참고(수정 불요): u3.simpleKo 「그 위험을 줄였다」는 원문 helped ~ minimize 보다 조금 단정적이나, preserves 가 「없앴다가 아니라 줄임」을 지키므로 허용 범위다."
+    }
+  ]
+}

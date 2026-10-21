@@ -1,0 +1,638 @@
+{
+  "set": "s-form-scope.v1",
+  "taskId": "s.form_scope",
+  "taskKey": "authored-grammar-scope",
+  "format": "form_scope",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전",
+    "revisionNote": " · FI-013(#306): gs-transfer-1 의 단수 선행사(the simple irrigation ditch)를 없애 its 의 다른 해석을 막음 — 첫 밑줄 is → are."
+  },
+  "items": [
+    {
+      "id": "gs-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "gs-t1",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Most people assume that memory works like a video recorder.",
+          "In reality, each act of recall rebuilds the event from scattered pieces.",
+          "The details that a person remembers most clearly about a dramatic day often changes over the years.",
+          "This happens because the brain fills gaps with what seems likely.",
+          "Researchers who compare early and late accounts find that confidence stays high even when accuracy drops.",
+          "Feeling certain, therefore, is not the same as being right."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "works"
+          },
+          {
+            "sentence": 1,
+            "text": "rebuilds"
+          },
+          {
+            "sentence": 2,
+            "text": "changes"
+          },
+          {
+            "sentence": 3,
+            "text": "what"
+          },
+          {
+            "sentence": 5,
+            "text": "being"
+          }
+        ],
+        "teach": [
+          {
+            "step": "동사마다 진짜 주어 찾기",
+            "text": "밑줄 친 동사가 나오면 바로 앞 명사가 아니라 그 동사의 진짜 주어를 찾는다. 출제자는 주어와 동사 사이에 관계절 · 전치사구를 길게 끼워 넣어 가까운 명사에 끌리게 설계한다.",
+            "sentences": [
+              2
+            ]
+          },
+          {
+            "step": "끼어든 수식어 걷어내기",
+            "text": "3번 문장에서 'that a person remembers most clearly about a dramatic day'를 걷어내면 'The details ... often changes'가 남는다. 주어가 복수(details)이므로 change 여야 한다. 단수 명사 person · day 가 가까이 있어 단수 동사가 맞아 보이게 만든 함정이다.",
+            "sentences": [
+              2
+            ]
+          },
+          {
+            "step": "맞는 밑줄도 규칙으로 확인",
+            "text": "memory works · each act rebuilds 는 단수 주어와 맞고, what 은 뒤에 주어가 빠진 불완전한 절(seems likely)을 이끄는 명사절이다. 'the same as being right'는 전치사 as 뒤의 동명사다. 맞는 밑줄도 '왜 맞는지' 규칙을 대야 우연히 맞히지 않는다.",
+            "sentences": [
+              0,
+              1,
+              3,
+              5
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "agreement",
+        "correction": "change",
+        "marks": [
+          {
+            "reason": "agreement",
+            "why": "주어 memory 가 단수이므로 works 가 맞다."
+          },
+          {
+            "reason": "agreement",
+            "why": "each act 는 단수 취급하므로 rebuilds 가 맞다(of recall 은 수식어)."
+          },
+          {
+            "reason": "agreement",
+            "why": "주어는 복수 The details 다. 관계절을 걷어내면 details ... change 가 되어야 하므로 틀렸다."
+          },
+          {
+            "reason": "relative_clause",
+            "why": "선행사 없이 뒤에 주어가 빠진 절(seems likely)을 이끄는 명사절 what 이 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "전치사 as 뒤에는 동명사가 오므로 being 이 맞다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "gs-g1",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Cities that plant trees along their streets often report cooler summer temperatures.",
+          "Shade lowers the amount of heat absorbed by the pavement during the day.",
+          "Leaves also release water vapor, which cools the surrounding air.",
+          "Planners have learned that the benefit depends on where the trees are placed.",
+          "A row of trees along a busy road can do more than a large park located far from homes.",
+          "That residents value most is not the number of trees but the shade on their daily walks."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "that plant"
+          },
+          {
+            "sentence": 2,
+            "text": "which"
+          },
+          {
+            "sentence": 3,
+            "text": "where"
+          },
+          {
+            "sentence": 4,
+            "text": "located"
+          },
+          {
+            "sentence": 5,
+            "text": "That"
+          }
+        ],
+        "hints": [
+          "관계사 · 접속사 밑줄은 앞에 선행사가 있는지, 뒤의 절이 완전한지 두 가지를 확인해 보세요.",
+          "문장 맨 앞의 절이 주어 역할을 할 때, 그 절 안에서 빠진 성분이 있는지 살펴보세요."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "relative_clause",
+        "correction": "What",
+        "marks": [
+          {
+            "reason": "relative_clause",
+            "why": "선행사 Cities 뒤 주격 관계대명사 that, 복수 선행사에 맞춰 plant 도 맞다."
+          },
+          {
+            "reason": "relative_clause",
+            "why": "콤마 뒤 계속적 용법에는 which 가 쓰이며 뒤에 주어가 빠진 절이 온다."
+          },
+          {
+            "reason": "noun_clause",
+            "why": "뒤의 절(the trees are placed)이 완전하고 depends on 의 목적어인 명사절이므로 where 가 맞다."
+          },
+          {
+            "reason": "participle",
+            "why": "공원이 '위치된' 것이므로 수동의 과거분사 located 가 맞다."
+          },
+          {
+            "reason": "relative_clause",
+            "why": "선행사가 없고 value 의 목적어가 빠진 절이 주어 자리에 있으므로 That 이 아니라 What 이어야 한다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-ind-1",
+      "role": "independent_check",
+      "passageGroup": "gs-i1",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Students surprising by a low score often decide that they lack talent.",
+          "Yet the score usually reflects how they studied rather than what they can do.",
+          "Rereading notes feels productive, but it leaves little trace in memory.",
+          "Testing oneself, by contrast, forces the mind to retrieve information.",
+          "Learners who switch to this method often find their next results encouraging.",
+          "The lesson is that a disappointing grade is feedback, not a final judgment."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "surprising"
+          },
+          {
+            "sentence": 1,
+            "text": "what"
+          },
+          {
+            "sentence": 2,
+            "text": "feels"
+          },
+          {
+            "sentence": 3,
+            "text": "to retrieve"
+          },
+          {
+            "sentence": 4,
+            "text": "encouraging"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "participle",
+        "correction": "surprised",
+        "marks": [
+          {
+            "reason": "participle",
+            "why": "학생들이 낮은 점수에 '놀란' 것이고 뒤에 by 가 오므로 과거분사 surprised 여야 한다."
+          },
+          {
+            "reason": "relative_clause",
+            "why": "선행사 없이 do 의 목적어가 빠진 절을 이끄는 명사절 what 이 맞다."
+          },
+          {
+            "reason": "agreement",
+            "why": "동명사구 주어 Rereading notes 는 단수 취급하므로 feels 가 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "force 는 목적어 뒤에 to 부정사를 목적격 보어로 취한다."
+          },
+          {
+            "reason": "participle",
+            "why": "결과가 학습자를 '고무하는' 능동 관계이므로 현재분사 encouraging 이 맞다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-ind-2",
+      "role": "independent_check",
+      "passageGroup": "gs-i2",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Good listeners do much more than stay silent while others speak.",
+          "They pay attention to tone as well as to words.",
+          "When a friend sounds tired, a good listener notices it and adjusts the conversation.",
+          "Such listeners lean forward, ask short questions, and repeating key words back to the speaker.",
+          "These small actions show that the speaker's message has been received.",
+          "People treated this way tend to share more openly the next time."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 1,
+            "text": "to words"
+          },
+          {
+            "sentence": 2,
+            "text": "adjusts"
+          },
+          {
+            "sentence": 3,
+            "text": "ask"
+          },
+          {
+            "sentence": 3,
+            "text": "repeating"
+          },
+          {
+            "sentence": 4,
+            "text": "has been received"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "parallelism",
+        "correction": "repeat",
+        "marks": [
+          {
+            "reason": "parallelism",
+            "why": "as well as 앞뒤가 to tone 과 to words 로 같은 전치사구라 병렬이 맞다."
+          },
+          {
+            "reason": "parallelism",
+            "why": "and 로 notices 와 이어진 동사로, 단수 주어 listener 에 맞춰 adjusts 가 맞다."
+          },
+          {
+            "reason": "parallelism",
+            "why": "주어 listeners 의 동사 lean 과 나란한 현재형 동사 ask 가 맞다."
+          },
+          {
+            "reason": "parallelism",
+            "why": "lean, ask 와 and 로 묶인 세 번째 동사이므로 repeating 이 아니라 repeat 이어야 한다."
+          },
+          {
+            "reason": "voice",
+            "why": "메시지는 '받아지는' 대상이므로 현재완료 수동 has been received 가 맞다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-transfer-1",
+      "role": "transfer",
+      "passageGroup": "gs-x1",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Among the oldest tools of farmers in the valley are irrigation ditches.",
+          "The rivers that feed these ditches and water the surrounding fields have shifted its course several times over the past century.",
+          "Only after a severe flood did the farmers begin to record the water levels each spring.",
+          "These records, kept in a village office for decades, now allow engineers to predict floods.",
+          "Rarely does a community's careful habit prove so valuable to people living generations later."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "are"
+          },
+          {
+            "sentence": 1,
+            "text": "its course"
+          },
+          {
+            "sentence": 2,
+            "text": "did"
+          },
+          {
+            "sentence": 3,
+            "text": "allow"
+          },
+          {
+            "sentence": 4,
+            "text": "does"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "pronoun_reference",
+        "correction": "their course",
+        "marks": [
+          {
+            "reason": "inversion",
+            "why": "장소 부사구가 앞으로 나간 도치 문장으로, 진짜 주어 irrigation ditches 가 복수라 are 가 맞다."
+          },
+          {
+            "reason": "pronoun_reference",
+            "why": "바꾼 물길의 주인은 관계절 앞의 복수 주어 The rivers 이고, 앞 문장들에도 its 가 받을 단수 명사가 없다 — its 가 아니라 their 여야 한다."
+          },
+          {
+            "reason": "inversion",
+            "why": "Only after ... 가 앞에 나와 조동사가 도치되었고, 과거 시제 did 뒤에 원형 begin 이 맞다."
+          },
+          {
+            "reason": "agreement",
+            "why": "분사구를 걷어낸 주어 These records 가 복수이므로 allow 가 맞다."
+          },
+          {
+            "reason": "agreement",
+            "why": "Rarely 로 도치된 문장의 주어 habit 이 단수이므로 does 가 맞다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "gs-d1",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Many old buildings in cities are now being turned into libraries and community centers.",
+          "Converting a factory often costs less than constructing a new structure.",
+          "In addition, the materials used in the original walls do not need to produce again.",
+          "Architects also say that visitors enjoy seeing traces of the building's past.",
+          "A brick floor marked by old machines reminds people of the work once done there.",
+          "Such reuse lets a city keep its history while meeting new needs."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 1,
+            "text": "costs"
+          },
+          {
+            "sentence": 2,
+            "text": "used"
+          },
+          {
+            "sentence": 2,
+            "text": "to produce"
+          },
+          {
+            "sentence": 3,
+            "text": "seeing"
+          },
+          {
+            "sentence": 5,
+            "text": "keep"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "voice",
+        "correction": "to be produced",
+        "marks": [
+          {
+            "reason": "agreement",
+            "why": "동명사구 주어 Converting a factory 는 단수 취급하므로 costs 가 맞다."
+          },
+          {
+            "reason": "participle",
+            "why": "자재가 벽에 '사용된' 것이므로 수동의 과거분사 used 가 맞다."
+          },
+          {
+            "reason": "voice",
+            "why": "자재는 스스로 생산하는 것이 아니라 '생산되는' 대상이므로 to be produced 여야 한다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "enjoy 는 동명사를 목적어로 취하므로 seeing 이 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "사역동사 let 은 목적어 뒤에 원형부정사를 쓰므로 keep 이 맞다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-ind-3",
+      "role": "independent_check",
+      "passageGroup": "gs-i3",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Animal shelters depend on volunteers who give up their weekends to help.",
+          "Each of the volunteers is trained before working with the animals.",
+          "Many of the dogs that arrive there have abandoned by owners who could no longer care for them.",
+          "Many volunteers say that the hours they spend there are the most rewarding of their week.",
+          "Some even end up adopting the animals they once cared for."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "who"
+          },
+          {
+            "sentence": 1,
+            "text": "is trained"
+          },
+          {
+            "sentence": 2,
+            "text": "have abandoned"
+          },
+          {
+            "sentence": 3,
+            "text": "are"
+          },
+          {
+            "sentence": 4,
+            "text": "adopting"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "voice",
+        "correction": "have been abandoned",
+        "marks": [
+          {
+            "reason": "relative_clause",
+            "why": "선행사 volunteers 가 사람이고 관계절의 주어가 비어 있으므로 주격 관계대명사 who 가 맞다."
+          },
+          {
+            "reason": "agreement",
+            "why": "Each of + 복수명사는 Each 가 주어라 단수 취급하므로 is trained 가 맞다."
+          },
+          {
+            "reason": "voice",
+            "why": "개들은 버림을 받은 쪽이고 행위자 by owners 가 따라오므로 능동 have abandoned 가 아니라 완료 수동 have been abandoned 여야 한다(abandon 은 목적어가 필요한 타동사라 능동으로는 문장이 성립하지 않는다)."
+          },
+          {
+            "reason": "agreement",
+            "why": "that 절의 주어는 관계절 they spend there 를 걷어낸 복수 명사 the hours 이므로 are 가 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "end up 은 뒤에 동명사를 취하므로 adopting 이 맞다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-ind-4",
+      "role": "independent_check",
+      "passageGroup": "gs-i4",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "The city opened its first protected bike lane only five years ago.",
+          "Since then, the number of people cycling to work has tripled.",
+          "Riders say the lanes make them feel safe enough to use bikes for daily errands.",
+          "Shop owners, who once feared losing parking spaces, now report steady business.",
+          "In fact, cyclists tend to visit local shops more often than drivers are."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "opened"
+          },
+          {
+            "sentence": 1,
+            "text": "has tripled"
+          },
+          {
+            "sentence": 2,
+            "text": "feel"
+          },
+          {
+            "sentence": 3,
+            "text": "losing"
+          },
+          {
+            "sentence": 4,
+            "text": "are"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "comparison_scope",
+        "correction": "do",
+        "marks": [
+          {
+            "reason": "tense_aspect",
+            "why": "five years ago 처럼 과거 한 시점을 가리키는 말과 함께 쓰였으므로 과거형 opened 가 맞다."
+          },
+          {
+            "reason": "tense_aspect",
+            "why": "Since then 으로 과거부터 지금까지 이어진 변화를 말하고, 주어 the number 가 단수이므로 현재완료 has tripled 가 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "사역동사 make 는 목적어 뒤에 원형부정사를 취하므로 feel 이 맞다."
+          },
+          {
+            "reason": "infinitive_gerund",
+            "why": "fear 는 동명사 목적어를 취할 수 있으므로 losing 이 맞다."
+          },
+          {
+            "reason": "comparison_scope",
+            "why": "than 뒤에서 비교되는 것은 일반동사 visit 이므로 be동사 are 가 아니라 대동사 do 여야 한다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "gs-transfer-2",
+      "role": "transfer",
+      "passageGroup": "gs-x2",
+      "body": {
+        "format": "form_scope",
+        "sentences": [
+          "Not until telescopes were improved did astronomers notice the faint rings around the planet.",
+          "The rings, made of countless pieces of ice and rock, reflect sunlight unevenly.",
+          "Observers long wondered why the rings looked thinner in some years.",
+          "We now know what the change is caused by the angle at which Earth views them.",
+          "Hardly a decade passes without new details being discovered."
+        ],
+        "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+        "marks": [
+          {
+            "sentence": 0,
+            "text": "did"
+          },
+          {
+            "sentence": 1,
+            "text": "reflect"
+          },
+          {
+            "sentence": 2,
+            "text": "why"
+          },
+          {
+            "sentence": 3,
+            "text": "what"
+          },
+          {
+            "sentence": 4,
+            "text": "being discovered"
+          }
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "noun_clause",
+        "correction": "that",
+        "marks": [
+          {
+            "reason": "inversion",
+            "why": "Not until ... 가 문장 앞에 나와 조동사가 주어 앞으로 도치되었고, 과거이므로 did 뒤 원형 notice 가 맞다."
+          },
+          {
+            "reason": "agreement",
+            "why": "삽입된 분사구를 걷어낸 주어 The rings 가 복수이므로 reflect 가 맞다."
+          },
+          {
+            "reason": "noun_clause",
+            "why": "wondered 의 목적어로 '왜 ~인지'를 나타내는 의문사절이며, 뒤 절이 완전하므로 why 가 맞다."
+          },
+          {
+            "reason": "noun_clause",
+            "why": "know 의 목적어절 the change is caused by ... 가 빠진 성분 없는 완전한 절이므로 what 이 아니라 접속사 that 이어야 한다."
+          },
+          {
+            "reason": "voice",
+            "why": "새로운 사실은 '발견되는' 대상이므로 전치사 without 뒤 동명사의 수동형 being discovered 가 맞다."
+          }
+        ]
+      }
+    }
+  ],
+  "proseNumbering": "1-based"
+}

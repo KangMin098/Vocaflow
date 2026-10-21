@@ -1,0 +1,527 @@
+{
+  "writer_run": "ms-wr-2026-30-w3",
+  "status": "ok",
+  "support": {
+    "schema": "meaning-support/1",
+    "itemId": "2026#30",
+    "binding": {
+      "analysisVersion": 8,
+      "unitsHash": "0081ae79d542e531",
+      "basePublicHash": "1339190787c40efe46ec3859118f27a274d5c3e9b0bc69294944379a70ea360c",
+      "sourceSnapshotHash": "dfad632a30635c1f"
+    },
+    "sourceRef": {
+      "organizer": "kice",
+      "examId": "2026",
+      "itemNo": 30,
+      "inputRef": "inquiry-origin:chunk-inq-15"
+    },
+    "defaultUnitId": "u1",
+    "anchors": [
+      {
+        "id": "a1",
+        "sentence": 2,
+        "quote": "willingly permit casting aside",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a2",
+        "sentence": 3,
+        "quote": "In the absence of a universal standard",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a3",
+        "sentence": 3,
+        "sourceRange": {
+          "start": 47,
+          "end": 90,
+          "spanHash": "3040a92b5ddd04d151c8d0c16e03b675945ae517766289c771761fd1393f4fcc"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a4",
+        "sentence": 5,
+        "sourceRange": {
+          "start": 0,
+          "end": 51,
+          "spanHash": "93ea6983768a276c9395e495d6b3de26e0e7818961f40bb4e92731dee89b3109"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a5",
+        "sentence": 6,
+        "quote": "Caring about one’s friends",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a6",
+        "sentence": 6,
+        "sourceRange": {
+          "start": 31,
+          "end": 47,
+          "spanHash": "6ca178e4816cfe53a2973f9149b041c5a5ad382ce36ee506e009dbec8de0d448"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a7",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 5,
+          "end": 52,
+          "spanHash": "ab4bf5a5427564383c70bfa718aa624ae56bc1d3584fd6055bd4ed76604e8597"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a8",
+        "sentence": 7,
+        "sourceRange": {
+          "start": 54,
+          "end": 114,
+          "spanHash": "36757402316e6a0fe5cf3ec4dbc101b57669ae5e05be86403e29e846ac2f44f2"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a9",
+        "sentence": 7,
+        "quote": "the end goal of winning is more important",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a10",
+        "sentence": 8,
+        "sourceRange": {
+          "start": 37,
+          "end": 65,
+          "spanHash": "c43039cc54b5a53d0fe8b18b42e09ea7115c3a26460f8fdd1acef61c29000a26"
+        },
+        "mode": "original"
+      },
+      {
+        "id": "a11",
+        "sentence": 8,
+        "quote": "trying to get away with as many actions",
+        "occurrence": 1,
+        "mode": "original"
+      },
+      {
+        "id": "a12",
+        "sentence": 8,
+        "sourceRange": {
+          "start": 153,
+          "end": 183,
+          "spanHash": "b54cee5524cb075bd9caf2e537fa0b3880a83afbf784d3963d0deea14487dc8a"
+        },
+        "mode": "original"
+      }
+    ],
+    "propositions": [
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p1",
+        "textKo": "상황 윤리 지지자들은 절대적 도덕 기준을 버리는 것을 기꺼이 허용하고, 보편 기준이 없을 때는 결과가 중요하므로 목적이 수단을 정당화한다고 본다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a1",
+          "a2",
+          "a3"
+        ]
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p2",
+        "textKo": "친구끼리 하는 경기에서는 각자 자기 반칙을 스스로 인정하도록 기대되며, 친구를 아끼는 마음과, 어쩌면 그 무리와 계속 경기할 수 있게 된다는 점이 그렇게 만든다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a4",
+          "a5",
+          "a6"
+        ]
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p3",
+        "textKo": "심판이 있는 공식 경기가 되면 대부분의 선수는 같은 반칙을 인정하지 않는데, 이기는 것이 상대에 대한 배려 표현보다 중요하기 때문이다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a7",
+          "a8",
+          "a9"
+        ]
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "id": "p4",
+        "textKo": "많은 선수와 코치가 상황 윤리를, 경기장에서 들키지 않고 넘어가는 행동을 최대한 많이 하려는 뜻으로 넓혀 썼다.",
+        "basis": "source_observation",
+        "anchorIds": [
+          "a10",
+          "a11"
+        ]
+      },
+      {
+        "warrantsKo": [
+          "7번 문장이 공식 경기 선수의 최종 목표를 승리로 정한다",
+          "반칙을 숨기는 행동은 스스로 손해를 보려는 것이 아니라 이득을 얻으려는 행동으로 제시된다",
+          "3번 문장의 「결과가 중요하다 · 목적이 수단을 정당화한다」와도 이어진다"
+        ],
+        "limitKo": "원문에는 올바른 낱말이 따로 적혀 있지 않다. 여기서는 의미의 방향만 판단하고, 특정 대체 낱말을 원문 사실로 정하지 않는다.",
+        "id": "p5",
+        "textKo": "8번 문장의 목적 자리(밑줄 ⑤)는 들키지 않고 반칙을 넘기려는 행동의 목적이므로, 승리라는 목표와 같은 방향(경쟁에서 이득을 보는 쪽)이어야 한다. 경쟁 우위를 「버린다」는 뜻은 그 방향과 정반대다.",
+        "basis": "bridging_inference",
+        "anchorIds": [
+          "a9",
+          "a11",
+          "a12"
+        ]
+      }
+    ],
+    "units": [
+      {
+        "id": "u1",
+        "sentences": [
+          2,
+          3
+        ],
+        "legacyMeaningIds": [
+          "m1",
+          "m2"
+        ],
+        "labelKo": "절대 기준 대신 결과",
+        "exactKo": "이 이론의 지지자들은 절대적 도덕 기준을 버리는 것을 기꺼이 허용한다. 보편적 기준이나 법이 없는 상태에서는 결과가 중요하므로, 목적이 수단을 정당화한다.",
+        "simpleKo": "상황 윤리 지지자들은 고정된 절대 기준을 버리는 것을 받아들이고, 그런 보편 기준이 없을 때는 결과가 중요하니 목적이 수단을 정당화한다고 본다.",
+        "propositionIds": [
+          "p1"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "보편 기준이 없는 상태에서는",
+            "anchorIds": [
+              "a2"
+            ],
+            "explanationKo": "「결과가 중요하다」는 조건이 붙은 주장이다. 기준이 있는 상황까지 결과만 본다는 말은 아니다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "기꺼이 허용한다",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "버리기를 강요한다는 뜻이 아니라, 버리는 것을 받아들인다는 태도다."
+          },
+          {
+            "facet": "polarity",
+            "valueKo": "버리는 대상 = 절대적 기준(밑줄 ①)",
+            "anchorIds": [
+              "a1"
+            ],
+            "explanationKo": "상황을 따지는 이론이므로 버려지는 것은 상황과 상관없이 고정된 기준이다. 그래서 ①은 문맥과 맞는다."
+          }
+        ]
+      },
+      {
+        "id": "u2",
+        "sentences": [
+          5,
+          6
+        ],
+        "legacyMeaningIds": [
+          "m3"
+        ],
+        "labelKo": "친구 경기: 스스로 반칙 인정",
+        "exactKo": "친구끼리 하는 동네 농구 경기에서는 누구나 자기 반칙이나 공을 밖으로 쳐낸 것을 스스로 인정하도록 기대되며, 친구를 아끼는 마음과 어쩌면 그 무리와 계속 경기할 수 있다는 점이 이런 행동을 이끈다.",
+        "simpleKo": "친구끼리 할 때는 친구를 아끼는 마음, 그리고 어쩌면 그 무리와 계속 경기할 수 있게 된다는 점 때문에 자기 반칙을 스스로 말한다.",
+        "propositionIds": [
+          "p2"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "친구끼리 하는 비공식 경기에서",
+            "anchorIds": [
+              "a4"
+            ],
+            "explanationKo": "이 행동은 친선 경기라는 상황에 묶여 있다. 뒤의 공식 경기와 대비되는 첫째 상황이다."
+          },
+          {
+            "facet": "causality",
+            "valueKo": "친구를 아끼는 마음이 행동을 이끈다",
+            "anchorIds": [
+              "a5"
+            ],
+            "explanationKo": "반칙 인정의 원인이 규칙이 아니라 관계라는 점이 핵심이다. ③(계속 경기하기)도 이 원인 쪽에 있어 문맥과 맞는다."
+          },
+          {
+            "facet": "modality",
+            "valueKo": "어쩌면",
+            "anchorIds": [
+              "a6"
+            ],
+            "explanationKo": "계속 경기할 수 있다는 이유는 확정이 아니라 가능성으로 덧붙는다."
+          }
+        ]
+      },
+      {
+        "id": "u3",
+        "sentences": [
+          7
+        ],
+        "legacyMeaningIds": [
+          "m4"
+        ],
+        "labelKo": "공식 경기: 승리가 우선",
+        "exactKo": "그러나 심판이 있는 공식 경기가 되면, 이긴다는 최종 목표가 상대 선수에 대한 배려를 표현하는 것보다 더 중요해서 대부분의 선수는 같은 반칙이나 위반을 인정하지 않는다.",
+        "simpleKo": "심판이 있는 경기에서는 이기는 게 상대를 배려하는 것보다 중요해져서, 대부분 같은 반칙도 스스로 말하지 않는다.",
+        "propositionIds": [
+          "p3"
+        ],
+        "preserves": [
+          {
+            "facet": "condition",
+            "valueKo": "심판이 있는 공식 경기가 되면",
+            "anchorIds": [
+              "a7"
+            ],
+            "explanationKo": "같은 행동(반칙 인정)이 상황이 바뀌는 순간 달라진다는 조건이다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "대부분의 선수",
+            "anchorIds": [
+              "a8"
+            ],
+            "explanationKo": "모든 선수가 아니라 대부분이다."
+          },
+          {
+            "facet": "comparison",
+            "valueKo": "승리 > 상대에 대한 배려",
+            "anchorIds": [
+              "a9"
+            ],
+            "explanationKo": "배려가 사라졌다는 말이 아니라 승리보다 덜 중요해졌다는 비교다. ④(배려)는 이 비교의 아래쪽 항목이라 문맥과 맞는다."
+          }
+        ]
+      },
+      {
+        "id": "u4",
+        "sentences": [
+          8
+        ],
+        "legacyMeaningIds": [
+          "m5",
+          "m4"
+        ],
+        "labelKo": "확대된 뜻: 최대한 들키지 않고 넘어가기",
+        "exactKo": "많은 선수와 코치는 상황 윤리를, 경쟁 우위를 버리기 위해(⑤) 경기장이나 코트에서 들키지 않고 넘어가는 행동을 가능한 한 많이 하려는 뜻으로 확장해 왔다.",
+        "simpleKo": "선수와 코치들은 상황 윤리를 「유리함을 버리려고(⑤) 들키지 않는 행동을 최대한 많이 하기」로 넓혀 썼다.",
+        "propositionIds": [
+          "p4",
+          "p5"
+        ],
+        "preserves": [
+          {
+            "facet": "agent",
+            "valueKo": "많은 선수와 코치",
+            "anchorIds": [
+              "a10"
+            ],
+            "explanationKo": "뜻을 넓혀 쓴 주체다. 이론을 만든 사람들의 정의가 아니라 운동계에서의 확장이다."
+          },
+          {
+            "facet": "quantity",
+            "valueKo": "가능한 한 많이",
+            "anchorIds": [
+              "a11"
+            ],
+            "explanationKo": "반칙을 넘기는 행동을 최대한 늘리려 한다는 정도 표현이다."
+          },
+          {
+            "facet": "causality",
+            "valueKo": "~하기 위해(목적)",
+            "anchorIds": [
+              "a11",
+              "a12"
+            ],
+            "explanationKo": "들키지 않으려는 행동이 무엇을 위한 것인지가 이 자리에서 정해진다. 7번 문장의 승리 목표와 같은 방향이어야 문장이 성립한다."
+          }
+        ],
+        "misunderstanding": {
+          "alteredKo": "선수들은 반칙을 들키지 않고 넘기면서 경쟁에서 유리한 점을 내려놓으려 한다.",
+          "lostFacet": "causality",
+          "anchorIds": [
+            "a11",
+            "a12"
+          ],
+          "whyWrongKo": "반칙을 숨기는 것은 이기려고 하는 행동인데, 그 목적을 「유리함을 버리기」로 두면 행동과 목적이 서로 거꾸로 간다. 「포기」라는 낱말이 윤리적으로 그럴듯해 보여도, 7번 문장이 정한 목표 방향과 충돌한다."
+        }
+      }
+    ],
+    "relations": [
+      {
+        "warrantsKo": [
+          "4번 문장이 뒤에 이어질 대조적인 현실들이 상황 윤리의 적용을 보여 줄 수 있다고 미리 알린다"
+        ],
+        "limitKo": "4번 문장도 「어쩌면」으로 시작해, 사례가 이론을 증명한다고까지 말하지 않는다.",
+        "propositionIds": [
+          "p1",
+          "p2"
+        ],
+        "anchorIds": [
+          "a4",
+          "a5"
+        ],
+        "id": "r1",
+        "from": [
+          "u1"
+        ],
+        "to": [
+          "u2"
+        ],
+        "kind": "example",
+        "beforeKo": "절대 기준 대신 상황과 결과로 옳고 그름을 판단한다.",
+        "afterKo": "친구 경기에서는 관계 때문에 스스로 반칙을 인정한다.",
+        "changeKo": "추상적 이론을 구체적 상황 하나로 옮긴다. 「상황이 행동을 정한다」는 주장을 유지하면서, 첫째 상황에서는 관계가 정직한 행동을 이끈다는 점을 보인다.",
+        "basis": "bridging_inference"
+      },
+      {
+        "warrantsKo": [],
+        "limitKo": "",
+        "propositionIds": [
+          "p2",
+          "p3"
+        ],
+        "anchorIds": [
+          "a7",
+          "a9"
+        ],
+        "id": "r2",
+        "from": [
+          "u2"
+        ],
+        "to": [
+          "u3"
+        ],
+        "kind": "contrast",
+        "beforeKo": "친구 경기에서는 반칙을 스스로 인정한다.",
+        "afterKo": "공식 경기에서는 대부분 같은 반칙을 인정하지 않는다.",
+        "changeKo": "행동의 종류(반칙 인정)는 같게 두고 상황만 바꾼다. 상황이 바뀌자 우선순위가 관계에서 승리로 옮겨 가고, 그에 따라 행동이 뒤집힌다.",
+        "basis": "source_observation"
+      },
+      {
+        "warrantsKo": [
+          "두 문장 모두 공식 경기에서 반칙을 다루는 선수의 행동을 말한다",
+          "8번 문장의 「들키지 않고 넘어가기」는 7번 문장의 「반칙을 인정하지 않기」를 더 적극적으로 표현한 것으로 읽힌다"
+        ],
+        "limitKo": "두 문장 사이에 접속어가 없다. 확장 관계는 내용의 같은 방향에서 추론한 것이다.",
+        "propositionIds": [
+          "p3",
+          "p4",
+          "p5"
+        ],
+        "anchorIds": [
+          "a9",
+          "a11",
+          "a12"
+        ],
+        "id": "r3",
+        "from": [
+          "u3"
+        ],
+        "to": [
+          "u4"
+        ],
+        "kind": "add",
+        "beforeKo": "공식 경기에서는 승리가 배려보다 중요하다.",
+        "afterKo": "선수들은 상황 윤리를 들키지 않고 반칙을 넘기는 뜻으로 넓혀 쓴다.",
+        "changeKo": "7번 문장의 「승리 우선」을 한 경기 장면에서 운동계 전반의 태도로 넓힌다. 그래서 8번 문장의 목적은 승리 쪽, 즉 경쟁에서 유리해지는 방향이어야 하며, ⑤는 이 방향을 거꾸로 만든다.",
+        "basis": "bridging_inference"
+      }
+    ],
+    "whole": {
+      "limitsKo": [
+        "1·4번 문장은 unit 으로 따로 다루지 않았다."
+      ],
+      "genre": "expository",
+      "summaryKo": "상황 윤리는 절대 기준 대신 상황과 결과로 판단하는 이론이며, 같은 반칙도 친구 경기에서는 관계 때문에 인정하고 공식 경기에서는 승리를 위해 숨긴다. 많은 선수와 코치는 이를 들키지 않고 넘어가는 행동을 최대한 많이 하는 뜻으로 넓혀 써 왔다. 승리 목표와 이어 읽으면 그 행동의 목적은 유리함을 얻는 쪽이어야 한다는 것이 연결 추론(p5)이며, ⑤는 이와 충돌한다.",
+      "propositionIds": [
+        "p1",
+        "p2",
+        "p3",
+        "p4",
+        "p5"
+      ],
+      "relationIds": [
+        "r1",
+        "r2",
+        "r3"
+      ]
+    },
+    "bridges": [
+      {
+        "unitId": "u1",
+        "meaningIds": [
+          "m1",
+          "m2"
+        ],
+        "choiceNumbers": [
+          1,
+          2
+        ],
+        "designClaimIndices": [
+          2
+        ]
+      },
+      {
+        "unitId": "u2",
+        "meaningIds": [
+          "m3"
+        ],
+        "choiceNumbers": [
+          3
+        ],
+        "designClaimIndices": []
+      },
+      {
+        "unitId": "u3",
+        "meaningIds": [
+          "m4"
+        ],
+        "choiceNumbers": [
+          4,
+          5
+        ],
+        "designClaimIndices": [
+          1
+        ]
+      },
+      {
+        "unitId": "u4",
+        "meaningIds": [
+          "m5"
+        ],
+        "choiceNumbers": [
+          5
+        ],
+        "designClaimIndices": [
+          1,
+          2,
+          3
+        ]
+      }
+    ]
+  }
+}

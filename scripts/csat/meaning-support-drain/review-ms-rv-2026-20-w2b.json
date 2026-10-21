@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-20-w2b",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#20",
+      "verdict": "pass",
+      "content_hash": "63a81717f820da16",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "8965cdd326c69d54",
+        "basePublicHash": "47461f05409209b6cf35950f0a030a6ce3e5c905291f1b50acb992709cce1f4e",
+        "sourceSnapshotHash": "f968e4e73935970e"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "pass. w2 수정 반영 확인. MS02: u1.simpleKo 에 「대체로」가 들어가 2번 문장의 largely 를 보존한다. preserves time 은 「거듭(여러 번)」으로 repeatedly 와 맞는다. MS06: r2 는 bridging_inference 이고, warrant(5번 문장의 Their 가 3~4번 문장의 작품을 받는다)와 limit(인과 접속어 없음)이 있다. 새 영어 인용은 없다. 나머지 필드는 w2 검토 때와 같고, 앵커 인용은 모두 해당 문장에 그대로 있다(재확인). MS01~MS10 다른 축 문제 없음."
+    }
+  ]
+}

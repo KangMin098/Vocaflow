@@ -33,7 +33,7 @@ test('작업 브랜치 push 중복은 제거하고 main push 검증은 유지한
   for(const{name,source}of workflows){
     const push=block(source,'push',2)
     assert.ok(push,name)
-    assert.match(push,/^branches:\s*\[(?:'main'|main)\]$/,name)
+    assert.match(push,/^branches:\s*\[(?:'main'|main)\](?:\s*#.*)?$/,name)
   }
 })
 

@@ -38,6 +38,7 @@ export async function saveDissectionRecord(record: DissectionRecord): Promise<bo
   const stamped = { ...record, updatedAt: Date.now() }
   dissectionMemory = stamped
   const result = await run(S_RECORD, 'readwrite', s => s.put(stamped, DISSECTION_KEY))
+  retries = 0
   schedulePush(stamped)
   return result !== null
 }
@@ -80,6 +81,11 @@ function markSync(ok: boolean) {
 
 let pushTimer: ReturnType<typeof setTimeout> | null = null
 let pending: DissectionRecord | null = null
+/** 연속 실패(409 · 네트워크) 재전송 횟수 — 성공하거나 새 저장이 오면 0. 상한에 닿으면 멈추고 「이 기기에만」으로 남긴다 */
+let retries = 0
+/** FI-015 재전송 상한 · 간격(1.5s → 3s → 6s → 12s → 24s). 상한 뒤에도 기기 기록은 남고, 다음 저장 · 다음 진입 동기화가 다시 합친다 */
+export const PUSH_RETRY_MAX = 5
+export const pushDelay = (n: number) => 1500 * 2 ** Math.min(n, PUSH_RETRY_MAX - 1)
 
 async function putServer(record: DissectionRecord): Promise<boolean> {
   try {
@@ -90,14 +96,26 @@ async function putServer(record: DissectionRecord): Promise<boolean> {
       keepalive: true,
     })
     markSync(res.ok)
+    // FI-015 — 다른 기기가 먼저 써서 비교 갱신이 밀렸다(409). 이 기록은 서버에 아직 안 합쳐졌으니 간격을 늘려 다시 보낸다
+    //   (서버가 그때 최신 사본과 다시 합친다). 그 사이 새 저장이 오면 그 기록이 대신 간다 — 기기 기록은 언제나 남아 있다
+    if (res.ok) retries = 0
+    else if (res.status === 409 || res.status >= 500) retryLater(record)
     return res.ok
   } catch {
+    // 네트워크 오류도 같은 재전송 — 기기 기록은 이미 IndexedDB 에 있다(saveDissectionRecord 가 먼저 쓴다)
     markSync(false)
+    retryLater(record)
     return false
   }
 }
 
-function schedulePush(record: DissectionRecord) {
+function retryLater(record: DissectionRecord) {
+  if (pending || retries >= PUSH_RETRY_MAX) return
+  retries += 1
+  schedulePush(record, pushDelay(retries))
+}
+
+function schedulePush(record: DissectionRecord, delay = 1500) {
   if (typeof window === 'undefined') return
   pending = record
   if (pushTimer) clearTimeout(pushTimer)
@@ -106,7 +124,7 @@ function schedulePush(record: DissectionRecord) {
     const next = pending
     pending = null
     if (next) void putServer(next)
-  }, 1500)
+  }, delay)
 }
 
 if (typeof window !== 'undefined') {

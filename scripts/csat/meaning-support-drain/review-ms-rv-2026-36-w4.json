@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-36-w4",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#36",
+      "verdict": "pass",
+      "content_hash": "4178e45dc94c2421",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "79c616281a5e44a2",
+        "basePublicHash": "450991f7d0ecdfb7471146e0587f69b8b692bebbd6991831b22d5f6ef209c175",
+        "sourceSnapshotHash": "8ad76ca7dac03572"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u3.simpleKo 에 「쉽게 떠오르는 유일한 예」「처음엔 가려져」 보존. u4.simpleKo 에 「훨씬 긴 척도」「또 하나의」「큰 척도에서 연속처럼 보일 뿐」 보존. 「이것도 이와 같아 보인다」는 원문 also appears to be like this 의 번역이라 추론 단정이 아니며, 같은 종류 판단은 p6·r3 에 bridging_inference 와 한계로 분리돼 있다. 순서 문항이라 빈칸 노출 해당 없음."
+    }
+  ]
+}

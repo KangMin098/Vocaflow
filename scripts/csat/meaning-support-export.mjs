@@ -3,6 +3,7 @@
 // v3.1 원문 이해 교수 sidecar — **manifest 와 작성 입력**을 만든다. (C0 · C1)
 //
 //   node scripts/csat/meaning-support-export.mjs --manifest scripts/csat/meaning-support-drain/pilot-manifest.json [--source-root <dir>] [--dry]
+//   node scripts/csat/meaning-support-export.mjs --wave 2   (확대 회차 — 아래 WAVES. 같은 manifest 의 다른 회차 문항은 그대로 두고 이 회차 문항만 갈아 끼운다)
 //
 // - manifest(커밋): 문항별 유형 · 분석 버전 · units_hash · basePublicHash · sourceSnapshotHash · inputRef · 문장 수 · 도표 여부 ·
 //   기존 인용 기준선(단어 수 · 중복 제거 구간 · 원문 대비 비율) · 계획 지원 · 제외/보류 사유. **원문 본문은 넣지 않는다.**
@@ -19,6 +20,7 @@ const arg = (k, d) => { const i = process.argv.indexOf(k); return i > 0 ? proces
 const MANIFEST = arg('--manifest', 'scripts/csat/meaning-support-drain/pilot-manifest.json')
 const SRC = arg('--source-root', 'scripts/csat/inquiry-drain')
 const DRY = process.argv.includes('--dry')
+const WAVE = arg('--wave', null)
 if (process.argv.includes('--help')) {
   console.log('manifest 출력: --manifest <path> · 원문 입력 root: --source-root <dir> · --dry: 파일 안 씀 · 재실행 안전(작성 결과 보존)')
   process.exit(0)
@@ -36,6 +38,17 @@ const PILOT = [
   { id: '2026#43', supports: ['meaning', 'simple', 'preserve', 'relation', 'whole'], stage: 'C3', note: '43~45 공유 장문 — 44 · 45 는 이번 파일럿 밖' },
 ]
 
+// 확대 회차(2026-10-14 · 보완안 「전체 문항 확대」) — 2026 수능 공개 v3 27문항 중 파일럿 8문항 밖 19문항.
+//   18 은 실용문(안내 · 요청) 대표 사례, 25 와 같은 도표 문항은 없다. 44 · 45 는 43 과 같은 장문 — 같은 원문 번호를 유지한다.
+const ALL = ['meaning', 'simple', 'preserve', 'relation', 'whole']
+const WAVES = {
+  2: ['18', '20', '21', '24', '26', '27', '28', '30', '31', '32', '33', '35', '37', '39', '40', '41', '42', '44', '45'].map((n) => ({
+    id: `2026#${n}`, supports: n === '30' || n === '28' ? [...ALL, 'inference'] : ALL, stage: 'W2',
+    ...(n === '44' || n === '45' ? { note: '43~45 공유 장문 — 43 의 의미 단위와 겹쳐도 문항별로 따로 쓴다' } : {}),
+  })),
+}
+if (WAVE && !WAVES[WAVE]) { console.error(`알 수 없는 --wave ${WAVE}`); process.exit(1) }
+const PLAN = WAVE ? WAVES[WAVE] : PILOT
 const readJson = (p) => JSON.parse(readFileSync(p, 'utf8'))
 const listOf = (o) => (Array.isArray(o) ? o : o.items ?? [])
 const pub = readJson(join(ROOT, 'apps/web/src/lib/csat/inquiry-data.json')).items
@@ -50,7 +63,7 @@ if (existsSync(join(ROOT, SRC))) {
 
 const OUTDIR = join(ROOT, dirname(MANIFEST))
 const items = []
-for (const p of PILOT) {
+for (const p of PLAN) {
   const rec = pub[p.id]
   const src = inputs.get(p.id)
   const row = { itemId: p.id, stage: p.stage, plannedSupports: p.supports }
@@ -87,9 +100,9 @@ const manifest = {
   note: 'v3.1 원문 이해 교수 파일럿 manifest — meaning-support-export.mjs 가 생성. 원문 본문 없음(결속 · 기준선만).',
   basis: '커밋된 공개 inquiry-data.json + 로컬 원문 입력(비공개). live DB 통계 아님',
   sourceRoot: relative(ROOT, join(ROOT, SRC)).replace(/\\/g, '/'),
-  items,
+  items: WAVE && prevManifest ? [...prevManifest.items.filter((x) => !items.some((y) => y.itemId === x.itemId)), ...items] : items,
 }
 const out = JSON.stringify(manifest, null, 1) + '\n'
 if (!DRY) { mkdirSync(OUTDIR, { recursive: true }); writeFileSync(join(ROOT, MANIFEST), out) }
 for (const r of items) console.log(`${r.itemId} ${r.type ?? '-'} ${r.status} av${r.binding?.analysisVersion ?? '-'} sents ${r.sentences ?? '-'} quote ${r.quoteBaseline ? `${r.quoteBaseline.quoteWords}w ${(r.quoteBaseline.ratio * 100).toFixed(1)}%` : '-'}`)
-console.log(`${DRY ? '(dry) ' : ''}manifest ${items.length}문항 · ok ${items.filter((r) => r.status === 'ok').length}`)
+console.log(`${DRY ? '(dry) ' : ''}manifest ${manifest.items.length}문항 · 이번 회차 ${items.length} · ok ${items.filter((r) => r.status === 'ok').length}`)

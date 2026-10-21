@@ -1,14 +1,16 @@
 {
   "$comment": "agents/policies/pr-automation.json — PR 자동화 · 승인 최소화 정책의 기계 판독 정본. 사람용 설명은 PR_AUTOMATION_POLICY.md. 버전을 올리면 AGENTS.md 의 정책 줄과 DECISIONS.md 이력도 함께 고친다(check.mjs D11 이 검사).",
   "policy": "PR_AUTOMATION",
-  "version": "1.1",
-  "adopted": "2026-10-11",
+  "version": "1.2",
+  "adopted": "2026-10-20",
   "mode": "AUTO_CONTINUE",
   "approval_required": {
     "db_change": "DB 구조(테이블 · 컬럼 · 제약 · 인덱스) · 마이그레이션 적용 · RPC · 함수 · 트리거 · RLS · 권한 · 데이터 의미를 바꾸는 대량 변환",
-    "data_deletion": "기존 사용자 · 시험 · 학습 · 콘텐츠 데이터 삭제 · DROP · TRUNCATE · 대량 DELETE · 기록을 잃는 초기화 · 재적재 · 덮어쓰기"
+    "data_deletion": "기존 사용자 · 시험 · 학습 · 콘텐츠 데이터 삭제 · DROP · TRUNCATE · 대량 DELETE · 기록을 잃는 초기화 · 재적재 · 덮어쓰기",
+    "critical_security": "인증·권한 경계 완화, 자격증명 생성·회전·공유·외부 전송, 브랜치 보호/필수 CI 완화, 관리형 보안 정책 변경. 현재 사용자가 명시 승인한 정확한 범위는 재질문하지 않는다"
   },
   "no_approval": [
+    "기획 · 분석 · 설계",
     "개발 · 리팩터링 · UI/UX",
     "코드 리뷰",
     "테스트 작성 · 실행",
@@ -38,6 +40,8 @@
   ],
   "merge": {
     "base": "main",
+    "scope_contract_required": true,
+    "scope_contract_rule": "PR_SCOPE_GUARD: 작업 범위 계약의 HEAD/base SHA·정확한 변경 경로·커밋 수가 실제 PR과 같아야 한다. --scope-file로 전달하고 계약 없음/불일치/조회 실패는 병합하지 않는다. CI 성공으로 범위 초과를 덮지 않는다.",
     "tool": "agents/scripts/safe-merge.mjs",
     "stacked_prs": "base 가 main 이 아닌 PR 은 병합하지 않는다 — 앞 PR 이 병합돼 base 가 main 이 된 뒤 최신 HEAD 의 필수 CI 를 다시 본다",
     "db_paths": [

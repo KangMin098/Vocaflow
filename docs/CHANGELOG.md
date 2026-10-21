@@ -24,6 +24,12 @@
 
 - PC 학습자 S20/S21 실제 검증: 공용 검증 계정으로 대표4 첫 화면/전체 비교를 확보하고 허브 배치·표지 실패·성장 빈 상태를 보완. 개인 관리4화면은 소스/타입/lint 단계이며 after 검증 대기. 재기동 서버 외부 EACCES·공유 Git metadata 권한으로 전수 수용/커밋/push 미완료. DB·채점·FSRS 변경 없음.
 
+- feat(csat): FINAL §5 TASK 확장 — 과제 형식 레지스트리 위에 창작 세트 6개(E 근거 위치 · E 선지 대응 · R 추론 · R 문장 관계 · S 형태 범위 · V 문맥 의미, 각 6문항 · 맹검 검토 반영). 설명 글 문장 번호를 화면과 같은 1부터로 통일(세트마다 proseNumbering 필수). §6 ⑤ 기출분석 「글 전체 구조」 먼저 예측 → 서버 대조(POST /api/csat/item/[slug]/structure) → 도식. 사람 Gold · 권리 전.
+
+- fix(csat): FI-001(#293) — G2 결속이 최신 납품을 추측하지 않는다. 화면이 연 납품 id(?d= → deliveryId)만 결속하고 서버가 본인 · 문항 · 종류 · Workspace active · 시도 모양↔역할을 재검증한다. 출처 없음 = `no_provenance`(기록 보존) · 역할 불일치 = `role_mismatch`(결속 안 함) · 복구 `POST /api/csat/delivery/bind` · 결과에 근거 여부 포함. 같은 자료 다중 납품은 /csat/learn 에서 고르게 한다. 격리 재현 6건(수정 전 6/6 실패 · 수정 후 6/6 통과).
+
+- feat(csat): FINAL — R5 자체 창작 공급 경로. 새 산출물 종류 `authored_item` · 권리/Gold 사람 결정 원장(보류 SQL `_pending_authored_supply.sql`, 미적용) · R5 창작 9문항(교수·안내·독립·전이·지연, 맹검 2인 9/9) · 학습자 화면 `/csat/learn/[id]` · API `/api/csat/authored`(목록) · `/supply` · `/[id]/attempt` · 지도 Workspace 「받은 자료」 카드 · 지도 As-Is 가 DB 결속 근거만 직접 확인으로 읽는다. 격리 종단 PGlite 10 · SQL 20. 원장 [FINAL_LEDGER](./final/FINAL_LEDGER.md).
+
 - fix(csat): R5 연습 ↔ 독립 평가 경계(#281 E01 · E03 · E04). 확인 문항은 학습자가 아직 안 봤으면 연습에서 빼고(API 409 · 비면 대체 안내), 공급 판정은 모든 노출 원장(함정 · 문제지 · 복습 큐 · 진단 · 삭제 세션 · 같은 지문)으로 다시 거른다. 확인 · 전이 상수 true 를 없애고 `open_unqualified`(정식 자격 확인 전) · FQ `not_installed`/`error` 를 분리했다. DB 스키마 · 기록 변경 없음. 납품 ↔ 수행(G2) 결속은 미구현.
 
 - Factory I1 독립 검증: R01–R04·NULL 축·종결/공급 경합·S-only 롤백 반례를 보존하고 수정. 현재 canonical 수요로 PLAN 집계를 분리했다. 보류 SQL만 변경, 개발 DB 쓰기 없음. DB-1/2 별도 승인·DB-3 보류 유지.
@@ -51,6 +57,16 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- chore(agents): 개발 자동화 정책v1.2와 PR_SCOPE_GUARD를 추가했다. 저위험 개발 재승인은 줄이고 중대 보안/DB 배포/삭제 통제·필수8체크를 유지한다. 범위 계약의 HEAD/base/커밋 수/정확한 경로를 검증하며 향후 프로젝트 Codex 개발 네트워크 설정을 준비했다. 중앙 공식 통합 경로를 재사용하고 관리형 권한 변경·독립 PR 원격 납품은 미완료다.
+
+- chore(agents): 중앙 LOCAL_FAST 실행 모드 어댑터와 원격 접근 전 종료, 세션 안내 및 회귀를 추가했다. 최신 main의 위험도별 검증·CI 캐시·병렬 빌드·타입 검사 재사용을 보존하고 CI 토큰은 contents:read로 한정한다.
+
+- 개발 간소화: 영향 범위 검증·계약 변경 때만 문서 갱신, 일반 커밋의 메모리 동기화 제거, 동일 SHA CI verify를 재사용해 중복 타입·빌드 내 lint/type 검사를 줄였다. DB·Git·HEAD/범위 보호와 필수 체크 이름은 유지한다.
+- chore(dev): 개발 절차 간소화 — CI 같은 PR 앞선 실행 자동 취소 · sync-check push+PR 이중 실행 제거 · 게이트 고장 e2e 는 DB·게이트·csat 경로 변경 PR 만(생략 사유 notice) · AGENTS.md 위험도별 검증 L1~L4 · 문서 갱신은 계약 변경 때만 · worktree/worker/subagent 는 병렬 이득 있을 때만 · 호출처 없는 셸 래퍼 4개 삭제. 필수 체크 8개 · DB 승인 · 비밀값 · force push 금지 불변.
+- feat(csat): 통합 관찰 TASK 3개(S-O1·R-O1·E-O1) 관찰 계약 `v4/observation.ts` — 하위 TASK 직접 확인 근거만 모아 측정 불가·근거 부족·통합 관찰 가능(점수 없음) · TaskInspector 표시. 창작 납품 지도 결함 3건 수정(준비 중 분류 · 학습자 유효성 RPC · 정본 연결 없는 TASK 링크).
+- chore(db): `20261014091841_funnel_allow_csat_meaning.sql` 본문을 개발 DB 적용 이력 바이트로 복원(sha256 bb4cc88d…) — 파일명 변경 때 1행 경로 주석을 고친 것이 적용 바이트를 바꿨다. 1행 주석의 옛 이름(20261014150000)은 적용 당시 그대로이며 의도된 것. 재적용 없음.
+- feat(csat): v3.2 「내 말로 이해하기」 — 원문 이해 장면에서 의미를 내 말로 쓰고 저장(`DissectionRecord.meaningNotes` · 새 테이블 없음) · 검수된 쉬운 말 · 지킬 조건과 나란히 대조(자동 채점 · 점수 없음) · 고쳐 쓰기(처음 설명 보존 · 달라진 점 선택) · 앞뒤 관계 · 글 전체 단계로 이어 가기. 원문 이해 교수 설명 2026 수능 27문항(파일럿 8 + 확대 19, 독립 검수) · 학습자 경험 감사 뒤 부분 보강 · 글 전체 통합 단계 · 읽기의 경계 · 읽어 주기(TTS, 검수 본문만) · 계측 6종(마이그레이션 `20261014091841_funnel_allow_csat_meaning`, 승인 후 적용 · 83 → 89종)
+- ci: Next 컴파일 캐시(`apps/web/.next/cache` · actions/cache) — 같은 HEAD 빌드를 3 job 이 처음부터 하던 것(217~277s × 3) 재사용. 빌드 · 시험 대상 · 필수 체크 불변.
 
 - docs(agents): Git 권한 장애의 경로·ACL·잠금 부재·활성 정책과 외부 PowerShell 대조 미실행을 기록했다. 설정15파일을 누적 디자인125파일에서 분리해 보존하며 이번 원격 납품은 사용자 명시 지시로 허용하되 Git 쓰기 제한/원격 CI 미검증을 통과로 처리하지 않는다.
 

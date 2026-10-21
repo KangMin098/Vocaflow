@@ -68,6 +68,8 @@ export interface MeaningSupportView {
   alignment?: MsAlignment | null
   /** 지도 골격(문장 수 · 길이)이 작성 원문과 같은가 — 서버가 판정. false 면 지도 강조 · 문장 선택을 끈다 */
   splitOk?: boolean
+  /** 독립 검수가 묶인 교수 본문 해시(16 hex) — 「내 말로」 노트가 쓸 때의 설명과 지금 설명이 같은지 가린다 */
+  contentHash?: string
 }
 /** 콘텐츠 상태 — ready 만 새 판을 쓰고 나머지는 기존 V3Meaning 으로 돌아간다 */
 export type MsContentState = 'missing' | 'stale' | 'ready' | 'withheld' | 'invalid'

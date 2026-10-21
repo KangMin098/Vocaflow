@@ -1,0 +1,20 @@
+{
+  "reviewer": "ms-rv-2026-44-w3",
+  "criteria": "meaning-support-v1.0",
+  "verdicts": [
+    {
+      "itemId": "2026#44",
+      "verdict": "pass",
+      "content_hash": "5ec0f129fb594237",
+      "binding": {
+        "analysisVersion": 4,
+        "unitsHash": "ac4a9343a8650153",
+        "basePublicHash": "054f1651344870e271d25fb940f31b382fce28749632ebc7c2cdb8a68bfd8a03",
+        "sourceSnapshotHash": "dfde740f671b3244"
+      },
+      "schema": "meaning-support/1",
+      "codes": [],
+      "why": "u4 exactKo 가 15·17·32~34번 문장 뜻과 지칭을 함께 제시, 정답 해설 제거. (c)=사서, 나머지 Mia 근거 정확."
+    }
+  ]
+}

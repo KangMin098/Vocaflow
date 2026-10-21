@@ -1,11 +1,19 @@
 # GitHub·CI 최소화 점검 — 2026-10-20
 
+## 독립 설정 납품 상태
+
+PR #318은 기존 디자인까지24커밋·160파일이므로 이 설정 작업의 병합 대상으로 쓰지 않는다. 아래 진단의 「현재 브랜치/권한/커밋 미완료」는 원본 디자인 worktree에서 측정한 당시 기록이다.
+
+원격 main `fcb40034d43ccfbf1a429c76de97ed840d0bac5d`를 기준으로, 허용된 작업 루트 안의 별도 Git 저장소에 설정15파일만 분리했다. 최신 main의 CI job 본문·빌드 캐시를 유지하고 CHANGELOG는 main 본문에 설정 기록3개만 더했다. 독립 저장소에서 회귀162/162·설정15/15·diff·정확한 경로/내용 검사가 통과했다. 기존 훅과 commit --only를 유지하며 원본 디자인 소스/metadata는 변경하지 않는다.
+
+원격 납품은 아직 미완료다. #318 Draft 전환은 MCP의 승인 필요/never 정책으로 거절됐고, 독립 브랜치 push는 CLI 네트워크 제한으로 실패했다. 독립 PR과 그 HEAD의 CI는 아직 없으므로 #318의 CI8통과로 대체하지 않는다. 이 세션에서 #318을 병합하거나 자동 병합을 활성화하지 않는다.
+
 사용자 요청: 기존 최소화 설정을 확인하고 현재 작업에 적용한다. 점검 범위는 이 디자인 worktree의 지침·공통 에이전트 진입점과 중앙 모드다. 중앙 설정과 다른 worktree의 파일은 수정하지 않았다.
 
 ## 확인한 정본과 불일치
 
 - 중앙 `D:/workspace/Vocaflow-AI-Control/config/dev-mode.json`: **LOCAL_FAST**. 정본 구현은 중앙 `lib/devmode.mjs`다. 기준 통합 브랜치는 `local/integration`, 통합 worktree는 중앙 설정이 지정한다.
-- 일반 개발: 로컬 구현 → 영향 범위 검증 → 로컬 커밋 → 독립 리뷰 → 중앙 `bin/local-integrate.mjs --task <ID>`. 일반 push·PR·Actions 조회·원격 CI 대기·원격 병합은 하지 않는다.
+- 일반 개발: 로컬 구현 → 영향 범위 검증 → 로컬 커밋 → 중앙 `bin/local-integrate.mjs --task <ID>`. 일반 push·PR·Actions 조회·원격 CI 대기·원격 병합은 하지 않는다.
 - 원격 예외: 중앙 `bin/backup.mjs`의 하루 최대1회/복구 시점과 기존 Work Bridge. 별도의 push로 백업 상한을 우회하지 않는다.
 - 이 worktree의 AGENTS.md는 milestone마다 push를 요구했고 safe-merge는 모드 확인 없이 fetch/PR/체크를 조회했다. 다른 최신 worktree에 적용된 모드 어댑터가 이 오래된 디자인 worktree에는 없었다.
 
@@ -91,3 +99,7 @@ OpenAI 공식 문서도 명령과 자식 프로세스가 활성 파일/네트워
 필수 체크: `verify`, `build`, `e2e`, `TypeScript 0 error`, `docs/*.md broken link check`, `migration ↔ docs/DB_SCHEMA / CHANGELOG 정합`, `docs/CHANGELOG.md Unreleased 비어있지 않음`, `PROJECT_KNOWLEDGE_MANIFEST drift 점검`. 보호 규칙/필수 체크 목록은 수정하지 않았다.
 
 재개 조건은 **실제 Git dir와 common dir 쓰기가 허용되는 실행 세션** 또는 관리자가 제공한 승인 가능한 Git 작업 도구다. 단순 채팅 승인·repo config 편집은 현재 세션의 never 정책을 바꾸지 않는다. 외부 일반 PowerShell 대조 후에도 실패하면 OS 권한 문제를 추가 조사한다. 복구 전 같은 Git 쓰기 명령을 반복하지 않는다.
+
+## 2026-10-20 최신 납품 재개
+
+이 절은 위 과거 실행 상태를 대체한다. 승인 가능한 호스트의 CLI 인증을 확인해 #318을 Draft로 전환했다. 원격 main은 `0706a755f2dffc7cff8508cc4cab344e29871270`으로 이동했다. 독립 저장소의 `ci/local-fast-delivery`에서 기존 설정 커밋을 이식하고 최신 main의 위험도별 검증·계약 변경 때만 문서 갱신·병렬 빌드·verify 타입 재사용을 보존했다. CI/sync-check에 contents:read를 추가하고 회귀를 정합화한다. main의 필수 체크 8개와 관리자 보호는 실제 조회로 확인했다. 원본 디자인 저장소와 중앙 LOCAL_FAST 설정은 수정하지 않았다. 원격 납품은 새 PR의 실제 HEAD CI 및 safe-merge 결과로 판단한다. 일반 개발의 자동 독립 리뷰 의무는 중앙 dev-minimal-20261020에 따라 추가하지 않는다.
