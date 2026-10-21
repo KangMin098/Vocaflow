@@ -1,0 +1,110 @@
+{
+  "goal_id": "VG-L3-B2-02",
+  "related_goal_ids": [
+    "VG-L3-A3-02",
+    "VG-L3-B2-01"
+  ],
+  "title": "지도 수행 근거를 창작 학습 순환과 같은 기록·바로잡기 판정에 연결",
+  "description": "FINAL F/H/G. 최신 로컬 main959961adc 반례4fail/정상2pass: PLAN repairGate가 인정한 guided_practice 정답/오답이 EvidenceView에는 none으로 보이고, authored-task-key 수행이 기출키 필터에서 빠져 상세 원장이 비며, 같은 현재 판정 독립2가 상세에서0으로 보인다. 원인은 창작 순환 이후에도 EvidenceClaims projection만 옛 기출 경로를 읽는 것. 기존 엔진과 원장 사실을 재사용해 지도에서 실제 한 일을 올바르게 설명한다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "959961adcb41b8d0c592d44cf1ce0b834ea559ac",
+  "depends_on": [
+    "T-0075"
+  ],
+  "duplicate_reason": "final-product 활성 작업0. T0052는 PLAN/lifecycle repairSuccess 공용화를 완료, T0062는 복귀 이번 활동, T0074는 기존 EvidenceView를 요약에 노출, T0075는 Runner 연결 복구를 완료했다. 이번 실제 실패는 그 모두와 별개인 EvidenceView/EvidenceBlock 자체의 legacy filter·repair 재계산이다. 정본·판정 재구현이 아니라 같은 수행 기록의 projection 정합. T0020 구 지도개편 및 관리자 소유 파일과 중복하지 않는다.",
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/evidence-claims.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/evidence-claims-independent.test.ts",
+    "apps/web/src/lib/csat/map/v4/compose.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-authored-evidence.test.ts",
+    "apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/evidence-claims-independent.test.tsx",
+    "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "apps/web/src/app/api/**",
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+    "apps/web/src/lib/csat/map/v4/plan.ts",
+    "apps/web/src/lib/csat/map/v4/as-is.ts",
+    "apps/web/src/lib/csat/map/v4/definition*",
+    "apps/web/src/lib/csat/authored/evidence.ts",
+    "docs/csat-learner/v4/**",
+    "scripts/audit/**"
+  ],
+  "db_scope": {
+    "mode": "none",
+    "targets": []
+  },
+  "acceptance": [
+    "바로잡기 표시는 기존 PLAN repairGate/lifecycle와 같은 repairSuccess·repairWindow만 재사용한다. 정확히 결속된 같은 TASK 안내 연습은 판단/서버 수신 모두 현 회차 뒤일 때만 tried 또는 succeeded. 설명 보기·오답·이전 회차/서버 수신 없음·결속 없음·다른 TASK는 성공으로 표시하지 않는다. 창작 평가 재풀이를 바로잡기 성공으로 만들지 않으며 정상 기출 재시도는 유지한다. 이 projection 수정으로 PLAN 단계·수량·진단 판정은 바꾸지 않는다.",
+    "창작 수행과 기출 수행의 읽기 범위를 기존 evidenceKeysOfTask·gated firsts·lifecycleActivity에 맞춘다. compose가 정본 checkKeys만 없어 이미 지원되는 창작 TASK의 기록을 통째로 생략하지 않도록 한다. R5+보조 e.task_demand 대표를 실제 compose/제공 fixture로 확인한다. 다른 TASK 키·잘못된 세션·도움/연습·과거 주석·결속 없음/불일치의 독립 자격은 승격하지 않는다. s.attachment 보류·V1 어휘 자기평가·미지원 도구·정본 키/상태는 그대로. Gold JSON을 클라이언트로 가져오거나 새 DB reader/API/표를 만들지 않는다.",
+    "지금 판정의 독립 문항 수(currentCheck.independentItems)와 상세 조회 기록/서로 다른 기간의 집계를 구분한다. 헤더는 이번 판정의 서버 판정값과 범위를 명시해 실제2를0으로 대체하지 않는다. 상세가 원장/현재 주석을 못 읽으면 미확인이지0개/능력부족이 아니다. 기존 hashes가 없는 창작 기록은 instrument UNKNOWN을 유지하며 기대hash/과거결속hash/성공값으로 현재성을 만들어내지 않는다. authoredBinding missing/mismatch 표지는 결속 확인 불가로 설명하고 실제 도움 사건이 없는데 도움을 봤다고 추정하지 않는다. 원장 정오·currentCheck·delayedRetention NOT_ESTABLISHED·learningEffect NOT_EVALUATED는 원값 그대로.",
+    "기존 EvidenceBlock/서랍/Workspace를 재사용한다. 기록한 안내 연습 오답→정답이 각각 tried→succeeded로 보이고, 기출 관찰/창작 직접 확인/평가 반복/조회 불명확을1440/1280 실제 컴포넌트로 구분한다. 상세 숫자의 기간/판정 범위를 학생이 이해하게 짧게 표시하고 새 화면·대시보드·경고 도배 없음. 기출/창작 정오 규칙·Gold·전체 TASK 숙달·시간 간격을 새로 정의하지 않는다.",
+    "로컬은 제공 probe4fail2pass와 관련 핵심 회귀만 검증한다(전체2700 재실행 금지). guided wrong/right, wrong/missing binding, no received time, previous repair round, authored evaluation replay, KICE retry, unread ledger 정상/반례를 기존 fixture로 확인. 기존 journey의 실제 guided 단계 직후 EvidenceBlock 상태/이번 판정 문항 수 단언을 보강해 다음 공식 일일 sync 묶음에서 인증 실행한다. 로컬 NOT_VERIFIED를 PASS로 쓰지 않는다. 기존 main_sync/LOCAL_FAST: 작업별push/PR 없음·수용 뒤 기존 통합 경로로 최신 로컬 main에 연결·원격은 일일묶음1회. 감사2파일/local-integration/타 owner 변경 보존. A/B/B2/C 승인 대기와 독립적으로 진행한다."
+  ],
+  "ui_acceptance": [
+    "현재 PLAN이 실제로 인정한 바로잡기 수행과 상세 근거가 일치하고 이번 판정 수와 상세 기록 범위를 구분한다.1440/1280 키보드 펼치기·오답/정답/미확인/보류·기존 레이아웃을 확인한다. 새 숙달률/점수·기간 예측·사람 검수 주장은 없다."
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-B2-02",
+    "acceptance_ids": [
+      "VG-L3-B2-02-AC1"
+    ],
+    "current_gap": "EvidenceView가 창작 순환 전의 키/바로잡기 경로를 사용해 PLAN이 인정한 안내 연습과 본인 창작 수행을 상세 근거에서 누락하고 현재 판정과 다른0을 보인다. 최신 로컬main SSR/순수함수 반례4fail2pass.",
+    "expected_impact": "advances",
+    "dependency_type": "direct",
+    "evidence_required": [
+      "PLAN repairSuccess와 같은 바로잡기 표시",
+      "지원되는 창작 수행과 이번 판정 범위의 정직한 표시",
+      "결속/주석/원장 불명확·미지원/보류 정상 대조"
+    ],
+    "out_of_scope": [
+      "진단/채점/G2/PLAN 새 판정",
+      "독립 기준·권리·Gold·현재Hash를 추정으로 승격",
+      "새SQL/reader/API",
+      "기존 완료기능 재구현",
+      "새관리시스템"
+    ],
+    "next_dependency": "현행 로컬 main 통합 뒤 일일 sync의 인증 journey 확인. 실제 설치/사람Gold·권리·학습효과는 별도."
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_revision": "rev1",
+    "design_id": "FINAL-AUTHORED-EVIDENCE-PROJECTION-rev1",
+    "goals_ah": [
+      "F",
+      "G",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "probe": "verification/reviews/NEXT-AUTHORED-EVIDENCE/probe.test.tsx",
+    "baseline": "verification/reviews/NEXT-AUTHORED-EVIDENCE/baseline-results.json",
+    "delivery": "QUEUED until actual ACK/start"
+  },
+  "requires_ci": false
+}

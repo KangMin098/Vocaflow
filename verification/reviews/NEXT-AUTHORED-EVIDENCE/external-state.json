@@ -1,0 +1,12 @@
+{
+  "observation": "ACTUAL_DEV_DB_READ_ONLY",
+  "observed_at": "2026-10-21T10:13:41.155944Z",
+  "query": "select now(), to_regclass(public.authored_item), to_regclass(public.content_human_decision), to_regclass(public.content_human_decision_revocation)",
+  "tables": {
+    "authored_item": null,
+    "content_human_decision": null,
+    "content_human_decision_revocation": null
+  },
+  "db_writes": 0,
+  "meaning": "Authored installation and recorded qualification are not established in actual dev DB; no assumption about offline human review. Existing A/B/B2/C approval boundaries remain. Does not block independent local product work."
+}

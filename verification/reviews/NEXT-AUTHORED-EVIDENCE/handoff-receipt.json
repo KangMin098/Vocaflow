@@ -1,0 +1,28 @@
+{
+  "task_id": "T-0076",
+  "design_revision": "rev1",
+  "owner": "final-product",
+  "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "delivery": "IMPLEMENTATION_STARTED",
+  "acknowledged": true,
+  "implementation_started": true,
+  "main": "959961adcb41b8d0c592d44cf1ce0b834ea559ac",
+  "local_product_head": "7cc5b08f868273f94c08d1fc0b85f738cba622c3",
+  "core_source_paths_equal": [
+    "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+    "apps/web/src/lib/csat/map/v4/compose.ts",
+    "apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx"
+  ],
+  "baseline": {
+    "passed": 2,
+    "failed": 4,
+    "skipped": 0
+  },
+  "t0075_received_ack": "2026-10-21T10:03:59.000Z",
+  "sync_owner": "not registered; no false external dispatch claimed",
+  "observed_at": "2026-10-21T10:14:36.189Z",
+  "acknowledged_at": "2026-10-21T10:13:38.244Z",
+  "started_at": "2026-10-21T10:13:38.244Z",
+  "actual_pid": 19636,
+  "actual_session": "c513ff5b-86ef-44a3-8efd-7925a229614b"
+}
