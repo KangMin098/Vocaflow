@@ -102,5 +102,43 @@
       "Workspace need label could be mistaken for current transfer stage"
     ],
     "next": "Approval A pending explicit user approval; B/B2/C separate. Do not repeat passed tests or create a per-task PR."
+  },
+  "next_assignment": {
+    "task": "T-0082",
+    "revision": "rev1",
+    "design": "planning/handoff/FINAL-CURRENT-PASS-MAINTENANCE-STATE-rev1.json",
+    "source_main": "f8a1de9a475e7d12f86a006f6fb0caefa26975a8",
+    "source_owner_head": "ad22826906b554a76bce054b5309ec24929a44fe",
+    "owner": "final-product",
+    "goal": "VG-L3-B2-02",
+    "goals_ah": [
+      "G",
+      "H"
+    ],
+    "evidence": "maintain-results.json",
+    "projection_tests_passed": 4,
+    "skipped": 0,
+    "observation": "MAINTAIN + resolved current check + no unseen links => actual current plans -> wait/stage_locked says finish earlier stages",
+    "harness_limit": "Synthetic As-Is completion state and goal-needs focus; actual Workspace/PLAN/rank/next-action projection. Initial observation fixture omitted plans and then saved.plan; corrected before defect acceptance; those draft-harness issues are not product failures.",
+    "intent": "Truthful current-pass vs future-maintenance presentation and next-task recommendations, not a new retention instrument or epoch policy",
+    "handoff": "QUEUED_READY",
+    "actual_ack": false,
+    "started": false,
+    "goal_check": {
+      "report": "verification/goal-check/GC-2026-10-21T13-42-17-554Z.json",
+      "head": {
+        "main_sha": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e"
+      },
+      "distribution": {
+        "UNKNOWN": 33,
+        "FAIL": 1,
+        "EXTERNAL_INPUT_REQUIRED": 1
+      },
+      "changes": [],
+      "ci_read": false,
+      "note": "Evidence states, not counts of product bugs or unimplemented functions."
+    },
+    "db_write": false,
+    "at": "2026-10-21T13:50:01.637Z"
   }
 }

@@ -2,10 +2,12 @@
 import { describe, it, expect } from 'vitest'
 import { asIsMap } from '@/lib/csat/map/v4/as-is'
 import { DOMAINS } from '@/lib/csat/map/v4/definition'
-import { allTaskPlans } from '@/lib/csat/map/v4/plan'
+import { allTaskPlans, workspacePlan } from '@/lib/csat/map/v4/plan'
 import { toBeMap } from '@/lib/csat/map/v4/to-be'
 import { planWorkspaces } from '@/lib/csat/map/v4/workspace'
 import { buildDemand } from '@/lib/csat/map/v62/demand'
+import { ranksOf } from '@/lib/csat/map/v62/rank'
+import { nextActionOf, WAIT_LABEL } from '@/lib/csat/map/v62/next-action'
 
 const task='r.central_meaning', key='claim-support', template='ws.central-meaning'
 const ctx={workspaceId:null,planVersion:1,goalVersion:1}
@@ -35,5 +37,21 @@ describe('D/G scope decision, current source projection',()=>{
     const v=view(false), p=v.taskPlans.find((p:any)=>p.task===task)
     expect(p.stage).toBe('transfer');expect(p.unresolved).toContain('material_needed');expect(p.next).toBeNull()
     expect(buildDemand(v,task,template,ctx).lines.map(l=>[l.role,l.quantity.n])).toEqual([['transfer',2]])
+  })
+  it('observation: completed current check with no unseen links is incorrectly described as an unfinished earlier stage',()=>{
+    const v=view(true)
+    v.asIs.tasks[task].check.unseen=[]
+    v.toBe={...v.toBe,needs:v.toBe.needs.filter((n:any)=>n.task===task).map((n:any)=>({...n,executable:null})),relevanceUnknown:[]}
+    v.plan=planWorkspaces({asIs:v.asIs,toBe:v.toBe,confirmLinks:links,transferItems:{[key]:0},transferTargets:{}})
+    v.taskPlans=allTaskPlans(v.asIs,v.toBe,v.plan,[])
+    v.plans=Object.fromEntries([v.plan.primary,...v.plan.others].filter(Boolean).map((w:any)=>[w.id,workspacePlan(w,v.asIs,v.toBe,v.plan,[])]))
+    const p=v.taskPlans.find((p:any)=>p.task===task)
+    expect(p).toMatchObject({need:'MAINTAIN',achievement:'resolved',stage:'recheck',next:null})
+    expect(p.unresolved).toContain('stage_locked')
+    const rows=v.plans[template].tasks.map((t:any)=>({task:t.task,stage:t.stage,planned:t.quantity.planned,available:t.quantity.available}))
+    const saved={status:'installed',goalVersionId:1,byTemplate:{[template]:{latest:{version:1,goalVersionId:1,plan:{order:rows.map((r:any)=>r.task),tasks:rows}}}}} as any
+    const next=nextActionOf(v,ranksOf(v),saved)
+    expect(next).toMatchObject({task,ws:template,kind:'wait',blocked:'stage_locked'})
+    console.log(JSON.stringify({observation:'MAINTAIN_AFTER_CURRENT_PASS',achievement:p.achievement,need:p.need,stage:p.stage,unresolved:p.unresolved,next,waitMessage:WAIT_LABEL[next!.blocked!]}))
   })
 })

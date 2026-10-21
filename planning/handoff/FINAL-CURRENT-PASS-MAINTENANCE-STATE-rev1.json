@@ -1,0 +1,108 @@
+{
+  "goal_id": "VG-L3-B2-02",
+  "related_goal_ids": [
+    "VG-L3-A3-02"
+  ],
+  "title": "현재 확인 통과 뒤 유지 확인 준비 상태와 다음 학습을 구분",
+  "description": "FINAL G/H. main f8a1de9a4에서 현재 CHECK 통과·전이 완료(need MAINTAIN)인데 새 확인 링크0이면 TaskPlan은 resolved/recheck/stage_locked, 상단은 앞 단계를 마치면 열려요로 오안내. 정상 MAINTAIN의 delayed 수요 분기 가림도 확인했지만 이 작업은 새 간격·도구·성취규칙을 발명하지 않고 현재 통과와 미래 유지 미확인의 표시/권고를 구분한다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "created_by": "final-independent-accept",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "ad22826906b554a76bce054b5309ec24929a44fe",
+  "depends_on": [
+    "T-0081"
+  ],
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/v62/rank.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/lib/csat/map/v62/goal-plan.ts",
+    "apps/web/src/lib/csat/map/v62/maintenance-state.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/maintenance-state.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/rank.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/next-action.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/goal-plan.test.ts",
+    "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+    "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/maintenance-state.test.tsx",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+    "apps/web/src/lib/csat/map/v4/**",
+    "apps/web/src/lib/csat/map/v62/demand.ts",
+    "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+    "apps/web/src/app/api/**",
+    "scripts/audit/**"
+  ],
+  "acceptance": [
+    "선택 설계: 현재 운영 CHECK 통과 + need=MAINTAIN을 기존 V4 결과에서 읽어 현재 통과/다른 날 유지 확인 미확인을 구분하는 최소 표시 projection을 둔다(새 판정·정본 아님). 간격/도구가 미승인인 이 상태를 앞 단계 미완료·자료만 채우면 지금 유지 확인 가능·숙달/목표 달성으로 표시하지 않는다. 실제 resolved/전이/첫 근거/PLAN 이력은 변경하지 않는다. 새 helper가 필요 없으면 기존 v62 mapper로 간소화 가능.",
+    "이 MAINTAIN 상태를 현재 통과를 위해 더 풀어야 하는 기본 실행·생산 권고로 만들지 않는다. 같은 회차는 해소 뒤 시도로 재판정되지 않으므로(현재 skill-diagnosis) 남은 independent 링크가 있더라도 이를 지연 유지 검증의 다음 필수 풀이로 승격하지 않는다. 새 자료/과거 기록은 삭제·철회하지 않고 읽을 수 있는 기존 자료 경로를 막지 않는다. 다른 TASK의 실제 actionRank는 기존 순서로 정상 추천하고, 없으면 지금 확인 통과·유지 확인 기준 준비/미확인을 정직하게 알린다. 실제 REPAIR의 recheck·TRANSFER 부족·CONFIRM은 기존대로, demand 역할/수량/채점은 변경 금지.",
+    "상단·요약·TASK 자세히/Workspace 목록에서 같은 상태를 일관되게 보여 준다. 기존 계획 먼저확정/목표변경 재확정/과거보기/목표없음/원장불명확 보호는 유지하되 준비되지 않은 미래 확인을 위해 빈 계획을 반복 저장시키지 않는다. 자동 저장/POST/새 능력 수치/일정/새 화면 없음. 관련 경로 밖 확장이 꼭 필요하면 같은 작업에서 최소 추가 범위를 요청한다.",
+    "L2/L3 범위 검증: 실제 toBeMap/planWorkspaces/workspacePlan/allTaskPlans→ranks/nextAction을 사용한 현재통과·MAINTAIN의 재고0/남은확인링크있음, 다른실행TASK있음/없음 대조 + 실제 REPAIR 재확인/TRANSFER 부족·goal mismatch/past/원장불명확 대조를 관련 범위만. 기존 엔진 전체 반복 불필요. 실제 React Chromium1440/1280에서 키보드·다음행동·자동POST0 확인. 전역3B/인증Next+DB 미실행은 NOT_VERIFIED; 기존 장치 스킨을 누락한 캡처를 제품 배치 통과로 세지 않는다. 작업별 push/PR/CI 없음."
+  ],
+  "ui_acceptance": [
+    "현재 확인을 통과한 학습자가 무엇을 마쳤고 무엇은 아직 확인 못했는지 이해하고, 다른 TASK의 가능한 학습으로 이어진다. 현재 운영 통과와 지연 유지/목표 달성을 섞지 않는다. 두 PC 너비에서 실제 데이터 projection과 CTA가 일치한다."
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-B2-02",
+    "acceptance_ids": [
+      "VG-L3-B2-02-AC1"
+    ],
+    "current_gap": "Actual To-Be/Workspace/PLAN/ranks/nextAction projection, resolved+MAINTAIN with no unseen links: wait/stage_locked says finish earlier stages although current check is resolved. Existing delayed role does not establish a scheduled instrument; extra closed-episode attempts cannot rejudge resolved.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "현재 통과와 미래 유지 미확인 분리",
+      "자료0/남음·다른TASK 유무 정상대조",
+      "현재 판정·기존 계획·권한/노출 계약 불변"
+    ],
+    "next_dependency": "현재 G 지연유지 자체의 완성은 승인된 간격·도구와 적격자료, 실제 실행 증거가 별도 필요. SQL A/B/B2/C는 대기 그대로.",
+    "out_of_scope": [
+      "새 지연 간격/숙달 판정",
+      "demand 역할 추가·대체",
+      "DB/Gold/권리/출시 승인",
+      "T0020 구지도와 AI-Control 실행기"
+    ],
+    "dependency_type": "direct"
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_id": "FINAL-CURRENT-PASS-MAINTENANCE-STATE-rev1",
+    "design_revision": "rev1",
+    "goals_ah": [
+      "G",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "canonical_main": "f8a1de9a475e7d12f86a006f6fb0caefa26975a8",
+    "source_base": "ad22826906b554a76bce054b5309ec24929a44fe",
+    "probe": "verification/reviews/T-0045-integration-20261021/dg-demand/probe.test.ts",
+    "baseline": "verification/reviews/T-0045-integration-20261021/dg-demand/maintain-results.json",
+    "delivery": "QUEUED until actual ACK/start"
+  }
+}
