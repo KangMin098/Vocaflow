@@ -1,0 +1,13 @@
+{
+  "task_id": "T-0070",
+  "design_revision": "rev1",
+  "head": "ce6f16eab0f25172b9b279a04cacfb07ed6e929a",
+  "decision": "REWORK",
+  "official_status": "READY",
+  "posted_at": "2026-10-21T00:09:29.918Z",
+  "inbox": "D:\\workspace\\Vocaflow-AI-Control\\planning\\inbox\\final-product.md",
+  "review": "verification/reviews/T-0070-r1-independent/REVIEW.md",
+  "delivery": "LOCAL_INBOX_POSTED",
+  "new_run_acknowledged": false,
+  "implementation_started": false
+}
