@@ -99,6 +99,8 @@ export function AuthoredSupplyCard({ task, template, planSaved, past, ctx, kind 
       const r = await fetch('/api/csat/authored/supply', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ task, template }) })
       const j = await r.json().catch(() => ({}))
       if (r.status === 409) setMsg('학습계획을 먼저 확정하면 자료를 받을 수 있어요.')
+      // T-0078 — 수행 기록 조회 실패는 공급 미준비 · 자료 0 · 권리 대기가 아니다(같은 503 이라도 닫힌 코드로 가른다)
+      else if (r.status === 503 && j.code === 'evidence_unavailable') setMsg('수행 기록을 지금 읽지 못해 자료를 받지 않았어요 — 기록은 그대로예요. 잠시 뒤 다시 확인해 주세요.')
       else if (r.status === 503) setMsg('자료 공급을 아직 준비하고 있어요 — 잠시 뒤 다시 확인해 주세요.')
       else if (!r.ok) setMsg(typeof j.error === 'string' ? j.error : '자료를 받지 못했어요 — 잠시 뒤 다시 눌러 주세요.')
       else if (j.status === 'no_lines') setMsg('지금 단계에서 새로 받을 자료가 없어요.')

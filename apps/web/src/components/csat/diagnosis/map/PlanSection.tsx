@@ -254,6 +254,8 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
     network: '연결이 끊겨 저장됐는지 알 수 없어요. 다시 누르면 같은 요청으로 확인해요(두 번 저장되지 않아요).',
     planned_over_available: '그 사이 쓸 수 있는 문항 수가 바뀌었어요. 계획량을 줄이거나 화면을 새로 불러와 주세요.',
     not_installed: '계획 저장이 아직 열리지 않았어요. 조정은 이 기기에 남아 있어요.',
+    // T-0078 — 수행 기록 조회 실패(서버 503) · 미설치 · 자료 0 이 아니다
+    evidence_unavailable: '수행 기록을 지금 읽지 못해 계획을 저장하지 않았어요 — 기록은 그대로예요. 잠시 뒤 다시 확인해 주세요.',
     canon_mismatch: '학습 기준이 바뀌었어요 — 사유를 「학습 기준이 바뀜」으로 골라 다시 저장해 주세요.',
   }
 
