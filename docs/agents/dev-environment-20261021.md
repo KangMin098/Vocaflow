@@ -104,7 +104,7 @@ GitHub 인증과 fetch는 가능하다. safe-merge가 개발 DB 적용 이력 �
 
 ### 1. main과 실제 통합 화면
 
-인테이크 main/local\/integration은 모두 e23e32cd8, origin/main은 원격 직접 조회와 같은 0649f8c0b였다. 로컬은 46 ahead/0 behind이며 서로 0/0이다. main-serving은 깨끗하고 3000 리스너 PID 22436, 부모 next dev PID 15732, 실제 cwd는 Vocaflow-main-serving/apps/web이다. workspace 의존성 7개도 모두 같은 main-serving/packages를 가리킨다. 3001은 재조회 당시 비점유이며 다른 세션용으로 그대로 둔다.
+인테이크 main/local\/integration은 모두 e23e32cd8, origin/main은 원격 직접 조회와 같은 0649f8c0b였다. 로컬은 46 ahead/0 behind이며 서로 0/0이다. main-serving은 깨끗하고 3000 리스너 PID 22436, 부모 next dev PID 15732, 실제 cwd는 Vocaflow-main-serving/apps/web이다. workspace 의존성 7개도 모두 같은 main-serving/packages를 가리킨다. 3001은 재조회 당시 비점유이며 다른 세션용으로 그대로 둔다. 이후 integration에 Claude PID 19840이 잠금을 잡고 next.config 및 빌드 산출물 보존 코드를 수정하기 시작했다. 깨끗함/기준 HEAD 검사에서 이를 감지해 해당 공간의 보고서 fast-forward를 중단했다. main에만 이번 문서 커밋을 반영하며 integration의 미커밋을 그대로 유지한다. 두 공간의 마지막 검증된 제품 코드 기준은 e23e32cd8이고, 문서 커밋 수 차이는 제품 재병합으로 해소하지 않는다.
 
 | 요청한 확인 | 이번 판정 | 실제 범위/남은 조건 |
 |---|---|---|
@@ -148,7 +148,7 @@ DB는 SELECT만 사용했다. 실제 to_regclass로 library_articles, learner_wo
 | [#250](https://github.com/KangMin098/Vocaflow/pull/250) feat(csat): v3.2 「내 말로 이해하기」 + 원문 이해 27문항 감사 · 보강 (MERGED) | REMOTE_INTEGRATED | 기출 v3.2 원담당 | 전체 HEAD 조상 | 전체 HEAD 조상 · MERGED | 현재 병합 대상 아님 | 이벤트 허용 migration 포함 | 내 말로 이해하기 | 기병합분 재병합 없음 |
 | [#326](https://github.com/KangMin098/Vocaflow/pull/326) feat(map): 목표→TASK 근거·학습량·지금 할 행동 요약 + Workspace 원리 노트 다시 찾기(T-0070+T-0071) (MERGED) | REMOTE_INTEGRATED | FINAL 원소유 Claude | 전체 HEAD 조상 | 전체 HEAD 조상 · MERGED | 현재 병합 대상 아님 | 없음 | 목표·PLAN·Workspace 노트 | 기병합분 재병합 없음 |
 | [#327](https://github.com/KangMin098/Vocaflow/pull/327) chore(dev): 분산 통합본 수렴과 브랜치 운영 표준화 (OPEN) | LOCAL_INTEGRATED / BLOCKED | 이번 Codex · PID 16328 · 동일 정리 브랜치 | 전체 HEAD 조상 | 미반영 · Draft | 없음 | 기적용 SQL 3개/보류 SQL 포함 | 관리자 통합·안전 보완 | 이전 원격 게이트는 DB 이력 인증 대기. 이번 요청은 원격 push/병합을 실행하지 않음 |
-| [#328](https://github.com/KangMin098/Vocaflow/pull/328) fix(map): reconfirm PLAN after target goal changes (OPEN) | ACTIVE / BLOCKED | FINAL 원담당 Claude; 현재 쓰기 세션 미확인 | 미반영 | 미반영 | 없음 | 없음 | 목표 변경 뒤 PLAN 재확인 | 10경로의 신규 수정. 원담당 수용·검증 상태 확인 전 임의 통합/종료하지 않음 |
+| [#328](https://github.com/KangMin098/Vocaflow/pull/328) fix(map): reconfirm PLAN after target goal changes (OPEN) | ACTIVE | Claude · final-product · T-0072 재개 등록 | 미반영 | 미반영 | 없음 | 없음 | 목표 변경 뒤 PLAN 재확인 | 10경로의 신규 수정. 원담당의 진행·수용을 보존하고 임의 통합/종료하지 않음 |
 | [#329](https://github.com/KangMin098/Vocaflow/pull/329) feat(design): PC 학습자 Tines 화면·삽화 품질 전달 (OPEN) | ACTIVE | Claude · learner-tines · 살아 있는 잠금 PID 11308 | 미반영 | 미반영 | 없음 | 없음 | PC 학습자 Tines 화면·삽화 | 312경로 신규 납품. 원담당 검증/통합 작업을 보존 |
 
 #315의 원 PR은 이전에 보존됐지만 같은 로컬 브랜치에는 추가 커밋 418220e34(판정 문장의 P0/P1 잔여 결함 없음 오인식 수정)가 있다. 원담당 확인과 해당 1커밋의 범위 수용이 남았으며 이번에 전체 브랜치를 다시 병합하지 않았다. 신규 #328/#329 역시 현재 통합본에 포함됐다고 보고하지 않는다.
@@ -159,13 +159,13 @@ DB는 SELECT만 사용했다. 실제 to_regclass로 library_articles, learner_wo
 
 | 상태 | 개수 | 처리 |
 |---|---:|---|
-| ACTIVE | 3 | 전부 유지 |
-| DIRTY | 41 | 전부 유지 |
+| ACTIVE | 5 | 전부 유지 |
+| DIRTY | 40 | 전부 유지 |
 | CONFLICTED | 1 | 전부 유지 |
 | CLEAN_IDLE | 1 | 이번 정리 공간 1개. PR #327·연속 개발 재사용을 위해 유지 |
-| REVIEW_REQUIRED | 29 | 전부 유지 |
+| REVIEW_REQUIRED | 28 | 전부 유지 |
 
-최종 집계는 이번 담당의 보고서 커밋·잠금 해제·깨끗함 확인을 반영한 상태다. 그 전 인테이크 집계는 ACTIVE 4/DIRTY 41/CONFLICTED 1/CLEAN_IDLE 0/REVIEW_REQUIRED 29였다. 깨끗하고 main의 조상이라는 이유만으로 미사용이 입증되지는 않는다. 소유/필요가 불명확한 29개를 CLEAN_IDLE로 낮추거나 지우지 않았다. 삭제 0개.
+최종 집계는 이번 담당의 보고서 커밋·잠금 해제·깨끗함 확인을 반영한 상태다. 그 전 인테이크 집계는 ACTIVE 4/DIRTY 41/CONFLICTED 1/CLEAN_IDLE 0/REVIEW_REQUIRED 29였다. 이후 변경이 실제 관측된 final-product와 integration 두 대상만 갱신해 ACTIVE로 보호했다. 깨끗하고 main의 조상이라는 이유만으로 미사용이 입증되지는 않는다. 소유/필요가 불명확한 29개를 CLEAN_IDLE로 낮추거나 지우지 않았다. 삭제 0개.
 
 ### 4. 기존 충돌 폴더의 처리 확정
 
@@ -181,7 +181,7 @@ D:/workspace/Vocaflow는 design/replica-first, HEAD 8cd15b7b6, MERGE_HEAD fbe532
 
 이번 담당은 Codex(pid 16328), 쓰기 범위는 기존 chore/dev-environment-20261021의 보고서/CHANGELOG와 자체 tmp뿐이다. 첫 읽기에서 같은 환경 정리 작업은 기존 등록부에 없었고, 기존 lock.mjs로 이 공간만 잠갔다. main-serving은 서버 유지/읽기 확인, 다른 모든 기능 공간은 읽기 전용으로 조사했다. 대규모 새 등록부/오케스트레이터·자동 라우터·다른 세션 호출은 만들지 않았다. 완료 후 자기 잠금만 해제한다.
 
-공유 원담당은 learner-tines의 Claude 잠금(PID 11308, #329), final-independent의 final-independent-accept/T-0045/등록 UUID 재개 로그로 확인한다. final-product는 현재 PID 결속이 낡았으므로 #328/미커밋을 보존하고 임의 인수하지 않는다. AGENTS의 브랜치 연속성, CLAUDE의 @AGENTS 참조, router/WORKTREE의 동일 목적 유지·독립 동시 쓰기만 분리·AI 교대 유지·LOCAL_FAST 통합·포트 역할·남의 변경 보호가 이미 충족돼 운영 규칙 파일을 추가/수정하지 않았다. 기존 다른 공간의 낡은 파일을 강제 덮지 않았다.
+공유 원담당은 learner-tines의 Claude 잠금(PID 11308, #329), final-independent의 final-independent-accept/T-0045/등록 UUID 재개 로그로 확인한다. 최종 대상 갱신에서 final-product는 T-0072 재개와 살아 있는 잠금 PID 19636·새 HEAD f9dd70ea4를 확인했고, integration은 별도 Claude PID 19840의 작업으로 확인했다. 두 공간 모두 임의 인수/수정하지 않는다. AGENTS의 브랜치 연속성, CLAUDE의 @AGENTS 참조, router/WORKTREE의 동일 목적 유지·독립 동시 쓰기만 분리·AI 교대 유지·LOCAL_FAST 통합·포트 역할·남의 변경 보호가 이미 충족돼 운영 규칙 파일을 추가/수정하지 않았다. 기존 다른 공간의 낡은 파일을 강제 덮지 않았다.
 
 ### 6. 로컬 main과 충돌 작업의 독립 백업
 
@@ -193,7 +193,7 @@ D:/workspace/Vocaflow는 design/replica-first, HEAD 8cd15b7b6, MERGE_HEAD fbe532
 
 이번 새 제품 코드 변경은 없다. 기존 코드 CI d591b8ab4의 필수 8개·격리 E2E 31·고장 2 통과는 같은 실행 소스의 과거 증거로 재사용한다. 이번 L1은 수정 문서 링크/공백과 자체 복원 검증이며 전체 회귀/원격 CI를 반복하지 않는다. DB 쓰기/스키마 적용/데이터 삭제/실 납품은 미실행이다. 원격 push·PR 병합은 이번 정책상 실행 범위에서 제외했다.
 
-실제 BLOCKED는 (1) Computer Use의 URL 확인 정책 실패로 인한 새 화면·조작 검증, (2) 충돌/미확인 공간의 실제 소유자와 유효 변경 수용, (3) 신규 PR #328/#329 및 라우터 후속 수정의 원담당 통합/수용이다. 기존 원격 납품의 DB 이력 인증 부재는 #327의 참고 상태이며 이번 LOCAL_FAST 작업을 원격으로 전환하는 사유가 아니다.
+실제 BLOCKED는 (1) Computer Use의 URL 확인 정책 실패로 인한 새 화면·조작 검증, (2) 충돌/미확인 공간을 복구할 소유자·유효 변경 결정이다. 신규 #328/#329와 integration의 빌드 보존 작업은 ACTIVE로 유지한다. 라우터 후속 수정은 원담당 수용 범위 확인이 남았다. 기존 원격 납품의 DB 이력 인증 부재는 #327의 참고 상태이며 이번 LOCAL_FAST 작업을 원격으로 전환하는 사유가 아니다.
 
 ### 8. 연속 개발 최종 판정
 
@@ -201,7 +201,7 @@ D:/workspace/Vocaflow는 design/replica-first, HEAD 8cd15b7b6, MERGE_HEAD fbe532
 
 ## 부록. 현재 등록 작업트리 75개
 
-main 반영은 커밋 조상 여부이며 미커밋·기능 포팅의 포함 여부와 다르다. 상태는 위 시점의 관측이며 다른 세션의 후속 변경을 자동 고정하지 않는다.
+main 반영은 코드 실사 시점의 커밋 조상 여부이며 미커밋·기능 포팅의 포함 여부와 다르다. HEAD는 실사 스냅샷이며 이 뒤 이번 보고서만 추가된 커밋 SHA는 백업 manifest와 최종 응답에서 확인한다. 상태는 위 시점의 관측이며 다른 세션의 후속 변경을 자동 고정하지 않는다.
 
 | 공간 | 브랜치 | HEAD | 상태 | 추적/미추적/충돌 | local main / remote main 조상 | 보존·정리 판정 |
 |---|---|---|---|---|---|---|
@@ -248,10 +248,10 @@ main 반영은 커밋 조상 여부이며 미커밋·기능 포팅의 포함 여
 | Vocaflow-factory-qualification-v1 | research/factory-qualification-v1 | e5b24b1eb | REVIEW_REQUIRED | 0/0/0 | 아니오 / 아니오 | 깨끗하지만 미사용·소유 확인 부족 · 유지 |
 | Vocaflow-factory-qualification-v11 | research/factory-qualification-v11 | a658fa39a | REVIEW_REQUIRED | 0/0/0 | 아니오 / 아니오 | 깨끗하지만 미사용·소유 확인 부족 · 유지 |
 | Vocaflow-final-independent | review/final-independent-20261018 | 90336bd9f | ACTIVE | 0/0/0 | 아니오 / 아니오 | 등록 UUID 세션 재개 로그 최근 갱신 · 유지 |
-| Vocaflow-final-product | feat/vocaflow-final-product | ac9f309dc | DIRTY | 2/1/0 | 아니오 / 아니오 | 미커밋 보존 · 유지 |
+| Vocaflow-final-product | feat/vocaflow-final-product | f9dd70ea4 | ACTIVE | 2/1/0 | 아니오 / 아니오 | 살아 있는 담당 잠금 · 유지 |
 | Vocaflow-g2-int | (detached) | d5fea7ec7 | DIRTY | 3/1/0 | 예 / 예 | 미커밋 보존 · 유지 |
 | Vocaflow-hakpyeong | fix/hakpyeong-resume-20261010 | 8f7ad5a88 | DIRTY | 0/1/0 | 예 / 예 | 미커밋 보존 · 유지 |
-| Vocaflow-integration | local/integration | e23e32cd8 | REVIEW_REQUIRED | 0/0/0 | 예 / 아니오 | 깨끗하지만 미사용·소유 확인 부족 · 유지 |
+| Vocaflow-integration | local/integration | e23e32cd8 | ACTIVE | 1/3/0 | 예 / 아니오 | 살아 있는 담당 잠금 · 유지 |
 | Vocaflow-knowledge-verify | feat/knowledge-verify | 1d4062250 | DIRTY | 0/1/0 | 아니오 / 아니오 | 미커밋 보존 · 유지 |
 | Vocaflow-knowledge-vnext | feat/knowledge-vnext | 08f2dffb8 | DIRTY | 2/1/0 | 아니오 / 아니오 | 미커밋 보존 · 유지 |
 | Vocaflow-learner-shell-polish | feat/learner-shell-polish | 8c9af8f6b | DIRTY | 2/0/0 | 아니오 / 아니오 | 미커밋 보존 · 유지 |
