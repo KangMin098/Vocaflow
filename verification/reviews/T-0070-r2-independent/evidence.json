@@ -1,0 +1,16 @@
+{
+  "type": "unit",
+  "result": "pass",
+  "skip_count": 0,
+  "command_or_protocol": "Independent exact-head prior-findings6/6 + original-counterexamples7/7 + product related unit/SSR19/19; code acceptance only; browser/UI NOT_VERIFIED",
+  "observed_at": "2026-10-21T00:27:24.952Z",
+  "commit": "7c8eefe21f6b6cbcf8b470888a7de33b9edbe14a",
+  "artifact_path_or_url": "verification/reviews/T-0070-r2-independent/REVIEW.md",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "note": "No authenticated browser, UI evidence, official completion, integration or merge claimed. Source report retains these limits. Full suite not rerun."
+}

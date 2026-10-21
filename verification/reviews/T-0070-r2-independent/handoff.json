@@ -1,0 +1,13 @@
+{
+  "task_id": "T-0070",
+  "head": "7c8eefe21f6b6cbcf8b470888a7de33b9edbe14a",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "scope": "CODE_ONLY",
+  "status": "REVIEW",
+  "posted_at": "2026-10-21T00:27:55.184Z",
+  "delivery": "LOCAL_INBOX_POSTED",
+  "independent_evidence": "T-0070-R2-E03",
+  "remaining": "Authenticated isolated A/B; actual1440/1280 UI; no task completion/integration/merge",
+  "db_writes": 0,
+  "acknowledged": false
+}
