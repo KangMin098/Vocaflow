@@ -47,3 +47,20 @@ describe('창작 납품(loadAuthoredDeliveries)', () => {
     expect(await loadAuthoredDeliveries(db({ workspace_content_delivery: { data: [row], error: null } }, { workspace_delivery_current: { data: true, error: null } }), 'u')).toEqual([row])
   })
 })
+
+// T0078-P1-1 — Codex delivery-validity 반례 이식: 유효성 RPC 둘 다 오류 · null = 판정 없음(던짐) · 성공한 boolean 만 판정
+describe('납품 유효성(validOf)', () => {
+  const row = { id: 'd1', artifact_ref: 'authored:a', task_id: 'r.central_meaning', role: 'independent_check' }
+  const err = { data: null, error: { message: 'temporary RPC outage' } }
+  const ok = (d: unknown) => ({ data: d, error: null })
+  const run = (cur: Res, svc: Res) => loadAuthoredDeliveries(db({ workspace_content_delivery: ok([row]) }, { workspace_delivery_current: cur, supply_delivery_valid: svc }), 'u')
+  it('두 RPC 모두 오류 · 모두 null = 던짐(전부 비유효로 접지 않음)', async () => {
+    await expect(run(err, err)).rejects.toThrow('유효성 확인 실패')
+    await expect(run(ok(null), ok(null))).rejects.toThrow('유효성 확인 실패')
+  })
+  it('본인 RPC false = 비유효 · 대체 RPC true/false = 그 판정', async () => {
+    expect(await run(ok(false), err)).toEqual([])
+    expect(await run(err, ok(true))).toEqual([row])
+    expect(await run(err, ok(false))).toEqual([])
+  })
+})

@@ -302,10 +302,13 @@ export async function loadAuthoredDeliveries(db: Db, userId: string, roles: read
   const rows = (data ?? []) as { id: string; artifact_ref: string; task_id: string; role: string }[]
   // 학습자 세션: supply_delivery_valid 는 service_role 전용 → 본인 납품 유효성 RPC workspace_delivery_current(FI-007, auth.uid() 결속).
   // service_role(/csat 홈): auth.uid() 가 없어 위 RPC 가 null → supply_delivery_valid 로(행은 이미 user_id 로 걸렀다). 실패 · null = 비유효(fail-closed)
+  // T0078-P1-1 — 성공한 명시적 boolean 만 판정으로 받는다(본인 RPC false = 비유효 · 대체 RPC true/false = 그 판정). 둘 다 오류 · null 이면 비유효로 접지 않고 던진다 → 납품 조회 실패(원장 미확인)
   const validOf = async (id: string) => {
     const mine = await db.rpc('workspace_delivery_current', { p_delivery: id })
     if (!mine.error && typeof mine.data === 'boolean') return mine.data
-    return (await db.rpc('supply_delivery_valid', { p_delivery: id })).data === true
+    const svc = await db.rpc('supply_delivery_valid', { p_delivery: id })
+    if (!svc.error && typeof svc.data === 'boolean') return svc.data
+    throw new Error(`창작 납품 유효성 확인 실패: ${svc.error?.message ?? mine.error?.message ?? 'no verdict'}`)
   }
   const valid = await Promise.all(rows.map((r) => validOf(r.id)))
   return rows.filter((_, i) => valid[i])
