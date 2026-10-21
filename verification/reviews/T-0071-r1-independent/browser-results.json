@@ -1,0 +1,42 @@
+{
+  "head": "f573e31240eb6ea51f87cf090be46b35a86e9aeb",
+  "environment": "actual Chromium + actual React component; next/link shim; mocked GET; no actual accounts/Next/DB/full visual evidence",
+  "results": [
+    {
+      "case": "lazy GET-only normal read",
+      "passed": true,
+      "requests": [
+        "GET"
+      ],
+      "errors": []
+    },
+    {
+      "case": "revocation metadata update removes learning link",
+      "passed": false,
+      "actual_links": 1
+    },
+    {
+      "case": "delivery read failure invalidates current links",
+      "passed": false,
+      "unknown": 0,
+      "actual_links": 1
+    },
+    {
+      "case": "same-TASK changed viewer/delivery cannot retain prior scope note",
+      "passed": false,
+      "prior_scope_note_visible": true
+    },
+    {
+      "case": "late state response after delivery scope change discarded",
+      "passed": false,
+      "prior_scope_note_visible": true
+    },
+    {
+      "case": "control TASK-key remount discards prior response",
+      "passed": true,
+      "prior_scope_note_visible": false
+    }
+  ],
+  "passed": 2,
+  "failed": 4
+}
