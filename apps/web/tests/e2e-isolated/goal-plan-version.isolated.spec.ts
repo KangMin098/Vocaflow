@@ -2,8 +2,9 @@
 //
 // T-0072 — 목표를 바꾼 뒤 이전 PLAN 을 지금 목표의 확정 계획처럼 보이지 않고, 새 목표로 다시 확정하면 다음 실제 활동으로 이어진다
 // (격리 · 실제 Next · 실제 Chromium · 공유 개발 DB 무관).
-//   시험 기록 → 목표 A → PLAN 확정 → 목표 B 로 변경 → 지도 상단 CTA = 「계획 다시 확정하기」(목표 변경 이유) · 편집기 = 그때 목표 기준 안내 ·
-//   기본 사유 goal_change → 키보드 재확정 → 서버 재조회 뒤 저장됨 · 새 버전이 목표 B 에 결속(append-only · 이전 버전 보존) → 상단 CTA 가 실제 활동.
+//   시험 기록 → 목표 A → PLAN 확정 → 목표 B 로 변경 → 지도를 여는 것만으로 저장 없음 → 그 묶음 편집기 = 그때 목표 기준 안내 · 저장됨 아님 ·
+//   기본 사유 goal_change → 키보드 재확정 → 저장됨 · 새 버전이 목표 B 에 결속(append-only · 이전 버전 보존) → 지도를 새로 열어(서버 재조회) 같은 묶음이 지금 목표 저장 상태.
+//   상단 CTA 는 ActionRank 첫 TASK 를 따른다 — 이 합성 학습자에게는 다른 묶음 TASK 라 여기서 단언하지 않는다(첫 CI 39551480304 에서 확인: 상단은 다른 TASK 의 「자료 받으러 가기」).
 import { expect, test } from '@playwright/test'
 import { createClient } from '@supabase/supabase-js'
 
@@ -45,11 +46,9 @@ for (const width of [1440, 1280]) {
     const plans = async () => ((await admin().from('learner_workspace_plan').select('plan_version, reason, goal_version_id').eq('user_id', uid).order('plan_version')).data ?? [])
     expect(await plans()).toEqual([{ plan_version: 1, reason: 'initial', goal_version_id: goalA }])
 
-    // 지도 — 상단 CTA 는 실행이 아니라 이 묶음 계획 다시 확정(목표 변경 이유)
+    // 지도 — 여는 것만으로 저장하지 않는다
     await page.goto('/csat/diagnosis?tab=map&view=full', { waitUntil: 'domcontentloaded' })
     await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
-    await expect(page.locator('[data-testid="umap-next-plan-note"]'), '목표 변경 이유').toContainText('목표가 바뀌었어요')
-    await expect(page.locator('[data-testid="umap-top-next"]'), '실행이 아니라 계획 다시 확정').toHaveAttribute('data-kind', 'plan')
     expect(await plans(), '지도를 여는 것만으로 저장하지 않는다(숨은 POST 없음)').toHaveLength(1)
     await test.info().attach(`goalver-before-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
 
@@ -73,12 +72,14 @@ for (const width of [1440, 1280]) {
     await test.info().attach(`goalver-after-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
     await page.keyboard.press('Escape')
 
-    // 상단 CTA 가 실제 다음 활동(계획 확정 요구가 아님)
+    // 서버 재조회 — 지도를 새로 열면 같은 묶음 계획이 지금 목표로 저장된 상태 · 목표 변경 안내 없음
     await page.goto('/csat/diagnosis?tab=map&view=full', { waitUntil: 'domcontentloaded' })
     await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
-    await expect(page.locator('[data-testid="umap-next-plan-note"]'), '계획 확정 요구가 사라짐').toHaveCount(0)
-    const next = page.locator('a[data-testid="umap-top-next"]')
-    await expect(next, '실제 다음 활동 링크').toBeVisible()
-    expect(new globalThis.URL((await next.getAttribute('href'))!, 'http://x').searchParams.get('from'), '같은 지도 복귀 문맥').toBe('map')
+    await page.locator(`[data-testid="ws-row"][data-ws="${WS}"] [data-testid="ws-open"]`).click()
+    const dlg2 = page.locator(`[role="dialog"][data-ws="${WS}"]`)
+    await dlg2.locator('[data-testid="ws-tab-plan"]').click()
+    await expect(dlg2.locator('[data-testid="plan-save-state"]')).toHaveAttribute('data-state', 'saved')
+    await expect(dlg2.locator('[data-testid="plan-goal-changed"]')).toHaveCount(0)
+    expect(await plans(), '다시 열어도 추가 저장 없음').toHaveLength(2)
   })
 }
