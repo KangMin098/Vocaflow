@@ -1,0 +1,47 @@
+{
+  "head": "023c8474dbb286a19039117634bc40aa515665ba",
+  "environment": "actual React/Chromium, controlled delayed bind response, no authenticated Next/DB",
+  "url": "http://127.0.0.1:5173/",
+  "retryEnabled": true,
+  "beforeOldRebindReturns": "/csat/diagnosis?tab=map&view=full&map_task=e.task_demand&map_item=authored%3Asynthetic-probe&map_attempt=42",
+  "afterOldRebindReturns": "/csat/diagnosis?tab=map&view=full&map_task=e.task_demand&map_item=authored%3Asynthetic-probe&map_attempt=41",
+  "passed": false,
+  "requests": [
+    {
+      "url": "http://127.0.0.1:5173/api/csat/authored/synthetic-probe/attempt",
+      "body": {
+        "deliveryId": "11111111-1111-4111-8111-111111111111",
+        "response": {
+          "choice": 0
+        },
+        "clientSessionId": "7bd9dda3-1c13-4e83-9822-1da30d822dda",
+        "clientMutationId": "76c93895-23c7-4d2f-9f87-dddf66163690",
+        "answeredAt": "2026-10-21T09:44:10.730Z",
+        "helpLevel": "independent"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:5173/api/csat/delivery/bind",
+      "body": {
+        "kind": "authored_item",
+        "itemRef": "authored:synthetic-probe",
+        "clientMutationId": "76c93895-23c7-4d2f-9f87-dddf66163690",
+        "deliveryId": "11111111-1111-4111-8111-111111111111"
+      }
+    },
+    {
+      "url": "http://127.0.0.1:5173/api/csat/authored/synthetic-probe/attempt",
+      "body": {
+        "deliveryId": "11111111-1111-4111-8111-111111111111",
+        "response": {
+          "choice": 1
+        },
+        "clientSessionId": "ffce9be2-ab20-4940-8b91-36ecc0ff082f",
+        "clientMutationId": "15657b0d-d944-4e93-8468-67327ecb3246",
+        "answeredAt": "2026-10-21T09:44:10.909Z",
+        "helpLevel": "viewed_first"
+      }
+    }
+  ],
+  "errors": []
+}

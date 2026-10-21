@@ -1,0 +1,3 @@
+﻿import { createRoot } from 'react-dom/client'
+import { AuthoredRunner } from '@/components/csat/authored/AuthoredRunner'
+createRoot(document.getElementById('root')!).render(<AuthoredRunner id="synthetic-probe" deliveryId="11111111-1111-4111-8111-111111111111" role="independent_check" format="demand_choice" sentences={['A synthetic sentence for a controlled browser check.', 'A second synthetic sentence.']} stem="Synthetic question" choices={['A','B','C','D','E']} teach={null} hints={null} extra={{taskStem:'Synthetic task'}} probe={null} done={null} retry={false} returnHref="/csat/diagnosis?tab=map&view=full&map_task=e.task_demand&map_item=authored%3Asynthetic-probe" />)

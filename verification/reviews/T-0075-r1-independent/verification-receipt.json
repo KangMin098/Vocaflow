@@ -1,0 +1,19 @@
+{
+  "task_id": "T-0075",
+  "head": "023c8474dbb286a19039117634bc40aa515665ba",
+  "decision": "REWORK",
+  "independent_focused": {
+    "passed": 64,
+    "failed": 0,
+    "skipped": 0
+  },
+  "independent_copied_browser": {
+    "passed": 16,
+    "failed": 0,
+    "scope": "actual React with controlled HTTP, not authenticated Next/DB"
+  },
+  "remaining_p1": "T0075-P1-1: stale reconnect changes new attempt42 return to old41",
+  "reuse": "If next HEAD changes only this client race, reuse these unchanged backend64 tests and covered normal16 scenarios; rerun targeted race/affected client checks and official authenticated bundle.",
+  "config_policy": "dev-minimal-20261020; current main_sync says local main is canonical and one daily sync/main bundle PR+CI. No task-only PR. Protected official integration to respect that policy and preserve foreign work.",
+  "recorded_at": "2026-10-21T09:47:22.305Z"
+}
