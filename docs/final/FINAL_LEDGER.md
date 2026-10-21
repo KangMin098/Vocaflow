@@ -231,3 +231,16 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 
 - GoalRecordBar: 목표 있음 · 시험 기록 0 · 직접 근거 0(no_record)에서도 기존 nextActionOf 의 다음 행동(저장 전 계획 확정 · 자료 받기 · 시작 · 기다림 이유)을 상단 주 행동으로 쓴다. 상태는 no_record 그대로 · 추천 아래 「기출 기록이 없어 근거가 부족해요 — 약점으로 정한 것은 없어요」 안내 유지(umap-no-record-note) · 「또는 기출 한 회 기록하기」는 보조. 다음 행동이 없으면 예전처럼 기록 CTA. 목표 없음 · 과거 보기는 실행 행동 없음. T-0072 목표 재확정 보호 그대로. 새 순위 · 진단 · 수량 · 저장 없음.
 - 검증(로컬): Codex no-record-start probe 3/3(기준 1 실패 → 통과 · 대조 2 유지) · no-record-start 5(계획 확정 · 같은 목표 자료 0 = 자료 받기 · 목표 변경 재확정 · 목표 없음 · 과거) · map-state-direct 3 · map/diagnosis 1335 · tsc 0 · lint 0. 실제 Chromium(실제 GoalRecordBar · 고정 데이터) 4/4: 1440/1280 미측정 안내 + plan CTA 키보드 → 같은 Workspace 계획 탭 · 기록 보조 · 넘침 0 / 목표 없음 · 과거 대조. 인증 격리 `map-no-record-start` 1440/1280(기록 0 → 목표 → plan 확정 → 자료 받기 → 필요 시 재확정 → start → 혼자 확인 1회 → 같은 Workspace → G2 근거 1 · 시험 기록 0 유지) 작성 — NOT_VERIFIED, 다음 공식 통합 묶음.
+
+## 21. T-0074 — 지금 확인한 범위 vs 정본 도달 조건 (2026-10-21)
+
+- GoalPlanSummary: 직접 확인(basis direct_check) 행에 기존 근거 칩(EvidenceChips · view.evidence)을 함께 보인다 — 지금 정책 통과여도 「시간 지나 다시 확인 · 아직 근거 없음」(delayedRetention NOT_ESTABLISHED)이 옆에 남고, 통과 행에는 「지금 정책의 다시 확인은 통과했어요 — 도달 조건의 「다른 날」 유지는 아직 확인하지 않았어요」 안내. 범위 자료 없음 = 「확인할 수 없어요 — 0개라는 뜻은 아니에요」 · 원장 불명확 = 범위 확인 불가 안내. 직접 근거 없는 행에는 칩 · 안내 없음. GoalRecordBar 이유 문구에도 다시 확인 근거 없음. 정본 도달 조건 원문 · 새 판정 · 숙달/학습 효과/장기 유지 문구 없음.
+- 검증(로컬): Codex criterion-scope probe 3/3 · criterion-scope 렌더 5 · 관련 21 · tsc 0 · lint 0. 실제 Chromium(실제 React GoalPlanSummary · 고정 데이터) 2/2: 1440/1280 통과 · 미측정 · 원장 불명확 행 · 키보드 펼치기 · 넘침 0. 인증 격리 journey pass 분기에 요약 칩 · 안내 단언 추가 — NOT_VERIFIED, 다음 공식 통합 묶음.
+
+## 22. T-0075 — 풀이 저장 뒤 자료 연결 실패 복구 · 같은 수행 지도 복귀 (2026-10-21)
+
+- AuthoredRunner 「다시 연결하기」: fetch 거절 · HTTP 오류 · JSON 모양 이상을 잡아 「방금 다시 연결하지 못했어요 — 풀이와 답은 그대로」 + 같은 버튼(키보드)으로 재시도. 결과 · 답 · clientMutationId · deliveryId 보존, 답 재전송 · 새 시도 없음, 반복 클릭 잠금 · finally 복원 유지. 첫 응답에 결속 메타가 없으면 「연결됐는지 확인하지 못했어요」 + 다시 연결하기(이전엔 아무것도 안 보였다).
+- 결속 문구(binding-feedback.ts): evidence===true 만 「혼자 해낸 근거」. false 는 DB CHECK 닫힌 사유 7개만 사실대로(철회 · 첫 노출 아님 · 노출 확인 불가 · 자격 변경 · 납품 무효 · 도움 상태 불일치 · 연습 자료). 누락 · null · 미지 사유 = 확인 못 함 — 「연습 · 도움 받은 풀이」로 추정하던 문구 제거.
+- 복귀: bind API 가 boundAttemptId(학습자 세션 · user_id · 결속 id 로 결속 행의 attempt_id — server.ts 정상 제출과 같은 helper)를 함께 돌려주고, Runner 는 양의 정수만 받아 map_attempt 로 잇는다. 조회 실패 · 남의 결속 · 없음 = null(이번 활동 특정 안 함). 새 표 · SQL · 판정 없음.
+- 검증(로컬): binding-feedback 6 · bind route 3 · PGlite authored-flow 45(복구 멱등 · 같은 수행 id · 시도/결속 행 수 불변 · 다른 학습자/결속 아님/모르는 id null 포함) · authored Runner/delivery-binding 관련 · tsc 0 · lint 0. 실제 Chromium(실제 AuthoredRunner · 통제 HTTP 응답 · 인증/DB 아님) 16/16: 1440/1280 × unknown · revoked · network(첫 거절 → 키보드 재시도 성공) · http · shape · recovered · 메타 손실 · normal — 시도 POST 1 · bind 같은 제출 id/납품 · 오류 0 · 넘침 0. 인증 journey 에 통제 손실(실제 저장 · 결속 후 첫 응답 메타만 삭제) → 실제 bind API → 같은 attempt 복귀 · 시도/G2/PLAN 행 수 불변 단언 추가 — NOT_VERIFIED, T0074 와 한 공식 통합 묶음.
+- REWORK(Codex T0075-P1-1 · 023c8474d): 안내 연습 A 다시 연결 대기 중 「다시 풀기」 → 새 제출 B 저장 → 늦은 A 응답이 B 결과에 map_attempt=41 을 붙였다. 수정: 다시 연결 중 again 핸들러 · 버튼 잠금 + 응답 도착 시 보낸 제출과 지금 제출이 다르면 응답 버림(stale). P2: 비근거 사유는 표의 자기 키만(Object.hasOwn — toString 등 상속 키 = 확인 못 함). 검증: Codex race 장치 1440/1280 통과(재시도 비활성 · 오류 0) · 기존 16/16 재통과 · 관련 26 · tsc 0 · lint 0.

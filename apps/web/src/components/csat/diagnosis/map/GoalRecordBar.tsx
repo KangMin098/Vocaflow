@@ -188,6 +188,8 @@ function whyText(n: NextAction): string {
   if (n.why.need) parts.push(`${NEED_LABEL[n.why.need]}이 필요한 TASK`)
   if (n.why.evidence) parts.push(TASK_EVIDENCE_LABEL[n.why.evidence])
   if (n.why.items) parts.push(`목표 시험에서 이 힘을 쓰는 문항 ${n.why.items}개${n.why.pointsPerExam ? `(회당 ${n.why.pointsPerExam}점)` : ''}`)
+  // T-0074 — 지금 정책 통과는 도달 조건 전체가 아니다(시간 지나 다시 확인은 아직 근거 없음)
+  if (n.why.evidence === 'resolved') parts.push('시간 지나 다시 확인은 아직 근거 없음')
   return parts.length ? parts.join(' · ') : '목표와 관련된 순서의 첫 TASK 예요 — 약점 확정이 아니에요.'
 }
 
