@@ -1,0 +1,51 @@
+{
+  "task": "T-0045",
+  "observed_at": "2026-10-21T14:58:00.969Z",
+  "base": "9ce04cb2e2ceb8e9dc67ad7098ba2f4c7bd6d8c6",
+  "head": "d87f6b8bf1eb5ed75b49d5097f10b2bd94cdba80",
+  "source_search": {
+    "owner": "final-product",
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "ack": "2026-10-21T14:53:41Z",
+    "result": "2026-10-21T14:54:30Z",
+    "direct_user_or_adopted_policy": "NOT_FOUND",
+    "closest": "Forwarded sdk-cli session instructions; do not infer authority beyond observed source"
+  },
+  "code": {
+    "ai_vs_human_records_separate": true,
+    "supply_predicate_accepts_ai": true,
+    "service_requests_public_and_assessment_release": true
+  },
+  "decision": {
+    "activation": "BLOCKED_EXTERNAL_POLICY_AND_DB_APPROVAL",
+    "human_gold_B_B2": "UNCHANGED",
+    "rights_C": "UNCHANGED",
+    "original_A_schema_scope": "UNCHANGED",
+    "software_isolated_evidence": "REUSABLE_FOR_EXACT_CODE_SCOPE; not human approval or rights",
+    "doc_correction": "ACCEPT_WITH_LIMITS"
+  },
+  "changes": {
+    "documents": 3,
+    "code": 0,
+    "SQL": 0,
+    "db_writes": 0,
+    "new_gates": 0,
+    "new_workers": 0
+  },
+  "verification": {
+    "risk": "L1 document correction",
+    "relative_links_checked": 13,
+    "missing_links": 0,
+    "diff_check_exit": 0,
+    "sql_sha_unchanged": [
+      "dfb29f2dc3c3c0ecf516bdf47efa1d50f2f203ef7d399a60f3072d57c93ac229",
+      "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d"
+    ],
+    "unit_and_browser": "NOT_RUN_UNCHANGED_CODE"
+  },
+  "integration": {
+    "main_clean": true,
+    "lock_released": true,
+    "remote": "NOT_RUN_LOCAL_FAST"
+  }
+}
