@@ -44,7 +44,7 @@ pnpm wt remove <suffix> [--del-branch]
 pnpm wt sync
 ```
 
-`new`는 `feat/<suffix>`를 체크아웃한 기존 공간이 있으면 경로를 알려 주고 종료하며 파일·브랜치·서버·의존성을 바꾸지 않는다. 없으면 `../Vocaflow-<suffix>`에 생성한다. 기본 base는 현재 확인 가능한 `origin/main`이며 없으면 로컬 `main`이다. 이 명령은 fetch하지 않으므로 최신 원격 확인이 필요하면 먼저 명시적으로 fetch한다. 임의 이름의 기능 공간은 `wt list`에서 찾아 직접 재사용한다. 설치는 새 공간에서만 실행하며 `--no-install`로 생략한다. Windows PowerShell 정책이 `.ps1` 래퍼를 막으면 설치된 `pnpm.cmd`를 사용하고 보안 정책을 바꾸지 않는다.
+`new`는 `feat/<suffix>`를 체크아웃한 기존 공간이 있으면 경로를 알려 주고 종료하며 파일·브랜치·서버·의존성을 바꾸지 않는다. 없으면 `../Vocaflow-<suffix>`에 생성한다. 기본 base는 main과 origin/main의 조상 관계로 뒤처지지 않은 쪽이다. LOCAL_FAST에서 로컬 main이 앞서면 그 통합본을 잇고, 뒤처지면 origin/main을 쓴다. 갈라지면 새 생성의 base를 명시한다. 기존 공간 재사용은 이 경우에도 유지한다. 원격 ref가 없으면 로컬 main을 쓴다. 자동 fetch는 하지 않으므로 최신 원격 확인이 필요하면 먼저 명시적으로 fetch한다. 임의 이름의 공간은 `wt list`에서 찾아 재사용한다. 설치는 새 공간에서만 실행하며 `--no-install`로 생략한다. Windows PowerShell 정책이 `.ps1` 래퍼를 막으면 설치된 `pnpm.cmd`를 사용하고 보안 정책을 바꾸지 않는다.
 
 `remove`는 실제 등록된 공간의 브랜치를 확인한다. 소유 잠금·미통합 커밋·분리 HEAD를 보존하고, Git이 수정/미추적 파일이 있는 공간 제거를 거부하면 중단한다. `--del-branch`는 실제 브랜치에 안전한 `git branch -d`만 쓴다. 강제 삭제·자동 stash·reset·clean을 하지 않는다.
 
