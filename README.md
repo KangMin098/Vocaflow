@@ -12,7 +12,7 @@ Claude Code · Codex · ChatGPT 가 **같은 Vocaflow 플랫폼 목표**를 기�
 
 ## 구조
 
-FINAL MISSION 협업은 `config/dev-mode.json`의 `final_collaboration`에 명시된 mission과 owner에만 적용한다. 일반 개발의 `dynamic_roles`·`auto_codex_review`는 꺼진 상태를 유지한다. `VFC_AUTO_CODEX=0`은 FINAL 자동 리뷰도 중단한다. `doctor`의 작업별 `automatic_independent_review`·`dynamic_roles`와 실제 PID/세션을 함께 확인한다. 중앙 실행기는 살아 있는 담당자의 작업을 재인수하지 않으며, 기존 standalone owner-worker는 플랫폼 경로에서 실행하지 않는다. LOCAL_FAST는 명시된 Work 예외 없이 Work/GitHub를 호출하지 않는다.
+FINAL MISSION 협업은 `config/dev-mode.json`의 `final_collaboration`에 명시된 mission과 owner에만 적용한다. 일반 개발의 `dynamic_roles`·`auto_codex_review`는 꺼진 상태를 유지한다. `VFC_AUTO_CODEX=0`은 FINAL 자동 리뷰도 중단한다. `doctor`의 작업별 `automatic_independent_review`·`dynamic_roles`와 실제 PID/세션을 함께 확인한다. 중앙 실행기는 살아 있는 담당자의 작업을 재인수하지 않으며, 기존 standalone owner-worker는 플랫폼 경로에서 실행하지 않는다. LOCAL_FAST 일반 작업은 원격을 호출하지 않는다. 원격은 기존 백업·Work Bridge·`bin/main-sync.mjs` 일일 동기화로 분리한다. TASK 없는 로컬 main 통합은 `development_policy.local_integration`의 기존 잠금·검증 SHA 병합을 사용한다.
 
 기존 로컬 통합은 검증 HEAD **전체**를 병합한다. 오래된 통합 기준선과 제품 브랜치의 누적 변경은 개별 TASK의 작은 검증 범위로 승인하지 않는다. aggregate 수용/공식 통합으로 기준선을 정리하기 전에는 `integration_blocked`가 정상적인 중단이며, 설정·큐 등록·리뷰 성공을 연속 제품 통합 성공으로 보고하지 않는다. SQL 적용·사람 Gold·권리 승인은 별개다.
 

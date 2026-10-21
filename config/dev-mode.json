@@ -1,6 +1,7 @@
 {
-  "$comment": "개발 모드(lib/devmode.mjs). LOCAL_FAST = 일반 개발 GitHub 호출 0(PR · Actions · push · 원격 병합). 원격은 bin/backup.mjs(하루 최대 1회 + 복구 시점)와 Work Bridge 만. 일시 전환은 VFC_DEV_MODE=GITHUB.",
+  "$comment": "개발 모드(lib/devmode.mjs). LOCAL_FAST 일반 작업은 GitHub 호출 없이 진행한다. 원격은 기존 백업·Work Bridge와 bin/main-sync.mjs 일일 통합 PR로 분리한다. 공식 원격 통합만 VFC_DEV_MODE=GITHUB를 사용한다.",
   "mode": "LOCAL_FAST",
+  "main_worktree": "D:/workspace/Vocaflow-main-serving",
   "dynamic_roles": false,
   "auto_integrate": true,
   "auto_codex_review": false,
@@ -14,7 +15,7 @@
   },
   "development_policy": {
     "version": "dev-minimal-20261020",
-    "instruction": "Vocaflow 개발 단계의 최신 사용자 지시다. 오래된 worktree의 일반 개발 절차와 충돌하면 이 절차를 따른다. 제품 정본·권한·DB 승인은 바꾸지 않는다.",
+    "instruction": "Vocaflow 개발 단계의 최신 사용자 지시다. 오래된 worktree의 일반 개발 절차와 충돌하면 이 절차를 따른다. 요청→목표 확인→기획·설계→구현→영향 범위 테스트→제품 검증→커밋→로컬 통합을 하나의 연속 작업으로 수행한다. 완료 기준은 요청한 제품 기능의 실제 달성이다. 제품 정본·권한·DB 승인은 바꾸지 않는다.",
     "verification": {
       "L1": "문구·스타일·비기능 문서: 관련 정적 검사, 필요한 화면 확인",
       "L2": "일반 기능: 영향 범위 단위·타입·기능 검증",
@@ -25,7 +26,7 @@
     "safety": "DB 변경·데이터 삭제 승인, 비밀정보, 인증·접근 통제, 다른 작업자의 변경, 파괴적 Git 차단, PR 범위·HEAD 결속, 필요한 테스트 실제 통과를 유지한다. skip·미실행·REVIEW_UNKNOWN을 PASS로 만들지 않는다. 기존 명시적 독립 검토 계약은 자동 완화하지 않는다.",
     "db_apply": "DB 마이그레이션·쓰기: 에이전트가 SQL·영향 범위를 보여주고 사용자가 대화에서 승인하면 그 자리에서 apply_migration(Claude는 mcp__supabase__*, 도구 권한 허용됨 2026-10-21)으로 적용한다. 승인 전 실행 금지. 데이터 삭제·DROP·TRUNCATE는 내용을 따로 밝혀 별도 명시 승인. 대량·단계 배포는 승인형 배포 러너.",
     "main_sync": "로컬 main(main_worktree, 3000)이 정본이다. 원격 반영은 bin/main-sync.mjs가 미반영 커밋이 있을 때만 하루 1회 sync/main-YYYYMMDD PR 하나로 CI→safe-merge(VFC_DEV_MODE=GITHUB, scope 계약) 처리하고, main-serving이 잠금 없고 깨끗하면 병합 커밋을 역동기화한다(Windows 작업 스케줄러 VocaflowMainSync가 매일 실행). 실패는 기록만 하고 로컬 개발을 막지 않는다. GitHub PR로 origin/main에 직접 병합한 세션은 같은 날 로컬 main에 origin/main을 합친다.",
-    "local_integration": "등록 TASK가 있으면 bin/local-integrate.mjs --task <ID>. 등록 TASK 없는 일반 개발은 영향 범위 검증 뒤 main_worktree에서 작업 브랜치를 git merge(잠금이 없고 미커밋 변경이 없을 때만, 충돌은 목적 기준 해결 후 관련 검사)로 로컬 main에 통합한다. 같은 워크트리에서 직접 한 작업은 그 자리 커밋이 곧 통합이다.",
+    "local_integration": "등록 TASK는 bin/local-integrate.mjs --task <ID>로 임시 integration에 통합한 뒤 main으로 수렴한다. TASK 없는 일반 개발은 검증한 커밋 SHA를 고정하고 main_worktree의 main·깨끗한 상태·진행 중 Git 작업 없음·다른 세션 소유 없음 확인→기존 lock.mjs acquire→git merge --no-ff <검증 SHA>→소유 잠금 release로 로컬 main에 통합한다. 충돌은 자동 폐기하지 않고 소유 작업만 해결·관련 재검증한다. main_worktree에서 직접 완료한 작업은 그 자리 커밋이 통합이다. TASK 등록·원격 접속·새 공간은 이 경로의 선행 조건이 아니다.",
     "task_registration": "단일 AI 세션이 끝낼 수 있는 일반 개발은 VFC TASK 등록 없이 진행한다. 여러 세션의 공식 분담·추적이 필요할 때만 등록하고, 등록 전 기존 TASK 중복을 확인한다. 단계(기획→설계→구현→검증→개선)가 바뀌어도 새 TASK·브랜치·세션·PR을 만들지 않는다.",
     "reporting": "일반 개발 최종 보고는 ① 구현·개선된 기능 ② 테스트·검증·통합 결과 ③ 미완료·실제 차단 사항만. 단순 변경마다 설계서·검토서·결과 보고서를 만들지 않고, 계약·제품 방향이 바뀐 정본만 갱신한다."
   },
