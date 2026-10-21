@@ -1,0 +1,19 @@
+{
+  "progress": {
+    "check": null,
+    "plan": {
+      "ws": "ws.central-meaning",
+      "name": "글의 핵심 잡기",
+      "planned": 2,
+      "done": 2,
+      "task": "r.discourse_function",
+      "resume": {
+        "name": "문장·문단 기능",
+        "planned": 4,
+        "done": 1,
+        "unit": "문항"
+      }
+    }
+  },
+  "href": "/csat?map_task=r.discourse_function&ws=ws.central-meaning"
+}

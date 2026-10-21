@@ -1,0 +1,407 @@
+{
+  "task_id": "T-0081",
+  "goal_id": "VG-L3-A3-02",
+  "related_goal_ids": [
+    "VG-L3-A1-02",
+    "VG-L3-B2-02"
+  ],
+  "template": null,
+  "title": "저장 계획 이어보기가 실제 미완료 TASK·Workspace로 연결",
+  "description": "FINAL F/H. 최신main824618f2b 실제지도Chromium1440/1280에서 홈continue_plan의 현재 URL(ws만전달)을 열면 명시한ws.central-meaning대신 앞서보던v.core_meaning/ws.vocab-context가 남는다. map_task+ws 대조는 중심의미/요청묶음복원. T0080 확인이어하기는수정됨; 이번은저장계획카드에실제미완료TASK문맥이없다는별도DTO공백이다.",
+  "priority": "P1",
+  "status": "COMPLETED",
+  "owner_id": "final-product",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "local_roles": true,
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "d:/workspace/vocaflow-final-product",
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/home-progress.ts",
+    "apps/web/src/lib/csat/map/__tests__/home-progress.test.ts",
+    "apps/web/src/components/csat/home/HomeLanding.tsx",
+    "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+    "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "ui_gate": true,
+  "ui_acceptance": [
+    "홈저장계획카드의키보드이어서보기로실제남은TASK와그Workspace로돌아간다. 현재수행량과저장계획을과장하지않고없는행은추정하지않는다.1440/1280의옛선택반례와실제파서/지도복원을확인한다."
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/lib/csat/skill-diagnosis.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+    "apps/web/src/lib/csat/map/v4/**",
+    "apps/web/src/lib/csat/map/v62/evidence-read.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/components/csat/diagnosis/map/**",
+    "scripts/audit/**"
+  ],
+  "db_scope": {
+    "mode": "none",
+    "targets": []
+  },
+  "approval_required": false,
+  "approval_kinds": [],
+  "approval": null,
+  "acceptance": [
+    "기존 mapProgressOf의 저장계획 추천에 그계획의 실제미완료TASK문맥을 실어 홈continue_plan이 map_task+ws로 요청한묶음을연다. 선택설계는이미계산한applySaved(v.plans[id], sw.latest)의현재TASK행에서 계획량/수행량상미완료인실제행을기존순서로선택; 기존Workspace우선순위·계획량·수행량·목표·단계판정은변경하지않는다. 임의TASK/핵심TASK를복사해넣거나없는수행을만들지않는다. 구현중같은기존함수로더간단히선택가능하면 근거와함께간소화가능. 실제남은행을확인못하는경우엉뚱한TASK를추정하지않고그이어하기제안을닫는다. 과거보기/목표없음/저장소미설치·조회실패/수행원장미확인/계획완료의기존보호유지.",
+    "HomeLanding continue_plan href는실제계획이어가기TASK와Workspace만기존mapReturnQuery로직렬화하고현재지도파서parseMapReturn이읽는mapTask/ws와같다. map_item/map_attempt/map_plan/map_goal·새수행영수증을이동만으로발급하지않는다. 그묶음의현재계획/재확정관문을우회하거나자동저장하지않는다. continue_check/T0080과홈오류/보류/복귀/진행중우선순위·수치문구는그대로, 새화면없음.",
+    "관련 L2/L3: 실제반례두너비에서먼저다른TASK/묶음을선택→실제계획카드href파싱으로재진입→요청한TASK/Workspace복원. actual mapProgressOf가core0·support미완료같은케이스도현재남은행에서선택하는지합성계획재료로확인; 현재mock progress-only시험은새계약을표현하는최소유효TASK행만추가하고완료/없음/에러단언은보존. 기존수행/진단/순위suite재실행불필요. 타입/lint/해당mapper·렌더·파서와실제React/Chromium1440/1280만. 인증home-map-evidence의평가본문첫노출전에(예: 계획/실제공급/재확정뒤start클릭전)계획카드복귀를단언해기존G2독립1과시험0보존; 여건없으면NOT_VERIFIED로다음일일공식묶음에남김. 작업별push/PR/CI·새실행기없음."
+  ],
+  "evidence": [
+    {
+      "evidence_id": "T-0081-R1-E01",
+      "run_seq": 1,
+      "recorded_by": "final-product",
+      "type": "unit",
+      "result": "pass",
+      "skip_count": 0,
+      "started_at": "2026-10-21T12:37:11Z",
+      "observed_at": "2026-10-21T12:37:11Z",
+      "commit": "39051223d85e80188a22307bdc9939aeeb4ac7eb",
+      "covers": [
+        0,
+        1,
+        2
+      ],
+      "artifact_path_or_url": "C:/Users/Administrator/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0081-unit.log",
+      "command_or_protocol": "home-progress 7 + HomeLanding render 7 = 14 pass · tsc 0 · lint 0",
+      "note": "LOCAL_FAST 로컬 커밋만. 수행/진단/순위 suite 재실행 안 함(지시).",
+      "artifact_sha256": "d335320a907241560b58f18ed3c9e80f098d63e6c330bb5d91e384c023adbf8d",
+      "recorded_at": "2026-10-21T12:37:15.806Z"
+    },
+    {
+      "evidence_id": "T-0081-R1-E02",
+      "run_seq": 1,
+      "recorded_by": "final-product",
+      "type": "e2e",
+      "result": "pass",
+      "skip_count": 0,
+      "started_at": "2026-10-21T12:37:11Z",
+      "observed_at": "2026-10-21T12:37:11Z",
+      "commit": "39051223d85e80188a22307bdc9939aeeb4ac7eb",
+      "covers": [
+        0,
+        1,
+        2
+      ],
+      "artifact_path_or_url": "C:/Users/Administrator/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0081-browser/results.json",
+      "command_or_protocol": "실제 mapProgressOf + 실제 React UnifiedLearningMap + Chromium(Codex compose fixture + 저장 계획 v1 · 같은 모듈 런타임 재마운트 · parseMapReturn(mapReturnQuery) · 인증 Next 아님) 2/2: 1440·1280 다른 TASK 키보드 선택 → 계획 카드 링크(/csat?map_task=r.central_meaning&ws=ws.central-meaning) 문맥 재진입 = 요청 TASK · 묶음 복원 · 오류 0",
+      "note": "인증 home-map-evidence 계획 카드 단언 NOT_VERIFIED. 캡처 plan-context-1440/1280.png.",
+      "artifact_sha256": "036f5c2f48877f086e9ec14e05eaf878616838ae19664d02659f259e1fef93fc",
+      "recorded_at": "2026-10-21T12:37:16.043Z"
+    },
+    {
+      "evidence_id": "T-0081-R2-E03",
+      "run_seq": 2,
+      "recorded_by": "final-product",
+      "type": "unit",
+      "result": "pass",
+      "skip_count": 0,
+      "started_at": "2026-10-21T12:46:28Z",
+      "observed_at": "2026-10-21T12:46:28Z",
+      "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+      "covers": [
+        0,
+        2
+      ],
+      "artifact_path_or_url": "C:/Users/Administrator/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0081-unit2.log",
+      "command_or_protocol": "Codex T-0081-r1 실제 applySaved probe 5/5(이 worktree 별칭) · home-progress(실제 applySaved 3: 중심2/2+보조4/1 · 중심null+보조4/1 · 순서/완료/원장/읽기오류) + HomeLanding render(집계 null 은 0 으로 말하지 않음 · 이어갈 항목 양 따로) = 18 · tsc 0 · lint 0",
+      "note": "LOCAL_FAST 로컬 커밋만.",
+      "artifact_sha256": "308e9909c0662ad9ba77692421b5e038f59e24e4d33807b3522922f4dd38f6c6",
+      "recorded_at": "2026-10-21T12:46:33.551Z"
+    },
+    {
+      "evidence_id": "T-0081-R2-E04",
+      "run_seq": 2,
+      "recorded_by": "final-product",
+      "type": "e2e",
+      "result": "pass",
+      "skip_count": 0,
+      "started_at": "2026-10-21T12:46:28Z",
+      "observed_at": "2026-10-21T12:46:28Z",
+      "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+      "covers": [
+        0,
+        1,
+        2
+      ],
+      "artifact_path_or_url": "C:/Users/Administrator/AppData/Local/Temp/claude/d--workspace-Vocaflow/c513ff5b-86ef-44a3-8efd-7925a229614b/scratchpad/t0081-browser/results.json",
+      "command_or_protocol": "실제 mapProgressOf + 실제 React HomeLanding 카드 + UnifiedLearningMap + Chromium 2/2: 1440·1280 카드 문구 '…계획에서 2개 중 0개를 했어요. 이어갈 항목: 중심 의미 2지문 중 0지문' · 카드 href = mapProgressOf 계산 href · 다른 TASK 선택 뒤 재진입 = map_task/ws 복원",
+      "note": "인증 home-map-evidence NOT_VERIFIED.",
+      "artifact_sha256": "7c025d098ae71dfa88ee2796e4b062a5e022c36438188e96c752e7b37cc4291c",
+      "recorded_at": "2026-10-21T12:46:33.795Z"
+    },
+    {
+      "evidence_id": "T-0081-R2-E05",
+      "run_seq": 2,
+      "recorded_by": "final-independent-accept",
+      "result": "pass",
+      "skip_count": 0,
+      "observed_at": "2026-10-21T12:53:51.362Z",
+      "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+      "type": "unit",
+      "covers": [
+        0,
+        1,
+        2
+      ],
+      "artifact_path_or_url": "verification/reviews/T-0081-r2-independent/results.json",
+      "command_or_protocol": "Actual saved projection/canonical membership/card/parser7/7; separately focused-results18/18. Original failure replay retained.",
+      "artifact_sha256": "bc71b65be998fb8eac2bb1f9cf2975e936eb473210de0213121cc86759b70ec3",
+      "recorded_at": "2026-10-21T12:53:51.490Z"
+    },
+    {
+      "evidence_id": "T-0081-R2-E06",
+      "run_seq": 2,
+      "recorded_by": "final-independent-accept",
+      "result": "pass",
+      "skip_count": 0,
+      "observed_at": "2026-10-21T12:53:51.362Z",
+      "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+      "type": "integration",
+      "covers": [
+        0,
+        1,
+        2
+      ],
+      "artifact_path_or_url": "verification/reviews/T-0081-r2-independent/browser/results.json",
+      "command_or_protocol": "Actual applySaved→mapProgress→HomeLanding→same-runtime actual UnifiedLearningMap restore, synthetic/HTTP/router shim, 4cases two widths; not authenticated server integration.",
+      "artifact_sha256": "59e2a6f6abf940e30aaf2d45018b1ad008e06dd34ee1ff7ba0c7977828dbf5fa",
+      "recorded_at": "2026-10-21T12:53:51.680Z"
+    },
+    {
+      "evidence_id": "T-0081-R2-E07",
+      "run_seq": 2,
+      "recorded_by": "final-independent-accept",
+      "result": "pass",
+      "skip_count": 0,
+      "observed_at": "2026-10-21T12:53:51.362Z",
+      "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+      "type": "review",
+      "covers": [
+        0,
+        1,
+        2
+      ],
+      "artifact_path_or_url": "verification/reviews/T-0081-r2-independent/REVIEW.md",
+      "command_or_protocol": "Independent fix verification; real aggregate and canonical support, scoped no P0/P1, auth E2E NOT_VERIFIED.",
+      "artifact_sha256": "018803eb26ac0da191889ac747382947a1bab3e831e5625af3e04b5f599ac9e0",
+      "recorded_at": "2026-10-21T12:53:51.883Z"
+    },
+    {
+      "evidence_id": "T-0081-R2-E08",
+      "run_seq": 2,
+      "recorded_by": "final-independent-accept",
+      "result": "pass",
+      "skip_count": 0,
+      "observed_at": "2026-10-21T12:53:51.362Z",
+      "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+      "type": "ui",
+      "covers": [
+        0,
+        1,
+        2
+      ],
+      "artifact_path_or_url": "verification/reviews/T-0081-r2-independent/browser/results.json",
+      "screenshots": [
+        "verification/reviews/T-0081-r2-independent/browser/support-2-1440.png",
+        "verification/reviews/T-0081-r2-independent/browser/support-null-1280.png"
+      ],
+      "urls": [
+        "http://127.0.0.1:5173/ (closed component harness)"
+      ],
+      "viewport": {
+        "width": 1280,
+        "height": 900
+      },
+      "environment": "Actual HomeLanding and UnifiedLearningMap React/Chromium1440/1280 with actual mapper-generated props, synthetic view, same-module router/HTTP shim; not authenticated Next/DB/global skin.",
+      "command_or_protocol": "node verification/reviews/T-0081-r2-independent/browser/run.mjs:4/4. Counts/provenance, null not0, Enter task/ws restore, no mutations/errors/overflow.",
+      "checks": {
+        "render": "pass",
+        "layout_pc": "pass",
+        "readability_hierarchy": "pass",
+        "design_system": "pass",
+        "journey_interaction": "pass",
+        "states": "pass",
+        "accessibility": "pass",
+        "navigation_progress": "pass",
+        "visual_regression": "pass",
+        "design_acceptance": "pass"
+      },
+      "ui_acceptance_results": [
+        "pass"
+      ],
+      "defects": [],
+      "note": "Task-scoped count explanation and keyboard restoration checks; unchanged layout/styles, not complete global reference/contrast audit.",
+      "artifact_sha256": "59e2a6f6abf940e30aaf2d45018b1ad008e06dd34ee1ff7ba0c7977828dbf5fa",
+      "screenshots_sha256": [
+        {
+          "path": "verification/reviews/T-0081-r2-independent/browser/support-2-1440.png",
+          "sha256": "02737d4631fa0538fb4e90e131946005a87d49eb027160e86bdac1e6c3c3f331"
+        },
+        {
+          "path": "verification/reviews/T-0081-r2-independent/browser/support-null-1280.png",
+          "sha256": "c00ecff69d59b0c76cf0853e9d8b740af7031e6ce2a675b09f6de6f462648585"
+        }
+      ],
+      "recorded_at": "2026-10-21T12:53:52.074Z"
+    }
+  ],
+  "run_seq": 2,
+  "depends_on": [
+    "T-0080"
+  ],
+  "criterion_claims": [
+    {
+      "criterion_id": "VG-L3-A3-02-AC1",
+      "claim": "partial"
+    }
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-A3-02",
+    "acceptance_ids": [
+      "VG-L3-A3-02-AC1"
+    ],
+    "current_gap": "main824618f2b actual UnifiedLearningMap Chromium two widths: existing continue_plan href ws.central-meaning only retains v.core_meaning/ws.vocab-context; explicit map_task control restores requested central Workspace. Actual Next authenticated path not claimed.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "저장계획의실제미완료TASK와홈링크결속",
+      "명시한Workspace복원과옛선택음성대조",
+      "수량/목표/원장보호/평가첫노출불변"
+    ],
+    "next_dependency": "로컬독립수용/통합후기존일일공식묶음의인증계획카드복귀. 실제DB/Gold/권리별개.",
+    "out_of_scope": [
+      "현재지도초기선택정책변경",
+      "새계획량/숙달/순위정책",
+      "DB/API/SQL/권리승인",
+      "새UI/실행기"
+    ],
+    "dependency_type": "direct",
+    "canon_version": "1.1.0",
+    "base_commit": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+    "duplicate_reason": "final-product 활성0. T0080은continue_check 한줄변경만수용했고다른제안분기는반례없이넓히지않았다. 이번은continue_plan의워크스페이스요청이무시되는실제두너비반례를새로확인했다. 같은목표의다른소유작업/전체지도는변경하지않는다.",
+    "gate_ms": 0.9592
+  },
+  "flags": [],
+  "pr": null,
+  "requires_ci": false,
+  "verified_commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+  "orchestration": {
+    "rounds": 0,
+    "failures": {},
+    "budget_used_usd": 0
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_revision": "rev1",
+    "design_id": "FINAL-HOME-PLAN-RESUME-CONTEXT-rev1",
+    "goals_ah": [
+      "F",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "canonical_main": "824618f2bdc02678a08d49ccc6e8bafdf8603fb5",
+    "source_base": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+    "scope_main_source_diff": "Home progress/landing production files equal at sourcee355 and canonical main824; unrelated main edits retained.",
+    "probe": "verification/reviews/NEXT-HOME-PLAN-CONTEXT/run.mjs",
+    "baseline": "verification/reviews/NEXT-HOME-PLAN-CONTEXT/results.json",
+    "delivery": "QUEUED until actual ACK/start"
+  },
+  "created_at": "2026-10-21T12:32:56.590Z",
+  "updated_at": "2026-10-21T12:53:52.264Z",
+  "history": [
+    {
+      "at": "2026-10-21T12:32:56.590Z",
+      "from": null,
+      "to": "READY",
+      "by": "final-independent-accept",
+      "note": "created"
+    },
+    {
+      "at": "2026-10-21T12:33:39.079Z",
+      "from": "READY",
+      "to": "IN_PROGRESS",
+      "by": "final-product",
+      "note": "c513ff5b-86ef-44a3-8efd-7925a229614b"
+    },
+    {
+      "at": "2026-10-21T12:37:16.300Z",
+      "from": "IN_PROGRESS",
+      "to": "REVIEW",
+      "by": "final-product",
+      "note": null
+    },
+    {
+      "at": "2026-10-21T12:40:41.236Z",
+      "from": "REVIEW",
+      "to": "READY",
+      "by": "final-independent-accept",
+      "note": "rejected: T0081-P1-1: real core-only progress gate drops unfinished support rows; preserve aggregate and show separate continuation-row amount (review=verification/reviews/T-0081-r1-independent/REWORK.md)"
+    },
+    {
+      "at": "2026-10-21T12:43:46.941Z",
+      "from": "READY",
+      "to": "IN_PROGRESS",
+      "by": "final-product",
+      "note": "c513ff5b-86ef-44a3-8efd-7925a229614b"
+    },
+    {
+      "at": "2026-10-21T12:46:34.048Z",
+      "from": "IN_PROGRESS",
+      "to": "REVIEW",
+      "by": "final-product",
+      "note": null
+    },
+    {
+      "at": "2026-10-21T12:53:52.264Z",
+      "from": "REVIEW",
+      "to": "COMPLETED",
+      "by": "final-independent-accept",
+      "note": "review=verification/reviews/T-0081-r2-independent/REVIEW.md"
+    }
+  ],
+  "run": {
+    "run_seq": 2,
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "agent": "claude",
+    "pid": 19636,
+    "host": "SKCC23N00265",
+    "started_at": "2026-10-21T12:43:46.941Z",
+    "locks": [],
+    "product_lock_token": null,
+    "worker_id": "w-final-product-a2a98d",
+    "generation": 1,
+    "start_head": "39051223d85e80188a22307bdc9939aeeb4ac7eb",
+    "ended_at": "2026-10-21T12:46:34.048Z"
+  },
+  "dispatch": {
+    "to": "final-product",
+    "at": "2026-10-21T12:40:41.341Z",
+    "accepted_at": "2026-10-21T12:43:46.941Z",
+    "accepted_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "generation": 1
+  },
+  "review_record": "verification/reviews/T-0081-r2-independent/REVIEW.md",
+  "reviewed_by": "final-independent-accept",
+  "review_record_sha256": "018803eb26ac0da191889ac747382947a1bab3e831e5625af3e04b5f599ac9e0"
+}

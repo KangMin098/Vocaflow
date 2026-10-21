@@ -1,0 +1,19 @@
+{
+  "evidence_id": "T-0081-R2-E06",
+  "run_seq": 2,
+  "recorded_by": "final-independent-accept",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T12:53:51.362Z",
+  "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+  "type": "integration",
+  "covers": [
+    0,
+    1,
+    2
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0081-r2-independent/browser/results.json",
+  "command_or_protocol": "Actual applySaved→mapProgress→HomeLanding→same-runtime actual UnifiedLearningMap restore, synthetic/HTTP/router shim, 4cases two widths; not authenticated server integration.",
+  "artifact_sha256": "59e2a6f6abf940e30aaf2d45018b1ad008e06dd34ee1ff7ba0c7977828dbf5fa",
+  "recorded_at": "2026-10-21T12:53:51.680Z"
+}

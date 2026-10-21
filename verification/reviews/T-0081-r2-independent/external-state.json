@@ -1,0 +1,9 @@
+{
+  "observed_at": "2026-10-21T12:52:23.479538Z",
+  "mode": "read_only",
+  "query": "select now(), to_regclass('public.authored_item'), array(select tablename from pg_catalog.pg_tables where schemaname='public' and tablename like 'content_human_decision%');",
+  "authored_item": null,
+  "human_decision_tables": [],
+  "interpretation": "Deployment/decision-table evidence absent in actual development DB. Does not establish whether offline human review occurred. No dev supply/approval claim.",
+  "db_write": false
+}

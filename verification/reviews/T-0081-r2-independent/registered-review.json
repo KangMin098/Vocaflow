@@ -1,0 +1,19 @@
+{
+  "evidence_id": "T-0081-R2-E07",
+  "run_seq": 2,
+  "recorded_by": "final-independent-accept",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T12:53:51.362Z",
+  "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+  "type": "review",
+  "covers": [
+    0,
+    1,
+    2
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0081-r2-independent/REVIEW.md",
+  "command_or_protocol": "Independent fix verification; real aggregate and canonical support, scoped no P0/P1, auth E2E NOT_VERIFIED.",
+  "artifact_sha256": "018803eb26ac0da191889ac747382947a1bab3e831e5625af3e04b5f599ac9e0",
+  "recorded_at": "2026-10-21T12:53:51.883Z"
+}

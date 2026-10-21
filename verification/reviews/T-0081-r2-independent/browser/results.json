@@ -1,0 +1,60 @@
+{
+  "head": "99b35bb015577796d363cf490477ed5e89c07ddf",
+  "environment": "Actual HomeLanding card with actual applySaved/mapProgress generated DTO and actual UnifiedLearningMap; same-module navigation shim; HTTP mocks; no auth Next+DB/global skin",
+  "results": [
+    {
+      "width": 1440,
+      "case": "2",
+      "passed": true,
+      "text": "저장한 학습계획\n\n글의 핵심 잡기 계획에서 2개 중 2개를 했어요. 이어갈 항목: 문장·문단 기능 4문항 중 1문항\n\n계획 이어서 보기",
+      "href": "/csat?map_task=r.discourse_function&ws=ws.central-meaning",
+      "task": "r.discourse_function",
+      "ws": "ws.central-meaning",
+      "keyboard": true,
+      "overflow": 0,
+      "errors": [],
+      "posts": []
+    },
+    {
+      "width": 1440,
+      "case": "null",
+      "passed": true,
+      "text": "저장한 학습계획\n\n글의 핵심 잡기 계획을 이어서 할 수 있어요. 이어갈 항목: 문장·문단 기능 4문항 중 1문항\n\n계획 이어서 보기",
+      "href": "/csat?map_task=r.discourse_function&ws=ws.central-meaning",
+      "task": "r.discourse_function",
+      "ws": "ws.central-meaning",
+      "keyboard": true,
+      "overflow": 0,
+      "errors": [],
+      "posts": []
+    },
+    {
+      "width": 1280,
+      "case": "2",
+      "passed": true,
+      "text": "저장한 학습계획\n\n글의 핵심 잡기 계획에서 2개 중 2개를 했어요. 이어갈 항목: 문장·문단 기능 4문항 중 1문항\n\n계획 이어서 보기",
+      "href": "/csat?map_task=r.discourse_function&ws=ws.central-meaning",
+      "task": "r.discourse_function",
+      "ws": "ws.central-meaning",
+      "keyboard": true,
+      "overflow": 0,
+      "errors": [],
+      "posts": []
+    },
+    {
+      "width": 1280,
+      "case": "null",
+      "passed": true,
+      "text": "저장한 학습계획\n\n글의 핵심 잡기 계획을 이어서 할 수 있어요. 이어갈 항목: 문장·문단 기능 4문항 중 1문항\n\n계획 이어서 보기",
+      "href": "/csat?map_task=r.discourse_function&ws=ws.central-meaning",
+      "task": "r.discourse_function",
+      "ws": "ws.central-meaning",
+      "keyboard": true,
+      "overflow": 0,
+      "errors": [],
+      "posts": []
+    }
+  ],
+  "passed": 4,
+  "failed": 0
+}

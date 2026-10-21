@@ -1,0 +1,11 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/components/csat/home/HomeLanding.tsx",
+    "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+    "apps/web/src/lib/csat/map/__tests__/home-progress.test.ts",
+    "apps/web/src/lib/csat/map/home-progress.ts",
+    "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

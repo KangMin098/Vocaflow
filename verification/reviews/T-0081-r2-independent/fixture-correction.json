@@ -1,0 +1,6 @@
+{
+  "corrected_fixture": "Original independent fixture used e.task_demand as a central-meaning support row, which is not a canon membership. Corrected to templateOf(ws.central-meaning).support r.discourse_function and asserted membership. This is a harness correction, not a new product defect.",
+  "before_after": "Actual old mapper390512 is replayed against the same valid synthetic plan; it returns null for the two previously failed cases. Current99b35 returns the valid support row without changing real core aggregates.",
+  "browser_initial_mismatch": "Preserved invalid-fixture-workspace-mismatch.json; not counted as product failure or acceptance result.",
+  "owner_followup": "Optional test fixture membership cleanup, nonblocking; no new product scope or re-review gate."
+}

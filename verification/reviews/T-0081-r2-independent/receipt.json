@@ -1,0 +1,29 @@
+{
+  "task_id": "T-0081",
+  "design_revision": "rev1",
+  "head": "99b35bb015577796d363cf490477ed5e89c07ddf",
+  "verdict": "APPROVE",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "findings": [],
+  "verified_fixed": [
+    "T0081-P1-1"
+  ],
+  "ran_tests": true,
+  "verification": {
+    "independent": "7/7 with real applySaved, canonical support membership and actual HomeLanding serialization; replay original390512 null failures on corrected valid fixture, no skips",
+    "focused": "18/18 mapper and renderer, no skips",
+    "browser": "4/4: core2/2 or null with support4/1 at1440/1280. Actual HomeLanding card→keyboard→actual UnifiedLearningMap; DTO from real saved-row mapper, router/HTTP shim; no auth Next/DB/global skin claim.",
+    "authenticated_e2e": "NOT_VERIFIED",
+    "db_write": false
+  },
+  "provenance": {
+    "contract": "local-roles/1",
+    "task_id": "T-0081",
+    "head": "99b35bb015577796d363cf490477ed5e89c07ddf",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "owner": "final-independent-accept",
+    "session_id": "01a14de8-2485-7a53-b530-d5612f35e57a"
+  },
+  "recorded_at": "2026-10-21T12:53:51.362Z"
+}

@@ -1,0 +1,44 @@
+{
+  "task_id": "T-0081",
+  "source_head": "99b35bb015577796d363cf490477ed5e89c07ddf",
+  "base": "824618f2bdc02678a08d49ccc6e8bafdf8603fb5",
+  "task_delta_base": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+  "merge_sha": "c695198bd27742f7d60e506d010d10d3158249dd",
+  "tree": "5bc3b257825129972364be28cabba74c60eac5a7",
+  "commits": [
+    "39051223d85e80188a22307bdc9939aeeb4ac7eb",
+    "99b35bb015577796d363cf490477ed5e89c07ddf"
+  ],
+  "files": [
+    "apps/web/src/components/csat/home/HomeLanding.tsx",
+    "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+    "apps/web/src/lib/csat/map/__tests__/home-progress.test.ts",
+    "apps/web/src/lib/csat/map/home-progress.ts",
+    "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "source_foreign_edits_preserved": [
+    "scripts/audit/learner-linkgraph.result.json",
+    "scripts/audit/shell-reach.result.json"
+  ],
+  "target_worktree": "D:/workspace/Vocaflow-main-serving",
+  "method": "Existing exact-task staticGates and integrate helper; clean locked main. Preserve separate development-policy commits, do not touch local/integration or other writer edits.",
+  "p2_test_expectation": "T0079 isolated selector source corrected; authenticated daily-bundle E2E still NOT_VERIFIED.",
+  "remote_push": false,
+  "ci": false,
+  "db_write": false,
+  "observed_at": "2026-10-21T12:54:29.098Z",
+  "post_merge": {
+    "typecheck": {
+      "exit_code": 0
+    },
+    "focused": {
+      "passed": 18,
+      "failed": 0,
+      "skipped": 0,
+      "file": "verification/reviews/T-0081-r2-independent/main-focused-results.json"
+    },
+    "main_tracked_clean": true,
+    "lock_released": true
+  }
+}

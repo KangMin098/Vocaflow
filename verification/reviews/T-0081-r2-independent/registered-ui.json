@@ -1,0 +1,58 @@
+{
+  "evidence_id": "T-0081-R2-E08",
+  "run_seq": 2,
+  "recorded_by": "final-independent-accept",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T12:53:51.362Z",
+  "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+  "type": "ui",
+  "covers": [
+    0,
+    1,
+    2
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0081-r2-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0081-r2-independent/browser/support-2-1440.png",
+    "verification/reviews/T-0081-r2-independent/browser/support-null-1280.png"
+  ],
+  "urls": [
+    "http://127.0.0.1:5173/ (closed component harness)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual HomeLanding and UnifiedLearningMap React/Chromium1440/1280 with actual mapper-generated props, synthetic view, same-module router/HTTP shim; not authenticated Next/DB/global skin.",
+  "command_or_protocol": "node verification/reviews/T-0081-r2-independent/browser/run.mjs:4/4. Counts/provenance, null not0, Enter task/ws restore, no mutations/errors/overflow.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "Task-scoped count explanation and keyboard restoration checks; unchanged layout/styles, not complete global reference/contrast audit.",
+  "artifact_sha256": "59e2a6f6abf940e30aaf2d45018b1ad008e06dd34ee1ff7ba0c7977828dbf5fa",
+  "screenshots_sha256": [
+    {
+      "path": "verification/reviews/T-0081-r2-independent/browser/support-2-1440.png",
+      "sha256": "02737d4631fa0538fb4e90e131946005a87d49eb027160e86bdac1e6c3c3f331"
+    },
+    {
+      "path": "verification/reviews/T-0081-r2-independent/browser/support-null-1280.png",
+      "sha256": "c00ecff69d59b0c76cf0853e9d8b740af7031e6ce2a675b09f6de6f462648585"
+    }
+  ],
+  "recorded_at": "2026-10-21T12:53:52.074Z"
+}

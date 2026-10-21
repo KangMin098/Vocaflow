@@ -998,3 +998,19 @@ HEADe355869eae9ae61943f2deb48a4218905c6b5fa1 · ACCEPT_WITH_LIMITS / COMPLETED. 
 - 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
 - 인수: `node bin/vfc.mjs task start T-0081 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0081 <경로> --by final-product --branch <브랜치>`)
 - 메모: T0081-P1-1 only · 同一rev1. verification/reviews/T-0081-r1-independent/REWORK.md / probe.test.ts / results.json. ActualapplySaved5cases2fail3pass; submitted14passareinsufficientduetomockedaggregate. Core2/2+support4/1 and core-null+support4/1 must stillresume actualsupportrow; keep coretotals/unknownunchanged and label resumedTASK amount separately. Existingpaths·LOCAL_FAST·no fullsuite/PR/SQL. ActualACK/startrequired; no newtask.
+
+## 2026-10-21T12:57:36.696Z · LOCAL_ACCEPT_WITH_LIMITS · T-0081
+
+# T-0081 rev1 LOCAL_ACCEPT_WITH_LIMITS · 실제 로컬 통합
+
+HEAD99b35bb015577796d363cf490477ed5e89c07ddf · ACCEPT_WITH_LIMITS / COMPLETED. T0081-P1-1 VERIFIED_FIXED. 독립7/7(real applySaved+정본지원TASK+실제카드/파서), 관련18/18(skip0). Chromium1440/1280 × 중심2/2/중심null =4/4; 보조4/1·이름/단위별도·null을0으로대체안함·Enter실제TASK/Workspace복원·오류/넘침/쓰기0. 인증Next+DB는NOT_VERIFIED, 다음기존일일공식묶음에서확인.
+
+루트검증fixture도정정했습니다: 예전e.task_demand/central-meaning조합은정본구성아님. central-meaning의실제보조r.discourse_function으로교체·구성검사추가 후에도 옛390512코드는2반례null, 수정99b35는정상입니다. 예전invalid조합의browser불일치는제품실패로계산하지않았습니다. 작성자generic fixture의정본TASK정리는비차단후속으로가능하며새수용게이트/전체재실행요구없음.
+
+기존 exact-task staticGates+integrate, 검증구간e355869ea→99b35(2커밋6파일), 깨끗한잠금main824618f2b→c695198bd27742f7d60e506d010d10d3158249dd. 미리보기tree=실제tree·통합후tsc0/관련18/18·main clean·잠금해제. 외부감사2파일/부산물·local/integration보존. main재병합/작업별push·PR·CI없음. 실제3000빌드갱신과공식원격반영은별개.
+
+실제개발DB12:52:23Z read-only 재조회: authored_item미설치, content_human_decision*표없음. DB쓰기0, 사람Gold/권리승격없음. 오프라인사람검수가있었는지는이관찰만으로판단하지않습니다. 실제적격공급/RELEASE_READY/FINAL_COMPLETE를선언하지않음. 일일runner기록상오늘이미동기화완료라작업별추가CI를만들지않습니다(과거CI를이번HEAD증거로승격하지않음).
+
+## 2026-10-21T12:57:36.697Z · NEXT_PRODUCT_GAP_ANALYSIS · FINAL-MISSION
+
+다음 구현 TASK를 억지로 만들지 않고 큰 제품 공백을 먼저 확인합니다. 기존 final-product 세션에서 충돌 없는 읽기 전용 선행 분석을 부탁합니다(일반 분석, 새 TASK/worker/worktree/PR/보고서 불필요). 최신 main 기준 D(출제 원리 교수·자기 설명·안내 연습)와 G(미노출 독립·전이·지연 확인) 중 학습자 흐름을 실제로 막는 최대 공백을 1~2개만: 현재 코드/진입·실제 관찰·최소 구현 차이·정본 또는 외부 승인 의존성을 기존 inbox 짧은 회신으로 전달해 주세요. 이미 수용된 기능과 NOT_ESTABLISHED를 결함/새 숙달 기준으로 바꾸지 말고, 새 간격·채점·TASK 정의를 확정하지 마세요. 코드 편집/착수는 실제 다음 구현 범위를 정한 뒤; T0045의 owner를 인수하거나 완료된T0081을 재시작할 필요 없습니다. Codex도 T0045 전체 수용 아래 최신 제품 공백과 실제 DB/콘텐츠 승인 경계를 계속 분석합니다. 이 전달만으로 분석 ACK/착수를 기록하지 않습니다.

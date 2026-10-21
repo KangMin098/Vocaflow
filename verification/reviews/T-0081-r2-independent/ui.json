@@ -1,0 +1,43 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T12:53:51.362Z",
+  "commit": "99b35bb015577796d363cf490477ed5e89c07ddf",
+  "type": "ui",
+  "covers": [
+    0,
+    1,
+    2
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0081-r2-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0081-r2-independent/browser/support-2-1440.png",
+    "verification/reviews/T-0081-r2-independent/browser/support-null-1280.png"
+  ],
+  "urls": [
+    "http://127.0.0.1:5173/ (closed component harness)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual HomeLanding and UnifiedLearningMap React/Chromium1440/1280 with actual mapper-generated props, synthetic view, same-module router/HTTP shim; not authenticated Next/DB/global skin.",
+  "command_or_protocol": "node verification/reviews/T-0081-r2-independent/browser/run.mjs:4/4. Counts/provenance, null not0, Enter task/ws restore, no mutations/errors/overflow.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "Task-scoped count explanation and keyboard restoration checks; unchanged layout/styles, not complete global reference/contrast audit."
+}
