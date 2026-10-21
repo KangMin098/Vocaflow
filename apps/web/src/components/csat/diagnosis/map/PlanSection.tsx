@@ -17,6 +17,7 @@ import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
 import { CANON_VERSION, taskOf, templateOf, templates } from '@/lib/csat/map/v4/definition'
 import { ACHIEVEMENT_LABEL, RULE_LABEL, applyDraft, type PlanDraft, type TaskPlan, type WorkspacePlanView } from '@/lib/csat/map/v4/plan'
 import { acknowledgePlan, bindPlanDraft, listenPlanAck, sameStageDraft, type PlanAck } from '@/lib/csat/map/v4/plan-ack'
+import { goalMismatch } from '@/lib/csat/map/v62/next-action'
 import { quantityBasis } from '@/lib/csat/map/v62/saved-plan'
 import { REASON_LABEL, applySaved, transferRestoreShortage, keyFor, planDrift, requestSignature, type PlanReason } from '@/lib/csat/map/v4/plan-commit'
 import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
@@ -107,7 +108,9 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   // 자료 없을 때 저장한 빈 행(계획량 · 가용량 null)으로 지금 계획량을 덮지 않는다(T-0061 · quantityBasis) — 재계획 판정은 원본으로
   const base = useMemo(() => applySaved(view, quantityBasis(sw?.latest ?? null)), [view, sw])
   const drift = useMemo(() => planDrift(sw?.latest ?? null, view), [sw, view])
-  const needsReplan = !past && !!drift && (drift.content.length > 0 || drift.definition || drift.stages.length > 0)
+  // T-0072 — 저장 PLAN 의 목표 버전 ≠ 지금 목표(상단 CTA · 요약과 같은 goalMismatch). 같은 목표면 저장 상태 · 수량 그대로
+  const goalChanged = !past && !!store && !!sw && goalMismatch(view.workspace, saved)
+  const needsReplan = !past && (goalChanged || (!!drift && (drift.content.length > 0 || drift.definition || drift.stages.length > 0)))
   const goalVersion = saved?.goalVersionId ?? null
   const key = draftKey(viewer, view.workspace, goal, savedVersion, goalVersion)
   const legacyKey = draftKey(viewer, view.workspace, goal, savedVersion)
@@ -134,7 +137,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
   const dirty = (draft !== null && (!sameAsSaved(shown, base) || shown.tasks.map((x) => x.task).join() !== base.tasks.map((x) => x.task).join())) || note.trim().length > 0
   const [save, setSave] = useState<SaveState>({ kind: 'idle' })
   const [pending, setPending] = useState<{ key: string; sig: string } | null>(null)
-  const defaultReason: PlanReason = !sw ? 'initial' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : drift && drift.stages.length ? 'check_result' : 'learner_adjust'
+  const defaultReason: PlanReason = !sw ? 'initial' : goalChanged ? 'goal_change' : drift?.definition ? 'definition_change' : drift && drift.content.length ? 'content_change' : drift && drift.stages.length ? 'check_result' : 'learner_adjust'
   const [why, setWhy] = useState<PlanReason>(defaultReason)
   const live = useRef({ key, mounted: true, request: 0, edit: 0 })
   // Ref changes synchronously, before an old response can arrive ahead of passive effects.
@@ -276,6 +279,11 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
           ) : (
             <>아직 이 계획을 확정하지 않았어요</>
           )}
+        </p>
+      )}
+      {goalChanged && sw && (
+        <p className={n.notice} data-testid="plan-goal-changed" data-saved-goal={sw.latest.goalVersionId ?? ''} data-current-goal={goalVersion ?? ''}>
+          <TriangleAlert size={13} aria-hidden="true" /> 목표가 바뀌었어요 — 저장한 계획(버전 {sw.latest.version})은 {goalLabel(sw.latest.goalVersionId ?? null, saved)} 기준이에요. 지금 목표로 다시 확정해야 이 계획대로 학습해요(이전 기록 · 근거는 그대로 남아요).
         </p>
       )}
       {store && drift && needsReplan && (
