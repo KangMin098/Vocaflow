@@ -67,6 +67,8 @@ Next 개발 서버의 `apps/web/.next*/.dev-server-owner.json`에는 실제 cwd�
 
 같은 공간의 dev/build는 `NEXT_DIST_DIR`로 분리하며 살아 있는 서버의 산출물을 덮거나 지우지 않는다. 산출물 정리도 실제 경로·사용 여부·복구 가능성을 확인한다.
 
+격리 사본(`.next-*`)은 **`next build` 가 시작할 때 스스로 정리한다**(`apps/web/scripts/dist-dir-retention.mjs`). 회차마다 새 이름으로 빌드해 한 워크트리에 1.7 GB 사본 15개(25.8 GB)가 쌓여 D: 가 98% 가 된 일(2026-10-21) 때문이다. 살아 있는 dev·start 서버의 표식이 있는 사본, 2시간 안에 쓰인 사본, `.next`·`.next-dev`·이번 빌드 대상은 남기고, 나머지는 최신 2개만 둔다. `next start` 도 표식을 남기므로 서빙 중인 사본은 지워지지 않는다. 끄려면 `NEXT_KEEP_DIST_DIRS=1`. 여러 워크트리에 이미 쌓인 사본은 `node apps/web/scripts/prune-dist-dirs.mjs --root D:/workspace`(미리보기) → `--apply`. 검증 빌드 이름은 가능하면 `.next-verify` 하나를 재사용한다.
+
 ## 6. PR 분류와 보존
 
 INTEGRATED는 현재 통합 기준에서 변경이 보존됨, READY는 유효하고 통합 가능함, SUPERSEDED는 대체 구현으로 중복임, BLOCKED는 충돌·DB 승인·외부 권한 미충족, ACTIVE는 다른 세션 진행 중이다. 로컬 integration과 원격 main 반영은 각각 표시한다.
