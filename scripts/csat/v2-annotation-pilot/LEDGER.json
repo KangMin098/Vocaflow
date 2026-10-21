@@ -1,0 +1,458 @@
+{
+  "generatedBy": "scripts/csat/v2-annotation-pilot/build.mjs",
+  "draftsSha256": "f2ca5ee31343f2dcf89043f023518140742436bcc166e16f9c6c1503f64a6e60",
+  "sampleRule": "README §1",
+  "counts": {
+    "selected": 12,
+    "allChecksPass": 12,
+    "accepted": 0,
+    "releasable": 0,
+    "learnerAvailable": 0
+  },
+  "items": [
+    {
+      "itemId": "2026#30",
+      "typeId": "R-VOCAB",
+      "sourceRevision": "304f6ef28c1ae9340bc8d5d82625e28fdf6aa2f02b32736797b3c420408006c2",
+      "skeletonSig": "7172f06b116a46e3a61364d175fcb870ea5427e7f9ead6b365ca67d339fb2052",
+      "sentenceCount": 8,
+      "targets": [
+        1,
+        2,
+        5,
+        6,
+        7
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "bd409c195373d3dbc14e76ce612e59bc38772df9d20241d6737bae74e4893e7f",
+        "blindStage1Sha256": "e4d6f8940afa856b8f6013fc7d2e0896572ee030c8a25abd7acab7b456e23756",
+        "blindStage2Sha256": "4c05c11b03d61cc6a0b2d02a4be0820ad1e10454a616e62d0cafebbd515db481"
+      }
+    },
+    {
+      "itemId": "2025#30",
+      "typeId": "R-VOCAB",
+      "sourceRevision": "3a61942b7a443029f470c16295efb859acd62145d80ec61d2068d365223cc3ab",
+      "skeletonSig": "18baa5e7a86480d87fc29c535383ed310b32a012777ea53a2a3e6fc5779f0020",
+      "sentenceCount": 7,
+      "targets": [
+        1,
+        2,
+        3,
+        5,
+        6
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "3ff2739a62d4c72b354e16f0af0f72c9bc919e40eb272cf103c77dfc5e2cf9f1",
+        "blindStage1Sha256": "54df02a92d467a447dac244289054141bef8a24a25b84ce3869a3ba9daa3c3cd",
+        "blindStage2Sha256": "d169c692f05daa5ff8999870d7623372b35d781597fae00e3ad8badb7f904d43"
+      }
+    },
+    {
+      "itemId": "2024#30",
+      "typeId": "R-VOCAB",
+      "sourceRevision": "d7134bc5fa4ac3e3317bc8bb8ef12a4b4139e1362a6f6acba44361e4d62c5562",
+      "skeletonSig": "46983dbdfec583193f29482c98c59cef406c7e56ff4a4531ffc879f47bf13c13",
+      "sentenceCount": 7,
+      "targets": [
+        1,
+        2,
+        4,
+        5,
+        6
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "091444a1c5577429138528ae9dbceaafcabffd55b375daa5f91afab4f2556b29",
+        "blindStage1Sha256": "45220f812605184dc2f31a5379c5eeb2807884ef47a235935bdd9139f2dbd534",
+        "blindStage2Sha256": "cb2c0d9087e6bb2977816bc420f25e1cec3510eb6d351b33c1a84438aaf5a133"
+      }
+    },
+    {
+      "itemId": "M2706#30",
+      "typeId": "R-VOCAB",
+      "sourceRevision": "0ee3b880df6561288d69be1f75bd1a36d2bdff7784c55b723578f48e64742503",
+      "skeletonSig": "ce8357443b43c0907855a093dd12a374c04ee57ce9d29dedb54f8c3e3fc702fa",
+      "sentenceCount": 6,
+      "targets": [
+        1,
+        2,
+        3,
+        4,
+        5
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "7990da9a6843e5381169a6f0c543234f902f56bf55c52dbe6b68177856267ca3",
+        "blindStage1Sha256": "4e6e5418bb10c827571012c8110d0df14633a0fd66cc7e9f94669f413289095f",
+        "blindStage2Sha256": "153699e2f74fec32a260bad63308666fcab81555dd8264df07302fa5f1b5e3ba"
+      }
+    },
+    {
+      "itemId": "M2609#30",
+      "typeId": "R-VOCAB",
+      "sourceRevision": "c416c4fccf5e72c40c37ff471b6bc8ab6c90273fc6462fc0c5a7cc492e2264ac",
+      "skeletonSig": "6ff3b85a6269412a8807c5430c198f1a8855de305cf61acab4a4045e747fe516",
+      "sentenceCount": 10,
+      "targets": [
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "766f856f6c18129b88e9b81e209657b13216c328b808b92f93e157d8b985775c",
+        "blindStage1Sha256": "5e918728bde4f27e26ec167d8ef1a5f0ab03b00089195da729865b75e495cc50",
+        "blindStage2Sha256": "5af86a4b120f182e85de18f80cc3b36511d557352418fe2511fe9db5a4df0db7"
+      }
+    },
+    {
+      "itemId": "M2606#30",
+      "typeId": "R-VOCAB",
+      "sourceRevision": "44d90ceade937b669cca459f726a32e10404100f8d0917a8d36d3bee85259c1a",
+      "skeletonSig": "9570582e63f3e52071c48f49b4c851ae1283ccc6950e27d08d18e24e16717f26",
+      "sentenceCount": 7,
+      "targets": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "5092030efb5821d088c131bebec6bd7ac8c82279a757b5acc2097e4c279d95ff",
+        "blindStage1Sha256": "60d51d7e26069c0bcb018e91919ca59e47ea193d178df525247281fdfd36dc3b",
+        "blindStage2Sha256": "dcc57504e8d072375f3cfcbd6a2680314a0bf6c39d873e65c6960d8020384ad4"
+      }
+    },
+    {
+      "itemId": "2026#42",
+      "typeId": "X-VOCAB",
+      "sourceRevision": "1326c1c67648b34484bd9c7bd369283a05f983b21ec641003d08ebe62c2ca5ea",
+      "skeletonSig": "377f8a20b6b5b903f15cf4f777b3d3de76a5d137baeb62bacce45954afb368bd",
+      "sentenceCount": 9,
+      "targets": [
+        1,
+        4,
+        5,
+        7,
+        8
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "9097bff1b5c3f6ca4669cf9cff89275d38dac0b9a6b28e4d8199f6bb2790200c",
+        "blindStage1Sha256": "1fbb3f5e2ad2187ee0199bf45a696ca2ac9a0e33bb261025c8adf84ff62cfdb7",
+        "blindStage2Sha256": "8f9359018b7a1bed079182aa0e74060b0a42a98deb8323de14de1dca8fe603d4"
+      }
+    },
+    {
+      "itemId": "2025#42",
+      "typeId": "X-VOCAB",
+      "sourceRevision": "a262ba7c2eea4b32003ca802cb7d3b97434ff3ad5771af44eb30977feea7c867",
+      "skeletonSig": "49ec5e5e51a4bcfac283b5d24bdb2d27950ee24fc3753d6a96c06b3f5f336453",
+      "sentenceCount": 12,
+      "targets": [
+        4,
+        5,
+        6,
+        9,
+        10
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "6936e939a11d0066de36031e6ff8a966c75dbb46ecab036aa3b148a83c815502",
+        "blindStage1Sha256": "84255a8e125b0a770d42c99e75d7679128a3792450682cf16ab6044ec20b52c5",
+        "blindStage2Sha256": "4201efcb009dd8ba5f43d57f5e4bde84917fcc81c3f1baca8ac1cfe8efb9a813"
+      }
+    },
+    {
+      "itemId": "2024#42",
+      "typeId": "X-VOCAB",
+      "sourceRevision": "04738d40f0fc0f3392c687158cecf7b824ec7ed579ff8be49c961a28741d58d4",
+      "skeletonSig": "bc69343eefeca01d29cece42b2dd1b7f89ca3b5c107abf23b1bcbe801467e13f",
+      "sentenceCount": 9,
+      "targets": [
+        2,
+        4,
+        5,
+        7,
+        8
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "b7582d597b2b1571541f1231f65c9fc868f259deebd9435c2dcddd40c1c2cd72",
+        "blindStage1Sha256": "f061db6e50d4ebe248926a21861845cfc1de35a9c4f0f0d9c446f7ad34434a6f",
+        "blindStage2Sha256": "f1c7bee00b5d9dbcd9697a977c3786c0d4f4e2426cf1017cf70fb54a718c5fce"
+      }
+    },
+    {
+      "itemId": "M2706#42",
+      "typeId": "X-VOCAB",
+      "sourceRevision": "16f865253a3784ded6652ad1063740a4a052ed6446908a4dc86d9b37af8268a7",
+      "skeletonSig": "809b39fdcb8854547ad0fab4335fc98a403dcd5de5383bcdb64f67543e07e760",
+      "sentenceCount": 11,
+      "targets": [
+        4,
+        5,
+        6,
+        8,
+        9
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "ca5bfad99e38df7deafe8c53e4709915a307897bd94b63df56c4197db5c95e80",
+        "blindStage1Sha256": "21fec0e6645bcd5e4527380f4222a0e2939cf4b4b4b1ff2b6efb80adccdf4599",
+        "blindStage2Sha256": "35b7066c00d9d4e061f4b39b26166d67d18cf5391fc7bc05d54770dcefe1dbb8"
+      }
+    },
+    {
+      "itemId": "M2609#42",
+      "typeId": "X-VOCAB",
+      "sourceRevision": "c3b067e172344cc0a0ecd39a081ee097b4a5ceec2b48a1bad17426c58baf856d",
+      "skeletonSig": "0fdf54ed73a69e8b34e7a6f9e0e4f7130d9c34ec128092a10b93a3191623c210",
+      "sentenceCount": 10,
+      "targets": [
+        2,
+        3,
+        4,
+        5,
+        6
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "e77629ee0e9178afc3f1a79de17999997d4314ce2dbb33957b0254671c292f45",
+        "blindStage1Sha256": "e4be6f57efc95f07bb38cdcb25afc336d79c1cb0e20ee195c440ed88b4d36e27",
+        "blindStage2Sha256": "881ebf253cb8d40ec89e4ab68f487c4dae92102ad32081083ec1f4eb65d93ff5"
+      }
+    },
+    {
+      "itemId": "M2606#42",
+      "typeId": "X-VOCAB",
+      "sourceRevision": "47340bd5b1f651dc865236876f6fbc021f09bfa4a1babfd332d06f615142562a",
+      "skeletonSig": "4781878e34316a9e9b414ea1b91f5b83caafd57b5140af0b18827e42a95ad51f",
+      "sentenceCount": 9,
+      "targets": [
+        1,
+        2,
+        4,
+        5,
+        8
+      ],
+      "status": "DRAFT",
+      "releasable": false,
+      "checks": {
+        "typeMatchesSample": true,
+        "stemIsVocab": true,
+        "bodyOk": true,
+        "officialAnswerValid": true,
+        "skeletonFound": true,
+        "skeletonCoversPassage": true,
+        "fiveMarkersOnceInOrder": true,
+        "targetsInSkeleton": true,
+        "draftPresent": true,
+        "draftMisfitMatchesOfficial": true,
+        "draftCueInRange": true,
+        "draftRejectWhyComplete": true,
+        "draftOptionsDistinct": true
+      },
+      "allChecksPass": true,
+      "files": {
+        "annotationDraftSha256": "e40479998d06bac6e4274d43629e6223aaec89234b605b5d3e86c965fe9e78bb",
+        "blindStage1Sha256": "b7fc6de12f361bc02a2f8fd0fcf70481c2ccdde8104903397123aabcf60c4e2e",
+        "blindStage2Sha256": "89d7c1cdbfac830f6bf1a2e91952d8c01916cfa9efa27b7084f284878f100a4c"
+      }
+    }
+  ]
+}

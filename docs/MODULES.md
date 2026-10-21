@@ -1,5 +1,19 @@
 # Learning Modules
 
+도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.
+
+관리자 사용성 점검(2026-10-20): 도서 검수 제목·상태 표시·어휘 필터 이름·VRL 구간 링크와 중첩 Dialog의 포커스/Back/스크롤 복원을 보완했다. 작업 중 닫기 거부는 `closeDisabled`/`canClose`로 이력까지 보존한다. 지도 셀과 진단 팝업 컨트롤은 44px, 선택 체크박스는 그림 대신 레이블의 클릭 영역을 보장한다. 만화 실행 시각은 KST 고정 표시를 사용한다. 관리자 경로·학습자 판정 규칙·DB 계약은 바꾸지 않는다. [범위와 실제 실행 결과](admin-restructure/usability-audit.md).
+
+관리자 주문 계보(2026-10-20): `AdminWorkspaceSupply`는 인증된 행위자와 대상 사용자·Workspace로 서버 RPC를 조회하며 `ProductOrderLineageView`가 현재/철회/이전 판/개인 변경 및 미설치/실패/빈 목록을 구분한다. 이 패널은 계획 연결량만 표시하며 학습자 수요·생산 진척·개인 납품 판정을 바꾸지 않는다. [계약과 적용 대기](admin-restructure/product-order-lineage.md).
+
+도서 검수 이동(2026-10-20): `BookDetailModal`은 닫기 전에 검색·선택 복귀 주소를 보존하고 공용 `Dialog`의 선택적 `afterUnwindRef`로 오버레이 이력을 걷은 뒤 이동한다. 기존 `useCloseOnBack` 계약을 재사용한다.
+
+적용 추적의 보류 관문(2026-10-20): 과제와 audience의 단일·복수 대상 전체를 검사한다. 수행 메타와 버전만 먼저 읽고 허용된 시도·문항의 정오를 뒤에 읽으며, 과거 보류 수행이 있으면 결속이 불명인 trial·효과 결과도 가린다. 미상 문항의 정오는 읽지 않고 조회·판정 실패를 0건으로 바꾸지 않는다.
+
+관리자 후속(2026-10-20): `AdminLearnerActivity`는 문항별 Reveal Gate 뒤 허용한 시도의 정오와 정확한 `workspace_delivery_attempt` 결속, 보류 판정을 거친 저장 진단을 읽는다. 전부 보류된 페이지도 원본 커서로 이동하며 문항 식별자가 없는 기록의 정오는 조회하지 않는다. `AdminWorkspaceSupply`는 기존 개인 공급 reader를 재사용하며 주문·공급 없음으로 수요 없음까지 단정하지 않는다. 적용 추적은 저장 적용 버전·비합성 표시·trial과 전역 원리 효과 상태를 구분하며 학습자 판정 엔진을 바꾸지 않는다. [최종 인계](admin-restructure/final-delivery.md).
+
+관리자 v2.1(2026-10-19): `AdminWorkInbox`는 기존 실집계의 처리 대상 링크를 제공한다. `AdminItemHandoff`는 기출의 기존 지문 설계 주석·근거 검수·등록 적용을 잇고, `AdminLearnerPlans`는 확인한 동일 사용자 ID의 저장 목표·Workspace·TASK 계획을 읽는다. 공개 학습 흐름과 학습자 개인 분석은 바꾸지 않는다. [지원 범위·미연결 단계](admin-restructure/v21-delivery.md).
+
 > Factory I1 독립 검증(2026-10-17, DB 미적용): 학습지도 Inspector는 전체 canonical 수요별 공급을 선택해 PLAN 간 집계를 분리한다. 역사적 주문 종결과 현재 유효 공급은 별도이며 supersede·권리/공개 철회는 부족분으로 복귀한다. [독립 수용 기록](./research/factory-i1-280-independent/ACCEPTANCE.md).
 
 > 9개 학습 모듈 + 베타. 각 모듈의 목적·라우트·인지 깊이·데이터 모델. 작성 시점: 2026-06-08 (v06.34).
@@ -996,7 +1010,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 | 시간 띠 | [`lib/csat/plan-timeline.ts`](../apps/web/src/lib/csat/plan-timeline.ts)(순수 — `buildTimeline`·`clampSpeed`) · [`components/csat/PlanTimeline.tsx`](../apps/web/src/components/csat/PlanTimeline.tsx) |
 | 내 기록 (④재기) | [`lib/csat/my-traps.ts`](../apps/web/src/lib/csat/my-traps.ts) — **표본 문턱을 여기서 쥔다**(함정당 3회 · 전체 20회). 넘기 전에는 배수를 말하지 않고 센 것만 보여 준다. `returningCardIds`·`drillBias` 가 기록을 **다음 훈련 세트**로 되먹인다(24시간 지난 최근 오답 · 문턱 넘은 약한 수법) |
 | 순서 (⑤주파) | [`lib/csat/plan-order.ts`](../apps/web/src/lib/csat/plan-order.ts)(순수 — 내 약점 × 유형 구성) · `plan/PlanList.tsx`(토글). ⚠️ **시간 띠는 정렬하지 않는다** — 시험은 번호대로 치러진다 |
-| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` · `csat_plan_ordered` (`lib/analytics/events.ts` 닫힌 목록 · 훈련 2종은 2026-09-17 은퇴) |
+| 계측 | `csat_atlas_scoped` · `csat_trap_opened` · `csat_plan_speed_set` (`lib/analytics/events.ts` 닫힌 목록 · 훈련 2종은 2026-09-17, 개인 정렬 `csat_plan_ordered`는 관리자 공용 계획 분리와 함께 은퇴) |
 | 자 | [`apps/web/scripts/csat-surface-measure.mts`](../apps/web/scripts/csat-surface-measure.mts)(수치) · [`csat-shot.mts`](../apps/web/scripts/csat-shot.mts)(눈) |
 | 훈련 (③겨루기) | [`lib/csat/trap-drill.ts`](../apps/web/src/lib/csat/trap-drill.ts)(순수 — 보기 만들기·채점·누설 검사) · [`drill-loader.ts`](../apps/web/src/lib/csat/drill-loader.ts)(구운 풀에서 여덟을 고른다 · **DB 0**) · [`components/csat/TrapDrill.tsx`](../apps/web/src/components/csat/TrapDrill.tsx) · [`scripts/csat/build-trap-drill.mjs`](../scripts/csat/build-trap-drill.mjs) → `drill-data/pool.json` (**1,013문제** · 539KB) |
 | 굽기 | `pnpm csat:atlas` · `csat:atlas:check` · `pnpm csat:drill` · `csat:drill:check` (전부 낡으면 exit 1) |
@@ -1241,3 +1255,7 @@ SessionHome의 첫 화면은 실제 기출 두 문항의 같은 공식 관계를
 ### V2 Instrument 독립 수용 경계(2026-10-17)
 
 ContextSensePanel은 B 판별 조건 성공과 C 문장 선택을 분리하고(V2-F1: 제출 전 뜻 선택지 없음 · 뜻 D 는 B 정답 저장 뒤의 기록 없는 연습 · 유형별 밑줄 표지, [V2_F1_CUE_LEAK](./csat-learner/v62/V2_F1_CUE_LEAK.md)), writer inserted/duplicate 영수증을 받은 경우만 기록 완료를 표시한다. 제출 중 편집/중복 클릭을 잠근다. 주석·출시는 0개이며 V2 실제 학습 수직은 BLOCKED_CONTENT다. [계약](./csat-learner/v62/LM-G1_5a_V2_INSTRUMENT.md)과 [독립 반례](./research/lm-g1-5a-independent/FINDINGS.md)를 따른다.
+
+## 관리자 작업 영역 (2026-10-19)
+
+AdminShell·AdminSidebar·lib/admin/navigation.ts가 작업 홈/콘텐츠/교재/어휘/학습자/연구/운영의 소속·내부 내비를 공유한다. 영어·어휘 진단 엔진과 학습 데이터 계약은 변경하지 않았다. 문항·해설은 authoring의 두 보기이며 도서 입력은 세 작업 보기 안에서 선택한다. 상세는 [ADMIN_CONSOLE](./ADMIN_CONSOLE.md).

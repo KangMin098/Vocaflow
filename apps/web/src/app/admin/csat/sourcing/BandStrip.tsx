@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/csat/sourcing/BandStrip.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // **단계 밴드 재고 띠 — 「어느 단계에 지문이 없나」를 표 여섯 열 대신 한 줄로.**
 //
@@ -68,7 +69,7 @@ export function BandStrip({ bands }: { bands: BandStock[] }) {
               : st === 'audio'
                 ? 'border-dashed border-[var(--p)]'
                 : st === 'ungated'
-                  ? 'border-[var(--bd)] opacity-60'
+                  ? 'border-[var(--bd)] border-dashed'
                   : 'border-[var(--bd)]'
           return (
             <li key={b.band} className={`flex flex-col rounded-[var(--r-md)] border p-2 ${border}`}>
@@ -93,7 +94,7 @@ export function BandStrip({ bands }: { bands: BandStock[] }) {
 
               <span
                 className="mt-1 break-keep font-mono text-[11.5px] tabular-nums"
-                style={{ color: st === 'blocked' ? 'var(--memory-risk)' : 'var(--t1)' }}
+                style={{ color: adminTextInk(st === 'blocked' ? 'var(--memory-risk)' : 'var(--t1)') }}
               >
                 {b.n.toLocaleString()}편
                 <span className="ml-1 font-body text-[10px] font-[400] text-[var(--t3)]">

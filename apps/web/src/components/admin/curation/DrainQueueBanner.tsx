@@ -6,14 +6,10 @@
 
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChevronDown, ChevronRight, Loader2, RefreshCw, X } from 'lucide-react'
 
-import {
-  fetchCurationJobsAction,
-  fetchQuizJobsAction,
-  fetchReviewJobsAction,
-} from '@/app/admin/curation/actions'
+import { readCurationQueue } from '@/lib/library/curation-queue-client'
 import type {
   CurationJobRow,
   CurationJobStatus,
@@ -65,14 +61,21 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
   const [loading, setLoading] = useState(false)
   const [open, setOpen] = useState(false)
   const [dismissed, setDismissed] = useState(false)
+  const requestId = useRef(0)
+  const inFlight = useRef(false)
 
-  const load = useCallback(async () => {
+  const load = useCallback(async (background = false) => {
+    if (background && inFlight.current) return
+    const id = ++requestId.current
+    inFlight.current = true
     setLoading(true)
     const [v, q, r] = await Promise.all([
-      fetchCurationJobsAction(),
-      fetchQuizJobsAction(),
-      fetchReviewJobsAction(),
+      readCurationQueue('voice'),
+      readCurationQueue('quiz'),
+      readCurationQueue('review'),
     ])
+    if (id !== requestId.current) return
+    inFlight.current = false
     setLoading(false)
     if (v.ok) setVoice(v.data ?? [])
     if (q.ok) setQuiz(q.data ?? [])
@@ -83,6 +86,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
   // mount + reloadKey(enqueue/처리 직후) 변경 시 재조회
   useEffect(() => {
     void load()
+    return () => { requestId.current++; inFlight.current = false }
   }, [load, reloadKey])
 
   const allStatuses = [
@@ -96,7 +100,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
   // active(대기/진행/매핑대기) 있으면 8초 폴링 — 드레인 진행 반영
   useEffect(() => {
     if (!hasActive) return
-    const id = setInterval(() => void load(), 8000)
+    const id = setInterval(() => void load(true), 8000)
     return () => clearInterval(id)
   }, [hasActive, load])
 
@@ -120,7 +124,7 @@ export function DrainQueueBanner({ reloadKey }: { reloadKey: number }) {
           type="button"
           onClick={() => setOpen((v) => !v)}
           aria-expanded={open}
-          className="inline-flex items-center gap-2 font-display text-[13px] font-[700] text-[var(--p-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:rounded-[var(--r-sm)]"
+          className="inline-flex min-h-[44px] items-center gap-2 font-display text-[13px] font-[700] text-[var(--p-dark)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:rounded-[var(--r-sm)]"
         >
           {open ? <ChevronDown size={14} aria-hidden /> : <ChevronRight size={14} aria-hidden />}
           🛠 큐레이션 드레인 큐

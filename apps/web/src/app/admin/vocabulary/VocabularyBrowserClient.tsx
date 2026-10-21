@@ -148,6 +148,7 @@ export function VocabularyBrowserClient({
           />
           <input
             type="search"
+            aria-label="사전 단어·뜻·분류 검색"
             value={qLocal}
             onChange={(e) => setQLocal(e.target.value)}
             placeholder="word · meaning_ko · lemma_band 검색 (2자 이상)"
@@ -157,11 +158,13 @@ export function VocabularyBrowserClient({
 
         <div className="grid grid-cols-2 gap-2 md:grid-cols-5">
           <FilterSelect
+            label="V-Level"
             value={currentFilters.v}
             options={vLevelOptions}
             onChange={(v) => setParam({ v })}
           />
           <FilterSelect
+            label="CEFR"
             value={currentFilters.cefr}
             options={[
               { value: '', label: 'CEFR (전체)' },
@@ -170,6 +173,7 @@ export function VocabularyBrowserClient({
             onChange={(v) => setParam({ cefr: v })}
           />
           <FilterSelect
+            label="품사"
             value={currentFilters.pos}
             options={[
               { value: '', label: 'POS (전체)' },
@@ -178,6 +182,7 @@ export function VocabularyBrowserClient({
             onChange={(v) => setParam({ pos: v })}
           />
           <FilterSelect
+            label="출처"
             value={currentFilters.source}
             options={[
               { value: '', label: 'Source (전체)' },
@@ -186,6 +191,7 @@ export function VocabularyBrowserClient({
             onChange={(v) => setParam({ source: v })}
           />
           <FilterSelect
+            label="검증 상태"
             value={currentFilters.verified}
             options={[
               { value: '', label: 'Verified (전체)' },
@@ -224,16 +230,19 @@ export function VocabularyBrowserClient({
 }
 
 function FilterSelect({
+  label,
   value,
   options,
   onChange,
 }: {
+  label: string
   value: string
   options: Array<{ value: string; label: string }>
   onChange: (v: string) => void
 }) {
   return (
     <select
+      aria-label={label}
       value={value}
       onChange={(e) => onChange(e.target.value)}
       className="min-h-[44px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-2 py-2 font-mono text-[11px] text-[var(--t1)] focus:border-[var(--p)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_30%,transparent)]"

@@ -1,0 +1,34 @@
+{
+  "verification": "PASS",
+  "verifiedAt": "2026-10-17T10:51:00.448Z",
+  "scope": "해시 결속·불변 R1 스냅샷·8개 코드·제공 대조 문장/배제 이유 전수 포함·문장 원문 일치·집계 일치. 의미 정확성/독립성 자격의 기계 인증이 아니다.",
+  "r1Sha256": "2c86c19f96fa1eb1d9005870dec9b66a4bc8f600196f7c4df68f7f2f227181dc",
+  "r2InputSha256": "d988ca5331e1ad1584e20be55515c5234f6acbd03b44c41981f3e6e36198e99b",
+  "r2SubmissionSha256": "9c86d88f6562ad11e722fad42a5ae119a618f6e26679b2e3ef5709c24754dfb2",
+  "ownerNamedOtherR1Sha256": "b7905aacb95b56eb90d6c721d3ede7a563f8cbd0d406b569cf9ff6e784c84470",
+  "ownerNamedR1MatchesActualBaseline": false,
+  "r1Preserved": true,
+  "units": 8,
+  "contextSwapsChecked": 12,
+  "rejectedSwaps": 2,
+  "designerRejectReasonsChecked": 12,
+  "judgments": {
+    "designAgreement": {
+      "agree": 6,
+      "ambiguous": 2
+    },
+    "verdict": {
+      "REWORK": 3,
+      "DEFER": 5
+    }
+  },
+  "missingContextSwaps": [
+    "Q02",
+    "Q03",
+    "Q05",
+    "Q08"
+  ],
+  "overallVerdict": "DEFER",
+  "readOnlyStatus": "PowerShell 별도 실측. 두 R1 및 R2 파일 모두 읽기 전용.",
+  "productOrDatabaseChanges": false
+}

@@ -1,0 +1,51 @@
+{
+  "verification": "PASS",
+  "verifiedAt": "2026-10-17T10:13:36.445Z",
+  "scope": "입력·제출 해시, 8코드, 선택지 완비, 문장 범위, 근거 표현의 원문 일치(아래 3건은 자리 표식 생략 후 일치), target 동일성. 의미 판단의 정확성을 기계 인증하지 않는다.",
+  "inputSha256": "c616d856a0d523869d405d95188b93cf3034095b134afa218993aa0d22671345",
+  "r1Sha256": "2c86c19f96fa1eb1d9005870dec9b66a4bc8f600196f7c4df68f7f2f227181dc",
+  "sourceRevisionAvailable": false,
+  "units": 8,
+  "sentenceRangesChecked": 60,
+  "evidenceExpressionsChecked": 32,
+  "markerOmittedEvidence": [
+    {
+      "code": "Q03",
+      "sentenceIndex0": 2,
+      "expression": "the nuance to become clear",
+      "reason": "봉인 제출의 근거 발췌가 원문 중간의 동그라미 자리 표식을 생략했다. 원문/제출을 수정하지 않고 표시한다."
+    },
+    {
+      "code": "Q05",
+      "sentenceIndex0": 6,
+      "expression": "expressing concern for competitors",
+      "reason": "봉인 제출의 근거 발췌가 원문 중간의 동그라미 자리 표식을 생략했다. 원문/제출을 수정하지 않고 표시한다."
+    },
+    {
+      "code": "Q06",
+      "sentenceIndex0": 3,
+      "expression": "a significant emphasis on song and dance",
+      "reason": "봉인 제출의 근거 발췌가 원문 중간의 동그라미 자리 표식을 생략했다. 원문/제출을 수정하지 않고 표시한다."
+    }
+  ],
+  "clarity": {
+    "clear": 6,
+    "ambiguous": 2
+  },
+  "construct": {
+    "v2_s5_boundary": 2,
+    "v2_centered": 6
+  },
+  "phraseOnlyDecidable": {
+    "false": 4,
+    "true": 4
+  },
+  "firstVerdict": {
+    "DEFER": 5,
+    "PASS": 1,
+    "REWORK": 2
+  },
+  "r2Status": "NOT_OPENED_AWAITING_OWNER_RELEASE",
+  "blindEligibility": "DEFER_EXPECTATION_EXPOSURE_DISCLOSED",
+  "note": "읽기 전용 속성은 PowerShell로 별도 실측한다."
+}

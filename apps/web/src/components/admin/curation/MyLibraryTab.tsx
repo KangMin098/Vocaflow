@@ -2,8 +2,12 @@
 // LCP v2.0 Phase 12 묶음 C — Curated Books 테이블 (Tab 4)
 
 'use client';
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react';
+import { useSearchParams } from 'next/navigation';
+import { curationPage, sortCurationRows } from '@/lib/admin/curation-view';
+import { updateAdminUrl } from '@/lib/admin/navigation';
 import { ChevronRight, ExternalLink, FlaskConical, Loader2, PlayCircle, RefreshCw, RotateCcw, Search, Sparkles, Trash2, Wand2, X } from 'lucide-react';
 import {
   classifyStatus,
@@ -18,8 +22,8 @@ import {
   deleteFailedBookAction,
   enqueueQuizJobsAction,
   enqueueReviewJobsAction,
-  fetchCurationJobsAction,
 } from '@/app/admin/curation/actions';
+import { readCurationQueue } from '@/lib/library/curation-queue-client';
 import { BookDetailModal } from './BookDetailModal';
 import { DrainQueueBanner } from './DrainQueueBanner';
 
@@ -41,6 +45,7 @@ type ToneKey = 'success' | 'warning' | 'info' | 'danger' | 'neutral';
 interface MyLibraryTabProps {
   books: LibraryBookAdminRow[];
   onRefetch: () => void;
+  initialStatus?: StatusFilter;
 }
 
 const FILTER_OPTIONS: Array<{ value: StatusFilter; label: string }> = [
@@ -68,12 +73,35 @@ const SOURCE_TIER: Record<string, 'S' | 'A' | 'B' | 'C' | 'M'> = {
   manual: 'M',
 };
 
-export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
-  const [filter, setFilter] = useState<StatusFilter>('all');
-  const [sourceFilter, setSourceFilter] = useState<SourceFilter>('all');
-  const [levelFilter, setLevelFilter] = useState<LevelFilter>('all');
-  const [titleSearch, setTitleSearch] = useState('');
-  const [selectedBook, setSelectedBook] = useState<LibraryBookAdminRow | null>(null);
+export function MyLibraryTab({ books, onRefetch, initialStatus }: MyLibraryTabProps) {
+  const params = useSearchParams();
+  const status = params.get('status');
+  const selectedId = params.get('selected');
+  const requestedStatus = initialStatus ?? FILTER_OPTIONS.find((option) => option.value === status)?.value ?? 'all';
+  const [filter, setFilterState] = useState<StatusFilter>(requestedStatus);
+  const [sourceFilter, setSourceFilterState] = useState<SourceFilter>(params.get('source') || 'all');
+  const [levelFilter, setLevelFilterState] = useState<LevelFilter>(params.get('level') || 'all');
+  const [titleSearch, setTitleSearchState] = useState(params.get('q') || '');
+  const [selectedBook, setSelectedBookState] = useState<LibraryBookAdminRow | null>(() => books.find((book) => book.id === selectedId) ?? null);
+  function setQuery(key: string, value: string | null) {
+    const url = new URL(window.location.href);
+    if (['status', 'source', 'level', 'q'].includes(key)) url.searchParams.delete('page');
+    if (value) url.searchParams.set(key, value); else url.searchParams.delete(key);
+    if (key === 'status' && value !== 'ready' && url.searchParams.get('view') === 'review') url.searchParams.set('view', 'library');
+    updateAdminUrl(url);
+  }
+  const setFilter = (value: StatusFilter) => { setFilterState(value); setQuery('status', value); };
+  const setSourceFilter = (value: SourceFilter) => { setSourceFilterState(value); setQuery('source', value === 'all' ? null : value); };
+  const setLevelFilter = (value: LevelFilter) => { setLevelFilterState(value); setQuery('level', value === 'all' ? null : value); };
+  const setTitleSearch = (value: string) => { setTitleSearchState(value); setQuery('q', value || null); };
+  const setSelectedBook = (value: LibraryBookAdminRow | null) => { setSelectedBookState(value); setQuery('selected', value?.id ?? null); };
+  useEffect(() => {
+    setFilterState(requestedStatus);
+    setSourceFilterState(params.get('source') || 'all');
+    setLevelFilterState(params.get('level') || 'all');
+    setTitleSearchState(params.get('q') || '');
+    setSelectedBookState(books.find((book) => book.id === selectedId) ?? null);
+  }, [params, requestedStatus, selectedId, books]);
   // v06.34 — 다중 선택 (Curated Books 일괄 액션)
   const [selectedIds, setSelectedIds] = useState<Set<string>>(new Set());
   const [bulkPending, startBulkTransition] = useTransition();
@@ -90,7 +118,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   useEffect(() => {
     let alive = true;
     void (async () => {
-      const res = await fetchCurationJobsAction();
+      const res = await readCurationQueue('voice');
       if (!alive || !res.ok) return;
       const m = new Map<string, CurationJobRow>();
       for (const j of res.data ?? []) m.set(j.bookId, j);
@@ -107,7 +135,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   useEffect(() => {
     if (!selectedBook) return;
     const fresh = books.find((b) => b.id === selectedBook.id);
-    if (fresh && fresh !== selectedBook) setSelectedBook(fresh);
+    if (fresh && fresh !== selectedBook) setSelectedBookState(fresh);
   }, [books, selectedBook]);
 
   // 다중 선택: 현재 books 에 없는 id 는 stale 이므로 제거 (refetch 시 정리).
@@ -161,7 +189,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   const showLevelFilter = levelBucketCount > 1;
 
   const visible = useMemo(() => {
-    let list = books;
+    let list = sortCurationRows(books);
     if (sourceFilter !== 'all') {
       list = list.filter((b) => b.source === sourceFilter);
     }
@@ -187,6 +215,9 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
     }
     return list.filter((b) => b.status === (filter as BookStatus));
   }, [books, filter, sourceFilter, levelFilter, titleSearch]);
+
+  const pagination = curationPage(visible, params.get('page'));
+  const pageRows = pagination.rows;
 
   // ── 다중 선택 일괄 액션 ──────────────────────────────────────────────
   const selectedBooks = useMemo(
@@ -312,7 +343,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   };
 
   // 모두 선택 (현재 visible 범위 내) — header checkbox
-  const visibleIds = useMemo(() => visible.map((b) => b.id), [visible]);
+  const visibleIds = useMemo(() => pageRows.map((b) => b.id), [pageRows]);
   const allVisibleSelected =
     visibleIds.length > 0 && visibleIds.every((id) => selectedIds.has(id));
   const someVisibleSelected = visibleIds.some((id) => selectedIds.has(id));
@@ -569,11 +600,11 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
   }, [books, queuedIds]);
 
   return (
-    <section className="flex flex-col gap-4" aria-label="Curated Books">
+    <section className="flex flex-col gap-4" aria-label="도서 목록">
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div className="flex items-baseline gap-2">
           <h2 className="font-display text-[16px] font-[700] text-[var(--t1)]">
-            📂 Curated Books
+            도서 목록
           </h2>
           <span className="font-mono text-[12px] text-[var(--t2)]">
             {visible.length === books.length
@@ -726,7 +757,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
       </div>
 
       {/* 작업 순서 가이드 (단계별 카운트 + 현재 권장 액션) */}
-      {books.length > 0 && (
+      {workflowCounts.queued + workflowCounts.processing + workflowCounts.ready > 0 && (
         <CurationWorkflowGuide
           counts={workflowCounts}
           activeFilter={filter}
@@ -778,6 +809,11 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
         />
       )}
 
+      {visible.length > 0 && <nav aria-label="도서 목록 페이지" className="flex flex-wrap items-center justify-end gap-3 text-sm text-[var(--t2)]">
+        <span>{pagination.page} / {pagination.totalPages} 페이지 · 검색 결과 {visible.length}권</span>
+        <button type="button" disabled={pagination.page <= 1} onClick={() => setQuery('page', String(pagination.page - 1))} className="min-h-11 rounded border border-[var(--bd)] px-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)] disabled:opacity-50">이전</button>
+        <button type="button" disabled={pagination.page >= pagination.totalPages} onClick={() => setQuery('page', String(pagination.page + 1))} className="min-h-11 rounded border border-[var(--bd)] px-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--bdf)] disabled:opacity-50">다음</button>
+      </nav>}
       {visible.length === 0 ? (
         books.length === 0 ? (
           <EmptyAll />
@@ -809,7 +845,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
                     checked={allVisibleSelected}
                     indeterminate={!allVisibleSelected && someVisibleSelected}
                     onChange={toggleAllVisible}
-                    ariaLabel="현재 보이는 목록 전체 선택"
+                    ariaLabel="현재 페이지 전체 선택"
                   />
                 </th>
                 <Th>제목</Th>
@@ -835,7 +871,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
               </tr>
             </thead>
             <tbody>
-              {visible.map((book) => (
+              {pageRows.map((book) => (
                 <BookRow
                   key={book.id}
                   book={book}
@@ -853,6 +889,7 @@ export function MyLibraryTab({ books, onRefetch }: MyLibraryTabProps) {
 
       <BookDetailModal
         book={selectedBook}
+        returnTo={`/admin/curation?${params.toString()}`}
         onClose={() => setSelectedBook(null)}
         onChanged={onRefetch}
       />
@@ -908,24 +945,27 @@ function BookRow({
       ].join(' ')}
       onClick={onClick}
     >
-      <td className="w-9 px-2 py-3 text-center" onClick={(e) => e.stopPropagation()}>
+      <td className="w-14 px-1 py-0 text-center" onClick={(e) => e.stopPropagation()}>
+        <label className="inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center">
         <input
           type="checkbox"
           checked={selected}
           onChange={onToggleSelected}
           aria-label={`${book.title} 선택`}
-          className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'}
+          className="h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         />
+        </label>
       </td>
-      <Td>
+      <td className="px-3 py-0">
         <button
           type="button"
+          data-focus-restore-id={`book-detail:${book.id}`}
           onClick={onClick}
-          className="text-left line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:rounded-[var(--r-sm)]"
+          className="min-h-[44px] min-w-[44px] text-left line-clamp-1 font-display text-[13px] font-[600] text-[var(--t1)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:rounded-[var(--r-sm)]"
         >
           {book.title}
         </button>
-      </Td>
+      </td>
       <Td>
         <span className="line-clamp-1 font-body text-[12px] text-[var(--t2)]">
           {book.author ?? '—'}
@@ -968,7 +1008,7 @@ function BookRow({
           {book.cefrj_confidence && (
             <span
               className="font-mono text-[10px] tabular-nums"
-              style={{ color: confidenceColor(parseFloat(book.cefrj_confidence)) }}
+              style={{ color: adminTextInk(confidenceColor(parseFloat(book.cefrj_confidence))) }}
               title="자동 부여 confidence (소스 tier × coverage)"
             >
               {book.cefrj_confidence}
@@ -1112,7 +1152,7 @@ function ExtractionCell({
   return (
     <span
       className="inline-flex items-center gap-1 rounded-[var(--r-full)] border px-2 py-1 font-mono text-[10px] tabular-nums"
-      style={{ background: colors.bg, color: colors.fg, borderColor: colors.border }}
+      style={{ background: colors.bg, color: adminTextInk(colors.fg), borderColor: colors.border }}
       title={title}
     >
       {isComplete ? (
@@ -1184,7 +1224,7 @@ function FilterChip({
       aria-checked={active}
       onClick={onClick}
       className={[
-        'min-h-[44px] rounded-[var(--r-sm)] px-3 py-1 inline-flex items-center gap-1',
+          'min-h-[44px] min-w-[44px] rounded-[var(--r-sm)] px-3 py-1 inline-flex items-center justify-center gap-1',
         'font-display text-[11px] font-[600]',
         'transition-colors duration-[var(--dur-normal)] ease-[var(--ease)]',
         'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]',
@@ -1279,7 +1319,7 @@ function SourceBadge({
     <span
       className="inline-flex items-center rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
       style={{
-        color: cfg.color,
+        color: adminTextInk(cfg.color),
         backgroundColor: `color-mix(in srgb, ${cfg.color} 12%, transparent)`,
       }}
       title={sourceLabel(source)}
@@ -1321,7 +1361,7 @@ function StatusPill({
   return (
     <span
       className="inline-flex items-center rounded-[var(--r-sm)] px-2 py-1 font-display text-[10px] font-[700]"
-      style={{ backgroundColor: bg, color: text }}
+      style={{ backgroundColor: bg, color: adminTextInk(text) }}
     >
       {label}
     </span>
@@ -1352,7 +1392,7 @@ function JobQueueBadge({
   return (
     <span
       className="inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-mono text-[9px] font-[700]"
-      style={{ backgroundColor: m.bg, color: m.fg }}
+      style={{ backgroundColor: m.bg, color: adminTextInk(m.fg) }}
       title={
         `Dev 매핑 큐 · ${mode === 'dev_reprocess' ? '재처리' : '처리'} · ${status}` +
         (error ? `\n${error}` : '')
@@ -1821,13 +1861,13 @@ function DrainBanner({
     >
       <div className="flex items-center gap-3">
         {state.running && (
-          <Loader2 size={18} className="animate-spin" style={{ color: c.fg }} aria-hidden />
+          <Loader2 size={18} className="animate-spin" style={{ color: adminTextInk(c.fg) }} aria-hidden />
         )}
         <div className="flex flex-col">
-          <span className="font-display text-[13px] font-[700]" style={{ color: c.fg }}>
+          <span className="font-display text-[13px] font-[700]" style={{ color: adminTextInk(c.fg) }}>
             {headline}
           </span>
-          <span className="font-mono text-[11px]" style={{ color: c.fg, opacity: 0.85 }}>
+          <span className="font-mono text-[11px]" style={{ color: adminTextInk(c.fg), opacity: 0.85 }}>
             {detail}
           </span>
         </div>
@@ -1840,7 +1880,7 @@ function DrainBanner({
             onClick={onStop}
             title="현재 라운드 끝낸 뒤 자동 반복 중지"
             className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
-            style={{ borderColor: c.border, color: c.fg }}
+            style={{ borderColor: c.border, color: adminTextInk(c.fg) }}
           >
             <X size={12} aria-hidden />
             중지
@@ -1865,7 +1905,7 @@ function DrainBanner({
                 onClick={onRestart}
                 title="남은 큐 계속 처리"
                 className="min-h-[44px] inline-flex items-center gap-1 rounded-[var(--r-sm)] border bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] hover:opacity-80 focus-visible:outline-none focus-visible:ring-2"
-                style={{ borderColor: c.border, color: c.fg }}
+                style={{ borderColor: c.border, color: adminTextInk(c.fg) }}
               >
                 <PlayCircle size={12} aria-hidden />
                 계속 ({state.remaining}권)
@@ -1938,14 +1978,16 @@ function SelectAllCheckbox({
     if (el) el.indeterminate = indeterminate;
   };
   return (
+    <label className="inline-flex min-h-[44px] min-w-[44px] cursor-pointer items-center justify-center">
     <input
       type="checkbox"
       ref={setRef}
       checked={checked}
       onChange={onChange}
       aria-label={ariaLabel}
-      className={/* 체크박스는 대체 요소(replaced element)라 ::after 로 히트 영역을 넓힐 수 없다 — 이 자리엔 <label> 이 없어 회귀 허용목록에 남는다 */ 'h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]'}
+      className="h-4 w-4 cursor-pointer rounded border-[var(--bd)] text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     />
+    </label>
   );
 }
 

@@ -47,6 +47,7 @@ export default async function KnowledgeDesignPage() {
               const it = byId.get(a.itemId)
               return (
                 <li key={a.id} className="py-3 text-sm">
+                  <Link href={`/admin/knowledge/product/${a.id}`} className={`inline-flex min-h-11 items-center underline ${FOCUS}`}>제품 적용·수행·검증 추적</Link>{' · '}
                   <span className="font-medium text-[var(--t1)]">{a.surfaceRef}</span> · {APP_SURFACE_LABEL[a.surface]} · {APP_STATUS_LABEL[a.status]}
                   {it && <> · <Link href={`/admin/knowledge/item/${it.slug}`} className={`inline-flex min-h-11 items-center underline ${FOCUS}`}>{it.title}</Link> ({STATUS_LABEL[it.status]})</>}
                   <ul className="mt-1 space-y-1 text-xs text-[var(--t2)]">

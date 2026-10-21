@@ -2,6 +2,7 @@
 // 4 Tab: Levels / Tracks / Domains / Skills — interactive switching
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useState } from 'react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
@@ -193,11 +194,11 @@ function LevelsTable({ rows }: { rows: VrlTaxonomyData['levels'] }) {
                 <td className="py-2 pr-2">
                   <span
                     className="inline-flex items-center gap-1 rounded-full px-2 py-1 font-display text-[10px] font-[700]"
-                    style={{ backgroundColor: badge.bg, color: badge.color }}
+                    style={{ backgroundColor: badge.bg, color: adminTextInk(badge.color) }}
                   >
                     {badge.label}
                     {l.classificationConfidence != null && (
-                      <span className="font-mono opacity-80">
+                      <span className="font-mono">
                         {Number(l.classificationConfidence).toFixed(2)}
                       </span>
                     )}

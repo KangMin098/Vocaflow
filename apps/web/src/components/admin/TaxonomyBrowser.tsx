@@ -85,7 +85,7 @@ export function TaxonomyBrowser({ rows }: { rows: PdComicAdminRow[] }) {
         <span className="font-mono text-[11.5px] tabular-nums" style={{ color: ACCENT }}>
           발행 {totals.published}/{totals.total}
         </span>
-        <label className="ml-auto flex items-center gap-2 font-body text-[12px] text-[var(--t2)]">
+        <label className="ml-auto flex min-h-[44px] cursor-pointer items-center gap-2 font-body text-[12px] text-[var(--t2)]">
           <input
             type="checkbox"
             checked={onlyUnfinished}

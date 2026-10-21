@@ -36,7 +36,7 @@ vi.mock('@/lib/admin/teacher-funnel', () => ({
 
 import AdminDashboardPage from '../page'
 
-/** 2026-08-12 실측값을 축약한 픽스처 — reportsOpen 만 null(테이블 없음). */
+/** 2026-08-12 실측값을 축약한 고정 픽스처. */
 const STATS: DashboardStats = {
   books: { published: 12, ready: 304, inFlight: 0, failed: 83, seeds: 1843 },
   articles: { published: 160, ready: 2, inFlight: 0, failed: 0, seeds: 7 },
@@ -49,7 +49,6 @@ const STATS: DashboardStats = {
   learners: { total: 3, activeToday: 1 },
   texts: 275,
   qualityLastMeasuredAt: '2026-08-10T18:25:00.015026+00:00',
-  reportsOpen: null,
   recentUnread: [],
   qualityUnread: false,
   recent: [
@@ -109,7 +108,7 @@ describe('AdminDashboardPage', () => {
     expect(html).toContain('ACP · 짧은 글')
     expect(html).toContain('드레인 큐 · Claude Code')
     expect(html).toContain('VCB · 단어장 파이프라인')
-    expect(html).toContain('VRL · 어휘 레벨')
+    expect(html).toContain('사전 품질·분류')
     expect(html).toContain('CCP · 도서 만화')
     expect(html).toContain('PDCP · 퍼블릭도메인 만화')
     expect(html).toContain('Pending Words')
@@ -120,12 +119,17 @@ describe('AdminDashboardPage', () => {
     expect(html).toContain('45,682')
   })
 
-  it('DB 를 읽지 않는 화면에 목업 태그를, reports 부재는 "테이블 없음" 으로 표시한다', async () => {
+  it('작업 홈에서 안내 전용 화면과 빈 관문을 실행 카드로 반복하지 않는다', async () => {
     const html = await render(STATS)
 
     expect(html).toContain('목업')
-    expect(html).toContain('reports 테이블 없음')
-    expect(html).toContain('결제 테이블 없음')
+    expect(html).not.toContain('href="/admin/reports"')
+    expect(html).not.toContain('href="/admin/billing"')
+    expect(html).not.toContain('href="/admin/library"')
+    expect(html).toContain('href="/admin/analytics"')
+    expect(html).toContain('활동 분석')
+    expect(html).not.toContain('플랫폼 분석')
+    expect(html.match(/href="\/admin\/analytics"[\s\S]*?<\/a>/)?.[0]).not.toContain('목업')
     // 미구현을 "0건" 으로 뭉개지 않는다
     expect(html).not.toContain('미처리 0건')
   })

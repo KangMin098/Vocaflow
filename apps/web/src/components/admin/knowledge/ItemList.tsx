@@ -27,14 +27,14 @@ export function ItemList({ items, evidenceCount, taxonomyLabel, empty }: ItemLis
               <span className="text-[var(--t2)]">{LAYER_LABEL[it.layer]}</span>
             </div>
             <div className="min-w-0">
-              <h3 className="font-semibold text-[var(--t1)]">
+              <h2 className="font-semibold text-[var(--t1)]">
                 <Link
                   href={`/admin/knowledge/item/${it.slug}`}
                   className="inline-flex min-h-11 items-center hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
                 >
                   {it.title}
                 </Link>
-              </h3>
+              </h2>
               <p className="mt-1 text-sm text-[var(--t1)]">{it.statement}</p>
               {chips.length > 0 && (
                 <ul className="mt-2 flex flex-wrap gap-1.5" aria-label="조건">

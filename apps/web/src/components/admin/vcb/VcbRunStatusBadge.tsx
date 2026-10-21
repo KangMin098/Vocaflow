@@ -1,4 +1,5 @@
 // apps/web/src/components/admin/vcb/VcbRunStatusBadge.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 // RunStatus 11종 → 라벨 + 색상. 인라인 Tailwind + var(--*) only.
 
 import type { RunStatus } from '@/lib/vcb/types'
@@ -43,7 +44,7 @@ export function VcbRunStatusBadge({ status, size = 'md' }: Props) {
   return (
     <span
       className={`inline-flex items-center gap-2 rounded-[var(--r-full)] font-display font-medium leading-none whitespace-nowrap border ${sizeClass}`}
-      style={{ color: s.color, backgroundColor: s.bg, borderColor: s.border }}
+      style={{ color: adminTextInk(s.color), backgroundColor: s.bg, borderColor: s.border }}
     >
       <span
         className="w-1.5 h-1.5 rounded-full"

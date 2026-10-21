@@ -1,0 +1,5777 @@
+{
+  "schema": 1,
+  "baseline": "fcb40034d43ccfbf1a429c76de97ed840d0bac5d",
+  "method": "Static local import graph, maximum depth 4; targeted manual reads are documented separately. Hashes bind the observed local v1 code, not live database or deployed workers.",
+  "files": [
+    {
+      "file": "apps/web/src/app/admin/analytics/page.tsx",
+      "sha256": "e4302011823c683bc91b5826c8b060acebd6351e00b4f8031e9b87ab6090b15d",
+      "lines": 56,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/BulkArticlesTab.tsx",
+      "sha256": "c8d434fd743372d50a6b0d0dfc777f5bdaf773ac6ed61e662353d78e4012ab18",
+      "lines": 1886,
+      "apiStrings": [
+        "/api/admin/articles/seed-list?limit=300&includeImported=true",
+        "/api/admin/articles/seed/delete",
+        "/api/acp/enqueue"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/CandidateTable.tsx",
+      "sha256": "77f49c39e89c59330d011ba14257728fe63c38b8712b2940b90984f3fd51c277",
+      "lines": 252,
+      "apiStrings": [
+        "/api/acp/enqueue"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/CoverageMatrix.tsx",
+      "sha256": "5274cdf20e76dfe843e7850d053d6eaccd7aad78a5f96a71c6618671ad90bbb3",
+      "lines": 118,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/CuratedArticlesTab.tsx",
+      "sha256": "7fbef76b12c7679824251f89a77fb2aeb4819a3c4fa6c30f10c1796966d9e4dc",
+      "lines": 1059,
+      "apiStrings": [
+        "/api/acp/dev-process",
+        "/api/admin/articles/bulk-requeue",
+        "/api/acp/dev-drain-queue"
+      ],
+      "tables": [],
+      "rpcs": [
+        "admin_requeue_article",
+        "admin_archive_article"
+      ],
+      "actionNames": [
+        "runAction",
+        "rpcAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/CurationConsole.tsx",
+      "sha256": "2371089447dc1fa834144d4f1fc967e51c204f1ad7ee30597d80164be9aaf7c0",
+      "lines": 452,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/GetGuidePanel.tsx",
+      "sha256": "1b0f30459ca2abc3448389c229ab9d9ae952806fe088e0192b4a66777fa3f719",
+      "lines": 175,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/page.tsx",
+      "sha256": "81cd59c92600003c1c80e048c24f11d93a9682e04f6629ab779b0ab4cb549afd",
+      "lines": 118,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/preview/[id]/AdminArticleReviewClient.tsx",
+      "sha256": "c9617f7dfcac5235723dd7fb2f6f72857d91c894efab2f1abd5fe89f883bcae3",
+      "lines": 610,
+      "apiStrings": [
+        "/api/acp/dev-process"
+      ],
+      "tables": [],
+      "rpcs": [
+        "admin_requeue_article",
+        "admin_archive_article"
+      ],
+      "actionNames": [
+        "runAction",
+        "rpcAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/preview/[id]/page.tsx",
+      "sha256": "8399b035762d1837fe1738547506385d7f63579afb4d9cd14cf6bce735569839",
+      "lines": 177,
+      "apiStrings": [],
+      "tables": [
+        "library_articles"
+      ],
+      "rpcs": [
+        "select_article_vocab"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/RssFeedTab.tsx",
+      "sha256": "04d40e967fd1ffa4b231c2d9f6990243a4a7de1fc9b303ca4dce5a9ccb69d284",
+      "lines": 339,
+      "apiStrings": [
+        "/api/acp/enqueue"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/SourceFeedList.tsx",
+      "sha256": "9399a361f6737246cf90fcd54402157a343e4f8b5e09418b7e2dd4321e87ec54",
+      "lines": 179,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/SourceGetView.tsx",
+      "sha256": "063c4bd2b020607b3e662ffbbf9fea25d67cbe37bee3d8b54f3fbe96be308931",
+      "lines": 348,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/SourceProfile.tsx",
+      "sha256": "bde0351ea0108df91cd3c20f64c8d5dede77d50467da8b6f36c03b2af9fe0432",
+      "lines": 119,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/articles/VoaFeedTab.tsx",
+      "sha256": "8fc609012f2dc4c337429e33c90b81a56b757df73bc98fc800d14e3502dc5c09",
+      "lines": 332,
+      "apiStrings": [
+        "/api/acp/enqueue"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/billing/page.tsx",
+      "sha256": "9c7c8721eff32526919d55c1d0e96c04cbe19931567e644c8e300320380c67f9",
+      "lines": 7,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/comic/[bookId]/ComicReviewClient.tsx",
+      "sha256": "09643cb8970815b8f1789a33d52d9a75c1c173cbe8130c8bd34d636d3deb752b",
+      "lines": 518,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/comic/[bookId]/drain/DrainConsole.tsx",
+      "sha256": "6cfb0207331a99a3b34823080ea5d5e62861f8e131a0c39770c1212fb14c5e86",
+      "lines": 250,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/comic/[bookId]/drain/page.tsx",
+      "sha256": "f7d7bf6b3a4007d3db21f0bdfa76fb6807ad52b7160030629c9ff5e5cf91760b",
+      "lines": 26,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/comic/[bookId]/page.tsx",
+      "sha256": "993c2f36ca9b063eb5392eaa0c56f755e903c024dff70ab40114003f4ce4af18",
+      "lines": 31,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/comic/actions.ts",
+      "sha256": "90deb3c1e7c1a7e622a5e876168f9e08b1373400853d25b2cdc4b24cd05b7877",
+      "lines": 156,
+      "apiStrings": [],
+      "tables": [
+        "comic_styles",
+        "comic_books",
+        "comic_gen_models",
+        "comic_gen_tests"
+      ],
+      "rpcs": [],
+      "actionNames": [
+        "enqueueComicJobsAction",
+        "setComicPublishedAction",
+        "archiveComicAction",
+        "setComicStyleStatusAction",
+        "setBookStyleAction",
+        "setComicModelStatusAction",
+        "createComicTestAction",
+        "deleteComicAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/comic/AdminComicClient.tsx",
+      "sha256": "5881ef00b5c4065b84b63c1404f193bedaf5b2378c0bbd3e94083520d6d74527",
+      "lines": 827,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/comic/page.tsx",
+      "sha256": "64295e6108f7a031d045d5a651b66b3eb333c00eaa529f1aa80f228d48449639",
+      "lines": 25,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/compose/actions.ts",
+      "sha256": "7c1262722c77c973689c722a4f6cce86da7d7987d030edc2900ef6d931773cb0",
+      "lines": 996,
+      "apiStrings": [],
+      "tables": [
+        "article_compose_feeds",
+        "article_compose_candidates",
+        "article_compose_batches",
+        "library_articles",
+        "article_compose_sources",
+        "article_fact_ledger",
+        "article_fact_attestation",
+        "article_compose_jobs"
+      ],
+      "rpcs": [
+        "run_content_quality_gates"
+      ],
+      "actionNames": [
+        "verifyFeedUrlAction",
+        "runComposeJobAction",
+        "runBatchAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/compose/ComposeConsoleClient.tsx",
+      "sha256": "ab62f7885fd290337ee5298ae876082e9bb7a01e7e5e495487c3392cef3a8c01",
+      "lines": 1867,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": [
+        "useAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/compose/page.tsx",
+      "sha256": "5c4e677a37fe65d3a065311e76207f3ca40011c1e41fb1ecbcf9fcccd366cde0",
+      "lines": 305,
+      "apiStrings": [],
+      "tables": [
+        "csat_dcp_items",
+        "library_article_vocabularies",
+        "shared_word_sets"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/compose/publish-gate.ts",
+      "sha256": "a45d4a103f9192bfa7da4f8a6a7ee9e3976db094785e45c4d0e1287507fe4b3d",
+      "lines": 144,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/compose/transitions.ts",
+      "sha256": "272506f2016a1a0c589f307bcb295f3823b4b45601d9535b606fc84ae8ad2df6",
+      "lines": 138,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/authoring/AuthorClient.tsx",
+      "sha256": "e9667c89abcb75796dc76ba4b6f7c82debaf371bc45c8998d92e00dd9b95b0d9",
+      "lines": 313,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/authoring/page.tsx",
+      "sha256": "0178fadcd5612184ccb61b4c6651dfc7ef6702ca0ec121678f757dc0846ee12f",
+      "lines": 48,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/blueprint/BlueprintClient.tsx",
+      "sha256": "c33470922b47ae181d41e634707f38ad34bf1e229f7bc6505b3656b14a4905f9",
+      "lines": 302,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/blueprint/page.tsx",
+      "sha256": "52cccf8377aa509ed682c988dc69b9d15ee1d45f7da75921779e15408812e073",
+      "lines": 16,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/catalog/page.tsx",
+      "sha256": "3f651e6001beaaf5f3cf225262a5585980b53550a138531e354d5936e371335d",
+      "lines": 19,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/catalog/SeriesShelf.tsx",
+      "sha256": "ca842789b38c014ebad72eb851b036d114eafa825f6b0a9098aa971b44622377",
+      "lines": 471,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/details/page.tsx",
+      "sha256": "0b50ffb331bafb55f64715624a6fd1078a311ab0634cc6b22aa99e00a02755a4",
+      "lines": 72,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/actions.ts",
+      "sha256": "cb41b80185f87a60e21e251374954fcebc390863a4212d748a5b09ddf2924e27",
+      "lines": 141,
+      "apiStrings": [],
+      "tables": [
+        "csat_exams",
+        "csat_dx_pool",
+        "csat_items",
+        "csat_dx_answer_key"
+      ],
+      "rpcs": [
+        "csat_dx_save_item_tagging",
+        "csat_dx_activate_settings"
+      ],
+      "actionNames": [
+        "saveExamStatsAction",
+        "setExamReadyAction",
+        "saveItemTaggingAction",
+        "setPoolItemAction",
+        "saveSettingsAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/exams/[examId]/page.tsx",
+      "sha256": "0ce1a0b0a360857baacbaa2fafe6b7e0a8145bec1abd0ee80fe5c21ff524286a",
+      "lines": 40,
+      "apiStrings": [],
+      "tables": [
+        "csat_exams"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/exams/[examId]/TaggingBoard.tsx",
+      "sha256": "a38bcfa97bc141a3806cdebb791ae2726d8bf626e6063d10ca3a5ebe01dbf743",
+      "lines": 150,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/exams/ExamsTable.tsx",
+      "sha256": "aa9f5e18ddd2b504d0c51d698aabbee0c8c09f63a1652b118bb7971e48ec2d92",
+      "lines": 80,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/exams/page.tsx",
+      "sha256": "d00d01dfb24421a3b67e20b936dc13884adc1a1147d7d8a4920791bc355be932",
+      "lines": 31,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/learners/[id]/page.tsx",
+      "sha256": "b56f9b1a93e0fe130eb32930171fe5f0a793a7d96086a0573b02828bd55b3bf1",
+      "lines": 60,
+      "apiStrings": [
+        "/api/admin/csat/diagnosis/sessions"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/learners/page.tsx",
+      "sha256": "29cb09e1c9537bdf04963dc696e9cd6bc801b89c85d8a9098192941e6ecdf008",
+      "lines": 48,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/page.tsx",
+      "sha256": "8f43a61f29ded73b7802a4952d05803727e622948f84cc062d9255856a46a2b4",
+      "lines": 91,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/settings/page.tsx",
+      "sha256": "4111faa6503ac6dff4bf3f24354f799c159fb5616e8527ecdebf4a3abffea0d0",
+      "lines": 54,
+      "apiStrings": [],
+      "tables": [
+        "csat_dx_settings"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/diagnosis/settings/SettingsEditor.tsx",
+      "sha256": "c8584c356c05e1a26e7243808bce376a98f97cc89fce73cc2982edbeb42297c8",
+      "lines": 54,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/evidence/evidence.module.css",
+      "sha256": "9f6fd2f96a6077391378196deec8e5fcf7d42585538c9a63b896f6934ccbc1ea",
+      "lines": 541,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/evidence/EvidenceAxisPanel.tsx",
+      "sha256": "63f45359513740a5acdb59e72e198334d316727b9bf1e373e9dfe6255b424015",
+      "lines": 389,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/evidence/EvidenceConsole.tsx",
+      "sha256": "9f5269d72c2182598152028793c5e8365265564d0403023a42cfa5daf985cdeb",
+      "lines": 923,
+      "apiStrings": [
+        "/api/admin/csat/evidence",
+        "/api/admin/csat/guide?format=md",
+        "/api/admin/csat/guide?format=json&download=1"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/evidence/EvidenceInspector.tsx",
+      "sha256": "34209e3b1ec79c8e68a15727d2ebdd658add5ef45d94214a453aa7a58839e5ad",
+      "lines": 418,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/evidence/EvidenceMatrix.tsx",
+      "sha256": "c91148b5231a1c32443ff401f082eadfdf0099bb2ee39c3336ca827bd95594bb",
+      "lines": 250,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/evidence/HakpyeongReviewPanel.tsx",
+      "sha256": "bdae3b3b3f34275f27b80327edfab6a6193b1be471c088042acb9d41aad0adc5",
+      "lines": 195,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/evidence/page.tsx",
+      "sha256": "776a1857bc0630cce98cd5af6073efd61cfd295d13ae53067261ed85a11fdad6",
+      "lines": 19,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/explain/ExplainClient.tsx",
+      "sha256": "a06ce647100840a5089728d107f3c06e815ff70d0085ad28a5f05dec1adbf433",
+      "lines": 250,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/explain/page.tsx",
+      "sha256": "e81b285417a90e9427e068e4174e3bd91b9099c1d8a3c5ad52e6789a4fc02a9e",
+      "lines": 19,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/FactoryLineClient.tsx",
+      "sha256": "1f178cb18b6e4fd3f5e99b4317c3c700e9327d627142a1ed4fea3f8a1786ca68",
+      "lines": 323,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/FactoryLineDiagram.tsx",
+      "sha256": "4a9bf09621aed5e0553b68f047b222e62086e400676c0b5edf994c5d286525dc",
+      "lines": 162,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/help/page.tsx",
+      "sha256": "9aa866353931f00ed5d657489ace883a70dbcab8fcdaa9830888210c34f3a266",
+      "lines": 92,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/new/MakeGuide.tsx",
+      "sha256": "8d206217a4128360de91a6cf6bab3ad6f9c8fcfdd9f8e4d279c60b8d36b6ef0d",
+      "lines": 284,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/new/OrderWizard.tsx",
+      "sha256": "cec758c4e0f25a4fb0dbbf5d243368c42d8a2f79b123ce718f3a2af267f6edb6",
+      "lines": 593,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/new/page.tsx",
+      "sha256": "d6d30b865cb586f2d9cb57408e49b67690e3a7a32fd6eccdf45b05cfaedc9c80",
+      "lines": 23,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/page.tsx",
+      "sha256": "d06acb74f4c3a35a54a32f7a190253809ac1bae601ae2dd866de1cc6e1a92515",
+      "lines": 57,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/press/actions.ts",
+      "sha256": "8b0b5c8e4c0ffa42233c99c7c08b1e6619d4ec455bbf7a7094ed944ace41e66c",
+      "lines": 157,
+      "apiStrings": [],
+      "tables": [
+        "textbook_volume_renders"
+      ],
+      "rpcs": [],
+      "actionNames": [
+        "decideVolumeAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/press/LadderFill.tsx",
+      "sha256": "661338741cf70df6afc5ede5d969c4635d1101954a18147d02199aca044c5763",
+      "lines": 92,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/press/page.tsx",
+      "sha256": "19f12883294b365f86077de0f65a1eb2a470d0fd14b639a694e17553b4d1453d",
+      "lines": 23,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/press/PressClient.tsx",
+      "sha256": "439b8f25994398e1d2bab9708d5e44dec92977ff854b0e934cdf32abb72a38d0",
+      "lines": 573,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/review/page.tsx",
+      "sha256": "5c6f929fe8fff4b5612b78132893cdcb3b1263eb3bd9d8e652323d40ccab192e",
+      "lines": 28,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/review/ReviewClient.tsx",
+      "sha256": "1c11f29f1043cbc8f597950855b203593baeea2801f47ebb545392658c70970f",
+      "lines": 330,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/review/ReviewStack.tsx",
+      "sha256": "a254407c0e43ba6eecd4c00ad5ea8fc5780a4ca583f17b98a990d932f29b09ed",
+      "lines": 127,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/LiveOverview.tsx",
+      "sha256": "8103b62b0393e097e50cfd2e65142158c5d683ff01ba7a23826f630f5cc63b26",
+      "lines": 135,
+      "apiStrings": [
+        "/api/admin/csat/sources?live=1"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/NextStepPipeline.tsx",
+      "sha256": "d3c430815ff69b8a6a79e8fa7fcf407115059e92bfb0a252d4089c25b44a76a1",
+      "lines": 239,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/page.tsx",
+      "sha256": "ab2aea949bf958b2d3f51ca22a9c790b097c569957e37c8b59555ec3289a0b90",
+      "lines": 48,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/PipelineBoard.tsx",
+      "sha256": "2aea59f3279426c4967d959d98fc41c64b39fa2dbdb34bef5708a5c4b99f05db",
+      "lines": 268,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/source-operations.module.css",
+      "sha256": "e4a9e347a132e1e0abd95c865d9da3176961fca47f2f37fd8a03f1ce1fad0b7e",
+      "lines": 67,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/source-process.module.css",
+      "sha256": "c33a043eb4913c043ffc380efa7072d0c5388f88914848a31394c32e224c97a4",
+      "lines": 277,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/source-query.module.css",
+      "sha256": "ddf681c689c1b42f7c6a9bda4c961a9221194eb8d3fac7c6cb30e6780b87c1e2",
+      "lines": 428,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/SourceEligibilityClient.tsx",
+      "sha256": "5856f8c5ce1ff84d5b2cd974ec2d9abb6e55fb388f7b4f904eb5f272386369b7",
+      "lines": 1059,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/SourceGetGuide.tsx",
+      "sha256": "c6c69f71d11819fbca33828806df6f602b20f00382bfa93a15ed8b1b16382fc1",
+      "lines": 89,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/SourceInventoryTable.tsx",
+      "sha256": "223960e01dce519c322627f462ec48d92688ff5c943ea67ce70af5ae278a0096",
+      "lines": 209,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/SourceOperations.tsx",
+      "sha256": "dafa70ef3659da8794739ae8cb0846410977e48713ba8efa32bd38cdcf6e9965",
+      "lines": 123,
+      "apiStrings": [
+        "/api/admin/csat/sources"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/SourceProcess.tsx",
+      "sha256": "79750642fd0e52dfd6ad33667fa212709cea100076f9d8cc67f73c12268ce554",
+      "lines": 215,
+      "apiStrings": [
+        "/api/admin/csat/sources"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/SourceQueryConsole.tsx",
+      "sha256": "47e4780274b0992d032a36e1541a371e07d1f0a7f3d8ec3cbb69666b4c981a02",
+      "lines": 392,
+      "apiStrings": [
+        "/api/admin/csat/sources"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/sources.module.css",
+      "sha256": "82a118c70009977fa0cdde718466f32c61e4876b010c500bf53a1197a5cc06e2",
+      "lines": 541,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sources/SourceWorkspace.tsx",
+      "sha256": "18c688f81ac274b83af8ef86a383dcc24d97774e4287768dbd2332490cd96d55",
+      "lines": 396,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sourcing/actions.ts",
+      "sha256": "3c40fba01f00e2ad5655f294078853047468c5303501f0c4104394b53d698ff2",
+      "lines": 47,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "csat_source_snapshot_take"
+      ],
+      "actionNames": [
+        "retakeSourceSnapshotAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sourcing/BandStrip.tsx",
+      "sha256": "747d28625547beb310a9eae3ebd26d1cebe52b723c03e9c97a68d7cc10678a97",
+      "lines": 116,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sourcing/page.tsx",
+      "sha256": "c296dfa5f86306d27cef37b81bcd360cec093616f5aa6d5feecbe7537f9a71d0",
+      "lines": 25,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/sourcing/SourceClient.tsx",
+      "sha256": "90b72b0b25e0d62fc2c5a0537e65a12919e1816dcc9731eda91d240026d6df1c",
+      "lines": 491,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/strategy/AxisBullet.tsx",
+      "sha256": "dae2732d7e059923fb26f9f1c1b483d1037ce8c1272088d34681541e4e493caf",
+      "lines": 111,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/strategy/EvalChecklist.tsx",
+      "sha256": "5cf381cbfb7fbb672bf86bd3b8c84c85bf36fcefc4434f5164841ce3d7e12fea",
+      "lines": 122,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/strategy/MarketClient.tsx",
+      "sha256": "dc28c64f3a11d742292be0bfa08423664b7536eca3a955121c51dc914dc2b0ee",
+      "lines": 375,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/csat/strategy/page.tsx",
+      "sha256": "8e2749b36a94e4d4d7c37f09fd1e969140c7a939b2308cb46467b9fa26517af1",
+      "lines": 16,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/curation/actions.ts",
+      "sha256": "ddb387585ff9e5b35f6ecaba14d404410294d9da5923a683ce08fda2626f2261",
+      "lines": 240,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": [
+        "deleteFailedBookAction",
+        "bulkSetBooksToInProgressAction",
+        "bulkRequeueBooksAction",
+        "fetchCurationJobsAction",
+        "enqueueQuizJobsAction",
+        "fetchQuizJobsAction",
+        "enqueueReviewJobsAction",
+        "fetchReviewJobsAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/curation/AdminCurationClient.tsx",
+      "sha256": "3f679a542513a4c6b8432b581dd9770c096e4d2569e2b1f96e9831363e760157",
+      "lines": 222,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/curation/page.tsx",
+      "sha256": "d0ca37fc416b6f33b911de3a337056097238b977945b95a9aac1b4adfad2b044",
+      "lines": 82,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/curation/preview/[bookId]/AdminReviewClient.tsx",
+      "sha256": "b9ccf8624c5cd41170fc25feb564610c1d97babd5add7450995c2e9a500d56aa",
+      "lines": 261,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": [
+        "runAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/curation/preview/[bookId]/page.tsx",
+      "sha256": "7eaec8e679773b29a063a5da86fa3bbcc41b15f3b7eaea06f805fe75af9703e9",
+      "lines": 181,
+      "apiStrings": [],
+      "tables": [
+        "library_books"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/db/ActionButton.tsx",
+      "sha256": "bebedf1d084b3da70be084637e31126caaeda89c239e823a9d8a61c2048ad278",
+      "lines": 154,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "admin_run_db_health_action"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/db/AlertTriage.tsx",
+      "sha256": "73b12ed67b671be42accdbbc245892cf9000fae7b5d80c3d779a131b87aeb7e0",
+      "lines": 360,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "admin_set_db_health_finding_status"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/db/CollectButtons.tsx",
+      "sha256": "7b23d550a444b3f630c12801d531152ba5c67ca713f6fe188186230be746466f",
+      "lines": 89,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "admin_collect_db_health_metrics",
+        "admin_collect_db_health_integrity"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/db/InfoTip.tsx",
+      "sha256": "a42d914d69a758c305c33568e5887a2aea741e47f4dae3dc803fc5ace2ae5574",
+      "lines": 69,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/db/LivePanel.tsx",
+      "sha256": "b3eb858b2af28cc4b49c4070cc26a68fbd08f8a30ea58de867c71bc38fafa441",
+      "lines": 460,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "admin_db_health_live"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/db/page.tsx",
+      "sha256": "0f935ea3aacc15c6fc64a1a2ce2217c1f5cfe412abe0168fddbed82567cb0697",
+      "lines": 676,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/[typeId]/page.tsx",
+      "sha256": "2dc7c3c479a8b07d996164bec207455078563c73c642e56108032f4efb0b547c",
+      "lines": 337,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/item/[slug]/page.tsx",
+      "sha256": "088a91181f395a2dad3f0dcc5407d895fd49b6bd4226e474eafe5012e50c53b9",
+      "lines": 401,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/map/MapClient.tsx",
+      "sha256": "e4d53ec840e6127560013f6a5b1987704f55acda2c052489a28c75bc39a02124",
+      "lines": 42,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/map/page.tsx",
+      "sha256": "9fc0e2d2360e16301a5991930a2c27db4e077e18d5345607f83e2633b3d4a274",
+      "lines": 67,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/page.tsx",
+      "sha256": "173f8e0acad6721b035f1ee6adef6744de824b6363319bd229849870a400757d",
+      "lines": 190,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/plan/page.tsx",
+      "sha256": "d3c2ff72a0f232caa1314353f1c08d58d1607ac3a98a6be059773be780f31c45",
+      "lines": 118,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/plan/PlanList.tsx",
+      "sha256": "79a8f599b0423e88164e7b192456ba09f80d67d68df111f5c72ccece2281672f",
+      "lines": 143,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/predict/page.tsx",
+      "sha256": "a9fc124546be3b6780853b0f129de7dd59fc539cff5e1bc07cb245d23ca76f9c",
+      "lines": 87,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/kice/predict/PriorityClient.tsx",
+      "sha256": "771f5ec7a43de60c5a0d79a91919afb384432f3f092af96cc436027ada45b8c6",
+      "lines": 136,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/actions.ts",
+      "sha256": "002154edf3813867cfdf5905b3bb208b2299607201e8fc84f4c2a783206f234f",
+      "lines": 305,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_evidence",
+        "knowledge_items",
+        "knowledge_links",
+        "knowledge_csat_origins"
+      ],
+      "rpcs": [],
+      "actionNames": [
+        "setItemStatusAction",
+        "editStatementAction",
+        "createItemAction",
+        "addLinkAction",
+        "addExternalEvidenceAction",
+        "addCsatEvidenceAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/design/page.tsx",
+      "sha256": "740be8be058ec267334ba091f16192a195c354ef487ccd086ded565ddb69fc73",
+      "lines": 97,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/experts/page.tsx",
+      "sha256": "df7a37674aa6e0e5f8914758862d66829d40a1ead795d42a3ddebcc1d8726cd2",
+      "lines": 72,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/gaps/page.tsx",
+      "sha256": "6363ee3017108adaed9f6dfbb4340b2f35ef7538c9d41b8cf88c37f36c65984a",
+      "lines": 61,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/item/[slug]/page.tsx",
+      "sha256": "984b648178b1299b31563ed4ce21ef77222280551eb8b7e6d05acf724de5da56",
+      "lines": 236,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/lab/[slug]/page.tsx",
+      "sha256": "be4477ed4d330de8cf2d9e60631dc5dd1902d831c4cf5028a8162a8a571baffd",
+      "lines": 96,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/lab/compare/page.tsx",
+      "sha256": "39470e772ddaff92074d8053daef6d1c2c9bdda64e8aac030e1f2ef819449a40",
+      "lines": 119,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/lab/page.tsx",
+      "sha256": "eb8e5581cb4eb63c8fa22896558db2b0b78f45ed070a185fa38526e5a82c941b",
+      "lines": 54,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/lab/research/page.tsx",
+      "sha256": "24a2bea2e92603d4bcb233e27f4c3e81c9581e8eb0ce57b8fce6ec8825873e33",
+      "lines": 55,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/map/page.tsx",
+      "sha256": "a07eb4429d784f4240004c6b5a753a2e3f950c14d891d462d44b998718f11433",
+      "lines": 140,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/methods/page.tsx",
+      "sha256": "0f982f3966d2d0a975bf72300b80b6a1a7cf70544023937a850f38293129e0e3",
+      "lines": 38,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/page.tsx",
+      "sha256": "a1dfcb0ddb628fd9078fa60b6d5737f89b941c5edef82796cb646ec422a2e279",
+      "lines": 100,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/principles/page.tsx",
+      "sha256": "13f10d6e627dfc164bcfa044713ecef66513ad4c862a028d3291b94a5707ea05",
+      "lines": 38,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/product/[id]/page.tsx",
+      "sha256": "191f861e2dc8b3541f078e25981751a1baa779ddbe4862e330ecc6f52bb0ca3b",
+      "lines": 118,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_applications",
+        "knowledge_evidence",
+        "knowledge_inquiry_links",
+        "knowledge_trials",
+        "learning_task_attempts",
+        "knowledge_inquiries"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/product/page.tsx",
+      "sha256": "6c7eb24dcc38fa54ee79e31489fd3ec7dd0c674a8d370996e3b996949158979d",
+      "lines": 86,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/review/page.tsx",
+      "sha256": "7353eb26a3f54d64520ce217d7af7d5fb836e78581e1fbdcea8e35f7f9385096",
+      "lines": 38,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/signals/page.tsx",
+      "sha256": "82e3e8880aa79d86a86bc6cfcd3ddae78d97577ebd6eaea4836bba4df623646b",
+      "lines": 124,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/sources/csat/page.tsx",
+      "sha256": "069e4164589c1bbdeeb7fcf09604443d85b3b04a2701c38bd7488dbd0edc77ca",
+      "lines": 99,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/sources/page.tsx",
+      "sha256": "89340ee270a698d461827ef9dfda75d2bd868097e6ed0756de8f34e471884f73",
+      "lines": 98,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/knowledge/vnext-actions.ts",
+      "sha256": "c48a89c7723905f2bf4dc3101fe8392a3d5253bb8a5bb58600ac0318121c5142",
+      "lines": 250,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_inquiries",
+        "knowledge_items",
+        "knowledge_inquiry_links",
+        "knowledge_research_sources",
+        "knowledge_evidence",
+        "knowledge_applications",
+        "knowledge_trials"
+      ],
+      "rpcs": [],
+      "actionNames": [
+        "createInquiryAction",
+        "setInquiryStatusAction",
+        "linkInquiryAction",
+        "createResearchSourceAction",
+        "addResearchEvidenceAction",
+        "setEvidenceAxesAction",
+        "setItemKindAction",
+        "createApplicationAction",
+        "setApplicationStatusAction",
+        "createTrialAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/library/page.tsx",
+      "sha256": "b0f4d4bb5125e8a49599db2648064cc6519fd8e33fcaca96295135faacdbc0dd",
+      "lines": 7,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/methodology/page.tsx",
+      "sha256": "585ab521c444babefaf9e13f9f6adcaa8b67db71b24534b55ea43ce140c15169",
+      "lines": 30,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/page.tsx",
+      "sha256": "94b712cf936052e9fb856fcc1d0a1d93678602bcb4e5098cac31cfc4963588bd",
+      "lines": 539,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/pd-comics/AdminPdComicsClient.tsx",
+      "sha256": "18a6b6599bb0169182e0e4fabcb7b24fb6da589d999e81455515ca77052718a5",
+      "lines": 2075,
+      "apiStrings": [
+        "/api/pdcp/queue",
+        "/api/pdcp/bulk-ingest",
+        "/api/pdcp/curate",
+        "/api/pdcp/enqueue",
+        "/api/pdcp/sources",
+        "/api/pdcp/search",
+        "/api/pdcp/assist",
+        "/api/pdcp/drain",
+        "/api/pdcp/retry",
+        "/api/pdcp/modernize",
+        "/api/pdcp/oplog",
+        "/api/pdcp/publish",
+        "/api/pdcp/doctor",
+        "/api/pdcp/connect-check"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/pd-comics/page.tsx",
+      "sha256": "b3086502fece266dfa59ba72dfacb3d42d925de3d82e3c576f124aee9985ca26",
+      "lines": 66,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/pd-comics/reader/[issueId]/page.tsx",
+      "sha256": "1150e99fb06db3f8c8ce5732d627301df1d6d515424ce43cbc403cc6773a2d5d",
+      "lines": 36,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/pending-words/actions.ts",
+      "sha256": "0fc8491c3f427eb952a39918ac239532e51bc6c00a3b4451ed4b3fd5cec64651",
+      "lines": 40,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "update_pending_word_status"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/pending-words/page.tsx",
+      "sha256": "81e65bd32965ece87329924083694b0f77c98c883b04f34a145770df435cc15a",
+      "lines": 477,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/pending-words/PendingWordActions.tsx",
+      "sha256": "a712d8b189839bad0ddeb0a198c20e1d4293e2171dec9ccf6119eb6250a162f2",
+      "lines": 117,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/CollectNowButton.tsx",
+      "sha256": "53c59cff7ece4f180de35a18755e5ca40d259198cd6752a5a530f0645ca70744",
+      "lines": 68,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "admin_collect_quality_metrics"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/gates/actions.ts",
+      "sha256": "29879d812720d41ce83060b8c95194bd5faf423551e680458289d4848a118982",
+      "lines": 55,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "run_content_quality_gates"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/gates/GateCheckClient.tsx",
+      "sha256": "9b1f8580fe303ec9e6705f6e9f92a94a5f960af3351ccc9144361d5d8633594f",
+      "lines": 257,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "run_content_quality_gates",
+        "run_content_quality_gate_details"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/gates/GlobalGatesClient.tsx",
+      "sha256": "2f652dbd66c777d674a69281e4f133319222fe724032144e0bf7794914365ee1",
+      "lines": 170,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/gates/page.tsx",
+      "sha256": "23a2d1bd9717759ab8fd09f29f8b37f8c3f99fee3eb2a234836d5730a172135f",
+      "lines": 106,
+      "apiStrings": [],
+      "tables": [
+        "library_books",
+        "library_articles"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/judge/JudgeClient.tsx",
+      "sha256": "292eb4a08ed7537c6526c05a985212bc4065efa9f0f587c94b76e6fa290af7cd",
+      "lines": 513,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "get_judgment_sample",
+        "save_extraction_judgment"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/judge/page.tsx",
+      "sha256": "9d2ae700b0c9ef29dbd22460e96cfb44c339c4f68c2f05deabe8874ce2f7367a",
+      "lines": 78,
+      "apiStrings": [],
+      "tables": [
+        "library_books",
+        "library_articles"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/quality/page.tsx",
+      "sha256": "ea65db8838732caa7bdfee4093f2e7924fbf5399ed1384d75b1393103133b53c",
+      "lines": 274,
+      "apiStrings": [],
+      "tables": [
+        "quality_metrics"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/reports/page.tsx",
+      "sha256": "010649fe6a3286278352c323fda433a6a00a2fb7656ad89fd7051d373ab5ba0a",
+      "lines": 7,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/settings/page.tsx",
+      "sha256": "3cbded01b2470aedd764121fb21777f557d10bbad67bafb8095e94d11138ce30",
+      "lines": 70,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/topic-corpus/page.tsx",
+      "sha256": "52bab5213d843c932c5a10def7d2308c7b6d1217511723a199a164d53fb2dace",
+      "lines": 27,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "topic_corpus_overview"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/topic-corpus/TopicCorpusClient.tsx",
+      "sha256": "03e6e63a31ed284cafd50f3d7ffb103dff3445ed9a6f99bb72e19a8550794870",
+      "lines": 645,
+      "apiStrings": [
+        "/api/topic-corpus/enqueue",
+        "/api/topic-corpus/drain",
+        "/api/topic-corpus/promote"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/users/page.tsx",
+      "sha256": "2b0a789a40ad99802dfe1322103603e8f79d7c18a4e917cd4cd9447f6ece07c7",
+      "lines": 127,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/video/actions.ts",
+      "sha256": "318a15d286488e164e16082bcc48e5aaffb9f714b50c2366a8d7bf34b87a0194",
+      "lines": 143,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "video_request_create",
+        "video_request_review",
+        "video_request_cancel",
+        "video_retire",
+        "video_restore"
+      ],
+      "actionNames": [
+        "createVideoRequestAction",
+        "reviewVideoRequestAction",
+        "cancelVideoRequestAction",
+        "retireVideoAction",
+        "restoreVideoAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/app/admin/video/page.tsx",
+      "sha256": "6756d3d84cdd3a7ed76bb23f7b2407d453ec29f6eb73280eecbd4b63131a630e",
+      "lines": 86,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/video/requests/[id]/page.tsx",
+      "sha256": "a23ea29f8bf5b2f0296cb5450f7b022bba7ae58cea60f072224dfddffdb1d2be",
+      "lines": 29,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/video/requests/[id]/RequestDetailClient.tsx",
+      "sha256": "151d823c5be829b6acfc4b8b8daa64cbc140f30297c2030747883042329b3a33",
+      "lines": 465,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/video/RequestsPanel.tsx",
+      "sha256": "621d0cfb84b5545b6067ad60b4af36c8d730b3cc2e79964bf77737f022adcfbc",
+      "lines": 335,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/video/VideoActions.tsx",
+      "sha256": "578b6e4424e2cc4b41a596035bf20ef57945fcb34fbd8bd6a44fe467ea1c830e",
+      "lines": 146,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/video/VideoConsoleClient.tsx",
+      "sha256": "f08b1a784aa99c64002537946f5eb19f5718c30f99817cc0aa1e41c6e8a76281",
+      "lines": 800,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/collections/page.tsx",
+      "sha256": "ddb660660fe3aeb582edd379adaee68dc4a85b23fc73b3a652c1fcc81b2ae6b0",
+      "lines": 156,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/curate/[run_id]/page.tsx",
+      "sha256": "1b443edb156b2000615cdbe377244299971f53b54cd0dc25e1e115cfa69e67a4",
+      "lines": 81,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/page.tsx",
+      "sha256": "649623e89ee321d708dc45e1cf64f2e80b145f898afd93c1b64bf162581b1c1e",
+      "lines": 8,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/runs/[id]/page.tsx",
+      "sha256": "4678f423f3cdf766ece27a04a42f558d77fe80787d7d47a2dee91cf875b497eb",
+      "lines": 400,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/runs/[id]/seed/page.tsx",
+      "sha256": "0fbd63a65104f92918bd0bac8f031a80fb9c8c01b39c05400ed0fc73815ce70c",
+      "lines": 103,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/runs/[id]/seed/preview/page.tsx",
+      "sha256": "dfcde4b3478ed3a227d3444c7533d2c7639377fea4d50c7563f957a6426fb0a6",
+      "lines": 60,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/runs/new/page.tsx",
+      "sha256": "a538484952032bf9c21c069d76ae46bc7e1e13870d9e09520cbb1015e59dff21",
+      "lines": 40,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/runs/page.tsx",
+      "sha256": "b90b3424906d32ef5dac0bf22416e4c837c1ec1779ddce7014481b89f02728ee",
+      "lines": 131,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/sources/new/page.tsx",
+      "sha256": "e6209495960ac28c329fe7d480604c2f909f31ddcc849cefb75e80d69cb0b89b",
+      "lines": 40,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/sources/page.tsx",
+      "sha256": "f4c75890539ab7e9692002a60ee82aedec2ebe120d8fd2682718ae485a51d7b8",
+      "lines": 83,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocab/studio/page.tsx",
+      "sha256": "fd0dd846a404b31323624987d19c99959f42129d9c98cac73c6c90190cae6797",
+      "lines": 33,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocabulary/_sanity.ts",
+      "sha256": "d830c60a1f2a248256663411990aad815b9b7eded84f0999c9dd98d713845eb4",
+      "lines": 149,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocabulary/page.tsx",
+      "sha256": "280d1719231194af11ba4faf38bf000e53b3b563dd72ad4db065a0bd9133f843",
+      "lines": 130,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocabulary/VocabularyBrowserClient.tsx",
+      "sha256": "4c30af58d2d6b7ce259bf1c54153ac9dc25540845e9dc62a60cc63e1a03254e9",
+      "lines": 249,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocabulary/VocabularyDetailPanel.tsx",
+      "sha256": "18a02244c80f5199bf28d04d4ba05081e65cee4212bcd1218804253f7724f180",
+      "lines": 398,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vocabulary/VocabularyTable.tsx",
+      "sha256": "a3eae371a5fee262a5819708af2f3009ed98bb282cc13b8698bd494a09612caa",
+      "lines": 257,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/backlog-items.ts",
+      "sha256": "1d32e67c9717246ead186eaa7f80f8e11b8439e0d908265e28f3f379ac0693d9",
+      "lines": 264,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/BacklogItemCard.tsx",
+      "sha256": "c947c89481fe6b73b757ba8fdc8a90671bb3de41c5a4e0e1186bcd04f392fdbd",
+      "lines": 132,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/BacklogSection.tsx",
+      "sha256": "70419f6c3ca232cfccd78e8b678a940b57219325d927ade4be022a081e10fabb",
+      "lines": 215,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/CriticalDefectsSection.tsx",
+      "sha256": "daba04f346a8235bd4182ac9e91626b1caa242c72c81eb4f98b2b66a8590f5ae",
+      "lines": 183,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/DefectCard.tsx",
+      "sha256": "fe1a03bf3c968f10c18e6f5c1b8c5db0a24174c54cc214d9edf1575b2947c05f",
+      "lines": 199,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/DimensionCard.tsx",
+      "sha256": "9b8cbc84f2d717a05e5ac79e4ff534ed36ca159a3a170d92a4ea7c288ab98cab",
+      "lines": 109,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/DimensionsGrid.tsx",
+      "sha256": "374071f6d444d92b551bfd4d57c8416f615dbbf5db4fd5761a86b80febe7090c",
+      "lines": 45,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/DistributionAnalysisSection.tsx",
+      "sha256": "5d5fa1d4b27cd71f2813f48a78ec08ca2e1526e7e305b79beb90f78acef9c5d0",
+      "lines": 278,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/HeroSection.tsx",
+      "sha256": "cde27b0101d5e2073a0ed17db6e2bf664831f2a291d8f5c8bd316c041f0a25d8",
+      "lines": 235,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/PipelineImpactMatrix.tsx",
+      "sha256": "1b23a23501d0a2066fd9bd89af0087a499dc62269513eae17dd2be16e716f356",
+      "lines": 257,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/QuickActionsSection.tsx",
+      "sha256": "1603d65a7b0ac1b427b82797b86016b255b6b93da939a7bc82d97baffacd7aea",
+      "lines": 310,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/ResponsibilitiesSection.tsx",
+      "sha256": "562540127bfe844a4231e9d3a48b0080fc5bb2845baab7e693521750d7f8b51c",
+      "lines": 105,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/ResponsibilityCard.tsx",
+      "sha256": "82452d0791e2c0ebcf713f2ff940779bcca7ef8afb728e8856ab63bf898fe0b8",
+      "lines": 293,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/RoundHistorySection.tsx",
+      "sha256": "e3038682222d9f7e6becb01e77fe272d4cc0f9d665ce3539a83bfe041db18106",
+      "lines": 372,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/SchemaEvolutionSection.tsx",
+      "sha256": "40fac929e5b73cc79d638c93fc4a24b84fe1ffa42e24efaded32a851041d6019",
+      "lines": 320,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/StickyNav.tsx",
+      "sha256": "b58e2fea33c6294463cc4e74987b7d1359a5fc8144c430ce4a8ec90b9f1ec8f5",
+      "lines": 113,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/_components/VrlStateNotice.tsx",
+      "sha256": "e2282876d207df79e5b59dc6610bd5dcc79c0f8fb68e2c8a46d958c7c65c08b0",
+      "lines": 92,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/automation/page.tsx",
+      "sha256": "3d7f95f1e6d2296e3260a512fac3a219187446d40d3c188ddc3d631ee8c352a3",
+      "lines": 323,
+      "apiStrings": [],
+      "tables": [
+        "user_level_snapshots",
+        "user_profiles"
+      ],
+      "rpcs": [
+        "admin_vrl_cron_jobs",
+        "admin_vrl_cron_runs",
+        "admin_vrl_snapshot_counts",
+        "admin_vrl_v_level_distribution",
+        "admin_vrl_diagnostic_use",
+        "admin_vrl_track_distribution"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/concerns/page.tsx",
+      "sha256": "06781728a0c6ae48eb6ecc8355a143fe6d5f6085a8f62ce52db496431ed0523c",
+      "lines": 217,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/diagnostic/page.tsx",
+      "sha256": "dafe2e4bbfd6d57980228fa3acf8979f05b1cd8994736802c1e9a71d74f0fb58",
+      "lines": 267,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/page.tsx",
+      "sha256": "dbb608e951f715c31f989d9945eb05877e021dbeb579884d1c8b2eef6399590c",
+      "lines": 186,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/snapshots/page.tsx",
+      "sha256": "955db06a4e30a90cc95eb3bfe30389784e8b38f3d717f7767ba1ac003b710310",
+      "lines": 245,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/taxonomy/page.tsx",
+      "sha256": "e9b0527fa85097212d6fe515b006336fcc7df672517627fa99df4061bebcbec2",
+      "lines": 52,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/taxonomy/VrlTaxonomyClient.tsx",
+      "sha256": "da2d0993fdefefd25d3bb209837c96ad21fd559a550bd99703754b2e7af18f8a",
+      "lines": 289,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/app/admin/vrl/users/page.tsx",
+      "sha256": "9b77c4e498c970610e5a929cdef2acf4fd748bc1a8e7dcd9abc266bf00f130fe",
+      "lines": 265,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/AdminKpiGrid.tsx",
+      "sha256": "5591ec1e0705264408affdf91f252afbc298cbec4816589117d08f5e3141fc86",
+      "lines": 67,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/AdminPageHeader.tsx",
+      "sha256": "a7e908dae3192f92165acfaea2f55275054e175be9549d72e3b4c204ae57e955",
+      "lines": 43,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/AdminScreenHelp.tsx",
+      "sha256": "28c94a074b6b40006508721edf094504ab4f8669e9695018bf5990d6a4d5d527",
+      "lines": 727,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/articles/ArticleAudioPanel.tsx",
+      "sha256": "5e3b2eab95c8ad66812c9a7cc15b0e90b6313b133433e161e75ad1dfda78a863",
+      "lines": 184,
+      "apiStrings": [
+        "/api/acp/set-audio"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/articles/ArticleExtractionPanel.tsx",
+      "sha256": "f9cc42f435ea5574e7858013b56fa291a73256fb7cc61961bbb8196c2bec9e64",
+      "lines": 205,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/articles/ArticleWordSetPreviewModal.tsx",
+      "sha256": "991c6eb04a62ea445695d6041c80a2eaf985a504fe98364e899fc55f75715db9",
+      "lines": 109,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/csat-diagnosis/ui.tsx",
+      "sha256": "20d294091eec3b71fcfe4b10a2658ee376f6823f17ad9155599dad04dd713e98",
+      "lines": 59,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/csat/ScopeTabs.tsx",
+      "sha256": "d48ef314407c5572707c2fd6581a243b7eb64c1c846d43190cafd6d081fa0be9",
+      "lines": 41,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/csat/StageFrame.tsx",
+      "sha256": "d2a1b6e4324cf11c1e6067c8df3767ce8f1b77f9faab08913a46af90a9100792",
+      "lines": 439,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/AdvancedFetchPanel.tsx",
+      "sha256": "0a0691cede3c1220132b17b9ff6fc0933f86b259b10d6170cfb2d085268d9f41",
+      "lines": 432,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/BookDetailModal.tsx",
+      "sha256": "d625f9fd6b1aa7b20c6ccc3c2c4d6004428e097fc9621f43d121d7eabd6b46a8",
+      "lines": 857,
+      "apiStrings": [],
+      "tables": [
+        "library_chapters_master",
+        "library_book_vocabularies"
+      ],
+      "rpcs": [],
+      "actionNames": [
+        "runAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/BookExtractionPanel.tsx",
+      "sha256": "a7183edaaae147bccf9382924e312fbd989311a4a2554fbaa79184716953484a",
+      "lines": 559,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/BookIllustrationsPanel.tsx",
+      "sha256": "1953146760582375d1d866959caa0df39bf65087a698ea90614c42e4a46f84f3",
+      "lines": 111,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/BulkFetchTab.tsx",
+      "sha256": "494edf7472dbfccd0c93b29144c9c3c6c2a8b83e6f4cd0a0726c994815d8a6be",
+      "lines": 893,
+      "apiStrings": [
+        "/api/admin/library/fetch-seed-batch",
+        "/api/admin/library/enrich-seed-batch",
+        "/api/admin/library/convert-to-se",
+        "/api/admin/library/delete-seed-catalog"
+      ],
+      "tables": [
+        "library_seed_catalog_view"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/ChapterQuizAdminSection.tsx",
+      "sha256": "693d868a16a96e2b980378d2de3bc06ee91ff0575942b7bf2a6be2a04c34c3ad",
+      "lines": 195,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/ChapterQuizPreviewModal.tsx",
+      "sha256": "a7a6958a61faf65b60964010ce132d6380a308d4059ae536b307d6aed7092b65",
+      "lines": 132,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/ChapterWordSetPreviewModal.tsx",
+      "sha256": "571adfcacf757fe18b86478ecc867dc7ad2e814cdcbee5fb700654f8a2ccdb22",
+      "lines": 176,
+      "apiStrings": [],
+      "tables": [
+        "shared_words"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/ChapterWordSetsAdminSection.tsx",
+      "sha256": "d9e6def9599a545c818e6cdf6b3c85b88da489ccf63c9888201cbba9509f446c",
+      "lines": 172,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/DrainQueueBanner.tsx",
+      "sha256": "7b3bb847919839eb860fd5274a5b777a0139a8d0df7321c609e0cb5be39ca170",
+      "lines": 304,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/EnqueueModal.tsx",
+      "sha256": "76bdc3db18dd724051e530d83d1d032bdf57631101fd51c136f958a8de57252f",
+      "lines": 288,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/GutenbergIdTab.tsx",
+      "sha256": "f14228be097de172928ab5db020d5d47495d6696f2f8bc6fc2a63e09a67b7b34",
+      "lines": 260,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/LibriVoxAudioPanel.tsx",
+      "sha256": "0fe694440bb4f1eb8d21caf7be78e9d8c7b17ac3473f554e771902aae7850bf3",
+      "lines": 254,
+      "apiStrings": [
+        "/api/admin/library/save-librivox-audio"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/LibriVoxAudioPlayer.tsx",
+      "sha256": "e7183bfa47367e7e2c3abe35a2d68604d611e6217fd05c7bb61816fe2876acdd",
+      "lines": 174,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/LibriVoxIdTab.tsx",
+      "sha256": "2e6f6928b58b6ce88c3103b1d12ba13e5136cc702be373379b074ca90b485698",
+      "lines": 319,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/MyLibraryTab.tsx",
+      "sha256": "374ad55e414efc2edcf1c2dab1fb5e0d3b4efa40d649649baa631186f1ce1ad4",
+      "lines": 1999,
+      "apiStrings": [
+        "/api/lcp/dev-process"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/OpenStaxIdTab.tsx",
+      "sha256": "0f1627c93df18b40a2cb82503f144d462af419cf9715659641e69afeb7dbaaee",
+      "lines": 234,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/QualityBars.tsx",
+      "sha256": "aa5a44586d73d9b33811b69defc2963f824c2238f7b67e71618810131349067c",
+      "lines": 198,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/SeedCard.tsx",
+      "sha256": "f5742fcbe30e6759cd41fb6bdd0e2ee09684a5c8bfc1e035a0d204fec4471ab8",
+      "lines": 394,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/SeedDetailModal.tsx",
+      "sha256": "0a275c4d2c275c5b59f7867420b9de1e08cd5c53005d7d233f101df993a17ec3",
+      "lines": 301,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/SeedTab.tsx",
+      "sha256": "d7f7fd4ae06f0367919d034627fb432d43788b1bd00b8172164a9c16238d841b",
+      "lines": 380,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/SourceCard.tsx",
+      "sha256": "8509ce5f578a66c37dafb763e50ed3c5f9eff80d68b00758eaa2b59b4c64fd05",
+      "lines": 233,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/SourceCatalogTab.tsx",
+      "sha256": "11d60d417e91b5063a1c6812f1f146fd7109e18aba988e46c5858c189c2a9a41",
+      "lines": 299,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/StoryWeaverIdTab.tsx",
+      "sha256": "c6594d6dbcdd129476f195a9485ab32465ceabe2469fe275bff7c6e55a910a8d",
+      "lines": 225,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/WikibooksIdTab.tsx",
+      "sha256": "233d56cc2e03cc62c10b67565b6d1c3fcb6ec81bd82814cb1ac36a202c22aaa9",
+      "lines": 242,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/curation/WikisourceIdTab.tsx",
+      "sha256": "1dd0dfede72e8e46518f54062aa59a0740d3f20c42741433b5587db9aa10d80f",
+      "lines": 240,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/factory/ExampleToggle.tsx",
+      "sha256": "b9277fa5f387d1ded4dac76bc1fbedc7d48bb0d2616fcd7142bc6a7abb6ac920",
+      "lines": 60,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/factory/FactoryMap.tsx",
+      "sha256": "8af1987e8ccaa58bf9a0239c8c182a8b27cde0f7956cc5ad5201474a1c0978ad",
+      "lines": 220,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/factory/FactoryTerm.tsx",
+      "sha256": "48bf17e3c5146783d74a33cac720d0f7ff0a0445a73b49e0c448624dc10df0ff",
+      "lines": 85,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/factory/PlainStatusBadge.tsx",
+      "sha256": "0cdf0f9fdfa98508013c9e9b40212417068c84ed38b2c84d6923d8b6f794d1d2",
+      "lines": 39,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/factory/StepHeader.tsx",
+      "sha256": "f30cf40236c712dae83401039c1f59ec295f4093f5a846f9fc3472849802b9a7",
+      "lines": 172,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/factory/WhoChip.tsx",
+      "sha256": "f27dbf2a57cc03e3c741f00e7f7811e8c4a6e0408a23aff9476cd7f541723e8a",
+      "lines": 19,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/knowledge/ItemEditor.tsx",
+      "sha256": "d7c4080c4c85b0d55ae3537a3678801c2a58ccb946cd546464e6a1cce541c999",
+      "lines": 268,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": [
+        "useAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/components/admin/knowledge/ItemList.tsx",
+      "sha256": "99f5db0041eebcd9f3d8126ae52d3337c2c78da01b3cc3941cd29c4981f13d6c",
+      "lines": 65,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/knowledge/KnowledgeFrame.tsx",
+      "sha256": "2f4e6e57fe767d4c65e522dbd5969c46498fc022c2ad0752f1daf8c8cd23dacc",
+      "lines": 90,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/knowledge/KnowledgeGrid.tsx",
+      "sha256": "fdc551b15bda9083cba1a7441aa20607c0e5f6ba1649c83ce98ac295b24983ed",
+      "lines": 91,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/knowledge/NewItemForm.tsx",
+      "sha256": "1ad63cbf707396e8b765991f543075d01537b32b7d342ba1eb5fdbc60db58e3c",
+      "lines": 167,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/knowledge/OriginGrid.tsx",
+      "sha256": "34ecba5f252121be13af049092ebebf03b21f0ce45029229621b65536d711dd8",
+      "lines": 57,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/knowledge/VnextForms.tsx",
+      "sha256": "1334c12f53e34b67ee40e6e798b71ec27dc4a75319e3f1bf21e1da8aff70f2f9",
+      "lines": 300,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/knowledge/WorkspaceNav.tsx",
+      "sha256": "313326d6b301f4f8648114e403072be423e50b8cb94d8cd48d677a013adb77a8",
+      "lines": 39,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/methodology/methodology.module.css",
+      "sha256": "0cadbe6a8c208df2a03981367f91b109506aee3dd298e783b2193e6f561324b6",
+      "lines": 74,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/methodology/MethodologyWorkbench.tsx",
+      "sha256": "272f2fe5811fec936b59ad73a0628b0df0fdb3d14e478e3ec82b95ac4e5318d6",
+      "lines": 91,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/MockDataBanner.tsx",
+      "sha256": "1e7e1d8bcf195778a61241733236d104a09646f7f771af85943df9c5e56ff3d1",
+      "lines": 83,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/PdBasisPanel.tsx",
+      "sha256": "12ac3c66aae66b62aec8f9364e07d8d438c01e19243dbf7c581c833d3d627004",
+      "lines": 321,
+      "apiStrings": [
+        "/api/pdcp/pd-check"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/RetentionPanel.tsx",
+      "sha256": "e59efd684e810ec1bb12b22a80ff73ff0d289d282237312ea8e738bf80673a5a",
+      "lines": 192,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/source-profile.module.css",
+      "sha256": "db21399ae39c3135406d148cb34dcd0e69c39c4bf5a1714642860e2855fb780f",
+      "lines": 104,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/SourceProfileDialog.tsx",
+      "sha256": "722e43945dbd24b02314b123d7b35b55f9c216d522b66a09df2f336a0cba135a",
+      "lines": 309,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/TaxonomyBrowser.tsx",
+      "sha256": "357780c7cbe511b33cc58b6587b4cb57e34d6fcd93b1f390f8b9550f1d593f08",
+      "lines": 182,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/TeacherFunnelPanel.tsx",
+      "sha256": "5f97b7ae4858d191db30d5060a3e95abc3bb69923a10bdd98cd09b0bade04f36",
+      "lines": 118,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/textbook/FreedomPanel.tsx",
+      "sha256": "34482f68df719b1c05136a37a67d836a9f1822a6166819d2ad1eb09c59d1f7a5",
+      "lines": 191,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/textbook/TextbookProductionPanel.tsx",
+      "sha256": "c873905d94202cd64b1a061b1e4b682cc90463741d10d8c146e1c1cb381eac8c",
+      "lines": 174,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/preview/VcbCefrDistributionBar.tsx",
+      "sha256": "0bd0c529f162bd17efb814750984a0880e207e81b727913877fae6c9feb61513",
+      "lines": 105,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/preview/VcbPreviewActionBar.tsx",
+      "sha256": "1c5e0c5c79c82c3130bf03108250898348629689f3da41d65016f00b35d9b78f",
+      "lines": 76,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/preview/VcbPreviewDetail.tsx",
+      "sha256": "2e419ca3642b41fabc864ac42584e0f020ac2976ccc8640efd078074325f9053",
+      "lines": 259,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/preview/VcbPreviewFilters.tsx",
+      "sha256": "981616716b4e084bedc46fa9b0c163396be1fb2d03ede4c6519269492bf46435",
+      "lines": 270,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/preview/VcbPreviewHero.tsx",
+      "sha256": "84fc2700c6a4c0c8248a298b9ecf10f9edcb3709b4fad0f142aa02cde1024e82",
+      "lines": 182,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/preview/VcbPreviewList.tsx",
+      "sha256": "84cb3d91b5dfe517346396dec11b55e10b56bb9ae6a64ad7ac252d21e7db53ac",
+      "lines": 202,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/preview/VcbSeedPreviewClient.tsx",
+      "sha256": "9312abb6b26934e34d9406b5dd008dda055270f3a46a2e86c11abd9cbc02f68e",
+      "lines": 476,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/studio/ScorecardPanel.tsx",
+      "sha256": "56cf814ea0aee7e7a9a89576f779e6a474f4d5f3e2430c65f8d68674e1a9c94a",
+      "lines": 392,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/studio/StudioClient.tsx",
+      "sha256": "81a018fd9fa192b5324c44336ee1eeb381dd84a630f783f873c2c11f318c4eb2",
+      "lines": 670,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbCurationDetailPanel.tsx",
+      "sha256": "2fa17cbece76f4b28852b79be73e8fc5a83eff85e6ed4fd643783ace35997284",
+      "lines": 474,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbCurationEditForm.tsx",
+      "sha256": "25224d8bd5a31b47790d42564cf9a8bf67186ecbf6a4e9bce529fd9564139317",
+      "lines": 406,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbCurationFilterBar.tsx",
+      "sha256": "49dec447d75f66b13405136c7c82458ca3d75683df80d4f5f814e01baea00e33",
+      "lines": 118,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbCurationList.tsx",
+      "sha256": "73c485b6b7d8b5293c17fbe4b05decc128a04212f0e36213ee0cf15a935420b3",
+      "lines": 142,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbCurationView.tsx",
+      "sha256": "ff660e571b93a02447b941c937ab9d3345afd51b68fa39a53b1d7d160caac719",
+      "lines": 383,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbMarketPanel.tsx",
+      "sha256": "29bc2ba659502f010be58bed5036620569f4362bac5d314271b38fe25136d2a8",
+      "lines": 84,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbMethodACard.tsx",
+      "sha256": "4e166e18fe8240afafaff0c98112af434df4c5d6e733a40d81f4d1bf74cce7f4",
+      "lines": 284,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbProductionPanel.tsx",
+      "sha256": "d84f25578ff3b662b30887f55624b2983920494f8ce18c24510c52b9876215b8",
+      "lines": 112,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbRunCard.tsx",
+      "sha256": "effc4fb3657e57e6f8e7c6b9d80aadcc9756379118fb7d137fbcc2882f8a06c1",
+      "lines": 103,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbRunCreateForm.tsx",
+      "sha256": "c9473ffabcbe95040dd589b63e6c98760db64267ebea958ea42e7993b6d3523b",
+      "lines": 257,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbRunProgress.tsx",
+      "sha256": "1023a0a471fe0152c8e6394bb7b5167e58d65ca427c6bc6437df86365fa0c5f2",
+      "lines": 93,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbRunStatusBadge.tsx",
+      "sha256": "ecaea1f50a4ac34237c3b1a149172e46b3c0d90de47837f27df1f14b4cc44601",
+      "lines": 57,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbSeedFlow.tsx",
+      "sha256": "711957e5140fbb3b9ecdfc5b2256eb8a41e0742a5b96e787fe97e34ee544384a",
+      "lines": 794,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbSourceCard.tsx",
+      "sha256": "95ec7e27c31acd7726066214445ccf2ccdf686b470965aeb004167f5f2854d3d",
+      "lines": 149,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbSourceCreateForm.tsx",
+      "sha256": "7286bd50caf89987a02c1cb57025e9a4ba83f64adec9a9e0e1cfd04f2ed39c44",
+      "lines": 538,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbStep4LookupCard.tsx",
+      "sha256": "f388ecd03db71838802daf2103fa85a328e525676c5b970738bbc272a90f5d4a",
+      "lines": 138,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbStep5EnrichCard.tsx",
+      "sha256": "04a1e5163ac72d051bdc732245ed8a4499260444bd77aa1f2bb06917c90eaf11",
+      "lines": 437,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbStep6QaCard.tsx",
+      "sha256": "8edec5bf17ceb06093dfb4e0b7d66e66bbfa6ad1f8e3aed7e62f9e201277cc67",
+      "lines": 187,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbStep8PublishCard.tsx",
+      "sha256": "d9d4bbc917ecda177e36341078d76b1f0f826804f3bb06e53e105808b7c18150",
+      "lines": 226,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/VcbStepTriggerCard.tsx",
+      "sha256": "f5f80da07d6b2d86efa511aa19476d7eebdbfe7a44ce1be1399ab552f44adf9d",
+      "lines": 159,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/wizard/MetaStep.tsx",
+      "sha256": "9f8d7ce963ae75bfe88ecbbe80b481a50281d1182e5d2f88a3c0ac678f9eb662",
+      "lines": 205,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/admin/vcb/wizard/PresetGallery.tsx",
+      "sha256": "246c76c165b930755b7a498950268244714df83b7770aaabdf6b6184da1f9689",
+      "lines": 165,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/comic/PdModernReader.tsx",
+      "sha256": "1125c79b78b22403e497cab158d06a1dc28050e63160caceb24de1af8a520702",
+      "lines": 184,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "lookup_word_meaning"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/comic/StyleSwatch.tsx",
+      "sha256": "8ae29a89632d3e84dd715fbe9265f989934ab0cf133bcf4172771bbb15c2c63f",
+      "lines": 147,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/board.module.css",
+      "sha256": "078cdb3024631f2f3e59e6445e61b411b1f4c5f74686f22bd04a777e291adee7",
+      "lines": 1502,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/charts.tsx",
+      "sha256": "a7db004f409ba9a8bb46d14b15cb1f6c3a4d97fb04f823a0da0589e935ced2d8",
+      "lines": 119,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/DiagnosisBoard.tsx",
+      "sha256": "c79ae040ef2704a14ba04f0311d39df8ca526d84b85b9b25ba701c11bb7609a5",
+      "lines": 427,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/RecordDetailModal.tsx",
+      "sha256": "688cde1b1d59ff7ad98126493428f7f93731967aa5504d7df9c8c84fd7427d3e",
+      "lines": 250,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/RecordModal.tsx",
+      "sha256": "b5ae28e36f300a805c95ea5a709f025dbf7aa211c857eacc5819e0d7294b55f1",
+      "lines": 315,
+      "apiStrings": [
+        "/api/csat/diagnosis/sessions"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/RecordsList.tsx",
+      "sha256": "0b3834e60bd5cfc5ab19edefe0d77544b16854514e778d5b502acf5730039b40",
+      "lines": 71,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/ResultParts.tsx",
+      "sha256": "bd3566a90ef75715bbd35efb262101d21909de177b6baa0b8e8a81d00575ca56",
+      "lines": 69,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/tints.ts",
+      "sha256": "c64e22068f74725398e4044d6e48871990e381f31920a13adf3188c18db38300",
+      "lines": 18,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/diagnosis/useModalFocus.ts",
+      "sha256": "83b34ceecbb525879b48b6be831f0b8ac36133492ea1f863c33be15820b9b4cc",
+      "lines": 42,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/Heatmap.tsx",
+      "sha256": "86e6a02182fc7acfe12704f0e391c83146de2b556eef70ad9819548b34215305",
+      "lines": 217,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/lecture/LecturePlayerBar.tsx",
+      "sha256": "53dfb2a66f4b0e7513294d2915c0aceef3f95b55e2008a9575cc4b8538ab6b60",
+      "lines": 192,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/lecture/LectureStage.tsx",
+      "sha256": "ea06d7ba808aca36a6d5616e69649e3607d1d8ae1a970901e98478c6ec57cf5f",
+      "lines": 407,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/LocusBar.tsx",
+      "sha256": "5c003d36344c4ba09e1a6d061c888b5d85922703561adf5a7a7be30d499ca7be",
+      "lines": 76,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/PassageMap.tsx",
+      "sha256": "d5399854a8a188932681875e7d41fdf35bb8c62be82e802ae823986afe75d4ac",
+      "lines": 305,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/PlanTimeline.tsx",
+      "sha256": "4df4d86b4df9e4a97c9f703abe211f545fc37612ebebd2f3e4e65b48b0e0cab3",
+      "lines": 179,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/ReportText.tsx",
+      "sha256": "edb0733274915f2fef3519323a29b59fd2e741b8e348ef187e31a5d18ad3f40d",
+      "lines": 70,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/space/PatternBand.tsx",
+      "sha256": "6e8b0056e8688c3fb14f3bd3f6b18b64c337f0622e0a366785532dc640602475",
+      "lines": 128,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/csat/TrapAtlas.tsx",
+      "sha256": "554d26d23fe260c2a34923be27344358ed2aca6b97781a7e853fa5fddd0d43a4",
+      "lines": 487,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/library/PosBadge.tsx",
+      "sha256": "dc3173d385ea95f748e32e4cbf9d2b2a971113bbac93d7c41a735c7ec43797aa",
+      "lines": 93,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/library/reader/BookContentReader.tsx",
+      "sha256": "a06ab4453ab1099b0684907fe9435736fea7eb8b786e2dcf940590eebb434863",
+      "lines": 477,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/library/reader/ChapterContent.tsx",
+      "sha256": "6b55025d9036394fe4e9d13b3356e0836e1d5cd450bbd37d67b6f76e5e4b4d52",
+      "lines": 211,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/library/reader/ChapterLevelWords.tsx",
+      "sha256": "00d4b44575c4ad4deed63b4a691d95cda1b481c955b0f4d56ad1ba2e0f690e0a",
+      "lines": 362,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/library/reader/ChapterSidebar.tsx",
+      "sha256": "fbfe9ae97ae730de5eba77703c4bbbe735d7f9393ff71b749e2e93dd6622e35d",
+      "lines": 336,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/library/reader/WordLookupPopover.tsx",
+      "sha256": "6bf367d3fd94e8e52301f0480ce109d6696cf5419bdba1a7c848966e95df8cda",
+      "lines": 361,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/components/library/RegisterBadge.tsx",
+      "sha256": "5af52705f1b648754055ec780851fa3dc3fa6fe7e756396c62b6cd43644761e4",
+      "lines": 49,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/account-classification.ts",
+      "sha256": "1693ae6b8ebba3ef77f1ad2de5d8844303d570fdc7f8902ee38dddf230ffbb1b",
+      "lines": 146,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/compose-tabs.ts",
+      "sha256": "65b07b4307524cae413373e4f3b598ac5649324e4f03c8add0fdd3ad9afd2087",
+      "lines": 23,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/curation-view.ts",
+      "sha256": "ea22b4d64f0b53bcd8b581a39084a3aeddc1bb0f5c0b033870fe3e52163a4ce9",
+      "lines": 69,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/dashboard-stats.ts",
+      "sha256": "bca61cd07e16ba69ef866a6d64d948c62dbf5256c94cbd22ab56eeb8217cd713",
+      "lines": 551,
+      "apiStrings": [],
+      "tables": [
+        "quality_metrics"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/db-health/derive.ts",
+      "sha256": "55d9e2afd4d884fb941dae63ef0c2fa3885a4ab7c0eb23e85e7d7b75342c36e9",
+      "lines": 414,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/db-health/queries.ts",
+      "sha256": "c2f3f6e36beaa86a2282b8fe85efe7051358e48c04e128d6b2968f5a2e9e793d",
+      "lines": 150,
+      "apiStrings": [],
+      "tables": [
+        "db_health_metrics",
+        "db_health_findings",
+        "db_health_checkpoints",
+        "db_health_action_log"
+      ],
+      "rpcs": [
+        "db_health_anomalies",
+        "admin_db_health_live"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/db-health/types.ts",
+      "sha256": "1f5687ca805fef688aa0953540a5a9f416d4398e75c4670f088a79aff8aae485",
+      "lines": 386,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/dict/critical-defects-detector.ts",
+      "sha256": "0685ba24cf735e2081edf36b587555b082d6bbe33afa77edd1d05a6aaa85783e",
+      "lines": 480,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/dict/health-score-v2.ts",
+      "sha256": "8ae5ebf114bbb2c1edf78c0908681c1c4f17ead9c64af6da283a68d1142071ac",
+      "lines": 694,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/dict/queries.ts",
+      "sha256": "a648ca32cc3c5a41a8f96a1d55e65ff52b9c8889c22ab89504d90f4eccbcfbba",
+      "lines": 794,
+      "apiStrings": [],
+      "tables": [
+        "vocaflow_levels",
+        "shared_dictionary",
+        "vrl_data_integrity_concerns"
+      ],
+      "rpcs": [
+        "dict_categorical_distributions",
+        "dict_inflections_by_pos",
+        "dict_polysemy_count"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/dict/schema-evolution-suggestions.ts",
+      "sha256": "f3a5efc8600b4dc582f0e33af13b6500734fa367acfdf37845c2d7379fdea1ae",
+      "lines": 348,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/dict/schema-presence-static.ts",
+      "sha256": "6483d421715d94be8da5367023427e31426f91005984fc105a3490592d970787",
+      "lines": 136,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/dict/types.ts",
+      "sha256": "d3b1e77d430da865b9dcac85ec83822a259b32394ef8625b18c4883d796a7e12",
+      "lines": 345,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/dict/word-search.ts",
+      "sha256": "35e5733f7b5b04ea3f71feea217c6a208671326bbcb5918b963d1139734c2c0f",
+      "lines": 239,
+      "apiStrings": [],
+      "tables": [
+        "shared_dictionary"
+      ],
+      "rpcs": [
+        "dict_categorical_distributions"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/articles.ts",
+      "sha256": "41c9b711596e3977a55722748757f379f4a30a61629fd3c2aa8c6a2d5a1cbf7f",
+      "lines": 386,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/comic.ts",
+      "sha256": "72dc7a0da31bb67fb2285db5e69325e9c3f2ab3cffeffcb6e7bf1a2091ddd5f0",
+      "lines": 283,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/compose.ts",
+      "sha256": "7bb8e75d5c2e4f74d2f95fa82e353f0ab2255ad8e9a573636952087985229025",
+      "lines": 594,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/csat-diagnosis.ts",
+      "sha256": "ac8ed9bc4e3f47dd14baf08d73f691691ab1b7e768d24d90139db3592a21893b",
+      "lines": 104,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/csat.ts",
+      "sha256": "e27a2df3545bd4f30ff9f02da82d3d22ba5bd5506c4e4ae8861e0452294336d2",
+      "lines": 1742,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/curation.ts",
+      "sha256": "95c788eec092e999f9a65b9a96cfe7b29cdcfe217a74ece208f8f930bcc0bc72",
+      "lines": 570,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/index.ts",
+      "sha256": "064130dd77e37a297ac8f40387e1c9f995f2de9025e1637be93950c4e4d2cf78",
+      "lines": 54,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/kice.ts",
+      "sha256": "f71d69bbb84ad398a4a8fbe31fe48b67b1644f3cd746106d1b922698f40583fa",
+      "lines": 134,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/knowledge.ts",
+      "sha256": "465a85cc4aa8a7cf89dbb8e1b15daa327e195428306f4fc05161717975af374f",
+      "lines": 370,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/ops.ts",
+      "sha256": "62a38753de414f4a1db20de15641f81dbe332908db2bc76eae89668a3af435f7",
+      "lines": 562,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/pd-comics.ts",
+      "sha256": "dc9337b2382c716b35c5d5ae820af36c6e695ddadcb198d58a809d17480083c3",
+      "lines": 556,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/quality.ts",
+      "sha256": "3ac02ecd59f9431164650f00a391b5828fe7a66ca02600458006fd8856472910",
+      "lines": 260,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/textbook.ts",
+      "sha256": "899819ffeec6218a17839cca208d32b9a67ba7cf1759d7ea97aa5fd9dc9a4d07",
+      "lines": 357,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/topic-corpus.ts",
+      "sha256": "86d4985d98e2f57b046fc681e0ceca942473a658a28c0ca1da7858ef844d10c4",
+      "lines": 140,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/types.ts",
+      "sha256": "76a6a6b77b76048196a2c6963c979667eea4d9e2c20c8d734227a5332cd73b68",
+      "lines": 205,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/video.ts",
+      "sha256": "4d8be8deab2582a7d0292e7b79303aa3853c401704b650e37e5db1a06e5dd71a",
+      "lines": 429,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/vocab.ts",
+      "sha256": "cc8437a7598beff34d3d78468653c21f9222df071ce05a6aa67bf8f98c03ba95",
+      "lines": 799,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/help/vrl.ts",
+      "sha256": "93d843746a452785a0ad052c94ae143fa094b138a2c2939617261d81d1048551",
+      "lines": 633,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/navigation.ts",
+      "sha256": "e896b8f915cffbe046bd081e4159a930f99dee2878f799d30930079c293d7e18",
+      "lines": 318,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/pending-words/queue.ts",
+      "sha256": "4c854f1eea9eb2ad573dca938751f2ba517affa94c4b778e1330a7bc602f702f",
+      "lines": 317,
+      "apiStrings": [],
+      "tables": [
+        "pending_words"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/pending-words/triage.ts",
+      "sha256": "6540932f8d18c21f4fac6af19104f153f797f51017722c14786799ee591fb5d9",
+      "lines": 142,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/retention-math.ts",
+      "sha256": "b021d7fedd8071a1fcdc1edd95d61219cf9a07f97abc53baadfba3236c30cb85",
+      "lines": 149,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/retention.ts",
+      "sha256": "19ece995d06bf770127657e2860d6ae540a2c927db4f5eea03d31aca83680875",
+      "lines": 161,
+      "apiStrings": [],
+      "tables": [
+        "user_profiles",
+        "learning_records",
+        "scores"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/source-profile.ts",
+      "sha256": "2bb4e114e70aea7181a398be94774c63fac9165c0be9e5532ecafcf792457eae",
+      "lines": 127,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/teacher-funnel.ts",
+      "sha256": "ac1df663c2db156c048e88e48dd89fc899c9e8e34902f597b5c9206d9b764129",
+      "lines": 129,
+      "apiStrings": [],
+      "tables": [
+        "funnel_events",
+        "classes",
+        "class_members"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/video-console-shape.ts",
+      "sha256": "42408ad58c176fdc9674c4dde316e800b1cd5559eaca65ebe1be51c4ae1cf4f9",
+      "lines": 190,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/video-console.ts",
+      "sha256": "9a66507aaf9f7ef3c0b216f92f50b235bd3314dee8e94f9d5a5b0ae3d62a15d6",
+      "lines": 462,
+      "apiStrings": [],
+      "tables": [
+        "funnel_events",
+        "video_jobs"
+      ],
+      "rpcs": [
+        "textbook_shelf_inventory"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/video-requests.ts",
+      "sha256": "ed479290f680e964a88c2f05e9b2f6b7bd6619926ca0e9b3e40d68ce3c7e314a",
+      "lines": 229,
+      "apiStrings": [],
+      "tables": [
+        "video_domains",
+        "video_requests",
+        "video_retirements",
+        "video_request_revisions",
+        "video_request_reviews",
+        "video_request_evaluations",
+        "video_jobs"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/vrl/derive.ts",
+      "sha256": "cd52d61b2152c58be14f58a26500bb5395ecab45b0efa52efafc0c8be7cf5cb3",
+      "lines": 92,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/vrl/queries.ts",
+      "sha256": "934c0cdfc70f4cde504f6d9b8211a37148a48db85ef3795b848f9ac6f63e3edc",
+      "lines": 585,
+      "apiStrings": [],
+      "tables": [
+        "vocaflow_levels",
+        "vocaflow_tracks",
+        "vocaflow_domains",
+        "vocaflow_skills",
+        "vrl_data_integrity_concerns",
+        "user_profiles",
+        "user_level_snapshots",
+        "vrl_diagnostic_tests",
+        "vrl_diagnostic_questions",
+        "user_diagnostic_results"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/admin/vrl/view-state.ts",
+      "sha256": "cb2a3d984c7f724c70f7d3828a43905de0a96b297f2cdd35a4b1bfa1f5ad30ff",
+      "lines": 70,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/articles/admin-actions.ts",
+      "sha256": "6f033f13317cbbfa05f9823cc565265ca1a8442c9ad683983b2283521f185118",
+      "lines": 53,
+      "apiStrings": [
+        "/api/admin/articles/force-publish",
+        "/api/admin/articles/revert",
+        "/api/admin/articles/delete"
+      ],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": [
+        "isKnownArticleAction"
+      ]
+    },
+    {
+      "file": "apps/web/src/lib/articles/admin-queries.ts",
+      "sha256": "e3ae78f300f93930f9eeb26db1ffed6632433b10135d1661a3e79c4bf18b752c",
+      "lines": 366,
+      "apiStrings": [],
+      "tables": [
+        "library_article_seed_catalog"
+      ],
+      "rpcs": [
+        "acp_article_rollup"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/articles/console-view.ts",
+      "sha256": "9b2400b4cca4783319aff80176f8755323f67ee4996b0d726adf7f25c3e33e7f",
+      "lines": 166,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/articles/publish-gate.ts",
+      "sha256": "1876790260ef21a0d399e7e857cb4ddb27f3e821ff06f59288b6ba259004a181",
+      "lines": 69,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/articles/review-types.ts",
+      "sha256": "f52342a89871f78a239b7d5d0ad3bfc376e596535f41c35027fb40e2b7893fe7",
+      "lines": 50,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/articles/source-guide.ts",
+      "sha256": "907cc0c982eb073de1c42930adf811577eade07fb19616742ad0dcf85f89deb0",
+      "lines": 320,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/articles/types.ts",
+      "sha256": "35f0202a70883fcb9f9c54df578b3976fcf603d5b87427c3df4abf6d774e80bb",
+      "lines": 203,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/articles/use-source-policy.ts",
+      "sha256": "becb435bea24d8c3905f30a9f86101a3c135fd92acc4040a725366a50e8eedd2",
+      "lines": 34,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/comic/admin-queries.ts",
+      "sha256": "e0ab0f1df02fd582f5dcf5e5f55c0f330995bfd384bf77d5e561f62c8c78d664",
+      "lines": 429,
+      "apiStrings": [],
+      "tables": [
+        "library_books",
+        "comic_books",
+        "book_curation_jobs",
+        "comic_pages",
+        "comic_gen_runs",
+        "comic_panel_events",
+        "comic_styles",
+        "comic_gen_models",
+        "comic_gen_tests"
+      ],
+      "rpcs": [
+        "enqueue_comic_jobs",
+        "admin_set_comic_published",
+        "admin_delete_comic"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/comic/format.ts",
+      "sha256": "cfa004d804732c23b143fcf8bb9af9b50ffbd3b0596be86cfe19def26008c30c",
+      "lines": 52,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/comic/vocab-integrity.ts",
+      "sha256": "e33b0dca996214722c80ba2bd7a9863ae29f502b38379f187aa56704b2cff3fc",
+      "lines": 105,
+      "apiStrings": [],
+      "tables": [
+        "shared_word_sets",
+        "shared_words"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/approvals.ts",
+      "sha256": "6b1005e4e6064a724c9e5aff250e8f64f4e0e94befcecdd779fe4364ad10f80d",
+      "lines": 148,
+      "apiStrings": [],
+      "tables": [
+        "csat_pipeline_approvals"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/axes.ts",
+      "sha256": "83bbcefdd7191e3c74d3461f5de26da9ef220ddfce179e07499297c5910aeec0",
+      "lines": 128,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/client.ts",
+      "sha256": "3b0278cce40405af2e8172c5d37ff9a77135865cde112f35d043e91f45f4090b",
+      "lines": 220,
+      "apiStrings": [],
+      "tables": [
+        "csat_items",
+        "csat_types",
+        "csat_item_analyses",
+        "csat_type_reports",
+        "csat_analysis_reviews"
+      ],
+      "rpcs": [
+        "csat_coverage"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/design.ts",
+      "sha256": "9353c5f12857544f43bba0da51343d7ec6a0d5221d6c7b0e7c447bdba00da7a6",
+      "lines": 105,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/admin.ts",
+      "sha256": "cb00ab7d70e9b37c31abce445036d1ce48b1fd45700cb27e35d3ed2e4fd8adf0",
+      "lines": 230,
+      "apiStrings": [],
+      "tables": [
+        "csat_dx_answer_key",
+        "csat_items",
+        "csat_dx_item_attribute",
+        "csat_exams",
+        "csat_dx_option_trap",
+        "csat_dx_trap_family"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/engine/exam-report.ts",
+      "sha256": "a404b7c55d819fb822dc3ebc76f647315f49dc82d88296c8c2d3b5356c93818b",
+      "lines": 204,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/engine/map-evidence.ts",
+      "sha256": "d3175322d858e801ea166ef96260de2bb42cf25c098ac15c7b142b9b3cca6b77",
+      "lines": 223,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/engine/record-quality.ts",
+      "sha256": "bd07f63b73a60c62c359ef15cafe749fde091c0b0fa39b925a66f0b162e2a789",
+      "lines": 98,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/engine/rule-v1.ts",
+      "sha256": "7aac66cbd8539510c7a37f8576ca305505bd456472e0e0fba3cc6cd144bce366",
+      "lines": 417,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/engine/scoring.ts",
+      "sha256": "db891030ec586e1f117ae7b804797490522fcbbb85d827b6a1560177136d9471",
+      "lines": 83,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/engine/settings.ts",
+      "sha256": "33b8593afd628f86686783a4e32333d9d953bc15d075b109f3997b89efc6766b",
+      "lines": 87,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/engine/types.ts",
+      "sha256": "a042d1c7f8d29859a517a08bea46658309eb77731b7453bfe348058943133146",
+      "lines": 159,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/fetch.ts",
+      "sha256": "8703cd5656730e2a0add9d3463501e230faa2f59d8e22f496b42313a60a35bc2",
+      "lines": 38,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/labels.ts",
+      "sha256": "2d6f45eafe7223ff6f5eb58dc16156a11a30d89915c4c6cecedb0f25d4ab7c46",
+      "lines": 86,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/payload.ts",
+      "sha256": "58a21718283478f1e8fa44ad72c6477f884b4dacd5968619c8ab26400341545b",
+      "lines": 71,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/readiness.ts",
+      "sha256": "127483f47041fa858495dffe8a2ffac295e74c18d1f57d720f166bdb55b62686",
+      "lines": 68,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/report.ts",
+      "sha256": "1e2249d938961c764252feb2a114b0775f63b7ed2156512692645c5159af95cd",
+      "lines": 146,
+      "apiStrings": [],
+      "tables": [
+        "csat_dx_answer_key",
+        "csat_exams",
+        "csat_types",
+        "csat_dx_session",
+        "csat_dx_response",
+        "csat_items",
+        "csat_dx_option_trap",
+        "csat_items_public"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/server.ts",
+      "sha256": "144d9b0583321ec4aa159deee51acefde45c05ab288728a88cb2f1835a4ac66e",
+      "lines": 443,
+      "apiStrings": [],
+      "tables": [
+        "csat_dx_settings",
+        "csat_dx_trap_family",
+        "csat_dx_item_attribute",
+        "csat_dx_option_trap",
+        "csat_exams",
+        "csat_dx_answer_key",
+        "csat_items",
+        "csat_dx_session",
+        "csat_dx_response",
+        "csat_dx_profile_hist",
+        "csat_dx_snapshot"
+      ],
+      "rpcs": [
+        "csat_dx_record_session"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/diagnosis/snapshot.ts",
+      "sha256": "daf6f77a77d4c1eb434e8199fd5816c4050cb2d2036647741ce431f419e70afb",
+      "lines": 129,
+      "apiStrings": [],
+      "tables": [
+        "csat_dx_snapshot",
+        "csat_dx_habit_feedback"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/dissect-anchors.json",
+      "sha256": "b97c36db2e2f9cfbb14832c6ede0b66464141f40d4d968dd543c2e8d9ed66de1",
+      "lines": 1236,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/dissect-catalog.ts",
+      "sha256": "4481d2300e012330b6c3ebab7f557a02b6c35f68c31d04bd595ed071dc92b631",
+      "lines": 133,
+      "apiStrings": [],
+      "tables": [
+        "csat_items_public",
+        "csat_item_analyses"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/dissect-metadata.ts",
+      "sha256": "cacae27315d51b046b5ce48ab954ca16dea2c61ce562ecb066cc1fa11b4dd76f",
+      "lines": 21,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/dissect.ts",
+      "sha256": "ae33b66becaf4f11b1ca5499aaa874d2ade90568e689d9b4831f2f0e79ac138b",
+      "lines": 250,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/embargo-gate.ts",
+      "sha256": "582ef552206187e66a46d47f004b2eb44442edda0b25e52002c1d25e53b278b9",
+      "lines": 318,
+      "apiStrings": [],
+      "tables": [
+        "csat_dx_session",
+        "csat_dx_response",
+        "csat_exams",
+        "csat_items"
+      ],
+      "rpcs": [
+        "csat_ec_embargoed_items",
+        "csat_ec_embargoed_exams",
+        "csat_ec_reveal_state"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/evidence-fold.ts",
+      "sha256": "55c62222c57f39bea7d89afdf7c23b6407bd264a84555353a2c1eb123846a688",
+      "lines": 773,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/evidence-operations-loader.ts",
+      "sha256": "c3e9ce4e9fdac913cc6fef83a8db693f8332e0cd284010d6964cac7f166fdf88",
+      "lines": 70,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/evidence-operations.ts",
+      "sha256": "8c25e75e8d2b84f646270994b44de36e7f80939e88ca26505ae0e802107d9d1d",
+      "lines": 427,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/evidence.ts",
+      "sha256": "4bd56acb4287fcc89854d37fe0551b7133c63ebf26a066e8cd4f07ff94314110",
+      "lines": 396,
+      "apiStrings": [],
+      "tables": [
+        "csat_exams",
+        "csat_types",
+        "csat_type_reports",
+        "csat_items",
+        "csat_item_analyses",
+        "csat_analysis_reviews"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/exam-id.ts",
+      "sha256": "7de63b54fc9d3b820d2236e6a8f1fbd05911a64d051b25c72ef7a8fffd4c504a",
+      "lines": 144,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-bench.ts",
+      "sha256": "860d7f1041bef5714e97e51a0bd4ab5ae8fef5d0468f7bb8701a551451737c5c",
+      "lines": 192,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-glossary.ts",
+      "sha256": "d189e06f5a215ceb34a0a3a7dad3bfc9a9b53e5e4d99632325cea72751a2c97f",
+      "lines": 238,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-lab-model.ts",
+      "sha256": "4bcce76c994045251d5f67edae8ac6aaf057eb8f922d4f460f3d675e79de3ea2",
+      "lines": 155,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-line-model.ts",
+      "sha256": "8f93e3d099e2785bb4932ef6b5019c91004389cbefed1c654ae7d6ae01bdb401",
+      "lines": 314,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-line-views.ts",
+      "sha256": "57589124953ae21ea106a666587ee3e595610262f5d56a3f4ae858ad55d905be",
+      "lines": 409,
+      "apiStrings": [],
+      "tables": [
+        "textbook_volume_renders"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-model.ts",
+      "sha256": "d10533fa246c1c5cc761063b482d887892cff186ef5ccdb20b867d7cd8dea1a7",
+      "lines": 396,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-pick.ts",
+      "sha256": "c712d435382e828dd8ef956eb929de201f67af422d0d9c0aaab0324fea41118e",
+      "lines": 25,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-plain.ts",
+      "sha256": "c66e22d0e0f1c9f984610d1fd5a0dd41da270bfd5a9478d9e31c72acd006c0ed",
+      "lines": 487,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory-views.ts",
+      "sha256": "b1eace3a1c67308187f7c180939dfd59e6e886d5a2f79e0115ac705896c656b7",
+      "lines": 147,
+      "apiStrings": [],
+      "tables": [
+        "csat_item_attempts",
+        "textbook_volume_renders",
+        "csat_stage_gates"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/factory.ts",
+      "sha256": "c826b092a93030571f59fc5610d26863fe45a4bb810b75b1ac04eab8a8c90f74",
+      "lines": 829,
+      "apiStrings": [],
+      "tables": [
+        "csat_stage_gates",
+        "csat_source_snapshots",
+        "textbook_volume_renders",
+        "user_textbook_selections"
+      ],
+      "rpcs": [
+        "csat_coverage"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/guide-fold.ts",
+      "sha256": "4ea807a65cc6059cbaed31d989f4679f3ed0d372076f4e5be861ce6ded5823de",
+      "lines": 422,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/hakpyeong-review-loader.ts",
+      "sha256": "41d209c464a0fc61f3555cc168947c010504687c14b61d67bbc8ecba571291c4",
+      "lines": 226,
+      "apiStrings": [],
+      "tables": [
+        "csat_item_analyses",
+        "csat_independent_reviews",
+        "csat_review_prechecks",
+        "csat_review_batches",
+        "csat_review_followups"
+      ],
+      "rpcs": [
+        "csat_current_chart_asset",
+        "csat_chart_analysis_ready",
+        "csat_valid_review_personas_many",
+        "csat_current_units_many",
+        "csat_item_input_hash",
+        "csat_item_answer_hash"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/hakpyeong-review.ts",
+      "sha256": "62def035cbe44f3759e73633dd180b4885953a29af92f01eeea60480f5146c95",
+      "lines": 214,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/heatmap.ts",
+      "sha256": "befdf98691d68238b04bcd955f0134e6de0f404f1ec9d172a999d212cc3d5f4a",
+      "lines": 179,
+      "apiStrings": [],
+      "tables": [
+        "csat_types",
+        "csat_items_public",
+        "csat_exams"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/item-count.ts",
+      "sha256": "c6fa5534af328372576bf39109abad7045635d8e10c9834c938417df68b17296",
+      "lines": 233,
+      "apiStrings": [],
+      "tables": [
+        "csat_dcp_items"
+      ],
+      "rpcs": [
+        "textbook_shelf_inventory",
+        "textbook_shelf_refreshed_at"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/item-slug.ts",
+      "sha256": "ac89007d3d41b9d274d48e2553975ef966a4c57da9502397d66e64afdfe0a8f4",
+      "lines": 30,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/item-state-model.ts",
+      "sha256": "0f10b492fa5143986c8e9e5ae68806abd90bd8d5271e4fece4ed6b3f8672f73e",
+      "lines": 36,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/item-state.ts",
+      "sha256": "937ac491092ea284ddae70c5fdd13c19efcdea528d9ed37e8a627eb338bd8fd4",
+      "lines": 75,
+      "apiStrings": [],
+      "tables": [
+        "csat_item_state"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/items-fold.ts",
+      "sha256": "df06edcfa76e518ad4499f1ff035cf6b30594b39f4fc8c8f4b01774105777cac",
+      "lines": 141,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/items.ts",
+      "sha256": "da69a7f95d8c327768421b61d26066edb52d88ad9d70410a7367e9ec152caeea",
+      "lines": 220,
+      "apiStrings": [],
+      "tables": [
+        "csat_exams",
+        "csat_types",
+        "csat_items",
+        "csat_item_analyses"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/kice-source.ts",
+      "sha256": "63bd35254de2af8fa6ef59ad81e7e7a6c1b6c3867f7d646e06f717fb52d0d861",
+      "lines": 95,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/learner-text.ts",
+      "sha256": "a4362cdf209634d5970a2db232989d569e2aa6faf8e13fed96541e73f14f81bc",
+      "lines": 81,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/learner.ts",
+      "sha256": "b83b3e0204e8846f8f59a6095cafba54930e0aabe5077dfc7db63cb33800ec62",
+      "lines": 655,
+      "apiStrings": [],
+      "tables": [
+        "csat_types",
+        "csat_items_public",
+        "csat_type_reports",
+        "csat_exams",
+        "csat_items",
+        "csat_item_analyses"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/learning-session.ts",
+      "sha256": "325122bd92d5662715707a9435939b0154f514fedc393352cadd6e589ae21766",
+      "lines": 269,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/lecture/focus.ts",
+      "sha256": "0c72bb8eaf05fd2f9af8c9296b968fb1f907f269462e0bb073846af11764e18a",
+      "lines": 75,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/lecture/player.ts",
+      "sha256": "424c16ab56f92bbdd9e9155b5c729c9e828fee9438f4c272e3543a7f91572e5a",
+      "lines": 233,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/lecture/store.ts",
+      "sha256": "c3ec202e331edaa7d09cfc36888a381d25532ea307a3e33de1d097e7e2533aec",
+      "lines": 75,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/lecture/targets.ts",
+      "sha256": "a1c46ddf74f9f452709a6d0f6512c559b65fca97129a96ce70ad3a8e58ff00ab",
+      "lines": 83,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/lecture/tts.ts",
+      "sha256": "734e02f9bd83387497746f1a650b8f48785dff9adf1afc9ca00da851c0b0ea86",
+      "lines": 300,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/lecture/types.ts",
+      "sha256": "2815f4536d10a962627d47eabbdaabb0a2274df6c6ae9f49217c5a127dc20a08",
+      "lines": 162,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/locus-model.ts",
+      "sha256": "18fe94157ef0051395e2fdfaecb6196048a9c62b2cc183cc879d94cea5b5e5ba",
+      "lines": 97,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/make-guide.ts",
+      "sha256": "56c76e56683dcbd0896ac35930b87c9cc99e97de799ed55217ad44c32d5dc8a3",
+      "lines": 323,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/evidence-anchor.ts",
+      "sha256": "efb29a47c5d9181b81389c44d35f66ccc821482fb0edb28f03482954668b5db1",
+      "lines": 125,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/evidence.ts",
+      "sha256": "c55ce9f77a4e7a9b54aebc9db8e63e2110599ef94f99dafcd11d71a68d2920b1",
+      "lines": 82,
+      "apiStrings": [],
+      "tables": [
+        "csat_map_line_link",
+        "csat_items",
+        "csat_dx_answer_key"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/map/v62/assessment-exposure.ts",
+      "sha256": "eedc27bedfbf5eb048c8905ab755bc07b06358cce738216d3bfcf102b96a0e9c",
+      "lines": 136,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/market-gate.ts",
+      "sha256": "c4095c249d069f2ab3ecad2f155f5a47c06f904aa6f0c83688154801ca62ee34",
+      "lines": 82,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/my-traps.ts",
+      "sha256": "772eca72ff631cceb6c8445f15841033e1b1fbd5fd6278d5470d5e21d65dcf3e",
+      "lines": 199,
+      "apiStrings": [],
+      "tables": [
+        "csat_trap_attempts"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/next-item.ts",
+      "sha256": "8bd4898414c95ceff0f223fd784bb175e7f2cbb0659d2e92b4d1293733c324e8",
+      "lines": 91,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/order-model.ts",
+      "sha256": "0c6754b2852b9cc0c600815b584205acefc08004b2a7337c9eb7ea72d44c00f6",
+      "lines": 369,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/order-view.ts",
+      "sha256": "cf82fd0814b7f939b3f1a0b8e054152c80e014a7d8582e9c193109310a617dc3",
+      "lines": 225,
+      "apiStrings": [],
+      "tables": [
+        "csat_types",
+        "csat_type_reports",
+        "csat_items",
+        "csat_item_analyses",
+        "csat_analysis_reviews",
+        "csat_exams",
+        "textbook_volume_renders"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/overlay.ts",
+      "sha256": "d38689b7dd5133dfc340aae04263953508c636f87efef65eaa3a33d102f1d54e",
+      "lines": 259,
+      "apiStrings": [],
+      "tables": [
+        "csat_exams",
+        "csat_items_public",
+        "csat_types",
+        "csat_item_analyses"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/passage-map-model.ts",
+      "sha256": "eef8bdef9d26d9e8dc9ad429373aeee3cc3bb8c9dd73af0818230c81ded8b606",
+      "lines": 125,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/passage-skeleton.ts",
+      "sha256": "75d2da0b88525b3c046ea10d1f75280e000770b3ed61f837afdb39e447db6b50",
+      "lines": 176,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/plan-order.ts",
+      "sha256": "c9f489901eb145847a561d000e55783bbdcaafda27dc230b53e3b33a95d71979",
+      "lines": 97,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/plan-timeline.ts",
+      "sha256": "85a5ac6595f761f3992347089f6e74e74c210e325689d7ba234e51c88fbd4960",
+      "lines": 109,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/priority.ts",
+      "sha256": "f1604121f61a94b39615bd9f2acbd774b7a2f81660aa491265852b38b070e367",
+      "lines": 128,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/quote-display.ts",
+      "sha256": "b8ff980f0fbc629bcde345945acda02fa45feceb2431efb2bed88313e6006d44",
+      "lines": 17,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/quote-match.ts",
+      "sha256": "b421ad781c2d2deeb94f11151fb1d548ff0fd892c49f84addfb8b20ff21339d7",
+      "lines": 145,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/report-markup.ts",
+      "sha256": "5c8b1116a492a804b00aa689a7ea3c10455fd27903c1aa08c799afc061b27be4",
+      "lines": 106,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/review-defects-model.ts",
+      "sha256": "df9386120e393b2a0ade9e537cf1c8955ba451355561bd71e7789eeabac6cddc",
+      "lines": 77,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/review-defects.ts",
+      "sha256": "c64c5f05229024f88a2d5d2367d3beaad1f2d22b4a1abe6be042f50be7ac1a28",
+      "lines": 175,
+      "apiStrings": [],
+      "tables": [
+        "csat_item_reviews",
+        "csat_dcp_items"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/scope.ts",
+      "sha256": "bb81b72ccaabd44fe8733c9227e01bf6d7e4678c5a0c8cdf7e976fb231d056a8",
+      "lines": 85,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/series-model.ts",
+      "sha256": "cddf7aeea36f932e3bddb0997f30f014052a10f2752c32a788f17e4a776ac04f",
+      "lines": 161,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/series-view.ts",
+      "sha256": "9185975391ddaf18102541576ae428752687703c20fb4f68463dfdf731119ed5",
+      "lines": 172,
+      "apiStrings": [],
+      "tables": [
+        "textbook_volume_renders"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/session/catalog.ts",
+      "sha256": "ca0951ead7ace4786d60f06c9ca838474cb504cd0c15a4c7bb8655d9da0aed81",
+      "lines": 130,
+      "apiStrings": [],
+      "tables": [
+        "csat_items_public",
+        "csat_type_reports"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/session/model.ts",
+      "sha256": "56ed9f504e268a18eb74755d29a04b74a66474de4d4f6ac686c6ca62f2885327",
+      "lines": 361,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/session/reveal.ts",
+      "sha256": "380c106af2c97297b1088656177c4b91ef2bf91975ddd7528a04f1ff1058f621",
+      "lines": 123,
+      "apiStrings": [],
+      "tables": [
+        "csat_type_reports"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/session/text.ts",
+      "sha256": "78d412fb5960f8af804144dcbcd343e271a6e15964851f1b7cf4aaca86433804",
+      "lines": 50,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/skeleton.ts",
+      "sha256": "989616ef903854ca6b98ac0f1483c020178a7a7da41b5e57e96b3a0f0bad07d7",
+      "lines": 219,
+      "apiStrings": [],
+      "tables": [
+        "csat_item_skeletons"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/source-console.ts",
+      "sha256": "de04e75c891a4b64332e83bd523a694821e532d180c0f77a699fdd403b226b71",
+      "lines": 164,
+      "apiStrings": [],
+      "tables": [
+        "csat_source_snapshots",
+        "csat_source_registry",
+        "csat_source_targets",
+        "csat_stage_gates",
+        "library_articles",
+        "library_books"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/space-model.ts",
+      "sha256": "281983544519cbbee18b3aa37ddba6d598b10e8e79d086f1c2554d951e7b9502",
+      "lines": 358,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/trap-atlas-examples.json",
+      "sha256": "c97cbf85ef7aad5244074543ba1a52c4b13ca88fceee9e050e55591fd8e470d2",
+      "lines": 710,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/trap-atlas-examples.ts",
+      "sha256": "c0518979f6353558e2e8f45369f9a91c600a94fc61e32e4a2b841e5f08eeac1d",
+      "lines": 30,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/trap-atlas.json",
+      "sha256": "0bfed45f7520aa062dca54f51b6cb39bf4c5905988c5348427d2886b82c9b865",
+      "lines": 832,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/trap-atlas.ts",
+      "sha256": "35e84b920e15824659bff20ad8e2620c2434debd4f6f5d829bb7e6b8090c9181",
+      "lines": 286,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/csat/type-locus.ts",
+      "sha256": "e4ba03211e1b39efb33e1f9c0dc23f2ca1d069da1fb65cecf9328a2bdeb2460e",
+      "lines": 82,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/anchor-source.ts",
+      "sha256": "5793179f1d2e479446aaad3ad946b1f8d1e8d3aae30577adfd09f0aed79ca819",
+      "lines": 67,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2016-20.v1.json",
+      "sha256": "b51a334b547128706487aa734362a91fadc99992b807f9bd439fc23b8406dacd",
+      "lines": 38,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2020-20.v1.json",
+      "sha256": "6dc709d332226db29d4555e1c202dd98d118a1ec38018c741d7cf2e11cf136bf",
+      "lines": 37,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2020-24.v1.json",
+      "sha256": "7e90b2b2abcc7c5b65717c39364d6eb4bfe7a1ff4eb7f813354efa1c65adeeae",
+      "lines": 39,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2021-20.v1.json",
+      "sha256": "2cddff202098be6e4847e5c70fea2acccd2f4e12c366dad1dbb8b1be9b3faf20",
+      "lines": 37,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2021-24.v1.json",
+      "sha256": "7955f7f8637f0f781054e9fb06b02b30919c73dd40e79741112c9e2b8ad82029",
+      "lines": 43,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2022-20.v2.json",
+      "sha256": "7a1524f9a23c59cd08d5418fbacfa37f7929e80c4f5bdb04d3cb2f8eefdf0adf",
+      "lines": 42,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2025-20.v1.json",
+      "sha256": "954378de2c5ded1d780157d75ce24c1cb85ce4df946fceb6d85539b738ded0e5",
+      "lines": 38,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2026-20.v1.json",
+      "sha256": "2db159cc13a43a67d1825d707ce2aabdb117d0feba369c5091d5dc6ea27aa630",
+      "lines": 36,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-2026-23.v1.json",
+      "sha256": "de13b1f8e2f032a2c72bcb728d416a56f6d4941e3f65fca0489418ab59148307",
+      "lines": 41,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-m2506-20.v1.json",
+      "sha256": "b77b92a9b2d8960ebb1d22665487a28ebf6cb013462df3a74fbb9b59fc00026f",
+      "lines": 38,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-m2606-20.v1.json",
+      "sha256": "8656c353bd02db6dc731326bc6a9714143c479cb79b9ac84713cd11aa2a71b2d",
+      "lines": 39,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-m2609-20.v1.json",
+      "sha256": "3840fb0b755a58ec0de77e9cac11b45d5c5923bbbb94ecd179d6efd2ffe8c745",
+      "lines": 39,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/claim-support-m2609-23.v1.json",
+      "sha256": "07da1df886ab74ef6eb7c538cedb0d7a92d55ebca8730d007977be0e7f02706c",
+      "lines": 40,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/cohesion-link-2022-36.v1.json",
+      "sha256": "da30c0a4b45a06bea857eb963ada3244150f6e5d28c2aeac1934c4774108c311",
+      "lines": 22,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/annotations/evidence-tasks.v1.json",
+      "sha256": "1318507847ca932e194bb870eaac5d704715d067d86c83ace62f222fa2a92d30",
+      "lines": 692,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/claim-support-labels.ts",
+      "sha256": "69df708e8b55d5ed87c2eb19d0f7fd405eba54280172019128294a662cc074e1",
+      "lines": 18,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/claim-support.ts",
+      "sha256": "12fdddfff927e7d3efd158a09131d6217d4fdceff499f696a79e977a5da3ec22",
+      "lines": 142,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/cohesion-link-labels.ts",
+      "sha256": "8c3db069d2c807e81d795b830fc5f64d2827d187e49c2e82c61c1484a1e4e074",
+      "lines": 16,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/cohesion-link.ts",
+      "sha256": "a98a8ae97507cba5e68a557af8dd66b34253bac21dea83ec022e38b36ed23177",
+      "lines": 83,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/contextual-sense-annotations.ts",
+      "sha256": "cbdc54520f42e98172234cf53f42b591288e03fc9880daa7f8351ac448a68eda",
+      "lines": 21,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/contextual-sense-labels.ts",
+      "sha256": "d6c3945c137f3128340caccf901471add30d917200437d5f9f7a9316d4ee9a38",
+      "lines": 24,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/contextual-sense.ts",
+      "sha256": "33ce98c0cdcaddbc48a91e6d1dd410fbc1946c5400560816aaa3ab0eb1b26540",
+      "lines": 149,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/effect-signals-server.ts",
+      "sha256": "4eebced75045b16b1d6da48a5143db219ba2c217485404f6fce540801e0c5a46",
+      "lines": 134,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_applications",
+        "knowledge_trials",
+        "learning_task_attempts",
+        "learning_first_attempts",
+        "knowledge_items"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/effect-signals.ts",
+      "sha256": "dba7095c2545ca62791f452068b1050dffc9901a69f9829db4b4a06f70854b10",
+      "lines": 207,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/evidence-locate-labels.ts",
+      "sha256": "6ff0365cc3ae189bce7fe1f394299a5752e0ba2cb3f2f40e353c7f42c8174cdd",
+      "lines": 30,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/evidence-locate.ts",
+      "sha256": "fdefdcd19fedad01d4b7e0d9f52e842b1895678064fe442e9c407a67a09512e4",
+      "lines": 116,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/find-outcome.ts",
+      "sha256": "a46790482a749fa41ce1f4b52f456c669a96e1d75fce6be2b876ec89ac0b7267",
+      "lines": 184,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/grid.ts",
+      "sha256": "0ef3cbd482d5ab6183502afa5e13c9174de82325592f7126975cffc56bdad40b",
+      "lines": 80,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/item-tasks.ts",
+      "sha256": "1eb13c7af717dd29666b2495d9df441ae4f83a863d57ba7e95e5195e5a4b6a84",
+      "lines": 112,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/labels.ts",
+      "sha256": "f33c11738e32c099510f5df6100daff205bd414af64ff069dcac7adce9a71aad",
+      "lines": 94,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/learning-decision.ts",
+      "sha256": "dc11ab4d623330e18ac4d9bd1dda2067e66a26a83f44c1a0a9dcb44a5800bd06",
+      "lines": 184,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/live-chain.ts",
+      "sha256": "bb8c9d4937352a42e9faa98eb0309eb145c4d392307190ac5ecb0990ab1ec993",
+      "lines": 87,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/practice-writer.ts",
+      "sha256": "6531098fe8b2fc019b8a467482f72843cc25e61c57cb96e9c153f016c0b58032",
+      "lines": 226,
+      "apiStrings": [],
+      "tables": [
+        "learning_task_attempts"
+      ],
+      "rpcs": [
+        "learning_session_apply",
+        "learning_attempt_submit",
+        "learning_attempt_record"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/practice.ts",
+      "sha256": "eb50f3c1846c763f6d8316946210f4bc2464918b4b04ca27cf83aad6dfac6be8",
+      "lines": 400,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/product-server.ts",
+      "sha256": "6f2d29ce12a0cc6d85c77b154c4d86906e4d6ac52445145e1b90d947084f17da",
+      "lines": 293,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_items",
+        "knowledge_links",
+        "knowledge_applications",
+        "csat_items",
+        "learning_task_attempts"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/research-compare-server.ts",
+      "sha256": "2e0185ed494465edf8af08950c16e1688dcd094cda598950d399bb3ffc273500",
+      "lines": 49,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_items",
+        "knowledge_evidence",
+        "knowledge_inquiry_links"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/research-compare.ts",
+      "sha256": "ed5b3c7ccdd7ca78db1c982a6c71e100fdda15c94d2ab8b505966c5e8261620f",
+      "lines": 144,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/review-cascade.ts",
+      "sha256": "83b20d7e7d55b73ec0e967217a47849bb84adb7db6e82353fcfbd63ab8c62012",
+      "lines": 69,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_items"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/rules.ts",
+      "sha256": "dc8153951a116d940ef2479e3f73c42323bd634fd43b1437a1fe501f4ab8bbdf",
+      "lines": 108,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/server.ts",
+      "sha256": "3f517e0c1dcc4aafedf2e456a64513fd04f7714aaca3a879f542a555635a9e15",
+      "lines": 490,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_items",
+        "knowledge_evidence",
+        "knowledge_links",
+        "knowledge_reviews",
+        "knowledge_gaps",
+        "knowledge_csat_origins",
+        "methodology_batches",
+        "methodology_taxonomy",
+        "methodology_experts",
+        "methodology_channels"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/vnext-labels.ts",
+      "sha256": "1a481ff01ce01bed1e7965f8ed1c74171b10b1dbd97cfa2768fca2aa6c282fc4",
+      "lines": 150,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/vnext-rules.ts",
+      "sha256": "17f75df9c2df73d6641b2432fe10168d0038754206dc4402b5be411e7a0d1f94",
+      "lines": 122,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/vnext-server.ts",
+      "sha256": "e6dcb3d22abb49903129edfa6b55a46ca271e5a8df217ac5e244a0b5eadfac52",
+      "lines": 109,
+      "apiStrings": [],
+      "tables": [
+        "knowledge_inquiries",
+        "knowledge_inquiry_links",
+        "knowledge_research_sources",
+        "knowledge_evidence",
+        "knowledge_applications",
+        "knowledge_trials",
+        "learning_task_attempts"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/admin-queries.ts",
+      "sha256": "d6cfd926b4d18541aec25a7cf819762cec13d71a8117a30ab76907d79c84a82c",
+      "lines": 1308,
+      "apiStrings": [
+        "/api/admin/library/force-publish-book",
+        "/api/lcp/dev-process",
+        "/api/lcp/dev-validate"
+      ],
+      "tables": [
+        "library_source_catalogs",
+        "library_books",
+        "v_book_extraction_stats",
+        "shared_word_sets",
+        "book_curation_jobs",
+        "library_seed_catalog_view",
+        "library_seed_catalog"
+      ],
+      "rpcs": [
+        "admin_enqueue_book",
+        "admin_requeue_book",
+        "admin_bulk_set_books_curating",
+        "admin_bulk_requeue_books",
+        "enqueue_quiz_jobs",
+        "enqueue_review_jobs",
+        "admin_revert_published_book",
+        "admin_delete_book",
+        "admin_archive_book",
+        "queue_seed_catalog_for_curation",
+        "extract_book_vocabulary_admin",
+        "find_unbound_book_lemmas",
+        "stage_book_dict_candidates"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/admin-quiz-queries.ts",
+      "sha256": "fb9567fafdf6119c5cef20cc32d03a4549fc9367ab3f44a5deed6af39bf4a439",
+      "lines": 153,
+      "apiStrings": [],
+      "tables": [
+        "library_chapter_quiz",
+        "library_chapters_master",
+        "book_curation_jobs"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/books/queries.ts",
+      "sha256": "49a56cd2f48a5f722cefbc5134857f3a9917e71ae3de8e777eb6b7a900d508d3",
+      "lines": 309,
+      "apiStrings": [],
+      "tables": [
+        "shared_word_sets",
+        "user_word_set_subscriptions"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/chapter-words-queries.ts",
+      "sha256": "658df4dec5194cc662c77245485e1fda0484872b6d36d6d5454766392d2d2d7b",
+      "lines": 414,
+      "apiStrings": [],
+      "tables": [
+        "library_book_vocabularies",
+        "library_books",
+        "shared_dictionary"
+      ],
+      "rpcs": [
+        "extract_vocabulary_for_user",
+        "deliver_chapter_vocab",
+        "commit_chapter_vocab"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/reader-queries.ts",
+      "sha256": "c6ba4fee28085cc33f4ea55afbeb0b4aff77d553ddf0573102b4989f9d2737b5",
+      "lines": 332,
+      "apiStrings": [],
+      "tables": [
+        "shared_dictionary",
+        "library_chapters_master",
+        "content_chunks",
+        "library_book_vocabularies"
+      ],
+      "rpcs": [
+        "lookup_word_meaning"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/gutendex.ts",
+      "sha256": "046ff9ae54a84550e63ee18ea8f9ba82e9f8f73dc187c39b09dd9bf0e0dca6e5",
+      "lines": 319,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/index.ts",
+      "sha256": "469d21d492e960aa1c31c50b4eb5d970c9cfc54555740893304f417816c42df4",
+      "lines": 35,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/librivox.ts",
+      "sha256": "78a1335e3539c0342ae008429c59c7132bd3f3f92ac5fe3b345e83602cc6c692",
+      "lines": 130,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/lit2go.ts",
+      "sha256": "92715995d75aba59c3cedd4ea75c8b3b16c706b2dd76fdf79114802d95b21351",
+      "lines": 267,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/pressbooks.ts",
+      "sha256": "8a38d68c9e98d85cf3b38b1b09b2aade1225f8b3d00e4979efca4320439d3c91",
+      "lines": 125,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/simple-wikipedia.ts",
+      "sha256": "4c0cd29352088bdb308ddf4d81a43189c1d67c15264de7bb173a86e1acdb1392",
+      "lines": 159,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/standard-ebooks.ts",
+      "sha256": "4cd0651fff926fc5cce30435ca208ce4e4ab45819881039d130c992b6fa99338",
+      "lines": 158,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/storyweaver.ts",
+      "sha256": "e47d790bea097d58980f07f1a6e9bcad9be54383c6c6eb928b47253e1017edb6",
+      "lines": 170,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/types.ts",
+      "sha256": "ec94690f0ce44d7081173c625f43fc5c3b450a3eb028a54fc2fa0922de906e7c",
+      "lines": 133,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/seed-fetchers/wikibooks.ts",
+      "sha256": "7f49caad12bd7bbabe7483723d4fb486112a0ddb13b0de0669b97af4d963b5fd",
+      "lines": 162,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/source-urls.ts",
+      "sha256": "6fafc7bc31b0f0229b50757eb6747c55b2689fa56f3e06be20a4081787065e40",
+      "lines": 140,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/vocab/queries.ts",
+      "sha256": "a98cd733a43f6fb238575a0fed775d768b9344d60d36a510e7700e4f932b817a",
+      "lines": 359,
+      "apiStrings": [],
+      "tables": [
+        "shared_word_sets",
+        "dictionary_categories",
+        "user_word_set_subscriptions",
+        "shared_words"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/library/vocab/set-kind.ts",
+      "sha256": "669b190ee6a863ab8f1479ca49614daf54ca64d97df68ad070c3907bfb10dad6",
+      "lines": 77,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/methodology/core.ts",
+      "sha256": "f9a8fbacf887939c8c916da65c7f0568c6f7f2d0f2124f552600b4e4588f7e84",
+      "lines": 199,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/methodology/expand.ts",
+      "sha256": "a26b9946334333a631265016037f5fd676d9387a3de13982730ba7da1752edcc",
+      "lines": 14,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/methodology/server.ts",
+      "sha256": "3d93692ee9ef7552b581514b519f2befc213fbe35044b6eb2704a36d75f90b32",
+      "lines": 17,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [
+        "methodology_read"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/methodology/types.ts",
+      "sha256": "820e2cd89ca0723a5041d331b1d835651ea3350b8057c8bc2ac863f582c972e9",
+      "lines": 52,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/pd-comic/model.ts",
+      "sha256": "518bbaa01fb2e36fc45d884eff078301ee737159d126b38ea50a2706122857b4",
+      "lines": 417,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/pd-comic/queries.ts",
+      "sha256": "2d2ab98a381e80801686908941560dfe80cac0125a3634f760f51b63c5a7a5c0",
+      "lines": 365,
+      "apiStrings": [],
+      "tables": [
+        "pd_comic_issues",
+        "pd_comic_panels"
+      ],
+      "rpcs": [
+        "list_pd_comics",
+        "list_pd_comic_shelf",
+        "select_pd_comic_info",
+        "select_pd_comic"
+      ],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/topic-corpus/client.ts",
+      "sha256": "386b125e0fb21eb4eab28febf6604b3cfbfc229f22278df355000b4a5622b131",
+      "lines": 28,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/blueprints.ts",
+      "sha256": "2b417f7262ec6642fbc940585da6729273578e412bd9fd309b7b27cc8d61912a",
+      "lines": 1529,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/compose.ts",
+      "sha256": "46d2d049b950c823c24f409f1d4aa65119818584c1a25caca6b0ee1ccaad0f1c",
+      "lines": 245,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/evaluate.ts",
+      "sha256": "44f8e9488b149eb5c03b72201d2d1d7136d23590c39a3da407cca194538cb881",
+      "lines": 468,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/facets.ts",
+      "sha256": "7100e977581e41054dd71caf5be48ccce681276371cf0c0c432a2c6167c3165e",
+      "lines": 251,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/market.ts",
+      "sha256": "d02a93600480058c05ac60945d7e194c5c006825ac10fbef4dd9f22538e4ca70",
+      "lines": 532,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/match.ts",
+      "sha256": "407ee30167e9207fe8333577fbe194527104d8a031b3003ea4071747bba36241",
+      "lines": 47,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/organize.ts",
+      "sha256": "af95e2a6450de6abbffcd616198d1c836578e030355116fb9b71ff6eccf2897a",
+      "lines": 589,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/publish.ts",
+      "sha256": "8bde5d1198be34699482f3fdfb9cf2b71e510f7c5d9b7bb5f05c491328bbc837",
+      "lines": 339,
+      "apiStrings": [],
+      "tables": [
+        "shared_word_sets",
+        "shared_words"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/resolve.ts",
+      "sha256": "ad9f6f4c6d03e4616246377d0f01b302c94507c9e1e193a9546c2722ecab5add",
+      "lines": 1029,
+      "apiStrings": [],
+      "tables": [
+        "shared_dictionary",
+        "word_roots",
+        "word_root_links",
+        "dictionary_categories",
+        "dictionary_word_categories",
+        "library_book_vocabularies",
+        "shared_words",
+        "frequency_data_sources",
+        "lexicon_frequencies",
+        "learning_records",
+        "word_familiarity",
+        "vocabularies",
+        "shared_word_sets"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/run.ts",
+      "sha256": "2f019c7e01f06e756b1c704311ded55063f72da334d7250629a49eb1fc1ae3f2",
+      "lines": 95,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/compose/types.ts",
+      "sha256": "b3ce1a6f2aa4bfe01e52eaaaec53a9af906615bca4f857ff746ef5c30ab9bff8",
+      "lines": 479,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/covers/design.ts",
+      "sha256": "aef29e3f4aedf7e9d1601070ba2e2b45a4907303a54c26afb3830ccb1c6155c0",
+      "lines": 257,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/covers/lockup.ts",
+      "sha256": "c29b4d9b87538bf01fa9687919d3a1b3f0568b7524495f7c1fc658ecab07d7a0",
+      "lines": 160,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/filters.ts",
+      "sha256": "db40c39c68f5cbe4d5bd44d7ff1029458795a0c3b0ebd9db385e4fc0cccf3723",
+      "lines": 149,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/market-panel-text.ts",
+      "sha256": "a1e823547cc6bf28ae2ff4f44bee80a850ea20a372bf9926389f9bd4f2c6ef6d",
+      "lines": 16,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/presets.ts",
+      "sha256": "583a9510deb542a222ec6423c6bf9affe86b551609a151ffc7ef9a166d48a519",
+      "lines": 452,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/production-stages.ts",
+      "sha256": "dba9c3f0997e9726b39d6f65b7326f6f95c62cf520390c494311784fa3cbc7e8",
+      "lines": 148,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/compose-studio.ts",
+      "sha256": "5baa20f2247ddf5be6a06ccde871ad459b112f70d376c88d1ab6ddfb09478250",
+      "lines": 247,
+      "apiStrings": [],
+      "tables": [
+        "library_books",
+        "dictionary_categories",
+        "shared_word_sets"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/curation.ts",
+      "sha256": "dce5b8f1866229e84e00ff37e972a443de576d51084ba8234cdaf41159a73bcc",
+      "lines": 186,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/dict-lookup.ts",
+      "sha256": "1785e1530d4568ffe25997878a16c66025d44da9d33a800565b34eebec295392",
+      "lines": 36,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/enrich.ts",
+      "sha256": "264ae8b91f3455ac577d4a98e2227bde3c1c5ae8432f7d6c4940e9d58023e339",
+      "lines": 448,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/market-status.ts",
+      "sha256": "9b5213da468df8d1fbe848089ec1840178fa894c3b23094f36b7759eeae66a38",
+      "lines": 141,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/method-a.ts",
+      "sha256": "ceceb4216fdb5a541ef0c4dea45b778d9a57c17cd311f7968846bf29230901b4",
+      "lines": 54,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/precheck.ts",
+      "sha256": "cc8f35864aa81e5a8e95d959003dbc685c002d63a9b5a590862b633e3d6715c9",
+      "lines": 15,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/production.ts",
+      "sha256": "41b8cc3aea55aabe2acb3556eb40e26625a61f0974ae6e4ed5f2c96aa28ffa82",
+      "lines": 54,
+      "apiStrings": [],
+      "tables": [
+        "shared_word_sets"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/publish.ts",
+      "sha256": "b942be2cd4fe44d667df41782c36b7fbad22291b7a4ba4eefb01805107107cb6",
+      "lines": 37,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/qa.ts",
+      "sha256": "25e5cc460fca4ad6b739db0dc480ffdab39c640a671b8c3178204ecf630540be",
+      "lines": 39,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/queue.ts",
+      "sha256": "ac9ee280e5790de43adb7570f3b028760b975566bd7e37a2bd4077d8864182b4",
+      "lines": 44,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/run-create.ts",
+      "sha256": "aab6cec3f22b167e5fbfb0468bf5dfce02843457d55bb656a333cebd91d32a11",
+      "lines": 40,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/runs.ts",
+      "sha256": "80a646d452fe21663a3c039acbfcaec4f3ea24eb290cddaa9d954e7bba7c3503",
+      "lines": 164,
+      "apiStrings": [],
+      "tables": [
+        "shared_word_sets",
+        "shared_words"
+      ],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/seed.ts",
+      "sha256": "721d77177311a0024fbcfb81dd985bc10dcae2d190138dc9d9af4cd6a33b8060",
+      "lines": 884,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/server/sources.ts",
+      "sha256": "e9522c3b397986bc54cde204ea28b5fab167274f845561951ebcdf214dbaf437",
+      "lines": 152,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    },
+    {
+      "file": "apps/web/src/lib/vcb/types.ts",
+      "sha256": "c68754be5ab337258da34c8e59e8d0f0092e57af15856dafc400deb258e4e921",
+      "lines": 49,
+      "apiStrings": [],
+      "tables": [],
+      "rpcs": [],
+      "actionNames": []
+    }
+  ]
+}

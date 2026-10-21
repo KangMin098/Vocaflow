@@ -1,6 +1,7 @@
 // apps/web/src/components/admin/vcb/VcbCurationView.tsx
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useEffect, useMemo, useState, useTransition } from 'react'
 import { VcbCurationList } from './VcbCurationList'
@@ -278,7 +279,7 @@ export function VcbCurationView({ runId, initialItems, initialDetail }: Props) {
               </button>
             </>
           ) : (
-            <span className="font-mono text-xs" style={{ color: 'var(--t4)' }}>
+            <span className="font-mono text-xs" style={{ color: adminTextInk('var(--t4)') }}>
               체크박스로 선택해 일괄 처리
             </span>
           )}
@@ -298,7 +299,7 @@ export function VcbCurationView({ runId, initialItems, initialDetail }: Props) {
         {/* 키보드 단축키 힌트 */}
         <div
           className="px-3 py-2 border-t font-mono text-[11px] flex items-center gap-2 flex-wrap shrink-0"
-          style={{ borderColor: 'var(--bd)', color: 'var(--t4)', background: 'var(--bg2)' }}
+          style={{ borderColor: 'var(--bd)', color: adminTextInk('var(--t4)'), background: 'var(--bg2)' }}
         >
           <Kbd>j</Kbd>
           <Kbd>k</Kbd>
@@ -312,7 +313,8 @@ export function VcbCurationView({ runId, initialItems, initialDetail }: Props) {
         </div>
       </aside>
 
-      <main
+      <section
+        aria-label="단어 상세"
         className="rounded-[var(--r-lg)] border overflow-y-auto p-6 relative"
         style={{ background: 'var(--bg)', borderColor: 'var(--bd)' }}
       >
@@ -334,7 +336,7 @@ export function VcbCurationView({ runId, initialItems, initialDetail }: Props) {
             className="absolute top-3 left-6 right-16 px-3 py-2 rounded-[var(--r-sm)] text-xs flex items-center justify-between gap-2"
             style={{
               background: 'var(--error-light)',
-              color: 'var(--error)',
+              color: adminTextInk('var(--error)'),
               border: '1px solid var(--error)',
             }}
             role="alert"
@@ -365,7 +367,7 @@ export function VcbCurationView({ runId, initialItems, initialDetail }: Props) {
             단어를 선택하세요
           </div>
         )}
-      </main>
+      </section>
     </div>
   )
 }

@@ -7,6 +7,10 @@
   "main": "./src/index.ts",
   "types": "./src/index.ts",
   "exports": {
+    "./order-lineage": "./src/textbook/order-lineage.ts",
+    "./factory-order": "./src/textbook/factory-order.ts",
+    "./product-planning": "./src/textbook/product-planning.ts",
+    "./factory-order-stage": "./src/textbook/factory-order-stage.ts",
     ".": "./src/index.ts",
     "./vocab-brand": "./src/vocab/brand.ts",
     "./curation-spec": "./src/ingest-article/_curation-spec.ts",

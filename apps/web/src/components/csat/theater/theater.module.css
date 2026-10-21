@@ -91,7 +91,7 @@
 .play:hover { opacity: .88; }
 
 /* ── 본문 2열 ─────────────────────────────────────────── */
-.body { display: grid; grid-template-columns: var(--paper-w, 24rem) minmax(0, 1fr); flex: 1; min-height: 0; }
+.body { display: grid; grid-template-columns: var(--paper-w, clamp(304px, 24.45vw, 360px)) minmax(0, 1fr); flex: 1; min-height: 0; }
 
 /* ① 레일 */
 .rail { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg2); border-right: 1px solid var(--bd); }

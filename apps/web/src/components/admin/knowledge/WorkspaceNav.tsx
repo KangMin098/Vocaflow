@@ -6,36 +6,24 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { WORKSPACES, workspaceOf } from '@/lib/knowledge/vnext-labels'
+import { workspaceOf } from '@/lib/knowledge/vnext-labels'
+import { adminPath, getAdminLocation } from '@/lib/admin/navigation'
 
 const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
 
 export function WorkspaceNav() {
   const pathname = usePathname() ?? '/admin/knowledge'
   const current = workspaceOf(pathname)
+  const workspace = getAdminLocation(pathname)?.workspace
+  const provided = new Set([workspace?.href, ...(workspace?.tools?.map(t => t.href) ?? [])].filter((href): href is string => !!href).map(adminPath))
+  // The shell now owns work-area links. Retain only domain tabs it does not already provide.
+  const tabs = current?.tabs.filter(tab => !provided.has(adminPath(tab.href))) ?? []
+  if (tabs.length === 0) return null
   return (
     <nav aria-label="학습 원리 업무 공간" className="mb-6 border-b border-[var(--bd)]" data-testid="knowledge-workspaces">
-      <ol className="flex flex-wrap gap-1">
-        {WORKSPACES.map((w, i) => {
-          const on = current?.key === w.key
-          return (
-            <li key={w.key}>
-              <Link
-                href={w.href}
-                aria-current={on ? 'page' : undefined}
-                title={w.question}
-                className={`inline-flex min-h-11 items-center gap-2 rounded-t px-3 text-sm ${FOCUS} ${on ? 'border-b-2 border-[var(--p)] font-semibold text-[var(--t1)]' : 'text-[var(--t2)] hover:text-[var(--t1)]'}`}
-              >
-                <span className="font-mono text-xs text-[var(--t3)]">{String.fromCharCode(65 + i)}</span>
-                {w.label}
-              </Link>
-            </li>
-          )
-        })}
-      </ol>
-      {current && current.tabs.length > 0 && (
+      {current && (
         <ul className="flex flex-wrap gap-1 pb-2 pt-1" aria-label={`${current.label} 탭`}>
-          {current.tabs.map((t) => {
+          {tabs.map((t) => {
             const on = pathname === t.href
             return (
               <li key={t.href}>

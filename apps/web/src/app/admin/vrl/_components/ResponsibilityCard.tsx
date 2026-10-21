@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/vrl/_components/ResponsibilityCard.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // R1-R4 공통 책임 카드.
 // 사전DB 모니터링 v3 — Section 2 ResponsibilitiesSection 의 자식 컴포넌트.
@@ -131,7 +132,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
           <div>
             <p
               className="font-mono text-[10px] font-[700] uppercase tracking-[0.12em]"
-              style={{ color: meta.accent }}
+              style={{ color: adminTextInk(meta.accent) }}
             >
               {readiness.id}
             </p>
@@ -142,7 +143,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
         </div>
         <span
           className="inline-flex items-center gap-1 rounded-full px-3 py-1 font-display text-[10px] font-[700]"
-          style={{ backgroundColor: status.bg, color: status.color }}
+          style={{ backgroundColor: status.bg, color: adminTextInk(status.color) }}
         >
           <StatusIcon size={11} strokeWidth={2} aria-hidden />
           {status.label}
@@ -153,7 +154,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
       <div className="flex items-end gap-3">
         <p
           className="font-display text-[40px] font-[800] leading-none"
-          style={{ color: meta.accent }}
+          style={{ color: adminTextInk(meta.accent) }}
         >
           {readiness.score}
         </p>
@@ -178,7 +179,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
       {/* ── Factors ── */}
       <section
         className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] p-3"
-        aria-label="readiness factors"
+        aria-label={`${readiness.id} readiness factors`}
       >
         <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
           Factors ({readiness.factors.length})
@@ -215,7 +216,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
                   </div>
                   <span
                     className="w-9 text-right font-mono text-[10px] font-[700]"
-                    style={{ color: lowAlert ? 'var(--error)' : 'var(--t2)' }}
+                    style={{ color: adminTextInk(lowAlert ? 'var(--error)' : 'var(--t2)') }}
                   >
                     {fScorePct}%
                   </span>
@@ -228,7 +229,7 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
 
       {/* ── Affected Defects ── */}
       {relatedDefects.length > 0 && (
-        <section aria-label="affected critical defects">
+        <section aria-label={`${readiness.id} affected critical defects`}>
           <h4 className="mb-2 font-display text-[10px] font-[700] uppercase tracking-[0.08em] text-[var(--t2)]">
             Affected Defects ({relatedDefects.length})
           </h4>
@@ -260,13 +261,13 @@ export function ResponsibilityCard({ readiness, defects }: ResponsibilityCardPro
             borderLeftColor: meta.accent,
             backgroundColor: meta.accentSoft,
           }}
-          aria-label="primary improvement action"
+          aria-label={`${readiness.id} primary improvement action`}
         >
           <div className="flex items-center gap-2">
-            <Workflow size={13} strokeWidth={2} style={{ color: meta.accent }} aria-hidden />
+            <Workflow size={13} strokeWidth={2} style={{ color: adminTextInk(meta.accent) }} aria-hidden />
             <h4
               className="font-display text-[10px] font-[700] uppercase tracking-[0.08em]"
-              style={{ color: meta.accent }}
+              style={{ color: adminTextInk(meta.accent) }}
             >
               Primary Action
               {primaryImprovement.backlogId && (

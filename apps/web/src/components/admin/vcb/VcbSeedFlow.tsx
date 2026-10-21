@@ -1,8 +1,9 @@
 // apps/web/src/components/admin/vcb/VcbSeedFlow.tsx
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
-import { useEffect, useRef, useState, useTransition } from 'react'
+import { cloneElement, useEffect, useId, useRef, useState, useTransition } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import {
@@ -354,7 +355,7 @@ export function VcbSeedFlow({
       {/* 결정 B: out-of-band 스킬이 정식 경로 (in-UI 자동 실행은 로컬 dev 편의) */}
       <div
         className="px-3 py-2 rounded-[var(--r-md)] border text-xs mb-4"
-        style={{ background: 'var(--info-light)', borderColor: 'var(--info)', color: 'var(--info)' }}
+        style={{ background: 'var(--info-light)', borderColor: 'var(--info)', color: adminTextInk('var(--info)') }}
       >
         <b>권장</b>: Claude Code 세션에서 <code className="font-mono">/vcb-seed-list</code> 로 실행하세요.
         아래 자동 실행은 로컬 dev 편의용입니다(서버에 claude CLI 설치 시에만 동작).
@@ -387,7 +388,7 @@ export function VcbSeedFlow({
                   className="min-h-[44px] px-3 py-2 text-xs font-mono disabled:opacity-50"
                   style={{
                     background: runModel === m ? 'var(--p)' : 'var(--bg)',
-                    color: runModel === m ? 'var(--ti)' : 'var(--t2)',
+                    color: adminTextInk(runModel === m ? 'var(--ti)' : 'var(--t2)'),
                   }}
                 >
                   {m}
@@ -435,7 +436,7 @@ export function VcbSeedFlow({
         {status.running ? (
           <div
             className="mt-3 p-3 rounded-[var(--r-md)] flex items-start gap-2"
-            style={{ background: 'var(--info-light)', color: 'var(--info)' }}
+            style={{ background: 'var(--info-light)', color: adminTextInk('var(--info)') }}
           >
             <Loader2 className="w-5 h-5 shrink-0 mt-0.5 animate-spin" />
             <div className="text-sm flex-1 min-w-0">
@@ -455,7 +456,7 @@ export function VcbSeedFlow({
         {autoNavigating && (
           <div
             className="mt-3 p-3 rounded-[var(--r-md)] flex items-start gap-2"
-            style={{ background: 'var(--success-light)', color: 'var(--success)' }}
+            style={{ background: 'var(--success-light)', color: adminTextInk('var(--success)') }}
             role="status"
           >
             <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
@@ -502,7 +503,7 @@ export function VcbSeedFlow({
             style={{
               background:
                 status.validation_ok === false ? 'var(--error-light)' : 'var(--bg2)',
-              color: status.validation_ok === false ? 'var(--error)' : 'var(--t2)',
+              color: adminTextInk(status.validation_ok === false ? 'var(--error)' : 'var(--t2)'),
             }}
           >
             {status.validation_summary}
@@ -512,7 +513,7 @@ export function VcbSeedFlow({
         {status.error_exists && status.error_summary ? (
           <p
             className="text-xs mt-2 px-3 py-2 rounded-[var(--r-md)]"
-            style={{ background: 'var(--error-light)', color: 'var(--error)' }}
+            style={{ background: 'var(--error-light)', color: adminTextInk('var(--error)') }}
           >
             {status.error_summary}
           </p>
@@ -565,7 +566,7 @@ export function VcbSeedFlow({
               <button
                 type="button"
                 onClick={() => copyToClipboard(slashCommand)}
-                className="min-h-[44px] inline-flex items-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs border"
+                className="min-h-[44px] min-w-[44px] inline-flex items-center justify-center gap-1 px-3 py-2 rounded-[var(--r-md)] text-xs border"
                 style={{
                   background: 'var(--bg)',
                   borderColor: 'var(--bd)',
@@ -646,7 +647,7 @@ export function VcbSeedFlow({
         {importResult ? (
           <div
             className="mt-3 p-3 rounded-[var(--r-md)] flex items-start gap-2"
-            style={{ background: 'var(--success-light)', color: 'var(--success)' }}
+            style={{ background: 'var(--success-light)', color: adminTextInk('var(--success)') }}
           >
             <CheckCircle2 className="w-5 h-5 shrink-0 mt-0.5" />
             <div className="text-sm">
@@ -664,7 +665,7 @@ export function VcbSeedFlow({
       {actionError ? (
         <div
           className="p-3 rounded-[var(--r-md)] flex items-start gap-2"
-          style={{ background: 'var(--error-light)', color: 'var(--error)' }}
+          style={{ background: 'var(--error-light)', color: adminTextInk('var(--error)') }}
         >
           <AlertCircle className="w-5 h-5 shrink-0 mt-0.5" />
           <p className="text-sm">{actionError}</p>
@@ -700,11 +701,10 @@ function Section({
 }) {
   return (
     <section
-      className="p-5 rounded-[var(--r-lg)] border"
+      className={`p-5 rounded-[var(--r-lg)] border ${disabled ? 'border-dashed' : ''}`}
       style={{
         background: 'var(--bg)',
         borderColor: done ? 'var(--success)' : 'var(--bd)',
-        opacity: disabled ? 0.6 : 1,
       }}
     >
       <div className="flex items-center gap-3 mb-4">
@@ -712,18 +712,18 @@ function Section({
           className="w-7 h-7 rounded-full flex items-center justify-center font-display text-sm font-bold shrink-0"
           style={{
             background: done ? 'var(--success)' : 'var(--p-light)',
-            color: done ? 'var(--ti)' : 'var(--p)',
+            color: adminTextInk(done ? 'var(--ti)' : 'var(--p)'),
           }}
         >
           {done ? <CheckCircle2 className="w-4 h-4" /> : step}
         </div>
         <div className="flex-1 min-w-0">
-          <h3
+          <h2
             className="font-display font-semibold text-base m-0"
             style={{ color: 'var(--t1)' }}
           >
             {title}
-          </h3>
+          </h2>
           <p className="text-xs mt-1" style={{ color: 'var(--t3)' }}>
             {description}
           </p>
@@ -743,22 +743,24 @@ function Field({
   label: string
   hint?: string
   full?: boolean
-  children: React.ReactNode
+  children: React.ReactElement<{ id?: string; 'aria-describedby'?: string }>
 }) {
+  const id = useId()
   return (
     <div className={full ? 'md:col-span-2' : undefined}>
       <label
+        htmlFor={id}
         className="block font-display font-semibold text-xs uppercase tracking-wider mb-1"
         style={{ color: 'var(--t2)' }}
       >
         {label}
       </label>
       {hint ? (
-        <p className="text-xs mb-2" style={{ color: 'var(--t3)' }}>
+        <p id={`${id}-hint`} className="text-xs mb-2" style={{ color: 'var(--t3)' }}>
           {hint}
         </p>
       ) : null}
-      {children}
+      {cloneElement(children, { id, 'aria-describedby': hint ? `${id}-hint` : undefined })}
     </div>
   )
 }
@@ -786,7 +788,7 @@ function FileStatus({
         {label}
       </span>
       {extra ? (
-        <span style={{ color: error ? 'var(--error)' : 'var(--t3)' }}>· {extra}</span>
+        <span style={{ color: adminTextInk(error ? 'var(--error)' : 'var(--t3)') }}>· {extra}</span>
       ) : null}
     </div>
   )

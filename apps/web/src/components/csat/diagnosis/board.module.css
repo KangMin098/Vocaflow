@@ -1079,7 +1079,7 @@ a.tagChip:hover {
   --m-field: #ffffff;
   --m-field-ro: #f2f0eb;
   --m-chip: #f2f1ee;
-  --m-t2: #8b8984;
+  --m-t2: #6b6862;
   --m-t1: #1c1b19;
   background: rgb(28 27 25 / 0.12);
 }
@@ -1112,7 +1112,7 @@ a.tagChip:hover {
 }
 
 .modal .tab {
-  min-height: 34px;
+  min-height: 44px;
   padding: 0 12px;
   font-size: 12px;
   font-weight: 500;
@@ -1173,7 +1173,7 @@ a.tagChip:hover {
 
 .modal .input,
 .modal .select {
-  min-height: 34px;
+  min-height: 44px;
   border-color: var(--m-bd);
   border-radius: 8px;
   background-color: var(--m-field);
@@ -1193,7 +1193,7 @@ a.tagChip:hover {
 }
 
 .modal .search {
-  min-height: 34px;
+  min-height: 44px;
   border-color: var(--m-bd);
   border-radius: 8px;
   background: #fff;
@@ -1239,14 +1239,14 @@ a.tagChip:hover {
 }
 
 .modal .linkBtn {
-  min-height: 34px;
+  min-height: 44px;
   border-color: var(--m-bd);
   font-size: 12.5px;
   font-weight: 500;
 }
 
 .modal .danger {
-  min-height: 32px;
+  min-height: 44px;
   background: #fde8e6;
   color: #e5484d;
   font-size: 12.5px;
@@ -1264,7 +1264,7 @@ a.tagChip:hover {
 }
 
 .modal .done {
-  min-height: 36px;
+  min-height: 44px;
   padding: 0 16px;
   background: var(--m-t1);
   font-size: 13px;
@@ -1411,7 +1411,7 @@ a.tagChip:hover {
 
 .modal .bubble[aria-checked='true'] span {
   border-color: var(--tint, var(--m-t1));
-  background: var(--tint, var(--m-t1));
+  background: color-mix(in srgb, var(--tint, var(--m-t1)) 75%, #000);
   color: #fff;
 }
 
@@ -1428,7 +1428,7 @@ a.tagChip:hover {
   padding: 0 7px;
   border-radius: 6px;
   background: color-mix(in srgb, var(--tint, #8b8984) 13%, #fff);
-  color: color-mix(in srgb, var(--tint, #8b8984) 80%, #000);
+  color: color-mix(in srgb, var(--tint, #8b8984) 70%, #000);
   font-size: 10.5px;
   font-weight: 600;
 }

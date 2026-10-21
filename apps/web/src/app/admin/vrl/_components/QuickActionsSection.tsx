@@ -15,6 +15,7 @@
 //   근거 없는 수치는 아예 받지 않는다(prop 이 없으면 수치 없는 문구로 떨어진다).
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
@@ -134,7 +135,7 @@ export function QuickActionsSection({
         >
           <span
             className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)]"
-            style={{ backgroundColor: 'var(--info-light)', color: 'var(--info)' }}
+            style={{ backgroundColor: 'var(--info-light)', color: adminTextInk('var(--info)') }}
             aria-hidden
           >
             ⚡
@@ -277,7 +278,7 @@ function SqlPreviewCard({
       >
         <span
           className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-md)]"
-          style={{ backgroundColor: accentBg, color: accentFg }}
+          style={{ backgroundColor: accentBg, color: adminTextInk(accentFg) }}
           aria-hidden
         >
           {icon}

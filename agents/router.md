@@ -9,13 +9,14 @@
 
 | 작업 형태 | 기본 담당 | 이유 |
 |---|---|---|
-| 설계·계획·큰 리팩터·문서·대화형 탐색 | **Claude Code** | plan mode · 스킬(`vocaflow-design` 등) · 드레인 서브에이전트 5종이 `.claude/` 에 있다 |
+| 분석·기획·설계·독립 검토 및 필요한 구현 | **Codex** | 현재 작업 맥락·기존 브랜치를 이어 간다 |
+| 구현·수정·실행·화면 검증 | **Claude Code** | 현재 작업 맥락·기존 브랜치를 이어 간다 |
 | LLM 판단 드레인(청크 채우기) | **Claude Code** | 전용 서브에이전트·슬래시 명령이 있다. Codex 도 같은 3단 구조로 할 수 있다(AGENTS.md) |
 | 명세가 분명한 구현 · 테스트 주도 디버깅 | **Codex** (`codex exec`) | 실패 로그 → 원인 추적 루프가 짧다 |
 | 회귀 테스트 작성 | **Codex** (`test-writer` 에이전트) | `.codex/agents/test-writer.toml` |
 | 교차 검토(사용자 요청 시만) | **쓴 쪽의 반대** | 다른 모델이 다른 종류의 오류를 잡는다 |
 
-- 흐름의 기본형: **Claude 가 계획 → Codex 가 실행**(또는 그 역). 완료 판단은 테스트·타입·lint·수용 기준 증거·Goal Check 로 한다.
+- 요청 → 현재 목적과 관련성 판단 → 현재 브랜치 유지/기존 공간 재사용/독립 분리 → 분석·설계·구현 → 영향 범위 검증 → 통합 → 필요한 화면 확인. 역할은 강제 배타 배정이 아니며 한 세션이 끝낼 수 있는 일반 작업은 직접 끝낸다.
 - **자동 Codex 리뷰는 없다**(2026-10-10 사용자 결정 · RP-2026-10-10.2). Stop 훅·커밋·task submit·DB 게이트·PR·머지 어디서도 Codex 리뷰를 자동으로 부르지 않는다.
 - 교차 검토는 **사용자가 요청할 때만** 한다 — Claude 가 쓴 기능은 `node agents/scripts/review.mjs`(목적 대조 · 정본 [goal-review.md](./goal-review.md)), Codex 가 쓴 기능은 Claude 세션의 `/code-review`. Codex 실패 시 재시도를 반복하지 않는다.
 - 일반 개발/원격 납품은 재승인 없이 진행하고 DB 배포·데이터 삭제·중대 보안 변경은 정본 `agents/policies/PR_AUTOMATION_POLICY.md`를 따른다. main 병합은 범위 계약을 받은 `safe-merge.mjs`만 사용하며 `.env`는 출력하지 않는다.
@@ -31,7 +32,7 @@ node agents/scripts/lock.mjs release <agent>     # 끝나면 (이름·pid 가 �
 ```
 
 - 잠금에는 에이전트 **프로세스** pid 가 들어간다(조상 프로세스에서 `claude` / `codex` 를 찾는다). 프로세스가 죽었거나 12시간이 지나면 다음 acquire 가 고아 잠금으로 보고 해제한다.
-- 장기 병행이 필요하면 워크트리를 나눈다: `pnpm wt new x-claude` · `pnpm wt new x-codex` (브랜치 `feat/x-claude` · `feat/x-codex`).
+- 동일 목적의 순차 협업은 브랜치를 유지하고 쓰기 소유만 넘긴다. 읽기 전용 검토는 같은 브랜치를 대상으로 할 수 있다. 독립 동시 쓰기가 필요할 때만 별도 공간을 사용하며 먼저 기존 기능 공간을 찾는다([WORKTREE](../docs/WORKTREE.md)).
 - 잠금은 **협조 규약**이다 — 규약을 모르는 세션은 막지 못한다. 그래서 커밋은 언제나 `git commit --only <paths>`.
 
 ## 3. 한도(limit) 폴백 — 5규칙

@@ -8,6 +8,7 @@
 // (「공급망 비대 / 수요 검증 0」)가 문항 층에서 나타나는 자리다.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useState } from 'react'
 
@@ -151,7 +152,7 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
       {loadError ? (
         <p
           role="alert"
-          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--memory-risk)]"
+          className="rounded-[var(--r-md)] border border-[var(--memory-risk)] bg-[var(--bg)] p-3 font-body text-[13px] text-[var(--error-ink)]"
         >
           {loadError}
         </p>
@@ -207,7 +208,7 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
           </span>
           <span className="inline-flex items-center gap-1">
             재고
-            {[0.06, 0.2, 0.36, 0.56].map((a) => (
+            {[0.06, 0.16, 0.26, 0.36].map((a) => (
               <span
                 key={a}
                 className="inline-block h-3 w-4"
@@ -218,7 +219,7 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
             <span className="ml-0.5">적음 → 많음 (로그)</span>
           </span>
           <span>
-            <strong className="text-[var(--memory-risk)]">—</strong> 재고 0 · <strong>?</strong> 못 셈
+            <strong className="text-[var(--error-ink)]">—</strong> 재고 0 · <strong>?</strong> 못 셈
           </span>
         </div>
         <div className="overflow-x-auto">
@@ -271,16 +272,16 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
                             style={{
                               // 한 가지 색의 농도만 쓴다(발산·무지개 금지). 진할수록 재고가 많다.
                               background: n
-                                ? `color-mix(in srgb, var(--p) ${((0.06 + 0.5 * heat(n, maxCell)) * 100).toFixed(1)}%, transparent)`
+                                ? `color-mix(in srgb, var(--p) ${((0.06 + 0.3 * heat(n, maxCell)) * 100).toFixed(1)}%, transparent)`
                                 : undefined,
                               color:
-                                n == null
+                                adminTextInk(n == null
                                   ? 'var(--memory-new)'
                                   : n === 0
                                     ? ladder
                                       ? 'var(--memory-risk)'
                                       : 'var(--t3)'
-                                    : 'var(--t1)',
+                                    : 'var(--t1)'),
                             }}
                           >
                             {n == null ? '?' : n === 0 ? '—' : n.toLocaleString()}
@@ -292,7 +293,7 @@ export function AuthorClient({ cells, total, ladderCells, itemState, loadError }
                       {sum.toLocaleString()}
                       {unmeasured > 0 && (
                         <span
-                          className="ml-1 text-[10px] text-[var(--memory-new)]"
+                          className="ml-1 text-[10px] text-[var(--t2)]"
                           title={`${unmeasured}칸을 못 쟀다 — 실제 합계는 이보다 크다`}
                         >
                           +?

@@ -1,0 +1,37 @@
+{
+  "$comment": "agents/sessions.json — 논리 담당 이름 ↔ 실제 Codex 세션 UUID 결속(사람 · 에이전트 공용 정본). 이름만으로 같은 대화라고 추측하지 않는다 — uuid 는 세션 기록(~/.codex/sessions)의 역할 배정 근거로 확인한 값만 적는다. 찾지 못하면 새 세션으로 대체하지 않는다(agents/scripts/codex-route.mjs).",
+  "version": 1,
+  "mission": "VOCAFLOW FINAL MISSION A~H",
+  "sessions": {
+    "Claude-VOCAFLOW-FINAL-OWNER": {
+      "agent": "claude",
+      "role": "구현 · 통합(제품 파일 소유)",
+      "worktree": "D:/workspace/Vocaflow-final-product",
+      "uuid": null,
+      "note": "Claude Code 세션 — Codex 큐 대상 아님"
+    },
+    "Codex-VOCAFLOW-FINAL-ACCEPT": {
+      "agent": "codex",
+      "role": "독립 검증 · 수용 판정(ACCEPT/REWORK) · 결함 원장",
+      "worktree": "D:/workspace/Vocaflow-final-independent",
+      "uuid": "01a14de8-2485-7a53-b530-d5612f35e57a",
+      "verified": {
+        "at": "2026-10-19",
+        "by": "Claude-VOCAFLOW-FINAL-OWNER",
+        "evidence": [
+          "세션 기록 session_meta.id = 01a14de8-2485-7a53-b530-d5612f35e57a(source vscode · 시작 2026-10-18T07:27Z)",
+          "사용자 배정문 「세션: 신규 `Codex-VOCAFLOW-FINAL-ACCEPT`」 14회 · 「세션: 기존 `Codex-VOCAFLOW-FINAL-ACCEPT`」 6회",
+          "작업 worktree D:/workspace/Vocaflow-final-independent 2,174회 언급",
+          "연결 확인: codex queue 큐 id 01a15248-9233-7f21-bab5-c80dea96fabf · 세션 기록에 확인 문구 기록됨"
+        ]
+      }
+    },
+    "Codex-VOCAFLOW-FINAL-PLANNER": {
+      "agent": "codex",
+      "role": "분석 · 기획 · 설계 · 구현 지시(역할 계약 docs/agents/FINAL_COLLAB_CONTRACT.md)",
+      "worktree": null,
+      "uuid": null,
+      "note": "아직 없음 — 새 세션은 사용자가 만들고 uuid 를 확인한 뒤 적는다. 그 전까지 기획 · 설계도 ACCEPT 세션이 맡고, 같은 세션이 기획과 수용을 겸한다는 사실을 인계문에 적는다"
+    }
+  }
+}

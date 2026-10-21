@@ -1,0 +1,986 @@
+{
+  "checked_at": "2026-10-19T21:23:00Z",
+  "project_ref": "jajenrevcbmrpaliomxv",
+  "rows": [
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.csat_map_goal_version.client_key"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|true|now()|",
+      "name": "public.csat_map_goal_version.created_at"
+    },
+    {
+      "k": "col",
+      "fp": "bigint|true||",
+      "name": "public.csat_map_goal_version.id"
+    },
+    {
+      "k": "col",
+      "fp": "date|false||",
+      "name": "public.csat_map_goal_version.target_date"
+    },
+    {
+      "k": "col",
+      "fp": "text|false||",
+      "name": "public.csat_map_goal_version.target_exam"
+    },
+    {
+      "k": "col",
+      "fp": "smallint|false||",
+      "name": "public.csat_map_goal_version.target_grade"
+    },
+    {
+      "k": "col",
+      "fp": "smallint|true||",
+      "name": "public.csat_map_goal_version.target_score"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.csat_map_goal_version.user_id"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|true|now()|",
+      "name": "public.factory_order.created_at"
+    },
+    {
+      "k": "col",
+      "fp": "integer|true|0|",
+      "name": "public.factory_order.event_seq"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true|gen_random_uuid()|",
+      "name": "public.factory_order.id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.factory_order.line_id"
+    },
+    {
+      "k": "col",
+      "fp": "smallint|true||",
+      "name": "public.factory_order.order_seq"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|false||",
+      "name": "public.factory_order.parent_order_id"
+    },
+    {
+      "k": "col",
+      "fp": "text|false||",
+      "name": "public.factory_order.production_run_id"
+    },
+    {
+      "k": "col",
+      "fp": "smallint|true||",
+      "name": "public.factory_order.quantity"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.factory_order.reason"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.factory_order.request_key"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.factory_order.role"
+    },
+    {
+      "k": "col",
+      "fp": "text|true|'requested'::text|",
+      "name": "public.factory_order.state"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.factory_order.task_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.factory_order.user_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.factory_order.workspace_id"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.learner_workspace.canon_version"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|true|now()|",
+      "name": "public.learner_workspace.created_at"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true|gen_random_uuid()|",
+      "name": "public.learner_workspace.id"
+    },
+    {
+      "k": "col",
+      "fp": "text|true|'active'::text|",
+      "name": "public.learner_workspace.status"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.learner_workspace.template_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.learner_workspace.user_id"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|true||",
+      "name": "public.learner_workspace_plan.as_of"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.learner_workspace_plan.canon_version"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.learner_workspace_plan.client_key"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|true|now()|",
+      "name": "public.learner_workspace_plan.created_at"
+    },
+    {
+      "k": "col",
+      "fp": "bigint|false||",
+      "name": "public.learner_workspace_plan.goal_version_id"
+    },
+    {
+      "k": "col",
+      "fp": "bigint|true||",
+      "name": "public.learner_workspace_plan.id"
+    },
+    {
+      "k": "col",
+      "fp": "text|false||",
+      "name": "public.learner_workspace_plan.note"
+    },
+    {
+      "k": "col",
+      "fp": "jsonb|true||",
+      "name": "public.learner_workspace_plan.plan"
+    },
+    {
+      "k": "col",
+      "fp": "integer|true||",
+      "name": "public.learner_workspace_plan.plan_version"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.learner_workspace_plan.reason"
+    },
+    {
+      "k": "col",
+      "fp": "integer|false||",
+      "name": "public.learner_workspace_plan.restored_from"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.learner_workspace_plan.user_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.learner_workspace_plan.workspace_id"
+    },
+    {
+      "k": "col",
+      "fp": "text|false||{authenticated=aw/postgres}",
+      "name": "public.user_profiles.avatar_url"
+    },
+    {
+      "k": "col",
+      "fp": "text|false||{authenticated=aw/postgres}",
+      "name": "public.user_profiles.cefr_level"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|false|now()|",
+      "name": "public.user_profiles.created_at"
+    },
+    {
+      "k": "col",
+      "fp": "jsonb|false|'{}'::jsonb|",
+      "name": "public.user_profiles.current_domain_levels"
+    },
+    {
+      "k": "col",
+      "fp": "jsonb|false|'{}'::jsonb|",
+      "name": "public.user_profiles.current_skill_levels"
+    },
+    {
+      "k": "col",
+      "fp": "jsonb|false|'{}'::jsonb|",
+      "name": "public.user_profiles.current_track_levels"
+    },
+    {
+      "k": "col",
+      "fp": "smallint|false|0|",
+      "name": "public.user_profiles.current_v_level"
+    },
+    {
+      "k": "col",
+      "fp": "jsonb|false||",
+      "name": "public.user_profiles.current_v_level_meta"
+    },
+    {
+      "k": "col",
+      "fp": "integer|false|30|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.daily_word_goal"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|false||",
+      "name": "public.user_profiles.diagnostic_completed_at"
+    },
+    {
+      "k": "col",
+      "fp": "text|false||{authenticated=aw/postgres}",
+      "name": "public.user_profiles.display_name"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|false||",
+      "name": "public.user_profiles.last_active_at"
+    },
+    {
+      "k": "col",
+      "fp": "text|true|'alias'::text|",
+      "name": "public.user_profiles.leaderboard_visibility"
+    },
+    {
+      "k": "col",
+      "fp": "numeric(3,2)|false|0.5|",
+      "name": "public.user_profiles.learning_activity_score"
+    },
+    {
+      "k": "col",
+      "fp": "text|false||{authenticated=aw/postgres}",
+      "name": "public.user_profiles.learning_goal"
+    },
+    {
+      "k": "col",
+      "fp": "text|false|'ko'::text|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.locale"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|false||",
+      "name": "public.user_profiles.next_level_review_due_at"
+    },
+    {
+      "k": "col",
+      "fp": "boolean|false|true|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.notify_email"
+    },
+    {
+      "k": "col",
+      "fp": "boolean|false|false|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.notify_push"
+    },
+    {
+      "k": "col",
+      "fp": "boolean|false|true|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.notify_streak_risk"
+    },
+    {
+      "k": "col",
+      "fp": "text|true|'user'::text|",
+      "name": "public.user_profiles.role"
+    },
+    {
+      "k": "col",
+      "fp": "text|true|'general'::text|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.segment"
+    },
+    {
+      "k": "col",
+      "fp": "text|true|'active'::text|",
+      "name": "public.user_profiles.status"
+    },
+    {
+      "k": "col",
+      "fp": "jsonb|false|'{}'::jsonb|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.target_track_levels"
+    },
+    {
+      "k": "col",
+      "fp": "smallint|false||{authenticated=aw/postgres}",
+      "name": "public.user_profiles.target_v_level"
+    },
+    {
+      "k": "col",
+      "fp": "jsonb|false||{authenticated=aw/postgres}",
+      "name": "public.user_profiles.target_v_level_meta"
+    },
+    {
+      "k": "col",
+      "fp": "text|false|'system'::text|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.theme"
+    },
+    {
+      "k": "col",
+      "fp": "integer|false|0|",
+      "name": "public.user_profiles.total_words_mastered"
+    },
+    {
+      "k": "col",
+      "fp": "integer|false|0|",
+      "name": "public.user_profiles.total_words_seen"
+    },
+    {
+      "k": "col",
+      "fp": "numeric(3,2)|false|1.0|{authenticated=aw/postgres}",
+      "name": "public.user_profiles.tts_speed"
+    },
+    {
+      "k": "col",
+      "fp": "text|false||{authenticated=aw/postgres}",
+      "name": "public.user_profiles.tts_voice"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|false|now()|{authenticated=w/postgres}",
+      "name": "public.user_profiles.updated_at"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||{authenticated=a/postgres}",
+      "name": "public.user_profiles.user_id"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.workspace_content_demand.canonical"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.workspace_content_demand.core_task"
+    },
+    {
+      "k": "col",
+      "fp": "timestamp with time zone|true|now()|",
+      "name": "public.workspace_content_demand.created_at"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.workspace_content_demand.definition_version"
+    },
+    {
+      "k": "col",
+      "fp": "bigint|false||",
+      "name": "public.workspace_content_demand.goal_version_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true|gen_random_uuid()|",
+      "name": "public.workspace_content_demand.id"
+    },
+    {
+      "k": "col",
+      "fp": "integer|true||",
+      "name": "public.workspace_content_demand.plan_version"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.workspace_content_demand.signature"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.workspace_content_demand.user_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.workspace_content_demand.workspace_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.workspace_content_demand_line.demand_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true|gen_random_uuid()|",
+      "name": "public.workspace_content_demand_line.id"
+    },
+    {
+      "k": "col",
+      "fp": "smallint|true||",
+      "name": "public.workspace_content_demand_line.line_no"
+    },
+    {
+      "k": "col",
+      "fp": "smallint|true||",
+      "name": "public.workspace_content_demand_line.quantity"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.workspace_content_demand_line.role"
+    },
+    {
+      "k": "col",
+      "fp": "text|true||",
+      "name": "public.workspace_content_demand_line.task_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.workspace_content_demand_line.user_id"
+    },
+    {
+      "k": "col",
+      "fp": "uuid|true||",
+      "name": "public.workspace_content_demand_line.workspace_id"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (id, user_id)",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_id_user_key"
+    },
+    {
+      "k": "con",
+      "fp": "PRIMARY KEY (id)",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_pkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((target_exam = ANY (ARRAY['suneung'::text, 'kice6'::text, 'kice9'::text, 'hakpyeong'::text])))",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_target_exam_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((target_grade >= 1) AND (target_grade <= 9)))",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_target_grade_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((target_score >= 0) AND (target_score <= 100)))",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_target_score_check"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (user_id, client_key)",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_user_id_client_key_key"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_user_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((reason = 'initial'::text) = (parent_order_id IS NULL)))",
+      "name": "public.factory_order.factory_order_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((state <> 'producing'::text) OR (production_run_id IS NOT NULL)))",
+      "name": "public.factory_order.factory_order_check1"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (line_id, order_seq)",
+      "name": "public.factory_order.factory_order_line_id_order_seq_key"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (line_id, user_id, workspace_id, role, task_id) REFERENCES workspace_content_demand_line(id, user_id, workspace_id, role, task_id) ON DELETE CASCADE",
+      "name": "public.factory_order.factory_order_line_id_user_id_workspace_id_role_task_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((order_seq >= 1) AND (order_seq <= 100)))",
+      "name": "public.factory_order.factory_order_order_seq_check"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (parent_order_id) REFERENCES factory_order(id)",
+      "name": "public.factory_order.factory_order_parent_order_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "PRIMARY KEY (id)",
+      "name": "public.factory_order.factory_order_pkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((quantity >= 1) AND (quantity <= 50)))",
+      "name": "public.factory_order.factory_order_quantity_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((reason = ANY (ARRAY['initial'::text, 'shortfall'::text, 'retry_after_failure'::text, 'plan_revision'::text])))",
+      "name": "public.factory_order.factory_order_reason_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((state = ANY (ARRAY['requested'::text, 'stock_search'::text, 'awaiting_production'::text, 'producing'::text, 'reviewing'::text, 'delivered'::text, 'partial'::text, 'held'::text, 'failed'::text])))",
+      "name": "public.factory_order.factory_order_state_check"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (user_id, request_key)",
+      "name": "public.factory_order.factory_order_user_id_request_key_key"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((canon_version ~ '^[A-Za-z0-9.\\-]{1,64}$'::text))",
+      "name": "public.learner_workspace.learner_workspace_canon_version_check"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (id, user_id)",
+      "name": "public.learner_workspace.learner_workspace_id_user_key"
+    },
+    {
+      "k": "con",
+      "fp": "PRIMARY KEY (id)",
+      "name": "public.learner_workspace.learner_workspace_pkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((status = ANY (ARRAY['active'::text, 'paused'::text, 'closed'::text])))",
+      "name": "public.learner_workspace.learner_workspace_status_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((template_id ~ '^ws\\.[a-z0-9-]{1,40}$'::text))",
+      "name": "public.learner_workspace.learner_workspace_template_id_check"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "name": "public.learner_workspace.learner_workspace_user_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((canon_version ~ '^[A-Za-z0-9.\\-]{1,64}$'::text))",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_canon_version_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((reason = 'restore'::text) = (restored_from IS NOT NULL)))",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_check"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (goal_version_id) REFERENCES csat_map_goal_version(id)",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_goal_version_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((note IS NULL) OR (length(note) <= 500)))",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_note_check"
+    },
+    {
+      "k": "con",
+      "fp": "PRIMARY KEY (id)",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_pkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((jsonb_typeof((plan -> 'tasks'::text)) = 'array'::text) AND (jsonb_typeof((plan -> 'order'::text)) = 'array'::text)))",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_plan_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((plan_version >= 1) AND (plan_version <= 100000)))",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_plan_version_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((reason = ANY (ARRAY['initial'::text, 'learner_adjust'::text, 'new_exam'::text, 'check_result'::text, 'goal_change'::text, 'definition_change'::text, 'content_change'::text, 'restore'::text])))",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_reason_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((restored_from IS NULL) OR (restored_from >= 1)))",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_restored_from_check"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (user_id, client_key)",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_user_id_client_key_key"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_user_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (workspace_id) REFERENCES learner_workspace(id) ON DELETE CASCADE",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_workspace_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (workspace_id, plan_version)",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_workspace_id_plan_version_key"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (workspace_id, plan_version, user_id)",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_ws_ver_user_key"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((cefr_level = ANY (ARRAY['A1'::text, 'A2'::text, 'B1'::text, 'B2'::text, 'C1'::text, 'C2'::text])))",
+      "name": "public.user_profiles.user_profiles_cefr_level_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((current_v_level >= 0) AND (current_v_level <= 11)))",
+      "name": "public.user_profiles.user_profiles_current_v_level_check"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (current_v_level) REFERENCES vocaflow_levels(level) ON DELETE SET NULL",
+      "name": "public.user_profiles.user_profiles_current_v_level_fk"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((leaderboard_visibility = ANY (ARRAY['alias'::text, 'name'::text, 'hidden'::text])))",
+      "name": "public.user_profiles.user_profiles_leaderboard_visibility_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((learning_activity_score >= (0)::numeric) AND (learning_activity_score <= (1)::numeric)))",
+      "name": "public.user_profiles.user_profiles_learning_activity_score_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((locale = ANY (ARRAY['ko'::text, 'en'::text])))",
+      "name": "public.user_profiles.user_profiles_locale_check"
+    },
+    {
+      "k": "con",
+      "fp": "PRIMARY KEY (user_id)",
+      "name": "public.user_profiles.user_profiles_pkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((role = ANY (ARRAY['user'::text, 'admin'::text, 'curator'::text])))",
+      "name": "public.user_profiles.user_profiles_role_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((segment = ANY (ARRAY['middle_school'::text, 'high_school'::text, 'academic'::text, 'business'::text, 'toeic'::text, 'civil_service'::text, 'general'::text, 'book_recommend'::text])))",
+      "name": "public.user_profiles.user_profiles_segment_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((status = ANY (ARRAY['active'::text, 'suspended'::text, 'deleted'::text])))",
+      "name": "public.user_profiles.user_profiles_status_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((target_v_level >= 0) AND (target_v_level <= 11)))",
+      "name": "public.user_profiles.user_profiles_target_v_level_check"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (target_v_level) REFERENCES vocaflow_levels(level) ON DELETE SET NULL",
+      "name": "public.user_profiles.user_profiles_target_v_level_fk"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((theme = ANY (ARRAY['light'::text, 'dark'::text, 'system'::text])))",
+      "name": "public.user_profiles.user_profiles_theme_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((total_words_mastered >= 0))",
+      "name": "public.user_profiles.user_profiles_total_words_mastered_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((total_words_seen >= 0))",
+      "name": "public.user_profiles.user_profiles_total_words_seen_check"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "name": "public.user_profiles.user_profiles_user_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((length(canonical) <= 20000))",
+      "name": "public.workspace_content_demand.workspace_content_demand_canonical_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((signature = encode(sha256(convert_to(canonical, 'UTF8'::name)), 'hex'::text)))",
+      "name": "public.workspace_content_demand.workspace_content_demand_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((core_task ~ '^[a-z]\\.[a-z_]{2,60}$'::text))",
+      "name": "public.workspace_content_demand.workspace_content_demand_core_task_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((length(definition_version) >= 1) AND (length(definition_version) <= 64)))",
+      "name": "public.workspace_content_demand.workspace_content_demand_definition_version_check"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (goal_version_id, user_id) REFERENCES csat_map_goal_version(id, user_id)",
+      "name": "public.workspace_content_demand.workspace_content_demand_goal_version_id_user_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (id, user_id, workspace_id)",
+      "name": "public.workspace_content_demand.workspace_content_demand_id_user_id_workspace_id_key"
+    },
+    {
+      "k": "con",
+      "fp": "PRIMARY KEY (id)",
+      "name": "public.workspace_content_demand.workspace_content_demand_pkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((signature ~ '^[0-9a-f]{64}$'::text))",
+      "name": "public.workspace_content_demand.workspace_content_demand_signature_check"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (user_id) REFERENCES auth.users(id) ON DELETE CASCADE",
+      "name": "public.workspace_content_demand.workspace_content_demand_user_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (user_id, signature)",
+      "name": "public.workspace_content_demand.workspace_content_demand_user_id_signature_key"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (workspace_id, plan_version, user_id) REFERENCES learner_workspace_plan(workspace_id, plan_version, user_id)",
+      "name": "public.workspace_content_demand.workspace_content_demand_workspace_id_plan_version_user_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (workspace_id, user_id) REFERENCES learner_workspace(id, user_id) ON DELETE CASCADE",
+      "name": "public.workspace_content_demand.workspace_content_demand_workspace_id_user_id_fkey"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (demand_id, line_no)",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_demand_id_line_no_key"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (demand_id, role, task_id)",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_demand_id_role_task_id_key"
+    },
+    {
+      "k": "con",
+      "fp": "FOREIGN KEY (demand_id, user_id, workspace_id) REFERENCES workspace_content_demand(id, user_id, workspace_id) ON DELETE CASCADE",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_demand_id_user_id_workspace__fkey"
+    },
+    {
+      "k": "con",
+      "fp": "UNIQUE (id, user_id, workspace_id, role, task_id)",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_id_user_id_workspace_id_role__key"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((line_no >= 0) AND (line_no <= 99)))",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_line_no_check"
+    },
+    {
+      "k": "con",
+      "fp": "PRIMARY KEY (id)",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_pkey"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK (((quantity >= 1) AND (quantity <= 50)))",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_quantity_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((role = ANY (ARRAY['source_analysis'::text, 'model_explanation'::text, 'guided_practice'::text, 'independent_check'::text, 'transfer'::text, 'delayed_check'::text])))",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_role_check"
+    },
+    {
+      "k": "con",
+      "fp": "CHECK ((task_id ~ '^[a-z]\\.[a-z_]{2,60}$'::text))",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_task_id_check"
+    },
+    {
+      "k": "fn",
+      "fp": "ba47d9e52b7636eac0fd2a375b3ced19|{search_path=public}|{postgres=X/postgres,service_role=X/postgres}|false|v|f|postgres",
+      "name": "public.forbid_ledger_mutation()"
+    },
+    {
+      "k": "pol",
+      "fp": "r|true|{16485}|(user_id = ( SELECT auth.uid() AS uid))|",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_own_select"
+    },
+    {
+      "k": "pol",
+      "fp": "r|true|{0}|((( SELECT auth.uid() AS uid) = user_id) OR is_admin_or_curator())|",
+      "name": "public.factory_order.fo_owner_read"
+    },
+    {
+      "k": "pol",
+      "fp": "r|true|{16485}|(user_id = ( SELECT auth.uid() AS uid))|",
+      "name": "public.learner_workspace.learner_workspace_own_select"
+    },
+    {
+      "k": "pol",
+      "fp": "r|true|{16485}|(user_id = ( SELECT auth.uid() AS uid))|",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_own_select"
+    },
+    {
+      "k": "pol",
+      "fp": "*|true|{0}|(( SELECT auth.uid() AS uid) = user_id)|(( SELECT auth.uid() AS uid) = user_id)",
+      "name": "public.user_profiles.own data"
+    },
+    {
+      "k": "pol",
+      "fp": "r|true|{0}|is_admin()|",
+      "name": "public.user_profiles.profiles_admin_read"
+    },
+    {
+      "k": "pol",
+      "fp": "r|true|{0}|((( SELECT auth.uid() AS uid) = user_id) OR is_admin_or_curator())|",
+      "name": "public.workspace_content_demand.wcd_owner_read"
+    },
+    {
+      "k": "pol",
+      "fp": "r|true|{0}|((( SELECT auth.uid() AS uid) = user_id) OR is_admin_or_curator())|",
+      "name": "public.workspace_content_demand_line.wcdl_owner_read"
+    },
+    {
+      "k": "rel",
+      "fp": "r|{postgres=arwdDxtm/postgres,service_role=rxtm/postgres,authenticated=r/postgres}|true|false||postgres||",
+      "name": "public.csat_map_goal_version"
+    },
+    {
+      "k": "rel",
+      "fp": "r|{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres,authenticated=r/postgres}|true|false||postgres||",
+      "name": "public.factory_order"
+    },
+    {
+      "k": "rel",
+      "fp": "r|{postgres=arwdDxtm/postgres,service_role=rwxtm/postgres,authenticated=r/postgres}|true|false||postgres||",
+      "name": "public.learner_workspace"
+    },
+    {
+      "k": "rel",
+      "fp": "r|{postgres=arwdDxtm/postgres,service_role=rxtm/postgres,authenticated=r/postgres}|true|false||postgres||",
+      "name": "public.learner_workspace_plan"
+    },
+    {
+      "k": "rel",
+      "fp": "r|{postgres=arwdDxtm/postgres,anon=rDxtm/postgres,authenticated=rDxtm/postgres,service_role=arwdDxtm/postgres}|true|false||postgres||",
+      "name": "public.user_profiles"
+    },
+    {
+      "k": "rel",
+      "fp": "r|{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres,authenticated=r/postgres}|true|false||postgres||",
+      "name": "public.workspace_content_demand"
+    },
+    {
+      "k": "rel",
+      "fp": "r|{postgres=arwdDxtm/postgres,service_role=arwdDxtm/postgres,authenticated=r/postgres}|true|false||postgres||",
+      "name": "public.workspace_content_demand_line"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER csat_map_goal_version_append_only BEFORE DELETE OR UPDATE ON public.csat_map_goal_version FOR EACH ROW EXECUTE FUNCTION map_v4_append_only()|O",
+      "name": "public.csat_map_goal_version.csat_map_goal_version_append_only"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER factory_order_no_delete BEFORE DELETE ON public.factory_order FOR EACH ROW EXECUTE FUNCTION forbid_ledger_mutation()|O",
+      "name": "public.factory_order.factory_order_no_delete"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER factory_order_state_guard BEFORE UPDATE ON public.factory_order FOR EACH ROW EXECUTE FUNCTION factory_order_state_guard()|O",
+      "name": "public.factory_order.factory_order_state_guard"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER factory_order_writer BEFORE INSERT ON public.factory_order FOR EACH ROW EXECUTE FUNCTION supply_writer_guard()|O",
+      "name": "public.factory_order.factory_order_writer"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER learner_workspace_plan_append_only BEFORE DELETE OR UPDATE ON public.learner_workspace_plan FOR EACH ROW EXECUTE FUNCTION map_v4_append_only()|O",
+      "name": "public.learner_workspace_plan.learner_workspace_plan_append_only"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER guard_user_profiles_privileged_columns BEFORE UPDATE ON public.user_profiles FOR EACH ROW EXECUTE FUNCTION guard_user_profiles_privileged_columns()|O",
+      "name": "public.user_profiles.guard_user_profiles_privileged_columns"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER trg_sync_cefr_from_v_level BEFORE UPDATE OF current_v_level ON public.user_profiles FOR EACH ROW EXECUTE FUNCTION sync_cefr_from_v_level()|O",
+      "name": "public.user_profiles.trg_sync_cefr_from_v_level"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER trg_user_profiles_updated BEFORE UPDATE ON public.user_profiles FOR EACH ROW EXECUTE FUNCTION set_updated_at()|O",
+      "name": "public.user_profiles.trg_user_profiles_updated"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER workspace_content_demand_no_update BEFORE DELETE OR UPDATE ON public.workspace_content_demand FOR EACH ROW EXECUTE FUNCTION forbid_ledger_mutation()|O",
+      "name": "public.workspace_content_demand.workspace_content_demand_no_update"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER workspace_content_demand_writer BEFORE INSERT ON public.workspace_content_demand FOR EACH ROW EXECUTE FUNCTION supply_writer_guard()|O",
+      "name": "public.workspace_content_demand.workspace_content_demand_writer"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER workspace_content_demand_line_no_update BEFORE DELETE OR UPDATE ON public.workspace_content_demand_line FOR EACH ROW EXECUTE FUNCTION forbid_ledger_mutation()|O",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_no_update"
+    },
+    {
+      "k": "trg",
+      "fp": "CREATE TRIGGER workspace_content_demand_line_writer BEFORE INSERT ON public.workspace_content_demand_line FOR EACH ROW EXECUTE FUNCTION supply_writer_guard()|O",
+      "name": "public.workspace_content_demand_line.workspace_content_demand_line_writer"
+    }
+  ]
+}

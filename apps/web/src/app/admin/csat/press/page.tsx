@@ -11,12 +11,17 @@ import { loadPressView } from '@/lib/csat/factory-line-views'
 
 import { decideVolumeAction } from './actions'
 import { PressClient } from './PressClient'
+import { parseFactoryScope } from '@/lib/admin/factory-scope'
+import type { AdminSearchParams } from '@/lib/admin/navigation'
+import { InvalidFactoryScope } from '@/components/admin/csat/InvalidFactoryScope'
 
 export const dynamic = 'force-dynamic'
 
-export default async function AdminCsatPressPage() {
+export default async function AdminCsatPressPage({ searchParams = {} }: { searchParams?: AdminSearchParams }) {
   await requireAdmin('/admin/csat/press')
-  const view = await loadPressView()
+  const scope = parseFactoryScope(searchParams)
+  if (scope.kind === 'invalid') return <InvalidFactoryScope screen="csat-press" />
+  const view = await loadPressView(scope)
   // 액션은 여기서 내린다 — 화면이 직접 import 하면 렌더 테스트가 인증 경로까지 끌고 온다.
   return <PressClient {...view} onDecide={decideVolumeAction} />
 }

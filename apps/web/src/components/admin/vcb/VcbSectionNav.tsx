@@ -9,9 +9,9 @@ import { usePathname } from 'next/navigation'
 import { Sparkles, Database, Layers, LayoutTemplate, type LucideIcon } from 'lucide-react'
 
 const TABS: { href: string; label: string; Icon: LucideIcon }[] = [
-  { href: '/admin/vocab/studio', label: 'Studio', Icon: LayoutTemplate },
-  { href: '/admin/vocab/runs', label: 'Runs', Icon: Sparkles },
-  { href: '/admin/vocab/sources', label: 'Sources', Icon: Database },
+  { href: '/admin/vocab/studio', label: '기존 사전으로 조립', Icon: LayoutTemplate },
+  { href: '/admin/vocab/runs', label: '새 seed로 제작', Icon: Sparkles },
+  { href: '/admin/vocab/sources', label: '입력 자료', Icon: Database },
   { href: '/admin/vocab/collections', label: '발행 컬렉션', Icon: Layers },
 ]
 

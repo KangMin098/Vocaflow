@@ -1,5 +1,7 @@
 # Factory I1 — 사용자 결정 · 승인 대기
 
+> **2026-10-20 후속**: D3 계약·설계·구현 승인 이후 공유 DB 적용도 별도 승인받아 `20261020063000`을 적용했다. 발행 주체·정본 해시·비소모성 계획 배분과 별도 철회/요청 영수증을 구현·격리 검증했고 실제 사후 9검사도 통과했다. 과거 D3 초안과 이미 적용된 DB1/2를 재실행하지 않는다. 아래 보류·미정 표는 당시 기록이다. 최신 [계약·정본 SQL](../../admin-restructure/product-order-lineage.md)과 [실제 적용·한계](../../admin-restructure/product-order-lineage-deployment.md)를 우선한다.
+
 > 각 항목은 「지금 상태 · 권고 · 결정하지 않으면」을 적는다. **DB 변경 승인은 항목 1 하나로 시작한다** — 나머지는 그 뒤 또는 독립.
 > 패키지: [FACTORY_I1_APPROVAL_PACKAGE.md](./FACTORY_I1_APPROVAL_PACKAGE.md) · 감사: [FACTORY_I1_SECURITY_AUDIT.md](./FACTORY_I1_SECURITY_AUDIT.md)
 

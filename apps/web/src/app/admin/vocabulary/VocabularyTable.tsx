@@ -109,7 +109,7 @@ export function VocabularyTable({
                   tabIndex={0}
                   role="button"
                   aria-pressed={isSelected}
-                  className={`cursor-pointer border-b border-[var(--bd)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] ${
+                  className={`h-11 cursor-pointer border-b border-[var(--bd)] transition-colors duration-[var(--dur-fast)] hover:bg-[var(--bg2)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_40%,transparent)] ${
                     isSelected ? 'bg-[var(--p-light)]' : ''
                   }`}
                 >

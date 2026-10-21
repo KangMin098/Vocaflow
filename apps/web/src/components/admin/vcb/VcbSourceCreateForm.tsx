@@ -148,12 +148,12 @@ export function VcbSourceCreateForm() {
   return (
     <div className="max-w-3xl">
       <section className="mb-8">
-        <h3
+        <h2
           className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
           style={{ color: 'var(--t2)' }}
         >
           기본 정보
-        </h3>
+        </h2>
 
         <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1">
@@ -208,12 +208,12 @@ export function VcbSourceCreateForm() {
       </section>
 
       <section className="mb-8">
-        <h3
+        <h2
           className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
           style={{ color: 'var(--t2)' }}
         >
           종류 (kind) <span style={{ color: 'var(--error)' }}>*</span>
-        </h3>
+        </h2>
 
         <div className="flex flex-col gap-2">
           {KINDS.map((k) => {
@@ -255,12 +255,12 @@ export function VcbSourceCreateForm() {
       </section>
 
       <section className="mb-8">
-        <h3
+        <h2
           className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
           style={{ color: 'var(--t2)' }}
         >
           라이선스 (license_tier) <span style={{ color: 'var(--error)' }}>*</span>
-        </h3>
+        </h2>
 
         {kind === 'ai_generated' && (
           <div
@@ -320,12 +320,12 @@ export function VcbSourceCreateForm() {
       </section>
 
       <section className="mb-8">
-        <h3
+        <h2
           className="font-display font-semibold text-sm uppercase tracking-wider mb-4"
           style={{ color: 'var(--t2)' }}
         >
           출처 정보
-        </h3>
+        </h2>
 
         <div className="flex flex-col gap-4">
           <label className="flex flex-col gap-1">
@@ -414,12 +414,12 @@ export function VcbSourceCreateForm() {
 
       {canUploadFile && (
         <section className="mb-8">
-          <h3
+          <h2
             className="font-display font-semibold text-sm uppercase tracking-wider mb-2"
             style={{ color: 'var(--t2)' }}
           >
             파일 업로드 (Method A — 선택)
-          </h3>
+          </h2>
           <p className="text-xs mb-3" style={{ color: 'var(--t3)' }}>
             CSV / TXT / TSV 파일을 업로드하면 저장되어 Run 처리 시 사용됩니다.
             파일 없이 메타데이터만 등록할 수도 있습니다.

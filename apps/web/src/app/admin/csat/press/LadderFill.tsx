@@ -1,4 +1,5 @@
 // apps/web/src/app/admin/csat/press/LadderFill.tsx
+import { adminTextInk } from '@/lib/admin/text-ink'
 //
 // **사다리 7단 채움 띠 — 「조판된 계단 N / 7」을 숫자 대신 계단으로.**
 //
@@ -17,7 +18,7 @@ import type { PressView } from '@/lib/csat/factory-line-model'
 
 type Volume = PressView['volumes'][number]
 
-export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: number }) {
+export function LadderFill({ volumes, rungs, selectedStep }: { volumes: Volume[]; rungs: number; selectedStep?: number }) {
   // 한 계단에 여러 번 조판됐으면 **가장 최근 것**을 그 계단의 상태로 본다.
   const byStep = new Map<number, Volume>()
   for (const v of volumes) {
@@ -25,7 +26,7 @@ export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: numbe
     const cur = byStep.get(v.step)
     if (!cur || (v.renderedAt ?? '') > (cur.renderedAt ?? '')) byStep.set(v.step, v)
   }
-  const steps = Array.from({ length: rungs }, (_, i) => i + 1)
+  const steps = selectedStep == null ? Array.from({ length: rungs }, (_, i) => i + 1) : [selectedStep]
   const filled = steps.filter((s) => byStep.has(s)).length
 
   return (
@@ -69,7 +70,7 @@ export function LadderFill({ volumes, rungs }: { volumes: Volume[]; rungs: numbe
               </span>
               <span
                 className="font-body text-[9.5px]"
-                style={{ color: !v ? 'var(--t3)' : stale ? 'var(--memory-shaky)' : 'var(--memory-stable)' }}
+                style={{ color: adminTextInk(!v ? 'var(--t3)' : stale ? 'var(--memory-shaky)' : 'var(--memory-stable)') }}
               >
                 {label}
               </span>

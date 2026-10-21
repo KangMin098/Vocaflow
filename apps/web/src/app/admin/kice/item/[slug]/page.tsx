@@ -14,6 +14,8 @@
 //    컬럼 자체가 없다. 이 화면은 **해설**이라 학습자가 평가원 공개 문제지를 곁에 두고 읽는다.
 //    그래서 오답은 번호로 가리키고, 지문은 근거 인용(짧은 발췌)까지만 나온다.
 
+import { AdminItemHandoff } from '@/components/admin/knowledge/AdminItemHandoff'
+import { adminKiceReturn } from '@/lib/admin/kice-list-state'
 import type { Metadata } from 'next'
 import Link from 'next/link'
 import { notFound } from 'next/navigation'
@@ -89,7 +91,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   }
 }
 
-export default async function CsatItemPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function CsatItemPage({ params, searchParams }: { params: Promise<{ slug: string }>; searchParams?: Promise<{ returnTo?: string }> }) {
   const { slug } = await params
   const { item, error } = await loadCsatItemExplain(fromItemSlug(slug), { admin: true })
 
@@ -178,11 +180,12 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
   //    실측 2026-09-15: Playwright strict mode 가 `locator('main')` 에서 2개를 만나 드러났다 —
   //    **axe 의 wcag2a/aa 태그로는 안 잡힌다**(중복 landmark 는 best-practice 규칙이다).
 
+  const returnHref = adminKiceReturn((await searchParams)?.returnTo, withScope(item?.type_id ? `/admin/kice/${item.type_id}` : '/admin/kice', itemScope))
   return (
     <div className="mx-auto max-w-3xl">
       <Link
         // 돌아갈 유형 화면은 이 문항의 집합 범위로(학평 문항이면 그 학년) — 회차 id 에서 읽는다
-        href={withScope(item?.type_id ? `/admin/kice/${item.type_id}` : '/admin/kice', itemScope)}
+        href={returnHref}
         className="inline-flex min-h-[44px] items-center text-sm text-[var(--t3)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
       >
         ← {item?.type_name ?? '유형 목록'}
@@ -219,6 +222,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
             ) : null}
           </header>
 
+          <AdminItemHandoff itemId={item.id} scope={itemScope} design={item.design} analysisVersion={item.analysis_version} />
           {lecture ? <LecturePlayerBar /> : null}
 
           {/* ── 2층 · 출제 의도 ─────────────────────────────────────────
@@ -366,7 +370,7 @@ export default async function CsatItemPage({ params }: { params: Promise<{ slug:
               1차 문이므로 다른 링크보다 앞에 두고 더 또렷하게 그린다. */}
           {next ? (
             <Link
-              href={`/admin/kice/item/${next.item.slug}`}
+              href={`/admin/kice/item/${next.item.slug}?${new URLSearchParams({ returnTo: returnHref })}`}
               className="mt-8 flex min-h-[44px] items-center justify-between gap-3 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--bg)] px-4 py-3 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg3)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:bg-[var(--bd)] motion-reduce:transition-none"
             >
               <span className="min-w-0 break-keep">

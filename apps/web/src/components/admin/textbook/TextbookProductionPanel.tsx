@@ -45,6 +45,7 @@ function Cell({ state, label }: { state: StageState; label: string }) {
   const says = state === 'done' ? '됨' : state === 'unmeasured' ? '못 잼' : '아직'
   return (
     <span
+      role="img"
       title={`${label} — ${says}`}
       aria-label={`${label} ${says}`}
       className="inline-flex h-6 w-6 items-center justify-center rounded-[var(--r-sm)] border border-[var(--bd)]"
@@ -99,7 +100,7 @@ export function TextbookProductionPanel({ report }: { report: ProductionReport }
                 {report.doneByStage[i] ?? 0}/{report.volumes.length}
               </span>
               {unmeasured > 0 ? (
-                <span className="font-mono text-[11px] tabular-nums text-[var(--memory-shaky)]">
+                <span className="font-mono text-[11px] tabular-nums text-[var(--warning-ink)]">
                   못 잼 {unmeasured}
                 </span>
               ) : null}

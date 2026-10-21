@@ -2,6 +2,7 @@
 // CCP 드레인 관측 — 실행/진행/자기발전/평가이력/백엔드/발행차단 사유 전수 노출.
 
 'use client'
+import { adminTextInk } from '@/lib/admin/text-ink'
 
 import { useEffect, useMemo, type ReactNode } from 'react'
 import Link from 'next/link'
@@ -9,6 +10,7 @@ import { useRouter } from 'next/navigation'
 import { ArrowLeft, CircleCheck, CircleSlash, Clock, Cpu, Loader2, RefreshCw, Wrench } from 'lucide-react'
 import { AdminScreenHelp } from '@/components/admin/AdminScreenHelp'
 import type { ComicDrainSubject, DrainRun, PanelEvent } from '@/lib/comic/admin-queries'
+import { formatDrainTimestamp } from '@/lib/comic/drain-display'
 
 const ACCENT = 'var(--p)'
 const STATUS_TONE: Record<string, string> = {
@@ -65,7 +67,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
       <div className="flex flex-wrap items-center gap-3">
         <Link href={`/admin/comic/${subject.bookId}`} className="inline-flex items-center gap-2 font-body text-[12px] font-[500] text-[var(--t2)] hover:text-[var(--t1)]"><ArrowLeft size={14} /> 검수</Link>
         <span className="text-[var(--t2)]">/</span>
-        <h1 className="inline-flex items-center gap-2 font-display text-[18px] font-[800] text-[var(--t1)]"><Cpu size={17} style={{ color: ACCENT }} /> 드레인 관측</h1>
+        <h1 className="inline-flex items-center gap-2 font-display text-[18px] font-[800] text-[var(--t1)]"><Cpu size={17} style={{ color: adminTextInk(ACCENT) }} /> 드레인 관측</h1>
         <span className="font-body text-[13px] text-[var(--t2)]">{subject.title}</span>
         <div className="flex-1" />
         <button onClick={() => router.refresh()} className="min-h-[44px] inline-flex items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[700] text-[var(--t2)] hover:border-[var(--active)]"><RefreshCw size={13} /> 새로고침</button>
@@ -99,7 +101,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
               {run.style && <span className="font-mono text-[11px] text-[var(--t2)]">{run.style}</span>}
               <div className="flex-1" />
               <span className="inline-flex items-center gap-1 font-mono text-[11px] text-[var(--t2)]">
-                <Clock size={12} /> {new Date(run.started_at).toLocaleString('ko-KR')}{dur != null ? ` · ${dur}s` : ''}
+                <Clock size={12} /> {formatDrainTimestamp(run.started_at)}{dur != null ? ` · ${dur}s` : ''}
               </span>
             </div>
             {/* 진행 바 */}
@@ -136,7 +138,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
 
           {/* 발행 차단 사유 */}
           <div className="rounded-[var(--r-md)] border p-4" style={publishable ? { borderColor: 'color-mix(in srgb, var(--memory-stable) 40%, transparent)', background: 'color-mix(in srgb, var(--memory-stable) 7%, transparent)' } : { borderColor: 'color-mix(in srgb, var(--memory-shaky) 40%, transparent)', background: 'color-mix(in srgb, var(--memory-shaky) 7%, transparent)' }}>
-            <p className="mb-1.5 inline-flex items-center gap-2 font-display text-[13px] font-[800]" style={{ color: publishable ? 'var(--memory-stable)' : 'var(--memory-shaky)' }}>
+            <p className="mb-1.5 inline-flex items-center gap-2 font-display text-[13px] font-[800]" style={{ color: adminTextInk(publishable ? 'var(--memory-stable)' : 'var(--memory-shaky)') }}>
               {publishable ? <CircleCheck size={15} /> : <CircleSlash size={15} />}
               {publishable ? '발행 가능 — QC 게이트 통과' : '발행 차단 / 대기'}
             </p>
@@ -189,7 +191,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
                     <tr key={k} className="border-b border-[color-mix(in_srgb,var(--bd)_50%,transparent)] last:border-0">
                       <td className="px-3 py-2 font-mono text-[var(--t2)]">S{e.chapter_idx}·{e.page_order}{e.attempt > 1 ? ` (#${e.attempt})` : ''}</td>
                       <td className="px-3 py-2 text-[var(--t2)]">{e.phase}</td>
-                      <td className="px-3 py-2"><span style={{ color: STATUS_TONE[e.status ?? 'pending'] }}>{e.status}</span></td>
+                      <td className="px-3 py-2"><span style={{ color: adminTextInk(STATUS_TONE[e.status ?? 'pending']) }}>{e.status}</span></td>
                       <td className="px-3 py-2 font-mono tabular-nums text-[var(--t2)]">{e.score ?? '—'}</td>
                       <td className="px-3 py-2 text-[var(--t2)]">{e.message ?? '—'}</td>
                     </tr>
@@ -211,7 +213,7 @@ export function DrainConsole({ subject, runs, events }: { subject: ComicDrainSub
                     <span className="text-[var(--t2)]">{r.backend}</span>
                     <span className="text-[var(--t2)]">pass {r.panels_pass}/{r.panels_total} · 반복 {r.iterations}</span>
                     <div className="flex-1" />
-                    <span className="font-mono text-[11px] text-[var(--t2)]">{new Date(r.started_at).toLocaleString('ko-KR')}</span>
+                    <span className="font-mono text-[11px] text-[var(--t2)]">{formatDrainTimestamp(r.started_at)}</span>
                   </div>
                 ))}
               </div>
@@ -231,18 +233,18 @@ function RunStatus({ status, small }: { status: string; small?: boolean }) {
   }
   const m = meta[status] ?? { label: status, tone: 'var(--t3)' }
   return (
-    <span className={`inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display font-[700] ${small ? 'text-[11px]' : 'text-[12px]'}`} style={{ color: m.tone, background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>
+    <span className={`inline-flex items-center gap-1 rounded-[var(--r-full)] px-2 py-1 font-display font-[700] ${small ? 'text-[11px]' : 'text-[12px]'}`} style={{ color: adminTextInk(m.tone), background: `color-mix(in srgb, ${m.tone} 12%, transparent)` }}>
       {status === 'running' && <Loader2 size={11} className="animate-spin" />}{m.label}
     </span>
   )
 }
 function Badge({ children, tone = 'var(--t2)' }: { children: ReactNode; tone?: string }) {
-  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[12px] font-[700]" style={{ color: tone, background: 'var(--bg2)' }}>{children}</span>
+  return <span className="rounded-[var(--r-full)] px-2 py-1 font-display text-[12px] font-[700]" style={{ color: adminTextInk(tone), background: 'var(--bg2)' }}>{children}</span>
 }
 function Kpi({ label, value, tone = 'var(--t1)', Icon, suffix, title }: { label: string; value: number | string; tone?: string; Icon?: typeof Wrench; suffix?: string; title?: string }) {
   return (
     <div className="rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2" title={title}>
-      <div className="inline-flex items-center gap-1">{Icon && <Icon size={13} style={{ color: tone }} />}<p className="font-display text-[17px] font-[800] tabular-nums" style={{ color: tone }}>{value}{typeof value === 'number' ? suffix : ''}</p></div>
+      <div className="inline-flex items-center gap-1">{Icon && <Icon size={13} style={{ color: adminTextInk(tone) }} />}<p className="font-display text-[17px] font-[800] tabular-nums" style={{ color: adminTextInk(tone) }}>{value}{typeof value === 'number' ? suffix : ''}</p></div>
       <p className="font-body text-[10px] text-[var(--t2)]">{label}</p>
     </div>
   )

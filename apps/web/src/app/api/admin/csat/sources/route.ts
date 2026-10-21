@@ -63,7 +63,13 @@ export async function GET(request: Request) {
       return reply(live, live.ok ? 200 : 503)
     }
     if (params.has('summary')) {
-      const entries = await Promise.all((Object.keys(SOURCE_QUEUES) as SourceQueue[]).map(async queue => [queue, requireCount(await filterQueue(db, queue, true))] as const))
+      // Sixteen full counts in parallel exhausted the REST statement budget on
+      // the real cache. Keep one count in flight and stop if the reader leaves.
+      const entries: [SourceQueue, number][] = []
+      for (const queue of Object.keys(SOURCE_QUEUES) as SourceQueue[]) {
+        request.signal.throwIfAborted()
+        entries.push([queue, requireCount(await filterQueue(db, queue, true).abortSignal(request.signal))])
+      }
       const latest = await db.from('csat_source_eligibility').select('measured_at,policy_version').order('measured_at').limit(1)
       if (latest.error) throw new Error('Cache timestamp unavailable')
       const counts = Object.fromEntries(entries) as Record<SourceQueue, number>
@@ -76,11 +82,13 @@ export async function GET(request: Request) {
     if (params.has('breakdown')) {
       const queue = params.get('breakdown') ?? ''
       if (!Object.prototype.hasOwnProperty.call(SOURCE_QUEUES, queue)) return reply({ error: '알 수 없는 검토 큐입니다.' }, 400)
-      const entries = await Promise.all(SOURCE_BREAKDOWN_REASONS.map(async reason => {
+      const entries: [typeof SOURCE_BREAKDOWN_REASONS[number], number][] = []
+      for (const reason of SOURCE_BREAKDOWN_REASONS) {
+        request.signal.throwIfAborted()
         const count = await filterQueue(db, queue as SourceQueue, true)
-          .filter('result->blockers', 'cs', JSON.stringify([reason]))
-        return [reason, requireCount(count)] as const
-      }))
+          .filter('result->blockers', 'cs', JSON.stringify([reason])).abortSignal(request.signal)
+        entries.push([reason, requireCount(count)])
+      }
       return reply({ reasons: Object.fromEntries(entries), overlap: true })
     }
     const id = params.get('id')

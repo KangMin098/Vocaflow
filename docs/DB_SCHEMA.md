@@ -1,6 +1,12 @@
 # DB Schema
 
+> **2026-10-21 코드/DB 이력 정합:** 이미 개발 DB에 적용된 `20260920014828_revoke_video_job_writers_from_clients`와 `20260920023713_revoke_csat_source_eligibility_from_anon`의 원문을 이력 statements 바이트 그대로 저장소에 보존했다. SHA-256은 각각 `e3a81fcc…901a39`, `6a614002…ea1712`이며 SQL 재실행·DB 변경은 하지 않았다. 현재 카탈로그에서 영상 writer 2개·eligibility 함수·history trigger 함수의 anon EXECUTE는 모두 false다. eligibility의 authenticated도 후속 정책에 따라 false이므로 옛 #117의 authenticated 유지 관측을 현재 사실로 쓰지 않는다.
+
 > **미적용 승인안 FINAL 창작 공급**(2026-10-18): `supabase/migrations/_pending_authored_supply.sql` — `authored_item`(자체 창작 산출물 · 추가 전용 · revision/Gold hash DB 계산) · `content_human_decision`(+철회 · 권리/Gold 사람 결정) · 공급/유효성/노출/G2 결속 래퍼(모든 신규 공급에 권리 결정 · 평가 역할 창작물에 사람 Gold). DB-1/2 · I2 · G2(모두 2026-10-18 적용됨) 위에 한 트랜잭션. 승인 범위: [승인 패키지](./final/APPROVAL_PACKAGE.md).
+
+최종 실제 검증(2026-10-20): 이후 자체 합성 계정에서 실제 계획/수요/주문/계보 쓰기와 조회를 확인했다. 이력 3판·링크 3개를 보존하고 현재 공용 주문 0, 개인 주문 failed, Workspace closed, 계정 user/suspended/인증 차단을 별도 읽기로 확인했다. 새 DDL은 없다. 아래 설치 당시 빈 표/Workspace 0 기록은 그 시점 관측이다. [최종 수용](admin-restructure/final-acceptance.md).
+
+> **D3 개발 DB 적용(2026-10-20)**: 사용자 승인 후 `20261020063000_factory_product_order_lineage_v1`을 적용했다. Product Order 등록·개인 링크·별도 철회·요청 UUID 영수증 4표와 helper/RPC 11함수이며, 실제 카탈로그는 73객체 추가·기존 변경/삭제 0이다. 이력 정본 SHA와 RLS/주요 RPC의 권한 등 9검사를 통과했다. 일반 관리자 JWT 직접 주요 RPC 및 service_role 직접 표 쓰기는 금지한다. 새 표는 비어 있고 실제 주문/납품은 수행하지 않았다. [실제 적용·advisor 변화·한계](admin-restructure/product-order-lineage-deployment.md) · [계약·SQL](admin-restructure/product-order-lineage.md). 아래 DB1/2 미적용 표기는 당시 이력이며 재적용 근거가 아니다.
 
 > **DB286 독립 배포 보완(미적용)**: 최신 main의 B NULL 버전 거절과 기존 권한 helper의 search_path 외 속성 불변 가드를 배포 정본에 반영했다. 영구 객체 범위는 기존 DB-1/2와 같고 I2 annotation binding은 제외한다. 전체 SHA·승인 차이·실제 이력 대기는 [배포 패키지](./csat-learner/v62/FACTORY_I1_DEPLOY_PACKAGE.md)·[독립 판정](./research/factory-i1-deploy-286-independent/ACCEPTANCE.md). 개발 DB는 읽기 전용 감사만 수행했다.
 

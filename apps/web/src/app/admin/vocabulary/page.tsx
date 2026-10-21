@@ -55,7 +55,7 @@ export default async function AdminVocabularyPage({ searchParams }: PageProps) {
     <div className="flex flex-col gap-6 p-6">
       <AdminPageHeader
         icon={BookMarked}
-        title="사전 DB 직접 관리"
+        title="사전"
         description="shared_dictionary 검색 + 다차원 분류 정합 검토 (V-Level / Track / Domain / Skill / CEFR / register)"
       />
       <AdminScreenHelp screen="vocabulary" className="-mt-6" />

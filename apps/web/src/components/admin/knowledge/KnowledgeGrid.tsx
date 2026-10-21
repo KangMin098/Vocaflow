@@ -41,7 +41,7 @@ export function KnowledgeGrid({ columns, cells, columnLabel }: KnowledgeGridProp
         <caption className="sr-only">영역 × 층 — 칸마다 채택·초안·모름</caption>
         <thead>
           <tr>
-            <th scope="col" className="w-28" />
+            <th scope="col" className="w-28"><span className="sr-only">계층</span></th>
             {columns.map((c) => (
               <th
                 key={c}
