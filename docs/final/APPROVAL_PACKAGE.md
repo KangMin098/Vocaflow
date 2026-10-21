@@ -5,6 +5,39 @@
 > 한 번에 확정할 수 있는 사람 입력을 한 곳에 모았다. **아무것도 실행하지 않았다.** 개발 DB `jajenrevcbmrpaliomxv` 기준.
 > 승인은 항목별이다 — A 승인이 B · C 승인을 뜻하지 않는다. 원장: [FINAL_LEDGER](./FINAL_LEDGER.md).
 
+## 2026-10-22 최신 검토 대상 — 이 절과 manifest가 현재 승인 대상
+
+- 최신 fetch 원격 `origin/main f573ef8e5`; 로컬 제품 main `676ab7107`은 원격보다 61커밋 앞선 상태다. 아래 바이트는 로컬 제품 main 기준이며 원격 반영 완료를 뜻하지 않는다.
+- **A 적용 완료를 실제 SELECT로 재확인**: migration `20261021175340`, 서버 statements 1개 SHA `e84a9607…312d8d`가 승인 SQL과 일치. A 재적용 불필요.
+- 2026-10-22 03:21:08 KST 읽기 전용 실측: 창작 등록/사람 결정/AI 결정/자격/출시 승인/납품/G2/공장 수행 모두 0건. B/B2/C 또는 실제 공급 완료는 확인되지 않는다. 오프라인 검수 여부는 미확인이다.
+- 실제 import되는 **18파일·17 TASK·155문항(평가120)**. R5 primary는 파일명 v1이어도 내부 revision은 **v3**이며 SHA가 과거 B의 v2와 다르다. cycle supplement **v2 3문항**은 별도 revision이다. 교수·안내 35문항은 평가 Gold 대상은 아니지만 권리/자격/출시 조건은 필요하다.
+- [단일 사람 검토 manifest](./review/FINAL_CONTENT_DECISION_MANIFEST_20261022.json)에 모든 문항 ID·역할·본문/Gold 위치·파일 SHA·문항별 비교 SHA·필요 권리 범위·미작성 결정 양식을 모았다. 본문/Gold를 원파일과 대조해 **선택한 개별 문항과 이 revision만** 결정한다. AI 검수와 사람 결정은 별개다. 아래 역사적 표의 이전 SHA/수량은 현재 승인 대상으로 사용하지 않는다.
+
+| TASK | 파일 · 실제 revision | 문항/평가 | 현재 파일 SHA-256 |
+|---|---|---|---|
+| r.central_meaning | [r5-central-meaning.v1.json](../../apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json) · `r5-central-meaning.v3` | 11/8 | `682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846` |
+| e.evidence_location | [e-evidence-location.v1.json](../../apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json) · `e-evidence-location.v1` | 9/7 | `b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe` |
+| e.option_correspondence | [e-option-correspondence.v1.json](../../apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json) · `e-option-correspondence.v1` | 9/7 | `09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f` |
+| r.inference | [r-inference.v1.json](../../apps/web/src/lib/knowledge/authored/r-inference.v1.json) · `r-inference.v1` | 9/7 | `651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d` |
+| r.relation | [r-relation.v1.json](../../apps/web/src/lib/knowledge/authored/r-relation.v1.json) · `r-relation.v1` | 9/7 | `4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0` |
+| s.form_scope | [s-form-scope.v1.json](../../apps/web/src/lib/knowledge/authored/s-form-scope.v1.json) · `s-form-scope.v1` | 9/7 | `cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604` |
+| v.contextual_sense | [v-contextual-sense.v1.json](../../apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json) · `v-contextual-sense.v1` | 9/7 | `fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb` |
+| r.reference | [r-reference.v1.json](../../apps/web/src/lib/knowledge/authored/r-reference.v1.json) · `r-reference.v1` | 9/7 | `6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf` |
+| v.multiword | [v-multiword.v1.json](../../apps/web/src/lib/knowledge/authored/v-multiword.v1.json) · `v-multiword.v1` | 9/7 | `179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6` |
+| r.discourse_function | [r-discourse-function.v1.json](../../apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json) · `r-discourse-function.v1` | 9/7 | `a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083` |
+| r.discourse_structure | [r-discourse-structure.v1.json](../../apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json) · `r-discourse-structure.v1` | 9/7 | `3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e` |
+| e.task_demand | [e-task-demand.v1.json](../../apps/web/src/lib/knowledge/authored/e-task-demand.v1.json) · `e-task-demand.v1` | 9/7 | `8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda` |
+| s.sentence_core | [s-sentence-core.v1.json](../../apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json) · `s-sentence-core.v1` | 9/7 | `b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9` |
+| s.attachment | [s-attachment.v1.json](../../apps/web/src/lib/knowledge/authored/s-attachment.v1.json) · `s-attachment.v1` | 6/4 | `aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40` |
+| s.chunk_boundary | [s-chunk-boundary.v1.json](../../apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json) · `s-chunk-boundary.v1` | 9/7 | `c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de` |
+| s.structural_relation | [s-structural-relation.v1.json](../../apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json) · `s-structural-relation.v1` | 9/7 | `d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c` |
+| v.semantic_relation | [v-semantic-relation.v1.json](../../apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json) · `v-semantic-relation.v1` | 9/7 | `2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358` |
+| r.central_meaning | [r5-cycle-supplement.v2.json](../../apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json) · `r5-central-meaning-cycle.v2` | 3/3 | `408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c` |
+
+사람 결정은 B(R5 두 파일)·B2(나머지16 TASK 파일의 평가 문항)·C(선택 문항의 store/display/transmit, 평가에는 assess)를 개별 범위로 남긴다. Gold/권리 결정이 출시 승인이나 데이터 등록·학습자 조작 권한을 자동 부여하지 않는다. 이 문서/manifest 작성은 승인 요청의 중복 생성이나 실제 결정 기록이 아니며 DB 쓰기0이다. s.attachment는 현행 정본 Workspace 미연결·S2/S3 독립성 보류로, T-0083의 학습 전용 진입이 준비 중이고 평가 도구 승격은 포함하지 않는다.
+
+## 이전 패키지 기록(아래 수량·SHA·미적용 문구는 작성 당시 기준)
+
 ## 현재 실파일 수량 · 해시(2026-10-21 재계산 · 승인 범위 아님)
 
 | 범위 | 세트 | 문항 | 평가 역할(혼자 확인 · 전이 · 지연 확인) |
