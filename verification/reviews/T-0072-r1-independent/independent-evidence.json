@@ -1,0 +1,16 @@
+{
+  "type": "review",
+  "result": "pass",
+  "skip_count": 0,
+  "started_at": "2026-10-21T05:31:40.437Z",
+  "observed_at": "2026-10-21T05:31:40.437Z",
+  "commit": "56b166a0fcbf1957d9106e352ed32b58f1839c30",
+  "covers": [
+    0,
+    1,
+    2
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0072-r1-independent/REVIEW.md",
+  "command_or_protocol": "Independent original probe5/5; focused tests36/36 skip0; real Chromium component8/8 plus nonblocking observation. See exact-head reports in same folder.",
+  "note": "ACCEPT_WITH_LIMITS code/component only. Authenticated Next+isolatedDB and full product1440/1280 pending official integration bundle. Original broad log52skips preserved, not counted passed. No completion/local integration/merge claimed."
+}

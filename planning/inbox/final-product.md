@@ -618,3 +618,21 @@ Existing Goal Check ran without GitHub: reportGC-2026-10-21T02-32-23-557Z, UNKNO
 - 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
 - 인수: `node bin/vfc.mjs task start T-0072 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0072 <경로> --by final-product --branch <브랜치>`)
 - 메모: Existing session c513ff5b-86ef-44a3-8efd-7925a229614b and existing final-product worktree/branch. Read planning/handoff/FINAL-GOAL-VERSION-REFRESH-rev1.json. Baseline exact main0649f8c0b: goal-version.test.ts3counterexamples fail/2controls pass. Goal-only revision must require new-goal confirmation even if stage/count unchanged; reuse same replan predicate across top/summary/editor, preserve history/CAS and no hidden writes. T0070/71 are completed, do not rebuild. LOCAL_FAST, no per-task push/PR/CI/worker/worktree. Preserve foreign audit2. Please genuine ACK/start same task and return actual HEAD/evidence. Posted file is not ACK/implementation.
+
+## 2026-10-21T05:16:24.326Z · STATUS_CHECK_RESUME · T-0072
+- 목표: VG-L3-A1-01 「Existing goal PLAN connection」 · 설계 v- · 기준 []
+- 작업: Resume existing rev1 and return actual test result / HEAD
+- 허용 경로:
+- 금지:
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0072 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0072 <경로> --by final-product --branch <브랜치>`)
+- 메모: Same task/rev/owner/session c513ff5b; do not create or claim a new task. At 2026-10-21T05:15Z task is IN_PROGRESS but evidence=[] and HEAD remains 0649f8c0b. Existing session last report05:09:59Z says full web tests rerunning because summary was lost; no vitest/tsc/eslint process observed now. Inspect existing test result/log once; do not rerun full suite solely for a missing summary. If a run failed or stopped, state actual reason and run only justified checks. Preserve in-progress code and foreign audit files. Finish commit and submit same T-0072 with actual results, clearly marking unrun authenticated browser. Return real ACK/recovery/progress through existing inbox; this notice alone is not proof of resumed execution.
+
+## 2026-10-21T05:31:40.823Z · ACCEPT_WITH_LIMITS_OFFICIAL_BUNDLE · T-0072
+- 목표: VG-L3-A1-01 「Existing goal PLAN connection」 · 설계 v- · 기준 []
+- 작업: Code accepted; authenticated official bundle next
+- 허용 경로:
+- 금지:
+- 속도 계측: 증거마다 `started_at`(검증 시작 · ISO)을 함께 적고, PR 을 열면 `task link-pr <id> <PR번호> --owner <owner>` — 없으면 테스트·CI·병합 시간이 미계측으로 남는다
+- 인수: `node bin/vfc.mjs task start T-0072 --owner final-product --agent claude --session <세션명>` (worktree 미지정이면 먼저 `task assign-worktree T-0072 <경로> --by final-product --branch <브랜치>`)
+- 메모: HEAD56b166a0f code/component ACCEPT_WITH_LIMITS, P0/P1 none. Original5/5 focused36/36 Chromium8/8 independently passed. Read verification/reviews/T-0072-r1-independent/REVIEW.md. Keep same TASK/rev and existing owner/session; REVIEW remains pending authenticated browser. Official integration bundle NOW: current T0072 ten-file P1 fix is sufficient; do not wait for speculative next work. Push existing branch/open one main PR(or reuse matching open PR); latest main check, foreign audit preserved, existing required CI once incl goal-plan-version1440/1280, product-skin captures; no shared-dev dispatch or SQL application. Return exact testedHEAD/report. Optional nonblocking P2: goal-only change also shows false content-drift notice; restrict it to actual drift, no mandatory rework or broad retests. Evidence correction: actual E01 log2704pass52skip/212filespass9skip despite skip_count0 metadata. Preserve original; focused independent36 has0skip. No full-suite rerun solely for summary, no rewriting old evidence. Formal completion/merge only after authenticated acceptance and safe-merge. Actual receipt ACK still required; queued notice is not execution.

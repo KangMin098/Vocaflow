@@ -1,0 +1,89 @@
+{
+  "environment": "actual Chromium + actual React PlanSection; mocked POST; router.refresh simulates server refetch; no auth Next/DB",
+  "results": [
+    {
+      "case": "새 목표 → 옛 PLAN 안내 → 키보드 재확정 → 재조회 뒤 저장됨 · 1440",
+      "passed": true,
+      "notice": 1,
+      "before": "dirty",
+      "reason": "goal_change",
+      "posts": 1,
+      "body": {
+        "reason": "goal_change",
+        "expectedGoalVersion": 11,
+        "expectedVersion": 2
+      },
+      "after": "saved",
+      "noticeAfter": 0,
+      "errors": [],
+      "shot": "D:\\workspace\\Vocaflow-AI-Control\\verification\\reviews\\T-0072-r1-independent\\goal-refresh-1440.png"
+    },
+    {
+      "case": "새 목표 → 옛 PLAN 안내 → 키보드 재확정 → 재조회 뒤 저장됨 · 1280",
+      "passed": true,
+      "notice": 1,
+      "before": "dirty",
+      "reason": "goal_change",
+      "posts": 1,
+      "body": {
+        "reason": "goal_change",
+        "expectedGoalVersion": 11,
+        "expectedVersion": 2
+      },
+      "after": "saved",
+      "noticeAfter": 0,
+      "errors": [],
+      "shot": "D:\\workspace\\Vocaflow-AI-Control\\verification\\reviews\\T-0072-r1-independent\\goal-refresh-1280.png"
+    },
+    {
+      "case": "확정 중 목표가 또 바뀜 → 지금 목표 저장됐다고 표시하지 않음",
+      "passed": true,
+      "after": "dirty",
+      "cur": "12"
+    },
+    {
+      "case": "정상 같은 목표 → 저장됨 · 안내 없음 · 숨은 POST 없음",
+      "passed": true,
+      "st": "saved",
+      "notice": 0,
+      "posts": 0
+    },
+    {
+      "case": "과거 모드 → 목표 변경 재확정 안내 없음 · POST 없음",
+      "passed": true,
+      "notice": 0,
+      "posts": 0
+    },
+    {
+      "case": "Independent: successful POST without current server refetch stays unconfirmed",
+      "passed": true,
+      "after": "dirty",
+      "posts": 1
+    },
+    {
+      "case": "Independent: goal CAS conflict never claims saved",
+      "passed": true,
+      "after": "dirty",
+      "posts": 1
+    },
+    {
+      "case": "Independent: explicit user reason survives default goal reason",
+      "passed": true,
+      "body": {
+        "reason": "learner_adjust",
+        "expectedGoalVersion": 11,
+        "expectedVersion": 2
+      }
+    },
+    {
+      "case": "Observation only: content-drift notice on goal-only change",
+      "passed": true,
+      "observation": " 저장한 뒤 쓸 수 있는 문항 수가 바뀌었어요. 계획을 확인하고 다시 저장해 주세요.",
+      "severity": "P2",
+      "blocking": false
+    }
+  ],
+  "passed": 8,
+  "failed": 0,
+  "observations": 1
+}
