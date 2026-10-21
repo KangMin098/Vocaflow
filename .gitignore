@@ -290,3 +290,4 @@ scripts/csat/meaning-support-drain/input-*.json
 # Generated isolated browser verification output
 apps/web/playwright-report-isolated/
 apps/web/tests/fixtures/factory-dcp-harness.html
+apps/web/tests/fixtures/factory-card-harness.html

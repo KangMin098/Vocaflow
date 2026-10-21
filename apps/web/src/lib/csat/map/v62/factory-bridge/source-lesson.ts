@@ -15,6 +15,7 @@ import type { SupplyClient } from './dcp-supply'
 
 export const LESSON_SHA256 = '0b653454bfea053f0523cee1647de1eb97ad5038661bd2fac49162336db0c7f0'
 export const LESSON_SOURCE_ID = '003946dd-f5e6-4efe-9254-b7a69ca39e61'
+export const LESSON_SOURCE_CONTENT_SHA256 = lesson.source.content_sha256
 export const LESSON_STEPS = ['main_point', 'title', 'topic'] as const
 export type LessonStep = (typeof LESSON_STEPS)[number]
 const isStep = (x: unknown): x is LessonStep => (LESSON_STEPS as readonly unknown[]).includes(x)

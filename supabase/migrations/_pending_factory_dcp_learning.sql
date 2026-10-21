@@ -226,11 +226,11 @@ revoke all on function public.factory_dcp_attempt(uuid, jsonb, uuid) from public
 grant execute on function public.factory_dcp_attempt(uuid, jsonb, uuid) to authenticated;
 
 -- ── 계측 허용 목록(funnel_events CHECK) — 1D 이벤트 3종 ──────────────────────────────
--- csat_factory_dcp_opened · csat_factory_dcp_submitted · csat_factory_dcp_returned(lib/analytics/events.ts · 속성은 숫자/불리언/닫힌 열거형).
+-- csat_factory_dcp_opened · csat_factory_dcp_submitted · csat_factory_dcp_returned · 2F csat_factory_dcp_requested(lib/analytics/events.ts · 속성은 숫자/불리언/닫힌 열거형).
 -- 목록을 손으로 옮기지 않는다 — 적용 시점의 실제 제약에서 기존 이름을 읽어 세 이름만 더한다(다른 세션이 그 사이 늘린 값을 잃지 않는다).
 -- 제약이 없거나 모양이 다르면(이름 0개) 실패한다. 되돌리기: 같은 방식으로 세 이름을 뺀 배열로 다시 만든다. 데이터는 지우지 않는다.
 do $$
-declare v_names text[]; v_new constant text[] := array['csat_factory_dcp_opened', 'csat_factory_dcp_submitted', 'csat_factory_dcp_returned'];
+declare v_names text[]; v_new constant text[] := array['csat_factory_dcp_opened', 'csat_factory_dcp_submitted', 'csat_factory_dcp_returned', 'csat_factory_dcp_requested'];
 begin
   select array_agg(m[1]) into v_names
     from pg_constraint c, regexp_matches(pg_get_constraintdef(c.oid), '''([a-z0-9_]+)''', 'g') m

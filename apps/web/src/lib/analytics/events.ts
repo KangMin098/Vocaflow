@@ -325,6 +325,8 @@ export type PublicEvent =
   | { name: 'csat_factory_dcp_opened'; props: { type: 'topic' | 'title' | 'main_point'; attempts: number } }
   | { name: 'csat_factory_dcp_submitted'; props: { type: 'topic' | 'title' | 'main_point'; correct: boolean; replayed: boolean } }
   | { name: 'csat_factory_dcp_returned'; props: { finished: boolean } }
+  /** 2F — Workspace 카드의 공장 연습 자료 요청 결과. id · 자유 문자열 없음. 허용 목록 `_pending_factory_dcp_learning.sql`(미적용) */
+  | { name: 'csat_factory_dcp_requested'; props: { outcome: 'delivered' | 'waiting_link' | 'waiting_approval' | 'not_in_stage' | 'failed' } }
   /** 2B — 한 원문 안내 연습의 자기 설명이 저장됐다(형성 피드백 근거 충분/함께 검토). DB 허용 목록 `_pending_source_lesson_reflection.sql`(미적용) */
   | { name: 'csat_source_lesson_reflected'; props: { step: 'main_point' | 'title' | 'topic'; support: 'sufficient' | 'discussable'; replayed: boolean } }
   /**
@@ -624,6 +626,7 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_factory_dcp_opened: true,
   csat_factory_dcp_submitted: true,
   csat_factory_dcp_returned: true,
+  csat_factory_dcp_requested: true,
   csat_source_lesson_reflected: true,
   screen_viewed: true,
   video_started: true,

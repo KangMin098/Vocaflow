@@ -1105,6 +1105,7 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ## 공장 DCP 안내 연습 — `/csat/factory/[deliveryId]` (1D · 2026-10-21)
 
+- 2F 요청: 같은 카드가 미설치가 아니면 「공장 연습 자료 요청」 단추를 보인다(`POST /api/csat/factory/request` · 서비스 `factory-bridge/dcp-request.ts`). 결과는 받음(첫 「요지 고르기부터 시작」 링크 + 목록 새로고침) · 제작 연결 대기 · 승인 대기 · 지금 단계 아님 · 계획 먼저 · 실패(「다시 요청」, 같은 키라 중복 없음)로 나뉘고 0건/완료로 삼키지 않는다. 응답은 `readFactoryRequest`가 닫힌 모양만 받는다. 학습자 화면에 내부 id는 보이지 않는다.
 - 진입: 학습 지도 Workspace 팝업 `FactoryDcpCard`(r.central_meaning · 납품이 있을 때만). 화면 `components/csat/factory/FactoryDcpRunner.tsx` 가 기존 `DcpPlayer` 를 쓰고, 채점만 `POST /api/csat/factory/[id]/attempt`(실제 `grade_dcp_item` + 납품 결속 영수증, 같은 응답 = 같은 UUID 키로 멱등) 로 바꾼다. 서비스 `lib/csat/map/v62/factory-bridge/dcp-learning.ts`.
 - 저장 실패 · 모양이 다른 200(영수증 · 실제 채점 시도 id 없음)은 「채점을 못 했어요」(오답 · 완료 아님 · 고른 답 유지). 완료 문구는 `DcpPlayer` 의 `doneCopy` 로 연습 기록 경계를 말하고, 돌아가기는 같은 Workspace 의 기존 다음 행동으로 간다. 근거 경계는 [LEARNING_MODEL](./LEARNING_MODEL.md) §공장 DCP 안내 연습.
 - 계측 `csat_factory_dcp_opened`(type · attempts) · `_submitted`(type · correct · replayed) · `_returned`(finished). DB 허용 목록은 보류 SQL 에 있어 적용 전에는 0건이다.

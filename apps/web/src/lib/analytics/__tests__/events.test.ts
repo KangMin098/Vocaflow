@@ -176,6 +176,8 @@ describe('허용 이벤트 목록', () => {
     'csat_factory_dcp_opened',
     'csat_factory_dcp_submitted',
     'csat_factory_dcp_returned',
+    // 2F — Workspace 카드의 공장 연습 자료 요청 결과(닫힌 열거형)
+    'csat_factory_dcp_requested',
     // 2B — 한 원문 안내 연습의 자기 설명 저장(닫힌 속성: 단계 · 근거 충분/함께 검토 · 재전송)
     'csat_source_lesson_reflected',
     'screen_viewed',

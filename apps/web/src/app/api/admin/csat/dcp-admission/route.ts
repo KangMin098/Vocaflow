@@ -3,6 +3,8 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { admitDcpCandidates, currentSourceReader, previewDcpAdmission } from '@/lib/admin/dcp-admission'
 import { requireAdminApi } from '@/lib/auth/require-admin-api'
+import { approveFactoryDcp } from '@/lib/csat/map/v62/factory-bridge/dcp-request'
+import type { SupplyClient } from '@/lib/csat/map/v62/factory-bridge/dcp-supply'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { createClient } from '@/lib/supabase/server'
 
@@ -34,6 +36,16 @@ function parseBody(v: unknown): Body {
   return { action, packet, output, output_sha256, review, rights: rights == null ? null : { record_id: rights.record_id as string, basis: rights.basis as string } }
 }
 
+const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/
+/** 승인 본문 — { action, qualification_id, note } 만. 사용자 · actor · scope 는 받지 않는다(scope 는 public 고정) */
+function parseApprove(v: Obj): { qualification_id: string; note: string } | null {
+  const keys = Object.keys(v).sort().join()
+  if (keys !== 'action,note,qualification_id') return null
+  if (typeof v.qualification_id !== 'string' || !UUID.test(v.qualification_id)) return null
+  if (typeof v.note !== 'string' || v.note.trim().length < 1 || v.note.length > 500) return null
+  return { qualification_id: v.qualification_id, note: v.note.trim() }
+}
+
 export async function POST(req: NextRequest) {
   const admin = await requireAdminApi()
   if (admin instanceof NextResponse) return admin
@@ -41,9 +53,26 @@ export async function POST(req: NextRequest) {
   if (!req.headers.get('content-type')?.startsWith('application/json')) return json({ error: 'JSON 요청이 필요합니다.' }, 415)
   const raw = await req.text()
   if (Buffer.byteLength(raw, 'utf8') > MAX_BYTES) return json({ error: '요청 본문이 너무 큽니다.' }, 413)
+  let parsed: unknown
+  try {
+    parsed = JSON.parse(raw)
+  } catch {
+    return json({ error: '패킷 · 출력 · 검수 본문을 확인해 주세요.' }, 400)
+  }
+  // 2F — 명시적 출시 승인. 미리보기 · 입고와 분리된 별도 동작이며 자동으로 이어지지 않는다
+  if (isObj(parsed) && parsed.action === 'approve') {
+    const a = parseApprove(parsed)
+    if (!a) return json({ error: '자격 id 와 승인 메모를 확인해 주세요.' }, 400)
+    try {
+      const r = await approveFactoryDcp(createAdminClient(), (await createClient()) as unknown as SupplyClient,a.qualification_id, a.note)
+      return json(r, r.status === 'ok' ? 200 : r.status === 'not_installed' ? 503 : 409)
+    } catch {
+      return json({ error: '자격 · 승인 상태를 확인하지 못했습니다. 다시 시도하기 전에 후보 상태를 확인해 주세요.' }, 503)
+    }
+  }
   let body: Body
   try {
-    body = parseBody(JSON.parse(raw))
+    body = parseBody(parsed)
   } catch {
     return json({ error: '패킷 · 출력 · 검수 본문을 확인해 주세요.' }, 400)
   }

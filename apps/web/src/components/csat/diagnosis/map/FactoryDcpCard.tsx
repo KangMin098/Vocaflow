@@ -6,6 +6,8 @@
 //   · 같은 원문에서 나온 문항은 지문 1개로 센다(독립 지문 3개라고 말하지 않는다).
 //   · 링크는 지도 복귀 문맥(ctx)을 싣는다 — 다 풀면 같은 Workspace 로 돌아온다.
 //   · 연습 기록이지 지도 근거가 아니다 — 문구로 그 경계를 말한다.
+//   · 2F — 「공장 연습 자료 요청」 → POST /api/csat/factory/request(본문 template 만). 받음 · 연결 대기 · 승인 대기 · 단계 아님 · 실패를
+//     닫힌 응답 파서(readFactoryRequest)로 가르고, 받으면 목록을 다시 읽어 첫 요지 링크를 보인다. 실패는 같은 키로 다시 요청한다.
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -14,6 +16,7 @@ import Link from 'next/link'
 import p from './popup.module.css'
 import u from './unified.module.css'
 import { withMapReturn, type MapReturnCtx } from '@/lib/csat/map-return'
+import { track } from '@/lib/analytics/client'
 
 type Type = 'topic' | 'title' | 'main_point'
 interface Row { deliveryId: string; sourceId: string; type: Type; state: string; attempts: number; lastCorrect: boolean | null }
@@ -54,8 +57,44 @@ export function factoryRowState(r: Pick<Row, 'state' | 'attempts' | 'lastCorrect
   return { link: true, label: `연습 ${r.attempts}번 · 최근 ${r.lastCorrect === true ? '맞힘' : r.lastCorrect === false ? '다시 볼 곳 있음' : '결과 확인 안 됨'} · 연습 기록` }
 }
 
+type Outcome = 'delivered' | 'waiting_link' | 'waiting_approval' | 'not_in_stage' | 'failed'
+type Requested = { status: 'idle' } | { status: 'sending' } | { status: Exclude<Outcome, 'delivered'> } | { status: 'delivered'; first: string } | { status: 'plan_required' } | { status: 'not_installed' }
+const REQUEST: Record<string, string> = {
+  waiting_link: '요청을 남겼어요. 제작 연결 대기 중이에요 — 연결되면 다시 요청해 받으세요.',
+  waiting_approval: '제작 연결은 됐지만 승인된 연습 세트가 아직 없어요. 승인 뒤 다시 요청해 주세요.',
+  not_in_stage: '지금 계획 단계에서는 안내 연습이 필요하지 않아요. 바로잡기 단계에서 요청할 수 있어요.',
+  plan_required: '학습계획을 먼저 확정해 주세요.',
+  not_installed: '자료 공급이 아직 준비되지 않았어요.',
+  failed: '요청 결과를 확인하지 못했어요. 같은 요청으로 다시 시도해도 중복되지 않아요.',
+}
+
+/** 요청 응답의 닫힌 모양 — 모르는 상태 · 잘못된 200 은 실패로 본다(완료 · 0건으로 바꾸지 않는다) */
+export function readFactoryRequest(httpOk: boolean, j: unknown): Exclude<Requested, { status: 'idle' | 'sending' }> {
+  const o = (j && typeof j === 'object' ? j : {}) as Record<string, unknown>
+  if (!httpOk) return o.code === 'plan_required' ? { status: 'plan_required' } : o.code === 'not_installed' ? { status: 'not_installed' } : { status: 'failed' }
+  if (o.status === 'delivered') {
+    return typeof o.first === 'string' && UUID.test(o.first) && o.delivered === 3 && typeof o.replayed === 'boolean' ? { status: 'delivered', first: o.first } : { status: 'failed' }
+  }
+  if ((o.status === 'waiting_link' || o.status === 'waiting_approval' || o.status === 'not_in_stage') && Object.keys(o).length === 1) return { status: o.status }
+  return { status: 'failed' }
+}
+
 export function FactoryDcpCard({ template, ctx }: { template: string; ctx?: MapReturnCtx }) {
   const [listed, setListed] = useState<Listed>({ status: 'loading' })
+  const [requested, setRequested] = useState<Requested>({ status: 'idle' })
+  const [reload, setReload] = useState(0)
+  const request = async () => {
+    setRequested({ status: 'sending' })
+    let next: Exclude<Requested, { status: 'idle' | 'sending' }>
+    try {
+      const r = await fetch('/api/csat/factory/request', { method: 'POST', cache: 'no-store', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ template }) })
+      next = readFactoryRequest(r.ok, await r.json().catch(() => null))
+    } catch { next = { status: 'failed' } }
+    setRequested(next)
+    const outcome: Outcome = next.status === 'plan_required' || next.status === 'not_installed' ? 'failed' : next.status
+    track({ name: 'csat_factory_dcp_requested', props: { outcome } })
+    if (next.status === 'delivered') setReload((x) => x + 1)
+  }
   useEffect(() => {
     let live = true
     void (async () => {
@@ -71,11 +110,11 @@ export function FactoryDcpCard({ template, ctx }: { template: string; ctx?: MapR
       } catch { if (live) setListed({ status: 'error' }) }
     })()
     return () => { live = false }
-  }, [template])
+  }, [template, reload])
 
-  // 미설치 · 0건이면 자리를 차지하지 않는다(창작 자료 카드가 「받은 자료」 안내를 이미 한다)
+  // 미설치면 자리를 차지하지 않는다. 0건이면 요청 단추만 보인다
   if (listed.status === 'loading' || listed.status === 'not_installed') return null
-  if (listed.status === 'installed' && listed.rows.length === 0) return null
+  const firstHref = requested.status === 'delivered' ? `/csat/factory/${requested.first}` : null
   return (
     <section className={p.card} aria-labelledby="ws-factory-dcp" data-testid="ws-factory-dcp">
       <div className={p.cardHead}>
@@ -87,8 +126,21 @@ export function FactoryDcpCard({ template, ctx }: { template: string; ctx?: MapR
           </p>
         </div>
       </div>
+      <div className="flex flex-wrap items-center gap-3" data-testid="ws-factory-dcp-request" data-state={requested.status}>
+        <button type="button" onClick={() => void request()} disabled={requested.status === 'sending'}
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 text-sm text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-60">
+          {requested.status === 'sending' ? '요청하는 중…' : requested.status === 'failed' ? '다시 요청' : '공장 연습 자료 요청'}
+        </button>
+        {firstHref && (
+          <Link href={ctx ? withMapReturn(firstHref, ctx) : firstHref} data-testid="ws-factory-dcp-first"
+            className="inline-flex min-h-[44px] items-center focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]">
+            요지 고르기부터 시작
+          </Link>
+        )}
+        {REQUEST[requested.status] && <p className={`${p.cardDesc} break-keep`} role={requested.status === 'failed' ? 'alert' : 'status'}>{REQUEST[requested.status]}</p>}
+      </div>
       {listed.status === 'error' && <p className={p.cardDesc} role="alert">공장 연습 자료를 불러오지 못했어요. 잠시 뒤 다시 열어 주세요.</p>}
-      {listed.status === 'installed' && (
+      {listed.status === 'installed' && listed.rows.length > 0 && (
         <ul className={u.needList} data-testid="ws-factory-dcp-list">
           {listed.rows.map((r) => {
             const s = factoryRowState(r)

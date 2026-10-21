@@ -8,7 +8,9 @@ const mocks = vi.hoisted(() => ({
   preview: vi.fn(),
   admit: vi.fn(),
   reader: vi.fn(),
+  approve: vi.fn(),
 }))
+vi.mock('@/lib/csat/map/v62/factory-bridge/dcp-request', () => ({ approveFactoryDcp: mocks.approve }))
 vi.mock('@/lib/auth/require-admin-api', () => ({ requireAdminApi: mocks.guard }))
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: mocks.service }))
 vi.mock('@/lib/supabase/server', () => ({ createClient: mocks.session }))
@@ -75,6 +77,30 @@ describe('dcp-admission route', () => {
     expect(r.status).toBe(503)
     expect(await r.json()).toEqual({ status: 'not_installed' })
     expect(mocks.admit).toHaveBeenCalledWith({ session: true }, 'reader', expect.anything())
+  })
+
+  it('2F approve — 닫힌 본문만 · 관리자 세션으로 승인 경계 호출 · 미리보기/입고와 섞이지 않음', async () => {
+    const Q = '11111111-1111-4111-8111-111111111111'
+    mocks.approve.mockResolvedValue({ status: 'ok', approval_id: 'a', replayed: false })
+    expect((await POST(post({ action: 'approve', qualification_id: Q }))).status).toBe(400)
+    expect((await POST(post({ action: 'approve', qualification_id: 'x', note: 'n' }))).status).toBe(400)
+    expect((await POST(post({ action: 'approve', qualification_id: Q, note: 'n', scope: 'assessment' }))).status).toBe(400)
+    expect((await POST(post({ action: 'approve', qualification_id: Q, note: 'n', actor: 'u' }))).status).toBe(400)
+    expect(mocks.approve).not.toHaveBeenCalled()
+    const r = await POST(post({ action: 'approve', qualification_id: Q, note: ' 검토 ' }))
+    expect(r.status).toBe(200)
+    expect(r.headers.get('cache-control')).toBe('no-store')
+    expect(mocks.approve).toHaveBeenCalledWith({ service: true }, { session: true }, Q, '검토')
+    expect(mocks.preview).not.toHaveBeenCalled()
+    expect(mocks.admit).not.toHaveBeenCalled()
+    mocks.approve.mockResolvedValue({ status: 'rejected', code: 'not_factory_candidate' })
+    expect((await POST(post({ action: 'approve', qualification_id: Q, note: 'n' }))).status).toBe(409)
+    mocks.approve.mockResolvedValue({ status: 'not_installed' })
+    expect((await POST(post({ action: 'approve', qualification_id: Q, note: 'n' }))).status).toBe(503)
+    mocks.approve.mockRejectedValue(new Error('db'))
+    expect((await POST(post({ action: 'approve', qualification_id: Q, note: 'n' }))).status).toBe(503)
+    mocks.guard.mockResolvedValue(NextResponse.json({}, { status: 403 }))
+    expect((await POST(post({ action: 'approve', qualification_id: Q, note: 'n' }))).status).toBe(403)
   })
 
   it('거절은 409 · 예외는 503', async () => {

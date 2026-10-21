@@ -21,7 +21,9 @@ import { composeV4 } from '../../../v4/compose'
 import { ranksOf } from '../../../v62/rank'
 import { nextActionOf } from '../../../v62/next-action'
 
-const routeState = vi.hoisted(() => ({ uid: '', db: null as SupabaseClient | null, load: null as (() => Promise<MapPageData>) | null }))
+const routeState = vi.hoisted(() => ({ uid: '', db: null as SupabaseClient | null, load: null as (() => Promise<MapPageData>) | null, learner: null as unknown }))
+// 2F — 학습자 세션 클라이언트(createClient) 자리만 같은 SQL DB 의 그 학습자 세션으로 주입한다
+vi.mock('@/lib/supabase/server', () => ({ createClient: async () => routeState.learner }))
 vi.mock('@/lib/csat/diagnosis/route-helpers', () => ({
   learnerContext: async () => ({ userId: routeState.uid, db: routeState.db }),
   readJson: async (req: Request) => req.json(),
@@ -35,7 +37,10 @@ import { canonicalDemand } from '../../persist-contract'
 import { B_SQL, C_SQL, STUB, as } from '../../__tests__/supply-sql-harness'
 import { openFactoryDelivery, submitFactoryAttempt } from '../dcp-learning'
 import { lessonProgress, savedReflection, submitReflection, type ReflectionBody, type ReflectionReader } from '../source-lesson'
-import { admitCandidates, approveForGuidedPractice, d3Linker, receiveForLearner, type SourceReader } from '../dcp-supply'
+import { admitCandidates, d3Linker, receiveForLearner, type SourceReader } from '../dcp-supply'
+import { approveFactoryDcp } from '../dcp-request'
+import { POST as factoryRequestPOST } from '@/app/api/csat/factory/request/route'
+import { executeProductOrderLineage } from '@/lib/admin/product-order-lineage'
 import type { ProductionOutput, ProductionPacket } from '../local-production'
 import { fileSha, outputOf, packetOf, prepared, reviewOf, row, snapshot } from './dcp-fixture'
 import { checkKeysOfTask } from '../../../v4/definition'
@@ -311,8 +316,10 @@ describe('2C-2 · 원문 안내 연습 → 설명 저장 → 다시 열기 복�
     let orderId: string | null = null
     admitted = []
     for (const it of r.items) {
-      const ap = await approveForGuidedPractice(admin, it.qualification_id!, '2C 격리 — AI 검수 기반 후보')
-      if (!ap.ok) throw new Error(ap.code)
+      // 2F — 실제 관리자 승인 경계(등록 후보 결속 확인 → 관리자 세션 content_release_approve)
+      const ap0 = await approveFactoryDcp(planDb(), admin, it.qualification_id!, '2C 격리 — AI 검수 기반 후보')
+      if (ap0.status !== 'ok' || ap0.replayed) throw new Error(JSON.stringify(ap0))
+      const ap = { data: ap0.approval_id }
       admitted.push({ qualification_id: it.qualification_id!, dcp_item_id: it.dcp_item_id, approval_id: ap.data })
       const got = await receiveForLearner(learnerA, orderId ? async () => ({ ok: true, link_id: 'existing' }) : d3Linker(client(null), ADMIN, product, signatureOf, { quantity: 3, reason: '2C', requestKey: () => key() }),
         { lineId: line, orderId, quantity: 3, qualificationId: it.qualification_id!, approvalId: ap.data, orderKey: key(), deliveryKey: key() })
@@ -449,6 +456,83 @@ describe('2C-3 · 같은 Workspace → 검토된 미노출 혼자 확인 2 → �
     expect(buildDemand({ ...w.v4, taskPlans: w.v4.taskPlans.map((p) => (p.task === TASK ? { ...p, stage: 'check' } : p)) } as V4View, TASK as never, TEMPLATE, { workspaceId: wsA, planVersion: 1, goalVersion: goal1 }).lines.map((l) => l.role)).toEqual(['independent_check'])
     // 설명 저장은 오답 확인(verifiedAt)보다 먼저다 — 이전 회차 수행은 이번 회차를 진전시키지 않는다
     expect(gate.succeeded, JSON.stringify({ check: w.v4.asIs.tasks[TASK]!.check, done: rec[0].completedAt })).toBe(false)
+  })
+
+  it('2F 실제 요청 API → 공급 서비스 → 정본 SQL: 링크 대기(주문 보존) → 기존 D3 관리자 링크 → 3활동 수령 · 재시도 멱등 · 반례', async () => {
+    const post = async (uid: string, body: unknown, headers: Record<string, string> = {}) => {
+      routeState.uid = uid
+      routeState.db = planDb()
+      routeState.learner = client(uid)
+      routeState.load = async () => (await world(uid)).data
+      const res = await factoryRequestPOST(new Request('http://localhost/api/csat/factory/request', {
+        method: 'POST', headers: { origin: 'http://localhost', 'content-type': 'application/json', ...headers }, body: typeof body === 'string' ? body : JSON.stringify(body),
+      }))
+      return { status: res.status, body: await res.json() as Row, cache: res.headers.get('cache-control') }
+    }
+    const orders = () => count('public.factory_order where user_id = $1', [A])
+    const deliveries = () => count('public.workspace_content_delivery where user_id = $1', [A])
+    // 반례 — 출처 · 닫힌 키 · 다른 학습 묶음 · 계획 없는 학습자(B)는 아무것도 쓰지 않는다
+    const o0 = await orders()
+    expect((await post(A, { template: TEMPLATE }, { origin: 'http://evil.test' })).status).toBe(403)
+    expect((await post(A, { template: TEMPLATE, userId: B })).status).toBe(400)
+    expect((await post(A, { template: TEMPLATE, quantity: 9 })).status).toBe(400)
+    expect((await post(A, '{bad')).status).toBe(400)
+    expect((await post(B, { template: TEMPLATE })).body).toMatchObject({ code: 'plan_required' })
+    expect(await orders()).toBe(o0)
+    // ① 실제 repair 단계(v2) 수요 → 주문만 남고 링크 대기. 같은 요청 반복 = 같은 주문(행 증가 없음)
+    const w1 = await post(A, { template: TEMPLATE })
+    expect(w1).toMatchObject({ status: 200, body: { status: 'waiting_link' }, cache: 'no-store' })
+    expect(await orders()).toBe(o0 + 1)
+    expect(await post(A, { template: TEMPLATE })).toMatchObject({ status: 200, body: { status: 'waiting_link' } })
+    expect(await orders()).toBe(o0 + 1)
+    // 정본 수요는 지원하지 않는 역할까지 기록하지만 주문은 안내 연습 줄에만
+    const order = await q1<{ id: string; role: string; quantity: number; signature: string }>(`select o.id, o.role, o.quantity, d.signature from public.factory_order o
+      join public.workspace_content_demand_line l on l.id = o.line_id join public.workspace_content_demand d on d.id = l.demand_id where o.user_id = $1 order by o.created_at desc limit 1`, [A])
+    expect(order).toMatchObject({ role: 'guided_practice', quantity: 3 })
+    const roles = (await db.query<{ role: string }>(`select role from public.workspace_content_demand_line where demand_id = (select l.demand_id from public.workspace_content_demand_line l join public.factory_order o on o.line_id = l.id where o.id = $1) order by role`, [order.id])).rows.map((r) => r.role)
+    expect(roles).toEqual(['guided_practice', 'model_explanation', 'source_analysis'])
+    // ② 실제 관리자가 기존 D3 링크 경로(executeProductOrderLineage)로 연결 — 학습자 요청이 관리자를 고르지 않는다
+    const linked = await executeProductOrderLineage(client(null) as never, ADMIN, {
+      action: 'link', order_id: order.id, product_order_id: packet.body.order.product_order_id, order_revision: packet.body.order.order_revision,
+      order_hash: packet.body.order.order_hash, demand_signature: order.signature, quantity: 3, reason: '2F 격리 — 관리자 연결', request_key: key(),
+    })
+    expect(linked.error).toBeNull()
+    // ③ 같은 요청 → 승인된 현재 후보 3활동 수령(같은 원문 · 같은 주문) · 첫 링크 = 요지
+    const d0 = await deliveries()
+    const got = await post(A, { template: TEMPLATE })
+    expect(got).toMatchObject({ status: 200, body: { status: 'delivered', delivered: 3, replayed: false } })
+    expect(await deliveries()).toBe(d0 + 3)
+    const mine = (await db.query<{ id: string; type: string; ref_id: string; order_id: string }>(`select d.id, i.type, i.ref_id, d.order_id from public.workspace_content_delivery d
+      join public.csat_dcp_items i on i.id::text = d.artifact_ref where d.order_id = $1`, [order.id])).rows
+    expect(mine.map((m) => m.type).sort()).toEqual(['main_point', 'title', 'topic'])
+    expect(new Set(mine.map((m) => m.ref_id)).size).toBe(1)
+    expect(mine.find((m) => m.type === 'main_point')!.id).toBe(got.body.first)
+    expect((await openFactoryDelivery(learnerA, got.body.first)).ok).toBe(true)
+    // ④ 응답 유실 재시도 = 같은 납품(새 행 없음)
+    expect(await post(A, { template: TEMPLATE })).toMatchObject({ status: 200, body: { status: 'delivered', first: got.body.first, replayed: true } })
+    expect(await deliveries()).toBe(d0 + 3)
+    // ⑤ 관리자 승인 경계 — 등록 후보가 아닌 자격(창작 자격)은 RPC 전에 거절 · 기존 승인은 재승인 없이 같은 id
+    const savedContent = (await q1<{ content: string }>('select content from public.library_articles where id=$1', [packet.body.source.id])).content
+    try {
+      await db.query('update public.library_articles set content=$2 where id=$1', [packet.body.source.id, savedContent + ' changed'])
+      expect.soft((await post(A, { template: TEMPLATE })).body.status, 'stale existing delivery cannot be acknowledged as received').not.toBe('delivered')
+    } finally {
+      await db.query('update public.library_articles set content=$2 where id=$1', [packet.body.source.id, savedContent])
+    }
+    try {
+      await db.query('insert into public.ineligible_sources values ($1)', [packet.body.source.id])
+      expect.soft(await approveFactoryDcp(planDb(), admin, admitted[0]!.qualification_id, 'x'), 'current source policy is rechecked even for approval replay').toEqual({ status: 'rejected', code: 'source_not_eligible' })
+    } finally {
+      await db.query('delete from public.ineligible_sources where article_id=$1', [packet.body.source.id])
+    }
+    const approvals = await count('public.content_release_approval')
+    const authoredQ = (await q1<{ id: string }>(`select id from public.content_qualification where artifact_kind = 'authored_item' limit 1`)).id
+    expect(await approveFactoryDcp(planDb(), admin, authoredQ, 'x')).toEqual({ status: 'rejected', code: 'not_factory_candidate' })
+    expect(await approveFactoryDcp(planDb(), admin, key(), 'x')).toEqual({ status: 'rejected', code: 'not_factory_candidate' })
+    expect(await approveFactoryDcp(planDb(), admin, admitted[0]!.qualification_id, 'x')).toEqual({ status: 'ok', approval_id: admitted[0]!.approval_id, replayed: true })
+    expect(await count('public.content_release_approval')).toBe(approvals)
+    // 학습자 세션은 승인 RPC 를 실행해도 DB 가 거절한다(권한 상승 없음)
+    expect((await learnerA.rpc('content_release_approve', { p_qualification: authoredQ, p_scope: 'public', p_note: 'x' })).error?.code).toBe('42501')
   })
 
   it('2D 정본 순서: repair 단계(v2)의 실제 buildDemand 줄 → 원문 교수 3활동 완료(이번 회차) → 영수증 → repairGate 성공 · 다음 = transfer', async () => {

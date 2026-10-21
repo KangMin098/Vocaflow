@@ -535,7 +535,7 @@ describe('D4 · 타인 · 닫힌 Workspace · 철회 · 원문 변경 · 비공�
   })
 
   it('계측 CHECK — 기존 이름은 그대로 · 1D 세 이름 추가 · 모르는 이름은 거절', async () => {
-    for (const e of ['screen_viewed', 'csat_map_viewed', 'csat_factory_dcp_opened', 'csat_factory_dcp_submitted', 'csat_factory_dcp_returned']) {
+    for (const e of ['screen_viewed', 'csat_map_viewed', 'csat_factory_dcp_opened', 'csat_factory_dcp_submitted', 'csat_factory_dcp_returned', 'csat_factory_dcp_requested']) {
       await db.query(`insert into public.funnel_events (event) values ($1)`, [e])
     }
     await expect(db.query(`insert into public.funnel_events (event) values ('csat_factory_dcp_unknown')`)).rejects.toThrow(/funnel_events_event_check/)
