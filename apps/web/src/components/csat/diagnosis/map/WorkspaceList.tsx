@@ -35,6 +35,7 @@ export const WS_STATE_LABEL: Record<WsRowState, string> = {
   runnable: '바로 할 수 있어요',
   in_progress: '진행 중',
   locked: '앞 단계 뒤에 열려요',
+  maintain: '지금 확인 통과 · 다른 날 유지 확인 기준 미정',
   preparing: '자료 준비 중',
 }
 export const READINESS_LABEL: Record<string, string> = {

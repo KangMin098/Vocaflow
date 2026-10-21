@@ -12,6 +12,7 @@ import { buildDemand } from '../demand'
 import { maintainPassed } from '../maintenance-state'
 import { nextActionOf, WAIT_LABEL } from '../next-action'
 import { ranksOf } from '../rank'
+import { workspaceRows } from '../workspace-list'
 
 const task = 'r.central_meaning', key = 'claim-support', template = 'ws.central-meaning'
 const items = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6']
@@ -81,5 +82,15 @@ describe('지금 확인 통과 + 유지(T-0082)', () => {
     expect(maintainPassed(p)).toBe(false)
     expect(p.stage).toBe('transfer')
     expect(ranksOf(v).notActionable.find((n) => n.task === task)?.reason).toBe('material_needed')
+  })
+  it('P1-1 — Workspace 목록 행도 같은 판정: 남은 확인 링크(cm-ind-5 류)가 있어도 다음 링크 없음 · 상태 maintain(앞 단계 잠김 아님) · 대조 REPAIR 는 기존', () => {
+    for (const unseen of [items.slice(2), []]) {
+      const v = view(true, unseen)
+      const row = workspaceRows({ ...v, plan: { ...v.plan, preparing: v.plan.preparing ?? [] } }).find((r) => r.id === template)!
+      expect(row.next, `unseen=${unseen.length}`).toBeNull()
+      expect(row.state).toBe('maintain')
+    }
+    const r = workspaceRows(view(false)).find((x) => x.id === template)!
+    expect(r.state).not.toBe('maintain')
   })
 })
