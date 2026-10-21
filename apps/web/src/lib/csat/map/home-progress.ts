@@ -13,8 +13,11 @@ import { applySaved } from './v4/plan-commit'
 
 export interface MapProgress {
   check: { task: string; name: string; ws: string | null } | null
-  /** task — 그 계획의 실제 미완료 TASK 행(T-0081 · 홈 이어보기가 map_task 로 연다) */
-  plan: { ws: string; name: string; planned: number; done: number; task: string } | null
+  /**
+   * planned · done — 묶음의 기존 계획 진행(applySaved progress · 정본상 중심 TASK 집계). 배정 없음 = null(0 아님)
+   * resume — 이어갈 실제 미완료 TASK 행(T-0081 · 보조 TASK 일 수 있다 · 그 행의 계획량 · 수행량 · 단위 그대로). 묶음 집계와 섞지 않는다
+   */
+  plan: { ws: string; name: string; planned: number | null; done: number | null; task: string; resume: { name: string; planned: number; done: number; unit: string } } | null
 }
 
 export function mapProgressOf(data: MapPageData): MapProgress {
@@ -44,14 +47,16 @@ export function mapProgressOf(data: MapPageData): MapProgress {
       const sw = saved.byTemplate[id]
       if (!sw) continue
       const applied = applySaved(v.plans[id], sw.latest)
+      // T-0081(P1-1) — 이어갈 행은 중심 집계(progress)와 무관하게 실제 TASK 행에서: 계획량이 있고 수행량이 못 미친 첫 행(저장 계획 순서).
+      //   중심이 다 됐거나 배정이 없어도 보조 행이 남았으면 이어간다. 남은 행이 없으면 추정하지 않고 이 묶음은 제안하지 않는다
+      const row = applied.tasks.find((t) => t.quantity.planned !== null && t.quantity.planned > 0 && t.quantity.done < t.quantity.planned)
+      if (!row || row.quantity.planned === null) continue
       const p = applied.progress
-      if (p && p.planned > 0 && p.done < p.planned) {
-        // T-0081 — 이 계획의 현재 TASK 행 중 계획량이 있고 수행량이 못 미친 첫 행(계획 순서 그대로). 못 찾으면 추정하지 않고 이 묶음의 이어보기를 닫는다
-        const row = applied.tasks.find((t) => t.quantity.planned !== null && t.quantity.planned > 0 && t.quantity.done < t.quantity.planned)
-        if (!row) continue
-        plan = { ws: id, name: templateOf(id)?.name ?? '학습계획', planned: p.planned, done: p.done, task: row.task }
-        break
+      plan = {
+        ws: id, name: templateOf(id)?.name ?? '학습계획', planned: p?.planned ?? null, done: p?.done ?? null, task: row.task,
+        resume: { name: taskOf(row.task as TaskId).name, planned: row.quantity.planned, done: row.quantity.done, unit: row.quantity.unit ?? '문항' },
       }
+      break
     }
   }
   return { check, plan }

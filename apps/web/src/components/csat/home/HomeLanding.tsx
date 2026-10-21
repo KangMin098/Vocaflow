@@ -219,7 +219,9 @@ export function HomeLanding({
                 </p>
                 <div className={home.cardFront}>
                   <p className={`${home.cardLead} break-keep`}>
-                    <b>{progress.plan.name}</b> 계획에서 {progress.plan.planned}개 중 {progress.plan.done}개를 했어요.
+                    {/* T-0081 — 묶음 집계(기존 · 배정 없으면 말하지 않음)와 이어갈 TASK 의 양을 따로 */}
+                    <b>{progress.plan.name}</b> 계획{progress.plan.planned !== null && progress.plan.done !== null ? `에서 ${progress.plan.planned}개 중 ${progress.plan.done}개를 했어요` : '을 이어서 할 수 있어요'}.{' '}
+                    <span data-testid="home-continue-plan-resume" data-task={progress.plan.task}>이어갈 항목: {progress.plan.resume.name} {progress.plan.resume.planned}{progress.plan.resume.unit} 중 {progress.plan.resume.done}{progress.plan.resume.unit}</span>
                   </p>
                   <div className={home.cardActions}>
                     <Link className={home.primary} href={`/csat?${mapReturnQuery({ mapTask: progress.plan.task, ws: progress.plan.ws }).slice(1)}`} onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'map_plan', from: 'home' } })} data-testid="home-continue-plan-go">
