@@ -1,0 +1,106 @@
+{
+  "goal_id": "VG-L3-B2-02",
+  "related_goal_ids": [
+    "VG-L3-A3-02"
+  ],
+  "title": "수식 관계 자료를 기존 긴 문장 Workspace의 학습 전용 진입으로 연결",
+  "description": "FINAL D/E/F/H. 원격 origin/main f573ef8e5와 로컬 main676ab7107 모두 s.attachment 세트가 있으나 Workspace membership이 없어 실제 자료 받기 진입이 없다. v6.2의 S2/S3 독립성 보류는 유지하면서 ws.sentence-core 안에서 원리 설명/안내 연습만 공급·실행·노트·같은 묶음 복귀로 연결한다. 새 독립 TASK 판정·정본 승격은 하지 않는다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "created_by": "final-independent-accept",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+  "depends_on": [],
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/v62/instructional-supplement.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/instructional-supplement.test.ts",
+    "apps/web/src/lib/csat/map/v62/demand.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/demand.test.ts",
+    "apps/web/src/lib/csat/authored/server.ts",
+    "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+    "apps/web/src/app/api/csat/authored/supply/route.ts",
+    "apps/web/src/app/api/csat/authored/supply/route.test.ts",
+    "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+    "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/instructional-supplement.test.tsx",
+    "apps/web/tests/e2e-isolated/attachment-instructional.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "scripts/audit/**",
+    "docs/csat-learner/v4/**",
+    "apps/web/src/lib/csat/map/v4/definition.data.ts",
+    "apps/web/src/lib/csat/map/v4/definition.ts",
+    "apps/web/src/lib/csat/map/v4/plan.ts",
+    "apps/web/src/lib/csat/map/v4/workspace.ts",
+    "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+    "apps/web/src/lib/knowledge/authored/*.json",
+    "apps/web/src/lib/csat/authored/ai-review.ts"
+  ],
+  "acceptance": [
+    "선택 설계: ws.sentence-core에 기존 s.attachment의 원리 설명(model_explanation)과 안내 연습(guided_practice)만 여는 보조 학습 진입을 둔다. 새 Workspace나 core/support 정본을 추가하지 않는다. 필요하면 v62에 고정된 표시·서버 경로 mapping 하나를 두고 기존 PART_OF 관계와 맞춘다. S2/S3 독립성 보류·현재 readiness·판정은 불변이다. 수식 관계 학습 · 독립 확인은 아직 준비 중이라는 범위를 짧게 설명한다. 기존 AuthoredSupplyCard/Runner/노트/withMapReturn을 재사용해 같은 Workspace로 돌아온다.",
+    "서버가 허용하는 추가 조합은 ws.sentence-core + s.attachment의 학습 전용뿐이다. 클라이언트가 role/수요/수량을 보내도 평가 역할(independent_check/transfer/delayed_check)을 이 진입으로 요청·공급하지 않는다. 기존 buildDemand/persist/자격/권리/승인/현재성/본인/goalVersion/planVersion/계획 확정 보호를 재사용하고, 그 밖의 TASK×Workspace 거절은 유지한다. need_without_stage 등 기존 이유를 사용하며 근거 없이 REPAIR 필요 판정을 만들지 않는다. 기존 API 본문 {task,template}을 우선하고 새 API/SQL은 추가하지 않는다.",
+    "원리 설명→노트 저장·비교→안내 연습 오답·재시도·정답을 기존 실행기로 수행한다. 이 경로는 학습이며 독립 확인/전이/숙달/목표 달성으로 승격하지 않는다. 중심·다른 보조 TASK의 독립 근거/단계/수량/저장 PLAN 이력은 변하지 않는다. 자료0/미승인/철회/읽기 불명확/과거 보기를 구분하고 없는 본문 링크나 자동 POST를 만들지 않는다. 수량은 실제 학습 자료 요청·수령에만 사용하며 필요 총량·기간·숙달률은 만들지 않는다.",
+    "L2/L3 최소 검증: 닫힌 서버 mapping·교수 2역할만·다른 TASK/Workspace 거절·계획 미저장/원장 미확인 대조. PGlite에서 기존 실제 공급·Attempt·G2 경로로 평가 납품0/교수 evidence=false/중심 첫 근거·과거 PLAN 불변을 확인한다. 실제 React+Chromium1440/1280에서 키보드 진입→교수·안내→같은 Workspace 복귀와 0건/과거/조회 실패를 확인한다. 인증 Next+DB 미실행은 NOT_VERIFIED로 구분하고 다음 공식 통합 묶음에서 기존 isolated E2E에 포함한다. 작업별 push/PR/CI는 만들지 않는다."
+  ],
+  "ui_acceptance": [
+    "긴 문장 Workspace에서 수식 관계 학습 자료를 찾고 교수·안내 연습을 거쳐 같은 묶음으로 복귀한다. 독립 확인 보류·실제 재고/권리/조회 상태를 과장하지 않고 중심 TASK의 준비 상태·학습 계획과 섞지 않는다."
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-B2-02",
+    "acceptance_ids": [
+      "VG-L3-B2-02-AC1"
+    ],
+    "current_gap": "Both current origin/main and local main have the s.attachment authored set but no Workspace entry; supply API membership rejects it. Canon independent distinction from S2 remains on hold, so simply adding it as an assessed support task would overstate readiness.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "수식 관계 교수·안내 연습의 실제 기존 공급/실행/복귀",
+      "이 경로 평가 역할 공급0·G2 독립근거 비승격",
+      "중심 TASK·기존PLAN·승인/권한 보호 불변"
+    ],
+    "next_dependency": "실제 콘텐츠 공급은 설치와 별개인 개별 revision B/B2/C 및 출시 결정이 필요. 독립TASK 승격은 기존 S2/S3 구별 검증 이후 별도.",
+    "out_of_scope": [
+      "정본 core/support/독립성 변경",
+      "채점/숙달/목표 계산 재설계",
+      "실제 개발DB쓰기·Gold/권리/출시",
+      "기존 T0072/73 재구현·구지도T0020·AI-Control"
+    ],
+    "dependency_type": "direct"
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_id": "FINAL-ATTACHMENT-INSTRUCTIONAL-ENTRY-rev1",
+    "design_revision": "rev1",
+    "goals_ah": [
+      "D",
+      "E",
+      "F",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "origin_main": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e",
+    "canonical_main": "676ab71078cab0e4cd67fbd5b909022925566070",
+    "source_base": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+    "integration_notes": "기존 source/worktree/감사2파일 보존. 정본 main에서 이미 바뀐 server.ts/WorkspaceModal 등은 읽기 대조하고 기존 AI 경로를 덮지 않는 최소 diff. main 강제병합/stash/reset 금지; 수용 통합시 Codex가 실제 main 결합 검증. 구현 불가능/정본 변경이 꼭 필요하면 동일 작업에서 최소 대안 반환, 승격하지 않음.",
+    "delivery": "QUEUED until actual ACK and task start"
+  }
+}

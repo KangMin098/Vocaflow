@@ -1,0 +1,141 @@
+{
+  "task": "T-0045",
+  "observed_at": "2026-10-21T18:29:56.954Z",
+  "origin_main": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e",
+  "local_main_before_package": "676ab71078cab0e4cd67fbd5b909022925566070",
+  "local_main_package_commit": "18129b11b",
+  "remote_comparison": {
+    "fetch_succeeded": true,
+    "remote_ancestor_of_local": true,
+    "commits_ahead_before_package": 61,
+    "no_remote_integration_claim": true
+  },
+  "goal_check": {
+    "origin_report": "verification/goal-check/GC-2026-10-21T18-22-01-731Z.json",
+    "local_report": "verification/goal-check/GC-2026-10-21T18-22-02-797Z.json",
+    "both": {
+      "UNKNOWN": 33,
+      "FAIL": 1,
+      "EXTERNAL_INPUT_REQUIRED": 1
+    },
+    "interpretation": "Recorded evidence states, not counts of missing features. Known FAIL is internal-account metrics classification owned outside this product task; existing external E2E/deployed-smoke criterion remains."
+  },
+  "A_H": {
+    "A": {
+      "code": "ACCEPTED_REPRESENTATIVE_SCOPE_REUSED",
+      "gap": "Actual authored learner performance absent; exam indirect estimates are not direct TASK evidence"
+    },
+    "B": {
+      "code": "ACCEPTED_REPRESENTATIVE_SCOPE_REUSED",
+      "evidence": "T0072/73 and accepted goal/record contracts not reimplemented"
+    },
+    "C": {
+      "code": "PARTIAL",
+      "evidence": "T0070/72/74/77 accepted current stage/quantity/goal/change explanations",
+      "gap": "No proven goal-score-to-total-workload calibration; unsupported quantities remain unknown"
+    },
+    "D": {
+      "code": "PARTIAL",
+      "evidence": "Per-TASK authored teaching and source-lesson pipeline, isolated scope reused",
+      "gap": "Content eligibility zero; whole-R0 teaching efficacy not established"
+    },
+    "E": {
+      "code": "PARTIAL",
+      "schema": "APPLIED_SHA_MATCH",
+      "gap": "Registration/human/AI qualification/release/delivery zero; s.attachment has no current entry"
+    },
+    "F": {
+      "code": "PARTIAL",
+      "evidence": "Existing Runner/notes/practice/workspace/return accepted scope reused",
+      "gap": "T0083 learning-only s.attachment entry missing; actual current DB execution unverified"
+    },
+    "G": {
+      "code": "PARTIAL",
+      "evidence": "Distinct unseen passages/check/transfer isolated cycles accepted",
+      "gap": "Approved delayed interval/instrument and real delayed-retention evidence not established; S2/S3 independence not promoted"
+    },
+    "H": {
+      "code": "ACCEPTED_REPRESENTATIVE_SCOPE_REUSED",
+      "evidence": "G2/PLAN version/history/goal/read-failure/current-pass fixes, source repair projection",
+      "gap": "Actual eligible-content dev DB learner loop not run"
+    }
+  },
+  "completion_axes": {
+    "PRODUCT_CODE_COMPLETE": "PARTIAL",
+    "DEV_DB_E2E_VERIFIED": "NOT_VERIFIED",
+    "CONTENT_RELEASE_APPROVED": "NOT_RECORDED",
+    "EDUCATIONAL_EFFECT_VALIDATED": "NOT_VALIDATED"
+  },
+  "db": {
+    "observed_at": "2026-10-21T18:21:08.26823Z",
+    "read_only": true,
+    "A": {
+      "version": "20261021175340",
+      "statements": 1,
+      "sha256": "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d",
+      "state": "APPLIED_VERIFIED"
+    },
+    "counts": {
+      "authored_items": 0,
+      "human_decisions": 0,
+      "ai_decisions": 0,
+      "qualifications": 0,
+      "release_approvals": 0,
+      "deliveries": 0,
+      "g2_bindings": 0,
+      "factory_practice_attempts": 0
+    },
+    "B_B2_C": {
+      "recorded_decisions": 0,
+      "offline_human_review": "UNKNOWN"
+    },
+    "this_turn_writes": 0
+  },
+  "approval_package": {
+    "path": "docs/final/APPROVAL_PACKAGE.md",
+    "manifest": "docs/final/review/FINAL_CONTENT_DECISION_MANIFEST_20261022.json",
+    "files": 18,
+    "tasks": 17,
+    "items": 155,
+    "assessment": 120,
+    "sha_validated": 18,
+    "item_ids_checked": 155,
+    "relative_links_checked": 21,
+    "missing_links": 0,
+    "changed_content_vs_origin": 2,
+    "AI_not_human": true
+  },
+  "next": {
+    "task": "T-0083",
+    "design": "FINAL-ATTACHMENT-INSTRUCTIONAL-ENTRY-rev1",
+    "owner": "final-product",
+    "scope": "s.attachment instructional entry in existing sentence Workspace; only model/guided roles, no canon or independent diagnosis promotion",
+    "gate": "PASSED",
+    "queued_at": "2026-10-21T18:26:00.518Z",
+    "ack_at": "2026-10-21T18:28:51Z",
+    "status": "IN_PROGRESS",
+    "actual_run": {
+      "run_seq": 1,
+      "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+      "agent": "claude",
+      "pid": 22044,
+      "host": "SKCC23N00265",
+      "started_at": "2026-10-21T18:28:50.140Z",
+      "locks": [
+        {
+          "name": "task--T-0083",
+          "token": "a5c3104f107f4fab912e2cf6d1770e79"
+        },
+        {
+          "name": "worktree--d__workspace_vocaflow-final-product",
+          "token": "31fce92539ccfb2a6d55fbf52c9cf773"
+        }
+      ],
+      "product_lock_token": "ed090683dff2bc31",
+      "start_head": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235"
+    },
+    "implementation_head": "NOT_SUBMITTED",
+    "result": "NOT_RETURNED"
+  },
+  "verification_reuse": "No repeated unchanged accepted suites. Only fresh readonly DB/history and exact content/links/document checks; new implementation tests belong to T0083."
+}
