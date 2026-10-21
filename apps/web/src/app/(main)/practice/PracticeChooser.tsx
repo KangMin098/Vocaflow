@@ -38,6 +38,8 @@ import {
 } from '@/lib/learner/practice-map'
 
 import { DEEP_CLASS, MODULE_TONE, TINT_CLASS, type ModuleKey } from '@/lib/design/tone'
+import { ACTIVITY_TINT, FACET_ACTIVITY } from '@/lib/design/learning-colors'
+import { PRACTICE_EDITORIAL_ART } from '@/lib/design/editorial-art'
 
 /**
  * 면마다 색과 그림(DD-68 · tines-mapping §13) — 참조 사례 카드 문법: 강조 카드는 진한 면 + 정사각 타일,
@@ -207,6 +209,9 @@ function LeadCard({
     <section
       aria-label="지금 연습할 곳"
       data-design-card
+      data-learner-tone={ACTIVITY_TINT[FACET_ACTIVITY[facet]]}
+      data-learner-facet={facet}
+      data-learner-lead
       className={`${DEEP_CLASS[MODULE_TONE[FACET_ART[facet].module].deep]} grid items-center gap-6 overflow-hidden rounded-[var(--r-2xl)] px-6 py-7 md:grid-cols-[1fr_auto] md:px-8 md:py-8`}
     >
       <div className="min-w-0">
@@ -256,8 +261,9 @@ function LeadCard({
         alt=""
         width={1328}
         height={1328}
-        className="hidden w-[220px] select-none rounded-[var(--r-xl)] md:block lg:w-[260px]"
+        className="hidden w-[220px] select-none rounded-[var(--r-xl)] md:block lg:hidden"
       />
+      <Image src={PRACTICE_EDITORIAL_ART[facet]} alt="" width={1536} height={1024} sizes="(min-width: 1440px) 440px, 36vw" className="practice-editorial-lead hidden h-auto w-[440px] max-w-[40vw] select-none object-contain lg:block" />
     </section>
   )
 }
@@ -292,17 +298,20 @@ function FacetCard({
     <li className={cell}>
       <div
         data-design-card
-        className={`${TINT_CLASS[MODULE_TONE[FACET_ART[facet].module].tint]} dots relative flex h-full flex-col rounded-[var(--r-xl)] px-4 py-4 pr-24 md:px-5 md:py-5 md:pr-28`}
+        data-learner-tone={ACTIVITY_TINT[FACET_ACTIVITY[facet]]}
+        data-learner-facet={facet}
+        className={`${TINT_CLASS[MODULE_TONE[FACET_ART[facet].module].tint]} dots relative flex h-full flex-col rounded-[var(--r-xl)] px-4 py-4 pr-24 md:px-5 md:py-5 md:pr-28 lg:pr-44`}
       >
         <Image
           src={`${ILLO}/${FACET_ART[facet].spot}.webp`}
           alt=""
           width={1328}
           height={1328}
-          className="pointer-events-none absolute right-3 top-3 w-[72px] select-none md:w-[84px]"
+          className="pointer-events-none absolute right-3 top-3 w-[72px] select-none md:w-[84px] lg:hidden"
         />
+        <Image src={PRACTICE_EDITORIAL_ART[facet]} alt="" width={1536} height={1024} sizes="156px" className="pointer-events-none absolute right-3 top-4 hidden h-auto w-[156px] select-none object-contain lg:block" />
         <div className="flex flex-wrap items-baseline gap-x-2 gap-y-1">
-          <span className="font-display text-[15px] font-[700] text-[var(--t1)]">{def.name}</span>
+          <span data-facet-label className="font-display text-[15px] font-[700] text-[var(--t1)]">{def.name}</span>
           {progress && (
             <span className="font-mono text-[10.5px] tabular-nums text-[var(--t2)]">
               {progress.passed}/{progress.tried}

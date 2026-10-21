@@ -172,7 +172,7 @@ export default async function TextbookVolumePage({
   const stage = stageOf(v.schoolBand)
 
   return (
-    <Screen width="wide" background="bg2" padX="md">
+    <Screen width="wide" background="bg2" padX="md" className="volume-reference catalog-detail-reference">
       <div className="flex flex-col gap-4 py-6 md:py-8">
         <Link
           href="/library/textbooks"

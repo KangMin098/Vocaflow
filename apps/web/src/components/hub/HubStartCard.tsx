@@ -85,7 +85,7 @@ export function HubStartCard({
             id={`vocab-${vocabulary.label}`}
             value={vocabulary.value}
             onChange={(e) => vocabulary.onChange(e.target.value)}
-            className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+            className="w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2 font-body text-[13px] text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_20%,transparent)]"
           >
             {vocabulary.options.map((o) => (
               <option key={o.value} value={o.value}>

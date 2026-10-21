@@ -4,6 +4,7 @@
 
 import type { Word } from '@/types/library'
 import type { SupportToken } from '@/lib/workspace/support'
+import type { ChapterMarker } from '@/lib/reader/chapter-marker'
 import { Pause, Play } from 'lucide-react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
@@ -23,6 +24,29 @@ interface SentenceData {
 interface ParagraphData {
   id: number
   sentences: SentenceData[]
+  /** 장 표식 문단(첫 문단만) — 문장은 비어 있고, 출처 URL 은 장 머리 링크로 보인다 */
+  chapterMarker?: ChapterMarker
+}
+
+/** 원문 출처 링크 — 새 탭 · 바깥 사이트라 opener 차단. 이름은 도메인으로(어디로 가는지 말한다). */
+function SourceLink({ href }: { href: string }) {
+  let host = href
+  try {
+    host = new URL(href).hostname.replace(/^www\./, '')
+  } catch {
+    /* 형식은 parseChapterMarker 가 이미 확인했다 */
+  }
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label={`원문 출처 ${host} — 새 탭에서 열림`}
+      className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-[var(--r-md)] px-1 font-body text-[11.5px] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+    >
+      원문 출처 · {host} ↗
+    </a>
+  )
 }
 
 interface ChapterMeta {
@@ -145,6 +169,10 @@ export function ReadingUniverse({
   }
 
   // 첫 paragraph 에만 drop-cap 적용 — `first-of-type` 가 아닌 명시적 인덱스 (TOC strip 회귀 회피)
+  // 첫 문단이 장 표식(문장 없음)이면 그다음 실제 문단이 첫 문단이다.
+  const firstTextIdx = paragraphs.findIndex((p) => p.sentences.length > 0)
+  // 장 표식에서 분리한 원문 출처(원본 본문 · DB 는 그대로 — lib/reader/chapter-marker)
+  const sourceHref = paragraphs[0]?.chapterMarker?.sourceHref ?? null
   return (
     <article className="relative mx-auto max-w-[680px] px-6 py-4 md:px-8 md:py-6">
       {/* Chapter Meta — kicker line */}
@@ -163,7 +191,14 @@ export function ReadingUniverse({
               약 {chapterMeta.readingMinutes}분 읽기
             </span>
           )}
+          {sourceHref && <SourceLink href={sourceHref} />}
         </header>
+      )}
+      {/* 장 머리가 없는 화면에서도 출처는 남긴다 */}
+      {!chapterMeta && sourceHref && (
+        <p className="mb-6 text-right">
+          <SourceLink href={sourceHref} />
+        </p>
       )}
 
       {/* Reading Text */}
@@ -198,8 +233,10 @@ export function ReadingUniverse({
             </figure>
           )}
           <p
+            // 장 표식 문단은 문장이 비어 있다(출처는 위 장 머리 링크) — 자리만 남기고 그리지 않는다(문단 번호 유지)
+            hidden={Boolean(p.chapterMarker)}
             className={`group/paragraph relative mb-4 whitespace-pre-line md:mb-5 ${
-              pIdx === 0
+              pIdx === firstTextIdx
                 ? '[&::first-letter]:float-left [&::first-letter]:mr-2.5 [&::first-letter]:mt-1.5 [&::first-letter]:font-english [&::first-letter]:text-[3.2em] [&::first-letter]:font-[700] [&::first-letter]:leading-[0.9] [&::first-letter]:text-[var(--p)]'
                 : ''
             } `}
@@ -215,7 +252,9 @@ export function ReadingUniverse({
                     isPlaying ? { backgroundColor: 'rgba(99,102,241,0.14)' } : undefined
                   }
                 >
-                  {/* Play affordance — 항상 보이는 4px 도트, hover/playing 시 풀 버튼으로 확장 */}
+                  {/* Play affordance — 항상 보이는 4px 도트, hover/playing 시 풀 버튼으로 확장.
+                      평소 도트는 가운데 원형 그라디언트로 그린다(2026-10-18) — 예전 클래스(변수 색 `--bd` 에 투명도 55 를 슬래시로 붙인 것)는 Tailwind 가 CSS 를 만들지 않아
+                      투명했고(문장 사이 빈 틈), 그대로 color-mix 로 살리면 18px 원이 문장마다 찍혀 의도(4px 도트)보다 무겁다. */}
                   <button
                     type="button"
                     onClick={() => onSentencePlay(s.id)}
@@ -224,7 +263,7 @@ export function ReadingUniverse({
                     className={`mr-1 inline-flex h-[18px] w-[18px] -translate-y-px items-center justify-center rounded-full align-middle transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--reading-bg)] ${
                       isPlaying
                         ? 'animate-[playing-ring_1.6s_ease-in-out_infinite] bg-[var(--p)] text-white'
-                        : 'bg-[var(--bd)]/55 text-transparent hover:scale-110 hover:bg-[var(--p)] hover:text-white group-hover/sentence:bg-[var(--t4)]/85 group-hover/paragraph:bg-[var(--t4)]/55'
+                        : 'bg-[radial-gradient(circle,color-mix(in_srgb,var(--t3)_75%,transparent)_2.5px,transparent_3.5px)] text-transparent hover:scale-110 hover:bg-[var(--p)] hover:text-white group-hover/sentence:bg-[color-mix(in_srgb,var(--t4)_85%,transparent)] group-hover/paragraph:bg-[color-mix(in_srgb,var(--t4)_55%,transparent)]'
                     } `}
                   >
                     {isPlaying ? (
@@ -247,7 +286,7 @@ export function ReadingUniverse({
                           role="button"
                           tabIndex={0}
                           aria-label={`${part.text} — 도움말 보기`}
-                          className="cursor-help border-b border-dotted border-[var(--t3)]/55 text-[var(--t2)] underline-offset-[3px] transition-colors duration-[var(--dur-fast)] hover:border-[var(--t2)] hover:bg-[var(--bg3)]/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t3)]"
+                          className="cursor-help border-b border-dotted border-[color-mix(in_srgb,var(--t3)_55%,transparent)] text-[var(--t2)] underline-offset-[3px] transition-colors duration-[var(--dur-fast)] hover:border-[var(--t2)] hover:bg-[color-mix(in_srgb,var(--bg3)_60%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t3)]"
                           onClick={(e) => onSupportTap?.(sup, e.currentTarget.getBoundingClientRect())}
                           onKeyDown={(e) => {
                             if (e.key === 'Enter' || e.key === ' ') {

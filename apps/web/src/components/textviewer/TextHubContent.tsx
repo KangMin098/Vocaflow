@@ -7,6 +7,7 @@
 
 import { BookOpen, FileText, GraduationCap, Layers } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import type { ReactNode } from 'react'
 
 import { ContinueRow } from '@/components/hub/ContinueRow'
@@ -20,6 +21,7 @@ import { useUserVLevel } from '@/hooks/useUserVLevel'
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 import { MY_LIBRARY_TABS, TEXTBOOK_LABEL, type MyLibraryView } from '@/lib/library/tabs'
 import { workspaceHref } from '@/lib/text-viewer/workspace-href'
+import { SpotState } from '@/components/ui/SpotState'
 
 // v06.34 — 보라 saturate 폐기. 슬레이트 인디고 계열로 — Lora 영문 자료 정합 + Calm UI
 const TEXT_ACCENT = 'var(--learn-fresh)'
@@ -62,7 +64,7 @@ export function TextHubContent({
    */
   textbooksSlot?: ReactNode
 }) {
-  const { texts, isLoading, stats, continueText } = useTexts()
+  const { texts, isLoading, error, stats, continueText } = useTexts()
   const { sets: subscribedSets } = useSubscribedSets()
   const userVLevel = useUserVLevel()
 
@@ -70,11 +72,21 @@ export function TextHubContent({
     return <TextHubLoadingSkeleton />
   }
 
+  if (error && view !== 'textbooks') {
+    return (
+      <section className="mx-auto max-w-5xl px-4 py-8 md:px-6 md:py-10">
+        <h1 className="break-keep font-display text-[28px] text-[var(--t1)]">내 라이브러리</h1>
+        <SpotState art="offline" role="alert" title="자료를 확인하지 못했어요" body="연결 상태를 확인하고 다시 불러와 주세요." primary={{ label: '다시 불러오기', onClick: () => window.location.reload() }} secondary={{ label: '공개 서가 둘러보기', href: '/library/books' }} />
+      </section>
+    )
+  }
+
   // ⚠️ Textbooks 면은 내 본문·구독 세트와 **무관한 축**이다. 이 빈 상태에 걸리면
   //    교재를 담아 둔 학습자도 "아직 아무것도 없어요" 를 보게 된다.
   if (view !== 'textbooks' && stats.total === 0 && subscribedSets.length === 0) {
     return (
       <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+        <h1 className="hidden break-keep font-display text-[44px] leading-tight text-[var(--t1)] lg:block">내 라이브러리</h1>
         <EmptyState />
       </div>
     )
@@ -103,6 +115,17 @@ export function TextHubContent({
 
   return (
     <div className="mx-auto flex max-w-5xl flex-col gap-5 px-4 py-8 md:px-6 md:py-10">
+      <header className="hidden grid-cols-[minmax(0,1fr)_300px] items-center gap-12 py-6 lg:grid">
+        <div>
+          <p className="font-mono text-[12px] text-[var(--t2)]">MY LIBRARY · {faceLabel}</p>
+          <h1 className="mt-4 break-keep font-editorial text-[48px] leading-tight text-[var(--t1)]">내 라이브러리</h1>
+          <p className="mt-4 break-keep text-[16px] text-[var(--t2)]">
+            {faceLabel} {faceCount}{effectiveView === 'books' || effectiveView === 'textbooks' ? '권' : '개'}
+          </p>
+        </div>
+        <Image src="/illustrations/tines/scene-library-v5.png" alt="" width={1536} height={1024} className="w-full select-none" />
+      </header>
+      <div className="lg:hidden">
       <ModuleHero
         eyebrow={`My Library · ${faceLabel}`}
         title="My Library"
@@ -128,6 +151,7 @@ export function TextHubContent({
           { label: TEXTBOOK_LABEL, value: textbookCount, unit: '권' },
         ]}
       />
+      </div>
 
       {/* 다음 행동은 **면마다 다르다**. Decks 면에 "새 스크립트 추가하기" 를 두면
           이 면이 무엇을 모으는 곳인지 잘못 가르친다(구독 단어장은 내가 쓰는 게 아니라 고르는 것). */}

@@ -1,0 +1,18 @@
+/* apps/web/src/components/layout/sitemap-reference.css */
+.sitemap-reference__icon, .sitemap-reference__scene { display: none; }
+@media (min-width: 1024px) {
+  .sitemap-reference { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 40px 64px; padding-block: 24px 72px; }
+  .sitemap-reference__head { grid-column: 1 / -1; display: grid; grid-template-columns: 1.2fr 1fr; align-items: center; gap: 48px; margin-bottom: 24px; }
+  .sitemap-reference__head h1 { margin-bottom: 20px; font-family: var(--font-display); font-size: 44px; font-weight: 500; }
+  .sitemap-reference__head p { max-width: 36ch; font-size: 16px; line-height: 1.8; }
+  .sitemap-reference__scene { display: block; width: 100%; height: auto; max-width: 400px; margin-left: auto; }
+  .sitemap-reference__group { min-width: 0; border: 0; border-top: 1px solid var(--bd); border-radius: 0; background: transparent; box-shadow: none; padding: 24px 0 0; }
+  .sitemap-reference__group h2 { font-family: var(--font-display); font-size: 26px; font-weight: 500; }
+  .sitemap-reference__group > p { font-size: 14px; }
+  .sitemap-reference__group > div { margin-top: 16px; }
+  .sitemap-reference__group a { padding-left: 0; }
+  .sitemap-reference__group a > span:first-child { display: flex; gap: 12px; align-items: center; font-size: 16px; font-weight: 500; }
+  .sitemap-reference__group a > span:last-child:not(:first-child) { padding-left: 34px; font-size: 13px; }
+  .sitemap-reference__icon { display: block; flex-shrink: 0; }
+  .sitemap-reference__step { display: none; }
+}

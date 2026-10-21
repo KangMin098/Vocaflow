@@ -22,6 +22,7 @@
 
 import { ArrowRight } from 'lucide-react'
 import Link from 'next/link'
+import Image from 'next/image'
 import type { CSSProperties } from 'react'
 
 import { Screen } from '@/components/ui/ios'
@@ -56,10 +57,10 @@ export default async function HubPage() {
 
   return (
     <Screen width="full" background="bg" padX="none">
-      <div className="mx-auto flex w-full max-w-[1360px] flex-col gap-24 px-4 pb-24 pt-6 md:gap-[156px] md:pt-10 lg:px-10">
+      <div className="hub-reference mx-auto flex w-full max-w-[1360px] flex-col gap-24 px-4 pb-24 pt-6 md:gap-[156px] md:pt-10 lg:px-10">
         {/* ── 히어로 + 서명 줄 + 제품 액자 (참조 ThreeBHero 세 칸) ── */}
         <div className="flex flex-col gap-10 md:gap-12">
-          <section aria-label="오늘">
+          <section aria-label="오늘" className="hub-reference__intro">
             {/* 기출 이어서 — 멈춘 세트 · 오늘 복습이 있을 때만 선다(docs/csat/ia-design.md §3) */}
             <CsatContinueLine />
             {newest && (
@@ -79,10 +80,11 @@ export default async function HubPage() {
               className="vf-rise mt-7 max-w-[22ch] break-keep font-display text-[40px] font-[400] leading-[1.06] tracking-[-0.03em] text-[var(--t1)] md:text-[64px]"
               style={{ '--rise-delay': '50ms' } as CSSProperties}
             >
-              읽을 것, 외울 것, <br className="sm:hidden" />
+              <span className="lg:hidden">읽을 것, 외울 것, <br className="sm:hidden" />
               풀 것이
               <br />
-              한 서가에 있습니다.
+              한 서가에 있습니다.</span>
+              <span className="hidden lg:inline">읽고, 담고,<br />다시 만나요.</span>
             </h1>
             <p
               className="vf-rise mt-6 max-w-[56ch] break-keep font-serif text-[20px] leading-[1.35] text-[var(--ju)] md:text-[26px]"
@@ -101,6 +103,9 @@ export default async function HubPage() {
           </section>
 
           <TitleMarquee books={portal.newBooks} />
+          <div aria-hidden className="hub-reference__art hidden lg:block">
+            <Image src="/illustrations/tines/scene-journey-v5.png" alt="" width={1200} height={800} sizes="(min-width: 1440px) 700px, 50vw" className="h-full w-full object-contain" priority />
+          </div>
 
           <ProductFrame model={model} books={portal.newBooks} facts={portal.facts} />
         </div>
@@ -111,6 +116,8 @@ export default async function HubPage() {
             kicker="Vocaflow platforms"
             title={'한 서가에서, 다섯 갈래로\n이어 배웁니다.'}
             byline="읽기에서 담은 단어가 만화 · 기출 · 게임 · 단어장으로 그대로 이어집니다. 새로 시작할 필요가 없어요."
+            desktopTitle="골라서, 이어서 배워요."
+            desktopByline="한 글에서 읽기·단어·연습으로."
           />
           <div className="mt-12 md:mt-16">
             <ToneTabs label="Vocaflow 플랫폼" items={platformTabs(portal)} />
@@ -124,7 +131,7 @@ export default async function HubPage() {
 
         {/* ── 읽을거리 ── */}
         <section aria-label="읽을거리">
-          <SectionHead kicker="Read today" title="짧은 글로 매일 한 편." byline="원어민 낭독 · 쉬운 백과 · 과학 기사 · 논증문 — 지금 수준에서 읽히는 글부터 골라 드려요." />
+          <SectionHead kicker="Read today" title="짧은 글로 매일 한 편." byline="원어민 낭독 · 쉬운 백과 · 과학 기사 · 논증문 — 지금 수준에서 읽히는 글부터 골라 드려요." desktopByline="짧은 글 한 편, 듣고 읽어요." />
           <div className="mt-12 md:mt-16">
             <ReadingSection portal={portal} />
           </div>
@@ -132,7 +139,7 @@ export default async function HubPage() {
 
         {/* ── WHY + 보라 카드 (참조 HomeUSPSection) ── */}
         <section aria-label="왜 Vocaflow 인가">
-          <SectionHead kicker="Why Vocaflow?" title={'읽은 글이 그대로\n단어장이 됩니다.'} byline="모르는 단어를 따로 적지 않습니다. 글에서 담고, 기억이 흐려질 때쯤 다시 만나고, 같은 글로 확인합니다." />
+          <SectionHead kicker="Why Vocaflow?" title={'읽은 글이 그대로\n단어장이 됩니다.'} byline="모르는 단어를 따로 적지 않습니다. 글에서 담고, 기억이 흐려질 때쯤 다시 만나고, 같은 글로 확인합니다." desktopTitle="읽은 글이 내 단어장으로." desktopByline="문장 속에서 담고, 기억하며 다시 만나요." />
           <div className="mt-12 md:mt-16">
             <UspCards />
           </div>

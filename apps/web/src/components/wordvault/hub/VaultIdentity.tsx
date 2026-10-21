@@ -6,6 +6,7 @@
 import { ActivityRing, Capsule, Card, PrimaryButton, StatPill } from '@/components/ui/ios'
 import type { MemoryState } from '@/lib/srs'
 import { MEMORY_LABEL } from '@/lib/framework/memory-labels'
+import { BookmarkPlus, Library, ShieldCheck, Sparkles, Waves, type LucideIcon } from 'lucide-react'
 
 export interface VaultIdentityProps {
   total: number
@@ -19,6 +20,7 @@ export interface VaultIdentityProps {
 }
 
 const NF = new Intl.NumberFormat('en-US')
+const BUCKET_ICON: Record<MemoryState, LucideIcon> = { stable: ShieldCheck, shaky: Waves, risk: Sparkles, new: BookmarkPlus }
 
 // 4 메모리 상태 색 = iOS systemColor 1:1 (--memory-{stable/shaky/risk/new} 토큰과 정합)
 // 학습 효과 — 의미별 명확 매핑 (green=달성, orange=주의, red=회복, gray=중립)
@@ -72,7 +74,7 @@ export function VaultIdentity({
   }
 
   return (
-    <Card aria-label="내 어휘 자산" size="lg">
+    <Card aria-label="내 어휘 자산" size="lg" className="vault-reference__identity">
       {/* Hero row */}
       <div className="grid items-center gap-6 sm:grid-cols-[auto_1fr]">
         <ActivityRing
@@ -92,16 +94,21 @@ export function VaultIdentity({
             <span className="mb-2 font-body text-[14px] font-[500] text-[var(--t2)]">단어</span>
           </div>
 
-          <div className="flex flex-wrap items-center gap-2">
+          <div className="flex flex-wrap items-center gap-2 lg:hidden">
             {vLevel != null && <Capsule label="수준" value={`V${vLevel}`} tone="brand" />}
             <Capsule label="단어장" value={`${NF.format(collections)}권`} />
             <Capsule label="누적" value={`${NF.format(accumulatedDays)}일`} />
           </div>
+          <p className="hidden items-baseline gap-5 break-keep font-display text-[14px] text-[var(--ju)] lg:flex">
+            {vLevel != null && <span>수준 V{vLevel}</span>}
+            <span className="inline-flex items-center gap-2"><Library size={17} aria-hidden strokeWidth={1.5} />단어장 {NF.format(collections)}권</span>
+            <span>누적 {NF.format(accumulatedDays)}일</span>
+          </p>
         </div>
       </div>
 
       {/* 4 bucket — iOS Health Categories */}
-      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+      <div className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:hidden">
         {(['stable', 'shaky', 'risk', 'new'] as MemoryState[]).map((state) => {
           const meta = BUCKET_META[state]
           const count = buckets[state]
@@ -118,6 +125,23 @@ export function VaultIdentity({
           )
         })}
       </div>
+      <dl className="vault-reference__memory hidden lg:grid">
+        {(['stable', 'shaky', 'risk', 'new'] as MemoryState[]).map((state) => {
+          const Icon = BUCKET_ICON[state]
+          return (
+            <div key={state}>
+              <dt className="flex items-center gap-2 font-display text-[14px]">
+                <Icon aria-hidden size={22} strokeWidth={1.4} style={{ color: BUCKET_META[state].color }} />
+                {BUCKET_META[state].label}
+              </dt>
+              <dd className="mt-3 flex items-baseline gap-3 font-display text-[40px] font-[400] leading-none">
+                {NF.format(buckets[state])}
+                <span className="text-[13px]">{total > 0 ? Math.round(buckets[state] / total * 100) : 0}%</span>
+              </dd>
+            </div>
+          )
+        })}
+      </dl>
 
       {/* 이 화면의 1차 행동 — 상태와 무관하게 항상 브랜드 색(위 주석 참조) */}
       <PrimaryButton href={ctaHref} tone="brand" count={ctaCount} className="mt-5">

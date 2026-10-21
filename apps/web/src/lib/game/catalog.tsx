@@ -18,6 +18,8 @@
 import type { ReactNode } from 'react'
 
 import type { ArcadeGameId } from '@/components/game/_shared/gamekit'
+import { trackOf, type HubTrack } from './learning-tracks'
+export { trackOf, type HubTrack } from './learning-tracks'
 
 /** 카탈로그 전체 slug — ArcadeGameId(스캐폴드 17종) + 독립 3D 2종. */
 export type GameSlug = ArcadeGameId | 'wordblitz' | 'pirate-quest'
@@ -303,7 +305,6 @@ export const BANK_GAMES = GAME_CATALOG.filter((g) => g.source === 'bank')
 // 새 축은 **학습자가 무엇을 하는가** — 프로젝트 L계층의 진행(재인 → 생성 → 추론)과
 // 같은 순서다. 고를 때 실제로 궁금한 것이 "이게 내 단어를 쓰나"에서
 // "지금 나는 어떤 연습을 하고 싶나"로 바뀌었기 때문이다.
-export type HubTrack = 'recall' | 'produce' | 'reason'
 
 // v08.3 — 명칭을 영문 랩(lab) 체계로 정렬한다. 트랙은 이제 "구역(Bay)" 이고,
 // 각 구역은 하나의 인지 동사를 담당한다. 설명문은 한국어로 남긴다 —
@@ -340,33 +341,6 @@ export const HUB_TRACKS: {
   },
 ]
 
-/** slug → 트랙. layer 문자열 파싱 대신 명시 표로 둔다(오분류가 조용히 생기지 않게). */
-const TRACK_OF: Record<GameSlug, HubTrack> = {
-  // 재인·속사 — 보고 즉시 떠올리기
-  wordblitz: 'recall',
-  'ghost-race': 'recall',
-  'word-economy': 'recall',
-  'daily-blitz': 'recall',
-  cascade: 'recall',
-  'pirate-quest': 'recall',
-  // 생성 — 직접 만들어 내기(철자·형태소·발음)
-  'letter-forge': 'produce',
-  'wordsmith-vigil': 'produce',
-  morphmerge: 'produce',
-  'morpheme-rules': 'produce',
-  'silent-rule': 'produce',
-  'wordfall-cadence': 'produce',
-  // 추론 — 문맥·규칙·의미 관계
-  'glyph-tongue': 'reason',
-  'word-customs': 'reason',
-  connections: 'reason',
-  'lexicon-hands': 'reason',
-  'lexicon-detective': 'reason',
-  'lexicon-estate': 'reason',
-  'word-orrery': 'reason',
-}
-
-export const trackOf = (slug: GameSlug): HubTrack => TRACK_OF[slug]
 
 // ─── 허브 표시 단위 ───────────────────────────────────────────────
 //

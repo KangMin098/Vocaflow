@@ -34,13 +34,16 @@ export default function VideoIndexPage() {
   const total = ORDER.reduce((n, k) => n + byKind[k].length, 0)
 
   return (
-    <div className="pb-8">
+    <div className="video-reference pb-8">
       <Hero2Col
         kicker="영상"
         title={<>읽는 대신<br />봅니다.</>}
         sub="모든 수치는 화면에 출처가 함께 나옵니다."
         // 참조 머리 그림 = 진한 면 정사각 타일(꽃무늬는 홈 전용 — tines-mapping §20)
-        media={<Image src="/illustrations/tines/tile-video.webp" alt="" width={1328} height={1328} priority sizes="(min-width: 1024px) 460px, 80vw" className="mx-auto h-auto w-full max-w-[460px] rounded-[var(--r-2xl)]" />}
+        media={<>
+          <Image src="/illustrations/tines/tile-video.webp" alt="" width={1328} height={1328} priority sizes="(min-width: 1024px) 1px, 80vw" className="video-reference__original mx-auto h-auto w-full max-w-[460px] rounded-[var(--r-2xl)]" />
+          <Image src="/illustrations/tines/scene-video-v1.webp" alt="" width={1200} height={800} priority sizes="(min-width: 1024px) 560px, 1px" className="video-reference__scene" />
+        </>}
       />
 
       {!VIDEO_PUBLISHED || total === 0 ? (
@@ -64,7 +67,7 @@ export default function VideoIndexPage() {
               {byKind[kind].map((video) => (
                 <article key={video.id}>
                   <Frame>
-                    <ComponentVideo video={video} />
+                    <ComponentVideo video={video} posterFallback="/illustrations/tines/scene-video-v1.webp" />
                   </Frame>
                   {/*
                     제목이 **편별 페이지로 가는 링크**다. 그 페이지에 자막 전문이 서버 렌더로

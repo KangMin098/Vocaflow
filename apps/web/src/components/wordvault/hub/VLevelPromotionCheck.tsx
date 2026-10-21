@@ -78,7 +78,7 @@ export function VLevelPromotionCheck() {
   // promoted celebration
   if (result?.promoted) {
     return (
-      <div className="mt-3 flex items-center gap-3 rounded-[var(--r-md)] border border-[var(--active)]/40 bg-[var(--active-light)] p-4">
+      <div className="mt-3 flex items-center gap-3 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--active)_40%,transparent)] bg-[var(--active-light)] p-4">
         <Gwonjeom size={20} className="text-[var(--active)]" />
         <div className="flex-1">
           <p className="font-display text-[14px] font-[700] text-[var(--t1)]">

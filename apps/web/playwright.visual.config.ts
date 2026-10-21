@@ -2,13 +2,17 @@
 import { defineConfig } from '@playwright/test'
 import base from './playwright.config'
 
-const viewports = [
-  { width: 375, height: 812 },
-  { width: 390, height: 844 },
-  { width: 768, height: 1024 },
+// 디자인 범위는 PC 웹만이다(DESIGN.md · DD-83). 모바일·태블릿 프로젝트는 DESIGN_QA_MOBILE=1 일 때만 만든다.
+const pcViewports = [
   { width: 1280, height: 900 },
   { width: 1440, height: 900 },
 ]
+const mobileViewports = [
+  { width: 375, height: 812 },
+  { width: 390, height: 844 },
+  { width: 768, height: 1024 },
+]
+const viewports = process.env.DESIGN_QA_MOBILE === '1' ? [...mobileViewports, ...pcViewports] : pcViewports
 
 export default defineConfig({
   ...base,

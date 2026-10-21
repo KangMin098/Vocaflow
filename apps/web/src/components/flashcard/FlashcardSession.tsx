@@ -12,6 +12,7 @@ import { flushPendingSession } from '@/lib/srs/flush-session'
 import { Rating, applyReview, type RatingValue } from '@/lib/srs'
 import { pushPendingResult } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
+import { learnerModalOwnsKeyboard } from '@/lib/ui/learner-keyboard-scope'
 import type { FlashcardWord, PauseMessage, SRSRating } from '@/types/flashcard'
 
 import { Card } from './Card'
@@ -208,6 +209,7 @@ export function FlashcardSession({
   useEffect(() => {
     if (isComplete) return
     const handler = (e: KeyboardEvent) => {
+      if (learnerModalOwnsKeyboard()) return
       const target = e.target as HTMLElement
       if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
         return

@@ -16,7 +16,7 @@
 
 'use client'
 
-import { useCallback, useMemo, useState, useTransition } from 'react'
+import { useCallback, useMemo, useState, useTransition, type ReactNode } from 'react'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { BookOpen, Compass, PlayCircle, TrendingUp } from 'lucide-react'
@@ -70,6 +70,8 @@ import {
   type EnrollFilter,
 } from './BookFilterBar'
 import { BookQuickPicks } from './BookQuickPicks'
+import { FeaturedBookCard } from './FeaturedBookCard'
+import { LibraryTabs } from '@/components/library/LibraryTabs'
 
 const SPOTLIGHT_N = 10
 const RAIL_N = 12
@@ -142,6 +144,8 @@ interface Props {
   userMastery: UserMastery
   /** `?show=all` 로 들어왔는가 — 그러면 전체 탐색 그리드를 처음부터 전량 그린다. */
   showAll?: boolean
+  header?: ReactNode
+  feature?: ReactNode
 }
 
 function nullsLast(a: number | null | undefined, b: number | null | undefined, dir: 1 | -1) {
@@ -153,7 +157,7 @@ function nullsLast(a: number | null | undefined, b: number | null | undefined, d
   return (av - bv) * dir
 }
 
-export function BooksExplorer({ books, userVLevel, userMastery, showAll = false }: Props) {
+export function BooksExplorer({ books, userVLevel, userMastery, showAll = false, header, feature }: Props) {
   const router = useRouter()
   const diagnosed = userVLevel >= 1
   const ctx = useMemo(() => ({ userVLevel, userMastery }), [userVLevel, userMastery])
@@ -425,16 +429,27 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
   }
 
   if (books.length === 0) {
-    return <LibraryGrid books={[]} userVLevel={userVLevel} />
+    return <>{header}{feature}<LibraryGrid books={[]} userVLevel={userVLevel} /></>
   }
 
+  const filtering = showAll || Object.values(filters).some((value) => value !== null && value !== false && value !== '')
+
   return (
-    <div className="flex flex-col gap-8">
+    <div className="books-reference" data-filtering={filtering}>
+      <aside aria-label="도서 검색과 분류" className="books-reference__rail hidden lg:block">
+        <BookFilterBar variant="rail" filters={filters} onChange={patchFilters} sort={sort} onSortChange={applySort}
+          resultCount={visible.length} totalCount={books.length} facets={facets} diagnosed={diagnosed}
+          userVLevel={userVLevel} onReset={() => applyFilters(EMPTY_FILTERS)} navigation={<LibraryTabs variant="rail" />} />
+      </aside>
+      <div className="books-reference__body flex min-w-0 flex-col gap-8 lg:gap-0">
+      <div className="books-reference__hero">{header}</div>
+      {feature && <div className="books-reference__comic">{feature}</div>}
+      <div className="books-reference__recommendations flex flex-col gap-8">
       {/* 미진단 cold-start 배너 */}
       {!diagnosed && (
         <Link
           href="/diagnostic"
-          className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-[var(--p)]/40 bg-[var(--p-light)]/50 px-4 py-3 transition-colors hover:bg-[var(--p-light)]"
+          className="flex items-center justify-between gap-3 rounded-[var(--r-lg)] border border-dashed border-[color-mix(in_srgb,var(--p)_40%,transparent)] bg-[color-mix(in_srgb,var(--p-light)_50%,transparent)] px-4 py-3 transition-colors hover:bg-[var(--p-light)]"
         >
           {/* ⚠️ 390px 실측(2026-09-16): 이 줄이 «레벨을 진단하 / 면», «을 추천해드려 / 요.» 로
               **낱말 가운데서 끊겼다.** 원인은 폭이 아니라 `inline-flex` 다 — 문장 안의
@@ -456,8 +471,14 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
       )}
 
       {/* ① Spotlight — For You 코버플로우 (LibraryGrid 재사용, 자체 sheet) */}
-      <section aria-label="오늘의 추천">
+      <section aria-label="오늘의 추천" className="lg:hidden">
         <LibraryGrid books={spotlight} userVLevel={userVLevel} />
+      </section>
+      <section aria-label="추천 도서" className="books-reference__section hidden lg:block">
+        <h2 className="flex items-center gap-3"><BookOpen aria-hidden size={26} strokeWidth={1.4} />추천 도서</h2>
+        <div className="books-reference__grid">
+          {spotlight.map((book) => <FeaturedBookCard key={book.id} book={book} onOpen={openDetail} />)}
+        </div>
       </section>
 
       {/* ② Rails */}
@@ -501,93 +522,105 @@ export function BooksExplorer({ books, userVLevel, userMastery, showAll = false 
         reasonsByBook={reasonsByBook}
         onOpen={openDetail}
       />
+      </div>
 
       {/* ③ Browse — 전체 탐색 */}
-      <section className="flex flex-col gap-4" aria-label="전체 도서 탐색">
+      {/* id=browse — 서가 머리의 「전체 탐색 ↓」 링크 목적지. scroll-mt 는 고정 헤더(88px)에 제목이 가리지 않게 */}
+      <section id="browse" className="books-reference__catalogue flex scroll-mt-[96px] flex-col gap-4" aria-label="전체 도서 탐색">
         <h2 className="font-display text-[15px] font-[700] text-[var(--t1)]">전체 탐색</h2>
 
-        <BookQuickPicks
-          filters={filters}
-          sort={sort}
-          diagnosed={diagnosed}
-          hasAudio={facets.hasAudio}
-          hasComic={facets.hasComic}
-          onApply={(f, s) => {
-            setFiltersState(f)
-            setSortState(s)
-            writeConditionParams(f, s)
-          }}
-        />
+        {/* 왼쪽 조건 레일 + 오른쪽 결과 — 참조 tines.com/library 의 「검색·분류 레일 288px + 본문」(1440 실측: 레일 x40 w288,
+            본문 x400). 이전에는 조건 8줄(약 630px)이 결과 위를 막아 책 격자가 세 번째 화면에서야 시작했다(y 3137). */}
+        <div className="books-reference__catalogue-layout flex flex-col gap-4">
+          <aside aria-label="도서 조건" className="lg:sticky lg:top-[88px] lg:max-h-[calc(100dvh-104px)] lg:overflow-y-auto lg:pb-4 lg:pr-1">
+            <BookFilterBar
+              variant="rail"
+              filters={filters}
+              onChange={patchFilters}
+              sort={sort}
+              onSortChange={applySort}
+              resultCount={visible.length}
+              totalCount={books.length}
+              facets={facets}
+              diagnosed={diagnosed}
+              userVLevel={userVLevel}
+              onReset={() => applyFilters(EMPTY_FILTERS)}
+            />
+          </aside>
+          <div className="flex min-w-0 flex-col gap-4">
+            <BookQuickPicks
+              filters={filters}
+              sort={sort}
+              diagnosed={diagnosed}
+              hasAudio={facets.hasAudio}
+              hasComic={facets.hasComic}
+              onApply={(f, s) => {
+                setFiltersState(f)
+                setSortState(s)
+                writeConditionParams(f, s)
+              }}
+            />
 
-        <BookFilterBar
-          filters={filters}
-          onChange={patchFilters}
-          sort={sort}
-          onSortChange={applySort}
-          resultCount={visible.length}
-          totalCount={books.length}
-          facets={facets}
-          diagnosed={diagnosed}
-          userVLevel={userVLevel}
-          onReset={() => applyFilters(EMPTY_FILTERS)}
-        />
-
-        {visible.length === 0 ? (
-          <SpotState
-            art="search"
-            role="status"
-            title="조건에 맞는 도서가 없어요"
-            secondary={{ label: '필터 초기화', onClick: () => applyFilters(EMPTY_FILTERS) }}
-          />
-        ) : (
-          <>
-            <div
-              role="list"
-              className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6"
-            >
-              {visible.slice(0, shown).map((book) => (
-                <div role="listitem" key={book.id}>
-                  <BookGridCard
-                    book={book}
-                    userVLevel={userVLevel}
-                    reasons={reasonsByBook.get(book.id)}
-                    onOpen={openDetail}
-                  />
+            {visible.length === 0 ? (
+              <SpotState
+                art="search"
+                role="status"
+                title="조건에 맞는 도서가 없어요"
+                secondary={{ label: '필터 초기화', onClick: () => applyFilters(EMPTY_FILTERS) }}
+              />
+            ) : (
+              <>
+                <div
+                  role="list"
+                  // 열 수는 화면 폭이 아니라 결과 칸 폭으로 정한다 — 레일 옆 칸은 1440 에서 약 1000, 1280 에서 약 850 이다.
+                  className="grid grid-cols-2 gap-x-4 gap-y-6 sm:grid-cols-[repeat(auto-fill,minmax(150px,1fr))]"
+                >
+                  {visible.slice(0, shown).map((book) => (
+                    <div role="listitem" key={book.id}>
+                      <BookGridCard
+                        book={book}
+                        userVLevel={userVLevel}
+                        reasons={reasonsByBook.get(book.id)}
+                        onOpen={openDetail}
+                      />
+                    </div>
+                  ))}
                 </div>
-              ))}
-            </div>
 
-            {/* 접힌 나머지 — 몇 권이 더 있는지 **숫자로** 말한다.
-                "더 보기" 만 있으면 얼마나 남았는지 몰라 계속 누를지 판단할 수 없다. */}
-            {visible.length > shown && (
-              <div className="flex flex-col items-center gap-2 pt-2">
-                <button
-                  type="button"
-                  onClick={showMore}
-                  className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-                >
-                  {Math.min(GRID_PAGE, visible.length - shown)}권 더 보기
-                </button>
-                <p aria-live="polite" className="font-mono text-[11px] text-[var(--t2)]">
-                  {shown} / {visible.length}
-                </p>
-                {/* 전량으로 가는 **진짜 주소**. 버튼은 JS 가 있어야 듣지만 이건 링크라
-                    크롤러도 따라온다 — sitemap 이 알린 도서가 고아가 되지 않게 하는 길이다
-                    (위 GRID_PAGE 주석의 33-public-surface 계약). */}
-                <Link
-                  href={`/library/books?${SHOW_ALL_PARAM}=${SHOW_ALL_VALUE}`}
-                  className="min-h-11 items-center font-display text-[12px] font-[600] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] inline-flex"
-                >
-                  전체 {books.length}권 한 번에 보기
-                </Link>
-              </div>
+                {/* 접힌 나머지 — 몇 권이 더 있는지 **숫자로** 말한다.
+                    "더 보기" 만 있으면 얼마나 남았는지 몰라 계속 누를지 판단할 수 없다. */}
+                {visible.length > shown && (
+                  <div className="flex flex-col items-center gap-2 pt-2">
+                    <button
+                      type="button"
+                      onClick={showMore}
+                      className="min-h-11 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[13px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] active:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                    >
+                      {Math.min(GRID_PAGE, visible.length - shown)}권 더 보기
+                    </button>
+                    <p aria-live="polite" className="font-mono text-[11px] text-[var(--t2)]">
+                      {shown} / {visible.length}
+                    </p>
+                    {/* 전량으로 가는 **진짜 주소**. 버튼은 JS 가 있어야 듣지만 이건 링크라
+                        크롤러도 따라온다 — sitemap 이 알린 도서가 고아가 되지 않게 하는 길이다
+                        (위 GRID_PAGE 주석의 33-public-surface 계약). */}
+                    <Link
+                      href={`/library/books?${SHOW_ALL_PARAM}=${SHOW_ALL_VALUE}`}
+                      className="min-h-11 items-center font-display text-[12px] font-[600] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] inline-flex"
+                    >
+                      전체 {books.length}권 한 번에 보기
+                    </Link>
+                  </div>
+                )}
+              </>
             )}
-          </>
-        )}
+          </div>
+        </div>
       </section>
 
       {/* rail/그리드 공용 상세 sheet (spotlight 은 LibraryGrid 자체 sheet) */}
       <NetflixDetailSheet variant={detail} onClose={() => setDetail(null)} />
+      </div>
     </div>
   )
 }

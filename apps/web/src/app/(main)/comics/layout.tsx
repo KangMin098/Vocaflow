@@ -8,7 +8,7 @@ import { ComicsTabs } from '@/components/comic/ComicsTabs'
 export default function ComicsLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
-      <div className="mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5">
+      <div data-area-layout className="mx-auto w-full max-w-[var(--ios-content-wide-max)] px-4 pt-4 md:px-6 md:pt-5 lg:[body:has([data-shelf-wide])_&]:max-w-[var(--content-shelf-max)] lg:[body:has([data-shelf-wide])_&]:px-10">
         <ComicsTabs />
       </div>
       {children}

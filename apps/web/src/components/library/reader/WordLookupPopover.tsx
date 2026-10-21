@@ -11,15 +11,18 @@
 
 import { lookupWord, type WordLookup } from '@/lib/library/reader-queries'
 import { createClient } from '@/lib/supabase/client'
-import { Volume2, X } from 'lucide-react'
+import { CircleAlert, RotateCw, Volume2, X } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
 import { RegisterBadge } from '@/components/library/RegisterBadge'
 import { PosBadge } from '@/components/library/PosBadge'
+import { POPOVER_CARD } from '@/components/ui/tines-kit'
 
 interface WordLookupPopoverProps {
   surface: string
   anchorRect: DOMRect
   onClose: () => void
+  /** Learner PC surfaces only; admin and small-screen dimensions are preserved. */
+  desktopLearner?: boolean
 }
 
 const POPOVER_W = 288
@@ -57,15 +60,18 @@ const LANG_META: Record<string, { label: string; flag: string; locale: string }>
   xx: { label: '외국어', flag: '🌐', locale: 'en' },
 }
 
-export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPopoverProps) {
+export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner = false }: WordLookupPopoverProps) {
   const [result, setResult] = useState<WordLookup | null>(null)
   const [loading, setLoading] = useState(true)
+  const [failed, setFailed] = useState(false)
+  const [attempt, setAttempt] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
 
   // fetch
   useEffect(() => {
     let cancelled = false
     setLoading(true)
+    setFailed(false)
     setResult(null)
     const client = createClient()
     lookupWord(client, surface)
@@ -73,7 +79,10 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
         if (!cancelled) setResult(r)
       })
       .catch(() => {
-        if (!cancelled) setResult(null)
+        if (!cancelled) {
+          setResult(null)
+          setFailed(true)
+        }
       })
       .finally(() => {
         if (!cancelled) setLoading(false)
@@ -81,7 +90,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
     return () => {
       cancelled = true
     }
-  }, [surface])
+  }, [surface, attempt])
 
   // close on Esc / scroll / outside click
   useEffect(() => {
@@ -128,7 +137,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
       ref={ref}
       role="dialog"
       aria-label={`${surface} 뜻`}
-      className="fixed z-[120] rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-lg)]"
+      className={`fixed z-[120] ${POPOVER_CARD}`}
       style={{ left, top, bottom, width: POPOVER_W }}
     >
       {/* header — 단어 + 발음 + 닫기 */}
@@ -140,7 +149,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
           type="button"
           onClick={() => speak(headWord)}
           aria-label="발음 듣기"
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--p-light)] text-[var(--on-p-tint)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--p)] hover:text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${desktopLearner ? 'lg:h-11 lg:w-11' : ''}`}
         >
           <Volume2 size={14} aria-hidden />
         </button>
@@ -148,7 +157,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
           type="button"
           onClick={onClose}
           aria-label="닫기"
-          className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${desktopLearner ? 'lg:h-11 lg:w-11' : ''}`}
         >
           <X size={14} aria-hidden />
         </button>
@@ -161,6 +170,27 @@ export function WordLookupPopover({ surface, anchorRect, onClose }: WordLookupPo
             <span className="h-3.5 w-3.5 animate-pulse rounded-full bg-[var(--bg3)]" />
             <span className="font-body text-[12px] text-[var(--t2)]">찾는 중…</span>
           </div>
+        ) : failed && desktopLearner ? (
+          <>
+            <div className="hidden lg:block" role="status">
+              <p className="flex items-center gap-2 font-body text-[13px] font-[600] text-[var(--t1)]">
+                <CircleAlert size={16} className="shrink-0" aria-hidden />
+                뜻을 불러오지 못했어요
+              </p>
+              <p className="mt-2 break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">
+                연결 상태를 확인하고 다시 시도해 주세요.
+              </p>
+              <button
+                type="button"
+                onClick={() => setAttempt((value) => value + 1)}
+                className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border border-[var(--bd)] px-3 font-body text-[12px] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+              >
+                <RotateCw size={14} aria-hidden />
+                뜻 다시 불러오기
+              </button>
+            </div>
+            <div className="lg:hidden"><NotFoundBody /></div>
+          </>
         ) : result?.found && isSuggestion ? (
           <SuggestionBody result={result} />
         ) : result?.found ? (

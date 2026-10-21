@@ -4,6 +4,7 @@
 // Server Component: 본인 snapshots 조회 → 클라이언트 timeline 렌더
 
 import Link from 'next/link'
+import Image from 'next/image'
 import { ArrowLeft } from 'lucide-react'
 
 import { Card, Screen } from '@/components/ui/ios'
@@ -43,8 +44,8 @@ export default async function DiagnosticHistoryPage() {
 
   return (
     <Screen width="content" background="bg2" padX="md">
-      <div className="flex flex-col gap-5 py-6 md:py-8">
-        <header className="px-1">
+      <div className="history-reference flex flex-col gap-5 py-6 md:py-8">
+        <header className="account-reference__intro px-1">
           {/* 되돌아가는 링크는 이 화면의 유일한 앞길이다 — 히트 영역 44px 확보
               (실측 2026-08-25: 126×20 이었다). 세로 여백은 음수 마진으로 되받아
               제목과의 간격을 유지한다. */}
@@ -59,8 +60,10 @@ export default async function DiagnosticHistoryPage() {
             V-Level 변천사
           </h1>
           <p className="mt-2 font-body text-[14px] text-[var(--t2)]">
-            진단·학습·수동 갱신의 audit chain — 시간 순으로 V-Level 변화 추적
+            <span className="lg:hidden">진단·학습·수동 갱신의 audit chain — 시간 순으로 V-Level 변화 추적</span>
+            <span className="hidden lg:inline">진단·학습으로 달라진 수준을 시간 순으로 확인해요.</span>
           </p>
+          <Image src="/illustrations/tines/scene-history-route-v1.webp" alt="" width={1200} height={800} sizes="320px" className="account-reference__scene hidden lg:block" />
         </header>
 
         {error && (

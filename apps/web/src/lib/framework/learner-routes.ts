@@ -434,10 +434,20 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
   },
   ...arcadeRoutes,
   { path: '/practice', screen: 'practice', label: 'Practice', group: 'main', kind: 'screen' },
+  // 2026-10-19 — 안내(문항 없음 · 오늘 완료)와 세션을 주소로 나눴다. 풀 문항이 있으면 안내가 세션으로 넘긴다(from 유지).
   {
     path: '/practice/dcp',
     screen: 'practice-dcp',
     label: '구문 연습',
+    says: '오늘 풀 구문 연습이 있는지 알려 준다.',
+    group: 'main',
+    kind: 'screen',
+    section: '연습과 세션',
+  },
+  {
+    path: '/practice/dcp/session',
+    screen: 'practice-dcp-session',
+    label: '구문 연습 세션',
     says: '문장 구조를 직접 조립한다.',
     group: 'main',
     kind: 'session',

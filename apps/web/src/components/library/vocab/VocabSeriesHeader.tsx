@@ -51,6 +51,8 @@ export function VocabSeriesHeader({
         title="단어장"
         sub="한 낱말을 여러 각도로 다시 만나게 엮은 서가입니다. 뜻마다 예문을 따로 두고, 함께 쓰이는 말과 갈라져 나온 말을 같이 싣습니다."
         tile="tile-decks"
+        desktopScene="scene-vault-v4"
+        desktopSub="예문과 함께 익히는 주제별 단어장."
         tint={MATERIAL_TONE.word_set.tint}
         stats={[
           { label: '전체', value: `${totalVolumes}권` },
@@ -101,6 +103,8 @@ function RungTile({
       // 내 계단은 테두리 + 글자 + `aria-current` 3중으로 말한다. 색 하나로만 가르면
       // 색맹 학습자에게는 아무 표시도 없는 것과 같다.
       aria-current={isLearner ? 'step' : undefined}
+      data-learner-tone={MATERIAL_TONE.word_set.tint}
+      data-learner-stage
       // DD-68 · tines-mapping §17 — 참조 격자처럼 칸마다 옅은 면을 돌린다(면 안 글자는 그 색상의 짙은 글자).
       className={`${TINT_CLASS[TINT_ROTATION[(step - 1) % TINT_ROTATION.length]]} flex min-w-[104px] flex-col gap-1 rounded-[12px] border px-3 py-2.5 transition-colors ${
         isLearner ? 'border-[var(--t1)] ring-2 ring-[var(--t1)]' : 'border-transparent'

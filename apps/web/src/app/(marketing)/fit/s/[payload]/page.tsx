@@ -11,6 +11,7 @@
 
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Image from 'next/image'
 
 import { PublicFitClient } from '@/components/textfit/PublicFitClient'
 import { absoluteUrl } from '@/lib/seo/site'
@@ -59,17 +60,20 @@ export default function SharedFitPage({ params }: Params) {
   if (!shared) notFound()
 
   return (
-    <div className="mx-auto max-w-3xl px-6 py-12 md:py-16">
-      <header className="mb-9 flex flex-col gap-3">
+    <div className="fit-reference fit-reference--shared mx-auto max-w-3xl px-6 py-12 md:py-16">
+      <header className="fit-reference__hero mb-9 flex flex-col gap-3">
+        <div className="flex flex-col gap-3">
         <p className="m-0 font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--p)]">
           공유받은 결과
         </p>
-        <h1 className="m-0 text-balance font-editorial text-[28px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[34px]">
+        <h1 className="m-0 break-keep text-balance font-editorial text-[28px] font-[800] leading-[1.2] tracking-[-0.03em] text-[var(--t1)] md:text-[34px]">
           {profileHeadline(shared)}
         </h1>
         <p className="m-0 max-w-[52ch] font-body text-[15px] leading-[1.75] text-[var(--t2)]">
           아래에 <b>직접 지문을 넣으면</b> 내 기준으로 다시 계산돼요. 가입도, 설치도 필요 없습니다.
         </p>
+        </div>
+        <Image src="/illustrations/tines/scene-journey-v5.png" alt="" width={1200} height={800} sizes="(min-width: 1024px) 440px, 50vw" className="reference-scene hidden lg:block" />
       </header>
 
       <PublicFitClient initialShared={shared} />

@@ -29,6 +29,9 @@
 //   게임 정의(이름·무드·마크·소스)는 lib/game/catalog 단일 출처 — 이 파일은 배치만 한다.
 
 import Link from 'next/link';
+import Image from 'next/image';
+// PC 목록 전용 표현. 실제 게임 세션 스타일은 기존 값을 유지한다.
+import '@/components/game/arcade-reference.css';
 import type { CSSProperties } from 'react';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
@@ -240,7 +243,7 @@ export default async function ArcadePage({
   const dailyTrack = HUB_TRACKS.find((t) => t.key === trackOf(daily.slug));
 
   return (
-    <div className="arc-scene">
+    <div className="arc-scene arc-reference">
       <style dangerouslySetInnerHTML={{ __html: ARC_CSS + COURSE_CSS }} />
       <div className="arc-glow" aria-hidden="true" />
       <div className="arc-grain" aria-hidden="true" />
@@ -248,12 +251,16 @@ export default async function ArcadePage({
 
       <div className="arc-inner">
         <header className="arc-head">
-          <p className="arc-eyebrow">Vocaflow Research Division · {GAME_COUNT} Experiments</p>
+          <div>
+          <p className="arc-eyebrow"><span className="lg:hidden">Vocaflow Research Division · {GAME_COUNT} Experiments</span><span className="hidden lg:block">단어 연습 · {GAME_COUNT}가지 게임</span></p>
           <h1 className="arc-title">Game Lab</h1>
           <p className="arc-sub">
-            단어를 실험하는 곳. 구역마다 다른 장치가 놓여 있고, 저마다 다른 것을 걸게 합니다 —
-            시계 · 거리 · 자본 · 박(拍).
+            <span className="lg:hidden">단어를 실험하는 곳. 구역마다 다른 장치가 놓여 있고, 저마다 다른 것을 걸게 합니다 —
+            시계 · 거리 · 자본 · 박(拍).</span>
+            <span className="hidden lg:block">떠올리고, 만들고, 추론하며 단어를 익혀요.</span>
           </p>
+          </div>
+          <Image src="/illustrations/tines/scene-arcade-lab-v1.webp" alt="" width={1536} height={1024} sizes="(min-width: 1024px) 440px, 50vw" className="reference-scene hidden lg:block" />
         </header>
 
         <ArcadeMetaStrip />
@@ -302,6 +309,7 @@ export default async function ArcadePage({
         {/* 코스 — "이 자료로는 이 순서로". 19장을 깔기 **전에** 답을 하나 준다.
             근거(자료별 신호·풀 크기 실측)는 lib/game/sets.ts 헤더에 있다. */}
         <CourseBoard
+          catalogPresentation
           resolved={resolved}
           scope={{ ...scopedHref(scope) }}
           resourceLabel={courseResourceLabel}
@@ -452,6 +460,7 @@ function DailyPick({
       {hasBrief(game.slug) && (
         <div className="arc-daily-aside">
           <BriefButton
+            catalogPresentation
             variant="pill"
             subject={game.name}
             // 오늘의 추천이 격자에도 있는 게임이면 같은 이름의 트리거가 둘이 된다 — 자리를 밝힌다.
@@ -577,7 +586,7 @@ function GameCard({ game: g, scope, code }: { game: GameEntry; scope: HubScope; 
         </div>
       </Link>
       {hasBrief(g.slug) && (
-        <BriefButton subject={g.name} entries={[{ slug: g.slug, href, code }]} />
+        <BriefButton catalogPresentation subject={g.name} entries={[{ slug: g.slug, href, code }]} />
       )}
     </div>
   );
@@ -651,7 +660,7 @@ function FamilyCard({
         </div>
       </div>
       {entries.length > 0 && (
-        <BriefButton subject={f.name} familyName={f.name} entries={entries} />
+        <BriefButton catalogPresentation subject={f.name} familyName={f.name} entries={entries} />
       )}
     </div>
   );

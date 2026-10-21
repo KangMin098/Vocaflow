@@ -23,6 +23,8 @@
 //    자물쇠·비활성·"아직 못 함" 이 없다. 전부 언제나 눌린다.
 
 import Link from 'next/link'
+import Image from 'next/image'
+import '@/components/layout/sitemap-reference.css'
 
 import { Screen } from '@/components/ui/ios'
 import {
@@ -58,6 +60,7 @@ function itemNote(item: NavItem): string | null {
 
 function ItemRow({ item, depth = 0 }: { item: NavItem; depth?: number }) {
   const note = itemNote(item)
+  const Icon = item.icon
 
   return (
     <li className={depth > 0 ? 'border-l border-[var(--bd)] pl-4' : undefined}>
@@ -66,6 +69,7 @@ function ItemRow({ item, depth = 0 }: { item: NavItem; depth?: number }) {
         className="flex min-h-[44px] flex-col justify-center gap-1 rounded-[var(--r-md)] px-2 py-2 no-underline transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] active:bg-[var(--bg3)]"
       >
         <span className="font-display text-[14px] font-[700] leading-[1.5] text-[var(--t1)]">
+          <Icon className="sitemap-reference__icon" size={22} strokeWidth={1.5} aria-hidden />
           {item.label}
         </span>
         {note && (
@@ -88,16 +92,18 @@ function ItemRow({ item, depth = 0 }: { item: NavItem; depth?: number }) {
 function Block({
   title,
   note,
+  step,
   children,
 }: {
   title: string
   note?: string
+  step?: string
   children: React.ReactNode
 }) {
   return (
-    <section className="rounded-ios-2xl bg-[var(--bg)] px-4 py-4 shadow-ios-2 md:px-6 md:py-5">
+    <section className="sitemap-reference__group rounded-ios-2xl bg-[var(--bg)] px-4 py-4 shadow-ios-2 md:px-6 md:py-5">
       <h2 className="font-editorial text-[18px] font-[500] leading-[1.4] tracking-[-0.014em] text-[var(--t1)]">
-        {title}
+        {step && <span className="sitemap-reference__step">{step}. </span>}{title}
       </h2>
       {note && (
         <p className="mt-1 font-body text-[12.5px] leading-[1.7] text-[var(--t2)] [word-break:keep-all]">
@@ -112,8 +118,9 @@ function Block({
 export default function SitemapPage() {
   return (
     <Screen width="wide" background="bg2" padX="md" asMain={false}>
-      <div className="flex flex-col gap-3 py-6 md:py-8">
-        <header className="flex flex-col gap-2">
+      <div className="sitemap-reference flex flex-col gap-3 py-6 md:py-8">
+        <header className="sitemap-reference__head flex flex-col gap-2">
+          <div>
           <h1 className="font-editorial text-[26px] font-[500] leading-[1.25] tracking-[-0.014em] text-[var(--t1)] md:text-[30px]">
             전체 보기
           </h1>
@@ -122,6 +129,8 @@ export default function SitemapPage() {
             <strong className="font-display text-[var(--t1)]">순서</strong>대로 이어지지만,
             잠긴 곳은 없습니다 — 어디든 바로 갈 수 있어요.
           </p>
+          </div>
+          <Image src="/illustrations/tines/scene-journey-v5.png" alt="" width={1200} height={800} sizes="(min-width: 1024px) 400px, 1px" className="sitemap-reference__scene" />
         </header>
 
         {/* 메타 표면 둘 — 앞을 보는 자리(Today)와 뒤를 보는 자리(Growth). 레일 밖이다. */}
@@ -137,7 +146,8 @@ export default function SitemapPage() {
         {NAV_GROUPS.map((group) => (
           <Block
             key={group.flowStage}
-            title={`${group.step}. ${group.label}`}
+            title={group.label}
+            step={String(group.step)}
             note={group.says}
           >
             <ul className="flex flex-col gap-1">

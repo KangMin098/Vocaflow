@@ -10,6 +10,8 @@
 
 ## 0. 한 장 요약
 
+> **적용 범위(2026-10-03 사용자 결정 · DD-83)**: 이 지도는 `/csat*`·`/admin*` 를 뺀 **PC 웹 전 화면**(공개·인증·학습·게임·계정)에 쓴다. `/csat*`·`/admin*` 는 3B 앱 기준([DESIGN.md](../../DESIGN.md)). 아래 상태(✅◐○)는 2026-09 기록이며 현재 검증 상태는 [learner-tines-audit](./learner-tines-audit.md)를 본다. 모바일 서랍·390 관련 행은 디자인 범위 밖이다.
+
 | 층 | 참조 | 우리 대응 | 상태 |
 |---|---|---|---|
 | 전역 틀 | 알약 내비 + 메가메뉴 3 + 검색 모달 + 모바일 서랍 + 71링크 푸터 + 쿠키 배너 | 공개: `components/marketing/site/*`(랜딩 + `(marketing)/layout.tsx` 공통) · 학습자: `Sidebar` · `MobileTabBar` | ✅ 공개 화면 (검색 제외) |

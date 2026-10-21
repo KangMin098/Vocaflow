@@ -1,19 +1,27 @@
 // apps/web/src/app/(auth)/layout.tsx
-// 인증 페이지 공통 레이아웃 — Parts Kit + Linear/Vercel 미니멀 접목
-//   - 차분한 배경 (--bg)
-//   - 미니멀 헤더 (로고만)
-//   - 충분한 여백
+// 인증 페이지 공통 레이아웃 — PC Tines 열린 지면·자체 계정 삽화·명확한 입력면.
+// 폼/인증 로직은 각 페이지가 소유하고, PC 표현은 auth-reference.css가 소유한다.
 
 'use client'
 
 import { Moon, Sun } from 'lucide-react'
 import Image from 'next/image'
 import Link from 'next/link'
+import { usePathname } from 'next/navigation'
+import '@/components/layout/auth-reference.css'
 
 import { LogoMark } from '@/components/marketing/site/LogoMark'
 import { useEffect, useState } from 'react'
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
+  const pathname = usePathname()
+  const intro = pathname === '/signup'
+    ? { title: '읽고, 익히고, 내 것으로.', body: '한 계정으로 읽기와 단어 학습을 이어가세요.' }
+    : pathname === '/reset-password'
+      ? { title: '다시 이어갈 수 있어요.', body: '이메일로 계정을 확인하고 비밀번호를 다시 설정해요.' }
+      : pathname === '/verify-email'
+        ? { title: '메일함에서 한 번만 더.', body: '인증 링크를 확인하면 학습을 시작할 수 있어요.' }
+        : { title: '읽던 곳에서 이어가요.', body: '모아 둔 단어와 읽던 이야기가 기다리고 있어요.' }
   const [theme, setTheme] = useState<'light' | 'dark'>('light')
 
   // ⚠️ **저장값이 없을 때 `'light'` 로 접지 않는다.**
@@ -42,10 +50,11 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
   }
 
   return (
-    <div className="flex min-h-screen flex-col bg-bg">
+    <div className="auth-reference flex min-h-screen flex-col bg-bg">
       {/* ── Header — 미니멀 ── */}
       <header className="border-b border-bd">
-        <div className="mx-auto flex max-w-6xl items-center justify-between px-s-6 py-s-4">
+        {/* 본문(main · max 1360 · lg:px-10)과 같은 틀 — 예전 max-w-6xl 은 로고 x≈168 · 폼 x=80 으로 시작선이 갈렸다(2026-10-19 실측) */}
+        <div className="mx-auto flex w-full max-w-[1360px] items-center justify-between px-4 py-s-4 lg:px-10">
           {/* 로고 */}
           <Link
             href="/"
@@ -74,11 +83,16 @@ export default function AuthLayout({ children }: { children: React.ReactNode }) 
       </header>
 
       {/* ── Main ── */}
-      {/* 참조 문의 폼 골격(DD-68 · tines-mapping §18): 왼쪽 폼 · 오른쪽 틴트 면 위 물건 소품(열린 문). 390 에서는 폼만. */}
-      <main className="mx-auto grid w-full max-w-[1360px] flex-1 items-center gap-10 px-4 py-8 sm:py-12 lg:grid-cols-[minmax(0,28rem)_1fr] lg:gap-16 lg:px-10">
-        <div className="w-full max-w-md justify-self-center lg:justify-self-start">{children}</div>
-        <div aria-hidden className="tone-green hidden min-h-[440px] items-center justify-center overflow-hidden rounded-[var(--r-2xl)] p-10 lg:flex">
-          <Image src="/illustrations/tines/spot-welcome.webp" alt="" width={1328} height={1328} sizes="320px" className="h-auto w-[300px] select-none" />
+      {/* 기존 작은 화면의 카드 구조를 유지한다. PC는 최신 사용자 지시에 따라
+          열린 안내/자체 삽화와 폼 두 열로 표시하며, 중첩 Card의 테두리·그림자는 끈다. */}
+      <main className="mx-auto flex w-full max-w-[1360px] flex-1 items-center justify-center px-4 py-8 sm:py-12 lg:px-10">
+        <div className="auth-reference__grid grid w-full max-w-[920px] overflow-hidden rounded-[16px] border border-[color-mix(in_srgb,var(--ju)_14%,transparent)] bg-[var(--bg)] shadow-[0_20px_60px_color-mix(in_srgb,var(--t1)_5%,transparent)] lg:grid-cols-[minmax(0,1fr)_minmax(0,28rem)]">
+          <div className="auth-reference__art tone-green hidden items-center justify-center p-10 lg:flex">
+            <div className="hidden lg:block"><h2>{intro.title}</h2><p>{intro.body}</p></div>
+            <Image src="/illustrations/tines/spot-welcome.webp" alt="" width={1328} height={1328} sizes="280px" className="h-auto w-[260px] select-none" />
+            <Image src="/illustrations/tines/scene-auth-v1.webp" alt="" width={1200} height={800} sizes="(min-width: 1024px) 520px, 50vw" className="reference-scene hidden select-none lg:block" />
+          </div>
+          <div className="auth-reference__form w-full [&>*]:!rounded-none [&>*]:!border-0 [&>*]:!shadow-none">{children}</div>
         </div>
       </main>
 

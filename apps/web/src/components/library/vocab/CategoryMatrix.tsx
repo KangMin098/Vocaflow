@@ -56,7 +56,7 @@ export function CategoryMatrix({
             onClick={() => onChange(cat.id)}
             aria-pressed={isActive}
             disabled={isEmpty}
-            className={`group relative flex min-h-[44px] shrink-0 snap-start flex-row items-center justify-center gap-1.5 rounded-[var(--r-lg)] border px-3 py-2 text-center sm:aspect-[5/4] sm:min-h-0 sm:flex-col sm:gap-2 sm:p-3 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--t1)]/30 focus-visible:ring-offset-2 ${
+            className={`group relative flex min-h-[44px] shrink-0 snap-start flex-row items-center justify-center gap-1.5 rounded-[var(--r-lg)] border px-3 py-2 text-center sm:aspect-[5/4] sm:min-h-0 sm:flex-col sm:gap-2 sm:p-3 transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[color-mix(in_srgb,var(--t1)_30%,transparent)] focus-visible:ring-offset-2 ${
               isActive
                 ? 'border-[var(--t1)] bg-[var(--t1)] text-[var(--bg)] shadow-[var(--sh-md)]'
                 : isEmpty
@@ -68,7 +68,7 @@ export function CategoryMatrix({
             <span
               className={`absolute right-2 top-2 inline-flex h-5 min-w-[20px] items-center justify-center rounded-full px-2 font-mono text-[10px] font-[700] tabular-nums ${
                 isActive
-                  ? 'bg-[var(--bg)]/15 text-[var(--bg)]'
+                  ? 'bg-[color-mix(in_srgb,var(--bg)_15%,transparent)] text-[var(--bg)]'
                   : isEmpty
                     ? 'text-[var(--t2)]'
                     : 'bg-[var(--bg3)] text-[var(--t2)]'
@@ -98,7 +98,7 @@ export function CategoryMatrix({
               <span
                 className={`font-body text-[10px] leading-tight ${
                   isActive
-                    ? 'text-[var(--bg)]/70'
+                    ? 'text-[color-mix(in_srgb,var(--bg)_70%,transparent)]'
                     : isEmpty
                       ? 'text-[var(--t2)]'
                       : 'text-[var(--t2)]'

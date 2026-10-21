@@ -11,15 +11,18 @@
 //   · USP 카드 = 보라 면 · 세리프 굵은 첫 문장 + 이어지는 보통 굵기 문장 · 왼쪽 아래 소품
 //   면의 **내용**은 전부 우리 것이다 — 수치는 `hub-portal-query` · 셸 나침반이 센 것만, 못 셌으면 그 말을 뺀다(I5).
 
-import { ArrowRight, Check, Hash } from 'lucide-react'
+import { ArrowRight, BookOpen, Check, FileText, Gamepad2, GraduationCap, Hash, Layers3, PanelsTopLeft } from 'lucide-react'
 import Image from 'next/image'
 import type { CSSProperties } from 'react'
 
 import { vocabCategoryMeta } from '@/components/library/vocab/categories'
+import { ReferenceBookImage } from '@/components/library/ReferenceBookImage'
 import { BTN, CHIP } from '@/components/ui/tines-kit'
 import type { ToneTab } from '@/components/ui/ToneTabs'
 import { SOURCE_TRACKS } from '@/lib/articles/source-map'
-import { TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
+import { MATERIAL_TONE, TINT_CLASS, TINT_ROTATION } from '@/lib/design/tone'
+import { getLearnerPalette } from '@/lib/design/learner-palette'
+import { editorialScene } from '@/lib/design/editorial-art'
 import {
   MEMORY_ATTENTION_LABEL,
   MEMORY_LABEL,
@@ -42,22 +45,29 @@ export const KICKER = 'font-mono text-[13px] font-[700] uppercase tracking-[0.08
 
 // ── 구획 머리 ─────────────────────────────────────────────────────────
 
-export function SectionHead({ kicker, title, byline, align = 'left' }: {
+export function SectionHead({ kicker, title, byline, desktopTitle, desktopByline, align = 'left' }: {
   kicker: string
   title: string
   byline?: string
+  desktopTitle?: string
+  desktopByline?: string
   align?: 'left' | 'center'
 }) {
   const center = align === 'center'
+  const scene = kicker === 'Read today' ? 'library' : kicker === 'Why Vocaflow?' ? 'vault' : 'journey'
   return (
-    <header className={center ? 'mx-auto max-w-[44rem] text-center' : 'max-w-[52rem]'}>
+    <header className={`hub-reference__section-head ${center ? 'mx-auto max-w-[44rem] text-center' : 'max-w-[52rem]'}`}>
+      <div>
       <p className={`${KICKER} text-[var(--ju)]`}>{kicker}</p>
       <h2 className="mt-6 whitespace-pre-line break-keep font-display text-[36px] font-[400] leading-[1.08] tracking-[-0.03em] text-[var(--t1)] md:text-[56px]">
-        {title}
+        <span className={desktopTitle ? 'lg:hidden' : undefined}>{title}</span>
+        {desktopTitle && <span className="hidden lg:inline">{desktopTitle}</span>}
       </h2>
       {byline && (
-        <p className={`mt-6 break-keep font-serif text-[20px] leading-[1.3] text-[var(--ju)] md:text-[24px] ${center ? '' : 'max-w-[40rem]'}`}>{byline}</p>
+        <p className={`mt-6 break-keep font-serif text-[20px] leading-[1.3] text-[var(--ju)] md:text-[24px] ${center ? '' : 'max-w-[40rem]'}`}><span className={desktopByline ? 'lg:hidden' : undefined}>{byline}</span>{desktopByline && <span className="hidden lg:inline">{desktopByline}</span>}</p>
       )}
+      </div>
+      <Image src={editorialScene(`scene-${scene}-v4`)} alt="" width={1536} height={1024} sizes="300px" className="hidden shrink-0 lg:block" />
     </header>
   )
 }
@@ -71,12 +81,12 @@ export function SectionHead({ kicker, title, byline, align = 'left' }: {
 export function ProductFrame({ model, books, facts }: { model: WayfinderModel | null; books: PortalBook[]; facts: HubPortal['facts'] }) {
   return (
     <div
-      className="vf-rise rounded-[28px] border-2 border-[var(--bd)] bg-[var(--tint-lavender)] p-1.5"
+      className="hub-reference__today vf-rise rounded-[28px] border-2 border-[var(--bd)] bg-[var(--tint-lavender)] p-1.5"
       style={{ '--rise-y': '16px', '--rise-dur': '600ms' } as CSSProperties}
     >
       <div className="grid overflow-hidden rounded-[22px] border border-[var(--bd)] bg-[color-mix(in_srgb,var(--tint-lavender)_40%,var(--bg))] md:grid-cols-[232px_minmax(0,1fr)]">
         <FrameRail model={model} facts={facts} />
-        <div className="grid min-w-0 content-start gap-4 p-3 md:p-4 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
+        <div className="hub-reference__today-content grid min-w-0 content-start gap-4 p-3 md:p-4 xl:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
           {model && <KpiRow model={model} />}
           {model && <MemoryCard model={model} />}
           <NewBooksTable books={books} tall={!!model} />
@@ -89,12 +99,12 @@ export function ProductFrame({ model, books, facts }: { model: WayfinderModel | 
 
 function FrameRail({ model, facts }: { model: WayfinderModel | null; facts: HubPortal['facts'] }) {
   const shelves = [
-    { href: '/library/books', label: '도서', count: facts.books },
-    { href: '/library/scripts', label: '글', count: facts.articles },
-    { href: '/comics', label: '만화', count: facts.comics },
-    { href: '/library/vocab', label: '단어장', count: facts.curatedSets },
-    { href: '/csat', label: '수능 기출', count: null },
-    { href: '/arcade', label: '아케이드', count: null },
+    { href: '/library/books', label: '도서', count: facts.books, icon: BookOpen },
+    { href: '/library/scripts', label: '글', count: facts.articles, icon: FileText },
+    { href: '/comics', label: '만화', count: facts.comics, icon: PanelsTopLeft },
+    { href: '/library/vocab', label: '단어장', count: facts.curatedSets, icon: Layers3 },
+    { href: '/csat', label: '수능 기출', count: null, icon: GraduationCap },
+    { href: '/arcade', label: '아케이드', count: null, icon: Gamepad2 },
   ]
   return (
     <nav aria-label="Vocaflow 둘러보기" className="hidden flex-col gap-1 border-r border-[var(--bd)] bg-[color-mix(in_srgb,var(--tint-lavender)_70%,var(--bg))] p-3 md:flex">
@@ -157,7 +167,8 @@ function FrameRail({ model, facts }: { model: WayfinderModel | null; facts: HubP
               index={10 + i}
               className={`flex min-h-[40px] items-center gap-2.5 rounded-[8px] px-2 font-display text-[14px] font-[500] text-[var(--ju)] hover:bg-[var(--tint-lavender)] ${FOCUS}`}
             >
-              <Hash size={14} aria-hidden className="shrink-0" />
+              <Hash size={14} aria-hidden className="shrink-0 lg:hidden" />
+              <s.icon size={18} aria-hidden className="hidden shrink-0 lg:block" strokeWidth={1.4} />
               <span className="flex-1">{s.label}</span>
               {s.count !== null && <span className="font-mono text-[11px] tabular-nums">{fmt(s.count)}</span>}
             </PromoLink>
@@ -179,7 +190,7 @@ function KpiRow({ model }: { model: WayfinderModel }) {
     { label: '읽을 수 있는 책', value: reach.vLevel === null ? '진단 후' : fmt(reach.open) },
   ]
   return (
-    <div className={`${FRAME_CARD} flex flex-wrap items-center justify-between gap-4 px-4 py-3 xl:col-span-2`}>
+    <div data-hub-kpi className={`${FRAME_CARD} flex flex-wrap items-center justify-between gap-4 px-4 py-3 xl:col-span-2`}>
       <dl className="flex flex-wrap gap-x-8 gap-y-3">
         {kpis.map((k, i) => (
           <div key={k.label}>
@@ -244,7 +255,7 @@ function MemoryCard({ model }: { model: WayfinderModel }) {
   const summary = MEMORY.map((m) => `${m.label} ${values[m.key]}`).join(', ')
 
   return (
-    <section aria-label="기억 상태" className={`${FRAME_CARD} p-4`}>
+    <section data-hub-memory aria-label="기억 상태" className={`${FRAME_CARD} p-4`}>
       <div className="flex items-start justify-between gap-2">
         <div>
           <h3 className="font-display text-[13px] font-[600] text-[var(--ju)]">기억 상태</h3>
@@ -308,7 +319,7 @@ function ForecastCard({ model }: { model: WayfinderModel }) {
   }))
   const sum = parts.reduce((s, p) => s + p.v, 0)
   return (
-    <section aria-label={`${forecast.horizonDays}일 예보`} className={`${FRAME_CARD} p-4`}>
+    <section data-hub-forecast aria-label={`${forecast.horizonDays}일 예보`} className={`${FRAME_CARD} p-4`}>
       <h3 className="font-display text-[13px] font-[600] text-[var(--ju)]">{forecast.horizonDays}일 안에 흐려질 단어</h3>
       <p className="font-display text-[22px] font-[500] tabular-nums tracking-[-0.01em] text-[var(--t1)]">{fmt(forecast.fadingSoon)}</p>
       {sum > 0 && (
@@ -342,7 +353,7 @@ function NewBooksTable({ books, tall }: { books: PortalBook[]; tall: boolean }) 
   if (books.length === 0) return null
   const rows = books.slice(0, tall ? 7 : 8)
   return (
-    <section aria-label="새로 들어온 고전" className={`${FRAME_CARD} p-4 ${tall ? 'xl:col-start-2 xl:row-span-2 xl:row-start-2' : 'xl:col-span-2'}`}>
+    <section data-hub-books aria-label="새로 들어온 고전" className={`${FRAME_CARD} p-4 ${tall ? 'xl:col-start-2 xl:row-span-2 xl:row-start-2' : 'xl:col-span-2'}`}>
       <div className="flex items-baseline justify-between gap-3">
         <h3 className="font-display text-[13px] font-[600] text-[var(--t1)]">새로 들어온 고전</h3>
         <PromoLink href="/library/books" slot="shelf" index={99} className={`${BTN.text} text-[13px]`}>
@@ -369,9 +380,7 @@ function NewBooksTable({ books, tall }: { books: PortalBook[]; tall: boolean }) 
             >
               <td className="py-2 pr-3">
                 <PromoLink href={`/library/books/${b.id}`} slot="shelf" index={i} className={`group flex min-h-[44px] items-center gap-3 rounded-[6px] ${FOCUS}`}>
-                  {/* 표지 호스트가 여러 곳이라 원본 그대로 */}
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={b.cover} alt="" loading="lazy" className="h-10 w-7 shrink-0 rounded-[3px] border border-[var(--bd)] object-cover" />
+                  <ReferenceBookImage src={b.cover} title={b.title} compact className="h-10 w-7 shrink-0 rounded-[3px] border border-[var(--bd)]" />
                   <span className="min-w-0">
                     <span className="block truncate font-display text-[14px] font-[500] text-[var(--t1)] group-hover:underline">{b.title}</span>
                     {b.author && <span className="block truncate font-display text-[12px] text-[var(--ju)]">{b.author}</span>}
@@ -432,8 +441,7 @@ export function platformTabs(p: HubPortal): ToneTab[] {
               {p.newBooks.slice(0, 8).map((b, i) => (
                 <li key={b.id} className={i >= 6 ? 'hidden sm:block' : ''}>
                   <PromoLink href={`/library/books/${b.id}`} slot="bento" index={20 + i} className={`group block rounded-[6px] ${FOCUS}`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={b.cover} alt="" loading="lazy" className="aspect-[2/3] w-full rounded-[6px] border border-[var(--bd)] object-cover" />
+                    <ReferenceBookImage src={b.cover} title={b.title} className="aspect-[2/3] w-full rounded-[6px] border border-[var(--bd)]" />
                     <span className="mt-1.5 block truncate font-display text-[12px] font-[500] text-[var(--on-ju)] group-hover:underline">{b.title}</span>
                   </PromoLink>
                 </li>
@@ -461,8 +469,7 @@ export function platformTabs(p: HubPortal): ToneTab[] {
               {comics.slice(0, 3).map((c, i) => (
                 <li key={c.href}>
                   <PromoLink href={c.href} slot="bento" index={30 + i} className={`group block rounded-[6px] ${FOCUS}`}>
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img src={c.cover!} alt="" loading="lazy" className="aspect-[3/4] w-full rounded-[6px] border border-[var(--bd)] object-cover" />
+                    <ReferenceBookImage src={c.cover!} title={c.title} kind="comic" className="aspect-[3/4] w-full rounded-[6px] border border-[var(--bd)]" />
                     <span className="mt-1.5 block truncate font-display text-[12px] font-[500] text-[var(--on-ju)] group-hover:underline">{c.title}</span>
                   </PromoLink>
                 </li>
@@ -583,7 +590,7 @@ export function SolutionSlab({ facts }: { facts: HubPortal['facts'] }) {
     facts.comics ? `만화 ${fmt(facts.comics)}편.` : null,
   ].filter(Boolean) as string[]
   return (
-    <div className="relative overflow-hidden rounded-[32px] bg-[var(--ju)] text-[var(--on-ju)] md:rounded-[48px]">
+    <div data-hub-collection className="relative overflow-hidden rounded-[32px] bg-[var(--ju)] text-[var(--on-ju)] md:rounded-[48px]">
       <div className="relative z-10 grid gap-12 px-6 pb-10 pt-12 md:px-14 lg:grid-cols-[1fr_1.15fr] lg:pb-14">
         <div className="flex flex-col">
           <p className={KICKER}>지금 서가에는</p>
@@ -615,8 +622,9 @@ export function SolutionSlab({ facts }: { facts: HubPortal['facts'] }) {
         </div>
         <div>
           <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
-            {PROPS.map((p) => (
+            {PROPS.map((p, index) => (
               <article key={p.title}>
+                <Image src={`${ILLO}/${SLAB_TILES[index].illo}.webp`} alt="" width={1328} height={1328} sizes="56px" className="mb-4 hidden h-14 w-14 object-contain lg:block" />
                 <h3 className="break-keep font-serif text-[24px] font-[700] leading-[1.12] tracking-[-0.01em]">{p.title}</h3>
                 <p className="mt-4 break-keep font-body text-[15px] leading-[1.6]">{p.body}</p>
               </article>
@@ -681,6 +689,7 @@ export function ReadingSection({ portal }: { portal: HubPortal }) {
                 href={`/library/scripts?series=${encodeURIComponent(t.key)}`}
                 slot="reading"
                 index={articles.length + i}
+                learnerTone={MATERIAL_TONE.article.tint}
                 className={`${TINT_CLASS[TINT_ROTATION[i % TINT_ROTATION.length]]} group flex h-full min-h-[96px] items-center gap-3 rounded-[14px] p-4 transition-[filter] duration-[var(--dur-quick)] hover:brightness-[1.03] ${FOCUS}`}
               >
                 <Image src={`${ILLO}/${TRACK_SPOT[t.key] ?? 'spot-reading'}.webp`} alt="" width={1328} height={1328} sizes="56px" className="h-14 w-14 shrink-0 select-none object-contain" />
@@ -708,11 +717,12 @@ const USP = [
 
 export function UspCards() {
   return (
-    <ul className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
+      <ul data-hub-benefits className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 lg:gap-6">
       {USP.map((u, i) => (
         <li key={u.href}>
           <PromoLink
             href={u.href}
+            learningPalette={getLearnerPalette(u.href) ?? 'neutral'}
             slot="bento"
             index={50 + i}
             className={`group flex h-full min-h-[320px] flex-col rounded-[14px] bg-[var(--ju)] p-6 text-[var(--on-ju)] transition-[filter] duration-[var(--dur-quick)] hover:brightness-110 lg:min-h-[400px] ${FOCUS}`}
@@ -741,7 +751,7 @@ export function UspCards() {
 /** 공개 화면 끝 CTA(`site/ScatterCta`)와 같은 골격 — 알약만 학습자의 「지금」 으로 바꾼다(tines-mapping §20). */
 export function FinalCta({ primary }: { primary: { label: string; href: string } }) {
   return (
-    <div className="relative">
+    <div data-hub-final className="relative">
       {/* 흩어진 물건 띠가 스크롤에 맞춰 천천히 지나간다(`.vf-parallax` · `view()` 타임라인).
           미지원 브라우저(Firefox 안정판)·모션 끔에서는 그냥 제자리에 있는 그림이다.
 

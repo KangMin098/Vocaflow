@@ -76,7 +76,11 @@ function stripComments(s: string): string {
 
 /** 정의된 변수 이름 전부 — `--x:` 꼴로 선언된 것. */
 function definedNames(): Set<string> {
-  const css = [TOKENS, GLOBALS].map((p) => readFileSync(p, 'utf8')).join('\n')
+  const globals = readFileSync(GLOBALS, 'utf8')
+  // Globals imports the active skins too. Ignoring them made --canvas a false positive.
+  const skinImports = [...globals.matchAll(/@import\s+['"]@vocaflow\/design-tokens\/([^'"]+)['"]/g)]
+    .map((m) => join(dirname(TOKENS), m[1]))
+  const css = [...new Set([TOKENS, GLOBALS, ...skinImports])].map((p) => stripComments(readFileSync(p, 'utf8'))).join('\n')
   const set = new Set<string>()
   for (const m of css.matchAll(/(--[a-zA-Z0-9-]+)\s*:/g)) set.add(m[1])
   return set
@@ -86,6 +90,9 @@ const FILES = walk(SRC)
 const DEFINED = definedNames()
 
 describe('CSS 변수 — 부르는 이름이 실제로 정의돼 있다', () => {
+  it('실제로 import한 스킨의 변수도 정의로 인정한다', () => {
+    expect(DEFINED.has('--canvas')).toBe(true)
+  })
   it('정의 목록을 실제로 읽었다', () => {
     // 0 이면 파일 경로가 틀린 것이다 — 그 상태로는 아래 검사가 전부 거짓 실패한다.
     expect(DEFINED.size, 'tokens.css / globals.css 에서 변수를 하나도 못 읽었다').toBeGreaterThan(80)
