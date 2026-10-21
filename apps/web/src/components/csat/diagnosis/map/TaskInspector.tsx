@@ -56,6 +56,7 @@ import { GAP_LABEL, type LedgerKey } from '@/lib/csat/map/v62/coverage'
 import { DOMAIN_QUESTION, type InspectorEvidence, type ResearchFlag, type TaskInspectorDTO } from '@/lib/csat/map/v62/graph'
 import type { SupportStatus } from '@/lib/csat/map/v62/inventory'
 import type { NotActionableReason } from '@/lib/csat/map/v62/rank'
+import { MAINTAIN_PASSED_LABEL } from '@/lib/csat/map/v62/maintenance-state'
 
 import { integratedObservation, OBSERVATION_LABEL, OBSERVATION_NOTE } from '@/lib/csat/map/v4/observation'
 
@@ -85,6 +86,8 @@ export const BLOCKED_LABEL: Record<NotActionableReason, string> = {
   canon_hold: '측정 방법을 정하는 중이에요(보류)',
   relevance_unknown: '목표 시험 문항과의 연결을 아직 검토하지 않았어요',
   no_next_activity: '지금 바로 할 활동은 없어요',
+  // T-0082 — 지금 확인 통과 · 유지 확인 기준 미정(앞 단계 미완료 · 숙달 아님)
+  maintain_pending: MAINTAIN_PASSED_LABEL,
 }
 
 const FLAG_LABEL: Record<ResearchFlag, string> = {

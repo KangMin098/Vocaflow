@@ -9,6 +9,7 @@
 import type { V4View } from '../v4/compose'
 import { taskOf, type TaskId } from '../v4/definition'
 import type { Need } from '../v4/to-be'
+import { maintainPassed } from './maintenance-state'
 
 export interface NeedRankEntry {
   rank: number
@@ -28,7 +29,8 @@ export interface ActionRankEntry {
   needRank: number
 }
 
-export type NotActionableReason = 'content_gap' | 'stage_locked' | 'material_needed' | 'repair_material_needed' | 'canon_hold' | 'relevance_unknown' | 'no_next_activity'
+/** maintain_pending(T-0082) — 지금 확인 통과 + 유지: 다른 날 유지 확인 기준 미정이라 지금 할 필수 활동이 아니다(앞 단계 미완료 아님) */
+export type NotActionableReason = 'content_gap' | 'stage_locked' | 'material_needed' | 'repair_material_needed' | 'canon_hold' | 'relevance_unknown' | 'no_next_activity' | 'maintain_pending'
 
 export interface Ranks {
   needRank: NeedRankEntry[]
@@ -51,6 +53,11 @@ export function ranksOf(view: V4View): Ranks {
     const p = plans.get(e.task)
     if (e.need === 'RELEVANCE_UNKNOWN') {
       notActionable.push({ task: e.task, reason: 'relevance_unknown' })
+      continue
+    }
+    // T-0082 — 지금 확인 통과 + 유지는 남은 확인 링크가 있어도 실행 순위에 넣지 않는다(해소 뒤 시도는 같은 회차를 다시 판정하지 않는다)
+    if (maintainPassed(p)) {
+      notActionable.push({ task: e.task, reason: 'maintain_pending' })
       continue
     }
     if (p?.next) {
