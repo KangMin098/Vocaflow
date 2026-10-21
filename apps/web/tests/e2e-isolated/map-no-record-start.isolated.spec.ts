@@ -68,13 +68,18 @@ for (const width of [1440, 1280]) {
     const sessions = async () => (await admin().from('csat_dx_session').select('id', { count: 'exact', head: true }).eq('user_id', uid)).count
     expect(await sessions(), '시험 기록 0').toBe(0)
 
-    const openMap = async (p: Page) => {
+    const openMap = async (p: Page, noRecord = true) => {
       await p.goto('/csat/diagnosis?tab=map&view=full', { waitUntil: 'domcontentloaded' })
       await expect(p.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
       const top = p.locator('[data-testid="umap-top"]')
-      await expect(top, '미측정 상태 유지').toHaveAttribute('data-state', 'no_record')
-      await expect(p.locator('[data-testid="umap-no-record-note"]')).toContainText('약점으로 정한 것은 없어요')
-      await expect(p.locator('[data-testid="focus-record"]'), '기출 기록은 보조 행동').toBeVisible()
+      if (noRecord) {
+        await expect(top, '미측정 상태 유지').toHaveAttribute('data-state', 'no_record')
+        await expect(p.locator('[data-testid="umap-no-record-note"]')).toContainText('약점으로 정한 것은 없어요')
+        await expect(p.locator('[data-testid="focus-record"]'), '기출 기록은 보조 행동').toBeVisible()
+      } else {
+        // 직접 근거가 생기면 시험 기록 0 이어도 no_record 를 벗어난다(T-0070 mapStateOf) — 부족 · 숙달 확정은 아님
+        await expect(top).not.toHaveAttribute('data-state', 'no_record')
+      }
       return p.locator('[data-testid="umap-top-next"]')
     }
 
@@ -117,7 +122,9 @@ for (const width of [1440, 1280]) {
     }
 
     // ③ 상단 = 시작(실제 링크 · 같은 지도 복귀 문맥) → 혼자 확인 1회 정답 → 학습 지도로 → 같은 Workspace
-    await expect(next).toHaveAttribute('data-kind', 'start')
+    // 시작 = 실제 링크(a · data-kind 속성 없음)
+    next = page.locator('a[data-testid="umap-top-next"]')
+    await expect(next, '실행 링크').toBeVisible()
     const href = (await next.getAttribute('href'))!
     expect(new globalThis.URL(href, 'http://x').searchParams.get('from')).toBe('map')
     await next.focus(); await page.keyboard.press('Enter')
@@ -136,7 +143,7 @@ for (const width of [1440, 1280]) {
     await expect.poll(async () => ((await admin().from('workspace_delivery_attempt').select('evidence').eq('user_id', uid)).data ?? []).filter((b) => b.evidence).length, { timeout: 15_000 }).toBe(1)
     expect(await sessions(), '시험 기록은 여전히 0').toBe(0)
     await page.keyboard.press('Escape')
-    await openMap(page)
+    await openMap(page, false)
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1)
     await test.info().attach(`norecord-after-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
   })
