@@ -55,8 +55,9 @@ export function EvidenceBlock({ e }: { e: EvidenceView }) {
     <div className={u.evBlock} data-testid="ins-evidence-claims" data-check={e.currentCheck.status} data-ledger={e.ledger}>
       <dl className={u.popKv}>
         <dt>지금 확인</dt>
-        <dd data-testid="ev-check" data-current-items={e.currentCheck.independentItems} data-ledger-items={e.ledger === 'unknown' ? undefined : counted.size}>
-          {CURRENT_CHECK_LABEL[e.currentCheck.status]} · 이번 판정의 독립 확인 {e.currentCheck.independentItems}문항
+        {/* T0076-P1-1 — 원장을 다 읽지 못하면 이번 판정 문항 수도 확인 보류(0 으로 측정했다는 뜻이 아니다) · 읽힌 빈 원장의 0 은 그대로 */}
+        <dd data-testid="ev-check" data-current-items={e.ledger === 'unknown' ? undefined : e.currentCheck.independentItems} data-ledger-items={e.ledger === 'unknown' ? undefined : counted.size}>
+          {CURRENT_CHECK_LABEL[e.currentCheck.status]} · {e.ledger === 'unknown' ? '이번 판정 문항 수 확인 보류' : `이번 판정의 독립 확인 ${e.currentCheck.independentItems}문항`}
           {/* T-0076 — 상세 기록 집계는 다른 범위(연결된 과제 키 · 전체 기간 · 현재 주석 확인된 것만) — 이번 판정 수를 대신하지 않는다 */}
           <span className={u.fine}> (상세 기록: {e.ledger === 'unknown' ? '다 읽지 못해 확인 보류' : `현재 주석까지 확인된 독립 확인 ${counted.size}개 · 전체 기간`})</span>
         </dd>

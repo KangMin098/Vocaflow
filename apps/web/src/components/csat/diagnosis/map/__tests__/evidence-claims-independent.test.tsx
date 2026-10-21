@@ -78,3 +78,12 @@ describe('T-0076 근거 설명 = 기존 PLAN · 서버 사실의 투영', () => 
     expect(e.attempts[0]!.reasons.join(' ')).not.toContain('도움 · 해설 뒤')
   })
 })
+
+// T0076-P1-1 — Codex unknown-count 반례 이식: 원장을 못 읽으면 이번 판정 수도 「확인 보류」(측정된 0 이 아님) · 읽힌 빈 원장의 0 은 정상
+describe('T0076-P1-1 확인 보류 ≠ 0', () => {
+  const run = (firsts: unknown, activity: unknown) => evidenceView({ task: 'r.central_meaning', check: null, firsts, activity, hashes: undefined, transfer: { done: 0, planned: null } } as never)
+  const checkText = (e: ReturnType<typeof run>) => renderToStaticMarkup(<EvidenceBlock e={e} />).match(/data-testid="ev-check"[^>]*>([\s\S]*?)<\/dd>/)![1].replace(/<[^>]*>/g, '')
+  it('첫 시도 · 수행 원장 못 읽음 + 판정 없음 → 0문항이라 하지 않음', () => { const e = run(undefined, undefined); expect(e.ledger).toBe('unknown'); expect(checkText(e)).not.toMatch(/이번 판정의 독립 확인 0문항/); expect(checkText(e)).toMatch(/확인 보류/) })
+  it('수행 원장만 못 읽음 → 0문항 완전 집계로 그리지 않음 · data-current-items 없음', () => { const e = run([], undefined); expect(checkText(e)).not.toMatch(/이번 판정의 독립 확인 0문항/); expect(renderToStaticMarkup(<EvidenceBlock e={e} />)).not.toContain('data-current-items') })
+  it('읽힌 빈 원장 = 정당한 0', () => { const e = run([], []); expect(e.ledger).toBe('complete'); expect(checkText(e)).toContain('이번 판정의 독립 확인 0문항') })
+})
