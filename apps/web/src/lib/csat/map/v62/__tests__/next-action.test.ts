@@ -195,3 +195,25 @@ describe('T-0072 목표 버전 결속', async () => {
       expect(goalMismatch(ws, { status: 'installed', goalVersionId: 11, byTemplate: {} } as never)).toBe(false)
     })
 })
+
+// T-0072 P1-2 — 지금 할 활동이 없는(자료 부족) 상태에서도 다른 목표에 묶인 저장 PLAN 은 자료 받기보다 다시 확정이 먼저(Codex PR328 consistent-shortage 이식 · 실제 ranksOf)
+describe('T-0072 자료 부족 + 목표 변경', async () => {
+  const { CANON_VERSION } = await import('@/lib/csat/map/v4/definition')
+  const task = 'r.central_meaning', ws = 'ws.central-meaning'
+  const shortage = (currentGoal: number, holdCanon = false) => {
+    const row = { task, name: 'core', goal: 'g', criterion: 'c', basis: 'none', evidence: 'unmeasured', need: 'CONFIRM', stage: 'check', quantity: { unit: '문항', available: 0, planned: null, done: 0, remaining: null }, achievement: 'not_checked', unresolved: [holdCanon ? 'canon_hold' : 'material_needed'], next: null }
+    const view = { taskPlans: [row], plans: { [ws]: { workspace: ws, core: [task], tasks: [row], progress: null } }, asIs: { tasks: { [task]: { basis: 'none', status: 'unmeasured', check: null } }, sessions: [] }, toBe: { needs: [{ task, type: 'CONFIRM', relevance: { items: 3, pointsPerExam: 6 }, evidence: 'unmeasured' }], relevanceUnknown: [] } } as unknown as V4View
+    const latest = { version: 2, canon: CANON_VERSION, goalVersionId: 10, reason: 'initial', createdAt: '2026-10-20T00:00:00Z', asOf: '2026-10-20T00:00:00Z', note: null, restoredFrom: null, plan: { order: [task], tasks: [{ task, stage: 'check', planned: null, available: 0 }] } }
+    const saved = { status: 'installed', goalVersionId: currentGoal, byTemplate: { [ws]: { workspaceId: '11111111-2222-4333-8444-555555555555', template: ws, latest, history: [latest] } } } as never
+    return { view, ranks: ranksOf(view), saved }
+  }
+  it('반례 — 목표가 바뀌었으면 자료 받기 전에 같은 묶음 계획 다시 확정(이유 goal)', () => {
+    const x = shortage(11)
+    expect(x.ranks.actionRank).toHaveLength(0)
+    expect(nextActionOf(x.view, x.ranks, x.saved)).toMatchObject({ ws, task, kind: 'plan', replan: true, replanWhy: 'goal' })
+  })
+  it('대조 — 같은 목표의 자료 부족은 그대로 자료 받기', () => {
+    const x = shortage(10)
+    expect(nextActionOf(x.view, x.ranks, x.saved)).toMatchObject({ ws, task, kind: 'supply' })
+  })
+})

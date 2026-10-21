@@ -4,7 +4,8 @@
 // (격리 · 실제 Next · 실제 Chromium · 공유 개발 DB 무관).
 //   시험 기록 → 목표 A → PLAN 확정 → 목표 B 로 변경 → 지도를 여는 것만으로 저장 없음 → 그 묶음 편집기 = 그때 목표 기준 안내 · 저장됨 아님 ·
 //   기본 사유 goal_change → 키보드 재확정 → 저장됨 · 새 버전이 목표 B 에 결속(append-only · 이전 버전 보존) → 지도를 새로 열어(서버 재조회) 같은 묶음이 지금 목표 저장 상태.
-//   상단 CTA 는 ActionRank 첫 TASK 를 따른다 — 이 합성 학습자에게는 다른 묶음 TASK 라 여기서 단언하지 않는다(첫 CI 39551480304 에서 확인: 상단은 다른 TASK 의 「자료 받으러 가기」).
+//   상단 CTA — 재확정 전: 같은 TASK(r.central_meaning)의 계획 다시 확정 + 목표 변경 이유(첫 CI 39551480304 실패 = 자료 부족 분기가 목표 판정보다 먼저였던 P1-2) ·
+//   재확정 뒤: 이 학습자는 자료가 없으므로 같은 TASK 의 「자료 받기」가 정상.
 import { expect, test } from '@playwright/test'
 import { createClient } from '@supabase/supabase-js'
 
@@ -46,9 +47,13 @@ for (const width of [1440, 1280]) {
     const plans = async () => ((await admin().from('learner_workspace_plan').select('plan_version, reason, goal_version_id').eq('user_id', uid).order('plan_version')).data ?? [])
     expect(await plans()).toEqual([{ plan_version: 1, reason: 'initial', goal_version_id: goalA }])
 
-    // 지도 — 여는 것만으로 저장하지 않는다
+    // 지도 — 상단 CTA 는 자료 받기가 아니라 같은 TASK 의 계획 다시 확정(목표 변경 이유) · 여는 것만으로 저장하지 않는다
     await page.goto('/csat/diagnosis?tab=map&view=full', { waitUntil: 'domcontentloaded' })
     await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 60_000 })
+    const top = page.locator('[data-testid="umap-top-next"]')
+    await expect(top).toHaveAttribute('data-task', 'r.central_meaning')
+    await expect(top, '자료 받기가 아니라 계획 다시 확정').toHaveAttribute('data-kind', 'plan')
+    await expect(page.locator('[data-testid="umap-next-plan-note"]'), '목표 변경 이유').toContainText('목표가 바뀌었어요')
     expect(await plans(), '지도를 여는 것만으로 저장하지 않는다(숨은 POST 없음)').toHaveLength(1)
     await test.info().attach(`goalver-before-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
 
@@ -81,5 +86,11 @@ for (const width of [1440, 1280]) {
     await expect(dlg2.locator('[data-testid="plan-save-state"]')).toHaveAttribute('data-state', 'saved')
     await expect(dlg2.locator('[data-testid="plan-goal-changed"]')).toHaveCount(0)
     expect(await plans(), '다시 열어도 추가 저장 없음').toHaveLength(2)
+    await page.keyboard.press('Escape')
+    // 재확정 뒤 — 같은 TASK 상단은 자료 받기(자료가 없으므로 정상) · 목표 변경 안내 사라짐
+    const top2 = page.locator('[data-testid="umap-top-next"]')
+    await expect(top2).toHaveAttribute('data-task', 'r.central_meaning')
+    await expect(top2).toHaveAttribute('data-kind', 'supply')
+    await expect(page.locator('[data-testid="umap-next-plan-note"]')).toHaveCount(0)
   })
 }
