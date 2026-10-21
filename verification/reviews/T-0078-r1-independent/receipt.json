@@ -1,0 +1,53 @@
+{
+  "task_id": "T-0078",
+  "design_revision": "rev1",
+  "head": "f6876bd3bfcfa5d0075d49b4d063a8fb3ebdea52",
+  "verdict": "REVISE",
+  "decision": "REWORK",
+  "findings": [
+    {
+      "id": "T0078-P1-1",
+      "severity": "P1",
+      "scope": "in",
+      "file": "apps/web/src/lib/csat/map/load.ts",
+      "function": "loadAuthoredDeliveries.validOf",
+      "issue": "Both validity RPC errors or null/nonboolean results resolve to an empty valid-delivery list; the caller therefore treats qualification lookup failure as a successful0-row read and can still derive fresh MAP/PLAN/supply from incomplete input."
+    }
+  ],
+  "ran_tests": true,
+  "verification": {
+    "original_probe": "4/4 independently passes",
+    "new_validity": "2 failed; actual async loadAuthoredDeliveries resolved[] instead of rejecting. Fallback true and false controls pass.",
+    "focused_unit": {
+      "passed": 32,
+      "failed": 0,
+      "skipped": 0
+    },
+    "authenticated_next_db": "NOT_VERIFIED",
+    "db_write": false
+  },
+  "provenance": {
+    "task_id": "T-0078",
+    "head": "f6876bd3bfcfa5d0075d49b4d063a8fb3ebdea52",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "owner": "final-independent-accept",
+    "session_id": "01a14de8-2485-7a53-b530-d5612f35e57a"
+  },
+  "owner_artifact_hashes_verified": [
+    "T-0078-R1-E01",
+    "T-0078-R1-E02"
+  ],
+  "recorded_at": "2026-10-21T11:41:50.398Z",
+  "independent_browser": {
+    "passed": 14,
+    "failed": 0,
+    "tested_head": "f6876bd3bfcfa5d0075d49b4d063a8fb3ebdea52",
+    "end_head": "f6876bd3bfcfa5d0075d49b4d063a8fb3ebdea52",
+    "scope": "Real React/Chromium fixed DTO/router+HTTP controls,1440/1280. Error full return-query intact, keyboard one refresh, map_attempt preserved,503 labels and no hidden POST/overflow. Not authenticated Next/DB/global3B.",
+    "artifact": "verification/reviews/T-0078-r1-independent/browser/results.json"
+  },
+  "delivery": "QUEUED",
+  "actual_rework_ack": null,
+  "updated_at": "2026-10-21T11:44:06.430Z"
+}
