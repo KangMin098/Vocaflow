@@ -1,0 +1,32 @@
+{
+  "task": "T-0083",
+  "revision": "rev1",
+  "head": "e5ff5d165e4b719cbce8a2cb94cfc07180cdcb20",
+  "decision": "REWORK",
+  "finding": {
+    "id": "T0083-P1-1",
+    "severity": "P1",
+    "scope": "instructional card role projection",
+    "actual": "Valid existing own assessment delivery is rendered as an executable link in an instructional-only card"
+  },
+  "focused": {
+    "files": 3,
+    "passed": 55,
+    "failed": 0,
+    "skipped": 0
+  },
+  "browser": {
+    "passed": 0,
+    "failed": 2,
+    "results": "browser/results.json",
+    "limits": "actual React; synthetic HTTP/router; not authenticated Next/DB or global3B"
+  },
+  "main_preview": {
+    "base": "18129b11b",
+    "conflicts": [
+      "WorkspaceModal.tsx"
+    ],
+    "integration": "NOT_PERFORMED"
+  },
+  "db_writes": 0
+}

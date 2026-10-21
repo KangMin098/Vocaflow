@@ -1,0 +1,55 @@
+{
+  "environment": "actual Chromium + actual React AuthoredSupplyCard(kind=instructional) · outgoingCtx 실제 · 모의 HTTP · 인증 Next/DB 아님",
+  "results": [
+    {
+      "width": 1440,
+      "state": "rows",
+      "passed": false,
+      "checks": {
+        "scope": true,
+        "state": false,
+        "post": true,
+        "overflow": true,
+        "errors": true
+      },
+      "hrefs": [
+        "/csat/learn/at-teach-1?d=d1111111-1111-4111-8111-111111111111&from=map&map_task=s.sentence_core&ws=ws.sentence-core&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7",
+        "/csat/learn/at-guided-1?d=d2222222-2222-4222-8222-222222222222&from=map&map_task=s.sentence_core&ws=ws.sentence-core&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7",
+        "/csat/learn/at-ind-1?d=d3333333-3333-4333-8333-333333333333&from=map&map_task=s.sentence_core&ws=ws.sentence-core&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "posted": {
+        "path": "/api/csat/authored/supply",
+        "body": {
+          "task": "s.attachment",
+          "template": "ws.sentence-core"
+        }
+      }
+    },
+    {
+      "width": 1280,
+      "state": "rows",
+      "passed": false,
+      "checks": {
+        "scope": true,
+        "state": false,
+        "post": true,
+        "overflow": true,
+        "errors": true
+      },
+      "hrefs": [
+        "/csat/learn/at-teach-1?d=d1111111-1111-4111-8111-111111111111&from=map&map_task=s.sentence_core&ws=ws.sentence-core&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7",
+        "/csat/learn/at-guided-1?d=d2222222-2222-4222-8222-222222222222&from=map&map_task=s.sentence_core&ws=ws.sentence-core&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7",
+        "/csat/learn/at-ind-1?d=d3333333-3333-4333-8333-333333333333&from=map&map_task=s.sentence_core&ws=ws.sentence-core&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "posted": {
+        "path": "/api/csat/authored/supply",
+        "body": {
+          "task": "s.attachment",
+          "template": "ws.sentence-core"
+        }
+      }
+    }
+  ],
+  "passed": 0,
+  "failed": 2
+}
