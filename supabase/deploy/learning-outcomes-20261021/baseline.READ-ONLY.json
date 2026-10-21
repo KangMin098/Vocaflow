@@ -1,0 +1,136 @@
+{
+  "kind": "READ_ONLY_FINAL_DEPLOYMENT_BASELINE",
+  "counts": {
+    "factory_order": 1,
+    "content_qualification": 0,
+    "factory_product_order": 3,
+    "content_release_approval": 0,
+    "workspace_content_demand": 1,
+    "factory_order_product_link": 3,
+    "workspace_content_delivery": 0,
+    "workspace_delivery_attempt": 0
+  },
+  "tables": [
+    {
+      "name": "factory_order",
+      "exists_now": true
+    },
+    {
+      "name": "workspace_content_delivery",
+      "exists_now": true
+    },
+    {
+      "name": "factory_product_order",
+      "exists_now": true
+    },
+    {
+      "name": "factory_order_product_link",
+      "exists_now": true
+    },
+    {
+      "name": "content_qualification",
+      "exists_now": true
+    },
+    {
+      "name": "content_release_approval",
+      "exists_now": true
+    },
+    {
+      "name": "workspace_delivery_attempt",
+      "exists_now": true
+    },
+    {
+      "name": "authored_item",
+      "exists_now": false
+    },
+    {
+      "name": "content_human_decision",
+      "exists_now": false
+    },
+    {
+      "name": "content_human_decision_revocation",
+      "exists_now": false
+    },
+    {
+      "name": "content_ai_decision",
+      "exists_now": false
+    },
+    {
+      "name": "content_ai_decision_revocation",
+      "exists_now": false
+    },
+    {
+      "name": "factory_dcp_admission",
+      "exists_now": false
+    },
+    {
+      "name": "factory_dcp_qualification",
+      "exists_now": false
+    },
+    {
+      "name": "factory_dcp_attempt",
+      "exists_now": false
+    },
+    {
+      "name": "source_lesson_reflection",
+      "exists_now": false
+    }
+  ],
+  "functions": [
+    {
+      "name": "csat_source_is_eligible",
+      "arguments": "p_article_id uuid",
+      "body_sha256": "25b66dcd32ad783fabd4a0a48690f5c589cefeef8c1cb562b783485bcc8c72e4"
+    },
+    {
+      "name": "factory_lineage_personal_current",
+      "arguments": "p_order uuid",
+      "body_sha256": "5c8f195da8f91446cd7d7b139f4509bace5120ecba48b5a6b9a66d66c85fb8f1"
+    },
+    {
+      "name": "learner_workspace_plan_commit",
+      "arguments": "p_user uuid, p_template text, p_template_tasks text[], p_canon text, p_plan jsonb, p_reason text, p_note text, p_as_of timestamp with time zone, p_goal_version bigint, p_expected_version integer, p_client_key uuid, p_restore_of integer",
+      "body_sha256": "ab825ba7c816c80169306a7d0b5071d0dd320a2c58eaf05148efdcb3934c803b"
+    },
+    {
+      "name": "supply_artifact_revision",
+      "arguments": "p_kind text, p_ref text",
+      "body_sha256": "3bf007e893ee7a3b5b85e3bece0547e7caa0d2be376de61667bce1170f0c8501"
+    },
+    {
+      "name": "workspace_delivery_attempt_record",
+      "arguments": "p_delivery uuid, p_attempt bigint, p_request_key uuid",
+      "body_sha256": "48f45877db328d9fd4a6c9f0b02d924d0b0ef76962bb0232b7ab7f4b24b8aa70"
+    },
+    {
+      "name": "workspace_delivery_record",
+      "arguments": "p_line uuid, p_order uuid, p_qualification uuid, p_approval uuid, p_request_key uuid",
+      "body_sha256": "57f7794aa426ce17c63f2a46482232979deae8cbb27d7c5ec62b0c04ace7d1aa"
+    }
+  ],
+  "observed_at": "2026-10-21T13:11:38.657305+00:00",
+  "rationale_rows": [
+    {
+      "id": "33ee70d0-d812-49b1-9098-d97f7aaee5af",
+      "type": "topic",
+      "attempts": 0,
+      "item_role": "practice",
+      "answer_sha256": "2fdabbd16a92b763f28b858d62cd53ed29ecc02cac1dde78a91684eab58fbb4e",
+      "paragraph_idx": 0,
+      "payload_sha256": "a23f3d0c8f7b92f910ebf4a1fb316b9b3ebc0ac40d9490c1b91baa1b597d8269",
+      "qualifications": 0
+    },
+    {
+      "id": "4dbcca67-2e17-4e96-a2d1-9d513b4b87b6",
+      "type": "title",
+      "attempts": 0,
+      "item_role": "practice",
+      "answer_sha256": "22f9c79b4d320496f425741b7224271b577d8a5c92c46de50ced448af96d5362",
+      "paragraph_idx": 0,
+      "payload_sha256": "21bb9ea4c343560ccbe1a880c3020d1f22f89454d8d41693270daba4b0391ca1",
+      "qualifications": 0
+    }
+  ],
+  "database_writes": 0,
+  "source_content_sha256": "33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f"
+}

@@ -3,6 +3,8 @@
 
 ## Codex 최종 확인
 
+실제 교사 선택·CLI 편집 묶음·신규 독립 검토·내보내기 manifest/해시·PC 브라우저 확인·검수 축 반례 전후를 [휴대 가능한 증거](./evidence/3-fast/fast-actual-evidence.json)에 보존했다. 구현 커밋 `6add6f155` 이후 기존 문항 재사용과 최신 로컬 main을 결합해 최종 검증한다.
+
 신규 구현 세션 `5fd8e8ec-7e26-44a3-91a6-8727711c263f` 종료 뒤, 실제 CLI 편집 출력 `b6af5630…8221bc`를 신규 Claude 검토 세션 `40aee72b-32f0-4011-9335-65ca83ea630c`에 전달했다. B/C/D pass, A/F/H unknown의 로컬 검수 초안으로 수락했다. 실제 DB 원천을 12:04:44 UTC에 다시 SELECT한 snapshot으로 CLI를 실행했고 기존 패킷과 source digest가 같았다. 문제지·해설지·검수 결속·manifest 등 6파일을 생성했다. PC1440 브라우저에서 문제지의 정답/해설 비노출, 해설지의 설명 포함, 스크립트/가로 넘침/화면 오류 없음을 확인하고 직접 캡처를 읽었다.
 
 추가 반례에서 종합 conclusion=pass지만 C=fail인 검수로도 HTML이 생성되던 결함을 확인했다. B/C/D를 각각 pass로 확인하도록 수정했으며 실패·미상·해당 없음 9조합은 HTML을 만들지 않는다. 수정 뒤 관련19개와 FAST 격리 브라우저1개 PASS다. 이번 작업에서 만든 하네스 3개의 transitive esbuild 타입 참조도 바로잡아 **web/scripts 타입 검사와 변경 파일 lint를 통과**했다. 아래의 새 검수/현재 원천 NOT_RUN 및 scripts 실패는 구현 세션 종료 시점 기록이며 이 확인으로 대체한다.
