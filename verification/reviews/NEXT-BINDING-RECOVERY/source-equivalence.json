@@ -1,0 +1,19 @@
+{
+  "main": "1278c54cc1d353c1f6b05890787b8419f61c94f0",
+  "local_head": "1914edb8d24638fde95eb20cc6d66a1a2184784c",
+  "product_source_paths": [
+    "apps/web/src/components/csat/authored/AuthoredRunner.tsx",
+    "apps/web/src/lib/csat/authored/server.ts",
+    "apps/web/src/lib/csat/map/v62/delivery-binding.ts",
+    "apps/web/src/app/api/csat/delivery/bind/route.ts"
+  ],
+  "git_diff_exit_code": 0,
+  "t0074_followup": {
+    "head": "1914edb8d24638fde95eb20cc6d66a1a2184784c",
+    "files": 1,
+    "kind": "test-only actual-enum correction; existing acceptance retained; no duplicate test run"
+  },
+  "task": "T-0075",
+  "actual_start": "2026-10-21T09:28:39.547Z",
+  "observed_at": "2026-10-21T09:29:36.025Z"
+}

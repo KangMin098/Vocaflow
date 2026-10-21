@@ -3,10 +3,18 @@
   "design_revision": "rev1",
   "owner": "final-product",
   "recipient_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
-  "delivery": "QUEUED",
-  "acknowledged": false,
-  "implementation_started": false,
+  "delivery": "IMPLEMENTATION_STARTED",
+  "acknowledged": true,
+  "implementation_started": true,
   "main": "1278c54cc1d353c1f6b05890787b8419f61c94f0",
   "local_base": "1914edb8d",
-  "recorded_at": "2026-10-21T09:27:44.868Z"
+  "recorded_at": "2026-10-21T09:27:44.868Z",
+  "queued_at": "2026-10-21T09:27:44.631Z",
+  "acknowledged_at": "2026-10-21T09:28:39.547Z",
+  "started_at": "2026-10-21T09:28:39.547Z",
+  "actual_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "actual_pid": 19636,
+  "start_head": "1914edb8d24638fde95eb20cc6d66a1a2184784c",
+  "evidence": "task start history + exact session/PID + matching product .agent-lock; source message not required to fabricate ACK",
+  "observed_at": "2026-10-21T09:29:36.025Z"
 }
