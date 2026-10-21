@@ -138,6 +138,17 @@ export interface SourceSnapshot {
   limitation?: string
 }
 
+/** source_digest 에 들어가는 결속 값 전체(본문 hash · 상태 · 권리 · 게이트 · 분석 · 재고 사실 has_items). FAST 재사용 비교도 이 값을 쓴다 */
+export function sourceBindingFacts(row: Record<string, unknown>) {
+  return {
+    id: row.id, title: row.title, status: row.status, source: row.source ?? null, source_url: row.source_url ?? null,
+    license: row.license ?? null, license_class: row.license_class ?? null, copyright_safe_in_kr: row.copyright_safe_in_kr ?? null,
+    display_only: row.display_only ?? null, gate: row.gate ?? null, windows: row.windows ?? null, has_items: row.has_items ?? null,
+    analysis: { article_v_level: row.article_v_level ?? null, word_count: row.word_count ?? null, register: row.register ?? null, cefr_level: row.cefr_level ?? null, syntax_score: row.syntax_score ?? null },
+    content_sha256: sha(String(row.content)),
+  }
+}
+
 /** 원천 결속 — 본문 · 상태 · 권리 · 게이트 · 분석 값에 묶인 digest. 원문 literal `\n` 은 원본 hash 를 유지하고 정규화 hash 를 따로 둔다 */
 export function checkSource(snapshot: unknown) {
   if (!isObj(snapshot) || snapshot.snapshot_kind !== 'read_only_database_export' || !isObj(snapshot.row) || !str(snapshot.current_time))
@@ -151,13 +162,7 @@ export function checkSource(snapshot: unknown) {
     throw new LocalProductionError(`source_${eligibility.status}`, eligibility.blockers.length ? eligibility.blockers : eligibility.reasons)
   const literal = content.includes('\\n')
   const display = literal ? content.replace(/\\n/g, '\n') : content
-  const bound = {
-    id: row.id, title: row.title, status: row.status, source: row.source ?? null, source_url: row.source_url ?? null,
-    license: row.license ?? null, license_class: row.license_class ?? null, copyright_safe_in_kr: row.copyright_safe_in_kr ?? null,
-    display_only: row.display_only ?? null, gate: row.gate ?? null, windows: row.windows ?? null, has_items: row.has_items ?? null,
-    analysis: { article_v_level: row.article_v_level ?? null, word_count: row.word_count ?? null, register: row.register ?? null, cefr_level: row.cefr_level ?? null, syntax_score: row.syntax_score ?? null },
-    content_sha256: sha(content),
-  }
+  const bound = sourceBindingFacts(row)
   return {
     id: row.id as string,
     title: row.title as string,

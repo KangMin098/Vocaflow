@@ -10,6 +10,8 @@ Product Order 계보 후속(2026-10-20): 기존 개인 수요·공급 패널에 
 
 공장 연습 공급 경계(2026-10-21, 2F): 학습자 요청이 연 안내 연습 주문은 위 계보 패널에 링크 없음으로 보이고, 실제 admin 이 기존 link 동작으로 잇는다(학습자 요청은 관리자 actor 를 고르지 않는다). 후보 출시 승인은 화면 없이 `POST /api/admin/csat/dcp-admission` `action:'approve'` 로만 — 자격이 등록 공장 후보와 정확히 같은지 service SELECT 로 확인한 뒤 관리자·큐레이터 세션으로 기존 `content_release_approve`(권한 계약 그대로). 미리보기·입고는 승인하지 않는다. 도움말 `csat-learner-plans` steps.
 
+FAST 빠른 학습지(2026-10-21, 3): `/admin/csat/new/fast`(새 교재 만들기에서 링크) — 1B 팩 묶음(`vf.fast-worksheet-bundle/1`)을 열어 순서·발문·선지만 편집한다(정답·근거·해설·원문·수량·주문 불가, 수량 변경은 `quantity_change_requires_new_order`). 편집은 새 출력 바이트를 만들어 옛 검수를 무효로 하고, 검수 요청을 새 AI 세션이 채운 `vf.dcp-ai-review/1` 을 가져와야 문제지·해설지·manifest 가 열린다. 원천은 API 가 현재 행을 읽어 재판정하며 has_items 만 다를 때만 재사용(두 관측 기록), 다른 결속 값이 바뀌면 거절. 1C 입고 규칙은 그대로. 출력은 로컬 검수 초안 — F(권리) unknown 이라 FQ held, 등록·출시 아님. CLI `scripts/textbook/fast-worksheet.mts --help`. 도움말 `csat-fast`.
+
 2026-10-20 후속: 같은 학습자 ID의 수행·명시적 Workspace/계획 결속·개인 공급·저장 진단을 읽고, 제품 추적은 적용 버전별 원장을 구분한다. 수행 정오는 문항별 Reveal Gate 뒤 허용된 사용자·시도·문항에 한해 읽는다. 개인 공급의 Workspace 소유 조회는 관리자 클라이언트로, 기존 충족도 RPC는 실제 관리자 인증 세션으로 실행한다. 기출 다음 문항·도서 본문 검수의 화면 복귀에도 검증된 목록 조건을 유지한다. [최종 인계·미설치 주문 계보 조건](admin-restructure/final-delivery.md).
 
 현재 재구조화: [v2.1 구현·지원 범위](./admin-restructure/v21-delivery.md). 7개 상위·22개 하위 공간과 89개 기존 경로를 유지하며, 선택 시리즈/단계의 조판 조회와 공용 기출·제품 적용·학습자 저장 계획을 연결한다. 대상별 수행·저장 진단 읽기는 후속 구현했다. canonical Product Order의 계획 계보는 설치했고 실제 생산/납품 기록과 그 화면 검증은 남아 있다.

@@ -291,3 +291,5 @@ scripts/csat/meaning-support-drain/input-*.json
 apps/web/playwright-report-isolated/
 apps/web/tests/fixtures/factory-dcp-harness.html
 apps/web/tests/fixtures/factory-card-harness.html
+apps/web/tests/fixtures/fast-worksheet-harness.html
+apps/web/tests/fixtures/fast-harness-bundle.json

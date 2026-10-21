@@ -23,6 +23,7 @@
   "include": [
     "scripts/**/*.ts",
     "scripts/**/*.mts",
-    "../../scripts/textbook/factory-production-local.mts"
+    "../../scripts/textbook/factory-production-local.mts",
+    "../../scripts/textbook/fast-worksheet.mts"
   ]
 }

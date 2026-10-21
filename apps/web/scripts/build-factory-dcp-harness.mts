@@ -16,6 +16,7 @@
 import fs from 'node:fs'
 import { createRequire } from 'node:module'
 import path from 'node:path'
+import type { HarnessEsbuildApi } from './harness-esbuild-types'
 
 import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
@@ -27,7 +28,7 @@ const ROOT = path.resolve('.')
 const require = createRequire(path.join(ROOT, 'package.json'))
 // esbuild 는 web 의 직접 의존성이 아니다 — 이미 설치된 vitest → vite 가 쓰는 같은 esbuild 를 빌린다(새 의존성 없음)
 const viteRequire = createRequire(createRequire(require.resolve('vitest/package.json')).resolve('vite/package.json'))
-const { build } = viteRequire('esbuild') as typeof import('esbuild')
+const { build } = viteRequire('esbuild') as HarnessEsbuildApi
 const distDir = process.env.NEXT_DIST_DIR ?? '.next'
 const cssDir = path.resolve(distDir, 'static/css')
 
