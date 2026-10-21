@@ -3,12 +3,14 @@
 // 관리자용 읽기 전용 CLI — 교재공장 주문 초안 계산 · 주문 계보 조회.
 //   prepare --input <JSON> --out <새 파일>               → POST /api/admin/csat/factory-order-draft
 //   lineage --user <UUID> --workspace <UUID> --out <새 파일> → GET  /api/admin/csat/product-order-lineage
-// 조회·계산만 한다. 계보 등록·연결·철회, 생산, 납품은 이 도구에 없다.
+//   admission-preview --packet <f> --output <f> --review <f> --out <새 파일> → POST /api/admin/csat/dcp-admission (action=preview)
+// 조회·계산만 한다. 계보 등록·연결·철회, DCP 후보 입고, 생산, 납품은 이 도구에 없다.
 //
 // 인증: 관리자 세션 Cookie 는 환경변수 VOCAFLOW_ADMIN_COOKIE 에서만 읽는다(인자·파일·출력에 남기지 않는다).
 // Cookie 는 http loopback origin(localhost · 127.0.0.1 · [::1])에만 보내고 redirect 는 따라가지 않는다.
 // 출력은 새 파일에만(wx) 쓴다 — 기존 파일은 거절하고, 실패하면 산출물을 만들지 않는다.
 
+import { createHash } from 'node:crypto'
 import * as fs from 'node:fs'
 import { existsSync, readFileSync } from 'node:fs'
 import { resolve } from 'node:path'
@@ -16,7 +18,9 @@ import { fileURLToPath } from 'node:url'
 
 export const FACTORY_ORDER_DRAFT_PATH = '/api/admin/csat/factory-order-draft'
 export const PRODUCT_ORDER_LINEAGE_PATH = '/api/admin/csat/product-order-lineage'
+export const DCP_ADMISSION_PATH = '/api/admin/csat/dcp-admission'
 export const MAX_INPUT_BYTES = 120000
+export const MAX_ADMISSION_BYTES = 400000
 export const DEFAULT_BASE_URL = 'http://localhost:3000'
 export const COOKIE_ENV = 'VOCAFLOW_ADMIN_COOKIE'
 
@@ -25,7 +29,9 @@ const LOOPBACK_HOSTS = new Set(['localhost', '127.0.0.1', '[::1]'])
 const FLAGS = {
   prepare: new Set(['input', 'out', 'base-url']),
   lineage: new Set(['user', 'workspace', 'out', 'base-url']),
+  'admission-preview': new Set(['packet', 'output', 'review', 'out', 'base-url']),
 }
+const REQUIRED = { prepare: ['input', 'out'], lineage: ['user', 'workspace', 'out'], 'admission-preview': ['packet', 'output', 'review', 'out'] }
 
 export class CliError extends Error {}
 
@@ -113,7 +119,7 @@ export function newFileSet(fsImpl = fs) {
 export function parseArgs(argv) {
   const [command, ...rest] = argv
   if (!command || !Object.hasOwn(FLAGS, command))
-    throw new CliError('명령은 prepare 또는 lineage 입니다.')
+    throw new CliError('명령은 prepare · lineage · admission-preview 입니다.')
   const allowed = FLAGS[command]
   const flags = {}
   for (let i = 0; i < rest.length; i += 2) {
@@ -127,8 +133,7 @@ export function parseArgs(argv) {
       throw new CliError(`--${name} 값이 필요합니다.`)
     flags[name] = value
   }
-  const required = command === 'prepare' ? ['input', 'out'] : ['user', 'workspace', 'out']
-  for (const name of required) if (!flags[name]) throw new CliError(`--${name} 이 필요합니다.`)
+  for (const name of REQUIRED[command]) if (!flags[name]) throw new CliError(`--${name} 이 필요합니다.`)
   if (command === 'lineage') {
     if (!UUID.test(flags.user)) throw new CliError('--user 는 UUID 여야 합니다.')
     if (!UUID.test(flags.workspace)) throw new CliError('--workspace 는 UUID 여야 합니다.')
@@ -186,6 +191,37 @@ const isDraft = (b) =>
   b.production === 'not_started' && b.delivery === 'not_performed' && b.registrable === false &&
   typeof b.factory?.order_hash === 'string' && Array.isArray(b.blockers)
 
+/** 미리보기 본문 — 세 파일을 읽어 action=preview 하나로. 출력 sha256 은 파일 bytes 로 계산한다 */
+function admissionBody(flags, readFile) {
+  const readObj = (name) => {
+    let raw
+    try {
+      raw = readFile(flags[name])
+    } catch {
+      throw new CliError(`--${name} 파일을 읽을 수 없습니다.`)
+    }
+    let v
+    try {
+      v = JSON.parse(raw)
+    } catch {
+      throw new CliError(`--${name} 이 JSON 이 아닙니다.`)
+    }
+    if (v === null || typeof v !== 'object' || Array.isArray(v)) throw new CliError(`--${name} 은 JSON 객체여야 합니다.`)
+    return { raw, v }
+  }
+  const packet = readObj('packet')
+  const output = readObj('output')
+  const review = readObj('review')
+  const body = JSON.stringify({
+    action: 'preview', packet: packet.v, output: output.v, review: review.v,
+    output_sha256: createHash('sha256').update(Buffer.from(output.raw, 'utf8')).digest('hex'),
+  })
+  if (Buffer.byteLength(body, 'utf8') > MAX_ADMISSION_BYTES) throw new CliError(`미리보기 본문이 ${MAX_ADMISSION_BYTES} 바이트를 넘습니다.`)
+  return body
+}
+
+const isPreview = (b) => b && b.status === 'ok' && b.writes === 'not_performed' && Array.isArray(b.plan?.items) && typeof b.plan?.real_admissible === 'boolean'
+
 const isLineage = (b) => b && (b.status === 'installed' || b.status === 'not_installed')
 
 function summarize(command, body) {
@@ -194,6 +230,12 @@ function summarize(command, body) {
       `주문 초안 계산됨 — 저장 안 됨 · 계보 미등록 · 생산 미실행 · 납품 미실행`,
       `대응: ${body.mapping} (미검증 후보) · order_hash ${body.factory.order_hash}`,
       `남은 차단 ${body.blockers.length}: ${body.blockers.join(', ')}`,
+    ]
+  if (command === 'admission-preview')
+    return [
+      `DCP 후보 등록 미리보기 — 읽기만 함 · 등록 · 자격 · 승인 · 납품 미실행`,
+      `문항 ${body.plan.items.length} · real_admissible=${body.plan.real_admissible} · qualification_ready=${body.plan.items.filter((i) => i.qualification_ready).length}`,
+      ...(body.plan.blockers?.length ? [`차단: ${body.plan.blockers.join(', ')}`] : []),
     ]
   return body.status === 'not_installed'
     ? ['주문 계보 테이블이 설치되지 않았습니다 — 조회만 했고 기록은 만들지 않았습니다.']
@@ -231,6 +273,11 @@ export async function run(argv, deps = {}) {
         url: `${origin}${FACTORY_ORDER_DRAFT_PATH}`,
         init: { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body, redirect: 'error' },
       }
+    } else if (command === 'admission-preview') {
+      request = {
+        url: `${origin}${DCP_ADMISSION_PATH}`,
+        init: { method: 'POST', headers: { ...headers, 'Content-Type': 'application/json' }, body: admissionBody(flags, readFile), redirect: 'error' },
+      }
     } else {
       const qs = new URLSearchParams({ user: flags.user, workspace: flags.workspace })
       request = {
@@ -262,7 +309,7 @@ export async function run(argv, deps = {}) {
     err(`HTTP ${res.status}${code} — 산출물을 만들지 않았습니다.`)
     return 1
   }
-  if (!(command === 'prepare' ? isDraft(body) : isLineage(body))) {
+  if (!(command === 'prepare' ? isDraft(body) : command === 'admission-preview' ? isPreview(body) : isLineage(body))) {
     err('응답 형식이 예상과 다릅니다 — 산출물을 만들지 않았습니다.')
     return 1
   }

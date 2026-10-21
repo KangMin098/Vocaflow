@@ -1,5 +1,9 @@
 # CHANGELOG
 
+- fix(factory): DCP 미리보기를 실제 중첩 메타데이터 투영과 현재 문항 조회에 맞추고, 납품이 목표·계획 writer와 같은 잠금을 쓰게 했다. 실제 Supabase 기본 권한에서 발견한 영수증 직접 쓰기도 차단했다. 최종 관련 회귀 139 통과·공유 DB 변경 없음.
+
+- feat(factory): 1C 원문 파생 DCP 후보 등록 계획(`dcp-admission.ts`)·관리자/학습자 세션 분리 공급 경계(`dcp-supply.ts`)·CLI `admission-plan`(dry-run)과 보류 SQL `_pending_factory_dcp_admission.sql`(**미적용**)을 추가했다. 격리 PGlite에서 등록→AI 검수 자격→별도 승인→학습자 본인 공급→원문 변경 시 무효까지 확인(신규 16·관련 회귀 258 통과). 공유 DB 쓰기·권리 발급·납품은 없다. Codex 반례 수정: 멱등 자격 RPC `factory_dcp_qualify`(실패·응답 유실 복구)·공급 시 현재 개인 계보+D3 제품주문 링크 원자 검사·관리자 `POST /api/admin/csat/dcp-admission`(preview/admit)·CLI `admission-preview`(관련 315·CLI 20 통과).
+
 - feat(factory): 주문·원문에 결속된 로컬 소량 제작 패킷/검증/HTML·manifest CLI를 추가했다. 실제 문항 3개 제작과 파일 충돌·오류 주입 복구를 확인했다(웹167·CLI18·타입 포함 검사6). 결과는 합성 수요 기반 검토 후보이며 DB 등록·발행·납품은 미실행이다.
 
 - feat(admin): 저장된 Workspace 수요·현재 목표/계획을 검증한 뒤 실제 공장 설계기로 주문 초안을 계산하는 `POST /api/admin/csat/factory-order-draft`와 관리자용 읽기 전용 CLI 추가. 비영속 초안·미검증 대응·생산/납품 미실행을 구분한다. 웹 205·공장 설계 5·Codex 반례 6·CLI 9·호출부 5 통과, DB 변경 없음.

@@ -6,6 +6,8 @@ Product Order 계보 API(2026-10-20): `/api/admin/csat/product-order-lineage` GE
 
 두 API의 운영 호출부(2026-10-21, 1A R1): 읽기 전용 관리자 CLI `scripts/textbook/factory-order-draft.mjs`. `prepare --input <JSON> --out <새 파일>`은 factory-order-draft에 POST, `lineage --user <UUID> --workspace <UUID> --out <새 파일>`은 product-order-lineage에 GET만 한다(register/link/withdraw 없음). 관리자 세션 Cookie는 환경변수 `VOCAFLOW_ADMIN_COOKIE`에서만 읽고 출력하지 않으며, `--base-url`(기본 `http://localhost:3000`)은 http loopback origin만 허용하고 redirect는 차단한다. Origin·JSON 헤더를 보내고 입력은 120000바이트 상한. 출력은 새 파일에만(`wx`) 쓰며 실패·비200·형식 불일치면 산출물 0. 계보 기록·생산·납품을 만들지 않는다.
 
+DCP 후보 입고 API(2026-10-21, 1C): `/api/admin/csat/dcp-admission` POST, 본문은 닫힌 모양 `action(preview|admit)·packet·output·output_sha256·review·rights?`뿐이다(그 밖 키 · userId/actor는 400). 가드·Origin(403)·JSON(415)·400000바이트(413) 뒤 서비스 롤로 원천 정책 정본 투영의 현재 기사 행과 같은 기사의 DCP 존재 수를 SELECT해 `planAdmission`을 다시 판정한다. `preview`는 관리자·curator, RPC·쓰기 없음, 200 `writes=not_performed`(판정 거절 409). `admit`은 admin만(curator 403) **관리자 로그인 세션**으로 `factory_dcp_admit`→`factory_dcp_qualify`를 부른다 — `real_admissible=false`(합성 수요·합성 정책)는 RPC 전 409 `not_admissible`; 권리 unknown은 후보만 등록하고 자격을 보류한다. RPC 미설치 503 `not_installed`, 예외 503. 출시 승인·D3 링크·학습자 납품은 하지 않는다(`release/delivery=not_performed`). 응답은 `no-store`. 운영 호출부: 같은 CLI의 `admission-preview --packet --output --review --out`(preview만 · 출력 sha256은 파일 bytes). 학습자 수신 API는 없다.
+
 ### 관리자 업무 영역 및 호환 경로 (2026-10-19)
 
 - 후속(2026-10-20): `/admin/kice/[typeId]`는 `q/exam/page`와 집합/학년을 유지하고, 문항 상세의 `returnTo`는 허용된 관리자 유형 목록·허용 query만 복원한다. 학습자 상세의 `activityBefore`는 같은 대상의 시도 ID 커서다. 페이지 이동은 진단 tab/view를 유지한다. 새 라우트는 없다.

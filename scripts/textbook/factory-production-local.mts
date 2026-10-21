@@ -13,6 +13,8 @@
 //   import --prepared <file> --source <file> --request <file> --packet <file> --output <file> --out <new-dir>
 //       입력에서 패킷을 다시 만들어 파일과 대조 → 출력 검증 → <new-dir> 에 sheet.html · materials.json · manifest.json · receipt.json.
 //       <new-dir> 이 이미 있으면 거절(덮어쓰지 않음). 중간 실패 시 이번 실행이 만든 파일만 지운다.
+//   admission-plan --packet <file> --output <file> --review <file> --current-source <file> --out <new-file>
+//       1C DCP 후보 등록 계획(dry-run · 파일만). DB 를 읽지도 쓰지도 않는다 — 원천 현재 행은 파일로 받는다.
 //
 // 종료 코드: 0 성공 · 1 검증 거절 · 2 인자 오류.
 
@@ -34,6 +36,7 @@ import {
   validateOutput,
   type ProductionOutput,
 } from '../../apps/web/src/lib/csat/map/v62/factory-bridge/local-production'
+import { planAdmission } from '../../apps/web/src/lib/csat/map/v62/factory-bridge/dcp-admission'
 
 function args(argv: string[]) {
   const [command, ...rest] = argv
@@ -47,7 +50,7 @@ function args(argv: string[]) {
   return { command, opts }
 }
 function usage(msg: string): never {
-  console.error(`${msg}\nusage: factory-production-local.mts prepare-synthetic|export|import --flag value ...`)
+  console.error(`${msg}\nusage: factory-production-local.mts prepare-synthetic|export|import|admission-plan --flag value ...`)
   process.exit(2)
 }
 const need = (opts: Record<string, string>, ...keys: string[]) => {
@@ -181,12 +184,34 @@ function importCmd(opts: Record<string, string>, argv: string[]) {
   }
 }
 
+/**
+ * 1C 등록 계획(읽기 · 파일만, DB 쓰기 없음). 원천은 --current-source(지금 DB 에서 읽은 행 snapshot)로 다시 판정한다.
+ * 계획은 등록 · 자격 · 출시 · 납품이 아니다. 실제 등록은 관리자 세션 서비스(dcp-supply.admitCandidates)와 승인된 SQL 적용 뒤에만.
+ */
+function admissionPlanCmd(opts: Record<string, string>) {
+  const [packetPath, outputPath, reviewPath, sourcePath, out] = need(opts, 'packet', 'output', 'review', 'current-source', 'out')
+  const plan = planAdmission({
+    packet: readJson(packetPath),
+    output: readJson(outputPath),
+    outputSha256: fileSha(outputPath),
+    review: readJson(reviewPath),
+    currentSource: readJson(sourcePath),
+    rights: null, // AI · CLI 는 권리 근거를 발급하지 않는다 — 등록된 권리 기록이 생기면 서비스 경계에서 넘긴다
+  })
+  mkdirSync(dirname(out), { recursive: true })
+  writeNewFile(out, pretty({ ...plan, dry_run: true, inputs: { packet: fileSha(packetPath), output: fileSha(outputPath), review: fileSha(reviewPath), current_source: fileSha(sourcePath) } }))
+  console.log(`OK plan ${out} items=${plan.items.length} real_admissible=${plan.real_admissible} qualification_ready=${plan.items.filter((i) => i.qualification_ready).length}`)
+  if (plan.blockers.length) console.log(`blockers: ${plan.blockers.join(' · ')}`)
+  for (const i of plan.items) console.log(`  ${i.item_id} ${i.row.type} key=${i.request_key} held=${i.held.join(',') || '-'}`)
+}
+
 const argv = process.argv.slice(2)
 const { command, opts } = args(argv)
 try {
   if (command === 'prepare-synthetic') await prepareSynthetic(opts)
   else if (command === 'export') exportCmd(opts)
   else if (command === 'import') importCmd(opts, argv)
+  else if (command === 'admission-plan') admissionPlanCmd(opts)
   else usage(`unknown command: ${command ?? ''}`)
 } catch (error) {
   rejected(error)
