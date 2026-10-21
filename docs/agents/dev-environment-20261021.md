@@ -84,7 +84,11 @@ AGENTS.md, CLAUDE.md, agents/router.md, docs/WORKTREE.md, PR_AUTOMATION_POLICY.m
 GitHub 인증과 fetch는 가능하다. safe-merge가 개발 DB 적용 이력 해시를 읽을 때 필요한 SUPABASE_ACCESS_TOKEN은 현재 셸과 기존 web 환경 파일에 없다. MCP의 읽기 결과를 CLI 승인 게이트에 위조 입력하거나 병합 API로 우회하지 않는다. 원격 병합은 해당 정상 인증과 필수 CI/범위 계약이 충족돼야 한다. 3000은 비점유가 확인된 후에만 main 서버를 시작했다.
 
 <!-- final-execution:start -->
-로컬 main 통합과 관련 회귀는 완료했다. 전체 빌드는 세션 중단으로 완료 영수증을 얻지 못한 실행을 보존하고 최종 실행을 진행 중이다. 이를 성공으로 계산하지 않는다. 원격 납품은 초안 PR로 보존하고, 필수 CI·DB 이력 확인·화면 확인의 최종 결과를 따로 기록한다.
+납품은 [초안 PR #327](https://github.com/KangMin098/Vocaflow/pull/327)에 푸시했다. 95728f7a2의 GitHub Actions build는 성공했다. 로컬 최종 빌드는 디스크 ENOSPC로 실패했으며 세션 중단 실행과 함께 성공으로 계산하지 않는다. 이 작업의 실패 빌드 캐시 19파일(1,730,848,778바이트)을 SHA-256을 보존해 C:의 임시 보관 폴더로 옮겼고 D: 여유는 약 2.09GB가 됐다. 다른 공간 파일은 삭제하지 않았다.
+
+3000의 실제 Chromium 확인은 /hub·/csat 200, 1440px 가로 넘침/JS 오류 0이다. 일반 계정의 /admin은 /hub로 이동했다. 인증된 관리자 전수 QA로 주장하지 않는다.
+
+첫 CI verify의 세 실패는 계보 API의 명시적 HTTP 자동화 호출과 검사기의 오탐/줄바꿈 문제로 수정했다. 수정 검사기는 40줄 밖의 실제 바깥 루프도 검출한다. 전량 대조는 origin/main 150·통합본 151(차이는 제한된 TCP claim 종료 1곳), 재검출 19·오탐 제외 12를 모두 읽었다. 집중 3파일/25회귀를 통과했다. E2E의 신규 migration 실패는 빈 DB에 누락된 정본 trigger 함수 정의를 CI loopback fixture에만 복구해 조치했고 가드 4회귀를 통과했다. 운영 SQL 바이트·기존 실패 기준선을 바꾸지 않았다. 후속 필수 CI와 DB 이력 인증은 아직 최종 확인 전이다.
 <!-- final-execution:end -->
 
 ## 부록. 보존한 기존 공간 전체

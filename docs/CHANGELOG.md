@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(ci): 빈 Supabase의 보안 이력 검증에 누락된 정본 트리거 함수 정의를 CI loopback에만 복구한다. 계보 HTTP 자동화 호출을 라우트 검사에 명시하고, 반복 쓰기 검사의 CRLF·끝난 형제 루프·긴 바깥 루프·500행 삭제 배치 판정을 보완했다. 동일 검사기로 main 150/통합본 151을 전량 대조했으며 새 1건은 상한·간격이 있는 TCP claim 종료다. 운영 SQL/DB 변경 없음.
+
 - feat(csat): FINAL §5 TASK 확장 — 과제 형식 레지스트리 위에 창작 세트 6개(E 근거 위치 · E 선지 대응 · R 추론 · R 문장 관계 · S 형태 범위 · V 문맥 의미, 각 6문항 · 맹검 검토 반영). 설명 글 문장 번호를 화면과 같은 1부터로 통일(세트마다 proseNumbering 필수). §6 ⑤ 기출분석 「글 전체 구조」 먼저 예측 → 서버 대조(POST /api/csat/item/[slug]/structure) → 도식. 사람 Gold · 권리 전.
 
 - fix(csat): FI-001(#293) — G2 결속이 최신 납품을 추측하지 않는다. 화면이 연 납품 id(?d= → deliveryId)만 결속하고 서버가 본인 · 문항 · 종류 · Workspace active · 시도 모양↔역할을 재검증한다. 출처 없음 = `no_provenance`(기록 보존) · 역할 불일치 = `role_mismatch`(결속 안 함) · 복구 `POST /api/csat/delivery/bind` · 결과에 근거 여부 포함. 같은 자료 다중 납품은 /csat/learn 에서 고르게 한다. 격리 재현 6건(수정 전 6/6 실패 · 수정 후 6/6 통과).
