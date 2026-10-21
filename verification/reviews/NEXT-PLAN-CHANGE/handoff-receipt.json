@@ -16,9 +16,17 @@
   "goal_alignment": "passed addTask/alignmentGate",
   "owner": "final-product",
   "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
-  "delivery": "QUEUED",
-  "actual_ack": null,
-  "implementation_started": false,
+  "delivery": "ACKNOWLEDGED",
+  "actual_ack": "2026-10-21T10:43:40.322Z",
+  "implementation_started": true,
   "result_returned": false,
-  "observed_at": "2026-10-21T10:43:20.750Z"
+  "observed_at": "2026-10-21T10:43:20.750Z",
+  "actual_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "actual_pid": 19636,
+  "actual_process_name": "claude",
+  "started_at": "2026-10-21T10:43:40.322Z",
+  "start_head": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+  "matching_product_worktree_lock": true,
+  "status": "IN_PROGRESS",
+  "verified_at": "2026-10-21T10:44:05.059Z"
 }
