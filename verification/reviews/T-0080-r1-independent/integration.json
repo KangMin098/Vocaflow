@@ -1,0 +1,13 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T12:28:19.187Z",
+  "commit": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+  "type": "integration",
+  "covers": [
+    0,
+    1
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0080-r1-independent/browser/results.json",
+  "command_or_protocol": "Actual HomeLanding SSR href→production parser→actual UnifiedLearningMap mount after stale selection in same module, keyboard, 1440/1280, old contract negative controls; mocks/synthetic DTO, not auth Next/DB."
+}

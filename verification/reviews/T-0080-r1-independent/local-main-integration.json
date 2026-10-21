@@ -1,0 +1,41 @@
+{
+  "task_id": "T-0080",
+  "source_head": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+  "base": "59839a4f0db15e2960d6a5a8f755218f03172810",
+  "task_delta_base": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+  "merge_sha": "824618f2bdc02678a08d49ccc6e8bafdf8603fb5",
+  "tree": "b7aedf20a9078e9c6ec74d2a842871695f74b55a",
+  "commits": [
+    "e355869eae9ae61943f2deb48a4218905c6b5fa1"
+  ],
+  "files": [
+    "apps/web/src/components/csat/home/HomeLanding.tsx",
+    "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+    "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "source_foreign_edits_preserved": [
+    "scripts/audit/learner-linkgraph.result.json",
+    "scripts/audit/shell-reach.result.json"
+  ],
+  "target_worktree": "D:/workspace/Vocaflow-main-serving",
+  "method": "Existing exact-task staticGates and integrate helper; clean locked main. Preserve separate development-policy commits, do not touch local/integration or other writer edits.",
+  "p2_test_expectation": "T0079 isolated selector source corrected; authenticated daily-bundle E2E still NOT_VERIFIED.",
+  "remote_push": false,
+  "ci": false,
+  "db_write": false,
+  "observed_at": "2026-10-21T12:28:41.502Z",
+  "post_merge": {
+    "typecheck": {
+      "exit_code": 0
+    },
+    "focused": {
+      "passed": 15,
+      "failed": 0,
+      "skipped": 0,
+      "file": "verification/reviews/T-0080-r1-independent/main-focused-results.json"
+    },
+    "main_tracked_clean": true,
+    "lock_released": true
+  }
+}

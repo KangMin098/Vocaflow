@@ -1,0 +1,31 @@
+{
+  "task_id": "T-0080",
+  "design_revision": "rev1",
+  "head": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+  "verdict": "APPROVE",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "findings": [],
+  "verified_fixed": [
+    "home continue_check stale TASK/Workspace restoration",
+    "T0079-P2-1 test expectation source (authenticated execution still NOT_VERIFIED)"
+  ],
+  "ran_tests": true,
+  "verification": {
+    "current": "Independent actual rendered link4/4, focused render+map-return15/15 skip0",
+    "chromium": "Actual href→parser→UnifiedLearningMap same-runtime remount, two widths, old-link negative controls retained, fixed TASK+Workspace+keyboard, no errors/overflow. 4 assertions(2negative+2positive). Synthetic DTO/router shim, not authenticated Next routing.",
+    "reuse": "Unchanged home ranking, goal/read predicates and continuation priority retain T0079 independent6 and Chromium10 evidence; no fabricated rerun.",
+    "authenticated_e2e": "NOT_VERIFIED, source amended to actual continuation CTA",
+    "db_writes": 0,
+    "sql_or_permissions_changed": false
+  },
+  "provenance": {
+    "contract": "local-roles/1",
+    "task_id": "T-0080",
+    "head": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "owner": "final-independent-accept",
+    "session_id": "01a14de8-2485-7a53-b530-d5612f35e57a"
+  },
+  "recorded_at": "2026-10-21T12:28:19.187Z"
+}

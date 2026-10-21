@@ -1,0 +1,32 @@
+{
+  "head": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+  "environment": "Actual UnifiedLearningMap React/Chromium; simulated same-runtime unmount/remount and actual rendered HomeLanding href→parseMapReturn, synthetic DTO, router shim. Not authenticated Next routing.",
+  "results": [
+    {
+      "width": 1440,
+      "requested": "r.central_meaning",
+      "stale": "e.evidence_location",
+      "legacy_actual": "e.evidence_location",
+      "explicit_map_task_control": "r.central_meaning",
+      "workspace": "ws.central-meaning",
+      "overflow": 0,
+      "keyboard": true,
+      "fixed_pass": true,
+      "defect_reproduced": true,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "requested": "r.central_meaning",
+      "stale": "e.evidence_location",
+      "legacy_actual": "e.evidence_location",
+      "explicit_map_task_control": "r.central_meaning",
+      "workspace": "ws.central-meaning",
+      "overflow": 0,
+      "keyboard": true,
+      "fixed_pass": true,
+      "defect_reproduced": true,
+      "errors": []
+    }
+  ]
+}

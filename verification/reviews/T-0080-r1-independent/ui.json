@@ -1,0 +1,43 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T12:28:19.187Z",
+  "commit": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+  "type": "ui",
+  "covers": [
+    0,
+    1,
+    2
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0080-r1-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0080-r1-independent/browser/fixed-1440.png",
+    "verification/reviews/T-0080-r1-independent/browser/fixed-1280.png"
+  ],
+  "urls": [
+    "http://127.0.0.1:5173/ (closed component harness)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual UnifiedLearningMap React/Chromium, actual rendered HomeLanding href, synthetic DTO, router shim, same module remount. No auth Next routing/DB, full3B pixel or contrast audit.",
+  "command_or_protocol": "node verification/reviews/T-0080-r1-independent/browser/run.mjs. Each width preserves old-link failure as negative, new-link correct TASK+Workspace with Enter, error/overflow0.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "Scope is one link attribute, unchanged visual layout; reused styles. UI checks are scoped to context restoration, keyboard and no rendering regression, not complete Next learner flow or global reference comparison."
+}

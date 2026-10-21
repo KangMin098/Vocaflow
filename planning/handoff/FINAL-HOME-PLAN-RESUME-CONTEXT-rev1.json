@@ -1,0 +1,113 @@
+{
+  "goal_id": "VG-L3-A3-02",
+  "related_goal_ids": [
+    "VG-L3-A1-02",
+    "VG-L3-B2-02"
+  ],
+  "title": "저장 계획 이어보기가 실제 미완료 TASK·Workspace로 연결",
+  "description": "FINAL F/H. 최신main824618f2b 실제지도Chromium1440/1280에서 홈continue_plan의 현재 URL(ws만전달)을 열면 명시한ws.central-meaning대신 앞서보던v.core_meaning/ws.vocab-context가 남는다. map_task+ws 대조는 중심의미/요청묶음복원. T0080 확인이어하기는수정됨; 이번은저장계획카드에실제미완료TASK문맥이없다는별도DTO공백이다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "created_by": "final-independent-accept",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+  "depends_on": [
+    "T-0080"
+  ],
+  "duplicate_reason": "final-product 활성0. T0080은continue_check 한줄변경만수용했고다른제안분기는반례없이넓히지않았다. 이번은continue_plan의워크스페이스요청이무시되는실제두너비반례를새로확인했다. 같은목표의다른소유작업/전체지도는변경하지않는다.",
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/home-progress.ts",
+    "apps/web/src/lib/csat/map/__tests__/home-progress.test.ts",
+    "apps/web/src/components/csat/home/HomeLanding.tsx",
+    "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+    "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/lib/csat/skill-diagnosis.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+    "apps/web/src/lib/csat/map/v4/**",
+    "apps/web/src/lib/csat/map/v62/evidence-read.ts",
+    "apps/web/src/lib/csat/map/v62/next-action.ts",
+    "apps/web/src/components/csat/diagnosis/map/**",
+    "scripts/audit/**"
+  ],
+  "db_scope": {
+    "mode": "none",
+    "targets": []
+  },
+  "approval_required": false,
+  "requires_ci": false,
+  "criterion_claims": [
+    {
+      "criterion_id": "VG-L3-A3-02-AC1",
+      "claim": "partial"
+    }
+  ],
+  "acceptance": [
+    "기존 mapProgressOf의 저장계획 추천에 그계획의 실제미완료TASK문맥을 실어 홈continue_plan이 map_task+ws로 요청한묶음을연다. 선택설계는이미계산한applySaved(v.plans[id], sw.latest)의현재TASK행에서 계획량/수행량상미완료인실제행을기존순서로선택; 기존Workspace우선순위·계획량·수행량·목표·단계판정은변경하지않는다. 임의TASK/핵심TASK를복사해넣거나없는수행을만들지않는다. 구현중같은기존함수로더간단히선택가능하면 근거와함께간소화가능. 실제남은행을확인못하는경우엉뚱한TASK를추정하지않고그이어하기제안을닫는다. 과거보기/목표없음/저장소미설치·조회실패/수행원장미확인/계획완료의기존보호유지.",
+    "HomeLanding continue_plan href는실제계획이어가기TASK와Workspace만기존mapReturnQuery로직렬화하고현재지도파서parseMapReturn이읽는mapTask/ws와같다. map_item/map_attempt/map_plan/map_goal·새수행영수증을이동만으로발급하지않는다. 그묶음의현재계획/재확정관문을우회하거나자동저장하지않는다. continue_check/T0080과홈오류/보류/복귀/진행중우선순위·수치문구는그대로, 새화면없음.",
+    "관련 L2/L3: 실제반례두너비에서먼저다른TASK/묶음을선택→실제계획카드href파싱으로재진입→요청한TASK/Workspace복원. actual mapProgressOf가core0·support미완료같은케이스도현재남은행에서선택하는지합성계획재료로확인; 현재mock progress-only시험은새계약을표현하는최소유효TASK행만추가하고완료/없음/에러단언은보존. 기존수행/진단/순위suite재실행불필요. 타입/lint/해당mapper·렌더·파서와실제React/Chromium1440/1280만. 인증home-map-evidence의평가본문첫노출전에(예: 계획/실제공급/재확정뒤start클릭전)계획카드복귀를단언해기존G2독립1과시험0보존; 여건없으면NOT_VERIFIED로다음일일공식묶음에남김. 작업별push/PR/CI·새실행기없음."
+  ],
+  "ui_acceptance": [
+    "홈저장계획카드의키보드이어서보기로실제남은TASK와그Workspace로돌아간다. 현재수행량과저장계획을과장하지않고없는행은추정하지않는다.1440/1280의옛선택반례와실제파서/지도복원을확인한다."
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-A3-02",
+    "acceptance_ids": [
+      "VG-L3-A3-02-AC1"
+    ],
+    "current_gap": "main824618f2b actual UnifiedLearningMap Chromium two widths: existing continue_plan href ws.central-meaning only retains v.core_meaning/ws.vocab-context; explicit map_task control restores requested central Workspace. Actual Next authenticated path not claimed.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "저장계획의실제미완료TASK와홈링크결속",
+      "명시한Workspace복원과옛선택음성대조",
+      "수량/목표/원장보호/평가첫노출불변"
+    ],
+    "next_dependency": "로컬독립수용/통합후기존일일공식묶음의인증계획카드복귀. 실제DB/Gold/권리별개.",
+    "out_of_scope": [
+      "현재지도초기선택정책변경",
+      "새계획량/숙달/순위정책",
+      "DB/API/SQL/권리승인",
+      "새UI/실행기"
+    ],
+    "dependency_type": "direct"
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_revision": "rev1",
+    "design_id": "FINAL-HOME-PLAN-RESUME-CONTEXT-rev1",
+    "goals_ah": [
+      "F",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "canonical_main": "824618f2bdc02678a08d49ccc6e8bafdf8603fb5",
+    "source_base": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+    "scope_main_source_diff": "Home progress/landing production files equal at sourcee355 and canonical main824; unrelated main edits retained.",
+    "probe": "verification/reviews/NEXT-HOME-PLAN-CONTEXT/run.mjs",
+    "baseline": "verification/reviews/NEXT-HOME-PLAN-CONTEXT/results.json",
+    "delivery": "QUEUED until actual ACK/start"
+  }
+}

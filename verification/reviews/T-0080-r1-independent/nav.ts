@@ -1,0 +1,1 @@
+export const useRouter=()=>({refresh(){}});export const useSearchParams=()=>new URLSearchParams();export const usePathname=()=>'/csat';

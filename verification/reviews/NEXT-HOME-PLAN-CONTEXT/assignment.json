@@ -1,0 +1,14 @@
+{
+  "task_id": "T-0081",
+  "status": "READY",
+  "alignment_gate": "PASSED by addTask",
+  "owner": "final-product",
+  "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "delivery": "QUEUED",
+  "acknowledged": false,
+  "implementation_started": false,
+  "canonical_main": "824618f2bdc02678a08d49ccc6e8bafdf8603fb5",
+  "source_base": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+  "spec": "planning/handoff/FINAL-HOME-PLAN-RESUME-CONTEXT-rev1.json",
+  "at": "2026-10-21T12:32:56.590Z"
+}
