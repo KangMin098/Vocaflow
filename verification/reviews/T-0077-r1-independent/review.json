@@ -1,0 +1,15 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T10:52:04.434Z",
+  "commit": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "type": "review",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0077-r1-independent/REVIEW.md",
+  "command_or_protocol": "Independent exact-HEAD source review, baseline3, focused15, real Chromium20 assertions +2 details. No authenticated/full-app claim."
+}

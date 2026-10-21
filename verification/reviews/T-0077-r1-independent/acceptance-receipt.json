@@ -1,0 +1,21 @@
+{
+  "task_id": "T-0077",
+  "status": "COMPLETED",
+  "head": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "local_main": "d5f1d0775bb152a360aa8f86431c237df80b2936",
+  "review_record": "verification/reviews/T-0077-r1-independent/REVIEW.md",
+  "review_sha256": "7535e4303ff86d4b3b637ce32e03770ead76c55964ab3ac13bf5a8122fb75f09",
+  "independent_probe": 3,
+  "independent_focused": 15,
+  "independent_browser_assertions": 20,
+  "informational_browser_records": 2,
+  "post_merge_typecheck_exit": 0,
+  "post_merge_focused": 15,
+  "authenticated_next_db": "NOT_VERIFIED",
+  "remote_push": false,
+  "db_writes": 0,
+  "delivery": "QUEUED",
+  "actual_ack": null,
+  "recorded_at": "2026-10-21T10:54:28.915Z"
+}

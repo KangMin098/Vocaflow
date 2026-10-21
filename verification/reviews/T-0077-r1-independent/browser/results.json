@@ -1,0 +1,171 @@
+{
+  "tested_head": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "observed_at": "2026-10-21T10:50:43.513Z",
+  "meaningful_checks": 20,
+  "post_requests": 0,
+  "environment": "actual Chromium + actual React PlanSection; fixed data; router shim; no auth Next/DB",
+  "results": [
+    {
+      "width": 1440,
+      "case": "proposal",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "savedChange",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "same",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "availableNull",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "goalOnly",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "readFailed",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "past",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "keyboardEdit",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "keyboardReset",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "noHiddenPost",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "case": "detail",
+      "savedChange": "저장된 변화 · 버전 1 → 2 · 저장 사유 「확인 결과 반영」\n\n중심 의미 — 단계 확인하기 → 바로잡기",
+      "historyTasks": [
+        "중심 의미 바로잡기 2문항",
+        "중심 의미 확인하기 2문항"
+      ],
+      "passed": true
+    },
+    {
+      "width": 1280,
+      "case": "proposal",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "savedChange",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "same",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "availableNull",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "goalOnly",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "readFailed",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "past",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "keyboardEdit",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "keyboardReset",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "noHiddenPost",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "detail",
+      "savedChange": "저장된 변화 · 버전 1 → 2 · 저장 사유 「확인 결과 반영」\n\n중심 의미 — 단계 확인하기 → 바로잡기",
+      "historyTasks": [
+        "중심 의미 바로잡기 2문항",
+        "중심 의미 확인하기 2문항"
+      ],
+      "passed": true
+    }
+  ],
+  "passed": 22,
+  "failed": 0
+}

@@ -1,0 +1,15 @@
+{
+  "main": "d5f1d0775bb152a360aa8f86431c237df80b2936",
+  "ref": "main",
+  "worktree": "D:/workspace/Vocaflow-main-serving",
+  "report": "verification/goal-check/GC-2026-10-21T10-53-41-895Z.json",
+  "distribution": {
+    "UNKNOWN": 33,
+    "FAIL": 1,
+    "EXTERNAL_INPUT_REQUIRED": 1
+  },
+  "changes": [],
+  "ci_read": false,
+  "global_config_changed": false,
+  "note": "Use actual current canonical local main; no old integration branch or prior CI relabelled to this HEAD. UNKNOWN is not unimplemented. Existing broad criteria are not closed by T0077 component-only acceptance."
+}

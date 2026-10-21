@@ -1,0 +1,12 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/components/csat/diagnosis/map/PlanChangeSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/plan-change-summary.test.tsx",
+    "apps/web/src/lib/csat/map/v62/__tests__/plan-change.test.ts",
+    "apps/web/src/lib/csat/map/v62/plan-change.ts",
+    "apps/web/tests/e2e-isolated/goal-plan-version.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

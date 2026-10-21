@@ -1,0 +1,41 @@
+{
+  "task_id": "T-0077",
+  "source_head": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "base": "6b32496be4eefdf12b1dc7d14292de983f381f1b",
+  "task_delta_base": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+  "merge_sha": "d5f1d0775bb152a360aa8f86431c237df80b2936",
+  "tree": "5c76b8426676e0690e12fa007d9dff440308fb06",
+  "expected_tree": "5c76b8426676e0690e12fa007d9dff440308fb06",
+  "commits": [
+    "0aa0631279bdd2cd123d38493027945cf1db76c9"
+  ],
+  "files": [
+    "apps/web/src/components/csat/diagnosis/map/PlanChangeSummary.tsx",
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/plan-change-summary.test.tsx",
+    "apps/web/src/lib/csat/map/v62/__tests__/plan-change.test.ts",
+    "apps/web/src/lib/csat/map/v62/plan-change.ts",
+    "apps/web/tests/e2e-isolated/goal-plan-version.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "source_foreign_edits_preserved": [
+    "scripts/audit/learner-linkgraph.result.json",
+    "scripts/audit/shell-reach.result.json"
+  ],
+  "method": "Existing exact-task staticGates and integrate helper on clean locked canonical main; no gate edits.",
+  "target_worktree": "D:/workspace/Vocaflow-main-serving",
+  "authenticated_e2e": "NOT_VERIFIED - next daily official sync bundle",
+  "remote_push": false,
+  "ci": false,
+  "db_write": false,
+  "observed_at": "2026-10-21T10:52:30.472Z",
+  "post_merge_checks": {
+    "typecheck_exit": 0,
+    "unit_passed": 15,
+    "unit_failed": 0,
+    "unit_skipped": 0,
+    "artifact": "verification/reviews/T-0077-r1-independent/main-focused-results.json",
+    "target_tracked_clean": true,
+    "lock_released": true
+  }
+}

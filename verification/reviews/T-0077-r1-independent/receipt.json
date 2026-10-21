@@ -1,0 +1,32 @@
+{
+  "task_id": "T-0077",
+  "head": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "design_revision": "rev1",
+  "verdict": "APPROVE",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "findings": [],
+  "ran_tests": true,
+  "verification": {
+    "independent_baseline_probe": "3/3 skip0",
+    "independent_focused": "15/15 skip0",
+    "independent_chromium": "20/20 actual assertions across1440/1280 +2 informative detail records; 22 total pass. Keyboard edit and reset follow shown draft; no POST, page error or overflow.",
+    "source_review": "PlanSection diff adds display-only code. submit/409/restore/draft handlers, APIs, SQL, goal and diagnosis rules unchanged.",
+    "authenticated_next_db": "NOT_VERIFIED - next daily official sync",
+    "full3B_skin": "NOT_VERIFIED - module CSS only",
+    "db_writes": 0
+  },
+  "provenance": {
+    "contract": "local-roles/1",
+    "task_id": "T-0077",
+    "head": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "owner": "final-independent-accept",
+    "session_id": "01a14de8-2485-7a53-b530-d5612f35e57a"
+  },
+  "owner_artifact_hashes_verified": [
+    "T-0077-R1-E01",
+    "T-0077-R1-E02"
+  ],
+  "recorded_at": "2026-10-21T10:52:04.436Z"
+}

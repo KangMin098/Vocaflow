@@ -1,0 +1,44 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T10:52:04.434Z",
+  "commit": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "type": "ui",
+  "covers": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0077-r1-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0077-r1-independent/browser/plan-change-1440.png",
+    "verification/reviews/T-0077-r1-independent/browser/plan-change-1280.png"
+  ],
+  "command_or_protocol": "node verification/reviews/T-0077-r1-independent/browser/run.mjs; copied fixture extended with keyboard edit/reset and no-hidden-POST control; actual sourceHEAD recorded.20 assertions +2 informational records.",
+  "urls": [
+    "http://127.0.0.1/ (ephemeral Vite server; now closed)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual React PlanSection and module CSS, synthetic fixed props/router shim, no global3B/authenticated Next/DB.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "Task-scoped component labels/readability/keyboard details/edit/reset/null/past/error states; existing module classes reused with no CSS changes. Not full-app navigation, global skin, contrast/axe or3B pixel-reference certification. Authenticated save/history path remains next official bundle."
+}
