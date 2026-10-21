@@ -1890,6 +1890,7 @@ p.dockL {
   .node {
     transition: none;
   }
+}
 
 /* T-0073 — 시험 기록 0 · 목표 있음: 지금 할 행동(주) + 기출 기록(보조)을 한 칸에 */
 .topActs {
