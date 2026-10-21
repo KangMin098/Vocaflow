@@ -1,0 +1,132 @@
+{
+  "goal_id": "VG-L3-A1-02",
+  "related_goal_ids": [
+    "VG-L3-B2-02",
+    "VG-L3-A3-02"
+  ],
+  "title": "수행 기록 조회 실패 때 MAP·PLAN을0건으로 재설계하지 않고 복구",
+  "description": "FINAL A/C/F/H. 최신main 실제 composeV4+buildCommitPayload 반례2fail2pass. 안내 연습 성공이 있는 정상 데이터는 transfer인데 lifecycleActivity undefined면 repair로 되돌고 ledger unknown인데도 계획payload가ok=true. findAttempts undefined도 not_checked 계획을 만든다. UI 상세의 확인 보류와 별개로 서버/공급 계산이 오류를 빈목록으로 사용하는 원인을 차단한다. 실제DB쓰기 미실행.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "created_by": "final-independent-accept",
+  "roles": {
+    "analyst": "codex",
+    "planner": "codex",
+    "architect": "codex",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "verifier": "codex"
+  },
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "d5f1d0775bb152a360aa8f86431c237df80b2936",
+  "depends_on": [
+    "T-0077"
+  ],
+  "duplicate_reason": "final-product 활성 작업0. T0076은 EvidenceBlock 표시/projection, T0077은 저장 계획 설명을 완료했다. 이번 gap은 그 이전의 composeV4가 undefined 수행원장을[]로 만들어 저장/공급에 쓰는 별도 원인. T0020/관리자 owner와 실제 구현 파일 업무가 다르고 그 소유권은 건드리지 않는다.",
+  "allowed_paths": [
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/__tests__/load-evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/v4/compose.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-authored-evidence.test.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/v62/evidence-read.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/evidence-read.test.ts",
+    "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+    "apps/web/src/components/csat/diagnosis/map/MapReadUnavailable.tsx",
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+    "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/map-read-unavailable.test.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/plan-goal-refresh.test.tsx",
+    "apps/web/src/app/api/csat/diagnosis/map/plan/route.ts",
+    "apps/web/src/app/api/csat/diagnosis/map/plan/__tests__/evidence-read.test.ts",
+    "apps/web/src/app/api/csat/authored/supply/route.ts",
+    "apps/web/src/app/api/csat/authored/supply/route.test.ts",
+    "apps/web/tests/e2e-isolated/map-read-recovery.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    ".env*",
+    "supabase/**",
+    "**/*.sql",
+    ".github/**",
+    "agents/**",
+    "goals/**",
+    "apps/web/src/lib/knowledge/**",
+    "apps/web/src/lib/csat/skill-diagnosis.ts",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+    "apps/web/src/lib/csat/map/v4/plan.ts",
+    "apps/web/src/lib/csat/map/v4/plan-commit.ts",
+    "apps/web/src/lib/csat/map/v4/plan-store.ts",
+    "apps/web/src/lib/csat/map/v4/as-is.ts",
+    "apps/web/src/lib/csat/map/v4/definition*",
+    "apps/web/src/lib/csat/map/v4/to-be.ts",
+    "apps/web/src/lib/csat/map/v4/workspace.ts",
+    "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+    "apps/web/src/lib/csat/map/v62/home-focus.ts",
+    "apps/web/src/lib/csat/map/v62/home-progress.ts",
+    "scripts/audit/**"
+  ],
+  "db_scope": {
+    "mode": "none",
+    "targets": []
+  },
+  "approval_required": false,
+  "requires_ci": false,
+  "criterion_claims": [
+    {
+      "criterion_id": "VG-L3-A1-02-AC1",
+      "claim": "partial"
+    }
+  ],
+  "acceptance": [
+    "핵심 읽기 자격을 기존 DTO에 실린 findAttempts/lifecycleActivity로 한 곳에서 판정한다. 성공한[]는 정상, undefined/조회실패는 미확인이다. 선택 설계: 필수기록 미확인일 때 composeV4는 계획을 만들지 않고null; 화면/API는 같은 읽기 상태 함수를 쓴다(기존 함수 export 또는 작은 evidence-read.ts, 새프레임워크 아님). 가짜 confirmed/미측정0/repair/수행0을 반환하지 않는다. known positive/known empty에서는 기존 진단/수량/단계/순위/계획을 그대로 유지하고 저장본·로컬사본을 최신 근거처럼 되살리지 않는다. instrumentHashes만unknown인 기존 표시 계약은 승격하지 않으며 이 이유만으로 새 전체차단을 추가하지 않는다.",
+    "이미 조회하는 핵심 근거 의존성의 오류도[]/missing으로 삼키지 않는다: authored 첫시도 결속 쿼리 오류는 정상 결속없음과 구분, guided결속 쿼리 오류는 정상0행과 구분해 읽기 미확인으로 전파한다. authored 납품 조회 오류로 확인 링크/교수 목록이 빈 것처럼 바뀌는 경우도 같은 신호에 연결한다. 명시적인유효=false(철회), 성공한0행, 기존 SQL 미설치 정상경로는 기존 권한·자격 의미를 보존한다. 비유효/미확인을 true로 승격하거나 다른사용자 조회, 권한/RPC/원장 구조 변경 없음. 이미 잡은 오류만 전파하는 최소 수정, 새DB reader/새API/추가 조회 없음.",
+    "개인화 MAP 읽기 실패는 빈 화면 대신 기존 패널·토큰의 짧은 복구 상태를 보인다: 기록을 지금 읽지 못했음,0건/약점이 아님, 다시 불러오기. 잘못된 PLAN 확정/자료받기 CTA와 수행0표시를 내밀지 않는다. 선택한 TASK·Workspace·tab/view/map_item/map_attempt 등 복귀 문맥을 오류 중 SESSION_CTX/주소효과가 지우지 않게 한다. 명시적 한 번 재조회 뒤 정상 데이터로 돌아오면 같은 문맥에서 재개; 백그라운드 반복조회/자동저장 없음. 데이터없는 실제 첫사용자[]는 기존 계획→공급→수행이 정상. 홈의 기존null대응은 깨지지 않는지만 확인하고 별도 홈 추천 정책은 변경하지 않는다.",
+    "실제 서버 plan POST의 신규 저장과 authored/supply POST는 같은 필수 근거 미확인이면503+닫힌 evidence_unavailable 코드로 끝나고 commitPlan/requestAuthoredSupply를 호출하지 않는다. 기존 인증/잘못된task/template/목표충돌/버전충돌/키본문불일치 보호는 그대로다. 이미 성공한 같은clientKey의 역사적영수증 재전송은 기존 prior 경로가 먼저라 원장 조회장애중에도 그대로 반환한다. PlanSection/AuthoredSupplyCard는 해당503을 SQL미설치/자료0/권리대기라 추정하지 않고 수행기록조회 실패·다시확인 안내로 표시(오류라벨 분기만, 저장핸들러 재작성 없음).",
+    "관련 L3 검증만: 제공 actual-compose baseline2fail2pass→통과; missing first/activity, 성공[]/정상guide→transfer, binding 쿼리오류 vs 정상0행, 신규plan/supply API 쓰기함수0호출과503, 같은키역사영수증/본문불일치 대조. DB는 합성fixture/모의서버만(개발DB쓰기0). 실제React/Chromium1440/1280 읽기실패→키보드재조회→같은 문맥의 정상화/POST0를 확인. 전체2700반복 금지. 기존 compose-authored-evidence의 unknown-source 기대가null로 바뀌면 이유와 함께 해당부분만 갱신(가짜[]로 전역 fixture통과시키지 않음). 인증 격리 오류/복구 단언은 다음 공식 일일묶음 NOT_VERIFIED로 작성. LOCAL_FAST 작업별push/PR/CI 없음, 기존 완료기능 재검증/새관리시스템 없음."
+  ],
+  "ui_acceptance": [
+    "PC1440/1280에서 조회오류·재조회·진짜빈원장 상태가 구별되고, 선택한 TASK/Workspace 복귀가 보존된다. 기존 패널/글자/포커스/44px 조작 재사용. 오류를 능력부족·미설치·권리승인 대기라고 추정하지 않는다. 전체맵을 거짓0으로 그리는 대신 정확한 복구상태, 새대시보드 없음."
+  ],
+  "impact": {
+    "kind": "platform",
+    "parent_goal_id": "VG-L3-A1-02",
+    "acceptance_ids": [
+      "VG-L3-A1-02-AC1"
+    ],
+    "current_gap": "main d5f1d0775 actual-compose+payload 반례2fail2pass. 수행원장undefined→repair+ledgerunknown+buildCommitPayload ok, 첫시도undefined→not_checked. 정상guide는transfer, 성공[]는정상첫진입. 실제API/DB쓰기는아직실행하지않아저장발생으로주장하지않음.",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "조회실패와정상빈목록의의미분리",
+      "신규계획/공급503및쓰기0호출",
+      "역사영수증/문맥복구/정상흐름유지"
+    ],
+    "next_dependency": "독립수용→기존로컬main통합→일일공식묶음인증E2E. A/B/B2/C 및실제효과승인과별개.",
+    "out_of_scope": [
+      "새진단·교육판정·계획량정책",
+      "실제DB쓰기/SQL/권한변경",
+      "Gold/권리승격",
+      "홈추천정책수정/새오케스트레이터"
+    ],
+    "dependency_type": "direct"
+  },
+  "source": {
+    "mission": "FINAL-MISSION-A~H",
+    "design_revision": "rev1",
+    "design_id": "FINAL-EVIDENCE-READ-RECOVERY-rev1",
+    "goals_ah": [
+      "A",
+      "C",
+      "F",
+      "H"
+    ],
+    "from_owner": "final-independent-accept",
+    "from_session": "01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "probe": "verification/reviews/NEXT-EVIDENCE-READ-RECOVERY/probe.test.ts",
+    "baseline": "verification/reviews/NEXT-EVIDENCE-READ-RECOVERY/baseline-results.json",
+    "delivery": "QUEUED until actual ACK/start"
+  }
+}

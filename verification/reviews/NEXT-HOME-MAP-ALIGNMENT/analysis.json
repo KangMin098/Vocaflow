@@ -1,0 +1,16 @@
+{
+  "status": "ANALYZED_CANDIDATE_NOT_ASSIGNED",
+  "canonical_main": "d5f1d0775bb152a360aa8f86431c237df80b2936",
+  "goals_ah": [
+    "A",
+    "F",
+    "H"
+  ],
+  "observation": "homeFocusOf checks exam sessions0 before considering valid direct TASK evidence; pickHomeSuggestion reports no_records after the normal progress fallbacks too. Pure pipeline baseline1fail2pass: direct confirmed authored TASK + goal is labelled no_records; goal-unset and true-empty controls remain.",
+  "scope": "home-focus.ts and existing HomeLanding suggestion presentation; map first-entry was fixed by T0073 and must not be rewritten.",
+  "implementation_dependency": "Wait for T0078 evidence-read recovery contract; do not weaken missing-ledger/error suppression. No new READY task or implementation claim yet.",
+  "design_direction": "Reuse latest map next-action and existing direct-check basis; absence of exam records alone must not hide known TASK learning. Preserve return/resume/error priority. Exact UI CTA mapping to be checked before final task registration.",
+  "evidence": "verification/reviews/NEXT-HOME-MAP-ALIGNMENT/baseline-results.json",
+  "limitations": "Fixed valid DTO / pure existing recommendation chain; no actual authenticated home browser or learner effect proof.",
+  "observed_at": "2026-10-21T11:10:33.468Z"
+}

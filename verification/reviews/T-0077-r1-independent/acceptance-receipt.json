@@ -15,7 +15,12 @@
   "authenticated_next_db": "NOT_VERIFIED",
   "remote_push": false,
   "db_writes": 0,
-  "delivery": "QUEUED",
-  "actual_ack": null,
-  "recorded_at": "2026-10-21T10:54:28.915Z"
+  "delivery": "ACKNOWLEDGED",
+  "actual_ack": {
+    "source": "Claude same-task ACK message from user + matching appended inbox acknowledgment",
+    "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "head": "0aa0631279bdd2cd123d38493027945cf1db76c9"
+  },
+  "recorded_at": "2026-10-21T10:54:28.915Z",
+  "ack_observed_at": "2026-10-21T11:07:49.345Z"
 }

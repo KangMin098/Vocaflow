@@ -1,0 +1,37 @@
+{
+  "task_id": "T-0078",
+  "design_revision": "rev1",
+  "main": "d5f1d0775bb152a360aa8f86431c237df80b2936",
+  "source_start_head": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "source_paths_identical": [
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/v4/compose.ts",
+    "apps/web/src/app/api/csat/diagnosis/map/plan/route.ts",
+    "apps/web/src/app/api/csat/authored/supply/route.ts"
+  ],
+  "known_main_only_delta": {
+    "file": "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+    "scope": "Node icon/layout imports and rendering only; inspected diff. Read/compose/error branch identical. Preserve canonical Node changes during integration; no forced sync or source-wide overwrite."
+  },
+  "baseline": {
+    "pass": 2,
+    "fail": 2
+  },
+  "goal_alignment": "passed addTask/alignmentGate",
+  "owner": "final-product",
+  "to_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "delivery": "ACKNOWLEDGED",
+  "actual_ack": "2026-10-21T11:08:42.549Z",
+  "implementation_started": true,
+  "result_returned": false,
+  "db_writes": 0,
+  "observed_at": "2026-10-21T11:07:49.344Z",
+  "actual_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "actual_pid": 19636,
+  "actual_process_name": "claude",
+  "started_at": "2026-10-21T11:08:42.549Z",
+  "start_head": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "matching_product_worktree_lock": true,
+  "status": "IN_PROGRESS",
+  "verified_at": "2026-10-21T11:10:33.467Z"
+}

@@ -1,0 +1,1 @@
+﻿export default {root:'D:/workspace/Vocaflow-AI-Control/verification/reviews/NEXT-EVIDENCE-READ-RECOVERY',resolve:{alias:{'@':'D:/workspace/Vocaflow-main-serving/apps/web/src','server-only':'D:/workspace/Vocaflow-main-serving/apps/web/src/test/server-only-stub.ts'}},test:{include:['probe.test.ts'],environment:'node'}}
