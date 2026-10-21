@@ -255,7 +255,7 @@ export function UnifiedLearningMap({ data, mode, recordHref, asOf, restore = nul
     <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet}>
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
-      <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>

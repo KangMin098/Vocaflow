@@ -18,6 +18,9 @@ import type { SavedPlans } from '@/lib/csat/map/v4/plan-store'
 import type { GoalPlanRow, GoalPlanSummaryData } from '@/lib/csat/map/v62/goal-plan'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 
+import type { EvidenceView } from '@/lib/csat/map/v62/evidence-claims'
+
+import { EvidenceChips } from './EvidenceClaims'
 import { BLOCKED_LABEL, NEED_V62_LABEL } from './TaskInspector'
 import u from './unified.module.css'
 import { taskLabel } from './WorkspaceList'
@@ -53,8 +56,10 @@ function amount(r: GoalPlanRow): string {
   return `${q.source === 'saved' ? '저장한 계획' : '제안(저장 전)'} ${q.planned}${q.unit} · 수행 ${q.done} · 남음 ${q.remaining ?? '—'}`
 }
 
-export function GoalPlanSummary({ data, goalSet, saved = null, past = false, onSelect, onOpenWs }: {
+export function GoalPlanSummary({ data, goalSet, saved = null, past = false, evidence = null, onSelect, onOpenWs }: {
   data: GoalPlanSummaryData
+  /** T-0074 — TASK 별 증거 범위(view.evidence · 지금 확인 · 다른 글 적용 · 시간 지나 다시 확인). 없으면 직접 확인 행에 「범위 확인 불가」 */
+  evidence?: Partial<Record<TaskId, EvidenceView>> | null
   /** 지난 기준으로 보는 중 — 보기 전용(실행 링크 · 계획/자료 조작 없음). 학습은 지금 기준에서 */
   past?: boolean
   /** 상단 CTA 와 같은 지도 복귀 문맥(outgoingCtx)을 실행 링크에 싣는다 */
@@ -99,6 +104,16 @@ export function GoalPlanSummary({ data, goalSet, saved = null, past = false, onS
                 <div><dt>이번 학습</dt><dd data-testid="goal-plan-amount">{r.stage ? `${STAGE_LABEL[r.stage]} — ` : ''}{amount(r)}</dd></div>
                 {r.criterion && <div><dt>도달 조건</dt><dd>{r.achievement ? `${ACHIEVEMENT_LABEL[r.achievement]} · ` : ''}{r.criterion}</dd></div>}
               </dl>
+              {/* T-0074 — 지금 확인한 범위와 아직 확인하지 못한 것(시간 지나 다시 확인)을 기존 칩으로. 직접 확인 근거가 있는 행만 · 모든 행에 반복하지 않는다 */}
+              {r.basis === 'direct_check' && (evidence?.[r.task] ? (
+                <div className={u.gpScope} data-testid="goal-plan-scope">
+                  <EvidenceChips e={evidence[r.task]!} testId="goal-plan-evidence" />
+                  {r.achievement === 'resolved' && <p className={u.gpNote} data-testid="goal-plan-scope-note">지금 정책의 다시 확인은 통과했어요 — 도달 조건의 「다른 날」 유지는 아직 확인하지 않았어요.</p>}
+                  {evidence[r.task]!.ledger === 'unknown' && <p className={u.gpNote}>수행 기록을 다 읽지 못해 범위를 확인할 수 없어요.</p>}
+                </div>
+              ) : (
+                <p className={u.gpNote} data-testid="goal-plan-scope-unknown">근거 범위를 지금 확인할 수 없어요 — 확인한 것이 0개라는 뜻은 아니에요.</p>
+              ))}
               <div className={u.gpActs}>
                 {past ? null : r.planGate ? (
                   <span className={u.gpBlocked} data-testid="goal-plan-gate" data-gate={r.planGate} data-why={r.replanWhy ?? ''}>{r.planGate === 'replan' ? (r.replanWhy === 'goal' ? '목표가 바뀌었어요 — 지금 목표로 계획을 다시 확정한 뒤 시작해요' : '자료 · 단계가 바뀌었어요 — 계획을 다시 확정한 뒤 시작해요') : '이 묶음 계획을 먼저 확정해요'}</span>

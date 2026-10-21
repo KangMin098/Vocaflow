@@ -1696,3 +1696,7 @@ p.dockL {
   gap: 8px;
   min-width: 0;
 }
+
+/* T-0074 — 요약 행의 근거 범위(지금 확인 · 다른 글 적용 · 시간 지나 다시 확인) */
+.gpScope { display: grid; gap: 4px; }
+.gpScope .gpNote { margin: 0; }

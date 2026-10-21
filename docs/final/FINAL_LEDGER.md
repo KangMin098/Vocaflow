@@ -231,3 +231,8 @@ CONTENT_RELEASE_APPROVED ✗(B·C 대기) · SUPPORTED_TASK_COVERAGE_COMPLETE �
 
 - GoalRecordBar: 목표 있음 · 시험 기록 0 · 직접 근거 0(no_record)에서도 기존 nextActionOf 의 다음 행동(저장 전 계획 확정 · 자료 받기 · 시작 · 기다림 이유)을 상단 주 행동으로 쓴다. 상태는 no_record 그대로 · 추천 아래 「기출 기록이 없어 근거가 부족해요 — 약점으로 정한 것은 없어요」 안내 유지(umap-no-record-note) · 「또는 기출 한 회 기록하기」는 보조. 다음 행동이 없으면 예전처럼 기록 CTA. 목표 없음 · 과거 보기는 실행 행동 없음. T-0072 목표 재확정 보호 그대로. 새 순위 · 진단 · 수량 · 저장 없음.
 - 검증(로컬): Codex no-record-start probe 3/3(기준 1 실패 → 통과 · 대조 2 유지) · no-record-start 5(계획 확정 · 같은 목표 자료 0 = 자료 받기 · 목표 변경 재확정 · 목표 없음 · 과거) · map-state-direct 3 · map/diagnosis 1335 · tsc 0 · lint 0. 실제 Chromium(실제 GoalRecordBar · 고정 데이터) 4/4: 1440/1280 미측정 안내 + plan CTA 키보드 → 같은 Workspace 계획 탭 · 기록 보조 · 넘침 0 / 목표 없음 · 과거 대조. 인증 격리 `map-no-record-start` 1440/1280(기록 0 → 목표 → plan 확정 → 자료 받기 → 필요 시 재확정 → start → 혼자 확인 1회 → 같은 Workspace → G2 근거 1 · 시험 기록 0 유지) 작성 — NOT_VERIFIED, 다음 공식 통합 묶음.
+
+## 21. T-0074 — 지금 확인한 범위 vs 정본 도달 조건 (2026-10-21)
+
+- GoalPlanSummary: 직접 확인(basis direct_check) 행에 기존 근거 칩(EvidenceChips · view.evidence)을 함께 보인다 — 지금 정책 통과여도 「시간 지나 다시 확인 · 아직 근거 없음」(delayedRetention NOT_ESTABLISHED)이 옆에 남고, 통과 행에는 「지금 정책의 다시 확인은 통과했어요 — 도달 조건의 「다른 날」 유지는 아직 확인하지 않았어요」 안내. 범위 자료 없음 = 「확인할 수 없어요 — 0개라는 뜻은 아니에요」 · 원장 불명확 = 범위 확인 불가 안내. 직접 근거 없는 행에는 칩 · 안내 없음. GoalRecordBar 이유 문구에도 다시 확인 근거 없음. 정본 도달 조건 원문 · 새 판정 · 숙달/학습 효과/장기 유지 문구 없음.
+- 검증(로컬): Codex criterion-scope probe 3/3 · criterion-scope 렌더 5 · 관련 21 · tsc 0 · lint 0. 실제 Chromium(실제 React GoalPlanSummary · 고정 데이터) 2/2: 1440/1280 통과 · 미측정 · 원장 불명확 행 · 키보드 펼치기 · 넘침 0. 인증 격리 journey pass 분기에 요약 칩 · 안내 단언 추가 — NOT_VERIFIED, 다음 공식 통합 묶음.

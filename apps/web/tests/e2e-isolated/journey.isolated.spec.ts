@@ -385,6 +385,9 @@ for (const outcome of ['pass', 'fail'] as const) test(`양성 경로(${outcome})
     expect(resolved.evidence, '새 지문 독립 확인 2 정답 → 현재 정책 통과').toBe('passed_current_policy')
     expect(resolved.next, '해소 뒤 같은 TASK 를 다시 내밀지 않는다').not.toBe(withRecheck.next)
     expect(['repair', 'transfer'], '해소 → 바로잡기 · 적용 단계가 아니다').not.toContain(v6.task?.stage ?? null)
+    // T-0074 — 목표 계획 요약: 지금 정책 통과여도 시간 지나 다시 확인은 아직 근거 없음 + 다른 날 유지 미확인 안내
+    await expect(page.locator('[data-testid="goal-plan-evidence"][data-delay="NOT_ESTABLISHED"]').first()).toBeAttached()
+    await expect(page.locator('[data-testid="goal-plan-scope-note"]').first()).toBeAttached()
   } else {
     // 다시 틀림 = 새 바로잡기 회차. 회차 전의 안내 연습 정답은 이번 회차 성공이 아니다 → 단계 repair · 다음 행동은 다시 안내 연습
     expect(resolved.evidence, '다시 확인 실패 → 보완 필요 유지').toBe('need_confirmed')
