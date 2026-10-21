@@ -91,7 +91,7 @@ I1–I4 · I6 · I8 · D1 · D4 · D5 는 DD-66 으로 삭제(회귀 `activation
 
 - 인터랙티브 요소에 보이는 focus 표시(접근성).
 - 파일 첫 줄 경로 주석(`// apps/web/src/components/ui/Button.tsx`) · 코드 완성형만(TODO·생략·placeholder 금지).
-- **마이그레이션 자동 적용 금지** — SQL 을 보여주고 사용자 승인 후 적용. 정식 경로는 승인형 배포 러너(`scripts/db/<id>/deploy.mjs apply --stage --confirm-sha`) — Claude Code 승인 창 클릭이 1회용 티켓이 된다(`agents/scripts/db-approval.mjs`). 이 명령에 allow 규칙을 두지 않는다.
+- **마이그레이션 자동 적용 금지** — SQL(대상·영향 범위)을 보여주고 사용자가 대화에서 승인하면 그 자리에서 `apply_migration` 으로 적용한다(2026-10-21 · 도구 권한 허용됨). 데이터 삭제·DROP·TRUNCATE 는 그 내용을 따로 밝혀 명시 승인을 받는다. 대량·단계 배포는 승인형 배포 러너(`scripts/db/<id>/deploy.mjs apply --stage --confirm-sha`) — Claude Code 승인 창 클릭이 1회용 티켓이 된다(`agents/scripts/db-approval.mjs`). 이 명령에 allow 규칙을 두지 않는다.
 
 ## LLM 판단이 필요한 일 = 에이전트가 직접 하는 배치 드레인
 

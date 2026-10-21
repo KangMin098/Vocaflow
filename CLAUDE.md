@@ -17,7 +17,7 @@
 ## Supabase MCP (Claude 쪽)
 
 - 서버 이름 `supabase` — 정의는 `agents/mcp.source.json`, `.mcp.json` 은 생성물. 토큰은 셸 환경의 `SUPABASE_ACCESS_TOKEN`.
-- `mcp__supabase__apply_migration` 은 사용자가 SQL 을 본 뒤 승인한 경우에만 호출한다. 조회는 `execute_sql`.
+- `mcp__supabase__apply_migration` · `execute_sql` 은 도구 권한이 허용돼 있다(2026-10-21). 쓰기는 사용자가 대화에서 SQL 을 보고 승인하면 바로 호출한다 — 승인 전 호출 금지. 조회는 `execute_sql`.
 - 모델과 사고 수준은 작업 난도·지연·비용에 맞춰 선택한다. 특정 고비용 조합을 프로젝트에서 강제하지 않는다.
 
 ## 커밋 서명
