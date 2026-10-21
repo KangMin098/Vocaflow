@@ -1,0 +1,25 @@
+{
+  "task_id": "T-0076",
+  "head": "f9c0368455bde1f24f675f4b2de5d5e249b873ce",
+  "decision": "REWORK",
+  "finding": "T0076-P1-1 only",
+  "original_independent_probe": {
+    "passed": 6,
+    "failed": 0
+  },
+  "new_display_controls": {
+    "passed": 1,
+    "failed": 2
+  },
+  "pure_compose_checks": {
+    "passed": 44,
+    "failed": 0,
+    "skipped": 0
+  },
+  "owner_artifacts_hash_verified": true,
+  "authenticated_next_db": "NOT_VERIFIED",
+  "delivery": "QUEUED",
+  "actual_ack": null,
+  "task_status": "READY",
+  "recorded_at": "2026-10-21T10:25:59.246Z"
+}
