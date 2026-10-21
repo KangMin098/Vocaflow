@@ -1,0 +1,13 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T10:34:30.121Z",
+  "commit": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+  "type": "unit",
+  "covers": [
+    2,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0076-r2-independent/results.json",
+  "command_or_protocol": "Independent vitest probe and unknown/known-empty controls9/9 skip0 at exact source HEAD."
+}

@@ -1,0 +1,2 @@
+﻿export default {root:'D:/workspace/Vocaflow-AI-Control/verification/reviews/T-0076-r2-independent',resolve:{alias:{'@':'D:/workspace/Vocaflow-final-product/apps/web/src','server-only':'D:/workspace/Vocaflow-final-product/apps/web/src/test/server-only-stub.ts',react:'D:/workspace/Vocaflow-final-product/apps/web/node_modules/react','react-dom':'D:/workspace/Vocaflow-final-product/apps/web/node_modules/react-dom'}},esbuild:{jsx:'automatic'},test:{include:['*.test.tsx'],environment:'node'}}
+

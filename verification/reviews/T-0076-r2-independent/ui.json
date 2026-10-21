@@ -1,0 +1,42 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T10:34:30.121Z",
+  "commit": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+  "type": "ui",
+  "covers": [
+    2,
+    3
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0076-r2-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0076-r2-independent/browser/evidence-1440.png",
+    "verification/reviews/T-0076-r2-independent/browser/evidence-1280.png"
+  ],
+  "command_or_protocol": "node verification/reviews/T-0076-r2-independent/browser/run.mjs; copied owner harness independently executed against exact source b83. Actual React/Chromium14/14, six states plus keyboard per viewport. Screenshots inspected.",
+  "urls": [
+    "http://127.0.0.1/ (ephemeral local Vite port; terminated)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual component fixed-data, no authenticated Next/DB or full app shell/global CSS.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "Checks restricted to changed evidence text/data attributes and unchanged component controls: known/unknown/repair/replay/KICE states, keyboard section reach, readable wrapping, no overflow. Existing app layout/CSS unchanged and reused; no full-app journey, pixel-reference/contrast/axe/full3B claim. Full authenticated Inspector remains next official daily sync."
+}

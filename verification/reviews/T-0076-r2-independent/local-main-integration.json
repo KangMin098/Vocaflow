@@ -1,0 +1,47 @@
+{
+  "task_id": "T-0076",
+  "source_head": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+  "target_worktree": "D:/workspace/Vocaflow-main-serving",
+  "base": "4526aa4bad603b632d53d5823f1b151e1b838fef",
+  "task_delta_base": "7cc5b08f868273f94c08d1fc0b85f738cba622c3",
+  "merge_sha": "6b32496be4eefdf12b1dc7d14292de983f381f1b",
+  "tree": "e5f6cedf60f8d8edef86c81f30bedd3017bd18be",
+  "expected_tree": "e5f6cedf60f8d8edef86c81f30bedd3017bd18be",
+  "commits": [
+    "f9c0368455bde1f24f675f4b2de5d5e249b873ce",
+    "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec"
+  ],
+  "files": [
+    "apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/evidence-claims-independent.test.tsx",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-authored-evidence.test.ts",
+    "apps/web/src/lib/csat/map/v4/compose.ts",
+    "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+    "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "source_unrelated_audit_edits_preserved": [
+    "scripts/audit/learner-linkgraph.result.json",
+    "scripts/audit/shell-reach.result.json"
+  ],
+  "method": "Existing exact-task staticGates and integrate helper; canonical clean locked local main; no gate edits, scope expansion or reset.",
+  "authenticated_e2e": "NOT_VERIFIED - next daily official sync bundle",
+  "remote_push": false,
+  "ci": false,
+  "db_write": false,
+  "observed_at": "2026-10-21T10:34:55.236Z",
+  "post_merge_checks": {
+    "typecheck": {
+      "command": "pnpm exec tsc --noEmit --pretty false",
+      "exit_code": 0
+    },
+    "focused_unit": {
+      "passed": 59,
+      "failed": 0,
+      "skipped": 0,
+      "artifact": "verification/reviews/T-0076-r2-independent/main-focused-results.json"
+    },
+    "lock_released": true,
+    "target_tracked_clean": true
+  }
+}

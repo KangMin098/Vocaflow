@@ -1,0 +1,151 @@
+{
+  "environment": "actual Chromium + actual React EvidenceBlock(evidenceView 실제 계산); fixed data; no auth Next/DB",
+  "results": [
+    {
+      "width": 1440,
+      "state": "guided-wrong",
+      "passed": true,
+      "repair": "해 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "state": "guided-right",
+      "passed": true,
+      "repair": "맞혀 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "state": "authored-direct",
+      "passed": true,
+      "repair": "아직 없어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "state": "authored-replay",
+      "passed": true,
+      "repair": "아직 없어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "state": "kice-retry",
+      "passed": true,
+      "repair": "맞혀 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "state": "ledger-unknown",
+      "passed": true,
+      "repair": "기록을 읽지 못했어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정 문항 수 확인 보류 (상세 기록: 다 읽지 못해 확인 보류)",
+      "ledgerItems": null,
+      "unknown": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "state": "keyboard",
+      "passed": true,
+      "reached": 6
+    },
+    {
+      "width": 1280,
+      "state": "guided-wrong",
+      "passed": true,
+      "repair": "해 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "state": "guided-right",
+      "passed": true,
+      "repair": "맞혀 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "state": "authored-direct",
+      "passed": true,
+      "repair": "아직 없어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "state": "authored-replay",
+      "passed": true,
+      "repair": "아직 없어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "state": "kice-retry",
+      "passed": true,
+      "repair": "맞혀 봤어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정의 독립 확인 2문항 (상세 기록: 현재 주석까지 확인된 독립 확인 0개 · 전체 기간)",
+      "ledgerItems": "0",
+      "unknown": false,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "state": "ledger-unknown",
+      "passed": true,
+      "repair": "기록을 읽지 못했어요 — 해 본 것이지 익혔다는 뜻은 아니에요",
+      "check": "연습이 필요하다고 확인됨 · 이번 판정 문항 수 확인 보류 (상세 기록: 다 읽지 못해 확인 보류)",
+      "ledgerItems": null,
+      "unknown": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "state": "keyboard",
+      "passed": true,
+      "reached": 6
+    }
+  ],
+  "passed": 14,
+  "failed": 0
+}

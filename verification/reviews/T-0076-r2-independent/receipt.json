@@ -1,0 +1,35 @@
+{
+  "task_id": "T-0076",
+  "design_revision": "rev1",
+  "head": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+  "verdict": "APPROVE",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "findings": [],
+  "ran_tests": true,
+  "verified_fixed": [
+    "T0076-P1-1"
+  ],
+  "verification": {
+    "independent_probe": "9/9 skip0 (original6 plus unknown/empty3)",
+    "chromium": "14/14 skip0 at1440/1280; actual component with fixed data, not full-app",
+    "reused": "R1 independent44/44 pure/compose; files unchanged by b83",
+    "authenticated_next_db": "NOT_VERIFIED - next daily official sync",
+    "full_taskinspector_skin": "NOT_VERIFIED by isolated component; unchanged existing CSS reused",
+    "db_applied": false,
+    "human_gold_rights": false
+  },
+  "provenance": {
+    "contract": "local-roles/1",
+    "task_id": "T-0076",
+    "head": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "owner": "final-independent-accept",
+    "session_id": "01a14de8-2485-7a53-b530-d5612f35e57a"
+  },
+  "owner_current_run_artifacts_hash_verified": [
+    "T-0076-R2-E03",
+    "T-0076-R2-E04"
+  ],
+  "observed_at": "2026-10-21T10:34:30.123Z"
+}

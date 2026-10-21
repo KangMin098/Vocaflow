@@ -1,0 +1,12 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/evidence-claims-independent.test.tsx",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-authored-evidence.test.ts",
+    "apps/web/src/lib/csat/map/v4/compose.ts",
+    "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+    "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

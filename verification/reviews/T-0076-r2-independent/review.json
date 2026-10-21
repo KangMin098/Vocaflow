@@ -1,0 +1,16 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T10:34:30.121Z",
+  "commit": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+  "type": "review",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0076-r2-independent/REVIEW.md",
+  "command_or_protocol": "Independent scope/source review + own9/9 probe + actual Chromium14/14. Reuse unchanged independent44 pure/compose. Authenticated Next/DB remains explicitly NOT_VERIFIED."
+}
