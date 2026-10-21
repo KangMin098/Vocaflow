@@ -8,7 +8,7 @@
 
 기존 공간 73개를 보존하고 임시 통합 공간 Vocaflow-env-standardize-20261021(chore/dev-environment-20261021)과 main 전용 Vocaflow-main-serving을 추가했다. 미확인 브랜치·worktree 삭제, stash, clean, reset, force push는 실행하지 않았다. 통합된 오래된 브랜치도 원문 복구용으로 유지한다. 브랜치 수 감소를 완료 기준으로 삼지 않는다.
 
-실행 소스 통합 커밋: 3cdb3bc764bd6b7e9e59265ebb7f9e97efef6adf. 로컬 main은 이 소스로 fast-forward했다. 원격 main 반영과 별도로 기록한다.
+제품 실행 소스 통합 커밋은 3cdb3bc764bd6b7e9e59265ebb7f9e97efef6adf다. 이후 도구·CI·문서 보완 d591b8ab4까지 로컬 main과 local/integration을 안전하게 fast-forward해 두 기준을 맞췄다. 최종 실사에서 worktree 75개·로컬 브랜치 275개였다. 병렬 세션의 변경도 있으므로 브랜치 수 차이를 이 작업의 삭제로 해석하지 않는다. 이 작업의 기존 브랜치 삭제는 0개다. 원격 main은 여전히 0649f8c0b이며 로컬 통합과 구별한다.
 
 ## 2. 보존한 작업
 
@@ -48,9 +48,11 @@ local 표시는 로컬 main/이번 납품 분기에 포함됐다는 뜻이며 �
 | [#250](https://github.com/KangMin098/Vocaflow/pull/250) | INTEGRATED | GitHub에서 병합 완료 및 원격 main 조상 확인. |
 | [#326](https://github.com/KangMin098/Vocaflow/pull/326) | INTEGRATED | GitHub에서 병합 완료 및 원격 main 조상 확인. |
 
+실제 정리: #116/#117/#122/#223/#231/#237/#244/#278/#284/#315 총 10개를 닫았다. 각 기존 본문을 보존하고 위 근거·대체 #327·원격 main 미병합 상태를 덧붙였다. 원본 원격 브랜치 10개의 SHA가 그대로 남은 것을 ls-remote로 재확인했다. 오래된 구현의 재적용을 막기 위한 중복 정리이며, 초안 #327의 통과/병합 완료로 표시하지 않는다. 남은 열린 PR은 #327 포함 9개다. ACTIVE/미검증 작업과 #317의 원격 통합 대기는 유지했다.
+
 ## 5. 포트와 실제 실행 기준
 
-3000 목표는 main, 3001 목표는 임시 integration 검증이다. 처음 3000은 PID 12144, learner-tines-audit/apps/web의 개발 서버(HEAD 8f6c12eab + 미커밋)였다. 도중 PID 10300으로 재기동됐고 실제 경로는 기본 Vocaflow로 바뀌었다. 이 작업은 이 두 프로세스를 종료하지 않았다. 이후 재확인에서 3000/3001이 모두 비어 있었고, 3000 비점유를 다시 확인한 뒤 main 전용 공간에서 서버를 시작했다. 새 PID는 22436, cwd는 Vocaflow-main-serving/apps/web이며 소유 표식과 실제 리스너를 대조했다. 개발 서버의 소스 기준은 로컬 main 45affc5b0이다. 미커밋 디자인 원본 공간은 그대로다.
+3000 목표는 main, 3001 목표는 임시 integration 검증이다. 처음 3000은 PID 12144, learner-tines-audit/apps/web의 개발 서버(HEAD 8f6c12eab + 미커밋)였다. 도중 PID 10300으로 재기동됐고 실제 경로는 기본 Vocaflow로 바뀌었다. 이 작업은 이 두 프로세스를 종료하지 않았다. 이후 재확인에서 3000/3001이 모두 비어 있었고, 3000 비점유를 다시 확인한 뒤 main 전용 공간에서 서버를 시작했다. 새 PID는 22436, cwd는 Vocaflow-main-serving/apps/web이며 소유 표식과 실제 리스너를 대조했다. 화면 확인 당시 main은 45affc5b0이며, 이후 도구·CI·문서 보완 d591b8ab4까지 fast-forward했다(제품 실행 코드 동일). 미커밋 디자인 원본 공간은 그대로다.
 
 초기 3001은 PID 26244, factory-order-lineage의 next start였다. 해당 실행의 기존 기록은 BUILD_ID/13:07 KST와 HEAD 526d0b226에 결속돼 있다. 현재 HEAD만으로 빌드 동일성을 새로 단정하지 않는다. 후속 확인에서는 비점유이며 불필요한 서버를 추가하지 않았다. 3100은 전환 전 확인용으로만 사용했으며 최종 main 확인은 3000에서 한다. 화면 확인 결과는 아래에 기록한다.
 
@@ -76,6 +78,9 @@ AGENTS.md, CLAUDE.md, agents/router.md, docs/WORKTREE.md, PR_AUTOMATION_POLICY.m
 | 타입 | 첫 통합 web 정규 두 tsconfig 통과. 최종 통합은 빌드의 타입 검사로 별도 확인 |
 | 집중 lint | 첫 통합 오류 0/기존 ref 정리 경고 1. 전체 빌드 경고는 별도 |
 | 전체 격리 DB E2E | 로컬 Docker 미설치로 미실행. Chromium UI 격리와 구별 |
+| 후속 검사기/라우트 | 3파일/25 통과 · CI loopback/정본 함수 가드 4 통과 · 집중 lint 오류 0 |
+| 최종 코드 CI | d591b8ab4: 필수 8개 성공·고장 E2E 추가 성공. web 6,479 통과/252 생략, turbo 15작업 성공. 일반 격리 E2E 31/31·고장 2/2 통과 |
+| 원격 build | 95728f7a2와 d591b8ab4 각각 성공. 아래 CI 전체 상태와 구별 |
 
 개발 DB는 읽기만 했다. DB1/DB2/I2/G2/D3 적용 이력 5개를 확인했고 D3 SQL은 실제 이력과 SHA-256 f94bf27f…aae3d8이 일치했다. #116/#117도 실제 적용 버전 20260920014828/20260920023713의 statements 바이트로 복원했다(각 e3a81fcc…901a39, 6a614002…ea1712). SQL을 적용/재적용하거나 데이터를 삭제하지 않았다. FINAL 창작 공급 등의 _pending_는 계속 미적용 제안이다.
 
@@ -83,12 +88,14 @@ AGENTS.md, CLAUDE.md, agents/router.md, docs/WORKTREE.md, PR_AUTOMATION_POLICY.m
 
 GitHub 인증과 fetch는 가능하다. safe-merge가 개발 DB 적용 이력 해시를 읽을 때 필요한 SUPABASE_ACCESS_TOKEN은 현재 셸과 기존 web 환경 파일에 없다. MCP의 읽기 결과를 CLI 승인 게이트에 위조 입력하거나 병합 API로 우회하지 않는다. 원격 병합은 해당 정상 인증과 필수 CI/범위 계약이 충족돼야 한다. 3000은 비점유가 확인된 후에만 main 서버를 시작했다.
 
+최종 코드 d591b8ab4의 필수 CI 8개 통과 후 `safe-merge.mjs 327 --scope-file <정확한 HEAD/45커밋/338경로 계약> --dry-run`을 재실행했다. 종료 3이며 차단 사유는 이미 적용된 SQL 3개의 DB 이력 읽기 인증 부재뿐이었다. PR #327은 초안으로 남기고 원격 main은 병합하지 않았다. 이력을 읽을 수 있는 기존 정상 인증 설정 경로가 필요하며, 토큰 값을 대화에 보내도록 요청하지 않는다.
+
 <!-- final-execution:start -->
-납품은 [초안 PR #327](https://github.com/KangMin098/Vocaflow/pull/327)에 푸시했다. 95728f7a2의 GitHub Actions build는 성공했다. 로컬 최종 빌드는 디스크 ENOSPC로 실패했으며 세션 중단 실행과 함께 성공으로 계산하지 않는다. 이 작업의 실패 빌드 캐시 19파일(1,730,848,778바이트)을 SHA-256을 보존해 C:의 임시 보관 폴더로 옮겼고 D: 여유는 약 2.09GB가 됐다. 다른 공간 파일은 삭제하지 않았다.
+납품은 [초안 PR #327](https://github.com/KangMin098/Vocaflow/pull/327)에 푸시했다. 95728f7a2와 d591b8ab4의 GitHub Actions build는 각각 성공했다. 로컬 최종 빌드는 디스크 ENOSPC로 실패했으며 세션 중단 실행과 함께 성공으로 계산하지 않는다. 이 작업의 실패 빌드 캐시 19파일(1,730,848,778바이트)을 SHA-256을 보존해 `C:/Users/Administrator/AppData/Local/Temp/Vocaflow-env-cache-20261021`로 옮겼고 당시 D: 여유는 약 2.09GB가 됐다. 이후 재조회에서 약 32.6GB였으며 다른 세션의 정리 여부를 이 작업의 결과로 주장하지 않는다. 다른 공간 파일은 삭제하지 않았다.
 
 3000의 실제 Chromium 확인은 /hub·/csat 200, 1440px 가로 넘침/JS 오류 0이다. 일반 계정의 /admin은 /hub로 이동했다. 인증된 관리자 전수 QA로 주장하지 않는다.
 
-첫 CI verify의 세 실패는 계보 API의 명시적 HTTP 자동화 호출과 검사기의 오탐/줄바꿈 문제로 수정했다. 수정 검사기는 40줄 밖의 실제 바깥 루프도 검출한다. 전량 대조는 origin/main 150·통합본 151(차이는 제한된 TCP claim 종료 1곳), 재검출 19·오탐 제외 12를 모두 읽었다. 집중 3파일/25회귀를 통과했다. E2E의 신규 migration 실패는 빈 DB에 누락된 정본 trigger 함수 정의를 CI loopback fixture에만 복구해 조치했고 가드 4회귀를 통과했다. 운영 SQL 바이트·기존 실패 기준선을 바꾸지 않았다. 후속 필수 CI와 DB 이력 인증은 아직 최종 확인 전이다.
+첫 CI verify의 세 실패는 계보 API의 명시적 HTTP 자동화 호출과 검사기의 오탐/줄바꿈 문제로 수정했다. 수정 검사기는 40줄 밖의 실제 바깥 루프도 검출한다. 전량 대조는 origin/main 150·통합본 151(차이는 제한된 TCP claim 종료 1곳), 재검출 19·오탐 제외 12를 모두 읽었다. 집중 3파일/25회귀를 통과했다. E2E의 신규 migration 실패는 빈 DB에 누락된 정본 trigger 함수 정의를 CI loopback fixture에만 복구해 조치했고 가드 4회귀를 통과했다. 운영 SQL 바이트·기존 실패 기준선을 바꾸지 않았다. [후속 코드 CI](https://github.com/KangMin098/Vocaflow/actions/runs/39550845789)는 d591b8ab4에서 성공했다. web 543파일/6,479회귀 통과·44파일/252회귀 생략, turbo 15작업 성공이며 build·타입·일반 격리 E2E·고장 E2E가 통과했다. 별도 sync-check의 문서/마이그레이션/manifest 검사도 성공했다. e2e-shared-dev는 생략이며 실 개발 DB 쓰기 시험으로 계산하지 않는다. 이 뒤 최종 보고서만 갱신한 커밋의 CI는 새 실행으로 구별한다. DB 이력 인증 부재로 원격 main 병합은 대기한다.
 <!-- final-execution:end -->
 
 ## 부록. 보존한 기존 공간 전체
