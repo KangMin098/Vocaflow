@@ -1,0 +1,21 @@
+﻿{
+  "evidence_id": "T-0078-R2-E05",
+  "run_seq": 2,
+  "recorded_by": "final-independent-accept",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T11:47:35.664Z",
+  "commit": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "type": "review",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0078-r2-independent/REVIEW.md",
+  "command_or_protocol": "Independent current8+7, byte-unchanged reuse32 API/compose/fixture and14 actual browser. Exact source/reuse proof; authenticated outage NOT_VERIFIED.",
+  "artifact_sha256": "d9f292126877e37287b6083524ad8c5518c18adcb3983abfaf3817621ff939ea",
+  "recorded_at": "2026-10-21T11:47:36.139Z"
+}

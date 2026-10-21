@@ -1,0 +1,11 @@
+﻿import fs from 'node:fs';import path from 'node:path';import{execFileSync}from'node:child_process';
+const repo=process.cwd();
+const files=fs.readdirSync('verification/reviews/T-0078-r2-independent',{recursive:true}).filter(x=>!x.split(/[\\/]/).includes('.vite')).map(x=>'verification/reviews/T-0078-r2-independent/'+x.replaceAll('\\','/')).filter(x=>fs.statSync(x).isFile());
+files.push('planning/inbox/final-product.md','planning/handoff/T0078-LOCAL-ACCEPT-INTEGRATION.md','planning/handoff/FINAL-HOME-MAP-EVIDENCE-ALIGNMENT-rev1.json','verification/reviews/NEXT-HOME-MAP-ALIGNMENT/assignment.json','verification/reviews/NEXT-HOME-MAP-ALIGNMENT/main-baseline-results.json');
+const git=(args)=>execFileSync('git',args,{cwd:repo,encoding:'utf8',maxBuffer:8e6});
+for(const f of files)if(!fs.existsSync(f))throw Error('missing '+f);
+console.log('own files '+files.length);
+git(['add','--intent-to-add','--',...files]);
+console.log(git(['commit','--only','-m','review: accept T0078 and assign home evidence alignment','-m','Verify explicit delivery validity, preserve unknown ledgers and integrate exact task scope.\nRecord combined main probes and browser recovery; queue T0079 without claiming ACK.\n\nCo-Authored-By: Codex <noreply@openai.com>','--',...files]));
+console.log(git(['show','--stat','--oneline','HEAD']));
+console.log('FOREIGN PRESERVED\n'+git(['status','--short','--','planning/inbox/learning-map.md','verification/ci/MAIN-ci.yml-e2e-37863144232.json']));

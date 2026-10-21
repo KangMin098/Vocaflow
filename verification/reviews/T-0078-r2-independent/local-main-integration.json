@@ -1,0 +1,70 @@
+{
+  "task_id": "T-0078",
+  "source_head": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "base": "d5f1d0775bb152a360aa8f86431c237df80b2936",
+  "task_delta_base": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+  "merge_sha": "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+  "tree": "9dc53de4c528d10c56c475f952f5cd87be8e3d63",
+  "expected_tree": "9dc53de4c528d10c56c475f952f5cd87be8e3d63",
+  "commits": [
+    "f6876bd3bfcfa5d0075d49b4d063a8fb3ebdea52",
+    "d9beb9708f062f723159297ad9cbfbf3d4fcb892"
+  ],
+  "files": [
+    "apps/web/src/app/api/csat/authored/supply/route.test.ts",
+    "apps/web/src/app/api/csat/authored/supply/route.ts",
+    "apps/web/src/app/api/csat/diagnosis/map/plan/__tests__/evidence-read.test.ts",
+    "apps/web/src/app/api/csat/diagnosis/map/plan/route.ts",
+    "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/MapReadUnavailable.tsx",
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+    "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/map-read-unavailable.test.tsx",
+    "apps/web/src/lib/csat/map/__tests__/load-evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-authored-evidence.test.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/v4/compose.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/plan-goal-binding.test.ts",
+    "apps/web/src/lib/csat/map/v62/evidence-read.ts",
+    "apps/web/tests/e2e-isolated/map-read-recovery.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "main_node_icons_preserved": true,
+  "new_read_recovery_preserved": true,
+  "source_foreign_edits_preserved": [
+    "scripts/audit/learner-linkgraph.result.json",
+    "scripts/audit/shell-reach.result.json"
+  ],
+  "method": "Existing exact-task staticGates and integrate helper on clean locked canonical main; no gate edits or widened authority.",
+  "target_worktree": "D:/workspace/Vocaflow-main-serving",
+  "authenticated_outage": "NOT_VERIFIED",
+  "remote_push": false,
+  "ci": false,
+  "db_write": false,
+  "observed_at": "2026-10-21T11:48:05.841Z",
+  "post_merge": {
+    "head": "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+    "typecheck": {
+      "exit_code": 0
+    },
+    "probe": {
+      "passed": 8,
+      "failed": 0,
+      "skipped": 0,
+      "file": "verification/reviews/T-0078-r2-independent/main-results.json"
+    },
+    "chromium": {
+      "passed": 14,
+      "failed": 0,
+      "widths": [
+        1440,
+        1280
+      ],
+      "environment": "Actual React component harness; not authenticated Next+DB or full skin",
+      "file": "verification/reviews/T-0078-r2-independent/main-browser/results.json"
+    },
+    "observed_at": "2026-10-21T11:52:00.883Z"
+  }
+}

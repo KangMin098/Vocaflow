@@ -1,0 +1,19 @@
+﻿{
+  "evidence_id": "T-0078-R2-E04",
+  "run_seq": 2,
+  "recorded_by": "final-independent-accept",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T11:47:35.664Z",
+  "commit": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "type": "unit",
+  "covers": [
+    0,
+    1,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0078-r2-independent/results.json",
+  "command_or_protocol": "Independent current actual compose/read/payload controls and exported async delivery validity adapter8/8 skip0; separate loader7/7.",
+  "artifact_sha256": "90fdcc631378318475c974edbd96234128f628bf14a5953f0b04a59e11cea562",
+  "recorded_at": "2026-10-21T11:47:35.921Z"
+}

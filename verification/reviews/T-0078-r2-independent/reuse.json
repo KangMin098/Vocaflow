@@ -1,0 +1,17 @@
+{
+  "target_head": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "original_head": "f6876bd3bfcfa5d0075d49b4d063a8fb3ebdea52",
+  "changed_files": [
+    "apps/web/src/lib/csat/map/__tests__/load-evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "original_independent_unit": "verification/reviews/T-0078-r1-independent/focused-results.json",
+  "unit_passed": 32,
+  "original_independent_browser": "verification/reviews/T-0078-r1-independent/browser/results.json",
+  "browser_passed": 14,
+  "original_assertion_protocol": "Actual POST handlers under mocked authenticated loader/store plus actual React+Chromium recovery across1440/1280. HTTP/DB mocks are not native RLS or authenticated Next+DB.",
+  "reason": "Final patch modifies only validity verdict extraction inside the already exported loader and its tests/ledger. API guards/receipt replay, compose guard, UI source/router recovery, styles and protocol are byte-identical; current independent8+7 verifies the patched loader behavior. Logs remain bound to their original HEAD; no new browser/API run is claimed.",
+  "authenticated_outage": "NOT_VERIFIED",
+  "observed_at": "2026-10-21T11:47:35.663Z"
+}

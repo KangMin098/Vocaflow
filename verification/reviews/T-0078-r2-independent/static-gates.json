@@ -1,0 +1,24 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/app/api/csat/authored/supply/route.test.ts",
+    "apps/web/src/app/api/csat/authored/supply/route.ts",
+    "apps/web/src/app/api/csat/diagnosis/map/plan/__tests__/evidence-read.test.ts",
+    "apps/web/src/app/api/csat/diagnosis/map/plan/route.ts",
+    "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/MapReadUnavailable.tsx",
+    "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+    "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/map-read-unavailable.test.tsx",
+    "apps/web/src/lib/csat/map/__tests__/load-evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/load.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-authored-evidence.test.ts",
+    "apps/web/src/lib/csat/map/v4/__tests__/compose-evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/v4/compose.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/evidence-read.test.ts",
+    "apps/web/src/lib/csat/map/v62/__tests__/plan-goal-binding.test.ts",
+    "apps/web/src/lib/csat/map/v62/evidence-read.ts",
+    "apps/web/tests/e2e-isolated/map-read-recovery.isolated.spec.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

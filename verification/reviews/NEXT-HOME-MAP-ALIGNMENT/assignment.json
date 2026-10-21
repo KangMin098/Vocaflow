@@ -1,0 +1,14 @@
+{
+  "task_id": "T-0079",
+  "status": "READY",
+  "alignment_gate": "PASSED by addTask",
+  "owner": "final-product",
+  "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "delivery": "QUEUED",
+  "acknowledged": false,
+  "implementation_started": false,
+  "canonical_main": "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+  "source_base": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "spec": "planning/handoff/FINAL-HOME-MAP-EVIDENCE-ALIGNMENT-rev1.json",
+  "at": "2026-10-21T11:54:57.227Z"
+}

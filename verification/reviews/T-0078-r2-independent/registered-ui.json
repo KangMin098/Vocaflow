@@ -1,0 +1,58 @@
+﻿{
+  "evidence_id": "T-0078-R2-E07",
+  "run_seq": 2,
+  "recorded_by": "final-independent-accept",
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T11:47:35.664Z",
+  "commit": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "type": "ui",
+  "covers": [
+    2,
+    3,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0078-r2-independent/reuse.json",
+  "screenshots": [
+    "verification/reviews/T-0078-r1-independent/browser/read-unavailable-1440.png",
+    "verification/reviews/T-0078-r1-independent/browser/read-recovered-1280.png"
+  ],
+  "urls": [
+    "http://127.0.0.1:5173/ (prior independent run; closed)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Reused actual React/Chromium14/14 atf687 with unchanged UI source/styles/props/router/HTTP protocol; targetd9 changes loader only. Fixed DTO, module CSS, not authenticated Next/DB/global3B.",
+  "command_or_protocol": "Byte-identical UI reuse proof; no new browser run claimed. Prior before/after screenshots inspected.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "Task-scoped recovery/context/keyboard/503 text/no hidden POST/layout checks only; no global skin, pixel-reference/contrast audit or authenticated server outage claim. Existing UI14/14 is sufficient in unchanged scope; combined local-main behavior will be checked after integration.",
+  "artifact_sha256": "cee5b6f2b1eda9569115ef9e2f4a94397f3f13410bd7873fdc55d50addbfe568",
+  "screenshots_sha256": [
+    {
+      "path": "verification/reviews/T-0078-r1-independent/browser/read-unavailable-1440.png",
+      "sha256": "3bcbf864134ce3624e2331bff3abb2270aca229516c2ecc37d15f3b89675fc03"
+    },
+    {
+      "path": "verification/reviews/T-0078-r1-independent/browser/read-recovered-1280.png",
+      "sha256": "96888eb44eb85950aa759ef459127f5c253b0b2b32c9412ba424fafba34989ca"
+    }
+  ],
+  "recorded_at": "2026-10-21T11:47:36.558Z"
+}

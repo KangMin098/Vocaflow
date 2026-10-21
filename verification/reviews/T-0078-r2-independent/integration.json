@@ -1,0 +1,15 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-21T11:47:35.664Z",
+  "commit": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "type": "integration",
+  "covers": [
+    0,
+    1,
+    3,
+    4
+  ],
+  "artifact_path_or_url": "verification/reviews/T-0078-r2-independent/reuse.json",
+  "command_or_protocol": "Reuse independently executed actual API POST handler integration32 atf687 with unchanged handler/compose contracts, current loader8+7 patched-dependency checks. Underlying original logs/HEAD retained. Mocked loader/store; not native Supabase or RLS."
+}

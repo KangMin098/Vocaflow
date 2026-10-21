@@ -1,0 +1,94 @@
+{
+  "tested_head": "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+  "end_head": "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+  "observed_at": "2026-10-21T11:48:44.697Z",
+  "environment": "actual Chromium + actual React UnifiedLearningMap/PlanSection/AuthoredSupplyCard; fixed data(Codex probe compose fixture); router shim; mocked HTTP; no auth Next/DB",
+  "results": [
+    {
+      "width": 1440,
+      "case": "unavailable",
+      "passed": true,
+      "cta": 0
+    },
+    {
+      "width": 1440,
+      "case": "unavailable-return-query-intact",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "case": "no-post-while-unavailable",
+      "passed": true,
+      "postsBefore": 0
+    },
+    {
+      "width": 1440,
+      "case": "retry-once-same-context",
+      "passed": true,
+      "url": "http://127.0.0.1:5173/?tab=map&view=full&map_task=r.central_meaning&ws=ws.central-meaning&map_item=authored%3Aprobe-guide&map_attempt=3",
+      "refreshes": 1
+    },
+    {
+      "width": 1440,
+      "case": "plan-503-label",
+      "passed": true
+    },
+    {
+      "width": 1440,
+      "case": "supply-503-label",
+      "passed": true,
+      "supplyMsg": "수행 기록을 지금 읽지 못해 자료를 받지 않았어요 — 기록은 그대로예요. 잠시 뒤 다시 확인해 주세요."
+    },
+    {
+      "width": 1440,
+      "case": "overflow",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "case": "unavailable",
+      "passed": true,
+      "cta": 0
+    },
+    {
+      "width": 1280,
+      "case": "unavailable-return-query-intact",
+      "passed": true
+    },
+    {
+      "width": 1280,
+      "case": "no-post-while-unavailable",
+      "passed": true,
+      "postsBefore": 0
+    },
+    {
+      "width": 1280,
+      "case": "retry-once-same-context",
+      "passed": true,
+      "url": "http://127.0.0.1:5173/?tab=map&view=full&map_task=r.central_meaning&ws=ws.central-meaning&map_item=authored%3Aprobe-guide&map_attempt=3",
+      "refreshes": 1
+    },
+    {
+      "width": 1280,
+      "case": "plan-503-label",
+      "passed": true
+    },
+    {
+      "width": 1280,
+      "case": "supply-503-label",
+      "passed": true,
+      "supplyMsg": "수행 기록을 지금 읽지 못해 자료를 받지 않았어요 — 기록은 그대로예요. 잠시 뒤 다시 확인해 주세요."
+    },
+    {
+      "width": 1280,
+      "case": "overflow",
+      "passed": true,
+      "overflow": 0,
+      "errors": []
+    }
+  ],
+  "passed": 14,
+  "failed": 0
+}

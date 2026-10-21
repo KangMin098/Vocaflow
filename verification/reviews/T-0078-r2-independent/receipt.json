@@ -1,0 +1,30 @@
+{
+  "task_id": "T-0078",
+  "design_revision": "rev1",
+  "head": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+  "verdict": "APPROVE",
+  "decision": "ACCEPT_WITH_LIMITS",
+  "findings": [],
+  "verified_fixed": [
+    "T0078-P1-1"
+  ],
+  "ran_tests": true,
+  "verification": {
+    "independent_current": "8/8 probe +7/7 loader, skip0",
+    "reused_independent": "32/32 focused API/compose/read/fixture checks and14/14 real component browser from f687; source/protocol unchanged as reuse.json documents",
+    "authenticated_next_db": "NOT_VERIFIED (written isolated test covers healthy-empty control only)",
+    "native_rls": "Not proven by mock tests; no permission/SQL change",
+    "db_writes": 0,
+    "human_gold_rights": false
+  },
+  "provenance": {
+    "contract": "local-roles/1",
+    "task_id": "T-0078",
+    "head": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+    "implementer": "claude",
+    "reviewer": "codex",
+    "owner": "final-independent-accept",
+    "session_id": "01a14de8-2485-7a53-b530-d5612f35e57a"
+  },
+  "recorded_at": "2026-10-21T11:47:35.665Z"
+}
