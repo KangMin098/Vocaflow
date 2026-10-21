@@ -1,0 +1,19 @@
+{
+  "task_id": "T-0075",
+  "reviewed_head": "023c8474dbb286a19039117634bc40aa515665ba",
+  "decision": "REWORK",
+  "required_fix": "T0075-P1-1 only",
+  "passing_independent_scope": {
+    "backend": 64,
+    "component": 16
+  },
+  "delivery": "QUEUED",
+  "task_status": "READY",
+  "run_seq": 1,
+  "actual_rework_ack": null,
+  "authoritative_local_main": "06e07d26f",
+  "baseline_binding_source_unchanged_from_origin1278": true,
+  "foreign_local_main_css_edit_preserved": true,
+  "integration": "Existing local integration owner first, then daily sync/main bundle CI+safe-merge; no immediate per-task PR",
+  "observed_at": "2026-10-21T09:48:37.557Z"
+}
