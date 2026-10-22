@@ -1,0 +1,21 @@
+{
+  "observed_at": "2026-10-22T08:44:57.836Z",
+  "task_id": "T-0085",
+  "revision": "rev1",
+  "design_id": "FINAL-TRIAL-EVIDENCE-DISPLAY-rev1",
+  "owner": "final-product",
+  "status": "IN_PROGRESS",
+  "delivery": "ACKNOWLEDGED",
+  "implementation_started": true,
+  "actual_session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "actual_pid": 13384,
+  "started_at": "2026-10-22T08:43:48.456Z",
+  "start_head": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "worktree": "d:/workspace/vocaflow-final-product",
+  "ack": "planning/inbox/final-product.md:2026-10-22T08:43:48.000Z",
+  "process_and_worktree_lock": "Get-Process pid13384 alive + source lock.mjs status claude pid13384 observed",
+  "result_returned": false,
+  "db_writes": 0,
+  "new_worker_or_session": false,
+  "queue_to_actual_start_ms": 191557
+}
