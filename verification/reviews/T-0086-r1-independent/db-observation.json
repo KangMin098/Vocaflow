@@ -1,0 +1,18 @@
+{
+  "observed_at":"2026-10-22T09:42:00.242702Z",
+  "environment":"vocaflow-dev",
+  "method":"Supabase execute_sql SELECT aggregate counts only",
+  "authored_items":0,
+  "human_decisions":0,
+  "ai_decisions":0,
+  "qualifications":0,
+  "release_approvals":0,
+  "deliveries":0,
+  "bindings":0,
+  "factory_attempts":0,
+  "db_writes":0,
+  "schema_install_is_not_content_release_approval":true,
+  "content_release_approved":false,
+  "dev_db_learning_e2e_verified":false,
+  "actual_educational_effect_verified":false
+}

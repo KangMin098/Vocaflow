@@ -1,0 +1,15 @@
+{
+  "observed_at": "2026-10-22T09:44:06.374Z",
+  "task": "T-0087",
+  "revision": "rev1",
+  "owner": "final-product",
+  "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "pid": 13384,
+  "started_at": "2026-10-22T09:43:46.702Z",
+  "start_head": "4d8c56a2aa131c0605d6444271dead43bd9ac300",
+  "status": "IN_PROGRESS",
+  "actual_ack": "planning/inbox/final-product.md:T-0087 ACKNOWLEDGED",
+  "queue_to_start_ms": 255843,
+  "db_writes": 0,
+  "new_worker_or_session": false
+}
