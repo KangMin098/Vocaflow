@@ -7,10 +7,8 @@
 
 'use client'
 
-import { ArrowRight, BookOpenText, Boxes, ChevronDown, Crosshair, LayoutGrid, Link2, ListChecks, List, Map, Maximize2, PlayCircle, Target, type LucideIcon } from 'lucide-react'
+import { ArrowRight, BookOpenText, Boxes, ChevronDown, Crosshair, Link2, ListChecks, Map, Maximize2, PlayCircle, type LucideIcon } from 'lucide-react'
 import Link from 'next/link'
-import { useState } from 'react'
-import { track } from '@/lib/analytics/client'
 
 import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
@@ -22,7 +20,6 @@ import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import { wsLinkOf, type WsRow, type WsRowState } from '@/lib/csat/map/v62/workspace-list'
 
 import u from './unified.module.css'
-import d from './detail.module.css'
 
 export const STAGES: StageKey[] = ['check', 'repair', 'transfer', 'recheck']
 
@@ -101,12 +98,6 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
   onOpenWs: (id: string, opener: HTMLElement) => void
   onSelectTask: (id: TaskId) => void
 }) {
-  const [display, setDisplay] = useState<'board' | 'list'>('board')
-  const chooseDisplay = (view: 'board' | 'list') => {
-    if (display === view) return
-    setDisplay(view)
-    track({ name: 'csat_path_chosen', props: { axis: 'workspace_view', need: 'none', action: 'apply', view } })
-  }
   const live = rows.filter((r) => r.kind !== 'preparing')
   const prep = rows.filter((r) => r.kind === 'preparing')
   const blocked = ranks?.notActionable ?? []
@@ -134,9 +125,8 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
             </span>
           </span>
         </button>
-        {display === 'board' && <details className={d.fold}><summary><Target size={14} aria-hidden="true" />학습 목표</summary><p className="break-keep">{r.goal ?? READINESS_LABEL[r.readiness ?? ''] ?? '학습 자료를 준비하고 있어요.'}</p></details>}
-        <span className={u.wsStage}>{display === 'board' && <span className={u.cardLabel}>지금 단계</span>}{r.stages ? <StageTrack row={r} /> : <span className={u.fine}>—</span>}</span>
-        <span className={u.wsAmt}>{display === 'board' && <span className={u.cardLabel}>이번 계획 수행</span>}<Amount row={r} /></span>
+        <span className={u.wsStage}>{r.stages ? <StageTrack row={r} /> : <span className={u.fine}>—</span>}</span>
+        <span className={u.wsAmt}><Amount row={r} /></span>
         <span className={u.wsState} data-state={r.state}>{WS_STATE_LABEL[r.state]}</span>
         <span className={u.wsActs}>
           <button type="button" className={u.iconBtn} onClick={() => onSelectWs(r.id)} aria-label={`${r.name} — 지도에서 관련 TASK 보기`} title="지도에서 보기"><Map size={14} aria-hidden="true" /></button>
@@ -158,14 +148,10 @@ export function WorkspaceList({ rows, ranks, data, past, selectedTask, selectedW
   }
 
   return (
-    <section className={u.wsList} aria-labelledby="ws-h" data-testid="ws-list" data-count={rows.length} data-view={display}>
+    <section className={u.wsList} aria-labelledby="ws-h" data-testid="ws-list" data-count={rows.length} data-view="list">
       <header className={u.wsHead}>
         <h2 id="ws-h" className={u.h} tabIndex={-1}>학습 Workspace</h2>
         <span className={u.wsCount}>{live.length}개 · 준비 중 {prep.length}</span>
-        <div className={u.viewSwitch} role="group" aria-label="Workspace 표시 방식">
-          <button type="button" aria-pressed={display === 'board'} onClick={() => chooseDisplay('board')} data-testid="ws-view-board"><LayoutGrid size={14} aria-hidden="true" />보드</button>
-          <button type="button" aria-pressed={display === 'list'} onClick={() => chooseDisplay('list')} data-testid="ws-view-list"><List size={14} aria-hidden="true" />목록</button>
-        </div>
         {selectedTask && (
           <span className={u.wsFocus} data-testid="ws-focus-note">
             <span className={u.tChip} data-role="core" data-on="true">{taskLabel(selectedTask).code}</span>

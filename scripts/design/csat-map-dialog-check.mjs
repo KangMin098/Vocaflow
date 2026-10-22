@@ -54,8 +54,8 @@ try {
     const node = page.locator('[data-node="r.central_meaning"]')
     await node.waitFor()
     assert.equal(await page.getByRole('dialog').count(), 0)
-    assert.equal(await page.getByTestId('ws-list').getAttribute('data-view'), 'board')
-    await page.screenshot({ path: `${out}/map-board-${width}-${theme}.png`, fullPage: true })
+    assert.equal(await page.getByTestId('ws-list').getAttribute('data-view'), 'list')
+    await page.screenshot({ path: `${out}/map-list-${width}-${theme}.png`, fullPage: true })
     await node.click()
     let dialog = page.getByRole('dialog')
     await dialog.waitFor()
@@ -115,8 +115,8 @@ try {
     await page.keyboard.press('Escape'); await dialog.waitFor({ state: 'detached' })
     assert.equal(await node.evaluate(el => document.activeElement === el), true)
     assert.equal(await page.locator('body').evaluate(el => el.style.overflow), '')
-    // Both list and card entry points open the same detail surface.
-    await page.getByTestId('ws-view-list').click()
+    // Workspaces stay in the list; selecting a row opens the same detail surface.
+    assert.equal(await page.getByRole('group', { name: 'Workspace 표시 방식' }).count(), 0)
     assert.equal(await page.getByTestId('ws-list').getAttribute('data-view'), 'list')
     await page.screenshot({ path: `${out}/workspace-list-${width}-${theme}.png`, fullPage: true })
     const trigger = page.getByTestId('ws-select').first()
@@ -195,7 +195,7 @@ try {
     results.push({ home: true, width, theme, visualSteps: 3, errors: homeErrors })
     await homePage.close()
     await context.close()
-    console.log(`PASS ${width} ${theme}: single dialog, tabs, workspace links, keyboard, board/list`)
+    console.log(`PASS ${width} ${theme}: single dialog, tabs, workspace links, keyboard, workspace list`)
   }
   const geometryPage = await browser.newPage({ viewport: { width: 2094, height: 950 } })
   await geometryPage.route('**/api/**', r => r.fulfill({ json: { status: 'installed', rows: [], sources: 0 } }))
