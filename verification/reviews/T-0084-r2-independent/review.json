@@ -1,0 +1,17 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-22T08:25:22.650Z",
+  "commit": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "type": "review",
+  "artifact_path_or_url": "verification/reviews/T-0084-r2-independent/REVIEW.md",
+  "command_or_protocol": "Independent source ACCEPT_WITH_LIMITS; T0084-P1-1 fixed; exact-scope reuse across one comment-only commit; no open changed-scope P0/P1."
+}

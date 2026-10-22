@@ -1,0 +1,93 @@
+{
+  "at": "2026-10-22T08:38:51.830Z",
+  "main": "db569100c273338449c76087ec66550854f21728",
+  "completed": [
+    {
+      "id": "T-0084",
+      "status": "COMPLETED",
+      "commit": "e21ff733c93525d0ef9654c5456a1f199955eba2"
+    }
+  ],
+  "goals": [
+    {
+      "id": "VG-L3-D1-02",
+      "parent_id": "VG-L2-D1",
+      "level": 3,
+      "title": "실사용/테스트 데이터 분리",
+      "phase": "R0",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-D1-02-AC1",
+          "condition": "QA·합성 데이터가 사용자 지표와 효과 평가에서 제외된다",
+          "verification_method": "데이터 lineage 및 권한 테스트",
+          "required_evidence": [
+            "user_type 및 분석 쿼리"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D1"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": true
+    },
+    {
+      "id": "VG-L3-D3-02",
+      "parent_id": "VG-L2-D3",
+      "level": 3,
+      "title": "학습 효과 평가",
+      "phase": "research",
+      "acceptance": [
+        {
+          "criterion_id": "VG-L3-D3-02-AC1",
+          "condition": "사전등록한 기준선/후속/지연/전이 연구를 실시하고 한계를 보고한다",
+          "verification_method": "분석 프로토콜",
+          "required_evidence": [
+            "실제 참가자 평가·표본·분석"
+          ],
+          "status": "not_evaluated"
+        }
+      ],
+      "dependencies": [
+        "VG-L2-D3"
+      ],
+      "observed_status": "unknown",
+      "evidence_refs": [],
+      "evidence_class": "proposal_not_revalidated",
+      "blocking_for_R0": false
+    }
+  ],
+  "overlapping": [
+    {
+      "id": "T-0040",
+      "owner": "lm-g1-2-independent",
+      "status": "REVIEW",
+      "goal": "VG-L3-C1-01",
+      "title": "LM-G1.2 PR273 independent T2 acceptance"
+    },
+    {
+      "id": "T-0042",
+      "owner": "lm-g1-4-independent",
+      "status": "REVIEW",
+      "goal": "VG-L3-A1-01",
+      "title": "LM-G1.4 PR275 independent T4 acceptance"
+    },
+    {
+      "id": "T-0043",
+      "owner": "lm-g1-5a-independent",
+      "status": "REVIEW",
+      "goal": "VG-L3-A1-01",
+      "title": "PR276 V2 independent acceptance"
+    }
+  ],
+  "owner": {
+    "label": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "agent": "claude",
+    "pid": 23116,
+    "name": "Claude-VOCAFLOW-FINAL-OWNER",
+    "bound_at": "2026-10-19T14:55:58.095Z"
+  }
+}

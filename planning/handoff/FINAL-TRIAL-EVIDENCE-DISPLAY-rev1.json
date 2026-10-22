@@ -1,0 +1,55 @@
+{
+  "goal_id": "VG-L3-D1-02",
+  "related_goal_ids": ["VG-L3-D3-02"],
+  "title": "효과 검증 표시에서 비합성·재계산 필요·유효 분석을 구분",
+  "description": "FINAL A/H 전체 효과 수용: T0084의 수용된 KPI를 재구현하지 않는다. 최신 main db569100c의 실제 opsSummary는 reviewRequiredAt가 있는 analyzed trial도 효과 검증 수에 포함하고, synthetic=false만으로 실제 학습자라 표시한다. 이미 상세 화면은 재계산 결과 사용 금지를 표시한다. 이 조회·표시 불일치 한 원인을 기존 원장으로 바로잡는다.",
+  "priority": "P1",
+  "owner_id": "final-product",
+  "created_by": "final-independent-accept",
+  "branch": "feat/vocaflow-final-product",
+  "worktree": "D:/workspace/Vocaflow-final-product",
+  "base_commit": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "depends_on": ["T-0084"],
+  "roles": {"analyst":"codex","planner":"codex","architect":"codex","implementer":"claude","reviewer":"codex","verifier":"codex"},
+  "criterion_claims": [{"criterion_id":"VG-L3-D1-02-AC1","claim":"partial"},{"criterion_id":"VG-L3-D3-02-AC1","claim":"partial"}],
+  "db_scope": {"mode":"none","targets":[]},
+  "allowed_paths": [
+    "apps/web/src/lib/knowledge/vnext-rules.ts",
+    "apps/web/src/lib/knowledge/__tests__/vnext.test.ts",
+    "apps/web/src/lib/knowledge/__tests__/trial-evidence-display.test.ts",
+    "apps/web/src/app/admin/knowledge/page.tsx",
+    "apps/web/src/app/admin/knowledge/design/page.tsx",
+    "apps/web/src/app/admin/knowledge/product/page.tsx",
+    "apps/web/src/app/admin/knowledge/product/[id]/page.tsx",
+    "apps/web/src/app/admin/knowledge/__tests__/trial-evidence-display.test.tsx",
+    "apps/web/src/lib/admin/help/knowledge.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "forbidden_paths": [".env*","supabase/**","**/*.sql",".github/**","agents/**","scripts/audit/**","apps/web/src/lib/knowledge/practice.ts","apps/web/src/lib/knowledge/protocol.ts","apps/web/src/lib/knowledge/vnext-server.ts","apps/web/src/lib/admin/account-classification.ts","apps/web/src/lib/admin/account-cohort.ts","apps/web/src/lib/csat/**","apps/web/src/app/api/**","**/*.css"],
+  "acceptance": [
+    "기존 Trial DTO와 reviewRequiredAt를 소비하는 순수 표시 함수를 vnext-rules 안에 최소 추가/재사용한다. 명시 synthetic=true/false/미확인을 구별하고 false만으로 검증된 실제 학습자나 효과 입증이라고 말하지 않는다. unknown/null/malformed는 합성 또는 실제0으로 추정하지 않는다. 기존 학습자 단위 기록/G2/시험 synthetic 판정은 변경하지 않는다.",
+    "운영실 분석 수는 명시 비합성이고 status=analyzed이며 현재 reviewRequiredAt=null을 확인할 수 있는 행만 설명적 분석 완료 수로 센다. reviewRequiredAt 있음/상태 미완료/합성/필드 미확인은 그 수에서 제외하고 재계산 필요·합성·확인 불가를 숨기지 않는다. analyzed 결과가 supported/mixed/not_supported/inconclusive여도 분석 건수와 효과 지지 여부를 혼동하지 않는다. 실패/판단불가 분석도 완료 건수로 남길 수 있지만 효과 검증 성공이라고 하지 않는다. 원장 재분석·결과 기록·DB 변경 없이 UI 투영만 수정한다.",
+    "opsSummary Stage/queue/bottleneck, 같은 trial을 보여주는 기존 design/product/상세의 좁은 라벨·설명에 같은 의미를 적용한다. 비합성 계획 있음≠실제 참가자 확인/수행/효과 검증. 비합성 표시 시도 수는 그런 뜻으로 명시해 보존할 수 있다. 이미 main이 고친 비합성 표시 문구/시도 수를 옛 source로 되돌리지 않는다. 새 효과 임계값·연구 프로토콜·cohort 등록·자동 승인/승격·새 화면을 만들지 않는다. 기존 requireAdmin/일반 링크/화면 골격 유지.",
+    "최소 반례: 실제 main opsSummary probe의 재계산 필요 analyzed(false)는 현재분석0, 미분류 비합성 메타만으로 실제학습자 주장 금지; 합성 분석0과 현행 비합성 분석1 정상 대조 유지. 추가로 재계산 표지 누락/합성표지 누락/null·결과별 분석·계획만 있음/재계산 뒤 정상 값을 구분하는 단위. 관련 vnext/현재 RSC 렌더·타입/lint만. 기존 컴포넌트/페이지를 실제 React+Chromium1440/1280에서 current/stale/synthetic/unknown로 확인하고 인증 Next+DB·실제 연구효과는 NOT_VERIFIED. 전체 web/작업별 PR/CI·새 브라우저 플랫폼은 불필요.",
+    "작업 전 최신 main과 source의 허용 경로 diff를 읽는다. vnext-rules는 동일하지만 design/상세/help에는 main 후속 변경이 있어 원본 덮어쓰기 금지. main/외부 감사2파일/다른 owner CSS를 건드리지 않는다. 같은 파일 활성 writer가 있으면 그 경로만 보류하고 순수 함수부터 진행하며 Codex에 반환한다. 기존 관리자 T0047/49/51 범용 소유권을 탈취하지 않는다. 원 source에서 필요한 최소 패치만 커밋하고 통합은 Codex가 최신 main에 결합 검증한다. 같은 TASK/rev에서 REWORK, 승인 대기와 무관한 로컬 작업으로 진행한다. 두 목표 전체 PASS/실제 학습효과 달성 주장은 금지."
+  ],
+  "ui_acceptance": ["현재 분석/재계산 필요/합성/비합성 표시/확인 불가와 효과 입증의 차이가 기존 관리자 화면에서 일관되게 읽힌다. 새 디자인 없이 기존 스킨·링크 재사용."],
+  "impact": {
+    "kind":"platform","parent_goal_id":"VG-L3-D1-02",
+    "acceptance_ids":["VG-L3-D1-02-AC1","VG-L3-D3-02-AC1"],
+    "current_gap":"Actual main opsSummary counts stale analyzed trial as current verification and labels synthetic=false metadata as actual learner. T0084 fixed account KPI queries but explicitly excluded knowledge/trial display; no same-criterion overlapping open task. This is one study-evidence projection correction, not a repeat KPI implementation.",
+    "expected_impact":"advances","dependency_type":"direct",
+    "evidence_required":["same actual main failing 2/control2 before-after","related pure/RSC tests/type/lint","existing screen1440/1280 current/stale/unknown representation"],
+    "out_of_scope":["DB/schema/participant registration/actual research/Gold/rights/actual supply writes","personal task judgement/G2/MAP/PLAN","T0084 accepted KPI/retention reimplementation","new orchestrator/full-admin redesign"]
+  },
+  "source": {
+    "mission":"FINAL-MISSION-A~H","goals_ah":["A","H"],
+    "design_id":"FINAL-TRIAL-EVIDENCE-DISPLAY-rev1","design_revision":"rev1",
+    "from_owner":"final-independent-accept","from_session":"01a14de8-2485-7a53-b530-d5612f35e57a",
+    "to_session":"c513ff5b-86ef-44a3-8efd-7925a229614b",
+    "canonical_main":"db569100c273338449c76087ec66550854f21728",
+    "reproduction":"verification/reviews/NEXT-TRIAL-EVIDENCE/probe.test.ts; results.json: 2 fail/2 pass, skip0; synthetic input only/no DB",
+    "canon":"Existing F7 migration review_required_at means result cannot be evidence before recalculation. No new research/eligibility threshold. DB installation is separate from FINAL content-policy adoption.",
+    "delivery":"QUEUED until real ACK and official task start"
+  }
+}

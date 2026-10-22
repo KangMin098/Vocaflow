@@ -1,0 +1,11 @@
+{
+  "head": "984ee58e8ac0c3145c5464b0bfaa810222b80391",
+  "passed": 17,
+  "failed": 0,
+  "skipped": 0,
+  "exit": 0,
+  "scope": "Same SDK adapter and 13 controls reused; three original missing-payload counterexamples plus empty-array control. No authenticated DB.",
+  "verified_fixed": [
+    "T0084-P1-1"
+  ]
+}

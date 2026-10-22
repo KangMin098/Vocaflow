@@ -1,0 +1,8 @@
+merge: integrate verified learner metric cohort separation
+
+Preserve current admin analytics structure and apply verified KPI bindings.
+Keep all-account totals explicitly labelled and missing payloads unavailable.
+Validate combined cohort, retention, KPI and page controls: 83 passing tests.
+No DB mutation, external cohort approval or remote CI claim.
+
+Co-Authored-By: Codex <codex@openai.com>

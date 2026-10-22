@@ -1,0 +1,36 @@
+{
+  "task": "T-0084",
+  "accepted_head": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "code_decision": "ACCEPT_WITH_LIMITS",
+  "verified_fixed": [
+    "T0084-P1-1"
+  ],
+  "equivalence": {
+    "tested_head": "984ee58e8ac0c3145c5464b0bfaa810222b80391",
+    "changed_since_test": [
+      "scripts/docs/gen-db-stats.mjs comment only"
+    ],
+    "backend_ui_diff_empty": true
+  },
+  "verification": {
+    "independent_payload_and_cohort_tests": "17/17 skip0",
+    "independent_styled_chromium": "6/6 at1440/1280; actual source AdminKpiGrid+Tailwind/globals/admin skin; copied page KPI expressions, not authenticated Next",
+    "independent_typecheck": {
+      "command": "node node_modules/typescript/bin/tsc --noEmit -p .",
+      "exit": 0
+    },
+    "independent_eslint": {
+      "changed_files": 9,
+      "exit": 0
+    },
+    "stats_generator": "R1 exact executable logic, four Node24 fake-query fixtures reused; current difference is comment only"
+  },
+  "not_verified": [
+    "Node20 direct TS-import path",
+    "authenticated /admin Next+DB",
+    "actual external cohort learning effect",
+    "final source/main combination and remote CI"
+  ],
+  "metadata_note": "Formal run2 unit evidence remains bound to984 with three environment skips, one within allowed paths. Do not mark those skips passed or silently relabel old evidence. Administrative same-task cohort normalization may reuse proven unchanged scopes without rerunning719/UI.",
+  "db_writes": 0
+}

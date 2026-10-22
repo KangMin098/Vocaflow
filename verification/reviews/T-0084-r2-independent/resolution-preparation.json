@@ -1,0 +1,10 @@
+{
+  "base": "2139cdfa7faf1e9f927a879393e207daf7a22b45",
+  "source": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "conflicts": [
+    "apps/web/src/app/admin/analytics/page.tsx",
+    "apps/web/src/app/admin/__tests__/mock-data-banner.test.tsx"
+  ],
+  "plan": "Keep current main page skeleton and consolidated mock-screen list; change only verified KPI bindings/labels and corresponding assertions; add an actual analytics page renderer control.",
+  "applied": false
+}

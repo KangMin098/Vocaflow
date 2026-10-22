@@ -1,0 +1,52 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-22T08:25:22.650Z",
+  "commit": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "type": "ui",
+  "artifact_path_or_url": "verification/reviews/T-0084-r2-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0084-r2-independent/browser/kpi-verified-1440.png",
+    "verification/reviews/T-0084-r2-independent/browser/kpi-unavailable-1280.png"
+  ],
+  "urls": [
+    "http://127.0.0.1/ (ephemeral actual-component KPI harness)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual React AdminKpiGrid+compiled Tailwind+source globals/admin skin;1440/1280 verified/zero/unavailable6/6. KPI expressions copied from page definitions; no authenticated Next+DB claim.",
+  "command_or_protocol": "Independent scoped KPI display/state/overflow/error/keyboard checks; actual screenshots inspected; unchanged component classes/tokens/nav controls reused. No new UI pattern or whole-admin reference audit.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [
+    {
+      "kind": "suggestion",
+      "claim": "Node20 direct TS import, authenticated admin journey and actual external learning effect remain unverified. Scoped KPI component evidence is not whole-app certification.",
+      "status": "open"
+    }
+  ],
+  "note": "Checks are scoped to changed read-only KPI text/count bindings and unchanged component presentation. No new interactive control. Full shell contrast/reference geometry/authentication were not certified."
+}

@@ -1,0 +1,17 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-22T08:25:22.650Z",
+  "commit": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5
+  ],
+  "type": "integration",
+  "artifact_path_or_url": "verification/reviews/T-0084-r2-independent/acceptance-scope.json",
+  "command_or_protocol": "Actual submitted cohort/dashboard/funnel/video functions with SDK fixture17/17, unchanged executable stats logic four Node24 fixtures, independent tsc/lint0. Not authenticated DB or remote CI."
+}

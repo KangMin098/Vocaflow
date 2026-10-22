@@ -1,0 +1,127 @@
+{
+  "environment": "actual Chromium + actual React AdminKpiGrid · fmt 동일 식 · KPI 문자열은 page.tsx 정의와 같은 식(서버 컴포넌트라 직접 렌더 불가) · Tailwind + actual globals/admin skin applied; copied page KPI expressions, not authenticated Next · 인증 Next/DB 아님",
+  "results": [
+    {
+      "width": 1440,
+      "state": "verified",
+      "passed": true,
+      "checks": {
+        "mainValue": true,
+        "allScope": true,
+        "notMixed": true,
+        "zeroVsUnknown": true,
+        "overflow": true,
+        "keyboardNoTrap": true,
+        "errors": true
+      },
+      "cards": [
+        "오늘 활성 (DAU) 3 검증된 실사용 학습자만 · 전체 계정 오늘 4(내부·미분류 포함)",
+        "실사용 학습자 12 검증된 외부 계정만 · 전체 계정 65(내부·미분류 포함)",
+        "오늘 학습자 3 실사용 학습자 12명 · 전체 계정 65(내부·미분류 포함) · 학습 텍스트 280편",
+        "WAU —"
+      ]
+    },
+    {
+      "width": 1440,
+      "state": "zero",
+      "passed": true,
+      "checks": {
+        "mainValue": true,
+        "allScope": true,
+        "notMixed": true,
+        "zeroVsUnknown": true,
+        "overflow": true,
+        "keyboardNoTrap": true,
+        "errors": true
+      },
+      "cards": [
+        "오늘 활성 (DAU) 0 검증된 실사용 학습자만 · 전체 계정 오늘 4(내부·미분류 포함)",
+        "실사용 학습자 0 검증된 외부 계정만 · 전체 계정 65(내부·미분류 포함)",
+        "오늘 학습자 0 실사용 학습자 0명 · 전체 계정 65(내부·미분류 포함) · 학습 텍스트 280편",
+        "WAU —"
+      ]
+    },
+    {
+      "width": 1440,
+      "state": "unavailable",
+      "passed": true,
+      "checks": {
+        "mainValue": true,
+        "allScope": true,
+        "notMixed": true,
+        "zeroVsUnknown": true,
+        "overflow": true,
+        "keyboardNoTrap": true,
+        "errors": true
+      },
+      "cards": [
+        "오늘 활성 (DAU) — 검증된 실사용 학습자만 · 전체 계정 오늘 4(내부·미분류 포함)",
+        "실사용 학습자 — 검증된 외부 계정만 · 전체 계정 65(내부·미분류 포함)",
+        "오늘 학습자 — 실사용 학습자 —명 · 전체 계정 65(내부·미분류 포함) · 학습 텍스트 280편",
+        "WAU —"
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "verified",
+      "passed": true,
+      "checks": {
+        "mainValue": true,
+        "allScope": true,
+        "notMixed": true,
+        "zeroVsUnknown": true,
+        "overflow": true,
+        "keyboardNoTrap": true,
+        "errors": true
+      },
+      "cards": [
+        "오늘 활성 (DAU) 3 검증된 실사용 학습자만 · 전체 계정 오늘 4(내부·미분류 포함)",
+        "실사용 학습자 12 검증된 외부 계정만 · 전체 계정 65(내부·미분류 포함)",
+        "오늘 학습자 3 실사용 학습자 12명 · 전체 계정 65(내부·미분류 포함) · 학습 텍스트 280편",
+        "WAU —"
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "zero",
+      "passed": true,
+      "checks": {
+        "mainValue": true,
+        "allScope": true,
+        "notMixed": true,
+        "zeroVsUnknown": true,
+        "overflow": true,
+        "keyboardNoTrap": true,
+        "errors": true
+      },
+      "cards": [
+        "오늘 활성 (DAU) 0 검증된 실사용 학습자만 · 전체 계정 오늘 4(내부·미분류 포함)",
+        "실사용 학습자 0 검증된 외부 계정만 · 전체 계정 65(내부·미분류 포함)",
+        "오늘 학습자 0 실사용 학습자 0명 · 전체 계정 65(내부·미분류 포함) · 학습 텍스트 280편",
+        "WAU —"
+      ]
+    },
+    {
+      "width": 1280,
+      "state": "unavailable",
+      "passed": true,
+      "checks": {
+        "mainValue": true,
+        "allScope": true,
+        "notMixed": true,
+        "zeroVsUnknown": true,
+        "overflow": true,
+        "keyboardNoTrap": true,
+        "errors": true
+      },
+      "cards": [
+        "오늘 활성 (DAU) — 검증된 실사용 학습자만 · 전체 계정 오늘 4(내부·미분류 포함)",
+        "실사용 학습자 — 검증된 외부 계정만 · 전체 계정 65(내부·미분류 포함)",
+        "오늘 학습자 — 실사용 학습자 —명 · 전체 계정 65(내부·미분류 포함) · 학습 텍스트 280편",
+        "WAU —"
+      ]
+    }
+  ],
+  "passed": 6,
+  "failed": 0
+}

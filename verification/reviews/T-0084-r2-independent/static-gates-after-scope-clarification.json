@@ -1,0 +1,19 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/app/admin/__tests__/mock-data-banner.test.tsx",
+    "apps/web/src/app/admin/__tests__/page.test.tsx",
+    "apps/web/src/app/admin/analytics/page.tsx",
+    "apps/web/src/app/admin/page.tsx",
+    "apps/web/src/app/admin/users/page.tsx",
+    "apps/web/src/lib/admin/__tests__/account-cohort.test.ts",
+    "apps/web/src/lib/admin/account-cohort.ts",
+    "apps/web/src/lib/admin/dashboard-stats.ts",
+    "apps/web/src/lib/admin/retention.ts",
+    "apps/web/src/lib/admin/teacher-funnel.ts",
+    "apps/web/src/lib/admin/video-console.ts",
+    "docs/final/FINAL_LEDGER.md",
+    "package.json",
+    "scripts/docs/gen-db-stats.mjs"
+  ]
+}

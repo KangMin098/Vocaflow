@@ -1,0 +1,12 @@
+{
+  "base": "2139cdfa7faf1e9f927a879393e207daf7a22b45",
+  "source": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "tree": "21c6473d5ccb9805831dbcd9b42412fa1bb08306",
+  "conflicts_resolved": [
+    "apps/web/src/app/admin/analytics/page.tsx",
+    "apps/web/src/app/admin/__tests__/mock-data-banner.test.tsx"
+  ],
+  "other_worker_edits_present_before_merge": false,
+  "reviewer_actual_pid": 19700,
+  "reviewer_thread": "01a14de8-2485-7a53-b530-d5612f35e57a"
+}

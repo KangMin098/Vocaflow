@@ -1,0 +1,18 @@
+{
+  "task": "T-0084",
+  "head": "e21ff733c93525d0ef9654c5456a1f199955eba2",
+  "author": "final-independent-accept",
+  "observed_at": "2026-10-22T08:27:08.513Z",
+  "correction": "The earlier review said package.json still used node. Actual commit984 and final e21 already use existing tsx for both docs commands. The unsupported-direct-import package-command claim is withdrawn. Node20 execution remains NOT_VERIFIED.",
+  "scope_clarification": {
+    "add_allowed_path": "package.json",
+    "allowed_changes": {
+      "scripts.docs:db-stats": "tsx scripts/docs/gen-db-stats.mjs",
+      "scripts.docs:db-stats:check": "tsx scripts/docs/gen-db-stats.mjs --check"
+    },
+    "no_other_json_changes": true,
+    "no_dependency_or_lockfile_changes": true,
+    "authorization": "Same-task planner clarification of requested low-risk existing-tsx execution path; user/dev-minimal authorizes routine implementation choices. No security/DB/policy approval change."
+  },
+  "original_review_preserved": true
+}

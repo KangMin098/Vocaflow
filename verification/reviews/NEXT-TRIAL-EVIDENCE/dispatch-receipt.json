@@ -1,0 +1,22 @@
+{
+  "task_id": "T-0085",
+  "source_design": "FINAL-TRIAL-EVIDENCE-DISPLAY-rev1",
+  "status": "READY",
+  "delivery": "QUEUED",
+  "actual_ack": false,
+  "implementation_started": false,
+  "at": "2026-10-22T08:40:36.957Z",
+  "goal_check": {
+    "report": "verification/goal-check/GC-2026-10-22T08-40-37-145Z.json",
+    "distribution": {
+      "UNKNOWN": 33,
+      "FAIL": 1,
+      "EXTERNAL_INPUT_REQUIRED": 1
+    },
+    "main": {
+      "main_sha": "db569100c273338449c76087ec66550854f21728"
+    }
+  },
+  "db_writes": 0,
+  "remote_calls": 0
+}
