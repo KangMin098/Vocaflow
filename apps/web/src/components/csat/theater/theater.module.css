@@ -7,15 +7,15 @@
 /* 참조(3B) 색·서체 — 극장 안에서만 토큰을 덮는다. 앱의 크림·세리프·보라 대신
    흰 면 + 쿨 그레이 + Inter + 검정 글자, 코드 칩은 주황, 카드는 블루그레이·민트·라벤더. */
 .workspace {
-  --bg: #ffffff;
-  --bg2: #f7f6f3;
-  --bg3: #efeee9;
-  --bd: #e6e4df;
-  --t1: #18181b;
-  --t2: #52525b;
+  --bg: var(--csat-panel, #ffffff);
+  --bg2: var(--csat-canvas, #f7f6f3);
+  --bg3: var(--csat-soft, #efeee9);
+  --bd: var(--csat-line, #e6e4df);
+  --t1: var(--csat-ink, #18181b);
+  --t2: var(--csat-ink2, #52525b);
   /* 참조값 #8e8e96 은 #f7f6f3 위 3.0:1 — 11px 시간 · 알약 · 범례가 WCAG AA 미달(axe 2026-10-10). 접근성이 참조보다 앞선다 */
-  --t3: #6c6c72;
-  --p: #7c5cfa;
+  --t3: var(--csat-muted, #6c6c72);
+  --p: var(--csat-accent, #7c5cfa);
   --p-light: #f1edfe;
   --on-p: #ffffff;
   --ju: #16a34a;
@@ -764,3 +764,17 @@
 .msKeep { grid-column: 1 / -1; display: grid; gap: 4px; padding: 8px 10px; border: 1px dashed var(--bd); border-radius: 8px; }
 .msKeep ul { margin: 0; padding-left: 16px; display: grid; gap: 4px; font-size: 13px; }
 .msNext { display: grid; gap: 4px; padding-top: 6px; border-top: 1px solid var(--bd); }
+
+/* Workspace reference: one white frame, lavender reading surface, colored activity cards. */
+@media (min-width: 900px) {
+  .workspace { border: 1px solid var(--csat-line); border-radius: 14px; overflow: hidden; }
+  .msCard { background: var(--csat-canvas); border-color: var(--csat-line); }
+  .msPhrase { border-color: var(--csat-line); }
+  .msPhrase:hover, .msPhrase[aria-pressed='true'], .msPanel .cmpFilters button[aria-pressed='true'] { background: var(--csat-hover); }
+  .msPanel .back { background: var(--csat-soft); }
+  .dockGroup[data-tint='blue'] { --dock-tint: var(--csat-blue); --dock-ink: #45687b; }
+  .dockGroup[data-tint='lavender'] { --dock-tint: var(--csat-soft); --dock-ink: var(--csat-ink); }
+  .dockGroup[data-tint='mint'] { --dock-tint: var(--csat-green); --dock-ink: #286447; }
+  .dockGroup[data-tint='peach'] { --dock-tint: var(--csat-peach); --dock-ink: #8b4827; }
+  .play { background: var(--csat-control); }
+}

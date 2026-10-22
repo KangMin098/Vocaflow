@@ -14,6 +14,7 @@ import { ILLO_30_NO_REVIEW_TODAY } from '@/components/illustrations/generated/il
 
 import { StudyMode } from '@/components/wordvault/StudyMode'
 import type { WordItem } from '@/components/wordvault/types'
+import { vocabMapLink } from '@/lib/csat/map-return'
 
 interface WordVaultStudyClientProps {
   words: WordItem[]
@@ -36,12 +37,22 @@ interface WordVaultStudyClientProps {
 }
 
 /** 지도에서 온 어휘 학습의 위치 안내 — 이 복습은 학습 활동이지 지도 근거가 아니다(V1 직접 확인 도구 없음) */
-function MapReturnBar({ href }: { href: string }) {
+export function MapReturnBar({ href, note, next }: { href: string; note?: string; next?: { href: string; label: string } }) {
   return (
     <div className="mx-auto mt-s-4 flex max-w-[680px] flex-wrap items-center justify-between gap-s-3 rounded-xl border border-bd bg-bg px-s-5 py-s-3" data-testid="vocab-map-bar">
       <p className="break-keep font-body text-[13px] text-t2">
-        학습 지도 · 기본 의미(V1) 복습 — 스스로 매긴 기억 정도는 학습 기록이에요. 지도의 확인 · 해소 근거로 세지 않아요.
+        {note ?? '학습 지도 · 기본 의미(V1) 복습 — 스스로 매긴 기억 정도는 학습 기록이에요. 지도의 확인 · 해소 근거로 세지 않아요.'}
       </p>
+      <div className="flex flex-wrap gap-s-2">
+      {next && (
+        <Link
+          href={next.href}
+          data-testid="vocab-map-next"
+          className="inline-flex min-h-[44px] items-center rounded-md px-s-4 font-display text-[13px] font-semibold text-t2 no-underline transition-colors duration-normal hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
+          {next.label}
+        </Link>
+      )}
       <Link
         href={href}
         data-testid="vocab-map-return"
@@ -49,6 +60,7 @@ function MapReturnBar({ href }: { href: string }) {
       >
         학습 지도로
       </Link>
+      </div>
     </div>
   )
 }
@@ -95,7 +107,7 @@ function StudyBody({
         <h2 className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">아직 복습할 내 단어가 없어요</h2>
         <p className="mb-s-6 break-keep font-body text-sm text-t2">내 단어장에서 먼저 단어를 모으면, 여기서 기본 뜻을 떠올리는 복습을 할 수 있어요.</p>
         <Link
-          href="/wordvault/browse"
+          href={vocabMapLink('/wordvault/browse', mapBack)}
           className="inline-flex min-h-[44px] items-center rounded-md bg-bg2 px-s-5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
         >
           내 단어장에서 단어 모으기 →
@@ -167,7 +179,7 @@ function StudyBody({
           {/* 복습 화면은 "지금 복습할 것" 만 담으므로, 방금 학습한 뒤에도 비어 있을 수 있다.
               그래서 목록을 두 번째 길로 함께 둔다 — 막다른 화면을 만들지 않는다. */}
           <Link
-            href="/wordvault/browse"
+            href={vocabMapLink('/wordvault/browse', mapBack)}
             className="inline-flex min-h-[44px] items-center justify-center rounded-md px-s-5 font-display text-[13px] font-semibold text-t2 no-underline transition-colors duration-normal hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
             내 단어 보기 →

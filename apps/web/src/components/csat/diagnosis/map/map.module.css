@@ -10,6 +10,7 @@
   /* ── 측정 명세(참조 3B Access map, 2094px 폭 캡처 · scripts/design/ref-measure.mjs) — 고치려면 spec.json 부터 ── */
   --g-node-w: 206px;
   --g-node-h: 46px;
+  --g-core-node-h: 56px;
   --g-pitch: 272px;
   --g-row-gap: 14px;
   --g-pad-x: 26px;
@@ -20,21 +21,23 @@
   /* 팝업(참조 모달) — spec.json 의 modal */
   --p-w: 680px;
   --p-h: 760px;
+  --p-detail-w: 680px;
+  --p-detail-h: 760px;
   --p-head: 56px;
   --p-foot: 56px;
   --p-side: 17px;
   --p-gap: 18px;
   --p-card-px: 31px;
   --p-card-py: 26px;
-  --m-bg: #fff;
-  --m-canvas: #fbf9f7;
-  --m-ink: #0d0d17;
-  --m-ink2: #5e5f6b;
-  --m-line: #0d0d171a;
-  --m-hover: #f8f7f5;
-  --m-g200: #eeebe7;
-  --m-g400: #d0cdc9;
-  --m-g600: #918f8b;
+  --m-bg: var(--csat-panel, #fff);
+  --m-canvas: var(--csat-canvas, #fbf9f7);
+  --m-ink: var(--csat-ink, #0d0d17);
+  --m-ink2: var(--csat-ink2, #5e5f6b);
+  --m-line: var(--csat-line, #0d0d171a);
+  --m-hover: var(--csat-hover, #f8f7f5);
+  --m-g200: var(--csat-soft, #eeebe7);
+  --m-g400: var(--csat-edge, #d0cdc9);
+  --m-g600: var(--csat-muted, #918f8b);
   --m-met: #00a370;
   --m-met-ink: #006d4b;
   --m-met-bg: #e4eee7;
@@ -775,4 +778,10 @@
   grid-template-columns: 84px minmax(0, 1fr);
   width: 100%;
   margin-bottom: 8px;
+}
+
+@media (min-width: 900px) {
+  .root { --m-elev: none; }
+  .edge { stroke: var(--csat-edge); }
+  .hasSel .edgeOn { stroke: var(--csat-accent); }
 }

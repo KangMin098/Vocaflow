@@ -2,14 +2,14 @@
 //
 // 목표 점수 — 상단 줄이 아니라 「최종 목표」 자리에서 정한다(2026-10-07 사용자 지시).
 //   useGoal: 저장 · 되돌리기 상태(연속 클릭의 PUT 이 역순으로 끝나 마지막 선택이 덮이지 않게 잠근다)
-//   GoalEditor: 프리셋 칩 · 직접 입력 · 적용(팝오버 안)
-//   GoalPopover: 트리거 버튼 + 떠 있는 편집 패널 — 핵심 요약의 목표 카드와 상세 지도의 최종 목표 노드가 함께 쓴다
+//   GoalEditor: 프리셋 칩 · 직접 입력 · 적용
+//   GoalPopover: PC는 공통 모달, 작은 화면은 기존 팝오버 — 목표 카드와 최종 목표 노드가 함께 쓴다
 // 목표를 바꾸면 라인 목표율만 다시 계산된다. 핵심 지도의 우선 확인 후보는 관찰값 기준이라 바뀌지 않는다.
 // 목표 점수는 능력 목표가 아니라 시험 수행 전략 계산의 입력이다(GOAL_STRATEGY_NOTE).
 
 'use client'
 
-import { Target, X } from 'lucide-react'
+import { Target, Info, X } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useEffect, useId, useRef, useState, useTransition, type ReactNode } from 'react'
 
@@ -19,6 +19,9 @@ import type { MapPageData } from '@/lib/csat/map/load'
 import { GOAL_EXAM_LABEL, GOAL_EXAMS, type GoalExam } from '@/lib/csat/map/v62/target-goal'
 
 import s from './map.module.css'
+import { MapDialog } from './MapDialog'
+import p from './popup.module.css'
+import d from './detail.module.css'
 
 /** 점수 외 목표(LM-G1.3a) — 저장된 최신 목표 이력에서만 채운다(입력 중 값은 저장 성공 전까지 「저장된 목표」가 아니다) */
 export interface GoalExtra { exam: GoalExam | null; grade: number | null; date: string | null }
@@ -141,16 +144,41 @@ export function GoalEditor({ data, g }: { data: MapPageData; g: GoalState }) {
           <input type="date" className={s.input} value={g.extra.date ?? ''} onChange={(e) => g.setExtra({ ...g.extra, date: e.target.value || null })} data-testid="goal-date" />
         </label>
         <button type="button" className={s.applyBtn} disabled={g.pending} onClick={() => g.apply(Number(g.draft))} data-testid="goal-apply-all">이 목표로 저장</button>
-        <p className={s.goalNote}>등급 · 목표일은 저장해 두고 보여 줄 뿐, 점수로 바꾸거나 학습량을 정하지 않아요. 목표 시험은 분석에 쓰는 기출 범위를 정해요.</p>
+        <p className={s.goalNote}>시험: 분석할 기출 범위 · 등급·목표일: 저장용</p>
       </details>
       {g.err && <span className={s.err} role="alert">{g.err}</span>}
-      <p className={s.goalNote}>{GOAL_STRATEGY_NOTE}</p>
+      <details className={d.fold}><summary><Info size={14} aria-hidden="true" />목표 점수는 어떻게 쓰이나요?</summary><p className="break-keep">{GOAL_STRATEGY_NOTE}</p></details>
     </div>
   )
 }
 
-/** 트리거 + 떠 있는 편집 패널. 바깥을 누르거나 Esc 로 닫힌다 */
+/** PC는 참조 모달, 작은 화면은 기존 패널. 저장 동작은 GoalEditor 한 곳에서 처리한다. */
 export function GoalPopover({ data, g, trigger, align = 'start' }: { data: MapPageData; g: GoalState; trigger: (p: { open: boolean; toggle: () => void; id: string }) => ReactNode; align?: 'start' | 'end' }) {
+  const [open, setOpen] = useState(false)
+  const id = useId()
+  const [desktop, setDesktop] = useState(false)
+  useEffect(() => {
+    const media = window.matchMedia('(min-width: 900px)')
+    const sync = () => setDesktop(media.matches)
+    sync()
+    media.addEventListener('change', sync)
+    return () => media.removeEventListener('change', sync)
+  }, [])
+  if (!desktop) return <LegacyGoalPopover data={data} g={g} trigger={trigger} align={align} />
+  return (
+    <div className={s.popAnchor}>
+      {trigger({ open, toggle: () => setOpen((v) => !v), id })}
+      {open && (
+        <div id={id}><MapDialog labelledBy={`${id}-title`} testId="goal-dialog" onClose={() => setOpen(false)}
+          head={<><span className={p.headTile}><Target size={17} aria-hidden="true" /></span><h2 id={`${id}-title`} className={p.title}>목표 점수 정하기</h2></>}
+          foot={<><span className={d.footNote}>{scoreLine(data)}</span><button type="button" className={p.pillBtn} onClick={() => setOpen(false)}>닫기</button></>}
+        ><section className={p.card}><h3 className={`${p.cardTitle} ${d.sectionTitle}`}><Target size={18} aria-hidden="true" />목표 선택</h3><GoalEditor data={data} g={g} /></section></MapDialog></div>
+      )}
+    </div>
+  )
+}
+
+function LegacyGoalPopover({ data, g, trigger, align = 'start' }: { data: MapPageData; g: GoalState; trigger: (p: { open: boolean; toggle: () => void; id: string }) => ReactNode; align?: 'start' | 'end' }) {
   const [open, setOpen] = useState(false)
   const id = useId()
   const box = useRef<HTMLDivElement>(null)

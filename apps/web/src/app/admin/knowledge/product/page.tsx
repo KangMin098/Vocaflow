@@ -10,6 +10,7 @@ import { requireAdmin } from '@/lib/auth/require-admin'
 import { STATUS_LABEL } from '@/lib/knowledge/labels'
 import { listItems } from '@/lib/knowledge/server'
 import { APP_STATUSES, APP_STATUS_LABEL, APP_SURFACE_LABEL, TRIAL_RESULT_LABEL, TRIAL_STATUS_LABEL } from '@/lib/knowledge/vnext-labels'
+import { trialEvidenceCounts, trialOriginLabel, trialResultText } from '@/lib/knowledge/vnext-rules'
 import { listApplications } from '@/lib/knowledge/vnext-server'
 
 export const dynamic = 'force-dynamic'
@@ -58,7 +59,8 @@ export default async function KnowledgeProductPage() {
               <ul className="divide-y divide-[var(--bd)] border-y border-[var(--bd)]" data-testid={`product-${st}`}>
                 {rows.map((a) => {
                   const it = byId.get(a.itemId)
-                  const real = a.trials.filter((t) => !t.synthetic)
+                  const tc = trialEvidenceCounts(a.trials)
+                  const nonSynthetic = a.trials.filter((t) => t.synthetic === false).length
                   return (
                     <li key={a.id} className="space-y-2 py-3 text-sm">
                       <p>
@@ -67,8 +69,8 @@ export default async function KnowledgeProductPage() {
                         {it && <> · <Link href={`/admin/knowledge/item/${it.slug}`} className={`inline-flex min-h-11 items-center underline ${FOCUS}`}>{it.title}</Link> ({STATUS_LABEL[it.status]} · 효과 {it.efficacy === 'not_assessed' ? '평가 안 함' : it.efficacy})</>}
                       </p>
                       <p className="text-xs text-[var(--t2)]">
-                        학습 결과: 수행 기록 실제 {a.attempts.real} · 합성 {a.attempts.synthetic} · 검증 {a.trials.length}(실제 {real.length})
-                        {a.trials.map((t) => ` · ${t.synthetic ? '합성' : '실제'} ${TRIAL_STATUS_LABEL[t.status]}${t.reviewRequiredAt ? ' 재계산 필요' : t.result ? ` ${TRIAL_RESULT_LABEL[t.result]}` : ''}`).join('')}
+                        학습 결과: 수행 기록 비합성 표시 {a.attempts.real} · 합성 {a.attempts.synthetic} · 검증 {a.trials.length}(비합성 표시 {nonSynthetic} · 현재 분석 {tc.current} · 재계산 필요 {tc.stale})
+                        {a.trials.map((t) => ` · ${trialOriginLabel(t)} ${TRIAL_STATUS_LABEL[t.status]}${((r) => (r ? ` ${r}` : ''))(trialResultText(t, (r) => TRIAL_RESULT_LABEL[r as keyof typeof TRIAL_RESULT_LABEL] ?? r))}`).join('')}
                         {a.statusReason && ` · 사유: ${a.statusReason}`}
                       </p>
                       <ApplicationStatusForm id={a.id} from={a.status} />

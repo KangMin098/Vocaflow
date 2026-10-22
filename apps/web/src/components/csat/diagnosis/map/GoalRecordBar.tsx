@@ -8,7 +8,7 @@
 
 'use client'
 
-import { ArrowRight, ClipboardList, PackageOpen, Pencil, PlayCircle, Target } from 'lucide-react'
+import { ArrowRight, ClipboardList, PackageOpen, Pencil, PlayCircle, Target, Info } from 'lucide-react'
 import Link from 'next/link'
 
 import { goalSummary, gradeOf } from '@/lib/csat/map/goal-view'
@@ -26,6 +26,7 @@ import { GOAL_EXAM_LABEL, SCOPE_REASON_LABEL, gradeView } from '@/lib/csat/map/v
 import { GoalPopover, type useGoal } from './GoalBar'
 import { homeWsOf } from './TaskInspector'
 import u from './unified.module.css'
+import d from './detail.module.css'
 
 const EXCLUDED_LABEL: Record<'after_as_of' | 'not_diagnosable' | 'exam_not_ready', string> = {
   after_as_of: '기준일 뒤',
@@ -134,7 +135,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           {!past && next ? (
             <>
               <h3 className={u.topHead} data-testid="umap-next-task" data-task={next.task} data-kind={next.kind}>추천 · {next.name}</h3>
-              <p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p>
+              <details className={d.fold}><summary><Info size={14} aria-hidden="true" />이 학습부터 하는 이유</summary><p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p></details>
               {state === 'no_record' && <p className={`${u.topSub} break-keep`} data-testid="umap-no-record-note">{LEAD.no_record.p} 직접 확인으로 지금 수준부터 봐요.</p>}
             </>
           ) : (
@@ -188,6 +189,8 @@ function whyText(n: NextAction): string {
   if (n.why.need) parts.push(`${NEED_LABEL[n.why.need]}이 필요한 TASK`)
   if (n.why.evidence) parts.push(TASK_EVIDENCE_LABEL[n.why.evidence])
   if (n.why.items) parts.push(`목표 시험에서 이 힘을 쓰는 문항 ${n.why.items}개${n.why.pointsPerExam ? `(회당 ${n.why.pointsPerExam}점)` : ''}`)
+  // T-0074 — 지금 정책 통과는 도달 조건 전체가 아니다(시간 지나 다시 확인은 아직 근거 없음)
+  if (n.why.evidence === 'resolved') parts.push('시간 지나 다시 확인은 아직 근거 없음')
   return parts.length ? parts.join(' · ') : '목표와 관련된 순서의 첫 TASK 예요 — 약점 확정이 아니에요.'
 }
 

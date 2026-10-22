@@ -96,6 +96,8 @@ export interface PlanActivity {
   activity?: string | null
   /** 서버가 확인한 정확한 바로잡기 납품 결속(lifecycle-evidence ActivityRow.repairRole) */
   repairRole?: 'guided_practice'
+  /** 여러 단계 교수 활동의 첫 단계 시작 시각(lifecycle-evidence ActivityRow.lessonStartedAt) */
+  lessonStartedAt?: string | null
 }
 
 export interface WorkspacePlanView {

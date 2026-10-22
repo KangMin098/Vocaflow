@@ -1,5 +1,7 @@
 # Admin Console
 
+2026-10-22: 공장 DCP/창작 AI 검토·원문 교수의 승인된 7단계 DB 설치가 완료됐다(migration `20261021175340`). 아래 관련 SQL 미적용 안내는 설치 전 기록이다. 실제 입고·콘텐츠 출시·학습자 공급은 하지 않았으며 관리자 액션에서 현재 행/계보·검수·자격·별도 출시 승인을 계속 확인한다. [실제 적용 결과](implementation/learning-outcomes-20261021/06-DB-ACTIVATION-RESULT.md).
+
 파이프라인 전체 단계 점검(2026-10-21, 진행 중): 앞선 조회·팝업 검증에 이어 격리 DB에서 생성·발행·실패·복구를 실행한다. TCP의 실패 시 자동 반복 중지와 이미 처리한 문서의 claim 종료, VCB의 보강 저장 실패·발행 시작·재발행 복구를 보완한다. [단계별 실제 실행 범위와 잔여](admin-restructure/pipeline-depth-audit.md). 공유 DB 쓰기·유료 외부 생성·실서비스 발행은 실행하지 않는다.
 
 도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.
@@ -9,6 +11,11 @@
 최종 수용(2026-10-20): 실제 프로덕션 실행·Supabase 인증/DB에서 소유가 분리된 합성 계정으로 주문 등록/연결/개정/철회/개인 변경과 네 상태 화면을 검증했다. 메뉴 목적지 23 URL도 실제 관리자 인증으로 모두 200이었다. 검증 계정은 권한 제거·정지했고 Workspace/주문은 종료했으며 합성 이력만 보존했다. [최종 구성·기존 대비·실행 결과](admin-restructure/final-acceptance.md).
 
 Product Order 계보 후속(2026-10-20): 기존 개인 수요·공급 패널에 공용 주문의 현재/이전 판/철회/개인 변경 조회를 연결했다. 새 메뉴는 만들지 않는다. 등록·연결·철회는 admin 전용 서버 API, curator는 조회만 허용한다. 계보는 비소모성 계획 연결이며 생산·납품 판정이 아니다. D3는 사용자 승인 후 개발 DB에 적용했고 실제 합성 기록이 채워진 화면도 후속 검증했다. [기존 대비·계약·검증](admin-restructure/product-order-lineage.md) · [실제 적용 기록](admin-restructure/product-order-lineage-deployment.md).
+
+공장 연습 공급 경계(2026-10-21, 2F): 학습자 요청이 연 안내 연습 주문은 위 계보 패널에 링크 없음으로 보이고, 실제 admin 이 기존 link 동작으로 잇는다(학습자 요청은 관리자 actor 를 고르지 않는다). 후보 출시 승인은 화면 없이 `POST /api/admin/csat/dcp-admission` `action:'approve'` 로만 — 자격이 등록 공장 후보와 정확히 같은지 service SELECT 로 확인한 뒤 관리자·큐레이터 세션으로 기존 `content_release_approve`(권한 계약 그대로). 미리보기·입고는 승인하지 않는다. 도움말 `csat-learner-plans` steps.
+기존 DCP 재사용(2026-10-21, 04 · SQL pending): 같은 자리에 기존 practice 행이 있으면 원래 입고는 계속 거절되고, `action:'preview_reuse'|'admit_reuse'` + `reuse:[{item_id,dcp_item_id}]` 로만 재사용한다. 서버가 기존 행을 service SELECT 로 읽고(클라이언트 행 본문 거절), 검수 target 의 `existing_rows` row sha 결속이 없으면 거절. B/C/D·결론·대상을 전체 묶음에서 먼저 확인해 내용 미통과 입고 RPC는 0회다. 기존 행은 수정하지 않고 영수증만 더하며 문항마다 별도 RPC(묶음 전체 원자 아님 — 같은 본문 재요청은 replayed). 결함 있는 기존 해설 수정은 별도 SQL 승인 후 현재 행·검수 해시를 재확인한다. 미적용 수정안 검수는 현재 행에 사용할 수 없다. 준비 CLI `scripts/textbook/factory-dcp-reuse.mts`. 정본 `docs/implementation/learning-outcomes-20261021/04-EXISTING-DCP-REUSE-SPEC.md`.
+
+FAST 빠른 학습지(2026-10-21, 3): `/admin/csat/new/fast`(새 교재 만들기에서 링크) — 1B 팩 묶음(`vf.fast-worksheet-bundle/1`)을 열어 순서·발문·선지만 편집한다(정답·근거·해설·원문·수량·주문 불가, 수량 변경은 `quantity_change_requires_new_order`). 편집은 새 출력 바이트를 만들어 옛 검수를 무효로 하고, 검수 요청을 새 AI 세션이 채운 `vf.dcp-ai-review/1` 을 가져와야 문제지·해설지·manifest 가 열린다. 원천은 API 가 현재 행을 읽어 재판정하며 has_items 만 다를 때만 재사용(두 관측 기록), 다른 결속 값이 바뀌면 거절. 1C 입고 규칙은 그대로. 출력은 로컬 검수 초안 — F(권리) unknown 이라 FQ held, 등록·출시 아님. CLI `scripts/textbook/fast-worksheet.mts --help`. 도움말 `csat-fast`.
 
 2026-10-20 후속: 같은 학습자 ID의 수행·명시적 Workspace/계획 결속·개인 공급·저장 진단을 읽고, 제품 추적은 적용 버전별 원장을 구분한다. 수행 정오는 문항별 Reveal Gate 뒤 허용된 사용자·시도·문항에 한해 읽는다. 개인 공급의 Workspace 소유 조회는 관리자 클라이언트로, 기존 충족도 RPC는 실제 관리자 인증 세션으로 실행한다. 기출 다음 문항·도서 본문 검수의 화면 복귀에도 검증된 목록 조건을 유지한다. [최종 인계·미설치 주문 계보 조건](admin-restructure/final-delivery.md).
 
