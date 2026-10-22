@@ -108,3 +108,13 @@ export function cohortOf(admin: Admin, env?: Record<string, string | undefined>)
   memo.set(admin, p)
   return p
 }
+
+/**
+ * T-0084 P1-1 — 활동 조회 응답 guard. 정상 빈 배열 `[]` 은 실제 0 행이고, `data` 를 못 받았거나(null · undefined)
+ *   배열이 아니면 **오류로 바꾼다** — 페이지 helper 의 `data ?? []` 가 미수신을 0 행으로 삼켜 「실제 0」처럼 보이지 않게.
+ */
+export function rowsOrError<R extends { data: unknown; error: unknown }>(p: PromiseLike<R>): Promise<{ data: never[] | null; error: { message: string } | null }> {
+  return Promise.resolve(p).then((r) =>
+    (r.error || Array.isArray(r.data) ? r : { data: null, error: { message: '응답에 행 배열이 없다(미수신)' } }) as { data: never[] | null; error: { message: string } | null },
+  )
+}

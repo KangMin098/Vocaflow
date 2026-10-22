@@ -37,7 +37,7 @@ import { pagedSelect } from '@/lib/supabase/paged-select'
 // 화면과 함께 쓰는 모양·상수는 `video-console-shape.ts` 에 있다 — 이 파일은 `server-only` 라
 // 화면이 직접 들여오면 빌드가 죽는다. 여기서는 다시 내보내 **서버 쪽 호출부의 import 경로는
 // 그대로 유지**한다(화면은 shape 쪽에서 직접 가져간다).
-import { cohortOf, verifiedOnly } from './account-cohort'
+import { cohortOf, rowsOrError, verifiedOnly } from './account-cohort'
 import { JOB_STAGES } from './video-console-shape'
 import type {
   EvalRow,
@@ -121,12 +121,12 @@ async function readViews(db: AdminClient): Promise<VideoViews> {
     const cohort = await cohortOf(db)
     const rows = await pagedSelect<ViewRow>(
       (lo, hi) =>
-        db
+        rowsOrError(db
           .from('funnel_events')
           .select('user_id, event, meta')
           .in('event', ['video_started', 'video_completed'])
           .order('id', { ascending: true })
-          .range(lo, hi),
+          .range(lo, hi)),
       'funnel_events(video)',
     )
     const verified = verifiedOnly(cohort, rows, (r) => r.user_id)

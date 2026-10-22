@@ -18,6 +18,8 @@ type Row = Record<string, unknown>
 let users: Array<{ id: string; created_at: string; email: string }> = []
 let tables: Record<string, Row[]> = {}
 let fail: Set<string> = new Set()
+/** 오류 없이 data 만 비어 오는 SDK 응답(미수신) — 0 행이 아니다(T-0084 P1-1) */
+let noData: Set<string> = new Set()
 let listUsersCalls = 0
 
 /** PostgREST 빌더 흉내 — head count · eq · in · gt · or(쌍 커서) · order · range · limit. 키셋 페이징이 실제로 넘어가는지 본다. */
@@ -35,7 +37,7 @@ function fakeClient() {
     from(table: string) {
       const filters: Array<(r: Row) => boolean> = []
       let head = false
-      const result = (rows: Row[]) => (fail.has(table) ? { data: null, error: { message: 'denied' }, count: null } : { data: rows, error: null, count: rows.length })
+      const result = (rows: Row[]) => (fail.has(table) ? { data: null, error: { message: 'denied' }, count: null } : noData.has(table) ? { data: null, error: null, count: null } : { data: rows, error: null, count: rows.length })
       const orders: string[] = []
       const cmp = (a: unknown, b: unknown) => (String(a) < String(b) ? -1 : String(a) > String(b) ? 1 : 0)
       const num = (a: unknown, b: unknown) => (typeof a === 'number' && typeof b === 'number' ? a - b : cmp(a, b))
@@ -84,6 +86,7 @@ const kstToday = () => new Date(Date.now() + 9 * 3_600_000).toISOString().slice(
 beforeEach(() => {
   client = fakeClient()
   fail = new Set()
+  noData = new Set()
   listUsersCalls = 0
   users = [
     { id: EXT, created_at: '2026-10-01T00:00:00Z', email: 'student@gmail.com' },
@@ -205,6 +208,32 @@ describe('지표별 cohort 적용(T-0084)', () => {
     const v = await loadVideoConsole(client as never)
     expect(v.views).toEqual({ started: { explainer: 2 }, completed: { explainer: 1 }, byId: { v1: 2 } })
     fail.add('auth')
+    client = fakeClient()
+    expect((await loadVideoConsole(client as never)).views).toEqual({ started: null, completed: null, byId: null })
+  })
+  it('P1-1 — 활동 조회가 오류 없이 data 미수신이면 못 쟀음(null) · 정상 빈 배열은 실제 0(대조)', async () => {
+    // 대조: 검증 외부가 있고 활동 표가 정상 빈 배열 → 실제 0
+    tables.daily_activity = []
+    tables.funnel_events = []
+    tables.classes = []
+    tables.class_members = []
+    expect((await getAdminDashboardStats(client as never)).learners.verifiedActiveToday).toBe(0)
+    client = fakeClient()
+    expect(await fetchTeacherFunnelGaps()).toEqual({ hubVisitors: 0, createdClass: 0, sharedInvite: 0, gotStudent: 0 })
+    client = fakeClient()
+    expect((await loadVideoConsole(client as never)).views).toEqual({ started: {}, completed: {}, byId: {} })
+    // 반례: 같은 상태에서 SELECT = { data: null, error: null }
+    noData = new Set(['daily_activity'])
+    client = fakeClient()
+    const s = await getAdminDashboardStats(client as never)
+    expect(s.learners.verified).toBe(2)
+    expect(s.learners.verifiedActiveToday).toBeNull()
+    for (const t of ['funnel_events', 'classes', 'class_members']) {
+      noData = new Set([t])
+      client = fakeClient()
+      expect(await fetchTeacherFunnelGaps(), t).toBeNull()
+    }
+    noData = new Set(['funnel_events'])
     client = fakeClient()
     expect((await loadVideoConsole(client as never)).views).toEqual({ started: null, completed: null, byId: null })
   })

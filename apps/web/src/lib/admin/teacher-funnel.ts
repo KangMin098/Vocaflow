@@ -19,7 +19,7 @@ import 'server-only'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
-import { cohortOf } from './account-cohort'
+import { cohortOf, rowsOrError } from './account-cohort'
 
 export interface TeacherFunnelGaps {
   /** 허브에 도달한 사람 수 (funnel_events.teacher_hub_view 주체) */
@@ -78,7 +78,7 @@ export async function fetchTeacherFunnelGaps(): Promise<TeacherFunnelGaps | null
       keysetSelect<Row, number>(
         (after, limit) => {
           const q = client.from('funnel_events').select('id, user_id, event').in('event', ['teacher_hub_view', 'invite_shared'])
-          return (after === null ? q : q.gt('id', after)).order('id', { ascending: true }).limit(limit)
+          return rowsOrError((after === null ? q : q.gt('id', after)).order('id', { ascending: true }).limit(limit))
         },
         (r) => r.id as number,
         'teacher-funnel funnel_events',
@@ -86,7 +86,7 @@ export async function fetchTeacherFunnelGaps(): Promise<TeacherFunnelGaps | null
       keysetSelect<Row, string>(
         (after, limit) => {
           const q = client.from('classes').select('id, teacher_id')
-          return (after === null ? q : q.gt('id', after)).order('id', { ascending: true }).limit(limit)
+          return rowsOrError((after === null ? q : q.gt('id', after)).order('id', { ascending: true }).limit(limit))
         },
         (r) => r.id as string,
         'teacher-funnel classes',
@@ -95,10 +95,10 @@ export async function fetchTeacherFunnelGaps(): Promise<TeacherFunnelGaps | null
       keysetSelect<Row, { c: string; u: string }>(
         (after, limit) => {
           const q = client.from('class_members').select('class_id, user_id')
-          return (after === null ? q : q.or(`class_id.gt.${after.c},and(class_id.eq.${after.c},user_id.gt.${after.u})`))
+          return rowsOrError((after === null ? q : q.or(`class_id.gt.${after.c},and(class_id.eq.${after.c},user_id.gt.${after.u})`))
             .order('class_id', { ascending: true })
             .order('user_id', { ascending: true })
-            .limit(limit)
+            .limit(limit))
         },
         (r) => ({ c: r.class_id as string, u: r.user_id as string }),
         'teacher-funnel class_members',

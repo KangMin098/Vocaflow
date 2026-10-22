@@ -215,7 +215,7 @@ async function collect() {
   ])
 
   // auth.users 는 PostgREST 로 안 보인다 — service_role 의 admin API 로 센다.
-  // T-0084 — 계정 분류는 앱과 **같은 순수 규칙**(apps/web/src/lib/admin/account-classification.ts)을 그대로 읽는다.
+  // T-0084 — 계정 분류는 앱과 **같은 순수 규칙**(.ts import: Node 24 는 직접, Node 20 은 `pnpm docs:db-stats` 의 tsx 로)(apps/web/src/lib/admin/account-classification.ts)을 그대로 읽는다.
   //   검증된 외부(VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS)만 실사용이고, 운영 역할 · 내부 목록 · 미분류(합성 · 예약 도메인 포함)는 뺀다.
   //   가입자는 전 페이지를 읽는다. 읽기 실패 · 잘림 · 설정 오류 = 「?」(0 이 아니다).
   let accounts = null

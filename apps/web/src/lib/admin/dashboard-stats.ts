@@ -22,7 +22,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { keysetSelect } from '@/lib/supabase/keyset-select'
 
-import { cohortOf, verifiedOnly } from './account-cohort'
+import { cohortOf, rowsOrError, verifiedOnly } from './account-cohort'
 
 type AdminClient = SupabaseClient
 
@@ -398,7 +398,7 @@ async function verifiedLearners(client: AdminClient, today: string): Promise<{ v
     const rows = await keysetSelect<{ user_id: string | null }, string>(
       (after, limit) => {
         const q = client.from('daily_activity').select('user_id').eq('date', today)
-        return (after === null ? q : q.gt('user_id', after)).order('user_id', { ascending: true }).limit(limit)
+        return rowsOrError((after === null ? q : q.gt('user_id', after)).order('user_id', { ascending: true }).limit(limit))
       },
       (r) => r.user_id as string,
       'dashboard daily_activity(today)',
