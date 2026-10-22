@@ -2,7 +2,7 @@
  *
  * 기출 작업 공간 — 참조(Tines 3B) **앱 화면**의 판면.
  * 참조의 골격 네 층을 그대로 옮긴다: ① 좌측 레일 ② 무늬 띠 + 명령 상자 ③ 탭 줄 ④ 한 줄이 한 작업인 표.
- * 색은 전부 토큰이다(스킨을 끄면 지면 팔레트로 돌아간다 — `?skin=off`).
+ * PC 색은 공통 csat-app.css 토큰을 상속한다(본문·포털 동일).
  * 한글은 `word-break: keep-all`(AGENTS I7 — 없으면 390px 에서 낱말이 쪼개진다).
  */
 
@@ -840,9 +840,9 @@
 .root {
   /* 3B 스킨은 밝은 판 하나다. 어두운 테마가 바꾸는 토큰 중 아래에서 따로 정하지 않은 것을 밝은 값으로 되돌린다(tokens.css :root 에서 생성 · 2026-10-10).
      빠지면 셸 안 화면(해부 · 해설 극장)에서 밝은 글자색과 어두운 면이 섞인다 — 1.14:1(axe). */
-  --p-hover: #081832;
-  --p-light: #E3E8EE;
-  --p-dark: #051428;
+  --p-hover: var(--csat-ink, #081832);
+  --p-light: var(--csat-soft, #E3E8EE);
+  --p-dark: var(--csat-control, #051428);
   --on-p: #FFFFFF;
   --on-p-tint: #0F2540;
   --on-semantic: #FFFFFF;
@@ -910,16 +910,16 @@
   --sh-soft: 0 1px 3px rgba(0, 0, 0, .06);
   --sh-drop: 0 16px 16px -8px rgba(0, 0, 0, .10);
   --sh-overlay: 0 24px 80px rgba(0, 0, 0, .25);
-  --bg: #ffffff;
-  --bg2: #f7f7f8;
-  --bg3: #efeeec;
-  --bd: #e8e7e4;
-  --t1: #18181b;
-  --t2: #56565c;
+  --bg: var(--csat-panel, #ffffff);
+  --bg2: var(--csat-canvas, #f7f7f8);
+  --bg3: var(--csat-soft, #efeeec);
+  --bd: var(--csat-line, #e8e7e4);
+  --t1: var(--csat-ink, #18181b);
+  --t2: var(--csat-ink2, #56565c);
   /* 참조값 #8e8e94 는 #faf9f7 위 3.09:1 — 11px 레일 머리 · 개수가 WCAG AA(4.5) 미달(axe 2026-10-10 · 8화면 전부). 접근성이 참조보다 앞선다 → 4.8:1 */
-  --t3: #6e6e74;
-  --p: #7c5cfa;
-  --ju: #18181b;
+  --t3: var(--csat-muted, #6e6e74);
+  --p: var(--csat-accent, #7c5cfa);
+  --ju: var(--csat-control, #18181b);
   --success: #16a34a;
   --tint-lavender: #efeafd;
   --tint-lavender-ink: #5b3fd6;
@@ -929,7 +929,7 @@
   --font-body: var(--font-sans);
   --font-ko-display: var(--font-sans);
   --font-mono: var(--font-admin-mono), ui-monospace, monospace;
-  background: #faf9f7;
+  background: var(--csat-canvas, #faf9f7);
   font-family: var(--font-sans);
   letter-spacing: -0.005em;
 }
@@ -1001,3 +1001,16 @@
   .root { transition: none; }
 }
 .mark { cursor: pointer; }
+
+/* 2026-10-22 user references: lavender rail, white work panel, quiet pill tabs. */
+@media (min-width: 900px) {
+  .root { box-shadow: inset 0 0 0 1px var(--csat-line); border-radius: 18px; }
+  .markGlyph { background: var(--csat-soft); color: var(--csat-ink); }
+  .railItem { min-height: 44px; }
+  .railItem[aria-current='page'], .railItem[aria-current='true'], .railItem[aria-pressed='true'] { background: var(--csat-soft); color: var(--csat-ink); }
+  .topPill { background: transparent; border: 1px solid var(--csat-line); color: var(--csat-ink2); }
+  .topPill b { color: var(--csat-ink); }
+  .band { background: var(--csat-soft); }
+  .promptGo { background: var(--csat-control); }
+  .tab[aria-selected='true'] { background: var(--csat-canvas); }
+}

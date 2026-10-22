@@ -1,5 +1,9 @@
 # Vocaflow 디자인 적용 기준
 
+**CSAT PC 최신 기준(2026-10-22, 사용자 첨부 3B 화면)**: `/csat`와 하위 화면은 라벤더 캔버스·레일, 보라 UI 글자·아이콘·연결선, 흰 작업 패널을 공유한다. 학습지도는 Access map의 종류별 열·흰 노드·옅은 곡선, Workspace 목록은 흰 행·다색 아이콘 타일, 작업면은 흰 프레임·탭·라벤더 본문·다색 활동 카드, 모달은 보라 배경막·흰 외곽·라벤더 구획·흰 내부 목록·진보라 실행 버튼으로 대응한다. 선택 밖 노드는 블러 대신 대비가 확보된 보조 글자색으로 관계를 남긴다. 관리자 디자인 범위는 기존 결정을 따른다.
+
+색·서체의 정본은 `packages/design-tokens/src/skins/csat-app.css`이며 서버 CSAT 레이아웃의 `data-design-scope="csat"`가 body 포털에도 적용한다. 셸·지도·기출 찾기·홈·워크스페이스에서 별도 회색 팔레트를 새로 고정하지 않는다. 기존 기하 명세(노드206×46, 열 피치272, 모달680×760)는 유지한다. 첨부의 작은 글자를 그대로 축소하지 않고 한국어 가독성·44px 조작부·기억/판정 의미색을 보존한다. 기존 CSAT의 밝은 작업면은 시스템 다크 설정에서도 같은 팔레트를 사용한다. 작은 화면에는 이번 PC 재정의를 적용하지 않는다. 이전 중립색 설명보다 이 절의 CSAT 기준이 우선한다.
+
 > **정본(2026-10-03 사용자 지정 · main 반영 2026-10-18, DD-83).** 스타일과 화면 틀의 정본은 이 파일이다.
 > 디자인을 따로 요청하지 않은 기능 추가·수정에도 적용한다. 옛 주묵 판면(v07)·「동결/수정 금지」(DD-62)·
 > DD-24 「Tines 와 닮지 않기」 문구와 충돌하면 이 파일을 따른다. 원문 출처: 브랜치 `design/replica-first` 커밋 `9b9078d90`.
@@ -32,7 +36,7 @@ S20 이후 PC 적용 보완(2026-10-20): 허브의 실제 상태/추천 자료�
 
 | 라우트 | 기준 | main 의 적용 장치(2026-10-18 확인) |
 |---|---|---|
-| `/csat`, `/csat/*` | [neon-currant.3b.dev](https://neon-currant.3b.dev/) **3B 앱** | **미구현** — `skins/csat-app.css`·`data-design-scope="csat"` 는 main 에 없다(미병합 브랜치에만). 현재는 루트 Tines 스킨 + CSAT 모듈 CSS(`components/csat/space` 등) |
+| `/csat`, `/csat/*` | 사용자 첨부와 [neon-currant.3b.dev](https://neon-currant.3b.dev/) **3B 앱** | `app/(app)/csat/layout.tsx`의 `data-design-scope="csat"` → PC `skins/csat-app.css`; body 포털도 같은 토큰 |
 | `/admin`, `/admin/*`(관리자 CSAT 포함) | **3B 앱** | `app/admin/layout.tsx` 의 `data-area="admin"` → `skins/admin-app.css`(DD-82) |
 | 그 외 모든 화면(공개·인증·학습·게임·계정) | [www.tines.com](https://www.tines.com/) **웹사이트** | 루트 `app/layout.tsx` `data-skin="tines"`(고정 — 환경변수·쿼리·저장값으로 끄지 않는다, `skin-always-on.test.ts`) → `skins/tines.css` |
 

@@ -1904,3 +1904,20 @@ p.dockL {
 /* T-0074 — 요약 행의 근거 범위(지금 확인 · 다른 글 적용 · 시간 지나 다시 확인) */
 .gpScope { display: grid; gap: 4px; }
 .gpScope .gpNote { margin: 0; }
+
+/* Reference Access map: white nodes on a lavender canvas; list rows stay on white. */
+@media (min-width: 900px) {
+  .wrap { background: var(--csat-panel); }
+  .node[data-faded='true'] { --m-ink2: var(--csat-muted); filter: none; opacity: 1; color: var(--csat-muted); }
+  .node[data-faded='true']:hover, .node[data-faded='true']:focus-visible { color: var(--csat-ink); }
+  .line { stroke: var(--csat-edge); opacity: .8; }
+  .line[data-active='true'] { stroke: var(--csat-accent); }
+  .node[data-selected='true'] { border-color: var(--csat-accent); background: var(--csat-hover); }
+  .wsTile { background: var(--csat-teal); color: #006e62; }
+  .wsTile[data-kind='primary'] { background: var(--csat-soft); color: var(--csat-ink); }
+  .wsRow[data-ws='ws.option-match'] .wsTile { background: var(--csat-peach); color: #8b4827; }
+  .wsRow[data-ws='ws.evidence-locate'] .wsTile { background: var(--csat-green); color: #286447; }
+  .wsRow[data-ws='ws.cohesion'] .wsTile { background: var(--csat-pink); color: #98416a; }
+  .wsRow[data-selected='true'] { border-color: var(--csat-accent); background: var(--csat-canvas); }
+  .cta, .wsGo2 { background: var(--csat-control); color: #fff; }
+}

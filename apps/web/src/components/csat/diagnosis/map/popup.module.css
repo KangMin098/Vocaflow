@@ -635,3 +635,16 @@
 .notesChain > li[data-revision='true'] { border-left-color: var(--m-ink2); }
 .notesTag { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
 .notesText { margin: 0; word-break: keep-all; white-space: pre-wrap; }
+
+/* Same surface hierarchy as the attached Execution volume modal. */
+@media (min-width: 900px) {
+  .overlay { background: var(--csat-overlay); }
+  .modal { box-shadow: 0 18px 60px #3923651a; border: 1px solid var(--csat-line); }
+  .head, .foot { border-color: var(--csat-divider); }
+  .headTile, .tabOn, .tab:hover .tabOn { background: var(--csat-canvas); color: var(--csat-ink); }
+  .close { border-radius: 8px; color: var(--csat-ink); }
+  .close:hover { background: var(--csat-soft); }
+  .card { border-color: var(--csat-line); }
+  .cardIcon { background: var(--csat-soft); color: var(--csat-ink); box-shadow: none; }
+  .pillBtn { background: var(--csat-control); color: #fff; }
+}
