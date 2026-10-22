@@ -44,7 +44,7 @@ const STATS: DashboardStats = {
   vcb: { pending: 0, exported: 0, enriched: 0, flagged: 0, failed: 0 },
   vrl: { openConcerns: 0, classified: 0 },
   words: { dict: 49244, pending: 0, judgments: 0, chapterQuiz: 2453 },
-  learners: { total: 3, activeToday: 2 },
+  learners: { total: 3, activeToday: 2, verified: 0, verifiedActiveToday: 0 },
   texts: 278,
   qualityLastMeasuredAt: null,
   reportsOpen: null,
@@ -120,10 +120,13 @@ describe('admin 목업 화면 고지', () => {
   it('사용자 화면의 두 칸은 집계 결과에서 온다 (상수 아님)', async () => {
     const html = await renderScreen(MOCK_SCREENS[1].load)
 
-    expect(html).toContain('총 사용자')
-    expect(html).toContain('>3<')
+    // 주 수치 = 검증된 외부 계정(T-0084). 전체 계정(가입 3 · 오늘 2)은 내부·미분류 포함 참고로만
+    expect(html).toContain('실사용 학습자')
+    expect(html).toContain('전체 계정 3(내부·미분류 포함)')
     expect(html).toContain('오늘 활성')
-    expect(html).toContain('>2<')
+    expect(html).toContain('전체 계정 오늘 2')
+    expect(html).not.toContain('>3<')
+    expect(html).not.toContain('>2<')
 
     // 셀 곳이 없는 칸은 0 이 아니라 —
     expect(html).toContain('Pro 구독')
@@ -133,17 +136,18 @@ describe('admin 목업 화면 고지', () => {
   it('집계 결과가 바뀌면 화면 숫자도 바뀐다', async () => {
     statsMock.mockResolvedValue({
       ...STATS,
-      learners: { total: 4321, activeToday: 0 },
+      learners: { total: 4321, activeToday: 7, verified: 12, verifiedActiveToday: 0 },
     })
     const html = await renderScreen(MOCK_SCREENS[1].load)
 
-    expect(html).toContain('4,321')
+    expect(html).toContain('>12<')
+    expect(html).toContain('전체 계정 4,321')
     // 0 은 실측된 0 이므로 — 로 뭉개지 않는다
     expect(html).toContain('>0<')
   })
 
   it('조회 실패(null)는 0 이 아니라 —', async () => {
-    statsMock.mockResolvedValue({ ...STATS, learners: { total: null, activeToday: null } })
+    statsMock.mockResolvedValue({ ...STATS, learners: { total: null, activeToday: null, verified: null, verifiedActiveToday: null } })
     const html = await renderScreen(MOCK_SCREENS[1].load)
 
     expect(html).toContain('—')

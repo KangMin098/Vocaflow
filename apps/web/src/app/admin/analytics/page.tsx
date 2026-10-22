@@ -70,19 +70,19 @@ export default async function AdminAnalyticsPage() {
   const kpis: AdminKpi[] = [
     {
       label: '오늘 활성 (DAU)',
-      value: fmt(stats.learners.activeToday),
+      value: fmt(stats.learners.verifiedActiveToday),
       icon: Activity,
       accent: 'var(--info)',
       bg: 'var(--info-light)',
-      hint: 'daily_activity 의 KST 오늘 행 수',
+      hint: `검증된 실사용 학습자만 · 전체 계정 오늘 ${fmt(stats.learners.activeToday)}(내부·미분류 포함)`,
     },
     {
-      label: '누적 가입자',
-      value: fmt(stats.learners.total),
+      label: '실사용 학습자',
+      value: fmt(stats.learners.verified),
       icon: Users,
       accent: 'var(--p)',
       bg: 'var(--p-light)',
-      hint: 'user_profiles 행 수 · 요청 시점 실측',
+      hint: `검증된 외부 계정만 · 전체 계정 ${fmt(stats.learners.total)}(내부·미분류 포함)`,
     },
     {
       label: 'WAU',

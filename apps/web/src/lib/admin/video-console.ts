@@ -37,6 +37,7 @@ import { pagedSelect } from '@/lib/supabase/paged-select'
 // 화면과 함께 쓰는 모양·상수는 `video-console-shape.ts` 에 있다 — 이 파일은 `server-only` 라
 // 화면이 직접 들여오면 빌드가 죽는다. 여기서는 다시 내보내 **서버 쪽 호출부의 import 경로는
 // 그대로 유지**한다(화면은 shape 쪽에서 직접 가져간다).
+import { cohortOf, verifiedOnly } from './account-cohort'
 import { JOB_STAGES } from './video-console-shape'
 import type {
   EvalRow,
@@ -112,17 +113,25 @@ async function readViews(db: AdminClient): Promise<VideoViews> {
   // ⚠️ `.limit(10000)` 이었다 — PostgREST 는 한 응답에 1,000행까지만 주므로(`db-max-rows`)
   //    영상 계측이 1,000건을 넘는 순간 **조용히 잘려** 시작·완료 수가 적게 나왔다(오류 없음).
   //    세는 조회라 전량이 필요하다 → `pagedSelect`(회귀 `row-cap-lies`).
-  let data: { event: string; meta: Record<string, unknown> | null }[]
+  //   T-0084 — 시청은 **검증된 외부 학습자만** 센다(운영 · QA · 합성 · 미분류 · 익명 제외). cohort 를 못 정하면 못 쟀음(null).
+  //   페이지는 기본키 오름차순으로 고정한다 — order 없는 range 는 페이지 사이에 행이 빠지거나 겹친다(T-0008).
+  type ViewRow = { user_id: string | null; event: string; meta: Record<string, unknown> | null }
+  let data: ViewRow[]
   try {
-    data = await pagedSelect<{ event: string; meta: Record<string, unknown> | null }>(
+    const cohort = await cohortOf(db)
+    const rows = await pagedSelect<ViewRow>(
       (lo, hi) =>
         db
           .from('funnel_events')
-          .select('event, meta')
+          .select('user_id, event, meta')
           .in('event', ['video_started', 'video_completed'])
+          .order('id', { ascending: true })
           .range(lo, hi),
       'funnel_events(video)',
     )
+    const verified = verifiedOnly(cohort, rows, (r) => r.user_id)
+    if (!verified) return { started: null, completed: null, byId: null }
+    data = verified
   } catch {
     return { started: null, completed: null, byId: null }
   }

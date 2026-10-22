@@ -247,7 +247,7 @@ function buildOpsLinks(s: DashboardStats): OpsLink[] {
     {
       href: '/admin/users',
       label: '사용자',
-      note: `가입 ${fmt(s.learners.total)}명`,
+      note: `실사용 ${fmt(s.learners.verified)}명 · 전체 계정 ${fmt(s.learners.total)}`,
       Icon: Users,
       mock: true,
     },
@@ -354,11 +354,11 @@ export default async function AdminDashboardPage() {
     },
     {
       label: '오늘 학습자',
-      value: fmt(stats.learners.activeToday),
+      value: fmt(stats.learners.verifiedActiveToday),
       icon: Users,
       accent: 'var(--p)',
       bg: 'var(--bg3)',
-      hint: `가입 ${fmt(stats.learners.total)}명 · 학습 텍스트 ${fmt(stats.texts)}편`,
+      hint: `실사용 학습자 ${fmt(stats.learners.verified)}명 · 전체 계정 ${fmt(stats.learners.total)}(내부·미분류 포함) · 학습 텍스트 ${fmt(stats.texts)}편`,
     },
   ]
 
