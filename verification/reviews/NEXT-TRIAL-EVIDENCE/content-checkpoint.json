@@ -1,0 +1,159 @@
+{
+  "observed_at": "2026-10-22T08:42:35.577Z",
+  "main": "db569100c273338449c76087ec66550854f21728",
+  "package": "docs/final/review/FINAL_CONTENT_DECISION_MANIFEST_20261022.json",
+  "files_checked": 18,
+  "all_bytes_match": true,
+  "counts": {
+    "files": 18,
+    "tasks": 17,
+    "items": 155,
+    "assessment": 120
+  },
+  "sets": [
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "revision": "r5-central-meaning.v3",
+      "task": "r.central_meaning",
+      "expected": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "actual": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "revision": "e-evidence-location.v1",
+      "task": "e.evidence_location",
+      "expected": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+      "actual": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "revision": "e-option-correspondence.v1",
+      "task": "e.option_correspondence",
+      "expected": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "actual": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "revision": "r-inference.v1",
+      "task": "r.inference",
+      "expected": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "actual": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "revision": "r-relation.v1",
+      "task": "r.relation",
+      "expected": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+      "actual": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "revision": "s-form-scope.v1",
+      "task": "s.form_scope",
+      "expected": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+      "actual": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "revision": "v-contextual-sense.v1",
+      "task": "v.contextual_sense",
+      "expected": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "actual": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "revision": "r-reference.v1",
+      "task": "r.reference",
+      "expected": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "actual": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "revision": "v-multiword.v1",
+      "task": "v.multiword",
+      "expected": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "actual": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "revision": "r-discourse-function.v1",
+      "task": "r.discourse_function",
+      "expected": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "actual": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "revision": "r-discourse-structure.v1",
+      "task": "r.discourse_structure",
+      "expected": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+      "actual": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "revision": "e-task-demand.v1",
+      "task": "e.task_demand",
+      "expected": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "actual": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "revision": "s-sentence-core.v1",
+      "task": "s.sentence_core",
+      "expected": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+      "actual": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "revision": "s-attachment.v1",
+      "task": "s.attachment",
+      "expected": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "actual": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "revision": "s-chunk-boundary.v1",
+      "task": "s.chunk_boundary",
+      "expected": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+      "actual": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "revision": "s-structural-relation.v1",
+      "task": "s.structural_relation",
+      "expected": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "actual": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "revision": "v-semantic-relation.v1",
+      "task": "v.semantic_relation",
+      "expected": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "actual": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358"
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+      "revision": "r5-central-meaning-cycle.v2",
+      "task": "r.central_meaning",
+      "expected": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+      "actual": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c"
+    }
+  ],
+  "db": {
+    "observed_at": "2026-10-22T08:41:41.568301Z",
+    "environment": "vocaflow-dev",
+    "method": "mcp supabase execute_sql SELECT aggregate counts only; no writes",
+    "authored_items": 0,
+    "human_decisions": 0,
+    "ai_decisions": 0,
+    "qualifications": 0,
+    "release_approvals": 0,
+    "deliveries": 0,
+    "bindings": 0,
+    "factory_attempts": 0
+  },
+  "first_supply_package": "verification/reviews/T-0045-next-product-20261022/first-r5-review-package.json",
+  "first_supply_scope": "R5 current v3: teach1 + guided1 + independent2 + transfer2 + fresh-recheck2; optional delayed1. Scope/Gold/rights/public+assessment decisions remain separate and absent.",
+  "approval": "Schema installed does not constitute FINAL policy or per-revision Gold/rights/release approval. Actual installed human OR ai OR source_policy path previously independently inspected; no writes through any path.",
+  "no_actual_supply": true,
+  "educational_effect_validated": false
+}

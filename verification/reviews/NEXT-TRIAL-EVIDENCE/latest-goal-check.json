@@ -1,0 +1,37 @@
+{
+  "canonical_main": "db569100c273338449c76087ec66550854f21728",
+  "remote_fetched_main": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e",
+  "remote_behind_local_commits": 73,
+  "local_behind_remote_commits": 0,
+  "goal_check": "verification/goal-check/GC-2026-10-22T08-40-37-145Z.json",
+  "formal_goal_distribution": {"UNKNOWN":33,"FAIL":1,"EXTERNAL_INPUT_REQUIRED":1},
+  "unknowns": {
+    "prior_individual_classification": "verification/reviews/T-0045-next-product-20261022/goal-reassessment.json",
+    "reuse_scope": "T0084 changes account metric read/projection only. Previous unrelated canon/function/data/approval evidence classification is reused, not promoted to new full-goal PASS. 33 UNKNOWN do not mean 33 missing product features.",
+    "categories": {"external_data":7,"missing_evidence":9,"approval_pending":4,"implemented_in_verified_CSAT_scope":8,"partial_or_missing":3,"old_or_unmapped_canon":2}
+  },
+  "A_H": {
+    "A":"SCOPED_VERIFIED: exam/direct TASK evidence separated; T0084 accepted account KPI fix; real learner observations absent.",
+    "B":"SCOPED_VERIFIED: goals and goal-version replan; actual target learner full flow not verified.",
+    "C":"PARTIAL: goal→TASK→current-stage quantity/criterion/next action implemented; all-domain measured abilities and dose/effect validity not established.",
+    "D":"SCOPED_VERIFIED: instructional analysis, explanations and revisions; no approved actual content delivery yet.",
+    "E":"BLOCKED_EXTERNAL: schema exists, but registered content/decisions/qualification/release/delivery all zero. Actual installed AI alternative does not authorize FINAL policy use or substitute human Gold/rights.",
+    "F":"SCOPED_VERIFIED: Workspace, guided practice, notes, returns, s.attachment teaching-only entry; latest full authenticated dev-DB journey unverified.",
+    "G":"PARTIAL: isolated unseen check/transfer cycles; actual elapsed delayed retention, unready ability tools and real learner data absent.",
+    "H":"SCOPED_VERIFIED: versioned PLAN/MAP feedback and history; T0085 addresses remaining study-evidence projection false claim, actual dev-DB approved-supply feedback not verified."
+  },
+  "current_failure": "VG-L3-D1-02 remains FAIL for independently reproduced knowledge trial display (T0085, two failing cases/two controls). Old dashboard/users/teacher/video mixture is fixed by T0084 and is not reported as recurring.",
+  "next_task": {"id":"T-0085","revision":"rev1","owner":"final-product","delivery":"QUEUED","ack":"NOT_YET_OBSERVED_AT_DISPATCH","source_spec":"planning/handoff/FINAL-TRIAL-EVIDENCE-DISPLAY-rev1.json"},
+  "gates": {
+    "PRODUCT_CODE_COMPLETE":"PARTIAL",
+    "LOCAL_VALIDATION_COMPLETE":"SCOPED_VERIFIED; T0084 source17 + styled6 + combined83; not full-platform completion",
+    "REMOTE_INTEGRATION_COMPLETE":false,
+    "DEV_DB_E2E_VERIFIED":false,
+    "CONTENT_RELEASE_APPROVED":false,
+    "EDUCATIONAL_EFFECT_VALIDATED":false
+  },
+  "content": "content-checkpoint.json: 18 exact file hashes match current manifest, 17 TASK/155 items/120 assessment; actual DB aggregate counts remain zero at 08:41:41Z.",
+  "ownership": "main was clean at accepted merge/release. Subsequent main-serving CSAT CSS/dialog dirty edits are another owner; they are not included in T0084 tested-tree or altered here. Shared inbox remains live/uncommitted.",
+  "no_actual_DB_writes":true,
+  "final_complete":false
+}
