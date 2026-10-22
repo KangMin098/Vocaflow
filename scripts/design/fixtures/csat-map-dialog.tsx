@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { createRoot } from 'react-dom/client'
 import { build } from '../../../apps/web/src/components/csat/diagnosis/map/__tests__/r5-inspector-fixture'
 import { MapScreen } from '../../../apps/web/src/components/csat/diagnosis/map/MapScreen'
-import { CsatRail } from '../../../apps/web/src/components/csat/home/CsatRail'
+import { CsatRail, type RailPlace } from '../../../apps/web/src/components/csat/home/CsatRail'
 import s from '../../../apps/web/src/components/csat/space/space.module.css'
 import m from '../../../apps/web/src/components/csat/diagnosis/map/map.module.css'
 import { ItemFinderDialog } from '../../../apps/web/src/components/csat/browse/ItemFinderDialog'
@@ -14,6 +14,8 @@ import { GoalPopover, useGoal } from '../../../apps/web/src/components/csat/diag
 import { StepSheet } from '../../../apps/web/src/components/csat/diagnosis/map/StepSheet'
 import { learnerPath } from '../../../apps/web/src/lib/csat/map/learner-path'
 import { HomeLanding } from '../../../apps/web/src/components/csat/home/HomeLanding'
+
+const railPage = new URLSearchParams(location.search).get('rail') as RailPlace | null
 
 const fixture = build({ goalSet: true, attempts: [], activity: [], asOfDay: 30, saved: false, fq: { status: 'installed', eligible: [] } })
 ;(globalThis as unknown as { fixtureView: typeof fixture.view }).fixtureView = fixture.view
@@ -35,9 +37,11 @@ function Popups() {
     {popup === 'step' && <StepSheet data={fixture.data} step={learnerPath(fixture.data.model, fixture.data.settings).read[0]} tasks={{ done: new Set(), toggle() {}, err: null } as never} onClose={close} />}
   </div>
 }
-createRoot(document.getElementById('root')!).render(<div data-design-scope="csat" className={location.search.includes('home') ? undefined : s.root}>
+createRoot(document.getElementById('root')!).render(<div data-design-scope="csat" className={location.search.includes('home') && !railPage ? undefined : s.root}>
+  {railPage ? <><CsatRail place={railPage} exams={[]} dueCount={0} /><main style={{ padding: 32 }}>공통 메뉴 검증 · {railPage}</main></> : <>
   {location.search.includes('home') ? <HomeLanding exams={[]} map="ok" mapData={fixture.data} focusKind="record" returned={null} restore={location.search.includes('resume') ? { mapTask: 'r.central_meaning', ws: 'ws.central-meaning' } : null} /> : <>
   <CsatRail place="home" exams={[]} dueCount={0} />
   <div style={{ minWidth: 0 }}><header className={s.topbar}><span className={s.topPill}>내 학습 지도</span></header><main className={s.canvas}><Popups /><MapScreen data={fixture.data} view={location.search.includes('full') ? 'full' : 'core'} base="/csat" /></main></div>
+  </>}
   </>}
 </div>)

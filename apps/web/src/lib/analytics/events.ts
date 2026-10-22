@@ -235,7 +235,7 @@ export type PublicEvent =
   | {
       name: 'csat_resume_clicked'
       /** map_check · map_plan = 지도 홈 첫 제안의 「지도에서 하던 일」(v3 M1 후속) */
-      props: { kind: 'set' | 'review' | 'comeback' | 'start' | 'map_check' | 'map_plan'; from: 'home' | 'today' | 'record' }
+      props: { kind: 'set' | 'review' | 'comeback' | 'start' | 'map_check' | 'map_plan'; from: 'home' | 'today' | 'record' | 'rail' }
     }
   /** 복습 세션을 시작했다 / 끝냈다. `substituted` = 같은 공식의 **다른 문항**으로 냈는가(외운 답 차단). */
   | {
@@ -275,7 +275,7 @@ export type PublicEvent =
         axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder' | 'map_detail' | 'workspace_view' | 'home_panel'
         need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
         /** axis=menu 일 때만 — 어느 상시 메뉴 */
-        menu?: 'map' | 'browse'
+        menu?: 'map' | 'browse' | 'continue' | 'record' | 'diagnosis' | 'formulas' | 'practice'
         /** axis=finder 일 때만 — 연 자리 */
         origin?: 'item' | 'compare' | 'browse' | 'home'
         /** axis=finder 일 때만 — open(열기) · cancel(취소/닫기/뒤로) · same(지금 문항) · go(다른 문항 탐구) · apply(서가에 적용) · browse(전체 서가로) */

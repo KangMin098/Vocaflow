@@ -11,11 +11,7 @@
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useId, useRef, useState } from 'react'
-import { AlertTriangle, ArrowRight, BookMarked, ClipboardCheck, ListChecks, CornerUpLeft, FlaskConical, History, Library, NotebookPen, Search, Stethoscope, Compass } from 'lucide-react'
-
-import { ItemFinderDialog } from '@/components/csat/browse/ItemFinderDialog'
-import finder from '@/components/csat/browse/item-finder.module.css'
-import { EMPTY_SELECTION, finderItemHref } from '@/lib/csat/item-finder'
+import { AlertTriangle, ArrowRight, ClipboardCheck, ListChecks, CornerUpLeft, Library, Compass } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
 import { activeSet, dueBucket, dueNow, gapBucket, gapDays, visitState } from '@/lib/csat/continuity'
@@ -60,8 +56,6 @@ export function HomeLanding({
 }) {
   const router = useRouter()
   const bannerId = useId()
-  // 기출 찾기(2026-10-13) — 기출 탐구 입구의 보조 행동. 전체 조건으로 시작한다(성취 · 점수로 고르지 않는다)
-  const [finderOpen, setFinderOpen] = useState(false)
   const returnTask = restore?.task ?? null
   const rec = useCsatRecord()
   const due = rec ? dueNow(rec.record, rec.now).length : null
@@ -105,62 +99,9 @@ export function HomeLanding({
     })
   }, [rec, suggest])
 
-  const shortcuts = <div className={l.railShortcuts}>
-          {/* ③ 내 자료 — 홈 왼쪽 메뉴 · 기존 경로 그대로 */}
-          <nav className={l.mine} aria-label="내 자료" data-testid="home-mine">
-            <Link className={l.mineItem} href="/csat?view=continue" data-testid="home-continue">
-              <History size={15} aria-hidden="true" /> 이어서 · 복습
-              {due ? <span className={l.count}>{due}</span> : null}
-            </Link>
-            <Link className={l.mineItem} href="/csat/record">
-              <BookMarked size={15} aria-hidden="true" /> 내 기록
-            </Link>
-            <Link className={l.mineItem} href="/csat/diagnosis">
-              <Stethoscope size={15} aria-hidden="true" /> 내 진단
-            </Link>
-            <Link className={l.mineItem} href="/csat/formulas">
-              <NotebookPen size={15} aria-hidden="true" /> 내 공식
-            </Link>
-            <Link className={l.mineItem} href="/csat/practice">
-              <FlaskConical size={15} aria-hidden="true" /> 연습 · 주장과 근거
-            </Link>
-          </nav>
-
-          {/* ④ 기출 탐구 입구 — 진단 없이도 언제나 */}
-          <section className={l.explore} aria-label="기출 탐구" data-testid="home-explore">
-            <div>
-              <p className={l.exploreTitle}>기출 탐구</p>
-              <p className={`${l.lead} break-keep`}><Search size={15} aria-hidden="true" />목적 · 유형 · 회차로 찾기</p>
-            </div>
-            <span className={l.exploreActions}>
-              <Link className={home.secondary} href="/csat/dissect" onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'start', from: 'home' } })} data-testid="home-start">
-                처음이라면 3문항으로 시작
-              </Link>
-              <button
-                type="button"
-                className={finder.trigger}
-                onClick={() => {
-                  track({ name: 'csat_path_chosen', props: { axis: 'finder', need: 'none', origin: 'home', action: 'open' } })
-                  setFinderOpen(true)
-                }}
-                aria-haspopup="dialog"
-                data-testid="home-finder-open"
-              >
-                <span className={finder.triggerFace}>
-                  <Search size={14} aria-hidden="true" />
-                  기출 찾기
-                </span>
-              </button>
-              <Link className={`${home.primary} ${l.primary}`} href="/csat/browse" data-testid="home-explore-go">
-                기출 탐구로 <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </span>
-          </section>
-  </div>
-
   return (
-    <div className={`${styles.root} ${l.root}`} data-csat-space data-testid="csat-home" data-suggest={rec ? suggest : 'loading'}>
-      <CsatRail place="home" exams={exams} dueCount={rec ? (due ?? 0) + (set ? 1 : 0) : null}>{shortcuts}</CsatRail>
+    <div className={styles.root} data-csat-space data-testid="csat-home" data-suggest={rec ? suggest : 'loading'}>
+      <CsatRail place="home" exams={exams} dueCount={rec ? (due ?? 0) + (set ? 1 : 0) : null} />
 
       <div className={`min-w-0 ${l.main}`}>
         <header className={`${styles.topbar} ${l.topbar}`}>
@@ -324,15 +265,6 @@ export function HomeLanding({
 
         </div>
       </div>
-      {finderOpen ? (
-        <ItemFinderDialog
-          origin="home"
-          initial={EMPTY_SELECTION}
-          // 지도 홈에서 고른 문항 — 「학습 지도로」 로 돌아오게 from=map 만 싣는다(과제 · 확인 수행이 아니다)
-          hrefFor={(id) => finderItemHref(id, { fromMap: true })}
-          onClose={() => setFinderOpen(false)}
-        />
-      ) : null}
     </div>
   )
 }

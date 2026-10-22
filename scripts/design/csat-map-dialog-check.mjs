@@ -18,7 +18,7 @@ const built = await build({
     p.onResolve({ filter: /\/useCsatRecord$/ }, a => ({ path: a.path, namespace: 'fixture' }))
     p.onResolve({ filter: /^@\/lib\/(analytics\/client|csat\/map\/v4\/compose)$/ }, a => ({ path: a.path, namespace: 'fixture' }))
     p.onLoad({ filter: /.*/, namespace: 'fixture' }, a => ({ loader: 'jsx', resolveDir: path.join(root, 'apps/web'), contents:
-      a.path === 'next/link' ? 'import React from "react";export default function Link({children,...props}){return <a {...props} onClick={e=>e.preventDefault()}>{children}</a>}' :
+      a.path === 'next/link' ? 'import React from "react";export default function Link({children,onClick,...props}){return <a {...props} onClick={e=>{e.preventDefault();onClick?.(e)}}>{children}</a>}' :
       a.path === 'next/navigation' ? 'export function useRouter(){return {refresh(){},push(){},replace(){}}}' :
       a.path.endsWith('/useCsatRecord') ? 'export function useCsatRecord(){return {record:{completed:[],predictions:[],queue:[],active:null,views:[],sessions:[]},synced:false,dueBefore:0,now:1792594800000}}' :
       a.path.includes('analytics') ? 'export function track(){}' : 'export function composeV4(){return globalThis.fixtureView} export function confirmLinksOf(){return {}} export function savedTransferOf(){return {}}' }))
@@ -33,7 +33,7 @@ const server = http.createServer((req, res) => {
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve))
 const base = `http://127.0.0.1:${server.address().port}`, browser = await chromium.launch(), results = [], forbidden = []
 try {
-  for (const width of process.env.CSAT_ENTRY_ONLY ? [] : [1440, 1280]) for (const theme of ['light', 'dark']) {
+  for (const width of process.env.CSAT_ENTRY_ONLY || process.env.CSAT_RAIL_ONLY ? [] : [1440, 1280]) for (const theme of ['light', 'dark']) {
     const context = await browser.newContext({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' })
     await context.route('**/*', route => {
       const req = route.request(), url = new URL(req.url())
@@ -224,6 +224,48 @@ try {
     await homePage.close()
     await context.close()
     console.log(`PASS ${width} ${theme}: single dialog, tabs, workspace links, keyboard, workspace list`)
+  }
+  for (const width of [1440, 1280]) for (const theme of ['light', 'dark']) {
+    const railContext = await browser.newContext({ viewport: { width, height: 1000 }, reducedMotion: 'reduce' })
+    await railContext.route('**/*', route => {
+      const request = route.request(), url = new URL(request.url())
+      if (request.method() !== 'GET' || url.origin !== base) { forbidden.push(request.method() + ' ' + url.pathname); return route.abort() }
+      if (url.pathname.startsWith('/api/')) return route.fulfill({ json: { ok: true, catalog: { items: [], exams: [], types: [] } } })
+      return route.continue()
+    })
+    await railContext.addInitScript(t => addEventListener('DOMContentLoaded', () => document.documentElement.dataset.theme = t), theme)
+    const railPage = await railContext.newPage(), railErrors = []
+    railPage.on('pageerror', error => railErrors.push(error.message))
+    let menu = null
+    for (const [place, activeHref] of [['home', '/csat'], ['browse', '/csat/browse'], ['record', '/csat/record'], ['diagnosis', '/csat/diagnosis']]) {
+      await railPage.goto(base + '/?rail=' + place, { waitUntil: 'networkidle' })
+      const rail = railPage.getByTestId('csat-rail')
+      if (place === 'browse') {
+        assert.equal(await rail.getAttribute('data-collapsed'), 'true', 'Collapse choice survives a page change')
+        assert.equal((await rail.boundingBox()).width, 64)
+        await railPage.getByTestId('rail-toggle').click()
+        await railPage.waitForFunction(() => document.querySelector('[data-testid="csat-rail"]').dataset.collapsed === 'false')
+      }
+      const signature = await rail.getByRole('link').evaluateAll(links => links.map(link => [link.getAttribute('href'), link.textContent.replace(/\s+/g, ' ').trim()]))
+      if (menu === null) menu = signature
+      else assert.deepEqual(signature, menu, 'Same menu items/order on ' + place)
+      assert.equal((await rail.boundingBox()).width, 248, 'Shared sidebar width on ' + place)
+      assert.equal(await rail.locator('[aria-current="page"]').count(), 1)
+      assert.equal(await rail.locator('[aria-current="page"]').getAttribute('href'), activeHref)
+      await railPage.getByTestId('home-finder-open').click()
+      await railPage.getByRole('dialog').waitFor()
+      await railPage.keyboard.press('Escape')
+      await railPage.getByRole('dialog').waitFor({ state: 'detached' })
+      assert.equal(await railPage.getByTestId('home-finder-open').evaluate(el => document.activeElement === el), true)
+      await railPage.screenshot({ path: `${out}/rail-${place}-${width}-${theme}.png` })
+      if (place === 'home') {
+        await railPage.getByTestId('rail-toggle').click()
+        await railPage.waitForFunction(() => document.querySelector('[data-testid="csat-rail"]').dataset.collapsed === 'true' && localStorage.getItem('csat-rail') === 'closed')
+      }
+    }
+    assert.deepEqual(railErrors, [])
+    results.push({ sharedMenu: true, width, theme, pages: 4, railWidth: 248, collapsedWidth: 64, finderFocusRestored: true, errors: railErrors })
+    await railContext.close()
   }
   const geometryPage = await browser.newPage({ viewport: { width: 2094, height: 950 } })
   await geometryPage.route('**/api/**', r => r.fulfill({ json: { status: 'installed', rows: [], sources: 0 } }))
