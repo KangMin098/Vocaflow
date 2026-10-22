@@ -14,5 +14,19 @@
     "no_dependency_or_lockfile_changes": true,
     "authorization": "Same-task planner clarification of requested low-risk existing-tsx execution path; user/dev-minimal authorizes routine implementation choices. No security/DB/policy approval change."
   },
-  "original_review_preserved": true
+  "original_review_preserved": true,
+  "owner_probe_artifact_correction": {
+    "reported_file": "t0084-r1-probe.json",
+    "exists_according_to_owner": false,
+    "owner_observation": "17/17 observed in console; JSON reporter was not specified; FINAL_LEDGER section31 REWORK entry is the owner record",
+    "independent_evidence": "verification/reviews/T-0084-r2-independent/probe-results.json",
+    "independent_results": {
+      "passed": 17,
+      "failed": 0,
+      "skipped": 0,
+      "source_head": "984ee58e8ac0c3145c5464b0bfaa810222b80391"
+    },
+    "acceptance_unchanged": "ACCEPT_WITH_LIMITS; task COMPLETED at e21ff733c; no rerun/reopen requested",
+    "recorded_at": "2026-10-22T08:45:51.857Z"
+  }
 }
