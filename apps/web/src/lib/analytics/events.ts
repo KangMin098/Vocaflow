@@ -272,7 +272,7 @@ export type PublicEvent =
   | {
       name: 'csat_path_chosen'
       props: {
-        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder'
+        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder' | 'map_detail' | 'workspace_view'
         need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
         /** axis=menu 일 때만 — 어느 상시 메뉴 */
         menu?: 'map' | 'browse'
@@ -280,6 +280,10 @@ export type PublicEvent =
         origin?: 'item' | 'compare' | 'browse' | 'home'
         /** axis=finder 일 때만 — open(열기) · cancel(취소/닫기/뒤로) · same(지금 문항) · go(다른 문항 탐구) · apply(서가에 적용) · browse(전체 서가로) */
         action?: 'open' | 'cancel' | 'same' | 'go' | 'apply' | 'browse'
+        /** Existing DB event name; map/workspace UI selections use closed properties only. */
+        source?: 'task' | 'workspace'
+        tab?: 'overview' | 'evidence' | 'plan'
+        view?: 'board' | 'list'
       }
     }
   /** 문항 해설에서 목록으로 돌아갔다(막다른 길 해소). */

@@ -50,8 +50,6 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
 }) {
   const Icon = wsIcon(row.id)
   const plan = view.plans[row.id] ?? null
-  const tp = (id: TaskId) => plan?.tasks.find((t) => t.task === id) ?? null
-  const coreTp = row.core[0] ? tp(row.core[0]) : null
   const tabBtn = (k: WsTab, label: string, I: typeof LayoutList, disabled = false) => (
     <button type="button" role="tab" aria-selected={tab === k} className={p.tab} onClick={() => onTab(k)} disabled={disabled} data-testid={k === 'plan' ? 'ws-tab-plan' : 'ws-tab-overview'}>
       <span className={`${p.tabIn} ${tab === k ? p.tabOn : ''}`}><I size={14} strokeWidth={1.9} aria-hidden="true" />{label}</span>
@@ -95,6 +93,18 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
         </>
       }
     >
+      <WorkspaceContent row={row} view={view} data={data} past={past} goal={goal} reason={reason} tab={tab} onPickTask={onPickTask} returned={returned} />
+    </MapDialog>
+  )
+}
+
+/** Embedded content: its parent owns the only dialog, tabs and focus boundary. */
+export function WorkspaceContent({ row, view, data, past, goal, reason, tab, onPickTask, returned = null }: {
+  row: WsRow; view: V4View; data: MapPageData; past: boolean; goal: number; reason: string | null; tab: WsTab; onPickTask: (id: TaskId) => void; returned?: { task: TaskId; lines: string[] } | null
+}) {
+  const plan = view.plans[row.id] ?? null
+  const coreTp = row.core[0] ? plan?.tasks.find(t => t.task === row.core[0]) ?? null : null
+  return <>
       {returned && returned.lines.length > 0 && (
         <section className={p.card} aria-labelledby="ws-return-h" data-testid="ws-return-summary" data-task={returned.task} role="status">
           <h3 id="ws-return-h" className={p.cardTitle}>돌아온 뒤 — {taskLabel(returned.task).name} 에 무엇이 기록됐나</h3>
@@ -117,7 +127,7 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
 
           <section className={p.card} aria-labelledby="ws-rel">
             <h3 id="ws-rel" className={p.cardTitle}>관련 TASK</h3>
-            <p className={p.cardDesc}>중심 TASK 의 수행으로 계획을 세고, 지원 TASK 는 함께 쓰는 힘이에요. 누르면 지도에서 그 TASK 를 열어요.</p>
+            <p className={p.cardDesc}>중심 TASK의 수행으로 계획을 세고, 지원 TASK는 함께 쓰는 힘이에요. 누르면 같은 창에서 해당 TASK를 봐요.</p>
             {row.core.length + row.support.length > 0 ? (
               <div className={u.relMap} data-testid="ws-rel">
                 <ul className={u.relCol} aria-label="중심 TASK">
@@ -177,7 +187,7 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
             ) : (
               <p className={p.cardDesc}>{READINESS_LABEL[row.readiness ?? ''] ?? '자료를 준비하고 있어요'} — 준비 전에는 학습 가능으로 보이지 않아요.</p>
             )}
-            <p className={p.cardDesc}>문항 수는 실력 점수가 아니에요. TASK 마다의 자료 준비 상태는 TASK 의 「자세한 근거 보기」에서 봐요.</p>
+            <p className={p.cardDesc}>문항 수는 실력 점수가 아니에요. TASK마다의 자료 준비 상태는 「근거 · 학습 경로」 탭에서 봐요.</p>
           </section>
 
           {row.core[0] && AUTHORED_TASKS.includes(row.core[0]) && (
@@ -201,6 +211,5 @@ export function WorkspaceModal({ row, view, data, past, goal, reason, tab, onTab
           )))}
         </>
       )}
-    </MapDialog>
-  )
+  </>
 }

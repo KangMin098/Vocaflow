@@ -34,6 +34,12 @@ const count = (name: string) => {
 }
 
 describe('학습 지도 기하 = 참조 측정 명세', () => {
+  it('단일 상세 팝업과 개요 노드는 사용자 지정 작업면 치수를 따른다', () => {
+    const detail = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/design/refs/3b/access-map/spec.json'), 'utf8')).detail
+    expect(px('--p-detail-w')).toBe(detail.w)
+    expect(px('--p-detail-h')).toBe(detail.h)
+    expect(px('--g-core-node-h')).toBe(detail.coreNodeH)
+  })
   it('노드 크기', () => {
     expect(px('--g-node-w')).toBe(spec.node.w)
     expect(px('--g-node-h')).toBe(spec.node.h)

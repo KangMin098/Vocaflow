@@ -504,5 +504,5 @@
 
 @media (min-width: 900px) {
   .overlay { --f-ink: var(--csat-ink); --f-ink2: var(--csat-ink2); --f-ink3: var(--csat-muted); --f-line: var(--csat-line); --f-soft: var(--csat-canvas); --f-sel: var(--csat-soft); --f-sel-line: var(--csat-accent); --f-bg: var(--csat-panel); background: var(--csat-overlay); }
-  .panel { box-shadow: 0 18px 60px #3923651a; }
+  .panel { box-shadow: 0 18px 60px #0d0d171a; }
 }

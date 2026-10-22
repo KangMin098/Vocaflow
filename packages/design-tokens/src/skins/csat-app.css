@@ -1,22 +1,22 @@
 /* packages/design-tokens/src/skins/csat-app.css
- * PC CSAT: user-provided 3B references, 2026-10-22. Shared by the shell and body portals.
+ * PC CSAT: neutral surfaces restored per user correction, 2026-10-22.
  * Geometry remains in docs/design/refs/3b/access-map/spec.json; memory/status colors keep their meaning.
  */
 @media (min-width: 900px) {
   :root[data-skin]:has([data-design-scope="csat"]) {
-    --csat-canvas: #f5f1ff;
+    --csat-canvas: #faf9f7;
     --csat-panel: #ffffff;
-    --csat-soft: #ece5fb;
-    --csat-hover: #f0eaff;
-    --csat-line: #e6dff3;
-    --csat-divider: #f0ebf7;
-    --csat-ink: #6240b5;
-    --csat-ink2: #74559e;
-    --csat-muted: #79628e;
-    --csat-accent: #8257e6;
-    --csat-control: #382164;
-    --csat-edge: #ded2fa;
-    --csat-overlay: #39236566;
+    --csat-soft: #efeeec;
+    --csat-hover: #f8f7f5;
+    --csat-line: #e8e7e4;
+    --csat-divider: #eeeceb;
+    --csat-ink: #18181b;
+    --csat-ink2: #56565c;
+    --csat-muted: #6e6e74;
+    --csat-accent: #7c5cfa;
+    --csat-control: #18181b;
+    --csat-edge: #dedbd6;
+    --csat-overlay: #0d0d1729;
     --csat-green: #dceee4;
     --csat-teal: #d9efed;
     --csat-peach: #ffe5d7;
@@ -42,6 +42,6 @@
     --font-body: var(--font-sans);
     --font-ko-display: var(--font-sans);
     --font-mono: var(--font-admin-mono), ui-monospace, monospace;
-    --sh-overlay: 0 18px 60px #3923651a;
+    --sh-overlay: 0 18px 60px #0d0d171a;
   }
 }

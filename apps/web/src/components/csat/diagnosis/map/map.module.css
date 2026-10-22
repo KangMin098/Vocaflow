@@ -10,6 +10,7 @@
   /* ── 측정 명세(참조 3B Access map, 2094px 폭 캡처 · scripts/design/ref-measure.mjs) — 고치려면 spec.json 부터 ── */
   --g-node-w: 206px;
   --g-node-h: 46px;
+  --g-core-node-h: 56px;
   --g-pitch: 272px;
   --g-row-gap: 14px;
   --g-pad-x: 26px;
@@ -20,6 +21,8 @@
   /* 팝업(참조 모달) — spec.json 의 modal */
   --p-w: 680px;
   --p-h: 760px;
+  --p-detail-w: 1040px;
+  --p-detail-h: 800px;
   --p-head: 56px;
   --p-foot: 56px;
   --p-side: 17px;

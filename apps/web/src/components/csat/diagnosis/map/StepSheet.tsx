@@ -35,14 +35,15 @@ import { withMapReturn } from '@/lib/csat/map-return'
 import l from './learner.module.css'
 import type { useTaskDone } from './useTaskDone'
 
-export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPageData; step: StepView; tasks: ReturnType<typeof useTaskDone>; onClose: () => void; startAt?: 'check' }) {
+export function StepSheet({ data, step, tasks, onClose, startAt, embedded = false }: { data: MapPageData; step: StepView; tasks: ReturnType<typeof useTaskDone>; onClose: () => void; startAt?: 'check'; embedded?: boolean }) {
   const ref = useModalFocus<HTMLDivElement>()
   const [more, setMore] = useState(false)
   useEffect(() => {
+    if (embedded) return
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
     document.addEventListener('keydown', onKey)
     return () => document.removeEventListener('keydown', onKey)
-  }, [onClose])
+  }, [onClose, embedded])
   useEffect(() => {
     if (startAt === 'check') document.getElementById('step-check')?.scrollIntoView({ block: 'start' })
   }, [startAt])
@@ -112,15 +113,15 @@ export function StepSheet({ data, step, tasks, onClose, startAt }: { data: MapPa
             : '기출 기록에서 이 단계가 관찰됐어요. 원인을 확인하기 전이라 실력으로 판정하지 않아요.'
 
   return (
-    <div className={p.overlay} onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
-      <div ref={ref} className={`${p.modal} ${l.sheet}`} role="dialog" aria-modal="true" aria-labelledby="step-title" data-step-sheet={step.key}>
+    <div className={embedded ? undefined : p.overlay} onMouseDown={(e) => !embedded && e.target === e.currentTarget && onClose()}>
+      <div ref={embedded ? undefined : ref} className={embedded ? p.embeddedSheet : `${p.modal} ${l.sheet}`} role={embedded ? 'region' : 'dialog'} aria-modal={embedded ? undefined : true} aria-labelledby="step-title" data-step-sheet={step.key}>
         <div className={p.head}>
           <span className={l.sheetIcon} aria-hidden="true">
             <Icon size={16} strokeWidth={1.9} aria-hidden={true} />
           </span>
           <h2 id="step-title" className={l.sheetTitle}>{step.name}</h2>
           <span className={l.badge} data-e={step.evidence}>{EVIDENCE_LABEL[step.evidence]}</span>
-          <button type="button" className={l.close} onClick={onClose} aria-label="닫기">
+          <button type="button" className={l.close} onClick={onClose} aria-label={embedded ? '기출 근거 접기' : '닫기'}>
             <X size={16} aria-hidden="true" />
           </button>
         </div>

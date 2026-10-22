@@ -171,7 +171,7 @@ export function returnLinesFor(task: TaskId, view: V4View, data: MapPageData, ho
 }
 
 /** 학습계획 편집(PlanSection)은 Workspace 상세 모달의 계획 탭에서 연다(LM-W1) — 여기서는 열기 요청만 */
-export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null, returnRef = null }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null; returnRef?: ReturnRef }) {
+export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null, returnRef = null, embedded = false }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null; returnRef?: ReturnRef; embedded?: boolean }) {
   const [sheet, setSheet] = useState<StepView | null>(null)
   const tasks = useTaskDone(data.doneTaskIds)
   const t = ins.task
@@ -332,7 +332,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
               </ol>
               {ins.plan && <p className={u.fine}>이번 계획 수행 {ins.plan.done}{ins.plan.planned !== null ? ` / ${ins.plan.planned}` : ''} — 수행량은 실력 점수가 아니에요.</p>}
               {view.plans[home] && (
-                <button type="button" className={u.ghost} aria-haspopup="dialog" aria-expanded={planOpen} onClick={() => onTogglePlan(home)} data-testid="inspector-plan-toggle">
+                <button type="button" className={u.ghost} aria-haspopup={embedded ? undefined : 'dialog'} aria-expanded={planOpen} onClick={() => onTogglePlan(home)} data-testid="inspector-plan-toggle">
                   <ChevronDown size={14} aria-hidden="true" className={u.chev} data-open={planOpen} />
                   학습계획 열기 · 조정
                 </button>
@@ -500,7 +500,10 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
         </details>
       </div>
 
-      {sheet && <StepSheet data={data} step={sheet} tasks={tasks} onClose={() => setSheet(null)} />}
+      {sheet && <StepSheet embedded={embedded} data={data} step={sheet} tasks={tasks} onClose={() => {
+        setSheet(null)
+        if (embedded) requestAnimationFrame(() => document.querySelector<HTMLElement>('[data-testid="inspector-evidence-detail"]')?.focus())
+      }} />}
     </aside>
   )
 }
