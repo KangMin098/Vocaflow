@@ -120,7 +120,11 @@ export function withMapReturn(href: string, ctx: MapReturnCtx): string {
 }
 
 /** T-0069 — V1(v.core_meaning) 기본 의미 학습이 쓰는 기존 어휘 화면(고정 내부 경로만 · 하위 화면 전체가 아니다) */
-export const VOCAB_PATHS = ['/wordvault/review'] as const
+//   T-0086 — 복습할 단어를 모으는 목록(/wordvault/browse)까지. 정확한 두 경로만(/wordvault/* 전체 · 외부 · 임의 next 아님)
+export const VOCAB_PATHS = ['/wordvault/review', '/wordvault/browse'] as const
+
+/** 지도 문맥을 이루는 쿼리 키(어휘 화면 안에서 URL 을 바꿀 때 그대로 옮긴다 · map_item/map_attempt 는 싣지 않는다) */
+export const VOCAB_MAP_QUERY_KEYS = ['from', 'task', 'map_task', 'ws', 'step', 'map_ws', 'map_plan', 'map_goal'] as const
 
 /** 학습 화면이 돌아갈 지도 주소 — 창작 학습 화면(/csat/learn)과 같은 전체 지도 + 검증한 문맥만 */
 export const MAP_HOME_HREF = '/csat/diagnosis?tab=map&view=full'
@@ -134,4 +138,15 @@ export function vocabMapReturnHref(sp: Record<string, string | string[] | undefi
   if (from !== 'map') return null
   const q = returnQueryOf(sp)
   return MAP_HOME_HREF + mapReturnQuery(parseMapReturn({ ...q, map_item: undefined, map_attempt: undefined }))
+}
+
+/**
+ * T-0086 — 어휘 화면 사이 링크(복습 ↔ 목록). 지도에서 온 화면이면(= 검증된 복귀 주소가 있으면) 그 주소의 문맥을
+ *   다시 검증해 고정 어휘 경로에 싣는다. 일반 진입(null)은 경로 그대로. 수행 · 문항 ID 는 버린다.
+ */
+export function vocabMapLink(path: (typeof VOCAB_PATHS)[number], mapBack: string | null | undefined): string {
+  if (!mapBack) return path
+  const u = new URL(mapBack, 'http://x')
+  const ctx = parseMapReturn({ ...returnQueryOf(Object.fromEntries(u.searchParams)), map_item: undefined, map_attempt: undefined })
+  return withMapReturn(path, ctx)
 }
