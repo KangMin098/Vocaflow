@@ -1,0 +1,7 @@
+merge: restore the hash-bound first R5 review packet
+
+Integrate accepted T-0087 docs only: eight readable v3 items and ledger.
+Independent content transcription and sixteen hash bindings verified.
+No content approval, DB writes or source content changes.
+
+Co-Authored-By: Codex <noreply@openai.com>

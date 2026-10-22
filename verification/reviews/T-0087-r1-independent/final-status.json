@@ -1,0 +1,43 @@
+{
+  "at": "2026-10-22T09:53:07.056Z",
+  "task": "T-0087",
+  "status": "COMPLETED",
+  "integration": {
+    "task": "T-0087",
+    "source": "1607faebb096a4a361347f9cd80a45f23d0457a2",
+    "base": "d726c5d07234a0dfb2d3b1dfa0e827b14d7adb77",
+    "merge_commit": "aa40ca2e295b1c2e062a0364223a4415251d20fc",
+    "files": [
+      "docs/final/FINAL_LEDGER.md",
+      "docs/final/review/r5-authored-gold-packet.md"
+    ],
+    "tested_tree": "15256149aee7c9fe9fddae8b650396d22d17cb1d",
+    "committed_tree": "15256149aee7c9fe9fddae8b650396d22d17cb1d",
+    "diff_check_exit": 0,
+    "packet_initial_diff_check": "new blank line at EOF; removed surplus final empty line only",
+    "packet_sha256": "706887dc7edf35604572d1d909933e2a10c16329af6d0e3654a4c5cfac09b35d",
+    "source_content_hash_unchanged": true,
+    "main_clean": true,
+    "lock_released": true,
+    "db_writes": 0,
+    "human_decisions_recorded": 0,
+    "remote_push": false,
+    "remote_ci": false,
+    "content_release_approved": false
+  },
+  "completion_notice": "QUEUED",
+  "actual_completion_ack": false,
+  "goal_check": {
+    "report": "verification/goal-check/GC-2026-10-22T09-53-07-155Z.json",
+    "distribution": {
+      "UNKNOWN": 34,
+      "EXTERNAL_INPUT_REQUIRED": 1
+    },
+    "head": {
+      "main_sha": "aa40ca2e295b1c2e062a0364223a4415251d20fc"
+    }
+  },
+  "ready_final_product": [],
+  "next_blocking_input": "Concrete first8 packet is ready; human Gold/rights/release decision and separately authorized registration required. No approval generated.",
+  "final_complete": false
+}

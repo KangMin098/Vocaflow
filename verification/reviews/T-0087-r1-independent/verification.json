@@ -1,0 +1,91 @@
+{
+  "task": "T-0087",
+  "head": "1607faebb096a4a361347f9cd80a45f23d0457a2",
+  "observed_at": "2026-10-22T09:50:45.840Z",
+  "canonical_main": "d726c5d07234a0dfb2d3b1dfa0e827b14d7adb77",
+  "set": "r5-central-meaning.v3",
+  "file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+  "packet_sha256": "c573e20c85f219a43657eb9ff6136f710b8e09a0d1f87b4596f11e118c52b036",
+  "items": [
+    {
+      "id": "r5-cm-teach-1",
+      "index": 0,
+      "role": "model_explanation",
+      "group": "r5cm-t1",
+      "body_gold": "exact",
+      "sentences": 7,
+      "choices": 5
+    },
+    {
+      "id": "r5-cm-guided-1",
+      "index": 1,
+      "role": "guided_practice",
+      "group": "r5cm-p1",
+      "body_gold": "exact",
+      "sentences": 7,
+      "choices": 5
+    },
+    {
+      "id": "r5-cm-ind-1",
+      "index": 3,
+      "role": "independent_check",
+      "group": "r5cm-i1",
+      "body_gold": "exact",
+      "sentences": 6,
+      "choices": 5
+    },
+    {
+      "id": "r5-cm-ind-2",
+      "index": 4,
+      "role": "independent_check",
+      "group": "r5cm-i2",
+      "body_gold": "exact",
+      "sentences": 6,
+      "choices": 5
+    },
+    {
+      "id": "r5-cm-transfer-1",
+      "index": 5,
+      "role": "transfer",
+      "group": "r5cm-x1",
+      "body_gold": "exact",
+      "sentences": 6,
+      "choices": 5
+    },
+    {
+      "id": "r5-cm-transfer-2",
+      "index": 6,
+      "role": "transfer",
+      "group": "r5cm-x2",
+      "body_gold": "exact",
+      "sentences": 6,
+      "choices": 5
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "index": 9,
+      "role": "independent_check",
+      "group": "r5cm-i3",
+      "body_gold": "exact",
+      "sentences": 6,
+      "choices": 5
+    },
+    {
+      "id": "r5-cm-ind-4",
+      "index": 10,
+      "role": "independent_check",
+      "group": "r5cm-i4",
+      "body_gold": "exact",
+      "sentences": 6,
+      "choices": 5
+    }
+  ],
+  "body_gold_hash_matches": 16,
+  "selected_items": 8,
+  "distinct_groups": 8,
+  "source_and_manifest_unchanged": true,
+  "db_writes": 0,
+  "human_decisions_recorded": 0,
+  "content_release_approved": false,
+  "scope": "Packet transcription and review readiness only; no human Gold, rights, release or educational effect approval."
+}
