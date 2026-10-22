@@ -105,6 +105,16 @@ describe('fetchAccountCohort — 판정은 account-classification 하나', () =>
     expect(c.accounts).toMatchObject({ total: 6, externalVerified: 2, internal: 2, unknown: 2 })
     expect(JSON.stringify(c.accounts)).not.toMatch(/@|gmail|vocaflow\.test/)
   })
+  it('반례 — 이메일 누락 · iso-learner.test · example.org 는 목록 없이 실사용이 되지 않는다 · 명시 목록이면 정상 포함(대조)', async () => {
+    const NOMAIL = '88888888-8888-4888-8888-888888888888'
+    const ISO = '99999999-9999-4999-8999-999999999999'
+    users = [...users, { id: NOMAIL, created_at: '2026-10-03T00:00:00Z', email: null as never }, { id: ISO, created_at: '2026-10-03T00:00:00Z', email: 'learner@iso-learner.test' }]
+    const off = await fetchAccountCohort(client as never, REG)
+    expect(off.status === 'ok' && [NOMAIL, ISO, SYN].some((id) => off.verified.has(id))).toBe(false)
+    expect(off.status === 'ok' && off.accounts.unknownInternalHint).toBeGreaterThanOrEqual(3) // .test · .test · example.org
+    const on = await fetchAccountCohort(client as never, { VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS: `${NOMAIL} ${ISO}` })
+    expect(on.status === 'ok' && [...on.verified].sort()).toEqual([NOMAIL, ISO].sort())
+  })
   it('내부 목록에 있으면서 외부 목록에도 있는 운영자 → 내부(외부로 새지 않는다)', async () => {
     const c = await fetchAccountCohort(client as never, { VOCAFLOW_EXTERNAL_VERIFIED_ACCOUNT_IDS: `${EXT} ${ADMIN}` })
     expect(c.status === 'ok' && [...c.verified]).toEqual([EXT])
