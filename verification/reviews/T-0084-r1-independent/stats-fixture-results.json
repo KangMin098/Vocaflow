@@ -1,0 +1,38 @@
+{
+  "head": "17e239444",
+  "environment": "actual script and actual TS classifier; ESM-loader fake Supabase; no actual DB",
+  "adapter_initial_failure": "stats-adapter-initial-error.log: adapter returned a Promise for chainable limit; corrected fixture, not a product failure",
+  "cases": [
+    {
+      "mode": "mixed",
+      "node": "v24.15.0",
+      "exit": 0,
+      "expected": "외부) **1**",
+      "passed": true
+    },
+    {
+      "mode": "zero",
+      "node": "v24.15.0",
+      "exit": 0,
+      "expected": "외부) **0**",
+      "passed": true
+    },
+    {
+      "mode": "pages",
+      "node": "v24.15.0",
+      "exit": 0,
+      "expected": "외부) **1**",
+      "passed": true
+    },
+    {
+      "mode": "failure",
+      "node": "v24.15.0",
+      "exit": 0,
+      "expected": "실사용 학습자 **?**",
+      "passed": true
+    }
+  ],
+  "passed": 4,
+  "failed": 0,
+  "db_writes": 0
+}

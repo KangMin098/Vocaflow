@@ -1,0 +1,12 @@
+file:///D:/workspace/Vocaflow-final-product/scripts/docs/gen-db-stats.mjs:153
+    if (last !== null) q = q.gt(column, last)
+                             ^
+
+TypeError: q.gt is not a function
+    at byStatus (file:///D:/workspace/Vocaflow-final-product/scripts/docs/gen-db-stats.mjs:153:30)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async inOrder (file:///D:/workspace/Vocaflow-final-product/scripts/docs/gen-db-stats.mjs:118:36)
+    at async collect (file:///D:/workspace/Vocaflow-final-product/scripts/docs/gen-db-stats.mjs:191:7)
+    at async file:///D:/workspace/Vocaflow-final-product/scripts/docs/gen-db-stats.mjs:296:15
+
+Node.js v24.15.0

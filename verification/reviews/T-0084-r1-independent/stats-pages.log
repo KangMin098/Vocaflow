@@ -1,0 +1,26 @@
+<!-- db-stats:start -->
+
+> 이 블록은 `node scripts/docs/gen-db-stats.mjs` 가 DB 에서 생성한다 — **손으로 고치지 말 것.**
+> 고쳐도 다음 실행에 덮어써지고, 그 사이에는 틀린 값이 근거로 쓰인다.
+> 마지막 생성 **2026-10-22**. 낡았는지 확인만 하려면 `--check` (파일을 안 고치고 exit 1).
+
+**수요 측** — 이 줄이 이 문서에서 가장 중요하다. 공급이 아무리 늘어도 여기가 안 늘면 진단은 `risk` 다.
+
+- 실사용 학습자(검증된 외부) **1** · 전체 가입 1,003 = 내부 1 · 미분류 1,001(합성 · 예약 도메인 포함)
+- 활동 표(**전 계정** — 내부 · 미분류 · 합성 포함, 실사용 지표 아님): 학습기록 12 · 읽기 세션 0 · 일별 활동 0 · 점수 0 · 프로필 1,003
+- 교사 채널(전 계정): 학급 **0** · 학급 구성원 0 · 학급 과제 **0** · 퍼널 이벤트 0
+
+**공급 측**
+
+- `shared_dictionary` **0** row · meaning_ko null%
+- `library_books` **0** — 
+- `library_articles` **0** — 
+- `shared_word_sets` 0 (published 0) · `library_chapter_quiz` 0
+- `texts` 0 · `vocabularies` 0
+- 만화: `pd_comic_issues` 0 · 시리즈 0 · 발행 `comic_books` 0
+
+> **여기 없는 수치는 일부러 안 센다** — 테이블·함수·migration 개수와 DB 용량은 전용 RPC 가 있어야
+> 읽히는데, 그 값들로 바뀌는 결정이 없다. 용량처럼 실제로 의미 있는 것은 분기 진단이 날짜와 함께
+> 기록한다([PLATFORM_AUDIT.md](./docs/PLATFORM_AUDIT.md) §6-2). 스키마 자체는 [DB_SCHEMA.md](./docs/DB_SCHEMA.md).
+
+<!-- db-stats:end -->

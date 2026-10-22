@@ -1,0 +1,21 @@
+{
+  "task": "T-0084",
+  "head": "17e23944431cfc0cb5031e889798c1489052fce7",
+  "decision": "REWORK",
+  "finding": "T0084-P1-1",
+  "scope": "Actual submitted functions, synthetic read-only SDK adapter. No DB/authenticated HTTP/browser claim.",
+  "unit": {
+    "passed": 14,
+    "failed": 3,
+    "skipped": 0,
+    "reused_owner_controls": 13,
+    "independent_empty_control_passed": 1,
+    "independent_missing_payload_failed": 3
+  },
+  "not_retested": [
+    "719-test owner suite",
+    "unchanged G2/SQL/MAP/PLAN code",
+    "owner browser harness6"
+  ],
+  "db_writes": 0
+}
