@@ -1,0 +1,332 @@
+{
+  "observed_at": "2026-10-22T07:30:10.798Z",
+  "main": "030006f6a7d9aa6b69fd35f9c348ba1f3edad6c0",
+  "origin_main": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e",
+  "basis": "Latest canonical local main, not auxiliary local/integration. Prior 33 UNKNOWN are classified individually; no 33 new tasks and no canon changes.",
+  "classification_counts": {
+    "외부 데이터 부족": 7,
+    "검증 증거 누락": 9,
+    "승인 대기": 4,
+    "현재 구현으로 해결 완료": 8,
+    "실제 기능 미구현": 3,
+    "오래된 정본 또는 브랜치 기준": 2
+  },
+  "rows": [
+    {
+      "goal_id": "VG-L0",
+      "criterion_id": "VG-L0-AC1",
+      "category": "외부 데이터 부족",
+      "assessment": "종합 효과·대상 일반화는 실제 외부 학습자 데이터가 없다. 코드/합성 성공으로 대체 불가.",
+      "evidence": "docs/implementation/learning-outcomes-20261021/FINAL-STATUS.md",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L1-A",
+      "criterion_id": "VG-L1-A-AC1",
+      "category": "외부 데이터 부족",
+      "assessment": "새 지문 확인/전이는 격리 증거가 있으나 실제 지연 유지·재평가 결과가 없다.",
+      "evidence": "T-0050,T-0052,T-0068; evidence-claims delayedRetention NOT_ESTABLISHED",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L1-B",
+      "criterion_id": "VG-L1-B-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "CSAT 대표 경로는 검증됐으나 모든 목적/대상의 실제 완주 증거로 일반화할 수 없다.",
+      "evidence": "T-0061,T-0070,T-0073,T-0083",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L1-C",
+      "criterion_id": "VG-L1-C-AC1",
+      "category": "승인 대기",
+      "assessment": "자격·계보 검사 구현과 실제 공개 승인/데이터를 분리한다. 현재 출시 행0.",
+      "evidence": "docs/final/APPROVAL_PACKAGE.md",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L1-D",
+      "criterion_id": "VG-L1-D-AC1",
+      "category": "현재 구현으로 해결 완료",
+      "assessment": "CSAT 현재 확인/숙달/실제효과·unknown 분리 구현은 수용. 플랫폼 전체 효과 완료는 아님.",
+      "evidence": "T-0074,T-0076,T-0082",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-A1",
+      "criterion_id": "VG-L2-A1-AC1",
+      "category": "현재 구현으로 해결 완료",
+      "assessment": "CSAT 목표·불확실성·수량·재확정 연결은 수용. 필요한 총기간/점수상승 수치를 새로 산정하지 않는다.",
+      "evidence": "T-0070,T-0072",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-A2",
+      "criterion_id": "VG-L2-A2-AC1",
+      "category": "실제 기능 미구현",
+      "assessment": "부분 공백: V1은 WordVault 학습 진입만 있고 TASK 독립 확인 도구는 준비 전. 전 영역 측정 계약을 CSAT 17세트와 동일시하지 않는다.",
+      "evidence": "T-0069; v62 VocabLearningCard",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-A3",
+      "criterion_id": "VG-L2-A3-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "다른 지문/미노출 독립 확인 순환은 격리 검증. 실제 승인 자료의 재평가와 실제 시간 지연은 미검증.",
+      "evidence": "T-0050,T-0052,T-0066,T-0068",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-B1",
+      "criterion_id": "VG-L2-B1-AC1",
+      "category": "오래된 정본 또는 브랜치 기준",
+      "assessment": "이 상위 기준은 일반 읽기·다른 모듈까지 포함한다. FINAL CSAT 지도와 임의1:1 대응은 UNMAPPED; 범위를 줄여 PASS하지 않는다.",
+      "evidence": "goals criteria VG-L2-B1; /csat vs /hub",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-B2",
+      "criterion_id": "VG-L2-B2-AC1",
+      "category": "현재 구현으로 해결 완료",
+      "assessment": "CSAT의 다음 행동·실패 복귀·노트·저장/제안 이력은 현재 구현으로 해결. 전체 플랫폼 단일 수용과 구분.",
+      "evidence": "T-0062,T-0071,T-0075,T-0077,T-0079~0081",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-C1",
+      "criterion_id": "VG-L2-C1-AC1",
+      "category": "승인 대기",
+      "assessment": "계보·revision 데이터 구조는 설치됐지만 실제 등록/출시 기록이 없다.",
+      "evidence": "migration20261021175340; DB counts0",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-C2",
+      "criterion_id": "VG-L2-C2-AC1",
+      "category": "외부 데이터 부족",
+      "assessment": "수요→주문·공급 상태 코드가 있으나 실제 이용률로 우선순위를 비교할 표본은 없다.",
+      "evidence": "factory-order-draft; content delivery0",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-D1",
+      "criterion_id": "VG-L2-D1-AC1",
+      "category": "실제 기능 미구현",
+      "assessment": "부분 실제 결함: 내부·unknown 집계 혼입이 남아 child D1-02 FAIL. 기존 리텐션 완료분은 재사용.",
+      "evidence": "T-0006 audit; T-0084 READY",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-D2",
+      "criterion_id": "VG-L2-D2-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "이전 공식 CI와 현재 로컬 범위 검증은 구분. 최신 묶음 공식 CI/배포 후 smoke가 없다.",
+      "evidence": "remote f573ef8e5 vs local030006f6a; DL-0004",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L2-D3",
+      "criterion_id": "VG-L2-D3-AC1",
+      "category": "외부 데이터 부족",
+      "assessment": "외부 학습자 사용성/교육효과 자료가 없다. AI 역할 실험과 실제 학습자는 분리.",
+      "evidence": "FINAL-STATUS; AI-TRIAL-RESULT",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-A1-01",
+      "criterion_id": "VG-L3-A1-01-AC1",
+      "category": "현재 구현으로 해결 완료",
+      "assessment": "목표 뒤 첫 과제·근거 부족·자료부족·목표변경 재계획이 CSAT에서 수용됐다.",
+      "evidence": "T-0070,T-0072,T-0073",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-A1-02",
+      "criterion_id": "VG-L3-A1-02-AC1",
+      "category": "현재 구현으로 해결 완료",
+      "assessment": "제외·연결불명·조회실패 기록을 확정근거/0으로 만들지 않는 변경 수용.",
+      "evidence": "T-0074,T-0076,T-0078",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-A2-01",
+      "criterion_id": "VG-L3-A2-01-AC1",
+      "category": "실제 기능 미구현",
+      "assessment": "부분 공백: V1 독립 확인 도구 미구현. 듣기/일반읽기 측정 전체와 R0는 기존 연구 계약을 확인해야 하며 CSAT17세트로 대체 불가.",
+      "evidence": "T-0069; 기존 연구 T-0025/T-0026 범위 보존",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-A2-02",
+      "criterion_id": "VG-L3-A2-02-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "독립 CSAT 화면은 있으나 정본 R0 일반읽기 완결과 게임/강의 비교의 전체 수용 근거는 이 범위에서 UNMAPPED.",
+      "evidence": "/csat/learn; existing R0 criteria",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-A3-01",
+      "criterion_id": "VG-L3-A3-01-AC1",
+      "category": "현재 구현으로 해결 완료",
+      "assessment": "서로 다른 passageGroup의 전이/새 확인 공급을 기존 격리 순환으로 검증. 실제 승인 공급은 별도 대기.",
+      "evidence": "T-0052,T-0066,T-0068",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-A3-02",
+      "criterion_id": "VG-L3-A3-02-AC1",
+      "category": "현재 구현으로 해결 완료",
+      "assessment": "현재 조건 통과·도움·시각·결속·불명확 상태와 이번 활동을 구분한 표시 수용.",
+      "evidence": "T-0062,T-0074,T-0076",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-B1-01",
+      "criterion_id": "VG-L3-B1-01-AC1",
+      "category": "오래된 정본 또는 브랜치 기준",
+      "assessment": "일반읽기/시험 분기 기준은 현CSAT 화면 요구보다 넓다. /hub·/text·/csat 진입 존재만으로 적절성 전체통과 금지.",
+      "evidence": "platform routes; A~H와 UNMAPPED 범위 유지",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-B1-02",
+      "criterion_id": "VG-L3-B1-02-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "WordVault 왕복에서 CSAT 원장 비변경은 검증했으나 모든 선택적 게임/강의/교실의 비간섭을 검증한 것은 아니다.",
+      "evidence": "T-0069 scoped control",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-B2-01",
+      "criterion_id": "VG-L3-B2-01-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "CSAT 시험/수행/목표/PLAN 이력 보존은 수용. 전 모듈 원척도 통합 탐색 증거는 부족.",
+      "evidence": "T-0050,T-0070,T-0077; learning_records",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-B2-02",
+      "criterion_id": "VG-L3-B2-02-AC1",
+      "category": "현재 구현으로 해결 완료",
+      "assessment": "오늘 할일·완료·다음 행동·실패 재연결·실제 이어갈TASK 복원 수용.",
+      "evidence": "T-0061,T-0073,T-0075,T-0079~0083",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-C1-01",
+      "criterion_id": "VG-L3-C1-01-AC1",
+      "category": "승인 대기",
+      "assessment": "실파일 revision/SHA manifest는 있으나 R0 공개 판정/실등록 행0.",
+      "evidence": "FINAL_CONTENT_DECISION_MANIFEST_20261022.json",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-C1-02",
+      "criterion_id": "VG-L3-C1-02-AC1",
+      "category": "승인 대기",
+      "assessment": "권한/자격 코드 검증과 정책 채택은 별개. 현재 설치된 AI 대체 분기에는 사람결정이 절대필수는 아니므로 B/C 완료라고 주장하지 않는다. 데이터쓰기 보류.",
+      "evidence": "supply_human_decisions_ok human OR AI OR source_policy",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-C2-01",
+      "criterion_id": "VG-L3-C2-01-AC1",
+      "category": "외부 데이터 부족",
+      "assessment": "수요/납품/주문·공장 연결은 구현. 실제 학습 수요/이용률 표본과 실납품 없음.",
+      "evidence": "factory-order-draft; FactoryDcpCard; delivery0",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-C2-02",
+      "criterion_id": "VG-L3-C2-02-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "3회차 플랫폼 진단의 유지/수요risk 결정은 존재하므로 미구현으로 단정하지 않는다. 기사/구문/만화별 정본 기준을 닫을 직접 매핑은 추가 확인 필요.",
+      "evidence": "docs/PLATFORM_AUDIT.md §7 2026-10-21",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-D1-01",
+      "criterion_id": "VG-L3-D1-01-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "요청키·CAS·append-only·동일시도 재결속 반례는 수용됐으나 모든 핵심 여정 이벤트의 중복0 전체 증거는 아니다.",
+      "evidence": "T-0075; request-key and delivery tests",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-D2-02",
+      "criterion_id": "VG-L3-D2-02-AC1",
+      "category": "검증 증거 누락",
+      "assessment": "기존 RLS/공급 격리 검증과 새 설치권한 검토는 있다. 현재 실제 auth경계·두연결·전체 접근성 종단 미검증.",
+      "evidence": "activation-verification.json; scoped Chromium not full app",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-D3-01",
+      "criterion_id": "VG-L3-D3-01-AC1",
+      "category": "외부 데이터 부족",
+      "assessment": "실제 외부 학습자의 수행/오류/이탈 관측 없음.",
+      "evidence": "no verified external learner cohort evidence",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    },
+    {
+      "goal_id": "VG-L3-D3-02",
+      "criterion_id": "VG-L3-D3-02-AC1",
+      "category": "외부 데이터 부족",
+      "assessment": "실제 기준선/후속/시간지연/전이 연구 미실시. SIMULATED_DELAY와 AI A/B는 대체근거가 아님.",
+      "evidence": "04-AI-TRIAL-RESULT.md; FINAL-STATUS.md",
+      "formal_status": "UNKNOWN",
+      "scope": "independent analysis; no automatic promotion to whole-goal PASS"
+    }
+  ],
+  "known_fail": {
+    "criterion": "VG-L3-D1-02-AC1",
+    "status": "FAIL",
+    "next_task": "T-0084",
+    "owner": "final-product"
+  },
+  "external": {
+    "criterion": "VG-L3-D2-01-AC1",
+    "status": "EXTERNAL_INPUT_REQUIRED",
+    "decision": "DL-0004"
+  },
+  "completion": {
+    "PRODUCT_CODE_COMPLETE": "PARTIAL",
+    "LOCAL_VALIDATION_COMPLETE": "SCOPED_VERIFIED_NOT_WHOLE_PRODUCT",
+    "REMOTE_INTEGRATION_COMPLETE": false,
+    "DEV_DB_E2E_VERIFIED": false,
+    "CONTENT_RELEASE_APPROVED": false,
+    "EDUCATIONAL_EFFECT_VALIDATED": false
+  }
+}

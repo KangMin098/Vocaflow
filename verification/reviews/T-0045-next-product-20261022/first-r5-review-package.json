@@ -1,0 +1,386 @@
+{
+  "schema": "final-first-r5-supply-review/1",
+  "observed_date_kst": "2026-10-22",
+  "source_main": "030006f6a7d9aa6b69fd35f9c348ba1f3edad6c0",
+  "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+  "absolute_file": "D:/workspace/Vocaflow-main-serving/apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+  "set_revision": "r5-central-meaning.v3",
+  "file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+  "task": "r.central_meaning",
+  "workspace": "ws.central-meaning",
+  "selection": "Existing primary v3 only, no content edits or supplement required for the first check→repair→transfer→fresh-recheck cycle.",
+  "counts": {
+    "core_items": 8,
+    "core_assessment": 6,
+    "core_instructional": 2,
+    "optional_delayed_items": 1
+  },
+  "items": [
+    {
+      "id": "r5-cm-teach-1",
+      "role": "model_explanation",
+      "review_pointer": "/items/0",
+      "body_pointer": "/items/0/body",
+      "gold_pointer": "/items/0/gold",
+      "body_js_canonical_sha256": "68dc5d1ed235452677d01eb49be550693b85c81f30093376b9764d9afda4e91c",
+      "gold_js_canonical_sha256": "d4d407199b4a89c8da07786a43e6dd2acc227d1a830dc64dcfdb01f917036198",
+      "human_gold_required": false,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit"
+      ],
+      "release_scopes": [
+        "public"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-t1",
+      "approval": {
+        "gold": "NOT_APPLICABLE_AS_ASSESSMENT_GOLD",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "model_explanation"
+    },
+    {
+      "id": "r5-cm-guided-1",
+      "role": "guided_practice",
+      "review_pointer": "/items/1",
+      "body_pointer": "/items/1/body",
+      "gold_pointer": "/items/1/gold",
+      "body_js_canonical_sha256": "370d823765c1716e937633d3654249795c42255ae5f59bf3390ca333e6178963",
+      "gold_js_canonical_sha256": "fd779eb465c83a3eb78f2fed06fe708e9e3ea5bb80315921f78acdd28ac92a18",
+      "human_gold_required": false,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit"
+      ],
+      "release_scopes": [
+        "public"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-p1",
+      "approval": {
+        "gold": "NOT_APPLICABLE_AS_ASSESSMENT_GOLD",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "guided_practice"
+    },
+    {
+      "id": "r5-cm-ind-1",
+      "role": "independent_check",
+      "review_pointer": "/items/3",
+      "body_pointer": "/items/3/body",
+      "gold_pointer": "/items/3/gold",
+      "body_js_canonical_sha256": "66a0e4c6776869b433673871302db05e24e17841225d13139d6cb279131eb8f3",
+      "gold_js_canonical_sha256": "ee52e461aec4926c657d30a2ecc5d44b205855a0280464d079b12164fac89946",
+      "human_gold_required": true,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit",
+        "assess"
+      ],
+      "release_scopes": [
+        "public",
+        "assessment"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-i1",
+      "approval": {
+        "gold": "PENDING",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "independent_check"
+    },
+    {
+      "id": "r5-cm-ind-2",
+      "role": "independent_check",
+      "review_pointer": "/items/4",
+      "body_pointer": "/items/4/body",
+      "gold_pointer": "/items/4/gold",
+      "body_js_canonical_sha256": "4c0bc5ffcbda9310620faf3049ed3ac0d02081bf466d7ae9777e22e950912227",
+      "gold_js_canonical_sha256": "548575cb5ad089792b5de6aa3f5a6bc6e4430cdc6f8cab84abbc1b8ed297bb87",
+      "human_gold_required": true,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit",
+        "assess"
+      ],
+      "release_scopes": [
+        "public",
+        "assessment"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-i2",
+      "approval": {
+        "gold": "PENDING",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "independent_check"
+    },
+    {
+      "id": "r5-cm-transfer-1",
+      "role": "transfer",
+      "review_pointer": "/items/5",
+      "body_pointer": "/items/5/body",
+      "gold_pointer": "/items/5/gold",
+      "body_js_canonical_sha256": "b19885df5942c5a6521754e9d87f8040ff204be84f87f6385ff79075beddb67c",
+      "gold_js_canonical_sha256": "1a0800018bc69ca3455343b1f7c4351dbd5eb46c8d9fa83569055aecdf2a8662",
+      "human_gold_required": true,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit",
+        "assess"
+      ],
+      "release_scopes": [
+        "public",
+        "assessment"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-x1",
+      "approval": {
+        "gold": "PENDING",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "transfer"
+    },
+    {
+      "id": "r5-cm-transfer-2",
+      "role": "transfer",
+      "review_pointer": "/items/6",
+      "body_pointer": "/items/6/body",
+      "gold_pointer": "/items/6/gold",
+      "body_js_canonical_sha256": "a57379d8818abedbbd97021b7a859eb0c8071f147122d1f23550cb8504eca599",
+      "gold_js_canonical_sha256": "83bc5d57a47751e48b17149409badc819eb727e3477591f76d0059467f0f3b6c",
+      "human_gold_required": true,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit",
+        "assess"
+      ],
+      "release_scopes": [
+        "public",
+        "assessment"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-x2",
+      "approval": {
+        "gold": "PENDING",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "transfer"
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "review_pointer": "/items/9",
+      "body_pointer": "/items/9/body",
+      "gold_pointer": "/items/9/gold",
+      "body_js_canonical_sha256": "c542bcb6cce123783711694baf5bd27f213c6271f87cd484fc6c4df255dca390",
+      "gold_js_canonical_sha256": "5a313b22ec511ea616e95b2d81152b9e9c94c22e5e9ee11ce84f90e7751cc593",
+      "human_gold_required": true,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit",
+        "assess"
+      ],
+      "release_scopes": [
+        "public",
+        "assessment"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-i3",
+      "approval": {
+        "gold": "PENDING",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "fresh_recheck"
+    },
+    {
+      "id": "r5-cm-ind-4",
+      "role": "independent_check",
+      "review_pointer": "/items/10",
+      "body_pointer": "/items/10/body",
+      "gold_pointer": "/items/10/gold",
+      "body_js_canonical_sha256": "40ad4c5e7d5d6a243912410279a4c048dce656c545093658e709b862936fb2fd",
+      "gold_js_canonical_sha256": "1964dbf57a9fed5c3ff1689e273c33f4601b86255215a38456b8b46f5d29d9f4",
+      "human_gold_required": true,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit",
+        "assess"
+      ],
+      "release_scopes": [
+        "public",
+        "assessment"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-i4",
+      "approval": {
+        "gold": "PENDING",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "fresh_recheck"
+    }
+  ],
+  "optional_delayed": [
+    {
+      "id": "r5-cm-delayed-1",
+      "role": "delayed_check",
+      "review_pointer": "/items/7",
+      "body_pointer": "/items/7/body",
+      "gold_pointer": "/items/7/gold",
+      "body_js_canonical_sha256": "d32a8abe60ddf231552a50397d054efe2ef768f889e863182d8555c9a120b666",
+      "gold_js_canonical_sha256": "710d9a7a564e895ea772a844af41714c44199d14885996970e35689011a5d378",
+      "human_gold_required": true,
+      "rights_operations": [
+        "store",
+        "display",
+        "transmit",
+        "assess"
+      ],
+      "release_scopes": [
+        "public",
+        "assessment"
+      ],
+      "db_registration": "NOT_RECORDED",
+      "human_gold_decision": "NOT_RECORDED",
+      "rights_decision": "NOT_RECORDED",
+      "release_decision": "NOT_RECORDED",
+      "passage_group": "r5cm-d1",
+      "approval": {
+        "gold": "PENDING",
+        "instructional_content_review": "PENDING",
+        "rights": "PENDING",
+        "release": "PENDING"
+      },
+      "stage": "delayed_check"
+    }
+  ],
+  "delayed_limit": "A delayed_check role is content metadata only. No simulated elapsed time or immediate retry establishes actual retention; scheduling/measurement policy and real delay remain unverified. This item is not required to call the eight-item short-cycle code path complete.",
+  "minimal_cycle": [
+    "two independent_check first attempts",
+    "failure → guided_practice wrong/retry/right; tutorial notes do not become independent evidence",
+    "two transfer items with distinct passage groups",
+    "two never-exposed independent_check items ind-3/ind-4",
+    "pass or new repair round; first attempts and historical PLAN preserved"
+  ],
+  "rights_operations": {
+    "instructional": [
+      "store",
+      "display",
+      "transmit"
+    ],
+    "assessment": [
+      "store",
+      "display",
+      "transmit",
+      "assess"
+    ]
+  },
+  "release_scopes": {
+    "instructional": [
+      "public"
+    ],
+    "assessment": [
+      "public",
+      "assessment"
+    ]
+  },
+  "ai_precheck": {
+    "set_file_matches_manifest": true,
+    "unique_passage_groups": 8,
+    "existing_cycle_test": "authored-flow.pglite.test.ts cycle T-0050 R5 uses these initial/fresh/guided/transfer IDs",
+    "content_gold_review": "Existing AI reviews are per item and revision; not blanket approval of this selection",
+    "human_review_claimed": false
+  },
+  "human_decisions_needed": [
+    "B: selected six assessment items at the current Gold hashes; optional delayed item separately if selected",
+    "C: rights basis and explicit operations for each selected item; original-declaration metadata is not a rights grant",
+    "Separate public/assessment release decisions for approved items only"
+  ],
+  "data_writes": "NOT_AUTHORIZED_BY_THIS_PACKAGE; no registration/decision/release/delivery/learner writes performed",
+  "approval_form": {
+    "reviewer": "",
+    "item_ids": [],
+    "file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+    "gold_decision": "PENDING",
+    "rights_decision": "PENDING",
+    "rights_basis": "",
+    "rights_operations": [],
+    "release_decision": "PENDING",
+    "release_scopes": [],
+    "approved_db_write_scope": "NONE"
+  },
+  "policy_observation": {
+    "at": "2026-10-22T07:26:37.070412Z",
+    "A": "APPLIED_VERIFIED",
+    "migration": "20261021175340",
+    "sql_sha256": "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d",
+    "actual_server_gate": "supply_human_decisions_ok = human OR authored AI decision with first-party declaration OR source_policy. Human decisions are NOT unconditionally required by installed code.",
+    "scope": "Installation record matches exact SQL; package/docs explicitly exclude content registration/release. Original interactive approval is attested by activation artifacts, not independently reproduced here. No approval to replace FINAL B/C is inferred.",
+    "status": "BLOCKED_EXTERNAL_CONTENT_DECISIONS_AND_POLICY_SCOPE",
+    "db_counts": {
+      "authored_item": 0,
+      "content_human_decision": 0,
+      "content_ai_decision": 0,
+      "content_qualification": 0,
+      "content_release_approval": 0,
+      "workspace_content_delivery": 0,
+      "workspace_delivery_attempt": 0,
+      "factory_dcp_attempt": 0
+    }
+  },
+  "not_complete": [
+    "actual eligible supply",
+    "authenticated developer-DB learning cycle",
+    "actual delayed retention",
+    "actual educational effect"
+  ]
+}

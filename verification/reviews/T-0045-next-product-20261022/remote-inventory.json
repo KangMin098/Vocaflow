@@ -1,0 +1,1443 @@
+{
+  "observed_at": "2026-10-22T07:30:10.654Z",
+  "main": "030006f6a7d9aa6b69fd35f9c348ba1f3edad6c0",
+  "origin_main": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e",
+  "remote_is_ancestor": true,
+  "ahead": 65,
+  "behind": 0,
+  "commits": [
+    {
+      "sha": "1c17a0a01584d86298e982087a683ebef38f80bd",
+      "subject": "feat(admin): connect stored demand to factory order drafts",
+      "parents": [
+        "c2af9ad71f906c661640a65ced3eb828368c449c"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/app/api/admin/csat/factory-order-draft/route.test.ts",
+        "apps/web/src/app/api/admin/csat/factory-order-draft/route.ts",
+        "apps/web/src/lib/admin/__tests__/factory-order-draft.fixture.ts",
+        "apps/web/src/lib/admin/__tests__/factory-order-draft.test.ts",
+        "apps/web/src/lib/admin/factory-order-draft.ts",
+        "docs/CHANGELOG.md",
+        "docs/ROUTES.md",
+        "docs/implementation/learning-outcomes-20261021/00-AUDIT-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/00-AUDIT-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/01-E2E-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/01A-CALLER-REPAIR-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/01A-CODEX-REVIEW.md",
+        "docs/implementation/learning-outcomes-20261021/01A-DEMAND-ORDER-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/01A-DEMAND-ORDER-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/AI-VALIDATION-ROLES.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/00-AUDIT-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/00-RECOVERY-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01-E2E-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01A-CALLER-REPAIR-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01A-DEMAND-ORDER-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/source-analysis.txt",
+        "scripts/textbook/__tests__/factory-order-draft.test.mjs",
+        "scripts/textbook/factory-order-draft.mjs"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "65e2613bfd79d7ec4f21fc297f43b0c8e2c80653",
+      "subject": "feat(factory): produce hash-bound local teaching candidates",
+      "parents": [
+        "1c17a0a01584d86298e982087a683ebef38f80bd"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/lib/__tests__/script-typecheck-coverage.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/local-production.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/local-production.ts",
+        "apps/web/tsconfig.scripts.json",
+        "docs/CHANGELOG.md",
+        "docs/implementation/learning-outcomes-20261021/01B-PRODUCTION-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/01B-PRODUCTION-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01B-PRODUCTION-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01B-ROLLBACK-REPAIR-CLAUDE.md",
+        "scripts/textbook/__tests__/factory-new-file.test.mjs",
+        "scripts/textbook/factory-order-draft.mjs",
+        "scripts/textbook/factory-production-local.mts"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "c78bf9bbd781b8b35906e3cbcbb6c603a1cb8019",
+      "subject": "feat(factory): connect reviewed DCP candidates to supply",
+      "parents": [
+        "65e2613bfd79d7ec4f21fc297f43b0c8e2c80653"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/app/api/admin/csat/dcp-admission/route.test.ts",
+        "apps/web/src/app/api/admin/csat/dcp-admission/route.ts",
+        "apps/web/src/lib/admin/__tests__/dcp-admission.test.ts",
+        "apps/web/src/lib/admin/dcp-admission.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-admission.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-fixture.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-recovery.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-supply.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/dcp-admission.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/dcp-supply.ts",
+        "docs/CHANGELOG.md",
+        "docs/DB_SCHEMA.md",
+        "docs/ROUTES.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/01C-SUPPLY-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/01C-SUPPLY-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01C-REPAIR-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01C-SOURCE-REPAIR-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01C-SUPPLY-CLAUDE.md",
+        "scripts/textbook/__tests__/factory-admission-preview.test.mjs",
+        "scripts/textbook/factory-order-draft.mjs",
+        "scripts/textbook/factory-production-local.mts",
+        "supabase/migrations/_pending_factory_dcp_admission.sql"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "eb7c92b8373a5a3eb897a7bd175c498c659de17d",
+      "subject": "feat(map): 목표 계획 요약에 지금 확인 범위 vs 도달 조건 구분 (T-0074)",
+      "parents": [
+        "c14b63e3ee49c124a090db02cffdc019647f9ec6"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+        "apps/web/src/components/csat/diagnosis/map/GoalRecordBar.tsx",
+        "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/criterion-scope.test.tsx",
+        "apps/web/src/components/csat/diagnosis/map/unified.module.css",
+        "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "1914edb8d24638fde95eb20cc6d66a1a2184784c",
+      "subject": "test(map): criterion-scope 픽스처 currentCheck 실제 값 passed + 현재 라벨 단언 (T-0074 P2)",
+      "parents": [
+        "eb7c92b8373a5a3eb897a7bd175c498c659de17d"
+      ],
+      "categories": [
+        "verification"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/__tests__/criterion-scope.test.tsx"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "215dee04dc0d4e879fabbd71060e21eff312b0c8",
+      "subject": "feat: connect delivered factory practice to learner attempts",
+      "parents": [
+        "c78bf9bbd781b8b35906e3cbcbb6c603a1cb8019"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/playwright-report-isolated/index.html",
+        "apps/web/scripts/build-factory-dcp-harness.mts",
+        "apps/web/src/app/(app)/csat/factory/[deliveryId]/page.tsx",
+        "apps/web/src/app/api/csat/factory/[deliveryId]/attempt/route.ts",
+        "apps/web/src/app/api/csat/factory/__tests__/factory-routes.test.ts",
+        "apps/web/src/app/api/csat/factory/route.ts",
+        "apps/web/src/components/csat/diagnosis/map/FactoryDcpCard.tsx",
+        "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+        "apps/web/src/components/csat/factory/FactoryDcpRunner.tsx",
+        "apps/web/src/components/csat/factory/__tests__/factory-dcp-runner.test.ts",
+        "apps/web/src/components/practice/DcpPlayer.tsx",
+        "apps/web/src/lib/analytics/__tests__/events.test.ts",
+        "apps/web/src/lib/analytics/events.ts",
+        "apps/web/src/lib/csat/map-return.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-learning.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-learning.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/dcp-learning.ts",
+        "apps/web/tests/e2e-isolated/factory-dcp-runner.isolated.spec.ts",
+        "docs/CHANGELOG.md",
+        "docs/DB_SCHEMA.md",
+        "docs/LEARNING_MODEL.md",
+        "docs/MODULES.md",
+        "docs/ROUTES.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/01D-LEARNER-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/01D-LEARNER-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01D-LEARNER-CLAUDE.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/01D-REPAIR-CLAUDE.md",
+        "supabase/migrations/_pending_factory_dcp_learning.sql"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "100c2b925ab013b261380183b7c49351e98c6e49",
+      "subject": "docs: specify AI review compatibility and exclude generated output",
+      "parents": [
+        "215dee04dc0d4e879fabbd71060e21eff312b0c8"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        ".gitignore",
+        "docs/implementation/learning-outcomes-20261021/02A-AI-REVIEW-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/02A-AI-REVIEW-CLAUDE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "023c8474dbb286a19039117634bc40aa515665ba",
+      "subject": "feat(authored): 풀이 저장 뒤 자료 연결 실패 복구 · 같은 수행 지도 복귀 (T-0075)",
+      "parents": [
+        "1914edb8d24638fde95eb20cc6d66a1a2184784c"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/app/api/csat/delivery/bind/__tests__/route.test.ts",
+        "apps/web/src/app/api/csat/delivery/bind/route.ts",
+        "apps/web/src/components/csat/authored/AuthoredRunner.tsx",
+        "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+        "apps/web/src/lib/csat/authored/__tests__/binding-feedback.test.ts",
+        "apps/web/src/lib/csat/authored/binding-feedback.ts",
+        "apps/web/src/lib/csat/authored/server.ts",
+        "apps/web/src/lib/csat/map/v62/delivery-binding.ts",
+        "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "e2918fd4b495cbdcb37568525d9b774665ef7726",
+      "subject": "feat: supply authored assessments through bound AI reviews",
+      "parents": [
+        "100c2b925ab013b261380183b7c49351e98c6e49"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/playwright-report-isolated/index.html",
+        "apps/web/src/app/api/admin/csat/authored-ai-review/route.ts",
+        "apps/web/src/lib/admin/__tests__/authored-ai-review.test.ts",
+        "apps/web/src/lib/admin/authored-ai-review.ts",
+        "apps/web/src/lib/csat/authored/__tests__/ai-review.pglite.test.ts",
+        "apps/web/src/lib/csat/authored/ai-review.ts",
+        "apps/web/src/lib/csat/authored/server.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-learning.pglite.test.ts",
+        "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+        "docs/CHANGELOG.md",
+        "docs/DB_SCHEMA.md",
+        "docs/LEARNING_MODEL.md",
+        "docs/MODULES.md",
+        "docs/ROUTES.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/02A-AI-REVIEW-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/authored-final-ai-review.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/authored-revision-structural-r2.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/claude-65b8975d/input.txt",
+        "docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/claude-65b8975d/result.txt",
+        "docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/claude-65b8975d/session.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/codex-f67f4b9a/input.txt",
+        "docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/codex-f67f4b9a/result.txt",
+        "docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/codex-f67f4b9a/session.json",
+        "supabase/migrations/_pending_authored_ai_review.sql"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "ca5f18d13437ed014c880d60c2386b877ffd22f7",
+      "subject": "docs: preserve AI trial evidence and specify teaching workflow",
+      "parents": [
+        "e2918fd4b495cbdcb37568525d9b774665ef7726"
+      ],
+      "categories": [
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/CHANGELOG.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/02B-TEACHING-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/04-AI-TRIAL-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/ai-trial-portable-evidence-receipt.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/ai-trial-portable-evidence.json",
+        "docs/implementation/learning-outcomes-20261021/prompts/02B-TEACHING-CLAUDE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "7cc5b08f868273f94c08d1fc0b85f738cba622c3",
+      "subject": "fix(authored): 다시 연결 중 새 시도 잠금 · 늦은 결속 응답 버림 (T-0075 P1-1)",
+      "parents": [
+        "023c8474dbb286a19039117634bc40aa515665ba"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/authored/AuthoredRunner.tsx",
+        "apps/web/src/lib/csat/authored/__tests__/binding-feedback.test.ts",
+        "apps/web/src/lib/csat/authored/binding-feedback.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "959961adcb41b8d0c592d44cf1ce0b834ea559ac",
+      "subject": "merge: accepted T0074 and T0075 local product bundle",
+      "parents": [
+        "bc57b8b3c239c0a222ac2b47b1c3cee57061cff0",
+        "7cc5b08f868273f94c08d1fc0b85f738cba622c3"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "4526aa4bad603b632d53d5823f1b151e1b838fef",
+      "subject": "merge: origin/main(PR #332 병합 커밋) 역동기화 — 파일 변경 없음",
+      "parents": [
+        "959961adcb41b8d0c592d44cf1ce0b834ea559ac",
+        "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "1f9804f12680df06a55c48a083cad504fe735c02",
+      "subject": "feat: persist source lesson reflection after guided practice",
+      "parents": [
+        "ca5f18d13437ed014c880d60c2386b877ffd22f7"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/scripts/build-factory-dcp-harness.mts",
+        "apps/web/src/app/(app)/csat/factory/[deliveryId]/page.tsx",
+        "apps/web/src/app/api/csat/factory/[deliveryId]/lesson/route.ts",
+        "apps/web/src/components/csat/authored/AuthoredRunner.tsx",
+        "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+        "apps/web/src/components/csat/diagnosis/map/FactoryDcpCard.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/factory-dcp-card.test.ts",
+        "apps/web/src/components/csat/factory/FactoryDcpRunner.tsx",
+        "apps/web/src/components/csat/factory/SourceLessonPanel.tsx",
+        "apps/web/src/components/csat/factory/__tests__/factory-dcp-runner.test.ts",
+        "apps/web/src/lib/analytics/__tests__/events.test.ts",
+        "apps/web/src/lib/analytics/events.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-learning.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/source-lesson.ts",
+        "apps/web/src/lib/knowledge/authored/source-lesson-title-route.v3.json",
+        "apps/web/tests/e2e-isolated/source-lesson.isolated.spec.ts",
+        "docs/CHANGELOG.md",
+        "docs/DB_SCHEMA.md",
+        "docs/LEARNING_MODEL.md",
+        "docs/MODULES.md",
+        "docs/ROUTES.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/02B-TEACHING-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/2b-teaching/claude-a4b83165/input.txt",
+        "docs/implementation/learning-outcomes-20261021/evidence/2b-teaching/claude-a4b83165/result.txt",
+        "docs/implementation/learning-outcomes-20261021/evidence/2b-teaching/claude-a4b83165/session.json",
+        "supabase/migrations/_pending_source_lesson_reflection.sql"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "9a35d70608d5af674947a16e308bf7eb18d74878",
+      "subject": "docs: specify canonical assessment and persisted replanning",
+      "parents": [
+        "1f9804f12680df06a55c48a083cad504fe735c02"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/implementation/learning-outcomes-20261021/02C-REASSESS-PLAN-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/02C-REASSESS-PLAN-CLAUDE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "f9c0368455bde1f24f675f4b2de5d5e249b873ce",
+      "subject": "feat(map): 근거 설명을 PLAN 바로잡기 · 창작 근거 키와 같은 판정으로 (T-0076)",
+      "parents": [
+        "7cc5b08f868273f94c08d1fc0b85f738cba622c3"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/evidence-claims-independent.test.tsx",
+        "apps/web/src/lib/csat/map/v4/__tests__/compose-authored-evidence.test.ts",
+        "apps/web/src/lib/csat/map/v4/compose.ts",
+        "apps/web/src/lib/csat/map/v62/evidence-claims.ts",
+        "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec",
+      "subject": "fix(map): 원장 못 읽으면 이번 판정 문항 수도 확인 보류 (T-0076 P1-1)",
+      "parents": [
+        "f9c0368455bde1f24f675f4b2de5d5e249b873ce"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/EvidenceClaims.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/evidence-claims-independent.test.tsx",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "6b32496be4eefdf12b1dc7d14292de983f381f1b",
+      "subject": "merge: accepted T0076 authored evidence projection",
+      "parents": [
+        "4526aa4bad603b632d53d5823f1b151e1b838fef",
+        "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "3cc1e78d4715fb997879c494afd7932218f1aaf5",
+      "subject": "feat: restore source reflections and verify persisted plan revisions",
+      "parents": [
+        "9a35d70608d5af674947a16e308bf7eb18d74878"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/scripts/build-factory-dcp-harness.mts",
+        "apps/web/src/app/(app)/csat/factory/[deliveryId]/page.tsx",
+        "apps/web/src/components/csat/factory/FactoryDcpRunner.tsx",
+        "apps/web/src/components/csat/factory/SourceLessonPanel.tsx",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/source-lesson.ts",
+        "apps/web/tests/e2e-isolated/source-lesson.isolated.spec.ts",
+        "docs/CHANGELOG.md",
+        "docs/LEARNING_MODEL.md",
+        "docs/MODULES.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/02C-REASSESS-PLAN-RESULT.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "1c6735cc5405618316071ceb108e6b4f61343cec",
+      "subject": "docs: require canonical source repair and full reassessment cycle",
+      "parents": [
+        "3cc1e78d4715fb997879c494afd7932218f1aaf5"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/implementation/learning-outcomes-20261021/02D-CANONICAL-CYCLE-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/02D-CANONICAL-CYCLE-CLAUDE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "0aa0631279bdd2cd123d38493027945cf1db76c9",
+      "subject": "feat(map): 계획 재확정 전후 단계 · 학습량 변화 설명 (T-0077)",
+      "parents": [
+        "b83ddb0c00ec8d306f51f4017f0b99cc4ed417ec"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/PlanChangeSummary.tsx",
+        "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/plan-change-summary.test.tsx",
+        "apps/web/src/lib/csat/map/v62/__tests__/plan-change.test.ts",
+        "apps/web/src/lib/csat/map/v62/plan-change.ts",
+        "apps/web/tests/e2e-isolated/goal-plan-version.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "d5f1d0775bb152a360aa8f86431c237df80b2936",
+      "subject": "merge: accepted T0077 plan change explanation",
+      "parents": [
+        "6b32496be4eefdf12b1dc7d14292de983f381f1b",
+        "0aa0631279bdd2cd123d38493027945cf1db76c9"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "f6876bd3bfcfa5d0075d49b4d063a8fb3ebdea52",
+      "subject": "fix(map): 수행 기록 조회 실패를 0건 재계획 대신 복구 상태로 (T-0078)",
+      "parents": [
+        "0aa0631279bdd2cd123d38493027945cf1db76c9"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/app/api/csat/authored/supply/route.test.ts",
+        "apps/web/src/app/api/csat/authored/supply/route.ts",
+        "apps/web/src/app/api/csat/diagnosis/map/plan/__tests__/evidence-read.test.ts",
+        "apps/web/src/app/api/csat/diagnosis/map/plan/route.ts",
+        "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+        "apps/web/src/components/csat/diagnosis/map/MapReadUnavailable.tsx",
+        "apps/web/src/components/csat/diagnosis/map/PlanSection.tsx",
+        "apps/web/src/components/csat/diagnosis/map/UnifiedLearningMap.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/map-read-unavailable.test.tsx",
+        "apps/web/src/lib/csat/map/__tests__/load-evidence-read.test.ts",
+        "apps/web/src/lib/csat/map/load.ts",
+        "apps/web/src/lib/csat/map/v4/__tests__/compose-authored-evidence.test.ts",
+        "apps/web/src/lib/csat/map/v4/__tests__/compose-evidence-read.test.ts",
+        "apps/web/src/lib/csat/map/v4/compose.ts",
+        "apps/web/src/lib/csat/map/v62/__tests__/evidence-read.test.ts",
+        "apps/web/src/lib/csat/map/v62/__tests__/plan-goal-binding.test.ts",
+        "apps/web/src/lib/csat/map/v62/evidence-read.ts",
+        "apps/web/tests/e2e-isolated/map-read-recovery.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "3acce9a79c58a36d8c5b2d2e5b3c797148b80c80",
+      "subject": "feat(csat): connect source repair to the canonical learning cycle",
+      "parents": [
+        "1c6735cc5405618316071ceb108e6b4f61343cec"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+        "apps/web/src/lib/csat/authored/__tests__/pglite-supabase.ts",
+        "apps/web/src/lib/csat/map/__tests__/source-repair-receipt.test.ts",
+        "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+        "apps/web/src/lib/csat/map/load.ts",
+        "apps/web/src/lib/csat/map/source-repair-receipt.ts",
+        "apps/web/src/lib/csat/map/v4/plan.ts",
+        "apps/web/src/lib/csat/map/v62/demand.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-fixture.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts",
+        "apps/web/src/lib/knowledge/__tests__/authored-items.test.ts",
+        "apps/web/src/lib/knowledge/authored/authored-items.ts",
+        "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+        "docs/CHANGELOG.md",
+        "docs/DB_SCHEMA.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/02D-CANONICAL-CYCLE-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/02E-CANONICAL-CYCLE-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/2d-cycle/cycle-live-v1-ai-evidence.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2d-cycle/cycle-live-v2-ai-evidence.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2d-cycle/cycle-live-v2-ai-results.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2d-cycle/cycle-supplement-ai-evidence.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2d-cycle/cycle-supplement-ai-review.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2d-cycle/source-history-counterexample-before.json",
+        "docs/implementation/learning-outcomes-20261021/prompts/02E-COMPLETE-CYCLE-CLAUDE.md",
+        "supabase/migrations/_pending_source_lesson_repair_receipt.sql"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "d7ac6f17b3ae1340abdcb5a7d2739ae5f09882c0",
+      "subject": "docs(csat): specify the product supply request boundary",
+      "parents": [
+        "3acce9a79c58a36d8c5b2d2e5b3c797148b80c80"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/implementation/learning-outcomes-20261021/02F-PRODUCT-SUPPLY-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/02F-PRODUCT-SUPPLY-CLAUDE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "d9beb9708f062f723159297ad9cbfbf3d4fcb892",
+      "subject": "fix(map): 납품 유효성 판정 없음을 비유효로 접지 않음 (T-0078 P1-1)",
+      "parents": [
+        "f6876bd3bfcfa5d0075d49b4d063a8fb3ebdea52"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/lib/csat/map/__tests__/load-evidence-read.test.ts",
+        "apps/web/src/lib/csat/map/load.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+      "subject": "merge: accepted T0078 evidence read recovery",
+      "parents": [
+        "d5f1d0775bb152a360aa8f86431c237df80b2936",
+        "d9beb9708f062f723159297ad9cbfbf3d4fcb892"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "c47f2c22b4efc84212c90038f552c5e18f4a6a83",
+      "subject": "feat(csat): request and receive approved factory practice",
+      "parents": [
+        "d7ac6f17b3ae1340abdcb5a7d2739ae5f09882c0"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        ".gitignore",
+        "apps/web/scripts/build-factory-card-harness.mts",
+        "apps/web/src/app/api/admin/csat/dcp-admission/route.test.ts",
+        "apps/web/src/app/api/admin/csat/dcp-admission/route.ts",
+        "apps/web/src/app/api/csat/factory/__tests__/factory-request.test.ts",
+        "apps/web/src/app/api/csat/factory/request/route.ts",
+        "apps/web/src/components/csat/diagnosis/map/FactoryDcpCard.tsx",
+        "apps/web/src/lib/admin/help/workflow.ts",
+        "apps/web/src/lib/analytics/__tests__/events.test.ts",
+        "apps/web/src/lib/analytics/events.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-learning.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/dcp-request.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/source-lesson.ts",
+        "apps/web/tests/e2e-isolated/factory-card-request.isolated.spec.ts",
+        "docs/ADMIN_CONSOLE.md",
+        "docs/CHANGELOG.md",
+        "docs/MODULES.md",
+        "docs/ROUTES.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/02F-PRODUCT-SUPPLY-RESULT.md",
+        "supabase/migrations/_pending_factory_dcp_learning.sql"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "3870a0ec79daa716ed1a47c6c8e49b244150f55f",
+      "subject": "chore(dev): align shared product-focused development workflow",
+      "parents": [
+        "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9"
+      ],
+      "categories": [
+        "workflow",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "AGENTS.md",
+        "CLAUDE.md",
+        "agents/policies/PR_AUTOMATION_POLICY.md",
+        "agents/policies/pr-automation.json",
+        "agents/router.md",
+        "docs/CHANGELOG.md",
+        "docs/WORKTREE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "6d32fd84cf1cb1ef57ba3fcf01aad748977d9d60",
+      "subject": "chore(dev): integrate focused development policy",
+      "parents": [
+        "cc93cfdc63b985d27dd0f5782c8f554d5911c7b9",
+        "3870a0ec79daa716ed1a47c6c8e49b244150f55f"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "5a3a506f7ea0e7d521899ccdc7123f06fd6ef19a",
+      "subject": "fix(learning): resolve ambiguous diagnostic feedback from AI trials",
+      "parents": [
+        "c47f2c22b4efc84212c90038f552c5e18f4a6a83"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/authored/AuthoredRunner.tsx",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts",
+        "apps/web/src/lib/knowledge/__tests__/authored-items.test.ts",
+        "apps/web/src/lib/knowledge/authored/authored-items.ts",
+        "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+        "docs/CHANGELOG.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/AI-VALIDATION-REVISION.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/2g-diagnostic/cycle-diagnostic-audit-evidence.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2g-diagnostic/cycle-live-v3-ai-evidence.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2g-diagnostic/cycle-live-v3-ai-results.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2g-diagnostic/cycle-supplement-v2-ai-evidence.json",
+        "docs/implementation/learning-outcomes-20261021/evidence/2g-diagnostic/cycle-supplement-v2-ai-review.json"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "f410eae82777c044df2a1315a4e5d127156710d1",
+      "subject": "docs(admin): specify the FAST worksheet workflow",
+      "parents": [
+        "5a3a506f7ea0e7d521899ccdc7123f06fd6ef19a"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/implementation/learning-outcomes-20261021/03-FAST-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/03-FAST-CLAUDE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "26a7be72ed932959fd6024b6aa547beb6e367f3f",
+      "subject": "feat(home): 홈 첫 제안을 직접 확인 근거 · 지도 읽기 상태와 연결 (T-0079)",
+      "parents": [
+        "d9beb9708f062f723159297ad9cbfbf3d4fcb892"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/app/(app)/csat/page.tsx",
+        "apps/web/src/components/csat/home/HomeLanding.tsx",
+        "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+        "apps/web/src/lib/csat/map/v62/__tests__/home-focus.test.ts",
+        "apps/web/src/lib/csat/map/v62/home-focus.ts",
+        "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "59839a4f0db15e2960d6a5a8f755218f03172810",
+      "subject": "merge: accepted T0079 home map evidence alignment",
+      "parents": [
+        "6d32fd84cf1cb1ef57ba3fcf01aad748977d9d60",
+        "26a7be72ed932959fd6024b6aa547beb6e367f3f"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "78cd5390dde8e4d23bf3f7ac4a9fec84d48ffbc2",
+      "subject": "docs(csat): specify exact-row reuse of existing factory practice",
+      "parents": [
+        "f410eae82777c044df2a1315a4e5d127156710d1"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/implementation/learning-outcomes-20261021/04-EXISTING-DCP-REUSE-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/prompts/04-EXISTING-DCP-REUSE-CLAUDE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "e355869eae9ae61943f2deb48a4218905c6b5fa1",
+      "subject": "fix(home): 확인 이어하기 링크가 지도 TASK · 묶음을 복원 (T-0080)",
+      "parents": [
+        "26a7be72ed932959fd6024b6aa547beb6e367f3f"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/home/HomeLanding.tsx",
+        "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+        "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "824618f2bdc02678a08d49ccc6e8bafdf8603fb5",
+      "subject": "merge: accepted T0080 home check task context",
+      "parents": [
+        "59839a4f0db15e2960d6a5a8f755218f03172810",
+        "e355869eae9ae61943f2deb48a4218905c6b5fa1"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "39051223d85e80188a22307bdc9939aeeb4ac7eb",
+      "subject": "fix(home): 저장 계획 이어보기가 실제 미완료 TASK · 묶음으로 (T-0081)",
+      "parents": [
+        "e355869eae9ae61943f2deb48a4218905c6b5fa1"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/home/HomeLanding.tsx",
+        "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+        "apps/web/src/lib/csat/map/__tests__/home-progress.test.ts",
+        "apps/web/src/lib/csat/map/home-progress.ts",
+        "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "6add6f1553e6f8bc69b5360e4759499c59037fb4",
+      "subject": "feat(admin): ship the FAST worksheet edit and review workflow",
+      "parents": [
+        "f410eae82777c044df2a1315a4e5d127156710d1"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        ".gitignore",
+        "apps/web/scripts/build-factory-card-harness.mts",
+        "apps/web/scripts/build-factory-dcp-harness.mts",
+        "apps/web/scripts/build-fast-worksheet-harness.mts",
+        "apps/web/scripts/fast-worksheet-harness-eval.mts",
+        "apps/web/scripts/harness-esbuild-types.ts",
+        "apps/web/src/app/admin/csat/new/OrderWizard.tsx",
+        "apps/web/src/app/admin/csat/new/fast/FastWorksheet.tsx",
+        "apps/web/src/app/admin/csat/new/fast/page.tsx",
+        "apps/web/src/app/api/admin/csat/fast-worksheet/route.test.ts",
+        "apps/web/src/app/api/admin/csat/fast-worksheet/route.ts",
+        "apps/web/src/lib/admin/help/csat.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/fast-worksheet-cli.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/fast-worksheet.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/fast-worksheet.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/local-production.ts",
+        "apps/web/tests/e2e-isolated/fast-worksheet.isolated.spec.ts",
+        "apps/web/tsconfig.scripts.json",
+        "docs/ADMIN_CONSOLE.md",
+        "docs/CHANGELOG.md",
+        "docs/MODULES.md",
+        "docs/ROUTES.md",
+        "docs/implementation/learning-outcomes-20261021/03-FAST-RESULT.md",
+        "scripts/textbook/fast-worksheet.mts"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "99b35bb015577796d363cf490477ed5e89c07ddf",
+      "subject": "fix(home): 계획 이어보기 행 선택을 중심 집계와 분리 (T-0081 P1-1)",
+      "parents": [
+        "39051223d85e80188a22307bdc9939aeeb4ac7eb"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/home/HomeLanding.tsx",
+        "apps/web/src/components/csat/home/__tests__/HomeLanding.render.test.tsx",
+        "apps/web/src/lib/csat/map/__tests__/home-progress.test.ts",
+        "apps/web/src/lib/csat/map/home-progress.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "c695198bd27742f7d60e506d010d10d3158249dd",
+      "subject": "merge: accepted T0081 saved plan task resume",
+      "parents": [
+        "824618f2bdc02678a08d49ccc6e8bafdf8603fb5",
+        "99b35bb015577796d363cf490477ed5e89c07ddf"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "865c1fdb15ef5cd1789e2eb691bbeab281403124",
+      "subject": "docs(audit): 3회차 정기 플랫폼 진단 기록 (2026-10-21)",
+      "parents": [
+        "c695198bd27742f7d60e506d010d10d3158249dd"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/CHANGELOG.md",
+        "docs/PLATFORM_AUDIT.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "dedaa1e93eb8a005f5aba148032572931dd046cd",
+      "subject": "feat(csat): reuse reviewed DCP rows with exact binding",
+      "parents": [
+        "78cd5390dde8e4d23bf3f7ac4a9fec84d48ffbc2"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/app/api/admin/csat/dcp-admission/route.test.ts",
+        "apps/web/src/app/api/admin/csat/dcp-admission/route.ts",
+        "apps/web/src/lib/admin/dcp-admission.ts",
+        "apps/web/src/lib/admin/help/workflow.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/dcp-reuse.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/fixtures/existing-dcp-observed-20261021.json",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/rationale-correction.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/dcp-reuse.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/dcp-supply.ts",
+        "apps/web/tsconfig.scripts.json",
+        "docs/ADMIN_CONSOLE.md",
+        "docs/CHANGELOG.md",
+        "docs/DB_SCHEMA.md",
+        "docs/implementation/learning-outcomes-20261021/04-EXISTING-DCP-REUSE-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/4-reuse/proposed-reuse-evidence.json",
+        "scripts/textbook/factory-dcp-reuse.mts",
+        "supabase/deploy/learning-outcomes-20261021/rationale-correction-rollback.sql",
+        "supabase/deploy/learning-outcomes-20261021/rationale-correction.sql",
+        "supabase/migrations/_pending_factory_dcp_admission.sql"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "649958b79a556dfd176af8d22f4ba53b3536c7dd",
+      "subject": "merge: integrate reviewed DCP reuse into learning outcomes",
+      "parents": [
+        "6add6f1553e6f8bc69b5360e4759499c59037fb4",
+        "dedaa1e93eb8a005f5aba148032572931dd046cd"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "abd82d474c463b88efe5d068e972876b2e6a9b6e",
+      "subject": "merge: refresh learning outcomes against current local main",
+      "parents": [
+        "649958b79a556dfd176af8d22f4ba53b3536c7dd",
+        "865c1fdb15ef5cd1789e2eb691bbeab281403124"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "ad22826906b554a76bce054b5309ec24929a44fe",
+      "subject": "docs(final): 승인 패키지 실파일 수량 · 해시 정합 (FINAL-MISSION D/G)",
+      "parents": [
+        "99b35bb015577796d363cf490477ed5e89c07ddf"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/final/APPROVAL_PACKAGE.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "f8a1de9a475e7d12f86a006f6fb0caefa26975a8",
+      "subject": "docs: integrate current authored approval package",
+      "parents": [
+        "865c1fdb15ef5cd1789e2eb691bbeab281403124",
+        "ad22826906b554a76bce054b5309ec24929a44fe"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "0dd0281d831908e435454cdb470ed0c207a378c7",
+      "subject": "feat(map): 지금 확인 통과 · 유지 확인 미정 상태를 다음 학습과 구분 (T-0082)",
+      "parents": [
+        "ad22826906b554a76bce054b5309ec24929a44fe"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/GoalPlanSummary.tsx",
+        "apps/web/src/components/csat/diagnosis/map/TaskInspector.tsx",
+        "apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/maintenance-state.test.tsx",
+        "apps/web/src/lib/csat/map/v62/__tests__/maintenance-state.test.ts",
+        "apps/web/src/lib/csat/map/v62/maintenance-state.ts",
+        "apps/web/src/lib/csat/map/v62/next-action.ts",
+        "apps/web/src/lib/csat/map/v62/rank.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "5402e12dac1698d84cb5c2db98534e550c283e27",
+      "subject": "docs(learning): preserve AI evidence and prepare DB approval",
+      "parents": [
+        "abd82d474c463b88efe5d068e972876b2e6a9b6e"
+      ],
+      "categories": [
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/03-FAST-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/05-DB-ACTIVATION-APPROVAL.md",
+        "docs/implementation/learning-outcomes-20261021/SESSION-INDEX.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/3-fast/fast-actual-evidence.json",
+        "supabase/deploy/learning-outcomes-20261021/baseline.READ-ONLY.json",
+        "supabase/deploy/learning-outcomes-20261021/learning-outcomes-review.sql",
+        "supabase/deploy/learning-outcomes-20261021/manifest.json"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "43674c4784d84995cc962cd3223d4da5f60cea28",
+      "subject": "merge: preserve latest local main approval documentation",
+      "parents": [
+        "5402e12dac1698d84cb5c2db98534e550c283e27",
+        "f8a1de9a475e7d12f86a006f6fb0caefa26975a8"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "b7dce9631e6350ee240736b93d78565e82016829",
+      "subject": "docs(learning): record complete combined validation",
+      "parents": [
+        "43674c4784d84995cc962cd3223d4da5f60cea28"
+      ],
+      "categories": [
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/CHANGELOG.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/04-EXISTING-DCP-REUSE-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/FINAL-STATUS.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/final/combined-verification.json"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "503a4777eb63fdf953253cf6bbf05ff97787457f",
+      "subject": "merge: integrate verified learning outcomes and FAST",
+      "parents": [
+        "f8a1de9a475e7d12f86a006f6fb0caefa26975a8",
+        "b7dce9631e6350ee240736b93d78565e82016829"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235",
+      "subject": "fix(map): Workspace 목록 행도 유지 상태에서 다음 링크를 내밀지 않음 (T-0082 P1-1)",
+      "parents": [
+        "0dd0281d831908e435454cdb470ed0c207a378c7"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/WorkspaceList.tsx",
+        "apps/web/src/lib/csat/map/v62/__tests__/maintenance-state.test.ts",
+        "apps/web/src/lib/csat/map/v62/workspace-list.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "f3fbcabeb64403a824710504a0ab77ddbc6974d6",
+      "subject": "merge: accepted T0082 current pass maintenance state",
+      "parents": [
+        "503a4777eb63fdf953253cf6bbf05ff97787457f",
+        "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "9ce04cb2e2ceb8e9dc67ad7098ba2f4c7bd6d8c6",
+      "subject": "fix(csat): discard stale activity context on factory return",
+      "parents": [
+        "f3fbcabeb64403a824710504a0ab77ddbc6974d6"
+      ],
+      "categories": [
+        "product_code",
+        "verification"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/app/(app)/csat/factory/[deliveryId]/page.tsx",
+        "apps/web/src/app/__tests__/factory-map-return.test.tsx"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "d87f6b8bf1eb5ed75b49d5097f10b2bd94cdba80",
+      "subject": "docs: clarify unadopted AI supply policy and approval scope",
+      "parents": [
+        "9ce04cb2e2ceb8e9dc67ad7098ba2f4c7bd6d8c6"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/implementation/learning-outcomes-20261021/02A-AI-REVIEW-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/05-DB-ACTIVATION-APPROVAL.md",
+        "docs/implementation/learning-outcomes-20261021/FINAL-STATUS.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "389efbee24a59724701573e7be24339400ff2985",
+      "subject": "merge: preserve current approval-scope documentation",
+      "parents": [
+        "b7dce9631e6350ee240736b93d78565e82016829",
+        "d87f6b8bf1eb5ed75b49d5097f10b2bd94cdba80"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "c36d0e5f6b5bbc5241fcab1d96e392ecbedcfda8",
+      "subject": "docs(db): refresh measured statistics after approved activation",
+      "parents": [
+        "d87f6b8bf1eb5ed75b49d5097f10b2bd94cdba80"
+      ],
+      "categories": [
+        "workflow"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "AGENTS.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "6c6350af0e16c94990eda84a821f50106f82c107",
+      "subject": "merge: include measured main database statistics",
+      "parents": [
+        "389efbee24a59724701573e7be24339400ff2985",
+        "c36d0e5f6b5bbc5241fcab1d96e392ecbedcfda8"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "d4c8759f6bb13540a877f234737c20b6eedf2364",
+      "subject": "feat(db): record approved learning outcomes activation",
+      "parents": [
+        "6c6350af0e16c94990eda84a821f50106f82c107"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "database_or_deployment_artifact",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/lib/admin/help/workflow.ts",
+        "apps/web/src/lib/csat/map/v62/factory-bridge/__tests__/approved-activation.pglite.test.ts",
+        "docs/ADMIN_CONSOLE.md",
+        "docs/CHANGELOG.md",
+        "docs/DB_SCHEMA.md",
+        "docs/final/APPROVAL_PACKAGE.md",
+        "docs/final/FINAL_LEDGER.md",
+        "docs/implementation/learning-outcomes-20261021/00-ROADMAP.md",
+        "docs/implementation/learning-outcomes-20261021/02A-AI-REVIEW-SPEC.md",
+        "docs/implementation/learning-outcomes-20261021/05-DB-ACTIVATION-APPROVAL.md",
+        "docs/implementation/learning-outcomes-20261021/06-DB-ACTIVATION-RESULT.md",
+        "docs/implementation/learning-outcomes-20261021/FINAL-STATUS.md",
+        "docs/implementation/learning-outcomes-20261021/evidence/activation-20261022/activation-verification.json",
+        "supabase/ci/known-migration-failures.txt",
+        "supabase/migrations/20261021175340_learning_outcomes_ai_factory_activation_approved_20261022.sql"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "676ab71078cab0e4cd67fbd5b909022925566070",
+      "subject": "merge: integrate approved DB activation evidence",
+      "parents": [
+        "c36d0e5f6b5bbc5241fcab1d96e392ecbedcfda8",
+        "d4c8759f6bb13540a877f234737c20b6eedf2364"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    },
+    {
+      "sha": "18129b11bda032afa2b066d0a3d6b19689af810e",
+      "subject": "docs: refresh exact-revision final content approval package",
+      "parents": [
+        "676ab71078cab0e4cd67fbd5b909022925566070"
+      ],
+      "categories": [
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "docs/final/APPROVAL_PACKAGE.md",
+        "docs/final/review/FINAL_CONTENT_DECISION_MANIFEST_20261022.json"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "e5ff5d165e4b719cbce8a2cb94cfc07180cdcb20",
+      "subject": "feat(map): 수식 관계 교수 자료를 긴 문장 Workspace 학습 전용 진입으로 (T-0083)",
+      "parents": [
+        "1140b654b5c3942a2a5adc7b2f7a497e4e2d0235"
+      ],
+      "categories": [
+        "product_code",
+        "verification",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/app/api/csat/authored/supply/route.test.ts",
+        "apps/web/src/app/api/csat/authored/supply/route.ts",
+        "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+        "apps/web/src/components/csat/diagnosis/map/WorkspaceModal.tsx",
+        "apps/web/src/components/csat/diagnosis/map/__tests__/instructional-supplement.test.tsx",
+        "apps/web/src/lib/csat/authored/__tests__/authored-flow.pglite.test.ts",
+        "apps/web/src/lib/csat/map/v62/__tests__/instructional-supplement.test.ts",
+        "apps/web/src/lib/csat/map/v62/demand.ts",
+        "apps/web/src/lib/csat/map/v62/instructional-supplement.ts",
+        "apps/web/tests/e2e-isolated/attachment-instructional.isolated.spec.ts",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "e7679345e2bc2a533b2c6862c37eebf2b228d9ff",
+      "subject": "fix(map): 학습 전용 카드 목록 · 노트에서 평가 역할 행 제외 (T-0083 P1-1)",
+      "parents": [
+        "e5ff5d165e4b719cbce8a2cb94cfc07180cdcb20"
+      ],
+      "categories": [
+        "product_code",
+        "documentation"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [
+        "apps/web/src/components/csat/diagnosis/map/AuthoredSupplyCard.tsx",
+        "docs/final/FINAL_LEDGER.md"
+      ],
+      "validation": "reuse exact-scope evidence where available; final protected CI for final bundle remains required"
+    },
+    {
+      "sha": "030006f6a7d9aa6b69fd35f9c348ba1f3edad6c0",
+      "subject": "merge: integrate accepted T0083 instructional attachment entry",
+      "parents": [
+        "18129b11bda032afa2b066d0a3d6b19689af810e",
+        "e7679345e2bc2a533b2c6862c37eebf2b228d9ff"
+      ],
+      "categories": [
+        "integration_merge"
+      ],
+      "patch_equivalent_in_remote": false,
+      "files": [],
+      "validation": "integration receipt; verify tree scope, not a separate product feature"
+    }
+  ],
+  "patch_equivalent_count": 0,
+  "uncommitted_files": [
+    "M DESIGN.md",
+    " M apps/web/src/app/globals.css",
+    " M apps/web/src/components/csat/browse/item-finder.module.css",
+    " M apps/web/src/components/csat/diagnosis/map/map.module.css",
+    " M apps/web/src/components/csat/diagnosis/map/needs.module.css",
+    " M apps/web/src/components/csat/diagnosis/map/popup.module.css",
+    " M apps/web/src/components/csat/diagnosis/map/unified.module.css",
+    " M apps/web/src/components/csat/home/home-landing.module.css",
+    " M apps/web/src/components/csat/space/space.module.css",
+    " M apps/web/src/components/csat/theater/theater.module.css",
+    " M docs/CHANGELOG.md",
+    " M docs/DESIGN_SYSTEM.md",
+    " M docs/design/refs/3b/access-map/popup-patterns.md",
+    " M packages/design-tokens/package.json",
+    "?? apps/web/src/app/(app)/csat/layout.tsx",
+    "?? packages/design-tokens/src/skins/csat-app.css"
+  ],
+  "remote_integration_complete": false,
+  "next": "Existing daily main-sync only after its current scope/HEAD/CI/safe-merge checks. Preserve other-owner dirty edits. No push or merge performed by this analysis."
+}

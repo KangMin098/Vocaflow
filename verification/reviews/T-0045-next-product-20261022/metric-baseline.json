@@ -1,0 +1,28 @@
+{
+  "head": "030006f6a7d9aa6b69fd35f9c348ba1f3edad6c0",
+  "kind": "independent actual dashboard function with synthetic read-only query adapter; not actual DB",
+  "counterexample": {
+    "cohort": "one verified external, one internal/admin, one unclassified reserved-domain account",
+    "expected": {
+      "total": 1,
+      "activeToday": 1
+    },
+    "actual": {
+      "total": 3,
+      "activeToday": 3
+    },
+    "reproduced": true
+  },
+  "normal_control": {
+    "expected": {
+      "total": 1,
+      "activeToday": 1
+    },
+    "actual": {
+      "total": 1,
+      "activeToday": 1
+    },
+    "pass": true
+  },
+  "db_writes": 0
+}
