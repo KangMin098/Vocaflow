@@ -10,7 +10,7 @@ import { requireAdmin } from '@/lib/auth/require-admin'
 import { STATUS_LABEL } from '@/lib/knowledge/labels'
 import { listItems } from '@/lib/knowledge/server'
 import { APP_STATUSES, APP_STATUS_LABEL, APP_SURFACE_LABEL, TRIAL_RESULT_LABEL, TRIAL_STATUS_LABEL } from '@/lib/knowledge/vnext-labels'
-import { trialEvidenceCounts, trialOriginLabel } from '@/lib/knowledge/vnext-rules'
+import { trialEvidenceCounts, trialOriginLabel, trialResultText } from '@/lib/knowledge/vnext-rules'
 import { listApplications } from '@/lib/knowledge/vnext-server'
 
 export const dynamic = 'force-dynamic'
@@ -70,7 +70,7 @@ export default async function KnowledgeProductPage() {
                       </p>
                       <p className="text-xs text-[var(--t2)]">
                         학습 결과: 수행 기록 비합성 표시 {a.attempts.real} · 합성 {a.attempts.synthetic} · 검증 {a.trials.length}(비합성 표시 {nonSynthetic} · 현재 분석 {tc.current} · 재계산 필요 {tc.stale})
-                        {a.trials.map((t) => ` · ${trialOriginLabel(t)} ${TRIAL_STATUS_LABEL[t.status]}${t.reviewRequiredAt ? ' 재계산 필요' : t.result ? ` ${TRIAL_RESULT_LABEL[t.result]}` : ''}`).join('')}
+                        {a.trials.map((t) => ` · ${trialOriginLabel(t)} ${TRIAL_STATUS_LABEL[t.status]}${((r) => (r ? ` ${r}` : ''))(trialResultText(t, (r) => TRIAL_RESULT_LABEL[r as keyof typeof TRIAL_RESULT_LABEL] ?? r))}`).join('')}
                         {a.statusReason && ` · 사유: ${a.statusReason}`}
                       </p>
                       <ApplicationStatusForm id={a.id} from={a.status} />

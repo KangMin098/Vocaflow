@@ -2,7 +2,7 @@
 // T-0085 — 효과 검증 표시: 현재 분석 · 재계산 필요 · 합성 · 비합성 표시 · 확인 불가와 효과 입증을 구분한다(DB 없음)
 import { describe, expect, it } from 'vitest'
 
-import { opsSummary, TRIAL_EVIDENCE_LABEL, trialEvidenceCounts, trialEvidenceState, type TrialEvidenceInput } from '../vnext-rules'
+import { opsSummary, TRIAL_EVIDENCE_LABEL, trialEvidenceCounts, trialEvidenceState, trialResultText, type TrialEvidenceInput } from '../vnext-rules'
 
 const app = (trials: TrialEvidenceInput[], status: 'active' | 'draft' = 'active') => ({ id: 'a', itemId: 'i', status, surfaceRef: 'fixture', statusReason: null, trials })
 const verification = (trials: TrialEvidenceInput[]) =>
@@ -64,5 +64,29 @@ describe('opsSummary 효과 검증 단계', () => {
     expect(q.some((e) => e.title.includes('재계산 필요한 분석 — fixture'))).toBe(true)
     const q2 = opsSummary({ items: [], evidence: [], inquiries: [], applications: [app([{ status: 'analyzed', synthetic: null, reviewRequiredAt: null }])], openGaps: 0 }).queue
     expect(q2.some((e) => e.title.includes('비합성 검증 계획 없는 적용'))).toBe(true)
+  })
+})
+
+describe('trialResultText — 원시 result 는 current 일 때만 일반 결과(P1-1)', () => {
+  const L = (r: string) => `결과:${r}`
+  it('current + supported = 일반 결과', () => {
+    expect(trialResultText({ status: 'analyzed', synthetic: false, reviewRequiredAt: null, result: 'supported' }, L)).toBe('결과:supported')
+  })
+  it('합성 · 확인 불가 · 재계산 필요의 supported 는 효과 지지로 보이지 않는다', () => {
+    const texts = [
+      trialResultText({ status: 'analyzed', synthetic: true, reviewRequiredAt: null, result: 'supported' }, L),
+      trialResultText({ status: 'analyzed', synthetic: null, reviewRequiredAt: null, result: 'supported' }, L),
+      trialResultText({ status: 'analyzed', synthetic: false, result: 'supported' }, L),
+      trialResultText({ status: 'analyzed', synthetic: false, reviewRequiredAt: '2026-10-22T00:00:00Z', result: 'supported' }, L),
+    ]
+    expect(texts.some((t) => t.includes('supported'))).toBe(false)
+    expect(texts[0]).toContain('효과 근거 아님')
+    expect(texts[1]).toContain('결과를 근거로 쓰지 않음')
+    expect(texts[3]).toContain('재계산 필요')
+  })
+  it('계획 · 진행 = 덧붙임 없음 · 알 수 없는 상태값 = 확인 불가(pending 으로 보지 않음)', () => {
+    expect(trialResultText({ status: 'planned', synthetic: false, reviewRequiredAt: null, result: null }, L)).toBe('')
+    expect(trialEvidenceState({ status: 'weird', synthetic: false, reviewRequiredAt: null })).toBe('unknown')
+    expect(trialResultText({ status: 'weird', synthetic: false, reviewRequiredAt: null, result: 'supported' }, L)).toContain('확인 불가')
   })
 })

@@ -14,7 +14,7 @@ import { resolveChain } from '@/lib/knowledge/live-chain'
 import { currentItemTask } from '@/lib/knowledge/item-tasks'
 import { itemTaskRef, loadChainGraph, loadLiveApplication, parseItemTaskRef } from '@/lib/knowledge/product-server'
 import { APP_STATUS_LABEL, APP_SURFACE_LABEL, EVIDENCE_LEVEL_LABEL, TRIAL_STATUS_LABEL, type AppStatus, type AppSurface, type TrialStatus } from '@/lib/knowledge/vnext-labels'
-import { trialOriginLabel } from '@/lib/knowledge/vnext-rules'
+import { trialOriginLabel, trialResultText } from '@/lib/knowledge/vnext-rules'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const dynamic = 'force-dynamic'
@@ -108,7 +108,7 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
           <h3 className="font-semibold text-[var(--t1)]">효과 검증</h3>
           {tr.map((t) => {
             const d = (t.design ?? {}) as Row
-            return <p key={String(t.id)} className="mt-1">{trialOriginLabel({ synthetic: typeof t.synthetic === 'boolean' ? t.synthetic : null })} · {TRIAL_STATUS_LABEL[t.status as TrialStatus]} · 최소 표본 {String(d.min_n ?? '—')} · 지연 {d.delayed_days ? `${String(d.delayed_days)}일` : '없음'} · 전이 {d.transfer ? '있음' : '없음'}{t.review_required_at ? ' · 재계산 필요(결과를 근거로 쓰지 않음)' : t.result ? ` · 결과 ${String(t.result)}` : ''}</p>
+            return <p key={String(t.id)} className="mt-1">{trialOriginLabel({ synthetic: typeof t.synthetic === 'boolean' ? t.synthetic : null })} · {TRIAL_STATUS_LABEL[t.status as TrialStatus]} · 최소 표본 {String(d.min_n ?? '—')} · 지연 {d.delayed_days ? `${String(d.delayed_days)}일` : '없음'} · 전이 {d.transfer ? '있음' : '없음'}{((r) => (r ? ` · ${r}` : ''))(trialResultText({ status: t.status as string, synthetic: typeof t.synthetic === 'boolean' ? t.synthetic : null, reviewRequiredAt: t.review_required_at === undefined ? undefined : ((t.review_required_at as string | null) ?? null), result: t.result == null ? null : String(t.result) }, (r) => `결과 ${r}`))}</p>
           })}
           <p className="mt-1" data-testid="trace-efficacy">효과 판정: {task?.efficacy === 'not_assessed' ? '미확정 — 분석 완료된 실제 학습자 검증이 없다' : String(task?.efficacy)}</p>
         </li>

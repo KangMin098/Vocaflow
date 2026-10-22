@@ -4,7 +4,7 @@
 // 정본 docs/methodology/VNEXT_ARCHITECTURE.md §1–§5.
 import type { ItemStatus, Layer } from './labels'
 import {
-  APP_TRANSITIONS, KIND_ORDER, STRONG_LEVELS, isResearchDesign, kindFitsLayer,
+  APP_TRANSITIONS, KIND_ORDER, STRONG_LEVELS, TRIAL_STATUSES, isResearchDesign, kindFitsLayer,
   type AppStatus, type Applicability, type EvidenceLevel, type InquiryStatus, type Kind, type TrialStatus,
 } from './vnext-labels'
 
@@ -23,7 +23,7 @@ export interface OpsApplication { id: string; itemId: string; status: AppStatus;
  *   unknown   synthetic · reviewRequiredAt 가 명시 값이 아니다(누락 · null 합성 표지 · 잘못된 값) — 합성도 실제 0 도 추정하지 않는다
  * 「비합성」은 trial 메타 표시일 뿐이다 — 계정 cohort(account-cohort)로 확인된 실제 학습자가 아니다.
  */
-export interface TrialEvidenceInput { status?: TrialStatus | string | null; synthetic?: boolean | null; reviewRequiredAt?: string | null }
+export interface TrialEvidenceInput { status?: TrialStatus | string | null; synthetic?: boolean | null; reviewRequiredAt?: string | null; result?: string | null }
 export type TrialEvidenceState = 'current' | 'stale' | 'synthetic' | 'pending' | 'unknown'
 
 export function trialEvidenceState(t: TrialEvidenceInput): TrialEvidenceState {
@@ -31,7 +31,21 @@ export function trialEvidenceState(t: TrialEvidenceInput): TrialEvidenceState {
   if (t.synthetic !== false) return 'unknown'
   if (typeof t.reviewRequiredAt === 'string' && t.reviewRequiredAt.length > 0) return 'stale'
   if (t.reviewRequiredAt !== null) return 'unknown'
+  if (!(TRIAL_STATUSES as readonly unknown[]).includes(t.status)) return 'unknown' // 알 수 없는 상태값을 계획 · 진행으로 보지 않는다
   return t.status === 'analyzed' ? 'current' : 'pending'
+}
+
+/**
+ * trial 한 줄의 결과 표시(P1-1) — 원시 result 는 **current 일 때만** 일반 결과로 보인다.
+ * 그 밖에는 결과 대신 근거가 아닌 이유를 쓴다(원시 값은 바꾸거나 지우지 않는다). 빈 문자열 = 덧붙일 것 없음.
+ */
+export function trialResultText(t: TrialEvidenceInput, resultLabel: (r: string) => string): string {
+  const state = trialEvidenceState(t)
+  if (state === 'current') return t.result ? resultLabel(t.result) : ''
+  if (state === 'stale') return '재계산 필요(결과를 근거로 쓰지 않음)'
+  if (state === 'synthetic') return t.result ? '합성 결과 — 경로 확인용, 효과 근거 아님' : ''
+  if (state === 'unknown') return '확인 불가(결과를 근거로 쓰지 않음)'
+  return ''
 }
 
 export const TRIAL_EVIDENCE_LABEL: Record<TrialEvidenceState, string> = {

@@ -48,4 +48,15 @@ describe('trial 표시(T-0085)', () => {
     trials = [trial('p', { status: 'planned', result: null })]
     expect(await html(KnowledgeProductPage)).toContain('검증 1(비합성 표시 1 · 현재 분석 0 · 재계산 필요 0)')
   })
+  it('P1-1 — 합성 · 확인 불가 analyzed+supported 는 두 화면에서 「지지」로 나오지 않는다 · current 만 결과', async () => {
+    trials = [trial('y', { synthetic: true }), trial('u', { synthetic: null }), trial('s', { reviewRequiredAt: '2026-10-22T00:00:00Z' })]
+    for (const P of [KnowledgeDesignPage, KnowledgeProductPage]) {
+      const h = await html(P)
+      expect(h).not.toMatch(/지지/)
+      expect(h).toContain('효과 근거 아님')
+      expect(h).toContain('확인 불가')
+    }
+    trials = [trial('c', {})]
+    for (const P of [KnowledgeDesignPage, KnowledgeProductPage]) expect(await html(P)).toMatch(/지지/)
+  })
 })
