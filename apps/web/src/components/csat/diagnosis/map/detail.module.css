@@ -11,7 +11,7 @@
 .tab:disabled { opacity: .45; cursor: default; }
 .tab:focus-visible, .textButton:focus-visible, .connection:focus-visible { outline: 2px solid var(--m-ink); outline-offset: -2px; }
 .panel { min-width: 0; }
-.taskOverview { display: grid; grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr); border: 1px solid var(--m-line); border-radius: 12px; overflow: hidden; background: var(--m-bg); margin-bottom: 18px; }
+.taskOverview { display: grid; grid-template-columns: minmax(0, 1fr); border: 1px solid var(--m-line); border-radius: 12px; overflow: hidden; background: var(--m-bg); margin-bottom: 18px; }
 .summary { display: grid; align-content: start; gap: 12px; padding: 22px; background: var(--m-canvas); }
 .summary h3, .connections h3, .empty h3 { margin: 0; font-size: max(var(--csat-fs-min), calc(15px * var(--csat-fs-scale))); font-weight: 600; }
 .summary p, .connections p, .empty p { margin: 0; line-height: 1.7; font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale))); }
@@ -27,7 +27,7 @@
 .connection small { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
 .workspaceStrip { display: flex; align-items: center; flex-wrap: wrap; gap: 12px 24px; padding: 0 4px 14px; font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale))); }
 .workspaceStrip strong { margin-right: auto; font-weight: 600; }
-.workspaceOverview { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.workspaceOverview { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; }
 .workspaceOverview > :nth-child(n+3) { grid-column: 1 / -1; }
 .workspaceOverview > section { padding: 20px; min-width: 0; background: var(--m-bg); }
 .workspaceOverview > section:nth-child(3) { background: var(--m-canvas); }
@@ -43,3 +43,24 @@
 .evidence > aside > div { max-height: none; overflow: visible; }
 .empty { padding: 24px; border: 1px dashed var(--m-line); border-radius: 12px; }
 .footNote { margin-right: auto; color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+.caption { display: flex; align-items: center; gap: 8px; color: var(--m-ink2); }
+.caption svg { flex: none; }
+.facts dd { padding: 6px 10px; border-radius: 7px; background: var(--m-bg); }
+.facts div { align-items: center; }
+.fold { border-top: 1px solid var(--m-line); margin-top: 10px; padding-top: 4px; }
+.fold summary { display: flex; align-items: center; gap: 8px; min-height: 44px; cursor: pointer; color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.fold summary::after { content: ''; width: 6px; height: 6px; margin-left: auto; border-right: 1px solid currentColor; border-bottom: 1px solid currentColor; transform: rotate(45deg); }
+.fold[open] > summary::after { transform: rotate(225deg); }
+.fold summary:focus-visible { outline: 2px solid var(--m-ink); outline-offset: 2px; }
+.fold p { margin: 8px 0; line-height: 1.7; font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.sectionTitle { display: flex; align-items: center; gap: 9px; }
+.sectionTitle svg { flex: none; }
+.stageIcon { display: grid; place-items: center; width: 30px; height: 30px; border-radius: 8px; margin-bottom: 10px; background: #ffffffa6; }
+.resources { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin: 14px 0 0; padding: 0; list-style: none; }
+.resources li { display: grid; gap: 8px; padding: 14px; border: 1px solid var(--m-line); border-radius: 10px; background: var(--m-canvas); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.resources strong { font-size: max(var(--csat-fs-min), calc(23px * var(--csat-fs-scale))); font-weight: 600; }
+.resources small { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+.planMetrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 6px; margin: 10px 0; }
+.planMetrics div { display: grid; gap: 5px; padding: 9px 6px; border-radius: 7px; background: var(--m-canvas); }
+.planMetrics dt { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+.planMetrics dd { margin: 0; font-size: max(var(--csat-fs-min), calc(17px * var(--csat-fs-scale))); font-weight: 600; }

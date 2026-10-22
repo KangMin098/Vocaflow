@@ -50,6 +50,9 @@
 .map :global([data-returned='true']) { outline: 3px solid var(--hl-primary-bg); outline-offset: 4px; border-radius: 8px; }
 
 @media (min-width: 900px) {
+  .startFlow { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
+  .startFlow > [role='listitem'] { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border: 1px solid var(--csat-line); border-radius: 10px; background: var(--csat-canvas); color: var(--csat-ink); }
+  .explore .lead { display: flex; align-items: center; gap: 8px; }
   .explore { background: var(--csat-canvas); border-color: var(--csat-line); }
   .mineItem { background: var(--csat-canvas); }
   .primary { background: var(--csat-control) !important; color: #fff !important; }

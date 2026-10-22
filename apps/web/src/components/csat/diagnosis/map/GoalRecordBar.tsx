@@ -8,7 +8,7 @@
 
 'use client'
 
-import { ArrowRight, ClipboardList, PackageOpen, Pencil, PlayCircle, Target } from 'lucide-react'
+import { ArrowRight, ClipboardList, PackageOpen, Pencil, PlayCircle, Target, Info } from 'lucide-react'
 import Link from 'next/link'
 
 import { goalSummary, gradeOf } from '@/lib/csat/map/goal-view'
@@ -26,6 +26,7 @@ import { GOAL_EXAM_LABEL, SCOPE_REASON_LABEL, gradeView } from '@/lib/csat/map/v
 import { GoalPopover, type useGoal } from './GoalBar'
 import { homeWsOf } from './TaskInspector'
 import u from './unified.module.css'
+import d from './detail.module.css'
 
 const EXCLUDED_LABEL: Record<'after_as_of' | 'not_diagnosable' | 'exam_not_ready', string> = {
   after_as_of: '기준일 뒤',
@@ -134,7 +135,7 @@ export function GoalRecordBar({ data, g, goalSet, asIs, view, ranks, recordHref,
           {!past && next ? (
             <>
               <h3 className={u.topHead} data-testid="umap-next-task" data-task={next.task} data-kind={next.kind}>추천 · {next.name}</h3>
-              <p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p>
+              <details className={d.fold}><summary><Info size={14} aria-hidden="true" />이 학습부터 하는 이유</summary><p className={`${u.topSub} break-keep`} data-testid="umap-next-why">{whyText(next)}</p></details>
               {state === 'no_record' && <p className={`${u.topSub} break-keep`} data-testid="umap-no-record-note">{LEAD.no_record.p} 직접 확인으로 지금 수준부터 봐요.</p>}
             </>
           ) : (

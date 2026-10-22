@@ -9,7 +9,7 @@
 
 'use client'
 
-import { ArrowDown, ArrowUp, CircleCheck, History, Minus, Plus, RotateCcw, Save, TriangleAlert } from 'lucide-react'
+import { ArrowDown, ArrowUp, CircleCheck, History, Minus, Plus, RotateCcw, Save, TriangleAlert, Info } from 'lucide-react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 import { useEffect, useMemo, useRef, useState, useTransition } from 'react'
@@ -29,6 +29,7 @@ import { withMapReturn } from '@/lib/csat/map-return'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 
 import n from './needs.module.css'
+import d from './detail.module.css'
 import { PlanChangeSummary } from './PlanChangeSummary'
 
 const UNRESOLVED_LABEL: Record<TaskPlan['unresolved'][number], string> = {
@@ -304,7 +305,7 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
       )}
       {!past && store && !sw && <p className={n.fine} data-testid="plan-change-none">아직 저장한 계획이 없어 비교할 저장본이 없어요 — 지금 보이는 계획은 제안이에요.</p>}
       {saved?.error && <p className={n.fine} data-testid="plan-change-unavailable">저장한 계획을 불러오지 못해 무엇이 바뀌는지 비교할 수 없어요.</p>}
-      {reason && <p className={n.sub}>{reason}</p>}
+      {reason && <details className={d.fold}><summary><Info size={14} aria-hidden="true" />계획 준비 상태</summary><p className={n.sub}>{reason}</p></details>}
       {legacyDraft && <p className={n.sub}>목표 버전이 없는 이전 기기 초안은 보관하고, 지금 계획에 자동 적용하지 않아요.</p>}
       <ol className={n.planList}>
         {shown.tasks.map((p, i) => {
@@ -319,18 +320,16 @@ export function PlanSection({ view, reason, past, saved, viewer, goal }: { view:
                   {p.name}
                   <span className={n.needType}>{isCore ? '중심' : '보조'}{p.need ? ` · ${NEED_LABEL[p.need]}` : ''}{p.stage ? ` · ${STAGE_LABEL[p.stage]}` : ''}</span>
                 </p>
-                <p className={n.planGoal}>{p.goal}</p>
-                <p className={n.planQty} data-testid="plan-qty">
+                <span className={d.eyebrow}>학습량 · {q.unit}</span><dl className={d.planMetrics} data-testid="plan-qty"><div><dt>계획</dt><dd>{q.planned ?? '—'}</dd></div><div><dt>가능</dt><dd>{q.available ?? '—'}</dd></div><div><dt>수행</dt><dd>{q.done}</dd></div><div><dt>남음</dt><dd>{q.remaining ?? '—'}</dd></div></dl>
+                <p className={n.planCriterion}><CircleCheck size={13} aria-hidden="true" /><strong>{ACHIEVEMENT_LABEL[p.achievement]}</strong></p>
+                <details className={d.fold}><summary><Info size={14} aria-hidden="true" />학습 목표 · 판단 기준</summary><p className={n.planGoal}>{p.goal}</p><p className={n.planQty}>
                   {q.planned !== null ? (
                     <>계획 <strong>{q.planned}{q.unit}</strong>(가능 {q.available}) · 수행 {q.done}{extra ? ` — 계획보다 ${extra}{q.unit} 더 했어요` : ` · 남음 ${q.remaining}`} — 기준: {q.rule ? RULE_LABEL[q.rule] : '—'}{p.unresolved.includes('transfer_shortage') ? ' · 기본 적용 계획보다 자료가 부족해요' : ''}</>
                   ) : (
                     <>계획할 수 있는 문항 없음{q.done ? ` · 수행 ${q.done}` : ''} · {p.unresolved.filter((u) => u !== 'needs_direct_check').map((u) => UNRESOLVED_LABEL[u]).join(' · ') || (isCore ? '확인 결과를 기다려요' : '이 항목은 중심 묶음에서 계획해요')}</>
                   )}
                 </p>
-                <p className={n.planCriterion}>
-                  <CircleCheck size={13} strokeWidth={1.9} aria-hidden="true" />
-                  <span><strong>{ACHIEVEMENT_LABEL[p.achievement]}</strong> · 다 했다고 보는 기준: {p.criterion}</span>
-                </p>
+                <p className={n.planGoal}>다 했다고 보는 기준: {p.criterion}</p></details>
               </div>
               <div className={n.planSide}>
                 {q.adjustable && !past && (

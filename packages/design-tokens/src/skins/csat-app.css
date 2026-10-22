@@ -4,6 +4,11 @@
  */
 @media (min-width: 900px) {
   :root[data-skin]:has([data-design-scope="csat"]) {
+    --csat-modal-w: 680px;
+    --csat-modal-h: 760px;
+    --csat-modal-head: 56px;
+    --csat-modal-foot: 56px;
+    --csat-modal-inset: 64px;
     --csat-canvas: #faf9f7;
     --csat-panel: #ffffff;
     --csat-soft: #efeeec;

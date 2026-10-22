@@ -240,9 +240,10 @@ export function HomeLanding({
                   ? '지도가 지금 근거로 먼저 확인할 것 하나를 골라 두었어요.'
                   : suggest === 'no_records'
                     // T-0079 — 기록 0 = 미측정 · 시작 전(약점 아님). 시험 기록은 필수 조건이 아니다 — 지도에서 계획 → 자료 → 직접 확인으로 시작할 수 있다
-                    ? '아직 시험 기록도 직접 확인도 없어요 — 약점을 정한 것은 아니에요. 지도에서 계획을 정하고 받은 자료로 바로 확인을 시작할 수 있어요. 시험 기록 입력 · 기출 탐구도 언제든 열려 있어요.'
+                    ? '아직 미측정이에요. 지도에서 첫 확인을 시작해요.'
                     : '지도에서 지금 근거와 다음 단계(자료 · 대기 이유 포함)를 확인하세요.'}{' '}
                 <a href="#umap-h" className={l.inlineLink}>지도에서 보기</a>
+                {suggest === 'no_records' && <span className={l.startFlow} role="list" aria-label="첫 학습 순서"><span role="listitem"><ListChecks size={18} aria-hidden="true" />계획 선택</span><ArrowRight size={15} aria-hidden="true" /><span role="listitem"><Library size={18} aria-hidden="true" />자료 받기</span><ArrowRight size={15} aria-hidden="true" /><span role="listitem"><ClipboardCheck size={18} aria-hidden="true" />직접 확인</span></span>}
               </p>
             )}
           </section>
@@ -280,7 +281,7 @@ export function HomeLanding({
           <section className={l.explore} aria-label="기출 탐구" data-testid="home-explore">
             <div>
               <p className={l.exploreTitle}>기출 탐구</p>
-              <p className={`${l.lead} break-keep`}>목적 · 유형 · 회차로 골라 문항 하나를 원문 근거부터 끝까지 탐구해요.</p>
+              <p className={`${l.lead} break-keep`}><Search size={15} aria-hidden="true" />목적 · 유형 · 회차로 찾기</p>
             </div>
             <span className={l.exploreActions}>
               <Link className={home.secondary} href="/csat/dissect" onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'start', from: 'home' } })} data-testid="home-start">

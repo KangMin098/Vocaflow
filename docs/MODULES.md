@@ -1,5 +1,7 @@
 # Learning Modules
 
+2026-10-22 CSAT 팝업·설명: PC 중앙 팝업은 참조680×760·머리/바닥56 공통 치수를 사용한다. 목표 편집도 MapDialog에 통합하며 저장/API 계약은 유지한다. Workspace는 단계 아이콘·자료 수 카드·접힌 안내, 홈 첫 시작은 계획→자료→확인 도식으로 표시한다.
+
 2026-10-22 CSAT 지도 상세: 노드 한 번 클릭으로 LearningDetailDialog를 열고 개요·근거/학습 경로·학습계획을 같은 창 안에서 전환한다. 연결 TASK/Workspace 전환과 단계 근거 펼치기도 창을 겹치지 않는다. WorkspaceList는 같은 행 모델을 보드/목록으로 표시하며 지도 강조는 별도 지도 아이콘이다. 기존 계획 저장·활동 복귀·판정 출처는 유지한다. 디자인 정본은 [DESIGN.md](../DESIGN.md).
 
 도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.

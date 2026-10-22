@@ -8,16 +8,19 @@ const root = process.cwd(), require = createRequire(path.join(root, 'apps/web/pa
 const { build } = createRequire(require.resolve('vitest/package.json'))('esbuild')
 const { chromium } = require('@playwright/test')
 const out = process.env.CSAT_DIALOG_OUT || 'tmp/csat-map-dialog'
+const spec = JSON.parse(fs.readFileSync('docs/design/refs/3b/access-map/spec.json', 'utf8')).modal
 fs.mkdirSync(out, { recursive: true })
 const built = await build({
   entryPoints: ['scripts/design/fixtures/csat-map-dialog.tsx'], bundle: true, write: false, outdir: 'tmp/csat-dialog-built',
   platform: 'browser', format: 'iife', jsx: 'automatic', tsconfig: 'apps/web/tsconfig.json', nodePaths: [path.join(root, 'apps/web/node_modules')],
   define: { 'process.env.NODE_ENV': '"development"' }, plugins: [{ name: 'isolate-data-and-navigation', setup(p) {
     p.onResolve({ filter: /^next\/(link|navigation)$/ }, a => ({ path: a.path, namespace: 'fixture' }))
+    p.onResolve({ filter: /\/useCsatRecord$/ }, a => ({ path: a.path, namespace: 'fixture' }))
     p.onResolve({ filter: /^@\/lib\/(analytics\/client|csat\/map\/v4\/compose)$/ }, a => ({ path: a.path, namespace: 'fixture' }))
     p.onLoad({ filter: /.*/, namespace: 'fixture' }, a => ({ loader: 'jsx', resolveDir: path.join(root, 'apps/web'), contents:
       a.path === 'next/link' ? 'import React from "react";export default function Link({children,...props}){return <a {...props} onClick={e=>e.preventDefault()}>{children}</a>}' :
       a.path === 'next/navigation' ? 'export function useRouter(){return {refresh(){},push(){},replace(){}}}' :
+      a.path.endsWith('/useCsatRecord') ? 'export function useCsatRecord(){return {record:{completed:[],predictions:[],queue:[],active:null,views:[],sessions:[]},synced:false,dueBefore:0,now:1792594800000}}' :
       a.path.includes('analytics') ? 'export function track(){}' : 'export function composeV4(){return globalThis.fixtureView} export function confirmLinksOf(){return {}} export function savedTransferOf(){return {}}' }))
   } }],
 })
@@ -35,6 +38,11 @@ try {
     await context.route('**/*', route => {
       const req = route.request(), url = new URL(req.url())
       if (req.method() !== 'GET' || url.origin !== base) { forbidden.push(req.method() + ' ' + url.pathname); return route.abort() }
+      if (url.pathname === '/api/csat/item-finder') return route.fulfill({ json: { ok: true, catalog: {
+        items: [{ id: '2026#20', exam_id: '2026', no: 20, type_id: 'main', points: 2, lecture: false, sec: 0, map: true }],
+        exams: [{ id: '2026', label: '합성 검증 회차', kind: 'suneung', year: 2026, month: null, grade: null, items: 1 }],
+        types: [{ id: 'main', name: '글의 핵심', status: 'active', items: 1 }],
+      } } })
       if (url.pathname.startsWith('/api/')) return route.fulfill({ json: { status: 'installed', rows: [], sources: 0 } })
       return route.continue()
     })
@@ -52,6 +60,11 @@ try {
     let dialog = page.getByRole('dialog')
     await dialog.waitFor()
     assert.equal(await dialog.count(), 1)
+    const hiddenCriterion = dialog.locator('details').filter({ hasText: '무엇을 확인하나요?' }).first()
+    assert.equal(await hiddenCriterion.getAttribute('open'), null, 'Detailed criterion starts folded')
+    await hiddenCriterion.locator('summary').click()
+    assert.equal(await hiddenCriterion.locator('p').isVisible(), true)
+    await hiddenCriterion.locator('summary').click()
     assert.equal(await page.getByTestId('task-pop').count(), 0)
     assert.equal(await page.getByTestId('ins-drawer').count(), 0)
     await dialog.evaluate(el => el.dataset.fixturePersistent = 'same-dialog')
@@ -75,6 +88,13 @@ try {
     }
     await page.getByTestId('ws-tab-plan').click()
     await page.getByTestId('plan-section').waitFor()
+    assert.equal(await page.locator('#learning-detail-panel').evaluate(el => el.parentElement.scrollTop), 0, 'A new tab starts at its heading')
+    const planExplanation = page.getByTestId('plan-section').locator('details').filter({ hasText: '학습 목표 · 판단 기준' }).first()
+    assert.equal(await planExplanation.getAttribute('open'), null)
+    await planExplanation.locator('summary').click()
+    assert.equal(await planExplanation.locator('p').first().isVisible(), true)
+    await planExplanation.locator('summary').click()
+    await page.getByTestId('plan-qty').first().waitFor()
     assert.equal(await dialog.count(), 1)
     assert.equal(await dialog.getAttribute('data-fixture-persistent'), 'same-dialog')
     await page.screenshot({ path: `${out}/plan-${width}-${theme}.png` })
@@ -84,6 +104,7 @@ try {
     assert.equal(await dialog.count(), 1)
     assert.equal(await dialog.getAttribute('data-fixture-persistent'), 'same-dialog')
     await page.screenshot({ path: `${out}/workspace-${width}-${theme}.png` })
+    assert.equal(await dialog.locator('ol > li svg').count() >= 4, true, 'Stages have distinct icons')
     // Arrow keys change tabs within the same dialog. Tab remains trapped; Escape restores the node.
     await page.getByTestId('ws-tab-overview').focus()
     await page.keyboard.press('ArrowRight')
@@ -116,6 +137,63 @@ try {
     assert.equal(overflow, 0)
     assert.deepEqual(errors, [])
     results.push({ width, theme, dialogs: 1, sameDialogAcrossTabs: true, focusRestored: true, overflow, errors })
+    for (const popup of ['finder', 'record', 'record-detail', 'step', 'goal']) {
+      const popupPage = await context.newPage(), popupErrors = []
+      popupPage.on('pageerror', e => popupErrors.push(e.message))
+      await popupPage.goto(base, { waitUntil: 'networkidle' })
+      await popupPage.getByTestId(`fixture-${popup}`).click()
+      const popupDialog = popupPage.getByRole('dialog')
+      await popupDialog.waitFor()
+      const frame = popup.startsWith('record') ? popupDialog.locator(':scope > div').first() : popupDialog
+      const measure = async () => frame.evaluate(el => {
+        const rect = el.getBoundingClientRect(), head = el.firstElementChild.getBoundingClientRect(), foot = el.lastElementChild.getBoundingClientRect()
+        return { box: [rect.width, rect.height], head: head.height, foot: foot.height, overflow: el.scrollWidth - el.clientWidth }
+      })
+      const dimensions = await measure()
+      assert.deepEqual(dimensions, { box: [spec.w, spec.h], head: spec.headH, foot: spec.footH, overflow: 0 }, popup)
+      if (popup === 'finder') {
+        await popupPage.locator('[data-exam="2026"]').click()
+        await popupPage.locator('[data-item="2026#20"]').click()
+        await popupPage.getByTestId('item-finder-summary').getByText(/20번 · 글의 핵심/).waitFor()
+        await popupPage.getByTestId('item-finder-extra').click()
+        assert.equal(await popupPage.getByTestId('item-finder-extra-panel').isVisible(), true)
+      }
+      if (popup === 'record') {
+        await popupPage.locator('select').last().selectOption('synthetic-exam')
+        await popupPage.getByRole('button', { name: '답안', exact: true }).click()
+      }
+      if (popup === 'record-detail') await popupPage.getByRole('button', { name: '답안', exact: true }).click()
+      if (popup === 'goal') {
+        await popupPage.getByTestId('goal-more').locator('summary').click()
+        assert.equal(await popupPage.getByTestId('goal-exam').isVisible(), true)
+        await popupPage.keyboard.press('Escape')
+        await popupDialog.waitFor({ state: 'detached' })
+        assert.equal(await popupPage.getByTestId('fixture-goal').evaluate(el => el === document.activeElement), true)
+        await popupPage.getByTestId('fixture-goal').click()
+      }
+      await popupPage.screenshot({ path: `${out}/${popup}-${width}-${theme}.png` })
+      await popupPage.setViewportSize({ width, height: 720 })
+      const short = await measure()
+      assert.deepEqual(short.box, [spec.w, 656], 'Short PC viewport clamps height')
+      assert.equal(short.head, spec.headH); assert.equal(short.foot, spec.footH)
+      assert.equal(short.overflow, 0)
+      await popupPage.screenshot({ path: `${out}/${popup}-${width}-${theme}-short.png` })
+      assert.deepEqual(popupErrors, [])
+      results.push({ popup, width, theme, dimensions, shortViewport: short, errors: popupErrors })
+      await popupPage.close()
+    }
+    const homePage = await context.newPage(), homeErrors = []
+    homePage.on('pageerror', e => homeErrors.push(e.message))
+    await homePage.goto(base + '/?home', { waitUntil: 'networkidle' })
+    const flow = homePage.getByRole('list', { name: '첫 학습 순서' })
+    await flow.waitFor()
+    assert.equal(await flow.getByRole('listitem').count(), 3)
+    assert.equal(await flow.locator('svg').count(), 5)
+    assert.equal(await homePage.evaluate(() => document.documentElement.scrollWidth - innerWidth), 0)
+    await homePage.screenshot({ path: `${out}/home-${width}-${theme}.png`, fullPage: true })
+    assert.deepEqual(homeErrors, [])
+    results.push({ home: true, width, theme, visualSteps: 3, errors: homeErrors })
+    await homePage.close()
     await context.close()
     console.log(`PASS ${width} ${theme}: single dialog, tabs, workspace links, keyboard, board/list`)
   }
@@ -131,8 +209,9 @@ try {
   await geometryPage.locator('[data-node="r.central_meaning"]').click()
   await geometryPage.getByRole('dialog').waitFor()
   const modal = await geometryPage.getByRole('dialog').evaluate(el => { const r = el.getBoundingClientRect(); return [r.width, r.height] })
-  assert.deepEqual(modal, [1040, 800])
+  assert.deepEqual(modal, [spec.w, spec.h])
   results.push({ fullMap: geometry, detailDialog: modal })
   await geometryPage.close()
   assert.deepEqual(forbidden, [], 'No account, DB or mutation requests')
+  console.table(results.filter(r => r.popup && r.width === 1440 && r.theme === 'light').map(r => ({ 팝업: r.popup, '참조(px)': `${spec.w}×${spec.h} / ${spec.headH} / ${spec.footH}`, '구현(px)': `${r.dimensions.box.join('×')} / ${r.dimensions.head} / ${r.dimensions.foot}` })))
 } finally { await browser.close(); server.close(); fs.writeFileSync(`${out}/result.json`, JSON.stringify({ results, forbidden }, null, 2)) }

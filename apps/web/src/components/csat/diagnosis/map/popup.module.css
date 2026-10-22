@@ -639,7 +639,10 @@
 /* Shared neutral surface hierarchy; structural references are in DESIGN.md. */
 @media (min-width: 900px) {
   .overlay { background: var(--csat-overlay); }
-  .modal { box-shadow: 0 18px 60px #0d0d171a; border: 1px solid var(--csat-line); }
+  .modal { width: min(var(--csat-modal-w), calc(100vw - var(--csat-modal-inset))); height: min(var(--csat-modal-h), calc(100dvh - var(--csat-modal-inset))); overflow: hidden; box-shadow: 0 18px 60px #0d0d171a; border: 1px solid var(--csat-line); }
+  .head { height: var(--csat-modal-head); }
+  .body { min-height: 0; }
+  .foot { height: var(--csat-modal-foot); flex: none; }
   .head, .foot { border-color: var(--csat-divider); }
   .headTile, .tabOn, .tab:hover .tabOn { background: var(--csat-canvas); color: var(--csat-ink); }
   .close { border-radius: 8px; color: var(--csat-ink); }
@@ -651,7 +654,7 @@
 
 /* One workspace frame: fixed identity and tab rows, one scrolling content region. */
 @media (min-width: 900px) {
-  .detailModal { width: min(var(--p-detail-w), calc(100vw - 64px)); height: min(var(--p-detail-h), calc(100dvh - 64px)); overflow: hidden; }
+  .detailModal { width: min(var(--csat-modal-w), calc(100vw - var(--csat-modal-inset))); height: min(var(--csat-modal-h), calc(100dvh - var(--csat-modal-inset))); overflow: hidden; }
   .detailModal > .body { background: var(--m-canvas); padding: 18px; }
   .detailModal > .head { padding-left: 18px; }
   .detailModal > .foot { min-height: 56px; background: var(--m-bg); }

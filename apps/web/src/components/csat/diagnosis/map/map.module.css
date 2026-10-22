@@ -21,8 +21,8 @@
   /* 팝업(참조 모달) — spec.json 의 modal */
   --p-w: 680px;
   --p-h: 760px;
-  --p-detail-w: 1040px;
-  --p-detail-h: 800px;
+  --p-detail-w: 680px;
+  --p-detail-h: 760px;
   --p-head: 56px;
   --p-foot: 56px;
   --p-side: 17px;

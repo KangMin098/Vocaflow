@@ -1,8 +1,8 @@
 // apps/web/src/components/csat/diagnosis/map/StepSheet.tsx
 //
 // 학습 단계 시트 — 학습 지도에서 단계를 누르면 열린다. 학생이 읽는 순서(2026-10-07 사용자 지시):
-//   ① 이 힘이 무엇인가 ② 수능에서 왜 중요한가 ③ 내 기출 기록에서 보인 것 ④ 지금 확인할 것(확인하기 과제)
-//   ⑤ 원인이 확인되면 이어지는 학습(바로잡기 → 다른 문제에 적용하기 → 다시 확인하기 — 지금은 열지 않음) ⑥ 상세 근거(접힘)
+//   ① 이 힘이 무엇인가 ② 내 기출 기록 ③ 지금 확인할 것(확인하기 과제)
+//   ④ 원인이 확인되면 이어지는 학습 ⑤ 수능/목표/미확인 설명(접힘) ⑥ 상세 근거(접힘)
 // 라인 코드 · 내부 분류명 · 표시 기준은 ⑥ 「상세 근거」 안에만 둔다. 원인 확인 전에는 처방처럼 보이지 않게 — 확인하기만 지금 할 일.
 
 'use client'
@@ -130,26 +130,12 @@ export function StepSheet({ data, step, tasks, onClose, startAt, embedded = fals
             <h3 className={l.blockH}><BookOpen size={14} strokeWidth={1.9} aria-hidden="true" />이 힘은</h3>
             <p className={l.lead}>{step.what}</p>
           </section>
-          <section className={l.block}>
-            <h3 className={l.blockH}><Lightbulb size={14} strokeWidth={1.9} aria-hidden="true" />수능에서 왜 중요한가</h3>
-            <p className={l.text}>{step.why}</p>
-          </section>
-          <section className={l.block} data-testid="step-goal-link">
-            <h3 className={l.blockH}><Target size={14} strokeWidth={1.9} aria-hidden="true" />목표와의 관계</h3>
-            <p className={l.text}>
-              {link
-                ? <>목표 점수를 계산하는 평가원 최근 {link.exams}회에서 이 단계가 쓰이는 문항은 한 회에 평균 <strong>{link.itemsPerExam}문항 · {link.pointsPerExam}점</strong>이에요{data.model.goalSet ? ` · 목표 ${data.model.goal}점은 한 회 100점 중 ${100 - data.model.goal}점까지 놓쳐도 되는 점수예요` : ''}. 이 단계를 연습하면 몇 점이 오른다는 뜻은 아니에요.</>
-                : '목표 계산 기준 시험에서 이 단계에 바로 이어진 문항을 아직 정하지 못했어요. 다른 단계의 문항을 풀 때 함께 쓰이는 힘이에요.'}
-            </p>
-          </section>
+
           <section className={l.block}>
             <h3 className={l.blockH}><Eye size={14} strokeWidth={1.9} aria-hidden="true" />내 기출 기록에서</h3>
             <p className={l.text}>{observed}</p>
           </section>
-          <section className={l.block} data-testid="step-unknown">
-            <h3 className={l.blockH}><HelpCircle size={14} strokeWidth={1.9} aria-hidden="true" />아직 모르는 것</h3>
-            <p className={l.text}>{unknown}</p>
-          </section>
+
           <section className={`${l.block} ${l.now}`} id="step-check">
             <h3 className={l.blockH}><Search size={14} strokeWidth={1.9} aria-hidden="true" />지금 확인할 것 — {STAGE_WORD.FIND}</h3>
             <LifecycleStrip skill={skill} hasTargets={findTargets.length > 0} ev={ev} />
@@ -220,6 +206,22 @@ export function StepSheet({ data, step, tasks, onClose, startAt, embedded = fals
             {tasks.err && <p className={l.err} role="alert">{tasks.err}</p>}
           </section>
           <SkillPrescription skill={skill} groups={later.map((g) => ({ stage: g.stage, titles: g.tasks.map((t) => t.title) }))} transferHref={transferHref} checkLinks={checkLinks} step={step.key} repairLinks={repairLinks} ev={ev} />
+          <details className={l.block}>
+            <summary className={l.moreBtn}><Lightbulb size={14} strokeWidth={1.9} aria-hidden="true" />수능에서 왜 중요한가</summary>
+            <p className={l.text}>{step.why}</p>
+          </details>
+          <details className={l.block} data-testid="step-goal-link">
+            <summary className={l.moreBtn}><Target size={14} strokeWidth={1.9} aria-hidden="true" />목표와의 관계</summary>
+            <p className={l.text}>
+              {link
+                ? <>목표 점수를 계산하는 평가원 최근 {link.exams}회에서 이 단계가 쓰이는 문항은 한 회에 평균 <strong>{link.itemsPerExam}문항 · {link.pointsPerExam}점</strong>이에요{data.model.goalSet ? ` · 목표 ${data.model.goal}점은 한 회 100점 중 ${100 - data.model.goal}점까지 놓쳐도 되는 점수예요` : ''}. 이 단계를 연습하면 몇 점이 오른다는 뜻은 아니에요.</>
+                : '목표 계산 기준 시험에서 이 단계에 바로 이어진 문항을 아직 정하지 못했어요. 다른 단계의 문항을 풀 때 함께 쓰이는 힘이에요.'}
+            </p>
+          </details>
+          <details className={l.block} data-testid="step-unknown">
+            <summary className={l.moreBtn}><HelpCircle size={14} strokeWidth={1.9} aria-hidden="true" />아직 모르는 것</summary>
+            <p className={l.text}>{unknown}</p>
+          </details>
           <section className={l.block}>
             <button type="button" className={l.moreBtn} aria-expanded={more} onClick={() => setMore((v) => !v)}>
               <ChevronDown size={14} className={more ? l.rot : ''} aria-hidden="true" />
@@ -245,6 +247,7 @@ export function StepSheet({ data, step, tasks, onClose, startAt, embedded = fals
             )}
           </section>
         </div>
+        {!embedded && <div className={p.foot}><button type="button" className={p.pillBtn} onClick={onClose}>닫기</button></div>}
       </div>
     </div>
   )

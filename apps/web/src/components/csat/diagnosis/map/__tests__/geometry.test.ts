@@ -34,11 +34,23 @@ const count = (name: string) => {
 }
 
 describe('학습 지도 기하 = 참조 측정 명세', () => {
-  it('단일 상세 팝업과 개요 노드는 사용자 지정 작업면 치수를 따른다', () => {
+  it('단일 상세 팝업은 참조 모달 치수, 개요 노드는 사용자 지정 치수를 따른다', () => {
     const detail = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/design/refs/3b/access-map/spec.json'), 'utf8')).detail
     expect(px('--p-detail-w')).toBe(detail.w)
     expect(px('--p-detail-h')).toBe(detail.h)
+    expect(detail.w).toBe(spec.modal.w)
+    expect(detail.h).toBe(spec.modal.h)
     expect(px('--g-core-node-h')).toBe(detail.coreNodeH)
+  })
+  it('포털·기록·목표·상세는 하나의 PC 모달 치수를 공유한다', () => {
+    const skin = fs.readFileSync(path.join(ROOT, 'packages/design-tokens/src/skins/csat-app.css'), 'utf8')
+    for (const [name, value] of [['w', spec.modal.w], ['h', spec.modal.h], ['head', spec.modal.headH], ['foot', spec.modal.footH]]) {
+      expect(skin).toMatch(new RegExp(`--csat-modal-${name}:\\s*${value}px`))
+    }
+    for (const file of ['../popup.module.css', '../../board.module.css', '../../../browse/item-finder.module.css']) {
+      const component = fs.readFileSync(path.join(__dirname, file), 'utf8')
+      for (const name of ['w', 'h', 'head', 'foot']) expect(component).toContain(`var(--csat-modal-${name})`)
+    }
   })
   it('노드 크기', () => {
     expect(px('--g-node-w')).toBe(spec.node.w)
