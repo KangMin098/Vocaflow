@@ -1,5 +1,7 @@
 # Learning Modules
 
+2026-10-22 CSAT 홈 구성: HomeLanding은 패턴 배너 아래 Workspace 목록을 먼저 배치한다. MapScreen의 workspaceFirst 표시 옵션은 UnifiedLearningMap의 같은 상태/행/상세를 재사용하며 다른 진입의 지도 우선 순서는 유지한다. 지도 아이콘의 노드 이동·행 클릭 상세·복귀 문맥·실행 링크는 동일하다.
+
 2026-10-22 CSAT 팝업·설명: PC 중앙 팝업은 참조680×760·머리/바닥56 공통 치수를 사용한다. 목표 편집도 MapDialog에 통합하며 저장/API 계약은 유지한다. Workspace는 단계 아이콘·자료 수 카드·접힌 안내, 홈 첫 시작은 계획→자료→확인 도식으로 표시한다.
 
 2026-10-22 CSAT 지도 상세: 노드 한 번 클릭으로 LearningDetailDialog를 열고 개요·근거/학습 경로·학습계획을 같은 창 안에서 전환한다. 연결 TASK/Workspace 전환과 단계 근거 펼치기도 창을 겹치지 않는다. WorkspaceList는 리스트형으로 고정하며(보드 전환 없음) 지도 강조는 별도 지도 아이콘이다. 기존 계획 저장·활동 복귀·판정 출처는 유지한다. 디자인 정본은 [DESIGN.md](../DESIGN.md).

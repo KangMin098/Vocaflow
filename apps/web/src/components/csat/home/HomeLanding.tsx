@@ -1,17 +1,17 @@
 // apps/web/src/components/csat/home/HomeLanding.tsx
 'use client'
 //
-// **내 학습 지도 — `/csat` 지도 중심 홈.** (v3 M1 · CSAT_LEARNER_UX_V3 §1 · §7)
+// **내 학습 공간 — `/csat` 패턴 배너 · Workspace 목록 · 학습지도 홈.**
 //
-// 한 화면에 역할을 나눈다: ① 첫 제안 하나 ② 핵심 학습 지도 ③ 내 자료(쓸 때 여는 기록 · 진단 · 공식 · 연습) ④ 기출 탐구 입구.
+// 한 화면에 역할을 나눈다: ① 첫 제안 하나 ② Workspace와 같은 상태의 학습지도 ③ 내 자료 ④ 기출 탐구 입구.
 // 첫 제안은 `pickHomeSuggestion` 이 기존 상태에서 고른다(새 점수 · 순위 없음). 「확인 필요 · 기록 없음 · 기록만」 은
 // 지도의 초점 카드가 그대로 첫 제안이다 — 홈이 같은 판정을 다시 쓰지 않는다.
 // 기출 탐구는 언제나 열려 있다(진단이 탐구의 입장권이 아니다). 지도를 못 읽으면 오류로 말하고 기록 0 으로 추정하지 않는다.
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useEffect, useRef, useState } from 'react'
-import { AlertTriangle, ArrowRight, BookMarked, ClipboardCheck, ListChecks, CornerUpLeft, FlaskConical, History, Library, NotebookPen, Search, Stethoscope } from 'lucide-react'
+import { useEffect, useId, useRef, useState } from 'react'
+import { AlertTriangle, ArrowRight, BookMarked, ClipboardCheck, ListChecks, CornerUpLeft, FlaskConical, History, Library, NotebookPen, Search, Stethoscope, Compass } from 'lucide-react'
 
 import { ItemFinderDialog } from '@/components/csat/browse/ItemFinderDialog'
 import finder from '@/components/csat/browse/item-finder.module.css'
@@ -59,6 +59,7 @@ export function HomeLanding({
   progress?: MapProgress | null
 }) {
   const router = useRouter()
+  const bannerId = useId()
   // 기출 찾기(2026-10-13) — 기출 탐구 입구의 보조 행동. 전체 조건으로 시작한다(성취 · 점수로 고르지 않는다)
   const [finderOpen, setFinderOpen] = useState(false)
   const returnTask = restore?.task ?? null
@@ -108,8 +109,8 @@ export function HomeLanding({
     <div className={styles.root} data-csat-space data-testid="csat-home" data-suggest={rec ? suggest : 'loading'}>
       <CsatRail place="home" exams={exams} dueCount={rec ? (due ?? 0) + (set ? 1 : 0) : null} />
 
-      <div className="min-w-0">
-        <header className={styles.topbar}>
+      <div className={`min-w-0 ${l.main}`}>
+        <header className={`${styles.topbar} ${l.topbar}`}>
           <span className={styles.topPill}>내 학습 지도</span>
           <Link className={styles.topLink} href="/csat/browse" data-testid="home-browse-top">
             <Library size={14} aria-hidden="true" />
@@ -120,6 +121,15 @@ export function HomeLanding({
         <div className={`${styles.canvas} ${l.canvas}`}>
           {/* ① 첫 제안 — 지도 초점이 맡는 경우에는 짧은 안내만 두고 지도 카드로 보낸다 */}
           <section className={l.suggest} aria-label="먼저 할 일" data-testid="home-suggest" data-kind={suggest}>
+            <svg className={l.bannerArt} aria-hidden="true" data-testid="home-banner-art">
+              <defs><pattern id={bannerId} width="192" height="192" patternUnits="userSpaceOnUse"><rect width="192" height="192" fill="#f6f6f5" /><path d="M0 0h96a48 48 0 0 1-96 0M96 96h96a48 48 0 0 1-96 0" fill="#ececeb" /><circle cx="48" cy="144" r="48" fill="#f0f0ee" /><circle cx="144" cy="48" r="48" fill="#f9f9f8" /></pattern></defs>
+              <rect width="100%" height="100%" fill={`url(#${bannerId})`} />
+              <path d="M0 0h96v48a48 48 0 0 0 48 48h48v96h-48a48 48 0 0 1-48-48A48 48 0 0 0 48 96 48 48 0 0 1 0 48Z" fill="#00aaa4" />
+              <circle cx="48" cy="144" r="48" fill="#00a676" /><circle cx="144" cy="144" r="48" fill="#00a676" /><circle cx="48" cy="240" r="48" fill="#eb4ca5" /><circle cx="144" cy="240" r="48" fill="#00aaa4" /><circle cx="240" cy="240" r="48" fill="#00a676" />
+              <svg x="100%" y="100%" width="1" height="1" overflow="visible"><circle cx="-48" cy="0" r="48" fill="#00a676" /><circle cx="-144" cy="0" r="48" fill="#00aaa4" /><circle cx="-240" cy="0" r="48" fill="#c9e6d5" /><circle cx="-336" cy="0" r="48" fill="#00a676" /></svg>
+            </svg>
+            <div className={l.suggestCard}>
+            <div className={l.suggestHeading}><Compass size={15} aria-hidden="true" /><span>지금 이어갈 학습</span><span className={l.suggestBadge}>내 학습 공간</span></div>
             {suggest === 'error' ? (
               <div className={home.card} role="alert" data-testid="home-map-error">
                 <p className={home.cardBack}>
@@ -246,12 +256,13 @@ export function HomeLanding({
                 {suggest === 'no_records' && <span className={l.startFlow} role="list" aria-label="첫 학습 순서"><span role="listitem"><ListChecks size={18} aria-hidden="true" />계획 선택</span><ArrowRight size={15} aria-hidden="true" /><span role="listitem"><Library size={18} aria-hidden="true" />자료 받기</span><ArrowRight size={15} aria-hidden="true" /><span role="listitem"><ClipboardCheck size={18} aria-hidden="true" />직접 확인</span></span>}
               </p>
             )}
+            </div>
           </section>
 
           {/* ② 핵심 학습 지도 */}
           <section className={l.map} aria-label="학습 지도" data-testid="home-map" data-map={map}>
             {(map === 'ok' || map === 'withheld') && mapData ? (
-              <MapScreen key={`${restore?.ws ?? ""}|${restore?.step ?? ""}|${restore?.task ?? ""}`} data={mapData} view="core" base={MAP_BASE} restore={restore} />
+              <MapScreen key={`${restore?.ws ?? ""}|${restore?.step ?? ""}|${restore?.task ?? ""}`} data={mapData} view="core" base={MAP_BASE} restore={restore} workspaceFirst />
             ) : map === 'preparing' ? (
               <MapPreparing />
             ) : null}

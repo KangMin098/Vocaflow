@@ -20,7 +20,8 @@
 .suggest { padding-top: 18px; }
 
 /* 첫 제안 — 옛 띠 위에 떠 있던 카드(home.card · absolute)를 흐름 안으로 */
-.suggest > * { position: static; transform: none; left: auto; top: auto; width: 100%; }
+.suggestCard > * { position: static; transform: none; left: auto; top: auto; width: 100%; }
+.bannerArt, .suggestHeading { display: none; }
 .lead { margin: 0; font-size: 13.5px; line-height: 1.7; color: var(--t2); }
 .inlineLink { display: inline-flex; align-items: center; min-height: 44px; color: var(--t1); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
 
@@ -50,6 +51,24 @@
 .map :global([data-returned='true']) { outline: 3px solid var(--hl-primary-bg); outline-offset: 4px; border-radius: 8px; }
 
 @media (min-width: 900px) {
+  .main { padding: 12px 12px 0 8px; background: var(--csat-canvas); }
+  .topbar { display: none; }
+  .canvas { margin: 0; padding: 0 0 24px; gap: 0; border: 0; border-radius: 0; background: transparent; }
+  .suggest { position: relative; display: grid; place-items: center; min-height: 240px; margin: 0; padding: 28px 24px 42px; border-radius: 18px 18px 0 0; overflow: hidden; }
+  .bannerArt { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
+  .suggestCard { position: relative; z-index: 1; width: min(600px, 100%); padding: 12px; border: 1px solid #dededc; border-radius: 16px; background: #fffffff0; box-shadow: 0 3px 0 #18181b08; }
+  .suggestHeading { display: flex; align-items: center; gap: 7px; width: 100%; margin: 0 0 8px; color: var(--csat-muted); font-size: 11px; }
+  .suggestBadge { margin-left: auto; padding: 3px 8px; border-radius: 999px; background: var(--csat-soft); font-size: 10px; }
+  .suggestCard > .lead { padding: 10px 12px; border: 1px solid var(--csat-line); border-radius: 11px; background: var(--csat-panel); font-size: 12px; }
+  .suggestCard > :global([role='alert']), .suggestCard > :global([role='status']) { margin: 0; }
+  .map { position: relative; margin-top: -14px; border-radius: 16px 16px 0 0; background: var(--csat-panel); }
+  .map :global([data-testid='unified-map'][data-workspace-first='true']) { gap: 0; padding: 0; border: 1px solid var(--csat-line); border-radius: 16px 16px 0 0; background: var(--csat-panel); overflow: hidden; }
+  .map :global([data-workspace-first='true'] > [data-testid='ws-list']) { border: 0; border-radius: 0; min-height: 420px; }
+  .map :global([data-workspace-first='true'] > [data-testid='umap-top']), .map :global([data-workspace-first='true'] > [data-testid='goal-plan']) { margin: 16px; }
+  .map :global([data-workspace-first='true'] > section[aria-labelledby='umap-h']) { border-radius: 0; }
+  .mine { margin: 0; padding: 12px 18px; border: 1px solid var(--csat-line); border-top: 0; background: var(--csat-panel); }
+  .mineItem { border-radius: 7px; font-size: 12px; }
+  .explore { margin: 16px 0 0; padding: 16px 20px; }
   .startFlow { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
   .startFlow > [role='listitem'] { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border: 1px solid var(--csat-line); border-radius: 10px; background: var(--csat-canvas); color: var(--csat-ink); }
   .explore .lead { display: flex; align-items: center; gap: 8px; }

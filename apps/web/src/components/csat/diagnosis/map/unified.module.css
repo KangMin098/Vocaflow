@@ -1947,10 +1947,23 @@ p.dockL {
   .wsHead { padding: 12px 16px; min-height: 64px; border-bottom: 1px solid var(--m-line); flex-wrap: wrap; }
   .wsFocus { order: 4; width: 100%; }
   .wsLegend { margin-left: 0; }
-  .wsScroll { padding: 16px; max-height: none; }
-  .wsList[data-view='list'] .wsRows { gap: 0; border: 1px solid var(--m-line); border-radius: 10px; overflow: hidden; }
-  .wsList[data-view='list'] .wsRow { border: 0; border-bottom: 1px solid var(--m-line); border-radius: 0; padding: 8px 10px; }
+  .wsHead { padding: 12px 24px; min-height: 56px; }
+  .wsHead .h { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: var(--m-canvas); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+  .wsCount { font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+  .wsScroll { padding: 0; gap: 0; max-height: none; }
+  .wsCols { min-height: 48px; margin: 0; padding: 0 24px; }
+  .wsList[data-view='list'] .wsRows { gap: 0; border: 0; border-radius: 0; overflow: hidden; }
+  .wsList[data-view='list'] .wsRow { border: 0; border-bottom: 1px solid var(--m-line); border-radius: 0; padding: 12px 24px; min-height: 76px; }
   .wsList[data-view='list'] .wsRow:last-child { border-bottom: 0; }
   .wsList[data-view='list'] .wsActs { flex-wrap: nowrap; }
-  .wsList[data-view='list'] .wsGo2 { background: var(--m-bg); color: var(--m-ink); }
+  .wsList[data-view='list'] .wsGo2 { padding: 0 8px; border-radius: 7px; background: var(--m-bg); color: var(--m-ink); box-shadow: none; }
+  .wsTitle { font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale))); font-weight: 500; white-space: normal; flex-wrap: wrap; }
+  .wsTile { width: 32px; height: 32px; border-radius: 9px; }
+  .wsBadge { padding: 1px 5px; background: var(--m-canvas); color: var(--m-ink2); }
+  .wsTasks { gap: 5px; }
+  .wsTasks .tChip { padding: 0 4px; height: 17px; background: transparent; box-shadow: none; color: var(--m-ink2); font-weight: 400; }
+  .wsTasks .tChip[data-on='true'] { background: var(--m-canvas); color: var(--m-ink); }
+  .wsState { padding: 0; border-radius: 0; white-space: normal; background: transparent; line-height: 1.5; }
+  .wsState[data-state] { background: transparent; }
+  .wsPrep { margin: 0 24px; border-color: var(--m-line); }
 }

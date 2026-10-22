@@ -3,7 +3,7 @@
 // 학습지도 v6.2 단일 지도 — `/csat` 홈 · `?tab=map` · `?tab=map&view=full` 이 모두 이 화면 하나를 쓴다(교육 그래프 · 판정 출처 하나).
 // LM-W1(2026-10-15) 학습지도 × Workspace 통합 — 위에서 아래로 한 줄기:
 //   ① 상단 컴팩트 띠(목표 · 기록 · 지금 상태 · 다음 한 행동)   ② 관계도 캔버스(6영역 열 · TASK 30 · 관계선 — 화면 폭 전체)
-//   ③ 캔버스 바로 아래 Workspace 리스트   ④ TASK · Workspace 공통 상세 대화상자(개요 · 근거 · 학습계획)   ⑤ PLAN 편집 = Workspace 모달의 계획 탭
+//   ③ Workspace 리스트(홈은 배너 직후, 다른 진입은 캔버스 아래)   ④ TASK · Workspace 공통 상세   ⑤ PLAN 편집 = 상세의 계획 탭
 // 선택(TASK · Workspace)과 열린 팝업은 **여기 한 곳**이 갖는다 — 리스트 · 지도 · 팝업은 값을 받고 요청만 올린다(서로 상태를 되먹이지 않는다).
 // TASK 를 고르면 그 TASK 를 담은 Workspace 로(지금 Workspace 가 이미 담으면 그대로), Workspace 를 고르면 그 중심 TASK 로(지금 TASK 가 담기면 그대로).
 // 고른 문맥은 주소(map_task · ws)에 replaceState 로 실어 새로 고침 · 뒤로가기 · 학습 후 복귀에서 같은 문맥으로 돌아온다(정본 TASK id · 묶음 id).
@@ -68,7 +68,7 @@ export function wsSlug(id: string | null): WsSlug | null {
   return s === 'central-meaning' || s === 'option-match' || s === 'evidence-locate' || s === 'cohesion' ? s : null
 }
 
-type UnifiedProps = { data: MapPageData; mode: UnifiedMode; recordHref: string; asOf?: string; restore?: MapReturnCtx | null; viewToggle?: ReactNode }
+type UnifiedProps = { data: MapPageData; mode: UnifiedMode; recordHref: string; asOf?: string; restore?: MapReturnCtx | null; viewToggle?: ReactNode; workspaceFirst?: boolean }
 
 /**
  * T-0078 — 필수 원장(확인 첫 시도 · 수행 기록)을 못 읽으면 지도를 0건으로 계산하지 않고 복구 상태만 그린다.
@@ -83,7 +83,7 @@ export function UnifiedLearningMap(props: UnifiedProps) {
   return <UnifiedLearningMapView {...props} />
 }
 
-function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, viewToggle = null }: UnifiedProps) {
+function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, viewToggle = null, workspaceFirst = false }: UnifiedProps) {
   const g = useGoal(data)
   const goalSet = data.model.goalSet || g.saved
   const view = useMemo(() => composeV4(data, { score: g.goal, set: goalSet }, asOf), [data, g.goal, goalSet, asOf])
@@ -266,8 +266,32 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
   const past = view.asIs.mode === 'past_reanalysis'
   const modalRow = modal ? rows.find((r) => r.id === modal.id) ?? null : null
 
+  const workspace = (
+      <WorkspaceList
+        rows={rows}
+        ranks={ranks}
+        data={data}
+        past={past}
+        selectedTask={lit ? selected : null}
+        selectedWs={lit ? ws : null}
+        onSelectWs={(id) => {
+          const chosen = rows.find((r) => r.id === id)
+          const target = chosen ? taskForWs(chosen, selected) : null
+          chooseWs(id)
+          if (target) requestAnimationFrame(() => {
+            const node = document.querySelector<HTMLElement>(`[data-node="${CSS.escape(target)}"]`)
+            node?.scrollIntoView({ block: 'center', inline: 'nearest' })
+            node?.focus({ preventScroll: true })
+          })
+        }}
+        onOpenWs={(id, el) => openWs(id, el)}
+        onSelectTask={(id) => chooseTask(id, true)}
+      />
+  )
+
   return (
-    <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet}>
+    <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet} data-workspace-first={workspaceFirst}>
+      {workspaceFirst && workspace}
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
       <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
@@ -374,26 +398,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
         </div>
       </section>
 
-      <WorkspaceList
-        rows={rows}
-        ranks={ranks}
-        data={data}
-        past={past}
-        selectedTask={lit ? selected : null}
-        selectedWs={lit ? ws : null}
-        onSelectWs={(id) => {
-          const chosen = rows.find((r) => r.id === id)
-          const target = chosen ? taskForWs(chosen, selected) : null
-          chooseWs(id)
-          if (target) requestAnimationFrame(() => {
-            const node = document.querySelector<HTMLElement>(`[data-node="${CSS.escape(target)}"]`)
-            node?.scrollIntoView({ block: 'center', inline: 'nearest' })
-            node?.focus({ preventScroll: true })
-          })
-        }}
-        onOpenWs={(id, el) => openWs(id, el)}
-        onSelectTask={(id) => chooseTask(id, true)}
-      />
+      {!workspaceFirst && workspace}
 
       {modal && (
         <LearningDetailDialog
