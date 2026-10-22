@@ -1,0 +1,13 @@
+import fs from 'node:fs'
+import {withState,loadState} from '../../../lib/state.mjs'
+import {addEvidence,completeTask} from '../../../lib/tasks.mjs'
+import {staticGates,defaultGit} from '../../../lib/localgate.mjs'
+const caller='final-independent-accept',dir='verification/reviews/T-0085-r2-independent/',head='f14d7beb5d87d3952b4eccde0c58b5c34390917d',at=new Date().toISOString()
+const common={result:'pass',skip_count:0,observed_at:at,commit:head,covers:[0,1,2,3,4]}
+const review={...common,type:'review',artifact_path_or_url:dir+'ACCEPT.md',command_or_protocol:'Independent same-source12/12 original probe controls + export/state test1; tsc0/eslint0; no remaining changed-scope P0/P1. Code ACCEPT_WITH_LIMITS.'}
+const ui={...common,type:'ui',artifact_path_or_url:dir+'browser/results.json',screenshots:[dir+'browser/design-mixed-1440.png',dir+'browser/product-error-1280.png'],urls:['http://127.0.0.1/ (actual source RSC HTML scoped harness; dynamic loopback port recorded in results.json)'],viewport:{width:1280,height:900},environment:'Actual source design/product RSC HTML + compiled source globals/Tailwind/admin skin, Chromium 1440/1280 mixed/empty-trial/unreadable12/12. Mock loaders and stubbed forms; not authenticated Next/DB or full shell reference audit.',command_or_protocol:'Scoped changed read-only trial text/status counts and unchanged navigation/styles; keyboard/name/overflow/error checks; visual inspection of two captures. Initial empty-app expectation corrected to actual empty-trial fixture, no product change.',checks:Object.fromEntries(['render','layout_pc','readability_hierarchy','design_system','journey_interaction','states','accessibility','navigation_progress','visual_regression','design_acceptance'].map(k=>[k,'pass'])),ui_acceptance_results:['pass'],defects:[],note:'All checks scoped to changed read-only evidence display and reused components. No new interactions, contrast/reference certification, authenticated journey or actual effect claim.'}
+for(const [name,ev] of [['review.json',review],['ui.json',ui]]){fs.writeFileSync(dir+name,JSON.stringify(ev,null,2)+'\n');const r=withState(s=>addEvidence(s,'T-0085',ev,{caller}),{event:'evidence.add',task:'T-0085',by:caller});console.log(r.evidence_id)}
+const t=withState(s=>completeTask(s,'T-0085',{caller,review_path:dir+'ACCEPT.md'}),{event:'task.complete',task:'T-0085',by:caller})
+const gates=staticGates({task:t,head,base:'9c539ad00',git:defaultGit(t.worktree),reviewRoot:process.cwd()})
+fs.writeFileSync(dir+'static-gates.json',JSON.stringify(gates,null,2)+'\n')
+console.log(JSON.stringify({task:t.task_id,status:t.status,commit:t.verified_commit,gates},null,2))

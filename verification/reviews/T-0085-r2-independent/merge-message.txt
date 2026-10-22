@@ -1,0 +1,7 @@
+merge: integrate current trial evidence display
+
+Preserve latest main trace guards, links and help changes.
+Bind accepted T-0085 source with combined48/48, type/lint0.
+DB/participant/content approval and actual effect unchanged.
+
+Co-Authored-By: Codex <noreply@openai.com>

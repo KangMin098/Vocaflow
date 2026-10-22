@@ -1,0 +1,45 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-22T09:04:58.756Z",
+  "commit": "f14d7beb5d87d3952b4eccde0c58b5c34390917d",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "type": "ui",
+  "artifact_path_or_url": "verification/reviews/T-0085-r2-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0085-r2-independent/browser/design-mixed-1440.png",
+    "verification/reviews/T-0085-r2-independent/browser/product-error-1280.png"
+  ],
+  "urls": [
+    "http://127.0.0.1/ (actual source RSC HTML scoped harness; dynamic loopback port recorded in results.json)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual source design/product RSC HTML + compiled source globals/Tailwind/admin skin, Chromium 1440/1280 mixed/empty-trial/unreadable12/12. Mock loaders and stubbed forms; not authenticated Next/DB or full shell reference audit.",
+  "command_or_protocol": "Scoped changed read-only trial text/status counts and unchanged navigation/styles; keyboard/name/overflow/error checks; visual inspection of two captures. Initial empty-app expectation corrected to actual empty-trial fixture, no product change.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "All checks scoped to changed read-only evidence display and reused components. No new interactions, contrast/reference certification, authenticated journey or actual effect claim."
+}

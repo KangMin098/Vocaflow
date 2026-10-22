@@ -1,0 +1,27 @@
+{
+  "at": "2026-10-22T09:13:47.047Z",
+  "task": "T-0086",
+  "status": "READY",
+  "delivery": "QUEUED",
+  "actual_ack": false,
+  "implementation_started": false,
+  "previous": {
+    "task": "T-0085",
+    "status": "COMPLETED",
+    "source": "f14d7beb5d87d3952b4eccde0c58b5c34390917d",
+    "local_main": "8325cfde0afce59e88283b01729638c0bac2f04c"
+  },
+  "goal_check": {
+    "report": "verification/goal-check/GC-2026-10-22T09-13-46-889Z.json",
+    "distribution": {
+      "UNKNOWN": 34,
+      "EXTERNAL_INPUT_REQUIRED": 1
+    },
+    "head": {
+      "main_sha": "8325cfde0afce59e88283b01729638c0bac2f04c"
+    }
+  },
+  "db_writes": 0,
+  "remote_integration": false,
+  "actual_effect": false
+}

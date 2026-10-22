@@ -1,0 +1,14 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/app/admin/knowledge/__tests__/trial-evidence-display.test.tsx",
+    "apps/web/src/app/admin/knowledge/design/page.tsx",
+    "apps/web/src/app/admin/knowledge/product/[id]/page.tsx",
+    "apps/web/src/app/admin/knowledge/product/page.tsx",
+    "apps/web/src/lib/admin/help/knowledge.ts",
+    "apps/web/src/lib/knowledge/__tests__/trial-evidence-display.test.ts",
+    "apps/web/src/lib/knowledge/__tests__/vnext.test.ts",
+    "apps/web/src/lib/knowledge/vnext-rules.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "task": "T-0085",
+  "source": "f14d7beb5d87d3952b4eccde0c58b5c34390917d",
+  "base": "9c539ad009e27bc8e0444187f34a4d0f0824249f",
+  "merge_commit": "8325cfde0afce59e88283b01729638c0bac2f04c",
+  "tested_tree": "96a3a2b1335fc312a660f56802d74f0fb8d466af",
+  "committed_tree": "96a3a2b1335fc312a660f56802d74f0fb8d466af",
+  "files": [
+    "apps/web/src/app/admin/knowledge/__tests__/trial-evidence-display.test.tsx",
+    "apps/web/src/app/admin/knowledge/design/page.tsx",
+    "apps/web/src/app/admin/knowledge/product/[id]/page.tsx",
+    "apps/web/src/app/admin/knowledge/product/page.tsx",
+    "apps/web/src/lib/admin/help/knowledge.ts",
+    "apps/web/src/lib/knowledge/__tests__/trial-evidence-display.test.ts",
+    "apps/web/src/lib/knowledge/__tests__/vnext.test.ts",
+    "apps/web/src/lib/knowledge/vnext-rules.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "conflicts": [],
+  "tests": {
+    "files": 5,
+    "passed": 48,
+    "failed": 0,
+    "skipped": 0
+  },
+  "tsc_exit": 0,
+  "eslint_exit": 0,
+  "diff_check_exit": 0,
+  "main_clean": true,
+  "lock_released": "codex19700",
+  "db_writes": 0,
+  "remote_push": false,
+  "remote_ci": false,
+  "authenticated_DB_or_effect_VERIFIED": false
+}

@@ -1,0 +1,36 @@
+{
+  "goal_id":"VG-L3-A1-01",
+  "title":"지도에서 시작한 어휘 준비·목록·복습 사이에 Workspace 복귀 유지",
+  "description":"FINAL C/F/H. 기존 T0069 정상 복습은 재사용한다. 현재 main8325cfd에서 VocabLearningCard의 내 단어장 링크와 빈 복습의 단어 모으기 링크가 /wordvault/browse로 문맥 없이 나가고 browse 페이지/실행기는 지도 복귀를 받지 않는다. V1을 처음 시작하는 학습자가 준비 화면으로 이동하면 어떤 목표/TASK/묶음으로 돌아가야 하는지 잃는다. 새 측정·숙달을 만들지 않고 기존 어휘 목록과 복습의 좁은 왕복을 연결한다.",
+  "priority":"P1","owner_id":"final-product","created_by":"final-independent-accept",
+  "branch":"feat/vocaflow-final-product","worktree":"D:/workspace/Vocaflow-final-product",
+  "base_commit":"f14d7beb5d87d3952b4eccde0c58b5c34390917d","depends_on":["T-0085"],
+  "roles":{"analyst":"codex","planner":"codex","architect":"codex","implementer":"claude","reviewer":"codex","verifier":"codex"},
+  "criterion_claims":[{"criterion_id":"VG-L3-A1-01-AC1","claim":"partial"}],
+  "duplicate_reason":"T0042/T0043은 오래된 다른 PR의 독립 수용이며 broad map/** 경로만 겹친다. T0069는 COMPLETED이고 현재 반례인 browse 경로를 명시적으로 제외했었다. 새 작업은 WordVault 준비·복귀 한 공백만 대상으로 하며 기존 MAP 판정·TASK/순위·V1 측정 계약을 재구현하거나 다른 owner 작업을 인수하지 않는다.",
+  "db_scope":{"mode":"none","targets":[]},
+  "allowed_paths":[
+    "apps/web/src/lib/csat/map-return.ts",
+    "apps/web/src/lib/csat/__tests__/map-return-vocab.test.ts",
+    "apps/web/src/components/csat/diagnosis/map/VocabLearningCard.tsx",
+    "apps/web/src/components/csat/diagnosis/map/__tests__/vocab-learning.test.tsx",
+    "apps/web/src/components/wordvault/WordVaultStudyClient.tsx",
+    "apps/web/src/components/wordvault/WordVaultBrowseClient.tsx",
+    "apps/web/src/components/wordvault/__tests__/vocab-map-preparation.test.tsx",
+    "apps/web/src/app/(main)/wordvault/browse/page.tsx",
+    "apps/web/src/app/(main)/wordvault/review/page.tsx",
+    "apps/web/src/app/(main)/wordvault/__tests__/map-preparation.test.tsx",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "forbidden_paths":[".env*","supabase/**","**/*.sql",".github/**","agents/**","scripts/audit/**","**/*.css","apps/web/src/lib/csat/map/v4/**","apps/web/src/lib/csat/map/v62/**","apps/web/src/lib/knowledge/**","apps/web/src/components/wordvault/StudyMode.tsx","apps/web/src/lib/wordvault/study-queries.ts","apps/web/src/app/api/**","apps/web/src/app/(main)/library/**"],
+  "acceptance":[
+    "map-origin V1의 Workspace 내 단어장 링크와 빈 복습 단어 모으기 링크가 기존 검증 문맥(from=map, map_task/ws/map_ws/map_plan/map_goal)을 고정 내부 /wordvault/browse에 넘긴다. 어휘 경로 allowlist는 정확한 browse/review 두 경로만으로 최소 확장 가능, /wordvault/* 전체·외부주소·임의next/returnTo 수용 금지. 모든 어휘→지도/어휘 링크에 stale map_item/map_attempt를 버리고 수행/이번활동/숙달 근거를 만들지 않는다. 현재 main의 /csat/factory 지원도 보존한다.",
+    "목록(browse)은 지도에서 온 경우만 기존 지도 복귀 막대/스타일을 재사용해 같은 TASK/Workspace로 돌아갈 수 있게 하고 기존 /wordvault/review 복습 링크를 같은 검증 문맥으로 제공한다. 기존 막대 재사용/선택 prop으로 충분하면 새 화면/프레임워크/캐시를 만들지 않는다. 현재 목록의 book/chapter/filter/q/level/memory 파라미터 처리와 일반 진입/도서 이동/검색/필터는 보존하며 필터 URL 변경 뒤에도 map 문맥은 남는다. 범위는 WordVault 두 화면 왕복이며 외부 라이브러리 수집/구독의 자동 복귀까지 구현됐다고 주장하지 않는다.",
+    "실제 단어0/필터 결과0/조회 실패를 구별하는 기존 계약을 보존한다. from=map의 browse 조회 실패는 빈 목록으로 위장하지 않고 돌아갈 길과 실패 안내를 제공한다(기존 실패 처리/공통 막대 재사용, 새 API/읽기 계약/추정 수치 불필요). 단어가 있으면 기존 복습 실행기를 그대로 이용. 현 fetchStudyVocabularies는 due 필터가 아니라 급한 순 상위50이라는 실제 코드 계약을 유지하며 due수/숙달·V1 확인 수를 새로 만들지 않는다.",
+    "최소검증: 실제 main 반례2+정상3(verification/reviews/NEXT-VOCAB-PREPARATION/probe.test.tsx/results.json)을 보완후 통과. RSC/클라이언트 실제 데이터대역으로 map→빈 복습→목록→필터 변경→복습/지도 복귀, 일반 진입, stale 수행ID/불량·외부 문맥 거부, 조회 실패≠0을 확인. 실제 React Chromium1440/1280에서 키보드·넘침·링크 문맥/복귀를 본다. 네트워크 기록에서 새 CSAT 수행·G2·PLAN/목표 저장이 발생하지 않아야 한다. 실제 FSRS 복습은 기존 학습 기록일 뿐 독립 근거로 세지 않는다. 인증 DB/실제 단어 수집/학습효과 미실행은 NOT_VERIFIED. 관련 단위/타입/lint만, 전체web/작업별PR/CI 없음.",
+    "source f14와 최신 main8325cfd의 허용 경로 diff를 읽고 필요한 최소패치만 한다. 현재 map-return.ts의 main /csat/factory 한 줄 지원은 덮지 않는다. main의 StudyMode/hub 후속 변경은 허용밖이라 건드리지 않는다. 같은 파일 실제 다른 writer면 그 경로만 보류·Codex에 반환한다. 기존 source 감사2파일/aux integration/공유main 미커밋 보존·강제merge/stash/reset 금지. 통합은 Codex가 최신main에 결합 검증. 정본 canon_candidate, V1 측정도구 미완료, Gold/권리/DB 승인 경계 유지. 같은 TASK/rev에서 구현→수정→수용, 해당 부분만 개선하고 전체목표 PASS는 주장하지 않는다."
+  ],
+  "ui_acceptance":["지도에서 어휘 준비로 나가도 현재 TASK/묶음으로 돌아갈 길과 복습 다음 행동이 보이며, 일반 어휘·도서 화면에는 지도 전용 안내가 나타나지 않는다. 기존 두 화면 스킨/막대 재사용."],
+  "impact":{"kind":"platform","parent_goal_id":"VG-L3-A1-01","acceptance_ids":["VG-L3-A1-01-AC1"],"current_gap":"First recommended V1 learning reaches WordVault review, but both preparation links drop map context and browse has no map return. Actual RSC main2fail/3control. Existing T0069 normal review and evidence boundary remain accepted.","expected_impact":"advances","dependency_type":"direct","evidence_required":["same actual main2fail/3control fixed","mocked actual route/client preparation roundtrip with normal/error controls","1440/1280 actual browser and no CSAT/G2/PLAN write"],"out_of_scope":["V1 independent instrument/mastery/quantity/FSRS algorithm","DB/schema/rights/Gold/content-release writes","all-library contextual routing/new screens/worker/CI","T0069 accepted normal flow reimplementation"]},
+  "source":{"mission":"FINAL-MISSION-A~H","goals_ah":["C","F","H"],"design_id":"FINAL-VOCAB-PREPARATION-RETURN-rev1","design_revision":"rev1","from_owner":"final-independent-accept","from_session":"01a14de8-2485-7a53-b530-d5612f35e57a","to_session":"c513ff5b-86ef-44a3-8efd-7925a229614b","canonical_main":"8325cfde0afce59e88283b01729638c0bac2f04c","reproduction":"verification/reviews/NEXT-VOCAB-PREPARATION/probe.test.tsx/results.json (2failed/3passed/skip0; actual RSC+navigation stub, no DB)","delivery":"QUEUED until actual ACK/task start"}
+}
