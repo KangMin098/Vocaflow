@@ -1,0 +1,217 @@
+{
+  "environment": "actual Chromium + actual React VocabLearningCard/WordVaultStudyClient/WordVaultBrowseClient · next/navigation shim(router.push 기록) · source globals/Tailwind applied · 인증 Next/DB 아님",
+  "results": [
+    {
+      "width": 1440,
+      "name": "card",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": null,
+      "browse": [
+        "/wordvault/browse?from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "review": [
+        "/wordvault/review?from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "name": "review-empty-map",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": null,
+      "browse": [
+        "/wordvault/browse?from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "review": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "name": "review-empty-plain",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": null,
+      "browse": [
+        "/wordvault/browse"
+      ],
+      "review": [],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "name": "browse-map",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": "/wordvault/browse?filter=set%3As2&book=b1&chapter=2&from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7",
+      "browse": [],
+      "review": [
+        "/wordvault/review?from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "name": "browse-plain",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": "/wordvault/browse?filter=set%3As2&book=b1&chapter=2",
+      "browse": [],
+      "review": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "name": "card",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": null,
+      "browse": [
+        "/wordvault/browse?from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "review": [
+        "/wordvault/review?from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "name": "review-empty-map",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": null,
+      "browse": [
+        "/wordvault/browse?from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "review": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "name": "review-empty-plain",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": null,
+      "browse": [
+        "/wordvault/browse"
+      ],
+      "review": [],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "name": "browse-map",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": "/wordvault/browse?filter=set%3As2&book=b1&chapter=2&from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7",
+      "browse": [],
+      "review": [
+        "/wordvault/review?from=map&map_task=v.core_meaning&ws=ws.vocab-context&map_ws=11111111-2222-4333-8444-555555555555&map_plan=3&map_goal=7"
+      ],
+      "errors": []
+    },
+    {
+      "width": 1280,
+      "name": "browse-plain",
+      "passed": true,
+      "checks": {
+        "returnBar": true,
+        "browseCtx": true,
+        "reviewCtx": true,
+        "chapterKeepsCtx": true,
+        "noWrites": true,
+        "keyboard": true,
+        "overflow": true,
+        "errors": true
+      },
+      "chapterPush": "/wordvault/browse?filter=set%3As2&book=b1&chapter=2",
+      "browse": [],
+      "review": [],
+      "errors": []
+    }
+  ],
+  "passed": 10,
+  "failed": 0
+}

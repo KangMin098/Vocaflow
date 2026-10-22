@@ -1,0 +1,16 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-22T09:33:22.398Z",
+  "commit": "4d8c56a2aa131c0605d6444271dead43bd9ac300",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "type": "review",
+  "artifact_path_or_url": "verification/reviews/T-0086-r1-independent/ACCEPT.md",
+  "command_or_protocol": "Independent source5 original probes + related pure/client/RSC=30/30skip0; tsc/eslint0; exact-scope code ACCEPT_WITH_LIMITS."
+}

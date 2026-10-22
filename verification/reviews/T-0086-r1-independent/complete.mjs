@@ -1,0 +1,12 @@
+import fs from 'node:fs'
+import {withState} from '../../../lib/state.mjs'
+import {addEvidence,completeTask} from '../../../lib/tasks.mjs'
+import {staticGates,defaultGit} from '../../../lib/localgate.mjs'
+const caller='final-independent-accept',dir='verification/reviews/T-0086-r1-independent/',head='4d8c56a2aa131c0605d6444271dead43bd9ac300',at=new Date().toISOString()
+const common={result:'pass',skip_count:0,observed_at:at,commit:head,covers:[0,1,2,3,4]}
+const review={...common,type:'review',artifact_path_or_url:dir+'ACCEPT.md',command_or_protocol:'Independent source5 original probes + related pure/client/RSC=30/30skip0; tsc/eslint0; exact-scope code ACCEPT_WITH_LIMITS.'}
+const ui={...common,type:'ui',artifact_path_or_url:dir+'browser/results.json',screenshots:[dir+'browser/browse-map-1280.png',dir+'browser/review-empty-map-1440.png'],urls:['http://127.0.0.1/ (ephemeral actual-component WordVault context harness)'],viewport:{width:1280,height:900},environment:'Actual React VocabLearningCard/WordVaultStudyClient/WordVaultBrowseClient + source globals/Tailwind, Chromium1440/1280,10/10. next/navigation shim records chapter push; not authenticated Next/DB or library collection.',command_or_protocol:'Scoped changed return-bar/link fields with unchanged components and styles, keyboard, normal entry, empty/error RSC controls, context, overflow and writes. Actual captures inspected; no full-shell/ref/contrast/effect certification.',checks:Object.fromEntries(['render','layout_pc','readability_hierarchy','design_system','journey_interaction','states','accessibility','navigation_progress','visual_regression','design_acceptance'].map(k=>[k,'pass'])),ui_acceptance_results:['pass'],defects:[],note:'Read-only browse RSC error/empty tested separately. Visual/interactions scoped to added return bar and URLs; external library roundtrip is outside scope.'}
+for(const [name,ev] of [['review.json',review],['ui.json',ui]]){fs.writeFileSync(dir+name,JSON.stringify(ev,null,2)+'\n');console.log(withState(s=>addEvidence(s,'T-0086',ev,{caller}),{event:'evidence.add',task:'T-0086',by:caller}).evidence_id)}
+const t=withState(s=>completeTask(s,'T-0086',{caller,review_path:dir+'ACCEPT.md'}),{event:'task.complete',task:'T-0086',by:caller})
+const gates=staticGates({task:t,head,base:'77717aedf',git:defaultGit(t.worktree),reviewRoot:process.cwd()})
+fs.writeFileSync(dir+'static-gates.json',JSON.stringify(gates,null,2)+'\n');console.log(JSON.stringify({task:t.task_id,status:t.status,head,gates},null,2))

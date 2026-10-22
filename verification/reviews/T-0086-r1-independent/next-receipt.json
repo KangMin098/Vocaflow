@@ -1,0 +1,25 @@
+{
+  "at": "2026-10-22T09:39:30.908Z",
+  "task": "T-0087",
+  "status": "READY",
+  "delivery": "QUEUED",
+  "actual_ack": false,
+  "implementation_started": false,
+  "prior": {
+    "task": "T-0086",
+    "source": "4d8c56a2aa131c0605d6444271dead43bd9ac300",
+    "main": "d726c5d07234a0dfb2d3b1dfa0e827b14d7adb77",
+    "status": "COMPLETED"
+  },
+  "goal_check": {
+    "report": "verification/goal-check/GC-2026-10-22T09-39-30-996Z.json",
+    "distribution": {
+      "UNKNOWN": 34,
+      "EXTERNAL_INPUT_REQUIRED": 1
+    },
+    "head": {
+      "main_sha": "d726c5d07234a0dfb2d3b1dfa0e827b14d7adb77"
+    }
+  },
+  "db_writes": 0
+}

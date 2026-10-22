@@ -1,0 +1,13 @@
+import fs from 'node:fs'
+import {withState,loadState} from '../../../lib/state.mjs'
+import {addTask} from '../../../lib/tasks.mjs'
+import {goalCheckStep} from '../../../lib/orchestrator.mjs'
+import {devConfig} from '../../../lib/devmode.mjs'
+const caller='final-independent-accept',specPath='planning/handoff/FINAL-FIRST-R5-REVIEW-PACKET-rev1.json',spec=JSON.parse(fs.readFileSync(specPath,'utf8'))
+const same=loadState().state.taskQueue.tasks.find(t=>t.source?.design_id===spec.source.design_id)
+const t=same??withState(s=>addTask(s,spec),{event:'task.add',by:caller})
+const at=new Date().toISOString()
+if(!same)fs.appendFileSync('planning/inbox/final-product.md',`\n\n## ${at} · T0086-ACCEPTED-LOCAL-MAIN + ${t.task_id}-READY\n\n[VF-TASK T-0086] HEAD4d8c56a2a · ACCEPT_WITH_LIMITS · COMPLETED. 독립5반례/대조+관련RSC/컴포넌트=5파일30/30skip0, source타입/lint0; 실제스타일Chromium10/10(라우터shim, 인증DB아님). main d726c5d07(기준77717aedf)에9파일 무충돌통합, 결합30/30skip0·tsc/lint/diff0·factory/최신WordVault후속보존. tested=committed tree81b4067ff58095d7305fba63f89b2a824a29741a, main clean·codex19700잠금해제. verification/reviews/T-0086-r1-independent/{ACCEPT.md,local-main-integration.json}. 인증/실제단어수집/외부라이브러리전체왕복은 미검증 그대로, 재실행/새코드불필요.\n\n[VF-TASK ${t.task_id}] rev1 · Goal Alignment Gate 통과 · 기존owner/session/worktree/branch · LOCAL_FAST. spec ${specPath}. 다음은 첫 실제적격공급의 B/C 입력 준비: R5 provenance가 가리키는 docs/final/review/r5-authored-gold-packet.md가 실제로없고 source의R5는v2 SHA78dd…지만 main은v3 SHA682d…입니다. 새도구/정본/개발게이트 없이 그 누락경로 한파일에 현재 최소8문항 본문·제안Gold·권리/출시범위를 한 번에 사람이 읽게 복구하세요. 기존 main manifest와 Codex최소8패키지 재사용,8평가전체가 아니라 교수2/평가6입니다. 입력은 절대로sourcev2가 아니라 spec의 절대main파일+SHA. source콘텐츠/JSON/DB/정책 변경0. Gold/권리/출시결정은미기록·미승인 그대로, AI를사람승인으로채우지않음. A재적용/어떤AI대체분기쓰기도없음. 단순정리용필수게이트추가가아니라 기존승인에필요한 현재본문/답안 누락복구입니다.\n\n허용은 패킷md+ledger 두파일뿐. 8개해시/역할/번호/본문·Gold대조만, 전체web/새시험플랫폼/UI/PR/CI없음. 감사2파일·main/auxintegration 무수정, 같은TASK/rev로실제ACK·start 후진행. 현재main내용이갱신돼SHA다르면다른revision을그냥승인대상으로바꾸지말고보고. 완료=검토준비이지실공급/콘텐츠승인/학습효과아님.\n`)
+const cfg=devConfig(),gc=goalCheckStep({deps:{productRepo:cfg.main_worktree,devConfig:()=>({...cfg,integration_branch:'main'})},ciEnabled:false,by:'final-independent-accept-main'})
+const receipt={at,task:t.task_id,status:t.status,delivery:'QUEUED',actual_ack:false,implementation_started:false,prior:{task:'T-0086',source:'4d8c56a2aa131c0605d6444271dead43bd9ac300',main:'d726c5d07234a0dfb2d3b1dfa0e827b14d7adb77',status:'COMPLETED'},goal_check:{report:gc.report,distribution:gc.distribution,head:gc.check.head},db_writes:0}
+fs.writeFileSync('verification/reviews/T-0086-r1-independent/next-receipt.json',JSON.stringify(receipt,null,2)+'\n');console.log(JSON.stringify(receipt,null,2))

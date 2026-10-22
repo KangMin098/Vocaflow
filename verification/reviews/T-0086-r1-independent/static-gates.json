@@ -1,0 +1,14 @@
+{
+  "fail": [],
+  "files": [
+    "apps/web/src/app/(main)/wordvault/__tests__/map-preparation.test.tsx",
+    "apps/web/src/app/(main)/wordvault/browse/page.tsx",
+    "apps/web/src/components/csat/diagnosis/map/VocabLearningCard.tsx",
+    "apps/web/src/components/wordvault/WordVaultBrowseClient.tsx",
+    "apps/web/src/components/wordvault/WordVaultStudyClient.tsx",
+    "apps/web/src/components/wordvault/__tests__/vocab-map-preparation.test.tsx",
+    "apps/web/src/lib/csat/__tests__/map-return-vocab.test.ts",
+    "apps/web/src/lib/csat/map-return.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ]
+}

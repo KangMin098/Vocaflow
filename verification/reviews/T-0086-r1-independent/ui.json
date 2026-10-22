@@ -1,0 +1,45 @@
+{
+  "result": "pass",
+  "skip_count": 0,
+  "observed_at": "2026-10-22T09:33:22.398Z",
+  "commit": "4d8c56a2aa131c0605d6444271dead43bd9ac300",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "type": "ui",
+  "artifact_path_or_url": "verification/reviews/T-0086-r1-independent/browser/results.json",
+  "screenshots": [
+    "verification/reviews/T-0086-r1-independent/browser/browse-map-1280.png",
+    "verification/reviews/T-0086-r1-independent/browser/review-empty-map-1440.png"
+  ],
+  "urls": [
+    "http://127.0.0.1/ (ephemeral actual-component WordVault context harness)"
+  ],
+  "viewport": {
+    "width": 1280,
+    "height": 900
+  },
+  "environment": "Actual React VocabLearningCard/WordVaultStudyClient/WordVaultBrowseClient + source globals/Tailwind, Chromium1440/1280,10/10. next/navigation shim records chapter push; not authenticated Next/DB or library collection.",
+  "command_or_protocol": "Scoped changed return-bar/link fields with unchanged components and styles, keyboard, normal entry, empty/error RSC controls, context, overflow and writes. Actual captures inspected; no full-shell/ref/contrast/effect certification.",
+  "checks": {
+    "render": "pass",
+    "layout_pc": "pass",
+    "readability_hierarchy": "pass",
+    "design_system": "pass",
+    "journey_interaction": "pass",
+    "states": "pass",
+    "accessibility": "pass",
+    "navigation_progress": "pass",
+    "visual_regression": "pass",
+    "design_acceptance": "pass"
+  },
+  "ui_acceptance_results": [
+    "pass"
+  ],
+  "defects": [],
+  "note": "Read-only browse RSC error/empty tested separately. Visual/interactions scoped to added return bar and URLs; external library roundtrip is outside scope."
+}

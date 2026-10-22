@@ -1,0 +1,36 @@
+{
+  "task": "T-0086",
+  "source": "4d8c56a2aa131c0605d6444271dead43bd9ac300",
+  "base": "77717aedf58e720323392179ff7c5242727f9997",
+  "merge_commit": "d726c5d07234a0dfb2d3b1dfa0e827b14d7adb77",
+  "tested_tree": "81b4067ff58095d7305fba63f89b2a824a29741a",
+  "committed_tree": "81b4067ff58095d7305fba63f89b2a824a29741a",
+  "files": [
+    "apps/web/src/app/(main)/wordvault/__tests__/map-preparation.test.tsx",
+    "apps/web/src/app/(main)/wordvault/browse/page.tsx",
+    "apps/web/src/components/csat/diagnosis/map/VocabLearningCard.tsx",
+    "apps/web/src/components/wordvault/WordVaultBrowseClient.tsx",
+    "apps/web/src/components/wordvault/WordVaultStudyClient.tsx",
+    "apps/web/src/components/wordvault/__tests__/vocab-map-preparation.test.tsx",
+    "apps/web/src/lib/csat/__tests__/map-return-vocab.test.ts",
+    "apps/web/src/lib/csat/map-return.ts",
+    "docs/final/FINAL_LEDGER.md"
+  ],
+  "conflicts": [],
+  "tests": {
+    "files": 5,
+    "passed": 30,
+    "failed": 0,
+    "skipped": 0
+  },
+  "source_chromium": "10/10 source globals/Tailwind; navigation shim, not authenticated Next",
+  "tsc_exit": 0,
+  "eslint_exit": 0,
+  "diff_check_exit": 0,
+  "main_clean": true,
+  "lock_released": "codex19700",
+  "db_writes": 0,
+  "remote_push": false,
+  "remote_ci": false,
+  "actual_effect_verified": false
+}

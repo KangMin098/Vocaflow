@@ -1,0 +1,7 @@
+merge: preserve map context during vocabulary preparation
+
+Integrate accepted T-0086 without overwriting latest WordVault changes.
+Keep factory return support and current map evidence boundaries.
+Combined30/30skip0, type/lint0, DB writes0.
+
+Co-Authored-By: Codex <noreply@openai.com>
