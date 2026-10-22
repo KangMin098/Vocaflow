@@ -5,6 +5,7 @@
   "description": "Vocaflow — 영어 원문 기반 종합 학습 플랫폼 모노레포",
   "scripts": {
     "dev": "turbo run dev",
+    "dev:check": "node scripts/dev-server-check.mjs",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
