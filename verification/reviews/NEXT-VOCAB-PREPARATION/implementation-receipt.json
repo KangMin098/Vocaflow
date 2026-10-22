@@ -1,0 +1,17 @@
+{
+  "observed_at": "2026-10-22T09:19:35.755Z",
+  "task": "T-0086",
+  "status": "IN_PROGRESS",
+  "revision": "rev1",
+  "owner": "final-product",
+  "session": "c513ff5b-86ef-44a3-8efd-7925a229614b",
+  "pid": 13384,
+  "started_at": "2026-10-22T09:18:48.201Z",
+  "start_head": "f14d7beb5d87d3952b4eccde0c58b5c34390917d",
+  "actual_ack": "planning/inbox/final-product.md:2026-10-22T09:18:48.000Z",
+  "process_alive": "Get-Process13384 observed",
+  "queued_at": "2026-10-22T09:13:46.994Z",
+  "queue_to_start_ms": 301207,
+  "new_worker_or_session": false,
+  "result_returned": false
+}
