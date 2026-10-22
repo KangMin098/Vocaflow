@@ -10,7 +10,7 @@ import { requireAdmin } from '@/lib/auth/require-admin'
 import { STATUS_LABEL } from '@/lib/knowledge/labels'
 import { listItems, listLinks } from '@/lib/knowledge/server'
 import { APP_STATUS_LABEL, APP_SURFACE_LABEL, KIND_LABEL, TRIAL_RESULT_LABEL, TRIAL_STATUS_LABEL } from '@/lib/knowledge/vnext-labels'
-import { trialReportLevel } from '@/lib/knowledge/vnext-rules'
+import { trialEvidenceState, trialOriginLabel, trialReportLevel } from '@/lib/knowledge/vnext-rules'
 import { listApplications } from '@/lib/knowledge/vnext-server'
 
 export const dynamic = 'force-dynamic'
@@ -55,13 +55,13 @@ export default async function KnowledgeDesignPage() {
                       const d = t.design as { delayed_days?: number | null; transfer?: boolean; comparison?: string | null; min_n?: number; measures?: string[] }
                       return (
                         <li key={t.id}>
-                          {t.synthetic ? '합성(경로 검증)' : '실제 학습자'} · {TRIAL_STATUS_LABEL[t.status]}{t.reviewRequiredAt ? ' · 재계산 필요(결과를 근거로 쓰지 않음)' : t.result ? ` · ${TRIAL_RESULT_LABEL[t.result]}` : ''} · 사전 · 사후
+                          {t.synthetic === true ? '합성(경로 검증)' : trialOriginLabel(t)} · {TRIAL_STATUS_LABEL[t.status]}{t.reviewRequiredAt ? ' · 재계산 필요(결과를 근거로 쓰지 않음)' : t.result ? ` · ${TRIAL_RESULT_LABEL[t.result]}` : ''}{trialEvidenceState(t) === 'current' ? ' · 현재 분석(효과 입증 · 실제 참가자 확인 아님)' : ''} · 사전 · 사후
                           {d.delayed_days ? ` · 지연 ${d.delayed_days}일` : ''}{d.transfer ? ' · 전이' : ''} · 최소 표본 {d.min_n ?? 1} · {(d.measures ?? []).join(', ')}
                           {' — '}{trialReportLevel({ pre: true, post: true, delayedDays: d.delayed_days ?? null, transfer: Boolean(d.transfer), comparison: d.comparison ?? null, minN: d.min_n ?? 1, measures: d.measures ?? [] })}
                         </li>
                       )
                     })}
-                    <li>수행 기록 실제 {a.attempts.real} · 합성 {a.attempts.synthetic}</li>
+                    <li>수행 기록 비합성 표시 {a.attempts.real} · 합성 {a.attempts.synthetic}</li>
                   </ul>
                 </li>
               )
