@@ -36,7 +36,7 @@ function Popups() {
   </div>
 }
 createRoot(document.getElementById('root')!).render(<div data-design-scope="csat" className={location.search.includes('home') ? undefined : s.root}>
-  {location.search.includes('home') ? <HomeLanding exams={[]} map="ok" mapData={fixture.data} focusKind="record" returned={null} /> : <>
+  {location.search.includes('home') ? <HomeLanding exams={[]} map="ok" mapData={fixture.data} focusKind="record" returned={null} restore={location.search.includes('resume') ? { mapTask: 'r.central_meaning', ws: 'ws.central-meaning' } : null} /> : <>
   <CsatRail place="home" exams={[]} dueCount={0} />
   <div style={{ minWidth: 0 }}><header className={s.topbar}><span className={s.topPill}>내 학습 지도</span></header><main className={s.canvas}><Popups /><MapScreen data={fixture.data} view={location.search.includes('full') ? 'full' : 'core'} base="/csat" /></main></div>
   </>}

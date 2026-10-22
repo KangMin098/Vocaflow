@@ -272,7 +272,7 @@ export type PublicEvent =
   | {
       name: 'csat_path_chosen'
       props: {
-        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder' | 'map_detail' | 'workspace_view'
+        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder' | 'map_detail' | 'workspace_view' | 'home_panel'
         need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
         /** axis=menu 일 때만 — 어느 상시 메뉴 */
         menu?: 'map' | 'browse'
@@ -283,7 +283,7 @@ export type PublicEvent =
         /** Existing DB event name; map/workspace UI selections use closed properties only. */
         source?: 'task' | 'workspace'
         tab?: 'overview' | 'evidence' | 'plan'
-        view?: 'board' | 'list'
+        view?: 'board' | 'list' | 'workspace' | 'map'
       }
     }
   /** 문항 해설에서 목록으로 돌아갔다(막다른 길 해소). */

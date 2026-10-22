@@ -12,8 +12,8 @@
 
 'use client'
 
-import { Headphones, MoreVertical, Search, Timer, X } from 'lucide-react'
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, useTransition, type ReactNode } from 'react'
+import { Boxes, Headphones, Map as MapIcon, MoreVertical, Search, Timer, X } from 'lucide-react'
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState, useTransition, type ReactNode, type KeyboardEvent as ReactKeyboardEvent } from 'react'
 import { useRouter } from 'next/navigation'
 
 import { track } from '@/lib/analytics/client'
@@ -84,6 +84,8 @@ export function UnifiedLearningMap(props: UnifiedProps) {
 }
 
 function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, viewToggle = null, workspaceFirst = false }: UnifiedProps) {
+  const [homePanel, setHomePanel] = useState<'workspace' | 'map'>(() => restore?.mapTask || restore?.ws ? 'map' : 'workspace')
+  const homeTabId = useId()
   const g = useGoal(data)
   const goalSet = data.model.goalSet || g.saved
   const view = useMemo(() => composeV4(data, { score: g.goal, set: goalSet }, asOf), [data, g.goal, goalSet, asOf])
@@ -146,9 +148,10 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
   }, [selected, ws, modal, lit, view])
   // 지도 진입(목표 점수만 — 숫자) · TASK 열기(닫힌 열거형). 옛 지도가 보내던 계측을 그대로 잇는다(D2 · D3)
   useEffect(() => {
+    if (workspaceFirst && homePanel !== 'map') return
     track({ name: 'csat_map_viewed', props: { goal: goalSet ? g.goal : 0 } })
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [workspaceFirst, homePanel])
 
   /** Selection and detail share one TASK/Workspace context. */
   const chooseTask = (id: TaskId, openDetail = false) => {
@@ -278,6 +281,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
           const chosen = rows.find((r) => r.id === id)
           const target = chosen ? taskForWs(chosen, selected) : null
           chooseWs(id)
+          if (workspaceFirst) setHomePanel('map')
           if (target) requestAnimationFrame(() => {
             const node = document.querySelector<HTMLElement>(`[data-node="${CSS.escape(target)}"]`)
             node?.scrollIntoView({ block: 'center', inline: 'nearest' })
@@ -289,9 +293,12 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
       />
   )
 
-  return (
-    <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet} data-workspace-first={workspaceFirst}>
-      {workspaceFirst && workspace}
+  const selectHomePanel = (panel: 'workspace' | 'map') => {
+    if (panel === homePanel) return
+    setHomePanel(panel)
+    track({ name: 'csat_path_chosen', props: { axis: 'home_panel', need: 'none', action: 'apply', view: panel } })
+  }
+  const mapContent = (<>
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
       <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
@@ -398,7 +405,23 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
         </div>
       </section>
 
-      {!workspaceFirst && workspace}
+  </>)
+
+  return (
+    <div className={u.wrap} data-testid="unified-map" data-mode={mode} data-selected={selected} data-ws={ws ?? ''} data-lit={lit} data-goal-set={goalSet} data-workspace-first={workspaceFirst}>
+      {workspaceFirst ? <>
+        <div className={u.homeTabs} role="tablist" aria-label="학습 공간 보기">
+          {(['workspace', 'map'] as const).map((panel, index) => <button key={panel} type="button" role="tab" id={homeTabId + '-' + panel} aria-selected={homePanel === panel} aria-controls={homeTabId + '-' + panel + '-content'} tabIndex={homePanel === panel ? 0 : -1} className={u.homeTab} onClick={() => selectHomePanel(panel)} onKeyDown={(event: ReactKeyboardEvent<HTMLButtonElement>) => {
+            if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return
+            event.preventDefault()
+            const next = event.key === 'Home' ? 'workspace' : event.key === 'End' ? 'map' : index === 0 ? 'map' : 'workspace'
+            selectHomePanel(next)
+            document.getElementById(homeTabId + '-' + next)?.focus()
+          }} data-testid={'home-tab-' + panel}>{panel === 'workspace' ? <Boxes size={15} aria-hidden="true" /> : <MapIcon size={15} aria-hidden="true" />}{panel === 'workspace' ? 'Workspace' : '학습지도'}{panel === 'workspace' && <span className={u.homeTabCount}>{rows.filter(r => r.kind !== 'preparing').length}</span>}</button>)}
+        </div>
+        <div id={homeTabId + '-workspace-content'} role="tabpanel" aria-labelledby={homeTabId + '-workspace'} hidden={homePanel !== 'workspace'} className={u.homeWorkspacePanel} data-testid="home-workspace-panel">{workspace}</div>
+        <div id={homeTabId + '-map-content'} role="tabpanel" aria-labelledby={homeTabId + '-map'} hidden={homePanel !== 'map'} className={u.homeMapPanel} data-testid="home-map-panel">{mapContent}</div>
+      </> : <>{mapContent}{workspace}</>}
 
       {modal && (
         <LearningDetailDialog

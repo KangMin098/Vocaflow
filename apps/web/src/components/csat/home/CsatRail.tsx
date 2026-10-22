@@ -2,15 +2,15 @@
 'use client'
 
 //
-// **기출분석공간 메뉴 — 상시 메뉴 두 개.** (v3 M1 · CSAT_LEARNER_UX_V3 §1 · §7)
+// **기출분석공간 메뉴 — 공간/탐구와 홈의 개인 자료.** (v3 M1 · CSAT_LEARNER_UX_V3 §1 · §7)
 //
-//   내 학습 지도(/csat)  — 지도 중심 시작점. 기록 · 진단 · 내 공식 · 연습 · 이어서 · 복습은 지도 본문에서 쓸 때 연다.
+//   내 학습 지도(/csat)  — Workspace 중심 시작점. 홈은 children 슬롯에 기록·진단·공식·연습·복습·기출 찾기를 둔다.
 //   기출 탐구(/csat/browse) — 목적 · 유형 · 회차는 메뉴가 아니라 서가의 검색 조건이다.
 //
 // 일곱 장면을 사이트 메뉴로 올리지 않는다. 옛 목적별 · 유형별 · 회차별 주소(`/csat?need=` · `?tab=trap` · `/csat/browse?type=` · `?exam=`)는
 // 그대로 열린다(옛 URL 전용) — 레일에서만 내려온다. 어느 메뉴를 골랐는지는 `csat_path_chosen{axis:'menu'}` 가 센다.
 import Link from 'next/link'
-import { useEffect, useState } from 'react'
+import { useEffect, useState, type ReactNode } from 'react'
 import { Crosshair, Home, Library, Map as MapIcon, Microscope, Search, Sparkles, Target, Timer } from 'lucide-react'
 
 import { track } from '@/lib/analytics/client'
@@ -38,6 +38,7 @@ const n = (value: number) => value.toLocaleString('ko-KR')
 export function CsatRail({
   place,
   dueCount,
+  children,
 }: {
   place: RailPlace
   /** 지금 열려 있는 목적 · 유형 · 회차 id(해당 줄에 aria-current) */
@@ -45,16 +46,18 @@ export function CsatRail({
   exams: { exam_id: string; label: string; items: number }[]
   /** 이어서 · 복습 옆 개수. 아직 기록을 못 읽었으면 null */
   dueCount: number | null
+  children?: ReactNode
 }) {
   const cur = (on: boolean) => (on ? ('page' as const) : undefined)
-  // 메뉴 최소 축소(2026-10-12 사용자 요청) — 기본은 아이콘만 남긴 좁은 레일이라 작업 화면(기출 원문 · 분석)이 넓다.
-  // 왼쪽 위 표지를 누르면 펼치고, 다시 누르면 접는다. 고른 상태는 이 기기에 남긴다(첫 그림은 접힌 상태 — 깜빡임 없음).
-  const [collapsed, setCollapsed] = useState(true)
+  // 홈 첫 기기는 참조처럼 펼친 메뉴, 다른 화면은 기존의 좁은 레일이다. 저장한 접힘 선택은 우선한다.
+  // 왼쪽 위 표지로 전환하고 이 기기에 선택을 남긴다.
+  const [collapsed, setCollapsed] = useState(place !== 'home')
   useEffect(() => {
     try {
       if (localStorage.getItem(RAIL_KEY) === 'open') setCollapsed(false)
+      if (localStorage.getItem(RAIL_KEY) === 'closed') setCollapsed(true)
     } catch {
-      // 저장소를 못 쓰는 환경 — 접힌 기본값 그대로
+      // 저장소를 못 쓰면 각 화면의 기본값을 유지한다.
     }
   }, [])
   const toggle = () => {
@@ -98,7 +101,7 @@ export function CsatRail({
           onClick={() => track({ name: 'csat_path_chosen', props: { axis: 'menu', need: 'none', menu: 'map' } })}
         >
           <MapIcon size={15} aria-hidden="true" />
-          내 학습 지도
+          내 학습 공간
           {dueCount ? <span className={styles.railCount} title="이어서 · 복습할 것">{n(dueCount)}</span> : null}
         </Link>
         <Link
@@ -112,6 +115,7 @@ export function CsatRail({
           기출 탐구
         </Link>
       </div>
+      {children}
     </nav>
   )
 }

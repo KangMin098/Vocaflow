@@ -1966,4 +1966,14 @@ p.dockL {
   .wsState { padding: 0; border-radius: 0; white-space: normal; background: transparent; line-height: 1.5; }
   .wsState[data-state] { background: transparent; }
   .wsPrep { margin: 0 24px; border-color: var(--m-line); }
+  .homeTabs { display: flex; align-items: center; gap: 8px; min-height: 56px; padding: 0 12px; border-bottom: 1px solid var(--m-line); }
+  .homeTab { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 12px; border-radius: 999px; color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+  .homeTab[aria-selected='true'] { background: var(--m-canvas); color: var(--m-ink); }
+  .homeTab:focus-visible { outline: 2px solid var(--m-ink); outline-offset: -2px; }
+  .homeTabCount { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 50%; background: var(--m-g200); font-size: max(var(--csat-fs-min), calc(10px * var(--csat-fs-scale))); }
+  .homeWorkspacePanel { min-height: max(420px, calc(100dvh - 308px)); background: var(--m-bg); }
+  .homeWorkspacePanel > .wsList { border: 0; border-radius: 0; }
+  .homeWorkspacePanel .wsHead { display: none; }
+  .homeMapPanel { display: grid; gap: 16px; padding: 16px; min-width: 0; background: var(--m-bg); }
+  .homeWorkspacePanel[hidden], .homeMapPanel[hidden] { display: none; }
 }

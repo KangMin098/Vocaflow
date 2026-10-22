@@ -51,9 +51,11 @@
 .map :global([data-returned='true']) { outline: 3px solid var(--hl-primary-bg); outline-offset: 4px; border-radius: 8px; }
 
 @media (min-width: 900px) {
+  .root { grid-template-columns: 248px minmax(0, 1fr); }
+  .root:has(> :global([data-testid='csat-rail'][data-collapsed='true'])) { grid-template-columns: 64px minmax(0, 1fr); }
   .main { padding: 12px 12px 0 8px; background: var(--csat-canvas); }
   .topbar { display: none; }
-  .canvas { margin: 0; padding: 0 0 24px; gap: 0; border: 0; border-radius: 0; background: transparent; }
+  .canvas { margin: 0; padding: 0; gap: 0; border: 0; border-radius: 0; background: transparent; }
   .suggest { position: relative; display: grid; place-items: center; min-height: 240px; margin: 0; padding: 28px 24px 42px; border-radius: 18px 18px 0 0; overflow: hidden; }
   .bannerArt { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
   .suggestCard { position: relative; z-index: 1; width: min(600px, 100%); padding: 12px; border: 1px solid #dededc; border-radius: 16px; background: #fffffff0; box-shadow: 0 3px 0 #18181b08; }
@@ -61,18 +63,20 @@
   .suggestBadge { margin-left: auto; padding: 3px 8px; border-radius: 999px; background: var(--csat-soft); font-size: 10px; }
   .suggestCard > .lead { padding: 10px 12px; border: 1px solid var(--csat-line); border-radius: 11px; background: var(--csat-panel); font-size: 12px; }
   .suggestCard > :global([role='alert']), .suggestCard > :global([role='status']) { margin: 0; }
-  .map { position: relative; margin-top: -14px; border-radius: 16px 16px 0 0; background: var(--csat-panel); }
-  .map :global([data-testid='unified-map'][data-workspace-first='true']) { gap: 0; padding: 0; border: 1px solid var(--csat-line); border-radius: 16px 16px 0 0; background: var(--csat-panel); overflow: hidden; }
-  .map :global([data-workspace-first='true'] > [data-testid='ws-list']) { border: 0; border-radius: 0; min-height: 420px; }
-  .map :global([data-workspace-first='true'] > [data-testid='umap-top']), .map :global([data-workspace-first='true'] > [data-testid='goal-plan']) { margin: 16px; }
-  .map :global([data-workspace-first='true'] > section[aria-labelledby='umap-h']) { border-radius: 0; }
-  .mine { margin: 0; padding: 12px 18px; border: 1px solid var(--csat-line); border-top: 0; background: var(--csat-panel); }
-  .mineItem { border-radius: 7px; font-size: 12px; }
-  .explore { margin: 16px 0 0; padding: 16px 20px; }
-  .startFlow { display: flex; align-items: center; gap: 12px; margin-top: 16px; }
-  .startFlow > [role='listitem'] { display: inline-flex; align-items: center; gap: 8px; padding: 12px 16px; border: 1px solid var(--csat-line); border-radius: 10px; background: var(--csat-canvas); color: var(--csat-ink); }
+  .map { position: relative; margin-top: -14px; border-radius: 16px; background: var(--csat-panel); }
+  .map :global([data-testid='unified-map'][data-workspace-first='true']) { gap: 0; padding: 0; border: 1px solid var(--csat-line); border-radius: 16px; background: var(--csat-panel); overflow: hidden; }
+  .railShortcuts { display: flex; flex: 1; flex-direction: column; gap: 12px; margin-top: 4px; min-height: 0; }
+  :global([data-collapsed='true']) > .railShortcuts { display: none; }
+  .mine { display: flex; flex-direction: column; gap: 2px; margin: 0; padding: 12px 0; border: 0; border-top: 1px solid var(--csat-line); background: transparent; }
+  .mineItem { min-height: 44px; border-radius: 7px; font-size: 12px; }
+  .explore { display: grid; margin: auto 0 0; padding: 14px 0 0; border: 0; border-top: 1px solid var(--csat-line); border-radius: 0; }
+  .explore > div, .exploreActions > a:last-child { display: none; }
+  .exploreActions { display: flex; flex-direction: column; gap: 8px; }
+  .exploreActions > a, .exploreActions > button { justify-content: center; width: 100%; margin: 0; font-size: 11px; }
+  .startFlow { display: flex; align-items: center; gap: 10px; margin-top: 8px; }
+  .startFlow > [role='listitem'] { display: inline-flex; align-items: center; gap: 6px; padding: 4px 8px; border: 0; background: transparent; color: var(--csat-ink); font-size: 11px; }
   .explore .lead { display: flex; align-items: center; gap: 8px; }
   .explore { background: var(--csat-canvas); border-color: var(--csat-line); }
-  .mineItem { background: var(--csat-canvas); }
+  .mineItem { background: transparent; padding: 0 10px; }
   .primary { background: var(--csat-control) !important; color: #fff !important; }
 }

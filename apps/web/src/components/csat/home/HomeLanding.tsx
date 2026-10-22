@@ -3,7 +3,7 @@
 //
 // **내 학습 공간 — `/csat` 패턴 배너 · Workspace 목록 · 학습지도 홈.**
 //
-// 한 화면에 역할을 나눈다: ① 첫 제안 하나 ② Workspace와 같은 상태의 학습지도 ③ 내 자료 ④ 기출 탐구 입구.
+// 한 화면에 역할을 나눈다: ① 첫 제안 하나 ② Workspace/학습지도 탭 ③ 내 자료 ④ 기출 탐구 입구.
 // 첫 제안은 `pickHomeSuggestion` 이 기존 상태에서 고른다(새 점수 · 순위 없음). 「확인 필요 · 기록 없음 · 기록만」 은
 // 지도의 초점 카드가 그대로 첫 제안이다 — 홈이 같은 판정을 다시 쓰지 않는다.
 // 기출 탐구는 언제나 열려 있다(진단이 탐구의 입장권이 아니다). 지도를 못 읽으면 오류로 말하고 기록 0 으로 추정하지 않는다.
@@ -105,9 +105,62 @@ export function HomeLanding({
     })
   }, [rec, suggest])
 
+  const shortcuts = <div className={l.railShortcuts}>
+          {/* ③ 내 자료 — 홈 왼쪽 메뉴 · 기존 경로 그대로 */}
+          <nav className={l.mine} aria-label="내 자료" data-testid="home-mine">
+            <Link className={l.mineItem} href="/csat?view=continue" data-testid="home-continue">
+              <History size={15} aria-hidden="true" /> 이어서 · 복습
+              {due ? <span className={l.count}>{due}</span> : null}
+            </Link>
+            <Link className={l.mineItem} href="/csat/record">
+              <BookMarked size={15} aria-hidden="true" /> 내 기록
+            </Link>
+            <Link className={l.mineItem} href="/csat/diagnosis">
+              <Stethoscope size={15} aria-hidden="true" /> 내 진단
+            </Link>
+            <Link className={l.mineItem} href="/csat/formulas">
+              <NotebookPen size={15} aria-hidden="true" /> 내 공식
+            </Link>
+            <Link className={l.mineItem} href="/csat/practice">
+              <FlaskConical size={15} aria-hidden="true" /> 연습 · 주장과 근거
+            </Link>
+          </nav>
+
+          {/* ④ 기출 탐구 입구 — 진단 없이도 언제나 */}
+          <section className={l.explore} aria-label="기출 탐구" data-testid="home-explore">
+            <div>
+              <p className={l.exploreTitle}>기출 탐구</p>
+              <p className={`${l.lead} break-keep`}><Search size={15} aria-hidden="true" />목적 · 유형 · 회차로 찾기</p>
+            </div>
+            <span className={l.exploreActions}>
+              <Link className={home.secondary} href="/csat/dissect" onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'start', from: 'home' } })} data-testid="home-start">
+                처음이라면 3문항으로 시작
+              </Link>
+              <button
+                type="button"
+                className={finder.trigger}
+                onClick={() => {
+                  track({ name: 'csat_path_chosen', props: { axis: 'finder', need: 'none', origin: 'home', action: 'open' } })
+                  setFinderOpen(true)
+                }}
+                aria-haspopup="dialog"
+                data-testid="home-finder-open"
+              >
+                <span className={finder.triggerFace}>
+                  <Search size={14} aria-hidden="true" />
+                  기출 찾기
+                </span>
+              </button>
+              <Link className={`${home.primary} ${l.primary}`} href="/csat/browse" data-testid="home-explore-go">
+                기출 탐구로 <ArrowRight size={14} aria-hidden="true" />
+              </Link>
+            </span>
+          </section>
+  </div>
+
   return (
-    <div className={styles.root} data-csat-space data-testid="csat-home" data-suggest={rec ? suggest : 'loading'}>
-      <CsatRail place="home" exams={exams} dueCount={rec ? (due ?? 0) + (set ? 1 : 0) : null} />
+    <div className={`${styles.root} ${l.root}`} data-csat-space data-testid="csat-home" data-suggest={rec ? suggest : 'loading'}>
+      <CsatRail place="home" exams={exams} dueCount={rec ? (due ?? 0) + (set ? 1 : 0) : null}>{shortcuts}</CsatRail>
 
       <div className={`min-w-0 ${l.main}`}>
         <header className={`${styles.topbar} ${l.topbar}`}>
@@ -252,7 +305,7 @@ export function HomeLanding({
                     // T-0079 — 기록 0 = 미측정 · 시작 전(약점 아님). 시험 기록은 필수 조건이 아니다 — 지도에서 계획 → 자료 → 직접 확인으로 시작할 수 있다
                     ? '아직 미측정이에요. 지도에서 첫 확인을 시작해요.'
                     : '지도에서 지금 근거와 다음 단계(자료 · 대기 이유 포함)를 확인하세요.'}{' '}
-                <a href="#umap-h" className={l.inlineLink}>지도에서 보기</a>
+                <Link href="/csat/diagnosis?tab=map" className={l.inlineLink}>학습지도 열기<ArrowRight size={14} aria-hidden="true" /></Link>
                 {suggest === 'no_records' && <span className={l.startFlow} role="list" aria-label="첫 학습 순서"><span role="listitem"><ListChecks size={18} aria-hidden="true" />계획 선택</span><ArrowRight size={15} aria-hidden="true" /><span role="listitem"><Library size={18} aria-hidden="true" />자료 받기</span><ArrowRight size={15} aria-hidden="true" /><span role="listitem"><ClipboardCheck size={18} aria-hidden="true" />직접 확인</span></span>}
               </p>
             )}
@@ -268,56 +321,7 @@ export function HomeLanding({
             ) : null}
           </section>
 
-          {/* ③ 내 자료 — 쓸 때 연다(메뉴에 올리지 않는다) · 기존 경로 그대로 */}
-          <nav className={l.mine} aria-label="내 자료" data-testid="home-mine">
-            <Link className={l.mineItem} href="/csat?view=continue" data-testid="home-continue">
-              <History size={15} aria-hidden="true" /> 이어서 · 복습
-              {due ? <span className={l.count}>{due}</span> : null}
-            </Link>
-            <Link className={l.mineItem} href="/csat/record">
-              <BookMarked size={15} aria-hidden="true" /> 내 기록
-            </Link>
-            <Link className={l.mineItem} href="/csat/diagnosis">
-              <Stethoscope size={15} aria-hidden="true" /> 내 진단
-            </Link>
-            <Link className={l.mineItem} href="/csat/formulas">
-              <NotebookPen size={15} aria-hidden="true" /> 내 공식
-            </Link>
-            <Link className={l.mineItem} href="/csat/practice">
-              <FlaskConical size={15} aria-hidden="true" /> 연습 · 주장과 근거
-            </Link>
-          </nav>
 
-          {/* ④ 기출 탐구 입구 — 진단 없이도 언제나 */}
-          <section className={l.explore} aria-label="기출 탐구" data-testid="home-explore">
-            <div>
-              <p className={l.exploreTitle}>기출 탐구</p>
-              <p className={`${l.lead} break-keep`}><Search size={15} aria-hidden="true" />목적 · 유형 · 회차로 찾기</p>
-            </div>
-            <span className={l.exploreActions}>
-              <Link className={home.secondary} href="/csat/dissect" onClick={() => track({ name: 'csat_resume_clicked', props: { kind: 'start', from: 'home' } })} data-testid="home-start">
-                처음이라면 3문항으로 시작
-              </Link>
-              <button
-                type="button"
-                className={finder.trigger}
-                onClick={() => {
-                  track({ name: 'csat_path_chosen', props: { axis: 'finder', need: 'none', origin: 'home', action: 'open' } })
-                  setFinderOpen(true)
-                }}
-                aria-haspopup="dialog"
-                data-testid="home-finder-open"
-              >
-                <span className={finder.triggerFace}>
-                  <Search size={14} aria-hidden="true" />
-                  기출 찾기
-                </span>
-              </button>
-              <Link className={`${home.primary} ${l.primary}`} href="/csat/browse" data-testid="home-explore-go">
-                기출 탐구로 <ArrowRight size={14} aria-hidden="true" />
-              </Link>
-            </span>
-          </section>
         </div>
       </div>
       {finderOpen ? (
