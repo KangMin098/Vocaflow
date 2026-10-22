@@ -1,0 +1,88 @@
+{
+  "observed_at": "2026-10-22T11:46:47.817Z",
+  "main": "30bdf7ff1a287017aa1cd0b650c28f92e87c46f0",
+  "origin_main_after_fetch": "f573ef8e5d1671d2ba9f42f04abfe695fe49a75e",
+  "remote_local_commit_counts": "0\t84",
+  "main_tracked_clean": true,
+  "input_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+  "packet_sha256": "706887dc7edf35604572d1d909933e2a10c16329af6d0e3654a4c5cfac09b35d",
+  "migration_sql_sha256": "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d",
+  "migration_db_statements_sha256": "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d",
+  "migration_version": "20261021175340",
+  "db": {
+    "observed_at": "2026-10-22T11:42:53.818553Z",
+    "method": "Supabase execute_sql SELECT aggregates only",
+    "authored_items": 0,
+    "human_decisions": 0,
+    "ai_decisions": 0,
+    "qualifications": 0,
+    "release_approvals": 0,
+    "deliveries": 0,
+    "bindings": 0,
+    "factory_attempts": 0
+  },
+  "policy": {
+    "installed_function": "supply_human_decisions_ok = human OR (AI + first-party declaration) OR source_policy",
+    "installed_not_a_content_decision": true,
+    "installation_approval_record": "05-DB-ACTIVATION-APPROVAL.md / 06-DB-ACTIVATION-RESULT.md; exact SQL matches DB migration; original dialogue not independently re-read in this check",
+    "current_user_instruction": "Human Gold/rights decisions required for this R5 scope; no write/release before those decisions and separate concrete DB authorization"
+  },
+  "scope": {
+    "instructional": [
+      "r5-cm-teach-1",
+      "r5-cm-guided-1"
+    ],
+    "assessment": [
+      "r5-cm-ind-1",
+      "r5-cm-ind-2",
+      "r5-cm-transfer-1",
+      "r5-cm-transfer-2",
+      "r5-cm-ind-3",
+      "r5-cm-ind-4"
+    ],
+    "gold_decisions_required": 6,
+    "rights_decisions_required": 8,
+    "expected_registration_refs": 8,
+    "expected_qualification_roles": 8,
+    "release_scopes": {
+      "public": 8,
+      "assessment": 6
+    },
+    "not_a_write_authorization": true,
+    "no_ci_fixture_axes_or_attestations_reused": true
+  },
+  "task_0087": {
+    "status": "COMPLETED",
+    "actual_completion_ack": "2026-10-22T09:53:36.000Z, shared final-product inbox; no new implementation implied"
+  },
+  "goal_check": {
+    "report": "verification/goal-check/GC-2026-10-22T11-46-47-727Z.json",
+    "distribution": {
+      "UNKNOWN": 34,
+      "EXTERNAL_INPUT_REQUIRED": 1
+    },
+    "head": {
+      "main_sha": "30bdf7ff1a287017aa1cd0b650c28f92e87c46f0"
+    }
+  },
+  "next_task_triage": {
+    "known_metric_defect": "T-0084 fixed; no reimplementation",
+    "known_evidence_labels": "T-0085 fixed; no reimplementation",
+    "v1": "Still canon_candidate/direct_check content_needed. Separate instrument criteria are not established by WordVault self ratings. Do not invent a canon or promote evidence.",
+    "new_P0_P1_reproduced_in_this_check": false,
+    "ready_final_product": [],
+    "new_task_created": false,
+    "reason": "First live R5 is the current priority; decision input is now concrete. No independently confirmed new product defect merits a filler implementation task."
+  },
+  "completion": {
+    "PRODUCT_CODE_COMPLETE": "PARTIAL",
+    "LOCAL_VALIDATION_COMPLETE": "SCOPED_ONLY",
+    "REMOTE_INTEGRATION_COMPLETE": false,
+    "DEV_DB_E2E_VERIFIED": false,
+    "CONTENT_RELEASE_APPROVED": false,
+    "EDUCATIONAL_EFFECT_VALIDATED": false
+  },
+  "db_writes": 0,
+  "remote_push": false,
+  "new_workers": 0
+}
