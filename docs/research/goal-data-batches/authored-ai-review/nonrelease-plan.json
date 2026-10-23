@@ -1,0 +1,1311 @@
+{
+  "plan_sha256": "729cdccce5af72f1be984cac650a485cc4adfd30826d07d3d5c9b54d82c007cf",
+  "items": 38,
+  "H": {
+    "pass": 38,
+    "unknown": 0
+  },
+  "calls": [
+    "authored_item_register",
+    "content_ai_decision_record",
+    "authored_ai_qualify"
+  ],
+  "not_called": [
+    "content_release_approve",
+    "content_human_decision_record"
+  ],
+  "plan": [
+    {
+      "set": "r5-central-meaning.v3",
+      "id": "r5-cm-guided-1",
+      "role": "guided_practice",
+      "ref": "authored:r5-cm-guided-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "not_applicable"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-central-meaning-r5-cm-guided-1.v3"
+    },
+    {
+      "set": "r5-central-meaning.v3",
+      "id": "r5-cm-ind-2",
+      "role": "independent_check",
+      "ref": "authored:r5-cm-ind-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-central-meaning-r5-cm-ind-2.v3"
+    },
+    {
+      "set": "r5-central-meaning.v3",
+      "id": "r5-cm-transfer-1",
+      "role": "transfer",
+      "ref": "authored:r5-cm-transfer-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-central-meaning-r5-cm-transfer-1.v3"
+    },
+    {
+      "set": "r5-central-meaning.v3",
+      "id": "r5-cm-delayed-1",
+      "role": "delayed_check",
+      "ref": "authored:r5-cm-delayed-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-central-meaning-r5-cm-delayed-1.v3"
+    },
+    {
+      "set": "r5-central-meaning.v3",
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "ref": "authored:r5-cm-ind-3",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-central-meaning-r5-cm-ind-3.v3"
+    },
+    {
+      "set": "e-option-correspondence.v1",
+      "id": "opt-ind-1",
+      "role": "independent_check",
+      "ref": "authored:opt-ind-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-option-match-opt-ind-1.v1"
+    },
+    {
+      "set": "e-option-correspondence.v1",
+      "id": "opt-ind-2",
+      "role": "independent_check",
+      "ref": "authored:opt-ind-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-option-match-opt-ind-2.v1"
+    },
+    {
+      "set": "e-option-correspondence.v1",
+      "id": "opt-transfer-1",
+      "role": "transfer",
+      "ref": "authored:opt-transfer-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-option-match-opt-transfer-1.v1"
+    },
+    {
+      "set": "e-option-correspondence.v1",
+      "id": "opt-delayed-1",
+      "role": "delayed_check",
+      "ref": "authored:opt-delayed-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-option-match-opt-delayed-1.v1"
+    },
+    {
+      "set": "e-option-correspondence.v1",
+      "id": "opt-ind-3",
+      "role": "independent_check",
+      "ref": "authored:opt-ind-3",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-option-match-opt-ind-3.v1"
+    },
+    {
+      "set": "e-option-correspondence.v1",
+      "id": "opt-transfer-2",
+      "role": "transfer",
+      "ref": "authored:opt-transfer-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-option-match-opt-transfer-2.v1"
+    },
+    {
+      "set": "r-inference.v1",
+      "id": "inf-ind-2",
+      "role": "independent_check",
+      "ref": "authored:inf-ind-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-inference-inf-ind-2.v1"
+    },
+    {
+      "set": "v-contextual-sense.v1",
+      "id": "vcs-ind-2",
+      "role": "independent_check",
+      "ref": "authored:vcs-ind-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-vocab-context-vcs-ind-2.v1"
+    },
+    {
+      "set": "r-reference.v1",
+      "id": "ref-teach-1",
+      "role": "model_explanation",
+      "ref": "authored:ref-teach-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "not_applicable"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-reference-ref-teach-1.v1"
+    },
+    {
+      "set": "v-multiword.v1",
+      "id": "mw-ind-1",
+      "role": "independent_check",
+      "ref": "authored:mw-ind-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-multiword-mw-ind-1.v1"
+    },
+    {
+      "set": "v-multiword.v1",
+      "id": "mw-transfer-1",
+      "role": "transfer",
+      "ref": "authored:mw-transfer-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-multiword-mw-transfer-1.v1"
+    },
+    {
+      "set": "v-multiword.v1",
+      "id": "mw-delayed-1",
+      "role": "delayed_check",
+      "ref": "authored:mw-delayed-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-multiword-mw-delayed-1.v1"
+    },
+    {
+      "set": "v-multiword.v1",
+      "id": "mw-transfer-2",
+      "role": "transfer",
+      "ref": "authored:mw-transfer-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-multiword-mw-transfer-2.v1"
+    },
+    {
+      "set": "r-discourse-function.v1",
+      "id": "df-ind-4",
+      "role": "independent_check",
+      "ref": "authored:df-ind-4",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-discourse-function-df-ind-4.v1"
+    },
+    {
+      "set": "e-task-demand.v1",
+      "id": "td-ind-1",
+      "role": "independent_check",
+      "ref": "authored:td-ind-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-task-demand-td-ind-1.v1"
+    },
+    {
+      "set": "e-task-demand.v1",
+      "id": "td-ind-2",
+      "role": "independent_check",
+      "ref": "authored:td-ind-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-task-demand-td-ind-2.v1"
+    },
+    {
+      "set": "e-task-demand.v1",
+      "id": "td-delayed-1",
+      "role": "delayed_check",
+      "ref": "authored:td-delayed-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-task-demand-td-delayed-1.v1"
+    },
+    {
+      "set": "e-task-demand.v1",
+      "id": "td-transfer-2",
+      "role": "transfer",
+      "ref": "authored:td-transfer-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-task-demand-td-transfer-2.v1"
+    },
+    {
+      "set": "s-attachment.v1",
+      "id": "at-guided-1",
+      "role": "guided_practice",
+      "ref": "authored:at-guided-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "not_applicable"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-attachment-at-guided-1.v1"
+    },
+    {
+      "set": "s-attachment.v1",
+      "id": "at-transfer-1",
+      "role": "transfer",
+      "ref": "authored:at-transfer-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-attachment-at-transfer-1.v1"
+    },
+    {
+      "set": "s-attachment.v1",
+      "id": "at-delayed-1",
+      "role": "delayed_check",
+      "ref": "authored:at-delayed-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-attachment-at-delayed-1.v1"
+    },
+    {
+      "set": "s-structural-relation.v1",
+      "id": "sr-guided-1",
+      "role": "guided_practice",
+      "ref": "authored:sr-guided-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "not_applicable"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-structural-relation-sr-guided-1.v1"
+    },
+    {
+      "set": "s-structural-relation.v1",
+      "id": "sr-ind-1",
+      "role": "independent_check",
+      "ref": "authored:sr-ind-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-structural-relation-sr-ind-1.v1"
+    },
+    {
+      "set": "s-structural-relation.v1",
+      "id": "sr-ind-3",
+      "role": "independent_check",
+      "ref": "authored:sr-ind-3",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-structural-relation-sr-ind-3.v1"
+    },
+    {
+      "set": "s-structural-relation.v1",
+      "id": "sr-transfer-2",
+      "role": "transfer",
+      "ref": "authored:sr-transfer-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-structural-relation-sr-transfer-2.v1"
+    },
+    {
+      "set": "v-semantic-relation.v1",
+      "id": "sem-guided-1",
+      "role": "guided_practice",
+      "ref": "authored:sem-guided-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "pass"
+        },
+        "E": {
+          "state": "not_applicable"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-semantic-relation-sem-guided-1.v1"
+    },
+    {
+      "set": "v-semantic-relation.v1",
+      "id": "sem-ind-2",
+      "role": "independent_check",
+      "ref": "authored:sem-ind-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-semantic-relation-sem-ind-2.v1"
+    },
+    {
+      "set": "v-semantic-relation.v1",
+      "id": "sem-transfer-1",
+      "role": "transfer",
+      "ref": "authored:sem-transfer-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-semantic-relation-sem-transfer-1.v1"
+    },
+    {
+      "set": "v-semantic-relation.v1",
+      "id": "sem-ind-4",
+      "role": "independent_check",
+      "ref": "authored:sem-ind-4",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-semantic-relation-sem-ind-4.v1"
+    },
+    {
+      "set": "v-semantic-relation.v1",
+      "id": "sem-transfer-2",
+      "role": "transfer",
+      "ref": "authored:sem-transfer-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-semantic-relation-sem-transfer-2.v1"
+    },
+    {
+      "set": "r5-central-meaning-cycle.v2",
+      "id": "r5-cycle-ind-1",
+      "role": "independent_check",
+      "ref": "authored:r5-cycle-ind-1",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-central-meaning-r5-cycle-ind-1.v2"
+    },
+    {
+      "set": "r5-central-meaning-cycle.v2",
+      "id": "r5-cycle-ind-2",
+      "role": "independent_check",
+      "ref": "authored:r5-cycle-ind-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-central-meaning-r5-cycle-ind-2.v2"
+    },
+    {
+      "set": "r5-central-meaning-cycle.v2",
+      "id": "r5-cycle-transfer-2",
+      "role": "transfer",
+      "ref": "authored:r5-cycle-transfer-2",
+      "runnable": true,
+      "axes": {
+        "A": {
+          "state": "pass"
+        },
+        "B": {
+          "state": "pass"
+        },
+        "C": {
+          "state": "pass"
+        },
+        "D": {
+          "state": "not_applicable"
+        },
+        "E": {
+          "state": "pass"
+        },
+        "F": {
+          "state": "pass"
+        },
+        "G": {
+          "state": "not_applicable"
+        },
+        "H": {
+          "state": "pass"
+        }
+      },
+      "annotation": "authored-central-meaning-r5-cycle-transfer-2.v2"
+    }
+  ]
+}
