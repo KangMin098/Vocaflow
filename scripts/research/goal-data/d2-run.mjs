@@ -22,11 +22,12 @@ const input = JSON.parse(fs.readFileSync(path.join(LOCAL, 'input.json'), 'utf8')
 const byId = new Map(input.rows.map((r) => [r.item_id, r]))
 // 계약: b2 = v2 · b3/b4 = v2.1 · 입력에 contract 가 있으면 그 버전까지(v2.2 = TASK 부분 집합 · E2 탐색 · 삽입 격리)
 const DOC = 'docs/research/goal-data-batches/D2-task-mapping'
-const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `${DOC}/CONTRACT_V2.md`, ...(batch === 'b2-v2' ? [] : [`${DOC}/CONTRACT_V2_1.md`]), ...(input.contract === 'v2.2' ? [`${DOC}/CONTRACT_V2_2.md`] : [])]
+const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `${DOC}/CONTRACT_V2.md`, ...(batch === 'b2-v2' ? [] : [`${DOC}/CONTRACT_V2_1.md`]), ...(['v2.2', 'v2.3'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_2.md`] : []), ...(input.contract === 'v2.3' ? [`${DOC}/CONTRACT_V2_3.md`] : [])]
 // v2: 통합 관찰(kind=integrated)은 문항 단위 판정에서 뺀다 · v2.2: 입력의 tasks 부분 집합만 판정 · 검증한다
 const allAtomic = nonHeldTasks().filter((t) => t.kind !== 'integrated')
 const tasks = input.tasks ? input.tasks.map((id) => allAtomic.find((t) => t.id === id) ?? (() => { throw new Error(`입력 tasks 에 정의 밖 TASK ${id}`) })()) : allAtomic
 const subset = !!input.tasks
+const V22_PLUS = ['v2.2', 'v2.3']
 // 안정 5 TASK(T-0100) — 일치 .80 · κ .68 을 둘 다 밑돌면 다음 배치 중단
 const STABLE = ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure']
 const nChunks = Math.ceil(input.rows.length / CHUNK)
@@ -50,8 +51,14 @@ function validateV2(row, inp) {
 }
 
 /** v2.2 추가 검사 — 삽입 문항 격리(E2 unknown · 독립 평가 부적격) */
+/** v2.3 추가 검사 — 부분 집합 primary 의 뜻을 행마다 밝힌다(v2.3 §1) */
+function validateV23(row) {
+  if (input.contract !== 'v2.3') return []
+  return typeof row.main_performance_outside_subset === 'boolean' ? [] : ['main_performance_outside_subset(true|false) 없음(v2.3 §1)']
+}
+
 function validateV22(row, inp) {
-  if (input.contract !== 'v2.2' || inp.type_id !== 'R-INSERT') return []
+  if (!V22_PLUS.includes(input.contract) || inp.type_id !== 'R-INSERT') return []
   const errs = []
   const e2 = (row.links ?? []).find((l) => l.task_id === 'e.evidence_location')
   if (e2 && e2.relevance !== 'unknown') errs.push('삽입 문항 E2 는 unknown(v2.2 §3)')
@@ -85,8 +92,9 @@ function load(track) {
       const inp = byId.get(row.item_id)
       if (!inp) { errors.push(`${track} ${row.item_id} 배치 밖`); continue }
       // v2.2 부분 집합: 청크 TASK 에 direct 가 없으면 primary_task=null 을 허용한다(계약 v2.2 §1) — 그 경우의 「주 TASK 가 direct 가 아니다」 만 면제
-      const noDirect = subset && row.primary_task === null && !(row.links ?? []).some((l) => l.relevance === 'direct')
-      const e = [...validateRow(row, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...validateV2(row, inp), ...validateV22(row, inp)]
+      // T-0103: 면제는 v2.2 이상 계약 · 부분 집합 · 보조 TASK 비어 있음(v2.2 §1) 을 모두 만족할 때만
+      const noDirect = subset && V22_PLUS.includes(input.contract) && row.primary_task === null && (row.secondary_tasks ?? []).length === 0 && !(row.links ?? []).some((l) => l.relevance === 'direct')
+      const e = [...validateRow(row, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...validateV2(row, inp), ...validateV22(row, inp), ...validateV23(row)]
       if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
       else out.set(row.item_id, row)
     }

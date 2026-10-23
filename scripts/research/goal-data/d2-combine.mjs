@@ -32,8 +32,13 @@ const withThird = (l) => {
   const majority = c === l.judgments.A || c === l.judgments.B ? c : null
   return { ...l, judgments: { ...l.judgments, C: c }, state: majority ? 'MAJORITY_OF_THREE' : 'DISPUTED', candidateRelevance: majority === 'direct' || majority === 'indirect' ? majority : null, tier: majority ? 'R1' : 'R0' }
 }
-const later = batches.flatMap((b) => [...readJsonl(path.join(DIR, `${b}-item-task-links.jsonl`)), ...readJsonl(path.join(DIR, `${b}-disputed-links.jsonl`))].map((l) => ({ ...l, contract: b === 'b2-v2' ? 'v2' : 'v2.1' })))
-const rows = [...pilot, ...later].filter((l) => !replaced(l)).map(withThird)
+// 배치가 판정에 쓴 계약 — agreement.json 의 contracts 경로에서 가장 높은 버전(CONTRACT_V2_3.md → v2.3)
+const contractOf = (b) => { const paths = JSON.parse(fs.readFileSync(path.join(DIR, `${b}-agreement.json`), 'utf8')).contracts.map((c) => c.path); const v = paths.map((p) => p.match(/CONTRACT_V2(?:_(\d))?\.md$/)).filter(Boolean).map((m) => (m[1] ? `v2.${m[1]}` : 'v2')); return v.sort().at(-1) ?? 'v1' }
+const later = batches.flatMap((b) => { const c = contractOf(b); return [...readJsonl(path.join(DIR, `${b}-item-task-links.jsonl`)), ...readJsonl(path.join(DIR, `${b}-disputed-links.jsonl`))].map((l) => ({ ...l, contract: c })) })
+// 독립 검증이 반박한 판정 근거(<batch>-corrections.json) — 상태 · 수치는 바꾸지 않고 refuted_rationale 만 붙인다
+const corrections = new Map(batches.flatMap((b) => { const f = path.join(DIR, `${b}-corrections.json`); return fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')).corrections.map((c) => [`${b}|${c.item}|${c.task}`, c]) : [] }))
+const withCorrection = (l) => { const c = corrections.get(`${l.batch}|${l.item}|${l.task}`); return c ? { ...l, refuted_rationale: { track: c.track, note: c.note, contract_fix: c.contract_fix } } : l }
+const rows = [...pilot, ...later].filter((l) => !replaced(l)).map(withThird).map(withCorrection)
 
 const linked = rows.filter((l) => l.candidateRelevance)
 const disputed = rows.filter((l) => l.state === 'DISPUTED')

@@ -32,7 +32,8 @@ function passed(src, track, byId) {
       const inp = byId.get(r.item_id)
       if (!inp) continue
       // v2.2 부분 집합 배치: 청크 TASK 에 direct 가 없으면 primary_task=null 허용(d2-run 과 같은 면제)
-      const noDirect = src.subset && r.primary_task === null && !(r.links ?? []).some((l) => l.relevance === 'direct')
+      // d2-run 과 같은 면제(T-0103): v2.2 이상 · 보조 TASK 비어 있음
+      const noDirect = src.subset && ['v2.2', 'v2.3'].includes(src.contract) && r.primary_task === null && (r.secondary_tasks ?? []).length === 0 && !(r.links ?? []).some((l) => l.relevance === 'direct')
       if (!validateRow(r, inp, src.tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))).length) out.set(r.item_id, r)
     }
   }
@@ -44,7 +45,7 @@ const inputs = []
 for (const src of SOURCES) {
   const input = JSON.parse(fs.readFileSync(src.input, 'utf8'))
   // 입력에 판정 TASK 가 기록돼 있으면 그 부분 집합으로 검증한다(b5 이후)
-  if (input.tasks) { src.tasks = all.filter((t) => input.tasks.includes(t.id)); src.subset = true }
+  if (input.tasks) { src.tasks = all.filter((t) => input.tasks.includes(t.id)); src.subset = true; src.contract = input.contract }
   inputs.push({ batch: src.batch, items: input.rows.length, input_sha256: crypto.createHash('sha256').update(JSON.stringify(input.rows.map((r) => [r.item_id, r.source_sha256]))).digest('hex') })
   const byId = new Map(input.rows.map((r) => [r.item_id, r]))
   const A = passed(src, 'A', byId), B = passed(src, 'B', byId)

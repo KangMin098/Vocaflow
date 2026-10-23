@@ -21,6 +21,8 @@ export const BATCHES = {
   // 계약 v2.1 확대 — 1·2배치와 겹치지 않는 직전 평가원 시험
   'b4-v21': { rule: 'M2606 독해 18–45 전 28 + 2024 수능 핵심 유형 12', ids: [...Array.from({ length: 28 }, (_, k) => `M2606#${18 + k}`), ...KEY_TYPES.map((n) => `2024#${n}`)] },
   // 802 확대(T-0100) — 범위 배치: 시험 순서대로 채우고 상한 40. 결손 · 도표 · 삽입 경계 불확실은 멈추지 않고 excluded 에 사유를 남긴다
+  // b5 이후(T-0103 보완 · 계약 v2.3): 2023#38 은 b5 동결 뒤 사용자 승인으로 DB 복구 — 새 source_sha256 으로 재결속해 여기서 판정한다
+  'b6-v23': { rule: 'M2506 독해 전 문항 → 2023#38(복구 재결속) → 2022 수능 핵심 유형 순으로 ≤40 · 도표 · 결손 제외', ids: [...Array.from({ length: 28 }, (_, k) => `M2506#${18 + k}`), '2023#38', ...KEY_TYPES.map((n) => `2022#${n}`)], range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.3' },
   'b5-v22': { rule: 'M2509 독해 전 문항 → 2023 수능 핵심 유형 순으로 ≤40 · 도표 · 결손 제외', ids: [...Array.from({ length: 28 }, (_, k) => `M2509#${18 + k}`), ...KEY_TYPES.map((n) => `2023#${n}`)], range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.2' },
 }
 const EXCLUDE_TYPES = { 'R-CHART': '도표 값 · 단위 · 축 미결속(T-0100)' }
@@ -53,7 +55,12 @@ function exclusion(id) {
   if (i.type_id === 'R-INSERT' && insertSplit(i.passage).confidence === 'uncertain') return '삽입 경계 불확실'
   return null
 }
-const excluded = def.ids.map((id) => ({ item_id: id, reason: exclusion(id) })).filter((x) => x.reason)
+// 제외 행도 내보낸 시점의 원천 상태를 해시로 봉인한다(T-0103: 제외 사실을 나중에 독립 재대조할 수 없었다). 원문은 local/ 의 input.json 에만
+const passageSha = (p) => crypto.createHash('sha256').update(Buffer.from(String(p ?? ''), 'utf8')).digest('hex')
+const snapshotOf = (i) => (i ? { type_id: i.type_id, body_ok: i.body_ok, choices_is_array: Array.isArray(i.choices), choices_count: Array.isArray(i.choices) ? i.choices.length : null, has_answer: !!(i.answers?.length || i.answer != null),
+  source_sha256: sha({ stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers, points: i.points }), passage_sha256: passageSha(i.passage) } : null)
+const excluded = def.ids.map((id) => ({ item_id: id, reason: exclusion(id) })).filter((x) => x.reason).map((x) => ({ ...x, snapshot: snapshotOf(byId.get(x.item_id)) }))
+const excludedRaw = excluded.map((x) => { const i = byId.get(x.item_id); return i ? { item_id: x.item_id, source: { stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers, points: i.points, body_ok: i.body_ok } } : { item_id: x.item_id, source: null } })
 // 고정 배치는 부적격이 있으면 멈춘다(선정 동결) — 범위 배치만 제외하고 계속한다
 if (excluded.length && !def.range) throw new Error(`분석 부적격: ${excluded.map((x) => `${x.item_id}(${x.reason})`).join(', ')}`)
 const chosen = def.ids.filter((id) => !exclusion(id)).slice(0, def.cap ?? Infinity)
@@ -64,11 +71,11 @@ const rows = chosen.map((id) => {
   const source = { stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers, points: i.points }
   return { item_id: id, exam_id: i.exam_id, no: i.no, type_id: i.type_id, body_ok: i.body_ok, source, source_sha256: sha(source),
     // 재사용 키(T-0100): 원천 ID + 본문 SHA-256 — UTF-8 원문 바이트 그대로(정규화 · 공백 변경 없음). source_sha256 과 별도
-    passage_sha256: crypto.createHash('sha256').update(Buffer.from(String(i.passage ?? ''), 'utf8')).digest('hex'),
+    passage_sha256: passageSha(i.passage),
     ...(i.type_id === 'R-INSERT' ? { insert_split: insertSplit(i.passage) } : {}), analysis: a, analysis_sha256: a ? sha(a) : null, traps: traps.filter((t) => t.item_id === id) }
 })
 fs.mkdirSync(path.dirname(OUT), { recursive: true })
-fs.writeFileSync(OUT, JSON.stringify({ batch, rule: def.rule, tasks: def.tasks ?? null, contract: def.contract ?? null, generated_at: new Date().toISOString(), rows }, null, 1))
+fs.writeFileSync(OUT, JSON.stringify({ batch, rule: def.rule, tasks: def.tasks ?? null, contract: def.contract ?? null, generated_at: new Date().toISOString(), rows, excluded_raw: excludedRaw }, null, 1))
 const examTotals = rows.reduce((m, r) => ({ ...m, [r.exam_id]: (m[r.exam_id] ?? 0) + 1 }), {})
 const selection = { batch, rule: def.rule, tasks: def.tasks ?? null, contract: def.contract ?? null, exam_totals: examTotals, excluded, items: rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source_sha256: r.source_sha256, passage_sha256: r.passage_sha256, insert_split: r.insert_split ? { confidence: r.insert_split.confidence, given_chars: r.insert_split.given_sentence?.length ?? null } : undefined, analysis_version: r.analysis?.version ?? null, analysis_status: r.analysis?.status ?? null, analysis_sha256: r.analysis_sha256 })) }
 const SEL = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping', `${batch}-selection.json`)

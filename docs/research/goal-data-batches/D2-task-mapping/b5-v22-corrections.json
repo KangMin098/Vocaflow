@@ -1,0 +1,23 @@
+{
+ "batch": "b5-v22",
+ "source": "T-0103 독립 검증(Codex) · vocaflow-goal-data-review-b5 review-b5/verdict.json · 수용 T-0103-20261023.md",
+ "rule": "반박된 판정 근거는 링크 상태를 바꾸지 않고 refuted_rationale 로 표시한다. 두 링크 모두 원래 DISPUTED 라 R1 후보 · 일치 · κ 수치는 바뀌지 않는다. 다른 트랙 판정을 자동 승격하지 않는다(대체 라벨은 unknown).",
+ "corrections": [
+  {
+   "item": "2023#34",
+   "task": "e.evidence_location",
+   "track": "A",
+   "verdict": "refuted",
+   "note": "A 가 반사실로 든 앞의 과학 · 증거 화제는 본문에 없고 선지 ② 에만 있다. B direct 도 복수 근거 탐색 여부가 계약 §2 경계라 unclear — 대체 라벨 unknown.",
+   "contract_fix": "CONTRACT_V2_3 §5 · §6"
+  },
+  {
+   "item": "M2509#19",
+   "task": "r.inference",
+   "track": "B",
+   "verdict": "refuted",
+   "note": "앞의 걱정과 뒤의 편안함은 본문에 명시돼 있다 — 숨은 정서 추론이 필요하다는 B 설명은 명시 근거를 누락했다. A 의 명시 정서 대응 경로는 지지되지만 자동 승격하지 않는다.",
+   "contract_fix": "CONTRACT_V2_3 §6"
+  }
+ ]
+}
