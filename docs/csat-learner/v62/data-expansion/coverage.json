@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/csat/map/v62/data/coverage-audit.mts",
- "generated_at": "2026-10-23T02:12:19.823Z",
+ "generated_at": "2026-10-23T02:26:01.090Z",
  "note": "읽기 전용 실측. 원천 · 문항 · 분석 · 검수 · 출시는 다른 상태다. 분석 published 는 v3 드레인 AI 분석의 공개 상태이며 사람 검수 · Gold 가 아니다.",
  "totals": {
   "exams": 134,
@@ -757,6 +757,10 @@
   },
   "csat_session_attempts": {
    "n": 1,
+   "error": null
+  },
+  "csat_item_response_stats": {
+   "n": 5715,
    "error": null
   }
  }

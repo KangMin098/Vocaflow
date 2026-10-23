@@ -118,7 +118,7 @@ const authored = fs.readdirSync(authoredDir).filter((f) => f.endsWith('.json')).
   const roles = its.reduce((m, i) => { const r = String(i.intended_role ?? i.role ?? 'unknown'); m[r] = (m[r] ?? 0) + 1; return m }, {} as Record<string, number>)
   return { file: f, task: j.taskId ?? j.task_id ?? null, revision: j.set ?? j.revision ?? null, items: its.length, roles, sha256: sha(raw) }
 })
-const ledger = Object.fromEntries(await Promise.all(['authored_item', 'content_qualification', 'content_release_approval', 'content_release_revocation', 'workspace_content_delivery', 'workspace_delivery_attempt', 'learning_task_attempts', 'csat_map_goal_version', 'csat_session_attempts'].map(async (t) => [t, await countOf(t)])))
+const ledger = Object.fromEntries(await Promise.all(['authored_item', 'content_qualification', 'content_release_approval', 'content_release_revocation', 'workspace_content_delivery', 'workspace_delivery_attempt', 'learning_task_attempts', 'csat_map_goal_version', 'csat_session_attempts', 'csat_item_response_stats'].map(async (t) => [t, await countOf(t)])))
 const tasks = codebook.tasks.map((t: Record<string, unknown>) => ({
   id: t.id, display: t.display, kind: t.kind, status: t.status, direct_check: t.direct_check,
   authored_sets: authored.filter((a) => a.task === t.id).map((a) => a.file),
