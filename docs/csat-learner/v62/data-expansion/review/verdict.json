@@ -1,0 +1,3416 @@
+{
+  "schema_version": "1.0",
+  "task_id": "T-0089",
+  "owner_id": "map-data-independent",
+  "review_date": "2026-10-23",
+  "review_kind": "independent_ai_review_not_human_gold",
+  "input": {
+    "head": "76ea33d953ff6d17efb21f4a663281a99fcbf39c",
+    "goal_data_commits": [
+      "80fa4454023c6b7086ac5cf4d7c12d459d26b0a0",
+      "1b8f089e590536e2ef03c49cb3b6c85c0432ba85"
+    ],
+    "r5r6_input_sha256": "838e930bf5df3a5eb75f2123b3295f61e61a1e8ce774ba7269f4b6dd42c7d729",
+    "local_inputs": [
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json",
+        "sha256": "743ffe8233e3eb0e3a300993d41b1aff599cbd5f96ca792a450d9edc684fe3fe",
+        "bytes": 1427063
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/pilot-input.json",
+        "sha256": "895276a4696b199bb33c965cbbbe6c40ef8d7cf3f7073891e1c1617ded824c54",
+        "bytes": 374162
+      }
+    ],
+    "goal_data_pinned_files": [
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/exam-coverage.json",
+        "commit": "80fa44540",
+        "sha256": "6419ac15789fe3ce9306b9a49c6e55b27d8c0f9107cad5bf350620b26b2a6b6e",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/missing-sources.json",
+        "commit": "80fa44540",
+        "sha256": "5ced8dbcc3900d0ab884d516af7e813cfac1cd94d11da874555936753adafcc8",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/source-inventory.json",
+        "commit": "80fa44540",
+        "sha256": "6a844452da6f8bd0be30d87e5b24ebf1fbe85905d9833692d4560c22e0b87470",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/source-quality-report.md",
+        "commit": "80fa44540",
+        "sha256": "16f1d4d91f6606abb7f5b64e80645feca5225d617bd2d5fba785cd7ff9f120fe",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-agreement.json",
+        "commit": "80fa44540",
+        "sha256": "a4c3557f642a6c1cb217487441a5d7739535316a750b5343f57191182b1436d9",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl",
+        "commit": "80fa44540",
+        "sha256": "46d6acce777ad3ef03a92dc0e2434027f812898425254d6be668b2b7e6b1bd35",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl",
+        "commit": "80fa44540",
+        "sha256": "8d7fcfc389eb70b733778eac2db03b6a85744034b65e4d96e536e1a6815d71db",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-selection.json",
+        "commit": "80fa44540",
+        "sha256": "106d66363944beedfb17f148d9a31361a8f9d73e289a2247c21fc06f97782371",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md",
+        "commit": "80fa44540",
+        "sha256": "586e814bc9629885cf2d8a4f146121bf1afd8efbc3eef363fea763c72e1ed949",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/disputed-links.jsonl",
+        "commit": "80fa44540",
+        "sha256": "5dc6d8f79f39cb564ed8b427908da92cc9a4e5d7bb41830ecd1435d12c2258a2",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl",
+        "commit": "80fa44540",
+        "sha256": "7d68f6a873621286f165b33880402fed14f007e908fd59d0a060a4f91d91fc84",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json",
+        "commit": "80fa44540",
+        "sha256": "998b730f596c48a7e41f6ced10dfaa6c7cf9627336df9d39a577f8c5e639e90e",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md",
+        "commit": "80fa44540",
+        "sha256": "161b7378cf4da20169cfbc3a19addadc8d6442c56643b0e448ce970ac05490b4",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl",
+        "commit": "80fa44540",
+        "sha256": "00c737d36b036e35b624c77a1ad43a93a9e3777f6cdc09073eef44f91507ae80",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl",
+        "commit": "80fa44540",
+        "sha256": "19cc77f2a480277b19a5780da70c33c787359ca353049f7c525e404225e82758",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/principle-groups.json",
+        "commit": "80fa44540",
+        "sha256": "51248345ba4a017ce58403d2fd2dbae768e6af62ba5628e2fa98c8689348abba",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/reasoning-review.md",
+        "commit": "80fa44540",
+        "sha256": "c07e544fe0c947d4cc443852b5136ad2686e7a0e4b8749345e4bb4d55768a31e",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/assessment-review.md",
+        "commit": "1b8f089e5",
+        "sha256": "ec13bb06effbc8173eea5445ed648360f2a10a63a0593ab445a6bc85881ae6b1",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/codex-handoff.md",
+        "commit": "1b8f089e5",
+        "sha256": "adb17df7fc0bc53d5eb288170077e1598dd12c5db2c1ffa1ddde5bf480a11ac1",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/content-inventory.json",
+        "commit": "1b8f089e5",
+        "sha256": "e97268fa3cdaab2a4c51bdeed25322d72d34943d700b8d81f7d7f4f71c922b9e",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/instrument-gap.json",
+        "commit": "1b8f089e5",
+        "sha256": "7152e1d446b8cb8b2a67842222289fb6c392ced7ed55469f42aaa1483ad01384",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json",
+        "commit": "1b8f089e5",
+        "sha256": "7e35ab4a4a5c6645db83a63b444e4ee407ed0764c08e74ee7ada49a51584eabe",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/_classify.mjs",
+        "commit": "1b8f089e5",
+        "sha256": "8f61bad953cd4f4ad18e4b301debe06c39c803835bf87c958a3705ed9e6022d8",
+        "matches_commit": true
+      },
+      {
+        "path": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/_compute.mjs",
+        "commit": "1b8f089e5",
+        "sha256": "a94d679850a6d83ca6c9bc30b9e2c5dbe83b1adbb152d4da06245546bb2405d5",
+        "matches_commit": true
+      }
+    ],
+    "manifest": [
+      {
+        "path": "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md",
+        "sha256": "91eecbbf158e20e98d5f783aa5d4640bc97ab608c9e98995c2c67e1869acdb32",
+        "bytes": 5908
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/CODEX_REVIEW_PACKET.md",
+        "sha256": "ee9e9d79e1817a4573787e079e748d3bdaf57fa2e93165132f8c9621cb027fa6",
+        "bytes": 2580
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/CODEX_REVIEW_RESULT.md",
+        "sha256": "4f66c914bde8db2d82448ba232b304d66cd4a33558702df8112f6389c473a4d1",
+        "bytes": 5594
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/coverage.json",
+        "sha256": "3517976cdbbcd264a5f0189caf4289e67af20054f811fbb38bf9b3d4676a24d1",
+        "bytes": 17873
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/exam-relevance.json",
+        "sha256": "4068d51cab2465f796fe26e424a55e04ff50f3af3441eec4bec3ea8695b26d54",
+        "bytes": 16481
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/expand-selection.json",
+        "sha256": "f61414df82f3915768b74c27d1a44bd37042ae5775e4f4ff04b7a061a639ddc2",
+        "bytes": 112201
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/pilot-agreement.json",
+        "sha256": "087fd6c754831b667811cba6ed926bcf3592ebc8c8da7e9c1077cfbd1bf84025",
+        "bytes": 63544
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/pilot-links.json",
+        "sha256": "0ac5a1171940816fcd052ff2ace72a560d99a1691b9a5712f6774359045e4423",
+        "bytes": 644979
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/pilot-selection.json",
+        "sha256": "0c5c848c318dbffcf4d2d50cb65cdaa3f7c6a593b1499d1120defe2d2eff7afc",
+        "bytes": 13888
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/r5r6-agreement.json",
+        "sha256": "c082c4213fdae4b98d4610dd4b25dc6e5bcd27dc1f90e2bceb6e09fb50ac55c0",
+        "bytes": 999
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/r5r6-links.json",
+        "sha256": "c9ce5d923c0212fe9143c5bf5e055bdbc46b161793ac4929517e1dcb132fd2cd",
+        "bytes": 1230756
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/README.md",
+        "sha256": "552a3cb46f5e4961b389706ca135d0f9139735658276a5a69d6359d71fc000e9",
+        "bytes": 9186
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/rules-v2-agreement.json",
+        "sha256": "460af8ed82f00eac7e13587ad25ad1210cb5c39fb0fc795a8b0ebc85af3ef6d5",
+        "bytes": 2021
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/rules-v2-links.json",
+        "sha256": "e6771d9a0e4d35d59fb1380add75a540e82d55097cb629dcb36888e0dcae1ef8",
+        "bytes": 289330
+      },
+      {
+        "path": "docs/csat-learner/v62/data-expansion/RULES_V2.md",
+        "sha256": "f33ac5d6e5268fbaace9f0493cda667510adedc2819555c303700140c1e229e7",
+        "bytes": 8110
+      },
+      {
+        "path": "scripts/csat/map/v62/data/batch-run.mjs",
+        "sha256": "7f30da12fb77993cf62615ed3d450d2d23005b7d51771e3f12a388049cc01e48",
+        "bytes": 8385
+      },
+      {
+        "path": "scripts/csat/map/v62/data/coverage-audit.mts",
+        "sha256": "0e2e069f26642315939bc03ea9d0e6e31414a044bf7f67a1f0e16e4d5b6e8426",
+        "bytes": 12022
+      },
+      {
+        "path": "scripts/csat/map/v62/data/exam-relevance.mjs",
+        "sha256": "bc4bd555b9c527152aebf1a1f69d03047b8880e062467dda7a26a9885e6b8a2d",
+        "bytes": 3470
+      },
+      {
+        "path": "scripts/csat/map/v62/data/expand-export.mts",
+        "sha256": "bf0c438c1c83fdd09326b479d26187378569837daff1f0d830e49c831c4adf00",
+        "bytes": 3278
+      },
+      {
+        "path": "scripts/csat/map/v62/data/pilot-export.mts",
+        "sha256": "22252dd8b0ef8b2ecd97e9b8d0a7e15791b6ea00db2ecef9c0c3d6f42239f5d7",
+        "bytes": 4766
+      },
+      {
+        "path": "scripts/csat/map/v62/data/pilot-lib.mjs",
+        "sha256": "6a5a018439987f9d6d8771622521af3482127aa344814d768f62f02e2824f0bf",
+        "bytes": 10527
+      },
+      {
+        "path": "scripts/csat/map/v62/data/pilot-run.mjs",
+        "sha256": "8371fb7cf5d61b4c8956a35fdc9d424061c9a46dff2d16e6f0cc7df7fcf9054d",
+        "bytes": 8979
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json",
+        "sha256": "743ffe8233e3eb0e3a300993d41b1aff599cbd5f96ca792a450d9edc684fe3fe",
+        "bytes": 1427063
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/pilot-input.json",
+        "sha256": "895276a4696b199bb33c965cbbbe6c40ef8d7cf3f7073891e1c1617ded824c54",
+        "bytes": 374162
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-01.out.json",
+        "sha256": "91881f6504c9564d054c3cba9af5a83d0b3f9290955850168e8528a0de9ae44f",
+        "bytes": 54103
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-02.out.json",
+        "sha256": "90de5f28a07029a724fada5f92a30d460861905f86ec2ca8e3061e3a7d08e913",
+        "bytes": 55743
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-03.out.json",
+        "sha256": "96f9dd363f0ca05b90156d4e23d23b3e097647acd50227d3cec5cb120231903a",
+        "bytes": 53226
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-04.out.json",
+        "sha256": "1065cef81d2a701110d45d5a8a6df160209fc4e7a6265fa1bfc4d88ac44862f2",
+        "bytes": 47239
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json",
+        "sha256": "b09954675664848aeced026d8765e57ad32ba9a64febd5d3a055d93e80bb6aab",
+        "bytes": 55877
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-06.out.json",
+        "sha256": "fd99a10a5bc30404f34a0bbf0ffacf273bba3403ab6406e9d51eabf327389b19",
+        "bytes": 59684
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-07.out.json",
+        "sha256": "0fbaa162fa2c7d884f611b53eabc341359d4ea3e7a79698b7a7269688f8b11c4",
+        "bytes": 57956
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-08.out.json",
+        "sha256": "96309b10c6cc48f7ebd341597f796a057e9cd2a9e6df12dc47b7b12c175487e3",
+        "bytes": 44897
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json",
+        "sha256": "b6fffb942ffe4bb1f115759bd0327846e676245524aa4f27151a71d3cad8e1fa",
+        "bytes": 52930
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-10.out.json",
+        "sha256": "fb9fb6c31b9aad370640d9ba2eed23afd7741f6be4eff8679bf8321d5ed6c804",
+        "bytes": 54181
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-11.out.json",
+        "sha256": "4c1a754fae57572f05b10f046882f3e568b7aa744ded3fcd84bbf39b75348ac1",
+        "bytes": 51994
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-12.out.json",
+        "sha256": "e4d007a0c1f7f735f1673f03e40b491a822726e5fd629a2676b6ac7ad3ad5f04",
+        "bytes": 54367
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json",
+        "sha256": "149ba52e0cbd7a58db970e2497cf1afa7cf1dee8a868706aa21449875df8d280",
+        "bytes": 52978
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-14.out.json",
+        "sha256": "def191afb85c0a0c7e49a869f675ed7f711576db81f7f3fc7e56c28fbaaf23fe",
+        "bytes": 55558
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-15.out.json",
+        "sha256": "1fe0e7c23f181c98dde167e64c011fc20666745837ad511e6dd7843b39d75928",
+        "bytes": 55916
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json",
+        "sha256": "687823118059076cf41596e24ab382b0a05debeb4c4e8f99958694d53dd6f2eb",
+        "bytes": 45028
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-01.out.json",
+        "sha256": "abebe944df24bb69cdf4338b0016a6a09f425fb7cb87ce11e868885dc9ddfc27",
+        "bytes": 56195
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-02.out.json",
+        "sha256": "ff503f7825fb745d8132b5ce4a7428ae5dd00f659c5b5b1a9ee6f9bd071f1900",
+        "bytes": 53923
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-03.out.json",
+        "sha256": "5f2d5dddc60dc282e66beab1bef87a882d1627e3a3d3eeb4e41785cc8127f3a0",
+        "bytes": 49711
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-04.out.json",
+        "sha256": "0a8d5ee78616f060b221e2d56a1a70ee600f65aa97f632fa9f26c26ba8e1d245",
+        "bytes": 53078
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-05.out.json",
+        "sha256": "0090b502a78f00a733f56834b40cad5aa89cdc8af4494df5061e9d5005b1a95d",
+        "bytes": 58545
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-06.out.json",
+        "sha256": "d318d15fa47eee8a7a6fe3b2d02f127f8587686b40726f99e1c866692314d2e1",
+        "bytes": 50084
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-07.out.json",
+        "sha256": "d43ca5e622797921377807ca4e34d6af09d25f238fd2f4aeaac9f72e5a57ba49",
+        "bytes": 56738
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-08.out.json",
+        "sha256": "a327ab15a7264192e86f32f52c370d3007a2a641018590ff857398d4a123197f",
+        "bytes": 58727
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json",
+        "sha256": "6ed6dece6508d46646241819220f685483a1db10054801ec9726a5c9f964c108",
+        "bytes": 48984
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-10.out.json",
+        "sha256": "3f22f919f27697329135812147e661d07596e429effc19186b7b556c092e14ff",
+        "bytes": 55549
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-11.out.json",
+        "sha256": "04fe61d523c65a7e7ceac98a32ef8495f9ed4d6bbee156fbfe7e52cf64f552f8",
+        "bytes": 49791
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-12.out.json",
+        "sha256": "53f7beaf23b131c2dce46bbbeb1b34de647fed7f29708f49a058ba14bc08bbe1",
+        "bytes": 50577
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-13.out.json",
+        "sha256": "34e89ecf2eb00e0abd99617e1479c7c0a1a7cdf47de08af490e0ff881614dacc",
+        "bytes": 53645
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-14.out.json",
+        "sha256": "7e993a08c6f43af01ba04b5ef6ec21ab59c72a9c1c42dcbd3bd2e81b8879cc61",
+        "bytes": 53713
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-15.out.json",
+        "sha256": "5a1bd78ffad7355be2728b89ae9aebcf709de54ecd57c28069806c90bad64346",
+        "bytes": 54559
+      },
+      {
+        "path": "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json",
+        "sha256": "eec0f43dc0301f5631537ff11ab41d237970709a29c520ece616dc254242bdb2",
+        "bytes": 45049
+      }
+    ]
+  },
+  "verdict": "p1",
+  "p0_count": 0,
+  "p1_count": 3,
+  "acceptance": [
+    {
+      "id": "AC1",
+      "acceptance": "규칙 v2.1(RULES_V2 §1 · §2 E2 · §6-1)이 이전 Codex P1 ①③을 해소했는지, 새 P0/P1이 없는지 판정",
+      "verdict": "pass",
+      "evidence": [
+        "docs/csat-learner/v62/data-expansion/RULES_V2.md:9",
+        "docs/csat-learner/v62/data-expansion/RULES_V2.md:20",
+        "docs/csat-learner/v62/data-expansion/RULES_V2.md:52",
+        "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:11"
+      ],
+      "note": "검토한 v2.1 수정 조항은 한 실제 판단 경로·경쟁 후보 특정 기준을 복구하여 기존 P1 두 건을 문서상 해소했다. 이 수정 조항에서 새 P0/P1은 확인하지 못했다. v2.1의 판정 타당성·재현성 통과를 의미하지 않는다.",
+      "claims": [
+        {
+          "id": "AC1-definition",
+          "verdict": "confirmed",
+          "evidence": [
+            "docs/csat-learner/v62/data-expansion/RULES_V2.md:9",
+            "docs/csat-learner/v62/data-expansion/RULES_V2.md:20",
+            "docs/csat-learner/v62/data-expansion/RULES_V2.md:52",
+            "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:11"
+          ],
+          "note": "대체 경로 유무와 근거 거리 기준을 철회했고 복수 direct를 허용한다."
+        },
+        {
+          "id": "AC1-empirical",
+          "verdict": "unclear",
+          "evidence": [
+            "docs/csat-learner/v62/data-expansion/RULES_V2.md:52"
+          ],
+          "note": "같은 40문항의 v2.1 A/B 재판정이 없으므로 기존 v2 κ 0.8051을 v2.1 성능으로 쓰지 않는다."
+        },
+        {
+          "id": "AC1-RO1",
+          "verdict": "unclear",
+          "evidence": [
+            "docs/csat-learner/v62/data-expansion/RULES_V2.md:33",
+            "docs/csat-learner/v62/data-expansion/RULES_V2.md:80"
+          ],
+          "note": "결정 지점의 통합을 indirect로 두는 예외와 공통 기준의 관계는 미정이다. 문서 자체의 보류 항목이며 이번 수정으로 실증 해소된 것으로 세지 않는다."
+        }
+      ]
+    },
+    {
+      "id": "AC2",
+      "acceptance": "R1 direct 30 + DISPUTED 30을 원문 대조하고 허위 인용·지름길 상투문·계약 위반 집계",
+      "verdict": "p1",
+      "evidence": [
+        "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:17",
+        "docs/csat-learner/v4/codebook.json:404",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:155",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json:809",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:745",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json:745",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-04.out.json:60",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-04.out.json:547",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:208",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-13.out.json:24",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-06.out.json:117",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-06.out.json:117",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-12.out.json:14",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-12.out.json:14",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:127",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json:127",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:110",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json:571",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:1001",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-13.out.json:111",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-12.out.json:1209",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-12.out.json:1199",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-10.out.json:321",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-10.out.json:321",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-03.out.json:78",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-03.out.json:10",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json:1082",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-05.out.json:1052",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:942",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-13.out.json:105",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-10.out.json:272",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-10.out.json:272",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-15.out.json:667",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-15.out.json:662",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-11.out.json:377",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-11.out.json:16",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:1005",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json:1010"
+      ],
+      "note": "60쌍 원문·A/B 경로·인용·구별 사유를 읽었다. 허위 인용 0, 완전 동일 why/dp 반복 그룹 0. 그러나 R4 오정의 16쌍(21판정), 유형 지름길 2쌍, R5 오설명 1쌍을 포함해 중복 제거 18쌍에서 내용 계약을 충족하지 못했다. R5/R6의 모든 관련성 값이 틀렸다는 뜻은 아니다.",
+      "counts": {
+        "pairs": 60,
+        "judgments": 120,
+        "unique_items": 59,
+        "R1_direct_pairs": 30,
+        "disputed_pairs": 30,
+        "false_quotes": 0,
+        "source_hash_mismatches": 0,
+        "exact_repeated_why_or_dp_groups_ge3": 0,
+        "proven_script_generated_outputs": 0,
+        "script_generation_provenance": "unclear",
+        "r4_misdefinition_pairs": 16,
+        "r4_misdefinition_judgments": 21,
+        "type_shortcut_pairs": 2,
+        "other_R5_misdefinition_pairs": 1,
+        "contract_violation_pairs": 18,
+        "content_unclear_pairs": 2,
+        "weak_anchor_pairs": 1,
+        "by_stratum": {
+          "R1_direct": {
+            "pairs": 30,
+            "contract_violation_pairs": 16,
+            "content_unclear_pairs": 1
+          },
+          "DISPUTED": {
+            "pairs": 30,
+            "contract_violation_pairs": 2,
+            "content_unclear_pairs": 1
+          }
+        }
+      }
+    },
+    {
+      "id": "AC3",
+      "acceptance": "원천 결함 7문항과 duplicate_long_stems 가드를 DB 직접 질의로 판정",
+      "verdict": "confirmed",
+      "evidence": [
+        "DB Q1–Q6: db.queries의 실제 GET SELECT 원문",
+        "scripts/csat/map/v62/data/coverage-audit.mts:109",
+        "scripts/csat/map/v62/data/batch-run.mjs:107",
+        "docs/csat-learner/v62/data-expansion/coverage.json:137"
+      ],
+      "note": "DB 3,714행에서 공백·대소문자 정규화 후 같은 시험·60자 초과 동일 발문을 재계산해 정확히 3그룹 7문항을 확인했다. 삽입 4문항 발문에는 같은 시험 #40 지문의 영어가 섞였고, M2406#43–45에는 #45 질문·선지가 공통으로 섞였다. 14링크는 SOURCE_DEFECT·candidate null이며 κ 분모는 TASK별 755다.",
+      "claims": [
+        {
+          "id": "AC3-guard-completeness",
+          "verdict": "unclear",
+          "evidence": [
+            "scripts/csat/map/v62/data/coverage-audit.mts:111"
+          ],
+          "note": "같은 시험·정확히 동일·긴 발문 조건 밖 결함 및 전체 원천의 무결성은 입증하지 못했다. 가드가 모든 결함을 잡는다는 주장은 하지 않는다."
+        },
+        {
+          "id": "AC3-tier",
+          "verdict": "confirmed",
+          "evidence": [
+            "scripts/csat/map/v62/data/batch-run.mjs:107"
+          ],
+          "note": "결함 14링크 중 13개는 tier=R1 표기가 남지만 후보값은 전부 null이다. 사용자는 tier 단독 필터로 선별하면 안 되고 state와 candidate를 함께 확인해야 한다."
+        }
+      ]
+    },
+    {
+      "id": "AC4",
+      "acceptance": "삽입 262 결손 후보와 저장 형식 판단 충돌을 DB로 판정하고 계약·수치 중복·충돌 목록 작성",
+      "verdict": "p1",
+      "evidence": [
+        "DB Q1–Q6: db.queries",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/source-quality-report.md:28",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:31",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md:24",
+        "docs/csat-learner/v62/data-expansion/RULES_V2.md:20"
+      ],
+      "note": "262문항의 raw_block=null은 확인되지만 문장 결손의 증거가 아니다. 양 작업이 겹쳐 결손으로 지목한 8문항에는 삽입 대상 문장이 passage 선두에 저장되어 있어 해당 제외 판단을 반박한다. goal 계약 v2의 E2 거리 기준은 map v2.1과 충돌한다. 80문항·160 논리쌍이 겹치며 공개 레코드로 대조 가능한 53쌍 중 결과 불일치 5쌍과 중복 후보 44쌍을 확인했다.",
+      "claims": [
+        {
+          "id": "AC4-all-262-missing",
+          "verdict": "refuted",
+          "evidence": [
+            "DB Q3–Q6",
+            "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/pilot-input.json:3013",
+            "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/pilot-input.json:3163",
+            "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/pilot-input.json:5683",
+            "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/pilot-input.json:5833",
+            "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:16974",
+            "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:16997",
+            "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:7958",
+            "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:7981"
+          ],
+          "note": "8개 반례가 있으므로 262 전체의 주어진 문장 부재 또는 삽입 유형 전체 일괄 부적격은 성립하지 않는다."
+        },
+        {
+          "id": "AC4-all-262-complete",
+          "verdict": "unclear",
+          "evidence": [
+            "DB Q3–Q6"
+          ],
+          "note": "전수 조회와 8문항 내용 대조를 했으나 262문항 모두의 정본 동일성·삽입 대상 완전성을 확인하지 않았다. 2023#38 choices=null은 별개의 실재 결손이다."
+        },
+        {
+          "id": "AC4-exclusion-vs-output",
+          "verdict": "confirmed",
+          "evidence": [
+            "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:31",
+            "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b2-v2-agreement.json:900"
+          ],
+          "note": "8개 삽입 링크를 제품에 넘기지 않는다는 서술과 달리 2025#38은 use=independent_check_candidate다. 제외 계약이 산출물에 일관되게 표현되지 않았다."
+        }
+      ]
+    },
+    {
+      "id": "AC5",
+      "acceptance": "verdict.json과 한국어 review.md, 항목별 근거와 note, unclear 승격 금지 및 쓰기 범위 준수",
+      "verdict": "pass",
+      "evidence": [
+        "docs/csat-learner/v62/data-expansion/review/verdict.json:1",
+        "docs/csat-learner/v62/data-expansion/review/review.md:1"
+      ],
+      "note": "고정 seed·모집단·60 대상 ID·개별 판단·입력 SHA·DB 읽기 질의 원문·중복/충돌 목록을 이 두 파일에 기록했다. .agent-goal.md는 변경하지 않았다. 커밋·vfc 상태 변경·DB 쓰기·제품 변경을 하지 않았다."
+    }
+  ],
+  "findings": [
+    {
+      "id": "P1-01",
+      "verdict": "p1",
+      "acceptance_ids": [
+        "AC2"
+      ],
+      "title": "인접 TASK 오정의와 유형별 지름길이 의미 검증을 통과한다",
+      "evidence": [
+        "docs/csat-learner/v4/codebook.json:404",
+        "scripts/csat/map/v62/data/pilot-lib.mjs:52",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:155",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:745",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-04.out.json:60",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:208",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-06.out.json:117",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-12.out.json:14",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:127",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:110",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:1001",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-12.out.json:1209",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-10.out.json:321",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-03.out.json:78",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json:1082",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:942",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-10.out.json:272",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-15.out.json:667",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-11.out.json:377",
+        "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:1005"
+      ],
+      "note": "검증기는 구별 사유 길이를 확인할 뿐 코드북 정의와의 일치를 검사하지 않는다. 18표본쌍을 재검토하고 R4를 구조 재구성과 실제로 대조해야 한다. 이는 형식 오류 0을 내용 타당성 0결함으로 읽지 못하게 하는 P1이며 제품 영향은 R1 후보 인계 신뢰성이다."
+    },
+    {
+      "id": "P1-02",
+      "verdict": "p1",
+      "acceptance_ids": [
+        "AC4"
+      ],
+      "title": "삽입 대상의 저장 위치를 빠뜨려 정상 8문항을 결손으로 취급한다",
+      "evidence": [
+        "DB Q1–Q6",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/source-quality-report.md:28",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:31"
+      ],
+      "note": "stem/raw_block만으로 결손을 판정하지 말고 passage 선두와 실제 위치 슬롯의 결합을 확인해야 한다. 확인한 8문항은 대상 문장 부재라는 이유로 제외하지 않는다. 다른 결함이나 정본 동일성까지 통과시킨 것은 아니다."
+    },
+    {
+      "id": "P1-03",
+      "verdict": "p1",
+      "acceptance_ids": [
+        "AC4"
+      ],
+      "title": "같은 문항↔TASK 계약 v2 명칭 아래 E2 기준이 서로 다르다",
+      "evidence": [
+        "docs/csat-learner/v62/data-expansion/RULES_V2.md:20",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md:24"
+      ],
+      "note": "map v2.1의 거리 무관 후보 특정과 goal v2의 떨어진 근거 direct·대상 문장 내부 not_applicable는 같은 문장 안 후보 경쟁에서 상반된 값을 강제한다. 계약을 구분·합의하기 전 E2 κ와 링크를 같은 정의로 합치지 않는다."
+    }
+  ],
+  "sampling": {
+    "seed": "T-0089|76ea33d95|2026-10-23|v1",
+    "unit": "item_id|task_id로 식별하는 문항↔TASK 쌍",
+    "algorithm": "각 stratum 모집단에서 sha256(UTF-8(seed + \"|\" + item_id + \"|\" + task_id))의 64자리 hex 오름차순, 동률은 item_id|task_id 순; 비복원 앞 30개",
+    "population": {
+      "R1_direct": 328,
+      "DISPUTED": 196
+    },
+    "strata_mutually_exclusive": true,
+    "selected_pairs": 60,
+    "summary": {
+      "pairs": 60,
+      "judgments": 120,
+      "unique_items": 59,
+      "R1_direct_pairs": 30,
+      "disputed_pairs": 30,
+      "false_quotes": 0,
+      "source_hash_mismatches": 0,
+      "exact_repeated_why_or_dp_groups_ge3": 0,
+      "proven_script_generated_outputs": 0,
+      "script_generation_provenance": "unclear",
+      "r4_misdefinition_pairs": 16,
+      "r4_misdefinition_judgments": 21,
+      "type_shortcut_pairs": 2,
+      "other_R5_misdefinition_pairs": 1,
+      "contract_violation_pairs": 18,
+      "content_unclear_pairs": 2,
+      "weak_anchor_pairs": 1,
+      "by_stratum": {
+        "R1_direct": {
+          "pairs": 30,
+          "contract_violation_pairs": 16,
+          "content_unclear_pairs": 1
+        },
+        "DISPUTED": {
+          "pairs": 30,
+          "contract_violation_pairs": 2,
+          "content_unclear_pairs": 1
+        }
+      }
+    },
+    "rows": [
+      {
+        "sample_no": 1,
+        "stratum": "R1_direct",
+        "item_id": "M2106#22",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:9522",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:155",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json:809",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:21454"
+        ],
+        "note": "스포츠 정의가 참여와 건강을 바꾸는 두 결과를 함께 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 2,
+        "stratum": "R1_direct",
+        "item_id": "2016#34",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:2076",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-02.out.json:1143",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-02.out.json:1163",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:4664"
+        ],
+        "note": "시의 여신과 군중의 대조 및 대중의 환호에서 동시대인의 인정을 도출한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 3,
+        "stratum": "R1_direct",
+        "item_id": "M1809#34",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:8510",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-08.out.json:36",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-08.out.json:977",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:19188"
+        ],
+        "note": "산업 정체성에 대한 애착에서 관광 정체성으로의 교체에 저항할 행동을 도출한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 4,
+        "stratum": "R1_direct",
+        "item_id": "M2609#32",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "unclear",
+        "relevance_verdict": "unclear",
+        "independent_preferred_relevance": null,
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:16836",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:338",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json:338",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:37860"
+        ],
+        "note": "갈등 악화가 본문에 명시되어 있다. 역효과라는 환언을 R6의 미진술 의미 도출로 볼지는 경계가 불명확해 direct 확정 보류.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 5,
+        "stratum": "R1_direct",
+        "item_id": "M2706#20",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:17204",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:745",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json:745",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:38638"
+        ],
+        "note": "준비운동 예시를 부연으로 두고 활동 원리 이해를 돕는다는 주장을 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 6,
+        "stratum": "R1_direct",
+        "item_id": "2019#23",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:3755",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-04.out.json:60",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-04.out.json:547",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:8450"
+        ],
+        "note": "원조와 보조금 개혁을 기후변화 대처라는 상위 주제로 묶는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 7,
+        "stratum": "R1_direct",
+        "item_id": "2018#20",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:3042",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-03.out.json:986",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-03.out.json:111",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:6838"
+        ],
+        "note": "지도자의 자기 한계 도전을 중심으로 인용과 예시를 정리한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 8,
+        "stratum": "R1_direct",
+        "item_id": "M2406#23",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A",
+              "B"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:13409",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:208",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-13.out.json:24",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:30210"
+        ],
+        "note": "수익 압박과 수장고 쇠퇴를 원인·결과의 주제로 통합한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 9,
+        "stratum": "R1_direct",
+        "item_id": "M2506#33",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:14927",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-14.out.json:674",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-14.out.json:674",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:33640"
+        ],
+        "note": "환경·제도와 주관 경험의 결합을 사례에 대응해 빈칸의 기능을 복원하는 경로는 성립한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 10,
+        "stratum": "R1_direct",
+        "item_id": "2022#20",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "B"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:5618",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-06.out.json:117",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-06.out.json:117",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:12634"
+        ],
+        "note": "도구 집착 비판을 부연으로 두고 사업 목표 우선이라는 주장을 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 11,
+        "stratum": "R1_direct",
+        "item_id": "M2306#24",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A",
+              "B"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:12144",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-12.out.json:14",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-12.out.json:14",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:27386"
+        ],
+        "note": "자율주행차 등 사례를 인간·기계 협력의 중심으로 묶는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 12,
+        "stratum": "R1_direct",
+        "item_id": "M2509#31",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:15525",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-15.out.json:95",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-15.out.json:95",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:34940"
+        ],
+        "note": "빛을 탈출하려다 맴도는 행동으로 갇힘이라는 상태를 도출한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 13,
+        "stratum": "R1_direct",
+        "item_id": "M2609#24",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:16652",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:127",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json:127",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:37438"
+        ],
+        "note": "고립과 사회 기여라는 양 축을 함께 담는 제목으로 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 14,
+        "stratum": "R1_direct",
+        "item_id": "M2309#34",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:13018",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-12.out.json:1040",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-12.out.json:1025",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:29364"
+        ],
+        "note": "정원·황야 비유를 아동 연구에 확장해 심리학자의 행동 처방을 도출한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 15,
+        "stratum": "R1_direct",
+        "item_id": "M2006#41",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:9315",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:110",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json:571",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:20990"
+        ],
+        "note": "인물·역사를 부연으로 두고 정치 도덕주의의 가치 추구를 제목으로 묶는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 16,
+        "stratum": "R1_direct",
+        "item_id": "M2409#24",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A",
+              "B"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:14076",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:1001",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-13.out.json:111",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:31730"
+        ],
+        "note": "기사 수명 연장과 맥락 확장을 함께 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 17,
+        "stratum": "R1_direct",
+        "item_id": "2018#32",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:3318",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-04.out.json:4",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-04.out.json:24",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:7480"
+        ],
+        "note": "인출 단서를 기억을 꺼내는 고리라는 비유에 대응시키는 경로가 성립한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 18,
+        "stratum": "R1_direct",
+        "item_id": "M2209#34",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:11730",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-11.out.json:814",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-11.out.json:32",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:26484"
+        ],
+        "note": "습관화 사례에서 무해한 자극 속에서도 활동하게 하는 학습 기능을 도출한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 19,
+        "stratum": "R1_direct",
+        "item_id": "M2309#41",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A",
+              "B"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:13179",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-12.out.json:1209",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-12.out.json:1199",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:29686"
+        ],
+        "note": "기후변화의 재현 곤란과 상상력의 한계를 중심으로 사례를 묶는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 20,
+        "stratum": "R1_direct",
+        "item_id": "M2109#23",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          },
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "B"
+            ],
+            "note": "B는 글의 논리 구조 파악을 R3로 적어 역할 파악과 구조 재구성의 경계를 흐린다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:10189",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-10.out.json:321",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-10.out.json:321",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:22970"
+        ],
+        "note": "개인 창의성 통념을 반박하고 개인성의 사회적 본성을 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 21,
+        "stratum": "R1_direct",
+        "item_id": "2016#42",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R5를 결론 문장의 낱말 복사식 오답 선택과 연결한다. 중심·부연 구별이라는 정의를 대신하지 못한다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:2260",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-03.out.json:78",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-03.out.json:10",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:5088"
+        ],
+        "note": "겉보기의 비실용성과 실제 가치를 대조해 빈칸 의미를 도출한다. R5를 결론 낱말 복사로 설명한 A의 구별은 부정확하다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 22,
+        "stratum": "R1_direct",
+        "item_id": "2014A#34",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:258",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-01.out.json:301",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-01.out.json:301",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:576"
+        ],
+        "note": "흑백 화면 비유와 감정·즐거움 감소에서 삶의 풍요로움 상실을 도출한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 23,
+        "stratum": "R1_direct",
+        "item_id": "M2509#41",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:15755",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-15.out.json:365",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-15.out.json:365",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:35446"
+        ],
+        "note": "일상 언어를 새롭게 들리게 하는 시의 기능으로 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 24,
+        "stratum": "R1_direct",
+        "item_id": "2020#31",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:4583",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json:198",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-05.out.json:188",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:10288"
+        ],
+        "note": "과학주의가 비과학적 접근을 주관적이라고 낮추는 인과를 빈칸의 중요성 저하로 연결하는 경로는 성립한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 25,
+        "stratum": "R1_direct",
+        "item_id": "2021#35",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:5319",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json:1082",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-05.out.json:1052",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:11954"
+        ],
+        "note": "조직 결속이라는 중심을 기준으로 광고 유머 문장을 배제한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 26,
+        "stratum": "R1_direct",
+        "item_id": "2021#33",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:5273",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json:1028",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-05.out.json:998",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:11864"
+        ],
+        "note": "사용에 따른 신경망 강화·가지치기에서 경험사에 의한 조각이라는 비유를 도출한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 27,
+        "stratum": "R1_direct",
+        "item_id": "M2609#35",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:16905",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:424",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json:424",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:38010"
+        ],
+        "note": "다양한 멘토망의 필요성을 중심으로 고용주 발달 일반론을 배제한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 28,
+        "stratum": "R1_direct",
+        "item_id": "M2409#22",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A",
+              "B"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:14030",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-13.out.json:942",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-13.out.json:105",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:31618"
+        ],
+        "note": "이민사를 부연으로 두고 문화적 정체성을 유지할 권리를 결론으로 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 29,
+        "stratum": "R1_direct",
+        "item_id": "M2109#21",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "A"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          },
+          {
+            "kind": "weak_anchor",
+            "tracks": [
+              "A"
+            ],
+            "note": "인용은 실재하지만 단편적이라 자체로 비유의 의미를 지지하지 못한다. decision_path의 근거는 별도로 실재한다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:10143",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-10.out.json:272",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-10.out.json:272",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:22888"
+        ],
+        "note": "고정된 사고 틀과 비난하지 말라는 비유를 기능적 고착의 이점에 연결한다. A의 인용 위치는 실재하지만 짧아 단독 설명력이 낮다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 30,
+        "stratum": "R1_direct",
+        "item_id": "M2606#24",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "direct"
+        },
+        "artifact_state": "INDEPENDENTLY_CHECKED",
+        "artifact_candidate": "direct",
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "B"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:16008",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-15.out.json:667",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-15.out.json:662",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:36022"
+        ],
+        "note": "생존 필수품에서 음식 문화로의 전환을 제목으로 압축한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 31,
+        "stratum": "DISPUTED",
+        "item_id": "2021#24",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:5066",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json:795",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-05.out.json:770",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:11416"
+        ],
+        "note": "촉각의 시간성이 직접 진술되어 실험과 제목의 대응에 미진술 의미 도출이 별도로 필요하지 않다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 32,
+        "stratum": "DISPUTED",
+        "item_id": "2016#19",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:1731",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-02.out.json:723",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-02.out.json:748",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:3850"
+        ],
+        "note": "기대에 찬 심경 파악은 중심 주장 압축과 구별된다. A는 일반적인 전체 흐름을 R5로 확장한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 33,
+        "stratum": "DISPUTED",
+        "item_id": "2023#20",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "indirect",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:6262",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-06.out.json:868",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-06.out.json:868",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:14096"
+        ],
+        "note": "인생 선택을 갈림길에 대응시키는 비유 해석 경로는 존재하지만 확률 분석 주장은 명시되어 있다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 34,
+        "stratum": "DISPUTED",
+        "item_id": "2025#31",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "direct",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:7797",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-08.out.json:5",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-08.out.json:90",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:17518"
+        ],
+        "note": "텍스트에 들어가 살고 감정을 나누는 부연을 개인적 관여로 압축하는 실제 결정 경로가 성립한다. R6 경로가 있어도 R5 direct를 배제하지 않는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 35,
+        "stratum": "DISPUTED",
+        "item_id": "2016#29",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:1961",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-02.out.json:983",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-02.out.json:998",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:4346"
+        ],
+        "note": "각 어휘의 국소 문맥으로 판단한다. 논병아리 감소라는 배경만으로 R5 수행을 특정하기 어렵다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 36,
+        "stratum": "DISPUTED",
+        "item_id": "M2006#36",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:9200",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:86",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json:446",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:20752"
+        ],
+        "note": "단점 예고와 구전 전통의 명시적 연결은 R2·R4 등의 수행이다. A는 연결을 추론 일반으로 넓힌다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 37,
+        "stratum": "DISPUTED",
+        "item_id": "2019#36",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:4054",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-04.out.json:100",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-04.out.json:903",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:9140"
+        ],
+        "note": "관찰 반응성의 예시를 대응시키는 관계 판정과 R6를 구별한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 38,
+        "stratum": "DISPUTED",
+        "item_id": "M2006#37",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:9223",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:91",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json:473",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:20804"
+        ],
+        "note": "생략 복원과 명시된 정신·유전자 대조로 순서를 닫을 수 있다. 새로운 함축 의미보다 구문·지칭 연결이다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 39,
+        "stratum": "DISPUTED",
+        "item_id": "2014A#36",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:304",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-01.out.json:360",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-01.out.json:360",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:688"
+        ],
+        "note": "고·저 집단 대조 및 예시 관계는 문장 관계 수행이다. 관계 이름이 생략되었다는 이유로 R6를 추가하지 않는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 40,
+        "stratum": "DISPUTED",
+        "item_id": "2020#43",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:4859",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json:547",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-05.out.json:527",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:10944"
+        ],
+        "note": "주차·관찰·도약 성공의 문면 사건 순서로 배열한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 41,
+        "stratum": "DISPUTED",
+        "item_id": "2018#23",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "indirect",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:3111",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-03.out.json:1082",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-03.out.json:121",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:7032"
+        ],
+        "note": "의문형 제목의 비판적 함의를 읽는 경로는 성립하나 중심 압축을 보조한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 42,
+        "stratum": "DISPUTED",
+        "item_id": "2015#41",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:1593",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-02.out.json:576",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-02.out.json:591",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:3568"
+        ],
+        "note": "집단 인원수의 효과가 명시되어 있다. 중요하다는 제목 대응만으로 새 의미 도출을 특정하기 어렵다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 43,
+        "stratum": "DISPUTED",
+        "item_id": "2020#40",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:4790",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-05.out.json:456",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-05.out.json:451",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:10784"
+        ],
+        "note": "친밀도·분리 기간을 동의 표현으로 대응하는 수행이며 미진술 의미 도출과 구별한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 44,
+        "stratum": "DISPUTED",
+        "item_id": "M1809#43",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:8717",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-08.out.json:45",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-08.out.json:1240",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:19672"
+        ],
+        "note": "다른 일들이라는 지시어의 선행 내용을 찾는 수행이다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 45,
+        "stratum": "DISPUTED",
+        "item_id": "2017#40",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:2858",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-03.out.json:775",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-03.out.json:88",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:6448"
+        ],
+        "note": "엇갈림·변이를 다른 입장으로 환언하는 수행이다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 46,
+        "stratum": "DISPUTED",
+        "item_id": "M2606#19",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "direct"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:15893",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-15.out.json:527",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-15.out.json:527",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:35772"
+        ],
+        "note": "한숨과 사라지는 기대에서 앞 심경을 도출해야 변화 선지가 결정된다. 뒤 심경의 명시만으로 앞 수행이 보조가 되지는 않는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 47,
+        "stratum": "DISPUTED",
+        "item_id": "M2206#36",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:11132",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-11.out.json:137",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-11.out.json:6",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:25148"
+        ],
+        "note": "실험 결과와 비대칭이라는 지시 표현의 대응으로 순서를 닫는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 48,
+        "stratum": "DISPUTED",
+        "item_id": "2022#37",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:6009",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-06.out.json:581",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-06.out.json:581",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:13540"
+        ],
+        "note": "다른 의식과 작가의 지칭 연결이 핵심이다. 연결 추적을 곧 R6로 넓히지 않는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 49,
+        "stratum": "DISPUTED",
+        "item_id": "2019#38",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:4100",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-04.out.json:106",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-04.out.json:957",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:9236"
+        ],
+        "note": "삽입 대상은 passage 선두에 있다. 필사본과 뒤의 수작업 복제 대조가 명시되어 연결 수행으로 닫힌다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 50,
+        "stratum": "DISPUTED",
+        "item_id": "2016#29",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "direct"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:1961",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-02.out.json:988",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-02.out.json:1008",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:4372"
+        ],
+        "note": "어종 도입과 결함에서 기존 어종 부재를 복원하고 먹이 중복에서 경쟁을 도출하는 실제 결정 경로가 있다. 어휘 유형이라는 이유로 indirect로 낮추지 않는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 51,
+        "stratum": "DISPUTED",
+        "item_id": "2016#22",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "indirect",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:1800",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-02.out.json:819",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-02.out.json:839",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:4040"
+        ],
+        "note": "사이렌과 암초를 위험의 비유로 해석하는 경로는 존재하지만 끝의 명시 주장을 보조한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 52,
+        "stratum": "DISPUTED",
+        "item_id": "M2209#18",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "direct"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "adjacent_task_misdefinition",
+            "tracks": [
+              "B"
+            ],
+            "note": "R4를 세부 사실·소재 일치 확인으로 설명했다. 코드북 R4는 글 전개 구조 재구성이다."
+          },
+          {
+            "kind": "type_shortcut",
+            "tracks": [
+              "A"
+            ],
+            "note": "실용문 목적이라는 유형 이유로 실제 중심 판단 경로의 direct를 낮춘다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:11362",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-11.out.json:377",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-11.out.json:16",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:25622"
+        ],
+        "note": "모금 배경과 연주 초청 요청을 가르는 중심·부연 판단이 답을 결정한다. 목적 유형이라는 이유만으로 indirect로 낮춘 A는 계약 위반.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 53,
+        "stratum": "DISPUTED",
+        "item_id": "M2006#30",
+        "task_id": "r.central_meaning",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "indirect",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:9062",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:55",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json:264",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:20386"
+        ],
+        "note": "첫 문장의 성찰 동기를 기준으로 삼아 낱말 방향을 판단하는 경로에서 중심 파악은 전제다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 54,
+        "stratum": "DISPUTED",
+        "item_id": "M2706#42",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "p1",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "direct",
+        "contract_verdict": "p1",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [
+          {
+            "kind": "type_shortcut",
+            "tracks": [
+              "A"
+            ],
+            "note": "빈칸 생성형과 낱말 반의 판정이라는 형식 이유로 direct/indirect를 나눈다."
+          }
+        ],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:17434",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-16.out.json:1005",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-16.out.json:1010",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:39160"
+        ],
+        "note": "이해 곤란에서 법칙을 거스르는 방향을 도출하는 경로가 낱말 반의 판정을 결정한다. 양쪽 값과 다르며 유형별 생성·선택 구분은 direct 기준이 아니다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 55,
+        "stratum": "DISPUTED",
+        "item_id": "2015#37",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:1501",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-02.out.json:468",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-02.out.json:473",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:3352"
+        ],
+        "note": "각 집단을 받는 지시어와 행동 묘사의 명시 연결로 순서를 닫는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 56,
+        "stratum": "DISPUTED",
+        "item_id": "2014B#37",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:856",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-01.out.json:1003",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-01.out.json:1003",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:1928"
+        ],
+        "note": "기후 영향의 대조와 시베리아 사례를 연결하는 담화 관계 판단이다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 57,
+        "stratum": "DISPUTED",
+        "item_id": "M2209#39",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "unclear",
+        "relevance_verdict": "unclear",
+        "independent_preferred_relevance": null,
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:11845",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-11.out.json:934",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-11.out.json:37",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:26732"
+        ],
+        "note": "새 정체성과 소비자 공동체의 대응을 지칭 연결로 볼지 미진술 의미 도출로 볼지 경계가 남는다. 갈림 유지.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 58,
+        "stratum": "DISPUTED",
+        "item_id": "2025#36",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:7912",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-08.out.json:10",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-08.out.json:260",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:17840"
+        ],
+        "note": "농부·지주의 명시된 유사 행동과 연결 표지를 대응하는 수행이다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 59,
+        "stratum": "DISPUTED",
+        "item_id": "2017#22",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "not_applicable",
+          "B": "indirect"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:2444",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-03.out.json:299",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-03.out.json:34",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:5512"
+        ],
+        "note": "의문형 제목에 명시된 모호성·적응성을 대응한다. 질문 형식만으로 추론을 더하지 않는다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      },
+      {
+        "sample_no": 60,
+        "stratum": "DISPUTED",
+        "item_id": "M2006#39",
+        "task_id": "r.inference",
+        "artifact_judgments": {
+          "A": "indirect",
+          "B": "not_applicable"
+        },
+        "artifact_state": "DISPUTED",
+        "artifact_candidate": null,
+        "verdict": "confirmed",
+        "relevance_verdict": "confirmed",
+        "independent_preferred_relevance": "not_applicable",
+        "contract_verdict": "pass",
+        "false_quote_count": 0,
+        "exact_boilerplate": false,
+        "flags": [],
+        "evidence": [
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json:9269",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-A-09.out.json:101",
+          "D:/workspace/Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/r5r6/chunk-B-09.out.json:522",
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:20904"
+        ],
+        "note": "선두 삽입 문장이 대각선 모서리 배치를 초점에 서는 것으로 직접 설명한다. 지시 연결과 R6를 구별한다.",
+        "scope": "독립 AI의 내용 판단이며 사람 Gold·제품 relevance 확정·갈림 승격이 아니다."
+      }
+    ],
+    "note": "고정 seed 층화 감사 표본이다. 전체 정확도·생성 스크립트 사용 부재·사람 기준 정답률로 일반화하지 않는다."
+  },
+  "db": {
+    "project_ref": "jajenrevcbmrpaliomxv",
+    "read_at": "2026-10-23T03:38:18.421Z",
+    "access": "PostgREST GET SELECT only; no RPC or mutations",
+    "queries": [
+      {
+        "id": "Q1",
+        "method": "GET",
+        "path": "csat_items?select=*&id=eq.2026%2338",
+        "status": 200
+      },
+      {
+        "id": "Q2",
+        "method": "GET",
+        "path": "csat_exams?select=id,organizer&order=id.asc",
+        "status": 200
+      },
+      {
+        "id": "Q3",
+        "method": "GET",
+        "path": "csat_items?select=id,exam_id,no,type_id,stem,passage,choices,raw_block,answer,answers,points,body_ok&order=id.asc&offset=0&limit=1000",
+        "status": 200
+      },
+      {
+        "id": "Q4",
+        "method": "GET",
+        "path": "csat_items?select=id,exam_id,no,type_id,stem,passage,choices,raw_block,answer,answers,points,body_ok&order=id.asc&offset=1000&limit=1000",
+        "status": 200
+      },
+      {
+        "id": "Q5",
+        "method": "GET",
+        "path": "csat_items?select=id,exam_id,no,type_id,stem,passage,choices,raw_block,answer,answers,points,body_ok&order=id.asc&offset=2000&limit=1000",
+        "status": 200
+      },
+      {
+        "id": "Q6",
+        "method": "GET",
+        "path": "csat_items?select=id,exam_id,no,type_id,stem,passage,choices,raw_block,answer,answers,points,body_ok&order=id.asc&offset=3000&limit=1000",
+        "status": 200
+      }
+    ],
+    "item_columns": [
+      "id",
+      "exam_id",
+      "no",
+      "section",
+      "in_scope",
+      "type_id",
+      "stem",
+      "passage",
+      "choices",
+      "answer",
+      "answers",
+      "points",
+      "high_score",
+      "body_ok",
+      "raw_block",
+      "created_at",
+      "official_error_rate",
+      "ebs_linked"
+    ],
+    "counts": {
+      "exams": 134,
+      "items": 3714,
+      "kice_items": 802,
+      "inserts": 262,
+      "kice_inserts": 56,
+      "raw_block_null_inserts": 262,
+      "insert_stem_empty": [],
+      "insert_passage_empty": [],
+      "insert_choices_empty": [
+        "2023#38"
+      ]
+    },
+    "duplicate_long_stems": [
+      [
+        "M2306#38",
+        "M2306#39"
+      ],
+      [
+        "M2406#38",
+        "M2406#39"
+      ],
+      [
+        "M2406#43",
+        "M2406#44",
+        "M2406#45"
+      ]
+    ],
+    "defects": [
+      {
+        "id": "M2306#38",
+        "stem_chars": 248,
+        "stem_sha256": "f37cd30c016efb6c47f24f771a34db30c4914952f938867f49e2de6144dcd0b2",
+        "has_question45": false,
+        "choices": 5,
+        "english_words_in_item40": true
+      },
+      {
+        "id": "M2306#39",
+        "stem_chars": 248,
+        "stem_sha256": "f37cd30c016efb6c47f24f771a34db30c4914952f938867f49e2de6144dcd0b2",
+        "has_question45": false,
+        "choices": 5,
+        "english_words_in_item40": true
+      },
+      {
+        "id": "M2406#38",
+        "stem_chars": 254,
+        "stem_sha256": "81ea05a6a5125b02a1f627890c5cc08cd9fc9abdcbb09bf23dae8394b5e98e97",
+        "has_question45": false,
+        "choices": 5,
+        "english_words_in_item40": true
+      },
+      {
+        "id": "M2406#39",
+        "stem_chars": 254,
+        "stem_sha256": "81ea05a6a5125b02a1f627890c5cc08cd9fc9abdcbb09bf23dae8394b5e98e97",
+        "has_question45": false,
+        "choices": 5,
+        "english_words_in_item40": true
+      },
+      {
+        "id": "M2406#43",
+        "stem_chars": 149,
+        "stem_sha256": "8060f5d9c9045a1598c6f8de3255b924b65c488f169e5d3c2b0bc3e419bfc042",
+        "has_question45": true,
+        "choices": 5,
+        "english_words_in_item40": false
+      },
+      {
+        "id": "M2406#44",
+        "stem_chars": 149,
+        "stem_sha256": "8060f5d9c9045a1598c6f8de3255b924b65c488f169e5d3c2b0bc3e419bfc042",
+        "has_question45": true,
+        "choices": 5,
+        "english_words_in_item40": false
+      },
+      {
+        "id": "M2406#45",
+        "stem_chars": 149,
+        "stem_sha256": "8060f5d9c9045a1598c6f8de3255b924b65c488f169e5d3c2b0bc3e419bfc042",
+        "has_question45": true,
+        "choices": 5,
+        "english_words_in_item40": false
+      }
+    ],
+    "insert_examples": [
+      {
+        "id": "2026#38",
+        "stem_chars": 41,
+        "raw_block_null": true,
+        "passage_lead_excerpt": "Sometimes these inte",
+        "passage_lead_sha256": "e7c8ad008666a539f6eae95ec24588abd4d936525e1cc18e2c10afac20f696b7",
+        "prefix_before_slot1_chars": 403,
+        "choices": 5,
+        "body_ok": true
+      },
+      {
+        "id": "2026#39",
+        "stem_chars": 41,
+        "raw_block_null": true,
+        "passage_lead_excerpt": "The difference is th",
+        "passage_lead_sha256": "62c15259c1edab3fd8b476eab9a1f81f59c8a8e859448848ba7a8ea8c4eaae1b",
+        "prefix_before_slot1_chars": 289,
+        "choices": 5,
+        "body_ok": true
+      },
+      {
+        "id": "M2706#38",
+        "stem_chars": 41,
+        "raw_block_null": true,
+        "passage_lead_excerpt": "To minimize vortex s",
+        "passage_lead_sha256": "0e7bf3fa482008a71e67cb984e1e068d6f19ee8897424482eb0bd14b127a68be",
+        "prefix_before_slot1_chars": 502,
+        "choices": 5,
+        "body_ok": true
+      },
+      {
+        "id": "M2706#39",
+        "stem_chars": 41,
+        "raw_block_null": true,
+        "passage_lead_excerpt": "It was also within t",
+        "passage_lead_sha256": "bdee80874deefd92684ba5dd7c2ac6ec2ef4f412d6d64b23f610a4efcd00d605",
+        "prefix_before_slot1_chars": 348,
+        "choices": 5,
+        "body_ok": true
+      },
+      {
+        "id": "M2609#38",
+        "stem_chars": 41,
+        "raw_block_null": true,
+        "passage_lead_excerpt": "As winter approaches",
+        "passage_lead_sha256": "a22828ed83cd2dc72fd843c6edf16750a4f83022264859986aec6a41a472f060",
+        "prefix_before_slot1_chars": 420,
+        "choices": 5,
+        "body_ok": true
+      },
+      {
+        "id": "M2609#39",
+        "stem_chars": 41,
+        "raw_block_null": true,
+        "passage_lead_excerpt": "The problem of survi",
+        "passage_lead_sha256": "15999f71098bde1b1d58d9a61a6a1dabfc00ebaf7e5194c4dccd57653253a95f",
+        "prefix_before_slot1_chars": 424,
+        "choices": 5,
+        "body_ok": true
+      },
+      {
+        "id": "2025#38",
+        "stem_chars": 41,
+        "raw_block_null": true,
+        "passage_lead_excerpt": "Without any special ",
+        "passage_lead_sha256": "0013a2f79fe71edca50fe938528d90b76573abde0f264fe47ac819058c9d8319",
+        "prefix_before_slot1_chars": 304,
+        "choices": 5,
+        "body_ok": true
+      },
+      {
+        "id": "2025#39",
+        "stem_chars": 41,
+        "raw_block_null": true,
+        "passage_lead_excerpt": "In reality, objects ",
+        "passage_lead_sha256": "47585824f5881bdc03ac02a8ff6bf2f8c4a9773a05978126575250dfd5d932b4",
+        "prefix_before_slot1_chars": 347,
+        "choices": 5,
+        "body_ok": true
+      }
+    ],
+    "db_input_source_mismatches": [],
+    "content_sha256": "499a5c0d90decd5eb51af6304037e960c8e044d6cea9fe1a839920ec8359c7fc"
+  },
+  "recalculations": {
+    "validation": {
+      "tracks": {
+        "A": 762,
+        "B": 762
+      },
+      "row_errors": 0,
+      "chunk_errors": 0,
+      "raw_to_public_binding_errors": 0,
+      "all_802_input_sources_equal_live_db": true,
+      "repeated_non_not_applicable_why_or_dp_groups_ge3": 0,
+      "note": "원본 경로를 인자로 넘겨 순수 validateLinkRow/validateLinkChunk와 독립 해시 검사를 호출했다. 원본 배치 명령의 agree/export/coverage-audit는 실행하지 않았다(지정 산출물 덮어쓰기 방지)."
+    },
+    "agreement": {
+      "verdict": "confirmed",
+      "evidence": [
+        "docs/csat-learner/v62/data-expansion/r5r6-agreement.json:18"
+      ],
+      "R5": {
+        "n": 755,
+        "direct_binary_kappa": 0.9353,
+        "agreement": 0.9272,
+        "kappa": 0.8885,
+        "direct": 190,
+        "not_applicable": 333,
+        "disputed": 55,
+        "indirect": 161,
+        "unknown": 16
+      },
+      "R6": {
+        "n": 755,
+        "direct_binary_kappa": 0.9527,
+        "agreement": 0.8132,
+        "kappa": 0.7005,
+        "not_applicable": 331,
+        "indirect": 122,
+        "unknown": 23,
+        "direct": 138,
+        "disputed": 141
+      },
+      "note": "7문항 제외 후 TASK별 n=755, κ와 direct 이분 κ 및 후보 건수를 재계산해 저장값과 일치."
+    },
+    "exam_relevance": {
+      "verdict": "confirmed",
+      "exams": 29,
+      "reading_items": 802,
+      "reading_points": 1807,
+      "R5_direct_points": 418,
+      "R5_indirect_points": 428,
+      "R6_direct_points": 390,
+      "averages": {
+        "R5_direct": 14.4,
+        "R6_direct": 13.4,
+        "reading": 62.3
+      },
+      "mismatches": 0,
+      "evidence": [
+        "scripts/csat/map/v62/data/exam-relevance.mjs:14",
+        "docs/csat-learner/v62/data-expansion/exam-relevance.json:3"
+      ],
+      "note": "시험별 원문 points와 후보 ID를 재결합한 산술 결과다. 서로 다른 TASK의 점수는 합산하지 않는다. 후보의 내용 정확도나 모든 문항의 원천 적격을 보증하지 않는다."
+    }
+  },
+  "cross_work": {
+    "contracts": [
+      {
+        "topic": "direct",
+        "verdict": "confirmed",
+        "map": "한 실제 판단 경로에서 고유 수행이 결정적; 복수 direct 허용",
+        "goal": "v1 전체 계승",
+        "compatibility": "공통 원칙은 호환. 실제 판정자의 유형 기준 적용은 별도 위반.",
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/RULES_V2.md:9",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md:3"
+        ]
+      },
+      {
+        "topic": "indirect",
+        "verdict": "confirmed",
+        "map": "구체 경로·근거·인접 TASK 구별 사유",
+        "goal": "counterfactual choice/locus 추가 필수",
+        "compatibility": "goal의 더 강한 증거 요구이며 자동 동치로 보지 않는다. v1 자료를 goal v2 계약 충족으로 승격할 수 없다.",
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:12",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md:8"
+        ]
+      },
+      {
+        "topic": "E2",
+        "verdict": "refuted",
+        "map": "거리와 무관한 경쟁 후보 특정",
+        "goal": "거리 기준 direct/indirect; 같은 문장 근거는 not_applicable",
+        "compatibility": "정의 동치 주장 불가: P1-03.",
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/RULES_V2.md:20",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md:24"
+        ]
+      },
+      {
+        "topic": "통합 TASK",
+        "verdict": "confirmed",
+        "map": "S-O1/E-O1 기본 unknown; R-O1 조건부 indirect",
+        "goal": "세 통합 TASK를 18 TASK 판정에서 제외하고 원자값 파생은 제안만",
+        "compatibility": "미평가·unknown·무관의 서로 다른 상태를 보존한다. 21/18 TASK의 κ 직접 비교 금지.",
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/RULES_V2.md:26",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md:29"
+        ]
+      },
+      {
+        "topic": "E1/V1/R4",
+        "verdict": "confirmed",
+        "map": "E1 기본 unknown+예외, V1 밑줄/선지 기본 뜻 질문, R4 전개 구조",
+        "goal": "E1 표준 발문 not_applicable 가능, V1 결정 낱말 뜻, R4 글 전체 배열 강조",
+        "compatibility": "경계가 같다는 보장이 없다. 공통 조작적 기준 확정 전 판정 효과·κ를 합치지 않는다.",
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/RULES_V2.md:22",
+          "docs/csat-learner/v62/data-expansion/RULES_V2.md:28",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md:22"
+        ]
+      },
+      {
+        "topic": "등급·제품 입력",
+        "verdict": "confirmed",
+        "map": "AI R0/R1 후보; relevance unknown",
+        "goal": "AI R0/R1 후보; relevance unknown",
+        "compatibility": "호환. AI 일치·독립 AI 검토는 사람 Gold나 출시·NeedRank 승인과 다르다.",
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/README.md:5",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:5"
+        ]
+      }
+    ],
+    "result_conflicts": [
+      {
+        "item_id": "M2609#19",
+        "task_id": "r.inference",
+        "verdict": "confirmed",
+        "map_data": {
+          "candidate": null,
+          "state": "DISPUTED",
+          "judgments": {
+            "A": "indirect",
+            "B": "direct"
+          }
+        },
+        "goal_data": {
+          "candidate": "direct",
+          "state": "INDEPENDENTLY_CHECKED",
+          "judgments": {
+            "A": "direct",
+            "B": "direct"
+          }
+        },
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:37192",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl:174"
+        ],
+        "note": "결과 불일치를 확인했다. 어느 판정이 옳은지는 이 비교만으로 확정하지 않으며 공통 계약 후 재판정 대상이다."
+      },
+      {
+        "item_id": "2025#31",
+        "task_id": "r.central_meaning",
+        "verdict": "confirmed",
+        "map_data": {
+          "candidate": null,
+          "state": "DISPUTED",
+          "judgments": {
+            "A": "direct",
+            "B": "indirect"
+          }
+        },
+        "goal_data": {
+          "candidate": "indirect",
+          "state": "INDEPENDENTLY_CHECKED",
+          "judgments": {
+            "A": "indirect",
+            "B": "indirect"
+          }
+        },
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:17518",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl:258"
+        ],
+        "note": "결과 불일치를 확인했다. 어느 판정이 옳은지는 이 비교만으로 확정하지 않으며 공통 계약 후 재판정 대상이다."
+      },
+      {
+        "item_id": "2025#34",
+        "task_id": "r.central_meaning",
+        "verdict": "confirmed",
+        "map_data": {
+          "candidate": null,
+          "state": "DISPUTED",
+          "judgments": {
+            "A": "direct",
+            "B": "indirect"
+          }
+        },
+        "goal_data": {
+          "candidate": "direct",
+          "state": "INDEPENDENTLY_CHECKED",
+          "judgments": {
+            "A": "direct",
+            "B": "direct"
+          }
+        },
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:17698",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl:269"
+        ],
+        "note": "결과 불일치를 확인했다. 어느 판정이 옳은지는 이 비교만으로 확정하지 않으며 공통 계약 후 재판정 대상이다."
+      },
+      {
+        "item_id": "M2609#24",
+        "task_id": "r.inference",
+        "verdict": "confirmed",
+        "map_data": {
+          "candidate": "indirect",
+          "state": "INDEPENDENTLY_CHECKED",
+          "judgments": {
+            "A": "indirect",
+            "B": "indirect"
+          }
+        },
+        "goal_data": {
+          "candidate": null,
+          "state": "DISPUTED",
+          "judgments": {
+            "A": "direct",
+            "B": "not_applicable"
+          }
+        },
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:37468",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/disputed-links.jsonl:138"
+        ],
+        "note": "결과 불일치를 확인했다. 어느 판정이 옳은지는 이 비교만으로 확정하지 않으며 공통 계약 후 재판정 대상이다."
+      },
+      {
+        "item_id": "2025#34",
+        "task_id": "r.inference",
+        "verdict": "confirmed",
+        "map_data": {
+          "candidate": null,
+          "state": "DISPUTED",
+          "judgments": {
+            "A": "indirect",
+            "B": "direct"
+          }
+        },
+        "goal_data": {
+          "candidate": null,
+          "state": "DISPUTED",
+          "judgments": {
+            "A": "direct",
+            "B": "not_applicable"
+          }
+        },
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/r5r6-links.json:17728",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/disputed-links.jsonl:194"
+        ],
+        "note": "결과 불일치를 확인했다. 어느 판정이 옳은지는 이 비교만으로 확정하지 않으며 공통 계약 후 재판정 대상이다."
+      }
+    ],
+    "duplicate_counts": {
+      "logical_item_overlap": 80,
+      "logical_pair_overlap_R5_R6": 160,
+      "pilot_reused_items": 40,
+      "pilot_reused_pairs": 80,
+      "new_b2_items_already_in_expansion": 40,
+      "new_b2_pairs": 80,
+      "public_comparable_pairs": 53,
+      "public_comparable_items": 43,
+      "public_result_conflicts": 5,
+      "identical_positive_candidates": 44,
+      "positive_candidate_duplicate_list": [
+        {
+          "item_id": "2026#18",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#19",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#20",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#21",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#22",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#23",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#24",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#24",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#31",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#32",
+          "task_id": "r.central_meaning",
+          "candidate": "indirect",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#32",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#33",
+          "task_id": "r.central_meaning",
+          "candidate": "indirect",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#33",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#34",
+          "task_id": "r.central_meaning",
+          "candidate": "indirect",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#34",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#40",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "2026#41",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "M2706#22",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "M2706#23",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "M2706#31",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "M2706#32",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "M2706#33",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "M2706#34",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "M2706#40",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "pilot-1"
+        },
+        {
+          "item_id": "M2609#18",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#20",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#21",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#22",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#23",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#24",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#31",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#32",
+          "task_id": "r.central_meaning",
+          "candidate": "indirect",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#32",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#33",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#34",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#35",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#40",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "M2609#41",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "2025#22",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "2025#23",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "2025#31",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "2025#32",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "2025#33",
+          "task_id": "r.inference",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        },
+        {
+          "item_id": "2025#40",
+          "task_id": "r.central_meaning",
+          "candidate": "direct",
+          "batch": "b2-v2"
+        }
+      ],
+      "unavailable_pairwise_negative_states": 107,
+      "note": "goal 통합 JSONL은 양쪽 모두 not_applicable/unknown인 쌍을 싣지 않는다. 없는 107쌍을 무관·동의·충돌 없음으로 추정하지 않았다. 40+762+40을 새 842문항으로 더하면 안 된다. 같은 pilot 재사용을 새 독립 AI 반복으로 세지 않는다."
+    },
+    "other_number_relationships": [
+      {
+        "topic": "134시험·3714문항·802평가원수능",
+        "verdict": "confirmed",
+        "evidence": [
+          "DB Q2–Q6",
+          "docs/csat-learner/v62/data-expansion/coverage.json:1",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/source-inventory.json:1"
+        ],
+        "note": "같은 DB 재고의 다른 집계다. 두 작업의 수치를 합산하지 않는다."
+      },
+      {
+        "topic": "2014 A/B 공유 지문",
+        "verdict": "confirmed",
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/coverage.json:123",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D1-source-audit/source-quality-report.md:32"
+        ],
+        "groups": [
+          [
+            "2014A#32",
+            "2014B#29"
+          ],
+          [
+            "2014A#24",
+            "2014B#23"
+          ],
+          [
+            "2014A#35",
+            "2014B#31"
+          ]
+        ],
+        "note": "3쌍은 같은 지문을 쓴 별도 문항이다. 시험별 배점 표는 각 시험 안에서 유효하나 전체 독립 지문·학습 근거의 합산에서는 passage hash로 중복을 분리해야 한다."
+      },
+      {
+        "topic": "저장소 20파일 대 등록 18세트",
+        "verdict": "confirmed",
+        "evidence": [
+          "docs/csat-learner/v62/data-expansion/README.md:26",
+          "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D4-assessment/assessment-review.md:34"
+        ],
+        "note": "D4는 저장소 파일20과 런타임 등록18을 구분한다. 서로 다른 분모이며 수치 충돌로 단정하지 않는다. D4의 제품 코드 결함 주장은 이 TASK에서 독립 재검증하지 않았다."
+      }
+    ]
+  },
+  "limitations": [
+    {
+      "verdict": "unclear",
+      "note": "v2.1 A/B 재판정·사람 Gold·학생 실측·정본 시험 PDF 대조는 미실행."
+    },
+    {
+      "verdict": "unclear",
+      "note": "가드 조건 밖 원천 결함과 삽입 262 전체의 내용 완전성은 미확정."
+    },
+    {
+      "verdict": "unclear",
+      "note": "goal 데이터의 공개되지 않은 음성 판정 107논리쌍은 원본 판정이 이 검토 범위에 없어 개별 비교 불가."
+    },
+    {
+      "verdict": "unclear",
+      "note": "A/B 절차의 인적·실행상 독립성 및 생성 스크립트 미사용은 파일 내용만으로 증명할 수 없다."
+    }
+  ],
+  "scope": {
+    "written_files": [
+      "docs/csat-learner/v62/data-expansion/review/verdict.json",
+      "docs/csat-learner/v62/data-expansion/review/review.md"
+    ],
+    "agent_goal_modified": false,
+    "db_mutations": 0,
+    "git_commits": 0,
+    "vfc_state_changes": 0,
+    "product_changes": 0,
+    "app_tests": "not_run: 데이터 독립 감사이며 제품 코드를 변경하지 않았다.",
+    "integration": "not_run: 사용자 지시대로 조정자가 커밋·상태 변경을 담당한다."
+  }
+}
