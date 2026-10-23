@@ -145,11 +145,14 @@ export interface CycleCell {
 }
 
 export function lifecycleCells(
-  skill: { status: 'unverified' | 'verified' | 'still_needed' | 'resolved' | 'expired'; check: { right: number; wrong: number; need: number } } | null,
+  skill: { status: 'unverified' | 'verified' | 'still_needed' | 'resolved' | 'expired' | 'pending_delayed'; check: { right: number; wrong: number; need: number } } | null,
   hasTargets: boolean,
   ev: LifecycleEvidence = NO_EVIDENCE,
 ): CycleCell[] {
-  const s = skill?.status ?? 'unverified'
+  const raw = skill?.status ?? 'unverified'
+  // D4-DEC-01 — 초기 확인 통과 · 다른 날 재확인 전: 앞 단계는 확정 뒤와 같고, 다시 확인 칸만 「다른 날 확인」
+  const delayed = raw === 'pending_delayed'
+  const s = delayed ? 'resolved' : raw
   const locked = (why: string): CycleCell[] => [
     { stage: 'REPAIR', state: 'locked', note: why },
     { stage: 'TRANSFER', state: 'locked', note: why },
@@ -172,7 +175,9 @@ export function lifecycleCells(
     : ev.transferReady === false
       ? { stage: 'TRANSFER', state: 'locked', note: '적용 문항 준비 중' }
     : { stage: 'TRANSFER', state: next === 'transfer' ? 'now' : 'open', note: s === 'resolved' ? '기록 없음' : '열림' }
-  const check: CycleCell = s === 'resolved'
+  const check: CycleCell = delayed
+    ? { stage: 'CHECK', state: 'now', note: '다른 날 한 번 더 확인' }
+    : s === 'resolved'
     ? { stage: 'CHECK', state: 'done', note: '다시 확인 통과' }
     : s === 'still_needed'
       ? { stage: 'CHECK', state: next === 'check' ? 'now' : 'open', note: `막힘 ${skill!.check.wrong} · 연속 ${skill!.check.need}개 맞히면 통과` }
