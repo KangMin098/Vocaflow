@@ -37,16 +37,16 @@
  "items": 40,
  "pairs": 240,
  "agreement": 0.9375,
- "kappa": 0.8907,
- "primary_task_agreement": 32,
+ "kappa": 0.8922,
+ "primary_task_agreement": 33,
  "per_task": {
   "r.central_meaning": {
    "display": "R5",
    "n": 40,
    "agreement": 0.975,
-   "kappa": 0.9551,
-   "both_direct": 18,
-   "both_indirect": 2,
+   "kappa": 0.9576,
+   "both_direct": 16,
+   "both_indirect": 4,
    "both_not_applicable": 19,
    "disputed": 1
   },
@@ -55,9 +55,9 @@
    "n": 40,
    "agreement": 1,
    "kappa": 1,
-   "both_direct": 2,
+   "both_direct": 4,
    "both_indirect": 0,
-   "both_not_applicable": 38,
+   "both_not_applicable": 36,
    "disputed": 0
   },
   "e.task_demand": {
@@ -372,8 +372,8 @@
    "source_sha256": "dd2939d116c632260487b1f7826c0b478a29eddde6736c6802b75e79fd1fd548",
    "analysis_version": 5,
    "primary_task": {
-    "A": "r.central_meaning",
-    "B": "r.central_meaning",
+    "A": "r.inference",
+    "B": "r.inference",
     "agree": true
    },
    "directly_observable_both": [],
@@ -390,8 +390,8 @@
    "source_sha256": "23593333ff05262f9a6089c73c65c0d2033aeb3b26582963099a1960afdc5df9",
    "analysis_version": 5,
    "primary_task": {
-    "A": "r.central_meaning",
-    "B": "r.central_meaning",
+    "A": "r.inference",
+    "B": "r.inference",
     "agree": true
    },
    "directly_observable_both": [],
@@ -507,8 +507,8 @@
    "analysis_version": 5,
    "primary_task": {
     "A": "r.central_meaning",
-    "B": "e.evidence_location",
-    "agree": false
+    "B": "r.central_meaning",
+    "agree": true
    },
    "directly_observable_both": [],
    "independent_assessment": {

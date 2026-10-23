@@ -8,7 +8,9 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { ROOT, nonHeldTasks, validateChunk, validateRow } from '../../csat/map/v62/data/pilot-lib.mjs'
+import { ROOT, nonHeldTasks } from '../../csat/map/v62/data/pilot-lib.mjs'
+
+import { makeValidator } from './d2-validate.mjs'
 
 const OUT = path.join(ROOT, 'docs/research/goal-data-batches/D3-principles')
 const PILOT1 = process.env.PILOT1_LOCAL ?? path.resolve(ROOT, '../Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local')
@@ -23,20 +25,16 @@ const SUPERSEDED_BATCHES = new Set(['pilot-1', 'b2-v2'])
 // 도표: 수치가 문항 필드에 없다(원천 결손) — 근거 미확인으로 분리한다
 const SOURCE_GAP_TYPES = { 'R-CHART': 'chart_missing' }
 
-function passed(src, track, byId) {
-  const out = new Map()
+/** D2 와 같은 계약 검사(d2-validate · T-0107 P1)를 통과한 행만 — 청크 반복 · 트랙 전체 선택 이유 반복에 걸리면 그 범위를 쓰지 않는다 */
+function passed(src, track, V) {
+  const out = new Map(), allRows = []
   for (const f of fs.readdirSync(src.dir).filter((f) => f.startsWith(`chunk-${track}-`) && f.endsWith('.out.json'))) {
     const rows = JSON.parse(fs.readFileSync(path.join(src.dir, f), 'utf8')).rows ?? []
-    if (validateChunk(rows).length) continue
-    for (const r of rows) {
-      const inp = byId.get(r.item_id)
-      if (!inp) continue
-      // v2.2 부분 집합 배치: 청크 TASK 에 direct 가 없으면 primary_task=null 허용(d2-run 과 같은 면제)
-      // d2-run 과 같은 면제(T-0103): v2.2 이상 · 보조 TASK 비어 있음
-      const noDirect = src.subset && ['v2.2', 'v2.3', 'v2.4'].includes(src.contract) && r.primary_task === null && Array.isArray(r.secondary_tasks) && r.secondary_tasks.length === 0 && !(r.links ?? []).some((l) => l.relevance === 'direct')
-      if (!validateRow(r, inp, src.tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))).length) out.set(r.item_id, r)
-    }
+    allRows.push(...rows)
+    if (V.chunk(rows).length) continue
+    for (const r of rows) if (V.byId.has(r.item_id) && !V.row(r).length) out.set(r.item_id, r)
   }
+  if (V.reasons(allRows).length) out.clear()
   return out
 }
 
@@ -45,10 +43,11 @@ const inputs = []
 for (const src of SOURCES) {
   const input = JSON.parse(fs.readFileSync(src.input, 'utf8'))
   // 입력에 판정 TASK 가 기록돼 있으면 그 부분 집합으로 검증한다(b5 이후)
-  if (input.tasks) { src.tasks = all.filter((t) => input.tasks.includes(t.id)); src.subset = true; src.contract = input.contract }
+  if (input.tasks) src.tasks = all.filter((t) => input.tasks.includes(t.id))
   inputs.push({ batch: src.batch, items: input.rows.length, input_sha256: crypto.createHash('sha256').update(JSON.stringify(input.rows.map((r) => [r.item_id, r.source_sha256]))).digest('hex') })
   const byId = new Map(input.rows.map((r) => [r.item_id, r]))
-  const A = passed(src, 'A', byId), B = passed(src, 'B', byId)
+  const V = makeValidator(input, src.tasks, { legacyV1: src.batch === 'pilot-1' })
+  const A = passed(src, 'A', V), B = passed(src, 'B', V)
   for (const [id, inp] of byId) {
     const a = A.get(id), b = B.get(id)
     if (!a || !b) continue

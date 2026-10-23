@@ -8,7 +8,9 @@ import crypto from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { ROOT, nonHeldTasks, validateChunk, validateRow } from '../../csat/map/v62/data/pilot-lib.mjs'
+import { ROOT, nonHeldTasks } from '../../csat/map/v62/data/pilot-lib.mjs'
+
+import { makeValidator } from './d2-validate.mjs'
 
 const [batch, cmd] = process.argv.slice(2)
 const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local', String(batch))
@@ -27,65 +29,12 @@ const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `
 const allAtomic = nonHeldTasks().filter((t) => t.kind !== 'integrated')
 const tasks = input.tasks ? input.tasks.map((id) => allAtomic.find((t) => t.id === id) ?? (() => { throw new Error(`입력 tasks 에 정의 밖 TASK ${id}`) })()) : allAtomic
 const subset = !!input.tasks
-const V22_PLUS = ['v2.2', 'v2.3', 'v2.4']
+// 계약 검사는 d2-validate(d3-build 와 공용 · T-0107 P1)
+const V = makeValidator(input, tasks)
 // 안정 5 TASK(T-0100) — 일치 .80 · κ .68 을 둘 다 밑돌면 다음 배치 중단
 const STABLE = ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure']
 const nChunks = Math.ceil(input.rows.length / CHUNK)
 const name = (track, k, out) => path.join(LOCAL, `chunk-${track}-${String(k + 1).padStart(2, '0')}${out ? '.out' : ''}.json`)
-const answerSet = (src) => (src.answers?.length ? src.answers : src.answer != null ? [src.answer] : [])
-const fieldText = (src, f) => (f === 'choices' ? (src.choices ?? []).map((c) => (typeof c === 'string' ? c : JSON.stringify(c))).join(' ') : String(src[f] ?? ''))
-
-/** v2 추가 검사 — indirect 는 반사실(특정 오답 또는 결정 지점 원문)을 지목해야 한다 */
-function validateV2(row, inp) {
-  const errs = []
-  const wrong = Array.from({ length: (inp.source.choices ?? []).length }, (_, k) => k + 1).filter((n) => !answerSet(inp.source).includes(n))
-  for (const l of row.links ?? []) {
-    if (l.relevance !== 'indirect') continue
-    const c = l.counterfactual
-    if (!c || norm(c.how).length < 15) errs.push(`${l.task_id} indirect 인데 반사실(counterfactual.how) 없음`)
-    else if (c.kind === 'choice') { if (!wrong.includes(c.choice)) errs.push(`${l.task_id} 반사실 선지 ${c.choice} 가 오답 번호가 아니다`) }
-    else if (c.kind === 'locus') { const f = c.field ?? 'passage'; if (norm(c.quote).length < 3 || !norm(fieldText(inp.source, f)).includes(norm(c.quote))) errs.push(`${l.task_id} 반사실 위치 인용이 원문에 없다`) }
-    else errs.push(`${l.task_id} counterfactual.kind 는 choice|locus`)
-  }
-  return errs
-}
-
-/** v2.2 추가 검사 — 삽입 문항 격리(E2 unknown · 독립 평가 부적격) */
-/** v2.3 추가 검사 — 부분 집합 primary 의 뜻을 행마다 밝힌다(v2.3 §1) */
-function validateV23(row) {
-  if (!['v2.3', 'v2.4'].includes(input.contract)) return []
-  return typeof row.main_performance_outside_subset === 'boolean' ? [] : ['main_performance_outside_subset(true|false) 없음(v2.3 §1)']
-}
-
-// v2.4 §1 E2 고정표 — 대상 없는 전체 판단 문항 · 순서 = 무관, 내용 일치 · 안내문 = direct
-const E2_NA_TYPES = ['R-PURPOSE', 'R-CLAIM', 'R-GIST', 'R-TOPIC', 'R-TITLE', 'R-MOOD', 'R-ORDER', 'X-TITLE', 'X-ORDER']
-const E2_DIRECT_TYPES = ['R-FACT', 'R-NOTICE', 'X-FACT']
-/** v2.4 추가 검사 — 주 TASK 선택 이유(§3) · E2 고정표(§1) */
-function validateV24(row, inp) {
-  if (input.contract !== 'v2.4') return []
-  const errs = []
-  if (norm(row.primary_reason).length < 15) errs.push('primary_reason(문항 고유 선택 이유 15자 이상) 없음(v2.4 §3)')
-  const e2 = (row.links ?? []).find((l) => l.task_id === 'e.evidence_location')
-  if (e2 && E2_NA_TYPES.includes(inp.type_id) && e2.relevance !== 'not_applicable') errs.push(`${inp.type_id} 의 E2 는 not_applicable(v2.4 §1)`)
-  if (e2 && E2_DIRECT_TYPES.includes(inp.type_id) && e2.relevance !== 'direct') errs.push(`${inp.type_id} 의 E2 는 direct(v2.4 §1)`)
-  return errs
-}
-/** v2.4 §3 — primary_reason 이 문항 3개 이상에서 같으면 스크립트로 찍어낸 것이다 */
-function primaryReasonRepeats(rows) {
-  if (input.contract !== 'v2.4') return []
-  const seen = new Map()
-  for (const r of rows) { const k = norm(r.primary_reason).replace(/\d+/g, ''); if (k.length >= 5) seen.set(k, [...(seen.get(k) ?? []), r.item_id]) }
-  return [...seen].filter(([, ids]) => ids.length >= 3).map(([k, ids]) => `primary_reason 이 문항 ${ids.length}개에 반복(${ids.slice(0, 3).join(',')}…): 「${k.slice(0, 30)}」`)
-}
-
-function validateV22(row, inp) {
-  if (!V22_PLUS.includes(input.contract) || inp.type_id !== 'R-INSERT') return []
-  const errs = []
-  const e2 = (row.links ?? []).find((l) => l.task_id === 'e.evidence_location')
-  if (e2 && e2.relevance !== 'unknown') errs.push('삽입 문항 E2 는 unknown(v2.2 §3)')
-  if (row.independent_assessment?.eligibility !== 'not_suitable') errs.push('삽입 문항 independent_assessment 는 not_suitable(v2.2 §3)')
-  return errs
-}
 
 function chunks() {
   fs.mkdirSync(LOCAL, { recursive: true })
@@ -103,25 +52,23 @@ function chunks() {
 
 function load(track) {
   const out = new Map(), errors = []
+  const allRows = []
   for (let k = 0; k < nChunks; k++) {
     const f = name(track, k, true)
     if (!fs.existsSync(f)) { errors.push(`${path.basename(f)} 없음`); continue }
     const rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? []
-    // 계약이 고정 문구를 요구하는 삽입 E2 unknown(v2.2 §3)은 반복 검사에서 뺀다 — 고정 문구를 피하려 문항마다 문장을 지어내게 하지 않는다(b6 분석자 2명 보고)
-    const ce = validateChunk(V22_PLUS.includes(input.contract) ? rows.map((r) => (byId.get(r.item_id)?.type_id === 'R-INSERT' ? { ...r, links: (r.links ?? []).filter((l) => !(l.task_id === 'e.evidence_location' && l.relevance === 'unknown')) } : r)) : rows)
-    ce.push(...primaryReasonRepeats(rows))
+    allRows.push(...rows)
+    const ce = V.chunk(rows)
     if (ce.length) { errors.push(...ce.map((x) => `${track} ${path.basename(f)}: ${x}`)); continue }
     for (const row of rows) {
-      const inp = byId.get(row.item_id)
-      if (!inp) { errors.push(`${track} ${row.item_id} 배치 밖`); continue }
-      // v2.2 부분 집합: 청크 TASK 에 direct 가 없으면 primary_task=null 을 허용한다(계약 v2.2 §1) — 그 경우의 「주 TASK 가 direct 가 아니다」 만 면제
-      // T-0103: 면제는 v2.2 이상 계약 · 부분 집합 · 보조 TASK 비어 있음(v2.2 §1) 을 모두 만족할 때만
-      const noDirect = subset && V22_PLUS.includes(input.contract) && row.primary_task === null && Array.isArray(row.secondary_tasks) && row.secondary_tasks.length === 0 && !(row.links ?? []).some((l) => l.relevance === 'direct')
-      const e = [...validateRow(row, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...validateV2(row, inp), ...validateV22(row, inp), ...validateV23(row), ...validateV24(row, inp)]
+      const e = V.row(row)
       if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
       else out.set(row.item_id, row)
     }
   }
+  // 주 TASK 선택 이유 반복은 청크 경계를 넘어 트랙 전체로 센다(T-0107) — 걸리면 그 트랙 전체를 통과시키지 않는다
+  const re = V.reasons(allRows)
+  if (re.length) { errors.push(...re.map((x) => `${track} 트랙: ${x}`)); out.clear() }
   for (const id of byId.keys()) if (!out.has(id) && !errors.some((e) => e.includes(id))) errors.push(`${track} ${id} 출력 없음`)
   return { out, errors }
 }

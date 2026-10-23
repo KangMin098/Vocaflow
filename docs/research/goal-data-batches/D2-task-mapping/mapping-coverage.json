@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d2-combine.mjs",
- "generated_at": "2026-10-23T06:42:34.777Z",
+ "generated_at": "2026-10-23T06:54:43.725Z",
  "note": "모든 링크 relevance=unknown(사람 검수 전). candidateRelevance 는 두 독립 AI 판정 일치(R1)일 뿐 Gold · 학생 측정이 아니다. 제품 NeedRank 입력 금지(relevance.ts 계약).",
  "scope": {
   "items": 198,
@@ -18,7 +18,7 @@
   ],
   "atomic_tasks": 18,
   "pairs": 2628,
-  "r1_links": 602,
+  "r1_links": 604,
   "disputed": 343,
   "frame_note": "평가원 · 수능 최근 시험 표본(평가원 · 수능 802 중 198) — 전체 대표 표본 아님",
   "superseded_items": [
@@ -59,7 +59,7 @@
    "pairs": 228
   },
   "b6-v23": {
-   "kappa": 0.8907,
+   "kappa": 0.8922,
    "agreement": 0.9375,
    "items": 40,
    "pairs": 240
@@ -540,8 +540,6 @@
     "M2506#24",
     "M2506#31",
     "M2506#32",
-    "M2506#33",
-    "M2506#34",
     "M2506#40",
     "M2506#41",
     "2022#22",
@@ -552,7 +550,7 @@
     "2022#34",
     "2022#40"
    ],
-   "r1_indirect_items": 13,
+   "r1_indirect_items": 15,
    "disputed": 15,
    "agreement": {
     "pilot-1": 0.925,
@@ -567,7 +565,7 @@
     "b3-insert": 0,
     "b4-v21": 0.774,
     "b5-v22": 0.8081,
-    "b6-v23": 0.9551
+    "b6-v23": 0.9576
    }
   },
   "r.inference": {
@@ -612,7 +610,9 @@
     "2023#33",
     "2023#34",
     "M2506#19",
-    "M2506#21"
+    "M2506#21",
+    "M2506#33",
+    "M2506#34"
    ],
    "r1_indirect_items": 3,
    "disputed": 8,

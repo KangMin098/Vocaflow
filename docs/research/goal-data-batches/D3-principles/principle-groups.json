@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d3-build.mjs",
- "generated_at": "2026-10-23T06:42:35.574Z",
+ "generated_at": "2026-10-23T06:54:43.972Z",
  "inputs": [
   {
    "batch": "pilot-1",
@@ -36,7 +36,7 @@
  "totals": {
   "items": 198,
   "items_source_gap": 3,
-  "primary_task_agree": 165,
+  "primary_task_agree": 166,
   "same_decision_locus": 97,
   "wrong_options": 792,
   "distortion_agree": 514,
@@ -60,7 +60,7 @@
     "scope_shrink": 1
    },
    "primary_task_pairs": {
-    "r.inference": 27,
+    "r.inference": 29,
     "r.relation|r.inference": 1,
     "s.form_scope|r.inference": 1,
     "r.inference|r.central_meaning": 1,
@@ -68,8 +68,8 @@
     "r.central_meaning|r.inference": 1,
     "r.central_meaning|e.evidence_location": 2,
     "r.central_meaning|e.option_correspondence": 1,
-    "r.central_meaning": 3,
-    "e.evidence_location|r.central_meaning": 2
+    "e.evidence_location|r.central_meaning": 2,
+    "r.central_meaning": 1
    },
    "small_sample": false
   },
@@ -261,11 +261,10 @@
     "other": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 4,
+    "r.central_meaning": 5,
     "v.semantic_relation|r.central_meaning": 2,
     "e.option_correspondence|r.central_meaning": 2,
-    "v.semantic_relation": 1,
-    "r.central_meaning|e.evidence_location": 1
+    "v.semantic_relation": 1
    },
    "small_sample": false
   },
