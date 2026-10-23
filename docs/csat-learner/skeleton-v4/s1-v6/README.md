@@ -1,6 +1,6 @@
 # T-0131 · CSAT v6.0 S0 정정 수용 / S1 목표 적합성 설계
 
-**현재 S1: DRAFT / NOT_ACCEPTED.** T-0131은 문서 제출 범위의 행정 COMPLETED이며 목표 적합 설계 확정과 다르다. 완료 이력은 보존했고, 공식 reopen 전이가 없어 사용자 지시로 연결 후속 **T-0134** 하나를 같은 owner·브랜치에서 수행한다. [완료 상태·커밋·S0 독립성 감사](./goal-fit/STATUS_AUDIT.md).
+**현재: 핵심6의 판단·탐색 설계 선정 / 독립 수용 대기, 나머지4는 증거 부족.** T-0134의 COMPLETED 및 `b7fa848fd` 결과를 보존하고 연결 후속 **T-0135**를 같은 owner·브랜치에서 수행했다. 최종 권고는 F01/F03/F05/F07 IMPROVE, F04/F08 REPLACE이며 수용 요청 범위는 정답 공개 후 부분 분석의 상호작용 계약·기본 배치다. [선정 근거·42조건·남은 검증](./selection/SELECTION.md) · [기능별 현재 결정](./selection/DECISIONS.json). 전체 S1 제품·내용·학습 효과는 NOT_ACCEPTED이고 main 통합·S2 전체 착수는 금지한다. [기존 완료 상태·커밋·S0 독립성 감사](./goal-fit/STATUS_AUDIT.md).
 
 2026-10-23. 최상위 입력: 사용자 제공 v6.0 목표 우선 기준서(파일명·SHA256은 [MANIFEST](./MANIFEST.json)). 기존 시스템 보존/재사용은 선정 기준이 아니다. O1~O7 판단 지원이 우선이고 검증된 적격 대안 사이에서만 비용을 비교한다. 이 산출물은 설계/판단 자료이며 제품 UI 구현·내용 감수·학습 효과 완료가 아니다.
 
@@ -25,7 +25,7 @@
 
 ## 3. F01~F10 네 대안과 결정
 
-[기능별 비교](./FEATURE_DECISIONS.md) · [기계판독 기록](./FEATURE_DECISIONS.json). 40개 후보, 최종 SELECTED0. 연결 후속에서는 동일 부분 분석의 격리 시연24조건·캡처14개로 G1~G5를 보완했다. F01/F03/F05/F07은 IMPROVE, F04/F08은 REPLACE를 **다음 검증 후보**로 권고한다. F02/F06/F09/F10은 각 최소 증거 부족으로 미정이다. F07/F08 현행 그대로 재사용은 **ELIMINATED**. [실제 비교와 한계](./goal-fit/FIT_REPORT.md). 코드 존재·기존 투자·새로움·재사용률은 성과가 아니다.
+**T-0134 당시 보존 기록:** [기능별 비교](./FEATURE_DECISIONS.md) · [기계판독 기록](./FEATURE_DECISIONS.json). 당시40개 후보, 최종 SELECTED0·다음 검증 후보6이었다. 격리24조건·14캡처와98개 순수검사는 이번에 hash로 재사용했다. **T-0135 현재 선정**은 [selection/DECISIONS.json](./selection/DECISIONS.json)에 분리해 기록했다. F02/F06/F09/F10은 계약만 확정하고 구현 방식은 미정이다. F07/F08 현행 그대로 재사용은 **ELIMINATED**. [당시 비교와 한계](./goal-fit/FIT_REPORT.md). 코드 존재·기존 투자·새로움·재사용률은 성과가 아니다.
 
 ## 4. 실제34/22/38 판단·강의
 

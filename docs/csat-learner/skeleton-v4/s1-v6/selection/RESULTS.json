@@ -1,0 +1,5068 @@
+{
+  "task": "T-0135",
+  "observedAt": "2026-10-23T14:59:08.432Z",
+  "base": "b7fa848fdfdf2fd34c77ab42c1e3bd9483e7c572",
+  "checks": [
+    {
+      "name": "reported propositions and qualification substrings are exact stored text, not constructed full choices",
+      "result": "PASS"
+    }
+  ],
+  "results": [
+    {
+      "item": "2026-34",
+      "feature": "F01",
+      "candidate": "REUSE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F01",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "qualificationSourceTrace": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 203.0625,
+            "height": 44
+          },
+          {
+            "width": 132.90625,
+            "height": 44
+          },
+          {
+            "width": 177.8125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F01",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "qualificationSourceTrace": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 203.0625,
+            "height": 44
+          },
+          {
+            "width": 132.90625,
+            "height": 44
+          },
+          {
+            "width": 177.8125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F01",
+      "candidate": "NEW",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "qualificationSourceTrace": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 203.0625,
+            "height": 44
+          },
+          {
+            "width": 132.90625,
+            "height": 44
+          },
+          {
+            "width": 177.8125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F03",
+      "candidate": "REUSE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 129.265625,
+            "height": 44
+          },
+          {
+            "width": 182.28125,
+            "height": 44
+          },
+          {
+            "width": 164.609375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F03",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m1",
+        "backChoice": 2,
+        "actualLinks": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "unregisteredPair": {
+        "meaning": "m3",
+        "choice": 2,
+        "display": "UNREGISTERED",
+        "inferredLink": false
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 150.078125,
+            "height": 44
+          },
+          {
+            "width": 185.359375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "2"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F03",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m1",
+        "backChoice": 2,
+        "actualLinks": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "unregisteredPair": {
+        "meaning": "m3",
+        "choice": 2,
+        "display": "UNREGISTERED",
+        "inferredLink": false
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 150.078125,
+            "height": 44
+          },
+          {
+            "width": 185.359375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "2"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F03",
+      "candidate": "NEW",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m1",
+        "backChoice": 2,
+        "actualLinks": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "unregisteredPair": {
+        "meaning": "m3",
+        "choice": 2,
+        "display": "UNREGISTERED",
+        "inferredLink": false
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 150.078125,
+            "height": 44
+          },
+          {
+            "width": 185.359375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "2"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "REUSE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "sameCases": [
+        {
+          "choice": 1,
+          "truth": "false",
+          "fit": "fails",
+          "reportedProposition": {
+            "text": "법은 자유를 합리적으로 제한한다고 볼 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=1].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        },
+        {
+          "choice": 3,
+          "truth": "true",
+          "fit": "satisfies",
+          "reportedProposition": {
+            "text": "(원래 하지 않을 일만 금지하는) 법은 그들의 자유에 대한 구속으로 이해될 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=3].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        },
+        {
+          "choice": 2,
+          "truth": "unknown",
+          "fit": "fails",
+          "reportedProposition": {
+            "text": "법은 정의 체계의 강력한 옹호자로 볼 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=2].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        }
+      ],
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 62.875,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 44,
+            "height": 44
+          },
+          {
+            "width": 146.9375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m1",
+        "backChoice": 2,
+        "actualLinks": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "sameCases": [
+        {
+          "choice": 1,
+          "truth": "false",
+          "fit": "fails",
+          "reportedProposition": {
+            "text": "법은 자유를 합리적으로 제한한다고 볼 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=1].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        },
+        {
+          "choice": 3,
+          "truth": "true",
+          "fit": "satisfies",
+          "reportedProposition": {
+            "text": "(원래 하지 않을 일만 금지하는) 법은 그들의 자유에 대한 구속으로 이해될 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=3].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        },
+        {
+          "choice": 2,
+          "truth": "unknown",
+          "fit": "fails",
+          "reportedProposition": {
+            "text": "법은 정의 체계의 강력한 옹호자로 볼 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=2].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        }
+      ],
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "2"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m1",
+        "backChoice": 2,
+        "actualLinks": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "pair": [
+        1,
+        3
+      ],
+      "sameCases": [
+        {
+          "choice": 1,
+          "truth": "false",
+          "fit": "fails",
+          "reportedProposition": {
+            "text": "법은 자유를 합리적으로 제한한다고 볼 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=1].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        },
+        {
+          "choice": 3,
+          "truth": "true",
+          "fit": "satisfies",
+          "reportedProposition": {
+            "text": "(원래 하지 않을 일만 금지하는) 법은 그들의 자유에 대한 구속으로 이해될 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=3].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        },
+        {
+          "choice": 2,
+          "truth": "unknown",
+          "fit": "fails",
+          "reportedProposition": {
+            "text": "법은 정의 체계의 강력한 옹호자로 볼 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=2].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        }
+      ],
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "2"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "NEW",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m1",
+        "backChoice": 2,
+        "actualLinks": [
+          1,
+          2,
+          3,
+          4,
+          5
+        ]
+      },
+      "sameCases": [
+        {
+          "choice": 1,
+          "truth": "false",
+          "fit": "fails",
+          "reportedProposition": {
+            "text": "법은 자유를 합리적으로 제한한다고 볼 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=1].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        },
+        {
+          "choice": 3,
+          "truth": "true",
+          "fit": "satisfies",
+          "reportedProposition": {
+            "text": "(원래 하지 않을 일만 금지하는) 법은 그들의 자유에 대한 구속으로 이해될 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=3].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        },
+        {
+          "choice": 2,
+          "truth": "unknown",
+          "fit": "fails",
+          "reportedProposition": {
+            "text": "법은 정의 체계의 강력한 옹호자로 볼 수 없다",
+            "basis": "EXACT_QUOTE_FROM_STORED_ANALYSIS",
+            "sourceField": "inquiry.v3.choices[n=2].decisive",
+            "fullOfficialChoice": false
+          },
+          "source": "same saved v3 choice record for all alternatives"
+        }
+      ],
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "2"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F05",
+      "candidate": "REUSE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F05",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "sourceLimitationPreserved": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 246.09375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F05",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "sourceLimitationPreserved": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 246.09375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F05",
+      "candidate": "NEW",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "actualCounterexample": "MISSING_NOT_GENERATED",
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F07",
+      "candidate": "REUSE",
+      "width": 1280,
+      "result": "ELIMINATED_STATIC",
+      "basis": "preserved T0134 automatic selectScene/scrollIntoView source witness; no fake engine reproduction"
+    },
+    {
+      "item": "2026-34",
+      "feature": "F07",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "player": {
+        "engine": "actual LecturePlayer",
+        "adapter": "manual promise completion, silent kind, injected clock; not actual audio",
+        "transition": "PASS",
+        "userSceneWhilePlaying": "PASS",
+        "pauseResume": "PASS",
+        "adapterOutcomeErrorAndRejectionToNewShellBoundary": "PASS",
+        "nativeEngineOrTTSErrorHandling": "UNVERIFIED",
+        "readSilentOffAndExplicitRestart": "PASS",
+        "events": [
+          {
+            "kind": "user-scene",
+            "scene": "evidence"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c1"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "principle"
+          },
+          {
+            "kind": "adapter-pause"
+          },
+          {
+            "kind": "player-state",
+            "status": "paused",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "injected-outcome-error",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "Error: injected-adapter-rejection",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "judgment"
+          }
+        ]
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 90,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 89.0625,
+            "height": 44
+          },
+          {
+            "width": 100.390625,
+            "height": 44
+          },
+          {
+            "width": 67.625,
+            "height": 44
+          },
+          {
+            "width": 76.640625,
+            "height": 44
+          },
+          {
+            "width": 155.015625,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F07",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "player": {
+        "engine": "actual LecturePlayer",
+        "adapter": "manual promise completion, silent kind, injected clock; not actual audio",
+        "transition": "PASS",
+        "userSceneWhilePlaying": "PASS",
+        "pauseResume": "PASS",
+        "adapterOutcomeErrorAndRejectionToNewShellBoundary": "PASS",
+        "nativeEngineOrTTSErrorHandling": "UNVERIFIED",
+        "readSilentOffAndExplicitRestart": "PASS",
+        "events": [
+          {
+            "kind": "user-scene",
+            "scene": "evidence"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c1"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "principle"
+          },
+          {
+            "kind": "adapter-pause"
+          },
+          {
+            "kind": "player-state",
+            "status": "paused",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "injected-outcome-error",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "Error: injected-adapter-rejection",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "judgment"
+          }
+        ]
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 90,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 89.0625,
+            "height": 44
+          },
+          {
+            "width": 100.390625,
+            "height": 44
+          },
+          {
+            "width": 67.625,
+            "height": 44
+          },
+          {
+            "width": 76.640625,
+            "height": 44
+          },
+          {
+            "width": 155.015625,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F07",
+      "candidate": "NEW",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "player": {
+        "engine": "actual LecturePlayer",
+        "adapter": "manual promise completion, silent kind, injected clock; not actual audio",
+        "transition": "PASS",
+        "userSceneWhilePlaying": "PASS",
+        "pauseResume": "PASS",
+        "adapterOutcomeErrorAndRejectionToNewShellBoundary": "PASS",
+        "nativeEngineOrTTSErrorHandling": "UNVERIFIED",
+        "readSilentOffAndExplicitRestart": "PASS",
+        "events": [
+          {
+            "kind": "user-scene",
+            "scene": "evidence"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c1"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "principle"
+          },
+          {
+            "kind": "adapter-pause"
+          },
+          {
+            "kind": "player-state",
+            "status": "paused",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "injected-outcome-error",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "Error: injected-adapter-rejection",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:6"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "judgment"
+          }
+        ]
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 90,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 89.0625,
+            "height": 44
+          },
+          {
+            "width": 100.390625,
+            "height": 44
+          },
+          {
+            "width": 67.625,
+            "height": 44
+          },
+          {
+            "width": 76.640625,
+            "height": 44
+          },
+          {
+            "width": 155.015625,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F08",
+      "candidate": "REUSE",
+      "width": 1280,
+      "result": "ELIMINATED_STATIC",
+      "basis": "preserved T0134 automatic selectScene/scrollIntoView source witness; no fake engine reproduction"
+    },
+    {
+      "item": "2026-34",
+      "feature": "F08",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "layout": {
+        "width": 619.921875,
+        "scrollHeight": 650,
+        "clientHeight": 650,
+        "columns": "258.297px 335.781px 619.922px"
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 290.78125,
+            "height": 118.203125
+          },
+          {
+            "width": 290.78125,
+            "height": 166.828125
+          },
+          {
+            "width": 290.78125,
+            "height": 145.390625
+          },
+          {
+            "width": 290.78125,
+            "height": 118.203125
+          },
+          {
+            "width": 290.78125,
+            "height": 166.828125
+          },
+          {
+            "width": 290.78125,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F08",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "layout": {
+        "width": 755.390625,
+        "scrollHeight": 650,
+        "clientHeight": 650,
+        "columns": "458.609px 755.391px"
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "F08",
+      "candidate": "NEW",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "layout": {
+        "width": 751.515625,
+        "scrollHeight": 650,
+        "clientHeight": 650,
+        "columns": "751.516px 462.484px"
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 417.484375,
+            "height": 118.203125
+          },
+          {
+            "width": 417.484375,
+            "height": 118.203125
+          },
+          {
+            "width": 417.484375,
+            "height": 118.203125
+          },
+          {
+            "width": 417.484375,
+            "height": 96.765625
+          },
+          {
+            "width": 417.484375,
+            "height": 118.203125
+          },
+          {
+            "width": 417.484375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "1"
+      }
+    },
+    {
+      "item": "2026-22",
+      "feature": "F01",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "qualificationSourceTrace": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 145.390625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 301.953125,
+            "height": 44
+          },
+          {
+            "width": 242.65625,
+            "height": 44
+          },
+          {
+            "width": 364.5625,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "3"
+      }
+    },
+    {
+      "item": "2026-22",
+      "feature": "F03",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m3",
+        "backChoice": 5,
+        "actualLinks": [
+          3,
+          5
+        ]
+      },
+      "unregisteredPair": {
+        "meaning": "m1",
+        "choice": 5,
+        "display": "UNREGISTERED",
+        "inferredLink": false
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 145.390625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 150.078125,
+            "height": 44
+          },
+          {
+            "width": 185.359375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "5"
+      }
+    },
+    {
+      "item": "2026-22",
+      "feature": "F04",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m3",
+        "backChoice": 5,
+        "actualLinks": [
+          3,
+          5
+        ]
+      },
+      "pair": [
+        3,
+        1
+      ],
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 145.390625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "3"
+      }
+    },
+    {
+      "item": "2026-22",
+      "feature": "F05",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "sourceLimitationPreserved": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 145.390625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 246.09375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "3"
+      }
+    },
+    {
+      "item": "2026-22",
+      "feature": "F07",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "player": {
+        "engine": "actual LecturePlayer",
+        "adapter": "manual promise completion, silent kind, injected clock; not actual audio",
+        "transition": "PASS",
+        "userSceneWhilePlaying": "PASS",
+        "pauseResume": "PASS",
+        "adapterOutcomeErrorAndRejectionToNewShellBoundary": "PASS",
+        "nativeEngineOrTTSErrorHandling": "UNVERIFIED",
+        "readSilentOffAndExplicitRestart": "PASS",
+        "events": [
+          {
+            "kind": "user-scene",
+            "scene": "evidence"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c1"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "principle"
+          },
+          {
+            "kind": "adapter-pause"
+          },
+          {
+            "kind": "player-state",
+            "status": "paused",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "injected-outcome-error",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "Error: injected-adapter-rejection",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "analysis",
+              "id": "procedure"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "judgment"
+          }
+        ]
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 145.390625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 90,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 89.0625,
+            "height": 44
+          },
+          {
+            "width": 100.390625,
+            "height": 44
+          },
+          {
+            "width": 67.625,
+            "height": 44
+          },
+          {
+            "width": 76.640625,
+            "height": 44
+          },
+          {
+            "width": 155.015625,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "3"
+      }
+    },
+    {
+      "item": "2026-22",
+      "feature": "F08",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "layout": {
+        "width": 755.390625,
+        "scrollHeight": 650,
+        "clientHeight": 650,
+        "columns": "458.609px 755.391px"
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 145.390625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "3"
+      }
+    },
+    {
+      "item": "2026-38",
+      "feature": "F01",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "qualificationSourceTrace": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 255.046875,
+            "height": 44
+          },
+          {
+            "width": 287.234375,
+            "height": 44
+          },
+          {
+            "width": 270.109375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "4"
+      }
+    },
+    {
+      "item": "2026-38",
+      "feature": "F03",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m4",
+        "backChoice": 3,
+        "actualLinks": [
+          3,
+          4
+        ]
+      },
+      "unregisteredPair": {
+        "meaning": "m1",
+        "choice": 3,
+        "display": "UNREGISTERED",
+        "inferredLink": false
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 150.078125,
+            "height": 44
+          },
+          {
+            "width": 185.359375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "3"
+      }
+    },
+    {
+      "item": "2026-38",
+      "feature": "F04",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "bidirectional": {
+        "meaning": "m4",
+        "backChoice": 3,
+        "actualLinks": [
+          3,
+          4
+        ]
+      },
+      "pair": [
+        4,
+        5
+      ],
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "4"
+      }
+    },
+    {
+      "item": "2026-38",
+      "feature": "F05",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "sourceLimitationPreserved": true,
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 246.09375,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "4"
+      }
+    },
+    {
+      "item": "2026-38",
+      "feature": "F07",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "player": {
+        "engine": "actual LecturePlayer",
+        "adapter": "manual promise completion, silent kind, injected clock; not actual audio",
+        "transition": "PASS",
+        "userSceneWhilePlaying": "PASS",
+        "pauseResume": "PASS",
+        "adapterOutcomeErrorAndRejectionToNewShellBoundary": "PASS",
+        "nativeEngineOrTTSErrorHandling": "UNVERIFIED",
+        "readSilentOffAndExplicitRestart": "PASS",
+        "events": [
+          {
+            "kind": "user-scene",
+            "scene": "evidence"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c1"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 0,
+            "target": {
+              "kind": "analysis",
+              "id": "head"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "principle"
+          },
+          {
+            "kind": "adapter-pause"
+          },
+          {
+            "kind": "player-state",
+            "status": "paused",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "injected-outcome-error",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "shell-adapter-error-boundary",
+            "message": "Error: injected-adapter-rejection",
+            "index": 1
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "user-play"
+          },
+          {
+            "kind": "adapter-resume"
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "player-state",
+            "status": "playing",
+            "index": 1,
+            "target": {
+              "kind": "anchor",
+              "id": "sentence:0"
+            }
+          },
+          {
+            "kind": "adapter-speak",
+            "cue": "c2"
+          },
+          {
+            "kind": "adapter-cancel"
+          },
+          {
+            "kind": "off"
+          },
+          {
+            "kind": "user-scene",
+            "scene": "judgment"
+          }
+        ]
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 90,
+            "height": 44
+          },
+          {
+            "width": 60,
+            "height": 44
+          },
+          {
+            "width": 89.0625,
+            "height": 44
+          },
+          {
+            "width": 100.390625,
+            "height": 44
+          },
+          {
+            "width": 67.625,
+            "height": 44
+          },
+          {
+            "width": 76.640625,
+            "height": 44
+          },
+          {
+            "width": 155.015625,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "4"
+      }
+    },
+    {
+      "item": "2026-38",
+      "feature": "F08",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "specified isolated affordance only",
+      "layout": {
+        "width": 755.390625,
+        "scrollHeight": 650,
+        "clientHeight": 650,
+        "columns": "458.609px 755.391px"
+      },
+      "metrics": {
+        "overflow": 0,
+        "buttons": [
+          {
+            "width": 110.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 93.28125,
+            "height": 44
+          },
+          {
+            "width": 95.28125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 52.53125,
+            "height": 44
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 96.765625
+          },
+          {
+            "width": 413.609375,
+            "height": 118.203125
+          },
+          {
+            "width": 413.609375,
+            "height": 44
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 45,
+            "height": 44.75
+          },
+          {
+            "width": 47,
+            "height": 44.75
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 80.28125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          },
+          {
+            "width": 165.828125,
+            "height": 44
+          }
+        ],
+        "scene": "judgment",
+        "pick": "4"
+      }
+    },
+    {
+      "item": "2026-34",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "retained selection and source navigation; not full product",
+      "overflow": 0
+    },
+    {
+      "item": "2026-22",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "retained selection and source navigation; not full product",
+      "overflow": 0
+    },
+    {
+      "item": "2026-38",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1280,
+      "result": "PASS",
+      "scope": "retained selection and source navigation; not full product",
+      "overflow": 0
+    },
+    {
+      "item": "2026-34",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1440,
+      "result": "PASS",
+      "scope": "retained selection and source navigation; not full product",
+      "overflow": 0
+    },
+    {
+      "item": "2026-22",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1440,
+      "result": "PASS",
+      "scope": "retained selection and source navigation; not full product",
+      "overflow": 0
+    },
+    {
+      "item": "2026-38",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1440,
+      "result": "PASS",
+      "scope": "retained selection and source navigation; not full product",
+      "overflow": 0
+    }
+  ],
+  "captures": [
+    {
+      "file": "evidence/34-F04-reuse-1-1280.png",
+      "sha256": "8aea1fada38f50b2be902f4f532bb08a92e2bf4eb8e1e3785c4ac8023196a42c",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "REUSE",
+      "width": 1280,
+      "selected": 1,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-reuse-3-1280.png",
+      "sha256": "018f443e752e040c4753b8dee5278b5e63e9ed4e47b6137f7cc72527b6a8d244",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "REUSE",
+      "width": 1280,
+      "selected": 3,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-reuse-2-1280.png",
+      "sha256": "c9398577b8aed1a32df24640f8275cefab4803069c4a0719b7c219ff12d6098a",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "REUSE",
+      "width": 1280,
+      "selected": 2,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-improve-1-1280.png",
+      "sha256": "4b99fd28951e15f4ba5e5948d186bc89480f680ab969dbe91c05ad0c3480524f",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "selected": 1,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-improve-3-1280.png",
+      "sha256": "596fcfdf5e1fe6dab111150ac4fa0dfee5d0ae8b99eeb13cd8b593520b5a8d54",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "selected": 3,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-improve-2-1280.png",
+      "sha256": "a4d2c231fe98dcc1828540660d542492469750190d6e650304df1fa4b4b8062e",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "IMPROVE",
+      "width": 1280,
+      "selected": 2,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-replace-1-1280.png",
+      "sha256": "987cfd26ea6cdcea7b6ce9e878f1978557d393484cf7afa64a4ea934121c510c",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "selected": 1,
+      "peer": 3,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-replace-3-1280.png",
+      "sha256": "eee808bc4b0a3a73ff9725cc9e201536911af1e9d97fc15f2973c9dbf8c1cdc4",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "selected": 3,
+      "peer": 1,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-replace-2-1280.png",
+      "sha256": "a35a45eb02bb1c62323a684a19873a4c94e7a5a83c123257f16fc55df141d1cf",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "REPLACE",
+      "width": 1280,
+      "selected": 2,
+      "peer": 1,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-new-1-1280.png",
+      "sha256": "cb5d0ce199d42e011d0d4b5460491615e09d44053e39c7c07cd77d8f77a8a66a",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "NEW",
+      "width": 1280,
+      "selected": 1,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-new-3-1280.png",
+      "sha256": "ea17184de765b8ef34e45160d8b1350c6b50c4cdaa0f66c3393e199101ff76c3",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "NEW",
+      "width": 1280,
+      "selected": 3,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/34-F04-new-2-1280.png",
+      "sha256": "d4197cf2038870f19b2a19210bd2cb62e6711d71028831f1204ef8480a9caff9",
+      "item": "2026-34",
+      "feature": "F04",
+      "candidate": "NEW",
+      "width": 1280,
+      "selected": 2,
+      "peer": null,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/2026-34-composed-1280.png",
+      "sha256": "7d94e5997ca97f04d2334e6e044b8b0d2dc1aef8d56d0f92a8cce80eb070fa51",
+      "item": "2026-34",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1280,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/2026-22-composed-1280.png",
+      "sha256": "370a255c6e5d55f9312e7d41fe36ee8f1cf05142a1edc9a5dbd881c802cb553d",
+      "item": "2026-22",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1280,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/2026-38-composed-1280.png",
+      "sha256": "ec8fbb1637dd2ecd8f6db780f464907508683a35f91cbb75b6a37115454074b5",
+      "item": "2026-38",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1280,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/2026-34-composed-1440.png",
+      "sha256": "ca70f877bf61e5fa991ceff4726b0c34705b401b9f9978f806256b0b610e1366",
+      "item": "2026-34",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1440,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/2026-22-composed-1440.png",
+      "sha256": "342380545fd5bf5a488453f7566b4e4ce8b07c6c00e59cb40f46888a84322642",
+      "item": "2026-22",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1440,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    },
+    {
+      "file": "evidence/2026-38-composed-1440.png",
+      "sha256": "e76b07d870afb32b8e3828b59e050cd0cdcca0296732e701dcd9b08b0a5fc288",
+      "item": "2026-38",
+      "feature": "COMPOSED",
+      "candidate": "FEATURE_SPECIFIC_SELECTION",
+      "width": 1440,
+      "normalAuth": false,
+      "pdf": false,
+      "realTTS": false
+    }
+  ],
+  "errors": [],
+  "network": [],
+  "baselineHashes": {
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/BROWSER_RESULTS.json": "74fadfa20b27bd4d2d03aa81d32e98d7d2d7b12213db71bd8516e804ee66f953",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/FIT_REPORT.md": "af8b62ae91eaa392827771d53236811522695814a00df930ba0b4b8b0acdf975",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/MANIFEST.json": "79b776ea1e15da06dfdfd83a9db5676d951cb847fc3e92e120920aeeb7410a90",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/STATUS_AUDIT.md": "81b62557a9644fa2311e3905c1d789bca64cc1875d6f12bf7fc6dff087987a70",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/compare.mjs": "58327b9b9532ab1aaec6b9591c7bfc4380c3d71aacd510de03798c9fc97d3d21",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-22-replace-1440.png": "5df8d24a87a39821b5c4bdfe56fe0bf2174d2a734167127c62813542d26ab1a2",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-22-reuse-1440.png": "ae88d39999c755a34adfd76b3f1f58a8b8bea491cbba425737bdfa52747b69da",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-improve-1280.png": "f8e7ca8c213e2c15197a25cae65100553887d573a780bba49bae7b57c0ead5b4",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-improve-1440.png": "41d8a08fa4f2c627d16d98e0ce2345a78f976ce5cc980ced2284de8fcccbbcf6",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-new-1280.png": "eaf5c7d03ada3e30cf4e82fa205f3746caaf2804ad52f1d61946a3be1a197d6d",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-new-1440.png": "ca1d7a651a707966f537f3f429c20c7cb5768435727bd03f259ef8735df6544f",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-replace-1280.png": "9002e3d0be07785deca7bbf7beae098019098cddf2b5e056e80cc8c2b0eb1500",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-replace-1440.png": "5d4edc6746b6c5ce09244921b584b00d50eaa04436aaa41126f0fc39ea2aedde",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-replace-pair-1-3-1280.png": "3e5f13e522fe06927aca19c630f6c45c935e34b0a355a77e5bba3d5b99fc61be",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-replace-pair-1-3-1440.png": "270b16ef6de82d82d2416b64b59c9f91d3ad4d5eebd045ea25bfe4e5543f915e",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-reuse-1280.png": "ce1b9fc687728478999750f6d841d267d7ce6db2e866ff7656c67ddc28f95549",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-34-reuse-1440.png": "b8544637bccb36204c129db2e2a62a42635a36f988976fc31118713a1c874ba0",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-38-replace-1440.png": "9aa5749729e6e1212e85f9f4daa23e81be6be64c4f1e21ffb6621468b8ad63ca",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/evidence/2026-38-reuse-1440.png": "6b58f374c900d22571ab0b8a38f55319f087a0ad5a84ab49a7a1ae9c2e3a6e20",
+    "docs/csat-learner/skeleton-v4/s1-v6/goal-fit/fixture.tsx": "501e50e9b8463aed8f28f829fe905e5e3e59f6b59dd8aedbf2ccbed469eb937a"
+  },
+  "originalHashes": {
+    "apps/web/src/lib/csat/inquiry-data.json": "14037f59cbbd972c20761e7bd806bedd832b2c8f987c0adf9ad679d578345534",
+    "apps/web/src/lib/csat/lecture-data/2026.json": "26ede0e2f1b6f53331189246496ff1eec88386085e1ff2cb620ccaf850d3bfe4",
+    "apps/web/src/components/csat/theater/AnalysisTheater.tsx": "967c8c68bae9af6ad3a8768b2af7a80889c8fb27a9d22206d241d4d5264990e9",
+    "apps/web/src/components/csat/theater/InquiryV3Panels.tsx": "0a2e9ac689b4f4666f47026da08b2a3f0f153dc39d3e63946df149c9ff003d40",
+    "apps/web/src/components/csat/lecture/LectureStage.tsx": "ea06d7ba808aca36a6d5616e69649e3607d1d8ae1a970901e98478c6ec57cf5f",
+    "apps/web/src/lib/csat/lecture/player.ts": "424c16ab56f92bbdd9e9155b5c729c9e828fee9438f4c272e3543a7f91572e5a"
+  },
+  "reuse": {
+    "oldTests": 98,
+    "oldCases": 24,
+    "oldCaptures": 14,
+    "rerun": false
+  },
+  "samplePath": "D:\\workspace\\Vocaflow-main-serving\\tmp\\csat-item-review-20261023\\samples.json",
+  "sampleHash": "af5b79bb308fd4ff080d8de9193f5cd3e48a0b7a36e78cb1b106554d9eac7c0e",
+  "scope": "S1 design affordances and real-engine/manual-adapter integration only",
+  "unverified": [
+    "actual student judgment outcomes",
+    "official full choices/PDF",
+    "content validation",
+    "normal authenticated route/RLS",
+    "real TTS/assessment audio",
+    "learning/transfer/grade effects"
+  ],
+  "notAuthorized": [
+    "main integration",
+    "S2 full implementation"
+  ]
+}
