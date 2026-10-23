@@ -1,0 +1,511 @@
+{
+  "task_id": "T-0119",
+  "owner": "goal-data-independent",
+  "session": "t-0119-codex",
+  "source_commit": "b8685b8d126caa4fd4a3a008f8f028f94aa4579a",
+  "base_commit": "48fa2a404",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; 의미 Gold·미노출 절대 증명·제품 사용 승인이 아님",
+  "skip_count": 0,
+  "observed_at": "2026-10-23T09:39:13.947Z",
+  "acceptance": [
+    {
+      "index": 0,
+      "verdict": "confirmed",
+      "summary": "프롬프트 4/4·입력·틀 해시 재계산, 치환 외 동일, 실제 전달 전문 4/4 일치. 내용 열람은 허용 범위; 메타데이터·사용법 예외는 아래 별도 판정.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/prompts/batch-analyst.md:10",
+        "scripts/research/goal-data/mk-prompts.mjs:23",
+        "scripts/research/goal-data/local/b12-v24/prompts/manifest.json:2",
+        "scripts/research/goal-data/review-b12/transcripts.mjs:14"
+      ]
+    },
+    {
+      "index": 1,
+      "verdict": "confirmed",
+      "summary": "최종80·최초80 행별 v2.4/v2.5 비교. 최종 오류0, 최초 발문 길이7 오류는 두 버전 공통. v2.5 전용 구조 흔적은 발견 못 함; 실제 미노출의 절대 증명은 unclear. A01 반복3행 수정과 판단 불변 확인.",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:76",
+        "scripts/research/goal-data/local/b12-v24/history/2026-10-23T09-27-34-602Z-b12-v24-A-01-first/chunk-A-01.out.json:1032",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json:1042",
+        "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:28"
+      ]
+    },
+    {
+      "index": 2,
+      "verdict": "confirmed",
+      "summary": "40선정·해시·226/240=.9416667·κ=.8932859·주38/40·경보 ok 재계산, b2–b12 20트랙 결함0, D2 4생성물 바이트 재현·D3 합계 대조.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/b12-v24-selection.json:2",
+        "docs/research/goal-data-batches/D2-task-mapping/b12-v24-agreement.json:43",
+        "scripts/research/goal-data/d2-run.mjs:138",
+        "scripts/research/goal-data/review-b12/supplement.mjs:39"
+      ]
+    },
+    {
+      "index": 3,
+      "verdict": "unclear",
+      "summary": "후보10·갈림10 원문대조 완료. 후보 근거는 지지하나 primary 및 indirect의 유일한 의미 Gold는 미확정. M2209#26 E3/E2 및 #40 R5/R6를 유지.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/b12-v24-review-sample.json:5",
+        "scripts/research/goal-data/local/b12-v24/input.json:3426",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:128",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:132",
+        "scripts/research/goal-data/local/b12-v24/input.json:5653",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1698",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1724"
+      ]
+    },
+    {
+      "index": 4,
+      "verdict": "confirmed",
+      "summary": "verdict.json·review.md·새 P0/P1·다음 배치 가부·unclear를 명시.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b12/verdict.json:1",
+        "docs/research/goal-data-batches/review-b12/review.md:1"
+      ]
+    }
+  ],
+  "checks": {
+    "total": 162,
+    "passed": 162,
+    "failed": 0
+  },
+  "new_P0": [],
+  "new_P1": [],
+  "next_batch": "조건부 가능 — v2.4 연구 후보 확대만; 프롬프트·최초출력·열람 로그 보존, 모호한 primary는 미확정 유지.",
+  "metrics": {
+    "selection": 40,
+    "exam_totals": {
+      "M2306": 14,
+      "M2209": 26
+    },
+    "overall": {
+      "n": 240,
+      "agree": 226,
+      "agreement": 0.9416666666666667,
+      "kappa": 0.8932859048465984
+    },
+    "per_task": {
+      "r.central_meaning": {
+        "n": 40,
+        "agree": 37,
+        "agreement": 0.925,
+        "kappa": 0.8625429553264605
+      },
+      "r.inference": {
+        "n": 40,
+        "agree": 38,
+        "agreement": 0.95,
+        "kappa": 0.6460176991150436
+      },
+      "e.task_demand": {
+        "n": 40,
+        "agree": 40,
+        "agreement": 1,
+        "kappa": 1
+      },
+      "e.option_correspondence": {
+        "n": 40,
+        "agree": 36,
+        "agreement": 0.9,
+        "kappa": 0.8312236286919832
+      },
+      "r.discourse_structure": {
+        "n": 40,
+        "agree": 37,
+        "agreement": 0.925,
+        "kappa": 0.8804780876494025
+      },
+      "e.evidence_location": {
+        "n": 40,
+        "agree": 38,
+        "agreement": 0.95,
+        "kappa": 0.923076923076923
+      }
+    },
+    "primary_agree": 38,
+    "r1": 79,
+    "disputed": 14,
+    "regression_tracks": 20,
+    "regression_defects": 0
+  },
+  "samples": [
+    {
+      "item": "M2209#38",
+      "task": "r.discourse_structure",
+      "display": "R4",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "④. 재료 선택 단계 뒤 구조·특성 관계의 이해를 넣어 후속 지식 지칭과 과학자 대명사를 채운다. R4 묶음 후보를 지지하며 E2 unknown·독립평가 부적격 유지.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:5338",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1494",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1508"
+      ]
+    },
+    {
+      "item": "M2209#39",
+      "task": "r.discourse_structure",
+      "display": "R4",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "⑤. 개인 선호→집단 형성 뒤 정체성 생성 문장이 공동체 확장으로 이어진다. R4 묶음 후보 지지. R6 indirect의 추가 필요성은 별도 unclear.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:5496",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1596",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1610"
+      ]
+    },
+    {
+      "item": "M2306#38",
+      "task": "r.discourse_structure",
+      "display": "R4",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "④. 살충제 유해성 뒤 개발 곤란을 추가하고 승인 비용으로 구체화한 다음 대안으로 간다. R4 묶음 후보 지지; E2 unknown·독립평가 부적격 유지.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:1034",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json:701",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-01.out.json:723"
+      ]
+    },
+    {
+      "item": "M2306#39",
+      "task": "r.discourse_structure",
+      "display": "R4",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "③. 여러 개체 이탈에 더 크게 반응한다는 연구 결과를 신뢰성 관점으로 평가한 뒤 한 개체·오경보·다수 이탈 이유가 이어진다. R4 묶음 후보 지지.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:1187",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json:804",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-01.out.json:826"
+      ]
+    },
+    {
+      "item": "M2209#26",
+      "task": "e.task_demand",
+      "display": "E1",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "⑤. 예술가의 재정적 성공을 부정한 선지가 마지막 진술과 반대다. 부정 요구 E1 direct 지지. A는 표현 대조 E3, B는 분산된 전기 사실의 위치 E2를 강조한다. 두 direct는 지지하나 primary 단일 우열은 unclear.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:3426",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:128",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:132"
+      ]
+    },
+    {
+      "item": "M2209#27",
+      "task": "e.task_demand",
+      "display": "E1",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "②. 심사에서 그림 기술을 고려하지 않는다는 안내를 고려한다고 뒤집었다. 부정 요구 E1 direct 지지. E3 primary는 부정 대조로 설명 가능하다.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:3575",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:251",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:253"
+      ]
+    },
+    {
+      "item": "M2209#29",
+      "task": "e.task_demand",
+      "display": "E1",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "③. 보장 내용 절의 주어·술어가 완전하여 관계사 대신 내용절 접속사가 필요하다. 부정 요구 E1 후보와 S축 범위 밖 판정 지지.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:3875",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:487",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:487"
+      ]
+    },
+    {
+      "item": "M2209#30",
+      "task": "e.task_demand",
+      "display": "E1",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "④. 공급 초과로 팔리지 않은 수송 용량은 기회를 잡은 것이 아니라 잃은 것이다. E1 후보와 V축 범위 밖 판정 지지.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:4008",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:589",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:586"
+      ]
+    },
+    {
+      "item": "M2209#35",
+      "task": "e.task_demand",
+      "display": "E1",
+      "judgments": {
+        "A": "direct",
+        "B": "direct"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "③. 이주 결정의 편익·비용·심리 비용 사이에서 사치 소비 문장만 이탈한다. 부정 요구 E1 후보 지지. R4/R3 분해·R5 indirect는 별도 모호함으로 남긴다.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:4831",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1177",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1182"
+      ]
+    },
+    {
+      "item": "M2209#40",
+      "task": "e.task_demand",
+      "display": "E1",
+      "judgments": {
+        "A": "indirect",
+        "B": "indirect"
+      },
+      "state": "INDEPENDENTLY_CHECKED",
+      "verdict": "confirmed",
+      "why": "①. 정보 처리의 유능함과 넓은 맥락 판단의 저하를 함께 충족해야 한다. 한쪽 빈칸만 맞추는 E1 indirect 후보 지지. R5/R6 판정은 아래에서 unclear 유지.",
+      "kind": "candidate",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:5653",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1698",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1724"
+      ]
+    },
+    {
+      "item": "M2209#39",
+      "task": "r.inference",
+      "display": "R6",
+      "judgments": {
+        "A": "not_applicable",
+        "B": "indirect"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "⑤는 집단 형성에서 공동체 확장으로 이어진다. B가 설정한 개인 이야기·집단 형성의 의미 연결 실패→④ 경로는 가능하지만 R4와 분리된 R6 indirect의 필요성은 확정 못 한다.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:5496",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1596",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1610"
+      ]
+    },
+    {
+      "item": "M2209#20",
+      "task": "e.option_correspondence",
+      "display": "E3",
+      "judgments": {
+        "A": "direct",
+        "B": "indirect"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "①. 마지막의 함께 살고 대화하는 실천이 주장이다. 도덕 교육·TV 오답은 실제 소재를 재사용하지만 E3 direct(A)/indirect(B)의 필수성 우열은 unclear. R5 primary는 양립한다.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:2583",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json:1865",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-01.out.json:1877"
+      ]
+    },
+    {
+      "item": "M2209#23",
+      "task": "e.option_correspondence",
+      "display": "E3",
+      "judgments": {
+        "A": "direct",
+        "B": "indirect"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "⑤. 제약 없는 형태가 상상력과 즐거움을 낳는다는 대조 뒤 진술이 중심이다. 기하학·정밀성 오답의 재사용은 확인되나 E3 direct/indirect 우열은 unclear.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:3103",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json:2242",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-01.out.json:2264"
+      ]
+    },
+    {
+      "item": "M2209#41",
+      "task": "e.option_correspondence",
+      "display": "E3",
+      "judgments": {
+        "A": "indirect",
+        "B": "direct"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "②. 무작위 배정·집단 유사성·식단 통제는 처치 외 요인 배제로 모인다. 감기·영양 소재 오답은 존재하나 E3 indirect/direct 우열은 unclear.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:5801",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1822",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1870"
+      ]
+    },
+    {
+      "item": "M2306#41",
+      "task": "e.option_correspondence",
+      "display": "E3",
+      "judgments": {
+        "A": "direct",
+        "B": "indirect"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "①. 타인 반응을 따르는 군중 판단과 무행동 결론이 제목을 정한다. 응급 상황 소재 오답과 E3 direct/indirect의 우열은 unclear. 최초·재작성 모두 문항별 중심을 담으며 재작성은 오답 소재까지 구체화했다.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:1514",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json:1032",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-01.out.json:1054"
+      ]
+    },
+    {
+      "item": "M2209#21",
+      "task": "e.evidence_location",
+      "display": "E2",
+      "judgments": {
+        "A": "indirect",
+        "B": "not_applicable"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "②. 자발적 단독 작업의 장애와 주기적 개인 사고·리더의 개입을 결합해 협업 중단을 도출한다. R6 primary를 지지하나 안심·집단 조화 문장을 잘못 골라③으로 가는 E2 indirect와 같은 문장 근거의 무관 판정 사이 우열은 unclear.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:2756",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json:1990",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-01.out.json:2011"
+      ]
+    },
+    {
+      "item": "M2209#34",
+      "task": "r.discourse_structure",
+      "display": "R4",
+      "judgments": {
+        "A": "not_applicable",
+        "B": "indirect"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "④. 습관화로 안전한 자극 앞에서도 활동한다는 해결 명제가 답을 지지한다. 조심→반전→해결 배열 실패를 별도 R4 indirect로 세는 필요성은 unclear. 양쪽 E2 direct의 조심 문장은 대상(낯선/익숙한)도 달라 경쟁 근거의 강도를 과신하지 않는다.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:4660",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1053",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1047"
+      ]
+    },
+    {
+      "item": "M2209#35",
+      "task": "r.central_meaning",
+      "display": "R5",
+      "judgments": {
+        "A": "not_applicable",
+        "B": "indirect"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "③. 이주 결정의 비용·편익이 중심이다. 금전적 이익으로 중심을 좁혀 심리 비용⑤를 버린다는 B의 경로는 가능한 가설이나 A의 R5 무관보다 우월한 Gold로 확정 못 한다.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:4831",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1177",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1182"
+      ]
+    },
+    {
+      "item": "M2209#40",
+      "task": "r.central_meaning",
+      "display": "R5",
+      "judgments": {
+        "A": "direct",
+        "B": "indirect"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "①. A는 각 빈칸에 필요한 두 명제가 각각 진술됐다는 단위, B는 두 칸을 합친 전체 명제가 한 문장에 없다는 단위를 쓴다. v2.4 §2의 한 명제/한 문장 단위를 요약 전체와 각 빈칸 중 어디에 적용하는지 불일치한다. R5/R6는 단순 낱말 문제도, 영구적 고유 모호함의 증명도 아니다. 현재 primary 우열은 unclear.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:5653",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json:1698",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json:1724"
+      ]
+    },
+    {
+      "item": "M2306#35",
+      "task": "r.central_meaning",
+      "display": "R5",
+      "judgments": {
+        "A": "not_applicable",
+        "B": "indirect"
+      },
+      "state": "DISPUTED",
+      "verdict": "unclear",
+      "why": "③. 상대 강약에 따른 결정→정보 수집→신호 기능 사이에서 평상시 체중·섭식만 이탈한다. 중심을 동물 일반으로 넓혀⑤를 버리는 R5 indirect는 가능하나 A의 무관과의 우열은 unclear.",
+      "kind": "disputed",
+      "evidence": [
+        "scripts/research/goal-data/local/b12-v24/input.json:477",
+        "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json:380",
+        "scripts/research/goal-data/local/b12-v24/chunk-B-01.out.json:396"
+      ]
+    }
+  ],
+  "unclear": [
+    "기록 밖의 노출·이전 지식 및 의미 영향의 절대 부재",
+    "M2209#26 E3/E2 primary 단일 우열",
+    "M2209#40 R5/R6 요약 명제 단위",
+    "E3 direct/indirect와 경쟁 문장 강도·실제 학습자 오답 경로",
+    "사람 Gold·학생 성취·제품 진단 타당도"
+  ],
+  "not_run": [
+    "DB 쓰기",
+    "입력 저장소 수정",
+    "새 분석자 실행",
+    "제품 E2E",
+    "학생 측정",
+    "봉인 승인",
+    "main/원격 통합"
+  ]
+}
