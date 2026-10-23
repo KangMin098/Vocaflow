@@ -34,7 +34,7 @@
     ]
    },
    "disputed_pairs": 9,
-   "source_defect_pairs": 0
+   "source_defect_pairs": 2
   },
   "2016": {
    "reading_items": 28,
@@ -127,8 +127,8 @@
     ]
    },
    "R5_indirect": {
-    "items": 6,
-    "points": 17
+    "items": 5,
+    "points": 15
    },
    "R6_direct": {
     "items": 5,
@@ -142,7 +142,7 @@
     ]
    },
    "disputed_pairs": 8,
-   "source_defect_pairs": 0
+   "source_defect_pairs": 2
   },
   "2019": {
    "reading_items": 28,
@@ -176,8 +176,8 @@
      "2019#34"
     ]
    },
-   "disputed_pairs": 9,
-   "source_defect_pairs": 0
+   "disputed_pairs": 8,
+   "source_defect_pairs": 2
   },
   "2020": {
    "reading_items": 28,
@@ -234,8 +234,8 @@
     ]
    },
    "R5_indirect": {
-    "items": 5,
-    "points": 12
+    "items": 4,
+    "points": 10
    },
    "R6_direct": {
     "items": 5,
@@ -248,8 +248,8 @@
      "2021#34"
     ]
    },
-   "disputed_pairs": 9,
-   "source_defect_pairs": 0
+   "disputed_pairs": 8,
+   "source_defect_pairs": 4
   },
   "2022": {
    "reading_items": 28,
@@ -269,8 +269,8 @@
     ]
    },
    "R5_indirect": {
-    "items": 7,
-    "points": 17
+    "items": 6,
+    "points": 15
    },
    "R6_direct": {
     "items": 5,
@@ -284,7 +284,7 @@
     ]
    },
    "disputed_pairs": 5,
-   "source_defect_pairs": 0
+   "source_defect_pairs": 2
   },
   "2023": {
    "reading_items": 28,
@@ -354,7 +354,7 @@
     ]
    },
    "disputed_pairs": 6,
-   "source_defect_pairs": 0
+   "source_defect_pairs": 2
   },
   "2025": {
    "reading_items": 28,
@@ -666,7 +666,7 @@
     ]
    },
    "disputed_pairs": 8,
-   "source_defect_pairs": 0
+   "source_defect_pairs": 2
   },
   "M2209": {
    "reading_items": 28,
@@ -805,8 +805,8 @@
      "M2406#34"
     ]
    },
-   "disputed_pairs": 5,
-   "source_defect_pairs": 10
+   "disputed_pairs": 4,
+   "source_defect_pairs": 12
   },
   "M2409": {
    "reading_items": 28,
@@ -875,7 +875,7 @@
     ]
    },
    "disputed_pairs": 5,
-   "source_defect_pairs": 0
+   "source_defect_pairs": 10
   },
   "M2509": {
    "reading_items": 28,
