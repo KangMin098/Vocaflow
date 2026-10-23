@@ -1,0 +1,62 @@
+{
+  "task": "T-0131",
+  "originalOwner": "csat-v4-s0",
+  "sourceCommit": "3f437e9b65e06c00a96f64890402500417377c92",
+  "s0AcceptedCommit": "68633c195e9745ff3d913499db2b1ec6990dc90e",
+  "s0Decision": "DL-0201",
+  "baseline": {
+    "file": "Vocaflow_CSAT_5인_최종교차심사_목표우선_통합설계_v6.0_20261023.md",
+    "sha256": "c383d65fc050f0b82eab83546c3e277e36a04d1ed4df715e2ea1c4c7de2879c1"
+  },
+  "lecture": {
+    "file": "apps/web/src/lib/csat/lecture-data/2026.json",
+    "sha256": "26ede0e2f1b6f53331189246496ff1eec88386085e1ff2cb620ccaf850d3bfe4"
+  },
+  "evidence": [
+    {
+      "file": "evidence/browser-results.json",
+      "sha256": "26e5743542dd00cbf8938d0f6bd9c23e62e203205ae5b0996d918f1883d6ca3a"
+    },
+    {
+      "file": "evidence/isolated-2026-22-judgment-1280.png",
+      "sha256": "b012bbe6c6ed9c9647310183f497e89f82c294cd08d0403821ce7f76005bfccf"
+    },
+    {
+      "file": "evidence/isolated-2026-22-judgment-1440.png",
+      "sha256": "c0f8dce8a545b9e40ea2ab7f1615f16ec427f7c7ba5c2314dc9711424d7fe4c6"
+    },
+    {
+      "file": "evidence/isolated-2026-34-judgment-1280.png",
+      "sha256": "ca6f90348f5bf29236373d0500594be00f1e1e6b2b06b3fb9ed3c2390cde50b0"
+    },
+    {
+      "file": "evidence/isolated-2026-34-judgment-1440.png",
+      "sha256": "b6d9194e87f41d74061f5de54565b2fc9f19a50a2cedfefe4ec3743ed104eaca"
+    },
+    {
+      "file": "evidence/isolated-2026-34-lecture-1280.png",
+      "sha256": "f5ebd966611235290662cdf3be1cd878a270c0258628bb1b647a055e577f552c"
+    },
+    {
+      "file": "evidence/isolated-2026-34-lecture-1440.png",
+      "sha256": "7074405f638c4b9769ad5130599e1e7848f593a55ead3973bd6018b97fb3a021"
+    },
+    {
+      "file": "evidence/isolated-2026-38-judgment-1280.png",
+      "sha256": "59a0257d0ddf656b71b7896dcd0ebddb7f827820b51c5cb0296ee17bcfe37995"
+    },
+    {
+      "file": "evidence/isolated-2026-38-judgment-1440.png",
+      "sha256": "28af125eedf9c98199fcefbfd0a4f695e09c032ebbcf3561d8c7dbd41b790479"
+    },
+    {
+      "file": "evidence/live-anonymous-gate-1280.png",
+      "sha256": "bbebe7e7458f07386e7bd3a4c6e644d786f383f0b1109e930c7f1421c5d2140c"
+    },
+    {
+      "file": "evidence/live-anonymous-gate-1440.png",
+      "sha256": "0ee13faecd2b6a50cbf71c4c289ff0fc5f75c2830bde6b0ef5f7910d42c0552b"
+    }
+  ],
+  "scope": "documents only; no source/DB/seed/original edits; browser isolated != authenticated product verification"
+}

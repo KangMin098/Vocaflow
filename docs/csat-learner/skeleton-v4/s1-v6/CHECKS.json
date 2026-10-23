@@ -1,0 +1,47 @@
+{
+  "observed_at": "2026-10-23T13:34:00.698Z",
+  "sourceCommit": "3f437e9b65e06c00a96f64890402500417377c92",
+  "s0AcceptedCommit": "68633c195e9745ff3d913499db2b1ec6990dc90e",
+  "level": "L1 document + preserved/current component evidence",
+  "checks": [
+    {
+      "name": "ten features / forty distinct alternative kinds / no unsupported selection",
+      "result": "PASS",
+      "scope": "artifact/source structure; not content or product acceptance"
+    },
+    {
+      "name": "lecture file binding / 37 unchanged original cues / six separate proposals",
+      "result": "PASS",
+      "scope": "artifact/source structure; not content or product acceptance"
+    },
+    {
+      "name": "v6 AT 26 unique / known current-state failure / honest unverified scope",
+      "result": "PASS",
+      "scope": "artifact/source structure; not content or product acceptance"
+    },
+    {
+      "name": "captured evidence hashes / ten images / isolated vs anonymous boundary",
+      "result": "PASS",
+      "scope": "artifact/source structure; not content or product acceptance"
+    },
+    {
+      "name": "real sample judgment structures and pair zero (not semantic validation)",
+      "result": "PASS",
+      "scope": "artifact/source structure; not content or product acceptance"
+    },
+    {
+      "name": "local Markdown links resolve",
+      "result": "PASS",
+      "scope": "artifact/source structure; not content or product acceptance"
+    }
+  ],
+  "unrun": [
+    "normal authenticated route/RLS",
+    "local PDF/full choices",
+    "actual TTS/audio",
+    "content validation",
+    "learner observation/transfer/grade effect",
+    "full CI/build/typecheck"
+  ],
+  "note": "These six artifact checks do not convert the 26 AT results into product PASS."
+}

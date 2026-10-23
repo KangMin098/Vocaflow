@@ -42,3 +42,7 @@ S0 판정 범위: 메타데이터 매핑·공백 보고·계약 충돌 식별. �
 - 관련 순수 테스트 3파일 25개 PASS/실패 0/skip 0. 의존성이 설치된 `D:/workspace/Vocaflow-main-serving/apps/web`에서 실행했으며 테스트·전이 의존성·설정/lockfile 20개가 작업 브랜치와 동일함을 해시로 확인했다. 작업 워크트리에 의존성을 설치하거나 제품 파일을 수정하지 않았다. 상세 기록은 [CHECKS.json](./CHECKS.json)의 `resumeVerification`과 AI-Control `runtime/t0131-resume-20261023/audit.json`에 있다.
 - TASK 설명은 S1 F01~F10의 4대안 비교·34/22/38 시나리오·37 cue 공개/매체/상태 계약·AT01~26·S2 착수 조건까지 요구한다. **해당 S1 산출물은 없으며 S1 미완료, S2 착수 불가다.** 이 폴더의 `S1_ADAPTER_PLAN.md`는 S0 관측 대장이다.
 - `task submit`은 TASK 전체를 REVIEW로 옮기며 단계별 제출 옵션이 없다(`lib/tasks.mjs#submitForReview`). 따라서 S0만으로 전체 TASK를 제출하거나 계약을 축소하지 않는다. 정상 절차는 현재 run의 S0 증거를 `task evidence`로 등록하고 고정 커밋의 S0 범위 리뷰 파일을 요청·보존하는 것이다. 다른 owner의 전체 TASK 완료 판정과 로컬 main 통합은 전체 계약 충족 후에만 진행한다.
+
+## v6.0 후속 설계 기록
+
+위 재개 시점의 S1 부재는 당시 상태다. 이후 [S1 v6 산출물](../s1-v6/README.md)을 같은 TASK/허용 경로에서 작성했다. 고정68633c195 원5문서의 독립 수용은 DL-0201로 기록되었다([수용 영수증](./S0_ACCEPTANCE.md)). F01~F10 네 후보의 교육적 최적안은 증거 부족으로 선정하지 않았고 S2 전체 착수는 여전히 BLOCKED_EVIDENCE다. S0 수용을 전체 TASK/제품/내용 감수 PASS로 확대하지 않는다.
