@@ -6,6 +6,8 @@
 
 `readiness=ready|missing|stale|mismatch|unknown`, review, 저장 publication, 계정 permission을 따로 기록한다. ready는 **메타데이터/결속 검사에서 사용할 자료가 존재**한다는 뜻이다. 원문·선지는 관리자 저장 여부와 학습자의 로컬 추출 상태를 구분한다. permission은 모두 unknown이며 정상 로그인 통과로 바꾸지 않았다.
 
+의미 지원 27개의 로더 통과는 `SCHEMA_VERIFIED`(schema·검수 본문 해시·base 결속)의 범위다. `CONTENT_VALIDATED`, 교사·강사의 내용 감수, 정상 계정 접근, 실제 학습 효과는 별도로 미검증이다. 이 S0 수치나 코드 존재만으로 기능의 재사용을 결정하지 않는다.
+
 | 자원 | 전체 3,714 상태 | 공개 카탈로그 3,412 상태 | 검수/공개 해석 |
 | --- | --- | --- | --- |
 | 해설 | ready:3412 · missing:302 · stale:0 · mismatch:0 · unknown:0 | ready:3412 · missing:0 · stale:0 · mismatch:0 · unknown:0 | published 3,412. 평가원 구식 3인 pass 802; 학평 현재 독립 프로토콜 유효성 전수 판정은 UNKNOWN |

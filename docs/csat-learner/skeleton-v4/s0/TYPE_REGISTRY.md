@@ -56,7 +56,7 @@ DB 저장 문항 **3,714**, 유형 원장 **26(독해 19 + 장문 7)**, 매핑 *
 | L-MONEY | 지불 금액 | 14 | 수량·할인 조건·최종 금액 | AUDIO_RANGE · NUMERIC_VALUE | 2026#6 | 2014B#14 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
 | L-REASON | 이유 | 14 | 행동 원인/이유 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#7 | 2014B#12 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
 | L-NOTMENTION | 언급되지 않은 것 | 13 | 언급 범위·없는 정보 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#8 | 2014B#13 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
-| L-MENTIONED | 언급한 것 고르기 | 1 | 언급 내용·오류 대조 | AUDIO_RANGE · TRANSCRIPT_TURN | 2014A#13 | 2014A#13 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-MENTIONED | 언급한 것 고르기 | 1 | 언급 내용·오류 대조 | AUDIO_RANGE · TRANSCRIPT_TURN | 2014A#13 | DATA_GAP: 별도 경계 표본 없음 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
 | L-TABLE | 표 보고 선택 | 14 | 발화 조건과 표 항목의 교집합 | AUDIO_RANGE · CHART_CELL | 2026#10 | 2014B#17 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
 | L-ANNOUNCE | 담화 내용 불일치 | 15 | 담화 사실 일치/불일치 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#9 | 2014B#15 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
 | L-RESPONSE | 짧은 응답 | 58 | 직전 화행·응답 적합성 | AUDIO_RANGE · TRANSCRIPT_TURN · SPEAKER | 2026#14 | 2014B#1 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
