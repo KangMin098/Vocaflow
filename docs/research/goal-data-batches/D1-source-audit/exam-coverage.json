@@ -1,0 +1,271 @@
+{
+ "generated_by": "scripts/research/goal-data/d1-source-audit.mjs",
+ "generated_at": "2026-10-23T02:32:42.098Z",
+ "artifact": "exam-coverage",
+ "inputs": {
+  "head": "791ee473e2173cacd3d2d98932d280fce317274c",
+  "tables": {
+   "csat_exams": 134,
+   "csat_items": 3714,
+   "csat_item_analyses": 7912,
+   "csat_dx_item_attribute": 11136,
+   "csat_item_reviews": 549,
+   "csat_item_state": 165,
+   "csat_item_response_stats": 5715,
+   "csat_map_item_rate": 450,
+   "csat_item_units": 3164
+  },
+  "items_content_sha256": "bc0791ad325eea753984b77276c3b22d727249184ac9f6b464cdd7a91ad92641"
+ },
+ "note": "읽기 전용 실측. 분석 published 는 AI 분석의 공개 상태(사람 검수 · Gold 아님). 원문은 sha256 으로만.",
+ "totals": {
+  "exams": 134,
+  "exams_with_items": 133,
+  "reading_items": 3714,
+  "analyzable_items": 3355,
+  "rights_recorded_exams": 1,
+  "flag_totals": {
+   "units_none": 802,
+   "analysis_in_review": 186,
+   "analysis_none": 119,
+   "body_not_ok": 358,
+   "answer_multiple": 1,
+   "stem_missing": 4,
+   "choices_none": 2
+  }
+ },
+ "groups": {
+  "edu_office/hakpyeong/g1": {
+   "exams": 35,
+   "reading_items": 980,
+   "analyzable_items": 848,
+   "source_note_missing": 35,
+   "official_stats_missing": 35,
+   "private_stats_exams": 34,
+   "diagnosis_ready": 0,
+   "years": "2018,2019,2020,2021,2022,2023,2024,2025,2026"
+  },
+  "edu_office/hakpyeong/g2": {
+   "exams": 35,
+   "reading_items": 980,
+   "analyzable_items": 865,
+   "source_note_missing": 35,
+   "official_stats_missing": 35,
+   "private_stats_exams": 34,
+   "diagnosis_ready": 0,
+   "years": "2018,2019,2020,2021,2022,2023,2024,2025,2026"
+  },
+  "edu_office/hakpyeong/g3": {
+   "exams": 34,
+   "reading_items": 952,
+   "analyzable_items": 841,
+   "source_note_missing": 34,
+   "official_stats_missing": 34,
+   "private_stats_exams": 33,
+   "diagnosis_ready": 0,
+   "years": "2018,2019,2020,2021,2022,2023,2024,2025,2026"
+  },
+  "kice/mock/g3": {
+   "exams": 16,
+   "reading_items": 420,
+   "analyzable_items": 420,
+   "source_note_missing": 15,
+   "official_stats_missing": 16,
+   "private_stats_exams": 16,
+   "diagnosis_ready": 4,
+   "years": "2017,2019,2020,2021,2022,2023,2024,2025,2026"
+  },
+  "kice/suneung/g3": {
+   "exams": 14,
+   "reading_items": 382,
+   "analyzable_items": 381,
+   "source_note_missing": 14,
+   "official_stats_missing": 14,
+   "private_stats_exams": 10,
+   "diagnosis_ready": 1,
+   "years": "2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025"
+  }
+ },
+ "expected_but_absent": [
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2018,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2019,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2020,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2021,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2022,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2023,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2024,
+   "month": 11
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2025,
+   "month": 11
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2026,
+   "month": 11
+  },
+  {
+   "group": "edu_office/hakpyeong/g1",
+   "exam_year": 2026,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2018,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2019,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2020,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2021,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2022,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2023,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2024,
+   "month": 11
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2025,
+   "month": 11
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2026,
+   "month": 11
+  },
+  {
+   "group": "edu_office/hakpyeong/g2",
+   "exam_year": 2026,
+   "month": 10
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2018,
+   "month": 5
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2019,
+   "month": 5
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2020,
+   "month": 4
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2020,
+   "month": 5
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2021,
+   "month": 5
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2022,
+   "month": 5
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2023,
+   "month": 5
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2024,
+   "month": 5
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2025,
+   "month": 4
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2026,
+   "month": 4
+  },
+  {
+   "group": "edu_office/hakpyeong/g3",
+   "exam_year": 2026,
+   "month": 10
+  },
+  {
+   "group": "kice/mock/g3",
+   "exam_year": 2017,
+   "month": 6
+  },
+  {
+   "group": "kice/mock/g3",
+   "exam_year": 2018,
+   "month": 6
+  },
+  {
+   "group": "kice/mock/g3",
+   "exam_year": 2018,
+   "month": 9
+  },
+  {
+   "group": "kice/mock/g3",
+   "exam_year": 2026,
+   "month": 9
+  }
+ ],
+ "supply_eligibility": {
+  "diagnosis_analysis_eligible_items": 3355,
+  "learner_redistribution_eligible_items": 0,
+  "rule": "진단 · 분석 적격 = 정답 있음 · body_ok · 선지 5 · 지문 50자 이상. 학습자 재배포 적격 = 위 + 시험의 권리 기록(source_note). 권리 기록이 없으면 재배포 미정이다."
+ }
+}

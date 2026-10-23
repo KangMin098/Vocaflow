@@ -1,0 +1,327 @@
+{
+ "batch": "b2-v2",
+ "rule": "M2609 독해 18–45 전 28 + 2025 수능 핵심 유형 12(22·23·29·31–34·36–40)",
+ "items": [
+  {
+   "item_id": "M2609#18",
+   "type_id": "R-PURPOSE",
+   "source_sha256": "335c75571e72a9b486fe5cf57f071ea7f7b088e56d5f17c57e3f3f8be88fb560",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "510864d203469a51123ddfedc1b7669f7703538f9aa0766d471837aa66ddd03d"
+  },
+  {
+   "item_id": "M2609#19",
+   "type_id": "R-MOOD",
+   "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "cced0388b662d00f7e92fff4e6d4dbd6616353dd8b20cbc4990ff8467a8fa51f"
+  },
+  {
+   "item_id": "M2609#20",
+   "type_id": "R-CLAIM",
+   "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "cb5f9e577d16703c6d5505ea6eff1306069827ac826350c0c587145949074ec2"
+  },
+  {
+   "item_id": "M2609#21",
+   "type_id": "R-IMPLY",
+   "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "6508d9a645c1bbe527ebeab595d5e93f7d5f3887fe082ed6853fc22ec474510d"
+  },
+  {
+   "item_id": "M2609#22",
+   "type_id": "R-GIST",
+   "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "941234667dda4ec0e982cfb44a61aec964a59770654a77431bc38e08288530a4"
+  },
+  {
+   "item_id": "M2609#23",
+   "type_id": "R-TOPIC",
+   "source_sha256": "52760ba28bb28b3b4edd88098d1ba1ee064204f9a7e8573fcde37614b2824922",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "6f6a1e8a085dc5d6643e145d49be2597455c1bca47697eadff2ed3f91224b54c"
+  },
+  {
+   "item_id": "M2609#24",
+   "type_id": "R-TITLE",
+   "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "d007e6f5da8a5a24515703718f9cb759bb4a11f0e19df289509cb0c2cd819200"
+  },
+  {
+   "item_id": "M2609#25",
+   "type_id": "R-CHART",
+   "source_sha256": "608e6d5b0b6be1df881af29917818eec71c2da107d34cbcde73b04ea712210c0",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "8d244cdf362dc610e00d3945419b242caba2ee6d7cd6b12ec927149400a454d3"
+  },
+  {
+   "item_id": "M2609#26",
+   "type_id": "R-FACT",
+   "source_sha256": "60b2ee1d6c01a18a3f0818645142bb1550fa0ea26afa71aecad4e30875027889",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "32dfccc29f34b1123a2a98b604526f954288f6f434b707c5be6d9b32a4198a98"
+  },
+  {
+   "item_id": "M2609#27",
+   "type_id": "R-NOTICE",
+   "source_sha256": "20b3b404518f8daa507b29d8011e44489b67eea81a730505cee2b907316ef5fa",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "cf18bf251cf39b2786ac7a2b08e6cd3aa23feafdda03a4e06b7bf2a6095b03cc"
+  },
+  {
+   "item_id": "M2609#28",
+   "type_id": "R-NOTICE",
+   "source_sha256": "522f523fdee7d95b9fb620b760d6320564b02256f0d49cd1cd108590327d1a44",
+   "analysis_version": 6,
+   "analysis_status": "published",
+   "analysis_sha256": "02fa169e1c3caa54f3517a590dced4c4bc39a3445048f5455095e6b938ffabc9"
+  },
+  {
+   "item_id": "M2609#29",
+   "type_id": "R-GRAMMAR",
+   "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "843394f5140d878be9f952cd36e517f9d39077131ae320edea1e67af96a6dcea"
+  },
+  {
+   "item_id": "M2609#30",
+   "type_id": "R-VOCAB",
+   "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "66ddcdbc6db2a1806edb452d6027add5a1bea65a19b20e7ccb203f74f3acff8f"
+  },
+  {
+   "item_id": "M2609#31",
+   "type_id": "R-BLANK",
+   "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "7cf13dde4cba17b1e32494b2934fa6ca82be3403ec7d66f58df2fe10f3a73f72"
+  },
+  {
+   "item_id": "M2609#32",
+   "type_id": "R-BLANK",
+   "source_sha256": "c453746d4e4bb78ff5f42c16d595401947b0e5948f1ca0be5c7feae6a3102052",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "bf3238b2a177b091fe4990b6d6e11d53153dba59b6b9d916feeb2fc4efcbac9e"
+  },
+  {
+   "item_id": "M2609#33",
+   "type_id": "R-BLANK",
+   "source_sha256": "aa4026632f812140d417528e74ab2520bfd39ab8fe7a9c2a3b0c1aaf14ad3a23",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "ae7e02f986a789e6698681aaf91dae6a66c06d7ad31acb9f29756e17c73a611e"
+  },
+  {
+   "item_id": "M2609#34",
+   "type_id": "R-BLANK",
+   "source_sha256": "d0c6620ffd0fd9436e10d2260bbc24f01dd6763632a44324d392399595eba3ac",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "6d1b7061d29783e6b4d5f702b81dfbefd966e9612cb2303b6dc9d1ef3d057bad"
+  },
+  {
+   "item_id": "M2609#35",
+   "type_id": "R-IRRELEVANT",
+   "source_sha256": "e337c68ce82b297791d63b73f96a35725ebff240b49d28eddafdce7b4fb98c11",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "5644530d1b2db4a1ae074170c0e8d17d576eccf5e22f69d917670dd30e483874"
+  },
+  {
+   "item_id": "M2609#36",
+   "type_id": "R-ORDER",
+   "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "b69ddd498a7d2d332f1c25ed30789edb5ff47a8fe0bc3e497ef8dcf492739efc"
+  },
+  {
+   "item_id": "M2609#37",
+   "type_id": "R-ORDER",
+   "source_sha256": "2eb48e5e3ed5c4951de56d2f73639ddb1ac9465a4ee8e941c738fbc759fdf359",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "c86a11f63575ff12d87d35c3b0ac5c1f3c024de1ba48cf2968c78a06ac7c65d9"
+  },
+  {
+   "item_id": "M2609#38",
+   "type_id": "R-INSERT",
+   "source_sha256": "4b0b3b616746ed4fa8cd82a7c3a1297d64fa600b5ba8be6b42e8af2175874443",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "edec5038d0c3942ebd2765fb69cfdc14554663639f2442427597d50cd8268a88"
+  },
+  {
+   "item_id": "M2609#39",
+   "type_id": "R-INSERT",
+   "source_sha256": "1cc87a43084daaca2a987b0fc2caf33c4ba72b1887bfe555c125f9f4c7550b90",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "73871c89f88d74a7d3a3044be0b720b185735f880ff5b9d13bf1fc1d1041160b"
+  },
+  {
+   "item_id": "M2609#40",
+   "type_id": "R-SUMMARY",
+   "source_sha256": "409d8ce0ccb4d4d99935cf185d63435c3db85238fd6d9fd5137c2fb4792952cb",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "684626384a5022522c84be1e59ca30fafe038caa4d4f622475575cdde7eae91a"
+  },
+  {
+   "item_id": "M2609#41",
+   "type_id": "X-TITLE",
+   "source_sha256": "315eed6e7bd14b15bfe2a08b0ae647d00943addf94a8b0ef8f606d67bb45a7e5",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "f369f9a5f7aed61a324fb5ad795259cfd2af10904933c98a9344e9d019f3d0b0"
+  },
+  {
+   "item_id": "M2609#42",
+   "type_id": "X-VOCAB",
+   "source_sha256": "99ddc7bdb2894612a30c73ba82e5cd9e541c24ed447d4e5a9070584a095a6105",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "b0c016f4e970c94923a7ee61a541c1381b60245fad61579a97d21b464c3e8a4d"
+  },
+  {
+   "item_id": "M2609#43",
+   "type_id": "X-ORDER",
+   "source_sha256": "6f7b26c5f60546727698fe6fde79820b8ac44fa8a1850ad89119ee4971ef7544",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "1f6857ebc02f66b3e8e060b3379eb090c18ef02a0980e13aa86bc9cb5a07bc22"
+  },
+  {
+   "item_id": "M2609#44",
+   "type_id": "X-REFER",
+   "source_sha256": "eb50bb2aa7e6e6a8fd48681ff5451b77e1854a26bae4a18f8542ccce66c26572",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "9fddb36277e243d904e1827a0ae710154b2ff9d0fbf351c98ac4d8b4e68b0850"
+  },
+  {
+   "item_id": "M2609#45",
+   "type_id": "X-FACT",
+   "source_sha256": "10df37cc6226809e04426c0b604317e8c1e78dd6f968cb377e927cf77bbdfc10",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "caf667323d537440d03b18c1daa62fd387e2f8d213261f0436fb5d5e9da7593e"
+  },
+  {
+   "item_id": "2025#22",
+   "type_id": "R-GIST",
+   "source_sha256": "146e78ef1c3e9c81486120541db9c1253f10796329d760936f74e03534f15dd9",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "f4ad72fd0c22b276d3005c509812c6e25c8c70b36b8743dd929143b2f7f4c4e4"
+  },
+  {
+   "item_id": "2025#23",
+   "type_id": "R-TOPIC",
+   "source_sha256": "03004b183dcfd8fec0f6904f8802c56f48b59efe47b7a924063f5c33d51ac896",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "edfdf7718d21923208bd2a671a671113a01b8d8605ea2fd9a1d995b357363f85"
+  },
+  {
+   "item_id": "2025#29",
+   "type_id": "R-GRAMMAR",
+   "source_sha256": "4f393ce6f1aa8c0a3457a1b30565cfe39cd416e7d0574c96074cbc31d8d162b0",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "fc7173b12bde72ede72d8dc65570d52eb6e41fb92e4e503c079c3dc1dc9a6f93"
+  },
+  {
+   "item_id": "2025#31",
+   "type_id": "R-BLANK",
+   "source_sha256": "bb1be4be320719747b4b76bd47e076fe6c04fbf2b2503f35ae707b3f55d7a42a",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "829a0c4126f2c3cebe7a2a99d45a9f3bad40fe57c1dc7ab314d8f6816e70e16c"
+  },
+  {
+   "item_id": "2025#32",
+   "type_id": "R-BLANK",
+   "source_sha256": "eedb830dfce4b3392add1ce77a48b75c3c33869f7eb20fc9643bedcf4be04ca4",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "c7efff5555175ef35e0955c94ebf762b67aef1ed86f7c2549e9199a613ca8ddd"
+  },
+  {
+   "item_id": "2025#33",
+   "type_id": "R-BLANK",
+   "source_sha256": "abf2f0036ca82f9a7ee72c70d2d9bcf94122c93eae2dc86ee5b687a50c737888",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "c862fbd7643b5c2fff90c8f371be93fd24c3747e2f92caa5c2a945a277104dea"
+  },
+  {
+   "item_id": "2025#34",
+   "type_id": "R-BLANK",
+   "source_sha256": "48f7ff56c977f73874222d8a6d1893625378bff3d391453322c3d5e0b2d1e5b8",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "bd5008206ce68e11470e43ae401cfb04615c34b2cc14330073d959061bc92403"
+  },
+  {
+   "item_id": "2025#36",
+   "type_id": "R-ORDER",
+   "source_sha256": "dfc1d2805a63a9d42ac5bc383e361474b903126e85051c397d82b5354c4d9f8e",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "4e957aeb9f2705634d8af9c198e00b487b0875fd3adea4262fe74f680f7a7469"
+  },
+  {
+   "item_id": "2025#37",
+   "type_id": "R-ORDER",
+   "source_sha256": "8be1c544b0a5c469a31f7b1202fc2a58e88708abc1accdfccdfe8f86f25dd221",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "fdf23a606719865eb66b846601f9d8c4cc6e233496e06a65140c613660fef9db"
+  },
+  {
+   "item_id": "2025#38",
+   "type_id": "R-INSERT",
+   "source_sha256": "19b4e438e3d039337a0bfbd92a6f6c7a53e2235b029a160551f36b18a572b93a",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "fe2a068207ee721871685863165f751965f65e300868e7d404e5210803ef6615"
+  },
+  {
+   "item_id": "2025#39",
+   "type_id": "R-INSERT",
+   "source_sha256": "e4b5592bcebeb358eb2ee442ee3d1a5c739d92380b7a43053f11a718db28d3b1",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "d8e412464d4543f7790ccc468d9d7c386634a3e9563288cc7a4feb93e3f3a0a2"
+  },
+  {
+   "item_id": "2025#40",
+   "type_id": "R-SUMMARY",
+   "source_sha256": "0bd2d402c382a6d877b927bc8fa8c835b50be9ac313438fb47602a76e0ae14a5",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "ce8bece772c144c1d9357d83f7b1aa87b8fd116343e593e9d4e4e4db4b654fc7"
+  }
+ ],
+ "selection_sha256": "4dbe8eb751e98c620d4356a71eb06cee2e560d5d1369c75a9a2989f38caeee50"
+}
