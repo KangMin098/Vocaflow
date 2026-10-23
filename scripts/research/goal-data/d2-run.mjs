@@ -22,12 +22,12 @@ const input = JSON.parse(fs.readFileSync(path.join(LOCAL, 'input.json'), 'utf8')
 const byId = new Map(input.rows.map((r) => [r.item_id, r]))
 // 계약: b2 = v2 · b3/b4 = v2.1 · 입력에 contract 가 있으면 그 버전까지(v2.2 = TASK 부분 집합 · E2 탐색 · 삽입 격리)
 const DOC = 'docs/research/goal-data-batches/D2-task-mapping'
-const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `${DOC}/CONTRACT_V2.md`, ...(batch === 'b2-v2' ? [] : [`${DOC}/CONTRACT_V2_1.md`]), ...(['v2.2', 'v2.3'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_2.md`] : []), ...(input.contract === 'v2.3' ? [`${DOC}/CONTRACT_V2_3.md`] : [])]
+const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `${DOC}/CONTRACT_V2.md`, ...(batch === 'b2-v2' ? [] : [`${DOC}/CONTRACT_V2_1.md`]), ...(['v2.2', 'v2.3', 'v2.4'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_2.md`] : []), ...(['v2.3', 'v2.4'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_3.md`] : []), ...(input.contract === 'v2.4' ? [`${DOC}/CONTRACT_V2_4.md`] : [])]
 // v2: 통합 관찰(kind=integrated)은 문항 단위 판정에서 뺀다 · v2.2: 입력의 tasks 부분 집합만 판정 · 검증한다
 const allAtomic = nonHeldTasks().filter((t) => t.kind !== 'integrated')
 const tasks = input.tasks ? input.tasks.map((id) => allAtomic.find((t) => t.id === id) ?? (() => { throw new Error(`입력 tasks 에 정의 밖 TASK ${id}`) })()) : allAtomic
 const subset = !!input.tasks
-const V22_PLUS = ['v2.2', 'v2.3']
+const V22_PLUS = ['v2.2', 'v2.3', 'v2.4']
 // 안정 5 TASK(T-0100) — 일치 .80 · κ .68 을 둘 다 밑돌면 다음 배치 중단
 const STABLE = ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure']
 const nChunks = Math.ceil(input.rows.length / CHUNK)
@@ -53,8 +53,29 @@ function validateV2(row, inp) {
 /** v2.2 추가 검사 — 삽입 문항 격리(E2 unknown · 독립 평가 부적격) */
 /** v2.3 추가 검사 — 부분 집합 primary 의 뜻을 행마다 밝힌다(v2.3 §1) */
 function validateV23(row) {
-  if (input.contract !== 'v2.3') return []
+  if (!['v2.3', 'v2.4'].includes(input.contract)) return []
   return typeof row.main_performance_outside_subset === 'boolean' ? [] : ['main_performance_outside_subset(true|false) 없음(v2.3 §1)']
+}
+
+// v2.4 §1 E2 고정표 — 대상 없는 전체 판단 문항 · 순서 = 무관, 내용 일치 · 안내문 = direct
+const E2_NA_TYPES = ['R-PURPOSE', 'R-CLAIM', 'R-GIST', 'R-TOPIC', 'R-TITLE', 'R-MOOD', 'R-ORDER', 'X-TITLE', 'X-ORDER']
+const E2_DIRECT_TYPES = ['R-FACT', 'R-NOTICE', 'X-FACT']
+/** v2.4 추가 검사 — 주 TASK 선택 이유(§3) · E2 고정표(§1) */
+function validateV24(row, inp) {
+  if (input.contract !== 'v2.4') return []
+  const errs = []
+  if (norm(row.primary_reason).length < 15) errs.push('primary_reason(문항 고유 선택 이유 15자 이상) 없음(v2.4 §3)')
+  const e2 = (row.links ?? []).find((l) => l.task_id === 'e.evidence_location')
+  if (e2 && E2_NA_TYPES.includes(inp.type_id) && e2.relevance !== 'not_applicable') errs.push(`${inp.type_id} 의 E2 는 not_applicable(v2.4 §1)`)
+  if (e2 && E2_DIRECT_TYPES.includes(inp.type_id) && e2.relevance !== 'direct') errs.push(`${inp.type_id} 의 E2 는 direct(v2.4 §1)`)
+  return errs
+}
+/** v2.4 §3 — primary_reason 이 문항 3개 이상에서 같으면 스크립트로 찍어낸 것이다 */
+function primaryReasonRepeats(rows) {
+  if (input.contract !== 'v2.4') return []
+  const seen = new Map()
+  for (const r of rows) { const k = norm(r.primary_reason).replace(/\d+/g, ''); if (k.length >= 5) seen.set(k, [...(seen.get(k) ?? []), r.item_id]) }
+  return [...seen].filter(([, ids]) => ids.length >= 3).map(([k, ids]) => `primary_reason 이 문항 ${ids.length}개에 반복(${ids.slice(0, 3).join(',')}…): 「${k.slice(0, 30)}」`)
 }
 
 function validateV22(row, inp) {
@@ -88,6 +109,7 @@ function load(track) {
     const rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? []
     // 계약이 고정 문구를 요구하는 삽입 E2 unknown(v2.2 §3)은 반복 검사에서 뺀다 — 고정 문구를 피하려 문항마다 문장을 지어내게 하지 않는다(b6 분석자 2명 보고)
     const ce = validateChunk(V22_PLUS.includes(input.contract) ? rows.map((r) => (byId.get(r.item_id)?.type_id === 'R-INSERT' ? { ...r, links: (r.links ?? []).filter((l) => !(l.task_id === 'e.evidence_location' && l.relevance === 'unknown')) } : r)) : rows)
+    ce.push(...primaryReasonRepeats(rows))
     if (ce.length) { errors.push(...ce.map((x) => `${track} ${path.basename(f)}: ${x}`)); continue }
     for (const row of rows) {
       const inp = byId.get(row.item_id)
@@ -95,7 +117,7 @@ function load(track) {
       // v2.2 부분 집합: 청크 TASK 에 direct 가 없으면 primary_task=null 을 허용한다(계약 v2.2 §1) — 그 경우의 「주 TASK 가 direct 가 아니다」 만 면제
       // T-0103: 면제는 v2.2 이상 계약 · 부분 집합 · 보조 TASK 비어 있음(v2.2 §1) 을 모두 만족할 때만
       const noDirect = subset && V22_PLUS.includes(input.contract) && row.primary_task === null && Array.isArray(row.secondary_tasks) && row.secondary_tasks.length === 0 && !(row.links ?? []).some((l) => l.relevance === 'direct')
-      const e = [...validateRow(row, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...validateV2(row, inp), ...validateV22(row, inp), ...validateV23(row)]
+      const e = [...validateRow(row, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...validateV2(row, inp), ...validateV22(row, inp), ...validateV23(row), ...validateV24(row, inp)]
       if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
       else out.set(row.item_id, row)
     }

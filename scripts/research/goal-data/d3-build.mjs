@@ -33,7 +33,7 @@ function passed(src, track, byId) {
       if (!inp) continue
       // v2.2 부분 집합 배치: 청크 TASK 에 direct 가 없으면 primary_task=null 허용(d2-run 과 같은 면제)
       // d2-run 과 같은 면제(T-0103): v2.2 이상 · 보조 TASK 비어 있음
-      const noDirect = src.subset && ['v2.2', 'v2.3'].includes(src.contract) && r.primary_task === null && Array.isArray(r.secondary_tasks) && r.secondary_tasks.length === 0 && !(r.links ?? []).some((l) => l.relevance === 'direct')
+      const noDirect = src.subset && ['v2.2', 'v2.3', 'v2.4'].includes(src.contract) && r.primary_task === null && Array.isArray(r.secondary_tasks) && r.secondary_tasks.length === 0 && !(r.links ?? []).some((l) => l.relevance === 'direct')
       if (!validateRow(r, inp, src.tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))).length) out.set(r.item_id, r)
     }
   }
