@@ -20,6 +20,8 @@ const RULE = { A: '입력의 prior_analysis_unverified 는 검증 전 참고용 
 const chunks = fs.readdirSync(LOCAL).filter((f) => /^chunk-[AB]-\d+\.json$/.test(f)).sort()
 if (!chunks.length) throw new Error(`${batch}: 청크가 없다 — 먼저 d2-run chunks`)
 const outDir = path.join(LOCAL, 'prompts')
+// 실행에 쓴 전문을 덮어쓰지 않는다(T-0119 주의) — 이미 있으면 거부. 다시 만들려면 기존 prompts/ 를 직접 옮겨 보존한 뒤 실행한다
+if (fs.existsSync(path.join(outDir, 'manifest.json'))) throw new Error(`${batch}: prompts/manifest.json 이 이미 있다 — 실행 전문 보존을 위해 덮어쓰지 않는다`)
 fs.mkdirSync(outDir, { recursive: true })
 const runs = chunks.map((f) => {
   const chunk = f.replace(/\.json$/, '')
