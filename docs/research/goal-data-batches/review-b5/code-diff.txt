@@ -1,0 +1,154 @@
+﻿diff --git a/scripts/research/goal-data/d2-export.mjs b/scripts/research/goal-data/d2-export.mjs
+index 332aac144..cd4e6df1b 100644
+--- a/scripts/research/goal-data/d2-export.mjs
++++ b/scripts/research/goal-data/d2-export.mjs
+@@ -20,7 +20,10 @@ export const BATCHES = {
+   'b3-insert': { rule: '2026 · M2706 · M2609 · 2025 의 #38 · #39 (주어진 문장 분리 입력)', ids: ['2026', 'M2706', 'M2609', '2025'].flatMap((e) => [`${e}#38`, `${e}#39`]) },
+   // 계약 v2.1 확대 — 1·2배치와 겹치지 않는 직전 평가원 시험
+   'b4-v21': { rule: 'M2606 독해 18–45 전 28 + 2024 수능 핵심 유형 12', ids: [...Array.from({ length: 28 }, (_, k) => `M2606#${18 + k}`), ...KEY_TYPES.map((n) => `2024#${n}`)] },
++  // 802 확대(T-0100) — 범위 배치: 시험 순서대로 채우고 상한 40. 결손 · 도표 · 삽입 경계 불확실은 멈추지 않고 excluded 에 사유를 남긴다
++  'b5-v22': { rule: 'M2509 독해 전 문항 → 2023 수능 핵심 유형 순으로 ≤40 · 도표 · 결손 제외', ids: [...Array.from({ length: 28 }, (_, k) => `M2509#${18 + k}`), ...KEY_TYPES.map((n) => `2023#${n}`)], range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.2' },
+ }
++const EXCLUDE_TYPES = { 'R-CHART': '도표 값 · 단위 · 축 미결속(T-0100)' }
+ const batch = process.argv[2]
+ const def = BATCHES[batch]
+ if (!def) throw new Error(`배치 이름: ${Object.keys(BATCHES).join(' | ')}`)
+@@ -39,21 +42,36 @@ const items = await get('csat_items', 'id,exam_id,no,type_id,stem,passage,choice
+ const analyses = await get('csat_item_analyses', 'item_id,version,status,measured_ability,design_intent,answer_locus,choice_analysis,solve_procedure,difficulty', def.ids)
+ const traps = await get('csat_dx_option_trap', '*', def.ids)
+ const byId = new Map(items.map((i) => [i.id, i]))
+-const missing = def.ids.filter((id) => !byId.has(id))
+-if (missing.length) throw new Error(`없는 문항: ${missing.join(', ')}`)
+-const bad = items.filter((i) => !i.body_ok || !Array.isArray(i.choices) || !(i.answers?.length || i.answer != null) || (i.type_id === 'R-INSERT' && insertSplit(i.passage).confidence === 'uncertain'))
+-if (bad.length) throw new Error(`분석 부적격(D1 결손 · 삽입 경계 불확실): ${bad.map((i) => i.id).join(', ')}`)
++/** 분석 부적격 사유(없으면 null) — D1 결손 · 삽입 경계 불확실 · 범위 배치의 제외 유형 */
++function exclusion(id) {
++  const i = byId.get(id)
++  if (!i) return '문항 없음'
++  if (def.range && EXCLUDE_TYPES[i.type_id]) return EXCLUDE_TYPES[i.type_id]
++  if (!i.body_ok) return 'body_ok=false(D1)'
++  if (!Array.isArray(i.choices)) return 'choices 없음(D1)'
++  if (!(i.answers?.length || i.answer != null)) return '정답 없음(D1)'
++  if (i.type_id === 'R-INSERT' && insertSplit(i.passage).confidence === 'uncertain') return '삽입 경계 불확실'
++  return null
++}
++const excluded = def.ids.map((id) => ({ item_id: id, reason: exclusion(id) })).filter((x) => x.reason)
++// 고정 배치는 부적격이 있으면 멈춘다(선정 동결) — 범위 배치만 제외하고 계속한다
++if (excluded.length && !def.range) throw new Error(`분석 부적격: ${excluded.map((x) => `${x.item_id}(${x.reason})`).join(', ')}`)
++const chosen = def.ids.filter((id) => !exclusion(id)).slice(0, def.cap ?? Infinity)
+ const latest = new Map()
+ for (const a of analyses) if (!latest.has(a.item_id) || latest.get(a.item_id).version < a.version) latest.set(a.item_id, a)
+-const rows = def.ids.map((id) => {
++const rows = chosen.map((id) => {
+   const i = byId.get(id), a = latest.get(id) ?? null
+   const source = { stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers, points: i.points }
+-  return { item_id: id, exam_id: i.exam_id, no: i.no, type_id: i.type_id, body_ok: i.body_ok, source, source_sha256: sha(source), ...(i.type_id === 'R-INSERT' ? { insert_split: insertSplit(i.passage) } : {}), analysis: a, analysis_sha256: a ? sha(a) : null, traps: traps.filter((t) => t.item_id === id) }
++  return { item_id: id, exam_id: i.exam_id, no: i.no, type_id: i.type_id, body_ok: i.body_ok, source, source_sha256: sha(source),
++    // 재사용 키(T-0100): 원천 ID + 본문 SHA-256 — UTF-8 원문 바이트 그대로(정규화 · 공백 변경 없음). source_sha256 과 별도
++    passage_sha256: crypto.createHash('sha256').update(Buffer.from(String(i.passage ?? ''), 'utf8')).digest('hex'),
++    ...(i.type_id === 'R-INSERT' ? { insert_split: insertSplit(i.passage) } : {}), analysis: a, analysis_sha256: a ? sha(a) : null, traps: traps.filter((t) => t.item_id === id) }
+ })
+ fs.mkdirSync(path.dirname(OUT), { recursive: true })
+-fs.writeFileSync(OUT, JSON.stringify({ batch, rule: def.rule, generated_at: new Date().toISOString(), rows }, null, 1))
+-const selection = { batch, rule: def.rule, items: rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source_sha256: r.source_sha256, analysis_version: r.analysis?.version ?? null, analysis_status: r.analysis?.status ?? null, analysis_sha256: r.analysis_sha256 })) }
++fs.writeFileSync(OUT, JSON.stringify({ batch, rule: def.rule, tasks: def.tasks ?? null, contract: def.contract ?? null, generated_at: new Date().toISOString(), rows }, null, 1))
++const examTotals = rows.reduce((m, r) => ({ ...m, [r.exam_id]: (m[r.exam_id] ?? 0) + 1 }), {})
++const selection = { batch, rule: def.rule, tasks: def.tasks ?? null, contract: def.contract ?? null, exam_totals: examTotals, excluded, items: rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source_sha256: r.source_sha256, passage_sha256: r.passage_sha256, insert_split: r.insert_split ? { confidence: r.insert_split.confidence, given_chars: r.insert_split.given_sentence?.length ?? null } : undefined, analysis_version: r.analysis?.version ?? null, analysis_status: r.analysis?.status ?? null, analysis_sha256: r.analysis_sha256 })) }
+ const SEL = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping', `${batch}-selection.json`)
+ fs.mkdirSync(path.dirname(SEL), { recursive: true })
+ fs.writeFileSync(SEL, JSON.stringify({ ...selection, selection_sha256: sha(selection.items) }, null, 1) + '\n')
+-console.log(`${batch}: 문항 ${rows.length} · 분석 ${rows.filter((r) => r.analysis).length} → ${path.relative(ROOT, OUT)}`)
++console.log(`${batch}: 문항 ${rows.length} · 제외 ${excluded.length} · 시험별 ${JSON.stringify(examTotals)} · 분석 ${rows.filter((r) => r.analysis).length} → ${path.relative(ROOT, OUT)}`)
+diff --git a/scripts/research/goal-data/d2-run.mjs b/scripts/research/goal-data/d2-run.mjs
+index d783c35f2..f1807a102 100644
+--- a/scripts/research/goal-data/d2-run.mjs
++++ b/scripts/research/goal-data/d2-run.mjs
+@@ -13,17 +13,22 @@ import { ROOT, nonHeldTasks, validateChunk, validateRow } from '../../csat/map/v
+ const [batch, cmd] = process.argv.slice(2)
+ const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local', String(batch))
+ const OUTDIR = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping')
+-// b4 이후는 20문항 청크(분석자 수를 동시 실행 한도 안에 둔다)
+-const CHUNK = /^b[4-9]/.test(String(batch)) ? 20 : 10
+-// b2-v2 는 v2 로 판정했다 — 그 뒤 배치만 v2.1 을 더한다
+-const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', 'docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md', ...(batch === 'b2-v2' ? [] : ['docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_1.md'])]
++// b2 · b3 만 10문항 청크 — 그 뒤 배치는 20문항 청크(분석자 수를 동시 실행 한도 안에 둔다 · T-0100 은 정규식이 b4–b9 에만 맞던 것을 지적)
++const CHUNK = ['b2-v2', 'b3-insert'].includes(String(batch)) ? 10 : 20
+ const sha = (v) => crypto.createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex')
+ const hideQuote = (a) => (a?.quote ? { field: a.field, quote_sha256: sha(String(a.quote)), quote_chars: String(a.quote).length } : null)
+ const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
+ const input = JSON.parse(fs.readFileSync(path.join(LOCAL, 'input.json'), 'utf8'))
+ const byId = new Map(input.rows.map((r) => [r.item_id, r]))
+-// v2: 통합 관찰(kind=integrated)은 문항 단위 판정에서 뺀다
+-const tasks = nonHeldTasks().filter((t) => t.kind !== 'integrated')
++// 계약: b2 = v2 · b3/b4 = v2.1 · 입력에 contract 가 있으면 그 버전까지(v2.2 = TASK 부분 집합 · E2 탐색 · 삽입 격리)
++const DOC = 'docs/research/goal-data-batches/D2-task-mapping'
++const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `${DOC}/CONTRACT_V2.md`, ...(batch === 'b2-v2' ? [] : [`${DOC}/CONTRACT_V2_1.md`]), ...(input.contract === 'v2.2' ? [`${DOC}/CONTRACT_V2_2.md`] : [])]
++// v2: 통합 관찰(kind=integrated)은 문항 단위 판정에서 뺀다 · v2.2: 입력의 tasks 부분 집합만 판정 · 검증한다
++const allAtomic = nonHeldTasks().filter((t) => t.kind !== 'integrated')
++const tasks = input.tasks ? input.tasks.map((id) => allAtomic.find((t) => t.id === id) ?? (() => { throw new Error(`입력 tasks 에 정의 밖 TASK ${id}`) })()) : allAtomic
++const subset = !!input.tasks
++// 안정 5 TASK(T-0100) — 일치 .80 · κ .68 을 둘 다 밑돌면 다음 배치 중단
++const STABLE = ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure']
+ const nChunks = Math.ceil(input.rows.length / CHUNK)
+ const name = (track, k, out) => path.join(LOCAL, `chunk-${track}-${String(k + 1).padStart(2, '0')}${out ? '.out' : ''}.json`)
+ const answerSet = (src) => (src.answers?.length ? src.answers : src.answer != null ? [src.answer] : [])
+@@ -44,6 +49,16 @@ function validateV2(row, inp) {
+   return errs
+ }
+ 
++/** v2.2 추가 검사 — 삽입 문항 격리(E2 unknown · 독립 평가 부적격) */
++function validateV22(row, inp) {
++  if (input.contract !== 'v2.2' || inp.type_id !== 'R-INSERT') return []
++  const errs = []
++  const e2 = (row.links ?? []).find((l) => l.task_id === 'e.evidence_location')
++  if (e2 && e2.relevance !== 'unknown') errs.push('삽입 문항 E2 는 unknown(v2.2 §3)')
++  if (row.independent_assessment?.eligibility !== 'not_suitable') errs.push('삽입 문항 independent_assessment 는 not_suitable(v2.2 §3)')
++  return errs
++}
++
+ function chunks() {
+   fs.mkdirSync(LOCAL, { recursive: true })
+   for (let k = 0; k < nChunks; k++) {
+@@ -69,7 +84,9 @@ function load(track) {
+     for (const row of rows) {
+       const inp = byId.get(row.item_id)
+       if (!inp) { errors.push(`${track} ${row.item_id} 배치 밖`); continue }
+-      const e = [...validateRow(row, inp, tasks), ...validateV2(row, inp)]
++      // v2.2 부분 집합: 청크 TASK 에 direct 가 없으면 primary_task=null 을 허용한다(계약 v2.2 §1) — 그 경우의 「주 TASK 가 direct 가 아니다」 만 면제
++      const noDirect = subset && row.primary_task === null && !(row.links ?? []).some((l) => l.relevance === 'direct')
++      const e = [...validateRow(row, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...validateV2(row, inp), ...validateV22(row, inp)]
+       if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
+       else out.set(row.item_id, row)
+     }
+@@ -137,7 +154,7 @@ function agree() {
+     })
+   }
+   const summary = {
+-    batch, contracts: CONTRACTS.map((c) => ({ path: c, sha256: sha(fs.readFileSync(path.join(ROOT, c), 'utf8').replace(/\r\n/g, '\n')) })),
++    batch, tasks_judged: tasks.map((t) => t.display), subset, contracts: CONTRACTS.map((c) => ({ path: c, sha256: sha(fs.readFileSync(path.join(ROOT, c), 'utf8').replace(/\r\n/g, '\n')) })),
+     input_sha256: sha(input.rows.map((r) => [r.item_id, r.source_sha256])), rule: input.rule,
+     tasks: tasks.length, items: byId.size, pairs: all.length,
+     agreement: all.length ? Number((all.filter(([p, q]) => p === q).length / all.length).toFixed(4)) : null,
+@@ -151,7 +168,22 @@ function agree() {
+   const jl = (rows) => rows.map((r) => JSON.stringify(r)).join('\n') + '\n'
+   fs.writeFileSync(path.join(OUTDIR, `${batch}-item-task-links.jsonl`), jl(linked))
+   fs.writeFileSync(path.join(OUTDIR, `${batch}-disputed-links.jsonl`), jl(disputed))
++  // 중단 경보(T-0100 성공 기준 2): 안정 TASK 가 일치 .80 · κ .68 을 둘 다 밑돌면 stop. κ 가 null(단일 범주)이면 unclear — 통과로 치지 않는다
++  summary.stop_alarm = Object.fromEntries(STABLE.filter((id) => summary.per_task[id]).map((id) => {
++    const v = summary.per_task[id]
++    return [v.display, v.kappa === null ? 'unclear' : v.agreement < 0.8 && v.kappa < 0.68 ? 'stop' : 'ok']
++  }))
++  summary.stop = Object.values(summary.stop_alarm).includes('stop')
++  // 원문 대조 표본(성공 기준 3): R1 후보 10 · 갈림 10 — 삽입 · E1 · E3 를 앞에 두고 문항이 겹치지 않게(부족하면 전부)
++  const prio = (l) => (byId.get(l.item)?.type_id === 'R-INSERT' ? 0 : l.task === 'e.task_demand' ? 1 : l.task === 'e.option_correspondence' ? 2 : 3)
++  const pick = (rows) => {
++    const seen = new Set()
++    return [...rows].sort((x, y) => prio(x) - prio(y) || x.item.localeCompare(y.item)).filter((l) => !seen.has(l.item) && seen.add(l.item)).slice(0, 10)
++      .map((l) => ({ item: l.item, task: l.task, display: l.display, judgments: l.judgments, state: l.state }))
++  }
++  fs.writeFileSync(path.join(OUTDIR, `${batch}-review-sample.json`), JSON.stringify({ batch, rule: 'R1 후보 10 · 갈림 10(삽입 · E1 · E3 우선 · 문항 중복 없음) — 원문 대조는 독립 검증자가 한다', candidates: pick(linked), disputed: pick(disputed) }, null, 1) + '\n')
+   fs.writeFileSync(path.join(OUTDIR, `${batch}-agreement.json`), JSON.stringify(summary, null, 1) + '\n')
++  if (summary.stop) console.log(`중단 경보: ${JSON.stringify(summary.stop_alarm)} — 다음 배치 전에 갈림을 원문으로 검토한다`)
+   console.log(`쌍 ${summary.pairs} · 일치 ${summary.agreement} · κ ${summary.kappa} · 주 TASK 일치 ${summary.primary_task_agreement}/${byId.size} · R1 ${linked.length} · 갈림 ${disputed.length}`)
+   for (const v of Object.values(summary.per_task)) console.log(`  ${v.display.padEnd(5)} 일치 ${v.agreement} κ ${v.kappa} 직접 ${v.both_direct} 간접 ${v.both_indirect} 무관 ${v.both_not_applicable} 갈림 ${v.disputed}`)
+ }

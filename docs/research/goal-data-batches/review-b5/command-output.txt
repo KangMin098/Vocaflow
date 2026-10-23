@@ -1,0 +1,185 @@
+T-0103 command outputs (verbatim output blocks)
+
+Command:
+git -C d:/workspace/vocaflow-goal-data-review-b5 add docs/research/goal-data-batches/review-b5/ scripts/research/goal-data/review-b5/
+if ($LASTEXITCODE -eq 0) { git -C d:/workspace/vocaflow-goal-data-review-b5 commit -m "docs(research): T-0103 b5-v22 독립 검증(Codex)" }
+Exit: 1 (add failed; conditional commit not executed)
+Output:
+fatal: Unable to create 'D:/workspace/Vocaflow/.git/worktrees/vocaflow-goal-data-review-b5/index.lock': Permission denied
+
+No permission, ownership, Git configuration, index, or hook bypass attempted.
+
+Command:
+node bin/vfc.mjs task evidence T-0103 --file runtime/t0103-ev.json --by goal-data-independent
+First exit: 1
+Output:
+거부 [ERROR] Unexpected token '﻿', "﻿{\r\n    \"t\"... is not valid JSON
+
+Correction: rewrote runtime JSON as UTF-8 without BOM; same evidence command retried.
+Exit: 0
+Output:
+{
+  "evidence_id": "T-0103-R1-E01",
+  "run_seq": 1,
+  "recorded_by": "goal-data-independent",
+  "type": "review",
+  "command_or_protocol": "Read-only b5-v22 local-packet SHA/selection/chunk binding recomputation; current d2-run validate b2/b3/b4/b5 A/B; 228-pair agreement/kappa/alarms; 10 R1 and 10 disputed original-text reviews; in-memory primary-null counterexamples; check.mjs evidence/schema/confidentiality checks. Review completed, not data-quality acceptance; commit attempt failed index.lock permission denied.",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "docs/research/goal-data-batches/review-b5/verdict.json",
+  "observed_at": "2026-10-23T05:53:26.0919774Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "artifact_sha256": "3535eab84813bee574d7a52ec4df2be967c417c944ecb358866b13aa33d0ea9f",
+  "recorded_at": "2026-10-23T05:53:34.573Z"
+}
+
+Command:
+node bin/vfc.mjs task submit T-0103 --by goal-data-independent
+Exit: 0
+Output:
+{
+  "task": {
+    "task_id": "T-0103",
+    "goal_id": "VG-L3-A1-01",
+    "related_goal_ids": [],
+    "template": null,
+    "title": "802 확대 첫 배치 b5-v22 · 계약 v2.2 독립 검증(Codex)",
+    "description": "데이터 담당(vocaflow-ad) data/goal-batches-20261023 @7ad98fda0 의 계약 v2.2 · 범위 배치 export/d2-run 부분 집합 검증 · b5-v22(M2509 27 + 2023 11, 6 TASK) A/B 출력을 T-0100 결정 조건으로 독립 검증한다. 읽기 전용.",
+    "priority": "P1",
+    "status": "REVIEW",
+    "owner_id": "goal-data-independent",
+    "branch": "review/goal-data-b5-20261023",
+    "worktree": "d:/workspace/vocaflow-goal-data-review-b5",
+    "allowed_paths": [
+      "docs/research/goal-data-batches/review-b5/**",
+      "scripts/research/goal-data/review-b5/**",
+      ".agent-goal.md"
+    ],
+    "forbidden_paths": [
+      "supabase/**",
+      ".env*",
+      "apps/**",
+      "docs/research/goal-data-batches/D2-task-mapping/**"
+    ],
+    "db_scope": {
+      "mode": "none",
+      "targets": []
+    },
+    "approval_required": false,
+    "approval_kinds": [],
+    "approval": null,
+    "acceptance": [
+      "범위 export 재현: 38문항 선정 · 제외 2 사유 · passage_sha256(UTF-8 원문) 과 source_sha256 별도 · 삽입 given_sentence/body 분리 · 도표 제외를 원본에서 재계산",
+      "d2-run 부분 집합 검증 변경이 기존 b2·b3·b4 를 완화하지 않는지(재검증 40/40·8/8·40/40 재현, primary null 면제 범위) 판정",
+      "b5 A/B 일치 .921 · κ .860 · 중단 경보 계산 재현, R1 후보 10 · 갈림 10 원문 대조 판정(삽입·E1·E3 우선), E2 .41→.96 · E1 1.0 의 인과 주장은 unclear 유지",
+      "계약 v2.2 §1↔§4 충돌 등 경계 결함 판정, AI 후보 자동 승인 없음 확인",
+      "review-b5/verdict.json + review.md, unclear 를 confirmed 로 올리지 않음"
+    ],
+    "evidence": [
+      {
+        "evidence_id": "T-0103-R1-E01",
+        "run_seq": 1,
+        "recorded_by": "goal-data-independent",
+        "type": "review",
+        "command_or_protocol": "Read-only b5-v22 local-packet SHA/selection/chunk binding recomputation; current d2-run validate b2/b3/b4/b5 A/B; 228-pair agreement/kappa/alarms; 10 R1 and 10 disputed original-text reviews; in-memory primary-null counterexamples; check.mjs evidence/schema/confidentiality checks. Review completed, not data-quality acceptance; commit attempt failed index.lock permission denied.",
+        "result": "pass",
+        "skip_count": 0,
+        "artifact_path_or_url": "docs/research/goal-data-batches/review-b5/verdict.json",
+        "observed_at": "2026-10-23T05:53:26.0919774Z",
+        "covers": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "artifact_sha256": "3535eab84813bee574d7a52ec4df2be967c417c944ecb358866b13aa33d0ea9f",
+        "recorded_at": "2026-10-23T05:53:34.573Z"
+      }
+    ],
+    "run_seq": 1,
+    "depends_on": [],
+    "criterion_claims": [],
+    "impact": {
+      "kind": "independent",
+      "parent_goal_id": null,
+      "acceptance_ids": [],
+      "current_gap": "802 확대 첫 배치와 계약 v2.2 가 데이터 담당 단일 세션 판정만 거쳤다",
+      "expected_impact": "advances",
+      "evidence_required": [
+        "재계산 결과",
+        "원문 대조 판정",
+        "verdict.json"
+      ],
+      "next_dependency": "다음 배치 진행 여부",
+      "out_of_scope": [
+        "DB 쓰기",
+        "D2 산출물 수정",
+        "제품 코드"
+      ],
+      "dependency_type": "direct",
+      "user_request_ref": "2026-10-23 사용자: 802 확대 · Codex 협업 결정(T-0100)",
+      "canon_version": "1.1.0",
+      "base_commit": null,
+      "gate_ms": 0.7134
+    },
+    "flags": [],
+    "pr": null,
+    "requires_ci": false,
+    "verified_commit": null,
+    "orchestration": {
+      "rounds": 0,
+      "failures": {},
+      "budget_used_usd": 0
+    },
+    "source": null,
+    "created_at": "2026-10-23T05:44:56.681Z",
+    "updated_at": "2026-10-23T05:53:41.766Z",
+    "history": [
+      {
+        "at": "2026-10-23T05:44:56.681Z",
+        "from": null,
+        "to": "READY",
+        "by": "platform-goal",
+        "note": "created"
+      },
+      {
+        "at": "2026-10-23T05:45:58.596Z",
+        "from": "READY",
+        "to": "IN_PROGRESS",
+        "by": "goal-data-independent",
+        "note": "t0103-codex"
+      },
+      {
+        "at": "2026-10-23T05:53:41.766Z",
+        "from": "IN_PROGRESS",
+        "to": "REVIEW",
+        "by": "goal-data-independent",
+        "note": null
+      }
+    ],
+    "run": {
+      "run_seq": 1,
+      "session": "t0103-codex",
+      "agent": "codex",
+      "pid": 28836,
+      "host": "SKCC23N00265",
+      "started_at": "2026-10-23T05:45:58.596Z",
+      "locks": [],
+      "product_lock_token": null,
+      "start_head": "c3bb50199689f7377500356d88694c18a22b190a",
+      "ended_at": "2026-10-23T05:53:41.766Z"
+    }
+  },
+  "released": [
+    "task--T-0103",
+    "worktree--d__workspace_vocaflow-goal-data-review-b5"
+  ]
+}
+
