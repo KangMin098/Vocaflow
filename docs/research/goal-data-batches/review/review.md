@@ -1,6 +1,10 @@
 # T-0088 — D1–D4 독립 검증
 
-이 결과는 Codex의 AI 검증이며 사람 Gold·출시 승인·DB 수정 승인이 아니다. D1–D3 입력은 `80fa4454023c6b7086ac5cf4d7c12d459d26b0a0`, D4 입력은 `1b8f089e590536e2ef03c49cb3b6c85c0432ba85`다. 코드 근거는 D4 input_head의 38개 입력 해시와 일치함을 확인한 이 worktree의 `80fa44540`에 고정했다. PLAN은 `feat/goal-plan@c44f41a5cbab4348908e7bc18fe39e09ad183592`을 읽기만 했다. 항목별 판정·파일:줄·원문 SHA는 [verdict.json](./verdict.json), 표본 선정과 기계 검사는 [sample-checks.json](./sample-checks.json)에 있다.
+검증 집계: **confirmed 80 · refuted 7 · unclear 46**(전체 133 판정 행; 상위 요약·하위 표본 포함).
+
+D2 최종 보수 판정은 R1 {"confirmed":22,"refuted":0,"unclear":8}, 갈림 {"confirmed":10,"refuted":0,"unclear":20}다. R3 11개는 모두 unclear다. 명확한 v2 경계 위반은 부정 발문 E1의 B 판정 1개이며, #30 E2는 인접 문장/다른 문장 규칙이 겹쳐 위반 판정을 유보했다. 반사실 허위 확정 0개와 지지 보류 3개를 구분한다.
+
+이 결과는 Codex의 AI 검증이며 사람 검수 결과·출시 승인·DB 수정 승인이 아니다. D1–D3 입력은 `80fa4454023c6b7086ac5cf4d7c12d459d26b0a0`, D4 입력은 `1b8f089e590536e2ef03c49cb3b6c85c0432ba85`다. 코드 근거는 D4 input_head의 38개 입력 해시와 일치함을 확인한 이 worktree의 `80fa44540`에 고정했다. PLAN은 `feat/goal-plan@c44f41a5cbab4348908e7bc18fe39e09ad183592`을 읽기만 했다. 항목별 판정·파일:줄·원문 SHA는 [verdict.json](./verdict.json), 표본 선정과 기계 검사는 [sample-checks.json](./sample-checks.json)에 있다.
 
 ## D1 — DB 직접 조회
 
@@ -22,9 +26,6 @@
 
 R1은 입력 순서의 서로 다른 문항 첫 링크 30개(도표 #25·삽입 #38/#39 제외), 갈림은 R3 11개 전부와 나머지 입력 순서 19개를 골랐다. 의도 표본이며 모집단 정확도 추정이 아니다. 로컬 b2-v2 원문과 선지·발문을 대조하고 A/B 근거도 읽었다.
 
-- R1 판정: {"confirmed":30}. 이는 관련성 후보의 최소 한 판단 경로 지지이며 직접 관찰·사람 확인을 뜻하지 않는다. M2609#37 B의 those 선행 대상 부연은 잘못됐지만 B 첫 문장의 지시 연결로 R1 경로는 성립한다.
-- 갈림 판정: {"unclear":16,"confirmed":14}. R3 11개는 모두 unclear다. 역할 해석이 기여하는 것과 역할 명명 자체를 요구하는 것의 경계가 계약에 없다.
-- **확인한 v2 의미 경계 위반 2개**: M2609#29 E1의 B(부정 발문인데 표준 발문이라 무관), M2609#30 E2의 A(다른 문장 근거인데 indirect). 인용·반사실 스키마·원문 SHA 검사는 오류 0개였다. 형식 통과가 의미 검증을 대신하지 않는다.
 - **반사실 허위 확정 0개, 의미 지지 보류 3개**: M2609#20 V3(비유 오독→동료 평가), #25 S4(도표 수치 없음), #30 R4(점층 오독→permanently). 허위 확정 0을 참 60개나 유인 효과 확인으로 바꾸지 않는다. #25 B의 병렬 구조 부재 설명도 실제 higher/lower 병렬과 충돌한다.
 
 AI 후보의 relevance=unknown은 유지한다. 이 검증만으로 NeedRank·진단 입력 자격이 생기지 않는다.
@@ -64,3 +65,21 @@ AI 후보의 relevance=unknown은 유지한다. 이 검증만으로 NeedRank·�
 4. **확인 키별 측정 범위·관찰 제한·승인 정책 결속** — 키의 존재를 TASK 전체 평가 가능으로 읽거나 다른 채점 범위를 하나의 성취로 합치면 잘못된 목표 상태를 만든다. 다음 검증: 도구별 관찰 범위와 상태 승격 제한을 명시하고 동일 revision의 결정·자격·납품을 읽어 확인한다.
 
 5. **R3 경계와 오답 왜곡 범주 적용 기준** — AI 일치 후보라도 관련성·오답 원인을 확정할 수 없고 NeedRank·진단 입력으로 넘기면 불확실성이 사라진다. 다음 검증: R3 역할 해석/명명 경계, 정상 어법 유인/형태 오류, 순서 연결 단절 범주를 계약에서 구분하고 같은 원문으로 재검증한다.
+
+## 재개 및 제출 기록
+
+재개 지시에 따라 재실행하지 않음. task show의 pid 932/product_lock_token 63035f0a736d412a가 T-0088 자신의 실행임을 확인.
+
+최초 실행 실패 메시지 원문은 잔존 파일에서 확인하지 못했다. 추정하여 복원하지 않는다.
+
+최종 산출 재생성은 scripts/research/goal-data/review/finalize.mjs, 검증은 review/validate-output.mjs를 사용한다. build-verdict.mjs는 재개 전 초안 생성기로 최종 결과는 finalize.mjs의 유보 판정 보완을 포함한다.
+
+엔진 인계 허용 13개는 verdict.json의 engine_handoff에 범위와 근거를 명시했다. unclear 및 개별 AI 링크는 엔진 입력으로 승인하지 않는다.
+
+기존 커밋 관찰: 8456ee69d8ef96058d8cfab4764aea66b3669edb. 검증 도중 HEAD가 이전 실행의 검토 커밋으로 진행한 것을 관찰했다. 이 세션의 git 명령 성공으로 주장하지 않는다. 최종 보수 판정 보완과 ev.json은 이 커밋에 포함되지 않았다.
+
+최종 보완분 Git 오류 원문: fatal: Unable to create 'D:/workspace/Vocaflow/.git/worktrees/Vocaflow-goal-data-review/index.lock': Permission denied
+
+추가 evidence 등록 실패: 거부 [NOT_REVIEWER] REVIEW 단계 증거는 등록된 다른 owner(리뷰어)만 붙인다
+
+submit 재시도 실패: 거부 [BAD_TRANSITION] REVIEW → REVIEW 불가. 현재 상태는 이미 REVIEW다. 이 세션의 추가 증거 등록·최종 보완 커밋·재제출 성공으로 보고하지 않는다.

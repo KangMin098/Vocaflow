@@ -1,0 +1,9 @@
+{
+  "type": "review",
+  "command_or_protocol": "T-0088 독립 원문 대조: D1 PostgREST GET, D2 R1 30+갈림30(R3 11), D3 30, D4 5항목/21 TASK. node scripts/research/goal-data/review/finalize.mjs; node docs/research/goal-data-batches/review/validate-output.mjs. 133판정/90표본/14실행 assertion/38입력 해시 검사 통과. 최종 보수 판정 보완분의 git add 및 commit --only는 중앙 Git index.lock Permission denied로 실패.",
+  "result": "fail",
+  "skip_count": 0,
+  "artifact_path_or_url": "D:/workspace/Vocaflow-goal-data-review/docs/research/goal-data-batches/review/verdict.json",
+  "observed_at": "2026-10-23T03:50:58.000Z",
+  "covers": [0, 1, 2, 3, 4]
+}
