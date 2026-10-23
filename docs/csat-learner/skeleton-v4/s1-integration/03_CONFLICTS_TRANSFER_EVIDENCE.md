@@ -19,20 +19,23 @@ T-0138 · DRAFT — 독립 검증 전. 산출물 6·7·9.
 | K9 | `csat_items_public.answer` authenticated 노출: R03 P1 "결함 의심" vs 사용자 결정 2 | **정책 부합으로 종결.** UI 표시 통제는 별도 계약(01 B7) | R14 결정 2 |
 | K10 | F08: R04 C1~C12 판정표 vs T-0136 F08_EVALUATION v1.0 | **T-0136 절차가 정본**(공식 수용). R04 C1~C12는 측정 항목 입력으로 참조. 공통 결론: IMPROVE는 기존 Shell을 실제 고친 구현으로 측정해야 함 | T-0136 R2 ACCEPT |
 | K11 | 26 교수 모델 = 유형별 판단 도구? | **아니다.** 화면은 relation 1문장 + 불리언 2개만 소비. 모델은 도구 설계의 데이터 입력이며, 재사용 여부는 F01~F05 결정에서만 다룸 | R04 §1.1 · R12 P0-5 |
-| K12 | 강의 스크롤: T-0136 이관 명세 "자동 cue 스크롤 억제" vs LC 구현 "재생 시작 시 따라가기 켜짐, 학습자 탐색 시 꺼짐" | **조건부 채택(이견 Q1).** 재생 시작은 학습자의 명시 요청으로 보고 따라가기 기본 켜짐을 허용하되, 자동 장면 교체 금지·학습자 탐색 즉시 해제·접힌 층 자동 펼침 금지가 모두 지켜질 때만. 독립 검증·E2E 전 CONDITIONAL | LC · R17 · 01 C2 |
+| K12 | 강의 스크롤: T-0136 이관 명세 "자동 cue 스크롤 억제" vs LC 구현 "재생 시작 시 따라가기 켜짐" | **run 2 정정: 기본 수동.** 재생 시작·계속·재시도는 따라가기를 암묵적으로 켜지 않는다. 따라가기는 학습자의 명시 선택만. LC의 `start()`→following은 보완 대상(run 1의 조건부 허용 판단 철회) | G3 §5(T-0137 ACCEPT) · 01 C2 |
 | K13 | 34② 진위: 분석 `unknown` vs 강의 c7·c10 "거짓"류 | 분석 우선, 강의 cue는 감수 대기. 정답 기준 변경 없음 | R12 §4-C |
 | K14 | 38⑤ these 범위 | C1 후보(4~7 포괄)는 두 독립 판독과 공식 원문 대조로 지지되나 콘텐츠 승인 전. 표시 계약은 T-0136 D1 | R02 · T-0136 |
 | K15 | 단계형 세션(`SessionRunner` 고정 순서·`scrollTo(0,0)`) vs v6 "장면은 필수 절차 아님" | 세션 러너가 문항 분석 경로와 별도인지 **DATA_GAP**. 이 계약은 `/csat/item/[slug]` 분석 경로에 적용 | R04 §2 |
+| K17 | 강의 공개 태그: run 1 "태그 0, 신규 전수 태깅" vs G1 sidecar v1 존재 | **sidecar 존재 인정, 제품 미승인.** 연구 자료 CONDITIONAL·내용 CONTENT_REVIEW_REQUIRED·제품 CONDITIONAL로 분리, S2-c를 기존 sidecar 보완·승인·적용으로 변경 | 공식 반려 T138-CUE-01 · 05 §1 |
+| K18 | 자동 공개 경계(R1/R2/R7) = 정답 전 구간? | **아니다.** 경계보다 앞선 2인 합의 DECISIVE/ANSWER 34 cue — 단일 지목·한 cue 소거 완결·역할 순서 낭독 등. 34개 모두 OFFICIAL_ANSWER 동급 경계 | T138-CUE-02 · 05 §2 |
+| K19 | 공개 수준 3값 vs 5값, UNKNOWN 처리 | **5값 + UNKNOWN fail-closed + 런타임 노출 이력**. 콘텐츠 수준과 학습자 공개 단계는 다른 축 | T138-CUE-03 · 05 §3 |
 | K16 | 삽입·순서·무관 공통화 | 삽입·순서만 이음매 공통, 무관 제외, X-ORDER UNDETERMINED | R12 §4-B |
 
 ## 2. 34번 제품 이관 차이분석
 
-기준: T-0136에서 수용된 `PRODUCT_TRANSFER_2026_34.md` v1.0(@`81d6732b2`). G3(T-0137, Codex)가 진행 중이므로 **G3 결과가 나오면 이 절을 다시 대조**해야 한다.
+기준: T-0136 수용 `PRODUCT_TRANSFER_2026_34.md` v1.0(@`81d6732b2`) + **G3 DELTA(T-0137, `fb6bf663e`, 2026-10-24 Claude 공식 리뷰 ACCEPT·COMPLETED)**. 아래는 G3로 갱신한 대조다. G3 수용 범위는 차이분석 문서이며 제품 구현 아님.
 
 | 항목 | 이관 명세(T-0136) | G1 연구·사용자 결정이 더한 것 | 통합 결정 |
 |---|---|---|---|
-| 공개 범위 | 정답 공개 후(`OFFICIAL_ANSWER`) 분석만. SOURCE_ONLY는 별도 서버 필터 전 비활성 | 결정 1: 학습자 선택 4단계, 강의 cue 공개 안내(B6), 단일 공개 출처(B3) | 1단계 이관은 명세 범위 그대로. 강의 공개 안내·4단계 확장은 **cue `disclosure` 태깅 뒤 별도 단계**(태깅 전 전 cue `answer` 간주) |
-| F07 강의 | 재생·viewer 상태 분리, 자동 cue 스크롤 억제 | LC 브랜치가 같은 두 파일(`AnalysisTheater.tsx`·`LectureStage.tsx`)에 따라가기 모델을 이미 구현(main 위 5커밋) | **순서 고정**: 34 이관 구현은 LC 통합 이후 그 위에서 시작(R14 §3.1). 두 작업이 같은 파일을 동시에 고치지 않는다. 스크롤 정책은 K12 |
+| 공개 범위 | 정답 공개 후(`OFFICIAL_ANSWER`) 분석만. SOURCE_ONLY는 별도 서버 필터 전 비활성 | 결정 1: 학습자 선택 4단계, 강의 cue 공개 안내(B6), 단일 공개 출처(B3) | G3 DELTA §4로 상세화(ACCEPT): 자유 3경로·선지 선택 강제 없음·access와 exposure 분리. 강의 공개 게이트는 05 §3 계약과 sidecar 승인 뒤 별도 단계(그 전에는 UNKNOWN fail-closed) |
+| F07 강의 | 재생·viewer 상태 분리, 자동 cue 스크롤 억제 | LC `0e36138e3`가 같은 파일에 일부 구현. G3가 잔여 4건 확인(start 암묵 따라가기·본문 click→jump·following 중 details 재열림·pickScene 일시정지) | **순서 고정**: LC 채택·보완 판단을 `LectureStage`를 바꾸는 이관 단계보다 먼저(G3 리뷰 P2-R1). 정책은 K12(기본 수동) |
 | F04 명제 비교 | ①/③ 동시 대조, ② unknown 보존 | D1 3값 필수(R00 C-1) | 일치 |
 | F05 원리·한계 | 저장 basis·limitation 구분 | 강의 원리가 `when_not`을 생략하는 사례(34 c1·c12·c6·c9) | 화면 원리는 분석 `when_not` 포함. 강의 원리 문구는 감수 대기 cue로 표시 |
 | 34② 강의 | 다루지 않음 | c7·c10 진위 과잉 단정 | 감수 대기 cue 표시 계약 추가(원본 수정 없음) |
@@ -50,8 +53,10 @@ T-0138 · DRAFT — 독립 검증 전. 산출물 6·7·9.
 | T-0135 선정 | Claude 교차 모델 | 판정 PARTIAL(F08·38 C1) — 검토 파일만, TASK 완료는 Codex 계열 리뷰어 | `T-0135-claude-crossmodel-review-20261024.md` |
 | T-0136 R2 | Claude 공식 리뷰어 `csat-v4-s0-claude-review` | **ACCEPT(제한)** · COMPLETED @81d6732b2 | D1 표시 계약 · D2 절차 · 34 이관 설계 |
 | G1 연구 통합(00) | 연구 내 독립 통합 에이전트 J + 교차 심사 11 | 연구 산출물(공식 수용 아님) | 00~10 |
-| LC 강의 학습자 제어 | 연구 15·18·19 독립 검증 | R1~R3 PARTIAL(P0/P1 0), 최종 2bd99a0f1 **재검증 없음**, 실계정 E2E BLOCKED | `feat/lecture-learner-control` |
-| G1 연구 전체 | 별도 Codex 독립 검증 세션(사용자 지정 G1) | **진행 여부 미확인** | 00~19 |
+| LC 강의 학습자 제어 | 연구 15·18·19·20 독립 검증 | R1~R4 PARTIAL(P0/P1 0), 최신 `0e36138e3` **재검증 없음**, 실계정 E2E BLOCKED | `feat/lecture-learner-control` |
+| G3 34 이관 차이분석 | Claude 공식 리뷰어 `csat-v4-s0-claude-review` | **ACCEPT · COMPLETED** @`fb6bf663e`(P2 3) | `g3-transfer-20261024/` |
+| G1 연구 전체 | 별도 Codex `csat-g1-codex-review` | T-0139 **REVIEW 대기**(작성자 재현 증거 E01만, 독립 판정 없음). 이전 a518bef7c 범위 Codex 검증은 PARTIAL | `research/csat-all-types-20261024`@`810a463ac` |
+| T-0138 run 1 cue 공개 | Codex `csat-s1-codex-review` | **PARTIAL → 반려**(T138-CUE-01·02·03 P1) → run 2 보정 | 이 문서 |
 
 이 문서(T-0138)의 독립 검증자는 owner `csat-s1-codex-review`(Codex, 작성 미참여)로 등록돼 있다.
 
@@ -59,7 +64,7 @@ T-0138 · DRAFT — 독립 검증 전. 산출물 6·7·9.
 
 | ID | 이견 | 입장 A | 입장 B | 결정에 필요한 것 |
 |---|---|---|---|---|
-| Q1 | 따라가기 기본값 | 재생=따라가기 요청(LC) | 자동 스크롤은 기본 끔(T-0136 명세 문구) | 실계정 E2E에서 학습자 탐색 즉시 해제 확인 + 사용자 판단 |
+| Q1 | (해소) 따라가기 기본값 | — | — | K12 run 2 정정으로 기본 수동 채택. 남은 것은 LC 코드 보완과 실계정 E2E |
 | Q2 | F08 작업면 | IMPROVE 3면(원문 동시 대조) | REPLACE 2면(판단 면적) | F08_EVALUATION 절차 실측(실제 PDF·사용자 4명) |
 | Q3 | 34② 진위 | 분석 unknown | 강의 거짓 | 작성 미참여 감수자의 원문 대조 판정 |
 | Q4 | 22③ 진위 `true` | "협력을 과소평가하기 쉽다" ≈ "less collaborative" | 동일성 미검증(CC-09) | 내용 감수 |

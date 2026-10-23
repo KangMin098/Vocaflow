@@ -23,8 +23,11 @@ T-0138 · DRAFT — 독립 검증 전. 산출물 8·10.
 | F03 | 근거 ↔ 선지 왕복, UNREGISTERED | **READY_FOR_SCOPED_IMPLEMENTATION**(2026-34) | 동일 · 이관 명세 3단계 |
 | F04 | 완성 명제 비교(3값) | **READY_FOR_SCOPED_IMPLEMENTATION**(2026-34) | 동일 · ② unknown 보존 |
 | F05 | 원리·적용 한계 | **READY_FOR_SCOPED_IMPLEMENTATION**(2026-34) | 동일 · 원리는 `when_not` 포함 |
-| F07 | 강의 재생·탐색 독립 | **CONDITIONAL** | 설계 DESIGN_ACCEPTED(T-0136). 구현은 LC 브랜치에 있음 — 조건: 2bd99a0f1 독립 재검증 · 실계정 E2E(현재 BLOCKED, 계정 없음) · Q1 결정 · 사용자 main 통합 확인 |
-| F07b | 강의 공개 안내(B4~B6) | **BLOCKED_EVIDENCE** | cue `disclosure` 태그 0. 해제: 전 회차 태깅(드레인, 재실행 안전) + 태깅 표본 감수 |
+| F07 | 강의 재생·탐색 독립 | **CONDITIONAL** | 설계 DESIGN_ACCEPTED(T-0136) · 상세 계약 G3(T-0137 ACCEPT). 구현 후보 `feat/lecture-learner-control`@`0e36138e3`(main 미통합). 조건: start()의 암묵 따라가기·본문 click→jump·following 중 details 재열림·pickScene 일시정지 보완 · AnalysisTheater 장착 하네스 · 실계정 E2E(계정 없음, BLOCKED) · 독립 재검증 · 사용자 main 통합 확인 |
+| F07b-연구 | 강의 cue 공개 수준 연구 자료 | **CONDITIONAL** | sidecar v1 @`810a463ac` 존재·원본 결속 확인·경계 전 2,849 cue 2인 검수(일치 0.8498 < 0.85, κ 0.701). 불일치 428·누적 UNKNOWN 739·조기 공개 후보 34(05 §2) |
+| F07b-내용 | cue별 공개 의미 정확성·안전 구간 | **CONTENT_REVIEW_REQUIRED** | 불일치 재판정·근거 인용 품질 보완·결정성 재검토 4 · `promoted` 1,888은 승인 아님 |
+| F07b-제품 | 공개 게이트 제품 적용(05 §3) | **CONDITIONAL**(실행 게이트 BLOCKED_EVIDENCE) | sidecar 승인 · 투영 loader · 전 채널 경계 · 런타임 노출 이력 · jump/skip 검증 전 READY 아님. 현재 제품은 sidecar를 읽지 않음 |
+| F07b-효과 | 학습 효과 | NOT_EVALUATED | — |
 | F08 | 작업면 배치 | **CONDITIONAL**(미선정) | F08_EVALUATION v1.0 실측: 실제 로컬 PDF · 정상 인증 · 사용자 4명 |
 | F02 | 원문·의미(로컬 PDF) | **BLOCKED_EVIDENCE** | 원지 sha·크롭 좌표·정상 권한·가독성 화면 |
 | F06 | 실기출 비교 | **BLOCKED_EVIDENCE** | 실계정 HTTP/RLS 비공개 차단 관측 · source_hash 결속 · 비교 주장 검수 |
@@ -60,9 +63,9 @@ S1 설계 수용(T-0138 독립 검증) 후에 사용자 승인으로 범위를 �
 
 | 후보 | 범위 | 선행 조건 | 하지 않는 것 |
 |---|---|---|---|
-| S2-a 강의 학습자 제어 main 반영 | LC 브랜치(5커밋, 5파일) | 2bd99a0f1 독립 재검증 · 실계정 E2E 실행(계정 비밀번호 필요) · Q1 사용자 판단 · 사용자 main 통합 확인 | 공개 안내·대본 수정 |
-| S2-b 2026-34 공개 후 4기능 | 이관 명세 1~5단계 중 서버 DTO·F01·F03·F04·F05 | S2-a 통합 이후 그 위에서(같은 파일) · 파일 소유 조정(T-0137) · 화면 상태 6종 동시 | F08 배치 확정 · 강의 공개 안내 · 38번 |
-| S2-c 강의 cue 공개 태깅 드레인 | `lecture-data/*.json` 29회차 cue에 `disclosure` 태그(데이터만) | 태그 기준표 · 표본 감수 · 재실행 안전 export→태깅→import | 대본 문구 수정 · 화면 반영 |
+| S2-a 강의 학습자 제어 main 반영 | `feat/lecture-learner-control`@`0e36138e3`(main 위 6커밋·5파일) + G3 §5 잔여 보완 4건 | 보완 후 독립 재검증 · AnalysisTheater 장착 하네스 · 실계정 E2E(계정 비밀번호 필요) · 사용자 main 통합 확인 | 공개 게이트·대본 수정 |
+| S2-b 2026-34 공개 후 4기능 | G3 DELTA §8 단계 0·3·4(결속, F01·F03, F04·F05) | S2-a 확정 이후 같은 파일 위에서 · 화면 상태 6종 동시 · `LectureStage`를 바꾸는 단계 1은 S2-a 채택 판단 뒤 | F08 배치 확정 · 강의 공개 게이트 · 38번 |
+| S2-c **기존 cue sidecar의 품질 보완·독립 검수·승인·제한적 제품 적용** | ① `810a463ac` sidecar·원본 blob·cue hash·정답 출처 고정 → ② 불일치 428·누적 UNKNOWN 739·비승격 961·결정성 재검토 4 재판정, 근거 인용 보완, 조기 공개 패턴(05 §2) 검출 추가 → ③ 일치율 원비율로 재판정(0.85 기준이면 현재 0.8498 미충족, 사후 기준 완화 금지) → ④ 5값·4단계·누적·노출 이력 단일 계약(05 §3) → ⑤ 승인된 투영만 제한 적용, 원본 변경·해시 불일치·jump/skip·READ/TTS/강조/ARIA 경계 검증 | 기존 2,849 검수분은 재사용, 10,131 cue 전수 재태깅은 하지 않음(품질 평가 후 필요 범위만) · 승인 · 적용은 코드 작업이라 별도 범위 승인 | 원본 대본 JSON 키 추가(필수 아님) · 대본 문구 수정 · main 통합 자동 승인 |
 | S2-d 유형 준비도 SELECT 정례화 | 44유형 행·0의 원인 표시(읽기 전용 산출) | 없음(DB SELECT만) | DB 쓰기 |
 
 착수 불가: S2 전체 · main 통합(S2-a 조건 충족 전) · F02/F06/F09/F10 · R-CHART · 듣기 · 38⑤ 학습자 노출 · 미승인 강의 문구 반영 · DB 재분류·데이터 보정(승인 전).
