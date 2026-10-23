@@ -14,6 +14,7 @@
 | 8 유형별 구현 준비도·우선순위 · 10 S2 제한 착수 후보 | [04_READINESS_S2](./04_READINESS_S2.md) |
 | 4·5 보강: 강의 cue 공개 수준 자료·조기 공개 34·공개 게이트 | [05_CUE_DISCLOSURE](./05_CUE_DISCLOSURE.md) |
 | T-0141 잔여 보완: 44유형 대응표 · 34 cue 공개×강의 제어 충돌 · S2-a~d 소유·착수·AT | [06_RESIDUAL](./06_RESIDUAL.md) |
+| T-0142 S2-d: 44유형 실제 코드·DB 준비도(대응표 대비 차이) | [07_S2D_READINESS](./07_S2D_READINESS.md) |
 
 ## 입력과 보존
 
