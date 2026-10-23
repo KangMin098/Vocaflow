@@ -917,9 +917,10 @@ export function AnalysisTheater({
     else setCursor(to)
   }
   const goto = (index: number) => {
-    // 정답 직접 안내 전까지 듣는 중 — 경계 뒤 차례는 넘을지 묻는다(건너뛰어 답을 듣게 하지 않는다)
-    if (playing && lec && lecturePath === 'until' && stopAt != null && index >= stopAt) {
-      lec.toggle()
+    // 정답 직접 안내 전까지 고른 동안 — 경계 뒤 차례는 재생 · 일시정지 · 끝남 어느 상태에서도 넘을지 묻는다(건너뛰어 답을 듣게 하지 않는다).
+    // 멈춤은 재생 중일 때만(pauseLecture) — 일시정지에서 toggle 하면 오히려 다시 튼다(T-0140 Codex r2 P2)
+    if (lec && lecturePath === 'until' && stopAt != null && index >= stopAt) {
+      pauseLecture()
       setAtBoundary(true)
       return
     }
@@ -1125,13 +1126,18 @@ export function AnalysisTheater({
             <button type="button" className={styles.lectureOfferBtn} onClick={continuePastBoundary} data-testid="lecture-boundary-continue">
               계속 듣기(정답 공개)
             </button>
-            <button type="button" className={styles.lectureOfferBtn} onClick={() => setAtBoundary(false)} data-testid="lecture-boundary-stop">
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => {
+                pauseLecture()
+                setAtBoundary(false)
+              }}
+              data-testid="lecture-boundary-stop">
               여기서 멈춤
             </button>
             <button
               type="button"
               className={styles.lectureOfferBtn}
               onClick={() => {
+                pauseLecture()
                 setAtBoundary(false)
                 setLecturePath('self')
                 document.querySelector<HTMLElement>('[data-testid="workspace-paper"]')?.focus()

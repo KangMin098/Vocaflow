@@ -101,7 +101,12 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
   it('경계 정지 — 계속 · 멈춤 · 원문을 학습자가 고르고, 경계 뒤 차례로 건너뛰지 않는다', () => {
     expect(theater).toMatch(/data-testid="lecture-boundary-continue"/)
     expect(theater).toMatch(/data-testid="lecture-boundary-stop"/)
-    expect(theater).toMatch(/lecturePath === 'until' && stopAt != null && index >= stopAt/)
+    // 재생 · 일시정지 · 끝남 어느 상태에서도 경계 뒤 차례는 묻는다 — `playing &&` 조건이 붙으면 끝난 뒤 레일로 건너뛴다
+    expect(theater).toMatch(/if \(lec && lecturePath === 'until' && stopAt != null && index >= stopAt\) \{\s*pauseLecture\(\)/)
+    // 일시정지에서 toggle 하면 다시 튼다 — 경계 처리 · 멈춤 · 원문은 재생 중일 때만 멈추는 pauseLecture 를 쓴다(T-0140 Codex r2)
+    const boundary = theater.slice(theater.indexOf('data-testid="lecture-boundary"'), theater.indexOf('data-testid="lecture-boundary-self"'))
+    expect(boundary.match(/pauseLecture\(\)/g)?.length).toBe(2)
+    expect(theater).toMatch(/const pauseLecture = \(\) => \{[^}]*if \(lec\?\.status === 'playing'\) lec\.toggle\(\)/)
   })
 
   it('레일 차례는 오답 소거 번호를 지운 채 서버가 넘긴다 · 경계는 결속 확인을 거친다', () => {
