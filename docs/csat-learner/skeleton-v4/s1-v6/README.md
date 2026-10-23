@@ -1,3 +1,5 @@
+**T-0136 R2 현재 제출:** [D1 표시 계약·실행 근거](./correction/r2/REVIEW_PACKET.md), [F08 사전 선정 기준](./correction/r2/F08_EVALUATION.md), [34 제품 경로 이관 설계](./correction/r2/PRODUCT_TRANSFER_2026_34.md). D1 A 자체 PASS·Claude 독립 수용 대기 / B 콘텐츠 미승인. F08 두 후보 유지·미선정. 제품 코드 미구현, 전체 S1/S2/main 미승인. 아래 R1·기존 완료 이력은 보존 기록이다.
+
 # T-0131 · CSAT v6.0 S0 정정 수용 / S1 목표 적합성 설계
 
 **현재: T-0136 보정의 외부 ACCEPT / PARTIAL / REJECT 판정 대기.** 기존 T-0131/T-0134/T-0135 COMPLETED 및 `a6e33d1d4`까지의 제한된 수용 기록을 보존했다. [C1 원문 근거·F08 동등 비교·34통합/22회귀](./correction/CORRECTION.md) · [현재 결정 정정](./correction/DECISION_UPDATE.json). 38⑤는 원본을 보존한 version/hash/승인필수 수정 후보이며 미적용이다. F08은 동일5기능·자료·공개·강의·과업으로 비교한 결과 REPLACE 단독 최종 선정 근거가 충분하지 않아 재판단을 요청한다. F01/F03/F05/F07 IMPROVE·F04 REPLACE의 이전 한정 설계 기록과 나머지4 증거 부족은 보존한다. 전체 S1 제품·내용·학습 효과는 NOT_ACCEPTED이고 main 통합·S2 전체 착수는 금지한다. [T-0135 당시 선정](./selection/SELECTION.md) · [기존 완료 상태·S0 독립성 감사](./goal-fit/STATUS_AUDIT.md).

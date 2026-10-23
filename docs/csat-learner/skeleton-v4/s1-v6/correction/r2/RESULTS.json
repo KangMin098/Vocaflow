@@ -1,0 +1,1004 @@
+{
+  "task": "T-0136",
+  "runSeq": 2,
+  "baseCommit": "9e73d7660bfaa03f4bb73320275525137df92df9",
+  "observedAt": "2026-10-23T16:50:09.371Z",
+  "cases": [
+    {
+      "id": "learner-2026-34-improve-1280",
+      "audience": "learner",
+      "item": "2026-34",
+      "layout": "IMPROVE",
+      "width": 1280,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "accepted paired truth/fit and qualifier sources preserved",
+          "result": "PASS"
+        },
+        {
+          "name": "registered roundtrip and unregistered links remain distinct",
+          "result": "PASS"
+        },
+        {
+          "name": "condition comparison and player/viewer independence preserved",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-34-improve-1280-aria.txt",
+        "sha256": "ec91494f470475201afe2ade5bc8a7a1dc53b4ede5af4a6ea42abfee8d917be4",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-34-replace-1280",
+      "audience": "learner",
+      "item": "2026-34",
+      "layout": "REPLACE",
+      "width": 1280,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "accepted paired truth/fit and qualifier sources preserved",
+          "result": "PASS"
+        },
+        {
+          "name": "registered roundtrip and unregistered links remain distinct",
+          "result": "PASS"
+        },
+        {
+          "name": "condition comparison and player/viewer independence preserved",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-34-replace-1280-aria.txt",
+        "sha256": "588122234fb7d03ac2f4feb1146cf2aa51954d3cdb6ce5b5e07b07fc0eecc0db",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-22-improve-1280",
+      "audience": "learner",
+      "item": "2026-22",
+      "layout": "IMPROVE",
+      "width": 1280,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "accepted paired truth/fit and qualifier sources preserved",
+          "result": "PASS"
+        },
+        {
+          "name": "registered roundtrip and unregistered links remain distinct",
+          "result": "PASS"
+        },
+        {
+          "name": "condition comparison and player/viewer independence preserved",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-22-improve-1280-aria.txt",
+        "sha256": "de62fcfc4fb38409cacb96bd7b920dd80b2e641bc7e21f6412efd3b72d034b5d",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-22-replace-1280",
+      "audience": "learner",
+      "item": "2026-22",
+      "layout": "REPLACE",
+      "width": 1280,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "accepted paired truth/fit and qualifier sources preserved",
+          "result": "PASS"
+        },
+        {
+          "name": "registered roundtrip and unregistered links remain distinct",
+          "result": "PASS"
+        },
+        {
+          "name": "condition comparison and player/viewer independence preserved",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-22-replace-1280-aria.txt",
+        "sha256": "0f69f6fa6c681677eec82e60b139c28a3f12114b984005d9d9b05271c8931729",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-38-improve-1280",
+      "audience": "learner",
+      "item": "2026-38",
+      "layout": "IMPROVE",
+      "width": 1280,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "no proposed explanation, relation or archived lecture in ordinary DOM/AX",
+          "result": "PASS"
+        },
+        {
+          "name": "held relationship is not mislabeled UNREGISTERED",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-improve-1280-aria.txt",
+        "sha256": "a13c8d6456b1ff34a9d3544d2414883bf0c9b393e2d5ce59dbd490413973f364",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-38-replace-1280",
+      "audience": "learner",
+      "item": "2026-38",
+      "layout": "REPLACE",
+      "width": 1280,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "no proposed explanation, relation or archived lecture in ordinary DOM/AX",
+          "result": "PASS"
+        },
+        {
+          "name": "held relationship is not mislabeled UNREGISTERED",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-replace-1280-aria.txt",
+        "sha256": "26f20e216ffb046238b6acc786403fa8838bff846bf4781586ccd57053f70f0f",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-34-improve-1440",
+      "audience": "learner",
+      "item": "2026-34",
+      "layout": "IMPROVE",
+      "width": 1440,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "accepted paired truth/fit and qualifier sources preserved",
+          "result": "PASS"
+        },
+        {
+          "name": "registered roundtrip and unregistered links remain distinct",
+          "result": "PASS"
+        },
+        {
+          "name": "condition comparison and player/viewer independence preserved",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-34-improve-1440-aria.txt",
+        "sha256": "ec91494f470475201afe2ade5bc8a7a1dc53b4ede5af4a6ea42abfee8d917be4",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-34-replace-1440",
+      "audience": "learner",
+      "item": "2026-34",
+      "layout": "REPLACE",
+      "width": 1440,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "accepted paired truth/fit and qualifier sources preserved",
+          "result": "PASS"
+        },
+        {
+          "name": "registered roundtrip and unregistered links remain distinct",
+          "result": "PASS"
+        },
+        {
+          "name": "condition comparison and player/viewer independence preserved",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-34-replace-1440-aria.txt",
+        "sha256": "588122234fb7d03ac2f4feb1146cf2aa51954d3cdb6ce5b5e07b07fc0eecc0db",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-22-improve-1440",
+      "audience": "learner",
+      "item": "2026-22",
+      "layout": "IMPROVE",
+      "width": 1440,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "accepted paired truth/fit and qualifier sources preserved",
+          "result": "PASS"
+        },
+        {
+          "name": "registered roundtrip and unregistered links remain distinct",
+          "result": "PASS"
+        },
+        {
+          "name": "condition comparison and player/viewer independence preserved",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-22-improve-1440-aria.txt",
+        "sha256": "de62fcfc4fb38409cacb96bd7b920dd80b2e641bc7e21f6412efd3b72d034b5d",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-22-replace-1440",
+      "audience": "learner",
+      "item": "2026-22",
+      "layout": "REPLACE",
+      "width": 1440,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "accepted paired truth/fit and qualifier sources preserved",
+          "result": "PASS"
+        },
+        {
+          "name": "registered roundtrip and unregistered links remain distinct",
+          "result": "PASS"
+        },
+        {
+          "name": "condition comparison and player/viewer independence preserved",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-22-replace-1440-aria.txt",
+        "sha256": "0f69f6fa6c681677eec82e60b139c28a3f12114b984005d9d9b05271c8931729",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-38-improve-1440",
+      "audience": "learner",
+      "item": "2026-38",
+      "layout": "IMPROVE",
+      "width": 1440,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "no proposed explanation, relation or archived lecture in ordinary DOM/AX",
+          "result": "PASS"
+        },
+        {
+          "name": "held relationship is not mislabeled UNREGISTERED",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-improve-1440-aria.txt",
+        "sha256": "a13c8d6456b1ff34a9d3544d2414883bf0c9b393e2d5ce59dbd490413973f364",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "learner-2026-38-replace-1440",
+      "audience": "learner",
+      "item": "2026-38",
+      "layout": "REPLACE",
+      "width": 1440,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "no proposed explanation, relation or archived lecture in ordinary DOM/AX",
+          "result": "PASS"
+        },
+        {
+          "name": "held relationship is not mislabeled UNREGISTERED",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-replace-1440-aria.txt",
+        "sha256": "26f20e216ffb046238b6acc786403fa8838bff846bf4781586ccd57053f70f0f",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "review-2026-38-improve-1280",
+      "audience": "review",
+      "item": "2026-38",
+      "layout": "IMPROVE",
+      "width": 1280,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "candidate label and ARIA description are adjacent in judgment and original toggle",
+          "result": "PASS"
+        },
+        {
+          "name": "candidate relationship display and accessible link names carry same status",
+          "result": "PASS"
+        },
+        {
+          "name": "every original38 cue display remains marked pending review, not approved narration",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1280-aria.txt",
+        "sha256": "a9b77ea9c3019416df3b034feba2548ee1f847f85ae89db9552454b73bb59e08",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "review-2026-38-replace-1280",
+      "audience": "review",
+      "item": "2026-38",
+      "layout": "REPLACE",
+      "width": 1280,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "candidate label and ARIA description are adjacent in judgment and original toggle",
+          "result": "PASS"
+        },
+        {
+          "name": "candidate relationship display and accessible link names carry same status",
+          "result": "PASS"
+        },
+        {
+          "name": "every original38 cue display remains marked pending review, not approved narration",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1280-aria.txt",
+        "sha256": "2454cfdebef8034993a1d2b099280e7638b0776e6b721857826ca9c07926282e",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "review-2026-38-improve-1440",
+      "audience": "review",
+      "item": "2026-38",
+      "layout": "IMPROVE",
+      "width": 1440,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "candidate label and ARIA description are adjacent in judgment and original toggle",
+          "result": "PASS"
+        },
+        {
+          "name": "candidate relationship display and accessible link names carry same status",
+          "result": "PASS"
+        },
+        {
+          "name": "every original38 cue display remains marked pending review, not approved narration",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1440-aria.txt",
+        "sha256": "a9b77ea9c3019416df3b034feba2548ee1f847f85ae89db9552454b73bb59e08",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    },
+    {
+      "id": "review-2026-38-replace-1440",
+      "audience": "review",
+      "item": "2026-38",
+      "layout": "REPLACE",
+      "width": 1440,
+      "checks": [
+        {
+          "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+          "result": "PASS"
+        },
+        {
+          "name": "candidate label and ARIA description are adjacent in judgment and original toggle",
+          "result": "PASS"
+        },
+        {
+          "name": "candidate relationship display and accessible link names carry same status",
+          "result": "PASS"
+        },
+        {
+          "name": "every original38 cue display remains marked pending review, not approved narration",
+          "result": "PASS"
+        }
+      ],
+      "result": "PASS",
+      "aria": {
+        "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1440-aria.txt",
+        "sha256": "2454cfdebef8034993a1d2b099280e7638b0776e6b721857826ca9c07926282e",
+        "scope": "DOM accessible roles/names only; not screen reader execution"
+      },
+      "documentOverflow": 0
+    }
+  ],
+  "captures": [
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-34-improve-1280-final.png",
+      "sha256": "0bce5a3753a115f09f9602fcdad6788c3141191ab78b51153c392db735e5b49f",
+      "case": "learner-2026-34-improve-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-34-replace-1280-final.png",
+      "sha256": "7088b56935760b6313662c3d35c2be96399d3bbe8c4bc4bb6942fc5f518e9554",
+      "case": "learner-2026-34-replace-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-22-improve-1280-final.png",
+      "sha256": "64bb67c46a9737101b3b869bfd871b1a11431751cf9f997b0f7d195f3f1e6e49",
+      "case": "learner-2026-22-improve-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-22-replace-1280-final.png",
+      "sha256": "7f4812bffd33d4e8ceda918ecad556961f0f740b9fd65259400ddb25abdd0e09",
+      "case": "learner-2026-22-replace-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-improve-1280-final.png",
+      "sha256": "e4407eb87db5598606c12dcaa1d236fa1903e1e129fd026a4caffcc9e4ef67d6",
+      "case": "learner-2026-38-improve-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-replace-1280-final.png",
+      "sha256": "8aeaabd0c34d2be0d7616e3abbd17dba3fb03a96fc3be7d813f1fa0bdfb89a9c",
+      "case": "learner-2026-38-replace-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-34-improve-1440-final.png",
+      "sha256": "d226a7efe809ff46577d4f43fbf5742f1fc7f534511bba64b17453bda461e138",
+      "case": "learner-2026-34-improve-1440",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-34-replace-1440-final.png",
+      "sha256": "f0a0509d357b216909964b9c1f8cfeae4894bf69118fb973eec0e124cdd042ca",
+      "case": "learner-2026-34-replace-1440",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-22-improve-1440-final.png",
+      "sha256": "9dfd512fcceea5cf13611535b67972781fd07366d72092b261c95f52d624d470",
+      "case": "learner-2026-22-improve-1440",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-22-replace-1440-final.png",
+      "sha256": "4036a187ddb7a50172eec3c80b4672961b5761d7748a7155cd215b34c0505669",
+      "case": "learner-2026-22-replace-1440",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-improve-1440-final.png",
+      "sha256": "d8cfe2dea49e18ae7fe1adae41f668504de99823f5cec4264d75843a375a26cb",
+      "case": "learner-2026-38-improve-1440",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-replace-1440-final.png",
+      "sha256": "e05478851b1839e9869895795f444402ce1469becdd89d1e6f98f35ecef93ad0",
+      "case": "learner-2026-38-replace-1440",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1280-candidate-judgment.png",
+      "sha256": "1e6cae462f0c604a0d9fe796c8b615bb1f9a51916f1cbc4292dec689263692ba",
+      "case": "review-2026-38-improve-1280",
+      "stage": "candidate-judgment"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1280-candidate-relation.png",
+      "sha256": "314f32963195474d9d0c6514a2b6b5dc9e090893d20d962ab4ed5506903ce306",
+      "case": "review-2026-38-improve-1280",
+      "stage": "candidate-relation"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1280-lecture-status.png",
+      "sha256": "912693e91fc1e028472e0e6c8f0f9aa0560d4299fe7f71adb9174301cce9ce30",
+      "case": "review-2026-38-improve-1280",
+      "stage": "lecture-status"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1280-final.png",
+      "sha256": "18176541112c8f032e01a76691976fe29de5202fb2fd9bee8c3c3e801b1f7e2f",
+      "case": "review-2026-38-improve-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1280-candidate-judgment.png",
+      "sha256": "37fcf7013ba9221d2ac266617ee61f09ec7e9dbf69d9077038da1aa124509dcb",
+      "case": "review-2026-38-replace-1280",
+      "stage": "candidate-judgment"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1280-candidate-relation.png",
+      "sha256": "d7c18e10a92be1bb3a5dc274b0d717b44168fd403a1c39a62e71256792d1d745",
+      "case": "review-2026-38-replace-1280",
+      "stage": "candidate-relation"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1280-lecture-status.png",
+      "sha256": "4ca1ecab5d6e8a44a5670ddbf4aef57fdd406647695327a09ff2f6ce3fb563fe",
+      "case": "review-2026-38-replace-1280",
+      "stage": "lecture-status"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1280-final.png",
+      "sha256": "bc4547d95e05defe10692a163965c1e4fac857dc4fdf2892ae71e782aaa4cfc5",
+      "case": "review-2026-38-replace-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1440-candidate-judgment.png",
+      "sha256": "2b828e1e626068e8af42d4526e39885e6ac79193609dec01acb64f90c6977ed2",
+      "case": "review-2026-38-improve-1440",
+      "stage": "candidate-judgment"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1440-candidate-relation.png",
+      "sha256": "b8af64fe975125fdd712f77fa93d9436a74aa134f90a92775c8f384abbe17617",
+      "case": "review-2026-38-improve-1440",
+      "stage": "candidate-relation"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1440-lecture-status.png",
+      "sha256": "e1fb3f5f52bf7370d5bad5158f142b2126240833d2a061fad9eca7d729c5dff8",
+      "case": "review-2026-38-improve-1440",
+      "stage": "lecture-status"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1440-final.png",
+      "sha256": "7e38aa2172aa1a6f2e1b7840fa8ca9888797acd310c436eb0d7185446d681e2f",
+      "case": "review-2026-38-improve-1440",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1440-candidate-judgment.png",
+      "sha256": "56e1c805672eb4702c34de51588480ccab9c331f012f7b02d73e13a70338d100",
+      "case": "review-2026-38-replace-1440",
+      "stage": "candidate-judgment"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1440-candidate-relation.png",
+      "sha256": "933393a8b1fb94f325f0e0e542786b8fa3ce8d08d23936c597c5b849725acb98",
+      "case": "review-2026-38-replace-1440",
+      "stage": "candidate-relation"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1440-lecture-status.png",
+      "sha256": "7b514d309a7df2d5f76f932f5c74a695425f01a182f0b56062693f76f4bd53da",
+      "case": "review-2026-38-replace-1440",
+      "stage": "lecture-status"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1440-final.png",
+      "sha256": "fa3075efec6125f7fda04e07c968a9eb26fe05644a245c3c51d8804b084406e4",
+      "case": "review-2026-38-replace-1440",
+      "stage": "final"
+    }
+  ],
+  "assertions": [
+    {
+      "case": "learner-2026-34-improve-1280",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-improve-1280",
+      "name": "accepted paired truth/fit and qualifier sources preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-improve-1280",
+      "name": "registered roundtrip and unregistered links remain distinct",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-improve-1280",
+      "name": "condition comparison and player/viewer independence preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-replace-1280",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-replace-1280",
+      "name": "accepted paired truth/fit and qualifier sources preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-replace-1280",
+      "name": "registered roundtrip and unregistered links remain distinct",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-replace-1280",
+      "name": "condition comparison and player/viewer independence preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-improve-1280",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-improve-1280",
+      "name": "accepted paired truth/fit and qualifier sources preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-improve-1280",
+      "name": "registered roundtrip and unregistered links remain distinct",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-improve-1280",
+      "name": "condition comparison and player/viewer independence preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-replace-1280",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-replace-1280",
+      "name": "accepted paired truth/fit and qualifier sources preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-replace-1280",
+      "name": "registered roundtrip and unregistered links remain distinct",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-replace-1280",
+      "name": "condition comparison and player/viewer independence preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-improve-1280",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-improve-1280",
+      "name": "no proposed explanation, relation or archived lecture in ordinary DOM/AX",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-improve-1280",
+      "name": "held relationship is not mislabeled UNREGISTERED",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-replace-1280",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-replace-1280",
+      "name": "no proposed explanation, relation or archived lecture in ordinary DOM/AX",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-replace-1280",
+      "name": "held relationship is not mislabeled UNREGISTERED",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-improve-1440",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-improve-1440",
+      "name": "accepted paired truth/fit and qualifier sources preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-improve-1440",
+      "name": "registered roundtrip and unregistered links remain distinct",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-improve-1440",
+      "name": "condition comparison and player/viewer independence preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-replace-1440",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-replace-1440",
+      "name": "accepted paired truth/fit and qualifier sources preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-replace-1440",
+      "name": "registered roundtrip and unregistered links remain distinct",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-34-replace-1440",
+      "name": "condition comparison and player/viewer independence preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-improve-1440",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-improve-1440",
+      "name": "accepted paired truth/fit and qualifier sources preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-improve-1440",
+      "name": "registered roundtrip and unregistered links remain distinct",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-improve-1440",
+      "name": "condition comparison and player/viewer independence preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-replace-1440",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-replace-1440",
+      "name": "accepted paired truth/fit and qualifier sources preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-replace-1440",
+      "name": "registered roundtrip and unregistered links remain distinct",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-22-replace-1440",
+      "name": "condition comparison and player/viewer independence preserved",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-improve-1440",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-improve-1440",
+      "name": "no proposed explanation, relation or archived lecture in ordinary DOM/AX",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-improve-1440",
+      "name": "held relationship is not mislabeled UNREGISTERED",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-replace-1440",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-replace-1440",
+      "name": "no proposed explanation, relation or archived lecture in ordinary DOM/AX",
+      "result": "PASS"
+    },
+    {
+      "case": "learner-2026-38-replace-1440",
+      "name": "held relationship is not mislabeled UNREGISTERED",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-improve-1280",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-improve-1280",
+      "name": "candidate label and ARIA description are adjacent in judgment and original toggle",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-improve-1280",
+      "name": "candidate relationship display and accessible link names carry same status",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-improve-1280",
+      "name": "every original38 cue display remains marked pending review, not approved narration",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-replace-1280",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-replace-1280",
+      "name": "candidate label and ARIA description are adjacent in judgment and original toggle",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-replace-1280",
+      "name": "candidate relationship display and accessible link names carry same status",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-replace-1280",
+      "name": "every original38 cue display remains marked pending review, not approved narration",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-improve-1440",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-improve-1440",
+      "name": "candidate label and ARIA description are adjacent in judgment and original toggle",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-improve-1440",
+      "name": "candidate relationship display and accessible link names carry same status",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-improve-1440",
+      "name": "every original38 cue display remains marked pending review, not approved narration",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-replace-1440",
+      "name": "ordinary payload excludes proposal and held38 lecture; review is explicitly separate",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-replace-1440",
+      "name": "candidate label and ARIA description are adjacent in judgment and original toggle",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-replace-1440",
+      "name": "candidate relationship display and accessible link names carry same status",
+      "result": "PASS"
+    },
+    {
+      "case": "review-2026-38-replace-1440",
+      "name": "every original38 cue display remains marked pending review, not approved narration",
+      "result": "PASS"
+    }
+  ],
+  "errors": [],
+  "network": [],
+  "failure": null,
+  "immutableR1Hashes": {
+    "C1_CANDIDATE.json": "4f4127df565479606ffa1ce2844e35cc561595d6354fc0d55164ae202d4db1e2",
+    "SOURCE_BINDINGS.json": "0bb2751e9eb754203bc5986a00fd26cbae0a196c02c9d177cde24597268e25f4",
+    "RESULTS.json": "6699b2922a13fe38a5f6d76c8d935e27e5f90f93a28aded55c615ae9023d3751",
+    "MANIFEST.json": "a68aadf91e3c028b83dbc9bd78fc8e772459f69292640d314f0dd5abcdf58545"
+  },
+  "approvals": {
+    "displayContractA": "AUTHOR_VERIFIED_PENDING_CLAUDE",
+    "contentApprovalB": "NOT_APPROVED"
+  },
+  "unverified": [
+    "full color contrast",
+    "whole keyboard traversal",
+    "screen reader",
+    "normal auth/RLS",
+    "real local PDF",
+    "real TTS",
+    "learner effect"
+  ],
+  "notAuthorized": [
+    "product implementation",
+    "main integration",
+    "S2 full implementation",
+    "DB/original mutation"
+  ]
+}

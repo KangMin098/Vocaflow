@@ -1,3 +1,5 @@
+**R2 최신 보정:** [공식 반려 D1/D2 재제출 패킷](./r2/REVIEW_PACKET.md). 현재 검증기는 `validate.mjs`→`r2/validate.mjs`이다. 아래 R1 및 상위 MANIFEST/RESULTS는 9e73d7660의 역사적 증거이며 현재 fixture 검증은 R2 MANIFEST를 사용한다.
+
 # T-0136 — C1 원문 근거·F08 동등 비교·34 통합 보정
 
 2026-10-24 KST. 작성 owner `csat-v4-s0`, 실제 실행 PID28488, 기존 세션·브랜치·워크트리 유지. 기준 커밋 `a6e33d1d4580124fc1e7c1032cb21961abf4f989`. T-0131/T-0134/T-0135의 COMPLETED와 당시 결과는 보존했다. 현재 외부 판정은 **AWAITING ACCEPT / PARTIAL / REJECT**이며 작성자가 대신 확정하지 않는다.

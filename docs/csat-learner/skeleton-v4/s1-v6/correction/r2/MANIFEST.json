@@ -1,0 +1,117 @@
+{
+  "task": "T-0136",
+  "runSeq": 2,
+  "baseCommit": "9e73d7660bfaa03f4bb73320275525137df92df9",
+  "files": [
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/CODE_SCOPE.json",
+      "sha256": "b37c2af842a5a8ceb1cb3fb8bf5846bd5fc1fdb9462628ca31d6155095ca12d9"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/content-policy.mjs",
+      "sha256": "92c0e2dd95e7253979070e5a1cbfe6eaaaf36d045527c6ff4bb2311a01e13a10"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/content-policy.test.mjs",
+      "sha256": "6d92a4f2ae8f0678ac316c95c9572c61addc6e0e2e6bfef8f90ec69af826d969"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/DECISION_UPDATE.json",
+      "sha256": "e53278a218c1b3706c5c67225858df263609757a1111406cd35cce49822f01c6"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/F08_EVALUATION.md",
+      "sha256": "d4226b16c4909884b2cb39eb2d7b3a2815255844b842442396ace91f037a3729"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/PRODUCT_TRANSFER_2026_34.md",
+      "sha256": "06d140b297ffa24bd0f0455f5196477fc54a52de676c81b9c4c5a59acd3bde26"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/RESULTS.json",
+      "sha256": "59dccd707fb1bd35c5ecb2283ca3398cc8b7eee21fe367d6a4d2d8f1943a40f4"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/REVIEW_PACKET.md",
+      "sha256": "49e5a170d5582a71ad892b1f237f67792588c1005ae96844da262ac7acd4419f"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/run.mjs",
+      "sha256": "1a055b502183773b883e5dec04355580b5868be0760a831967400357a8823479"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/validate.mjs",
+      "sha256": "7892cbf79378c61bf635d0d0e1ebc1f418afe361d51c94002fd84d6a068d9096"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/fixture.tsx",
+      "sha256": "7e849858c1ec02c63b069aad1827f04b2bf5de13a33d613534c804e18fce12d5"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/validate.mjs",
+      "sha256": "9c54010a6b4582896c92b3776427613fc67e03ed7352e2465cd6b05feb508dd0"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/CORRECTION.md",
+      "sha256": "609d8c899455f78c0306e840b7ae07769c006eceec1769628aa20c3c3dd8a63a"
+    },
+    {
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/README.md",
+      "sha256": "c69f572a1761df332ae2aa3eda3e76fb74aa62aa41385c967724859fba29403a"
+    },
+    {
+      "path": "docs/CHANGELOG.md",
+      "sha256": "d2c69ead61f9aec6cac87f29b5ba82058c599954c4532235cf8b381b892ea064"
+    }
+  ],
+  "privateArtifacts": [
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\unit.log",
+      "sha256": "795f1ab8fdb56478f636bd0b979c1fbdc58b3fd456cdad8341c6f4b90b28d42e"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\unit-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01.log",
+      "sha256": "cda2a03055a328f9c7cc2a7b385f34c80c3fab5b6f9e9fffdd46b0ea8b18a5cf"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\EXECUTION.json",
+      "sha256": "59dccd707fb1bd35c5ecb2283ca3398cc8b7eee21fe367d6a4d2d8f1943a40f4"
+    }
+  ],
+  "visualInspection": [
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\learner-2026-38-replace-1280-final.png",
+      "sha256": "8aeaabd0c34d2be0d7616e3abbd17dba3fb03a96fc3be7d813f1fa0bdfb89a9c",
+      "case": "learner-2026-38-replace-1280",
+      "stage": "final"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1280-candidate-judgment.png",
+      "sha256": "1e6cae462f0c604a0d9fe796c8b615bb1f9a51916f1cbc4292dec689263692ba",
+      "case": "review-2026-38-improve-1280",
+      "stage": "candidate-judgment"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-improve-1280-lecture-status.png",
+      "sha256": "912693e91fc1e028472e0e6c8f0f9aa0560d4299fe7f71adb9174301cce9ce30",
+      "case": "review-2026-38-improve-1280",
+      "stage": "lecture-status"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\r2\\run-01\\review-2026-38-replace-1440-candidate-relation.png",
+      "sha256": "933393a8b1fb94f325f0e0e542786b8fa3ce8d08d23936c597c5b849725acb98",
+      "case": "review-2026-38-replace-1440",
+      "stage": "candidate-relation"
+    }
+  ],
+  "approval": "AUTHOR_VERIFIED_PENDING_CLAUDE",
+  "contentApproval": "NOT_APPROVED"
+}

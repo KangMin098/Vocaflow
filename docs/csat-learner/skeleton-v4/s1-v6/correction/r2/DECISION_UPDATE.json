@@ -1,0 +1,47 @@
+{
+  "task": "T-0136",
+  "runSeq": 2,
+  "baseCommit": "9e73d7660bfaa03f4bb73320275525137df92df9",
+  "D1": {
+    "A": "AUTHOR_PASS_PENDING_CLAUDE",
+    "B": "NOT_APPROVED",
+    "candidateVersion": "1.0.0",
+    "appliedToOriginal": false
+  },
+  "F08": {
+    "candidates": [
+      "IMPROVE",
+      "REPLACE"
+    ],
+    "selected": null,
+    "measurements": null,
+    "status": "UNSELECTED",
+    "protocol": "F08_EVALUATION.md",
+    "protocolVersion": "1.0"
+  },
+  "preserved": {
+    "F01": "IMPROVE",
+    "F03": "IMPROVE",
+    "F04": "REPLACE",
+    "F05": "IMPROVE",
+    "F07": "IMPROVE",
+    "scope": "accepted isolated interaction design only"
+  },
+  "productTransfer": {
+    "status": "DESIGN_ONLY_NOT_IMPLEMENTED",
+    "spec": "PRODUCT_TRANSFER_2026_34.md"
+  },
+  "held": {
+    "F02": "BLOCKED_EVIDENCE",
+    "F06": "BLOCKED_EVIDENCE",
+    "F09": "BLOCKED_EVIDENCE",
+    "F10": "BLOCKED_EVIDENCE"
+  },
+  "independentReview": "AWAITING_CLAUDE",
+  "notAuthorized": [
+    "product implementation",
+    "main integration",
+    "S2 full implementation",
+    "DB/original mutation"
+  ]
+}

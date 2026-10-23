@@ -1,0 +1,46 @@
+{
+  "task": "T-0136",
+  "status": "READ_ONLY_CODE_OBSERVATION",
+  "files": [
+    {
+      "path": "apps/web/src/app/(app)/csat/item/[slug]/page.tsx",
+      "sha256": "795e0f3b15df064c72d22742fe9609870999559e1007f6edf9015ec4c25a072c"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/InquiryV3Panels.tsx",
+      "sha256": "0a2e9ac689b4f4666f47026da08b2a3f0f153dc39d3e63946df149c9ff003d40"
+    },
+    {
+      "path": "apps/web/src/components/csat/theater/AnalysisTheater.tsx",
+      "sha256": "967c8c68bae9af6ad3a8768b2af7a80889c8fb27a9d22206d241d4d5264990e9"
+    },
+    {
+      "path": "apps/web/src/components/csat/lecture/LectureStage.tsx",
+      "sha256": "ea06d7ba808aca36a6d5616e69649e3607d1d8ae1a970901e98478c6ec57cf5f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/meaning-support/align.ts",
+      "sha256": "8e7fa8fcdbfc361e2e297cb2b6f9c5db6bac74b9563e3d6eaa0a4a17952ab82f"
+    },
+    {
+      "path": "apps/web/src/lib/csat/map-return.ts",
+      "sha256": "8df2ca8a66464abe5d7d4b6ddc729f6c306e63a18f23ebe92cdc1bad4f94aec1"
+    },
+    {
+      "path": "apps/web/src/lib/csat/system-learning.ts",
+      "sha256": "b4d10b3927a03195ce76bd754e128a3faaea472def55d74b2c9e0b0fdcbadd60"
+    },
+    {
+      "path": "apps/web/src/app/api/csat/lecture/route.ts",
+      "sha256": "62db9b7797cd9514b6a51dfe13b21eae1e799acdeb0b969d66701d8ee5462c7c"
+    },
+    {
+      "path": "apps/web/src/lib/csat/inquiry-data.json",
+      "sha256": "14037f59cbbd972c20761e7bd806bedd832b2c8f987c0adf9ad679d578345534"
+    },
+    {
+      "path": "apps/web/src/lib/csat/lecture-data/2026.json",
+      "sha256": "26ede0e2f1b6f53331189246496ff1eec88386085e1ff2cb620ccaf850d3bfe4"
+    }
+  ]
+}
