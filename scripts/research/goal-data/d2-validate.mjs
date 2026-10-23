@@ -101,7 +101,8 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
    * 트랙 전체(모든 청크) — 주 TASK 선택 이유 반복(T-0107: 3행 완전 일치만 잡던 것을 보강)
    *   완전 반복 2행 이상 · 템플릿(골격) 반복 3행 이상(「direct 단일」 형식 행은 골격 검사 제외) · 청크 경계를 넘어 센다
    */
-  function reasons(allRows) {
+  /** 구조화된 트랙 전체 결함 — { msg, ids(관련 문항 전부), kind, text }. 청크 단위 실행기는 문자열을 역해석하지 않고 이것을 쓴다(T-0124 P1-01 · P1-02) */
+  function reasonsDetail(allRows) {
     const withReason = allRows.filter((r) => typeof r.primary_reason === 'string')
     if (!reasonsRequired && !withReason.length) return []
     const errs = []
@@ -113,13 +114,13 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
       if (isSingleDirect(k)) {
         const directs = (r.links ?? []).filter((l) => l.relevance === 'direct').map((l) => l.task_id)
         if (directs.length === 1 && directs[0] === r.primary_task) continue
-        errs.push(`${r.item_id}: primary_reason 이 「direct 단일」 인데 direct 링크 ${directs.length}개(${directs.join(',') || '없음'}) · primary ${r.primary_task} — 허위 단일 표지`)
+        errs.push({ ids: [r.item_id], kind: '허위 direct 단일', text: '', msg: `${r.item_id}: primary_reason 이 「direct 단일」 인데 direct 링크 ${directs.length}개(${directs.join(',') || '없음'}) · primary ${r.primary_task} — 허위 단일 표지` })
       }
       const s = skeleton(k)
       if (s.length >= 6) skel.set(s, [...(skel.get(s) ?? []), r.item_id])
     }
-    for (const [k, ids] of exact) if (ids.length >= 2) errs.push(`primary_reason 완전 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
-    for (const [s, ids] of skel) if (ids.length >= 3) errs.push(`primary_reason 템플릿 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 골격 「${s.slice(0, 24)}」`)
+    for (const [k, ids] of exact) if (ids.length >= 2) errs.push({ ids, kind: 'primary_reason 완전 반복', text: k.slice(0, 30), msg: `primary_reason 완전 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 「${k.slice(0, 30)}」` })
+    for (const [s, ids] of skel) if (ids.length >= 3) errs.push({ ids, kind: 'primary_reason 템플릿 반복', text: s.slice(0, 24), msg: `primary_reason 템플릿 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 골격 「${s.slice(0, 24)}」` })
     // not_observable why — 문항 id 를 지운 같은 설명이 3문항 이상이면 문항 고유 판정이 아니다(b14 B-01: 44개가 한 틀).
     //   행 비율 기준은 고유 줄을 덧붙이면 우회돼 버렸다(T-0123 RECHECK-P1-01) → 설명 하나하나를 문항 단위로 센다.
     //   예외는 계약 고정 문구의 **정확한 문자열**만(삽입 문항 E2 — v2.2 §3). TASK · 유형만 보는 예외는 아무 설명이나 통과시켰다(RECHECK-P1-02).
@@ -132,11 +133,12 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
         if (n.task_id === 'e.evidence_location' && byId.get(r.item_id)?.type_id === 'R-INSERT' && FIXED_INSERT_E2.has(k)) continue
         nob.set(k, new Set([...(nob.get(k) ?? []), r.item_id]))
       }
-      for (const [k, ids] of nob) if (ids.size >= 3) errs.push(`not_observable why 틀 반복 ${ids.size}문항(${[...ids].slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
+      for (const [k, ids] of nob) if (ids.size >= 3) errs.push({ ids: [...ids], kind: 'not_observable why 틀 반복', text: k.slice(0, 30), msg: `not_observable why 틀 반복 ${ids.size}문항(${[...ids].slice(0, 3).join(',')}): 「${k.slice(0, 30)}」` })
     }
     return errs
   }
-  return { row, chunk, reasons, byId }
+  const reasons = (allRows) => reasonsDetail(allRows).map((e) => e.msg)
+  return { row, chunk, reasons, reasonsDetail, byId }
 }
 
 /** 청크 크기 — b2 · b3 만 10, 그 뒤 배치는 20(d2-run · prereg-compare 공용) */
@@ -165,4 +167,39 @@ export function loadTrack(dir, track, nChunks, V, ids) {
   if (re.length) { errors.push(...re.map((x) => `${track} 트랙: ${x}`)); out.clear() }
   for (const id of ids) if (!out.has(id) && !errors.some((e) => e.includes(id))) errors.push(`${track} ${id} 출력 없음`)
   return { out, errors }
+}
+
+/**
+ * 한 청크만 검사(분석자용 `validate A NN` · T-0124) — 문자열을 역해석하지 않고 직접 센다.
+ *   이 청크: 출력 파일 · 문항 누락 · 청크 반복 검사 · 행 검사 → 항상 이 청크 결함.
+ *   트랙 전체 반복(reasonsDetail): 관련 문항 **전부** 중 이 청크 문항이 하나라도 있으면 이 청크 결함(다른 청크 문항 번호는 내보내지 않음),
+ *   없으면 trackExcluded 상태로만 알린다(내용 없음 · 이 청크 결함에 안 섞임 — 이 청크 누락은 위에서 이미 셌다).
+ */
+export function checkChunk(dir, track, nn, nChunks, V) {
+  const own = JSON.parse(fs.readFileSync(path.join(dir, `chunk-${track}-${nn}.json`), 'utf8')).items.map((r) => r.item_id)
+  const ownSet = new Set(own)
+  const mine = []
+  const f = path.join(dir, `chunk-${track}-${nn}.out.json`)
+  const rows = fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? [] : null
+  if (!rows) mine.push(`${path.basename(f)} 없음`)
+  else {
+    const got = new Set(rows.map((r) => r.item_id))
+    for (const id of own) if (!got.has(id)) mine.push(`${id} 출력 없음`)
+    for (const r of rows) if (!ownSet.has(r.item_id)) mine.push(`${r.item_id} 이 청크 문항이 아니다`)
+    const ce = V.chunk(rows)
+    if (ce.length) mine.push(...ce.map((x) => `청크: ${x}`))
+    else for (const r of rows.filter((x) => ownSet.has(x.item_id))) mine.push(...V.row(r).map((x) => `${r.item_id}: ${x}`))
+  }
+  const all = []
+  for (let k = 0; k < nChunks; k++) {
+    const g = path.join(dir, `chunk-${track}-${String(k + 1).padStart(2, '0')}.out.json`)
+    if (fs.existsSync(g)) all.push(...(JSON.parse(fs.readFileSync(g, 'utf8')).rows ?? []))
+  }
+  let trackExcluded = false
+  for (const e of V.reasonsDetail(all)) {
+    const hit = e.ids.filter((id) => ownSet.has(id))
+    if (hit.length) mine.push(`트랙 ${e.kind}(이 청크 문항 ${hit.join(',')} · 전체 ${e.ids.length}문항)${e.text ? `: 「${e.text}」` : ''}`)
+    else trackExcluded = true
+  }
+  return { own, mine, trackExcluded }
 }

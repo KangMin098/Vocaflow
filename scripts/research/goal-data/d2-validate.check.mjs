@@ -6,7 +6,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 
-import { loadTrack, makeValidator } from './d2-validate.mjs'
+import { checkChunk, loadTrack, makeValidator } from './d2-validate.mjs'
 
 const input = { contract: 'v2.4', tasks: ['r.central_meaning'], rows: [] }
 const V = makeValidator(input, [])
@@ -76,4 +76,32 @@ const cmp = fs.readFileSync(new URL('./prereg-compare.mjs', import.meta.url), 'u
 const usesLoader = cmp.includes('loadTrack(') && !cmp.includes('V.row(r)')
 console.log(`${usesLoader ? 'ok ' : 'FAIL'} prereg-compare 가 공용 로더만 쓴다`)
 if (!usesLoader) bad++
+
+// 청크 단위 검사(T-0124) — 자기 누락은 배제 탓으로 숨지 않고, 반복 그룹의 넷째 문항이 있는 청크도 결함으로 센다
+{
+  const ids = ['Q#1', 'Q#2', 'Q#3', 'Q#4', 'Q#5', 'Q#6']
+  const real = makeValidator({ contract: 'v2.4', tasks: ['r.central_meaning'], batch: 'b17-v24', rows: ids.map((item_id) => ({ item_id })) }, [])
+  // 행 · 청크 검사는 원문이 필요해 빈 함수로 — 트랙 반복(reasonsDetail)과 누락 집계만 실제 코드로 본다
+  const Vc = { row: () => [], chunk: () => [], reasonsDetail: real.reasonsDetail }
+  const why = '같은 틀 설명 문장이 반복된다'
+  const RS = { "Q#1": "첫 단락 결론을 압축하면 정답만 남는다", "Q#2": "선지 셋이 본문 낱말을 재사용해 대조가 필요하다", "Q#3": "빈칸 뒤 예시를 묶어 일반화해야 한다", "Q#4": "부정 발문 방향을 놓치면 반대 선지로 간다", "Q#5": "흩어진 두 근거를 찾아 맞춰야 정답이 갈린다", "Q#6": "주어진 문장의 대명사가 앞 단락을 가리킨다" }
+  const row = (id, rep) => ({ item_id: id, primary_reason: RS[id], not_observable: [{ task_id: 'r.inference', why: rep ? why : `고유 설명 ${{ "Q#1": "가", "Q#2": "나", "Q#3": "다", "Q#4": "라", "Q#5": "마", "Q#6": "바" }[id]} 연결` }] })
+  const mk = (a, b) => {
+    const d = fs.mkdtempSync(path.join(os.tmpdir(), 'd2-chunk-'))
+    fs.writeFileSync(path.join(d, 'chunk-A-01.json'), JSON.stringify({ items: ids.slice(0, 3).map((item_id) => ({ item_id })) }))
+    fs.writeFileSync(path.join(d, 'chunk-A-02.json'), JSON.stringify({ items: ids.slice(3).map((item_id) => ({ item_id })) }))
+    fs.writeFileSync(path.join(d, 'chunk-A-01.out.json'), JSON.stringify({ rows: a }))
+    fs.writeFileSync(path.join(d, 'chunk-A-02.out.json'), JSON.stringify({ rows: b }))
+    return d
+  }
+  const c1 = checkChunk(mk(ids.slice(0, 3).map((id) => row(id, true)), []), 'A', '02', 2, Vc)
+  const c2 = checkChunk(mk(ids.slice(0, 3).map((id) => row(id, true)), [row('Q#4', true), row('Q#5', false), row('Q#6', false)]), 'A', '02', 2, Vc)
+  const c3 = checkChunk(mk(ids.slice(0, 3).map((id) => row(id, true)), ids.slice(3).map((id) => row(id, false))), 'A', '02', 2, Vc)
+  const cc = [
+    { name: '청크: 다른 청크 반복으로 트랙 배제돼도 자기 출력 비면(rows=[]) 출력 없음 3 집계(P1-01)', got: c1.mine.filter((e) => e.endsWith('출력 없음')).length === 3 },
+    { name: '청크: 반복 그룹 넷째 문항이 있는 청크도 트랙 결함 집계(P1-02)', got: c2.mine.some((e) => e.startsWith('트랙 not_observable') && e.includes('Q#4') && !e.includes('Q#1')) },
+    { name: '청크: 자기 청크 무관한 반복은 상태만(결함에 안 섞이고 다른 청크 id 비노출)', got: c3.trackExcluded && !c3.mine.some((e) => e.startsWith('트랙') || e.includes('Q#1')) },
+  ]
+  for (const c of cc) { console.log(`${c.got ? 'ok ' : 'FAIL'} ${c.name}`); if (!c.got) bad++ }
+}
 process.exit(bad ? 1 : 0)

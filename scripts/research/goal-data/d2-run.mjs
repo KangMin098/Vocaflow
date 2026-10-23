@@ -10,7 +10,7 @@ import path from 'node:path'
 
 import { ROOT, nonHeldTasks } from '../../csat/map/v62/data/pilot-lib.mjs'
 
-import { chunkSize, loadTrack, makeValidator } from './d2-validate.mjs'
+import { checkChunk, chunkSize, loadTrack, makeValidator } from './d2-validate.mjs'
 
 const [batch, cmd] = process.argv.slice(2)
 const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local', String(batch))
@@ -56,7 +56,7 @@ const load = (track) => loadTrack(LOCAL, track, nChunks, V, [...byId.keys()])
 
 /**
  * validate [A|B] [NN] — 청크 번호를 주면 그 청크 문항의 결함만 보인다(b16: 분석자가 같은 트랙 다른 청크의 결함 · 설명을 봤다).
- *   트랙 전체 결함(반복 검사)은 이 청크 문항이 들어 있을 때만, 다른 청크 문항 번호는 가려서 보인다. 종료 코드는 이 청크 기준
+ *   d2-validate.checkChunk 로 직접 센다(T-0124: 문자열 역해석이 자기 누락 · 넷째 반복 문항을 숨겼다). 종료 코드는 이 청크 기준
  */
 function validate(only, chunkNo) {
   let bad = 0
@@ -71,17 +71,10 @@ function validate(only, chunkNo) {
       continue
     }
     const nn = String(chunkNo).padStart(2, '0')
-    const own = new Set(JSON.parse(fs.readFileSync(path.join(LOCAL, `chunk-${t}-${nn}.json`), 'utf8')).items.map((r) => r.item_id))
-    const others = [...byId.keys()].filter((id) => !own.has(id))
-    // 다른 청크의 트랙 전체 결함(반복)은 내용을 가리고, 이 청크가 함께 배제됐다는 사실만 알린다.
-    // 그때 이 청크 행의 「출력 없음」 은 배제 때문이라 이 청크 결함으로 세지 않는다(출력 파일이 있을 때)
-    const foreignTrack = errors.some((e) => e.startsWith(`${t} 트랙`) && ![...own].some((id) => e.includes(id)))
-    const excludedOnly = foreignTrack && fs.existsSync(path.join(LOCAL, `chunk-${t}-${nn}.out.json`))
-    const mine = errors.filter((e) => [...own].some((id) => e.includes(id)) && !(excludedOnly && e.endsWith('출력 없음')))
-      .map((e) => others.reduce((s, id) => s.split(id).join('(다른 청크)'), e))
-    console.log(`${t}-${nn}: 통과 ${[...own].filter((id) => out.has(id)).length}/${own.size} · 이 청크 결함 ${mine.length}`)
+    const { own, mine, trackExcluded } = checkChunk(LOCAL, t, nn, nChunks, V)
+    console.log(`${t}-${nn}: 문항 ${own.length} · 이 청크 결함 ${mine.length}`)
     for (const e of mine.slice(0, 80)) console.log('  ' + e)
-    if (foreignTrack) console.log('  (다른 청크의 트랙 전체 반복 결함으로 이 트랙 행이 함께 배제됨 — 내용은 보이지 않는다 · 이 청크 결함이 0 이면 기다린다)')
+    if (trackExcluded) console.log('  (다른 청크의 트랙 전체 반복 결함으로 이 트랙이 결합에서 배제된 상태 — 내용은 보이지 않는다 · 이 청크 결함이 0 이면 기다린다)')
     bad += mine.length
   }
   process.exit(bad ? 1 : 0)
