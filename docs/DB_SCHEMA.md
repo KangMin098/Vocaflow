@@ -6,7 +6,7 @@
 
 > **2026-10-23 목표 예산 독립 감사·미적용 rev2:** 주간0분을 허용하고 예산 해제(NULL)도 새 writer의 목표 버전 CAS로 처리한다. `weekly_hours`는 입력 제안만이며 목표별 명시 예산이 우선한다. 기존 목표2행·PLAN2행, 본인 SELECT RLS·추가 전용 트리거, 새 열/함수 부재를 읽기 전용으로 확인했다(2026-10-23 03:31 UTC). 원문 SHA·권한·동시성/복구 한계: [승인 패키지](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md). 승인 전 개발 DB 적용 금지.
 
-> **2026-10-23 제안·미적용 — 최종 평가 결속:** `20261023170000_csat_goal_final_assessment.sql`은 `csat_map_goal_final_assessment`(목표 버전당 1행 · 응시일 · 추가 전용 · RLS 본인 SELECT)와 service-role 전용 `csat_map_goal_final_assessment_bind(uuid,bigint,date,uuid)`(최신 목표만 · 목표 다음 날~목표일 · 충돌 PT409)를 추가하는 승인 대기 SQL이다. 기존 행·RLS·RPC는 바꾸지 않는다. 공유 DB 미설치.
+> **2026-10-23 적용(사용자 승인 · 이력 `20261023082930`) — 최종 평가 결속:** `20261023170000_csat_goal_final_assessment.sql`은 `csat_map_goal_final_assessment`(목표 버전당 1행 · 응시일 · 추가 전용 · RLS 본인 SELECT)와 service-role 전용 `csat_map_goal_final_assessment_bind(uuid,bigint,date,uuid)`(최신 목표만 · 목표 다음 날~목표일 · 충돌 PT409)를 추가했다. 기존 행·RLS·RPC는 바꾸지 않았다(전후 목표 26행 · PLAN 10행 해시 동일).
 
 > **2026-10-23 제안·미적용 — 목표 시간 예산:** `20261023090000_csat_goal_budget.sql`은 `csat_map_goal_version.planning_budget jsonb`와 검증 제약·`csat_goal_budget_valid(jsonb)`·service-role 전용 `csat_map_goal_budget_set(...)`을 추가하는 승인 대기 SQL이다. 기존 목표/PLAN 이력과 RLS·추가 전용 가드는 유지한다. 주간·요일별 한도와 잠정 단위 시간은 목표 버전별로 보존하며 점수·숙달 예측에 쓰지 않는다. [계약·검증·복구](csat-learner/GOAL_ACHIEVEMENT.md). 공유 DB에 설치됐다는 뜻이 아니다.
 

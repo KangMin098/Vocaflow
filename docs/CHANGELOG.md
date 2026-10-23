@@ -182,7 +182,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
-- feat(csat): 최종 평가 결속 — 학습자가 목표 버전마다 「목표 시험 종류 · 응시일」을 최종 평가로 한 번 정하고(추론 금지), 그날 첫 풀이 live 기록만 goalOutcome 적격성으로 판정(met·not_met·not_judgeable·scheduled·awaiting_record). API `POST /api/csat/diagnosis/map/goal/final-assessment`. 제안 SQL `20261023170000_csat_goal_final_assessment`(추가 전용 테이블 + service_role writer) **미적용 · 승인 대기** — 미설치면 최종 달성 미확인 유지.
+- feat(csat): 최종 평가 결속 — 학습자가 목표 버전마다 「목표 시험 종류 · 응시일」을 최종 평가로 한 번 정하고(추론 금지), 그날 첫 풀이 live 기록만 goalOutcome 적격성으로 판정(met·not_met·not_judgeable·scheduled·awaiting_record). API `POST /api/csat/diagnosis/map/goal/final-assessment`. 제안 SQL `20261023170000_csat_goal_final_assessment`(추가 전용 테이블 + service_role writer) 2026-10-23 사용자 승인 후 개발 DB 적용(이력 20261023082930) · 실제 인증 종단 6/6.
 - feat(csat): 목표 대비 · 재처방 카드를 비교 구조로(T-0110) — 점수 축(목표·기록 표식) · 시험 기록 vs TASK 활동 대조, 재처방은 지금 배정·저장 계획대로·수정안 비교표(오늘의 학습과 같은 지금 값). 점수 충족·등급 미기록 다음 안내 record_grade. 판정·DB 변경 없음.
 - fix(csat): 직접 확인 판정이 코드북 조건을 따른다(T-0096) — E3·R2 객관식 정오만으로 학습 요구 확정 금지, R5 서로 다른 지문, R5·E2 다른 날 재확인(D4-DEC-01: t0 뒤 다른 KST 날짜·12시간, 그 전 pending_delayed). 채점 불변 · DB 변경 없음.
 - feat(csat): 목표 대비 판정 네 상태(기록 없음·판정 불가·미달·충족 — 충족은 한 번의 평가) · 재처방 패널(저장 계획 → 수정안 일정을 goalSchedule·scheduleChanges 로 비교, 확정은 Workspace 기존 관문) · 오늘의 학습 「N일 남음」 제거. DB 변경 없음.
