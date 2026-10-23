@@ -21,6 +21,8 @@ export const BATCHES = {
   // 계약 v2.1 확대 — 1·2배치와 겹치지 않는 직전 평가원 시험
   'b4-v21': { rule: 'M2606 독해 18–45 전 28 + 2024 수능 핵심 유형 12', ids: [...Array.from({ length: 28 }, (_, k) => `M2606#${18 + k}`), ...KEY_TYPES.map((n) => `2024#${n}`)] },
   // 802 확대(T-0100) — 범위 배치: 시험 순서대로 채우고 상한 40. 결손 · 도표 · 삽입 경계 불확실은 멈추지 않고 excluded 에 사유를 남긴다
+  // 수능 나머지 문항(핵심 유형 밖) — 2024 · 2025 → 2023 순 ≤40 · 이미 판정한 문항은 자동 제외(이전 배치 selection)
+  'b7-v24': { rule: '2024 · 2025 수능 핵심 유형 밖 18–45 → 2023 수능 핵심 유형 밖 순으로 ≤40 · 도표 · 결손 · 기판정 제외', ids: ['2024', '2025', '2023'].flatMap((e) => Array.from({ length: 28 }, (_, k) => 18 + k).filter((n) => !KEY_TYPES.includes(n)).map((n) => `${e}#${n}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   // b5 이후(T-0103 보완 · 계약 v2.3): 2023#38 은 b5 동결 뒤 사용자 승인으로 DB 복구 — 새 source_sha256 으로 재결속해 여기서 판정한다
   'b6-v23': { rule: 'M2506 독해 전 문항 → 2023#38(복구 재결속) → 2022 수능 핵심 유형 순으로 ≤40 · 도표 · 결손 제외', ids: [...Array.from({ length: 28 }, (_, k) => `M2506#${18 + k}`), '2023#38', ...KEY_TYPES.map((n) => `2022#${n}`)], range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.3' },
   'b5-v22': { rule: 'M2509 독해 전 문항 → 2023 수능 핵심 유형 순으로 ≤40 · 도표 · 결손 제외', ids: [...Array.from({ length: 28 }, (_, k) => `M2509#${18 + k}`), ...KEY_TYPES.map((n) => `2023#${n}`)], range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.2' },
@@ -45,9 +47,17 @@ const analyses = await get('csat_item_analyses', 'item_id,version,status,measure
 const traps = await get('csat_dx_option_trap', '*', def.ids)
 const byId = new Map(items.map((i) => [i.id, i]))
 /** 분석 부적격 사유(없으면 null) — D1 결손 · 삽입 경계 불확실 · 범위 배치의 제외 유형 */
+// 이미 다른 범위 배치(또는 고정 배치)에서 판정한 문항 — 범위 배치는 다시 넣지 않는다(재판정 배치 b3 같은 고정 배치는 의도적 재판정이라 대상 아님)
+const SEL_DIR = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping')
+const judgedBefore = new Map()
+for (const f of fs.readdirSync(SEL_DIR).filter((f) => f.endsWith('-selection.json') && !f.startsWith(`${batch}-`))) {
+  for (const it of JSON.parse(fs.readFileSync(path.join(SEL_DIR, f), 'utf8')).items ?? []) judgedBefore.set(it.item_id, f.replace('-selection.json', ''))
+}
+for (const it of JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/csat-learner/v62/data-expansion/pilot-selection.json'), 'utf8')).items ?? []) judgedBefore.set(it.item_id, 'pilot-1')
 function exclusion(id) {
   const i = byId.get(id)
   if (!i) return '문항 없음'
+  if (def.range && judgedBefore.has(id)) return `이미 판정(${judgedBefore.get(id)})`
   if (def.range && EXCLUDE_TYPES[i.type_id]) return EXCLUDE_TYPES[i.type_id]
   if (!i.body_ok) return 'body_ok=false(D1)'
   if (!Array.isArray(i.choices)) return 'choices 없음(D1)'
