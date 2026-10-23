@@ -8,6 +8,8 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { insertSplit } from './insert-split.mjs'
+
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../..')
 const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local')
 const KEY_TYPES = [22, 23, 29, 31, 32, 33, 34, 36, 37, 38, 39, 40]
@@ -18,14 +20,6 @@ export const BATCHES = {
   'b3-insert': { rule: '2026 · M2706 · M2609 · 2025 의 #38 · #39 (주어진 문장 분리 입력)', ids: ['2026', 'M2706', 'M2609', '2025'].flatMap((e) => [`${e}#38`, `${e}#39`]) },
   // 계약 v2.1 확대 — 1·2배치와 겹치지 않는 직전 평가원 시험
   'b4-v21': { rule: 'M2606 독해 18–45 전 28 + 2024 수능 핵심 유형 12', ids: [...Array.from({ length: 28 }, (_, k) => `M2606#${18 + k}`), ...KEY_TYPES.map((n) => `2024#${n}`)] },
-}
-
-/** 삽입 문항: passage = [주어진 문장] + [본문 첫 부분] + ( ① ) … — 첫 문장을 주어진 문장으로 분리한다. ① 앞 문장이 하나뿐이면 경계 불확실 */
-export function insertSplit(passage) {
-  const pre = String(passage ?? '').split('( ①')[0].trim()
-  const sentences = pre.split(/(?<=[.!?”"])\s+(?=[A-Z“"])/)
-  if (sentences.length < 2) return { given_sentence: null, confidence: 'uncertain', rule: '① 앞 문장 1개 — 주어진 문장 · 본문 경계 불확실' }
-  return { given_sentence: sentences[0], confidence: 'first_sentence', rule: 'passage 첫 문장 = 주어진 문장(인쇄본 박스) · 나머지는 본문' }
 }
 const batch = process.argv[2]
 const def = BATCHES[batch]
