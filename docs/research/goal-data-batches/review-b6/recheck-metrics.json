@@ -1,0 +1,1113 @@
+{
+  "source_commit": "16561e87506f4186083a2423439e62db1211d71f",
+  "base_commit": "c6adb90901ec4045bc09c979a909b369ce408b22",
+  "observed_at": "2026-10-23T06:45:04.049Z",
+  "diff_sha256": "333120c390982fb4906babfcc1b33c3c0b181a45d92e6af0cfd423335feca2a8",
+  "diff_summary": [
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md",
+      "sha256": "dd33b9aad7963dd7369296a18d8e90064e126b84729c15fda8a56366664d44bd",
+      "lines": 36
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/b6-v23-agreement.json",
+      "sha256": "e9f403acf536486f1823b155444e75d552fc0276d573d4d746e74e8a51098897",
+      "lines": 887
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json",
+      "sha256": "bceeaa94bb21d6f89bc2fafb0da584bb94e77584b6a8cd507772ad882142280f",
+      "lines": 894
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md",
+      "sha256": "e46083d147e0f6d06e6f95a16975ba6cbb9c9dab331ae231aaf78b0809d32b5a",
+      "lines": 149
+    },
+    {
+      "file": "docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl",
+      "before": 792,
+      "after": 792,
+      "added": 2,
+      "removed": 2
+    },
+    {
+      "file": "docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl",
+      "before": 198,
+      "after": 198,
+      "added": 10,
+      "removed": 10
+    },
+    {
+      "file": "docs/research/goal-data-batches/D3-principles/principle-groups.json",
+      "sha256": "b6a314f5942bc14867f3fb6cd1fe53391236d220a4754eff00756803929079e0",
+      "lines": 398
+    },
+    {
+      "file": "docs/research/goal-data-batches/D5-official-stats/official-sources.json",
+      "sha256": "22d84e437a6e00ea93e8778d71e58e92b28739ebb9a49b0e60435edbbe8b8cf9",
+      "lines": 178
+    },
+    {
+      "file": "docs/research/goal-data-batches/D5-official-stats/official-stats-review.md",
+      "sha256": "6b3096fcbd85058d6275a40ec9c61f583d137c8e979802a25f5578d232a72d30",
+      "lines": 27
+    },
+    {
+      "file": "docs/research/goal-data-batches/D5-official-stats/stats-proposal.json",
+      "sha256": "1667256da66c9b013472354e468d1218d3a4a2f952c41b99a8c9f746c33b45a7",
+      "lines": 1109
+    },
+    {
+      "file": "docs/research/goal-data-batches/README.md",
+      "sha256": "9d2577165df407d246a79a665fe04a9b5562a86fcf8c5cac68aa0e92cdc053ee",
+      "lines": 31
+    },
+    {
+      "file": "docs/research/goal-data-batches/authored-ai-review/nonrelease-calls.sql",
+      "sha256": "cd6b08737a028e2c0ddfd5e01e5a23eeb1d4ea48e8a4c81e25b188494c8d8ff4",
+      "lines": 191
+    },
+    {
+      "file": "scripts/research/goal-data/authored-ai-review/record-nonrelease.mts",
+      "sha256": "f5a384ed868cf7cdb996929a44345bd7b194834e71e6600584168616531a8113",
+      "lines": 140
+    },
+    {
+      "file": "scripts/research/goal-data/d2-run.mjs",
+      "sha256": "faf03c0905eca2291c2135d906b8d5dac0509fe96b0c41f752dfecb949d06e43",
+      "lines": 226
+    },
+    {
+      "file": "scripts/research/goal-data/d3-build.mjs",
+      "sha256": "df22701a43d0426fc4d99eca2e11404b3244bb92e0c34dd7696ca678a1f51790",
+      "lines": 111
+    }
+  ],
+  "regression": {
+    "b2-v2": {
+      "code": 0,
+      "logs": [
+        "A: 통과 40/40 · 결함 0",
+        "B: 통과 40/40 · 결함 0"
+      ]
+    },
+    "b3-insert": {
+      "code": 0,
+      "logs": [
+        "A: 통과 8/8 · 결함 0",
+        "B: 통과 8/8 · 결함 0"
+      ]
+    },
+    "b4-v21": {
+      "code": 0,
+      "logs": [
+        "A: 통과 40/40 · 결함 0",
+        "B: 통과 40/40 · 결함 0"
+      ]
+    },
+    "b5-v22": {
+      "code": 0,
+      "logs": [
+        "A: 통과 38/38 · 결함 0",
+        "B: 통과 38/38 · 결함 0"
+      ]
+    },
+    "b6-v23": {
+      "code": 0,
+      "logs": [
+        "A: 통과 40/40 · 결함 0",
+        "B: 통과 40/40 · 결함 0"
+      ]
+    }
+  },
+  "d3Regression": {
+    "b2-v2": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    },
+    "b3-insert": {
+      "expected": 8,
+      "accepted_A": 8,
+      "accepted_B": 8
+    },
+    "b4-v21": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    },
+    "b5-v22": {
+      "expected": 38,
+      "accepted_A": 38,
+      "accepted_B": 38
+    },
+    "b6-v23": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    }
+  },
+  "counterexamples": [
+    {
+      "contract": "v2.1",
+      "mode": "valid",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "nonempty_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "direct_present",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "no_subset",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)",
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다",
+        "  B M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "missing_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "null_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "valid",
+      "item": "M2509#18",
+      "d2_target_accepted": true,
+      "d2_errors": [],
+      "d3_target_accepted": true
+    },
+    {
+      "contract": "v2.2",
+      "mode": "nonempty_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "direct_present",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "no_subset",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)",
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다",
+        "  B M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "missing_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "null_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "valid",
+      "item": "M2509#18",
+      "d2_target_accepted": true,
+      "d2_errors": [],
+      "d3_target_accepted": true
+    },
+    {
+      "contract": "v2.3",
+      "mode": "nonempty_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "direct_present",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "no_subset",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)",
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다",
+        "  B M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "missing_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "null_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    }
+  ],
+  "repeatTests": [
+    {
+      "kind": "insert_E2_unknown",
+      "targets": [
+        "M2506#39",
+        "2023#38",
+        "2022#38",
+        "2022#39"
+      ],
+      "repeat_detected": false,
+      "code": 0,
+      "repeat_errors": []
+    },
+    {
+      "kind": "insert_R4_direct",
+      "targets": [
+        "M2506#39",
+        "2023#38",
+        "2022#38",
+        "2022#39"
+      ],
+      "repeat_detected": true,
+      "code": 1,
+      "repeat_errors": [
+        "  A chunk-A-02.out.json: 문항 4개에 같은 문장 반복(M2506#39,2023#38,2022#38…): 「검증용으로 세 문항 이상의 근거 설명을 똑같이 복제한 문장이다」"
+      ]
+    },
+    {
+      "kind": "noninsert_E2_direct",
+      "targets": [
+        "M2506#18",
+        "M2506#19",
+        "M2506#20"
+      ],
+      "repeat_detected": true,
+      "code": 1,
+      "repeat_errors": [
+        "  A chunk-A-01.out.json: 문항 3개에 같은 문장 반복(M2506#18,M2506#19,M2506#20…): 「검증용으로 세 문항 이상의 근거 설명을 똑같이 복제한 문장이다」"
+      ]
+    },
+    {
+      "kind": "insert_E2_direct",
+      "targets": [
+        "M2506#39",
+        "2023#38",
+        "2022#38",
+        "2022#39"
+      ],
+      "repeat_detected": true,
+      "code": 1,
+      "repeat_errors": [
+        "  A chunk-A-02.out.json: 문항 4개에 같은 문장 반복(M2506#39,2023#38,2022#38…): 「검증용으로 세 문항 이상의 근거 설명을 똑같이 복제한 문장이다」"
+      ]
+    },
+    {
+      "kind": "decision_path",
+      "targets": [
+        "M2506#18",
+        "M2506#19",
+        "M2506#20"
+      ],
+      "repeat_detected": true,
+      "code": 1,
+      "repeat_errors": [
+        "  A chunk-A-01.out.json: 문항 3개에 같은 문장 반복(M2506#18,M2506#19,M2506#20…): 「dp:특정 결정 문장을 보지 않고 모든 문항을 같은 수행 설명으로 판정한」"
+      ]
+    }
+  ],
+  "regenerated": {
+    "b6-v23-item-task-links.jsonl": true,
+    "b6-v23-disputed-links.jsonl": true,
+    "b6-v23-review-sample.json": true,
+    "b6-v23-agreement.json": true
+  },
+  "chunks": [
+    {
+      "track": "A",
+      "chunk": 1,
+      "rows": 20,
+      "links_unchanged": true,
+      "primary_reason_present": 20,
+      "exact_duplicate_groups": [],
+      "duplicate_rows": 0,
+      "single_direct_label_rows": 6,
+      "shared_15char_span_count": 0,
+      "shared_span_rows": [],
+      "primary_matches": 18,
+      "multi_direct": 14,
+      "multi_matches": 12
+    },
+    {
+      "track": "A",
+      "chunk": 2,
+      "rows": 20,
+      "links_unchanged": true,
+      "primary_reason_present": 20,
+      "exact_duplicate_groups": [],
+      "duplicate_rows": 0,
+      "single_direct_label_rows": 10,
+      "shared_15char_span_count": 0,
+      "shared_span_rows": [],
+      "primary_matches": 16,
+      "multi_direct": 10,
+      "multi_matches": 6
+    },
+    {
+      "track": "B",
+      "chunk": 1,
+      "rows": 20,
+      "links_unchanged": true,
+      "primary_reason_present": 20,
+      "exact_duplicate_groups": [],
+      "duplicate_rows": 0,
+      "single_direct_label_rows": 5,
+      "shared_15char_span_count": 0,
+      "shared_span_rows": [],
+      "primary_matches": 16,
+      "multi_direct": 15,
+      "multi_matches": 11
+    },
+    {
+      "track": "B",
+      "chunk": 2,
+      "rows": 20,
+      "links_unchanged": true,
+      "primary_reason_present": 20,
+      "exact_duplicate_groups": [],
+      "duplicate_rows": 0,
+      "single_direct_label_rows": 10,
+      "shared_15char_span_count": 0,
+      "shared_span_rows": [],
+      "primary_matches": 18,
+      "multi_direct": 10,
+      "multi_matches": 8
+    }
+  ],
+  "reason_duplicates_all80": [],
+  "direct_sets": {
+    "exact": 33,
+    "total": 40,
+    "mean_jaccard": 0.9375
+  },
+  "changes": [
+    {
+      "track": "A",
+      "chunk": 2,
+      "item": "M2506#41",
+      "old": "r.central_meaning",
+      "new": "e.option_correspondence",
+      "reason_sha256": "d0167be3bdb0b4ae948e5bdba5f8d68c0f23c0ae314002bb396277320b5af0b7",
+      "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:261"
+    },
+    {
+      "track": "A",
+      "chunk": 2,
+      "item": "2022#31",
+      "old": "r.central_meaning",
+      "new": "e.evidence_location",
+      "reason_sha256": "95cdaf991f84c7422e1f776971247af2e768def0747fae183c20195f6ee32382",
+      "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:1280"
+    },
+    {
+      "track": "A",
+      "chunk": 2,
+      "item": "2022#34",
+      "old": "r.central_meaning",
+      "new": "e.evidence_location",
+      "reason_sha256": "b124a2c1fcc994083f74498352ac4626bc1dd40281d115e0c9852a5b4271ef1d",
+      "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:1640"
+    },
+    {
+      "track": "A",
+      "chunk": 2,
+      "item": "2022#40",
+      "old": "r.central_meaning",
+      "new": "e.option_correspondence",
+      "reason_sha256": "269be0be30d8d64d025796d5455110419b41387a2367855b9f422d0f6896cbd9",
+      "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:2220"
+    },
+    {
+      "track": "B",
+      "chunk": 1,
+      "item": "M2506#31",
+      "old": "r.central_meaning",
+      "new": "e.evidence_location",
+      "reason_sha256": "fc7600a4602cfaa0a5b30d5461b9f2c2973f39c340790bf53ee4c1ed6fd59975",
+      "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-01.out.json:1525"
+    },
+    {
+      "track": "B",
+      "chunk": 1,
+      "item": "M2506#32",
+      "old": "r.central_meaning",
+      "new": "e.option_correspondence",
+      "reason_sha256": "fddacfe86a4eda4b4c6ae29a7f015e051cb30ef2981d6935ff45a97daf2b73aa",
+      "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-01.out.json:1650"
+    },
+    {
+      "track": "B",
+      "chunk": 2,
+      "item": "M2506#40",
+      "old": "r.central_meaning",
+      "new": "e.evidence_location",
+      "reason_sha256": "c8ecd66b52d047ffdfbf62863bb1712fa87e4ea050b7b0df48e48a3b6e52b449",
+      "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:108"
+    },
+    {
+      "track": "B",
+      "chunk": 2,
+      "item": "2022#33",
+      "old": "r.central_meaning",
+      "new": "e.evidence_location",
+      "reason_sha256": "6ec66b8eeec45d6dc5a6e24e1873625bef0ea2bce7c951ddf350f2c0cb49c90b",
+      "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:1481"
+    }
+  ],
+  "overall": {
+    "n": 240,
+    "agree": 225,
+    "agreement": 0.9375,
+    "kappa": 0.8907203351243056,
+    "counts": {
+      "A": {
+        "direct": 74,
+        "indirect": 24,
+        "not_applicable": 137,
+        "unknown": 5
+      },
+      "B": {
+        "direct": 77,
+        "indirect": 24,
+        "not_applicable": 134,
+        "unknown": 5
+      }
+    }
+  },
+  "per_task": {
+    "r.central_meaning": {
+      "n": 40,
+      "agree": 39,
+      "agreement": 0.975,
+      "kappa": 0.9550561797752809,
+      "counts": {
+        "A": {
+          "direct": 18,
+          "indirect": 2,
+          "not_applicable": 20,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 18,
+          "indirect": 3,
+          "not_applicable": 19,
+          "unknown": 0
+        }
+      }
+    },
+    "r.inference": {
+      "n": 40,
+      "agree": 40,
+      "agreement": 1,
+      "kappa": 1,
+      "counts": {
+        "A": {
+          "direct": 2,
+          "indirect": 0,
+          "not_applicable": 38,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 2,
+          "indirect": 0,
+          "not_applicable": 38,
+          "unknown": 0
+        }
+      }
+    },
+    "e.task_demand": {
+      "n": 40,
+      "agree": 40,
+      "agreement": 1,
+      "kappa": 1,
+      "counts": {
+        "A": {
+          "direct": 9,
+          "indirect": 2,
+          "not_applicable": 29,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 9,
+          "indirect": 2,
+          "not_applicable": 29,
+          "unknown": 0
+        }
+      }
+    },
+    "e.option_correspondence": {
+      "n": 40,
+      "agree": 38,
+      "agreement": 0.95,
+      "kappa": 0.913326110509209,
+      "counts": {
+        "A": {
+          "direct": 19,
+          "indirect": 3,
+          "not_applicable": 18,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 17,
+          "indirect": 4,
+          "not_applicable": 19,
+          "unknown": 0
+        }
+      }
+    },
+    "r.discourse_structure": {
+      "n": 40,
+      "agree": 37,
+      "agreement": 0.925,
+      "kappa": 0.8851674641148326,
+      "counts": {
+        "A": {
+          "direct": 11,
+          "indirect": 10,
+          "not_applicable": 19,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 11,
+          "indirect": 13,
+          "not_applicable": 16,
+          "unknown": 0
+        }
+      }
+    },
+    "e.evidence_location": {
+      "n": 40,
+      "agree": 31,
+      "agreement": 0.775,
+      "kappa": 0.6703296703296704,
+      "counts": {
+        "A": {
+          "direct": 15,
+          "indirect": 7,
+          "not_applicable": 13,
+          "unknown": 5
+        },
+        "B": {
+          "direct": 20,
+          "indirect": 2,
+          "not_applicable": 13,
+          "unknown": 5
+        }
+      }
+    }
+  },
+  "stop_alarm": {
+    "r.central_meaning": "ok",
+    "r.inference": "ok",
+    "e.task_demand": "ok",
+    "e.option_correspondence": "ok",
+    "r.discourse_structure": "ok"
+  },
+  "primary_agreement": 32,
+  "d3_totals": {
+    "items": 198,
+    "primary_agree": 165,
+    "wrong": 792,
+    "wrong_agree": 514,
+    "source_wrong": 780,
+    "source_wrong_agree": 502
+  },
+  "d3_propagation": [
+    {
+      "item": "M2506#18",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#19",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#20",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#21",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#22",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#23",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#24",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#26",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#27",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#28",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#29",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#30",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#31",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#32",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#33",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#34",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#35",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#36",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#37",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#38",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#39",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#40",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#41",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#42",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#43",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#44",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "M2506#45",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2023#38",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#22",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#23",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#29",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#31",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#32",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#33",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#34",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#36",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#37",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#38",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#39",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    },
+    {
+      "item": "2022#40",
+      "primary": true,
+      "fields": true,
+      "distractors": true
+    }
+  ],
+  "v24tests": [
+    {
+      "mode": "reason_control",
+      "target": "M2506#29",
+      "d2_target_accepted": true,
+      "d2_target_errors": [],
+      "d3_target_accepted": true
+    },
+    {
+      "mode": "missing_reason",
+      "target": "M2506#29",
+      "d2_target_accepted": false,
+      "d2_target_errors": [
+        "  A M2506#29: primary_reason(문항 고유 선택 이유 15자 이상) 없음(v2.4 §3)"
+      ],
+      "d3_target_accepted": true
+    },
+    {
+      "mode": "repeated_reason",
+      "target": "M2506#29",
+      "d2_target_accepted": false,
+      "d2_target_errors": [
+        "  A M2506#29 출력 없음"
+      ],
+      "d3_target_accepted": true
+    },
+    {
+      "mode": "E2_control",
+      "target": "M2506#18",
+      "d2_target_accepted": true,
+      "d2_target_errors": [],
+      "d3_target_accepted": true
+    },
+    {
+      "mode": "invalid_E2",
+      "target": "M2506#18",
+      "d2_target_accepted": false,
+      "d2_target_errors": [
+        "  A M2506#18: R-PURPOSE 의 E2 는 not_applicable(v2.4 §1)"
+      ],
+      "d3_target_accepted": true
+    }
+  ],
+  "packet_hashes": {
+    "scripts/research/goal-data/local/b2-v2/chunk-A-01.json": "1c10d4d222d70486c4b0b60bfa67b764c4f9929393170b27df697d73a922940a",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-01.out.json": "b3229b1b47dfaf39e7653536d2d9ac5c98b56aa8a968accf8d13b694e16abe31",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-02.json": "0a9876b7d2d865f8988d2ee86b19f4833a8566f7c5e6678b3d736d77884276ab",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-02.out.json": "9aee330a9ddbb71741e7344ed2b54a2d059f7d56f4d40714e236b5934750ea92",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-03.json": "da1d7606525b4289d111947cfddd97ceadcdb7c57c81530686c714d449e5a1a5",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-03.out.json": "57274050386aa60919573f636ee1e68bdcf0a33ee0a12221e673cc79203fccad",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-04.json": "90cd21c4af74325d61cd84a1c958231631d9b4c25a076e4439ad2b25789a5c8d",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-04.out.json": "deb5586e3a2e2074e077d75a27894b10afb89e9b182e0ce892d5a16c5c456291",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-01.json": "932793f4fdcad81164912d811759916fd1128632df0facba06a22f1bad9ee93b",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-01.out.json": "ffd07416e51419cd87d797845abdea8f812673999ce149c5e37b79b2e165b810",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-02.json": "f047b1ad1ba22120b796d8888d54abc2b2a6dca00e7d69e6b19338ae15a4c24e",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-02.out.json": "f52329b272bfbb83324d6c9fac8f10cb8f148ae9c0678c56c53b83bb260a4595",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-03.json": "038dda233e8754450fab1c5b886b5abe434330c35df65ac6daa76ad3eda3c461",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-03.out.json": "55cfa1b68e515279237e55163af5edd2ef7dc590930cbf3a107c9d734e84c1f9",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-04.json": "56821ecca2530b6f496254488ee5727598b9f8c97eb7309c6d3e0daddb65bc13",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-04.out.json": "dad929bc4d3111cc11081a8628d776e98e2681c887439bb2d402dc5dc9920df9",
+    "scripts/research/goal-data/local/b2-v2/input.json": "b0c77226c404e08f6515f96745177ab3a244030c261b5bc83a9d3ba34ca6db12",
+    "scripts/research/goal-data/local/b2-v2/r3-third.out.json": "b7268dc6091ba160ef5e0a5ae04457b2a5a5da3a124a236a0405ecf64e371bc9",
+    "scripts/research/goal-data/local/b3-insert/chunk-A-01.json": "14db56af1bcb9ed7b3f5579c2677d53b7a9ad0d0f4b3ad0e086fdc91fede00a9",
+    "scripts/research/goal-data/local/b3-insert/chunk-A-01.out.json": "7d080ddeaa51a5d25df2a75ca1ffc2cb7f08e3bc7d3da67062867aad70dbf986",
+    "scripts/research/goal-data/local/b3-insert/chunk-B-01.json": "82ebd1cb9a9dbc645b9cce9da6ec5ad024a7f971d407e2b2a11228154d78e4a9",
+    "scripts/research/goal-data/local/b3-insert/chunk-B-01.out.json": "1d4107952a51ae0c5d0c71fd77b5455e1a94a63499f760ea1e41a457b09f163b",
+    "scripts/research/goal-data/local/b3-insert/input.json": "e9cb00e9f0dcf798d09adee2a9bb87cf9f50f043f28b8e0cc60d59c03414ce18",
+    "scripts/research/goal-data/local/b4-v21/chunk-A-01.json": "f0892c08de3a80317c0a0e34cd561fa2d226571c89f4e1c32582e37522ecf639",
+    "scripts/research/goal-data/local/b4-v21/chunk-A-01.out.json": "f307dad57a20a281ab68f126a3068446eec6e74edf543f64ecc7d390e00fdc14",
+    "scripts/research/goal-data/local/b4-v21/chunk-A-02.json": "10eaa494b5368dd016ffa7c9fa72e4214c79d27dec6d18f6a0e287823da66fb2",
+    "scripts/research/goal-data/local/b4-v21/chunk-A-02.out.json": "9ed14d31599c7f42be6ab4d6b66be201e2f3a69f802930e6473a023bb99472e5",
+    "scripts/research/goal-data/local/b4-v21/chunk-B-01.json": "9691c62fb887f58ccabba477589bcd6cf542cc02810e573c0cc8c16242513f69",
+    "scripts/research/goal-data/local/b4-v21/chunk-B-01.out.json": "a46053c9e72d3022a40d81dbe8210c25d0226d5d5fbbbea3b68e99212c468f93",
+    "scripts/research/goal-data/local/b4-v21/chunk-B-02.json": "c091249969f924f892e37c43d28c071b867f1aab3f8af076fe84e3092c06c727",
+    "scripts/research/goal-data/local/b4-v21/chunk-B-02.out.json": "4def56bd75f69409e0f044fac164b71a1e3a65392ba4aefab55b7405717e9981",
+    "scripts/research/goal-data/local/b4-v21/input.json": "50b927c4c29e6d18794a68fd20d4f128f0b3ef307552e491c1145aaef16fa70c",
+    "scripts/research/goal-data/local/b5-v22/chunk-A-01.json": "8241d6b47ec69ec0805264dc05bd2221e4af7c2bf2b0a41d7df61dab4340454a",
+    "scripts/research/goal-data/local/b5-v22/chunk-A-01.out.json": "2f7fc6e8920e24ae4b0b8a07f84dd2f865c788fef80acd33343a2e53e7febe6d",
+    "scripts/research/goal-data/local/b5-v22/chunk-A-02.json": "74c93e1538b8bbd66ff4cba837b47d45900cce1c96024f4e6283060e97645e20",
+    "scripts/research/goal-data/local/b5-v22/chunk-A-02.out.json": "666e9fb9126c72bc1bb818c026478783204206af01509e0f3efcef9cb4596d1c",
+    "scripts/research/goal-data/local/b5-v22/chunk-B-01.json": "16cfc5bfc6d6c6a443732df1b476c28d7b8b822614927dee7117385ecd941045",
+    "scripts/research/goal-data/local/b5-v22/chunk-B-01.out.json": "bad96d0846bc5049e360651e6b59d504dad9745842bae93b77be388bfc76b8df",
+    "scripts/research/goal-data/local/b5-v22/chunk-B-02.json": "7f631f28c13debb76bfaed8efa02e5368073878a7d4239a23ada849a20c8349e",
+    "scripts/research/goal-data/local/b5-v22/chunk-B-02.out.json": "961086a50ad2778bee29886e21e9c6895145738c151e10b7cb66663025fde100",
+    "scripts/research/goal-data/local/b5-v22/input.json": "e8747b0f531f585030a1972bc4e4b77c191e710e3c485849df720578f5f5b764",
+    "scripts/research/goal-data/local/b6-v23/chunk-A-01.json": "3809476288a1f017e8d647020408a8b97cc42cba52e5fb166827e104759b9317",
+    "scripts/research/goal-data/local/b6-v23/chunk-A-01.out.json": "0a06667c0d82ad0029a678f09e5bbf686e48a86b186e03bcd197556c13b813c9",
+    "scripts/research/goal-data/local/b6-v23/chunk-A-02.json": "153f3e808efe1d8f9cf743b865582f852123edb712f9d737b4ffcaeb187870fd",
+    "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json": "87716ef7cb91b5da9f06dafacd37d43e43d3d4842d96266ccf2de5e52cf1ff38",
+    "scripts/research/goal-data/local/b6-v23/chunk-B-01.json": "cdf66bf9f5f28f83cf1511a5b90aad4190db856983e565368affd3542115975c",
+    "scripts/research/goal-data/local/b6-v23/chunk-B-01.out.json": "a863462ad693a81ad6f74752339d88f29035f2eedf40921607efa6f12707513c",
+    "scripts/research/goal-data/local/b6-v23/chunk-B-02.json": "4d17476bbe7f59731582302e3deaaa997c15751d093c5b64a9e678b2665764b7",
+    "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json": "3098659de360a4194270574fce90bdbe3c8ba4fa61df70f6a8e9f2c14e019a44",
+    "scripts/research/goal-data/local/b6-v23/input.json": "58e9ea9af8355bf7604f85175e6a53f5de6519cc6a5dfef33380a0593f82454b",
+    "scripts/research/goal-data/local/b6-v23/primary-rule-test.out.json": "0cd781408f243286af8b106e4fb001de84e7a249a49e0178e7605489297f59be"
+  }
+}
