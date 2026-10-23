@@ -54,6 +54,20 @@ test('real Claude launcher installs the additive task hook; isolated commands ar
   } finally { if (previous === undefined) delete process.env.VFC_CLAUDE_CMD; else process.env.VFC_CLAUDE_CMD = previous }
 })
 
+test('Windows exact mixed-case scope paths remain usable without opening forbidden paths', () => {
+  const { root } = fixture()
+  fs.mkdirSync(path.join(root, 'docs'))
+  fs.writeFileSync(path.join(root, 'docs', 'DECISIONS.md'), 'contract\n')
+  const scope = { worktree: root, allowed_paths: ['docs/DECISIONS.md', 'docs/SECRET.md'], forbidden_paths: ['docs/SECRET.md'] }
+  const event = (name) => ({ tool_name: 'Write', tool_input: { file_path: path.join(root, 'docs', name) } })
+  assert.equal(checkToolScope(event('DECISIONS.md'), scope), null)
+  assert.ok(checkToolScope(event('SECRET.md'), scope))
+  if (process.platform === 'win32') {
+    assert.equal(checkToolScope(event('decisions.md'), scope), null)
+    assert.ok(checkToolScope(event('secret.md'), scope))
+  }
+})
+
 test('shell boundary refuses cwd escape/compound/staging all; direct tests and explicit own commit remain usable', () => {
   const { root, scope } = fixture()
   const check = (command) => checkToolScope({ cwd: root, tool_name: 'Bash', tool_input: { command } }, scope)
