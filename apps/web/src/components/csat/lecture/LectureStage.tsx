@@ -281,12 +281,13 @@ export function LectureStage({
             : 'dim'
       el.setAttribute('data-lecture-state', state)
     }
-    if (active) {
-      // 접힌 층 안의 블록이면 편다 — 닫힌 채로 빛나면 학습자는 아무것도 못 본다
+    if (active && following) {
+      // 접힌 층 안의 블록이면 편다 — 닫힌 채로 빛나면 학습자는 아무것도 못 본다.
+      // 단 따라가기 중일 때만 — 학습자가 스스로 움직이는 동안 닫아 둔 층을 강의가 다시 열지 않는다
       const det = active.tagName === 'DETAILS' ? (active as HTMLDetailsElement) : active.closest('details')
       if (det && !det.open) det.open = true
     }
-  }, [activeKey, activeFocus, sessionOn])
+  }, [activeKey, activeFocus, sessionOn, following])
 
   // 큐가 바뀔 때만 한 번 움직인다(붙들기·멈춤으로는 움직이지 않는다) — 지시문 [D] 「스크롤 1회」
   const lastScrolled = useRef<number>(-1)
@@ -313,7 +314,8 @@ export function LectureStage({
   // 학습자가 직접 스크롤하면(휠 · 터치 · 스크롤 키) 따라가기를 끈다 — 강의가 읽던 자리를 빼앗지 않는다
   useEffect(() => {
     if (!sessionOn || !following) return
-    const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'])
+    // Tab = 포커스를 옮겨 스스로 읽는 중 — 스크롤 키와 같이 본다
+    const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Tab'])
     const stop = () => setFollowing(false)
     const onKey = (e: KeyboardEvent) => {
       if (SCROLL_KEYS.has(e.key)) stop()

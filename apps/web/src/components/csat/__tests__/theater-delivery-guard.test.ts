@@ -72,6 +72,8 @@ describe('강의 학습자 제어(2026-10-24 사용자 결정 1·3)', () => {
   it('학습자가 스크롤하면 따라가기가 꺼지고, 강의는 따라가기 중에만 화면을 옮긴다', () => {
     expect(stage).toMatch(/if \(!active \|\| !following\) return/)
     expect(stage).toMatch(/addEventListener\('wheel', stop/)
+    // 접힌 층을 여는 것도 따라가기 중에만 — 학습자가 닫아 둔 층을 강의가 다시 열지 않는다
+    expect(stage).toMatch(/if \(active && following\) \{/)
     expect(stage).toMatch(/following,\s*follow,/)
     expect(theater).toMatch(/data-testid="lecture-offer-follow"/)
     expect(theater).toMatch(/lec\?\.status === 'playing' && !lec\.following\) return/)

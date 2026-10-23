@@ -1018,7 +1018,7 @@ export function AnalysisTheater({
         </div>
       </header>
       {lectureElsewhere || (lec && status === 'playing' && !lec.following) ? (
-        <div className={styles.lectureOffer} role="status" data-testid="lecture-offer">
+        <div className={styles.lectureOffer} data-testid="lecture-offer">
           {lectureElsewhere ? (
             <button type="button" className={styles.lectureOfferBtn} onClick={() => selectScene(lectureElsewhere.id)} data-testid="lecture-offer-scene">
               강의는 지금 「{lectureElsewhere.label}」 장면을 설명하고 있어요 · 그 장면 보기
