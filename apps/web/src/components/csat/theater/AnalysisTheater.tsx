@@ -1018,9 +1018,10 @@ export function AnalysisTheater({
           ) : null}
         </div>
       </header>
-      {/* 강의 안내 줄 — 강의가 켜져 있는 동안 늘 같은 자리 · 같은 높이(끼었다 빠지며 본문을 밀지 않는다).
-          따라가기 단추는 사라지지 않고 켜짐/꺼짐만 바뀐다(누른 단추가 없어져 포커스를 잃지 않게) */}
-      {lec && (status === 'playing' || status === 'paused') ? (
+      {/* 강의 안내 줄 — 학습자가 강의를 한 번 시작한 뒤로는 끝나도 같은 자리 · 같은 높이로 남는다
+          (재생 시작 = 학습자 동작으로 한 번 생기고, 강의 진행 · 종료로는 끼었다 빠지며 본문을 밀지 않는다).
+          따라가기 단추는 사라지지 않고 켜짐/꺼짐만 바뀐다 — 라벨은 고정, 상태는 aria-pressed 하나로 */}
+      {lec && status !== 'idle' ? (
         <div className={styles.lectureOffer} data-testid="lecture-offer" ref={offerRef} tabIndex={-1}>
           <button
             type="button"
@@ -1029,7 +1030,7 @@ export function AnalysisTheater({
             onClick={lec.following ? lec.unfollow : lec.follow}
             data-testid="lecture-offer-follow"
           >
-            {lec.following ? '설명 위치 따라가는 중 · 끄기' : '지금 설명 위치로'}
+            설명 위치 따라가기
           </button>
           {lectureElsewhere ? (
             <button
@@ -1045,11 +1046,13 @@ export function AnalysisTheater({
               강의는 지금 「{lectureElsewhere.label}」 장면을 설명하고 있어요 · 그 장면 보기
             </button>
           ) : null}
-          {/* 장면이 갈릴 때만 알린다(큐마다 읽지 않는다) */}
-          <span className={styles.srOnly} aria-live="polite">
-            {lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
-          </span>
         </div>
+      ) : null}
+      {/* 장면이 갈릴 때만 알린다(큐마다 읽지 않는다) — 알림 영역은 처음부터 문서에 있어야 첫 변경도 읽힌다 */}
+      {lec ? (
+        <span className={styles.srOnly} aria-live="polite">
+          {lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
+        </span>
       ) : null}
 
       <div className={styles.body} ref={bodyRef}>

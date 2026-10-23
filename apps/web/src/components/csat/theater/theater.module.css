@@ -90,7 +90,7 @@
 }
 .play:hover { opacity: .88; }
 
-/* 강의 안내 줄 — 강의가 다른 장면을 설명하거나 학습자가 따라가기를 껐을 때만. 옮길지는 학습자가 고른다 */
+/* 강의 안내 줄 — 강의를 시작한 뒤로 고정 높이로 남는다(따라가기 토글 · 강의가 설명 중인 장면으로 가기). 옮길지는 학습자가 고른다 */
 .lectureOffer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-height: 56px; padding: 6px 16px; background: var(--bg2); border-top: 1px solid var(--bd); }
 .lectureOffer:focus-visible { outline: 2px solid var(--p); outline-offset: -2px; }
 .lectureOfferBtn[aria-pressed='true'] { border-color: var(--p); }
