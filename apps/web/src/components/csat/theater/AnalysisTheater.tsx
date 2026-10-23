@@ -849,6 +849,12 @@ export function AnalysisTheater({
   const lectureScene = lec && (lec.status === 'playing' || lec.status === 'paused') && liveBlockKind ? sceneOfBlock(liveBlockKind) : null
   const lectureElsewhere = lectureScene && lectureScene !== scene ? SCENES.find((x) => x.id === lectureScene) ?? null : null
   const offerRef = useRef<HTMLDivElement | null>(null)
+  // 안내 줄은 학습자가 재생을 한 번이라도 시작한 뒤에만 선다 — 읽기 강의 탭의 대본 불러오기(loading → idle)나
+  // 불러오기 실패(error)로는 줄이 끼었다 빠지지 않는다
+  const [lectureStarted, setLectureStarted] = useState(false)
+  useEffect(() => {
+    if (lec?.status === 'playing') setLectureStarted(true)
+  }, [lec?.status])
 
   const move = (delta: number) => {
     const to = Math.max(0, Math.min(steps.length - 1, cursor + delta))
@@ -1021,7 +1027,7 @@ export function AnalysisTheater({
       {/* 강의 안내 줄 — 학습자가 강의를 한 번 시작한 뒤로는 끝나도 같은 자리 · 같은 높이로 남는다
           (재생 시작 = 학습자 동작으로 한 번 생기고, 강의 진행 · 종료로는 끼었다 빠지며 본문을 밀지 않는다).
           따라가기 단추는 사라지지 않고 켜짐/꺼짐만 바뀐다 — 라벨은 고정, 상태는 aria-pressed 하나로 */}
-      {lec && status !== 'idle' ? (
+      {lec && lectureStarted ? (
         <div className={styles.lectureOffer} data-testid="lecture-offer" ref={offerRef} tabIndex={-1}>
           <button
             type="button"
