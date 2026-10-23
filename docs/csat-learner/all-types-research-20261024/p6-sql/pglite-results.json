@@ -1,0 +1,140 @@
+{
+ "results": [
+  {
+   "name": "마이그레이션 적용",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "name": "같은 client_exposure_id 재전송 → 같은 id · 1행",
+   "pass": true
+  },
+  {
+   "name": "같은 id 로 다른 내용 → 거부",
+   "pass": true
+  },
+  {
+   "name": "결정적 단서는 강의 경로만(kind·source 제약)",
+   "pass": true
+  },
+  {
+   "name": "없는 사용자 → 거부",
+   "pass": true
+  },
+  {
+   "name": "사용자 null → 거부",
+   "pass": true
+  },
+  {
+   "name": "발생 시각이 10분 넘게 다르면 clock_suspect",
+   "pass": true
+  },
+  {
+   "name": "잘못된 digest 형식 → 거부",
+   "pass": true
+  },
+  {
+   "name": "기록 실패 시 트랜잭션 롤백 · 행 없음(fail-closed 전제)",
+   "pass": true
+  },
+  {
+   "name": "학습자 INSERT 거부",
+   "pass": true
+  },
+  {
+   "name": "학습자 RPC 실행 거부",
+   "pass": true
+  },
+  {
+   "name": "학습자 UPDATE 거부",
+   "pass": true
+  },
+  {
+   "name": "학습자 DELETE 거부",
+   "pass": true
+  },
+  {
+   "name": "학습자는 본인 행만 본다(RLS)",
+   "pass": true,
+   "detail": [
+    "11111111-1111-1111-1111-111111111111"
+   ]
+  },
+  {
+   "name": "익명 SELECT 거부",
+   "pass": true
+  },
+  {
+   "name": "service_role UPDATE 거부(권한)",
+   "pass": true
+  },
+  {
+   "name": "service_role TRUNCATE 거부",
+   "pass": true
+  },
+  {
+   "name": "실학습자 행 DELETE 거부(트리거)",
+   "pass": true
+  },
+  {
+   "name": "합성 행 DELETE 허용",
+   "pass": true
+  },
+  {
+   "name": "소유자(postgres)도 UPDATE 불가(트리거)",
+   "pass": true
+  },
+  {
+   "name": "추적 시작 이전 시도 → unknown_pre_tracking",
+   "pass": true
+  },
+  {
+   "name": "노출 없는 첫 시도 → independent",
+   "pass": true
+  },
+  {
+   "name": "나중 노출이 앞 시도를 바꾸지 않음(비소급)",
+   "pass": true
+  },
+  {
+   "name": "노출 뒤 시도 → after_exposure(해설 후 확인)",
+   "pass": true
+  },
+  {
+   "name": "노출과 같은 시각(동률) → 독립 아님",
+   "pass": true
+  },
+  {
+   "name": "도움 받은 시도 → assisted",
+   "pass": true
+  },
+  {
+   "name": "노출 전 두 번째 시도 → repeat(첫 시도만 독립)",
+   "pass": true
+  },
+  {
+   "name": "합성 시도 → synthetic",
+   "pass": true
+  },
+  {
+   "name": "기존 세션의 해설 열람(서버 시각)이 앞서면 → after_exposure",
+   "pass": true
+  },
+  {
+   "name": "학습자는 남의 시도를 판정할 수 없다(RLS → null)",
+   "pass": true
+  },
+  {
+   "name": "익명은 판정 함수 실행 불가",
+   "pass": true
+  },
+  {
+   "name": "계정 삭제 시 노출 행 cascade 삭제(실학습자 행도)",
+   "pass": true
+  },
+  {
+   "name": "같은 요청 10회 동시 호출(단일 연결 직렬) → 1행",
+   "pass": true
+  }
+ ]
+}
