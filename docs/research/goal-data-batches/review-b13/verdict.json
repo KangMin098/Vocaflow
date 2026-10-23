@@ -1,0 +1,456 @@
+{
+  "task_id": "T-0120",
+  "owner_id": "goal-data-independent",
+  "input_commit": "a9617e2aa438377d035a6040645959f710538ca0",
+  "diff_base": "b8685b8d1",
+  "observed_at": "2026-10-23T10:01:16.793Z",
+  "type": "review",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; semantic unclear 및 미실행을 통과로 바꾸지 않음",
+  "skip_count": 0,
+  "checks": {
+    "total": 405,
+    "failed": 0
+  },
+  "acceptance": [
+    {
+      "index": 0,
+      "verdict": "confirmed",
+      "claim": "프롬프트/입력/틀 해시·치환·V2_5 금지·실제 전달·내용 열람 목록 및 덮어쓰기 거부 확인. 메타데이터·오류 출력 예외는 별도 기록.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/prompts/manifest.json:2",
+        "scripts/research/goal-data/mk-prompts.mjs:23",
+        "scripts/research/goal-data/review-b13/supplement.mjs:17",
+        "scripts/research/goal-data/review-b13/transcripts.mjs:14",
+        "scripts/research/goal-data/review-b13/verify-diff.mjs:9"
+      ]
+    },
+    {
+      "index": 1,
+      "verdict": "confirmed",
+      "claim": "최초80·최종80 행별 비교 완료. v2.4 거부/v2.5만 허용하는 구조 없음. 절대 미노출은 unclear.",
+      "evidence": [
+        "scripts/research/goal-data/review-b13/supplement.mjs:9",
+        "scripts/research/goal-data/d2-validate.mjs:76",
+        "scripts/research/goal-data/local/b13-v24/input.json:4473",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:927",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:923"
+      ]
+    },
+    {
+      "index": 2,
+      "verdict": "confirmed",
+      "claim": "40선정·해시·κ .854434·주36/40·경보·회귀 결함0·b12 갈림2 미확정 표기 재확인.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/b13-v24-selection.json:2",
+        "docs/research/goal-data-batches/D2-task-mapping/b13-v24-agreement.json:43",
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:252",
+        "scripts/research/goal-data/review-b13/audit.mjs:37",
+        "scripts/research/goal-data/review-b13/verify-diff.mjs:14"
+      ]
+    },
+    {
+      "index": 3,
+      "verdict": "unclear",
+      "claim": "후보10·갈림10·지정 경계 원문 대조 수행 완료. 후보 근거10 지지, 갈림10과 의미 경계·primary 우열은 미확정.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/b13-v24-review-sample.json:5",
+        "scripts/research/goal-data/local/b13-v24/input.json:193",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:129",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:137",
+        "scripts/research/goal-data/local/b13-v24/input.json:2545",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1937",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:1966"
+      ]
+    },
+    {
+      "index": 4,
+      "verdict": "confirmed",
+      "claim": "verdict.json·review.md·새 P0/P1·다음 배치 가부·unclear 명시.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b13/verdict.json:1",
+        "docs/research/goal-data-batches/review-b13/review.md:1"
+      ]
+    }
+  ],
+  "new_P0": [],
+  "new_P1": [],
+  "next_batch": "조건부 가능 — v2.4 연구 후보 확대만; 프롬프트·최초출력·열람 로그 보존 및 의미 경계·primary 미확정 유지.",
+  "candidates": [
+    {
+      "item": "M2206#38",
+      "task": "R4",
+      "verdict": "confirmed",
+      "why": "②. 상사의 평가 책임 설명 뒤 관찰 불가 문제를 넣어 질문과 딜레마 해결로 잇는다. 배열 근거를 지지하며 삽입 E2 unknown·개별 독립평가 부적격을 유지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:3052",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:2267",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:2302"
+      ]
+    },
+    {
+      "item": "M2206#39",
+      "task": "R4",
+      "verdict": "confirmed",
+      "why": "⑤. 수면의 보편성·필수 기능 주장 뒤 반응성 저하라는 대가를 넣어 후속 지시가 받을 대상을 채운다. 묶음 관찰 후보를 지지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:3229",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:4",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:4"
+      ]
+    },
+    {
+      "item": "2021#26",
+      "task": "E1",
+      "verdict": "confirmed",
+      "why": "⑤. 은퇴 후 가르치기와 글쓰기 모두 계속했다는 진술에 가르치지 않았다는 선지가 어긋난다. 부정 요구를 지지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:5480",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1628",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:1643"
+      ]
+    },
+    {
+      "item": "2021#27",
+      "task": "E1",
+      "verdict": "confirmed",
+      "why": "④. 헬멧 미제공을 제공으로 뒤집은 선지다. 부정 요구 direct를 지지한다. E1 primary는 현 v2.4에서 허용된다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:5636",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1751",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:1766"
+      ]
+    },
+    {
+      "item": "2021#29",
+      "task": "E1",
+      "verdict": "confirmed",
+      "why": "⑤. 완전한 절의 여부를 묻는 자리에 what 대신 whether가 필요하다. E1 후보 및 S축 outside를 지지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:5923",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1987",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:2002"
+      ]
+    },
+    {
+      "item": "2021#30",
+      "task": "E1",
+      "verdict": "confirmed",
+      "why": "⑤. 기대 대신 실제 관측을 보고해 편향을 깨려면 용기가 있어야 한다. lacked는 반대다. E1 후보 및 V축 outside를 지지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:6061",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:2090",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:2104"
+      ]
+    },
+    {
+      "item": "M2206#26",
+      "task": "E1",
+      "verdict": "confirmed",
+      "why": "③. 헬싱키에서 기록을 깼다는 진술을 깨지 못했다고 뒤집었다. 부정 요구 direct를 지지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:1138",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:878",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:886"
+      ]
+    },
+    {
+      "item": "M2206#27",
+      "task": "E1",
+      "verdict": "confirmed",
+      "why": "⑤. 공장 안 촬영 금지를 허용으로 뒤집었다. E1 direct를 지지하며 E3/E2의 primary 단일 우열까지 인증하지 않는다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:1295",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1000",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:1009"
+      ]
+    },
+    {
+      "item": "M2206#29",
+      "task": "E1",
+      "verdict": "confirmed",
+      "why": "⑤. to see와 병렬인 원형 discover가 필요하다. E1 후보 및 S축 outside를 지지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:1582",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1236",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:1241"
+      ]
+    },
+    {
+      "item": "M2206#30",
+      "task": "E1",
+      "verdict": "confirmed",
+      "why": "④. 전통 집착이 효율·생산성·시장 대응을 저해한다는 맥락에서 increase가 부적절하다. E1 후보 및 V축 outside를 지지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:1734",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1341",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:1343"
+      ]
+    }
+  ],
+  "disputed": [
+    {
+      "item": "2021#21",
+      "task": "E3",
+      "verdict": "unclear",
+      "why": "②. 자연의 관점 대변과 인간 행동 전환이 비유의 뜻이다. 인권·역사·법 소재를 재사용한 오답은 있으나 의미를 먼저 세운 뒤 E3 대조가 필수인지 보조인지의 우열은 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:4798",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1149",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:1155"
+      ]
+    },
+    {
+      "item": "2021#24",
+      "task": "E3",
+      "verdict": "unclear",
+      "why": "③. 촉각이 시간에 의존한다는 중심과 시간 개념을 촉각이 만든다는 ②의 방향이 다르다. A는 선지 관계 대조, B는 방향을 포함한 중심 생성에 이를 넣는다. primary E3/R5 및 direct/indirect 우열은 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:5305",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1514",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:1518"
+      ]
+    },
+    {
+      "item": "M2206#18",
+      "task": "E3",
+      "verdict": "unclear",
+      "why": "③. 추가 혜택 제공이 편지 목적이다. 기념행사 취소·기념품·전시 소재 오답은 실제 존재하나, 중심만으로 닫힘과 별도 대조 필요의 경계는 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:16",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:4",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:4"
+      ]
+    },
+    {
+      "item": "M2206#21",
+      "task": "E3",
+      "verdict": "unclear",
+      "why": "②. 빈 편지함은 타인 요구에 응답하는 일이다. 사회관계 단절 ④를 일시적 외부 차단과 연결하는 반사실은 가능하나, 추론과 분리된 E3 보조 수행의 필수성은 확정 못 한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:494",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:373",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:383"
+      ]
+    },
+    {
+      "item": "M2206#24",
+      "task": "E3",
+      "verdict": "unclear",
+      "why": "①. 노년 사회 지각의 이득이 중심이다. ②는 부정 정보 무시를 사회 기술 향상의 인과로 바꾼다. 별도 대조인지 중심 범위만으로 탈락하는지의 우열은 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:966",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:751",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:773"
+      ]
+    },
+    {
+      "item": "M2206#41",
+      "task": "E3",
+      "verdict": "unclear",
+      "why": "③. 기대·기술 변화에 적응하는 사생활권의 개념과 실천이 전체 축이다. 법 영역·기술 부작용 소재 오답과의 대조가 필수인지 보조인지 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:3560",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:232",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:231"
+      ]
+    },
+    {
+      "item": "2021#20",
+      "task": "R4",
+      "verdict": "unclear",
+      "why": "②. 전문성의 비용과 한계에서 중요하고 즐기는 영역 집중으로 간다. B의 양보→결론 단계 오인은 가능하지만 ⑤가 특정 문장 기능 오인(R3)만으로도 설명돼 R4 indirect 우열은 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:4624",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1034",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:1030"
+      ]
+    },
+    {
+      "item": "2021#22",
+      "task": "R4",
+      "verdict": "unclear",
+      "why": "①. 접근 민주화와 대중 의견 공개를 거쳐 비평이 대중 의견을 반영한다. ②의 다양한 장르는 원문에 명시되지 않아 B 반사실의 지지 강도는 제한된다. 원인→결과 배열과 한 문장 중심 오인의 분리는 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:4965",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1284",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:1279"
+      ]
+    },
+    {
+      "item": "2021#31",
+      "task": "R5",
+      "verdict": "unclear",
+      "why": "②. 중앙 행정과 대비되는 개인의 사용, 당사자·합의 진술을 연결한다. R6 주 수행은 지지하나 중앙 행정을 중심으로 잡아 ③으로 간다는 R5 indirect 경로의 필요성은 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:6200",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:2192",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:2206"
+      ]
+    },
+    {
+      "item": "M2206#22",
+      "task": "R4",
+      "verdict": "unclear",
+      "why": "④. 계획은 자원 효율과 성공 가능성을 높인다. 양보→반전 두 문장이 존재하지만 A의 locus 반사실이 배열 수행과 한 문장 기능(R3)을 충분히 분리하는지는 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:668",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:498",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:522"
+      ]
+    }
+  ],
+  "boundary": [
+    {
+      "item": "M2206#19",
+      "verdict": "unclear",
+      "why": "①. 의심에서 만족으로의 답은 지지한다. 정서 단어가 동일하게 없다는 사실만으로 R6가 되지는 않는다. 걱정 해소는 명시됐고 편리함·미소·재방문 단서의 정서 명명은 추론으로도 읽힌다. v2.3 §6의 명시 정서/재진술 경계가 닫히지 않아 R6 direct·outside=false는 unclear다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:193",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:129",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:137"
+      ]
+    },
+    {
+      "item": "M2206#35",
+      "verdict": "unclear",
+      "why": "④. 거리와 무관한 유대·이동 자유 사이에서 최연장자 결정권이 이탈한다. ③→⑤ 배열 설명과 문장 화제·기능 분류(R3)가 모두 가능해 R4 primary 및 outside=false는 unclear다. 두 트랙 일치를 독립 의미 확정으로 바꾸지 않는다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:2545",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1937",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:1966"
+      ]
+    },
+    {
+      "item": "M2206#20",
+      "verdict": "unclear",
+      "why": "①. 여러 매체에서 긍정적 과학자 묘사가 주장이다. A는 영화만 담은 ④와의 범위 대조를, B는 긍정 묘사·매체 범위를 포함한 중심을 결정으로 본다. E3/R5 primary는 unclear다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:344",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:248",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:255"
+      ]
+    },
+    {
+      "item": "M2206#33",
+      "verdict": "unclear",
+      "why": "②. 사자의 먹이 장소를 인간이 정한다는 예시는 인간이 상호작용 맥락을 정한다는 답을 지지한다. 예시 한 문장의 재진술(R5)인지 첫 문화적 진술과 결합한 일반화(R6)인지, 특히 점진성까지 한 문장에 있는지는 닫히지 않는다. R5/R6 primary는 unclear다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:2198",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1687",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json:1692"
+      ]
+    },
+    {
+      "item": "M2206#45",
+      "verdict": "unclear",
+      "why": "⑤. 졸업 전 모험이라는 (D)의 발화를 졸업 후로 바꾼 선지가 틀리다. 흩어진 단락 탐색 E2와 찾은 문장의 시점 대조 E3가 모두 direct라 단일 primary는 unclear다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:4154",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:688",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:686"
+      ]
+    },
+    {
+      "item": "2021#19",
+      "verdict": "confirmed",
+      "why": "①. 처음 괴로움과 끝 평정이 본문에 명시돼 있어 R6를 세우지 않고 primary null·secondary []로 둔 v2.4 처리는 지지한다. 실제 학습자 오답 경로 및 개인 V축 숙달은 별도 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:4473",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:927",
+        "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json:923"
+      ]
+    }
+  ],
+  "unclear": [
+    "관측 로그 밖 노출·이전 지식·인과 오염의 절대 부재",
+    "M2206#19 정서 명명/R6 경계",
+    "M2206#35 R4/R3·outside 경계",
+    "M2206#20/#33/#45 및 2021#24 primary 단일 우열",
+    "b12 M2209#26/#40 판단 단위 경계",
+    "direct/indirect 의미 Gold 및 실제 학습자 오답·학습효과"
+  ],
+  "not_run": [
+    "DB 쓰기",
+    "입력 저장소 수정",
+    "새 분석자 실행",
+    "제품 E2E",
+    "사람 Gold·학생 측정",
+    "봉인 승인",
+    "main/원격 통합"
+  ],
+  "statistics": {
+    "overall": {
+      "n": 240,
+      "agree": 221,
+      "agreement": 0.9208333333333333,
+      "kappa": 0.8544340164719401
+    },
+    "per_task": {
+      "r.central_meaning": {
+        "n": 40,
+        "agree": 37,
+        "agreement": 0.925,
+        "kappa": 0.865771812080537
+      },
+      "r.inference": {
+        "n": 40,
+        "agree": 38,
+        "agreement": 0.95,
+        "kappa": 0.8067632850241544
+      },
+      "e.task_demand": {
+        "n": 40,
+        "agree": 40,
+        "agreement": 1,
+        "kappa": 1
+      },
+      "e.option_correspondence": {
+        "n": 40,
+        "agree": 34,
+        "agreement": 0.85,
+        "kappa": 0.7705544933078392
+      },
+      "r.discourse_structure": {
+        "n": 40,
+        "agree": 34,
+        "agreement": 0.85,
+        "kappa": 0.7209302325581395
+      },
+      "e.evidence_location": {
+        "n": 40,
+        "agree": 38,
+        "agreement": 0.95,
+        "kappa": 0.9152542372881355
+      }
+    },
+    "primary_disputes": [
+      {
+        "item": "M2206#20",
+        "A": "e.option_correspondence",
+        "B": "r.central_meaning"
+      },
+      {
+        "item": "M2206#33",
+        "A": "r.central_meaning",
+        "B": "r.inference"
+      },
+      {
+        "item": "M2206#45",
+        "A": "e.option_correspondence",
+        "B": "e.evidence_location"
+      },
+      {
+        "item": "2021#24",
+        "A": "e.option_correspondence",
+        "B": "r.central_meaning"
+      }
+    ]
+  },
+  "artifacts": {
+    "commands": "scripts/research/goal-data/review-b13/finish.local.json",
+    "raw_diff": "scripts/research/goal-data/review-b13/diff.local.json",
+    "packets": "scripts/research/goal-data/review-b13/packets.local.json",
+    "transcripts": "scripts/research/goal-data/review-b13/transcripts.local.json"
+  }
+}
