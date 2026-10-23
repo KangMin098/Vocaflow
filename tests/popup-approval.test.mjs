@@ -11,10 +11,11 @@ import { recordApproval } from '../lib/tasks.mjs'
 const SQL = 'a'.repeat(64)
 const hash = (s) => crypto.createHash('sha256').update(s).digest('hex')
 const state = () => ({ taskQueue: { tasks: [{ task_id: 'T-9001', approval_kinds: ['db_write'], approval: null }, { task_id: 'T-9002', approval_kinds: ['db_write'], approval: null }] } })
-function ticket(dir, { stage = 't9001', sha = SQL, nonce = 'n1', consumedAt = new Date().toISOString() } = {}) {
+function ticket(dir, { stage = 't9001', sha = SQL, nonce = 'n1', consumedAt = new Date().toISOString(), pretty = false } = {}) {
   const ns = hash(nonce)
   const f = path.join(dir, `authored-ai-record-${stage}-${sha}-${ns.slice(0, 8)}.json.consumed`)
-  fs.writeFileSync(f, JSON.stringify({ v: 2, runner: 'authored-ai-record', stage, sha, nonce_sha256: ns, issued_at: consumedAt }) + '\n' + JSON.stringify({ consumed_at: consumedAt, pid: 1 }) + '\n')
+  const tk = { v: 2, runner: 'authored-ai-record', stage, sha, nonce_sha256: ns, issued_at: consumedAt }
+  fs.writeFileSync(f, (pretty ? JSON.stringify(tk, null, 2) : JSON.stringify(tk)) + '\n' + JSON.stringify({ consumed_at: consumedAt, pid: 1 }) + '\n')
   return ns
 }
 const withDir = (fn) => {
@@ -29,6 +30,11 @@ test('팝업 티켓: 방금 소비된 같은 SQL · TASK 티켓이면 승인 기
   const s = state(); const ns = ticket(dir)
   const t = approve(s, 'T-9001', { via: 'popup', popup_ticket: ns })
   assert.equal(t.approval.via, 'popup'); assert.equal(t.approval.popup_ticket, ns)
+}))
+
+test('팝업 티켓: db-approval 훅이 쓰는 여러 줄 JSON 티켓도 읽는다', () => withDir((dir) => {
+  const s = state(); const ns = ticket(dir, { pretty: true })
+  assert.equal(approve(s, 'T-9001', { via: 'popup', popup_ticket: ns }).approval.popup_ticket, ns)
 }))
 
 test('팝업 티켓: 근거 없는 에이전트 · 티켓 없음 · 다른 SQL · 다른 TASK · 오래된 소비 · 재사용은 거부', () => withDir((dir) => {
