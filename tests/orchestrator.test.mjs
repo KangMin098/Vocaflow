@@ -669,6 +669,24 @@ test('registered live owner progress during guarded implementation is observed w
   assert.equal(vfc(root, ['task', 'block', foreign.task_id, '--by', 'data-contract', '--reason', 'fixture finished']).code, 0)
 })
 
+test('controller reports/state are operational writes, while controller source remains protected', () => {
+  const root = setup()
+  execFileSync('git', ['-C', root, 'init', '-q', '-b', 'control'])
+  execFileSync('git', ['-C', root, 'config', 'user.email', 'fixture@example.com'])
+  execFileSync('git', ['-C', root, 'config', 'user.name', 'fixture'])
+  fs.writeFileSync(path.join(root, 'README.md'), 'controller source\n')
+  execFileSync('git', ['-C', root, 'add', 'README.md'])
+  execFileSync('git', ['-C', root, 'commit', '-qm', 'controller base'])
+  assert.equal(vfc(root, ['owner', 'bind-worktree', 'platform-goal', root, '--branch', 'control']).code, 0)
+  const t = addTask(root)
+  const result = orch(root, ['--owner', OWNER])
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', result.err + result.out)
+  const t2 = addTask(root)
+  const denied = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'foreign', FAKE_FOREIGN_WT: root })
+  assert.equal(task(root, t2.task_id).status, 'BLOCKED', denied.err + denied.out)
+  assert.match(task(root, t2.task_id).blocker.reason, /foreign_worktree_write/)
+})
+
 // RP-2026-10-10.1 — 독립 리뷰 캐시는 같은 diff·계약에 더해 같은 정책 판·같은 effort 일 때만 다시 쓴다(낮은 effort APPROVE 로 높은 요구를 건너뛰지 않는다)
 test('RP1 독립 리뷰 캐시 키에 정책 판과 effort 가 들어간다', async () => {
   const { reviewKeyForTest, REVIEW_POLICY_VERSION, AUTO_CODEX } = await import('../lib/orchestrator.mjs')

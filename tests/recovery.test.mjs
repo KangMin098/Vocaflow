@@ -9,6 +9,7 @@ import { fileURLToPath } from 'node:url'
 import { checkToolScope } from '../lib/tool-scope.mjs'
 import { classifyWorktreeChanges } from '../lib/orchestrator.mjs'
 import { amendTask } from '../lib/tasks.mjs'
+import { runClaude } from '../lib/agents.mjs'
 
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
 function fixture() {
@@ -29,6 +30,28 @@ test('actual hook rejects cross-worktree, forbidden and junction writes; allows 
   assert.equal(hook(path.join(root, 'src', 'new.ts')).status, 0)
   assert.equal(hook(scope.report_files[0]).status, 0)
   assert.equal(fs.readFileSync(path.join(other.root, 'src', 'a.ts'), 'utf8'), '// a\n')
+})
+
+test('real Claude launcher installs the additive task hook; isolated commands are not granted to unscoped executions', () => {
+  const { root, scope } = fixture()
+  const fake = path.join(root, 'provider.mjs')
+  fs.writeFileSync(fake, 'console.log(JSON.stringify({result:"fixture",is_error:false,total_cost_usd:0}))\n')
+  const previous = process.env.VFC_CLAUDE_CMD
+  process.env.VFC_CLAUDE_CMD = `node ${fake.replace(/\\/g, '/')}`
+  try {
+    const invoke = (name, taskScope) => {
+      const runDir = path.join(root, name)
+      const result = runClaude({ prompt: 'fixture', cwd: root, budgetUsd: 1, timeoutMs: 5000, runDir, taskScope })
+      assert.equal(result.code, 0)
+      return { settings: JSON.parse(fs.readFileSync(path.join(runDir, 'claude-settings.json'), 'utf8')), runDir }
+    }
+    const bounded = invoke('bounded', scope)
+    assert.match(bounded.settings.hooks.PreToolUse[0].hooks[0].command, /tool-scope-guard\.mjs/)
+    assert.deepEqual(JSON.parse(fs.readFileSync(path.join(bounded.runDir, 'tool-scope.json'), 'utf8')).allowed_paths, scope.allowed_paths)
+    assert.ok(bounded.settings.permissions.deny.includes('Bash(git push:*)'))
+    const unbounded = invoke('legacy', null)
+    assert.equal(unbounded.settings.permissions.allow.some((p) => p.includes('playwright') || p.includes('exec tsx')), false)
+  } finally { if (previous === undefined) delete process.env.VFC_CLAUDE_CMD; else process.env.VFC_CLAUDE_CMD = previous }
 })
 
 test('shell boundary refuses cwd escape/compound/staging all; direct tests and explicit own commit remain usable', () => {

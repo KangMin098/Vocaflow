@@ -20,6 +20,8 @@
 
 완료 판정 직전에 로컬 증거 파일의 기록된 해시도 재검사한다. 변경·삭제된 증거는 `EVIDENCE_CHANGED`로 거부한다. 검증 결과·최초 실패·실제 Claude 독립 리뷰와 한계는 [연속 실행 검증 기록](../verification/continuity-20261020.json)에 결속한다.
 
+제어 공간 자체가 owner worktree로 등록된 경우에도 `state/`, `runtime/`, `verification/goal-check/`의 운영 파일 생성은 제품 변경으로 세지 않는다. 제어 공간의 소스·설정·문서는 계속 검사한다. 회귀는 실제 보고서/상태 생성의 정상 완료와 같은 제어 공간에 무단 소스 파일을 쓰는 차단을 함께 확인한다.
+
 | 파일 | 역할 |
 |---|---|
 | `bin/goal-check.mjs` · `lib/goalcheck.mjs` | 정본 40목표의 **수용 기준(criterion_id)마다** 판정 → `verification/goal-check/GC-*.json` + GOAL_STATUS(바뀐 것만, 이전 상태·이유) |
