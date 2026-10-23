@@ -1,97 +1,99 @@
-# CSAT v4.0 S0 — TYPE_REGISTRY (실제 유형 등록부)
+# S0 실제 유형·판단 기능·증거 매체 등록부
 
-- 기준서: `Vocaflow_CSAT_전역_기본골격_최종합의기준_v4.0_20261023.md` (§7, AT17)
-- 측정: 2026-10-23, 개발 DB `jajenrevcbmrpaliomxv` 읽기 전용 SELECT, 소스 커밋 `3f437e9b6`(로컬 main). AI-Control T-0131.
-- 판정 규칙: DB에 있는 값만 수치로 쓴다. 근거가 없는 칸은 `UNKNOWN`, 자료 자체가 없으면 `DATA_GAP`, 정본 분류에 대응이 없으면 `UNMAPPED`.
+측정: 2026-10-23T12:08:29.06415+00:00 / 기준 소스: `3f437e9b65e06c00a96f64890402500417377c92` / AI-Control: T-0131의 보완 실사.
 
-## 0. 사실과 추정의 분리
+원문·선지 전문·개인 학습기록은 저장하지 않았다. DB 관리자 SELECT의 관측이며 계정별 접근 가능성은 별도다. 분류의 내용 타당성·전체 기출의 완전성·학생 효과를 입증하지 않는다.
 
-| 구분 | 내용 |
-|---|---|
-| 사실(DB) | `csat_types` 26행(독해 20 · 장문 6, active 21 · retired 5). **듣기 유형 행 0**. |
-| 사실(DB) | `csat_exams` 134회(suneung 14 · mock 16 · hakpyeong 104). 선언 문항 수 합 5,982 · `csat_items` 3,714. 차이 2,268 ≈ 134회 × 듣기 17문항(2,278) − 10. 즉 **듣기 문항은 적재되지 않았다**. |
-| 사실(DB) | `csat_items.type_id IS NULL` 16건(학평 8회). |
-| 사실(파일) | R01~R19/L01~L07은 저장소·DB 어디에도 없고 `vocaflow_csat_all_types_design_roadmap_20261023.md`(사용자 Downloads, "설계용 초안")에만 있다. 공인 분류가 아니다. |
-| 추정 | DB 26유형의 정본은 `scripts/csat/classify-types.mjs` 규칙표(테이블 주석). 규칙표의 발문 패턴이 "(A),(B),(C) 네모 어법" 등 변형 발문을 놓친다(§3). |
+DB 저장 문항 **3,714**, 유형 원장 **26(독해 19 + 장문 7)**, 매핑 **3,698**, 미분류 **16**. 공개 카탈로그 3,412는 이 가운데 일부다. DB에는 듣기 문항 0이지만, 별도 로컬 수능 분류 자료에는 14회·630문항 중 듣기 **248문항·18유형**이 있다. 아래 합집합 44유형은 **저장소에서 관측한 분류**이며 전체 실존 기출의 공인 완전 분류가 아니다. 임시 R19/L07을 정본으로 승격하지 않는다.
 
-## 1. 등록부 — DB 유형 × 판단 기능 × 증거 매체
+## DB 유형 26개
 
-판단 기능(J*)과 증거 매체(M*)는 v4.0 §5.2·§7의 어휘를 DB 유형에 **설계상 대응**시킨 것이며(추정), A* 역량 가중치는 DB `csat_dx_type_attribute` 실측(사실)이다. 문항 수 = suneung/mock/hakpyeong.
+판단 기능/증거 단위는 기존 `teaching-contract.ts#TEACHING_MODELS`의 교수 계약을 재사용한 설계 대응이며, 문항별 내용 감수 결과가 아니다.
 
-판단 기능: J-INTENT 발화·서술 의도 · J-AFFECT 정서 흐름 · J-CENTRAL 중심성·포괄 범위·표현 강도 · J-COND 조건·부정 범위·완성 명제 · J-LINK 앞·뒤 연결/기존 연결 보존 · J-COHERE 화제 사슬 이탈 · J-MATCH 주체·시간·수치·단위·예외 대조 · J-SYNTAX 구문 의존 · J-LEXSEM 문맥 의미 · J-COMPRESS 두 축 압축 · J-REFER 지시 대상 추적.
-증거 매체: M-SENT 문장 번호 · M-SLOT 삽입/순서 위치(문장 번호와 다른 타입) · M-MARK 본문 내 표지(①~⑤, (A)(B)(C)) · M-CHART 도표 셀 · M-NOTICE 실용문 필드 · M-SHARED 공유 장문.
+| 실제 type_id | 이름/상태 | S/M/H | 기존 판단 기능 | 증거 단위 | 표본 ID | 근거 경로 |
+| --- | --- | --- | --- | --- | --- | --- |
+| R-BLANK | 빈칸 추론 / active | 55/60/412 | 빈칸 문장이 요구하는 논리 조건(무엇의 재진술인가)과 그 조건을 채우는 앞뒤 근거 | blank, sentence, choice | 2026#34 | csat_types · csat_items.type_id · teaching-contract.ts#R-BLANK |
+| R-BLANK2 | 빈칸 추론(2개·폐지) / retired | 4/0/0 | 두 빈칸이 각각 독립 제약을 갖고, 선지 쌍이 그 교집합에서만 성립한다 | blank, sentence, choice | 2014B#37 | csat_types · csat_items.type_id · teaching-contract.ts#R-BLANK2 |
+| R-CHART | 도표 / active | 14/15/104 | 선지의 비교 · 배수 · 순위 · 전칭 조건을 실제 도표의 범주 · 단위 · 값으로 계산해 대조 | chart_series, table_cell, choice | M2706#25 | csat_types · csat_items.type_id · teaching-contract.ts#R-CHART |
+| R-CLAIM | 필자 주장 / active | 10/15/102 | 당위 · 판단 표현(should · must · 평가어)이 주장을 만들고, 선지가 그 판단을 어떻게 옮기는가 | sentence, choice | M2706#20 | csat_types · csat_items.type_id · teaching-contract.ts#R-CLAIM |
+| R-FACT | 내용 일치(글) / active | 13/15/103 | 선지 진술과 지문 진술의 성분별 대조(주체 · 행동 · 시점 · 수치) | sentence, choice | M2706#26 | csat_types · csat_items.type_id · teaching-contract.ts#R-FACT |
+| R-GIST | 요지 / active | 14/15/103 | 중심 명제(범위 · 관점)가 선지에서 어떻게 추상화 · 압축되는가 | sentence, choice | 2026#22 | csat_types · csat_items.type_id · teaching-contract.ts#R-GIST |
+| R-GRAMMAR | 어법 / active | 14/15/100 | 밑줄 자리가 절 구조(주어 · 정동사 · 수식 · 지배)에서 요구하는 형태와 실제 형태의 일치 | underline, choice | M2706#29 | csat_types · csat_items.type_id · teaching-contract.ts#R-GRAMMAR |
+| R-IMPLY | 함축 의미 / active | 8/14/93 | 밑줄 표현의 비유가 문맥에서 가리키는 원관념이 무엇인가 | underline, sentence, choice | M2706#21 | csat_types · csat_items.type_id · teaching-contract.ts#R-IMPLY |
+| R-INSERT | 문장 삽입 / active | 26/30/206 | 삽입문이 앞 · 뒤에 요구하는 조건과 그 자리 양쪽의 연결 | sentence, choice | 2026#38 | csat_types · csat_items.type_id · teaching-contract.ts#R-INSERT |
+| R-IRRELEVANT | 무관한 문장 / active | 13/15/104 | 유지되는 논리 사슬과, 한 문장이 그 사슬의 관계를 바꾸는 지점 | sentence, choice | M2706#35 | csat_types · csat_items.type_id · teaching-contract.ts#R-IRRELEVANT |
+| R-MOOD | 심경·분위기 / active | 13/15/104 | 사건 전환점을 기준으로 앞뒤 감정 근거 표현이 어떻게 바뀌는가 | sentence, choice | M2706#19 | csat_types · csat_items.type_id · teaching-contract.ts#R-MOOD |
+| R-NOTICE | 안내문 일치 / active | 27/30/208 | 선지 항목과 안내문 항목의 주체 · 행동 · 수치 · 시점 · 허용/금지 조건 대조 | notice_item, choice | M2706#28 | csat_types · csat_items.type_id · teaching-contract.ts#R-NOTICE |
+| R-ORDER | 글의 순서 / active | 26/30/206 | 각 단락이 앞에 요구하는 선행 조건(지시어 · 연결어 · 관사 · 시제)의 사슬 | paragraph, choice | M2706#37 | csat_types · csat_items.type_id · teaching-contract.ts#R-ORDER |
+| R-PURPOSE | 글의 목적 / active | 12/15/104 | 배경 → 요청/행동 요구 문장이 글의 목적을 정하고, 선지가 그 화행을 어떤 동사로 옮기는가 | sentence, choice | M2706#18 | csat_types · csat_items.type_id · teaching-contract.ts#R-PURPOSE |
+| R-REFER | 지칭 추론(단문·폐지) / retired | 5/1/12 | 등장 대상 · 행위자 · 소유자를 따라 각 대명사가 누구에 연결되는가 | underline, sentence, choice | M1809#30 | csat_types · csat_items.type_id · teaching-contract.ts#R-REFER |
+| R-SUMMARY | 요약문 완성 / active | 13/15/102 | 원문 명제의 성분이 요약문 각 칸(의미 · 극성 · 한정)으로 어떻게 압축되는가 | summary_slot, sentence, choice | M2706#40 | csat_types · csat_items.type_id · teaching-contract.ts#R-SUMMARY |
+| R-TITLE | 제목 / active | 16/15/106 | 중심 명제(범위 · 관점)가 선지에서 어떻게 추상화 · 압축되는가 | sentence, choice | M2706#24 | csat_types · csat_items.type_id · teaching-contract.ts#R-TITLE |
+| R-TOPIC | 주제 / active | 15/15/104 | 중심 명제(범위 · 관점)가 선지에서 어떻게 추상화 · 압축되는가 | sentence, choice | M2706#23 | csat_types · csat_items.type_id · teaching-contract.ts#R-TOPIC |
+| R-VOCAB | 어휘(문맥) / active | 14/15/103 | 밑줄 낱말의 극성이 문맥의 조건 · 인과 · 목적 방향과 맞는가 | underline, sentence, choice | M2706#30 | csat_types · csat_items.type_id · teaching-contract.ts#R-VOCAB |
+| X-BLANK | 장문 빈칸(1개·폐지) / retired | 5/1/11 | 장문의 단락 흐름 속에서 빈칸이 요구하는 결론 · 원리 | blank, paragraph, sentence, choice | M1809#42 | csat_types · csat_items.type_id · teaching-contract.ts#X-BLANK |
+| X-BLANK2 | 장문 빈칸(2개) / retired | 1/0/0 | 장문에서 두 빈칸의 독립 제약과 교차 | blank, paragraph, choice | 2017#42 | csat_types · csat_items.type_id · teaching-contract.ts#X-BLANK2 |
+| X-FACT | 장문 내용 일치 / active | 14/15/104 | 이야기 단락의 사실과 선지 진술의 성분별 대조 | paragraph, sentence, choice | M2706#45 | csat_types · csat_items.type_id · teaching-contract.ts#X-FACT |
+| X-ORDER | 장문 순서 / active | 14/15/104 | 이야기 단락의 사건 · 인물 · 시점 사슬 | paragraph, choice | M2706#43 | csat_types · csat_items.type_id · teaching-contract.ts#X-ORDER |
+| X-REFER | 장문 지칭 / active | 14/15/104 | 단락을 넘는 인물 · 행위자 연결 | underline, paragraph, choice | M2706#44 | csat_types · csat_items.type_id · teaching-contract.ts#X-REFER |
+| X-TITLE | 장문 제목 / active | 14/15/104 | 중심 명제(범위 · 관점)가 선지에서 어떻게 추상화 · 압축되는가 | paragraph, sentence, choice | M2706#41 | csat_types · csat_items.type_id · teaching-contract.ts#X-TITLE |
+| X-VOCAB | 장문 어휘 / active | 8/14/93 | 장문 흐름의 방향과 밑줄 낱말 극성의 일치 | underline, paragraph, choice | M2706#42 | csat_types · csat_items.type_id · teaching-contract.ts#X-VOCAB |
 
-| DB type_id | 이름 | 상태 | 문항 S/M/H | 로드맵 임시 ID | 판단 기능 | 증거 매체 | 선지 언어 | DB 역량(A*:가중) | 표본(정상) |
-|---|---|---|---|---|---|---|---|---|---|
-| R-PURPOSE | 글의 목적 | active | 12/15/104 | R01 | J-INTENT | M-SENT | 한(131/131) | A1:1 A3:1 A4:1 A5:1 | 수능 각 회 18번 계열 |
-| R-MOOD | 심경·분위기 | active | 13/15/104 | R02 | J-AFFECT | M-SENT | 영(0/132 한) | A1:2 A5:1 | |
-| R-CLAIM | 필자 주장 | active | 10/15/102 | R03 | J-CENTRAL | M-SENT | 한 | A3:1 A4:2 A5:1 | |
-| R-GIST | 요지 | active | 14/15/103 | R04 | J-CENTRAL | M-SENT | 한 | A3:1 A4:2 A5:1 | **2026#22** |
-| R-TOPIC | 주제 | active | 15/15/104 | R05 | J-CENTRAL | M-SENT | 영 | A1:1 A3:1 A4:2 | |
-| R-TITLE | 제목 | active | 16/15/106 | R06 | J-CENTRAL | M-SENT | 영 | A3:1 A4:2 A6:1 | |
-| R-IMPLY | 함축 의미 | active | 8/14/93 | R07 | J-COND | M-SENT(밑줄) | 영 | A1:1 A2:1 A4:2 A6:1 | |
-| R-BLANK | 빈칸 추론 | active | 55/60/412 | R08 | J-COND | M-SENT | 영 | A1:1 A2:1 A3:2 A4:2 A6:1 | **2026#34** |
-| R-BLANK2 | 빈칸 2개 | retired | 4/0/0 | R08(하위) | J-COND | M-SENT | 영 | A3:2 A4:1 | |
-| R-IRRELEVANT | 무관한 문장 | active | 13/15/104 | R09 | J-COHERE | M-MARK | 혼재(71/132 한) | A3:2 | |
-| R-ORDER | 글의 순서 | active | 26/30/206 | R10 | J-LINK | M-SLOT·M-MARK(A)(B)(C) | 영 | A2:1 A3:2 | |
-| R-INSERT | 문장 삽입 | active | 26/30/206 | R11 | J-LINK | M-SLOT | 혼재(162/262 한) | A2:1 A3:2 | **2026#38** |
-| R-CHART | 도표 | active | 14/15/104 | R12 | J-MATCH | M-CHART(+M-MARK) | 영 | A5:2 A9:1 | |
-| R-FACT | 내용 일치(글) | active | 13/15/103 | R13 | J-MATCH | M-SENT | 한 | A2:1 A5:2 | |
-| R-NOTICE | 안내문 일치 | active | 27/30/208 | R14 | J-MATCH | M-NOTICE | 한 | A5:2 A9:1 | |
-| R-GRAMMAR | 어법 | active | 14/15/100 | R15 | J-SYNTAX | M-MARK | 혼재(64/129 한) | A2:1 A8:2 | |
-| R-VOCAB | 어휘(문맥) | active | 14/15/103 | R16 | J-LEXSEM | M-MARK | 혼재(72/132 한) | A1:2 A3:1 | |
-| R-SUMMARY | 요약문 완성 | active | 13/15/102 | R17 | J-COMPRESS | M-SENT+(A)(B) | 영 | A1:1 A4:2 | |
-| R-REFER | 지칭(단문) | retired | 5/1/12 | (없음) | J-REFER | M-MARK | 혼재 | A2:1 A3:1 | |
-| X-TITLE | 장문 제목 | active | 14/15/104 | R18 | J-CENTRAL | M-SHARED | 영 | A3:1 A4:2 A9:1 | |
-| X-VOCAB | 장문 어휘 | active | 8/14/93 | R18 | J-LEXSEM | M-SHARED·M-MARK | 영 | A1:2 A3:1 A9:1 | |
-| X-BLANK | 장문 빈칸(1) | retired | 5/1/11 | R18 | J-COND | M-SHARED | 영 | A3:2 A4:1 A9:1 | |
-| X-BLANK2 | 장문 빈칸(2) | retired | 1/0/0 | R18 | J-COND | M-SHARED | 영 | A3:2 A4:1 A9:1 | |
-| X-ORDER | 장문 순서 | active | 14/15/104 | R19 | J-LINK | M-SHARED·M-SLOT | 영 | A3:2 A9:1 | |
-| X-REFER | 장문 지칭 | active | 14/15/104 | R19 | J-REFER | M-SHARED·M-MARK | 영 | A2:1 A3:1 A9:1 | |
-| X-FACT | 장문 내용 일치 | active | 14/15/104 | R19 | J-MATCH | M-SHARED | 한 | A5:2 A9:1 | |
+## 별도 로컬 듣기 등록부 18개
 
-선지 언어 열: `choices::text ~ '[가-힣]'` 행 수(사실). "혼재"는 삽입·어법·어휘·무관 문장에서 선지 배열이 번호 표지/본문 조각으로 저장되는 경우가 섞여 있다는 뜻이며 의미는 S1에서 확인(UNKNOWN).
+근거: `scripts/csat/data/classified.json`의 rows/types, 분류기 `scripts/csat/classify-types.mjs`. 표본은 확보된 파일의 실제 문항 ID다. 2014A/B는 listening_end=22이며 다른 수능은 17이다. 모평·학평 듣기는 이 로컬 14회 표본의 분모 밖이므로 UNKNOWN. 원음/전사/권리·계정 공개는 확인되지 않았으며 TTS를 대체 원음으로 쓰지 않는다.
 
-## 2. 듣기 — 전부 DATA_GAP
+| 유형 | 이름 | 로컬 건수 | 판단 기능(설계 대응) | 요구 매체 | 정상 후보 | 경계 후보 | DB/콘텐츠 상태 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| L-PURPOSE | 담화 목적 | 15 | 담화 목적/화행 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#1 | 2014B#4 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-OPINION | 의견 | 13 | 화자 의견/평가 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#2 | 2014B#7 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-MAIN | 요지 | 3 | 담화 핵심/요지 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#3 | 2024#3 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-TOPIC | 담화 주제(단독) | 5 | 담화 중심 주제 | AUDIO_RANGE · TRANSCRIPT_TURN | 2015#4 | 2014B#5 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-RELATION | 관계 | 11 | 화자 역할·관계 추론 | AUDIO_RANGE · TRANSCRIPT_TURN · SPEAKER | 2023#3 | 2014B#9 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-PICTURE | 그림 | 15 | 발화와 그림 내용/위치 대조 | AUDIO_RANGE · IMAGE_REGION | 2026#4 | 2014B#8 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-TODO | 할 일 | 12 | 후속 행동·시점 판단 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#5 | 2014B#10 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-FAVOR | 부탁한 일 | 4 | 요청 대상·행동 | AUDIO_RANGE · SPEAKER | 2019#7 | 2014B#11 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-MONEY | 지불 금액 | 14 | 수량·할인 조건·최종 금액 | AUDIO_RANGE · NUMERIC_VALUE | 2026#6 | 2014B#14 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-REASON | 이유 | 14 | 행동 원인/이유 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#7 | 2014B#12 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-NOTMENTION | 언급되지 않은 것 | 13 | 언급 범위·없는 정보 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#8 | 2014B#13 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-MENTIONED | 언급한 것 고르기 | 1 | 언급 내용·오류 대조 | AUDIO_RANGE · TRANSCRIPT_TURN | 2014A#13 | 2014A#13 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-TABLE | 표 보고 선택 | 14 | 발화 조건과 표 항목의 교집합 | AUDIO_RANGE · CHART_CELL | 2026#10 | 2014B#17 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-ANNOUNCE | 담화 내용 불일치 | 15 | 담화 사실 일치/불일치 | AUDIO_RANGE · TRANSCRIPT_TURN | 2026#9 | 2014B#15 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-RESPONSE | 짧은 응답 | 58 | 직전 화행·응답 적합성 | AUDIO_RANGE · TRANSCRIPT_TURN · SPEAKER | 2026#14 | 2014B#1 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-SITUATION | 상황 후 할 말 | 14 | 상황·역할에 맞는 화행 | AUDIO_RANGE · SPEAKER | 2026#15 | 2014B#20 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-SET-TOPIC | 세트 주제 | 13 | 공유 담화의 주제 | SHARED_AUDIO · TRANSCRIPT_TURN | 2026#16 | 2014B#21 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
+| L-SET-NOT | 세트 불포함 | 14 | 공유 담화의 포함/불포함 | SHARED_AUDIO · TRANSCRIPT_TURN | 2026#17 | 2014B#22 | DB 미적재 / 로컬 메타만 / 원음·전사·시간·화자 UNKNOWN |
 
-사실: 분류 규칙표 `scripts/csat/classify-types.mjs:42-61`에는 듣기 18유형이 정의돼 있다 — L-PURPOSE·L-OPINION·L-MAIN·L-TOPIC·L-RELATION·L-PICTURE·L-TODO·L-FAVOR·L-MONEY·L-REASON·L-NOTMENTION·L-MENTIONED·L-TABLE·L-ANNOUNCE·L-RESPONSE·L-SITUATION·L-SET-TOPIC·L-SET-NOT. 그러나 **DB `csat_types`에는 L-* 행이 없고 듣기 문항 0건**이다(규칙표와 DB 원장 불일치 = mismatch).
+## 미분류 16개
 
-| 로드맵 임시 ID | 규칙표 L-* (설계상 대응, 추정) | 판단 기능 | DB 문항 | 원음 | 전사 | 화자/시간 구간 | 상태 |
-|---|---|---|---|---|---|---|---|
-| L01 의도 | L-PURPOSE · L-OPINION · L-MAIN · L-TOPIC | 발화 의도·중심 | 0 | DATA_GAP | DATA_GAP | DATA_GAP | UNMAPPED(DB)·DATA_GAP |
-| L02 관계·행동 | L-RELATION · L-TODO · L-FAVOR · L-REASON | 화자 역할·행동·원인 | 0 | DATA_GAP | DATA_GAP | DATA_GAP | 동일 |
-| L03 사실 | L-PICTURE · L-NOTMENTION · L-MENTIONED · L-ANNOUNCE | 들린 정보 대조 | 0 | DATA_GAP | DATA_GAP | DATA_GAP | 동일 |
-| L04 수량 | L-MONEY · L-TABLE | 단위·조건 계산 | 0 | DATA_GAP | DATA_GAP | DATA_GAP | 동일 |
-| L05 응답 | L-RESPONSE | 직전 발화 기능 | 0 | DATA_GAP | DATA_GAP | DATA_GAP | 동일 |
-| L06 상황 | L-SITUATION | 화행 적합 | 0 | DATA_GAP | DATA_GAP | DATA_GAP | 동일 |
-| L07 복합 | L-SET-TOPIC · L-SET-NOT | 공유 담화 | 0 | DATA_GAP | DATA_GAP | DATA_GAP | 동일 |
+| 문항 | type_id | body_ok | 선지 수(관리자) | 상태 |
+| --- | --- | --- | --- | --- |
+| H1803G1#29 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1806G2#27 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1806G2#28 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1906G1#31 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1906G1#32 | NULL | false | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1906G1#33 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1906G1#34 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1906G1#36 | NULL | false | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1906G1#38 | NULL | false | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1906G1#39 | NULL | false | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1803G3#29 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1903G1#28 | NULL | false | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H2403G2#20 | NULL | false | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H2503G1#40 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H2603G1#40 | NULL | true | 5 | UNMAPPED · 공개 카탈로그 제외 |
+| H1906G1#37 | NULL | false | UNKNOWN | UNMAPPED · 공개 카탈로그 제외 |
 
-수능·모평·학평 각 17문항(1~17번)은 `csat_exams.listening_end`로 범위만 알 수 있고 문항·발문·선지·정답이 적재되지 않았다. 듣기 하위 유형 분류는 이 S0에서 확정하지 않는다.
+## A1~A9
 
-## 3. UNMAPPED — 분류되지 않은 실제 문항 16건
+A1 어휘 / A2 구문 / A3 논리흐름 / A4 재진술 / A5 근거판단 / A6 배경지식 / A7 듣기 / A8 어법 / A9 속도. `diagnosis/labels.ts#ATTRIBUTE_NAME`와 문항별 `csat_dx_item_attribute`를 구분한다. 9개 행 모두 reviewed_at을 갖는 문항은 140개. 유형 기본값·양수 태그는 문항별 검수나 역량 숙달을 뜻하지 않는다. A7의 실제 듣기 수행 근거는 이 DB 문항 범위에서 확보되지 않았다.
 
-| item | 발문(앞부분) | 실제 형식 | 판정 |
-|---|---|---|---|
-| H1803G1#29 · H1803G3#29 · H1806G2#28 · H1903G1#28 | (A),(B),(C) 네모 안 어법 | **어법 네모 선택형** — `csat_types`에 대응 행 없음 | UNMAPPED(형식 변형) |
-| H1806G2#27 | ~에 대한 글의 내용과 일치하지 않는 것 | 내용 불일치 → R-FACT 후보 | UNMAPPED(분류기 누락) |
-| H2503G1#40 · H2603G1#40 | 한 문장으로 요약 (A),(B) | R-SUMMARY 후보 | UNMAPPED(분류기 누락) |
-| H1906G1#31~34, #36~39 · H2403G2#20 | 발문 대신 본문 첫 줄/빈 문자열 | 발문 파싱 실패(body_ok=false 6건 포함) | UNMAPPED(DATA_GAP) |
+전체 문항/상태 행은 `ITEM_METADATA.json`에서 ID별 조회 가능하다. 로컬 수능 읽기 382개는 DB 수능 382개와 같은 ID 범위라 중복 합산하지 않는다. 전체 관측 ID 합집합은 3,962개(3,714 + 로컬 듣기 248)이며, 전 시험 전수 기출을 수집했다는 뜻이 아니다.
 
-전체 독해 커버리지: 3,698/3,714(99.57%) 매핑, 16건 UNMAPPED. 듣기 0/≈2,278 매핑.
+## 부록 A. 추가 관측(원 작업 T-0131 run1, 재검증해 유지한 항목)
 
-## 4. 역량 코드 A1~A9
-
-- DB `csat_dx_type_attribute` 67행: 사용 코드 A1·A2·A3·A4·A5·A6·A8·A9. **A7은 어떤 유형에도 가중치가 없다**(사실).
-- `csat_dx_item_attribute`: type_default 3,558 문항 · admin 수정 140 문항. 즉 문항별 역량은 대부분 유형 기본값 상속(추정 아님, source 열 실측).
-- A* 라벨 정의 위치는 [GAP §코드](./GAP_AND_ASSUMPTION_REGISTER.md) 참조.
-
-## 5. 재현 SQL
-
-```sql
--- 유형별 문항·선지 언어
-select type_id, count(*), count(*) filter (where choices::text ~ '[가-힣]') from csat_items group by 1;
--- 시험 종류별 선언 대비 적재
-select kind, sum(item_count), (select count(*) from csat_items i where i.exam_id in (select id from csat_exams e2 where e2.kind=e.kind)) from csat_exams e group by kind;
--- 미분류
-select id, stem from csat_items where type_id is null;
-```
+- **로드맵 임시 ID 대응(추정):** R01 목적=R-PURPOSE · R02=R-MOOD · R03=R-CLAIM · R04=R-GIST · R05=R-TOPIC · R06=R-TITLE · R07=R-IMPLY · R08=R-BLANK(+R-BLANK2) · R09=R-IRRELEVANT · R10=R-ORDER · R11=R-INSERT · R12=R-CHART · R13=R-FACT · R14=R-NOTICE · R15=R-GRAMMAR · R16=R-VOCAB · R17=R-SUMMARY · R18=X-TITLE/X-VOCAB/X-BLANK* · R19=X-ORDER/X-REFER/X-FACT. R-REFER(폐지)는 대응 없음. R01~R19/L01~L07은 저장소·DB에 없고 사용자 Downloads 로드맵 초안에만 있다.
+- **미분류 16의 형식별 원인(발문 앞부분 관측):** (A)(B)(C) 네모 어법 4(H1803G1#29·H1803G3#29·H1806G2#28·H1903G1#28 — 대응 유형 행 없음) · 내용 불일치 1(H1806G2#27, R-FACT 후보) · 요약문 2(H2503G1#40·H2603G1#40, R-SUMMARY 후보) · 발문 파싱 실패 9(H1906G1#31~34·#36~39·H2403G2#20). 분류 수정은 DB 쓰기라 승인 대상.
+- **선지 언어(관리자 저장값, `choices::text ~ '[가-힣]'`):** 한글 선지 = R-PURPOSE·R-CLAIM·R-GIST·R-FACT·R-NOTICE·X-FACT 전량; 영문 = R-BLANK·R-IMPLY·R-MOOD·R-TITLE·R-TOPIC·R-ORDER·R-SUMMARY·X-*(FACT 제외); 혼재 = R-INSERT 162/262·R-GRAMMAR 64/129·R-VOCAB 72/132·R-IRRELEVANT 71/132. 삽입형은 선지 배열에 위치 사이 본문 조각이 저장된다(2026#38).
+- **역량 가중치:** `csat_dx_type_attribute` 67행에서 A7은 어떤 유형에도 없다(DB에 듣기 유형이 없으므로 정합).

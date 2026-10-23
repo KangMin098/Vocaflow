@@ -1,90 +1,64 @@
-# CSAT v4.0 S0 — READINESS_MATRIX (자원 준비도 · 검수 · 공개 상태)
+# S0 자원 준비도·검수·공개 독립 상태
 
-- 측정 2026-10-23 · 개발 DB 읽기 전용 + 소스 `3f437e9b6` 파일 집계 · AI-Control T-0131
-- 상태 어휘(기준서 §5.4): readiness `ready|missing|stale|mismatch|unknown` · review `accepted|pending|rejected|unknown` · permission `allowed|denied|embargoed|unknown` · pdfMatch `matched|absent|mismatch|unverified`. 각 축은 **독립**이다 — 한 축이 ready라도 다른 축을 올리지 않는다.
+측정: 2026-10-23T12:08:29.06415+00:00 / 기준 소스: `3f437e9b65e06c00a96f64890402500417377c92` / AI-Control: T-0131의 보완 실사.
 
-## 0. 전체 수치(기준서 AT19 대조)
+원문·선지 전문·개인 학습기록은 저장하지 않았다. DB 관리자 SELECT의 관측이며 계정별 접근 가능성은 별도다. 분류의 내용 타당성·전체 기출의 완전성·학생 효과를 입증하지 않는다.
 
-| 자원 | 기준서(10-23 묶음) | 실측(10-23 S0) | 출처 |
-|---|---|---|---|
-| 공개 해설(published 분석이 있는 문항) | 3,412/3,412 | **3,412** / 적재 문항 3,714 | `csat_item_analyses.status='published'` distinct item |
-| 최신 판이 in_review | — | 186(이 중 183은 이전 published 판이 있어 학습자에겐 옛 판이 보임 → **stale 후보**) | 최신 version 기준 |
-| 분석 없음 | — | 119 (R-CHART 학평 103 + 미분류 16) | |
-| 탐구 v3(verified) | 786 | **786** (수능 371 · 모평 415 · 학평 0) | `apps/web/src/lib/csat/inquiry-data.json` |
-| 상세 의미 | 27 | **27** (전부 2026 수능 18~45) | `meaning-support-data.json` |
-| 비교 색인 | 477 문항 | **477** 문항 / 749 쌍(same_structure 696 · boundary 49 · contrast 4) | `compare-v3-data.json` |
-| 강의(schema1) | 37 cue(3문항) | **796** 문항 강의(수능 378 · 모평 418), schema3 강의 **0** | `lecture-data/index.json`, `lecture/types.ts:105-163` |
-| 듣기 문항 | — | **0** | `csat_items` |
+`readiness=ready|missing|stale|mismatch|unknown`, review, 저장 publication, 계정 permission을 따로 기록한다. ready는 **메타데이터/결속 검사에서 사용할 자료가 존재**한다는 뜻이다. 원문·선지는 관리자 저장 여부와 학습자의 로컬 추출 상태를 구분한다. permission은 모두 unknown이며 정상 로그인 통과로 바꾸지 않았다.
 
-수치는 10-23 기준이며 라이브 상태를 단정하지 않는다(AT19).
+| 자원 | 전체 3,714 상태 | 공개 카탈로그 3,412 상태 | 검수/공개 해석 |
+| --- | --- | --- | --- |
+| 해설 | ready:3412 · missing:302 · stale:0 · mismatch:0 · unknown:0 | ready:3412 · missing:0 · stale:0 · mismatch:0 · unknown:0 | published 3,412. 평가원 구식 3인 pass 802; 학평 현재 독립 프로토콜 유효성 전수 판정은 UNKNOWN |
+| 탐구 v3 | ready:786 · missing:2928 · stale:0 · mismatch:0 · unknown:0 | ready:786 · missing:2626 · stale:0 · mismatch:0 · unknown:0 | 검수 표시/정확성/실제 접근은 별도 |
+| 상세 의미 | ready:27 · missing:3687 · stale:0 · mismatch:0 · unknown:0 | ready:27 · missing:3385 · stale:0 · mismatch:0 · unknown:0 | 27개는 schema/criteria/contentHash/basePublicHash/version 검사를 통과. 전량 내용 정확성/원문 대조는 별도 |
+| 학습자 원문 | ready:0 · missing:0 · stale:0 · mismatch:0 · unknown:3714 | ready:0 · missing:0 · stale:0 · mismatch:0 · unknown:3412 | 검수 표시/정확성/실제 접근은 별도 |
+| 학습자 선지 | ready:0 · missing:0 · stale:0 · mismatch:0 · unknown:3714 | ready:0 · missing:0 · stale:0 · mismatch:0 · unknown:3412 | 검수 표시/정확성/실제 접근은 별도 |
+| 강의 | ready:796 · missing:2918 · stale:0 · mismatch:0 · unknown:0 | ready:796 · missing:2616 · stale:0 · mismatch:0 · unknown:0 | 796개 저장 대본. rubric_score는 독립 내용 감수나 TTS 검증이 아님 |
+| 비교(공개 전) | ready:477 · missing:3237 · stale:0 · mismatch:0 · unknown:0 | ready:477 · missing:2935 · stale:0 · mismatch:0 · unknown:0 | 477개 연결 문항. 서버 projection은 공개·결속을 검사하며 실제 계정 permission은 미검증 |
+| 골격 | ready:3101 · missing:613 · stale:0 · mismatch:0 · unknown:0 | ready:3101 · missing:311 · stale:0 · mismatch:0 · unknown:0 | 파일 골격 802 + DB 골격 메타. DB 행을 학습자 캐시에 주입하지 않음 |
+| PDF 좌표 색인 | ready:802 · missing:2912 · stale:0 · mismatch:0 · unknown:0 | ready:802 · missing:2610 · stale:0 · mismatch:0 · unknown:0 | 좌표 색인 존재는 로컬 PDF matched가 아님 |
 
-## 1. 유형별 행렬
+## 유형별 준비 수(ready만, 각 결손/미확인은 ITEM_METADATA에 전수 기록)
 
-S/M/H = 수능/모평/학평 문항 수. 해설 = published. v3·강의·비교·의미는 파일 집계(수능+모평 대상). 강의 색인에 유형이 있는 문항만 유형별로 셌다(강의 없는 v3 6건·비교 4건·의미 1건은 "(유형 미상)").
+| type | 문항 | 해설 | v3 | 의미 | 강의 | 비교 | 골격 | 원문/선지 |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| R-BLANK | 527 | 421 | 115 | 4 | 115 | 92 | 288 | unknown |
+| R-BLANK2 | 4 | 4 | 2 | 0 | 4 | 2 | 4 | unknown |
+| R-CHART | 133 | 30 | 29 | 1 | 29 | 0 | 29 | unknown |
+| R-CLAIM | 127 | 52 | 25 | 1 | 23 | 23 | 49 | unknown |
+| R-FACT | 131 | 131 | 28 | 1 | 28 | 0 | 126 | unknown |
+| R-GIST | 132 | 132 | 27 | 1 | 29 | 24 | 131 | unknown |
+| R-GRAMMAR | 129 | 129 | 29 | 1 | 28 | 0 | 129 | unknown |
+| R-IMPLY | 115 | 115 | 22 | 1 | 22 | 19 | 115 | unknown |
+| R-INSERT | 262 | 262 | 55 | 2 | 56 | 41 | 261 | unknown |
+| R-IRRELEVANT | 132 | 132 | 28 | 1 | 28 | 26 | 132 | unknown |
+| R-MOOD | 132 | 132 | 21 | 0 | 28 | 20 | 131 | unknown |
+| R-NOTICE | 265 | 265 | 57 | 2 | 57 | 21 | 244 | unknown |
+| R-ORDER | 262 | 262 | 56 | 2 | 55 | 33 | 256 | unknown |
+| R-PURPOSE | 131 | 131 | 26 | 1 | 27 | 26 | 125 | unknown |
+| R-REFER | 18 | 18 | 6 | 0 | 6 | 0 | 17 | unknown |
+| R-SUMMARY | 130 | 130 | 28 | 1 | 28 | 28 | 29 | unknown |
+| R-TITLE | 137 | 137 | 31 | 1 | 31 | 31 | 134 | unknown |
+| R-TOPIC | 134 | 134 | 30 | 1 | 29 | 27 | 132 | unknown |
+| R-VOCAB | 132 | 132 | 28 | 1 | 29 | 2 | 124 | unknown |
+| X-BLANK | 17 | 17 | 6 | 0 | 6 | 6 | 14 | unknown |
+| X-BLANK2 | 1 | 1 | 1 | 0 | 1 | 0 | 1 | unknown |
+| X-FACT | 133 | 133 | 29 | 1 | 29 | 0 | 133 | unknown |
+| X-ORDER | 133 | 133 | 29 | 1 | 29 | 29 | 133 | unknown |
+| X-REFER | 133 | 133 | 27 | 1 | 29 | 0 | 133 | unknown |
+| X-TITLE | 133 | 133 | 29 | 1 | 28 | 27 | 124 | unknown |
+| X-VOCAB | 115 | 113 | 22 | 1 | 22 | 0 | 107 | unknown |
 
-| type | S/M/H | 해설 | 최신 in_review | 원문(passage) | body_ok | 선지 | v3 | 의미 | 강의 | 비교 문항 | 근거 단위(units) | units 해시 불일치 |
-|---|---|---|---|---|---|---|---|---|---|---|---|---|
-| R-PURPOSE | 12/15/104 | 131 | 0 | 131 | 125 | 131 | 26 | 1 | 27 | 26 | 학평만 104 | 0 |
-| R-MOOD | 13/15/104 | 132 | 0 | 132 | 131 | 132 | 21 | 0 | 28 | 20 | 104 | 0 |
-| R-CLAIM | 10/15/102 | 52 | **75** | 127 | 126 | 127 | 23 | 1 | 23 | 21 | 102 | 0 |
-| R-GIST | 14/15/103 | 132 | 0 | 132 | 131 | 132 | 27 | 1 | 29 | 24 | 103 | 0 |
-| R-TOPIC | 15/15/104 | 134 | 0 | 134 | 132 | 134 | 29 | 1 | 29 | 26 | 104 | 0 |
-| R-TITLE | 16/15/106 | 137 | 0 | 137 | 134 | 137 | 31 | 1 | 31 | 31 | 106 | 0 |
-| R-IMPLY | 8/14/93 | 115 | 0 | 115 | 115 | 115 | 22 | 1 | 22 | 19 | 93 | 0 |
-| R-BLANK | 55/60/412 | 421 | **106** | 527 | 354 | 527 | 115 | 4 | 115 | 92 | 412 | 1 |
-| R-IRRELEVANT | 13/15/104 | 132 | 0 | 132 | 132 | 132 | 28 | 1 | 28 | 26 | 104 | 0 |
-| R-ORDER | 26/30/206 | 262 | 0 | 262 | 256 | 262 | 55 | 2 | 55 | 33 | 206 | 0 |
-| R-INSERT | 26/30/206 | 262 | 0 | 262 | 261 | 262 | 55 | 2 | 56 | 41 | 206 | **21** |
-| R-CHART | 14/15/104 | **30** | 0 | 133 | 130 | 133 | 29 | 1 | 29 | **0** | 104 | 0 |
-| R-FACT | 13/15/103 | 131 | 1 | 131 | 126 | 131 | 28 | 1 | 28 | **0** | 103 | 0 |
-| R-NOTICE | 27/30/208 | 265 | 1 | 265 | 244 | 265 | 57 | 2 | 57 | 21 | 208 | 1 |
-| R-GRAMMAR | 14/15/100 | 129 | 0 | 129 | 129 | 129 | 28 | 1 | 28 | **2** | 100 | 0 |
-| R-VOCAB | 14/15/103 | 132 | 0 | 132 | 124 | 132 | 28 | 1 | 29 | **2** | 103 | 0 |
-| R-SUMMARY | 13/15/102 | 130 | 0 | 130 | **29** | 130 | 28 | 1 | 28 | 28 | 102 | 0 |
-| X-TITLE | 14/15/104 | 133 | 1 | 133 | 124 | 133 | 28 | 0 | 28 | 26 | 104 | 0 |
-| X-VOCAB | 8/14/93 | 113 | 2 | 115 | 109 | 115 | 22 | 1 | 22 | **0** | 93 | 0 |
-| X-ORDER | 14/15/104 | 133 | 0 | 133 | 133 | 133 | 29 | 1 | 29 | 29 | 104 | 0 |
-| X-REFER | 14/15/104 | 133 | 0 | 133 | 133 | 133 | 27 | 1 | 29 | **0** | 104 | 0 |
-| X-FACT | 14/15/104 | 133 | 0 | 133 | 133 | 133 | 29 | 1 | 29 | **0** | 104 | 0 |
-| retired 5종 | — | 41 | 0 | 41 | 37 | 41 | 15 | 0 | 17 | 8 | 23 | 0 |
-| (미분류) | 0/0/16 | 0 | — | 16 | 10 | 16 | — | — | 0 | — | 16 | — |
-| 듣기 L-* | 0 | **DATA_GAP** | | | | | | | | | | |
+## 최신 판과 공개 판
 
-열 정의와 판정:
-- **원문(passage)**: 서버 전용 컬럼에 본문 존재(사실). 학습자 화면은 원문을 보여주지 않고 로컬 PDF에 의존(`page.tsx` 머리말) → 학습자 기준 원문 readiness는 **pdfMatch에 종속, 서버 측정 불가 = unknown**.
-- **body_ok**: 파서가 본문 무결로 표시한 수. R-SUMMARY 29/130·R-BLANK 354/527은 낮다 — 내용 결함인지 판정 규칙(요약 박스·빈칸 기호) 탓인지 **UNKNOWN**(GAP-D03).
-- **units 해시 불일치**: 최신 published 분석의 `units_hash` ≠ 현재 `csat_item_units.units_hash` → **mismatch**. R-INSERT 학평 21건이 집중.
-- **units 미결속**: 수능·모평 published 분석은 전부 `units_hash IS NULL`(근거 단위 표가 학평에만 있음) → 수능·모평 근거 위치 결속 상태 = **unknown**(v3 파일 자체 `units_hash`로 별도 결속되므로 v3 화면은 파일 기준).
-- **비교 0 유형**(R-CHART·R-FACT·X-FACT·X-REFER·X-VOCAB, R-GRAMMAR/R-VOCAB 2): 같은 원리 직접 비교 `UNAVAILABLE` 처리 대상(기준서 §5.4).
+최신 상태 in_review는 186개다. **183개는 공개 판이 없고**, 이전 published 판이 있는 것은 **3개**: H2103G2#28(공개 v2/최신 v3), H2104G3#28(공개 v2/최신 v3), H2410G2#41(공개 v2/최신 v3). 새 draft/in_review가 있다는 이유만으로 현재 published에 결속된 v3를 stale로 재분류하지 않는다. stale은 각 로더의 실제 분석 version/hash 불일치로 정한다.
 
-## 2. 검수(review) — 해설·v3·강의 각각 독립
+최신 units_version 행과 공개 해설 units_hash가 다른 후보는 27개다. 그러나 latest version과 현재 input_hash에 맞는 유효 단위는 같다고 보장할 수 없다. 전수 현재 독립 검수 함수 호출은 statement timeout으로 실패했으므로 **후보/UNKNOWN**, 실제 mismatch 확정으로 바꾸지 않는다.
 
-| 자원 | 검수 근거 | 상태 |
-|---|---|---|
-| 학평 published 분석 | `csat_independent_reviews` 결속(분석·입력·정답·units 해시) — 학평 published 전부 1건 이상 | accepted 후보(판정 문구는 verdict 열, 내용 정확성 감수 아님) |
-| 수능·모평 published 분석 | `csat_analysis_reviews` 3인 페르소나(해시 결속 없음) | accepted(구식) — **해시 미결속이라 현재 원문과의 결속은 unknown** |
-| 탐구 v3 786 | 파일 `review: verified` | accepted(파일 주장, DB 검수 기록 없음) |
-| 강의 796 | `score`(GRADER.md 루브릭) 단일 AI 채점 | **pending**(사람/독립 내용 감수 기록 없음) |
-| 비교 749쌍 | 생성 스크립트 기준(pair-v1.0) | **unknown**(검수 기록 없음) |
-| 의미 27 | 파일 | unknown |
+## 원문·선지·권리와 공개
 
-## 3. 공개(permission) — 해설·비교·강의 각각 독립
+관리자 DB passage/choices는 학습자 제공 자료가 아니다. ReflowItem은 브라우저 로컬 stem/passage/choices/inline/needsOriginal, CachedPaper는 exam_id/sha256/version/items를 갖는다. 도표·밑줄은 원본 크롭 확인이 필요할 수 있다. PDF 미투입은 pdfMatch=unverified다. 유형이 inline이면 choices 빈 배열도 정상일 수 있어 5개 미만을 곧 파서 오류로 확정하지 않는다.
 
-| 자원 | 근거 | 상태 |
-|---|---|---|
-| 문항 메타·정답 | `csat_items_public` 뷰(authenticated 컬럼 ACL, 본문·발문 제외). **answer 컬럼은 노출** | allowed(정답은 별도 공개 위험 — GAP-P02) |
-| 원문·선지 본문 | 기본 테이블 RLS `USING false`, service_role만 | denied(클라이언트) |
-| 엠바고 | `embargo-gate.ts` fail-closed RPC → 423 | 문항별 embargoed 가능, 실측 엠바고 목록은 S0에서 조회하지 않음(unknown) |
-| 비교 짝 본문 | `compare-v3-data.json`은 정적 파일 import — **짝별 공개/권한 필드 없음** | **unknown**(기준서 CORE-07 "비공개 본문 미전송" 검증 불가) |
-| 강의 | 재생 후 `/api/csat/lecture` 응답 | allowed(로그인), 문항 엠바고와의 결합은 미검증 |
-| 로컬 PDF | `read-paper.ts` 해시만 전송 | pdfMatch: **unverified**(실 PDF 미투입) |
+라이브 카탈로그 뷰는 발문·본문·선지에 대한 authenticated column ACL을 제한하고 answer는 embargo 함수로 마스킹한다. base table RLS와 앱 서버 검증도 존재한다. 이 정적/관리자 관측은 정상 계정의 실제 허용을 증명하지 않는다. `source_registry.license_class`는 수집 원천 코퍼스의 필드이며 각 시험 PDF/평가 원음의 재배포 권리가 확인됐다는 뜻이 아니다.
 
-## 4. 회귀 3문항
-
-| item | 해설 | v3 | 의미 | 강의 | 비교 | units 결속 |
-|---|---|---|---|---|---|---|
-| 2026#34 R-BLANK | published v5(5판 모두 published) | verified, analysis_version 5, 7문장 | ready | schema1 v2 · 12 cue · 196s(est) | **0 → UNAVAILABLE** | DB units 없음 / v3 파일 해시 |
-| 2026#22 R-GIST | published v5 | verified, 10문장 | ready | v2 · 13 cue · 182s | 2쌍(공개 unknown) | 동일 |
-| 2026#38 R-INSERT | published v5 | verified, 8문장 | ready | v3 · 12 cue · 185s | 2쌍(공개 unknown) | 동일 |
-
-강의 판(v2/v3)과 분석 판(v5)은 **서로 다른 버전 체계**이며 강의는 분석 판에 결속되지 않았다(schema1, binding 없음).
+듣기 로컬 248개는 해설/v3/의미/강의/비교·평가 원음·검수된 전사·화자·시간 구간을 이번 범위에서 결속하지 못했다. 각 자원 UNKNOWN/DATA_GAP이며 DB의 3,714 분모에는 섞지 않는다.

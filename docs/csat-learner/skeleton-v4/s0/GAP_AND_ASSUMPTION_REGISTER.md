@@ -1,53 +1,27 @@
-# CSAT v4.0 S0 — GAP_AND_ASSUMPTION_REGISTER
+# S0 공백·미확인·실제 차단 기록
 
-- 2026-10-23 · T-0131 · 상태: `DATA_GAP`(자료 없음) · `UNVERIFIED`(있으나 정확성 미검증) · `MISMATCH`(두 정본 불일치) · `BLOCKED`(권한) · `ASSUMPTION`(이 S0가 둔 가정).
+측정: 2026-10-23T12:08:29.06415+00:00 / 기준 소스: `3f437e9b65e06c00a96f64890402500417377c92` / AI-Control: T-0131의 보완 실사.
 
-## 1. 데이터 공백
+원문·선지 전문·개인 학습기록은 저장하지 않았다. DB 관리자 SELECT의 관측이며 계정별 접근 가능성은 별도다. 분류의 내용 타당성·전체 기출의 완전성·학생 효과를 입증하지 않는다.
 
-| ID | 내용 | 근거 | 상태 | 영향 |
-|---|---|---|---|---|
-| GAP-D01 | 듣기 문항·원음·전사·화자·시간 구간 전무 | `csat_items` 듣기 0, 시험당 선언 45 vs 적재 28; 코드에 오디오/전사 모델 없음 | DATA_GAP | S5 전체, AT16 |
-| GAP-D02 | `csat_types`에 L-* 18행 없음(규칙표에는 있음) | `classify-types.mjs:42-61` vs DB 26행 | MISMATCH | 원장 재시드 시 DB 쓰기 승인 필요 |
-| GAP-D03 | body_ok 낮음: R-SUMMARY 29/130, R-BLANK 354/527 | DB | UNVERIFIED(파서 기준 탓인지 본문 결함인지 미판정) | 원문 표시 신뢰 |
-| GAP-D04 | 미분류 16(네모 어법 4 · 불일치 1 · 요약 2 · 발문 파싱 실패 9) | DB | UNMAPPED | AT17 커버리지 99.57% |
-| GAP-D05 | R-CHART 학평 103건 분석 없음 | DB | DATA_GAP | |
-| GAP-D06 | 학평 2,912문항에 v3·강의·비교·의미 0 | 파일 집계 | DATA_GAP | 탐구 화면은 수능·모평 한정 |
-| GAP-D07 | 도표 셀·실용문 필드 구조 모델 없음(원본 크롭 이미지 의존) | `reflow.ts:38`, `ItemScreen.tsx:65-72` | DATA_GAP | CHART_CELL 근거 불가 |
-| GAP-D08 | 삽입 위치 전용 타입 없음(① 기호가 본문에 인라인, 선지 배열은 본문 조각) | `reflow.ts:93-100`, 2026#38 choices | DATA_GAP | AT02·AT09 |
-| GAP-D09 | schema3 강의 0 → 강의가 분석 v5·units_hash에 결속되지 않음 | `lecture/types.ts:105-163`, 데이터에 schemaVersion 3 없음 | DATA_GAP | AT10·AT12 |
-| GAP-D10 | 수능·모평 published 분석 `units_hash` 전부 NULL | DB | UNVERIFIED | 근거 위치 결속 |
-| GAP-D11 | 최신 판 in_review 186(183 stale 노출) | DB | stale | R-CLAIM 75·R-BLANK 106 |
-| GAP-D12 | 학평 R-INSERT units 불일치 21 | DB | MISMATCH | 위치 강조 중지 필요 |
-| GAP-D13 | A7(듣기 해독)은 유형 가중치 0, 문항 역량 3,558이 type_default 상속 | `csat_dx_type_attribute`, `csat_dx_item_attribute` | ASSUMPTION(기본값=문항 역량) | 진단 해석 |
+| ID | 사실/공백 | 상태 | 영향/다음 검증 |
+| --- | --- | --- | --- |
+| G01 | DB3714 중 type_id NULL16, 분류 내용 전량 감수 안 함 | UNMAPPED / NOT_EVALUATED | 등록부 ID 보존, 원문/발문 실제 대조 뒤 분류 후보 검토 |
+| G02 | DB 듣기0, 로컬 수능 듣기248·18유형 존재 | PARTIAL / DATA_GAP | 모평·학평 및 원음/전사/화자/시간·권리 범위 UNKNOWN |
+| G03 | 공개 판 없음302=최신 in_review183+분석 없음119 | DATA_GAP | 이전 공개판이 제공되는186개라는 해석 금지(실제3개) |
+| G04 | 평가원 구식3persona pass802; 학평 새 검수/units 결속 전수 함수 timeout | UNKNOWN / QUERY_BLOCKED | 현재 정합 프로토콜 판정은 미검증. 구조/기록 존재만 accepted로 승격 금지 |
+| G05 | 최신 units 행 hash 차이는 current input_hash 일치 여부와 별개 | UNKNOWN | mismatch 후보만 보존; 앵커를 무조건 유효/무효로 확정하지 않음 |
+| G06 | meaning sidecar27은 실제 schema/review hash/결속 통과 | METADATA_READY | 사람 감수/원문 정확성/학습 효과와 별도 |
+| G07 | 로컬 PDF 원문/전체 영문 선지·정답표 1:1 대조 미실시 | UNVERIFIED | 공식 출처와 대조 전 저장 정답 정보로 취급 |
+| G08 | 저작권 경계 통합 테스트 로그인 Invalid login credentials | AUTH_BLOCKED | 두 실DB suite 초기화 실패. 실제 계정 RLS PASS 불가. 비밀번호 변경·우회 없음 |
+| G09 | TTS 실제 음성·발음·구간/실패 동작 미실시 | NOT_EVALUATED | 평가 원음 대체 금지; 강의 추정 시간과 실제 청취 구분 |
+| G10 | compare-v3 서버 공개/결속 projection 존재 | PARTIAL / runtime UNVERIFIED | 비공개 콘텐츠 전송 없음은 정상 계정 응답으로 추가 확인 |
+| G11 | teaching-contract 26개 교수 모델 존재, CHART_CELL 개념 단위 있음 | PARTIAL | 실제 셀 값/좌표·수치 검증 어댑터는 자료/컴포넌트 실사 추가 |
+| G12 | 현재 lecture liveScene 자동 selectScene 존재 | CORE-03/09 충돌 | S1에서 학생 통제·상태 유지 검증 |
+| G13 | source registry license는 시험/원음 개별 배포권 증빙 아님 | UNKNOWN | 해당 원본과 권리·계정 접근을 별도 결속 |
+| G14 | 134회 listening_end 합2288, 선언 item_count 합5982 | METADATA_ONLY | 선언합-저장합2268은2288과20차이. 134×17로 결손을 확정하지 않음 |
+| G15 | 기준서 외부 Downloads 파일 및 이전 캡처는 별도 입력 | PROVENANCE | 입력 SHA와 소스 SHA를 고정; 구 캡처로 현재 화면 동일성 단정 없음 |
+| G16 | 모든 실제 시험 유형의 완전 수집/분류 공식 승인 미확보 | UNKNOWN | 44유형은 관측 합집합이며 공인 완전 분류로 주장하지 않음 |
+| G17 | 학생 사용성·전이·성적 실험 미실시 | G3/G4 NOT_EVALUATED | S0 PASS 범위는 등록부/공백 보고/계약 충돌 식별까지 |
 
-## 2. 정확성 미검증
-
-| ID | 내용 | 상태 |
-|---|---|---|
-| GAP-V01 | 공식 정답 대조: `has_answer_key` true 133/134, 출처 대조 기록은 S0에서 확인 안 함 | UNVERIFIED(CORE-01: "저장된 정답 정보·대조 필요") |
-| GAP-V02 | 강의 796의 내용 감수 — AI 루브릭 점수만 | UNVERIFIED |
-| GAP-V03 | 비교 749쌍 검수 기록 없음 | UNVERIFIED |
-| GAP-V04 | v3 786 `verified`는 파일 주장 | UNVERIFIED(DB 근거 없음) |
-| GAP-V05 | 응답 통계는 사설 집계(공식값 아님), verified 5,670/5,715 | 출처 표기 유지 |
-| GAP-V06 | 2026-34·22·38 원문 PDF 1:1 대조 미실시 | UNVERIFIED — CONTENT_VALIDATED 금지 |
-| GAP-V07 | 34 c4 강의에 "정답은 삼 번" 직접 발화, 38 c1 간접 암시 | 공개 위험 실재(REPRESENTATIVE §3) |
-
-## 3. 권한·PDF·TTS
-
-| ID | 내용 | 상태 |
-|---|---|---|
-| GAP-P01 | 비교 짝이 정적 JSON import — 짝별 공개/권한 필드 없음, 비공개 본문 미전송 보장 불가 | UNVERIFIED(CORE-07, AT13) |
-| GAP-P02 | `csat_items_public`이 authenticated에게 `answer` 노출 | 기존 설계(정답 키 노출). 공개 매트릭스(AT05)와 충돌 여부 S1 판정 |
-| GAP-P03 | 정상 로그인/RLS 실화면 미실행(S0는 service 권한 MCP SELECT) | UNVERIFIED |
-| GAP-P04 | 로컬 PDF pdfMatch 실측 미실행 | UNVERIFIED |
-| GAP-P05 | TTS는 브라우저 Web Speech — 음성 가용성·실패 처리 실측 미실행 | UNVERIFIED |
-| GAP-P06 | `20261018120100_r5_delivery_g2_binding.sql` 머리말이 "보류(적용 안 함)"인데 migrations/에 있음 | ASSUMPTION — 적용 여부는 S1에서 `list_migrations` 대조 |
-| GAP-P07 | DB 보안 advisor: `public.textbook_shelf_stats_meta` RLS 꺼짐(CSAT 무관, 발견 보고만) | 사용자 판단 필요 — 수정 안 함 |
-| BLOCKED | 없음 — S0 범위 SELECT·파일 읽기는 모두 허용됨 | |
-
-## 4. 이 S0의 가정
-
-- ASM-01 판단 기능(J-*)·증거 매체(M-*)를 DB 유형에 대응시킨 표는 설계 추정이다(사실 아님).
-- ASM-02 R01~R19/L01~L07 ↔ DB 유형 대응은 로드맵 초안 이름 기준 추정이다. R18/R19 장문 분할은 로드맵 설명 기준.
-- ASM-03 "강의 색인 유형"을 v3·비교 유형 집계에 사용(강의 없는 문항 11건은 유형 미상).
-- ASM-04 듣기 문항 수 ≈ 2,278은 시험당 17 가정의 산술이며 실측 아님.
+원칙: 원문·강의 원본·DB·시드는 변경하지 않았다. 상태 부재를 ready/accepted/allowed로 채우지 않는다. 필수 퀴즈·자유서술 채점·개인 임의 자료 평가·클릭 숙달 산입은 제안하지 않는다.
