@@ -1350,7 +1350,11 @@ export function AnalysisTheater({
                   {session === undefined ? <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p> : null}
                   {done}
                   {diff}
-                  {showRelation ? (
+                  {withheld ? (
+                    <p className={styles.quiet} data-testid="map-withheld">
+                      지문 지도는 정답 근거 · 오답 위치를 표시해 「정답 직접 안내 전까지」 동안 감춰 두었어요. 오른쪽 「정답 보기」 로 펼칠 수 있어요.
+                    </p>
+                  ) : showRelation ? (
                     relation
                   ) : map ? (
                     <PassageMap
@@ -1415,6 +1419,20 @@ export function AnalysisTheater({
                   <h2 className={styles.sceneQuestion} data-testid="scene-question">
                     {sceneDef?.question}
                   </h2>
+                  {/* 동의 전(「정답 직접 안내 전까지」) — 문항 분석 장면은 허용 목록만 그린다. 판단 · 설계 · 지도 · 원리 · 정리 · 과제 · 비교는
+                      정답 · 소거를 담을 수 있어 장면마다 막는 대신 통째로 감춘다(T-0140 r4 · r5). 유형 단위 탐구 질문만 남긴다 */}
+                  {withheld ? (
+                    <>
+                      {scene === 'task' && goal ? (
+                        <section className={styles.goal} aria-label="이 문항에서 탐구할 질문" data-testid="learning-goal">
+                          <b>이 문항에서 확인할 관계</b>
+                          <p className="break-keep">{goal.relation}</p>
+                        </section>
+                      ) : null}
+                      {withheldPanel('scene', sceneDef?.label ?? '분석')}
+                    </>
+                  ) : (
+                    <>
                   {scene === 'task' && goal ? (
                     <section className={styles.goal} aria-label="이 문항에서 탐구할 질문" data-testid="learning-goal">
                       <b>이 문항에서 확인할 관계</b>
@@ -1579,6 +1597,8 @@ export function AnalysisTheater({
                       이 문항은 이 장면에 해당하는 검수된 설명이 아직 없어요. 다른 장면의 분석은 그대로 읽을 수 있어요.
                     </p>
                   ) : null}
+                    </>
+                  )}
                   {nextScene(scene) ? (
                     <button type="button" className={styles.back} onClick={() => pickScene(nextScene(scene)!)} data-testid="scene-next">
                       다음 장면 · {SCENES.find((x) => x.id === nextScene(scene))?.label} →

@@ -123,6 +123,10 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     expect(theater).toMatch(/sceneChecks\.length && !withheld \? \(\s*<UnderstandingChecks/)
     expect(theater).toMatch(/scene === 'compare' && !withheld \? \(\s*<V3CompareExplorer/)
     expect(theater).toMatch(/withheld \? withheldPanel\('distractors', '오답 설계'\) : <DistractorDesign/)
+    // r5 R5-01~03 — 동의 전 장면은 허용 목록(유형 단위 탐구 질문 + 자리표시)만. 지도 · 설계 · 원리 · 정리 · 과제는 그 분기 밖
+    const allow = theater.slice(theater.indexOf("withheldPanel('scene'") - 600, theater.indexOf("withheldPanel('scene'") + 200)
+    for (const c of ['<PassageMap', '<V3Design', '<V3Task', '<V3Meaning', '<PrincipleDesign', '<SystemLearningSummary', 'renderBlock']) expect(allow).not.toContain(c)
+    expect(theater).toMatch(/\{withheld \? \(\s*<p className=\{styles\.quiet\} data-testid="map-withheld">[\s\S]*?\) : showRelation \? \(\s*relation\s*\) : map \? \(\s*<PassageMap/)
     // 일시정지에서 toggle 하면 다시 튼다 — 경계 처리 · 멈춤 · 건너뛰기 · 원문은 재생 중일 때만 멈추는 pauseLecture 를 쓴다(T-0140 Codex r2)
     const boundary = theater.slice(theater.indexOf('data-testid="lecture-boundary"'), theater.indexOf('data-testid="lecture-boundary-self"'))
     expect(boundary.match(/pauseLecture\(\)/g)?.length).toBe(3)
