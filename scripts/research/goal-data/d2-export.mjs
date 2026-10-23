@@ -23,6 +23,11 @@ export const BATCHES = {
   // 802 확대(T-0100) — 범위 배치: 시험 순서대로 채우고 상한 40. 결손 · 도표 · 삽입 경계 불확실은 멈추지 않고 excluded 에 사유를 남긴다
   // 평가원 모의평가 나머지 — M2706(pilot-1 이 핵심 유형 12 판정) 나머지 → M2409 순 ≤40 · 기판정 자동 제외
   'b8-v24': { rule: 'M2706 18–45 중 미판정 → M2409 18–45 순으로 ≤40 · 도표 · 결손 · 기판정 제외 · 계약 v2.4(v2.5 는 관측 검증 전 미봉인)', ids: ['M2706', 'M2409'].flatMap((e) => Array.from({ length: 28 }, (_, k) => `${e}#${18 + k}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
+  // v2.5 사전 등록(V2_5_PREREGISTRATION rev3) 표본 — 2022 수능 핵심 밖(도표 제외) 15 + M2406(도표 · 장문 43 · 44 사전 제외) 25 = 40 · A/B 는 v2.4
+  'b9-v24': { rule: '2022 수능 핵심 유형 밖 18–45 → M2406 18–45(장문 43 · 44 는 상한 안에서 대상 M2406#45 를 지키려 사전 제외) ≤40 · 도표 · 결손 · 기판정 제외', ids: [...Array.from({ length: 28 }, (_, k) => 18 + k).filter((n) => !KEY_TYPES.includes(n)).map((n) => `2022#${n}`), ...Array.from({ length: 28 }, (_, k) => 18 + k).filter((n) => n !== 43 && n !== 44).map((n) => `M2406#${n}`)], range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
+  // 사전 등록 비교 배치 — b9-v24 입력에서 대상 유형만 그대로 떼어 낸다(DB 재조회 없음 · 같은 원문 바이트). (C,D) = v2.5 · (E,F) = v2.4
+  'b9t-v25': { rule: 'b9-v24 의 대상 유형(R-FACT · R-NOTICE · X-FACT · R-IMPLY · R-MOOD) — 계약 v2.5 (C,D)', derived_from: 'b9-v24', target_types: ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-IMPLY', 'R-MOOD'], tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.5' },
+  'b9t-v24': { rule: 'b9-v24 의 대상 유형(R-FACT · R-NOTICE · X-FACT · R-IMPLY · R-MOOD) — 계약 v2.4 대조 (E,F)', derived_from: 'b9-v24', target_types: ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-IMPLY', 'R-MOOD'], tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   // 수능 나머지 문항(핵심 유형 밖) — 2024 · 2025 → 2023 순 ≤40 · 이미 판정한 문항은 자동 제외(이전 배치 selection)
   'b7-v24': { rule: '2024 · 2025 수능 핵심 유형 밖 18–45 → 2023 수능 핵심 유형 밖 순으로 ≤40 · 도표 · 결손 · 기판정 제외', ids: ['2024', '2025', '2023'].flatMap((e) => Array.from({ length: 28 }, (_, k) => 18 + k).filter((n) => !KEY_TYPES.includes(n)).map((n) => `${e}#${n}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   // b5 이후(T-0103 보완 · 계약 v2.3): 2023#38 은 b5 동결 뒤 사용자 승인으로 DB 복구 — 새 source_sha256 으로 재결속해 여기서 판정한다
@@ -35,6 +40,21 @@ const def = BATCHES[batch]
 if (!def) throw new Error(`배치 이름: ${Object.keys(BATCHES).join(' | ')}`)
 const OUT = path.join(LOCAL, batch, 'input.json')
 if (fs.existsSync(OUT)) throw new Error(`${path.relative(ROOT, OUT)} 가 이미 있다 — 선정은 동결이다`)
+// 파생 배치: 부모 입력에서 대상 유형 행만 그대로 복사한다(같은 원문 · 같은 해시 — 세 쌍이 같은 문항 바이트를 본다)
+if (def.derived_from) {
+  const parentFile = path.join(LOCAL, def.derived_from, 'input.json')
+  if (!fs.existsSync(parentFile)) throw new Error(`부모 배치 ${def.derived_from} 입력이 없다 — 먼저 export`)
+  const parentRaw = fs.readFileSync(parentFile, 'utf8')
+  const parent = JSON.parse(parentRaw)
+  const rows = parent.rows.filter((r) => def.target_types.includes(r.type_id))
+  fs.mkdirSync(path.dirname(OUT), { recursive: true })
+  fs.writeFileSync(OUT, JSON.stringify({ batch, rule: def.rule, tasks: def.tasks, contract: def.contract, derived_from: def.derived_from, parent_input_sha256: crypto.createHash('sha256').update(parentRaw).digest('hex'), generated_at: new Date().toISOString(), rows }, null, 1))
+  const items = rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source_sha256: r.source_sha256, passage_sha256: r.passage_sha256 }))
+  const SELF = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping', `${batch}-selection.json`)
+  fs.writeFileSync(SELF, JSON.stringify({ batch, rule: def.rule, tasks: def.tasks, contract: def.contract, derived_from: def.derived_from, items, selection_sha256: crypto.createHash('sha256').update(JSON.stringify(items)).digest('hex') }, null, 1) + '\n')
+  console.log(`${batch}: ${def.derived_from} 에서 대상 ${rows.length} 문항 · 계약 ${def.contract} → ${path.relative(ROOT, OUT)}`)
+  process.exit(0)
+}
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL, KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 if (!String(URL_).includes('jajenrevcbmrpaliomxv')) throw new Error('개발 프로젝트가 아니다')
 const sha = (v) => crypto.createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex')

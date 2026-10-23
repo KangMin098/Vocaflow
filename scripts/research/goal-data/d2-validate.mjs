@@ -4,7 +4,9 @@
 // T-0107 P1: D3 는 D2 와 같은 검사를 통과한 행만 쓴다. 1차 표본 검증기(validateRow · validateChunk)는 그대로 부르고 계약 검사만 더한다.
 import { validateChunk, validateRow } from '../../csat/map/v62/data/pilot-lib.mjs'
 
-export const V22_PLUS = ['v2.2', 'v2.3', 'v2.4']
+export const V22_PLUS = ['v2.2', 'v2.3', 'v2.4', 'v2.5']
+// v2.4 규칙(E2 고정표 · 주 TASK 선택 이유 · 범위 밖 가드)은 v2.5 에도 그대로 적용된다
+const V24_PLUS = ['v2.4', 'v2.5']
 // v2.4 §1 E2 고정표 — 대상 없는 전체 판단 문항 · 순서 = 무관, 내용 일치 · 안내문 = direct
 const E2_NA_TYPES = ['R-PURPOSE', 'R-CLAIM', 'R-GIST', 'R-TOPIC', 'R-TITLE', 'R-MOOD', 'R-ORDER', 'X-TITLE', 'X-ORDER']
 const E2_DIRECT_TYPES = ['R-FACT', 'R-NOTICE', 'X-FACT']
@@ -21,7 +23,7 @@ const isSingleDirect = (s) => /^direct\s*단일/.test(norm(s))
 export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
   const subset = !!input.tasks
   const byId = new Map(input.rows.map((r) => [r.item_id, r]))
-  const reasonsRequired = input.contract === 'v2.4'
+  const reasonsRequired = V24_PLUS.includes(input.contract)
 
   function v2(row, inp) {
     if (legacyV1) return []
@@ -48,28 +50,38 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
   }
   /** v2.3 — 부분 집합 primary 의 뜻(§1). v2.4 는 유형상 주 수행이 6 TASK 안인 문항에 「범위 밖」 표시를 거부한다(b7 A-02 가 20행 전부 true 로 둔 결함) */
   function v23(row, inp) {
-    if (!['v2.3', 'v2.4'].includes(input.contract)) return []
+    if (!['v2.3', ...V24_PLUS].includes(input.contract)) return []
     if (typeof row.main_performance_outside_subset !== 'boolean') return ['main_performance_outside_subset(true|false) 없음(v2.3 §1)']
-    if (input.contract === 'v2.4' && row.main_performance_outside_subset && IN_SUBSET_TYPES.includes(inp.type_id)) return [`${inp.type_id} 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)`]
+    if (V24_PLUS.includes(input.contract) && row.main_performance_outside_subset && IN_SUBSET_TYPES.includes(inp.type_id)) return [`${inp.type_id} 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)`]
     return []
   }
   /** v2.4 — 주 TASK 선택 이유(§3) · E2 고정표(§1) */
   function v24(row, inp) {
     const errs = []
     if (reasonsRequired && norm(row.primary_reason).length < 15) errs.push('primary_reason(문항 고유 선택 이유 15자 이상) 없음(v2.4 §3)')
-    if (input.contract !== 'v2.4') return errs
+    if (!V24_PLUS.includes(input.contract)) return errs
     const e2 = (row.links ?? []).find((l) => l.task_id === 'e.evidence_location')
     if (e2 && E2_NA_TYPES.includes(inp.type_id) && e2.relevance !== 'not_applicable') errs.push(`${inp.type_id} 의 E2 는 not_applicable(v2.4 §1)`)
     if (e2 && E2_DIRECT_TYPES.includes(inp.type_id) && e2.relevance !== 'direct') errs.push(`${inp.type_id} 의 E2 는 direct(v2.4 §1)`)
     return errs
   }
 
+  /** v2.5 — 일치 · 불일치 · 안내문에서 E1 은 주 TASK 가 아니다(§1) */
+  function v25(row, inp) {
+    if (input.contract !== 'v2.5') return []
+    return E2_DIRECT_TYPES.includes(inp.type_id) && row.primary_task === 'e.task_demand' ? [`${inp.type_id} 에서 E1 은 주 TASK 가 아니다(v2.5 §1)`] : []
+  }
+
   /** 한 행 — 1차 검증기 + 계약 검사. primary-null 면제는 v2.2 이상 · 부분 집합 · 명시적 secondary=[] · direct 0 일 때만(T-0103 · T-0104) */
   function row(rowOut) {
     const inp = byId.get(rowOut.item_id)
     if (!inp) return ['배치 밖']
-    const noDirect = subset && V22_PLUS.includes(input.contract) && rowOut.primary_task === null && Array.isArray(rowOut.secondary_tasks) && rowOut.secondary_tasks.length === 0 && !(rowOut.links ?? []).some((l) => l.relevance === 'direct')
-    return [...validateRow(rowOut, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...v2(rowOut, inp), ...v22(rowOut, inp), ...v23(rowOut, inp), ...v24(rowOut, inp)]
+    const indirectSet = (rowOut.links ?? []).filter((l) => l.relevance === 'indirect').map((l) => l.task_id).sort()
+    const secondaryOk = Array.isArray(rowOut.secondary_tasks) && (input.contract === 'v2.5'
+      ? JSON.stringify([...rowOut.secondary_tasks].sort()) === JSON.stringify(indirectSet)   // v2.5 §3: indirect 를 secondary 에 남긴다
+      : rowOut.secondary_tasks.length === 0)
+    const noDirect = subset && V22_PLUS.includes(input.contract) && rowOut.primary_task === null && secondaryOk && !(rowOut.links ?? []).some((l) => l.relevance === 'direct')
+    return [...validateRow(rowOut, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...v2(rowOut, inp), ...v22(rowOut, inp), ...v23(rowOut, inp), ...v24(rowOut, inp), ...v25(rowOut, inp)]
   }
   /** 한 청크 — 1차 반복 검사. 계약이 고정 문구를 요구하는 삽입 E2 unknown(v2.2 §3)은 반복 검사에서 뺀다 */
   function chunk(rows) {

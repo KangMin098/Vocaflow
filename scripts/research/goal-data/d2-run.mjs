@@ -24,7 +24,7 @@ const input = JSON.parse(fs.readFileSync(path.join(LOCAL, 'input.json'), 'utf8')
 const byId = new Map(input.rows.map((r) => [r.item_id, r]))
 // 계약: b2 = v2 · b3/b4 = v2.1 · 입력에 contract 가 있으면 그 버전까지(v2.2 = TASK 부분 집합 · E2 탐색 · 삽입 격리)
 const DOC = 'docs/research/goal-data-batches/D2-task-mapping'
-const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `${DOC}/CONTRACT_V2.md`, ...(batch === 'b2-v2' ? [] : [`${DOC}/CONTRACT_V2_1.md`]), ...(['v2.2', 'v2.3', 'v2.4'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_2.md`] : []), ...(['v2.3', 'v2.4'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_3.md`] : []), ...(input.contract === 'v2.4' ? [`${DOC}/CONTRACT_V2_4.md`] : [])]
+const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `${DOC}/CONTRACT_V2.md`, ...(batch === 'b2-v2' ? [] : [`${DOC}/CONTRACT_V2_1.md`]), ...(['v2.2', 'v2.3', 'v2.4', 'v2.5'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_2.md`] : []), ...(['v2.3', 'v2.4', 'v2.5'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_3.md`] : []), ...(['v2.4', 'v2.5'].includes(input.contract) ? [`${DOC}/CONTRACT_V2_4.md`] : []), ...(input.contract === 'v2.5' ? [`${DOC}/CONTRACT_V2_5.md`] : [])]
 // v2: 통합 관찰(kind=integrated)은 문항 단위 판정에서 뺀다 · v2.2: 입력의 tasks 부분 집합만 판정 · 검증한다
 const allAtomic = nonHeldTasks().filter((t) => t.kind !== 'integrated')
 const tasks = input.tasks ? input.tasks.map((id) => allAtomic.find((t) => t.id === id) ?? (() => { throw new Error(`입력 tasks 에 정의 밖 TASK ${id}`) })()) : allAtomic
@@ -43,7 +43,8 @@ function chunks() {
     for (const track of ['A', 'B']) {
       const f = name(track, k)
       if (fs.existsSync(f)) continue
-      const items = rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source: r.source, source_sha256: r.source_sha256, ...(r.insert_split ? { insert_split: r.insert_split } : {}), ...(track === 'A' ? { prior_analysis_unverified: r.analysis, prior_traps: r.traps.map((t) => ({ option_no: t.option_no, trap_key: t.trap_key })) } : {}) }))
+      // 사전 등록 비교 배치(derived_from)는 두 트랙 모두 원문만 — C · E 에 기존 분석을 주면 (C,D)/(E,F) 안에서 정보 조건이 달라진다
+      const items = rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source: r.source, source_sha256: r.source_sha256, ...(r.insert_split ? { insert_split: r.insert_split } : {}), ...(track === 'A' && !input.derived_from ? { prior_analysis_unverified: r.analysis, prior_traps: r.traps.map((t) => ({ option_no: t.option_no, trap_key: t.trap_key })) } : {}) }))
       fs.writeFileSync(f, JSON.stringify({ batch, track, contracts: CONTRACTS, tasks, items }, null, 1))
     }
   }
