@@ -2,7 +2,11 @@
 //
 // d2-validate 반례 검사 — 선택 이유 반복 검출(T-0107: 2행 완전 반복 · 템플릿 · 청크 간)이 실제로 잡는지 확인한다.
 //   node scripts/research/goal-data/d2-validate.check.mjs   (실패 시 exit 1)
-import { makeValidator } from './d2-validate.mjs'
+import fs from 'node:fs'
+import os from 'node:os'
+import path from 'node:path'
+
+import { loadTrack, makeValidator } from './d2-validate.mjs'
 
 const input = { contract: 'v2.4', tasks: ['r.central_meaning'], rows: [] }
 const V = makeValidator(input, [])
@@ -20,4 +24,28 @@ for (const c of cases) {
   console.log(`${got === c.expect ? 'ok ' : 'FAIL'} ${c.name} → 검출 ${got}`)
   if (got !== c.expect) bad++
 }
+// 공용 로더(T-0115 RECHECK-P1-01): 청크 반복 검사 실패 → 그 청크 행 전부 배제 · 행 결함 → 그 행만 배제 · 트랙 이유 반복 → 전부 배제
+const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'd2-loader-'))
+const rows = (p) => Array.from({ length: 3 }, (_, k) => ({ item_id: `${p}#${k}` }))
+fs.writeFileSync(path.join(dir, 'chunk-A-01.out.json'), JSON.stringify({ rows: rows('X') }))
+fs.writeFileSync(path.join(dir, 'chunk-A-02.out.json'), JSON.stringify({ rows: rows('Y') }))
+const stub = (o) => ({ chunk: (r) => (o.chunkFail && r[0].item_id.startsWith('X') ? ['반복'] : []), row: (r) => (o.rowFail === r.item_id ? ['결함'] : []), reasons: () => (o.reasonFail ? ['이유 반복'] : []) })
+const ids = [...rows('X'), ...rows('Y')].map((r) => r.item_id)
+const loaderCases = [
+  { name: '청크 반복 실패 → 그 청크 3행 배제', o: { chunkFail: true }, expect: 3 },
+  { name: '행 결함 → 그 행만 배제', o: { rowFail: 'Y#1' }, expect: 5 },
+  { name: '트랙 이유 반복 → 전부 배제', o: { reasonFail: true }, expect: 0 },
+  { name: '결함 없음 → 6행', o: {}, expect: 6 },
+]
+for (const c of loaderCases) {
+  const got = loadTrack(dir, 'A', 2, stub(c.o), ids).out.size
+  console.log(`${got === c.expect ? 'ok ' : 'FAIL'} 로더: ${c.name} → 통과 ${got}`)
+  if (got !== c.expect) bad++
+}
+fs.rmSync(dir, { recursive: true, force: true })
+// prereg-compare 가 공용 로더를 쓰는지(정적 확인) — 자체 행 필터로 되돌아가면 청크 검사를 다시 빠뜨린다
+const cmp = fs.readFileSync(new URL('./prereg-compare.mjs', import.meta.url), 'utf8')
+const usesLoader = cmp.includes('loadTrack(') && !cmp.includes('V.row(r)')
+console.log(`${usesLoader ? 'ok ' : 'FAIL'} prereg-compare 가 공용 로더만 쓴다`)
+if (!usesLoader) bad++
 process.exit(bad ? 1 : 0)

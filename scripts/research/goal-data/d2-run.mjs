@@ -10,13 +10,13 @@ import path from 'node:path'
 
 import { ROOT, nonHeldTasks } from '../../csat/map/v62/data/pilot-lib.mjs'
 
-import { makeValidator } from './d2-validate.mjs'
+import { chunkSize, loadTrack, makeValidator } from './d2-validate.mjs'
 
 const [batch, cmd] = process.argv.slice(2)
 const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local', String(batch))
 const OUTDIR = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping')
 // b2 · b3 만 10문항 청크 — 그 뒤 배치는 20문항 청크(분석자 수를 동시 실행 한도 안에 둔다 · T-0100 은 정규식이 b4–b9 에만 맞던 것을 지적)
-const CHUNK = ['b2-v2', 'b3-insert'].includes(String(batch)) ? 10 : 20
+const CHUNK = chunkSize(batch)
 const sha = (v) => crypto.createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex')
 const hideQuote = (a) => (a?.quote ? { field: a.field, quote_sha256: sha(String(a.quote)), quote_chars: String(a.quote).length } : null)
 const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
@@ -51,32 +51,13 @@ function chunks() {
   console.log(`${batch}: 청크 ${nChunks} × 트랙 2 · TASK ${tasks.length} → ${path.relative(ROOT, LOCAL)}`)
 }
 
-function load(track) {
-  const out = new Map(), errors = []
-  const allRows = []
-  for (let k = 0; k < nChunks; k++) {
-    const f = name(track, k, true)
-    if (!fs.existsSync(f)) { errors.push(`${path.basename(f)} 없음`); continue }
-    const rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? []
-    allRows.push(...rows)
-    const ce = V.chunk(rows)
-    if (ce.length) { errors.push(...ce.map((x) => `${track} ${path.basename(f)}: ${x}`)); continue }
-    for (const row of rows) {
-      const e = V.row(row)
-      if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
-      else out.set(row.item_id, row)
-    }
-  }
-  // 주 TASK 선택 이유 반복은 청크 경계를 넘어 트랙 전체로 센다(T-0107) — 걸리면 그 트랙 전체를 통과시키지 않는다
-  const re = V.reasons(allRows)
-  if (re.length) { errors.push(...re.map((x) => `${track} 트랙: ${x}`)); out.clear() }
-  for (const id of byId.keys()) if (!out.has(id) && !errors.some((e) => e.includes(id))) errors.push(`${track} ${id} 출력 없음`)
-  return { out, errors }
-}
+/** 트랙 출력 로더 — d2-validate.loadTrack(prereg-compare 와 공용) */
+const load = (track) => loadTrack(LOCAL, track, nChunks, V, [...byId.keys()])
 
-function validate() {
+function validate(only) {
   let bad = 0
-  for (const t of ['A', 'B']) {
+  if (only && !['A', 'B'].includes(only)) { console.error('validate [A|B]'); process.exit(2) }
+  for (const t of only ? [only] : ['A', 'B']) {
     const { out, errors } = load(t)
     console.log(`${t}: 통과 ${out.size}/${byId.size} · 결함 ${errors.length}`)
     for (const e of errors.slice(0, 80)) console.log('  ' + e)
@@ -180,6 +161,6 @@ function snapshot(label) {
 
 if (cmd === 'chunks') chunks()
 else if (cmd === 'snapshot') snapshot(process.argv[4])
-else if (cmd === 'validate') validate()
+else if (cmd === 'validate') validate(process.argv[4])
 else if (cmd === 'agree') agree()
-else { console.error('<batch> chunks | validate | agree | snapshot <label>'); process.exit(2) }
+else { console.error('<batch> chunks | validate [A|B] | agree | snapshot <label>'); process.exit(2) }

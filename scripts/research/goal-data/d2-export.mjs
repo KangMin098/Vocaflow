@@ -28,6 +28,10 @@ export const BATCHES = {
   // 사전 등록 비교 배치 — b9-v24 입력에서 대상 유형만 그대로 떼어 낸다(DB 재조회 없음 · 같은 원문 바이트). (C,D) = v2.5 · (E,F) = v2.4
   'b9t-v25': { rule: 'b9-v24 의 대상 유형(R-FACT · R-NOTICE · X-FACT · R-IMPLY · R-MOOD) — 계약 v2.5 (C,D)', derived_from: 'b9-v24', target_types: ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-IMPLY', 'R-MOOD'], tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.5' },
   'b9t-v24': { rule: 'b9-v24 의 대상 유형(R-FACT · R-NOTICE · X-FACT · R-IMPLY · R-MOOD) — 계약 v2.4 대조 (E,F)', derived_from: 'b9-v24', target_types: ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-IMPLY', 'R-MOOD'], tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
+  // 사전 등록 확장 b10(rev4 §3) — b9 비교가 「유효 대상 12 미만」 으로 기록됐을 때만 export 할 수 있다(gate). M2309 대상 유형만
+  'b10-v24': { rule: 'M2309 18–45 의 대상 유형(사전 등록 확장) — b9 유효 대상 12 미만일 때만', ids: Array.from({ length: 28 }, (_, k) => `M2309#${18 + k}`), range: true, cap: 40, only_types: ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-IMPLY', 'R-MOOD'], requires_decision: 'insufficient_extend_b10', tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
+  'b10t-v25': { rule: 'b10-v24 대상 — 계약 v2.5 (C,D)', derived_from: 'b10-v24', target_types: ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-IMPLY', 'R-MOOD'], tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.5' },
+  'b10t-v24': { rule: 'b10-v24 대상 — 계약 v2.4 대조 (E,F)', derived_from: 'b10-v24', target_types: ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-IMPLY', 'R-MOOD'], tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   // 수능 나머지 문항(핵심 유형 밖) — 2024 · 2025 → 2023 순 ≤40 · 이미 판정한 문항은 자동 제외(이전 배치 selection)
   'b7-v24': { rule: '2024 · 2025 수능 핵심 유형 밖 18–45 → 2023 수능 핵심 유형 밖 순으로 ≤40 · 도표 · 결손 · 기판정 제외', ids: ['2024', '2025', '2023'].flatMap((e) => Array.from({ length: 28 }, (_, k) => 18 + k).filter((n) => !KEY_TYPES.includes(n)).map((n) => `${e}#${n}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   // b5 이후(T-0103 보완 · 계약 v2.3): 2023#38 은 b5 동결 뒤 사용자 승인으로 DB 복구 — 새 source_sha256 으로 재결속해 여기서 판정한다
@@ -55,6 +59,12 @@ if (def.derived_from) {
   console.log(`${batch}: ${def.derived_from} 에서 대상 ${rows.length} 문항 · 계약 ${def.contract} → ${path.relative(ROOT, OUT)}`)
   process.exit(0)
 }
+// 사전 등록 gate — 비교 결과 파일의 결정이 맞을 때만 export 한다(결과를 보고 표본을 늘리는 경로를 막는다)
+if (def.requires_decision) {
+  const cmp = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping/v2_5-comparison.json')
+  const decision = fs.existsSync(cmp) ? JSON.parse(fs.readFileSync(cmp, 'utf8')).decision : null
+  if (decision !== def.requires_decision) throw new Error(`${batch} 는 비교 결정이 ${def.requires_decision} 일 때만 export 한다(현재 ${decision ?? '없음'})`)
+}
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL, KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 if (!String(URL_).includes('jajenrevcbmrpaliomxv')) throw new Error('개발 프로젝트가 아니다')
 const sha = (v) => crypto.createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex')
@@ -79,6 +89,7 @@ for (const it of JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/csat-learner/v
 function exclusion(id) {
   const i = byId.get(id)
   if (!i) return '문항 없음'
+  if (def.only_types && !def.only_types.includes(i.type_id)) return '대상 유형 아님(사전 등록 확장)'
   if (def.range && judgedBefore.has(id)) return `이미 판정(${judgedBefore.get(id)})`
   if (def.range && EXCLUDE_TYPES[i.type_id]) return EXCLUDE_TYPES[i.type_id]
   if (!i.body_ok) return 'body_ok=false(D1)'

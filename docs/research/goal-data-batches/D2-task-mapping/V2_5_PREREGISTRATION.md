@@ -1,7 +1,8 @@
-# 계약 v2.5 사전 등록 — 봉인 판단용 비교 설계 (rev3 · T-0114 P1 3 반영)
+# 계약 v2.5 사전 등록 — 봉인 판단용 비교 설계 (rev4 · T-0115 반영)
 
 > 원칙: v2.5 를 도출한 b7 갈림 9문항에 v2.5 를 적용한 일치는 맞춤(과적합)이라 봉인 근거가 아니다. 규칙 · 계산 · 프롬프트를 먼저 고정하고, **아직 판정하지 않은 문항**에 미리 정한 지표로 v2.4 와 비교한다.
 > rev2 → rev3(T-0114): P1-01 계산 · 선정 선택 고정 · P1-02 열람 금지 입증 방식 · P1-03 재등록 · 동결 대상 · 유형별 결론 금지.
+> rev3 → rev4(T-0115): 비교 계산이 d2-run 과 같은 공용 로더(청크 검사 포함)를 쓴다 · b10 경로 구현(gate · 합집합) · 독립 대조 10 선정 규칙 고정 · 자기 트랙만 검증 · 최초 출력 snapshot 순서. **rev3 시도는 판정 전이라 본 문항이 없어 폐기할 표본이 없다.**
 
 ## 1. 동결 집합 — 결과 계산 전까지 한 바이트도 바꾸지 않는다
 
@@ -16,15 +17,16 @@
 | `docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_5.md` | `6a9ac5e7de81cdf2a507cdb1dec35fa6d24261a125827b8b26d764bbbd26fbd6` |
 | `docs/csat-learner/v4/codebook.json` | `e53141985380c410be02cc8cf84e204479f075520b92448a40dde366551c1c6a` |
 | `scripts/csat/map/v62/data/pilot-lib.mjs` | `9e0e8a9f6126a0e3569d1837d61fd5d55f53cc55d6908c14e65ca93ed12826b2` |
-| `scripts/research/goal-data/d2-validate.mjs` | `1303abe1623cdf3404c0cf9adf012d1bb1f733163a11d09806b917c803f8a92e` |
-| `scripts/research/goal-data/d2-run.mjs` | `2820f72653243f1d2de1fb5430b613262fc29f2ffeb55f577e65b7f87d79ea96` |
-| `scripts/research/goal-data/d2-export.mjs` | `6a81d4525e64cbf09fd506216b21f9f671bca80bbac610d5d172021bdf849421` |
+| `scripts/research/goal-data/d2-validate.mjs` | `a75219fc66d641bef4ed9b2f49765851e9bf8751290cfcb3abcd04b3bac439ca` |
+| `scripts/research/goal-data/d2-validate.check.mjs` | `08ed083a5d7f75d0e01f51721966c7cd3dd740979544908b7e902a9afcbef787` |
+| `scripts/research/goal-data/d2-run.mjs` | `ee8f9361df77a399945fefebb37e208b6514f6f5611bf11c25eb105021e40f5e` |
+| `scripts/research/goal-data/d2-export.mjs` | `b6b89f3c125079ed25e0d41efd2d9d1e5cdedb7785e1a50c88ab547f1c6043f9` |
 | `scripts/research/goal-data/insert-split.mjs` | `7dce076dd5a2d8c899e68b36ef1260b1de104739ef1aecd3367cc666c1bffffb` |
-| `scripts/research/goal-data/prereg-compare.mjs` | `c9e534386708e39e7ed7a87abb43c13f93913a8c2e51c1ceb102fa8b58d33953` |
-| `docs/research/goal-data-batches/D2-task-mapping/prereg-prompts/comparison-analyst.md` | `c0030270920047ee2fdc58c09dac850d0f52a098fb53ffc923923c3579e62a0e` |
+| `scripts/research/goal-data/prereg-compare.mjs` | `f8b0a41a66746cde1719db1f20d0caa1b72d655685a417fa4c0498af10915bcb` |
+| `docs/research/goal-data-batches/D2-task-mapping/prereg-prompts/comparison-analyst.md` | `218b46c3465e446ccf3cdb1dea50434fb0a2cd044e8f9da5a131f8ae7778849b` |
 
-- 확인: `node scripts/research/goal-data/prereg-freeze-check.mjs` 가 이 표를 읽어 작업 트리 바이트와 대조한다(이 검사 스크립트의 sha256 은 rev3 확정 커밋 메시지에 남긴다). **export 직전 · 판정 시작 직전 · 비교 계산 직전** 세 번 실행하고 출력을 `local/b9-v24/prompts/freeze-check-<시점>.txt` 로 저장한다.
-- 이 문서(rev3) 자체의 sha256 은 확정 커밋 메시지와 `b9-v24-selection.json` 을 만든 뒤 `local/b9-v24/prompts/manifest.json` 에 남긴다.
+- 확인: `node scripts/research/goal-data/prereg-freeze-check.mjs` 가 이 표를 읽어 작업 트리 바이트와 대조한다(이 검사 스크립트의 sha256 은 rev4 확정 커밋 메시지에 남긴다). **export 직전 · 판정 시작 직전 · 비교 계산 직전** 세 번 실행하고 출력을 `local/b9-v24/prompts/freeze-check-<시점>.txt` 로 저장한다.
+- 이 문서(rev4) 자체의 sha256 은 확정 커밋 메시지와 `b9-v24-selection.json` 을 만든 뒤 `local/b9-v24/prompts/manifest.json` 에 남긴다.
 
 ## 2. 재등록 규칙(P1-03)
 
@@ -36,7 +38,7 @@
 - **대상 유형**: R-FACT · R-NOTICE · X-FACT · R-IMPLY · R-MOOD.
 - **b9**(export 전): 2022 수능 핵심 유형 밖 18–45(도표 제외) 15 + M2406 18–45(도표 · 장문 43 · 44 사전 제외) 25 = 40. 대상 12 = 시험마다 R-MOOD 1 · R-IMPLY 1 · R-FACT 1 · R-NOTICE 2 · X-FACT 1(platform-goal DB 실측 · 모두 적격).
 - **유효 대상** = 대상 문항 중 A · B · C · D · E · F 여섯 판정이 **모두 검증기(d2-validate) 구조 검사를 통과**한 문항. 「검증 실패」 = 분석자가 최대 2회 수정한 뒤에도 그 문항 행에 검증 결함이 남은 경우(형식 검사만 — 내용 판단은 실패 사유가 아니다).
-- **b10 확장** = 유효 대상이 12 미만일 때만, 그리고 **지표를 계산하기 전에** 정한다(`prereg-compare.mjs` 는 12 미만이면 지표를 계산하지 않는다). M2309 대상 6 을 같은 절차(같은 프롬프트 · 같은 동결 집합)로 판정해 b9 유효 대상에 **모두** 합친다. 그 밖의 이유로 표본을 늘리거나 줄이거나 문항을 고르지 않는다.
+- **b10 확장** = b9 유효 대상이 12 미만일 때만, 그리고 **지표를 계산하기 전에** 정한다. 구현: `prereg-compare.mjs` 는 b9 유효 < 12 이면 지표를 계산하지 않고 `decision = insufficient_extend_b10` 만 기록한다 → `d2-export` 의 `b10-v24`(M2309 18–45 중 대상 유형만) 는 **그 결정이 기록돼 있을 때만** export 된다(gate) → 파생 `b10t-v25` · `b10t-v24` 를 같은 프롬프트 · 같은 동결 집합 · 같은 순서(C–F 먼저)로 판정 → `prereg-compare` 가 b9 유효 전부 뒤에 b10 유효 전부를 **합집합**으로 붙여(순서 고정 · 선택 없음) 계산한다. b9 유효 ≥ 12 인데 b10 이 있으면 계산을 거부한다. b9 + b10 유효 < 12 이면 `insufficient_after_b10` — 결론 없음 · 추가 확장 없음.
 - b2–b8 문항은 쓰지 않는다.
 
 ## 4. 설계 — 같은 문항 · 세 쌍
@@ -53,6 +55,7 @@
 
 - **순서로 막는다**: C · D · E · F 를 먼저(동시에) 판정하고, 넷이 모두 끝나 스냅샷을 남긴 뒤에 A · B 를 판정한다 → C–F 판정 중에는 A/B 출력이 존재하지 않는다.
 - **입력을 가른다**: C–F 는 각자 `chunk-<TRACK>-01.json` 만 받는다(prior 분석 · 트랩은 A 트랙 입력에도 넣지 않는다 — 비교 배치 A 트랙 = C · E 도 원문만). 
+- **자기 트랙만 검증한다**: 분석자는 `d2-run <batch> validate <TRACK>` 만 쓴다(트랙 생략 시 두 트랙 결함 · 선택 이유가 함께 출력되기 때문 — T-0115 RECHECK-P1-02). 출력을 처음 다 쓴 직후 고치기 전에 `d2-run <batch> snapshot <라벨>-first` 로 최초 출력을 보존한다.
 - **기록한다**: 실행 프롬프트 전문(동결 틀에서 네 자리만 치환)을 `local/<배치>/prompts/<라벨>.md` 로 저장 · sha256 manifest · 모델 설정(Agent 도구 general-purpose · 상위 모델 상속 · 새 대화 — 이전 대화 · b7 결론 · 이 사전 등록 문서를 프롬프트에 넣지 않음) · 판정 직후 `d2-run <batch> snapshot` · 분석자 최종 보고의 「읽은 파일 목록」.
 - **남는 한계(사전 명시)**: 분석자는 파일 시스템에 접근할 수 있어 금지 파일을 실제로 열지 않았음을 기술적으로 증명할 수 없다 — 순서(A/B 출력 부재) · 입력 분리 · 자기 보고 · C–F 간 동시 실행으로 위험을 줄일 뿐이다. C–F 서로의 출력은 동시 실행 중 일부가 먼저 생길 수 있다.
 
@@ -65,7 +68,7 @@
 | 링크 κ | 같은 합산 쌍의 4범주 Cohen κ | (C,D) ≥ (E,F) − 0.05 · **κ 가 null 이면 판단 불가 → 봉인하지 않음** |
 | 대상 외 영향 | R5 · R6 · E1 · R4(E2 · E3 제외) n × 4 쌍 합산 일치 | \|(C,D) − (E,F)\| ≤ 0.05 · v2.5 절별 적용 범위 문서 대조 |
 | null primary secondary | v2.5 §3 | (C,D) null primary 행 전부 검증기 통과(secondary = indirect 집합) |
-| 독립 원문 대조 | 독립 검증이 (C,D) 표본 10 | 반박 0 |
+| 독립 원문 대조 | 유효 대상을 (시험 id, 문항 번호) 오름차순으로 정렬한 **앞 10**(`independent_review_sample_CD` — 결과 열람 후 선택 없음) · 주 TASK 불일치 전수 대조는 이와 별도 | 반박 0 |
 
 - 비교는 **반올림 없는 원값**(보고만 4자리). 다중 비교: 조건은 **모두** 충족해야 한다(하나라도 아니면 봉인하지 않음 — 지표를 골라 쓰지 않는다).
 - **유형별 결론 금지**: 대상 유형별 n 이 2–4 라 유형별 일치 · 차이로 결론을 내지 않는다. 전체 결론만.

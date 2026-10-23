@@ -2,6 +2,9 @@
 //
 // D2 계약 검사(v2 반사실 · v2.2 부분 집합 · 삽입 격리 · v2.3 주 수행 범위 · v2.4 E2 고정표 · 주 TASK 선택 이유) — d2-run · d3-build 공용.
 // T-0107 P1: D3 는 D2 와 같은 검사를 통과한 행만 쓴다. 1차 표본 검증기(validateRow · validateChunk)는 그대로 부르고 계약 검사만 더한다.
+import fs from 'node:fs'
+import path from 'node:path'
+
 import { validateChunk, validateRow } from '../../csat/map/v62/data/pilot-lib.mjs'
 
 export const V22_PLUS = ['v2.2', 'v2.3', 'v2.4', 'v2.5']
@@ -113,4 +116,32 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
     return errs
   }
   return { row, chunk, reasons, byId }
+}
+
+/** 청크 크기 — b2 · b3 만 10, 그 뒤 배치는 20(d2-run · prereg-compare 공용) */
+export const chunkSize = (batch) => (['b2-v2', 'b3-insert'].includes(String(batch)) ? 10 : 20)
+
+/**
+ * 한 트랙 출력 로더(d2-run · prereg-compare 공용 · T-0115 RECHECK-P1-01):
+ *   청크 반복 검사(V.chunk) 실패 → 그 청크 전체 배제 · 행 검사(V.row) 실패 → 그 행 배제 · 트랙 전체 선택 이유 반복(V.reasons) → 트랙 전체 배제
+ */
+export function loadTrack(dir, track, nChunks, V, ids) {
+  const out = new Map(), errors = [], allRows = []
+  for (let k = 0; k < nChunks; k++) {
+    const f = path.join(dir, `chunk-${track}-${String(k + 1).padStart(2, '0')}.out.json`)
+    if (!fs.existsSync(f)) { errors.push(`${path.basename(f)} 없음`); continue }
+    const rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? []
+    allRows.push(...rows)
+    const ce = V.chunk(rows)
+    if (ce.length) { errors.push(...ce.map((x) => `${track} ${path.basename(f)}: ${x}`)); continue }
+    for (const row of rows) {
+      const e = V.row(row)
+      if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
+      else out.set(row.item_id, row)
+    }
+  }
+  const re = V.reasons(allRows)
+  if (re.length) { errors.push(...re.map((x) => `${track} 트랙: ${x}`)); out.clear() }
+  for (const id of ids) if (!out.has(id) && !errors.some((e) => e.includes(id))) errors.push(`${track} ${id} 출력 없음`)
+  return { out, errors }
 }
