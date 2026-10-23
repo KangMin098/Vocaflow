@@ -29,7 +29,14 @@ for (const l of links) {
 }
 const sumPts = (ids) => ids.reduce((s, id) => s + (pts.get(id).points ?? 0), 0)
 const rows = Object.fromEntries(Object.entries(exams).sort().map(([k, e]) => [k, { reading_items: e.items, reading_points: e.points, points_unknown_items: e.points_unknown, R5_direct: { items: e.R5_direct.length, points: sumPts(e.R5_direct), ids: e.R5_direct.sort() }, R5_indirect: { items: e.R5_indirect.length, points: sumPts(e.R5_indirect) }, R6_direct: { items: e.R6_direct.length, points: sumPts(e.R6_direct), ids: e.R6_direct.sort() }, disputed_pairs: e.disputed, source_defect_pairs: e.source_defect }]))
-fs.writeFileSync(path.join(DIR, 'exam-relevance.json'), JSON.stringify({ note: 'R1(두 독립 AI 일치) 후보 — 사람 검수 0 · relevance=unknown. 문항 수 · 배점은 독해 범위(18–45)만. 한 문항이 R5 · R6 에 함께 걸리면 각 TASK 에 센다(문항 배점을 TASK 간 합산하지 않는다).', exams: rows }, null, 1) + '\n')
+// 교차 모델 검증(xmodel-agreement.json · T-0101) — R5 direct 는 Codex 표본 유지율로 인계 가능 하한, R6 는 빈칸 R5/R6 경계 미정으로 보류
+const xm = JSON.parse(fs.readFileSync(path.join(DIR, 'xmodel-agreement.json'), 'utf8')).per_task
+const handoff = {
+  R5_direct: { status: 'handoff_lower_bound', xmodel_r1_direct_kept: `${xm['r.central_meaning'].r1_direct.codex_direct}/${xm['r.central_meaning'].r1_direct.n}`, codex_only_direct: xm['r.central_meaning'].codex_direct_not_r1.length, note: '두 Claude 가 일치한 direct 는 Codex 도 direct — 정밀. Claude 는 R5 direct 를 덜 잡아(빈칸 · 무관 문장) 배점은 하한이다' },
+  R6_direct: { status: 'hold_cross_model', xmodel_r1_direct_kept: `${xm['r.inference'].r1_direct.codex_direct}/${xm['r.inference'].r1_direct.n}`, note: '빈칸 문항에서 정답이 본문에 재진술되면 Codex 는 R5 · R6 무관, Claude 는 R6 — RULES_V2 §8-7 경계 결정 전 인계 금지' },
+  R5_indirect: { status: 'hold', note: 'indirect 경계는 모델 간 체계적 반대(README §9)' },
+}
+fs.writeFileSync(path.join(DIR, 'exam-relevance.json'), JSON.stringify({ handoff, note: 'R1(두 독립 AI 일치) 후보 — 사람 검수 0 · relevance=unknown. 문항 수 · 배점은 독해 범위(18–45)만. 한 문항이 R5 · R6 에 함께 걸리면 각 TASK 에 센다(문항 배점을 TASK 간 합산하지 않는다).', exams: rows }, null, 1) + '\n')
 const v = Object.values(rows)
 const avg = (k) => (v.reduce((s, r) => s + r[k].points, 0) / v.length).toFixed(1)
 console.log(`시험 ${v.length} · 평균 R5 direct ${avg('R5_direct')}점 · R6 direct ${avg('R6_direct')}점 / 독해 평균 ${(v.reduce((s, r) => s + r.reading_points, 0) / v.length).toFixed(1)}점`)

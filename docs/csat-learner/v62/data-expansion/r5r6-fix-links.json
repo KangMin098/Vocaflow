@@ -1,0 +1,410 @@
+{
+ "batch": "r5r6-fix",
+ "input_sha256": "e76ad48f011400ba8bc67b9ee33f0cb0cbf426e8f1c92e1d0ac896b50a16c5f2",
+ "links": [
+  {
+   "item": "M2206#44",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "대명사 지시 대상 판별이라 래프팅 이야기의 요지 압축은 경로 밖이다",
+    "B": "래프팅의 용기와 자신감이라는 중심을 압축하지 않아도 각 발화자와 대명사를 추적하면 다른 대상을 찾는다."
+   },
+   "source_sha256": "810c77071938f627183e05967cf28b9aac39e8f05e2281f3c58956610c1745e6"
+  },
+  {
+   "item": "M2206#44",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "8a2c05012d2755e60d3f1b27c64b68d6d6ee1994940a816a1a42c92efb88f4ab",
+     "quote_chars": 44
+    },
+    "B": null
+   },
+   "why": {
+    "A": "(b) I는 따옴표 안 발화자 Rebecca를 앞 문장 화자 표시로 추정해야 하나, 결정은 명시된 화자 태그로 난다",
+    "B": "Rebecca가 발화한 I라는 명시적 지시를 추적하는 R1 경로이며 쓰이지 않은 의미를 도출할 필요가 없다."
+   },
+   "source_sha256": "810c77071938f627183e05967cf28b9aac39e8f05e2281f3c58956610c1745e6"
+  },
+  {
+   "item": "M2306#38",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": null,
+    "B": {
+     "field": "passage",
+     "quote_sha256": "a302282accaf82cf8311e907ab9fb07949f748d25cab400f2fd87e9d4fa224cd",
+     "quote_chars": 63
+    }
+   },
+   "why": {
+    "A": "살충제 관리 방식 전환이라는 요지를 압축하지 않아도 Also와 승인 비용 문장의 연결로 위치가 정해진다",
+    "B": "새 살충제 개발의 어려움과 대체 방제 필요라는 중심을 잡아 주어진 문장이 같은 문제 축에 속함을 좁힌다."
+   },
+   "source_sha256": "b9854fcd43d6ab859dcd22685f13c0cf4efcfed3b17978fbd384df7d08752966"
+  },
+  {
+   "item": "M2306#38",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "45a6dc91a42d9b1269b0bd82b9b5a7daf787f6ce84e05439a646b107dac8ae14",
+     "quote_chars": 69
+    },
+    "B": null
+   },
+   "why": {
+    "A": "승인 비용이 신약 개발을 어렵게 만든 이유라는 쓰이지 않은 인과 관계를 짐작해야 연결이 보이지만, 결정은 Also의 추가 표지와 문장 순서다",
+    "B": "개발 어려움은 주어진 문장에, 승인 비용은 바로 뒤에 명시되어 R2의 부연·이유 연결로 위치를 정한다."
+   },
+   "source_sha256": "b9854fcd43d6ab859dcd22685f13c0cf4efcfed3b17978fbd384df7d08752966"
+  },
+  {
+   "item": "M2306#39",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": null,
+    "B": {
+     "field": "passage",
+     "quote_sha256": "559dec3ef80241af4db971236bf786e5cfc5e2ec4506db363c52c4d02f043f59",
+     "quote_chars": 47
+    }
+   },
+   "why": {
+    "A": "집단 경계의 요지를 한 줄로 만들 필요 없이 This의 지시 대상과 뒤 설명의 연결로 위치가 결정된다",
+    "B": "다수 개체의 이탈이 더 신뢰할 만한 위협 단서라는 중심을 잡으면 This가 평가할 연구 결과 범위를 좁힌다."
+   },
+   "source_sha256": "1f506eddf07a45ef6976cf6315779a72188b3e0fdd49ad32e451d8b78022fc94"
+  },
+  {
+   "item": "M2306#39",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "direct",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "732f0101940efdd9708c0b12302b28188aa172b60fdbbd13a2764d3a77894e63",
+     "quote_chars": 101
+    },
+    "B": {
+     "field": "passage",
+     "quote_sha256": "3d45e60cc0f2afdc6b1ea2127b873f177731680c72414facc81f6ba3a73dc7e8",
+     "quote_chars": 72
+    }
+   },
+   "why": {
+    "A": "단독 이탈은 신뢰도가 낮고 다수 이탈은 신뢰도가 높다는, 본문에 '신뢰성'이라는 말로 쓰이지 않은 의미를 junco 결과에서 도출해야 This makes sense가 ③에 맞는다",
+    "B": "단독 이탈의 오경보와 동시 이탈의 진짜 위협을 근거로 여러 이탈의 신뢰성이 높다는 미기술 비교를 도출한다."
+   },
+   "source_sha256": "1f506eddf07a45ef6976cf6315779a72188b3e0fdd49ad32e451d8b78022fc94"
+  },
+  {
+   "item": "M2406#38",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": null,
+    "B": {
+     "field": "passage",
+     "quote_sha256": "ff394a43a232b97c510d431eda44a4af519d77c8166179f9e7a73788109b6a08",
+     "quote_chars": 132
+    }
+   },
+   "why": {
+    "A": "제도화와 과학 가치의 요지를 압축하지 않아도 Instead–not formally instructed 대조로 자리가 정해진다",
+    "B": "과학의 규범은 명문화보다 사회화로 전달된다는 중심을 파악하면 공식 제도 설명과 과학 사례를 구별한다."
+   },
+   "source_sha256": "54ec0702a8e597c59ae32f6fbbc86425868ab3e82ea0caf56dda911364be55ae"
+  },
+  {
+   "item": "M2406#38",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "f83bc13521ace196751846bac08f0aa340ec13ea70c080c4f10c2b4b3c09db21",
+     "quote_chars": 103
+    },
+    "B": null
+   },
+   "why": {
+    "A": "these values가 주어진 문장의 moral values를 가리킨다는 연결을 짐작하는 데 쓰이지만, 결정은 Instead가 부정 진술을 바로 받는 형식 단서다",
+    "B": "공식 교육의 부정과 동료 흡수의 대안은 명시되어 있어 Instead의 대조와 these values의 R1 결속으로 해결한다."
+   },
+   "source_sha256": "54ec0702a8e597c59ae32f6fbbc86425868ab3e82ea0caf56dda911364be55ae"
+  },
+  {
+   "item": "M2406#39",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": null,
+    "B": {
+     "field": "passage",
+     "quote_sha256": "1639c85a4ccbfd7c5514cf4c1658518437e6becfa0706f55c86cae4a4b74747e",
+     "quote_chars": 60
+    }
+   },
+   "why": {
+    "A": "숲 공동체 요지 압축 없이 they·As a result와 This is because의 앞뒤 연결로 위치가 결정된다",
+    "B": "경쟁 제거가 숲의 상호 지원을 끊어 개체도 약해진다는 중심을 잡아 빠른 성장과 짧은 수명의 대조를 이해한다."
+   },
+   "source_sha256": "31f2af63e57bdc20e6cf28919718f35b33096303a653d2ae7f084a11ce56fa35"
+  },
+  {
+   "item": "M2406#39",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": "indirect",
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "indirect",
+    "B": "indirect"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "4b2a9995be45b90a08aad52594a76691bfeaaae63d6cb273c7ee07180d59891d",
+     "quote_chars": 77
+    },
+    "B": {
+     "field": "passage",
+     "quote_sha256": "be8349f4b7e12de2d31bf18a8db33fad4e8906a834b3f9b2481b9d866bdc02d1",
+     "quote_chars": 42
+    }
+   },
+   "why": {
+    "A": "홀로 왕성한 나무가 오래 못 사는 이유가 숲 전체의 약화라는 함의를 읽어야 This is because 문장과 이어짐이 납득되지만 결정은 연결 표지다",
+    "B": "왕성한 광합성에서 양분이 많아 잘 자란다는 결과를 도출하여 주어진 As a result의 연결 후보를 좁힌다."
+   },
+   "source_sha256": "31f2af63e57bdc20e6cf28919718f35b33096303a653d2ae7f084a11ce56fa35"
+  },
+  {
+   "item": "M2406#43",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "사건 순서 배열이라 이야기 주제를 한 줄로 압축하는 일이 정답 결정에 쓰이지 않는다",
+    "B": "생일 선물 분실과 회수의 중심 주장을 압축할 필요 없이 구매·놓고 옴·발견의 사건 선후만으로 배열한다."
+   },
+   "source_sha256": "e3a5a291e1f8eb91ebd6005b5a2b95dad7d9759e70ee5c74de372b9890e7e9b1"
+  },
+  {
+   "item": "M2406#43",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "6c002964e501356e0e32c1e68e7b29bd8f41b3e4c343a20b7288bf9223730808",
+     "quote_chars": 50
+    },
+    "B": null
+   },
+   "why": {
+    "A": "(D)의 It must be in the cafe가 (B)에서 신발 가방을 두고 온 일을 전제한다는 쓰이지 않은 연결을 추정하게 되지만, 순서는 시간·장소 표지로 정해진다",
+    "B": "신발 구매·봉투를 남김·귀가 후 분실 확인이 모두 명시되어 R2의 시간 연결과 R4의 사건 배열로 해결한다."
+   },
+   "source_sha256": "e3a5a291e1f8eb91ebd6005b5a2b95dad7d9759e70ee5c74de372b9890e7e9b1"
+  },
+  {
+   "item": "M2406#44",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "지시 대상 구별 문항이라 선물 분실 이야기의 요지 압축은 판단 경로 밖이다",
+    "B": "선물을 되찾는 이야기 중심을 압축하지 않아도 마지막 전화 발화자와 나머지 대명사의 지시 대상을 비교한다."
+   },
+   "source_sha256": "f0acbad253b922044674fb8b50bdd56136f62da0028fcb8eda9dce66e89ed6a0"
+  },
+  {
+   "item": "M2406#44",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "DISPUTED",
+   "source": "research_ai_candidate",
+   "tier": "R0",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": {
+     "field": "passage",
+     "quote_sha256": "5883fd9aa8de9c753880c3a7397fa90e761374807d8136eac2813fdb6286c2dc",
+     "quote_chars": 54
+    },
+    "B": null
+   },
+   "why": {
+    "A": "called back 하는 she가 확인하겠다던 매니저라는 점을 앞 문장 행위에서 이어 짐작해야 하나, 명시된 told Ellen이 결정적이다",
+    "B": "확인하겠다고 한 매니저가 다시 전화해 발견을 알린 명시 결속을 R1로 추적하며 별도의 미기술 의미를 도출하지 않는다."
+   },
+   "source_sha256": "f0acbad253b922044674fb8b50bdd56136f62da0028fcb8eda9dce66e89ed6a0"
+  },
+  {
+   "item": "M2406#45",
+   "task": "r.central_meaning",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "선지별 세부 사실 대조라 이야기 중심 의미를 압축할 필요가 없다",
+    "B": "아버지 선물 분실·회수라는 중심에서 벗어난 음료 구매의 국소 사실만 대조하므로 중심 압축을 쓰지 않는다."
+   },
+   "source_sha256": "f4a289308087a339d64ebbf8aff36beb343441096a15c4efa5d33e65fc14012d"
+  },
+  {
+   "item": "M2406#45",
+   "task": "r.inference",
+   "relevance": "unknown",
+   "candidateRelevance": null,
+   "state": "INDEPENDENTLY_CHECKED",
+   "source": "research_ai_reviewed",
+   "tier": "R1",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "not_applicable"
+   },
+   "anchors": {
+    "A": null,
+    "B": null
+   },
+   "why": {
+    "A": "모든 선지가 본문에 명시된 사실과 직접 대조되어 쓰이지 않은 의미 도출이 필요 없다",
+    "B": "요거트 스무디를 샀다는 사실이 직접 명시되어 판매 여부를 선지와 대조하는 E3 경로에 추론은 필요하지 않다."
+   },
+   "source_sha256": "f4a289308087a339d64ebbf8aff36beb343441096a15c4efa5d33e65fc14012d"
+  }
+ ]
+}
