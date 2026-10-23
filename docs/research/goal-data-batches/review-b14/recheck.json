@@ -1,0 +1,1561 @@
+{
+  "task_id": "T-0123",
+  "owner_id": "goal-data-independent",
+  "input_commit": "30ea8e94f293f81c910708d04545d50976536d8f",
+  "base_commit": "57b7e7006",
+  "observed_at": "2026-10-23T10:39:20.056Z",
+  "conclusion": "기준 수정 필요",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; 완화안 수용이나 무결함을 뜻하지 않음",
+  "skip_count": 0,
+  "checks": {
+    "total": 227,
+    "failed": 0,
+    "shipped_counterexamples": 16,
+    "tracks": 28,
+    "rows_semantically_reviewed": 52
+  },
+  "acceptance": [
+    {
+      "index": 0,
+      "verdict": "confirmed",
+      "claim": "반례16/16, 최초B01 차단, b3 B·b6 A 허용, 28트랙 중 b8 A만 적발",
+      "detail": "활성화 조건만 메모리에서 해제하고 독립 집계와 실제 reasons 결과를 28트랙 모두 대조했다. 배포 검증기의 비소급 정책과 구분한다.",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:132",
+        "scripts/research/goal-data/d2-validate.check.mjs:22",
+        "scripts/research/goal-data/review-b14/recheck.mjs:35",
+        "scripts/research/goal-data/review-b14/recheck.mjs:59"
+      ]
+    },
+    {
+      "index": 1,
+      "verdict": "refuted",
+      "claim": "반복1줄+무의미 고유1줄이 통과한다",
+      "detail": "정확한 1+1 반례는 차단. 단 1+2는 통과하며 실제40행 runner에서도 재현되어 우회 위험은 confirmed(P1-01).",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:132",
+        "scripts/research/goal-data/review-b14/recheck.mjs:53"
+      ]
+    },
+    {
+      "index": 2,
+      "verdict": "refuted",
+      "claim": "b13 A·b9t-v24 A가 빠진 것은 나머지 줄이 문항 고유이기 때문이다",
+      "detail": "52행 전수 대조. 반복 관련9행 중 b13 #29/#30은 나머지 설명 자체가 없고 각각1/1이다. b13 나머지3행과 b9t4행의 다른 설명에도 여러 문항에 성립하는 공통 관측 한계가 있다. 근거 위치/대응 TASK와 일관됨은 문항 고유성과 다르다. 링크 유지·공통 설명 격리는 수용한다. 의미 Gold와 primary 단일 우열은 unclear.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:286",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:688",
+        "scripts/research/goal-data/local/b13-v24/input.json:4154",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1628",
+        "scripts/research/goal-data/local/b13-v24/input.json:5480",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1751",
+        "scripts/research/goal-data/local/b13-v24/input.json:5636",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1987",
+        "scripts/research/goal-data/local/b13-v24/input.json:5923",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:2090",
+        "scripts/research/goal-data/local/b13-v24/input.json:6061",
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:148",
+        "scripts/research/goal-data/local/b9t-v24/input.json:779",
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:235",
+        "scripts/research/goal-data/local/b9t-v24/input.json:1253",
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:264",
+        "scripts/research/goal-data/local/b9t-v24/input.json:1390",
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:322",
+        "scripts/research/goal-data/local/b9t-v24/input.json:1675"
+      ]
+    },
+    {
+      "index": 3,
+      "verdict": "confirmed",
+      "claim": "대안 기준을 판정하고 새 P0/P1 및 산출물을 기록한다",
+      "detail": "계약 허용 공통 관측 한계를 화이트리스트/별도 코드로 분리하고 나머지는 문항 단위 반복 기준을 유지하는 대안을 권고한다. 1+1·1+2, 임의 삽입E2, 실제B01, b3/b6를 한 회귀 집합으로 삼아야 한다. 구체 화이트리스트의 전량 오탐/누락 성능은 미측정이며 수치 개선을 주장하지 않는다.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b14/recheck.md:1",
+        "docs/research/goal-data-batches/review-b14/recheck.json:1"
+      ]
+    }
+  ],
+  "new_findings": [
+    {
+      "id": "RECHECK-P1-01",
+      "severity": "P1",
+      "title": "무의미한 고유 설명 2개로 반복 설명 비율을 희석하면 트랙 전체가 통과한다",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:132",
+        "scripts/research/goal-data/review-b14/recheck.mjs:59"
+      ],
+      "reproduction": "동일 반복 1줄+무의미 고유 1줄은 1/2라 차단, 고유 2줄은 1/3이라 허용. b14 A 실제 2021#32/#33/#34의 not_observable만 치환한 40행 트랙도 실제 runner 통과.",
+      "impact": "문항 근거가 없는 설명이 추가될수록 반복 가드가 약해진다. primary/decision_path 고유성은 not_observable 의미 검증을 대신하지 못한다.",
+      "recommendation": "행 설명 수를 분모로 쓰지 않고, 허용된 공통 관측 한계만 별도 분류한 뒤 나머지 반복은 기존 문항 수 기준으로 검사한다."
+    },
+    {
+      "id": "RECHECK-P1-02",
+      "severity": "P1",
+      "title": "삽입 E2의 계약 고정 문구 예외가 모든 문자열 예외로 구현됐다",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:126",
+        "scripts/research/goal-data/d2-validate.mjs:134",
+        "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_2.md:26"
+      ],
+      "reproduction": "삽입 E2의 why를 계약과 관계없는 동일 설명으로 바꾼 실제 b14 A 삽입 3행도 runner 통과. TASK/type만 보고 제외하며 why 내용은 비교하지 않는다.",
+      "impact": "계약 고정 문구를 보호하려던 예외가 삽입 E2의 근거 없는 반복까지 검사 밖으로 만든다.",
+      "recommendation": "계약 버전+입력 유형+TASK+허용 문구/명시적 관측 한계 코드로 예외를 제한하고, 다른 문구에는 문항 단위 반복 검사를 적용한다."
+    }
+  ],
+  "new_p0": 0,
+  "new_p1": 2,
+  "tracks": [
+    {
+      "batch": "b11-v24",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b11-v24",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b12-v24",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b12-v24",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b13-v24",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 1,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b13-v24",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b14-v24",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b14-v24",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b2-v2",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b2-v2",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b3-insert",
+      "track": "A",
+      "rows": 8,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b3-insert",
+      "track": "B",
+      "rows": 8,
+      "errors": [],
+      "repeated_groups": 1,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b4-v21",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b4-v21",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b5-v22",
+      "track": "A",
+      "rows": 38,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b5-v22",
+      "track": "B",
+      "rows": 38,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b6-v23",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b6-v23",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b7-v24",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b7-v24",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b8-v24",
+      "track": "A",
+      "rows": 40,
+      "errors": [
+        "not_observable why 틀 반복 20문항(M2706#18,M2706#19,M2706#20): 「선택형 응답에 이 수행의 흔적이 남지 않는다」",
+        "not_observable why 틀 반복 7문항(M2706#26,M2706#27,M2706#28): 「정답 선택만으로 이 수행을 따로 했는지 분리해 확인할 」"
+      ],
+      "repeated_groups": 2,
+      "flagged_groups": 2
+    },
+    {
+      "batch": "b8-v24",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b9-v24",
+      "track": "A",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b9-v24",
+      "track": "B",
+      "rows": 40,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b9t-v24",
+      "track": "A",
+      "rows": 12,
+      "errors": [],
+      "repeated_groups": 1,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b9t-v24",
+      "track": "B",
+      "rows": 12,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b9t-v25",
+      "track": "A",
+      "rows": 12,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    },
+    {
+      "batch": "b9t-v25",
+      "track": "B",
+      "rows": 12,
+      "errors": [],
+      "repeated_groups": 0,
+      "flagged_groups": 0
+    }
+  ],
+  "row_review": [
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#18",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:4",
+        "scripts/research/goal-data/local/b13-v24/input.json:16"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#19",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:129",
+        "scripts/research/goal-data/local/b13-v24/input.json:193"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.inference",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "r.discourse_structure",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#20",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:248",
+        "scripts/research/goal-data/local/b13-v24/input.json:344"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#21",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:373",
+        "scripts/research/goal-data/local/b13-v24/input.json:494"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.inference",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#22",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:498",
+        "scripts/research/goal-data/local/b13-v24/input.json:668"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#23",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:625",
+        "scripts/research/goal-data/local/b13-v24/input.json:819"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#24",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:751",
+        "scripts/research/goal-data/local/b13-v24/input.json:966"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#26",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:878",
+        "scripts/research/goal-data/local/b13-v24/input.json:1138"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#27",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1000",
+        "scripts/research/goal-data/local/b13-v24/input.json:1295"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#28",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1122",
+        "scripts/research/goal-data/local/b13-v24/input.json:1431"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#29",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1236",
+        "scripts/research/goal-data/local/b13-v24/input.json:1582"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.task_demand",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#30",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1341",
+        "scripts/research/goal-data/local/b13-v24/input.json:1734"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.evidence_location",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#31",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1458",
+        "scripts/research/goal-data/local/b13-v24/input.json:1886"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#32",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1572",
+        "scripts/research/goal-data/local/b13-v24/input.json:2052"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#33",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1687",
+        "scripts/research/goal-data/local/b13-v24/input.json:2198"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#34",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1812",
+        "scripts/research/goal-data/local/b13-v24/input.json:2371"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.inference",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#35",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1937",
+        "scripts/research/goal-data/local/b13-v24/input.json:2545"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.discourse_structure",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#36",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:2061",
+        "scripts/research/goal-data/local/b13-v24/input.json:2717"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.discourse_structure",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#37",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:2164",
+        "scripts/research/goal-data/local/b13-v24/input.json:2868"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.discourse_structure",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#38",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:2267",
+        "scripts/research/goal-data/local/b13-v24/input.json:3052"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.discourse_structure",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#39",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:4",
+        "scripts/research/goal-data/local/b13-v24/input.json:3229"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.discourse_structure",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#40",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:107",
+        "scripts/research/goal-data/local/b13-v24/input.json:3412"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#41",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:232",
+        "scripts/research/goal-data/local/b13-v24/input.json:3560"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#42",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:357",
+        "scripts/research/goal-data/local/b13-v24/input.json:3714"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#43",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:483",
+        "scripts/research/goal-data/local/b13-v24/input.json:3853"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.discourse_structure",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#44",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:586",
+        "scripts/research/goal-data/local/b13-v24/input.json:4003"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "M2206#45",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:688",
+        "scripts/research/goal-data/local/b13-v24/input.json:4154"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#18",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:812",
+        "scripts/research/goal-data/local/b13-v24/input.json:4300"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#19",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:927",
+        "scripts/research/goal-data/local/b13-v24/input.json:4473"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.discourse_structure",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#20",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1034",
+        "scripts/research/goal-data/local/b13-v24/input.json:4624"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#21",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1149",
+        "scripts/research/goal-data/local/b13-v24/input.json:4798"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.inference",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#22",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1284",
+        "scripts/research/goal-data/local/b13-v24/input.json:4965"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#23",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1399",
+        "scripts/research/goal-data/local/b13-v24/input.json:5131"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.central_meaning",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#24",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1514",
+        "scripts/research/goal-data/local/b13-v24/input.json:5305"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "r.central_meaning",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#26",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1628",
+        "scripts/research/goal-data/local/b13-v24/input.json:5480"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#27",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1751",
+        "scripts/research/goal-data/local/b13-v24/input.json:5636"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#28",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1874",
+        "scripts/research/goal-data/local/b13-v24/input.json:5772"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#29",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:1987",
+        "scripts/research/goal-data/local/b13-v24/input.json:5923"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#30",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:2090",
+        "scripts/research/goal-data/local/b13-v24/input.json:6061"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    },
+    {
+      "batch": "b13-v24",
+      "item_id": "2021#31",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json:2192",
+        "scripts/research/goal-data/local/b13-v24/input.json:6200"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.inference",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "2022#19",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:3",
+        "scripts/research/goal-data/local/b9t-v24/input.json:18"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.inference",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "2022#21",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:32",
+        "scripts/research/goal-data/local/b9t-v24/input.json:166"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.inference",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "2022#26",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:61",
+        "scripts/research/goal-data/local/b9t-v24/input.json:338"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "2022#27",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:90",
+        "scripts/research/goal-data/local/b9t-v24/input.json:494"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "2022#28",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:119",
+        "scripts/research/goal-data/local/b9t-v24/input.json:630"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "2022#45",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:148",
+        "scripts/research/goal-data/local/b9t-v24/input.json:779"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.evidence_location",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "M2406#19",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:177",
+        "scripts/research/goal-data/local/b9t-v24/input.json:933"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.task_demand",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "M2406#21",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:206",
+        "scripts/research/goal-data/local/b9t-v24/input.json:1082"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "r.inference",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "M2406#26",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:235",
+        "scripts/research/goal-data/local/b9t-v24/input.json:1253"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.evidence_location",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "M2406#27",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:264",
+        "scripts/research/goal-data/local/b9t-v24/input.json:1390"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "M2406#28",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:293",
+        "scripts/research/goal-data/local/b9t-v24/input.json:1525"
+      ],
+      "repeated_line_present": false,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "판정 경로·설명 문맥을 대조했다. 관측 한계는 동형 문항에 적용 가능하며 의미 Gold는 미확정이다."
+    },
+    {
+      "batch": "b9t-v24",
+      "item_id": "M2406#45",
+      "evidence": [
+        "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json:322",
+        "scripts/research/goal-data/local/b9t-v24/input.json:1675"
+      ],
+      "repeated_line_present": true,
+      "decision_quote_source_bound": true,
+      "why_assessment": [
+        {
+          "task_id": "e.option_correspondence",
+          "kind": "context_supported",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.evidence_location",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        },
+        {
+          "task_id": "e.task_demand",
+          "kind": "general_observation_limit",
+          "item_exclusive": false,
+          "judgment": "문맥·TASK 형식과 일관되지만 이 원문에서만 성립하는 설명으로 인정하지 않는다"
+        }
+      ],
+      "judgment": "나머지 줄에도 공통 관측 한계가 있다. 판정 필드는 원문에 결속하므로 링크는 유지하고 설명 고유성 주장은 기각한다."
+    }
+  ],
+  "limitations": [
+    "추적 코드·문서는 지정 커밋 Git 객체에서 읽었다. ignored 원문 입력·출력은 T-0121 캡처를 현재 소유 worktree의 동일 바이트와 재대조했으며 해시는 recheck.local.json에 기록했다. ignored 파일이 Git 커밋에 포함됐다고 주장하지 않는다.",
+    "원문·diff·명령 출력은 *.local.json에만 보존했다. DB·원자료·제품 코드 변경 없음.",
+    "Gold·학습효과·새 화이트리스트 전량 성능·제품 E2E는 미측정/미실행. 수용기준 조사 누락은 없음."
+  ],
+  "protocol": "node --experimental-vm-modules scripts/research/goal-data/review-b14/recheck.mjs"
+}
