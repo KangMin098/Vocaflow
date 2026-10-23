@@ -1,0 +1,1487 @@
+{
+  "task_id": "T-0122",
+  "owner": "goal-data-independent",
+  "input_commit": "57b7e7006e8e725f5909e4872f8d65ae30a879b5",
+  "base_commit": "32bfeb2de",
+  "result": "pass",
+  "result_semantics": "검증 수행 완료; 수용 주장 전체 통과나 엔진 납품 승인이 아님",
+  "skip_count": 0,
+  "acceptance": [
+    {
+      "index": 0,
+      "verdict": "unclear",
+      "detail": "빈 값 허용·전30트랙 추이·A/B·공통 조립을 확인. 빈 값+direct 모순 주장은 refuted. 관측 기준 혼재는 confirmed. 공통 빈 값이 의미판정을 생략한 지름길인지는 행별 이유와 로그만으로 결정 불가.",
+      "evidence": [
+        "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:34",
+        "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:45",
+        "scripts/research/goal-data/review-b15/observability.mjs:8",
+        "scripts/research/goal-data/review-b15/row-review.md:1"
+      ]
+    },
+    {
+      "index": 1,
+      "verdict": "refuted",
+      "detail": "28선정·해시·κ .8483754513·primary25/28·경보·프롬프트·최초/최종·회귀 confirmed. 802 대비 누락0은 refuted. T-0121 가드 과잉은 pinned commit에서 미해소이나 b15 실제 손실0.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/b15-v24-selection.json:1",
+        "docs/research/goal-data-batches/D2-task-mapping/b15-v24-agreement.json:1",
+        "scripts/research/goal-data/review-b15/audit.mjs:33",
+        "scripts/research/goal-data/review-b15/observability.mjs:28",
+        "scripts/research/goal-data/d2-validate.mjs:120"
+      ]
+    },
+    {
+      "index": 2,
+      "verdict": "unclear",
+      "detail": "후보10·갈림10·primary 갈림3 모두 원문 대조 완료. A01 #29/#30 중복 수정은 첫 파일 쓰기 전임을 로그로 confirmed. 갈림의 의미 우열은 미확정.",
+      "evidence": [
+        "scripts/research/goal-data/review-b15/row-review.md:1",
+        "docs/research/goal-data-batches/D2-task-mapping/b15-v24-review-sample.json:1",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a36e999d76b98adbe.jsonl:67"
+      ]
+    },
+    {
+      "index": 3,
+      "verdict": "refuted",
+      "detail": "506문항19시험·R1 1212·갈림480 및 인계 제한 confirmed. 802 확대 완료는 refuted; snapshot 대비 잔여296. 현 DB 상태는 DB scope none으로 unclear.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json:1",
+        "docs/research/goal-data-batches/D3-principles/principle-groups.json:1",
+        "scripts/research/goal-data/review-b15/observability.mjs:28",
+        "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:3"
+      ]
+    },
+    {
+      "index": 4,
+      "verdict": "confirmed",
+      "detail": "verdict/review·새 P0=0/P1=2·불확실성·모집단 분해·재현 스크립트 기록.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b15/verdict.json:1",
+        "docs/research/goal-data-batches/review-b15/review.md:1"
+      ]
+    }
+  ],
+  "new_p0": 0,
+  "new_p1": [
+    {
+      "id": "P1-01",
+      "title": "802 전량 완료 주장과 선정 잔여가 불일치",
+      "status": "confirmed",
+      "impact": "506/802만 결합. 미포함296=도표 제외16+미선정 시험270+포함 시험 내 미기록10. b15 자체56프레임은28선정+28제외로 완결이나 전 모집단 완료·누락0 주장은 refuted.",
+      "evidence": [
+        "scripts/research/goal-data/review-b15/observability.mjs:28",
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json:32",
+        "scripts/research/goal-data/d2-export.mjs:23"
+      ],
+      "action": "범위 완료 문구를 최근19시험 부분표본 완료로 정정하거나 잔여280의 선정·제외 결정을 기록한다. 기존506을 버릴 이유는 없다."
+    },
+    {
+      "id": "P1-02",
+      "title": "관측 가능성의 결과/과정 기준 혼재와 공통 빈 값 조립",
+      "status": "confirmed",
+      "impact": "b5–b14의61트랙행(고유50문항)이 같은 TASK를 두 관측 목록에 중복. b15는 중복0이나 A/B 관측 집합 갈림8. B01 조립이20행 공통 빈 배열을 넣는다. 각 비관측 이유는 존재하므로 무판정·의도적 지름길 인과는 unclear.",
+      "evidence": [
+        "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:34",
+        "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:45",
+        "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1236",
+        "scripts/research/goal-data/local/b14-v24/chunk-B-02.out.json:102",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-abcb7fc5d19be898a.jsonl:63"
+      ],
+      "action": "TASK 수행의 관측과 정답 결과의 관측을 구분해 정의하고 중복61행·갈림8문항부터 관측 필드를 재판정한다. b13 B M2206#27은 빈 값에 대응하는 E1 비관측 이유도 누락. 범위 전체 관측 필드는 독립 진단·NeedRank에 쓰지 않는다. 링크·primary 일괄 폐기나 빈 값의 일괄 direct 전환은 근거 없음."
+    }
+  ],
+  "existing_p1": "T-0121 P1-01: pinned commit에서 과잉 가드 미해소; b15 손실0. 이후 다른 세션 수정은 이 검토 범위 밖.",
+  "checks": {
+    "total": 648,
+    "failed": 0
+  },
+  "coverage": {
+    "population": 802,
+    "covered": 506,
+    "exams": [
+      "2026",
+      "M2706",
+      "M2609",
+      "2025",
+      "M2606",
+      "2024",
+      "M2509",
+      "2023",
+      "M2506",
+      "2022",
+      "M2409",
+      "M2406",
+      "M2309",
+      "M2306",
+      "M2209",
+      "M2206",
+      "2021",
+      "M2109",
+      "M2106"
+    ],
+    "excluded": 16,
+    "unrecorded": 280,
+    "covered_exam_unrecorded": [
+      "M2209#45",
+      "M2406#43",
+      "2023#41",
+      "2023#42",
+      "2023#44",
+      "2023#45",
+      "2023#43",
+      "M2406#44",
+      "M2409#44",
+      "M2409#45"
+    ],
+    "outside_exam": 270,
+    "exam_totals": [
+      {
+        "exam": "M2706",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2609",
+        "population": 28,
+        "covered": 28
+      },
+      {
+        "exam": "M2606",
+        "population": 28,
+        "covered": 28
+      },
+      {
+        "exam": "2014A",
+        "population": 23,
+        "covered": 0
+      },
+      {
+        "exam": "2014B",
+        "population": 23,
+        "covered": 0
+      },
+      {
+        "exam": "2015",
+        "population": 28,
+        "covered": 0
+      },
+      {
+        "exam": "2016",
+        "population": 28,
+        "covered": 0
+      },
+      {
+        "exam": "2017",
+        "population": 28,
+        "covered": 0
+      },
+      {
+        "exam": "2018",
+        "population": 28,
+        "covered": 0
+      },
+      {
+        "exam": "2019",
+        "population": 28,
+        "covered": 0
+      },
+      {
+        "exam": "2020",
+        "population": 28,
+        "covered": 0
+      },
+      {
+        "exam": "2021",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "2022",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2506",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2509",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2409",
+        "population": 28,
+        "covered": 25
+      },
+      {
+        "exam": "2026",
+        "population": 28,
+        "covered": 28
+      },
+      {
+        "exam": "2023",
+        "population": 28,
+        "covered": 22
+      },
+      {
+        "exam": "2024",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "2025",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M1809",
+        "population": 28,
+        "covered": 0
+      },
+      {
+        "exam": "M2006",
+        "population": 28,
+        "covered": 0
+      },
+      {
+        "exam": "M2106",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2109",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2206",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2209",
+        "population": 28,
+        "covered": 26
+      },
+      {
+        "exam": "M2306",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2309",
+        "population": 28,
+        "covered": 27
+      },
+      {
+        "exam": "M2406",
+        "population": 28,
+        "covered": 25
+      }
+    ]
+  },
+  "observability": {
+    "tracks": [
+      {
+        "batch": "b11-v24",
+        "track": "A",
+        "n": 40,
+        "empty": 35,
+        "empty_with_direct": 33,
+        "invalid_rows": 5
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "n": 40,
+        "empty": 17,
+        "empty_with_direct": 15,
+        "invalid_rows": 9
+      },
+      {
+        "batch": "b12-v24",
+        "track": "A",
+        "n": 40,
+        "empty": 40,
+        "empty_with_direct": 40,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b12-v24",
+        "track": "B",
+        "n": 40,
+        "empty": 26,
+        "empty_with_direct": 26,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b13-v24",
+        "track": "A",
+        "n": 40,
+        "empty": 35,
+        "empty_with_direct": 34,
+        "invalid_rows": 1
+      },
+      {
+        "batch": "b13-v24",
+        "track": "B",
+        "n": 40,
+        "empty": 38,
+        "empty_with_direct": 37,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b14-v24",
+        "track": "A",
+        "n": 40,
+        "empty": 33,
+        "empty_with_direct": 32,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b14-v24",
+        "track": "B",
+        "n": 40,
+        "empty": 33,
+        "empty_with_direct": 32,
+        "invalid_rows": 4
+      },
+      {
+        "batch": "b15-v24",
+        "track": "A",
+        "n": 28,
+        "empty": 20,
+        "empty_with_direct": 19,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b15-v24",
+        "track": "B",
+        "n": 28,
+        "empty": 28,
+        "empty_with_direct": 27,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b2-v2",
+        "track": "A",
+        "n": 40,
+        "empty": 7,
+        "empty_with_direct": 7,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b2-v2",
+        "track": "B",
+        "n": 40,
+        "empty": 14,
+        "empty_with_direct": 14,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b3-insert",
+        "track": "A",
+        "n": 8,
+        "empty": 8,
+        "empty_with_direct": 8,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b3-insert",
+        "track": "B",
+        "n": 8,
+        "empty": 0,
+        "empty_with_direct": 0,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b4-v21",
+        "track": "A",
+        "n": 40,
+        "empty": 24,
+        "empty_with_direct": 24,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b4-v21",
+        "track": "B",
+        "n": 40,
+        "empty": 1,
+        "empty_with_direct": 1,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b5-v22",
+        "track": "A",
+        "n": 38,
+        "empty": 31,
+        "empty_with_direct": 31,
+        "invalid_rows": 4
+      },
+      {
+        "batch": "b5-v22",
+        "track": "B",
+        "n": 38,
+        "empty": 35,
+        "empty_with_direct": 35,
+        "invalid_rows": 3
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "n": 40,
+        "empty": 1,
+        "empty_with_direct": 1,
+        "invalid_rows": 10
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "n": 40,
+        "empty": 14,
+        "empty_with_direct": 14,
+        "invalid_rows": 12
+      },
+      {
+        "batch": "b7-v24",
+        "track": "A",
+        "n": 40,
+        "empty": 29,
+        "empty_with_direct": 27,
+        "invalid_rows": 3
+      },
+      {
+        "batch": "b7-v24",
+        "track": "B",
+        "n": 40,
+        "empty": 28,
+        "empty_with_direct": 25,
+        "invalid_rows": 3
+      },
+      {
+        "batch": "b8-v24",
+        "track": "A",
+        "n": 40,
+        "empty": 11,
+        "empty_with_direct": 11,
+        "invalid_rows": 3
+      },
+      {
+        "batch": "b8-v24",
+        "track": "B",
+        "n": 40,
+        "empty": 24,
+        "empty_with_direct": 24,
+        "invalid_rows": 1
+      },
+      {
+        "batch": "b9-v24",
+        "track": "A",
+        "n": 40,
+        "empty": 36,
+        "empty_with_direct": 36,
+        "invalid_rows": 1
+      },
+      {
+        "batch": "b9-v24",
+        "track": "B",
+        "n": 40,
+        "empty": 23,
+        "empty_with_direct": 21,
+        "invalid_rows": 2
+      },
+      {
+        "batch": "b9t-v24",
+        "track": "A",
+        "n": 12,
+        "empty": 12,
+        "empty_with_direct": 11,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b9t-v24",
+        "track": "B",
+        "n": 12,
+        "empty": 6,
+        "empty_with_direct": 5,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b9t-v25",
+        "track": "A",
+        "n": 12,
+        "empty": 4,
+        "empty_with_direct": 2,
+        "invalid_rows": 0
+      },
+      {
+        "batch": "b9t-v25",
+        "track": "B",
+        "n": 12,
+        "empty": 6,
+        "empty_with_direct": 4,
+        "invalid_rows": 0
+      }
+    ],
+    "chunk_counts": [
+      {
+        "file": "scripts/research/goal-data/local/b11-v24/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 18
+      },
+      {
+        "file": "scripts/research/goal-data/local/b11-v24/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 17
+      },
+      {
+        "file": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 1
+      },
+      {
+        "file": "scripts/research/goal-data/local/b11-v24/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 16
+      },
+      {
+        "file": "scripts/research/goal-data/local/b12-v24/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b12-v24/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b12-v24/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 13
+      },
+      {
+        "file": "scripts/research/goal-data/local/b12-v24/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 13
+      },
+      {
+        "file": "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 15
+      },
+      {
+        "file": "scripts/research/goal-data/local/b13-v24/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b13-v24/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 18
+      },
+      {
+        "file": "scripts/research/goal-data/local/b13-v24/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b14-v24/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b14-v24/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 13
+      },
+      {
+        "file": "scripts/research/goal-data/local/b14-v24/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b14-v24/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 13
+      },
+      {
+        "file": "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 12
+      },
+      {
+        "file": "scripts/research/goal-data/local/b15-v24/chunk-A-02.out.json",
+        "n": 8,
+        "empty": 8
+      },
+      {
+        "file": "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b15-v24/chunk-B-02.out.json",
+        "n": 8,
+        "empty": 8
+      },
+      {
+        "file": "scripts/research/goal-data/local/b2-v2/chunk-A-01.out.json",
+        "n": 10,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b2-v2/chunk-A-02.out.json",
+        "n": 10,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b2-v2/chunk-A-03.out.json",
+        "n": 10,
+        "empty": 7
+      },
+      {
+        "file": "scripts/research/goal-data/local/b2-v2/chunk-A-04.out.json",
+        "n": 10,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b2-v2/chunk-B-01.out.json",
+        "n": 10,
+        "empty": 6
+      },
+      {
+        "file": "scripts/research/goal-data/local/b2-v2/chunk-B-02.out.json",
+        "n": 10,
+        "empty": 8
+      },
+      {
+        "file": "scripts/research/goal-data/local/b2-v2/chunk-B-03.out.json",
+        "n": 10,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b2-v2/chunk-B-04.out.json",
+        "n": 10,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b3-insert/chunk-A-01.out.json",
+        "n": 8,
+        "empty": 8
+      },
+      {
+        "file": "scripts/research/goal-data/local/b3-insert/chunk-B-01.out.json",
+        "n": 8,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b4-v21/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 16
+      },
+      {
+        "file": "scripts/research/goal-data/local/b4-v21/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 8
+      },
+      {
+        "file": "scripts/research/goal-data/local/b4-v21/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 1
+      },
+      {
+        "file": "scripts/research/goal-data/local/b4-v21/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b5-v22/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b5-v22/chunk-A-02.out.json",
+        "n": 18,
+        "empty": 11
+      },
+      {
+        "file": "scripts/research/goal-data/local/b5-v22/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 17
+      },
+      {
+        "file": "scripts/research/goal-data/local/b5-v22/chunk-B-02.out.json",
+        "n": 18,
+        "empty": 18
+      },
+      {
+        "file": "scripts/research/goal-data/local/b6-v23/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 1
+      },
+      {
+        "file": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b6-v23/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 13
+      },
+      {
+        "file": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 1
+      },
+      {
+        "file": "scripts/research/goal-data/local/b7-v24/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 10
+      },
+      {
+        "file": "scripts/research/goal-data/local/b7-v24/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 19
+      },
+      {
+        "file": "scripts/research/goal-data/local/b7-v24/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 12
+      },
+      {
+        "file": "scripts/research/goal-data/local/b7-v24/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 16
+      },
+      {
+        "file": "scripts/research/goal-data/local/b8-v24/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 0
+      },
+      {
+        "file": "scripts/research/goal-data/local/b8-v24/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 11
+      },
+      {
+        "file": "scripts/research/goal-data/local/b8-v24/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 4
+      },
+      {
+        "file": "scripts/research/goal-data/local/b8-v24/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 20
+      },
+      {
+        "file": "scripts/research/goal-data/local/b9-v24/chunk-A-01.out.json",
+        "n": 20,
+        "empty": 19
+      },
+      {
+        "file": "scripts/research/goal-data/local/b9-v24/chunk-A-02.out.json",
+        "n": 20,
+        "empty": 17
+      },
+      {
+        "file": "scripts/research/goal-data/local/b9-v24/chunk-B-01.out.json",
+        "n": 20,
+        "empty": 12
+      },
+      {
+        "file": "scripts/research/goal-data/local/b9-v24/chunk-B-02.out.json",
+        "n": 20,
+        "empty": 11
+      },
+      {
+        "file": "scripts/research/goal-data/local/b9t-v24/chunk-A-01.out.json",
+        "n": 12,
+        "empty": 12
+      },
+      {
+        "file": "scripts/research/goal-data/local/b9t-v24/chunk-B-01.out.json",
+        "n": 12,
+        "empty": 6
+      },
+      {
+        "file": "scripts/research/goal-data/local/b9t-v25/chunk-A-01.out.json",
+        "n": 12,
+        "empty": 4
+      },
+      {
+        "file": "scripts/research/goal-data/local/b9t-v25/chunk-B-01.out.json",
+        "n": 12,
+        "empty": 6
+      }
+    ],
+    "dual_memberships": [
+      {
+        "batch": "b11-v24",
+        "track": "A",
+        "item": "M2309#36",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-A-01.out.json:2044",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "A",
+        "item": "M2309#37",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-A-01.out.json:2149",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "A",
+        "item": "M2309#43",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-A-02.out.json:123",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "A",
+        "item": "M2306#21",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-A-02.out.json:303",
+        "errors": [
+          "both_observable_and_not:r.inference"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "A",
+        "item": "M2306#31",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-A-02.out.json:573",
+        "errors": [
+          "both_observable_and_not:r.inference"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#18",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json:4",
+        "errors": [
+          "both_observable_and_not:r.central_meaning"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#28",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json:1075",
+        "errors": [
+          "both_observable_and_not:e.evidence_location"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#29",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json:1187",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#30",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json:1291",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#35",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json:1882",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#36",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json:2005",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#37",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json:2109",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#38",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-01.out.json:2213",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b11-v24",
+        "track": "B",
+        "item": "M2309#43",
+        "evidence": "scripts/research/goal-data/local/b11-v24/chunk-B-02.out.json:106",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b13-v24",
+        "track": "A",
+        "item": "M2206#29",
+        "evidence": "scripts/research/goal-data/local/b13-v24/chunk-A-01.out.json:1236",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b14-v24",
+        "track": "B",
+        "item": "M2109#29",
+        "evidence": "scripts/research/goal-data/local/b14-v24/chunk-B-02.out.json:102",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b14-v24",
+        "track": "B",
+        "item": "M2109#30",
+        "evidence": "scripts/research/goal-data/local/b14-v24/chunk-B-02.out.json:127",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b14-v24",
+        "track": "B",
+        "item": "M2109#42",
+        "evidence": "scripts/research/goal-data/local/b14-v24/chunk-B-02.out.json:427",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b14-v24",
+        "track": "B",
+        "item": "M2109#44",
+        "evidence": "scripts/research/goal-data/local/b14-v24/chunk-B-02.out.json:477",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b5-v22",
+        "track": "A",
+        "item": "M2509#43",
+        "evidence": "scripts/research/goal-data/local/b5-v22/chunk-A-02.out.json:472",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b5-v22",
+        "track": "A",
+        "item": "2023#29",
+        "evidence": "scripts/research/goal-data/local/b5-v22/chunk-A-02.out.json:1050",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b5-v22",
+        "track": "A",
+        "item": "2023#36",
+        "evidence": "scripts/research/goal-data/local/b5-v22/chunk-A-02.out.json:1645",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b5-v22",
+        "track": "A",
+        "item": "2023#37",
+        "evidence": "scripts/research/goal-data/local/b5-v22/chunk-A-02.out.json:1747",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b5-v22",
+        "track": "B",
+        "item": "M2509#35",
+        "evidence": "scripts/research/goal-data/local/b5-v22/chunk-B-01.out.json:1927",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b5-v22",
+        "track": "B",
+        "item": "M2509#36",
+        "evidence": "scripts/research/goal-data/local/b5-v22/chunk-B-01.out.json:2047",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b5-v22",
+        "track": "B",
+        "item": "M2509#37",
+        "evidence": "scripts/research/goal-data/local/b5-v22/chunk-B-01.out.json:2149",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "M2506#36",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-01.out.json:2104",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "M2506#37",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-01.out.json:2209",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "M2506#39",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:4",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "M2506#40",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:112",
+        "errors": [
+          "both_observable_and_not:e.evidence_location"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "M2506#41",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:261",
+        "errors": [
+          "both_observable_and_not:r.central_meaning"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "M2506#42",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:376",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "2023#38",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:831",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "2022#29",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:1176",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "2022#38",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:2004",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "item": "2022#39",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:2112",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "M2506#39",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:4",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "M2506#42",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:365",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "M2506#43",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:469",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "M2506#44",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:573",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "2023#38",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:795",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "2022#22",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:899",
+        "errors": [
+          "both_observable_and_not:r.central_meaning"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "2022#23",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:1022",
+        "errors": [
+          "both_observable_and_not:r.central_meaning"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "2022#29",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:1134",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "2022#36",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:1732",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "2022#37",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:1836",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "2022#38",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:1940",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "B",
+        "item": "2022#39",
+        "evidence": "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json:2044",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b7-v24",
+        "track": "A",
+        "item": "2024#43",
+        "evidence": "scripts/research/goal-data/local/b7-v24/chunk-A-01.out.json:1459",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b7-v24",
+        "track": "A",
+        "item": "2025#21",
+        "evidence": "scripts/research/goal-data/local/b7-v24/chunk-A-01.out.json:2148",
+        "errors": [
+          "both_observable_and_not:e.option_correspondence"
+        ]
+      },
+      {
+        "batch": "b7-v24",
+        "track": "A",
+        "item": "2025#43",
+        "evidence": "scripts/research/goal-data/local/b7-v24/chunk-A-02.out.json:844",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b7-v24",
+        "track": "B",
+        "item": "2024#30",
+        "evidence": "scripts/research/goal-data/local/b7-v24/chunk-B-01.out.json:963",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b7-v24",
+        "track": "B",
+        "item": "2024#43",
+        "evidence": "scripts/research/goal-data/local/b7-v24/chunk-B-01.out.json:1440",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b7-v24",
+        "track": "B",
+        "item": "2024#44",
+        "evidence": "scripts/research/goal-data/local/b7-v24/chunk-B-01.out.json:1544",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b8-v24",
+        "track": "A",
+        "item": "M2409#36",
+        "evidence": "scripts/research/goal-data/local/b8-v24/chunk-A-02.out.json:1498",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b8-v24",
+        "track": "A",
+        "item": "M2409#37",
+        "evidence": "scripts/research/goal-data/local/b8-v24/chunk-A-02.out.json:1602",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b8-v24",
+        "track": "A",
+        "item": "M2409#43",
+        "evidence": "scripts/research/goal-data/local/b8-v24/chunk-A-02.out.json:2296",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b8-v24",
+        "track": "B",
+        "item": "M2706#43",
+        "evidence": "scripts/research/goal-data/local/b8-v24/chunk-B-01.out.json:1479",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b9-v24",
+        "track": "A",
+        "item": "2022#43",
+        "evidence": "scripts/research/goal-data/local/b9-v24/chunk-A-01.out.json:1440",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      },
+      {
+        "batch": "b9-v24",
+        "track": "B",
+        "item": "2022#42",
+        "evidence": "scripts/research/goal-data/local/b9-v24/chunk-B-01.out.json:1383",
+        "errors": [
+          "both_observable_and_not:e.task_demand"
+        ]
+      },
+      {
+        "batch": "b9-v24",
+        "track": "B",
+        "item": "2022#43",
+        "evidence": "scripts/research/goal-data/local/b9-v24/chunk-B-01.out.json:1487",
+        "errors": [
+          "both_observable_and_not:r.discourse_structure"
+        ]
+      }
+    ],
+    "b15_disagreements": [
+      {
+        "batch": "b15-v24",
+        "item": "M2109#45",
+        "A": [
+          "e.task_demand"
+        ],
+        "B": [],
+        "equal": false,
+        "evidence": [
+          "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json:4",
+          "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json:4"
+        ]
+      },
+      {
+        "batch": "b15-v24",
+        "item": "M2106#26",
+        "A": [
+          "e.task_demand"
+        ],
+        "B": [],
+        "equal": false,
+        "evidence": [
+          "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json:956",
+          "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json:974"
+        ]
+      },
+      {
+        "batch": "b15-v24",
+        "item": "M2106#27",
+        "A": [
+          "e.task_demand"
+        ],
+        "B": [],
+        "equal": false,
+        "evidence": [
+          "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json:1077",
+          "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json:1097"
+        ]
+      },
+      {
+        "batch": "b15-v24",
+        "item": "M2106#29",
+        "A": [
+          "e.task_demand"
+        ],
+        "B": [],
+        "equal": false,
+        "evidence": [
+          "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json:1311",
+          "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json:1333"
+        ]
+      },
+      {
+        "batch": "b15-v24",
+        "item": "M2106#30",
+        "A": [
+          "e.task_demand"
+        ],
+        "B": [],
+        "equal": false,
+        "evidence": [
+          "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json:1410",
+          "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json:1435"
+        ]
+      },
+      {
+        "batch": "b15-v24",
+        "item": "M2106#35",
+        "A": [
+          "e.task_demand"
+        ],
+        "B": [],
+        "equal": false,
+        "evidence": [
+          "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json:1973",
+          "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json:1979"
+        ]
+      },
+      {
+        "batch": "b15-v24",
+        "item": "M2106#36",
+        "A": [
+          "r.discourse_structure"
+        ],
+        "B": [],
+        "equal": false,
+        "evidence": [
+          "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json:2095",
+          "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json:2104"
+        ]
+      },
+      {
+        "batch": "b15-v24",
+        "item": "M2106#37",
+        "A": [
+          "r.discourse_structure"
+        ],
+        "B": [],
+        "equal": false,
+        "evidence": [
+          "scripts/research/goal-data/local/b15-v24/chunk-A-01.out.json:2194",
+          "scripts/research/goal-data/local/b15-v24/chunk-B-01.out.json:2206"
+        ]
+      }
+    ]
+  },
+  "unclear": [
+    "의도적 지름길·의미판정 생략의 인과",
+    "A/B 관측 기준과 갈림의 사람 Gold",
+    "관측 로그 밖의 절대 미노출",
+    "현 DB 모집단·결손 상태",
+    "주 TASK 규칙 타당도·학습효과"
+  ],
+  "engine_handoff": "연구 후보·설명용만; public relevance=unknown; NeedRank/개별 진단/Gold 입력 금지",
+  "observed_at": "2026-10-23T10:33:54.529Z"
+}
