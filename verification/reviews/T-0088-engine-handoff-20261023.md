@@ -39,3 +39,9 @@
 - 반영 필요 3 — 상류(skill-diagnosis/lifecycle·채점) 수정 대상, 이 브랜치 범위 밖: D4-handoff-1(다른 날·지문 다양성·전이) · D4-N2(창작/기출 채점 범위 통합 금지) · D4-N3(E3 lure 2실패가 약점 확정 → 재처방 「바로잡기」 오발 위험 잔존).
 - 해당 없음 9: D1 4 · D2-R3 · D3 · D4-M7 · N1 · N4.
 - 미승인 관련도 → NeedRank: goal-batches/b2-v2/R3 링크 경로 없음(To-Be 는 csat_dx_item_attribute · type_id 링크 · csat_dx_option_trap 만). 단 그 기존 경로에 검수 상태 필터가 없음 — 검수 여부 unclear.
+
+## 인계 계약 변경 권고 (2026-10-23 · 데이터 담당 vocaflow-77 결정 · 근거 T-0117)
+
+- v2.5(주 TASK 경계 규칙) 미봉인 · 실험 종료, CONTRACT_V2_5 「사용 금지」 표시. 확대는 v2.4 로 계속.
+- 같은 문항 링크 일치 κ .92–.97 인데 주 TASK 갈림은 E2 · E3 둘 다 direct 일 때 「주」 이름 붙이기에서만 남았고 규칙 세 번 뒤에도 남음 → 문항 고유 모호함.
+- **권고: 엔진이 TASK 관련도를 쓸 때는 주 TASK 단일값이 아니라 direct 링크 집합을, 주 TASK 는 설명 문구에만.** 공개 relevance=unknown · NeedRank 입력 금지는 그대로 — 지금 제품 동작 변경 없음. 실제 연결은 사람 검수 · 승인 이후 별도 결정.
