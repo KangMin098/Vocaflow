@@ -1156,6 +1156,8 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ## 원문 교수 자기 설명 — `/csat/factory/[deliveryId]` 안 (2B · 2026-10-21)
 
+- **T-0091(2026-10-23) 학습 정리 전환**: 관계 · 절차 서술 칸 대신 시스템 카드(`lib/csat/system-learning.ts` `RELATION_CARDS` · `TITLE_RELATION_CARDS` · `PROCEDURE_CARDS`)를 고르고, 요지의 「시범과의 대조」 는 고른 문장과 시범 문장을 센 자동 사실 문장이다(학습자 글 · 자기 평가 아님). 저장 계약 · 서버 형성 피드백 · 다음 단계 연결은 그대로, 2C 재진입 때 예전에 직접 쓴 설명은 「저장된 기록 · 읽기 전용」. 같은 날 기출 문항 `scene=explain` 은 「학습 정리」(SystemLearningSummary)로 바뀌었다 — 사용자별 콘텐츠 평가는 지원하지 않는다([DECISIONS CL-SL-1](./csat-learner/DECISIONS.md)).
+
 - 교수 자료 원문의 납품이면 `page.tsx`가 단계별 답변 전 지원(`beforeAnswerSupport`)만 `FactoryDcpRunner`에 넘긴다. 풀이 저장(영수증 id) 뒤 `SourceLessonPanel`이 열린다: 번호 붙은 문장 목록 · 주장/근거 선택 · 관계 · (요지) 시범 + 비교 · (주제) 절차 → `POST …/lesson`. 같은 본문 재시도 = 같은 키, 실패해도 글 유지, 저장 확인 뒤 「다음: 같은 글의 제목/주제」 또는 Workspace 복귀.
 - 2C 재진입: `page.tsx` 가 `savedReflection`(본인 · 납품 · Workspace · 교수 자료 SHA 로 좁힌 닫힌 값)을 읽어 `lesson.restored` 로 넘기면 Runner 는 풀이 칸을 그리지 않고 패널을 저장값으로 잠가 보여 주며 다음 단계/Workspace 링크를 낸다. 읽기 실패는 `restoreFailed` 안내(새 풀이로 덮지 않음).
 - 코드: `lib/csat/map/v62/factory-bridge/source-lesson.ts` · `components/csat/factory/SourceLessonPanel.tsx` · `app/api/csat/factory/[deliveryId]/lesson/route.ts`. `FactoryDcpCard` 목록 응답은 `readFactoryList`로 닫힌 모양만 받는다(미상 수치를 0으로 바꾸지 않음).

@@ -25,9 +25,8 @@ import local from './authored.module.css'
 import { ReasoningNoteForm } from '@/components/csat/theater/ReasoningNoteForm'
 import { attemptIdOf, bindingFeedback } from '@/lib/csat/authored/binding-feedback'
 import type { ReasoningNote } from '@/lib/csat/dissect'
-import { EMPTY_NOTE, type NoteDraft } from '@/lib/csat/explain-draft'
 import type { InquiryPrinciple } from '@/lib/csat/inquiry/labels'
-import { loadSyncedDissectionRecord, updateDissectionRecord } from '@/lib/csat/session/store'
+import { loadSyncedDissectionRecord } from '@/lib/csat/session/store'
 
 type Role = 'model_explanation' | 'guided_practice' | 'independent_check' | 'transfer' | 'delayed_check'
 type Reveal = Record<string, unknown>
@@ -141,10 +140,9 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
   const [rebindFailed, setRebindFailed] = useState(false)
   // 같은 답의 재시도는 제출 id · 판단 시각을 그대로(FI-008 — 시각이 바뀌면 G2 가 같은 제출의 다른 본문으로 보고 conflict)
   const mutation = useRef<{ key: string; id: string; at: string } | null>(null)
-  // 자기 설명 노트(교수 자료만) — 기존 원리 노트 저장(FI-015 CAS · 합집합 병합)을 그대로 쓴다. 채점 · 근거 · 숙달이 아니다
+  // 원리 정리(교수 자료만 · T-0091) — 제공된 설명 + 예전 노트 읽기 전용. 새 노트를 쓰지 않는다 · 채점 · 근거 · 숙달이 아니다
   const ref = `authored:${p.id}`
   const [notes, setNotes] = useState<ReasoningNote[]>([])
-  const [noteDraft, setNoteDraft] = useState<NoteDraft>(EMPTY_NOTE)
   const explain = p.retry === true && !!p.annotationHash
   useEffect(() => {
     if (!explain) return
@@ -152,11 +150,6 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
     loadSyncedDissectionRecord().then(({ record }) => { if (live) setNotes((record.reasoningNotes ?? []).filter((x) => x.item === ref)) }).catch(() => {})
     return () => { live = false }
   }, [explain, ref])
-  const saveNote = async (x: ReasoningNote) => {
-    const res = await updateDissectionRecord((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
-    if (res.saved) setNotes((res.record.reasoningNotes ?? []).filter((y) => y.item === ref))
-    return res.saved
-  }
   const finished = !!reveal
   const lock = finished || busy
 
@@ -523,8 +516,7 @@ export function AuthoredRunner(p: AuthoredRunnerProps) {
           )}
           {explain && (
             <ReasoningNoteForm
-              itemId={ref} analysisVersion={null} principle={modelOf(reveal, p.teach)} pairs={[]} saved={notes}
-              onSave={saveNote} draft={noteDraft} onDraft={(fn) => setNoteDraft(fn)} modelLabel={MODEL_LABEL}
+              analysisVersion={null} principle={modelOf(reveal, p.teach)} saved={notes} modelLabel={MODEL_LABEL}
               authored={{ deliveryId: p.deliveryId, annotationHash: p.annotationHash as string }}
             />
           )}
