@@ -1,0 +1,285 @@
+{
+ "harness": "LectureStage isolated (2026#34 committed lecture data, silent adapter)",
+ "results": [
+  {
+   "width": 1280,
+   "name": "재생 시작 = 따라가기 켜짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 0,
+    "following": true
+   }
+  },
+  {
+   "width": 1280,
+   "name": "따라가기 중에는 설명 위치로 스크롤",
+   "pass": true,
+   "detail": {
+    "scrollY": 697
+   }
+  },
+  {
+   "width": 1280,
+   "name": "휠 → 따라가기 꺼짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 1,
+    "following": false
+   }
+  },
+  {
+   "width": 1280,
+   "name": "꺼진 뒤 큐 4개 진행에도 스크롤 유지",
+   "pass": true,
+   "detail": {
+    "before": 947,
+    "after": 947
+   }
+  },
+  {
+   "width": 1280,
+   "name": "꺼진 뒤 접힌 층 안 대상을 지나가도 강의가 열지 않음",
+   "pass": true,
+   "detail": {
+    "visitedClosed": 1,
+    "openBefore": 0,
+    "openAfter": 0
+   }
+  },
+  {
+   "width": 1280,
+   "name": "학습자 선택(aria-pressed) 유지",
+   "pass": true
+  },
+  {
+   "width": 1280,
+   "name": "follow() → 따라가기 켜짐 · 설명 위치로 이동",
+   "pass": true,
+   "detail": {
+    "y": 2322,
+    "following": true
+   }
+  },
+  {
+   "width": 1280,
+   "name": "학습자가 닫은 층을 강의가 다시 열지 않음(같은 큐 재방문)",
+   "pass": true,
+   "detail": {
+    "reopened": false
+   }
+  },
+  {
+   "width": 1280,
+   "name": "Space(본문) → 따라가기 꺼짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 6,
+    "following": false
+   }
+  },
+  {
+   "width": 1280,
+   "name": "Space(처리기가 가져감) → 따라가기 유지",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 6,
+    "following": true
+   }
+  },
+  {
+   "width": 1280,
+   "name": "Space(단추 위) → 따라가기 유지",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 0,
+    "following": true
+   }
+  },
+  {
+   "width": 1280,
+   "name": "Tab → 따라가기 꺼짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 0,
+    "following": false
+   }
+  },
+  {
+   "width": 1280,
+   "name": "큐 진행이 포커스를 옮기지 않음",
+   "pass": true,
+   "detail": {
+    "focused": "pick",
+    "focusedAfter": "pick"
+   }
+  },
+  {
+   "width": 1280,
+   "name": "스크롤바가 실제로 보임(검사 전제)",
+   "pass": true,
+   "detail": 15
+  },
+  {
+   "width": 1280,
+   "name": "스크롤바 끌기 → 따라가기 꺼짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 1,
+    "following": false
+   }
+  },
+  {
+   "width": 1280,
+   "name": "페이지 오류 없음",
+   "pass": true,
+   "detail": []
+  },
+  {
+   "width": 1440,
+   "name": "재생 시작 = 따라가기 켜짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 0,
+    "following": true
+   }
+  },
+  {
+   "width": 1440,
+   "name": "따라가기 중에는 설명 위치로 스크롤",
+   "pass": true,
+   "detail": {
+    "scrollY": 697
+   }
+  },
+  {
+   "width": 1440,
+   "name": "휠 → 따라가기 꺼짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 1,
+    "following": false
+   }
+  },
+  {
+   "width": 1440,
+   "name": "꺼진 뒤 큐 4개 진행에도 스크롤 유지",
+   "pass": true,
+   "detail": {
+    "before": 947,
+    "after": 947
+   }
+  },
+  {
+   "width": 1440,
+   "name": "꺼진 뒤 접힌 층 안 대상을 지나가도 강의가 열지 않음",
+   "pass": true,
+   "detail": {
+    "visitedClosed": 1,
+    "openBefore": 0,
+    "openAfter": 0
+   }
+  },
+  {
+   "width": 1440,
+   "name": "학습자 선택(aria-pressed) 유지",
+   "pass": true
+  },
+  {
+   "width": 1440,
+   "name": "follow() → 따라가기 켜짐 · 설명 위치로 이동",
+   "pass": true,
+   "detail": {
+    "y": 2322,
+    "following": true
+   }
+  },
+  {
+   "width": 1440,
+   "name": "학습자가 닫은 층을 강의가 다시 열지 않음(같은 큐 재방문)",
+   "pass": true,
+   "detail": {
+    "reopened": false
+   }
+  },
+  {
+   "width": 1440,
+   "name": "Space(본문) → 따라가기 꺼짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 6,
+    "following": false
+   }
+  },
+  {
+   "width": 1440,
+   "name": "Space(처리기가 가져감) → 따라가기 유지",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 6,
+    "following": true
+   }
+  },
+  {
+   "width": 1440,
+   "name": "Space(단추 위) → 따라가기 유지",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 0,
+    "following": true
+   }
+  },
+  {
+   "width": 1440,
+   "name": "Tab → 따라가기 꺼짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 0,
+    "following": false
+   }
+  },
+  {
+   "width": 1440,
+   "name": "큐 진행이 포커스를 옮기지 않음",
+   "pass": true,
+   "detail": {
+    "focused": "pick",
+    "focusedAfter": "pick"
+   }
+  },
+  {
+   "width": 1440,
+   "name": "스크롤바가 실제로 보임(검사 전제)",
+   "pass": true,
+   "detail": 15
+  },
+  {
+   "width": 1440,
+   "name": "스크롤바 끌기 → 따라가기 꺼짐",
+   "pass": true,
+   "detail": {
+    "status": "playing",
+    "index": 1,
+    "following": false
+   }
+  },
+  {
+   "width": 1440,
+   "name": "페이지 오류 없음",
+   "pass": true,
+   "detail": []
+  }
+ ]
+}

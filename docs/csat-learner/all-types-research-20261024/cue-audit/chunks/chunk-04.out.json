@@ -1,0 +1,145 @@
+{"chunk":"04","items":[
+{"id":"2018#32","type":"R-BLANK","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"빈칸이 없는 것을 말하는 자리예요","why":"유형 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"꺼내는 쪽인지 붙이는 쪽인지, 방향을 재는 문항","why":"정답 방향(꺼내는 쪽) 축 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"무엇이 있으면 기억이 사는지 찾아요","why":"빈칸=기억을 살리는 것 성질 제시"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"여덟 번째, 기억은 사라지지 않았다","why":"근거 문장 위치 지목"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2025#31","type":"R-BLANK","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"뒤의 서술을 한 말로 접는 힘","why":"일반 전략"},
+{"i":1,"id":"c2","level":"hint","channel":"both","quote":"근거는 뒤에 있으니, 마지막 두 문장부터","why":"근거 위치 좁힘"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"다섯째부터는 독자가 이야기 속으로 끌려 들어가는 과정","why":"정답(관여) 내용 요약"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"M2206#34","type":"R-BLANK","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"바뀐 조건 하나를 찾는 문항","why":"정답 성질(조건 변화) 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"이 결과가 어느 문장인지부터 찾습니다","why":"근거 탐색 방향"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"낯선 새에 더 세게 반응했죠","why":"결과 내용 요약, 미확정 시 hint"},
+{"i":3,"id":"c4","level":"decisive","channel":"speech","quote":"여섯 번째 문장, 다른 경계면 낯선 새 취급","why":"빈칸 내용(위치만 바뀜) 직접 제시"}],"lecture_max":"decisive","first_hint_i":0},
+{"id":"M2509#33","type":"R-BLANK","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"필요 때문이 아니라는 구문이 빈칸의 편을 정하는","why":"빈칸 방향 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"강제의 반대편, 스스로 고른 이유가 와야","why":"정답 성질 명시"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"주장, 도시의 질이 머무는 활동을 좌우한다","why":"c2와 결합 시 '도시의 질' 선지 확정"}],"lecture_max":"decisive","first_hint_i":0},
+{"id":"2014B#37","type":"R-BLANK2","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"자원 자체와, 자원에 대한 접근","why":"주제 소개"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"두 칸을 따로 재야 해요","why":"일반 전략"},
+{"i":2,"id":"c3","level":"hint","channel":"both","quote":"대조와 일반 진술을 함께 세웁니다","why":"연결어 성질 암시"},
+{"i":3,"id":"c4","level":"hint","channel":"both","quote":"에이 빈칸 자리... 그래서 대조예요","why":"A 확정, B 미정"},
+{"i":4,"id":"c5","level":"hint","channel":"both","quote":"이 접근이 다음 문장의 열쇠입니다","why":"B 근거 방향 제시"}],"lecture_max":"hint","first_hint_i":2},
+{"id":"M2309#25","type":"R-CHART","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"발문의 「않는」을 확인하세요","why":"발문 확인"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"두 해를 묶은 말이 있으면 해마다 따로 비교","why":"정답 선지 성질(두 해 묶음) 암시"},
+{"i":2,"id":"c3","level":"none","channel":"speech","quote":"옅은 막대가 이천십일 년","why":"도표 구조"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2014B#30","type":"R-FACT","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"시점 하나만 바뀐 진술을 잡는 힘","why":"오답 성질(시점) 제시"},
+{"i":1,"id":"c2","level":"decisive","channel":"speech","quote":"그리고 돌아온 후라는 시점이죠","why":"c1과 결합 시 오 번 특정"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"열 번째 문장이 이집트 시절의 병을 뒤늦게","why":"근거 문장 지목"}],"lecture_max":"decisive","first_hint_i":0},
+{"id":"2014A#24","type":"R-GIST","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"필자가 권하는 것을 고릅니다","why":"발문"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"사 번은 세 번째 문장의 관계 악화를","why":"함정 선지 번호 지목"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"이, 삼, 오 번은 처방... 같은 처방만 남기세요","why":"후보를 셋으로 좁힘"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"뒤는 거절이라는 해법이에요","why":"정답 내용(거절) 암시"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2014A#27","type":"R-GRAMMAR","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"형태가 성립해도 문맥이 요구하는 뜻과 맞는가","why":"오류 성질 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"부정사는 앞 동사와 함께 적어 두세요","why":"부정사만 따로 지목"},
+{"i":2,"id":"c3","level":"decisive","channel":"both","quote":"그 경과로, 처음엔 소음, 나중엔 정지입니다","why":"앞 cue와 결합 시 stopped to 확정"}],"lecture_max":"decisive","first_hint_i":0},
+{"id":"2019#21","type":"R-IMPLY","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"밑줄은 무지를 다듬기","why":"밑줄 소개"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"결과와 다음 질문 중 어느 쪽에 밑줄을","why":"두 후보로 축소"},
+{"i":2,"id":"c3","level":"none","channel":"speech","quote":"버리는 쪽과 택하는 쪽을 적어 둡니다","why":"일반 전략"},
+{"i":3,"id":"c4","level":"decisive","channel":"speech","quote":"결과에 지나치게 매달릴... 그건 틀렸다고 뒤집죠","why":"c2와 결합 시 다음 질문 확정"}],"lecture_max":"decisive","first_hint_i":1},
+{"id":"2017#39","type":"R-INSERT","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"주어진 문장은 역접 표지로 시작합니다","why":"문항 표면 정보"},
+{"i":1,"id":"c2","level":"hint","channel":"both","quote":"오히려는 앞에 부정 진술을","why":"삽입 위치 조건 제시"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"부정문은 일곱 번째 문장에서 처음 나오죠","why":"c2와 결합 시 위치 확정"}],"lecture_max":"decisive","first_hint_i":1},
+{"id":"M2206#39","type":"R-INSERT","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"이 잠재적 대가, 이 말의 선행어를 찾으면","why":"근거 단서(7번째 문장 표현) 지목"},
+{"i":1,"id":"c2","level":"hint","channel":"both","quote":"잠자면 환경에 덜 반응한다는 약점","why":"주어진 문장=대가 연결 암시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"여섯 번째 문장이 반면에로 돌아서죠","why":"전환 위치 지목"}],"lecture_max":"hint","first_hint_i":0},
+{"id":"2021#35","type":"R-IRRELEVANT","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"흐름의 관계를 지키는지 보세요","why":"일반 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"both","quote":"일하는 사람들이 하나로 묶인다는 말","why":"흐름 기준 제시"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"일 번은 사례, 이 번은 소속감, 사 번은... 오 번은","why":"삼 번만 빼고 나열, 소거로 확정"}],"lecture_max":"decisive","first_hint_i":1},
+{"id":"2021#19","type":"R-MOOD","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"앞의 몸 반응이 뒤에서 하나씩 되돌아가는","why":"심경 변화 방향 암시"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"전환점 후보입니다","why":"일반 전략"},
+{"i":2,"id":"c3","level":"hint","channel":"both","quote":"이 앞은 패배 직후의 동요, 이 뒤는 가라앉는","why":"전후 심경 요약"}],"lecture_max":"hint","first_hint_i":0},
+{"id":"2016#27","type":"R-NOTICE","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"일치하지 않는 것을 고릅니다","why":"발문"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"날짜 범위를 기간으로 바꿔 선지의 기간과","why":"오답 항목(기간) 지목"},
+{"i":2,"id":"c3","level":"none","channel":"speech","quote":"횟수, 작품, 공연 시점, 기간, 무료 대상","why":"전 선지 나열"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"네 번째 문장에 날짜, 시간, 장소, 요금","why":"근거 위치"},
+{"i":4,"id":"c5","level":"decisive","channel":"both","quote":"선지 사 번은 두 달이라고 했으니 기간만 어긋납니다","why":"정답 번호 사실상 공개"}],"lecture_max":"decisive","first_hint_i":1},
+{"id":"M2106#27","type":"R-NOTICE","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"틀린 진술 하나를 고릅니다","why":"발문"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"부위와 동작의 짝을 섞지 않고","why":"오답 성질 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"삼 번은 모자와 시작이에요","why":"c2와 결합 시 삼 번만 부위·동작"},
+{"i":3,"id":"c4","level":"none","channel":"speech","quote":"안내문은 네 칸입니다","why":"구조 안내"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2014A#37","type":"R-ORDER","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"이어질 순서입니다","why":"유형 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"에이의 콜럼버스, 씨의 그와 그것","why":"단락 단서 지목"},
+{"i":2,"id":"c3","level":"hint","channel":"both","quote":"인물도 연도도 없어 사례가 뒤따라야","why":"A 선두 암시"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"M2006#36","type":"R-ORDER","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"예고 표현이 어느 단락으로 채워지는지","why":"첫 단락 결정법 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"그 이상을 말하는 단락이 먼저, 이어서 장점 뒤 단점","why":"순서 논리 전체 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"대명사를 찾아 단수 복수를 맞춰","why":"판단 단서"},
+{"i":3,"id":"c4","level":"hint","channel":"both","quote":"there are downsides 이 예고어가 다음 단락을","why":"연결 단서 지목"}],"lecture_max":"hint","first_hint_i":0},
+{"id":"2014A#23","type":"R-PURPOSE","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"광고의 용건을 찾으세요","why":"발문"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"용건은 두 번째 문장의 회사 이름과 상품","why":"근거 위치 지목"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"목적어에서 갈립니다","why":"판별 축 제시"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"두세 번째가 회사와 상품이에요","why":"근거 위치 반복"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2014B#26","type":"R-REFER","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"하나만 다른 밑줄을 고릅니다","why":"발문"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"글쓴이의 친구, 항의하는 여인, 직원, 여인의 딸","why":"인물 나열만"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"열째에 친구가 돌아오고","why":"정답 근처 위치 암시"}],"lecture_max":"hint","first_hint_i":2},
+{"id":"2021#40","type":"R-SUMMARY","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"지문의 말을 뒤집어 넣는지","why":"B 성질 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"에이는 평가어, 비는 부정 뒤의 말","why":"빈칸 성질 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"both","quote":"일곱 번째 문장이 비, 끝 두 문장이 에이를","why":"근거 위치 지목"}],"lecture_max":"hint","first_hint_i":0},
+{"id":"2017#23","type":"R-TITLE","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"감독이 현실을 어떻게 다루는가가 쟁점","why":"정답 축 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"감독과 현실의 관계 한 축","why":"판별 축 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"both","quote":"글의 앞부분은 이런 수단의 묘사","why":"편집 선지 소거 암시"},
+{"i":3,"id":"c4","level":"decisive","channel":"both","quote":"결정적 근거는... 감독의 손안이 이 지배 관계","why":"정답 표현(감독의 손안) 직접 제시"},
+{"i":4,"id":"c5","level":"decisive","channel":"speech","quote":"사 번이 정답입니다","why":"정답 선언(공식 오 번과 불일치!)"},
+{"i":5,"id":"c6","level":"hint","channel":"both","quote":"일 번, 미지로의 탐험","why":"선지 소거"},
+{"i":6,"id":"c7","level":"hint","channel":"both","quote":"이 번, 시간과 공간 속에서 길을 잃다","why":"선지 소거"},
+{"i":7,"id":"c8","level":"hint","channel":"both","quote":"삼 번, 혁신적 편집 기술","why":"선지 소거"}],"lecture_max":"decisive","first_hint_i":0},
+{"id":"2014A#25","type":"R-TOPIC","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"주제 문항입니다","why":"발문"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"게임, 친구, 창의성, 죄책감이 오답 넷에","why":"오답 넷 특징 공개→휴식 남음"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"필자의 처방에 든 것이 답","why":"정답 위치 제시"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"네 번째가 명령문으로 처방","why":"근거 문장 지목"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2014A#28","type":"R-VOCAB","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"문맥에 맞는 낱말을 고릅니다","why":"발문"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"세 칸 모두 네모 밖 앞뒤 문장이 정해요","why":"근거 위치 암시, 애매→hint"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"비 앞의 these, 씨 앞 문장의 양보 표지","why":"단서 지목"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"첫 세 문장이 사무실에서 일하기 어려운 까닭","why":"A 방향(rarely) 암시"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2014A#42","type":"X-BLANK","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"빈칸이 어느 항을 받는지 봅니다","why":"대조 항 선택 암시"},
+{"i":1,"id":"c2","level":"hint","channel":"both","quote":"빈칸은 시도를 좌우하는 원인 자리","why":"빈칸 성질"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"일곱 번째 문장부터 생각 쪽으로","why":"정답 방향(인식) 암시"}],"lecture_max":"hint","first_hint_i":0},
+{"id":"2014A#45","type":"X-FACT","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"할머니에 관해 일치하지 않는 것","why":"발문"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"하는 쪽인지 받는 쪽인지","why":"오답 성질(방향) 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"오 번은 필자에게 듣는 것이니, 말하는 쪽이 필자","why":"오 번만 방향 분석 지목"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"디는 밤의 이야기와 교훈","why":"근거 단락 지목"},
+{"i":4,"id":"c5","level":"hint","channel":"speech","quote":"할머니가 듣는 쪽이라는 인상이 굳기 쉽습니다","why":"함정 방향 공개"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2014A#43","type":"X-ORDER","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"되받는 이야기, 가르침의 보답, 노력과 보상","why":"연결 고리 순서 암시"},
+{"i":1,"id":"c2","level":"hint","channel":"both","quote":"many traditional stories 소개만 된 이 명사구","why":"A 뒤 단서 지목"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"디는 밤의 이야기입니다","why":"c2와 결합 시 D 선두 강한 암시"}],"lecture_max":"hint","first_hint_i":0},
+{"id":"2014A#44","type":"X-REFER","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"문두를 확인하세요","why":"발문"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"엄마와 할머니가 모두 그녀로 불릴 수 있으니","why":"정답=엄마 가능성 암시"},
+{"i":2,"id":"c3","level":"none","channel":"speech","quote":"밑줄은 두, 세, 다섯, 아홉, 열여덟 번째","why":"위치 나열"}],"lecture_max":"hint","first_hint_i":1},
+{"id":"2014A#41","type":"X-TITLE","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"판단시키는 관계는 사례와 적용","why":"정답 성질 암시, 애매→hint"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"실제 조건이냐 인식이냐에서 갈립니다","why":"판별 축 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"both","quote":"원인을 구장이 아니라 생각에 둡니다","why":"인식 쪽 확정 방향"},
+{"i":3,"id":"c4","level":"none","channel":"speech","quote":"빈칸이 있어 판단엔 쓰지 않아요","why":"제외 안내"},
+{"i":4,"id":"c5","level":"hint","channel":"both","quote":"실제 거리가 아니라 뇌가 알아보는 거리","why":"정답 근거 문장 강조"}],"lecture_max":"hint","first_hint_i":0},
+{"id":"2019#42","type":"X-VOCAB","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"뒤쪽은 피하려는 쪽이죠","why":"정답 판단 규칙 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"비교 구조가 든 문장부터 표시 better than","why":"정답 문장 위치 지목"},
+{"i":2,"id":"c3","level":"none","channel":"both","quote":"산업자본주의가 여가도 만들었다는 주장","why":"주제 소개"},
+{"i":3,"id":"c4","level":"hint","channel":"both","quote":"다섯 번째 문장이 이를 되받습니다","why":"흐름 단서, 애매→hint"}],"lecture_max":"hint","first_hint_i":0}
+]}

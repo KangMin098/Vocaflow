@@ -1,0 +1,169 @@
+{"chunk":"03","items":[
+{"id":"2016#33","type":"R-BLANK","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"빈칸 문장의 주어에 주목하세요","why":"주의 지시만"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"앞 문장의 두 사실이 합쳐진 결과를 묻습니다","why":"정답 성질(두 사실의 결과) 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"The combination 결합은 앞의 두 가지를 묶는 말","why":"근거 위치·성질 재강조"},
+{"i":3,"id":"c4","level":"none","channel":"speech","quote":"셋째부터 다섯째가 잡종 이야기","why":"구조 요약, 답 방향 없음"}],
+"lecture_max":"hint","first_hint_i":1},
+{"id":"2023#32","type":"R-BLANK","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"빈칸은 여섯 번째 문장에 있어요","why":"빈칸 위치만"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"같은 이유를 두 번 적습니다","why":"답=앞서 나온 이유의 재진술"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"뒤 관계절이 사람을 받는 것도 함께 표시","why":"선지 형태 조건 제시"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"다섯 번째 문장이 같은 이유를 조건문으로 다시","why":"정답 근거 문장 지목"}],
+"lecture_max":"hint","first_hint_i":1},
+{"id":"M2109#31","type":"R-BLANK","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"빈칸 뒤의 부연에서 낱말을 되찾는 문항","why":"근거 위치(빈칸 뒤) 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"다음 문장의 주어가 같은지부터 확인","why":"근거 문장 방향 지시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"다섯에서 일곱 번째 문장이 같은 주어로 부정","why":"정답이 부정 의미임을 암시"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"그림은 제목이 큰 영향…자연물과 정반대","why":"대비로 답 방향 좁힘"}],
+"lecture_max":"hint","first_hint_i":0},
+{"id":"M2409#34","type":"R-BLANK","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"사진 이전과 이후의 시간 대비를 읽는지","why":"답=대비 한쪽임을 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"나머지가 그 시점 이후를 말하는지 확인","why":"대비 구조 지시"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"이미지가 퍼져 나간 이야기…빈칸은 그 반대 상태","why":"퍼짐의 반대=잘 이동 못함 직결"}],
+"lecture_max":"decisive","first_hint_i":0},
+{"id":"2014B#36","type":"R-BLANK2","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"빈칸 에이와 비, 두 낱말을 고르죠","why":"형식 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"비는 뇌가 증거를 어떻게 했는지","why":"빈칸 의미 범주 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"둘째가 인용된 이상, 셋째가 에이","why":"A 근거(인용 이상) 위치 제시"}],
+"lecture_max":"hint","first_hint_i":1},
+{"id":"M1809#24","type":"R-CHART","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"도표와 일치하지 않는 진술을 고르는 문항","why":"발문 안내"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"빗금은 자동차 산업, 회색은 그 외 산업","why":"범례 안내"},
+{"i":2,"id":"c3","level":"none","channel":"speech","quote":"선지는 계열 비교, 최대, 최소, 경계, 상위 셋","why":"선지 유형 나열만"}],
+"lecture_max":"none","first_hint_i":null},
+{"id":"M2209#20","type":"R-CLAIM","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"교육을 다루는 선지가 다섯이에요","why":"형식 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"방향이 바뀐 뒤 처방까지 읽는지","why":"답=전환 뒤 처방"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"일상의 상호 작용은 방식이죠","why":"정답 선지만 '방식'으로 분리"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"여섯 번째가 답을 줍니다","why":"정답 문장 직접 지목"},
+{"i":4,"id":"c5","level":"decisive","channel":"both","quote":"수단으로는 안 된다는 말이 먼저 섭니다","why":"c3과 합쳐 유일 '방식' 선지 확정"}],
+"lecture_max":"decisive","first_hint_i":1},
+{"id":"M2406#26","type":"R-FACT","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"일치하지 않는 것을 고릅니다","why":"발문 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"전쟁 같은 기간 동안 인물이 어디에 있었는지","why":"답 성분(기간·장소) 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"사 번, 대전 내내 프랑스에. 여기에 별표","why":"정답 번호 지목"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"두 전쟁이 서로 다른 문장에 나뉘어","why":"함정 구조 암시"},
+{"i":4,"id":"c5","level":"decisive","channel":"both","quote":"프랑스는…종속절에만…went to Hollywood","why":"사 번 불일치 확정"}],
+"lecture_max":"decisive","first_hint_i":1},
+{"id":"M2309#22","type":"R-GIST","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"관행을 뒤집는 글입니다","why":"첫 문장=반박 대상 암시"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"시민 단체, 합의, 납세, 경제학, 도덕적 목표","why":"선지 대상 중립 나열"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"도덕 문제에 덜 주목했다는 거죠","why":"뒤집힐 관행 지목"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"도덕 문제가 세법 제정의 한가운데","why":"도덕 쪽 선지로 좁힘"},
+{"i":4,"id":"c5","level":"decisive","channel":"speech","quote":"경제학은…목표 자체는 못 정한다","why":"경제학 배제→도덕적 목표 확정"}],
+"lecture_max":"decisive","first_hint_i":0},
+{"id":"M2406#29","type":"R-GRAMMAR","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"부정형 발문이라, 답이 아닌 넷은 어법에 맞는","why":"발문 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"그 문장에 정동사가 따로 있는지 확인","why":"오류 유형(정동사) 제시"},
+{"i":2,"id":"c3","level":"decisive","channel":"both","quote":"모두 관계사가 생략된 수식절입니다","why":"정답 문장 지목+정동사 부재 확정"}],
+"lecture_max":"decisive","first_hint_i":1},
+{"id":"2014A#39","type":"R-INSERT","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"사건이 시간 순서로 놓인 이야기 글","why":"글 성격 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"his book bag 책가방을 처음 꺼냅니다","why":"단서 낱말(가방) 지목"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"여섯 번째부터 벤치와 가방이 나오죠","why":"c2와 합쳐 삽입 위치 확정"}],
+"lecture_max":"decisive","first_hint_i":1},
+{"id":"M2006#38","type":"R-INSERT","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"상자 문장은 대신으로 시작해","why":"주어진 문장 소개"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"바로 앞에 부정 진술이 있어야 한다","why":"위치 조건 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"여섯째…뒤집고, 일곱째가 더 강하게 부정","why":"부정 문장 위치 지목"},
+{"i":3,"id":"c4","level":"decisive","channel":"both","quote":"상자 문장이 그 대신 무엇인지를 채워요","why":"일곱째 뒤 위치 확정"}],
+"lecture_max":"decisive","first_hint_i":1},
+{"id":"2014A#38","type":"R-IRRELEVANT","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"흐름과 관계없는 번호 문장 하나를 고릅니다","why":"발문 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"롤러코스터…역할과 주어를 바꾼 문장","why":"정답 문장 특성 제시"},
+{"i":2,"id":"c3","level":"none","channel":"speech","quote":"인생은 롤러코스터 타기와 같을 수 있다","why":"화제 확인"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"번호 문장들은 타는 사람을 주어로","why":"c2와 합쳐 주어 다른 문장 탐색"}],
+"lecture_max":"hint","first_hint_i":1},
+{"id":"2014A#40","type":"R-MOOD","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"행동과 몸의 반응을 감정어 하나로","why":"방법 안내"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"딸 릴리의 말과 행동은 따로 떼어 둡니다","why":"주체 구분 안내"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"같은 감정이 점점 세지는…열 번째의 인내심","why":"감정 단서 문장 지목"}],
+"lecture_max":"hint","first_hint_i":2},
+{"id":"2014A#29","type":"R-NOTICE","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"일치하는 것을 고릅니다","why":"발문 안내"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"대상, 수치, 조건 중 하나만 바뀌어도","why":"일반 능력 안내"},
+{"i":2,"id":"c3","level":"none","channel":"speech","quote":"체험 비용, 운영 시간, 휴관, 입장료, 주차","why":"선지 중립 나열"},
+{"i":3,"id":"c4","level":"none","channel":"speech","quote":"여섯째가 요금과 주차","why":"구조 지도, 정오 언급 없음"}],
+"lecture_max":"none","first_hint_i":null},
+{"id":"2026#27","type":"R-NOTICE","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"일치하지 않는 것을 고르는 문항","why":"발문 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"선지의 수량을…맞춰 보는 힘","why":"오류 성분=수량 제시"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"숫자가 든 선지는 사 번 하나뿐이죠","why":"c2와 합쳐 정답 번호 확정"},
+{"i":3,"id":"c4","level":"none","channel":"speech","quote":"소개, 주제, 참가와 제출, 선정 방법, 시상","why":"구조 지도"},
+{"i":4,"id":"c5","level":"decisive","channel":"both","quote":"수량만 바뀌었으니 이것이 답입니다","why":"정답 직접 선언"}],
+"lecture_max":"decisive","first_hint_i":1},
+{"id":"M2509#28","type":"R-NOTICE","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"발문의 일치하는 것에 먼저 표시","why":"발문 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"오 번만 결정 주체를 말하죠","why":"정답 선지 특이성 지목"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"정답은 표 아래 줄에 있습니다","why":"정답 위치=결정 안내, 오 번 확정"}],
+"lecture_max":"decisive","first_hint_i":1},
+{"id":"2024#36","type":"R-ORDER","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"결과라는 말을 누가 받는지","why":"연결 단서 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"an acceptable outcome 그다음 단락 첫 문장의 지시어","why":"연결 단서 표시 지시"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"씨는 협상의 목적, 에이는…적대적, 비는 그런 경우","why":"단락 내용 요약으로 C-A-B 도출"}],
+"lecture_max":"decisive","first_hint_i":0},
+{"id":"M2509#37","type":"R-ORDER","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"다친 뒤에서 미리 막기로 넘어가는 전환","why":"C 앞에 회복 단락 암시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"비교할 능력이 앞에 있고","why":"C 선행 조건 제시"},
+{"i":2,"id":"c3","level":"decisive","channel":"speech","quote":"비는 다친 뒤의 회복, 씨는 미리 막기, 에이는 그 세부","why":"c1과 합쳐 B-C-A 확정"}],
+"lecture_max":"decisive","first_hint_i":0},
+{"id":"M2406#18","type":"R-PURPOSE","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"공원 관리팀이 회원에게 보낸 편지","why":"글 성격 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"나열 항목과 부르는 문장을 가려야","why":"답=부르는 문장 암시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"여러분을 부르는 동사를 찾으세요","why":"초대 선지로 강하게 좁힘"},
+{"i":3,"id":"c4","level":"decisive","channel":"speech","quote":"네 번째 문장에서 초대하고","why":"정답 서술어 직접 언급"}],
+"lecture_max":"decisive","first_hint_i":1},
+{"id":"2014B#40","type":"R-SUMMARY","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"요약문 두 빈칸입니다","why":"형식 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"빈칸은 다른 설명에서 하나씩 나옵니다","why":"근거 분포 제시"},
+{"i":2,"id":"c3","level":"none","channel":"speech","quote":"넷째가 자기지각 이론, 일곱째가 인상관리","why":"구조 지도"}],
+"lecture_max":"hint","first_hint_i":1},
+{"id":"2014A#26","type":"R-TITLE","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"어떤 동물이 더 위험한지 다룬 글","why":"주제 방향(위험) 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"조심할 대상인지…일 번 알레르기는 좁은 조각","why":"축 제시·오답 배제"},
+{"i":2,"id":"c3","level":"decisive","channel":"both","quote":"작은 동물이 실은 더 위협적…같은 주장","why":"조심할 작은 동물 제목 확정"}],
+"lecture_max":"decisive","first_hint_i":0},
+{"id":"M2406#24","type":"R-TITLE","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"제목이 그 꺾임까지 담았는지가 판단 축","why":"정답 성질 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"의문을 던지는지…전환 신호를 찾으세요","why":"의문형 선지로 좁힘"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"두 번째부터 다섯 번째 문장은 이동량 증가","why":"꺾임 위치 암시"}],
+"lecture_max":"hint","first_hint_i":0},
+{"id":"M2309#23","type":"R-TOPIC","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"무너지는 기준이 몇 개인지 세는 문항","why":"답=한계 방향 암시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"한계, 어려움은 문제를 짚는 말","why":"선지 축 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"역접 뒤에 부정 평가가 이어지는지","why":"근거 문장·부정 방향"},
+{"i":3,"id":"c4","level":"hint","channel":"speech","quote":"네 번째 문장의 역접 뒤로 이 기준들이 무너져요","why":"문제 축 확정, 후보 2개 남음"}],
+"lecture_max":"hint","first_hint_i":0},
+{"id":"M2309#30","type":"R-VOCAB","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"문맥과 어긋난 밑줄 낱말 하나를 찾는","why":"발문 안내"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"밑줄마다 바로 앞에 붙은 논리 표지","why":"일반 절차"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"다섯째 문장은 과학자의 좌절로 좁혀집니다","why":"정답 근거(좌절) 연결 암시"}],
+"lecture_max":"hint","first_hint_i":2},
+{"id":"2017#42","type":"X-BLANK2","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"두 칸의 근거가 서로 다른 자리","why":"일반 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"빠르다 둘, 느리다 셋뿐이죠","why":"후보 축소 절차"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"비는 숫자에서 정해집니다","why":"B 근거 위치 제시"}],
+"lecture_max":"hint","first_hint_i":1},
+{"id":"M2309#45","type":"X-FACT","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"맞지 않는 선지를 고르는 문제","why":"발문 안내"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"대사의 화자와 제안 내용을 하나씩 맞추는지","why":"일반 의도"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"점심 식사 전에처럼 순서를 정하는 말엔 동그라미","why":"정답 선지 핵심어를 예시로 듦"},
+{"i":3,"id":"c4","level":"none","channel":"speech","quote":"사건 순서는 에이, 디, 씨, 비","why":"43번 정보, 본 답과 무관"}],
+"lecture_max":"hint","first_hint_i":2},
+{"id":"M2309#43","type":"X-ORDER","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"감정의 흐름과 처음 소개된 낱말의 위치","why":"일반 안내"},
+{"i":1,"id":"c2","level":"none","channel":"speech","quote":"각 단락 첫 문장의 신호어를 표시","why":"일반 절차"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"에이 단락은 도착의 기쁨으로 끝납니다","why":"다음 단락=입장 장면 암시"}],
+"lecture_max":"hint","first_hint_i":2},
+{"id":"M2309#44","type":"X-REFER","cues":[
+{"i":0,"id":"c1","level":"none","channel":"speech","quote":"대상이 다른 밑줄 하나를 고릅니다","why":"발문 안내"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"따옴표 안에서 이름을 부르는 말을 찾아","why":"정답 판별 단서(호칭) 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"넷은 따옴표 안, 마지막 하나만 밖","why":"밑줄 위치 구분, 판단 필요"}],
+"lecture_max":"hint","first_hint_i":1},
+{"id":"M2406#41","type":"X-TITLE","cues":[
+{"i":0,"id":"c1","level":"hint","channel":"speech","quote":"어떤 믿음을 지지하는지, 버리라고 하는지","why":"판단 축 제시"},
+{"i":1,"id":"c2","level":"hint","channel":"speech","quote":"따르라는 쪽과 버리라는 쪽으로 나눠","why":"선지 축 제시"},
+{"i":2,"id":"c3","level":"hint","channel":"speech","quote":"남의 생각으로 소개…필자의 평가는 따로","why":"버리라는 쪽 암시"}],
+"lecture_max":"hint","first_hint_i":0}
+]}

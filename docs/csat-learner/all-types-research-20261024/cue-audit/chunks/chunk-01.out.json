@@ -1,0 +1,1157 @@
+{
+ "chunk": "01",
+ "items": [
+  {
+   "id": "2014A#33",
+   "type": "R-BLANK",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "빈칸은 첫 문장",
+     "why": "위치 안내뿐"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "바로 뒤 재진술에서 값을 찾는",
+     "why": "근거 위치(다음 문장) 지시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "지배적인 사람들이 시선을 쓸 때 더 가진 것",
+     "why": "빈칸 의미 범위 한정"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "둘째가 요컨대로 다시 말하고",
+     "why": "정답 근거 문장 지목"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2020#31",
+   "type": "R-BLANK",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "앞 절의 평가 방향을 빈칸이 이어받는지",
+     "why": "정답 방향(앞 절 계승) 암시"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "both",
+     "quote": "네 번째 문장, 빈칸 앞에 of little",
+     "why": "정답 문장 강조+관용구 틀"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "none",
+     "channel": "target",
+     "quote": "두 번째 문장이 과학주의를 정의",
+     "why": "배경 구조 설명"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "2026#34",
+   "type": "R-BLANK",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "빈칸에 들어갈 말은 지문이 거부하는 견해",
+     "why": "정답 속성 명시"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "선지마다 이 부정을 붙여 읽어야",
+     "why": "판단 방식 지시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "both",
+     "quote": "여섯 번째 문장이 이상적인 법을 정의",
+     "why": "정답 근거 문장 강조"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "M2306#33",
+   "type": "R-BLANK",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "빈칸은 두 번째 문장 끝, 혁신을 꾸미는",
+     "why": "위치만"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "혁신이 누구에게서 먼저 나오는지",
+     "why": "정답 축 제시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "decisive",
+     "channel": "speech",
+     "quote": "반대편, 곧 이미 있는 혁신이라고 정합니다",
+     "why": "정답 선지 의미 직접 진술"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "네 번째 문장부터 선도 사용자",
+     "why": "근거 문장 지목"
+    }
+   ],
+   "lecture_max": "decisive",
+   "first_hint_i": 1
+  },
+  {
+   "id": "M2609#32",
+   "type": "R-BLANK",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "빈칸 문장이 따라서로 시작",
+     "why": "형식 안내"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "지문 전체가 공감 비판론자들의 주장",
+     "why": "정답 방향(비판) 노출"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "none",
+     "channel": "speech",
+     "quote": "앞 문장들의 부호만 정하기로",
+     "why": "절차 안내"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "비판이 쌓이고, 빈칸이 그걸 묶어요",
+     "why": "빈칸=비판 요약 명시"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2014A#32",
+   "type": "R-CHART",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "도표와 맞지 않는 진술을 고르는",
+     "why": "발문 안내"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "none",
+     "channel": "speech",
+     "quote": "비율이라는 말은 막대, 시간이라는 말은 꺾은선",
+     "why": "읽기 절차"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "none",
+     "channel": "speech",
+     "quote": "캐나다 평균은 연령 집단 비교에서 빼세요",
+     "why": "일반 읽기 주의"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "decisive",
+     "channel": "both",
+     "quote": "다섯 번째 문장, 사 번이 정답입니다",
+     "why": "정답 번호 직접 공개"
+    },
+    {
+     "i": 4,
+     "id": "c5",
+     "level": "decisive",
+     "channel": "both",
+     "quote": "꺾은선 값은 이백오와 이백십육이라 다릅니다",
+     "why": "오답 근거 수치 공개"
+    },
+    {
+     "i": 5,
+     "id": "c6",
+     "level": "hint",
+     "channel": "both",
+     "quote": "맞으니 답이 아닙니다",
+     "why": "1번 소거"
+    },
+    {
+     "i": 6,
+     "id": "c7",
+     "level": "hint",
+     "channel": "both",
+     "quote": "맞으니 답이 아니에요",
+     "why": "2번 소거"
+    },
+    {
+     "i": 7,
+     "id": "c8",
+     "level": "hint",
+     "channel": "both",
+     "quote": "맞는 진술이라 답이 아닙니다",
+     "why": "3번 소거"
+    }
+   ],
+   "lecture_max": "decisive",
+   "first_hint_i": 3
+  },
+  {
+   "id": "2016#20",
+   "type": "R-CLAIM",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "필자가 주장하는 바를 고릅니다",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "부정 밖의 요구 하나를 찾고",
+     "why": "정답 속성 지시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "부정문 밖의 것만 찾습니다",
+     "why": "탐색 대상 한정"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "both",
+     "quote": "여섯 번째가 요구예요",
+     "why": "정답 문장 위치 지목"
+    },
+    {
+     "i": 4,
+     "id": "c5",
+     "level": "hint",
+     "channel": "both",
+     "quote": "요구가 아니라 부정이에요",
+     "why": "오답 근거 소거"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2021#26",
+   "type": "R-FACT",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "일치하지 않는 것을 고릅니다",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "none",
+     "channel": "speech",
+     "quote": "어느 쪽이 부정됐는지 보세요",
+     "why": "일반 절차"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "은퇴 뒤의 일은 맨 끝에 나와요",
+     "why": "정답 영역 위치 암시"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 2
+  },
+  {
+   "id": "2020#22",
+   "type": "R-GIST",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "놀라운 사실을 일반 명제로 넓히는 글",
+     "why": "요지 방향 제시"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "none",
+     "channel": "speech",
+     "quote": "화살표 방향을 표시합니다",
+     "why": "절차"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "target",
+     "quote": "욕구가 문자를 이끈 힘이었다고",
+     "why": "인과 방향 노출"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "2021#29",
+   "type": "R-GRAMMAR",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "어법상 틀린 것 하나를 고르는",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "접속사 밑줄은 뒤 절에 빈자리가 있는지부터",
+     "why": "정답 밑줄 검사 지점 지목"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "none",
+     "channel": "target",
+     "quote": "첫 두 문장은 실험 규제가 엄격",
+     "why": "내용 지도"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2026#21",
+   "type": "R-IMPLY",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "함축 문제입니다",
+     "why": "유형 안내"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "less sticky 달라붙는 정도가 줄었다",
+     "why": "비유 의미 일부 제공"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "풀이는 뒤에만 올 수 있어요",
+     "why": "근거 위치 한정"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2021#38",
+   "type": "R-INSERT",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "한계 인정이 비어 있는 자리를 찾습니다",
+     "why": "정답 자리 속성"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "target",
+     "quote": "뒤에 그럼에도 계열 부사를 부릅니다",
+     "why": "판단 기준 제시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "일곱 번째는 더 구체적이라고 하죠",
+     "why": "정답 주변 문장 성격 노출"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "M2406#38",
+   "type": "R-INSERT",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "앞에 하지 않는다는 부정을 요구",
+     "why": "정답 자리 조건"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "target",
+     "quote": "동료에게서 흡수해 배운다",
+     "why": "대안 내용 제시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "부정어는 다섯과 여섯 번째 두 곳",
+     "why": "후보 두 곳으로 축소"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "M2006#35",
+   "type": "R-IRRELEVANT",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "흐름과 관계없는 문장을 찾는",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "축 낱말을 그대로 쓴 상식 문장",
+     "why": "정답 문장 속성"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "none",
+     "channel": "target",
+     "quote": "개는 이미 냄새를 구별할 줄 안다",
+     "why": "화제 안내"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "decisive",
+     "channel": "speech",
+     "quote": "일 번과 이 번은 훈련 단계, 삼 번과 오 번은",
+     "why": "네 선지 소속 명시→4번 남음"
+    }
+   ],
+   "lecture_max": "decisive",
+   "first_hint_i": 1
+  },
+  {
+   "id": "M2006#19",
+   "type": "R-MOOD",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "클레어의 심경 변화를 묻습니다",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "원고 상태와 인물의 감정을 가려",
+     "why": "함정 유형 노출"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "앞은 마감 압박의 서술",
+     "why": "앞 감정 방향 암시"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "첫 여섯 문장은 마감 두 시간 전의 막막함",
+     "why": "감정 변화 방향 노출"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2019#28",
+   "type": "R-NOTICE",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "일치하는 것, 참 하나를 고릅니다",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "방향, 위치, 색과 상태, 방수 네 자리를",
+     "why": "뒤집힌 자리 목록 공개"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "decisive",
+     "channel": "speech",
+     "quote": "사 번은 사이에 둔 물건",
+     "why": "c2와 결합 시 4번만 남음"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "none",
+     "channel": "target",
+     "quote": "여섯 번째와 일곱 번째 문장이 주의 사항",
+     "why": "지도"
+    }
+   ],
+   "lecture_max": "decisive",
+   "first_hint_i": 1
+  },
+  {
+   "id": "M2209#28",
+   "type": "R-NOTICE",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "일치하는 것을 고릅니다",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "두 제한을 괄호에 숨겼어요",
+     "why": "오답 함정 위치 노출"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "만, 않아도 된다 같은 한정 표현",
+     "why": "함정 표지 지시"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "none",
+     "channel": "target",
+     "quote": "일곱 번째는 환불이에요",
+     "why": "중립 지도"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2017#36",
+   "type": "R-ORDER",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "무대 공포, 다른 극단, 규칙과 그래서가 순서를",
+     "why": "순서 신호 제시"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "both",
+     "quote": "이 말을 잇는 단락 첫 문장을 찾습니다",
+     "why": "첫 단락 판단 기준"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "한쪽 극단, 다른 극단, 규칙, 조언의 흐름",
+     "why": "내용 흐름 순서 제시"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "M2206#37",
+   "type": "R-ORDER",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "이음매 신호가 순서를 정합니다",
+     "why": "일반 안내"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "target",
+     "quote": "규모만 되면 이익이 난다죠",
+     "why": "연결 단서 강조"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "조선사의 조건, 철강사의 계산, 두 결과 순",
+     "why": "내용 흐름 순서 제시"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2021#18",
+   "type": "R-PURPOSE",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "캠퍼스 푸드뱅크가 여러 사람에게 보낸 글",
+     "why": "소개"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "정보들을 한데 묶는 한 줄",
+     "why": "정답 성격 암시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "decisive",
+     "channel": "speech",
+     "quote": "방법을 예고하는 문장을 찾으세요",
+     "why": "선지 중 참여 방법 지목"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "decisive",
+     "channel": "both",
+     "quote": "세 번째가 참여 방법의 예고",
+     "why": "정답 선지 내용 확정"
+    }
+   ],
+   "lecture_max": "decisive",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2016#30",
+   "type": "R-REFER",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "가리키는 사람이 다른 하나를 찾으세요",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "밑줄과 같은 절에 다른 사람 이름",
+     "why": "함정 위치 암시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "관객석의 댄 트레스",
+     "why": "정답 인물 후보 제시"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "both",
+     "quote": "링크스가 상대를 고르는 과정",
+     "why": "정답 장면 위치 지목"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "M2006#40",
+   "type": "R-SUMMARY",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "시기에 따라 달라지는 글",
+     "why": "요약 축 제시"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "에이는 초기 사용자, 비는 나중",
+     "why": "빈칸 대응 위치 지시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "none",
+     "channel": "target",
+     "quote": "앞 두 문장이 초기",
+     "why": "구조 안내"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "2023#24",
+   "type": "R-TITLE",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "뇌가 물체를 볼 때 일을 어떻게 나누는지",
+     "why": "주제 방향 제시"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "decisive",
+     "channel": "speech",
+     "quote": "오 번만 따로, 독립이라는 분업을 말하죠",
+     "why": "정답 선지 지목"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "색이 열거의 전부인지, 넷 중 하나인지",
+     "why": "오답 소거 기준"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "both",
+     "quote": "다음 문장이 역접으로 뒤집고",
+     "why": "근거 문장 위치"
+    }
+   ],
+   "lecture_max": "decisive",
+   "first_hint_i": 0
+  },
+  {
+   "id": "2020#23",
+   "type": "R-TOPIC",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "유전자와 환경이 함께 작용한다는 흐름",
+     "why": "주제 직접 언급"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "decisive",
+     "channel": "speech",
+     "quote": "둘을 함께 보느냐 한쪽만 보느냐에서",
+     "why": "c1과 결합→상호작용 선지"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "both",
+     "quote": "본성 대 양육 구도를 거부해요",
+     "why": "근거 문장 노출"
+    }
+   ],
+   "lecture_max": "decisive",
+   "first_hint_i": 0
+  },
+  {
+   "id": "2020#30",
+   "type": "R-VOCAB",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "문맥에 맞지 않는 낱말 하나",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "none",
+     "channel": "speech",
+     "quote": "앞뒤 문장이 어느 방향을",
+     "why": "일반 절차"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "none",
+     "channel": "target",
+     "quote": "앞 네 문장은 폴라 사례",
+     "why": "구조 안내"
+    }
+   ],
+   "lecture_max": "none",
+   "first_hint_i": null
+  },
+  {
+   "id": "2015#42",
+   "type": "X-BLANK",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "선지가 모두 동사예요",
+     "why": "형식"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "문제를 키우는 동사로 손이 가죠",
+     "why": "함정 방향 노출"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "both",
+     "quote": "목적어는 방금 말한 문제들입니다",
+     "why": "빈칸 문장 강조"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "target",
+     "quote": "다섯이라는 수가 특별하다",
+     "why": "긍정 방향 암시"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2020#45",
+   "type": "X-FACT",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "맞지 않는 선지 하나를 고르는",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "다른 단락, 다른 장면에 있으니",
+     "why": "정답 함정 성격"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "삼 번의 폭포에서, 말했다가 그것이죠",
+     "why": "정답 선지 번호 지목"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "none",
+     "channel": "target",
+     "quote": "네 단락은 첫 번째",
+     "why": "지도"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2020#43",
+   "type": "X-ORDER",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "사건의 이음매로 잇는지",
+     "why": "유형 안내"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "판단을 실행하는 문장이 어느 단락 첫머리",
+     "why": "첫 단락 판단 기준"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "차를 세움, 연어를 처음 봄",
+     "why": "사건 순서 제시"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 1
+  },
+  {
+   "id": "2020#44",
+   "type": "X-REFER",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "사람 둘인지 연어 떼인지를 가려야",
+     "why": "정답 판단 축"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "후보가 두 벌이에요",
+     "why": "판단 축 구체화"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "none",
+     "channel": "target",
+     "quote": "밑줄 다섯 모두 따옴표 밖",
+     "why": "지도"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "2020#41",
+   "type": "X-TITLE",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "손 활동만으로 충분한지 묻는 글",
+     "why": "주제 방향 암시"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "Hands-on, Minds-on",
+     "why": "선지 축 제시"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "네, 다섯 번째 문장이 판정과 대안",
+     "why": "근거 위치 지목"
+    }
+   ],
+   "lecture_max": "hint",
+   "first_hint_i": 0
+  },
+  {
+   "id": "2026#42",
+   "type": "X-VOCAB",
+   "cues": [
+    {
+     "i": 0,
+     "id": "c1",
+     "level": "none",
+     "channel": "speech",
+     "quote": "문맥에 맞지 않는 낱말을 찾아요",
+     "why": "발문"
+    },
+    {
+     "i": 1,
+     "id": "c2",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "부정 접두사를 보는지가 표적",
+     "why": "정답 속성"
+    },
+    {
+     "i": 2,
+     "id": "c3",
+     "level": "decisive",
+     "channel": "speech",
+     "quote": "마지막 밑줄이 둘 다에 걸려요",
+     "why": "정답 밑줄(5번) 지목"
+    },
+    {
+     "i": 3,
+     "id": "c4",
+     "level": "hint",
+     "channel": "speech",
+     "quote": "움직임을 담은 자료가 많다고",
+     "why": "근거 내용 노출"
+    }
+   ],
+   "lecture_max": "decisive",
+   "first_hint_i": 1
+  }
+ ]
+}

@@ -1,0 +1,176 @@
+{
+ "sample_lectures": 122,
+ "cues_judged": 432,
+ "cue_level": {
+  "none": 136,
+  "hint": 251,
+  "decisive": 45
+ },
+ "lecture_max": {
+  "none": 6,
+  "hint": 73,
+  "decisive": 43
+ },
+ "dropped_after_corrected_boundary": 13,
+ "count_mismatch": [],
+ "first_hint_cue_index": {
+  "0": 45,
+  "1": 61,
+  "2": 10,
+  "null": 6
+ },
+ "by_role": {
+  "intro": {
+   "none": 80,
+   "hint": 83,
+   "decisive": 2
+  },
+  "strategy": {
+   "none": 26,
+   "hint": 90,
+   "decisive": 8
+  },
+  "structure": {
+   "none": 30,
+   "hint": 75,
+   "decisive": 26
+  },
+  "evidence": {
+   "none": 0,
+   "hint": 3,
+   "decisive": 9
+  }
+ },
+ "by_type": {
+  "R-BLANK": {
+   "none": 1,
+   "hint": 11,
+   "decisive": 5
+  },
+  "R-CHART": {
+   "none": 2,
+   "hint": 2,
+   "decisive": 0
+  },
+  "R-CLAIM": {
+   "none": 0,
+   "hint": 1,
+   "decisive": 2
+  },
+  "R-FACT": {
+   "none": 0,
+   "hint": 2,
+   "decisive": 2
+  },
+  "R-GIST": {
+   "none": 0,
+   "hint": 3,
+   "decisive": 1
+  },
+  "R-GRAMMAR": {
+   "none": 0,
+   "hint": 2,
+   "decisive": 2
+  },
+  "R-IMPLY": {
+   "none": 0,
+   "hint": 2,
+   "decisive": 1
+  },
+  "R-INSERT": {
+   "none": 0,
+   "hint": 3,
+   "decisive": 5
+  },
+  "R-IRRELEVANT": {
+   "none": 0,
+   "hint": 1,
+   "decisive": 3
+  },
+  "R-MOOD": {
+   "none": 0,
+   "hint": 3,
+   "decisive": 1
+  },
+  "R-NOTICE": {
+   "none": 1,
+   "hint": 3,
+   "decisive": 5
+  },
+  "R-ORDER": {
+   "none": 0,
+   "hint": 4,
+   "decisive": 4
+  },
+  "R-PURPOSE": {
+   "none": 0,
+   "hint": 1,
+   "decisive": 3
+  },
+  "R-REFER": {
+   "none": 0,
+   "hint": 2,
+   "decisive": 1
+  },
+  "R-SUMMARY": {
+   "none": 0,
+   "hint": 4,
+   "decisive": 0
+  },
+  "R-TITLE": {
+   "none": 0,
+   "hint": 1,
+   "decisive": 4
+  },
+  "R-TOPIC": {
+   "none": 0,
+   "hint": 2,
+   "decisive": 2
+  },
+  "R-VOCAB": {
+   "none": 2,
+   "hint": 2,
+   "decisive": 0
+  },
+  "X-BLANK": {
+   "none": 0,
+   "hint": 2,
+   "decisive": 1
+  },
+  "X-FACT": {
+   "none": 0,
+   "hint": 4,
+   "decisive": 0
+  },
+  "X-ORDER": {
+   "none": 0,
+   "hint": 4,
+   "decisive": 0
+  },
+  "X-REFER": {
+   "none": 0,
+   "hint": 4,
+   "decisive": 0
+  },
+  "X-TITLE": {
+   "none": 0,
+   "hint": 4,
+   "decisive": 0
+  },
+  "X-VOCAB": {
+   "none": 0,
+   "hint": 2,
+   "decisive": 1
+  },
+  "R-BLANK2": {
+   "none": 0,
+   "hint": 3,
+   "decisive": 0
+  },
+  "X-BLANK2": {
+   "none": 0,
+   "hint": 1,
+   "decisive": 0
+  }
+ }
+}
