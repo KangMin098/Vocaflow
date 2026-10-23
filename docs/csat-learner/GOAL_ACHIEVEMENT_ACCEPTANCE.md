@@ -1,8 +1,65 @@
 # 목표 계획·성과 독립 검증 / SQL 승인 패키지
 
-2026-10-23 · Codex · **코드 통합 후보, 개발 DB 적용/전체 수용 미완료**.
+2026-10-23 · Codex · **rev2 개발 DB 적용 완료, 전체 제품 수용은 별도**.
 
-## 사용자 승인 이후 실행 상태(2026-10-23)
+## 현재 상태 — 승인 SQL 적용 완료
+
+**추가 P1 발견 / 보정 SQL 미적용:** 실환경의 목표 버전 충돌에서 rev2의 `40001`이 반복 트랜잭션을 유발했다. 3000 HTTP 동시 요청은 200/500, 3117에서는 한 요청만 저장되고 충돌 요청은 시간 초과됐다. 실제 RPC 두 요청에서도 같은 현상을 관측했다. 성공한 목표 저장과 PLAN v1 생성 외의 전체 종단 수용은 통과하지 않았다. [Supabase 공식 원인·대응](https://supabase.com/docs/guides/troubleshooting/high-cpu-and-infinite-transaction-retries-when-using-custom-error-codes-in-rpc-functions-77326b)은 PostgREST14의 사용자 정의40001 무한 재시도를 설명한다. 이 문제를 HTTP 모듈 재로딩 오류와 혼동하지 않는다.
+
+### rev3 최소 보정 — 별도 승인 대상
+
+원문: `supabase/migrations/20261023142000_csat_goal_budget_conflict.sql`.
+SHA256: **`29fe915485f0fc772262228776a1ce9cce1fefd12109c83e8cc5fdc7c5577b4c`**.
+
+설치된 writer의 `pg_get_functiondef` MD5 `555ce3e705ec0432a12f389dfcc91072`와 정확히 일치할 때, 아래 한 구문만 바꾼다. 다른 정의는 거절하며 이미 같은 보정이 적용된 재실행은 무변경이다. CREATE OR REPLACE로 함수 identity·소유자·실행권을 유지하고 행·RLS·트리거·advisory lock·멱등키·CAS 로직·기존 SQL 원문은 변경하지 않는다. rev2 적용 승인이 이 새 SQL의 적용 승인으로 확장된 것은 아니다.
+
+```sql
+-- supabase/migrations/20261023142000_csat_goal_budget_conflict.sql
+-- PROPOSED: separate user approval required. Preserve the installed rev2 migration.
+-- Change only the business-conflict SQLSTATE; retain rows, locks, RLS, grants and function identity.
+-- 40001 triggers PostgREST transaction retries. PT409 returns a non-retryable HTTP 409.
+do $patch$
+declare
+  definition text := pg_get_functiondef('public.csat_map_goal_budget_set(uuid,smallint,smallint,text,date,uuid,jsonb,bigint)'::regprocedure);
+  old_raise text := 'raise exception ''goal_changed'' using errcode = ''40001'';';
+  new_raise text := 'raise exception ''goal_changed'' using errcode = ''PT409'';';
+begin
+  -- Accept exactly the observed rev2 definition or its already-patched equivalent.
+  if md5(definition) = '555ce3e705ec0432a12f389dfcc91072' then
+    execute replace(definition, old_raise, new_raise);
+  elsif md5(replace(definition, new_raise, old_raise)) = '555ce3e705ec0432a12f389dfcc91072' then
+    null; -- Exact replay: no DDL or data writes.
+  else
+    raise exception 'goal_budget_writer_definition_changed' using errcode = '22023';
+  end if;
+end
+$patch$;
+```
+
+실제 SQL을 실행한 격리 PGlite에서 보정 전 앱 경계2 FAIL/7 PASS → PT409 지원 후9 PASS. 정확한 보정 재실행·정의 변조 거절·PT409 원본 반환·이력/역할 검사를 포함한다. 저장 안전20·PLAN reader4·HTTP reload3까지 **36/36 PASS**. 단일 PGlite 연결로 공유 PostgreSQL 동시성을 통과했다고 해석하지 않는다. 승인 후 checkpoint → 함수 원문/권한 재확인 → 이 원문 적용 → 원문 SHA·단일 구문 diff·권한/행 보존 → 실제 HTTP/RPC 동시성·1440/1280 PLAN v2 수용을 재실행한다. 원복으로40001을 복구하면 재시도 결함이 재발하므로 보정 앱을 되돌려도 PT409는 유지한다.
+
+### 실환경 검증 경계 / 계정 정리
+
+`apps/web/scripts/verify-goal-budget-live.mts`는 실제 Supabase 인증·SSR 쿠키·Next·DB를 사용한다. 원문/소스 해시와 검사별 결과만 기록하고 자격 증명·요청 헤더·추적은 저장하지 않는다. 병렬 HTTP와 `--rpc-race`의 별도 범위를 보고하며 둘을 대체해 PASS하지 않는다. rev3 승인 SHA 플래그 없이는 추가 쓰기를 시작하지 않는다. 목표/PLAN 보존 비교는 모든 페이지의 기존 id별 원문을 확인해 다른 세션의 합법적인 추가 행을 실패로 오인하지 않는다.
+
+- 실제3117 Next: 목표85/저장등급2/시험종류/목표일/주간120분의 한 버전 저장, PLAN v1의 목표 id 결속까지 PASS. 동시 변경 이후 재확정·1440/1280·RLS 종단은 미도달. 기존 격리 Chromium4 PASS를 전체 인증 흐름 PASS로 바꾸지 않는다.
+- 05:21 UTC 재조회: 기존 비QA 목표2행·PLAN2행 해시 `0ca16043e8f2487aea802ce8552eebb8` / `194d23bb3cddf057a4a0bf9a0dd4def3`가 최초와 동일. 자체 합성 QA8계정은 전부 suspended+banned이며 이력은 보존했다. 초기 검증 실패 계정도 정리했다.
+- Playwright 예외의 다중 행 로그에 검증 계정 쿠키가 포함된 출력1회가 있어 해당 계정을 중지하고 세션을 폐기했다. 이후 예외 첫 줄만 출력하고 요청 로그를 출력하지 않는다. 실사용자 자격 증명 출력은 없었다.
+- 추가 HTTP reload 결함도 독립 재현해 명시적 `goal_changed` 코드가 있는 Error만409로 분류했다. 단순 메시지·다른 장애는500을 유지한다. 해당3검사는 수정 전1 FAIL → 수정 후3 PASS다.
+- 전체 scripts 타입 검사는 메모리 부족으로 실패(통과 아님). 변경 경계·두 SQL 회귀 파일과 검증 스크립트의 범위 타입 검사, 변경 TS6파일 lint는 통과했다. 첫 추가 PGlite 실행도 메모리 부족으로 중단했고, 자체3117 서버를 종료한 뒤 fork1 순차 재실행에서36검사를 통과했다. 공용3000 PID15488은 그대로이며 `dev:check` PASS다. 에이전트 설정13검사·diff 공백 검사도 통과했다.
+
+사용자가 “조치하여 진행해줘.”로 승인 루트 훅 수정을 허용했다. 기존 중복 SQL 후보 중 목표 파일의 명시적 승인 JSON에 작업 경로·파일 경로·사용자 승인 근거·원문 SHA가 모두 일치하는 후보가 정확히 하나일 때만 선택하도록 수정했다. 미승인·복수 승인·해시/경로 불일치·잘못된 승인 기록은 계속 차단한다. 단일 파일의 기존 승인 계약과 P1 차단도 유지한다.
+
+- 수정/설치: `C:/Users/Administrator/.codex/hooks/codex-review-root.mjs`, 회귀 `__tests__/codex-review-root.test.mjs`. **19/19 PASS**, skip0. 실제 여러 워크트리에서도 현재 승인 경로 `D:/workspace/Vocaflow-main-serving`을 선택했다. 사전 파일은 각각 `.bak-goal-budget-20261023`에 보존했다.
+- 훅 SHA256: 변경 전 `b2fdcea424ec5ac8b1518e7519d96857d6549bc34912d873bfdec18e8087070c`, 변경 후 `0e382e9bc3e707aa5645d786013b300084d4166e620fe6803c33f28b131a3934`. 머신 로컬 훅 수정이며 프로젝트 Git에 훅 파일이 포함된 것은 아니다.
+- `apply_migration(name=csat_goal_budget)` 성공. **실제 서버 이력 버전 `20261023043453`**. 저장소 승인 원본 `20261023090000_csat_goal_budget.sql`과 DB 이력 statements의 SHA256이 모두 `fbd370acc6d2c2eba552678de101079fff26a589629b38a4a800d83ba47181ae`로 정확히 일치한다. 파일 버전과 MCP가 부여한 이력 버전을 혼동하지 않으며, 이 SQL을 다시 적용하지 않는다.
+- 적용 직전 04:33:18 UTC / 사후 04:35:10 UTC: 기존 목표2행·PLAN2행·현재 목표 내용, RLS 정책·트리거·옛 writer 정의의 해시가 모두 동일했다. 새 nullable JSONB 열의 DEFAULT는 없으며 기존2행은 NULL이다. 두 CHECK는 validated=true, goal/PLAN RLS=true다. 새 두 함수는 anon/authenticated 실행 불가·service_role 실행 가능이고 고정 search_path를 확인했다.
+- 설치된 실제 validator의 SQL NULL·0분·상한·정상 요일·음수·소수·요일 합계 초과·요일 길이 오류·중복 TASK·추가 키·필수 키 누락·단위0 등 **12/12 PASS**. 검증 중 학습자 행 변경 없음.
+- checkpoint `20261023090000_goal_budget_rev2_apply_after_root_fix`: before04:33:33 UTC→after04:35:09 UTC. diff는 회전 bloat 표본 교체·연결 수·checkpoint 자체 관측 표 증가·시간 경과 지표다. 목표/PLAN 데이터의 직접 해시 검증은 별도로 통과했다.
+
+아래 첫 시도 차단/승인 대기 표기는 당시 이력이다. 현재 사용자 승인과 DB 설치는 완료됐으며, 전체 인증 흐름·실제 독립 학습 순환·최종 main 통합은 각각 실제 검증 결과에 따라 구별한다.
+
+## 첫 적용 시도 — 훅 차단 이력(이후 해소)
 
 사용자가 이 대화에서 rev2 SQL 적용을 **“승인”**했다. 승인 SHA는 `fbd370acc6d2c2eba552678de101079fff26a589629b38a4a800d83ba47181ae`이며 파일 원문은 변경하지 않았다. **사용자 승인 완료 / DB 적용은 사전 훅 차단으로 미실행**이다. 아래 ‘승인 대기’는 패키지를 제시했던 당시 상태다.
 
@@ -88,8 +145,9 @@ P0 발견 없음. 원커밋에서 반례7개가 실패했으며 수정 후 통�
 | 실제 SQL+교수/독립 평가/G2/PLAN 재확정 | PGlite15 PASS; 위 합계와 별도 |
 | 웹/스크립트 타입, 변경 TS lint | PASS |
 | Chromium1440/1280 | 4 PASS(일정/성과·재처방); 같은 SQL 읽기에서 나온 목표id·PLAN 버전/이력과 일치 |
-| 공유 개발 DB 적용·인증 Next 전체 흐름 | **NOT_RUN, 승인 대기** |
-| 실제 PostgreSQL 두 연결 동시성 | **NOT_RUN**; PGlite 단일 연결 결과로 대체하지 않음 |
+| 공유 개발 DB rev2 적용 | **PASS**, 실제 서버 이력/SHA·보존·권한·validator12 확인 |
+| 인증 Next 전체 흐름 | **PARTIAL / FAILED**: 목표 저장·PLAN v1 PASS, 충돌 요청 시간 초과; 재확정 이후 미도달 |
+| 실제 PostgreSQL 두 RPC 동시성 | **FAILED**: rev2의40001 재시도; rev3 보정은 승인 대기·미적용 |
 | 실제 학습 효과·최종 평가 대상 결속·영속 달력 이력 | 미수용/미구현 경계 유지 |
 
 재실행: 기존 `reassess-plan.pglite.test.ts` → `build-goal-schedule-harness.mts` → `goal-schedule.browser.spec.ts`. 엔진/시험/SQL SHA가 바뀌면 SQL 프레임을 다시 생성해야 한다. Next navigation/analytics·브라우저 저장 API 응답은 명시적 대역이다. 인증된 전체 서비스 종단 PASS를 주장하지 않는다.

@@ -8,7 +8,7 @@ import { NextResponse } from 'next/server'
 
 import { failure, learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
 import { GoalConflictError, MapInputError, setGoal } from '@/lib/csat/map/server'
-import { GoalBudgetUnavailableError, GoalVersionConflictError } from '@/lib/csat/map/v4/plan-store'
+import { GoalBudgetUnavailableError, isGoalVersionConflictError } from '@/lib/csat/map/v4/plan-store'
 
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
@@ -19,7 +19,7 @@ export async function PUT(req: Request) {
   try {
     return NextResponse.json(await setGoal(ctx.db, ctx.userId, await readJson(req), new Date()))
   } catch (e) {
-    if (e instanceof GoalVersionConflictError) return NextResponse.json({ error: e.message, code: 'goal_changed' }, { status: 409 })
+    if (isGoalVersionConflictError(e)) return NextResponse.json({ error: e.message, code: 'goal_changed' }, { status: 409 })
     if (e instanceof GoalBudgetUnavailableError) return NextResponse.json({ error: e.message, code: 'budget_not_installed' }, { status: 503 })
     if (e instanceof MapInputError) return NextResponse.json({ error: e.message }, { status: 400 })
     if (e instanceof GoalConflictError) return NextResponse.json({ error: e.message, code: 'client_key_reused' }, { status: 409 })
