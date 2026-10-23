@@ -34,6 +34,7 @@ import type { CoreCode } from '@/lib/csat/map/core'
 import { useGoal } from './GoalBar'
 import { GoalPlanSummary } from './GoalPlanSummary'
 import { GoalSchedule } from './GoalSchedule'
+import { GoalOutcome } from './GoalOutcome'
 import { AXIS_ICON } from './icons'
 import { GoalRecordBar } from './GoalRecordBar'
 import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor } from './TaskInspector'
@@ -332,6 +333,8 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
       <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       <GoalSchedule data={goalPlanRows(view, ranks, data.v4?.saved)} saved={data.v4?.saved ?? null} now={data.now ?? ''} past={past} activity={data.lifecycleActivity} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      {/* GOAL-ACHIEVEMENT 3차 — 목표 뒤 실제 시험 기록으로 목표 대비 판정(TASK 활동과 분리) */}
+      <GoalOutcome goal={data.v4?.saved?.goal ?? null} sessions={data.v4?.sessions ?? []} plans={view.taskPlans} past={past} />
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>

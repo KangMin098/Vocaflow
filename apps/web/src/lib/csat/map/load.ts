@@ -25,6 +25,7 @@ import { toItemSlug } from '../item-slug'
 import type { AsIsSession } from './v4/as-is'
 import { loadSavedPlans, type SavedPlans } from './v4/plan-store'
 import { scopeCandidates, type GoalVersion, type ScopeCandidate, type ScopeStatus, type GoalExam } from './v62/target-goal'
+import { examScopeOf } from './v62/goal-outcome'
 import type { ActivityRow } from './lifecycle-evidence'
 import { loadSourceRepairReceipts, receiptActivity, receiptTargets } from './source-repair-receipt'
 import { findOutcome, type FindAttemptRow } from '../../knowledge/find-outcome'
@@ -497,7 +498,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const trendRawById = new Map(trend.map((t) => [t.sessionId, t.raw]))
   const v4Sessions: AsIsSession[] = learnerSessions.map((r) => ({
     id: r.id, examId: r.exam_id, examLabel: r.label, takenAt: r.taken_at, enteredAt: r.created_at,
-    raw: trendRawById.get(r.id) ?? r.raw_score, grade: r.grade, diagnosable: r.diagnosable, examReady: r.ready,
+    raw: trendRawById.get(r.id) ?? r.raw_score, grade: r.grade, diagnosable: r.diagnosable, examReady: r.ready, examScope: r.examScope,
   }))
   const records: LearnerRecord[] = trend.flatMap((t) => {
     const r = sessionById.get(t.sessionId)
@@ -681,6 +682,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
 
 type SessionRow = { id: string; exam_id: string; taken_at: string; created_at: string; raw_score: number | null; grade: number | null }
 export interface LearnerSessionRow extends SessionRow {
+  /** 목표 시험 종류(examScopeOf) — 회차 정보가 없으면 null */
+  examScope: GoalExam | null
   label: string
   /** 시험의 진단 반영 여부(csat_exams.diagnosis_ready) */
   ready: boolean
@@ -705,7 +708,7 @@ export async function loadLearnerSessions(db: Db, userId: string, trendIds: read
   if (rows.length === 0) return []
   const examIds = [...new Set(rows.map((r) => r.exam_id))]
   const [exams, responses] = await Promise.all([
-    selectByChunks<{ id: string; label: string; diagnosis_ready: boolean | null }>(examIds, 100, (chunk) => db.from('csat_exams').select('id, label, diagnosis_ready').in('id', chunk), 'csat_exams'),
+    selectByChunks<{ id: string; label: string; diagnosis_ready: boolean | null; organizer: string | null; kind: string | null; month: number | null }>(examIds, 100, (chunk) => db.from('csat_exams').select('id, label, diagnosis_ready, organizer, kind, month').in('id', chunk), 'csat_exams'),
     selectByChunks<{ session_id: string; item_no: number; chosen_option: number | null }>(rows.map((r) => r.id), 20, (chunk) => db.from('csat_dx_response').select('session_id, item_no, chosen_option').in('session_id', chunk), 'csat_dx_response'),
   ])
   const examById = new Map(exams.map((e) => [e.id, e]))
@@ -717,6 +720,8 @@ export async function loadLearnerSessions(db: Db, userId: string, trendIds: read
   }
   return rows.map((r) => ({
     ...r, label: examById.get(r.exam_id)?.label ?? r.exam_id, ready: examById.get(r.exam_id)?.diagnosis_ready === true,
+    // GOAL-ACHIEVEMENT 3차 — 목표 시험과 같은 종류인지(목표 대비 판정 · 다른 시험은 직접 비교 불가). 회차 정보가 없으면 null
+    examScope: (() => { const e = examById.get(r.exam_id); return e ? examScopeOf(e) : null })(),
     diagnosable: isDiagnosable(recordQuality(answers.get(r.id) ?? [])),
   }))
 }
