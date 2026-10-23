@@ -11,6 +11,7 @@ import path from 'node:path'
 import { ROOT, nonHeldTasks } from '../../csat/map/v62/data/pilot-lib.mjs'
 
 import { checkChunk, chunkSize, loadTrack, makeValidator, maskIds } from './d2-validate.mjs'
+import { SOURCE_GAP_ITEMS } from './source-gaps.mjs'
 
 const [batch, cmd] = process.argv.slice(2)
 // 청크 모드(validate A NN)는 초기화(배치 input.json 파싱 · tasks 해석)부터 잡히지 않은 예외까지 모두 가린 뒤 내보낸다(T-0127 RECHECK3-P1-01)
@@ -140,8 +141,9 @@ function agree() {
       primary_task: { A: a.primary_task, B: b.primary_task, agree: a.primary_task === b.primary_task },
       directly_observable_both: (a.directly_observable ?? []).filter((t) => (b.directly_observable ?? []).includes(t)),
       independent_assessment: { A: a.independent_assessment?.eligibility, B: b.independent_assessment?.eligibility },
-      // 독립 평가 부적격(둘 중 하나라도 not_suitable) → 교수 사례 · 간접 관찰 후보
-      use: a.independent_assessment?.eligibility === 'candidate_if_unexposed' && b.independent_assessment?.eligibility === 'candidate_if_unexposed' ? 'independent_check_candidate' : 'teaching_case_or_indirect',
+      // 독립 평가 부적격(둘 중 하나라도 not_suitable) → 교수 사례 · 간접 관찰 후보. 확인된 원천 결손 문항은 두 트랙 판정과 무관하게 후보에서 뺀다(T-0133)
+      source_gap: SOURCE_GAP_ITEMS[id] ?? null,
+      use: SOURCE_GAP_ITEMS[id] ? 'excluded_source_gap' : a.independent_assessment?.eligibility === 'candidate_if_unexposed' && b.independent_assessment?.eligibility === 'candidate_if_unexposed' ? 'independent_check_candidate' : 'teaching_case_or_indirect',
     })
   }
   const summary = {

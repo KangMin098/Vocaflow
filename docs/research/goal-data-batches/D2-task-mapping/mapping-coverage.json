@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d2-combine.mjs",
- "generated_at": "2026-10-23T12:51:31.431Z",
+ "generated_at": "2026-10-23T13:06:23.396Z",
  "note": "모든 링크 relevance=unknown(사람 검수 전). candidateRelevance 는 두 독립 AI 판정 일치(R1)일 뿐 Gold · 학생 측정이 아니다. 제품 NeedRank 입력 금지(relevance.ts 계약).",
  "scope": {
   "items": 706,
