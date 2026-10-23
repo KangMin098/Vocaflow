@@ -46,6 +46,7 @@ import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
 
 import { PassageMap, type MapAnchor, type MapPlacement } from '@/components/csat/PassageMap'
 import { useLecture } from '@/components/csat/lecture/LectureStage'
+import { preStopNotice, type PreStopRiskCode } from '@/lib/csat/lecture/disclosure-copy'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 import {
   blockKeyForTarget,
@@ -229,6 +230,7 @@ export function AnalysisTheater({
   initialBridge = false,
   meaningNormalized = false,
   finder = null,
+  lectureDisclosure = null,
 }: {
   title: string
   typeName: string | null
@@ -297,6 +299,8 @@ export function AnalysisTheater({
   meaningNormalized?: boolean
   /** 기출 찾기(문항 머리 · 비교 없음 안내). null = 숨김(독립 확인 중). mapCtxQuery = 서버가 검증한 지도 복귀 조각 */
   finder?: { fromMap: boolean; mapCtxQuery: string } | null
+  /** 검증된 「직접 정답 공개」 경계 — 서버가 대본 결속을 확인한 것만. 없으면 「정답 직접 안내 전까지」 경로를 내주지 않는다 */
+  lectureDisclosure?: { verified: true; stopBefore: number; preStopRisk: PreStopRiskCode } | { verified: false } | null
 }) {
   const lec = useLecture()
   // ── 기출 찾기(FND2 · FND3) — 학습 상태(장면 · 근거 · 초안)와 분리된 팝업 상태 ──────────────
@@ -823,7 +827,8 @@ export function AnalysisTheater({
       />
     ) : null
   const step = steps[cursor] ?? null
-  const liveKey = step ? blockKeyForTarget(step.targetKey, blockKeys) : null
+  // 레일 차례는 오답 번호를 지운 키를 들고 있다(maskDisclosureSteps) — 재생 중이면 받은 cue 의 실제 대상으로 맞춘다
+  const liveKey = lec?.activeKey && (lec.status === 'playing' || lec.status === 'paused') ? blockKeyForTarget(lec.activeKey, blockKeys) : step ? blockKeyForTarget(step.targetKey, blockKeys) : null
   const sceneBlocks = blocks.filter((b) => sceneOfBlock(b.kind) === scene)
   const sceneChecks = checks.filter((c) => sceneOfCheck(c.kind) === scene)
   const renderBlock = (b: TheaterBlock) => (
@@ -856,6 +861,57 @@ export function AnalysisTheater({
     if (lec?.status === 'playing') setLectureStarted(true)
   }, [lec?.status])
 
+  // ── 정답 공개 경로(2026-10-24 P1~P5) — 강의를 듣기 전에 학습자가 고른다. 고르기 전에는 어떤 cue 도 받지도 틀지도 않는다.
+  // 원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지(검증된 경계가 있을 때만). 강제 퀴즈 · 필수 선지 선택으로 대신하지 않는다
+  const [lecturePath, setLecturePath] = useState<'self' | 'full' | 'until' | null>(null)
+  const [chooser, setChooser] = useState<{ from: number } | null>(null)
+  const [untilFailed, setUntilFailed] = useState(false)
+  const [atBoundary, setAtBoundary] = useState(false)
+  const chooserRef = useRef<HTMLHeadingElement | null>(null)
+  const boundaryRef = useRef<HTMLHeadingElement | null>(null)
+  const stopAt = lectureDisclosure?.verified ? lectureDisclosure.stopBefore : null
+  // 경계가 첫 cue 이면 들을 것이 없다 — 이 경로를 내주지 않는다
+  const untilOk = stopAt != null && stopAt > 0 && !untilFailed
+  const untilFrom = (from: number) => (stopAt != null ? Math.min(from, Math.max(0, stopAt - 1)) : from)
+  const requestPlay = (from: number) => {
+    if (!lec) return
+    if (lecturePath === 'full') return lec.start(from, 'start', 'full')
+    if (lecturePath === 'until' && untilOk) return lec.start(untilFrom(from), 'start', 'until')
+    setChooser({ from })
+  }
+  const choosePath = (p: 'self' | 'full' | 'until') => {
+    const from = chooser?.from ?? 0
+    setChooser(null)
+    setAtBoundary(false)
+    setLecturePath(p)
+    if (!lec || p === 'self') return
+    if (p === 'until') lec.start(untilFrom(from), 'start', 'until')
+    else lec.start(from, 'start', 'full')
+  }
+  useEffect(() => {
+    if (chooser) chooserRef.current?.focus()
+  }, [chooser])
+  useEffect(() => {
+    if (atBoundary) boundaryRef.current?.focus()
+  }, [atBoundary])
+  useEffect(() => {
+    if (lecturePath !== 'until' || !lec) return
+    // 서버가 경계를 거절했다(결속 불일치 등) — 안전 구간을 추정하지 않고 다시 고르게 한다
+    if (lec.status === 'error') {
+      setUntilFailed(true)
+      setLecturePath(null)
+      setChooser({ from: 0 })
+    }
+    // 받은 범위(경계 직전)까지 다 들었다 — 넘을지는 학습자가 고른다
+    if (lec.status === 'ended') setAtBoundary(true)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [lec?.status, lecturePath])
+  const continuePastBoundary = () => {
+    setAtBoundary(false)
+    setLecturePath('full')
+    if (lec && stopAt != null) lec.start(stopAt, 'start', 'full')
+  }
+
   const move = (delta: number) => {
     const to = Math.max(0, Math.min(steps.length - 1, cursor + delta))
     if (to === cursor) return
@@ -863,6 +919,12 @@ export function AnalysisTheater({
     else setCursor(to)
   }
   const goto = (index: number) => {
+    // 정답 직접 안내 전까지 듣는 중 — 경계 뒤 차례는 넘을지 묻는다(건너뛰어 답을 듣게 하지 않는다)
+    if (playing && lec && lecturePath === 'until' && stopAt != null && index >= stopAt) {
+      lec.toggle()
+      setAtBoundary(true)
+      return
+    }
     if (playing && lec) lec.start(index, 'cue')
     else setCursor(index)
   }
@@ -870,8 +932,9 @@ export function AnalysisTheater({
 
   // 읽기 강의 탭을 열면 대본을 불러온다(재생하지 않는다) — 음성이 없어도 같은 설명을 읽는다
   useEffect(() => {
-    if (tab === 'script' && lec && !lec.cues.length && lec.status === 'idle') lec.load()
-  }, [tab, lec])
+    // 읽기 강의 탭도 같은 공개 경로를 따른다 — 고른 범위만 불러온다. 고르기 전에는 탭 안의 「어떻게 볼지 고르기」 로 묻는다
+    if (tab === 'script' && lec && !lec.cues.length && lec.status === 'idle' && (lecturePath === 'full' || lecturePath === 'until')) lec.load(lecturePath)
+  }, [tab, lec, lecturePath])
 
   useEffect(() => {
     // 재생 중 학습자가 스스로 스크롤해 따라가기를 껐으면 차례 줄도 화면을 끌고 가지 않는다
@@ -892,7 +955,7 @@ export function AnalysisTheater({
         // 단추 위의 Space 는 그 단추의 일이다
         if (tag === 'BUTTON' || tag === 'A' || tag === 'SUMMARY' || !lec) return
         e.preventDefault()
-        if (lec.status === 'idle' || lec.status === 'error') lec.start(cursor, 'start')
+        if (lec.status === 'idle' || lec.status === 'error') requestPlay(cursor)
         else lec.toggle()
         return
       }
@@ -1017,13 +1080,71 @@ export function AnalysisTheater({
             <button
               type="button"
               className={styles.play}
-              onClick={() => (status === 'idle' || status === 'error' ? lec.start(cursor, 'start') : lec.toggle())}
+              onClick={() => (status === 'idle' || status === 'error' ? requestPlay(cursor) : lec.toggle())}
             >
               <MainIcon size={15} aria-hidden /> {mainLabel}
             </button>
           ) : null}
         </div>
       </header>
+      {chooser && lec ? (
+        <section className={styles.lectureChooser} aria-labelledby="lecture-chooser-h" data-testid="lecture-chooser">
+          <h2 id="lecture-chooser-h" ref={chooserRef} tabIndex={-1} className={styles.chooserTitle}>
+            강의를 어떻게 볼까요?
+          </h2>
+          <p className={styles.chooserNote}>
+            강의는 정답과, 정답을 좁히는 단서를 말해요.{untilFailed ? ' 이 강의는 지금 정답 공개 지점을 확인하지 못해 전체 강의만 들을 수 있어요.' : ''}
+          </p>
+          <div className={styles.chooserRow}>
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => choosePath('self')} data-testid="lecture-path-self">
+              원문부터 직접 분석
+            </button>
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => choosePath('full')} data-testid="lecture-path-full">
+              전체 해설 강의 듣기(정답 포함)
+            </button>
+            {untilOk ? (
+              <button type="button" className={styles.lectureOfferBtn} onClick={() => choosePath('until')} aria-describedby="lecture-until-note" data-testid="lecture-path-until">
+                정답 직접 안내 전까지 듣기
+              </button>
+            ) : null}
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => setChooser(null)} data-testid="lecture-path-cancel">
+              닫기
+            </button>
+          </div>
+          <p id="lecture-until-note" className={styles.chooserNote} data-testid="lecture-until-note">
+            {untilOk && lectureDisclosure?.verified
+              ? preStopNotice(lectureDisclosure.preStopRisk)
+              : '이 강의는 정답 공개 지점이 검증되지 않아 「정답 직접 안내 전까지」 를 고를 수 없어요.'}
+          </p>
+        </section>
+      ) : null}
+      {atBoundary && lec ? (
+        <section className={styles.lectureChooser} aria-labelledby="lecture-boundary-h" data-testid="lecture-boundary">
+          <h2 id="lecture-boundary-h" ref={boundaryRef} tabIndex={-1} className={styles.chooserTitle}>
+            다음 부분에서 정답을 직접 말해요
+          </h2>
+          <div className={styles.chooserRow}>
+            <button type="button" className={styles.lectureOfferBtn} onClick={continuePastBoundary} data-testid="lecture-boundary-continue">
+              계속 듣기(정답 공개)
+            </button>
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => setAtBoundary(false)} data-testid="lecture-boundary-stop">
+              여기서 멈춤
+            </button>
+            <button
+              type="button"
+              className={styles.lectureOfferBtn}
+              onClick={() => {
+                setAtBoundary(false)
+                setLecturePath('self')
+                document.querySelector<HTMLElement>('[data-testid="workspace-paper"]')?.focus()
+              }}
+              data-testid="lecture-boundary-self"
+            >
+              원문 분석으로
+            </button>
+          </div>
+        </section>
+      ) : null}
       {/* 강의 안내 줄 — 학습자가 강의를 한 번 시작한 뒤로는 끝나도 같은 자리 · 같은 높이로 남는다
           (재생 시작 = 학습자 동작으로 한 번 생기고, 강의 진행 · 종료로는 끼었다 빠지며 본문을 밀지 않는다).
           따라가기 단추는 사라지지 않고 켜짐/꺼짐만 바뀐다 — 라벨은 고정, 상태는 aria-pressed 하나로 */}
@@ -1057,7 +1178,7 @@ export function AnalysisTheater({
       {/* 장면이 갈릴 때만 알린다(큐마다 읽지 않는다) — 알림 영역은 처음부터 문서에 있어야 첫 변경도 읽힌다 */}
       {lec ? (
         <span className={styles.srOnly} aria-live="polite">
-          {lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
+          {atBoundary ? '정답을 직접 말하기 직전에서 멈췄어요. 계속 들을지 고르세요' : lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
         </span>
       ) : null}
 
@@ -1412,8 +1533,16 @@ export function AnalysisTheater({
                   ) : lec.status === 'error' && !lec.cues.length ? (
                     <p className={styles.quiet} role="status">
                       대본을 불러오지 못했어요. 탐구 장면의 설명은 그대로 읽을 수 있어요.{' '}
-                      <button type="button" className={styles.back} onClick={lec.load}>
+                      <button type="button" className={styles.back} onClick={() => (lecturePath === 'full' || lecturePath === 'until' ? lec.load(lecturePath) : setChooser({ from: 0 }))}>
                         다시 불러오기
+                      </button>
+                    </p>
+                  ) : !lec.cues.length && lecturePath !== 'full' && lecturePath !== 'until' ? (
+                    // 공개 경로를 고르기 전에는 대본을 받지 않는다 — 읽기 강의도 정답을 말한다
+                    <p className={styles.quiet}>
+                      대본에는 정답과, 정답을 좁히는 단서가 있어요.{' '}
+                      <button type="button" className={styles.back} onClick={() => setChooser({ from: 0 })} data-testid="script-choose">
+                        어떻게 볼지 고르기
                       </button>
                     </p>
                   ) : !lec.cues.length ? (

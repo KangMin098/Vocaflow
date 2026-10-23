@@ -39,6 +39,10 @@ test.describe('강의 학습자 제어', () => {
       const play = theater.locator('header button', { hasText: /하이라이트만|상영 시작/ })
       await expect(play).toBeVisible({ timeout: 30_000 })
       await play.click()
+      // 정답 공개 경로(P1) — 재생은 경로를 고른 뒤에만 시작한다
+      await expect(page.getByTestId('lecture-chooser')).toBeVisible()
+      expect(await statusOf(page), '고르기 전에 재생이 시작됐다').not.toBe('playing')
+      await page.getByTestId('lecture-path-full').click()
       await expect.poll(() => statusOf(page), { timeout: 30_000 }).toBe('playing')
 
       // 학습자가 지금 쥔 선택(눌린 단추 · 고른 항목 · 열린 층 · 주소의 의미/관계) — 강의 진행 뒤에도 같아야 한다

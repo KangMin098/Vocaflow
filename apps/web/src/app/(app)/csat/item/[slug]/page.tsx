@@ -31,7 +31,8 @@ import type { CohesionPanelProps } from '@/lib/knowledge/cohesion-link-labels'
 import { KICE_ARCHIVE_URL, kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { toItemSlug } from '@/lib/csat/item-slug'
-import { lectureMeta, lectureOutline } from '@/lib/csat/lecture/store'
+import { lectureDisclosure } from '@/lib/csat/lecture/disclosure'
+import { lectureMeta, lectureOutline, loadLecture } from '@/lib/csat/lecture/store'
 import { pickNextItem } from '@/lib/csat/next-item'
 import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/catalog'
@@ -42,7 +43,7 @@ import { canRevealItem, loadRevealScope } from '@/lib/csat/embargo-gate'
 import { loadItemPrinciple } from '@/lib/knowledge/product-server'
 import { createClient } from '@/lib/supabase/server'
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
+import { CIRCLED, maskDisclosureSteps, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { inquiryBinding, lookupInquiry } from '@/lib/csat/inquiry/data'
@@ -136,7 +137,10 @@ export default async function CsatItemTheaterPage({
 
   const outline = lectureOutline(item.id)
   const meta = lectureMeta(item.id)
-  const steps = theaterSteps(outline)
+  // 오답 소거 번호를 지운 차례 — 강의를 고르기 전 레일로 답이 새지 않게
+  const steps = maskDisclosureSteps(theaterSteps(outline))
+  // 검증된 「직접 정답 공개」 경계(없거나 대본이 바뀌었으면 verified=false — 「정답 직전까지」 경로를 내주지 않는다)
+  const disclosure = lectureDisclosure(item.id, loadLecture(item.id))
   const blocks = theaterBlocks(item)
   // 이해 확인(M4) — 검수된 근거 자리 · 함정 라벨로만 만든다(새 생성 없음)
   const answerPlacement = skeleton?.anchors.find((x) => x.id === 'answer')
@@ -235,6 +239,7 @@ export default async function CsatItemTheaterPage({
       points={item.points}
       minutes={theaterMinutes(outline)}
       steps={steps}
+      lectureDisclosure={disclosure.verified ? { verified: true, stopBefore: disclosure.stopBefore, preStopRisk: disclosure.preStopRisk } : { verified: false }}
       blocks={blocks}
       checks={checks}
       comparePairs={comparePairs}

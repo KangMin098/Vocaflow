@@ -55,7 +55,8 @@ describe('해설 극장 전달 계약', () => {
 describe('읽기 강의(M2 · 2026-10-10)', () => {
   it('음성 없이도 같은 대본을 읽는 탭이 있고, 대본은 강의 API 응답에서만 온다(서버 초기 HTML 에 없음)', () => {
     expect(theater).toMatch(/id: 'script', label: '읽기 강의'/)
-    expect(theater).toMatch(/lec\.load\(\)/)
+    // 2026-10-24 정답 공개 경로 — 읽기 강의도 학습자가 고른 범위(full · until)만 불러온다
+    expect(theater).toMatch(/lec\.load\(lecturePath\)/)
     expect(stage).toMatch(/text: c\.segments\.map/)
     // page(서버)는 대본을 넘기지 않는다 — 개요(역할 · 타깃)만
     expect(page).not.toMatch(/segments/)
@@ -77,5 +78,34 @@ describe('강의 학습자 제어(2026-10-24 사용자 결정 1·3)', () => {
     expect(stage).toMatch(/following,\s*follow,/)
     expect(theater).toMatch(/data-testid="lecture-offer-follow"/)
     expect(theater).toMatch(/lec\?\.status === 'playing' && !lec\.following\) return/)
+  })
+})
+
+describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
+  it('재생 단추 · Space 는 경로 선택을 거친다 — 고르기 전에는 강의를 받지도 틀지도 않는다', () => {
+    expect(theater).not.toMatch(/lec\.start\(cursor, 'start'\)/)
+    expect(theater.match(/requestPlay\(cursor\)/g)?.length).toBeGreaterThanOrEqual(2)
+    expect(theater).toMatch(/data-testid="lecture-path-self"/)
+    expect(theater).toMatch(/data-testid="lecture-path-full"/)
+    // 「정답 직접 안내 전까지」 는 검증된 경계가 있을 때만
+    const until = theater.indexOf('data-testid="lecture-path-until"')
+    expect(until).toBeGreaterThan(0)
+    expect(theater.lastIndexOf('{untilOk ? (', until)).toBeGreaterThan(theater.lastIndexOf('</button>', until))
+  })
+
+  it('읽기 강의 탭도 고른 범위만 불러온다', () => {
+    expect(theater).not.toMatch(/lec\.load\(\)/)
+    expect(theater).toMatch(/lec\.load\(lecturePath\)/)
+  })
+
+  it('경계 정지 — 계속 · 멈춤 · 원문을 학습자가 고르고, 경계 뒤 차례로 건너뛰지 않는다', () => {
+    expect(theater).toMatch(/data-testid="lecture-boundary-continue"/)
+    expect(theater).toMatch(/data-testid="lecture-boundary-stop"/)
+    expect(theater).toMatch(/lecturePath === 'until' && stopAt != null && index >= stopAt/)
+  })
+
+  it('레일 차례는 오답 소거 번호를 지운 채 서버가 넘긴다 · 경계는 결속 확인을 거친다', () => {
+    expect(page).toMatch(/maskDisclosureSteps\(theaterSteps\(outline\)\)/)
+    expect(page).toMatch(/lectureDisclosure\(item\.id, loadLecture\(item\.id\)\)/)
   })
 })

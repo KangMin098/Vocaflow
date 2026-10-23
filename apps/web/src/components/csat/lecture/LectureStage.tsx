@@ -27,6 +27,8 @@ import type { Lecture, LectureRole } from '@/lib/csat/lecture/types'
 
 export type LectureMode = 'unknown' | 'voice' | 'silent'
 export type StageStatus = 'idle' | 'loading' | 'playing' | 'paused' | 'ended' | 'error'
+/** 강의를 어디까지 받을까 — full: 전체(정답 포함) · until: 검증된 「직접 정답 공개」 경계 직전까지(서버가 잘라 준다) */
+export type LectureScope = 'full' | 'until'
 
 export interface CueStub {
   id: string
@@ -51,12 +53,12 @@ interface LectureCtx {
   rate: number
   /** 불러온 뒤에만 채워진다 — 역할 · 타깃 키 · 읽기 대본 */
   cues: CueStub[]
-  /** 소리 없이 대본만 불러온다(읽기 강의) — 재생하지 않는다 */
-  load: () => void
+  /** 소리 없이 대본만 불러온다(읽기 강의) — 재생하지 않는다. 범위를 주지 않으면 지금 범위(없으면 full) */
+  load: (scope?: LectureScope) => void
   activeKey: string | null
   /** 지금 큐가 말한 문장 번호 — 지도가 켤 막대를 말과 맞춘다(`focus.ts`) */
   activeFocus: number[] | null
-  start: (from?: number, via?: 'start' | 'cue' | 'block') => void
+  start: (from?: number, via?: 'start' | 'cue' | 'block', scope?: LectureScope) => void
   toggle: () => void
   prev: () => void
   next: () => void
@@ -67,6 +69,10 @@ interface LectureCtx {
   follow: () => void
   /** 학습자가 명시적으로 따라가기를 끈다 */
   unfollow: () => void
+  /** 지금 받아 둔 범위 — 아직 아무것도 받지 않았으면 null */
+  scope: LectureScope | null
+  /** until 로 받았을 때 서버가 알려 준 경계(전체 강의에서 이 번째 cue 부터가 직접 정답 공개) */
+  stopBefore: number | null
 }
 
 const Ctx = createContext<LectureCtx | null>(null)
@@ -148,16 +154,30 @@ export function LectureStage({
 
   useEffect(() => () => playerRef.current?.destroy(), [])
 
-  const ensure = useCallback(async (): Promise<LecturePlayer | null> => {
-    if (playerRef.current) return playerRef.current
+  const scopeRef = useRef<LectureScope | null>(null)
+  const [scope, setScope] = useState<LectureScope | null>(null)
+  const [stopBefore, setStopBefore] = useState<number | null>(null)
+  const ensure = useCallback(async (want: LectureScope = 'full'): Promise<LecturePlayer | null> => {
+    // 받은 범위가 다르면 새로 받는다 — until 로 받은 플레이어는 경계 뒤 cue 를 모른다
+    if (playerRef.current && scopeRef.current === want) return playerRef.current
+    if (playerRef.current && scopeRef.current !== want) {
+      playerRef.current.destroy()
+      playerRef.current = null
+      loading.current = null
+      setCues([])
+      setPs(null)
+    }
     if (loading.current) return loading.current
     loading.current = (async () => {
       setStatus('loading')
       setError(null)
       try {
-        const res = await fetch(`/api/csat/lecture?item=${encodeURIComponent(slug)}`, { cache: 'no-store' })
-        const json = (await res.json()) as { ok: boolean; lecture?: Lecture; error?: string }
+        const res = await fetch(`/api/csat/lecture?item=${encodeURIComponent(slug)}${want === 'until' ? '&scope=until' : ''}`, { cache: 'no-store' })
+        const json = (await res.json()) as { ok: boolean; lecture?: Lecture; error?: string; disclosure?: { scope: LectureScope; stopBefore: number } }
         if (!json.ok || !json.lecture) throw new Error(json.error ?? '강의를 불러오지 못했어요')
+        scopeRef.current = want
+        setScope(want)
+        setStopBefore(json.disclosure?.stopBefore ?? null)
         const lecture = json.lecture
         const forced = new URLSearchParams(window.location.search).get('lecture-silent') === '1'
         const voices = forced ? [] : await loadVoices()
@@ -200,11 +220,11 @@ export function LectureStage({
   // 화면 위치의 주인은 학습자다 — 재생을 고르면 따라가고, 스스로 스크롤하면 그 자리에 둔다
   const [following, setFollowing] = useState(true)
   const start = useCallback(
-    (from = 0, via: 'start' | 'cue' | 'block' = 'start') => {
+    (from = 0, via: 'start' | 'cue' | 'block' = 'start', want?: LectureScope) => {
       setFollowing(true)
       void (async () => {
         const first = !playerRef.current
-        const p = await ensure()
+        const p = await ensure(want ?? scopeRef.current ?? 'full')
         if (!p) return
         if (!first) jumps.current += 1
         if (first) {
@@ -219,9 +239,9 @@ export function LectureStage({
     [ensure],
   )
 
-  const load = useCallback(() => {
+  const load = useCallback((want?: LectureScope) => {
     // 불러오기만 했으면 「여는 중」에 머물지 않게 대기 상태로 돌린다
-    void ensure().then((p) => {
+    void ensure(want ?? scopeRef.current ?? 'full').then((p) => {
       if (p) setStatus((st) => (st === 'loading' ? 'idle' : st))
     })
   }, [ensure])
@@ -462,8 +482,10 @@ export function LectureStage({
       following,
       follow,
       unfollow,
+      scope,
+      stopBefore,
     }),
-    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate, following, follow, unfollow],
+    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate, following, follow, unfollow, scope, stopBefore],
   )
 
   return (
