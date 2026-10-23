@@ -16,6 +16,8 @@ const E2_DIRECT_TYPES = ['R-FACT', 'R-NOTICE', 'X-FACT']
 // 주 수행이 확대 6 TASK(R5 · R6 · E1 · E3 · R4 · E2) 안에 있는 유형 — 어법 · 어휘 · 지칭 · 무관 · 심경 · 삽입 · 함축은 문항마다 판단
 const IN_SUBSET_TYPES = ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-BLANK', 'R-SUMMARY', 'R-GIST', 'R-TOPIC', 'R-TITLE', 'X-TITLE', 'R-CLAIM', 'R-PURPOSE', 'R-ORDER', 'X-ORDER']
 const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
+/** 삽입 E2 계약 고정 문구(v2.2 §3) — not_observable 반복 검사에서 정확히 이 문자열만 예외(T-0123 RECHECK-P1-02) */
+export const FIXED_INSERT_E2 = new Set(['삽입 경계 판정은 R2 · R4 의 수행 — E2 분리 불가(v2.2 §3)', '삽입 문항 E2 분리 불가'])
 const answerSet = (src) => (src.answers?.length ? src.answers : src.answer != null ? [src.answer] : [])
 const fieldText = (src, f) => (f === 'choices' ? (src.choices ?? []).map((c) => (typeof c === 'string' ? c : JSON.stringify(c))).join(' ') : String(src[f] ?? ''))
 // 선택 이유의 「틀」 — 인용 · 영어 낱말 · 숫자 · 선지 기호 · 문항 id 를 걷어 내고 남은 한국어 골격(같은 문장에 낱말만 바꿔 끼운 템플릿을 잡는다)
@@ -118,26 +120,19 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
     }
     for (const [k, ids] of exact) if (ids.length >= 2) errs.push(`primary_reason 완전 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
     for (const [s, ids] of skel) if (ids.length >= 3) errs.push(`primary_reason 템플릿 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 골격 「${s.slice(0, 24)}」`)
-    // not_observable why — 문항 id 만 바꾼 같은 문장이 3문항 이상이면 문항 고유 판정이 아니다(b14 B-01: 44개가 한 틀).
-    // b14 부터 적용 — b8 · b13 A 트랙의 기존 반복은 알려진 결함으로 기록(mapping-review §18)하고 소급 배제하지 않는다
+    // not_observable why — 문항 id 를 지운 같은 설명이 3문항 이상이면 문항 고유 판정이 아니다(b14 B-01: 44개가 한 틀).
+    //   행 비율 기준은 고유 줄을 덧붙이면 우회돼 버렸다(T-0123 RECHECK-P1-01) → 설명 하나하나를 문항 단위로 센다.
+    //   예외는 계약 고정 문구의 **정확한 문자열**만(삽입 문항 E2 — v2.2 §3). TASK · 유형만 보는 예외는 아무 설명이나 통과시켰다(RECHECK-P1-02).
+    //   b14 부터 적용 — 그 전 배치의 반복(b3 B · b8 A · b9t A · b13 A)은 알려진 결함으로 기록하고 소급 배제하지 않는다(mapping-review §18)
     if (reasonsRequired && BATCH_NO >= 14) {
       const nob = new Map()
       for (const r of allRows) for (const n of r.not_observable ?? []) {
         if (typeof n?.why !== 'string') continue
-        // 계약 고정 문구(삽입 E2 — v2.2 §3)는 문항마다 같아도 정당하다(T-0121 P1-01: b3 B · b6 A 를 잘못 배제)
-        if (n.task_id === 'e.evidence_location' && byId.get(r.item_id)?.type_id === 'R-INSERT') continue
         const k = norm(n.why.split(r.item_id).join('#'))
+        if (n.task_id === 'e.evidence_location' && byId.get(r.item_id)?.type_id === 'R-INSERT' && FIXED_INSERT_E2.has(k)) continue
         nob.set(k, new Set([...(nob.get(k) ?? []), r.item_id]))
       }
-      // 행 단위로 묶는다(T-0121 P1-01): 반복 문장(3문항↑)이 그 행 설명의 절반 이상인 행만 「틀 행」 — 한 줄만 겹치고 나머지가 문항 고유인 행(b3 B)은 정당
-      const rep = new Set([...nob].filter(([, ids]) => ids.size >= 3).map(([k]) => k))
-      const tmplRows = new Map()
-      for (const r of allRows) {
-        const ws = (r.not_observable ?? []).filter((n) => typeof n?.why === 'string' && !(n.task_id === 'e.evidence_location' && byId.get(r.item_id)?.type_id === 'R-INSERT')).map((n) => norm(n.why.split(r.item_id).join('#')))
-        const hit = ws.filter((k) => rep.has(k))
-        if (ws.length && hit.length * 2 >= ws.length) for (const k of hit) tmplRows.set(k, [...(tmplRows.get(k) ?? []), r.item_id])
-      }
-      for (const [k, ids] of tmplRows) if (new Set(ids).size >= 3) errs.push(`not_observable why 틀 반복 ${new Set(ids).size}문항(${[...new Set(ids)].slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
+      for (const [k, ids] of nob) if (ids.size >= 3) errs.push(`not_observable why 틀 반복 ${ids.size}문항(${[...ids].slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
     }
     return errs
   }
