@@ -86,7 +86,8 @@ function load(track) {
     const f = name(track, k, true)
     if (!fs.existsSync(f)) { errors.push(`${path.basename(f)} 없음`); continue }
     const rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? []
-    const ce = validateChunk(rows)
+    // 계약이 고정 문구를 요구하는 삽입 E2 unknown(v2.2 §3)은 반복 검사에서 뺀다 — 고정 문구를 피하려 문항마다 문장을 지어내게 하지 않는다(b6 분석자 2명 보고)
+    const ce = validateChunk(V22_PLUS.includes(input.contract) ? rows.map((r) => (byId.get(r.item_id)?.type_id === 'R-INSERT' ? { ...r, links: (r.links ?? []).filter((l) => !(l.task_id === 'e.evidence_location' && l.relevance === 'unknown')) } : r)) : rows)
     if (ce.length) { errors.push(...ce.map((x) => `${track} ${path.basename(f)}: ${x}`)); continue }
     for (const row of rows) {
       const inp = byId.get(row.item_id)
