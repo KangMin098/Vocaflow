@@ -1,0 +1,246 @@
+{
+  "task": "T-0121",
+  "owner": "goal-data-independent",
+  "input_commit": "32bfeb2de02a09dd53e9dacb74fb50a3b9ebe601",
+  "base_commit": "a9617e2aa",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료. 수용 주장 승인·데이터 Gold·다음 배치 무조건 승인이 아님.",
+  "skip_count": 0,
+  "acceptance": [
+    {
+      "id": 0,
+      "status": "refuted",
+      "claim": "가드 동작·반례·최초 B01 차단은 confirmed. 오탐 없음과 b8 A·b13 A만 걸린다는 전수성은 refuted.",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:120",
+        "scripts/research/goal-data/d2-validate.check.mjs:22",
+        "scripts/research/goal-data/local/b14-v24/history/2026-10-23T10-09-44-982Z-b14-v24-B-01-first/chunk-B-01.out.json:1",
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:273",
+        "scripts/research/goal-data/review-b14/guards.mjs:15"
+      ]
+    },
+    {
+      "id": 1,
+      "status": "confirmed",
+      "claim": "140행의 relevance·primary·decision_path·counterfactual를 대조. 문항별 판단 근거가 남아 있어 반복 설명만 격리하고 연구 후보 링크 유지가 타당하다. 의미 Gold는 미확정.",
+      "evidence": [
+        "scripts/research/goal-data/review-b14/row-review.md:1",
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:273"
+      ]
+    },
+    {
+      "id": 2,
+      "status": "confirmed",
+      "claim": "T-0120은 검증기 통과를 회귀 범위로 삼아 not_observable 트랙 반복을 독립 집계하지 않았다. 전 계약·파생 트랙 집계와 행별 대조로 보강했다.",
+      "evidence": [
+        "scripts/research/goal-data/review-b13/audit.mjs:33",
+        "docs/research/goal-data-batches/review-b13/review.md:1",
+        "scripts/research/goal-data/review-b14/guards.mjs:15"
+      ]
+    },
+    {
+      "id": 3,
+      "status": "unclear",
+      "claim": "40선정·해시·κ·primary·경보·프롬프트·후보10·갈림10·primary 갈림5를 검증했다. 관측 밖 노출과 의미 우열·인과 오염은 unclear 유지.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:265",
+        "docs/research/goal-data-batches/D2-task-mapping/b14-v24-agreement.json:44",
+        "scripts/research/goal-data/review-b14/sample-review.md:1",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a1f1dd2c1cbec0e30.jsonl:73",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a8296655e51909765.jsonl:74",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a93e38f49b5b7961a.jsonl:75",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-aefe18a07b0542b73.jsonl:75"
+      ]
+    },
+    {
+      "id": 4,
+      "status": "confirmed",
+      "claim": "verdict·review·새 P0/P1·다음 배치·소급 처리·unclear 기록.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b14/verdict.json:1",
+        "docs/research/goal-data-batches/review-b14/review.md:1"
+      ]
+    }
+  ],
+  "new_P0": 0,
+  "new_P1": 1,
+  "findings": [
+    {
+      "id": "P1-01",
+      "severity": "P1",
+      "title": "정당한 공통 관측 한계도 트랙 전체 배제로 처리하는 가드",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:120",
+        "scripts/research/goal-data/d2-validate.mjs:158",
+        "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:831",
+        "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:2004",
+        "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json:2112"
+      ],
+      "detail": "b6 A 삽입 3행의 E2 분리 불가 설명은 각 행 E2 unknown·not_suitable과 일관된다. 계약/배치 활성화만 메모리에서 풀면 새 가드가 이를 거부한다. 같은 의미의 짧은 관측 한계가 b14 이후 3행에 있으면 판정 링크가 고유해도 전체가 배제된다. 현재 b14 최종에서 발생한 데이터 손실은 없다.",
+      "required_action": "정당한 공통·계약 고정 설명을 식별하는 예외나 격리 수준을 정하고, 실제 3행·최초 B01 거부를 함께 회귀 검사한다. 단순 문장 길이 늘리기를 해결로 삼지 않는다."
+    }
+  ],
+  "checks": {
+    "total": 685,
+    "failed": 0
+  },
+  "guard_inventory": {
+    "tracks": 28,
+    "ordinary_tracks": 24,
+    "derived_tracks": 4,
+    "raw_pattern_hits": [
+      {
+        "batch": "b3-insert",
+        "track": "B",
+        "rows": 8,
+        "groups": [
+          {
+            "items": [
+              "M2706#39",
+              "M2609#39",
+              "2025#39"
+            ],
+            "entries": 3
+          }
+        ]
+      },
+      {
+        "batch": "b6-v23",
+        "track": "A",
+        "rows": 40,
+        "groups": [
+          {
+            "items": [
+              "2023#38",
+              "2022#38",
+              "2022#39"
+            ],
+            "entries": 3
+          }
+        ]
+      },
+      {
+        "batch": "b8-v24",
+        "track": "A",
+        "rows": 40,
+        "groups": [
+          {
+            "items": [
+              "M2706#18",
+              "M2706#19",
+              "M2706#20",
+              "M2706#21",
+              "M2706#24",
+              "M2706#26",
+              "M2706#27",
+              "M2706#28",
+              "M2706#30",
+              "M2706#35",
+              "M2706#41",
+              "M2706#42",
+              "M2706#43",
+              "M2706#44",
+              "M2706#45",
+              "M2409#18",
+              "M2409#19",
+              "M2409#20",
+              "M2409#21",
+              "M2409#22"
+            ],
+            "entries": 90
+          },
+          {
+            "items": [
+              "M2706#26",
+              "M2706#27",
+              "M2706#28",
+              "M2706#30",
+              "M2706#41",
+              "M2706#45",
+              "M2409#21"
+            ],
+            "entries": 10
+          }
+        ]
+      },
+      {
+        "batch": "b9t-v24",
+        "track": "A",
+        "rows": 12,
+        "groups": [
+          {
+            "items": [
+              "2022#45",
+              "M2406#26",
+              "M2406#27",
+              "M2406#45"
+            ],
+            "entries": 4
+          }
+        ]
+      },
+      {
+        "batch": "b13-v24",
+        "track": "A",
+        "rows": 40,
+        "groups": [
+          {
+            "items": [
+              "M2206#45",
+              "2021#26",
+              "2021#27",
+              "2021#29",
+              "2021#30"
+            ],
+            "entries": 5
+          }
+        ]
+      }
+    ],
+    "v24_plus_activation_override_hits": [
+      "b8-v24/A",
+      "b9t-v24/A",
+      "b13-v24/A"
+    ],
+    "note": "b3 B·b6 A는 이전 계약까지 새 반복 기준만 전수 적용한 결과. b10은 예약 비교라 final 없음. b9t v24/v25 E/F 원산출은 현재 loader용 A/B 파일로 보존됨."
+  },
+  "row_review": {
+    "tracks": 5,
+    "rows": 140,
+    "decision_or_counterfactual_exact_duplicates": 0,
+    "semantic_gold": "unclear"
+  },
+  "numeric": {
+    "n": 240,
+    "agree": 218,
+    "agreement": 0.9083333333333333,
+    "kappa": 0.8291704413096933
+  },
+  "primary_agreement": 35,
+  "next_batch": {
+    "decision": "conditional_hold",
+    "reason": "현재 b14 연구 후보는 유지. P1-01 오탐 경계 처리와 소급 목록 정정 후 다음 배치 진행."
+  },
+  "retroactive_conclusion": "과거 링크는 유지하되 b8 A·b13 A·b9t-v24 A의 반복 not_observable 설명은 문항 고유 근거에서 격리하고 b3 B·b6 A의 정당한 짧은 설명은 계약 경계로 구분한다.",
+  "unclear": [
+    "로그 밖 노출과 이전 지식·인과 오염의 절대 부재",
+    "direct/indirect 의미 Gold와 primary 우열",
+    "2021#34 정의 변환·M2109#34 단일/결합 근거 경계",
+    "실제 학습자 수행·오답·학습효과"
+  ],
+  "unrun": [
+    "DB 쓰기",
+    "입력 저장소 수정",
+    "새 분석자 실행",
+    "제품 E2E",
+    "사람 Gold·학습자 측정",
+    "main·원격 통합"
+  ],
+  "artifacts": [
+    "docs/research/goal-data-batches/review-b14/review.md",
+    "docs/research/goal-data-batches/review-b14/verdict.json",
+    "scripts/research/goal-data/review-b14/row-review.md",
+    "scripts/research/goal-data/review-b14/sample-review.md"
+  ],
+  "observed_at": "2026-10-23T10:23:16.560Z"
+}
