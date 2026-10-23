@@ -1,0 +1,231 @@
+[
+  {
+    "name": "input HEAD",
+    "pass": true,
+    "detail": "2b3f3bafbb85b94f96ce04f4512c228c07a8cabe"
+  },
+  {
+    "name": "registration sha",
+    "pass": true
+  },
+  {
+    "name": "comparison byte reproduction",
+    "pass": true
+  },
+  {
+    "name": "prereg-C prompt hash",
+    "pass": true
+  },
+  {
+    "name": "prereg-C chunk hash",
+    "pass": true
+  },
+  {
+    "name": "prereg-C template rendering",
+    "pass": true
+  },
+  {
+    "name": "prereg-D prompt hash",
+    "pass": true
+  },
+  {
+    "name": "prereg-D chunk hash",
+    "pass": true
+  },
+  {
+    "name": "prereg-D template rendering",
+    "pass": true
+  },
+  {
+    "name": "prereg-E prompt hash",
+    "pass": true
+  },
+  {
+    "name": "prereg-E chunk hash",
+    "pass": true
+  },
+  {
+    "name": "prereg-E template rendering",
+    "pass": true
+  },
+  {
+    "name": "prereg-F prompt hash",
+    "pass": true
+  },
+  {
+    "name": "prereg-F chunk hash",
+    "pass": true
+  },
+  {
+    "name": "prereg-F template rendering",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-342Z-prereg-D-first manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-342Z-prereg-D-first chunk-A-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-342Z-prereg-D-first chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-503Z-prereg-C-first manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-503Z-prereg-C-first chunk-A-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-503Z-prereg-C-first chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-35-29-251Z-CD-final manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-35-29-251Z-CD-final chunk-A-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-35-29-251Z-CD-final chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-710Z-prereg-E-first manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-710Z-prereg-E-first chunk-A-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-49-710Z-prereg-E-first chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-53-452Z-prereg-F-first manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-53-452Z-prereg-F-first chunk-A-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-34-53-452Z-prereg-F-first chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-35-29-329Z-EF-final manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-35-29-329Z-EF-final chunk-A-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-35-29-329Z-EF-final chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-42-59-952Z-B01-first manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-42-59-952Z-B01-first chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-43-15-689Z-B02-first manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-43-15-689Z-B02-first chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-43-15-689Z-B02-first chunk-B-02.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-43-26-033Z-A01-first manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-43-26-033Z-A01-first chunk-A-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-43-26-033Z-A01-first chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-43-26-033Z-A01-first chunk-B-02.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-44-45-371Z-A02-first manifest hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-44-45-371Z-A02-first chunk-A-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-44-45-371Z-A02-first chunk-A-02.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-44-45-371Z-A02-first chunk-B-01.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "2026-10-23T08-44-45-371Z-A02-first chunk-B-02.out.json hash",
+    "pass": true
+  },
+  {
+    "name": "b9t-v25 chunk-A-01.out.json final hash",
+    "pass": true
+  },
+  {
+    "name": "b9t-v25 chunk-B-01.out.json final hash",
+    "pass": true
+  },
+  {
+    "name": "b9t-v24 chunk-A-01.out.json final hash",
+    "pass": true
+  },
+  {
+    "name": "b9t-v24 chunk-B-01.out.json final hash",
+    "pass": true
+  },
+  {
+    "name": "b9-v24 chunk-A-01.out.json final hash",
+    "pass": true
+  },
+  {
+    "name": "b9-v24 chunk-A-02.out.json final hash",
+    "pass": true
+  },
+  {
+    "name": "b9-v24 chunk-B-01.out.json final hash",
+    "pass": true
+  },
+  {
+    "name": "b9-v24 chunk-B-02.out.json final hash",
+    "pass": true
+  },
+  {
+    "name": "C only five E1 why changes",
+    "pass": true
+  },
+  {
+    "name": "v24 cannot emit v25 E1 prohibition",
+    "pass": true
+  }
+]
