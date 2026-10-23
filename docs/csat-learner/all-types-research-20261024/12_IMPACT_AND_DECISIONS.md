@@ -10,7 +10,7 @@
 | # | 00 의 기술 | 실측 | 근거 |
 |---|---|---|---|
 | E1 | 「main 8cd15b7b6 에는 강의 진행 자동 selectScene 이 없다(s0 에만)」 | **틀림.** 8cd15b7b6 은 main 이 아니라 design/replica-first. 실제 `main`(e3e0a6a0e)에 `AnalysisTheater.tsx:851` `if (target !== scene) selectScene(target, 'replace')` 와 `LectureStage.tsx:303` 의 cue 단위 `scrollIntoView` 가 있다 | `git grep -n selectScene main -- apps/web/src` · `git grep -n scrollIntoView main -- apps/web/src/components/csat` |
-| E2 | 정답 직접 낭독은 34:c4·22:c5·38:c4 | **범위 과소.** main 의 커밋된 강의 대본 전 회차(`apps/web/src/lib/csat/lecture-data/*.json`, 20개 파일 확인)에 「정답은」 이 회차당 23~29회 | `git show main:<file> \| grep -o 정답은 \| wc -l` |
+| E2 | 정답 직접 낭독은 34:c4·22:c5·38:c4 | **범위 과소.** main 의 커밋된 강의 대본 회차 파일 29개 전부(`apps/web/src/lib/csat/lecture-data/*.json`, index.json 제외)에 「정답은」 이 회차당 23~30회(15 독립 검증 지적으로 정정) | `git show main:<file> \| grep -o 정답은 \| wc -l` |
 
 ## 1. P0/P1 실제 영향 경로 재분류
 
@@ -77,6 +77,8 @@ S0/S1 문서의 정정은 Codex owner 파일이라 **직접 고치지 않고** �
 ## 4. 미확정 교수설계 결정
 
 ### A. 정답 공개 시점 — 제품 계약 제안
+
+> **[2026-10-24 대체됨]** 아래 「잠김 → 답 선택 → 공개」 강제 순서는 사용자 결정 1에서 채택되지 않았다. 현행 계약은 `14_PRODUCT_DECISIONS.md` §결정 1. 이 절은 원문 기록으로만 둔다.
 
 현 main: 해설 화면이 공식 답을 화면 데이터로 싣고(`gate.answer`), 강의는 응답과 무관하게 재생된다. v6 의 학습자 판단 우선 원칙과 맞지 않는다.
 
