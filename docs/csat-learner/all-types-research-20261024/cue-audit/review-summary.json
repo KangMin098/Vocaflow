@@ -1,0 +1,85 @@
+{
+ "missing_review_files": [],
+ "binding": {
+  "files_checked": 29,
+  "blob_mismatch": [],
+  "cue_hash_mismatch": 0,
+  "review_hash_mismatch": 0
+ },
+ "pre_answer_cues": 2849,
+ "reviewed_by_both": 2849,
+ "reviewed_by_one": 0,
+ "unreviewed": 0,
+ "agree_local": 2421,
+ "conflict_local": 428,
+ "agree_cumulative": 2465,
+ "promoted": 1888,
+ "invalid_labels": 0,
+ "confusion_local": {
+  "NONE/NONE": 763,
+  "HINT/HINT": 1559,
+  "NONE/HINT": 137,
+  "DECISIVE/DECISIVE": 93,
+  "DECISIVE/HINT": 27,
+  "HINT/NONE": 224,
+  "ANSWER/ANSWER": 6,
+  "HINT/DECISIVE": 35,
+  "ANSWER/DECISIVE": 2,
+  "NONE/DECISIVE": 2,
+  "DECISIVE/ANSWER": 1
+ },
+ "final_local": {
+  "NONE": 763,
+  "HINT": 1559,
+  "DECISIVE": 93,
+  "ANSWER": 6,
+  "UNKNOWN": 428
+ },
+ "auto_vs_consensus": {
+  "false_positive": 111,
+  "false_negative": 1508,
+  "match": 802,
+  "by_rule_fp": {
+   "R4_NAMES_OFFICIAL_NUMBER": 80,
+   "R5_NAMES_OTHER_NUMBER": 2,
+   "R6_PROPERTY_PHRASE": 29
+  },
+  "by_rule_fn": {
+   "R0_NO_RULE": 1480,
+   "R6_PROPERTY_PHRASE": 4,
+   "R4_NAMES_OFFICIAL_NUMBER": 6,
+   "R5_NAMES_OTHER_NUMBER": 18
+  }
+ },
+ "first_occurrence": {
+  "hint": {
+   "0": 176,
+   "1": 479,
+   "2": 80,
+   "3": 51,
+   "4": 10
+  },
+  "decisive": {
+   "0": 3,
+   "1": 16,
+   "2": 45,
+   "3": 420,
+   "4": 284,
+   "5": 28
+  },
+  "answer_certain": {
+   "0": 3,
+   "3": 403,
+   "4": 331,
+   "5": 58,
+   "6": 1
+  }
+ },
+ "lectures": 796,
+ "lectures_with_conflict": 344,
+ "agreement": {
+  "observed": 0.85,
+  "kappa": 0.701,
+  "pairs": 2849
+ }
+}
