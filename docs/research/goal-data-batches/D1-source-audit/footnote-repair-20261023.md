@@ -13,15 +13,12 @@
 
 범위 실측(platform-goal · 읽기 전용): columns(206) · columns2(507) 의 `* ` 줄 중 어휘 풀이(콜론+한글)를 빼고 대문자로 시작하는 5단어 이상 영어 문장 = 2줄 — 위 두 건뿐. `body_ok` 는 둘 다 true 였다(현재 점검이 줄 소실을 못 잡음).
 
-## 적용 SQL (한 트랜잭션 · 행마다 md5 가드 · 백업 먼저)
+## 적용 SQL (한 트랜잭션 · 행마다 md5 가드 · 백업 테이블 없음)
+
+> 백업 테이블을 public 에 만들지 않는다(platform-goal 검토): 새 테이블은 기본 권한으로 API 에 노출될 수 있고, csat_items 는 authenticated 에 컬럼 단위 SELECT 만 준 테이블이라 백업이 그 제한을 우회해 지문 전문을 노출할 수 있다. 원래 지문은 아래 md5 와 추출 파일 원문으로 재현 가능하므로, 되돌리기는 역치환 + md5 가드로 한다.
 
 ```sql
 begin;
-
--- 백업(되돌리기용)
-create table if not exists public.csat_items_footnote_fix_20261023_bk as
-  select id, passage, md5(passage) as md5_before, now() as backed_up_at
-  from public.csat_items where id in ('2014A#29', 'M1809#26');
 
 -- 2014A#29 : 「5:00 p.m. month.」 → 각주 문장 복원
 update public.csat_items
@@ -37,7 +34,7 @@ update public.csat_items
    and md5(passage) = '22e3bb81089a8be369e6da1e0627fb7a'
    and position('small electronics How to donate' in passage) > 0;
 
--- 확인: 두 행 모두 바뀌었는지(아니면 rollback)
+-- 확인: 두 행 모두 복원됐는지(아니면 rollback). 바뀐 md5 를 기록해 되돌리기 가드로 쓴다
 select id, md5(passage) as md5_after,
        passage like '%closed on the first Monday of every month%' or passage like '%No cash donations will be accepted%' as restored
   from public.csat_items where id in ('2014A#29', 'M1809#26');
@@ -45,12 +42,19 @@ select id, md5(passage) as md5_after,
 commit;  -- restored 가 둘 다 true 일 때만. 아니면 rollback;
 ```
 
-## 되돌리기
+## 되돌리기 (역치환 · 복원 후 md5 가 원래 값과 같을 때만 commit)
 
 ```sql
-update public.csat_items c set passage = b.passage
-  from public.csat_items_footnote_fix_20261023_bk b
- where c.id = b.id;
+begin;
+update public.csat_items
+   set passage = replace(passage, '5:00 p.m. * The museum is closed on the first Monday of every month.', '5:00 p.m. month.')
+ where id = '2014A#29' and md5(passage) = '<적용 뒤 기록한 md5_after>';
+update public.csat_items
+   set passage = replace(passage, 'small electronics * No cash donations will be accepted. How to donate', 'small electronics How to donate')
+ where id = 'M1809#26' and md5(passage) = '<적용 뒤 기록한 md5_after>';
+select id, md5(passage) in ('354dba3df716d6db04d6cc643afeec3e', '22e3bb81089a8be369e6da1e0627fb7a') as back_to_original
+  from public.csat_items where id in ('2014A#29', 'M1809#26');
+commit;  -- 둘 다 true 일 때만. 아니면 rollback;
 ```
 
 ## 적용 뒤 할 일
