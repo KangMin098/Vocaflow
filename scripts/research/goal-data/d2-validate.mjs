@@ -31,6 +31,8 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
   function v2(row, inp) {
     if (legacyV1) return []
     const errs = []
+    // 오답 분석 목록에 공식 정답 선지가 들어가면 거부한다(b11 B-02 가 M2309#41 정답 ③ 을 오답으로 넣었다 — 1차 검증기는 누락만 본다)
+    for (const d of row.distractors ?? []) if (answerSet(inp.source).includes(d.choice)) errs.push(`오답 목록에 정답 ${d.choice} 가 있다`)
     const wrong = Array.from({ length: (inp.source.choices ?? []).length }, (_, k) => k + 1).filter((n) => !answerSet(inp.source).includes(n))
     for (const l of row.links ?? []) {
       if (l.relevance !== 'indirect') continue
