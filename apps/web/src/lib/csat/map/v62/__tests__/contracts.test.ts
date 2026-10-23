@@ -39,6 +39,22 @@ function view(attempts: FindAttemptRow[], asOfDay: number, goalSet = true): V4Vi
 }
 const verified = [att('i1', false, 10), att('i2', false, 11)]
 
+describe('TASK 근거 표시 — 미확인과 플랫폼 분석 대기를 합치지 않는다', () => {
+  it.each([
+    ['unmeasured', 'not_measured'],
+    ['analysis_pending', 'analysis_pending'],
+    ['insufficient', 'insufficient'],
+    ['unmeasurable', 'unmeasurable'],
+    ['checking', 'checking'],
+  ] as const)('%s는 %s로 구분한다', (status, evidence) => {
+    const v = view([], 20)
+    v.asIs.tasks[TASK].status = status
+    const before = structuredClone(v.asIs.tasks[TASK])
+    expect(taskInspector(TASK, v, ranksOf(v), null).now.evidence).toBe(evidence)
+    expect(v.asIs.tasks[TASK]).toEqual(before)
+  })
+})
+
 describe('DomainTaskGraphDTO — 30 영구 TASK · 21 비보류(원자 18 · 통합 3) · 9 보류', () => {
   const g = domainTaskGraph()
   it('개수 · 영역', () => {

@@ -246,11 +246,14 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
     if (!el) return
     const draw = () => {
       const box = el.getBoundingClientRect()
+      const gap = parseFloat(getComputedStyle(el.querySelector(`.${u.cols}`)!).columnGap)
+      const rowGap = parseFloat(getComputedStyle(el.querySelector(`.${u.nodes}`)!).rowGap)
+      const domainIndex = (id: string) => graph.domains.findIndex(domain => domain.id === taskOf(id).axis)
       const at = (id: string) => {
         const n = el.querySelector<HTMLElement>(`[data-node="${CSS.escape(id)}"]`)
         if (!n) return null
         const r = n.getBoundingClientRect()
-        return { l: r.left - box.left, r: r.right - box.left, y: r.top - box.top + r.height / 2 }
+        return { l: r.left - box.left, r: r.right - box.left, bottom: r.bottom - box.top, y: r.top - box.top + r.height / 2 }
       }
       const out: typeof lines = []
       for (const e of graph.edges) {
@@ -261,7 +264,18 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
         if (!a || !b) continue
         // 같은 열 안의 연결은 열 오른쪽으로 둥글게, 다른 열은 가까운 변끼리
         const same = Math.abs(a.l - b.l) < 4
-        const d = same
+        // 여러 열을 건너는 선은 같은 높이의 카드 사이 빈 행으로 우회한다.
+        // 곧바로 베지어 곡선을 그리면 중간 열의 TASK 뒤에 가려 연결이 끊겨 보인다.
+        const skipsColumn = Math.abs(domainIndex(e.from) - domainIndex(e.to)) > 1
+        const forward = a.l < b.l
+        const source = forward ? a.r : a.l
+        const target = forward ? b.l : b.r
+        const outX = source + (forward ? gap / 2 : -gap / 2)
+        const inX = target + (forward ? -gap / 2 : gap / 2)
+        const laneY = a.bottom + rowGap / 2
+        const d = skipsColumn
+          ? `M ${source} ${a.y} H ${outX} V ${laneY} H ${inX} V ${b.y} H ${target}`
+          : same
           ? `M ${a.r} ${a.y} C ${a.r + 22} ${a.y}, ${b.r + 22} ${b.y}, ${b.r} ${b.y}`
           : a.l < b.l
             ? `M ${a.r} ${a.y} C ${(a.r + b.l) / 2} ${a.y}, ${(a.r + b.l) / 2} ${b.y}, ${b.l} ${b.y}`
@@ -274,7 +288,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
     const ro = new ResizeObserver(draw)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [graph.edges, selected, wsSet, lit, focus, mode, q, preview])
+  }, [graph.edges, graph.domains, selected, wsSet, lit, focus, mode, q, preview])
 
   if (!view || !ranks) return null
   const ins = taskInspector(selected, view, ranks, ledger)
@@ -502,7 +516,7 @@ function Node({ t, selected, preview, order, link, faded, dim, need, evidence, o
       <span className={u.nodeText}>
         <span className={u.nodeName}>
           <span className={u.nodeCode}>{t.display}</span>{' '}{t.name.replace(/\(통합 관찰\)$/, '')}</span>
-        <span className={u.nodeState}>{t.hold ? '보류 · 측정 방법 정하는 중' : evidence}</span>
+        <span className={u.nodeState}>{t.hold ? `보류 · ${evidence}` : evidence}</span>
       </span>
       {order !== null && <span className={u.nodeOrder} aria-hidden="true">{order}</span>}
       {selected && <span className={u.nodeMore} data-testid="node-more" aria-hidden="true"><MoreVertical size={12} /></span>}

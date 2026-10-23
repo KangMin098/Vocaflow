@@ -62,6 +62,34 @@ try {
     await page.waitForFunction(() => document.querySelector('[data-testid="umap-canvas"]').dataset.preview === 'r.relation')
     const previewLines = await page.locator('path[data-active="true"]').evaluateAll(paths => paths.map(path => [path.dataset.from, path.dataset.to]))
     assert.ok(previewLines.length > 0 && previewLines.every(pair => pair.includes('r.relation')), 'Near a TASK previews only its connections')
+    const lineVisibility = await page.locator('path[data-active="true"]').evaluateAll(paths => {
+      const luminance = color => {
+        const rgb = color.match(/[\d.]+/g).slice(0, 3).map(Number).map(n => n / 255).map(n => n <= .04045 ? n / 12.92 : ((n + .055) / 1.055) ** 2.4)
+        return rgb[0] * .2126 + rgb[1] * .7152 + rgb[2] * .0722
+      }
+      const background = luminance(getComputedStyle(document.querySelector('[data-testid="umap-canvas"]')).backgroundColor)
+      return paths.map(path => {
+        const style = getComputedStyle(path), stroke = luminance(style.stroke)
+        return { width: parseFloat(style.strokeWidth), opacity: Number(style.opacity), contrast: (Math.max(background, stroke) + .05) / (Math.min(background, stroke) + .05) }
+      })
+    })
+    assert.ok(lineVisibility.every(line => line.width >= 2.5 && line.opacity === 1 && line.contrast >= 4.5), 'Preview connections must be thick, opaque and high contrast')
+    const backgroundLines = await page.locator('path[data-active="false"]').evaluateAll(paths => paths.map(path => Number(getComputedStyle(path).opacity)))
+    assert.ok(backgroundLines.every(opacity => opacity >= .35), 'Other connections stay visible while previewing')
+    const crossedCards = await page.locator('path[data-active="true"]').evaluateAll(paths => {
+      const cards = [...document.querySelectorAll('[data-node]')].map(node => ({ id: node.dataset.node, box: node.getBoundingClientRect() }))
+      const crossed = []
+      for (const path of paths) {
+        const matrix = path.getScreenCTM(), length = path.getTotalLength()
+        for (let at = 3; at < length - 3; at += 3) {
+          const point = path.getPointAtLength(at).matrixTransform(matrix)
+          const blocked = cards.find(card => card.id !== path.dataset.from && card.id !== path.dataset.to && point.x > card.box.left && point.x < card.box.right && point.y > card.box.top && point.y < card.box.bottom)
+          if (blocked) { crossed.push(blocked.id); break }
+        }
+      }
+      return crossed
+    })
+    assert.deepEqual(crossedCards, [], 'Connections never disappear behind unrelated TASK cards')
     assert.deepEqual([await page.getByTestId('unified-map').getAttribute('data-selected'), page.url()], stableContext, 'Preview never changes selection or URL')
     assert.equal(await page.getByRole('dialog').count(), 0)
     await page.screenshot({ path: `${out}/task-near-${width}-${theme}.png`, fullPage: true })

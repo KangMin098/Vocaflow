@@ -67,8 +67,10 @@ import u from './unified.module.css'
 import { useTaskDone } from './useTaskDone'
 
 export const EVIDENCE_V62_LABEL: Record<InspectorEvidence, string> = {
-  unmeasurable: '측정 방법을 정하는 중',
-  not_measured: '아직 확인 전',
+  unmeasurable: '측정 도구 준비 중',
+  not_measured: '확인 기록 없음',
+  analysis_pending: '시험 분석 대기',
+  insufficient: '관찰 근거 부족',
   axis_observation: '기출 기록에서 관찰 · 확정 아님',
   checking: '직접 확인 중',
   need_confirmed: '이 조건에서 보완 필요',
@@ -76,7 +78,7 @@ export const EVIDENCE_V62_LABEL: Record<InspectorEvidence, string> = {
   recheck_due: '다시 확인할 때',
 }
 
-export const NEED_V62_LABEL = { ...NEED_LABEL, RELEVANCE_UNKNOWN: '목표 시험과의 연결 확인 전' } as const
+export const NEED_V62_LABEL = { ...NEED_LABEL, CONFIRM: '직접 확인 필요', RELEVANCE_UNKNOWN: '목표 시험과의 연결 확인 전' } as const
 
 export const BLOCKED_LABEL: Record<NotActionableReason, string> = {
   content_gap: '확인 콘텐츠를 준비하고 있어요',

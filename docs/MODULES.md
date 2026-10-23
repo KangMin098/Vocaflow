@@ -1,5 +1,7 @@
 # Learning Modules
 
+2026-10-23 TASK 상태 표시: taskInspector는 AsIs의 analysis_pending/insufficient/unmeasured를 각각 시험 분석 대기/관찰 근거 부족/확인 기록 없음으로 구분한다. NEED_V62_LABEL의 CONFIRM은 다음 활동 「직접 확인 필요」다. 원본 학습 판정·기록·완료 조건은 그대로이며 unmeasurable은 플랫폼 측정 도구 준비 중으로 표시한다. 여러 열을 건너는 관계선은 빈 행으로 우회하고 활성선 대비·다른 카드 교차를 격리 검증한다.
+
 2026-10-23 학습지도 TASK: UnifiedLearningMap은 카드 주변12px의 포인터·키보드 포커스를 임시 연결 미리보기로 처리한다. 클릭 선택·Workspace·복귀 주소와 독립적이며 이탈하면 기존 연결을 복원한다. 개요 카드는 높이46px·최대206px이고 상세는 기존 단일 창을 유지한다.
 
 2026-10-23 CSAT 공통 메뉴: CsatRail이 공간/탐구·개인 자료5종·첫3문항·기출 찾기를 모든 화면에 동일하게 제공한다. PERSONAL_LINKS가 개인 메뉴의 단일 출처이고 활성 항목은 RailPlace로 정한다. HomeLanding의 children 메뉴 주입과 별도 Finder 인스턴스는 제거했다. 홈/탐구/기록/진단 격리 화면에서 접힘 유지·폭·Finder 복귀를 검증하며 실제 DB 조회/학습 쓰기는 실행하지 않는다.
