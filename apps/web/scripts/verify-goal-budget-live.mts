@@ -9,7 +9,6 @@ import { config } from 'dotenv'
 import { createClient } from '@supabase/supabase-js'
 import { createServerClient } from '@supabase/ssr'
 import { chromium, expect } from '@playwright/test'
-import { templateOf } from '../src/lib/csat/map/v4/definition'
 
 config({ path: path.resolve('.env.local'), quiet: true })
 config({ path: path.resolve('../../.env.local'), quiet: true })
@@ -29,7 +28,7 @@ const mark = (name: string) => { report.checks.push(name); console.log(`PASS ${n
 const boundedFetch: typeof fetch = (input, init) => fetch(input, { ...init, signal: init?.signal ? AbortSignal.any([init.signal, AbortSignal.timeout(30_000)]) : AbortSignal.timeout(30_000) })
 const saveReport = () => {
   fs.mkdirSync('output', { recursive: true })
-  const sourceFiles = ['scripts/verify-goal-budget-live.mts', 'src/lib/csat/map/v4/plan-store.ts', 'src/lib/csat/map/v62/target-goal.ts', 'src/lib/csat/map/v62/goal-budget.ts', 'src/app/api/csat/diagnosis/map/goal/route.ts', 'src/lib/csat/map/server.ts', '../../supabase/migrations/20261023090000_csat_goal_budget.sql', '../../supabase/migrations/20261023142000_csat_goal_budget_conflict.sql']
+  const sourceFiles = ['scripts/verify-goal-budget-live.mts', 'src/components/csat/diagnosis/map/GoalRecordBar.tsx', 'src/lib/csat/map/goal-view.ts', 'src/lib/csat/map/v4/plan-store.ts', 'src/lib/csat/map/v62/target-goal.ts', 'src/lib/csat/map/v62/goal-budget.ts', 'src/app/api/csat/diagnosis/map/goal/route.ts', 'src/lib/csat/map/server.ts', '../../supabase/migrations/20261023090000_csat_goal_budget.sql', '../../supabase/migrations/20261023142000_csat_goal_budget_conflict.sql']
   const sourceHashes = Object.fromEntries(sourceFiles.map(file => [file, createHash('sha256').update(fs.readFileSync(file)).digest('hex')]))
   const body = JSON.stringify({ ...report, sourceHashes }, null, 2) + '\n'
   fs.writeFileSync(`output/goal-schedule-live${apiOnly ? '-api' : ''}.json`, body)
@@ -188,13 +187,20 @@ async function run(now: Date) {
     assert.equal(a.goal.date, deadline)
     const aId: number = a.goal.id
     mark('UI goal, grade, deadline and weekly budget persisted in one goal version')
-    const tpl = templateOf(WS)!
-    const plan = { template: WS, order: [...tpl.core, ...tpl.support], planned: {}, expectedVersion: 0, expectedGoalVersion: aId, reason: 'initial', clientKey: randomUUID() }
-    const commit = await context.request.post('/api/csat/diagnosis/map/plan', { data: plan, timeout: 120_000 })
-    assert.equal(commit.status(), 200, `Initial PLAN HTTP ${commit.status()}: ${await commit.text()}`)
+    await page.reload({ waitUntil: 'domcontentloaded', timeout: 120_000 })
+    await expect(page.getByTestId('goal-schedule')).toContainText(`목표 v${aId}`, { timeout: 120_000 })
+    await page.locator(`[data-testid="ws-row"][data-ws="${WS}"] [data-testid="ws-open"]`).click()
+    const initialWs = page.locator(`[role="dialog"][data-ws="${WS}"]`)
+    await initialWs.getByTestId('ws-tab-plan').click()
+    const initialCommit = page.waitForResponse(r => r.url().endsWith('/api/csat/diagnosis/map/plan') && r.request().method() === 'POST', { timeout: 120_000 })
+    await initialWs.getByTestId('plan-save').click()
+    assert.equal((await initialCommit).status(), 200)
     const p1 = (await read()).byTemplate[WS].latest
     assert.equal(p1.version, 1); assert.equal(p1.goalVersionId, aId)
-    mark('real PLAN v1 bound to the saved goal')
+    assert.ok(p1.plan.tasks.some((t: { planned: number | null }) => t.planned !== null && t.planned > 0), 'Real available content must produce a quantified PLAN')
+    const plan = { template: WS, order: p1.plan.order, planned: Object.fromEntries(p1.plan.tasks.map((t: { task: string; planned: number | null }) => [t.task, t.planned])), expectedVersion: 0, expectedGoalVersion: aId, reason: 'initial', clientKey: randomUUID() }
+    await page.keyboard.press('Escape')
+    mark('Workspace UI saves quantified PLAN v1 bound to the saved goal')
     const baseGoal = { target: 85, grade: 2, exam: 'kice9', date: deadline, expectedGoalVersion: aId }
     const requests = [60, 90].map(weeklyMinutes => ({ ...baseGoal, budget: { weeklyMinutes, dailyMinutes: null, minutesPerUnit: 10, priorities: [] }, clientKey: randomUUID() }))
     const raced = await race(requests)
@@ -236,11 +242,17 @@ async function run(now: Date) {
       await expect(page.getByTestId('goal-schedule')).toContainText(`목표 v${b.goal.id}`, { timeout: 120_000 })
       await expect(page.getByTestId('goal-outcome')).toHaveAttribute('data-verdict', 'no_record')
       await expect(page.getByTestId('goal-attainment')).toContainText('미확인')
+      await expect(page.getByTestId('goal-value')).toHaveText('영어 85점')
+      await expect(page.getByTestId('goal-target')).toContainText('목표 2등급')
       await expect(page.getByTestId('goal-schedule')).not.toContainText(/\d+일 남음/)
+      const calendar = page.getByTestId('goal-schedule')
+      await calendar.locator('details > summary').click()
+      await expect(calendar.getByText(/^\d{4}-\d{2}-\d{2} 주 · [1-9]\d*\/\d+분$/).first()).toBeVisible()
+      await expect(calendar.getByText(/^\d{4}-\d{2}-\d{2} · .+ · .+ \d+(문항|지문) · [1-9]\d*분$/).first()).toBeVisible()
       assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth + 1), 'Horizontal overflow')
       assert.equal((await read()).byTemplate[WS].latest.version, 2)
       await page.screenshot({ path: `output/goal-schedule-live-${width}.png`, fullPage: true })
-      mark(`authenticated ${width}px page / server goal and PLAN v2 agree; no false attainment`)
+      mark(`authenticated ${width}px nonempty weekly schedule / server goal and quantified PLAN v2 agree; no false attainment`)
     }
     const own = await learner.from('csat_map_goal_version').select('id').eq('user_id', uid)
     assert.equal(own.error, null); assert.equal(own.data?.length, 2)

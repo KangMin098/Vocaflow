@@ -1,17 +1,35 @@
 # 목표 계획·성과 독립 검증 / SQL 승인 패키지
 
-2026-10-23 · Codex · **rev2 개발 DB 적용 완료, 전체 제품 수용은 별도**.
+2026-10-23 · Codex · **rev2·PT409 보정 개발 DB 적용 완료, 전체 제품 수용은 별도**.
 
-## 현재 상태 — 승인 SQL 적용 완료
+## 현재 상태 — 승인 SQL과 PT409 보정 적용 완료
 
-**추가 P1 발견 / 보정 SQL 미적용:** 실환경의 목표 버전 충돌에서 rev2의 `40001`이 반복 트랜잭션을 유발했다. 3000 HTTP 동시 요청은 200/500, 3117에서는 한 요청만 저장되고 충돌 요청은 시간 초과됐다. 실제 RPC 두 요청에서도 같은 현상을 관측했다. 성공한 목표 저장과 PLAN v1 생성 외의 전체 종단 수용은 통과하지 않았다. [Supabase 공식 원인·대응](https://supabase.com/docs/guides/troubleshooting/high-cpu-and-infinite-transaction-retries-when-using-custom-error-codes-in-rpc-functions-77326b)은 PostgREST14의 사용자 정의40001 무한 재시도를 설명한다. 이 문제를 HTTP 모듈 재로딩 오류와 혼동하지 않는다.
+사용자가 보정 원문·SHA·영향 패키지에 **“승인함.”**으로 별도 승인했다. `apply_migration(name=csat_goal_budget_conflict)` 성공, 실제 서버 이력 **`20261023061401`**, statements1개의 원문 SHA256은 **`29fe915485f0fc772262228776a1ce9cce1fefd12109c83e8cc5fdc7c5577b4c`**로 승인 파일과 정확히 같다. 원본 두 SQL은 수정/재적용하지 않는다.
 
-### rev3 최소 보정 — 별도 승인 대상
+- 적용 전06:12:39 UTC / 후06:14:10 UTC: writer 정의 MD5 `555ce3e705ec0432a12f389dfcc91072` → 예상한 단일 구문 변경 결과 `b37dafae9ab464da70fb93ea94d600db`. 행12개 목표 전체 해시 `8bf475960a40fc8ed15a2a3dd5f483e1`, PLAN4개 전체 해시 `b56d6e154db2437cb75cfb12fa8d6bee`는 전후 동일하다(이 수에는 이전 합성 QA 이력도 포함).
+- ACL `{postgres=X/postgres,service_role=X/postgres}`와 goal/PLAN 정책 해시 `75ff1fdbcf5c65f17df06a24e0d48033` 보존. anon/authenticated EXECUTE=false, service_role=true다.
+- checkpoint `20261023142000_goal_budget_pt409_approved`: before06:12:40→after06:14:11 UTC. diff는 회전 bloat 표본·연결 수·시간 경과 지표뿐이다. 전후 목표/PLAN 원문과 함수 정의/실행권은 직접 확인했다.
+- 후보 브랜치는 로컬 main `98d6e3f37`을 병합했다(`65260eca7`). 다른 작업의 시스템 학습 정리와 데이터 검증 변경을 보존했다. 아래 실패·별도 승인 대기는 보정 적용 전 이력이다. 적용 후 실제 HTTP/RPC·PLAN·화면 수용은 재검증 결과를 별도로 기록한다.
+
+### 보정 후 실제 수용 결과
+
+- **공용 localhost:3000 PASS**: 실제 Supabase 인증/SSR 세션과 Next API·화면을 사용했다. 목표85점/저장등급2/시험/목표일/주간120분을 한 목표 버전으로 저장 → Workspace 화면에서 실제 가용 문항의 수량 있는 PLAN v1 확정 → 두 인증 HTTP 요청을 동시에 보내200/409 하나씩 확인 → 동일 키 재전송200·다른 본문409·낡은 목표 PLAN409 → Workspace에서 목표 변경 사유로 PLAN v2 재확정. v1/이전 목표 보존을 확인했다.
+- **1440/1280 PASS**: 같은 실제 계정의 서버 목표 id·PLAN v2와 화면이 일치하고, 펼친 달력에 양수 문항 수·분 배분이 있다. 카운트다운과 허위 최종 달성이 없고, 새 등급 변환 참고 문구도 없다. 단순 빈 일정만 확인한 첫3117 시나리오와 구별한다. 이전3117에서 수량 있는 PLAN을 확정한 별도 실행도 통과했다.
+- **직접 실제 RPC/API PASS**: 두 동시 RPC는 하나만 저장하고 하나는 비재시도 `PT409`로 종료했다. 인증 HTTP 충돌은409 `goal_changed`. 0분 저장→NULL 예산 해제→낡은 해제 요청 거절, 목표4버전 보존, 멱등 재전송·키 본문 충돌, 인증 본인 SELECT만 허용·writer 직접 실행 거절을 확인했다. 이는 실제 PostgreSQL/REST 경로이며 PGlite로 대체한 결과가 아니다.
+- **기존 데이터 PASS**: 각 실행 시작 시 목표/PLAN의 모든 페이지를 읽어 기준 id별 원문이 끝에도 같은지 비교했다. 실제 시험 점수·교수·학습 기록을 기존 학습자에게 쓰지 않았다. 누적 합성 QA13계정은 모두 suspended+banned이며 마지막 검증들은 전역 로그아웃까지 확인했다(과거 쿠키 출력 계정도 세션 폐기). 목표/PLAN 이력은 보존했다. 06:26 UTC 최종 재조회에서 비QA 목표/PLAN 해시도 최초와 같다. 공용3000 PID15488은 재시작/종료하지 않았고 `dev:check` PASS다. 자체3117 서버는 종료했다.
+- **관련 단위/SQL/렌더링165 PASS(16파일), Chromium4 PASS**. 실제 SQL15개의 수행→독립 근거→단계/PLAN 변경 회귀도 포함한다. 단위 검사·수량 있는 주간 일정·새 시험 점수 미달/충족/미확인 화면은 각 증거의 범위대로 구별한다. 실제 합성 계정 화면은 시험 기록 없음 조건이며 미래의 실제 수능 성취를 검증한 것은 아니다.
+- 상단의 레거시 점수→등급 참고 표시·등급 없는 시험의 자동 등급 채움·적격성 미확인 최근 기록의 ‘목표까지 N점’ 표시를 제거했다. 관련 `goal-view`14개 검사가 위165개에 포함된다. `gradeOf`/`gradeView`의 옛 독립 유틸 테스트 통과를 실제 등급 판정 근거로 쓰지 않는다.
+- 변경 웹/시험·검증 스크립트 범위 타입, 변경4파일 lint PASS. 첫 범위 구성에서 CSS 타입 선언을 읽지 못했으나 `next-env.d.ts`를 포함해 정상 재검증했다. 전체 scripts 타입 검사 OOM은 과거 실패 이력으로 남기며 현재 전체 타입 검사 PASS로 바꾸지 않는다. Next가 자동 추가한 임시 dist 타입 경로는 복구했다.
+- 원시 결과는 로컬 `apps/web/output/goal-schedule-live.json`, `goal-schedule-live-api.json`, UUID별 실행 결과·1440/1280 PNG에 있고 실패 실행도 보존했다. 실행 시작 HEAD는 `65260eca7`; 마지막 UI/API 실행 각각 소스10개의 SHA를 최종 변경 파일과 대조해 모두 일치했다. 인증정보나 요청 헤더는 결과 파일에 넣지 않는다. 공식 원격 CI·safe-merge는 이 로컬 수용과 별도다.
+
+**추가 P1 발견 이력(위 보정 적용으로 SQLSTATE 수정):** 실환경의 목표 버전 충돌에서 rev2의 `40001`이 반복 트랜잭션을 유발했다. 3000 HTTP 동시 요청은 200/500, 3117에서는 한 요청만 저장되고 충돌 요청은 시간 초과됐다. 실제 RPC 두 요청에서도 같은 현상을 관측했다. 성공한 목표 저장과 PLAN v1 생성 외의 전체 종단 수용은 통과하지 않았다. [Supabase 공식 원인·대응](https://supabase.com/docs/guides/troubleshooting/high-cpu-and-infinite-transaction-retries-when-using-custom-error-codes-in-rpc-functions-77326b)은 PostgREST14의 사용자 정의40001 무한 재시도를 설명한다. 이 문제를 HTTP 모듈 재로딩 오류와 혼동하지 않는다.
+
+### rev3 최소 보정 — 승인된 원문 보존
 
 원문: `supabase/migrations/20261023142000_csat_goal_budget_conflict.sql`.
 SHA256: **`29fe915485f0fc772262228776a1ce9cce1fefd12109c83e8cc5fdc7c5577b4c`**.
 
-설치된 writer의 `pg_get_functiondef` MD5 `555ce3e705ec0432a12f389dfcc91072`와 정확히 일치할 때, 아래 한 구문만 바꾼다. 다른 정의는 거절하며 이미 같은 보정이 적용된 재실행은 무변경이다. CREATE OR REPLACE로 함수 identity·소유자·실행권을 유지하고 행·RLS·트리거·advisory lock·멱등키·CAS 로직·기존 SQL 원문은 변경하지 않는다. rev2 적용 승인이 이 새 SQL의 적용 승인으로 확장된 것은 아니다.
+설치된 writer의 `pg_get_functiondef` MD5 `555ce3e705ec0432a12f389dfcc91072`와 정확히 일치할 때, 아래 한 구문만 바꾼다. 다른 정의는 거절하며 이미 같은 보정이 적용된 재실행은 무변경이다. CREATE OR REPLACE로 함수 identity·소유자·실행권을 유지하고 행·RLS·트리거·advisory lock·멱등키·CAS 로직·기존 SQL 원문은 변경하지 않는다. rev2 승인과 구별해 새 원문을 제시했고, 별도 승인 후 위와 같이 적용했다.
 
 ```sql
 -- supabase/migrations/20261023142000_csat_goal_budget_conflict.sql
@@ -141,20 +159,20 @@ P0 발견 없음. 원커밋에서 반례7개가 실패했으며 수정 후 통�
 | 범위 | 결과 |
 |---|---|
 | 원커밋 최소 반례 | 7 FAIL을 확인; 수정 후 회귀10 PASS |
-| 관련 단위/reader/서버 저장/렌더링/재처방 | 164 PASS(13파일) |
-| 실제 SQL+교수/독립 평가/G2/PLAN 재확정 | PGlite15 PASS; 위 합계와 별도 |
+| 현재 관련 단위/서버 저장/렌더링/재처방 | 165 PASS(16파일) |
+| 실제 SQL+교수/독립 평가/G2/PLAN 재확정 | 격리 PGlite15 PASS; 위165에 포함 |
 | 웹/스크립트 타입, 변경 TS lint | PASS |
 | Chromium1440/1280 | 4 PASS(일정/성과·재처방); 같은 SQL 읽기에서 나온 목표id·PLAN 버전/이력과 일치 |
 | 공유 개발 DB rev2 적용 | **PASS**, 실제 서버 이력/SHA·보존·권한·validator12 확인 |
-| 인증 Next 전체 흐름 | **PARTIAL / FAILED**: 목표 저장·PLAN v1 PASS, 충돌 요청 시간 초과; 재확정 이후 미도달 |
-| 실제 PostgreSQL 두 RPC 동시성 | **FAILED**: rev2의40001 재시도; rev3 보정은 승인 대기·미적용 |
+| 인증 Next 전체 흐름 | **PASS**: 3000/3117 실제 목표·예산·수량 PLAN v1/v2·비어 있지 않은 주간 일정·1440/1280·이력/RLS |
+| 실제 PostgreSQL 두 RPC 동시성 | **PASS**: 보정 후200/PT409 한 건씩; 원래40001 실패 이력 보존 |
 | 실제 학습 효과·최종 평가 대상 결속·영속 달력 이력 | 미수용/미구현 경계 유지 |
 
 재실행: 기존 `reassess-plan.pglite.test.ts` → `build-goal-schedule-harness.mts` → `goal-schedule.browser.spec.ts`. 엔진/시험/SQL SHA가 바뀌면 SQL 프레임을 다시 생성해야 한다. Next navigation/analytics·브라우저 저장 API 응답은 명시적 대역이다. 인증된 전체 서비스 종단 PASS를 주장하지 않는다.
 
 후속 변경 검증 중 병렬 실행1회가 메모리 부족으로 중단됐다(실패 기록). 순차 재실행에서 관련14파일179개 PASS를 확인했다. 중단을 PASS나 skip으로 바꾸지 않는다. 성과/재처방 전용 하네스는 `build-goal-outcome-harness.mts` → `goal-outcome.browser.spec.ts`이고 동일 단일 계약을 사용한다.
 
-남은 수용은 실제 목표 저장→주간 예산→PLAN 확정→Workspace, 독립 수행→다음 단계/재확정, 새 시험→기준 충족/미확인, 목표/시간 변경→이력 보존, 오류→허위 결과 없음이다. 코드 후보는 최신 main을 기반으로 준비하되 이 게이트 전에는 최종 수용/로컬 main 통합을 완료했다고 보고하지 않는다. 공식 원격 통합 시에만 보호 CI·safe-merge를 사용한다.
+목표 저장→주간 예산→수량 PLAN 확정→Workspace→목표/시간 변경→이력 보존과 오류 시 거절은 위 실제 인증 경로에서 수용했다. 독립 수행→단계/계획 변경·새 시험 기준 충족/미확인은 해당 격리 SQL/엔진/브라우저에서 수용했다. 실제 장기 학습 효과와 최종 평가 대상의 결속 없이 최종 달성을 주장하지 않는다. 최신 main을 반영한 검증 후보만 로컬 main에 통합하며, 공식 원격 통합 시에만 보호 CI·safe-merge를 사용한다.
 
 ## 승인 대상 SQL 전체 원문
 
