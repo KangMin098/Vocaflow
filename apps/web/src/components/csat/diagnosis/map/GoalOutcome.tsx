@@ -54,7 +54,7 @@ export function GoalOutcome({ outcome: o, past }: { outcome: Outcome | null; pas
           <h3>TASK 활동이 말하는 것</h3>
           <p className={u.goVerdict}>다시 확인 통과 {o.activity.resolved} / 목표 관련 {o.activity.needs}</p>
           <p data-testid="goal-outcome-activity">활동 결과예요 — 목표 점수 도달 근거는 아니에요</p>
-          <p data-testid="goal-attainment">최종 목표 달성은 미확인 — 평가 대상 · 시점 · 조건이 결속돼야 해요</p>
+          <p data-testid="goal-attainment">이 카드로는 최종 목표 달성을 판정하지 않아요(미확인) — 최종 달성은 「최종 평가」로 정한 날의 기록으로만 판정해요</p>
         </section>
       </div>
       {o.verdict === 'met' && <p className={u.gpNote} data-testid="goal-outcome-limit">{MET_LIMIT}</p>}

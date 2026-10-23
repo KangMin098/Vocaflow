@@ -105,7 +105,7 @@ export function FinalAssessment({ goal, final: a }: { goal: GoalVersion; final: 
               <p className={f.big}>{rec.raw ?? '점수 없음'}{rec.raw !== null ? '점' : ''}{goal.grade !== null ? ` · ${rec.grade ?? '등급 미기록'}${rec.grade ? '등급' : ''}` : ''}</p>
             </div>
           </div>
-          <p className={u.gpNote} data-testid="final-reason">{a.status !== 'not_judgeable' ? FINAL_STATUS_LABEL[a.status] : j.score.status === 'reached' ? '점수 기준은 충족했지만 기록에 등급이 없어 목표 등급과 비교하지 못했어요' : SCORE_STATUS_LABEL[j.score.status]}</p>
+          {a.status === 'not_judgeable' && <p className={u.gpNote} data-testid="final-reason">{j.score.status === 'reached' ? '점수 기준은 충족했지만 기록에 등급이 없어 목표 등급과 비교하지 못했어요' : SCORE_STATUS_LABEL[j.score.status]}</p>}
           {a.status === 'met' && <p className={u.gpNote} data-testid="final-limit">{FINAL_MET_LIMIT}</p>}
           {a.status === 'not_judgeable' && j.grade.status === 'no_record_grade' && <p className={u.gpNote}>다음: 이 기록의 등급을 함께 적으면 목표 등급과 비교해요 — 점수로 등급을 만들지 않아요</p>}
           {a.status === 'not_met' && <p className={u.gpNote}>다음: 목표를 새로 정하거나 기록과 TASK 근거로 계획을 다시 세워요</p>}
@@ -114,7 +114,7 @@ export function FinalAssessment({ goal, final: a }: { goal: GoalVersion; final: 
 
       {(a.status === 'scheduled' || a.status === 'awaiting_record') && a.binding && (
         <p className={u.gpNote} data-testid="final-wait">
-          {a.status === 'scheduled' ? `${a.binding.date} ${exam}을 응시한 뒤 그 기록을 입력하면 목표 기준과 비교해요` : `${a.binding.date}에 응시한 ${exam} 기록을 입력하면 판정해요 — 다른 날 기록으로 대신하지 않아요`}
+          {a.status === 'scheduled' ? `${a.binding.date} ${exam} 응시 뒤 그날 기록을 입력하면 목표 기준과 비교해요` : `${a.binding.date} ${exam} 응시 기록을 입력하면 판정해요 — 다른 날 기록으로 대신하지 않아요`}
         </p>
       )}
     </details>

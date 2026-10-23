@@ -20,6 +20,7 @@ import { createRoot } from 'react-dom/client'
 import { GoalSchedule } from '@/components/csat/diagnosis/map/GoalSchedule'
 import { GoalOutcome } from '@/components/csat/diagnosis/map/GoalOutcome'
 import { ReplanPanel } from '@/components/csat/diagnosis/map/ReplanPanel'
+import { FinalAssessment } from '@/components/csat/diagnosis/map/FinalAssessment'
 import { goalLearning } from '@/lib/csat/map/v62/goal-learning'
 import styles from '@/components/csat/diagnosis/map/map.module.css'
 const budget = {weeklyMinutes:120,dailyMinutes:null,minutesPerUnit:10,priorities:[]}
@@ -39,18 +40,24 @@ const S={
   // T-0110 Codex 반례 — 재확정 대상 TASK 와 이미 배정된 다른 TASK 가 함께 있는 주(소계 ≠ 전체)
   mixed:{sessions:[ses('b','k9-2026','2026-09-10',72,{grade:4})],rows:[r,{...r,task:'v.core_meaning',needRank:2,planGate:null,action:{rank:2,href:'/x',label:'바로잡기'},quantity:{...r.quantity,planned:2,remaining:2}}],saved:saved('check',2)},
   error:{sessions:[],rows:[r],saved:{status:'installed',byTemplate:{},goalVersionId:null,goal:null,error:true}},
+  // 최종 평가 결속 — 학습자가 정한 응시일의 목표 시험 기록 하나로만 판정
+  final_unbound:{sessions:[ses('b','k9-2026','2026-09-10',90,{grade:2})],rows:[r],saved:saved('repair',3),final:{status:'ok',binding:null}},
+  final_wait:{sessions:[],rows:[r],saved:saved('repair',3),final:{status:'ok',binding:{id:1,goalVersionId:2,date:'2026-11-19',createdAt:'2026-10-20T00:00:00Z'}}},
+  final_met:{sessions:[ses('a','k9-2026','2026-09-10',72,{grade:4}),ses('f','k9-2027-final','2026-11-19',86,{grade:2})],rows:[r],saved:saved('repair',3),asOf:'2026-11-25T01:00:00Z',final:{status:'ok',binding:{id:1,goalVersionId:2,date:'2026-11-19',createdAt:'2026-10-20T00:00:00Z'}}},
+  final_ungraded:{sessions:[ses('f','k9-2027-final','2026-11-19',86)],rows:[r],saved:saved('repair',3),asOf:'2026-11-25T01:00:00Z',final:{status:'ok',binding:{id:1,goalVersionId:2,date:'2026-11-19',createdAt:'2026-10-20T00:00:00Z'}}},
 }
 function Harness() {
   const [k,setK] = useState('none')
   const [opened,setOpened] = useState('')
   const c=S[k]
   const taskPlans=c.rows.map(r=>({...r,name:'중심 의미',goal:'근거 설명',next:plans[0].next,quantity:{...r.quantity,available:r.quantity.planned,rule:null},workspaces:[WS]}))
-  const learning=goalLearning({summary:{rows:c.rows,examSessions:c.sessions.length,directTasks:1,required:1,relevanceUnknown:0,actionable:0},saved:c.saved,plans:{[WS]:{workspace:WS,core:[T],tasks:taskPlans,progress:null}},taskPlans,sessions:c.sessions,activity:[],asOf:'2026-10-23T01:00:00Z'})
+  const learning=goalLearning({summary:{rows:c.rows,examSessions:c.sessions.length,directTasks:1,required:1,relevanceUnknown:0,actionable:0},saved:c.saved,plans:{[WS]:{workspace:WS,core:[T],tasks:taskPlans,progress:null}},taskPlans,sessions:c.sessions,activity:[],asOf:c.asOf||'2026-10-23T01:00:00Z',finalAssessment:c.final})
   return h('div',{className:styles.root},h('main',{},
     h('h1',{},'목표 대비 · 재처방 — 격리 컴포넌트 검증'),
     h('nav',{'aria-label':'합성 상태'},...Object.keys(S).map(s=>h('button',{key:s,onClick:()=>setK(s),style:{minHeight:44,padding:'8px 16px'}},s))),
     h(GoalSchedule,{learning,past:false,onOpenWs:(ws,tab)=>setOpened(ws+':'+tab)}),
     h(GoalOutcome,{outcome:learning.outcome,past:false}),
+    learning.goal&&learning.final?h(FinalAssessment,{key:k,goal:learning.goal,final:learning.final}):null,
     h(ReplanPanel,{p:learning.replan,onOpenWs:(ws,tab)=>setOpened(ws+':'+tab)}),
     h('output',{'data-testid':'opened-workspace'},opened)))
 }

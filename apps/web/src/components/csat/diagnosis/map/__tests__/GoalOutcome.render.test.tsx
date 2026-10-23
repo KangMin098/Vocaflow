@@ -22,7 +22,7 @@ describe('GoalOutcome', () => {
     expect(html).toContain('다른 시험지라 점수 차이를 계산하지 않아요')
     expect(html).toContain('목표 점수 도달 근거는 아니에요')
     expect(html).not.toMatch(/\d+%/)
-    expect(html).toContain('최종 목표 달성은 미확인')
+    expect(html).toContain('이 카드로는 최종 목표 달성을 판정하지 않아요(미확인)')
   })
 
   it('기록이 없으면 미확인 · 지난 기준 화면과 목표 없음은 그리지 않는다', () => {
