@@ -26,13 +26,18 @@ const OUTDIR = path.join(ROOT, 'docs/csat-learner/v62/data-expansion')
 const sha = (v) => crypto.createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex')
 const input = JSON.parse(fs.readFileSync(path.join(LOCAL, cfg.input), 'utf8'))
 const byId = new Map(input.rows.map((r) => [r.item_id, r]))
-const defs = nonHeldTasks().filter((t) => cfg.tasks.includes(t.id))
+// task_distinction 에서 인접 TASK 를 짐작하지 않게 비보류 21 정의 전체를 참고로 준다(T-0089 P1-01: R4 를 「세부 확인」으로 오정의)
+const allDefs = nonHeldTasks()
+const defs = allDefs.filter((t) => cfg.tasks.includes(t.id))
 if (defs.length !== cfg.tasks.length) throw new Error('정의에 없는 TASK 가 batch 에 있다')
 const nChunks = Math.ceil(input.rows.length / cfg.chunk)
 const name = (track, k, out) => path.join(DIR, `chunk-${track}-${String(k + 1).padStart(2, '0')}${out ? '.out' : ''}.json`)
 // 원천 결함 문항(coverage-audit integrity) — 판정이 일치해도 R1 후보로 올리지 않는다
 const coverage = JSON.parse(fs.readFileSync(path.join(OUTDIR, 'coverage.json'), 'utf8'))
 const defective = new Set((coverage.integrity?.duplicate_long_stems ?? []).flat())
+// 독립 검증(T-0089) 표본 판정 — 관련성 unclear 인 R1 후보는 내리고, 계약 위반은 표시만 한다(관련성 값은 confirmed)
+const reviewFile = path.join(OUTDIR, 'review/verdict.json')
+const review = new Map(fs.existsSync(reviewFile) ? (JSON.parse(fs.readFileSync(reviewFile, 'utf8')).sampling?.rows ?? []).map((r) => [`${r.item_id}|${r.task_id}`, r]) : [])
 const hideQuote = (a) => (a?.quote ? { field: a.field, quote_sha256: sha(String(a.quote)), quote_chars: String(a.quote).length } : null)
 
 function chunks() {
@@ -41,7 +46,7 @@ function chunks() {
     const items = input.rows.slice(k * cfg.chunk, (k + 1) * cfg.chunk).map((r) => ({ item_id: r.item_id, type_id: r.type_id, source: r.source, source_sha256: r.source_sha256 }))
     for (const track of ['A', 'B']) {
       const f = name(track, k)
-      if (!fs.existsSync(f)) fs.writeFileSync(f, JSON.stringify({ batch, track, contracts: cfg.contracts, tasks: defs, items }, null, 1))
+      if (!fs.existsSync(f)) fs.writeFileSync(f, JSON.stringify({ batch, track, contracts: cfg.contracts, tasks: defs, reference_tasks: allDefs, items }, null, 1))
     }
   }
   console.log(`${batch}: 문항 ${input.rows.length} · 청크 ${nChunks} × 트랙 2 → ${path.relative(ROOT, DIR)}`)
@@ -104,7 +109,10 @@ else if (cmd === 'validate') {
       if (!defective.has(id)) per[t].push([x.relevance, y.relevance])
       const same = x.relevance === y.relevance
       const bad = defective.has(id)
-      links.push({ item: id, task: t, relevance: 'unknown', candidateRelevance: !bad && same && (x.relevance === 'direct' || x.relevance === 'indirect') ? x.relevance : null, state: bad ? 'SOURCE_DEFECT' : same ? 'INDEPENDENTLY_CHECKED' : 'DISPUTED', source: same ? 'research_ai_reviewed' : 'research_ai_candidate', tier: same ? 'R1' : 'R0', judgments: { A: x.relevance, B: y.relevance }, anchors: { A: hideQuote(x.anchor), B: hideQuote(y.anchor) }, why: { A: x.why, B: y.why }, source_sha256: inp.source_sha256 })
+      const rv = review.get(`${id}|${t}`)
+      const unclear = same && rv?.relevance_verdict === 'unclear'
+      const ok = !bad && same && !unclear
+      links.push({ item: id, task: t, relevance: 'unknown', candidateRelevance: ok && (x.relevance === 'direct' || x.relevance === 'indirect') ? x.relevance : null, state: bad ? 'SOURCE_DEFECT' : unclear ? 'REVIEW_UNCLEAR' : same ? 'INDEPENDENTLY_CHECKED' : 'DISPUTED', source: ok ? 'research_ai_reviewed' : 'research_ai_candidate', tier: ok ? 'R1' : 'R0', ...(rv ? { review_T0089: { relevance: rv.relevance_verdict, contract: rv.contract_verdict, flags: (rv.flags ?? []).map((g) => g.kind) } } : {}), judgments: { A: x.relevance, B: y.relevance }, anchors: { A: hideQuote(x.anchor), B: hideQuote(y.anchor) }, why: { A: x.why, B: y.why }, source_sha256: inp.source_sha256 })
     }
   }
   const all = Object.values(per).flat()
@@ -114,6 +122,8 @@ else if (cmd === 'validate') {
     agreement: all.length ? Number((all.filter(([a, b]) => a === b).length / all.length).toFixed(4)) : null, kappa: kappa(all),
     source_defect_items: [...defective].filter((id) => byId.has(id)),
     per_task: Object.fromEntries(Object.entries(per).map(([t, ps]) => [t, { n: ps.length, direct_binary_kappa: binaryKappa(ps), agreement: ps.length ? Number((ps.filter(([a, b]) => a === b).length / ps.length).toFixed(4)) : null, kappa: kappa(ps), ...dist(ps) }])),
+    review_T0089: { sampled: [...review.keys()].filter((k) => byId.has(k.split('|')[0])).length, note: 'R1 direct 표본 30 중 관련성 confirmed 29 · unclear 1(후보 내림). 계약 위반(인접 TASK 오정의 · 유형 지름길)은 관련성 값이 아니라 설명 문장의 결함 — 이 배치의 task_distinction 은 근거로 쓰지 않는다(청크에 인접 정의가 없었다).' },
+    task_distinction_reliable: batch !== 'r5r6',
     human_review: 0, student_measurement: 0,
     note: '두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1).',
   }
