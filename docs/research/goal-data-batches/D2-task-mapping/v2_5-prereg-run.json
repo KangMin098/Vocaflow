@@ -1,0 +1,162 @@
+{
+ "registration": "V2_5_PREREGISTRATION rev4",
+ "registration_sha256": "05293147cc7e0308c352dbd791aa28fd7e305131028c820c4420412dfac686a3",
+ "template_sha256": "218b46c3465e446ccf3cdb1dea50434fb0a2cd044e8f9da5a131f8ae7778849b",
+ "model": "Agent 도구 general-purpose · 상위 모델 상속 · 새 대화(이전 대화 · b7 결론 · 사전 등록 문서 미포함)",
+ "order": "C · D · E · F 동시 먼저 → 각 첫 출력 snapshot → 모두 끝난 뒤 A · B",
+ "runs": [
+  {
+   "LABEL": "prereg-C",
+   "BATCH": "b9t-v25",
+   "TRACK": "A",
+   "prompt_sha256": "0aea030df485b22b31cb635fb2ac0c181b5758ca713823b272c9c48a19446a6c",
+   "input_chunk_sha256": "cc8f4fc4fe21062f31bce69bb805b44e3c541b7b214c9342a234889fd7853115"
+  },
+  {
+   "LABEL": "prereg-D",
+   "BATCH": "b9t-v25",
+   "TRACK": "B",
+   "prompt_sha256": "58cda9c85c2706d235c54ae2a16d9c7a1413448b10d793541b079294eba3b2b0",
+   "input_chunk_sha256": "acc8a48d435040fe36e5513c1669e5178a1a3e43c48642ae4f86b06536241f5f"
+  },
+  {
+   "LABEL": "prereg-E",
+   "BATCH": "b9t-v24",
+   "TRACK": "A",
+   "prompt_sha256": "3bb8b710bef8c9e8ac5f07aecfccd6a8066419160a49cbb6b84460d133dfc77e",
+   "input_chunk_sha256": "b97f229ce764c0b985c22ef5ecfbbc41b66b19032dfe04ecc222c393fa9d80c5"
+  },
+  {
+   "LABEL": "prereg-F",
+   "BATCH": "b9t-v24",
+   "TRACK": "B",
+   "prompt_sha256": "d394e35d7ec6dda001c9136d7934d2681b11123217ef02b55a4c487113ea3b1b",
+   "input_chunk_sha256": "06d76f77721786afbfcbfb18bf363962f6adb8127983797af3b15c6d913c04d9"
+  }
+ ],
+ "freeze_check": {
+  "export": "2026-10-23T08:29:42.073Z · 동결 16 · 불일치 0",
+  "judging": "2026-10-23T08:30:00.150Z · 동결 16 · 불일치 0",
+  "compute": "2026-10-23T08:45:08.917Z · 동결 16 · 불일치 0"
+ },
+ "snapshots": {
+  "b9t-v25": [
+   {
+    "dir": "2026-10-23T08-34-49-342Z-prereg-D-first",
+    "manifest_sha256": "deedaabfdca406c64123f085e5884b7157b75afdca4f88edc5f755451684ec98"
+   },
+   {
+    "dir": "2026-10-23T08-34-49-503Z-prereg-C-first",
+    "manifest_sha256": "bd405e36efe765765851858508c080946c2afe4e4bd975203cce52d92d7407ba"
+   },
+   {
+    "dir": "2026-10-23T08-35-29-251Z-CD-final",
+    "manifest_sha256": "a6893ee4362c2d63512af6e0c1fedcfec5b2857b7bfa7bc6b306f4c60735f6f2"
+   }
+  ],
+  "b9t-v24": [
+   {
+    "dir": "2026-10-23T08-34-49-710Z-prereg-E-first",
+    "manifest_sha256": "b435d6aa1b794438db8ad3274d4d0e9f0b277329566986b1ede9ac3b50eaf32e"
+   },
+   {
+    "dir": "2026-10-23T08-34-53-452Z-prereg-F-first",
+    "manifest_sha256": "7bf7e96e8b68092baa0b45fb44859de94eb3c6158625178e5bbe3f2e7789f622"
+   },
+   {
+    "dir": "2026-10-23T08-35-29-329Z-EF-final",
+    "manifest_sha256": "a2bf5b3a701201f68e9c1f6736bb506c7c81d706af1298c260be8b6098b337d2"
+   }
+  ],
+  "b9-v24": [
+   {
+    "dir": "2026-10-23T08-42-59-952Z-B01-first",
+    "manifest_sha256": "b1ceda52205e61e437b02fc6fec92f85eeacc888bc2c8d34465e74598a540211"
+   },
+   {
+    "dir": "2026-10-23T08-43-15-689Z-B02-first",
+    "manifest_sha256": "f6f0f0a6c9d77d90a901d1a3ae87d06e002c9b01b82e6cf9bbbdad14083d7b9e"
+   },
+   {
+    "dir": "2026-10-23T08-43-26-033Z-A01-first",
+    "manifest_sha256": "44f613844025a5615ebe59f006fbb4a9521b875e89447ff595ac2dc446219fc7"
+   },
+   {
+    "dir": "2026-10-23T08-44-45-371Z-A02-first",
+    "manifest_sha256": "8251857e0fccae220183859544b49383f4a5a1731c83a4ddb4017fa77e13f0da"
+   }
+  ]
+ },
+ "final_outputs": {
+  "b9t-v25": [
+   {
+    "file": "chunk-A-01.out.json",
+    "sha256": "d2fa4cf1450b7da9a7881e3cdb42f801e0507bbd063a6a1d67cff17f34375b77"
+   },
+   {
+    "file": "chunk-B-01.out.json",
+    "sha256": "aa8a5e912f6329cff1e0567715ee07d080e0e3d8f13fbc1e6290425f0414713d"
+   }
+  ],
+  "b9t-v24": [
+   {
+    "file": "chunk-A-01.out.json",
+    "sha256": "2bc2670021a365ea9a09463441af990f77c54106acff97996d2fa9f51fc5b846"
+   },
+   {
+    "file": "chunk-B-01.out.json",
+    "sha256": "51f3b92d8660c33684f2f460922c1ddc04a7ff7da48f99412e01149f4d944e7d"
+   }
+  ],
+  "b9-v24": [
+   {
+    "file": "chunk-A-01.out.json",
+    "sha256": "fa1a58ada9e305e261d3223a7077ad426d1ff03f77722894200bb8796284ab5b"
+   },
+   {
+    "file": "chunk-A-02.out.json",
+    "sha256": "b702b9ae3f0086ec1ee2ee58cac9e7faac6d64423becf0cbd0d1dc04cdc7ff77"
+   },
+   {
+    "file": "chunk-B-01.out.json",
+    "sha256": "e2c091aa467a2ed4667aa458350d8acf1c0d26d1801d48d2c02fa449cdca7eed"
+   },
+   {
+    "file": "chunk-B-02.out.json",
+    "sha256": "0626fac0b6920e512c0f21aa4065dfbb348cde222679b3cb237456250db5dd2f"
+   }
+  ]
+ },
+ "blinding_incidents": [
+  {
+   "track": "prereg-E(v2.4 대조)",
+   "what": "파일 크기 확인 명령(wc -c) 출력에 CONTRACT_V2_5.md 의 이름 · 크기가 함께 출력됨 — 내용은 열지 않았다고 보고"
+  },
+  {
+   "track": "prereg-F(v2.4 대조)",
+   "what": "실행 방법 확인을 위해 scripts/research/goal-data/d2-run.mjs 앞 80줄에서 사용법 주석을 grep — 허용 목록 밖(판정 · v2.5 내용 없음), 자진 보고"
+  },
+  {
+   "track": "prereg-C · D · E · F",
+   "what": "동시 실행이라 각 첫 출력 snapshot 이 같은 배치의 상대 트랙 출력도 복사(「보존 2개」) — 분석자는 history/ 를 열지 않았다고 보고. 사전 등록 §5 의 남는 한계"
+  },
+  {
+   "track": "b9-v24 B-01(기준선 (A,B) — 봉인 조건 밖)",
+   "what": "보고서에 「v2.5 에서 E1 primary 금지」 라는 v2.5 규칙 내용을 언급하면서 v2.5 는 열지 않았다고 보고 — 노출 경로 미확인(검증기 오류 문구 등 가능). (A,B) 는 봉인 조건에 쓰지 않아 비교에는 영향 없음 · 독립 검증에서 경로 확인 필요"
+  }
+ ],
+ "corrections_during_run": [
+  {
+   "track": "prereg-C",
+   "what": "1차 검증 0/12 — 부정 발문 5문항의 E1 why 동일 문장 반복(청크 반복 검사) → why 5 개만 문항 고유로 수정(판정 · primary 불변 보고) · 최초 출력은 history/…prereg-C-first"
+  },
+  {
+   "track": "b9-v24 B-01",
+   "what": "M2406#18 오답 ③ why 15자 미만 → 문장 보강"
+  },
+  {
+   "track": "b9-v24 B-02",
+   "what": "M2406#39 E1 why 짧음 → 문구 보강(판정 불변)"
+  }
+ ]
+}

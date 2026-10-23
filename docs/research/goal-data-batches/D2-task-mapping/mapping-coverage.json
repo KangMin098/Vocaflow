@@ -1,15 +1,16 @@
 {
  "generated_by": "scripts/research/goal-data/d2-combine.mjs",
- "generated_at": "2026-10-23T07:53:16.958Z",
+ "generated_at": "2026-10-23T08:45:24.977Z",
  "note": "모든 링크 relevance=unknown(사람 검수 전). candidateRelevance 는 두 독립 AI 판정 일치(R1)일 뿐 Gold · 학생 측정이 아니다. 제품 NeedRank 입력 금지(relevance.ts 계약).",
  "scope": {
-  "items": 278,
+  "items": 318,
   "exams": [
    "2022",
    "2023",
    "2024",
    "2025",
    "2026",
+   "M2406",
    "M2409",
    "M2506",
    "M2509",
@@ -18,10 +19,10 @@
    "M2706"
   ],
   "atomic_tasks": 18,
-  "pairs": 3108,
-  "r1_links": 775,
-  "disputed": 376,
-  "frame_note": "평가원 · 수능 최근 시험 표본(평가원 · 수능 802 중 278) — 전체 대표 표본 아님",
+  "pairs": 3348,
+  "r1_links": 856,
+  "disputed": 399,
+  "frame_note": "평가원 · 수능 최근 시험 표본(평가원 · 수능 802 중 318) — 전체 대표 표본 아님",
   "superseded_items": [
    "2025#38",
    "2025#39",
@@ -76,6 +77,12 @@
    "agreement": 0.9292,
    "items": 40,
    "pairs": 240
+  },
+  "b9-v24": {
+   "kappa": 0.8321,
+   "agreement": 0.9042,
+   "items": 40,
+   "pairs": 240
   }
  },
  "per_task": {
@@ -99,7 +106,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0.6685,
@@ -108,7 +116,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "v.contextual_sense": {
@@ -129,7 +138,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0,
@@ -138,7 +148,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "v.multiword": {
@@ -155,7 +166,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": -0.0256,
@@ -164,7 +176,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "v.semantic_relation": {
@@ -195,7 +208,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0.4975,
@@ -204,7 +218,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "s.sentence_core": {
@@ -223,7 +238,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0.2258,
@@ -232,7 +248,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "s.chunk_boundary": {
@@ -249,7 +266,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": null,
@@ -258,7 +276,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "s.attachment": {
@@ -275,7 +294,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0.7403,
@@ -284,7 +304,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "s.structural_relation": {
@@ -305,7 +326,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0.4702,
@@ -314,7 +336,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "s.form_scope": {
@@ -338,7 +361,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0.6537,
@@ -347,7 +371,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "r.reference": {
@@ -385,7 +410,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0.646,
@@ -394,7 +420,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "r.relation": {
@@ -436,7 +463,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": 0.6944,
@@ -445,7 +473,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "r.discourse_function": {
@@ -473,7 +502,8 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    },
    "kappa": {
     "b2-v2": -0.1458,
@@ -482,12 +512,13 @@
     "b5-v22": null,
     "b6-v23": null,
     "b7-v24": null,
-    "b8-v24": null
+    "b8-v24": null,
+    "b9-v24": null
    }
   },
   "r.discourse_structure": {
    "display": "R4",
-   "judged_items": 278,
+   "judged_items": 318,
    "r1_direct_items": [
     "M2609#36",
     "M2609#37",
@@ -536,10 +567,16 @@
     "M2409#37",
     "M2409#38",
     "M2409#39",
-    "M2409#43"
+    "M2409#43",
+    "2022#35",
+    "2022#43",
+    "M2406#36",
+    "M2406#37",
+    "M2406#38",
+    "M2406#39"
    ],
-   "r1_indirect_items": 52,
-   "disputed": 39,
+   "r1_indirect_items": 61,
+   "disputed": 47,
    "agreement": {
     "pilot-1": 0.75,
     "b2-v2": 0.825,
@@ -548,7 +585,8 @@
     "b5-v22": 0.8421,
     "b6-v23": 0.925,
     "b7-v24": 0.925,
-    "b8-v24": 0.85
+    "b8-v24": 0.85,
+    "b9-v24": 0.8
    },
    "kappa": {
     "b2-v2": 0.6804,
@@ -557,12 +595,13 @@
     "b5-v22": 0.7415,
     "b6-v23": 0.8852,
     "b7-v24": 0.8489,
-    "b8-v24": 0.7578
+    "b8-v24": 0.7578,
+    "b9-v24": 0.6764
    }
   },
   "r.central_meaning": {
    "display": "R5",
-   "judged_items": 278,
+   "judged_items": 318,
    "r1_direct_items": [
     "2026#18",
     "2026#20",
@@ -647,10 +686,24 @@
     "M2409#31",
     "M2409#32",
     "M2409#40",
-    "M2409#41"
+    "M2409#41",
+    "2022#18",
+    "2022#20",
+    "2022#24",
+    "2022#41",
+    "M2406#18",
+    "M2406#20",
+    "M2406#22",
+    "M2406#23",
+    "M2406#24",
+    "M2406#31",
+    "M2406#33",
+    "M2406#34",
+    "M2406#40",
+    "M2406#41"
    ],
-   "r1_indirect_items": 22,
-   "disputed": 21,
+   "r1_indirect_items": 24,
+   "disputed": 25,
    "agreement": {
     "pilot-1": 0.925,
     "b2-v2": 1,
@@ -659,7 +712,8 @@
     "b5-v22": 0.8947,
     "b6-v23": 0.975,
     "b7-v24": 0.925,
-    "b8-v24": 0.925
+    "b8-v24": 0.925,
+    "b9-v24": 0.9
    },
    "kappa": {
     "b2-v2": 1,
@@ -668,12 +722,13 @@
     "b5-v22": 0.8081,
     "b6-v23": 0.9576,
     "b7-v24": 0.8698,
-    "b8-v24": 0.8687
+    "b8-v24": 0.8687,
+    "b9-v24": 0.8257
    }
   },
   "r.inference": {
    "display": "R6",
-   "judged_items": 278,
+   "judged_items": 318,
    "r1_direct_items": [
     "2026#19",
     "2026#21",
@@ -724,10 +779,12 @@
     "M2409#19",
     "M2409#21",
     "M2409#33",
-    "M2409#34"
+    "M2409#34",
+    "2022#21",
+    "M2406#21"
    ],
    "r1_indirect_items": 3,
-   "disputed": 10,
+   "disputed": 12,
    "agreement": {
     "pilot-1": 0.975,
     "b2-v2": 0.95,
@@ -736,7 +793,8 @@
     "b5-v22": 0.9737,
     "b6-v23": 1,
     "b7-v24": 0.975,
-    "b8-v24": 0.975
+    "b8-v24": 0.975,
+    "b9-v24": 0.95
    },
    "kappa": {
     "b2-v2": 0.8671,
@@ -745,12 +803,13 @@
     "b5-v22": 0.942,
     "b6-v23": 1,
     "b7-v24": 0.8456,
-    "b8-v24": 0.9095
+    "b8-v24": 0.9095,
+    "b9-v24": 0.646
    }
   },
   "e.task_demand": {
    "display": "E1",
-   "judged_items": 278,
+   "judged_items": 318,
    "r1_direct_items": [
     "M2609#19",
     "M2609#25",
@@ -818,9 +877,22 @@
     "M2409#29",
     "M2409#30",
     "M2409#35",
-    "M2409#42"
+    "M2409#42",
+    "2022#26",
+    "2022#27",
+    "2022#30",
+    "2022#35",
+    "2022#42",
+    "2022#44",
+    "2022#45",
+    "M2406#26",
+    "M2406#27",
+    "M2406#29",
+    "M2406#35",
+    "M2406#42",
+    "M2406#45"
    ],
-   "r1_indirect_items": 34,
+   "r1_indirect_items": 35,
    "disputed": 12,
    "agreement": {
     "pilot-1": 0.825,
@@ -830,7 +902,8 @@
     "b5-v22": 1,
     "b6-v23": 1,
     "b7-v24": 1,
-    "b8-v24": 1
+    "b8-v24": 1,
+    "b9-v24": 1
    },
    "kappa": {
     "b2-v2": 0.8671,
@@ -839,12 +912,13 @@
     "b5-v22": 1,
     "b6-v23": 1,
     "b7-v24": 1,
-    "b8-v24": 1
+    "b8-v24": 1,
+    "b9-v24": 1
    }
   },
   "e.evidence_location": {
    "display": "E2",
-   "judged_items": 278,
+   "judged_items": 318,
    "r1_direct_items": [
     "2026#18",
     "2026#19",
@@ -943,10 +1017,20 @@
     "M2409#27",
     "M2409#28",
     "M2409#31",
-    "M2409#33"
+    "M2409#33",
+    "2022#26",
+    "2022#27",
+    "2022#28",
+    "2022#45",
+    "M2406#21",
+    "M2406#26",
+    "M2406#27",
+    "M2406#28",
+    "M2406#30",
+    "M2406#45"
    ],
-   "r1_indirect_items": 13,
-   "disputed": 54,
+   "r1_indirect_items": 17,
+   "disputed": 58,
    "agreement": {
     "pilot-1": 0.65,
     "b2-v2": 0.95,
@@ -955,7 +1039,8 @@
     "b5-v22": 0.9737,
     "b6-v23": 0.775,
     "b7-v24": 0.975,
-    "b8-v24": 0.85
+    "b8-v24": 0.85,
+    "b9-v24": 0.9
    },
    "kappa": {
     "b2-v2": 0.9061,
@@ -964,12 +1049,13 @@
     "b5-v22": 0.9564,
     "b6-v23": 0.6703,
     "b7-v24": 0.9526,
-    "b8-v24": 0.7638
+    "b8-v24": 0.7638,
+    "b9-v24": 0.8394
    }
   },
   "e.option_correspondence": {
    "display": "E3",
-   "judged_items": 278,
+   "judged_items": 318,
    "r1_direct_items": [
     "2026#18",
     "2026#20",
@@ -1065,10 +1151,18 @@
     "M2706#45",
     "M2409#26",
     "M2409#27",
-    "M2409#28"
+    "M2409#28",
+    "2022#26",
+    "2022#27",
+    "2022#28",
+    "2022#45",
+    "M2406#26",
+    "M2406#27",
+    "M2406#28",
+    "M2406#45"
    ],
-   "r1_indirect_items": 27,
-   "disputed": 37,
+   "r1_indirect_items": 39,
+   "disputed": 42,
    "agreement": {
     "pilot-1": 0.825,
     "b2-v2": 0.85,
@@ -1077,7 +1171,8 @@
     "b5-v22": 0.8421,
     "b6-v23": 0.95,
     "b7-v24": 0.8,
-    "b8-v24": 0.975
+    "b8-v24": 0.975,
+    "b9-v24": 0.875
    },
    "kappa": {
     "b2-v2": 0.7516,
@@ -1086,7 +1181,8 @@
     "b5-v22": 0.7213,
     "b6-v23": 0.9133,
     "b7-v24": 0.6975,
-    "b8-v24": 0.9605
+    "b8-v24": 0.9605,
+    "b9-v24": 0.8104
    }
   }
  }

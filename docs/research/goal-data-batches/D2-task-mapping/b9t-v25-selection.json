@@ -1,0 +1,89 @@
+{
+ "batch": "b9t-v25",
+ "rule": "b9-v24 의 대상 유형(R-FACT · R-NOTICE · X-FACT · R-IMPLY · R-MOOD) — 계약 v2.5 (C,D)",
+ "tasks": [
+  "r.central_meaning",
+  "r.inference",
+  "e.task_demand",
+  "e.option_correspondence",
+  "r.discourse_structure",
+  "e.evidence_location"
+ ],
+ "contract": "v2.5",
+ "derived_from": "b9-v24",
+ "items": [
+  {
+   "item_id": "2022#19",
+   "type_id": "R-MOOD",
+   "source_sha256": "c0ff7afb8a7a6840349d6c021243aad0f46780a008b3585c20827df14bf6e0dc",
+   "passage_sha256": "938e41de5d1142a15f275cae6af77c6a9dc249e381698495c6a67c811217d665"
+  },
+  {
+   "item_id": "2022#21",
+   "type_id": "R-IMPLY",
+   "source_sha256": "bc77a735322e7204bee053897d3e0c4189898edd8288062f797778f5ac1130ec",
+   "passage_sha256": "13280a480ae4fee46e920443e2f5b131e0e879a11666820243afbd08d0d63c9b"
+  },
+  {
+   "item_id": "2022#26",
+   "type_id": "R-FACT",
+   "source_sha256": "dca46f3b52ddbfc69aec40ca8f7b681ded20bfec006ba4c1b669ce3be23baf5b",
+   "passage_sha256": "5500b1ed72a9680f8759e817fa93f7884503ce54b62f7a29ec4ff6941ac0c2f0"
+  },
+  {
+   "item_id": "2022#27",
+   "type_id": "R-NOTICE",
+   "source_sha256": "be6319c81a6f090aac5d3633c5c47a340e899b43ac5a9bdec72788f02cddc35e",
+   "passage_sha256": "dc7989845fa716932a815cf066b223113ce4f412949a5df02e6956adfc02daa1"
+  },
+  {
+   "item_id": "2022#28",
+   "type_id": "R-NOTICE",
+   "source_sha256": "c96133ef49ea45c6b31b8d5d2582dc6a4297001365175962685de19ca8e94915",
+   "passage_sha256": "a4f862f543cce09e5a81e7fb958be3f69d0d922af0ab15b653efc738452c3ce9"
+  },
+  {
+   "item_id": "2022#45",
+   "type_id": "X-FACT",
+   "source_sha256": "a15fdebdef4e844a3e6a5a826f0b5ac1370ce3856f02492ef3d25fe80215ca73",
+   "passage_sha256": "5748b2cc8bbd21725c0cdd8537d47afb90ee3a6a1099d6c7a40f0d16360e117f"
+  },
+  {
+   "item_id": "M2406#19",
+   "type_id": "R-MOOD",
+   "source_sha256": "c26c2824ca5480d229dc95edfe040aa9b832092ba0b02c9b0c84335781f53f71",
+   "passage_sha256": "d4d4ed5845a0f6090ab60b7456db67b5413e14972c2ff1112b580639804b1e0f"
+  },
+  {
+   "item_id": "M2406#21",
+   "type_id": "R-IMPLY",
+   "source_sha256": "6174d356fcac0d8f97a46be91eaa5fa1be60e17f805d1a298ae77e70dc9397fd",
+   "passage_sha256": "b79d3336d7e766d667f9d685c8b289ac947dfb760db856994aa071a028e026c6"
+  },
+  {
+   "item_id": "M2406#26",
+   "type_id": "R-FACT",
+   "source_sha256": "3b844a9da830d68d44fd9e7b920ab44277a82e84d255a03463a0a3fa19fa8624",
+   "passage_sha256": "e03ad40ed45a313e256a1e055e7207fa7edc48b29744a464ed759ffcd491285d"
+  },
+  {
+   "item_id": "M2406#27",
+   "type_id": "R-NOTICE",
+   "source_sha256": "2439f37b629f872ec1c1f305b911912a3c9c11aa126d013685a57b9bd9dd4e61",
+   "passage_sha256": "94f036f05d551036ed820db6771b684ddacc1a4f01bd76444a582b3035c7a4b0"
+  },
+  {
+   "item_id": "M2406#28",
+   "type_id": "R-NOTICE",
+   "source_sha256": "4e295da8d32027fb3fe19f99f913441210da8de9e5b717ec8de9b0ec41287fa6",
+   "passage_sha256": "d66c9b3d76b0fc0f3eea1c4b1272fd8e9af5762d3100ee09cb5e12fdf078255e"
+  },
+  {
+   "item_id": "M2406#45",
+   "type_id": "X-FACT",
+   "source_sha256": "f4a289308087a339d64ebbf8aff36beb343441096a15c4efa5d33e65fc14012d",
+   "passage_sha256": "36a8f081140fce16462c8961e77acf58566c3b5ce35eb99abfe184866a3c2cb0"
+  }
+ ],
+ "selection_sha256": "37b36407d7fd2c9b5326814f12ff997c8112d207ab58c52df32e6fb03892b89d"
+}

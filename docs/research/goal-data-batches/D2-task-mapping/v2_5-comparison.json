@@ -1,0 +1,129 @@
+{
+ "generated_by": "scripts/research/goal-data/prereg-compare.mjs",
+ "registration": "V2_5_PREREGISTRATION rev4",
+ "b9": {
+  "targets": 12,
+  "valid": 12,
+  "invalid": []
+ },
+ "valid_targets": 12,
+ "pairs": {
+  "AB_v24_baseline": {
+   "n_items": 12,
+   "primary_agreement": 0.5833,
+   "primary_discordant": [
+    {
+     "item": "2022#19",
+     "x": "r.discourse_structure",
+     "y": null
+    },
+    {
+     "item": "2022#27",
+     "x": "e.evidence_location",
+     "y": "e.option_correspondence"
+    },
+    {
+     "item": "M2406#19",
+     "x": "r.discourse_structure",
+     "y": null
+    },
+    {
+     "item": "M2406#26",
+     "x": "e.option_correspondence",
+     "y": "e.evidence_location"
+    },
+    {
+     "item": "M2406#28",
+     "x": "e.evidence_location",
+     "y": "e.option_correspondence"
+    }
+   ],
+   "link_pairs": 72,
+   "link_agreement": 0.9306,
+   "link_kappa": 0.8681,
+   "non_target_agreement": 0.9167
+  },
+  "CD_v25": {
+   "n_items": 12,
+   "primary_agreement": 0.8333,
+   "primary_discordant": [
+    {
+     "item": "2022#45",
+     "x": "e.option_correspondence",
+     "y": "e.evidence_location"
+    },
+    {
+     "item": "M2406#27",
+     "x": "e.option_correspondence",
+     "y": "e.evidence_location"
+    }
+   ],
+   "link_pairs": 72,
+   "link_agreement": 0.9861,
+   "link_kappa": 0.9743,
+   "non_target_agreement": 1
+  },
+  "EF_v24_control": {
+   "n_items": 12,
+   "primary_agreement": 0.6667,
+   "primary_discordant": [
+    {
+     "item": "2022#28",
+     "x": "e.option_correspondence",
+     "y": "e.evidence_location"
+    },
+    {
+     "item": "2022#45",
+     "x": "e.evidence_location",
+     "y": "e.option_correspondence"
+    },
+    {
+     "item": "M2406#28",
+     "x": "e.evidence_location",
+     "y": "e.option_correspondence"
+    },
+    {
+     "item": "M2406#45",
+     "x": "e.option_correspondence",
+     "y": "e.evidence_location"
+    }
+   ],
+   "link_pairs": 72,
+   "link_agreement": 0.9583,
+   "link_kappa": 0.924,
+   "non_target_agreement": 0.9583
+  }
+ },
+ "differences": {
+  "primary_CD_minus_EF": 0.1667,
+  "link_agreement_CD_minus_EF": 0.0278,
+  "link_kappa_CD_minus_EF": 0.0504,
+  "non_target_CD_minus_EF": 0.0417
+ },
+ "null_primary_rows_CD": 4,
+ "automatic_conditions": {
+  "primary_gain": true,
+  "link_agreement_kept": true,
+  "link_kappa_kept": true,
+  "non_target_unchanged": true
+ },
+ "independent_review_sample_CD": [
+  "2022#19",
+  "2022#21",
+  "2022#26",
+  "2022#27",
+  "2022#28",
+  "2022#45",
+  "M2406#19",
+  "M2406#21",
+  "M2406#26",
+  "M2406#27"
+ ],
+ "manual_conditions_pending": [
+  "primary_discordant 전 문항 원문 대조(CD · EF 전수 — 독립 표본과 별도) — v2.5 쪽 판정이 계약 문구로 설명되는가",
+  "독립 검증의 (C,D) 표본 10(independent_review_sample_CD) 원문 대조 반박 0",
+  "v2.5 절별 적용 범위 문서 대조(대상 외 영향 0)"
+ ],
+ "decision": "seal_candidate_pending_manual",
+ "rule": "값은 반올림 없이 비교한다(보고만 4자리). κ null 이면 판단 불가 → 봉인하지 않는다. 조건은 전부 충족해야 한다. 유형별 결론을 내지 않는다 — 전체 결론만."
+}
