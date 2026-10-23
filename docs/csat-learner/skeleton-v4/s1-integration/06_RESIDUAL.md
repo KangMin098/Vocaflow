@@ -42,7 +42,14 @@ T-0138(@`102245ee9`, ACCEPT·COMPLETED, 설계 범위)의 01~05는 다시 쓰지
 
 ### 1.2 retired 4
 
-R-BLANK2(4/53/1/5/0) · R-REFER(6/80/2/6/0) · X-BLANK(6/77/4/9/0) · X-BLANK2(1/13/0/1/0): 매트릭스 행만 보관. 현행 출제 아님. 흡수 여부 UNDETERMINED(03 Q6).
+현행 출제는 아니지만 문항·강의가 있으므로(합계 강의 17 / cue 223) 다른 유형과 같은 열을 채운다. 근거 단위·판단 정의는 교수 모델 `teaching-contract.ts`(S0 TYPE_REGISTRY, DL-0201 수용분이 인용한 정의)를 따르고, G1에 **상세 연구가 없는 부분은 DATA_GAP**으로 둔다. 흡수(현행 유형 편입) 여부는 정하지 않는다(03 Q6) — 분류·DB 변경 없음.
+
+| type | 근거 단위 | 판단 행동 | 피드백 | 강의 준비도(강의/cue/누적UNK/지역D·A/조기) | 데이터·공백 |
+|---|---|---|---|---|---|
+| R-BLANK2 | 빈칸 2곳 + 문장 + 선지 쌍 | T-PROP 2칸 변형: 각 빈칸의 독립 제약을 따로 대조 → 선지 쌍이 교집합에서만 성립하는지 | D1 3값을 **칸별**로 + 쌍 성립 | 4 / 53 / 1 / 5 / 0 | 수능 4문항. G1 상세 연구 없음 → 판단 행동·피드백 세부 **DATA_GAP**(교수 모델 정의만) |
+| R-REFER | 밑줄 대명사 + 문장 | T-TRACK: 대명사 → 등장 대상·행위자·소유자 연결 | 지칭 대상 일치/불일치(D1 아님) | 6 / 80 / 2 / 6 / 0 | 18문항. 상세 연구 없음 → 세부 **DATA_GAP** |
+| X-BLANK | 빈칸 + 공유 장문 단락 + 문장 | T-PROP(장문): 단락 흐름이 요구하는 결론·원리를 완성 명제로 대조 | D1 3값 + D5 | 6 / 77 / 4 / 9 / 0 | 17문항. 상세 연구 없음 → 세부 **DATA_GAP** |
+| X-BLANK2 | 빈칸 2곳 + 공유 장문 | T-PROP 2칸(장문) | D1 3값 칸별 + 쌍 성립 | 1 / 13 / 0 / 1 / 0 | 1문항(2017#42 계열). 표본 1 → 판단·피드백 검증 **DATA_GAP** |
 
 ### 1.3 듣기 18 (DB 미적재 · 교수 모델 0 · 강의 0)
 
@@ -59,7 +66,7 @@ R-BLANK2(4/53/1/5/0) · R-REFER(6/80/2/6/0) · X-BLANK(6/77/4/9/0) · X-BLANK2(1
 
 ### 1.4 누락 판단 기능 점검 결과
 
-- 44유형 모두 근거 단위·판단 도구·피드백 축이 지정됨. 공통 축 밖 고유 기능(R-MOOD 전환점, R-IMPLY 비유 대응, R-CHART 계산, X-REFER 인물 추적, R-SUMMARY 극성 결합, R-IRRELEVANT 축 유지, 듣기 F3·F4·F6)은 02 §3 도구로 각각 대응.
+- 44유형 모두 근거 단위·판단 도구·피드백 축이 지정됨. retired 4는 교수 모델 정의 기반이며 상세 연구가 없는 세부는 DATA_GAP으로 명시(§1.2). 공통 축 밖 고유 기능(R-MOOD 전환점, R-IMPLY 비유 대응, R-CHART 계산, X-REFER 인물 추적, R-SUMMARY 극성 결합, R-IRRELEVANT 축 유지, 듣기 F3·F4·F6)은 02 §3 도구로 각각 대응.
 - **새로 확인한 누락:** 조기 공개 후보 34개가 R-IRRELEVANT(9) · R-NOTICE(8) · R-ORDER(7)에 몰려 있다. 이 세 유형은 "한 cue 소거 완결"·"역할 순서 낭독"·"정답 속성 진술"이 대본 관행으로 반복되므로, 강의 결합 시 유형 단위 사전 감사가 필요하다(S2-c ② 우선순위).
 
 ## 2. 34번 cue 공개 게이트 × 강의 학습자 제어 충돌 점검
@@ -93,7 +100,19 @@ R-BLANK2(4/53/1/5/0) · R-REFER(6/80/2/6/0) · X-BLANK(6/77/4/9/0) · X-BLANK2(1
 | TTS 실패 → READ 대체 | 같은 공개 수준만 | 위치 불변 | 대체 텍스트가 상한 초과 가능 | 대체도 게이트 통과분만 |
 | 동의 후 화면 공개 단계를 낮춤 | 노출 이력 단조 | — | — | 이력 유지, 이후 응답은 independent_attempt 아님 |
 
-결론: 공개 게이트와 학습자 제어는 **"게이트는 player·노출 채널만, 제어는 viewer만 소유"** 로 분리하면 충돌하지 않는다. 단 현 개선 브랜치의 click→jump와 following 중 details 재열림은 게이트를 우회하거나 제어를 깨므로 S2-a에서 먼저 고쳐야 한다.
+결론: 공개 게이트와 학습자 제어는 **"게이트는 player·노출 채널만, 제어는 viewer만 소유"** 로 분리하면 충돌하지 않는다. 단 `0e36138e3` 기준의 click→jump와 following 중 details 재열림은 게이트를 우회하거나 제어를 깨므로 먼저 고쳐야 한다(이후 T-0140 커밋에서 처리 여부는 T-0140 독립 검증 기록을 따른다 — 이 문서는 판정하지 않음).
+
+### 2.3 기존 구현 작업(T-0140)과의 교차 점검 — 충돌 1건
+
+T-0140(owner `csat-lecture-disclosure`, `feat/lecture-learner-control`@`6eb6f3451`, **BLOCKED_AUTH**, 공식 수용 전)은 "정답 직접 안내 전까지" 경로를 자체 경계 데이터 `apps/web/src/lib/csat/lecture/disclosure-data.json`(cue 수·digest·`stopBefore`·`preStopRisk`)로 구현했다. 읽기 전용 대조 결과:
+
+| 문항 | T-0140 경계 | sidecar@810a463ac | 수용 계약(T-0138 05 §3) 대비 |
+|---|---|---|---|
+| 2026-34 | `stopBefore: 3`(0기준 → c1~c3 재생), `preStopRisk: "hint"` | c3 = 지역 UNKNOWN(검토자 불일치) | **충돌**: UNKNOWN은 안전 구간 아님(fail-closed). c3을 HINT 동의 구간에 포함하면 안 됨 |
+| 2014A#30 · 2015#36 · 2025#35 · M2306#35 | 경계 전 포함, `preStopRisk: "decisive_confirmed"` | 조기 DECISIVE(05 §2) | 위험 등급은 표시됨. **DECISIVE는 OFFICIAL_ANSWER 동급 동의**가 필요 — 해당 동의 UX인지는 T-0140 검증 범위 |
+| M2109#19 | `stopBefore: 5`, `preStopRisk: "hint"` | 조기 ANSWER c6(index 5) | 정합(경계 이전에서 정지) |
+
+처리: T-0140 파일·데이터는 수정하지 않는다. 이 충돌은 T-0140 owner와 그 독립 검증자에게 전달할 근거로 기록한다(전달 여부는 증거가 생길 때까지 주장하지 않음). S2-c 제품 적용 전 **경계 데이터를 수용 계약(05 §3: UNKNOWN fail-closed, DECISIVE=OFFICIAL_ANSWER 동의)과 맞추는 것**을 착수 조건으로 둔다.
 
 ## 3. S2-a~d 소유·파일 영향·착수 조건·수용 테스트
 
@@ -101,12 +120,12 @@ AT 번호는 v6.0 §10(AT01~AT26). 모든 후보는 사용자 범위 승인 전 
 
 | 후보 | owner | 파일 영향(`apps/web/` 기준) | 착수 조건 | 수용 테스트 | 하지 않는 것 |
 |---|---|---|---|---|---|
-| **S2-a** 강의 학습자 제어 보완·main 반영 | **미등록 — 지정 필요.** 강의 worktree(`feat/lecture-learner-control`)에 등록 owner 없음(G3 §9). 작성 세션 확인 후 AI-Control owner 등록 | `src/components/csat/lecture/LectureStage.tsx` · `src/components/csat/theater/AnalysisTheater.tsx` · `theater.module.css` · `src/components/csat/__tests__/theater-delivery-guard.test.ts` · `tests/e2e/csat-lecture-learner-control.spec.ts` | ① 보완 4건: start() 암묵 따라가기 제거 · 본문 click→jump 제거 · following 중 닫은 details 재열림 금지 · pickScene 자동 일시정지 분리 ② AnalysisTheater 장착 하네스 ③ 실계정 E2E(계정 비밀번호 필요, 현재 BLOCKED) ④ 독립 재검증 ⑤ 사용자 main 통합 확인 | AT08 · AT12 · AT16 · AT17 · AT18 · AT24 | 공개 게이트 · 대본 수정 |
-| **S2-b** 2026-34 공개 후 F01·F03·F04·F05 | **`csat-v4-s0`**(34 이관 설계 owner) 또는 사용자가 지정한 구현 owner. S2-a owner와 같은 파일을 동시 소유하지 않음 | 단계 0: `src/lib/csat/inquiry/data.ts` · `src/lib/csat/meaning-support/data.ts` · `src/lib/csat/learner.ts` · 단계 3·4: `src/components/csat/theater/InquiryV3Panels.tsx` · `AnalysisTheater.tsx` · `src/lib/csat/meaning-support/model.ts` · `src/lib/csat/meaning-support/align.ts` · `src/app/(app)/csat/item/[slug]/page.tsx` | S2-a의 `AnalysisTheater.tsx` 변경이 확정·통합된 뒤 그 위에서 시작 · 화면 상태 6종(01 F4) 동시 · 강의 결합 없음 | AT01 · AT02 · AT03 · AT04 · AT05(22 회귀) · AT06(38 보류 유지) · AT07 · AT09 · AT13 · AT14 · AT15 · AT21 · AT22 · AT24 | F08 배치 확정 · 공개 게이트 · 38번 학습자 노출 |
-| **S2-c** 기존 cue sidecar 품질 보완·독립 검수·승인·제한 적용 | 데이터: **`csat-all-types-research`**(sidecar 작성) + 별도 리뷰어. 제품 적용: S2-a owner와 협의해 한 owner | 데이터 단계: 연구 폴더만. 제품 단계: `src/lib/csat/lecture/types.ts` · `src/lib/csat/lecture/store.ts` · `src/app/api/csat/lecture/route.ts` · `src/components/csat/lecture/LectureStage.tsx` · `src/components/csat/lecture/LecturePlayerBar.tsx` | 데이터: `810a463ac` 이후 연구 커밋(sidecar v2 등) 원격 보존·공식 독립 검증 후에만 사용 · 우선 감사 R-IRRELEVANT·R-NOTICE·R-ORDER · 일치율 원비율 판정. 제품: S2-a 통합 후 · S2-b 단계 0(`lecture/types.ts`)과 순서 조정 · 05 §3 계약 + 이 문서 §2.2 규칙 | AT10 · AT11 · AT12 · AT21 · AT22 · AT24 · AT25 | 원본 대본 JSON 키 추가(필수 아님) · 대본 문구 수정 |
+| **S2-a** 강의 학습자 제어 보완·main 반영 | **`csat-lecture-disclosure`**(기존 등록 owner, 2026-10-23T18:39 바인딩, `feat/lecture-learner-control`). 현재 **T-0140**(BLOCKED_AUTH)이 이 범위를 포함 — 새 owner·새 TASK 만들지 않음 | T-0140 허용 경로: `src/components/csat/lecture/` · `src/components/csat/theater/AnalysisTheater.tsx` · `theater.module.css` · `src/components/csat/__tests__/theater-delivery-guard.test.ts` · `src/app/api/csat/lecture/` · `src/app/(app)/csat/item/[slug]/page.tsx` · `src/lib/csat/lecture/` · `src/lib/csat/theater.ts` · e2e 스펙 2 | ① T-0140 실계정 E2E(계정 비밀번호 필요, 현재 BLOCKED_AUTH) ② T-0140 독립 검증 수용 ③ 사용자 main 통합 확인. 보완 4건(start 암묵 따라가기·본문 click→jump·following 중 details 재열림·pickScene 일시정지)의 처리 여부는 T-0140 검증 기록으로 확인 | AT08 · AT12 · AT16 · AT17 · AT18 · AT24 | 이 문서가 T-0140 결과를 판정·수정하지 않음 |
+| **S2-b** 2026-34 공개 후 F01·F03·F04·F05 | **`csat-v4-s0`**(34 이관 설계 owner) — 단 **`csat-lecture-disclosure`가 소유한 파일은 T-0140 종료 전 수정하지 않음** | G3 DELTA §8 기준. 단계 0: `src/lib/csat/inquiry/data.ts` · `src/lib/csat/meaning-support/data.ts` · **`src/lib/csat/lecture/types.ts` · `src/lib/csat/lecture/store.ts`** · `src/lib/csat/learner.ts` · 단계 3·4: `src/components/csat/theater/InquiryV3Panels.tsx` · `AnalysisTheater.tsx` · `src/lib/csat/meaning-support/model.ts` · `src/lib/csat/meaning-support/align.ts` · (공개 진입 필요 시) `src/app/(app)/csat/item/[slug]/page.tsx` | 겹치는 파일(`lecture/types.ts` · `lecture/store.ts` · `AnalysisTheater.tsx` · `page.tsx`)은 **T-0140 수용·main 통합 후** 그 위에서, 또는 사용자가 owner 재배치를 승인한 경우만. 겹치지 않는 파일(`inquiry/data.ts` · `meaning-support/*` · `InquiryV3Panels.tsx` · `learner.ts`)은 범위 승인 후 선행 가능. 화면 상태 6종(01 F4) 동시 · 강의 결합 없음 | AT01 · AT02 · AT03 · AT04 · AT05(22 회귀) · AT06(38 보류 유지) · AT07 · AT09 · AT13 · AT14 · AT15 · AT21 · AT22 · AT24 | F08 배치 확정 · 공개 게이트 · 38번 학습자 노출 |
+| **S2-c** 기존 cue sidecar 품질 보완·독립 검수·승인·제한 적용 | 데이터: **`csat-all-types-research`**(sidecar 작성 owner) + 작성 미참여 리뷰어. 제품 적용: **`csat-lecture-disclosure`**(강의 공개 경로 구현 owner, 파일 소유자) | 데이터 단계: 연구 폴더만. 제품 단계: T-0140과 같은 강의 파일 + `disclosure-data.json`의 경계 근거를 승인된 sidecar로 대체·대조 | 데이터: `810a463ac` 이후 연구 커밋(sidecar v2 등) 원격 보존·공식 독립 검증 후에만 사용 · 우선 감사 R-IRRELEVANT·R-NOTICE·R-ORDER · 일치율 원비율 판정. 제품: T-0140 종료 후 · **§2.3 충돌(34 c3 UNKNOWN 포함, DECISIVE 동의 등급) 해소** · 05 §3 + §2.2 규칙 | AT10 · AT11 · AT12 · AT21 · AT22 · AT24 · AT25 | 원본 대본 JSON 키 추가(필수 아님) · 대본 문구 수정 |
 | **S2-d** 유형 준비도 SELECT 정례화 | **`csat-s1-integration`**(읽기 전용 보고) | 제품 파일 없음. AI-Control 또는 이 문서 폴더의 보고 산출물 | 없음(DB SELECT만) | AT13 · AT23 · AT24 | DB 쓰기 |
 
-파일 겹침 순서: **S2-a → S2-b(AnalysisTheater) → S2-c 제품 단계(LectureStage·lecture/types)**. S2-b 단계 0과 S2-c 제품 단계는 `lecture/types.ts`가 겹치므로 같은 owner가 순서대로 하거나 S2-c를 S2-b 단계 0 뒤로 둔다. S2-d는 독립.
+파일 소유·순서: 강의 영역(`lecture/` · `AnalysisTheater.tsx` · `page.tsx` · `api/csat/lecture/`)은 **`csat-lecture-disclosure` 단일 소유**(T-0140). 순서는 **T-0140(S2-a 포함) 수용·통합 → S2-b의 겹치는 파일 → S2-c 제품 단계**. S2-b의 겹치지 않는 파일과 S2-c 데이터 단계, S2-d는 서로 독립. 어느 owner도 다른 owner의 진행 중 TASK 파일을 동시에 수정하지 않는다.
 
 ## 4. T-0138 리뷰 비차단 지적 처리
 
@@ -120,3 +139,11 @@ AT 번호는 v6.0 §10(AT01~AT26). 모든 후보는 사용자 범위 승인 전 
 - 보존: F08 미선정 · C1 콘텐츠 미승인 · F02/F06/F09/F10 BLOCKED_EVIDENCE · T-0136/T-0137/T-0138/T-0139 수용 범위.
 - 이번 수치: 강의 수는 main `lecture-data/index.json`, cue 상태는 `810a463ac` 커밋 객체에서 작성자가 집계(누적 UNKNOWN 합계 739로 공식 리뷰 재현값과 일치). 조기 공개 34의 유형 분포는 05 §2 표에서 계수.
 - NOT_RUN: 제품 구현·격리 하네스·실계정 HTTP/RLS·실제 TTS·접근성 실기·학습 효과. S1 전체 수용·S2 착수·main 통합 승인 아님.
+
+## 6. run 2 정정 (반려 `T-0141-codex-review-7d31fde74.md`)
+
+| 지적 | run 1(`7d31fde74`) | run 2 |
+|---|---|---|
+| T141-01 P1 | retired 4는 수치 튜플과 보관 메모만 | §1.2에 근거 단위·판단 행동·피드백·강의 준비도를 채우고, 상세 연구가 없는 세부는 DATA_GAP으로 명시. 흡수·분류·DB 변경 없음 |
+| T141-02 P1 | S2-a owner "미등록", S2-c 제품 owner 미정, S2-b 파일 목록에 `lecture/types.ts`·`store.ts` 누락 | S2-a·S2-c 제품 = 기존 `csat-lecture-disclosure`(T-0140), S2-b = `csat-v4-s0` + G3 §8 단계 0 파일 전부, 겹치는 파일은 T-0140 종료 후 또는 owner 재배치 승인 시만. T-0140·작업자 보존 |
+| 추가 발견 | — | §2.3 T-0140 경계 데이터와 수용 계약 충돌(34 c3 UNKNOWN 포함) 기록 — 수정하지 않고 전달 근거로 |
