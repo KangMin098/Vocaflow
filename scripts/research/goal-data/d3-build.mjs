@@ -18,7 +18,7 @@ const sha = (v) => crypto.createHash('sha256').update(String(v)).digest('hex')
 const all = nonHeldTasks()
 const SOURCES = [
   { batch: 'pilot-1', dir: PILOT1, input: path.join(PILOT1, 'pilot-input.json'), tasks: all },
-  ...['b2-v2', 'b3-insert', 'b4-v21', 'b5-v22', 'b6-v23', 'b7-v24', 'b8-v24', 'b9-v24', 'b11-v24', 'b12-v24', 'b13-v24', 'b14-v24', 'b15-v24', 'b16-v24'].map((b) => ({ batch: b, dir: path.join(ROOT, 'scripts/research/goal-data/local', b), input: path.join(ROOT, 'scripts/research/goal-data/local', b, 'input.json'), tasks: all.filter((t) => t.kind !== 'integrated') })),
+  ...['b2-v2', 'b3-insert', 'b4-v21', 'b5-v22', 'b6-v23', 'b7-v24', 'b8-v24', 'b9-v24', 'b11-v24', 'b12-v24', 'b13-v24', 'b14-v24', 'b15-v24', 'b16-v24', 'b17-v24'].map((b) => ({ batch: b, dir: path.join(ROOT, 'scripts/research/goal-data/local', b), input: path.join(ROOT, 'scripts/research/goal-data/local', b, 'input.json'), tasks: all.filter((t) => t.kind !== 'integrated') })),
 ].filter((s) => fs.existsSync(s.input))
 // pilot-1 · b2-v2 의 삽입 문항은 주어진 문장 오독으로 무효 — b3-insert 재판정으로 대체한다(T-0088 정정)
 const SUPERSEDED_BATCHES = new Set(['pilot-1', 'b2-v2'])
