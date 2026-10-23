@@ -1,4 +1,21 @@
 {
+ "handoff": {
+  "R5_direct": {
+   "status": "handoff_lower_bound",
+   "xmodel_r1_direct_kept": "23/23",
+   "codex_only_direct": 13,
+   "note": "두 Claude 가 일치한 direct 는 Codex 도 direct — 정밀. Claude 는 R5 direct 를 덜 잡아(빈칸 · 무관 문장) 배점은 하한이다"
+  },
+  "R6_direct": {
+   "status": "hold_cross_model",
+   "xmodel_r1_direct_kept": "13/19",
+   "note": "빈칸 문항에서 정답이 본문에 재진술되면 Codex 는 R5 · R6 무관, Claude 는 R6 — RULES_V2 §8-7 경계 결정 전 인계 금지"
+  },
+  "R5_indirect": {
+   "status": "hold",
+   "note": "indirect 경계는 모델 간 체계적 반대(README §9)"
+  }
+ },
  "note": "R1(두 독립 AI 일치) 후보 — 사람 검수 0 · relevance=unknown. 문항 수 · 배점은 독해 범위(18–45)만. 한 문항이 R5 · R6 에 함께 걸리면 각 TASK 에 센다(문항 배점을 TASK 간 합산하지 않는다).",
  "exams": {
   "2015": {

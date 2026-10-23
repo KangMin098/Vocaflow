@@ -119,6 +119,17 @@ P0 0 · P1 3. 등록: owner `map-data-independent`(Codex) · 리뷰 worktree mai
 
 갈림은 주로 `indirect` 경계에서 두 모델이 **체계적으로 반대 방향**(R6: Claude indirect ↔ Codex 무관, R5 · R4: Claude 무관 ↔ Codex indirect, E2: Claude indirect ↔ Codex direct). → **규칙 v2.1 미확정 유지 · R4 「확대 가능」 철회.** R5/R6 762문항(두 트랙 모두 Claude)도 같은 모델 일치이므로 교차 모델 표본(T-0101, 94문항 층화)으로 R1 direct 유지율을 잰 뒤 인계 범위를 정한다.
 
+## 10. R5/R6 교차 모델 표본(T-0101 · [xmodel-agreement.json](./xmodel-agreement.json))
+
+762문항 중 유형 층화 94문항을 Codex 가 원문만 보고 판정해 Claude A · B 와 비교.
+
+| TASK | κ Claude–Claude | κ Claude–Codex | R1 direct 유지 | Codex 만 direct | 인계 |
+|---|---:|---:|---:|---:|---|
+| R5 | .90 | .68–.71 | **23/23** | 13(빈칸 8 · 무관 문장 3) | **direct 하한으로 인계 가능** — 배점은 과소 추정 |
+| R6 | .67 | .41–.44 | 13/19 | 5 | **보류** — 뒤집힌 6 전부 빈칸 |
+
+빈칸에서 정답 의미가 본문에 재진술되면 Codex 는 R5 · R6 무관, Claude 는 R6 direct 로 귀속했다(RULES_V2 §8-7). `exam-relevance.json` 의 `handoff` 가 이 상태를 기계 판독용으로 담는다 — R5 direct 만 `handoff_lower_bound`, R6 · indirect 는 보류.
+
 ## 재실행
 
 ```bash
