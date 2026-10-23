@@ -129,6 +129,7 @@ const HELP = `vfc — Vocaflow AI Control
   task assign-worktree <id> <path> --by O [--branch b]   작업 위치(owner 에 묶인 worktree 만)
   task submit <id> --by O                 이번 run 증거 ≥1 필요 · 잠금은 커밋 후 반납
   task complete <id> --by R --review verification/reviews/<파일>   R = 등록된 다른 owner
+  task rebind-review <id> --by R --review verification/reviews/<파일>   COMPLETED 리뷰 재결속(통과 판정 JSON · 검증 커밋 명시 · 옛 기록 보존)
   task reject <id> --by R --reason .. --review verification/reviews/<파일>
   task block <id> --by O --reason .. [--external] | task unblock <id> --by O | task fail <id> --by O --reason ..
   task reap                               죽은 실행의 IN_PROGRESS 작업 → BLOCKED · 잠금 정리
@@ -431,6 +432,8 @@ function main() {
     case 'task complete':
       if (opt.reviewer && opt.reviewer !== (opt.by || process.env.VFC_OWNER)) throw new T.RuleError('REVIEWER_MISMATCH', '--reviewer 는 명령을 실행하는 owner(--by) 자신이어야 한다')
       return out(withState((s) => T.completeTask(s, pos[0], { caller: caller(opt), review_path: opt.review }), { event: 'task.complete', task: pos[0], by }), opt)
+    case 'task rebind-review':
+      return out(withState((s) => T.rebindReview(s, pos[0], { caller: caller(opt), review_path: opt.review }), { event: 'task.rebind_review', task: pos[0], by }), opt)
     case 'task reject':
       return out(withState((s) => T.rejectReview(s, pos[0], { caller: caller(opt), reason: opt.reason, review_path: opt.review }), { event: 'task.reject', task: pos[0], by }), opt)
     case 'task block':

@@ -102,7 +102,8 @@ node bin/goal-orchestrator.mjs --max-tasks 1 --max-minutes 60 --max-cost-usd 10 
 
 **작업 영향 계약 `impact`(신규 작업 필수 · seed 기존 작업은 `legacy`)** — `current_gap` · `expected_impact`(closes·advances·prerequisite) · `evidence_required[]` · 선택 `acceptance_ids`(기본 = claim 전부) · `parent_goal_id`(자신 또는 정본 상위) · `next_dependency` · `out_of_scope` · `dependency_type`(direct·prerequisite, prerequisite 는 `unblocks` 필수).
 - `closes` ⇔ 겨냥 기준 full claim · 겨냥 밖 full claim 금지 · prerequisite 는 full 금지(기반 계약 완료 ≠ 목표 완료).
-- `kind: independent` — 사용자 명시 요청 작업. `user_request_ref` 필수, 정본 claim 0(목표 PASS 근거가 되지 않는다), 리뷰는 자기 완료 조건으로.
+- `kind: independent` — 사용자 명시 요청 작업. `user_request_ref` 필수, 정본 claim 0(목표 PASS 근거가 되지 않는다), 리뷰는 자기 완료 조건으로. 제품 코드 변경·로컬 통합도 허용 — 로컬 통합 게이트의 정렬 근거는 `parent_goal_id` 대신 `user_request_ref`(2026-10-24).
+- 완료 뒤 리뷰 파일이 바뀌었거나 판정이 JSON 이 아니면 `vfc task rebind-review <id> --by <다른 owner> --review <새 파일>` — 통과 판정(`"verdict": "APPROVE"|"PASS"`)과 검증 커밋을 적은 새 기록만 받고, 옛 기록·해시는 `review_history` 에 남는다. 반려는 이 경로가 아니다.
 - 사용자 목표 작업은 승인 설계에서 자동 생성(`UG@vN#i`). 같은 UG·버전·기준·겹치는 경로의 열린 작업은 중복.
 
 **등록 시 검사(`task add` · 미리 보기 `task check --file`)** — 상위 목표·수용 기준 존재 · 갭(목표 PASS 면 `GAP_CLOSED`) · 열린 작업 중복(`DUPLICATE_TASK`) · full 완료 작업 재구현(`REIMPLEMENT`) · 정본 버전·기준 커밋 기록 · 소유권·범위·승인은 기존 규칙. 의도적이면 `duplicate_reason`·`reopen_reason`(기록에 남는다). 다른 작업의 `forbidden_paths` 는 이 작업 판정에 쓰지 않는다.
