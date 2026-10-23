@@ -1,0 +1,63 @@
+{
+  "task": "T-0137",
+  "baseCommit": "81d6732b2e89566f8198bf9c5f9cbd0ccbe88ecd",
+  "files": [
+    {
+      "path": "docs/csat-learner/g3-transfer-20261024/CUE_DISCLOSURE_34.json",
+      "sha256": "3baf8498d8cd798d79de0a426bf2951633fbac9286b5e62415ed89cfc5c0251a"
+    },
+    {
+      "path": "docs/csat-learner/g3-transfer-20261024/DATA_STATUS.json",
+      "sha256": "ff0f54d94a323d1cec6669a9705588e4390d84f574923733be6cb03ca0f192b7"
+    },
+    {
+      "path": "docs/csat-learner/g3-transfer-20261024/DELTA.md",
+      "sha256": "0c961983f59cfc903f1578cc22a15fa3b3e65d25bb7c3f039155fea4399676e4"
+    },
+    {
+      "path": "docs/csat-learner/g3-transfer-20261024/SOURCE_INDEX.json",
+      "sha256": "b354d6229628076047cda1d0739848fa303e9edbe14f2c70a752a6a7e4ad51be"
+    },
+    {
+      "path": "docs/csat-learner/g3-transfer-20261024/validate.mjs",
+      "sha256": "e9a52275294d336ce1e93c1aa4e26aacac83480d1cdfe04f8225ec506450b2b3"
+    },
+    {
+      "path": "docs/CHANGELOG.md",
+      "sha256": "e3f797bc416d6d61dcba2186ca104082bc7d8bd0b0095dec1e74eb1d47fd10c8"
+    }
+  ],
+  "privateArtifacts": [
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\g3-transfer-20261024\\SNAPSHOT.json",
+      "sha256": "8056bdaebff390065ca464e36ddda76c3024f7783059e336a6dfce5c2ba9c1fc"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\g3-transfer-20261024\\SNAPSHOT_R2.json",
+      "sha256": "d76568400c75522cb1fbb33409ba2004e2bc34ac6c6af0bb48fb6cfb25fbd032"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\g3-transfer-20261024\\DB_READ.json",
+      "sha256": "7d3b61d241dc4ea4cf901b5e4b1cc4db1568f542156dbb4a6b118fc0f2cb8b7b"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\g3-transfer-20261024\\DB_34.json",
+      "sha256": "5f972596f30c72958ec1544a396dc3c60bab6a458e2e60ea02fa8504b8cdd9a5"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\g3-transfer-20261024\\LOCAL_34.json",
+      "sha256": "d63c25bf302a448acb21d04562d22953de36694a924425bc476e09dd17917b22"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\g3-transfer-20261024\\METADATA_34.json",
+      "sha256": "c53cca3d94e8ad1a45fa505ada67b6449d56d7d719da807798ece9a8a31744d8"
+    },
+    {
+      "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\g3-transfer-20261024\\CONFLICTS.json",
+      "sha256": "9c23b61da3bba34d9df7a486d1cd3c5c3bc3a7f8089f33ae70a34bc87bb0a1de"
+    }
+  ],
+  "contentApproval": "NOT_GRANTED",
+  "productImplementation": "NOT_RUN",
+  "independentReview": "AWAITING_CLAUDE"
+}

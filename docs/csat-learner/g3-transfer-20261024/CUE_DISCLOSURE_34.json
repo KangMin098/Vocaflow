@@ -1,0 +1,461 @@
+{
+  "schema": "g3-cue-disclosure-proposal/1",
+  "status": "PROPOSED_NOT_APPROVED",
+  "appliedToProduct": false,
+  "classificationAuthor": "csat-v4-s0",
+  "independentContentReview": "NOT_RUN",
+  "binding": {
+    "itemId": "2026#34",
+    "sourceCommit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+    "analysisVersion": 5,
+    "unitsHash": "7fb095d3cac4821e",
+    "inquirySha256": "fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4",
+    "meaningSha256": "4b5f9304aca1424af99237e8269a92f9f070bfbc6037bbd31f5113c81614639a",
+    "sourcePdfSha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+    "lectureVersion": 2,
+    "lectureSha256": "7ea95e11c445723f343e93571b89f3a0d5e79b57939746b6351af7fbfccfd463"
+  },
+  "hashAlgorithm": "SHA-256 canonical JSON same as DATA_STATUS",
+  "missingOrStaleClassificationPolicy": "HOLD_BEFORE_OUTPUT_AND_REQUEST_ANSWER_LEVEL_CONSENT_NOT_SAFE_NONE",
+  "consentDoesNotOverrideContentHold": true,
+  "cues": [
+    {
+      "id": "c1",
+      "order": 1,
+      "role": "intro",
+      "target": {
+        "kind": "analysis",
+        "id": "head"
+      },
+      "canonicalCueSha256": "3bd5e0a69fa7aff107e4e4755f715981dfd676b7893b3915f4244c10a51f57f4",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria"
+      ],
+      "reason": "부정 빈칸의 답 방향을 먼저 좁힘; 과잉 일반화 감수 필요",
+      "contentState": "HOLD_INDEPENDENT_CONTENT_REVIEW",
+      "eliminates": [],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "HINT",
+        "cumulative": "HINT",
+        "lowerBound": "HINT",
+        "sourceHash": "sha256:3c2f4170e1f195f0987c9a90a300099ba05212572d659e7f852355cb2b10d02d",
+        "reviewStatus": "reviewed_agree",
+        "conflict": false,
+        "promoted": true
+      },
+      "relationshipToExisting": "SAME_LOCAL_RISK_NOT_CONTENT_APPROVAL"
+    },
+    {
+      "id": "c2",
+      "order": 2,
+      "role": "strategy",
+      "target": {
+        "kind": "anchor",
+        "id": "sentence:6"
+      },
+      "canonicalCueSha256": "681b974cb1927f99791aa3eda3b0c38487c49c59d75f80cca18d280fecfdee0d",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria"
+      ],
+      "reason": "부정어 위치와 선지 처리 방향을 알려 줌",
+      "contentState": "NOT_NEWLY_APPROVED_BY_G3",
+      "eliminates": [],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "HINT",
+        "cumulative": "HINT",
+        "lowerBound": "HINT",
+        "sourceHash": "sha256:2143ae83afab7d7139eb977516e87fc05317203b0d214d9eb251a6b7436d6547",
+        "reviewStatus": "reviewed_agree",
+        "conflict": false,
+        "promoted": true
+      },
+      "relationshipToExisting": "SAME_LOCAL_RISK_NOT_CONTENT_APPROVAL"
+    },
+    {
+      "id": "c3",
+      "order": 3,
+      "role": "structure",
+      "target": {
+        "kind": "analysis",
+        "id": "map"
+      },
+      "canonicalCueSha256": "1797e2774598d5207d7cf57cc57b5c516e3931c9393ccd13d68649223d911685",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria"
+      ],
+      "reason": "법-자유 관계와 특정 문장 focus로 추론 범위를 좁힘; 누적 결정성 감수 필요",
+      "contentState": "NOT_NEWLY_APPROVED_BY_G3",
+      "eliminates": [],
+      "cumulativeHintAssessment": "NEEDS_INDEPENDENT_REVIEW",
+      "existingResearch": {
+        "local": "UNKNOWN",
+        "cumulative": "HINT",
+        "lowerBound": "HINT",
+        "sourceHash": "sha256:03f673e8a28217310fda10d4445d178254aabc15b906b0ac1aef3bce6cede9c2",
+        "reviewStatus": "reviewed_conflict",
+        "conflict": true,
+        "promoted": false
+      },
+      "relationshipToExisting": "G3_CONSERVATIVE_REVIEW_PROPOSAL_DO_NOT_OVERWRITE_RESEARCH"
+    },
+    {
+      "id": "c4",
+      "order": 4,
+      "role": "evidence",
+      "target": {
+        "kind": "anchor",
+        "id": "sentence:5"
+      },
+      "canonicalCueSha256": "92ac22de06a42c398a8ab1953cea391b4fe00880c9276ed1bbaffa517652f3d8",
+      "proposedLevel": "answer",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria"
+      ],
+      "reason": "공식 정답③ 직접 낭독",
+      "contentState": "NOT_NEWLY_APPROVED_BY_G3",
+      "eliminates": [],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "ANSWER",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:bf5629458d3a877e05190f074a8aa5a9bf12a7daa9fb78f00a7f7e3d16efa6cd",
+        "reviewStatus": "auto_certain",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "SAME_LOCAL_RISK_NOT_CONTENT_APPROVAL"
+    },
+    {
+      "id": "c5",
+      "order": 5,
+      "role": "evidence",
+      "target": {
+        "kind": "anchor",
+        "id": "sentence:6"
+      },
+      "canonicalCueSha256": "34aa309c6524477a909ce78e485aa9587b4a7fc5dbfa2ff1e34b079903e477e9",
+      "proposedLevel": "answer",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria"
+      ],
+      "reason": "③ 및 완성 결론 직접 낭독",
+      "contentState": "NOT_NEWLY_APPROVED_BY_G3",
+      "eliminates": [],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "UNKNOWN",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:222618d3dccb813f132cf091c2b75880431fadf030bcfe8137d32700ddbcf4a9",
+        "reviewStatus": "needs_review",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "G3_CONSERVATIVE_REVIEW_PROPOSAL_DO_NOT_OVERWRITE_RESEARCH"
+    },
+    {
+      "id": "c6",
+      "order": 6,
+      "role": "eliminate",
+      "target": {
+        "kind": "analysis",
+        "id": "reject:1"
+      },
+      "canonicalCueSha256": "ffb2388d892f9258ecc7aeff94533ed5e546225bd24f00559a73d420648bbc64",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria",
+        "elimination"
+      ],
+      "reason": "① 소거와 결정 근거 공개",
+      "contentState": "NOT_NEWLY_APPROVED_BY_G3",
+      "eliminates": [
+        1
+      ],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "HINT",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:db4e6d8712eedf34494f86d08cf989cb853657b73b0f60706f9e66790ccd37c8",
+        "reviewStatus": "auto_certain",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "SAME_LOCAL_RISK_NOT_CONTENT_APPROVAL"
+    },
+    {
+      "id": "c7",
+      "order": 7,
+      "role": "eliminate",
+      "target": {
+        "kind": "analysis",
+        "id": "reject:2"
+      },
+      "canonicalCueSha256": "f481498be01c31d20ac92d402660c6dfd685291980a3ad8d08858f8e239bc057",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria",
+        "elimination"
+      ],
+      "reason": "② 소거; unknown/fails와 주체 설명의 내용 충돌 감수 필요",
+      "contentState": "HOLD_INDEPENDENT_CONTENT_REVIEW",
+      "eliminates": [
+        2
+      ],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "HINT",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:ca5ff4234ec654342d4a2ee30a5a94fff84c9603e486813e4e4bf8c861e6a9f7",
+        "reviewStatus": "auto_certain",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "SAME_LOCAL_RISK_NOT_CONTENT_APPROVAL"
+    },
+    {
+      "id": "c8",
+      "order": 8,
+      "role": "eliminate",
+      "target": {
+        "kind": "analysis",
+        "id": "reject:4"
+      },
+      "canonicalCueSha256": "4f5a33d8f5137cb7504ce923d5017db20794af3e9602c2f14924cb0a1aef2b51",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria",
+        "elimination"
+      ],
+      "reason": "④ 소거와 근거 공개",
+      "contentState": "NOT_NEWLY_APPROVED_BY_G3",
+      "eliminates": [
+        4
+      ],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "HINT",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:dfae7ed99a62b14ab3a6ebb6b300c71371eb37cff8d6af00ac2567c2d137ef4c",
+        "reviewStatus": "auto_certain",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "SAME_LOCAL_RISK_NOT_CONTENT_APPROVAL"
+    },
+    {
+      "id": "c9",
+      "order": 9,
+      "role": "eliminate",
+      "target": {
+        "kind": "analysis",
+        "id": "reject:5"
+      },
+      "canonicalCueSha256": "c7e462a940bc4272285f27c758033e4381bb0819e5a4a36a7acdccb77125be0e",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria",
+        "elimination"
+      ],
+      "reason": "⑤ 소거; 별도 c6-c9 경로에서 네 오답 소거가 누적 결정적",
+      "contentState": "NOT_NEWLY_APPROVED_BY_G3",
+      "eliminates": [
+        5
+      ],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "HINT",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:6570d71754f7507862afb4ee612665d714b35aa03a51db94163070a568913d7f",
+        "reviewStatus": "auto_certain",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "SAME_LOCAL_RISK_NOT_CONTENT_APPROVAL"
+    },
+    {
+      "id": "c10",
+      "order": 10,
+      "role": "trap",
+      "target": {
+        "kind": "anchor",
+        "id": "sentence:0"
+      },
+      "canonicalCueSha256": "2dd1cf009bff12889fed2ed5e558257ed76a3527f8423479c588aff2da29f812",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria",
+        "elimination"
+      ],
+      "reason": "② 함정/소거 반복; 진위 미확정 상태와 일관성 감수 필요",
+      "contentState": "HOLD_INDEPENDENT_CONTENT_REVIEW",
+      "eliminates": [
+        2
+      ],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "UNKNOWN",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:459b7bad66f9e213e0da84ecbe2f2207c55215cf2cd0657719886f64e21e386b",
+        "reviewStatus": "needs_review",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "G3_CONSERVATIVE_REVIEW_PROPOSAL_DO_NOT_OVERWRITE_RESEARCH"
+    },
+    {
+      "id": "c11",
+      "order": 11,
+      "role": "vocab",
+      "target": {
+        "kind": "analysis",
+        "id": "vocab"
+      },
+      "canonicalCueSha256": "c2802aab722858f37ef62727fc565093a0b427b600c678c9a047da01296efbe4",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria"
+      ],
+      "reason": "정답 선택지 핵심어와 어휘의 방향 노출",
+      "contentState": "NOT_NEWLY_APPROVED_BY_G3",
+      "eliminates": [],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "UNKNOWN",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:8d30dfc349539583bbc89db5dbe6cb4544c810d5261922011f2dc72dbcc08273",
+        "reviewStatus": "needs_review",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "G3_CONSERVATIVE_REVIEW_PROPOSAL_DO_NOT_OVERWRITE_RESEARCH"
+    },
+    {
+      "id": "c12",
+      "order": 12,
+      "role": "wrapup",
+      "target": {
+        "kind": "analysis",
+        "id": "procedure"
+      },
+      "canonicalCueSha256": "846a3c1d24dcf15b2671d0a821f01e9afb2466681c2a25d4639d4b5a4360b35c",
+      "proposedLevel": "hint",
+      "riskChannels": [
+        "speech",
+        "transcript",
+        "target",
+        "role",
+        "aria"
+      ],
+      "reason": "부정 빈칸의 일반 규칙을 제시; 조건/한계 누락 감수 필요",
+      "contentState": "HOLD_INDEPENDENT_CONTENT_REVIEW",
+      "eliminates": [],
+      "cumulativeHintAssessment": "PROPOSED_ONLY",
+      "existingResearch": {
+        "local": "UNKNOWN",
+        "cumulative": "ANSWER",
+        "lowerBound": "ANSWER",
+        "sourceHash": "sha256:0e25e460ee8e2cbc94c7f367c0f1f6bc22323fea920665b4cf48838cb1c56b89",
+        "reviewStatus": "needs_review",
+        "conflict": false,
+        "promoted": false
+      },
+      "relationshipToExisting": "G3_CONSERVATIVE_REVIEW_PROPOSAL_DO_NOT_OVERWRITE_RESEARCH"
+    }
+  ],
+  "cumulativeRules": {
+    "distinctRejectedChoices": [
+      1,
+      2,
+      4,
+      5
+    ],
+    "remainingChoice": 3,
+    "alternatePath": [
+      "c6",
+      "c7",
+      "c8",
+      "c9"
+    ],
+    "rule": "Evaluate actual visited distinct eliminations and semantic hints; repeats do not add a new rejection. Gate before the output that would complete a decisive set. Original sequence already reveals answer at c4.",
+    "reviewStatus": "NOT_APPROVED"
+  },
+  "firstProposedHint": "c1",
+  "firstDirectAnswer": "c4",
+  "safeNoneCueCount": 0,
+  "purpose": "G3 per-cue difference overlay versus existing research sidecar; not a second runtime tag source",
+  "researchSidecar": {
+    "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+    "path": "docs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2026.disclosure.json",
+    "fileSha256": "aa435b4298d15f6a46adce783d7aa8cc6f8a9383d1de3dc98b174cb90df3bb05",
+    "source": {
+      "repo_path": "apps/web/src/lib/csat/lecture-data/2026.json",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blob": "69a70a433f466e8593904d17aeb919ae8381724d",
+      "file_sha256": "sha256:26ede0e2f1b6f53331189246496ff1eec88386085e1ff2cb620ccaf850d3bfe4"
+    },
+    "sourceBindingMatched": true,
+    "all12CueHashesMatched": true,
+    "lectureVersion": 2,
+    "firstCertainAnswerIndex": 3,
+    "usedByProduct": false,
+    "classificationReviewIsContentApproval": false,
+    "qualityLimits": "21 reports templated why/quote fields not valid grounds; consensus conflicts and unreviewed local levels remain."
+  }
+}

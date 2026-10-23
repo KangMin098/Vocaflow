@@ -1,0 +1,186 @@
+{
+  "task": "T-0137",
+  "item": "2026#34",
+  "observedAt": "2026-10-23T18:06:57.580Z",
+  "hashAlgorithm": "SHA-256 UTF-8 canonical JSON: recursive sorted object keys,array order preserved; file hashes use raw bytes",
+  "database": {
+    "readOnly": true,
+    "privateEvidence": "D:/workspace/Vocaflow-AI-Control/runtime/g3-transfer-20261024/DB_READ.json",
+    "privateEvidenceSha256": "7d3b61d241dc4ea4cf901b5e4b1cc4db1568f542156dbb4a6b118fc0f2cb8b7b",
+    "selectQuery": "select jsonb_build_object('item',jsonb_build_object('id',i.id,'type_id',i.type_id,'answer',i.answer,'choices',i.choices,'choices_type',jsonb_typeof(i.choices),'passage_md5',md5(i.passage),'stem',i.stem,'body_ok',i.body_ok),'analyses',(select jsonb_agg(jsonb_build_object('version',a.version,'status',a.status,'units_version',a.units_version,'units_hash',a.units_hash,'choice_analysis',a.choice_analysis,'answer_locus',a.answer_locus) order by a.version) from public.csat_item_analyses a where a.item_id=i.id),'units',(select jsonb_agg(jsonb_build_object('units_version',u.units_version,'input_hash',u.input_hash,'units_hash',u.units_hash)) from public.csat_item_units u where u.item_id=i.id),'skeleton',(select jsonb_build_object('source_hash',s.source_hash,'built_at',s.built_at,'data_keys',(select jsonb_agg(k) from jsonb_object_keys(s.data)k)) from public.csat_item_skeletons s where s.item_id=i.id)) as data from public.csat_items i where i.id='2026#34';",
+    "choiceCount": 5,
+    "choicesSha256": "82df2c00fb6fe48f585622fcb54cc80061b41586cff358df8aee18f72d0640e6",
+    "officialAnswer": 3,
+    "latestPublishedAnalysisVersion": 5,
+    "analysisVersionStates": [
+      {
+        "version": 1,
+        "status": "published",
+        "unitsVersion": null,
+        "unitsHash": null,
+        "projectionSha256": "6fa6c299f848d4ebd0cd98da2a2cd759789695c1c381689564ff879d7db8d334"
+      },
+      {
+        "version": 2,
+        "status": "published",
+        "unitsVersion": null,
+        "unitsHash": null,
+        "projectionSha256": "23a2090ec57b22051d503f02e17158a65f325d2359306a826a377b208a5ea90a"
+      },
+      {
+        "version": 3,
+        "status": "published",
+        "unitsVersion": null,
+        "unitsHash": null,
+        "projectionSha256": "f9b91c307cde07cbd4e459612586885d25e3bd63030cd1cc1a0964f614847dd9"
+      },
+      {
+        "version": 4,
+        "status": "published",
+        "unitsVersion": null,
+        "unitsHash": null,
+        "projectionSha256": "b3d1191b487801088f0c1a77418ef9a8aeabea67ea726619b7abbe386b6eb3ed"
+      },
+      {
+        "version": 5,
+        "status": "published",
+        "unitsVersion": null,
+        "unitsHash": null,
+        "projectionSha256": "56f94c9ce2264d3870c9e4282a35295dae5ee10dbfabfc289f16385cb98181ef"
+      }
+    ],
+    "analysisHashScope": "Only version/status/units_version/units_hash/answer_locus/choice_analysis SELECT projection; not whole-row approval hash",
+    "unitsRowsPresent": false,
+    "skeletonRowPresent": false,
+    "passageMd5": "24b8b45d7343d300623a65d8fb54da6f",
+    "privilegedReadIsNormalAuthRlsProof": false
+  },
+  "pdfComparison": {
+    "status": "AUTHOR_VISUAL_MATCH_NOT_INDEPENDENT_CONTENT_APPROVAL",
+    "page": 6,
+    "examForm": "odd",
+    "choices": [
+      {
+        "n": 1,
+        "stored": true,
+        "visuallyMatched": true
+      },
+      {
+        "n": 2,
+        "stored": true,
+        "visuallyMatched": true
+      },
+      {
+        "n": 3,
+        "stored": true,
+        "visuallyMatched": true
+      },
+      {
+        "n": 4,
+        "stored": true,
+        "visuallyMatched": true
+      },
+      {
+        "n": 5,
+        "stored": true,
+        "visuallyMatched": true
+      }
+    ],
+    "question": {
+      "sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/official-2026-english.pdf"
+    },
+    "answer": {
+      "sha256": "363ce5277acb4fda6a6499fc546d2bf8e51a4d584bcaa6944e4885cbe22de58d",
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/official-2026-answers.pdf",
+      "priorAnswer34": 3
+    },
+    "pageImage": {
+      "sha256": "9e8667b7c21cde05e300fe2bacf1a5146058f606fd0e7a23a9f0fad6506bcdd4",
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/official-page-6.png"
+    },
+    "productPdfWorkerAlignmentVerified": false
+  },
+  "inquiry": {
+    "analysisVersion": 5,
+    "unitsHash": "7fb095d3cac4821e",
+    "canonicalRecordSha256": "fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4",
+    "choice2": {
+      "truth": "unknown",
+      "fit": "fails"
+    },
+    "registeredPairCount": 0,
+    "readyIsContentApproval": false
+  },
+  "meaning": {
+    "schema": "meaning-support/1",
+    "binding": {
+      "analysisVersion": 5,
+      "unitsHash": "7fb095d3cac4821e",
+      "basePublicHash": "fbe006f6d7a9d9fb976bc4e279b5d60fad8df762b1442b61d5629c3a0e0bb5e4",
+      "sourceSnapshotHash": "570bf3a5cbe78dd3"
+    },
+    "review": {
+      "criteria": "meaning-support-v1.0",
+      "contentHash": "8760faa1bc689ed5",
+      "reviewer": "ms-rv-2026-34-w4"
+    },
+    "canonicalRecordSha256": "4b5f9304aca1424af99237e8269a92f9f070bfbc6037bbd31f5113c81614639a",
+    "baseHashMatches": true,
+    "reviewContentHashMatches": true,
+    "alignmentSentences": 7,
+    "sourceSnapshotHashIsPdfSha256": false,
+    "liveSourceSnapshotHashRecheckedByLoader": false
+  },
+  "fileSkeleton": {
+    "present": true,
+    "canonicalRecordSha256": "ea3a60ffd85c22d83e505d36585dc4b9f978aeadcc876e0eebdfa81be3700d2c"
+  },
+  "lecture": {
+    "version": 2,
+    "cueCount": 12,
+    "canonicalRecordSha256": "7ea95e11c445723f343e93571b89f3a0d5e79b57939746b6351af7fbfccfd463",
+    "analysisBindingPresent": false,
+    "disclosureTagsPresent": false,
+    "contentApprovedForG3": false
+  },
+  "preserved": {
+    "D1A": "ACCEPT",
+    "C1Content": "NOT_APPROVED",
+    "D2": "ACCEPT",
+    "F08": "UNDETERMINED",
+    "transfer34": "ACCEPT_DESIGN_ONLY",
+    "product34": "NOT_COMPLETE",
+    "wholeS1": "NOT_APPROVED",
+    "wholeS2": "NOT_APPROVED",
+    "mainIntegration": "NOT_APPROVED"
+  },
+  "unverified": [
+    "normal learner auth and RLS",
+    "real local PDF worker/crop/text alignment",
+    "latest lecture branch AnalysisTheater browser interactions",
+    "full keyboard and screen reader",
+    "color contrast",
+    "real TTS",
+    "learner effectiveness",
+    "independent content approval of34② and held cues"
+  ],
+  "researchSidecar": {
+    "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+    "path": "docs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2026.disclosure.json",
+    "fileSha256": "aa435b4298d15f6a46adce783d7aa8cc6f8a9383d1de3dc98b174cb90df3bb05",
+    "source": {
+      "repo_path": "apps/web/src/lib/csat/lecture-data/2026.json",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blob": "69a70a433f466e8593904d17aeb919ae8381724d",
+      "file_sha256": "sha256:26ede0e2f1b6f53331189246496ff1eec88386085e1ff2cb620ccaf850d3bfe4"
+    },
+    "sourceBindingMatched": true,
+    "all12CueHashesMatched": true,
+    "lectureVersion": 2,
+    "firstCertainAnswerIndex": 3,
+    "usedByProduct": false,
+    "classificationReviewIsContentApproval": false,
+    "qualityLimits": "21 reports templated why/quote fields not valid grounds; consensus conflicts and unreviewed local levels remain."
+  }
+}

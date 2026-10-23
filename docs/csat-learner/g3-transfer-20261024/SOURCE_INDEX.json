@@ -1,0 +1,651 @@
+{
+  "task": "T-0137",
+  "observedAt": "2026-10-23T18:05:39.858Z",
+  "refs": {
+    "accepted": "81d6732b2e89566f8198bf9c5f9cbd0ccbe88ecd",
+    "main": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+    "research": "810a463acf8e9221fca3484d66f31d843f4a543d",
+    "lecture": "0e36138e3385aad47b4b02d542b4461cf338365b"
+  },
+  "productScopeDeltaFromAccepted": "",
+  "lectureBehindMain": 0,
+  "lectureMainDelta": "M\tapps/web/src/components/csat/__tests__/theater-delivery-guard.test.ts\nM\tapps/web/src/components/csat/lecture/LectureStage.tsx\nM\tapps/web/src/components/csat/theater/AnalysisTheater.tsx\nM\tapps/web/src/components/csat/theater/theater.module.css\nA\tapps/web/tests/e2e/csat-lecture-learner-control.spec.ts",
+  "worktrees": [
+    {
+      "path": "D:/workspace/Vocaflow-csat-v4-s0",
+      "initialHead": "81d6732b2e89566f8198bf9c5f9cbd0ccbe88ecd",
+      "initialDirty": false,
+      "refreshHead": "81d6732b2e89566f8198bf9c5f9cbd0ccbe88ecd",
+      "refreshDirty": true
+    },
+    {
+      "path": "D:/workspace/Vocaflow-lecture-learner-control",
+      "initialHead": "2bd99a0f13411b1dc399d2b33b9d7396b046fc0a",
+      "initialDirty": false,
+      "refreshHead": "0e36138e3385aad47b4b02d542b4461cf338365b",
+      "refreshDirty": false
+    },
+    {
+      "path": "D:/workspace/Vocaflow-main-serving",
+      "initialHead": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "initialDirty": false,
+      "refreshHead": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "refreshDirty": false
+    }
+  ],
+  "files": [
+    {
+      "branch": "main",
+      "path": "apps/web/src/app/(app)/csat/item/[slug]/page.tsx",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "795e0f3b15df064c72d22742fe9609870999559e1007f6edf9015ec4c25a072c"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/components/csat/theater/AnalysisTheater.tsx",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "967c8c68bae9af6ad3a8768b2af7a80889c8fb27a9d22206d241d4d5264990e9"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/components/csat/theater/InquiryV3Panels.tsx",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "0a2e9ac689b4f4666f47026da08b2a3f0f153dc39d3e63946df149c9ff003d40"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/components/csat/lecture/LectureStage.tsx",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "ea06d7ba808aca36a6d5616e69649e3607d1d8ae1a970901e98478c6ec57cf5f"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/components/csat/lecture/LecturePlayerBar.tsx",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "53dfb2a66f4b0e7513294d2915c0aceef3f95b55e2008a9575cc4b8538ab6b60"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/learner.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "b83b3e0204e8846f8f59a6095cafba54930e0aabe5077dfc7db63cb33800ec62"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/inquiry/data.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "b6d2608e818b522cb4da3c83c964ce4779e4adc6a695078800d58037efd1d109"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/inquiry/compare-v3.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "77560ff2fb7875d5e5827e92fd68ed16817cbdb6524d19d014e0c75674c086c3"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/meaning-support/data.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "a2f902926c9ed9e4cac4bcff6c9ca5450ae13f87f04c4dd40e86a3515db3d149"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/meaning-support/align.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "8e7fa8fcdbfc361e2e297cb2b6f9c5db6bac74b9563e3d6eaa0a4a17952ab82f"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/meaning-support/model.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "e17144846e6970748de4db1c384e0b7280c2819ddfea559e5676cb229c8ae3cb"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/lecture/store.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "c3ec202e331edaa7d09cfc36888a381d25532ea307a3e33de1d097e7e2533aec"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/lecture/types.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "2815f4536d10a962627d47eabbdaabb0a2274df6c6ae9f49217c5a127dc20a08"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/lecture/player.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "424c16ab56f92bbdd9e9155b5c729c9e828fee9438f4c272e3543a7f91572e5a"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/lecture/tts.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "734e02f9bd83387497746f1a650b8f48785dff9adf1afc9ca00da851c0b0ea86"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/skeleton.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "989616ef903854ca6b98ac0f1483c020178a7a7da41b5e57e96b3a0f0bad07d7"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/map-return.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "8df2ca8a66464abe5d7d4b6ddc729f6c306e63a18f23ebe92cdc1bad4f94aec1"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/system-learning.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "b4d10b3927a03195ce76bd754e128a3faaea472def55d74b2c9e0b0fdcbadd60"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/app/api/csat/lecture/route.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "62db9b7797cd9514b6a51dfe13b21eae1e799acdeb0b969d66701d8ee5462c7c"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/reflow/dev-paper.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "b09ddbc7ae62fd8dc674df4023922115b2d5ec47fee51d82469d6b38cbfa2349"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/reflow/read-paper.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "1b139d7ea81f55c0bb030ba88bd9b6ab79aba3131787ef1b4b0227a509b311de"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/session/reveal.ts",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "380c106af2c97297b1088656177c4b91ef2bf91975ddd7528a04f1ff1058f621"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/inquiry-data.json",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "14037f59cbbd972c20761e7bd806bedd832b2c8f987c0adf9ad679d578345534"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/meaning-support-data.json",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "594c8baa7ec52985fce1523cf60ad8e2d0cd87a4c3a4c941bed833e325c147ae"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/lecture-data/2026.json",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "26ede0e2f1b6f53331189246496ff1eec88386085e1ff2cb620ccaf850d3bfe4"
+    },
+    {
+      "branch": "main",
+      "path": "apps/web/src/lib/csat/skeleton-data/2026.json",
+      "commit": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "blobSha256": "75d49e232ec5b91cfa1ad02f61360e948c0c7ea628188099655f28b04d63ab0a"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/00_INTEGRATED_DESIGN.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "95b79686652d9535e456713a4194c336a1d15cb062fb56603d5c1a05a7819f67"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/01_TYPE_MATRIX.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "abaf05e9970fb46413bc83893f7b0c9ea47ed6b2506d5085a9d59b453a6fce94"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/02_CONTENT_CONFLICTS.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "b56785eb49d9cf823df048ce9a5aed1f0c8eb46e49758a60bf78c75f3ca59225"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/03_VERSION_AND_DATA_CONTRACTS.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "bdf800bc7689ecfb793fabd2f974fa8d3622065a04387c2e8219f6141effba12"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/04_UI_MODELS_UX.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "cae0d6f7771a7371f5c16f12ef11b7025670525274b23dbb01c003ab697df794"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/05_TYPE_B_GIST.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "fd5b0601c172bb76ed8611e737fe22e977fd0fc39269e32d9842c54bb3532159"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/06_TYPE_C_BLANK_INFERENCE.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "327d22f4c9e497f9713b43e40322750e43a6a0c3a11b5a3d0de72e7c61b1aaa3"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/07_TYPE_D_DISCOURSE.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "43adb132c9dfbfb792a61dbb5ea0b0dfd3a5dcf90528bf2e7a52a531e8cd5358"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/08_TYPE_E_INFO_FORM.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "a4ccadac029a410df3105905712444f32566139fcd9444479926cf37c7feb43a"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/09_TYPE_F_LISTENING.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "6988a307f3068cb06af0ca24737c67cd1a7441bc808d9dc35e176e81a5d9d23f"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/10_LECTURE_DESIGN.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "dcd8a708b2b1b7aa5af3d26cfe6359379db66d63991334886541f85cbcabe451"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/11_CROSS_REVIEW.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "9a57b6b248568ebb16abd574241a41e387cea7f88bb21a0f8c0a7a56be2e906a"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/12_IMPACT_AND_DECISIONS.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "931cb056ea762758d6a05c3d917ecdb710015646002f7244a0f4050a0d8daa89"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/13_TYPE_R_MOOD.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "e7372a7c55c21d1e5bdd6794a8ab840f3bbc5d514ce19bd2cec9b7f8b94013f8"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/14_PRODUCT_DECISIONS.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "723c25ebeaf8d642419fe7d24d5dbc223b6963e7998c5299e0e51f709d60c167"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/15_INDEPENDENT_VERIFICATION.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "3d1518a676a830bfe13bfb4771fec8673888ef41b6954ceb7eb9f7442dcdac5c"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/16_CUE_DISCLOSURE_AUDIT.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "ca8a2045367e74704c64d41290e9318378c84d85d647fa93525e5a2f9a83f620"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/17_LEARNER_CONTROL_GATE.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "3eb26a8ad8b276bbb4e83aa8c2255daba4c5afc52301c6838c8bac3007b06cd1"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/18_INDEPENDENT_VERIFICATION_R2.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "a8ae52a333b3ee3c588c170309602a62cecb9524d41b1c58209bbc30ccd037f0"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/19_INDEPENDENT_VERIFICATION_R3.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "1434a2bebb730e1ecf874e72fe518dc90d96842f68f34ca0a028431cfb40e7d0"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/cue-audit/chunks/chunk-01.out.json",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "fa68303c832ccd6204652fe325c5c480131b6288488de63d5d31b5a1298e12b2"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/cue-audit/deterministic.json",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "08b0fd1e281048474e04fa1d52a6f278234b6a8699bd37623eba91aba6b15873"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/cue-audit/sample-summary.json",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "41dbcd554ecee134deeb2ed4fa77fc23893b1dce6799d5b6f1afaf10e99315f1"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/harness/harness-results.json",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "ed2648c82dc7e4134da5e862385edffca1d4c52cf9b662facb733e9c756dfaa9"
+    },
+    {
+      "branch": "lecture",
+      "path": "apps/web/src/components/csat/lecture/LectureStage.tsx",
+      "commit": "0e36138e3385aad47b4b02d542b4461cf338365b",
+      "blobSha256": "ef53c2d40b89b2337be1698a9ffabc3ecc48c9ea47e6d895dec1c15abfeeacc4"
+    },
+    {
+      "branch": "lecture",
+      "path": "apps/web/src/components/csat/theater/AnalysisTheater.tsx",
+      "commit": "0e36138e3385aad47b4b02d542b4461cf338365b",
+      "blobSha256": "ea951dc6870c2c1eaa4deddd65d0612f98c93b9b7799f56eb5b9ace0967ed727"
+    },
+    {
+      "branch": "lecture",
+      "path": "apps/web/src/components/csat/theater/theater.module.css",
+      "commit": "0e36138e3385aad47b4b02d542b4461cf338365b",
+      "blobSha256": "bfdd83017d07ffc8be7b2b7b4b5cee9b88be89d8c34a11b662d43278fb7168d4"
+    },
+    {
+      "branch": "lecture",
+      "path": "apps/web/src/components/csat/__tests__/theater-delivery-guard.test.ts",
+      "commit": "0e36138e3385aad47b4b02d542b4461cf338365b",
+      "blobSha256": "f5bc629e036ee763d2072bb6ebdc142a9ffe4a9f2490e2aa774bbb6fc13ae3bf"
+    },
+    {
+      "branch": "lecture",
+      "path": "apps/web/tests/e2e/csat-lecture-learner-control.spec.ts",
+      "commit": "0e36138e3385aad47b4b02d542b4461cf338365b",
+      "blobSha256": "34150093116fd562a9de9d9618b565bc88bb1c82800265f1918ca7a5bbe3beb4"
+    },
+    {
+      "branch": "accepted",
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/PRODUCT_TRANSFER_2026_34.md",
+      "commit": "81d6732b2e89566f8198bf9c5f9cbd0ccbe88ecd",
+      "blobSha256": "06d140b297ffa24bd0f0455f5196477fc54a52de676c81b9c4c5a59acd3bde26"
+    },
+    {
+      "branch": "accepted",
+      "path": "docs/csat-learner/skeleton-v4/s1-v6/correction/r2/F08_EVALUATION.md",
+      "commit": "81d6732b2e89566f8198bf9c5f9cbd0ccbe88ecd",
+      "blobSha256": "d4226b16c4909884b2cb39eb2d7b3a2815255844b842442396ace91f037a3729"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/20_INDEPENDENT_VERIFICATION_R4.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "4c87dc6780b16058b6bc9ec22748d294dd1c7dde0b943c58182787921d580f63"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/21_CUE_DISCLOSURE_SIDECAR.md",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "6b9d6403a26fd1868b6cd76fd548b998a84de195bb71f53fc367b7da8df4e4f0"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2026.disclosure.json",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "aa435b4298d15f6a46adce783d7aa8cc6f8a9383d1de3dc98b174cb90df3bb05"
+    },
+    {
+      "branch": "research",
+      "path": "docs/csat-learner/all-types-research-20261024/cue-audit/review-summary.json",
+      "commit": "810a463acf8e9221fca3484d66f31d843f4a543d",
+      "blobSha256": "8ccb62b3712089400a76a9f4a48cbd1c62f9ea60fedda95aece86e1ade4e5023"
+    }
+  ],
+  "privateSnapshot": "D:/workspace/Vocaflow-AI-Control/runtime/g3-transfer-20261024/SNAPSHOT_R2.json",
+  "privateSnapshotSha256": "d76568400c75522cb1fbb33409ba2004e2bc34ac6c6af0bb48fb6cfb25fbd032",
+  "conflicts": {
+    "scannedLocalBranches": 294,
+    "noCommonHistory": [
+      {
+        "ref": "ai-control",
+        "reason": "NO_COMMON_HISTORY"
+      },
+      {
+        "ref": "ai-control-localfast",
+        "reason": "NO_COMMON_HISTORY"
+      },
+      {
+        "ref": "ai-control-statesplit",
+        "reason": "NO_COMMON_HISTORY"
+      },
+      {
+        "ref": "feat/ai-control-dynamic-roles",
+        "reason": "NO_COMMON_HISTORY"
+      },
+      {
+        "ref": "fix/localfast-continuity-20261020",
+        "reason": "NO_COMMON_HISTORY"
+      }
+    ],
+    "committedDeltaCandidates": [
+      {
+        "ref": "design/illo-quality",
+        "head": "0c52f52d32411004dcda1ea862b3d1f626bc93e4",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-07T11:31:59+09:00"
+      },
+      {
+        "ref": "design/replica-first",
+        "head": "8cd15b7b65172f988c3b0cdfb2c2607009cb7647",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-08T11:04:04+09:00"
+      },
+      {
+        "ref": "docs/ec-detector-design",
+        "head": "353a9dfec2e35e2b524e5d8f475f804f5eb17434",
+        "files": [
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-06T09:41:04+09:00"
+      },
+      {
+        "ref": "feat/anchor-study",
+        "head": "e70a0c0d56fc1e1f7314afbcfd21f78dc96a4328",
+        "files": [
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-04T18:28:38+09:00"
+      },
+      {
+        "ref": "feat/bespoke-heads",
+        "head": "dd82415d726182900845f7e76e6578efcfe98640",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-05T12:14:29+09:00"
+      },
+      {
+        "ref": "feat/body-composition",
+        "head": "5e014fdec0a2c3cc91ffb5b178366769802886c1",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-05T08:01:32+09:00"
+      },
+      {
+        "ref": "feat/ec-detector",
+        "head": "b589d04a8eb85e60beec2b8f7d9accef9c8c344d",
+        "files": [
+          "apps/web/src/app/api/csat/lecture/route.ts",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-06T17:07:05+09:00"
+      },
+      {
+        "ref": "feat/ec-pilot-gate",
+        "head": "93d534ed3322b12bcbf67b19309c0062eba756fa",
+        "files": [
+          "apps/web/src/app/api/csat/lecture/route.ts",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-06T18:50:43+09:00"
+      },
+      {
+        "ref": "feat/ec-reveal-app",
+        "head": "26de1d55b2750e65a4093d6bb79c4ec16ee2ba57",
+        "files": [
+          "apps/web/src/app/api/csat/lecture/route.ts",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-07T09:34:29+09:00"
+      },
+      {
+        "ref": "feat/ec-smoke",
+        "head": "9380c68c8940acddc0009d6bda95d3a5cd4c405b",
+        "files": [
+          "apps/web/src/app/api/csat/lecture/route.ts",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-07T15:58:23+09:00"
+      },
+      {
+        "ref": "feat/learner-finish",
+        "head": "3ef9777fa0b2e06528648d7b50696ff42331fab0",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-05T14:25:21+09:00"
+      },
+      {
+        "ref": "feat/lecture-learner-control",
+        "head": "2bd99a0f13411b1dc399d2b33b9d7396b046fc0a",
+        "files": [
+          "apps/web/src/components/csat/lecture/LectureStage.tsx",
+          "apps/web/src/components/csat/theater/AnalysisTheater.tsx",
+          "apps/web/src/components/csat/theater/theater.module.css"
+        ],
+        "lastCommit": "2026-10-24T02:28:48+09:00"
+      },
+      {
+        "ref": "feat/map-core",
+        "head": "a2dd93d3a906bce7f8a8ed304a88a2f7215b273c",
+        "files": [
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-03T22:44:25+09:00"
+      },
+      {
+        "ref": "feat/map-vnext",
+        "head": "981e75083b308c961a19dd96c5c21a2ed2df2d17",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-08T11:58:19+09:00"
+      },
+      {
+        "ref": "feat/reveal-gate-verify-20261006",
+        "head": "dbf2fadf526381033e91f546b17a599bdd8bf734",
+        "files": [
+          "apps/web/src/app/api/csat/lecture/route.ts",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-06T17:08:47+09:00"
+      },
+      {
+        "ref": "feat/textbook-factory-phase1",
+        "head": "d431fd82b5f865a2d910fd062bf537dcb3da262b",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-10T02:25:17+09:00"
+      },
+      {
+        "ref": "fix/admin-touch-target",
+        "head": "cf8a4b3e6baf224b25184ad1be441e3247031e13",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-05T17:36:26+09:00"
+      },
+      {
+        "ref": "fix/csat-finder-followup",
+        "head": "63e0bed57132358d16f03d2e095d681f6a1b325f",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css"
+        ],
+        "lastCommit": "2026-10-14T13:43:13+09:00"
+      },
+      {
+        "ref": "fix/vocab-modal-count",
+        "head": "a477ee26ae023af2da388563749c8a9b376d06cb",
+        "files": [
+          "apps/web/src/components/csat/theater/theater.module.css",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-05T15:12:56+09:00"
+      },
+      {
+        "ref": "integrate/csat-on-replica",
+        "head": "a396206ee9b7300db2db16e36d49581306524479",
+        "files": [
+          "apps/web/src/components/csat/theater/AnalysisTheater.tsx",
+          "apps/web/src/components/csat/theater/theater.module.css"
+        ],
+        "lastCommit": "2026-10-14T19:45:40+09:00"
+      },
+      {
+        "ref": "test/ec-pilot-e2e",
+        "head": "602e5836a4aa52b03554ae1a8b9e608faf222130",
+        "files": [
+          "apps/web/src/app/api/csat/lecture/route.ts",
+          "apps/web/src/lib/csat/lecture-data/2026.json"
+        ],
+        "lastCommit": "2026-10-06T18:54:56+09:00"
+      }
+    ],
+    "registeredOwners": [
+      {
+        "owner": "csat-v4-s0",
+        "path": "d:/workspace/vocaflow-csat-v4-s0",
+        "branch": "docs/csat-v4-s0-20261023"
+      }
+    ],
+    "interpretation": "Deltas are potential conflicts, not proof of live editing or permission to write.",
+    "observedAt": "2026-10-23T17:54:26.590Z"
+  },
+  "researchNotes": [
+    {
+      "source": "16_CUE_DISCLOSURE_AUDIT.md",
+      "finding": "Table first hint:45+61=106 lectures in first2 cues;116 includes10 in third cue. Narrative claim116 in first1-2 is not reused.",
+      "scope": "Source arithmetic observation only, no rejudgment of corpus."
+    }
+  ],
+  "initialSnapshot": {
+    "path": "D:/workspace/Vocaflow-AI-Control/runtime/g3-transfer-20261024/SNAPSHOT.json",
+    "sha256": "8056bdaebff390065ca464e36ddda76c3024f7783059e336a6dfce5c2ba9c1fc",
+    "refs": {
+      "accepted": "81d6732b2e89566f8198bf9c5f9cbd0ccbe88ecd",
+      "main": "e3e0a6a0e4327e0eabfaca83f47568a75be080b6",
+      "research": "a518bef7cf0170c8df5f076175c8f14a93941337",
+      "lecture": "2bd99a0f13411b1dc399d2b33b9d7396b046fc0a"
+    }
+  },
+  "followup": {
+    "observedAt": "2026-10-23T18:05:39.858Z",
+    "lectureDeltaSinceIntake": "apps/web/src/components/csat/theater/AnalysisTheater.tsx | 8 +++++++-\n 1 file changed, 7 insertions(+), 1 deletion(-)",
+    "researchDeltaSinceIntake": "docs/csat-learner/all-types-research-20261024/20_INDEPENDENT_VERIFICATION_R4.md\ndocs/csat-learner/all-types-research-20261024/21_CUE_DISCLOSURE_SIDECAR.md\ndocs/csat-learner/all-types-research-20261024/cue-audit/review-merge.mjs\ndocs/csat-learner/all-types-research-20261024/cue-audit/review-summary.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-1.A.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-1.B.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-1.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-2.A.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-2.B.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-2.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-3.A.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-3.B.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-3.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-4.A.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-4.B.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-4.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-5.A.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-5.B.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/review/group-5.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-build.mjs\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2014A.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2014B.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2015.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2016.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2017.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2018.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2019.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2020.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2021.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2022.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2023.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2024.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2025.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/2026.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M1809.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2006.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2106.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2109.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2206.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2209.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2306.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2309.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2406.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2409.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2506.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2509.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2606.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2609.disclosure.json\ndocs/csat-learner/all-types-research-20261024/cue-audit/sidecar-reviewed/M2706.disclosure.json",
+    "refDriftHandled": true
+  }
+}
