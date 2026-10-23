@@ -687,6 +687,60 @@ test('controller reports/state are operational writes, while controller source r
   assert.match(task(root, t2.task_id).blocker.reason, /foreign_worktree_write/)
 })
 
+test('guarded concurrency survives task submission (live registered session without product lock)', () => {
+  const root = setup(), foreign = mkWorktree()
+  assert.equal(vfc(root, ['owner', 'bind-worktree', 'data-contract', foreign, '--branch', 'feat/t']).code, 0)
+  assert.equal(vfc(root, ['owner', 'bind-session', 'data-contract', '--agent', 'claude', '--session', 'still-working-after-submit', '--pid', String(process.pid)]).code, 0)
+  const t = addTask(root)
+  const result = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'concurrent', FAKE_FOREIGN_WT: foreign })
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', result.err + result.out)
+  assert.ok(result.json.run.events.some((e) => e.phase === 'concurrent_owner_activity'))
+})
+
+test('taskless work in a bound worktree with a live product lock does not require extra session registration', () => {
+  const root = setup(), foreign = mkWorktree()
+  assert.equal(vfc(root, ['owner', 'bind-worktree', 'data-contract', foreign, '--branch', 'feat/t']).code, 0)
+  fs.writeFileSync(path.join(foreign, '.agent-lock'), JSON.stringify({ agent: 'claude', pid: process.pid, host: os.hostname(), started_at: new Date().toISOString() }))
+  const t = addTask(root)
+  const result = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'concurrent', FAKE_FOREIGN_WT: foreign })
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', result.err + result.out)
+  assert.ok(fs.existsSync(path.join(foreign, '.agent-lock')), 'another worker lock is preserved')
+})
+
+test('crashed implementation preserves partial files and resumes only from the exact owner checkpoint', () => {
+  const root = setup(), t = addTask(root)
+  const first = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'crash' })
+  assert.equal(task(root, t.task_id).status, 'BLOCKED', first.err + first.out)
+  assert.match(task(root, t.task_id).blocker.reason, /agent_execution_failed/)
+  const file = path.join(t.wt, 'src', `${t.task_id}.ts`)
+  assert.equal(fs.readFileSync(file, 'utf8'), '// retained partial work\n')
+  assert.equal(task(root, t.task_id).last_implementation.cost_usd, null, 'crash without provider receipt is not reported as zero cost')
+  const prepared = vfc(root, ['task', 'prepare-resume', t.task_id, '--by', OWNER, '--reason', 'verified own crash output'])
+  assert.equal(prepared.code, 0, prepared.err)
+  assert.equal(vfc(root, ['task', 'unblock', t.task_id, '--by', OWNER]).code, 0)
+  fs.appendFileSync(file, '// intervening change\n')
+  const changed = JSON.parse(vfc(root, ['doctor', '--owner', OWNER, '--json']).out).tasks.find((x) => x.task_id === t.task_id)
+  assert.equal(changed.eligible, false, 'never adopt a change made after the checkpoint')
+  fs.writeFileSync(file, '// retained partial work\n')
+  const second = orch(root, ['--owner', OWNER])
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', second.err + second.out)
+  assert.ok(fs.readFileSync(file, 'utf8').startsWith('// retained partial work\n'), 'partial work was continued, not reverted')
+})
+
+test('UI task records declared UI evidence through existing validator; missing UI remains blocked', () => {
+  const root = setup()
+  const allowed_paths = ['src/**', 'apps/web/src/components/Feature.tsx']
+  const ui_acceptance = ['synthetic UI criterion']
+  const t = addTask(root, { allowed_paths, ui_acceptance })
+  const success = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'ui' })
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', success.err + success.out)
+  assert.ok(task(root, t.task_id).evidence.some((e) => e.type === 'ui'))
+  const missing = addTask(root, { allowed_paths, ui_acceptance })
+  const failure = orch(root, ['--owner', OWNER])
+  assert.equal(task(root, missing.task_id).status, 'BLOCKED', failure.err + failure.out)
+  assert.match(task(root, missing.task_id).blocker.reason, /ui_evidence_missing/)
+})
+
 // RP-2026-10-10.1 — 독립 리뷰 캐시는 같은 diff·계약에 더해 같은 정책 판·같은 effort 일 때만 다시 쓴다(낮은 effort APPROVE 로 높은 요구를 건너뛰지 않는다)
 test('RP1 독립 리뷰 캐시 키에 정책 판과 effort 가 들어간다', async () => {
   const { reviewKeyForTest, REVIEW_POLICY_VERSION, AUTO_CODEX } = await import('../lib/orchestrator.mjs')

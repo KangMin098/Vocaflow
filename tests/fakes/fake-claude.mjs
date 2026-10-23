@@ -26,6 +26,11 @@ if (scenario === 'hang') {
   Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 120000)
   process.exit(0)
 }
+if (scenario === 'crash') {
+  fs.mkdirSync('src', { recursive: true })
+  fs.writeFileSync(path.join('src', `${taskId}.ts`), '// retained partial work\n')
+  process.exit(1)
+}
 if (scenario === 'foreign') {
   // 범위 밖: 다른 owner 의 worktree 에 파일을 쓴다 — 오케스트레이터가 foreign_worktree_write 로 막아야 한다
   fs.writeFileSync(path.join(process.env.FAKE_FOREIGN_WT, 'intruder.txt'), 'x')
@@ -64,6 +69,12 @@ fs.mkdirSync('.vfc-runs', { recursive: true })
 fs.writeFileSync('.vfc-runs/test.log', 'fake tests passed\n')
 const findings = [...prompt.matchAll(/^- (F\d+|ACC) \[/gm)].map((m) => m[1])
 const action = process.env.FAKE_CLAUDE_FINDINGS || 'fixed'
+let ui = null
+if (scenario === 'ui') {
+  fs.writeFileSync('.vfc-runs/shot.png', 'synthetic UI schema fixture')
+  fs.writeFileSync('.vfc-runs/ui.json', '{}')
+  ui = { type: 'ui', result: 'pass', skip_count: 0, command_or_protocol: 'synthetic UI contract fixture', artifact_path_or_url: '.vfc-runs/ui.json', observed_at: new Date().toISOString(), covers: Array.from({ length: nAcc }, (_, i) => i), commit: git('rev-parse', 'HEAD'), urls: ['http://harness.local/'], viewport: { width: 1440, height: 900 }, environment: 'isolated fixture', screenshots: ['.vfc-runs/shot.png'], checks: Object.fromEntries(['render', 'layout_pc', 'readability_hierarchy', 'design_system', 'journey_interaction', 'states', 'accessibility', 'navigation_progress', 'visual_regression', 'design_acceptance'].map((k) => [k, 'pass'])), defects: [], ui_acceptance_results: ['pass'] }
+}
 fs.writeFileSync(
   reportPath,
   JSON.stringify({
@@ -77,6 +88,7 @@ fs.writeFileSync(
     ],
     notes: 'fake',
     findings_response: findings.map((id) => ({ finding_id: id, action, rationale: action === 'false_positive' ? 'contested: 이 작업 범위 밖의 지적이다(코드 근거 src/)' : '고쳤다', evidence: target })),
+    ...(ui ? { ui_evidence: ui } : {}),
   }),
 )
 console.log(JSON.stringify({ total_cost_usd: scenario === 'costly' ? 1.0 : 0.01, result: 'done', is_error: false }))

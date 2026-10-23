@@ -83,6 +83,7 @@ test('live owner content changes do not blame guarded Claude; unknown/forbidden 
   assert.deepEqual(classifyWorktreeChanges({ other: snap('a', {}) }, { other: snap('b', { 'src/a.ts': 'two' }) }, { guarded: true }).suspicious, ['other'])
   assert.deepEqual(classifyWorktreeChanges(a, { other: snap('c', { 'src/a.ts': 'one', 'src/secret.ts': 'bad' }, writer) }, { guarded: true }).suspicious, ['other'])
   assert.deepEqual(classifyWorktreeChanges(a, { other: null }, { guarded: true }).suspicious, ['other'])
+  assert.deepEqual(classifyWorktreeChanges({}, b, { guarded: true }), { concurrent: ['other'], suspicious: [] }, 'new live-owner registration is not a retrospective write claim')
 })
 
 function amendmentFixture() {

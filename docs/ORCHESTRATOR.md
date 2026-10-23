@@ -22,6 +22,8 @@
 
 제어 공간 자체가 owner worktree로 등록된 경우에도 `state/`, `runtime/`, `verification/goal-check/`의 운영 파일 생성은 제품 변경으로 세지 않는다. 제어 공간의 소스·설정·문서는 계속 검사한다. 회귀는 실제 보고서/상태 생성의 정상 완료와 같은 제어 공간에 무단 소스 파일을 쓰는 차단을 함께 확인한다.
 
+완료 후에도 살아 있는 등록 세션, taskless 작업의 살아 있는 제품 잠금, 실행 중 추가된 owner/worktree 등록도 구별한다. 비교 전 기준선이 없던 새 등록을 현재 구현자의 침범 증거로 쓰지 않는다. Claude 프로세스가 보고서 없이 비정상 종료하면 변경을 보존해 차단하고 종료 코드를 노출한다. 비용 영수증이 없으면 비용은 미확인이다. 재개는 owner가 확인한 정확한 변경 체크포인트로만 허용하며, UI 보고서의 `ui_evidence`는 기존 UI 검증기를 그대로 통과해야 한다.
+
 | 파일 | 역할 |
 |---|---|
 | `bin/goal-check.mjs` · `lib/goalcheck.mjs` | 정본 40목표의 **수용 기준(criterion_id)마다** 판정 → `verification/goal-check/GC-*.json` + GOAL_STATUS(바뀐 것만, 이전 상태·이유) |

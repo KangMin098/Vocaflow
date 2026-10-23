@@ -35,6 +35,10 @@ node bin/vfc.mjs task complete T-0005 --by independent-review --review verificat
 
 프로세스 시작 확인은 작업 완료가 아니다. 실행 뒤에는 `doctor --owner <owner> --json`의 `implementation_running`, `attention_required`, `blockers`, `last_implementation`을 확인한다. 마지막 보고서 경로·실제 비용·원래 차단 설명은 안전 차단이 겹쳐도 보존된다. BLOCKED/WAITING_CHATGPT는 확인과 조치가 필요하며 자동 재개를 뜻하지 않는다.
 
+중단된 자기 구현에 미커밋 변경이 남았으면 owner가 내용을 확인한 뒤 `task prepare-resume <id> --by <owner> --reason "기존 자기 변경 확인 근거"`를 실행한다. 종료된 run·허용 경로·HIGH/금지 경로·실제 경로를 검사하고 HEAD/계약/모든 변경 파일 해시를 결속한다. 이어 `task unblock` 후 같은 작업을 재개한다. 체크포인트 뒤 파일·HEAD·계약이 달라지면 자동 실행은 다시 거부한다. 다른 작업자의 변경을 자동 인수하거나 파일을 되돌리는 명령이 아니다.
+
+UI 작업의 자동 구현 보고서는 `ui_evidence`에 기존 UI 증거 형식을 싣는다. 제어기가 기존 `task evidence` 검증기로 기록하므로 구현 에이전트에 상태 CLI 권한을 추가할 필요가 없다. 빠진 UI 증거나 실행하지 않은 검사는 완료로 인정하지 않는다.
+
 ## 승인이 필요한 작업
 
 DB 쓰기·main 머지·배포·시크릿은 사용자가 승인한 뒤에만 시작된다.
