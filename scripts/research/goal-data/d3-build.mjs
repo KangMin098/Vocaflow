@@ -18,8 +18,9 @@ const SOURCES = [
   { batch: 'pilot-1', dir: PILOT1, input: path.join(PILOT1, 'pilot-input.json'), tasks: all },
   { batch: 'b2-v2', dir: path.join(ROOT, 'scripts/research/goal-data/local/b2-v2'), input: path.join(ROOT, 'scripts/research/goal-data/local/b2-v2/input.json'), tasks: all.filter((t) => t.kind !== 'integrated') },
 ]
-// 입력에 시각 자료 · 주어진 문장이 없어 판정이 원문으로 닫히지 않은 유형(D1 결손 후보) — 근거 미확인으로 분리한다
-const SOURCE_GAP_TYPES = { 'R-INSERT': 'given_sentence_missing', 'R-CHART': 'chart_missing' }
+// 판정이 원문으로 닫히지 않은 유형 — 근거 미확인으로 분리한다.
+// 도표: 수치가 문항 필드에 없다(원천 결손). 삽입: 주어진 문장이 passage 접두로 있는데 분석자가 「없음」 으로 오독했다(T-0088 정정) — 재판정 전 무효
+const SOURCE_GAP_TYPES = { 'R-INSERT': 'analyst_misread_given_sentence', 'R-CHART': 'chart_missing' }
 
 function passed(src, track, byId) {
   const out = new Map()

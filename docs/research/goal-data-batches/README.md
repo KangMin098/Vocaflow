@@ -6,13 +6,18 @@
 
 | 작업 | 상태 | 핵심 | 문서 |
 |---|---|---|---|
-| D1 원천 감사 | 완료(1회 전수) | 분석 적격 3,355/3,714 · 재배포 적격 0(권리 기록 없음) · 공식 통계 0 · M2709 미적재 · 삽입 262 「주어진 문장」 없음 후보 | [D1](./D1-source-audit/source-quality-report.md) |
+| D1 원천 감사 | 완료(1회 전수) | 분석 적격 3,355/3,714 · 재배포 적격 0(권리 기록 없음) · 공식 통계 0 · M2709 미적재 · 삽입 문항은 주어진 문장 · 본문 분리 필드 없음(결손 아님 — T-0088 정정) | [D1](./D1-source-audit/source-quality-report.md) |
 | D2 문항↔TASK | 2배치 80문항 | 계약 v2 로 κ 0.647→0.726(18 TASK) · 확대 가능 7 TASK · R3 규칙 공백 | [D2](./D2-task-mapping/mapping-review.md) |
 | D3 출제 원리 | 80문항 | 오답 왜곡 유형 일치 0.586 — 분류표 개정 전 진단 사용 금지 | [D3](./D3-principles/reasoning-review.md) |
 | D4 평가 계약 · 공백 | 완료(정적 감사) | 18세트 155문항 · 지문 재사용 0 · 「다른 날」 조건 미구현 · V1 · 통합 3 세트 없음 | [D4](./D4-assessment/assessment-review.md) |
 | D5 공식 통계 출처 | 미착수 | D1: 기관 공식 통계 0, 사설 127시험 | — |
 | D6 콘텐츠 초안 | 미착수 | 입력: D4 P1(V1 · R5 · E2) · D2 확대 가능 TASK | — |
 | D7 학습 소요 실측 | 미착수 | 실측 기록 부족(학습 시도 131행) | — |
+
+## 독립 검증 (AI-Control T-0088 · Codex · REVIEW)
+
+브랜치 `review/goal-data-20261023` @ `52d919040`(워크트리 `D:/workspace/Vocaflow-goal-data-review`)의 `docs/research/goal-data-batches/review/review.md` · `verdict.json`. 133 판정: confirmed 80 · refuted 7 · unclear 46. **엔진 인계 허용 13개는 `verdict.json engine_handoff`** — 아래 목록 중 그 13개에 없는 것은 「검증 대기」로 읽는다.
+반박된 주요 주장: 삽입 문항 일괄 부적격(D1) · 어법 범주 부재(D3) · 합성 기록 판정 제외 · R2 · E3 전체 도달 계약 충족(D4).
 
 ## 목표 달성 엔진 담당 세션에 넘기는 것(검증된 것만)
 
