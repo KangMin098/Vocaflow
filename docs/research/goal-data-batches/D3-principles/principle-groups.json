@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d3-build.mjs",
- "generated_at": "2026-10-23T12:24:42.559Z",
+ "generated_at": "2026-10-23T12:38:05.898Z",
  "inputs": [
   {
    "batch": "pilot-1",
@@ -95,13 +95,13 @@
  ],
  "totals": {
   "items": 666,
-  "items_source_gap": 5,
+  "items_source_gap": 6,
   "primary_task_agree": 577,
   "same_decision_locus": 342,
   "wrong_options": 2664,
   "distortion_agree": 1913,
-  "distortion_agree_source_text": 1895,
-  "wrong_options_source_text": 2644
+  "distortion_agree_source_text": 1892,
+  "wrong_options_source_text": 2640
  },
  "note": "두 AI 판정에서 모은 가설 · 분류다. 사람 검수 · Gold · 출제 의도 사실이 아니다. 5문항 미만 유형은 small_sample — 일반화 금지.",
  "groups": {
@@ -299,13 +299,13 @@
    "small_sample": false
   },
   "R-NOTICE": {
-   "items": 51,
-   "wrong_options": 204,
-   "distortion_agreement": 0.922,
+   "items": 50,
+   "wrong_options": 200,
+   "distortion_agreement": 0.925,
    "agreed_distortions": {
     "true_statement": 108,
-    "reversal": 46,
-    "mixed_attribution": 14,
+    "reversal": 44,
+    "mixed_attribution": 13,
     "other": 6,
     "scope_shrink": 5,
     "scope_expand": 4,
@@ -315,7 +315,7 @@
    "primary_task_pairs": {
     "e.option_correspondence": 22,
     "e.evidence_location|e.option_correspondence": 9,
-    "e.option_correspondence|e.evidence_location": 8,
+    "e.option_correspondence|e.evidence_location": 7,
     "e.evidence_location": 10,
     "e.task_demand": 1,
     "e.task_demand|e.option_correspondence": 1

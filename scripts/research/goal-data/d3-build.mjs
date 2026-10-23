@@ -24,6 +24,8 @@ const SOURCES = [
 const SUPERSEDED_BATCHES = new Set(['pilot-1', 'b2-v2'])
 // 도표: 수치가 문항 필드에 없다(원천 결손) — 근거 미확인으로 분리한다
 const SOURCE_GAP_TYPES = { 'R-CHART': 'chart_missing' }
+// 확인된 원천 결손 문항(유형과 무관) — DB 지문이 잘려 판정 근거가 원문에 없다. 복구 · 재판정 전까지 source_gap 으로 격리(T-0132 B19-P1-01)
+const SOURCE_GAP_ITEMS = { '2014A#29': 'footnote_truncated' }
 
 /** D2 와 같은 계약 검사(d2-validate · T-0107 P1)를 통과한 행만 — 청크 반복 · 트랙 전체 선택 이유 반복에 걸리면 그 범위를 쓰지 않는다 */
 function passed(src, track, V) {
@@ -52,7 +54,7 @@ for (const src of SOURCES) {
     const a = A.get(id), b = B.get(id)
     if (!a || !b) continue
     if (inp.type_id === 'R-INSERT' && SUPERSEDED_BATCHES.has(src.batch)) continue
-    const gap = SOURCE_GAP_TYPES[inp.type_id] ?? (/도표|graph|chart/i.test(String(inp.source.stem)) ? 'chart_missing' : null)
+    const gap = SOURCE_GAP_ITEMS[id] ?? SOURCE_GAP_TYPES[inp.type_id] ?? (/도표|graph|chart/i.test(String(inp.source.stem)) ? 'chart_missing' : null)
     const answers = inp.source.answers?.length ? inp.source.answers : [inp.source.answer]
     reasoning.push({
       batch: src.batch, item_id: id, exam_id: inp.exam_id, type_id: inp.type_id, source_sha256: inp.source_sha256,
