@@ -32,7 +32,12 @@ for (const width of [1440, 1280]) {
     const replan = page.getByTestId('replan')
     await expect(replan).toHaveAttribute('data-reasons', 'check_result new_exam')
     await expect(page.getByTestId('replan-shifts')).toContainText('확인하기 2 → 바로잡기 3')
-    await expect(page.getByTestId('replan-week')).toContainText('이번 주 배정 20분 → 30분')
+    await expect(page.getByTestId('replan-week')).toContainText('수정안 대상 소계0분20분30분') // 지금 배정 · 저장 계획대로 · 수정안(표 행과 같은 TASK 집합)
+    await expect(page.getByTestId('replan-week-all')).toHaveCount(0) // 다른 TASK 가 없으면 전체 행 없음
+    await expect(page.getByTestId('replan-week-note')).toContainText('아직 배정되지 않아요')
+    // 확정 버튼은 카드 안쪽 여백 안(T-0093 UI 확인 ①)
+    const card = await page.getByTestId('replan').boundingBox(); const btn = await page.getByTestId('replan-confirm').boundingBox()
+    expect(btn!.x - card!.x).toBeGreaterThanOrEqual(12)
     await expect(page.getByTestId('schedule-start')).toHaveCount(0) // 재확정 전에는 실행 링크를 열지 않는다
     await page.screenshot({ path: `output/goal-outcome-below-${width}.png`, fullPage: true })
     await page.keyboard.press('Shift') // 키보드 사용 중일 때의 포커스 표시(:focus-visible)를 본다
@@ -40,6 +45,14 @@ for (const width of [1440, 1280]) {
     expect(await page.getByTestId('replan-confirm').evaluate((e) => getComputedStyle(e).outlineStyle)).not.toBe('none')
     await page.keyboard.press('Enter')
     await expect(page.getByTestId('opened-workspace')).toHaveText('ws.central-meaning:plan')
+
+    // T-0110 Codex 반례(mixed) — 소계는 표의 행과 같은 TASK 집합 · 이번 주 전체는 구분된 별도 행
+    await pick(page, 'mixed')
+    const rows = await page.getByTestId('replan-shifts').locator('tr').count()
+    expect(rows).toBe(1)
+    await expect(page.getByTestId('replan-subtotal')).toContainText('수정안 대상 소계0분20분30분')
+    await expect(page.getByTestId('replan-week-all')).toContainText('이번 주 전체(다른 TASK 포함)20분40분40분')
+    await page.screenshot({ path: `output/goal-outcome-mixed-${width}.png`, fullPage: true })
 
     // 충족 — 한계 문구와 함께 · 계획은 같으면 변화 없음
     await pick(page, 'met')

@@ -36,6 +36,8 @@ const S={
   repeat:{sessions:[ses('a','k9-2025','2026-08-20',70),ses('b','k9-2025','2026-09-10',95)],rows:[r],saved:saved('repair',3)},
   other:{sessions:[ses('b','hp-2026','2026-10-10',95,{examScope:'hakpyeong'})],rows:[r],saved:saved('repair',3)},
   goal:{sessions:[],rows:[{...r,replanWhy:'goal'}],saved:saved('repair',2,1)},
+  // T-0110 Codex 반례 — 재확정 대상 TASK 와 이미 배정된 다른 TASK 가 함께 있는 주(소계 ≠ 전체)
+  mixed:{sessions:[ses('b','k9-2026','2026-09-10',72,{grade:4})],rows:[r,{...r,task:'v.core_meaning',needRank:2,planGate:null,action:{rank:2,href:'/x',label:'바로잡기'},quantity:{...r.quantity,planned:2,remaining:2}}],saved:saved('check',2)},
   error:{sessions:[],rows:[r],saved:{status:'installed',byTemplate:{},goalVersionId:null,goal:null,error:true}},
 }
 function Harness() {
