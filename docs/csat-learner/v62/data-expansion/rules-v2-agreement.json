@@ -6,9 +6,11 @@
  "pairs": 360,
  "agreement": 0.8611,
  "kappa": 0.8051,
+ "source_defect_items": [],
  "per_task": {
   "e.evidence_location": {
    "n": 40,
+   "direct_binary_kappa": 0.4217,
    "agreement": 0.625,
    "kappa": 0.3392,
    "direct": 15,
@@ -18,6 +20,7 @@
   },
   "r.relation": {
    "n": 40,
+   "direct_binary_kappa": 1,
    "agreement": 0.85,
    "kappa": 0.7692,
    "disputed": 6,
@@ -27,6 +30,7 @@
   },
   "v.core_meaning": {
    "n": 40,
+   "direct_binary_kappa": 1,
    "agreement": 0.8,
    "kappa": 0.602,
    "not_applicable": 21,
@@ -36,6 +40,7 @@
   },
   "v.semantic_relation": {
    "n": 40,
+   "direct_binary_kappa": 0.5,
    "agreement": 0.625,
    "kappa": 0.4158,
    "disputed": 15,
@@ -45,6 +50,7 @@
   },
   "r.discourse_structure": {
    "n": 40,
+   "direct_binary_kappa": 1,
    "agreement": 0.975,
    "kappa": 0.9584,
    "indirect": 16,
@@ -54,6 +60,7 @@
   },
   "e.task_demand": {
    "n": 40,
+   "direct_binary_kappa": 0.7778,
    "agreement": 0.925,
    "kappa": 0.7778,
    "unknown": 30,
@@ -62,6 +69,7 @@
   },
   "r.o.global_meaning_model": {
    "n": 40,
+   "direct_binary_kappa": null,
    "agreement": 0.95,
    "kappa": 0.7241,
    "unknown": 35,
@@ -70,12 +78,14 @@
   },
   "s.o.sentence_meaning_model": {
    "n": 40,
+   "direct_binary_kappa": null,
    "agreement": 1,
    "kappa": null,
    "unknown": 40
   },
   "e.o.final_judgment": {
    "n": 40,
+   "direct_binary_kappa": null,
    "agreement": 1,
    "kappa": null,
    "unknown": 40

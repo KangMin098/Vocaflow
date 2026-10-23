@@ -1,0 +1,45 @@
+{
+ "batch": "r5r6",
+ "input_sha256": "838e930bf5df3a5eb75f2123b3295f61e61a1e8ce774ba7269f4b6dd42c7d729",
+ "items": 762,
+ "items_missing": 0,
+ "pairs": 1510,
+ "agreement": 0.8702,
+ "kappa": 0.7974,
+ "source_defect_items": [
+  "M2306#39",
+  "M2306#38",
+  "M2406#43",
+  "M2406#45",
+  "M2406#44",
+  "M2406#38",
+  "M2406#39"
+ ],
+ "per_task": {
+  "r.central_meaning": {
+   "n": 755,
+   "direct_binary_kappa": 0.9353,
+   "agreement": 0.9272,
+   "kappa": 0.8885,
+   "direct": 190,
+   "not_applicable": 333,
+   "disputed": 55,
+   "indirect": 161,
+   "unknown": 16
+  },
+  "r.inference": {
+   "n": 755,
+   "direct_binary_kappa": 0.9527,
+   "agreement": 0.8132,
+   "kappa": 0.7005,
+   "not_applicable": 331,
+   "indirect": 122,
+   "unknown": 23,
+   "direct": 138,
+   "disputed": 141
+  }
+ },
+ "human_review": 0,
+ "student_measurement": 0,
+ "note": "두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1)."
+}

@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/csat/map/v62/data/coverage-audit.mts",
- "generated_at": "2026-10-23T02:26:01.090Z",
+ "generated_at": "2026-10-23T02:48:59.122Z",
  "note": "읽기 전용 실측. 원천 · 문항 · 분석 · 검수 · 출시는 다른 상태다. 분석 published 는 v3 드레인 AI 분석의 공개 상태이며 사람 검수 · Gold 가 아니다.",
  "totals": {
   "exams": 134,
@@ -132,6 +132,21 @@
    [
     "2014A#35",
     "2014B#31"
+   ]
+  ],
+  "duplicate_long_stems": [
+   [
+    "M2306#39",
+    "M2306#38"
+   ],
+   [
+    "M2406#43",
+    "M2406#45",
+    "M2406#44"
+   ],
+   [
+    "M2406#38",
+    "M2406#39"
    ]
   ],
   "held_check": "ok"

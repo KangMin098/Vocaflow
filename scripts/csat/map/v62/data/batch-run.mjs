@@ -30,6 +30,9 @@ const defs = nonHeldTasks().filter((t) => cfg.tasks.includes(t.id))
 if (defs.length !== cfg.tasks.length) throw new Error('정의에 없는 TASK 가 batch 에 있다')
 const nChunks = Math.ceil(input.rows.length / cfg.chunk)
 const name = (track, k, out) => path.join(DIR, `chunk-${track}-${String(k + 1).padStart(2, '0')}${out ? '.out' : ''}.json`)
+// 원천 결함 문항(coverage-audit integrity) — 판정이 일치해도 R1 후보로 올리지 않는다
+const coverage = JSON.parse(fs.readFileSync(path.join(OUTDIR, 'coverage.json'), 'utf8'))
+const defective = new Set((coverage.integrity?.duplicate_long_stems ?? []).flat())
 const hideQuote = (a) => (a?.quote ? { field: a.field, quote_sha256: sha(String(a.quote)), quote_chars: String(a.quote).length } : null)
 
 function chunks() {
@@ -52,7 +55,8 @@ function load(track) {
     const base = path.basename(f)
     if (only && !base.startsWith(only)) continue
     if (!fs.existsSync(f)) { errors.push(`${base} 없음`); continue }
-    const rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? []
+    let rows
+    try { rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? [] } catch (e) { errors.push(`${base}: JSON 파싱 실패(작성 중이거나 깨짐) — ${e.message.slice(0, 60)}`); continue }
     const ce = validateLinkChunk(rows)
     if (ce.length) { errors.push(...ce.map((x) => `${base}: ${x}`)); continue }
     const want = input.rows.slice(k * cfg.chunk, (k + 1) * cfg.chunk).map((r) => r.item_id)
@@ -77,6 +81,12 @@ function kappa(pairs) {
   return pe === 1 ? null : Number(((po - pe) / (1 - pe)).toFixed(4))
 }
 
+/** direct 여부만(direct vs 나머지) — 목표 관련도에서 가장 무거운 판정의 안정성 */
+function binaryKappa(pairs) {
+  const b = pairs.map(([a, c]) => [a === 'direct' ? 'direct' : 'unknown', c === 'direct' ? 'direct' : 'unknown'])
+  return kappa(b)
+}
+
 if (cmd === 'chunks') chunks()
 else if (cmd === 'validate') {
   let bad = 0
@@ -91,9 +101,10 @@ else if (cmd === 'validate') {
     if (!a || !b) { missing++; continue }
     for (const t of cfg.tasks) {
       const x = a.links.find((l) => l.task_id === t), y = b.links.find((l) => l.task_id === t)
-      per[t].push([x.relevance, y.relevance])
+      if (!defective.has(id)) per[t].push([x.relevance, y.relevance])
       const same = x.relevance === y.relevance
-      links.push({ item: id, task: t, relevance: 'unknown', candidateRelevance: same && (x.relevance === 'direct' || x.relevance === 'indirect') ? x.relevance : null, state: same ? 'INDEPENDENTLY_CHECKED' : 'DISPUTED', source: same ? 'research_ai_reviewed' : 'research_ai_candidate', tier: same ? 'R1' : 'R0', judgments: { A: x.relevance, B: y.relevance }, anchors: { A: hideQuote(x.anchor), B: hideQuote(y.anchor) }, why: { A: x.why, B: y.why }, source_sha256: inp.source_sha256 })
+      const bad = defective.has(id)
+      links.push({ item: id, task: t, relevance: 'unknown', candidateRelevance: !bad && same && (x.relevance === 'direct' || x.relevance === 'indirect') ? x.relevance : null, state: bad ? 'SOURCE_DEFECT' : same ? 'INDEPENDENTLY_CHECKED' : 'DISPUTED', source: same ? 'research_ai_reviewed' : 'research_ai_candidate', tier: same ? 'R1' : 'R0', judgments: { A: x.relevance, B: y.relevance }, anchors: { A: hideQuote(x.anchor), B: hideQuote(y.anchor) }, why: { A: x.why, B: y.why }, source_sha256: inp.source_sha256 })
     }
   }
   const all = Object.values(per).flat()
@@ -101,7 +112,8 @@ else if (cmd === 'validate') {
   const summary = {
     batch, input_sha256: sha(input.rows.map((r) => [r.item_id, r.source_sha256])), items: byId.size, items_missing: missing, pairs: all.length,
     agreement: all.length ? Number((all.filter(([a, b]) => a === b).length / all.length).toFixed(4)) : null, kappa: kappa(all),
-    per_task: Object.fromEntries(Object.entries(per).map(([t, ps]) => [t, { n: ps.length, agreement: ps.length ? Number((ps.filter(([a, b]) => a === b).length / ps.length).toFixed(4)) : null, kappa: kappa(ps), ...dist(ps) }])),
+    source_defect_items: [...defective].filter((id) => byId.has(id)),
+    per_task: Object.fromEntries(Object.entries(per).map(([t, ps]) => [t, { n: ps.length, direct_binary_kappa: binaryKappa(ps), agreement: ps.length ? Number((ps.filter(([a, b]) => a === b).length / ps.length).toFixed(4)) : null, kappa: kappa(ps), ...dist(ps) }])),
     human_review: 0, student_measurement: 0,
     note: '두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1).',
   }

@@ -34,7 +34,7 @@
 
 | 판정 | TASK(κ) | 다음 조치 |
 |---|---|---|
-| 확대 가능 | R5 중심 의미(.86) · R6 추론(.94) | 같은 계약으로 평가원·수능 802문항 확대 |
+| 확대 가능 | R5 중심 의미(.86) · R6 추론(.94 — 전량 .70 으로 정정, §7) | 같은 계약으로 평가원·수능 802문항 확대 → **완료(§7)** |
 | 제3 판정 후 확대 | V2(.73) · E3(.72) · S1(.65) · R1(.59) | 갈림만 제3 판정 |
 | 규칙 먼저 | E2(.44) · R2(.36) · V4(.54) · R4(.54) · S3 · S4 · S5 · V1 · V3 · R3 | direct/indirect 경계 판정 규칙 필요 |
 | 정의 문제 | E1 · E-O1 · S-O1 · R-O1(κ ≤ .18) | 모든 문항에 깔린 배경 수행 — 문항 단위 판정 대상인지부터 결정 |
@@ -67,9 +67,35 @@
 4. 평가원 `csat_item_units`(문장 단위) 공백 — S 축 직접 확인 도구의 선행 조건.
 5. 사설 정답률(메가스터디)을 문항↔TASK 표본과 결합할 때의 출처 · 범위 계약 — 기관 등급컷은 권리 있는 공개 자료만.
 
+## 7. 확대 2차 (같은 날) — 규칙 v2 실측 · R5/R6 평가원 전 문항
+
+- **규칙 v2**([RULES_V2.md](./RULES_V2.md) §7–8): 같은 40문항 9 TASK 재판정 κ .805. R4 .96 · R2 .77 개선, E2 .34 · V4 .42 미해결, 통합 TASK 일치 1.0 은 기본값 강제에 따른 인위적 일치. **v2 미확정** — Codex 검증 전([CODEX_REVIEW_PACKET.md](./CODEX_REVIEW_PACKET.md), 미실행: 환경에 Codex CLI 없음).
+- **R5 · R6 확대**: 표본 밖 평가원 · 수능 762문항 × 2 TASK × A/B(원문만). 검증 결함 0 · 원천 결함 7문항 분리.
+
+| TASK | κ(4값) | direct 이분 κ | R1 direct | R1 indirect | 갈림 | 사용 |
+|---|---:|---:|---:|---:|---:|---|
+| R5 중심 의미 | **.889** | .935 | 190 | 161 | 55 | direct · indirect 후보 |
+| R6 추론 | .700 | **.953** | 138 | (122) | 141 | **direct 만** — indirect ↔ 무관 경계가 불안정(순서 · 삽입 · 지칭) |
+
+- 시험별 관련 문항 · 배점: [exam-relevance.json](./exam-relevance.json) — 29회 평균 R5 direct 14.4점 · R6 direct 13.4점 / 독해 62.3점. **R1 후보이며 사람 검수 · NeedRank 입력이 아니다.** 한 문항이 두 TASK 에 걸리면 각각 센다(TASK 간 배점 합산 금지).
+- 표본 40 의 R6 κ .94 는 작은 표본 값이었다 — 전량 .70 으로 하향 정정.
+
+### 원천 결함 (DB 수정은 승인 대상 · 미수정)
+
+| 문항 | 결함 |
+|---|---|
+| M2306#38 · #39 | 두 삽입 문항 발문이 같음 — 각자의 「주어진 문장」 대신 옆 문항 문장 |
+| M2406#38 · #39 | 같음 — #40 지문 첫 문장이 발문에 들어감 |
+| M2406#43 · #44 · #45 | 세 문항 발문이 같음 — 세트 머리글 + #45 질문이 합쳐짐(순서 · 지칭 문항 발문 소실) |
+
+- 가드: `coverage-audit` 의 `integrity.duplicate_long_stems`(같은 시험 · 서로 다른 문항 · 같은 60자 초과 발문). 처음 장문 세트를 「정상 공통 발문」으로 제외했다가 판정자 보고로 틀린 제외임을 확인하고 되돌렸다(제외 전후 오탐 0).
+- 링크 배치는 이 문항들을 `SOURCE_DEFECT` 로 두고 R1 후보 · 일치 계산에서 뺀다.
+
 ## 재실행
 
 ```bash
 cd apps/web && node --tls-max-v1.2 --env-file=<메인 apps/web/.env.local> --import tsx ../../scripts/csat/map/v62/data/coverage-audit.mts
 node scripts/csat/map/v62/data/pilot-run.mjs validate && node scripts/csat/map/v62/data/pilot-run.mjs agree
+node scripts/csat/map/v62/data/batch-run.mjs validate r5r6 && node scripts/csat/map/v62/data/batch-run.mjs agree r5r6   # rules-v2 도 같은 형식
+node scripts/csat/map/v62/data/exam-relevance.mjs
 ```

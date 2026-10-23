@@ -36,9 +36,9 @@ const sha = (s: string) => crypto.createHash('sha256').update(s).digest('hex')
 const norm = (s: string | null) => String(s ?? '').replace(/\s+/g, ' ').trim().toLowerCase()
 
 type Exam = { id: string; label: string; organizer: string | null; kind: string | null; grade: number | null; exam_year: number | null; month: number | null; item_count: number | null; has_answer_key: boolean | null; diagnosis_ready: boolean | null; official_grade1_ratio: number | null; official_stats_source: string | null }
-type Item = { id: string; exam_id: string; no: number; type_id: string | null; in_scope: boolean | null; body_ok: boolean | null; answer: number | null; answers: number[] | null; points: number | null; passage: string | null; official_error_rate: number | null }
+type Item = { id: string; exam_id: string; no: number; type_id: string | null; stem: string | null; in_scope: boolean | null; body_ok: boolean | null; answer: number | null; answers: number[] | null; points: number | null; passage: string | null; official_error_rate: number | null }
 const exams = await all<Exam>('csat_exams', 'id, label, organizer, kind, grade, exam_year, month, item_count, has_answer_key, diagnosis_ready, official_grade1_ratio, official_stats_source')
-const items = await all<Item>('csat_items', 'id, exam_id, no, type_id, in_scope, body_ok, answer, answers, points, passage, official_error_rate')
+const items = await all<Item>('csat_items', 'id, exam_id, no, type_id, stem, in_scope, body_ok, answer, answers, points, passage, official_error_rate')
 const analyses = await all<{ item_id: string; version: number; status: string }>('csat_item_analyses', 'item_id, version, status')
 const attrs = await all<{ item_id: string; reviewed_at: string | null; source: string | null }>('csat_dx_item_attribute', 'item_id, reviewed_at, source')
 const traps = await all<{ item_id: string }>('csat_dx_option_trap', 'item_id')
@@ -105,7 +105,13 @@ const integrity = {
     for (const i of items) { const p = norm(i.passage); if (p.length < 200) continue; const h = sha(p); m.set(h, (m.get(h) ?? new Set()).add(`${i.exam_id}#${i.no}`)) }
     return [...m.values()].filter((s) => new Set([...s].map((x) => x.split('#')[0])).size > 1).map((s) => [...s].sort())
   })(),
-  held_check: heldErr ? `실패(fail-closed): ${heldErr.message}` : 'ok',
+  /** 같은 시험의 서로 다른 문항이 같은 긴 발문 — 옆 문항 문장이 섞인 추출 결함. 장문 세트도 정상이면 문항마다 발문이 다르다(M2406#43–45 확인: 순서·지칭·일치가 #45 발문을 공유)(주어진 문장 포함형)을 가진다 — 추출 시 옆 문항 문장이 섞인 결함(2026-10-23: M2306 · M2406 #38–39) */
+  duplicate_long_stems: [...itemsByExam].flatMap(([, its]) => {
+    const m = new Map<string, string[]>()
+    for (const i of its) { const s = norm(i.stem); if (s.length > 60) m.set(s, [...(m.get(s) ?? []), i.id]) }
+    return [...m.values()].filter((ids) => ids.length > 1)
+  }),
+  held_check: heldErr ?`실패(fail-closed): ${heldErr.message}` : 'ok',
 }
 
 // ── TASK · 평가 도구 · 공급 ───────────────────────────────
