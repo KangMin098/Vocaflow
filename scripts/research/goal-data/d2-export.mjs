@@ -30,6 +30,7 @@ export const BATCHES = {
   'b9t-v24': { rule: 'b9-v24 의 대상 유형(R-FACT · R-NOTICE · X-FACT · R-IMPLY · R-MOOD) — 계약 v2.4 대조 (E,F)', derived_from: 'b9-v24', target_types: ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-IMPLY', 'R-MOOD'], tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   // v2.4 확대 계속(T-0117 결정 — v2.5 미봉인 · 재등록 안 함). M2306 은 사전 등록 재등록용 예약 표본이었으나 재등록하지 않기로 해 일반 확대에 쓴다
   // 평가원 나머지 — M2206 → 2021 수능 순 ≤40 · v2.4 · 프롬프트는 mk-prompts 로 생성 · 보존
+  'b20-v24': { rule: '2014B 18–45 → M1809 18–45 순으로 ≤40 · 도표 · 결손 · 기판정 · 같은 문항 중복(2014A/B 공유 — 분모 1회) 제외 · 계약 v2.4', ids: ['2014B', 'M1809'].flatMap((e) => Array.from({ length: 28 }, (_, k) => `${e}#${18 + k}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   'b19-v24': { rule: '2015 수능 18–45 → 2014A 18–45 순으로 ≤40 · 도표 · 결손 · 기판정 제외 · 계약 v2.4 · 손 원본 sources/ 보존', ids: ['2015', '2014A'].flatMap((e) => Array.from({ length: 28 }, (_, k) => `${e}#${18 + k}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   'b18-v24': { rule: '2017 수능 18–45 중 미판정 → 2016 수능 18–45 순으로 ≤40 · 도표 · 결손 · 기판정 제외 · 계약 v2.4 · 조립 스크립트 형식 변환만', ids: ['2017', '2016'].flatMap((e) => Array.from({ length: 28 }, (_, k) => `${e}#${18 + k}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   'b17-v24': { rule: '2018 수능 18–45 → 2017 수능 18–45 순으로 ≤40 · 도표 · 결손 · 기판정 제외 · 계약 v2.4 · 청크 단위 검증', ids: ['2018', '2017'].flatMap((e) => Array.from({ length: 28 }, (_, k) => `${e}#${18 + k}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
@@ -98,11 +99,27 @@ for (const f of fs.readdirSync(SEL_DIR).filter((f) => f.endsWith('-selection.jso
   for (const it of JSON.parse(fs.readFileSync(path.join(SEL_DIR, f), 'utf8')).items ?? []) judgedBefore.set(it.item_id, f.replace('-selection.json', ''))
 }
 for (const it of JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/csat-learner/v62/data-expansion/pilot-selection.json'), 'utf8')).items ?? []) judgedBefore.set(it.item_id, 'pilot-1')
+// 분모 규칙(D1 · b20): 발문 · 지문 · 선지 · 정답이 완전히 같은 문항(2014A/B 공유 문항)은 같은 문항이다 —
+//   먼저 판정한 쪽 하나만 세고, 뒤의 것은 「같은 문항 중복」 으로 제외한다(링크 · κ · 문항 수 모두 1회). 지문만 같고 발문이 다르면 다른 문항
+const sameItemKey = (i) => sha({ stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers })
+const judgedByContent = new Map()
+if (def.range) {
+  // 이미 판정한 문항의 원문을 받아 같은 문항 열쇠를 만든다(이 배치 범위 밖 시험도 — 2014B 는 2014A 와 견준다)
+  const prev = [...judgedBefore.keys()]
+  for (let k = 0; k < prev.length; k += 100) for (const i of await get('csat_items', 'id,stem,passage,choices,answer,answers', prev.slice(k, k + 100))) judgedByContent.set(sameItemKey(i), i.id)
+}
+const seenInBatch = new Map()
 function exclusion(id) {
   const i = byId.get(id)
   if (!i) return '문항 없음'
   if (def.only_types && !def.only_types.includes(i.type_id)) return '대상 유형 아님(사전 등록 확장)'
   if (def.range && judgedBefore.has(id)) return `이미 판정(${judgedBefore.get(id)})`
+  if (def.range) {
+    const k = sameItemKey(i)
+    const twin = judgedByContent.get(k) ?? seenInBatch.get(k)
+    if (twin && twin !== id) return `같은 문항 중복(${twin}) — 분모 1회`
+    seenInBatch.set(k, id)
+  }
   if (def.range && EXCLUDE_TYPES[i.type_id]) return EXCLUDE_TYPES[i.type_id]
   if (!i.body_ok) return 'body_ok=false(D1)'
   if (!Array.isArray(i.choices)) return 'choices 없음(D1)'
