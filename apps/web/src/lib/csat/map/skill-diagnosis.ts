@@ -102,7 +102,8 @@ export function skillDiagnosis(targets: readonly SkillTarget[], attempts: readon
 }
 
 function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly SkillAttempt[], now: Date, policy: ReachPolicy): SkillDiagnosis {
-  const passageOf = new Map(targets.map((t) => [t.itemRef, t.passageKey ?? (policy.distinctPassages ? null : t.itemRef)]))
+  // 지문 단위 중복 배제는 서로 다른 지문 조건이 있을 때만(T-0096 Codex F1). 조건이 없으면 서로 다른 **문항**으로 센다(기존 판정 그대로)
+  const passageOf = new Map(targets.map((t) => [t.itemRef, policy.distinctPassages ? t.passageKey ?? null : t.itemRef]))
   const keys = new Set(targets.map((t) => `${t.taskKey}|${t.itemRef}`))
   const items = [...new Set(targets.map((t) => t.itemRef))]
   // 문항을 처음 본 시각 — 단계 · 자격 · **과제 키와 무관하게**(다른 과제로 본 문항도 「미노출」 CHECK 가 아니다 · Codex P1)
@@ -163,6 +164,8 @@ function skillDiagnosisOne(targets: readonly SkillTarget[], attempts: readonly S
         right++
         // 초기 확인을 마친 뒤의 정답 — 다른 날 재확인 조건(t0 와 다른 KST 날짜 · 12시간 이상)을 채우면 해소
         if (t0) {
+          // 서로 다른 지문 조건이 있는 TASK 는 지문 정체를 모르는 재확인 정답도 세지 않는다(Codex ④ — 근거를 지어내지 않는다)
+          if (policy.distinctPassages && passageOf.get(e.item) == null) continue
           if (kstDay(e.at) !== kstDay(t0) && new Date(e.at).getTime() - new Date(t0).getTime() >= DELAY_MS) { resolvedAt = e.at; break }
           continue
         }

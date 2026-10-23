@@ -167,7 +167,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
-- fix(csat): 직접 확인 판정이 코드북 조건을 따른다(T-0096) — E3·R2 객관식 정오만으로 학습 요구 확정 금지, R5 서로 다른 지문, R5·E2·V1 다른 날 재확인(D4-DEC-01: t0 뒤 다른 KST 날짜·12시간, 그 전 pending_delayed). 채점 불변 · DB 변경 없음.
+- fix(csat): 직접 확인 판정이 코드북 조건을 따른다(T-0096) — E3·R2 객관식 정오만으로 학습 요구 확정 금지, R5 서로 다른 지문, R5·E2 다른 날 재확인(D4-DEC-01: t0 뒤 다른 KST 날짜·12시간, 그 전 pending_delayed). 채점 불변 · DB 변경 없음.
 - feat(csat): 목표 대비 판정 네 상태(기록 없음·판정 불가·미달·충족 — 충족은 한 번의 평가) · 재처방 패널(저장 계획 → 수정안 일정을 goalSchedule·scheduleChanges 로 비교, 확정은 Workspace 기존 관문) · 오늘의 학습 「N일 남음」 제거. DB 변경 없음.
 - chore(dev): 격리 빌드 사본(`.next-*`) 보존 한도 — `next build` 시작 때 살아 있는 서버 표식·2시간 안 사본·`.next`/`.next-dev`/대상을 빼고 최신 2개만 남긴다. `next start` 도 소유권 표식을 남긴다. 워크스페이스 일괄 정리 `apps/web/scripts/prune-dist-dirs.mjs --root D:/workspace [--apply]`. 한 워크트리에 사본 15개 25.8 GB 가 쌓여 D: 98% 가 된 일(2026-10-21) 재발 방지.
 - chore(dev): 최신 main 기반으로 로컬 integration의 관리자 재구성·주문 계보·사용성 수정을 통합하고 브랜치 연속성/포트 운영을 공통화했다. `wt new`는 공간을 재사용하고 `wt remove`는 잠금·미통합 작업을 보존하며 강제 삭제하지 않는다. #244 팝업/원문 폭, #315 선택 라우터, 연구 검토 원장을 보존하고 개발 DB에 이미 적용된 보안 SQL 2개를 이력 해시 그대로 복원했다(DB 재적용 없음).

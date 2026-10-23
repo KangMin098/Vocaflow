@@ -96,6 +96,19 @@ describe('handoff-1 · D4-DEC-01 — R5 · E2 도달 조건', () => {
     expect(skillDiagnosis(targets(k, ['a', 'b', 'c', 'd', 'e']), [...base, att(k, 'e', true, day(4, 6))], NOW, E2).status).toBe('resolved')
   })
 
+  it('조건 없는 · E2 TASK 는 지문 키가 같아도 서로 다른 문항으로 센다(Codex F1 반례)', () => {
+    const same = (k: string, items: string[]) => items.map((itemRef) => ({ itemRef, taskKey: k, passageKey: 'same-passage' }))
+    const k = 'evidence-locate'
+    const base = [att(k, 'a', false, day(1)), att(k, 'b', false, day(2)), att(k, 'c', true, day(3)), att(k, 'd', true, day(4))]
+    expect(skillDiagnosis(same(k, ['a', 'b', 'c', 'd', 'e']), base, NOW).status).toBe('resolved')
+    expect(skillDiagnosis(same(k, ['a', 'b', 'c', 'd', 'e']), [...base, att(k, 'e', true, day(5))], NOW, E2).status).toBe('resolved')
+  })
+
+  it('R5 지연 재확인 정답의 지문 정체를 모르면 세지 않는다(Codex ④)', () => {
+    const t = targets(K, ['i1', 'i2', 'i3', 'i4', 'i5']).map((x) => (x.itemRef === 'i5' ? { ...x, passageKey: null } : x))
+    expect(skillDiagnosis(t, [...verify, att(K, 'i3', true, day(3)), att(K, 'i4', true, day(4)), att(K, 'i5', true, day(5))], NOW, R5).status).toBe('pending_delayed')
+  })
+
   it('조건 없는 TASK 는 기존 판정 그대로(연속 2 정답 → resolved)', () => {
     expect(skillDiagnosis(targets(K, ['i1', 'i2', 'i3', 'i4']), [...verify, att(K, 'i3', true, day(3)), att(K, 'i4', true, day(3, 1))], NOW).status).toBe('resolved')
   })
