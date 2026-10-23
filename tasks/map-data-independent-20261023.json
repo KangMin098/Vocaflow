@@ -1,0 +1,58 @@
+{
+  "goal_id": "VG-L3-A1-01",
+  "title": "학습 지도 데이터 확대(map-data-expansion) 독립 검증 · goal-batches 와의 충돌 판정(Codex)",
+  "description": "Claude 데이터 작업(feat/map-data-expansion, main 76ea33d95)의 판정 규칙 v2.1 · R5/R6 762문항 A/B 링크 · 원천 결함 7문항 · 시험별 관련 배점을 원문 · DB 읽기 전용으로 독립 검증한다. 같은 날 다른 Claude 세션의 data/goal-batches-20261023(T-0088 검증 대상)과 겹치는 판정(삽입 문항 「주어진 문장」 결손 · 문항↔TASK 계약 v2)을 대조해 정합 · 충돌을 판정한다. AI 검증은 사람 Gold 가 아니다.",
+  "priority": "P1",
+  "owner_id": "map-data-independent",
+  "branch": "review/map-data-20261023",
+  "worktree": "D:/workspace/Vocaflow-map-data-review",
+  "allowed_paths": [
+    "docs/csat-learner/v62/data-expansion/review/**",
+    ".agent-goal.md"
+  ],
+  "forbidden_paths": [
+    "supabase/**",
+    ".env*",
+    "apps/**",
+    "scripts/**",
+    "docs/csat-learner/v62/data-expansion/*.md",
+    "docs/csat-learner/v62/data-expansion/*.json",
+    "docs/research/goal-data-batches/**"
+  ],
+  "db_scope": {
+    "mode": "read",
+    "targets": [
+      "dev:jajenrevcbmrpaliomxv"
+    ]
+  },
+  "acceptance": [
+    "규칙 v2.1(RULES_V2 §1 · §2 E2 · §6-1)이 이전 Codex P1 ①③ 을 해소했는지, 새 P0/P1 이 없는지 판정",
+    "R5/R6 링크 표본: R1 direct 30 + DISPUTED 30 을 원문(Vocaflow-map-data-expansion/scripts/csat/map/v62/data/local/expand-input.json) 대조로 판정, 허위 인용 · 지름길 상투문 · 계약 위반 집계",
+    "원천 결함 7문항(M2306#38–39 · M2406#38–39 · 43–45) 과 duplicate_long_stems 가드를 DB 직접 질의로 confirmed/refuted/unclear 판정",
+    "goal-batches(80fa44540 · 1b8f089e5)의 「삽입 262문항 주어진 문장 결손 후보」 와 이 작업의 「짧은 발문은 정상 저장 형식」 판단 충돌을 DB 질의로 판정하고, 두 작업의 문항↔TASK 계약 · 수치 중복 · 충돌 목록 작성",
+    "verdict.json(항목별 verdict · evidence 파일:줄/질의 · note) + review.md, unclear 를 confirmed 로 올리지 않음, 커밋은 review/ 경로만"
+  ],
+  "ui_gate": false,
+  "impact": {
+    "kind": "independent",
+    "current_gap": "map-data-expansion 링크 · 규칙이 같은 Claude 세션의 하위 AI 판정만 거쳤고, 같은 날 겹치는 goal-batches 작업과의 정합이 확인되지 않아 목표 달성 엔진에 넘길 근거가 없다",
+    "expected_impact": "advances",
+    "evidence_required": [
+      "입력 SHA(76ea33d95) 결속",
+      "DB 읽기 질의 원문",
+      "원문 대조 표본 판정",
+      "두 작업 충돌 목록",
+      "verdict.json"
+    ],
+    "next_dependency": "검증 통과 링크만 목표 달성 엔진 담당에 인계 · 규칙 v2.1 재판정 · 원천 결함 DB 수정 승인안",
+    "out_of_scope": [
+      "DB 쓰기",
+      "제품 코드 · 코드북 · 정본 수정",
+      "map-data-expansion · goal-batches 산출물 직접 수정",
+      "사람 Gold · 출시 승인"
+    ],
+    "dependency_type": "direct",
+    "user_request_ref": "2026-10-23 사용자: LEARNING MAP DATA EXPANSION §9 「Codex 는 독립 검증」 + 「codex 협업 필요시 ai-control 등록해서 진행」",
+    "canon_version": "1.1.0"
+  }
+}
