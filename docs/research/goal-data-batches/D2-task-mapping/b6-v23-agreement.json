@@ -38,7 +38,7 @@
  "pairs": 240,
  "agreement": 0.9375,
  "kappa": 0.8907,
- "primary_task_agreement": 40,
+ "primary_task_agreement": 32,
  "per_task": {
   "r.central_meaning": {
    "display": "R5",
@@ -337,8 +337,8 @@
    "analysis_version": 5,
    "primary_task": {
     "A": "r.central_meaning",
-    "B": "r.central_meaning",
-    "agree": true
+    "B": "e.evidence_location",
+    "agree": false
    },
    "directly_observable_both": [],
    "independent_assessment": {
@@ -355,8 +355,8 @@
    "analysis_version": 4,
    "primary_task": {
     "A": "r.central_meaning",
-    "B": "r.central_meaning",
-    "agree": true
+    "B": "e.option_correspondence",
+    "agree": false
    },
    "directly_observable_both": [],
    "independent_assessment": {
@@ -507,8 +507,8 @@
    "analysis_version": 5,
    "primary_task": {
     "A": "r.central_meaning",
-    "B": "r.central_meaning",
-    "agree": true
+    "B": "e.evidence_location",
+    "agree": false
    },
    "directly_observable_both": [],
    "independent_assessment": {
@@ -524,9 +524,9 @@
    "source_sha256": "9d1da68f5f7a18d81424e6db7649ce8582a08c11ebd55364ff86928b118a4f02",
    "analysis_version": 4,
    "primary_task": {
-    "A": "r.central_meaning",
+    "A": "e.option_correspondence",
     "B": "r.central_meaning",
-    "agree": true
+    "agree": false
    },
    "directly_observable_both": [],
    "independent_assessment": {
@@ -703,9 +703,9 @@
    "source_sha256": "c0e485647cc2bdc1ddeebcab73dac9d41a273887d966825b6e71744a0218c541",
    "analysis_version": 4,
    "primary_task": {
-    "A": "r.central_meaning",
+    "A": "e.evidence_location",
     "B": "r.central_meaning",
-    "agree": true
+    "agree": false
    },
    "directly_observable_both": [
     "r.central_meaning"
@@ -742,8 +742,8 @@
    "analysis_version": 4,
    "primary_task": {
     "A": "r.central_meaning",
-    "B": "r.central_meaning",
-    "agree": true
+    "B": "e.evidence_location",
+    "agree": false
    },
    "directly_observable_both": [
     "r.central_meaning"
@@ -761,9 +761,9 @@
    "source_sha256": "aef07c5b456eabcee1ff45f9345f7af71e3eede33f0822a722fd73b4f6f085bb",
    "analysis_version": 5,
    "primary_task": {
-    "A": "r.central_meaning",
+    "A": "e.evidence_location",
     "B": "r.central_meaning",
-    "agree": true
+    "agree": false
    },
    "directly_observable_both": [
     "r.central_meaning"
@@ -861,9 +861,9 @@
    "source_sha256": "6fe2bcb0ab883318ba00ef1b4b6c89b8ccc3bb5f6b961b996dbc86eb796b5430",
    "analysis_version": 4,
    "primary_task": {
-    "A": "r.central_meaning",
+    "A": "e.option_correspondence",
     "B": "r.central_meaning",
-    "agree": true
+    "agree": false
    },
    "directly_observable_both": [
     "r.central_meaning"

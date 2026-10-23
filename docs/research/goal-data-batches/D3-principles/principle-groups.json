@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d3-build.mjs",
- "generated_at": "2026-10-23T06:23:47.374Z",
+ "generated_at": "2026-10-23T06:42:35.574Z",
  "inputs": [
   {
    "batch": "pilot-1",
@@ -36,7 +36,7 @@
  "totals": {
   "items": 198,
   "items_source_gap": 3,
-  "primary_task_agree": 173,
+  "primary_task_agree": 165,
   "same_decision_locus": 97,
   "wrong_options": 792,
   "distortion_agree": 514,
@@ -66,7 +66,10 @@
     "r.inference|r.central_meaning": 1,
     "v.semantic_relation|r.inference": 1,
     "r.central_meaning|r.inference": 1,
-    "r.central_meaning": 8
+    "r.central_meaning|e.evidence_location": 2,
+    "r.central_meaning|e.option_correspondence": 1,
+    "r.central_meaning": 3,
+    "e.evidence_location|r.central_meaning": 2
    },
    "small_sample": false
   },
@@ -258,10 +261,11 @@
     "other": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 6,
+    "r.central_meaning": 4,
     "v.semantic_relation|r.central_meaning": 2,
-    "e.option_correspondence|r.central_meaning": 1,
-    "v.semantic_relation": 1
+    "e.option_correspondence|r.central_meaning": 2,
+    "v.semantic_relation": 1,
+    "r.central_meaning|e.evidence_location": 1
    },
    "small_sample": false
   },
@@ -369,7 +373,8 @@
     "overgeneralization": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 5
+    "r.central_meaning": 4,
+    "e.option_correspondence|r.central_meaning": 1
    },
    "small_sample": false
   },
