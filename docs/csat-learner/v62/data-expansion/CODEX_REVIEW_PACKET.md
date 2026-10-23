@@ -1,6 +1,6 @@
 # Codex 독립 검증 패킷 — 문항↔TASK 판정 규칙 v2
 
-> 상태: **미실행**(2026-10-23 Claude 세션 환경에 Codex CLI 없음). 결과가 오기 전에는 규칙 v2 를 확정 · 확대에 쓰지 않는다.
+> 상태: 2026-10-23 실행(결과 `CODEX_REVIEW_RESULT.md`). 처음엔 PATH 에서 CLI 를 못 찾아 미실행으로 적었다 — 앱 번들 `AppData/Local/OpenAI/Codex/bin/*/codex.exe` 로 실행.
 > 실행(Codex 가 설치된 터미널, 이 워크트리에서):
 > `codex exec "$(cat docs/csat-learner/v62/data-expansion/CODEX_REVIEW_PACKET.md)"` — 또는 `node agents/scripts/review.mjs --plan docs/csat-learner/v62/data-expansion/CODEX_REVIEW_PACKET.md`
 
@@ -19,6 +19,9 @@
 3. E2 · R2 경계(§2)에 대한 반례 — 규칙대로 하면 명백히 잘못 판정되는 문항 유형이 있는가?
 4. 두 AI 일치(R1)를 `candidateRelevance` 에만 두고 `relevance` 를 unknown 으로 남기는 처리가 `makeLink` 가드와 어긋나는 곳이 있는가?
 5. 규칙 v2 재판정 κ 가 올랐다면, 그것이 판정의 타당성 개선인지 단순히 기본값 강제로 인한 인위적 일치인지 구별할 증거가 충분한가?
+
+6. R5 · R6 확대(`r5r6-agreement.json` · `exam-relevance.json`): R6 를 4값 κ .70 · direct 이분 κ .953 근거로 **direct 만** 쓰는 처리가 타당한가? `exam-relevance` 의 시험별 배점이 목표 관련도 계산에 R1 후보 이상으로 쓰일 위험이 있는가?
+7. 원천 결함 가드(`coverage-audit.mts` `duplicate_long_stems`)와 `batch-run.mjs` 의 `SOURCE_DEFECT` 분리가 오탐 · 누락 없이 동작하는가?
 
 ## 하지 말 것
 
