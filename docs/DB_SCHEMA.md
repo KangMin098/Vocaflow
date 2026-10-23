@@ -1,5 +1,7 @@
 # DB Schema
 
+> **2026-10-23 목표 예산 rev2 사용자 승인 완료·적용 차단:** 사용자 “승인” 후 SHA `fbd370ac…181ae` 원문으로 적용을 요청했지만 PreToolUse가 동일 SQL의 두 워크트리 중 승인 루트를 고르지 못해 실행을 거절했다. 04:25 UTC 재조회에서 새 열/함수는 없고 기존 목표2행·PLAN2행·정책/트리거/옛 writer 해시는 변하지 않았다. **설치 완료가 아니다.** [승인 이후 상태·차단 사유](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
+
 > **2026-10-23 목표 예산 독립 감사·미적용 rev2:** 주간0분을 허용하고 예산 해제(NULL)도 새 writer의 목표 버전 CAS로 처리한다. `weekly_hours`는 입력 제안만이며 목표별 명시 예산이 우선한다. 기존 목표2행·PLAN2행, 본인 SELECT RLS·추가 전용 트리거, 새 열/함수 부재를 읽기 전용으로 확인했다(2026-10-23 03:31 UTC). 원문 SHA·권한·동시성/복구 한계: [승인 패키지](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md). 승인 전 개발 DB 적용 금지.
 
 > **2026-10-23 제안·미적용 — 목표 시간 예산:** `20261023090000_csat_goal_budget.sql`은 `csat_map_goal_version.planning_budget jsonb`와 검증 제약·`csat_goal_budget_valid(jsonb)`·service-role 전용 `csat_map_goal_budget_set(...)`을 추가하는 승인 대기 SQL이다. 기존 목표/PLAN 이력과 RLS·추가 전용 가드는 유지한다. 주간·요일별 한도와 잠정 단위 시간은 목표 버전별로 보존하며 점수·숙달 예측에 쓰지 않는다. [계약·검증·복구](csat-learner/GOAL_ACHIEVEMENT.md). 공유 DB에 설치됐다는 뜻이 아니다.

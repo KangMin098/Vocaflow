@@ -2,6 +2,18 @@
 
 2026-10-23 · Codex · **코드 통합 후보, 개발 DB 적용/전체 수용 미완료**.
 
+## 사용자 승인 이후 실행 상태(2026-10-23)
+
+사용자가 이 대화에서 rev2 SQL 적용을 **“승인”**했다. 승인 SHA는 `fbd370acc6d2c2eba552678de101079fff26a589629b38a4a800d83ba47181ae`이며 파일 원문은 변경하지 않았다. **사용자 승인 완료 / DB 적용은 사전 훅 차단으로 미실행**이다. 아래 ‘승인 대기’는 패키지를 제시했던 당시 상태다.
+
+- 사전 확인 04:21:25 UTC: 새 열/함수 없음, 충돌 없음, 다른 active 연결0. 목표2행·PLAN2행과 현재 목표·정책·트리거·옛 writer 정의의 해시를 기록했다.
+- `apply_migration(name=csat_goal_budget)` 요청은 PreToolUse가 거절했다: 같은 SQL이 `D:/workspace/Vocaflow-main-serving`과 `D:/workspace/vocaflow-n3-review`에 있어 어느 `.agent-goal.md`를 승인 근거로 선택할지 정할 수 없다는 이유다. DB에서 실행 중인 DDL이나 새 객체는 확인되지 않았다. 현재 작업트리의 `.agent-goal.md`에 실제 사용자 승인과 SHA를 기록했지만, 현행 훅은 이 기록을 읽기 전에 중복 워크트리를 거절한다.
+- 사후 확인 04:25:55 UTC: 열/두 함수 여전히 부재. 목표2행·PLAN2행·현재 목표·RLS 정책·트리거·옛 writer 정의 해시 모두 사전과 동일하다. 목표 해시 `0ca16043e8f2487aea802ce8552eebb8`, PLAN 해시 `194d23bb3cddf057a4a0bf9a0dd4def3`.
+- checkpoint 라벨 `20261023090000_csat_goal_budget_rev2_approved_20261023`: before 04:21:36 UTC, after 04:25:54 UTC에 NOT_APPLIED 사유로 닫았다. 차이는 bloat 회전 표본 교체와 시간 경과 지표뿐이다. 사후 checkpoint를 적용 성공으로 해석하지 않는다.
+- 차단 원문 위치: `C:/Users/Administrator/.codex/hooks/codex-review-root.mjs`의 중복 roots 거절과 `codex-review-gate.mjs`의 적용 직전 승인 확인. 다른 작업트리·승인 SQL·훅을 변경하거나 다른 경로로 DDL을 실행하지 않았다.
+
+해결 제안(미적용): 중복 SQL의 후보 중 **명시적 적용 경로·사용자 승인·일치하는 SHA를 가진 승인 기록이 정확히 하나일 때만** 그 작업 루트를 선택하고, 승인 부재/해시 불일치/복수 승인/경로 불일치는 계속 차단한다. 이 훅 수정은 별도 허용이 필요한 실행 환경 변경이다. SQL 자체의 추가 승인은 필요하지 않다. 현재 적용·설치 후 검증·실제 인증 종단·DB 동시성·최종 main 통합은 NOT_RUN/대기다.
+
 검토 기준: 계획 `01db99074`, Claude 성과 `a6eead261`(`feat/goal-outcome`). 두 커밋을 후보 브랜치 `feat/goal-achievement-20261023`에서 결합했다. 원본 브랜치 `feat/goal-outcome`·`feat/goal-plan`과 커밋은 보존했다. 보존 계획 `c44f41a5c`의 `replanOf`를 추출했고 그 브랜치의 다른 주간 엔진은 들여오지 않았다.
 
 이 문서는 Claude에 전달할 반례·수용 계약이기도 하다. 별도 Claude 세션의 실제 수신·응답은 확인되지 않았다. 공동 수용을 완료했다고 간주하지 않는다.
