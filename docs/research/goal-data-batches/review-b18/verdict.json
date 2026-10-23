@@ -1,0 +1,108 @@
+{
+  "task_id": "T-0130",
+  "owner": "goal-data-independent",
+  "input_commit": "5d7292beaf412e4e238ce644151fee32358c777a",
+  "base_commit": "c839832ca",
+  "observed_at": "2026-10-23T12:10:58.194Z",
+  "result": "pass",
+  "result_meaning": "독립 검증 수행 완료; 모든 주장 통과 또는 다음 배치 승인이라는 뜻이 아님",
+  "skip_count": 0,
+  "acceptance": [
+    {
+      "index": 0,
+      "verdict": "confirmed",
+      "claim": "네 조립 경로는 형식 변환만 수행하고 자기 최초 스냅샷을 재현한다. 최종본 재현 주장은 A01 두 설명에서 refuted.",
+      "evidence": [
+        "scripts/research/goal-data/review-b18/assembly.mjs:20",
+        "scripts/research/goal-data/review-b18/row-review.md:1"
+      ]
+    },
+    {
+      "index": 1,
+      "verdict": "confirmed",
+      "claim": "A01 두 행은 문항별 수기 수정이며 손 원본 미반영에 따른 재현성 결함이다. B02 첫 출력 전 수정은 손 원본의 네 문항에 한정된다.",
+      "evidence": [
+        "scripts/research/goal-data/review-b18/assembly.mjs:29",
+        "scripts/research/goal-data/local/b18-v24/chunk-A-01.out.json:2150",
+        "scripts/research/goal-data/local/b18-v24/chunk-A-01.out.json:2269"
+      ]
+    },
+    {
+      "index": 2,
+      "verdict": "confirmed",
+      "claim": "40선정·해시·221/240·κ .855486·35/40·경보·b2–b18 validate·회귀32·8980aaa59 실행기·prompt/manifest를 재검증했다. 기록상 금지 내용 노출 없음; 절대 미접근은 unclear.",
+      "evidence": [
+        "scripts/research/goal-data/review-b18/audit.mjs:45",
+        "scripts/research/goal-data/review-b18/supplement.mjs:4",
+        "scripts/research/goal-data/review-b18/regression.mjs:14"
+      ]
+    },
+    {
+      "index": 3,
+      "verdict": "unclear",
+      "claim": "후보10·갈림10·primary갈림5 원문 대조 완료. 2017#42 A의 경쟁 문장→잔여 선지 설명은 refuted; 2016#42 E2는 지지하되 의미·primary Gold는 미확정.",
+      "evidence": [
+        "scripts/research/goal-data/review-b18/row-review.md:1",
+        "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:39"
+      ]
+    },
+    {
+      "index": 4,
+      "verdict": "confirmed",
+      "claim": "verdict/review·새 P0/P1·다음 배치 가부와 unclear를 기록했다.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b18/verdict.json:1",
+        "docs/research/goal-data-batches/review-b18/review.md:1"
+      ]
+    }
+  ],
+  "new_P0": 0,
+  "new_P1": 1,
+  "findings": [
+    {
+      "id": "B18-P1-01",
+      "severity": "P1",
+      "title": "최종 검증본이 손 원본으로 재현되지 않음",
+      "items": [
+        "2016#22",
+        "2016#23"
+      ],
+      "field": "not_observable.0.why",
+      "impact": "A01 재조립으로 두 수기 설명이 사라지고 반복 설명 가드 결함1이 재발한다. relevance·primary·D2/D3 판정 값은 바뀌지 않는다.",
+      "evidence": [
+        "scripts/research/goal-data/review-b18/assembly.mjs:29",
+        "scripts/research/goal-data/local/b18-v24/chunk-A-01.out.json:2251",
+        "scripts/research/goal-data/local/b18-v24/chunk-A-01.out.json:2365"
+      ],
+      "remedy": "입력 소유자가 두 문항의 손 원본에 최종 수기 설명을 반영하고 메모리 재조립=최종본 및 validate 결함0을 확인한다. 최초 스냅샷은 보존한다."
+    }
+  ],
+  "next_batch": {
+    "decision": "hold",
+    "line": "보류 — B18-P1-01의 손 원본 동기화·재조립 일치 확인 후 v2.4 연구 후보 확대 가능; 의미 Gold·공개 relevance·NeedRank 승인은 별개."
+  },
+  "unclear": [
+    "의미 및 primary Gold",
+    "실제 학생 오답 경로·독립 측정 타당도",
+    "관측 기록 밖 절대 미접근·인과 오염 부재"
+  ],
+  "verification": {
+    "independent_checks": 395,
+    "failed": 0,
+    "shipped_regressions": 32,
+    "packet_count": 352,
+    "overall": {
+      "n": 240,
+      "agree": 221,
+      "agreement": 0.9208333333333333,
+      "kappa": 0.8554858338087087
+    },
+    "primary_agreement": 35
+  },
+  "not_run": [
+    "DB 접근·쓰기",
+    "제품 build/E2E",
+    "사람 Gold·학생 측정",
+    "main·원격 통합"
+  ]
+}
