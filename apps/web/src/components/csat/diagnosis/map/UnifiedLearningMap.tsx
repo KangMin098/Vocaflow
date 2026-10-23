@@ -26,6 +26,7 @@ import { domainTaskGraph, taskInspector, type GraphTask } from '@/lib/csat/map/v
 import type { WorkspacePlan } from '@/lib/csat/map/v4/workspace'
 import { goalPlanRows } from '@/lib/csat/map/v62/goal-plan'
 import { goalLearning, type GoalLearning } from '@/lib/csat/map/v62/goal-learning'
+import { ReplanPanel } from './ReplanPanel'
 import { ranksOf } from '@/lib/csat/map/v62/rank'
 import { RETURN_NOTE_LABEL, returnNotes } from '@/lib/csat/map/v62/return-ctx'
 import { taskForWs, workspaceRows, wsForTask, wsLinkOf, type WsLink } from '@/lib/csat/map/v62/workspace-list'
@@ -340,6 +341,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
       {learning && <GoalSchedule learning={learning} past={past} onOpenWs={(id, tab) => openWs(id, null, tab)} />}
       {/* GOAL-ACHIEVEMENT 3차 — 목표 뒤 실제 시험 기록으로 목표 대비 판정(TASK 활동과 분리) */}
       <GoalOutcome outcome={learning?.outcome ?? null} past={past} />
+      {!past && learning && <ReplanPanel p={learning.replan} onOpenWs={(id, tab) => openWs(id, null, tab)} />}
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>

@@ -294,6 +294,7 @@ apps/web/tests/fixtures/factory-card-harness.html
 apps/web/tests/fixtures/fast-worksheet-harness.html
 apps/web/tests/fixtures/fast-harness-bundle.json
 apps/web/output/goal-schedule-*
+apps/web/output/goal-outcome-*
 
 # 학습 지도 데이터 확대 — 원문 · 정답이 든 로컬 입력(커밋 금지)
 scripts/csat/map/v62/data/local/

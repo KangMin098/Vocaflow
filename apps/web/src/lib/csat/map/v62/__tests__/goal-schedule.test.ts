@@ -141,6 +141,7 @@ describe('single goal / PLAN / schedule / outcome projection', () => {
   it('direct failure changes the PLAN proposal to repair, gating execution until explicit confirmation', () => {
     const a = input(), previous = goalLearning(a)
     a.plans[WS].tasks[0].stage = 'repair'; a.taskPlans[0].stage = 'repair'
+    a.taskPlans[0].next = { href: '/csat/learn/repair?d=real-repair', label: '바로잡기' }
     a.summary.rows[0] = { ...a.summary.rows[0], stage: 'repair', evidence: 'verified_need', action: null, planGate: 'replan', replanWhy: 'content', quantity: { ...a.summary.rows[0].quantity, source: 'proposed' } }
     const v = goalLearning({ ...a, previous })
     expect(v.revisions[0]).toMatchObject({ fromVersion: 7, reason: 'check_result', changes: [{ task: TASK, kind: 'stage_changed', from: 'check', to: 'repair' }] })
@@ -148,6 +149,9 @@ describe('single goal / PLAN / schedule / outcome projection', () => {
     expect(v.allocationChanges?.[0]).toMatchObject({ task: TASK, before: 2, after: 0 })
     expect(a.saved.byTemplate[WS].latest.version).toBe(7)
     expect(a.saved.byTemplate[WS].latest.plan.tasks[0].stage).toBe('check')
+    expect(v.replan.reasons).toEqual(['check_result'])
+    expect(v.replan.before!.allocations.every(a => a.action === null)).toBe(true)
+    expect(v.replan.after!.allocations[0].action?.href).toBe('/csat/learn/repair?d=real-repair')
   })
   it('a new valid exam suggests new_exam; a met criterion never silently becomes final attainment or a saved PLAN', () => {
     const a = input()
@@ -166,6 +170,17 @@ describe('single goal / PLAN / schedule / outcome projection', () => {
     expect(v.revisions[0]).toMatchObject({ reason: 'goal_change', fromVersion: 7, goalVersion: 2 })
     expect(v.schedule?.allocations).toEqual([])
     expect(a.saved.byTemplate[WS].latest).toEqual(old)
+    expect(v.replan.unchanged).toBe(false)
+  })
+  it('an exam entered after PLAN on the same calendar day is a new_exam revision', () => {
+    const a = input()
+    a.saved.byTemplate[WS].latest.createdAt = '2026-10-21T09:00:00Z'
+    a.saved.byTemplate[WS].latest.asOf = '2026-10-21T09:00:00Z'
+    a.summary.rows[0].planGate = 'replan'
+    const sessions = [{ id: 'exam', examId: 'new-paper', examLabel: '새 시험', examScope: 'suneung' as const, takenAt: '2026-10-21', enteredAt: '2026-10-21T10:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true, mode: 'live' as const, firstExposure: 'unseen' as const }]
+    const v = goalLearning({ ...a, sessions })
+    expect(v.revisions[0]).toMatchObject({ reason: 'new_exam', newExam: true })
+    expect(v.replan.reasons).toEqual(['new_exam'])
   })
   it('a failed saved-state read cannot yield a schedule, outcome or fabricated history', () => {
     const a = input(); a.saved.error = true

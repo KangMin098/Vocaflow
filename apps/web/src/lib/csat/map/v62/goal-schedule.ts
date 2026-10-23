@@ -58,7 +58,7 @@ export function budgetUsage(budget: GoalBudget | null | undefined, activity: rea
 }
 
 /** today is a validated Seoul calendar date supplied by the caller. Weekly/daily caps are never exceeded, even in a partial week. */
-export function goalSchedule(goal: GoalVersion | null, rows: readonly GoalPlanRow[], today: string, usage: readonly BudgetUsage[] = []): GoalSchedule {
+export function goalSchedule(goal: GoalVersion | null, rows: readonly GoalPlanRow[], today: string, usage: readonly BudgetUsage[] = [], comparisonOnly = false): GoalSchedule {
   if (!/^\d{4}-\d{2}-\d{2}$/.test(today) || !Number.isFinite(ms(today)) || date(ms(today)) !== today) throw new Error('Invalid schedule date')
   const base: GoalSchedule = { goalVersion: goal?.id ?? null, status: 'missing_goal', today, deadline: goal?.date ?? null, daysLeft: goal?.date ? Math.round((ms(goal.date) - ms(today)) / DAY) : null, allocations: [], unassigned: [], weeks: [], laterStagesUnknown: false }
   if (!goal?.exam || !goal.date) return base
@@ -103,13 +103,13 @@ export function goalSchedule(goal: GoalVersion | null, rows: readonly GoalPlanRo
     if (r.quantity.remaining <= 0) continue
     base.laterStagesUnknown = true
     // Quantities are meaningful only at a currently available, executable stage.
-    if (r.planGate || !r.action || r.quantity.source !== 'saved') { reject(r, r.planGate ? 'plan' : 'content'); continue }
+    if (r.planGate || (!r.action && !comparisonOnly) || r.quantity.source !== 'saved') { reject(r, r.planGate ? 'plan' : 'content'); continue }
     let left = r.quantity.remaining
     for (const slot of slots) {
       const n = Math.min(left, Math.floor(slot.left / budget.minutesPerUnit))
       if (n <= 0) continue
       const minutes = n * budget.minutesPerUnit
-      base.allocations.push({ date: slot.date, task: r.task, workspace: r.workspace, stage: r.stage, amount: n, unit: r.quantity.unit, minutes, action: r.action, criterion: r.criterion, evidence: r.evidence, planGate: null })
+      base.allocations.push({ date: slot.date, task: r.task, workspace: r.workspace, stage: r.stage, amount: n, unit: r.quantity.unit, minutes, action: comparisonOnly ? null : r.action, criterion: r.criterion, evidence: r.evidence, planGate: null })
       slot.left -= minutes
       weeks.get(slot.week)!.minutes += minutes
       left -= n

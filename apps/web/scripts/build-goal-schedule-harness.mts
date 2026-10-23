@@ -25,6 +25,7 @@ import { createElement as h, useState, useRef, useEffect } from 'react'
 import { createRoot } from 'react-dom/client'
 import { GoalSchedule } from '@/components/csat/diagnosis/map/GoalSchedule'
 import { GoalOutcome } from '@/components/csat/diagnosis/map/GoalOutcome'
+import { ReplanPanel } from '@/components/csat/diagnosis/map/ReplanPanel'
 import { goalLearning } from '@/lib/csat/map/v62/goal-learning'
 import { CANON_VERSION } from '@/lib/csat/map/v4/definition'
 import { GoalPopover, useGoal } from '@/components/csat/diagnosis/map/GoalBar'
@@ -57,6 +58,7 @@ function Harness() {
     h(GoalPopover,{data:input,g,trigger:({toggle,open,id})=>h('button',{onClick:toggle,'aria-controls':id,'aria-expanded':open,style:{minHeight:44,padding:'8px 16px'}},'목표 바꾸기')}),
     h(GoalSchedule,{learning,past:false,onOpenWs:(ws,tab)=>setOpened(ws+':'+tab)}),
     h(GoalOutcome,{outcome:learning.outcome,past:false}),
+    h(ReplanPanel,{p:learning.replan,onOpenWs:(ws,tab)=>setOpened(ws+':'+tab)}),
     h('output',{'data-testid':'projection-binding'},JSON.stringify({goal:learning.goal.id,plan:learning.saved.byTemplate[r.workspace].latest.version,history:learning.saved.byTemplate[r.workspace].history.map(p=>p.version)})),
     h('output',{'data-testid':'opened-workspace'},opened)))
 }

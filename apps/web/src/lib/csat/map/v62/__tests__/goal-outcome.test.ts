@@ -73,4 +73,15 @@ describe('goalOutcome — 목표 대비 판정', () => {
     expect(o.grade.status).toBe('no_target')
     expect(goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 99)], []).grade.status).toBe('no_record_grade')
   })
+
+  it('네 상태 — 기록 없음 · 판정 불가 · 미달 · 충족(등급 목표가 있으면 등급도 충족해야)', () => {
+    expect(goalOutcome(goal, [], []).verdict).toBe('no_record')
+    expect(goalOutcome(goal, [s('b', 'hp', '2026-10-10', 99, { examScope: 'hakpyeong' })], []).verdict).toBe('not_judgeable')
+    expect(goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 70, { grade: 4 })], []).verdict).toBe('below')
+    const scoreOnlyGrade = goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 90, { grade: 3 })], [])
+    expect(scoreOnlyGrade.verdict).toBe('below')
+    expect(scoreOnlyGrade.next).toBe('replan_new_exam')
+    expect(goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 90, { grade: 2 })], []).verdict).toBe('met')
+    expect(goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 90)], []).verdict).toBe('not_judgeable') // 등급 목표가 있는데 기록 등급 없음
+  })
 })

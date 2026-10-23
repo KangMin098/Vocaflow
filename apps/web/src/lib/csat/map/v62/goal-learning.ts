@@ -12,6 +12,7 @@ import { goalOutcome, type GoalOutcome } from './goal-outcome'
 import type { GoalPlanSummaryData } from './goal-plan'
 import { budgetUsage, goalSchedule, scheduleChanges, type GoalSchedule, type ScheduleChange } from './goal-schedule'
 import { seoulToday, type GoalVersion } from './target-goal'
+import { replanProposal, type ReplanProposal } from './replan'
 
 export interface GoalLearning {
   goal: GoalVersion | null
@@ -21,10 +22,11 @@ export interface GoalLearning {
   budget: ReturnType<typeof goalBudgetSource>
   schedule: GoalSchedule | null
   outcome: GoalOutcome | null
+  replan: ReplanProposal
   /** Current browser projection comparison; not a persisted calendar history. */
   allocationChanges: ScheduleChange[] | null
   nextReview: string | null
-  revisions: { workspace: string; fromVersion: number | null; goalVersion: number | null; reason: PlanReason | null; changes: ReplanChange[]; contentChanged: boolean }[]
+  revisions: { workspace: string; fromVersion: number | null; goalVersion: number | null; reason: PlanReason | null; changes: ReplanChange[]; contentChanged: boolean; newExam: boolean }[]
 }
 
 export function goalLearning(input: {
@@ -35,7 +37,8 @@ export function goalLearning(input: {
   const goal = saved?.error ? null : saved?.goal ?? null
   const budget = goalBudgetSource(goal, input.profileWeeklyMinutes ?? null)
   const today = seoulToday(new Date(asOf))
-  const schedule = goal ? goalSchedule(goal, summary.rows, today, budgetUsage(goal.budget, activity, asOf)) : null
+  const usage = budgetUsage(goal?.budget, activity, asOf)
+  const schedule = goal ? goalSchedule(goal, summary.rows, today, usage) : null
   const outcome = goal ? goalOutcome(goal, sessions.map(s => ({ ...s, examScope: s.examScope ?? null })), taskPlans, asOf) : null
   const revisions = Object.values(plans).filter(p => !saved?.error && (p.core.some(t => summary.rows.some(r => r.task === t)) || !!saved?.byTemplate[p.workspace])).map(p => {
     const old = saved?.byTemplate[p.workspace]?.latest ?? null
@@ -45,11 +48,12 @@ export function goalLearning(input: {
     const contentChanged = !!drift && (!!drift.content.length || !!drift.overAvailable.length)
     const newExam = !!outcome?.followup?.enteredAt && !!old && Date.parse(outcome.followup.enteredAt) > Date.parse(old.createdAt)
     const reason: PlanReason | null = !old ? 'initial' : replan.reason ?? (drift?.definition ? 'definition_change' : contentChanged ? 'content_change' : newExam ? 'new_exam' : null)
-    return { workspace: p.workspace, fromVersion: old?.version ?? null, goalVersion: goal?.id ?? null, reason, changes: replan.changes, contentChanged }
+    return { workspace: p.workspace, fromVersion: old?.version ?? null, goalVersion: goal?.id ?? null, reason, changes: replan.changes, contentChanged, newExam }
   })
+  const replan = replanProposal({ goal, rows: summary.rows, plans: taskPlans, saved, today, usage, revisions, usageForGoal: g => budgetUsage(g.budget, activity, asOf) })
   const allocationChanges = previous?.schedule && schedule ? scheduleChanges(previous.schedule, schedule, !sameBudget(previous.goal?.budget, goal?.budget)) : null
   const weekEnd = schedule?.weeks[0] ? new Date(Date.parse(`${schedule.weeks[0].start}T00:00:00Z`) + 6 * 86400000).toISOString().slice(0, 10) : null
   const checkDate = schedule?.allocations.find(a => a.stage === 'check' || a.stage === 'recheck')?.date ?? null
   const dates = [weekEnd, goal?.date ?? null, checkDate].filter((d): d is string => !!d && d >= today).sort()
-  return { goal, summary, saved, asOf, budget, schedule, outcome, allocationChanges, nextReview: dates[0] ?? null, revisions }
+  return { goal, summary, saved, asOf, budget, schedule, outcome, replan, allocationChanges, nextReview: dates[0] ?? null, revisions }
 }

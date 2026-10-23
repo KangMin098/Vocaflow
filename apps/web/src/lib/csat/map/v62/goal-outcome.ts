@@ -20,6 +20,8 @@ export type OutcomeSession = Pick<AsIsSession, 'id' | 'examId' | 'examLabel' | '
 }
 export type ScoreStatus = 'no_goal_exam' | 'no_followup' | 'unreliable' | 'repeated_paper' | 'different_exam' | 'no_score' | 'timing_unknown' | 'exposure_unknown' | 'mode_unknown' | 'not_live' | 'below' | 'reached'
 export type GradeStatus = 'no_target' | 'no_record_grade' | 'not_judged' | 'below' | 'reached'
+/** A verdict about this recorded assessment only; never final goal attainment. */
+export type OutcomeVerdict = 'no_record' | 'not_judgeable' | 'below' | 'met'
 export type ChangeStatus = 'no_baseline' | 'no_followup' | 'different_paper' | 'repeat_observation'
 export type OutcomeNext = 'set_goal_exam' | 'take_followup_exam' | 'replan_new_exam' | 'review_goal_evidence'
 export interface GoalOutcome {
@@ -30,6 +32,7 @@ export interface GoalOutcome {
   latest: OutcomeSession | null
   followup: OutcomeSession | null
   score: { status: ScoreStatus; gap: number | null }
+  verdict: OutcomeVerdict
   grade: { status: GradeStatus }
   change: { status: ChangeStatus; delta: number | null; before: OutcomeSession | null; after: OutcomeSession | null }
   attainment: { status: 'unconfirmed'; reason: 'target_assessment_not_bound' }
@@ -83,7 +86,10 @@ export function goalOutcome(goal: GoalVersion, sessions: readonly OutcomeSession
   const next: OutcomeNext = status === 'no_goal_exam' ? 'set_goal_exam'
     : status === 'below' || status === 'no_score' || (status === 'reached' && grade.status === 'below') ? 'replan_new_exam'
     : status === 'reached' ? 'review_goal_evidence' : 'take_followup_exam'
-  return { goalVersion: goal.id, target: { score: goal.score, grade: goal.grade, exam: goal.exam }, baseline, latest, followup,
+  const verdict: OutcomeVerdict = status === 'no_followup' ? 'no_record'
+    : status === 'below' || (status === 'reached' && grade.status === 'below') ? 'below'
+    : status === 'reached' && (grade.status === 'reached' || grade.status === 'no_target') ? 'met' : 'not_judgeable'
+  return { goalVersion: goal.id, target: { score: goal.score, grade: goal.grade, exam: goal.exam }, baseline, latest, followup, verdict,
     score: { status, gap: (status === 'reached' || status === 'below') ? latest!.raw! - goal.score : null }, grade, change,
     attainment: { status: 'unconfirmed', reason: 'target_assessment_not_bound' }, activity: { needs: unique.length, resolved: unique.filter(p => p.achievement === 'resolved').length }, next }
 }
@@ -107,3 +113,8 @@ export const NEXT_LABEL: Record<OutcomeNext, string> = {
   replan_new_exam: '새 기록과 직접 TASK 근거를 확인하고 계획 수정안을 검토해요',
   review_goal_evidence: '최종 평가 대상·시점·조건과 필요한 후속 근거를 확인해요',
 }
+
+export const VERDICT_LABEL: Record<OutcomeVerdict, string> = {
+  no_record: '평가 기록 없음', not_judgeable: '비교 · 판정 불가', below: '현재 평가에서 목표 기준 미달', met: '현재 평가에서 목표 기준 충족',
+}
+export const MET_LIMIT = '이번 평가 한 번의 결과예요 — 최종 목표 달성이나 학습 효과가 입증된 것은 아니에요'

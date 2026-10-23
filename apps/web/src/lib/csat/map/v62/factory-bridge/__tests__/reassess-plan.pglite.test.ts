@@ -243,7 +243,7 @@ const sqlFrames: Record<string, GoalLearning> = {}
 async function exportGoalFrame(uid: string, name: string) {
   const w = await world(uid)
   sqlFrames[name] = goalLearning({ summary: goalPlanRows(w.v4, ranksOf(w.v4), w.data.v4!.saved), saved: w.data.v4!.saved, plans: w.v4.plans, taskPlans: w.v4.taskPlans, sessions: w.data.v4!.sessions, activity: w.data.lifecycleActivity ?? [], asOf: w.data.now! })
-  const sources = ['src/lib/csat/map/v62/goal-learning.ts', 'src/lib/csat/map/v62/goal-outcome.ts', 'src/lib/csat/map/v62/goal-schedule.ts', 'src/lib/csat/map/v4/replan.ts', 'src/lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts', '../../supabase/migrations/20261023090000_csat_goal_budget.sql']
+  const sources = ['src/lib/csat/map/v62/goal-learning.ts', 'src/lib/csat/map/v62/goal-outcome.ts', 'src/lib/csat/map/v62/goal-schedule.ts', 'src/lib/csat/map/v62/replan.ts', 'src/lib/csat/map/v4/replan.ts', 'src/lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts', '../../supabase/migrations/20261023090000_csat_goal_budget.sql']
   const sourceHashes = Object.fromEntries(sources.map(p => [p, createHash('sha256').update(fs.readFileSync(path.resolve(p))).digest('hex')]))
   fs.mkdirSync(path.resolve('output'), { recursive: true })
   fs.writeFileSync(path.resolve('output/goal-schedule-sql.json'), JSON.stringify({ schema: 'goal-learning-sql/1', sourceHashes, frames: sqlFrames }))

@@ -206,6 +206,7 @@ KNOWN_STABILITY_THRESHOLD = 21  (일) — 기존 P6.2 stable dedup 임계와 정
 ```
 
 - 계획 = "언제(요일)·무엇을·어떻게" 한 흐름에 결합. 수능 D-day·완료일 역산·시간 압박 지표 없음(§철학1 Calm·§철학4 Implicit). 요일은 deadline 이 아니라 **리듬**.
+- **예외(2026-10-23 사용자 결정) — `/csat` 목표 계획만 목표일·주간 학습 가능 시간으로 역산한다**(`lib/csat/map/v62/goal-schedule.ts`). 화면에는 목표일 자체만 보이고 「N일 남음」 같은 카운트다운·압박 문구는 없다(남은 기간은 내부 배분 계산에만). 현재 단계만 편성하고 이후 학습량·점수 향상은 예측하지 않는다. 일반 `/plan` 은 위 원칙 그대로.
 - /manage 학습 계획 카드 = 담은 자료 N개 · 활동 N개 + 상위 자료명 요약.
 - **활동 실행(launch)** — /plan 카드 기본 = 선택 활동을 **그 자료로 바로 시작**하는 링크. scoped 진입(아이콘 ▶, **게임 6/6**): **flashcard·spellforge·wordblitz·pairflip** = 스크립트 `?text=`·단어장 `?set=` (scoped-words `fetchScopedWords`: set→shared_words, text→vocabularies) · **scriptquiz** = 스크립트 `?text=` · **dictation** = 스크립트 `/dictate/setup?text=`(texts.content→임시 리소스, 문장 전사라 스크립트만) · listen·read·echo·vocab→본문. 미스코핑(모듈 hub ↗): 도서 게임(inline 본문 없음)·단어장 dictation(문장 없음). (`activityLaunchHref`/`isActivityScoped` · v06.113)
 - (후속) 자료별 진행도(학습 데이터 누적 후 known-word %) · 도서 게임 스코핑(챕터 본문 소스).
