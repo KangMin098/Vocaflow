@@ -16,6 +16,9 @@ import { LOCAL, ROOT, nonHeldTasks, validateLinkChunk, validateLinkRow } from '.
 
 const BATCHES = {
   'rules-v2': { input: 'pilot-input.json', tasks: ['e.evidence_location', 'r.relation', 'v.core_meaning', 'v.semantic_relation', 'r.discourse_structure', 'e.task_demand', 'r.o.global_meaning_model', 's.o.sentence_meaning_model', 'e.o.final_judgment'], chunk: 20, contracts: ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', 'docs/csat-learner/v62/data-expansion/RULES_V2.md'] },
+  'rules-v21': { input: 'pilot-input.json', tasks: ['e.evidence_location', 'r.relation', 'v.core_meaning', 'v.semantic_relation', 'r.discourse_structure', 'e.task_demand', 'r.o.global_meaning_model', 's.o.sentence_meaning_model', 'e.o.final_judgment'], chunk: 20, contracts: ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', 'docs/csat-learner/v62/data-expansion/RULES_V2.md'] },
+  // 발문 수정(source-fixes.json) 문항의 수정 후 재판정 — r5r6 는 이 문항들을 계속 제외한다
+  'r5r6-fix': { input: 'fix-input.json', tasks: ['r.central_meaning', 'r.inference'], chunk: 10, contracts: ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md'] },
   r5r6: { input: 'expand-input.json', tasks: ['r.central_meaning', 'r.inference'], chunk: 48, contracts: ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md'] },
 }
 const [cmd, batch, only] = process.argv.slice(2)
@@ -34,7 +37,9 @@ const nChunks = Math.ceil(input.rows.length / cfg.chunk)
 const name = (track, k, out) => path.join(DIR, `chunk-${track}-${String(k + 1).padStart(2, '0')}${out ? '.out' : ''}.json`)
 // 원천 결함 문항(coverage-audit integrity) — 판정이 일치해도 R1 후보로 올리지 않는다
 const coverage = JSON.parse(fs.readFileSync(path.join(OUTDIR, 'coverage.json'), 'utf8'))
-const defective = new Set((coverage.integrity?.duplicate_long_stems ?? []).flat())
+// 현재 결함(가드) + 수정 전 오염 발문으로 판정한 문항(source-fixes.json — 수정 후 r5r6-fix 로 재판정). r5r6-fix 자신은 수정 후 입력이라 제외하지 않는다
+const fixes = JSON.parse(fs.readFileSync(path.join(OUTDIR, 'source-fixes.json'), 'utf8')).fixes.map((x) => x.item)
+const defective = new Set([...(coverage.integrity?.duplicate_long_stems ?? []).flat(), ...(coverage.integrity?.stem_format ?? []).map((x) => x.item), ...(batch === 'r5r6-fix' ? [] : fixes)])
 // 독립 검증(T-0089) 표본 판정 — 관련성 unclear 인 R1 후보는 내리고, 계약 위반은 표시만 한다(관련성 값은 confirmed)
 const reviewFile = path.join(OUTDIR, 'review/verdict.json')
 const review = new Map(fs.existsSync(reviewFile) ? (JSON.parse(fs.readFileSync(reviewFile, 'utf8')).sampling?.rows ?? []).map((r) => [`${r.item_id}|${r.task_id}`, r]) : [])

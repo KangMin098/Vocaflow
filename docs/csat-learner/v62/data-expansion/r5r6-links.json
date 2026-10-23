@@ -2686,9 +2686,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -2708,9 +2708,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -7355,10 +7355,10 @@
    "item": "2018#29",
    "task": "r.central_meaning",
    "relevance": "unknown",
-   "candidateRelevance": "indirect",
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "candidateRelevance": null,
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "indirect",
     "B": "indirect"
@@ -7385,10 +7385,10 @@
    "item": "2018#29",
    "task": "r.inference",
    "relevance": "unknown",
-   "candidateRelevance": "indirect",
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "candidateRelevance": null,
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "indirect",
     "B": "indirect"
@@ -8868,9 +8868,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -8890,7 +8890,7 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "DISPUTED",
+   "state": "SOURCE_DEFECT",
    "source": "research_ai_candidate",
    "tier": "R0",
    "judgments": {
@@ -11606,9 +11606,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -11628,9 +11628,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -11781,10 +11781,10 @@
    "item": "2021#30",
    "task": "r.central_meaning",
    "relevance": "unknown",
-   "candidateRelevance": "indirect",
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "candidateRelevance": null,
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "indirect",
     "B": "indirect"
@@ -11812,7 +11812,7 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "DISPUTED",
+   "state": "SOURCE_DEFECT",
    "source": "research_ai_candidate",
    "tier": "R0",
    "judgments": {
@@ -13268,10 +13268,10 @@
    "item": "2022#30",
    "task": "r.central_meaning",
    "relevance": "unknown",
-   "candidateRelevance": "indirect",
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "candidateRelevance": null,
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "indirect",
     "B": "indirect"
@@ -13299,9 +13299,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -16035,9 +16035,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -16057,9 +16057,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -25758,9 +25758,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -25780,9 +25780,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -31470,7 +31470,7 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "DISPUTED",
+   "state": "SOURCE_DEFECT",
    "source": "research_ai_candidate",
    "tier": "R0",
    "judgments": {
@@ -31495,10 +31495,10 @@
    "item": "M2406#42",
    "task": "r.inference",
    "relevance": "unknown",
-   "candidateRelevance": "indirect",
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "candidateRelevance": null,
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "indirect",
     "B": "indirect"
@@ -33176,9 +33176,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -33197,10 +33197,10 @@
    "item": "M2506#19",
    "task": "r.inference",
    "relevance": "unknown",
-   "candidateRelevance": "indirect",
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "candidateRelevance": null,
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "indirect",
     "B": "indirect"
@@ -33496,9 +33496,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "unknown",
     "B": "unknown"
@@ -33518,9 +33518,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "unknown",
     "B": "unknown"
@@ -33628,9 +33628,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -33650,9 +33650,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -34069,9 +34069,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -34091,9 +34091,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -34113,9 +34113,9 @@
    "task": "r.central_meaning",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
@@ -34135,9 +34135,9 @@
    "task": "r.inference",
    "relevance": "unknown",
    "candidateRelevance": null,
-   "state": "INDEPENDENTLY_CHECKED",
-   "source": "research_ai_reviewed",
-   "tier": "R1",
+   "state": "SOURCE_DEFECT",
+   "source": "research_ai_candidate",
+   "tier": "R0",
    "judgments": {
     "A": "not_applicable",
     "B": "not_applicable"
