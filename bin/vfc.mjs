@@ -339,8 +339,9 @@ function main() {
       requireValidCanon()
       return out(withState((s) => T.prepareContinuation(s, pos[0], { caller: caller(opt), reason: opt.reason }), { event: 'task.prepare_resume', task: pos[0], by }), opt)
     case 'task approve': {
-      const via = T.approvalChannel()
-      return out(withState((s) => T.recordApproval(s, pos[0], { by: opt.by, reference: opt.ref, kinds: opt.kinds ? list(opt.kinds) : undefined, sql_sha256: opt['sql-sha256'], via }), { event: 'task.approve', task: pos[0], by: opt.by, via }), opt)
+      // --popup-ticket <난수 sha256>: 승인 창(팝업)에서 허용돼 러너가 방금 소비한 티켓 — recordApproval 이 티켓 파일을 검증한다
+      const via = opt['popup-ticket'] ? 'popup' : T.approvalChannel()
+      return out(withState((s) => T.recordApproval(s, pos[0], { by: opt.by, reference: opt.ref, kinds: opt.kinds ? list(opt.kinds) : undefined, sql_sha256: opt['sql-sha256'], via, popup_ticket: opt['popup-ticket'] || null }), { event: 'task.approve', task: pos[0], by: opt.by, via }), opt)
     }
     case 'approve': {
       // 신뢰 승인 입력 — 에이전트 프로세스(TTY 없음 · CLAUDECODE/VFC_AGENT)는 여기를 통과하지 못한다
