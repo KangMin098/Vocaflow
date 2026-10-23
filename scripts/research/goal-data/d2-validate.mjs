@@ -122,10 +122,20 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
       const nob = new Map()
       for (const r of allRows) for (const n of r.not_observable ?? []) {
         if (typeof n?.why !== 'string') continue
+        // 계약 고정 문구(삽입 E2 — v2.2 §3)는 문항마다 같아도 정당하다(T-0121 P1-01: b3 B · b6 A 를 잘못 배제)
+        if (n.task_id === 'e.evidence_location' && byId.get(r.item_id)?.type_id === 'R-INSERT') continue
         const k = norm(n.why.split(r.item_id).join('#'))
         nob.set(k, new Set([...(nob.get(k) ?? []), r.item_id]))
       }
-      for (const [k, ids] of nob) if (ids.size >= 3) errs.push(`not_observable why 틀 반복 ${ids.size}문항(${[...ids].slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
+      // 행 단위로 묶는다(T-0121 P1-01): 반복 문장(3문항↑)이 그 행 설명의 절반 이상인 행만 「틀 행」 — 한 줄만 겹치고 나머지가 문항 고유인 행(b3 B)은 정당
+      const rep = new Set([...nob].filter(([, ids]) => ids.size >= 3).map(([k]) => k))
+      const tmplRows = new Map()
+      for (const r of allRows) {
+        const ws = (r.not_observable ?? []).filter((n) => typeof n?.why === 'string' && !(n.task_id === 'e.evidence_location' && byId.get(r.item_id)?.type_id === 'R-INSERT')).map((n) => norm(n.why.split(r.item_id).join('#')))
+        const hit = ws.filter((k) => rep.has(k))
+        if (ws.length && hit.length * 2 >= ws.length) for (const k of hit) tmplRows.set(k, [...(tmplRows.get(k) ?? []), r.item_id])
+      }
+      for (const [k, ids] of tmplRows) if (new Set(ids).size >= 3) errs.push(`not_observable why 틀 반복 ${new Set(ids).size}문항(${[...new Set(ids)].slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
     }
     return errs
   }

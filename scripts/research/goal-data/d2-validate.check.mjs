@@ -26,6 +26,9 @@ const nobCases = [
   { name: 'not_observable why 틀 3문항(b14) 거부', v: V14, rows: nob(3), expect: true },
   { name: 'not_observable why 틀 2문항(b14) 허용', v: V14, rows: nob(2), expect: false },
   { name: 'not_observable why 틀 3문항(b13) 소급 안 함', v: V13, rows: nob(3), expect: false },
+  // T-0121 P1-01: 한 줄만 겹치고 나머지 설명이 문항 고유면 정당(b3 B 형태)
+  { name: '반복 1줄 + 고유 2줄 행 3개 허용', v: V14, rows: [1, 2, 3].map((k) => ({ item_id: `M#${k}`, primary_reason: `고유 이유 ${'가나다'[k - 1]} 문장`, not_observable: [{ task_id: 'r.discourse_structure', why: '전개 복원은 선택만으로 확인되지 않는다' }, { task_id: 'r.inference', why: `문항 ${k} 의 결론 ${'가나다'[k - 1]} 연결은 남지 않는다` }, { task_id: 'e.task_demand', why: `발문 ${'가나다'[k - 1]} 방향 확인 흔적 없음` }] })), expect: false },
+  { name: '삽입 E2 고정 문구는 반복 검사 제외', v: makeValidator({ ...input, batch: 'b14-v24', rows: [1, 2, 3].map((k) => ({ item_id: `I#${k}`, type_id: 'R-INSERT' })) }, []), rows: [1, 2, 3].map((k) => ({ item_id: `I#${k}`, primary_reason: `고유 이유 ${'가나다'[k - 1]} 문장`, not_observable: [{ task_id: 'e.evidence_location', why: 'E2 분리 불가' }] })), expect: false },
 ]
 let bad = 0
 for (const c of nobCases) {
