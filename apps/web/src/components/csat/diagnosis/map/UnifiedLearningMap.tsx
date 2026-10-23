@@ -33,6 +33,7 @@ import type { CoreCode } from '@/lib/csat/map/core'
 
 import { useGoal } from './GoalBar'
 import { GoalPlanSummary } from './GoalPlanSummary'
+import { GoalSchedule } from './GoalSchedule'
 import { AXIS_ICON } from './icons'
 import { GoalRecordBar } from './GoalRecordBar'
 import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor } from './TaskInspector'
@@ -330,6 +331,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
       <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      <GoalSchedule data={goalPlanRows(view, ranks, data.v4?.saved)} saved={data.v4?.saved ?? null} now={data.now ?? ''} past={past} activity={data.lifecycleActivity} onOpenWs={(id, tab) => openWs(id, null, tab)} />
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>
