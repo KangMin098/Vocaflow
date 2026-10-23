@@ -1,0 +1,79 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+  "items": [
+    {
+      "id": "cb-teach-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "목적격 관계대명사가 생략된 관계절이 last spring에서 끝나므로 정답은 유일하다. 지도 단계와 각 덩어리의 설명도 문장 구조에 부합한다."
+    },
+    {
+      "id": "cb-guided-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "told the rule was unfair는 students를 수식하는 수동 분사구로 해석되며, 주절의 동사는 refused다. 힌트, 대체 이유 및 나머지 덩어리의 설명이 타당하다."
+    },
+    {
+      "id": "cb-ind-1",
+      "verdict": "revise",
+      "choice_0based": 1,
+      "gold_issues": [
+        "지문은 부모의 수면 시간 추정, 손목 센서의 측정 결과, 청소년의 수면 부족 및 학습 저하를 실제 연구에서 확인된 일반적 사실처럼 제시하지만, 제공된 JSON에는 이를 추적할 근거나 가상 사례라는 표시가 없다.",
+        "Teenagers in particular lose an hour or more on school nights는 무엇을 기준으로 한 시간 이상 줄어드는지 명시하지 않아 수량 주장의 의미도 불명확하다."
+      ],
+      "why": "문법 정답은 1로 유일하고 정답·대체 이유·덩어리별 설명은 정확하다. 다만 지문의 실증적 주장에 대한 근거 또는 명확한 가상 설정이 필요하다."
+    },
+    {
+      "id": "cb-ind-2",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "첫 덩어리가 worried의 주어 전체이며 다른 덩어리는 각각 동사, 목적어의 핵심 부분, 목적어를 수식하는 관계절이다. 전치사구의 세부 수식 범위는 정답의 유일성에 영향을 주지 않는다."
+    },
+    {
+      "id": "cb-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "sent의 직접목적어 자리는 letter와 연결된 관계대명사 생략 자리이고 the staff는 간접목적어다. 따라서 주어 전체는 staff에서 끝나며 설명도 정확하다."
+    },
+    {
+      "id": "cb-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "the family had forgotten은 box를 수식하는 목적격 관계대명사 생략 관계절이다. 도치 구조와 각 덩어리의 기능에 대한 설명이 정답을 일관되게 뒷받침한다."
+    },
+    {
+      "id": "cb-ind-3",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "Whether가 이끄는 주어 명사절은 on time에서 끝난다. depends가 주절 동사이므로 정답은 유일하며 나머지 설명도 적절하다."
+    },
+    {
+      "id": "cb-ind-4",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "When 부사절은 coast 뒤 쉼표에서 끝나고 the fishing boats에서 주절이 시작된다. 관계절과 부사절의 구분, 대체 이유 및 덩어리별 설명이 정확하다."
+    },
+    {
+      "id": "cb-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "주어 전체는 Learning부터 관계절 끝의 out까지이며 took이 주절 동사다. 관계절은 plant를 수식하고, 정답·대체 이유·덩어리별 설명이 이에 부합한다."
+    }
+  ],
+  "limitations": [
+    "제공된 JSON만 검토했으며 외부 근거, 파일 내용 또는 해시의 일치 여부는 확인하지 않았다.",
+    "이 판단은 자체 창작 후보 콘텐츠의 내용·Gold 검토이며 권리 확인이나 출시 승인이 아니다."
+  ],
+  "required_changes": [
+    "cb-ind-1의 수면 관련 주장을 명확한 가상 사례로 재작성하거나 추적 가능한 근거를 제공하고, 한 시간 이상 줄어든다는 표현의 비교 기준을 명시한다."
+  ]
+}

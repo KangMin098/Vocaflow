@@ -1,0 +1,502 @@
+Fresh independent AI content/Gold reviewer for Vocaflow first-party authored English reading items for Korean high-school learners. The user assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions: judge only the supplied JSON. Review every item: passage sentences, stem, every choice or segment or pair, the gold answer, alternatives, distractor explanations, hints and why texts. Accept an item only if (a) exactly one keyed answer is defensibly correct from the text alone, (b) every other choice is clearly wrong for the stated reason, (c) explanations match the text and contain no factual claims presented as real findings that cannot be traced (hypothetical examples must read as hypothetical), (d) English is natural and level-appropriate, Korean text is accurate. Otherwise mark revise or hold and list the concrete gold_issues. Do not accept merely because a field says so; verify against the supplied text. This is a first-party candidate content judgment, not an external rights grant or release. Indexing: gold choices and sentence indexes are 0-based. For each item set choice_0based to the gold.answer value you verified, or null when the item has no gold.answer field. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,gold_issues:[],why}],limitations:[],required_changes:[]}. verdict for the whole set is accept only if every item is accept. Distinguish actual defects from optional refinements (refinements are not gold_issues) and preserve uncertainty.
+
+source_file_sha256: 8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda
+source_file: apps/web/src/lib/knowledge/authored/e-task-demand.v1.json
+
+{
+  "set": "e-task-demand.v1",
+  "taskId": "e.task_demand",
+  "taskKey": "authored-task-demand",
+  "format": "demand_choice",
+  "proseNumbering": "1-based",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전",
+    "supplementedAt": "2026-10-20",
+    "supplement": "T-0066 — independent_check 2(td-ind-3 · td-ind-4) · transfer 1(td-transfer-2) 새 지문 보충. 기존 6문항 내용 · 채점 계약 불변. 사람 Gold · 권리 pending 유지"
+  },
+  "items": [
+    {
+      "id": "td-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "td-t1",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "Many schools now ban phones during lunch breaks, hoping students will talk to each other more.",
+          "Some parents worry that such rules treat teenagers like small children.",
+          "Yet the evidence from schools that tried the ban is hard to ignore.",
+          "Students in these schools report fewer conflicts and more conversations at their tables.",
+          "Rules that feel strict at first can protect the very freedom to connect face to face.",
+          "Schools should therefore keep phones out of lunch breaks, even when some students complain."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "다음 글에서 필자가 주장하는 바로 가장 적절한 것은?",
+        "choices": [
+          "글 전체가 다루는 화제를 한 구절로 정리하기",
+          "학생들이 점심시간에 겪은 변화를 찾아 적기",
+          "글쓴이가 학교 측에 요구하는 행동을 고르기",
+          "글에 나온 학부모의 걱정이 옳은지 판정하기",
+          "글의 내용과 일치하지 않는 진술을 골라내기"
+        ],
+        "teach": [
+          {
+            "step": "발문의 연산 확인",
+            "text": "'필자가 주장하는 바'는 화제나 요지가 아니라 필자의 당위적 요구(~해야 한다)를 찾으라는 뜻이다. 6번 문장의 should가 그 신호다.",
+            "sentences": [
+              5
+            ]
+          },
+          {
+            "step": "범위와 단위 확인",
+            "text": "범위는 글 전체, 단위는 필자의 요구 한 가지다. 4번의 세부 결과나 2번의 반대 의견은 주장 자체가 아니라 근거·양보일 뿐이다.",
+            "sentences": [
+              3,
+              1
+            ]
+          },
+          {
+            "step": "오답 걸러내기",
+            "text": "①은 주제, ⑤는 내용 불일치 발문의 연산이고, ②는 세부, ④는 발문에 없는 조건이다. 연산·범위·단위가 모두 맞는 것은 ③뿐이다.",
+            "sentences": [
+              5
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "rationale": "'필자가 주장하는 바'는 필자가 내세우는 당위·요구를 묻는다. 이 글에서는 6번의 '점심시간 휴대전화 금지를 유지해야 한다'가 그 대상이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_operation",
+            "why": "화제 정리는 '주제' 발문의 연산이지 주장 파악이 아니다."
+          },
+          {
+            "choice": 1,
+            "design": "detail_focus",
+            "why": "4번의 결과는 주장을 뒷받침하는 세부 근거일 뿐이다."
+          },
+          {
+            "choice": 3,
+            "design": "extra_condition",
+            "why": "학부모 걱정의 옳고 그름을 판정하라는 조건은 발문에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "wrong_operation",
+            "why": "내용 불일치 찾기는 다른 유형의 판단이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "td-t2",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "When a city plants trees along a busy street, the most obvious benefit is shade.",
+          "But the trees also slow down drivers, who sense the road as narrower.",
+          "Shop owners on tree-lined streets often see more people walking past their windows.",
+          "Even the noise from traffic seems softer behind a row of leaves.",
+          "In short, a street tree does far more work than simply blocking the sun."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "다음 글의 주제로 가장 적절한 것은?",
+        "choices": [
+          "글 전체가 무엇에 관해 말하는지 화제를 정리하기",
+          "필자가 시에 요구하는 정책을 찾아 정리하기",
+          "운전자가 속도를 줄이는 이유 하나를 찾기",
+          "글의 내용을 한 문장의 영어 제목으로 바꾸기",
+          "가로수의 단점까지 함께 고려해 평가하기"
+        ],
+        "hints": [
+          "'주제'는 필자의 요구(주장)도, 압축된 제목도 아니다 — 글 전체가 무엇에 관한 글인지를 구로 정리하라는 뜻이다."
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "rationale": "'주제'는 글 전체가 다루는 대상과 그에 대한 핵심 관점을 구(句) 형태로 정리하라는 요구다. 여기서는 '가로수가 그늘 외에 주는 여러 이점'이다.",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "wrong_operation",
+            "why": "필자의 요구를 찾는 것은 '주장' 발문의 판단이다."
+          },
+          {
+            "choice": 2,
+            "design": "detail_focus",
+            "why": "2번 문장의 세부 하나만 보는 것은 글 전체 범위가 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_unit",
+            "why": "제목처럼 압축된 표현은 '제목' 발문이 요구하는 단위다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "단점을 함께 평가하라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-ind-1",
+      "role": "independent_check",
+      "passageGroup": "td-t3",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "The Lindale Science Fair is open to students aged 12 to 18.",
+          "Each team may have up to three members and must submit one project.",
+          "Projects must be registered online by May 10, and late entries will not be accepted.",
+          "Judges will score projects on originality, method, and clarity of presentation.",
+          "The top three teams will receive science kits and a visit to a local laboratory."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "Lindale Science Fair에 관한 다음 안내문의 내용과 일치하지 않는 것은?",
+        "choices": [
+          "안내문의 내용을 바탕으로 숨은 의도를 추론하기",
+          "행사의 목적을 한 문장으로 요약해 정리하기",
+          "참가 연령 조건 한 가지만 확인하고 답하기",
+          "안내문에 없는 규정까지 짐작해 판단하기",
+          "선택지별로 안내문과 대조해 사실이 어긋난 것 찾기"
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "rationale": "'내용과 일치하지 않는 것'은 추론이 아니라 선택지 각각을 본문의 해당 정보와 하나씩 대조해 사실이 어긋나는 진술을 찾으라는 요구다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_operation",
+            "why": "일치 판단은 숨은 의도 추론이 아니라 사실 대조다."
+          },
+          {
+            "choice": 1,
+            "design": "wrong_unit",
+            "why": "요약 한 문장이 아니라 선택지별 사실 하나하나가 단위다."
+          },
+          {
+            "choice": 2,
+            "design": "detail_focus",
+            "why": "한 항목만 보면 다른 선택지의 어긋남을 놓친다."
+          },
+          {
+            "choice": 3,
+            "design": "extra_condition",
+            "why": "안내문에 없는 규정을 짐작하는 것은 발문 밖의 조건이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-ind-2",
+      "role": "independent_check",
+      "passageGroup": "td-t4",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "Mira had practiced the piano piece for weeks, but on stage her hands began to shake.",
+          "She missed a note in the second line and felt the room go silent.",
+          "Then she remembered her teacher's words: the music does not stop for a mistake.",
+          "She kept playing, and by the last page her fingers moved as if on their own.",
+          "When the applause came, she realized she had been carrying the wrong fear all along."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "밑줄 친 carrying the wrong fear all along이 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "글 전체에서 글쓴이가 전하려는 교훈을 찾기",
+          "비유 표현이 이야기 흐름 속에서 가리키는 실제 뜻 풀기",
+          "밑줄 표현에 쓰인 fear의 사전적 뜻을 고르기",
+          "밑줄이 든 마지막 문장 전체의 요지를 정리하기",
+          "밑줄 표현 뒤에 Mira가 할 행동을 예측하기"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "rationale": "'함축 의미' 발문은 밑줄 친 비유 표현이 글의 흐름 속에서 실제로 가리키는 뜻(실수 자체를 두려워했지만 실수해도 계속하면 된다는 깨달음)을 풀어 말하라는 요구다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_scope",
+            "why": "범위는 밑줄 표현이지 글 전체의 교훈이 아니다."
+          },
+          {
+            "choice": 2,
+            "design": "wrong_unit",
+            "why": "낱말 하나의 사전 뜻이 아니라 표현 전체의 맥락 의미가 단위다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_scope",
+            "why": "밑줄 표현이 아니라 그것이 든 문장 전체로 범위를 넓혔다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "이후 행동을 예측하라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-transfer-1",
+      "role": "transfer",
+      "passageGroup": "td-t5",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "Researchers asked two groups to memorize a list of words.",
+          "One group simply reread the list several times, while the other covered it and tried to recall the words.",
+          "A week later, the recall group remembered far more words than the rereading group.",
+          "Interestingly, the rereading group had felt more confident right after studying.",
+          "The effort of pulling information out of memory, not the comfort of seeing it again, made learning last.",
+          "[요약] Trying to (A) information, rather than reviewing it, leads to more (B) learning."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+        "choices": [
+          "(A)만 정하고 (B)는 비워 둔 채 판단하기",
+          "(A)·(B)에 실험의 세부 수치를 넣어 채우기",
+          "(A)·(B)에 글쓴이의 권고 행동을 넣어 채우기",
+          "글 전체 요지에 맞게 (A)·(B)를 함께 정하기",
+          "(A)·(B)를 고르고 요약문 문법까지 고치기"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "rationale": "요약문 발문은 글 전체의 핵심을 담도록 (A)와 (B) 두 자리를 함께 정하라는 요구다. 여기서는 (A) 인출(recall)·(B) 오래가는(lasting)이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_scope",
+            "why": "두 빈칸 중 하나만 판단하면 요구 범위의 절반만 다룬다."
+          },
+          {
+            "choice": 1,
+            "design": "detail_focus",
+            "why": "실험의 세부 수치는 요약의 핵심이 아니다."
+          },
+          {
+            "choice": 2,
+            "design": "wrong_operation",
+            "why": "글쓴이의 권고를 찾는 것은 '주장' 발문의 판단이다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "문법 오류를 고치라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "td-t6",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "A small bakery once decided to stop offering twenty kinds of bread.",
+          "Instead, it focused on just five loaves made with great care.",
+          "Customers who used to stand undecided now chose quickly and returned more often.",
+          "The owner noticed that fewer choices also meant less waste at the end of each day.",
+          "Sometimes, ________ is what makes a business stronger rather than weaker."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "다음 빈칸에 들어갈 말로 가장 적절한 것은?",
+        "choices": [
+          "앞뒤 흐름이 가리키는 핵심 개념으로 비운 자리 채우기",
+          "빈칸 앞 낱말과 문법적으로 어울리는 말만 고르기",
+          "제과점 주인이 줄인 빵의 종류 수를 찾아 쓰기",
+          "필자가 다른 가게에 권하는 행동을 따로 정리하기",
+          "빈칸 문장과 반대되는 사례까지 함께 찾아내기"
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "rationale": "빈칸 발문은 앞뒤 흐름과 글 전체 요지가 가리키는 개념(선택지를 줄이는 것)을 빈칸 자리에 맞게 채우라는 요구다.",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "wrong_operation",
+            "why": "문법 호응만으로는 의미상 들어갈 개념을 정할 수 없다."
+          },
+          {
+            "choice": 2,
+            "design": "detail_focus",
+            "why": "숫자 같은 세부가 아니라 일반화된 개념이 빈칸을 채운다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_scope",
+            "why": "글 밖 다른 가게로 범위를 넓힌 판단이다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "반대 사례를 찾으라는 조건은 발문에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-ind-3",
+      "role": "independent_check",
+      "passageGroup": "td-t7",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "Many city parks now replace short-cut lawns with patches of wild grass and flowers.",
+          "These patches need less water and almost no mowing, which saves the city money.",
+          "They also give bees and butterflies places to feed and shelter during the summer.",
+          "Some residents first complained that the parks looked untidy.",
+          "Yet after small signs explained the purpose, most visitors came to see the patches as part of a living landscape."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "다음 글의 제목으로 가장 적절한 것은?",
+        "choices": [
+          "글에 나온 숫자 · 비용 정보 하나를 그대로 옮겨 적기",
+          "글 전체가 다루는 대상과 핵심 관점을 함께 담은 이름 고르기",
+          "주민 불만처럼 글의 한 부분만 드러내는 표현 고르기",
+          "글쓴이가 독자에게 권하는 행동을 명령문으로 바꾸기",
+          "글에 없는 다른 도시의 사례까지 덧붙여 판단하기"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "rationale": "'제목' 발문은 글 전체가 다루는 대상(공원의 야생 풀밭)과 그에 대한 핵심 관점(비용 절감 · 생태 · 인식 변화)을 함께 담은 이름을 고르라는 요구다 — 한 문장 · 한 세부가 아니라 글 전체가 단위다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "detail_focus",
+            "why": "비용 절감은 2번 문장의 세부일 뿐 글 전체를 대표하지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "wrong_scope",
+            "why": "주민 불만은 4번 문장의 일부 — 글 전체가 아닌 한 부분만 다룬다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_operation",
+            "why": "권고 행동을 찾는 것은 '주장' 발문의 판단이지 제목 고르기가 아니다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "글에 없는 사례를 덧붙이는 것은 발문 밖의 조건이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-ind-4",
+      "role": "independent_check",
+      "passageGroup": "td-t8",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "Sleep helps the brain sort the information it collected during the day.",
+          "During deep sleep, important memories are replayed and stored more firmly.",
+          "Less useful details are weakened, which keeps the brain from becoming overloaded.",
+          "Coffee shops in many cities now stay open until midnight for students.",
+          "This is why a good night's sleep before a test often helps more than staying up late to study."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+        "choices": [
+          "가장 어려운 단어가 들어 있는 문장 하나를 고르기",
+          "각 문장의 문법이 맞는지 하나씩 고쳐 보기",
+          "글의 첫 문장만 읽고 주제와 다른 문장을 짐작하기",
+          "글의 중심 화제와 흐름에 비추어 벗어난 문장 찾기",
+          "글쓴이의 의견이 들어간 문장을 모두 고르기"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "rationale": "'흐름과 관계 없는 문장' 발문은 글의 중심 화제(잠과 기억 정리)와 문장 사이의 연결을 기준으로, 그 흐름에서 벗어난 문장 하나를 찾으라는 요구다 — 여기서는 4번 문장(심야 카페)이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_operation",
+            "why": "단어 난도는 흐름 판단의 기준이 아니다."
+          },
+          {
+            "choice": 1,
+            "design": "extra_condition",
+            "why": "문법을 고치라는 조건은 발문에 없다."
+          },
+          {
+            "choice": 2,
+            "design": "wrong_scope",
+            "why": "첫 문장만 보면 문장 사이의 연결을 판단할 수 없다 — 글 전체 흐름이 범위다."
+          },
+          {
+            "choice": 4,
+            "design": "wrong_unit",
+            "why": "의견 문장을 모두 고르는 것이 아니라 흐름에서 벗어난 문장 하나가 단위다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "td-transfer-2",
+      "role": "transfer",
+      "passageGroup": "td-t9",
+      "body": {
+        "format": "demand_choice",
+        "sentences": [
+          "[주어진 글] When Mina joined the school orchestra, she could barely read music.",
+          "(A) By the end of the year, she was invited to play a short solo at the spring concert.",
+          "(B) So every evening she practiced one page slowly, marking the notes she kept missing.",
+          "(C) After a few weeks, the pages she had marked began to feel easier, and she started a second book."
+        ],
+        "stem": "이 발문이 요구하는 판단으로 가장 알맞은 것은?",
+        "taskStem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?",
+        "choices": [
+          "(A) · (B) · (C) 중 가장 긴 단락을 먼저 놓기",
+          "각 단락의 내용을 한 문장으로 요약만 하기",
+          "연결어 · 지시어 · 시간 흐름 단서로 단락 사이의 연결을 정해 순서 세우기",
+          "주어진 글의 바로 다음 단락 하나만 정하고 나머지는 두기",
+          "글에 없는 결말을 상상해 마지막 단락을 새로 정하기"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "rationale": "'순서' 발문은 주어진 글과 각 단락의 연결 단서(So · After a few weeks · By the end of the year 같은 연결어와 시간 흐름)로 앞뒤를 정해 세 단락 전체의 순서를 세우라는 요구다 — 여기서는 (B)-(C)-(A)다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "wrong_operation",
+            "why": "단락 길이는 순서를 정하는 단서가 아니다."
+          },
+          {
+            "choice": 1,
+            "design": "wrong_operation",
+            "why": "요약은 순서 판단이 아니다 — 연결 단서를 찾아야 한다."
+          },
+          {
+            "choice": 3,
+            "design": "wrong_scope",
+            "why": "바로 다음 단락 하나만 정하면 세 단락 전체 순서라는 요구의 일부만 다룬다."
+          },
+          {
+            "choice": 4,
+            "design": "extra_condition",
+            "why": "글에 없는 결말을 만드는 것은 발문 밖의 조건이다."
+          }
+        ]
+      }
+    }
+  ]
+}

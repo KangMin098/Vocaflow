@@ -1,0 +1,5 @@
+2026-10-23T05:06:55.859326Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 429: {\"ok\":false,\"error\":\"mcp_rate_limited\"}")
+2026-10-23T05:06:56.256035Z ERROR rmcp::transport::worker: worker quit with fatal: Transport channel closed, when UnexpectedServerResponse("HTTP 429: {\"ok\":false,\"error\":\"mcp_rate_limited\"}")
+2026-10-23T05:06:58.157551Z ERROR rmcp::transport::worker: worker quit with fatal: unexpected server response: HTTP 429: {"ok":false,"error":"mcp_rate_limited"}, when send initialized notification
+memory allocation of 2011318 bytes failed
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace

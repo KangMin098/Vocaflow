@@ -1,0 +1,69 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "v-contextual-sense.v1",
+  "source_file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+  "scope": [
+    "vcs-ind-2"
+  ],
+  "items": [
+    {
+      "id": "vcs-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "792de914df3ddccad6957a3f101d3affa688da3a09b013c89ee67eb164633712",
+      "body_canonical_sha256": "bbb0d56d6079782a0d24aa3366879cc0c5b12bc0fb1b3e1d7a9d71f73bb06d8a",
+      "gold_canonical_sha256": "d9bb19d3ca7cb98a00c78c69765542f811bf6dfb43fc4ab711e2343a282e47d5"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "63216a01-12c1-4ea1-9f3a-51ea8e2afb9a",
+      "request_id": "63216a01-12c1-4ea1-9f3a-51ea8e2afb9a",
+      "prompt_sha256": "4fbd2f33a5b48259db62b38cbe737d3b4db7f8231c668c26758caa8dd9cffc5f",
+      "response_sha256": "e55f698fa18f30de92b7bdf1a2f1fdc1af023ce35c6ba8cc4ddaa168a25e12d6",
+      "source_file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "vcs-ind-2",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "In sentence index 3, 'a promise to address unemployment directly' means to deal with or take action on a problem. Sentence index 4 confirms this: within a year the council opened a training center and attracted companies. Sentence index 2 contrasts this with only describing the problem. So '대처하다' (index 4) is the only correct answer. Each distractor is clearly wrong for the reason given. '연설하다' (to give a speech) does not take unemployment as its object. '말을 걸다' (to speak to someone) needs a person as its object. '글로 기록하다' (to write down) is a lure based on the earlier reports, and the critics' line in 1-based sentence 3 rejects mere description. '외면하다' (to ignore) is the opposite of the promise carried out in 1-based sentence 5. The explanations' prose sentence references (2번, 3번, 5번) follow the file's 1-based proseNumbering and match the passage. The gold cue indexes [2,3,4] are 0-based and correct. The English is natural and suitable for high-school learners. The Korean glosses are accurate. There are no untraceable factual claims: the passage is a generic, clearly invented scenario."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16726-b7ac-7502-9f6d-5c816d6809a4",
+      "request_id": "006060ae-050e-4f0c-8545-dbe3892f7c96",
+      "prompt_sha256": "4fbd2f33a5b48259db62b38cbe737d3b4db7f8231c668c26758caa8dd9cffc5f",
+      "response_sha256": "1738fb7db4ab64ce1d74d0c826b7d4fc8b935676507dc2ff9785bc679b6227f3",
+      "source_file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "vcs-ind-2",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "'address unemployment directly'는 실업 문제에 직접 대처한다는 뜻이며, 훈련 센터 개설과 기업 유치가 이를 뒷받침한다. 정답은 4번으로 유일하다. 나머지 선택지와 오답 설명은 문맥에 부합하며, 설명의 문장 번호는 proseNumbering의 1-based 표기와 일치한다. 영어와 한국어는 자연스럽고 학습 수준에 적절하며, 출처 확인이 필요한 실제 연구 결과를 주장하지 않는다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "vcs-teach-1",
+    "vcs-guided-1",
+    "vcs-ind-1",
+    "vcs-transfer-1",
+    "vcs-delayed-1",
+    "vcs-ind-3",
+    "vcs-ind-4",
+    "vcs-transfer-2"
+  ]
+}

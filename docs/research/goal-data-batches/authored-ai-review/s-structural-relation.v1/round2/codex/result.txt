@@ -1,0 +1,39 @@
+{
+  "verdict": "accept",
+  "source_file_sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+  "items": [
+    {
+      "id": "sr-guided-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "although tired만 although they were tired로 복원되는 축약 부사절이다. they는 that절의 주어 the runners를 가리킨다. 다른 분절의 설명과 두 힌트도 이 구조에 부합하며, 지문과 한국어에 판정을 바꿀 오류가 없다."
+    },
+    {
+      "id": "sr-ind-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "which a sailor drew in 1650만 주어와 서술부 사이에 삽입된 계속적 관계절이다. 이를 제거해도 문장이 완전하며, 나머지 분절의 문법 기능과 해설도 정확하다. 지문의 사건 서술에는 실제 연구 결과를 인용하는 주장이 없다."
+    },
+    {
+      "id": "sr-ind-3",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "제시된 분절 중 not to make loud noises만 마지막 병렬 부정사구의 핵심에 해당한다. near the nests는 그 동작의 장소를 나타내는 수식어이며 독립된 병렬 요소가 아니다. 세 부정사구의 목적격 보어 설명과 다른 분절 해설이 타당하고, 영어와 한국어도 적절하다."
+    },
+    {
+      "id": "sr-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "the mayor insists만 주어 The plan과 서술부 사이에 삽입된 보고절이다. 제거 후에도 완전한 문장이 남는다. 나머지 분절의 주어·동사·목적어 설명이 정확하며, 시장의 주장은 지문 안에서도 발언자의 주장으로 명시되어 있다."
+    }
+  ],
+  "limitations": [
+    "제공된 JSON의 지정된 네 문항만 검토했다.",
+    "외부 사실 확인이나 저작권·출시 승인은 수행하지 않았다."
+  ],
+  "required_changes": []
+}

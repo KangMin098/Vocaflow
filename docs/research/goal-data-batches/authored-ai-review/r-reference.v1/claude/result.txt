@@ -1,0 +1,81 @@
+```json
+{
+  "verdict": "revise",
+  "source_file_sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+  "items": [
+    {
+      "id": "ref-teach-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "'this practice' is in sentence 5 (index 4). It refers back to the planting of slower, long-lived mixed species in index 3, and the critics' complaint about bare streets fits slow growth. Choices 0 and 3 describe the old fast-growth practice, and choices 2 and 4 borrow words from index 2. Every teaching step matches the text, including the note that 'wind' is the nearest noun but is not an action."
+    },
+    {
+      "id": "ref-guided-1",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "Hint 2 says the nouns in sentence 4 (index 3) are not either of the two strategies. That sentence contains 'the first strategy', which is one of the pair. The hint misdescribes the text and could mislead the learner. Reword it, for example: 'Sentence 4 names only the first strategy; go back to where both were introduced.'"
+      ],
+      "why": "The two strategies are rereading (index 1) and recalling then checking (index 2). 'The latter' in index 4 is therefore recalling, so the key, choice 3, is correct and every distractor is wrong. The only defect is the factual error in hint 2."
+    },
+    {
+      "id": "ref-ind-1",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "'Such cases' in index 3 refers to the patients in index 2 who improved after being told openly their pills were inactive. Choice 1 is the expectation account that index 3 rejects. Choice 3 reverses the inactive pills. Choices 2 and 4 are not cases. The explanations are consistent with the text."
+    },
+    {
+      "id": "ref-ind-2",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "In index 5, 'their old flowers' and 'they pay attention' both refer to the experienced foragers from index 4. 'The dancers' is the object, 'old flowers' is the nearest noun but cannot pay attention, and the younger bees are the contrast group. Only one answer fits."
+    },
+    {
+      "id": "ref-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "'This' in index 3 covers the whole phenomenon in indexes 0–2, which ends with the new road becoming as crowded as before. Choice 0 is only one part of it. Choice 1 comes later in the text. Choice 3 reverses index 0. Choice 4 confuses the label 'rule' with the thing observed."
+    },
+    {
+      "id": "ref-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "'The method' in index 4 is the copies-in-the-open option from index 2, which the curators' worry in index 5 confirms. The distractors are clearly wrong. Optional refinement: choice 2 also misstates who examines what (visitors examine the copies, not the originals), and its explanation could say so."
+    },
+    {
+      "id": "ref-ind-3",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "In 'Most of them' (index 4), 'them' refers to the visitors in rooms without copies from index 3. The other choices are the contrast group, the curators, objects, or labels, and none of them can read and move on. The 'surveys' are part of a fictional passage, not a real-world claim in the explanations."
+    },
+    {
+      "id": "ref-ind-4",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "'This' in index 4 refers to the beetle spreading through the single-species trees (indexes 2–3), which is the reason given for mixing species. The other choices are the storm, the praise, a drawback mentioned later, or the quick replanting without the pest outcome. Optional refinement: evidenceAlt includes index 0 (the storm), which is weak as supporting evidence."
+    },
+    {
+      "id": "ref-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Index 1 introduces reread and write-down in that order, so 'the latter' in index 4 is writing down from memory with the book closed. Index 3 ('The second') confirms it. Choice 3 does not appear in the text, and the other choices are not methods or are the former."
+    }
+  ],
+  "limitations": [
+    "Judged only from the supplied JSON. The stems mention an underline, but no underline markup is supplied, so I located the target expression by its text.",
+    "ref-transfer-2 repeats the passage content and target of ref-guided-1 (rereading vs retrieval, 'the latter'). It is valid as an item, but it is a weak test of transfer. ref-delayed-1 and ref-ind-3 share the museum-copies theme. Both are design concerns, not gold defects.",
+    "Human Gold confirmation and rights confirmation are still pending, as the provenance fields state. This review grants neither."
+  ],
+  "required_changes": [
+    "ref-guided-1: correct hint 2. Sentence 4 contains 'the first strategy', which is one of the pair, so the hint must not say that sentence's nouns are neither strategy."
+  ]
+}
+```

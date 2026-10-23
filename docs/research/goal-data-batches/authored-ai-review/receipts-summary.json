@@ -1,0 +1,213 @@
+[
+  {
+    "set": "r5-central-meaning.v3",
+    "status": "ok",
+    "scope": 5,
+    "assessment_in_scope": 4,
+    "round1_both": 5,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "e-evidence-location.v1",
+    "status": "no_round2",
+    "reason": "1차 두 모델 공통 수락 0 — 영수증 없음"
+  },
+  {
+    "set": "e-option-correspondence.v1",
+    "status": "ok",
+    "scope": 6,
+    "assessment_in_scope": 6,
+    "round1_both": 6,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "r-inference.v1",
+    "status": "ok",
+    "scope": 1,
+    "assessment_in_scope": 1,
+    "round1_both": 1,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "r-relation.v1",
+    "status": "no_round2",
+    "reason": "1차 두 모델 공통 수락 0 — 영수증 없음"
+  },
+  {
+    "set": "s-form-scope.v1",
+    "status": "round2_not_accept",
+    "scope": 5,
+    "assessment_in_scope": 4,
+    "round1_both": 8,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:revise"
+    ],
+    "errors": [
+      "review_verdict:codex"
+    ]
+  },
+  {
+    "set": "v-contextual-sense.v1",
+    "status": "ok",
+    "scope": 1,
+    "assessment_in_scope": 1,
+    "round1_both": 1,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "r-reference.v1",
+    "status": "ok",
+    "scope": 1,
+    "assessment_in_scope": 0,
+    "round1_both": 1,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "v-multiword.v1",
+    "status": "ok",
+    "scope": 4,
+    "assessment_in_scope": 4,
+    "round1_both": 4,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "r-discourse-function.v1",
+    "status": "ok",
+    "scope": 1,
+    "assessment_in_scope": 1,
+    "round1_both": 1,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "r-discourse-structure.v1",
+    "status": "round2_not_accept",
+    "scope": 0,
+    "assessment_in_scope": 0,
+    "round1_both": 2,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:revise"
+    ],
+    "errors": [
+      "scope",
+      "review_verdict:codex"
+    ]
+  },
+  {
+    "set": "e-task-demand.v1",
+    "status": "ok",
+    "scope": 4,
+    "assessment_in_scope": 4,
+    "round1_both": 4,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "s-sentence-core.v1",
+    "status": "round2_not_accept",
+    "scope": 5,
+    "assessment_in_scope": 5,
+    "round1_both": 6,
+    "set_verdicts": [
+      "claude:revise",
+      "codex:accept"
+    ],
+    "errors": [
+      "review_verdict:claude"
+    ]
+  },
+  {
+    "set": "s-attachment.v1",
+    "status": "ok",
+    "scope": 3,
+    "assessment_in_scope": 2,
+    "round1_both": 3,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "s-chunk-boundary.v1",
+    "status": "round2_not_accept",
+    "scope": 7,
+    "assessment_in_scope": 5,
+    "round1_both": 8,
+    "set_verdicts": [
+      "claude:revise",
+      "codex:accept"
+    ],
+    "errors": [
+      "review_verdict:claude"
+    ]
+  },
+  {
+    "set": "s-structural-relation.v1",
+    "status": "ok",
+    "scope": 4,
+    "assessment_in_scope": 3,
+    "round1_both": 4,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "v-semantic-relation.v1",
+    "status": "ok",
+    "scope": 5,
+    "assessment_in_scope": 4,
+    "round1_both": 5,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  },
+  {
+    "set": "r5-central-meaning-cycle.v2",
+    "status": "ok",
+    "scope": 3,
+    "assessment_in_scope": 3,
+    "round1_both": 3,
+    "set_verdicts": [
+      "claude:accept",
+      "codex:accept"
+    ],
+    "errors": []
+  }
+]

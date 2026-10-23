@@ -1,0 +1,33 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+  "items": [
+    {
+      "id": "ds-ind-2",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 6 ('Yet it leaves little behind in memory...') defensibly functions as turn: it shifts from the app's advantages to its disadvantage. The gold accepts only support at this index, without supplying a rule that excludes this local rhetorical turn."
+      ],
+      "why": "The contrast pattern, final topic sentence, and accepted conclusion alternative are defensible. The English and Korean are understandable and appropriate. However, the sentence-role key needs to accommodate the defensible turn reading at index 6."
+    },
+    {
+      "id": "ds-ind-3",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "The rationale rejects problem_solution by saying '글은 해결책을 제시하지 않고', but sentence index 3 explicitly presents independent practice as Minho's response to losing the person he copied, and index 4 shows its successful outcome. The preferred narrative classification is defensible, but this stated exclusion reason is inaccurate."
+      ],
+      "why": "The sentence roles, conclusion alternative, and narrative pattern are defensible. The fictional account is clearly presented as a story, and the English is natural. Revise the Korean rationale to explain that chronological personal experience organizes the passage, while acknowledging its embedded problem and response."
+    }
+  ],
+  "limitations": [
+    "Reviewed only ds-ind-2 and ds-ind-3 using the supplied JSON; no external verification was performed.",
+    "No formal role taxonomy was supplied, so whether turn excludes local shifts remains uncertain.",
+    "The supplied source hash was reproduced, not independently verified."
+  ],
+  "required_changes": [
+    "For ds-ind-2, accept turn as an alternative at sentence index 6, or provide an explicit learner-facing role definition that resolves this ambiguity.",
+    "For ds-ind-3, replace the claim that no solution is presented with an accurate explanation of why narrative is the dominant organizational pattern."
+  ]
+}

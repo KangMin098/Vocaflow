@@ -1,0 +1,81 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+  "items": [
+    {
+      "id": "gs-teach-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "복수 주어 details에는 change가 필요하다. 나머지 네 밑줄과 해당 해설, 교수 단계는 문법적으로 타당하다."
+    },
+    {
+      "id": "gs-guided-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "value의 목적어를 포함하는 주어절에는 What이 필요하다. 다른 밑줄은 옳고, 힌트와 해설도 판단 근거에 부합한다."
+    },
+    {
+      "id": "gs-ind-1",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "낮은 점수에 놀라는 학생들을 수식하므로 surprised가 필요하다. 다른 밑줄과 해설에는 정답을 흔드는 문제가 없다."
+    },
+    {
+      "id": "gs-ind-2",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "lean, ask와 병렬인 정형동사 repeat가 필요하다. 나머지 밑줄의 병렬 구조와 수동태 설명은 타당하다."
+    },
+    {
+      "id": "gs-transfer-1",
+      "verdict": "revise",
+      "choice_0based": 1,
+      "gold_issues": [
+        "첫 밑줄의 해설은 Among the oldest tools of farmers in the valley를 '장소 부사구'로 잘못 분류한다. 이 구는 도치된 서술적 보어이며, 장소를 나타내는 부사구가 아니다.",
+        "정답 해설의 '앞 문장들에도 its가 받을 단수 명사가 없다'는 설명은 사실과 다르다. 앞 문장에는 단수 명사 valley가 있다. 문맥상 물길이 바뀐 대상은 복수 주어 rivers라는 점으로 설명해야 한다."
+      ],
+      "why": "정답 1과 their course라는 수정은 타당하며 다른 밑줄도 옳다. 다만 정답 및 오답 해설에 명확한 오류가 있어 수정이 필요하다."
+    },
+    {
+      "id": "gs-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "자재가 생산되는 대상이므로 to be produced가 필요하다. 다른 밑줄의 수 일치, 분사, 동명사 및 원형부정사 설명은 타당하다."
+    },
+    {
+      "id": "gs-ind-3",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "개들이 주인에게 버려진 것이므로 have been abandoned가 필요하다. 다른 밑줄과 해설도 문장 구조에 부합한다."
+    },
+    {
+      "id": "gs-ind-4",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "비교절에서 앞의 일반동사 술어를 받으려면 do가 필요하다. 나머지 밑줄의 시제와 동사 보문 설명은 타당하다."
+    },
+    {
+      "id": "gs-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "know 뒤에는 완전한 평서 내용절을 연결하는 that이 필요하다. 다른 밑줄의 도치, 수 일치, 의문사절 및 수동 동명사 설명은 타당하다."
+    }
+  ],
+  "limitations": [
+    "제공된 JSON만 검토했다. 해시, 저작 경위, 권리 및 외부 사실은 독립적으로 확인하지 않았다.",
+    "지문의 연구·보고·수치 진술에는 출처가 제공되지 않았다. 문법 설명의 타당성에 대한 수락은 이러한 진술을 실제 연구 결과로 검증했다는 뜻이 아니다.",
+    "이 판단은 자체 창작 후보 문항의 내용 검토이며 권리 승인이나 배포 승인이 아니다."
+  ],
+  "required_changes": [
+    "gs-transfer-1의 첫 밑줄 해설을 서술적 보어의 전치에 따른 도치와 복수 주어 irrigation ditches의 수 일치로 수정한다.",
+    "gs-transfer-1의 정답 해설에서 단수 명사가 없다는 주장을 삭제하고, 문맥상 소유 대상의 주체가 복수 rivers이므로 their가 필요하다고 설명한다."
+  ]
+}

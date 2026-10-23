@@ -1,0 +1,69 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "r-reference.v1",
+  "source_file_sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+  "scope": [
+    "ref-teach-1"
+  ],
+  "items": [
+    {
+      "id": "ref-teach-1",
+      "role": "model_explanation",
+      "item_canonical_sha256": "4ecaf2c8c0e217d89c41eef8c784a377804983e545c68944136048a39616bf7e",
+      "body_canonical_sha256": "d7e948e268f165497f9d07733b44fcc9e80bca88e7f29f4c504ab2c0c5b0cc1e",
+      "gold_canonical_sha256": "b801af6f648c3cda69d5d4fbbdf291ba7207f8972a8eec16fe115c3d0e0a249f"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "492cc03e-a04c-4a98-ab05-ab11074f2a71",
+      "request_id": "492cc03e-a04c-4a98-ab05-ab11074f2a71",
+      "prompt_sha256": "686bf73d16c4c6a6bcc0b26be4afdcf8bc8cec2b46a6103fffcd708c24d414be",
+      "response_sha256": "18b5324d3fa5233a87104fde3e9b931dcd0755a4b32a93562bb63f23ac4bb20c",
+      "source_file_sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "ref-teach-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "Gold answer 1 is correct. Sentence 4 (index 3) introduces a new action, planting a mix of slower, longer-lived species. Sentence 5 (index 4) calls it 'this practice' and criticises it for leaving streets bare for nearly a decade. That criticism only fits slow growth. Sentence 6 (index 5) supports the same reading with its 'tree which survives eighty years'. Every distractor is wrong for the stated reason. Choice 0 is the old fast-growth practice from sentence 1, which would not leave streets bare. Choice 3 is the quick-shade effect from sentence 2, the opposite of the criticism. Choices 2 and 4 reuse words from the storm damage in sentence 3 to make actions the passage never mentions. The 'sentences' arrays in the teach steps are 0-based and match the 1-based sentence numbers in the Korean text. Step 1's point that 'wind' is a noun and not an action is accurate. The passage contains only general, opinion-framed claims and presents no traceable real-world findings. The English is natural and fits Korean high-school level, and the Korean explanations are accurate."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16726-f489-7eb0-9399-b12426aba477",
+      "request_id": "27dbd352-7efe-435c-9e4b-64f63c1e1023",
+      "prompt_sha256": "686bf73d16c4c6a6bcc0b26be4afdcf8bc8cec2b46a6103fffcd708c24d414be",
+      "response_sha256": "edc89adfa64ce4877c1b3baeb4cd76ed3ad22c11904deeecf0a5a2d1bee8773c",
+      "source_file_sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "ref-teach-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "‘this practice’는 바로 앞 문장의 느리게 자라고 오래 사는 여러 수종을 섞어 심는 행위를 가리키므로 정답은 유일하게 ②이다. ①④는 빠른 성장을 추구한 이전 방식이고, ③⑤는 본문에 제시되지 않은 행위이므로 오답 설명도 타당하다. 결정 근거와 보조 근거의 인덱스가 적절하며, 교수 설명과 한국어 해설은 본문에 부합한다. 영어는 학습 수준에 적절하고, 80년간의 그늘 비교도 지지자들의 주장으로 명시되어 있다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "ref-guided-1",
+    "ref-ind-1",
+    "ref-ind-2",
+    "ref-transfer-1",
+    "ref-delayed-1",
+    "ref-ind-3",
+    "ref-ind-4",
+    "ref-transfer-2"
+  ]
+}

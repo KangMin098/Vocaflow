@@ -1,0 +1,174 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "e-option-correspondence.v1",
+  "source_file_sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+  "scope": [
+    "opt-ind-1",
+    "opt-ind-2",
+    "opt-transfer-1",
+    "opt-delayed-1",
+    "opt-ind-3",
+    "opt-transfer-2"
+  ],
+  "items": [
+    {
+      "id": "opt-ind-1",
+      "role": "independent_check",
+      "item_canonical_sha256": "fa5b20050fac7cd08aaae660fe8088cb1f66e70034a0234e42f73e018123bbd5",
+      "body_canonical_sha256": "1bcc27f3074d1b31cb7e2424ed2764807918859fff3a2537fec85f4312d7b726",
+      "gold_canonical_sha256": "56322389fff3cd616e673fce43fa75b5ba196ac7efcf247f3d3673376a6b82ad"
+    },
+    {
+      "id": "opt-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "4f4c4f679bff5bd108363300cc342fae3d8e762dd34593fc4233287f2ea1a4f0",
+      "body_canonical_sha256": "1bd61f0804a5a1a16482f57306565522852ed37ea4809027689deaaa0aceb40e",
+      "gold_canonical_sha256": "9f2fc8d4dae90145a46626e3d6e7b83a5f90c15b7086485c70645e557045b466"
+    },
+    {
+      "id": "opt-transfer-1",
+      "role": "transfer",
+      "item_canonical_sha256": "1460e310160362e0283252e4bedfe328c10049dabb0f65de6bce39a1e94ac904",
+      "body_canonical_sha256": "9f62df5a808954e3654499074f7e6d382928d4416744760b153e1b150910b627",
+      "gold_canonical_sha256": "6448ed3759105cc52ed2920e3c7e703a69ba7d3cc7469d056fd7fe440e81ea9f"
+    },
+    {
+      "id": "opt-delayed-1",
+      "role": "delayed_check",
+      "item_canonical_sha256": "2a57b0f46ff95311abe4fbb66a46e17d13bcd3fab2d7bae77ec5c4d70cb8eb20",
+      "body_canonical_sha256": "d98b3786bf41ab0a38b8d8150884557402766d84304b57a6503026da5ac812cb",
+      "gold_canonical_sha256": "223077b05200d8bee791c964e6c987b947b34db1a3a4da10350c360a87a7c226"
+    },
+    {
+      "id": "opt-ind-3",
+      "role": "independent_check",
+      "item_canonical_sha256": "23df2b66b9fb16c320eeeab6f5009f40b89e9f40f8c715eed2e18ef3e7f01874",
+      "body_canonical_sha256": "e375e22c81d6be0f9515eb1427787d70859be1439897563b4dbd2e774c584f1b",
+      "gold_canonical_sha256": "b643f655819b6583192dd0f97e4dcfd9e1ab508cf843484fc48ff4bbc354e7fb"
+    },
+    {
+      "id": "opt-transfer-2",
+      "role": "transfer",
+      "item_canonical_sha256": "300af70bd930d278b65996ae26138f160406eb00d1aaf2da51408d8b6d7da6f0",
+      "body_canonical_sha256": "608957e15a4cd550ecf77c10c1082922e66a776eabc72df63b1ca8b92545d61c",
+      "gold_canonical_sha256": "bd3c06720b1b03ab9a380c03cb610d3aa52850b99a6b94fd780ad785b72f2766"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "c738d4d5-c83b-4cec-a241-a5f0974833a2",
+      "request_id": "c738d4d5-c83b-4cec-a241-a5f0974833a2",
+      "prompt_sha256": "a4ddef85c21796facbdc4a9bd58f5938854fbf9d1c1c5a8c2437bba6c198fc39",
+      "response_sha256": "3c87bc952e6e5ea3f7ea2b179213c269288c545b43d65cd3c276698c3543c7b8",
+      "source_file_sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "opt-ind-1",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "gold_issues": [],
+          "why": "Sentence 1 (0-based) says she worked in the workshop 'instead of attending school', so choice 0 ('학교에 다니면서') contradicts the text. The other choices are correct. Choice 1 matches sentence 2, choice 2 matches sentence 3, choice 3 matches sentence 5 and choice 4 matches sentence 6. The explanations match the text, and the passage is labelled fictional."
+        },
+        {
+          "id": "opt-ind-2",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "gold_issues": [],
+          "why": "Sentence 4 lets children under twelve borrow only when an adult member co-signs, so choice 3 ('어른 회원 없이 혼자서도') contradicts the text. Choices 0, 1, 2 and 4 match sentences 1, 2, 3 and 5. The explanations are accurate."
+        },
+        {
+          "id": "opt-transfer-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "The stem asks for the matching choice. Choice 1 matches sentence 3 (tadpoles drop into the water and grow about three months). The other choices contradict the text. Choice 0 swaps day and night (sentence 1). Choice 2 says females guard the eggs, but sentence 2 says males do. Choice 3 calls the call low, but sentence 4 says it is high and inaudible without equipment. Choice 4 says no count is kept, but sentence 5 says researchers count every year. The passage is labelled fictional."
+        },
+        {
+          "id": "opt-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "Sentence 3 reserves a corner of the market for student crafts, so choice 2 (no such area, every stall sells food) contradicts the text. Choices 0, 1, 3 and 4 match sentences 1, 2, 4 and 5. The explanations are accurate."
+        },
+        {
+          "id": "opt-ind-3",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "Sentence 3 says the market took cash only until 2019, when card readers were introduced, so choice 2 ('지금도 현금으로만') contradicts the text. Choices 0, 1, 3 and 4 match sentences 1, 2, 4 and 5. The explanations are accurate."
+        },
+        {
+          "id": "opt-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "gold_issues": [],
+          "why": "The stem asks for the matching choice. Choice 3 matches sentence 3 (the race began as a test of whether the river ice was safe). The other choices are wrong. Choice 0 says the teams ride the sled, but sentence 1 says they pull it. Choice 1 requires metal runners, but sentence 2 forbids them. Choice 2 adds prize money, but sentence 5 says there is none. Choice 4 says the race is cancelled, but sentence 4 says it moves to a nearby lake. The verdict label 'distorted' fits choice 4."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16725-cdb1-7c01-b04d-390d48634147",
+      "request_id": "fde20eae-f83b-48ad-93f9-f324518f0056",
+      "prompt_sha256": "a4ddef85c21796facbdc4a9bd58f5938854fbf9d1c1c5a8c2437bba6c198fc39",
+      "response_sha256": "1ad9d6ad5b2030c5d1b30bacd2564fb96539fcc3e96d9c05b13e472fd2607514",
+      "source_file_sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "opt-ind-1",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "gold_issues": [],
+          "why": "학교에 다니는 대신 작업장에서 일했다는 본문과 모순되는 선지는 0번뿐이다. 나머지 선지와 모든 문장 대응·해설은 본문에 부합한다. 허구 인물임이 명시되어 있으며 영어와 한국어는 적절하다."
+        },
+        {
+          "id": "opt-ind-2",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "gold_issues": [],
+          "why": "12세 미만은 어른 회원의 공동 서명이 필요하므로 혼자서도 빌릴 수 있다는 3번만 불일치한다. 나머지 선지와 해설은 본문에 근거한다. 300종 초과는 300종 이상이라는 선지를 충족한다. 허구 설정과 언어 표현도 적절하다."
+        },
+        {
+          "id": "opt-transfer-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "올챙이가 아래 물로 떨어져 약 석 달간 자란다는 1번만 일치한다. 나머지는 활동 시간, 알을 지키는 성별, 울음의 높이와 가청성, 개체 수 조사 여부를 본문과 반대로 제시한다. 모든 해설과 문장 인덱스가 정확하며 허구 배경도 명시되어 있다."
+        },
+        {
+          "id": "opt-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "학생 공예품 구역이 없고 모든 노점이 음식을 판다는 2번만 본문과 모순된다. 나머지 선지는 운영 시기, 조명, 할인 조건, 설립자를 정확히 반영하며 해설과 문장 인덱스도 부합한다. 허구 설정과 영어·한국어 표현은 적절하다."
+        },
+        {
+          "id": "opt-ind-3",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "2019년에 카드 단말기가 도입되었다는 본문에 따라 지금도 현금만 받는다는 2번만 불일치한다. 나머지 선지와 모든 해설·문장 인덱스는 본문에 부합한다. 허구 시장임이 명시되어 있고 언어 표현도 적절하다."
+        },
+        {
+          "id": "opt-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "gold_issues": [],
+          "why": "최초 개최 목적을 설명한 3번만 일치한다. 나머지는 썰매를 끄는 방식, 금속 날 금지, 상금 없음, 얇은 얼음일 때 장소 변경이라는 내용을 각각 뒤집거나 왜곡한다. 모든 해설과 문장 인덱스가 정확하며 허구 설정과 언어 표현도 적절하다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "opt-teach-1",
+    "opt-guided-1",
+    "opt-ind-4"
+  ]
+}

@@ -1,0 +1,103 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+  "items": [
+    {
+      "id": "vcs-teach-1",
+      "verdict": "revise",
+      "choice_0based": 2,
+      "gold_issues": [
+        "Passage sentences 2–3 present recent wheat trials and a nearly twofold yield increase as real findings, without attribution or hypothetical framing."
+      ],
+      "why": "The keyed meaning 산출했다 is uniquely supported by the grain output comparison. All distractors are excluded appropriately, and the teaching text identifies the relevant context correctly. The empirical claims need traceable support or explicit hypothetical framing."
+    },
+    {
+      "id": "vcs-guided-1",
+      "verdict": "revise",
+      "choice_0based": 0,
+      "gold_issues": [
+        "Passage sentence 4 makes an unsupported general claim that serious bridge failures are now extremely rare because of testing and monitoring.",
+        "The explanation for choice 1 labels the error as wrong part of speech, but 소리가 나는 is an adjectival interpretation. Its actual defect is the wrong contextual meaning.",
+        "The explanation for choice 2 incorrectly says the sleep-related sense occurs only in combinations such as sound asleep. Sound also modifies sleep directly, as in sound sleep."
+      ],
+      "why": "튼튼하고 안전한 is uniquely correct, and both hints support it. The final passage claim and two distractor explanations require correction."
+    },
+    {
+      "id": "vcs-ind-1",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "Passage sentences 2–5 describe an unidentified historian's completed research, findings, and subsequent research activity as actual events without attribution or hypothetical framing.",
+        "The explanation for choice 4 incorrectly restricts the rhetorical meaning of figure to figure of speech. Figure can itself denote a rhetorical expression."
+      ],
+      "why": "수치 is uniquely supported by estimating silk volume, comparing quantities, and referring back to an estimate. The rhetorical distractor is wrong in this context, but its explanation overstates a usage restriction."
+    },
+    {
+      "id": "vcs-ind-2",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "대처하다 is uniquely supported by the contrast between describing unemployment and taking practical action. Every distractor explanation matches the passage, and the English and Korean are suitable."
+    },
+    {
+      "id": "vcs-transfer-1",
+      "verdict": "revise",
+      "choice_0based": 1,
+      "gold_issues": [
+        "The target phrase command the situation is unnatural in this context. Take command of the situation or control the situation would be idiomatic; retaining command as the tested word requires rewriting the sentence.",
+        "The explanation for choice 2 conflates command a view, meaning afford a view, with the sense of overlooking a place from a commanding position. These require distinct constructions and explanations."
+      ],
+      "why": "통제하다 is the only defensible intended answer, but the target sentence and one distractor explanation do not provide a sufficiently natural and accurate vocabulary model."
+    },
+    {
+      "id": "vcs-delayed-1",
+      "verdict": "revise",
+      "choice_0based": 2,
+      "gold_issues": [
+        "Bear a heavy meaning is an awkward collocation for emotional significance. Rewrite the target sentence with a natural use of bear, or change the tested verb.",
+        "Passage sentence 4 attributes advice to psychologists without attribution, and sentence 5 presents an unsupported general finding about children's later behavior."
+      ],
+      "why": "지니다 is uniquely intended and supported by the following sentence. The distractors are adequately excluded, but the target wording and unsupported psychological claims require revision."
+    },
+    {
+      "id": "vcs-ind-3",
+      "verdict": "revise",
+      "choice_0based": 1,
+      "gold_issues": [
+        "The passage presents a dated historical outbreak, intervention effects, and comparative mortality across cities as real history without identifying a source or marking the account as hypothetical.",
+        "The explanation for choice 3 calls the error wrong part of speech, but 계산서를 내다 is a verb phrase. Explain that the noun sense 계산서 does not supply the required verb meaning here, or revise the choice."
+      ],
+      "why": "억제하다 is uniquely supported by distancing measures and the comparison with cities that acted later. The historical claims and the grammatical characterization of one distractor require correction."
+    },
+    {
+      "id": "vcs-ind-4",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "The explanation for choice 2 presents smells flowing as an example of intransitive run. Smells do not ordinarily run in this sense; remove 냄새 and use a valid example such as flowing water."
+      ],
+      "why": "운영한다 is uniquely established by opening the bakery, dividing work, and managing the business. The narrative and remaining distractors are sound, but the explanation introduces an inaccurate English usage."
+    },
+    {
+      "id": "vcs-transfer-2",
+      "verdict": "revise",
+      "choice_0based": 0,
+      "gold_issues": [
+        "Passage sentence 2 presents rangers' findings about visitor compliance as an actual observation without attribution or hypothetical framing.",
+        "The explanation for choice 3 asserts that rangers, rather than visitors, perform the monitoring. The passage does not establish that exclusive division of roles; reject 감시하다 using the compliance-versus-ignore contrast instead."
+      ],
+      "why": "준수하다 is uniquely supported by the listed rules and the contrast with ignoring them. The reported finding needs framing or attribution, and one distractor explanation relies on an unsupported role assumption."
+    }
+  ],
+  "limitations": [
+    "Reviewed only the supplied JSON; no tools, files, browsing, or other sessions were used.",
+    "All nine keyed answers are supported as intended. The revisions concern passage claims, naturalness, or explanation accuracy.",
+    "Unattributed findings are not judged false; their factual status cannot be established from the supplied text.",
+    "This review does not establish authorship, external rights, or release authorization."
+  ],
+  "required_changes": [
+    "Make research findings and historical claims traceable, explicitly hypothetical, or replace them with self-contained illustrative scenarios.",
+    "Rewrite the target expressions command the situation and bear a heavy meaning using natural English.",
+    "Correct the identified distractor explanations, including part-of-speech labels, overly restrictive usage claims, and unsupported contextual assertions."
+  ]
+}

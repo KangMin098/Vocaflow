@@ -1,0 +1,69 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "r-inference.v1",
+  "source_file_sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+  "scope": [
+    "inf-ind-2"
+  ],
+  "items": [
+    {
+      "id": "inf-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "232133718d71f1ac58df84f64e3f2a682b52c2f50f019ab9859e2987158671de",
+      "body_canonical_sha256": "fd9b338b76e883c7b4c2f0be1990e5e549200119ab4ebe7443edc6fdd96c9cc6",
+      "gold_canonical_sha256": "a299d6c4a8625f392a0c299b3d26451eac405a23cafbf9002cfb8e5edf611c7a"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "5d564a42-6505-45a8-97ce-b124884b231e",
+      "request_id": "5d564a42-6505-45a8-97ce-b124884b231e",
+      "prompt_sha256": "05e0f79e6cab3ec713d37db890b11d2efe94652e6cf665378d31629e1522bee0",
+      "response_sha256": "8e0bb2ef54386a82e427e21b6b938d828a30ebbe6859856af7ef53c5debbf0e8",
+      "source_file_sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "inf-ind-2",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "Sentence index 2 says shoppers who drive out also eat and see a doctor elsewhere. Index 3 says the pharmacy and café that depended on grocery shoppers close one by one. Together they show that losing the store pulls other local activity down. That makes choice 4 the only defensible answer, and decisive index 3 with evidence [2,3] matches the text. Choice 0 reverses who depended on whom: index 3 says the other shops relied on the grocery store. Choice 1 reads 'threads' as goods on a shelf, and the text has nothing about saving residents a trip. Choice 2 calls the other shops competitors, but the text shows they depended on the grocery store. Choice 3, the most money, is off-text because the passage gives no revenue figures. The Korean rationale and distractor explanations cite sentences with 1-based numbers, as proseNumbering requires, and they match the text. Nothing is stated as a real finding. The English fits the level."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16726-553f-70e1-80d4-73c08595dfe1",
+      "request_id": "3ab343b4-6a04-44a4-aaab-6f9e4c82def0",
+      "prompt_sha256": "05e0f79e6cab3ec713d37db890b11d2efe94652e6cf665378d31629e1522bee0",
+      "response_sha256": "f685ba77d040b1889c986628c0fe0b63ebd7755e7a9c961f4298f1104a449497",
+      "source_file_sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "inf-ind-2",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "Choice 4 uniquely captures the grocery store's role in sustaining other local businesses and activities, supported by sentences indexed 2 and 3. Choice 0 reverses the stated dependency; choice 1 describes shopping convenience rather than the metaphor's interconnected local activities; choice 2 substitutes competition for dependency; choice 3 introduces an unsupported revenue ranking. The rationale, distractor explanations, decisive index and alternative evidence match the passage. English and Korean are appropriate and understandable, with no untraceable research findings asserted."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "inf-teach-1",
+    "inf-guided-1",
+    "inf-ind-1",
+    "inf-transfer-1",
+    "inf-delayed-1",
+    "inf-ind-3",
+    "inf-ind-4",
+    "inf-transfer-2"
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "verdict": "accept",
+  "source_file_sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+  "items": [
+    {
+      "id": "r5-cycle-ind-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Choice 2 uniquely expresses the stated central claim. All four distractors are unsupported or contradict the passage for the reasons given. The claim, support, restatement, relation probe and Korean gist match the text. The hypothetical framing is explicit, and both languages are natural and appropriate."
+    },
+    {
+      "id": "r5-cycle-ind-2",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "Choice 0 uniquely captures the need to clarify access hours alongside improving facilities. Every distractor is clearly wrong for its stated reason. The support annotations and reason relation are defensible, and the Korean gist accurately reflects the passage. The scenario is explicitly hypothetical, with appropriate English and Korean."
+    },
+    {
+      "id": "r5-cycle-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "Choice 3 uniquely captures matching records to the information required for different jobs. Every distractor conflicts with or goes beyond the passage, as its explanation indicates. The concluding claim, supporting sentences, reason relation and Korean gist are consistent. The illustrative scenario asserts no external research findings, and the language is appropriate."
+    }
+  ],
+  "limitations": [
+    "Judgment is based solely on the supplied JSON; the source file and supplied hash were not independently verified.",
+    "This is an AI content and gold-answer review, not an external rights grant or release."
+  ],
+  "required_changes": []
+}

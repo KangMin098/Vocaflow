@@ -1,0 +1,104 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+  "items": [
+    {
+      "id": "df-teach-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 3 presents an experiment and its result as factual, but the supplied JSON provides no traceable source and does not identify the experiment as hypothetical.",
+        "The teaching text calls misreading the concession the most common trap without supplying evidence for that frequency claim."
+      ],
+      "why": "The primary roles, allowed turn alternative, pattern and Korean explanations otherwise fit the passage. The empirical example needs attribution or explicit hypothetical framing, and the unsupported teaching superlative should be softened."
+    },
+    {
+      "id": "df-guided-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence indexes 5–6 present a village's population, share price and successful reopening as an actual case, but no source or hypothetical framing is supplied."
+      ],
+      "why": "The topic, problem background, supporting explanation and two-sentence example are coherently keyed. The support alternative at index 2 and all hints are defensible. The specific village account remains untraceable."
+    },
+    {
+      "id": "df-ind-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence indexes 0–2 report a study with a specific schedule and a nearly twofold recall result, but no source or hypothetical framing is supplied."
+      ],
+      "why": "The study-to-implication pattern and final topic/conclusion alternatives are defensible. The result can serve as both support and an example. The quantitative research account cannot be verified from the supplied material."
+    },
+    {
+      "id": "df-ind-2",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence indexes 3–4 describe two historical maps without identifying them or providing traceable sources.",
+        "Sentence indexes 5–6 categorically attribute nondecorative intent and seriously believed dangers to both unidentified maps. Neither assertion can be established from the supplied descriptions."
+      ],
+      "why": "The roles, general-to-specific pattern and Korean rationale fit the intended argument. The historical examples and claims about their makers' intentions require evidence or explicit fictional framing."
+    },
+    {
+      "id": "df-transfer-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 5 presents a specific injury last spring as an actual incident, but supplies neither a traceable source nor hypothetical framing."
+      ],
+      "why": "The opening concessions, central claim, supporting problems and final example are appropriately analyzed. Both allowed alternatives are defensible. The injury anecdote needs sourcing or clear hypothetical framing."
+    },
+    {
+      "id": "df-delayed-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "The example alternative at sentence index 4 is insufficiently supported. This sentence continues the general causal account of delayed praise; it introduces no distinct illustrative case. Accepting it as example conflicts with the set's taught distinction between general explanation and a concrete example."
+      ],
+      "why": "The primary role sequence, cause-effect pattern and rationale are coherent. Remove the example alternative or rewrite that sentence as a clearly identifiable illustrative case."
+    },
+    {
+      "id": "df-ind-3",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "The concession alternative at sentence index 0 is incorrect. Reporting that many people believe something does not concede that the belief is true or has merit; the next sentence explicitly rejects it.",
+        "The rationale incorrectly says the author provisionally accepts the myth. The passage attributes it to other people without accepting it."
+      ],
+      "why": "The primary roles and myth-rebuttal pattern are defensible, and the English is suitable. The concession alternative and its Korean justification undermine the distinction explicitly taught in df-teach-1."
+    },
+    {
+      "id": "df-ind-4",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "The problem, proposed solution, operating explanation and explicitly imagined example support the keyed roles and problem-solution pattern. The background alternative at index 1 is defensible. The quantitative example clearly reads as hypothetical, and the Korean rationale accurately preserves that framing."
+    },
+    {
+      "id": "df-transfer-2",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 3 states a specific accident as an actual event. Although the letter reads as an authored sample, the supplied item does not explicitly establish that its incident is fictional or hypothetical, and no source is supplied.",
+        "The rationale translates 'Last Tuesday' as '지난주'. The English identifies a Tuesday, but does not establish that it was in the previous calendar week; '지난 화요일' preserves the stated timing."
+      ],
+      "why": "The request-letter pattern, speech_act/ topic alternatives and closing role fit the text. Explicit sample-letter framing would resolve the incident's status. The Korean timing should match the English."
+    }
+  ],
+  "limitations": [
+    "Reviewed only the supplied JSON; no tools, files, browsing or other sessions were used.",
+    "The supplied SHA-256 was carried through without independent verification.",
+    "No item has a gold.answer field, so every choice_0based is null. These items supply role sequences, alternatives and patterns rather than answer choices, segments, pairs or distractor explanations.",
+    "No formal role or pattern taxonomy was supplied. Judgments use the distinctions taught within this set and ordinary discourse analysis.",
+    "Untraceable factual examples are evidence gaps, not findings that the described events are false.",
+    "This is a first-party candidate-content judgment, not a rights grant or release."
+  ],
+  "required_changes": [
+    "Provide traceable attribution or explicit hypothetical framing for the experiment, study, village case, historical-map examples and injury anecdotes identified above. For the letter, explicit fictional sample framing is sufficient.",
+    "Remove or qualify the unsupported 'most common trap' claim.",
+    "Remove the concession alternative and its justification from df-ind-3.",
+    "Remove the example alternative from df-delayed-1 or rewrite the relevant sentence as a distinct illustrative case.",
+    "Change '지난주' to '지난 화요일' in df-transfer-2's rationale."
+  ]
+}

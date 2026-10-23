@@ -1,0 +1,155 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "r5-central-meaning.v3",
+  "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+  "scope": [
+    "r5-cm-guided-1",
+    "r5-cm-ind-2",
+    "r5-cm-transfer-1",
+    "r5-cm-delayed-1",
+    "r5-cm-ind-3"
+  ],
+  "items": [
+    {
+      "id": "r5-cm-guided-1",
+      "role": "guided_practice",
+      "item_canonical_sha256": "2bdff1cf30ec55e5cc5bc8c379af7ef74c03903f941b3f02d95dfd837fe050c3",
+      "body_canonical_sha256": "370d823765c1716e937633d3654249795c42255ae5f59bf3390ca333e6178963",
+      "gold_canonical_sha256": "fd779eb465c83a3eb78f2fed06fe708e9e3ea5bb80315921f78acdd28ac92a18"
+    },
+    {
+      "id": "r5-cm-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "7bd92069d3d3f67a1b11341b5e2a1097064f3c0493d8893c5009bec4a307638e",
+      "body_canonical_sha256": "4c0bc5ffcbda9310620faf3049ed3ac0d02081bf466d7ae9777e22e950912227",
+      "gold_canonical_sha256": "548575cb5ad089792b5de6aa3f5a6bc6e4430cdc6f8cab84abbc1b8ed297bb87"
+    },
+    {
+      "id": "r5-cm-transfer-1",
+      "role": "transfer",
+      "item_canonical_sha256": "975f64546227cdfb0bb22536a0353c826e25526b382caa69c811a598f7a6f598",
+      "body_canonical_sha256": "b19885df5942c5a6521754e9d87f8040ff204be84f87f6385ff79075beddb67c",
+      "gold_canonical_sha256": "1a0800018bc69ca3455343b1f7c4351dbd5eb46c8d9fa83569055aecdf2a8662"
+    },
+    {
+      "id": "r5-cm-delayed-1",
+      "role": "delayed_check",
+      "item_canonical_sha256": "1fc0243f3b5685be02c09b28745c60bce83f4279f8d9682a6ad6b344e9eaec77",
+      "body_canonical_sha256": "d32a8abe60ddf231552a50397d054efe2ef768f889e863182d8555c9a120b666",
+      "gold_canonical_sha256": "710d9a7a564e895ea772a844af41714c44199d14885996970e35689011a5d378"
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "item_canonical_sha256": "df805fa19ccca5b145d5a25907c5f96656b201cc950bebb8ce08cdffca9b6db6",
+      "body_canonical_sha256": "c542bcb6cce123783711694baf5bd27f213c6271f87cd484fc6c4df255dca390",
+      "gold_canonical_sha256": "5a313b22ec511ea616e95b2d81152b9e9c94c22e5e9ee11ce84f90e7751cc593"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "a72a6cb8-49c9-498c-a1f8-3efa50fb7286",
+      "request_id": "a72a6cb8-49c9-498c-a1f8-3efa50fb7286",
+      "prompt_sha256": "f12b1c6f4e8dff110db0e6e736a906abe9045f9d3d10a5008ce0344d5e8d1a98",
+      "response_sha256": "5f58a44416893d7cd3a17929d9ca9e2d2f3ab3f92f789585740a1a5d3de2712b",
+      "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "r5-cm-guided-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "Sentence 4 states that planting trees can usefully cool outdoor spaces. Sentence 6 restates this as a recommendation to treat trees as infrastructure, which choice 2 paraphrases. Choice 0 is only the opening observation, and choice 1 is one supporting mechanism. Choice 3 moves from the air-conditioner contrast to an energy-saving claim the passage never makes. Choice 4 reverses sentence 6. The hints and distractor explanations match the text. An optional refinement: 'therefore' in sentence 3 is a weak connector because sentence 3 elaborates sentence 2 rather than following from it. This does not affect the answer."
+        },
+        {
+          "id": "r5-cm-ind-2",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "Sentence 0 is the claim: relying on directions may weaken our understanding of places. Sentences 1, 2, 4 and 5 support it. Choice 1 paraphrases this with the correct hedge ('수 있다'). Choice 0 (safety) and choice 3 (drawing maps, general memory) are not in the passage. Choice 2 takes one rebuttal point from sentence 4 and overstates it as 'cannot be trusted'. Choice 4 is the view the writer rejects in sentence 3. No untraced statistics remain, and the GPS explanations are consistent."
+        },
+        {
+          "id": "r5-cm-transfer-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "The scenario is explicitly hypothetical ('Imagine', 'The imagined drink'). Sentence 4 says the 'natural' label tells buyers far less than they believe, and 'The Empty Promise of the \"Natural\" Label' fits that as a title. Choice 0 wrongly extends the point to avoiding natural foods. Choice 2 describes a process the passage does not explain. Choice 3 builds the title on the closing advice and goes beyond the passage's scope. Choice 4 is a comparison the passage does not make. The explanations are accurate."
+        },
+        {
+          "id": "r5-cm-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "Sentences 3 and 5 say a brief change of activity can help a person refocus. Choice 4 paraphrases this with the correct hedge. The worker example is marked as hypothetical ('Consider a worker'). Choice 0 is the commonsense view the writer overturns in sentence 0. Choice 1 (time of day) and choice 3 (office environment) are not in the passage. Choice 2 inflates the hedged claim into 'fully restores', so it is clearly wrong. An optional refinement: the phrase 'an unchanging degree of attention' in sentence 1 is slightly stiff but understandable."
+        },
+        {
+          "id": "r5-cm-ind-3",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "The baker case is explicitly hypothetical ('Imagine'), and the earlier 'no longer' presupposition has been removed. Sentence 5 says useful remembering means selecting information for the present task, which choice 1 matches. Choice 0 is the belief from sentence 0 that the writer argues against. Choice 2 (faces, repetition) and choice 3 (aging) are not in the passage. Choice 4 recommends focusing on details for accuracy, which shifts away from the passage's point about task-relevant selection. The probe labelling sentence 3 as an example is appropriate."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16725-cdb1-72b1-b383-63a62c30d793",
+      "request_id": "0979a66a-bc4f-41ef-8659-c2dbdcabe61b",
+      "prompt_sha256": "f12b1c6f4e8dff110db0e6e736a906abe9045f9d3d10a5008ce0344d5e8d1a98",
+      "response_sha256": "4cc38ed658b3b7aa839cdec9da792ae323e5cc7058cd10513bec2b9e8ed8a656",
+      "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "r5-cm-guided-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "정답은 나무의 냉각 기능과 도시 기반 시설로서의 가치를 함께 포괄한다. 다른 선택지는 도입 관찰이나 기제에 한정되거나, 본문에 없는 에너지 절약 주장 또는 결론에 반하는 장식 활용 주장이다. 힌트, 주장·근거 분류, 관계 판정과 오답 설명이 본문에 부합하며 영어와 한국어가 적절하다."
+        },
+        {
+          "id": "r5-cm-ind-2",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "정답만 길 안내 의존이 공간 이해 능력을 약화할 수 있다는 중심 주장과 그 가능성의 강도를 보존한다. 기기를 믿을 수 없다는 선택지는 고장 가능성을 과도하게 일반화하며 중심 의미도 포괄하지 못한다. 나머지 오답과 설명, 반대 견해 관계 판정도 타당하다. 추적 불가능한 특정 연구 결과를 제시하지 않는다."
+        },
+        {
+          "id": "r5-cm-transfer-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "정답 제목은 'natural'이라는 표시가 소비자의 기대만큼 정보를 제공하지 못한다는 중심을 적절히 표현한다. 다른 제목들은 자연식품 회피, 첨가물의 작용 과정, 건강한 식사 전반 또는 식품 간 안전성 비교로 논점을 바꾼다. 오답 설명과 예시 관계 판정이 정확하며 음료 사례는 명시적으로 가상이다."
+        },
+        {
+          "id": "r5-cm-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "정답은 짧은 활동 전환이 이후 집중에 도움이 될 수 있다는 한정된 결론을 정확히 담는다. 완전 회복을 보장하는 선택지는 명확한 과장이며 다른 오답도 설명된 이유로 배제된다. 인덱스 3의 문장은 결론과 같은 중심 판단을 표현하고 인덱스 4는 이를 구체화하는 가상 사례이므로 Gold 분류가 타당하다."
+        },
+        {
+          "id": "r5-cm-ind-3",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "정답만 현재 과제에 필요한 정보를 선택하는 기억의 유용성을 포괄한다. 본문은 세부 기억의 보유 자체를 문제 삼지 않으며 이를 생각 속에서 잠시 제쳐 둘 수 있다고 명시한다. 오답 설명도 이 구분을 지키고, 제빵사 사례와 인덱스 3의 예시 관계 판정이 타당하다. 영어와 한국어에 판정을 막는 문제가 없다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "r5-cm-teach-1",
+    "r5-cm-guided-2",
+    "r5-cm-ind-1",
+    "r5-cm-transfer-2",
+    "r5-cm-delayed-2",
+    "r5-cm-ind-4"
+  ]
+}

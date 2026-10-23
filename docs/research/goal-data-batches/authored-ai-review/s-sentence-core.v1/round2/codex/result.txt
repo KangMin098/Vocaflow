@@ -1,0 +1,54 @@
+{
+  "verdict": "accept",
+  "source_file_sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+  "items": [
+    {
+      "id": "sc-guided-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "주어 핵심 visitor는 2번 덩어리에만 있다. 분사구문, 시간 표현, 두 관계절과 본동사·목적어의 구분이 타당하며, 힌트와 해설도 일치한다. 지문과 한국어는 자연스럽다."
+    },
+    {
+      "id": "sc-ind-2",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "주어 핵심은 단수 One이며 정답은 유일하다. students의 수식 관계, chosen의 과거분사 용법, to represent의 목적 의미와 was의 본동사 역할에 대한 설명이 타당하다. 지문과 한국어에 수정이 필요한 결함은 없다."
+    },
+    {
+      "id": "sc-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "What 명사절 전체가 주어이고 본동사 was는 2번 덩어리에만 있다. worried와 시간 부사구는 명사절 내부에 있으며, not A but B의 보어 설명도 타당하다. 가상의 서사로 자연스럽게 읽힌다."
+    },
+    {
+      "id": "sc-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "장소 표현이 앞선 도치 문장에서 주어 핵심 box는 4번 덩어리에만 있다. 전치사구의 수식 관계, stood의 위치, covered의 과거분사 용법에 관한 설명이 지문과 일치한다. 영어와 한국어 모두 적절하다."
+    },
+    {
+      "id": "sc-ind-3",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "본동사 has risen은 4번 덩어리에만 있고, walk·cycle과 opened는 각각 종속절 내부 동사다. in our district의 구체적인 수식 대상에는 해석 여지가 있지만 학생 집단의 지역 범위를 한정한다는 설명은 방어 가능하며 정답의 유일성에도 영향이 없다. 지문과 나머지 해설은 타당하다."
+    },
+    {
+      "id": "sc-ind-4",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "주어 핵심 captain은 1번 덩어리에만 있다. 시간 전치사구, captain을 꾸미는 of 구, team을 꾸미는 관계절과 본동사 answered에 대한 설명이 정확하다. 앞뒤 서사와 영어·한국어 표현도 적절하다."
+    }
+  ],
+  "limitations": [
+    "지정된 여섯 항목만 제공된 JSON을 근거로 검토했다.",
+    "SHA-256은 제공된 식별값이며 파일을 읽거나 해시를 재계산하지 않았다.",
+    "이번 판단은 자체 창작 후보 콘텐츠의 정답·언어 검토이며 외부 권리 확인이나 출시 승인이 아니다."
+  ],
+  "required_changes": []
+}

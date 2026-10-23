@@ -1,0 +1,385 @@
+Fresh independent AI content/Gold reviewer for Vocaflow first-party authored English reading items for Korean high-school learners. The user assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions: judge only the supplied JSON. Review every item: passage sentences, stem, every choice or segment or pair, the gold answer, alternatives, distractor explanations, hints and why texts. Accept an item only if (a) exactly one keyed answer is defensibly correct from the text alone, (b) every other choice is clearly wrong for the stated reason, (c) explanations match the text and contain no factual claims presented as real findings that cannot be traced (hypothetical examples must read as hypothetical), (d) English is natural and level-appropriate, Korean text is accurate. Otherwise mark revise or hold and list the concrete gold_issues. Do not accept merely because a field says so; verify against the supplied text. This is a first-party candidate content judgment, not an external rights grant or release. Indexing: gold choices and sentence indexes are 0-based. For each item set choice_0based to the gold.answer value you verified, or null when the item has no gold.answer field. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,gold_issues:[],why}],limitations:[],required_changes:[]}. verdict for the whole set is accept only if every item is accept. Distinguish actual defects from optional refinements (refinements are not gold_issues) and preserve uncertainty.
+
+source_file_sha256: c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de
+source_file: apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json
+
+{
+  "set": "s-chunk-boundary.v1",
+  "taskId": "s.chunk_boundary",
+  "taskKey": "authored-chunk-boundary",
+  "format": "segment_choice",
+  "proseNumbering": "1-based",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "cb-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "cb-t1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "For decades, the town depended on a single river crossing.",
+          "Trucks, buses and farm carts all shared its narrow lanes.",
+          "The old bridge the engineers inspected last spring finally closed in June.",
+          "Their report had found deep cracks in two of its supports.",
+          "Since then, drivers have taken a detour that adds twenty minutes to every trip."
+        ],
+        "stem": "3번 문장에서 주어 덩어리가 끝나는 곳이 포함된 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "boundary",
+        "segments": ["The old bridge", "the engineers inspected last spring", "finally closed", "in June."],
+        "teach": [
+          { "step": "명사 뒤에 바로 주어+동사가 오면 의심하기", "text": "The old bridge 다음에 the engineers inspected 처럼 또 다른 주어+동사가 바로 이어지면, 사이에 관계대명사 that 이 생략된 관계절일 가능성이 높다.", "sentences": [2] },
+          { "step": "관계절이 끝나는 곳 찾기", "text": "inspected 의 목적어가 빠져 있다(그 목적어가 바로 bridge). last spring 까지가 관계절이고, 여기서 주어 덩어리가 끝난다.", "sentences": [2] },
+          { "step": "남은 동사로 확인하기", "text": "관계절을 걷어내면 'The old bridge finally closed in June.'이 남는다. 문장이 자연스럽게 서면 경계를 맞게 자른 것이다.", "sentences": [2] }
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "clause_boundary",
+        "why": "bridge 뒤에 관계대명사가 생략된 관계절 '(that) the engineers inspected last spring'이 붙어 주어가 길어졌다. 이 관계절이 끝나는 spring 에서 주어 덩어리가 끝나고, finally closed 가 문장의 동사다.",
+        "segments": [
+          { "reason": "main_subject", "why": "주어의 핵심 명사구지만 여기서 주어가 끝나지 않는다." },
+          { "reason": "clause_boundary", "why": "생략된 that 관계절. spring 에서 주어 덩어리가 끝난다." },
+          { "reason": "main_verb", "why": "문장 전체의 동사." },
+          { "reason": "modifies_verb", "why": "closed 의 시점을 나타내는 부사구." }
+        ]
+      }
+    },
+    {
+      "id": "cb-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "cb-t2",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The school introduced a new rule about phones in March.",
+          "Teachers explained it at a morning assembly.",
+          "The students told the rule was unfair refused to sign the form.",
+          "A few parents later supported their complaint.",
+          "The principal agreed to review the rule after one term."
+        ],
+        "stem": "3번 문장에서 주어 덩어리가 끝난 뒤 문장의 진짜 동사가 시작되는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "boundary",
+        "segments": ["The students", "told the rule was unfair", "refused to sign", "the form."],
+        "hints": [
+          "이 문장에는 과거형처럼 보이는 동사가 둘(told, refused) 있다. 학생들이 누군가에게 '말한' 것인지, '말을 들은' 것인지 생각해 보세요.",
+          "told 덩어리를 걷어내고 남은 문장이 자연스러운지 확인해 보세요.",
+          "명사 바로 뒤의 과거분사 덩어리는 'who were + 과거분사'가 줄어든 관계절일 수 있습니다. The students (who were) told ... 처럼 복원해 읽어 보세요."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "clause_boundary",
+        "reasonAlternatives": [{"reason":"main_verb","why":"refused는 주절의 정형 본동사를 시작하므로 문장의 본동사라는 이유도 맞다."}],
+        "why": "told 는 '말을 들은'이라는 과거분사로 students 를 뒤에서 꾸민다(who were told 의 축약). told 를 동사로 읽으면 안 되고, 주어 덩어리가 끝난 뒤 refused 에서 문장의 동사가 시작된다.",
+        "segments": [
+          { "reason": "main_subject", "why": "주어의 핵심 명사." },
+          { "reason": "modifies_noun", "why": "students 를 꾸미는 축약 관계절(과거분사구)." },
+          { "reason": "clause_boundary", "why": "주어가 끝나고 시작되는 문장의 동사." },
+          { "reason": "object", "why": "sign 의 목적어." }
+        ]
+      }
+    },
+    {
+      "id": "cb-ind-1",
+      "role": "independent_check",
+      "passageGroup": "cb-t3",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Sleep researchers often ask families to keep simple diaries.",
+          "Many parents believe their children sleep more than they actually do.",
+          "Wrist sensors usually tell a different story.",
+          "Teenagers in particular lose an hour or more on school nights.",
+          "The gap matters because tired students learn less."
+        ],
+        "stem": "2번 문장에서 생략된 that 절이 시작되는 덩어리는?",
+        "focus": { "sentence": 1 },
+        "ask": "boundary",
+        "segments": ["Many parents believe", "their children", "sleep more than", "they actually do."]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "ellipsis_restored",
+        "reasonAlternatives": [{"reason":"clause_boundary","why":"their children에서 주어와 동사를 갖춘 believe의 목적어절이 시작되므로 절의 경계라는 이유도 맞다."}],
+        "why": "believe 뒤에 접속사 that 이 생략되어 있다. 'believe (that) their children sleep ...'으로 복원하면 their children 에서 목적어 절이 시작된다.",
+        "segments": [
+          { "reason": "subject_and_verb", "why": "주절의 주어와 동사. 목적어 절 앞에서 끝난다." },
+          { "reason": "ellipsis_restored", "why": "생략된 that 절의 시작(절의 주어)." },
+          { "reason": "clause_internal", "why": "that 절 안의 동사와 비교 표현." },
+          { "reason": "clause_boundary", "why": "than 뒤 비교절. do 는 sleep 을 대신한다." }
+        ]
+      }
+    },
+    {
+      "id": "cb-ind-2",
+      "role": "independent_check",
+      "passageGroup": "cb-t4",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Last summer brought weeks of heavy rain to the farming valley.",
+          "Many fields stayed flooded until August.",
+          "A sudden rise in the price of fresh vegetables across the region worried local restaurant owners who buy produce daily.",
+          "Some changed their menus every week.",
+          "Others signed contracts with farms farther away."
+        ],
+        "stem": "3번 문장의 주어 덩어리 전체에 해당하는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "boundary",
+        "segments": ["A sudden rise in the price of fresh vegetables across the region", "worried", "local restaurant owners", "who buy produce daily."]
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "phrase_boundary",
+        "reasonAlternatives": [{"reason":"main_subject","why":"선택한 전체 명사구가 worried의 주어이며 주어 전체를 찾으라는 발문에 직접 답한다."}],
+        "why": "주어의 핵심은 rise 이고 in the price of fresh vegetables, across the region 은 모두 rise 를 꾸미는 전치사구다. region 에서 주어 명사구가 끝나고 worried 가 동사다. vegetables 나 region 을 주어로 착각하지 않는다.",
+        "segments": [
+          { "reason": "phrase_boundary", "why": "긴 명사구 주어 전체. region 에서 끝난다." },
+          { "reason": "main_verb", "why": "문장의 동사." },
+          { "reason": "object", "why": "worried 의 목적어." },
+          { "reason": "modifies_noun", "why": "owners 를 꾸미는 관계절." }
+        ]
+      }
+    },
+    {
+      "id": "cb-transfer-1",
+      "role": "transfer",
+      "passageGroup": "cb-t5",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The company had struggled through a difficult year.",
+          "In December, the manager wrote a short note to every employee.",
+          "The letter the manager sent the staff surprised everyone.",
+          "It thanked them by name and promised no job cuts.",
+          "Several workers kept a copy on their desks for months."
+        ],
+        "stem": "3번 문장에서 주어 덩어리가 끝나는 곳이 포함된 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "boundary",
+        "segments": ["The letter", "the manager sent", "the staff", "surprised everyone."]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "clause_boundary",
+        "why": "letter 뒤에 목적격 관계대명사가 생략된 관계절 '(that) the manager sent the staff'가 있다. sent 는 수여동사라 the staff 까지 관계절에 속하고, 그 뒤 surprised 가 문장의 동사다. 'the staff surprised everyone'을 한 절로 읽는 것이 함정이다.",
+        "segments": [
+          { "reason": "main_subject", "why": "주어의 핵심 명사." },
+          { "reason": "modifies_noun", "why": "생략된 관계절의 시작. 아직 주어가 끝나지 않는다." },
+          { "reason": "clause_boundary", "why": "sent 의 간접목적어. 여기서 관계절과 주어가 끝난다." },
+          { "reason": "main_verb", "why": "문장의 동사와 목적어." }
+        ]
+      }
+    },
+    {
+      "id": "cb-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "cb-t6",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The family began renovating their grandmother's house in autumn.",
+          "They removed the old carpet in the living room first.",
+          "Hidden under the floor was a box the family had forgotten.",
+          "Inside it were photographs from the 1960s.",
+          "Nobody could name half of the people in them."
+        ],
+        "stem": "3번 문장에서 관계대명사가 생략된 절이 시작되는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "boundary",
+        "segments": ["Hidden under the floor", "was", "a box", "the family had forgotten."]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "ellipsis_restored",
+        "reasonAlternatives": [{"reason":"clause_boundary","why":"the family had forgotten은 box를 꾸미는 관계절의 시작이므로 절의 경계라는 이유도 맞다."}],
+        "why": "보어 Hidden under the floor 가 앞으로 나간 도치 문장으로 주어는 a box 다. 'a box (that) the family had forgotten'처럼 목적격 관계대명사를 복원하면 the family 에서 관계절이 시작된다.",
+        "segments": [
+          { "reason": "inverted_order", "why": "앞으로 나간 보어(분사구)." },
+          { "reason": "main_verb", "why": "도치된 동사." },
+          { "reason": "main_subject", "why": "도치 문장의 진짜 주어." },
+          { "reason": "ellipsis_restored", "why": "that 이 생략된 관계절의 시작." }
+        ]
+      }
+    },
+    {
+      "id": "cb-ind-3",
+      "role": "independent_check",
+      "passageGroup": "cb-t7",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Our town has been building a new library for two years.",
+          "The walls and roof were finished in the summer.",
+          "Whether the new library will open on time depends on the weather this winter.",
+          "Heavy snow could delay the work on the parking lot.",
+          "The mayor has promised an update in January."
+        ],
+        "stem": "3번 문장에서 주어 덩어리가 끝나는 곳이 포함된 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "boundary",
+        "segments": [
+          "Whether the new library",
+          "will open on time",
+          "depends on",
+          "the weather this winter."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "clause_boundary",
+        "why": "Whether 가 이끄는 명사절(Whether the new library will open on time)이 통째로 주어다. 절 안의 동사 will open 을 지나 on time 에서 주어 덩어리가 끝나고, depends 가 문장의 동사다.",
+        "segments": [
+          {
+            "reason": "clause_internal",
+            "why": "주어 명사절을 여는 whether 와 절 안의 주어."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "명사절 안의 동사구. on time 에서 주어 명사절이 끝난다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "명사절 주어(단수 취급)에 맞는 문장의 동사."
+          },
+          {
+            "reason": "object",
+            "why": "depends on 의 목적어."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cb-ind-4",
+      "role": "independent_check",
+      "passageGroup": "cb-t8",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The weather service had warned the village for three days.",
+          "Most families moved their cars to higher ground.",
+          "The fishermen tied their boats together and went home early.",
+          "When the storm that had been building all afternoon finally reached the coast, the fishing boats were already in the harbor.",
+          "Nobody was hurt that night."
+        ],
+        "stem": "4번 문장에서 부사절이 끝나고 주절이 시작되는 덩어리는?",
+        "focus": {
+          "sentence": 3
+        },
+        "ask": "boundary",
+        "segments": [
+          "When the storm",
+          "that had been building all afternoon",
+          "finally reached the coast,",
+          "the fishing boats",
+          "were already in the harbor."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "clause_boundary",
+        "reasonAlternatives": [
+          {
+            "reason": "main_subject",
+            "why": "the fishing boats 는 주절의 주어이므로, 주절의 주어가 시작되는 곳이라는 이유도 맞다."
+          }
+        ],
+        "why": "When 부사절의 주어는 the storm, 동사는 that 관계절을 건너뛴 finally reached 다. 부사절은 coast 뒤 콤마에서 끝나고 the fishing boats 에서 주절이 시작된다. had been building 을 부사절의 동사로 읽고 끝을 앞당기는 것이 함정이다.",
+        "segments": [
+          {
+            "reason": "clause_internal",
+            "why": "부사절을 여는 접속사와 절의 주어."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "storm 을 꾸미는 관계절. 여기서 부사절이 끝나지 않는다."
+          },
+          {
+            "reason": "clause_internal",
+            "why": "부사절의 동사와 목적어. 콤마에서 부사절이 끝난다."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "주절이 시작되는 곳 — 주절의 주어."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주절의 동사와 보어."
+          }
+        ]
+      }
+    },
+    {
+      "id": "cb-transfer-2",
+      "role": "transfer",
+      "passageGroup": "cb-t9",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Our class visited a botanical garden on Friday.",
+          "A guide led us along a path through the rainforest room.",
+          "Learning the names of every plant the guide pointed out took most of the morning.",
+          "After lunch we drew our favorite leaves.",
+          "I chose a fern with tiny silver spots."
+        ],
+        "stem": "3번 문장에서 주어 덩어리가 끝나는 곳이 포함된 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "boundary",
+        "segments": [
+          "Learning the names",
+          "of every plant",
+          "the guide pointed out",
+          "took",
+          "most of the morning."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "clause_boundary",
+        "reasonAlternatives": [
+          {
+            "reason": "ellipsis_restored",
+            "why": "plant 뒤에 목적격 관계대명사 that 이 생략된 관계절이므로, 생략을 되살려 경계를 찾는다는 이유도 맞다."
+          }
+        ],
+        "why": "동명사구 Learning the names 가 주어이고, of every plant 와 that 이 생략된 관계절 '(that) the guide pointed out'이 그 뒤를 꾸민다. out 에서 주어 덩어리가 끝나고 took 이 문장의 동사다. 관계절 안의 pointed 를 문장의 동사로 읽는 것이 함정이다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "동명사구 주어의 핵심. 아직 주어가 끝나지 않는다."
+          },
+          {
+            "reason": "modifies_noun",
+            "why": "names 를 꾸미는 전치사구."
+          },
+          {
+            "reason": "clause_boundary",
+            "why": "plant 를 꾸미는 생략 관계절. out 에서 주어 덩어리가 끝난다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "동명사구 주어(단수)의 동사."
+          },
+          {
+            "reason": "object",
+            "why": "took 의 목적어."
+          }
+        ]
+      }
+    }
+  ]
+}

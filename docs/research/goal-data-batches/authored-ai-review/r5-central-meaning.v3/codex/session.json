@@ -1,0 +1,11 @@
+{
+  "agent": "codex",
+  "label": "t0098-authored-review",
+  "request_id": "adbbc348-edf6-48c4-aca6-bbf83212bf3d",
+  "prompt_sha256": "5e5ccda84bc76e8064d9ded7141844fecc64fd99c3afb13e0c91189aa740fc7d",
+  "status": "exited",
+  "started_at": "2026-10-23T04:37:21.227Z",
+  "session_id": "01a1670c-9e33-73f1-b2c7-6d7bffca86bf",
+  "exit_code": 0,
+  "ended_at": "2026-10-23T04:38:19.303Z"
+}

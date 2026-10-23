@@ -1,0 +1,132 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "e-task-demand.v1",
+  "source_file_sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+  "scope": [
+    "td-ind-1",
+    "td-ind-2",
+    "td-delayed-1",
+    "td-transfer-2"
+  ],
+  "items": [
+    {
+      "id": "td-ind-1",
+      "role": "independent_check",
+      "item_canonical_sha256": "2b1a290e60bc689ac1e11d8631b9fd8a4acb8a466ed43e15532d7d1c80ceee6f",
+      "body_canonical_sha256": "4e621b7b5926fcc8664cf976e38e3bd9b9a09c4b29e3b38c19aecbd03af2cbae",
+      "gold_canonical_sha256": "45a5feda24a2057cb2f37bec9fe1a6d7730a3240ed72356d64465c0b6f9ca767"
+    },
+    {
+      "id": "td-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "d0aa41f021654960e0b30e3e2181835230376b5459400a58bb7e69f81d843ae5",
+      "body_canonical_sha256": "b34e74e5eeb7abf3e576a0e7f717a7a95b860aa3e620c11b5428637e70d5f89a",
+      "gold_canonical_sha256": "f123bb32119e5dedd3f9bac5f9fab3e12458979a990fb34999abbf1a53e69027"
+    },
+    {
+      "id": "td-delayed-1",
+      "role": "delayed_check",
+      "item_canonical_sha256": "96235d8ff249b8aacc600037f620bc7b014261a24710eba4b52d5e0cf68a1e91",
+      "body_canonical_sha256": "50707c7846e82d15335ce66c62c2a2b26dd674d75f03d30ebb44a358c02d22eb",
+      "gold_canonical_sha256": "b18657f72666dcb7d3f1fc9e372b0d84d3cdab6d46f5272955f6d16302685d24"
+    },
+    {
+      "id": "td-transfer-2",
+      "role": "transfer",
+      "item_canonical_sha256": "8c92ea96006103e79cb3c7f5e4b020e77a918911327464a1484e4108e62d0d43",
+      "body_canonical_sha256": "b3ce4e26c748ca3c469a1e904b258a7a5b23999ca88cbf3f7e6d2be000a2c3a3",
+      "gold_canonical_sha256": "3bacffab3ead9f9df6a13d9dc002acf7c2c83ed2bfb47c6dc524d163c01d898d"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "ed613e51-8565-4e32-afb9-ff1ad85b6110",
+      "request_id": "ed613e51-8565-4e32-afb9-ff1ad85b6110",
+      "prompt_sha256": "a0f05d9335122c2753b2edba47d1b55d5197d8eb693911fae68deabc74b0e84b",
+      "response_sha256": "8b41512def22fa0acdce15107a330c68f02cd44204d3ee6abb54b34562db827b",
+      "source_file_sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "td-ind-1",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "The task stem asks which statement does NOT match the notice. That requires checking each choice against the notice for a factual mismatch, which is what choice 4 says. Choice 0 (inferring hidden intent) is the wrong operation. Choice 1 (a one-sentence summary) uses the wrong unit. Choice 2 checks only the age rule and misses the other choices. Choice 3 guesses at rules the notice does not state. Each distractor explanation matches its choice. The English notice is natural and suits the level. The Korean is accurate."
+        },
+        {
+          "id": "td-ind-2",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "The implied-meaning stem asks what the figurative expression actually means in context, which matches choice 1. Choice 0 (the lesson of the whole text) is too broad. Choice 2 (the dictionary meaning of 'fear') is the wrong unit. Choice 3 (the gist of the whole last sentence) widens the scope. Choice 4 (predicting Mira's next action) adds a condition the stem does not ask for. The rationale says the expression means she feared making a mistake but learned she could keep going after one. Sentences 3 and 4 support this reading. Optional refinement, not a defect: the passage never marks the underline, so the UI needs to show which words are underlined. The rationale's Korean phrasing could also be smoother."
+        },
+        {
+          "id": "td-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "gold_issues": [],
+          "why": "The blank stem asks for the key concept that the surrounding flow points to. Here that concept is reducing choices, which matches choice 0. Choice 1 (fitting the grammar only), choice 2 (the number of bread types), choice 3 (advice for other shops, outside the text) and choice 4 (finding counterexamples) each have the correct reason stated. The English passage is natural, and the blank in sentence 5 is supported by sentences 1–4."
+        },
+        {
+          "id": "td-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "The order stem asks for the order of all three paragraphs using connectives and time cues, which matches choice 2. I checked the text. 'So' in (B) follows from the given text, where she could barely read music. 'After a few weeks' in (C) comes next, and 'By the end of the year' in (A) comes last. So the rationale's (B)-(C)-(A) is correct and is the only defensible order. Choice 0 (paragraph length) and choice 1 (summarizing only) are the wrong operation. Choice 3 (choosing only the next paragraph) covers only part of the required scope. Choice 4 (inventing an ending) adds an outside condition. All explanations match their choices."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a1672a-d9f2-7c40-85df-bcdb982954c6",
+      "request_id": "70c32968-58c9-4f00-9436-9dd1f7ac9457",
+      "prompt_sha256": "a0f05d9335122c2753b2edba47d1b55d5197d8eb693911fae68deabc74b0e84b",
+      "response_sha256": "95bf85f4fc7a850300ad51c687dc20bd1616c4fa939ff2036a59644e59f7aa52",
+      "source_file_sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "td-ind-1",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "⑤만 내용 불일치 발문이 요구하는 선택지별 사실 대조를 정확히 설명한다. 나머지는 추론, 요약, 단일 조건 확인 또는 본문 밖 추측으로 요구를 벗어나며, 각 오답 설명도 이에 부합한다. 안내문의 영어와 한국어 설명은 적절하다."
+        },
+        {
+          "id": "td-ind-2",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "②만 지정된 표현의 맥락상 의미를 해석하라는 요구에 정확히 대응한다. 실수 후에도 연주를 이어 가는 전개는 정답 해설의 해석을 뒷받침한다. 나머지 선택지는 글 전체의 교훈, 단어 뜻, 문장 전체 요지 또는 이후 행동으로 판단 대상을 바꾸며, 오답 설명도 정확하다."
+        },
+        {
+          "id": "td-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "gold_issues": [],
+          "why": "①만 문맥에 맞는 핵심 개념으로 빈칸을 완성하라는 요구를 충족한다. 빵 종류 축소, 고객 선택의 용이함, 폐기량 감소가 정답 해설의 개념을 뒷받침한다. 다른 선택지와 오답 설명도 명확히 구별된다. 'five loaves'를 'five kinds of bread'로 다듬으면 더 정밀하지만, 뒤의 'fewer choices'가 의미를 분명히 하므로 필수 수정 사항은 아니다."
+        },
+        {
+          "id": "td-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "③만 연결 단서를 이용해 전체 순서를 정하라는 요구에 부합한다. 최초의 어려움 뒤에 연습(B), 몇 주 뒤의 향상(C), 연말의 독주 초청(A)이 이어져 해설의 B-C-A 순서도 타당하다. 모든 오답은 길이, 요약, 부분 순서 또는 결말 창작으로 요구를 벗어나며 설명도 일치한다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "td-teach-1",
+    "td-guided-1",
+    "td-transfer-1",
+    "td-ind-3",
+    "td-ind-4"
+  ]
+}

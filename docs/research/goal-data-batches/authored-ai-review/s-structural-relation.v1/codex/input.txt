@@ -1,0 +1,425 @@
+Fresh independent AI content/Gold reviewer for Vocaflow first-party authored English reading items for Korean high-school learners. The user assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions: judge only the supplied JSON. Review every item: passage sentences, stem, every choice or segment or pair, the gold answer, alternatives, distractor explanations, hints and why texts. Accept an item only if (a) exactly one keyed answer is defensibly correct from the text alone, (b) every other choice is clearly wrong for the stated reason, (c) explanations match the text and contain no factual claims presented as real findings that cannot be traced (hypothetical examples must read as hypothetical), (d) English is natural and level-appropriate, Korean text is accurate. Otherwise mark revise or hold and list the concrete gold_issues. Do not accept merely because a field says so; verify against the supplied text. This is a first-party candidate content judgment, not an external rights grant or release. Indexing: gold choices and sentence indexes are 0-based. For each item set choice_0based to the gold.answer value you verified, or null when the item has no gold.answer field. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,gold_issues:[],why}],limitations:[],required_changes:[]}. verdict for the whole set is accept only if every item is accept. Distinguish actual defects from optional refinements (refinements are not gold_issues) and preserve uncertainty.
+
+source_file_sha256: d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c
+source_file: apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json
+
+{
+  "set": "s-structural-relation.v1",
+  "taskId": "s.structural_relation",
+  "taskKey": "authored-structural-relation",
+  "format": "segment_choice",
+  "proseNumbering": "1-based",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "sr-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "sr-t1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "A small bakery in our neighborhood was losing money every month.",
+          "The owner decided to change how the shop worked instead of raising prices.",
+          "The new plan aims to reduce costs and to shorten the time customers wait in line.",
+          "She moved the ovens closer to the counter and began taking orders online.",
+          "Within a year, the shop was busier than ever."
+        ],
+        "stem": "표시된 문장에서 'to reduce costs'와 병렬로 연결된 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "structure",
+        "segments": [
+          "The new plan",
+          "aims",
+          "to reduce costs",
+          "and",
+          "to shorten the time customers wait in line"
+        ],
+        "teach": [
+          {
+            "step": "접속사 찾기",
+            "text": "3번 문장에서 먼저 and 를 찾는다. and 는 같은 모양의 두 덩어리를 잇는다.",
+            "sentences": [2]
+          },
+          {
+            "step": "같은 모양 맞추기",
+            "text": "and 앞이 to 부정사(to reduce costs)이므로 뒤에서도 to 부정사(to shorten ...)를 찾는다. 둘 다 aims 의 목적어다.",
+            "sentences": [2]
+          },
+          {
+            "step": "끼어든 수식어에 속지 않기",
+            "text": "뒤 덩어리 안의 customers wait in line 은 the time 을 꾸미는 관계절일 뿐 새 병렬 요소가 아니다. 병렬 요소는 to 부정사 단위로 끊어 읽는다.",
+            "sentences": [2]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "parallel_member",
+        "why": "and 뒤의 to shorten the time customers wait in line 이 to reduce costs 와 같은 to 부정사로, 둘 다 aims 의 목적어로 병렬 연결된다.",
+        "segments": [
+          { "reason": "main_subject", "why": "문장의 주어다." },
+          { "reason": "main_verb", "why": "문장의 본동사다." },
+          { "reason": "object", "why": "aims 의 첫 번째 목적어로, 기준이 되는 병렬 요소다." },
+          { "reason": "phrase_boundary", "why": "두 to 부정사를 잇는 접속사다." },
+          { "reason": "parallel_member", "why": "to reduce costs 와 나란한 두 번째 목적어다." }
+        ]
+      }
+    },
+    {
+      "id": "sr-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "sr-g1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The marathon began in cool weather, but the afternoon turned hot.",
+          "Many runners slowed down after the halfway point.",
+          "The coach said that, although tired, the runners kept going until the finish line.",
+          "Volunteers handed out water at every corner.",
+          "In the end, almost everyone completed the race."
+        ],
+        "stem": "표시된 문장에서 생략된 말이 되살아나야 하는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "structure",
+        "segments": [
+          "The coach said that,",
+          "although tired,",
+          "the runners",
+          "kept going",
+          "until the finish line"
+        ],
+        "hints": [
+          "접속사 바로 뒤에 주어와 동사 없이 형용사만 남은 곳이 있는지 보세요.",
+          "그 접속사 뒤에 '누가 어떠했는지'를 넣으면 완전한 절이 되나요?"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "ellipsis_restored",
+        "why": "although tired 는 although (they were) tired 에서 주절과 같은 주어와 be동사가 생략된 것이다.",
+        "segments": [
+          { "reason": "subject_and_verb", "why": "주절의 주어 · 동사 said 와 목적어절을 여는 that 이다." },
+          { "reason": "ellipsis_restored", "why": "they were 가 생략된 부사절이다." },
+          { "reason": "main_subject", "why": "that 절의 주어다." },
+          { "reason": "main_verb", "why": "that 절의 동사다." },
+          { "reason": "modifies_verb", "why": "kept going 의 범위를 나타내는 부사구다." }
+        ]
+      }
+    },
+    {
+      "id": "sr-ind-1",
+      "role": "independent_check",
+      "passageGroup": "sr-i1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The city museum reopened last month after a long renovation.",
+          "Visitors lined up early to see its maritime collection.",
+          "Yesterday the museum's oldest map, which a sailor drew in 1650, went on display for the first time.",
+          "The map shows coastlines that later explorers corrected.",
+          "Curators hope it will draw students interested in history."
+        ],
+        "stem": "표시된 문장에서 삽입된 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "structure",
+        "segments": [
+          "Yesterday",
+          "the museum's oldest map,",
+          "which a sailor drew in 1650,",
+          "went on display",
+          "for the first time"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "inserted_clause",
+        "why": "콤마 사이의 which a sailor drew in 1650 은 주어 map 과 동사 went 사이에 끼어든 계속적 관계절로, 걷어내도 문장이 완전하다.",
+        "segments": [
+          { "reason": "modifies_verb", "why": "시간을 나타내는 부사다." },
+          { "reason": "main_subject", "why": "문장의 주어다." },
+          { "reason": "inserted_clause", "why": "주어와 동사 사이에 삽입된 보충 설명이다." },
+          { "reason": "main_verb", "why": "주어 map 의 동사다." },
+          { "reason": "modifies_verb", "why": "went on display 를 꾸미는 부사구다." }
+        ]
+      }
+    },
+    {
+      "id": "sr-ind-2",
+      "role": "independent_check",
+      "passageGroup": "sr-i2",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Last spring a small town hosted its first music festival.",
+          "Bands from five countries performed in the main square.",
+          "Never before had the town seen so many visitors in one week.",
+          "Local shops ran out of food by the second day.",
+          "The council has already voted to hold the festival again."
+        ],
+        "stem": "표시된 문장에서 도치를 일으키며 앞으로 나온 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "structure",
+        "segments": [
+          "Never before",
+          "had",
+          "the town",
+          "seen",
+          "so many visitors in one week"
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "inverted_order",
+        "why": "부정어구 Never before 가 문장 맨 앞으로 나와 조동사 had 가 주어 the town 앞으로 도치되었다.",
+        "segments": [
+          { "reason": "inverted_order", "why": "앞으로 나와 도치를 일으킨 부정어구다." },
+          { "reason": "main_verb", "why": "주어 앞으로 자리를 옮긴 조동사다." },
+          { "reason": "main_subject", "why": "도치된 문장의 진짜 주어다." },
+          { "reason": "main_verb", "why": "had 와 함께 과거완료를 이루는 본동사다." },
+          { "reason": "object", "why": "seen 의 목적어다." }
+        ]
+      }
+    },
+    {
+      "id": "sr-transfer-1",
+      "role": "transfer",
+      "passageGroup": "sr-x1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Many people think habits matter only for athletes.",
+          "In fact, ordinary routines shape almost every part of daily life.",
+          "Good habits save energy, reduce stress, and, as many studies suggest, improve sleep over time.",
+          "Even a fixed bedtime can make mornings easier.",
+          "Small routines, repeated daily, add up to large changes."
+        ],
+        "stem": "표시된 문장에서 삽입된 말을 건너뛰고 'save energy'와 병렬로 이어지는 마지막 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "structure",
+        "segments": [
+          "Good habits save energy,",
+          "reduce stress, and,",
+          "as many studies suggest,",
+          "improve sleep",
+          "over time"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "parallel_member",
+        "why": "and 뒤에 삽입절 as many studies suggest 가 끼어 있지만, 이를 걷어내면 improve sleep 이 save energy · reduce stress 와 나란한 세 번째 동사구다.",
+        "segments": [
+          { "reason": "subject_and_verb", "why": "주어와 첫 번째 병렬 동사구다." },
+          { "reason": "parallel_member", "why": "두 번째 병렬 동사구와 접속사 and 다." },
+          { "reason": "inserted_clause", "why": "and 와 마지막 병렬 요소 사이에 삽입된 절로, 병렬 요소가 아니다." },
+          { "reason": "parallel_member", "why": "삽입절 뒤에 이어지는 세 번째 병렬 동사구다." },
+          { "reason": "modifies_verb", "why": "improve sleep 을 꾸미는 부사구다." }
+        ]
+      }
+    },
+    {
+      "id": "sr-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "sr-d1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "A publisher asked readers how they like to get the news.",
+          "More than two thousand people answered the questions.",
+          "In the survey, most younger readers preferred short videos, and most older readers long articles — a gap the editors had not expected.",
+          "The results surprised the editors.",
+          "They now plan to offer both formats for every major story."
+        ],
+        "stem": "표시된 문장에서 생략된 말이 되살아나야 하는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "structure",
+        "segments": [
+          "In the survey,",
+          "most younger readers preferred short videos,",
+          "and most older readers long articles",
+          "— a gap the editors had not expected"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "ellipsis_restored",
+        "why": "and most older readers long articles 는 앞 절과 같은 동사 preferred 가 생략된 것으로, most older readers (preferred) long articles 로 되살려 읽는다.",
+        "segments": [
+          { "reason": "modifies_verb", "why": "배경을 나타내는 부사구다." },
+          { "reason": "subject_and_verb", "why": "주어 · 동사 · 목적어를 모두 갖춘 첫 절이다." },
+          { "reason": "ellipsis_restored", "why": "동사 preferred 가 빠진 두 번째 절이다." },
+          { "reason": "modifies_noun", "why": "대시 뒤에서 앞 두 절이 보여 준 차이 전체를 받아 설명하는 동격 명사구다." }
+        ]
+      }
+    },
+    {
+      "id": "sr-ind-3",
+      "role": "independent_check",
+      "passageGroup": "sr-i3",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Our science club spent a weekend at a wetland reserve.",
+          "Hundreds of herons nest there every spring.",
+          "The guide asked us not to feed the birds, not to leave the trail, and not to make loud noises near the nests.",
+          "We followed every rule and watched quietly from a hide.",
+          "By evening we had counted forty-two nests."
+        ],
+        "stem": "표시된 문장에서 'not to feed the birds'와 병렬로 연결된 마지막 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "structure",
+        "segments": [
+          "The guide asked us",
+          "not to feed the birds,",
+          "not to leave the trail,",
+          "and",
+          "not to make loud noises",
+          "near the nests."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "reason": "parallel_member",
+        "why": "and 뒤의 not to make loud noises 가 not to feed the birds · not to leave the trail 과 같은 not to 부정사로, 셋 다 asked us 의 목적격 보어로 나란히 연결된다. near the nests 는 make loud noises 를 꾸미는 부사구일 뿐 병렬 요소가 아니다.",
+        "segments": [
+          {
+            "reason": "subject_and_verb",
+            "why": "주어 · 동사 asked 와 목적어 us."
+          },
+          {
+            "reason": "complement",
+            "why": "asked us 의 첫 번째 목적격 보어로, 기준이 되는 병렬 요소다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "두 번째 병렬 요소다."
+          },
+          {
+            "reason": "phrase_boundary",
+            "why": "마지막 병렬 요소를 잇는 접속사다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "세 번째이자 마지막 병렬 요소다."
+          },
+          {
+            "reason": "modifies_verb",
+            "why": "make loud noises 의 장소를 나타내는 부사구다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr-ind-4",
+      "role": "independent_check",
+      "passageGroup": "sr-i4",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "My grandfather hurt his leg in a fall last week.",
+          "He is now recovering at home.",
+          "The nurse will change the bandage twice a day and, if necessary, call the doctor.",
+          "My mother has written her phone number on the fridge.",
+          "We all hope he can walk again by next month."
+        ],
+        "stem": "표시된 문장에서 생략된 말이 되살아나야 하는 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "structure",
+        "segments": [
+          "The nurse",
+          "will change the bandage twice a day",
+          "and,",
+          "if necessary,",
+          "call the doctor."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "ellipsis_restored",
+        "why": "if necessary 는 if (it is) necessary 에서 주어와 be동사가 생략된 조건절이다. 이를 되살리면 '필요하다면'이라는 뜻이 분명해진다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장의 주어다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "조동사 will 과 첫 번째 동사구 change ... 다."
+          },
+          {
+            "reason": "phrase_boundary",
+            "why": "두 동사구를 잇는 접속사다."
+          },
+          {
+            "reason": "ellipsis_restored",
+            "why": "it is 가 생략된 조건 부사절이다."
+          },
+          {
+            "reason": "parallel_member",
+            "why": "will 에 걸려 change 와 나란한 두 번째 동사구다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "sr-transfer-2",
+      "role": "transfer",
+      "passageGroup": "sr-x2",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The city council is debating a plan to build a new sports center.",
+          "Some residents fear that the project will cost too much.",
+          "The plan, the mayor insists, will not raise local taxes.",
+          "Instead, a private company will pay most of the costs.",
+          "The council will vote on the plan next month."
+        ],
+        "stem": "표시된 문장에서 삽입된 덩어리는?",
+        "focus": {
+          "sentence": 2
+        },
+        "ask": "structure",
+        "segments": [
+          "The plan,",
+          "the mayor insists,",
+          "will not raise",
+          "local taxes."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "inserted_clause",
+        "why": "콤마 사이의 the mayor insists 는 주어 The plan 과 동사 will not raise 사이에 끼어든 삽입절로, 걷어내도 'The plan will not raise local taxes.'가 완전하다. the mayor 를 문장의 주어로 읽는 것이 함정이다.",
+        "segments": [
+          {
+            "reason": "main_subject",
+            "why": "문장의 주어다."
+          },
+          {
+            "reason": "inserted_clause",
+            "why": "주어와 동사 사이에 끼어든 삽입절로, 누구의 주장인지 밝힌다."
+          },
+          {
+            "reason": "main_verb",
+            "why": "주어 plan 의 동사다."
+          },
+          {
+            "reason": "object",
+            "why": "will not raise 의 목적어다."
+          }
+        ]
+      }
+    }
+  ]
+}

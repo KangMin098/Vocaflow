@@ -1,0 +1,87 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+  "items": [
+    {
+      "id": "sc-teach-1",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "gold.segments[4] incorrectly labels 'outside the city' as modifies_verb and calls it an adverbial chunk. In this sentence, its natural attachment is to 'a plant': it identifies the plant's location. Use modifies_noun and explain that it modifies plant.",
+        "The claim that an unwashed bottle can spoil a whole batch is presented as a general recycling fact, but no supporting source or explicitly hypothetical framing is supplied."
+      ],
+      "why": "Segment 3 uniquely contains the main verb 'are carried'; rinse and drop belong to the relative clause. The key and teaching steps are sound, but one distractor explanation misidentifies attachment, and the batch-contamination claim needs support or reframing."
+    },
+    {
+      "id": "sc-guided-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Segment 2 uniquely contains the main subject's head, visitor. The opening participial phrase, both relative clauses, hints, and segment explanations correctly distinguish modifiers from the main subject and verb. The narrative and Korean explanations are sufficiently natural and clear."
+    },
+    {
+      "id": "sc-ind-1",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "The passage presents broad historical and behavioral claims about real zoos, including calmer animals and longer visitor stays, without traceable support or an explicitly hypothetical setting. The supplied text cannot establish these empirical claims."
+      ],
+      "why": "Segment 3 uniquely contains 'has changed'. The content clause after idea, infinitive modifying space, and embedded how clause are correctly explained. The grammar key is sound; the unsupported factual presentation prevents acceptance."
+    },
+    {
+      "id": "sc-ind-2",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "One is uniquely the head of the main subject and governs singular was. The remaining segments contain its dependent material, nested modifiers, or the main predicate. The explanations and fictional family narrative support the intended analysis."
+    },
+    {
+      "id": "sc-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Segment 2 uniquely contains the main verb was. The What clause is the subject, worried is embedded within it, and the final segment supplies the contrasting complement. The temporal modifier and Korean explanations are accurate."
+    },
+    {
+      "id": "sc-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Segment 4 uniquely contains the subject's head, box, following stood in locative inversion. The prepositional and participial modifiers are correctly explained. The passage and Korean text are coherent and appropriate."
+    },
+    {
+      "id": "sc-ind-3",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Segment 4 uniquely contains the main verb 'has risen', agreeing with number. Walk and cycle are relative-clause verbs, and opened belongs to the since clause. The district phrase permits attachment variation without affecting the key; its explanation adequately conveys geographic restriction."
+    },
+    {
+      "id": "sc-ind-4",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "Segment 1 uniquely contains the main subject's head, captain. The team phrase and relative clause are modifiers, while answered is the main verb. The story, distractor explanations, and Korean text are consistent."
+    },
+    {
+      "id": "sc-transfer-2",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "The passage asserts a general technical baking claim—that baking bread at high altitude takes less yeast than most recipes suggest—and supplies a causal account involving rapid rising and collapse. No traceable support is supplied. The fictional uncle does not make these general technical assertions explicitly hypothetical."
+      ],
+      "why": "Segment 3 uniquely contains the main verb takes. The infinitival subject, relative clause, and comparative clause are correctly distinguished. Acceptance requires supporting or reframing the technical baking claims."
+    }
+  ],
+  "limitations": [
+    "Review used only the supplied JSON; no tools, files, browsing, or other sessions were used.",
+    "All nine gold.answer values were verified as uniquely correct. Factual-support issues identify untraceable assertions, not findings that those assertions are false.",
+    "This judgment does not verify authorship, provenance, rights, or release authorization."
+  ],
+  "required_changes": [
+    "Correct sc-teach-1 gold.segments[4] to describe a noun modifier locating the plant.",
+    "Support or explicitly reframe the recycling batch-contamination claim in sc-teach-1.",
+    "Support the general zoo claims in sc-ind-1 or rewrite the passage as an explicitly hypothetical example.",
+    "Support the technical baking claims in sc-transfer-2 or replace them with clearly framed observations limited to the fictional uncle's experience."
+  ]
+}

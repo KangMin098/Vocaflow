@@ -1,0 +1,112 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+  "items": [
+    {
+      "id": "r5-cm-teach-1",
+      "verdict": "hold",
+      "choice_0based": 0,
+      "gold_issues": [
+        "Sentence index 5 presents a real research finding about the best musicians spending most of their practice time on poorly played passages, but the supplied JSON provides no traceable source.",
+        "The explanations for choice index 1 say it directly reproduces the opposed view. The passage describes avoiding errors by choosing only easy tasks; the choice instead recommends progressing gradually from easy tasks to reduce errors. That progression is not stated or clearly rejected in the passage, so the stated distractor rationale is inaccurate."
+      ],
+      "why": "Choice 0 uniquely captures the central message. Acceptance requires resolving the research attribution and aligning choice 1 with its explanation."
+    },
+    {
+      "id": "r5-cm-guided-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Choice 2 uniquely expresses the infrastructure conclusion. The cooling mechanisms, contrast, hints, sentence relations and distractor explanations support that reading. English and Korean are appropriate."
+    },
+    {
+      "id": "r5-cm-guided-2",
+      "verdict": "hold",
+      "choice_0based": 3,
+      "gold_issues": [
+        "Sentence indexes 1–3 present workplace research findings and generalized effects on perceived competence and relationships without a traceable source in the supplied JSON."
+      ],
+      "why": "Choice 3 uniquely states the conclusion, and the hints and distractor explanations are consistent with the passage. The empirical attribution remains unverified."
+    },
+    {
+      "id": "r5-cm-ind-1",
+      "verdict": "hold",
+      "choice_0based": 2,
+      "gold_issues": [
+        "Sentence index 4 reports a specific experiment involving adults, fifteen minutes of copying numbers and paper-cup uses. The revision note mentions an original paper but provides no identifiable citation, so the procedure and result cannot be traced from the supplied JSON."
+      ],
+      "why": "Choice 2 uniquely matches the conclusion. The adult experiment is accurately described internally as producing more responses, but its factual provenance remains unresolved; it also supplies only indirect support for the recommendation about children."
+    },
+    {
+      "id": "r5-cm-ind-2",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "Choice 1 accurately preserves the qualified claim about navigation dependence and spatial understanding. Every distractor has a text-supported rejection, and the sentence relations match the argument."
+    },
+    {
+      "id": "r5-cm-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "Choice 1 best captures the label's misleading informational promise. The shoppers and drink are explicitly hypothetical. The other titles introduce avoidance, processes, broader health advice or a safety comparison that the passage does not establish."
+    },
+    {
+      "id": "r5-cm-transfer-2",
+      "verdict": "hold",
+      "choice_0based": 2,
+      "gold_issues": [
+        "Sentence index 4 reports actual experiments comparing expected teaching with expected testing, including a specific memory outcome and the absence of actual teaching, without an identifiable source in the supplied JSON."
+      ],
+      "why": "Choice 2 uniquely captures the topic. The claim, supporting mechanisms and distractor explanations are coherent, but the experimental finding is not traceable."
+    },
+    {
+      "id": "r5-cm-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Choice 4 preserves both the activity-change condition and the limited possibility of improved focus. The worker example is clearly illustrative, sentence index 3 restates the central claim, and the distractor explanations match the text."
+    },
+    {
+      "id": "r5-cm-delayed-2",
+      "verdict": "revise",
+      "choice_0based": 1,
+      "gold_issues": [
+        "Sentence index 4 attributes a quantitative generalization about most published articles to professional editors without a traceable source.",
+        "The explanation for choice index 2 says it reproduces sentence index 4, but multiple rounds of revision do not establish multiple interventions by editors. The choice introduces an agent that the reported revision history does not specify.",
+        "The explanation for choice index 3 treats prioritizing ideas over sentences in a first draft as a distortion. Sentence indexes 2–3 reasonably support that practical inference. Its reliable reason for rejection is its narrower scope relative to the passage's emphasis on revision."
+      ],
+      "why": "Choice 1 remains the best overall gist, but two distractor rationales need correction and the attributed editorial finding needs substantiation or rewriting."
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "Choice 1 uniquely captures selecting task-relevant information. The hypothetical baker example supports this without implying that detailed memory prevents useful recall. The explanations correctly distinguish usefulness from accuracy."
+    },
+    {
+      "id": "r5-cm-ind-4",
+      "verdict": "revise",
+      "choice_0based": 0,
+      "gold_issues": [
+        "Sentence index 4 presents an actual city's highway closure and traffic outcome without identifying the city, event or source.",
+        "Choice index 3 says driving becomes faster for the first few years, whereas sentence index 1 specifies only a short while. Its explanation identifies only excessive narrowness and overlooks this unsupported duration."
+      ],
+      "why": "Choice 0 uniquely captures the conclusion. The closure example needs traceability, and choice 3 must either match the passage's duration or have an explanation identifying its temporal overstatement."
+    }
+  ],
+  "limitations": [
+    "Reviewed all 11 supplied items as requested, including those outside provenance.aiReviewScope.",
+    "Used only the supplied JSON; no tools, files, browsing or other sessions were consulted.",
+    "Untraceable empirical claims are not judgments that the claims are false. Their factual accuracy remains unresolved.",
+    "The supplied SHA-256 was reproduced without independent file verification.",
+    "This is a first-party candidate content judgment, not a rights grant or release."
+  ],
+  "required_changes": [
+    "Provide identifiable sources for the research or reported-event claims in teach-1, guided-2, ind-1, transfer-2, delayed-2 and ind-4, or rewrite them as clearly hypothetical illustrations with corresponding explanation updates.",
+    "Align teach-1 choice 1 and its explanations so the rejected view is actually expressed by the choice.",
+    "Correct delayed-2's explanations for choices 2 and 3, distinguishing unspecified revision authorship and a narrower supported inference.",
+    "Correct ind-4 choice 3's unsupported duration or explicitly identify that overstatement in its explanation."
+  ]
+}

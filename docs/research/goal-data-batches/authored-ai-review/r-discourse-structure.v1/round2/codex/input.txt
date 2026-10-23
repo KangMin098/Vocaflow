@@ -1,0 +1,356 @@
+Fresh independent AI content/Gold reviewer for Vocaflow first-party authored English reading items for Korean high-school learners. The user assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions: judge only the supplied JSON. Review every item: passage sentences, stem, every choice or segment or pair, the gold answer, alternatives, distractor explanations, hints and why texts. Accept an item only if (a) exactly one keyed answer is defensibly correct from the text alone, (b) every other choice is clearly wrong for the stated reason, (c) explanations match the text and contain no factual claims presented as real findings that cannot be traced (hypothetical examples must read as hypothetical), (d) English is natural and level-appropriate, Korean text is accurate. Otherwise mark revise or hold and list the concrete gold_issues. Do not accept merely because a field says so; verify against the supplied text. This is a first-party candidate content judgment, not an external rights grant or release. Indexing: gold choices and sentence indexes are 0-based. For each item set choice_0based to the gold.answer value you verified, or null when the item has no gold.answer field. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,gold_issues:[],why}],limitations:[],required_changes:[]}. verdict for the whole set is accept only if every item is accept. Distinguish actual defects from optional refinements (refinements are not gold_issues) and preserve uncertainty.
+
+REVIEW SCOPE (round 2): review ONLY these item ids: ["ds-ind-2","ds-ind-3"]. All other items in the file are NOT reviewed and must NOT appear in items[]. The set verdict is accept only if every scoped item is accept.
+
+source_file_sha256: 3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e
+source_file: apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json
+
+{
+  "set": "r-discourse-structure.v1",
+  "taskId": "r.discourse_structure",
+  "taskKey": "authored-discourse-structure",
+  "format": "discourse_roles",
+  "proseNumbering": "1-based",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "ds-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "ds-t1",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Many people believe that a messy desk is a sure sign of a disorganized mind.",
+          "The image of the tidy, efficient worker is so familiar that few stop to question it.",
+          "Yet observations of office workers suggest that the link is far weaker than we assume.",
+          "Some people who work among piles of paper can find any document within seconds, because the piles follow an order that only they need to understand.",
+          "Their desks look chaotic to visitors, but the arrangement reflects how recently and how often each item is used.",
+          "Judging a person's thinking by the surface of a desk, then, tells us more about our expectations than about the worker."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오.",
+        "teach": [
+          {
+            "step": "첫 문장이 누구의 생각인지 본다",
+            "text": "1번은 'Many people believe'로 시작한다. 글쓴이의 주장이 아니라 사람들이 흔히 믿는 생각(통념)을 꺼낸 배경이다. 2번은 그 믿음이 얼마나 널리 퍼져 있는지 덧붙인다.",
+            "sentences": [
+              0,
+              1
+            ]
+          },
+          {
+            "step": "전환 표지에서 글쓴이의 자리를 찾는다",
+            "text": "3번 'Yet'에서 방향이 뒤집힌다. 앞의 통념을 '생각보다 훨씬 약한 연결'이라며 부정하고 글쓴이의 주장을 처음 내놓으므로 3번이 주제문이다(반전 자체에 주목하면 turn). 4·5번은 쌓인 서류 속에서 바로 문서를 찾는 사람의 예로 그 주장을 뒷받침한다.",
+            "sentences": [
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "step": "결론이 무엇을 부정하는지 확인한다",
+            "text": "6번 'then'은 결론 표지다. 책상 겉모습으로 사람을 판단하는 것이 틀렸다고 정리해, 1번의 통념을 다시 겨눈다.",
+            "sentences": [
+              5
+            ]
+          },
+          {
+            "step": "가까운 구조와 구별한다",
+            "text": "두 종류의 책상(정돈 vs 어지러움)을 견주는 contrast처럼 보일 수 있다. 그러나 이 글은 두 대상을 나란히 비교하지 않는다. '흔한 믿음 → 그 믿음이 틀렸다는 반박 → 근거'라는 흐름이므로 myth_rebuttal이다. 판단 기준: 앞부분이 '사람들의 믿음'이고 글쓴이가 그것을 뒤집는가?",
+            "sentences": [
+              0,
+              2
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "topic",
+          "example",
+          "support",
+          "conclusion"
+        ],
+        "alternatives": [
+          {
+            "index": 2,
+            "role": "turn"
+          }
+        ],
+        "pattern": "myth_rebuttal",
+        "rationale": "1번은 통념(어지러운 책상 = 어지러운 정신), 2번은 그 통념이 널리 퍼졌다는 뒷받침이다. 3번 'Yet'이 통념을 뒤집으며 글쓴이의 주장(주제문)을 내놓는다 — 반전이므로 turn으로 보아도 인정한다. 4·5번이 예와 뒷받침, 6번이 결론이다. 정돈된 책상과 어지러운 책상을 견주는 contrast로 보기 쉽지만, 두 대상을 대등하게 비교하는 글이 아니라 '사람들의 믿음'을 글쓴이가 부정하는 글이므로 myth_rebuttal이다."
+      }
+    },
+    {
+      "id": "ds-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "ds-g1",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Small-town libraries face a serious problem: fewer and fewer people walk through their doors.",
+          "Most residents now find information online and see little reason to make the trip.",
+          "As visits fall, councils cut library budgets, which leads to shorter opening hours and even fewer visitors.",
+          "One way to break this cycle is to offer what a screen cannot, such as spaces where people make and repair things together.",
+          "In one town, part of the library became a workshop where residents could borrow tools and join weekly repair classes.",
+          "Volunteers taught everything from fixing bicycles to sewing torn clothes.",
+          "Within two years, the building was busier than it had been in decades."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오.",
+        "hints": [
+          "1번은 글이 다룰 '해결해야 할 상태'를 밝히나요, 아니면 단순한 사실을 소개하나요?",
+          "3번에는 원인과 결과가 들어 있습니다. 하지만 글 전체가 '왜 줄었나'를 설명하는 데서 멈추는지, 그 다음에 무엇이 오는지 보세요.",
+          "4번의 'One way to break this cycle'이 앞의 무엇에 대한 답인지, 5~7번이 4번과 어떤 관계인지 생각해 보세요."
+        ]
+      },
+      "gold": {
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "support",
+          "example",
+          "example",
+          "support"
+        ],
+        "alternatives": [],
+        "pattern": "problem_solution",
+        "rationale": "1번이 문제(방문자 감소)를 밝히는 주제문, 2·3번이 문제의 사정과 악순환, 4번이 해결책 제시, 5·6번이 한 마을의 사례, 7번이 그 성과다. 3번에 원인-결과 고리가 있어 cause_effect로 고르기 쉽지만, 인과는 문제를 설명하는 부분일 뿐이고 글의 무게는 '문제 → 해결책 → 사례 → 성과'에 있으므로 problem_solution이다. 결론 문장 없이 성과로 끝난다."
+      }
+    },
+    {
+      "id": "ds-ind-1",
+      "role": "independent_check",
+      "passageGroup": "ds-i1",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "A new highway can reshape a quiet village faster than any decision made by the village itself.",
+          "Once city drivers can reach it in an hour, the village becomes a popular weekend stop.",
+          "Cafés and small shops open along the main road, and land prices begin to climb.",
+          "Young families who had planned to stay may find that they can no longer afford a home.",
+          "Older residents, meanwhile, often find new part-time work in the growing businesses."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "topic",
+          "support",
+          "support",
+          "support",
+          "support"
+        ],
+        "alternatives": [],
+        "pattern": "cause_effect",
+        "rationale": "1번이 '고속도로가 마을을 바꾼다'는 원인-결과 주제문이고, 2~5번은 그 원인이 낳는 결과들(주말 관광지화, 가게와 땅값 상승, 젊은 가족의 이탈, 노년층의 일자리)을 이어 놓는다. 4번의 집값 문제 때문에 problem_solution으로 보기 쉽지만, 글은 어떤 해결책도 내놓지 않고 좋은 결과와 나쁜 결과를 함께 늘어놓을 뿐이므로 cause_effect이다. 결론 문장 없이 마지막 결과로 끝난다."
+      }
+    },
+    {
+      "id": "ds-ind-2",
+      "role": "independent_check",
+      "passageGroup": "ds-i2",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Travelers today can choose between a printed map and a navigation app.",
+          "A printed map shows a whole region at once.",
+          "The reader therefore builds a picture of how places relate to one another.",
+          "That picture takes effort to form, but it often lasts long after the trip.",
+          "A navigation app gives one instruction at a time and asks the traveler to look only at the next turn.",
+          "It saves effort and rarely lets anyone get lost.",
+          "Yet it leaves little behind in memory once the screen goes dark.",
+          "The real choice, then, is between arriving quickly and coming to know the place."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "support",
+          "support",
+          "support",
+          "support",
+          "topic"
+        ],
+        "alternatives": [
+          {
+            "index": 7,
+            "role": "conclusion"
+          }
+        ],
+        "pattern": "contrast",
+        "rationale": "1번이 두 도구를 소개하는 배경, 2~4번이 종이 지도의 특징, 5~7번이 내비게이션 앱의 특징이다. 5번은 대조의 두 번째 축을 여는 문장일 뿐 앞의 내용을 뒤집지 않으므로 support다. 8번이 두 도구의 차이를 '빨리 도착하기 vs 장소를 알기'로 정리하는 주제문이며, 앞 내용을 맺는 성격도 있어 conclusion으로 보아도 인정한다. 7번 'Yet'이 있어 통념을 뒤집는 myth_rebuttal로 볼 수 있지만, 사람들의 잘못된 믿음이 제시되거나 부정되지 않고 두 대상을 대등하게 견주므로 contrast이다."
+      }
+    },
+    {
+      "id": "ds-transfer-1",
+      "role": "transfer",
+      "passageGroup": "ds-x1",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Ms. Lee, a primary school teacher, had long wondered whether her brightly decorated classroom actually helped her pupils learn.",
+          "To find out, she and a university researcher taught the same science lessons to two groups of nine-year-olds, one in a room covered with posters and one in a room with almost bare walls.",
+          "The children in the decorated room spent more time looking away from the lesson and scored lower on the final tests.",
+          "Those in the plain room stayed on task longer and remembered more of what they had been taught.",
+          "The finding suggests that what surrounds young learners can quietly compete with the lesson for their attention.",
+          "Teachers who want young students to focus might therefore think twice before filling every wall with decorations."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "background",
+          "support",
+          "support",
+          "topic",
+          "conclusion"
+        ],
+        "alternatives": [],
+        "pattern": "study_implication",
+        "rationale": "교사 한 사람의 궁금증으로 이야기처럼 시작하지만, 1·2번은 연구 질문과 실험 조건을 놓는 배경이고, 3·4번이 결과, 5번이 결과가 뜻하는 바(주제문), 6번 'therefore'가 교사에게 주는 실천적 결론이다. 인물 이야기 틀 때문에 narrative로 보기 쉽지만, 사건의 갈등-해결이 아니라 '질문 → 실험 → 결과 → 함의'로 짜여 있고 인물은 연구를 소개하는 장치일 뿐이므로 study_implication이다."
+      }
+    },
+    {
+      "id": "ds-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "ds-d1",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Animals often survive harsh winters by changing their behavior rather than their bodies.",
+          "Some squirrels bury thousands of seeds in autumn and return to them, one by one, when snow covers the ground.",
+          "Certain birds gather in tight groups at night, sharing the warmth of their bodies until morning.",
+          "Honeybees cluster around their queen and shiver their muscles to keep the center of the hive warm.",
+          "None of these creatures grows a thicker coat; each simply acts in a way that makes the cold easier to bear."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "topic",
+          "example",
+          "example",
+          "example",
+          "support"
+        ],
+        "alternatives": [
+          {
+            "index": 4,
+            "role": "conclusion"
+          }
+        ],
+        "pattern": "general_specific",
+        "rationale": "1번이 '동물은 몸이 아니라 행동을 바꿔 겨울을 난다'는 일반 진술(주제문)이고, 2~4번이 다람쥐·새·꿀벌의 구체적 사례다. 5번은 사례들의 공통점을 묶어 일반 진술을 다시 뒷받침하는데, 글을 맺는 역할도 하므로 conclusion으로 보아도 인정한다. 일반 → 구체 사례의 흐름이므로 general_specific이다."
+      }
+    },
+    {
+      "id": "ds-ind-3",
+      "role": "independent_check",
+      "passageGroup": "ds-i3",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "When Minho first joined the school orchestra, he could barely read music.",
+          "For weeks he sat in the last chair and quietly copied the fingering of the student beside him.",
+          "Then, a month before the spring concert, that student moved to another city.",
+          "With no one left to copy, Minho began practicing each passage slowly at home.",
+          "By the night of the concert, he was playing parts that others in his section still found difficult.",
+          "Losing the person he depended on had turned out to be what finally taught him to play."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "turn",
+          "support",
+          "support",
+          "topic"
+        ],
+        "alternatives": [
+          {
+            "index": 5,
+            "role": "conclusion"
+          }
+        ],
+        "pattern": "narrative",
+        "rationale": "1번이 인물과 처음 상황을 놓는 배경, 2번 옆 학생을 따라 하던 시기, 3번 'Then'으로 그 학생이 떠나는 전환, 4~5번 혼자 연습해 실력이 는 과정이 시간 순서로 이어진다. 6번이 사건 전체의 의미('의지하던 사람을 잃은 것이 오히려 배움이 되었다')를 밝히는 주제문이며 결론으로 읽어도 인정한다. 3번의 전환을 문제로, 4번을 해결로 보아 problem_solution으로 고르기 쉽지만, 글은 해결책을 제시하지 않고 한 인물의 경험을 시간 순으로 들려주므로 narrative이다."
+      }
+    },
+    {
+      "id": "ds-ind-4",
+      "role": "independent_check",
+      "passageGroup": "ds-i4",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "Night shifts at many hospitals are becoming harder to fill.",
+          "Nurses who work them for years often report poor sleep and other health problems.",
+          "As a result, many move to day jobs, and the nurses who remain are given even more night work.",
+          "Some hospitals have begun to break this cycle by limiting each nurse to a few months of night work in a row.",
+          "Under these schedules, fewer nurses quit, and the night shifts become easier to staff."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "support",
+          "support",
+          "topic",
+          "support"
+        ],
+        "alternatives": [],
+        "pattern": "problem_solution",
+        "rationale": "1번이 야간 근무 인력 부족이라는 문제를 꺼내는 배경, 2~3번이 그 문제가 왜 생기고 어떻게 악순환이 되는지 설명하는 근거, 4번이 '야간 근무를 연속 몇 달로 제한한다'는 해결책을 내놓는 주제문, 5번이 그 해결책의 효과(근거)다. 3번 'As a result' 때문에 cause_effect로 보기 쉽지만, 인과는 문제를 설명하는 한 부분일 뿐 글 전체는 문제를 제시하고 해결책과 그 효과로 나아가므로 problem_solution이다."
+      }
+    },
+    {
+      "id": "ds-transfer-2",
+      "role": "transfer",
+      "passageGroup": "ds-x2",
+      "body": {
+        "format": "discourse_roles",
+        "sentences": [
+          "A common warning says that going outside with wet hair in winter will give you a cold.",
+          "The idea seems sensible, since colds are more frequent in the colder months.",
+          "However, colds are caused by viruses, not by low temperatures themselves.",
+          "Winter colds spread mainly because people gather indoors, where viruses pass easily from one person to another.",
+          "Wet hair may make someone feel uncomfortable, but without a virus there is nothing to catch."
+        ],
+        "stem": "글을 읽고 문장마다 하는 일과 글 전체 구조를 고르시오."
+      },
+      "gold": {
+        "roles": [
+          "background",
+          "concession",
+          "topic",
+          "support",
+          "support"
+        ],
+        "alternatives": [
+          {
+            "index": 1,
+            "role": "support"
+          }
+        ],
+        "pattern": "myth_rebuttal",
+        "rationale": "1번이 '젖은 머리로 나가면 감기에 걸린다'는 통념을 소개하는 배경, 2번은 그 통념이 그럴듯한 이유를 먼저 인정하는 양보(통념을 떠받치는 근거로 읽어도 인정), 3번 'However'로 감기의 원인은 바이러스라고 반박하는 주제문, 4~5번이 겨울 감기가 퍼지는 실제 이유와 젖은 머리만으로는 감기에 걸리지 않는다는 근거다. 겨울과 감기의 관계를 다뤄 cause_effect로 보기 쉽지만, 글의 뼈대는 널리 퍼진 믿음을 제시하고 부정하는 것이므로 myth_rebuttal이다."
+      }
+    }
+  ]
+}

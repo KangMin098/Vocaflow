@@ -1,0 +1,80 @@
+```json
+{
+  "verdict": "revise",
+  "source_file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+  "items": [
+    {
+      "id": "vcs-teach-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "'yielded nearly twice as much grain per field' is the crop/output sense, so 산출했다 is the only defensible choice. 굴복했다 and 양보했다 are the common-meaning traps and do not take grain as an object. 흡수했다 is pulled from the roots-and-moisture context but makes no sense with grain. 손실을 냈다 reverses the stated gain. The teach steps use 1-based prose numbers (3번 = index 2, 5번 = index 4), and these match the sentence index arrays. The Korean is accurate."
+    },
+    {
+      "id": "vcs-guided-1",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "'declare the structure sound' comes after load and wind-tunnel testing whose stated purpose is to show the design is safe, so 튼튼하고 안전한 is correct. 소리가 나는 imports the noun sense. 깊이 잠든 only works in 'sound asleep'. 사리에 맞는 is the 'sound advice/reasoning' sense and does not describe a physical structure. 결함이 있는 is the opposite. Both hints are accurate and lead to the answer without giving it away."
+    },
+    {
+      "id": "vcs-ind-1",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "'The figure she arrived at' is an estimate of silk volume calculated from tax receipts and described as 'far larger', so 수치 is correct. 인물, 도표, 몸매 and 비유 each fail for the stated reason: 'arrived at' plus a size comparison only fits a number. The cited sentence numbers (1·4번) match the text."
+    },
+    {
+      "id": "vcs-ind-2",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "'address unemployment directly' contrasts with merely describing the problem in reports (sentence 3) and leads to the action in sentence 5, so 대처하다 is correct. 연설하다 and 말을 걸다 do not take a problem as their object. 글로 기록하다 is exactly what the passage criticizes. 외면하다 is the opposite. The cross-references are correct."
+    },
+    {
+      "id": "vcs-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "'command the situation instead of being overwhelmed by it' means taking control, so 통제하다 is correct. 요구하다 (command a price), 내려다보다 (command a view) and 얻어 내다 (command respect) belong to other collocations, and 내맡기다 is the opposite. The 5번 reference to voice/listen is correct (index 4)."
+    },
+    {
+      "id": "vcs-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "'bear a heavy meaning' means to carry a meaning, so 지니다 is correct. 참다, 낳다 and 맺다 (bear fruit) do not fit 'meaning' as the object, and 덜다 reverses the contrast between how the parent and the child see the broken promise. The line about psychologists' advice is general, not a claim about a specific study, so it is acceptable."
+    },
+    {
+      "id": "vcs-ind-3",
+      "verdict": "revise",
+      "choice_0based": 1,
+      "gold_issues": [
+        "The passage ties an invented event to a real historical date ('In the winter of 1918, a dangerous fever spread quickly through a crowded port city ... until the cold season ended'). Learners will naturally read it as an account of the 1918 influenza pandemic. The details (one unnamed port city, closures checking the spread until winter ended, later-acting cities having far more deaths) are presented as historical fact but cannot be traced. They also only partly match the commonly cited record, where the deadly wave peaked in autumn 1918. The fix is to drop the specific year or frame the passage clearly as hypothetical or generic."
+      ],
+      "why": "The answer key itself is sound. 'check the spread of the disease' means 억제하다, and every distractor is clearly wrong for its stated reason: 확인하다 conflicts with the purpose of the measures, 맡기다 is the check-a-bag sense, 계산서를 내다 is the noun sense, and 촉진하다 is the opposite. The revision is only about the passage's untraceable historical framing. How serious that framing is remains a judgment call."
+    },
+    {
+      "id": "vcs-ind-4",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "'runs the shop with her two sons' is the manage-a-business sense, which sentence 5 confirms ('managing a business'), so 운영한다 is correct. 달린다 does not fit a direct object. 출마한다 needs 'for' plus an office. 흘러나온다 is intransitive. 문을 닫는다 contradicts the thriving bakery."
+    },
+    {
+      "id": "vcs-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "'observe these rules', set against 'ignore them' in sentence 4, means to comply with the rules, so 준수하다 is correct. 관찰하다 is ruled out by that contrast. 언급하다 needs a that-clause. 감시하다 is the rangers' role, not the visitors'. 어기다 is the opposite. The references are correct."
+    }
+  ],
+  "limitations": [
+    "This judgment is based only on the supplied JSON. No external sources were checked, so the historical-accuracy concern in vcs-ind-3 rests on general knowledge and is not verified.",
+    "This is a first-party candidate content review. It does not settle humanGold or rights, both of which are still pending in provenance."
+  ],
+  "required_changes": [
+    "vcs-ind-3: remove or neutralize the specific date in 'In the winter of 1918' (for example, 'Long ago, a dangerous fever...' or 'Imagine a crowded port city where...'). Also avoid wording that reads as a verified historical finding, such as stating outcomes for named or dated real events. Keep the target sentence and the answer key unchanged."
+  ]
+}
+```

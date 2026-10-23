@@ -1,0 +1,828 @@
+Fresh independent AI content/Gold reviewer for Vocaflow first-party authored English reading items for Korean high-school learners. The user assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions: judge only the supplied JSON. Review every item: passage sentences, stem, every choice or segment or pair, the gold answer, alternatives, distractor explanations, hints and why texts. Accept an item only if (a) exactly one keyed answer is defensibly correct from the text alone, (b) every other choice is clearly wrong for the stated reason, (c) explanations match the text and contain no factual claims presented as real findings that cannot be traced (hypothetical examples must read as hypothetical), (d) English is natural and level-appropriate, Korean text is accurate. Otherwise mark revise or hold and list the concrete gold_issues. Do not accept merely because a field says so; verify against the supplied text. This is a first-party candidate content judgment, not an external rights grant or release. Indexing: gold choices and sentence indexes are 0-based. For each item set choice_0based to the gold.answer value you verified, or null when the item has no gold.answer field. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,gold_issues:[],why}],limitations:[],required_changes:[]}. verdict for the whole set is accept only if every item is accept. Distinguish actual defects from optional refinements (refinements are not gold_issues) and preserve uncertainty.
+
+REVIEW SCOPE (round 2): review ONLY these item ids: ["r5-cm-guided-1","r5-cm-ind-2","r5-cm-transfer-1","r5-cm-delayed-1","r5-cm-ind-3"]. All other items in the file are NOT reviewed and must NOT appear in items[]. The set verdict is accept only if every scoped item is accept.
+
+source_file_sha256: 682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846
+source_file: apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json
+
+{
+  "set": "r5-central-meaning.v3",
+  "taskId": "r.central_meaning",
+  "taskKey": "authored-central-meaning",
+  "provenance": {
+    "author": "Claude Opus 5.5 (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다. 평가원 문항의 '형식'(요지·제목·주제 5지선다)만 따랐다.",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전(검수 패킷 docs/final/review/r5-authored-gold-packet.md)",
+    "rights": "pending — 사람 원저작 확인 전(같은 패킷)",
+    "revisionNote": "v2(2026-10-18): 정답 선택지 3건 바꿔 쓰기(ind-2 · transfer-2 · delayed-1, 맹검 C 단서 노출 지적) · transfer-1 약한 오답 2건 강화. 사람 Gold 전. · 오답 근거 감사 반영(guided-1 요지 과장 수정 · guided-2 오답① 유형 · 설명 문구 4건) · delayed-1 정답 재표현. · FI-005(#297): ind-1 5번 문장을 원논문(성인 · 응답 수 증가 · 독창성 차이 비유의)에 맞게 수정 — 아동 · 독창성 서술 제거. · v3 candidate 2026-10-21 Codex: independent AI reviews c0b6f657/fde8422c identified logical/distractor defects. Correct selected five items; remove untraced statistics, global legal assertion and invented office-worker experiment. ind-3 is an explicitly hypothetical baker example about selecting task-relevant memory, not a claim that detailed memory prevents recognition. Only these five are submitted for current AI review; all other items remain outside this review scope. · candidate R2: independent Claude/Codex both found stale GPS distractor explanation; remove it. Accept delayed sentence 3 as a restated claim and probe its explicitly hypothetical example at sentence 4. Remove baker no-longer presupposition and use example relation for its concrete case. Earlier candidate and both dissenting reviews preserved.",
+    "aiReviewScope": [
+      "r5-cm-guided-1",
+      "r5-cm-ind-2",
+      "r5-cm-ind-3",
+      "r5-cm-transfer-1",
+      "r5-cm-delayed-1"
+    ]
+  },
+  "items": [
+    {
+      "id": "r5-cm-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "r5cm-t1",
+      "body": {
+        "sentences": [
+          "Many learners treat errors during practice as signs that they are not yet ready to perform.",
+          "They slow down, choose only easy tasks, and feel relieved when nothing goes wrong.",
+          "Yet a practice session without mistakes usually teaches very little.",
+          "In fact, errors made while practicing are among the most useful information a learner can get.",
+          "Each mistake shows exactly where current skill ends, so attention can be directed to that point instead of being spread over what is already known.",
+          "Researchers who study musicians, for example, find that the best performers spend most of their practice time on the passages they still play poorly.",
+          "In other words, a mistake in practice is not a failure but a map of what to learn next."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "연습 중의 실수는 다음에 배울 지점을 알려 주는 유용한 정보이다.",
+          "실수를 줄이려면 쉬운 과제부터 차근차근 연습해야 한다.",
+          "뛰어난 음악가는 연습 시간의 대부분을 어려운 부분에 쓴다.",
+          "연습의 양보다 실전 경험이 실력 향상에 더 중요하다.",
+          "학습자는 실수를 했을 때 감정을 잘 다스려야 한다."
+        ],
+        "teach": [
+          {
+            "step": "흔한 생각부터 찾기",
+            "text": "첫 두 문장은 많은 학습자가 하는 생각(실수 = 준비 부족)을 소개한다. 'Many learners ...'처럼 '많은 사람이 ~한다'로 시작하는 문장은 필자가 뒤집으려는 생각일 때가 많다.",
+            "sentences": [
+              0,
+              1
+            ]
+          },
+          {
+            "step": "방향 전환 신호",
+            "text": "'Yet'(3번)에서 글의 방향이 바뀐다. 이 문장은 아직 이유를 대지 않은 예고다 — 주장 자체는 다음 문장에서 더 분명해진다.",
+            "sentences": [
+              2
+            ]
+          },
+          {
+            "step": "주장 문장",
+            "text": "'In fact'(4번) 뒤에서 필자가 가장 말하고 싶은 판단이 나온다: 연습 중 실수는 가장 쓸모 있는 정보다. 이 문장이 다른 문장들의 '이유가 되는 대상'이다.",
+            "sentences": [
+              3
+            ]
+          },
+          {
+            "step": "떠받치는 문장 가르기",
+            "text": "5번은 왜 쓸모 있는지 이유를 대고, 6번은 음악가 연구로 예를 든다. 둘 다 4번 주장을 받쳐 준다 — 주장이 아니라 근거다.",
+            "sentences": [
+              4,
+              5
+            ]
+          },
+          {
+            "step": "다시 말하기로 확인",
+            "text": "'In other words'(7번)는 주장을 다른 말로 다시 한다. 주장 문장과 다시 말하기 문장이 같은 뜻이면 중심을 제대로 잡은 것이다.",
+            "sentences": [
+              6
+            ]
+          },
+          {
+            "step": "정답 설계",
+            "text": "정답 ①은 4번(주장)과 7번(다시 말하기)의 공통 의미를 우리말로 바꿔 쓴 것이다. 출제자는 정답을 본문 표현 그대로 쓰지 않고 '다음에 배울 지점'처럼 바꿔 쓴다.",
+            "sentences": [
+              3,
+              6
+            ]
+          },
+          {
+            "step": "오답 설계",
+            "text": "② 필자가 반박하는 생각(2번)을 그대로 옮겼다. ③ 예시(6번) 하나만 옮긴 지나치게 좁은 선택지다. ④⑤ 글에 없는 내용이지만 주제와 가까워 그럴듯해 보이게 만들었다.",
+            "sentences": [
+              0,
+              1,
+              5
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "claim": 3,
+        "claimRestated": [
+          6
+        ],
+        "support": [
+          4,
+          5
+        ],
+        "supportDisputed": [
+          2
+        ],
+        "opposed": [
+          0,
+          1
+        ],
+        "relationProbe": {
+          "sentence": 5,
+          "relation": "example"
+        },
+        "gist": "연습 중 실수는 실패가 아니라 다음에 배울 곳을 보여 주는 정보다.",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "opposed_view",
+            "why": "필자가 반박하는 흔한 생각(2번)을 정답처럼 옮겼다."
+          },
+          {
+            "choice": 2,
+            "design": "too_narrow",
+            "why": "예시(6번) 하나만 담은 세부 내용이다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "실전 경험은 글에 나오지 않는다."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "감정 조절은 글에 나오지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "r5cm-p1",
+      "body": {
+        "sentences": [
+          "On a hot summer afternoon, the air above a parking lot can be several degrees warmer than the air in a nearby park.",
+          "This difference is not simply a matter of shade.",
+          "Trees also release water vapor through their leaves, and this process uses heat from the surrounding air.",
+          "This cooling can therefore come from the use of heat to evaporate water as well as from blocked sunlight.",
+          "For this reason, planting trees can be a useful way for cities to cool outdoor spaces.",
+          "Air conditioners, by contrast, cool the inside of buildings while pushing even more heat into the streets.",
+          "A city that wants cooler summers should therefore think of its trees as part of its infrastructure, not as decoration."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "도시의 주차장은 공원보다 기온이 높다.",
+          "나뭇잎에서 물이 증발할 때 주위 공기의 열이 쓰인다.",
+          "도시의 나무는 도심 공간의 열을 줄이는 기반 시설로 다룰 필요가 있다.",
+          "에어컨 사용을 줄이면 도시 전체의 에너지를 아낄 수 있다.",
+          "도시의 아름다움을 위해 나무를 장식으로 활용해야 한다."
+        ],
+        "hints": [
+          "For this reason이 앞의 설명을 어떤 판단으로 잇는지 살펴보세요.",
+          "증발과 그늘은 냉각 방법이 유용하다는 판단을 뒷받침하는 기제예요.",
+          "마지막 문장이 앞의 판단을 도시의 선택으로 다시 말하는지 확인하세요."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "claim": 4,
+        "claimRestated": [
+          6
+        ],
+        "support": [
+          2,
+          3
+        ],
+        "supportDisputed": [
+          0,
+          1,
+          5
+        ],
+        "opposed": [],
+        "relationProbe": {
+          "sentence": 2,
+          "relation": "reason"
+        },
+        "gist": "도시의 나무는 그늘과 증발에 의한 냉각을 제공하므로 장식 이상의 기반 시설로 볼 필요가 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "too_narrow",
+            "why": "도입부의 관찰(1번)만 옮겼다."
+          },
+          {
+            "choice": 1,
+            "design": "too_narrow",
+            "why": "증발에 열이 쓰인다는 설명은 나무의 냉각 기능을 뒷받침하는 기제 하나이며, 도시가 나무를 어떻게 다룰지에 대한 중심 판단 전체가 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "distorted",
+            "why": "6번(에어컨)의 소재를 가져와 글에 없는 에너지 절약 주장으로 비약했다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "필자는 나무를 장식이 아니라 기반 시설로 보라고 한다(7번)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-guided-2",
+      "role": "guided_practice",
+      "passageGroup": "r5cm-p2",
+      "body": {
+        "sentences": [
+          "Many new employees hesitate to ask questions because they worry that colleagues will think they are incompetent.",
+          "Studies of workplaces suggest that this worry is mostly unfounded.",
+          "People who ask for advice are usually judged as more capable, not less, especially when the question is specific.",
+          "Being asked for help also makes the person asked feel respected, which tends to improve the relationship.",
+          "Newcomers, then, gain far more than they lose by asking thoughtful questions early.",
+          "Waiting too long can be costly, since small misunderstandings grow into larger mistakes."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "신입 직원은 동료의 평가를 지나치게 의식한다.",
+          "구체적인 질문이 막연한 질문보다 답을 얻기 쉽다.",
+          "도움을 청하면 상대방과의 관계가 좋아진다.",
+          "신입 직원은 일찍 사려 깊은 질문을 하는 것이 훨씬 이롭다.",
+          "작은 오해는 시간이 지나면 저절로 풀린다."
+        ],
+        "hints": [
+          "첫 문장의 걱정을 필자가 받아들이는지, 뒤집는지 보세요.",
+          "'then'은 앞의 이유들을 모아 결론을 낼 때 써요.",
+          "마지막 문장은 결론의 또 다른 이유인지, 새로운 주장인지 가려 보세요."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "claim": 4,
+        "claimRestated": [],
+        "support": [
+          2,
+          3,
+          5
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 0,
+          "relation": "opposed"
+        },
+        "gist": "신입은 일찍 사려 깊게 질문하는 편이 잃는 것보다 얻는 것이 훨씬 많다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "too_narrow",
+            "why": "도입부(1번)의 상황 묘사만 옮겼다 — 필자의 주장(질문이 이롭다)은 빠졌다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "3번의 '구체적인 질문일수록 유능해 보인다'를 '답을 얻기 쉽다'로 바꿨다."
+          },
+          {
+            "choice": 2,
+            "design": "too_narrow",
+            "why": "근거 하나(4번)만 옮겼다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "필자는 작은 오해가 커진다고 한다(6번)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-ind-1",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i1",
+      "body": {
+        "sentences": [
+          "Parents often rush to fill every empty moment of a child's day with activities.",
+          "The intention is good, but it may take away something valuable.",
+          "Periods of boredom push children to invent their own games, stories, and projects.",
+          "When nothing is provided, the mind starts to look for something to do, and that search is where creativity often begins.",
+          "In one study, adults who first spent fifteen minutes copying numbers from a list later listed more uses for a paper cup than those who had not.",
+          "A certain amount of unplanned, even dull, time is therefore something children need rather than something to be avoided."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "아이들의 하루를 다양한 활동으로 채워 주어야 한다.",
+          "지루한 반복 작업은 아이들의 집중력을 높인다.",
+          "아이들에게는 계획되지 않은 지루한 시간이 어느 정도 필요하다.",
+          "창의성은 타고난 재능보다 노력으로 길러진다.",
+          "부모는 아이와 함께 놀이를 만들어야 한다."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "claim": 5,
+        "claimRestated": [],
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 4,
+          "relation": "example"
+        },
+        "gist": "아이에게는 계획되지 않은 지루한 시간이 어느 정도 필요하다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "필자가 문제 삼는 부모의 행동(1번)을 그대로 권했다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "실험(5번)의 결과(쓰임새를 더 많이 떠올림)를 집중력이 높아진 것으로 바꿨다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "재능과 노력의 비교는 글에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "부모가 놀이를 만들어 주라는 말은 없다 — 오히려 아이가 스스로 만든다(3번)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-ind-2",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i2",
+      "body": {
+        "sentences": [
+          "Relying on turn-by-turn directions may be weakening our ability to understand the places we live in.",
+          "When a device tells us where to turn, we no longer need to build a mental picture of how streets connect.",
+          "Following these instructions can leave a driver with less knowledge of how the parts of a route fit together.",
+          "Some people argue that this hardly matters, since the device is always available.",
+          "But devices fail, batteries die, and signals disappear, and a person with no sense of direction is then truly lost.",
+          "Moreover, finding our own way requires us to attend to landmarks and their connections."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "길 안내 기기는 운전자의 안전을 높여 준다.",
+          "스스로 길을 찾지 않으면 주변 공간을 이해하는 힘이 줄어들 수 있다.",
+          "배터리와 신호 문제 때문에 길 안내 기기는 믿을 수 없다.",
+          "기억력을 높이려면 지도를 직접 그려 보아야 한다.",
+          "기기는 늘 쓸 수 있으므로 방향 감각은 중요하지 않다."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "claim": 0,
+        "claimRestated": [],
+        "support": [
+          1,
+          2,
+          4,
+          5
+        ],
+        "supportDisputed": [],
+        "opposed": [
+          3
+        ],
+        "relationProbe": {
+          "sentence": 3,
+          "relation": "opposed"
+        },
+        "gist": "길 안내 기기에 기대면 우리가 사는 곳을 이해하는 능력이 약해질 수 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "안전은 글에 나오지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "too_narrow",
+            "why": "반론을 반박하는 근거 하나(5번)만 옮기고 ‘믿을 수 없다’로 단정해 과장했다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "글은 지도를 직접 그리라는 방법이나 일반 기억력 향상이라는 목표를 제시하지 않는다. 길 안내 의존과 공간 이해에 관한 논의를 글에 없는 처방으로 바꿨다."
+          },
+          {
+            "choice": 4,
+            "design": "opposed_view",
+            "why": "필자가 반박하는 생각(4번)이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-transfer-1",
+      "role": "transfer",
+      "passageGroup": "r5cm-x1",
+      "body": {
+        "sentences": [
+          "Imagine a group of shoppers who trust a drink more after seeing the word \"natural\" on its label.",
+          "They treat the word as if it guaranteed that the drink were healthier or safer.",
+          "The word alone, however, does not describe which ingredients are inside the drink.",
+          "The imagined drink could still contain a long list of sweeteners and additives.",
+          "The word, in short, tells buyers far less than they believe it does.",
+          "Reading the list of ingredients is a much more reliable way to judge what is inside the package."
+        ],
+        "stem": "다음 글의 제목으로 가장 적절한 것은?",
+        "choices": [
+          "Why Shoppers Should Avoid Natural Foods",
+          "The Empty Promise of the \"Natural\" Label",
+          "How Additives Make Drinks Sweeter",
+          "Reading Ingredients: The Key to Healthy Eating",
+          "Natural or Artificial: Which Food Is Safer?"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "claim": 4,
+        "claimRestated": [],
+        "support": [
+          2,
+          3
+        ],
+        "supportDisputed": [
+          0,
+          5
+        ],
+        "opposed": [
+          1
+        ],
+        "relationProbe": {
+          "sentence": 3,
+          "relation": "example"
+        },
+        "gist": "'natural' 표시는 소비자가 믿는 것보다 훨씬 적은 것을 알려 준다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "표시를 믿지 말라는 글을 자연식품을 피하라는 주장으로 넘겨 확대했다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "글은 가상의 음료에 감미료와 첨가물이 들어갈 수 있다고 예를 들지만, 첨가물이 음료를 달게 만드는 과정은 설명하지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "too_narrow",
+            "why": "성분표 읽기는 마지막의 후속 조언이며 글 전체의 중심인 표시의 정보 한계를 대신하지 못한다. 건강한 식사 전반의 열쇠라는 제목은 본문의 범위도 넘어선다."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "글은 자연식품과 인공식품의 안전성을 비교하지 않는다 — 표시의 의미를 따질 뿐이다(소재는 같지만 질문이 다르다)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-transfer-2",
+      "role": "transfer",
+      "passageGroup": "r5cm-x2",
+      "body": {
+        "sentences": [
+          "Most students study in order to pass an exam.",
+          "A different goal, however, may lead to deeper learning: preparing to explain the material to someone else.",
+          "To teach, one must organize ideas into a clear order and find the links between them.",
+          "Gaps in understanding become obvious when one tries to put an idea into simple words.",
+          "In experiments, students told they would have to teach a passage remembered more of it than students told they would be tested, even though no one actually taught.",
+          "The expectation of teaching, it seems, changes the way people study."
+        ],
+        "stem": "다음 글의 주제로 가장 적절한 것은?",
+        "choices": [
+          "the stress students feel before exams",
+          "the difficulty of explaining ideas in simple words",
+          "how expecting to explain something can deepen your own understanding",
+          "the best way for teachers to design tests",
+          "why exams are a poor way to measure learning"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "claim": 1,
+        "claimRestated": [
+          5
+        ],
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "supportDisputed": [
+          0
+        ],
+        "opposed": [],
+        "relationProbe": {
+          "sentence": 4,
+          "relation": "example"
+        },
+        "gist": "남에게 설명할 준비를 하며 공부하면 더 깊이 배운다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "시험 스트레스는 글에 없다."
+          },
+          {
+            "choice": 1,
+            "design": "too_narrow",
+            "why": "근거 하나(4번)를 주제로 삼았다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "교사의 시험 설계는 글에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "시험 대비와 가르칠 준비를 비교한 글을 시험 자체를 비판하는 글로 바꿨다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "r5cm-d1",
+      "body": {
+        "sentences": [
+          "It seems logical that working longer hours without stopping should get more done.",
+          "Yet uninterrupted work does not guarantee an unchanging degree of attention.",
+          "During a long repetitive task, attention can drift and errors can become easier to miss.",
+          "A short change of activity can sometimes help a person return to a repetitive task with renewed focus.",
+          "Consider a worker who pauses to check a different simple task, then returns and notices an error that was previously overlooked.",
+          "Used in this way, a brief break can support the work rather than simply take time away from it."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "일을 잘하려면 쉬지 않고 오래 일해야 한다.",
+          "집중력은 하루 중 아침 시간에 가장 높다.",
+          "짧은 휴식만으로도 떨어진 집중력이 완전히 회복된다.",
+          "사무실 환경이 업무 성과를 좌우한다.",
+          "짧게 활동을 바꾸는 휴식은 뒤이은 작업에 집중하는 데 도움이 될 수 있다."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "claim": 5,
+        "claimRestated": [
+          3
+        ],
+        "support": [
+          2,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 4,
+          "relation": "example"
+        },
+        "gist": "적절한 짧은 활동 전환은 작업을 방해하기보다 다시 집중하는 데 도움이 될 수 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "필자가 뒤집는 상식(1번)이다."
+          },
+          {
+            "choice": 1,
+            "design": "off_text",
+            "why": "시간대는 글에 없다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "집중에 도움이 될 수 있다는 한정된 진술을 짧은 휴식만으로 완전히 회복된다는 보장으로 부풀린다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "가상의 작업자 사례는 활동 전환을 설명할 뿐 사무실 환경이 집중력의 원인이라는 주장을 하지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-delayed-2",
+      "role": "delayed_check",
+      "passageGroup": "r5cm-d2",
+      "body": {
+        "sentences": [
+          "Good writers, it is often assumed, produce excellent sentences on the first try.",
+          "In reality, almost every strong piece of writing begins as a messy first draft.",
+          "The first draft is where writers discover what they actually want to say.",
+          "Only after the ideas are on the page can they be rearranged, cut, and sharpened.",
+          "Professional editors report that most published articles have gone through several rounds of revision.",
+          "Learning to write well, then, is largely learning to revise."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "훌륭한 작가는 첫 문장부터 완벽하게 쓴다.",
+          "좋은 글은 처음부터 완성되기보다 여러 번 고쳐 쓰는 과정에서 만들어진다.",
+          "출판된 글은 여러 번 편집자의 손을 거친다.",
+          "초고에서는 문장보다 생각을 먼저 정리해야 한다.",
+          "글쓰기 능력은 많이 읽을수록 향상된다."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "claim": 5,
+        "claimRestated": [],
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 0,
+          "relation": "opposed"
+        },
+        "gist": "글을 잘 쓰는 법을 배우는 것은 대부분 고쳐 쓰는 법을 배우는 것이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "필자가 뒤집는 흔한 생각(1번)이다."
+          },
+          {
+            "choice": 2,
+            "design": "too_narrow",
+            "why": "예시(5번)를 옮겼다."
+          },
+          {
+            "choice": 3,
+            "design": "distorted",
+            "why": "3·4번의 '초고에서 생각을 찾는다'를 순서 처방으로 바꿨다."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "독서량은 글에 없다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i3",
+      "body": {
+        "sentences": [
+          "Some people judge a good memory by how many exact details a person can reproduce.",
+          "Imagine a baker who memorizes the color of every bowl and the position of every spoon used to make a cake.",
+          "When the kitchen is rearranged, those incidental details do not tell her which mixing and baking steps to follow.",
+          "Remembering the order of the mixing and baking steps would still help her make the cake in the new kitchen.",
+          "She need not forget the bowls and spoons; she can set them aside in thought while recalling the steps that matter.",
+          "Useful remembering, then, involves selecting information for the present task rather than reproducing every detail of a past scene."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "좋은 기억력은 모든 일을 정확하게 떠올리는 능력이다.",
+          "기억은 현재 과제에 필요한 정보를 골라 쓸 때 더 유용해질 수 있다.",
+          "사람의 얼굴을 잘 기억하려면 반복해서 보아야 한다.",
+          "나이가 들수록 기억력이 떨어지는 것은 자연스럽다.",
+          "기억을 정확하게 하려면 세부 사항에 집중해야 한다."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "claim": 5,
+        "claimRestated": [],
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 3,
+          "relation": "example"
+        },
+        "gist": "유용한 기억은 과거의 모든 세부를 그대로 재현하기보다 현재 과제에 맞는 정보를 선택해 쓰는 데 달려 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "필자가 반박하는 통념(1번)을 그대로 옮겼다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "같은 얼굴을 반복해서 보라는 방법은 글에 없다. 글은 제빵사의 가상 사례로 과제에 필요한 기억을 선택하는 일을 설명한다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "나이와 기억력의 관계는 글에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "세부에 주의를 기울여 정확한 회상을 높이라는 처방은 현재 과제에 맞춰 정보를 고르는 유용성의 논점을 다른 목표로 바꾼다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-ind-4",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i4",
+      "body": {
+        "sentences": [
+          "A city that wants fewer traffic jams usually decides to build more roads.",
+          "For a short while, driving does become faster on the new lanes.",
+          "But the easier trips soon persuade more people to drive, and some who used to take the bus switch to their cars.",
+          "Within a few years the new roads are as crowded as the old ones were.",
+          "When one city closed a busy highway for repairs, many drivers simply chose other routes or other ways to travel, and overall traffic did not get worse.",
+          "Adding road space, then, tends to create more traffic rather than reduce it."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "도로를 늘리면 교통 체증이 줄기보다 오히려 교통량이 늘어난다.",
+          "도로 공사 기간에는 운전자들이 불편을 겪는다.",
+          "대중교통 요금을 낮추면 버스 이용자가 늘어난다.",
+          "새 도로는 처음 몇 년 동안 운전을 빠르게 해 준다.",
+          "도시는 교통 체증을 줄이기 위해 도로를 더 지어야 한다."
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "claim": 5,
+        "claimRestated": [],
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 2,
+          "relation": "reason"
+        },
+        "gist": "도로 공간을 늘리면 교통이 줄기보다 오히려 더 많은 교통이 생긴다.",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "off_text",
+            "why": "공사 기간의 불편은 글이 다루지 않는다 — 5번은 오히려 교통이 나빠지지 않았다고 한다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "버스 요금 이야기는 글에 없다."
+          },
+          {
+            "choice": 3,
+            "design": "too_narrow",
+            "why": "잠깐 빨라진다는 부분(2번)만 떼어 내 결론처럼 만들었다."
+          },
+          {
+            "choice": 4,
+            "design": "opposed_view",
+            "why": "필자가 문제 삼는 도시의 선택(1번)을 그대로 권했다."
+          }
+        ]
+      }
+    }
+  ],
+  "proseNumbering": "1-based"
+}

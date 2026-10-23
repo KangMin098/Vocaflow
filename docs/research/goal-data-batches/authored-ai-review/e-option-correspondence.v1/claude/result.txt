@@ -1,0 +1,78 @@
+```json
+{
+  "verdict": "accept",
+  "source_file_sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+  "items": [
+    {
+      "id": "opt-teach-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Sentence 3 (0-based) says that only paper and plant-glue lanterns may be placed on the water, for the fish. Choice ③ keeps the reason but reverses the action ('물에 띄우지 않는다'), and its '강가에 걸어 둔다' is also unsupported, so it is clearly false. Choices ①②④⑤ correctly paraphrase sentences 1, 2, 4 and 6. In the teach steps, the 1-based prose numbers (③→4번, ①→2번, ②→3번, ④→5번, ⑤→7번) match the 0-based sentence arrays. The claim that choice order usually follows passage order is a general test-taking heuristic, not a research finding. Optional refinement: teach step 1 could list sentence 3 as well, since it is meant to cover every choice."
+    },
+    {
+      "id": "opt-guided-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Sentence 4 says young pikas learn the whistle 'within two weeks of birth'. Choice ⑤ says '두 달이 지나야', which changes the time period, so it is the only false choice. Choices ①–④ match sentences 0–3. 'Imaginary' marks the valley as fictional. The hints are accurate. Optional refinement: 'the imaginary Tarrow Valley' reads a little awkwardly; 'a fictional valley called Tarrow' would sound more natural."
+    },
+    {
+      "id": "opt-ind-1",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "Sentence 1 says she worked 'instead of attending school'. Choice ① ('학교에 다니면서') contradicts this, so it is the false choice. Choices ②③④⑤ match sentences 2, 3, 5 and 6. Optional refinement: 'a second hand that moved with the moon' can be read as the clock's seconds hand. 'A special hand' or 'an extra hand' would avoid that misreading. It does not affect the answer key."
+    },
+    {
+      "id": "opt-ind-2",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "Sentence 4 lets under-12s borrow only when an adult member co-signs. Choice ④ ('어른 회원 없이 혼자서도') reverses this. The other choices match sentences 1, 2, 3 and 5 exactly, including the numbers 40 and 300."
+    },
+    {
+      "id": "opt-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "The stem asks for the true statement. Choice ② matches sentence 3: tadpoles drop into the water and grow for about three months. Choice ① swaps day and night (sentence 1). ③ swaps male and female (sentence 2). ④ turns the high call into a low, easily heard one (sentence 4). ⑤ contradicts the yearly counts (sentence 5). Each of these is clearly false. The passage marks the islands as fictional."
+    },
+    {
+      "id": "opt-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Sentence 3 reserves a corner of the market for students' handmade crafts. Choice ③ denies that this area exists and says all stalls sell food, so it is false. Choices ①②④⑤ match sentences 1, 2, 4 and 5."
+    },
+    {
+      "id": "opt-ind-3",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Sentence 3 says the market took cash only until 2019, when card readers were introduced. Choice ③ ('지금도 현금으로만') is therefore false. Choices ①②④⑤ match sentences 1, 2, 4 and 5."
+    },
+    {
+      "id": "opt-ind-4",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Sentence 5 says every copy of the album was given away free. Choice ⑤ (sold, with the profits donated) is false. Choices ①–④ match sentences 1–4. Optional refinement: the gold.why for option ③ translates 'town hospital' as '시립 병원'. '마을 병원' or just '병원' would be closer, but the meaning is unaffected."
+    },
+    {
+      "id": "opt-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "The stem asks for the true statement. Choice ④ matches sentence 3, which says the 1962 race was held to test whether the ice was safe for winter travel. Choice ① says the teams ride the sled, but sentence 1 says they pull it. ② requires metal runners, which sentence 2 forbids. ③ adds prize money, which sentence 5 rules out. ⑤ says the race is cancelled, but sentence 4 says it is moved to a lake. Each of these is clearly false."
+    }
+  ],
+  "limitations": [
+    "I judged only the supplied JSON. I did not independently verify the source_file_sha256 against the actual file.",
+    "'Level-appropriate' is a reviewer judgement. I did not check the vocabulary against a curriculum word list.",
+    "This is a judgement of first-party candidate content. It is not human Gold confirmation and not a rights clearance. provenance.humanGold and rights both remain 'pending'.",
+    "Items opt-delayed-1 and opt-ind-3 use very similar fictional night-market templates (weekly, parking lot, Friday). This is not a gold defect. It may reduce variety, or create interference, if a learner sees both close together."
+  ],
+  "required_changes": []
+}
+```

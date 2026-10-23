@@ -1,0 +1,88 @@
+```json
+{
+  "verdict": "revise",
+  "source_file_sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+  "items": [
+    {
+      "id": "inf-teach-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "S4 is the metaphor and S5 says the same thing without it: a library's value is not on a checkout record. Choice 1, 'a narrow count that misses what a place truly gives', is the only defensible answer. Choice 0 takes 'tickets' literally as charging people. Choice 2 is about funding, which the text never mentions. Choice 3 just repeats the surface picture of counting visitors. Choice 4 wrongly treats the park as a real comparison target. The teach steps and distractor reasons match the 1-based sentence references."
+    },
+    {
+      "id": "inf-guided-1",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "S3 says the figure keeps improving while customers' problems stay unsolved. S5 says the measure stops telling managers what they wanted to know. Together they support choice 3, 'gains on paper conceal service that is getting no better'. Choice 1 contradicts S1, where managers are pleased. Choices 0 and 4 read 'game' too literally. Choice 2, 'customers and staff judge success by different standards', is the strongest distractor, but the text never states either group's standard; the gap it describes is between the figure and reality. decisiveAlt [3] is reasonable. The hints are accurate."
+    },
+    {
+      "id": "inf-ind-1",
+      "verdict": "revise",
+      "choice_0based": 0,
+      "gold_issues": [
+        "S5 'The most productive careers, studies suggest, ...' presents an untraceable claim as a real research finding. Remove 'studies suggest' or make the sentence plainly the writer's view or a hypothetical."
+      ],
+      "why": "The key is sound. S2 says such scientists stop noticing what lies just beyond their problem, and S3 says a neighboring field's finding could answer their question. So choice 0, 'outside help goes unnoticed', is correct. Choice 1 (lost motivation) and choice 4 (relying on others' results) are not in the text or contradict it. Choice 2 contradicts S1, which praises narrow focus. Choice 3 reverses the problem. The only defect is the unsourced research claim in the passage."
+    },
+    {
+      "id": "inf-ind-2",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "In S2 and S3, losing the store pulls other errands out of town and the pharmacy and café close. That supports choice 4, 'a business whose loss drags other local life down too'. Choice 0 reverses the dependence: the other shops relied on the grocery's customers. Choice 1 reads 'threads' as the store's many products. Choice 2 calls the shops competitors, which the text contradicts. Choice 3 brings in revenue size, which the text never gives. The explanations are accurate."
+    },
+    {
+      "id": "inf-transfer-1",
+      "verdict": "revise",
+      "choice_0based": 2,
+      "gold_issues": [
+        "The passage presents an experiment ('In one experiment...') and a general claim ('Similar results have appeared with wine ... and food on fine plates') as real findings that cannot be traced. Mark the setup as hypothetical or fictional, as transfer-2 does, or drop S5's claim of real research.",
+        "The why for choice 0 says the difference disappearing under same-glass conditions is due to appearance. But S4 changed two things at once: identical glasses and covered eyes. Identical glasses also remove any temperature difference between a heavy mug and a paper cup, so the text does not rule temperature out on its own. Rewrite the why to rest on the fact that temperature is never mentioned and the text suggests a perception effect, without claiming the appearance cause is proven."
+      ],
+      "why": "Choice 2 is a defensible implication of S1–S4: the same coffee was rated differently by container, and the preference vanished when containers were made identical. Choices 1 and 3 are unsupported or overgeneralized. Choice 4 goes beyond S5, which only says containers create a perceived quality difference. The key stands; the problems are the factual framing and one why text."
+    },
+    {
+      "id": "inf-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "S1 and S2 contrast familiarity with being able to rebuild the ideas. S3 says the comfortable feeling vanishes once the book is closed. That makes choice 3, 'a sense of ease that fails once recall is needed', uniquely correct. Choice 1 reverses the metaphor. Choices 0 and 2 are not in the text. Choice 4 is contradicted by S3. The explanations are accurate."
+    },
+    {
+      "id": "inf-ind-3",
+      "verdict": "revise",
+      "choice_0based": 2,
+      "gold_issues": [
+        "Choice 2, the key, is clearly longer and more specific than the other four ('...won't hand decisions to others as the group grows'). The length gives the answer away. Shorten it to match the other choices, for example 'a leader who won't let others share decisions'."
+      ],
+      "why": "The content is correct. S0 says the founder makes every decision personally, S3 says hired managers' choices are reversed, and S5 calls for trusting others. Choice 2 is the only defensible answer. Choice 3 reverses the problem. Choice 1 reads 'playing every instrument' as skill. Choice 0 misplaces the problem in how fast managers are hired. Choice 4 is not in the text. Treating S5 as supporting rather than decisive evidence is reasonable."
+    },
+    {
+      "id": "inf-ind-4",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "S2 says reviewers are mostly the delighted or the furious, and S3 says the 'simply fine' majority stays silent. That supports choice 1, 'leaves out the quiet, average majority'. Choice 2 is too narrow because the loud side includes delighted customers. Choice 3 is contradicted by S0 and S3. Choices 0 and 4 are not in the text. The explanations are accurate."
+    },
+    {
+      "id": "inf-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "The library is explicitly labelled fictional. S2 says late returns did not increase, and S3 says borrowers who had stayed away because of fines came back. That supports choice 4: fines pushed some users away rather than helping returns. Choices 0 and 1 are contradicted by S2 and S1. Choice 3 is not in the text. Choice 2 is effectively contradicted by S4, where fine revenue was smaller than the cost of collecting it. The explanations are accurate."
+    }
+  ],
+  "limitations": [
+    "Judged only from the supplied JSON. No human Gold or rights check was done, and this is not a release.",
+    "In inf-guided-1, choice 2 is a plausible distractor, and some learners may defend it. I still judge it clearly weaker than the key, but this should be confirmed in human Gold review.",
+    "Level and naturalness were judged by an expert reader, not by learner data."
+  ],
+  "required_changes": [
+    "inf-ind-1: remove or reframe the unsourced 'studies suggest' claim in S5.",
+    "inf-transfer-1: mark the experiment and the S5 generalization as hypothetical or fictional, and fix the why for choice 0 so it allows for the confound in S4.",
+    "inf-ind-3: shorten keyed choice 2 so its length matches the other choices."
+  ]
+}
+```

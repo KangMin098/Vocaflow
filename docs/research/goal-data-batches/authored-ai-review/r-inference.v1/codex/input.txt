@@ -1,0 +1,613 @@
+Fresh independent AI content/Gold reviewer for Vocaflow first-party authored English reading items for Korean high-school learners. The user assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions: judge only the supplied JSON. Review every item: passage sentences, stem, every choice or segment or pair, the gold answer, alternatives, distractor explanations, hints and why texts. Accept an item only if (a) exactly one keyed answer is defensibly correct from the text alone, (b) every other choice is clearly wrong for the stated reason, (c) explanations match the text and contain no factual claims presented as real findings that cannot be traced (hypothetical examples must read as hypothetical), (d) English is natural and level-appropriate, Korean text is accurate. Otherwise mark revise or hold and list the concrete gold_issues. Do not accept merely because a field says so; verify against the supplied text. This is a first-party candidate content judgment, not an external rights grant or release. Indexing: gold choices and sentence indexes are 0-based. For each item set choice_0based to the gold.answer value you verified, or null when the item has no gold.answer field. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,gold_issues:[],why}],limitations:[],required_changes:[]}. verdict for the whole set is accept only if every item is accept. Distinguish actual defects from optional refinements (refinements are not gold_issues) and preserve uncertainty.
+
+source_file_sha256: 651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d
+source_file: apps/web/src/lib/knowledge/authored/r-inference.v1.json
+
+{
+  "set": "r-inference.v1",
+  "taskId": "r.inference",
+  "taskKey": "authored-inference",
+  "format": "choice_evidence",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전",
+    "revisionNote": "블라인드 검토 반영(2026-10-18): 정답 선지 바꿔 쓰기·길이 균형(guided-1·ind-1·ind-2·delayed-1) · ind-2 의존 축 매력 오답 · transfer-1 함의 추론형 재설계 · teach-1 비유 교체 · 밑줄 문장을 evidenceAlt 에 포함. 사람 Gold 전."
+  },
+  "items": [
+    {
+      "id": "inf-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "inf-t1",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "When a new public library opens, its planners usually count success by the number of books borrowed.",
+          "Yet some of the busiest libraries lend fewer books each year than they did a decade ago.",
+          "Visitors come instead to use quiet rooms, attend free classes, or simply sit somewhere warm without being asked to buy anything.",
+          "For many residents, especially the elderly and the unemployed, the library is the only indoor public place that expects nothing from them.",
+          "Measuring such a building by its loans is like rating a park by the tickets it sells.",
+          "What a library offers its community cannot be found on a checkout record."
+        ],
+        "stem": "밑줄 친 \"rating a park by the tickets it sells\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "charging people for a space they once enjoyed for free",
+          "using a narrow count that misses what a place truly gives",
+          "assuming that popular public spaces need more funding",
+          "counting visitors more carefully at the entrance gate",
+          "comparing libraries with parks to decide which is better"
+        ],
+        "teach": [
+          {
+            "step": "밑줄 문장의 짝 찾기",
+            "text": "밑줄은 5번 문장 'Measuring such a building by its loans is like ...'의 비유다. 'A is like B' 구조에서 B(공원을 표 판매량으로 평가)는 A(도서관을 대출 수로 측정)를 다시 그린 그림이다. 공원은 원래 표를 팔아 가치를 만드는 곳이 아니다.",
+            "sentences": [
+              4
+            ]
+          },
+          {
+            "step": "필자가 그 측정을 어떻게 보나",
+            "text": "2–4번은 대출은 줄어도 사람들이 쉼터·수업·머물 곳으로 도서관을 쓴다고 말한다. 즉 대출 수는 도서관이 하는 일의 일부만 센다. 비유는 '본래 하는 일과 어긋난 좁은 지표로 가치를 재는 잘못'을 가리킨다.",
+            "sentences": [
+              1,
+              2,
+              3
+            ]
+          },
+          {
+            "step": "결정 문장으로 확인",
+            "text": "6번 '도서관이 주는 것은 대출 기록에서 찾을 수 없다'가 비유의 뜻을 비유 없이 풀어 준다. 이 문장이 답을 정하는 결정 근거다.",
+            "sentences": [
+              5
+            ]
+          },
+          {
+            "step": "정답 설계",
+            "text": "정답 ②는 '공원'·'표'라는 표면을 버리고 '좁은 수치가 실제로 주는 것을 놓친다'는 기능만 바꿔 썼다. 함축 의미 문항의 정답은 비유 속 낱말을 거의 쓰지 않는다.",
+            "sentences": [
+              4,
+              5
+            ]
+          },
+          {
+            "step": "오답 설계",
+            "text": "① '표를 판다'를 글자 그대로 요금 부과로 읽은 함정이다. ④ 입장객 세기라는 표면 그림을 옮겼다. ③ 예산은 글에 없다. ⑤ 공원은 비유 재료일 뿐 비교 대상이 아니다.",
+            "sentences": [
+              4
+            ]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 5,
+        "evidence": [
+          4,
+          5
+        ],
+        "evidenceAlt": [
+          1,
+          2,
+          3
+        ],
+        "rationale": "대출 수는 도서관이 주는 쉼터·배움·머무를 곳이라는 실제 가치를 담지 못하는 좁은 지표라는 뜻이다(6번이 직접 풀어 준다).",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "'표를 판다'를 글자 그대로 요금 부과로 읽었다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "예산·지원금 이야기는 글에 나오지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "too_narrow",
+            "why": "입장객을 센다는 비유의 표면 그림만 옮겼다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "공원은 비유의 재료일 뿐, 필자는 도서관과 공원을 비교하지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "inf-p1",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Many companies reward employees for meeting a single number, such as calls answered per hour.",
+          "At first the number rises quickly, and managers are pleased.",
+          "Soon, however, workers learn to end calls early or transfer difficult customers to someone else.",
+          "The figure keeps improving while the customers' problems remain unsolved.",
+          "In such offices, the scoreboard ends up playing a different game from the one on the field.",
+          "A measure that people are paid to raise slowly stops telling managers what they wanted to know."
+        ],
+        "stem": "밑줄 친 \"the scoreboard ends up playing a different game from the one on the field\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "Workers compete with each other to post the top figures.",
+          "Managers lose interest in the figures they once relied on.",
+          "Customers and staff judge success by different standards.",
+          "Gains on paper conceal service that is getting no better.",
+          "Staff enjoy their tasks more once the job becomes a contest."
+        ],
+        "hints": [
+          "'scoreboard'(점수판)와 'field'(경기장)가 글에서 각각 무엇에 해당하는지 짝지어 보세요.",
+          "4번 문장에서 숫자와 실제 상황이 어떻게 갈라지는지 보세요.",
+          "마지막 문장이 비유를 비유 없이 다시 말하고 있지는 않은지 확인하세요."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "decisive": 5,
+        "evidence": [
+          3,
+          5
+        ],
+        "evidenceAlt": [
+          2,
+          4
+        ],
+        "rationale": "점수판(통화 수치)은 계속 좋아지는데 경기장(실제 고객 문제 해결)은 그렇지 않다 — 서류상 성과가 나아지지 않는 실제 업무를 가린다는 뜻이다(4·6번). 4번(수치는 좋아지는데 고객 문제는 그대로)만으로도 같은 결론이 정해지므로 대체 결정 근거로 인정한다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "'game'을 글자 그대로 직원 간 경쟁으로 읽었다 — 글은 수치와 실제의 괴리를 말한다."
+          },
+          {
+            "choice": 1,
+            "design": "reversed",
+            "why": "관리자는 오히려 수치를 보고 기뻐한다(2번)."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "고객과 직원의 평가 기준 차이는 글에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "'game'을 일이 놀이처럼 즐거워진다는 뜻으로 바꿔 읽었다 — 직원들은 수치만 맞추는 요령을 익혔을 뿐이다(3번)."
+          }
+        ],
+        "decisiveAlt": [
+          [
+            3
+          ]
+        ]
+      }
+    },
+    {
+      "id": "inf-ind-1",
+      "role": "independent_check",
+      "passageGroup": "inf-i1",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Young researchers are often advised to choose a narrow question and stay with it.",
+          "The advice has merit, since focus allows depth that scattered interest cannot reach.",
+          "But scientists who spend decades inside one small problem sometimes lose the ability to notice what lies just beyond it.",
+          "A finding from a neighboring field may answer their question, yet they never read that field's journals.",
+          "Such a researcher digs a well so deep that he can no longer see the sky.",
+          "The most productive careers, studies suggest, combine long focus with regular visits to unfamiliar areas."
+        ],
+        "stem": "밑줄 친 \"digs a well so deep that he can no longer see the sky\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "grows so absorbed that outside help goes unnoticed",
+          "works on one problem until his motivation runs out",
+          "picks a question too small to yield useful results",
+          "switches topics too often to reach any real depth",
+          "leans on others' results instead of his own work"
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "decisive": 2,
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          4,
+          5
+        ],
+        "rationale": "한 문제에 너무 깊이 빠져 바로 옆 분야의 도움이 될 발견을 알아채지 못하게 된다는 뜻이다(3번이 직접 말하고 4번이 예를 든다).",
+        "distractors": [
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "'깊이 판다'를 지칠 때까지 한다는 뜻으로 읽었다 — 의욕 소진은 글에 없다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "필자는 좁은 질문 자체는 장점이 있다고 한다(2번) — 문제는 질문의 크기가 아니라 바깥을 못 보는 것이다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "이 연구자는 주제를 자주 바꾸는 것이 아니라 한 곳에 너무 오래 머문다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "그는 다른 분야의 결과에 기대기는커녕 읽지도 않는다(4번)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-ind-2",
+      "role": "independent_check",
+      "passageGroup": "inf-i2",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Small towns that lose their only grocery store rarely notice the full cost at once.",
+          "Residents simply drive to the next town, and life seems to go on.",
+          "Over time, however, the trip becomes a reason to shop, eat, and see a doctor elsewhere as well.",
+          "The pharmacy and the café that depended on grocery shoppers begin to close one by one.",
+          "The store, it turns out, was not one thread in the town's fabric but the knot that held many threads together.",
+          "When planners decide which businesses to support, they should ask what else depends on them."
+        ],
+        "stem": "밑줄 친 \"the knot that held many threads together\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "a shop that relied on nearby businesses for its customers",
+          "a store that sold enough goods to spare residents a trip",
+          "a business that competed with the pharmacy and the café",
+          "the shop that brought the most money into the town",
+          "a business whose loss drags other local life down too"
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "decisive": 3,
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          4,
+          5
+        ],
+        "rationale": "식료품점이 사라지자 사람들이 다른 볼일도 밖에서 보게 되고 약국·카페가 차례로 문을 닫았다 — 이 가게가 다른 지역 활동들을 붙잡아 두던 중심이었다는 뜻이다(4번).",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "reversed",
+            "why": "의존의 방향을 뒤집었다 — 약국·카페가 식료품점 손님에 기댔다(4번)."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "'여러 실'을 한 가게의 여러 상품으로 글자 그대로 읽었다 — 글의 실은 다른 가게·활동이다."
+          },
+          {
+            "choice": 2,
+            "design": "reversed",
+            "why": "약국·카페는 경쟁자가 아니라 식료품점 덕에 살던 가게다(4번)."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "수익 규모는 글에 나오지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-transfer-1",
+      "role": "transfer",
+      "passageGroup": "inf-x1",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "In one experiment, volunteers were asked to taste two cups of coffee and say which they preferred.",
+          "Unknown to them, both cups were filled from the same pot.",
+          "One cup, however, was served in a heavy ceramic mug, the other in a thin paper cup.",
+          "Most volunteers described the coffee in the mug as richer and were willing to pay more for it.",
+          "When the same test was repeated with the volunteers' eyes covered and the coffee poured into identical glasses, the preference disappeared.",
+          "Similar results have appeared with wine served in expensive bottles and food on fine plates."
+        ],
+        "stem": "다음 글을 통해 추론할 수 있는 것으로 가장 적절한 것은?",
+        "choices": [
+          "도자기 잔은 커피를 더 오래 따뜻하게 해 맛을 좋게 한다.",
+          "종이컵 커피를 고른 사람들은 맛에 더 예민한 편이다.",
+          "커피 맛을 공정하게 비교하려면 담는 용기를 똑같이 해야 한다.",
+          "눈을 가리면 사람들은 커피와 다른 음료도 잘 구별하지 못한다.",
+          "비싼 병에 담긴 와인은 실제로도 품질이 더 좋은 경우가 많다."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "decisive": 4,
+        "evidence": [
+          1,
+          4
+        ],
+        "evidenceAlt": [
+          2,
+          3,
+          5
+        ],
+        "rationale": "같은 커피라도 용기가 다르면 평가가 갈렸고(2·4번), 용기를 똑같이 하고 눈을 가리자 선호가 사라졌다(5번). 글은 비교 방법을 말하지 않지만, 공정한 맛 비교에는 용기를 같게 해야 한다는 함의를 이끌어 낼 수 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "온도는 글에 나오지 않으며, 같은 잔 조건에서 차이가 사라진 것은 겉모습 때문으로 읽힌다."
+          },
+          {
+            "choice": 1,
+            "design": "off_text",
+            "why": "종이컵을 고른 사람의 감각에 대한 정보는 글에 없다."
+          },
+          {
+            "choice": 3,
+            "design": "distorted",
+            "why": "눈을 가리자 '두 잔 사이의 선호'가 사라졌을 뿐인데, 음료 자체를 구별 못 한다로 과장했다(5번)."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "글은 비싼 병이 '좋다고 느끼게' 할 뿐이라는 쪽이다 — 실제 품질 차이를 말하지 않는다(6번)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "inf-d1",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "A student who rereads a chapter three times often feels well prepared for the test.",
+          "Each reading goes more smoothly, and the familiar sentences seem to confirm that the material has been learned.",
+          "But recognizing a page is not the same as being able to rebuild its ideas without it.",
+          "When the book is closed and a question demands an explanation, that comfortable feeling often vanishes.",
+          "Rereading, in this sense, polishes the window without opening it.",
+          "Testing oneself, though less pleasant, is what shows whether the knowledge can actually be used."
+        ],
+        "stem": "밑줄 친 \"polishes the window without opening it\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "slowly lowers the student's interest in the subject",
+          "makes the ideas clearer and easier to grasp each time",
+          "costs more time than it saves in the days before a test",
+          "builds a sense of ease that fails once recall is needed",
+          "readies the student to teach the chapter to others"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "decisive": 2,
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          1,
+          4,
+          5
+        ],
+        "rationale": "다시 읽기는 익숙하다는 편안한 느낌(창을 닦음)만 줄 뿐, 책 없이 생각을 떠올려 쓰게(창을 엶) 해 주지는 못한다는 뜻이다(3·4번).",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "흥미 감소는 글에 나오지 않는다."
+          },
+          {
+            "choice": 1,
+            "design": "reversed",
+            "why": "필자는 매끄럽게 읽히는 느낌이 실제 이해가 아니라고 한다 — '창을 닦는다'를 이해가 맑아진다로 뒤집어 읽은 함정이다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "공부 방법별 소요 시간 비교는 없다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "책을 덮고 설명을 요구받으면 오히려 막힌다(4번)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-ind-3",
+      "role": "independent_check",
+      "passageGroup": "inf-i3",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "When a small company begins to grow, its founder often keeps making every decision personally.",
+          "This worked when there were five employees, because the founder knew every customer and every problem.",
+          "With fifty employees, however, questions pile up on one desk while others wait with nothing to do.",
+          "Capable managers hired to help find that their choices are quietly reversed.",
+          "Such a founder is a conductor who insists on playing every instrument in the orchestra.",
+          "Growth asks the founder to trust others with decisions he once made alone."
+        ],
+        "stem": "밑줄 친 \"a conductor who insists on playing every instrument in the orchestra\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "a leader who hires too many managers too quickly",
+          "a founder skilled at many different kinds of work",
+          "a leader who won't hand decisions to others as the group grows",
+          "a leader who leaves every choice to his staff",
+          "a founder who cares more about customers than staff"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "decisive": 0,
+        "decisiveAlt": [
+          [
+            3
+          ]
+        ],
+        "evidence": [
+          0,
+          3
+        ],
+        "evidenceAlt": [
+          2,
+          5
+        ],
+        "rationale": "회사가 커져도 창업자가 모든 결정을 직접 내리고(1번) 고용한 관리자의 결정까지 뒤집는다(4번) — 남에게 결정을 맡기지 않는 지도자라는 뜻이다(6번이 그 반대를 요구한다 — 요구 문장이라 단독 결정 근거로는 세지 않는다).",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "4번에서 관리자를 고용하긴 하지만 문제는 고용 속도가 아니라 그들의 결정을 뒤집는 것이다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "'모든 악기를 연주한다'를 재주가 많다는 뜻으로 글자 그대로 읽었다 — 글은 능력이 아니라 맡기지 않는 태도를 말한다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "그는 결정을 직원에게 맡기기는커녕 전부 직접 내린다(1번)."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "고객과 직원 중 누구를 더 아끼는지는 글에 나오지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-ind-4",
+      "role": "independent_check",
+      "passageGroup": "inf-i4",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Online reviews seem to offer a fair picture of what customers think of a product.",
+          "In practice, most buyers never write a review at all.",
+          "The people who do are usually those who were either delighted or furious.",
+          "The large group of customers who found the product simply fine stays silent.",
+          "A page of reviews is therefore a mirror that reflects only the loudest faces in the room.",
+          "Careful shoppers read reviews for specific details rather than for an overall verdict."
+        ],
+        "stem": "밑줄 친 \"a mirror that reflects only the loudest faces in the room\"가 다음 글에서 의미하는 바로 가장 적절한 것은?",
+        "choices": [
+          "a record written mostly by the company itself",
+          "a picture that leaves out the quiet, average majority",
+          "a display that shows only customers' complaints",
+          "a guide that gives a fair view of all buyers",
+          "a list sorted to show the newest reviews first"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 3,
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          1,
+          4
+        ],
+        "rationale": "리뷰는 크게 만족했거나 몹시 화난 사람들만 쓰고(3번) 그저 괜찮다고 느낀 다수는 침묵한다(4번) — 리뷰 페이지는 조용한 보통의 다수를 빠뜨린 그림이라는 뜻이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "회사가 리뷰를 쓴다는 내용은 글에 없다."
+          },
+          {
+            "choice": 2,
+            "design": "too_narrow",
+            "why": "목소리 큰 쪽에는 크게 만족한 사람도 있다(3번) — 불만만으로 좁혔다."
+          },
+          {
+            "choice": 3,
+            "design": "reversed",
+            "why": "글은 리뷰가 공정해 보일 뿐 실제로는 그렇지 않다고 한다(1·4번)."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "리뷰 정렬 순서는 글에 나오지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "inf-transfer-2",
+      "role": "transfer",
+      "passageGroup": "inf-x2",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "For years, the fictional Corran Public Library charged a small fine for each day a book was late.",
+          "Librarians assumed the fines encouraged people to return books on time.",
+          "When the library stopped charging fines for a trial year, late returns did not increase.",
+          "Instead, many borrowers who had stayed away because of unpaid fines came back and returned books they had kept for years.",
+          "The money the fines had raised turned out to be smaller than the cost of collecting it.",
+          "At the end of the trial, the library board voted to keep the new policy."
+        ],
+        "stem": "다음 글을 통해 추론할 수 있는 것으로 가장 적절한 것은?",
+        "choices": [
+          "연체료를 없애자 책을 늦게 돌려주는 사람이 크게 늘었다.",
+          "사서들은 처음부터 연체료가 효과가 없다고 생각했다.",
+          "연체료 수입은 도서관 운영비의 큰 부분을 차지했다.",
+          "이웃 도서관들도 곧 연체료를 없앴다.",
+          "연체료는 반납을 돕기보다 일부 이용자를 도서관에서 멀어지게 했다."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "decisive": 3,
+        "evidence": [
+          2,
+          3
+        ],
+        "evidenceAlt": [
+          1,
+          4,
+          5
+        ],
+        "rationale": "연체료를 없애도 늦은 반납은 늘지 않았고(3번), 밀린 연체료 때문에 발길을 끊었던 이용자들이 돌아와 오래 가진 책을 반납했다(4번). 글이 직접 말하지는 않지만, 연체료가 반납을 돕기보다 사람들을 도서관에서 멀어지게 했다는 함의를 이끌어 낼 수 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "reversed",
+            "why": "3번은 연체료를 없애도 늦은 반납이 늘지 않았다고 했다."
+          },
+          {
+            "choice": 1,
+            "design": "reversed",
+            "why": "2번은 사서들이 연체료가 제때 반납을 돕는다고 여겼다고 했다."
+          },
+          {
+            "choice": 2,
+            "design": "reversed",
+            "why": "5번은 연체료 수입이 걷는 비용보다도 적었다고 했다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "다른 도서관의 결정은 글에 나오지 않는다."
+          }
+        ]
+      }
+    }
+  ],
+  "proseNumbering": "1-based"
+}

@@ -1,0 +1,81 @@
+```json
+{
+  "verdict": "revise",
+  "source_file_sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+  "items": [
+    {
+      "id": "gs-teach-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "The subject of 'changes' is 'The details', which is plural, so the verb should be 'change'. This is the only error. The other four marks are correct: 'memory works' and 'each act ... rebuilds' have singular subjects, 'what' introduces a noun clause whose subject is missing (what seems likely), and 'the same as being right' uses a gerund after a preposition. The teach steps and the per-mark explanations match the text."
+    },
+    {
+      "id": "gs-guided-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "'That residents value most' is a subject clause with no antecedent and a missing object, so it must be 'What'. This is the only error. 'that plant' (antecedent Cities, plural), non-restrictive 'which', the noun clause 'where the trees are placed' (a complete clause) and the passive 'located' are all correct. The hints point to the right rules."
+    },
+    {
+      "id": "gs-ind-1",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "The students are the ones surprised, and 'by a low score' follows, so it must be 'surprised'. This is the only error. 'what' (object missing after 'do'), singular 'feels' for a gerund subject, 'force + O + to-infinitive' and 'find + O + encouraging' (active, results that encourage) are all correct."
+    },
+    {
+      "id": "gs-ind-2",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "'lean, ask, and repeating' breaks the parallel series of verbs, so it must be 'repeat'. This is the only error. 'to tone as well as to words', 'notices ... and adjusts', 'ask' and 'has been received' are all correct."
+    },
+    {
+      "id": "gs-transfer-1",
+      "verdict": "revise",
+      "choice_0based": 1,
+      "gold_issues": [
+        "The why for mark 0 calls 'Among the oldest tools of farmers in the valley' a 장소 부사구 (place adverbial). It is not one. This is inversion triggered by fronting a prepositional-phrase complement (a 'be + PP' complement). The verdict that 'are' is correct (the real subject, irrigation ditches, is plural) still holds, but the label for the grammatical reason is inaccurate. Change it to something like '전치사구(보어)가 문두에 나온 도치'."
+      ],
+      "why": "The plural subject 'The rivers' cannot take 'its course', so the key 'their course' is the one clear answer. 'did ... begin', 'These records ... allow' and 'Rarely does ... habit ... prove' are all correct. Only the mark 0 explanation has the wrong label for its grammar point."
+    },
+    {
+      "id": "gs-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "The materials are what gets produced, so the form must be the passive 'to be produced'. This is the only error. 'Converting ... costs', 'materials used', 'enjoy seeing' and 'lets a city keep' are all correct."
+    },
+    {
+      "id": "gs-ind-3",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "The dogs were abandoned, and 'by owners' follows, so it must be 'have been abandoned'. This is the only error. 'who', 'Each of ... is trained', 'the hours ... are' and 'end up adopting' are all correct."
+    },
+    {
+      "id": "gs-ind-4",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "The main verb of the comparison is the ordinary verb tend to visit, so the pro-verb should be 'do', not 'are'. This is the only error. 'opened' with 'five years ago', 'Since then ... has tripled', 'make them feel' and 'feared losing' are all correct."
+    },
+    {
+      "id": "gs-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "'the change is caused by the angle ...' is a complete clause, so the conjunction must be 'that', not 'what'. This is the only error. 'Not until ... did ... notice', 'The rings ... reflect', 'wondered why' and 'without ... being discovered' are all correct."
+    }
+  ],
+  "limitations": [
+    "The review covers only the supplied JSON. The rendering of underlines and the display of the stem and choice numbers were not checked.",
+    "No human Gold or rights confirmation was performed. Provenance still shows humanGold and rights as pending.",
+    "Whether each passage's difficulty suits the target level is a judgment based on the text alone."
+  ],
+  "required_changes": [
+    "gs-transfer-1: change the mark 0 why from '장소 부사구가 앞으로 나간 도치' to an accurate label such as '전치사구 보어가 문두로 나간 도치'."
+  ]
+}
+```

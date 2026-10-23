@@ -1,0 +1,18 @@
+{
+  "verdict": "accept",
+  "source_file_sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+  "items": [
+    {
+      "id": "df-ind-4",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "1번은 음식 낭비의 배경, 2번은 버려지는 음식의 상태를 설명하는 근거이며 허용 대안인 background도 타당하다. 3번은 해결책을 제시하는 주제문, 4번은 작동 방식을 설명하는 근거, 5번은 구체적인 가상 예시이므로 roles와 problem_solution 구조가 타당하다. 'Imagine'이 수치가 포함된 사례를 가정으로 명시하며, 한국어 해설도 이를 정확히 반영한다. 영어와 한국어는 자연스럽고 대상 수준에 적절하다."
+    }
+  ],
+  "limitations": [
+    "제공된 JSON의 df-ind-4만 검토했다. 별도의 선택지·오답 해설·힌트는 제공되지 않았다.",
+    "출처 해시는 제공된 값을 그대로 기재했으며 독립적으로 검증하지 않았다. 이 판단은 외부 권리 허가나 출시 승인이 아니다."
+  ],
+  "required_changes": []
+}

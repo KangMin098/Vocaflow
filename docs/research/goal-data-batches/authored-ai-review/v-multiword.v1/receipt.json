@@ -1,0 +1,132 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "v-multiword.v1",
+  "source_file_sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+  "scope": [
+    "mw-ind-1",
+    "mw-transfer-1",
+    "mw-delayed-1",
+    "mw-transfer-2"
+  ],
+  "items": [
+    {
+      "id": "mw-ind-1",
+      "role": "independent_check",
+      "item_canonical_sha256": "2957174122a197ce357494bdde01651158c9e9b9280db24a63007c1b0c101154",
+      "body_canonical_sha256": "aab26f83ec6d3cac2f26b965d6098a97f6d4d6981843538738365948705d5c6b",
+      "gold_canonical_sha256": "6088ed32a8010a64a644068c786206c0d33f9db5c8368e1b3b2ff03ed2436844"
+    },
+    {
+      "id": "mw-transfer-1",
+      "role": "transfer",
+      "item_canonical_sha256": "037aa53dfde9cb6d5a18f6f2ecbef0465a817b9eb03f5de7c0f8bccd270379e6",
+      "body_canonical_sha256": "54d571258ee4726280a8e17d50ecbf63cc27bf1870d51392c1c87c7e6a9978cb",
+      "gold_canonical_sha256": "53fd7fbb5ce3b36d98d7f56afddcb3e55e39b4baa707ff8b7d8b8735033a4c48"
+    },
+    {
+      "id": "mw-delayed-1",
+      "role": "delayed_check",
+      "item_canonical_sha256": "49efadcc89b7b0719340078c72357de4e9f085e76cf6f6d00e0fdc76fa1d872a",
+      "body_canonical_sha256": "d4e879236acca5e6da298dcf1abd10e91d2ba11a5d5dd7ca2b380dc74f7c94ed",
+      "gold_canonical_sha256": "f7bba14f4d9b18e90b953983b47330649bea8d643dd8ccb0d4ed2faf0ff8dff5"
+    },
+    {
+      "id": "mw-transfer-2",
+      "role": "transfer",
+      "item_canonical_sha256": "1d9c719b9a7e208287f6005bfaecab51dc6ada916ecf1c238e4b013f8158adee",
+      "body_canonical_sha256": "fc93d627789b6b628ac364b61070d1e7109e4dc38d85efb504b350ead2c77a1f",
+      "gold_canonical_sha256": "e86d4ce94bf256b89300fc67aaf670364748f7924a3009419abae59c7957db81"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "73b1d60c-5af6-4ff1-83f5-0cd0ac545ee2",
+      "request_id": "73b1d60c-5af6-4ff1-83f5-0cd0ac545ee2",
+      "prompt_sha256": "bd5a606df4ae727653f2df2121983e1bc1a8b4813c4e6f8852e9acb253fcf90b",
+      "response_sha256": "e3f44dbbfd3fc86ecb4a914e2f1fe50405e5636aec488c1b5b76d668d9b1eeb4",
+      "source_file_sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "mw-ind-1",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "gold_issues": [],
+          "why": "Sentence 3 contrasts this shop's roasting routine with its larger neighbors, and sentence 0 says most shops are nearly identical. Both point to the meaning 'make distinct, make stand out', so choice 3 is the only defensible answer. Choice 0 is a literal reading about moving the shop, which never happens. Choice 1 reverses the contrast. Choice 2 confuses the phrase with 'set aside'. Choice 4 confuses it with 'set up'. The explanations match the text, the English is natural and at a suitable level, and the Korean is accurate. Optional refinement: the underlined target leaves out 'from its larger neighbors', but the item still works."
+        },
+        {
+          "id": "mw-transfer-1",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "Sentences 3–4 say she stayed with her students and valued their progress more than any stage, so 'turned the offer down' clearly means she refused it (choice 4). Choice 0 is a word-by-word literal reading. Choice 1 means postponing, which conflicts with her final decision. Choice 2 borrows the 'lower the volume' sense, which does not fit 'offer'. Choice 3 is the opposite. The explanations match the text, and the separable-object point in the gloss is accurate."
+        },
+        {
+          "id": "mw-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "Sentence 0 ('without a second thought') and sentence 2 ('suddenly aware') together support 'regard as natural, without appreciation' (choice 2). Choice 0 is a literal reading. Choice 1 (cherishing it) is the opposite of drinking without thinking. Choice 3 is pulled in by the noun 'grant'. Choice 4 (doubting it) conflicts with the unthinking attitude described. The Korean is accurate. Optional refinement: labelling choice 4 as 'collocation_mismatch' is a loose fit, but the explanation is still correct."
+        },
+        {
+          "id": "mw-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "gold_issues": [],
+          "why": "The company promised to 'look into' the double charges, and sentence 2 says engineers then traced the error. That supports 'investigate' (choice 0) as the only correct answer. Choice 1 is a literal reading that does not fit an abstract 'problem'. Choice 2 contradicts the follow-up investigation. Choice 3 is 'look after'. Choice 4 is 'look forward to'. The scenario is clearly a hypothetical narrative, not a factual claim. Optional refinement: a page reloading on a slow button press is a slightly unusual cause for a double charge, but it is still believable as fiction."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16727-50ef-7532-bfa2-51d184f02368",
+      "request_id": "67b0277a-834a-4ca8-a1e1-de0219e6f4c3",
+      "prompt_sha256": "bd5a606df4ae727653f2df2121983e1bc1a8b4813c4e6f8852e9acb253fcf90b",
+      "response_sha256": "123867c668270682e8d563d39b2de2219e1bd64ec429da1cdcae21b7ebc64779",
+      "source_file_sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "mw-ind-1",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "gold_issues": [],
+          "why": "매일 공개적으로 원두를 볶는 특징이 다른 가게와의 차이를 만든다는 문맥에서 정답은 3번뿐이다. 나머지 선택지의 장소 이동·유사화·치워 두기·개업 의미는 해당 표현과 맞지 않으며 오답 설명도 타당하다. 지문, 발문, 뜻풀이의 영어와 한국어가 적절하다."
+        },
+        {
+          "id": "mw-transfer-1",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "제안을 숙고한 뒤 학생들 곁에 남기로 한 결정과 마지막 문장이 거절의 의미를 뒷받침한다. 정답은 4번뿐이며 연기·조건 인하·수락 및 물리적 뒤집기는 해당 표현의 문맥상 의미가 아니다. 분리된 구동사에 대한 뜻풀이와 모든 오답 설명이 정확하고 언어도 자연스럽다."
+        },
+        {
+          "id": "mw-delayed-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "평소 별생각 없이 이용하던 수돗물의 중요성을 공급 중단 후 깨닫는 흐름이 '당연하게 여기다'를 명확히 지지한다. 정답은 2번뿐이다. 허락·보조금 관련 직역, 소중히 아끼기, 의심하기는 문맥상 뜻과 다르며 각각의 오답 설명과 뜻풀이가 적절하다."
+        },
+        {
+          "id": "mw-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "gold_issues": [],
+          "why": "중복 청구 신고에 이어 엔지니어가 오류 원인을 추적하고 수정하므로 '조사하다'인 0번이 유일한 정답이다. 물리적으로 내부를 보기·무시하기·돌보기·고대하기는 해당 문맥의 의미와 맞지 않으며 오답 설명도 타당하다. 버튼 입력에 따른 오류는 지문 속 개별 사건의 설정으로 읽히며, 일반적인 기술적 사실이나 실제 연구 결과를 주장하지 않는다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "mw-teach-1",
+    "mw-guided-1",
+    "mw-ind-2",
+    "mw-ind-3",
+    "mw-ind-4"
+  ]
+}

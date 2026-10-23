@@ -1,0 +1,102 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+  "items": [
+    {
+      "id": "ds-teach-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 2 invokes observations of office workers as empirical evidence, but no identifiable source or hypothetical framing is supplied. The teaching text and rationale treat the ensuing example as evidence supporting that finding."
+      ],
+      "why": "The myth_rebuttal structure, sentence roles, and topic/turn alternative are defensible. The Korean instruction accurately explains the argument, but the empirical framing requires correction."
+    },
+    {
+      "id": "ds-guided-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence indexes 4–6 describe an apparently actual town intervention and a measured two-year outcome without an identifiable source or hypothetical framing.",
+        "The exclusive role assignment at index 3 is insufficiently justified: the proposed solution is defensibly a topic sentence expressing the passage's central response, yet only support is accepted."
+      ],
+      "why": "The problem_solution pattern and hints fit the passage. The reported success needs sourcing or explicit fictional framing, and the solution sentence needs an accepted alternative or a clear operational distinction between topic and support."
+    },
+    {
+      "id": "ds-ind-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "The rationale lists '젊은 가족의 이탈' as a stated result. Sentence index 3 says young families may become unable to afford a home; it does not say they actually leave."
+      ],
+      "why": "The cause_effect pattern and assigned roles are defensible. Replace the unsupported departure claim with the stated possibility of housing becoming unaffordable."
+    },
+    {
+      "id": "ds-ind-2",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "The passage develops a sustained comparison between two navigation tools and ends with the author's evaluative synthesis. The contrast key, final topic/conclusion alternative, and rejection of myth_rebuttal are supported. English and Korean are clear; the memory claims are presented as the author's general argument rather than an identifiable research finding."
+    },
+    {
+      "id": "ds-transfer-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "The passage presents Ms. Lee's collaboration with a university researcher, experimental conditions, test results, and attention findings as an actual study. No traceable study identification or explicit hypothetical framing is supplied."
+      ],
+      "why": "The study_implication structure and sentence roles accurately describe the supplied narrative. Its apparently real research findings cannot be authenticated from this JSON."
+    },
+    {
+      "id": "ds-delayed-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 4 categorically says none of the listed creatures grows a thicker coat. The preceding examples establish behavioral strategies, not the absence of seasonal bodily changes; the inclusion of squirrels makes this blanket claim particularly problematic.",
+        "The rationale strengthens 'often ... rather than' into the categorical Korean claim '동물은 몸이 아니라 행동을 바꿔 겨울을 난다', reinforcing an unsupported exclusion of bodily adaptation."
+      ],
+      "why": "The general_specific pattern and final support/conclusion alternative are defensible. The examples should establish that behavior helps survival without claiming that these animals lack physical winter adaptations."
+    },
+    {
+      "id": "ds-ind-3",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "The fictional account follows a clear chronological experience with a turning event and a final statement of its meaning. The narrative key, sentence roles, and final topic/conclusion alternative are defensible. The distractor explanation distinguishes a narrated personal response from a passage organized around recommending a solution. English and Korean are natural."
+    },
+    {
+      "id": "ds-ind-4",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence indexes 3–4 report actual hospital scheduling interventions and reduced nurse departures without a traceable source or hypothetical framing.",
+        "The exclusive background assignment at index 0 is not secure: the opening statement identifies the central problem and is defensibly topic, matching the treatment of the opening problem statement in ds-guided-1. No alternative or distinguishing criterion is supplied."
+      ],
+      "why": "The problem_solution pattern and Korean account of the causal cycle are supported. The claimed intervention outcome needs correction, and the opening sentence's accepted roles need clarification."
+    },
+    {
+      "id": "ds-transfer-2",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 3 attributes winter cold transmission mainly to indoor gathering. This comparative causal claim is not established by the passage or a traceable source, and the rationale endorses it as the actual explanation.",
+        "Sentence index 2 performs the same explicit rebuttal transition for which ds-teach-1 accepts turn, but this item accepts only topic.",
+        "Sentence index 4 returns to the opening wet-hair belief and closes the rebuttal, making conclusion defensible alongside support; that alternative is absent."
+      ],
+      "why": "The myth_rebuttal pattern and concession/support alternative at index 1 are sound. The stronger seasonal causal attribution needs support or qualification, and defensible sentence-role alternatives should be handled consistently."
+    }
+  ],
+  "limitations": [
+    "Review used only the supplied JSON; no tools, files, browsing, other sessions, or external factual verification were used.",
+    "The supplied SHA-256 was reproduced, not independently calculated.",
+    "No item contains gold.answer, so every choice_0based is null. Review covered all supplied sentences, teaching steps, hints, roles, alternatives, patterns, and rationales; no separate choice lists were supplied.",
+    "A formal sentence-role taxonomy and the full set of selectable patterns were not supplied. Role exclusivity therefore remains uncertain where functions overlap.",
+    "This is a first-party candidate content judgment, not verification of provenance, an external rights grant, or release approval."
+  ],
+  "required_changes": [
+    "Provide traceable sources for the reported observations and intervention findings, or explicitly frame those passages and their explanations as hypothetical.",
+    "Correct the unsupported claim that young families leave the village.",
+    "Remove the blanket denial of physical winter adaptations and align its Korean explanation with the revised passage.",
+    "Support or qualify the claim about the main cause of winter cold transmission.",
+    "Resolve the identified topic/support/background and turn/conclusion ambiguities through accepted alternatives or explicit, consistently applied role definitions."
+  ]
+}

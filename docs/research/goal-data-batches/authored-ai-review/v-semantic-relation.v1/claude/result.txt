@@ -1,0 +1,77 @@
+```json
+{
+  "verdict": "accept",
+  "source_file_sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+  "items": [
+    {
+      "id": "sem-teach-1",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "Sentence 0 says the library closed at six. Sentence 2 says it now opens until ten on weekdays, which adds four hours every weekday evening (6 to 10). Sentence 4 states exactly that span, so paraphrase with same=true is correct. The teach steps use 1-based prose numbers that match the sentences, and the reasoning is sound. The line about exam answer choices restating facts in different units is a general teaching remark, not a claim about a real study."
+    },
+    {
+      "id": "sem-guided-1",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "In sentence 2, 'Among them' points back to 'old tools' in sentence 1, so the hammer is one of the tools. A (hammer) is the narrower term, so hyponym with same=false is correct. The hints and why text use the right sentence numbers and set the direction (A relative to B) correctly."
+    },
+    {
+      "id": "sem-ind-1",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "'mammals' (sentence 1) is the broader category, and 'Foxes' (sentence 2), deer and raccoons are examples of it. A is the broader term relative to B, so hypernym with same=false is correct. The study in the passage is a fictional scenario, not presented as a real finding."
+    },
+    {
+      "id": "sem-ind-2",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "'far from hasty' means not rash at all. Sentence 2 backs this up with two weeks spent studying every report, and sentence 4 calls the same behaviour 'slow and careful'. Paraphrase with same=true is defensible. Refinement only, not a defect: strictly, 'not hasty' does not by itself mean 'slow', but the passage context ties the two phrases to the same behaviour."
+    },
+    {
+      "id": "sem-transfer-1",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "'let students choose their own reading books' (sentence 0) and 'Being free to decide what to read' (sentence 3) describe the same policy from different viewpoints and with different grammar. This is a phrase-level paraphrase, so same=true is correct. The 1-based numbers in the why text are correct."
+    },
+    {
+      "id": "sem-delayed-1",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "'inconvenient' (sentence 2, the complaint) and 'not a burden' (sentence 3, introduced by contrastive 'Others said') are opposite judgments of the same rule. Antonym with same=false fits. This also follows the same negation logic as sem-ind-2. See limitations on using 'antonym' for a negated phrase."
+    },
+    {
+      "id": "sem-ind-3",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "'vital' and 'essential' both describe sleep and mean 'absolutely necessary'. It is a one-word swap, so synonym with same=true is correct. The sleep and muscle-repair line is the coach's explanation inside the story and matches general knowledge. It is not presented as a cited finding."
+    },
+    {
+      "id": "sem-ind-4",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "'prompt' sums up being served almost at once (sentence 1), and 'sluggish' sums up twenty-minute waits (sentence 2). They are opposite ends of the same scale, service speed, so antonym with same=false is correct. The 1-based numbers in the why text are correct."
+    },
+    {
+      "id": "sem-transfer-2",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "Wednesday is one of the weekdays, and the passage sets weekdays (sentence 0) against weekends (sentence 1). A is the narrower term relative to B, so hyponym with same=false is correct. The passage has no contradictions, and the 1-based numbers in the why text are correct."
+    }
+  ],
+  "limitations": [
+    "I judged only the supplied JSON. I had no access to the app's relation taxonomy, the answer-option list, or how choices are rendered, so I could not check that 'paraphrase', 'synonym', 'antonym', 'hypernym' and 'hyponym' are exactly the labels offered to learners.",
+    "sem-delayed-1 labels a negated phrase ('not a burden') as 'antonym'. That is defensible as opposite evaluations, but if the taxonomy keeps 'antonym' for single-word lexical pairs, a separate 'contrast' label might fit better.",
+    "This is a first-party candidate content judgment only. Human Gold and rights confirmation are still marked pending in the provenance."
+  ],
+  "required_changes": []
+}
+```

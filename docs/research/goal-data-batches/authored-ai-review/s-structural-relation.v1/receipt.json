@@ -1,0 +1,132 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "s-structural-relation.v1",
+  "source_file_sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+  "scope": [
+    "sr-guided-1",
+    "sr-ind-1",
+    "sr-ind-3",
+    "sr-transfer-2"
+  ],
+  "items": [
+    {
+      "id": "sr-guided-1",
+      "role": "guided_practice",
+      "item_canonical_sha256": "d5ee9cb2a9d571b679419f3fade72c4ef4114c9748296192f1d3e45b32bf9314",
+      "body_canonical_sha256": "b6c17ea3f7948822c78c8d0c9ad4d3e889444137e93fbab3d59d611eeb513bad",
+      "gold_canonical_sha256": "80b2c350ba6f940af481f7e4e14efe4467bdd35649eb9d37170b3a965978e41f"
+    },
+    {
+      "id": "sr-ind-1",
+      "role": "independent_check",
+      "item_canonical_sha256": "aa18d10715021d839806ff84a5cb064853eb19868e52ec2be68dfb6481e6ba10",
+      "body_canonical_sha256": "5a63a8eee7820de2454709066e2a7aa835c2e194ba3ee0163e249ce6fa2345d3",
+      "gold_canonical_sha256": "89e6e959b30e70ae716182672801b397d3f88611934e44c43795808d504d60ef"
+    },
+    {
+      "id": "sr-ind-3",
+      "role": "independent_check",
+      "item_canonical_sha256": "b924859e150f3c9055f4404959e4ac7d7b4a25148c02ac0a47dd2b300317a78d",
+      "body_canonical_sha256": "f67f45c2fb53da38b7a3921bd18b48b32e6142ecae458605ffa898965a61d58f",
+      "gold_canonical_sha256": "02983ad2d097aaa9421e00151bce1ee1e10a3f3568ce9116de48d218ed0b22d8"
+    },
+    {
+      "id": "sr-transfer-2",
+      "role": "transfer",
+      "item_canonical_sha256": "335a7187f1a97f024539923601b6823b126855e62ec3929e78db222d063ef8ca",
+      "body_canonical_sha256": "6032a8a54aeb2e09f4dae7b78f8b0bff87fc3892cac87a4e0d57aa75c60954b0",
+      "gold_canonical_sha256": "8940ab2d8efaeaa1c8503cf859490d106113bc3bbf4a5d7300a1a12e466bb3e2"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "1a295875-257d-4a70-aa63-e1d4724152d8",
+      "request_id": "1a295875-257d-4a70-aa63-e1d4724152d8",
+      "prompt_sha256": "7cdc1c41beffae98a641fdf8adac95c09f5cedd6e03a1f28042c18e412506f60",
+      "response_sha256": "d43a6033da22fbe17ed55b8e92db56ea9d86304b8acc83d73d79d20660988908",
+      "source_file_sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "sr-guided-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "In sentence index 2, 'although tired' is the only segment with ellipsis: it is a reduced adverbial clause, 'although (they were) tired', and 'they' matches the that-clause subject 'the runners'. None of the other segments has anything missing. Segment 0 is the main clause plus 'that'. Segments 2 and 3 are the full subject and verb of the that-clause. Segment 4 is a complete prepositional phrase. Both hints point to the keyed segment and match the text. The English is natural and right for high-school learners, and the Korean explanations are accurate."
+        },
+        {
+          "id": "sr-ind-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "'which a sailor drew in 1650' is a non-restrictive relative clause set off by commas. It sits between the subject 'the museum's oldest map' and the verb 'went on display', and the sentence is still complete without it. Each other segment fills a core role: adverb, subject, main verb or adverbial phrase, so none of them is an insertion. The year 1650 is a detail inside a made-up passage and is not presented as a real finding. The Korean labels are correct."
+        },
+        {
+          "id": "sr-ind-3",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "The stem asks for the last chunk parallel to 'not to feed the birds'. That is 'not to make loud noises' (index 4). Index 2 is also parallel but is the second member, not the last, so it is clearly wrong for this stem. Index 3 is the conjunction and index 5 is an adverbial modifier, and index 0 is the subject, verb and object. Calling 'not to ...' an object complement (목적격 보어) of 'asked us' follows standard Korean school grammar."
+        },
+        {
+          "id": "sr-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "'the mayor insists' is a parenthetical comment clause between the subject 'The plan' and the verb 'will not raise'. Without it, 'The plan will not raise local taxes.' is still complete. The other segments are the subject, verb and object, so the answer is unique. The why text names a real trap: reading 'the mayor' as the subject. The English is natural and the Korean is accurate."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16728-b340-7562-bc68-075c15a7079c",
+      "request_id": "5e65485f-2068-4e26-80ff-1c9bf9687369",
+      "prompt_sha256": "7cdc1c41beffae98a641fdf8adac95c09f5cedd6e03a1f28042c18e412506f60",
+      "response_sha256": "721e03af01060da0fa41d58cc9665e2fcbcb6eda9eb3df49b1b237575682a7a2",
+      "source_file_sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "sr-guided-1",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "although tired만 although they were tired로 복원되는 축약 부사절이다. they는 that절의 주어 the runners를 가리킨다. 다른 분절의 설명과 두 힌트도 이 구조에 부합하며, 지문과 한국어에 판정을 바꿀 오류가 없다."
+        },
+        {
+          "id": "sr-ind-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "gold_issues": [],
+          "why": "which a sailor drew in 1650만 주어와 서술부 사이에 삽입된 계속적 관계절이다. 이를 제거해도 문장이 완전하며, 나머지 분절의 문법 기능과 해설도 정확하다. 지문의 사건 서술에는 실제 연구 결과를 인용하는 주장이 없다."
+        },
+        {
+          "id": "sr-ind-3",
+          "verdict": "accept",
+          "choice_0based": 4,
+          "gold_issues": [],
+          "why": "제시된 분절 중 not to make loud noises만 마지막 병렬 부정사구의 핵심에 해당한다. near the nests는 그 동작의 장소를 나타내는 수식어이며 독립된 병렬 요소가 아니다. 세 부정사구의 목적격 보어 설명과 다른 분절 해설이 타당하고, 영어와 한국어도 적절하다."
+        },
+        {
+          "id": "sr-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 1,
+          "gold_issues": [],
+          "why": "the mayor insists만 주어 The plan과 서술부 사이에 삽입된 보고절이다. 제거 후에도 완전한 문장이 남는다. 나머지 분절의 주어·동사·목적어 설명이 정확하며, 시장의 주장은 지문 안에서도 발언자의 주장으로 명시되어 있다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "sr-teach-1",
+    "sr-ind-2",
+    "sr-transfer-1",
+    "sr-delayed-1",
+    "sr-ind-4"
+  ]
+}

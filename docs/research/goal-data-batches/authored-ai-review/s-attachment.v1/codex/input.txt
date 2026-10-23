@@ -1,0 +1,261 @@
+Fresh independent AI content/Gold reviewer for Vocaflow first-party authored English reading items for Korean high-school learners. The user assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions: judge only the supplied JSON. Review every item: passage sentences, stem, every choice or segment or pair, the gold answer, alternatives, distractor explanations, hints and why texts. Accept an item only if (a) exactly one keyed answer is defensibly correct from the text alone, (b) every other choice is clearly wrong for the stated reason, (c) explanations match the text and contain no factual claims presented as real findings that cannot be traced (hypothetical examples must read as hypothetical), (d) English is natural and level-appropriate, Korean text is accurate. Otherwise mark revise or hold and list the concrete gold_issues. Do not accept merely because a field says so; verify against the supplied text. This is a first-party candidate content judgment, not an external rights grant or release. Indexing: gold choices and sentence indexes are 0-based. For each item set choice_0based to the gold.answer value you verified, or null when the item has no gold.answer field. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,gold_issues:[],why}],limitations:[],required_changes:[]}. verdict for the whole set is accept only if every item is accept. Distinguish actual defects from optional refinements (refinements are not gold_issues) and preserve uncertainty.
+
+source_file_sha256: aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40
+source_file: apps/web/src/lib/knowledge/authored/s-attachment.v1.json
+
+{
+  "set": "s-attachment.v1",
+  "taskId": "s.attachment",
+  "taskKey": "authored-attachment",
+  "format": "segment_choice",
+  "proseNumbering": "1-based",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "at-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "at-t1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Our town has two libraries, an old one downtown and a new one by the river.",
+          "The old library was built in 1920, and the new one opened last spring.",
+          "Visitors often praise the reading room of the old library that has tall arched windows.",
+          "Those windows were added to that one room during a renovation in 1985.",
+          "The rest of the building still has only small, narrow windows."
+        ],
+        "stem": "표시된 문장에서 'that has tall arched windows'가 꾸미는 말이 들어 있는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "attachment",
+        "segments": [
+          "Visitors often praise",
+          "the reading room",
+          "of the old library",
+          "that has tall arched windows."
+        ],
+        "teach": [
+          {
+            "step": "후보 명사 두 개 세우기",
+            "text": "관계절 that 앞에는 명사가 둘 있다 — the reading room 과 the old library. 문법만으로는 둘 다 선행사가 될 수 있다. 가까운 명사를 자동으로 고르지 말고 후보를 먼저 세운다.",
+            "sentences": [2]
+          },
+          {
+            "step": "앞뒤 문장으로 의미 확인",
+            "text": "4번 문장은 그 창문이 '그 방 하나에만' 더해졌다고 하고, 5번 문장은 건물 나머지는 작은 창뿐이라고 한다. 아치형 큰 창을 가진 것은 도서관 전체가 아니라 열람실이다.",
+            "sentences": [3, 4]
+          },
+          {
+            "step": "덩어리 + 이유로 답하기",
+            "text": "꾸밈을 받는 말은 the reading room 이고, 관계절은 명사를 꾸미므로 이유는 '명사 수식'이다.",
+            "sentences": [2]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "modifies_noun",
+        "why": "4·5번 문장에서 큰 창은 그 방 하나에만 있고 건물 나머지는 작은 창뿐이므로, 관계절은 the old library 가 아니라 the reading room 을 꾸민다.",
+        "segments": [
+          { "reason": "main_verb", "why": "문장의 주어와 동사(praise)다. 관계절이 꾸미는 대상이 아니다." },
+          { "reason": "modifies_noun", "why": "관계절이 꾸미는 선행사 — 창문이 있는 곳은 열람실이다." },
+          { "reason": "modifies_noun", "why": "reading room 을 꾸미는 전치사구. 가까운 명사 library 는 함정 후보다." },
+          { "reason": "modifies_noun", "why": "명사를 꾸미는 관계절 자체다." }
+        ]
+      }
+    },
+    {
+      "id": "at-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "at-g1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Mina joined a bird-watching tour on the coast last weekend.",
+          "At the start, the guide lent her a pair of binoculars.",
+          "From the cliff, she studied the fisherman on the rocks with the borrowed binoculars.",
+          "Through the lenses, she could even see the color of his fishing line.",
+          "Without them, he would have been only a small shape far below."
+        ],
+        "stem": "표시된 문장에서 'with the borrowed binoculars'가 꾸미는 말이 들어 있는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "attachment",
+        "segments": [
+          "From the cliff, she studied",
+          "the fisherman",
+          "on the rocks",
+          "with the borrowed binoculars."
+        ],
+        "hints": [
+          "쌍안경을 빌린 사람이 누구인지 2번 문장에서 확인해 보세요.",
+          "'with ~'가 어부가 가진 물건인지, 보는 행동의 도구인지 4번 문장으로 판단해 보세요."
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "modifies_verb",
+        "why": "쌍안경을 빌린 사람은 Mina(2번 문장)이고 4번 문장에서 그 렌즈로 본 것도 그녀다. 'with ~'는 어부의 소지품이 아니라 studied 의 도구(어떻게 보았나)를 나타낸다.",
+        "segments": [
+          { "reason": "modifies_verb", "why": "도구를 나타내는 with 구가 꾸미는 동사 studied 가 여기 있다." },
+          { "reason": "object", "why": "studied 의 목적어. 쌍안경을 가진 사람이 아니다." },
+          { "reason": "modifies_noun", "why": "fisherman 의 위치를 알려 주는 전치사구다." },
+          { "reason": "modifies_verb", "why": "동사를 꾸미는 수단의 부사구 자체다." }
+        ]
+      }
+    },
+    {
+      "id": "at-ind-1",
+      "role": "independent_check",
+      "passageGroup": "at-i1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Last month, students at Hanbit Middle School started a campaign for safer crosswalks.",
+          "They made posters, collected signatures, and marched to city hall on their own.",
+          "Afterwards, the mayor met the parents of the students who had organized the march.",
+          "The parents said they had only learned about the plan the night before.",
+          "They were proud that their children had arranged everything without adult help."
+        ],
+        "stem": "표시된 문장에서 'who had organized the march'가 꾸미는 말이 들어 있는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "attachment",
+        "segments": [
+          "Afterwards,",
+          "the mayor met",
+          "the parents",
+          "of the students",
+          "who had organized the march."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "reason": "modifies_noun",
+        "why": "2번 문장에서 학생들이 스스로 행진했고, 4·5번 문장에서 부모는 전날 밤에야 알았으며 아이들이 어른 도움 없이 준비했다고 한다. 행진을 조직한 것은 부모가 아니라 학생들이다.",
+        "segments": [
+          { "reason": "modifies_verb", "why": "문장 전체의 시점을 나타내는 부사다." },
+          { "reason": "main_verb", "why": "주어와 동사 met 이다." },
+          { "reason": "object", "why": "met 의 목적어. 부모는 계획을 몰랐으므로 선행사가 아니다." },
+          { "reason": "modifies_noun", "why": "관계절의 선행사 students 가 들어 있다." },
+          { "reason": "modifies_noun", "why": "명사를 꾸미는 관계절 자체다." }
+        ]
+      }
+    },
+    {
+      "id": "at-ind-2",
+      "role": "independent_check",
+      "passageGroup": "at-i2",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "The villages in the valley are among the oldest settlements in the region, some dating back eight hundred years.",
+          "During the war, however, almost every crossing over the river was destroyed.",
+          "Today, engineers are inspecting the bridges near the villages that were built after the war.",
+          "Their concrete was mixed quickly and cheaply in the years of rebuilding, and some of it is now cracking.",
+          "The stone houses of the villages, by contrast, need little repair."
+        ],
+        "stem": "표시된 문장에서 'that were built after the war'가 꾸미는 말이 들어 있는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "attachment",
+        "segments": [
+          "Today,",
+          "engineers are inspecting",
+          "the bridges",
+          "near the villages",
+          "that were built after the war."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "reason": "modifies_noun",
+        "why": "1번 문장에서 마을은 800년 된 곳이고, 2번 문장에서 전쟁 때 다리가 무너졌으며, 4번 문장은 재건기에 서둘러 부은 콘크리트를 말한다. 전쟁 뒤에 지어진 것은 마을이 아니라 다리다.",
+        "segments": [
+          { "reason": "modifies_verb", "why": "문장 전체의 시점을 나타내는 부사다." },
+          { "reason": "main_verb", "why": "주어와 동사 are inspecting 이다." },
+          { "reason": "modifies_noun", "why": "관계절의 선행사 — 전쟁 뒤 다시 지은 것은 다리다." },
+          { "reason": "modifies_noun", "why": "bridges 의 위치를 알려 주는 전치사구. 마을은 오래되어 함정 후보다." },
+          { "reason": "modifies_noun", "why": "명사를 꾸미는 관계절 자체다." }
+        ]
+      }
+    },
+    {
+      "id": "at-transfer-1",
+      "role": "transfer",
+      "passageGroup": "at-x1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "For two years, residents argued about what to do with an empty lot on Pine Street.",
+          "Some wanted housing, while others wanted green space.",
+          "Last night, the council finally approved the plan for a park in a narrow vote.",
+          "Five members supported it, and four opposed it.",
+          "Construction will begin in the spring."
+        ],
+        "stem": "표시된 문장에서 'in a narrow vote'가 꾸미는 말이 들어 있는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "attachment",
+        "segments": [
+          "Last night,",
+          "the council finally approved",
+          "the plan",
+          "for a park",
+          "in a narrow vote."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "reason": "modifies_verb",
+        "why": "'in a narrow vote'는 공원 안에 있는 것이 아니라 승인이 어떻게 이루어졌는지(5대 4, 4번 문장)를 말한다. 바로 앞 명사 park 가 아니라 동사 approved 가 이끄는 절 전체를 꾸민다.",
+        "segments": [
+          { "reason": "modifies_verb", "why": "문장 전체의 시점을 나타내는 부사구다." },
+          { "reason": "modifies_verb", "why": "방식의 부사구가 꾸미는 동사 approved 가 있다." },
+          { "reason": "object", "why": "approved 의 목적어다." },
+          { "reason": "modifies_noun", "why": "plan 을 꾸미는 전치사구. 가까워서 끌리는 함정이다." },
+          { "reason": "modifies_verb", "why": "승인 방식을 나타내는 부사구 자체다." }
+        ]
+      }
+    },
+    {
+      "id": "at-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "at-d1",
+      "body": {
+        "format": "segment_choice",
+        "sentences": [
+          "Few people lived on Seol Island before the 1890s.",
+          "The first visitors to arrive by steamship brought a heavy camera with them.",
+          "Photos of the island taken by the first visitors are now kept in the city museum.",
+          "These prints show fishing boats and stone walls that no longer exist.",
+          "They are the oldest pictures anyone has of daily life on the island."
+        ],
+        "stem": "표시된 문장에서 'taken by the first visitors'가 꾸미는 말이 들어 있는 덩어리는?",
+        "focus": { "sentence": 2 },
+        "ask": "attachment",
+        "segments": [
+          "Photos",
+          "of the island",
+          "taken by the first visitors",
+          "are now kept",
+          "in the city museum."
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "reason": "modifies_noun",
+        "why": "2번 문장에서 첫 방문객들이 카메라를 가져왔고 4·5번 문장은 그 사진(prints, pictures)을 말한다. 방문객들이 '찍은' 것은 섬이 아니라 사진이므로 과거분사구는 Photos 를 꾸민다.",
+        "segments": [
+          { "reason": "main_subject", "why": "문장의 주어이자 분사구가 꾸미는 명사다." },
+          { "reason": "modifies_noun", "why": "Photos 를 꾸미는 전치사구. island 는 가까운 함정 후보다." },
+          { "reason": "modifies_noun", "why": "명사를 꾸미는 과거분사구 자체다." },
+          { "reason": "main_verb", "why": "문장의 동사(수동태)다." },
+          { "reason": "modifies_verb", "why": "보관 장소를 나타내는 부사구다." }
+        ]
+      }
+    }
+  ]
+}

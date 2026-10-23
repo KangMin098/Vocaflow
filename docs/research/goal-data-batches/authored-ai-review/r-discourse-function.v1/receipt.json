@@ -1,0 +1,67 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "r-discourse-function.v1",
+  "source_file_sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+  "scope": [
+    "df-ind-4"
+  ],
+  "items": [
+    {
+      "id": "df-ind-4",
+      "role": "independent_check",
+      "item_canonical_sha256": "1a8258ed4edae12304ab0ec7977b2df01534e815bf5dc6c505c1833578ba23c3",
+      "body_canonical_sha256": "48faaf1f9365f7e3566adbe315918159fbd5866b619f0f177caec635747a9301",
+      "gold_canonical_sha256": "9745ef69b605a6dbd744cdb789adf412fdeb708ad1f3f572d1a2ae82811159fb"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "f1b57d9e-797b-4351-9980-d7b700cb5b63",
+      "request_id": "f1b57d9e-797b-4351-9980-d7b700cb5b63",
+      "prompt_sha256": "6e35f5ad4a642730e47cf4378dc34208259c0ee1447b240227a5b14703cacaa4",
+      "response_sha256": "5e066221448102d697d57bd4b3244d61d3275974d3636d4ed86deabb52c98a54",
+      "source_file_sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "df-ind-4",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "I checked the item against the supplied text only. Sentence 1 sets up the food-waste problem, so background fits. Sentence 2 adds that the food is still safe to eat. That backs up the claim that this is waste, so support works, and the listed background alternative is just as defensible. Sentence 3 puts forward the sharing shelf as the solution and is the claim the rest of the passage develops, so topic fits. Sentence 4 explains how the shelf works in general terms, which is support rather than a specific case. Sentence 5 opens with 'Imagine one building', so it reads as a hypothetical illustration and makes no untraceable claim of real findings, so example fits. The text moves from problem to solution, which makes problem_solution the right pattern. The Korean rationale matches the text and correctly calls sentence 5 a hypothetical case. The English is natural and suits the level. The item has no gold.answer field, so choice_0based is null."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16727-6ee4-7eb3-a55a-08f4a3f6ef19",
+      "request_id": "434a8238-57ff-4440-9863-9ef6297cfab6",
+      "prompt_sha256": "6e35f5ad4a642730e47cf4378dc34208259c0ee1447b240227a5b14703cacaa4",
+      "response_sha256": "1a4d6c43147cd767a387f5a5efff39b851b098e021b749567c232c2e2600f558",
+      "source_file_sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "df-ind-4",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "1번은 음식 낭비의 배경, 2번은 버려지는 음식의 상태를 설명하는 근거이며 허용 대안인 background도 타당하다. 3번은 해결책을 제시하는 주제문, 4번은 작동 방식을 설명하는 근거, 5번은 구체적인 가상 예시이므로 roles와 problem_solution 구조가 타당하다. 'Imagine'이 수치가 포함된 사례를 가정으로 명시하며, 한국어 해설도 이를 정확히 반영한다. 영어와 한국어는 자연스럽고 대상 수준에 적절하다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "df-teach-1",
+    "df-guided-1",
+    "df-ind-1",
+    "df-ind-2",
+    "df-transfer-1",
+    "df-delayed-1",
+    "df-ind-3",
+    "df-transfer-2"
+  ]
+}

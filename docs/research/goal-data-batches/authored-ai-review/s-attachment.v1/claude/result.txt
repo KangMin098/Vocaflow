@@ -1,0 +1,61 @@
+```json
+{
+  "verdict": "revise",
+  "source_file_sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+  "items": [
+    {
+      "id": "at-teach-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "Grammatically, the relative clause could attach to either 'the reading room' or 'the old library'. Sentences 4 and 5 (1-based) settle it: the windows were added to that one room only, and the rest of the building has narrow windows. So the clause modifies 'the reading room' (segment 1). Each segment's explanation is accurate. Teach steps 2 and 3 cite sentences [3,4] (0-based), which matches the prose '4번·5번'. The English is natural and the Korean is accurate."
+    },
+    {
+      "id": "at-guided-1",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "Sentence 2 says the guide lent Mina the binoculars, and sentence 4 says she looked through the lenses. That makes 'with the borrowed binoculars' the instrument of 'studied' (segment 0), not something the fisherman holds. The hints point to the correct sentences under 1-based numbering. Each distractor explanation is accurate. The English is natural."
+    },
+    {
+      "id": "at-ind-1",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "Sentence 2 says the students marched on their own. Sentences 4 and 5 say the parents learned about the plan only the night before and that the children arranged everything without adult help. So the students organized the march, and the antecedent is in segment 3 ('of the students'). Segment 2 (the parents) is clearly wrong for the reason given. The sentence references and Korean are accurate."
+    },
+    {
+      "id": "at-ind-2",
+      "verdict": "revise",
+      "choice_0based": 2,
+      "gold_issues": [
+        "The gold.why says '1번 문장에서 마을은 800년 된 곳이고', but sentence 1 says only 'some dating back eight hundred years'. The text does not say every village is old, so the explanation overstates it. The segment-3 why ('마을은 오래되어 함정 후보다') has the same problem.",
+        "The keyed answer (bridges) is still the best reading, because sentence 2 (crossings destroyed) and sentences 4 and 5 (cracking concrete vs. stone houses) support it. But one support the explanation relies on is not in the text as written. Either change the passage (e.g., 'all of them dating back centuries') or change the why to match it (e.g., '오래된 정착지이며 집은 돌집이라 거의 수리가 필요 없다')."
+      ],
+      "why": "The answer (segment 2, 'the bridges') can be defended from sentences 2, 4 and 5: almost every crossing was destroyed in the war, the concrete was mixed quickly and cheaply during rebuilding, and the stone houses need little repair. The explanation, however, misstates sentence 1. A minor point: 'Their concrete' in sentence 4 is slightly ambiguous on its own, but sentence 5 resolves it."
+    },
+    {
+      "id": "at-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "'In a narrow vote' describes how the approval happened, which sentence 4 confirms with the 5–4 split. It attaches to 'approved' (segment 1), not to the nearby 'park' or 'plan'. The distractor explanations are accurate. 'In a narrow vote' is acceptable English; 'by a narrow vote' would be slightly more idiomatic, but that is an optional refinement, not a defect."
+    },
+    {
+      "id": "at-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "The camera in sentence 2 and the prints and pictures in sentences 4 and 5 show that the visitors took the photos, not the island. So the participle phrase modifies 'Photos' (segment 0). The other segment explanations are accurate. Seol Island is a fictional setting and is not presented as a real historical claim."
+    }
+  ],
+  "limitations": [
+    "This review covers only the supplied JSON. I did not check the file hash, how the app renders or numbers sentences, or how the reason taxonomy (modifies_noun, main_subject, etc.) is used downstream.",
+    "This is a first-party candidate content judgment. It is not human Gold and not a rights clearance; provenance still marks both as pending.",
+    "Level: at-ind-1 uses a middle-school setting for high-school learners. That is a content-fit observation, not a defect."
+  ],
+  "required_changes": [
+    "at-ind-2: make sentence 1 and the explanations agree. Either change the passage so the villages are uniformly old, or reword gold.why and the segment-3 why so they no longer claim every village is 800 years old and instead rely on sentences 2, 4 and 5."
+  ]
+}
+```

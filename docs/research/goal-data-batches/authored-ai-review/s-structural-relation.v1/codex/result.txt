@@ -1,0 +1,88 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+  "items": [
+    {
+      "id": "sr-teach-1",
+      "verdict": "revise",
+      "choice_0based": 4,
+      "gold_issues": [
+        "teach[1], gold.why 및 gold.segments[2·4]가 두 to부정사를 aims의 목적어라고 단정한다. aim to do에서 to부정사는 aim을 보충하는 부정사절로 설명해야 하며, 목적어라는 분석은 부정확하다."
+      ],
+      "why": "정답 4는 유일하다. 두 to부정사의 병렬 관계와 customers wait in line의 수식 관계는 맞지만, 반복되는 목적어 설명을 수정해야 한다."
+    },
+    {
+      "id": "sr-guided-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "although tired에 the runners were를 복원할 수 있다. 나머지 구간에는 해당 생략이 없으며, 힌트와 설명도 이를 뒷받침한다. 여기서 생략 주어를 공유하는 절은 that절 내부의 the runners kept going이다."
+    },
+    {
+      "id": "sr-ind-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "which절은 map을 보충 설명하며 주어와 동사 사이에 삽입되어 있다. 정답과 모든 구간 설명이 문장 구조에 부합한다."
+    },
+    {
+      "id": "sr-ind-2",
+      "verdict": "revise",
+      "choice_0based": 0,
+      "gold_issues": [
+        "gold.segments[4]는 so many visitors in one week 전체를 seen의 목적어라고 설명한다. 목적어는 so many visitors이고, in one week는 기간을 나타내는 부사구다."
+      ],
+      "why": "Never before가 부정어구 도치를 유발하므로 정답 0은 유일하다. 다만 마지막 구간의 설명이 목적어와 부사구를 구별하지 못한다."
+    },
+    {
+      "id": "sr-transfer-1",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "문장 2의 as many studies suggest는 습관의 수면 개선 효과를 여러 실제 연구가 뒷받침한다고 제시하지만, supplied JSON에는 추적 가능한 연구 출처가 없다. 가상의 연구라는 표시도 없다."
+      ],
+      "why": "정답 3과 병렬·삽입절 분석은 타당하다. 그러나 근거를 확인할 수 없는 연구 권위 주장을 제거하거나 검증 가능한 근거를 제공해야 한다."
+    },
+    {
+      "id": "sr-delayed-1",
+      "verdict": "revise",
+      "choice_0based": 2,
+      "gold_issues": [
+        "본문은 2천 명 이상이 참여한 설문과 연령별 선호 결과를 실제 조사 결과처럼 서술한다. JSON에는 조사 출처나 가상 상황이라는 표시가 없어, 제시된 사실성 기준을 충족하는지 확인할 수 없다."
+      ],
+      "why": "preferred를 복원할 구간은 2로 유일하며, 대시 뒤 명사구를 포함한 구조 설명도 타당하다. 설문 사례의 가상 여부 또는 근거를 명확히 해야 한다."
+    },
+    {
+      "id": "sr-ind-3",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "마지막 병렬 부정사 동사구의 핵심은 not to make loud noises다. near the nests는 별도의 병렬 항목이 아니므로 정답 4가 유일하다. 다른 구간 설명도 적절하다."
+    },
+    {
+      "id": "sr-ind-4",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "if necessary는 if it is necessary로 복원할 수 있는 축약 조건절이다. call은 공유된 will에 연결되는 병렬 동사이며, 힌트 없는 문항에서도 정답 3을 구별할 수 있다."
+    },
+    {
+      "id": "sr-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "the mayor insists는 주어 The plan과 서술부 사이의 삽입절이다. 이를 제거해도 문장이 완전하며, 모든 구간 설명이 이 분석에 부합한다."
+    }
+  ],
+  "limitations": [
+    "판단은 제공된 JSON에만 근거하며 외부 자료나 파일을 확인하지 않았다.",
+    "설문 사례가 실제인지 가상인지는 제공된 내용만으로 확정할 수 없다.",
+    "이 판단은 후보 콘텐츠의 정확성 검토이며 저작권 확인이나 배포 승인이 아니다."
+  ],
+  "required_changes": [
+    "sr-teach-1에서 aims의 목적어라는 설명을 두 to부정사절의 병렬 관계를 정확히 설명하는 표현으로 수정한다.",
+    "sr-ind-2의 마지막 구간 설명에서 목적어 so many visitors와 부사구 in one week를 구별한다.",
+    "sr-transfer-1의 추적 불가능한 연구 주장을 제거하거나 확인 가능한 근거를 제공한다.",
+    "sr-delayed-1의 설문 사례를 가상 상황으로 명시하거나 조사 수치와 결과의 출처를 제공한다."
+  ]
+}

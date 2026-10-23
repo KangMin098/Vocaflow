@@ -1,0 +1,92 @@
+{
+  "verdict": "revise",
+  "source_file_sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+  "items": [
+    {
+      "id": "td-teach-1",
+      "verdict": "revise",
+      "choice_0based": 2,
+      "gold_issues": [
+        "Passage sentences 3–4 present evidence from schools and student reports as actual findings, but the supplied JSON provides no traceable source or hypothetical framing."
+      ],
+      "why": "Choice 2 uniquely describes identifying the author's requested school action. The teaching notes, rationale, sentence references and distractor explanations support that key. The empirical framing requires revision."
+    },
+    {
+      "id": "td-guided-1",
+      "verdict": "revise",
+      "choice_0based": 0,
+      "gold_issues": [
+        "Passage sentence 3 presents increased pedestrian traffic observed by shop owners as a real recurring finding without a traceable source or hypothetical framing."
+      ],
+      "why": "Choice 0 uniquely matches identifying the passage's overall topic. The hint, rationale and distractor explanations correctly distinguish this from identifying a policy demand, one detail, a title or an evaluation."
+    },
+    {
+      "id": "td-ind-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Choice 4 uniquely captures comparing statements with the notice to identify a mismatch. All five notice sentences are coherent, and each distractor's stated defect is supported. The notice functions as a self-contained authored scenario."
+    },
+    {
+      "id": "td-ind-2",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "Choice 1 uniquely identifies interpreting the expression in its narrative context. Mira's mistake, continued performance and applause support the rationale's interpretation. The other choices change the scope, reduce the expression to one word or add prediction."
+    },
+    {
+      "id": "td-transfer-1",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "Passage sentences 1–4 describe an actual-sounding experiment, a one-week retention result and a confidence comparison without a traceable source or hypothetical framing."
+      ],
+      "why": "Choice 3 uniquely matches completing both summary blanks using the passage's central meaning. The proposed recall/lasting completion fits the summary, and the distractor explanations are consistent. The research account requires sourcing or explicit hypothetical framing."
+    },
+    {
+      "id": "td-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "Choice 0 uniquely describes filling the blank with the concept supported by the passage. Reducing the range of choices connects the bakery's decisions, customer behavior and reduced waste. All distractor explanations fit their choices, and the bakery story functions as an authored illustrative narrative."
+    },
+    {
+      "id": "td-ind-3",
+      "verdict": "revise",
+      "choice_0based": 1,
+      "gold_issues": [
+        "Passage sentence 1 uses the unnatural expression 'short-cut lawns'; use 'closely mown lawns' or 'lawns kept short.'",
+        "Passage sentences 4–5 present residents' complaints and a subsequent change in most visitors' attitudes as observed events without identifying a traceable case or establishing a hypothetical scenario."
+      ],
+      "why": "Choice 1 uniquely describes selecting a title that represents the whole passage and its central perspective. The rationale and distractor explanations support that key. The wording and observational framing require revision."
+    },
+    {
+      "id": "td-ind-4",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "Passage sentence 5 presents an unqualified comparative finding—that sleeping before a test often helps more than staying up to study—without traceable support. Sentences 1–3 do not establish that comparison."
+      ],
+      "why": "Choice 3 uniquely describes evaluating relevance against the passage's central topic and connections. The fourth passage sentence, at index 3, is the intended interruption. The rationale and all distractor explanations match this task, but the comparative learning claim requires support or qualification."
+    },
+    {
+      "id": "td-transfer-2",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Choice 2 uniquely describes ordering all paragraphs through connection and time clues. B introduces practice, C refers back to the marked pages and subsequent improvement, and A supplies the later achievement. The B-C-A rationale and every distractor explanation are supported."
+    }
+  ],
+  "limitations": [
+    "Reviewed only the supplied JSON; no tools, files, browsing or other sessions were used.",
+    "The supplied SHA-256 was reproduced without independent verification.",
+    "Missing traceability does not establish that an empirical claim is false.",
+    "This judgment concerns candidate content quality only and does not establish external rights or release approval."
+  ],
+  "required_changes": [
+    "Provide traceable support for the identified empirical accounts and claims, or rewrite them as explicitly hypothetical illustrations with appropriately conditional outcomes.",
+    "Replace 'short-cut lawns' in td-ind-3 with natural English.",
+    "Support or qualify the sleep-versus-late-study comparison in td-ind-4.",
+    "Preserve the verified answer indexes; no answer-key changes are required by this review."
+  ]
+}

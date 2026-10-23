@@ -1,0 +1,96 @@
+```json
+{
+  "verdict": "revise",
+  "source_file_sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+  "items": [
+    {
+      "id": "ds-teach-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 1 is keyed 'support', but it only adds how widespread the myth is. That makes it part of the background setup, so 'background' is at least as defensible. Either add {index:1, role:'background'} as an alternative or re-key it. As written, the answer is not uniquely defensible.",
+        "Sentence index 4 ('Their desks look chaotic...') continues the same group of people from index 3. 'example' is as defensible as 'support', and no alternative is listed for it."
+      ],
+      "why": "The pattern myth_rebuttal, topic at index 2 (with turn as an alternative), and conclusion at index 5 are all correct and match the teach steps. The phrase 'observations of office workers suggest' is a vague claim inside a made-up passage, which is acceptable. The defects are in role uniqueness for indexes 1 and 4."
+    },
+    {
+      "id": "ds-guided-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 3 is the solution ('One way to break this cycle...') and carries the writer's main proposal. In a problem_solution text, 'topic' is defensible for it, but it is keyed 'support' with no alternative. This also clashes with ds-ind-4, where the solution sentence is keyed 'topic' and the problem sentence 'background'.",
+        "Sentence index 6 ('Within two years...') reports the outcome and closes the text. 'conclusion' is defensible, but it is not listed as an alternative."
+      ],
+      "why": "The pattern problem_solution and the hints are sound, and so is the explanation of the cause_effect distractor. The problems are role ambiguity and inconsistency with ds-ind-4 in how problem and solution sentences are keyed."
+    },
+    {
+      "id": "ds-ind-1",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "Index 0 is a cause-and-effect topic sentence, and indexes 1 to 4 are its successive effects. No solution is offered, so the problem_solution distractor is correctly rejected. The English is natural and the Korean rationale is accurate."
+    },
+    {
+      "id": "ds-ind-2",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "This is a balanced two-sided contrast: background at 0, the map side at 1 to 3, and the app side at 4 to 6. The synthesis at 7 is keyed topic, with conclusion accepted as an alternative. 'Yet' at index 6 (sentence 7 in the 1-based rationale) works inside the app side, and the myth_rebuttal distractor is correctly rejected. The 1-based numbers in the rationale match the 0-based indexes."
+    },
+    {
+      "id": "ds-transfer-1",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "The text follows a clear question → method → results → implication structure. The study is framed as one teacher's story, so it reads as a fictional scenario rather than a cited real finding. The roles and the study_implication pattern are defensible, and the narrative distractor is correctly explained."
+    },
+    {
+      "id": "ds-delayed-1",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Factual problem: sentence index 4 says 'None of these creatures grows a thicker coat', and the premise in index 0 is that they change behavior 'rather than their bodies'. In reality, tree squirrels grow a denser winter coat, and many birds add or fluff extra feathers. As stated, the claim is false. Rewrite it so it says only that the behaviors described here help, for example 'Beyond any change in their bodies, each also acts...'. Alternatively, choose animals the claim is true for."
+      ],
+      "why": "The general_specific structure and the roles are correct. But the main claim of the passage, and the sentence that closes it, state something factually wrong about at least one of the example animals."
+    },
+    {
+      "id": "ds-ind-3",
+      "verdict": "accept",
+      "choice_0based": null,
+      "gold_issues": [],
+      "why": "This is a chronological narrative. The turn at index 2 is marked by 'Then', and index 5 states the meaning of the events, keyed topic with conclusion accepted as an alternative. The problem_solution distractor is reasonably rejected. The English is natural."
+    },
+    {
+      "id": "ds-ind-4",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Index 0 states the problem and is keyed 'background', while index 3 (the solution) is keyed 'topic'. ds-guided-1 uses the opposite rule (problem = topic, solution = support). Learners will see contradictory gold standards for the same pattern. Pick one rule for problem_solution texts and apply it to both items, or add alternatives (here {index:0, role:'topic'}) so that both readings are accepted."
+      ],
+      "why": "Read on its own, the item is sound: the problem, the vicious cycle, the solution and its effect, and the rejection of the cause_effect distractor all hold up. The defect is that its keying conflicts with ds-guided-1, which makes the gold standard unclear."
+    },
+    {
+      "id": "ds-transfer-2",
+      "verdict": "revise",
+      "choice_0based": null,
+      "gold_issues": [
+        "Sentence index 3 states as settled fact that winter colds spread 'mainly because people gather indoors'. That is one contributing factor. Low humidity, how long viruses survive in the cold, and cooling of the nasal passages are also proposed, and some evidence links cold exposure to weaker nasal immune defense. Soften it, for example 'One reason winter colds spread is that...'.",
+        "The rationale repeats this single cause as fact ('겨울 감기가 퍼지는 실제 이유'). It should be softened in the same way."
+      ],
+      "why": "The myth_rebuttal structure, the concession at index 1 (with support accepted as an alternative), and the topic at index 2 are correct. The only issue is an oversimplified factual claim presented as the real cause."
+    }
+  ],
+  "limitations": [
+    "The JSON does not define what each role label means (for example topic vs support vs conclusion), so the role judgments rest on a common-sense reading of those labels.",
+    "No item has a gold.answer field, so choice_0based is null for every item.",
+    "The factual checks on animal winter adaptations and on cold transmission rely on general knowledge, not on any source cited in the file.",
+    "This is a first-party judgment on candidate content. It does not grant rights or release anything, and human Gold and rights review are still pending."
+  ],
+  "required_changes": [
+    "ds-teach-1: add alternatives {index:1, role:'background'} and {index:4, role:'example'}, or re-key those sentences.",
+    "ds-guided-1 and ds-ind-4: use one keying rule for the problem and solution sentences in problem_solution texts. Add {index:3, role:'topic'} and {index:6, role:'conclusion'} to ds-guided-1, and {index:0, role:'topic'} to ds-ind-4, or re-key so the two items match.",
+    "ds-delayed-1: fix the false claim that none of the animals grows a thicker coat (index 0 premise and index 4), and update the rationale to match.",
+    "ds-transfer-2: soften the single-cause claim in sentence index 3 and in the rationale."
+  ]
+}
+```

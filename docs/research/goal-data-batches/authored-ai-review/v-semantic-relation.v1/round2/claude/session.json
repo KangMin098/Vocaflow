@@ -1,0 +1,15 @@
+{
+  "agent": "claude",
+  "label": "t0098-authored-review",
+  "request_id": "60e5b731-8cb7-4ee6-8795-8bc2379a506a",
+  "prompt_sha256": "0eae8d6239b8cca04ba79c0046506def6c12903c6c90e4bf9356dcafcf2e3058",
+  "status": "exited",
+  "started_at": "2026-10-23T05:08:12.170Z",
+  "pid": 9864,
+  "exit_code": 0,
+  "signal": null,
+  "ended_at": "2026-10-23T05:08:35.181Z",
+  "session_id": "60e5b731-8cb7-4ee6-8795-8bc2379a506a",
+  "is_error": false,
+  "cost_usd": 0.2004854
+}

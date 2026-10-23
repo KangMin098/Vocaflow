@@ -1,0 +1,18 @@
+{
+  "verdict": "accept",
+  "source_file_sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+  "items": [
+    {
+      "id": "inf-ind-2",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Choice 4 uniquely captures the grocery store's role in sustaining other local businesses and activities, supported by sentences indexed 2 and 3. Choice 0 reverses the stated dependency; choice 1 describes shopping convenience rather than the metaphor's interconnected local activities; choice 2 substitutes competition for dependency; choice 3 introduces an unsupported revenue ranking. The rationale, distractor explanations, decisive index and alternative evidence match the passage. English and Korean are appropriate and understandable, with no untraceable research findings asserted."
+    }
+  ],
+  "limitations": [
+    "Reviewed only inf-ind-2 using the supplied JSON; the supplied file hash was not independently verified.",
+    "This content judgment does not establish authorship, rights clearance or release approval."
+  ],
+  "required_changes": []
+}

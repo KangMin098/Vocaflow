@@ -1,0 +1,86 @@
+```json
+{
+  "verdict": "revise",
+  "source_file_sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+  "items": [
+    {
+      "id": "sc-teach-1",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "segments[4] ('outside the city.') is labelled reason 'modifies_verb', but its why text says '공장의 위치를 덧붙이는 부사 덩어리다'. Giving the location of the plant describes the noun 'a plant', which is 'modifies_noun'. The label and the explanation contradict each other. Either relabel it modifies_noun with why 'a plant 의 위치를 밝히는 전치사구다', or keep modifies_verb and rewrite the why so it describes where the bottles are carried (carried 의 도착 위치)."
+      ],
+      "why": "Gold index 3 ('are carried to a plant') is correct. When the relative clause is removed, 'The plastic bottles are carried' remains, and the plural subject agrees with the verb. Segments 0–2 are correctly ruled out: 0 is the subject, 1 is the relative clause containing rinse/drop as a trap, and 2 is the adverbial inside the relative clause. The teach steps match the text, and '3번 문장' agrees with 0-based focus 2 because prose numbering is 1-based. The only defect is the label/explanation contradiction in segment 4. The English is natural."
+    },
+    {
+      "id": "sc-guided-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Gold index 2 ('the visitor') is the head of the main subject. The sentence opens with a participial phrase ending at the comma, the who-clause modifies visitor, and found is the main verb. Every other segment is correctly explained: the participial phrase, the time PP, the relative clause, the verb plus object, and the contact relative clause. The hints are accurate. Optional refinement, not a defect: calling the aunt 'the visitor' is a little indirect, but it reads naturally."
+    },
+    {
+      "id": "sc-ind-1",
+      "verdict": "accept",
+      "choice_0based": 3,
+      "gold_issues": [],
+      "why": "Gold index 3 ('has changed') is the only finite verb that agrees with the singular head 'The idea'. The appositive that-clause, the infinitive modifying space, and the object how-clause (including 'are designed') are correctly identified as non-main. The English is natural and the explanations match the text."
+    },
+    {
+      "id": "sc-ind-2",
+      "verdict": "accept",
+      "choice_0based": 0,
+      "gold_issues": [],
+      "why": "Gold index 0 ('One') is correct: singular 'was' agrees with One, not with students. The distractor explanations hold. Optional refinement: in segment 3 ('to represent the school'), the label '목적' is acceptable, but 'chosen 에 이어 선발된 역할을 밝히는 to부정사' would be more precise. The text moves from 'national contest' to 'science fair in Busan', which is consistent enough."
+    },
+    {
+      "id": "sc-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "gold_issues": [],
+      "why": "Gold index 2 ('was not the heat') holds. Reading 'during the long dry summer' as part of the What-clause is the natural parse, and either way it is not the main verb. The not A but B complement analysis is correct. The English is natural."
+    },
+    {
+      "id": "sc-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Gold index 4 ('a small wooden box') is the subject of a locative-inversion sentence: PP + stood + subject. The fronted PP trap, the noun-modifying PPs, the inverted verb and the participial modifier are all correctly explained. The English is natural."
+    },
+    {
+      "id": "sc-ind-3",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "Gold index 4 ('has risen sharply') agrees with the singular head 'The number'. walk/cycle sit inside the relative clause and opened sits inside the since-clause, both correctly excluded. 'in our district' could attach to students or to school, but that ambiguity does not affect the key. The text is coherent."
+    },
+    {
+      "id": "sc-ind-4",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "gold_issues": [],
+      "why": "Gold index 1 ('the captain') is the subject head. The fronted time PP, 'of the team' (trap) and the that-clause are correctly excluded, and answered is the main verb. This is consistent with the passage's earlier 'did not win a single round'."
+    },
+    {
+      "id": "sc-transfer-2",
+      "verdict": "revise",
+      "choice_0based": 3,
+      "gold_issues": [
+        "The focus sentence 'To bake bread that rises well at high altitude takes less yeast than most recipes suggest.' is grammatical but stilted. A long sentence-initial to-infinitive subject followed by 'takes' is unusual in contemporary English; natural English would use 'Baking bread that rises well ... takes ...' or extraposition ('It takes less yeast to ...'). Because the item exists to teach an infinitive subject, the sentence needs a more natural infinitive-subject frame, for example 'To bake good bread at high altitude requires less yeast than ...', or the item should be refocused on a gerund subject with the explanations updated.",
+        "Sentence 2 'more than two thousand meters above the sea' is unidiomatic; the standard phrase is 'above sea level'."
+      ],
+      "why": "The keyed index 3 ('takes less yeast') is defensibly the main verb under the intended parse, and the distractor explanations are consistent with that parse. The item needs revision only for the naturalness defects listed in gold_issues."
+    }
+  ],
+  "limitations": [
+    "This judgment covers only the supplied JSON. The renderer's mapping of the reason labels (e.g. 'clause_boundary', 'inverted_order', 'object') to learner-facing text was not checked.",
+    "Attachment ambiguities (e.g. 'in our district', 'at high altitude', 'during the long dry summer') were judged non-blocking because none of them makes a distractor a valid answer.",
+    "This is a first-party candidate content judgment, not a human Gold confirmation and not a rights clearance; provenance humanGold and rights remain pending."
+  ],
+  "required_changes": [
+    "sc-teach-1: make segments[4] reason and why agree (modifies_noun + 'a plant 의 위치', or modifies_verb + 'carried 의 도착 위치').",
+    "sc-transfer-2: rewrite the focus sentence into natural English that still has an unambiguous main verb in a single segment, then update the segments, the gold.why and the per-segment why texts to match.",
+    "sc-transfer-2: change 'above the sea' to 'above sea level'."
+  ]
+}
+```

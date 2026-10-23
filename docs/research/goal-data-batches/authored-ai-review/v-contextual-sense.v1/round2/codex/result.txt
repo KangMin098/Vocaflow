@@ -1,0 +1,17 @@
+{
+  "verdict": "accept",
+  "source_file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+  "items": [
+    {
+      "id": "vcs-ind-2",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "gold_issues": [],
+      "why": "'address unemployment directly'는 실업 문제에 직접 대처한다는 뜻이며, 훈련 센터 개설과 기업 유치가 이를 뒷받침한다. 정답은 4번으로 유일하다. 나머지 선택지와 오답 설명은 문맥에 부합하며, 설명의 문장 번호는 proseNumbering의 1-based 표기와 일치한다. 영어와 한국어는 자연스럽고 학습 수준에 적절하며, 출처 확인이 필요한 실제 연구 결과를 주장하지 않는다."
+    }
+  ],
+  "limitations": [
+    "제공된 JSON의 vcs-ind-2만 검토했다. 파일 해시는 독립적으로 검증하지 않았으며, 저작권 확인이나 출시 승인을 의미하지 않는다."
+  ],
+  "required_changes": []
+}

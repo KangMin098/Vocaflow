@@ -1,0 +1,1951 @@
+{
+  "totals": {
+    "items": 155,
+    "both": 62,
+    "assess": 120,
+    "assessBoth": 52
+  },
+  "sets": [
+    {
+      "set": "r5-central-meaning.v3",
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "r5-cm-guided-1",
+        "r5-cm-ind-2",
+        "r5-cm-transfer-1",
+        "r5-cm-delayed-1",
+        "r5-cm-ind-3"
+      ],
+      "items": [
+        {
+          "id": "r5-cm-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "revise",
+          "codex": "hold",
+          "both": false,
+          "issues": [
+            "C: Sentence index 5 ('Researchers who study musicians ... find that the best performers spend most of their practice time on the passages they still play poorly') states an empirical finding as real, but nothing in the text lets a reader trace it. This fails criterion (c). Either frame it as hypothetical or replace it with a general illustration. The teach step and distractor 2 rationale call it '음악가 연구', so they would need to change too.",
+            "X: Sentence index 5 presents a real research finding about the best musicians spending most of their practice time on poorly played passages, but the supplied JSON provides no traceable source.",
+            "X: The explanations for choice index 1 say it directly reproduces the opposed view. The passage describes avoiding errors by choosing only easy tasks; the choice instead recommends progressing gradually from easy tasks to reduce errors. That progression is not stated or clearly rejected in the passage, so the stated distractor rationale is inaccurate."
+          ]
+        },
+        {
+          "id": "r5-cm-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "r5-cm-guided-2",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "revise",
+          "codex": "hold",
+          "both": false,
+          "issues": [
+            "C: Sentence index 1 ('Studies of workplaces suggest that this worry is mostly unfounded') and sentence index 2's generalisation present research findings as real, but the text gives no way to trace them. This fails criterion (c). Hedge them, or make them hypothetical or general reasoning.",
+            "X: Sentence indexes 1–3 present workplace research findings and generalized effects on perceived competence and relationships without a traceable source in the supplied JSON."
+          ]
+        },
+        {
+          "id": "r5-cm-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "hold",
+          "both": false,
+          "issues": [
+            "C: Sentence index 4 ('In one study, adults who first spent fifteen minutes copying numbers ...') presents a specific experiment as a real finding with no trace in the item. This fails criterion (c).",
+            "C: The study evidence concerns adults, but the claim in sentence 5 is about what children need. Treating it as direct support for the children claim is a weak inferential link, and the gold marks sentence 4 as support with relation 'example'. Either make the example about children (and hypothetical) or explicitly mark it as analogical evidence.",
+            "X: Sentence index 4 reports a specific experiment involving adults, fifteen minutes of copying numbers and paper-cup uses. The revision note mentions an original paper but provides no identifiable citation, so the procedure and result cannot be traced from the supplied JSON."
+          ]
+        },
+        {
+          "id": "r5-cm-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "r5-cm-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "r5-cm-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "revise",
+          "codex": "hold",
+          "both": false,
+          "issues": [
+            "C: Sentence index 4 ('In experiments, students told they would have to teach a passage remembered more of it ...') presents experimental findings as real with no trace in the item. This fails criterion (c). Make it hypothetical or general.",
+            "X: Sentence index 4 reports actual experiments comparing expected teaching with expected testing, including a specific memory outcome and the absence of actual teaching, without an identifiable source in the supplied JSON."
+          ]
+        },
+        {
+          "id": "r5-cm-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "r5-cm-delayed-2",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Sentence index 4 ('Professional editors report that most published articles have gone through several rounds of revision') is an untraced factual report presented as real. This fails criterion (c).",
+            "X: Sentence index 4 attributes a quantitative generalization about most published articles to professional editors without a traceable source.",
+            "X: The explanation for choice index 2 says it reproduces sentence index 4, but multiple rounds of revision do not establish multiple interventions by editors. The choice introduces an agent that the reported revision history does not specify.",
+            "X: The explanation for choice index 3 treats prioritizing ideas over sentences in a first draft as a distortion. Sentence indexes 2–3 reasonably support that practical inference. Its reliable reason for rejection is its narrower scope relative to the passage's emphasis on revision."
+          ]
+        },
+        {
+          "id": "r5-cm-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "r5-cm-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Sentence index 4 ('When one city closed a busy highway for repairs ... overall traffic did not get worse') presents a specific real-world case as fact with no trace in the item. This fails criterion (c). Make it explicitly hypothetical or general.",
+            "X: Sentence index 4 presents an actual city's highway closure and traffic outcome without identifying the city, event or source.",
+            "X: Choice index 3 says driving becomes faster for the first few years, whereas sentence index 1 specifies only a short while. Its explanation identifies only excessive narrowness and overlooks this unsupported duration."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "e-evidence-location.v1",
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "file_sha256": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [],
+      "items": [
+        {
+          "id": "ev-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 두 번째 teach 설명의 '5번 없이는 정답과 ①⑤를 가를 수 없다'는 주장은 틀리다. 7번의 과거 집필 시간 확인과 다음 책의 세부 계획 간 대비만으로도 ③을 고를 수 있다.",
+            "X: '5번만 있으면 답이 정해진다'도 과장이다. 5번은 판단 방식의 차이를 설명하며, 어느 방식이 정확한지는 3번이 제공한다.",
+            "X: ⑤의 '예상되는 구체적 장애물에 집중하기'는 본문이 지적한 '계획 단계가 순조롭게 진행된다고 상상하기'와 동일하지 않다. 이를 명백한 반대 처방이라고 설명할 근거가 부족하다.",
+            "X: 7번의 'will rarely be surprised'는 과거 기록 확인만으로 예측 오차가 거의 사라진다고 과도하게 단정한다."
+          ]
+        },
+        {
+          "id": "ev-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 'Studies of these cases revealed'는 실제 연구 결과를 제시하는 표현이지만, 제공된 JSON에는 추적 가능한 출처나 가상 사례 표시가 없다.",
+            "X: ③번 인덱스 선택지의 오답 설명은 통근자 수와 운전자 수를 혼동한다. 운전자 증가가 통근자 감소의 반대를 입증하지는 않는다. 통근 필요가 줄어든다는 근거가 없다고 설명해야 한다."
+          ]
+        },
+        {
+          "id": "ev-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 시선 추적, 일주일 뒤 기억, 전시실의 설명문 이동을 실제 연구·후속 조치로 제시하지만 추적 가능한 출처나 가상 사례 표시가 없다.",
+            "X: ②번 인덱스 선택지를 '큐레이터의 기존 가정'이라고 설명한 것은 정확하지 않다. 이해를 깊게 한다는 가정과, 설명문이 없으면 놓쳤을 세부를 발견하게 한다는 주장은 다르다. 연구는 후자의 가능성을 배제하지도 않는다."
+          ]
+        },
+        {
+          "id": "ev-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 한 작물만 재배한다는 조건만으로 모든 개체가 같은 유전자를 가진다고 할 수 없다. 단일 작물 재배와 유전적으로 동일한 개체 재배를 구분해야 한다.",
+            "X: 여러 품종을 심으면 'some plants are always able to resist'라는 보장은 성립하지 않는다. 저항성 개체가 있을 가능성을 높인다는 조건부 표현이 필요하다.",
+            "X: 날씨 보호 선택지의 설명은 병원체에 대한 취약성을 날씨에 대한 취약성으로 확장한다. 날씨 변화로부터 보호한다는 내용이 본문에 없다고 설명해야 한다."
+          ]
+        },
+        {
+          "id": "ev-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The explanation for distractor choice 1 says the ability-praised group '도전을 시작조차 하지 않았으므로'. Sentence 3 (index 2) says only that MOST of them chose the easy task, so some did start the challenge. The explanation should say the text gives no information on the ability group's persistence. Do not claim that none of them started.",
+            "X: 'In one series of experiments' 이하를 실제 실험 결과로 제시하지만 추적 가능한 출처나 가상 실험 표시가 없다.",
+            "X: 중도 포기 선택지의 설명은 능력 칭찬 집단이 도전을 '시작조차 하지 않았다'고 집단 전체에 대해 단정한다. 본문은 대부분이 쉬운 과제를 골랐다고만 한다."
+          ]
+        },
+        {
+          "id": "ev-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 저렴한 시계 이전의 생활, 시간급 임금의 발생, 시간을 자원으로 여기는 관념의 기원을 하나의 실제 역사적 인과관계로 단정하지만 추적 가능한 근거가 없다.",
+            "X: 정확한 시각을 알아야 할 필요와 시간을 가치 있는 자원으로 여기는 관념은 다르다. 전자가 적었다는 설명만으로 후자가 산업 노동에서 처음 생겼다는 결론은 충분히 뒷받침되지 않는다.",
+            "X: 야외 노동자 선택지의 오답 설명도 정확한 시각이 필요 없었다는 사실을 시간의 가치 관념이 없었다는 근거처럼 사용한다."
+          ]
+        },
+        {
+          "id": "ev-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 도시의 시범 운영, 고객 행동, 매출 증가와 영구 설치를 실제 사례로 제시하지만 추적 가능한 출처나 가상 사례 표시가 없다.",
+            "X: 주차 공간 일부가 줄었는데 총매출이 증가했다는 사실만으로 자전거 도로가 주차 공간보다 더 많은 매출을 가져온다는 직접 비교가 성립하지 않는다. 정답을 'support local businesses even when parking is reduced'처럼 관찰 범위에 맞춰야 한다.",
+            "X: 상점 수 감소 선택지의 설명은 매출 증가를 상점 수 감소의 반대라고 한다. 총매출과 상점 수는 별개이므로 상점 수 감소가 본문에 제시되지 않았다고 설명해야 한다."
+          ]
+        },
+        {
+          "id": "ev-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 학급 실험, 한 달 뒤 기억 결과와 연구진 권고를 실제 연구로 제시하지만 추적 가능한 출처나 가상 연구 표시가 없다.",
+            "X: 첫날 암기 용이성 선택지의 설명에서 다음 날 회상 성적이 같았다는 사실은 첫날 외우기 쉬웠는지까지 판정하지 못한다. 첫날 암기 용이성은 측정·제시되지 않았다고 설명해야 한다.",
+            "X: 제시된 비교에는 읽기 후 단어 목록 사용 조건이 없다. 따라서 마지막 문장의 구체적 사용 순서 권고는 제시된 실험만으로 검증된 결론이 아니다."
+          ]
+        },
+        {
+          "id": "ev-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 농약 사용량, 수확량, 수년에 걸친 토양 개선과 보급 확대를 실제 관찰 결과로 제시하지만 추적 가능한 출처나 가상 사례 표시가 없다.",
+            "X: 농약 사용량 감소만으로 전체 비용이 증가하지 않았다고 결론 낼 수 없다. 비용 증가 선택지는 반대 사실이 입증된 것이 아니라 총비용 정보가 없어 지지되지 않는다.",
+            "X: 꽃 띠가 해충을 먹는 곤충을 유인한다는 사실은 해충도 유인할 가능성을 배제하지 않는다. 해충 유인 선택지는 본문에 근거가 없다고 설명해야 한다."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "e-option-correspondence.v1",
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "file_sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "claude_set": "accept",
+      "codex_set": "revise",
+      "both_accepted": [
+        "opt-ind-1",
+        "opt-ind-2",
+        "opt-transfer-1",
+        "opt-delayed-1",
+        "opt-ind-3",
+        "opt-transfer-2"
+      ],
+      "items": [
+        {
+          "id": "opt-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 축제의 기원 연도와 운영 관행을 실제 역사·문화 정보처럼 서술하지만, 제공된 JSON에는 이를 뒷받침하는 출처나 가상 설정이라는 표시가 없다. 자체 창작이라는 provenance만으로 독자에게 허구임이 전달되지는 않는다."
+          ]
+        },
+        {
+          "id": "opt-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 두 번째 힌트의 '빠뜨리는 문장이 없어요'는 실제 구성과 맞지 않는다. 선지는 1~5번 문장에 대응하며, 보호법을 설명하는 6번 문장에는 대응 선지가 없다."
+          ]
+        },
+        {
+          "id": "opt-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "opt-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "opt-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "opt-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "opt-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "opt-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: gold.options[2].why의 '시립 병원'은 본문의 'the town hospital'에 없는 시 운영·소유 정보를 추가한다. '마을 병원' 또는 '지역 병원'으로 수정해야 한다."
+          ]
+        },
+        {
+          "id": "opt-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "set": "r-inference.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "file_sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "inf-ind-2"
+      ],
+      "items": [
+        {
+          "id": "inf-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: teach의 '함축 의미 문항의 정답은 비유 속 낱말을 거의 쓰지 않는다'는 일반화는 이 지문에서 입증되지 않으며, 정답 판단을 어휘 중복 여부에 의존하게 하는 부정확한 지도다.",
+            "X: choice 3의 해설은 입장객 세기를 '비유의 표면 그림'이라고 하지만, 실제 비유는 표 판매량을 말한다. 입장객을 더 정확히 세는 것은 지표가 공동체 가치를 놓친다는 비판을 해결하지 못한다는 이유로 설명해야 한다.",
+            "X: choice 4의 해설에서 '필자는 도서관과 공원을 비교하지 않는다'는 표현은 부정확하다. 실제로 비유를 통해 비교하되, 어느 시설이 더 좋은지 평가하는 비교는 하지 않는다."
+          ]
+        },
+        {
+          "id": "inf-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: choice 1을 reversed로 처리하며 관리자들이 2번 문장에서 기뻐했다는 사실을 반박 근거로 드는 것은 시간상 충분하지 않다. 처음에 기뻐했다는 사실은 이후 관심을 잃을 가능성을 부정하지 않는다. 이 선택지는 관심 상실이 서술되지 않았고 비유의 핵심인 수치와 실제 성과의 괴리를 설명하지 못한다는 이유로 배제해야 한다."
+          ]
+        },
+        {
+          "id": "inf-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: S5 'The most productive careers, studies suggest, ...' presents an untraceable claim as a real research finding. Remove 'studies suggest' or make the sentence plainly the writer's view or a hypothetical.",
+            "X: 문장 인덱스 5의 'studies suggest'는 실제 연구 결과를 인용하는 형태지만, 제공된 JSON에는 추적 가능한 연구 출처가 없다. 출처를 제공하거나 연구 인용 없이 필자의 제안으로 고쳐야 한다."
+          ]
+        },
+        {
+          "id": "inf-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "inf-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The passage presents an experiment ('In one experiment...') and a general claim ('Similar results have appeared with wine ... and food on fine plates') as real findings that cannot be traced. Mark the setup as hypothetical or fictional, as transfer-2 does, or drop S5's claim of real research.",
+            "C: The why for choice 0 says the difference disappearing under same-glass conditions is due to appearance. But S4 changed two things at once: identical glasses and covered eyes. Identical glasses also remove any temperature difference between a heavy mug and a paper cup, so the text does not rule temperature out on its own. Rewrite the why to rest on the fact that temperature is never mentioned and the text suggests a perception effect, without claiming the appearance cause is proven.",
+            "X: 실험 절차와 'Most volunteers'의 결과, 와인과 음식에서의 유사 결과가 실제 발견처럼 제시되지만 추적 가능한 출처가 없다. 출처를 제공하거나 전체 사례를 명시적인 가상 실험으로 바꿔야 한다.",
+            "X: choice 0 해설의 '겉모습 때문'이라는 원인 설명은 실험 서술보다 강하다. 후속 조건에서는 눈가림과 용기 통일을 동시에 시행했으므로 겉모습만의 효과를 분리하지 못한다. 온도에 관한 정보가 없다는 점과 용기가 달랐다는 점까지만 설명해야 한다.",
+            "X: choice 4 해설의 '좋다고 느끼게 할 뿐'은 실제 품질 차이가 없다는 것까지 단정한다. 문장 인덱스 5는 와인의 실제 품질을 통제했는지 설명하지 않는다. 실제 품질이 더 좋다는 주장에 근거가 없다고 설명하는 것이 정확하다."
+          ]
+        },
+        {
+          "id": "inf-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: rationale의 '느낌만 줄 뿐'과 책 없이 떠올려 쓰게 '해 주지는 못한다'는 단정은 지문의 often 및 recognizing과 recall의 구별보다 강하다. 다시 읽기의 익숙함이 독립적인 회상 능력을 보장하지 않는다는 뜻으로 한정해야 한다.",
+            "X: choice 1 해설은 지문이 '실제 이해가 아니라고 한다'고 설명하지만, 지문은 익숙한 문장 인식과 책 없이 내용을 재구성하는 능력을 구별한다. 다시 읽기가 이해를 전혀 개선하지 않는다고 말하지는 않는다. 매번 이해가 향상된다는 주장이 뒷받침되지 않고 비유의 비판적 의미를 놓친다고 설명해야 한다."
+          ]
+        },
+        {
+          "id": "inf-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "accept",
+          "both": false,
+          "issues": [
+            "C: Choice 2, the key, is clearly longer and more specific than the other four ('...won't hand decisions to others as the group grows'). The length gives the answer away. Shorten it to match the other choices, for example 'a leader who won't let others share decisions'."
+          ]
+        },
+        {
+          "id": "inf-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: rationale은 크게 만족하거나 화난 사람들'만' 리뷰를 쓴다고 하지만 문장 인덱스 2는 'usually'라고 한다. 보통의 만족도를 가진 작성자가 전혀 없다고 단정해서는 안 된다.",
+            "X: 정답과 rationale의 'average majority / 보통의 다수'는 지문이 명시한 범위보다 강하다. 문장 인덱스 1은 리뷰를 쓰지 않는 사람이 대부분이라고 하고, 인덱스 3은 보통으로 만족한 침묵 집단이 크다고 할 뿐 그 집단 자체가 과반이라고 확정하지 않는다. 정답을 'a picture that leaves out many quiet, moderately satisfied buyers'처럼 조정하거나 지문에서 해당 집단이 다수임을 명확히 해야 한다."
+          ]
+        },
+        {
+          "id": "inf-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: choice 2를 reversed로 처리한 근거는 성립하지 않는다. 연체료 수입이 징수 비용보다 적었다는 사실만으로 전체 운영비에서 차지하는 비중이 작았다고 결론낼 수 없다. 운영비 대비 비중은 제시되지 않았다는 이유로 배제하고 off_text로 분류하거나, 선택지를 징수 비용보다 수입이 많았다는 내용으로 바꿔야 한다."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "r-relation.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "file_sha256": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [],
+      "items": [
+        {
+          "id": "rel-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentence 3 presents an untraceable empirical comparison: material reviewed before bed is remembered better the next morning than material reviewed in the early afternoon. Sentence 2's account of sleep-related strengthening does not establish that particular comparison."
+          ]
+        },
+        {
+          "id": "rel-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentences 2, 3 and 5 present actual behavioral patterns and biological tradeoffs without traceable support, including changes in singing time and female preferences in some species.",
+            "X: For pair [4,5], gold accepts both example and restatement. Sentence 5 supplies particular costs rather than simply paraphrasing sentence 4; the restatement alternative is not adequately justified and conflicts with the requirement for one defensible keyed relation."
+          ]
+        },
+        {
+          "id": "rel-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: The passage presents a classroom experiment and recurring results as real findings without an identifiable source. Claims include greater transcription by typists, improved conceptual performance by students writing by hand, and a causal benefit from forced selection."
+          ]
+        },
+        {
+          "id": "rel-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentence 5 attributes reports to actual libraries without identifying any source. The reported mutual repairs therefore read as an untraceable real finding.",
+            "X: For pair [5,6], gold accepts both conclusion and cause_effect without distinguishing inference from an event causing another event. This does not establish the required unique relation."
+          ]
+        },
+        {
+          "id": "rel-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentence 5 presents observed flood reductions in several actual places without identifying those places or providing traceable support.",
+            "X: For pair [5,6], gold also accepts cause_effect, although sentence 6 expresses an inference from observations rather than a consequence caused by the observations. The alternate label compromises the required unique answer."
+          ]
+        },
+        {
+          "id": "rel-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentences 2–3 describe a study and a majority result about identical juice tasting sweeter and richer under premium branding, but no study is identifiable and the example is not marked hypothetical.",
+            "X: Sentence 6 makes an unsupported comparison about companies spending as much effort on packaging as on recipes; neither the preceding study description nor another supplied source establishes it."
+          ]
+        },
+        {
+          "id": "rel-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Sentence 5 states a specific, dated statistic as real fact ('In 2016 ... nearly a third of the corals on one large Australian reef died after a single hot summer'), with no source in the item or provenance. 'About a quarter of all known marine species' is also stated as fact. Either attach a traceable source or rewrite these as clearly general or hypothetical statements (for example, 'In some hot years, large parts of a reef have died').",
+            "X: The numerical claims about reef coverage and species richness have no traceable source in the supplied material.",
+            "X: Sentence 5 gives a specific historical mortality finding for 2016 without identifying the Australian reef or its source, making the statistic and the stated geographical scope impossible to assess from the JSON."
+          ]
+        },
+        {
+          "id": "rel-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: For pair [0,1], the restatement is not secure: believing longer meetings produce better decisions does not necessarily mean treating talking time as evidence of careful thought. 'In other words' signals the intended relation but does not establish semantic equivalence.",
+            "X: For pair [4,5], gold accepts both conclusion and cause_effect. The explanation describes an inference from the team's experience, so the additional causal label is insufficiently justified under the unique-answer requirement."
+          ]
+        },
+        {
+          "id": "rel-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Pair [4,5] is keyed contrast, but the contrast signaled by 'Unlike' happens inside sentence 6, between the mill's flour and the old factory flour. Sentence 6 does not oppose sentence 5. It adds detail about the flour the mill grinds today (slowly ground, sold only at the door), so addition or elaboration is at least as defensible, and the single contrast key is not uniquely correct. Choose a different pair, or rewrite sentence 6 so it contrasts with sentence 5 itself.",
+            "C: The cue 'Unlike — 방앗간의 ... 공장 밀가루와 맞세운다' describes a contrast within one sentence, not a relation between the two sentences, so it would mislead learners about what the task measures.",
+            "X: For pair [4,5], contrast is not securely the relation between the selected sentences. Sentence 4 introduces the mill's present production; sentence 5 elaborates on that flour while internally contrasting it with factory flour mentioned earlier. 'Unlike' does not by itself make sentences 4 and 5 contrasting propositions.",
+            "X: The first pair's cue overstates what past perfect establishes. 'Had made' marks an earlier situation; the meaning of 'unprofitable' in context supports the causal interpretation. Earlier timing alone does not prove causation."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "s-form-scope.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "file_sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "gs-teach-1",
+        "gs-guided-1",
+        "gs-ind-1",
+        "gs-ind-2",
+        "gs-delayed-1",
+        "gs-ind-3",
+        "gs-ind-4",
+        "gs-transfer-2"
+      ],
+      "items": [
+        {
+          "id": "gs-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "gs-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "gs-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "gs-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "gs-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The why for mark 0 calls 'Among the oldest tools of farmers in the valley' a 장소 부사구 (place adverbial). It is not one. This is inversion triggered by fronting a prepositional-phrase complement (a 'be + PP' complement). The verdict that 'are' is correct (the real subject, irrigation ditches, is plural) still holds, but the label for the grammatical reason is inaccurate. Change it to something like '전치사구(보어)가 문두에 나온 도치'.",
+            "X: 첫 밑줄의 해설은 Among the oldest tools of farmers in the valley를 '장소 부사구'로 잘못 분류한다. 이 구는 도치된 서술적 보어이며, 장소를 나타내는 부사구가 아니다.",
+            "X: 정답 해설의 '앞 문장들에도 its가 받을 단수 명사가 없다'는 설명은 사실과 다르다. 앞 문장에는 단수 명사 valley가 있다. 문맥상 물길이 바뀐 대상은 복수 주어 rivers라는 점으로 설명해야 한다."
+          ]
+        },
+        {
+          "id": "gs-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "gs-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "gs-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "gs-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "set": "v-contextual-sense.v1",
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "file_sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "vcs-ind-2"
+      ],
+      "items": [
+        {
+          "id": "vcs-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentences 2–3 present recent wheat trials and a nearly twofold yield increase as real findings, without attribution or hypothetical framing."
+          ]
+        },
+        {
+          "id": "vcs-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentence 4 makes an unsupported general claim that serious bridge failures are now extremely rare because of testing and monitoring.",
+            "X: The explanation for choice 1 labels the error as wrong part of speech, but 소리가 나는 is an adjectival interpretation. Its actual defect is the wrong contextual meaning.",
+            "X: The explanation for choice 2 incorrectly says the sleep-related sense occurs only in combinations such as sound asleep. Sound also modifies sleep directly, as in sound sleep."
+          ]
+        },
+        {
+          "id": "vcs-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentences 2–5 describe an unidentified historian's completed research, findings, and subsequent research activity as actual events without attribution or hypothetical framing.",
+            "X: The explanation for choice 4 incorrectly restricts the rhetorical meaning of figure to figure of speech. Figure can itself denote a rhetorical expression."
+          ]
+        },
+        {
+          "id": "vcs-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "vcs-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: The target phrase command the situation is unnatural in this context. Take command of the situation or control the situation would be idiomatic; retaining command as the tested word requires rewriting the sentence.",
+            "X: The explanation for choice 2 conflates command a view, meaning afford a view, with the sense of overlooking a place from a commanding position. These require distinct constructions and explanations."
+          ]
+        },
+        {
+          "id": "vcs-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Bear a heavy meaning is an awkward collocation for emotional significance. Rewrite the target sentence with a natural use of bear, or change the tested verb.",
+            "X: Passage sentence 4 attributes advice to psychologists without attribution, and sentence 5 presents an unsupported general finding about children's later behavior."
+          ]
+        },
+        {
+          "id": "vcs-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The passage ties an invented event to a real historical date ('In the winter of 1918, a dangerous fever spread quickly through a crowded port city ... until the cold season ended'). Learners will naturally read it as an account of the 1918 influenza pandemic. The details (one unnamed port city, closures checking the spread until winter ended, later-acting cities having far more deaths) are presented as historical fact but cannot be traced. They also only partly match the commonly cited record, where the deadly wave peaked in autumn 1918. The fix is to drop the specific year or frame the passage clearly as hypothetical or generic.",
+            "X: The passage presents a dated historical outbreak, intervention effects, and comparative mortality across cities as real history without identifying a source or marking the account as hypothetical.",
+            "X: The explanation for choice 3 calls the error wrong part of speech, but 계산서를 내다 is a verb phrase. Explain that the noun sense 계산서 does not supply the required verb meaning here, or revise the choice."
+          ]
+        },
+        {
+          "id": "vcs-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: The explanation for choice 2 presents smells flowing as an example of intransitive run. Smells do not ordinarily run in this sense; remove 냄새 and use a valid example such as flowing water."
+          ]
+        },
+        {
+          "id": "vcs-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentence 2 presents rangers' findings about visitor compliance as an actual observation without attribution or hypothetical framing.",
+            "X: The explanation for choice 3 asserts that rangers, rather than visitors, perform the monitoring. The passage does not establish that exclusive division of roles; reject 감시하다 using the compliance-versus-ignore contrast instead."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "r-reference.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "file_sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "ref-teach-1"
+      ],
+      "items": [
+        {
+          "id": "ref-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "ref-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Hint 2 says the nouns in sentence 4 (index 3) are not either of the two strategies. That sentence contains 'the first strategy', which is one of the pair. The hint misdescribes the text and could mislead the learner. Reword it, for example: 'Sentence 4 names only the first strategy; go back to where both were introduced.'",
+            "X: 5번 문장의 'experiments repeatedly show'는 실제 반복 실험 결과로 제시되지만, 제공된 JSON에는 해당 결과를 추적할 출처가 없다. 가상 실험임을 명시하거나 검증 가능한 근거를 연결해야 한다.",
+            "X: 두 번째 힌트는 4번 문장의 명사들이 두 전략 중 하나가 아니라고 하지만, 그 문장의 'the first strategy'는 명시적으로 첫 번째 전략을 가리킨다. 잘못된 탐색 지침이다."
+          ]
+        },
+        {
+          "id": "ref-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 1–3번 문장은 위약 반응과 공개적으로 비활성임을 알린 위약의 효과를 실제 의학 관찰 및 연구 결과로 제시하지만, 제공된 JSON에는 추적 가능한 근거가 없다.",
+            "X: 4번의 'the patients knew there was nothing to expect'는 비활성 약임을 알면 개선을 기대할 수 없다는 결론을 부당하게 전제한다. 비활성 성분임을 아는 것과 치료 과정에서 효과를 기대하는 것은 양립할 수 있다. 이 문장만으로 기대 설명의 한계가 입증되지는 않는다.",
+            "X: 정답 해설의 '그래서 기대만으로는 설명이 안 된다'도 위의 부당한 전제를 확정적으로 반복한다. 본문의 'cannot easily be the whole story'보다도 단정적이다."
+          ]
+        },
+        {
+          "id": "ref-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 3–7번은 과학자들의 종전 가정, 최근 관찰, 경험 많은 벌의 반복적 실패 후 행동, 어린 벌의 첫 비행부터의 행동을 실제 과학적 사실처럼 제시한다. 제공된 JSON에는 이러한 구체적 행동 주장들을 추적할 근거가 없다."
+          ]
+        },
+        {
+          "id": "ref-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 4번의 'researchers have observed this so consistently'는 실제 연구 관찰의 일관성을 주장하지만 추적 가능한 근거가 없다. 3번과 6번의 발생 빈도 및 장기 효과에 대한 일반화도 이 근거 없는 연구 주장에 연결되어 있다."
+          ]
+        },
+        {
+          "id": "ref-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 선택지 2는 '원본의 모든 세부를 살펴보기'인데, 4번에서 관람객이 자세히 살펴보는 대상은 공개 전시된 복제본이다. 해당 오답 설명은 이를 단순히 '4번의 결과 묘사'라고 처리하여 원본과 복제본을 바꾼 핵심 왜곡을 설명하지 못한다."
+          ]
+        },
+        {
+          "id": "ref-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 3번의 'Surveys suggest'와 4–5번의 비교 집단 행동, 특히 'Most'와 'within a minute'는 실제 조사 결과처럼 제시되지만 추적 가능한 출처가 없다. 6번도 그 결과에 따른 실제 박물관 조치로 서술되어 있다. 가상 조사라면 이를 명시해야 한다."
+          ]
+        },
+        {
+          "id": "ref-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Ardel의 폭풍, 재식재, 해충 확산, 산림 담당자들의 현재 설명이 실제 도시 사례처럼 서술되어 있지만 출처도 가상 사례라는 표시도 없다. 제공된 JSON만으로 실제 사례인지 확인할 수 없다.",
+            "X: 6번의 'no single pest can strip it bare'는 수종을 섞으면 어떤 단일 해충도 전체 나무를 해칠 수 없다는 보장이다. 본문은 해당 딱정벌레가 특정 수종을 먹는다는 사례만 제시하므로 이 보편적 결론을 뒷받침하지 못한다.",
+            "X: 6번은 수종을 다양하게 섞은 거리의 성장이 더 느릴 수 있다고 덧붙이지만, 수종 다양성과 성장 속도의 관계를 설명할 설정이 없다. 느리게 자라는 수종을 포함한다는 조건 등을 명시해야 한다."
+          ]
+        },
+        {
+          "id": "ref-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 5번은 일주일 뒤 기억 시험에서 회상 전략을 사용한 학생들이 일관되게 더 높은 성과를 보인다는 실제 비교 결과를 제시하지만, 제공된 JSON에는 이를 추적할 근거가 없다. 검증 가능한 출처를 연결하거나 가상 비교임을 명시해야 한다."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "v-multiword.v1",
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "file_sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "mw-ind-1",
+        "mw-transfer-1",
+        "mw-delayed-1",
+        "mw-transfer-2"
+      ],
+      "items": [
+        {
+          "id": "mw-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "revise",
+          "codex": "accept",
+          "both": false,
+          "issues": [
+            "C: The explanation for choice 1 ('책임을 지다') says the meaning comes from a different phrase, 'answer for'. That is wrong: 'account for' itself can mean '(행동 등을) 해명하다/책임지다', as in 'account for one's actions'. Both the distractor note and the teach step '출제자의 오답 설계' should instead say this is another real meaning of 'account for' that doesn't fit here, because the passage is about causes, not responsibility."
+          ]
+        },
+        {
+          "id": "mw-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: gold.distractors의 choice 3 해설은 편지를 '사라진 편지'라고 단정한다. 지문은 문자 메시지가 편지를 대체하여 주된 수단이 되었음을 나타내지만, 편지가 완전히 사라졌다고 명시하지 않는다."
+          ]
+        },
+        {
+          "id": "mw-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "mw-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The explanation for choice 4 says 'run' means '줄·행렬' (a queue or line). 'run' has no standard queue meaning, so this lexical claim can't be supported. Rewrite it, for example as a literal word-by-word association of 'long' with a long line, or replace the distractor.",
+            "X: 마지막 문장의 'shaded streets were now several degrees cooler'는 구체적인 관측 결과처럼 제시되지만, 비교 대상과 추적 가능한 근거가 없고 가상 사례라는 표시도 없다. 가상 상황으로 명시하거나 이 수치 관측 진술을 수정해야 한다."
+          ]
+        },
+        {
+          "id": "mw-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "mw-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "mw-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 문장 3의 'because rabbits avoid that scent'는 구체적인 허브나 근거 없이 토끼의 행동을 일반적인 사실로 단정한다. 학생들의 예상이나 가상 사례 속 관찰로 표현해야 한다.",
+            "X: choice 3의 '~을 뒤따라잡았다'는 부자연스러운 한국어다. 해설에서 의도한 catch up with의 뜻에 맞게 '~을 따라잡았다'로 수정해야 한다.",
+            "X: gold.distractors의 choice 4 해설은 방법을 학생들이 '스스로 고안한 것'이라고 단정한다. come up with는 계획을 제시하거나 생각해 냈다는 뜻이지만, 그 방법을 다른 곳에서 접한 적이 없다는 것까지 보장하지 않는다."
+          ]
+        },
+        {
+          "id": "mw-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: gold.distractors의 choice 2 해설은 물이 바닥난 원인을 모래폭풍으로 지체된 시간이라고 단정한다. 지문은 폭풍이 지나갔을 때 물이 떨어졌다고만 하므로 정확한 원인은 확정할 수 없다. run out of가 소진 상태를 나타내며 쏟는 행위를 뜻하지 않는다고 설명해야 한다."
+          ]
+        },
+        {
+          "id": "mw-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "set": "r-discourse-function.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "file_sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "df-ind-4"
+      ],
+      "items": [
+        {
+          "id": "df-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Sentence 4 ('In one experiment, writers produced more original ideas in a café-like murmur than in near silence') states an empirical result as a real finding, but nothing identifies the source. The teach step and the rationale then repeat it as an actual experiment. Mark it as hypothetical (for example 'Imagine an experiment in which…'), as df-ind-4 does, or drop the outcome claim.",
+            "X: Sentence index 3 presents an experiment and its result as factual, but the supplied JSON provides no traceable source and does not identify the experiment as hypothetical.",
+            "X: The teaching text calls misreading the concession the most common trap without supplying evidence for that frequency claim."
+          ]
+        },
+        {
+          "id": "df-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentence indexes 5–6 present a village's population, share price and successful reopening as an actual case, but no source or hypothetical framing is supplied."
+          ]
+        },
+        {
+          "id": "df-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Sentences 1 and 2 both describe the study design, and the rationale even groups them as '1~2번 연구 설계'. Yet gold makes index 0 background and index 1 support, with no alternative for index 1. A learner who marks index 1 as background has a defensible answer that would be graded wrong. Either add {index:1, role:'background'} or make the two roles the same.",
+            "C: 'Researchers asked two groups…' and the result 'recalled nearly twice as many words' are presented as a real, specific study with a quantified result, and the study cannot be traced. Frame it as hypothetical or illustrative.",
+            "X: Sentence indexes 0–2 report a study with a specific schedule and a nearly twofold recall result, but no source or hypothetical framing is supplied."
+          ]
+        },
+        {
+          "id": "df-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentence indexes 3–4 describe two historical maps without identifying them or providing traceable sources.",
+            "X: Sentence indexes 5–6 categorically attribute nondecorative intent and seriously believed dangers to both unidentified maps. Neither assertion can be established from the supplied descriptions."
+          ]
+        },
+        {
+          "id": "df-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentence index 5 presents a specific injury last spring as an actual incident, but supplies neither a traceable source nor hypothetical framing."
+          ]
+        },
+        {
+          "id": "df-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The alternative {index:4, role:'example'} is not defensible. Sentence 5 ('By the time the project ends… the best effort has already been lost') is a general statement in the causal chain, with no specific person, scene or experiment. Under the set's own rule in df-teach-1 (a concrete case is example; a principle or reason is support), it is only support. Accepting example here undermines the distinction this delayed check is meant to test. Remove the alternative.",
+            "X: The example alternative at sentence index 4 is insufficiently supported. This sentence continues the general causal account of delayed praise; it introduces no distinct illustrative case. Accepting it as example conflicts with the set's taught distinction between general explanation and a concrete example."
+          ]
+        },
+        {
+          "id": "df-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The alternative {index:0, role:'concession'} conflicts with the text and with df-teach-1. Sentence 1 ('Many people believe…') introduces a belief the writer goes on to reject; the writer does not grant it. df-teach-1 explicitly labels this signal as background and reserves concession for the writer partly granting the other side ('It is true that'). Remove the alternative, or the rationale's claim that reading it as concession is acceptable.",
+            "X: The concession alternative at sentence index 0 is incorrect. Reporting that many people believe something does not concede that the belief is true or has merit; the next sentence explicitly rejects it.",
+            "X: The rationale incorrectly says the author provisionally accepts the myth. The passage attributes it to other people without accepting it."
+          ]
+        },
+        {
+          "id": "df-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "df-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Sentence index 3 states a specific accident as an actual event. Although the letter reads as an authored sample, the supplied item does not explicitly establish that its incident is fictional or hypothetical, and no source is supplied.",
+            "X: The rationale translates 'Last Tuesday' as '지난주'. The English identifies a Tuesday, but does not establish that it was in the previous calendar week; '지난 화요일' preserves the stated timing."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "r-discourse-structure.v1",
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "file_sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "ds-ind-2",
+        "ds-ind-3"
+      ],
+      "items": [
+        {
+          "id": "ds-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Sentence index 1 is keyed 'support', but it only adds how widespread the myth is. That makes it part of the background setup, so 'background' is at least as defensible. Either add {index:1, role:'background'} as an alternative or re-key it. As written, the answer is not uniquely defensible.",
+            "C: Sentence index 4 ('Their desks look chaotic...') continues the same group of people from index 3. 'example' is as defensible as 'support', and no alternative is listed for it.",
+            "X: Sentence index 2 invokes observations of office workers as empirical evidence, but no identifiable source or hypothetical framing is supplied. The teaching text and rationale treat the ensuing example as evidence supporting that finding."
+          ]
+        },
+        {
+          "id": "ds-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Sentence index 3 is the solution ('One way to break this cycle...') and carries the writer's main proposal. In a problem_solution text, 'topic' is defensible for it, but it is keyed 'support' with no alternative. This also clashes with ds-ind-4, where the solution sentence is keyed 'topic' and the problem sentence 'background'.",
+            "C: Sentence index 6 ('Within two years...') reports the outcome and closes the text. 'conclusion' is defensible, but it is not listed as an alternative.",
+            "X: Sentence indexes 4–6 describe an apparently actual town intervention and a measured two-year outcome without an identifiable source or hypothetical framing.",
+            "X: The exclusive role assignment at index 3 is insufficiently justified: the proposed solution is defensibly a topic sentence expressing the passage's central response, yet only support is accepted."
+          ]
+        },
+        {
+          "id": "ds-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: The rationale lists '젊은 가족의 이탈' as a stated result. Sentence index 3 says young families may become unable to afford a home; it does not say they actually leave."
+          ]
+        },
+        {
+          "id": "ds-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "ds-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: The passage presents Ms. Lee's collaboration with a university researcher, experimental conditions, test results, and attention findings as an actual study. No traceable study identification or explicit hypothetical framing is supplied."
+          ]
+        },
+        {
+          "id": "ds-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Factual problem: sentence index 4 says 'None of these creatures grows a thicker coat', and the premise in index 0 is that they change behavior 'rather than their bodies'. In reality, tree squirrels grow a denser winter coat, and many birds add or fluff extra feathers. As stated, the claim is false. Rewrite it so it says only that the behaviors described here help, for example 'Beyond any change in their bodies, each also acts...'. Alternatively, choose animals the claim is true for.",
+            "X: Sentence index 4 categorically says none of the listed creatures grows a thicker coat. The preceding examples establish behavioral strategies, not the absence of seasonal bodily changes; the inclusion of squirrels makes this blanket claim particularly problematic.",
+            "X: The rationale strengthens 'often ... rather than' into the categorical Korean claim '동물은 몸이 아니라 행동을 바꿔 겨울을 난다', reinforcing an unsupported exclusion of bodily adaptation."
+          ]
+        },
+        {
+          "id": "ds-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "ds-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Index 0 states the problem and is keyed 'background', while index 3 (the solution) is keyed 'topic'. ds-guided-1 uses the opposite rule (problem = topic, solution = support). Learners will see contradictory gold standards for the same pattern. Pick one rule for problem_solution texts and apply it to both items, or add alternatives (here {index:0, role:'topic'}) so that both readings are accepted.",
+            "X: Sentence indexes 3–4 report actual hospital scheduling interventions and reduced nurse departures without a traceable source or hypothetical framing.",
+            "X: The exclusive background assignment at index 0 is not secure: the opening statement identifies the central problem and is defensibly topic, matching the treatment of the opening problem statement in ds-guided-1. No alternative or distinguishing criterion is supplied."
+          ]
+        },
+        {
+          "id": "ds-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Sentence index 3 states as settled fact that winter colds spread 'mainly because people gather indoors'. That is one contributing factor. Low humidity, how long viruses survive in the cold, and cooling of the nasal passages are also proposed, and some evidence links cold exposure to weaker nasal immune defense. Soften it, for example 'One reason winter colds spread is that...'.",
+            "C: The rationale repeats this single cause as fact ('겨울 감기가 퍼지는 실제 이유'). It should be softened in the same way.",
+            "X: Sentence index 3 attributes winter cold transmission mainly to indoor gathering. This comparative causal claim is not established by the passage or a traceable source, and the rationale endorses it as the actual explanation.",
+            "X: Sentence index 2 performs the same explicit rebuttal transition for which ds-teach-1 accepts turn, but this item accepts only topic.",
+            "X: Sentence index 4 returns to the opening wet-hair belief and closes the rebuttal, making conclusion defensible alongside support; that alternative is absent."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "e-task-demand.v1",
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "file_sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "claude_set": "accept",
+      "codex_set": "revise",
+      "both_accepted": [
+        "td-ind-1",
+        "td-ind-2",
+        "td-delayed-1",
+        "td-transfer-2"
+      ],
+      "items": [
+        {
+          "id": "td-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentences 3–4 present evidence from schools and student reports as actual findings, but the supplied JSON provides no traceable source or hypothetical framing."
+          ]
+        },
+        {
+          "id": "td-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentence 3 presents increased pedestrian traffic observed by shop owners as a real recurring finding without a traceable source or hypothetical framing."
+          ]
+        },
+        {
+          "id": "td-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "td-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "td-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentences 1–4 describe an actual-sounding experiment, a one-week retention result and a confidence comparison without a traceable source or hypothetical framing."
+          ]
+        },
+        {
+          "id": "td-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "td-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentence 1 uses the unnatural expression 'short-cut lawns'; use 'closely mown lawns' or 'lawns kept short.'",
+            "X: Passage sentences 4–5 present residents' complaints and a subsequent change in most visitors' attitudes as observed events without identifying a traceable case or establishing a hypothetical scenario."
+          ]
+        },
+        {
+          "id": "td-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: Passage sentence 5 presents an unqualified comparative finding—that sleeping before a test often helps more than staying up to study—without traceable support. Sentences 1–3 do not establish that comparison."
+          ]
+        },
+        {
+          "id": "td-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "set": "s-sentence-core.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "file_sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "sc-guided-1",
+        "sc-ind-2",
+        "sc-transfer-1",
+        "sc-delayed-1",
+        "sc-ind-3",
+        "sc-ind-4"
+      ],
+      "items": [
+        {
+          "id": "sc-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: segments[4] ('outside the city.') is labelled reason 'modifies_verb', but its why text says '공장의 위치를 덧붙이는 부사 덩어리다'. Giving the location of the plant describes the noun 'a plant', which is 'modifies_noun'. The label and the explanation contradict each other. Either relabel it modifies_noun with why 'a plant 의 위치를 밝히는 전치사구다', or keep modifies_verb and rewrite the why so it describes where the bottles are carried (carried 의 도착 위치).",
+            "X: gold.segments[4] incorrectly labels 'outside the city' as modifies_verb and calls it an adverbial chunk. In this sentence, its natural attachment is to 'a plant': it identifies the plant's location. Use modifies_noun and explain that it modifies plant.",
+            "X: The claim that an unwashed bottle can spoil a whole batch is presented as a general recycling fact, but no supporting source or explicitly hypothetical framing is supplied."
+          ]
+        },
+        {
+          "id": "sc-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sc-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: The passage presents broad historical and behavioral claims about real zoos, including calmer animals and longer visitor stays, without traceable support or an explicitly hypothetical setting. The supplied text cannot establish these empirical claims."
+          ]
+        },
+        {
+          "id": "sc-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sc-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sc-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sc-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sc-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sc-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The focus sentence 'To bake bread that rises well at high altitude takes less yeast than most recipes suggest.' is grammatical but stilted. A long sentence-initial to-infinitive subject followed by 'takes' is unusual in contemporary English; natural English would use 'Baking bread that rises well ... takes ...' or extraposition ('It takes less yeast to ...'). Because the item exists to teach an infinitive subject, the sentence needs a more natural infinitive-subject frame, for example 'To bake good bread at high altitude requires less yeast than ...', or the item should be refocused on a gerund subject with the explanations updated.",
+            "C: Sentence 2 'more than two thousand meters above the sea' is unidiomatic; the standard phrase is 'above sea level'.",
+            "X: The passage asserts a general technical baking claim—that baking bread at high altitude takes less yeast than most recipes suggest—and supplies a causal account involving rapid rising and collapse. No traceable support is supplied. The fictional uncle does not make these general technical assertions explicitly hypothetical."
+          ]
+        }
+      ]
+    },
+    {
+      "set": "s-attachment.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "file_sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "at-guided-1",
+        "at-transfer-1",
+        "at-delayed-1"
+      ],
+      "items": [
+        {
+          "id": "at-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 정답의 유일성이 확보되지 않는다. 열람실에 큰 아치형 창문이 있으면 그 열람실을 포함한 도서관도 그러한 창문을 가진 건물이라고 말할 수 있다. 따라서 4·5번 문장은 관계절이 old library를 꾸미는 해석을 배제하지 못한다.",
+            "X: teach와 gold.why는 창문이 한 방에만 있다는 사실을 근거로 도서관을 선행사 후보에서 제외하지만, 부분의 창문 존재와 건물의 창문 보유는 양립한다. segment 2를 오답으로 처리하는 설명도 이 문제를 해결하지 못한다."
+          ]
+        },
+        {
+          "id": "at-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "at-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: gold.segments[2].why의 '부모는 계획을 몰랐으므로'는 시간 관계를 부정확하게 설명한다. 부모는 시장을 만나기 전날 밤에 이미 계획을 알았다. 부모가 선행사가 아닌 결정적 근거는 학생들이 어른의 도움 없이 모든 것을 준비했다는 내용이다."
+          ]
+        },
+        {
+          "id": "at-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: The gold.why says '1번 문장에서 마을은 800년 된 곳이고', but sentence 1 says only 'some dating back eight hundred years'. The text does not say every village is old, so the explanation overstates it. The segment-3 why ('마을은 오래되어 함정 후보다') has the same problem.",
+            "C: The keyed answer (bridges) is still the best reading, because sentence 2 (crossings destroyed) and sentences 4 and 5 (cracking concrete vs. stone houses) support it. But one support the explanation relies on is not in the text as written. Either change the passage (e.g., 'all of them dating back centuries') or change the why to match it (e.g., '오래된 정착지이며 집은 돌집이라 거의 수리가 필요 없다').",
+            "X: gold.why의 '마을은 800년 된 곳'은 원문의 범위를 과장한다. 원문은 일부 마을이 800년 전까지 거슬러 올라간다고만 말하며, 모든 마을의 연대를 800년으로 제시하지 않는다."
+          ]
+        },
+        {
+          "id": "at-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "at-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "set": "s-chunk-boundary.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "file_sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+      "claude_set": "accept",
+      "codex_set": "revise",
+      "both_accepted": [
+        "cb-teach-1",
+        "cb-guided-1",
+        "cb-ind-2",
+        "cb-transfer-1",
+        "cb-delayed-1",
+        "cb-ind-3",
+        "cb-ind-4",
+        "cb-transfer-2"
+      ],
+      "items": [
+        {
+          "id": "cb-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "cb-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "cb-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 지문은 부모의 수면 시간 추정, 손목 센서의 측정 결과, 청소년의 수면 부족 및 학습 저하를 실제 연구에서 확인된 일반적 사실처럼 제시하지만, 제공된 JSON에는 이를 추적할 근거나 가상 사례라는 표시가 없다.",
+            "X: Teenagers in particular lose an hour or more on school nights는 무엇을 기준으로 한 시간 이상 줄어드는지 명시하지 않아 수량 주장의 의미도 불명확하다."
+          ]
+        },
+        {
+          "id": "cb-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "cb-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "cb-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "cb-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "cb-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "cb-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "set": "s-structural-relation.v1",
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "file_sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "claude_set": "revise",
+      "codex_set": "revise",
+      "both_accepted": [
+        "sr-guided-1",
+        "sr-ind-1",
+        "sr-ind-3",
+        "sr-transfer-2"
+      ],
+      "items": [
+        {
+          "id": "sr-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: teach[1], gold.why 및 gold.segments[2·4]가 두 to부정사를 aims의 목적어라고 단정한다. aim to do에서 to부정사는 aim을 보충하는 부정사절로 설명해야 하며, 목적어라는 분석은 부정확하다."
+          ]
+        },
+        {
+          "id": "sr-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sr-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sr-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: gold.segments[4]는 so many visitors in one week 전체를 seen의 목적어라고 설명한다. 목적어는 so many visitors이고, in one week는 기간을 나타내는 부사구다."
+          ]
+        },
+        {
+          "id": "sr-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 문장 2의 as many studies suggest는 습관의 수면 개선 효과를 여러 실제 연구가 뒷받침한다고 제시하지만, supplied JSON에는 추적 가능한 연구 출처가 없다. 가상의 연구라는 표시도 없다."
+          ]
+        },
+        {
+          "id": "sr-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "C: Segment 3 '— a gap the editors had not expected' contains an omitted object relative pronoun (a gap [that/which] the editors had not expected). Korean high-school grammar teaches this as a standard ellipsis ('목적격 관계대명사 생략'), so for the stem '생략된 말이 되살아나야 하는 덩어리' a learner can defend choice 3. That makes the key not uniquely correct.",
+            "C: Segment 3 is labeled 'modifies_noun', but its why calls it an appositive summarizing the preceding clauses. The label and the explanation do not match.",
+            "X: 본문은 2천 명 이상이 참여한 설문과 연령별 선호 결과를 실제 조사 결과처럼 서술한다. JSON에는 조사 출처나 가상 상황이라는 표시가 없어, 제시된 사실성 기준을 충족하는지 확인할 수 없다."
+          ]
+        },
+        {
+          "id": "sr-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sr-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "revise",
+          "codex": "accept",
+          "both": false,
+          "issues": [
+            "C: Segment 4 'call the doctor.' also involves restorable ellipsis: the shared subject and auxiliary are omitted ((the nurse will) call the doctor). The item's own why says it hangs on 'will'. Under the stem '생략된 말이 되살아나야 하는 덩어리', choice 4 is defensible, so the key is not unique.",
+            "C: The why for segment 1 says 'main_verb' covers 'will' plus 'change ...', but the segment also includes the object and 'twice a day'. This is minor, but the label is imprecise."
+          ]
+        },
+        {
+          "id": "sr-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "set": "v-semantic-relation.v1",
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "file_sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "claude_set": "accept",
+      "codex_set": "revise",
+      "both_accepted": [
+        "sem-guided-1",
+        "sem-ind-2",
+        "sem-transfer-1",
+        "sem-ind-4",
+        "sem-transfer-2"
+      ],
+      "items": [
+        {
+          "id": "sem-teach-1",
+          "role": "model_explanation",
+          "assess": false,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 'opening until ten on weekdays' describes the operating schedule, whereas 'four extra hours every weekday evening' describes its added portion. The teaching text and gold explanation incorrectly claim that both expressions have exactly the same scope, specifically 6–10 p.m.",
+            "X: 'began opening until ten' is unnatural for extending closing time; 'began staying open until ten' is natural."
+          ]
+        },
+        {
+          "id": "sem-guided-1",
+          "role": "guided_practice",
+          "assess": false,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sem-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: The camera observations and resulting study conclusion are presented as actual research findings without a traceable source or explicit hypothetical framing."
+          ]
+        },
+        {
+          "id": "sem-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sem-transfer-1",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sem-delayed-1",
+          "role": "delayed_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 'inconvenient' and 'not a burden' are not unambiguous antonyms: a requirement can be inconvenient without being burdensome.",
+            "X: The explanation treats inconvenience and burden as sufficiently equivalent for negation to establish antonymy. The contrasting speakers establish different attitudes, but do not establish opposite meanings."
+          ]
+        },
+        {
+          "id": "sem-ind-3",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "revise",
+          "both": false,
+          "issues": [
+            "X: 'muscles repair themselves mostly during deep sleep' introduces a specific physiological claim without traceable support. Attributing it to the coach does not establish its accuracy."
+          ]
+        },
+        {
+          "id": "sem-ind-4",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "sem-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    },
+    {
+      "set": "r5-central-meaning-cycle.v2",
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+      "file_sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+      "claude_set": "accept",
+      "codex_set": "accept",
+      "both_accepted": [
+        "r5-cycle-ind-1",
+        "r5-cycle-ind-2",
+        "r5-cycle-transfer-2"
+      ],
+      "items": [
+        {
+          "id": "r5-cycle-ind-1",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "r5-cycle-ind-2",
+          "role": "independent_check",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        },
+        {
+          "id": "r5-cycle-transfer-2",
+          "role": "transfer",
+          "assess": true,
+          "claude": "accept",
+          "codex": "accept",
+          "both": true,
+          "issues": []
+        }
+      ]
+    }
+  ]
+}

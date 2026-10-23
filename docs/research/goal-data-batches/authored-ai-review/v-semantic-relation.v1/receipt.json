@@ -1,0 +1,143 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "v-semantic-relation.v1",
+  "source_file_sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+  "scope": [
+    "sem-guided-1",
+    "sem-ind-2",
+    "sem-transfer-1",
+    "sem-ind-4",
+    "sem-transfer-2"
+  ],
+  "items": [
+    {
+      "id": "sem-guided-1",
+      "role": "guided_practice",
+      "item_canonical_sha256": "9cad18b003aeee4ea6d1cb6016ea17421384c860de158c22c074edadbabfdbee",
+      "body_canonical_sha256": "079cb36bee313fc167d4bb47b44d3b42a0e8cb6d2f0a9b1449dfb88ce9f10e6f",
+      "gold_canonical_sha256": "2467c6fab1d42b10d911402b2ece59448f6abd87443f4e68411d0e1c4fa49240"
+    },
+    {
+      "id": "sem-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "2bb132a65f01547c9e1eccbd8b62a08ce48f66b2a55a398dff06416ff7397108",
+      "body_canonical_sha256": "7f79b6b6309a04a59a3c05ab475fa5d053f18a9d8b8ce15f4c4c3248d7562a3e",
+      "gold_canonical_sha256": "495ddfbec07311fc1996d5b92e043a043d394421e61c4518e07e222921c15003"
+    },
+    {
+      "id": "sem-transfer-1",
+      "role": "transfer",
+      "item_canonical_sha256": "06b53c762bde534c626cc3e38625207a71c6883deca04904f3a8752962e3c1b5",
+      "body_canonical_sha256": "0b82ee05fc9bcbeddbd9b32e300710ca119ee763bc162db6130cd8e6dc4bec1a",
+      "gold_canonical_sha256": "bbadf0672e9f594b1f60404e60727b7fa1e8c008a3b25809795bc40376c7f0b8"
+    },
+    {
+      "id": "sem-ind-4",
+      "role": "independent_check",
+      "item_canonical_sha256": "e65973e11fa095633c10fcc59e52ed1a43f15facb9f5126b1d43edab2dcb7307",
+      "body_canonical_sha256": "43e170911bfb8eb58cfb10db55dbb0e4ee22b30a655dfc5c4c9c35e7600011fb",
+      "gold_canonical_sha256": "6a1758b48997dbb8921b777cec4efb8a5bb7432dc0f4f5e9c17f78138ef258aa"
+    },
+    {
+      "id": "sem-transfer-2",
+      "role": "transfer",
+      "item_canonical_sha256": "a9655b996ec2d98826bb731b6cf023f96e12377e97d67374f13fa61bb8f00cc7",
+      "body_canonical_sha256": "43903d3b9a5fbc58646faaef8b3a67aaf50078bd0d99b63f8b11442e3f34cd2e",
+      "gold_canonical_sha256": "25ee6ce25f1588f872a6aec4e96a59b3fb28ad8b3a89d4c66f97afba65ff1e01"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "claude",
+      "session_id": "60e5b731-8cb7-4ee6-8795-8bc2379a506a",
+      "request_id": "60e5b731-8cb7-4ee6-8795-8bc2379a506a",
+      "prompt_sha256": "0eae8d6239b8cca04ba79c0046506def6c12903c6c90e4bf9356dcafcf2e3058",
+      "response_sha256": "e47d588985970049734477e32412d46b02ccd4d3286a1d89e0894e930f6432bb",
+      "source_file_sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "sem-guided-1",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "In sentence 2 (0-based), 'Among them' refers back to the old tools in sentence 1, so the hammer is one of the tools. Expression a (hammer) is the narrower term inside b (tools), so 'hyponym' with same=false is correct. Both hints use 1-based sentence numbers, matching proseNumbering, and they point to the right sentences. The Korean is accurate."
+        },
+        {
+          "id": "sem-ind-2",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "'far from hasty' negates 'hasty', which gives 'deliberate/careful'. In context, spending two weeks studying every report and the slow, careful plan in sentence 4 show both expressions describe the same behaviour, so 'paraphrase' with same=true is defensible. A strict reader could note that 'far from hasty' does not on its own entail 'slow'. That is a nuance, not a defect, because the passage supports the slowness. The why text uses 1-based numbers correctly (5번 = index 4)."
+        },
+        {
+          "id": "sem-transfer-1",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "'let students choose their own reading books' (sentence 0) and 'Being free to decide what to read' (sentence 3) describe the same policy with a different subject and structure, so this is a phrase-level paraphrase with same=true. The prose references (1번, 4번) are correct, and the English is natural."
+        },
+        {
+          "id": "sem-ind-4",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "'prompt' sums up being served almost at once (sentence 1). 'sluggish' sums up the twenty-minute waits (sentence 2). They are opposite ends of the same scale, service speed, so 'antonym' with same=false is correct. The why text's prose references (2번, 3번) map correctly to indexes 1 and 2."
+        },
+        {
+          "id": "sem-transfer-2",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "Wednesday is one of the weekdays, and the weekday/weekend frame is set by sentences 0 and 1. Expression a is included in b, so 'hyponym' with same=false is correct. The why text's prose references (1번 평일, 2번 주말) are correct, and the Korean is accurate."
+        }
+      ]
+    },
+    {
+      "agent": "codex",
+      "session_id": "01a16728-fc3c-7bd0-a9ec-7031e5c2035b",
+      "request_id": "429e2f99-7098-446d-a7de-7ffc90ad348c",
+      "prompt_sha256": "0eae8d6239b8cca04ba79c0046506def6c12903c6c90e4bf9356dcafcf2e3058",
+      "response_sha256": "0835c512ca2bac7f609c60daff9715566780f3914e625f28ff5707bea43b9a9c",
+      "source_file_sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "sem-guided-1",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "hammer는 tools의 하위어이므로 same=false와 hyponym이 타당하다. 문장 인덱스와 표시 표현이 정확하며, 두 힌트와 한국어 해설도 관계의 방향을 올바르게 설명한다."
+        },
+        {
+          "id": "sem-ind-2",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "두 주 동안 보고서를 검토했다는 문맥에서 far from hasty는 slow and careful과 같은 신중한 접근을 나타낸다. 문맥상 same=true와 paraphrase가 타당하다. 한국어 해설의 부정 해석도 맞으며, 이 판단은 두 표현의 보편적 논리적 동치가 아닌 해당 문맥에 근거한다."
+        },
+        {
+          "id": "sem-transfer-1",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "두 표현은 학생에게 읽을 책을 선택할 자유를 주는 동일한 제도를 학교와 학생의 관점에서 각각 기술한다. same=true와 paraphrase가 타당하며, 해설은 지문 밖의 연구 결과를 주장하지 않는다."
+        },
+        {
+          "id": "sem-ind-4",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "즉시 응대하는 첫 카페와 주문 처리가 지연되는 둘째 카페의 대조가 prompt와 sluggish의 반대 의미를 명확히 뒷받침한다. same=false와 antonym, 문장 인덱스 및 한국어 해설이 모두 타당하다."
+        },
+        {
+          "id": "sem-transfer-2",
+          "verdict": "accept",
+          "gold_issues": [],
+          "why": "Wednesday는 weekdays에 포함되는 특정 요일이므로 A에서 B로의 관계는 hyponym이다. same=false, 표시 위치, 근거 문장 및 한국어 해설이 일치한다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": [
+    "sem-teach-1",
+    "sem-ind-1",
+    "sem-delayed-1",
+    "sem-ind-3"
+  ]
+}

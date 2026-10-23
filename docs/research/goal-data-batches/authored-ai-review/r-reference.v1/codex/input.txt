@@ -1,0 +1,447 @@
+Fresh independent AI content/Gold reviewer for Vocaflow first-party authored English reading items for Korean high-school learners. The user assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions: judge only the supplied JSON. Review every item: passage sentences, stem, every choice or segment or pair, the gold answer, alternatives, distractor explanations, hints and why texts. Accept an item only if (a) exactly one keyed answer is defensibly correct from the text alone, (b) every other choice is clearly wrong for the stated reason, (c) explanations match the text and contain no factual claims presented as real findings that cannot be traced (hypothetical examples must read as hypothetical), (d) English is natural and level-appropriate, Korean text is accurate. Otherwise mark revise or hold and list the concrete gold_issues. Do not accept merely because a field says so; verify against the supplied text. This is a first-party candidate content judgment, not an external rights grant or release. Indexing: gold choices and sentence indexes are 0-based. For each item set choice_0based to the gold.answer value you verified, or null when the item has no gold.answer field. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,gold_issues:[],why}],limitations:[],required_changes:[]}. verdict for the whole set is accept only if every item is accept. Distinguish actual defects from optional refinements (refinements are not gold_issues) and preserve uncertainty.
+
+source_file_sha256: 6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf
+source_file: apps/web/src/lib/knowledge/authored/r-reference.v1.json
+
+{
+  "set": "r-reference.v1",
+  "taskId": "r.reference",
+  "taskKey": "authored-reference",
+  "format": "choice_evidence",
+  "proseNumbering": "1-based",
+  "provenance": {
+    "author": "Claude (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전",
+    "rights": "pending — 사람 원저작 확인 전"
+  },
+  "items": [
+    {
+      "id": "ref-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "ref-t1",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "City planners once chose street trees mainly for how quickly they grew.",
+          "Fast-growing species filled empty sidewalks within a few years, which pleased residents who wanted shade.",
+          "However, many of these trees had weak wood and shallow roots, so storms often brought them down onto cars and power lines.",
+          "Some cities have therefore begun planting a mix of slower species that live longer and resist wind.",
+          "Critics complain that this practice leaves streets looking bare for nearly a decade.",
+          "Supporters reply that a tree which survives eighty years provides far more shade over its life than two or three quick replacements ever could.",
+          "In their view, patience at the start is the price of a canopy that lasts for generations."
+        ],
+        "stem": "밑줄 친 'this practice'가 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "choosing street trees for their rapid growth",
+          "planting a mix of slow, long-lived species",
+          "clearing fallen trees from cars and power lines",
+          "filling empty sidewalks with shade very quickly",
+          "strengthening shallow roots against heavy storms"
+        ],
+        "teach": [
+          {
+            "step": "지시어의 단서 읽기",
+            "text": "'this practice'는 5번 문장에 있다. 'this'는 바로 앞에서 말한 '행위'를 받고, 비판의 내용(거리가 10년 가까이 휑해 보인다)이 그 행위의 성격을 알려 준다. 가장 가까운 명사 'wind'(4번 끝)는 행위가 아니므로 후보가 아니다.",
+            "sentences": [4, 3]
+          },
+          {
+            "step": "결정 근거 찾기",
+            "text": "4번 문장이 처음으로 '느리게 자라는 수종을 섞어 심는' 새 행위를 꺼낸다. 느리게 자라니 처음 몇 년은 거리가 비어 보인다는 5번의 비판과 정확히 이어진다. 4번이 결정 문장이다.",
+            "sentences": [3]
+          },
+          {
+            "step": "정답 설계",
+            "text": "정답 ②는 4번의 'planting a mix of slower species that live longer'를 짧게 바꿔 썼다. 6번의 '80년 사는 나무'도 같은 대상을 다시 가리키므로 확인용으로 쓸 수 있다.",
+            "sentences": [3, 5]
+          },
+          {
+            "step": "오답 설계",
+            "text": "①④는 1·2번의 옛 관행(빨리 자라는 나무)으로, 같은 '선택 행위'라 그럴듯하지만 거리를 휑하게 만들지 않는다 — 비판 내용과 반대다. ③⑤는 3번의 피해 묘사에서 낱말만 가져와 글에 없는 행위로 만들었다.",
+            "sentences": [0, 1, 2]
+          }
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 3,
+        "evidence": [3],
+        "evidenceAlt": [4, 5],
+        "rationale": "4번에서 처음 제시된 '오래 살고 바람에 강한 느린 수종을 섞어 심기'가 5번에서 'this practice'로 다시 불리며, 거리가 오래 휑하다는 비판도 느린 성장과 맞물린다.",
+        "distractors": [
+          { "choice": 0, "design": "reversed", "why": "1번의 옛 관행으로, 빨리 자라므로 거리를 휑하게 두지 않는다." },
+          { "choice": 2, "design": "distorted", "why": "3번 피해 묘사의 낱말을 엮어 글에 없는 행위로 만들었다." },
+          { "choice": 3, "design": "reversed", "why": "2번의 빠른 성장 효과로, 비판 내용과 정반대다." },
+          { "choice": 4, "design": "distorted", "why": "3번의 shallow roots 를 빌려 글에 없는 처방으로 바꿨다." }
+        ]
+      }
+    },
+    {
+      "id": "ref-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "ref-t2",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Students preparing for an exam usually choose between two broad strategies.",
+          "Some reread their notes several times until the material begins to feel familiar.",
+          "Others close the book and try to write down everything they remember, checking afterward what they missed.",
+          "Most learners prefer the first strategy because it feels smooth and produces a comforting sense of progress.",
+          "Yet experiments repeatedly show that the latter leads to better results on tests given a week later.",
+          "The effort of pulling information out of memory seems to strengthen it, whereas easy rereading leaves little trace.",
+          "What feels productive, in other words, is not always what actually works."
+        ],
+        "stem": "밑줄 친 'the latter'가 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "rereading notes until they feel familiar",
+          "a comforting sense of steady progress",
+          "tests that are given a week later",
+          "recalling material unaided, then checking gaps",
+          "choosing between two broad strategies"
+        ],
+        "hints": [
+          "'the latter'는 '둘 중 뒤의 것'이다. 글에서 둘씩 짝지어 소개된 것이 무엇인지 먼저 찾아보자.",
+          "바로 앞 4번 문장에 나온 명사들은 둘 중 하나가 아니다. 짝이 처음 소개된 문장으로 돌아가 보자.",
+          "6번 문장의 '기억에서 끌어내는 노력'이 어느 쪽 전략을 설명하는지 확인해 보자."
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "decisive": 2,
+        "evidence": [2],
+        "evidenceAlt": [1, 4, 5],
+        "rationale": "1번이 두 전략을 예고하고 2번(다시 읽기)·3번(책을 덮고 기억나는 것을 적은 뒤 확인)이 차례로 소개되므로, 뒤의 것인 3번의 전략이 'the latter'다.",
+        "distractors": [
+          { "choice": 0, "design": "reversed", "why": "두 전략 중 앞의 것(the former)으로, 정반대를 골랐다." },
+          { "choice": 1, "design": "distorted", "why": "4번에서 가장 가까운 명사구일 뿐 전략이 아니다." },
+          { "choice": 2, "design": "distorted", "why": "5번 같은 문장의 뒤쪽 명사로, 지시 대상이 될 수 없다." },
+          { "choice": 4, "design": "too_narrow", "why": "1번의 선택 상황 자체로, 두 전략 중 하나가 아니다." }
+        ]
+      }
+    },
+    {
+      "id": "ref-ind-1",
+      "role": "independent_check",
+      "passageGroup": "ref-t3",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Doctors have long noticed that some patients feel better after taking pills that contain no medicine at all.",
+          "This effect is usually explained by expectation: believing that a treatment will work changes how the body responds.",
+          "Researchers were therefore surprised when patients improved even after being told openly that their pills were inactive.",
+          "In such cases, expectation cannot easily be the whole story, since the patients knew there was nothing to expect.",
+          "One proposal is that the ritual of treatment itself, such as visiting a clinic and swallowing a pill, triggers learned responses.",
+          "If so, the setting in which medicine is given may matter more than doctors have generally assumed."
+        ],
+        "stem": "밑줄 친 'such cases'가 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "patients improving though told their pills were inactive",
+          "patients improving because they expect treatment to work",
+          "doctors delivering care in an ordinary clinic setting",
+          "pills that contain real and effective medicine",
+          "the body's general response to belief in treatment"
+        ]
+      },
+      "gold": {
+        "answer": 0,
+        "decisive": 2,
+        "evidence": [2],
+        "evidenceAlt": [3],
+        "rationale": "3번에서 처음 나온 '약이 가짜라고 솔직히 들었는데도 나아진 환자들'의 사례가 4번에서 'such cases'로 불리며, 그래서 기대만으로는 설명이 안 된다는 흐름이 이어진다.",
+        "distractors": [
+          { "choice": 1, "design": "opposed_view", "why": "2번의 기대 설명으로, 4번이 바로 그 설명의 한계를 지적한다." },
+          { "choice": 2, "design": "distorted", "why": "5번의 치료 의식 낱말을 빌린 것으로 지시 대상보다 뒤에 나온다." },
+          { "choice": 3, "design": "reversed", "why": "본문의 약은 약효가 없는 것이므로 정반대다." },
+          { "choice": 4, "design": "too_narrow", "why": "2번의 일반 원리만 가리켜 '사례'가 되지 못한다." }
+        ]
+      }
+    },
+    {
+      "id": "ref-ind-2",
+      "role": "independent_check",
+      "passageGroup": "ref-t4",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Bees that discover a rich patch of flowers return to the hive and perform a special dance.",
+          "The angle of the dance tells other workers in which direction to fly, and its length signals the distance.",
+          "For a long time, scientists assumed that every bee watching the dance simply followed its instructions.",
+          "Recent observations, however, suggest a more complicated picture.",
+          "Experienced foragers often ignore the dance and return to familiar sites, even when those sites have dried up.",
+          "Only when their old flowers have failed several times do they pay attention to the dancers.",
+          "Younger bees, by contrast, rely on the dance almost from their first flight."
+        ],
+        "stem": "밑줄 친 'they'가 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "the dancers back from rich flower patches",
+          "younger bees on their very first flights",
+          "the scientists who observed the hive",
+          "the old flowers that have dried up",
+          "experienced foragers loyal to familiar sites"
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "decisive": 4,
+        "evidence": [4],
+        "evidenceAlt": [5],
+        "rationale": "5번에서 처음 나온 '익숙한 장소로 돌아가는 경험 많은 채집벌'이 6번의 their·they 로 이어진다 — 옛 꽃이 여러 번 실패해야 비로소 춤에 주목한다는 내용이 그들의 습성과 맞는다.",
+        "distractors": [
+          { "choice": 0, "design": "distorted", "why": "6번 같은 문장의 목적어로, 주목하는 쪽이 아니라 주목받는 쪽이다." },
+          { "choice": 1, "design": "opposed_view", "why": "7번의 어린 벌은 처음부터 춤에 의존하는 대조 집단이다." },
+          { "choice": 2, "design": "distorted", "why": "3번의 과학자는 춤을 관찰할 뿐 꽃이 실패하지 않는다." },
+          { "choice": 3, "design": "distorted", "why": "가장 가까운 명사지만 꽃이 춤에 주목할 수는 없다." }
+        ]
+      }
+    },
+    {
+      "id": "ref-transfer-1",
+      "role": "transfer",
+      "passageGroup": "ref-t5",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "When a new road is built to relieve traffic, drivers who once avoided the area start using it.",
+          "Some people who used to take the train switch to driving, and others make trips they would not have made before.",
+          "Within a few years, the new road is often as crowded as the old one was.",
+          "Transportation researchers have observed this so consistently that they treat it as a rule rather than an exception.",
+          "The lesson for city governments is uncomfortable but clear.",
+          "Adding lanes rarely solves congestion for long, because the extra space itself creates new demand for travel."
+        ],
+        "stem": "밑줄 친 'this'가 가리키는 내용으로 가장 적절한 것은?",
+        "choices": [
+          "commuters giving up the train service",
+          "city governments deciding to add lanes",
+          "new roads soon filling up as before",
+          "drivers avoiding a congested area",
+          "a rule applied in transport research"
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "decisive": 2,
+        "evidence": [2],
+        "evidenceAlt": [0, 1, 3],
+        "rationale": "'this'는 명사 하나가 아니라 1–3번에 걸친 현상 전체(새 도로가 생기면 이용자가 늘어 몇 년 안에 예전만큼 막힌다)를 받는다. 그 현상이 완결되는 3번이 결정 문장이다.",
+        "distractors": [
+          { "choice": 0, "design": "too_narrow", "why": "2번의 한 갈래만 떼어 현상 전체를 대신하지 못한다." },
+          { "choice": 1, "design": "distorted", "why": "6번의 교훈 쪽 행위로, 지시어보다 뒤의 내용이다." },
+          { "choice": 3, "design": "reversed", "why": "1번에서 운전자들은 그 지역을 피하다가 오히려 이용하기 시작한다." },
+          { "choice": 4, "design": "distorted", "why": "4번의 rule 은 현상을 부르는 이름일 뿐 관찰 대상이 아니다." }
+        ]
+      }
+    },
+    {
+      "id": "ref-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "ref-t6",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Museums face a constant choice about how to display fragile objects.",
+          "One option is to keep them behind glass in dim light, which protects them but makes them hard to see.",
+          "Another is to show high-quality copies in the open while the originals stay safely in storage.",
+          "Visitors can then examine every detail, and the originals suffer no damage at all.",
+          "Many curators, however, hesitate to adopt the method.",
+          "They worry that people come to museums precisely to stand in front of the real thing, and that a copy, however perfect, cannot provide that experience.",
+          "For these curators, authenticity is worth some loss of visibility."
+        ],
+        "stem": "밑줄 친 'the method'가 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "keeping objects behind glass in dim light",
+          "showing copies while originals stay stored",
+          "examining every detail of the originals",
+          "standing in front of the real objects",
+          "choosing how to display fragile items"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 2,
+        "evidence": [2],
+        "evidenceAlt": [3, 5],
+        "rationale": "3번에서 처음 나온 '원본은 보관하고 정교한 복제본을 공개 전시하기'가 5번의 'the method'다. 6번의 걱정(복제본은 진짜 앞에 서는 경험을 못 준다)이 그 대상을 확인해 준다.",
+        "distractors": [
+          { "choice": 0, "design": "opposed_view", "why": "2번의 다른 선택지로, 큐레이터들이 오히려 진짜를 지키는 쪽이다." },
+          { "choice": 2, "design": "distorted", "why": "4번의 결과 묘사로, 방법 자체가 아니라 그 효과다." },
+          { "choice": 3, "design": "reversed", "why": "6번에서 이 방법이 주지 못한다고 걱정하는 경험이다." },
+          { "choice": 4, "design": "too_narrow", "why": "1번의 선택 상황 자체로 특정 방법이 아니다." }
+        ]
+      }
+    },
+    {
+      "id": "ref-ind-3",
+      "role": "independent_check",
+      "passageGroup": "ref-t7",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Many museums now let visitors handle copies of ancient tools instead of only viewing the originals behind glass.",
+          "Curators first worried that this would make the real objects seem less special.",
+          "Surveys suggest the opposite: visitors who held a copy spent more time looking at the original afterward.",
+          "Visitors in rooms without any copies behaved differently.",
+          "Most of them read the label, glanced at the case, and moved on within a minute.",
+          "Some museums have therefore placed handling tables right beside the display cases."
+        ],
+        "stem": "밑줄 친 'them'이 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "visitors who held a copy of an ancient tool",
+          "visitors in rooms with no copies to handle",
+          "curators worried about the original objects",
+          "the labels placed beside the display cases",
+          "ancient tools kept behind glass"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "decisive": 3,
+        "evidence": [
+          3
+        ],
+        "evidenceAlt": [
+          4
+        ],
+        "rationale": "4번에서 처음 나온 '복제품이 없는 전시실의 관람객'이 5번의 them 으로 이어진다 — 라벨을 읽고 진열장을 흘끗 본 뒤 1분 안에 떠나는 행동은 사람인 그들의 것이다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "3번의 복제품을 만진 관람객은 오히려 원본을 더 오래 본 대조 집단이다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "2번의 학예사는 걱정했을 뿐 전시실을 돌아보는 주체가 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "distorted",
+            "why": "5번 같은 문장의 목적어(label)로, 라벨이 라벨을 읽을 수는 없다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "1번의 원본 도구는 관람 대상이지 떠나는 주체가 아니다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ref-ind-4",
+      "role": "independent_check",
+      "passageGroup": "ref-t8",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "After a storm destroyed many street trees, the city of Ardel replanted with a single fast-growing species to restore shade quickly.",
+          "Within ten years the streets were green again, and residents praised the decision.",
+          "Then a beetle arrived that fed on exactly that species.",
+          "Because nearly every tree was the same kind, the insect spread from street to street with nothing to slow it.",
+          "City foresters now cite this as the main reason to mix many species on every block.",
+          "A varied street may grow more slowly, but no single pest can strip it bare."
+        ],
+        "stem": "밑줄 친 'this'가 가리키는 내용으로 가장 적절한 것은?",
+        "choices": [
+          "the storm that destroyed the street trees",
+          "residents praising the newly green streets",
+          "the slower growth of varied streets",
+          "one beetle sweeping through same-species trees",
+          "replanting quickly to restore shade"
+        ]
+      },
+      "gold": {
+        "answer": 3,
+        "decisive": 3,
+        "evidence": [
+          3
+        ],
+        "evidenceAlt": [
+          0,
+          2
+        ],
+        "rationale": "'this'는 3–4번에 걸친 사건, 곧 거의 모든 나무가 같은 종이라 딱정벌레 한 종이 거리마다 막힘없이 퍼진 일을 받는다. 그 확산이 완결되는 4번이 결정 문장이고, 그래서 여러 종을 섞어야 한다는 교훈으로 이어진다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "1번의 폭풍은 사건의 출발점일 뿐 종을 섞어야 할 이유가 아니다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "2번의 주민 칭찬은 오히려 단일 종 식재가 성공해 보이던 시점이다."
+          },
+          {
+            "choice": 2,
+            "design": "opposed_view",
+            "why": "6번의 느린 성장은 여러 종을 섞을 때 감수할 단점으로, 지시어보다 뒤의 내용이다."
+          },
+          {
+            "choice": 4,
+            "design": "too_narrow",
+            "why": "1번의 빠른 재식재는 사건의 한 갈래일 뿐 해충 확산이라는 핵심을 빠뜨린다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "ref-transfer-2",
+      "role": "transfer",
+      "passageGroup": "ref-t9",
+      "body": {
+        "format": "choice_evidence",
+        "sentences": [
+          "Students preparing for exams usually choose between two methods.",
+          "Some reread their notes several times, while others close the book and try to write down everything they remember.",
+          "The first method feels smoother, because the material looks more familiar with each reading.",
+          "The second feels harder and often reveals how little has actually stuck.",
+          "Yet in memory tests a week later, students who used the latter consistently outperform those who simply reread.",
+          "The feeling of ease, it seems, is a poor guide to how well we are learning."
+        ],
+        "stem": "밑줄 친 'the latter'가 가리키는 대상으로 가장 적절한 것은?",
+        "choices": [
+          "rereading notes until they look familiar",
+          "the feeling of ease while studying",
+          "taking a memory test a week later",
+          "studying together with a classmate",
+          "writing down what one remembers, book closed"
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "decisive": 1,
+        "evidence": [
+          1
+        ],
+        "evidenceAlt": [
+          3
+        ],
+        "rationale": "2번이 두 방법(노트 다시 읽기 / 책을 덮고 기억나는 것 적기)을 순서대로 소개하고, 5번의 the latter 는 그중 뒤의 것, 곧 책을 덮고 기억해 적는 방법을 가리킨다(4번이 'The second'로 다시 부른다).",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "다시 읽기는 the former 에 해당하며 5번에서 성적이 뒤지는 쪽이다."
+          },
+          {
+            "choice": 1,
+            "design": "distorted",
+            "why": "6번의 편안한 느낌은 결론의 낱말로, 공부 방법이 아니다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "5번 같은 문장의 기억 시험은 두 방법을 비교하는 수단이지 방법 자체가 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "친구와 함께 공부하는 방법은 글에 나오지 않는다."
+          }
+        ]
+      }
+    }
+  ]
+}
