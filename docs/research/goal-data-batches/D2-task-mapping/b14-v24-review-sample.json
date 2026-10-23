@@ -1,0 +1,208 @@
+{
+ "batch": "b14-v24",
+ "rule": "R1 후보 10 · 갈림 10(삽입 · E1 · E3 우선 · 문항 중복 없음) — 원문 대조는 독립 검증자가 한다",
+ "candidates": [
+  {
+   "item": "2021#38",
+   "task": "r.discourse_structure",
+   "display": "R4",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2021#39",
+   "task": "r.discourse_structure",
+   "display": "R4",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "M2109#38",
+   "task": "r.discourse_structure",
+   "display": "R4",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "M2109#39",
+   "task": "r.discourse_structure",
+   "display": "R4",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2021#35",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2021#40",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "indirect",
+    "B": "indirect"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2021#42",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2021#44",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2021#45",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "M2109#26",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  }
+ ],
+ "disputed": [
+  {
+   "item": "2021#41",
+   "task": "e.option_correspondence",
+   "display": "E3",
+   "judgments": {
+    "A": "direct",
+    "B": "indirect"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "M2109#24",
+   "task": "e.option_correspondence",
+   "display": "E3",
+   "judgments": {
+    "A": "indirect",
+    "B": "direct"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "M2109#40",
+   "task": "e.option_correspondence",
+   "display": "E3",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "indirect"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "M2109#41",
+   "task": "e.option_correspondence",
+   "display": "E3",
+   "judgments": {
+    "A": "indirect",
+    "B": "direct"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "2021#32",
+   "task": "e.evidence_location",
+   "display": "E2",
+   "judgments": {
+    "A": "direct",
+    "B": "indirect"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "2021#34",
+   "task": "r.central_meaning",
+   "display": "R5",
+   "judgments": {
+    "A": "indirect",
+    "B": "direct"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "2021#35",
+   "task": "r.discourse_structure",
+   "display": "R4",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "direct"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "2021#40",
+   "task": "e.evidence_location",
+   "display": "E2",
+   "judgments": {
+    "A": "direct",
+    "B": "not_applicable"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "M2109#19",
+   "task": "r.discourse_structure",
+   "display": "R4",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "M2109#21",
+   "task": "r.central_meaning",
+   "display": "R5",
+   "judgments": {
+    "A": "not_applicable",
+    "B": "indirect"
+   },
+   "state": "DISPUTED"
+  }
+ ]
+}

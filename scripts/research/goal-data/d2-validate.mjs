@@ -115,6 +115,18 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
     }
     for (const [k, ids] of exact) if (ids.length >= 2) errs.push(`primary_reason 완전 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
     for (const [s, ids] of skel) if (ids.length >= 3) errs.push(`primary_reason 템플릿 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 골격 「${s.slice(0, 24)}」`)
+    // not_observable why — 문항 id 만 바꾼 같은 문장이 3문항 이상이면 문항 고유 판정이 아니다(b14 B-01: 44개가 한 틀).
+    // b14 부터 적용 — b8 · b13 A 트랙의 기존 반복은 알려진 결함으로 기록(mapping-review §18)하고 소급 배제하지 않는다
+    const bn = Number(/^b(\d+)-/.exec(String(input.batch))?.[1] ?? 0)
+    if (reasonsRequired && bn >= 14) {
+      const nob = new Map()
+      for (const r of allRows) for (const n of r.not_observable ?? []) {
+        if (typeof n?.why !== 'string') continue
+        const k = norm(n.why.split(r.item_id).join('#'))
+        nob.set(k, new Set([...(nob.get(k) ?? []), r.item_id]))
+      }
+      for (const [k, ids] of nob) if (ids.size >= 3) errs.push(`not_observable why 틀 반복 ${ids.size}문항(${[...ids].slice(0, 3).join(',')}): 「${k.slice(0, 30)}」`)
+    }
     return errs
   }
   return { row, chunk, reasons, byId }

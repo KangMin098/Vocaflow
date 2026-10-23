@@ -18,7 +18,21 @@ const cases = [
   { name: 'direct 단일인데 primary 와 다른 TASK 거부', rows: [{ item_id: 'G#1', primary_task: 'e.task_demand', links: [{ task_id: 'r.central_meaning', relevance: 'direct' }], primary_reason: 'direct 단일 — 결정 지점 첫 문장' }], expect: true },
   { name: '서로 다른 이유', rows: [{ item_id: 'A#1', primary_reason: '중심 문장이 마지막 단락에 명시돼 압축만 필요하다' }, { item_id: 'B#1', primary_reason: '선지 셋이 본문 낱말을 재사용해 대조 없이는 둘이 남는다' }], expect: false },
 ]
+// not_observable why 틀 반복(b14 B-01) — b14 부터만 검사, 이전 배치는 소급 배제하지 않는다
+const nob = (n) => [1, 2, 3].map((k) => ({ item_id: `N#${k}`, primary_reason: `고유 이유 ${'가나다'[k - 1]} 문장의 중심을 압축한다`, not_observable: [{ task_id: 'r.inference', why: `선택 하나로는 N#${k} 에서 이 수행의 근거 지목을 확인할 수 없다` }] })).slice(0, n)
+const V14 = makeValidator({ ...input, batch: 'b14-v24' }, [])
+const V13 = makeValidator({ ...input, batch: 'b13-v24' }, [])
+const nobCases = [
+  { name: 'not_observable why 틀 3문항(b14) 거부', v: V14, rows: nob(3), expect: true },
+  { name: 'not_observable why 틀 2문항(b14) 허용', v: V14, rows: nob(2), expect: false },
+  { name: 'not_observable why 틀 3문항(b13) 소급 안 함', v: V13, rows: nob(3), expect: false },
+]
 let bad = 0
+for (const c of nobCases) {
+  const got = c.v.reasons(c.rows).some((e) => e.includes('not_observable'))
+  console.log(`${got === c.expect ? 'ok ' : 'FAIL'} ${c.name} → 검출 ${got}`)
+  if (got !== c.expect) bad++
+}
 for (const c of cases) {
   const got = V.reasons(c.rows).length > 0
   console.log(`${got === c.expect ? 'ok ' : 'FAIL'} ${c.name} → 검출 ${got}`)

@@ -1,0 +1,849 @@
+{
+ "batch": "b14-v24",
+ "tasks_judged": [
+  "R5",
+  "R6",
+  "E1",
+  "E3",
+  "R4",
+  "E2"
+ ],
+ "subset": true,
+ "contracts": [
+  {
+   "path": "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md",
+   "sha256": "91eecbbf158e20e98d5f783aa5d4640bc97ab608c9e98995c2c67e1869acdb32"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md",
+   "sha256": "586e814bc9629885cf2d8a4f146121bf1afd8efbc3eef363fea763c72e1ed949"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_1.md",
+   "sha256": "4d1bc84c81879f3242b6d5525b68078c3fa368af153fc8e4c6b38381271e79fe"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_2.md",
+   "sha256": "eb00328d84e76eb3da75e60fea0c9c0909587b250accbfc093e934a0bb77fec1"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_3.md",
+   "sha256": "565da9c4a42efe242cbf9deb024fce17dbbc47feca0024520943a29231f3ea4d"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md",
+   "sha256": "434e43791f4e0bbea90bb09db5e5d8d4bebf3f6f7388f15ad44b5402a5404e62"
+  }
+ ],
+ "input_sha256": "b47eee12725eff988b856b0700958d70863a259389ea7fea26b67c50763fa27a",
+ "rule": "2021 수능 18–45 중 미판정 → M2109 18–45 순으로 ≤40 · 도표 · 결손 · 기판정 제외 · 계약 v2.4",
+ "tasks": 6,
+ "items": 40,
+ "pairs": 240,
+ "agreement": 0.9083,
+ "kappa": 0.8292,
+ "primary_task_agreement": 35,
+ "per_task": {
+  "r.central_meaning": {
+   "display": "R5",
+   "n": 40,
+   "agreement": 0.875,
+   "kappa": 0.78,
+   "both_direct": 12,
+   "both_indirect": 2,
+   "both_not_applicable": 21,
+   "disputed": 5
+  },
+  "r.inference": {
+   "display": "R6",
+   "n": 40,
+   "agreement": 0.95,
+   "kappa": 0.7222,
+   "both_direct": 3,
+   "both_indirect": 0,
+   "both_not_applicable": 35,
+   "disputed": 2
+  },
+  "e.task_demand": {
+   "display": "E1",
+   "n": 40,
+   "agreement": 1,
+   "kappa": 1,
+   "both_direct": 11,
+   "both_indirect": 2,
+   "both_not_applicable": 27,
+   "disputed": 0
+  },
+  "e.option_correspondence": {
+   "display": "E3",
+   "n": 40,
+   "agreement": 0.9,
+   "kappa": 0.8296,
+   "both_direct": 4,
+   "both_indirect": 11,
+   "both_not_applicable": 21,
+   "disputed": 4
+  },
+  "r.discourse_structure": {
+   "display": "R4",
+   "n": 40,
+   "agreement": 0.875,
+   "kappa": 0.7923,
+   "both_direct": 11,
+   "both_indirect": 5,
+   "both_not_applicable": 19,
+   "disputed": 5
+  },
+  "e.evidence_location": {
+   "display": "E2",
+   "n": 40,
+   "agreement": 0.85,
+   "kappa": 0.7558,
+   "both_direct": 7,
+   "both_indirect": 2,
+   "both_not_applicable": 21,
+   "disputed": 6
+  }
+ },
+ "human_review": 0,
+ "student_measurement": 0,
+ "note": "두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1).",
+ "items_detail": [
+  {
+   "item_id": "2021#32",
+   "exam_id": "2021",
+   "type_id": "R-BLANK",
+   "source_sha256": "ba4aabf1e56264349513a0a500213bc972d2447c529d5d472de131412aa8652f",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2021#33",
+   "exam_id": "2021",
+   "type_id": "R-BLANK",
+   "source_sha256": "942d9156960b0be9e356e59f854bdbc5ce7a2edbbd56f033c4448219529e1b38",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2021#34",
+   "exam_id": "2021",
+   "type_id": "R-BLANK",
+   "source_sha256": "9b670dc0947f2de55055dc57b7ddbbe054c55cdbf4c68268d1f8847aa750f20d",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.central_meaning",
+    "agree": false
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2021#35",
+   "exam_id": "2021",
+   "type_id": "R-IRRELEVANT",
+   "source_sha256": "569194b50b8243e7044773573697786d73f1080af3819c38d94c8be49cadaf3b",
+   "analysis_version": 8,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "r.discourse_structure",
+    "agree": false
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2021#36",
+   "exam_id": "2021",
+   "type_id": "R-ORDER",
+   "source_sha256": "305aa58381341c36793ca971866367a82cf5cb6eb9044fe8446409e0330df755",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2021#37",
+   "exam_id": "2021",
+   "type_id": "R-ORDER",
+   "source_sha256": "0ab9a976929ddb10ea73eb2db9b7db2e3433ccefff03ecd16fb1100de6fe891f",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2021#38",
+   "exam_id": "2021",
+   "type_id": "R-INSERT",
+   "source_sha256": "de489be8939f86c67ba58c05654d72c75ca10d53b5e0c59453bedb390b7af65f",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2021#39",
+   "exam_id": "2021",
+   "type_id": "R-INSERT",
+   "source_sha256": "c825aea8fda50db49d02b68df0184338885cd362bdd4794e95ed62221b838b7b",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2021#40",
+   "exam_id": "2021",
+   "type_id": "R-SUMMARY",
+   "source_sha256": "cacb6b5d9646c9f59183671731aced582feb2829d9dc7ea1bb3b95df7b2e72ea",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2021#41",
+   "exam_id": "2021",
+   "type_id": "X-TITLE",
+   "source_sha256": "8ea70935183293da92d34a890dcbb5aa412b7abae1f15b92af62278edf1f6d3f",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2021#42",
+   "exam_id": "2021",
+   "type_id": "X-VOCAB",
+   "source_sha256": "20112ab84e6aa5c3aed5070a2ce6ca430c043287c2a29d27df395e45f1a9aba3",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2021#43",
+   "exam_id": "2021",
+   "type_id": "X-ORDER",
+   "source_sha256": "a7d71adbc3e8947ef82f925468712f836f375b0755d7f39962f47b0c7b3e0a9d",
+   "analysis_version": 6,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2021#44",
+   "exam_id": "2021",
+   "type_id": "X-REFER",
+   "source_sha256": "e4b69b387037c52cf866f6e2f48d60215106f65de074331a9dbc4c81f094f584",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2021#45",
+   "exam_id": "2021",
+   "type_id": "X-FACT",
+   "source_sha256": "65b2369ec4d4dae9ef44bb50cb935391355168c040e1da87aee049535d8605bd",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.evidence_location",
+    "B": "e.option_correspondence",
+    "agree": false
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#18",
+   "exam_id": "M2109",
+   "type_id": "R-PURPOSE",
+   "source_sha256": "044f28fb7d4d276c037476b72bd01010c67765b6b7d9fbbb96b779e62055dd57",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#19",
+   "exam_id": "M2109",
+   "type_id": "R-MOOD",
+   "source_sha256": "8ffcee2245c6aaa05a10b064cecc6f264caf02535b0b6d3c211f842c8ce35258",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": null,
+    "B": null,
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#20",
+   "exam_id": "M2109",
+   "type_id": "R-CLAIM",
+   "source_sha256": "58bdae5d286a11a3f1239e647ab1aaea3f2de8e8a787b172f8495dffa7f99052",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#21",
+   "exam_id": "M2109",
+   "type_id": "R-IMPLY",
+   "source_sha256": "65f84a4173984f05c4b2a201205a353432ff0273908c243730d1d2a0fce31953",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#22",
+   "exam_id": "M2109",
+   "type_id": "R-GIST",
+   "source_sha256": "8b0a0e6b9521769ec154a2a2f780dce05faa13e12eded2db55f4261dfa3b5ce5",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#23",
+   "exam_id": "M2109",
+   "type_id": "R-TOPIC",
+   "source_sha256": "3ffe497b62e015ec690948ee6a3ef6953f93a2c517abbc7ef4a294af475539da",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#24",
+   "exam_id": "M2109",
+   "type_id": "R-TITLE",
+   "source_sha256": "b0ce050e1690ade2288d9a6e5a9b93b7f62b8cb5c9fa34e88abe28031c042d2f",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#26",
+   "exam_id": "M2109",
+   "type_id": "R-FACT",
+   "source_sha256": "a179cb81d3990c5f93b6d1c04b52016752c7dc010842ab7b0c95e2674f75b886",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.option_correspondence",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#27",
+   "exam_id": "M2109",
+   "type_id": "R-NOTICE",
+   "source_sha256": "91b74be79b2da48a8e5f10da0cc3b37104a69b17225193d9864ac7cf9e7513a2",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.evidence_location",
+    "agree": false
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#28",
+   "exam_id": "M2109",
+   "type_id": "R-NOTICE",
+   "source_sha256": "b42f7001b51cde8424f3ddd53a77f3263df219fa0f1189e8cbeb03ea8c63b919",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.option_correspondence",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#29",
+   "exam_id": "M2109",
+   "type_id": "R-GRAMMAR",
+   "source_sha256": "e9ddac0a2a68857b469b3a5093e7274e1292a31c105ef90a52fe3145ca1a3bbf",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [
+    "e.task_demand"
+   ],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#30",
+   "exam_id": "M2109",
+   "type_id": "R-VOCAB",
+   "source_sha256": "40c2a875fe67995d800c4f10d4cba456e754c4788c791125578b542ae4fb0571",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [
+    "e.task_demand"
+   ],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#31",
+   "exam_id": "M2109",
+   "type_id": "R-BLANK",
+   "source_sha256": "877827f519ed6363bd442015a19eb08b2ba737da540b088330264d3275b493b5",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#32",
+   "exam_id": "M2109",
+   "type_id": "R-BLANK",
+   "source_sha256": "e9f45c85043c7f63644bf5384d03c8a4875f2b8a3b4f9e7fe15177b7ef61c64c",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.inference",
+    "B": "r.inference",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#33",
+   "exam_id": "M2109",
+   "type_id": "R-BLANK",
+   "source_sha256": "e767d0071a4a7b2eb538e416b961c4b811dec56b00c84e972e62d8263cea9638",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#34",
+   "exam_id": "M2109",
+   "type_id": "R-BLANK",
+   "source_sha256": "6b5a5b91a698573bcecefcc1966e7e2a9704f24eb3092f024d5a571787fc4a01",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.inference",
+    "agree": false
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#35",
+   "exam_id": "M2109",
+   "type_id": "R-IRRELEVANT",
+   "source_sha256": "2ee13297a4ca3ea718ed6216fd6adca883f293159f8dbe8407e4adf7904b1d49",
+   "analysis_version": 7,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#36",
+   "exam_id": "M2109",
+   "type_id": "R-ORDER",
+   "source_sha256": "474a94815cc94c138ac1dc90b72f648acaa21a5c889e0e1c23f3144b2f042152",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#37",
+   "exam_id": "M2109",
+   "type_id": "R-ORDER",
+   "source_sha256": "9a9996c0bd1b01d20aef4dbeab2cdba4dd3537ab09a8b7d01c356e521550906f",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#38",
+   "exam_id": "M2109",
+   "type_id": "R-INSERT",
+   "source_sha256": "b2f191e663e548202d08595c8416b0cada86a0fef7a37dae6b9374ee86778107",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#39",
+   "exam_id": "M2109",
+   "type_id": "R-INSERT",
+   "source_sha256": "25c10c42effa081fb6783fca79ddb7434258c56fbf711f86f8423ff1441fbb7a",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#40",
+   "exam_id": "M2109",
+   "type_id": "R-SUMMARY",
+   "source_sha256": "e0f90dbc5ed71a5f8c708452509292527a83291ade68cfb3d10b0daa03145677",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2109#41",
+   "exam_id": "M2109",
+   "type_id": "X-TITLE",
+   "source_sha256": "9f0c0d8401ad226016e2fc27287e64d877151617087e23da754343fbdbb4d53b",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#42",
+   "exam_id": "M2109",
+   "type_id": "X-VOCAB",
+   "source_sha256": "b45755a97f37610856db599aceb53722713ebc3f5e4e6ba66640ab5938d047a3",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [
+    "e.task_demand"
+   ],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#43",
+   "exam_id": "M2109",
+   "type_id": "X-ORDER",
+   "source_sha256": "df2b3ecad79126ab8ff16af5335b06bee142bcc7c9ae02f9b205101cb789f738",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2109#44",
+   "exam_id": "M2109",
+   "type_id": "X-REFER",
+   "source_sha256": "8d349784a2f7dac7fc9da6626f4ed9be40877f6cc69a467a800eff26635a071e",
+   "analysis_version": 3,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [
+    "e.task_demand"
+   ],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "use": "teaching_case_or_indirect"
+  }
+ ],
+ "stop_alarm": {
+  "R5": "ok",
+  "R6": "ok",
+  "E1": "ok",
+  "E3": "ok",
+  "R4": "ok"
+ },
+ "stop": false
+}
