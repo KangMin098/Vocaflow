@@ -1,0 +1,175 @@
+{
+  "task": "T-0092",
+  "owner": "goal-data-independent",
+  "reviewer": "Codex",
+  "date": "2026-10-23",
+  "nature": "Claude 제안에 대한 독립 계약 판정. 제품 구현·콘텐츠 승인 결과가 아니다.",
+  "scope": "PLAN·도달 계약 4건만. verdict.json의 engine_handoff 13항목은 경계이며 그 전체를 이번에 재승인하지 않는다. D2 R3 경계 11건은 제외한다.",
+  "inputs": {
+    "review_head": "52d9190402b89c2606460f4bfe693b18b8f74dcc",
+    "claude_proposal": "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/2946373d-e3d7-4a7b-a985-3a16e4545f3f/scratchpad/t0092-claude-proposal.md",
+    "claude_proposal_sha256": "49f0d9221d0ae4b82bd39e7c7295e0b75dbd8e2d5a17efdf8c2e43325d9ef3fd",
+    "matrix": "54302f2e5:docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json",
+    "code_and_codebook": "review_head의 파일. matrix에 기록된 과거 설명과 현재 코드를 직접 대조했다.",
+    "handoff": "docs/research/goal-data-batches/review/verdict.json:2106"
+  },
+  "status_semantics": {
+    "DECIDED": "Claude의 핵심 제안과 Codex 판정이 일치하는 좁은 계약. 코드 적용·검증 완료를 뜻하지 않는다.",
+    "OPEN": "실질적인 수정안에 대한 Claude 재동의가 아직 없다. final_decision에는 미합의 사실과 채택 후보를 적는다. 기존 제안을 승인으로 간주하지 않는다."
+  },
+  "decisions": [
+    {
+      "id": "D4-DEC-01",
+      "question": "R5·E2·V1의 다른 날 재확인은 언제부터, 얼마 뒤에 세는가?",
+      "claude_proposal": "확정 뒤 첫 CHECK 정답과 다른 KST 날짜이면서 12시간 이상 지난 독립 첫 시도 정답 1개를 요구한다. 그전 연속 2정답은 resolved_same_day로 두고 120일 상한을 유지한다.",
+      "codex_verdict": "modify",
+      "final_decision": "DECIDED. R5는 서로 다른 지문 2개, E2는 서로 다른 확인 문항 2개의 적격 독립 정답을 먼저 충족하고, 그 초기 확인을 완성한 마지막 정답 시각 t0 뒤의 별도 재확인 정답을 요구한다. 재확인은 t0와 다른 KST 날짜이며 t0부터 12시간 이상 지난 경우만 센다. 따라서 초기 확인의 두 번째 정답을 지연 재확인으로 동시에 쓰지 않는다. 12시간은 Pilot용 운영 하한이며 과학적으로 확정된 최적 간격이 아니다. V1은 낱말별 첫 뜻 인출 정답 뒤 같은 낱말의 다른 날 독립 재인출에 적용하며 FSRS 기록을 자동 승인하지 않는다. 초기 기준을 통과했으나 재확인 전이면 pending_delayed로 표현한다. 현재 resolved를 도달로 자동 변환하지 않는다.",
+      "rationale": "E2 정본은 '2개 독립 정답 → 다른 날 재확인'이라는 순서를 명시한다. 첫 CHECK를 기점으로 하면 두 번째 CHECK 한 번으로 초기 확인과 재확인을 동시에 채워 이 순서를 축약한다. R5도 지문 2개 확인과 다른 날 재확인을 분리해야 한다. resolved_same_day라는 이름은 날짜가 달라도 12시간 미만인 경우를 표현하지 못한다. 120일은 현 코드의 확정 후 미해소 회차 만료 기한이며 도달 후 기억 보장 기간이 아니다. V1은 AUTHORED_TASK_KEYS에 없고 실패 2회 기반 진단 경로도 없어 R5/E2용 수정만으로 구현됐다고 할 수 없다.",
+      "evidence": [
+        "docs/csat-learner/v4/codebook.json:143",
+        "docs/csat-learner/v4/codebook.json:435",
+        "docs/csat-learner/v4/codebook.json:514",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:94",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:116",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:119",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:130",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:155",
+        "apps/web/src/lib/knowledge/authored/tasks.ts:4",
+        "54302f2e5:docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json:87",
+        "docs/research/goal-data-batches/review/verdict.json:2159"
+      ],
+      "learning_science": {
+        "principle": "간격을 둔 수행과 같은 세션 수행을 구분한다. Cepeda 등의 연구에서 적절한 간격은 목표 보유 기간에 따라 달라지며 짧은 간격에서도 효과가 관찰된다. '효과는 1일 이상부터' 또는 '12시간이면 장기 기억이 입증된다'는 결론을 채택하지 않는다.",
+        "sources": [
+          "https://pubmed.ncbi.nlm.nih.gov/16719566/",
+          "https://labs.biology.ucsd.edu/rifkin/courses/bieb100/f14/Cepeda_et_al_2008_Psychological_Science_Spacing_Effects_in_Learning_A_Temporal_Ridgeline_of_Optimal_Retention.pdf"
+        ],
+        "limit": "12시간 하한과 초기 확인 뒤 별도 재확인이라는 구체 절차는 운영 설계 판단이다. 이 연구가 Vocaflow의 해당 역량이나 점수 향상을 검증한 것은 아니다."
+      },
+      "engine_impact": "합의 후의 계약 요구만: R5/E2 초기 성공 묶음과 지연 성공을 별도 보존하고 원문·문항 식별자, 응답 시각, 자격을 결속한다. 재확인 실패 뒤에는 이전 성공 묶음으로 즉시 도달시키지 않고 초기 성공 기준을 다시 채운 뒤 재확인을 요구한다. 기존 회차의 120일 만료를 연장하지 않는다. V1은 낱말 식별자·독립 인출 기록의 별도 결속이 필요하다. 선행 실패 없이 성공한 학습자에게 실패를 강요하지 않는다(M1). 제품 코드·상태 enum은 이번에 바꾸지 않는다.",
+      "status": "DECIDED",
+      "open_reason": "첫 CHECK 기준을 초기 확인 완료 시각 기준으로 바꾸고 별도 재확인을 요구하는 수정 및 V1 분리 적용에 대한 Claude 재동의가 필요하다.",
+      "claude_concurrence": {
+        "verdict": "agree_with_codex_modification",
+        "at": "2026-10-23",
+        "note": "Codex 수정안이 Claude 제안보다 엄격(초기 확인·지연 재확인 이중 사용 금지 / proxy 를 도달 수·점수 환산과 분리)하고 근거가 타당해 수용. 사용자 위임(2026-10-23 「나머지는 codex 협업을 통해서 의사결정」)에 따른 Claude·Codex 합의."
+      }
+    },
+    {
+      "id": "D4-DEC-02",
+      "question": "V3·S2·S4의 선택형 확인을 PLAN 도달에 어떻게 반영하는가?",
+      "claude_proposal": "reached_proxy로 도달을 인정하고 점수 목표 PLAN에서는 reached와 동일하게 취급한다. 화면·보고는 선택형 확인으로 구분하고 산출 도구가 생기면 대체한다.",
+      "codex_verdict": "modify",
+      "final_decision": "DECIDED. 선택형 독립 성공은 확인된 응답 범위의 proxy_confirmed로 PLAN 진행과 다음 학습 배정에 사용한다. V3의 뜻 말하기, S2/S4의 풀어 쓰기 도달에는 합산하지 않는다. 점수 목표에서도 proxy와 criterion 도달 수를 분리하고 둘을 같은 도달 수·가중치로 합치거나 목표 점수 달성으로 환산하지 않는다. 정본 산출 수행이 확인되거나 선택형 도구와 해당 준거 사이의 타당화 계약이 별도로 합의될 때 재검토한다. 산출형 도구가 추가돼도 과거 선택형 응답을 산출 성공으로 소급 변환하지 않는다.",
+      "rationale": "V3 채점은 뜻 선택+근거 문장이고 S2/S4 채점은 덩어리 선택+이유 범주이다. 응답자가 직접 의미를 말하거나 문장을 복원한 결과는 수집하지 않는다. 수능이 선택형이라는 형식 일치만으로 이 세 하위 과제와 시험 점수의 동등한 예측력·가중치가 성립하지 않는다. 최상위 정본은 어휘 회상/인식 등 성공 기준을 별도로 측정하고 의미가 다른 척도를 보존하도록 한다. 표시만 다르게 하면서 합계는 동일하게 세면 이 구분이 사라진다.",
+      "evidence": [
+        "docs/csat-learner/v4/codebook.json:188",
+        "docs/csat-learner/v4/codebook.json:248",
+        "docs/csat-learner/v4/codebook.json:288",
+        "apps/web/src/lib/knowledge/authored/formats.ts:216",
+        "apps/web/src/lib/knowledge/authored/formats.ts:225",
+        "apps/web/src/lib/knowledge/authored/formats.ts:383",
+        "apps/web/src/lib/knowledge/authored/formats.ts:392",
+        "54302f2e5:docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json:241",
+        "54302f2e5:docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json:520",
+        "54302f2e5:docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json:704",
+        "D:/workspace/Vocaflow-AI-Control/goals/PROJECT_GOAL.md:44",
+        "D:/workspace/Vocaflow-AI-Control/goals/PROJECT_GOAL.md:55"
+      ],
+      "learning_science": {
+        "principle": "전이 적합 처리(Morris, Bransford & Franks, 1977)는 학습·검사에서 요구하는 처리의 대응을 살피게 한다. 응답 형식 하나가 같다는 이유로 다른 수행 준거까지 충족했다는 주장을 지지하지 않는다.",
+        "sources": [
+          "https://doi.org/10.1016/S0022-5371(77)80016-9"
+        ],
+        "limit": "논문의 인식 검사 연구를 Vocaflow 하위 과제의 수능 점수 타당화로 일반화하지 않는다. proxy_confirmed라는 운영 상태는 이 판정의 제안이다."
+      },
+      "engine_impact": "합의 전에는 reached_proxy와 reached의 동일 합산을 구현하지 않는다. 합의 시에는 응답 형식·측정 범위와 proxy 진행을 보존하는 조회 계약이 필요하다. 선택형 확인은 학습 경로 진행에 쓸 수 있으나 산출 도달·실제 목표 점수 달성의 증거로 승격하지 않는다. 이 판정은 새 점수 예측 모델을 발명하지 않는다.",
+      "status": "DECIDED",
+      "open_reason": "Claude는 점수 목표 PLAN의 동일 취급을 제안했고 Codex는 이를 지지하지 않는다. 별도 합계·표시·다음 학습 활용 범위에 대한 재합의가 필요하다.",
+      "claude_concurrence": {
+        "verdict": "agree_with_codex_modification",
+        "at": "2026-10-23",
+        "note": "Codex 수정안이 Claude 제안보다 엄격(초기 확인·지연 재확인 이중 사용 금지 / proxy 를 도달 수·점수 환산과 분리)하고 근거가 타당해 수용. 사용자 위임(2026-10-23 「나머지는 codex 협업을 통해서 의사결정」)에 따른 Claude·Codex 합의."
+      }
+    },
+    {
+      "id": "D4-DEC-03",
+      "question": "R3/R4를 별도 TASK로 유지하면서 도달 근거의 중복 집계를 어떻게 막는가?",
+      "claude_proposal": "두 TASK를 유지하고 같은 discourse_roles·gradeStructure 근거는 한 번만 센다. 한쪽 resolved가 다른 쪽을 자동 도달시키지 않는다. 독립 관찰 전에는 PLAN에서 R3·R4 공통 근거 1로 집계한다.",
+      "codex_verdict": "agree",
+      "final_decision": "DECIDED. R3/R4 ID·과제별 관찰은 유지한다. 독립 관찰이 확인되기 전 PLAN 집계는 R3·R4 잠정 공통 근거 한 묶음으로 표시하고 독립 도달 2건으로 더하지 않는다. 한 TASK의 resolved를 다른 TASK로 복사하지 않는다. 같은 응답·채점 결과를 두 번 세지 않으며 각 TASK의 실제 응답과 출처는 따로 보존한다. 공통 근거 1묶음은 두 능력 중 하나 또는 둘의 숙달 확정을 뜻하지 않는다. 향후 정본이 요구하는 독립 관찰 근거가 별도로 확인되면 분리 집계를 재검토한다.",
+      "rationale": "코드북이 R3 잠정 유지와 R4 독립 근거 조건을 명시한다. 현재 두 키는 별도지만 같은 채점 경로에서 모든 문장 역할과 전체 구조 패턴을 동시에 맞혀야 정답이다. 이 복합 정오 결과만으로 두 능력의 독립 도달을 세는 것은 근거보다 강한 주장이다. 다만 같은 형식·함수를 쓴다는 사실만으로 두 능력이 동일하거나 판별 타당도가 없다고 확정할 수는 없다. 이번 합의는 독립성이 입증되기 전의 보수적 집계 규칙이다.",
+      "evidence": [
+        "docs/csat-learner/v4/codebook.json:391",
+        "docs/csat-learner/v4/codebook.json:413",
+        "docs/csat-learner/LEARNING_MAP_VNEXT.md:102",
+        "docs/csat-learner/LEARNING_MAP_VNEXT.md:103",
+        "docs/csat-learner/LEARNING_MAP_VNEXT.md:636",
+        "apps/web/src/lib/knowledge/authored/tasks.ts:14",
+        "apps/web/src/lib/knowledge/authored/tasks.ts:15",
+        "apps/web/src/lib/knowledge/authored/formats.ts:288",
+        "apps/web/src/lib/knowledge/authored/formats.ts:312",
+        "54302f2e5:docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json:1133",
+        "54302f2e5:docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json:1226",
+        "docs/research/goal-data-batches/review/verdict.json:2185"
+      ],
+      "learning_science": {
+        "principle": "Campbell & Fiske(1959)의 수렴·판별 타당도 관점에서는 구별하려는 능력과 측정 방법의 영향을 따로 확인해야 한다. 같은 복합 정오의 중복 집계를 독립 관찰로 간주하지 않는 원칙에 부합한다.",
+        "sources": [
+          "https://doi.org/10.1037/h0046016",
+          "https://pubmed.ncbi.nlm.nih.gov/13634291/"
+        ],
+        "limit": "논문 서지와 타당도 관점을 참고했다. 해당 학습자의 다특성·다방법 자료 분석을 수행하거나 두 TASK의 독립성 부재를 실증한 것은 아니다."
+      },
+      "engine_impact": "후속 PLAN 조회·집계에 공통 근거 묶음과 TASK별 원자료 연결이 필요하다. TASK 수·코드북·제품 진단 함수를 병합하거나 전체 목표 TASK 분모를 임의로 줄이지 않는다. 서로 다른 문항·지문이라는 사실만으로 독립 구성개념 검증을 대체하지 않는다. D2 R3 경계 11건 및 Gold 판정은 수행하지 않는다.",
+      "status": "DECIDED"
+    },
+    {
+      "id": "D4-DEC-04",
+      "question": "S1의 PLAN 도달 확인은 공통 연속 2와 코드북 연속 3 중 어느 기준인가?",
+      "claude_proposal": "S1에만 연속 3 기준을 적용하고 공통 상수는 유지한다. 평가 7문항에서 확정용 2개를 빼도 5개여서 3개 확인 여력은 있다.",
+      "codex_verdict": "agree",
+      "final_decision": "DECIDED. S1의 PLAN 도달 수량 기준은 서로 다른 긴 문장 3개의 적격 독립 첫 시도 연속 정답이다. 중간 적격 오답은 연속 수를 초기화한다. 기존 진단 확정 뒤 경로에서는 확정용 문항을 재사용하지 않는다. 처음부터 성공하는 학습자에게 선행 오답을 요구하지 않는다. VERIFY_ITEMS=2와 다른 TASK의 공통 CHECK_ITEMS=2는 이 결정으로 바꾸지 않으며, S1 도달 계약에만 3을 명시한다. 이 수량 기준의 합의는 현재 선택형 도구가 문장 뼈대 전체를 측정한다는 별도 승인이 아니다.",
+      "rationale": "S1 코드북은 3문장 이상 연속 정확을 명시하는 반면 현재 진단은 공통 2회에서 해소된다. 따라서 S1 도달은 TASK별 기준을 적용해야 한다. 현 세트의 평가 역할 문항 7개에서 확정용 2개를 제외하면 최대 5개가 남아 오류 없는 3연속 경로는 구성상 가능하다. 이는 이미 본 문항·오답으로 자원을 소진한 모든 학습자에게 가능하다는 보장이 아니다. S1은 실제로 4~6개 덩어리 중 선택+이유를 채점하므로 5지선다 독립 추측 가정의 4%·0.8%를 이 결정의 정량 근거로 쓰지 않는다.",
+      "evidence": [
+        "docs/csat-learner/v4/codebook.json:222",
+        "docs/csat-learner/v4/codebook.json:225",
+        "docs/csat-learner/v4/codebook.json:226",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:15",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:16",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:110",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:119",
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:129",
+        "apps/web/src/lib/knowledge/authored/formats.ts:383",
+        "apps/web/src/lib/knowledge/authored/formats.ts:392",
+        "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json:157",
+        "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json:173",
+        "54302f2e5:docs/research/goal-data-batches/D4-assessment/task-assessment-matrix.json:427"
+      ],
+      "learning_science": {
+        "principle": "서로 다른 과제에서 일관된 수행을 확인한다는 측정 원칙에 부합한다. 다만 3이라는 수는 코드북의 과제 계약이며 보편적인 숙달 경계가 아니다.",
+        "sources": [],
+        "limit": "연속 정답만으로 보유·전이·전체 문장 분석 능력까지 증명하지 않는다. 이 결정은 정본의 수량 준거를 지키는 판단이며 외부 연구가 3회를 검증했다고 주장하지 않는다."
+      },
+      "engine_impact": "후속 도달 판정에 S1 전용 필요 정답 수 3과 서로 다른 문장 식별자를 결속한다. 현 resolved는 진단상 해소로 보존하고 S1 도달과 구분한다. 평가 자원이 부족하면 추가 미노출 확인이 필요하다고 남기며 재풀이로 3개를 채우지 않는다. 코드·공통 상수·DB는 이번에 수정하지 않는다.",
+      "status": "DECIDED"
+    }
+  ],
+  "verification": {
+    "level": "L1 문서 산출물 정적 검증; 진단 구현을 변경하거나 검증한 작업이 아님",
+    "checked": [
+      "Claude 제안 원문과 4개 항목 대응",
+      "지정 HEAD 코드·코드북 및 고정 SHA matrix 직접 대조",
+      "engine_handoff 길이 13 확인 및 관련 D4 범위 연결",
+      "현재 S1 평가 문항 7개와 실제 선택·이유 응답 확인",
+      "JSON 파싱·필수 필드·열거값·4건 ID 유일성 통과",
+      "파일:줄 근거 48개 존재 및 요약의 DECIDED 2·OPEN 2 일치 확인"
+    ],
+    "not_run": [
+      "제품 단위·통합·E2E·타입 검사(제품 코드 변경 없음)",
+      "학습자 데이터 기반 지연 간격·점수 예측 타당화",
+      "Gold·권리·출시 승인 판단",
+      "git 커밋·통합(사용자 명시 금지)"
+    ]
+  }
+}
