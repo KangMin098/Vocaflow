@@ -182,11 +182,19 @@ export async function findGoalByKey(db: Db, userId: string, clientKey: string): 
 export async function setGoal(db: Db, userId: string, goalIn: number | GoalInput, clientKey: string): Promise<{ mode: 'versioned' | 'latest_only'; goalVersionId: number | null }> {
   const g: GoalInput = typeof goalIn === 'number' ? { score: goalIn, grade: null, exam: null, date: null } : goalIn
   const score = g.score
-  const { data, error } = await db.rpc(g.budget ? 'csat_map_goal_budget_set' : 'csat_map_goal_set', { p_user: userId, p_score: g.score, p_grade: g.grade, p_exam: g.exam, p_date: g.date, p_client_key: clientKey, ...(g.budget ? { p_budget: g.budget, p_expected_goal: g.expectedGoalVersion ?? null } : {}) })
+  const prior = g.expectedGoalVersion === undefined ? await loadLatestGoal(db, userId) : null
+  const args = { p_user: userId, p_score: g.score, p_grade: g.grade, p_exam: g.exam, p_date: g.date, p_client_key: clientKey }
+  let { data, error } = await db.rpc('csat_map_goal_budget_set', { ...args, p_budget: g.budget ?? null, p_expected_goal: g.expectedGoalVersion === undefined ? prior?.id ?? null : g.expectedGoalVersion })
   if (!error) return { mode: 'versioned', goalVersionId: Number(data) }
-  if (g.budget && error.code === '40001') throw new GoalVersionConflictError('목표가 다른 화면에서 바뀌었어요 — 새로고침한 뒤 다시 확인해 주세요')
+  if (error.code === '40001') throw new GoalVersionConflictError('목표가 다른 화면에서 바뀌었어요 — 새로고침한 뒤 다시 확인해 주세요')
   if (!(error.code && MISSING.has(error.code))) throw new Error(`목표 저장 실패: ${error.message}`)
-  if (g.budget) throw new GoalBudgetUnavailableError('시간 예산 저장 구조가 아직 적용되지 않았어요 — 목표와 시간 예산을 저장하지 않았어요')
+  if (g.budget || (prior ?? await loadLatestGoal(db, userId))?.budget) throw new GoalBudgetUnavailableError('시간 예산 저장 구조가 아직 적용되지 않았어요 — 목표와 시간 예산을 저장하지 않았어요')
+  // Before installation, existing unbudgeted goals retain their original writer. A budget-bearing goal can never take this fallback.
+  const legacy = await db.rpc('csat_map_goal_set', args)
+  data = legacy.data
+  error = legacy.error
+  if (!error) return { mode: 'versioned', goalVersionId: Number(data) }
+  if (!(error.code && MISSING.has(error.code))) throw new Error(`목표 저장 실패: ${error.message}`)
   if (g.grade !== null || g.exam !== null || g.date !== null) throw new Error('목표 저장 실패: 목표 이력 구조가 없어 점수 외 목표를 저장할 수 없어요')
   if (await loadLatestGoal(db, userId)) throw new Error('목표 저장 실패: 기존 목표 이력이 있어 점수만 저장할 수 없어요 — 저장 구조를 확인해 주세요')
   const up = await db.from('csat_map_goal').upsert({ user_id: userId, target_score: score, updated_at: new Date().toISOString() }, { onConflict: 'user_id' })

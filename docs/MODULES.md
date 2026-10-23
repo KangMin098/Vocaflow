@@ -1,5 +1,7 @@
 # Learning Modules
 
+2026-10-23 목표 계획·평가 통합 후보: `goalLearning`이 현재 목표/PLAN 버전·TASK 근거·시간·일정·시험 관찰·수정 이유를 한 번 공급한다. 기존 `replanOf`·`planDrift`·`scheduleChanges`와 PLAN 재확정을 재사용한다. 재풀이/기존 노출·선후 미확인은 독립 후속 시험에서 제외하고, 점수 기준 충족과 최종 목표 미확인을 구분한다. 화면은 목표일·주간 계획·다음 점검 제안일을 표시한다. [독립 수용·미적용 SQL](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
+
 2026-10-23 목표 시간 배분(공유 DB 승인 대기): GoalEditor의 주간·선택 요일·단위 시간과 GoalSchedule의 현재 TASK PLAN 기반 오늘·주간·목표일까지 배분 제안을 추가했다. 기존 단계·수량·실행 링크·목표 변경 재확정 관문을 재사용하고 시간·자료·조회·관련성 제약을 미배정으로 구분한다. 달력은 자동 확정·전체 필요 학습량·목표 달성률이 아니다. 예산 저장 SQL은 미적용이며 설치 전503을 저장 성공으로 표시하지 않는다. [수용 범위](csat-learner/GOAL_ACHIEVEMENT.md).
 
 2026-10-23 TASK 상태 표시: taskInspector는 AsIs의 analysis_pending/insufficient/unmeasured를 각각 시험 분석 대기/관찰 근거 부족/확인 기록 없음으로 구분한다. NEED_V62_LABEL의 CONFIRM은 다음 활동 「직접 확인 필요」다. 원본 학습 판정·기록·완료 조건은 그대로이며 unmeasurable은 플랫폼 측정 도구 준비 중으로 표시한다. 여러 열을 건너는 관계선은 빈 행으로 우회하고 활성선 대비·다른 카드 교차를 격리 검증한다.

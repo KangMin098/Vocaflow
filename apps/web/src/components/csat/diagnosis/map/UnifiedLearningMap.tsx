@@ -25,6 +25,7 @@ import { goalCoverageLedger } from '@/lib/csat/map/v62/coverage'
 import { domainTaskGraph, taskInspector, type GraphTask } from '@/lib/csat/map/v62/graph'
 import type { WorkspacePlan } from '@/lib/csat/map/v4/workspace'
 import { goalPlanRows } from '@/lib/csat/map/v62/goal-plan'
+import { goalLearning, type GoalLearning } from '@/lib/csat/map/v62/goal-learning'
 import { ranksOf } from '@/lib/csat/map/v62/rank'
 import { RETURN_NOTE_LABEL, returnNotes } from '@/lib/csat/map/v62/return-ctx'
 import { taskForWs, workspaceRows, wsForTask, wsLinkOf, type WsLink } from '@/lib/csat/map/v62/workspace-list'
@@ -95,6 +96,10 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
   const graph = useMemo(() => domainTaskGraph(), [])
   const ranks = useMemo(() => (view ? ranksOf(view) : null), [view])
   const rows = useMemo(() => (view ? workspaceRows(view) : []), [view])
+  const summary = useMemo(() => view && ranks ? goalPlanRows(view, ranks, data.v4?.saved) : null, [view, ranks, data.v4?.saved])
+  const previousLearning = useRef<GoalLearning | null>(null)
+  const learning = useMemo(() => summary && view && data.now ? goalLearning({ summary, saved: data.v4?.saved ?? null, plans: view.plans, taskPlans: view.taskPlans, sessions: data.v4?.sessions ?? [], activity: data.lifecycleActivity ?? [], asOf: data.now, profileWeeklyMinutes: data.v4?.profileWeeklyMinutes, previous: previousLearning.current }) : null, [summary, view, data])
+  useEffect(() => { previousLearning.current = learning }, [learning])
   const ledger = useMemo(() => {
     if (!view) return null
     const confirmItems = Object.fromEntries(Object.entries(confirmLinksOf(data)).map(([k, l]) => [k, l.length]))
@@ -331,10 +336,10 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
   const mapContent = (<>
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
-      <GoalPlanSummary data={goalPlanRows(view, ranks, data.v4?.saved)} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
-      <GoalSchedule data={goalPlanRows(view, ranks, data.v4?.saved)} saved={data.v4?.saved ?? null} now={data.now ?? ''} past={past} activity={data.lifecycleActivity} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      <GoalPlanSummary data={summary!} goalSet={goalSet} saved={data.v4?.saved ?? null} past={past} evidence={view.evidence ?? null} onSelect={(id) => chooseTask(id, false)} onOpenWs={(id, tab) => openWs(id, null, tab)} />
+      {learning && <GoalSchedule learning={learning} past={past} onOpenWs={(id, tab) => openWs(id, null, tab)} />}
       {/* GOAL-ACHIEVEMENT 3차 — 목표 뒤 실제 시험 기록으로 목표 대비 판정(TASK 활동과 분리) */}
-      <GoalOutcome goal={data.v4?.saved?.goal ?? null} sessions={data.v4?.sessions ?? []} plans={view.taskPlans} past={past} />
+      <GoalOutcome outcome={learning?.outcome ?? null} past={past} />
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>

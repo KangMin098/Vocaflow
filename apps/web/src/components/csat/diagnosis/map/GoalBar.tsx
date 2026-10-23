@@ -147,7 +147,7 @@ export function GoalEditor({ data, g }: { data: MapPageData; g: GoalState }) {
           <input type="date" className={s.input} value={g.extra.date ?? ''} onChange={(e) => g.setExtra({ ...g.extra, date: e.target.value || null })} data-testid="goal-date" />
         </label>
         <label className={`${s.inputWrap} ${s.goalToggle}`}>
-          <input type="checkbox" checked={!!g.extra.budget} onChange={(e) => g.setExtra({ ...g.extra, budget: e.target.checked ? { weeklyMinutes: 300, dailyMinutes: null, minutesPerUnit: DEFAULT_UNIT_MINUTES, priorities: [] } : null })} data-testid="goal-budget-enable" />
+          <input type="checkbox" checked={!!g.extra.budget} onChange={(e) => g.setExtra({ ...g.extra, budget: e.target.checked ? { weeklyMinutes: data.v4?.profileWeeklyMinutes ?? 300, dailyMinutes: null, minutesPerUnit: DEFAULT_UNIT_MINUTES, priorities: [] } : null })} data-testid="goal-budget-enable" />
           <span>가능한 시간 안에서 기간 계획 만들기</span>
         </label>
         {g.extra.budget && <GoalBudgetEditor budget={g.extra.budget} onChange={budget => g.setExtra({ ...g.extra, budget })} />}
@@ -164,7 +164,7 @@ function GoalBudgetEditor({ budget, onChange }: { budget: GoalBudget; onChange: 
   const weekdays = ['월', '화', '수', '목', '금', '토', '일']
   return <fieldset className={`${s.goalMore} ${s.budgetFields}`} data-testid="goal-budget-editor">
     <legend>학습 시간 배분</legend>
-    <label className={s.inputWrap}><span className={s.inputLabel}>주간 학습 가능 시간(분)</span><input className={s.input} type="number" min={1} max={10080} value={budget.weeklyMinutes} onChange={e => onChange({ ...budget, weeklyMinutes: Number(e.target.value) })} data-testid="goal-weekly-minutes" /></label>
+    <label className={s.inputWrap}><span className={s.inputLabel}>주간 학습 가능 시간(분, 0은 배정 없음)</span><input className={s.input} type="number" min={0} max={10080} value={budget.weeklyMinutes} onChange={e => onChange({ ...budget, weeklyMinutes: Number(e.target.value) })} data-testid="goal-weekly-minutes" /></label>
     <label className={s.inputWrap}><span className={s.inputLabel}>문항·지문 1개에 배분할 시간(분)</span><input className={s.input} type="number" min={1} max={240} value={budget.minutesPerUnit} onChange={e => onChange({ ...budget, minutesPerUnit: Number(e.target.value) })} data-testid="goal-unit-minutes" /></label>
     <p className={s.goalNote}>직접 조정하는 잠정 시간이에요. 학습 효과나 목표 달성까지 걸리는 시간을 예측한 값은 아니에요.</p>
     <label className={`${s.inputWrap} ${s.goalToggle}`}><input type="checkbox" checked={!!budget.dailyMinutes} onChange={e => onChange({ ...budget, dailyMinutes: e.target.checked ? Array.from({ length: 7 }, (_, i) => Math.floor(budget.weeklyMinutes / 7) + (i < budget.weeklyMinutes % 7 ? 1 : 0)) : null })} /><span>요일별 시간 직접 정하기</span></label>

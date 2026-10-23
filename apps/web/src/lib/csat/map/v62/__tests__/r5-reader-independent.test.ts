@@ -2,10 +2,10 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { describe, expect, it } from 'vitest'
 import { loadExposureLedger, loadFqReader, normalizedPassageKey } from '../exposure-ledger'
-import { reservedFromPractice } from '../assessment-exposure'
+import { exposureOf, reservedFromPractice } from '../assessment-exposure'
 
 type Row = Record<string, unknown>
-function reader(opts: { table?: string; rows?: Row[]; count?: number | null; error?: unknown } = {}) {
+function reader(opts: { table?: string; rows?: Row[]; count?: number | null; error?: unknown; items?: Row[] } = {}) {
   const filters: [string, unknown][] = []
   const db = { from(table: string) {
     const q = {
@@ -13,7 +13,7 @@ function reader(opts: { table?: string; rows?: Row[]; count?: number | null; err
       eq: (key: string, value: unknown) => { filters.push([key, value]); return q },
       not: () => q, in: () => q, limit: () => q,
       then(resolve: (v: unknown) => unknown) {
-        const data = table === 'csat_items' ? [{ exam_id: '2022', no: 20, passage: 'candidate' }] : table === opts.table ? opts.rows ?? [] : []
+        const data = table === 'csat_items' ? opts.items ?? [{ exam_id: '2022', no: 20, passage: 'candidate' }] : table === opts.table ? opts.rows ?? [] : []
         return Promise.resolve({ data, count: table === opts.table && 'count' in opts ? opts.count : data.length, error: table === opts.table ? opts.error ?? null : null }).then(resolve)
       },
     }
@@ -23,6 +23,23 @@ function reader(opts: { table?: string; rows?: Row[]; count?: number | null; err
 }
 
 describe('R5 independent reader boundaries — no network or writes', () => {
+  it.each([
+    ['learning_task_attempts', { item_ref: '2022#20', answered_at: '2026-09-08T00:00:00Z' }, 'exposed'],
+    ['learning_sessions', { item_ref: '2022#20', started_at: '2026-09-08T00:00:00Z', deleted_at: '2026-09-09T00:00:00Z' }, 'exposed'],
+    ['csat_trap_attempts', { item_id: '2022#20', answered_at: '2026-09-12T00:00:00Z' }, 'unseen'],
+    ['csat_session_attempts', { item_id: '2022#20', answered_at: '2026-09-10T00:00:00Z' }, 'unknown'],
+    ['csat_review_queue', { item_id: '2022#20' }, 'unknown'],
+    ['csat_dx_session', { id: 'self', exam_id: '2022', taken_at: '2026-09-10' }, 'unseen'],
+    ['csat_dx_session', { id: 'old', exam_id: '2022', taken_at: '2026-09-08' }, 'exposed'],
+    ['csat_dx_response', { item_id: '2022#20', session_id: 'self', csat_dx_session: { user_id: 'u', taken_at: '2026-09-10' } }, 'unseen'],
+  ])('temporal outcome audit: %s %j → %s', async (table, row, expected) => {
+    const ledger = await loadExposureLedger(reader({ table: table as string, rows: [row as Row] }).db, 'u', ['2022#20'], { sessionId: 'self', takenAt: '2026-09-10' })
+    expect(exposureOf('2022#20', ledger).state).toBe(expected)
+  })
+  it('historical exposure still covers the same normalized passage in another paper', async () => {
+    const ledger = await loadExposureLedger(reader({ table: 'csat_trap_attempts', rows: [{ item_id: 'other#1', answered_at: '2026-09-08T00:00:00Z' }], items: [{ exam_id: '2022', no: 20, passage: 'candidate' }, { exam_id: 'other', no: 1, passage: ' CANDIDATE ' }] }).db, 'u', ['2022#20'], { sessionId: 'self', takenAt: '2026-09-10' })
+    expect(exposureOf('2022#20', ledger)).toMatchObject({ state: 'exposed', samePassage: true })
+  })
   it('normalizes source whitespace before JSON escaping and rejects blank strings', () => {
     expect(normalizedPassageKey('A\n B')).toBe(normalizedPassageKey('a b'))
     expect(normalizedPassageKey('A\tB')).toBe(normalizedPassageKey('a b'))

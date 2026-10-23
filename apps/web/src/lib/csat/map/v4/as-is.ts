@@ -37,6 +37,8 @@ export interface AsIsSession {
   examReady: boolean
   /** GOAL-ACHIEVEMENT 3차 — 목표 시험 종류(v62/goal-outcome examScopeOf). As-Is 판정은 읽지 않는다 */
   examScope?: 'suneung' | 'kice6' | 'kice9' | 'hakpyeong' | null
+  mode?: 'live' | 'retake' | 'app' | 'diagnostic' | null
+  firstExposure?: 'unseen' | 'exposed' | 'unknown'
 }
 
 export interface AsIsCheck {

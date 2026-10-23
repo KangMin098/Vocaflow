@@ -41,7 +41,7 @@ function transport(database = db): SupabaseClient {
     async rpc(name: string, p: Record<string, unknown>) {
       try {
         const b = name === 'csat_map_goal_budget_set'
-        const result = await database.query<{ id: number }>(`select public.${name}($1::uuid,$2::smallint,$3::smallint,$4::text,$5::date,$6::uuid${b ? ',$7::jsonb,$8::bigint' : ''}) id`, [p.p_user, p.p_score, p.p_grade, p.p_exam, p.p_date, p.p_client_key, ...(b ? [JSON.stringify(p.p_budget), p.p_expected_goal] : [])])
+        const result = await database.query<{ id: number }>(`select public.${name}($1::uuid,$2::smallint,$3::smallint,$4::text,$5::date,$6::uuid${b ? ',$7::jsonb,$8::bigint' : ''}) id`, [p.p_user, p.p_score, p.p_grade, p.p_exam, p.p_date, p.p_client_key, ...(b ? [p.p_budget == null ? null : JSON.stringify(p.p_budget), p.p_expected_goal] : [])])
         return { data: result.rows[0].id, error: null }
       } catch (e) { return { data: null, error: e } }
     },
@@ -107,10 +107,24 @@ describe('budget goal: actual versioned SQL and server write', () => {
   })
   it('rejects malformed budgets atomically without resetting the latest score', async () => {
     const before = (await db.query('select target_score from csat_map_goal where user_id=$1', [A])).rows
-    for (const bad of [{ ...budget, weeklyMinutes: 0 }, { ...budget, dailyMinutes: [100, 100, 0, 0, 0, 0, 0] }, { ...budget, priorities: ['a', 'a'] }]) {
+    for (const bad of [{ ...budget, weeklyMinutes: -1 }, { ...budget, dailyMinutes: [100, 100, 0, 0, 0, 0, 0] }, { ...budget, priorities: ['a', 'a'] }]) {
       await expect(db.query('select csat_map_goal_budget_set($1,99::smallint,null,\'suneung\',\'2026-11-19\',$2,$3::jsonb)', [A, key(), JSON.stringify(bad)])).rejects.toThrow('goal_budget_invalid')
     }
     expect((await db.query('select target_score from csat_map_goal where user_id=$1', [A])).rows).toEqual(before)
+  })
+  it('SQL stores an explicit zero budget in a new immutable goal version', async () => {
+    const expected = (await loadLatestGoal(transport(), A))!.id
+    const result = await setGoal(transport(), A, { target: 90, exam: 'suneung', date: '2026-11-19', budget: { ...budget, weeklyMinutes: 0 }, expectedGoalVersion: expected, clientKey: key() }, new Date('2026-10-23T00:00:00Z'))
+    expect(result.budget?.weeklyMinutes).toBe(0)
+    expect(result.goalVersionId).not.toBe(expected)
+  })
+  it('clearing a budget also checks the observed goal version and preserves the prior budget', async () => {
+    const expected = (await loadLatestGoal(transport(), A))!.id
+    const body = { target: 90, exam: 'suneung', date: '2026-11-19', budget: null, expectedGoalVersion: expected - 1, clientKey: key() }
+    await expect(setGoal(transport(), A, body, new Date('2026-10-23T00:00:00Z'))).rejects.toBeInstanceOf(GoalVersionConflictError)
+    const cleared = await setGoal(transport(), A, { ...body, expectedGoalVersion: expected, clientKey: key() }, new Date('2026-10-23T00:00:00Z'))
+    expect(cleared.budget).toBeUndefined()
+    expect((await db.query<{ planning_budget: GoalBudget }>('select planning_budget from csat_map_goal_version where id=$1', [expected])).rows[0].planning_budget.weeklyMinutes).toBe(0)
   })
   it('RLS limits reads to self and authenticated cannot call the writer', async () => {
     await db.exec(`set role authenticated; set request.jwt.claim.sub='${A}';`)

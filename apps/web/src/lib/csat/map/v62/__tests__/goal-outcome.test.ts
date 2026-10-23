@@ -2,13 +2,14 @@
 import { describe, expect, it } from 'vitest'
 
 import type { TaskPlan } from '../../v4/plan'
-import { examScopeOf, goalOutcome, type OutcomeSession } from '../goal-outcome'
+import { examScopeOf, goalOutcome as outcome, type OutcomeSession } from '../goal-outcome'
 import type { GoalVersion } from '../target-goal'
 
 const goal: GoalVersion = { id: 7, score: 85, grade: 2, exam: 'kice9', date: '2026-11-19', createdAt: '2026-09-01T03:00:00Z' }
+const goalOutcome = (g: GoalVersion, sessions: readonly OutcomeSession[], plans: readonly TaskPlan[]) => outcome(g, sessions, plans, '2026-10-23T00:00:00Z')
 
 const s = (id: string, examId: string, takenAt: string, raw: number | null, over: Partial<OutcomeSession> = {}): OutcomeSession =>
-  ({ id, examId, examLabel: examId, takenAt, raw, grade: null, diagnosable: true, examScope: 'kice9', ...over })
+  ({ id, examId, examLabel: examId, takenAt, enteredAt: `${takenAt}T12:00:00Z`, raw, grade: null, diagnosable: true, examReady: true, mode: 'live', firstExposure: 'unseen', examScope: 'kice9', ...over })
 
 const plan = (task: string, over: Partial<TaskPlan>) => ({ task, need: 'CONFIRM', achievement: 'not_checked', ...over }) as TaskPlan
 
@@ -41,7 +42,7 @@ describe('goalOutcome — 목표 대비 판정', () => {
     const o = goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 88, { grade: 2 })], [])
     expect(o.score).toEqual({ status: 'reached', gap: 3 })
     expect(o.grade.status).toBe('reached')
-    expect(o.next).toBe('maintain')
+    expect(o.next).toBe('review_goal_evidence')
   })
 
   it('이미 본 시험지 재풀이는 새 평가가 아니다', () => {

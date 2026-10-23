@@ -12,12 +12,18 @@ export interface GoalBudget {
 
 export const DEFAULT_UNIT_MINUTES = 10
 
+export function goalBudgetSource(goal: { budget?: GoalBudget | null } | null, profileWeeklyMinutes: number | null) {
+  if (goal?.budget) return { source: 'goal' as const, budget: goal.budget, weeklyMinutes: goal.budget.weeklyMinutes }
+  if (profileWeeklyMinutes !== null && Number.isInteger(profileWeeklyMinutes) && profileWeeklyMinutes >= 0 && profileWeeklyMinutes <= 4800) return { source: 'profile' as const, budget: null, weeklyMinutes: profileWeeklyMinutes }
+  return { source: 'none' as const, budget: null, weeklyMinutes: null }
+}
+
 export function parseGoalBudget(raw: unknown): { ok: true; budget: GoalBudget | null } | { ok: false; error: string } {
   if (raw === undefined || raw === null) return { ok: true, budget: null }
   if (typeof raw !== 'object' || Array.isArray(raw)) return { ok: false, error: '학습 시간 입력을 확인해 주세요' }
   const b = raw as Record<string, unknown>
   if (Object.keys(b).some(k => !['weeklyMinutes', 'dailyMinutes', 'minutesPerUnit', 'priorities'].includes(k))) return { ok: false, error: '알 수 없는 시간 예산 항목이에요' }
-  if (!Number.isInteger(b.weeklyMinutes) || (b.weeklyMinutes as number) < 1 || (b.weeklyMinutes as number) > 10080) return { ok: false, error: '주간 학습 시간은 1~10080분 사이 정수예요' }
+  if (!Number.isInteger(b.weeklyMinutes) || (b.weeklyMinutes as number) < 0 || (b.weeklyMinutes as number) > 10080) return { ok: false, error: '주간 학습 시간은 0~10080분 사이 정수예요' }
   const per = b.minutesPerUnit ?? DEFAULT_UNIT_MINUTES
   if (!Number.isInteger(per) || (per as number) < 1 || (per as number) > 240) return { ok: false, error: '문항·지문당 배분은 1~240분 사이 정수예요' }
   const daily = b.dailyMinutes ?? null

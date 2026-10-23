@@ -51,9 +51,9 @@ export function parseGoalInput(body: unknown, today: string, allowPastReplay = f
   if (!budget.ok) return budget
   if (budget.budget && (!exam || !date)) return { ok: false, error: '기간 계획에는 목표 시험과 목표일이 필요해요' }
   const expected = b.expectedGoalVersion
-  if (budget.budget && !(expected === null || (Number.isSafeInteger(expected) && (expected as number) > 0))) return { ok: false, error: '현재 목표 버전을 확인한 뒤 다시 저장해 주세요' }
+  if ((budget.budget || expected !== undefined) && !(expected === null || (Number.isSafeInteger(expected) && (expected as number) > 0))) return { ok: false, error: '현재 목표 버전을 확인한 뒤 다시 저장해 주세요' }
   if (budget.budget && date && Date.parse(`${date}T00:00:00Z`) - Date.parse(`${today}T00:00:00Z`) > 3660 * 86400000) return { ok: false, error: '기간 계획의 목표일은 10년 이내로 정해 주세요' }
-  return { ok: true, goal: { score: b.target as number, grade: grade as number | null, exam: exam as GoalExam | null, date: date as string | null, ...(budget.budget ? { budget: budget.budget, expectedGoalVersion: expected as number | null } : {}) } }
+  return { ok: true, goal: { score: b.target as number, grade: grade as number | null, exam: exam as GoalExam | null, date: date as string | null, ...(budget.budget ? { budget: budget.budget } : {}), ...(expected !== undefined ? { expectedGoalVersion: expected as number | null } : {}) } }
 }
 
 /** Calendar date policy is Asia/Seoul, independent of server/browser timezone. */

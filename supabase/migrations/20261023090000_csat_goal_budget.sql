@@ -13,7 +13,7 @@ begin
   if jsonb_typeof(p_budget->'weeklyMinutes') is distinct from 'number' or
      jsonb_typeof(p_budget->'minutesPerUnit') is distinct from 'number' then return false; end if;
   n := (p_budget->>'weeklyMinutes')::numeric;
-  if n <> trunc(n) or n < 1 or n > 10080 then return false; end if;
+  if n <> trunc(n) or n < 0 or n > 10080 then return false; end if;
   n := (p_budget->>'minutesPerUnit')::numeric;
   if n <> trunc(n) or n < 1 or n > 240 then return false; end if;
   if not (p_budget ? 'dailyMinutes') then return false; end if;
@@ -49,7 +49,7 @@ create function public.csat_map_goal_budget_set(
 declare v_id bigint; v_latest bigint;
 begin
   if p_user is null or p_client_key is null or p_score is null or p_score not between 0 and 100
-     or p_exam is null or p_date is null or p_budget is null or not public.csat_goal_budget_valid(p_budget)
+     or (p_budget is not null and (p_exam is null or p_date is null)) or not public.csat_goal_budget_valid(p_budget)
   then raise exception 'goal_budget_invalid' using errcode = '22023'; end if;
   -- Same serialization as the existing goal setter and PLAN commits.
   perform pg_advisory_xact_lock(hashtext('map_goal:' || p_user::text));

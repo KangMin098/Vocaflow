@@ -1,5 +1,7 @@
 # 학습자 관리 모델 — Vocaflow Learner Management (SSoT)
 
+> **2026-10-23 CSAT 목표 계획 예외 명확화:** `/csat`는 저장 목표일을 내부 기간 배분·역산에 사용한다. 학습자에게는 목표일·주간 계획·다음 점검 제안일을 표시하고 D-day 카운트다운 UI는 사용하지 않는다. 일반 `/plan`의 자료×활동 계획은 유지한다. 명시적 목표 예산이 우선하며 기존 `weekly_hours`는 입력 제안이다. 시험 점수 기준 충족·TASK 해소·계획 수행을 최종 목표 달성률로 바꾸지 않는다. [통합 계약](csat-learner/GOAL_ACHIEVEMENT.md) · [독립 수용/SQL 승인 대기](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
+
 > 5개 비교군(LingQ/Readlang · Busuu · 리틀팍스 · 클래스카드 · 듀오링고) 분석 + 라이브 데이터 진단(2026-06-28)을 종합한 학습자 관리 설계의 단일 출처.
 > **타겟 결정**: 한국 **수능생 단일 집중** · **L3(교사/학원 B2B) 로드맵 명시 + 데이터 모델 선반영**.
 > 모든 "현황" 사실은 코드 grep + DB direct query 로 검증. 스키마 DDL 은 적용 전 제안 — 마이그레이션은 §10 승인 게이트 준수.
