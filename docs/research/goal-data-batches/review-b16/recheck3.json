@@ -1,0 +1,134 @@
+{
+  "task_id": "T-0127",
+  "owner_id": "goal-data-independent",
+  "input": {
+    "commit": "fc3690e3abafc213ab04afbbf394f4cd384c4935",
+    "base_commit": "d85f22d145fdf284f5b7f4bff0f184bbe9a6eaa6",
+    "diff_sha256": "4deaa3305a92fd26a60bc96fc94b44509505dd55793c01eea641a302f6e26a56",
+    "changed_files": 4,
+    "source_read_only": true,
+    "pinned_git_sources": true,
+    "local_packet_bytes_unchanged": true,
+    "local_packets": 296
+  },
+  "observed_at": "2026-10-23T11:23:23.660Z",
+  "result": "pass",
+  "result_semantics": "검증 수행 완료이며 수용 기준 전체 통과를 뜻하지 않음",
+  "skip_count": 0,
+  "checks": {
+    "independent": 49,
+    "failed": 0,
+    "shipped": 31,
+    "unchanged_batch_variants": 16,
+    "exam_list_unique_ids": 1302,
+    "mask_adjacency_cases": 9114,
+    "mask_misses": 0,
+    "backspace_bytes": 0
+  },
+  "acceptance": [
+    {
+      "index": 0,
+      "status": "resolved",
+      "detail": "입력 삭제 1개: 19행/114쌍, 삭제·개명 2개: 0행/0쌍. 전체 runner exit1, 소유권 확인 불가 진단, 해당 청크 전체 배제, 위반 두 행 결합 제외. 입력 없는 checkChunk는 예외 정지하고 청크 runner는 exit1로 안전하게 표시한다.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:163",
+        "scripts/research/goal-data/d2-validate.mjs:164",
+        "scripts/research/goal-data/d2-validate.mjs:187",
+        "scripts/research/goal-data/d2-validate.mjs:199",
+        "scripts/research/goal-data/d2-run.mjs:90"
+      ]
+    },
+    {
+      "index": 1,
+      "status": "unresolved",
+      "detail": "숫자 경계는 정의된 문항 문법에서 타당하다. 실제 1302 ID × 7문맥(9114건) 누락0. 영문자·밑줄·괄호·소문자·A/B형, 자기 ID 보존, 과잉 가림을 확인했다. 다른/자기 청크 출력 JSON 및 자기 청크 입력 JSON 예외, ID 포함 경로는 가려진다. 하지만 validate 진입 전 배치 input.json 파싱과 tasks 해석 예외는 maskIds를 거치지 않아 stderr와 스택에 외부 ID가 남는다.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:193",
+        "scripts/research/goal-data/d2-validate.mjs:196",
+        "scripts/research/goal-data/d2-validate.mjs:199",
+        "scripts/research/goal-data/d2-validate.mjs:223",
+        "scripts/research/goal-data/d2-run.mjs:23",
+        "scripts/research/goal-data/d2-run.mjs:30",
+        "scripts/research/goal-data/d2-run.mjs:78",
+        "scripts/research/goal-data/d2-run.mjs:81"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "resolved",
+      "detail": "제공 회귀31/31. 실제 makeValidator와 pilot validateRow/validateChunk로 자기 빈 출력(누락20), 넷째 반복 참여(결함1), 소유권 맞바꿈(38행/228쌍), 상태만 배제(0행/0쌍)를 재현했다. otherUnreadable과 자기 빈 출력·행 결함·출력 누락의 조합에서도 자기 결함이 exit1이다. b2–b16 캡처16변형의 전체 validate 로그·exit 불변.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:209",
+        "scripts/research/goal-data/d2-validate.mjs:213",
+        "scripts/research/goal-data/d2-validate.mjs:215",
+        "scripts/research/goal-data/d2-validate.mjs:224",
+        "scripts/research/goal-data/d2-validate.mjs:227",
+        "scripts/research/goal-data/d2-run.mjs:87",
+        "scripts/research/goal-data/d2-validate.check.mjs:73",
+        "scripts/research/goal-data/review-b16/recheck3.mjs:1"
+      ]
+    },
+    {
+      "index": 3,
+      "status": "resolved",
+      "detail": "recheck3.json·recheck3.md, 새 P0/P1와 b17 가부, 재현 스크립트 및 local 원출력을 기록했다.",
+      "references": [
+        "docs/research/goal-data-batches/review-b16/recheck3.json:1",
+        "docs/research/goal-data-batches/review-b16/recheck3.md:1",
+        "scripts/research/goal-data/review-b16/recheck3.mjs:1"
+      ]
+    }
+  ],
+  "previous_findings": [
+    {
+      "id": "RECHECK2-P1-01",
+      "status": "resolved"
+    },
+    {
+      "id": "RECHECK2-P1-02",
+      "status": "resolved",
+      "detail": "기존 영문자/밑줄 인접과 청크 JSON 예외 반례는 해소. 더 넓은 출력 계약의 초기화 경로는 새 발견으로 분리."
+    }
+  ],
+  "new_p0": 0,
+  "new_p1": 1,
+  "findings": [
+    {
+      "id": "RECHECK3-P1-01",
+      "priority": "P1",
+      "status": "unresolved",
+      "title": "청크 출력 가림 전에 실행되는 runner 초기화 예외가 외부 ID를 노출한다",
+      "references": [
+        "scripts/research/goal-data/d2-run.mjs:23",
+        "scripts/research/goal-data/d2-run.mjs:30",
+        "scripts/research/goal-data/d2-run.mjs:61",
+        "scripts/research/goal-data/d2-run.mjs:78",
+        "scripts/research/goal-data/d2-run.mjs:81"
+      ],
+      "trigger": "b16 배치 input.json을 실제 외부 ID가 들어간 깨진 JSON으로 바꾼 메모리 overlay에서 validate A 02 실행. 별도로 유효 JSON의 tasks에 외부 ID 문자열을 넣어 초기화 오류 유발.",
+      "observed": {
+        "malformed_batch_input": "uncaught SyntaxError; stderr contains foreign ID and JSON.parse / d2-run.mjs:23 stack",
+        "undefined_task": "uncaught Error includes foreign ID; no say()/maskIds call",
+        "ordinary_chunk_json_paths": "masked; regression fixed"
+      },
+      "impact": "청크 입력·출력 파일의 기존 예외 수정은 확인됐지만 모든 청크 모드 출력이라는 계약은 충족하지 않는다. 공유 배치 입력 오류 시 분석자에게 다른 청크 문항 정보가 보일 수 있다. 이전부터 있던 초기화 경로의 잔여 구멍이며 이번 수정으로 생긴 회귀라고 단정하지 않는다.",
+      "recommendation": "청크 모드를 판별한 뒤 입력 파싱·tasks 해석·validator 생성까지 포함하는 최상위 오류 경계를 두고, 안전한 메시지만 maskIds를 거쳐 출력한다. uncaught stderr 스택에 원문/ID가 나오지 않는 실제 프로세스 회귀를 추가한다."
+    }
+  ],
+  "b17": {
+    "allowed": false,
+    "decision": "b17 보류 — 배치 입력 초기화 예외도 청크 출력 가림 경계에 포함하고 재검증해야 한다."
+  },
+  "limitations": [
+    "배치·청크 소스는 고정 커밋 git show로 읽고 쓰기·삭제·개명은 VM 메모리 overlay에서만 실행했다. 실제 child process의 uncaught stderr도 같은 실제 runner 모듈/고정 소스/overlay로 재현했으며 입력 worktree에는 쓰지 않았다.",
+    "제공 구조 회귀의 일부는 row/chunk stub을 쓴다. 독립 검사는 실제 전체 검증 함수로 별도 재현했다.",
+    "숫자 경계는 문항 문법의 토큰 검사다. 5자리 연도/3자리 번호 같은 문법 밖 문자열의 내부 부분문자열까지 알려진 ID로 가려야 한다는 더 강한 계약은 주장하지 않는다. 가상 ID 형태는 보수적으로 가려진다.",
+    "DB 전수·제품 build/E2E·학습자 측정·원격/main 통합은 미실행이며 통과로 세지 않는다. 기존 b16 노출 이력·Gold/학생 진단 승격도 해소했다고 주장하지 않는다."
+  ],
+  "raw_evidence": [
+    "scripts/research/goal-data/review-b16/recheck3.local.json",
+    "scripts/research/goal-data/review-b16/recheck3-diff.local.json",
+    "scripts/research/goal-data/review-b16/recheck3-finish.local.json",
+    "scripts/research/goal-data/review-b16/packets.local.json"
+  ]
+}
