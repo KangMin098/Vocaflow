@@ -1,0 +1,82 @@
+{
+  "files": [
+    {
+      "file": "C1_CANDIDATE.json",
+      "sha256": "4f4127df565479606ffa1ce2844e35cc561595d6354fc0d55164ae202d4db1e2"
+    },
+    {
+      "file": "CORRECTION.md",
+      "sha256": "72b8e3c45015709529db6c0e7eeced0e5000a7117f903ed467e13732f0426bcb"
+    },
+    {
+      "file": "DECISION_UPDATE.json",
+      "sha256": "7c102ab8934dd7d484073664b583ae2b75016bbed4b71ae79f05ef0caa7fae85"
+    },
+    {
+      "file": "RESULTS.json",
+      "sha256": "6699b2922a13fe38a5f6d76c8d935e27e5f90f93a28aded55c615ae9023d3751"
+    },
+    {
+      "file": "SOURCE_BINDINGS.json",
+      "sha256": "0bb2751e9eb754203bc5986a00fd26cbae0a196c02c9d177cde24597268e25f4"
+    },
+    {
+      "file": "candidate-check.mjs",
+      "sha256": "9e0560767c25891c1b3cd7d26224608d7bae67191d26826ccdff1b7672fc7ffe"
+    },
+    {
+      "file": "fixture.tsx",
+      "sha256": "2a2efc7f269d31b5f570436023819c804cf9a331d636319703a704adc42d1728"
+    },
+    {
+      "file": "run.mjs",
+      "sha256": "b3b35f00674af356b05777683e765f57edd2d358d55b0844044765b9a63c441d"
+    },
+    {
+      "file": "validate.mjs",
+      "sha256": "fecafbe35c7702fdab33423d9957e57a74989931dd351ab31c76d15ce19045c9"
+    }
+  ],
+  "execution": {
+    "path": "D:\\workspace\\Vocaflow-AI-Control\\runtime\\t0135-correction-20261024\\run-04\\EXECUTION.json",
+    "sha256": "6699b2922a13fe38a5f6d76c8d935e27e5f90f93a28aded55c615ae9023d3751"
+  },
+  "oldBuilder": {
+    "file": "../goal-fit/compare.mjs",
+    "sha256": "58327b9b9532ab1aaec6b9591c7bfc4380c3d71aacd510de03798c9fc97d3d21"
+  },
+  "priorExecutions": [
+    {
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/run-01/EXECUTION.json",
+      "sha256": "135fd532851653136d61b9f2d8fc125f875f61504dca799a4fa6d2e8034ecd79"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/run-02/EXECUTION.json",
+      "sha256": "7eddbecf8c0ccca98e1773ae241ab6c847539238f1f24e7d6d4c889f99ff4a27"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/run-03/EXECUTION.json",
+      "sha256": "0b784c16b289f705afe74ea36917f5ace537b4263d9f62b85f11d3034a77acd0"
+    }
+  ],
+  "finalTerminal": [
+    {
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/run-04-terminal.log",
+      "sha256": "3949b65cfd03918e3c44d6505a344e2059e750ba4194d12affc8d6cd3060c110"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/run-04-exit.txt",
+      "sha256": "13bf7b3039c63bf5a50491fa3cfd8eb4e699d1ba1436315aef9cbe5711530354"
+    }
+  ],
+  "readOnlyReproducers": [
+    {
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/source-audit.mjs",
+      "sha256": "8032f564095f4149b1c6c0cd878f62f18e3b04f86d766dcb5af78897f8f0ee06"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/make-fixture.mjs",
+      "sha256": "31358e1bd5754ba5af87d55445a6107316b9f71f005dc7ac27f49da2ad7c70fd"
+    }
+  ]
+}

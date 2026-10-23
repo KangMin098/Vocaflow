@@ -1,0 +1,95 @@
+{
+  "publisher": "한국교육과정평가원",
+  "indexUrl": "https://www.suneung.re.kr/boardCnts/list.do?boardID=1500234&m=0403&s=suneung",
+  "boardContentId": "5093799",
+  "questionUrl": "https://www.suneung.re.kr/boardCnts/fileDown.do?fileSeq=e0431cad0731556faee928fd38c81241",
+  "questionSha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+  "answerUrl": "https://www.suneung.re.kr/boardCnts/fileDown.do?fileSeq=6d7129b9f7dae9c58c6789c2b9215e48",
+  "answerSha256": "363ce5277acb4fda6a6499fc546d2bf8e51a4d584bcaa6944e4885cbe22de58d",
+  "localEvidenceRoot": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024",
+  "officialAnswers": {
+    "2026#34": 3,
+    "2026#22": 1,
+    "2026#38": 5
+  },
+  "questionPages": {
+    "2026#34": 6,
+    "2026#22": 3,
+    "2026#38": 7
+  },
+  "pageCaptures": [
+    {
+      "page": 3,
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/official-page-3.png",
+      "sha256": "1e91f1e81a034661b2ec34c305b2cefb0cfdaf222931551df853ca43e26975af"
+    },
+    {
+      "page": 6,
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/official-page-6.png",
+      "sha256": "9e8667b7c21cde05e300fe2bacf1a5146058f606fd0e7a23a9f0fad6506bcdd4"
+    },
+    {
+      "page": 7,
+      "path": "D:/workspace/Vocaflow-AI-Control/runtime/t0135-correction-20261024/official-page-7.png",
+      "sha256": "26d675a1ee98ed236878df9eac2f414c905681fbb49711cfc5d95f8470aacc43"
+    }
+  ],
+  "sentenceNumbering": "v3 1=given;2..8=body, insertion positions are separate",
+  "sentenceBindings": [
+    {
+      "sentence": 1,
+      "sha256": "b17cbe9c89f0adc28d297f488ae2554d341844c81c98eb2d138bb969edc997d9",
+      "role": "given identity generalization"
+    },
+    {
+      "sentence": 2,
+      "sha256": "4141379d80144e08373cea2093b93ca0e5f531821aa22b55fc57d277493e7d3f",
+      "role": "opening discourse"
+    },
+    {
+      "sentence": 3,
+      "sha256": "580281188c9f4cb0074a735514c66853814c11856867334980b0b8fc80c31a12",
+      "role": "opening discourse"
+    },
+    {
+      "sentence": 4,
+      "sha256": "dde55db3e9aa1796bc383cf77933367c5c4cc35e9ac3531932f82f39878e81fe",
+      "role": "general narrative formation"
+    },
+    {
+      "sentence": 5,
+      "sha256": "4683ebfd79c4d7f2dbc2de3b88162eeb92969d0055e15db2fe9485faab18c242",
+      "role": "general mechanism"
+    },
+    {
+      "sentence": 6,
+      "sha256": "6808ea1622efc9d5e9f07049f0e14004f523a452c439ed58426bb27983bea094",
+      "role": "university example"
+    },
+    {
+      "sentence": 7,
+      "sha256": "95a2276ea01722249292e4bb10095ce96294b825f380ea0f45b3c32e81903100",
+      "role": "same example continuation"
+    },
+    {
+      "sentence": 8,
+      "sha256": "797be8d2a8c903715f3727f7057e1f35e873980fbc8d0e355203eee601bde350",
+      "role": "identity example"
+    }
+  ],
+  "newShortAnchors": [
+    {
+      "sentence": 4,
+      "text": "we routinely form narratives"
+    },
+    {
+      "sentence": 5,
+      "text": "our minds seek to make sense of them by forming stories around them"
+    }
+  ],
+  "reading": "4~5의 일반 형성/작동 설명과6~7의 대학 예시가 모두 these의 앞선 담화를 이룬다.6~7이 구체 예시라는 관찰과 유일 지시 범위라는 단정은 구분한다. 뒤8은 주어진 문장의 identity와 맞물린다.",
+  "readingBasis": "AUTHOR_SOURCE_BOUND_INTERPRETATION_NOT_OFFICIAL_RATIONALE",
+  "visuallyInspected": true,
+  "sourceReader": "csat-v4-s0 / Codex root; no independent content approval",
+  "pdfFeatureValidation": false
+}

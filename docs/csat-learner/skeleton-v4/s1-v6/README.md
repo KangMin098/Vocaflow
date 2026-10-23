@@ -1,6 +1,6 @@
 # T-0131 · CSAT v6.0 S0 정정 수용 / S1 목표 적합성 설계
 
-**현재: 핵심6의 판단·탐색 설계 선정 / 독립 수용 대기, 나머지4는 증거 부족.** T-0134의 COMPLETED 및 `b7fa848fd` 결과를 보존하고 연결 후속 **T-0135**를 같은 owner·브랜치에서 수행했다. 최종 권고는 F01/F03/F05/F07 IMPROVE, F04/F08 REPLACE이며 수용 요청 범위는 정답 공개 후 부분 분석의 상호작용 계약·기본 배치다. [선정 근거·42조건·남은 검증](./selection/SELECTION.md) · [기능별 현재 결정](./selection/DECISIONS.json). 전체 S1 제품·내용·학습 효과는 NOT_ACCEPTED이고 main 통합·S2 전체 착수는 금지한다. [기존 완료 상태·커밋·S0 독립성 감사](./goal-fit/STATUS_AUDIT.md).
+**현재: T-0136 보정의 외부 ACCEPT / PARTIAL / REJECT 판정 대기.** 기존 T-0131/T-0134/T-0135 COMPLETED 및 `a6e33d1d4`까지의 제한된 수용 기록을 보존했다. [C1 원문 근거·F08 동등 비교·34통합/22회귀](./correction/CORRECTION.md) · [현재 결정 정정](./correction/DECISION_UPDATE.json). 38⑤는 원본을 보존한 version/hash/승인필수 수정 후보이며 미적용이다. F08은 동일5기능·자료·공개·강의·과업으로 비교한 결과 REPLACE 단독 최종 선정 근거가 충분하지 않아 재판단을 요청한다. F01/F03/F05/F07 IMPROVE·F04 REPLACE의 이전 한정 설계 기록과 나머지4 증거 부족은 보존한다. 전체 S1 제품·내용·학습 효과는 NOT_ACCEPTED이고 main 통합·S2 전체 착수는 금지한다. [T-0135 당시 선정](./selection/SELECTION.md) · [기존 완료 상태·S0 독립성 감사](./goal-fit/STATUS_AUDIT.md).
 
 2026-10-23. 최상위 입력: 사용자 제공 v6.0 목표 우선 기준서(파일명·SHA256은 [MANIFEST](./MANIFEST.json)). 기존 시스템 보존/재사용은 선정 기준이 아니다. O1~O7 판단 지원이 우선이고 검증된 적격 대안 사이에서만 비용을 비교한다. 이 산출물은 설계/판단 자료이며 제품 UI 구현·내용 감수·학습 효과 완료가 아니다.
 

@@ -1,0 +1,66 @@
+{
+  "id": "C1-2026-38-5",
+  "version": "1.0.0",
+  "status": "PROPOSED_NOT_APPROVED",
+  "baseCommit": "a6e33d1d4580124fc1e7c1032cb21961abf4f989",
+  "baseFile": "apps/web/src/lib/csat/inquiry-data.json",
+  "baseFileSha256": "14037f59cbbd972c20761e7bd806bedd832b2c8f987c0adf9ad679d578345534",
+  "baseItemSha256": "4e75c1f589952cbbe64d3ace90189a7e0f7c63bc35962fa00760bce16594a5c5",
+  "baseV3UnitsHash": "1f412cc306b16b62",
+  "sourceSha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+  "payload": {
+    "itemId": "2026#38",
+    "target": "inquiry.v3.choices[n=5]",
+    "expected": {
+      "n": 5,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "⑤에 넣으면 앞쪽으로는 these internal narratives we form 이 6~7번 문장에서 실제로 만들어진 서사를 받고, 뒤쪽으로는 8번 문장의 For example 이 정체성 예시(who you are as an individual)로 주어진 문장의 identity 진술을 받친다 — 두 경계가 모두 성립한다",
+      "sentences": [
+        1,
+        6,
+        7,
+        8
+      ],
+      "meaning_ids": [
+        "m1",
+        "m2",
+        "m5",
+        "m6"
+      ]
+    },
+    "proposed": {
+      "n": 5,
+      "selected_as_answer": true,
+      "content_truth": "n_a",
+      "requirement_fit": "satisfies",
+      "decisive": "⑤의 앞쪽에서 these internal narratives we form은 4~5번의 일반적인 서사 형성 설명과 이를 구체화한 6~7번 대학 사례를 함께 잇는 앞선 서사 담화를 받는다. 6~7번 사례만을 유일한 지시 대상으로 한정하지 않는다. 뒤쪽에서는 8번의 정체성 예시가 주어진 문장의 identity 진술을 구체화한다. ④에 삽입하면 6번의 대학 사례와 이를 잇는 7번의 연결을 가르므로, 앞쪽 지시만 맞는지와 뒤쪽 접합·기존 연결 보존을 함께 판단해야 한다.",
+      "sentences": [
+        1,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "meaning_ids": [
+        "m1",
+        "m2",
+        "m3",
+        "m4",
+        "m5",
+        "m6"
+      ]
+    }
+  },
+  "payloadSha256": "38353af88b9fd1e50cd6c9e26ca73316742f8248766c1abb0b8033c07fd6eda7",
+  "approval": {
+    "required": true,
+    "status": "NOT_APPROVED",
+    "appliedToOriginal": false,
+    "requiredScope": "source-bound correction content and mapping review before any product/data application"
+  },
+  "scope": "isolated proposal only; no original v3, question, lecture or DB mutation",
+  "reason": "원문4~5의 일반 설명을 근거로 포함하고6~7만을 지시 범위로 한정하는 표현을 수정한다. 경고로 감추지 않고 수정 문구와 참조 범위를 제시한다."
+}
