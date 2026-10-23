@@ -10,6 +10,7 @@
 // ⚠️ PGlite = 슈퍼유저 · 단일 연결 — 실제 RLS · 두 연결 동시성은 NOT_RUN.
 import fs from 'node:fs'
 import path from 'node:path'
+import { createHash } from 'node:crypto'
 
 import { PGlite } from '@electric-sql/pglite'
 import type { SupabaseClient } from '@supabase/supabase-js'
@@ -18,6 +19,8 @@ import { NextResponse } from 'next/server'
 import { POST as planPOST } from '@/app/api/csat/diagnosis/map/plan/route'
 import type { MapPageData } from '../../../load'
 import { composeV4 } from '../../../v4/compose'
+import { goalLearning, type GoalLearning } from '../../goal-learning'
+import { goalPlanRows } from '../../goal-plan'
 import { ranksOf } from '../../../v62/rank'
 import { nextActionOf } from '../../../v62/next-action'
 
@@ -200,7 +203,8 @@ async function world(uid: string): Promise<{ view: WorkspacePlanView; v4: V4View
   // 2D — asOf 는 원장에서(벽시계 Date.now 없음): 마지막 시도 · 원문 교수 영수증 · 설명 수신 + 1초. 원장이 비면 고정 시각
   const ledger = (await db.query<{ t: string | null }>(`select max(t) t from (select max(received_at) t from factory_dcp_attempt where user_id = $1
     union all select max(received_at) from source_lesson_reflection where user_id = $1 union all select max(answered_at) from learning_task_attempts where user_id = $1) x`, [uid])).rows[0]?.t
-  const asOf = new Date((ledger ? new Date(ledger).getTime() : Date.parse('2026-10-21T00:00:00Z')) + 1000).toISOString()
+  const goalClock = await q1<{ t: string | null }>('select max(created_at) t from csat_map_goal_version where user_id=$1', [uid])
+  const asOf = new Date(Math.max(ledger ? new Date(ledger).getTime() : 0, goalClock.t ? new Date(goalClock.t).getTime() : 0, Date.parse('2026-10-21T00:00:00Z')) + 1000).toISOString()
   const link = (d: Row) => ({ target: d.artifact_ref, href: '/csat/learn/' + d.artifact_ref.slice(9) + '?d=' + d.id, label: d.role, taskKey: KEY })
   const links = { [KEY]: check.map(link) }
   const refs = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
@@ -211,9 +215,13 @@ async function world(uid: string): Promise<{ view: WorkspacePlanView; v4: V4View
     ...(a.role === 'guided_practice' ? { repairRole: 'guided_practice' as const } : {}) })).concat(receiptActivity(receipts, authoredKeysOf, new Date(asOf)) as never[]) as PlanActivity[]
   // Only unrelated diagnosis/reference observations are synthetic. Attempts, bindings,
   // deliveries, source receipts and saved plans come from this same SQL database.
+  // Match PostgREST date/JSON transport; the shared FakeClient exposes PGlite Date objects directly.
+  const saved = await loadSavedPlans(planDb(), uid)
+  for (const g of [saved.goal, ...(saved.goalHistory ?? [])]) if (g?.date) g.date = new Date(g.date).toISOString().slice(0, 10)
+  const jsonSaved = JSON.parse(JSON.stringify(saved)) as typeof saved
   const data = {
     now: asOf,
-    model: { goal: 80, goalSet: true, currentScore: 70,
+    model: { goal: saved.goal?.score ?? 80, goalSet: true, currentScore: 70,
       nodes: Object.fromEntries(Array.from({ length: 9 }, (_, i) => ['A' + (i + 1), { achieved: [2, 5].includes(i) ? 0.2 : 0.9, points: 5, n: 10, den: 10 }])),
       lineRefItems: { B6: refs.slice(17, 24), A5: refs.slice(28, 34) } },
     settings: { default_goal: 100, reference_exams: 6, status: { near: 0.9 }, min_coverage: 0.5, goal_presets: [100,90,80,70,60], core: { weak: 0.6, watch: 0.8 } },
@@ -221,7 +229,7 @@ async function world(uid: string): Promise<{ view: WorkspacePlanView; v4: V4View
     practiceLinks: { [KEY]: { taskKey: KEY, confirm: links[KEY] } }, findAttempts: bound, lifecycleActivity: activity,
     v4: { sessions: [{ id: 'synthetic-exam-record', examId: 'E', examLabel: 'Synthetic', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }],
       proxyCovers: ['synthetic-exam-record'], refItems: refs, transferItems: { [KEY]: transfers[KEY].length }, transferTargets: transfers, repairTargets: repair,
-      saved: await loadSavedPlans(planDb(), uid), supplyLedger: {}, viewer: uid },
+      saved: jsonSaved, supplyLedger: {}, viewer: uid },
   } as unknown as MapPageData
   const v4 = composeV4(data, { score: data.model.goal, set: data.model.goalSet })!
   const view = v4.plans[TEMPLATE]!
@@ -229,6 +237,17 @@ async function world(uid: string): Promise<{ view: WorkspacePlanView; v4: V4View
   const next = nextActionOf(v4, ranksOf(v4), data.v4!.saved)
   expect(next, 'actual nextActionOf returns an executable, supply, plan or waiting action').not.toBeNull()
   return { view, v4, status: String(v4.asIs.tasks[TASK as never]?.status), data }
+}
+
+const sqlFrames: Record<string, GoalLearning> = {}
+async function exportGoalFrame(uid: string, name: string) {
+  const w = await world(uid)
+  sqlFrames[name] = goalLearning({ summary: goalPlanRows(w.v4, ranksOf(w.v4), w.data.v4!.saved), saved: w.data.v4!.saved, plans: w.v4.plans, taskPlans: w.v4.taskPlans, sessions: w.data.v4!.sessions, activity: w.data.lifecycleActivity ?? [], asOf: w.data.now! })
+  const sources = ['src/lib/csat/map/v62/goal-learning.ts', 'src/lib/csat/map/v62/goal-outcome.ts', 'src/lib/csat/map/v62/goal-schedule.ts', 'src/lib/csat/map/v62/replan.ts', 'src/lib/csat/map/v4/replan.ts', 'src/lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts', '../../supabase/migrations/20261023090000_csat_goal_budget.sql']
+  const sourceHashes = Object.fromEntries(sources.map(p => [p, createHash('sha256').update(fs.readFileSync(path.resolve(p))).digest('hex')]))
+  fs.mkdirSync(path.resolve('output'), { recursive: true })
+  fs.writeFileSync(path.resolve('output/goal-schedule-sql.json'), JSON.stringify({ schema: 'goal-learning-sql/1', sourceHashes, frames: sqlFrames }))
+  return sqlFrames[name]
 }
 
 /** Actual HTTP handler; only authentication and the SQL-backed page loader boundary are injected. */
@@ -264,7 +283,7 @@ beforeAll(async () => {
   await db.exec(I1_STUB)
   await db.exec(PRE)
   await db.exec(`alter default privileges in schema public grant all on tables to anon, authenticated, service_role`)
-  for (const s of [read('20261010180218_map_v4_plan.sql'), read('20261010181834_map_v4_plan_conflict_code.sql'),
+  for (const s of [read('20261010180218_map_v4_plan.sql'), read('20261010181834_map_v4_plan_conflict_code.sql'), read('20261023090000_csat_goal_budget.sql'),
     C_SQL, B_SQL, read('_pending_workspace_supply_i1_safety.sql'), read('_pending_workspace_supply_i1_partial.sql'),
     read('20261018120000_workspace_supply_c_annotation_binding.sql'), read('20261018120100_r5_delivery_g2_binding.sql'),
     read('20261020063000_factory_product_order_lineage_v1.sql'), GRADE_SQL, read('_pending_authored_supply.sql'),
@@ -289,7 +308,7 @@ beforeAll(async () => {
 describe('2C-1 · 실제 목표 · 첫 계획(정본 SQL)', () => {
   it('목표 RPC → 첫 계획 initial v1 — Workspace 는 계획 RPC 가 만든다', async () => {
     expect((await q1<{ f: string | null }>(`select to_regprocedure('public.learner_workspace_plan_commit(uuid,text,text[],text,jsonb,text,text,timestamptz,bigint,integer,uuid,integer)')::text f`)).f).not.toBeNull()
-    const g = await setGoal(planDb(), A, 80, key())
+    const g = await setGoal(planDb(), A, { score: 80, grade: 2, exam: 'suneung', date: '2026-11-19', budget: { weeklyMinutes: 120, dailyMinutes: null, minutesPerUnit: 10, priorities: [] }, expectedGoalVersion: null }, key())
     expect(g.mode).toBe('versioned')
     goal1 = g.goalVersionId!
     const r = await postPlan(A, request({ reason: 'initial', expectedVersion: 0, expectedGoalVersion: goal1 }))
@@ -420,6 +439,10 @@ describe('2C-3 · 같은 Workspace → 검토된 미노출 혼자 확인 2 → �
     const w = await world(A)
     expect(w.status).toBe('verified_need')
     expect(w.view.tasks.find((t) => t.task === TASK)!.stage).toBe('repair')
+    const projected = goalLearning({ summary: goalPlanRows(w.v4, ranksOf(w.v4), w.data.v4!.saved), saved: w.data.v4!.saved, plans: w.v4.plans, taskPlans: w.v4.taskPlans, sessions: w.data.v4!.sessions, activity: w.data.lifecycleActivity ?? [], asOf: w.data.now! })
+    expect(projected.revisions.find(r => r.workspace === TEMPLATE)).toMatchObject({ fromVersion: 1, goalVersion: goal1, reason: 'check_result' })
+    expect(projected.revisions.find(r => r.workspace === TEMPLATE)?.changes).toContainEqual({ task: TASK, kind: 'stage_changed', from: 'check', to: 'repair' })
+    await exportGoalFrame(A, 'sql-repair')
   })
 
   it('check_result 새 계획 v2 가 DB 에 저장된다(현재 goal · plan 기대 버전)', async () => {
@@ -438,6 +461,9 @@ describe('2C-3 · 같은 Workspace → 검토된 미노출 혼자 확인 2 → �
     // 낡은 plan 기대 버전 = conflict
     expect(await postPlan(A, request({ expectedVersion: 1, expectedGoalVersion: goal1 }))).toMatchObject({ status: 409, body: { code: 'conflict' } })
     expect(await count('public.learner_workspace_plan where workspace_id = $1', [wsA])).toBe(2)
+    const browser = await exportGoalFrame(A, 'sql-confirmed')
+    expect(browser.saved?.byTemplate[TEMPLATE].latest.version).toBe(2)
+    expect(browser.saved?.byTemplate[TEMPLATE].history.map(p => p.version)).toContain(1)
   })
 
   it('2D 같은 목표의 v2 뒤: 끝난 교수 사실은 보존(current=false · 링크 없음) · 이번 회차(확인 오답) 앞의 완료는 바로잡기 성공이 아니다', async () => {
@@ -680,9 +706,12 @@ describe('2C-3 · 같은 Workspace → 검토된 미노출 혼자 확인 2 → �
   })
 
   it('낡은 목표 = goal_changed · 새 목표로 v3 · 다른 학습자는 A 의 계획을 못 건드린다', async () => {
-    const g2 = (await setGoal(planDb(), A, 85, key())).goalVersionId!
+    const g2 = (await setGoal(planDb(), A, { score: 85, grade: 2, exam: 'suneung', date: '2026-11-19', budget: { weeklyMinutes: 60, dailyMinutes: null, minutesPerUnit: 10, priorities: [] }, expectedGoalVersion: goal1 }, key())).goalVersionId!
     const cur = (await q1<{ v: number }>(`select max(plan_version)::int v from public.learner_workspace_plan where workspace_id = $1`, [wsA])).v
     expect(await postPlan(A, request({ expectedVersion: cur, expectedGoalVersion: goal1 }))).toMatchObject({ status: 409, body: { code: 'goal_changed' } })
+    const changed = await exportGoalFrame(A, 'sql-goal-change')
+    expect(changed.revisions.find(r => r.workspace === TEMPLATE)?.reason).toBe('goal_change')
+    expect(changed.goal?.budget?.weeklyMinutes).toBe(60)
     expect(await postPlan(A, request({ reason: 'goal_change', expectedVersion: cur, expectedGoalVersion: g2 }))).toMatchObject({ status: 200, body: { version: cur + 1 } })
     expect(Number((await q1<{ g: number }>(`select goal_version_id g from public.learner_workspace_plan where workspace_id = $1 and plan_version = $2`, [wsA, cur + 1])).g)).toBe(g2)
     // B: 자기 Workspace 가 없다 — A 의 버전을 기대해도 B 의 현재(0)와 충돌

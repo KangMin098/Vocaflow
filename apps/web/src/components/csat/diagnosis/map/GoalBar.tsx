@@ -17,6 +17,7 @@ import { track } from '@/lib/analytics/client'
 import { GOAL_STRATEGY_NOTE } from '@/lib/csat/map/core'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { GOAL_EXAM_LABEL, GOAL_EXAMS, type GoalExam } from '@/lib/csat/map/v62/target-goal'
+import { DEFAULT_UNIT_MINUTES, type GoalBudget } from '@/lib/csat/map/v62/goal-budget'
 
 import s from './map.module.css'
 import { MapDialog } from './MapDialog'
@@ -24,10 +25,10 @@ import p from './popup.module.css'
 import d from './detail.module.css'
 
 /** 점수 외 목표(LM-G1.3a) — 저장된 최신 목표 이력에서만 채운다(입력 중 값은 저장 성공 전까지 「저장된 목표」가 아니다) */
-export interface GoalExtra { exam: GoalExam | null; grade: number | null; date: string | null }
+export interface GoalExtra { exam: GoalExam | null; grade: number | null; date: string | null; budget?: GoalBudget | null }
 const extraOf = (data: MapPageData): GoalExtra => {
   const g = data.v4?.target?.goal ?? null
-  return { exam: g?.exam ?? null, grade: g?.grade ?? null, date: g?.date ?? null }
+  return { exam: g?.exam ?? null, grade: g?.grade ?? null, date: g?.date ?? null, ...(g?.budget ? { budget: g.budget } : {}) }
 }
 
 export function useGoal(data: MapPageData) {
@@ -38,6 +39,7 @@ export function useGoal(data: MapPageData) {
   const goal = model.goal
   const [extra, setExtra] = useState<GoalExtra>(() => extraOf(data))
   const savedExtra = extraOf(data)
+  const savedBudgetKey = JSON.stringify(savedExtra.budget ?? null)
   const [draft, setDraft] = useState(String(model.goal))
   const [err, setErr] = useState<string | null>(null)
   const [refreshing, startTransition] = useTransition()
@@ -54,7 +56,7 @@ export function useGoal(data: MapPageData) {
   useEffect(() => {
     setExtra(savedExtra)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [savedExtra.exam, savedExtra.grade, savedExtra.date])
+  }, [savedExtra.exam, savedExtra.grade, savedExtra.date, savedBudgetKey])
 
   // 같은 목표 값의 재시도는 같은 요청 키 — 응답을 못 받고 다시 눌러도 목표 이력이 두 줄 생기지 않는다(독립 리뷰 P2)
   const attempt = useRef<{ value: string; key: string } | null>(null)
@@ -69,10 +71,11 @@ export function useGoal(data: MapPageData) {
     setDraft(String(next))
     setExtra(more)
     setSaving(true)
-    const sig = JSON.stringify([next, more.exam, more.grade, more.date])
+    const expectedGoalVersion = data.v4?.target?.goal?.id ?? null
+    const sig = JSON.stringify([next, more.exam, more.grade, more.date, more.budget ?? null, expectedGoalVersion])
     if (attempt.current?.value !== sig) attempt.current = { value: sig, key: crypto.randomUUID() }
     try {
-      const res = await fetch('/api/csat/diagnosis/map/goal', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ target: next, exam: more.exam, grade: more.grade, date: more.date, clientKey: attempt.current.key }) })
+      const res = await fetch('/api/csat/diagnosis/map/goal', { method: 'PUT', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ target: next, exam: more.exam, grade: more.grade, date: more.date, budget: more.budget ?? null, expectedGoalVersion, clientKey: attempt.current.key }) })
       if (!res.ok) throw new Error((await res.json().catch(() => ({}))).error ?? '저장하지 못했어요')
       attempt.current = null
       track({ name: 'csat_map_goal_set', props: { goal: next } })
@@ -122,9 +125,9 @@ export function GoalEditor({ data, g }: { data: MapPageData; g: GoalState }) {
           적용
         </button>
       </form>
-      {/* LM-G1.3a — 점수 외 목표는 접어 둔다(저장 · 표시 · 시험은 기준 시험 범위 계산에 쓰인다 · 등급 · 목표일은 저장 · 표시만) */}
+      {/* 목표 버전의 시험 · 목표일 · 시간 예산을 함께 저장한다. 미설치 예산은 성공으로 표시하지 않는다. */}
       <details className={s.goalMore} data-testid="goal-more">
-        <summary>시험 · 등급 · 목표일 더 정하기</summary>
+        <summary>시험 · 목표일 · 학습 시간 정하기</summary>
         <label className={s.inputWrap}>
           <span className={s.inputLabel}>목표 시험</span>
           <select className={s.input} value={g.extra.exam ?? ''} onChange={(e) => g.setExtra({ ...g.extra, exam: (e.target.value || null) as GoalExam | null })} data-testid="goal-exam">
@@ -140,16 +143,33 @@ export function GoalEditor({ data, g }: { data: MapPageData; g: GoalState }) {
           </select>
         </label>
         <label className={s.inputWrap}>
-          <span className={s.inputLabel}>목표일(선택)</span>
+          <span className={s.inputLabel}>목표일{g.extra.budget ? '(기간 계획 필수)' : '(선택)'}</span>
           <input type="date" className={s.input} value={g.extra.date ?? ''} onChange={(e) => g.setExtra({ ...g.extra, date: e.target.value || null })} data-testid="goal-date" />
         </label>
+        <label className={`${s.inputWrap} ${s.goalToggle}`}>
+          <input type="checkbox" checked={!!g.extra.budget} onChange={(e) => g.setExtra({ ...g.extra, budget: e.target.checked ? { weeklyMinutes: data.v4?.profileWeeklyMinutes ?? 300, dailyMinutes: null, minutesPerUnit: DEFAULT_UNIT_MINUTES, priorities: [] } : null })} data-testid="goal-budget-enable" />
+          <span>가능한 시간 안에서 기간 계획 만들기</span>
+        </label>
+        {g.extra.budget && <GoalBudgetEditor budget={g.extra.budget} onChange={budget => g.setExtra({ ...g.extra, budget })} />}
         <button type="button" className={s.applyBtn} disabled={g.pending} onClick={() => g.apply(Number(g.draft))} data-testid="goal-apply-all">이 목표로 저장</button>
-        <p className={s.goalNote}>시험: 분석할 기출 범위 · 등급·목표일: 저장용</p>
+        <p className={s.goalNote}>시간을 저장하면 새 목표 버전으로 계획을 다시 확인해요. 등급은 점수로 바꿔 채우지 않아요.</p>
       </details>
       {g.err && <span className={s.err} role="alert">{g.err}</span>}
       <details className={d.fold}><summary><Info size={14} aria-hidden="true" />목표 점수는 어떻게 쓰이나요?</summary><p className="break-keep">{GOAL_STRATEGY_NOTE}</p></details>
     </div>
   )
+}
+
+function GoalBudgetEditor({ budget, onChange }: { budget: GoalBudget; onChange: (budget: GoalBudget) => void }) {
+  const weekdays = ['월', '화', '수', '목', '금', '토', '일']
+  return <fieldset className={`${s.goalMore} ${s.budgetFields}`} data-testid="goal-budget-editor">
+    <legend>학습 시간 배분</legend>
+    <label className={s.inputWrap}><span className={s.inputLabel}>주간 학습 가능 시간(분, 0은 배정 없음)</span><input className={s.input} type="number" min={0} max={10080} value={budget.weeklyMinutes} onChange={e => onChange({ ...budget, weeklyMinutes: Number(e.target.value) })} data-testid="goal-weekly-minutes" /></label>
+    <label className={s.inputWrap}><span className={s.inputLabel}>문항·지문 1개에 배분할 시간(분)</span><input className={s.input} type="number" min={1} max={240} value={budget.minutesPerUnit} onChange={e => onChange({ ...budget, minutesPerUnit: Number(e.target.value) })} data-testid="goal-unit-minutes" /></label>
+    <p className={s.goalNote}>직접 조정하는 잠정 시간이에요. 학습 효과나 목표 달성까지 걸리는 시간을 예측한 값은 아니에요.</p>
+    <label className={`${s.inputWrap} ${s.goalToggle}`}><input type="checkbox" checked={!!budget.dailyMinutes} onChange={e => onChange({ ...budget, dailyMinutes: e.target.checked ? Array.from({ length: 7 }, (_, i) => Math.floor(budget.weeklyMinutes / 7) + (i < budget.weeklyMinutes % 7 ? 1 : 0)) : null })} /><span>요일별 시간 직접 정하기</span></label>
+    {budget.dailyMinutes && <div className={s.budgetDays}>{weekdays.map((day, i) => <label key={day} className={s.inputWrap}><span className={s.inputLabel}>{day}(분)</span><input className={s.input} type="number" min={0} max={1440} value={budget.dailyMinutes![i]} onChange={e => onChange({ ...budget, dailyMinutes: budget.dailyMinutes!.map((n, j) => i === j ? Number(e.target.value) : n) })} /></label>)}</div>}
+  </fieldset>
 }
 
 /** PC는 참조 모달, 작은 화면은 기존 패널. 저장 동작은 GoalEditor 한 곳에서 처리한다. */
