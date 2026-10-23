@@ -45,6 +45,8 @@ import type { SupplyLedger } from './v62/supply-ledger'
 import { compactLedger, executableTransferTargets, unexposedForAssessment, type ExposureLedger, type FqReader } from './v62/assessment-exposure'
 import { currentItemTask } from '@/lib/knowledge/item-tasks'
 import { loadExposureLedger, loadFqReader } from './v62/exposure-ledger'
+import type { FinalBindingRead } from './v62/final-assessment'
+import { loadFinalAssessment } from './v62/final-assessment-store'
 import { checkKeysOfTask, checkedTaskOfKey } from './v4/definition'
 import { authoredKeysOf } from '@/lib/knowledge/authored/tasks'
 import { isAuthoredRef } from '@/lib/knowledge/authored/authored-items'
@@ -126,6 +128,8 @@ export interface MapV4Input {
   target?: { goal: GoalVersion | null; scope: { exam: GoalExam | null; status: ScopeStatus; reason: string | null; exams: { id: string; label: string }[] } }
   /** Existing profile hours are an input hint, never an implicitly saved goal budget. */
   profileWeeklyMinutes?: number | null
+  /** Learner-declared final assessment of the current goal version (not installed · read error stay distinct from unbound). */
+  finalAssessment?: FinalBindingRead
   /** 이 화면을 보는 학습자 — 이 기기 초안을 학습자별로 나눠 두는 열쇠(다른 학습자의 초안이 섞이지 않게) */
   viewer: string
 }
@@ -383,6 +387,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   const profile = await loadLatestProfile(db, userId)
   const profileWeeklyMinutes = profile?.weekly_hours === null || profile?.weekly_hours === undefined ? null : profile.weekly_hours * 60
   const goalExam = goalVersion?.exam ?? null
+  const finalAssessment = await loadFinalAssessment(db, userId, goalVersion?.id ?? null)
   // 기준 시험 — 정답표(45문항 · 배점 합 100)가 갖춰진 시험 중 목표 시험 범위의 최근 N회. 학평 목표일 때만 교육청 회차도 읽는다
   type ExamRow = { id: string; label: string; kind: string; month: number | null; exam_year: number | null; organizer: string }
   const examRows: ExamRow[] = [
@@ -505,11 +510,15 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     raw: trendRawById.get(r.id) ?? r.raw_score, grade: r.grade, diagnosable: r.diagnosable, examReady: r.ready, examScope: r.examScope, mode: r.mode ?? null,
   }))
   const outcomeCandidate = goalVersion ? outcomeCandidateOf(goalVersion, v4Sessions.map(s => ({ ...s, examScope: s.examScope ?? null })), now.toISOString()) : null
-  if (outcomeCandidate?.mode === 'live' && outcomeCandidate.examReady && outcomeCandidate.diagnosable) {
-    const refs = Array.from({ length: 45 }, (_, i) => `${outcomeCandidate.examId}#${i + 1}`)
-    const ledger = await loadExposureLedger(db, userId, refs, { sessionId: outcomeCandidate.id, takenAt: outcomeCandidate.takenAt }).catch((): ExposureLedger => ({ status: 'error', failed: ['dx_response'] }))
+  // The bound final assessment is judged on its own date; a later record must not leave its exposure unchecked.
+  const bound = goalVersion && finalAssessment.status === 'ok' && finalAssessment.binding ? finalAssessment.binding.date : null
+  const finalCandidate = goalVersion && bound ? outcomeCandidateOf(goalVersion, v4Sessions.filter(s => s.takenAt <= bound).map(s => ({ ...s, examScope: s.examScope ?? null })), now.toISOString()) : null
+  for (const candidate of new Map([outcomeCandidate, finalCandidate].flatMap(c => c ? [[c.id, c] as const] : [])).values()) {
+    if (!(candidate.mode === 'live' && candidate.examReady && candidate.diagnosable)) continue
+    const refs = Array.from({ length: 45 }, (_, i) => `${candidate.examId}#${i + 1}`)
+    const ledger = await loadExposureLedger(db, userId, refs, { sessionId: candidate.id, takenAt: candidate.takenAt }).catch((): ExposureLedger => ({ status: 'error', failed: ['dx_response'] }))
     const exposure = unexposedForAssessment(refs, ledger)
-    const s = v4Sessions.find(s => s.id === outcomeCandidate.id)!
+    const s = v4Sessions.find(s => s.id === candidate.id)!
     s.firstExposure = exposure.exposed.length ? 'exposed' : exposure.unknown.length ? 'unknown' : 'unseen'
   }
   const records: LearnerRecord[] = trend.flatMap((t) => {
@@ -674,6 +683,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       // LM-G1.3a — 계산에 쓴 목표(저장 이력 그대로) · 목표 시험 범위와 지원 상태(미지원은 다른 시험으로 대신하지 않는다)
       target: { goal: goalVersion, scope: { exam: scope.exam, status: scope.status, reason: scope.reason, exams: selection.exams.map((e) => ({ id: e.id, label: e.label })) } },
       profileWeeklyMinutes,
+      finalAssessment,
       viewer: userId,
     },
     model: buildMapModel(raw, examLabels),

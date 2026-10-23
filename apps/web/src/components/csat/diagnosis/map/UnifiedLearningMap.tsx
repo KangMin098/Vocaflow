@@ -36,6 +36,7 @@ import type { CoreCode } from '@/lib/csat/map/core'
 import { useGoal } from './GoalBar'
 import { GoalPlanSummary } from './GoalPlanSummary'
 import { GoalSchedule } from './GoalSchedule'
+import { FinalAssessment } from './FinalAssessment'
 import { GoalOutcome } from './GoalOutcome'
 import { AXIS_ICON } from './icons'
 import { GoalRecordBar } from './GoalRecordBar'
@@ -99,7 +100,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
   const rows = useMemo(() => (view ? workspaceRows(view) : []), [view])
   const summary = useMemo(() => view && ranks ? goalPlanRows(view, ranks, data.v4?.saved) : null, [view, ranks, data.v4?.saved])
   const previousLearning = useRef<GoalLearning | null>(null)
-  const learning = useMemo(() => summary && view && data.now ? goalLearning({ summary, saved: data.v4?.saved ?? null, plans: view.plans, taskPlans: view.taskPlans, sessions: data.v4?.sessions ?? [], activity: data.lifecycleActivity ?? [], asOf: data.now, profileWeeklyMinutes: data.v4?.profileWeeklyMinutes, previous: previousLearning.current }) : null, [summary, view, data])
+  const learning = useMemo(() => summary && view && data.now ? goalLearning({ summary, saved: data.v4?.saved ?? null, plans: view.plans, taskPlans: view.taskPlans, sessions: data.v4?.sessions ?? [], activity: data.lifecycleActivity ?? [], asOf: data.now, profileWeeklyMinutes: data.v4?.profileWeeklyMinutes, finalAssessment: data.v4?.finalAssessment, previous: previousLearning.current }) : null, [summary, view, data])
   useEffect(() => { previousLearning.current = learning }, [learning])
   const ledger = useMemo(() => {
     if (!view) return null
@@ -341,6 +342,8 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
       {learning && <GoalSchedule learning={learning} past={past} onOpenWs={(id, tab) => openWs(id, null, tab)} />}
       {/* GOAL-ACHIEVEMENT 3차 — 목표 뒤 실제 시험 기록으로 목표 대비 판정(TASK 활동과 분리) */}
       <GoalOutcome outcome={learning?.outcome ?? null} past={past} />
+      {/* 최종 평가 결속 — 학습자가 정한 응시일의 목표 시험 기록 하나로만 최종 목표를 판정한다 */}
+      {!past && learning?.goal && learning.final && <FinalAssessment goal={learning.goal} final={learning.final} />}
       {!past && learning && <ReplanPanel p={learning.replan} onOpenWs={(id, tab) => openWs(id, null, tab)} />}
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
