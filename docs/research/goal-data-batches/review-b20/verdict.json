@@ -1,0 +1,177 @@
+{
+  "task_id": "T-0133",
+  "owner_id": "goal-data-independent",
+  "input": {
+    "root": "D:/workspace/Vocaflow-goal-data",
+    "revision": "00eed70e2b8e6b9195c9b9a6f52f45c1af7f8d33",
+    "base": "fa9835ed5",
+    "read_only": true
+  },
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; 모든 주장 통과 또는 결함 해소를 뜻하지 않음",
+  "skip_count": 0,
+  "acceptance": [
+    {
+      "id": 0,
+      "status": "confirmed",
+      "claim": "2014A/B 공유 문항 분모",
+      "why": "23×23 전수 해시 비교와 공유 3쌍 원문 필드 대조. 먼저 판정된 A#24/A#35만 유지, 도표 두 ID 모두 제외. 결합 706, B20 221/240 κ .859972; 지문만 같고 발문이 다르면 별개.",
+      "evidence": [
+        "scripts/research/goal-data/review-b20/deep.mjs:5",
+        "scripts/research/goal-data/review-b20/deep.mjs:31",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d2-export.mjs:104"
+      ]
+    },
+    {
+      "id": 1,
+      "status": "refuted",
+      "claim": "M1809#26 판정 논리와 원천 결손 처리",
+      "why": "양측의 언급 없음→금지 확정 논리는 반박. SOURCE_GAP_ITEMS와 D3 1문항/4오답 격리는 확인. D2 독립 평가 후보 상태는 미해소 P1. 프롬프트 탐지 효과/과잉 보고율은 실험 전 unclear.",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b20-v24/input.json:4243",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b20-v24/chunk-A-02.out.json:857",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b20-v24/chunk-B-02.out.json:845",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b20-v24-agreement.json:599",
+        "D:/workspace/Vocaflow/scripts/csat/data/columns2/M1809.txt:299",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d3-build.mjs:28"
+      ]
+    },
+    {
+      "id": 2,
+      "status": "confirmed",
+      "claim": "재조립·snapshot·선정·해시·일치·회귀",
+      "why": "4/4 임시 복사 재조립 바이트 동일, 최초 대비 9/80행 설명만 변경; 40 선정·해시·221/240·κ .859972·primary37/40·경보 없음; b2–b20 및 두 b9t 변형 validate 결함0, 격리32/32, 실행기8980aaa59 동일.",
+      "evidence": [
+        "scripts/research/goal-data/review-b20/assembly.mjs:8",
+        "scripts/research/goal-data/review-b20/supplement.mjs:13",
+        "scripts/research/goal-data/review-b20/audit.mjs:45",
+        "scripts/research/goal-data/review-b20/regression.mjs:13",
+        "scripts/research/goal-data/review-b20/supplement.mjs:11"
+      ]
+    },
+    {
+      "id": 3,
+      "status": "unclear",
+      "claim": "후보10·갈림10(주 TASK 갈림3 포함) 원문 대조",
+      "why": "후보10·갈림10 합집합18과 추가 M1809#26을 대조 완료. 정답 지지와 TASK Gold는 구별. 주 TASK 갈림3·direct/indirect·독립 적격은 사람 Gold 없이 미확정.",
+      "evidence": [
+        "scripts/research/goal-data/review-b20/row-review.md:1",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:33"
+      ]
+    },
+    {
+      "id": 4,
+      "status": "confirmed",
+      "claim": "산출·새 P0/P1·다음 배치·unclear",
+      "why": "새 P0 0/P1 1. D2 후보 격리 확인 전 다음 배치 보류. 프롬프트 개정 권고와 미확정 범위를 기록.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b20/review.md:1",
+        "docs/research/goal-data-batches/review-b20/verdict.json:1"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "B20-P1-01",
+      "priority": "P1",
+      "title": "원천 결손 M1809#26이 D2 독립 평가 후보로 남음",
+      "status": "open",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b20-v24-agreement.json:599",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d2-run.mjs:144",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b20-v24/chunk-A-02.out.json:857",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b20-v24/chunk-B-02.out.json:845"
+      ],
+      "impact": "D3 격리와 달리 D2 agreement.items_detail.use가 independent_check_candidate, 양측 eligibility가 candidate_if_unexposed다. R1 원장 보존과 후보 적격 표시는 구별해야 한다. 실제 제품 소비/DB 상태는 이번 검토에서 확인하지 않았다.",
+      "resolution": "손 판정·최초 snapshot·역사적 일치 수치는 보존하고, UUID/item_id+source hash에 결속한 source-gap 상태를 D2 후보 산출/소비에 전파해 후보 제외를 재현한다. DB 복구와 새 지문 두 트랙 재판정 뒤 새 hash에서만 격리 해제."
+    }
+  ],
+  "new_P0": 0,
+  "new_P1": 1,
+  "next_batch": {
+    "decision": "hold",
+    "condition": "B20-P1-01 D2 후보 격리 확인 뒤 연구 확대 가능; 제품 진단/Gold 승인은 아님"
+  },
+  "prompt_revision_recommendation": "정답이 요구하는 참/거짓을 지지·반박하는 명시 근거나 허용된 추론 사슬을 먼저 확인하고, 단순 미언급만으로 불일치를 확정하지 말며 근거가 부족하면 source_gap_suspected와 누락 의심 위치를 보고하되 원본 대조 전 결손 확정·자동 제외하지 않는다.",
+  "statistics": {
+    "b20": {
+      "n": 240,
+      "agree": 221,
+      "agreement": 0.9208333333333333,
+      "kappa": 0.8599723629663748
+    },
+    "primary_agree": 37,
+    "primary_n": 40,
+    "combined_items": 706,
+    "combined_atomic": {
+      "n": 5676,
+      "agree": 5106,
+      "agreement": 0.8995771670190275,
+      "kappa": 0.8070255322616028,
+      "categories": [
+        "not_applicable",
+        "indirect",
+        "direct",
+        "unknown"
+      ]
+    },
+    "b19_b20": {
+      "n": 480,
+      "agree": 445,
+      "agreement": 0.9270833333333334,
+      "kappa": 0.8700766393157371,
+      "categories": [
+        "direct",
+        "not_applicable",
+        "indirect",
+        "unknown"
+      ]
+    },
+    "b20_without_confirmed_gap": {
+      "n": 234,
+      "agree": 215,
+      "agreement": 0.9188034188034188,
+      "kappa": 0.8561165048543689,
+      "categories": [
+        "direct",
+        "not_applicable",
+        "indirect",
+        "unknown"
+      ]
+    },
+    "pooled_caveat": "heterogeneous contracts/tasks; descriptive only, not a stability/validity estimate",
+    "D3": {
+      "items": 706,
+      "items_source_gap": 7,
+      "primary_task_agree": 614,
+      "same_decision_locus": 361,
+      "wrong_options": 2824,
+      "distortion_agree": 2044,
+      "distortion_agree_source_text": 2019,
+      "wrong_options_source_text": 2796
+    }
+  },
+  "verification": {
+    "checks": 579,
+    "failed": 0,
+    "assembly_byte_equal": 4,
+    "isolated_tests": 32,
+    "local_batch_variants": 20,
+    "provenance_observed_pass": true,
+    "sample_union": 18,
+    "extra_gap_items": 1
+  },
+  "unclear": [
+    "TASK 의미와 primary Gold",
+    "프롬프트 탐지 개선량·오탐률",
+    "원문 텍스트에 없는 각주·다른 형식의 원천 결손",
+    "현재 DB·학습자 노출·제품 소비 경로",
+    "관측 세션 밖의 절대 미접근",
+    "D1 해시 snapshot 이후 미캡처 2014A 원문의 최신 DB 상태"
+  ],
+  "unrun": [
+    "DB 조회/쓰기",
+    "제품 build/E2E (연구 검토 범위 밖)",
+    "main/원격 통합 (검토 TASK submit까지)"
+  ]
+}
