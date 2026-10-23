@@ -85,6 +85,22 @@ describe('D6-02 — 경계 우회(시작 전 · 일시정지 · 끝남의 ←/�
   })
 })
 
+describe('r4 R4-02 — 강의 오류로 경로가 풀려도 감춤은 동의 전까지 남는다', () => {
+  it('재현: 감춤을 경로로만 정하면 path=null 이 되는 순간 정답이 다시 보인다', () => {
+    expect(answerWithheld({ ...until, path: null })).toBe(false)
+  })
+
+  it('감춤 선택(hideAnswer)은 경로와 따로 — 오류 뒤에도 정답 칩 · 오답 번호를 그리지 않고, 동의해야 풀린다', () => {
+    const afterError: AnswerGateState = { path: null, stopAt, consented: false, hideAnswer: true }
+    expect(answerWithheld(afterError)).toBe(true)
+    expect(dom(gateBlocks(blocks, afterError))).not.toMatch(/정답 [①-⑤]|analysis:reject:\d/)
+    expect(gatedLiveKey('analysis:answer', blocks, afterError)).toBeNull()
+    // 경로가 풀린 동안 경계 안내는 없다(받은 cue 가 없다) — 감춤만 남는다
+    expect(boundaryGate(stopAt, afterError)).toBe('ok')
+    expect(answerWithheld({ ...afterError, consented: true })).toBe(false)
+  })
+})
+
 describe('D6-03 — 건너뛰기는 공개 동의가 아니다', () => {
   it('건너뛴 뒤(동의 없음)에도 경계 뒤 이동 · 정답 블록은 그대로 막힌다', () => {
     const afterSkip: AnswerGateState = { ...until }

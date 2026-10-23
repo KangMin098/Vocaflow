@@ -19,11 +19,16 @@ export interface AnswerGateState {
   stopAt: number | null
   /** 학습자가 정답 공개에 명시적으로 동의했다 */
   consented: boolean
+  /**
+   * 학습자가 정답을 감추기로 골랐다(「정답 직접 안내 전까지」). 강의 경로와 따로 둔다 — 강의 요청이 실패해 경로가
+   * 풀려도(오류 → 다시 고르기) 감춤은 동의 전까지 그대로다(T-0140 r4 R4-02). 없으면 경로가 until 인지로 정한다.
+   */
+  hideAnswer?: boolean
 }
 
 /** 정답을 화면에서 감추는 중인가 — 「정답 직접 안내 전까지」 를 고르고 아직 동의하지 않은 동안만 */
 export function answerWithheld(s: AnswerGateState): boolean {
-  return s.path === 'until' && s.stopAt != null && !s.consented
+  return (s.hideAnswer ?? (s.path === 'until' && s.stopAt != null)) && !s.consented
 }
 
 /**
@@ -31,7 +36,7 @@ export function answerWithheld(s: AnswerGateState): boolean {
  * 경계 안내로 돌린다 — `'boundary'` 면 cursor 를 옮기지 않는다.
  */
 export function boundaryGate(index: number, s: AnswerGateState): 'boundary' | 'ok' {
-  return answerWithheld(s) && index >= (s.stopAt as number) ? 'boundary' : 'ok'
+  return answerWithheld(s) && s.path === 'until' && s.stopAt != null && index >= s.stopAt ? 'boundary' : 'ok'
 }
 
 const ANSWER_CHIP = /^정답 \S+$/

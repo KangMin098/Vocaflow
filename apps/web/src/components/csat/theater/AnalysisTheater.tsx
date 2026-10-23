@@ -833,7 +833,9 @@ export function AnalysisTheater({
   const stopAt = lectureDisclosure?.verified ? lectureDisclosure.stopBefore : null
   // 정답 공개 동의 — 경계 안내의 「계속 듣기(정답 공개)」 또는 감춘 블록의 「정답 보기」 만 켠다(건너뛰기 · 멈춤 · 키 이동은 켜지 않는다)
   const [answerConsent, setAnswerConsent] = useState(false)
-  const answerGate: AnswerGateState = { path: lecturePath, stopAt, consented: answerConsent }
+  // 정답 감춤 선택 — 「정답 직접 안내 전까지」 를 고르면 켜지고, 강의 오류로 경로가 풀려도 동의 전까지 꺼지지 않는다(r4 R4-02)
+  const [answerHide, setAnswerHide] = useState(false)
+  const answerGate: AnswerGateState = { path: lecturePath, stopAt, consented: answerConsent, hideAnswer: answerHide }
   const withheld = answerWithheld(answerGate)
   const step = steps[cursor] ?? null
   // 레일 차례는 오답 번호를 지운 키를 들고 있다(maskDisclosureSteps) — 재생 중이면 받은 cue 의 실제 대상으로 맞춘다
@@ -844,12 +846,22 @@ export function AnalysisTheater({
   const shownBlocks = gateBlocks(blocks, answerGate)
   const sceneBlocks = shownBlocks.filter((b) => sceneOfBlock(b.kind) === scene)
   const sceneChecks = checks.filter((c) => sceneOfCheck(c.kind) === scene)
+  // 동의 전 정답 · 소거를 다루는 다른 패널(판단 · 오답 설계 · 이해 확인 · 비교)도 같은 자리표시로 — 장면을 여는 것은 동의가 아니다(r4 R4-01 · R4-03)
+  const withheldPanel = (id: string, title: string) => (
+    <section key={id} className={styles.block} data-withheld="true" data-testid={`withheld-${id}`} aria-label={title}>
+      <h2>{title}</h2>
+      <p className="break-keep">「정답 직접 안내 전까지」 를 골라 정답 · 오답을 정하는 내용은 아직 감춰 두었어요.</p>
+      <button type="button" className={styles.back} onClick={() => setAnswerConsent(true)}>
+        정답 보기
+      </button>
+    </section>
+  )
   const renderBlock = (b: TheaterBlock & { withheld?: boolean }) =>
     b.withheld ? (
       <article key={b.key} data-block={b.key} data-kind={b.kind} data-withheld="true" data-live={false} className={styles.block}>
         <h2>{b.title}</h2>
         <p className="break-keep">「정답 직접 안내 전까지」 를 골라 정답을 정하는 설명은 아직 감춰 두었어요.</p>
-        <button type="button" className={styles.back} onClick={() => setAnswerConsent(true)} data-testid="answer-reveal">
+        <button type="button" className={styles.back} onClick={() => setAnswerConsent(true)}>
           정답 보기
         </button>
       </article>
@@ -905,6 +917,9 @@ export function AnalysisTheater({
     setAtBoundary(false)
     setBoundaryNote(null)
     setLecturePath(p)
+    if (p === 'until') setAnswerHide(true)
+    // 「전체(정답 포함)」 를 고른 것은 정답 공개 동의다
+    if (p === 'full') setAnswerConsent(true)
     // 경계 뒤에 서 있던 차례는 경계 앞으로 — 고른 순간 정답 블록이 강조되지 않게
     if (p === 'until' && stopAt != null && cursor >= stopAt && !playing) setCursor(Math.max(0, stopAt - 1))
     if (!lec || p === 'self') return
@@ -1441,7 +1456,8 @@ export function AnalysisTheater({
                     />
                   ) : null}
                   {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
-                  {scene === 'judgment' && v3 ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {scene === 'judgment' && v3 && withheld ? withheldPanel('judgment', '정답 판단') : null}
+                  {scene === 'judgment' && v3 && !withheld ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
                   {scene === 'design' ? (
                     <p className={styles.quiet} data-testid="design-epistemic">
                       아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
@@ -1462,17 +1478,19 @@ export function AnalysisTheater({
                     <>
                       {sceneBlocks.filter((b) => b.kind !== 'reject').map(renderBlock)}
                       <section aria-label="다른 선택지가 요구를 충족하지 못하는 조건" id="judgment-options" data-testid="judgment-options">
-                        {inquiry ? <DistractorDesign distractors={inquiry.distractors} review={inquiry.review} /> : null}
+                        {inquiry ? withheld ? withheldPanel('distractors', '오답 설계') : <DistractorDesign distractors={inquiry.distractors} review={inquiry.review} /> : null}
                         {sceneBlocks.filter((b) => b.kind === 'reject').map(renderBlock)}
                       </section>
                     </>
                   ) : (
                     sceneBlocks.map(renderBlock)
                   )}
-                  {sceneChecks.length ? (
+                  {sceneChecks.length && withheld ? withheldPanel('checks', '이해 확인') : null}
+                  {sceneChecks.length && !withheld ? (
                     <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
                   ) : null}
-                  {scene === 'compare' ? (
+                  {scene === 'compare' && withheld ? withheldPanel('compare', '기출 비교') : null}
+                  {scene === 'compare' && !withheld ? (
                     <V3CompareExplorer
                       key={`cmp-${itemId}`}
                       pairs={v3Pairs}
@@ -1490,7 +1508,7 @@ export function AnalysisTheater({
                       onFindOther={finder ? () => openFinder('compare') : undefined}
                     />
                   ) : null}
-                  {scene === 'compare' ? (
+                  {scene === 'compare' && !withheld ? (
                     comparePairs.length ? (
                       <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">
                         <p className="break-keep text-[13px] text-[var(--t2)]">아래는 v3 검수 전의 1차 비교 메모예요(문장 근거와 결속되지 않았어요).</p>
