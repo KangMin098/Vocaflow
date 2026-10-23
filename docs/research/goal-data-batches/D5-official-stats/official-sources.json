@@ -1,0 +1,178 @@
+[
+ {
+  "exam_id": null,
+  "item": "grade_cut_rule",
+  "value": "2018학년도 수능부터 영어 절대평가 · 원점수 10점 간격 고정분할 9등급(90↑=1등급 … 20 미만=9등급) · 성적표는 등급만",
+  "source_url": "https://jjan.kr/article/20151001561368",
+  "publisher": "전북일보(교육부 2015-10-01 「2018학년도 수능 기본계획」 보도)",
+  "published_at": "2015-10-01",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "1차(교육부 원문) URL 미확인 — 보도 인용. 엔진 규칙으로 쓰려면 교육부·평가원 원문 URL 확보 필요"
+ },
+ {
+  "exam_id": "M2706",
+  "item": "exam_structure",
+  "value": "2027학년도 수능 영어 45문항(듣기 17문항, 듣기 25분 이내) · 절대평가 유지",
+  "source_url": "https://www.newsis.com/view/NISX20260331_0003571273",
+  "publisher": "뉴시스(평가원 2026-03-31 시행기본계획 보도)",
+  "published_at": "2026-03-31",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2점/3점 배점·70분은 이번 조사에서 공식 URL 미확인 — 기재 안 함"
+ },
+ {
+  "exam_id": null,
+  "item": "press_release_index",
+  "value": "평가원 보도자료 게시판에 「2027학년도 수능 9월 모의평가 채점 결과 보도자료」(2026-09-28, 첨부: 보도자료 hwpx·표준점수 도수분포 xlsx·등급 구분 표준점수 xlsx) 게시 확인",
+  "source_url": "https://www.kice.re.kr/boardCnts/list.do?boardID=10024&m=050102&s=kice",
+  "publisher": "한국교육과정평가원",
+  "published_at": "2026-09-28",
+  "accessed_at": "2026-10-23",
+  "official": true,
+  "note": "채점 결과는 평가원 보도자료 첨부(hwpx·xlsx)로 발표됨. 개별 view URL은 동적이라 고정 링크 확보 실패, 첨부 수치 직접 열람 못 함"
+ },
+ {
+  "exam_id": "2026",
+  "item": "grade1_ratio",
+  "value": "3.11% (15,154명)",
+  "source_url": "https://www.newsis.com/view/NISX20251204_0003428272",
+  "publisher": "뉴시스(평가원 2025-12-04 채점 결과 발표 보도)",
+  "published_at": "2025-12-04",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "평가원 발표 인용 보도. 절대평가 도입 후 최저"
+ },
+ {
+  "exam_id": "2025",
+  "item": "grade1_ratio",
+  "value": "6.22%",
+  "source_url": "https://sgsg.hankyung.com/article/2025070479801",
+  "publisher": "한국경제 생글생글(평가원 채점 결과 인용)",
+  "published_at": "2025-07",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2차 보도 내 언급값, 평가원 원문 미대조"
+ },
+ {
+  "exam_id": "2023",
+  "item": "grade1_ratio",
+  "value": "7.83%",
+  "source_url": "https://www.newsis.com/view/NISX20251204_0003428579",
+  "publisher": "뉴시스(평가원 채점 결과 연도별 정리)",
+  "published_at": "2025-12-04",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2차 보도"
+ },
+ {
+  "exam_id": "2022",
+  "item": "grade1_ratio",
+  "value": "6.25%",
+  "source_url": "https://www.newsis.com/view/NISX20251204_0003428579",
+  "publisher": "뉴시스",
+  "published_at": "2025-12-04",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2차 보도"
+ },
+ {
+  "exam_id": "2021",
+  "item": "grade1_ratio",
+  "value": "12.66%",
+  "source_url": "https://www.newsis.com/view/NISX20251204_0003428579",
+  "publisher": "뉴시스",
+  "published_at": "2025-12-04",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2차 보도"
+ },
+ {
+  "exam_id": "2020",
+  "item": "grade1_ratio",
+  "value": "7.43%",
+  "source_url": "https://www.newsis.com/view/NISX20251204_0003428579",
+  "publisher": "뉴시스",
+  "published_at": "2025-12-04",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2차 보도"
+ },
+ {
+  "exam_id": "2019",
+  "item": "grade1_ratio",
+  "value": "5.30%",
+  "source_url": "https://www.newsis.com/view/NISX20251204_0003428579",
+  "publisher": "뉴시스",
+  "published_at": "2025-12-04",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2차 보도"
+ },
+ {
+  "exam_id": "2018",
+  "item": "grade1_ratio",
+  "value": "10.03%",
+  "source_url": "https://www.newsis.com/view/NISX20251204_0003428579",
+  "publisher": "뉴시스",
+  "published_at": "2025-12-04",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2차 보도"
+ },
+ {
+  "exam_id": "M2706",
+  "item": "grade1_ratio",
+  "value": "4.13% (16,979명)",
+  "source_url": "https://mobile.newsis.com/view/NISX20260630_0003689066",
+  "publisher": "뉴시스(평가원 6월 모평 채점 결과 보도)",
+  "published_at": "2026-06-30",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "2차 보도"
+ },
+ {
+  "exam_id": "M2709",
+  "item": "grade1_ratio",
+  "value": "15.54%",
+  "source_url": "https://biz.sbs.co.kr/amp/article/20000337009",
+  "publisher": "SBS Biz(평가원 9월 모평 채점 결과 보도)",
+  "published_at": "2026-09-28",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "DB 에 M2709 시험 없음(참고값)"
+ },
+ {
+  "exam_id": "M2609",
+  "item": "grade1_ratio",
+  "value": "4.50%",
+  "source_url": "https://sanedu.com/?p=38208",
+  "publisher": "sanedu 입시리포트(사설)",
+  "published_at": "2026-09",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "사설 분석 자료 내 비교값 — 언론/평가원 대조 필요"
+ },
+ {
+  "exam_id": null,
+  "item": "item_error_rate",
+  "value": "평가원은 문항별 정답률·오답률·변별도를 공개하지 않음(교육부 장관: 공개 시 부작용 우려, 추후 논의)",
+  "source_url": "https://www.newsis.com/view/NISX20231207_0002550465",
+  "publisher": "뉴시스",
+  "published_at": "2023-12-07",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "공개 여부의 이후 변화는 확인 못 함. 이투데이 킬러문항 공개 시 오답률 비공개 논란: https://www.etoday.co.kr/news/view/2260404"
+ },
+ {
+  "exam_id": null,
+  "item": "hakpyeong_grade_cut",
+  "value": "학평은 시도교육청 주관(예: 2026-10 고3 서울시교육청, 고1·2 경기도교육청). 공식 등급컷·문항 통계 공개 URL 은 찾지 못함 — 유통되는 등급컷·정답률은 사설(메가스터디·이투스·EBSi 예측)",
+  "source_url": "https://www.wikitree.co.kr/articles/1167555",
+  "publisher": "위키트리",
+  "published_at": "2026-10",
+  "accessed_at": "2026-10-23",
+  "official": false,
+  "note": "공식 공개 범위 미확인"
+ }
+]

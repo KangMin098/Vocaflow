@@ -1,0 +1,1109 @@
+{
+ "generated_at": "2026-10-23",
+ "note": "DB 쓰기용 SQL 아님. official 칸은 1차 출처 URL 확인 값만.",
+ "counts": {
+  "unfillable": 124,
+  "candidate_needs_primary": 10
+ },
+ "columns": {
+  "official_grade1_ratio": "1차 출처 확인값 0건",
+  "official_stats_source": "평가원 보도자료 게시판(목록 URL)만 확인"
+ },
+ "item_level_columns": {
+  "official_error_rate": "채울 수 없음 — 평가원 문항별 정답률 비공개"
+ },
+ "exams": [
+  {
+   "exam_id": "H1803G1",
+   "label": "2018년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1803G2",
+   "label": "2018년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1803G3",
+   "label": "2018년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1804G3",
+   "label": "2018년 4월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1806G1",
+   "label": "2018년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1806G2",
+   "label": "2018년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1807G3",
+   "label": "2018년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1809G1",
+   "label": "2018년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1809G2",
+   "label": "2018년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1810G3",
+   "label": "2018년 10월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "M2706",
+   "label": "2027학년도 6월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "4.13% (16,979명)",
+   "candidate_source": "https://mobile.newsis.com/view/NISX20260630_0003689066",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "M2609",
+   "label": "2026학년도 9월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "4.50%",
+   "candidate_source": "https://sanedu.com/?p=38208",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "M2606",
+   "label": "2026학년도 6월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2009",
+   "label": "2020학년도 9월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "2014A",
+   "label": "2014학년도 수능 A형",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "절대평가 이전(상대평가) 시험 — 1등급 비율 개념이 다름(약 4%)"
+  },
+  {
+   "exam_id": "2014B",
+   "label": "2014학년도 수능 B형",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "절대평가 이전(상대평가) 시험 — 1등급 비율 개념이 다름(약 4%)"
+  },
+  {
+   "exam_id": "2015",
+   "label": "2015학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "절대평가 이전(상대평가) 시험 — 1등급 비율 개념이 다름(약 4%)"
+  },
+  {
+   "exam_id": "2016",
+   "label": "2016학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "절대평가 이전(상대평가) 시험 — 1등급 비율 개념이 다름(약 4%)"
+  },
+  {
+   "exam_id": "2017",
+   "label": "2017학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "절대평가 이전(상대평가) 시험 — 1등급 비율 개념이 다름(약 4%)"
+  },
+  {
+   "exam_id": "2018",
+   "label": "2018학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "10.03%",
+   "candidate_source": "https://www.newsis.com/view/NISX20251204_0003428579",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "2019",
+   "label": "2019학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "5.30%",
+   "candidate_source": "https://www.newsis.com/view/NISX20251204_0003428579",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "2020",
+   "label": "2020학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "7.43%",
+   "candidate_source": "https://www.newsis.com/view/NISX20251204_0003428579",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "2021",
+   "label": "2021학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "12.66%",
+   "candidate_source": "https://www.newsis.com/view/NISX20251204_0003428579",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "2022",
+   "label": "2022학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "6.25%",
+   "candidate_source": "https://www.newsis.com/view/NISX20251204_0003428579",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "M2506",
+   "label": "2025학년도 6월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2509",
+   "label": "2025학년도 9월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2409",
+   "label": "2024학년도 9월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "2026",
+   "label": "2026학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "3.11% (15,154명)",
+   "candidate_source": "https://www.newsis.com/view/NISX20251204_0003428272",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "H1811G1",
+   "label": "2018년 11월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1811G2",
+   "label": "2018년 11월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1903G1",
+   "label": "2019년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1903G2",
+   "label": "2019년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1903G3",
+   "label": "2019년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1904G3",
+   "label": "2019년 4월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1906G1",
+   "label": "2019년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1906G2",
+   "label": "2019년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1907G3",
+   "label": "2019년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1909G1",
+   "label": "2019년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1909G2",
+   "label": "2019년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1910G3",
+   "label": "2019년 10월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1911G1",
+   "label": "2019년 11월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H1911G2",
+   "label": "2019년 11월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2003G1",
+   "label": "2020년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "2023",
+   "label": "2023학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "7.83%",
+   "candidate_source": "https://www.newsis.com/view/NISX20251204_0003428579",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "2024",
+   "label": "2024학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "2025",
+   "label": "2025학년도 수능",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "candidate_needs_primary",
+   "candidate_value": "6.22%",
+   "candidate_source": "https://sgsg.hankyung.com/article/2025070479801",
+   "reason": "보도·사설 인용값뿐 — 평가원 보도자료 첨부(xlsx) 원문 대조 전에는 official 칸에 넣지 않음"
+  },
+  {
+   "exam_id": "M1809",
+   "label": "2018학년도 9월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2006",
+   "label": "2020학년도 6월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2106",
+   "label": "2021학년도 6월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2109",
+   "label": "2021학년도 9월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2206",
+   "label": "2022학년도 6월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2209",
+   "label": "2022학년도 9월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2306",
+   "label": "2023학년도 6월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2309",
+   "label": "2023학년도 9월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "M2406",
+   "label": "2024학년도 6월 모의평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "공식·보도 값 모두 이번 조사에서 미확보"
+  },
+  {
+   "exam_id": "H2309G1",
+   "label": "2023년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2309G2",
+   "label": "2023년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2310G3",
+   "label": "2023년 10월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2311G1",
+   "label": "2023년 11월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2311G2",
+   "label": "2023년 11월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2403G1",
+   "label": "2024년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2403G2",
+   "label": "2024년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2403G3",
+   "label": "2024년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2404G3",
+   "label": "2024년 4월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2406G1",
+   "label": "2024년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2406G2",
+   "label": "2024년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2003G2",
+   "label": "2020년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2003G3",
+   "label": "2020년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2006G1",
+   "label": "2020년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2006G2",
+   "label": "2020년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2007G3",
+   "label": "2020년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2009G1",
+   "label": "2020년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2009G2",
+   "label": "2020년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2010G3",
+   "label": "2020년 10월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2011G1",
+   "label": "2020년 11월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2011G2",
+   "label": "2020년 11월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2103G1",
+   "label": "2021년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2103G2",
+   "label": "2021년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2103G3",
+   "label": "2021년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2104G3",
+   "label": "2021년 4월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2106G1",
+   "label": "2021년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2106G2",
+   "label": "2021년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2107G3",
+   "label": "2021년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2109G1",
+   "label": "2021년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2109G2",
+   "label": "2021년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2110G3",
+   "label": "2021년 10월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2111G1",
+   "label": "2021년 11월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2111G2",
+   "label": "2021년 11월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2203G1",
+   "label": "2022년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2203G2",
+   "label": "2022년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2203G3",
+   "label": "2022년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2204G3",
+   "label": "2022년 4월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2206G1",
+   "label": "2022년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2206G2",
+   "label": "2022년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2207G3",
+   "label": "2022년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2209G1",
+   "label": "2022년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2209G2",
+   "label": "2022년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2210G3",
+   "label": "2022년 10월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2211G1",
+   "label": "2022년 11월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2211G2",
+   "label": "2022년 11월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2303G1",
+   "label": "2023년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2303G2",
+   "label": "2023년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2303G3",
+   "label": "2023년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2304G3",
+   "label": "2023년 4월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2306G1",
+   "label": "2023년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2306G2",
+   "label": "2023년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2307G3",
+   "label": "2023년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2407G3",
+   "label": "2024년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2409G1",
+   "label": "2024년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2409G2",
+   "label": "2024년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2410G1",
+   "label": "2024년 10월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2410G2",
+   "label": "2024년 10월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2410G3",
+   "label": "2024년 10월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2503G1",
+   "label": "2025년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2503G2",
+   "label": "2025년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2503G3",
+   "label": "2025년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2505G3",
+   "label": "2025년 5월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2506G1",
+   "label": "2025년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2506G2",
+   "label": "2025년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2507G3",
+   "label": "2025년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2509G1",
+   "label": "2025년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2509G2",
+   "label": "2025년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2510G1",
+   "label": "2025년 10월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2510G2",
+   "label": "2025년 10월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2510G3",
+   "label": "2025년 10월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2603G1",
+   "label": "2026년 3월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2603G2",
+   "label": "2026년 3월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2603G3",
+   "label": "2026년 3월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2605G3",
+   "label": "2026년 5월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2606G1",
+   "label": "2026년 6월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2606G2",
+   "label": "2026년 6월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2607G3",
+   "label": "2026년 7월 고3 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2609G1",
+   "label": "2026년 9월 고1 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  },
+  {
+   "exam_id": "H2609G2",
+   "label": "2026년 9월 고2 학력평가",
+   "official_grade1_ratio": null,
+   "official_stats_source": null,
+   "status": "unfillable",
+   "reason": "학평: 교육청 공식 등급별 비율 공개 URL 미확인"
+  }
+ ]
+}
