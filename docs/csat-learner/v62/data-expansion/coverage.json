@@ -1,0 +1,767 @@
+{
+ "generated_by": "scripts/csat/map/v62/data/coverage-audit.mts",
+ "generated_at": "2026-10-23T02:26:01.090Z",
+ "note": "읽기 전용 실측. 원천 · 문항 · 분석 · 검수 · 출시는 다른 상태다. 분석 published 는 v3 드레인 AI 분석의 공개 상태이며 사람 검수 · Gold 가 아니다.",
+ "totals": {
+  "exams": 134,
+  "items": 3714,
+  "analysis_latest": 3595,
+  "attr_reviewed_items": 140,
+  "trap_items": 847,
+  "unit_items": 2912
+ },
+ "groups": {
+  "edu_office/hakpyeong/g1": {
+   "exams": 35,
+   "years": "2018–2026",
+   "with_answer_key_flag": 35,
+   "dx_answer_key_exams": 35,
+   "diagnosis_ready": 0,
+   "held": 0,
+   "official_stats": 0,
+   "items": 980,
+   "items_answer": 980,
+   "items_body_ok": 848,
+   "items_official_error_rate": 0,
+   "analysis_published": 868,
+   "analysis_in_review": 65,
+   "analysis_none": 47,
+   "attr_reviewed": 0,
+   "attr_unreviewed_only": 968,
+   "traps": 1,
+   "units": 980
+  },
+  "edu_office/hakpyeong/g2": {
+   "exams": 35,
+   "years": "2018–2026",
+   "with_answer_key_flag": 35,
+   "dx_answer_key_exams": 35,
+   "diagnosis_ready": 0,
+   "held": 0,
+   "official_stats": 0,
+   "items": 980,
+   "items_answer": 980,
+   "items_body_ok": 865,
+   "items_official_error_rate": 0,
+   "analysis_published": 877,
+   "analysis_in_review": 65,
+   "analysis_none": 38,
+   "attr_reviewed": 0,
+   "attr_unreviewed_only": 977,
+   "traps": 0,
+   "units": 980
+  },
+  "edu_office/hakpyeong/g3": {
+   "exams": 34,
+   "years": "2018–2026",
+   "with_answer_key_flag": 34,
+   "dx_answer_key_exams": 34,
+   "diagnosis_ready": 0,
+   "held": 0,
+   "official_stats": 0,
+   "items": 952,
+   "items_answer": 952,
+   "items_body_ok": 841,
+   "items_official_error_rate": 0,
+   "analysis_published": 862,
+   "analysis_in_review": 56,
+   "analysis_none": 34,
+   "attr_reviewed": 0,
+   "attr_unreviewed_only": 951,
+   "traps": 44,
+   "units": 952
+  },
+  "kice/mock/g3": {
+   "exams": 16,
+   "years": "2017–2026",
+   "with_answer_key_flag": 15,
+   "dx_answer_key_exams": 15,
+   "diagnosis_ready": 4,
+   "held": 0,
+   "official_stats": 0,
+   "items": 420,
+   "items_answer": 420,
+   "items_body_ok": 420,
+   "items_official_error_rate": 0,
+   "analysis_published": 420,
+   "analysis_in_review": 0,
+   "analysis_none": 0,
+   "attr_reviewed": 112,
+   "attr_unreviewed_only": 308,
+   "traps": 420,
+   "units": 0
+  },
+  "kice/suneung/g3": {
+   "exams": 14,
+   "years": "2013–2025",
+   "with_answer_key_flag": 14,
+   "dx_answer_key_exams": 12,
+   "diagnosis_ready": 1,
+   "held": 0,
+   "official_stats": 0,
+   "items": 382,
+   "items_answer": 382,
+   "items_body_ok": 382,
+   "items_official_error_rate": 0,
+   "analysis_published": 382,
+   "analysis_in_review": 0,
+   "analysis_none": 0,
+   "attr_reviewed": 28,
+   "attr_unreviewed_only": 354,
+   "traps": 382,
+   "units": 0
+  }
+ },
+ "integrity": {
+  "item_count_mismatch": [],
+  "exams_without_items": [
+   "M2009"
+  ],
+  "answer_flag_without_items_answer": [],
+  "answer_out_of_range": [],
+  "duplicate_no": [],
+  "cross_exam_duplicate_passages": [
+   [
+    "2014A#32",
+    "2014B#29"
+   ],
+   [
+    "2014A#24",
+    "2014B#23"
+   ],
+   [
+    "2014A#35",
+    "2014B#31"
+   ]
+  ],
+  "held_check": "ok"
+ },
+ "tasks": {
+  "non_held": 21,
+  "held": 9,
+  "rows": [
+   {
+    "id": "v.core_meaning",
+    "display": "V1",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "v.contextual_sense",
+    "display": "V2",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "v-contextual-sense.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "v.multiword",
+    "display": "V3",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "v-multiword.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "v.semantic_relation",
+    "display": "V4",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "v-semantic-relation.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "s.sentence_core",
+    "display": "S1",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "s-sentence-core.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "s.chunk_boundary",
+    "display": "S2",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "s-chunk-boundary.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "s.attachment",
+    "display": "S3",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "s-attachment.v1.json"
+    ],
+    "authored_items": 6
+   },
+   {
+    "id": "s.structural_relation",
+    "display": "S4",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "s-structural-relation.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "s.form_scope",
+    "display": "S5",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "s-form-scope.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "s.o.sentence_meaning_model",
+    "display": "S-O1",
+    "kind": "integrated",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "r.reference",
+    "display": "R1",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "ready",
+    "authored_sets": [
+     "r-reference.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "r.relation",
+    "display": "R2",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "ready",
+    "authored_sets": [
+     "r-relation.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "r.discourse_function",
+    "display": "R3",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "live",
+    "authored_sets": [
+     "r-discourse-function.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "r.discourse_structure",
+    "display": "R4",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "live",
+    "authored_sets": [
+     "r-discourse-structure.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "r.central_meaning",
+    "display": "R5",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "live",
+    "authored_sets": [
+     "r5-central-meaning.v1.json",
+     "r5-cycle-supplement.v1.json",
+     "r5-cycle-supplement.v2.json"
+    ],
+    "authored_items": 17
+   },
+   {
+    "id": "r.inference",
+    "display": "R6",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "r-inference.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "r.o.global_meaning_model",
+    "display": "R-O1",
+    "kind": "integrated",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "e.task_demand",
+    "display": "E1",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [
+     "e-task-demand.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "e.evidence_location",
+    "display": "E2",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "live",
+    "authored_sets": [
+     "e-evidence-location.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "e.option_correspondence",
+    "display": "E3",
+    "kind": "atomic",
+    "status": "canon_candidate",
+    "direct_check": "live",
+    "authored_sets": [
+     "e-option-correspondence.v1.json"
+    ],
+    "authored_items": 9
+   },
+   {
+    "id": "e.o.final_judgment",
+    "display": "E-O1",
+    "kind": "integrated",
+    "status": "canon_candidate",
+    "direct_check": "content_needed",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "l.sound",
+    "display": "L1",
+    "kind": "atomic",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "l.sentence",
+    "display": "L2",
+    "kind": "atomic",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "l.retain",
+    "display": "L3",
+    "kind": "atomic",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "l.respond",
+    "display": "L4",
+    "kind": "atomic",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "x.time_allocation",
+    "display": "X1",
+    "kind": "atomic",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "x.sequence",
+    "display": "X2",
+    "kind": "atomic",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "x.recovery_adaptation",
+    "display": "X3",
+    "kind": "atomic",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "x.attention_stamina",
+    "display": "X4",
+    "kind": "atomic",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   },
+   {
+    "id": "x.o.whole_test_stability",
+    "display": "X-O1",
+    "kind": "integrated",
+    "status": "hold",
+    "direct_check": "blocked",
+    "authored_sets": [],
+    "authored_items": 0
+   }
+  ]
+ },
+ "authored": {
+  "files": 20,
+  "items": 158,
+  "rows": [
+   {
+    "file": "e-evidence-location.v1.json",
+    "task": "e.evidence_location",
+    "revision": "e-evidence-location.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe"
+   },
+   {
+    "file": "e-option-correspondence.v1.json",
+    "task": "e.option_correspondence",
+    "revision": "e-option-correspondence.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f"
+   },
+   {
+    "file": "e-task-demand.v1.json",
+    "task": "e.task_demand",
+    "revision": "e-task-demand.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda"
+   },
+   {
+    "file": "r-discourse-function.v1.json",
+    "task": "r.discourse_function",
+    "revision": "r-discourse-function.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083"
+   },
+   {
+    "file": "r-discourse-structure.v1.json",
+    "task": "r.discourse_structure",
+    "revision": "r-discourse-structure.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e"
+   },
+   {
+    "file": "r-inference.v1.json",
+    "task": "r.inference",
+    "revision": "r-inference.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d"
+   },
+   {
+    "file": "r-reference.v1.json",
+    "task": "r.reference",
+    "revision": "r-reference.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf"
+   },
+   {
+    "file": "r-relation.v1.json",
+    "task": "r.relation",
+    "revision": "r-relation.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0"
+   },
+   {
+    "file": "r5-central-meaning.v1.json",
+    "task": "r.central_meaning",
+    "revision": "r5-central-meaning.v3",
+    "items": 11,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 2,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 2
+    },
+    "sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846"
+   },
+   {
+    "file": "r5-cycle-supplement.v1.json",
+    "task": "r.central_meaning",
+    "revision": "r5-central-meaning-cycle.v1",
+    "items": 3,
+    "roles": {
+     "independent_check": 2,
+     "transfer": 1
+    },
+    "sha256": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74"
+   },
+   {
+    "file": "r5-cycle-supplement.v2.json",
+    "task": "r.central_meaning",
+    "revision": "r5-central-meaning-cycle.v2",
+    "items": 3,
+    "roles": {
+     "independent_check": 2,
+     "transfer": 1
+    },
+    "sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c"
+   },
+   {
+    "file": "s-attachment.v1.json",
+    "task": "s.attachment",
+    "revision": "s-attachment.v1",
+    "items": 6,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 2,
+     "transfer": 1,
+     "delayed_check": 1
+    },
+    "sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40"
+   },
+   {
+    "file": "s-chunk-boundary.v1.json",
+    "task": "s.chunk_boundary",
+    "revision": "s-chunk-boundary.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de"
+   },
+   {
+    "file": "s-form-scope.v1.json",
+    "task": "s.form_scope",
+    "revision": "s-form-scope.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604"
+   },
+   {
+    "file": "s-sentence-core.v1.json",
+    "task": "s.sentence_core",
+    "revision": "s-sentence-core.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9"
+   },
+   {
+    "file": "s-structural-relation.v1.json",
+    "task": "s.structural_relation",
+    "revision": "s-structural-relation.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c"
+   },
+   {
+    "file": "source-lesson-title-route.v3.json",
+    "task": null,
+    "revision": 3,
+    "items": 0,
+    "roles": {},
+    "sha256": "0b653454bfea053f0523cee1647de1eb97ad5038661bd2fac49162336db0c7f0"
+   },
+   {
+    "file": "v-contextual-sense.v1.json",
+    "task": "v.contextual_sense",
+    "revision": "v-contextual-sense.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb"
+   },
+   {
+    "file": "v-multiword.v1.json",
+    "task": "v.multiword",
+    "revision": "v-multiword.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6"
+   },
+   {
+    "file": "v-semantic-relation.v1.json",
+    "task": "v.semantic_relation",
+    "revision": "v-semantic-relation.v1",
+    "items": 9,
+    "roles": {
+     "model_explanation": 1,
+     "guided_practice": 1,
+     "independent_check": 4,
+     "transfer": 2,
+     "delayed_check": 1
+    },
+    "sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358"
+   }
+  ]
+ },
+ "supply_ledger": {
+  "authored_item": {
+   "n": 0,
+   "error": null
+  },
+  "content_qualification": {
+   "n": 0,
+   "error": null
+  },
+  "content_release_approval": {
+   "n": 0,
+   "error": null
+  },
+  "content_release_revocation": {
+   "n": 0,
+   "error": null
+  },
+  "workspace_content_delivery": {
+   "n": 0,
+   "error": null
+  },
+  "workspace_delivery_attempt": {
+   "n": 0,
+   "error": null
+  },
+  "learning_task_attempts": {
+   "n": 129,
+   "error": null
+  },
+  "csat_map_goal_version": {
+   "n": 2,
+   "error": null
+  },
+  "csat_session_attempts": {
+   "n": 1,
+   "error": null
+  },
+  "csat_item_response_stats": {
+   "n": 5715,
+   "error": null
+  }
+ }
+}
