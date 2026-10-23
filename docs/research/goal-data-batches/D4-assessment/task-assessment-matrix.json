@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T02:41:55.803Z",
-  "input_head": "791ee473e2173cacd3d2d98932d280fce317274c",
+  "generated_at": "2026-10-23T03:49:07.105Z",
+  "input_head": "80fa4454023c6b7086ac5cf4d7c12d459d26b0a0",
   "generator": "docs/research/goal-data-batches/D4-assessment/_compute.mjs",
   "input_sha256": {
     "docs/csat-learner/v4/codebook.json": "e53141985380c410be02cc8cf84e204479f075520b92448a40dde366551c1c6a",
@@ -403,7 +403,7 @@
       "assessment_class": {
         "code": "human_gate",
         "label": "사람 Gold·권리 승인 대기",
-        "reason": "형식 충족 · 근거는 창작 세트뿐(정본 확인 키 없음, ws.option-match 에서는 보조 TASK 라 판정 안 받음)",
+        "reason": "[Codex unclear: 현재 납품·승인 상태 미조회] 형식 충족 · 근거는 창작 세트뿐(정본 확인 키 없음, ws.option-match 에서는 보조 TASK 라 판정 안 받음)",
         "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
         "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
       },
@@ -412,7 +412,7 @@
         "q2_measurable": "equivalence 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
         "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「재진술 쌍을 가려낸다」",
         "q4_unverified": [
-          "형식 충족 · 근거는 창작 세트뿐(정본 확인 키 없음, ws.option-match 에서는 보조 TASK 라 판정 안 받음)",
+          "[Codex unclear: 현재 납품·승인 상태 미조회] 형식 충족 · 근거는 창작 세트뿐(정본 확인 키 없음, ws.option-match 에서는 보조 TASK 라 판정 안 받음)",
           "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
           "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
         ],
@@ -1108,9 +1108,9 @@
       ],
       "aux_in_templates": [],
       "assessment_class": {
-        "code": "assessable",
-        "label": "실제 평가 가능",
-        "reason": "형식 충족 + 정본 확인 키 cohesion-link",
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "정본 확인 키 cohesion-link 는 지시 대상 문장+순서를 채점 — 정본의 관계 종류+근거 단서를 받지 않는다(Codex T-0088 refuted · cohesion-link.ts:74)",
         "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
         "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
       },
@@ -1119,7 +1119,7 @@
         "q2_measurable": "sentence_relation 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7) + 정본 확인 키 cohesion-link",
         "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「facet 별 막대 없음 — 관찰 근거 내역만」",
         "q4_unverified": [
-          "형식 충족 + 정본 확인 키 cohesion-link",
+          "정본 확인 키 cohesion-link 는 지시 대상 문장+순서를 채점 — 정본의 관계 종류+근거 단서를 받지 않는다(Codex T-0088 refuted · cohesion-link.ts:74)",
           "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
           "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
         ],
@@ -1506,7 +1506,7 @@
       "assessment_class": {
         "code": "human_gate",
         "label": "사람 Gold·권리 승인 대기",
-        "reason": "형식 충족 · 근거는 창작 세트뿐(ws.inference 는 content_keys 비어 있음)",
+        "reason": "[Codex unclear: 현재 납품·승인 상태 미조회] 형식 충족 · 근거는 창작 세트뿐(ws.inference 는 content_keys 비어 있음)",
         "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
         "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
       },
@@ -1515,7 +1515,7 @@
         "q2_measurable": "choice_evidence 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
         "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「근거 없는 추론은 실패」",
         "q4_unverified": [
-          "형식 충족 · 근거는 창작 세트뿐(ws.inference 는 content_keys 비어 있음)",
+          "[Codex unclear: 현재 납품·승인 상태 미조회] 형식 충족 · 근거는 창작 세트뿐(ws.inference 는 content_keys 비어 있음)",
           "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
           "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
         ],
@@ -1839,9 +1839,9 @@
       ],
       "aux_in_templates": [],
       "assessment_class": {
-        "code": "assessable",
-        "label": "실제 평가 가능",
-        "reason": "형식 충족 + 정본 확인 키 option-restate",
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "option-restate 에서 함정 선택도 isCorrect=false 라 공통 2실패가 약함을 확정할 수 있다 — 정본 「함정 선택만으로 약함 판정 금지」와 충돌(Codex T-0088 refuted · evidence-locate.ts:104)",
         "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
         "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
       },
@@ -1850,7 +1850,7 @@
         "q2_measurable": "option_correspondence 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7) + 정본 확인 키 option-restate",
         "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「facet 별 막대 없음 · 함정 선택만으로 약함 판정 금지」",
         "q4_unverified": [
-          "형식 충족 + 정본 확인 키 option-restate",
+          "option-restate 에서 함정 선택도 isCorrect=false 라 공통 2실패가 약함을 확정할 수 있다 — 정본 「함정 선택만으로 약함 판정 금지」와 충돌(Codex T-0088 refuted · evidence-locate.ts:104)",
           "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
           "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
         ],
@@ -1928,10 +1928,10 @@
       "human_gate": "사람 Gold·권리 승인 대기"
     },
     "counts": {
-      "assessable": 2,
+      "assessable": 0,
       "partial": 3,
       "tool_missing": 4,
-      "criterion_unverified": 10,
+      "criterion_unverified": 12,
       "human_gate": 2
     },
     "code_refs": {
