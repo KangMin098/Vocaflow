@@ -22,7 +22,7 @@ export const DOCK_GROUPS: readonly DockGroup[] = [
   { id: 'understand', label: '원문 이해', scenes: ['task', 'meaning'], lead: 'meaning' },
   { id: 'design', label: '문항 설계', scenes: ['judgment', 'design'], lead: 'judgment' },
   { id: 'transfer', label: '비교와 원리', scenes: ['compare', 'principle'], lead: 'compare' },
-  { id: 'explain', label: '내 설명', scenes: ['explain'], lead: 'explain' },
+  { id: 'explain', label: '학습 정리', scenes: ['explain'], lead: 'explain' },
 ]
 
 export function groupOf(scene: SceneId): DockGroup {

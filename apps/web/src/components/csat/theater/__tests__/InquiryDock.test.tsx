@@ -13,11 +13,12 @@ describe('InquiryDock', () => {
     const h = html('task')
     expect(h.match(/data-testid="dock-group"/g)).toHaveLength(4)
     expect(h.match(/data-testid="dock-scene"/g)).toHaveLength(7)
-    for (const name of ['원문 이해', '문항 설계', '비교와 원리', '내 설명']) expect(h).toContain(name)
+    for (const name of ['원문 이해', '문항 설계', '비교와 원리', '학습 정리']) expect(h).toContain(name)
+    expect(h).not.toContain('내 설명')
   })
   it('아이콘마다 접근 이름(aria-label)과 보이는 이름 툴팁이 있다', () => {
     const h = html('task')
-    for (const name of ['평가 과제', '원문 이해', '문항 성립', '설계 재구성', '기출 비교', '조건부 원리', '내 설명']) expect(h).toContain(`aria-label="${name}"`)
+    for (const name of ['평가 과제', '원문 이해', '문항 성립', '설계 재구성', '기출 비교', '조건부 원리', '학습 정리']) expect(h).toContain(`aria-label="${name}"`)
     expect(h.match(/class="[^"]*dockTip/g)).toHaveLength(7)
   })
   it('버튼 안에 버튼이 없다(제목과 아이콘은 형제)', () => {

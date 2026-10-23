@@ -1,10 +1,11 @@
 // apps/web/src/components/csat/factory/SourceLessonPanel.tsx
 //
-// 단계 2B — 한 원문 요지 → 제목 → 주제 안내 연습의 자기 설명 칸. FactoryDcpRunner 가 풀이가 **실제로 저장된 뒤**(영수증 id 가 있을 때)만 연다.
-//   · 요지: 저장된 풀이 뒤 GET 으로 시범을 받아 보여 주고(답변 전에는 받지 않는다), 주장 · 근거 · 관계와 「내 첫 답과 시범의 차이」를 쓴다.
-//   · 제목: 시범 없이 cue(답변 전부터 보인 것)만 · 주제: 새 단서 없이 자기 절차까지 쓴다.
-//   · 저장: 같은 본문 재시도 = 같은 키, 내용을 고치면 새 키. 실패해도 쓴 글은 그대로다. 저장 확인(200 + 닫힌 모양) 전에는 다음 단계 링크가 없다.
-//   · 피드백은 형성 피드백 — 근거 충분/함께 검토 · 주장만. 자유 설명은 채점하지 않고 「저장됨」만 말한다. 선택 정오와 섞지 않는다.
+// 단계 2B — 한 원문 요지 → 제목 → 주제 안내 연습의 학습 정리 칸. FactoryDcpRunner 가 풀이가 **실제로 저장된 뒤**(영수증 id 가 있을 때)만 연다.
+//   · 서술 입력은 없다(T-0091) — 주장 · 근거 문장을 고르고, 관계 · 절차는 시스템 카드에서 고른다. 「시범과의 대조」는 고른 문장과
+//     시범 문장을 셈만 한 사실 문장이다(학습자 글 · 자기 평가 아님). 저장 계약(ReflectionBody 문자열 칸)은 그대로다.
+//   · 요지: 저장된 풀이 뒤 GET 으로 시범을 받아 보여 준다(답변 전에는 받지 않는다) · 제목: 시범 없이 cue 만 · 주제: 절차 카드까지.
+//   · 저장: 같은 본문 재시도 = 같은 키, 선택을 바꾸면 새 키. 저장 확인(200 + 닫힌 모양) 전에는 다음 단계 링크가 없다.
+//   · 피드백은 서버의 형성 피드백(근거 문장 선택 기준) — 선택 정오 · 숙달과 섞지 않는다. 예전에 직접 쓴 설명은 읽기 전용으로 보인다.
 'use client'
 
 import Link from 'next/link'
@@ -14,7 +15,27 @@ import { track } from '@/lib/analytics/client'
 import { isUuid } from '@/lib/csat/map/v62/factory-bridge/dcp-learning'
 import type { Formative, LessonStep, ModelPart, ProgressStep, SavedReflection } from '@/lib/csat/map/v62/factory-bridge/source-lesson'
 
+import { compareWithModel, PROCEDURE_CARDS, relationCardsFor, type SystemCard } from '@/lib/csat/system-learning'
+
 import { newMutationKey } from './FactoryDcpRunner'
+
+/** 시스템 카드 하나 고르기 — 고른 카드의 문장이 기존 저장 칸(문자열)에 그대로 담긴다 */
+function CardGroup({ legend, cards, value, onPick, testid, labelClass }: {
+  legend: string; cards: readonly SystemCard[]; value: string; onPick: (text: string) => void; testid: string; labelClass: string
+}) {
+  return (
+    <div role="radiogroup" aria-label={legend} data-testid={testid}>
+      <span className={labelClass}>{legend}</span>
+      <div className="mt-1 flex flex-col gap-2">
+        {cards.map((c) => (
+          <label key={c.id} className="flex min-h-[44px] cursor-pointer items-center gap-2 rounded-[var(--r-sm)] border border-[var(--bd)] px-3 break-keep font-body text-[13px] focus-within:ring-2 focus-within:ring-[var(--ju)]">
+            <input type="radio" name={testid} checked={value === c.text} onChange={() => onPick(c.text)} data-testid={`${testid}-${c.id}`} />{c.text}
+          </label>
+        ))}
+      </div>
+    </div>
+  )
+}
 
 const STEP_LABEL: Record<LessonStep, string> = { main_point: '요지', title: '제목', topic: '주제' }
 const FAIL: Record<string, string> = {
@@ -50,8 +71,8 @@ export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, retu
   const [modelRetry, setModelRetry] = useState(0)
   const [claim, setClaim] = useState<number | null>(r0?.body.claim ?? null)
   const [support, setSupport] = useState<number[]>(r0?.body.support ?? [])
+  // 관계 · 절차는 시스템 카드 문장을 고른다(T-0091 — 서술 입력 없음). 시범 대조는 고른 문장과 시범 문장을 셈만 한 사실이다
   const [relation, setRelation] = useState(r0?.body.relation ?? '')
-  const [comparison, setComparison] = useState(r0?.body.comparison ?? '')
   const [procedure, setProcedure] = useState(r0?.body.procedure ?? '')
   const [busy, setBusy] = useState(false)
   const [err, setErr] = useState<string | null>(null)
@@ -73,13 +94,14 @@ export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, retu
           return typeof p.title === 'string' && !!p.title.trim() && typeof p.text === 'string' && !!p.text.trim()
             && Array.isArray(p.sentences) && p.sentences.every((i) => Number.isInteger(i) && i >= 0 && i < sentences.length)
         })) setModel(j.model as ModelPart[])
-        else setLoadErr('시범을 불러오지 못했어요. 다시 불러와도 쓴 설명은 유지돼요.')
+        else setLoadErr('시범을 불러오지 못했어요. 다시 불러와도 고른 선택은 유지돼요.')
       })
       .catch(() => live && setLoadErr('연결이 끊겨 시범을 불러오지 못했어요.'))
     return () => { live = false }
   }, [deliveryId, step, modelRetry, sentences.length])
 
   const needClaim = step !== 'title'
+  const comparison = r0?.body.comparison ?? (model ? compareWithModel(needClaim ? claim : null, support, model.flatMap((m) => m.sentences)) : '')
   const ready = (!needClaim || claim !== null) && support.length >= 1 && relation.trim().length >= 2
     && (step !== 'main_point' || comparison.trim().length >= 2) && (step !== 'topic' || procedure.trim().length >= 2)
     && (step !== 'main_point' || model !== null)
@@ -107,7 +129,7 @@ export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, retu
       const j = (await res.json().catch(() => null)) as { code?: unknown; result?: Record<string, unknown>; feedback?: Formative } | null
       const confirmed = res.ok ? readReflectionResponse(j, deliveryId, attemptId, step) : null
       if (!confirmed) {
-        setErr(FAIL[typeof j?.code === 'string' ? j.code : ''] ?? '저장하지 못했어요 — 쓴 설명은 그대로예요. 다시 눌러도 두 번 저장되지 않아요.')
+        setErr(FAIL[typeof j?.code === 'string' ? j.code : ''] ?? '저장하지 못했어요 — 고른 선택은 그대로예요. 다시 눌러도 두 번 저장되지 않아요.')
         return
       }
       setSaved(confirmed)
@@ -118,7 +140,7 @@ export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, retu
       const want = order[order.indexOf(step) + 1]
       setNext(want ? pr?.progress?.steps?.find((s) => s.type === want && s.state === 'ok') ?? null : null)
     } catch {
-      setErr('연결이 끊겼어요 — 쓴 설명은 그대로예요. 다시 눌러도 두 번 저장되지 않아요.')
+      setErr('연결이 끊겼어요 — 고른 선택은 그대로예요. 다시 눌러도 두 번 저장되지 않아요.')
     } finally {
       setBusy(false)
     }
@@ -126,11 +148,10 @@ export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, retu
 
   const box = 'rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-4'
   const label = 'font-display text-[13px] font-[700] text-[var(--t1)]'
-  const area = 'mt-1 w-full rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] p-2 font-body text-[13.5px] leading-relaxed text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]'
   const locked = !!saved
 
   return (
-    <section className="flex flex-col gap-3" aria-label={`${STEP_LABEL[step]} 자기 설명`} data-testid="source-lesson-panel" data-step={step}>
+    <section className="flex flex-col gap-3" aria-label={`${STEP_LABEL[step]} 학습 정리`} data-testid="source-lesson-panel" data-step={step}>
       {step === 'main_point' && (
         <div className={box} data-testid="source-lesson-model">
           <h2 className={label}>시범 — 내 첫 답과 비교해 보세요</h2>
@@ -179,27 +200,29 @@ export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, retu
               ))}
             </div>
           </div>
-          <label className="block">
-            <span className={label}>{step === 'title' ? '그 문장이 글 전체를 묶는 비유와 어떻게 이어지나요?' : '근거가 판단을 어떻게 받치나요(관계)?'}</span>
-            <textarea className={area} rows={2} maxLength={600} value={relation} onChange={(e) => setRelation(e.target.value)} data-testid="reflect-relation" />
-          </label>
-          {step === 'main_point' && (
-            <label className="block">
-              <span className={label}>내 첫 답과 시범은 무엇이 같고 무엇이 달랐나요?</span>
-              <textarea className={area} rows={3} maxLength={600} value={comparison} onChange={(e) => setComparison(e.target.value)} data-testid="reflect-comparison" />
-            </label>
-          )}
-          {step === 'topic' && (
-            <label className="block">
-              <span className={label}>다른 글에서도 쓸 내 절차를 한 문장으로</span>
-              <textarea className={area} rows={2} maxLength={600} value={procedure} onChange={(e) => setProcedure(e.target.value)} data-testid="reflect-procedure" />
-            </label>
-          )}
+          {r0 ? (
+            <div className="flex flex-col gap-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]" data-testid="reflect-history">
+              <span className={label}>저장된 기록 · 읽기 전용</span>
+              <p>관계: {r0.body.relation}</p>
+              {r0.body.comparison && <p>시범과의 대조: {r0.body.comparison}</p>}
+              {r0.body.procedure && <p>절차: {r0.body.procedure}</p>}
+            </div>
+          ) : <>
+            <CardGroup legend={step === 'title' ? '그 문장과 제목은 어떻게 이어지나요?' : '근거가 판단을 어떻게 받치나요(관계)?'} cards={relationCardsFor(step)} value={relation} onPick={setRelation} testid="reflect-relation" labelClass={label} />
+            {step === 'main_point' && (
+              <p className="break-keep font-body text-[13px] text-[var(--t2)]" data-testid="reflect-comparison">
+                <span className={label}>시범과의 대조(자동)</span><br />{comparison || '시범을 불러오면 고른 문장과 시범 문장을 맞대어 보여 줘요.'}
+              </p>
+            )}
+            {step === 'topic' && (
+              <CardGroup legend="다른 글에서도 쓸 절차" cards={PROCEDURE_CARDS} value={procedure} onPick={setProcedure} testid="reflect-procedure" labelClass={label} />
+            )}
+          </>}
         </fieldset>
         {!saved && (
           <button type="button" onClick={save} disabled={!ready || busy} data-testid="reflect-save"
             className="mt-3 inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] disabled:opacity-50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]">
-            {busy ? '저장 중…' : '설명 저장'}
+            {busy ? '저장 중…' : '정리 저장'}
           </button>
         )}
         {err && <p role="alert" className="mt-2 break-keep font-body text-[13px] text-[var(--risk,#9C3A30)]" data-testid="reflect-error">{err}</p>}
@@ -208,9 +231,9 @@ export function SourceLessonPanel({ deliveryId, step, attemptId, sentences, retu
       {saved && (
         <div className={box} data-testid="reflect-saved" data-support={saved.feedback.support}>
           <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
-            {r0 ? '앞서 저장한 설명이에요.' : '설명을 저장했어요.'} {saved.feedback.note}
+            {r0 ? '앞서 저장한 정리예요.' : '정리를 저장했어요.'} {saved.feedback.note}
             {saved.feedback.claim === 'discussable' && ' 고른 중심 문장도 다른 후보와 함께 다시 견주어 볼 만해요.'}
-            {' '}이 설명은 연습 기록이라 실력 향상의 근거로 세지 않아요.
+            {' '}이 정리는 해설 뒤 연습 기록이라 실력 향상의 근거로 세지 않아요.
           </p>
           {next ? (
             <Link href={`/csat/factory/${next.deliveryId}${returnQuery}`} data-testid="lesson-next"
