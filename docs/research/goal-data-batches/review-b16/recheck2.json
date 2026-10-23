@@ -1,0 +1,155 @@
+{
+  "task_id": "T-0126",
+  "owner_id": "goal-data-independent",
+  "input": {
+    "commit": "d85f22d145fdf284f5b7f4bff0f184bbe9a6eaa6",
+    "base_commit": "b447ccf406dcd264c75e1622bcc44905bf84a1c8",
+    "diff_sha256": "65c6f79b76315eaec27a342ce9d5f51a131a9fb96b49f22bfe929d10314124ff",
+    "changed_files": 3,
+    "source_read_only": true,
+    "pinned_git_sources": true,
+    "local_packet_bytes_unchanged": true,
+    "local_packets": 296
+  },
+  "observed_at": "2026-10-23T11:15:00.275Z",
+  "result": "pass",
+  "result_semantics": "Verification completed; unresolved acceptance claims are not passed",
+  "skip_count": 0,
+  "checks": {
+    "independent": 33,
+    "failed": 0,
+    "shipped": 26,
+    "real_validator_claims": 6,
+    "unchanged_batch_variants": 16,
+    "exam_list_unique_ids": 1302,
+    "exam_list_regex_misses": 0,
+    "backspace_bytes": 0
+  },
+  "acceptance": [
+    {
+      "index": 0,
+      "status": "unresolved",
+      "detail": "With both input chunks present, the actual full runner rejects both swapped rows: loadTrack accepts 38/40, reports 2 ownership errors, both checkChunk calls report 2 defects, agree produces 228 pairs and excludes both violating IDs. All 16 b2–b16 variants preserve full validate logs/exits. Deleting or renaming both input chunks restores exit0, 40 accepted rows and 240 agree pairs; deleting one accepts one violating row (39 rows/234 pairs) despite exit1.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:160",
+        "scripts/research/goal-data/d2-validate.mjs:162",
+        "scripts/research/goal-data/d2-validate.mjs:182",
+        "scripts/research/goal-data/d2-validate.mjs:184",
+        "scripts/research/goal-data/d2-run.mjs:107"
+      ]
+    },
+    {
+      "index": 1,
+      "status": "unresolved",
+      "detail": "Line188 contains zero 0x08 bytes; both boundaries are literal backslash-b. The pinned exam lists contain 630+672 unique item IDs across 14+18 exams; the combined 1302 IDs all match. Requested A-form, M-prefixed, one-digit and punctuation cases match. Previous ordinary free-reason leak is fixed. ASCII-letter/underscore adjacency still leaks known foreign IDs through real reason diagnostics, and malformed JSON in another chunk exposes a foreign ID in the thrown parser error before masking. Unknown ID-shaped text is also masked (conservative overmasking).",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:188",
+        "scripts/research/goal-data/d2-validate.mjs:194",
+        "scripts/research/goal-data/d2-validate.mjs:208",
+        "scripts/research/goal-data/d2-validate.mjs:216",
+        "scripts/csat/data/questions.json:1",
+        "scripts/csat/data/mock-questions.json:1"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "resolved",
+      "detail": "Shipped regression executes 26/26. Its six newest structural checks retain row/chunk stubs; independently reproduce their six claims with complete actual makeValidator and pilot validateRow/validateChunk: own-empty, fourth-member, state-only, swapped-row rejection in loader, both chunk rejections, and free-reason masking. 33 independent assertions pass. Both requested artifacts, new P0/P1 and b17 decision are recorded.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.check.mjs:84",
+        "scripts/research/goal-data/d2-validate.check.mjs:112",
+        "docs/research/goal-data-batches/review-b16/recheck2.json:1",
+        "scripts/research/goal-data/review-b16/recheck2.mjs:1"
+      ]
+    }
+  ],
+  "previous_findings": [
+    {
+      "id": "T-0125 RECHECK-P1-01",
+      "status": "unresolved",
+      "detail": "Ordinary swap fixed; missing-input bypass remains."
+    },
+    {
+      "id": "T-0125 RECHECK-P1-02",
+      "status": "unresolved",
+      "detail": "Ordinary free-text case fixed; adjacency and exception channels remain."
+    }
+  ],
+  "new_p0": 0,
+  "new_p1": 2,
+  "findings": [
+    {
+      "id": "RECHECK2-P1-01",
+      "priority": "P1",
+      "title": "Missing-input fallback reopens chunk ownership bypass on current batches",
+      "status": "unresolved",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:160",
+        "scripts/research/goal-data/d2-validate.mjs:162",
+        "scripts/research/goal-data/d2-validate.mjs:182",
+        "scripts/research/goal-data/d2-validate.mjs:184"
+      ],
+      "trigger": "Exchange the first valid A01/A02 rows, then delete or rename both input chunk files in the in-memory filesystem. Output rows and batch input remain unchanged.",
+      "observed": {
+        "both_inputs_present": {
+          "accepted": 38,
+          "errors": 2,
+          "whole_exit": 1,
+          "agree_pairs": 228
+        },
+        "both_inputs_deleted_or_renamed": {
+          "accepted": 40,
+          "errors": 0,
+          "whole_exit": 0,
+          "agree_pairs": 240
+        },
+        "one_input_deleted": {
+          "accepted": 39,
+          "whole_exit": 1,
+          "agree_pairs": 234
+        }
+      },
+      "impact": "Existence alone selects the legacy exception. A modern batch can disable ownership enforcement without changing its contract or batch number. agree consumes the accepted violating rows even with one remaining loader error.",
+      "recommendation": "Bind legacy exemption to explicit trusted batch/format metadata. Fail closed for required missing input chunks, and enforce equivalent ownership in all combination consumers."
+    },
+    {
+      "id": "RECHECK2-P1-02",
+      "priority": "P1",
+      "title": "ID masking misses embedded tokens and parser exceptions",
+      "status": "unresolved",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:188",
+        "scripts/research/goal-data/d2-validate.mjs:194",
+        "scripts/research/goal-data/d2-validate.mjs:208",
+        "scripts/research/goal-data/d2-validate.mjs:216"
+      ],
+      "trigger": "Use an actual foreign item ID adjacent to an ASCII letter or underscore at the start of a repeated not_observable explanation. Separately put a foreign ID at the start of malformed JSON in another output chunk.",
+      "observed": {
+        "ordinary_reason_masked": true,
+        "embedded_reason_leaks": true,
+        "json_parser_exception_leaks": true,
+        "backspace_bytes": 0,
+        "exam_list_matching_misses": 0
+      },
+      "impact": "The rendered mine array is masked, but word boundaries miss IDs next to ASCII word characters. JSON.parse errors escape before that return and reveal foreign text to the single-chunk runner. The general no-foreign-ID output contract is therefore only partially fixed.",
+      "recommendation": "Redact known foreign IDs independent of ASCII word boundaries, and catch read/parse failures at the chunk output boundary with sanitized diagnostics. Preserve own IDs and explicitly define conservative masking of unknown ID-shaped strings."
+    }
+  ],
+  "b17": {
+    "allowed": false,
+    "decision": "b17 보류 — 새 배치의 입력 청크 누락 우회와 ID 비노출의 경계·예외 경로를 수정하고 독립 재검증해야 한다."
+  },
+  "limitations": [
+    "Pinned repository exam-list inventory, not a live DB completeness assertion; hakpyeong grammar exists but is outside the two KICE source lists.",
+    "The supplied six structural regressions use stubs; independent complete-function reproductions are separate and do not rewrite the supplied tests.",
+    "DB, product build/E2E, learner measurement and remote/main integration were not run and are not counted as passed.",
+    "Source worktree HEAD has advanced and contains another session’s uncommitted validator edit; all executable source uses the requested fixed commit. No source worktree writes.",
+    "VM filesystem writes and deletion/rename counterexamples are in-memory only."
+  ],
+  "raw_evidence": [
+    "scripts/research/goal-data/review-b16/recheck2.local.json",
+    "scripts/research/goal-data/review-b16/recheck2-diff.local.json",
+    "scripts/research/goal-data/review-b16/recheck2-finish.local.json",
+    "scripts/research/goal-data/review-b16/packets.local.json"
+  ]
+}
