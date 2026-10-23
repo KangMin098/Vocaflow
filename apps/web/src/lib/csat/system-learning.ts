@@ -36,6 +36,8 @@ export interface SummaryEvidence {
   title: string
   /** 검수된 설명 첫 문단 — 새로 쓰지 않는다 */
   body: string
+  /** 문장 수가 현재 원문과 일치할 때만 전달받은 검수 근거(1-기반). */
+  sentences: number[]
 }
 
 export interface NextActivity {
@@ -68,6 +70,7 @@ export function buildLearningSummary(input: {
   goal: Pick<TeachingModel, 'relation' | 'units'> | null
   principle: InquiryPrinciple | null
   rejects: { key: string; title: string; body: string[] }[]
+  choiceEvidence?: { n: number; sentences: number[] }[]
   checks: { kind: 'evidence' | 'lure' }[]
   checkScene: (kind: 'evidence' | 'lure') => SceneId
   hasCompare: boolean
@@ -77,7 +80,8 @@ export function buildLearningSummary(input: {
     .filter((b) => b.body.some((p) => p.trim()))
     .map((b) => {
       const n = Number(b.key.split(':').pop())
-      return { key: b.key, choice: Number.isInteger(n) ? n : null, title: b.title, body: b.body.find((p) => p.trim()) as string }
+      const sentences = input.choiceEvidence?.find((c) => c.n === n)?.sentences ?? []
+      return { key: b.key, choice: Number.isInteger(n) ? n : null, title: b.title, body: b.body.find((p) => p.trim()) as string, sentences: [...new Set(sentences.filter((s) => Number.isInteger(s) && s > 0))] }
     })
   const first = input.checks[0]
   const checkScene = first ? input.checkScene(first.kind) : null

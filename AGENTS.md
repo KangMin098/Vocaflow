@@ -60,6 +60,8 @@
 
 ## 디자인 방향 · 학습 과학 7
 
+- **학습 화면 상호작용 원칙(2026-10-23 사용자 지시)**: 긴 설명·카드·문단을 한꺼번에 쌓는 텍스트 덤프를 주된 교수 방식으로 쓰지 않는다. 핵심 학습 장면은 관찰·선택·연결·비교·조건 조작 중 목적에 맞는 행동에 따라 근거 강조·관계·대조·적용 경계가 눈에 보이게 달라지도록 설계한다. 글은 현재 판단을 돕는 위치에 점진적으로 제시한다. 단순 펼치기·다음 클릭·장식 모션만으로 충족했다고 하지 않는다. 키보드·초점·읽기 순서를 보장하며, 사전 구축 정답·근거·피드백 없는 임의 채점과 탐색/클릭의 숙달 산입은 금지한다. 기존 DD-66의 옛 금지 삭제와 별개인 최신 지시다.
+
 - 방향(강제 규칙 아님 — 디자인·UX 금지·제한은 DD-66 으로 전부 삭제): **Calm UI** · **Progressive Disclosure** · **Empathetic Feedback** · **Implicit Progress**. 현재 서체는 한국어 Hahmlet · 영어 Lora.
 - Active Recall(Karpicke & Roediger 2008) · Spaced Repetition(FSRS, `ts-fsrs`) · Desirable Difficulty(Bjork) · Dual Coding(Paivio) · Context-Dependent(학습 맥락에서 인출) · Cognitive Load(작업기억 ~4) · Emotional Encoding(보상 + 자기효능감). 적용: [LEARNING_MODEL](./docs/LEARNING_MODEL.md).
 - **Memory Decay 4색** — R(t) = `exp(ln(0.9) × t / S)` 를 **동적 계산**(`memory_state` 컬럼 저장 절대 금지): stable `#2E7D5A` R≥0.95 · shaky `#B5803A` 0.70≤R<0.95 · risk `#9C3A30` R<0.70 · new `#8A8278` 신규(D/S 미부여).

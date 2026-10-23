@@ -63,6 +63,7 @@ const summary = buildLearningSummary({
     { key: 'analysis:reject:4', title: '4', body: ['본문은 비용을 말하지 않아요. 언급되지 않은 정보를 더한 선지예요.'] },
   ] : [],
   checks: state === 'prepared' ? [{ kind: 'lure' }, { kind: 'evidence' }] : [],
+  choiceEvidence: [{ n: 2, sentences: [2, 3] }],
   checkScene: (k) => (k === 'lure' ? 'judgment' : 'meaning'),
   hasCompare: full,
   hasLecture: full,
@@ -76,17 +77,24 @@ const explained = [{ id: 'x1', item: '2026#34', kind: 'lure', choice: 2, temptin
 function App() {
   const [scene, setScene] = useState('explain')
   const [kept, setKept] = useState(false)
+  const [highlight, setHighlight] = useState([])
   const go = (s) => { act({ go: s }); setScene(s); history.pushState(null, '', '?scene=' + s + location.hash) }
   return h('div', { style: { display: 'grid', gridTemplateRows: '1fr auto', height: '100vh' } },
-    h('div', { 'data-testid': 'pane-explain', style: { overflow: 'auto', padding: '24px' } },
+    h('div', { style: { display: 'grid', gridTemplateColumns: 'minmax(260px, .65fr) minmax(0, 1fr)', minHeight: 0 } },
+    h('aside', { style: { padding: '32px', overflow: 'auto', borderRight: '1px solid var(--bd)', background: 'var(--bg2)' } },
+      h('h2', null, '격리 합성 근거 판'),
+      h('p', { style: { fontSize: '12px', marginBottom: '24px' } }, '실제 서버 종단이 아닌 컴포넌트 연결 검증'),
+      ...['The study involved one particular group.', 'The finding applies within the experimental condition.', 'Extending it to every situation removes that condition.', 'The passage does not discuss costs.'].map((text, i) => h('p', { key: i, 'data-testid': 'fixture-sentence', 'data-selected': highlight.includes(i + 1), style: { padding: '16px', marginBottom: '12px', borderLeft: '3px solid ' + (highlight.includes(i + 1) ? 'var(--p)' : 'transparent'), background: highlight.includes(i + 1) ? 'var(--bg)' : 'transparent', lineHeight: 1.8 } }, (i + 1) + '. ' + text))),
+    h('div', { 'data-testid': 'pane-explain', style: { overflow: 'auto', minWidth: 0, padding: '28px' } },
       scene === 'explain'
         ? h(SystemLearningSummary, {
             summary, canKeep: full, kept, onKeep: () => { act({ keep: true }); setKept(true) }, onGo: go,
             onLecture: () => act({ lecture: true }),
+            onShowEvidence: (sentences, key) => { act({ evidence: sentences, key }); setHighlight(sentences) },
             historyState: state === 'loading' ? 'loading' : 'ready',
             history: state === 'history' ? h(Fragment, null, h(SelfExplain, { saved: explained }), h(ReasoningNoteForm, { analysisVersion: 3, principle: null, saved: notes, showModel: false, onShowEvidence: (s) => act({ evidence: s }) })) : null,
           })
-        : h('p', { 'data-testid': 'other-scene', 'data-scene': scene }, scene)),
+        : h('p', { 'data-testid': 'other-scene', 'data-scene': scene }, scene))),
     h(InquiryDock, { current: scene, last: {}, onSelect: go }))
 }
 createRoot(document.getElementById('root')).render(h(App))

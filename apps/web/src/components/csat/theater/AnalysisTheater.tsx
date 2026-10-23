@@ -1316,6 +1316,7 @@ export function AnalysisTheater({
                         goal,
                         principle: inquiry?.principle ?? null,
                         rejects: blocks.filter((b) => b.kind === 'reject'),
+                        choiceEvidence: v3Linkable ? v3?.choices : undefined,
                         checks,
                         checkScene: sceneOfCheck,
                         hasCompare: v3Pairs.length > 0,
@@ -1325,6 +1326,11 @@ export function AnalysisTheater({
                       kept={principleSaved}
                       onKeep={savePrinciple}
                       onGo={pickScene}
+                      initialEvidenceKey={evidence?.key}
+                      onShowEvidence={(sentences, key) => {
+                        setEvidence(sentences.length ? { sentences, key } : null)
+                        if (sentences.length) { setEvidenceCollapsed(false); setEvidenceView('map') }
+                      }}
                       onLecture={() => setTab('script')}
                       historyState={session === undefined ? 'loading' : 'ready'}
                       history={
