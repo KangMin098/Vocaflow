@@ -25,7 +25,7 @@ const SUPERSEDED_BATCHES = new Set(['pilot-1', 'b2-v2'])
 // 도표: 수치가 문항 필드에 없다(원천 결손) — 근거 미확인으로 분리한다
 const SOURCE_GAP_TYPES = { 'R-CHART': 'chart_missing' }
 // 확인된 원천 결손 문항(유형과 무관) — DB 지문이 잘려 판정 근거가 원문에 없다. 복구 · 재판정 전까지 source_gap 으로 격리(T-0132 B19-P1-01)
-const SOURCE_GAP_ITEMS = { '2014A#29': 'footnote_truncated' }
+const SOURCE_GAP_ITEMS = { '2014A#29': 'footnote_truncated', 'M1809#26': 'footnote_dropped' }
 
 /** D2 와 같은 계약 검사(d2-validate · T-0107 P1)를 통과한 행만 — 청크 반복 · 트랙 전체 선택 이유 반복에 걸리면 그 범위를 쓰지 않는다 */
 function passed(src, track, V) {
