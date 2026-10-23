@@ -1,0 +1,3325 @@
+{
+  "observedAt": "2026-10-23T14:12:51.818Z",
+  "task": "T-0134",
+  "baseCommit": "fae57cba1c2ae7bd0ee4f44427b2464dc42d2704",
+  "stage": "DRAFT / NOT_ACCEPTED",
+  "evidenceLevel": "isolated interaction and static source only",
+  "samplePath": "D:\\workspace\\Vocaflow-main-serving\\tmp\\csat-item-review-20261023\\samples.json",
+  "sampleSha256": "af5b79bb308fd4ff080d8de9193f5cd3e48a0b7a36e78cb1b106554d9eac7c0e",
+  "sourceHashes": {
+    "apps/web/src/lib/csat/inquiry-data.json": "14037f59cbbd972c20761e7bd806bedd832b2c8f987c0adf9ad679d578345534",
+    "apps/web/src/lib/csat/lecture-data/2026.json": "26ede0e2f1b6f53331189246496ff1eec88386085e1ff2cb620ccaf850d3bfe4",
+    "apps/web/src/components/csat/theater/AnalysisTheater.tsx": "967c8c68bae9af6ad3a8768b2af7a80889c8fb27a9d22206d241d4d5264990e9",
+    "apps/web/src/components/csat/theater/InquiryV3Panels.tsx": "0a2e9ac689b4f4666f47026da08b2a3f0f153dc39d3e63946df149c9ff003d40",
+    "apps/web/src/components/csat/lecture/LectureStage.tsx": "ea06d7ba808aca36a6d5616e69649e3607d1d8ae1a970901e98478c6ec57cf5f"
+  },
+  "sourceFailures": [
+    {
+      "id": "2026#34",
+      "choices": [
+        {
+          "n": 1,
+          "truth": "false",
+          "fit": "fails",
+          "decisive": "넣으면 「법은 자유를 합리적으로 제한한다고 볼 수 없다」가 되어, 제한 자체는 남기고 그 합리성만 부정한다. 7번 문장 조건은 원래 하지 않을 일만 금지하므로 제한 자체가 없다는 결론이고, 6번 문장은 법을 이성적 선택의 구현으로 본다 — 완성 명제가 두 문장과 어긋난다",
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "n": 2,
+          "truth": "unknown",
+          "fit": "fails",
+          "decisive": "넣으면 「법은 정의 체계의 강력한 옹호자로 볼 수 없다」가 되는데, 7번 문장의 조건(원래 고르지 않을 일을 금지)에서 이 결론이 나오지 않는다. 1번 문장의 strong defender 는 칸트를 가리키며, 법이 옹호자인지는 지문이 다루지 않아 참·거짓을 정할 근거가 없다",
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "fit": "satisfies",
+          "decisive": "넣으면 「(원래 하지 않을 일만 금지하는) 법은 그들의 자유에 대한 구속으로 이해될 수 없다」가 된다. 7번 문장 조건대로 금지된 것이 어차피 고르지 않을 일이면 빼앗기는 선택이 없고, 6번 문장(자유롭게 고를 원칙)·1번 문장(자유의 보장)과 같은 결론이다",
+          "sentences": [
+            1,
+            6,
+            7
+          ]
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "fit": "fails",
+          "decisive": "넣으면 「법은 악한 본성을 억누르도록 효과적으로 집행될 수 없다」가 되어 법의 효력을 부정한다. 5번 문장은 악마들의 나라도 법 체계 안에서 조화롭게 살 수 있다고 하므로 완성 명제가 지문과 반대이고, 7번 문장 조건과도 연결되지 않는다",
+          "sentences": [
+            4,
+            5,
+            7
+          ]
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "fit": "fails",
+          "decisive": "넣으면 「법은 이상적 법 체계의 전제 안에서 받아들여질 수 없다」가 되는데, 6번 문장은 바로 그 이상적인 법을 이성적 존재가 자유롭게 고를 것이라 한다 — 지문이 받아들이는 것을 부정하는 명제가 된다",
+          "sentences": [
+            6,
+            7
+          ]
+        }
+      ],
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "false",
+          "operation": "polarity",
+          "note": "자유의 제약이라는 축을 남기되, cannot be 를 거치면 제약은 인정하고 합리성만 부정하게 되어 6~7번 문장(제약 자체가 없다)과 어긋난다."
+        },
+        {
+          "n": 2,
+          "truth": "unknown",
+          "operation": "agent",
+          "note": "1번 문장의 strong defender 를 남기되 그 주어를 칸트에서 법으로 옮겼다. 법이 옹호자인지는 지문이 다루지 않아 참·거짓을 정할 수 없고, 7번 문장 조건에서 이 결론이 나오지도 않는다."
+        },
+        {
+          "n": 4,
+          "truth": "false",
+          "operation": "polarity",
+          "note": "4~5번 문장의 악한 본성과 법을 남기되, 부정을 거치면 법의 효력을 부정하는 결론이 되어 5번 문장과 반대다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "polarity",
+          "note": "6번 문장의 이상적 법을 남기되 cannot be 를 거치면 지문이 받아들이는 것을 부정하게 된다."
+        }
+      ],
+      "pairs": 0
+    },
+    {
+      "id": "2026#22",
+      "choices": [
+        {
+          "n": 1,
+          "truth": "true",
+          "fit": "satisfies",
+          "decisive": "6번 문장 balancing act·9번 문장 pursue both simultaneously·10번 문장 one is not neglected 의 처방 전체를 「협력과 경쟁 사이의 균형 잡힌 접근이 요구된다」로 두 축을 모두 담아 추상화했다",
+          "sentences": [
+            6,
+            9,
+            10
+          ]
+        },
+        {
+          "n": 2,
+          "truth": "false",
+          "fit": "fails",
+          "decisive": "처방은 균형과 계획(6·9번 문장)이고, 스포츠 정신 함양 교육은 지문에 없다. 4번 문장의 trust and confidence 는 관리가 필요한 이유일 뿐이다",
+          "sentences": [
+            4,
+            6,
+            9
+          ]
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "fit": "fails",
+          "decisive": "7번 문장 Often…more competitive…less collaborative 와 내용은 맞지만, 이는 9~10번 문장의 처방을 끌어내는 진단이라 글이 도달한 핵심 명제가 아니다",
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "n": 4,
+          "truth": "unknown",
+          "fit": "fails",
+          "decisive": "3번 문장의 자원 효율은 협력 쪽 목적일 뿐이고 「전략이 필요하다」는 직접 서술은 없다. 무엇보다 경쟁 축을 빠뜨려 10번 문장의 양쪽 모두라는 범위를 담지 못한다",
+          "sentences": [
+            3,
+            10
+          ]
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "fit": "fails",
+          "decisive": "8번 문장에서 필연(By necessity)이 걸린 것은 정보 공유이고, 경쟁은 7번 문장의 Often 경향으로만 서술된다",
+          "sentences": [
+            7,
+            8
+          ]
+        }
+      ],
+      "distractors": [
+        {
+          "n": 2,
+          "truth": "false",
+          "operation": "unsupported",
+          "note": "협력·경쟁이라는 짝은 두고 처방을 지문에 없는 교육으로 바꿨다. 6·9·10번 문장의 처방은 균형과 계획이다."
+        },
+        {
+          "n": 3,
+          "truth": "true",
+          "operation": "reference",
+          "note": "7번 문장(성과 때문에 경쟁 쪽으로 기울고 협력은 덜 함)과 내용은 맞지만, 9~10번 문장의 처방을 끌어내는 진단이라 요지 자리에 올 명제가 아니다."
+        },
+        {
+          "n": 4,
+          "truth": "unknown",
+          "operation": "compression",
+          "note": "3번 문장의 자원 효율(협력 쪽 목적)만 남기고 경쟁 축을 뺐다. 「전략이 필요하다」는 지문이 직접 말하지 않아 참·거짓은 보류되고, 10번 문장의 양쪽 모두라는 범위를 담지 못한다."
+        },
+        {
+          "n": 5,
+          "truth": "false",
+          "operation": "reference",
+          "note": "8번 문장의 필연(By necessity)을 남기되 그것이 걸린 대상을 정보 공유에서 경쟁으로 바꿨다."
+        }
+      ],
+      "pairs": 2
+    },
+    {
+      "id": "2026#38",
+      "choices": [
+        {
+          "n": 1,
+          "truth": "n_a",
+          "fit": "fails",
+          "decisive": "① 앞에는 3번 문장의 stories 만 있고 「우리가 만드는」 서사는 4번 문장에서 처음 나온다 — these internal narratives we form 의 앞쪽 조건이 비어 있다",
+          "sentences": [
+            1,
+            3,
+            4
+          ]
+        },
+        {
+          "n": 2,
+          "truth": "n_a",
+          "fit": "fails",
+          "decisive": "② 앞 4번 문장과 낱말은 겹치지만, 4번 문장(서사를 만든다)과 5번 문장(그 작동 방식)은 한 사슬이라 사이에 정체성 문장을 넣으면 뒤쪽 조건이 깨진다",
+          "sentences": [
+            1,
+            4,
+            5
+          ]
+        },
+        {
+          "n": 3,
+          "truth": "n_a",
+          "fit": "fails",
+          "decisive": "③ 뒤 6번 문장이 For example 이라 앞에 일반 진술이 필요해 보이지만, 그 예시가 받치는 일반 진술은 이미 5번 문장(경험에서 서사를 만든다)이고 정체성과 무관하다 — For example 하나로는 자리가 정해지지 않는다",
+          "sentences": [
+            5,
+            6
+          ]
+        },
+        {
+          "n": 4,
+          "truth": "n_a",
+          "fit": "fails",
+          "decisive": "④ 뒤 7번 문장의 the university·what you’ve experienced 가 6번 문장을 받아 한 예시의 두 문장이므로 사이를 벌릴 수 없다",
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "n": 5,
+          "truth": "n_a",
+          "fit": "satisfies",
+          "decisive": "⑤에 넣으면 앞쪽으로는 these internal narratives we form 이 6~7번 문장에서 실제로 만들어진 서사를 받고, 뒤쪽으로는 8번 문장의 For example 이 정체성 예시(who you are as an individual)로 주어진 문장의 identity 진술을 받친다 — 두 경계가 모두 성립한다",
+          "sentences": [
+            1,
+            6,
+            7,
+            8
+          ]
+        }
+      ],
+      "distractors": [
+        {
+          "n": 1,
+          "truth": "not_applicable",
+          "operation": "order",
+          "note": "①에 넣으면 these internal narratives we form 이 받을 우리가 만드는 서사가 아직 나오지 않았다(4번 문장에서 처음 등장)."
+        },
+        {
+          "n": 2,
+          "truth": "not_applicable",
+          "operation": "order",
+          "note": "②는 서사를 만든다는 주장과 그 작동 방식(5번 문장)이 이어지는 자리라 정체성으로 넘어가는 문장을 끼우면 사슬이 끊긴다."
+        },
+        {
+          "n": 3,
+          "truth": "not_applicable",
+          "operation": "order",
+          "note": "③ 뒤 6번 문장의 대학 졸업생 예시는 5번 문장의 일반 진술을 보여 주므로 둘 사이가 비어 있지 않다."
+        },
+        {
+          "n": 4,
+          "truth": "not_applicable",
+          "operation": "order",
+          "note": "④ 뒤 7번 문장의 the university 는 6번 문장을 받아 한 예시의 두 문장이라 사이를 벌릴 수 없다."
+        }
+      ],
+      "pairs": 2
+    }
+  ],
+  "results": [
+    {
+      "item": "2026-34",
+      "variant": "REUSE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": "CURRENT_BASELINE_NOT_CHANGED",
+      "keyboard": "CURRENT_NATIVE_BUTTONS",
+      "cueNavigation": "NOT_TESTED_BASELINE",
+      "sceneControl": "CURRENT_AUTOMATION_STATIC_VIOLATION",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1000,
+        "visibleQuestion": "2026#34번 분석 검토",
+        "renderedPartialQuotes": [],
+        "localStorageKeys": [
+          "csat-rail",
+          "vf.csat.pendingReveals"
+        ]
+      },
+      "actions": [],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-34",
+      "variant": "IMPROVE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "7번 문장 · negationthen the ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · conditionthey wou",
+          "width": 370.578125,
+          "height": 144.765625
+        },
+        {
+          "text": "6번 문장 · conditionall rati",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "1번 문장 · nonethe ultimate ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · conditioncan live",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 370.578125,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "③ 정답",
+          "width": 70.609375,
+          "height": 44
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "근거 1 · 7번 문장 보기",
+          "width": 181.671875,
+          "height": 44
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "이 조건에서 법을 자유의 구속으로 볼 수 있는가?",
+        "renderedPartialQuotes": [
+          "then the law cannot be",
+          "they would not rationally choose to do anyway",
+          "all rational beings would freely choose",
+          "the ultimate guarantee",
+          "can live in harmony in a legal system"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "trace",
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "7번 문장 · negationthen the ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · conditionthey wou",
+          "width": 370.578125,
+          "height": 144.765625
+        },
+        {
+          "text": "6번 문장 · conditionall rati",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "1번 문장 · nonethe ultimate ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · conditioncan live",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 370.578125,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "① 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "③ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "④ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "⑤ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "근거 1·7번 보기",
+          "width": 134.6875,
+          "height": 44.75
+        },
+        {
+          "text": "근거 1·6·7번 보기",
+          "width": 146.078125,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "이 조건에서 법을 자유의 구속으로 볼 수 있는가?",
+        "renderedPartialQuotes": [
+          "then the law cannot be",
+          "they would not rationally choose to do anyway",
+          "all rational beings would freely choose",
+          "the ultimate guarantee",
+          "can live in harmony in a legal system"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 2
+        },
+        {
+          "kind": "trace",
+          "n": 2,
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        },
+        {
+          "kind": "choice",
+          "n": 3
+        },
+        {
+          "kind": "choice",
+          "n": 2
+        },
+        {
+          "kind": "choice",
+          "n": 1
+        },
+        {
+          "kind": "choice",
+          "n": 2
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-34",
+      "variant": "NEW",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "7번 문장 · negationthen the ",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · conditionthey wou",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · conditionall rati",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "1번 문장 · nonethe ultimate ",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · conditioncan live",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 385.40625,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "준비된 근거와 연결 보기",
+          "width": 194.921875,
+          "height": 44.75
+        },
+        {
+          "text": "이 판단의 근거 1·7번 보기",
+          "width": 204.8125,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "이 조건에서 법을 자유의 구속으로 볼 수 있는가?",
+        "renderedPartialQuotes": [
+          "then the law cannot be",
+          "they would not rationally choose to do anyway",
+          "all rational beings would freely choose",
+          "the ultimate guarantee",
+          "can live in harmony in a legal system"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 2
+        },
+        {
+          "kind": "connect",
+          "n": 2,
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "trace",
+          "n": 2,
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-22",
+      "variant": "REUSE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": "CURRENT_BASELINE_NOT_CHANGED",
+      "keyboard": "CURRENT_NATIVE_BUTTONS",
+      "cueNavigation": "NOT_TESTED_BASELINE",
+      "sceneControl": "CURRENT_AUTOMATION_STATIC_VIOLATION",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1000,
+        "visibleQuestion": "2026#22번 분석 검토",
+        "renderedPartialQuotes": [],
+        "localStorageKeys": [
+          "csat-rail",
+          "vf.csat.pendingReveals"
+        ]
+      },
+      "actions": [],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-22",
+      "variant": "IMPROVE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "3번 문장 · contrastneed to c",
+          "width": 370.578125,
+          "height": 144.765625
+        },
+        {
+          "text": "6번 문장 · conditiona carefu",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · quantitywill try ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "8번 문장 · referenceBy neces",
+          "width": 370.578125,
+          "height": 123.328125
+        },
+        {
+          "text": "9번 문장 · referencehow to p",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "10번 문장 · referencenot neg",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 370.578125,
+          "height": 44.75
+        },
+        {
+          "text": "① 정답",
+          "width": 70.609375,
+          "height": 44
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "근거 7 · 9 · 10번 문장 보기",
+          "width": 213.171875,
+          "height": 44
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "부분적으로 참인 설명이 글 전체의 요지를 대표하는가?",
+        "renderedPartialQuotes": [
+          "need to collaborate for resource efficiency purposes",
+          "a careful balancing act may be required",
+          "will try to be more competitive",
+          "By necessity they may need to share information",
+          "how to pursue both simultaneously",
+          "not neglected at the expense of the other"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "trace",
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-22",
+      "variant": "REPLACE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "3번 문장 · contrastneed to c",
+          "width": 370.578125,
+          "height": 144.765625
+        },
+        {
+          "text": "6번 문장 · conditiona carefu",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · quantitywill try ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "8번 문장 · referenceBy neces",
+          "width": 370.578125,
+          "height": 123.328125
+        },
+        {
+          "text": "9번 문장 · referencehow to p",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "10번 문장 · referencenot neg",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 370.578125,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "① 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "② 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "④ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "⑤ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "근거 7·9·10번 보기",
+          "width": 154.28125,
+          "height": 44.75
+        },
+        {
+          "text": "근거 6·9·10번 보기",
+          "width": 154.28125,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "부분적으로 참인 설명이 글 전체의 요지를 대표하는가?",
+        "renderedPartialQuotes": [
+          "need to collaborate for resource efficiency purposes",
+          "a careful balancing act may be required",
+          "will try to be more competitive",
+          "By necessity they may need to share information",
+          "how to pursue both simultaneously",
+          "not neglected at the expense of the other"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 3
+        },
+        {
+          "kind": "trace",
+          "n": 3,
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        },
+        {
+          "kind": "choice",
+          "n": 1
+        },
+        {
+          "kind": "choice",
+          "n": 3
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-22",
+      "variant": "NEW",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "3번 문장 · contrastneed to c",
+          "width": 385.40625,
+          "height": 144.765625
+        },
+        {
+          "text": "6번 문장 · conditiona carefu",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · quantitywill try ",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "8번 문장 · referenceBy neces",
+          "width": 385.40625,
+          "height": 123.328125
+        },
+        {
+          "text": "9번 문장 · referencehow to p",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "10번 문장 · referencenot neg",
+          "width": 385.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 385.40625,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "준비된 근거와 연결 보기",
+          "width": 194.921875,
+          "height": 44.75
+        },
+        {
+          "text": "이 판단의 근거 7·9·10번 보기",
+          "width": 224.40625,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "부분적으로 참인 설명이 글 전체의 요지를 대표하는가?",
+        "renderedPartialQuotes": [
+          "need to collaborate for resource efficiency purposes",
+          "a careful balancing act may be required",
+          "will try to be more competitive",
+          "By necessity they may need to share information",
+          "how to pursue both simultaneously",
+          "not neglected at the expense of the other"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 3
+        },
+        {
+          "kind": "connect",
+          "n": 3,
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "trace",
+          "n": 3,
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-38",
+      "variant": "REUSE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": "CURRENT_BASELINE_NOT_CHANGED",
+      "keyboard": "CURRENT_NATIVE_BUTTONS",
+      "cueNavigation": "NOT_TESTED_BASELINE",
+      "sceneControl": "CURRENT_AUTOMATION_STATIC_VIOLATION",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1000,
+        "visibleQuestion": "2026#38번 분석 검토",
+        "renderedPartialQuotes": [],
+        "localStorageKeys": [
+          "csat-rail",
+          "vf.csat.pendingReveals"
+        ]
+      },
+      "actions": [],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-38",
+      "variant": "IMPROVE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "1번 문장 · referencethese in",
+          "width": 370.578125,
+          "height": 95.28125
+        },
+        {
+          "text": "1번 문장 · nonebecome deeply",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · noneour minds see",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · referenceyou may ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · referencejudge ev",
+          "width": 370.578125,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referencewho you ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 370.578125,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "⑤ 정답",
+          "width": 70.609375,
+          "height": 44
+        },
+        {
+          "text": "근거 6 · 7번 문장 보기",
+          "width": 181.671875,
+          "height": 44
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "앞뒤가 이어지면서 기존 연결도 보존되는 위치인가?",
+        "renderedPartialQuotes": [
+          "these internal narratives we form",
+          "become deeply rooted in our identity",
+          "our minds seek to make sense of them",
+          "you may create a negative narrative",
+          "judge everyone from the university",
+          "who you are as an individual"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "trace",
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-38",
+      "variant": "REPLACE",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "1번 문장 · referencethese in",
+          "width": 370.578125,
+          "height": 95.28125
+        },
+        {
+          "text": "1번 문장 · nonebecome deeply",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · noneour minds see",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · referenceyou may ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · referencejudge ev",
+          "width": 370.578125,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referencewho you ",
+          "width": 370.578125,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 370.578125,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ①",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ②",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ③",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ④",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ⑤",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "① 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "② 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "③ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "⑤ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "근거 6·7번 보기",
+          "width": 134.6875,
+          "height": 44.75
+        },
+        {
+          "text": "근거 1·6·7·8번 보기",
+          "width": 157.484375,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "앞뒤가 이어지면서 기존 연결도 보존되는 위치인가?",
+        "renderedPartialQuotes": [
+          "these internal narratives we form",
+          "become deeply rooted in our identity",
+          "our minds seek to make sense of them",
+          "you may create a negative narrative",
+          "judge everyone from the university",
+          "who you are as an individual"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 4
+        },
+        {
+          "kind": "trace",
+          "n": 4,
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        },
+        {
+          "kind": "choice",
+          "n": 5
+        },
+        {
+          "kind": "choice",
+          "n": 4
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-38",
+      "variant": "NEW",
+      "width": 1280,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "1번 문장 · referencethese in",
+          "width": 385.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "1번 문장 · nonebecome deeply",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · noneour minds see",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · referenceyou may ",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · referencejudge ev",
+          "width": 385.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referencewho you ",
+          "width": 385.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 385.40625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ①",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ②",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ③",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ④",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ⑤",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "준비된 근거와 연결 보기",
+          "width": 194.921875,
+          "height": 44.75
+        },
+        {
+          "text": "이 판단의 근거 6·7번 보기",
+          "width": 204.8125,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "앞뒤가 이어지면서 기존 연결도 보존되는 위치인가?",
+        "renderedPartialQuotes": [
+          "these internal narratives we form",
+          "become deeply rooted in our identity",
+          "our minds seek to make sense of them",
+          "you may create a negative narrative",
+          "judge everyone from the university",
+          "who you are as an individual"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 4
+        },
+        {
+          "kind": "connect",
+          "n": 4,
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "trace",
+          "n": 4,
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-34",
+      "variant": "REUSE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": "CURRENT_BASELINE_NOT_CHANGED",
+      "keyboard": "CURRENT_NATIVE_BUTTONS",
+      "cueNavigation": "NOT_TESTED_BASELINE",
+      "sceneControl": "CURRENT_AUTOMATION_STATIC_VIOLATION",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1000,
+        "visibleQuestion": "2026#34번 분석 검토",
+        "renderedPartialQuotes": [],
+        "localStorageKeys": [
+          "csat-rail",
+          "vf.csat.pendingReveals"
+        ]
+      },
+      "actions": [],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-34",
+      "variant": "IMPROVE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "7번 문장 · negationthen the ",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · conditionthey wou",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · conditionall rati",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "1번 문장 · nonethe ultimate ",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "5번 문장 · conditioncan live",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 432.40625,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "③ 정답",
+          "width": 70.609375,
+          "height": 44
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "근거 1 · 7번 문장 보기",
+          "width": 181.671875,
+          "height": 44
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "이 조건에서 법을 자유의 구속으로 볼 수 있는가?",
+        "renderedPartialQuotes": [
+          "then the law cannot be",
+          "they would not rationally choose to do anyway",
+          "all rational beings would freely choose",
+          "the ultimate guarantee",
+          "can live in harmony in a legal system"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "trace",
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "7번 문장 · negationthen the ",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · conditionthey wou",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · conditionall rati",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "1번 문장 · nonethe ultimate ",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "5번 문장 · conditioncan live",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 432.40625,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "① 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "③ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "④ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "⑤ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "근거 1·7번 보기",
+          "width": 134.6875,
+          "height": 44.75
+        },
+        {
+          "text": "근거 1·6·7번 보기",
+          "width": 146.078125,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "이 조건에서 법을 자유의 구속으로 볼 수 있는가?",
+        "renderedPartialQuotes": [
+          "then the law cannot be",
+          "they would not rationally choose to do anyway",
+          "all rational beings would freely choose",
+          "the ultimate guarantee",
+          "can live in harmony in a legal system"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 2
+        },
+        {
+          "kind": "trace",
+          "n": 2,
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        },
+        {
+          "kind": "choice",
+          "n": 3
+        },
+        {
+          "kind": "choice",
+          "n": 2
+        },
+        {
+          "kind": "choice",
+          "n": 1
+        },
+        {
+          "kind": "choice",
+          "n": 2
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-34",
+      "variant": "NEW",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "7번 문장 · negationthen the ",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · conditionthey wou",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · conditionall rati",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "1번 문장 · nonethe ultimate ",
+          "width": 449.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "5번 문장 · conditioncan live",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 449.40625,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "준비된 근거와 연결 보기",
+          "width": 194.921875,
+          "height": 44.75
+        },
+        {
+          "text": "이 판단의 근거 1·7번 보기",
+          "width": 204.8125,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "이 조건에서 법을 자유의 구속으로 볼 수 있는가?",
+        "renderedPartialQuotes": [
+          "then the law cannot be",
+          "they would not rationally choose to do anyway",
+          "all rational beings would freely choose",
+          "the ultimate guarantee",
+          "can live in harmony in a legal system"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 2
+        },
+        {
+          "kind": "connect",
+          "n": 2,
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "trace",
+          "n": 2,
+          "sentences": [
+            1,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-22",
+      "variant": "REUSE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": "CURRENT_BASELINE_NOT_CHANGED",
+      "keyboard": "CURRENT_NATIVE_BUTTONS",
+      "cueNavigation": "NOT_TESTED_BASELINE",
+      "sceneControl": "CURRENT_AUTOMATION_STATIC_VIOLATION",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1000,
+        "visibleQuestion": "2026#22번 분석 검토",
+        "renderedPartialQuotes": [],
+        "localStorageKeys": [
+          "csat-rail",
+          "vf.csat.pendingReveals"
+        ]
+      },
+      "actions": [],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-22",
+      "variant": "IMPROVE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "3번 문장 · contrastneed to c",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · conditiona carefu",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · quantitywill try ",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referenceBy neces",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "9번 문장 · referencehow to p",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "10번 문장 · referencenot neg",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 432.40625,
+          "height": 44.75
+        },
+        {
+          "text": "① 정답",
+          "width": 70.609375,
+          "height": 44
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "근거 7 · 9 · 10번 문장 보기",
+          "width": 213.171875,
+          "height": 44
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "부분적으로 참인 설명이 글 전체의 요지를 대표하는가?",
+        "renderedPartialQuotes": [
+          "need to collaborate for resource efficiency purposes",
+          "a careful balancing act may be required",
+          "will try to be more competitive",
+          "By necessity they may need to share information",
+          "how to pursue both simultaneously",
+          "not neglected at the expense of the other"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "trace",
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-22",
+      "variant": "REPLACE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "3번 문장 · contrastneed to c",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · conditiona carefu",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · quantitywill try ",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referenceBy neces",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "9번 문장 · referencehow to p",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "10번 문장 · referencenot neg",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 432.40625,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "① 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "② 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "④ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "⑤ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "근거 7·9·10번 보기",
+          "width": 154.28125,
+          "height": 44.75
+        },
+        {
+          "text": "근거 6·9·10번 보기",
+          "width": 154.28125,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "부분적으로 참인 설명이 글 전체의 요지를 대표하는가?",
+        "renderedPartialQuotes": [
+          "need to collaborate for resource efficiency purposes",
+          "a careful balancing act may be required",
+          "will try to be more competitive",
+          "By necessity they may need to share information",
+          "how to pursue both simultaneously",
+          "not neglected at the expense of the other"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 3
+        },
+        {
+          "kind": "trace",
+          "n": 3,
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        },
+        {
+          "kind": "choice",
+          "n": 1
+        },
+        {
+          "kind": "choice",
+          "n": 3
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-22",
+      "variant": "NEW",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "3번 문장 · contrastneed to c",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · conditiona carefu",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · quantitywill try ",
+          "width": 449.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referenceBy neces",
+          "width": 449.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "9번 문장 · referencehow to p",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "10번 문장 · referencenot neg",
+          "width": 449.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 449.40625,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "⑤",
+          "width": 44.9375,
+          "height": 44.75
+        },
+        {
+          "text": "준비된 근거와 연결 보기",
+          "width": 194.921875,
+          "height": 44.75
+        },
+        {
+          "text": "이 판단의 근거 7·9·10번 보기",
+          "width": 224.40625,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "부분적으로 참인 설명이 글 전체의 요지를 대표하는가?",
+        "renderedPartialQuotes": [
+          "need to collaborate for resource efficiency purposes",
+          "a careful balancing act may be required",
+          "will try to be more competitive",
+          "By necessity they may need to share information",
+          "how to pursue both simultaneously",
+          "not neglected at the expense of the other"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 3
+        },
+        {
+          "kind": "connect",
+          "n": 3,
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "trace",
+          "n": 3,
+          "sentences": [
+            7,
+            9,
+            10
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-38",
+      "variant": "REUSE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": "CURRENT_BASELINE_NOT_CHANGED",
+      "keyboard": "CURRENT_NATIVE_BUTTONS",
+      "cueNavigation": "NOT_TESTED_BASELINE",
+      "sceneControl": "CURRENT_AUTOMATION_STATIC_VIOLATION",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1000,
+        "visibleQuestion": "2026#38번 분석 검토",
+        "renderedPartialQuotes": [],
+        "localStorageKeys": [
+          "csat-rail",
+          "vf.csat.pendingReveals"
+        ]
+      },
+      "actions": [],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-38",
+      "variant": "IMPROVE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "1번 문장 · referencethese in",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "1번 문장 · nonebecome deeply",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · noneour minds see",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · referenceyou may ",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · referencejudge ev",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referencewho you ",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 432.40625,
+          "height": 44.75
+        },
+        {
+          "text": "①",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "②",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "③",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "④",
+          "width": 44.9375,
+          "height": 44
+        },
+        {
+          "text": "⑤ 정답",
+          "width": 70.609375,
+          "height": 44
+        },
+        {
+          "text": "근거 6 · 7번 문장 보기",
+          "width": 181.671875,
+          "height": 44
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "앞뒤가 이어지면서 기존 연결도 보존되는 위치인가?",
+        "renderedPartialQuotes": [
+          "these internal narratives we form",
+          "become deeply rooted in our identity",
+          "our minds seek to make sense of them",
+          "you may create a negative narrative",
+          "judge everyone from the university",
+          "who you are as an individual"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "trace",
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-38",
+      "variant": "REPLACE",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "1번 문장 · referencethese in",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "1번 문장 · nonebecome deeply",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · noneour minds see",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · referenceyou may ",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · referencejudge ev",
+          "width": 432.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referencewho you ",
+          "width": 432.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 432.40625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ①",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ②",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ③",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ④",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ⑤",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "① 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "② 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "③ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "⑤ 대조",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "근거 6·7번 보기",
+          "width": 134.6875,
+          "height": 44.75
+        },
+        {
+          "text": "근거 1·6·7·8번 보기",
+          "width": 157.484375,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "앞뒤가 이어지면서 기존 연결도 보존되는 위치인가?",
+        "renderedPartialQuotes": [
+          "these internal narratives we form",
+          "become deeply rooted in our identity",
+          "our minds seek to make sense of them",
+          "you may create a negative narrative",
+          "judge everyone from the university",
+          "who you are as an individual"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 4
+        },
+        {
+          "kind": "trace",
+          "n": 4,
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        },
+        {
+          "kind": "choice",
+          "n": 5
+        },
+        {
+          "kind": "choice",
+          "n": 4
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    },
+    {
+      "item": "2026-38",
+      "variant": "NEW",
+      "width": 1440,
+      "truthAndFit": "PASS",
+      "controls": [
+        {
+          "text": "선택지 판단",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "근거부터",
+          "width": 89.734375,
+          "height": 44.75
+        },
+        {
+          "text": "원리와 한계",
+          "width": 109.859375,
+          "height": 44.75
+        },
+        {
+          "text": "강의 차례 보기",
+          "width": 130,
+          "height": 44.75
+        },
+        {
+          "text": "1번 문장 · referencethese in",
+          "width": 449.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "1번 문장 · nonebecome deeply",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "5번 문장 · noneour minds see",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "6번 문장 · referenceyou may ",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "7번 문장 · referencejudge ev",
+          "width": 449.40625,
+          "height": 95.28125
+        },
+        {
+          "text": "8번 문장 · referencewho you ",
+          "width": 449.40625,
+          "height": 116.71875
+        },
+        {
+          "text": "PDF·선지 전문 대조: 자료 미확보",
+          "width": 449.40625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ①",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ②",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ③",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ④",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "위치 ⑤",
+          "width": 80.015625,
+          "height": 44.75
+        },
+        {
+          "text": "준비된 근거와 연결 보기",
+          "width": 194.921875,
+          "height": 44.75
+        },
+        {
+          "text": "이 판단의 근거 6·7번 보기",
+          "width": 204.8125,
+          "height": 44.75
+        }
+      ],
+      "keyboard": "ENTER_SCENE_AND_CUE_PASS",
+      "cueNavigation": "READ_SILENT_OFF_LOCAL_STATE_PASS_TTS_NOT_RUN",
+      "sceneControl": "SCENE_SCROLL_FOCUS_PRESERVED",
+      "metrics": {
+        "overflow": 0,
+        "bodyHeight": 1004,
+        "visibleQuestion": "앞뒤가 이어지면서 기존 연결도 보존되는 위치인가?",
+        "renderedPartialQuotes": [
+          "these internal narratives we form",
+          "become deeply rooted in our identity",
+          "our minds seek to make sense of them",
+          "you may create a negative narrative",
+          "judge everyone from the university",
+          "who you are as an individual"
+        ],
+        "localStorageKeys": [
+          "csat-rail"
+        ]
+      },
+      "actions": [
+        {
+          "kind": "choice",
+          "n": 4
+        },
+        {
+          "kind": "connect",
+          "n": 4,
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "trace",
+          "n": 4,
+          "sentences": [
+            6,
+            7
+          ]
+        },
+        {
+          "kind": "scene",
+          "id": "principle"
+        },
+        {
+          "kind": "scene",
+          "id": "judgment"
+        },
+        {
+          "kind": "cue-next"
+        }
+      ],
+      "scope": "isolated partial analysis; no auth, PDF, content or real media validation"
+    }
+  ],
+  "errors": [],
+  "blocked": [
+    {
+      "method": "POST",
+      "path": "/api/csat/item/2026-34/reveal"
+    },
+    {
+      "method": "POST",
+      "path": "/api/csat/item/2026-22/reveal"
+    },
+    {
+      "method": "POST",
+      "path": "/api/csat/item/2026-38/reveal"
+    },
+    {
+      "method": "POST",
+      "path": "/api/csat/item/2026-34/reveal"
+    },
+    {
+      "method": "POST",
+      "path": "/api/csat/item/2026-22/reveal"
+    },
+    {
+      "method": "POST",
+      "path": "/api/csat/item/2026-38/reveal"
+    }
+  ],
+  "captures": [
+    {
+      "file": "evidence/2026-34-reuse-1280.png",
+      "sha256": "ce1b9fc687728478999750f6d841d267d7ce6db2e866ff7656c67ddc28f95549",
+      "item": "2026-34",
+      "variant": "REUSE",
+      "width": 1280,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-improve-1280.png",
+      "sha256": "f8e7ca8c213e2c15197a25cae65100553887d573a780bba49bae7b57c0ead5b4",
+      "item": "2026-34",
+      "variant": "IMPROVE",
+      "width": 1280,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-replace-1280.png",
+      "sha256": "9002e3d0be07785deca7bbf7beae098019098cddf2b5e056e80cc8c2b0eb1500",
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1280,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-replace-pair-1-3-1280.png",
+      "sha256": "3e5f13e522fe06927aca19c630f6c45c935e34b0a355a77e5bba3d5b99fc61be",
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1280,
+      "pair": [
+        1,
+        3
+      ],
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved analysis, not complete choice propositions",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-new-1280.png",
+      "sha256": "eaf5c7d03ada3e30cf4e82fa205f3746caaf2804ad52f1d61946a3be1a197d6d",
+      "item": "2026-34",
+      "variant": "NEW",
+      "width": 1280,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-reuse-1440.png",
+      "sha256": "b8544637bccb36204c129db2e2a62a42635a36f988976fc31118713a1c874ba0",
+      "item": "2026-34",
+      "variant": "REUSE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-improve-1440.png",
+      "sha256": "41d8a08fa4f2c627d16d98e0ce2345a78f976ce5cc980ced2284de8fcccbbcf6",
+      "item": "2026-34",
+      "variant": "IMPROVE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-replace-1440.png",
+      "sha256": "5d4edc6746b6c5ce09244921b584b00d50eaa04436aaa41126f0fc39ea2aedde",
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-replace-pair-1-3-1440.png",
+      "sha256": "270b16ef6de82d82d2416b64b59c9f91d3ad4d5eebd045ea25bfe4e5543f915e",
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1440,
+      "pair": [
+        1,
+        3
+      ],
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved analysis, not complete choice propositions",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-new-1440.png",
+      "sha256": "ca1d7a651a707966f537f3f429c20c7cb5768435727bd03f259ef8735df6544f",
+      "item": "2026-34",
+      "variant": "NEW",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-22-reuse-1440.png",
+      "sha256": "ae88d39999c755a34adfd76b3f1f58a8b8bea491cbba425737bdfa52747b69da",
+      "item": "2026-22",
+      "variant": "REUSE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-22-replace-1440.png",
+      "sha256": "5df8d24a87a39821b5c4bdfe56fe0bf2174d2a734167127c62813542d26ab1a2",
+      "item": "2026-22",
+      "variant": "REPLACE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-38-reuse-1440.png",
+      "sha256": "6b58f374c900d22571ab0b8a38f55319f087a0ad5a84ab49a7a1ae9c2e3a6e20",
+      "item": "2026-38",
+      "variant": "REUSE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-38-replace-1440.png",
+      "sha256": "9aa5749729e6e1212e85f9f4daa23e81be6be64c4f1e21ffb6621468b8ad63ca",
+      "item": "2026-38",
+      "variant": "REPLACE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    }
+  ],
+  "unverified": [
+    "authenticated route and RLS",
+    "local PDF and complete choices",
+    "content validation",
+    "actual TTS and assessment audio",
+    "learner observation and effectiveness",
+    "all-type generality"
+  ],
+  "guard": "Only own loopback GET allowed; no app/DB writes; original files unchanged"
+}

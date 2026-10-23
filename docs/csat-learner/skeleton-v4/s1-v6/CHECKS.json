@@ -1,11 +1,11 @@
 {
-  "observed_at": "2026-10-23T13:34:00.698Z",
+  "observed_at": "2026-10-23T14:14:06.137Z",
   "sourceCommit": "3f437e9b65e06c00a96f64890402500417377c92",
   "s0AcceptedCommit": "68633c195e9745ff3d913499db2b1ec6990dc90e",
-  "level": "L1 document + preserved/current component evidence",
+  "level": "L1 document + L2 isolated interaction evidence",
   "checks": [
     {
-      "name": "ten features / forty distinct alternative kinds / no unsupported selection",
+      "name": "ten differentiated feature decisions / forty alternatives / no unsupported final selection",
       "result": "PASS",
       "scope": "artifact/source structure; not content or product acceptance"
     },
@@ -33,6 +33,11 @@
       "name": "local Markdown links resolve",
       "result": "PASS",
       "scope": "artifact/source structure; not content or product acceptance"
+    },
+    {
+      "name": "equal-input isolated comparisons / honest authentication and media limits / source failure axes",
+      "result": "PASS",
+      "scope": "artifact/source structure; not content or product acceptance"
     }
   ],
   "unrun": [
@@ -43,5 +48,5 @@
     "learner observation/transfer/grade effect",
     "full CI/build/typecheck"
   ],
-  "note": "These six artifact checks do not convert the 26 AT results into product PASS."
+  "note": "Artifact and isolated checks do not convert historical AT results into product PASS."
 }

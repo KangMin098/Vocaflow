@@ -14,11 +14,14 @@ const records=[];
 function check(name,fn){fn();records.push({name,result:'PASS',scope:'artifact/source structure; not content or product acceptance'});}
 const manifest=load('MANIFEST.json'), features=load('FEATURE_DECISIONS.json').features, cues=load('LECTURE_CUES.json');
 const originals=JSON.parse(fs.readFileSync(path.join(src,cues.sourcePath),'utf8')).lectures;
-check('ten features / forty distinct alternative kinds / no unsupported selection',()=>{
+check('ten differentiated feature decisions / forty alternatives / no unsupported final selection',()=>{
+ assert.equal(load('FEATURE_DECISIONS.json').status,'DRAFT');assert.equal(load('FEATURE_DECISIONS.json').acceptance,'NOT_ACCEPTED');
  assert.deepEqual(features.map(f=>f.id),Array.from({length:10},(_,i)=>`F${String(i+1).padStart(2,'0')}`));
  for(const f of features){assert.deepEqual(f.alternatives.map(a=>a.kind),['REUSE','IMPROVE','REPLACE','NEW']);assert.equal(new Set(f.alternatives.map(a=>a.proposal)).size,4);assert.equal(f.selected,null);assert.ok(f.minimumEvidence&&f.scenario&&f.acceptance);for(const a of f.alternatives)assert.equal(a.costComparison,'DEFERRED_UNTIL_ADMISSIBLE');}
  assert.equal(features.filter(f=>f.decision==='BLOCKED_EVIDENCE').length,4);
- assert.deepEqual(features.filter(f=>f.alternatives[0].gate==='REJECTED_CONTROL').map(f=>f.id),['F07','F08']);
+ assert.equal(new Set(features.map(f=>f.reason)).size,10);
+ assert.deepEqual(features.filter(f=>f.alternatives[0].status==='ELIMINATED').map(f=>f.id),['F07','F08']);
+ for(const f of features){assert.ok(f.nextValidation&&f.observedEvidence&&f.typeExtension);for(const a of f.alternatives){assert.ok(a.observation&&a.remainingRisk);if(a.status==='ELIMINATED')assert.equal(a.fitness,'INELIGIBLE');}}
 });
 check('lecture file binding / 37 unchanged original cues / six separate proposals',()=>{
  assert.equal(hash(fs.readFileSync(path.join(src,cues.sourcePath))),cues.sourceFileSHA256);
@@ -52,6 +55,21 @@ check('real sample judgment structures and pair zero (not semantic validation)',
 check('local Markdown links resolve',()=>{
  for(const f of fs.readdirSync(dir).filter(f=>f.endsWith('.md'))){const body=fs.readFileSync(path.join(dir,f),'utf8');for(const m of body.matchAll(/\]\((\.\.?\/[^)#]+)(?:#[^)]*)?\)/g)){assert.ok(fs.existsSync(path.resolve(dir,m[1])),`${f}: ${m[1]}`);}}
 });
-const result={observed_at:new Date().toISOString(),sourceCommit:manifest.sourceCommit,s0AcceptedCommit:manifest.s0AcceptedCommit,level:'L1 document + preserved/current component evidence',checks:records,unrun:['normal authenticated route/RLS','local PDF/full choices','actual TTS/audio','content validation','learner observation/transfer/grade effect','full CI/build/typecheck'],note:'These six artifact checks do not convert the 26 AT results into product PASS.'};
-fs.writeFileSync(path.join(dir,'CHECKS.json'),JSON.stringify(result,null,2)+'\n','utf8');
+check('equal-input isolated comparisons / honest authentication and media limits / source failure axes',()=>{
+ const browser=load('goal-fit/BROWSER_RESULTS.json'),binding=load('goal-fit/MANIFEST.json');
+ assert.equal(browser.stage,'DRAFT / NOT_ACCEPTED');assert.equal(browser.results.length,24);assert.equal(browser.errors.length,0);assert.equal(browser.captures.length,14);
+ assert.equal(hash(fs.readFileSync(path.join(dir,'goal-fit/BROWSER_RESULTS.json'))),binding.results.sha256);
+ for(const f of [binding.fixture,binding.harness,...binding.captures])assert.equal(hash(fs.readFileSync(path.join(dir,'goal-fit',f.file))),f.sha256);
+ assert.equal(new Set(browser.results.map(r=>`${r.item}/${r.variant}/${r.width}`)).size,24);
+ assert.ok(browser.results.filter(r=>r.variant!=='REUSE').every(r=>r.sceneControl==='SCENE_SCROLL_FOCUS_PRESERVED'&&r.metrics.overflow<=1));
+ assert.ok(browser.captures.every(c=>c.normalAuth===false&&c.pdf===false&&c.reveal==='OFFICIAL_ANSWER'));
+ const c=(id,n)=>browser.sourceFailures.find(s=>s.id===id).choices.find(c=>c.n===n);
+ assert.deepEqual([c('2026#34',2).truth,c('2026#34',2).fit],['unknown','fails']);
+ assert.deepEqual([c('2026#22',3).truth,c('2026#22',3).fit],['true','fails']);
+ assert.ok(browser.sourceFailures.find(s=>s.id==='2026#38').choices.every(c=>c.truth==='n_a'));
+ assert.deepEqual([c('2026#38',4).fit,c('2026#38',5).fit],['fails','satisfies']);
+ assert.equal(load('FEATURE_DECISIONS.json').f06Layers.rls,'NOT_VERIFIED');
+});
+const result={observed_at:new Date().toISOString(),sourceCommit:manifest.sourceCommit,s0AcceptedCommit:manifest.s0AcceptedCommit,level:'L1 document + L2 isolated interaction evidence',checks:records,unrun:['normal authenticated route/RLS','local PDF/full choices','actual TTS/audio','content validation','learner observation/transfer/grade effect','full CI/build/typecheck'],note:'Artifact and isolated checks do not convert historical AT results into product PASS.'};
+if(!process.argv.includes('--check'))fs.writeFileSync(path.join(dir,'CHECKS.json'),JSON.stringify(result,null,2)+'\n','utf8');
 console.log(JSON.stringify(result,null,2));

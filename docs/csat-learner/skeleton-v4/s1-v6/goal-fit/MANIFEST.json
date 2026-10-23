@@ -1,0 +1,189 @@
+{
+  "sourceFiles": {
+    "apps/web/src/lib/csat/inquiry-data.json": "14037f59cbbd972c20761e7bd806bedd832b2c8f987c0adf9ad679d578345534",
+    "apps/web/src/lib/csat/lecture-data/2026.json": "26ede0e2f1b6f53331189246496ff1eec88386085e1ff2cb620ccaf850d3bfe4",
+    "apps/web/src/components/csat/theater/AnalysisTheater.tsx": "967c8c68bae9af6ad3a8768b2af7a80889c8fb27a9d22206d241d4d5264990e9",
+    "apps/web/src/components/csat/theater/InquiryV3Panels.tsx": "0a2e9ac689b4f4666f47026da08b2a3f0f153dc39d3e63946df149c9ff003d40",
+    "apps/web/src/components/csat/lecture/LectureStage.tsx": "ea06d7ba808aca36a6d5616e69649e3607d1d8ae1a970901e98478c6ec57cf5f"
+  },
+  "samples": {
+    "sha256": "af5b79bb308fd4ff080d8de9193f5cd3e48a0b7a36e78cb1b106554d9eac7c0e",
+    "path": "D:\\workspace\\Vocaflow-main-serving\\tmp\\csat-item-review-20261023\\samples.json"
+  },
+  "harness": {
+    "file": "compare.mjs",
+    "sha256": "58327b9b9532ab1aaec6b9591c7bfc4380c3d71aacd510de03798c9fc97d3d21"
+  },
+  "fixture": {
+    "file": "fixture.tsx",
+    "sha256": "501e50e9b8463aed8f28f829fe905e5e3e59f6b59dd8aedbf2ccbed469eb937a"
+  },
+  "results": {
+    "file": "BROWSER_RESULTS.json",
+    "sha256": "74fadfa20b27bd4d2d03aa81d32e98d7d2d7b12213db71bd8516e804ee66f953"
+  },
+  "captures": [
+    {
+      "file": "evidence/2026-34-reuse-1280.png",
+      "sha256": "ce1b9fc687728478999750f6d841d267d7ce6db2e866ff7656c67ddc28f95549",
+      "item": "2026-34",
+      "variant": "REUSE",
+      "width": 1280,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-improve-1280.png",
+      "sha256": "f8e7ca8c213e2c15197a25cae65100553887d573a780bba49bae7b57c0ead5b4",
+      "item": "2026-34",
+      "variant": "IMPROVE",
+      "width": 1280,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-replace-1280.png",
+      "sha256": "9002e3d0be07785deca7bbf7beae098019098cddf2b5e056e80cc8c2b0eb1500",
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1280,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-replace-pair-1-3-1280.png",
+      "sha256": "3e5f13e522fe06927aca19c630f6c45c935e34b0a355a77e5bba3d5b99fc61be",
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1280,
+      "pair": [
+        1,
+        3
+      ],
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved analysis, not complete choice propositions",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-new-1280.png",
+      "sha256": "eaf5c7d03ada3e30cf4e82fa205f3746caaf2804ad52f1d61946a3be1a197d6d",
+      "item": "2026-34",
+      "variant": "NEW",
+      "width": 1280,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-reuse-1440.png",
+      "sha256": "b8544637bccb36204c129db2e2a62a42635a36f988976fc31118713a1c874ba0",
+      "item": "2026-34",
+      "variant": "REUSE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-improve-1440.png",
+      "sha256": "41d8a08fa4f2c627d16d98e0ce2345a78f976ce5cc980ced2284de8fcccbbcf6",
+      "item": "2026-34",
+      "variant": "IMPROVE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-replace-1440.png",
+      "sha256": "5d4edc6746b6c5ce09244921b584b00d50eaa04436aaa41126f0fc39ea2aedde",
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-replace-pair-1-3-1440.png",
+      "sha256": "270b16ef6de82d82d2416b64b59c9f91d3ad4d5eebd045ea25bfe4e5543f915e",
+      "item": "2026-34",
+      "variant": "REPLACE",
+      "width": 1440,
+      "pair": [
+        1,
+        3
+      ],
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved analysis, not complete choice propositions",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-34-new-1440.png",
+      "sha256": "ca1d7a651a707966f537f3f429c20c7cb5768435727bd03f259ef8735df6544f",
+      "item": "2026-34",
+      "variant": "NEW",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-22-reuse-1440.png",
+      "sha256": "ae88d39999c755a34adfd76b3f1f58a8b8bea491cbba425737bdfa52747b69da",
+      "item": "2026-22",
+      "variant": "REUSE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-22-replace-1440.png",
+      "sha256": "5df8d24a87a39821b5c4bdfe56fe0bf2174d2a734167127c62813542d26ab1a2",
+      "item": "2026-22",
+      "variant": "REPLACE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-38-reuse-1440.png",
+      "sha256": "6b58f374c900d22571ab0b8a38f55319f087a0ad5a84ab49a7a1ae9c2e3a6e20",
+      "item": "2026-38",
+      "variant": "REUSE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    },
+    {
+      "file": "evidence/2026-38-replace-1440.png",
+      "sha256": "9aa5749729e6e1212e85f9f4daa23e81be6be64c4f1e21ffb6621468b8ad63ca",
+      "item": "2026-38",
+      "variant": "REPLACE",
+      "width": 1440,
+      "reveal": "OFFICIAL_ANSWER",
+      "source": "preserved sample analysis only",
+      "pdf": false,
+      "normalAuth": false
+    }
+  ]
+}
