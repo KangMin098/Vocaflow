@@ -24,6 +24,8 @@ type LevelValue = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | null
  * "지문이 샐 수 없다" 의 구조적 근거다.
  */
 export type PublicEvent =
+  | { name: 'csat_summary_opened'; props: { evidence_count: number; conditions_count: number } }
+  | { name: 'csat_summary_explored'; props: { action: 'stage' | 'evidence' | 'condition'; index: number } }
   /** `/fit` 진입 — 퍼널의 분모 */
   | { name: 'fit_viewed'; props: { shared: boolean } }
   /** 분석 1회 완료 — "실제로 써 봤다" */
@@ -576,6 +578,8 @@ export type PublicEventName = PublicEvent['name']
  *    Record 로 적으면 이름을 하나라도 빠뜨렸을 때 **타입 검사가 막는다.**
  */
 const EVENT_REGISTRY: Record<PublicEventName, true> = {
+  csat_summary_opened: true,
+  csat_summary_explored: true,
   fit_viewed: true,
   fit_analyzed: true,
   fit_shared: true,

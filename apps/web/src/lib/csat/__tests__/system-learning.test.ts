@@ -23,7 +23,12 @@ describe('buildLearningSummary', () => {
     const s = buildLearningSummary(base)
     expect(s.relation).toBe('근거가 판단을 받친다')
     expect(s.units).toEqual(['문장', '표 칸'])
-    expect(s.evidence).toEqual([{ key: 'analysis:reject:2', choice: 2, title: '2', body: '배제 이유 2' }])
+    expect(s.evidence).toEqual([{ key: 'analysis:reject:2', choice: 2, title: '2', body: '배제 이유 2', sentences: [] }])
+  })
+  it('제공된 문장 연결만 선택지에 붙이며 중복·잘못된 번호는 쓰지 않는다', () => {
+    const s = buildLearningSummary({ ...base, choiceEvidence: [{ n: 2, sentences: [2, 3, 2, 0, -1, 1.5] }] })
+    expect(s.evidence[0].sentences).toEqual([2, 3])
+    expect(s.evidence[0].body).toBe('배제 이유 2')
   })
   it('사전 구축 확인 과제가 없으면 preparing — 풀기 활동을 만들지 않는다', () => {
     const s = buildLearningSummary(base)

@@ -165,6 +165,7 @@ for (const width of [1280, 1440]) {
     const summary = page.getByTestId('learning-summary')
     await expect(summary).toBeVisible()
     await expect(summary.locator('textarea')).toHaveCount(0)
+    await summary.getByTestId('summary-stage-2').click()
     await expect(summary.getByTestId('summary-checks')).toHaveAttribute('data-readiness', /^(prepared|preparing)$/)
     await page.screenshot({ path: path.join(SHOTS, `summary_${width}.png`) })
     await axeClean(page, '[data-testid="learning-summary"]')

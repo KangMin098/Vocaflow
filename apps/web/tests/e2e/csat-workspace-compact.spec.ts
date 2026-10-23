@@ -250,6 +250,7 @@ test('학습 정리 → 근거 다시 짚기 · 근거 판 접기 · 강의 도�
   await expect(page.getByTestId('learning-summary')).toBeVisible({ timeout: 120_000 })
   // 학습 정리(T-0091) — 쓰는 칸 없이 다음 활동으로 문항 성립(근거) 장면에 간다
   await expect(page.getByTestId('learning-summary').locator('textarea')).toHaveCount(0)
+  await page.getByTestId('summary-stage-2').click()
   await page.getByTestId('summary-next-evidence').click()
   await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'judgment')
   await press(page, 'button[data-choice="3"]', async () => expect(page.locator('[data-testid="v3-evidence"][data-key="choice-3"]')).toBeVisible({ timeout: 1000 }))
