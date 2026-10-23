@@ -21,6 +21,8 @@ export const BATCHES = {
   // 계약 v2.1 확대 — 1·2배치와 겹치지 않는 직전 평가원 시험
   'b4-v21': { rule: 'M2606 독해 18–45 전 28 + 2024 수능 핵심 유형 12', ids: [...Array.from({ length: 28 }, (_, k) => `M2606#${18 + k}`), ...KEY_TYPES.map((n) => `2024#${n}`)] },
   // 802 확대(T-0100) — 범위 배치: 시험 순서대로 채우고 상한 40. 결손 · 도표 · 삽입 경계 불확실은 멈추지 않고 excluded 에 사유를 남긴다
+  // 평가원 모의평가 나머지 — M2706(pilot-1 이 핵심 유형 12 판정) 나머지 → M2409 순 ≤40 · 기판정 자동 제외
+  'b8-v24': { rule: 'M2706 18–45 중 미판정 → M2409 18–45 순으로 ≤40 · 도표 · 결손 · 기판정 제외 · 계약 v2.4(v2.5 는 관측 검증 전 미봉인)', ids: ['M2706', 'M2409'].flatMap((e) => Array.from({ length: 28 }, (_, k) => `${e}#${18 + k}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   // 수능 나머지 문항(핵심 유형 밖) — 2024 · 2025 → 2023 순 ≤40 · 이미 판정한 문항은 자동 제외(이전 배치 selection)
   'b7-v24': { rule: '2024 · 2025 수능 핵심 유형 밖 18–45 → 2023 수능 핵심 유형 밖 순으로 ≤40 · 도표 · 결손 · 기판정 제외', ids: ['2024', '2025', '2023'].flatMap((e) => Array.from({ length: 28 }, (_, k) => 18 + k).filter((n) => !KEY_TYPES.includes(n)).map((n) => `${e}#${n}`)), range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.4' },
   // b5 이후(T-0103 보완 · 계약 v2.3): 2023#38 은 b5 동결 뒤 사용자 승인으로 DB 복구 — 새 source_sha256 으로 재결속해 여기서 판정한다
@@ -70,7 +72,7 @@ const passageSha = (p) => crypto.createHash('sha256').update(Buffer.from(String(
 const snapshotOf = (i) => (i ? { type_id: i.type_id, body_ok: i.body_ok, choices_is_array: Array.isArray(i.choices), choices_count: Array.isArray(i.choices) ? i.choices.length : null, has_answer: !!(i.answers?.length || i.answer != null),
   source_sha256: sha({ stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers, points: i.points }), passage_sha256: passageSha(i.passage) } : null)
 const excluded = def.ids.map((id) => ({ item_id: id, reason: exclusion(id) })).filter((x) => x.reason).map((x) => ({ ...x, snapshot: snapshotOf(byId.get(x.item_id)) }))
-const excludedRaw = excluded.map((x) => { const i = byId.get(x.item_id); return i ? { item_id: x.item_id, source: { stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers, points: i.points, body_ok: i.body_ok } } : { item_id: x.item_id, source: null } })
+const excludedRaw = excluded.map((x) => { const i = byId.get(x.item_id); return i ? { item_id: x.item_id, type_id: i.type_id, source: { stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers, points: i.points, body_ok: i.body_ok } } : { item_id: x.item_id, source: null } })
 // 고정 배치는 부적격이 있으면 멈춘다(선정 동결) — 범위 배치만 제외하고 계속한다
 if (excluded.length && !def.range) throw new Error(`분석 부적격: ${excluded.map((x) => `${x.item_id}(${x.reason})`).join(', ')}`)
 const chosen = def.ids.filter((id) => !exclusion(id)).slice(0, def.cap ?? Infinity)

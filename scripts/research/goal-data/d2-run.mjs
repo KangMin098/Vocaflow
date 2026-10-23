@@ -166,7 +166,19 @@ function agree() {
   for (const v of Object.values(summary.per_task)) console.log(`  ${v.display.padEnd(5)} 일치 ${v.agreement} κ ${v.kappa} 직접 ${v.both_direct} 간접 ${v.both_indirect} 무관 ${v.both_not_applicable} 갈림 ${v.disputed}`)
 }
 
+/** 출력(.out.json)을 고치기 전 원본을 보존한다(T-0111 U1 — 재표시 전 원본이 없어 독립성을 확인할 수 없었다). local/<batch>/history/<시각>-<label>/ */
+function snapshot(label) {
+  const dir = path.join(LOCAL, 'history', `${new Date().toISOString().replace(/[:.]/g, '-')}-${String(label ?? 'before-edit').replace(/[^A-Za-z0-9_-]/g, '_')}`)
+  fs.mkdirSync(dir, { recursive: true })
+  const files = fs.readdirSync(LOCAL).filter((f) => f.endsWith('.out.json'))
+  for (const f of files) fs.copyFileSync(path.join(LOCAL, f), path.join(dir, f))
+  const manifest = files.map((f) => ({ file: f, sha256: sha(fs.readFileSync(path.join(LOCAL, f), 'utf8')) }))
+  fs.writeFileSync(path.join(dir, 'manifest.json'), JSON.stringify({ batch, label, files: manifest }, null, 1))
+  console.log(`보존 ${files.length}개 → ${path.relative(ROOT, dir)}`)
+}
+
 if (cmd === 'chunks') chunks()
+else if (cmd === 'snapshot') snapshot(process.argv[4])
 else if (cmd === 'validate') validate()
 else if (cmd === 'agree') agree()
-else { console.error('<batch> chunks | validate | agree'); process.exit(2) }
+else { console.error('<batch> chunks | validate | agree | snapshot <label>'); process.exit(2) }
