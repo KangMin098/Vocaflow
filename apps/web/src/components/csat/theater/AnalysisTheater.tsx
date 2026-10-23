@@ -802,7 +802,18 @@ export function AnalysisTheater({
         ...(committed.transform ? { transform: committed.transform as Transform } : {}),
       }
     : null
-  const diff = mine ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
+  // ── 정답 공개 경로(2026-10-24 P1~P5) — 강의를 듣기 전에 학습자가 고른다. 고르기 전에는 어떤 cue 도 받지도 틀지도 않는다.
+  // 원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지(검증된 경계가 있을 때만). 강제 퀴즈 · 필수 선지 선택으로 대신하지 않는다
+  const [lecturePath, setLecturePath] = useState<'self' | 'full' | 'until' | null>(null)
+  const stopAt = lectureDisclosure?.verified ? lectureDisclosure.stopBefore : null
+  // 정답 공개 동의 — 경계 안내의 「계속 듣기(정답 공개)」 또는 감춘 블록의 「정답 보기」 만 켠다(건너뛰기 · 멈춤 · 키 이동은 켜지 않는다)
+  const [answerConsent, setAnswerConsent] = useState(false)
+  // 정답 감춤 선택 — 「정답 직접 안내 전까지」 를 고르면 켜지고, 강의 오류로 경로가 풀려도 동의 전까지 꺼지지 않는다(r4 R4-02)
+  const [answerHide, setAnswerHide] = useState(false)
+  const answerGate: AnswerGateState = { path: lecturePath, stopAt, consented: answerConsent, hideAnswer: answerHide }
+  const withheld = answerWithheld(answerGate)
+  // 저장된 예측과 출제자 답의 대조 · 완료 카드의 채점도 정답 공개다 — 동의 전에는 그리지 않는다(T-0140 r6 R6-01)
+  const diff = mine && !withheld ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
   const nextLive = useMemo(() => {
     if (!seen) return next ? { ...next, revisit: false } : null
     const pick = pickNextItem(
@@ -819,7 +830,7 @@ export function AnalysisTheater({
     finished && session ? (
       <SessionDone
         session={session}
-        result={committed && !isSkipPrediction(committed) && mine ? grade(mine, gate) : null}
+        result={committed && !isSkipPrediction(committed) && mine && !withheld ? grade(mine, gate) : null}
         next={nextLive}
         typeHref={typeHref}
         now={Date.now()}
@@ -827,16 +838,6 @@ export function AnalysisTheater({
         onRestart={restart}
       />
     ) : null
-  // ── 정답 공개 경로(2026-10-24 P1~P5) — 강의를 듣기 전에 학습자가 고른다. 고르기 전에는 어떤 cue 도 받지도 틀지도 않는다.
-  // 원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지(검증된 경계가 있을 때만). 강제 퀴즈 · 필수 선지 선택으로 대신하지 않는다
-  const [lecturePath, setLecturePath] = useState<'self' | 'full' | 'until' | null>(null)
-  const stopAt = lectureDisclosure?.verified ? lectureDisclosure.stopBefore : null
-  // 정답 공개 동의 — 경계 안내의 「계속 듣기(정답 공개)」 또는 감춘 블록의 「정답 보기」 만 켠다(건너뛰기 · 멈춤 · 키 이동은 켜지 않는다)
-  const [answerConsent, setAnswerConsent] = useState(false)
-  // 정답 감춤 선택 — 「정답 직접 안내 전까지」 를 고르면 켜지고, 강의 오류로 경로가 풀려도 동의 전까지 꺼지지 않는다(r4 R4-02)
-  const [answerHide, setAnswerHide] = useState(false)
-  const answerGate: AnswerGateState = { path: lecturePath, stopAt, consented: answerConsent, hideAnswer: answerHide }
-  const withheld = answerWithheld(answerGate)
   const step = steps[cursor] ?? null
   // 레일 차례는 오답 번호를 지운 키를 들고 있다(maskDisclosureSteps) — 재생 중이면 받은 cue 의 실제 대상으로 맞춘다
   const rawLiveKey = lec?.activeKey && (lec.status === 'playing' || lec.status === 'paused') ? blockKeyForTarget(lec.activeKey, blockKeys) : step ? blockKeyForTarget(step.targetKey, blockKeys) : null

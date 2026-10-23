@@ -123,6 +123,9 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     expect(theater).toMatch(/sceneChecks\.length && !withheld \? \(\s*<UnderstandingChecks/)
     expect(theater).toMatch(/scene === 'compare' && !withheld \? \(\s*<V3CompareExplorer/)
     expect(theater).toMatch(/withheld \? withheldPanel\('distractors', '오답 설계'\) : <DistractorDesign/)
+    // r6 R6-01 — 저장된 예측 대조 카드 · 완료 카드 채점도 동의 전에는 없다
+    expect(theater).toMatch(/const diff = mine && !withheld \? <GateDiff/)
+    expect(theater).toMatch(/result=\{committed && !isSkipPrediction\(committed\) && mine && !withheld \? grade/)
     // r5 R5-01~03 — 동의 전 장면은 허용 목록(유형 단위 탐구 질문 + 자리표시)만. 지도 · 설계 · 원리 · 정리 · 과제는 그 분기 밖
     const allow = theater.slice(theater.indexOf("withheldPanel('scene'") - 600, theater.indexOf("withheldPanel('scene'") + 200)
     for (const c of ['<PassageMap', '<V3Design', '<V3Task', '<V3Meaning', '<PrincipleDesign', '<SystemLearningSummary', 'renderBlock']) expect(allow).not.toContain(c)
