@@ -848,6 +848,7 @@ export function AnalysisTheater({
   const liveBlockKind = liveKey ? blocks.find((b) => b.key === liveKey)?.kind : undefined
   const lectureScene = lec && (lec.status === 'playing' || lec.status === 'paused') && liveBlockKind ? sceneOfBlock(liveBlockKind) : null
   const lectureElsewhere = lectureScene && lectureScene !== scene ? SCENES.find((x) => x.id === lectureScene) ?? null : null
+  const offerRef = useRef<HTMLDivElement | null>(null)
 
   const move = (delta: number) => {
     const to = Math.max(0, Math.min(steps.length - 1, cursor + delta))
@@ -1017,18 +1018,37 @@ export function AnalysisTheater({
           ) : null}
         </div>
       </header>
-      {lectureElsewhere || (lec && status === 'playing' && !lec.following) ? (
-        <div className={styles.lectureOffer} data-testid="lecture-offer">
+      {/* 강의 안내 줄 — 강의가 켜져 있는 동안 늘 같은 자리 · 같은 높이(끼었다 빠지며 본문을 밀지 않는다).
+          따라가기 단추는 사라지지 않고 켜짐/꺼짐만 바뀐다(누른 단추가 없어져 포커스를 잃지 않게) */}
+      {lec && (status === 'playing' || status === 'paused') ? (
+        <div className={styles.lectureOffer} data-testid="lecture-offer" ref={offerRef} tabIndex={-1}>
+          <button
+            type="button"
+            className={styles.lectureOfferBtn}
+            aria-pressed={lec.following}
+            onClick={lec.following ? lec.unfollow : lec.follow}
+            data-testid="lecture-offer-follow"
+          >
+            {lec.following ? '설명 위치 따라가는 중 · 끄기' : '지금 설명 위치로'}
+          </button>
           {lectureElsewhere ? (
-            <button type="button" className={styles.lectureOfferBtn} onClick={() => selectScene(lectureElsewhere.id)} data-testid="lecture-offer-scene">
+            <button
+              type="button"
+              className={styles.lectureOfferBtn}
+              onClick={() => {
+                selectScene(lectureElsewhere.id)
+                // 누른 단추는 장면이 바뀌면 사라진다 — 포커스를 안내 줄에 남긴다
+                offerRef.current?.focus()
+              }}
+              data-testid="lecture-offer-scene"
+            >
               강의는 지금 「{lectureElsewhere.label}」 장면을 설명하고 있어요 · 그 장면 보기
             </button>
           ) : null}
-          {lec && status === 'playing' && !lec.following ? (
-            <button type="button" className={styles.lectureOfferBtn} onClick={lec.follow} data-testid="lecture-offer-follow">
-              지금 설명 위치로
-            </button>
-          ) : null}
+          {/* 장면이 갈릴 때만 알린다(큐마다 읽지 않는다) */}
+          <span className={styles.srOnly} aria-live="polite">
+            {lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
+          </span>
         </div>
       ) : null}
 

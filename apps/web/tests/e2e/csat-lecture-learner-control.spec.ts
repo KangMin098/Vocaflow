@@ -69,6 +69,8 @@ test.describe('강의 학습자 제어', () => {
       if (offered) {
         await page.getByTestId('lecture-offer-scene').click()
         await expect.poll(() => sceneOf(page)).not.toBe(startScene)
+        // 누른 단추가 사라져도 포커스는 안내 줄에 남는다
+        await expect(page.getByTestId('lecture-offer')).toBeFocused()
       } else {
         test.info().annotations.push({ type: 'note', description: '이 문항 강의는 넘긴 범위에서 다른 장면을 설명하지 않았다 — ② 미관측' })
       }
@@ -77,8 +79,9 @@ test.describe('강의 학습자 제어', () => {
       await expect.poll(() => statusOf(page)).toBe('playing')
       await page.mouse.move(width / 2, 450)
       await page.mouse.wheel(0, 300)
+      // 따라가기 단추는 늘 있고 켜짐/꺼짐만 바뀐다(aria-pressed)
       const follow = page.getByTestId('lecture-offer-follow')
-      await expect(follow).toBeVisible({ timeout: 5_000 })
+      await expect(follow).toHaveAttribute('aria-pressed', 'false', { timeout: 5_000 })
       const scrollOf = () =>
         page.evaluate(() => {
           const els = [document.scrollingElement, ...Array.from(document.querySelectorAll<HTMLElement>('[data-csat-theater] *'))].filter(
@@ -93,7 +96,8 @@ test.describe('강의 학습자 제어', () => {
 
       // ④ 학습자가 다시 고르면 켜진다
       await follow.click()
-      await expect(follow).toBeHidden({ timeout: 5_000 })
+      await expect(follow).toHaveAttribute('aria-pressed', 'true', { timeout: 5_000 })
+      await expect(follow).toBeFocused()
       await page.screenshot({ path: `test-results/lecture-learner-control-${width}.png` })
     })
   }

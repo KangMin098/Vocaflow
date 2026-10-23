@@ -65,6 +65,8 @@ interface LectureCtx {
   following: boolean
   /** 학습자가 명시적으로 고른 「지금 설명 위치로」 — 따라가기를 켜고 지금 큐로 한 번 옮긴다 */
   follow: () => void
+  /** 학습자가 명시적으로 따라가기를 끈다 */
+  unfollow: () => void
 }
 
 const Ctx = createContext<LectureCtx | null>(null)
@@ -351,6 +353,7 @@ export function LectureStage({
     }
   }, [sessionOn, following])
 
+  const unfollow = useCallback(() => setFollowing(false), [])
   const follow = useCallback(() => {
     setFollowing(true)
     if (!activeKey) return
@@ -458,8 +461,9 @@ export function LectureStage({
       setRate,
       following,
       follow,
+      unfollow,
     }),
-    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate, following, follow],
+    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate, following, follow, unfollow],
   )
 
   return (
