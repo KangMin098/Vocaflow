@@ -1,6 +1,6 @@
 {
-  "generated_at": "2026-10-23T02:41:55.803Z",
-  "input_head": "791ee473e2173cacd3d2d98932d280fce317274c",
+  "generated_at": "2026-10-23T03:49:07.105Z",
+  "input_head": "80fa4454023c6b7086ac5cf4d7c12d459d26b0a0",
   "generator": "docs/research/goal-data-batches/D4-assessment/_compute.mjs",
   "input_sha256": {
     "docs/csat-learner/v4/codebook.json": "e53141985380c410be02cc8cf84e204479f075520b92448a40dde366551c1c6a",
@@ -395,11 +395,11 @@
     {
       "id": "M4",
       "title": "연습 성공을 독립 평가로 셀 위험",
-      "severity": "P3(방어됨)",
+      "severity": "P2(부분 방어 · Codex T-0088 정정)",
       "evidence": [
         "apps/web/src/lib/csat/map/skill-diagnosis.ts:91"
       ],
-      "finding": "activity='practice' 기록 · 도움 · 해설 뒤 · 합성 · 시각 불확실 시도는 판정에서 빠진다. 창작 세트 교수/안내 지문과 평가 지문의 해시 중복 0건. 남은 위험: validateAuthoredSet 은 passageGroup 이름만 보므로 지문을 공유하는 새 세트가 들어오면 조용히 깨진다."
+      "finding": "activity='practice' 기록 · 도움 · 해설 뒤 · 시각 불확실 시도는 판정에서 빠진다. 합성 시도는 빠지지 않는다(본인 진단은 synthetic:false 로 isEligible 호출 — skill-diagnosis.ts:95, 합성 2실패→2정답도 resolved) — 집단 통계의 합성 제외와 구분해야 한다. 창작 세트 교수/안내 지문과 평가 지문의 해시 중복 0건. 남은 위험: validateAuthoredSet 은 passageGroup 이름만 보므로 지문을 공유하는 새 세트가 들어오면 조용히 깨진다."
     },
     {
       "id": "M5",
@@ -424,10 +424,10 @@
     }
   ],
   "classification_counts": {
-    "assessable": 2,
+    "assessable": 0,
     "partial": 3,
     "tool_missing": 4,
-    "criterion_unverified": 10,
+    "criterion_unverified": 12,
     "human_gate": 2
   }
 }

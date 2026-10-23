@@ -57,10 +57,10 @@ const CLASS = {
   'v.multiword': ['partial', '「의미를 말한다」(산출) → 5지선다 proxy'],
   's.chunk_boundary': ['partial', '「풀어 쓴다」(산출) → 선택 + 이유 proxy'],
   's.structural_relation': ['partial', '「풀어 쓰기」(산출) → 선택형 proxy'],
-  'v.semantic_relation': ['human_gate', '형식 충족 · 근거는 창작 세트뿐(정본 확인 키 없음, ws.option-match 에서는 보조 TASK 라 판정 안 받음)'],
-  'r.inference': ['human_gate', '형식 충족 · 근거는 창작 세트뿐(ws.inference 는 content_keys 비어 있음)'],
-  'r.relation': ['assessable', '형식 충족 + 정본 확인 키 cohesion-link'],
-  'e.option_correspondence': ['assessable', '형식 충족 + 정본 확인 키 option-restate'],
+  'v.semantic_relation': ['human_gate', '[Codex unclear: 현재 납품·승인 상태 미조회] 형식 충족 · 근거는 창작 세트뿐(정본 확인 키 없음, ws.option-match 에서는 보조 TASK 라 판정 안 받음)'],
+  'r.inference': ['human_gate', '[Codex unclear: 현재 납품·승인 상태 미조회] 형식 충족 · 근거는 창작 세트뿐(ws.inference 는 content_keys 비어 있음)'],
+  'r.relation': ['criterion_unverified', '정본 확인 키 cohesion-link 는 지시 대상 문장+순서를 채점 — 정본의 관계 종류+근거 단서를 받지 않는다(Codex T-0088 refuted · cohesion-link.ts:74)'],
+  'e.option_correspondence': ['criterion_unverified', 'option-restate 에서 함정 선택도 isCorrect=false 라 공통 2실패가 약함을 확정할 수 있다 — 정본 「함정 선택만으로 약함 판정 금지」와 충돌(Codex T-0088 refuted · evidence-locate.ts:104)'],
 }
 const LABEL = { assessable: '실제 평가 가능', partial: '부분 평가 가능', tool_missing: '평가 도구 부족', criterion_unverified: '도달 조건 검증 부족', human_gate: '사람 Gold·권리 승인 대기' }
 
@@ -126,8 +126,8 @@ gap.mismatches = [
     finding: '공통 규칙은 「확정 뒤 연속 2정답」 하나다. 다른 날(R5 · E2 · V1), 서로 다른 지문/문맥(V2 · S3 · R1 · R5), 연속 3(S1), 포인트/유형별 2(S5 · E1)는 판정에 없다. 21개 중 코드북 기준과 공통 규칙이 형식상 같은 것은 V4 · R2 · R6 · E3 네 개.' },
   { id: 'M3', title: '개별 TASK 성공 ≠ 통합 능력 성공', severity: 'P2', evidence: ['apps/web/src/lib/csat/map/v4/observation.ts'],
     finding: 'S-O1 · R-O1 · E-O1 은 관찰만이고 숙달 판정이 없다. 하위 TASK 가 모두 resolved 여도 통합 성공을 확인하는 도구가 없으므로, 엔진은 하위 성공을 통합 성공(점수 · 등급)으로 합산하면 안 된다.' },
-  { id: 'M4', title: '연습 성공을 독립 평가로 셀 위험', severity: 'P3(방어됨)', evidence: [refs.practice_excluded],
-    finding: "activity='practice' 기록 · 도움 · 해설 뒤 · 합성 · 시각 불확실 시도는 판정에서 빠진다. 창작 세트 교수/안내 지문과 평가 지문의 해시 중복 0건. 남은 위험: validateAuthoredSet 은 passageGroup 이름만 보므로 지문을 공유하는 새 세트가 들어오면 조용히 깨진다." },
+  { id: 'M4', title: '연습 성공을 독립 평가로 셀 위험', severity: 'P2(부분 방어 · Codex T-0088 정정)', evidence: [refs.practice_excluded],
+    finding: "activity='practice' 기록 · 도움 · 해설 뒤 · 시각 불확실 시도는 판정에서 빠진다. 합성 시도는 빠지지 않는다(본인 진단은 synthetic:false 로 isEligible 호출 — skill-diagnosis.ts:95, 합성 2실패→2정답도 resolved) — 집단 통계의 합성 제외와 구분해야 한다. 창작 세트 교수/안내 지문과 평가 지문의 해시 중복 0건. 남은 위험: validateAuthoredSet 은 passageGroup 이름만 보므로 지문을 공유하는 새 세트가 들어오면 조용히 깨진다." },
   { id: 'M5', title: '전이 · 지연 도구 부족', severity: 'P2',
     finding: 'transfer/delayed_check 는 공급 역할 · 라벨일 뿐 판정 조건이 아니다. 지연 문항은 R5 만 2개, 나머지 세트는 1개(첫 지연 확인에서 틀리면 다시 볼 문항이 없다). S3 은 전이 1개.' },
   { id: 'M6', title: '평가 도구가 없는 TASK', severity: 'P1', finding: 'V1(경로 없음) · S-O1 · R-O1 · E-O1(설계상 관찰). 정본 확인 키(기출 묶음)가 있는 TASK 는 R5 · E2 · R2 · E3 네 개뿐이고, 나머지 13개는 창작 세트(사람 승인 전)로만 직접 확인된다.' },

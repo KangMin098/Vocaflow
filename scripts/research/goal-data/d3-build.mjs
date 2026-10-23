@@ -16,10 +16,12 @@ const sha = (v) => crypto.createHash('sha256').update(String(v)).digest('hex')
 const all = nonHeldTasks()
 const SOURCES = [
   { batch: 'pilot-1', dir: PILOT1, input: path.join(PILOT1, 'pilot-input.json'), tasks: all },
-  { batch: 'b2-v2', dir: path.join(ROOT, 'scripts/research/goal-data/local/b2-v2'), input: path.join(ROOT, 'scripts/research/goal-data/local/b2-v2/input.json'), tasks: all.filter((t) => t.kind !== 'integrated') },
-]
-// 입력에 시각 자료 · 주어진 문장이 없어 판정이 원문으로 닫히지 않은 유형(D1 결손 후보) — 근거 미확인으로 분리한다
-const SOURCE_GAP_TYPES = { 'R-INSERT': 'given_sentence_missing', 'R-CHART': 'chart_missing' }
+  ...['b2-v2', 'b3-insert', 'b4-v21'].map((b) => ({ batch: b, dir: path.join(ROOT, 'scripts/research/goal-data/local', b), input: path.join(ROOT, 'scripts/research/goal-data/local', b, 'input.json'), tasks: all.filter((t) => t.kind !== 'integrated') })),
+].filter((s) => fs.existsSync(s.input))
+// pilot-1 · b2-v2 의 삽입 문항은 주어진 문장 오독으로 무효 — b3-insert 재판정으로 대체한다(T-0088 정정)
+const SUPERSEDED_BATCHES = new Set(['pilot-1', 'b2-v2'])
+// 도표: 수치가 문항 필드에 없다(원천 결손) — 근거 미확인으로 분리한다
+const SOURCE_GAP_TYPES = { 'R-CHART': 'chart_missing' }
 
 function passed(src, track, byId) {
   const out = new Map()
@@ -41,6 +43,7 @@ for (const src of SOURCES) {
   for (const [id, inp] of byId) {
     const a = A.get(id), b = B.get(id)
     if (!a || !b) continue
+    if (inp.type_id === 'R-INSERT' && SUPERSEDED_BATCHES.has(src.batch)) continue
     const gap = SOURCE_GAP_TYPES[inp.type_id] ?? (/도표|graph|chart/i.test(String(inp.source.stem)) ? 'chart_missing' : null)
     const answers = inp.source.answers?.length ? inp.source.answers : [inp.source.answer]
     reasoning.push({
