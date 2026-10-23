@@ -8,6 +8,8 @@ export const V22_PLUS = ['v2.2', 'v2.3', 'v2.4']
 // v2.4 §1 E2 고정표 — 대상 없는 전체 판단 문항 · 순서 = 무관, 내용 일치 · 안내문 = direct
 const E2_NA_TYPES = ['R-PURPOSE', 'R-CLAIM', 'R-GIST', 'R-TOPIC', 'R-TITLE', 'R-MOOD', 'R-ORDER', 'X-TITLE', 'X-ORDER']
 const E2_DIRECT_TYPES = ['R-FACT', 'R-NOTICE', 'X-FACT']
+// 주 수행이 확대 6 TASK(R5 · R6 · E1 · E3 · R4 · E2) 안에 있는 유형 — 어법 · 어휘 · 지칭 · 무관 · 심경 · 삽입 · 함축은 문항마다 판단
+const IN_SUBSET_TYPES = ['R-FACT', 'R-NOTICE', 'X-FACT', 'R-BLANK', 'R-SUMMARY', 'R-GIST', 'R-TOPIC', 'R-TITLE', 'X-TITLE', 'R-CLAIM', 'R-PURPOSE', 'R-ORDER', 'X-ORDER']
 const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
 const answerSet = (src) => (src.answers?.length ? src.answers : src.answer != null ? [src.answer] : [])
 const fieldText = (src, f) => (f === 'choices' ? (src.choices ?? []).map((c) => (typeof c === 'string' ? c : JSON.stringify(c))).join(' ') : String(src[f] ?? ''))
@@ -44,10 +46,12 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
     if (row.independent_assessment?.eligibility !== 'not_suitable') errs.push('삽입 문항 independent_assessment 는 not_suitable(v2.2 §3)')
     return errs
   }
-  /** v2.3 — 부분 집합 primary 의 뜻(§1) */
-  function v23(row) {
+  /** v2.3 — 부분 집합 primary 의 뜻(§1). v2.4 는 유형상 주 수행이 6 TASK 안인 문항에 「범위 밖」 표시를 거부한다(b7 A-02 가 20행 전부 true 로 둔 결함) */
+  function v23(row, inp) {
     if (!['v2.3', 'v2.4'].includes(input.contract)) return []
-    return typeof row.main_performance_outside_subset === 'boolean' ? [] : ['main_performance_outside_subset(true|false) 없음(v2.3 §1)']
+    if (typeof row.main_performance_outside_subset !== 'boolean') return ['main_performance_outside_subset(true|false) 없음(v2.3 §1)']
+    if (input.contract === 'v2.4' && row.main_performance_outside_subset && IN_SUBSET_TYPES.includes(inp.type_id)) return [`${inp.type_id} 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)`]
+    return []
   }
   /** v2.4 — 주 TASK 선택 이유(§3) · E2 고정표(§1) */
   function v24(row, inp) {
@@ -65,7 +69,7 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
     const inp = byId.get(rowOut.item_id)
     if (!inp) return ['배치 밖']
     const noDirect = subset && V22_PLUS.includes(input.contract) && rowOut.primary_task === null && Array.isArray(rowOut.secondary_tasks) && rowOut.secondary_tasks.length === 0 && !(rowOut.links ?? []).some((l) => l.relevance === 'direct')
-    return [...validateRow(rowOut, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...v2(rowOut, inp), ...v22(rowOut, inp), ...v23(rowOut), ...v24(rowOut, inp)]
+    return [...validateRow(rowOut, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...v2(rowOut, inp), ...v22(rowOut, inp), ...v23(rowOut, inp), ...v24(rowOut, inp)]
   }
   /** 한 청크 — 1차 반복 검사. 계약이 고정 문구를 요구하는 삽입 E2 unknown(v2.2 §3)은 반복 검사에서 뺀다 */
   function chunk(rows) {

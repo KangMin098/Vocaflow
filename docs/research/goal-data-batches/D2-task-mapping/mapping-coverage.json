@@ -1,9 +1,9 @@
 {
  "generated_by": "scripts/research/goal-data/d2-combine.mjs",
- "generated_at": "2026-10-23T07:04:45.167Z",
+ "generated_at": "2026-10-23T07:27:08.723Z",
  "note": "모든 링크 relevance=unknown(사람 검수 전). candidateRelevance 는 두 독립 AI 판정 일치(R1)일 뿐 Gold · 학생 측정이 아니다. 제품 NeedRank 입력 금지(relevance.ts 계약).",
  "scope": {
-  "items": 198,
+  "items": 238,
   "exams": [
    "2022",
    "2023",
@@ -17,10 +17,10 @@
    "M2706"
   ],
   "atomic_tasks": 18,
-  "pairs": 2628,
-  "r1_links": 604,
-  "disputed": 343,
-  "frame_note": "평가원 · 수능 최근 시험 표본(평가원 · 수능 802 중 198) — 전체 대표 표본 아님",
+  "pairs": 2868,
+  "r1_links": 687,
+  "disputed": 359,
+  "frame_note": "평가원 · 수능 최근 시험 표본(평가원 · 수능 802 중 238) — 전체 대표 표본 아님",
   "superseded_items": [
    "2025#38",
    "2025#39",
@@ -63,6 +63,12 @@
    "agreement": 0.9375,
    "items": 40,
    "pairs": 240
+  },
+  "b7-v24": {
+   "kappa": 0.8782,
+   "agreement": 0.9333,
+   "items": 40,
+   "pairs": 240
   }
  },
  "per_task": {
@@ -84,14 +90,16 @@
     "b3-insert": 0.875,
     "b4-v21": 0.8,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0.6685,
     "b3-insert": 0,
     "b4-v21": 0.4182,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "v.contextual_sense": {
@@ -110,14 +118,16 @@
     "b3-insert": 1,
     "b4-v21": 0.975,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0,
     "b3-insert": null,
     "b4-v21": 0.6581,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "v.multiword": {
@@ -132,14 +142,16 @@
     "b3-insert": 0.875,
     "b4-v21": 0.825,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": -0.0256,
     "b3-insert": 0,
     "b4-v21": 0.3636,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "v.semantic_relation": {
@@ -168,14 +180,16 @@
     "b3-insert": 0.5,
     "b4-v21": 0.625,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0.4975,
     "b3-insert": 0.1111,
     "b4-v21": 0.3691,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "s.sentence_core": {
@@ -192,14 +206,16 @@
     "b3-insert": 1,
     "b4-v21": 0.975,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0.2258,
     "b3-insert": null,
     "b4-v21": 0.6552,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "s.chunk_boundary": {
@@ -214,14 +230,16 @@
     "b3-insert": 1,
     "b4-v21": 1,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": null,
     "b3-insert": null,
     "b4-v21": null,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "s.attachment": {
@@ -236,14 +254,16 @@
     "b3-insert": 1,
     "b4-v21": 0.925,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0.7403,
     "b3-insert": null,
     "b4-v21": 0.5313,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "s.structural_relation": {
@@ -262,14 +282,16 @@
     "b3-insert": 0.75,
     "b4-v21": 0.9,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0.4702,
     "b3-insert": 0.3333,
     "b4-v21": 0.4737,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "s.form_scope": {
@@ -291,14 +313,16 @@
     "b3-insert": 0.875,
     "b4-v21": 0.925,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0.6537,
     "b3-insert": 0,
     "b4-v21": 0.7692,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "r.reference": {
@@ -334,14 +358,16 @@
     "b3-insert": 0.875,
     "b4-v21": 0.85,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0.646,
     "b3-insert": 0.7333,
     "b4-v21": 0.7414,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "r.relation": {
@@ -381,14 +407,16 @@
     "b3-insert": 0.875,
     "b4-v21": 0.775,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": 0.6944,
     "b3-insert": 0,
     "b4-v21": 0.6601,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "r.discourse_function": {
@@ -414,19 +442,21 @@
     "b3-insert": 0.875,
     "b4-v21": 0.7,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    },
    "kappa": {
     "b2-v2": -0.1458,
     "b3-insert": 0,
     "b4-v21": 0.4702,
     "b5-v22": null,
-    "b6-v23": null
+    "b6-v23": null,
+    "b7-v24": null
    }
   },
   "r.discourse_structure": {
    "display": "R4",
-   "judged_items": 198,
+   "judged_items": 238,
    "r1_direct_items": [
     "M2609#36",
     "M2609#37",
@@ -467,29 +497,33 @@
     "2022#36",
     "2022#37",
     "2022#38",
-    "2022#39"
+    "2022#39",
+    "2024#43",
+    "2025#43"
    ],
-   "r1_indirect_items": 29,
-   "disputed": 30,
+   "r1_indirect_items": 40,
+   "disputed": 33,
    "agreement": {
     "pilot-1": 0.75,
     "b2-v2": 0.825,
     "b3-insert": 1,
     "b4-v21": 0.875,
     "b5-v22": 0.8421,
-    "b6-v23": 0.925
+    "b6-v23": 0.925,
+    "b7-v24": 0.925
    },
    "kappa": {
     "b2-v2": 0.6804,
     "b3-insert": null,
     "b4-v21": 0.729,
     "b5-v22": 0.7415,
-    "b6-v23": 0.8852
+    "b6-v23": 0.8852,
+    "b7-v24": 0.8489
    }
   },
   "r.central_meaning": {
    "display": "R5",
-   "judged_items": 198,
+   "judged_items": 238,
    "r1_direct_items": [
     "2026#18",
     "2026#20",
@@ -548,29 +582,44 @@
     "2022#32",
     "2022#33",
     "2022#34",
-    "2022#40"
+    "2022#40",
+    "2024#18",
+    "2024#20",
+    "2024#24",
+    "2024#41",
+    "2025#18",
+    "2025#20",
+    "2025#24",
+    "2025#35",
+    "2025#41",
+    "2023#18",
+    "2023#20",
+    "2023#24",
+    "2023#35"
    ],
-   "r1_indirect_items": 15,
-   "disputed": 15,
+   "r1_indirect_items": 19,
+   "disputed": 18,
    "agreement": {
     "pilot-1": 0.925,
     "b2-v2": 1,
     "b3-insert": 0.75,
     "b4-v21": 0.875,
     "b5-v22": 0.8947,
-    "b6-v23": 0.975
+    "b6-v23": 0.975,
+    "b7-v24": 0.925
    },
    "kappa": {
     "b2-v2": 1,
     "b3-insert": 0,
     "b4-v21": 0.774,
     "b5-v22": 0.8081,
-    "b6-v23": 0.9576
+    "b6-v23": 0.9576,
+    "b7-v24": 0.8698
    }
   },
   "r.inference": {
    "display": "R6",
-   "judged_items": 198,
+   "judged_items": 238,
    "r1_direct_items": [
     "2026#19",
     "2026#21",
@@ -612,29 +661,34 @@
     "M2506#19",
     "M2506#21",
     "M2506#33",
-    "M2506#34"
+    "M2506#34",
+    "2024#21",
+    "2025#21",
+    "2023#21"
    ],
    "r1_indirect_items": 3,
-   "disputed": 8,
+   "disputed": 9,
    "agreement": {
     "pilot-1": 0.975,
     "b2-v2": 0.95,
     "b3-insert": 0.75,
     "b4-v21": 0.95,
     "b5-v22": 0.9737,
-    "b6-v23": 1
+    "b6-v23": 1,
+    "b7-v24": 0.975
    },
    "kappa": {
     "b2-v2": 0.8671,
     "b3-insert": 0,
     "b4-v21": 0.871,
     "b5-v22": 0.942,
-    "b6-v23": 1
+    "b6-v23": 1,
+    "b7-v24": 0.8456
    }
   },
   "e.task_demand": {
    "display": "E1",
-   "judged_items": 198,
+   "judged_items": 238,
    "r1_direct_items": [
     "M2609#19",
     "M2609#25",
@@ -671,7 +725,25 @@
     "M2506#42",
     "M2506#44",
     "M2506#45",
-    "2022#29"
+    "2022#29",
+    "2024#26",
+    "2024#27",
+    "2024#30",
+    "2024#35",
+    "2024#42",
+    "2024#44",
+    "2024#45",
+    "2025#26",
+    "2025#27",
+    "2025#30",
+    "2025#35",
+    "2025#42",
+    "2025#44",
+    "2025#45",
+    "2023#26",
+    "2023#27",
+    "2023#30",
+    "2023#35"
    ],
    "r1_indirect_items": 33,
    "disputed": 12,
@@ -681,19 +753,21 @@
     "b3-insert": 1,
     "b4-v21": 0.925,
     "b5-v22": 1,
-    "b6-v23": 1
+    "b6-v23": 1,
+    "b7-v24": 1
    },
    "kappa": {
     "b2-v2": 0.8671,
     "b3-insert": null,
     "b4-v21": 0.8235,
     "b5-v22": 1,
-    "b6-v23": 1
+    "b6-v23": 1,
+    "b7-v24": 1
    }
   },
   "e.evidence_location": {
    "display": "E2",
-   "judged_items": 198,
+   "judged_items": 238,
    "r1_direct_items": [
     "2026#18",
     "2026#19",
@@ -770,29 +844,43 @@
     "2022#32",
     "2022#33",
     "2022#34",
-    "2022#40"
+    "2022#40",
+    "2024#26",
+    "2024#27",
+    "2024#28",
+    "2024#45",
+    "2025#26",
+    "2025#27",
+    "2025#28",
+    "2025#45",
+    "2023#21",
+    "2023#26",
+    "2023#27",
+    "2023#28"
    ],
-   "r1_indirect_items": 7,
-   "disputed": 47,
+   "r1_indirect_items": 10,
+   "disputed": 48,
    "agreement": {
     "pilot-1": 0.65,
     "b2-v2": 0.95,
     "b3-insert": 0.25,
     "b4-v21": 0.625,
     "b5-v22": 0.9737,
-    "b6-v23": 0.775
+    "b6-v23": 0.775,
+    "b7-v24": 0.975
    },
    "kappa": {
     "b2-v2": 0.9061,
     "b3-insert": 0,
     "b4-v21": 0.4106,
     "b5-v22": 0.9564,
-    "b6-v23": 0.6703
+    "b6-v23": 0.6703,
+    "b7-v24": 0.9526
    }
   },
   "e.option_correspondence": {
    "display": "E3",
-   "judged_items": 198,
+   "judged_items": 238,
    "r1_direct_items": [
     "2026#18",
     "2026#20",
@@ -869,24 +957,37 @@
     "2022#22",
     "2022#23",
     "2022#32",
-    "2022#34"
+    "2022#34",
+    "2024#26",
+    "2024#27",
+    "2024#28",
+    "2024#45",
+    "2025#26",
+    "2025#27",
+    "2025#28",
+    "2025#45",
+    "2023#26",
+    "2023#27",
+    "2023#28"
    ],
-   "r1_indirect_items": 8,
-   "disputed": 28,
+   "r1_indirect_items": 14,
+   "disputed": 36,
    "agreement": {
     "pilot-1": 0.825,
     "b2-v2": 0.85,
     "b3-insert": 1,
     "b4-v21": 0.825,
     "b5-v22": 0.8421,
-    "b6-v23": 0.95
+    "b6-v23": 0.95,
+    "b7-v24": 0.8
    },
    "kappa": {
     "b2-v2": 0.7516,
     "b3-insert": null,
     "b4-v21": 0.6878,
     "b5-v22": 0.7213,
-    "b6-v23": 0.9133
+    "b6-v23": 0.9133,
+    "b7-v24": 0.6975
    }
   }
  }
