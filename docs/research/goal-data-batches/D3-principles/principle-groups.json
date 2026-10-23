@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d3-build.mjs",
- "generated_at": "2026-10-23T12:02:24.648Z",
+ "generated_at": "2026-10-23T12:13:31.680Z",
  "inputs": [
   {
    "batch": "pilot-1",
@@ -91,7 +91,7 @@
  "totals": {
   "items": 626,
   "items_source_gap": 5,
-  "primary_task_agree": 539,
+  "primary_task_agree": 540,
   "same_decision_locus": 321,
   "wrong_options": 2504,
   "distortion_agree": 1803,
@@ -459,7 +459,7 @@
     "reversal": 1
    },
    "primary_task_pairs": {
-    "e.evidence_location|r.inference": 1
+    "r.inference": 1
    },
    "small_sample": true
   },

@@ -42,7 +42,7 @@
  "pairs": 240,
  "agreement": 0.9208,
  "kappa": 0.8555,
- "primary_task_agreement": 35,
+ "primary_task_agreement": 36,
  "per_task": {
   "r.central_meaning": {
    "display": "R5",
@@ -296,9 +296,9 @@
    "source_sha256": "f13aad4d122ec79fd0a02eaa262f3fa56aa14b15d113fe353e039a6d9e338e13",
    "analysis_version": 5,
    "primary_task": {
-    "A": "e.evidence_location",
+    "A": "r.inference",
     "B": "r.inference",
-    "agree": false
+    "agree": true
    },
    "directly_observable_both": [],
    "independent_assessment": {
