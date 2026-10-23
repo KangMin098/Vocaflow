@@ -1,0 +1,1598 @@
+{
+  "rev": "e87bdc173",
+  "old": "78ff7df39",
+  "observed_at": "2026-10-23T07:31:30.030Z",
+  "regression": {
+    "b2-v2": {
+      "exit_code": 0,
+      "defects": 0
+    },
+    "b3-insert": {
+      "exit_code": 0,
+      "defects": 0
+    },
+    "b4-v21": {
+      "exit_code": 0,
+      "defects": 0
+    },
+    "b5-v22": {
+      "exit_code": 0,
+      "defects": 0
+    },
+    "b6-v23": {
+      "exit_code": 0,
+      "defects": 0
+    },
+    "b7-v24": {
+      "exit_code": 0,
+      "defects": 0
+    }
+  },
+  "d3Regression": {
+    "b2-v2": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    },
+    "b3-insert": {
+      "expected": 8,
+      "accepted_A": 8,
+      "accepted_B": 8
+    },
+    "b4-v21": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    },
+    "b5-v22": {
+      "expected": 38,
+      "accepted_A": 38,
+      "accepted_B": 38
+    },
+    "b6-v23": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    },
+    "b7-v24": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    }
+  },
+  "selection": {
+    "items": 40,
+    "exam_totals": {
+      "2023": 10,
+      "2024": 15,
+      "2025": 15
+    },
+    "sourceChecks": [
+      {
+        "item": "2024#18",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#19",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#20",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#21",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#24",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#26",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#27",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#28",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#30",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#35",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#41",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#42",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#43",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#44",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2024#45",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#18",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#19",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#20",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#21",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#24",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#26",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#27",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#28",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#30",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#35",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#41",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#42",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#43",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#44",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2025#45",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#18",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#19",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#20",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#21",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#24",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#26",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#27",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#28",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#30",
+        "source": true,
+        "passage": true,
+        "selection": true
+      },
+      {
+        "item": "2023#35",
+        "source": true,
+        "passage": true,
+        "selection": true
+      }
+    ],
+    "excluded": [
+      {
+        "item": "2024#25",
+        "source": true,
+        "passage": true,
+        "body_ok": true,
+        "type_independently_present": false
+      },
+      {
+        "item": "2025#25",
+        "source": true,
+        "passage": true,
+        "body_ok": true,
+        "type_independently_present": false
+      },
+      {
+        "item": "2023#25",
+        "source": true,
+        "passage": true,
+        "body_ok": true,
+        "type_independently_present": false
+      }
+    ],
+    "selection_hash": "17a9a0655770cd7b436cb8b9735ab1d0b363cb22129faa167414d4eb2aade8eb"
+  },
+  "stats": {
+    "n": 240,
+    "agree": 224,
+    "agreement": 0.9333333333333333,
+    "kappa": 0.8781957749159425
+  },
+  "per": {
+    "r.central_meaning": {
+      "n": 40,
+      "agree": 37,
+      "agreement": 0.925,
+      "kappa": 0.8698481561822127
+    },
+    "r.inference": {
+      "n": 40,
+      "agree": 39,
+      "agreement": 0.975,
+      "kappa": 0.8455598455598455
+    },
+    "e.task_demand": {
+      "n": 40,
+      "agree": 40,
+      "agreement": 1,
+      "kappa": 1
+    },
+    "e.option_correspondence": {
+      "n": 40,
+      "agree": 32,
+      "agreement": 0.8,
+      "kappa": 0.6975425330812856
+    },
+    "r.discourse_structure": {
+      "n": 40,
+      "agree": 37,
+      "agreement": 0.925,
+      "kappa": 0.8488664987405543
+    },
+    "e.evidence_location": {
+      "n": 40,
+      "agree": 39,
+      "agreement": 0.975,
+      "kappa": 0.95260663507109
+    }
+  },
+  "stop_alarm": {
+    "R5": "ok",
+    "R6": "ok",
+    "E1": "ok",
+    "E3": "ok",
+    "R4": "ok"
+  },
+  "exportProbes": {
+    "range_prior": "이미 판정(previous-batch)",
+    "range_new": null,
+    "fixed_prior": null
+  },
+  "typeProbes": [
+    {
+      "item": "2025#26",
+      "type": "R-FACT",
+      "old": [],
+      "current": [
+        "R-FACT 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2025#27",
+      "type": "R-NOTICE",
+      "old": [],
+      "current": [
+        "R-NOTICE 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2025#28",
+      "type": "R-NOTICE",
+      "old": [],
+      "current": [
+        "R-NOTICE 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2025#30",
+      "type": "R-VOCAB",
+      "old": [],
+      "current": []
+    },
+    {
+      "item": "2025#35",
+      "type": "R-IRRELEVANT",
+      "old": [],
+      "current": []
+    },
+    {
+      "item": "2025#41",
+      "type": "X-TITLE",
+      "old": [],
+      "current": [
+        "X-TITLE 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2025#42",
+      "type": "X-VOCAB",
+      "old": [],
+      "current": []
+    },
+    {
+      "item": "2025#43",
+      "type": "X-ORDER",
+      "old": [],
+      "current": [
+        "X-ORDER 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2025#44",
+      "type": "X-REFER",
+      "old": [],
+      "current": []
+    },
+    {
+      "item": "2025#45",
+      "type": "X-FACT",
+      "old": [],
+      "current": [
+        "X-FACT 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2023#18",
+      "type": "R-PURPOSE",
+      "old": [],
+      "current": [
+        "R-PURPOSE 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2023#19",
+      "type": "R-MOOD",
+      "old": [],
+      "current": []
+    },
+    {
+      "item": "2023#20",
+      "type": "R-CLAIM",
+      "old": [],
+      "current": [
+        "R-CLAIM 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2023#21",
+      "type": "R-IMPLY",
+      "old": [],
+      "current": []
+    },
+    {
+      "item": "2023#24",
+      "type": "R-TITLE",
+      "old": [],
+      "current": [
+        "R-TITLE 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2023#26",
+      "type": "R-FACT",
+      "old": [],
+      "current": [
+        "R-FACT 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2023#27",
+      "type": "R-NOTICE",
+      "old": [],
+      "current": [
+        "R-NOTICE 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2023#28",
+      "type": "R-NOTICE",
+      "old": [],
+      "current": [
+        "R-NOTICE 의 주 수행은 판정 TASK 안 — main_performance_outside_subset 는 false(v2.3 §1)"
+      ]
+    },
+    {
+      "item": "2023#30",
+      "type": "R-VOCAB",
+      "old": [],
+      "current": []
+    },
+    {
+      "item": "2023#35",
+      "type": "R-IRRELEVANT",
+      "old": [],
+      "current": []
+    }
+  ],
+  "allTypeProbes": [
+    {
+      "type": "R-FACT",
+      "rejected": true
+    },
+    {
+      "type": "R-NOTICE",
+      "rejected": true
+    },
+    {
+      "type": "X-FACT",
+      "rejected": true
+    },
+    {
+      "type": "R-BLANK",
+      "rejected": true
+    },
+    {
+      "type": "R-SUMMARY",
+      "rejected": true
+    },
+    {
+      "type": "R-GIST",
+      "rejected": true
+    },
+    {
+      "type": "R-TOPIC",
+      "rejected": true
+    },
+    {
+      "type": "R-TITLE",
+      "rejected": true
+    },
+    {
+      "type": "X-TITLE",
+      "rejected": true
+    },
+    {
+      "type": "R-CLAIM",
+      "rejected": true
+    },
+    {
+      "type": "R-PURPOSE",
+      "rejected": true
+    },
+    {
+      "type": "R-ORDER",
+      "rejected": true
+    },
+    {
+      "type": "X-ORDER",
+      "rejected": true
+    }
+  ],
+  "outside": {
+    "A": [
+      "2024#19",
+      "2024#30",
+      "2024#35",
+      "2024#42",
+      "2024#44",
+      "2025#19",
+      "2025#30",
+      "2025#35",
+      "2025#42",
+      "2025#44",
+      "2023#19",
+      "2023#30",
+      "2023#35"
+    ],
+    "B": [
+      "2024#19",
+      "2024#30",
+      "2024#35",
+      "2024#42",
+      "2024#44",
+      "2025#19",
+      "2025#30",
+      "2025#35",
+      "2025#42",
+      "2025#44",
+      "2023#19",
+      "2023#30",
+      "2023#35"
+    ]
+  },
+  "patterns": [
+    {
+      "track": "A",
+      "chunk": 1,
+      "total": 20,
+      "matches": 19,
+      "multi_direct": 5,
+      "multi_matches": 4,
+      "reason_repeats": [],
+      "decision_repeats": [],
+      "details": [
+        {
+          "id": "2024#18",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#19",
+          "primary": null,
+          "predicted": null,
+          "matches": true,
+          "direct_count": 0
+        },
+        {
+          "id": "2024#20",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#21",
+          "primary": "r.inference",
+          "predicted": "r.inference",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#24",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#26",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2024#27",
+          "primary": "e.evidence_location",
+          "predicted": "e.option_correspondence",
+          "matches": false,
+          "direct_count": 3
+        },
+        {
+          "id": "2024#28",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2024#30",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#35",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#41",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#42",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#43",
+          "primary": "r.discourse_structure",
+          "predicted": "r.discourse_structure",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#44",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#45",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2025#18",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#19",
+          "primary": null,
+          "predicted": null,
+          "matches": true,
+          "direct_count": 0
+        },
+        {
+          "id": "2025#20",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#21",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2025#24",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        }
+      ]
+    },
+    {
+      "track": "A",
+      "chunk": 2,
+      "total": 20,
+      "matches": 17,
+      "multi_direct": 10,
+      "multi_matches": 7,
+      "reason_repeats": [],
+      "decision_repeats": [],
+      "details": [
+        {
+          "id": "2025#26",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2025#27",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2025#28",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2025#30",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#35",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2025#41",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#42",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#43",
+          "primary": "r.discourse_structure",
+          "predicted": "r.discourse_structure",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#44",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#45",
+          "primary": "e.evidence_location",
+          "predicted": "e.option_correspondence",
+          "matches": false,
+          "direct_count": 3
+        },
+        {
+          "id": "2023#18",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#19",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#20",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#21",
+          "primary": "r.inference",
+          "predicted": "e.option_correspondence",
+          "matches": false,
+          "direct_count": 3
+        },
+        {
+          "id": "2023#24",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#26",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2023#27",
+          "primary": "e.evidence_location",
+          "predicted": "e.option_correspondence",
+          "matches": false,
+          "direct_count": 3
+        },
+        {
+          "id": "2023#28",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2023#30",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#35",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 2
+        }
+      ]
+    },
+    {
+      "track": "B",
+      "chunk": 1,
+      "total": 20,
+      "matches": 17,
+      "multi_direct": 9,
+      "multi_matches": 6,
+      "reason_repeats": [],
+      "decision_repeats": [],
+      "details": [
+        {
+          "id": "2024#18",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#19",
+          "primary": null,
+          "predicted": null,
+          "matches": true,
+          "direct_count": 0
+        },
+        {
+          "id": "2024#20",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2024#21",
+          "primary": "e.option_correspondence",
+          "predicted": "r.central_meaning",
+          "matches": false,
+          "direct_count": 3
+        },
+        {
+          "id": "2024#24",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2024#26",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2024#27",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2024#28",
+          "primary": "e.evidence_location",
+          "predicted": "e.option_correspondence",
+          "matches": false,
+          "direct_count": 2
+        },
+        {
+          "id": "2024#30",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#35",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#41",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2024#42",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#43",
+          "primary": "r.discourse_structure",
+          "predicted": "r.discourse_structure",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#44",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2024#45",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2025#18",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#19",
+          "primary": null,
+          "predicted": null,
+          "matches": true,
+          "direct_count": 0
+        },
+        {
+          "id": "2025#20",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#21",
+          "primary": "r.inference",
+          "predicted": "r.inference",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#24",
+          "primary": "e.option_correspondence",
+          "predicted": "r.central_meaning",
+          "matches": false,
+          "direct_count": 2
+        }
+      ]
+    },
+    {
+      "track": "B",
+      "chunk": 2,
+      "total": 20,
+      "matches": 16,
+      "multi_direct": 11,
+      "multi_matches": 7,
+      "reason_repeats": [],
+      "decision_repeats": [],
+      "details": [
+        {
+          "id": "2025#26",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2025#27",
+          "primary": "e.evidence_location",
+          "predicted": "e.option_correspondence",
+          "matches": false,
+          "direct_count": 3
+        },
+        {
+          "id": "2025#28",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2025#30",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#35",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2025#41",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 2
+        },
+        {
+          "id": "2025#42",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#43",
+          "primary": "r.discourse_structure",
+          "predicted": "r.discourse_structure",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#44",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2025#45",
+          "primary": "e.evidence_location",
+          "predicted": "e.option_correspondence",
+          "matches": false,
+          "direct_count": 3
+        },
+        {
+          "id": "2023#18",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#19",
+          "primary": null,
+          "predicted": null,
+          "matches": true,
+          "direct_count": 0
+        },
+        {
+          "id": "2023#20",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#21",
+          "primary": "r.inference",
+          "predicted": "e.evidence_location",
+          "matches": false,
+          "direct_count": 2
+        },
+        {
+          "id": "2023#24",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#26",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2023#27",
+          "primary": "e.option_correspondence",
+          "predicted": "e.option_correspondence",
+          "matches": true,
+          "direct_count": 3
+        },
+        {
+          "id": "2023#28",
+          "primary": "e.evidence_location",
+          "predicted": "e.option_correspondence",
+          "matches": false,
+          "direct_count": 2
+        },
+        {
+          "id": "2023#30",
+          "primary": "e.task_demand",
+          "predicted": "e.task_demand",
+          "matches": true,
+          "direct_count": 1
+        },
+        {
+          "id": "2023#35",
+          "primary": "r.central_meaning",
+          "predicted": "r.central_meaning",
+          "matches": true,
+          "direct_count": 2
+        }
+      ]
+    }
+  ],
+  "sameFields": {
+    "primary_reason": [],
+    "decision_path": [],
+    "answer_logic": [],
+    "links": [],
+    "main_performance_outside_subset": [
+      "2024#18",
+      "2024#19",
+      "2024#20",
+      "2024#21",
+      "2024#24",
+      "2024#26",
+      "2024#27",
+      "2024#28",
+      "2024#30",
+      "2024#35",
+      "2024#41",
+      "2024#42",
+      "2024#43",
+      "2024#44",
+      "2024#45",
+      "2025#18",
+      "2025#19",
+      "2025#20",
+      "2025#21",
+      "2025#24",
+      "2025#26",
+      "2025#27",
+      "2025#28",
+      "2025#30",
+      "2025#35",
+      "2025#41",
+      "2025#42",
+      "2025#43",
+      "2025#44",
+      "2025#45",
+      "2023#18",
+      "2023#19",
+      "2023#20",
+      "2023#21",
+      "2023#24",
+      "2023#26",
+      "2023#27",
+      "2023#28",
+      "2023#30",
+      "2023#35"
+    ]
+  },
+  "blind": [
+    {
+      "track": "A",
+      "chunk": 1,
+      "count": 20,
+      "source_bound": true,
+      "prior_analysis": 20,
+      "prior_traps": 20,
+      "other_track_exposed": false
+    },
+    {
+      "track": "A",
+      "chunk": 2,
+      "count": 20,
+      "source_bound": true,
+      "prior_analysis": 20,
+      "prior_traps": 20,
+      "other_track_exposed": false
+    },
+    {
+      "track": "B",
+      "chunk": 1,
+      "count": 20,
+      "source_bound": true,
+      "prior_analysis": 0,
+      "prior_traps": 0,
+      "other_track_exposed": false
+    },
+    {
+      "track": "B",
+      "chunk": 2,
+      "count": 20,
+      "source_bound": true,
+      "prior_analysis": 0,
+      "prior_traps": 0,
+      "other_track_exposed": false
+    }
+  ],
+  "regenerated": {
+    "b7-v24-item-task-links.jsonl": true,
+    "b7-v24-disputed-links.jsonl": true,
+    "b7-v24-review-sample.json": true,
+    "b7-v24-agreement.json": true
+  },
+  "totals": {
+    "items": 238,
+    "primary": 197,
+    "wrong": 952,
+    "wrong_agree": 644,
+    "links": 687,
+    "disputed": 359
+  },
+  "propagation": [
+    {
+      "item": "2024#18",
+      "ok": true
+    },
+    {
+      "item": "2024#19",
+      "ok": true
+    },
+    {
+      "item": "2024#20",
+      "ok": true
+    },
+    {
+      "item": "2024#21",
+      "ok": true
+    },
+    {
+      "item": "2024#24",
+      "ok": true
+    },
+    {
+      "item": "2024#26",
+      "ok": true
+    },
+    {
+      "item": "2024#27",
+      "ok": true
+    },
+    {
+      "item": "2024#28",
+      "ok": true
+    },
+    {
+      "item": "2024#30",
+      "ok": true
+    },
+    {
+      "item": "2024#35",
+      "ok": true
+    },
+    {
+      "item": "2024#41",
+      "ok": true
+    },
+    {
+      "item": "2024#42",
+      "ok": true
+    },
+    {
+      "item": "2024#43",
+      "ok": true
+    },
+    {
+      "item": "2024#44",
+      "ok": true
+    },
+    {
+      "item": "2024#45",
+      "ok": true
+    },
+    {
+      "item": "2025#18",
+      "ok": true
+    },
+    {
+      "item": "2025#19",
+      "ok": true
+    },
+    {
+      "item": "2025#20",
+      "ok": true
+    },
+    {
+      "item": "2025#21",
+      "ok": true
+    },
+    {
+      "item": "2025#24",
+      "ok": true
+    },
+    {
+      "item": "2025#26",
+      "ok": true
+    },
+    {
+      "item": "2025#27",
+      "ok": true
+    },
+    {
+      "item": "2025#28",
+      "ok": true
+    },
+    {
+      "item": "2025#30",
+      "ok": true
+    },
+    {
+      "item": "2025#35",
+      "ok": true
+    },
+    {
+      "item": "2025#41",
+      "ok": true
+    },
+    {
+      "item": "2025#42",
+      "ok": true
+    },
+    {
+      "item": "2025#43",
+      "ok": true
+    },
+    {
+      "item": "2025#44",
+      "ok": true
+    },
+    {
+      "item": "2025#45",
+      "ok": true
+    },
+    {
+      "item": "2023#18",
+      "ok": true
+    },
+    {
+      "item": "2023#19",
+      "ok": true
+    },
+    {
+      "item": "2023#20",
+      "ok": true
+    },
+    {
+      "item": "2023#21",
+      "ok": true
+    },
+    {
+      "item": "2023#24",
+      "ok": true
+    },
+    {
+      "item": "2023#26",
+      "ok": true
+    },
+    {
+      "item": "2023#27",
+      "ok": true
+    },
+    {
+      "item": "2023#28",
+      "ok": true
+    },
+    {
+      "item": "2023#30",
+      "ok": true
+    },
+    {
+      "item": "2023#35",
+      "ok": true
+    }
+  ],
+  "diff": [
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b7-v24-agreement.json"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b7-v24-disputed-links.jsonl",
+      "rows": 16,
+      "added": 16,
+      "removed": 0
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b7-v24-item-task-links.jsonl",
+      "rows": 83,
+      "added": 83,
+      "removed": 0
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b7-v24-review-sample.json"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b7-v24-selection.json"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/disputed-links.jsonl",
+      "rows": 359,
+      "added": 16,
+      "removed": 0
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl",
+      "rows": 687,
+      "added": 83,
+      "removed": 0
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl",
+      "rows": 952,
+      "added": 160,
+      "removed": 0
+    },
+    {
+      "path": "docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl",
+      "rows": 238,
+      "added": 40,
+      "removed": 0
+    },
+    {
+      "path": "docs/research/goal-data-batches/D3-principles/principle-groups.json"
+    },
+    {
+      "path": "docs/research/goal-data-batches/README.md"
+    },
+    {
+      "path": "scripts/db/authored-ai-record/deploy.mjs"
+    },
+    {
+      "path": "scripts/research/goal-data/d2-export.mjs"
+    },
+    {
+      "path": "scripts/research/goal-data/d2-validate.mjs"
+    },
+    {
+      "path": "scripts/research/goal-data/d3-build.mjs"
+    }
+  ],
+  "sample_ids": [
+    "2023#26",
+    "2023#27",
+    "2023#30",
+    "2023#35",
+    "2024#26",
+    "2024#27",
+    "2024#30",
+    "2024#35",
+    "2024#42",
+    "2024#44",
+    "2023#21",
+    "2024#20",
+    "2024#21",
+    "2024#24",
+    "2024#41",
+    "2025#21",
+    "2025#24",
+    "2025#41",
+    "2023#19",
+    "2024#19",
+    "2025#19",
+    "2024#28",
+    "2025#26",
+    "2025#27",
+    "2025#28"
+  ]
+}
