@@ -1,7 +1,7 @@
 # D2 — 기출문항 ↔ TASK 연결 (2026-10-23)
 
-> 생성물: `item-task-links.jsonl`(R1 후보 286) · `disputed-links.jsonl`(갈림 204) · `mapping-coverage.json` · 배치별 `b2-v2-*`.
-> 재현: `node scripts/research/goal-data/d2-run.mjs b2-v2 validate|agree` → `node scripts/research/goal-data/d2-combine.mjs`. 입력은 `d2-export.mjs`(읽기 전용 · 원문은 git 제외 `local/`).
+> 생성물: `item-task-links.jsonl`(R1 후보 428) · `disputed-links.jsonl`(갈림 310) · `mapping-coverage.json` · 배치별 `<batch>-*`. **120문항 · 6시험(2024–2026 수능 · M2606 · M2609 · M2706)** — §8 이 최신 요약이다.
+> 재현: `node scripts/research/goal-data/d2-run.mjs <batch> validate|agree` → `node scripts/research/goal-data/d2-combine.mjs`. 입력은 `d2-export.mjs`(읽기 전용 · 원문은 git 제외 `local/`).
 > **모든 링크 `relevance=unknown`.** R1 은 두 독립 AI 판정의 일치일 뿐 사람 검수 · Gold · 학생 측정이 아니다. 제품 NeedRank 입력 금지(`relevance.ts` 계약).
 
 ## 1. 범위
@@ -56,3 +56,35 @@
 - R1 표본 30: confirmed 22 · refuted 0 · unclear 8 / 갈림 표본 30: confirmed 10 · unclear 20. **R3 11개 전부 unclear**, R3 경계 공백 주장은 confirmed.
 - 명확한 v2 위반 1(부정 발문 E1 의 B 판정) · 반사실 허위 확정 0 · 지지 보류 3(M2609#20 V3 · #25 S4 · #30 R4).
 - AI 일치 후보의 `relevance=unknown` 은 유지 — 이 검증으로 NeedRank · 진단 입력 자격이 생기지 않는다.
+
+## 8. 3차 — 계약 v2.1 · 삽입 재판정 · R3 제3 판정 · b4 확대 (최신)
+
+| 배치 | 계약 | 문항 | 일치 | κ | 주 TASK 일치 |
+|---|---|---:|---:|---:|---:|
+| b3-insert (무효였던 삽입 8 재판정 · 주어진 문장 분리 입력) | v2.1 | 8 | 0.847 | 0.696 | 6/8 |
+| b4-v21 (M2606 28 + 2024 수능 12) | v2.1 | 40 | 0.853 | 0.666 | 33/40 |
+
+- 결합(`mapping-coverage.json`): **120문항 · 2,160쌍 · R1 428 · 갈림 310**. pilot-1 · b2 의 삽입 8문항 판정은 b3 로 대체(`superseded_items`). b2 R3 갈림 11 은 제3 판정(`local/b2-v2/r3-third.out.json`)과 다수 일치한 6개만 `MAJORITY_OF_THREE`(R1), 셋이 다른 5개는 갈림 유지.
+- 삽입 문항 실측(DB 262): ① 앞 문장 ≥ 2 → 첫 문장 = 주어진 문장 238 · ① 앞 문장 1개(경계 불확실) 24 → 배치에서 자동 제외(`d2-export.mjs insertSplit`). 두 트랙 모두 8/8 분리를 그럴듯하다고 확인했다.
+
+### v2.1 효과 — 고르지 않다
+
+| TASK | b2(v2) κ | b4(v2.1) κ | 읽기 |
+|---|---:|---:|---|
+| R3 | −0.15 | **0.47** | v2.1 R3 경계가 갈림 원인을 줄였다 |
+| R6 · E1 · R5 · R4 · E3 | .87 · .87 · 1.0 · .68 · .75 | .87 · .82 · .77 · .73 · .69 | **두 계약 · 다른 시험에서 안정** — 확대 가능 |
+| R1 · R2 · S5 | .65 · .69 · .65 | .74 · .66 · .77 | 중간 — 제3 판정을 붙여 확대 |
+| **E2** | .91 | **.41** | 불안정 — 빈칸 · 삽입에서 「인접 문장 = indirect」 규칙을 판정자마다 달리 적용(b3 E2 일치 0.25) |
+| **V4** | .50 | **.37** | V4(표현 쌍 동등성) ↔ E3(선지 대응) 흡수 방향이 판정자마다 다름 |
+
+### 계약 v2.2 후보(다음 배치 전)
+
+1. **E2**: 「대상과 근거 사이 거리」 대신 **「근거를 찾으려면 본문을 탐색해야 하는가」** 로 — 빈칸 바로 옆 문장이 근거여도 같은 문단의 다른 후보 문장과 구별해야 하면 direct. 삽입 문항은 경계 판정 자체가 R2 · R4 이므로 E2 는 indirect 고정 여부를 결정.
+2. **V4 ↔ E3**: 선지가 본문 표현의 재진술이면 **E3 direct · V4 는 재진술 쌍의 의미 관계(반의 · 상하 · 비유)가 결정일 때만 direct**.
+3. **E1**: 「관계 없는」 · 「일치하는」 · 두 빈칸 요약 발문의 표준 발문 여부를 표로 고정.
+4. **삽입 문항의 R2 · R3 · R4 동시 direct**(b3 8/8): 문항 단위로는 세 TASK 를 가르지 못한다 — 삽입 문항을 이 셋의 **개별 직접 관찰 근거로 쓰지 않는** 규칙 후보.
+
+### 제품 인계 갱신
+
+- 「목표 시험 관련 TASK 후보」 설명 근거로 쓸 수 있는 TASK 를 **R6 · E1 · R5 · R4 · E3** 로 좁힌다(E2 는 v2.2 검증 전 제외). 여전히 NeedRank · 진단 입력 금지(relevance=unknown).
+- 「V2 · V3 · S1–S3 은 평가원 기출로 거의 직접 관찰되지 않는다」 는 120문항에서도 유지(direct 0–3).

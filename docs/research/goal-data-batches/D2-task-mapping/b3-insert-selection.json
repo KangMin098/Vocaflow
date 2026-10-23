@@ -1,0 +1,71 @@
+{
+ "batch": "b3-insert",
+ "rule": "2026 · M2706 · M2609 · 2025 의 #38 · #39 (주어진 문장 분리 입력)",
+ "items": [
+  {
+   "item_id": "2026#38",
+   "type_id": "R-INSERT",
+   "source_sha256": "115210240de5a39a564770629b770dd5879c321c880deea0d1ce642b978105d5",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "f8e544c02db6c566ab37c4739fd9cf1c34c6bbb6b7157aea9bd42c6f32bf3363"
+  },
+  {
+   "item_id": "2026#39",
+   "type_id": "R-INSERT",
+   "source_sha256": "3766632f732d88ad2bdaa94f2ccbe3225ab487536438af328f07ca1695c98ac4",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "05426a22e9dec4c708fb4f31d4c2e3a0aefe86861f07f86634613f10adff8ab1"
+  },
+  {
+   "item_id": "M2706#38",
+   "type_id": "R-INSERT",
+   "source_sha256": "ca7a5ecc9d718d8ed9754a473638c5464ce6568c784b8aae50299c368769b82b",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "8d02fafbf5e61fb316c3e82acf793482c2e1b5c26275559d36683096c9f0ce6b"
+  },
+  {
+   "item_id": "M2706#39",
+   "type_id": "R-INSERT",
+   "source_sha256": "5f04669c8d294dd0c058b2fa697a2d0054eb5c2b5d1301eb3c58b670bf149bf4",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "802cd99b620692e8f2ec82bf28f1c058281b6cd5c3421db7a6f85d19df779c62"
+  },
+  {
+   "item_id": "M2609#38",
+   "type_id": "R-INSERT",
+   "source_sha256": "4b0b3b616746ed4fa8cd82a7c3a1297d64fa600b5ba8be6b42e8af2175874443",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "edec5038d0c3942ebd2765fb69cfdc14554663639f2442427597d50cd8268a88"
+  },
+  {
+   "item_id": "M2609#39",
+   "type_id": "R-INSERT",
+   "source_sha256": "1cc87a43084daaca2a987b0fc2caf33c4ba72b1887bfe555c125f9f4c7550b90",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "73871c89f88d74a7d3a3044be0b720b185735f880ff5b9d13bf1fc1d1041160b"
+  },
+  {
+   "item_id": "2025#38",
+   "type_id": "R-INSERT",
+   "source_sha256": "19b4e438e3d039337a0bfbd92a6f6c7a53e2235b029a160551f36b18a572b93a",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "fe2a068207ee721871685863165f751965f65e300868e7d404e5210803ef6615"
+  },
+  {
+   "item_id": "2025#39",
+   "type_id": "R-INSERT",
+   "source_sha256": "e4b5592bcebeb358eb2ee442ee3d1a5c739d92380b7a43053f11a718db28d3b1",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "d8e412464d4543f7790ccc468d9d7c386634a3e9563288cc7a4feb93e3f3a0a2"
+  }
+ ],
+ "selection_sha256": "558288e60dfa931ffc82b0b860df468e35e18e5dc9cbd07f02cc38be4419046a"
+}

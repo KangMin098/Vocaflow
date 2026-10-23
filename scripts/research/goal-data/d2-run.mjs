@@ -13,8 +13,10 @@ import { ROOT, nonHeldTasks, validateChunk, validateRow } from '../../csat/map/v
 const [batch, cmd] = process.argv.slice(2)
 const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local', String(batch))
 const OUTDIR = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping')
-const CHUNK = 10
-const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', 'docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md']
+// b4 이후는 20문항 청크(분석자 수를 동시 실행 한도 안에 둔다)
+const CHUNK = /^b[4-9]/.test(String(batch)) ? 20 : 10
+// b2-v2 는 v2 로 판정했다 — 그 뒤 배치만 v2.1 을 더한다
+const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', 'docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md', ...(batch === 'b2-v2' ? [] : ['docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_1.md'])]
 const sha = (v) => crypto.createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex')
 const hideQuote = (a) => (a?.quote ? { field: a.field, quote_sha256: sha(String(a.quote)), quote_chars: String(a.quote).length } : null)
 const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
@@ -49,7 +51,7 @@ function chunks() {
     for (const track of ['A', 'B']) {
       const f = name(track, k)
       if (fs.existsSync(f)) continue
-      const items = rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source: r.source, source_sha256: r.source_sha256, ...(track === 'A' ? { prior_analysis_unverified: r.analysis, prior_traps: r.traps.map((t) => ({ option_no: t.option_no, trap_key: t.trap_key })) } : {}) }))
+      const items = rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source: r.source, source_sha256: r.source_sha256, ...(r.insert_split ? { insert_split: r.insert_split } : {}), ...(track === 'A' ? { prior_analysis_unverified: r.analysis, prior_traps: r.traps.map((t) => ({ option_no: t.option_no, trap_key: t.trap_key })) } : {}) }))
       fs.writeFileSync(f, JSON.stringify({ batch, track, contracts: CONTRACTS, tasks, items }, null, 1))
     }
   }
