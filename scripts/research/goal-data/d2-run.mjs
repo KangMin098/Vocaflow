@@ -13,6 +13,12 @@ import { ROOT, nonHeldTasks } from '../../csat/map/v62/data/pilot-lib.mjs'
 import { checkChunk, chunkSize, loadTrack, makeValidator, maskIds } from './d2-validate.mjs'
 
 const [batch, cmd] = process.argv.slice(2)
+// 청크 모드(validate A NN)는 초기화(배치 input.json 파싱 · tasks 해석)부터 잡히지 않은 예외까지 모두 가린 뒤 내보낸다(T-0127 RECHECK3-P1-01)
+if (cmd === 'validate' && process.argv[5]) {
+  const fail = (e) => { console.log(maskIds(`${process.argv[4]}-${String(process.argv[5]).padStart(2, '0')}: 검사 실패 — ${e?.message ?? e}`)); process.exit(1) }
+  process.on('uncaughtException', fail)
+  process.on('unhandledRejection', fail)
+}
 const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local', String(batch))
 const OUTDIR = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping')
 // b2 · b3 만 10문항 청크 — 그 뒤 배치는 20문항 청크(분석자 수를 동시 실행 한도 안에 둔다 · T-0100 은 정규식이 b4–b9 에만 맞던 것을 지적)

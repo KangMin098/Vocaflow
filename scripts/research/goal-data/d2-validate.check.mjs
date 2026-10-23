@@ -5,6 +5,7 @@
 import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
+import { spawnSync } from 'node:child_process'
 
 import { checkChunk, loadTrack, makeValidator, maskIds } from './d2-validate.mjs'
 
@@ -169,6 +170,25 @@ if (!usesLoader) bad++
     { name: '깨진 JSON: loadTrack 은 멈추지 않고 그 청크만 배제(통과 2)', got: lt !== null && lt.out.size === 2 },
   ]
   for (const c of bc) { console.log(`${c.got ? 'ok ' : 'FAIL'} ${c.name}`); if (!c.got) bad++ }
+}
+
+
+// 깨진 배치 input.json(T-0127 RECHECK3-P1-01) — 청크 모드는 초기화 예외도 가린 한 줄 · exit 1(실제 d2-run 실행)
+{
+  const tmpBatch = `zz-broken-input-${process.pid}`
+  const bd = path.join(path.dirname(new URL(import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1')), 'local', tmpBatch)
+  fs.mkdirSync(bd, { recursive: true })
+  try {
+    fs.writeFileSync(path.join(bd, 'input.json'), '{"rows":[{"item_id":"2099#7"} 2099#8 }}}')
+    fs.writeFileSync(path.join(bd, 'chunk-A-01.json'), JSON.stringify({ items: [{ item_id: '2099#7' }] }))
+    const r = spawnSync(process.execPath, [new URL('./d2-run.mjs', import.meta.url).pathname.replace(/^\/([A-Za-z]:)/, '$1'), tmpBatch, 'validate', 'A', '01'], { encoding: 'utf8' })
+    const all = `${r.stdout}${r.stderr}`
+    const got = r.status === 1 && all.includes('검사 실패') && !/(?<!\d)M?\d{4}[AB]?#\d{1,2}(?!\d)/i.test(all)
+    console.log(`${got ? 'ok ' : 'FAIL'} 깨진 배치 input.json: 청크 모드 가린 오류 · exit ${r.status}`)
+    if (!got) bad++
+  } finally {
+    fs.rmSync(bd, { recursive: true, force: true })
+  }
 }
 
 process.exit(bad ? 1 : 0)
