@@ -11,7 +11,7 @@
     "observedTypes": 44
   },
   "allRequestedFilesExist": true,
-  "coreDecisions": 12,
+  "coreMappings": 12,
   "acceptanceTestsMapped": 20,
   "cueCount": 37,
   "revisionProposals": 6,
@@ -56,6 +56,45 @@
       "name": "Vocaflow_CSAT_v4.0_S0_착수지시문_20261023.txt",
       "sha256": "aee4115df19a203c31cdd8763b52ec80b1b17f4c1a628b5ce3da5ecff8e7644c"
     }
+  },
+  "resumeVerification": {
+    "date": "2026-10-23",
+    "baseCommit": "68633c195e9745ff3d913499db2b1ec6990dc90e",
+    "owner": "csat-v4-s0",
+    "runSeq": 6,
+    "scope": "S0 metadata and structural reconciliation only",
+    "artifact": "AI-Control/runtime/t0131-resume-20261023/audit.json",
+    "metadataSha256": "6d44c53c6861c87ecade32c7fc11469fc8bf3834cc6185500df8ea1e37c9b4d1",
+    "sourceFilesChecked": 94,
+    "sourceFilesChanged": 0,
+    "sampleIdComparisons": 108,
+    "classifierRows": 630,
+    "classifierMismatches": 0,
+    "cueCount": 37,
+    "pureTests": {
+      "command": "pnpm.cmd exec vitest run src/lib/csat/__tests__/teaching-contract.test.ts src/lib/csat/meaning-support/__tests__/model.test.ts src/lib/csat/inquiry/__tests__/compare-v3.test.ts",
+      "cwd": "D:/workspace/Vocaflow-main-serving/apps/web",
+      "startedAt": "2026-10-23T22:25:54+09:00",
+      "files": 3,
+      "passed": 25,
+      "failed": 0,
+      "skipped": 0,
+      "exitCode": 0,
+      "testAndDependencyFilesHashMatched": 20
+    },
+    "liveDbRequeried": false,
+    "previousIndependentReview": {
+      "commit": "68633c195e9745ff3d913499db2b1ec6990dc90e",
+      "artifact": "verification/reviews/T-0131-v6-recheck-20261023/INDEPENDENT_REVIEW.md",
+      "verdict": "S0_SCOPE_ACCEPTED",
+      "currentClaudeReview": "REQUEST_PENDING"
+    },
+    "s1": "NOT_CREATED",
+    "s2": "NOT_READY",
+    "taskSubmit": "NOT_SUBMITTED_S1_REQUIRED",
+    "rlsPdfTtsOriginalAudioContentBlindTimeout": "NOT_VERIFIED",
+    "uiE2eBuildCI": "NOT_RUN",
+    "learnerEffects": "NOT_EVALUATED"
   },
   "serving": {
     "port": 3000,
