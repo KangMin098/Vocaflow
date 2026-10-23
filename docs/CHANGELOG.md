@@ -165,6 +165,8 @@
 
 ---
 ## Unreleased (v06.34 → next)
+
+- feat(csat): 메가스터디 정답률 원장 — 수능 · 모평 · 학평(고1~3) 영어 **전 문항** 정답률 · 선지별 선택비율 · 난이도 · 배점을 `csat_item_response_stats` 에 적재(127회 · 5,715행, migration `20261023100000`). EBSi TOP15(30회 · 450행)만 있던 오답률을 `csat_items` 3,528/3,714 문항으로 넓힌다. 수집 `scripts/csat/rates/fetch-megastudy.mjs` → 정답 키로 회차 · 유형(홀/짝) 대응 `import-megastudy.mjs`.
 - chore(dev): 격리 빌드 사본(`.next-*`) 보존 한도 — `next build` 시작 때 살아 있는 서버 표식·2시간 안 사본·`.next`/`.next-dev`/대상을 빼고 최신 2개만 남긴다. `next start` 도 소유권 표식을 남긴다. 워크스페이스 일괄 정리 `apps/web/scripts/prune-dist-dirs.mjs --root D:/workspace [--apply]`. 한 워크트리에 사본 15개 25.8 GB 가 쌓여 D: 98% 가 된 일(2026-10-21) 재발 방지.
 - chore(dev): 최신 main 기반으로 로컬 integration의 관리자 재구성·주문 계보·사용성 수정을 통합하고 브랜치 연속성/포트 운영을 공통화했다. `wt new`는 공간을 재사용하고 `wt remove`는 잠금·미통합 작업을 보존하며 강제 삭제하지 않는다. #244 팝업/원문 폭, #315 선택 라우터, 연구 검토 원장을 보존하고 개발 DB에 이미 적용된 보안 SQL 2개를 이력 해시 그대로 복원했다(DB 재적용 없음).
 - chore(agents): 개발 자동화 정책v1.2와 PR_SCOPE_GUARD를 추가했다. 저위험 개발 재승인은 줄이고 중대 보안/DB 배포/삭제 통제·필수8체크를 유지한다. 범위 계약의 HEAD/base/커밋 수/정확한 경로를 검증하며 향후 프로젝트 Codex 개발 네트워크 설정을 준비했다. 중앙 공식 통합 경로를 재사용하고 관리형 권한 변경·독립 PR 원격 납품은 미완료다.
