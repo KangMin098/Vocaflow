@@ -1,0 +1,7186 @@
+{
+ "lectures": 796,
+ "VERIFIED": 796,
+ "UNVERIFIED": 0,
+ "preStopRisk": {
+  "DECISIVE_POSSIBLE": 481,
+  "DECISIVE_CONFIRMED": 138,
+  "NONE": 29,
+  "HINT_ONLY": 148
+ },
+ "stopBefore": {
+  "0": 3,
+  "3": 404,
+  "4": 332,
+  "5": 56,
+  "6": 1
+ },
+ "moved_earlier_than_rule": 9,
+ "unverified_reasons": {},
+ "list": [
+  {
+   "lecture_id": "2014A#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#25",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#29",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#30",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#31",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#38",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#41",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#42",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014A#45",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#37",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#38",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#41",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#43",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2014B#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#22",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#26",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#27",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#29",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#37",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#41",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2015#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#20",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#22",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#26",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#29",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#39",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#41",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2016#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#21",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#27",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#29",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#35",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#42",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#44",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2017#45",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#20",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#29",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#38",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2018#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#26",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#43",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2019#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#20",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#22",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#28",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#42",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2020#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#19",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#20",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#22",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#39",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#42",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2021#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#20",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#35",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#37",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2022#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#26",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#37",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#40",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2023#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#22",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#23",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#26",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#40",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#42",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2024#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#37",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2025#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#21",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#33",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#40",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "2026#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#21",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#33",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M1809#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#20",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#38",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#42",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#43",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2006#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#20",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#26",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#38",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#39",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#40",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2106#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#42",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2109#45",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#20",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#41",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2206#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#20",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#26",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#37",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#42",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2209#45",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#19",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#20",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#26",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#37",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#41",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#42",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2306#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#22",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#26",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#30",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#37",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#40",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2309#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#19",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#22",
+   "status": "VERIFIED",
+   "stopBefore": 0,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c1 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#26",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#30",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#33",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#36",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#37",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2406#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#18",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#19",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#23",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#26",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#31",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#36",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#37",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2409#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#22",
+   "status": "VERIFIED",
+   "stopBefore": 0,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c1 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#28",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#33",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#35",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#36",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2506#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#22",
+   "status": "VERIFIED",
+   "stopBefore": 0,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c1 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "대본이 규칙보다 먼저 답을 말함 → c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#24",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#33",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2509#45",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#26",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#27",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#33",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#40",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2606#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#18",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#23",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#26",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#32",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#33",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#34",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#37",
+   "status": "VERIFIED",
+   "stopBefore": 6,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c7 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2609#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#18",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#19",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#20",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#21",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#22",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#23",
+   "status": "VERIFIED",
+   "stopBefore": 5,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c6 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#24",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#25",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#26",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#27",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#28",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "NONE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#29",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#30",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#31",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#32",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#33",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#34",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#35",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#36",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#37",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#38",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#39",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_CONFIRMED",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#40",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#41",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#42",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#43",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "HINT_ONLY",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#44",
+   "status": "VERIFIED",
+   "stopBefore": 3,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c4 앞에서 정지"
+   ]
+  },
+  {
+   "lecture_id": "M2706#45",
+   "status": "VERIFIED",
+   "stopBefore": 4,
+   "preStopRisk": "DECISIVE_POSSIBLE",
+   "reasons": [
+    "규칙 경계 c5 앞에서 정지"
+   ]
+  }
+ ]
+}

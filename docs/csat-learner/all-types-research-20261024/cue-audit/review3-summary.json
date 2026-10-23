@@ -1,0 +1,47 @@
+{
+ "third": {
+  "files": [
+   "review3/third-1.C.json",
+   "review3/third-2.C.json",
+   "review3/third-3.C.json"
+  ],
+  "judged": 672,
+  "rejected_quote": 0,
+  "rejected_hash": 0,
+  "rejected_label": 0,
+  "duplicate_why": 0,
+  "resolved_2to1": 670,
+  "still_unknown": 2,
+  "raised_over_both": 36
+ },
+ "audit": {
+  "judged": 120,
+  "rejected": 0,
+  "under_rated": 24,
+  "by_risk": {
+   "names_option": 13,
+   "map_order": 9,
+   "locator_phrase": 5,
+   "intent": 2
+  }
+ },
+ "risk_population": 710,
+ "risk_unaudited": 916,
+ "final": {
+  "pre_answer_cues": 2849,
+  "local": {
+   "NONE": 995,
+   "HINT": 1700,
+   "DECISIVE": 143,
+   "ANSWER": 9,
+   "UNKNOWN": 2
+  },
+  "source": {
+   "two_agree": 2153,
+   "third": 670,
+   "audit_raised": 24,
+   "unresolved": 2
+  },
+  "promoted": 1274
+ }
+}
