@@ -25,7 +25,7 @@ export const EXPIRY_DAYS = 120
 export interface SkillTarget {
   itemRef: string
   taskKey: string
-  /** 지문 정체(같은 지문 세트 문항은 같은 값) — 없으면 문항 자체를 지문으로 본다 */
+  /** 지문 정체(같은 지문 세트 문항은 같은 값) — 서로 다른 지문 조건이 있을 때만 쓴다. 그때 없으면 그 문항은 세지 않는다 */
   passageKey?: string | null
 }
 
