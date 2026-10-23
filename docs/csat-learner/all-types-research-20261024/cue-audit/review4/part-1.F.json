@@ -1,0 +1,3633 @@
+{
+ "reviewer": "F",
+ "part": 1,
+ "items": [
+  {
+   "lecture_id": "2014A#23",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:c19405a03d0cf1c95c0e0f1febf9657cfc9ec70c9358a961cfe22523cff08a13",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "용건은 두 번째 문장의 회사 이름과 상품",
+     "why": "정답 5번 배송 서비스가 담긴 두 번째 문장을 결정 문장으로 지목한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014A#27",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:13f46304c36dc5cd691f6e7a6bd101866a2d02b8fd8111d58848e6a82b0c1ed1",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "부정사는 앞 동사와 함께 적어 두세요",
+     "why": "부정사 밑줄 4번을 앞 동사와 묶어 보라며 오류 자리로 시선을 모은다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014A#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:31aa8049a201f3b3a5b4d3a5e411363f3dd5ad0e1dd4decb3bfeafbd2fdb6bdf",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "모양이 닮은 두 낱말을 심었습니다",
+     "why": "어느 칸 어느 낱말이 맞는지 방향은 주지 않는다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014A#34",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:5ce00456096454034da9e96c3fe16e14ade56cd0090d6fc668cea3acc7331a23",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "화면이 담긴 선지가 먼저 눈에 들어와요",
+     "why": "3번 TV 화면 선지를 함정으로 지워 후보를 줄인다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:fa0f4415b87c35df1e2879b8fe3ec54ac6a9d5e14e990f0f94effc4534d7e3ae",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "빈칸에는 줄어드는 것이 옵니다",
+     "why": "필터가 줄이는 대상이라는 성질로 1번 삶의 풍부함 쪽을 좁힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014A#42",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:e7b7a1fae9a2415843cb0c76f07e42610f81df38355029e9c9fbac1cc23a455d",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "사례가 일반론으로 넘어가는 자리예요",
+     "why": "빈칸 위치 성격만 말하고 perceptions를 가리키지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:86681a476009ed328500e6743bf75659d435a0ec1f309b44e3977c533bb2fbc1",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "빈칸은 시도를 좌우하는 원인 자리예요",
+     "why": "스윙을 좌우하는 원인 자리라 해 생각 쪽 2번으로 방향을 준다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014B#26",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:f2d48f99796ac04284ce5b83316bf8987a13a3ef3d97da637f73d9c6d2a8b333",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "한 사람을 여러 이름으로 부르는 이야기",
+     "why": "등장인물 구조만 말하고 4번 밑줄을 짚지 않는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014B#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:1aded6dcb7df9e8aef9ba479908509f7363c6bcbac0fc01824ec0a90db3fc1fa",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이유절이 결과절과 맞는지만 봐요",
+     "why": "이유절과 결과절 정합성이라는 판정 기준을 좁혀 준다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014B#31",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:ba225f9b7ce502ea11e18fcb10ab6fe4f3823f3d7fd4ae6b42844f5c2533b3bd",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "첫 문장의 일반 진술로 되돌리는 능력",
+     "why": "첫 문장의 다른 기능에 악영향이라는 진술로 1번을 향하게 한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014B#37",
+   "cues": [
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:dc9e18f938b6f873292236694900d21a57d463a12a75a14a1241b225b7ee4bd2",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그래서 대조예요",
+     "why": "A칸을 대조로 정해 On the other hand인 1·2번만 남긴다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2014B#41",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:b81225d1da866424addb564e78e6499df8487c8bcb5bb95151cf02f041bf9a51",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "둘을 양보 관계로 묶은 제목을 고르게 합니다",
+     "why": "양보로 묶은 제목은 yet이 든 4번뿐이라 하나로 정해진다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:3d55e8f55b9180751abf79461b374e3227b4c61528d80392ef262efbb9a110da",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "다섯 번째 문장의 그러나에서 뒤집혀요",
+     "why": "통념이 뒤집히는 문장 위치를 짚어 앞선 양보 단서를 굳힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2015#19",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:3d2ee22a381585a2b1641025ec8b2145992f665b087ab3d2b0b23411fd9bd1c0",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "잘 풀린 일을 차례로 쌓았어요",
+     "why": "좋은 일의 연속이라 긍정 감정 1번 joyful만 남고 4번은 함정 처리",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2015#23",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:b67b62a9e9a04c2c8edfac99a96a408f54bb64da5f3289daca92f02e5efefcb8",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이 번만 무엇이 아니라 무엇이라는 두 항 대비",
+     "why": "두 항 대비 선지로 2번만 따로 짚고 3·5번은 한쪽 편으로 돌린다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2015#28",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:050b77094beb053c22764d49f841b9ed071d76665d818c212e3e2af268ed4793",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "정동사 자리가 비었는지를 확인하게 합니다",
+     "why": "정동사 누락이라는 오류 유형을 밝혀 meaning 밑줄 쪽으로 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:b88944429a3889af5ea6a7d12d0b3676290cc6b1e21053264013b4b9fd4a12df",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "동사 모양 밑줄은 주어의 머리 명사와 짝",
+     "why": "앞 큐의 정동사 누락과 겹쳐 동사 모양인 3번 하나로 수렴한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2015#35",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:7ebdef1a57bf742722ccc08750791f24687003398812e004784fe2c507a42c34",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "통념과 반박을 한 줄씩 적으세요",
+     "why": "도입부 논지만 다루고 2번 태양 에너지 문장을 가리키지 않는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2015#38",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:c9c50473edcd3d4e54cc29b8ad53664a8d0a863dd817dedf365f7883057a2e67",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "다섯 번째는 결과예요",
+     "why": "결과와 나무가 속은 효과 사이 경계를 보여 주어 3번 자리가 정해진다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2015#44",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:c4a2ad0db2eb555c3a9bc083950112602f0d69126bccbaded7751ff681f913c2",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄마다 주어인지 소유격인지도 적으세요",
+     "why": "그로 불릴 인물이 둘이라며 격을 기준으로 삼게 한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:edb3382bc624e4572528c2b2685315a7b48e6b66d38b17105d23b8f1e6ff623a",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "열세 번째 문장의 디만 소유격이에요",
+     "why": "소유격 기준을 준 뒤 (d)만 소유격이라 해 4번을 단독 지목한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2016#27",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:0783609d95ccc9063dd0f230c36ebfa3e135d1f644cb7c6b44aa1eb65bc808c6",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "횟수, 작품, 공연 시점, 기간, 무료 대상",
+     "why": "다섯 선지 모두에 밑줄을 긋게 해 4번을 구별하지 않는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2016#30",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:3dcabec7cf9d5ff8250bda3d8dc6238197120f4d037d44f55b1a8a118ac49524",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "다른 사람 이름이 나오는 자리도 있어요",
+     "why": "밑줄 곁에 다른 인물 이름이 나오는 자리를 의심하게 해 4번을 좁힌다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:30ed0482802cf708489c8c6577af1913d0d2afed9856bdf64f1d97f5d4ec4af6",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "지목하는 쪽인지, 지목당하는 쪽인지",
+     "why": "지목당하는 댄 트레스를 가르는 기준을 세워 4번 판별을 돕는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2016#35",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:c95f44f979f72d6b98fb6e1623cd7ad6243a1c5a0742086c4207318efa5b1bd8",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이를 뒤집을 그러나를 찾습니다",
+     "why": "Sure 양보 뒤 However 단락을 찾게 해 B 다음 연결을 암시한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:3551b262087cdab1c9e9bd3dadcee9f7a02247853fd133af6660cf181b277568",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "안 바꾸는 사람, 바꾸는 사람, 차이는",
+     "why": "단락 위치와 논리 흐름을 겹쳐 B-A-C 배열을 추론하게 한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2016#42",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:ee84cdcf6ab6690db3b3be7cbf931ac82a2f36a51c75a490de2959f132f8e5f5",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "빈칸은 지식을 꾸미는 형용사 자리예요",
+     "why": "품사만 말하고 2번 impractical 방향은 주지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:87408e682c4ea6131f2b96c850e5359428aac0f20fe0d8f5065bb29acce0e28c",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "긍정 낱말로 손이 가죠",
+     "why": "긍정 낱말을 함정으로 돌려 1·4·5번을 제외하게 한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:f7526e3b73eb2612a0114a2dc8640a930b60c8ebc138ef636737294f45600550",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "겉으로만 그렇고 뒤에서 뒤집힐 성질",
+     "why": "seemingly 뒤 실제로는 쓸모 있을 성질이라 부정 형용사로 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:f748f2ce8293cb9db48d01d60d8c84542357c53630a8e4770732de4bfdb46f72",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "겉보기와 실제를 맞세우는 대조 자리죠",
+     "why": "겉보기 쓸모없음 대조를 다시 짚어 impractical로 기울인다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2017#23",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:77fc27ef7f748fbaa0a2d037e136b689493a6efdc6a1626561d39e9e21d4ebd3",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "감독의 뜻대로 이어 붙인다는 편집 서술",
+     "why": "감독이 현실을 다룬다는 방향으로 4번을 향하게 한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2017#29",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:007a57d2029bdc2792c20fd9add456e7f652e1000f44838e8e3046a8757ab162",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "씨는 다음 문장의 첫 낱말입니다",
+     "why": "B·C 칸을 정하는 단서 위치를 짚어 준다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2017#33",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:8996066bc7ad42bd0e7c45389e02c445b6c30dee95f3549102e9ea76d38ed80d",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "무엇이 없는지 읽는지 재요",
+     "why": "무엇이 없음을 읽으라는 말로 더는 사랑하지 않음 1번에 다가간다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:9e57f5c476b8f981ba783db263d1579f8fda01839188890ff7f7c8863067722f",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "느낌이 늘 있을 필요는 없다",
+     "why": "긍정 감정 부재를 앞 문장에서 짚어 1번 의심 내용을 좁힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2017#37",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:419615b14b12b9732811bc9109c772d72f734672c8cee55d2d169ea73d9e76d3",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "예측, 관측, 반문, 귀결의 흐름입니다",
+     "why": "흐름 순서를 주어 단락 배열 추론을 돕는다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2017#42",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:df0bf41a682174e10c3c85ac76ceea0a0533f9d7f5cbdef30d9695e03082a11c",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "두 칸의 근거가 서로 다른 자리에 있어요",
+     "why": "근거 분리만 말하고 imprecise·faster는 가리키지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:482d06f52d123c4b18de6484c46205be79d290e53f0f58a7ce9bc0b4fb9445fe",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "빠르다 둘, 느리다 셋뿐이죠",
+     "why": "B칸 빈도를 세게 해 faster 선지 1·4번 후보 축소를 유도한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2018#21",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:929b4f58afa0f68a5acabedf2549ca8ba2db63e0452abbc99cd7d5fa181a3cc4",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "필자의 결론 한 줄을 고릅니다",
+     "why": "유형 안내뿐이라 정답 방향이 없다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:0b4c17212a0ed3be7669aff8c4f61d9be42b18fb9da49535b0025b341efb50d1",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "끝에서 정보 전달로 옮겨 갑니다",
+     "why": "정보 전달이라는 말이 1번 선지 표현과 바로 겹친다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:7f5608ba68bd44e04f11f8966e1a8a28436346d2a5891257804a8790d3ddb782",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "던지기보다 받기에 훨씬 더 신경 쓴다는 관찰",
+     "why": "잘 던지기 교정으로 전달 방식 1번 판단을 굳힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2018#30",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:3df04bf35685c673fd7bc9342e6511c2d895b6e9363dd6e4a59c63a95bd50a76",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "가리키는 사람이 다른 하나를 찾으세요",
+     "why": "발문 반복이라 5번을 좁히지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:aae29b401c5509b3c1bb703fc2de07ab4b2db13af29670d4ad09b6443244959a",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "캐서디의 이름이 밑줄 가까이에 자주",
+     "why": "캐서디를 가리키는 밑줄이 있을 수 있다며 탐색 범위를 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:c708234a05e063b67d19383d807c6260a712b6b055aa8b3ebbf1c0ae680de78c",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "조언을 구하고 받는 쪽인지, 주는 쪽인지",
+     "why": "조언 주는 쪽을 가르게 해 him 5번 판별 기준을 준다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2018#36",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:c3ebf5e1da7f040e822333250df7cc2c4820ee5b48cfa747a03f0e0f6d4ab2d9",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "구독이 거의 구십 퍼센트죠",
+     "why": "낱권 판매 잔여를 짚고 연결어를 표시해 B 첫 단락 추론을 돕는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:1bceb529b72f9b310a32edfc82ca2a4f7f27e1a6a86d0948f84f56db3682c571",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "낱권도 중요하다, 이유 하나 더, 표적 광고",
+     "why": "단락 내용 꼬리표가 연결 순서 추론을 돕는다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2018#42",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:735b41e2d82129009b7109e6e12f6de5e8042d3b3b2ce183e1d1674c9b3ceafb",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "답의 명사형은 맨 끝 문장에 한 번 나옵니다",
+     "why": "4번을 함정으로 지우고 끝 문장 명사형 objectivity로 1번을 확정",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2019#18",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:7e6cdb7c9eae71f52bc44a88d1c2eac37841703431cc2e38dc0815127dac3393",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "목록 항목을 목적으로 오려 낸 선지",
+     "why": "일정 목록형 1번 같은 선지를 함정으로 제외시킨다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2019#22",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:0eed052dcad69517a5f89e926610dd4f7913cf7664d48712fc21ff88d81a3525",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "필자의 결론 한 줄을 고릅니다",
+     "why": "유형 안내뿐이라 2번을 가리키지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:df3b3d36694cd43c13736f09ec174551575e4759bab6b839be703324515c440f",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이 번만 정보가 무엇이 되었다는 성격 진술",
+     "why": "2번만 성격 진술로 구별하고 지문 규정과 맞추게 한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2019#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:e7a10758cb83187013764359d49169085b0aa084162be309d4ef78dd98d577c1",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "방향, 위치, 색과 상태, 방수 네 자리를",
+     "why": "뒤집힌 네 자리가 1·2·3·5번이라 남는 4번이 정답이 된다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:81409b3834e07d8a36448999687af3ade2ce0194b7a111156c5afd0f21ba5860",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "사 번은 사이에 둔 물건, 오 번은 방수입니다",
+     "why": "선지별 자리를 대응시켜 앞 큐의 소거를 완결한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2019#32",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:56b279d333774e1686de701b320a9bbbab5c5a24c2c9414df1ccda59cb54ce17",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "소수의 행동 방식을 풀어 주는 자리예요",
+     "why": "빈칸 위치만 밝혀 5번 내용은 주지 않는다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:a81e0b5006f97f67cd18140741de59336000a0a030f54b41f2bc7b7316582d96",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "오답 둘은 주어를 다수로 바꿨죠",
+     "why": "다수 주어 2·3번을 오답으로 지워 후보를 줄인다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:2c0fa802ca026415ed1e831ec7ecc4d41e016756ca8a92e1655920c8f3c9617b",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "힘이 별로 없기 쉬운 소수가 어떻게 영향을",
+     "why": "소수가 영향을 준다는 물음으로 뜻 전달 5번을 향하게 한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2019#38",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:2cd58b4f865b8cd700b56750a2e600a76596e742edba1f8faf0af7cebd21ea20",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "새로 꺼내는 필사본이 자리를 정합니다",
+     "why": "필사본 첫 등장 자리라는 판정 기준을 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:6df93f604c27bd4fa4a06f0cf736f4231d5621d7e734cca6eb3e55bb0c82c7ee",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그 경계를 찾습니다",
+     "why": "구전과 필사의 느림 사이 경계를 짚어 3번 자리로 확정된다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2019#44",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:5b7b54c4cd13ee80679e8724614d2edce3677f7809ba4719caff4c5ddb9697f6",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄 하나는 따옴표 안, 넷은 밖이에요",
+     "why": "따옴표 안 밑줄 하나를 구별하게 해 (e) 쪽으로 좁힌다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2020#21",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:44f0dc597c772c46373525ce7780190ddc81fe9e689eef3ef0a9a9ef8511ba2f",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "에어 기타는 기타 없이 치는 시늉이죠",
+     "why": "실체 없는 시늉이라는 뜻으로 1번 방향을 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:16f73e86c37e5f18b138eb652b6b03befd6c2652157a1118694c94a7438b7e2a",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "놓치면 음악 선지로 끌려갑니다",
+     "why": "음악 연주 선지 3·4번을 함정으로 제외한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:0cc187fdf616905f7fb698da7b11baf75953439dec11b00a087c969fbe9fe4b1",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그들이 누구인지 앞에서 찾기로 하세요",
+     "why": "주어 확인 절차만 안내하고 새 단서는 없다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:afbe6604dc507c0cac117f3316c46c62d1e825169ca62ac6c28fd47aeda7a425",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄은 뒤쪽 사람들 이야기예요",
+     "why": "즉흥만 강조하는 쪽이라 지식 없는 창의 1번이 정해진다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2020#34",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:043af5bdc11fe6fb7ff975847a89cf002e30dfd5135638135d5b0b518e752a51",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "오답 일 번은 필자가 뒤집은 뒤의 말",
+     "why": "1번을 필자 입장 선지로 지워 후보를 줄인다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:b8fe129da99bb92789babdf7cbac0732386704fab0daf02d4e4ab761055086f1",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "빈칸엔 곧 뒤집힐 통설이 온다고 정합니다",
+     "why": "빈칸 성격을 통설로 정해 고정 음 쪽 선지로 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:baa275f9d94dbab57b2ae7bf7fee1da77c66cf121e556c9d5857086298b0a6ce",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "고정 음높이 대 흔들리는 자연음",
+     "why": "통설이 고정 음높이라 fixed를 담은 2번만 남는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2020#43",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:fb9b0a522f2e0b854148839c4a30d4c2f7baf6be618a16a8b3ad75661aab1137",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "차를 세움, 연어를 처음 봄, 계속 지켜봄",
+     "why": "사건 순서를 다 불러 주어 단락 배열 C-D-B가 정해진다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2021#18",
+   "cues": [
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:ad9643333a115246718145fb088e68e03d3e3e82f60a7c09cc10893b328c41c1",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "세 번째가 참여 방법의 예고",
+     "why": "참여 방법이라는 말이 3번 선지와 그대로 일치한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2021#21",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:dec31c8ba8ee112fa0e551571337e84f625e6989bce7d291e140570a7cddb740",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄은 사자의 역사가 역할",
+     "why": "밑줄 소개뿐이라 지속 가능 행동 2번을 가리키지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:e50f0fd5b98c784a9ca0ed990e680cc136328fcfa260020d79e9f94e65e88a23",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "역할의 주인이 환경 기자로 정해져요",
+     "why": "환경 기자 역할로 좁히고 인권 3번을 함정으로 짚는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2021#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:f12d6208040f5ced08a48013e5da2f97da1dc722b5d5d23cb18be51389b3cbe6",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "오답 넷은 이 줄들과 하나씩 어긋나게",
+     "why": "세 번째 문장을 대조 지점으로 짚어 준다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:945bac879c0279c5102330e2de15d178593e3d185ad9c1fa0cf20ba8aedcd4e8",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "오전, 삼 층, 중급자, 특수 효과, 제한 없음",
+     "why": "다섯 선지 모두 표시라 4번이 구별되지 않는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2021#36",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:eed94d9ce0ed22ca199c39bf550436247d9a1720d76c5d08189ece19f2cc600e",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그 빈자리를 채우고, 형용사를 받고",
+     "why": "빈 목적을 채우는 단락부터라는 순서 기준을 준다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:08571905bd7ef1b9537372dc5f025a67913c9b94d8f6b3839654ec978e68de5a",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이 빈자리가 다음 단락을 부릅니다",
+     "why": "더 큰 목적을 채우는 B 단락을 첫 단락으로 향하게 한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2022#18",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:08337ba66c222483f181f6b8ddf14980a26b24354353b095ab59e863cfba328f",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "요청의 대상만 바꾼 선지가 그 틈을 노립니다",
+     "why": "요청 대상을 바꾼 2·4번을 함정으로 돌려 3번을 남기게 한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2022#21",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:98b97e68133576ec503c112fc014eed74b144b485ff4ae15a4c4031c476ca86e",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄은 아침 출근 준비를 할지 말지",
+     "why": "밑줄 번역만 해 1번 방향이 없다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:000511008a02616194ef2e311175cdbfdb2952fbf1e3774efad4d75fe15cdcac",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "앞의 불신만 기억하면 밑줄을 거꾸로 읽게",
+     "why": "불신 쪽 2·5번 해석을 함정으로 경고한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:b7efee0885faa143c827523624cfbd65973a5eb511a24d322d1af70633b0cd50",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "무엇이 없으면 이 판단을 못 하는지",
+     "why": "전문가 정보 없이는 판단 못 함이라는 방향을 예고한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2022#31",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:90f9b01b97e40c1403a7a3e600bff01d7b7ec472e6772a795b0c0f7c46d52a49",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "빈칸이 부정되는 자리에 있어요",
+     "why": "부정 틀만 언급해 accurate를 가리키지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:20cdc1ad09a52b399dfa045342733d347eba5208e5939878b5da7858140d8cfc",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "빈칸 문장만 보면 다섯 선지가 다 들어갑니다",
+     "why": "대립축을 찾으라는 말뿐 후보를 줄이지 않는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2022#36",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:2c7fac56e63b2cb713ee96f699f130edffd359a9f69414a76efbfd11c4b9714b",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "세금이라는 수단이 어디서 처음 나오는지",
+     "why": "과세가 처음 나오는 B를 첫 단락으로 찾게 한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2022#38",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:80ede90c7cf11b648731b07f6b829068f7fd671592caa2a5b3ea96267ac0eb16",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "지시와 연결의 고리로 자리를 정해요",
+     "why": "판정 방식만 말해 5번 자리를 좁히지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:67eccde5ac3eddc2c2c5f3559f5331ec301ab0b1c21c860414a3d67fccf8aabe",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "앞에 같은 조치가 쌓여야 합니다",
+     "why": "조치가 쌓인 뒤 자리라 해 뒤쪽 위치로 좁힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2023#19",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:16e222d718f57043edbb0bbc974b9760c931d0bffc51531f7ef93f6084ec1de9",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "팀 동료 켄의 긴 대사를 전환점으로",
+     "why": "켄의 격려 대사를 전환점으로 짚어 encouraged 쪽을 암시한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:f35421333208c98a156c1d43c006a9f79e5989b23f9c79ab0db8d3f940111d7c",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "감정 단서 두 자리를 먼저 표시하세요",
+     "why": "일반 절차라 새 단서가 없다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2023#27",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:3a41b42004dd05175c1f4d302b38501c2b1dfd3364a088c17a8fbc97bb211408",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "만이나 모든 같은 한정어는 꼭 표시하세요",
+     "why": "한정어 만이 든 2번으로 주의를 모은다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2023#30",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:35323e4ba8dd9be488f75387044c78afe5fa727f10f47423d0c2d2bf9abd33db",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "부정형 문두라 나머지 넷은 맞는 말이에요",
+     "why": "발문 확인뿐이다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2023#33",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:51af573fcd0f00843ef09e482b3c9e6d0e17ba2c5234c1bccc495dd69f927ff9",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "둘을 함께 담는 말을 고르는지",
+     "why": "반대 방향 둘을 함께 담는 말은 조절 1번뿐이라 3번과 갈린다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:3dbfdb0ff1960ae9b0bb91961a4dbe2189c3114641638ada6cd41a54483c4cfd",
+     "local": "NONE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "예시를 끝까지 읽고 선지를 넣기로 정합니다",
+     "why": "절차 안내라 새 단서는 없다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2023#42",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:1fb408ee7bb354745cf34ffae5dd3f03f54a14a37f37af93b473448da964fd5f",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄 다섯 중 문맥에 맞지 않는 낱말을 찾아요",
+     "why": "수능 42번 발문 소개뿐이라 (d)를 짚지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:fc2ffba567bfad9225c5cea1c9a6c2622b137384fe44204ab567a1823698b8b5",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "언제 항목이 빠지는지를 정하는 조건이에요",
+     "why": "조건 자리 밑줄이라는 위치 성질로 (d)를 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:788050ccd32fc5892f31a3001a39b89c7b5729f164f6a3cabb268241d68f012f",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "언제라는 조건 자리에 걸린 것을 표시하세요",
+     "why": "조건 자리 밑줄을 표시하게 해 앞 단서를 이어 간다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2024#22",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:adaf62dc6b88d21dd989445ce1de26e65ddd497888bccafbd42d893a59a9faa2",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "요지는 그 현실을 뒤집은 권고입니다",
+     "why": "답 못 받는 현실을 뒤집은 응답 권고 1번을 향하게 한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2024#27",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:1209c63cffd8d268cfdfc0766077ae9530755ff684f4a4569b170e26b3dd4ed0",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "어긋난 하나만 고릅니다",
+     "why": "발문 안내뿐이다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:d18e6892bc6f2c07e32f19b4bad7be0713a2e2b8361d9e4e47e7e8b58c5b7d42",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "삼 번에는 당일이라는 시점이 있죠",
+     "why": "3번만 따로 들어 기한 표현과 맞추게 해 사실상 지목한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2024#32",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:66fb6a10156711daf8e98e8bfcd5f27dc8f94272305be4508668c796a3659e98",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "영화 안이냐, 주제냐죠",
+     "why": "관객을 이끄는 2·4번으로 좁히고 갈림 기준을 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:890884742ec345127a55fdb7b0bba098c78ef4c679846b0aae97dd1fa0aa1090",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "익숙한 구조의 음악을 씁니다",
+     "why": "익숙함의 효과가 관객 접근이라는 쪽으로 기울인다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2024#39",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:7e16cedd2cb390b534f518582fec12f8a05b7e08a92e08bb3efc749621503c3d",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "여섯과 일곱 번째가 갈라집니다",
+     "why": "유추가 갈라지는 경계를 짚어 4번 자리가 정해진다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2024#42",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:b64b2ea63eb3ca1d1af92d138e19c8e2541151ac4fcab9148e4290331778f35f",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "결과를 잇는 말 아래에서 낱말의 방향",
+     "why": "판단 유형만 말해 (e)를 짚지 않는다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:dde9d0acf38d31b6444426e5f22e9cabcd03567a289bf32077f074b184f5392e",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그러나, 그 결과, 그럼으로써, 게다가",
+     "why": "방향을 정하는 표지를 기준으로 주어 판정을 돕는다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2025#21",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:635434358314715e977102d3c4960bbe385c13b0fae2b4b759b472848ad0cdea",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "실체 아닌 그림자를 쫓는다예요",
+     "why": "밑줄 직역만 해 실무 기술 없는 이상 3번을 좁히지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:a3a526297ba71d5b6f8bfbbe843386bdd50fab453f6028d00590141d11e16dc5",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄은 뒤쪽에 붙었는데",
+     "why": "밑줄이 대조의 뒤쪽 부류라 해 앞쪽 설명 선지를 거르게 한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:6481f240fe397abfc46ca92e03d04daba0a9cb5a2ae3f2528feb5a208549d412",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "while 밑줄이 어느 쪽에 있는지",
+     "why": "while 대조의 어느 쪽인지 표시하게 해 3번 판단을 돕는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2025#37",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:ac4d888ce537339cc2b98408af256de9986609809bc50827241db366d3986ce4",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "소개, 관찰, 해석의 층을 확인하세요",
+     "why": "일반 기준이라 배열을 좁히지 않는다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:9e4152cd306cf3730c912cf55a1cc6320351000a8955e66ce699bdb11652f934",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "네다섯 번째가 에이, 여섯 번째가 비",
+     "why": "문장 위치만 매겨 순서 단서는 없다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:e8697125c6819b8561e95bdec4a312de4635dba58e606d61aacba7607e9e97e3",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그래서 비가 첫 블록이에요",
+     "why": "B를 첫 블록으로 밝혀 2·3번만 남긴다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2026#19",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:da36f7ece6884e626336506ada1b890a24aae5112e8e6713bc5532a78bf387cf",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "어색하게라는 말과, 이게 틀림없다는 혼잣말",
+     "why": "감정 어구 위치를 따지게 해 앞 혼란 뒤 기쁨을 암시한다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:f35421333208c98a156c1d43c006a9f79e5989b23f9c79ab0db8d3f940111d7c",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "감정 단서 두 자리를 먼저 표시하세요",
+     "why": "소피 처음·끝 단서 위치 절차라 혼란→기쁨을 더 좁히지 않는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2026#23",
+   "cues": [
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:2be0b49416fed29baa6d5e85e3813e3861bec5681d0f40ffe2869498b24608d7",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "나머지 경우엔 속도 우선이 운전자식 착각",
+     "why": "속도 우선이 착각이라 빈도를 중시하는 3번만 남는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2026#27",
+   "cues": [
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:bf60b006423c2cf999a30cdd82a089a8ba32f1b36f20c78c3a2b2ac6d921bd30",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "선지마다 짝이 되는 항목 한 줄을 찾으면",
+     "why": "항목 지도뿐이고 앞 큐의 4번 숫자 언급 이상은 없다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2026#32",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:534f4ee4b58e09232db9d2a28bee1e5b7254079627726807ddcfe915b4a695b1",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이 말 뒤가 빈칸을 바꿔 말한 자리입니다",
+     "why": "in effect 뒤 재진술 자리를 짚어 결정 근거를 알려 준다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2026#35",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:18ac72125a9e8c630d369eef4787df2fb479eb3e02b8aefec0864a6854437263",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "운동, 취미, 휴식을 묶는 자기 관리 활동",
+     "why": "화제를 자기 관리로 정해 수강 순서를 말하는 4번이 튀게 한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "2026#42",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:d6e840d66aa5498ecf216044538b947984288e9ec252596589ee0b733bb07124",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "문맥에 맞지 않는 낱말을 찾아요",
+     "why": "2026 42번 발문 소개라 (e)를 가리키지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:e545ce8452a546bf515c27a834aedb80410ace787e46f7c47cac0d4bfebd0661",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그 뒤 형용사의 부정 접두사를 보는지가 표적",
+     "why": "마지막 문장 부정 접두사 형용사는 (e)라 5번이 정해진다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M1809#19",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:68df2799fd76731926f84df073fa1961c7a3e177c222cb54e12355d04170a58f",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "뒤는 마지막 문장이에요",
+     "why": "감정 단서 문장 위치를 짚어 준다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M1809#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:fec454c670f2ba77f3fd2ecb0f8252ace729995ed051b8f3bc1027d6dcac8dc2",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이미 정동사가 있는지를 먼저 확인합니다",
+     "why": "정동사 중복 오류에 동사 역할 밑줄은 2번뿐이라 확정된다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M1809#31",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:0e1b22c56e03c15feab23deb6ad2d5c3937a8bad3401a3f0c8b8e8ecc3568dba",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "양의 논리를 한 낱말로 묶는지 재요",
+     "why": "양의 논리를 묶는 낱말은 4번 productivity뿐이다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:1f708e84ceaefda5f9d01631d4ab32b3436446f496322fff30870e9fc010a8e2",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "세 번째, 숫자 게임이다",
+     "why": "숫자 게임 문장으로 양의 논리를 굳힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M1809#38",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:bf400f6bff0c5f793bffba463d6f74c0434c1712da29828bb1200cf255764bc1",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "역접과 이런 방식이라는 말이 자리를 정합니다",
+     "why": "But과 in this manner가 자리 단서임을 밝힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:fbcc303c35b872fc8c9aae67ef8fbc843dee84c383bbdc62a23faa8345b21c79",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "정보를 얻는 방법도 바로 앞에 있어야 합니다",
+     "why": "뒤집을 긍정과 방법 서술이 앞에 와야 한다고 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:2b2471af76f0ded76ef05358a59f10ce98ef92dcb07b83a1bbe6039137a5412f",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "네 번째는 검색이 빠르다는 양보죠",
+     "why": "검색 양보 뒤 요약 문장 앞이라 3번 자리가 정해진다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2006#22",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:d1b3f178f3fd7deab18e6be43e0cb0c5386738ed1df3389fb333c26718b4fa16",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "필자의 결론 한 줄을 고릅니다",
+     "why": "유형 안내뿐이다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2006#27",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:0174e13d565dbeb66e6e5977ddf695c4d509968b9b825309ba375e5ea0167a96",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "셋째 줄 조건만 뒤집었습니다",
+     "why": "뒤집힌 셋째 활동이 댄스 경연이라 5번이 정해진다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:af93708ab0249698aa8cf80bc524889df8448f3dbdaeb42876848eb84fa44a0a",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "여섯 번째 문장에 활동 목록 세 줄이 있죠",
+     "why": "활동 목록 위치를 짚어 앞 큐 판정을 확인하게 한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2006#32",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:876958c6cf361d1aed692458e57132cf72f2a9023308588aec00739129d9b023",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "결론이 어디서 나왔는지 묻는 자리예요",
+     "why": "빈칸을 결론의 출처로 정해 데이터 출처 1번 쪽으로 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:290319ff63e957fae5834fcd0bce470628e327c37a9da3440d1a564e5496ca67",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "일곱째 문장은 빈칸의 재진술",
+     "why": "재진술 문장을 짚고 절차는 폭로라 해 4·5번을 약화한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2006#39",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:980b60bbfaefee0764c25a171506f7c6defbff15e40924e7b557aef240d41291",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그것이 받을 행동과 초점이라는 새 용어",
+     "why": "행동 뒤, 초점 정의 앞이라는 자리 조건을 준다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2006#45",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:f663f9fe1793a0ffc1777ed4c92d717a03bc556c8ba02089f0dfc4edb7be372f",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "사 번의 두 명이 바로 그 수량이죠",
+     "why": "4번을 수량 표적으로 단독 지목한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2106#20",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:e33c4cffbdba85732c7afaf06f1dd984818f8ba7c5a322519f6fe886a2ef5018",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "판정의 이유를 처방으로 뒤집는지",
+     "why": "간접 방식이 쓸모없다는 판정을 뒤집은 직접 언급 3번을 향한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2106#22",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:9f16dd29745c65ac2d69b68448aa6c41a7e7c921e9cda87039347996a44ce9a2",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "둘이 함께 쓰는 변수를 잡아야 해요",
+     "why": "두 정의가 공유하는 정의·건강 변수를 찾게 해 4번으로 좁힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2106#26",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:cbccf3a162370273fafa6cf3769a60a2a1c729af6c47e12c78e3638bdb461ef3",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "하우에버로 평가 문장을 붙였어요",
+     "why": "책 출간 뒤 however 평가는 3번 인정받았다와 바로 맞물린다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:abf2466986dead63f3b44666289759a077cd21b3f094ea9d11778bfe5f20d884",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "삼 번은 여섯과 일곱 번째 문장",
+     "why": "3번 근거 문장을 짚어 앞 큐 단서를 확정한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2106#35",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:600e3d0bf42de076169ed6904965eefbb67a000ad3e68c4afc59f8c4ed0ad7f8",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "한 문장만 방향을 통념 쪽으로 돌렸습니다",
+     "why": "통념 쪽 방향에 지시어를 갖춘 문장은 This로 시작하는 4번뿐",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2106#38",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:8b82e40dfa81b6633362e958d489115e8ed9e07315c985fc92cfa91317cd6518",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "나열이라 어디든 들어갈 것 같은",
+     "why": "어려움 이유 나열 구조를 보여 정보 과잉 짝 자리를 찾게 한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2106#43",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:d7c14b7697d62a2f02c1583cee78a8cee4b857d0ae1cd4f1946aec8c89f5cd52",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "디의 첫머리, 비의 첫머리가 바로 그 자리예요",
+     "why": "D·B 첫머리를 이음매로 짚어 D-C-B 추론을 돕는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:90bbbc63c315f35d345780b23466a0bc58e8aa3ca24832399af73773306fe88e",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "계속 읽기, 진짜 수상자 확정 뒤의 고민",
+     "why": "이음매 셋의 순서가 배열을 암시한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2109#20",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:9ecb1e5d1f2b96c71736b626c25bd770d33f5664f598f21ccc5a6e458f6ebba6",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "연구 속 사람과 처방을 받는 주체가 다릅니다",
+     "why": "처방 주체가 학생이 아닌 대학임을 암시해 2번을 향한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2109#24",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:7f4a1c84bc5ffb447916c50d79ef6d50540fbac803a81b577d9568f4fce2ee25",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "일 번은 아직 못 닿은 정상",
+     "why": "선지 결말을 정리해 미완의 앎 주제와 1번을 맞대게 한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2109#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:92e95c41af9e91870115be817451836a7ba82df42f2cecaa52a9fc1b4f595766",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "참가자가 할 일은 세 문장으로 나열했습니다",
+     "why": "참가자 할 일 목록을 짚어 낭독 3번 대조 지점을 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:9cc6781ddbd03ce3dbf92abcf42b23563ca9683050f464f4fc838e45832789c2",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "목요일 오전, 삼 층, 낭독, 구월 십팔 일",
+     "why": "선지 전부 밑줄이라 새 단서 없음",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2109#32",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:4232a3b083e6a0e6c9a76632c3a2a4dcf2eda774972c7e685f029c46f813e336",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "진짜 위협은 땅을 생산 구역으로 바꾸는 일",
+     "why": "진짜 위협을 서식지 파괴로 짚어 2번 방향을 준다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2109#37",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:5013654daefb5932007155631e6c3b7099ed17a64146a8319afa137fc2f49fe5",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "가치라는 말이 없다는 걸 표시하고",
+     "why": "가치를 처음 꺼내는 단락을 찾게 해 첫 단락 추론을 돕는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:37897d27178b7f311c90328c4f98650f4292c5dc9f34054e100cd4cfb6ea22fe",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "증거 가치, 미학 가치, 결정 기준 순이에요",
+     "why": "단락 내용 꼬리표로 배열 추론을 돕는다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2206#19",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:1467a74c678d7c79e386351188ead55210081258b1e59716738eb530484d2807",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "효과에 대한 의심이 나란히 놓였어요",
+     "why": "앞 감정이 의심이라 doubtful로 시작하는 1번뿐이다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:0553875ca13a30159127ccf97a01696dcd3fe7163481958fc1df896b91dc967a",
+     "local": "NONE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "앞은 첫머리의 물음과 유보",
+     "why": "단서 위치 안내라 새 정보는 적다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2206#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:bafa3d4f16939bc04b7430d9ce78fff2b052adcec65d54d71be1ba9da8c1c153",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "서로 바꿔 끼운 선지를 넣었어요",
+     "why": "숫자 바꿔 끼운 선지를 함정으로 경고해 3·4번을 의심하게 한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:e8ad303f530501ad9c7104d3e690e0dac05a0ad63027beb9b482865d726fec64",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "두 번째, 도서관, 오후 열 시, 오십 달러",
+     "why": "지울 대상으로 1~4번만 들어 5번만 남는다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2206#33",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:67ae6613d989a0e8ddf90124a3dcba274700a4194cae173e49fc7805c268aae4",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그 예시로 꺾인 방향을 확정하는지",
+     "why": "사자 예시가 방향을 확정한다고 근거 위치를 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:036ba0ec5360f4eff2d47f1fe9292b26bafb7622463bc27b9bc59b1158cfdada",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "근거는 빈칸 뒤에서 찾습니다",
+     "why": "앞 문장을 뒤집을 대상으로 두어 인간이 정한다 방향을 암시",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:a2fab1a37185d910277cfb8ac1dea72b4819f30f6093aa04a0fe5fa7284c2c1f",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "여섯째 빈칸이 그러나로 꺾고",
+     "why": "그러나 꺾임과 예시 확정을 다시 짚는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2206#45",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:9d1befd10777f3810e236fed5da4fb954593944ea758c16173a44e1759b0ba6d",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "나머지 넷은 지문과 맞는 말입니다",
+     "why": "래프팅 발문 부정형 확인뿐이라 졸업 시점 5번 단서가 없다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2209#20",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:407766571b22aaa94f6a35540f926a578e7b48357b16acdd7da1cba3953d1a0e",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "방향이 바뀐 뒤 처방까지 읽는지",
+     "why": "앞 매체 선지를 미끼로 돌려 1번 쪽 후반 처방을 보게 한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2209#22",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:68729a1ce7fe8d7dfb533b3aca4de081fd70f61312fec10cb7a8a0b84ed97d15",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "자율성과 책임, 두 축의 줄다리기가 뼈대",
+     "why": "두 축을 함께 담은 선지는 1번뿐이라 정해진다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2209#27",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:a64bf2e49b9042dc28ba7dc3ee7b2fc3006fad42634a90273485eb088a2b104c",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "하나를 부정문으로 적었어요",
+     "why": "부정문 세부 사항을 짚어 그림 기술 고려 2번 대조를 유도",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:a50ef8bd9682e475d5a26bb25dbd5423e8399edecf22ea79395a21a8322d78b6",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "십 개, 삼 세, 칠 세 같은 숫자에 표시합니다",
+     "why": "표시 절차라 새 단서 없음",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:84ca3cc1479ca4a04a3844962fc95d1eb991a27817e8b9eb9a17fe48135f0a41",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "일 번과 이 번은 세부 사항",
+     "why": "2번 근거 항목 위치를 알려 준다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2209#32",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:21f30d94e7c77773b3c94ed23cc48adb9f4065d19881e746ab8377de2edb0aa3",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "결론의 술어를 빈칸으로 옮기는지",
+     "why": "결론 문장이 빈칸 재진술이라는 근거 위치를 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:edf25f7a4e638ab31bae0d4fbfee5bf36de06aa6a64be23262fc75a7c46fa16b",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "다섯 번째 결론이 빈칸의 재진술",
+     "why": "재진술 문장 위치를 짚어 결정 근거를 준다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2209#36",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:84da39cd1bffae025b790508899ed8f081cde5d76940d066309e4ceca5b36c60",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "단점 쌓기, 묶기, 기업의 선택입니다",
+     "why": "흐름 꼬리표로 C-B-A 배열 추론을 돕는다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2209#38",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:9cf7e7d9eb3af8ef3e0d69bdf3806807d7a5d9d413aa2e3313320c835ec25613",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "구조와 성질의 관계, 이 새 정보에 밑줄",
+     "why": "새 정보 첫 등장 자리를 찾게 해 4번 위치 판단을 돕는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:14738a27b894ee61de800731b69a9b17333cb848c300e7b1977ee580d2894556",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "다섯 번째 문장은 고르기만 하던 단계죠",
+     "why": "고르기 단계 뒤가 전환 자리임을 암시한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2306#18",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:0fc589fdb983f81f17c38a3d3f5d374f7bc50e27076ba91f3cec099eabcbefc9",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "용건은 다섯 번째 문장에서야 나옵니다",
+     "why": "용건 문장 위치를 짚어 추가 대여 4번 결정 근거를 준다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2306#20",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:423624e48cb2c465935e8db52bb59cc3e5bc325a739e4d863c06d0170d86ee1a",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "무엇을 하라는지, 목적어에만 밑줄을",
+     "why": "목적어 축을 세워 개념어와 맞출 준비를 시킨다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2306#25",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:642d629839b74a2ccb5d99565c7d73da3b3674d3e4e10c60d735645f8ae2995e",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "분사구 끝에 수치 진술이 숨어 있을 수",
+     "why": "분사구 수치 진술을 의심하게 해 3번 미국 진술로 이끈다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:60aa6d344ee025d16a81b783d2dbe6571bdeef0b1ab2d006933207345c80b792",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "세 번째부터 일곱 번째 문장이 선지 다섯",
+     "why": "구조 안내라 새 단서 없음",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2306#29",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:a73b891278090d21c9ddc1292a0240dd7526950ec004d371b7b7b2db9b11967c",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "관계사 뒤 절에 빈자리가 있느냐예요",
+     "why": "관계사 뒤 완전절 여부를 열쇠로 밝혀 which 밑줄로 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:56854535ffee906c1eb4dac35004a9feffa2dd508b9b1c59a4eac579518190de",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "관계사부터, 뒤 절의 빈 명사 자리를 셉니다",
+     "why": "관계사 밑줄은 하나뿐이라 3번으로 바로 정해진다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:3657b097167446b311f15f5396f0171c911c143bd56db1f850ea7d88128d356d",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그 다른 것들 뒤에 밑줄 삼 번이 붙었죠",
+     "why": "3번 밑줄 문장 뼈대를 직접 펼쳐 확정을 굳힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2306#35",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:9b0a932a6fb4347bed0913c61c56d6084f646c2e48e8b4b12add3750557c58fa",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "같은 주어를 쓴 문장을 한가운데 끼워",
+     "why": "가운데 Animals 주어 문장인 3번을 무관 문장으로 지목한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:bd2ddc3e728f5065fbd26d428885f284bebec584b867021ab597ddf1c05be6ea",
+     "local": "NONE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "누가, 무엇을 정하는데, 무엇이 모자란가",
+     "why": "화제 정리 절차라 새 단서는 없다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2306#42",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:60dc6e7f9d82769eda42d7855a43590304b7d48dc96d410d373a088f736f2147",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "나머지 넷은 문맥에 맞게 쓰인 낱말이에요",
+     "why": "장문 어휘 발문 확인이라 (c) 자리를 주지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:e570a7e80ca51ed936c07abcbf3b9f5f432ece8fa7eff40a54ee25a944bbf372",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "대개 그렇다는 말을 가끔은 아니라고 꺾는",
+     "why": "꺾이는 자리의 낱말을 보게 해 (c) 판단을 돕는다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:653b6dc1ed92d7bd30c07ee79d3df1fff6baf8d1da21eaea9be80f3fc71a36d9",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "표지 앞뒤가 같은 방향인지 반대인지만",
+     "why": "표지 기준 판정 방식을 준다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2309#26",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:427e529c1fe4c941ebe5921d53701f6fb0b274f4590c51a751c51dea272a45cd",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "자리를 옮긴 뒤 무엇을 이어 갔는지",
+     "why": "스탠퍼드로 옮긴 뒤 이어 갔다니 중단 3번이 틀림이 정해진다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:61becf8955f6a469f9019e279e2a3e1a67f3e7de565ab94101705c7c1d514ba1",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "삼 번 중단했다",
+     "why": "3번 중단 서술어를 짚어 앞 단서와 묶는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2309#30",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:f586e09841436206e7bbdc4b0b9de0b90780771ae97e0322862f8c192a7c6bbc",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "결과, 뒷받침, 실망 같은 표지가",
+     "why": "표지 기준만 줘 (5) 판정을 간접적으로 돕는다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2309#32",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:cac9244331667cd25f3c4c58523c8cfab27db4325e67bcbb4ec4dfe59a9b8b08",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "즐거움의 출처 자리예요",
+     "why": "빈칸 성격만 말해 4번을 가리키지 않는다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:87334bf0f1ff914c1f6ba31b580d27a44fd3a9ea471130b5d91742a3249b8ab6",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "하지만으로 무게를 옮깁니다",
+     "why": "개인 팬 이야기 뒤 전환 쪽을 요약하라 해 방향을 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:9c0797f0d4235210910edd52413b3ee020fa70e56fc79d739450d1b09f96459f",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "무게를 다른 사람들에게 옮기고",
+     "why": "다른 사람들과의 연결이라 4번 다른 팬과 연결만 맞는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2309#42",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:4326652b1182568aec5e6915138d9900139121003619ed191b9146647a5d0f18",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄 다섯 중 문맥에 맞지 않는 낱말을 찾아요",
+     "why": "모평 42번 발문 소개라 (c) 단서가 없다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:1761428048cc59051e26c3a50220caaed0657946df6af358d1f6cea9655b4b02",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "감지되지 않는다는 말을 기준으로",
+     "why": "감지 불가 기준을 주어 (c) 판정을 돕는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:4264d3310965658d6c3f0b9974bdcb5e66bc8463e97c2a29716f862bff0516e0",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "있을 법하지 않은과 감지할 수 없는을",
+     "why": "판정 기준 낱말을 표시하게 한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2406#28",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:a21289348bd21ddd017ca64a60dda0403df792165d1b0c0da6718189ee8196a5",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "기간, 요일, 시간대, 포함 여부, 정원",
+     "why": "다섯 선지 모두 표시라 4번 구별 없음",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2406#33",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:629bbb8ad88d6db5e82a5c377df1cfd042ca5a502f200daa4b6c06499734aca1",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "재진술 표지나 동격 구조를 찾아 표시",
+     "why": "빈칸이 앞을 다시 말하는 자리임을 확인시킨다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2406#37",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:23817bc4a1cd9e59ea0e453ca608f3efeadf5ea3a0339ef69e62856aa8e9bc55",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "뒤집는 표지와 한 걸음 더 미는 표지를",
+     "why": "구분 기준만 말해 배열을 좁히지 않는다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:ec9bb3d52cbd6f754ecb50b7cd81de8bb80a3ac483cac348c85760b5f0e859dd",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "두세 번째가 에이예요",
+     "why": "문장 위치 매김뿐이다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2409#20",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:d01317316cca36670d716d0ba6303e8e17375557a1ec584992f43dfdb4c85fa0",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "통념과 필자 목소리를 가르는 문항이에요",
+     "why": "두려움 없음 통념을 오해로 돌려 두려운 일 도전 2번을 향한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:aec0b4598f3e8a6a1ee93729e0a93a3dfe980d651bb85dc0946071b91a0079ce",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "일곱 번째 역접이 다시 꺾고, 끝 문장이 답",
+     "why": "끝 문장을 답 자리로 짚어 결정 근거를 준다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2409#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:0c14ba85f16f2dddccb9ea6d441bc476627e21d3a772d48f2f92ce438b6ec4f4",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "어느 행인지 먼저 정해야 대조가 됩니다",
+     "why": "일정 표 행을 가리라 해 4번 투표 기간 함정을 경고한다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:526214f402097ed6e2826b48f2fd9bec851d82d12d19895ba328c017ec63a5ca",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "숫자가 없는 오 번은 학생들이라는 주체에",
+     "why": "5번의 주체 학생들을 따로 짚어 정답 대조점을 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:895960b9fac5d7df7fc3a5cb1434b644e508eea5749998532e5f702226b73d64",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "세 번째 문장이 지침 세 줄이에요",
+     "why": "지도 안내라 새 단서 없음",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2409#33",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:68c00a2f4b5b01580cce5031f4a81d12f408e471f448955477ec84c7f989b0c0",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "판단 기준은 사례 밖 첫머리 원칙에 두었어요",
+     "why": "첫머리 한 걸음 원칙이 4번 one step away와 맞물린다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:90e25d1d7231edf8193cf1dda97460511503af60e8b399fba015126399039275",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "너무 앞서면 쓸모없고 한 걸음이 좋다",
+     "why": "한 걸음 원칙 진술이 4번 선지와 거의 같은 말이다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2409#44",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:13f77a4d8d797868b0f88ed1f9c11b4264903297339a10ad6a236e006c956558",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "사람 둘과 개 한 마리가 나온다는 데 주목",
+     "why": "개 토비를 가리키는 밑줄이 있음을 암시해 (c)를 좁힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2506#20",
+   "cues": [
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:1fee49cbde10e1d7386e61daaad1cf3d03d694df094241be966863675682f9b9",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "끝 문장이 인간의 자리를 정해요",
+     "why": "However 뒤 끝 문장을 결정 근거로 짚는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2506#27",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:47b9a9f4a53c28c4a2ffdbe4b767ddc433312912dcb32035e7720234fa53139f",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "오 번의 「하루에 세 번」이 표시 대상이죠",
+     "why": "5번 횟수를 단독 표적으로 지목해 대조하게 한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:f17ec6f9ecccd4a3ea08400d03df1494308392f8a0f16afc0e0b12e70f9157df",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "몰린 줄은 기호를 경계로 끊어 읽으세요",
+     "why": "셔틀 횟수 줄 위치를 알려 앞 단서를 굳힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2506#32",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:7eadd143e2504c2568aee203ed4ede790c7240e049cffadbe0e995ecbfeae664",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "넷째와 다섯째는 고르고 버리는 다음 단계",
+     "why": "생성 뒤 다음 단계가 있다는 말이 1번과 맞물린다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2506#44",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:f5e9309f51c20c23ea3831bbfc15fd4af54df17223d0a5cf91987f4578438fea",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄 비는 따옴표가 끝난 뒤, 말한 사람 자리",
+     "why": "(b)만 말한 사람 자리라 해 2번을 따로 구별한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2509#19",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:aea535e1bd080c4d9fb17ab95437b7152b7bdd179fbd64c38f420e2457a373b3",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "보통은 실망스러운 비행기 지연을 전환점에",
+     "why": "지연이 반가운 반응이라 relieved 쪽을 암시한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:f35421333208c98a156c1d43c006a9f79e5989b23f9c79ab0db8d3f940111d7c",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "감정 단서 두 자리를 먼저 표시하세요",
+     "why": "지연 장면 앞뒤 단서 위치 절차로 앞 큐 이상은 없다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2509#28",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:fba370952f3953f4210603daf69d7153df1cba29f7b2a74f7ef4ea999dc5372f",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "오 번만 결정 주체를 말하죠",
+     "why": "5번만 서술 선지로 따로 짚는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:e4ffb22fa1fd5a5ee76011f6da004ffc72d37c48b643727d5d93f452e32b5223",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "정답은 표 아래 줄에 있습니다",
+     "why": "정답 위치를 수상자 결정 줄로 밝혀 5번이 정해진다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2509#34",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:6c3252b9ac3c2ab1cfa0b9595cb981b01297c4dbd35c368a3691816dd6820b68",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "역접이 뒤집는 것과, 인용이 푸는 것을",
+     "why": "풀이 장치만 예고해 3번 정서적 애착을 가리키지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:30ba15acc6c487b294f776c8e23183e08cf08cad99c6dd43a3d73038b4120741",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "앞 문장 내용을 담은 선지는 후보에서 빼세요",
+     "why": "자족을 담은 2·4번을 제외하게 한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:b9c2284017b36f5d34e8ab6e7d38544b3c704dae8b6c289c305a0a883fefb44e",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "일곱째 인용이 빈칸을 풉니다",
+     "why": "인용 문장을 결정 근거로 짚는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2606#18",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:2ae11234e4cb18aab69f4c07cea212b1091455db497db1b62099ff33e67ca052",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "용건은 네 번째와 여섯 번째 문장에 두 번",
+     "why": "용건 문장 위치를 알려 결정 근거를 준다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:08d3d121a2818e63f661d5d3d2918c44419bfba0d9060512ceb21ed2a7b413e2",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "자리를 묻는가, 지원하는가에서 갈립니다",
+     "why": "1·2번으로 좁히고 묻는 말을 찾게 해 1번에 기운다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2606#26",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:5be3fb208f0d1093091c1bef3a9c549cfcaa3506bcbb5ea90e5a74bae39c1d5c",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이 번처럼 연도와 학위 분야가 함께 든 선지",
+     "why": "2번만 들어 연도와 분야를 따로 대조하게 해 지목한다",
+     "confidence": "low"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2606#29",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:576a4da24f53332ac4454567081861537098e9003e8dca20260850926070bbdb",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "가목적어가 무엇을 받는가예요",
+     "why": "가목적어 it 구문 밑줄로 좁혀 3번 판정을 이끈다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2606#30",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:21702006363f6e306f8442c2a7f85aafef6a0d1057f70014d40afdbdfdeb593d",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄 낱말 중 문맥에 맞지 않는 하나를 찾아요",
+     "why": "어휘 30번 발문 안내라 (5) 위치를 주지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:0e04103291f01e6b636151956a803bcd471d0c7bc2cc877f2eb37e2f4c64fe3a",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "앞에서 되풀이한 목표를 마지막 낱말이 어기는지",
+     "why": "마지막 밑줄 낱말을 표적으로 밝혀 5번이 정해진다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:e36fac716033b286c6d5dc5bf8a61b1bf54a940ec3bfc675fab6af7a97d0c430",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "좋은 상태를 뜻하는 형용사를 찾으세요",
+     "why": "방향 기준 형용사를 찾게 해 앞 지목을 뒷받침한다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2609#18",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:b43e5283072cd4d41a939830e66ae9a599c6bffdd8d3d56f8a0509a3808e88bd",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "변경을 세게 읽으면 취소로 새게 짜여 있어요",
+     "why": "5번 취소를 함정으로 돌리고 변경 2번을 남긴다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:fe8105941bd4554d238d80d9037b6f018d59d6df360e9decd9b4f5acd91a2c96",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "무엇이 바뀌었는지에서 갈립니다",
+     "why": "2·5번 대비를 다시 세워 확정을 굳힌다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2609#21",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:75c2db54ba9a0cf9cec818a15d995c2bdcf8b1ea172d5fa74fd402976d662708",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "집에 다시 돌아왔다는 비유죠",
+     "why": "밑줄 위치와 비유만 소개한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:047f5cccf6f0a6d2feb96082045b2d94675af80abff864fbf7914405f6bc3647",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "이름은 같고 높이는 다른 음입니다",
+     "why": "정의 문구가 3번 이름 같고 다른 음높이와 그대로 같다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:1ef09f54d3cf329998f5b0a9f54580ba9ee43133e1a0df162e15a38f75f8cf89",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "무엇이 달라진 채 돌아오는지",
+     "why": "달라진 채 돌아옴을 다시 짚어 3번을 굳힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:9dbbd06a11baf70307b37370e167a674a989100d8d3159b1f1fe3d5a67533a8b",
+     "local": "HINT",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "옥타브의 정의와 보편성이에요",
+     "why": "정의 문장 위치를 알려 확정 근거를 보탠다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2609#36",
+   "cues": [
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:423bd4e7ee3d486977489bdac6c87690a627fd913c28c04bfc108073b93d0254",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "on the other hand 에이의 맞세우는 말",
+     "why": "단락 첫 연결어 기능을 풀어 C-A-B 추론을 돕는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2609#42",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:99741454515910cc0ef9edc8df29daa6e89717646d4dc0e596ce5c6df644ba26",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "뒤집힌 한 칸을 예시로 되짚는지가 표적",
+     "why": "예시로 확인되는 칸을 찾게 해 판정을 돕는다",
+     "confidence": "low"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:0df9e6595c38fdf193eb0d41d59914235474aae3f2bf7f793ddbd58961a2c5de",
+     "local": "NONE",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "여백에 화살표로 표시하세요",
+     "why": "일반 절차라 새 단서 없음",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2706#21",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:d4be42309374aaf245c3ffa2b66be4c12df813ee4e5a08e5aba9bdce099979ee",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "밑줄은 마지막 문장의 관용구 속 두 낱말",
+     "why": "밑줄 위치만 말해 인간 전유 믿음 2번을 좁히지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:1d0ae7b9922e26651d9f06a84ea65e6265e806dada108ee926f60610782ff86a",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "주장을 막던 반대편 믿음이에요",
+     "why": "동물 의식 연구를 막던 믿음이라 2·4번 쪽으로 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:0cf9d1ba8932f40deab9151672d6c5c099b6e5e5e85db9aa033b465b56fc088a",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "그 부정어가 무너뜨린 것이 버릴 대상입니다",
+     "why": "앞 문장 부정어를 결정 근거로 짚는다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2706#30",
+   "cues": [
+    {
+     "cue_id": "c1",
+     "index": 0,
+     "source_hash": "sha256:6319c7137f8e17b0461e49f89fb055271864ff2b6c02bde7660bf65995a8d555",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "나머지 넷은 쓰임이 맞는 선지입니다",
+     "why": "부정 발문 확인뿐이라 thick 4번 단서가 없다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:72e58f7cba0a8260e67b27c39c9e5ae94ad28e7cf7a9aa52489c17d55c343ab5",
+     "local": "NONE",
+     "cumulative": "NONE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "많다와 적다처럼 먼저 표시하세요",
+     "why": "일반 절차라 (d)를 짚지 않는다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:9e1937fac5a10d136522d1f012d23e06d6077a157ea97afaba0ae6479ced7ff8",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "대사 비중이 줄고, 노래와 춤 비중이 크다",
+     "why": "대사 감소 방향을 밝혀 thick 4번 모순을 보게 한다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c4",
+     "index": 3,
+     "source_hash": "sha256:dc2ecd8c77ffc523b9d148f36b6e36c80c0d8af86894d1c2f65eca2e4111508c",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "앞 문장의 대사 비중 감소를 사례로",
+     "why": "예시 문장이 감소를 보여야 한다고 방향을 준다",
+     "confidence": "high"
+    }
+   ]
+  },
+  {
+   "lecture_id": "M2706#40",
+   "cues": [
+    {
+     "cue_id": "c2",
+     "index": 1,
+     "source_hash": "sha256:c9826ada521e47720b89560ca80ee56d58e1a8cedc9f1ade5daf962359eab467",
+     "local": "HINT",
+     "cumulative": "HINT",
+     "channels": [
+      "speech"
+     ],
+     "quote": "비 칸은 새로 넣을 집단 자리라고 표시",
+     "why": "칸의 역할을 정해 결과와 집단 낱말로 좁힌다",
+     "confidence": "high"
+    },
+    {
+     "cue_id": "c3",
+     "index": 2,
+     "source_hash": "sha256:660da7d5c8071729a286f0ce9b05fc024beaa9bd73289a4559c15341018f5330",
+     "local": "DECISIVE",
+     "cumulative": "DECISIVE",
+     "channels": [
+      "speech"
+     ],
+     "quote": "가난한 집단의 병이 방치됐다는 말이죠",
+     "why": "방치·가난한 집단이 5번 disregard·underserved와 맞물린다",
+     "confidence": "high"
+    }
+   ]
+  }
+ ]
+}

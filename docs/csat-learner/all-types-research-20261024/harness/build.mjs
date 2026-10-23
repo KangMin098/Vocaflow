@@ -15,7 +15,7 @@ await esbuild.build({
   jsx: 'automatic',
   define: { 'process.env.NODE_ENV': '"development"' },
   nodePaths: [path.join(web, 'node_modules')],
-  loader: { '.css': 'empty' },
+  loader: { '.css': 'empty', '.json': 'json' },
   plugins: [
     {
       name: 'alias',

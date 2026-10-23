@@ -1,0 +1,37 @@
+{
+ "judged": 916,
+ "both_valid": 916,
+ "rejected": {
+  "E": 0,
+  "F": 0
+ },
+ "reject_reason": {},
+ "agree_local": 746,
+ "conflict_local": 170,
+ "agree_cumulative": 760,
+ "confusion": {
+  "HINT/HINT": 513,
+  "HINT/NONE": 31,
+  "NONE/NONE": 126,
+  "DECISIVE/DECISIVE": 106,
+  "DECISIVE/HINT": 60,
+  "HINT/DECISIVE": 29,
+  "NONE/HINT": 49,
+  "NONE/DECISIVE": 1,
+  "ANSWER/ANSWER": 1
+ },
+ "duplicate_why": {
+  "E": 0,
+  "F": 0
+ },
+ "agreement": {
+  "observed": 0.814,
+  "kappa": 0.64,
+  "pairs": 916
+ },
+ "conflicts": 170,
+ "third_parts": [
+  85,
+  85
+ ]
+}

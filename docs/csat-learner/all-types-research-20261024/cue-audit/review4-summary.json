@@ -1,0 +1,38 @@
+{
+ "audited": 916,
+ "invalid": {
+  "E": 0,
+  "F": 0,
+  "G": 0
+ },
+ "agree_EF": 746,
+ "resolved_by_G": 167,
+ "unresolved": 3,
+ "raised": 257,
+ "lowered_but_kept": 25,
+ "unchanged": 631,
+ "final_local": {
+  "NONE": 161,
+  "HINT": 593,
+  "DECISIVE": 158,
+  "ANSWER": 1,
+  "UNKNOWN": 3
+ },
+ "raised_to": {
+  "HINT->DECISIVE": 154,
+  "NONE->HINT": 98,
+  "HINT->ANSWER": 1,
+  "NONE->DECISIVE": 4
+ },
+ "after": {
+  "risk_unaudited": 0,
+  "pre_answer": 2849,
+  "local": {
+   "NONE": 893,
+   "HINT": 1640,
+   "DECISIVE": 301,
+   "ANSWER": 10,
+   "UNKNOWN": 5
+  }
+ }
+}

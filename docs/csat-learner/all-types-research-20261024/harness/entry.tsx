@@ -5,13 +5,24 @@ import { useEffect } from 'react'
 
 import { LectureStage, useLecture } from '@/components/csat/lecture/LectureStage'
 import data from '@/lib/csat/lecture-data/2026.json'
+import disclosure from '@/lib/csat/lecture/disclosure-data.json'
 
 const lecture = (data as unknown as { lectures: Record<string, { cues: { target: { kind: string; id: string } }[] }> }).lectures['2026#34']
+// 제품 API 와 같은 계약을 흉내 낸다 — scope=until 이면 제품 경계 데이터의 stopBefore 앞 cue 만 준다
+const stop = (disclosure as unknown as { lectures: Record<string, { stopBefore: number }> }).lectures['2026#34'].stopBefore
+;(window as unknown as { __STOP__: number }).__STOP__ = stop
+const requested: string[] = []
+;(window as unknown as { __REQ__: string[] }).__REQ__ = requested
 
 const realFetch = window.fetch.bind(window)
 window.fetch = (input: RequestInfo | URL, init?: RequestInit) => {
   const url = String(input)
-  if (url.includes('/api/csat/lecture')) return Promise.resolve(new Response(JSON.stringify({ ok: true, lecture }), { headers: { 'content-type': 'application/json' } }))
+  if (url.includes('/api/csat/lecture')) {
+    requested.push(url)
+    const until = url.includes('scope=until')
+    const body = until ? { ok: true, lecture: { ...lecture, cues: lecture.cues.slice(0, stop) }, disclosure: { scope: 'until', verified: true, stopBefore: stop } } : { ok: true, lecture, disclosure: { scope: 'full' } }
+    return Promise.resolve(new Response(JSON.stringify(body), { headers: { 'content-type': 'application/json' } }))
+  }
   return realFetch(input, init)
 }
 
