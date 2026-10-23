@@ -64,6 +64,9 @@ function setup() {
     fs.writeFileSync(path.join(ghDir, 'state.json'), JSON.stringify(st, null, 2))
   }
   const bridgeOn = () => {
+    // These legacy bridge scenarios explicitly test the remote transport against
+    // fake-gh. LOCAL_FAST intentionally does not publish unsolicited Work requests.
+    env.VFC_DEV_MODE = 'GITHUB'
     fs.mkdirSync(path.join(root, 'config'), { recursive: true })
     fs.writeFileSync(path.join(root, 'config', 'bridge.json'), JSON.stringify({ repo: XREPO, wait_work_min: 0 }))
   }

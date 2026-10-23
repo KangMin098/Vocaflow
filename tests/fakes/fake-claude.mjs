@@ -30,6 +30,10 @@ if (scenario === 'foreign') {
   // 범위 밖: 다른 owner 의 worktree 에 파일을 쓴다 — 오케스트레이터가 foreign_worktree_write 로 막아야 한다
   fs.writeFileSync(path.join(process.env.FAKE_FOREIGN_WT, 'intruder.txt'), 'x')
 }
+if (scenario === 'concurrent') {
+  fs.mkdirSync(path.join(process.env.FAKE_FOREIGN_WT, 'src'), { recursive: true })
+  fs.writeFileSync(path.join(process.env.FAKE_FOREIGN_WT, 'src', 'progress.ts'), '// registered concurrent owner progress\n')
+}
 if (scenario === 'design_issue') {
   // 설계 자체의 문제를 구조화해 보고(코드로 우회하지 않는다) — 오케스트레이터가 ChatGPT 재질의로 보낸다
   fs.writeFileSync(reportPath, JSON.stringify({ task_id: taskId, status: 'blocked', commit: null, changed_files: [], tests: [], notes: 'design conflict', design_issue: { problem: '설계 v1 의 저장 위치가 기존 계약과 충돌한다', evidence: ['src/x.ts:1'], conflicts_with: '보존 계약 1', alternatives: ['A 로 저장', 'B 로 저장'], question: 'A/B 중 무엇을 따를지', approval_scope_change: false } }))

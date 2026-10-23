@@ -111,6 +111,7 @@ const HELP = `vfc — Vocaflow AI Control
   task add --file spec.json [--by owner]  필수: goal_id(L3) title description priority owner_id allowed_paths forbidden_paths acceptance impact
                                           impact: current_gap · expected_impact(closes|advances|prerequisite) · evidence_required[] · [acceptance_ids parent_goal_id next_dependency out_of_scope dependency_type unblocks] · kind independent 면 user_request_ref
   task check --file spec.json             task add 와 같은 검사(영향 계약·갭·중복·재구현)만 — 상태를 바꾸지 않는다
+  task amend <id> --file patch.json --reason "근거" --by O   READY/BLOCKED 의 지시·누락 경로 보완(금지·HIGH·승인·수용 기준 변경 불가)
   verify live <UG> --test <apps/web/...live.test.ts> --acceptance i,j [--worktree wt] [--check]   읽기 전용 개발 DB 검증(정책 위임 · 해시 결속 · 건너뜀≠PASS)
   doctor [--owner O]                              코드/상태 연결 · 실제 실행 · 인수/리뷰/통합 상태(읽기 전용)
   worker register --owner O --worktree <path> --branch b   (기존 owner_session 호환 전용 · 일반 플랫폼 작업에는 불필요)
@@ -330,6 +331,9 @@ function main() {
     }
     case 'task show':
       return out(loadState().state.taskQueue.tasks.find((t) => t.task_id === pos[0]) ?? `작업 ${pos[0]} 없음`, opt)
+    case 'task amend':
+      requireValidCanon()
+      return out(withState((s) => T.amendTask(s, pos[0], { caller: caller(opt), patch: readJson(opt.file), reason: opt.reason }), { event: 'task.amend', task: pos[0], by }), opt)
     case 'task approve': {
       const via = T.approvalChannel()
       return out(withState((s) => T.recordApproval(s, pos[0], { by: opt.by, reference: opt.ref, kinds: opt.kinds ? list(opt.kinds) : undefined, sql_sha256: opt['sql-sha256'], via }), { event: 'task.approve', task: pos[0], by: opt.by, via }), opt)

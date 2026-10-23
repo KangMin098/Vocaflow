@@ -650,6 +650,23 @@ test('WF6d 다른 owner worktree 에 쓰면 foreign_worktree_write 로 차단·�
   assert.equal(r.json.run.tasks_done[0].outcome, 'foreign_worktree_write')
   assert.equal(task(root, t.task_id).status, 'BLOCKED')
   assert.match(task(root, t.task_id).blocker.reason, /foreign_worktree_write/)
+  assert.equal(task(root, t.task_id).orchestration.budget_used_usd, 0.01, 'safety stop retains actual billed cost')
+  const diagnosis = JSON.parse(vfc(root, ['doctor', '--owner', OWNER, '--json']).out).tasks.find((x) => x.task_id === t.task_id)
+  assert.match(diagnosis.blockers.join(' '), /foreign_worktree_write/)
+  assert.ok(fs.existsSync(diagnosis.last_implementation.report_path), 'underlying implementation report remains accessible')
+})
+
+test('registered live owner progress during guarded implementation is observed without false foreign-write BLOCKED', () => {
+  const root = setup()
+  const foreign = addTask(root, { owner_id: 'data-contract', title: 'other owner', priority: 'P3' })
+  const start = vfc(root, ['task', 'start', foreign.task_id, '--owner', 'data-contract', '--agent', 'claude', '--session', 'parallel-owner', '--pid', String(process.pid)])
+  assert.equal(start.code, 0, start.err)
+  const t = addTask(root)
+  const result = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'concurrent', FAKE_FOREIGN_WT: foreign.wt })
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', result.err + result.out)
+  assert.ok(result.json.run.events.some((e) => e.phase === 'concurrent_owner_activity'))
+  assert.equal(task(root, foreign.task_id).status, 'IN_PROGRESS', 'concurrent owner and locks are untouched')
+  assert.equal(vfc(root, ['task', 'block', foreign.task_id, '--by', 'data-contract', '--reason', 'fixture finished']).code, 0)
 })
 
 // RP-2026-10-10.1 — 독립 리뷰 캐시는 같은 diff·계약에 더해 같은 정책 판·같은 effort 일 때만 다시 쓴다(낮은 effort APPROVE 로 높은 요구를 건너뛰지 않는다)

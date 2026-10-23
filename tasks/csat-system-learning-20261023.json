@@ -1,0 +1,101 @@
+{
+    "goal_id":  "VG-L3-A1-01",
+    "title":  "CSAT 내 설명을 시스템 제공 학습 정리와 사전 구축 과제로 전환(Claude)",
+    "description":  "2026-10-23 사용자 승인 설계 구현 지시. 사용자 원문: 기출 분석 환경에서 내설명 같이 학습자가 수기작성하고 평가가 필요한 프로세스는 없어야 함. 학습자 개개인의 임의학습자료를 평가하는 프로세스는 없고 만들 계획 없음. 다만 계획/실행/평가는 사전에 구축된 시스템에서 수행되어야 함. 이어 사용자가 \u0027위 설계안으로 ai-control 을 통해서 claude code 작업 지시 진행해줘\u0027라고 명시했다. 승인안: 내 설명→학습 정리; 자기 설명·원리 노트·의미 메모·안내 연습의 서술 입력을 준비된 설명/근거/관계/원리 카드 활용으로 바꾼다. 개인화는 시스템 제공 자료의 보관·표시·분류 및 실제 수행 기록으로 한다. 계획은 기존 진단·목표·일정·학습량과 기존 경로 엔진을 재사용; 실행은 준비된 근거 찾기/관계 연결/오답 비교; 평가는 사전에 정답·허용 근거·피드백이 구축된 별도 확인 과제만; 결과에 따른 기존 재계획을 연결한다. 자동 자유서술 평가·자기채점·자기이해도 판정·임의자료 업로드 평가를 만들지 않는다. 화면: 원문/기존 근거 판/설명 판/도크 골격 유지. 학습 정리는 핵심 관계, 선택 근거와 제공 근거, 보관 원리, 다음 활동을 보여준다. 기존 미리 구축된 과제와 계약만 사용하며 해설 산문에서 즉석으로 채점 기준·오답 후보를 추측 생성하지 않는다. 준비 자료 없음은 \u0027확인 과제 준비 중\u0027; 실패는 오류+재시도이며 기록 없음으로 삼키지 않는다. 자료 준비 상태와 학습 성취를 분리한다. 기존 작성 데이터는 삭제·덮어쓰기 없이 읽기 전용 과거 기록으로 접근 가능하게 보존한다. 조사 출발점: components/csat/theater/AnalysisTheater.tsx, SelfExplain.tsx, ReasoningNoteForm.tsx, MeaningDraft.tsx, components/csat/authored/AuthoredRunner.tsx, components/csat/factory/SourceLessonPanel.tsx와 FactoryDcpRunner.tsx, lib/csat/inquiry/{dock,scenes}.ts, components/csat/diagnosis/map/LearningNotesPanel.tsx. 이 작업은 UI 명칭 변경만으로 끝나지 않으며 작성·저장·대조를 요구하는 도달 경로와 다음 단계 관문을 함께 교체한다. scene=explain 등 기존 주소는 새 학습 정리로 호환하고 역탐색/강의/근거 강조를 보존한다. 문장 외 근거 단위와 부정형 발문은 teaching-contract를 따른다. 기존 목표 달성 엔진·예산 SQL·다른 세션 변경은 수정하지 않는다. 첫 동작으로 중앙 development_policy를 읽고 제품 AGENTS.md, apps/web/CLAUDE.md, DESIGN.md, vocaflow-design-loop 및 관련 학습 정본을 따른다. 이 작업트리는 깨끗한 로컬 main ea6ceb1d4에서 분리했으며 서비스 작업트리의 미커밋 변경은 가져오지 않았다. 코드는 이 작업트리에만 작성한다. L3 영향 범위 단위·타입·린트·격리 통합/E2E 및 PC1280/1440 화면을 검증하고 실제 결과/skip/미실행을 구분한다. 사용자별 콘텐츠 평가는 제품 방향상 지원하지 않는다는 계약을 기존 DECISIONS/WORKSPACE_COMPACT/관련 MODULES 및 CHANGELOG에 반영한다. 중앙 정본 goals/ 봉인은 수정하지 않는다. AI-Control UI 증거 계약 docs/UI_QUALITY_GATE.md를 읽고 증거를 준비한다. 자동 실행 도구에서 UI/격리 실행 또는 데이터 접근이 허용되지 않으면 권한을 넓히지 말고 구현·가능한 검사 결과와 미수행 항목을 기록하여 REVIEW/blocked로 제출한다. 새 DB 스키마·공유 DB 쓰기·데이터 삭제·새 패키지·원격 push는 금지. 필요한 DB 변경은 SQL·영향·승인 요청안을 남기되 실행하지 않는다. 검증한 커밋과 테스트 로그를 제출하며 등록/실행/검증/로컬 통합을 구별한다. 다른 워크트리에 미커밋 변경이나 살아 있는 잠금이 있으면 건드리거나 통합하지 않는다. 허용 범위 밖 수정이나 30개 이상 변경이 필요하면 진행 전에 범위 차단을 기록한다. 2026-10-23 재개 지시: 최초 보고의 범위 결손을 같은 T-0091에서 보완했다. explain-draft의 revisionChain/rootNoteOf·레거시 타입, continuity 병합, map/v62/learning-notes 읽기 정본은 그대로 유지하면 된다. 새 입력 경로 제거가 이들 모듈의 삭제나 수정까지 요구하지 않는다. josa 같은 기존 export를 보존하거나 이번 허용 테스트만 필요한 만큼 갱신한다. 예상 비용만으로 착수 전 중단하지 말고 실제 예산 안에서 구현·검증한다. 실제 부족분은 구체적인 파일/잔여 수용 기준/실행 로그로 보고한다. 명령은 한 번에 하나만 실행하며 리다이렉션 없이 출력 원문을 Write로 .vfc-runs에 저장한다. git add와 commit은 분리하되 commit --only 명시 파일로 자기 변경만 커밋한다. 작업 범위의 하네스는 pnpm --filter web exec tsx scripts/build-csat-system-learning-harness.mts, 브라우저 검증은 pnpm --filter web exec playwright test tests/e2e-isolated/csat-system-learning.browser.spec.ts --config playwright.isolated.config.ts 경로로 가능하다. 서버/공유DB 없는 실제 컴포넌트 하네스로 UI·상호작용을 확인하고 실제 서버 종단과 혼동하지 않는다. 변경 파일 30개 이상이 필요하면 범위 승인을 요청하며 테스트를 삭제하거나 skip으로 통과시키지 않는다.",
+    "priority":  "P1",
+    "owner_id":  "csat-system-learning",
+    "branch":  "feat/csat-system-learning-20261023",
+    "worktree":  "D:/workspace/Vocaflow-csat-system-learning",
+    "base_commit":  "ea6ceb1d4cb33d193784a355847314f251c13ec6",
+    "allowed_paths":  [
+                          "apps/web/src/components/csat/theater/**",
+                          "apps/web/src/components/csat/authored/**",
+                          "apps/web/src/components/csat/factory/**",
+                          "apps/web/src/components/csat/diagnosis/map/LearningNotesPanel.tsx",
+                          "apps/web/src/lib/csat/inquiry/**",
+                          "apps/web/src/lib/csat/dissect.ts",
+                          "apps/web/src/lib/csat/explain-draft.ts",
+                          "apps/web/src/lib/csat/system-learning.ts",
+                          "apps/web/src/lib/csat/__tests__/**",
+                          "apps/web/src/lib/analytics/events.ts",
+                          "apps/web/tests/e2e-isolated/csat-system-learning*.spec.ts",
+                          "apps/web/tests/e2e/csat-system-learning*.spec.ts",
+                          "apps/web/scripts/build-csat-system-learning-harness.mts",
+                          "docs/csat-learner/DECISIONS.md",
+                          "docs/csat-learner/WORKSPACE_COMPACT.md",
+                          "docs/MODULES.md",
+                          "docs/CHANGELOG.md",
+                          ".agent-goal.md",
+                          "apps/web/src/lib/csat/item-tab-memory.ts",
+                          "apps/web/src/lib/csat/authored/__tests__/**",
+                          "apps/web/tests/e2e-isolated/source-lesson.isolated.spec.ts",
+                          "apps/web/tests/e2e-isolated/csat-v32-mywords-sync.isolated.spec.ts",
+                          "apps/web/tests/e2e-isolated/journey-evidence.isolated.spec.ts",
+                          "apps/web/tests/e2e-isolated/map-return-recap.isolated.spec.ts",
+                          "apps/web/tests/e2e/csat-item-finder.spec.ts",
+                          "apps/web/tests/e2e/csat-v3-m5-explore.spec.ts",
+                          "apps/web/tests/e2e/csat-v31-meaning.spec.ts",
+                          "apps/web/tests/e2e/csat-v32-my-words.spec.ts",
+                          "apps/web/tests/e2e/csat-workspace-compact.spec.ts"
+                      ],
+    "forbidden_paths":  [
+                            ".env*",
+                            "supabase/**",
+                            "goals/**",
+                            "apps/web/src/lib/csat/map/**",
+                            "apps/web/src/lib/csat/continuity.ts",
+                            "apps/web/src/app/api/**",
+                            "apps/mobile/**",
+                            "pnpm-lock.yaml",
+                            "package.json"
+                        ],
+    "db_scope":  {
+                     "mode":  "none",
+                     "targets":  [
+
+                                 ]
+                 },
+    "approval_required":  false,
+    "requires_ci":  false,
+    "criterion_claims":  [
+
+                         ],
+    "acceptance":  [
+                       "기출 item의 내 설명을 학습 정리로 전환. 자기 설명/원리 노트/의미 메모/연결된 교수 자료·안내 연습의 신규 자유서술 작성·수정·저장·자기대조 요구와 다음 단계 작성 관문이 남지 않는다. 과거 기록은 별도 읽기 전용 접근으로 보존한다.",
+                       "학습 정리는 시스템 제공 핵심 관계·근거·원리/조건/반례 및 실제 가능한 다음 활동을 표시한다. 개인화는 제공 자료 보관·표시·분류와 실제 수행 결과에 한정하며 평가할 개인 임의 콘텐츠를 만들지 않는다.",
+                       "근거 찾기/관계 선택/오답 비교는 사전에 구축된 과제와 정답·허용 근거·피드백이 있는 경우에만 채점. 미준비 상태를 확인 과제 준비 중으로 표시하고 작성/자기평가/허구 과제로 대체하지 않는다. 로딩·오류·빈 상태를 구별한다.",
+                       "기존 계획→실행→평가→재계획 연결을 재사용한다. 해설 뒤 연습·열람·보관·정리 완료로 숙달/독립 평가/목표 달성을 올리지 않고, 성취 판정은 별도 준비된 확인 과제의 기존 독립 수행 자격과 노출 경계를 유지한다.",
+                       "기존 작성 데이터·스키마·병합 계약을 삭제/덮어쓰기/재채점하지 않는다. scene=explain 등 주소, 도크 키보드 이동, 뒤로가기, 문항 전환, 근거 강조, 강의와 같은 유형 이동을 회귀 검증한다.",
+                       "1280×900·1440×900 PC에서 준비된 문항/과제 없음/오류/과거 작성 기록 상태를 확인. 서술 입력 없이 핵심 학습 흐름 완주; focus·44px 조작·break-keep·독립 스크롤·긴 설명 가독성을 보존하고 실제 화면 증거를 남긴다.",
+                       "영향 범위 단위·타입·린트 및 관련 격리 E2E/학습기록 통합 검증. 과거 기록 보존, 미준비 자료 가짜 채점 금지, 해설 후 연습의 성취 오인 방지 회귀를 포함. 실행 불가/skip은 PASS로 올리지 않는다.",
+                       "바뀐 제품 계약을 기존 문서에 동반 갱신하고 자기 파일만 커밋. 검증 SHA·명령 원문·실제 결과·UI 증거·미수행/차단 사항을 AI-Control 제출. 제품 완료와 검증·통합 미완료를 명확히 구분한다."
+                   ],
+    "ui_acceptance":  [
+                          "item 학습 정리에서 신규 서술 작성 없이 근거/제공 해설/원리/다음 활동에 접근한다.",
+                          "준비된 과제가 없으면 확인 과제 준비 중이 보이며 자유입력/가짜 평가를 요구하지 않는다.",
+                          "기존 작성 기록은 읽기 전용으로 접근 가능하고 성취 판정에 산입하지 않는다.",
+                          "PC1280/1440에서 기존 프레임과 접근성·주소·근거 강조·강의 탐색을 보존한다."
+                      ],
+    "impact":  {
+                   "kind":  "independent",
+                   "current_gap":  "기출 분석과 연결 교수 자료에 내 설명·원리 노트·의미 메모·안내 연습의 자유서술 흐름이 남아 사용자 확정 제품 방향과 충돌한다.",
+                   "expected_impact":  "advances",
+                   "evidence_required":  [
+                                             "신규 자유서술 입력 도달 경로 제거 회귀",
+                                             "준비된 평가 과제·미준비·노출 자격 경계 검증",
+                                             "과거 데이터 보존 검증",
+                                             "PC 화면·상호작용 증거",
+                                             "검증 커밋·로그·미실행 구분"
+                                         ],
+                   "next_dependency":  "검증된 결과만 기존 로컬 통합 경로로 반영; 서비스 작업트리 잠금/다른 세션 변경은 보존",
+                   "out_of_scope":  [
+                                        "개인 임의 자료/서술 평가·자기채점 시스템",
+                                        "DB 변경/공유 DB 쓰기/기존 데이터 삭제",
+                                        "목표 달성 엔진·예산 SQL·타 세션 작업 수정",
+                                        "모바일 디자인·새 패키지·원격 push",
+                                        "학습 효과·전체 플랫폼 목표 PASS 주장"
+                                    ],
+                   "dependency_type":  "direct",
+                   "user_request_ref":  "2026-10-23 현재 대화: 기출 분석 환경의 수기작성·개인 임의학습자료 평가를 배제하고 시스템에서 계획/실행/평가 수행 → 제시 설계안 → 사용자 \u0027위 설계안으로 ai-control 을 통해서 claude code 작업 지시 진행해줘.\u0027"
+               }
+}

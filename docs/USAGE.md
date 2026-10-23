@@ -31,6 +31,10 @@ node bin/vfc.mjs task complete T-0005 --by independent-review --review verificat
 
 막히면 `task block --reason …` (외부 입력이면 `--external`), 실패면 `task fail`. 세션이 죽었으면 다음 세션이 `task reap`.
 
+누락된 일반 코드 파일 때문에 멈췄으면 작업을 새로 만들지 않고 owner가 `task amend <id> --file patch.json --reason "사용자 요청과 누락 근거" --by <owner>`로 보완한다. patch는 `description`·`allowed_paths`만 받는다. READY/BLOCKED에서만 가능하며 이전 계약·이유가 이력에 남고 기존 검증은 무효화된다. 추가는 개별 파일 또는 `__tests__/**`로 제한한다. HIGH·금지 경로, DB 권한, 승인, 수용 기준, 사용자 목표의 승인 설계 범위는 이 명령으로 바꿀 수 없다. 보완 후 별도로 `task unblock`하고 재개한다.
+
+프로세스 시작 확인은 작업 완료가 아니다. 실행 뒤에는 `doctor --owner <owner> --json`의 `implementation_running`, `attention_required`, `blockers`, `last_implementation`을 확인한다. 마지막 보고서 경로·실제 비용·원래 차단 설명은 안전 차단이 겹쳐도 보존된다. BLOCKED/WAITING_CHATGPT는 확인과 조치가 필요하며 자동 재개를 뜻하지 않는다.
+
 ## 승인이 필요한 작업
 
 DB 쓰기·main 머지·배포·시크릿은 사용자가 승인한 뒤에만 시작된다.
