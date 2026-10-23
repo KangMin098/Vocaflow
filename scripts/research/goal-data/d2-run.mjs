@@ -94,7 +94,7 @@ function load(track) {
       if (!inp) { errors.push(`${track} ${row.item_id} 배치 밖`); continue }
       // v2.2 부분 집합: 청크 TASK 에 direct 가 없으면 primary_task=null 을 허용한다(계약 v2.2 §1) — 그 경우의 「주 TASK 가 direct 가 아니다」 만 면제
       // T-0103: 면제는 v2.2 이상 계약 · 부분 집합 · 보조 TASK 비어 있음(v2.2 §1) 을 모두 만족할 때만
-      const noDirect = subset && V22_PLUS.includes(input.contract) && row.primary_task === null && (row.secondary_tasks ?? []).length === 0 && !(row.links ?? []).some((l) => l.relevance === 'direct')
+      const noDirect = subset && V22_PLUS.includes(input.contract) && row.primary_task === null && Array.isArray(row.secondary_tasks) && row.secondary_tasks.length === 0 && !(row.links ?? []).some((l) => l.relevance === 'direct')
       const e = [...validateRow(row, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...validateV2(row, inp), ...validateV22(row, inp), ...validateV23(row)]
       if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
       else out.set(row.item_id, row)
