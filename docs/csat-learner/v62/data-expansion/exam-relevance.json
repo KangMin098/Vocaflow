@@ -144,8 +144,8 @@
     ]
    },
    "R5_indirect": {
-    "items": 5,
-    "points": 15
+    "items": 6,
+    "points": 17
    },
    "R6_direct": {
     "items": 5,
@@ -158,7 +158,7 @@
      "2018#42"
     ]
    },
-   "disputed_pairs": 8,
+   "disputed_pairs": 9,
    "source_defect_pairs": 2
   },
   "2019": {
@@ -193,7 +193,7 @@
      "2019#34"
     ]
    },
-   "disputed_pairs": 8,
+   "disputed_pairs": 9,
    "source_defect_pairs": 2
   },
   "2020": {
@@ -251,8 +251,8 @@
     ]
    },
    "R5_indirect": {
-    "items": 4,
-    "points": 10
+    "items": 5,
+    "points": 12
    },
    "R6_direct": {
     "items": 5,
@@ -265,7 +265,7 @@
      "2021#34"
     ]
    },
-   "disputed_pairs": 8,
+   "disputed_pairs": 9,
    "source_defect_pairs": 4
   },
   "2022": {
@@ -286,8 +286,8 @@
     ]
    },
    "R5_indirect": {
-    "items": 6,
-    "points": 15
+    "items": 7,
+    "points": 17
    },
    "R6_direct": {
     "items": 5,
@@ -682,7 +682,7 @@
      "M2206#34"
     ]
    },
-   "disputed_pairs": 8,
+   "disputed_pairs": 9,
    "source_defect_pairs": 2
   },
   "M2209": {
@@ -751,7 +751,7 @@
      "M2306#34"
     ]
    },
-   "disputed_pairs": 8,
+   "disputed_pairs": 12,
    "source_defect_pairs": 4
   },
   "M2309": {
@@ -808,8 +808,8 @@
     ]
    },
    "R5_indirect": {
-    "items": 7,
-    "points": 18
+    "items": 8,
+    "points": 20
    },
    "R6_direct": {
     "items": 5,
@@ -822,7 +822,7 @@
      "M2406#34"
     ]
    },
-   "disputed_pairs": 4,
+   "disputed_pairs": 10,
    "source_defect_pairs": 12
   },
   "M2409": {
