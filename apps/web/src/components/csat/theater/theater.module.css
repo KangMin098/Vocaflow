@@ -443,6 +443,10 @@
 .explainField span { font-size: 0.8125rem; }
 .explainField textarea { width: 100%; padding: 8px 10px; border: 1px solid currentColor; border-radius: 8px; background: transparent; color: inherit; font: inherit; resize: vertical; }
 .explainActions { display: flex; gap: 8px; }
+/* 학습 정리(T-0091)의 조작 — .back 의 작업 공간 높이 규칙보다 구체적으로 44px 를 보장한다 */
+.explain .summaryControl, .explain details > summary.summaryControl { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.explain details > summary.summaryControl { cursor: pointer; }
+.explain .summaryControl:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
 .explainCompare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .explainCompare > div { display: grid; gap: 4px; align-content: start; }
 .explainCompare > p { grid-column: 1 / -1; margin: 0; }

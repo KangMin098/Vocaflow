@@ -1,0 +1,16 @@
+{
+ "note": "개발 DB csat_items.stem 수정 이력(2026-10-23 사용자 승인 · SQL 은 README §9). 이 목록의 문항은 수정 전 오염 발문으로 판정한 기존 배치(r5r6)에서 계속 제외하고, 수정 후 발문으로 새 배치(r5r6-fix)에서 재판정한다. 되돌리기: csat_items_stem_fix_20261023_bk.",
+ "applied_at": "2026-10-23",
+ "approval": "사용자 대화 승인(SQL · 영향 범위 제시 후 「승인함」)",
+ "backup_table": "public.csat_items_stem_fix_20261023_bk",
+ "fixes": [
+  { "item": "M2206#44", "defect": "truncated(끝 「것은?」 소실)", "old_md5": "2a44139ca666fc085ab3282a69887a09", "new_md5": "33c4959d9351fd4711400dbd570f9568" },
+  { "item": "M2306#38", "defect": "duplicate_long_stem(옆 문항 문장 섞임)", "old_md5": "42e0e0c6eb193dc34d88dfcbd8bbeeca", "new_md5": "21656fb0f2aa2a10bbb49ac29b7440df" },
+  { "item": "M2306#39", "defect": "duplicate_long_stem", "old_md5": "42e0e0c6eb193dc34d88dfcbd8bbeeca", "new_md5": "21656fb0f2aa2a10bbb49ac29b7440df" },
+  { "item": "M2406#38", "defect": "duplicate_long_stem(#40 지문 문장)", "old_md5": "6f9d7f19cad84ed8f2f15891a68ec222", "new_md5": "21656fb0f2aa2a10bbb49ac29b7440df" },
+  { "item": "M2406#39", "defect": "duplicate_long_stem", "old_md5": "6f9d7f19cad84ed8f2f15891a68ec222", "new_md5": "21656fb0f2aa2a10bbb49ac29b7440df" },
+  { "item": "M2406#43", "defect": "duplicate_long_stem(세트 머리글 + #45 질문)", "old_md5": "a42e4a7224c25392890413a7d0963d75", "new_md5": "f8b18d1ef61ceed8ff9441b93b2105de" },
+  { "item": "M2406#44", "defect": "duplicate_long_stem", "old_md5": "a42e4a7224c25392890413a7d0963d75", "new_md5": "33c4959d9351fd4711400dbd570f9568" },
+  { "item": "M2406#45", "defect": "duplicate_long_stem", "old_md5": "a42e4a7224c25392890413a7d0963d75", "new_md5": "33c98422715d69626f03bbfefa3bb4c4" }
+ ]
+}

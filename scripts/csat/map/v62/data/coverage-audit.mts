@@ -111,7 +111,18 @@ const integrity = {
     for (const i of its) { const s = norm(i.stem); if (s.length > 60) m.set(s, [...(m.get(s) ?? []), i.id]) }
     return [...m.values()].filter((ids) => ids.length > 1)
   }),
-  held_check: heldErr ?`실패(fail-closed): ${heldErr.message}` : 'ok',
+  /** 발문 형식 결함 — 「[N점]」을 떼고 ? · . 로 끝나지 않으면 잘림, 물음 뒤에 다른 문장이 붙으면 섞임.
+   *  같은 번호 표준 발문과의 차이로 잡는 방식은 2014–2018 체제 차이(번호별 유형 · ∼/～ 표기)로 오탐 34/38 이라 버렸다(2026-10-23 표본 확인) */
+  stem_format: (() => {
+    const out: { item: string; kind: 'truncated' | 'tail_after_question' }[] = []
+    for (const i of items) {
+      const st = String(i.stem ?? '').replace(/\s+/g, ' ').replace(/\s*\[\s*\d\s*점\s*\]\s*$/, '').trim()
+      if (!/(\?|\.|？)$/.test(st)) out.push({ item: i.id, kind: 'truncated' })
+      else if (/\?\s*\S.{3,}(\?|시오\.)$/.test(st)) out.push({ item: i.id, kind: 'tail_after_question' })
+    }
+    return out.sort((x, y) => x.item.localeCompare(y.item))
+  })(),
+  held_check: heldErr ? `실패(fail-closed): ${heldErr.message}` : 'ok',
 }
 
 // ── TASK · 평가 도구 · 공급 ───────────────────────────────

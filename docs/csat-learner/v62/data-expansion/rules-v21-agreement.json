@@ -1,0 +1,98 @@
+{
+ "batch": "rules-v21",
+ "input_sha256": "8107ac4cdd71165ec0ac90ef556f4211be1271cd64a78a9f7ec863ea45bc85db",
+ "items": 40,
+ "items_missing": 0,
+ "pairs": 360,
+ "agreement": 0.7833,
+ "kappa": 0.6949,
+ "source_defect_items": [],
+ "per_task": {
+  "e.evidence_location": {
+   "n": 40,
+   "direct_binary_kappa": 0.1089,
+   "agreement": 0.775,
+   "kappa": 0.1429,
+   "direct": 30,
+   "unknown": 1,
+   "disputed": 9
+  },
+  "r.relation": {
+   "n": 40,
+   "direct_binary_kappa": 0.5833,
+   "agreement": 0.65,
+   "kappa": 0.4766,
+   "disputed": 14,
+   "indirect": 8,
+   "not_applicable": 7,
+   "direct": 11
+  },
+  "v.core_meaning": {
+   "n": 40,
+   "direct_binary_kappa": 0,
+   "agreement": 0.725,
+   "kappa": -0.0046,
+   "not_applicable": 29,
+   "disputed": 11
+  },
+  "v.semantic_relation": {
+   "n": 40,
+   "direct_binary_kappa": 0.3056,
+   "agreement": 0.55,
+   "kappa": 0.2871,
+   "not_applicable": 15,
+   "disputed": 18,
+   "direct": 4,
+   "indirect": 3
+  },
+  "r.discourse_structure": {
+   "n": 40,
+   "direct_binary_kappa": 0.5,
+   "agreement": 0.525,
+   "kappa": 0.2963,
+   "indirect": 8,
+   "disputed": 19,
+   "not_applicable": 8,
+   "direct": 5
+  },
+  "e.task_demand": {
+   "n": 40,
+   "direct_binary_kappa": 0.5364,
+   "agreement": 0.825,
+   "kappa": 0.5364,
+   "unknown": 27,
+   "direct": 6,
+   "disputed": 7
+  },
+  "r.o.global_meaning_model": {
+   "n": 40,
+   "direct_binary_kappa": null,
+   "agreement": 1,
+   "kappa": 1,
+   "unknown": 38,
+   "indirect": 2
+  },
+  "s.o.sentence_meaning_model": {
+   "n": 40,
+   "direct_binary_kappa": null,
+   "agreement": 1,
+   "kappa": null,
+   "unknown": 40
+  },
+  "e.o.final_judgment": {
+   "n": 40,
+   "direct_binary_kappa": null,
+   "agreement": 1,
+   "kappa": null,
+   "unknown": 40
+  }
+ },
+ "review_T0089": {
+  "sampled": 0,
+  "note": "R1 direct 표본 30 중 관련성 confirmed 29 · unclear 1(후보 내림). 계약 위반(인접 TASK 오정의 · 유형 지름길)은 관련성 값이 아니라 설명 문장의 결함 — 이 배치의 task_distinction 은 근거로 쓰지 않는다(청크에 인접 정의가 없었다)."
+ },
+ "task_distinction_reliable": true,
+ "human_review": 0,
+ "student_measurement": 0,
+ "note": "두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1)."
+}
