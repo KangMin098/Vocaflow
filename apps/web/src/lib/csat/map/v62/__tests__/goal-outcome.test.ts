@@ -84,4 +84,11 @@ describe('goalOutcome — 목표 대비 판정', () => {
     expect(goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 90, { grade: 2 })], []).verdict).toBe('met')
     expect(goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 90)], []).verdict).toBe('not_judgeable') // 등급 목표가 있는데 기록 등급 없음
   })
+
+  it('T-0110 — 점수 충족 · 기록 등급 없음: 판정 불가 그대로 · 다음 안내는 등급 기록 확인(최종 평가 검토 아님)', () => {
+    const o = goalOutcome(goal, [s('b', 'k9-2026', '2026-09-10', 90)], [])
+    expect(o.verdict).toBe('not_judgeable')
+    expect(o.next).toBe('record_grade')
+    expect(goalOutcome({ ...goal, grade: null }, [s('b', 'k9-2026', '2026-09-10', 90)], []).next).toBe('review_goal_evidence')
+  })
 })

@@ -182,6 +182,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): 목표 대비 · 재처방 카드를 비교 구조로(T-0110) — 점수 축(목표·기록 표식) · 시험 기록 vs TASK 활동 대조, 재처방은 지금 배정·저장 계획대로·수정안 비교표(오늘의 학습과 같은 지금 값). 점수 충족·등급 미기록 다음 안내 record_grade. 판정·DB 변경 없음.
 - fix(csat): 직접 확인 판정이 코드북 조건을 따른다(T-0096) — E3·R2 객관식 정오만으로 학습 요구 확정 금지, R5 서로 다른 지문, R5·E2 다른 날 재확인(D4-DEC-01: t0 뒤 다른 KST 날짜·12시간, 그 전 pending_delayed). 채점 불변 · DB 변경 없음.
 - feat(csat): 목표 대비 판정 네 상태(기록 없음·판정 불가·미달·충족 — 충족은 한 번의 평가) · 재처방 패널(저장 계획 → 수정안 일정을 goalSchedule·scheduleChanges 로 비교, 확정은 Workspace 기존 관문) · 오늘의 학습 「N일 남음」 제거. DB 변경 없음.
 - feat(csat): 메가스터디 정답률 원장 — 수능 · 모평 · 학평(고1~3) 영어 **전 문항** 정답률 · 선지별 선택비율 · 난이도 · 배점을 `csat_item_response_stats` 에 적재(127회 · 5,715행, migration `20261023100000`). EBSi TOP15(30회 · 450행)만 있던 오답률을 `csat_items` 3,528/3,714 문항으로 넓힌다. 수집 `scripts/csat/rates/fetch-megastudy.mjs` → 정답 키로 회차 · 유형(홀/짝) 대응 `import-megastudy.mjs`.

@@ -35,7 +35,10 @@ export interface ReplanProposal {
   before: GoalSchedule | null
   after: GoalSchedule | null
   /** 이번 주 배정 분(저장 계획 → 수정안) */
-  thisWeek: { before: number; after: number } | null
+  /** 이번 주 배정 분 — current = 지금 실제 일정(재확정 전 TASK 는 배정되지 않는다) · before = 저장 계획대로 · after = 수정안 */
+  thisWeek: { current: number; before: number; after: number } | null
+  /** TASK 별 이번 주 배정 분(같은 세 열) — 다시 확정이 필요한 TASK 만 */
+  weekRows: { task: string; current: number; before: number; after: number }[]
   /** 다음 주 우선 TASK(수정안 배정 순서) */
   nextWeek: string[]
   /** 수정안의 다음 확인 · 다시 확인 배정일 */
@@ -58,9 +61,15 @@ export interface ReplanInput {
   usageForGoal?: (goal: GoalVersion) => readonly BudgetUsage[]
 }
 
+/** 첫 주(오늘이 든 주) 안의 그 TASK 배정 분 */
+function weekMinutes(s: GoalSchedule | null, task: string): number {
+  const end = s?.weeks[1]?.start ?? null
+  return (s?.allocations ?? []).filter((a) => a.task === task && (!end || a.date < end)).reduce((n, a) => n + a.minutes, 0)
+}
+
 export function replanProposal({ goal, rows, plans, saved, today, usage = [], revisions, usageForGoal }: ReplanInput): ReplanProposal {
   const gated = rows.filter((r) => r.planGate === 'replan' && r.workspace)
-  const empty: ReplanProposal = { none: true, unchanged: false, reasons: [], shifts: [], changes: [], before: null, after: null, thisWeek: null, nextWeek: [], nextCheck: null, workspaces: [] }
+  const empty: ReplanProposal = { none: true, unchanged: false, reasons: [], shifts: [], changes: [], before: null, after: null, thisWeek: null, weekRows: [], nextWeek: [], nextCheck: null, workspaces: [] }
   if (!gated.length || !saved || saved.error || saved.status !== 'installed') return empty
 
   const next = new Map(plans.map((p) => [p.task, p.next]))
@@ -89,14 +98,17 @@ export function replanProposal({ goal, rows, plans, saved, today, usage = [], re
 
   let before: GoalSchedule | null = null
   let after: GoalSchedule | null = null
+  let current: GoalSchedule | null = null
   const savedIds = [...new Set(gated.map(r => saved.byTemplate[r.workspace!]?.latest.goalVersionId ?? null))]
   const beforeGoal = savedIds.length === 1 ? (goal?.id === savedIds[0] ? goal : saved.goalHistory?.find(g => g.id === savedIds[0]) ?? null) : null
   try {
     const oldUsageKnown = !usage.length || sameBudget(beforeGoal?.budget, goal?.budget) || !!usageForGoal
     before = beforeGoal && oldUsageKnown ? goalSchedule(beforeGoal, beforeRows, today, usageForGoal?.(beforeGoal) ?? usage, true) : null
     after = goalSchedule(goal, afterRows, today, usage)
+    // 지금 실제 일정 — 입력 행 그대로(재확정 관문이 걸린 TASK 는 goalSchedule 이 배정하지 않는다)
+    current = goalSchedule(goal, rows, today, usage)
   } catch {
-    before = after = null // 목표일 · 사용량이 유효하지 않으면 일정 비교를 하지 않는다(단계 변화는 그대로 보인다)
+    before = after = current = null // 목표일 · 사용량이 유효하지 않으면 일정 비교를 하지 않는다(단계 변화는 그대로 보인다)
   }
   const comparable = before?.status === 'ready' && after?.status === 'ready'
   const changes = comparable ? scheduleChanges(before!, after!, !sameBudget(beforeGoal?.budget, goal?.budget)) : []
@@ -121,7 +133,8 @@ export function replanProposal({ goal, rows, plans, saved, today, usage = [], re
     changes,
     before,
     after,
-    thisWeek: comparable ? { before: before!.weeks[0]?.minutes ?? 0, after: after!.weeks[0]?.minutes ?? 0 } : null,
+    thisWeek: comparable ? { current: current?.weeks[0]?.minutes ?? 0, before: before!.weeks[0]?.minutes ?? 0, after: after!.weeks[0]?.minutes ?? 0 } : null,
+    weekRows: comparable ? [...new Set(gated.map((r) => r.task))].map((task) => ({ task, current: weekMinutes(current, task), before: weekMinutes(before, task), after: weekMinutes(after, task) })) : [],
     nextWeek,
     nextCheck: after?.allocations.find((a) => a.stage === 'check' || a.stage === 'recheck')?.date ?? null,
     workspaces: [...new Set(gated.map((r) => r.workspace!))],
