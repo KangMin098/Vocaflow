@@ -32,3 +32,10 @@
 ## 수신 측 요청
 
 1. 수신 ACK  2. 13건 각각 현재 goal-plan 코드 대비 입력 검토(이미 반영 / 반영 필요 / 해당 없음)  3. 미승인 기출 관련도를 확정 NeedRank 로 쓰는 경로 유무
+
+## 수신 ACK (2026-10-23 · vocaflow-01 · goal-engine T-0093 · feat/goal-outcome @9f23f9b9b)
+
+- 이미 반영 1: D4-handoff-2-M1 (goal-outcome 은 achievement==='resolved' 만 셈, 재처방은 achievement 불변).
+- 반영 필요 3 — 상류(skill-diagnosis/lifecycle·채점) 수정 대상, 이 브랜치 범위 밖: D4-handoff-1(다른 날·지문 다양성·전이) · D4-N2(창작/기출 채점 범위 통합 금지) · D4-N3(E3 lure 2실패가 약점 확정 → 재처방 「바로잡기」 오발 위험 잔존).
+- 해당 없음 9: D1 4 · D2-R3 · D3 · D4-M7 · N1 · N4.
+- 미승인 관련도 → NeedRank: goal-batches/b2-v2/R3 링크 경로 없음(To-Be 는 csat_dx_item_attribute · type_id 링크 · csat_dx_option_trap 만). 단 그 기존 경로에 검수 상태 필터가 없음 — 검수 여부 unclear.
