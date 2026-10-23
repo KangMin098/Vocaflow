@@ -1,0 +1,6 @@
+{
+  "cwd": "D:/workspace/Vocaflow-goal-data",
+  "b3-insert": {"command": "node scripts/research/goal-data/d2-run.mjs b3-insert validate", "exit_code": 0, "A": {"passed": 8, "total": 8, "errors": 0}, "B": {"passed": 8, "total": 8, "errors": 0}},
+  "b4-v21": {"command": "node scripts/research/goal-data/d2-run.mjs b4-v21 validate", "exit_code": 0, "A": {"passed": 40, "total": 40, "errors": 0}, "B": {"passed": 40, "total": 40, "errors": 0}},
+  "meaning": "형식·원문 인용·반사실 형식 검증. 의미 타당성은 별도 표본 판정."
+}

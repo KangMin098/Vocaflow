@@ -1,0 +1,695 @@
+{
+  "input_commit": "369381724",
+  "snapshot": [
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md",
+      "same_blob": true,
+      "sha256": "586e814bc9629885cf2d8a4f146121bf1afd8efbc3eef363fea763c72e1ed949"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_1.md",
+      "same_blob": true,
+      "sha256": "4d1bc84c81879f3242b6d5525b68078c3fa368af153fc8e4c6b38381271e79fe"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b2-v2-agreement.json",
+      "same_blob": true,
+      "sha256": "a4c3557f642a6c1cb217487441a5d7739535316a750b5343f57191182b1436d9"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl",
+      "same_blob": true,
+      "sha256": "46d6acce777ad3ef03a92dc0e2434027f812898425254d6be668b2b7e6b1bd35"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl",
+      "same_blob": true,
+      "sha256": "8d7fcfc389eb70b733778eac2db03b6a85744034b65e4d96e536e1a6815d71db"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b2-v2-selection.json",
+      "same_blob": true,
+      "sha256": "106d66363944beedfb17f148d9a31361a8f9d73e289a2247c21fc06f97782371"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b3-insert-agreement.json",
+      "same_blob": true,
+      "sha256": "f1f1e7b23e5ed1f4ae1a5e40d93ebd08eba4c80ca5b82a18d1caa607c06f5d5a"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b3-insert-disputed-links.jsonl",
+      "same_blob": true,
+      "sha256": "1ad70c6942c08e2c329a568a11e6adb0dc3d3f2395c128f13bcc03dc96fc9cac"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b3-insert-item-task-links.jsonl",
+      "same_blob": true,
+      "sha256": "0e9d747ff68f1e6eec028c57664463bdb2961ebb2638b1b48208472474ead07a"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b3-insert-selection.json",
+      "same_blob": true,
+      "sha256": "fe95f885a2b24570f34c9ca412bf72fe3e49aeb1c7c831ed8c4bd04774ed69ab"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b4-v21-agreement.json",
+      "same_blob": true,
+      "sha256": "f68148de4c447d906c0d0f7cbc9b890773f286cf5be732440db9ef24a7530ebc"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b4-v21-disputed-links.jsonl",
+      "same_blob": true,
+      "sha256": "d9b69d47e854e02bca2502a77d0915b3256507532f06525f47c8293fb8dc1162"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b4-v21-item-task-links.jsonl",
+      "same_blob": true,
+      "sha256": "1757c3e85eb73b66d4683c3ba49cc596dd1137c609d748caae49daf46a947b5b"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/b4-v21-selection.json",
+      "same_blob": true,
+      "sha256": "58d5970c6fee809045aa18cf566b875d586fbfcff2296bda1f8fff30e9d22c2d"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/disputed-links.jsonl",
+      "same_blob": true,
+      "sha256": "7148115cbd49a5936a0bb95c63bc40befdfcf4011818795dafde7616c88fb355"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl",
+      "same_blob": true,
+      "sha256": "9cc72497b90c4987381d2827a26b2403d6cfdfa30792c8533085766ce25a0a00"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json",
+      "same_blob": true,
+      "sha256": "94e541a09677db6227b67067587473fca8a0083cd384e3be5fea441701d2f264"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md",
+      "same_blob": true,
+      "sha256": "1cb5677b9e4a17347d0ea54c8ffeafd2b969596b700d486f9fca7f754433ed8a"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl",
+      "same_blob": true,
+      "sha256": "76fad47907b5f1a7856efdbec5aadc4029a8dbf7dad4e24a6cdd2c19923126c2"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl",
+      "same_blob": true,
+      "sha256": "229d4b6088f1bb2a5dceef573f001fab55c429ab6f66fdda089233f6a9c47410"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D3-principles/principle-groups.json",
+      "same_blob": true,
+      "sha256": "a4d0fa5c546f7bc32bceb67248decc26f492fe9390bb5ea56414575ce32cd601"
+    },
+    {
+      "path": "docs/research/goal-data-batches/D3-principles/reasoning-review.md",
+      "same_blob": true,
+      "sha256": "de489ceecac624623db79002e79f594e617c29941294716c130d09f881d30ebc"
+    }
+  ],
+  "agreements": {
+    "b2-v2": {
+      "items": 40,
+      "pairs": 720,
+      "agreement": 0.8958,
+      "kappa": 0.726,
+      "primary": 32,
+      "hashErrors": 0,
+      "per_task": {
+        "v.core_meaning": {
+          "kappa": 0.6685,
+          "agreement": 0.925
+        },
+        "v.contextual_sense": {
+          "kappa": 0,
+          "agreement": 0.975
+        },
+        "v.multiword": {
+          "kappa": -0.0256,
+          "agreement": 0.925
+        },
+        "v.semantic_relation": {
+          "kappa": 0.4975,
+          "agreement": 0.75
+        },
+        "s.sentence_core": {
+          "kappa": 0.2258,
+          "agreement": 0.925
+        },
+        "s.chunk_boundary": {
+          "kappa": null,
+          "agreement": 1
+        },
+        "s.attachment": {
+          "kappa": 0.7403,
+          "agreement": 0.975
+        },
+        "s.structural_relation": {
+          "kappa": 0.4702,
+          "agreement": 0.9
+        },
+        "s.form_scope": {
+          "kappa": 0.6537,
+          "agreement": 0.9
+        },
+        "r.reference": {
+          "kappa": 0.646,
+          "agreement": 0.8
+        },
+        "r.relation": {
+          "kappa": 0.6944,
+          "agreement": 0.8
+        },
+        "r.discourse_function": {
+          "kappa": -0.1458,
+          "agreement": 0.725
+        },
+        "r.discourse_structure": {
+          "kappa": 0.6804,
+          "agreement": 0.825
+        },
+        "r.central_meaning": {
+          "kappa": 1,
+          "agreement": 1
+        },
+        "r.inference": {
+          "kappa": 0.8671,
+          "agreement": 0.95
+        },
+        "e.task_demand": {
+          "kappa": 0.8671,
+          "agreement": 0.95
+        },
+        "e.evidence_location": {
+          "kappa": 0.9061,
+          "agreement": 0.95
+        },
+        "e.option_correspondence": {
+          "kappa": 0.7516,
+          "agreement": 0.85
+        }
+      }
+    },
+    "b3-insert": {
+      "items": 8,
+      "pairs": 144,
+      "agreement": 0.8472,
+      "kappa": 0.6957,
+      "primary": 6,
+      "hashErrors": 0,
+      "per_task": {
+        "v.core_meaning": {
+          "kappa": 0,
+          "agreement": 0.875
+        },
+        "v.contextual_sense": {
+          "kappa": null,
+          "agreement": 1
+        },
+        "v.multiword": {
+          "kappa": 0,
+          "agreement": 0.875
+        },
+        "v.semantic_relation": {
+          "kappa": 0.1111,
+          "agreement": 0.5
+        },
+        "s.sentence_core": {
+          "kappa": null,
+          "agreement": 1
+        },
+        "s.chunk_boundary": {
+          "kappa": null,
+          "agreement": 1
+        },
+        "s.attachment": {
+          "kappa": null,
+          "agreement": 1
+        },
+        "s.structural_relation": {
+          "kappa": 0.3333,
+          "agreement": 0.75
+        },
+        "s.form_scope": {
+          "kappa": 0,
+          "agreement": 0.875
+        },
+        "r.reference": {
+          "kappa": 0.7333,
+          "agreement": 0.875
+        },
+        "r.relation": {
+          "kappa": 0,
+          "agreement": 0.875
+        },
+        "r.discourse_function": {
+          "kappa": 0,
+          "agreement": 0.875
+        },
+        "r.discourse_structure": {
+          "kappa": null,
+          "agreement": 1
+        },
+        "r.central_meaning": {
+          "kappa": 0,
+          "agreement": 0.75
+        },
+        "r.inference": {
+          "kappa": 0,
+          "agreement": 0.75
+        },
+        "e.task_demand": {
+          "kappa": null,
+          "agreement": 1
+        },
+        "e.evidence_location": {
+          "kappa": 0,
+          "agreement": 0.25
+        },
+        "e.option_correspondence": {
+          "kappa": null,
+          "agreement": 1
+        }
+      }
+    },
+    "b4-v21": {
+      "items": 40,
+      "pairs": 720,
+      "agreement": 0.8528,
+      "kappa": 0.6663,
+      "primary": 33,
+      "hashErrors": 0,
+      "per_task": {
+        "v.core_meaning": {
+          "kappa": 0.4182,
+          "agreement": 0.8
+        },
+        "v.contextual_sense": {
+          "kappa": 0.6581,
+          "agreement": 0.975
+        },
+        "v.multiword": {
+          "kappa": 0.3636,
+          "agreement": 0.825
+        },
+        "v.semantic_relation": {
+          "kappa": 0.3691,
+          "agreement": 0.625
+        },
+        "s.sentence_core": {
+          "kappa": 0.6552,
+          "agreement": 0.975
+        },
+        "s.chunk_boundary": {
+          "kappa": null,
+          "agreement": 1
+        },
+        "s.attachment": {
+          "kappa": 0.5313,
+          "agreement": 0.925
+        },
+        "s.structural_relation": {
+          "kappa": 0.4737,
+          "agreement": 0.9
+        },
+        "s.form_scope": {
+          "kappa": 0.7692,
+          "agreement": 0.925
+        },
+        "r.reference": {
+          "kappa": 0.7414,
+          "agreement": 0.85
+        },
+        "r.relation": {
+          "kappa": 0.6601,
+          "agreement": 0.775
+        },
+        "r.discourse_function": {
+          "kappa": 0.4702,
+          "agreement": 0.7
+        },
+        "r.discourse_structure": {
+          "kappa": 0.729,
+          "agreement": 0.875
+        },
+        "r.central_meaning": {
+          "kappa": 0.774,
+          "agreement": 0.875
+        },
+        "r.inference": {
+          "kappa": 0.871,
+          "agreement": 0.95
+        },
+        "e.task_demand": {
+          "kappa": 0.8235,
+          "agreement": 0.925
+        },
+        "e.evidence_location": {
+          "kappa": 0.4106,
+          "agreement": 0.625
+        },
+        "e.option_correspondence": {
+          "kappa": 0.6878,
+          "agreement": 0.825
+        }
+      }
+    }
+  },
+  "third_input_count": 11,
+  "thirdApplied": [
+    {
+      "item": "M2609#22",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true
+    },
+    {
+      "item": "M2609#36",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "direct",
+      "majority": false
+    },
+    {
+      "item": "M2609#37",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true
+    },
+    {
+      "item": "M2609#41",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true
+    },
+    {
+      "item": "2025#22",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true
+    },
+    {
+      "item": "2025#23",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true
+    },
+    {
+      "item": "2025#34",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true
+    },
+    {
+      "item": "2025#36",
+      "A": "indirect",
+      "B": "not_applicable",
+      "C": "not_applicable",
+      "majority": true
+    },
+    {
+      "item": "2025#37",
+      "A": "indirect",
+      "B": "not_applicable",
+      "C": "direct",
+      "majority": false
+    }
+  ],
+  "combined": {
+    "items": 120,
+    "pairs": 2160,
+    "unique_pairs": 2160,
+    "removed_old_pairs": 144,
+    "links": 428,
+    "disputes": 310,
+    "links_match": true,
+    "disputes_match": true,
+    "majority": 7,
+    "remaining": 2,
+    "superseded_old_rows": 0
+  },
+  "d3": {
+    "items": 120,
+    "source_options": 468,
+    "source_agree": 285,
+    "ratio": 0.6089743589743589,
+    "primary_agree": 96,
+    "same_locus": 47,
+    "groups": {
+      "R-ORDER": {
+        "total": 48,
+        "agreed": 34,
+        "both_other": 34
+      },
+      "R-INSERT": {
+        "total": 48,
+        "agreed": 35,
+        "both_other": 34
+      },
+      "R-GRAMMAR": {
+        "total": 24,
+        "agreed": 4,
+        "both_other": 0
+      }
+    }
+  },
+  "thirdOriginal": [
+    {
+      "item": "M2609#22",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true,
+      "superseded": false
+    },
+    {
+      "item": "M2609#36",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "direct",
+      "majority": false,
+      "superseded": false
+    },
+    {
+      "item": "M2609#37",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true,
+      "superseded": false
+    },
+    {
+      "item": "M2609#41",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true,
+      "superseded": false
+    },
+    {
+      "item": "2025#22",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true,
+      "superseded": false
+    },
+    {
+      "item": "2025#23",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true,
+      "superseded": false
+    },
+    {
+      "item": "2025#34",
+      "A": "not_applicable",
+      "B": "indirect",
+      "C": "indirect",
+      "majority": true,
+      "superseded": false
+    },
+    {
+      "item": "2025#36",
+      "A": "indirect",
+      "B": "not_applicable",
+      "C": "not_applicable",
+      "majority": true,
+      "superseded": false
+    },
+    {
+      "item": "2025#37",
+      "A": "indirect",
+      "B": "not_applicable",
+      "C": "direct",
+      "majority": false,
+      "superseded": false
+    },
+    {
+      "item": "2025#38",
+      "A": "indirect",
+      "B": "not_applicable",
+      "C": "direct",
+      "majority": false,
+      "superseded": true
+    },
+    {
+      "item": "2025#39",
+      "A": "indirect",
+      "B": "not_applicable",
+      "C": "direct",
+      "majority": false,
+      "superseded": true
+    }
+  ],
+  "b3_triple_direct": [
+    {
+      "item": "2026#38",
+      "tasks": [
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "item": "2026#39",
+      "tasks": [
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "item": "M2706#38",
+      "tasks": [
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "item": "M2706#39",
+      "tasks": [
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "item": "M2609#38",
+      "tasks": [
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "item": "M2609#39",
+      "tasks": [
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "item": "2025#38",
+      "tasks": [
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure"
+      ]
+    },
+    {
+      "item": "2025#39",
+      "tasks": [
+        "r.relation",
+        "r.discourse_function",
+        "r.discourse_structure"
+      ]
+    }
+  ],
+  "local_input_manifest": [
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/chunk-A-01.out.json",
+      "sha256": "b3229b1b47dfaf39e7653536d2d9ac5c98b56aa8a968accf8d13b694e16abe31"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/chunk-A-02.out.json",
+      "sha256": "9aee330a9ddbb71741e7344ed2b54a2d059f7d56f4d40714e236b5934750ea92"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/chunk-A-03.out.json",
+      "sha256": "57274050386aa60919573f636ee1e68bdcf0a33ee0a12221e673cc79203fccad"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/chunk-A-04.out.json",
+      "sha256": "deb5586e3a2e2074e077d75a27894b10afb89e9b182e0ce892d5a16c5c456291"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/chunk-B-01.out.json",
+      "sha256": "ffd07416e51419cd87d797845abdea8f812673999ce149c5e37b79b2e165b810"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/chunk-B-02.out.json",
+      "sha256": "f52329b272bfbb83324d6c9fac8f10cb8f148ae9c0678c56c53b83bb260a4595"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/chunk-B-03.out.json",
+      "sha256": "55cfa1b68e515279237e55163af5edd2ef7dc590930cbf3a107c9d734e84c1f9"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/chunk-B-04.out.json",
+      "sha256": "dad929bc4d3111cc11081a8628d776e98e2681c887439bb2d402dc5dc9920df9"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json",
+      "sha256": "b0c77226c404e08f6515f96745177ab3a244030c261b5bc83a9d3ba34ca6db12"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/r3-third.out.json",
+      "sha256": "b7268dc6091ba160ef5e0a5ae04457b2a5a5da3a124a236a0405ecf64e371bc9"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b3-insert/chunk-A-01.out.json",
+      "sha256": "7d080ddeaa51a5d25df2a75ca1ffc2cb7f08e3bc7d3da67062867aad70dbf986"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b3-insert/chunk-B-01.out.json",
+      "sha256": "1d4107952a51ae0c5d0c71fd77b5455e1a94a63499f760ea1e41a457b09f163b"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b3-insert/input.json",
+      "sha256": "e9cb00e9f0dcf798d09adee2a9bb87cf9f50f043f28b8e0cc60d59c03414ce18"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b4-v21/chunk-A-01.out.json",
+      "sha256": "f307dad57a20a281ab68f126a3068446eec6e74edf543f64ecc7d390e00fdc14"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b4-v21/chunk-A-02.out.json",
+      "sha256": "9ed14d31599c7f42be6ab4d6b66be201e2f3a69f802930e6473a023bb99472e5"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b4-v21/chunk-B-01.out.json",
+      "sha256": "a46053c9e72d3022a40d81dbe8210c25d0226d5d5fbbbea3b68e99212c468f93"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b4-v21/chunk-B-02.out.json",
+      "sha256": "4def56bd75f69409e0f044fac164b71a1e3a65392ba4aefab55b7405717e9981"
+    },
+    {
+      "path": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b4-v21/input.json",
+      "sha256": "50b927c4c29e6d18794a68fd20d4f128f0b3ef307552e491c1145aaef16fa70c"
+    }
+  ]
+}

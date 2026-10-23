@@ -1,0 +1,15 @@
+{
+    "type":  "review",
+    "command_or_protocol":  "T-0097 acceptance 0-4 독립 검증: DB GET 262 및 삽입 원문20+10; b3/b4 validate; R1 원문20+갈림20; 원본 결합 2160쌍 재계산; D3 4문항16오답. validate-output.mjs PASS. 91행: confirmed55/refuted12/unclear24, engine_handoff12. pass는 검증 수행 완료이며 입력 주장의 전부 확인을 뜻하지 않음. task start는 NO_AGENT_PID로 실패. 지정 두 경로 git add 및 commit --only는 index.lock Permission denied/pathspec 오류로 실패. 커밋 SHA 없음.",
+    "result":  "fail",
+    "skip_count":  0,
+    "artifact_path_or_url":  "D:/workspace/Vocaflow-goal-data-review/docs/research/goal-data-batches/review-r3/verdict.json",
+    "observed_at":  "2026-10-23T04:36:17.6835126Z",
+    "covers":  [
+                   0,
+                   1,
+                   2,
+                   3,
+                   4
+               ]
+}

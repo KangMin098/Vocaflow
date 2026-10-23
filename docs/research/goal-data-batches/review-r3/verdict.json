@@ -1,0 +1,1340 @@
+{
+  "task_id": "T-0097",
+  "owner": "goal-data-independent",
+  "input_commit": "369381724",
+  "merge_head": "a00c5c315fdf01a6946bc296930ec397d0ee1c07",
+  "observed_at": "2026-10-23T04:27:18.776Z",
+  "acceptance_covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "items": [
+    {
+      "id": "input-binding",
+      "acceptance": 2,
+      "claim": "검증 입력은 369381724의 D2·D3 산출물이다",
+      "verdict": "confirmed",
+      "evidence": [
+        "recomputed.json:snapshot"
+      ],
+      "note": "22개 파일 blob 일치. 시작 HEAD a00c5c315fdf01a6946bc296930ec397d0ee1c07는 해당 커밋 병합본."
+    },
+    {
+      "id": "insert-partition",
+      "acceptance": 0,
+      "claim": "DB R-INSERT 262개를 현재 규칙으로 238/24 분할한다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json"
+      ],
+      "note": "HTTP 200 GET 1회. 문항 경계의 의미적 정당성과 정규식 분류 결과는 별개다."
+    },
+    {
+      "id": "insert-sample-1",
+      "acceptance": 0,
+      "claim": "2014A#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[0]",
+        "insert-packet.local.json[0]"
+      ],
+      "note": "거리 횡단 완료 뒤 가방 회상이 ④의 되돌아봄과 이어진다."
+    },
+    {
+      "id": "insert-sample-2",
+      "acceptance": 0,
+      "claim": "2019#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[1]",
+        "insert-packet.local.json[1]"
+      ],
+      "note": "등고선 정의 다음 원형 언덕 예시가 ③에서 이어진다."
+    },
+    {
+      "id": "insert-sample-3",
+      "acceptance": 0,
+      "claim": "2025#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[2]",
+        "insert-packet.local.json[2]"
+      ],
+      "note": "선형 모델 비판을 구체화하고 추가 행로를 여는 ④에 맞는다."
+    },
+    {
+      "id": "insert-sample-4",
+      "acceptance": 0,
+      "claim": "H1806G2#37: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[3]",
+        "insert-packet.local.json[3]"
+      ],
+      "note": "명시 경계 표지와 성향 원인 설명이 ①의 상황 원인 대조와 맞는다. 반환 문자열에는 한글 표지가 붙어 있어 후속 정규화가 필요하다."
+    },
+    {
+      "id": "insert-sample-5",
+      "acceptance": 0,
+      "claim": "H1903G1#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[4]",
+        "insert-packet.local.json[4]"
+      ],
+      "note": "동질 고용 관행을 반박한 뒤 팀 역할 다양성을 소개하는 ②에 맞는다."
+    },
+    {
+      "id": "insert-sample-6",
+      "acceptance": 0,
+      "claim": "H1909G2#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[5]",
+        "insert-packet.local.json[5]"
+      ],
+      "note": "물리 마찰을 기술·사회 마찰에 대응한 뒤 ④의 복수 지시 대상을 제공한다."
+    },
+    {
+      "id": "insert-sample-7",
+      "acceptance": 0,
+      "claim": "H2003G3#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[6]",
+        "insert-packet.local.json[6]"
+      ],
+      "note": "명시 표지와 망원경/직조기 대조가 ②에서 맞는다. 반환 문자열에는 한글 표지가 붙어 있어 후속 정규화가 필요하다."
+    },
+    {
+      "id": "insert-sample-8",
+      "acceptance": 0,
+      "claim": "H2103G1#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[7]",
+        "insert-packet.local.json[7]"
+      ],
+      "note": "명시 표지와 작은 개선의 대조가 ②의 지시 대상을 제공한다. 반환 문자열에는 한글 표지가 붙어 있어 후속 정규화가 필요하다."
+    },
+    {
+      "id": "insert-sample-9",
+      "acceptance": 0,
+      "claim": "H2109G1#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[8]",
+        "insert-packet.local.json[8]"
+      ],
+      "note": "경적 행동이 ② 뒤 소음의 선행 사건이다."
+    },
+    {
+      "id": "insert-sample-10",
+      "acceptance": 0,
+      "claim": "H2203G2#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[9]",
+        "insert-packet.local.json[9]"
+      ],
+      "note": "고정 공급에서 소비자 확대 방안으로 전환하는 ⑤에 맞는다."
+    },
+    {
+      "id": "insert-sample-11",
+      "acceptance": 0,
+      "claim": "H2209G2#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[10]",
+        "insert-packet.local.json[10]"
+      ],
+      "note": "일시적 변화와 유전 능력을 대조해 ③의 세대 전승으로 이어진다."
+    },
+    {
+      "id": "insert-sample-12",
+      "acceptance": 0,
+      "claim": "H2303G2#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[11]",
+        "insert-packet.local.json[11]"
+      ],
+      "note": "생산성을 낮추는 창의성에서 높이는 창의성으로 ④에서 전환한다."
+    },
+    {
+      "id": "insert-sample-13",
+      "acceptance": 0,
+      "claim": "H2310G3#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[12]",
+        "insert-packet.local.json[12]"
+      ],
+      "note": "해결 예시의 인지 자원 효과가 ④ 뒤 연구 결과의 선행 내용이다."
+    },
+    {
+      "id": "insert-sample-14",
+      "acceptance": 0,
+      "claim": "H2404G3#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[13]",
+        "insert-packet.local.json[13]"
+      ],
+      "note": "객관성 규범의 목적 부정이 ④ 뒤 역방향 정정과 짝이다."
+    },
+    {
+      "id": "insert-sample-15",
+      "acceptance": 0,
+      "claim": "H2410G1#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[14]",
+        "insert-packet.local.json[14]"
+      ],
+      "note": "안정 가능한 상태 제한이 ② 뒤 배아 발달 예시를 도입한다."
+    },
+    {
+      "id": "insert-sample-16",
+      "acceptance": 0,
+      "claim": "H2506G1#39: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[15]",
+        "insert-packet.local.json[15]"
+      ],
+      "note": "얼굴 잠수 조건이 ③ 뒤 반사 작용의 지시 대상을 제공한다."
+    },
+    {
+      "id": "insert-sample-17",
+      "acceptance": 0,
+      "claim": "H2603G1#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[16]",
+        "insert-packet.local.json[16]"
+      ],
+      "note": "진보의 방향을 부정한 뒤 ④ 뒤 수평 이동 정정을 도입한다."
+    },
+    {
+      "id": "insert-sample-18",
+      "acceptance": 0,
+      "claim": "H2607G3#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[17]",
+        "insert-packet.local.json[17]"
+      ],
+      "note": "아동 감소의 표면 이점에서 미래 노동력 투자로 ②에서 전환한다."
+    },
+    {
+      "id": "insert-sample-19",
+      "acceptance": 0,
+      "claim": "M2109#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[18]",
+        "insert-packet.local.json[18]"
+      ],
+      "note": "일대일 배부 과정 뒤 충분성 확인이 ③의 문제 해결 결론과 맞는다."
+    },
+    {
+      "id": "insert-sample-20",
+      "acceptance": 0,
+      "claim": "M2409#38: 접두 첫 영어 문장은 삽입용 주어진 문장으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "db-checks.json:samples[19]",
+        "insert-packet.local.json[19]"
+      ],
+      "note": "밀리초 정밀성이 ⑤의 미시 접근 지시 대상을 제공한다."
+    },
+    {
+      "id": "insert-sample-21",
+      "acceptance": 0,
+      "claim": "H1803G2#39: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[20]",
+        "insert-packet.local.json[20]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-22",
+      "acceptance": 0,
+      "claim": "H1811G1#39: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[21]",
+        "insert-packet.local.json[21]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-23",
+      "acceptance": 0,
+      "claim": "H1907G3#38: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[22]",
+        "insert-packet.local.json[22]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-24",
+      "acceptance": 0,
+      "claim": "H2010G3#38: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[23]",
+        "insert-packet.local.json[23]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-25",
+      "acceptance": 0,
+      "claim": "H2011G1#39: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[24]",
+        "insert-packet.local.json[24]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-26",
+      "acceptance": 0,
+      "claim": "H2103G3#39: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[25]",
+        "insert-packet.local.json[25]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-27",
+      "acceptance": 0,
+      "claim": "H2206G1#39: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[26]",
+        "insert-packet.local.json[26]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-28",
+      "acceptance": 0,
+      "claim": "H2306G1#38: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[27]",
+        "insert-packet.local.json[27]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-29",
+      "acceptance": 0,
+      "claim": "H2503G1#38: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[28]",
+        "insert-packet.local.json[28]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-sample-30",
+      "acceptance": 0,
+      "claim": "H2506G2#39: 자동 uncertain은 원문 경계도 불명확함을 뜻한다",
+      "verdict": "refuted",
+      "evidence": [
+        "db-checks.json:samples[29]",
+        "insert-packet.local.json[29]"
+      ],
+      "note": "원문에 주어진 문장/본문 경계 표지가 명시돼 있다. 첫 영어 문장의 내용도 정답 위치와 연결된다. 정규식은 마침표 뒤 대괄호를 문장 시작으로 인식하지 못한다. 이 10개 관찰을 나머지 14개에 일반화하지 않는다."
+    },
+    {
+      "id": "insert-238-universal",
+      "acceptance": 0,
+      "claim": "분리 238개 전부 첫 문장이 정확한 주어진 문장이다",
+      "verdict": "unclear",
+      "evidence": [
+        "db-checks.json",
+        "insert-sample-1~20"
+      ],
+      "note": "20개는 지지되나 238개 전량의 의미 대조와 인쇄 원본 대조는 하지 않았다. 24개 제외는 보수적 운영 규칙으로 재현되지만 실제 결손 목록은 아니다."
+    },
+    {
+      "id": "validate-b3",
+      "acceptance": 1,
+      "claim": "b3-insert A/B 각 8개 출력이 지정 검증기를 통과한다",
+      "verdict": "confirmed",
+      "evidence": [
+        "validation.json:b3-insert"
+      ],
+      "note": "A 8/8·B 8/8·결함 0. 의미 타당성 통과와 구분한다."
+    },
+    {
+      "id": "validate-b4",
+      "acceptance": 1,
+      "claim": "b4-v21 A/B 각 40개 출력이 지정 검증기를 통과한다",
+      "verdict": "confirmed",
+      "evidence": [
+        "validation.json:b4-v21"
+      ],
+      "note": "A 40/40·B 40/40·결함 0."
+    },
+    {
+      "id": "mapping-sample-1",
+      "acceptance": 1,
+      "claim": "b3-insert/2026#38/R1: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[0]",
+        "b3-insert/2026#38/r.reference",
+        "source_sha256:115210240de5a39a564770629b770dd5879c321c880deea0d1ce642b978105d5"
+      ],
+      "note": "지시 표현의 선행 서사를 추적해야 뒤 정체성 예시와 연결된다."
+    },
+    {
+      "id": "mapping-sample-2",
+      "acceptance": 1,
+      "claim": "b3-insert/2026#39/R4: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[1]",
+        "b3-insert/2026#39/r.discourse_structure",
+        "source_sha256:3766632f732d88ad2bdaa94f2ccbe3225ab487536438af328f07ca1695c98ac4"
+      ],
+      "note": "공통점→차이→확장 결과 배열이 ③을 지지한다."
+    },
+    {
+      "id": "mapping-sample-3",
+      "acceptance": 1,
+      "claim": "b3-insert/M2706#39/R3: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[2]",
+        "b3-insert/M2706#39/r.discourse_function",
+        "source_sha256:5f04669c8d294dd0c058b2fa697a2d0054eb5c2b5d1301eb3c58b670bf149bf4"
+      ],
+      "note": "기법 서술에서 어휘 증거로 넘어가는 한 문장의 교량 기능이 확인된다."
+    },
+    {
+      "id": "mapping-sample-4",
+      "acceptance": 1,
+      "claim": "b3-insert/2025#38/R1: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[3]",
+        "b3-insert/2025#38/r.reference",
+        "source_sha256:19b4e438e3d039337a0bfbd92a6f6c7a53e2235b029a160551f36b18a572b93a"
+      ],
+      "note": "유출 사건이 뒤 공개와 곤경의 선행 내용을 제공한다."
+    },
+    {
+      "id": "mapping-sample-5",
+      "acceptance": 1,
+      "claim": "b3-insert/2025#39/R4: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[4]",
+        "b3-insert/2025#39/r.discourse_structure",
+        "source_sha256:e4b5592bcebeb358eb2ee442ee3d1a5c739d92380b7a43053f11a718db28d3b1"
+      ],
+      "note": "통념→비판→실제 행로→추가 행로→결론 배열이 확인된다."
+    },
+    {
+      "id": "mapping-sample-6",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#20/R3: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[5]",
+        "b4-v21/M2606#20/r.discourse_function",
+        "source_sha256:e02281c146439da18005366c4f88de6eb6b817f6feb5de65487f29dfd48f8234"
+      ],
+      "note": "발표 예시 및 시나리오 검토 양보를 중심 주장과 구별해야 한다."
+    },
+    {
+      "id": "mapping-sample-7",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#22/R1: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[6]",
+        "b4-v21/M2606#22/r.reference",
+        "source_sha256:3ca3477ab441e856c7e27c086fa9d8dd1d6f26a791d8e63a71f89f2efc689702"
+      ],
+      "note": "전자/후자의 대상을 뒤집으면 정보와 의미의 정의가 뒤집힌다."
+    },
+    {
+      "id": "mapping-sample-8",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#24/R5: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[7]",
+        "b4-v21/M2606#24/r.central_meaning",
+        "source_sha256:c50a7bece8520e477ecbe6ceb13708c15f8b5fdce29400506cac4deb5a83d3e9"
+      ],
+      "note": "필수품에서 음식 문화로의 변화를 압축해야 제목을 고른다."
+    },
+    {
+      "id": "mapping-sample-9",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#27/E1: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[8]",
+        "b4-v21/M2606#27/e.task_demand",
+        "source_sha256:b878a9d8df7bdc6a7da14d36d42a6f395f7ee07f8e08271d231740fdb2cbd5ba"
+      ],
+      "note": "부정 발문을 놓치면 참인 네 선지를 고르게 된다."
+    },
+    {
+      "id": "mapping-sample-10",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#29/S4: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[9]",
+        "b4-v21/M2606#29/s.structural_relation",
+        "source_sha256:c77a7f7b51cf54332691b2bba242b4bf7855c2f7519ea4ed9e042e31713ae066"
+      ],
+      "note": "가목적어와 진목적어 구조 복원이 부정사 형태 판단을 지지한다."
+    },
+    {
+      "id": "mapping-sample-11",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#32/R6: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[10]",
+        "b4-v21/M2606#32/r.inference",
+        "source_sha256:6bb6c93c93ab2d6d48ee73cc6b6bf537a2abc47c01ac8aba1d90e86aeefdfdf5"
+      ],
+      "note": "묘사 없이도 외모를 안다고 느끼는 반응을 일반 원리에서 도출한다."
+    },
+    {
+      "id": "mapping-sample-12",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#35/R5: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[11]",
+        "b4-v21/M2606#35/r.central_meaning",
+        "source_sha256:031d96ba5b3aa6b702d2441de3c982946c70d76bfe8e21812e8ed75b52a38f01"
+      ],
+      "note": "영속성 정의를 중심으로 잡을 때 ①을 배제할 위험이 구체적이다."
+    },
+    {
+      "id": "mapping-sample-13",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#38/R1: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[12]",
+        "b4-v21/M2606#38/r.reference",
+        "source_sha256:28fb549e97aa52a931ad5a635b7e43f555ea98251cbbb4a15a7e5fdb175a518b"
+      ],
+      "note": "A는 전방 지시, B는 병렬 디자인 범위를 근거로 한다. 일반 명사 반복과 지시 추적의 경계를 계약만으로 닫기 어렵다."
+    },
+    {
+      "id": "mapping-sample-14",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#40/E2: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[13]",
+        "b4-v21/M2606#40/e.evidence_location",
+        "source_sha256:1dd19847bd540e1da23dd5236845f5c1fb062b759fd41f57ac7847af5c7bf82c"
+      ],
+      "note": "분배와 일의 의미라는 근거 두 곳을 요약 빈칸에 연결해야 한다."
+    },
+    {
+      "id": "mapping-sample-15",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#42/R5: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[14]",
+        "b4-v21/M2606#42/r.central_meaning",
+        "source_sha256:32641261836880e1967d0e01275874851436e228df666e61c80d219710ccb888"
+      ],
+      "note": "기술이 드러나지 않아야 한다는 지향이 마지막 낱말 방향 판단의 기준이다."
+    },
+    {
+      "id": "mapping-sample-16",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#45/E3: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[15]",
+        "b4-v21/M2606#45/e.option_correspondence",
+        "source_sha256:832ef7285e23fd7ae5916aaa4cf15693a1d73a6aa144ba74671af4cdd94b8c8e"
+      ],
+      "note": "본문의 저렴함과 선지의 비쌈을 대응해 불일치를 고른다."
+    },
+    {
+      "id": "mapping-sample-17",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#23/E3: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[16]",
+        "b4-v21/2024#23/e.option_correspondence",
+        "source_sha256:3a0397e8565138db70009d970654c74de0b5eabd91d863fa2a0565681c1f5dde"
+      ],
+      "note": "비시장 가치 중시와 시장/비시장 균형 선지의 범위를 구별해야 한다."
+    },
+    {
+      "id": "mapping-sample-18",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#31/R6: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[17]",
+        "b4-v21/2024#31/r.inference",
+        "source_sha256:87758967eae1348c27c0e429afb4cbaef84e534f0d59fdb4c3d31e75b7f9a83d"
+      ],
+      "note": "단순 인식과 복합 해석의 대비에서 빈칸 내용을 도출한다."
+    },
+    {
+      "id": "mapping-sample-19",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#36/R1: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[18]",
+        "b4-v21/2024#36/r.reference",
+        "source_sha256:f9b655f7b46cfef09fe396dd3061f1ce8fd8bb8aafea0464c4fd6db643164391"
+      ],
+      "note": "적대적 협상을 받는 복수 지시가 A→B를 고정한다."
+    },
+    {
+      "id": "mapping-sample-20",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#38/R3: A/B 일치 관련성 후보가 원문으로 지지된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-packet.local.json[19]",
+        "b4-v21/2024#38/r.discourse_function",
+        "source_sha256:e699cb3b3466c4d7c206f3d83cbbc90e8b63b4d3ec201dd4d44e056967501cbd"
+      ],
+      "note": "양보 기능 문장이 소수 경쟁 비판과 다수 경쟁 반박 사이를 잇는다."
+    },
+    {
+      "id": "mapping-sample-21",
+      "acceptance": 1,
+      "claim": "b3-insert/2026#39/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[20]",
+        "b3-insert/2026#39/e.evidence_location",
+        "source_sha256:3766632f732d88ad2bdaa94f2ccbe3225ab487536438af328f07ca1695c98ac4"
+      ],
+      "note": "근거는 양쪽 모두 같은 공통점 문장이다. 인접 위치를 indirect로 보는 규칙과 탐색 자체를 direct로 보는 적용이 충돌한다."
+    },
+    {
+      "id": "mapping-sample-22",
+      "acceptance": 1,
+      "claim": "b3-insert/M2706#39/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[21]",
+        "b3-insert/M2706#39/e.evidence_location",
+        "source_sha256:5f04669c8d294dd0c058b2fa697a2d0054eb5c2b5d1301eb3c58b670bf149bf4"
+      ],
+      "note": "동일한 문단 경계 근거를 인접성/탐색 필요성으로 달리 읽는다."
+    },
+    {
+      "id": "mapping-sample-23",
+      "acceptance": 1,
+      "claim": "b3-insert/M2609#39/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[22]",
+        "b3-insert/M2609#39/e.evidence_location",
+        "source_sha256:1cc87a43084daaca2a987b0fc2caf33c4ba72b1887bfe555c125f9f4c7550b90"
+      ],
+      "note": "살아남음의 일반화와 피라미드 예시를 함께 보는 탐색을 별도 수행으로 셀지 불명확하다."
+    },
+    {
+      "id": "mapping-sample-24",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#19/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[23]",
+        "b4-v21/M2606#19/e.evidence_location",
+        "source_sha256:3b7c65ce04f5afbbbe74d3b9115329a9e7fdf6328d745a0063ac2babb5ecdf24"
+      ],
+      "note": "감정 단서는 앞뒤로 분산된다. B의 단일 장면 논리는 앞뒤 변화 전체와 맞지 않지만 A indirect도 direct 경계와 경쟁한다."
+    },
+    {
+      "id": "mapping-sample-25",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#22/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[24]",
+        "b4-v21/M2606#22/e.evidence_location",
+        "source_sha256:3ca3477ab441e856c7e27c086fa9d8dd1d6f26a791d8e63a71f89f2efc689702"
+      ],
+      "note": "첫/끝의 명시적 중심과 중간 예시 사이 근거 선택은 가능하다. 별도 탐색 수행 자격이 닫히지 않는다."
+    },
+    {
+      "id": "mapping-sample-26",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#39/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[25]",
+        "b4-v21/M2606#39/e.evidence_location",
+        "source_sha256:7a19f0a6fa28bff4f810d31f0a2fbeb5cbeaef0d3a52a46a5756abdff07e16a6"
+      ],
+      "note": "뒤로 걷는 근거는 정답 자리 바로 앞이다. 이를 distant로 보는 A와 adjacent로 보는 B의 대상 기준이 다르다."
+    },
+    {
+      "id": "mapping-sample-27",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#43/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[26]",
+        "b4-v21/M2606#43/e.evidence_location",
+        "source_sha256:e6d64358cecf31ed60c9bebab9b7f1848a8acaafb23be650197f40dc14c41725"
+      ],
+      "note": "단락 첫/끝에 있다는 이유만으로 흩어진 단서 탐색이 없어지지는 않는다. direct와 무관의 경계 단위가 필요하다."
+    },
+    {
+      "id": "mapping-sample-28",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#31/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[27]",
+        "b4-v21/2024#31/e.evidence_location",
+        "source_sha256:87758967eae1348c27c0e429afb4cbaef84e534f0d59fdb4c3d31e75b7f9a83d"
+      ],
+      "note": "다음 문장만으로 충분한지 앞 인쇄 텍스트 대비까지 필요한지가 갈린다."
+    },
+    {
+      "id": "mapping-sample-29",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#33/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[28]",
+        "b4-v21/2024#33/e.evidence_location",
+        "source_sha256:2c650751a84084cc8b4cfb413cd6baccf5d99a81bcb20d817dba9063f296ee81"
+      ],
+      "note": "실험 결과와 맥락 결여 문장이 함께 지지한다. 최소 충분 근거 범위가 고정되지 않았다."
+    },
+    {
+      "id": "mapping-sample-30",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#37/E2: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[29]",
+        "b4-v21/2024#37/e.evidence_location",
+        "source_sha256:3b109317192686e261d0d8e672fb1a43d68a47770bc1c33ac86a963a80660205"
+      ],
+      "note": "지시 짝이 여러 단락 경계에 분산된다. 위치 탐색을 관계 판정과 독립 수행으로 셀지 불명확하다."
+    },
+    {
+      "id": "mapping-sample-31",
+      "acceptance": 1,
+      "claim": "b3-insert/2026#38/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[30]",
+        "b3-insert/2026#38/v.semantic_relation",
+        "source_sha256:115210240de5a39a564770629b770dd5879c321c880deea0d1ce642b978105d5"
+      ],
+      "note": "정체성과 개인 정체성 표현의 동등성은 실재한다. direct/indirect 결정 기준은 없다."
+    },
+    {
+      "id": "mapping-sample-32",
+      "acceptance": 1,
+      "claim": "b3-insert/2026#39/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[31]",
+        "b3-insert/2026#39/v.semantic_relation",
+        "source_sha256:3766632f732d88ad2bdaa94f2ccbe3225ab487536438af328f07ca1695c98ac4"
+      ],
+      "note": "아바타 신체 공간은 본문에서 행동 가능성으로 정의된다. 정의 재진술과 관계 판정의 경계가 남는다."
+    },
+    {
+      "id": "mapping-sample-33",
+      "acceptance": 1,
+      "claim": "b3-insert/M2609#39/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[32]",
+        "b3-insert/M2609#39/v.semantic_relation",
+        "source_sha256:1cc87a43084daaca2a987b0fc2caf33c4ba72b1887bfe555c125f9f4c7550b90"
+      ],
+      "note": "지속성과 역사적 중요성의 비동등성 논지가 실재한다. 표현 관계와 예시 기능의 독립 기여를 분리하기 어렵다."
+    },
+    {
+      "id": "mapping-sample-34",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#20/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[33]",
+        "b4-v21/M2606#20/v.semantic_relation",
+        "source_sha256:e02281c146439da18005366c4f88de6eb6b817f6feb5de65487f29dfd48f8234"
+      ],
+      "note": "뜻 일치가 본문-선지 대응 안에 포함된다. V4와 E3 중복 처리 규칙이 없다."
+    },
+    {
+      "id": "mapping-sample-35",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#24/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[34]",
+        "b4-v21/M2606#24/v.semantic_relation",
+        "source_sha256:c50a7bece8520e477ecbe6ceb13708c15f8b5fdce29400506cac4deb5a83d3e9"
+      ],
+      "note": "두 필수성 표현은 대응한다. 제목 전체 판정에서 V4를 주 수행으로 셀지 보조로 셀지 미확정이다."
+    },
+    {
+      "id": "mapping-sample-36",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#32/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[35]",
+        "b4-v21/M2606#32/v.semantic_relation",
+        "source_sha256:6bb6c93c93ab2d6d48ee73cc6b6bf537a2abc47c01ac8aba1d90e86aeefdfdf5"
+      ],
+      "note": "외모 설명과 생김새 진술의 동등성을 별도 V4로 셀지 E3에 포함할지 미확정이다."
+    },
+    {
+      "id": "mapping-sample-37",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#34/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[36]",
+        "b4-v21/M2606#34/v.semantic_relation",
+        "source_sha256:05424df2df1eeb06d10dd4290970efcb41fc34b9ad69f9ad76f23cdb8169114c"
+      ],
+      "note": "공간 배열의 재진술은 있지만 특정 오답의 영토 권한 유인이 어휘 관계에서 비롯되는지는 약하다."
+    },
+    {
+      "id": "mapping-sample-38",
+      "acceptance": 1,
+      "claim": "b4-v21/M2606#45/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[37]",
+        "b4-v21/M2606#45/v.semantic_relation",
+        "source_sha256:832ef7285e23fd7ae5916aaa4cf15693a1d73a6aa144ba74671af4cdd94b8c8e"
+      ],
+      "note": "다양한 연령 재진술은 존재하고 가격 반대도 존재한다. E3와 구분된 V4 필요성은 확정하지 않는다."
+    },
+    {
+      "id": "mapping-sample-39",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#23/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[38]",
+        "b4-v21/2024#23/v.semantic_relation",
+        "source_sha256:3a0397e8565138db70009d970654c74de0b5eabd91d863fa2a0565681c1f5dde"
+      ],
+      "note": "균형과 우선의 차이는 실재한다. 이를 표현 관계 수행으로 셀지 선지 범위 대응으로 셀지 경계가 없다."
+    },
+    {
+      "id": "mapping-sample-40",
+      "acceptance": 1,
+      "claim": "b4-v21/2024#33/V4: A/B 중 한 관련성을 확정할 수 있다",
+      "verdict": "unclear",
+      "evidence": [
+        "mapping-packet.local.json[39]",
+        "b4-v21/2024#33/v.semantic_relation",
+        "source_sha256:2c650751a84084cc8b4cfb413cd6baccf5d99a81bcb20d817dba9063f296ee81"
+      ],
+      "note": "맥락 없이는 감정을 특정하기 어렵다는 전제에서 교체 가능성을 도출한다. 논리적 추론과 표현 동등성을 같은 것으로 볼 수 없어 A direct 확정은 보류한다."
+    },
+    {
+      "id": "combined-arithmetic",
+      "acceptance": 2,
+      "claim": "대체 뒤 120문항·2160쌍·관련 링크428·갈림310이다",
+      "verdict": "confirmed",
+      "evidence": [
+        "recomputed.json:combined"
+      ],
+      "note": "40×18+40×18+8×18+40×18−8×18=2160. 문항:TASK 중복 0. 원본 판정에서 재계산한 링크 집합이 결합 산출물과 일치한다."
+    },
+    {
+      "id": "superseded-eight",
+      "acceptance": 2,
+      "claim": "삽입 8문항의 pilot/b2 판정은 제거되고 b3로 대체된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "recomputed.json:combined"
+      ],
+      "note": "구판 144쌍 제거. 구판 잔존 0."
+    },
+    {
+      "id": "third-six-five",
+      "acceptance": 2,
+      "claim": "R3 제3 판정 11개는 다수6/갈림5다",
+      "verdict": "refuted",
+      "evidence": [
+        "recomputed.json:thirdApplied",
+        "b2-v2/r3-third.out.json"
+      ],
+      "note": "원본 11개는 다수7(관련6·무관1)/삼자 갈림4. 삽입2개 대체 후에는 실제 적용9개 중 다수7/갈림2. 2025#36의 무관 다수는 링크가 생성되지 않는 합의이며 갈림이 아니다. 2025#38·39의 제3 판정은 b3 대체로 미적용이다."
+    },
+    {
+      "id": "batches-statistics",
+      "acceptance": 3,
+      "claim": "b3·b4 일치율·κ·주TASK 일치 및 §8 TASK별 κ 수치가 재현된다",
+      "verdict": "confirmed",
+      "evidence": [
+        "recomputed.json:agreements"
+      ],
+      "note": "b3 0.8472/0.6957/6·b4 0.8528/0.6663/33. b2·b4 TASK별 κ는 원본 18판정에서 재계산했다."
+    },
+    {
+      "id": "v21-causal-effect",
+      "acceptance": 3,
+      "claim": "v2.1 R3 경계 변경이 갈림 원인을 줄였음을 κ 상승으로 입증한다",
+      "verdict": "unclear",
+      "evidence": [
+        "recomputed.json:agreements",
+        "CONTRACT_V2_1.md §1"
+      ],
+      "note": "−0.1458→0.4702는 확인되지만 시험·유형 구성·판정자가 함께 달라졌다. 동일 문항 A/B 전후 비교가 없어 계약 인과 효과는 확정하지 않는다."
+    },
+    {
+      "id": "stable-five",
+      "acceptance": 3,
+      "claim": "R6·E1·R5·R4·E3은 b2/b4에서 상대적으로 안정적인 후보 TASK다",
+      "verdict": "confirmed",
+      "evidence": [
+        "recomputed.json:agreements.per_task",
+        "mapping-sample-2,8,9,11,16,17,18"
+      ],
+      "note": "두 배치 κ 각각 R6 .8671/.871, E1 .8671/.8235, R5 1/.774, R4 .6804/.729, E3 .7516/.6878. 후보 설명·후속 검증 범위만 허용한다. 일반화·학생 측정 자격은 입증하지 않는다."
+    },
+    {
+      "id": "v22-e2",
+      "acceptance": 3,
+      "claim": "E2의 인접성/탐색 경계를 다음 계약에서 명확히 할 근거가 있다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-sample-21~30",
+        "recomputed.json:agreements"
+      ],
+      "note": "b2 κ .9061→b4 .4106, b3 일치 .25. 원문 대조에서도 같은 근거 위치의 대상/거리 단위가 갈린다. 제안 규칙의 개선 효과는 미검증이다."
+    },
+    {
+      "id": "v22-v4",
+      "acceptance": 3,
+      "claim": "V4↔E3 경계를 다음 계약에서 명확히 할 근거가 있다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-sample-31~40",
+        "recomputed.json:agreements"
+      ],
+      "note": "표현 관계가 존재한다는 것과 별도 관찰 TASK 자격은 다르다. b2 κ .4975→b4 .3691. 새 규칙의 성능은 미검증이다."
+    },
+    {
+      "id": "v22-e1",
+      "acceptance": 3,
+      "claim": "E1 표준 발문 표가 필요하다는 제안은 타당하지만 제안 표의 개선 효과는 미검증이다",
+      "verdict": "unclear",
+      "evidence": [
+        "CONTRACT_V2.md §2",
+        "mapping-sample-9",
+        "review/verdict.json:D2 E1 이전 반박"
+      ],
+      "note": "부정 발문은 이미 direct 규칙이 있고 표본은 이를 따른다. 두 빈칸·관계없는 발문 표준화가 현 오류를 얼마나 줄일지는 동일 원문 재판정 없이는 확정하지 않는다."
+    },
+    {
+      "id": "insert-triple-eight",
+      "acceptance": 3,
+      "claim": "b3 삽입 8/8 모두 R2·R3·R4 동시 direct다",
+      "verdict": "refuted",
+      "evidence": [
+        "b3-insert-agreement.json:per_task",
+        "recomputed.json:agreements"
+      ],
+      "note": "A/B 공동 direct는 R2 7/8·R3 7/8·R4 8/8이다. R2/R3의 누락이 같은 M2609#38이므로 세 TASK 공동 direct 교집합은 7/8이다."
+    },
+    {
+      "id": "v22-insert-isolation",
+      "acceptance": 3,
+      "claim": "삽입 선택 정답을 R2·R3·R4 각각의 독립 측정값으로 쓸 수 없음에 주의해야 한다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-sample-1~5,20",
+        "insert-triple-eight"
+      ],
+      "note": "같은 위치 판단에서 관계·기능·배열이 중첩됨을 원문으로 확인했다. 8/8이라는 근거는 틀리지만 분리 측정 보류는 합리적이다. 개별 수행 실험으로 불가능성 자체를 입증한 것은 아니다."
+    },
+    {
+      "id": "sparse-tasks",
+      "acceptance": 3,
+      "claim": "120개 결합 후보에서 V2·V3·S1–S3 direct 수는 0–3이다",
+      "verdict": "confirmed",
+      "evidence": [
+        "mapping-coverage.json:per_task"
+      ],
+      "note": "각 3·0·1·0·0. AI 후보의 표본 분포이며 평가원 전체의 측정 불가능성 주장이 아니다."
+    },
+    {
+      "id": "d3-ratio",
+      "acceptance": 3,
+      "claim": "D3 원문근거 오답 분류 일치는 285/468=0.609다",
+      "verdict": "confirmed",
+      "evidence": [
+        "recomputed.json:d3"
+      ],
+      "note": "120문항·480오답 중 원문 미확인 도표3문항의 12오답 제외. 소수 셋째자리 반올림 0.609. 주TASK96/120·동일결정지점47/120도 재현."
+    },
+    {
+      "id": "d3-other",
+      "acceptance": 3,
+      "claim": "순서·삽입에서 other에 분류가 뭉친다",
+      "verdict": "confirmed",
+      "evidence": [
+        "recomputed.json:d3.groups",
+        "M2606#36·2024#37·M2606#38·2024#38 원문 및 오답 16개 대조"
+      ],
+      "note": "순서48오답 중 공동other34(전체 일치34), 삽입48 중 공동other34(전체 일치35). 지시 선행·대조 대상·열거 절단·전환 시점이 같은 범주에 섞인다. 거의 전부는 전체48이 아니라 일치한34/35의 분류를 뜻할 때만 지지된다."
+    },
+    {
+      "id": "d3-grammar",
+      "acceptance": 3,
+      "claim": "어법 분류 일치 0.167은 재현되지만 범주 부재로 단정할 수 없다",
+      "verdict": "confirmed",
+      "evidence": [
+        "recomputed.json:d3.groups",
+        "review/verdict.json:D3-grammar-category-absent"
+      ],
+      "note": "4/24=.1667. 기존 form_error가 있어 적용 경계 문제와 범주 존재를 구분해야 한다."
+    },
+    {
+      "id": "artifacts",
+      "acceptance": 4,
+      "claim": "항목별 3값 판정·근거·범위 제한 및 별도 로컬 원문 패킷을 작성했다",
+      "verdict": "confirmed",
+      "evidence": [
+        "verdict.json",
+        "review.md",
+        ".gitignore"
+      ],
+      "note": "불명확한 항목을 일치 통계만으로 승격하지 않았다. 원문 인용 패킷은 *.local.json으로 git 제외한다."
+    }
+  ],
+  "sample_aggregate": {
+    "insert_split_20": {
+      "confirmed": 20,
+      "refuted": 0,
+      "unclear": 0
+    },
+    "insert_uncertain_10": {
+      "confirmed": 0,
+      "refuted": 10,
+      "unclear": 0
+    },
+    "r1_20": {
+      "confirmed": 19,
+      "refuted": 0,
+      "unclear": 1
+    },
+    "disputed_20": {
+      "confirmed": 0,
+      "refuted": 0,
+      "unclear": 20
+    },
+    "d3": {
+      "items": 4,
+      "wrong_options": 16,
+      "selection": [
+        "M2606#36",
+        "2024#37",
+        "M2606#38",
+        "2024#38"
+      ],
+      "finding": "지시·전환·열거 오류가 other에 합쳐짐을 원문 대조"
+    },
+    "selection": "삽입은 id순 그룹별 등간격 20/10. R1은 b3/b4 결합 후보 중 순서 등간격20. 갈림은 b3/b4 E2 10·V4 10 등간격. 고유 문항 수와 링크 표본 수는 다르다."
+  },
+  "summary": {
+    "total": 91,
+    "confirmed": 55,
+    "refuted": 12,
+    "unclear": 24,
+    "unit": "주장 및 표본 판정 행. 중첩을 포함하므로 문항 정확도가 아니다."
+  },
+  "engine_handoff": [
+    {
+      "id": "insert-partition",
+      "claim": "DB R-INSERT 262개를 현재 규칙으로 238/24 분할한다",
+      "evidence": [
+        "db-checks.json"
+      ],
+      "scope": "HTTP 200 GET 1회. 문항 경계의 의미적 정당성과 정규식 분류 결과는 별개다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "combined-arithmetic",
+      "claim": "대체 뒤 120문항·2160쌍·관련 링크428·갈림310이다",
+      "evidence": [
+        "recomputed.json:combined"
+      ],
+      "scope": "40×18+40×18+8×18+40×18−8×18=2160. 문항:TASK 중복 0. 원본 판정에서 재계산한 링크 집합이 결합 산출물과 일치한다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "superseded-eight",
+      "claim": "삽입 8문항의 pilot/b2 판정은 제거되고 b3로 대체된다",
+      "evidence": [
+        "recomputed.json:combined"
+      ],
+      "scope": "구판 144쌍 제거. 구판 잔존 0.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "batches-statistics",
+      "claim": "b3·b4 일치율·κ·주TASK 일치 및 §8 TASK별 κ 수치가 재현된다",
+      "evidence": [
+        "recomputed.json:agreements"
+      ],
+      "scope": "b3 0.8472/0.6957/6·b4 0.8528/0.6663/33. b2·b4 TASK별 κ는 원본 18판정에서 재계산했다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "stable-five",
+      "claim": "R6·E1·R5·R4·E3은 b2/b4에서 상대적으로 안정적인 후보 TASK다",
+      "evidence": [
+        "recomputed.json:agreements.per_task",
+        "mapping-sample-2,8,9,11,16,17,18"
+      ],
+      "scope": "두 배치 κ 각각 R6 .8671/.871, E1 .8671/.8235, R5 1/.774, R4 .6804/.729, E3 .7516/.6878. 후보 설명·후속 검증 범위만 허용한다. 일반화·학생 측정 자격은 입증하지 않는다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "v22-e2",
+      "claim": "E2의 인접성/탐색 경계를 다음 계약에서 명확히 할 근거가 있다",
+      "evidence": [
+        "mapping-sample-21~30",
+        "recomputed.json:agreements"
+      ],
+      "scope": "b2 κ .9061→b4 .4106, b3 일치 .25. 원문 대조에서도 같은 근거 위치의 대상/거리 단위가 갈린다. 제안 규칙의 개선 효과는 미검증이다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "v22-v4",
+      "claim": "V4↔E3 경계를 다음 계약에서 명확히 할 근거가 있다",
+      "evidence": [
+        "mapping-sample-31~40",
+        "recomputed.json:agreements"
+      ],
+      "scope": "표현 관계가 존재한다는 것과 별도 관찰 TASK 자격은 다르다. b2 κ .4975→b4 .3691. 새 규칙의 성능은 미검증이다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "v22-insert-isolation",
+      "claim": "삽입 선택 정답을 R2·R3·R4 각각의 독립 측정값으로 쓸 수 없음에 주의해야 한다",
+      "evidence": [
+        "mapping-sample-1~5,20",
+        "insert-triple-eight"
+      ],
+      "scope": "같은 위치 판단에서 관계·기능·배열이 중첩됨을 원문으로 확인했다. 8/8이라는 근거는 틀리지만 분리 측정 보류는 합리적이다. 개별 수행 실험으로 불가능성 자체를 입증한 것은 아니다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "sparse-tasks",
+      "claim": "120개 결합 후보에서 V2·V3·S1–S3 direct 수는 0–3이다",
+      "evidence": [
+        "mapping-coverage.json:per_task"
+      ],
+      "scope": "각 3·0·1·0·0. AI 후보의 표본 분포이며 평가원 전체의 측정 불가능성 주장이 아니다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "d3-ratio",
+      "claim": "D3 원문근거 오답 분류 일치는 285/468=0.609다",
+      "evidence": [
+        "recomputed.json:d3"
+      ],
+      "scope": "120문항·480오답 중 원문 미확인 도표3문항의 12오답 제외. 소수 셋째자리 반올림 0.609. 주TASK96/120·동일결정지점47/120도 재현.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "d3-other",
+      "claim": "순서·삽입에서 other에 분류가 뭉친다",
+      "evidence": [
+        "recomputed.json:d3.groups",
+        "M2606#36·2024#37·M2606#38·2024#38 원문 및 오답 16개 대조"
+      ],
+      "scope": "순서48오답 중 공동other34(전체 일치34), 삽입48 중 공동other34(전체 일치35). 지시 선행·대조 대상·열거 절단·전환 시점이 같은 범주에 섞인다. 거의 전부는 전체48이 아니라 일치한34/35의 분류를 뜻할 때만 지지된다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    },
+    {
+      "id": "d3-grammar",
+      "claim": "어법 분류 일치 0.167은 재현되지만 범주 부재로 단정할 수 없다",
+      "evidence": [
+        "recomputed.json:d3.groups",
+        "review/verdict.json:D3-grammar-category-absent"
+      ],
+      "scope": "4/24=.1667. 기존 form_error가 있어 적용 경계 문제와 범주 존재를 구분해야 한다.",
+      "allowed_use": "연구 근거·계약 개선·공급/관찰 범위 설명",
+      "relevance": "unknown",
+      "excluded_use": [
+        "NeedRank 입력",
+        "진단·성취 판정",
+        "출시 적격 승인",
+        "미관찰 문항 일반화"
+      ]
+    }
+  ],
+  "workflow": {
+    "task_start": "NO_AGENT_PID: 조상 프로세스에서 codex를 찾지 못함. Get-CimInstance Win32_Process 접근 거부. 신원을 모르는 다른 codex PID를 지정하지 않고 검증 계속.",
+    "db_writes": 0,
+    "push": false,
+    "commit": {
+      "status": "failed",
+      "sha": null,
+      "command": "git add docs/research/goal-data-batches/review-r3 scripts/research/goal-data/review-r3; git commit --only <동일 두 경로>",
+      "error": "fatal: Unable to create 'D:/workspace/Vocaflow/.git/worktrees/Vocaflow-goal-data-review/index.lock': Permission denied"
+    },
+    "evidence": {
+      "status": "rejected",
+      "error": "[BAD_TRANSITION] READY 에서는 증거를 붙일 수 없다",
+      "file": "scripts/research/goal-data/review-r3/ev.json",
+      "covers": [
+        0,
+        1,
+        2,
+        3,
+        4
+      ],
+      "skip_count": 0,
+      "note": "첫 시도의 UTF-8 BOM JSON 오류는 파일을 BOM 없이 다시 저장해 수정했다. 재시도에서 상태 전이 거부를 확인했다."
+    },
+    "submit": {
+      "status": "rejected",
+      "error": "[BAD_TRANSITION] READY → REVIEW 불가",
+      "task_status": "READY"
+    }
+  },
+  "verification": {
+    "passed": [
+      "DB GET 262행·238/24 재현",
+      "b3 A/B 각8 검증기 통과",
+      "b4 A/B 각40 검증기 통과",
+      "원본 판정 재계산·2160개 고유쌍·결합 링크/갈림 집합 일치",
+      "22개 D2/D3 파일 blob 369381724 일치",
+      "DB30·R1 20·갈림20 원문 대조",
+      "D3 4문항16오답 원문 대조"
+    ],
+    "unrun": [
+      "238/24 전량 의미 판정",
+      "인쇄 원본 대조",
+      "동일문항 계약 전후 효과 실험",
+      "앱 lint/typecheck/E2E: 제품 변경 없음",
+      "허용 경로 커밋: Git index.lock 권한 거부로 실패"
+    ],
+    "skip_count": 0
+  }
+}
