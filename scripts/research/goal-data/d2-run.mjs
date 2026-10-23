@@ -10,7 +10,7 @@ import path from 'node:path'
 
 import { ROOT, nonHeldTasks } from '../../csat/map/v62/data/pilot-lib.mjs'
 
-import { checkChunk, chunkSize, loadTrack, makeValidator } from './d2-validate.mjs'
+import { checkChunk, chunkSize, loadTrack, makeValidator, maskIds } from './d2-validate.mjs'
 
 const [batch, cmd] = process.argv.slice(2)
 const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local', String(batch))
@@ -63,19 +63,30 @@ function validate(only, chunkNo) {
   if (only && !['A', 'B'].includes(only)) { console.error('validate [A|B] [NN]'); process.exit(2) }
   if (chunkNo && !only) { console.error('청크 번호는 트랙과 함께: validate A 01'); process.exit(2) }
   for (const t of only ? [only] : ['A', 'B']) {
-    const { out, errors } = load(t)
     if (!chunkNo) {
+      // 트랙 전체는 청크 모드에서 읽지 않는다 — 다른 청크를 읽다 난 오류가 가림 전에 나가지 않게(T-0126)
+      const { out, errors } = load(t)
       console.log(`${t}: 통과 ${out.size}/${byId.size} · 결함 ${errors.length}`)
       for (const e of errors.slice(0, 80)) console.log('  ' + e)
       bad += errors.length
       continue
     }
     const nn = String(chunkNo).padStart(2, '0')
-    const { own, mine, trackExcluded } = checkChunk(LOCAL, t, nn, nChunks, V)
-    console.log(`${t}-${nn}: 문항 ${own.length} · 이 청크 결함 ${mine.length}`)
-    for (const e of mine.slice(0, 80)) console.log('  ' + e)
-    if (trackExcluded) console.log('  (다른 청크의 트랙 전체 반복 결함으로 이 트랙이 결합에서 배제된 상태 — 내용은 보이지 않는다 · 이 청크 결함이 0 이면 기다린다)')
-    bad += mine.length
+    // 청크 모드의 모든 출력은 maskIds 를 지난다 — 예외 메시지 포함(T-0126 RECHECK2-P1-02)
+    let ownSet = new Set()
+    const say = (s) => console.log(maskIds(s, ownSet))
+    try {
+      const { own, mine, trackExcluded, otherUnreadable } = checkChunk(LOCAL, t, nn, nChunks, V)
+      ownSet = new Set(own)
+      say(`${t}-${nn}: 문항 ${own.length} · 이 청크 결함 ${mine.length}`)
+      for (const e of mine.slice(0, 80)) say('  ' + e)
+      if (otherUnreadable) say('  (다른 청크 출력을 읽을 수 없음 — 내용은 보이지 않는다)')
+      else if (trackExcluded) say('  (다른 청크의 트랙 전체 반복 결함으로 이 트랙이 결합에서 배제된 상태 — 내용은 보이지 않는다 · 이 청크 결함이 0 이면 기다린다)')
+      bad += mine.length
+    } catch (e) {
+      say(`${t}-${nn}: 검사 실패 — ${e.message}`)
+      bad++
+    }
   }
   process.exit(bad ? 1 : 0)
 }

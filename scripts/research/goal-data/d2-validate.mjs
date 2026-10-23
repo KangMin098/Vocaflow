@@ -153,7 +153,9 @@ export function loadTrack(dir, track, nChunks, V, ids) {
   for (let k = 0; k < nChunks; k++) {
     const f = path.join(dir, `chunk-${track}-${String(k + 1).padStart(2, '0')}.out.json`)
     if (!fs.existsSync(f)) { errors.push(`${path.basename(f)} 없음`); continue }
-    const rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? []
+    // 깨진 JSON 은 그 청크 배제(fail-closed) — 예외로 멈추지 않는다(T-0126)
+    let rows
+    try { rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? [] } catch (e) { errors.push(`${track} ${path.basename(f)}: JSON 오류 — ${e.message}`); continue }
     allRows.push(...rows)
     const ce = V.chunk(rows)
     if (ce.length) { errors.push(...ce.map((x) => `${track} ${path.basename(f)}: ${x}`)); continue }
@@ -186,17 +188,24 @@ function chunkItems(dir, track, k) {
   return fs.existsSync(p) ? new Set((JSON.parse(fs.readFileSync(p, 'utf8')).items ?? []).map((r) => r.item_id)) : null
 }
 
-/** 문항 번호 꼴(2021#18 · M2306#22 · 2014A#20) — 청크 출력에서 이 청크 밖 번호를 가린다(T-0125 RECHECK-P1-02: 자유 서술 안의 다른 청크 id 노출) */
-const ITEM_ID = /\b(?:M?\d{4}[AB]?)#\d{1,2}\b/g
+/** 문항 번호 꼴(2021#18 · M2306#22 · 2014A#20 · m2306#22) — 청크 출력에서 이 청크 밖 번호를 가린다(T-0125 RECHECK-P1-02).
+ *  앞뒤 숫자만 막는다 — 단어 경계(\b)는 영문자가 붙으면(x2021#18) 놓쳤다. 대소문자 무시 */
+const ITEM_ID = /(?<!\d)M?\d{4}[AB]?#\d{1,2}(?!\d)/gi
+
+/** 이 청크 밖 문항 번호를 가린다 — 청크 출력은 예외 메시지까지 마지막에 이 한 곳을 지난다(T-0126 RECHECK2-P1-02) */
+export const maskIds = (s, ownSet = new Set()) => String(s).replace(ITEM_ID, (id) => (ownSet.has(id.toUpperCase()) || ownSet.has(id) ? id : '(다른 문항)'))
 
 export function checkChunk(dir, track, nn, nChunks, V) {
   const own = JSON.parse(fs.readFileSync(path.join(dir, `chunk-${track}-${nn}.json`), 'utf8')).items.map((r) => r.item_id)
   const ownSet = new Set(own)
   const mine = []
   const f = path.join(dir, `chunk-${track}-${nn}.out.json`)
-  const rows = fs.existsSync(f) ? JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? [] : null
-  if (!rows) mine.push(`${path.basename(f)} 없음`)
+  let rows = null
+  if (!fs.existsSync(f)) mine.push(`${path.basename(f)} 없음`)
   else {
+    try { rows = JSON.parse(fs.readFileSync(f, 'utf8')).rows ?? [] } catch (e) { mine.push(`${path.basename(f)} JSON 오류: ${e.message}`) }
+  }
+  if (rows) {
     const got = new Set(rows.map((r) => r.item_id))
     for (const id of own) if (!got.has(id)) mine.push(`${id} 출력 없음`)
     for (const r of rows) if (!ownSet.has(r.item_id)) mine.push(`${r.item_id} 이 청크 문항이 아니다`)
@@ -204,17 +213,21 @@ export function checkChunk(dir, track, nn, nChunks, V) {
     if (ce.length) mine.push(...ce.map((x) => `청크: ${x}`))
     else for (const r of rows.filter((x) => ownSet.has(x.item_id))) mine.push(...V.row(r).map((x) => `${r.item_id}: ${x}`))
   }
-  const all = []
+  // 다른 청크 출력은 읽기만 — 깨졌으면 메시지 없이 상태만(JSON.parse 오류 문구가 그 청크 내용 · id 를 담는다)
+  const all = rows ? [...rows] : []
+  let otherUnreadable = false
   for (let k = 0; k < nChunks; k++) {
-    const g = path.join(dir, `chunk-${track}-${String(k + 1).padStart(2, '0')}.out.json`)
-    if (fs.existsSync(g)) all.push(...(JSON.parse(fs.readFileSync(g, 'utf8')).rows ?? []))
+    const kk = String(k + 1).padStart(2, '0')
+    if (kk === nn) continue
+    const g = path.join(dir, `chunk-${track}-${kk}.out.json`)
+    if (!fs.existsSync(g)) continue
+    try { all.push(...(JSON.parse(fs.readFileSync(g, 'utf8')).rows ?? [])) } catch { otherUnreadable = true }
   }
-  let trackExcluded = false
+  let trackExcluded = otherUnreadable
   for (const e of V.reasonsDetail(all)) {
     const hit = e.ids.filter((id) => ownSet.has(id))
     if (hit.length) mine.push(`트랙 ${e.kind}(이 청크 문항 ${hit.join(',')} · 전체 ${e.ids.length}문항)${e.text ? `: 「${e.text}」` : ''}`)
     else trackExcluded = true
   }
-  const masked = mine.map((e) => e.replace(ITEM_ID, (id) => (ownSet.has(id) ? id : '(다른 문항)')))
-  return { own, mine: masked, trackExcluded }
+  return { own, mine: mine.map((e) => maskIds(e, ownSet)), trackExcluded, otherUnreadable }
 }

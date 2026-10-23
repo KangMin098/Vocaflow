@@ -6,7 +6,7 @@ import fs from 'node:fs'
 import os from 'node:os'
 import path from 'node:path'
 
-import { checkChunk, loadTrack, makeValidator } from './d2-validate.mjs'
+import { checkChunk, loadTrack, makeValidator, maskIds } from './d2-validate.mjs'
 
 const input = { contract: 'v2.4', tasks: ['r.central_meaning'], rows: [] }
 const V = makeValidator(input, [])
@@ -135,14 +135,40 @@ if (!usesLoader) bad++
   fs.writeFileSync(path.join(d2, 'chunk-A-02.json'), JSON.stringify({ items: ids.slice(2).map((item_id) => ({ item_id })) }))
   fs.writeFileSync(path.join(d2, 'chunk-A-01.out.json'), JSON.stringify({ rows: [row('2099#1'), row('2099#2')] }))
   fs.writeFileSync(path.join(d2, 'chunk-A-02.out.json'), JSON.stringify({ rows: [row('2099#3'), { ...row('2099#4'), primary_reason: 'x' }] }))
-  const Vm = { ...Vs, row: (r) => (r.item_id === '2099#4' ? ['primary_reason 이 2099#1 과 같다고 적힘'] : []) }
+  const Vm = { ...Vs, row: (r) => (r.item_id === '2099#4' ? ['primary_reason 이 2099#1 과 같다고 적힘 · 붙여 쓴 x2099#2 · (2099#1)'] : []) }
   const m2 = checkChunk(d2, 'A', '02', 2, Vm)
   const oc = [
     { name: '소유권: 첫 행 맞바꿈 → loadTrack 결함 2 · 통과 2(RECHECK-P1-01)', got: lt.errors.filter((e) => e.includes('의 문항이 아니다')).length === 2 && lt.out.size === 2 },
     { name: '소유권: 같은 입력에서 checkChunk 도 01 · 02 각각 결함(두 경로 일치)', got: k1.mine.some((e) => e.includes('이 청크 문항이 아니다')) && k2.mine.some((e) => e.includes('이 청크 문항이 아니다')) },
-    { name: 'id 가림: 자유 서술 속 다른 청크 id 는 (다른 문항) 으로(RECHECK-P1-02)', got: m2.mine.some((e) => e.includes('(다른 문항)')) && !m2.mine.some((e) => e.includes('2099#1')) && m2.mine.some((e) => e.includes('2099#4')) },
+    { name: 'id 가림: 자유 서술 속 다른 청크 id 는 (다른 문항) 으로(RECHECK-P1-02)', got: m2.mine.some((e) => e.includes('(다른 문항)')) && !m2.mine.some((e) => e.includes('2099#1') || e.includes('2099#2')) && m2.mine.some((e) => e.includes('2099#4')) },
   ]
   for (const c of oc) { console.log(`${c.got ? 'ok ' : 'FAIL'} ${c.name}`); if (!c.got) bad++ }
+}
+
+
+// id 가림 경계 · 깨진 JSON(T-0126 RECHECK2-P1-02)
+{
+  const own = new Set(['2099#3'])
+  const m = maskIds('xM2306#21 · 2022#33_ · (2021#18) · m2306#22 · 2014A#20 · 2099#3', own)
+  const ids = ['2099#1', '2099#2', '2099#3', '2099#4']
+  const real = makeValidator({ contract: 'v2.4', tasks: ['r.central_meaning'], batch: 'b17-v24', rows: ids.map((item_id) => ({ item_id })) }, [])
+  const Vs = { row: () => [], chunk: () => [], reasons: real.reasons, reasonsDetail: real.reasonsDetail }
+  const d = fs.mkdtempSync(path.join(os.tmpdir(), 'd2-broken-'))
+  fs.writeFileSync(path.join(d, 'chunk-A-01.json'), JSON.stringify({ items: ids.slice(0, 2).map((item_id) => ({ item_id })) }))
+  fs.writeFileSync(path.join(d, 'chunk-A-02.json'), JSON.stringify({ items: ids.slice(2).map((item_id) => ({ item_id })) }))
+  fs.writeFileSync(path.join(d, 'chunk-A-01.out.json'), '{"rows":[{"item_id":"2099#1"} 2099#2 }}}')
+  fs.writeFileSync(path.join(d, 'chunk-A-02.out.json'), JSON.stringify({ rows: [{ item_id: '2099#3', primary_reason: '첫 단락 결론을 압축하면 정답만 남는다' }, { item_id: '2099#4', primary_reason: '부정 발문 방향을 놓치면 반대 선지로 간다' }] }))
+  const k2 = checkChunk(d, 'A', '02', 2, Vs)
+  const k1 = checkChunk(d, 'A', '01', 2, Vs)
+  let lt = null
+  try { lt = loadTrack(d, 'A', 2, Vs, ids) } catch { lt = null }
+  const bc = [
+    { name: 'id 가림: 영문자 · 밑줄 · 괄호 · 소문자 · 2014A 는 가리고 자기 문항은 남김', got: !/M2306#21|2022#33|2021#18|2306#22|2014A#20/i.test(m) && m.includes('2099#3') },
+    { name: '깨진 JSON: 다른 청크가 깨져도 자기 청크는 결함 0 · 상태만(내용 없음)', got: k2.otherUnreadable && k2.mine.length === 0 },
+    { name: '깨진 JSON: 자기 청크가 깨지면 결함 1 · 다른 청크 id 비노출', got: k1.mine.length === 1 && k1.mine[0].includes('JSON 오류') && !k1.mine[0].includes('2099#3') },
+    { name: '깨진 JSON: loadTrack 은 멈추지 않고 그 청크만 배제(통과 2)', got: lt !== null && lt.out.size === 2 },
+  ]
+  for (const c of bc) { console.log(`${c.got ? 'ok ' : 'FAIL'} ${c.name}`); if (!c.got) bad++ }
 }
 
 process.exit(bad ? 1 : 0)
