@@ -1,0 +1,250 @@
+{
+  "task_id": "T-0125",
+  "owner_id": "goal-data-independent",
+  "result": "pass",
+  "result_semantics": "verification performed; unresolved assertions and new findings remain",
+  "skip_count": 0,
+  "input": {
+    "commit": "b447ccf406dcd264c75e1622bcc44905bf84a1c8",
+    "base_commit": "d1707f73c31dfe4c18337075d88624ece821295b",
+    "diff_sha256": "b08146fc1c8a6a7d114f154cf0b6cbdce01c08f30799bc9d0c0f988c1ddb124e",
+    "source_worktree_read_only": true,
+    "execution": "Pinned actual runner and actual pilot validateRow/validateChunk via VM modules; filesystem writes confined to in-memory overlay; no validator function stubs",
+    "local_packets": 296,
+    "source_packets_unchanged": true
+  },
+  "observed_at": "2026-10-23T11:05:55.056Z",
+  "checks": {
+    "total": 514,
+    "failed": 0,
+    "shipped": 23,
+    "random_boundary_cases": 160,
+    "seed": 125,
+    "ownership_divergences": 20
+  },
+  "previous_findings": [
+    {
+      "id": "T-0124 P1-01",
+      "status": "resolved",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:187"
+      ]
+    },
+    {
+      "id": "T-0124 P1-02",
+      "status": "resolved",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:199"
+      ]
+    }
+  ],
+  "acceptance": [
+    {
+      "index": 0,
+      "status": "unresolved",
+      "detail": "T-0124 P1-01/02 resolved with complete real row/chunk functions: own empty output has 20 missing rows and exit1; fourth participant has one track defect and exit1. Ordinary counterexamples expose no foreign IDs. However the broader no-foreign-ID contract is unresolved: free reason text leaks a foreign ID (RECHECK-P1-02).",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:187",
+        "scripts/research/goal-data/d2-validate.mjs:199",
+        "scripts/research/goal-data/d2-validate.mjs:201",
+        "scripts/research/goal-data/d2-run.mjs:75"
+      ]
+    },
+    {
+      "index": 1,
+      "status": "unresolved",
+      "detail": "160 deterministic boundary cases preserve reasons/reasonsDetail projection and track exclusion. State-only clean chunk yields track out.size=0, agree pairs=0 and all 40 HUMAN_REVIEW_REQUIRED. But ownership swaps give chunk defect sum4 versus loadTrack errors0, full validate exit0, agree pairs240 (RECHECK-P1-01). Counts need not be numerically equal for track groups or exclusion-derived missing rows; acceptance contradiction is established by actual disagreeing acceptance.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:151",
+        "scripts/research/goal-data/d2-validate.mjs:163",
+        "scripts/research/goal-data/d2-validate.mjs:187",
+        "scripts/research/goal-data/d2-validate.mjs:188",
+        "scripts/research/goal-data/d2-run.mjs:107"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "resolved",
+      "detail": "Shipped 23/23; the shipped last three use stubs, independently replaced here by complete actual b16 sources and validators. First b14 B01 defects3/exit1, B02 defects0/exit0 with state notice; final b16 A01/A02/B01/B02 clean. All 16 captured b2-b16 batch variants have identical full validate logs/exits across old/new commits. Manual-only output correction instruction present at the target.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.check.mjs:84",
+        "scripts/research/goal-data/d2-validate.mjs:189",
+        "docs/research/goal-data-batches/D2-task-mapping/prompts/batch-analyst.md:14"
+      ]
+    },
+    {
+      "index": 3,
+      "status": "resolved",
+      "detail": "Both requested artifacts, two new P1 findings, zero new P0, and one-line b17 hold decision recorded. Review pass means completed verification, not all acceptance assertions satisfied.",
+      "references": [
+        "docs/research/goal-data-batches/review-b16/recheck.json:1",
+        "docs/research/goal-data-batches/review-b16/recheck.md:1"
+      ]
+    }
+  ],
+  "new_p0": 0,
+  "new_p1": 2,
+  "findings": [
+    {
+      "id": "RECHECK-P1-01",
+      "priority": "P1",
+      "status": "unresolved",
+      "title": "loadTrack accepts rows assigned to the wrong chunk while checkChunk rejects them",
+      "introduced_by_diff": false,
+      "trigger": "Exchange the first valid A01 and A02 rows, preserving all 40 IDs exactly once and every row field.",
+      "observed": {
+        "chunk_defects": [
+          2,
+          2
+        ],
+        "whole_track_defects": 0,
+        "whole_validate_exit": 0,
+        "agree_pairs": 240
+      },
+      "impact": "A chunk validation failure is not enforced at combination. The documented per-chunk ownership contract can be bypassed by full-track validation/agreement. Existing loader omission becomes explicit divergence with the new checker; not evidence of trackExcluded leakage.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:156",
+        "scripts/research/goal-data/d2-validate.mjs:163",
+        "scripts/research/goal-data/d2-validate.mjs:187",
+        "scripts/research/goal-data/d2-validate.mjs:188",
+        "scripts/research/goal-data/d2-run.mjs:107"
+      ],
+      "recommendation": "Share structured chunk ownership/missing checks with loadTrack, enforce them before accepting rows, and cover a real runner swap counterexample."
+    },
+    {
+      "id": "RECHECK-P1-02",
+      "priority": "P1",
+      "status": "unresolved",
+      "title": "Foreign chunk IDs remain visible in reason text despite filtered affected-ID lists",
+      "introduced_by_diff": true,
+      "trigger": "Give two A01 rows and one A02 row the same not_observable reason beginning with the ID of a different A01 row; retain valid complete row data.",
+      "observed": {
+        "own_chunk_defects": 1,
+        "exit": 1,
+        "old_version_redacts": true,
+        "new_version_leaks": true
+      },
+      "impact": "The own-ID list is filtered, but e.text is interpolated verbatim. The old runner redacted foreign IDs throughout the message. The new runner leaks a known foreign ID even without misplaced rows; wrong-chunk row errors also print foreign IDs directly.",
+      "references": [
+        "scripts/research/goal-data/d2-validate.mjs:133",
+        "scripts/research/goal-data/d2-validate.mjs:136",
+        "scripts/research/goal-data/d2-validate.mjs:188",
+        "scripts/research/goal-data/d2-validate.mjs:201"
+      ],
+      "recommendation": "Redact all known foreign IDs from every rendered diagnostic, including reason snippets, row/chunk messages and wrong-chunk-ID diagnostics, while preserving structured membership internally."
+    }
+  ],
+  "b17": {
+    "allowed": false,
+    "decision": "b17 보류 — 청크 소유권의 결합 우회와 다른 청크 ID 비노출 회귀를 수정·재검증한 뒤 연구 후보 확대 재개."
+  },
+  "regression": [
+    {
+      "batch": "b11-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b12-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b13-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b14-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b15-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b16-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b2-v2",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b3-insert",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b4-v21",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b5-v22",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b6-v23",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b7-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b8-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b9-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b9t-v24",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    },
+    {
+      "batch": "b9t-v25",
+      "unchanged": true,
+      "before_exit": "EXIT 0",
+      "after_exit": "EXIT 0"
+    }
+  ],
+  "limitations": [
+    "No production DB read/write, product build/E2E, learner measurement or remote/main integration performed; none counted as passed.",
+    "Generated b16 exposure history and semantic uncertainty from T-0124 are not retrospectively resolved.",
+    "The 160 deterministic cases are exploration, not exhaustive proof."
+  ],
+  "raw_evidence": [
+    "scripts/research/goal-data/review-b16/recheck.local.json",
+    "scripts/research/goal-data/review-b16/recheck-diff.local.json",
+    "scripts/research/goal-data/review-b16/packets.local.json",
+    "scripts/research/goal-data/review-b16/recheck-finish.local.json"
+  ]
+}
