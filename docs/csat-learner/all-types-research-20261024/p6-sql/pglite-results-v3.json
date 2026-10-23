@@ -1,0 +1,156 @@
+{
+ "results": [
+  {
+   "name": "마이그레이션 적용",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "name": "같은 client_exposure_id 재전송 → 같은 id · 1행",
+   "pass": true
+  },
+  {
+   "name": "같은 id 로 다른 내용 → 거부",
+   "pass": true
+  },
+  {
+   "name": "결정적 단서는 강의 경로만(kind·source 제약)",
+   "pass": true
+  },
+  {
+   "name": "없는 사용자 → 거부",
+   "pass": true
+  },
+  {
+   "name": "사용자 null → 거부",
+   "pass": true
+  },
+  {
+   "name": "발생 시각이 10분 넘게 다르면 clock_suspect",
+   "pass": true
+  },
+  {
+   "name": "잘못된 digest 형식 → 거부",
+   "pass": true
+  },
+  {
+   "name": "기록 실패 시 트랜잭션 롤백 · 행 없음(fail-closed 전제)",
+   "pass": true
+  },
+  {
+   "name": "학습자 INSERT 거부",
+   "pass": true
+  },
+  {
+   "name": "학습자 RPC 실행 거부",
+   "pass": true
+  },
+  {
+   "name": "학습자 UPDATE 거부",
+   "pass": true
+  },
+  {
+   "name": "학습자 DELETE 거부",
+   "pass": true
+  },
+  {
+   "name": "학습자는 본인 행만 본다(RLS)",
+   "pass": true,
+   "detail": [
+    "11111111-1111-1111-1111-111111111111"
+   ]
+  },
+  {
+   "name": "익명 SELECT 거부",
+   "pass": true
+  },
+  {
+   "name": "service_role UPDATE 거부(권한)",
+   "pass": true
+  },
+  {
+   "name": "service_role TRUNCATE 거부",
+   "pass": true
+  },
+  {
+   "name": "실학습자 행 DELETE 거부(트리거)",
+   "pass": true
+  },
+  {
+   "name": "합성 행 DELETE 허용",
+   "pass": true
+  },
+  {
+   "name": "소유자(postgres)도 UPDATE 불가(트리거)",
+   "pass": true
+  },
+  {
+   "name": "추적 이전 시도(exposure_order_at 없음) → legacy_unknown",
+   "pass": true
+  },
+  {
+   "name": "추적 이후 시도는 순서 시각이 채워진다(트리거)",
+   "pass": true
+  },
+  {
+   "name": "노출 없는 FIND/CHECK 첫 시도 → independent_candidate",
+   "pass": true
+  },
+  {
+   "name": "나중 노출이 앞 시도를 바꾸지 않음(비소급)",
+   "pass": true
+  },
+  {
+   "name": "노출 뒤 첫 시도 → after_exposure",
+   "pass": true
+  },
+  {
+   "name": "정답 먼저 보기 · 도움 → helped",
+   "pass": true
+  },
+  {
+   "name": "같은 단계 두 번째 시도 → repeat",
+   "pass": true
+  },
+  {
+   "name": "TRANSFER(phase transfer) → not_check_phase",
+   "pass": true
+  },
+  {
+   "name": "practice 화면(activity practice) → not_check_phase",
+   "pass": true
+  },
+  {
+   "name": "REPAIR 류(phase review · 도움 뒤 재수행) → 독립 후보 아님",
+   "pass": true
+  },
+  {
+   "name": "해설 열람 뒤 → helped(기존 뷰 판정)",
+   "pass": true
+  },
+  {
+   "name": "세션 결속 없음 → unbound",
+   "pass": true
+  },
+  {
+   "name": "정오 없음 → ungraded",
+   "pass": true
+  },
+  {
+   "name": "학습자는 남의 시도를 판정할 수 없다(RLS → null)",
+   "pass": true
+  },
+  {
+   "name": "익명은 판정 함수 실행 불가",
+   "pass": true
+  },
+  {
+   "name": "계정 삭제 시 노출 행 cascade 삭제(실학습자 행도)",
+   "pass": true
+  },
+  {
+   "name": "같은 요청 10회 동시 호출(단일 연결 직렬) → 1행",
+   "pass": true
+  }
+ ]
+}
