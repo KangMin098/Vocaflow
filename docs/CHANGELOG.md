@@ -194,6 +194,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- docs(csat): S1 최종 통합 상세설계 초안(T-0138) — `docs/csat-learner/skeleton-v4/s1-integration/` 공통 교수·공개·강의·기록·결속 계약, 유형×판단 매트릭스·유형 도구 계약·교차 검증, 충돌 해결·34 이관 차이·이견, 준비도·S2 제한 후보. 독립 검증 전 DRAFT · 코드/DB 변경 없음.
 - docs(csat): 전역 기본골격 v4.0 S0 읽기 전용 실사(T-0131) — `docs/csat-learner/skeleton-v4/s0/` 유형 등록부(독해 3,698/3,714 매핑 · UNMAPPED 16 · 듣기 DB 0 · 로컬 수능 듣기 248문항·18유형)·준비도 행렬·대표/경계 표본·공백 등록부·S1 어댑터 계획. 강의 cue 수정은 후보만. Codex 독립 대조 정정 8건 반영. DB·코드 변경 없음.
 - feat(csat): 최종 평가 결속 — 학습자가 목표 버전마다 「목표 시험 종류 · 응시일」을 최종 평가로 한 번 정하고(추론 금지), 그날 첫 풀이 live 기록만 goalOutcome 적격성으로 판정(met·not_met·not_judgeable·scheduled·awaiting_record). API `POST /api/csat/diagnosis/map/goal/final-assessment`. 제안 SQL `20261023170000_csat_goal_final_assessment`(추가 전용 테이블 + service_role writer) 2026-10-23 사용자 승인 후 개발 DB 적용(이력 20261023082930) · 실제 인증 종단 6/6.
 - feat(csat): 목표 대비 · 재처방 카드를 비교 구조로(T-0110) — 점수 축(목표·기록 표식) · 시험 기록 vs TASK 활동 대조, 재처방은 지금 배정·저장 계획대로·수정안 비교표(오늘의 학습과 같은 지금 값). 점수 충족·등급 미기록 다음 안내 record_grade. 판정·DB 변경 없음.
