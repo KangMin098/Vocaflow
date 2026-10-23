@@ -1,0 +1,113 @@
+{
+  "task": "T-0132",
+  "owner": "goal-data-independent",
+  "input_commit": "aa851c2772d84fec4436cb96e60cd1c96bbb7e25",
+  "diff_base": "98ba78332",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; 주장 전체 통과 또는 데이터 결함 해소가 아님",
+  "skip_count": 0,
+  "acceptance": [
+    {
+      "index": 0,
+      "status": "confirmed",
+      "claim": "B19 네 청크·B18 A01 손 원본 재조립과 최종 출력 바이트 일치; 관측 기록에서 출력 직접 수정 0",
+      "evidence": [
+        "scripts/research/goal-data/review-b19/assembly.mjs:10",
+        "scripts/research/goal-data/review-b19/provenance.mjs:6",
+        "scripts/research/goal-data/review-b19/row-review.md:1"
+      ],
+      "limits": "최초 snapshot 이전 변경은 원세션 Write/Edit로 확인; 관측 밖 동작 부재는 절대 증명하지 않음"
+    },
+    {
+      "index": 1,
+      "status": "confirmed",
+      "claim": "40 선정·해시·224/240·kappa .880273·primary37/40·R4 .692982·경보·b2–b19 회귀·실행기·프롬프트 재계산",
+      "evidence": [
+        "scripts/research/goal-data/review-b19/audit.mjs:45",
+        "scripts/research/goal-data/review-b19/supplement.mjs:5",
+        "scripts/research/goal-data/review-b19/verify-diff.mjs:9",
+        "scripts/research/goal-data/review-b19/regression.mjs:8",
+        "scripts/research/goal-data/review-b19/provenance.mjs:6"
+      ],
+      "limits": "금지 내용 노출은 관측되지 않음; 절대 미접근은 unclear"
+    },
+    {
+      "index": 2,
+      "status": "refuted",
+      "claim": "원천 결손·not_suitable 타당은 confirmed이나 진단/원천 근거 제외가 모든 생성물에 전파됐다는 주장은 refuted",
+      "evidence": [
+        "D:/workspace/Vocaflow-main-serving/scripts/csat/lib-passage.mjs:254",
+        "D:/workspace/Vocaflow-main-serving/scripts/csat/build-corpus.mjs:124",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d1-source-audit.mjs:61",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d3-build.mjs:55",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:2639",
+        "scripts/research/goal-data/review-b19/detect-source-gap.sql:1"
+      ],
+      "limits": "라이브 DB 상태·제품 진단 소비 경로는 DB 접근 없이 unclear. Claude 추가 조회 필요: detect-source-gap.sql"
+    },
+    {
+      "index": 3,
+      "status": "unclear",
+      "claim": "후보10·갈림10·primary갈림3 합집합22 원문 대조 완료; 의미·primary Gold는 미확정",
+      "evidence": [
+        "scripts/research/goal-data/review-b19/row-review.md:1",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:31"
+      ]
+    },
+    {
+      "index": 4,
+      "status": "confirmed",
+      "claim": "verdict/review·새 P0/P1·다음 배치 가부·unclear 기록",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b19/review.md:1",
+        "docs/research/goal-data-batches/review-b19/verdict.json:1"
+      ]
+    }
+  ],
+  "findings": [
+    {
+      "id": "B19-P1-01",
+      "severity": "P1",
+      "title": "확인된 지문 결손이 D3 source_text 집계에서 격리되지 않음",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d3-build.mjs:55",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl:660",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:2639"
+      ],
+      "impact": "1문항·4오답이 source_text에 포함; 결손 선지③도 source_text. 이 문항을 원천 결손으로 격리하면 source_text 오답2644→2640, 그 중 일치1895→1892; 전체 원장666/2664는 보존 가능",
+      "scope": "D2 공개 relevance는 unknown; not_suitable은 agreement에 남지만 R1 링크2행은 eligibility 필드가 없어 단독으로 진단 적격성을 증명하지 못함",
+      "remedy": "DB를 바꾸기 전에 승인된 원천 결손 표식을 문항/선지에 결속하고 D3 생성·집계 제외 가드를 소유자 경로에서 보완. not_suitable 전부를 source_gap으로 치환하면 정상 삽입/어법도 오분류되므로 금지."
+    }
+  ],
+  "new_p0": 0,
+  "new_p1": 1,
+  "next_batch": "보류 — B19-P1-01의 결손 전파·집계 격리 확인 후 v2.4 연구 후보 확대 가능",
+  "unclear": [
+    "라이브 DB와 제품 진단 소비 경로",
+    "관측 밖 노출·절대 미접근",
+    "원문 PDF와 대조한 복구 승인",
+    "심경·다중 direct·배열 대 중심의 의미 Gold"
+  ],
+  "verification": {
+    "failed": 0,
+    "static_and_binding_checks": 531,
+    "supplement_additional": 49,
+    "assembly_replays": 5,
+    "isolated_regressions": 32,
+    "local_batch_variants": 19,
+    "source_gap_scan": {
+      "items": 630,
+      "hits": [
+        "2014A#29"
+      ]
+    },
+    "provenance": true
+  },
+  "not_run": [
+    "DB 접근·쓰기·마이그레이션",
+    "제품 build/E2E",
+    "사람 Gold·학생 측정",
+    "main·원격 통합"
+  ],
+  "raw_evidence": "동일 폴더 *.local.json (gitignore)"
+}
