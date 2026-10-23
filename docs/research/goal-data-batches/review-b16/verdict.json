@@ -1,0 +1,865 @@
+{
+  "task_id": "T-0124",
+  "owner": "goal-data-independent",
+  "session": "t-0124-codex",
+  "source_commit": "d1707f73c31dfe4c18337075d88624ece821295b",
+  "base_commit": "1d4d3d30a",
+  "observed_at": "2026-10-23T10:58:08.251Z",
+  "type": "review",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; 모든 수용 주장 통과를 뜻하지 않음",
+  "skip_count": 0,
+  "acceptance": [
+    {
+      "index": 0,
+      "status": "confirmed",
+      "why": "20/20 회귀와 실제 1+1·1+2 runner 차단, 임의 E2 차단, 32트랙 재적용 적발4/허용b6, 문항별 정당 설명 허용을 재현. 정확 비교는 공백 정규화 이후이며 구두점 변형은 예외가 아니다.",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:20",
+        "scripts/research/goal-data/d2-validate.mjs:131",
+        "scripts/research/goal-data/review-b16/guards.mjs:10"
+      ]
+    },
+    {
+      "index": 1,
+      "status": "refuted",
+      "why": "정상 자기 청크·교차 청크 ID 가림과 배제 트랙 결합 차단은 확인했지만 P1-01/02로 자기 누락과 네 번째 반복 참여가 결함0으로 숨는다.",
+      "evidence": [
+        "scripts/research/goal-data/d2-run.mjs:78",
+        "scripts/research/goal-data/d2-run.mjs:80",
+        "scripts/research/goal-data/d2-validate.mjs:165"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "confirmed",
+      "why": "40선정·해시·κ·34/40·경보·history·dedup을 재현하고 프롬프트와 노출 예외를 기록. 절대 독립성과 의미 Gold는 확인한 사실에 포함하지 않는다. 노출 셋이라는 문서 수치는 refuted(네 분석자).",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/b16-v24-agreement.json:1",
+        "scripts/research/goal-data/review-b16/supplement.mjs:8",
+        "scripts/research/goal-data/review-b16/row-review.md:1"
+      ]
+    },
+    {
+      "index": 3,
+      "status": "unclear",
+      "why": "후보10·갈림10 및 primary갈림6의 원문 대조를 완료. 연구 후보 근거는 지지하되 의미 갈림·primary 단일 우열·사람 Gold는 미확정.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/b16-v24-review-sample.json:1",
+        "scripts/research/goal-data/review-b16/row-review.md:1"
+      ]
+    },
+    {
+      "index": 4,
+      "status": "confirmed",
+      "why": "verdict/review, 새 P0=0/P1=2, b17 보류와 unclear를 기록.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b16/verdict.json:1",
+        "docs/research/goal-data-batches/review-b16/review.md:1"
+      ]
+    }
+  ],
+  "checks": {
+    "total": 420,
+    "failed": 0,
+    "source_packets_unchanged": true
+  },
+  "new_P0": 0,
+  "new_P1": 2,
+  "findings": [
+    {
+      "id": "P1-01",
+      "severity": "P1",
+      "status": "confirmed",
+      "title": "외부 반복 배제가 자기 청크의 실제 누락을 숨긴다",
+      "evidence": [
+        "scripts/research/goal-data/d2-run.mjs:79",
+        "scripts/research/goal-data/d2-run.mjs:80",
+        "scripts/research/goal-data/review-b16/guards.mjs:56"
+      ],
+      "reproduction": "b16 A01 첫 3문항에 반복 사유를 넣고 A02 출력 파일은 rows=[]로 둔다. validate A 02는 통과 0/20·결함0·exit0. 파일 존재만으로 자기 청크 누락을 모두 배제 탓으로 간주한다.",
+      "impact": "분석자는 기다리라는 안내를 받고 누락된 자기 출력을 고치지 못한다. 현재 agree는 트랙을 배제하므로 잘못된 링크 적재는 재현되지 않았다.",
+      "recommendation": "자기 청크의 실제 ID 집합·행 유효성·누락을 트랙 배제 이전에 확인한다. 트랙 배제로 생긴 출력 없음만 별도 상태로 표시한다."
+    },
+    {
+      "id": "P1-02",
+      "severity": "P1",
+      "status": "confirmed",
+      "title": "반복 그룹의 처음 세 ID로 참여 청크를 추정해 네 번째 문항이 사라진다",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:134",
+        "scripts/research/goal-data/d2-run.mjs:78",
+        "scripts/research/goal-data/d2-run.mjs:80"
+      ],
+      "reproduction": "b16 A01 첫 3문항과 A02 첫 문항에 동일 사유를 둔다. 트랙 오류는 앞의 3개 ID만 싣고, validate A 02는 자기 문항도 반복 그룹 소속인데 결함0·exit0이다.",
+      "impact": "청크 경계를 넘는 반복을 해당 분석자가 고칠 수 없고, 서로 기다리는 상태가 가능하다. agree의 out.clear는 유지돼 결합 유출은 없다.",
+      "recommendation": "오류를 문자열로 역해석하지 말고 전체 affected_item_ids·chunk·kind를 가진 구조로 전달한다. 화면에 보일 ID만 자기 청크로 제한한다."
+    }
+  ],
+  "b17": "보류 — 실행기 P1-01/02를 수정하고 두 반례·기존 청크 가림을 회귀한 뒤 연구 후보 확대만 재개",
+  "unclear": [
+    "학습자 수행·학습효과",
+    "사람 Gold·의미 갈림과 primary 단일 우열",
+    "로그 밖 접근·오염 인과 부재",
+    "현 DB 상태(DB scope none)",
+    "관측 필드 정의와 재판정은 계속 유예·근거 사용 금지"
+  ],
+  "metrics": {
+    "overall": {
+      "n": 240,
+      "agree": 227,
+      "agreement": 0.9458333333333333,
+      "kappa": 0.8996913580246912
+    },
+    "per_task": {
+      "r.central_meaning": {
+        "n": 40,
+        "agree": 38,
+        "agreement": 0.95,
+        "kappa": 0.9097065462753949
+      },
+      "r.inference": {
+        "n": 40,
+        "agree": 38,
+        "agreement": 0.95,
+        "kappa": 0.8039215686274509
+      },
+      "e.task_demand": {
+        "n": 40,
+        "agree": 40,
+        "agreement": 1,
+        "kappa": 1
+      },
+      "e.option_correspondence": {
+        "n": 40,
+        "agree": 38,
+        "agreement": 0.95,
+        "kappa": 0.9226305609284332
+      },
+      "r.discourse_structure": {
+        "n": 40,
+        "agree": 36,
+        "agreement": 0.9,
+        "kappa": 0.8198198198198199
+      },
+      "e.evidence_location": {
+        "n": 40,
+        "agree": 37,
+        "agreement": 0.925,
+        "kappa": 0.8607888631090487
+      }
+    },
+    "primary_agree": 34,
+    "total": 40,
+    "r1": 81,
+    "disputed": 13,
+    "combined_items": 546,
+    "combined_r1": 1293,
+    "combined_disputed": 493
+  },
+  "row_reviews": [
+    {
+      "item": "2020#38",
+      "status": "confirmed",
+      "why": "생존 최적지와 번식 최적지의 불일치 뒤 텃새의 비용 감수, 철새 대조로 이어지는 배열이 ④를 지지한다. R4 묶음 교수 사례이며 E2·독립 진단으로 분리하지 않는다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:3068",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:2198",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:2204"
+      ],
+      "candidate_tasks": [
+        "r.discourse_structure"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#39",
+      "status": "confirmed",
+      "why": "시청자 분산에 대한 걱정에서 반론으로 바뀐 뒤 이점이 추가되는 경계가 ③이다. R4 후보를 지지하며 삽입 단독 수행 관측은 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:3248",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:4",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:4"
+      ],
+      "candidate_tasks": [
+        "r.discourse_structure"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": false
+    },
+    {
+      "item": "2019#26",
+      "status": "confirmed",
+      "why": "영화의 제목 동일 여부가 ④의 불일치를 만든다. 부정 발문 E1 후보는 지지되며 실제 결정은 E2·E3도 함께 필요하다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:5475",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:1738",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1680"
+      ],
+      "candidate_tasks": [
+        "e.task_demand"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": false
+    },
+    {
+      "item": "2019#27",
+      "status": "unclear",
+      "why": "예약 불필요인 주석과 ⑤의 반대 진술이 정답을 지지한다. E1 후보는 지지하되, 주석 위치 탐색 E2와 부정어 대조 E3의 primary 우열은 확정하지 않는다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:5627",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:1860",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1801"
+      ],
+      "candidate_tasks": [
+        "e.task_demand"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": true
+    },
+    {
+      "item": "2019#29",
+      "status": "confirmed",
+      "why": "수동태를 받는 대동사 형태 오류가 ②를 지지한다. E1은 제한된 TASK 집합 안의 후보이며 실제 어법 수행을 대체하지 않는다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:5926",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:2096",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:2033"
+      ],
+      "candidate_tasks": [
+        "e.task_demand"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": false
+    },
+    {
+      "item": "2019#30",
+      "status": "unclear",
+      "why": "물 위에서 사냥하기 쉬운 문맥과 ⑤의 힘들다는 부사가 충돌한다. E1 후보는 지지한다. A는 같은 문장 운반 용이성을, B는 앞의 사냥 취약성을 근거로 삼아 E2 무관/간접이 갈린다. 운반과 사냥의 단계 차이는 B 근거에 유리하지만 계약 Gold는 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:6064",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:2196",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:2132"
+      ],
+      "candidate_tasks": [
+        "e.task_demand"
+      ],
+      "disputed_tasks": [
+        "e.evidence_location"
+      ],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#26",
+      "status": "confirmed",
+      "why": "자녀 수 세기의 불운과 ⑤의 행운이 반대다. E1 후보를 지지하며 E3가 실제 정답 대조에 관여한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:1152",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:822",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:826"
+      ],
+      "candidate_tasks": [
+        "e.task_demand"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#27",
+      "status": "unclear",
+      "why": "이메일 제출 항목과 방문 제출 선지 ③이 반대다. 안내문 끝의 웹 방문 요청은 다른 기능이다. E1 후보는 지지하나 E2 탐색/E3 대조의 primary 우열은 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:1308",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:945",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:947"
+      ],
+      "candidate_tasks": [
+        "e.task_demand"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": true
+    },
+    {
+      "item": "2020#29",
+      "status": "confirmed",
+      "why": "관계절 내부의 수식 분사와 문장 본동사의 구별이 ④ 오류를 지지한다. E1은 부정 요구 후보이고 어법 주 수행은 집합 밖이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:1594",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:1181",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:1181"
+      ],
+      "candidate_tasks": [
+        "e.task_demand"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#30",
+      "status": "confirmed",
+      "why": "나머지 설명을 채택하기 전에 다른 가능성을 살피라는 논지라 부정 동사 ④가 반대다. E1 후보는 지지하며 낱말 판단을 E1 단독 관측으로 주장하지 않는다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:1731",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:1283",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:1280"
+      ],
+      "candidate_tasks": [
+        "e.task_demand"
+      ],
+      "disputed_tasks": [],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#23",
+      "status": "unclear",
+      "why": "도덕 발달에서 유전과 환경의 복잡한 상호작용이라는 중심은 ①을 지지한다. ②는 본문이 부정하는 대립 구도를 재사용한다. E3가 중심 확정 뒤 필수 대조인지 오답 경로만 있는 간접인지 갈림을 유지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:835",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:596",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:599"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "e.option_correspondence"
+      ],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#33",
+      "status": "unclear",
+      "why": "재료 공급 확보 능력이 기술 미래를 제한한다는 중심은 ⑤를 지지한다. ④의 정부 정책은 원문에 없다. A는 이 미언급을 중심으로 배제하고 B는 별도 대조로 배제하여 R5/E3 primary와 relevance가 함께 갈린다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:2186",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:1611",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:1610"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "e.option_correspondence"
+      ],
+      "primary_disputed": true
+    },
+    {
+      "item": "2019#21",
+      "status": "unclear",
+      "why": "결과 집착을 반박하고 다음 질문과 새 무지 발견으로 나아가는 글이 ①을 지지한다. 언론 보도 단계와 반박 단계의 오독이 ④로 가는 B 반사실은 원문 근거가 있으나 R4 간접과 문장 기능 R3 경계는 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:4810",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:1192",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1154"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "r.discourse_structure"
+      ],
+      "primary_disputed": false
+    },
+    {
+      "item": "2019#23",
+      "status": "unclear",
+      "why": "기후 대응의 목적과 원조·정책 개혁의 수단을 함께 담는 ②가 지지된다. 마지막 OECD 보조금 사례를 중심으로 삼는 경로는 있으나 ⑤의 국제 분쟁까지 가려면 추가 왜곡이 필요해 R4 간접/무관을 확정하지 않는다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:5155",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:1470",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1433"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "r.discourse_structure"
+      ],
+      "primary_disputed": false
+    },
+    {
+      "item": "2019#31",
+      "status": "unclear",
+      "why": "사회적 공유가 많을수록 기억이 고정된다는 문장은 ①을 지지한다. A는 한 문장 재진술 R5로, B는 고정·망각·부정 상쇄를 결합한 R6로 판단한다. 결합이 필수인지의 경계를 유지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:6205",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:2296",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:2248"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "r.central_meaning"
+      ],
+      "primary_disputed": true
+    },
+    {
+      "item": "2020#19",
+      "status": "unclear",
+      "why": "여행 전 기대와 도착 후 실망이 ①을 지지한다. 두 장면 구분은 발문이 주며 A의 R4 반사실에는 실망을 공포로 과장하는 별도 의미 왜곡도 들어가 R4 간접을 단정하기 어렵다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:185",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:129",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:129"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "r.discourse_structure"
+      ],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#20",
+      "status": "unclear",
+      "why": "어른이 놀이를 스스로 허락하라는 마지막 주장이 ①을 지지한다. 장애 설명을 주장으로 읽는 B 경로는 가능하나 원인 기능 R3와 전체 배열 R4의 경계는 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:333",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:243",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:231"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "r.discourse_structure"
+      ],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#21",
+      "status": "unclear",
+      "why": "지식 없이 창의적인 모양만 보이는 부류가 ①을 지지한다. 직전 문장에 근거가 이미 주어졌다는 A와 두 부류 중 근거를 선택해야 한다는 B의 E2 간접/direct 경계를 유지한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:514",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:357",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:356"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "e.evidence_location"
+      ],
+      "primary_disputed": false
+    },
+    {
+      "item": "2020#31",
+      "status": "unclear",
+      "why": "과학주의의 배타적 진리 정의와 비과학의 주관성 평가가 ②의 중요성 낮음 의미를 지지한다. A는 정의와 결과 결합 R6, B는 정의 재진술 R5로 본다. 관용 표현 지식과 결합 필요성을 분리할 학습자·사람 판정이 없다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:1870",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:1385",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:1379"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [
+        "r.central_meaning"
+      ],
+      "primary_disputed": true
+    },
+    {
+      "item": "2020#45",
+      "status": "unclear",
+      "why": "차 안의 은퇴 고민과 폭포의 재도전 발언은 다르며 ③이 불일치다. A는 진술 대조 E3, B는 장면 위치 선택 E2를 primary로 둔다. 두 근거 모두 원문에 결속하지만 단일 우열은 미확정이다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b16-v24/input.json:4165",
+        "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:694",
+        "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:664"
+      ],
+      "candidate_tasks": [],
+      "disputed_tasks": [],
+      "primary_disputed": true
+    }
+  ],
+  "history_changes": [
+    {
+      "item": "2020#39",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:3",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:4",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#40",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:31",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:103",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#41",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:59",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:219",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#42",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:87",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:350",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#43",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:115",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:466",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#44",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:143",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:565",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#18",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:199",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:785",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#19",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:227",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:916",
+      "fields": [
+        "distractors"
+      ]
+    },
+    {
+      "item": "2019#20",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:255",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1023",
+      "fields": [
+        "stem_demand",
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#21",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:283",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1154",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#22",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:311",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1302",
+      "fields": [
+        "stem_demand",
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#23",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:339",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1433",
+      "fields": [
+        "stem_demand",
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#24",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:367",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1549",
+      "fields": [
+        "stem_demand",
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#28",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:451",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:1922",
+      "fields": [
+        "distractors",
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#29",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:479",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:2033",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#30",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:507",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:2132",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#31",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-44-53-444Z-b16-v24-B-02-first/chunk-B-02.out.json:535",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-02.out.json:2248",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#22",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-02-484Z-b16-v24-A-02-first/chunk-A-02.out.json:1336",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:1336",
+      "fields": [
+        "stem_demand",
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2019#23",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-02-484Z-b16-v24-A-02-first/chunk-A-02.out.json:1470",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:1470",
+      "fields": [
+        "stem_demand"
+      ]
+    },
+    {
+      "item": "2019#24",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-02-484Z-b16-v24-A-02-first/chunk-A-02.out.json:1604",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-A-02.out.json:1604",
+      "fields": [
+        "stem_demand",
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#26",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-04-500Z-b16-v24-A-01-first/chunk-A-01.out.json:822",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:822",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#27",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-04-500Z-b16-v24-A-01-first/chunk-A-01.out.json:945",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:945",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#31",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-04-500Z-b16-v24-A-01-first/chunk-A-01.out.json:1385",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:1385",
+      "fields": [
+        "main_performance_outside_subset"
+      ]
+    },
+    {
+      "item": "2020#33",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-04-500Z-b16-v24-A-01-first/chunk-A-01.out.json:1611",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:1611",
+      "fields": [
+        "distractors"
+      ]
+    },
+    {
+      "item": "2020#35",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-04-500Z-b16-v24-A-01-first/chunk-A-01.out.json:1870",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-A-01.out.json:1870",
+      "fields": [
+        "not_observable"
+      ]
+    },
+    {
+      "item": "2020#31",
+      "path": "scripts/research/goal-data/local/b16-v24/history/2026-10-23T10-45-21-068Z-b16-v24-B-01-first/chunk-B-01.out.json:351",
+      "final": "scripts/research/goal-data/local/b16-v24/chunk-B-01.out.json:1379",
+      "fields": [
+        "main_performance_outside_subset",
+        "independent_assessment"
+      ]
+    }
+  ],
+  "dedup": {
+    "rows": 16,
+    "removed_entries": 16,
+    "other_fields_unchanged": true
+  },
+  "exposure": {
+    "analysts": 4,
+    "evidence": [
+      {
+        "label": "B-02",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a083d22b26898203e.jsonl",
+        "line": 59,
+        "foreign_ids": [
+          "2020#18",
+          "2020#19",
+          "2020#20",
+          "2020#21",
+          "2020#22",
+          "2020#23",
+          "2020#24",
+          "2020#26",
+          "2020#27",
+          "2020#28",
+          "2020#29",
+          "2020#30",
+          "2020#31",
+          "2020#32",
+          "2020#33",
+          "2020#34",
+          "2020#35",
+          "2020#36",
+          "2020#37",
+          "2020#38"
+        ]
+      },
+      {
+        "label": "B-02",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a083d22b26898203e.jsonl",
+        "line": 87,
+        "foreign_ids": [
+          "2020#31"
+        ]
+      },
+      {
+        "label": "A-02",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a1bc51568411c64c4.jsonl",
+        "line": 77,
+        "foreign_ids": [
+          "2020#18",
+          "2020#19",
+          "2020#20",
+          "2020#21",
+          "2020#22",
+          "2020#23",
+          "2020#24",
+          "2020#26",
+          "2020#27",
+          "2020#28",
+          "2020#29",
+          "2020#30",
+          "2020#31",
+          "2020#32",
+          "2020#33",
+          "2020#34",
+          "2020#35",
+          "2020#36",
+          "2020#37",
+          "2020#38"
+        ]
+      },
+      {
+        "label": "A-02",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a1bc51568411c64c4.jsonl",
+        "line": 89,
+        "foreign_ids": [
+          "2020#26",
+          "2020#27",
+          "2020#35"
+        ]
+      },
+      {
+        "label": "A-02",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a1bc51568411c64c4.jsonl",
+        "line": 95,
+        "foreign_ids": [
+          "2020#18",
+          "2020#19",
+          "2020#20",
+          "2020#21",
+          "2020#22",
+          "2020#23",
+          "2020#24",
+          "2020#26",
+          "2020#27",
+          "2020#28",
+          "2020#29",
+          "2020#30",
+          "2020#31",
+          "2020#32",
+          "2020#33",
+          "2020#34",
+          "2020#35",
+          "2020#36",
+          "2020#37",
+          "2020#38"
+        ]
+      },
+      {
+        "label": "A-01",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-ae08e329ef53bf46a.jsonl",
+        "line": 51,
+        "foreign_ids": [
+          "2020#39",
+          "2020#40",
+          "2020#41",
+          "2020#42",
+          "2020#43",
+          "2020#44",
+          "2020#45"
+        ]
+      },
+      {
+        "label": "A-01",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-ae08e329ef53bf46a.jsonl",
+        "line": 63,
+        "foreign_ids": [
+          "2019#18",
+          "2019#22",
+          "2019#24"
+        ]
+      },
+      {
+        "label": "A-01",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-ae08e329ef53bf46a.jsonl",
+        "line": 69,
+        "foreign_ids": [
+          "2019#18",
+          "2019#22",
+          "2019#23",
+          "2019#24"
+        ]
+      },
+      {
+        "label": "A-01",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-ae08e329ef53bf46a.jsonl",
+        "line": 75,
+        "foreign_ids": [
+          "2019#18",
+          "2019#22",
+          "2019#23",
+          "2019#24"
+        ]
+      },
+      {
+        "label": "B-01",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-ae4c1c2219da878b7.jsonl",
+        "line": 47,
+        "foreign_ids": [
+          "2020#39",
+          "2020#40",
+          "2020#41",
+          "2020#42",
+          "2020#43",
+          "2020#44",
+          "2020#45"
+        ]
+      },
+      {
+        "label": "B-01",
+        "path": "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-ae4c1c2219da878b7.jsonl",
+        "line": 58,
+        "foreign_ids": [
+          "2019#21",
+          "2019#30",
+          "2019#31"
+        ]
+      }
+    ]
+  },
+  "unrun": [
+    "DB 읽기/쓰기",
+    "제품 빌드·E2E",
+    "학습자 측정",
+    "원격/main 통합"
+  ]
+}
