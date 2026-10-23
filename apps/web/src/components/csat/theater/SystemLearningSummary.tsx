@@ -17,7 +17,7 @@ import styles from './theater.module.css'
 
 const CIRCLED = ['', '①', '②', '③', '④', '⑤']
 /** 정리의 조작은 모두 44px 이상(접근성) */
-const BTN = `${styles.back} min-h-[44px] inline-flex items-center`
+const BTN = `${styles.back} ${styles.summaryControl}`
 
 export function SystemLearningSummary({
   summary,
@@ -121,7 +121,7 @@ export function SystemLearningSummary({
         <p className={styles.quiet} role="status" data-testid="summary-history-loading">이 기기의 과거 기록을 읽는 중이에요…</p>
       ) : history ? (
         <details data-testid="summary-history">
-          <summary>과거 작성 기록 · 읽기 전용</summary>
+          <summary className={styles.summaryControl}>과거 작성 기록 · 읽기 전용</summary>
           <p className={`${styles.quiet} break-keep`}>예전에 직접 쓴 설명 · 노트예요. 지우거나 고치지 않고 그대로 보관해요. 새로 쓰거나 채점하지 않아요.</p>
           {history}
         </details>
