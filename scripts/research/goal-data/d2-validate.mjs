@@ -158,9 +158,11 @@ export function loadTrack(dir, track, nChunks, V, ids) {
     const ce = V.chunk(rows)
     if (ce.length) { errors.push(...ce.map((x) => `${track} ${path.basename(f)}: ${x}`)); continue }
     // 청크 소유권(T-0125 RECHECK-P1-01): 행 문항이 그 청크 입력에 없으면 배제 — checkChunk 와 같은 결함 집합
+    // 입력 파일이 없으면 그 청크 전체 배제(fail-closed) — 건너뛰면 입력을 지우거나 이름을 바꿔 검사를 피할 수 있다(전 배치에 입력 있음 · 2026-10-23 실측)
     const owned = chunkItems(dir, track, k + 1)
+    if (!owned) { errors.push(`${track} ${path.basename(f)}: 청크 입력 chunk-${track}-${String(k + 1).padStart(2, '0')}.json 없음 — 소유권 확인 불가`); continue }
     for (const row of rows) {
-      if (owned && !owned.has(row.item_id)) { errors.push(`${track} ${row.item_id}: ${path.basename(f)} 의 문항이 아니다`); continue }
+      if (!owned.has(row.item_id)) { errors.push(`${track} ${row.item_id}: ${path.basename(f)} 의 문항이 아니다`); continue }
       const e = V.row(row)
       if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
       else out.set(row.item_id, row)
@@ -178,7 +180,7 @@ export function loadTrack(dir, track, nChunks, V, ids) {
  *   트랙 전체 반복(reasonsDetail): 관련 문항 **전부** 중 이 청크 문항이 하나라도 있으면 이 청크 결함(다른 청크 문항 번호는 내보내지 않음),
  *   없으면 trackExcluded 상태로만 알린다(내용 없음 · 이 청크 결함에 안 섞임 — 이 청크 누락은 위에서 이미 셌다).
  */
-/** 청크 입력의 문항 집합 — 입력 파일이 없으면(옛 배치 · 사전 등록 경로) null 로 검사를 건너뛴다 */
+/** 청크 입력의 문항 집합 — 입력 파일이 없으면 null(loadTrack 은 그 청크를 배제한다) */
 function chunkItems(dir, track, k) {
   const p = path.join(dir, `chunk-${track}-${String(k).padStart(2, '0')}.json`)
   return fs.existsSync(p) ? new Set((JSON.parse(fs.readFileSync(p, 'utf8')).items ?? []).map((r) => r.item_id)) : null

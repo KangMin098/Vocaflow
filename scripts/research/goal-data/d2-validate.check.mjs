@@ -57,6 +57,9 @@ const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'd2-loader-'))
 const rows = (p) => Array.from({ length: 3 }, (_, k) => ({ item_id: `${p}#${k}` }))
 fs.writeFileSync(path.join(dir, 'chunk-A-01.out.json'), JSON.stringify({ rows: rows('X') }))
 fs.writeFileSync(path.join(dir, 'chunk-A-02.out.json'), JSON.stringify({ rows: rows('Y') }))
+// 청크 입력(소유권) — 없으면 loadTrack 이 그 청크를 배제한다(fail-closed · T-0126 대비)
+fs.writeFileSync(path.join(dir, 'chunk-A-01.json'), JSON.stringify({ items: rows('X') }))
+fs.writeFileSync(path.join(dir, 'chunk-A-02.json'), JSON.stringify({ items: rows('Y') }))
 const stub = (o) => ({ chunk: (r) => (o.chunkFail && r[0].item_id.startsWith('X') ? ['반복'] : []), row: (r) => (o.rowFail === r.item_id ? ['결함'] : []), reasons: () => (o.reasonFail ? ['이유 반복'] : []) })
 const ids = [...rows('X'), ...rows('Y')].map((r) => r.item_id)
 const loaderCases = [
@@ -69,6 +72,12 @@ for (const c of loaderCases) {
   const got = loadTrack(dir, 'A', 2, stub(c.o), ids).out.size
   console.log(`${got === c.expect ? 'ok ' : 'FAIL'} 로더: ${c.name} → 통과 ${got}`)
   if (got !== c.expect) bad++
+}
+fs.rmSync(path.join(dir, 'chunk-A-02.json'))
+{
+  const got = loadTrack(dir, 'A', 2, stub({}), ids).out.size
+  console.log(`${got === 3 ? 'ok ' : 'FAIL'} 로더: 청크 입력 파일을 지우면 그 청크 배제(fail-closed) → 통과 ${got}`)
+  if (got !== 3) bad++
 }
 fs.rmSync(dir, { recursive: true, force: true })
 // prereg-compare 가 공용 로더를 쓰는지(정적 확인) — 자체 행 필터로 되돌아가면 청크 검사를 다시 빠뜨린다
