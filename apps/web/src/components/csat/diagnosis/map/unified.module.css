@@ -1703,6 +1703,29 @@ p.dockL {
 .gpFacts dd { margin: 0; word-break: keep-all; }
 .gpActs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .gpBlocked { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); word-break: keep-all; }
+
+/* T-0110 — 목표 대비 · 재처방: 문단 나열 대신 비교 구조(learning_interaction). 카드 안쪽 여백(14px)에 맞춘다 */
+.gpFoot { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 14px 12px; }
+.rpCaption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.goScale { position: relative; margin: 30px 14px 30px; height: 2px; background: var(--m-line); }
+.goScaleEnd { position: absolute; top: 8px; color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+.goScaleEnd[data-end='min'] { left: 0; }
+.goScaleEnd[data-end='max'] { right: 0; }
+.goMark { position: absolute; left: calc(var(--at) * 100%); top: -6px; width: 2px; height: 14px; background: var(--m-ink); transform: translateX(-1px); }
+.goMark[data-kind='record'] { width: 10px; height: 10px; top: -4px; border-radius: 50%; transform: translateX(-5px); }
+.goMarkLabel { position: absolute; top: 14px; white-space: nowrap; transform: translateX(-50%); color: var(--m-ink); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+.goMark[data-kind='target'] .goMarkLabel { top: -18px; }
+.goCols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0 14px 12px; border: 1px solid var(--m-line); border-radius: 10px; }
+.goCol { min-width: 0; padding: 10px 12px; display: grid; gap: 6px; align-content: start; font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.goCol + .goCol { border-left: 1px solid var(--m-line); }
+.goCol h3 { margin: 0; font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); color: var(--m-ink2); font-weight: 600; }
+.goCol p { margin: 0; word-break: keep-all; }
+.goVerdict { font-weight: 600; color: var(--m-ink); }
+.rpTable { width: calc(100% - 28px); margin: 0 14px 10px; border-collapse: collapse; font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.rpTable th, .rpTable td { padding: 6px 8px; border-bottom: 1px solid var(--m-line); text-align: left; word-break: keep-all; }
+.rpTable th { color: var(--m-ink2); font-weight: 500; }
+.rpTable td.rpNum, .rpTable th.rpNum { text-align: right; font-variant-numeric: tabular-nums; }
+.rpTable tfoot td { border-bottom: 0; font-weight: 600; }
 /* ════════ 3B Access map 실측 스킨(2026-10-15 · neon-currant.3b.dev/monitoring/access · 로그인 Chrome 계산 스타일) ════════
  * 노드: 흰 면 · 반경 12 · 안쪽 1px #edebe7 + 바깥 3px 캔버스 링 · 여백 8 · 간격 10 · 전환 bg .12s / filter·opacity .16s
  * 타일 32 · 반경 8 · 옅은 색면 + 16px 아이콘 / 제목 10/450 · 보조 9/450 회색(−1%) / 선택 = 안쪽 1px 잉크

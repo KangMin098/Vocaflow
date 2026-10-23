@@ -32,7 +32,11 @@ for (const width of [1440, 1280]) {
     const replan = page.getByTestId('replan')
     await expect(replan).toHaveAttribute('data-reasons', 'check_result new_exam')
     await expect(page.getByTestId('replan-shifts')).toContainText('확인하기 2 → 바로잡기 3')
-    await expect(page.getByTestId('replan-week')).toContainText('이번 주 배정 20분 → 30분')
+    await expect(page.getByTestId('replan-week')).toContainText('이번 주 합계0분20분30분') // 지금 배정 · 저장 계획대로 · 수정안
+    await expect(page.getByTestId('replan-week-note')).toContainText('아직 배정되지 않아요')
+    // 확정 버튼은 카드 안쪽 여백 안(T-0093 UI 확인 ①)
+    const card = await page.getByTestId('replan').boundingBox(); const btn = await page.getByTestId('replan-confirm').boundingBox()
+    expect(btn!.x - card!.x).toBeGreaterThanOrEqual(12)
     await expect(page.getByTestId('schedule-start')).toHaveCount(0) // 재확정 전에는 실행 링크를 열지 않는다
     await page.screenshot({ path: `output/goal-outcome-below-${width}.png`, fullPage: true })
     await page.keyboard.press('Shift') // 키보드 사용 중일 때의 포커스 표시(:focus-visible)를 본다

@@ -23,7 +23,7 @@ export type GradeStatus = 'no_target' | 'no_record_grade' | 'not_judged' | 'belo
 /** A verdict about this recorded assessment only; never final goal attainment. */
 export type OutcomeVerdict = 'no_record' | 'not_judgeable' | 'below' | 'met'
 export type ChangeStatus = 'no_baseline' | 'no_followup' | 'different_paper' | 'repeat_observation'
-export type OutcomeNext = 'set_goal_exam' | 'take_followup_exam' | 'replan_new_exam' | 'review_goal_evidence'
+export type OutcomeNext = 'set_goal_exam' | 'take_followup_exam' | 'replan_new_exam' | 'review_goal_evidence' | 'record_grade'
 export interface GoalOutcome {
   goalVersion: number
   target: { score: number; grade: number | null; exam: GoalExam | null }
@@ -85,6 +85,8 @@ export function goalOutcome(goal: GoalVersion, sessions: readonly OutcomeSession
   const unique = [...new Map(plans.map(p => [p.task, p])).values()].filter(p => p.need !== null)
   const next: OutcomeNext = status === 'no_goal_exam' ? 'set_goal_exam'
     : status === 'below' || status === 'no_score' || (status === 'reached' && grade.status === 'below') ? 'replan_new_exam'
+    // T-0110(T-0090 P2-1) — 점수는 충족했지만 목표 등급을 비교할 기록 등급이 없으면 판정 불가(verdict 불변) → 등급 기록 확인이 먼저
+    : status === 'reached' && grade.status === 'no_record_grade' ? 'record_grade'
     : status === 'reached' ? 'review_goal_evidence' : 'take_followup_exam'
   const verdict: OutcomeVerdict = status === 'no_followup' ? 'no_record'
     : status === 'below' || (status === 'reached' && grade.status === 'below') ? 'below'
@@ -112,6 +114,7 @@ export const NEXT_LABEL: Record<OutcomeNext, string> = {
   set_goal_exam: '목표 시험 정하기', take_followup_exam: '미노출 새 회차의 응시 조건과 기록을 확인해요',
   replan_new_exam: '새 기록과 직접 TASK 근거를 확인하고 계획 수정안을 검토해요',
   review_goal_evidence: '최종 평가 대상·시점·조건과 필요한 후속 근거를 확인해요',
+  record_grade: '이 시험 기록의 등급을 함께 적으면 목표 등급과 비교해요 — 점수로 등급을 만들지 않아요',
 }
 
 export const VERDICT_LABEL: Record<OutcomeVerdict, string> = {

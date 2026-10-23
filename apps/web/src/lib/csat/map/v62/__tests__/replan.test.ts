@@ -35,7 +35,8 @@ describe('replanProposal', () => {
     expect(p.reasons).toEqual(['check_result'])
     expect(p.shifts).toEqual([expect.objectContaining({ task: 'v.core_meaning', from: { stage: 'check', planned: 2 }, to: { stage: 'repair', remaining: 3 } })])
     expect(p.changes).toEqual([{ task: 'v.core_meaning', before: 2, after: 3, reason: 'evidence_or_content' }])
-    expect(p.thisWeek).toEqual({ before: 20, after: 30 })
+    expect(p.thisWeek).toEqual({ current: 0, before: 20, after: 30 }) // 재확정 전이라 지금 일정엔 0
+    expect(p.weekRows).toEqual([{ task: 'v.core_meaning', current: 0, before: 20, after: 30 }])
     expect(p.unchanged).toBe(false)
     expect(p.workspaces).toEqual(['W1'])
     // 투영은 저장 · 판정을 바꾸지 않는다 — 입력 행의 관문은 그대로
