@@ -13,6 +13,7 @@
 | 6 연구↔제품 충돌 해결 · 7 34번 이관 차이분석 · 9 독립 검증 근거와 이견 | [03_CONFLICTS_TRANSFER_EVIDENCE](./03_CONFLICTS_TRANSFER_EVIDENCE.md) |
 | 8 유형별 구현 준비도·우선순위 · 10 S2 제한 착수 후보 | [04_READINESS_S2](./04_READINESS_S2.md) |
 | 4·5 보강: 강의 cue 공개 수준 자료·조기 공개 34·공개 게이트 | [05_CUE_DISCLOSURE](./05_CUE_DISCLOSURE.md) |
+| T-0141 잔여 보완: 44유형 대응표 · 34 cue 공개×강의 제어 충돌 · S2-a~d 소유·착수·AT | [06_RESIDUAL](./06_RESIDUAL.md) |
 
 ## 입력과 보존
 

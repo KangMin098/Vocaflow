@@ -3,7 +3,7 @@
 T-0138 · 작성 owner `csat-s1-integration`(Claude Code) · 2026-10-24 · 상태 **DRAFT — 독립 검증 전**.
 산출물 1·4·5(통합 교수설계 계약 · 정답 공개/강의/학습 기록 계약 · 콘텐츠/버전/권한/데이터 결속 규칙).
 
-근거 표기: `v6`=v6.0 기준서 · `R00`~`R19`=G1 연구 `all-types-research-20261024/NN_*.md`(해시는 README) · `T136`=T-0136 수용 산출물 `skeleton-v4/s1-v6/correction/r2/*`@`81d6732b2` · `LC`=`feat/lecture-learner-control`@`0e36138e3` · `G3`=T-0137 DELTA@`fb6bf663e`(ACCEPT) · `05`=이 폴더 05_CUE_DISCLOSURE.
+근거 표기: `v6`=v6.0 기준서 · `R00`~`R21`=G1 연구 `all-types-research-20261024/NN_*.md` @ 커밋 `810a463ac`(T-0139 수용, README 입력 표) · `T136`=T-0136 수용 산출물 `skeleton-v4/s1-v6/correction/r2/*`@`81d6732b2` · `LC`=`feat/lecture-learner-control`@`0e36138e3` · `G3`=T-0137 DELTA@`fb6bf663e`(ACCEPT) · `05`=이 폴더 05_CUE_DISCLOSURE.
 이 계약은 **설계 기준**이다. 구현·콘텐츠 승인·학습 효과를 통과했다는 뜻이 아니다.
 
 ## A. 학습자 판단 활동
