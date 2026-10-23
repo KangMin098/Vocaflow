@@ -311,29 +311,55 @@ export function LectureStage({
     active.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
   }, [ps, sessionOn, activeKey, cues, following])
 
-  // 학습자가 직접 스크롤하면(휠 · 터치 · 스크롤 키) 따라가기를 끈다 — 강의가 읽던 자리를 빼앗지 않는다
+  // 학습자가 직접 스크롤하면(휠 · 터치 · 스크롤 키 · 스크롤바 끌기) 따라가기를 끈다 — 강의가 읽던 자리를 빼앗지 않는다
   useEffect(() => {
     if (!sessionOn || !following) return
     // Tab = 포커스를 옮겨 스스로 읽는 중 — 스크롤 키와 같이 본다
     const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Tab'])
     const stop = () => setFollowing(false)
     const onKey = (e: KeyboardEvent) => {
-      if (SCROLL_KEYS.has(e.key)) stop()
+      if (SCROLL_KEYS.has(e.key)) return stop()
+      // Space 는 다른 처리기(재생 토글 · 단추 누름)가 가져가지 않았을 때만 페이지를 내린다 — 그때만 학습자 스크롤로 본다.
+      // 처리기들이 모두 돈 뒤에 defaultPrevented 를 읽는다(같은 window 처리기의 등록 순서에 기대지 않는다)
+      if (e.key === ' ') {
+        const tag = (e.target as HTMLElement | null)?.tagName
+        if (tag === 'BUTTON' || tag === 'A' || tag === 'SUMMARY' || tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
+        setTimeout(() => {
+          if (!e.defaultPrevented) stop()
+        }, 0)
+      }
+    }
+    // 스크롤바 끌기 — 누른 점이 요소의 내용 영역(clientWidth/Height) 밖, 곧 스크롤바 위일 때
+    const onPointer = (e: PointerEvent) => {
+      const el = e.target instanceof Element ? e.target : null
+      if (!el) return
+      const box = el.getBoundingClientRect()
+      const x = e.clientX - box.left - el.clientLeft
+      const y = e.clientY - box.top - el.clientTop
+      const onBar = (el.scrollHeight > el.clientHeight && x >= el.clientWidth) || (el.scrollWidth > el.clientWidth && y >= el.clientHeight)
+      if (onBar) stop()
     }
     window.addEventListener('wheel', stop, { passive: true })
     window.addEventListener('touchmove', stop, { passive: true })
     window.addEventListener('keydown', onKey)
+    window.addEventListener('pointerdown', onPointer, { capture: true })
     return () => {
       window.removeEventListener('wheel', stop)
       window.removeEventListener('touchmove', stop)
       window.removeEventListener('keydown', onKey)
+      window.removeEventListener('pointerdown', onPointer, { capture: true })
     }
   }, [sessionOn, following])
 
   const follow = useCallback(() => {
     setFollowing(true)
     if (!activeKey) return
-    const found = Array.from(rootRef.current?.querySelectorAll<HTMLElement>(`[data-lecture-target="${CSS.escape(activeKey)}"]`) ?? []).filter((el) => el.offsetParent !== null)
+    const all = Array.from(rootRef.current?.querySelectorAll<HTMLElement>(`[data-lecture-target="${CSS.escape(activeKey)}"]`) ?? [])
+    // 학습자가 「지금 설명 위치로」 를 골랐다 — 설명 블록이 접힌 층 안이면 그 층을 펴서 보여 준다
+    const block = all.find((el) => el.dataset.block != null) ?? null
+    const det = block?.closest('details')
+    if (det && !det.open) det.open = true
+    const found = all.filter((el) => el.offsetParent !== null)
     const active = found.find((el) => el.dataset.block != null) ?? found[0] ?? null
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     active?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })

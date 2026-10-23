@@ -41,8 +41,17 @@ test.describe('강의 학습자 제어', () => {
       await play.click()
       await expect.poll(() => statusOf(page), { timeout: 30_000 }).toBe('playing')
 
+      // 학습자가 지금 쥔 선택(눌린 단추 · 고른 항목 · 열린 층 · 주소의 의미/관계) — 강의 진행 뒤에도 같아야 한다
+      const choices = () =>
+        page.evaluate(() => ({
+          pressed: Array.from(document.querySelectorAll('[data-csat-theater] [aria-pressed="true"], [data-csat-theater] [aria-checked="true"], [data-csat-theater] [aria-selected="true"]')).map((el) => el.textContent?.trim().slice(0, 40)),
+          open: Array.from(document.querySelectorAll('[data-csat-theater] details')).map((d) => (d as HTMLDetailsElement).open),
+          query: ['meaning', 'rel', 'depth'].map((k) => new URL(window.location.href).searchParams.get(k)),
+        }))
+
       // ① 큐를 끝까지 넘기며 장면이 저절로 바뀌는지 본다(→ 는 스크롤 키가 아니다)
       const startScene = await sceneOf(page)
+      const startChoices = await choices()
       let offered = false
       for (let i = 0; i < 16; i++) {
         await page.locator('body').press('ArrowRight')
@@ -53,6 +62,8 @@ test.describe('강의 학습자 제어', () => {
           break
         }
       }
+
+      expect(await choices(), '강의 진행이 학습자의 선택 · 열린 층 · 주소 상태를 바꿨다').toEqual(startChoices)
 
       // ② 안내가 떴다면 누를 때만 옮긴다
       if (offered) {
