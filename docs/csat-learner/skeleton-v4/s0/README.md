@@ -23,9 +23,11 @@ run1(`6781f80d8`)의 결함 8건을 독립 검토자(`csat-v4-s0-verification`)�
 | S0-R02 | 듣기 확보 자료 없음 | DB 0이지만 `scripts/csat/data/classified.json`에 수능 듣기 **248문항·18유형** |
 | S0-R03 | 표본이 조건 서술뿐 | 유형별 실제 정상·경계 ID |
 | S0-R04 | 비교는 정적 import라 비공개 미전송 불가 | `page.tsx:181~202`가 서버에서 `projectV3Pairs`로 공개·결속 필터 후 전달 |
-| S0-R05 | CORE-05 근거가 inline/visual type뿐 | `teaching-contract.ts#TEACHING_MODELS` 26 교수 모델 재사용, `AnalysisTheater.tsx:846` 재생 중 자동 장면 전환은 CORE-03/09 충돌 |
+| S0-R05 | CORE-05 근거가 inline/visual type뿐 | `teaching-contract.ts#TEACHING_MODELS` 26 교수 모델 존재를 **평가 후보**로 기재(재사용 결정은 S1), `AnalysisTheater.tsx:846-852` 재생 중 자동 `selectScene`은 CORE-03/09 충돌 후보 |
 | S0-R06 | 유형 20/6·active 21/retired 5, cue `sec` | 19/7·22/4, listening_end 합 2,288, `est_sec`/`total_sec_est` |
 | S0-R07 | 의미 검수 unknown, 유형 미상 11 | 의미 27은 로더 검사 통과(내용 정확성은 별도), 유형은 DB type_id로 조인 |
 | S0-R08 | 허용 경로 불일치 | `task amend`로 `docs/csat-learner/skeleton-v4/` 추가 |
+
+v6.0 기준서(`Vocaflow_CSAT_5인_최종교차심사_목표우선_통합설계_v6.0_20261023.md`) 반영: S0 문서는 기존 코드의 **사실만** 기록하고 재사용 결정은 하지 않는다(S1에서 F01~F10 4대안 비교). **S0 상태: 독립 재검증 전 — S0_ACCEPTED 아님.**
 
 S0 판정 범위: 메타데이터 매핑·공백 보고·계약 충돌 식별. 내용 감수·UI·정상 로그인 RLS·학습 효과는 PASS가 아니다(NOT_EVALUATED / AUTH_BLOCKED).
