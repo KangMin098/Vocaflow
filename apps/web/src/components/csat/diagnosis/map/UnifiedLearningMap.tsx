@@ -35,6 +35,11 @@ import { useGoal } from './GoalBar'
 import { GoalPlanSummary } from './GoalPlanSummary'
 import { GoalSchedule } from './GoalSchedule'
 import { GoalOutcome } from './GoalOutcome'
+import { ReplanPanel } from './ReplanPanel'
+import { goalOutcome } from '@/lib/csat/map/v62/goal-outcome'
+import { budgetUsage } from '@/lib/csat/map/v62/goal-schedule'
+import { replanProposal } from '@/lib/csat/map/v62/replan'
+import { seoulToday } from '@/lib/csat/map/v62/target-goal'
 import { AXIS_ICON } from './icons'
 import { GoalRecordBar } from './GoalRecordBar'
 import { EVIDENCE_V62_LABEL, NEED_V62_LABEL, returnLinesFor } from './TaskInspector'
@@ -328,6 +333,12 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
     setHomePanel(panel)
     track({ name: 'csat_path_chosen', props: { axis: 'home_panel', need: 'none', action: 'apply', view: panel } })
   }
+  const replanOf = () => {
+    const goal = data.v4?.saved?.goal ?? null
+    const now = data.now!
+    const outcome = goal ? goalOutcome(goal, (data.v4?.sessions ?? []).map((x) => ({ ...x, examScope: x.examScope ?? null })), view.taskPlans) : null
+    return replanProposal({ goal, rows: goalPlanRows(view, ranks, data.v4?.saved).rows, plans: view.taskPlans, saved: data.v4?.saved ?? null, today: seoulToday(new Date(now)), usage: budgetUsage(goal?.budget, data.lifecycleActivity ?? [], now), outcome })
+  }
   const mapContent = (<>
       <GoalRecordBar data={data} g={g} goalSet={goalSet} asIs={view.asIs} view={view} ranks={ranks} recordHref={recordHref} past={past} currentHref={`${recordHref.split('?')[0]}?tab=map${mode === 'full' ? '&view=full' : ''}`} onSelect={(id) => chooseTask(id, false)} selected={selected} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* T-0070 — 목표 → TASK 별 근거 · 이번 학습량 · 도달 조건 → 지금 할 행동 · 같은 Workspace 계획 · 자료(접힌 요약 · 새 순위 없음) */}
@@ -335,6 +346,8 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
       <GoalSchedule data={goalPlanRows(view, ranks, data.v4?.saved)} saved={data.v4?.saved ?? null} now={data.now ?? ''} past={past} activity={data.lifecycleActivity} onOpenWs={(id, tab) => openWs(id, null, tab)} />
       {/* GOAL-ACHIEVEMENT 3차 — 목표 뒤 실제 시험 기록으로 목표 대비 판정(TASK 활동과 분리) */}
       <GoalOutcome goal={data.v4?.saved?.goal ?? null} sessions={data.v4?.sessions ?? []} plans={view.taskPlans} past={past} />
+      {/* GOAL-ACHIEVEMENT 재처방 — 저장 계획 → 수정안 일정 비교(goalSchedule · scheduleChanges). 확정은 Workspace 계획 탭 */}
+      {!past && data.now && <ReplanPanel p={replanOf()} onOpenWs={(id, tab) => openWs(id, null, tab)} />}
 
       <section className={u.canvasCard} aria-labelledby="umap-h">
         <div className={u.canvasHead}>

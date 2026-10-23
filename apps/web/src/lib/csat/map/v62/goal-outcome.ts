@@ -33,6 +33,9 @@ export type ScoreStatus =
   | 'below'
   | 'reached'
 
+/** 학습자에게 보이는 네 상태 — 「충족」은 이번 평가 한 번의 사실이며 최종 목표 달성 · 교육 효과 입증이 아니다 */
+export type OutcomeVerdict = 'no_record' | 'not_judgeable' | 'below' | 'met'
+
 export type GradeStatus = 'no_target' | 'no_record_grade' | 'not_judged' | 'below' | 'reached'
 export type ChangeStatus = 'no_baseline' | 'no_followup' | 'different_paper' | 'compared'
 export type OutcomeNext = 'set_goal_exam' | 'take_followup_exam' | 'replan_new_exam' | 'maintain'
@@ -45,6 +48,7 @@ export interface GoalOutcome {
   /** 목표를 정한 뒤의 마지막 판정 가능 기록(새 시험지 · 신뢰 통과) */
   followup: OutcomeSession | null
   score: { status: ScoreStatus; gap: number | null }
+  verdict: OutcomeVerdict
   grade: { status: GradeStatus }
   change: { status: ChangeStatus; delta: number | null }
   /** TASK 활동 결과 — 목표 도달 근거가 아니다 */
@@ -97,11 +101,17 @@ export function goalOutcome(goal: GoalVersion, sessions: readonly OutcomeSession
   const activity = { needs: needs.length, resolved: plans.filter((p) => p.achievement === 'resolved').length }
 
   const next: OutcomeNext = score.status === 'no_goal_exam' ? 'set_goal_exam'
-    : score.status === 'reached' ? 'maintain'
+    : score.status === 'reached' && grade.status !== 'below' ? 'maintain'
+    : score.status === 'reached' ? 'replan_new_exam'
     : score.status === 'below' || score.status === 'no_score' ? 'replan_new_exam'
     : 'take_followup_exam'
 
-  return { goalVersion: goal.id, target: { score: goal.score, grade: goal.grade, exam: goal.exam }, baseline, followup, score, grade, change, activity, next }
+  // 목표 등급을 정했으면 기록된 등급도 기준을 넘어야 「충족」(점수만으로 충족이라 하지 않는다)
+  const verdict: OutcomeVerdict = score.status === 'no_followup' ? 'no_record'
+    : score.status === 'below' || (score.status === 'reached' && grade.status === 'below') ? 'below'
+    : score.status === 'reached' && (grade.status === 'reached' || grade.status === 'no_target') ? 'met'
+    : 'not_judgeable'
+  return { goalVersion: goal.id, target: { score: goal.score, grade: goal.grade, exam: goal.exam }, baseline, followup, score, verdict, grade, change, activity, next }
 }
 
 export const SCORE_STATUS_LABEL: Record<ScoreStatus, string> = {
@@ -112,8 +122,17 @@ export const SCORE_STATUS_LABEL: Record<ScoreStatus, string> = {
   different_exam: '최근 기록이 목표 시험과 다른 종류라 직접 비교하지 않아요',
   no_score: '최근 기록에 원점수가 없어 비교하지 않았어요',
   below: '최근 목표 시험 기록이 목표 점수보다 낮아요',
-  reached: '최근 목표 시험 기록이 목표 점수 이상이에요 — 한 번의 기록이며 앞으로의 결과를 보장하지 않아요',
+  reached: '최근 목표 시험 기록이 목표 점수 이상이에요',
 }
+
+export const VERDICT_LABEL: Record<OutcomeVerdict, string> = {
+  no_record: '평가 기록 없음',
+  not_judgeable: '비교 · 판정 불가',
+  below: '현재 평가에서 목표 기준 미달',
+  met: '현재 평가에서 목표 기준 충족',
+}
+/** 「충족」 옆에 늘 붙는 한계 — 최종 목표 달성 확정과 교육 효과 입증은 별도 근거가 필요하다 */
+export const MET_LIMIT = '이번 평가 한 번의 결과예요 — 최종 목표 달성이나 학습 효과가 입증된 것은 아니에요'
 
 export const NEXT_LABEL: Record<OutcomeNext, string> = {
   set_goal_exam: '목표 시험 정하기',

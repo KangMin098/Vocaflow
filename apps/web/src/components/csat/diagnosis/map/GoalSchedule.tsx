@@ -28,7 +28,7 @@ export function GoalSchedule({ data, saved, now, past, activity = [], onOpenWs }
   const next = schedule.allocations[0]
   const old = saved?.goalHistory?.find(g => g.id !== goal.id)
   return <section className={u.schedule} aria-label="목표일까지 학습 시간 배분" data-testid="goal-schedule" data-status={schedule.status}>
-    <div className={u.scheduleHead}><h2 className={u.h}><CalendarDays size={16} aria-hidden="true" /> 오늘의 학습</h2><span className={u.headNote}>{goal.date ? `목표일 ${goal.date} · ${Math.max(0, schedule.daysLeft ?? 0)}일 남음` : '목표일을 정해 주세요'}</span></div>
+    <div className={u.scheduleHead}><h2 className={u.h}><CalendarDays size={16} aria-hidden="true" /> 오늘의 학습</h2><span className={u.headNote}>{goal.date ? `목표일 ${goal.date}` : '목표일을 정해 주세요'}</span></div>
     {schedule.status === 'missing_goal' || schedule.status === 'missing_budget' ? <p className={u.gpNote}>목표 설정에서 시험·목표일·주간 학습 가능 시간을 저장하면 기간별 배분을 볼 수 있어요.</p> : <>
       <p className={u.gpNote}>목표 v{goal.id} · 주간 상한 {goal.budget!.weeklyMinutes}분 · 1문항·지문당 {goal.budget!.minutesPerUnit}분의 잠정 배분 · 일정 제안</p>
       {!!week?.reserved && <p className={u.gpNote}>이번 주 수행·재시도 기록에서 {week.reserved}분을 잠정 차감했어요. 실제 소요 시간을 측정한 값은 아니에요.</p>}

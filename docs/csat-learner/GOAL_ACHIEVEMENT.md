@@ -41,3 +41,13 @@
 - TASK 활동(목표 관련 요구 수·다시 확인 통과 수)은 별도 줄이며 목표 도달 근거로 쓰지 않는다. 예측·확률·퍼센트 없음.
 - 다음 행동: `below`·`no_score` → 새 기록 반영 PLAN 재확정(기존 PLAN 사유 `new_exam`), `reached` → 유지 확인, 기록 없음 → 새 회차 시험 기록.
 - 미구현 한계: 앱 안에서 그 시험지의 문항을 먼저 학습했는지는 아직 판정에 넣지 않는다.
+- 학습자에게는 네 상태(`verdict`)로만 보인다: 평가 기록 없음 · 비교·판정 불가 · 현재 평가에서 목표 기준 미달 · 현재 평가에서 목표 기준 충족. 목표 등급을 정했으면 기록된 등급도 기준을 넘어야 「충족」이다. 「충족」에는 늘 「한 번의 평가 · 최종 달성/학습 효과 입증 아님」을 붙인다. 최종 목표 달성 확정은 별도 근거 계약 전까지 하지 않는다.
+
+## 재처방 — 저장 계획 → 수정안 비교(`v62/replan.ts` · `ReplanPanel`)
+
+- 새 독립 수행·시험 기록으로 `goalPlanRows.planGate='replan'` 이 된 TASK만 대상이다. 저장 PLAN 의 단계·계획량 그대로의 일정과 지금 단계·남은 양을 확정했다고 본 일정을 같은 `goalSchedule`(같은 예산·사용량)로 투영하고 기존 `scheduleChanges` 로 비교한다(재구현 없음).
+- 보이는 것: TASK 단계 변화(저장 → 지금), 이번 주 배정 분 변화, 목표일까지 배정 수량 변화, 다음 주 우선 TASK, 다음 확인 배정일, 재계획 사유(`goal_change`·`check_result`·`new_exam`·`content_change`). 단계·수량·일정이 같으면 「바뀐 것 없음」.
+- 저장하지 않는다. 「수정안 확인하고 확정하기」는 Workspace 계획 탭(기존 명시적 확정·버전 보존)으로만 간다. 재확정 전에는 오늘의 학습 실행 링크를 열지 않는다(기존 관문). 저장 계획 조회 실패면 패널을 만들지 않는다.
+- 수정안의 실행 링크는 지금 PLAN 의 실제 다음 활동뿐이고, 없으면 만들지 않는다(그 TASK 는 미배정 사유로 남는다).
+- 검증: `replan.test.ts`, `goal-outcome.test.ts`, 격리 브라우저 `pnpm --filter web exec tsx scripts/build-goal-outcome-harness.mts` → `playwright test -c playwright.isolated.config.ts goal-outcome.browser.spec.ts`(1440/1280 · 기록 없음·미달+재처방·충족·재풀이·다른 시험·목표 변경·조회 실패). 합성 상태이며 공유 DB 종단이 아니다.
+- UI 정책: 「오늘의 학습」은 목표일만 표시하고 「N일 남음」 카운트다운은 없앴다(LEARNER_MANAGEMENT §2-2 예외 조항과 일치).
