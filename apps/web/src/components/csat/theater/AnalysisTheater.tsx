@@ -843,14 +843,11 @@ export function AnalysisTheater({
     </article>
   )
 
-  // 강의가 다른 장면의 블록을 설명하기 시작하면 그 장면으로 따라간다(재생 중에만 · history 는 쌓지 않는다)
-  const liveScene = liveKey ? blocks.find((b) => b.key === liveKey)?.kind : undefined
-  useEffect(() => {
-    if (lec?.status !== 'playing' || !liveScene || holdLecture.current) return
-    const target = sceneOfBlock(liveScene)
-    if (target !== scene) selectScene(target, 'replace')
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [liveScene, lec?.status])
+  // 강의가 다른 장면의 블록을 설명해도 장면을 저절로 바꾸지 않는다 — 장면을 바꾸면 학습자가 고른 의미 · 구절이 지워진다.
+  // 그 장면으로 갈지는 학습자가 고른다(강의는 계속 흐르고, 아래 안내 단추로 옮긴다)
+  const liveBlockKind = liveKey ? blocks.find((b) => b.key === liveKey)?.kind : undefined
+  const lectureScene = lec && (lec.status === 'playing' || lec.status === 'paused') && liveBlockKind ? sceneOfBlock(liveBlockKind) : null
+  const lectureElsewhere = lectureScene && lectureScene !== scene ? SCENES.find((x) => x.id === lectureScene) ?? null : null
 
   const move = (delta: number) => {
     const to = Math.max(0, Math.min(steps.length - 1, cursor + delta))
@@ -870,7 +867,10 @@ export function AnalysisTheater({
   }, [tab, lec])
 
   useEffect(() => {
+    // 재생 중 학습자가 스스로 스크롤해 따라가기를 껐으면 차례 줄도 화면을 끌고 가지 않는다
+    if (lec?.status === 'playing' && !lec.following) return
     railRef.current?.querySelector('[data-state="live"]')?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursor])
 
   useEffect(() => {
@@ -1017,6 +1017,20 @@ export function AnalysisTheater({
           ) : null}
         </div>
       </header>
+      {lectureElsewhere || (lec && status === 'playing' && !lec.following) ? (
+        <div className={styles.lectureOffer} role="status" data-testid="lecture-offer">
+          {lectureElsewhere ? (
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => selectScene(lectureElsewhere.id)} data-testid="lecture-offer-scene">
+              강의는 지금 「{lectureElsewhere.label}」 장면을 설명하고 있어요 · 그 장면 보기
+            </button>
+          ) : null}
+          {lec && status === 'playing' && !lec.following ? (
+            <button type="button" className={styles.lectureOfferBtn} onClick={lec.follow} data-testid="lecture-offer-follow">
+              지금 설명 위치로
+            </button>
+          ) : null}
+        </div>
+      ) : null}
 
       <div className={styles.body} ref={bodyRef}>
         {/* ── 원문 열: 기출문제 원본(기기 문제지) + 문항 행동 줄 ───────────────── */}

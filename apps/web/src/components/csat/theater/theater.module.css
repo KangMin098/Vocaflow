@@ -90,6 +90,16 @@
 }
 .play:hover { opacity: .88; }
 
+/* 강의 안내 줄 — 강의가 다른 장면을 설명하거나 학습자가 따라가기를 껐을 때만. 옮길지는 학습자가 고른다 */
+.lectureOffer { display: flex; flex-wrap: wrap; gap: 8px; padding: 6px 16px; background: var(--bg2); border-top: 1px solid var(--bd); }
+.lectureOfferBtn {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); color: var(--t1); font-size: 12.5px; cursor: pointer;
+  transition: border-color var(--dur-fast, 120ms) var(--ease);
+}
+.lectureOfferBtn:hover { border-color: var(--p); }
+.lectureOfferBtn:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
+
 /* ── 본문 2열 ─────────────────────────────────────────── */
 .body { display: grid; grid-template-columns: var(--paper-w, clamp(304px, 24.45vw, 360px)) minmax(0, 1fr); flex: 1; min-height: 0; }
 

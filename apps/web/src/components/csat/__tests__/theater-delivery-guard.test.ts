@@ -61,3 +61,19 @@ describe('읽기 강의(M2 · 2026-10-10)', () => {
     expect(page).not.toMatch(/segments/)
   })
 })
+
+describe('강의 학습자 제어(2026-10-24 사용자 결정 1·3)', () => {
+  it('강의 진행이 장면을 저절로 바꾸지 않는다 — 장면을 바꾸면 고른 의미 · 구절이 지워진다. 옮기는 것은 안내 단추(학습자 선택)뿐', () => {
+    expect(theater).not.toMatch(/selectScene\(target, 'replace'\)/)
+    expect(theater).not.toMatch(/useEffect\(\(\) => \{[^}]*lec\?\.status !== 'playing'[^}]*selectScene/)
+    expect(theater).toMatch(/data-testid="lecture-offer-scene"[^>]*|onClick=\{\(\) => selectScene\(lectureElsewhere\.id\)\}/)
+  })
+
+  it('학습자가 스크롤하면 따라가기가 꺼지고, 강의는 따라가기 중에만 화면을 옮긴다', () => {
+    expect(stage).toMatch(/if \(!active \|\| !following\) return/)
+    expect(stage).toMatch(/addEventListener\('wheel', stop/)
+    expect(stage).toMatch(/following,\s*follow,/)
+    expect(theater).toMatch(/data-testid="lecture-offer-follow"/)
+    expect(theater).toMatch(/lec\?\.status === 'playing' && !lec\.following\) return/)
+  })
+})

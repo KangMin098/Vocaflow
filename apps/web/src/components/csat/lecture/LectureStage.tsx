@@ -61,6 +61,10 @@ interface LectureCtx {
   prev: () => void
   next: () => void
   setRate: (r: number) => void
+  /** 설명 위치를 화면이 따라가는가 — 학습자가 스스로 스크롤하면 꺼지고, 재생 시작 · 「지금 설명 위치로」 로만 켜진다 */
+  following: boolean
+  /** 학습자가 명시적으로 고른 「지금 설명 위치로」 — 따라가기를 켜고 지금 큐로 한 번 옮긴다 */
+  follow: () => void
 }
 
 const Ctx = createContext<LectureCtx | null>(null)
@@ -191,8 +195,11 @@ export function LectureStage({
     return loading.current
   }, [slug])
 
+  // 화면 위치의 주인은 학습자다 — 재생을 고르면 따라가고, 스스로 스크롤하면 그 자리에 둔다
+  const [following, setFollowing] = useState(true)
   const start = useCallback(
     (from = 0, via: 'start' | 'cue' | 'block' = 'start') => {
+      setFollowing(true)
       void (async () => {
         const first = !playerRef.current
         const p = await ensure()
@@ -298,10 +305,37 @@ export function LectureStage({
         got: active?.getAttribute('data-lecture-state') === 'active' ? (active.dataset.lectureTarget ?? null) : null,
       })
     }
-    if (!active) return
+    if (!active || !following) return
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     active.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
-  }, [ps, sessionOn, activeKey, cues])
+  }, [ps, sessionOn, activeKey, cues, following])
+
+  // 학습자가 직접 스크롤하면(휠 · 터치 · 스크롤 키) 따라가기를 끈다 — 강의가 읽던 자리를 빼앗지 않는다
+  useEffect(() => {
+    if (!sessionOn || !following) return
+    const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End'])
+    const stop = () => setFollowing(false)
+    const onKey = (e: KeyboardEvent) => {
+      if (SCROLL_KEYS.has(e.key)) stop()
+    }
+    window.addEventListener('wheel', stop, { passive: true })
+    window.addEventListener('touchmove', stop, { passive: true })
+    window.addEventListener('keydown', onKey)
+    return () => {
+      window.removeEventListener('wheel', stop)
+      window.removeEventListener('touchmove', stop)
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [sessionOn, following])
+
+  const follow = useCallback(() => {
+    setFollowing(true)
+    if (!activeKey) return
+    const found = Array.from(rootRef.current?.querySelectorAll<HTMLElement>(`[data-lecture-target="${CSS.escape(activeKey)}"]`) ?? []).filter((el) => el.offsetParent !== null)
+    const active = found.find((el) => el.dataset.block != null) ?? found[0] ?? null
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    active?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
+  }, [activeKey])
 
   // 재생 중에 지난 큐만 「들은 큐」로 센다 — 건너뛴 큐는 들은 것이 아니다
   useEffect(() => {
@@ -394,8 +428,10 @@ export function LectureStage({
       prev,
       next,
       setRate,
+      following,
+      follow,
     }),
-    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate],
+    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate, following, follow],
   )
 
   return (
