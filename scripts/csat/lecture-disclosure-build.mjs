@@ -6,7 +6,7 @@
 //   node scripts/csat/lecture-disclosure-build.mjs <sidecar 폴더(<회차>.disclosure.json)> [--check]
 //
 // 경계 = 직접 정답 공개(정답 번호 낭독 R1 · 정답 블록 강조 R2 · 오답 4개 누적 소거 R7) 직전. 경계 앞 cue 의 최종 판정이
-// ANSWER 이면 그 cue 로 당긴다. 경계 앞에 검수 안 된 cue · 정리 안 된 정답 판정이 있으면 싣지 않는다.
+// ANSWER 이면 그 cue 로 당긴다. 경계 앞에 검수 미완 · 불일치 · UNKNOWN cue 가 있으면 그 cue 앞에서 끊는다(남는 cue 가 없으면 싣지 않는다).
 // 결속 = 강의 version · cue 수 · digest(sha256(cue 원문 JSON 을 줄바꿈으로 이은 것)). 서버가 요청마다 다시 계산해 맞춘다.
 // 재실행 안전: 같은 입력이면 같은 파일. --check 는 파일을 쓰지 않고 다르면 exit 1.
 import crypto from 'node:crypto'
@@ -37,17 +37,15 @@ for (const f of fs.readdirSync(sideDir).filter((x) => x.endsWith('.disclosure.js
     if (lec.cues.some((c, i) => c.id !== s.cues[i].cue_id || 'sha256:' + sha(JSON.stringify(c)) !== s.cues[i].source_hash)) { skip('cue 해시 불일치'); continue }
     const ruleAt = s.cues.findIndex((c) => c.auto.rules.some((r) => RULE.test(r)))
     if (ruleAt < 0) { skip('규칙 확정 공개 없음'); continue }
+    // 경계 앞 cue 는 독립 2인 합의(reviewed_agree · UNKNOWN · unresolved 아님)만 남긴다. 검수 미완 · 불일치(3자 판정이 있어도) · UNKNOWN 은
+    // 안전 cue 로 인정하지 않는다 — 그 cue 앞에서 끊는다(fail-closed). 정리된 ANSWER 도 그 cue 앞에서 끊는다.
     let stop = ruleAt
-    let bad = false
     for (const c of s.cues.slice(0, ruleAt)) {
       const rv = c.review ?? {}
-      if ((rv.reviewers ?? []).length < 2) { bad = true; break }
-      const settled = c.local_disclosure_level !== 'UNKNOWN' && (rv.status === 'reviewed_agree' || rv.final_source) ? c.local_disclosure_level : null
-      const labels = [...(rv.reviewers ?? []).map((r) => r.local), rv.third?.local, rv.audit?.local].filter(Boolean)
-      if (settled === 'ANSWER') stop = Math.min(stop, c.index)
-      else if (!settled && labels.includes('ANSWER')) { bad = true; break }
+      const settled = (rv.reviewers ?? []).length >= 2 && c.local_disclosure_level !== 'UNKNOWN' && rv.status === 'reviewed_agree' && !/unresolved/.test(rv.final_source ?? '') ? c.local_disclosure_level : null
+      if (!settled || settled === 'ANSWER') { stop = c.index; break }
     }
-    if (bad) { skip('경계 앞 검수 미완 · 정답 판정 미정리'); continue }
+    if (stop === 0) { skip('경계 앞 검수 완료 cue 없음'); continue }
     const before = s.cues.slice(0, stop)
     const risk = before.some((c) => c.local_disclosure_level === 'DECISIVE')
       ? 'decisive_confirmed'

@@ -30,19 +30,12 @@
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
-  "2014A#27": {
-   "version": 2,
-   "cues": 11,
-   "digest": "fbdedb3aa06db5551151990fcb43040fc77f17b5c63c15aa2bf8dfed0ecd6999",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2014A#28": {
    "version": 1,
    "cues": 14,
    "digest": "deee6d086a6f587dc0feeb0ba89892685c9b37a333787a9c045f8b01104e91c4",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2014A#29": {
    "version": 2,
@@ -146,8 +139,8 @@
    "version": 1,
    "cues": 14,
    "digest": "e31b3390d25c7c0182f99c0ddbd17e7e366daba6fee52b6132bf228700650a45",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2014A#44": {
    "version": 1,
@@ -167,7 +160,7 @@
    "version": 1,
    "cues": 13,
    "digest": "fcc4c4c7de6ee96e127f7b62a6f0b8e0461a09590dd1fda0fdb0ec78e5cb9d58",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "2014B#24": {
@@ -202,29 +195,22 @@
    "version": 2,
    "cues": 13,
    "digest": "8b5bc07168b9abdab3e3953d3b5458845decffa65462ef47a8248a5bdffc0ed3",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2014B#29": {
    "version": 3,
    "cues": 12,
    "digest": "1a420fb2690dc75166572801d2e286232db5294c90675f0f67f3aa6838f0982f",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2014B#30": {
    "version": 2,
    "cues": 12,
    "digest": "6ee2fa6cef3b7c4e31b4ecca2ae23541bc36de64bfbe055bcbfdfb924426fe57",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "decisive_confirmed"
-  },
-  "2014B#31": {
-   "version": 2,
-   "cues": 12,
-   "digest": "e1ee1c7ce550deb96302753350c9f127bde73fca87346dd3764f7e83d74f5819",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
   },
   "2014B#32": {
    "version": 2,
@@ -240,13 +226,6 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "2014B#34": {
-   "version": 2,
-   "cues": 12,
-   "digest": "541e6b753c3e43fa323dc539a50a6793ee5d00595e2100068595adc2aa1f1a23",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2014B#35": {
    "version": 1,
    "cues": 14,
@@ -258,14 +237,14 @@
    "version": 1,
    "cues": 14,
    "digest": "eafef71d5a36fb3b16e9cb856f19d080198d05cc79a7cd964ccda6025206a490",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2014B#37": {
    "version": 2,
    "cues": 13,
    "digest": "06b113daf5cc5ddc55bd4fb36d8658e1b3c49a8a956becb09ac6280ee3ee7885",
-   "stopBefore": 5,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "2014B#38": {
@@ -303,25 +282,18 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "2014B#43": {
-   "version": 2,
-   "cues": 13,
-   "digest": "eb27ca6b39c406df904132d404b5acae2db067f3934fcb516233dbed5c041df0",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
   "2014B#44": {
    "version": 1,
    "cues": 13,
    "digest": "11edcd53dc5fbfd458c14873b2866e4ca777949d9d860c89877a5d6692b8c669",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2014B#45": {
    "version": 2,
    "cues": 12,
    "digest": "832eada5b5df428be00c2ed59ead6b012830e1e05fe7496fdb69f33f0a8602d5",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2015#18": {
@@ -335,7 +307,7 @@
    "version": 1,
    "cues": 13,
    "digest": "83f12469acd12c4bf450a76f0fe0301f4913dcb038c3f0649b6133d5cfb0217d",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "2015#20": {
@@ -356,21 +328,14 @@
    "version": 2,
    "cues": 11,
    "digest": "aae9699e0c8ee6ce35d03a32714e0fd367c49f3f83c07fc02ff562a6c8317dc3",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
-  },
-  "2015#23": {
-   "version": 1,
-   "cues": 14,
-   "digest": "ab09cd20bf9cbd05f4b8274b9380abe7f3770c640f03518814cbf381d31f69ca",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
   },
   "2015#24": {
    "version": 2,
    "cues": 11,
    "digest": "b380d35be12b52177877491e2bce4837b8bbb200f4760f3ec80dbcfd54bf1d4a",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2015#25": {
@@ -384,8 +349,8 @@
    "version": 1,
    "cues": 13,
    "digest": "0321bfe0c9f8f1914d5883d665a38b84540c1e64f486bea68cd90e66ec0bfca0",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2015#27": {
    "version": 2,
@@ -443,13 +408,6 @@
    "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
-  "2015#35": {
-   "version": 3,
-   "cues": 13,
-   "digest": "ad27dfc343d380dcdb954e3fd74ee2c228545c709da7fd10f90bbfd4418cbd7b",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
   "2015#36": {
    "version": 1,
    "cues": 14,
@@ -461,14 +419,7 @@
    "version": 1,
    "cues": 14,
    "digest": "e36bd34a56a93b8e28540993818df0271e3b843e47f3c6f866d402bb725cb568",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2015#38": {
-   "version": 2,
-   "cues": 12,
-   "digest": "50e84aba24e099e35d64ae8a5c6f6cfec6589ae2f1ae323de996e86bfe4dca6f",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2015#39": {
@@ -496,13 +447,6 @@
    "version": 1,
    "cues": 13,
    "digest": "6dbb5697aedada28aa1be948f5b9139352ca1a6f1d0e537b00ba43b73291c543",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "2015#43": {
-   "version": 1,
-   "cues": 13,
-   "digest": "e0ba3ab10e06c80a2ebe872787ef21c6d06f05e8fb1c3969aa4dcd0f31935766",
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
@@ -510,8 +454,8 @@
    "version": 1,
    "cues": 13,
    "digest": "10dd58d6566dbfb4b101d077b2e0575aae52a0b110e231ec1c48c39cedaa5307",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "2015#45": {
    "version": 2,
@@ -538,8 +482,8 @@
    "version": 1,
    "cues": 14,
    "digest": "91ee4048aedd87a2587bd9a2336ba6c722fdbfefb6e66e2dd7a4a502cb7241a5",
-   "stopBefore": 5,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2016#21": {
    "version": 1,
@@ -559,7 +503,7 @@
    "version": 1,
    "cues": 14,
    "digest": "72787d354b48c3e71734c8a3bb9b4c063e697c9f6f00effdf2e3a8a5248cedd8",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2016#24": {
@@ -580,7 +524,7 @@
    "version": 1,
    "cues": 14,
    "digest": "bfa446159ca4ea2fd93bef2cd544422c92bd62687563fb3f6d6e21adf953e6b6",
-   "stopBefore": 5,
+   "stopBefore": 4,
    "preStopRisk": "hint"
   },
   "2016#27": {
@@ -594,21 +538,21 @@
    "version": 2,
    "cues": 12,
    "digest": "0c844354a10105791dacaab60f9a4b2bd9deedf85c1acbf824685e95b74366c1",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2016#29": {
    "version": 1,
    "cues": 14,
    "digest": "a9cf449aded74504948224eb2050ab4db01a5adbf9d35a657cc8de386b4a0c27",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2016#30": {
    "version": 1,
    "cues": 14,
    "digest": "eeeb5522f23f5ae9829262e1c98e138c7b688a785bcda7720966bfe31c212726",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "2016#31": {
@@ -622,15 +566,15 @@
    "version": 1,
    "cues": 14,
    "digest": "a32c412bb61bd77f546d2dc7d8cea71c6b20d419627508d901745ab91c1057a7",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2016#33": {
    "version": 1,
    "cues": 14,
    "digest": "188b63f144499f92f1ed6ef9ec85ec8664b17ba9ba7e097e599cb379f657d5ac",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2016#34": {
    "version": 1,
@@ -657,8 +601,8 @@
    "version": 2,
    "cues": 12,
    "digest": "90214718ffad31ee7ff5fd247f63ffab2b25cead0c795fcf2273a9fe414ca059",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "hint"
   },
   "2016#38": {
    "version": 1,
@@ -671,8 +615,8 @@
    "version": 2,
    "cues": 14,
    "digest": "93bf02b9eb59a2cdbbb0f451165cfd173a8f42e906fb9cf235bc16bf094db510",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 3,
+   "preStopRisk": "hint"
   },
   "2016#40": {
    "version": 2,
@@ -685,22 +629,8 @@
    "version": 1,
    "cues": 14,
    "digest": "905bcef4e0065c08dfd5b88ebfea03ffd431d30f0e6788a90bb0890638a32e26",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
-  },
-  "2016#42": {
-   "version": 1,
-   "cues": 13,
-   "digest": "fb3817e709f46cea73c6bd46171785095dfb167113d45fa9bbfb281f4a9852e0",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "2016#43": {
-   "version": 2,
-   "cues": 13,
-   "digest": "c08e1b47d45d516288c178875512f767b3e9b8758be473610cf879e709f65cc3",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
   },
   "2016#44": {
    "version": 1,
@@ -720,15 +650,15 @@
    "version": 1,
    "cues": 13,
    "digest": "bace40cfd71160bb0eab169b901566f5d17726c276208ba0acfeccf44927c89a",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "2017#19": {
    "version": 1,
    "cues": 13,
    "digest": "9c1ab4c9196830c1662c121921b3c2091678901b927ddb094eeafabea613ddb5",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_possible"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2017#20": {
    "version": 1,
@@ -736,27 +666,6 @@
    "digest": "e34fb1f59ad5308fb993098aea62f53796ae3fb7a308556a8899f62f07975d47",
    "stopBefore": 4,
    "preStopRisk": "hint"
-  },
-  "2017#21": {
-   "version": 2,
-   "cues": 13,
-   "digest": "0d8f7f5f8a2a464f4f34be1791979d82b45bdecfb7c1865051561740087798d9",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2017#22": {
-   "version": 1,
-   "cues": 14,
-   "digest": "4864ca51ebd90d49ae789ddbe7e04d222aa7e0c7be89505407009d8ba13c0929",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2017#23": {
-   "version": 2,
-   "cues": 12,
-   "digest": "042470a933efbc1e37a9ab4b7194cecf3a76a71e8c843502f1bbd16280af5be6",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
   },
   "2017#24": {
    "version": 3,
@@ -797,7 +706,7 @@
    "version": 1,
    "cues": 14,
    "digest": "19550f229b7bdbcc02f13c49206fc586ceec34a4f5ed36414a681351a80ccec1",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "2017#31": {
@@ -825,36 +734,15 @@
    "version": 1,
    "cues": 14,
    "digest": "ea2d8f10d9ce88c050eb1215deab86c745b5198117f1a915726bcc7e5c096d6e",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2017#35": {
    "version": 2,
    "cues": 14,
    "digest": "38e1354a6ee243f5607a9c9c3df3db6f739d2fe2055c2f911d5ab041c30cdfe2",
-   "stopBefore": 5,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
-  },
-  "2017#36": {
-   "version": 1,
-   "cues": 14,
-   "digest": "973469e7a508e81a49f3173b775c3008d28007de4b1e898851bc6ddd70ef4a01",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2017#37": {
-   "version": 1,
-   "cues": 14,
-   "digest": "504fb5f352137d2d97d3683d65e56819cbd4c9933cb97369eaef719f95e8c3ec",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2017#38": {
-   "version": 2,
-   "cues": 12,
-   "digest": "2b5bf7c92e66e059f6fac81082f97380431eb21af711ff94d32784390e826041",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
   },
   "2017#39": {
    "version": 1,
@@ -874,8 +762,8 @@
    "version": 1,
    "cues": 14,
    "digest": "401dd334633e44413685c7fcfdb1bf47e6481163a576eba7cdd9011c67a6f871",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2017#42": {
    "version": 2,
@@ -884,18 +772,11 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "2017#43": {
-   "version": 1,
-   "cues": 13,
-   "digest": "aa11863928161d13c0a31c5a05666d26143ec6fcdf984adfa3649f95f000d1af",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2017#44": {
    "version": 2,
    "cues": 13,
    "digest": "954ba57fb0aee8e4dc95f844077a92503286cc89977affa66637bd02471b6966",
-   "stopBefore": 4,
+   "stopBefore": 1,
    "preStopRisk": "none"
   },
   "2017#45": {
@@ -916,15 +797,15 @@
    "version": 2,
    "cues": 13,
    "digest": "1c20676a4d367b2934fd6ff36229759fa7574a056783ee0588288faef64a1104",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2018#20": {
    "version": 1,
    "cues": 14,
    "digest": "ed4556354053941cc35df82fababdc9a7f2b7bd7ce0401d304ae2524b7573968",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2018#21": {
    "version": 1,
@@ -937,8 +818,8 @@
    "version": 1,
    "cues": 13,
    "digest": "957b98fea2f4e73527f5dc398928f6b6a18438c8d09110de00eb02f1867fd6a3",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2018#24": {
    "version": 3,
@@ -965,14 +846,14 @@
    "version": 1,
    "cues": 13,
    "digest": "31b18fec693b4fb9f37caf96fed1f61354636e8950cefe385330aa290e85b644",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2018#28": {
    "version": 2,
    "cues": 12,
    "digest": "da280306e9616513eaca8cb6cb2361835b04887a4424cee9b9c863d50f70d2b1",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "2018#29": {
@@ -986,8 +867,8 @@
    "version": 1,
    "cues": 14,
    "digest": "d134062d16e2ee6b810e60d8116df8091e319d3c1ad818385c743714ab90e561",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 3,
+   "preStopRisk": "hint"
   },
   "2018#31": {
    "version": 2,
@@ -996,18 +877,11 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "2018#32": {
-   "version": 1,
-   "cues": 13,
-   "digest": "da3c9666f3f9d4b48921b0332f2ab16068965780b87cf238c97d42572bc6b3de",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
   "2018#33": {
    "version": 1,
    "cues": 13,
    "digest": "0c87f08c18dff1e2b99968b3fc7f5138c13f7ef3f53d4e17d1bb9c45a77ffcd0",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "2018#34": {
@@ -1042,22 +916,22 @@
    "version": 2,
    "cues": 12,
    "digest": "9ebadf51f838d022d2075a7e3f6a24a95965efaa9fee1c126f404565da30b87a",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2018#39": {
    "version": 2,
    "cues": 12,
    "digest": "f50541d864431b047c2e88a1d1f3bb4b6bc28b695ee6656a103444761d7ae48b",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2018#40": {
    "version": 2,
    "cues": 12,
    "digest": "f856049991b3549c1b80fdee2e2beb82d4dc9c9b876fa87edcc22891826d10fc",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2018#41": {
    "version": 1,
@@ -1073,13 +947,6 @@
    "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
-  "2018#43": {
-   "version": 1,
-   "cues": 14,
-   "digest": "7d27c00788307cd6237b34ea8c073344f7b33c0b207449c0c342a3457628d7ff",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2018#44": {
    "version": 1,
    "cues": 14,
@@ -1091,8 +958,8 @@
    "version": 2,
    "cues": 12,
    "digest": "a5bee380c987b1ac0dc422fe9de01babdc4846ddaf33a941702cf495a25af3c9",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2019#18": {
    "version": 1,
@@ -1133,15 +1000,8 @@
    "version": 1,
    "cues": 13,
    "digest": "0a051e3b70e339f5020b29c3ddd2adeab1cf7f9f2d99bc42f3a56f9baa7be0c2",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2019#24": {
-   "version": 2,
-   "cues": 12,
-   "digest": "0c3c13e31d66345ef40f572ae7be5546c1c1bbac185d693d421127008a95e189",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2019#25": {
    "version": 3,
@@ -1154,14 +1014,14 @@
    "version": 1,
    "cues": 13,
    "digest": "5a6efc1796a09b3f92686321beb7404585b9d7a6229acd4eedfe0d3bd7200232",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2019#27": {
    "version": 1,
    "cues": 13,
    "digest": "bc089490fcf40c5c58b754adb383daf0e07894d027c4c4e36f5b6966832e1b2d",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "2019#28": {
@@ -1220,74 +1080,11 @@
    "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
-  "2019#36": {
-   "version": 1,
-   "cues": 13,
-   "digest": "b20045c76da9f8cc54b684e8854c3e38b65c274e29e8ed0e72d8bfcf64586277",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2019#37": {
-   "version": 1,
-   "cues": 13,
-   "digest": "a7063b68bc2f86a2ba2c3a2967aee80f234085d79edfbeae5256bd03dba1797d",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2019#38": {
-   "version": 1,
-   "cues": 12,
-   "digest": "0b219355d59e5c610771475da20eddc48151630ed08ec2a71681891489585f97",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2019#39": {
-   "version": 1,
-   "cues": 12,
-   "digest": "fbdcf3a67c846a7650f62a18bff43741fdcb198c4bb3f79ec5e0a68ebd81a0ff",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2019#40": {
-   "version": 2,
-   "cues": 12,
-   "digest": "c399832e65fb42193c9d66a4bd3ac8927b831dfd326b146037d602a9a7e92c5c",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2019#41": {
-   "version": 2,
-   "cues": 13,
-   "digest": "6b04da77f5d3a9928d6b159ffc43c8dec8740e0150ea890b5c3ba6447e705e55",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2019#42": {
-   "version": 2,
-   "cues": 13,
-   "digest": "711568e5ee8184a5eea7ff45a837556fb9f1d72ff36d6e6987b02428b408fb41",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "2019#43": {
-   "version": 2,
-   "cues": 13,
-   "digest": "8fc16621661acb98bfd6b9e88e210efbde08747f48d08c6e5e1da9140f740b96",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2019#44": {
-   "version": 1,
-   "cues": 14,
-   "digest": "4885632b99786fe7251650192b471ae4ab4cb1e71e505ba3a7e04589f2ad4d8d",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2019#45": {
    "version": 2,
    "cues": 12,
    "digest": "7e4e86761f7ecb2471725baf649b4b5164d38fd8b9e2cc4239afe0f8c2f7b838",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2020#18": {
@@ -1325,18 +1122,11 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "2020#23": {
-   "version": 2,
-   "cues": 12,
-   "digest": "eb01d047dc2fed61f2116f35dc0c7c46b0504396bcbbacead91e5407d47308f4",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
   "2020#24": {
    "version": 1,
    "cues": 13,
    "digest": "8db7ef5838c2baf7e16d0fe14d36e0712e3e57c9dcb20ab02d3ec7da1da39eb6",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2020#25": {
@@ -1350,7 +1140,7 @@
    "version": 2,
    "cues": 12,
    "digest": "73c1056e61e302f77876239d144f277bcbd0cf6672cff1fc6f5acdb197fe6d6a",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2020#27": {
@@ -1371,8 +1161,8 @@
    "version": 2,
    "cues": 12,
    "digest": "3f0a365ba3e8f7fdee14527dfbbc11c2fc14b4f8452163b968eab937300bb4b1",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2020#30": {
    "version": 2,
@@ -1427,8 +1217,8 @@
    "version": 1,
    "cues": 13,
    "digest": "561d00a41f4b9ec22ae086a25cb035555f0ae12b6fa5f2b57c0f7f7939177459",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "2020#38": {
    "version": 1,
@@ -1441,7 +1231,7 @@
    "version": 1,
    "cues": 12,
    "digest": "b3188b7b1e9e7e0a5982dfbc7721e5bd6267c2a40d19b572417dd234fb78c631",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2020#40": {
@@ -1451,40 +1241,26 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "2020#41": {
-   "version": 1,
-   "cues": 13,
-   "digest": "e29ec68124fa10fa8d144ec9aa5b056a2d08928e5b2835bfa7762fd6c083579e",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2020#42": {
    "version": 2,
    "cues": 13,
    "digest": "a78178d42e518e3817504113bffa7981509f4149848e0bb6939fe91d3a16202f",
-   "stopBefore": 5,
-   "preStopRisk": "hint"
-  },
-  "2020#43": {
-   "version": 2,
-   "cues": 13,
-   "digest": "f0fa7de71f06b74572ae4e2230f85c5b3619e2588f79681638f1d24e987e7df0",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2020#44": {
    "version": 1,
    "cues": 14,
    "digest": "e88626b7fec56766aca5e70fc18b4680cbdfc89667dd2d2689f06550e87a28ec",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "2020#45": {
    "version": 1,
    "cues": 13,
    "digest": "5e39590800361fc2cddb54a98cd1f3eeec6c2efa3cbd42ae21853a9d64999b16",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "2021#18": {
    "version": 1,
@@ -1504,14 +1280,14 @@
    "version": 1,
    "cues": 14,
    "digest": "70f19926f4da562b20753708c0cc17ac14333eb367aadffd5c925cd9d6b43c27",
-   "stopBefore": 5,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2021#21": {
    "version": 1,
    "cues": 14,
    "digest": "017f6e157e4471b8ef6f06eccdc330ae16eb456ffe23d3a6647c99edcbbd41e1",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2021#22": {
@@ -1535,18 +1311,11 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "2021#25": {
-   "version": 3,
-   "cues": 11,
-   "digest": "c096a6606eb76de9f6200fb70441fbe6c47def291e4c5e027d27ae07b24c328f",
-   "stopBefore": 3,
-   "preStopRisk": "none"
-  },
   "2021#26": {
    "version": 2,
    "cues": 12,
    "digest": "17be244bef44442ac03ee4f58d2d0dd0c7206eaa1e259581ae05e84486b4d601",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2021#27": {
@@ -1560,29 +1329,22 @@
    "version": 1,
    "cues": 14,
    "digest": "2db58b305edd4ec0c29a8dd835a17815288a8edb0393c2aa262c9f0544898802",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2021#29": {
    "version": 2,
    "cues": 12,
    "digest": "f35a5652f4f2a618a54eae71833d09f0cb976a45ccc7e393179422965313be33",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2021#30": {
    "version": 2,
    "cues": 12,
    "digest": "4cc8a4596beb0b0358dfa67ebe1148eecb4ac2168d4e6514d0abd40c66bbebe5",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2021#31": {
-   "version": 1,
-   "cues": 13,
-   "digest": "c514bf38243c1b5ea85ebac85ec80651f74f46d1d7849d6f84df56b0e4806cba",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2021#32": {
    "version": 1,
@@ -1595,7 +1357,7 @@
    "version": 1,
    "cues": 13,
    "digest": "dc69ed5e1f1edabbaa220986658d629bacb2f31ae431f01c70fc7edecaa3a808",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2021#34": {
@@ -1609,8 +1371,8 @@
    "version": 3,
    "cues": 12,
    "digest": "d586aefd8ba86ab1fcc20cf2cacde7a22f164a9cc715caecf32aacc9c9e69db6",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2021#36": {
    "version": 2,
@@ -1637,8 +1399,8 @@
    "version": 2,
    "cues": 13,
    "digest": "5a8de50c67732c6b716378c798d896fb96ce70182033b5c906b89178d8f4d8e0",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 4,
+   "preStopRisk": "hint"
   },
   "2021#40": {
    "version": 1,
@@ -1651,14 +1413,14 @@
    "version": 1,
    "cues": 13,
    "digest": "e2af3613c9179b1519e484d9fae8798163a9586ec63a66614dfcd01997b6ea88",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2021#42": {
    "version": 1,
    "cues": 13,
    "digest": "2c3f906128525b492b4ac2f4779082bcf1bb6b9d7d6a8639bb634767cf90f3f3",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2021#43": {
@@ -1679,8 +1441,8 @@
    "version": 1,
    "cues": 13,
    "digest": "f36b7f7c0687822122f4b9a6832937ee0e031a9164c8030d2ee372e847dbbdd9",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2022#18": {
    "version": 1,
@@ -1693,15 +1455,8 @@
    "version": 1,
    "cues": 14,
    "digest": "1ec1e8e538d3f0835194854e18a51ff7ec903a984e0e6beaccd1a89ae4d1fd12",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
-  },
-  "2022#20": {
-   "version": 2,
-   "cues": 12,
-   "digest": "024ff09469659e4ce245cfa4ef505b35de1ed6ccda57c60a8d6ec44b95defb20",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
   },
   "2022#21": {
    "version": 1,
@@ -1714,13 +1469,6 @@
    "version": 1,
    "cues": 13,
    "digest": "f6a037aba9457622a85acf36574a73d2629198b20aa679ebbd5fd724efcf331a",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2022#23": {
-   "version": 1,
-   "cues": 13,
-   "digest": "690a8498fcfc1c32bf47a5c3ff4061805793e681856e444bec017e0f3ef67a6e",
    "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
@@ -1742,15 +1490,8 @@
    "version": 2,
    "cues": 12,
    "digest": "314ee32e2d3c745a2fc3f941591309b5cd7801b4f38a54ea83687ac3e2901f3d",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2022#27": {
-   "version": 2,
-   "cues": 10,
-   "digest": "57fd938aa8fe88d0ed8856cbdb5071eaa63dd18fd4c8ddac3d454f7f9bd21cdc",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2022#28": {
    "version": 1,
@@ -1777,8 +1518,8 @@
    "version": 1,
    "cues": 13,
    "digest": "7e986865bed2ded80420664b8c65316ab794410889dc45f22fea9a92730f9295",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2022#32": {
    "version": 2,
@@ -1805,8 +1546,8 @@
    "version": 2,
    "cues": 14,
    "digest": "c873b4c14518924bf4e388a1db55cf06e2998cbd565543401cfcdcce8bb68379",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 3,
+   "preStopRisk": "hint"
   },
   "2022#36": {
    "version": 1,
@@ -1819,8 +1560,8 @@
    "version": 2,
    "cues": 13,
    "digest": "75aa7177ff005ba6d75b3ccc50cf984f7e6f2cdba8b30445255ee121fe56ca53",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2022#38": {
    "version": 2,
@@ -1843,26 +1584,12 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "2022#41": {
-   "version": 2,
-   "cues": 12,
-   "digest": "4bcc136a4fee119ab9ce63d57736239ae0ac8b7035c17cf37200edba1c4ec34b",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2022#42": {
    "version": 2,
    "cues": 13,
    "digest": "0b9ca2f51ec1bb9faa4d55ce55d80bd42ad6dcc0c81cc88adef13e79e6986ce2",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "none"
-  },
-  "2022#43": {
-   "version": 2,
-   "cues": 13,
-   "digest": "2a86d2d71f6d7a8c7f46f823be302fbf6201944c33434a7423a73ab2e9a8e25c",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
   },
   "2022#44": {
    "version": 1,
@@ -1882,8 +1609,8 @@
    "version": 2,
    "cues": 14,
    "digest": "db142617e3035377b77b80af178d0d29cf48324d459aa4220c4f3e57194b8070",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 3,
+   "preStopRisk": "none"
   },
   "2023#19": {
    "version": 1,
@@ -1903,28 +1630,28 @@
    "version": 1,
    "cues": 13,
    "digest": "b9d63e9a73cfccf37e24a891917130d00df08249d7a393202e8932ae44febd25",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "2023#22": {
    "version": 1,
    "cues": 13,
    "digest": "dd7db70a987692e6feaccc60df28b0353b660f853779fd83f21638e49fe42c94",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2023#23": {
    "version": 1,
    "cues": 14,
    "digest": "063ad5fbd96a17b63fca57639f2ad888cbd7d471211675cf9f7b6dd2e159d9c3",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2023#24": {
    "version": 2,
    "cues": 14,
    "digest": "9f5116cd3edab34562952abc088d9b480536c7bb2f779816281a2028c13f39f6",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2023#25": {
@@ -1938,29 +1665,29 @@
    "version": 2,
    "cues": 12,
    "digest": "353bf5027eddaee6de06ac702dd6046289e65f67e21d90bb0e42739ac3807733",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2023#27": {
    "version": 1,
    "cues": 13,
    "digest": "40598c580921356509cd2cb6e2edf81f3684f5e148795fc671f469e7a63175b5",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2023#28": {
    "version": 1,
    "cues": 13,
    "digest": "d98deb7906dcc2b014540302633d9d2d1cf6c2e10b0503a0d7d563871b8044d5",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2023#29": {
    "version": 2,
    "cues": 12,
    "digest": "762388d4a0125c5aaaae6e3eda98dc162052acfbcd81e076944a65ee1b46e3b4",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2023#30": {
    "version": 2,
@@ -1987,14 +1714,14 @@
    "version": 1,
    "cues": 13,
    "digest": "462d35c74f763b649d4156352058c6125d563fdf7b5193b1844443c878e87910",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2023#34": {
    "version": 2,
    "cues": 12,
    "digest": "f7be905d6cb3c75587334df96ae642dae49d0575d241ecc00c1a5041cbafd8ff",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2023#35": {
@@ -2004,40 +1731,26 @@
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
-  "2023#36": {
-   "version": 1,
-   "cues": 14,
-   "digest": "a71f77a6ab77d2dd95f1080b9d5bab99c85e21bf0022fbee3aa4513492fe41ef",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2023#37": {
-   "version": 1,
-   "cues": 14,
-   "digest": "ed61fefdc45f0b771e2858285611c8039f02989a444782c7d548dca43a27b2a2",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
   "2023#38": {
    "version": 1,
    "cues": 12,
    "digest": "c711f5fcd1a057a0c1a5774da182b458e762281e58586ddea4bd9fd0b50f0dd3",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2023#39": {
    "version": 2,
    "cues": 12,
    "digest": "01b5aa6bf2975ec708580eaf76ab9ced6abf3112df34b45c666812a6df1dbe7b",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2023#40": {
    "version": 1,
    "cues": 13,
    "digest": "15265f85ddc49ceb82ff76cc6712cf6ff41179e2c194354cb77e64af53102874",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "2023#41": {
    "version": 1,
@@ -2051,13 +1764,6 @@
    "cues": 13,
    "digest": "7801abb6fc0ebfbefa7b657d64867d5be9b31bf11a18d43fa668c988e36d1778",
    "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "2023#43": {
-   "version": 1,
-   "cues": 13,
-   "digest": "19e2b3e3852a8b0564e807d534a357364ec8aa3d6a91d8e0f47b81b5b1bd78b1",
-   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "2023#44": {
@@ -2099,7 +1805,7 @@
    "version": 1,
    "cues": 13,
    "digest": "193ff3a8c7356e6c54c6cda4b15e048d2b2ce2af77784babd3cd19a74b936529",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2024#22": {
@@ -2113,7 +1819,7 @@
    "version": 2,
    "cues": 13,
    "digest": "025d64649121ce2844e8b4b602efea8d8542136f99702b5c5c89f235fc36223b",
-   "stopBefore": 5,
+   "stopBefore": 4,
    "preStopRisk": "hint"
   },
   "2024#24": {
@@ -2148,7 +1854,7 @@
    "version": 1,
    "cues": 13,
    "digest": "56f879062ddc5203e38171ef23784c511f2070a44f0f2c89e65cd3b10ad05f7b",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "2024#29": {
@@ -2162,21 +1868,7 @@
    "version": 2,
    "cues": 11,
    "digest": "8badd00117e7a0315943c3f7d8326ab60db476b389ab483d5825ab44f9538800",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "2024#31": {
-   "version": 1,
-   "cues": 13,
-   "digest": "b7171b97c79dded9866414e4b0dd6325b7f74fde019253a658cd7b0d2655407b",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "2024#32": {
-   "version": 1,
-   "cues": 13,
-   "digest": "d65a9fc2a6ccacba35951ce302e91cb4817ca1dd26b26733e40e83eace5675e6",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2024#33": {
@@ -2190,7 +1882,7 @@
    "version": 1,
    "cues": 13,
    "digest": "6b6de83c7612312b34bd105970ac439db9367b793dcf7d7a15314eadade1fd04",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "2024#35": {
@@ -2214,13 +1906,6 @@
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
-  "2024#39": {
-   "version": 2,
-   "cues": 13,
-   "digest": "574ea683a9557526e5e0af23167b8c96782e936f5935f24e9db3e22e475decb6",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2024#40": {
    "version": 1,
    "cues": 13,
@@ -2232,13 +1917,6 @@
    "version": 1,
    "cues": 14,
    "digest": "c6ba4565a2157f911c3416573c0d1466c8bba5790954dc773cd687790342ee41",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2024#42": {
-   "version": 2,
-   "cues": 11,
-   "digest": "37af7bc310d26e5d6a9c79423263ce814cf0abcb11c8b11f6e2315c92df07e9f",
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
@@ -2256,13 +1934,6 @@
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
-  "2024#45": {
-   "version": 2,
-   "cues": 11,
-   "digest": "88e3be33b91682a13af9a9f379391c082c4fbec45ffa92d70867007c1769d452",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2025#18": {
    "version": 1,
    "cues": 13,
@@ -2274,7 +1945,7 @@
    "version": 1,
    "cues": 13,
    "digest": "82457f4f4dd3efdc19ca96477e0717912599aee9e00445db2a4844a7d9fed526",
-   "stopBefore": 5,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2025#20": {
@@ -2288,7 +1959,7 @@
    "version": 1,
    "cues": 13,
    "digest": "46c16af89c6ebf1a5567210376b9e7156a7e2ce54045e5fc39ab73af54cade54",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2025#22": {
@@ -2302,7 +1973,7 @@
    "version": 1,
    "cues": 14,
    "digest": "6994df2a32103138835f9156171c8b66f9a9750781ee62939c855df350490911",
-   "stopBefore": 4,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "2025#24": {
@@ -2316,14 +1987,14 @@
    "version": 3,
    "cues": 12,
    "digest": "d7a52a0cfcd7c65984d0c40851a4e665b6b4c317e0a63eb003fc4d41bd725f4f",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2025#26": {
    "version": 2,
    "cues": 11,
    "digest": "89c9430b952a63eb0f03b4c7435fdbcea524a51220b6257eb6922087c0eda37d",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "2025#27": {
@@ -2337,7 +2008,7 @@
    "version": 1,
    "cues": 11,
    "digest": "de5b0127fb2115e62afc75d7b5713141949c2798cc5120a0300bc862fc91b687",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "none"
   },
   "2025#29": {
@@ -2351,20 +2022,6 @@
    "version": 2,
    "cues": 11,
    "digest": "c7ee4a08170a5fdf54c3f5befac7039a7b23bad1fe49b3f91854eb7f5c584560",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2025#31": {
-   "version": 1,
-   "cues": 12,
-   "digest": "7ea9703a862871b8615e4b9523a0af5d7bdc016603b3f3b9f47ebc3c5a2a3410",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2025#32": {
-   "version": 2,
-   "cues": 13,
-   "digest": "46f1fb419ad98a4921732f64499155b1a20aaa6e5d56e2f2a6078a3854a5ebe1",
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
@@ -2393,22 +2050,15 @@
    "version": 1,
    "cues": 13,
    "digest": "b9f5e84c6bf2f0d7d6a3f026b79bb6cee0488e868815422bc728038db586ab99",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2025#37": {
-   "version": 2,
-   "cues": 13,
-   "digest": "f9d9572ce4ed2e29399808875fb96a4356359c41a2d73063933624bd29712504",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "2025#38": {
    "version": 2,
    "cues": 12,
    "digest": "fe4774776c1bd1ebcd3220143c1f74e9287c994cc4ef9e7145d06fef5f45497c",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "2025#39": {
    "version": 3,
@@ -2417,32 +2067,18 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "2025#40": {
-   "version": 2,
-   "cues": 12,
-   "digest": "45fbbc2b58956b5f2c11094cc5a4a76149c27faadb5211ce410d4e5388dbfd13",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "2025#41": {
    "version": 2,
    "cues": 12,
    "digest": "5f0a69f407c5920291aaf1dfe1d79bda2da96951679d3de8b96beaf649da99f4",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "2025#42": {
-   "version": 2,
-   "cues": 12,
-   "digest": "f7c25fdbc8afd60683fa947c639f8a8a1358c645d5331f49884500ced998b2d7",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2025#43": {
    "version": 1,
    "cues": 13,
    "digest": "315fa2f240008929edffac559622f5f728408e99887da2fddeab483f3fb8239d",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2025#44": {
@@ -2456,7 +2092,7 @@
    "version": 2,
    "cues": 11,
    "digest": "db67d2aebaeb2aa4126e0cd9788e1fab8c69e4277571e5a39097651e92b505a5",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "2026#18": {
@@ -2471,20 +2107,6 @@
    "cues": 13,
    "digest": "5704230461a687ac238748cbe76265460b5116a4b1c41075a15bdd062be27d70",
    "stopBefore": 5,
-   "preStopRisk": "hint"
-  },
-  "2026#20": {
-   "version": 1,
-   "cues": 14,
-   "digest": "662890f6c40c515186fa85eb38c00809470d80412211e04db44b9472b9c675d3",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2026#21": {
-   "version": 2,
-   "cues": 12,
-   "digest": "3ffaa0662f5c2a5f4497b5f2d1600e1ef05db5c99ee493947b520f267d5608c5",
-   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "2026#22": {
@@ -2540,14 +2162,14 @@
    "version": 2,
    "cues": 12,
    "digest": "d260673603d6f18d53890691f60c4a7506c9a6880af05539dd038d5cd61d4ff3",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "2026#30": {
    "version": 2,
    "cues": 13,
    "digest": "dbfe0796867b7284273848dd2d3d585e2b831cca72fa378efa0225242ac9427f",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2026#31": {
@@ -2561,28 +2183,28 @@
    "version": 2,
    "cues": 12,
    "digest": "daa847164fb00d4590e145aaa03e25d29e9f9210337c3d31adbaaed1c0afa436",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2026#33": {
    "version": 3,
    "cues": 12,
    "digest": "332ad4d6ce545588bc24d4eb415171a438eb7317515508ab6cf3ebd061e160d6",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2026#34": {
    "version": 2,
    "cues": 12,
    "digest": "71d0ddcf478386d862c2893b2f8d114ac2ae78074dc4315cc5bd7f9e4dbec0a4",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2026#35": {
    "version": 3,
    "cues": 12,
    "digest": "8c11af1ab5f8ab6234f4c4045e2d7f747ce245a65f7eb3599204a9d565b4deb1",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "2026#36": {
@@ -2603,7 +2225,7 @@
    "version": 3,
    "cues": 12,
    "digest": "a7905bf0ccb6892f9eed72498dbbeb6e085dedc76c4820de557c1433973cb9a8",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "decisive_confirmed"
   },
   "2026#39": {
@@ -2613,25 +2235,11 @@
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
-  "2026#40": {
-   "version": 1,
-   "cues": 13,
-   "digest": "d3fb6456c80ec187e146e3f6230830361c1d72ae186a252b72c9c26d25e166bc",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "2026#42": {
-   "version": 1,
-   "cues": 13,
-   "digest": "845ceb174133df8429726abf42ae067d37f8334996618426b3c7bc3cb1e7ea06",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
   "2026#43": {
    "version": 1,
    "cues": 13,
    "digest": "e68cca3768435334ab222373fa7b418eac81a942d7e41f7882e7f6ecc6b4a652",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "2026#44": {
@@ -2641,32 +2249,18 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "2026#45": {
-   "version": 1,
-   "cues": 13,
-   "digest": "db2594ce7279dde1c63189d5d825b52255e89afc08265e3a7fb0932254522cfc",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
   "M1809#18": {
    "version": 1,
    "cues": 13,
    "digest": "644438c6f570bae8f14a46a7b520e3fda29190f56afdc74f409ecf7a64cad990",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M1809#19": {
    "version": 1,
    "cues": 14,
    "digest": "fb7e24ac8613c56c6034e54562251d8fcdf3b961dcfdd86868dadd68cd4e4217",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M1809#20": {
-   "version": 1,
-   "cues": 14,
-   "digest": "c4a91978dbafc385ecba208ead8805360020472150e6a175dbf9784b5063315d",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M1809#21": {
@@ -2674,20 +2268,6 @@
    "cues": 12,
    "digest": "42cf89d3b83ef087c7a3366f500a09b9180f60fd0dde6ecfc108167d582aa4f1",
    "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M1809#22": {
-   "version": 2,
-   "cues": 12,
-   "digest": "1936f017b4ec6c9fc77e55c8b541177738be53411bc53d71d183cbe819d4f74b",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M1809#23": {
-   "version": 1,
-   "cues": 13,
-   "digest": "a338f73549be274db7e256a36ae63ec45fe02ec00046a8f9f6e026ba786de2ae",
-   "stopBefore": 4,
    "preStopRisk": "hint"
   },
   "M1809#24": {
@@ -2729,7 +2309,7 @@
    "version": 1,
    "cues": 14,
    "digest": "1e4ced6268c9cc5548ec97f2a34cd943d9bceecc9676bf3403686a218078a575",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "none"
   },
   "M1809#30": {
@@ -2771,34 +2351,13 @@
    "version": 2,
    "cues": 13,
    "digest": "428dd86be128ed0962bc2d7e2f124b4c0976bd3c0f21f313b484d3cadf990337",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M1809#36": {
    "version": 1,
    "cues": 13,
    "digest": "b007fa70401dc5d80805358297b5f312a6a52053db22a9f9e73fbaaf8b4de4d7",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M1809#37": {
-   "version": 2,
-   "cues": 13,
-   "digest": "e328413f7bf5346aac7794db046e02cd906ab5c0c566206ea12f194b885c18b1",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M1809#38": {
-   "version": 1,
-   "cues": 13,
-   "digest": "2baebcbc8e32b1ff3b4d9408e07acc1338edce7fe05ccf294488fda5a08d3775",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M1809#39": {
-   "version": 2,
-   "cues": 12,
-   "digest": "281121d628af7826e495e7b0e9af5ab27d8d09315a3226d70975ce29cccd142f",
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
@@ -2813,14 +2372,14 @@
    "version": 1,
    "cues": 12,
    "digest": "d913cb35fe148bc4f29237b19f8333a83fbbdd64389c51f5659b6916e9a0d465",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M1809#42": {
    "version": 1,
    "cues": 13,
    "digest": "e4931a63d6401e4df66b33ceadd539911d86ca8c2d4db74a644f2886a4352fba",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M1809#43": {
@@ -2855,14 +2414,14 @@
    "version": 1,
    "cues": 14,
    "digest": "c68d85a5651651408b6d16f309f7d58c1e7960e296b64c479cabea2094364049",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2006#20": {
    "version": 2,
    "cues": 12,
    "digest": "419a2643a915c7a9922dfe9af46da07ac2f9145b07fb6eb0afd7fdb9249219a4",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2006#21": {
@@ -2883,8 +2442,8 @@
    "version": 1,
    "cues": 13,
    "digest": "bc13dc8d51d770173d1d0bb76098a50dc4b419526d04dcdd6193d7471ac70cfa",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_possible"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2006#24": {
    "version": 1,
@@ -2911,7 +2470,7 @@
    "version": 1,
    "cues": 13,
    "digest": "ad14f303d48ff8380600406da5f3a0034914c69598347e6c0eb63d4552582b46",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "M2006#28": {
@@ -2939,8 +2498,8 @@
    "version": 1,
    "cues": 13,
    "digest": "32db4ed5d5943af5fff1eb695aa72099b5ddd0881e9ba6bc17c3a3d09e9cf0dd",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 3,
+   "preStopRisk": "hint"
   },
   "M2006#32": {
    "version": 1,
@@ -2974,15 +2533,8 @@
    "version": 2,
    "cues": 13,
    "digest": "6cfbcca322a8e16f1a089ea25579792243c014377eafe047170e1cd59011f558",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
-  },
-  "M2006#37": {
-   "version": 1,
-   "cues": 13,
-   "digest": "952a554a3c1a3acbf5cb8cb831c02c3a6bb3115404ccba7c2d3a29aae11bb42f",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
   },
   "M2006#38": {
    "version": 2,
@@ -3023,8 +2575,8 @@
    "version": 2,
    "cues": 13,
    "digest": "89afaf2204561a6e0a09fae061781851bc395e795e3e0c5fe04e27dafc10266e",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2006#44": {
    "version": 1,
@@ -3065,7 +2617,7 @@
    "version": 1,
    "cues": 13,
    "digest": "b7e59bcbf700a3d41bd9c15414491c0329bfd62fc873ec9a81b337e1cff12a7f",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2106#22": {
@@ -3082,32 +2634,25 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "M2106#24": {
-   "version": 2,
-   "cues": 12,
-   "digest": "48428e8d56db9a122619b3550ee410700dc843650e3a1599ef08827fb9e4fb5a",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
   "M2106#25": {
    "version": 3,
    "cues": 11,
    "digest": "2652f0cc2d49dce8cc2e49ee1b0f7e27284d327fc2b501779c980f9c0b958277",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "none"
   },
   "M2106#26": {
    "version": 1,
    "cues": 13,
    "digest": "420fedc024e73fb8baa903e91fc541341c09d07992abe24c420501fb6ec81823",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "M2106#27": {
    "version": 1,
    "cues": 13,
    "digest": "fe0a48f72cb8299aab956b784844ab8da0f1f6474eac83f35ae442bd2858ec3d",
-   "stopBefore": 4,
+   "stopBefore": 1,
    "preStopRisk": "none"
   },
   "M2106#28": {
@@ -3131,27 +2676,6 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "M2106#31": {
-   "version": 1,
-   "cues": 13,
-   "digest": "833e3f0305819dff148c8245530d7fc5d11e2ea5afa04e78317c19d9168e3f67",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2106#32": {
-   "version": 1,
-   "cues": 13,
-   "digest": "a939eb5ffd138ed2be702a90f1036b47d82d2eabdd6267506cc925e936789815",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2106#33": {
-   "version": 1,
-   "cues": 13,
-   "digest": "5bb905b0dd1b996200223344f8df10496919f7265782cef1ce9c8b47bbfb9c34",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
   "M2106#34": {
    "version": 1,
    "cues": 13,
@@ -3166,41 +2690,6 @@
    "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
-  "M2106#36": {
-   "version": 1,
-   "cues": 13,
-   "digest": "20536139e6fb3c78f2bc98ad9a9b52dfb4f83d8747383ac5efc39325651c0da5",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2106#37": {
-   "version": 1,
-   "cues": 13,
-   "digest": "8dba0bb53032005a655e17d8ce9f98af31c30cdba37e429cb3c63ba756376362",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2106#38": {
-   "version": 2,
-   "cues": 12,
-   "digest": "5ae8d7b1c7199760188448e6ac9f7240ebcc57ecaa9ee3d2c20ed55222937e9c",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2106#39": {
-   "version": 2,
-   "cues": 12,
-   "digest": "8cccd08a2894591a53530564dc59a25104b9b688bca33a93384d88c2ea2f6019",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2106#40": {
-   "version": 2,
-   "cues": 13,
-   "digest": "6e2025ac8dc15e6da418a3df3722210aa97738a7e2b6dc7f7a24b96ad265d1e8",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
   "M2106#41": {
    "version": 1,
    "cues": 13,
@@ -3212,21 +2701,7 @@
    "version": 2,
    "cues": 14,
    "digest": "5fa9c17b913f6190ff1656b743d1de181181c9a1ec802926fbee306a202e6a27",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2106#43": {
-   "version": 2,
-   "cues": 13,
-   "digest": "3d89163fe936879f4572a1d559d04801ac44e204bec41ef7d046f56664d8f2d7",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2106#44": {
-   "version": 1,
-   "cues": 14,
-   "digest": "53430ac2c3715a8b966868bf1a506f63d11178fed88003c661a73c7be2dcd545",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2106#45": {
@@ -3240,7 +2715,7 @@
    "version": 1,
    "cues": 14,
    "digest": "f67a2b7bc8e3f90fb198d6663819eb651e956152faf5dc31fb039e713769c3fe",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2109#19": {
@@ -3271,18 +2746,11 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "M2109#23": {
-   "version": 2,
-   "cues": 12,
-   "digest": "4b5d911c50198e83515c2ea19142e36d4788490085d4aff47de7a949a1c3afd6",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "M2109#24": {
    "version": 1,
    "cues": 14,
    "digest": "3c1d85c95210afd6d598620e4e1fe8385cd07fdc0fc72e636d3814ef39852bdb",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2109#25": {
@@ -3296,7 +2764,7 @@
    "version": 2,
    "cues": 12,
    "digest": "049027eec6a3c6f7a214840e69eff37ccc430827ab0b930ef5a54b6143e457b3",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2109#27": {
@@ -3310,22 +2778,22 @@
    "version": 1,
    "cues": 14,
    "digest": "ebe6996fbdb61652606e4e51940e508d097b620e4b80e276d1f585331bace61b",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2109#29": {
    "version": 1,
    "cues": 12,
    "digest": "e3d1dc50205696634560d8ed3052238f05ecd9805cba8d4b72ffb6be9e682d21",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2109#30": {
    "version": 2,
    "cues": 12,
    "digest": "370e66198c8034a2c24c610ff1fd87be49e8cd1e4fe9ff5e66e61c70b69b9654",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2109#31": {
    "version": 1,
@@ -3345,8 +2813,8 @@
    "version": 2,
    "cues": 12,
    "digest": "bd6da4998ed5d556067a18d85f9553838abc5ca0c3597b336c41db6a71580cda",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "hint"
   },
   "M2109#34": {
    "version": 2,
@@ -3354,13 +2822,6 @@
    "digest": "4d28ce4516389df1efe4def20fca56f63009cf8e5bccbde59b0300217d472161",
    "stopBefore": 4,
    "preStopRisk": "hint"
-  },
-  "M2109#35": {
-   "version": 3,
-   "cues": 12,
-   "digest": "cc3fd23b8923dffb9421cb26308dec34eee1f1264338c6feb39e5a469f730c01",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
   },
   "M2109#36": {
    "version": 1,
@@ -3387,8 +2848,8 @@
    "version": 1,
    "cues": 12,
    "digest": "e542105bfc52d6b8b38ac52233b8de79fe3a8421454dccca5a6cabf543e0e564",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2109#40": {
    "version": 2,
@@ -3436,42 +2897,21 @@
    "version": 1,
    "cues": 13,
    "digest": "c3046e35f4342d3371c54c23fdc8fec452db5f3d8bb810aad0ce4a54ded9ac4c",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2206#19": {
    "version": 1,
    "cues": 14,
    "digest": "7d367394e9da1a51d7f8b6eb9fba08c9c2d32cb56b2561a1cd42d887c836a41d",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
-  },
-  "M2206#20": {
-   "version": 2,
-   "cues": 13,
-   "digest": "41b7644b627e8dacafd8a28262dfa07643e1966407fb03a9533114755d35ef1c",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
   },
   "M2206#21": {
    "version": 1,
    "cues": 14,
    "digest": "502c4364547c0937fef07241b7f8079231ea5df9ef4ed6414aa90a51e1479ffe",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2206#22": {
-   "version": 2,
-   "cues": 12,
-   "digest": "65a08a986e9c5780eeadb52c9d113dff1c43edcc7101d43c5e7fda7f423bade2",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2206#23": {
-   "version": 2,
-   "cues": 12,
-   "digest": "9b4e265d6e98c215bb3709e05e168939fad64d75f935805011c60495865fb841",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2206#24": {
@@ -3499,14 +2939,7 @@
    "version": 2,
    "cues": 10,
    "digest": "5d9979ea401679f7be2ba5fa31f662b19a68498305281a3f21113bcb5de39bb5",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2206#28": {
-   "version": 1,
-   "cues": 14,
-   "digest": "ca33c5b9c42ba1c83415ec9eaf8c44c1f486f296637fafd85369dece9a3262d1",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2206#29": {
@@ -3516,52 +2949,10 @@
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
-  "M2206#30": {
-   "version": 1,
-   "cues": 14,
-   "digest": "1525ba41a5deb1529e553c3123fcb29f0acf35ac05f6610bc6367cea16554449",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2206#31": {
-   "version": 1,
-   "cues": 13,
-   "digest": "2673983ecf74c72b68a660e081f09cf5cdf794c6333686c19dbbae4b6251cb03",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
   "M2206#32": {
    "version": 2,
    "cues": 12,
    "digest": "3610d65a53cdbb3cae9e1debcb987b26fee58fee11372d832914abada5c41950",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2206#33": {
-   "version": 1,
-   "cues": 13,
-   "digest": "92b11b7ac4692843d9d13be1be57e82ef583a0e6a931c4c7b82c94c35f084224",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_possible"
-  },
-  "M2206#34": {
-   "version": 1,
-   "cues": 13,
-   "digest": "9f74f740df3f61b6db9d33767122bd73be9b33530acb0ec1b25a89aec463d5d1",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2206#35": {
-   "version": 2,
-   "cues": 13,
-   "digest": "cfc89586a1994bebffe66c9a222d19c89ef028833f0d716840c9fd3c40a4a961",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2206#36": {
-   "version": 2,
-   "cues": 13,
-   "digest": "8b12cf842da24909d1b7f14973f1f40266914adf5dc2440a0361d9cb8a8f7e21",
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
@@ -3590,28 +2981,28 @@
    "version": 2,
    "cues": 12,
    "digest": "ef02a099019f49d600085e3e9f2a85c3d961f5c7d6dc71f1a3b7b55bb63b2ec9",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2206#41": {
    "version": 1,
    "cues": 13,
    "digest": "d53d9c407d62cf2cacc39dd2dec0dabd82565fca4d243f1492cf42e728cc2a07",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2206#42": {
    "version": 2,
    "cues": 13,
    "digest": "7329a8bc1bbef4730eda4317f0b4d6442da45b379d7fec44cc8091c66e56762f",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2206#43": {
    "version": 1,
    "cues": 14,
    "digest": "be594602c0b8eb64f9db0bcdfb9262ea6469d13d5da87821487ce797c4eb7cb1",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "M2206#44": {
@@ -3632,22 +3023,22 @@
    "version": 1,
    "cues": 13,
    "digest": "155d986858dec60ced1b896cb18c212eca42e8e194364120fde716628a23e733",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2209#19": {
    "version": 1,
    "cues": 14,
    "digest": "a2627b407de88beddd43e4f8f8a4fe3bf96b0b65021e99574ba14b490960c431",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2209#20": {
    "version": 1,
    "cues": 14,
    "digest": "0387d420e80d96095815c780d3cfc733bad16f0fce8c139efdd87bbb25d78d87",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2209#21": {
    "version": 1,
@@ -3660,7 +3051,7 @@
    "version": 1,
    "cues": 13,
    "digest": "e5cac8757ad931307f9f3f13ae4aa1b32bafe0564d5c92ec35a40441c83fdced",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "M2209#23": {
@@ -3674,7 +3065,7 @@
    "version": 1,
    "cues": 14,
    "digest": "460f0e14a82f243a882a843a56a64548c8a259fb751b12c7425d2ec925c37d61",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2209#25": {
@@ -3688,21 +3079,21 @@
    "version": 1,
    "cues": 13,
    "digest": "9a652a5d8ba250e187974f6deb5e4a176591437783a6a90787c221ca00db6c42",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2209#27": {
    "version": 1,
    "cues": 14,
    "digest": "6a46b11422ec342145e89736d4af2419191d2c69011684e28f9f40390f9efe87",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2209#28": {
    "version": 1,
    "cues": 14,
    "digest": "78339e67faf7957de6c5986689c20ae919ec0e88388729c6316c7a8be1fb4e9c",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2209#29": {
@@ -3716,8 +3107,8 @@
    "version": 2,
    "cues": 11,
    "digest": "a1fbe0489cff980d9dde5df2cdfef8ba4c96b3f513d8bccf0105dc3112f918a1",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2209#31": {
    "version": 1,
@@ -3751,7 +3142,7 @@
    "version": 2,
    "cues": 13,
    "digest": "da2a532e2b967a51e85f7ceeeff85875d9cccaf03845dcc3bad14f7b0e27ffda",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2209#36": {
@@ -3765,15 +3156,8 @@
    "version": 2,
    "cues": 13,
    "digest": "f297b96a5c1a79d66a7563b80b842515c57c7dac68db465b05de6ccf4f7930ad",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2209#38": {
-   "version": 2,
-   "cues": 12,
-   "digest": "d74219e81a5e57398a0449e657c46d5dd18b25893310facf301d42371b5d3ea3",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2209#39": {
    "version": 2,
@@ -3814,7 +3198,7 @@
    "version": 1,
    "cues": 14,
    "digest": "1c92a051b19fbcf7a126246d3867e9235d726c75affd96f7baf3a51ba87130f1",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "M2209#45": {
@@ -3828,7 +3212,7 @@
    "version": 1,
    "cues": 13,
    "digest": "ec89dde6a010fa18f0b730bc367f473f92867663e8d970102e094fa5a54da468",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2306#19": {
@@ -3849,14 +3233,7 @@
    "version": 1,
    "cues": 13,
    "digest": "bceccb1d359d2e496e14ae0dd911566be6bf12f4a501c95f43bef531c1c8015e",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2306#22": {
-   "version": 2,
-   "cues": 12,
-   "digest": "34fc5c4bacca370fbb8e487586b4e03e48de15a3fd225671527fdad80edf041b",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2306#23": {
@@ -3870,8 +3247,8 @@
    "version": 1,
    "cues": 14,
    "digest": "3cd654452a1c940e97f26138dbffd21c3353982f34ccd62f356dbb66fec22ab9",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2306#25": {
    "version": 3,
@@ -3884,7 +3261,7 @@
    "version": 1,
    "cues": 14,
    "digest": "7858d0f72a68b929a288474a9f12fde364404a5fffde785116ec8577061a0a72",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2306#27": {
@@ -3912,7 +3289,7 @@
    "version": 1,
    "cues": 14,
    "digest": "65eefdf3649a06c5f4c700c82238677c582cec33d34e31b38d73dd7971a30a5c",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2306#31": {
@@ -3920,13 +3297,6 @@
    "cues": 13,
    "digest": "a1307d90a58247967d652109dd1d49f36d3b350509e13c37aac4640cc263e416",
    "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2306#32": {
-   "version": 2,
-   "cues": 12,
-   "digest": "16e1f334d62e5a0f5e7a9795fda5dac491729047f7ea17d1902d32780497308b",
-   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2306#33": {
@@ -3950,20 +3320,6 @@
    "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
-  "M2306#36": {
-   "version": 1,
-   "cues": 14,
-   "digest": "8358ba04af59edf02de68f4dd1ee6807875674b256a1bba49990982be22553e2",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2306#37": {
-   "version": 1,
-   "cues": 14,
-   "digest": "54dceacdebab8d5c212d171c16aa1b10215463818f5c9140749622eb1208c53b",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
   "M2306#38": {
    "version": 2,
    "cues": 12,
@@ -3978,13 +3334,6 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "M2306#40": {
-   "version": 1,
-   "cues": 14,
-   "digest": "db2e27add05944977274c86c92cbc29d7f84f08e33192fe5e2e16edc68ecd46f",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "M2306#41": {
    "version": 1,
    "cues": 13,
@@ -3996,20 +3345,13 @@
    "version": 2,
    "cues": 14,
    "digest": "7d935bcd6fd5772fb768188a8a335dc5b52306520b61be238ea3cc95dc68656b",
-   "stopBefore": 5,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2306#43": {
    "version": 1,
    "cues": 14,
    "digest": "dfeacfbc3f1aebde41c2557be070cc6d0675706a48db09745a3da3e18607170c",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2306#44": {
-   "version": 1,
-   "cues": 13,
-   "digest": "8e596f9c0163f01d4789bf3837fdd28e6b3dbfbbd3bb37f8b172506c0e7725e4",
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
@@ -4048,25 +3390,11 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "M2309#22": {
-   "version": 2,
-   "cues": 13,
-   "digest": "e181c1b88ff1f4d032c0a2651f8299508d941ee8c61161e0905fd8ca70c9dfdc",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
-  },
   "M2309#23": {
    "version": 1,
    "cues": 14,
    "digest": "433684fbccaa7d84eb1a8c894a4042ff45640a65d31425cb507367cda5d5c837",
    "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2309#24": {
-   "version": 3,
-   "cues": 12,
-   "digest": "775f0e20884f970e86abf680876b148efa84acfb814cf1262b9080754440e60a",
-   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2309#25": {
@@ -4080,7 +3408,7 @@
    "version": 2,
    "cues": 12,
    "digest": "7b1dc98d89825d962b06da43b5f189eb15034263643844bf5234f391ed0ce66e",
-   "stopBefore": 5,
+   "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
   "M2309#27": {
@@ -4108,8 +3436,8 @@
    "version": 2,
    "cues": 11,
    "digest": "b0557ac4c34726b15557554798d88d82c14f78ebf044fa76319749cf9efbe357",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2309#31": {
    "version": 1,
@@ -4129,7 +3457,7 @@
    "version": 1,
    "cues": 13,
    "digest": "7254850e6d528f650a6786c5b55af3f4c2db42c952e1e5f8f142d15381231d09",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2309#34": {
@@ -4143,22 +3471,8 @@
    "version": 2,
    "cues": 13,
    "digest": "3004d0f5000fa9542556930dfef56e744e69f2e3a1d38edb2c8d98a850c2e72f",
-   "stopBefore": 4,
+   "stopBefore": 1,
    "preStopRisk": "hint"
-  },
-  "M2309#36": {
-   "version": 1,
-   "cues": 14,
-   "digest": "66af9b6756b9dbf32cacd3da6ba27db487f25f0de0f6316ff057154897e10230",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2309#37": {
-   "version": 1,
-   "cues": 14,
-   "digest": "f5cfebf7f0bc1a41f41d3de941bf73b118fe16cbf6ec7b8b252b9cdc4db750fc",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
   },
   "M2309#38": {
    "version": 2,
@@ -4181,25 +3495,11 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "M2309#41": {
-   "version": 2,
-   "cues": 12,
-   "digest": "b120d8c4121b18d6c1aaa90629cde2f8fe407613b6e98d9d7cb336b5e95c568a",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "M2309#42": {
    "version": 1,
    "cues": 13,
    "digest": "597418667b69cd77ca1cbd6c28595a9524c3bb8e6221fa401f6bbfdebe91f014",
    "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2309#43": {
-   "version": 2,
-   "cues": 13,
-   "digest": "b00fcd3dfe83818a402e590e0660006dd4788c64a207c839c4899359d9a14aec",
-   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2309#44": {
@@ -4237,18 +3537,11 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "M2406#22": {
-   "version": 1,
-   "cues": 13,
-   "digest": "33d71381361f3918abd83bc70f35ae8c723ffd640c7a10285958594e13dfee65",
-   "stopBefore": 0,
-   "preStopRisk": "none"
-  },
   "M2406#23": {
    "version": 1,
    "cues": 14,
    "digest": "be86bff0c43096886689a8164698d89a8949737218cde1a2b04a226ac690581a",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2406#24": {
@@ -4269,21 +3562,21 @@
    "version": 2,
    "cues": 12,
    "digest": "97e44fd289e5d4027d8b731bf09dcc939c0cce08b8af47b8c4b847dbc839586a",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2406#27": {
    "version": 2,
    "cues": 11,
    "digest": "31aca66e5408ab0ef3602c4aee0c4187c2452b7c0d58827f0f0b791a85719ac3",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2406#28": {
    "version": 1,
    "cues": 13,
    "digest": "e6940add326c802b241b080301ec86ed8ff338920be2fcd10dd37ad38fd0fcf6",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2406#29": {
@@ -4332,8 +3625,8 @@
    "version": 2,
    "cues": 13,
    "digest": "1f23e0c15cc78c7c577c33cdbec0a8be61218661e95f7c9ee5262d2afc636b85",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2406#36": {
    "version": 1,
@@ -4346,14 +3639,14 @@
    "version": 2,
    "cues": 13,
    "digest": "d7901a1584d77eecc75c54769632f212d5731bec80e057d955cd93d9b3c38f98",
-   "stopBefore": 5,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2406#38": {
    "version": 2,
    "cues": 12,
    "digest": "4962fce8a7a876436ec6d7072c3d8c2a81ff5c3815d33f59ba74460727156135",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2406#39": {
@@ -4388,7 +3681,7 @@
    "version": 2,
    "cues": 12,
    "digest": "583a988eab8230aa6f354b41881b40f3abd5ee77bd64550174a7992bfef0b022",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2406#44": {
@@ -4416,7 +3709,7 @@
    "version": 2,
    "cues": 12,
    "digest": "a84ac0c67922b01d6cd4cafe24c3a3666a678ea28c1bc0e4ba3c939cf4f9a2f6",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "M2409#20": {
@@ -4430,21 +3723,14 @@
    "version": 1,
    "cues": 13,
    "digest": "cd97935fdf7f6446ae0746732ed41857286385f51dd561c511fa4c51e5b0e950",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2409#22": {
-   "version": 1,
-   "cues": 13,
-   "digest": "e95c222fdb2a97ab809ce90ef4ada2d5d8e88c4f429464aac89780a05ed3cfba",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2409#23": {
    "version": 2,
    "cues": 12,
    "digest": "f46b6dbbc8e6ff8e11daf8e4ae4ae5d3cc208e89742135b39bbaa74808d75e56",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "M2409#24": {
@@ -4465,7 +3751,7 @@
    "version": 2,
    "cues": 12,
    "digest": "7b27ab9039e45d35f9ecd4d960b41040a8a37276e697e761ec8f15d730cfef30",
-   "stopBefore": 5,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "M2409#27": {
@@ -4488,13 +3774,6 @@
    "digest": "3967bc07cda7a3c861badb120cfba9ceda44fce2a1d8d894ce00f52a87bae7f5",
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
-  },
-  "M2409#30": {
-   "version": 1,
-   "cues": 14,
-   "digest": "7d4ff8d4f3d39385a102d4fc82ec01b64c287c32cb8e6a606235d82fe0cff4f6",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
   },
   "M2409#31": {
    "version": 1,
@@ -4522,20 +3801,6 @@
    "cues": 12,
    "digest": "25076b9760c8fef8779eac28d37055d2f57f0e1d023e90e2443e468d5c88ae5f",
    "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2409#35": {
-   "version": 3,
-   "cues": 12,
-   "digest": "e0a6203eaa7f2bcdadb1b1bd7ce61f2c1ba6efa0fe5020e0966990a3bbc6c069",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2409#36": {
-   "version": 1,
-   "cues": 13,
-   "digest": "4f11509da77650746b06a3c9b6c4e7178e143a7a5fcf7ed03a8417f5b159a283",
-   "stopBefore": 5,
    "preStopRisk": "hint"
   },
   "M2409#37": {
@@ -4605,14 +3870,14 @@
    "version": 2,
    "cues": 12,
    "digest": "b676f5f003a1ab3d9f7bc23bc8c173d68de7d6eae409e0502674d0852f6a2637",
-   "stopBefore": 4,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "M2506#19": {
    "version": 1,
    "cues": 13,
    "digest": "c0b377e74a5f1b4ab8f0c40416bf7abda34667e12aa8ce2e2cbb332b17535a1f",
-   "stopBefore": 5,
+   "stopBefore": 4,
    "preStopRisk": "hint"
   },
   "M2506#20": {
@@ -4628,13 +3893,6 @@
    "digest": "a9ecf9a9399508cbeb986df7e61234beea2e13ac4a27b266d9c6c0b4b270a79d",
    "stopBefore": 4,
    "preStopRisk": "hint"
-  },
-  "M2506#22": {
-   "version": 1,
-   "cues": 13,
-   "digest": "6b4af1828238b1cedb7f75f3ecaf8ca88354d0f2bfbba215507abbf3eec97b38",
-   "stopBefore": 0,
-   "preStopRisk": "none"
   },
   "M2506#23": {
    "version": 1,
@@ -4657,13 +3915,6 @@
    "stopBefore": 3,
    "preStopRisk": "none"
   },
-  "M2506#26": {
-   "version": 2,
-   "cues": 11,
-   "digest": "ada523f569d0e1120965fd7a648c64d0f54b38962f5c1cfe65616e27072ee7fe",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "M2506#27": {
    "version": 2,
    "cues": 11,
@@ -4675,8 +3926,8 @@
    "version": 2,
    "cues": 12,
    "digest": "1b746482061635248391ee32ae25396f81da9798c37278866b5feb9c3e494f61",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2506#29": {
    "version": 2,
@@ -4706,13 +3957,6 @@
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
-  "M2506#33": {
-   "version": 3,
-   "cues": 12,
-   "digest": "fcc270cc2054587d0731e9be11ebf41220e53a9c0573ef6f728d485cc94c99c1",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "M2506#34": {
    "version": 2,
    "cues": 12,
@@ -4724,8 +3968,8 @@
    "version": 2,
    "cues": 13,
    "digest": "9888478b399590acb14af487407b62a1bf331883ca0c4c0459bac498e0b75287",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2506#36": {
    "version": 2,
@@ -4745,7 +3989,7 @@
    "version": 2,
    "cues": 12,
    "digest": "9d5d4cf5ef971dfcecb792c101792b9b77463635d9806e69be37209b7aebb64b",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2506#39": {
@@ -4773,8 +4017,8 @@
    "version": 1,
    "cues": 14,
    "digest": "13c205a3f8a3942d977266a2365b33a58d2f36eda8bb6d7f61c3c2dc88a4925d",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2506#43": {
    "version": 2,
@@ -4801,7 +4045,7 @@
    "version": 1,
    "cues": 13,
    "digest": "8ed36db06284045aaf5feb5d85567af30b76df082352cdad5574808881c78ebf",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
   },
   "M2509#19": {
@@ -4822,21 +4066,14 @@
    "version": 1,
    "cues": 13,
    "digest": "29ca4b80d513e7047ffbf82d627be56c01a5f58cbb9c81ced1e99756925f9af9",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "hint"
-  },
-  "M2509#22": {
-   "version": 1,
-   "cues": 13,
-   "digest": "032f5aa6fc63adf2982f8c7aa62c765ea8ee19c9a93ed1b3db8c0887047504b3",
-   "stopBefore": 0,
-   "preStopRisk": "none"
   },
   "M2509#23": {
    "version": 2,
    "cues": 13,
    "digest": "d46ff7e7f4814d6f3c1d3a0b48fd38b98698bd6ddcec79fc48903d02628f6d57",
-   "stopBefore": 4,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "M2509#24": {
@@ -4857,7 +4094,7 @@
    "version": 2,
    "cues": 11,
    "digest": "f202d137685282fdb72b404f05a4a9c5df763dc3c5031c3d0408d33dee061796",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2509#27": {
@@ -4878,14 +4115,14 @@
    "version": 2,
    "cues": 12,
    "digest": "8d973479a958477285d414662ccc79c89c1fa263068f35bd11d3efc638b3650f",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2509#30": {
    "version": 1,
    "cues": 14,
    "digest": "93bb502b1b2cd92c90d14738fa27498dd182aec5447b2fa917edd6768529d23d",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2509#31": {
@@ -4899,13 +4136,6 @@
    "version": 2,
    "cues": 12,
    "digest": "dc464c92573afce8facf2d2bc72a59f1222f439f953f316309aa78dae9607fcc",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2509#33": {
-   "version": 1,
-   "cues": 12,
-   "digest": "5e286101b54c5698c5e74997c86716c73f5ecf4dbf07a443fef13073a28973eb",
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
@@ -4923,19 +4153,12 @@
    "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
-  "M2509#36": {
-   "version": 2,
-   "cues": 13,
-   "digest": "4e43e0aaae87e09c42db36dbd691ca9da9b5304e5165ab8323f66e988ed64253",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
   "M2509#37": {
    "version": 1,
    "cues": 13,
    "digest": "4e84b9b014a176621e2dd2a143acf4a3008fe971f14bbdcef862b8698e51f227",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "hint"
   },
   "M2509#38": {
    "version": 2,
@@ -4955,7 +4178,7 @@
    "version": 2,
    "cues": 12,
    "digest": "7b093102a28691266df8d46decbc38569b1a2006cebe94ac4a7bf49984cf20f6",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2509#41": {
@@ -4969,21 +4192,14 @@
    "version": 1,
    "cues": 13,
    "digest": "fa0bb3953429cf11f86d7e6685df285881b8d8b32ec1885496b1868cb9389e0d",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2509#43": {
-   "version": 1,
-   "cues": 13,
-   "digest": "b25730e53bd4afb89f3a3cea2fb9facf100bdd83355e659127a55308a68bb7d4",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   },
   "M2509#44": {
    "version": 2,
    "cues": 12,
    "digest": "70f8b570aa9f443bba7fcbdeaff855ecca971ae3b4bc810295d973b16f173e80",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "none"
   },
   "M2509#45": {
@@ -5021,20 +4237,6 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "M2606#23": {
-   "version": 1,
-   "cues": 14,
-   "digest": "1902113db4172342a22aba5160316497c3891c7f7371b8a55d8198ead526b31e",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2606#24": {
-   "version": 2,
-   "cues": 13,
-   "digest": "ef0f587707738bc9fa388e47364c820cc5659eb7b75de68abfa1e49518c10c8f",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
   "M2606#25": {
    "version": 3,
    "cues": 12,
@@ -5042,18 +4244,11 @@
    "stopBefore": 3,
    "preStopRisk": "none"
   },
-  "M2606#26": {
-   "version": 2,
-   "cues": 11,
-   "digest": "7eb7466c2ab87feaa148742cacf600947b46b0ee49996605d4c818c2f4e65c09",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
   "M2606#27": {
    "version": 2,
    "cues": 11,
    "digest": "ac640826c77de16fa4430a7a39e881857b5cae18e7690e48d2943668363031bb",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2606#28": {
@@ -5074,7 +4269,7 @@
    "version": 1,
    "cues": 13,
    "digest": "3ec47767c79993b65f926c170cd73737ec592b4f5ce57876867ea62f1fe73636",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "M2606#31": {
@@ -5112,34 +4307,6 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "M2606#36": {
-   "version": 1,
-   "cues": 13,
-   "digest": "364ad05023c6b9090e28dc19bf63d022801dd2f34ca034f698fe2325ca41c455",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2606#37": {
-   "version": 1,
-   "cues": 13,
-   "digest": "c0c225c7238d4979740cb7903e3632f769f0a7820526a83336b3dec0ec553fe8",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2606#38": {
-   "version": 2,
-   "cues": 12,
-   "digest": "92d24a1de41794af075a39bb736f12e821c3c22e59bac4a17dcc1905114a52d4",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2606#39": {
-   "version": 1,
-   "cues": 12,
-   "digest": "f2601a7e49db0bc4b805abdb40cbf8075114096c6a123b184cc67cb9fbaff309",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "M2606#40": {
    "version": 1,
    "cues": 13,
@@ -5147,25 +4314,11 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "M2606#41": {
-   "version": 1,
-   "cues": 14,
-   "digest": "2282a22bdcadae25cf5b62a3223869e567a2771530dcf985f9b6ea8ea96e9184",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
   "M2606#42": {
    "version": 1,
    "cues": 13,
    "digest": "2fae2650f87be34f9d69af73365ea423d3447ee959e34870c7d4c4a0cbbadf01",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2606#43": {
-   "version": 1,
-   "cues": 13,
-   "digest": "3d3efeb0f798776de49d5aebaaca3f5a5c808631a4c8dd1314bbbe5099f0b706",
-   "stopBefore": 3,
+   "stopBefore": 2,
    "preStopRisk": "hint"
   },
   "M2606#44": {
@@ -5179,14 +4332,14 @@
    "version": 1,
    "cues": 13,
    "digest": "5b1c0e8228710f25a1d156fdb9441c1294b1e4abfa2d37a868933a5d7aa661ee",
-   "stopBefore": 4,
+   "stopBefore": 2,
    "preStopRisk": "decisive_confirmed"
   },
   "M2609#18": {
    "version": 1,
    "cues": 13,
    "digest": "cd6fe5c0f3b912e7e8ff6037210cd5210a3c7a53cd63ffbe1548222577befe5c",
-   "stopBefore": 4,
+   "stopBefore": 3,
    "preStopRisk": "decisive_confirmed"
   },
   "M2609#19": {
@@ -5214,14 +4367,14 @@
    "version": 1,
    "cues": 13,
    "digest": "a8d6d21c876b2b60116530f0d017174d3f9dd2f384ff6b2922ca05449305576e",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 3,
+   "preStopRisk": "hint"
   },
   "M2609#23": {
    "version": 1,
    "cues": 14,
    "digest": "d004e32cbcfb83e4c6af52d4083d374ed5702028065e71af1e44389a17875df8",
-   "stopBefore": 4,
+   "stopBefore": 1,
    "preStopRisk": "hint"
   },
   "M2609#24": {
@@ -5242,8 +4395,8 @@
    "version": 1,
    "cues": 14,
    "digest": "ba89f009f869bf87b09e27042ee06572d94fd3e63eb5f74a86e5511a30018fb3",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2609#27": {
    "version": 1,
@@ -5263,7 +4416,7 @@
    "version": 2,
    "cues": 13,
    "digest": "2a5251830419c93c596c3b675b5857c193b414194e3213f4fafe27fa6fd4d30b",
-   "stopBefore": 3,
+   "stopBefore": 1,
    "preStopRisk": "decisive_confirmed"
   },
   "M2609#30": {
@@ -5278,13 +4431,6 @@
    "cues": 12,
    "digest": "67c18238d8dbc9d7f0adfb14fcf320e4bd2e389a71666975f70115b0adbf791f",
    "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2609#32": {
-   "version": 1,
-   "cues": 13,
-   "digest": "600bb665462fc465e2ecf013bf8795f73962b33ed45c6e0f24120a3ff7eb1000",
-   "stopBefore": 4,
    "preStopRisk": "hint"
   },
   "M2609#33": {
@@ -5305,8 +4451,8 @@
    "version": 3,
    "cues": 12,
    "digest": "fa3c012738b4bc5b18328312ee553ab4ad0ad0aa32bc70462817e6bb2a43386f",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_possible"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2609#36": {
    "version": 1,
@@ -5319,8 +4465,8 @@
    "version": 2,
    "cues": 14,
    "digest": "c358deb1e7720bf0cd2a93777b4179e937c02423ddbdc81256594f4f8da054e6",
-   "stopBefore": 6,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 2,
+   "preStopRisk": "hint"
   },
   "M2609#38": {
    "version": 2,
@@ -5333,13 +4479,6 @@
    "version": 1,
    "cues": 12,
    "digest": "11a420d1a8c7b5e269bf979feac629973ac58937f5221344501dbfd4cab6b1ab",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2609#40": {
-   "version": 2,
-   "cues": 12,
-   "digest": "d9f00dd9eab722d379850a4fa044999b25a28b975a632eeeb04eeed2f91d6df7",
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
@@ -5378,13 +4517,6 @@
    "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
-  "M2706#18": {
-   "version": 2,
-   "cues": 12,
-   "digest": "d21a0f0f9d2a6f663d80c240ac15954d6fefae0a0f4d27ee8cd836735759d88a",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_possible"
-  },
   "M2706#19": {
    "version": 1,
    "cues": 14,
@@ -5399,13 +4531,6 @@
    "stopBefore": 4,
    "preStopRisk": "decisive_confirmed"
   },
-  "M2706#21": {
-   "version": 1,
-   "cues": 13,
-   "digest": "52378d1807670059302427a508850511692b89895c8b707ab7cedd23945e2690",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
   "M2706#22": {
    "version": 1,
    "cues": 13,
@@ -5413,33 +4538,12 @@
    "stopBefore": 4,
    "preStopRisk": "hint"
   },
-  "M2706#23": {
-   "version": 2,
-   "cues": 13,
-   "digest": "9fa1c0eb3fd043f401731d2d813f48a10559cddb629e5d62c44bab3a19c62314",
-   "stopBefore": 5,
-   "preStopRisk": "hint"
-  },
-  "M2706#24": {
-   "version": 2,
-   "cues": 14,
-   "digest": "9f69926ad0804e14d086781297e40afb7b466538fb84225d40928a4f7caee746",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
-  },
   "M2706#25": {
    "version": 3,
    "cues": 12,
    "digest": "346f154721b11a3322ea737118f9a7b345f99f08aab930a8295b9e67d0c92ce5",
    "stopBefore": 3,
    "preStopRisk": "none"
-  },
-  "M2706#26": {
-   "version": 1,
-   "cues": 14,
-   "digest": "fb9333fbedc83057cd10170471402629ecbe7deb2126eaf82368e4065b1b6e1d",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
   },
   "M2706#27": {
    "version": 1,
@@ -5466,8 +4570,8 @@
    "version": 2,
    "cues": 13,
    "digest": "1429184d85af48c7a37b7b398dd7230a40a4d78adb429df6ebe54ea57f8f8e52",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
+   "stopBefore": 2,
+   "preStopRisk": "none"
   },
   "M2706#31": {
    "version": 1,
@@ -5480,41 +4584,6 @@
    "version": 1,
    "cues": 13,
    "digest": "9f330b4a858af946dfdbcec3ea349a435a3e3f44c418fddc8277a9e026f63d83",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2706#33": {
-   "version": 1,
-   "cues": 13,
-   "digest": "db0728944bbe2a218c0777ed2c717fcfc9c27b9ba96c22389f386cfae898ed62",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
-  "M2706#34": {
-   "version": 2,
-   "cues": 12,
-   "digest": "1dc86fbe17d798e9478fb9b2072d871960ef1ec1e403f6135dfae8b1f4028f73",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2706#35": {
-   "version": 3,
-   "cues": 12,
-   "digest": "b3785314992232ade4a97718e03a2248bab14caf1cfbe20ea07cbdbb989bc30b",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2706#36": {
-   "version": 1,
-   "cues": 13,
-   "digest": "54c96af9d26feb86cc1692d408b68e0cc4c94302607fe44d35420208845a3699",
-   "stopBefore": 3,
-   "preStopRisk": "decisive_confirmed"
-  },
-  "M2706#37": {
-   "version": 1,
-   "cues": 13,
-   "digest": "96eb704e169a27c216b6ffff145e00440f00fe0a748f5bb04a73b65bdf675b07",
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
@@ -5546,13 +4615,6 @@
    "stopBefore": 3,
    "preStopRisk": "hint"
   },
-  "M2706#42": {
-   "version": 1,
-   "cues": 14,
-   "digest": "fa1a8060d69a57f1c3348c11b36c91c30dc101093c077de0e1ec4621acd8b5b0",
-   "stopBefore": 4,
-   "preStopRisk": "hint"
-  },
   "M2706#43": {
    "version": 1,
    "cues": 13,
@@ -5564,15 +4626,8 @@
    "version": 1,
    "cues": 13,
    "digest": "b9b4fee1e4f6873f811ca3838bc3d400523849e662d7db638a6b3f5708f788e7",
-   "stopBefore": 3,
-   "preStopRisk": "hint"
-  },
-  "M2706#45": {
-   "version": 1,
-   "cues": 13,
-   "digest": "58890036434bf6dc42e2da70f48c8e7a17e78a6a7e71399f51434e7f853ac25b",
-   "stopBefore": 4,
-   "preStopRisk": "decisive_confirmed"
+   "stopBefore": 1,
+   "preStopRisk": "none"
   }
  }
 }

@@ -98,14 +98,21 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     expect(theater).toMatch(/lec\.load\(lecturePath\)/)
   })
 
-  it('경계 정지 — 계속 · 멈춤 · 원문을 학습자가 고르고, 경계 뒤 차례로 건너뛰지 않는다', () => {
+  it('경계 정지 — 계속 · 건너뛰기 · 멈춤 · 원문을 학습자가 고르고, 경계 뒤 차례로 건너뛰지 않는다', () => {
     expect(theater).toMatch(/data-testid="lecture-boundary-continue"/)
     expect(theater).toMatch(/data-testid="lecture-boundary-stop"/)
+    expect(theater).toMatch(/data-testid="lecture-boundary-skip"/)
     // 재생 · 일시정지 · 끝남 어느 상태에서도 경계 뒤 차례는 묻는다 — `playing &&` 조건이 붙으면 끝난 뒤 레일로 건너뛴다
-    expect(theater).toMatch(/if \(lec && lecturePath === 'until' && stopAt != null && index >= stopAt\) \{\s*pauseLecture\(\)/)
-    // 일시정지에서 toggle 하면 다시 튼다 — 경계 처리 · 멈춤 · 원문은 재생 중일 때만 멈추는 pauseLecture 를 쓴다(T-0140 Codex r2)
+    expect(theater).toMatch(/if \(boundaryGate\(index, answerGate\) === 'boundary'\) \{\s*pauseLecture\(\)/)
+    // D6-02 — ←/→ · 이전/다음 차례(move)도 재생 중이 아니면 goto 의 경계 검사를 지난다(setCursor 로 바로 옮기지 않는다)
+    const move = theater.slice(theater.indexOf('const move = '), theater.indexOf('const goto = '))
+    expect(move).toMatch(/return goto\(to\)/)
+    expect(move).not.toMatch(/setCursor/)
+    // D6-03 — 건너뛰기는 공개 동의를 켜지 않는다(동의는 「계속 듣기(정답 공개)」 · 「정답 보기」 두 곳만)
+    expect(theater.match(/setAnswerConsent\(true\)/g)?.length).toBe(2)
+    // 일시정지에서 toggle 하면 다시 튼다 — 경계 처리 · 멈춤 · 건너뛰기 · 원문은 재생 중일 때만 멈추는 pauseLecture 를 쓴다(T-0140 Codex r2)
     const boundary = theater.slice(theater.indexOf('data-testid="lecture-boundary"'), theater.indexOf('data-testid="lecture-boundary-self"'))
-    expect(boundary.match(/pauseLecture\(\)/g)?.length).toBe(2)
+    expect(boundary.match(/pauseLecture\(\)/g)?.length).toBe(3)
     expect(theater).toMatch(/const pauseLecture = \(\) => \{[^}]*if \(lec\?\.status === 'playing'\) lec\.toggle\(\)/)
   })
 

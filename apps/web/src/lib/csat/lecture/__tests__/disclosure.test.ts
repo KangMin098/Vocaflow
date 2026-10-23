@@ -35,6 +35,14 @@ describe('강의 정답 공개 경계', () => {
     expect(lecture.cues[4].segments.map((s) => s.text).join(' ')).toMatch(/이것이 답입니다/)
   })
 
+  it('2026#34 — 검토자 불일치 c3(index 2)은 안전 cue 로 인정하지 않는다: 경계는 c3 앞, c1·c2 만 포함', () => {
+    const lecture = loadLecture('2026#34')!
+    expect(lectureDisclosure('2026#34', lecture)).toMatchObject({ verified: true, stopBefore: 2, preStopRisk: 'hint' })
+    const cut = lectureUntil(lecture, 2)
+    expect(cut.cues.map((c) => c.id)).toEqual(['c1', 'c2'])
+    expect(cut.cues.map((c) => c.id)).not.toContain('c3')
+    expect(lecture.cues[2].id).toBe('c3')
+  })
   it('결속 — cue 원문이 한 글자라도 바뀌면 경계를 쓰지 않는다(안전 구간 추정 금지)', () => {
     const lecture = structuredClone(loadLecture('2026#22')!)
     lecture.cues[1].segments[0].text += ' '

@@ -78,6 +78,7 @@ import {
 } from '@/lib/csat/learning-session'
 import type { Pattern, Transform } from '@/lib/csat/design'
 import { committedOf, grade, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
+import { answerWithheld, boundaryGate, gateBlocks, gatedLiveKey, type AnswerGateState } from '@/lib/csat/lecture/answer-gate'
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
@@ -826,12 +827,33 @@ export function AnalysisTheater({
         onRestart={restart}
       />
     ) : null
+  // ── 정답 공개 경로(2026-10-24 P1~P5) — 강의를 듣기 전에 학습자가 고른다. 고르기 전에는 어떤 cue 도 받지도 틀지도 않는다.
+  // 원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지(검증된 경계가 있을 때만). 강제 퀴즈 · 필수 선지 선택으로 대신하지 않는다
+  const [lecturePath, setLecturePath] = useState<'self' | 'full' | 'until' | null>(null)
+  const stopAt = lectureDisclosure?.verified ? lectureDisclosure.stopBefore : null
+  // 정답 공개 동의 — 경계 안내의 「계속 듣기(정답 공개)」 또는 감춘 블록의 「정답 보기」 만 켠다(건너뛰기 · 멈춤 · 키 이동은 켜지 않는다)
+  const [answerConsent, setAnswerConsent] = useState(false)
+  const answerGate: AnswerGateState = { path: lecturePath, stopAt, consented: answerConsent }
+  const withheld = answerWithheld(answerGate)
   const step = steps[cursor] ?? null
   // 레일 차례는 오답 번호를 지운 키를 들고 있다(maskDisclosureSteps) — 재생 중이면 받은 cue 의 실제 대상으로 맞춘다
-  const liveKey = lec?.activeKey && (lec.status === 'playing' || lec.status === 'paused') ? blockKeyForTarget(lec.activeKey, blockKeys) : step ? blockKeyForTarget(step.targetKey, blockKeys) : null
-  const sceneBlocks = blocks.filter((b) => sceneOfBlock(b.kind) === scene)
+  const rawLiveKey = lec?.activeKey && (lec.status === 'playing' || lec.status === 'paused') ? blockKeyForTarget(lec.activeKey, blockKeys) : step ? blockKeyForTarget(step.targetKey, blockKeys) : null
+  // 동의 전에는 경계 뒤 차례 · 정답을 확정하는 블록을 강조하지 않는다(D6-02)
+  const liveKey = withheld && stopAt != null && cursor >= stopAt && !(lec?.status === 'playing' || lec?.status === 'paused') ? null : gatedLiveKey(rawLiveKey, blocks, answerGate)
+  // 동의 전 화면 — 정답 칩 · 정답 근거 · 오답 소거 블록은 자리표시만(D6-01 화면 미표시. 첫 HTML · props 의 지연 조회는 (b))
+  const shownBlocks = gateBlocks(blocks, answerGate)
+  const sceneBlocks = shownBlocks.filter((b) => sceneOfBlock(b.kind) === scene)
   const sceneChecks = checks.filter((c) => sceneOfCheck(c.kind) === scene)
-  const renderBlock = (b: TheaterBlock) => (
+  const renderBlock = (b: TheaterBlock & { withheld?: boolean }) =>
+    b.withheld ? (
+      <article key={b.key} data-block={b.key} data-kind={b.kind} data-withheld="true" data-live={false} className={styles.block}>
+        <h2>{b.title}</h2>
+        <p className="break-keep">「정답 직접 안내 전까지」 를 골라 정답을 정하는 설명은 아직 감춰 두었어요.</p>
+        <button type="button" className={styles.back} onClick={() => setAnswerConsent(true)} data-testid="answer-reveal">
+          정답 보기
+        </button>
+      </article>
+    ) : (
     <article key={b.key} data-block={b.key} data-lecture-target={b.key} data-kind={b.kind} data-live={b.key === liveKey} className={styles.block}>
       <div className={styles.chips}>
         {b.chips.map((c) => (
@@ -861,15 +883,13 @@ export function AnalysisTheater({
     if (lec?.status === 'playing') setLectureStarted(true)
   }, [lec?.status])
 
-  // ── 정답 공개 경로(2026-10-24 P1~P5) — 강의를 듣기 전에 학습자가 고른다. 고르기 전에는 어떤 cue 도 받지도 틀지도 않는다.
-  // 원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지(검증된 경계가 있을 때만). 강제 퀴즈 · 필수 선지 선택으로 대신하지 않는다
-  const [lecturePath, setLecturePath] = useState<'self' | 'full' | 'until' | null>(null)
   const [chooser, setChooser] = useState<{ from: number; byLearner: boolean } | null>(null)
   const [untilFailed, setUntilFailed] = useState(false)
   const [atBoundary, setAtBoundary] = useState(false)
   const chooserRef = useRef<HTMLHeadingElement | null>(null)
   const boundaryRef = useRef<HTMLHeadingElement | null>(null)
-  const stopAt = lectureDisclosure?.verified ? lectureDisclosure.stopBefore : null
+  // 건너뛰기 · 멈춤 안내(aria-live) — 동의가 아니다
+  const [boundaryNote, setBoundaryNote] = useState<'skipped' | null>(null)
   // 경계가 첫 cue 이면 들을 것이 없다 — 이 경로를 내주지 않는다
   const untilOk = stopAt != null && stopAt > 0 && !untilFailed
   const untilFrom = (from: number) => (stopAt != null ? Math.min(from, Math.max(0, stopAt - 1)) : from)
@@ -883,7 +903,10 @@ export function AnalysisTheater({
     const from = chooser?.from ?? 0
     setChooser(null)
     setAtBoundary(false)
+    setBoundaryNote(null)
     setLecturePath(p)
+    // 경계 뒤에 서 있던 차례는 경계 앞으로 — 고른 순간 정답 블록이 강조되지 않게
+    if (p === 'until' && stopAt != null && cursor >= stopAt && !playing) setCursor(Math.max(0, stopAt - 1))
     if (!lec || p === 'self') return
     if (p === 'until') lec.start(untilFrom(from), 'start', 'until')
     else lec.start(from, 'start', 'full')
@@ -906,6 +929,8 @@ export function AnalysisTheater({
   }, [lec?.status, lecturePath])
   const continuePastBoundary = () => {
     setAtBoundary(false)
+    setBoundaryNote(null)
+    setAnswerConsent(true)
     setLecturePath('full')
     if (lec && stopAt != null) lec.start(stopAt, 'start', 'full')
   }
@@ -913,13 +938,14 @@ export function AnalysisTheater({
   const move = (delta: number) => {
     const to = Math.max(0, Math.min(steps.length - 1, cursor + delta))
     if (to === cursor) return
-    if (playing && lec) void (delta > 0 ? lec.next() : lec.prev())
-    else setCursor(to)
+    // 경계 검사는 goto 한 곳에서 — 시작 전 · 일시정지 · 끝남 상태의 ←/→ · 이전/다음 차례도 경계를 넘지 못한다(D6-02)
+    if (!(playing && lec) || boundaryGate(to, answerGate) === 'boundary') return goto(to)
+    void (delta > 0 ? lec.next() : lec.prev())
   }
   const goto = (index: number) => {
     // 정답 직접 안내 전까지 고른 동안 — 경계 뒤 차례는 재생 · 일시정지 · 끝남 어느 상태에서도 넘을지 묻는다(건너뛰어 답을 듣게 하지 않는다).
     // 멈춤은 재생 중일 때만(pauseLecture) — 일시정지에서 toggle 하면 오히려 다시 튼다(T-0140 Codex r2 P2)
-    if (lec && lecturePath === 'until' && stopAt != null && index >= stopAt) {
+    if (boundaryGate(index, answerGate) === 'boundary') {
       pauseLecture()
       setAtBoundary(true)
       return
@@ -1137,6 +1163,19 @@ export function AnalysisTheater({
               type="button"
               className={styles.lectureOfferBtn}
               onClick={() => {
+                // 이 구간 건너뛰기 — 정답 안내 cue 를 받지도 틀지도 않고, 차례 · 강조도 경계 앞에 둔다. 공개 동의가 아니다(D6-03)
+                pauseLecture()
+                setAtBoundary(false)
+                setBoundaryNote('skipped')
+              }}
+              data-testid="lecture-boundary-skip"
+            >
+              이 구간 건너뛰기
+            </button>
+            <button
+              type="button"
+              className={styles.lectureOfferBtn}
+              onClick={() => {
                 pauseLecture()
                 setAtBoundary(false)
                 setLecturePath('self')
@@ -1182,7 +1221,7 @@ export function AnalysisTheater({
       {/* 장면이 갈릴 때만 알린다(큐마다 읽지 않는다) — 알림 영역은 처음부터 문서에 있어야 첫 변경도 읽힌다 */}
       {lec ? (
         <span className={styles.srOnly} aria-live="polite">
-          {atBoundary ? '정답을 직접 말하기 직전에서 멈췄어요. 계속 들을지 고르세요' : lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
+          {atBoundary ? '정답을 직접 말하기 직전에서 멈췄어요. 계속 들을지 고르세요' : boundaryNote === 'skipped' ? '정답 안내 구간을 건너뛰었어요. 정답은 계속 감춰 둡니다' : lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
         </span>
       ) : null}
 
@@ -1483,7 +1522,7 @@ export function AnalysisTheater({
                       summary={buildLearningSummary({
                         goal,
                         principle: inquiry?.principle ?? null,
-                        rejects: blocks.filter((b) => b.kind === 'reject'),
+                        rejects: withheld ? [] : blocks.filter((b) => b.kind === 'reject'),
                         choiceEvidence: v3Linkable ? v3?.choices : undefined,
                         checks,
                         checkScene: sceneOfCheck,
