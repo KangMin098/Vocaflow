@@ -1,0 +1,142 @@
+{
+ "sql": "20261024100000_learning_exposures.v3.sql",
+ "sha256": "741e0585ac4dd606c997a2b8b8fd47456e10853957ecc0b3867579b3f3d6be8e",
+ "results": [
+  {
+   "id": "PRE",
+   "name": "승인 SQL 적용(sha256 741e0585ac4d…)",
+   "pass": true,
+   "detail": null
+  },
+  {
+   "id": "PRE",
+   "name": "적용 뒤 기존 시도 행 수 · 기존 열 내용 불변 · 새 열 NULL",
+   "pass": true,
+   "detail": {
+    "pre": {
+     "n": 2,
+     "h": "07c890e24397a2d1f2ec2aaa748a3602"
+    },
+    "post": {
+     "n": 2,
+     "h": "07c890e24397a2d1f2ec2aaa748a3602",
+     "filled": 0
+    }
+   }
+  },
+  {
+   "id": "AT-P6-01",
+   "name": "learning_attempt_submit 실제 RPC 저장 성공 · exposure_order_at 채움",
+   "pass": true,
+   "detail": {
+    "s1": {
+     "session_id": "4b1aee4f-7a88-41ba-8df9-b60674f9aba0",
+     "attempt_id": "3",
+     "outcome": "inserted"
+    },
+    "row1": {
+     "filled": true,
+     "help_level": "independent",
+     "activity": "theater",
+     "phase": "practice"
+    }
+   }
+  },
+  {
+   "id": "AT-P6-01",
+   "name": "같은 요청 재전송 → duplicate · 같은 시도 id(멱등 유지)",
+   "pass": true,
+   "detail": {
+    "session_id": "4b1aee4f-7a88-41ba-8df9-b60674f9aba0",
+    "attempt_id": "3",
+    "outcome": "duplicate"
+   }
+  },
+  {
+   "id": "AT-P6-01",
+   "name": "같은 요청 id · 다른 내용 → conflict(기존 동작 유지)",
+   "pass": true,
+   "detail": "conflict"
+  },
+  {
+   "id": "AT-P6-01",
+   "name": "learning_attempt_record(세션 없음) 직접 호출 저장 · 순서 시각 채움",
+   "pass": true,
+   "detail": {
+    "attempt_id": "4",
+    "outcome": "inserted"
+   }
+  },
+  {
+   "id": "AT-P6-01",
+   "name": "시도 RPC 실행 권한 변화 없음(authenticated 실행 불가 유지)",
+   "pass": true
+  },
+  {
+   "id": "AT-P6-02",
+   "name": "분석 완료 표본에 시도 추가 → frozen 트리거가 여전히 거부",
+   "pass": true,
+   "detail": "분석 완료된 검증의 표본에는 시도를 더하거나 고칠 수 없다 — 새 검증으로"
+  },
+  {
+   "id": "AT-P6-02",
+   "name": "거부된 트랜잭션은 (사용자·문항) 잠금을 남기지 않음",
+   "pass": true,
+   "detail": {
+    "waitedMs": 2
+   }
+  },
+  {
+   "id": "AT-P6-02",
+   "name": "실학습자 시도 UPDATE 여전히 거부(update_guard)",
+   "pass": true
+  },
+  {
+   "id": "AT-P6-02",
+   "name": "실학습자 시도 DELETE 여전히 거부(delete_guard)",
+   "pass": true
+  },
+  {
+   "id": "AT-P6-02",
+   "name": "합성 시도의 exposure_order_at 은 INSERT 트리거만 채움(UPDATE 경로 무관)",
+   "pass": true
+  },
+  {
+   "id": "AT-P6-02",
+   "name": "노출 원장 UPDATE 거부(append-only)",
+   "pass": true
+  },
+  {
+   "id": "AT-P6-03",
+   "name": "K1(실제 RPC · 실제 뷰): 노출이 먼저 커밋 → after_exposure",
+   "pass": true,
+   "detail": "after_exposure"
+  },
+  {
+   "id": "AT-P6-03",
+   "name": "대조: 노출 없는 FIND/CHECK 첫 시도 → independent_candidate",
+   "pass": true,
+   "detail": "independent_candidate"
+  },
+  {
+   "id": "AT-P6-03",
+   "name": "K2(실제 RPC): 노출이 시도 커밋까지 대기 · 시도는 independent_candidate",
+   "pass": true,
+   "detail": {
+    "waited": 405,
+    "early": false,
+    "k2v": "independent_candidate"
+   }
+  },
+  {
+   "id": "AT-P6-03",
+   "name": "실제 뷰가 viewed_first 로 보는 시도 → helped",
+   "pass": true
+  },
+  {
+   "id": "AT-P6-03",
+   "name": "적용 전 기존 시도 → legacy_unknown",
+   "pass": true
+  }
+ ]
+}
