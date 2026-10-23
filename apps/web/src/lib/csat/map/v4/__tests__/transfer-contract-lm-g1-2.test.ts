@@ -23,11 +23,13 @@ import { planWorkspaces, TRANSFER_PASSAGES } from '../workspace'
 const NOW = '2026-10-11T09:00:00.000Z'
 const KEY = 'claim-support'
 const ITEMS = ['i1', 'i2', 'i3', 'i4', 'i5']
+// T-0096 — R5 서로 다른 지문 조건: 문항마다 다른 지문
+const PASSAGES = Object.fromEntries(ITEMS.map((i) => [i, `p-${i}`]))
 const T = 'r.central_meaning'
 const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target: t, href: `/csat/item/${t}`, label: t })) }
 const proxy = (s: AxisProxyState) => ({ state: Object.fromEntries(DOMAINS.map((d) => [d, s])) as Record<Domain, AxisProxyState>, contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) as Record<Domain, number> })
 const attempt = (itemRef: string, ok: boolean, at: string): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: at, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current' })
-const asIs = (o: Partial<AsIsInput> = {}) => asIsMap({ asOf: NOW, sessions: [{ id: 's1', examId: 'E', examLabel: 'E', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: proxy('check_first'), checks: [{ taskKey: KEY, items: ITEMS }], attempts: [], ...o })
+const asIs = (o: Partial<AsIsInput> = {}) => asIsMap({ asOf: NOW, sessions: [{ id: 's1', examId: 'E', examLabel: 'E', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: proxy('check_first'), checks: [{ taskKey: KEY, items: ITEMS, passages: PASSAGES }], attempts: [], ...o })
 const REF: RefItem[] = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
 const lineRefItems = { B6: REF.slice(17, 24), A5: REF.slice(28, 34) }
 const X = ['x1', 'x2', 'x3']
@@ -127,7 +129,7 @@ describe('LM-G1.2 TRANSFER 계약 — 경험 · 진행 · 준비 · 증거 분�
   })
 
   it('CHECK 선통과(resolved) — 교수 경로 이수를 강제하지 않는다(lifecycle 다음 행동 없음 · REPAIR 요구 없음)', () => {
-    const a = asIs({ attempts: [...VERIFIED, attempt('i3', true, '2026-09-15T00:00:00Z'), attempt('i4', true, '2026-09-16T00:00:00Z')] })
+    const a = asIs({ attempts: [...VERIFIED, attempt('i3', true, '2026-09-15T00:00:00Z'), attempt('i4', true, '2026-09-16T00:00:00Z'), attempt('i5', true, '2026-09-17T00:00:00Z')] })
     expect(a.tasks[T].check?.status).toBe('resolved')
     const p = build(a, [])
     // 바로잡기부터 다시 하라고 하지 않는다. 기존 정본(to-be resolved_not_transferred)은 적용 경험이 없으면 「다른 글에 적용」 을 권한다 —

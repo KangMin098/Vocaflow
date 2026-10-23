@@ -47,7 +47,7 @@ export function confirmLinksOf(data: Pick<MapPageData, 'practiceLinks'>): Record
   const out: Record<string, ConfirmLink[]> = {}
   for (const l of Object.values(data.practiceLinks ?? {})) for (const c of l.confirm) {
     const list = (out[c.taskKey] ??= [])
-    if (!list.some((x) => x.target === c.target)) list.push({ target: c.target, href: c.href, label: c.label })
+    if (!list.some((x) => x.target === c.target)) list.push({ target: c.target, href: c.href, label: c.label, passageKey: (c as { passageKey?: string | null }).passageKey ?? null })
   }
   return out
 }
@@ -122,7 +122,7 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   const attempts: FindAttemptRow[] = data.findAttempts ?? []
   const at = asOf ?? currentAsOf(data.now, data.v4.sessions, attempts)
   const checks = data.findAttempts
-    ? Object.entries(confirmLinks).map(([taskKey, links]) => ({ taskKey, items: links.map((l) => l.target) }))
+    ? Object.entries(confirmLinks).map(([taskKey, links]) => ({ taskKey, items: links.map((l) => l.target), passages: Object.fromEntries(links.map((l) => [l.target, l.passageKey ?? null])) }))
     : []
   const asIs = asIsMap({ asOf: at, sessions: data.v4.sessions, axisProxy: { ...axisProxyOf(data), covers: data.v4.proxyCovers }, checks, attempts })
   const toBe = toBeMap({ asIs, goal, refItems: data.v4.refItems, lineRefItems: data.model.lineRefItems, confirmLinks, transferredKeys: transferredKeysOf(data) })

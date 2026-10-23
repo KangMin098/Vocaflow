@@ -64,3 +64,21 @@ Claude 후속 `9f23f9b9b`의 네 상태(`no_record`·`not_judgeable`·`below`·`
 기존 데이터 수정/삭제/대량 적재·새 테이블은 없고 기존 목표/PLAN writer·추가 전용 트리거·RLS는 유지한다. 새 writer는 service_role만 실행한다. 복구 시 앱을 옛 writer로 복귀하고 새 열/이력을 보존한다. 삭제 롤백은 실행하지 않는다. 공유 DB 적용 전후 checkpoint·스키마/권한/읽기 검증이 필요하다.
 
 원문 SHA·독립 검증 사례·수용 기준·미실행 게이트는 [독립 수용·SQL 승인 패키지](./GOAL_ACHIEVEMENT_ACCEPTANCE.md)를 따른다.
+
+## 재처방 — 저장 계획 → 수정안 비교(`v62/replan.ts` · `ReplanPanel`)
+
+- 새 독립 수행·시험 기록으로 `goalPlanRows.planGate='replan'` 이 된 TASK만 대상이다. 저장 PLAN 의 단계·계획량 그대로의 일정과 지금 단계·남은 양을 확정했다고 본 일정을 같은 `goalSchedule`(같은 예산·사용량)로 투영하고 기존 `scheduleChanges` 로 비교한다(재구현 없음).
+- 보이는 것: TASK 단계 변화(저장 → 지금), 이번 주 배정 분 변화, 목표일까지 배정 수량 변화, 다음 주 우선 TASK, 다음 확인 배정일, 재계획 사유(`goal_change`·`check_result`·`new_exam`·`content_change`). 단계·수량·일정이 같으면 「바뀐 것 없음」.
+- 저장하지 않는다. 「수정안 확인하고 확정하기」는 Workspace 계획 탭(기존 명시적 확정·버전 보존)으로만 간다. 재확정 전에는 오늘의 학습 실행 링크를 열지 않는다(기존 관문). 저장 계획 조회 실패면 패널을 만들지 않는다.
+- 수정안의 실행 링크는 지금 PLAN 의 실제 다음 활동뿐이고, 없으면 만들지 않는다(그 TASK 는 미배정 사유로 남는다).
+- 검증: `replan.test.ts`, `goal-outcome.test.ts`, 격리 브라우저 `pnpm --filter web exec tsx scripts/build-goal-outcome-harness.mts` → `playwright test -c playwright.isolated.config.ts goal-outcome.browser.spec.ts`(1440/1280 · 기록 없음·미달+재처방·충족·재풀이·다른 시험·목표 변경·조회 실패). 합성 상태이며 공유 DB 종단이 아니다.
+- UI 정책: 「오늘의 학습」은 목표일만 표시하고 「N일 남음」 카운트다운은 없앴다(LEARNER_MANAGEMENT §2-2 예외 조항과 일치).
+
+## 직접 확인 판정의 코드북 조건(T-0096 · `skill-diagnosis.ts`)
+
+- 정책은 TASK 코드북 문장에서 도출한다(`reachPolicyOf`) — 정본을 바꾸지 않는다. 지금 정책이 판정에 실제로 쓰이는 TASK: E2(다른 날), R1(서로 다른 지문), R5(둘 다), E3·R2(관찰 제한). V1 은 문장상 「다른 날」이지만 확인 키가 없어 이 판정을 타지 않으며, DEC-01 의 낱말별 재인출 계약은 구현하지 않았다.
+- **관찰 제한(E3 「함정 선택만으로 약함 판정 금지」 · R2 「관찰 근거 내역만」)**: 객관식 정오만으로 학습 요구(verified·still_needed)를 확정하지 않는다. 채점 `isCorrect` 는 그대로 두고 진단 자격에서만 막으며, 저장된 과거 정오 기록도 조회 때 다시 판정된다. 독립 시도 수 관찰은 남는다.
+- **서로 다른 지문**: 다시 확인 연속 정답은 서로 다른 지문(확인 링크의 DB 지문 정체 `passageKey`)이어야 한다. 지문 정체를 모르면 초기 확인 연속과 지연 재확인 모두에서 세지 않는다(문항을 지문으로 대신 세지 않음). 서로 다른 지문 조건이 없는 TASK 는 지문 키와 무관하게 서로 다른 문항으로 센다.
+- **다른 날(D4-DEC-01)**: 연속 정답으로 초기 확인을 마친 시각 t0 뒤의 **별도** 재확인 정답이 t0 와 다른 KST 날짜 · 12시간 이상일 때만 `resolved`. 그 전은 `pending_delayed`(As-Is `checking` · 처방 닫힘 · 다음은 다른 날 확인). 12시간은 Pilot 운영 하한이다. `resolved` 를 도달로 자동 변환하지 않는다.
+- 확인 키별 판정 분리는 유지한다(R5 창작/기출 키의 오답을 합쳐 확정하지 않음). 채점 범위 통일은 별도 측정 계약.
+- 분리(이번 범위 밖): D4-DEC-02 선택형 proxy 별도 합계 · DEC-03 R3/R4 잠정 공통 1묶음 · DEC-04 S1 서로 다른 문장 3연속 — PLAN 집계 계약이라 별도 TASK.

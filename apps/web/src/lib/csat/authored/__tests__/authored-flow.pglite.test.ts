@@ -13,7 +13,8 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { AXES, B_SQL, C_SQL, STUB } from '../../map/v62/__tests__/supply-sql-harness'
 import type { V4View } from '../../map/v4/compose'
 import { asIsMap } from '../../map/v4/as-is'
-import { DOMAINS } from '../../map/v4/definition'
+import { DOMAINS, taskOf } from '../../map/v4/definition'
+import { reachPolicyOf } from '../../map/skill-diagnosis'
 import { repairGate, workspacePlan, type PlanActivity } from '../../map/v4/plan'
 import { toBeMap } from '../../map/v4/to-be'
 import { planWorkspaces } from '../../map/v4/workspace'
@@ -261,6 +262,8 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
 interface CycleCfg { label: string; set: AuthoredSet; task: string; template: string; key: string; ind: [string, string]; fresh: [string, string]; guided: string; tr: [string, string]; pass: string; fail: string }
 function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적용 → 새 독립 확인 → 해소 · 재실패는 새 회차`, () => {
   const { key: KEY, task: CT, template: CW } = cfg
+  // T-0096 — 이 TASK 의 코드북 도달 · 관찰 조건(skill-diagnosis 와 같은 도출)
+  const policy = reachPolicyOf(taskOf(CT as never).criterion)
   const goldOfC = (id: string) => cfg.set.items.find((i) => i.id === id)!.gold as Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
   // 형식별 유효 정답 · 유효 오답 응답 — 시험 어댑터(authored-responses · 제품 채점기로 자체 검증) · 오답은 틀린 판단 + 맞는 이유 쪽
   const fmtC = cfg.set.format ?? 'central_meaning'
@@ -275,7 +278,9 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
     const deliveries = (await db.query<Row>('select * from workspace_content_delivery where user_id = $1 order by delivered_at', [uid])).rows
     const check = deliveries.filter((d) => d.role === 'independent_check')
     const asOf = new Date(Math.max(Date.now(), ...attempts.map((a) => new Date(a.answered_at).getTime())) + 1000).toISOString()
-    const map = asIsMap({ asOf, sessions: [{ id: 'synthetic-exam-record', examId: 'E', examLabel: 'Synthetic', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: { state: Object.fromEntries(DOMAINS.map((d) => [d, 'check_first'])), contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) } as never, checks: [{ taskKey: KEY, items: check.map((d) => d.artifact_ref) }], attempts: read })
+    // T-0096 — 실제 loadMapPage 처럼 확인 문항에 DB 지문 정체(authored_item.passage_key)를 싣는다(서로 다른 지문 조건)
+    const pk = new Map((await db.query<Row>('select ref, passage_key from public.authored_item where ref = any($1)', [check.map((d) => d.artifact_ref)])).rows.map((r) => [r.ref, `authored:${r.passage_key}`]))
+    const map = asIsMap({ asOf, sessions: [{ id: 'synthetic-exam-record', examId: 'E', examLabel: 'Synthetic', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: { state: Object.fromEntries(DOMAINS.map((d) => [d, 'check_first'])), contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) } as never, checks: [{ taskKey: KEY, items: check.map((d) => d.artifact_ref), passages: Object.fromEntries(check.map((d) => [d.artifact_ref, pk.get(d.artifact_ref) ?? null])) }], attempts: read })
     const link = (d: Row) => ({ target: d.artifact_ref, href: '/csat/learn/' + d.artifact_ref.slice(9) + '?d=' + d.id, label: d.role })
     const links = { [KEY]: check.map(link) }
     const refs = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
@@ -316,12 +321,31 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
     expect(req.lines.flatMap((l) => l.delivered).sort(), '이미 본 평가 지문(ind-1 · 2)은 다시 납품하지 않는다').toEqual([ref(cfg.fresh[0]), ref(cfg.fresh[1])].sort())
     return bindings(uid)
   }
-  it('pass — 새 지문 독립 확인 2 정답 → 해소 · 앞선 G2 결속 불변', async () => {
+  if (policy.observationOnly) {
+    // 코드북 관찰 제한(E3 「함정 선택만으로 약함 판정 금지」 · R2 「관찰 근거 내역만」) — 객관식 독립 오답 2개로 학습 요구를 확정하지 않는다.
+    //   바로잡기 순환 자체가 열리지 않는 것이 정본이다(채점 · G2 결속은 그대로 남는다)
+    it('관찰 제한 — 독립 오답 2개로 학습 요구 · 바로잡기가 열리지 않고 G2 결속은 근거로 남는다', async () => {
+      const U = cfg.pass
+      await supplyC(U, 'check', 2)
+      await answer(U, cfg.ind[0], false); await answer(U, cfg.ind[1], false)
+      const w = await world(U)
+      expect(w.task.status).not.toBe('verified_need')
+      expect(w.task.check?.status).toBe('unverified')
+      expect(w.task.check?.independentItems, '독립 시도 관찰은 남는다').toBe(2)
+      expect(w.row.stage).not.toBe('repair')
+      expect((await bindings(U)).map((r) => r.evidence), '오답 기록 · 결속은 그대로(채점 불변)').toEqual([true, true])
+    }, 120000)
+    return
+  }
+  it('pass — 새 지문 독립 확인 2 정답 → 해소(다른 날 조건 TASK 는 다른 날 재확인 차례) · 앞선 G2 결속 불변', async () => {
     const U = cfg.pass
     const before = await toRecheck(U)
     await answer(U, cfg.fresh[0], true); await answer(U, cfg.fresh[1], true)
     const w = await world(U)
-    expect(w.task.status).toBe('resolved'); expect(w.row.achievement).toBe('resolved')
+    if (policy.differentDay) {
+      // D4-DEC-01 — 같은 날 새 독립 2 정답은 초기 확인 완료일 뿐이다. 다른 날(KST · 12시간) 재확인 전에는 해소가 아니다
+      expect(w.task.check?.status).toBe('pending_delayed'); expect(w.task.status).toBe('checking')
+    } else { expect(w.task.status).toBe('resolved'); expect(w.row.achievement).toBe('resolved') }
     const after = await bindings(U)
     expect(after.slice(0, before.length), '처음 독립 오답 · 안내 연습 · 전이 결속은 그대로').toEqual(before)
     expect(after.slice(before.length).map((r) => r.evidence), '새 독립 확인 2 = 근거').toEqual([true, true])

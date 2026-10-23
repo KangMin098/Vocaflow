@@ -206,7 +206,9 @@ async function world(uid: string): Promise<{ view: WorkspacePlanView; v4: V4View
   const goalClock = await q1<{ t: string | null }>('select max(created_at) t from csat_map_goal_version where user_id=$1', [uid])
   const asOf = new Date(Math.max(ledger ? new Date(ledger).getTime() : 0, goalClock.t ? new Date(goalClock.t).getTime() : 0, Date.parse('2026-10-21T00:00:00Z')) + 1000).toISOString()
   const link = (d: Row) => ({ target: d.artifact_ref, href: '/csat/learn/' + d.artifact_ref.slice(9) + '?d=' + d.id, label: d.role, taskKey: KEY })
-  const links = { [KEY]: check.map(link) }
+  // T-0096 — 실제 loadMapPage 처럼 확인 링크에 DB 지문 정체(authored_item.passage_key)를 싣는다(R5 서로 다른 지문 조건)
+  const pk = new Map((await db.query<{ ref: string; passage_key: string }>(`select ref, passage_key from public.authored_item where ref = any($1)`, [check.map((d) => d.artifact_ref)])).rows.map((r) => [r.ref, `authored:${r.passage_key}`]))
+  const links = { [KEY]: check.map((d) => ({ ...link(d), passageKey: pk.get(d.artifact_ref) ?? null })) }
   const refs = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
   const receipts = await loadSourceRepairReceipts(roleClient('service_role') as never, uid, new Date(asOf))
   const repair = { [KEY]: [...deliveries.filter((d) => ['guided_practice', 'model_explanation'].includes(d.role)).map((d) => ({ ...link(d), role: d.role })), ...(receiptTargets(receipts, authoredKeysOf)[KEY] ?? [])] }
@@ -691,9 +693,11 @@ describe('2C-3 · 같은 Workspace → 검토된 미노출 혼자 확인 2 → �
     for (const r of re) await answer(r, true)
     const after = (await world(A))
     const row = after.view.tasks.find((t) => t.task === TASK)!
-    // 결과: 실제 AI 응답의 새 독립 2 통과 → resolved · 전이 이력 반영 → MAINTAIN/recheck.
+    // 결과(T-0096 · D4-DEC-01): 같은 날 새 독립 2 통과 = R5 초기 확인 완료(서로 다른 지문 2) · 다른 날 재확인 전 → pending_delayed.
+    //   처방(REPAIR)은 닫히고 As-Is 는 확인 진행 중(checking) · 다음은 다른 날 확인(CONFIRM). 같은 날 연속 정답만으로 resolved 로 올리지 않는다.
+    expect(after.v4.asIs.tasks[TASK as never].check?.status).toBe('pending_delayed')
     // 최초 오답 상태는 합성 기능 회귀이며 이 연결을 인과 학습효과로 주장하지 않는다.
-    expect({ stage: row.stage, status: after.status, need: after.v4.toBe?.needs.find((n) => n.task === TASK)?.type }).toEqual({ stage: 'recheck', status: 'resolved', need: 'MAINTAIN' })
+    expect({ stage: row.stage, status: after.status, need: after.v4.toBe?.needs.find((n) => n.task === TASK)?.type }).toEqual({ stage: 'check', status: 'checking', need: 'CONFIRM' })
     // 결과 → 다음 계획 저장(정본 계획 RPC) · 저장 단계 = 다시 계산한 단계
     const cur = await plan()
     expect(await postPlan(A, request({ reason: 'check_result', expectedVersion: cur, expectedGoalVersion: goal1 }))).toMatchObject({ status: 200, body: { version: cur + 1 } })

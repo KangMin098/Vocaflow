@@ -605,8 +605,10 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
   // FI-011 — 납품된 창작 전이 자료를 그 TASK 의 창작 키 적용 링크로(지문 정체성은 아래 loadPassageKeys 가 DB 본문 해시로)
   for (const t of authoredTransfers) (transferTargets[t.key] ??= []).push({ target: t.target, href: t.href, label: t.label })
   // Read existing source only: exact passage JSON binds progress and candidate availability.
-  const passageKeys = await loadPassageKeys(db, [...(lifecycleActivity ?? []).map(a => a.itemRef), ...Object.values(transferTargets).flatMap(xs => xs.map(x => x.target))].filter((x): x is string => !!x))
+  const passageKeys = await loadPassageKeys(db, [...(lifecycleActivity ?? []).map(a => a.itemRef), ...Object.values(transferTargets).flatMap(xs => xs.map(x => x.target)), ...Object.values(practiceLinks).flatMap(l => l.confirm.map(c => c.target))].filter((x): x is string => !!x))
   for (const a of lifecycleActivity ?? []) a.passageKey = a.itemRef ? passageKeys[a.itemRef] ?? null : null
+  // T-0096 — 확인 문항의 지문 정체(서로 다른 지문 도달 조건). 모르면 null — 그 조건이 있는 TASK 에서는 그 문항을 세지 않는다(문항을 지문으로 대신하지 않는다)
+  for (const l of Object.values(practiceLinks)) l.confirm = l.confirm.map(c => ({ ...c, passageKey: passageKeys[c.target] ?? null }))
   // LM-G1.4 — 수행 기록 · 첫 시도 문항의 현재 주석 해시(기존 과제 레지스트리 · 판정 아님). 못 구하면 undefined → 현재성 UNKNOWN
   let instrumentHashes: Record<string, string | null> | undefined
   try {
