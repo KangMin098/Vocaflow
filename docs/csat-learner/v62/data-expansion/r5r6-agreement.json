@@ -39,6 +39,11 @@
    "disputed": 141
   }
  },
+ "review_T0089": {
+  "sampled": 60,
+  "note": "R1 direct 표본 30 중 관련성 confirmed 29 · unclear 1(후보 내림). 계약 위반(인접 TASK 오정의 · 유형 지름길)은 관련성 값이 아니라 설명 문장의 결함 — 이 배치의 task_distinction 은 근거로 쓰지 않는다(청크에 인접 정의가 없었다)."
+ },
+ "task_distinction_reliable": false,
  "human_review": 0,
  "student_measurement": 0,
  "note": "두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1)."
