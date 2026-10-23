@@ -68,11 +68,12 @@ async function main() {
   if (missing.length) fail(2, `관리자 실행 변수 없음: ${missing.join(', ')} (${ENV_FILE})`)
 
   // 승인 — 승인 창 티켓 또는 TTY 입력
-  let approvedVia
+  let approvedVia, ticketSha = null
   if (o.approvalNonce) {
     const r = consumeTicket({ runner: RUNNER, stage: o.stage, sha: o.confirmSha, nonce: o.approvalNonce })
     if (!r.ticket) fail(2, r.reason)
-    approvedVia = `popup-ticket ${r.ticket.id ?? r.ticket.issued_at}`
+    ticketSha = r.ticket.nonce_sha256
+    approvedVia = `popup-ticket ${r.ticket.issued_at}`
   } else if (process.stdin.isTTY && process.stdout.isTTY) {
     const rl = createInterface({ input: process.stdin, output: process.stdout })
     const ans = (await rl.question(`승인하려면 입력: APPLY ${RUNNER} ${o.confirmSha}\n> `)).trim()
@@ -83,7 +84,9 @@ async function main() {
 
   // AI-Control 에 승인 기록(이미 같은 SQL 로 승인돼 있으면 그대로)
   if (!(appr?.by === 'user' && appr.sql_sha256 === fileSha)) {
-    const r = spawnSync(process.execPath, [path.join(CONTROL, 'bin/vfc.mjs'), 'task', 'approve', TASK, '--by', 'user', '--ref', `승인 창 허용(${approvedVia}) · ${SQL}`, '--sql-sha256', fileSha], { cwd: CONTROL, encoding: 'utf8' })
+    // 팝업: 소비한 티켓 해시를 넘겨 AI-Control 이 티켓 파일을 검증(via=popup). TTY: 사람 터미널을 그대로 물려 via=tty
+    const vfcArgs = [path.join(CONTROL, 'bin/vfc.mjs'), 'task', 'approve', TASK, '--by', 'user', '--ref', `승인 창 허용(${approvedVia}) · ${SQL}`, '--sql-sha256', fileSha, ...(ticketSha ? ['--popup-ticket', ticketSha] : [])]
+    const r = spawnSync(process.execPath, vfcArgs, ticketSha ? { cwd: CONTROL, encoding: 'utf8' } : { cwd: CONTROL, stdio: 'inherit' })
     if (r.status !== 0) fail(2, `AI-Control 승인 기록 실패: ${(r.stderr || r.stdout).trim().slice(-400)}`)
   }
 
