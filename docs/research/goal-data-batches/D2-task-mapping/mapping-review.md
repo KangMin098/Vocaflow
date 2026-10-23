@@ -155,3 +155,8 @@
 - **§2 M2506#33 · #34**: A · B 가 각자 독립 재판정해 둘 다 **R5 direct → R6 direct(R5 indirect)** — 본문 문장이 빈칸보다 범위가 좁거나(decisions ↔ subjective experience and solutions) 강도가 약해(relatively consistent ↔ far outweigh) 두 문장 결합이 필요.
 - 재계산: b6 일치 .9375 · **κ .8922**(← .8907) · 주 TASK 일치 33/40 · R1 93 · 갈림 15 · 경보 없음 · R6 direct 2 → 4. 결합 R1 604 · 갈림 343 · D3 주 TASK 166/198 · 왜곡 일치 502/780.
 - 결정 대기 유지: v2.4 §4(다중 direct 주 TASK) · 「엔진은 direct 집합」 권고 — 같은 8문항에 맞춘 일치 상승을 타당도로 쓰지 않는다(T-0107).
+
+### 11-3. T-0108 정정
+
+- **P1**: 「direct 단일」 예외를 접두어가 아니라 **실제 direct 링크 1개 · 그것이 primary** 일 때로 제한. 다중 direct 행이나 primary 와 다른 TASK 에 단일 표지를 붙이면 「허위 단일 표지」 로 거부. 반례 `d2-validate.check.mjs` 6/6(허위 단일 · primary 불일치 추가). b2–b6 결함 0.
+- **P2**: M2506#33(A) · #34(B) 의 decision_path · answer_logic · passage_structure · design_hypothesis(· #33 E3 why)를 R6 판정(두 문장 결합 · 범위 확장 · 강도 변경)에 맞게 원문 기준으로 갱신. links · primary 불변 → 일치 · κ 불변.

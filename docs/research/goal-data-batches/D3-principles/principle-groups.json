@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d3-build.mjs",
- "generated_at": "2026-10-23T06:54:43.972Z",
+ "generated_at": "2026-10-23T07:04:45.568Z",
  "inputs": [
   {
    "batch": "pilot-1",
@@ -37,7 +37,7 @@
   "items": 198,
   "items_source_gap": 3,
   "primary_task_agree": 166,
-  "same_decision_locus": 97,
+  "same_decision_locus": 96,
   "wrong_options": 792,
   "distortion_agree": 514,
   "distortion_agree_source_text": 502,

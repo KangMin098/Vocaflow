@@ -83,7 +83,12 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
     for (const r of withReason) {
       const k = norm(r.primary_reason)
       exact.set(k, [...(exact.get(k) ?? []), r.item_id])
-      if (isSingleDirect(k)) continue
+      // 「direct 단일」 예외는 실제로 direct 가 하나이고 그것이 primary 일 때만(T-0108 P1: 접두어만으로 다중 direct 행이 골격 검사를 우회했다)
+      if (isSingleDirect(k)) {
+        const directs = (r.links ?? []).filter((l) => l.relevance === 'direct').map((l) => l.task_id)
+        if (directs.length === 1 && directs[0] === r.primary_task) continue
+        errs.push(`${r.item_id}: primary_reason 이 「direct 단일」 인데 direct 링크 ${directs.length}개(${directs.join(',') || '없음'}) · primary ${r.primary_task} — 허위 단일 표지`)
+      }
       const s = skeleton(k)
       if (s.length >= 6) skel.set(s, [...(skel.get(s) ?? []), r.item_id])
     }
