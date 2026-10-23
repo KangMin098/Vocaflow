@@ -27,6 +27,7 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
   const subset = !!input.tasks
   const byId = new Map(input.rows.map((r) => [r.item_id, r]))
   const reasonsRequired = V24_PLUS.includes(input.contract)
+  const BATCH_NO = Number(/^b(\d+)-/.exec(String(input.batch))?.[1] ?? 0)
 
   function v2(row, inp) {
     if (legacyV1) return []
@@ -86,7 +87,9 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
       ? JSON.stringify([...rowOut.secondary_tasks].sort()) === JSON.stringify(indirectSet)   // v2.5 §3: indirect 를 secondary 에 남긴다
       : rowOut.secondary_tasks.length === 0)
     const noDirect = subset && V22_PLUS.includes(input.contract) && rowOut.primary_task === null && secondaryOk && !(rowOut.links ?? []).some((l) => l.relevance === 'direct')
-    return [...validateRow(rowOut, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...v2(rowOut, inp), ...v22(rowOut, inp), ...v23(rowOut, inp), ...v24(rowOut, inp), ...v25(rowOut, inp)]
+    // 같은 TASK 를 directly_observable 과 not_observable 양쪽에 두지 않는다(T-0122 P1-02 · b5–b14 61행은 기록 · b15 부터 거부)
+    const both = BATCH_NO >= 15 ? (rowOut.not_observable ?? []).map((n) => n?.task_id).filter((t) => (rowOut.directly_observable ?? []).includes(t)) : []
+    return [...validateRow(rowOut, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...v2(rowOut, inp), ...v22(rowOut, inp), ...v23(rowOut, inp), ...v24(rowOut, inp), ...v25(rowOut, inp), ...both.map((t) => `관측 ${t} 가 directly_observable · not_observable 양쪽에 있다`)]
   }
   /** 한 청크 — 1차 반복 검사. 계약이 고정 문구를 요구하는 삽입 E2 unknown(v2.2 §3)은 반복 검사에서 뺀다 */
   function chunk(rows) {
@@ -117,8 +120,7 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
     for (const [s, ids] of skel) if (ids.length >= 3) errs.push(`primary_reason 템플릿 반복 ${ids.length}행(${ids.slice(0, 3).join(',')}): 골격 「${s.slice(0, 24)}」`)
     // not_observable why — 문항 id 만 바꾼 같은 문장이 3문항 이상이면 문항 고유 판정이 아니다(b14 B-01: 44개가 한 틀).
     // b14 부터 적용 — b8 · b13 A 트랙의 기존 반복은 알려진 결함으로 기록(mapping-review §18)하고 소급 배제하지 않는다
-    const bn = Number(/^b(\d+)-/.exec(String(input.batch))?.[1] ?? 0)
-    if (reasonsRequired && bn >= 14) {
+    if (reasonsRequired && BATCH_NO >= 14) {
       const nob = new Map()
       for (const r of allRows) for (const n of r.not_observable ?? []) {
         if (typeof n?.why !== 'string') continue

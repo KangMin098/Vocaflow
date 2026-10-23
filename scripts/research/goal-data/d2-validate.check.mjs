@@ -30,7 +30,16 @@ const nobCases = [
   { name: '반복 1줄 + 고유 2줄 행 3개 허용', v: V14, rows: [1, 2, 3].map((k) => ({ item_id: `M#${k}`, primary_reason: `고유 이유 ${'가나다'[k - 1]} 문장`, not_observable: [{ task_id: 'r.discourse_structure', why: '전개 복원은 선택만으로 확인되지 않는다' }, { task_id: 'r.inference', why: `문항 ${k} 의 결론 ${'가나다'[k - 1]} 연결은 남지 않는다` }, { task_id: 'e.task_demand', why: `발문 ${'가나다'[k - 1]} 방향 확인 흔적 없음` }] })), expect: false },
   { name: '삽입 E2 고정 문구는 반복 검사 제외', v: makeValidator({ ...input, batch: 'b14-v24', rows: [1, 2, 3].map((k) => ({ item_id: `I#${k}`, type_id: 'R-INSERT' })) }, []), rows: [1, 2, 3].map((k) => ({ item_id: `I#${k}`, primary_reason: `고유 이유 ${'가나다'[k - 1]} 문장`, not_observable: [{ task_id: 'e.evidence_location', why: 'E2 분리 불가' }] })), expect: false },
 ]
+// 관측 양쪽 중복(T-0122 P1-02) — b15 부터 거부, 그 전 배치는 기록만
+const realIn = JSON.parse(fs.readFileSync(new URL('./local/b15-v24/input.json', import.meta.url)))
+const dupRow = { item_id: realIn.rows[0].item_id, directly_observable: ['e.task_demand'], not_observable: [{ task_id: 'e.task_demand', why: '발문 방향 확인' }] }
+const dupIn = (batch) => makeValidator({ ...realIn, batch }, realIn.tasks).row(dupRow).some((e) => e.includes('양쪽'))
+const dupCases = [{ name: '관측 양쪽 중복(b15) 거부', got: dupIn('b15-v24'), expect: true }, { name: '관측 양쪽 중복(b14) 소급 안 함', got: dupIn('b14-v24'), expect: false }]
 let bad = 0
+for (const c of dupCases) {
+  console.log(`${c.got === c.expect ? 'ok ' : 'FAIL'} ${c.name} → 검출 ${c.got}`)
+  if (c.got !== c.expect) bad++
+}
 for (const c of nobCases) {
   const got = c.v.reasons(c.rows).some((e) => e.includes('not_observable'))
   console.log(`${got === c.expect ? 'ok ' : 'FAIL'} ${c.name} → 검출 ${got}`)
