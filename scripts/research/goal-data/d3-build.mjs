@@ -16,7 +16,7 @@ const sha = (v) => crypto.createHash('sha256').update(String(v)).digest('hex')
 const all = nonHeldTasks()
 const SOURCES = [
   { batch: 'pilot-1', dir: PILOT1, input: path.join(PILOT1, 'pilot-input.json'), tasks: all },
-  ...['b2-v2', 'b3-insert', 'b4-v21'].map((b) => ({ batch: b, dir: path.join(ROOT, 'scripts/research/goal-data/local', b), input: path.join(ROOT, 'scripts/research/goal-data/local', b, 'input.json'), tasks: all.filter((t) => t.kind !== 'integrated') })),
+  ...['b2-v2', 'b3-insert', 'b4-v21', 'b5-v22'].map((b) => ({ batch: b, dir: path.join(ROOT, 'scripts/research/goal-data/local', b), input: path.join(ROOT, 'scripts/research/goal-data/local', b, 'input.json'), tasks: all.filter((t) => t.kind !== 'integrated') })),
 ].filter((s) => fs.existsSync(s.input))
 // pilot-1 · b2-v2 의 삽입 문항은 주어진 문장 오독으로 무효 — b3-insert 재판정으로 대체한다(T-0088 정정)
 const SUPERSEDED_BATCHES = new Set(['pilot-1', 'b2-v2'])
@@ -28,7 +28,13 @@ function passed(src, track, byId) {
   for (const f of fs.readdirSync(src.dir).filter((f) => f.startsWith(`chunk-${track}-`) && f.endsWith('.out.json'))) {
     const rows = JSON.parse(fs.readFileSync(path.join(src.dir, f), 'utf8')).rows ?? []
     if (validateChunk(rows).length) continue
-    for (const r of rows) { const inp = byId.get(r.item_id); if (inp && !validateRow(r, inp, src.tasks).length) out.set(r.item_id, r) }
+    for (const r of rows) {
+      const inp = byId.get(r.item_id)
+      if (!inp) continue
+      // v2.2 부분 집합 배치: 청크 TASK 에 direct 가 없으면 primary_task=null 허용(d2-run 과 같은 면제)
+      const noDirect = src.subset && r.primary_task === null && !(r.links ?? []).some((l) => l.relevance === 'direct')
+      if (!validateRow(r, inp, src.tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))).length) out.set(r.item_id, r)
+    }
   }
   return out
 }
@@ -37,6 +43,8 @@ const reasoning = [], distractors = []
 const inputs = []
 for (const src of SOURCES) {
   const input = JSON.parse(fs.readFileSync(src.input, 'utf8'))
+  // 입력에 판정 TASK 가 기록돼 있으면 그 부분 집합으로 검증한다(b5 이후)
+  if (input.tasks) { src.tasks = all.filter((t) => input.tasks.includes(t.id)); src.subset = true }
   inputs.push({ batch: src.batch, items: input.rows.length, input_sha256: crypto.createHash('sha256').update(JSON.stringify(input.rows.map((r) => [r.item_id, r.source_sha256]))).digest('hex') })
   const byId = new Map(input.rows.map((r) => [r.item_id, r]))
   const A = passed(src, 'A', byId), B = passed(src, 'B', byId)

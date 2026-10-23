@@ -51,12 +51,12 @@ const perTask = Object.fromEntries(atomic.map((t) => {
   const r = rows.filter((l) => l.task === t.id)
   const p = pilot.filter((l) => l.task === t.id)
   return [t.id, {
-    display: t.display, judged_items: p.length + Object.values(agreements).reduce((s, a) => s + a.per_task[t.id].n, 0) - superseded.size,
+    display: t.display, judged_items: p.length + Object.values(agreements).reduce((s, a) => s + (a.per_task[t.id]?.n ?? 0), 0) - superseded.size,
     r1_direct_items: r.filter((l) => l.candidateRelevance === 'direct').map((l) => l.item),
     r1_indirect_items: r.filter((l) => l.candidateRelevance === 'indirect').length,
     disputed: r.filter((l) => l.state === 'DISPUTED').length,
-    agreement: { 'pilot-1': Number((p.filter((l) => l.state !== 'DISPUTED').length / p.length).toFixed(3)), ...Object.fromEntries(batches.map((b) => [b, agreements[b].per_task[t.id].agreement])) },
-    kappa: Object.fromEntries(batches.map((b) => [b, agreements[b].per_task[t.id].kappa])),
+    agreement: { 'pilot-1': Number((p.filter((l) => l.state !== 'DISPUTED').length / p.length).toFixed(3)), ...Object.fromEntries(batches.map((b) => [b, agreements[b].per_task[t.id]?.agreement ?? null])) },
+    kappa: Object.fromEntries(batches.map((b) => [b, agreements[b].per_task[t.id]?.kappa ?? null])),
   }]
 }))
 const kappas = Object.fromEntries(batches.map((b) => [b, { kappa: agreements[b].kappa, agreement: agreements[b].agreement, items: agreements[b].items, pairs: agreements[b].pairs }]))

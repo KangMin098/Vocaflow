@@ -13,17 +13,22 @@ import { ROOT, nonHeldTasks, validateChunk, validateRow } from '../../csat/map/v
 const [batch, cmd] = process.argv.slice(2)
 const LOCAL = path.join(ROOT, 'scripts/research/goal-data/local', String(batch))
 const OUTDIR = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping')
-// b4 이후는 20문항 청크(분석자 수를 동시 실행 한도 안에 둔다)
-const CHUNK = /^b[4-9]/.test(String(batch)) ? 20 : 10
-// b2-v2 는 v2 로 판정했다 — 그 뒤 배치만 v2.1 을 더한다
-const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', 'docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md', ...(batch === 'b2-v2' ? [] : ['docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_1.md'])]
+// b2 · b3 만 10문항 청크 — 그 뒤 배치는 20문항 청크(분석자 수를 동시 실행 한도 안에 둔다 · T-0100 은 정규식이 b4–b9 에만 맞던 것을 지적)
+const CHUNK = ['b2-v2', 'b3-insert'].includes(String(batch)) ? 10 : 20
 const sha = (v) => crypto.createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex')
 const hideQuote = (a) => (a?.quote ? { field: a.field, quote_sha256: sha(String(a.quote)), quote_chars: String(a.quote).length } : null)
 const norm = (s) => String(s ?? '').replace(/\s+/g, ' ').trim()
 const input = JSON.parse(fs.readFileSync(path.join(LOCAL, 'input.json'), 'utf8'))
 const byId = new Map(input.rows.map((r) => [r.item_id, r]))
-// v2: 통합 관찰(kind=integrated)은 문항 단위 판정에서 뺀다
-const tasks = nonHeldTasks().filter((t) => t.kind !== 'integrated')
+// 계약: b2 = v2 · b3/b4 = v2.1 · 입력에 contract 가 있으면 그 버전까지(v2.2 = TASK 부분 집합 · E2 탐색 · 삽입 격리)
+const DOC = 'docs/research/goal-data-batches/D2-task-mapping'
+const CONTRACTS = ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', `${DOC}/CONTRACT_V2.md`, ...(batch === 'b2-v2' ? [] : [`${DOC}/CONTRACT_V2_1.md`]), ...(input.contract === 'v2.2' ? [`${DOC}/CONTRACT_V2_2.md`] : [])]
+// v2: 통합 관찰(kind=integrated)은 문항 단위 판정에서 뺀다 · v2.2: 입력의 tasks 부분 집합만 판정 · 검증한다
+const allAtomic = nonHeldTasks().filter((t) => t.kind !== 'integrated')
+const tasks = input.tasks ? input.tasks.map((id) => allAtomic.find((t) => t.id === id) ?? (() => { throw new Error(`입력 tasks 에 정의 밖 TASK ${id}`) })()) : allAtomic
+const subset = !!input.tasks
+// 안정 5 TASK(T-0100) — 일치 .80 · κ .68 을 둘 다 밑돌면 다음 배치 중단
+const STABLE = ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure']
 const nChunks = Math.ceil(input.rows.length / CHUNK)
 const name = (track, k, out) => path.join(LOCAL, `chunk-${track}-${String(k + 1).padStart(2, '0')}${out ? '.out' : ''}.json`)
 const answerSet = (src) => (src.answers?.length ? src.answers : src.answer != null ? [src.answer] : [])
@@ -41,6 +46,16 @@ function validateV2(row, inp) {
     else if (c.kind === 'locus') { const f = c.field ?? 'passage'; if (norm(c.quote).length < 3 || !norm(fieldText(inp.source, f)).includes(norm(c.quote))) errs.push(`${l.task_id} 반사실 위치 인용이 원문에 없다`) }
     else errs.push(`${l.task_id} counterfactual.kind 는 choice|locus`)
   }
+  return errs
+}
+
+/** v2.2 추가 검사 — 삽입 문항 격리(E2 unknown · 독립 평가 부적격) */
+function validateV22(row, inp) {
+  if (input.contract !== 'v2.2' || inp.type_id !== 'R-INSERT') return []
+  const errs = []
+  const e2 = (row.links ?? []).find((l) => l.task_id === 'e.evidence_location')
+  if (e2 && e2.relevance !== 'unknown') errs.push('삽입 문항 E2 는 unknown(v2.2 §3)')
+  if (row.independent_assessment?.eligibility !== 'not_suitable') errs.push('삽입 문항 independent_assessment 는 not_suitable(v2.2 §3)')
   return errs
 }
 
@@ -69,7 +84,9 @@ function load(track) {
     for (const row of rows) {
       const inp = byId.get(row.item_id)
       if (!inp) { errors.push(`${track} ${row.item_id} 배치 밖`); continue }
-      const e = [...validateRow(row, inp, tasks), ...validateV2(row, inp)]
+      // v2.2 부분 집합: 청크 TASK 에 direct 가 없으면 primary_task=null 을 허용한다(계약 v2.2 §1) — 그 경우의 「주 TASK 가 direct 가 아니다」 만 면제
+      const noDirect = subset && row.primary_task === null && !(row.links ?? []).some((l) => l.relevance === 'direct')
+      const e = [...validateRow(row, inp, tasks).filter((x) => !(noDirect && x.startsWith('주 TASK '))), ...validateV2(row, inp), ...validateV22(row, inp)]
       if (e.length) errors.push(...e.map((x) => `${track} ${row.item_id}: ${x}`))
       else out.set(row.item_id, row)
     }
@@ -137,7 +154,7 @@ function agree() {
     })
   }
   const summary = {
-    batch, contracts: CONTRACTS.map((c) => ({ path: c, sha256: sha(fs.readFileSync(path.join(ROOT, c), 'utf8').replace(/\r\n/g, '\n')) })),
+    batch, tasks_judged: tasks.map((t) => t.display), subset, contracts: CONTRACTS.map((c) => ({ path: c, sha256: sha(fs.readFileSync(path.join(ROOT, c), 'utf8').replace(/\r\n/g, '\n')) })),
     input_sha256: sha(input.rows.map((r) => [r.item_id, r.source_sha256])), rule: input.rule,
     tasks: tasks.length, items: byId.size, pairs: all.length,
     agreement: all.length ? Number((all.filter(([p, q]) => p === q).length / all.length).toFixed(4)) : null,
@@ -151,7 +168,22 @@ function agree() {
   const jl = (rows) => rows.map((r) => JSON.stringify(r)).join('\n') + '\n'
   fs.writeFileSync(path.join(OUTDIR, `${batch}-item-task-links.jsonl`), jl(linked))
   fs.writeFileSync(path.join(OUTDIR, `${batch}-disputed-links.jsonl`), jl(disputed))
+  // 중단 경보(T-0100 성공 기준 2): 안정 TASK 가 일치 .80 · κ .68 을 둘 다 밑돌면 stop. κ 가 null(단일 범주)이면 unclear — 통과로 치지 않는다
+  summary.stop_alarm = Object.fromEntries(STABLE.filter((id) => summary.per_task[id]).map((id) => {
+    const v = summary.per_task[id]
+    return [v.display, v.kappa === null ? 'unclear' : v.agreement < 0.8 && v.kappa < 0.68 ? 'stop' : 'ok']
+  }))
+  summary.stop = Object.values(summary.stop_alarm).includes('stop')
+  // 원문 대조 표본(성공 기준 3): R1 후보 10 · 갈림 10 — 삽입 · E1 · E3 를 앞에 두고 문항이 겹치지 않게(부족하면 전부)
+  const prio = (l) => (byId.get(l.item)?.type_id === 'R-INSERT' ? 0 : l.task === 'e.task_demand' ? 1 : l.task === 'e.option_correspondence' ? 2 : 3)
+  const pick = (rows) => {
+    const seen = new Set()
+    return [...rows].sort((x, y) => prio(x) - prio(y) || x.item.localeCompare(y.item)).filter((l) => !seen.has(l.item) && seen.add(l.item)).slice(0, 10)
+      .map((l) => ({ item: l.item, task: l.task, display: l.display, judgments: l.judgments, state: l.state }))
+  }
+  fs.writeFileSync(path.join(OUTDIR, `${batch}-review-sample.json`), JSON.stringify({ batch, rule: 'R1 후보 10 · 갈림 10(삽입 · E1 · E3 우선 · 문항 중복 없음) — 원문 대조는 독립 검증자가 한다', candidates: pick(linked), disputed: pick(disputed) }, null, 1) + '\n')
   fs.writeFileSync(path.join(OUTDIR, `${batch}-agreement.json`), JSON.stringify(summary, null, 1) + '\n')
+  if (summary.stop) console.log(`중단 경보: ${JSON.stringify(summary.stop_alarm)} — 다음 배치 전에 갈림을 원문으로 검토한다`)
   console.log(`쌍 ${summary.pairs} · 일치 ${summary.agreement} · κ ${summary.kappa} · 주 TASK 일치 ${summary.primary_task_agreement}/${byId.size} · R1 ${linked.length} · 갈림 ${disputed.length}`)
   for (const v of Object.values(summary.per_task)) console.log(`  ${v.display.padEnd(5)} 일치 ${v.agreement} κ ${v.kappa} 직접 ${v.both_direct} 간접 ${v.both_indirect} 무관 ${v.both_not_applicable} 갈림 ${v.disputed}`)
 }

@@ -20,7 +20,10 @@ export const BATCHES = {
   'b3-insert': { rule: '2026 · M2706 · M2609 · 2025 의 #38 · #39 (주어진 문장 분리 입력)', ids: ['2026', 'M2706', 'M2609', '2025'].flatMap((e) => [`${e}#38`, `${e}#39`]) },
   // 계약 v2.1 확대 — 1·2배치와 겹치지 않는 직전 평가원 시험
   'b4-v21': { rule: 'M2606 독해 18–45 전 28 + 2024 수능 핵심 유형 12', ids: [...Array.from({ length: 28 }, (_, k) => `M2606#${18 + k}`), ...KEY_TYPES.map((n) => `2024#${n}`)] },
+  // 802 확대(T-0100) — 범위 배치: 시험 순서대로 채우고 상한 40. 결손 · 도표 · 삽입 경계 불확실은 멈추지 않고 excluded 에 사유를 남긴다
+  'b5-v22': { rule: 'M2509 독해 전 문항 → 2023 수능 핵심 유형 순으로 ≤40 · 도표 · 결손 제외', ids: [...Array.from({ length: 28 }, (_, k) => `M2509#${18 + k}`), ...KEY_TYPES.map((n) => `2023#${n}`)], range: true, cap: 40, tasks: ['r.central_meaning', 'r.inference', 'e.task_demand', 'e.option_correspondence', 'r.discourse_structure', 'e.evidence_location'], contract: 'v2.2' },
 }
+const EXCLUDE_TYPES = { 'R-CHART': '도표 값 · 단위 · 축 미결속(T-0100)' }
 const batch = process.argv[2]
 const def = BATCHES[batch]
 if (!def) throw new Error(`배치 이름: ${Object.keys(BATCHES).join(' | ')}`)
@@ -39,21 +42,36 @@ const items = await get('csat_items', 'id,exam_id,no,type_id,stem,passage,choice
 const analyses = await get('csat_item_analyses', 'item_id,version,status,measured_ability,design_intent,answer_locus,choice_analysis,solve_procedure,difficulty', def.ids)
 const traps = await get('csat_dx_option_trap', '*', def.ids)
 const byId = new Map(items.map((i) => [i.id, i]))
-const missing = def.ids.filter((id) => !byId.has(id))
-if (missing.length) throw new Error(`없는 문항: ${missing.join(', ')}`)
-const bad = items.filter((i) => !i.body_ok || !Array.isArray(i.choices) || !(i.answers?.length || i.answer != null) || (i.type_id === 'R-INSERT' && insertSplit(i.passage).confidence === 'uncertain'))
-if (bad.length) throw new Error(`분석 부적격(D1 결손 · 삽입 경계 불확실): ${bad.map((i) => i.id).join(', ')}`)
+/** 분석 부적격 사유(없으면 null) — D1 결손 · 삽입 경계 불확실 · 범위 배치의 제외 유형 */
+function exclusion(id) {
+  const i = byId.get(id)
+  if (!i) return '문항 없음'
+  if (def.range && EXCLUDE_TYPES[i.type_id]) return EXCLUDE_TYPES[i.type_id]
+  if (!i.body_ok) return 'body_ok=false(D1)'
+  if (!Array.isArray(i.choices)) return 'choices 없음(D1)'
+  if (!(i.answers?.length || i.answer != null)) return '정답 없음(D1)'
+  if (i.type_id === 'R-INSERT' && insertSplit(i.passage).confidence === 'uncertain') return '삽입 경계 불확실'
+  return null
+}
+const excluded = def.ids.map((id) => ({ item_id: id, reason: exclusion(id) })).filter((x) => x.reason)
+// 고정 배치는 부적격이 있으면 멈춘다(선정 동결) — 범위 배치만 제외하고 계속한다
+if (excluded.length && !def.range) throw new Error(`분석 부적격: ${excluded.map((x) => `${x.item_id}(${x.reason})`).join(', ')}`)
+const chosen = def.ids.filter((id) => !exclusion(id)).slice(0, def.cap ?? Infinity)
 const latest = new Map()
 for (const a of analyses) if (!latest.has(a.item_id) || latest.get(a.item_id).version < a.version) latest.set(a.item_id, a)
-const rows = def.ids.map((id) => {
+const rows = chosen.map((id) => {
   const i = byId.get(id), a = latest.get(id) ?? null
   const source = { stem: i.stem, passage: i.passage, choices: i.choices, answer: i.answer, answers: i.answers, points: i.points }
-  return { item_id: id, exam_id: i.exam_id, no: i.no, type_id: i.type_id, body_ok: i.body_ok, source, source_sha256: sha(source), ...(i.type_id === 'R-INSERT' ? { insert_split: insertSplit(i.passage) } : {}), analysis: a, analysis_sha256: a ? sha(a) : null, traps: traps.filter((t) => t.item_id === id) }
+  return { item_id: id, exam_id: i.exam_id, no: i.no, type_id: i.type_id, body_ok: i.body_ok, source, source_sha256: sha(source),
+    // 재사용 키(T-0100): 원천 ID + 본문 SHA-256 — UTF-8 원문 바이트 그대로(정규화 · 공백 변경 없음). source_sha256 과 별도
+    passage_sha256: crypto.createHash('sha256').update(Buffer.from(String(i.passage ?? ''), 'utf8')).digest('hex'),
+    ...(i.type_id === 'R-INSERT' ? { insert_split: insertSplit(i.passage) } : {}), analysis: a, analysis_sha256: a ? sha(a) : null, traps: traps.filter((t) => t.item_id === id) }
 })
 fs.mkdirSync(path.dirname(OUT), { recursive: true })
-fs.writeFileSync(OUT, JSON.stringify({ batch, rule: def.rule, generated_at: new Date().toISOString(), rows }, null, 1))
-const selection = { batch, rule: def.rule, items: rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source_sha256: r.source_sha256, analysis_version: r.analysis?.version ?? null, analysis_status: r.analysis?.status ?? null, analysis_sha256: r.analysis_sha256 })) }
+fs.writeFileSync(OUT, JSON.stringify({ batch, rule: def.rule, tasks: def.tasks ?? null, contract: def.contract ?? null, generated_at: new Date().toISOString(), rows }, null, 1))
+const examTotals = rows.reduce((m, r) => ({ ...m, [r.exam_id]: (m[r.exam_id] ?? 0) + 1 }), {})
+const selection = { batch, rule: def.rule, tasks: def.tasks ?? null, contract: def.contract ?? null, exam_totals: examTotals, excluded, items: rows.map((r) => ({ item_id: r.item_id, type_id: r.type_id, source_sha256: r.source_sha256, passage_sha256: r.passage_sha256, insert_split: r.insert_split ? { confidence: r.insert_split.confidence, given_chars: r.insert_split.given_sentence?.length ?? null } : undefined, analysis_version: r.analysis?.version ?? null, analysis_status: r.analysis?.status ?? null, analysis_sha256: r.analysis_sha256 })) }
 const SEL = path.join(ROOT, 'docs/research/goal-data-batches/D2-task-mapping', `${batch}-selection.json`)
 fs.mkdirSync(path.dirname(SEL), { recursive: true })
 fs.writeFileSync(SEL, JSON.stringify({ ...selection, selection_sha256: sha(selection.items) }, null, 1) + '\n')
-console.log(`${batch}: 문항 ${rows.length} · 분석 ${rows.filter((r) => r.analysis).length} → ${path.relative(ROOT, OUT)}`)
+console.log(`${batch}: 문항 ${rows.length} · 제외 ${excluded.length} · 시험별 ${JSON.stringify(examTotals)} · 분석 ${rows.filter((r) => r.analysis).length} → ${path.relative(ROOT, OUT)}`)
