@@ -681,6 +681,9 @@ test('controller reports/state are operational writes, while controller source r
   const t = addTask(root)
   const result = orch(root, ['--owner', OWNER])
   assert.equal(task(root, t.task_id).status, 'COMPLETED', result.err + result.out)
+  const reportOnly = addTask(root)
+  const reportCommit = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'control_report_commit' })
+  assert.equal(task(root, reportOnly.task_id).status, 'COMPLETED', reportCommit.err + reportCommit.out)
   const t2 = addTask(root)
   const denied = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'foreign', FAKE_FOREIGN_WT: root })
   assert.equal(task(root, t2.task_id).status, 'BLOCKED', denied.err + denied.out)
@@ -705,6 +708,16 @@ test('taskless work in a bound worktree with a live product lock does not requir
   const result = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'concurrent', FAKE_FOREIGN_WT: foreign })
   assert.equal(task(root, t.task_id).status, 'COMPLETED', result.err + result.out)
   assert.ok(fs.existsSync(path.join(foreign, '.agent-lock')), 'another worker lock is preserved')
+})
+
+test('recorded peer run which starts and finishes between both observations is not mistaken for this actor', () => {
+  const root = setup()
+  const peer = addTask(root, { owner_id: 'data-contract', title: 'between snapshots peer', priority: 'P3' })
+  const t = addTask(root)
+  const result = orch(root, ['--owner', OWNER], { FAKE_CLAUDE: 'between', FAKE_FOREIGN_WT: peer.wt, FAKE_PEER_TASK: peer.task_id })
+  assert.equal(task(root, t.task_id).status, 'COMPLETED', result.err + result.out)
+  assert.ok(result.json.run.events.some((e) => e.phase === 'concurrent_owner_activity'))
+  assert.equal(task(root, peer.task_id).status, 'BLOCKED')
 })
 
 test('crashed implementation preserves partial files and resumes only from the exact owner checkpoint', () => {

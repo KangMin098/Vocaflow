@@ -7,7 +7,8 @@ import path from 'node:path'
 import { spawnSync } from 'node:child_process'
 import { fileURLToPath } from 'node:url'
 import { checkToolScope } from '../lib/tool-scope.mjs'
-import { classifyWorktreeChanges } from '../lib/orchestrator.mjs'
+import { classifyWorktreeChanges, boundedFileHash, recordedRunEnd } from '../lib/orchestrator.mjs'
+import crypto from 'node:crypto'
 import { amendTask } from '../lib/tasks.mjs'
 import { runClaude } from '../lib/agents.mjs'
 
@@ -98,6 +99,31 @@ test('live owner content changes do not blame guarded Claude; unknown/forbidden 
   assert.deepEqual(classifyWorktreeChanges(a, { other: snap('c', { 'src/a.ts': 'one', 'src/secret.ts': 'bad' }, writer) }, { guarded: true }).suspicious, ['other'])
   assert.deepEqual(classifyWorktreeChanges(a, { other: null }, { guarded: true }).suspicious, ['other'])
   assert.deepEqual(classifyWorktreeChanges({}, b, { guarded: true }), { concurrent: ['other'], suspicious: [] }, 'new live-owner registration is not a retrospective write claim')
+})
+
+test('a peer which starts and finishes between snapshots is recognized only within its recorded scope', () => {
+  const a = { other: { ...snap('a', {}), observed_at: '2026-10-23T01:00:00Z' } }
+  const run = { started_at: '2026-10-23T01:01:00Z', ended_at: '2026-10-23T01:02:00Z', allowed_paths: ['src/**'], forbidden_paths: ['src/secret.ts'] }
+  const b = { other: { ...snap('b', { 'src/a.ts': 'new' }), observed_at: '2026-10-23T01:03:00Z', runs: [run] } }
+  assert.deepEqual(classifyWorktreeChanges(a, b, { guarded: true }).suspicious, [])
+  b.other.runs = [{ ...run, started_at: '2026-10-23T10:01:00+09:00', ended_at: '2026-10-23T10:02:00+09:00' }]
+  assert.deepEqual(classifyWorktreeChanges(a, b, { guarded: true }).suspicious, [], 'equivalent offsets compare as instants')
+  b.other.runs = [{ ...run, ended_at: '2026-10-23T00:59:00Z', started_at: '2026-10-23T00:50:00Z' }]
+  assert.deepEqual(classifyWorktreeChanges(a, b, { guarded: true }).suspicious, ['other'])
+  b.other.runs = [run]; b.other.files = { 'src/secret.ts': 'bad' }
+  assert.deepEqual(classifyWorktreeChanges(a, b, { guarded: true }).suspicious, ['other'])
+})
+
+test('large corpus hashes use bounded chunks and retain byte integrity', () => {
+  const { root } = fixture(), file = path.join(root, 'corpus.bin')
+  const data = Buffer.alloc(5 * 1024 * 1024 + 3, 123); fs.writeFileSync(file, data)
+  assert.equal(boundedFileHash(file), crypto.createHash('sha256').update(data).digest('hex'))
+})
+
+test('peer activity includes recorded review finalization, not arbitrary later updates', () => {
+  const t = { run: { ended_at: '2026-10-23T01:00:00Z' }, history: [{ from: 'REVIEW', to: 'COMPLETED', at: '2026-10-23T01:05:00Z' }, { from: 'READY', to: 'READY', at: '2026-10-23T02:00:00Z' }] }
+  assert.equal(recordedRunEnd(t), '2026-10-23T01:05:00Z')
+  assert.equal(recordedRunEnd({ run: {} }), null)
 })
 
 function amendmentFixture() {
