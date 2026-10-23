@@ -41,6 +41,7 @@ import u from './unified.module.css'
 import { MapReadUnavailable } from './MapReadUnavailable'
 import { evidenceReadOf } from '@/lib/csat/map/v62/evidence-read'
 import { WorkspaceList } from './WorkspaceList'
+import { nearestTask } from './task-proximity'
 
 export type UnifiedMode = 'core' | 'full'
 
@@ -215,18 +216,31 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
 
   // 관계선 — 노드 중심 좌표를 재서 그린다. 평소엔 승인 관계만 희미하게. 진하게: 고른 TASK 의 관계 + 고른 Workspace 안의 TASK 끼리 관계
   const canvasRef = useRef<HTMLDivElement>(null)
-  const [lines, setLines] = useState<{ id: string; d: string; approval: 'approved' | 'proposed'; active: boolean }[]>([])
+  const [hovered, setHovered] = useState<TaskId | null>(null)
+  const [focused, setFocused] = useState<TaskId | null>(null)
+  const pointerFrame = useRef<number | null>(null)
+  const preview = modal ? null : hovered ?? focused
+  const clearHover = () => {
+    if (pointerFrame.current !== null) cancelAnimationFrame(pointerFrame.current)
+    pointerFrame.current = null
+    setHovered(null)
+  }
+  useEffect(() => () => {
+    if (pointerFrame.current !== null) cancelAnimationFrame(pointerFrame.current)
+  }, [])
+  const [lines, setLines] = useState<{ id: string; from: TaskId; to: TaskId; d: string; approval: 'approved' | 'proposed'; active: boolean }[]>([])
   const wsSet = useMemo(() => new Set<string>(lit && row ? [...row.core, ...row.support] : []), [row, lit])
   // 초점일 때 선명하게 남길 TASK — 고른 TASK · 그와 관계선으로 이어진 TASK · 고른 Workspace 의 TASK(나머지는 흐림 · 숨기지 않음)
   const related = useMemo(() => {
-    if (!lit) return null
-    const out = new Set<string>([selected, ...wsSet])
+    const target = preview ?? (lit ? selected : null)
+    if (!target) return null
+    const out = new Set<string>(preview ? [target] : [target, ...wsSet])
     for (const e of graph.edges) {
-      if (e.from === selected) out.add(e.to)
-      if (e.to === selected) out.add(e.from)
+      if (e.from === target) out.add(e.to)
+      if (e.to === target) out.add(e.from)
     }
     return out
-  }, [lit, selected, wsSet, graph.edges])
+  }, [lit, selected, wsSet, graph.edges, preview])
   useLayoutEffect(() => {
     const el = canvasRef.current
     if (!el) return
@@ -240,7 +254,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
       }
       const out: typeof lines = []
       for (const e of graph.edges) {
-        const active = lit && (e.from === selected || e.to === selected || (wsSet.has(e.from) && wsSet.has(e.to)))
+        const active = preview ? e.from === preview || e.to === preview : lit && (e.from === selected || e.to === selected || (wsSet.has(e.from) && wsSet.has(e.to)))
         if (!active && e.approval !== 'approved') continue
         const a = at(e.from)
         const b = at(e.to)
@@ -252,7 +266,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
           : a.l < b.l
             ? `M ${a.r} ${a.y} C ${(a.r + b.l) / 2} ${a.y}, ${(a.r + b.l) / 2} ${b.y}, ${b.l} ${b.y}`
             : `M ${a.l} ${a.y} C ${(a.l + b.r) / 2} ${a.y}, ${(a.l + b.r) / 2} ${b.y}, ${b.r} ${b.y}`
-        out.push({ id: e.id, d, approval: e.approval, active })
+        out.push({ id: e.id, from: e.from, to: e.to, d, approval: e.approval, active })
       }
       setLines(out)
     }
@@ -260,7 +274,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
     const ro = new ResizeObserver(draw)
     ro.observe(el)
     return () => ro.disconnect()
-  }, [graph.edges, selected, wsSet, lit, focus, mode, q])
+  }, [graph.edges, selected, wsSet, lit, focus, mode, q, preview])
 
   if (!view || !ranks) return null
   const ins = taskInspector(selected, view, ranks, ledger)
@@ -330,11 +344,26 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
         {past && <p className={u.pastNote} data-testid="umap-past">과거 기준({view.asIs.asOf.slice(0, 10)})으로 다시 분석한 지도예요 — 보기 전용이고 학습 활동은 지금 기준에서 해요.</p>}
 
         <div className={u.mapStage}>
-        <div className={u.canvas} data-focus={focus ?? 'all'} data-mode={mode} data-lit={lit} data-testid="umap-canvas">
-         <div ref={canvasRef} className={u.inner}>
+        <div className={u.canvas} data-focus={focus ?? 'all'} data-mode={mode} data-lit={lit} data-preview={preview ?? ''} data-testid="umap-canvas" onScroll={clearHover}>
+         <div ref={canvasRef} className={u.inner} onPointerLeave={clearHover} onPointerMove={(event) => {
+           if (event.pointerType === 'touch') return
+           const point = { x: event.clientX, y: event.clientY }
+           if (pointerFrame.current !== null) cancelAnimationFrame(pointerFrame.current)
+           pointerFrame.current = requestAnimationFrame(() => {
+             pointerFrame.current = null
+             const canvas = canvasRef.current
+             if (!canvas) return
+             const reach = parseFloat(getComputedStyle(canvas).getPropertyValue('--g-hover-reach')) || 0
+             const cards = Array.from(canvas.querySelectorAll<HTMLButtonElement>('[data-node]'), node => {
+               const { left, right, top, bottom } = node.getBoundingClientRect()
+               return { id: node.dataset.node as TaskId, left, right, top, bottom }
+             })
+             setHovered(nearestTask(point, cards, reach))
+           })
+         }}>
           <svg className={u.lines} aria-hidden="true">
             {lines.map((l) => (
-              <path key={l.id} d={l.d} className={u.line} data-approval={l.approval} data-active={l.active} />
+              <path key={l.id} d={l.d} className={u.line} data-from={l.from} data-to={l.to} data-approval={l.approval} data-active={l.active} />
             ))}
           </svg>
           <div className={u.cols} data-mode={mode}>
@@ -361,6 +390,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
                         <Node
                           t={graph.tasks.find((x) => x.id === id)!}
                           selected={lit && selected === id}
+                          preview={preview === id}
                           order={rank.get(id) ?? null}
                           link={lit && row ? wsLinkOf(row, id) : null}
                           faded={related !== null && !related.has(id)}
@@ -368,6 +398,8 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
                           need={needOf.get(id)?.need ?? null}
                           evidence={EVIDENCE_V62_LABEL[taskInspector(id, view, ranks, null).now.evidence]}
                           onClick={(element) => { opener.current = element; chooseTask(id, true) }}
+                          onFocus={() => setFocused(id)}
+                          onBlur={() => setFocused(null)}
                         />
                       </li>
                     ))}
@@ -440,7 +472,7 @@ function UnifiedLearningMapView({ data, mode, recordHref, asOf, restore = null, 
   )
 }
 
-function Node({ t, selected, order, link, faded, dim, need, evidence, onClick }: { t: GraphTask; selected: boolean; order: number | null; link: WsLink | null; faded: boolean; dim: boolean; need: string | null; evidence: string; onClick: (element: HTMLButtonElement) => void }) {
+function Node({ t, selected, preview, order, link, faded, dim, need, evidence, onClick, onFocus, onBlur }: { t: GraphTask; selected: boolean; preview: boolean; order: number | null; link: WsLink | null; faded: boolean; dim: boolean; need: string | null; evidence: string; onClick: (element: HTMLButtonElement) => void; onFocus: () => void; onBlur: () => void }) {
   const Icon = AXIS_ICON[t.domain as CoreCode]
   return (
     <button
@@ -451,6 +483,7 @@ function Node({ t, selected, order, link, faded, dim, need, evidence, onClick }:
       data-hold={t.hold}
       data-check={t.directCheck}
       data-selected={selected}
+      data-preview={preview}
       data-priority={order !== null}
       data-link={link ?? 'none'}
       data-faded={faded}
@@ -458,10 +491,13 @@ function Node({ t, selected, order, link, faded, dim, need, evidence, onClick }:
       data-testid="umap-node"
       aria-pressed={selected}
       aria-haspopup="dialog"
+      title={`${t.display} ${t.name} · ${evidence}`}
       aria-label={`${t.display} ${t.name} — ${evidence}${need ? ` · ${NEED_V62_LABEL[need as keyof typeof NEED_V62_LABEL] ?? ''}` : ''}${order ? ` · 먼저 볼 순서 ${order}` : ''}${link ? ` · 고른 Workspace 의 ${link === 'core' ? '중심' : '지원'} TASK` : ''} · 누르면 상세 보기`}
       onClick={(e) => onClick(e.currentTarget)}
+      onFocus={onFocus}
+      onBlur={onBlur}
     >
-      {/* All columns retain the domain icon, name and evidence; core view allows two title lines. */}
+      {/* Compact cards retain the domain icon, name and evidence. Full names remain accessible. */}
       <span className={u.nodeTile} data-domain={t.domain} aria-hidden="true"><Icon size={16} strokeWidth={1.8} /></span>
       <span className={u.nodeText}>
         <span className={u.nodeName}>

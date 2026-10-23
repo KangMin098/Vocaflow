@@ -16,6 +16,7 @@ import { learnerPath } from '../../../apps/web/src/lib/csat/map/learner-path'
 import { HomeLanding } from '../../../apps/web/src/components/csat/home/HomeLanding'
 
 const railPage = new URLSearchParams(location.search).get('rail') as RailPlace | null
+const mapRestore = new URLSearchParams(location.search)
 
 const fixture = build({ goalSet: true, attempts: [], activity: [], asOfDay: 30, saved: false, fq: { status: 'installed', eligible: [] } })
 ;(globalThis as unknown as { fixtureView: typeof fixture.view }).fixtureView = fixture.view
@@ -41,7 +42,7 @@ createRoot(document.getElementById('root')!).render(<div data-design-scope="csat
   {railPage ? <><CsatRail place={railPage} exams={[]} dueCount={0} /><main style={{ padding: 32 }}>공통 메뉴 검증 · {railPage}</main></> : <>
   {location.search.includes('home') ? <HomeLanding exams={[]} map="ok" mapData={fixture.data} focusKind="record" returned={null} restore={location.search.includes('resume') ? { mapTask: 'r.central_meaning', ws: 'ws.central-meaning' } : null} /> : <>
   <CsatRail place="home" exams={[]} dueCount={0} />
-  <div style={{ minWidth: 0 }}><header className={s.topbar}><span className={s.topPill}>내 학습 지도</span></header><main className={s.canvas}><Popups /><MapScreen data={fixture.data} view={location.search.includes('full') ? 'full' : 'core'} base="/csat" /></main></div>
+  <div style={{ minWidth: 0 }}><header className={s.topbar}><span className={s.topPill}>내 학습 지도</span></header><main className={s.canvas}><Popups /><MapScreen data={fixture.data} view={location.search.includes('full') ? 'full' : 'core'} base="/csat" restore={mapRestore.has('map_task') ? { mapTask: mapRestore.get('map_task'), ws: mapRestore.get('ws') } : null} /></main></div>
   </>}
   </>}
 </div>)

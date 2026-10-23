@@ -1939,10 +1939,14 @@ p.dockL {
   .col[data-domain='E'] .colCode { color: #914361; }
   .node { border-radius: 9px; gap: 8px; }
   .nodeName { font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale))); font-weight: 500; }
-  .canvas[data-mode='core'] .node { min-height: var(--g-core-node-h); padding: 7px; }
+  .canvas[data-mode='core'] .col { max-width: var(--g-node-w); }
+  .node { height: var(--g-node-h); }
+  .canvas[data-mode='core'] .node { height: var(--g-core-node-h); min-height: var(--g-core-node-h); padding: 5px 7px; }
   .canvas[data-mode='core'] .nodeTile { width: 24px; height: 28px; border-radius: 6px; }
-  .canvas[data-mode='core'] .nodeName { white-space: normal; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+  .canvas[data-mode='core'] .nodeName { white-space: nowrap; display: block; -webkit-line-clamp: unset; }
   .canvas[data-mode='core'] .nodeState { max-width: 100%; }
+  .node[data-preview='true'] { background: var(--csat-hover); box-shadow: 0 0 0 3px var(--m-canvas), inset 0 0 0 1px var(--m-ink); }
+  .canvas[data-preview]:not([data-preview='']) .line[data-active='false'] { opacity: .18; }
   .wsList { padding: 0; overflow: hidden; background: var(--m-bg); }
   .wsHead { padding: 12px 16px; min-height: 64px; border-bottom: 1px solid var(--m-line); flex-wrap: wrap; }
   .wsFocus { order: 4; width: 100%; }
