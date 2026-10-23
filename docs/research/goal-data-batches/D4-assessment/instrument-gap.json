@@ -1,0 +1,433 @@
+{
+  "generated_at": "2026-10-23T02:41:55.803Z",
+  "input_head": "791ee473e2173cacd3d2d98932d280fce317274c",
+  "generator": "docs/research/goal-data-batches/D4-assessment/_compute.mjs",
+  "input_sha256": {
+    "docs/csat-learner/v4/codebook.json": "e53141985380c410be02cc8cf84e204479f075520b92448a40dde366551c1c6a",
+    "apps/web/src/lib/csat/map/v4/definition.data.ts": "33036711acceb618ef10a495e661a2691b24a129be1e0b9ad8d0695ee85d6d59",
+    "docs/csat-learner/v4/workspaces.json": "406fb3b81ee23cd9f629fb2a5ea8d52b82930da2ec352a770db88add31c59d95",
+    "docs/csat-learner/v4/relations.json": "716b0b940cd96013e12303ddc3555b362abb345b6cfb1ad252952c4704521b24",
+    "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+    "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+    "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+    "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+    "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+    "apps/web/src/lib/knowledge/authored/r-inference.v1.json": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+    "apps/web/src/lib/knowledge/authored/r-reference.v1.json": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+    "apps/web/src/lib/knowledge/authored/r-relation.v1.json": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+    "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+    "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+    "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+    "apps/web/src/lib/knowledge/authored/s-attachment.v1.json": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+    "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+    "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+    "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+    "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+    "apps/web/src/lib/knowledge/authored/source-lesson-title-route.v3.json": "0b653454bfea053f0523cee1647de1eb97ad5038661bd2fac49162336db0c7f0",
+    "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+    "apps/web/src/lib/knowledge/authored/v-multiword.v1.json": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+    "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+    "apps/web/src/lib/knowledge/authored/tasks.ts": "3aef7dffdcf278b7f5bb752e7c937a7d72d238cd9805837832f14ea631a26edf",
+    "apps/web/src/lib/knowledge/authored/formats.ts": "0a84e761f4cd4f4da4a99290b754eb1cf0fd5114eec7e0f0f55137734efc7b62",
+    "apps/web/src/lib/knowledge/authored/authored-items.ts": "d364356846a4b255cfc64cec870e9d899b8d3d8ee86695f535fd398607e94858",
+    "apps/web/src/lib/knowledge/authored/labels.ts": "0bf25ca6588a856c7fc908d2503bbbc852e7b7d836dc9f780a4e0daf4d2fae66",
+    "docs/final/AUTHORING_SPEC.md": "4d24a73037f4c672c7cb04160915ca49f4734afb1b55fdbc2737849db0a8ad27",
+    "docs/final/APPROVAL_PACKAGE.md": "ed58da4abd19d25f4b256ed6e20fe75c16f9df38dfd475e5b6226e27614bcb5a",
+    "docs/final/review/r5-authored-gold-packet.md": "706887dc7edf35604572d1d909933e2a10c16329af6d0e3654a4c5cfac09b35d",
+    "docs/csat-learner/v62/data-expansion/coverage.json": "bf2589662e18df2ea30be52242060115a72b03672ad6879376c34389b7d37164",
+    "apps/web/src/lib/csat/map/skill-diagnosis.ts": "d5f01c1ca6065bc1913b57d8444937700d77c4fd9d19beba7c2b2b9fafc88880",
+    "apps/web/src/lib/csat/map/v4/observation.ts": "b85060fe21fff627452f863c103bd1ae6c6cec43364db224d1d98d2a30ee6313",
+    "apps/web/src/lib/csat/map/v4/to-be.ts": "ebc23333a1c193fc9d296d934020c2d270d1f0e583d43fc300fbc7e1d0a3ba6a",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts": "c2ff74ea3e149b52dbe6f4f7c77ffe78155ca27c27278ff9d2a1d808ebbcd5d4",
+    "apps/web/src/lib/csat/map/load.ts": "883fb9aa12128546b0cab243d9cef3c8d59f6188f70343d2dfab7477799db201",
+    "apps/web/src/lib/csat/map/v62/supply.ts": "8252d056aad73202bf86151709c7bb59018a42bee178feb163452232b5d553e5"
+  },
+  "role_minimum_source": "docs/final/AUTHORING_SPEC.md — 세트당 model 1 · guided 1 · independent 2 · transfer 1 · delayed 1",
+  "gaps": [
+    {
+      "task": "v.core_meaning",
+      "display": "V1",
+      "roles_missing": [
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "kind": "no_instrument",
+      "priority": "P1",
+      "rationale": "atomic TASK 인데 직접 평가 도구가 지도 경로에 없다 — 도달 판정 불가."
+    },
+    {
+      "task": "v.contextual_sense",
+      "display": "V2",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": true,
+      "assessment_distinct_passages": 7,
+      "code_gap": "partial",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "v.multiword",
+      "display": "V3",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "proxy",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 proxy"
+      ]
+    },
+    {
+      "task": "v.semantic_relation",
+      "display": "V4",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "yes_by_format",
+      "priority": "P3",
+      "rationale": []
+    },
+    {
+      "task": "s.sentence_core",
+      "display": "S1",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "partial",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "s.chunk_boundary",
+      "display": "S2",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "proxy",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 proxy"
+      ]
+    },
+    {
+      "task": "s.attachment",
+      "display": "S3",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": true,
+      "assessment_distinct_passages": 4,
+      "code_gap": "partial",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "s.structural_relation",
+      "display": "S4",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "proxy",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 proxy"
+      ]
+    },
+    {
+      "task": "s.form_scope",
+      "display": "S5",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "partial",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "display": "S-O1",
+      "roles_missing": [
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "kind": "integrated_observation_no_items_by_design",
+      "priority": "P2",
+      "rationale": "정본상 자기 문항·숙달도 없음. 하위 TASK 공백이 먼저 메워져야 observable 이 된다(observation.ts)."
+    },
+    {
+      "task": "r.reference",
+      "display": "R1",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": true,
+      "assessment_distinct_passages": 7,
+      "code_gap": "partial",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "r.relation",
+      "display": "R2",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "yes_by_format",
+      "priority": "P3",
+      "rationale": []
+    },
+    {
+      "task": "r.discourse_function",
+      "display": "R3",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "partial",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "r.discourse_structure",
+      "display": "R4",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "partial",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "r.central_meaning",
+      "display": "R5",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 2,
+      "criterion_requires_different_day": true,
+      "criterion_requires_distinct_passage": true,
+      "assessment_distinct_passages": 11,
+      "code_gap": "partial",
+      "priority": "P1",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "r.inference",
+      "display": "R6",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "yes_by_format",
+      "priority": "P3",
+      "rationale": []
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "display": "R-O1",
+      "roles_missing": [
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "kind": "integrated_observation_no_items_by_design",
+      "priority": "P2",
+      "rationale": "정본상 자기 문항·숙달도 없음. 하위 TASK 공백이 먼저 메워져야 observable 이 된다(observation.ts)."
+    },
+    {
+      "task": "e.task_demand",
+      "display": "E1",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "partial",
+      "priority": "P2",
+      "rationale": [
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "e.evidence_location",
+      "display": "E2",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": true,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "partial",
+      "priority": "P1",
+      "rationale": [
+        "다른 날 재확인 요구 · delayed 1문항 — 첫 확인 실패 뒤 재확인 여분 없음",
+        "판정 코드 partial"
+      ]
+    },
+    {
+      "task": "e.option_correspondence",
+      "display": "E3",
+      "role_shortfall_vs_AUTHORING_SPEC": [],
+      "delayed_items": 1,
+      "criterion_requires_different_day": false,
+      "criterion_requires_distinct_passage": false,
+      "assessment_distinct_passages": 7,
+      "code_gap": "yes_by_format",
+      "priority": "P3",
+      "rationale": []
+    },
+    {
+      "task": "e.o.final_judgment",
+      "display": "E-O1",
+      "roles_missing": [
+        "model_explanation",
+        "guided_practice",
+        "independent_check",
+        "transfer",
+        "delayed_check"
+      ],
+      "kind": "integrated_observation_no_items_by_design",
+      "priority": "P2",
+      "rationale": "정본상 자기 문항·숙달도 없음. 하위 TASK 공백이 먼저 메워져야 observable 이 된다(observation.ts)."
+    }
+  ],
+  "summary": {
+    "P1": [
+      "V1",
+      "R5",
+      "E2"
+    ],
+    "P2": [
+      "V2",
+      "V3",
+      "S1",
+      "S2",
+      "S3",
+      "S4",
+      "S5",
+      "S-O1",
+      "R1",
+      "R3",
+      "R4",
+      "R-O1",
+      "E1",
+      "E-O1"
+    ],
+    "P3": [
+      "V4",
+      "R2",
+      "R6",
+      "E3"
+    ]
+  },
+  "mismatches": [
+    {
+      "id": "M1",
+      "title": "선행 실패 없는 도달 상태가 없다",
+      "severity": "P1",
+      "evidence": [
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:110",
+        "apps/web/src/lib/csat/map/v4/as-is.ts:236",
+        "apps/web/src/lib/csat/map/v4/as-is.ts:135"
+      ],
+      "finding": "확정(verified)은 맞힌 문항 없이 2개가 막혀야 열리고, resolved 는 확정 뒤에만 온다. 첫 확인부터 맞히는 학습자는 unverified → 지도에서 checking 으로 남는다. 코드북 「도움 없이 맞힌다」 류 도달 조건을 만족해도 엔진이 「도달」로 읽을 상태가 없다.",
+      "impact": "목표 달성 엔진이 resolved 만 도달로 세면, 이미 할 줄 아는 TASK 를 계속 미도달로 계획한다."
+    },
+    {
+      "id": "M2",
+      "title": "코드북 도달 조건 ≠ 공통 CHECK 2문항",
+      "severity": "P1",
+      "evidence": [
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:130"
+      ],
+      "finding": "공통 규칙은 「확정 뒤 연속 2정답」 하나다. 다른 날(R5 · E2 · V1), 서로 다른 지문/문맥(V2 · S3 · R1 · R5), 연속 3(S1), 포인트/유형별 2(S5 · E1)는 판정에 없다. 21개 중 코드북 기준과 공통 규칙이 형식상 같은 것은 V4 · R2 · R6 · E3 네 개."
+    },
+    {
+      "id": "M3",
+      "title": "개별 TASK 성공 ≠ 통합 능력 성공",
+      "severity": "P2",
+      "evidence": [
+        "apps/web/src/lib/csat/map/v4/observation.ts"
+      ],
+      "finding": "S-O1 · R-O1 · E-O1 은 관찰만이고 숙달 판정이 없다. 하위 TASK 가 모두 resolved 여도 통합 성공을 확인하는 도구가 없으므로, 엔진은 하위 성공을 통합 성공(점수 · 등급)으로 합산하면 안 된다."
+    },
+    {
+      "id": "M4",
+      "title": "연습 성공을 독립 평가로 셀 위험",
+      "severity": "P3(방어됨)",
+      "evidence": [
+        "apps/web/src/lib/csat/map/skill-diagnosis.ts:91"
+      ],
+      "finding": "activity='practice' 기록 · 도움 · 해설 뒤 · 합성 · 시각 불확실 시도는 판정에서 빠진다. 창작 세트 교수/안내 지문과 평가 지문의 해시 중복 0건. 남은 위험: validateAuthoredSet 은 passageGroup 이름만 보므로 지문을 공유하는 새 세트가 들어오면 조용히 깨진다."
+    },
+    {
+      "id": "M5",
+      "title": "전이 · 지연 도구 부족",
+      "severity": "P2",
+      "finding": "transfer/delayed_check 는 공급 역할 · 라벨일 뿐 판정 조건이 아니다. 지연 문항은 R5 만 2개, 나머지 세트는 1개(첫 지연 확인에서 틀리면 다시 볼 문항이 없다). S3 은 전이 1개."
+    },
+    {
+      "id": "M6",
+      "title": "평가 도구가 없는 TASK",
+      "severity": "P1",
+      "finding": "V1(경로 없음) · S-O1 · R-O1 · E-O1(설계상 관찰). 정본 확인 키(기출 묶음)가 있는 TASK 는 R5 · E2 · R2 · E3 네 개뿐이고, 나머지 13개는 창작 세트(사람 승인 전)로만 직접 확인된다."
+    },
+    {
+      "id": "M7",
+      "title": "한 문항으로 여러 TASK 숙달 판정",
+      "severity": "P3(방어됨)",
+      "evidence": [
+        "apps/web/src/lib/csat/map/v4/definition.ts:69"
+      ],
+      "finding": "확인 키는 중심 TASK 가 하나인 Template 에만 붙고 보조 TASK 는 판정을 받지 않는다(ws.option-match 의 V4 · R5, ws.central-meaning 의 R3 · R4 등). 시도는 taskKey 하나를 갖는다. 남은 위험: R3/R4 는 같은 형식 · 채점 함수라 서로 다른 TASK 로 두 번 확인돼도 같은 능력을 두 번 잰 것일 수 있다."
+    }
+  ],
+  "classification_counts": {
+    "assessable": 2,
+    "partial": 3,
+    "tool_missing": 4,
+    "criterion_unverified": 10,
+    "human_gate": 2
+  }
+}

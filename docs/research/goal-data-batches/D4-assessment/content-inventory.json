@@ -1,0 +1,4289 @@
+{
+  "generated_at": "2026-10-23T02:41:55.803Z",
+  "input_head": "791ee473e2173cacd3d2d98932d280fce317274c",
+  "generator": "docs/research/goal-data-batches/D4-assessment/_compute.mjs",
+  "input_sha256": {
+    "docs/csat-learner/v4/codebook.json": "e53141985380c410be02cc8cf84e204479f075520b92448a40dde366551c1c6a",
+    "apps/web/src/lib/csat/map/v4/definition.data.ts": "33036711acceb618ef10a495e661a2691b24a129be1e0b9ad8d0695ee85d6d59",
+    "docs/csat-learner/v4/workspaces.json": "406fb3b81ee23cd9f629fb2a5ea8d52b82930da2ec352a770db88add31c59d95",
+    "docs/csat-learner/v4/relations.json": "716b0b940cd96013e12303ddc3555b362abb345b6cfb1ad252952c4704521b24",
+    "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+    "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+    "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+    "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+    "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+    "apps/web/src/lib/knowledge/authored/r-inference.v1.json": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+    "apps/web/src/lib/knowledge/authored/r-reference.v1.json": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+    "apps/web/src/lib/knowledge/authored/r-relation.v1.json": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+    "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+    "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+    "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+    "apps/web/src/lib/knowledge/authored/s-attachment.v1.json": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+    "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+    "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+    "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+    "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+    "apps/web/src/lib/knowledge/authored/source-lesson-title-route.v3.json": "0b653454bfea053f0523cee1647de1eb97ad5038661bd2fac49162336db0c7f0",
+    "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+    "apps/web/src/lib/knowledge/authored/v-multiword.v1.json": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+    "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+    "apps/web/src/lib/knowledge/authored/tasks.ts": "3aef7dffdcf278b7f5bb752e7c937a7d72d238cd9805837832f14ea631a26edf",
+    "apps/web/src/lib/knowledge/authored/formats.ts": "0a84e761f4cd4f4da4a99290b754eb1cf0fd5114eec7e0f0f55137734efc7b62",
+    "apps/web/src/lib/knowledge/authored/authored-items.ts": "d364356846a4b255cfc64cec870e9d899b8d3d8ee86695f535fd398607e94858",
+    "apps/web/src/lib/knowledge/authored/labels.ts": "0bf25ca6588a856c7fc908d2503bbbc852e7b7d836dc9f780a4e0daf4d2fae66",
+    "docs/final/AUTHORING_SPEC.md": "4d24a73037f4c672c7cb04160915ca49f4734afb1b55fdbc2737849db0a8ad27",
+    "docs/final/APPROVAL_PACKAGE.md": "ed58da4abd19d25f4b256ed6e20fe75c16f9df38dfd475e5b6226e27614bcb5a",
+    "docs/final/review/r5-authored-gold-packet.md": "706887dc7edf35604572d1d909933e2a10c16329af6d0e3654a4c5cfac09b35d",
+    "docs/csat-learner/v62/data-expansion/coverage.json": "bf2589662e18df2ea30be52242060115a72b03672ad6879376c34389b7d37164",
+    "apps/web/src/lib/csat/map/skill-diagnosis.ts": "d5f01c1ca6065bc1913b57d8444937700d77c4fd9d19beba7c2b2b9fafc88880",
+    "apps/web/src/lib/csat/map/v4/observation.ts": "b85060fe21fff627452f863c103bd1ae6c6cec43364db224d1d98d2a30ee6313",
+    "apps/web/src/lib/csat/map/v4/to-be.ts": "ebc23333a1c193fc9d296d934020c2d270d1f0e583d43fc300fbc7e1d0a3ba6a",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts": "c2ff74ea3e149b52dbe6f4f7c77ffe78155ca27c27278ff9d2a1d808ebbcd5d4",
+    "apps/web/src/lib/csat/map/load.ts": "883fb9aa12128546b0cab243d9cef3c8d59f6188f70343d2dfab7477799db201",
+    "apps/web/src/lib/csat/map/v62/supply.ts": "8252d056aad73202bf86151709c7bb59018a42bee178feb163452232b5d553e5"
+  },
+  "totals": {
+    "files": 20,
+    "runtime_registered_files": 18,
+    "items_all_files": 158,
+    "items_runtime_registered": 155,
+    "role_counts_runtime_registered": {
+      "model_explanation": 17,
+      "guided_practice": 18,
+      "independent_check": 68,
+      "transfer": 34,
+      "delayed_check": 18
+    },
+    "distinct_passages_runtime_registered": 155,
+    "exact_duplicate_passage_groups": 3,
+    "near_duplicate_pairs_jaccard_ge_0_5": 0,
+    "items_with_defects": 0
+  },
+  "passage_hash_rule": "sha256(lowercase · 공백 정규화 · NFC · sentences 를 공백으로 이은 문자열)",
+  "files": [
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "sha256": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+      "bytes": 26066,
+      "runtime_registered": true,
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "taskKey": "authored-evidence-locate",
+      "format": "choice_evidence",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "bytes": 24163,
+      "runtime_registered": true,
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "taskKey": "authored-option-match",
+      "format": "option_correspondence",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "bytes": 22866,
+      "runtime_registered": true,
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "taskKey": "authored-task-demand",
+      "format": "demand_choice",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "bytes": 17129,
+      "runtime_registered": true,
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "taskKey": "authored-discourse-function",
+      "format": "discourse_roles",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+      "bytes": 18676,
+      "runtime_registered": true,
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "taskKey": "authored-discourse-structure",
+      "format": "discourse_roles",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "bytes": 27025,
+      "runtime_registered": true,
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "taskKey": "authored-inference",
+      "format": "choice_evidence",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "bytes": 23528,
+      "runtime_registered": true,
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "taskKey": "authored-reference",
+      "format": "choice_evidence",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "sha256": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+      "bytes": 18954,
+      "runtime_registered": true,
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "taskKey": "authored-cohesion",
+      "format": "sentence_relation",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "bytes": 34093,
+      "runtime_registered": true,
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "taskKey": "authored-central-meaning",
+      "format": "central_meaning(기본값)",
+      "schema": null,
+      "items": 11,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 2,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 2
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+      "sha256": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+      "bytes": 8520,
+      "runtime_registered": false,
+      "set": "r5-central-meaning-cycle.v1",
+      "taskId": "r.central_meaning",
+      "taskKey": "authored-central-meaning",
+      "format": "central_meaning",
+      "schema": null,
+      "items": 3,
+      "role_counts": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 0
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+      "sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+      "bytes": 8867,
+      "runtime_registered": true,
+      "set": "r5-central-meaning-cycle.v2",
+      "taskId": "r.central_meaning",
+      "taskKey": "authored-central-meaning",
+      "format": "central_meaning",
+      "schema": null,
+      "items": 3,
+      "role_counts": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 0
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "bytes": 12800,
+      "runtime_registered": true,
+      "set": "s-attachment.v1",
+      "taskId": "s.attachment",
+      "taskKey": "authored-attachment",
+      "format": "segment_choice",
+      "schema": null,
+      "items": 6,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+      "bytes": 18310,
+      "runtime_registered": true,
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "taskKey": "authored-chunk-boundary",
+      "format": "segment_choice",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+      "bytes": 23008,
+      "runtime_registered": true,
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "taskKey": "authored-grammar-scope",
+      "format": "form_scope",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+      "bytes": 20537,
+      "runtime_registered": true,
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "taskKey": "authored-sentence-core",
+      "format": "segment_choice",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "bytes": 17411,
+      "runtime_registered": true,
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "taskKey": "authored-structural-relation",
+      "format": "segment_choice",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/source-lesson-title-route.v3.json",
+      "sha256": "0b653454bfea053f0523cee1647de1eb97ad5038661bd2fac49162336db0c7f0",
+      "bytes": 8892,
+      "runtime_registered": false,
+      "set": "title-route-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "taskKey": null,
+      "format": null,
+      "schema": "vf.source-central-meaning-lesson/1",
+      "items": 0,
+      "note": "items 배열 없음 — 단일 레슨 산출물(schema vf.source-central-meaning-lesson/1, role guided_practice). assessment_scope.evidence=false (role_not_evidence) → 평가 근거 아님",
+      "role_counts": {
+        "guided_practice": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "bytes": 22057,
+      "runtime_registered": true,
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "taskKey": "authored-vocab-context",
+      "format": "contextual_sense",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "bytes": 20734,
+      "runtime_registered": true,
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "taskKey": "authored-multiword",
+      "format": "contextual_sense",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "bytes": 13648,
+      "runtime_registered": true,
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "taskKey": "authored-semantic-relation",
+      "format": "equivalence",
+      "schema": null,
+      "items": 9,
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      }
+    }
+  ],
+  "exact_duplicate_passages": [
+    {
+      "passage_sha256": "8336b4987bd996267ef6072bd7659821fa0945d5bc7e563e51a2bc1a75e6d69f",
+      "count": 2,
+      "members": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+          "id": "r5-cycle-ind-1",
+          "role": "independent_check",
+          "runtime_registered": false
+        },
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+          "id": "r5-cycle-ind-1",
+          "role": "independent_check",
+          "runtime_registered": true
+        }
+      ],
+      "only_superseded_copy": true,
+      "cross_role_instruction_assessment": false
+    },
+    {
+      "passage_sha256": "7c529df9e7f1b5b8fe2f21ddd6379feae19dfb863ca2d46a3dfaa90bef622a9d",
+      "count": 2,
+      "members": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+          "id": "r5-cycle-ind-2",
+          "role": "independent_check",
+          "runtime_registered": false
+        },
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+          "id": "r5-cycle-ind-2",
+          "role": "independent_check",
+          "runtime_registered": true
+        }
+      ],
+      "only_superseded_copy": true,
+      "cross_role_instruction_assessment": false
+    },
+    {
+      "passage_sha256": "4956f97ccad074dd86fd1cca0a3ca6077da99f891c4bf2f31248a7767e355b2c",
+      "count": 2,
+      "members": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+          "id": "r5-cycle-transfer-2",
+          "role": "transfer",
+          "runtime_registered": false
+        },
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+          "id": "r5-cycle-transfer-2",
+          "role": "transfer",
+          "runtime_registered": true
+        }
+      ],
+      "only_superseded_copy": true,
+      "cross_role_instruction_assessment": false
+    }
+  ],
+  "near_duplicate_passages": [],
+  "items": [
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "evl-t1",
+      "format": "choice_evidence",
+      "passage_sha256": "ef70cf2e1aa68c272bdc9bdd68a782098da402433a791f234ba5393656df4093",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "evl-p1",
+      "format": "choice_evidence",
+      "passage_sha256": "ca37056707e17b380af7c551e550ad8233617f40d7e5c6048a0de9507493ce91",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-ind-1",
+      "role": "independent_check",
+      "passageGroup": "evl-i1",
+      "format": "choice_evidence",
+      "passage_sha256": "055cc94b51397ca343c565248e39bd8ba6053b2a6ffe27fbaa87345cae4b1adc",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-ind-2",
+      "role": "independent_check",
+      "passageGroup": "evl-i2",
+      "format": "choice_evidence",
+      "passage_sha256": "66a90227e6b58d8ec0dd2df05e25ed02fd63d02de55d53b7312326ba92963852",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-transfer-1",
+      "role": "transfer",
+      "passageGroup": "evl-x1",
+      "format": "choice_evidence",
+      "passage_sha256": "53930c006e9653d09bc2bf745de9f7b95a157e528d20e34057e09924a3690a34",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "evl-d1",
+      "format": "choice_evidence",
+      "passage_sha256": "4ce8b16a06160b803243a78e3bb0be350d5df2f82592160aa8d38d1829d1ebf0",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-ind-3",
+      "role": "independent_check",
+      "passageGroup": "evl-i3",
+      "format": "choice_evidence",
+      "passage_sha256": "a8a97e209cec081697a3901d8dd37001a834208585c5c7a47c99dbeb4912af95",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-ind-4",
+      "role": "independent_check",
+      "passageGroup": "evl-i4",
+      "format": "choice_evidence",
+      "passage_sha256": "c484a5817f4db598fce3c0abb04d917569cef1bae7ecbb8747df4f7095a08477",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "set": "e-evidence-location.v1",
+      "taskId": "e.evidence_location",
+      "runtime_registered": true,
+      "id": "ev-transfer-2",
+      "role": "transfer",
+      "passageGroup": "evl-x2",
+      "format": "choice_evidence",
+      "passage_sha256": "761f4d52e056380409b848f723ebca8f94942edd9116699a5018e5e6c2e6e1d0",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt",
+        "decisiveAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt",
+        "decisiveAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "opt-t1",
+      "format": "option_correspondence",
+      "passage_sha256": "91321a8b68f64bd736441bfdcae7dc42e3b48bd14010874d4230588e7a69c576",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "opt-t2",
+      "format": "option_correspondence",
+      "passage_sha256": "0cd0219e5e62027772c74fa2e32a9e9d5a0ce470b379277ca7b7adac04e2b3eb",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-ind-1",
+      "role": "independent_check",
+      "passageGroup": "opt-t3",
+      "format": "option_correspondence",
+      "passage_sha256": "44d42fa817f12f65ceb0bebcc1117d4adcc2299c136bd084eae0c2df86d7ae3f",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-ind-2",
+      "role": "independent_check",
+      "passageGroup": "opt-t4",
+      "format": "option_correspondence",
+      "passage_sha256": "e77bee18ffc3917fca3bacf203b7c945d0eedbaf40b6f51702a5c575f1f42416",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-transfer-1",
+      "role": "transfer",
+      "passageGroup": "opt-t5",
+      "format": "option_correspondence",
+      "passage_sha256": "807545c04d067a391eda3e0000bb77dccd31f6924a72ab8e2387ee4705a6894d",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "opt-t6",
+      "format": "option_correspondence",
+      "passage_sha256": "17f6b2efecff6477005ba1f1c4fc7bc9349a172336cfb29299820e9f1db38966",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-ind-3",
+      "role": "independent_check",
+      "passageGroup": "opt-t7",
+      "format": "option_correspondence",
+      "passage_sha256": "1ec8a3e550748c07b5f4fd3195a84c07565b03b7c643bf084c236510e1d708c7",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-ind-4",
+      "role": "independent_check",
+      "passageGroup": "opt-t8",
+      "format": "option_correspondence",
+      "passage_sha256": "31adde767b3a9fc772c5682cb8f810d800925cd4ac564e9c17fd120316a1402d",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "set": "e-option-correspondence.v1",
+      "taskId": "e.option_correspondence",
+      "runtime_registered": true,
+      "id": "opt-transfer-2",
+      "role": "transfer",
+      "passageGroup": "opt-t9",
+      "format": "option_correspondence",
+      "passage_sha256": "19a8cf7934db889b58c758a916893be402e6c50fcd60cfe25bf24650f5c01870",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "options"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "td-t1",
+      "format": "demand_choice",
+      "passage_sha256": "0ba6ca3c36ad805e953f50c1d343cd3927b2025715c8313801ce4a5d3254a724",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "td-t2",
+      "format": "demand_choice",
+      "passage_sha256": "0f2395feed0c3a6bf5e8201f4b1c691f034cb723c70b03f467d8c58ce53f75ad",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-ind-1",
+      "role": "independent_check",
+      "passageGroup": "td-t3",
+      "format": "demand_choice",
+      "passage_sha256": "156fce4440b90cec2215c78f4c93069f5234f3d8d56efecdd877292c525335c8",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-ind-2",
+      "role": "independent_check",
+      "passageGroup": "td-t4",
+      "format": "demand_choice",
+      "passage_sha256": "73a46ff6e4651e0cbcddacfeb4f3110ec268a45dce5d2e0d11340a83e38ed229",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-transfer-1",
+      "role": "transfer",
+      "passageGroup": "td-t5",
+      "format": "demand_choice",
+      "passage_sha256": "3ac359870344ec25742510335f1f5c9858b43bcaddb443bdd2e9d883e929b00a",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "td-t6",
+      "format": "demand_choice",
+      "passage_sha256": "64c28ccc032370f4bcf9b167e792194d13e78673c7ff6565f61a827e95a62f88",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-ind-3",
+      "role": "independent_check",
+      "passageGroup": "td-t7",
+      "format": "demand_choice",
+      "passage_sha256": "0f0c5affefd6d23597d9c8e47011ae5424e2ebaf36b8138115b108c7277ad479",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-ind-4",
+      "role": "independent_check",
+      "passageGroup": "td-t8",
+      "format": "demand_choice",
+      "passage_sha256": "e98b634ea46cc14a7f7bb02d0a55505c9506bf922973eb855276829dc98197ae",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "set": "e-task-demand.v1",
+      "taskId": "e.task_demand",
+      "runtime_registered": true,
+      "id": "td-transfer-2",
+      "role": "transfer",
+      "passageGroup": "td-t9",
+      "format": "demand_choice",
+      "passage_sha256": "b21d21c687ec3b13d1b0ad2dfd037aefe3f7465558cbd2bfc498ad6ba0e70307",
+      "sentences": 4,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "df-t1",
+      "format": "discourse_roles",
+      "passage_sha256": "9382cc4a2dab8f46722b0bf0239095c75233afbb5447594e9fce928a2fa4ab13",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "df-g1",
+      "format": "discourse_roles",
+      "passage_sha256": "1ff760496df9f55b644c7d132368274729b9bad4c930b22a45b398e464b67f1a",
+      "sentences": 7,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-ind-1",
+      "role": "independent_check",
+      "passageGroup": "df-i1",
+      "format": "discourse_roles",
+      "passage_sha256": "677aefefaf7c7fce7b5c2853aa853278900a63243b15413169b6751c8944cc92",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-ind-2",
+      "role": "independent_check",
+      "passageGroup": "df-i2",
+      "format": "discourse_roles",
+      "passage_sha256": "ad1e959d89a050be83a48686d6557c775d650fff8df15408bae6456183f141f5",
+      "sentences": 8,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-transfer-1",
+      "role": "transfer",
+      "passageGroup": "df-x1",
+      "format": "discourse_roles",
+      "passage_sha256": "db9da56bbae25e76c8380fc4031a3cd3e5088efdb2898aedfd812721a7c9eb28",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "df-d1",
+      "format": "discourse_roles",
+      "passage_sha256": "389a8f3da377a98c1ca70d0aec32e0e065815af0998c24d66177b0a02e4354f1",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-ind-3",
+      "role": "independent_check",
+      "passageGroup": "df-i3",
+      "format": "discourse_roles",
+      "passage_sha256": "d624f2f4295f4983fcf1274d52b4692571a3997b5ec0eb478f73e680fe1747e2",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-ind-4",
+      "role": "independent_check",
+      "passageGroup": "df-i4",
+      "format": "discourse_roles",
+      "passage_sha256": "ca43ef216f03b664296977d7779a387a2556766ed9ed3d5b6fd8740ef051b69c",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "set": "r-discourse-function.v1",
+      "taskId": "r.discourse_function",
+      "runtime_registered": true,
+      "id": "df-transfer-2",
+      "role": "transfer",
+      "passageGroup": "df-x2",
+      "format": "discourse_roles",
+      "passage_sha256": "f2bdceefb33bc804d26ca497af2fa36df601fea193719bd356b289f973ac8d7a",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "ds-t1",
+      "format": "discourse_roles",
+      "passage_sha256": "c77f4bddf3fa5cee809f8667c678ebd5662848227550418548d119e928310f2a",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "ds-g1",
+      "format": "discourse_roles",
+      "passage_sha256": "f6abd64f90f0e8e21e6c94f578e3ff7b7d902ea30a6e3764bf459b6ea50ef68a",
+      "sentences": 7,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-ind-1",
+      "role": "independent_check",
+      "passageGroup": "ds-i1",
+      "format": "discourse_roles",
+      "passage_sha256": "5e2f14ceef788e426df1c7c73d27dfb4aa0c91053edac4ef190140bad6185d0a",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-ind-2",
+      "role": "independent_check",
+      "passageGroup": "ds-i2",
+      "format": "discourse_roles",
+      "passage_sha256": "e6ddcae525ade296ed670919bbaea4c4cc66d3ed105a4e7d96bab9a4ea9d216c",
+      "sentences": 8,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-transfer-1",
+      "role": "transfer",
+      "passageGroup": "ds-x1",
+      "format": "discourse_roles",
+      "passage_sha256": "02592297eb252891a72bfb42e91dd7a78e3451444a180360e19dd93cce7e44de",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "ds-d1",
+      "format": "discourse_roles",
+      "passage_sha256": "a591dcf84c8acaaebfb2dc4f903aa02469be351a191de89889c055b54b92e355",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-ind-3",
+      "role": "independent_check",
+      "passageGroup": "ds-i3",
+      "format": "discourse_roles",
+      "passage_sha256": "cab1e7d071de6b19a67f691435264efcffad09cb80fe7b7f4a489b8b5347bf18",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-ind-4",
+      "role": "independent_check",
+      "passageGroup": "ds-i4",
+      "format": "discourse_roles",
+      "passage_sha256": "516b0288b46ab5c9eaef5f65b83461b2e7fd4e386826fcb03c67993f3a579593",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "set": "r-discourse-structure.v1",
+      "taskId": "r.discourse_structure",
+      "runtime_registered": true,
+      "id": "ds-transfer-2",
+      "role": "transfer",
+      "passageGroup": "ds-x2",
+      "format": "discourse_roles",
+      "passage_sha256": "c1173600b6935a0e3079ea70f77d70250bf99d047295c298ed1aa97657313f37",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": null,
+      "composite_keys": [
+        "roles",
+        "pattern"
+      ],
+      "alternatives_declared": [
+        "alternatives"
+      ],
+      "alternatives_nonempty": [
+        "alternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "inf-t1",
+      "format": "choice_evidence",
+      "passage_sha256": "ed1e201d4281534f489d61e0a18723a382141a36b359d07ae81a8dd8b6a057f3",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "inf-p1",
+      "format": "choice_evidence",
+      "passage_sha256": "8900852caddfa9a485a0b06165c75abaa11f6d8666dcde7b2d7e6009921d2bf7",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt",
+        "decisiveAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt",
+        "decisiveAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-ind-1",
+      "role": "independent_check",
+      "passageGroup": "inf-i1",
+      "format": "choice_evidence",
+      "passage_sha256": "8cb052554e714095d7a63c2a968b4970b7c5126c422bcd1d3ea3ad48a2adf648",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-ind-2",
+      "role": "independent_check",
+      "passageGroup": "inf-i2",
+      "format": "choice_evidence",
+      "passage_sha256": "58f9618f9ec52b017f6b41fe434db94cedbab38f3b9d97c17d2c0c1c01a385e8",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-transfer-1",
+      "role": "transfer",
+      "passageGroup": "inf-x1",
+      "format": "choice_evidence",
+      "passage_sha256": "4e95170b3dd10ea7197ed139514b98ce15e8c05b36517936b66089911966978b",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "inf-d1",
+      "format": "choice_evidence",
+      "passage_sha256": "26f4d2a255f08b13407b392987b2aa6e7cd713c7e296fa11e23fa9e02e6683d9",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-ind-3",
+      "role": "independent_check",
+      "passageGroup": "inf-i3",
+      "format": "choice_evidence",
+      "passage_sha256": "a42cb8d024a41b2b6674465f5f63c7bac4a68be3b479058f71ce41e0ebc9b7a1",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt",
+        "decisiveAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt",
+        "decisiveAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-ind-4",
+      "role": "independent_check",
+      "passageGroup": "inf-i4",
+      "format": "choice_evidence",
+      "passage_sha256": "900f78e262f841ae8aa827a8da91bf5b2628ea0e69bc267431c1e3059d9ac7f2",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "set": "r-inference.v1",
+      "taskId": "r.inference",
+      "runtime_registered": true,
+      "id": "inf-transfer-2",
+      "role": "transfer",
+      "passageGroup": "inf-x2",
+      "format": "choice_evidence",
+      "passage_sha256": "464e498b19ae94bc28f93b66cdfe26c5af9eae943d0f49727d1010670543cf3e",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "ref-t1",
+      "format": "choice_evidence",
+      "passage_sha256": "cfbced70204bf2066a971fa6a05b96ffb5b5741d3ff25e0b5864c27ace91f73a",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "ref-t2",
+      "format": "choice_evidence",
+      "passage_sha256": "3ed55b079e36053460e4851c84c8692bdc81931639be428d82a5dab5dfc30c28",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-ind-1",
+      "role": "independent_check",
+      "passageGroup": "ref-t3",
+      "format": "choice_evidence",
+      "passage_sha256": "040b45f04199875169e2e19973e06b6c374ed8a9fca6d19121cdb3fe893662da",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-ind-2",
+      "role": "independent_check",
+      "passageGroup": "ref-t4",
+      "format": "choice_evidence",
+      "passage_sha256": "ea17348e3876d214304208a267b8e1e21073e7a87bea105c15742975bf262a45",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-transfer-1",
+      "role": "transfer",
+      "passageGroup": "ref-t5",
+      "format": "choice_evidence",
+      "passage_sha256": "89039fe067feb5d2900f664157356e3f67519daeb569d0ca58a1f71bb738c391",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "ref-t6",
+      "format": "choice_evidence",
+      "passage_sha256": "40b2833c0968519da26f7ba288485507591df17d44a6dcf8015e76de00be7732",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-ind-3",
+      "role": "independent_check",
+      "passageGroup": "ref-t7",
+      "format": "choice_evidence",
+      "passage_sha256": "9da4c146b304a2a4a5b4c02d08fb8b3a47c14b28fff42cbd763aae774e3919d6",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-ind-4",
+      "role": "independent_check",
+      "passageGroup": "ref-t8",
+      "format": "choice_evidence",
+      "passage_sha256": "b548b663b0af434723fe083e832607781560cd97c8c11804f7e3b40e916304c4",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "set": "r-reference.v1",
+      "taskId": "r.reference",
+      "runtime_registered": true,
+      "id": "ref-transfer-2",
+      "role": "transfer",
+      "passageGroup": "ref-t9",
+      "format": "choice_evidence",
+      "passage_sha256": "9d26ea954b2341d4c9294e6bc827aea46215510f92c477c6ee0a545ce9b72ec2",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "decisive",
+        "evidence"
+      ],
+      "alternatives_declared": [
+        "evidenceAlt"
+      ],
+      "alternatives_nonempty": [
+        "evidenceAlt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "rel-t1",
+      "format": "sentence_relation",
+      "passage_sha256": "0c0170035e7a686348b69ae153d60c27d58de02e6dfb4e474fa91d3308641524",
+      "sentences": 7,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "rel-g1",
+      "format": "sentence_relation",
+      "passage_sha256": "c3458a2dd453d2df77729a3ef6b367cd74714c4113669b99fea9a3ee629a23ed",
+      "sentences": 7,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [
+        "pairs[].alt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-ind-1",
+      "role": "independent_check",
+      "passageGroup": "rel-i1",
+      "format": "sentence_relation",
+      "passage_sha256": "b7a426b14ed58dc384fb6339ce3444fbb1eebc12f4ccb4b6018d6080fa635662",
+      "sentences": 7,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-ind-2",
+      "role": "independent_check",
+      "passageGroup": "rel-i2",
+      "format": "sentence_relation",
+      "passage_sha256": "f54b8ea62f7bc757fecf32ed916e7ccfaaba2d4599fff383b96342527c5c938f",
+      "sentences": 7,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [
+        "pairs[].alt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-transfer-1",
+      "role": "transfer",
+      "passageGroup": "rel-x1",
+      "format": "sentence_relation",
+      "passage_sha256": "2313914a563cd56f5b883a6c291cdc6883b3497ea1f2bf61805b07bcba895362",
+      "sentences": 7,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [
+        "pairs[].alt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "rel-d1",
+      "format": "sentence_relation",
+      "passage_sha256": "ae151d18e2f1d2eef5afa7aab0f0ab9659a5c432d43b1eb8e1e3e76b70daa7d5",
+      "sentences": 7,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-ind-3",
+      "role": "independent_check",
+      "passageGroup": "rel-i3",
+      "format": "sentence_relation",
+      "passage_sha256": "b52a5be8dca5a7dc97c2e580e6b9316247988678ebb21b00a20e79acd825bc3e",
+      "sentences": 6,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-ind-4",
+      "role": "independent_check",
+      "passageGroup": "rel-i4",
+      "format": "sentence_relation",
+      "passage_sha256": "51c64d37c2bfb4e40753bfc75b06dde8a5b04577cf0efedeebd9e1450512eb32",
+      "sentences": 6,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [
+        "pairs[].alt"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "set": "r-relation.v1",
+      "taskId": "r.relation",
+      "runtime_registered": true,
+      "id": "rel-transfer-2",
+      "role": "transfer",
+      "passageGroup": "rel-x2",
+      "format": "sentence_relation",
+      "passage_sha256": "84b94fd17260c2f639f8ec1c1e8d95b779d3b1fc2a920fdc25183dc761e0e519",
+      "sentences": 6,
+      "response_type": "pair_relations",
+      "answer": null,
+      "composite_keys": [
+        "pairs"
+      ],
+      "alternatives_declared": [
+        "pairs[].alt"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "r5cm-t1",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "af438c129097ebc5d78d6783f32368d05011b9995ea6ec27ab6948a5da960d97",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "r5cm-p1",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "5ed20f5eb71b1d714dc7dc023ee27061ede6e5518cac1a62962c62b9f2299669",
+      "sentences": 7,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-guided-2",
+      "role": "guided_practice",
+      "passageGroup": "r5cm-p2",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "7272ae31c0c9876b155c75bf9544c2d0ddf21ab7300ec687a2007f1707ef53cf",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-ind-1",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i1",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "02ca181cb99fb31ab0498dd416a992d5223eaf2e5ddc378912835969ed631ade",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-ind-2",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i2",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "40e5df626bdab2f5a6e97a28136487e3f9efa6d9cc628a1eb932d47f5f42c0bb",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-transfer-1",
+      "role": "transfer",
+      "passageGroup": "r5cm-x1",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "1c74dc59f6dbed6318d538a2ba0f8c02827e37ac520eee134316d222867b4ea0",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-transfer-2",
+      "role": "transfer",
+      "passageGroup": "r5cm-x2",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "b0c7cb5a7d3ca39d1aa8415118bf14fa621d31a63e7778821fad85d901fb0d72",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "r5cm-d1",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "43b398b790532b7f41b664f87802e1efa87545c8f690030a5f2503d16365ee56",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-delayed-2",
+      "role": "delayed_check",
+      "passageGroup": "r5cm-d2",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "fa8ef0ed778f3f7968c456295676be1f9f17d862b4c7229e35862aacf95db2f3",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i3",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "5daf910e6d7adfab75168c7e5d499444c598d15df8954a5efa155d3b83ba4903",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "set": "r5-central-meaning.v3",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cm-ind-4",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i4",
+      "format": "central_meaning(기본값)",
+      "passage_sha256": "98532123eaac71ed442a06ed7bcb0f5ab3488e7ab5c02ec9094e8b3cfd9215c2",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+      "set": "r5-central-meaning-cycle.v1",
+      "taskId": "r.central_meaning",
+      "runtime_registered": false,
+      "id": "r5-cycle-ind-1",
+      "role": "independent_check",
+      "passageGroup": "r5cycle-i1",
+      "format": "central_meaning",
+      "passage_sha256": "8336b4987bd996267ef6072bd7659821fa0945d5bc7e563e51a2bc1a75e6d69f",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+      "set": "r5-central-meaning-cycle.v1",
+      "taskId": "r.central_meaning",
+      "runtime_registered": false,
+      "id": "r5-cycle-ind-2",
+      "role": "independent_check",
+      "passageGroup": "r5cycle-i2",
+      "format": "central_meaning",
+      "passage_sha256": "7c529df9e7f1b5b8fe2f21ddd6379feae19dfb863ca2d46a3dfaa90bef622a9d",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+      "set": "r5-central-meaning-cycle.v1",
+      "taskId": "r.central_meaning",
+      "runtime_registered": false,
+      "id": "r5-cycle-transfer-2",
+      "role": "transfer",
+      "passageGroup": "r5cycle-x2",
+      "format": "central_meaning",
+      "passage_sha256": "4956f97ccad074dd86fd1cca0a3ca6077da99f891c4bf2f31248a7767e355b2c",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+      "set": "r5-central-meaning-cycle.v2",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cycle-ind-1",
+      "role": "independent_check",
+      "passageGroup": "r5cycle-i1",
+      "format": "central_meaning",
+      "passage_sha256": "8336b4987bd996267ef6072bd7659821fa0945d5bc7e563e51a2bc1a75e6d69f",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+      "set": "r5-central-meaning-cycle.v2",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cycle-ind-2",
+      "role": "independent_check",
+      "passageGroup": "r5cycle-i2",
+      "format": "central_meaning",
+      "passage_sha256": "7c529df9e7f1b5b8fe2f21ddd6379feae19dfb863ca2d46a3dfaa90bef622a9d",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+      "set": "r5-central-meaning-cycle.v2",
+      "taskId": "r.central_meaning",
+      "runtime_registered": true,
+      "id": "r5-cycle-transfer-2",
+      "role": "transfer",
+      "passageGroup": "r5cycle-x2",
+      "format": "central_meaning",
+      "passage_sha256": "4956f97ccad074dd86fd1cca0a3ca6077da99f891c4bf2f31248a7767e355b2c",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "claim",
+        "support",
+        "opposed",
+        "relationProbe"
+      ],
+      "alternatives_declared": [
+        "claimRestated",
+        "supportDisputed"
+      ],
+      "alternatives_nonempty": [
+        "supportDisputed"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "set": "s-attachment.v1",
+      "taskId": "s.attachment",
+      "runtime_registered": true,
+      "id": "at-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "at-t1",
+      "format": "segment_choice",
+      "passage_sha256": "499b5112bb7efd719afa2e2dbefca64b44ce351b66280fcdbe17e12fb366664a",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "set": "s-attachment.v1",
+      "taskId": "s.attachment",
+      "runtime_registered": true,
+      "id": "at-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "at-g1",
+      "format": "segment_choice",
+      "passage_sha256": "9f483aebd86ed396d6bc88e1ce3a05a4c340d12751321c4712cb42b310b0663e",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 0,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "set": "s-attachment.v1",
+      "taskId": "s.attachment",
+      "runtime_registered": true,
+      "id": "at-ind-1",
+      "role": "independent_check",
+      "passageGroup": "at-i1",
+      "format": "segment_choice",
+      "passage_sha256": "23396ada9004378fc2f3383204e351ed2747ac87b8586cd5989898bc1abbb772",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "set": "s-attachment.v1",
+      "taskId": "s.attachment",
+      "runtime_registered": true,
+      "id": "at-ind-2",
+      "role": "independent_check",
+      "passageGroup": "at-i2",
+      "format": "segment_choice",
+      "passage_sha256": "19ec1fb3e8b86a5c72b18158815c2da20d55098e5ad39b0ac9358e7d3aa8d5c0",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "set": "s-attachment.v1",
+      "taskId": "s.attachment",
+      "runtime_registered": true,
+      "id": "at-transfer-1",
+      "role": "transfer",
+      "passageGroup": "at-x1",
+      "format": "segment_choice",
+      "passage_sha256": "87f1bcf211c3b1a7f0be355d70a9dec14d0f1c3eadecb4dd0a81131fad8c9307",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "set": "s-attachment.v1",
+      "taskId": "s.attachment",
+      "runtime_registered": true,
+      "id": "at-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "at-d1",
+      "format": "segment_choice",
+      "passage_sha256": "4f764276a49fa2aa1c02445d7f493c2ad17fc4cbe43817dfe5088ac61d3bd417",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 0,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "cb-t1",
+      "format": "segment_choice",
+      "passage_sha256": "5954f4c34729ced807caf06942314ff8e38aa212d4b3e9049b7e7acc223910dd",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "cb-t2",
+      "format": "segment_choice",
+      "passage_sha256": "cd7cf0679b135b5b946ec7e1a2f70508a51ffe2ab4022ce7eee33e02512727c5",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [
+        "reasonAlternatives"
+      ],
+      "alternatives_nonempty": [
+        "reasonAlternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-ind-1",
+      "role": "independent_check",
+      "passageGroup": "cb-t3",
+      "format": "segment_choice",
+      "passage_sha256": "8df077e522a8db8f973168ac955381ab1e2914864810775aeac4e47452392bda",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [
+        "reasonAlternatives"
+      ],
+      "alternatives_nonempty": [
+        "reasonAlternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-ind-2",
+      "role": "independent_check",
+      "passageGroup": "cb-t4",
+      "format": "segment_choice",
+      "passage_sha256": "27144dc2de5a03df5d35b699ea8db08e657eece6c3285cf1a73db7cad799ab73",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 0,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [
+        "reasonAlternatives"
+      ],
+      "alternatives_nonempty": [
+        "reasonAlternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-transfer-1",
+      "role": "transfer",
+      "passageGroup": "cb-t5",
+      "format": "segment_choice",
+      "passage_sha256": "f6f02816fea245da4aca56f0d80971290575c098dabab9a51068fb2cad68bfd6",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "cb-t6",
+      "format": "segment_choice",
+      "passage_sha256": "6a3720cee8cabd80a8c1a683b782270eab01c099dbf0e8ba758b240c763f7d2f",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [
+        "reasonAlternatives"
+      ],
+      "alternatives_nonempty": [
+        "reasonAlternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-ind-3",
+      "role": "independent_check",
+      "passageGroup": "cb-t7",
+      "format": "segment_choice",
+      "passage_sha256": "5c85e4c9fa421fc15ac9e70657a301b34cac32a3f0dbf763a9e251e36bceae29",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-ind-4",
+      "role": "independent_check",
+      "passageGroup": "cb-t8",
+      "format": "segment_choice",
+      "passage_sha256": "d94a7432c3b7fb13f8b6939c6d9a4e43a529d12b498e7ddecb6563d388da9b98",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [
+        "reasonAlternatives"
+      ],
+      "alternatives_nonempty": [
+        "reasonAlternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "set": "s-chunk-boundary.v1",
+      "taskId": "s.chunk_boundary",
+      "runtime_registered": true,
+      "id": "cb-transfer-2",
+      "role": "transfer",
+      "passageGroup": "cb-t9",
+      "format": "segment_choice",
+      "passage_sha256": "3990908850755e1685fa45f4c2ec081f37c2bd21d5183406539d22e4e11b9657",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [
+        "reasonAlternatives"
+      ],
+      "alternatives_nonempty": [
+        "reasonAlternatives"
+      ],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "gs-t1",
+      "format": "form_scope",
+      "passage_sha256": "212bdbda48899570e7d2b9cf4cc5eef256dd5a03895b17444d305b85d4406c91",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "gs-g1",
+      "format": "form_scope",
+      "passage_sha256": "3e8e07fd57c2bfa03a4c14cc0774d3af968001bb90ef868f298721c06d39e062",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": 4,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-ind-1",
+      "role": "independent_check",
+      "passageGroup": "gs-i1",
+      "format": "form_scope",
+      "passage_sha256": "8e5ecf7b0a1f3bed9ef9b31f7ec9b1bd3c58a2444ead97688774058fc490a7fd",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": 0,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-ind-2",
+      "role": "independent_check",
+      "passageGroup": "gs-i2",
+      "format": "form_scope",
+      "passage_sha256": "041bc134b95178c912c9f63ad483e7ef056802611fd772be6bbd1792a4a11e57",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-transfer-1",
+      "role": "transfer",
+      "passageGroup": "gs-x1",
+      "format": "form_scope",
+      "passage_sha256": "ad4ee0163cb7df335659ac87b764a0247520c0436f5423cd6fa718d69456e9d5",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "gs-d1",
+      "format": "form_scope",
+      "passage_sha256": "72328e96919e32e79b1a495bf22807b3ca3419f29813fa51234a4f88bc0a57aa",
+      "sentences": 6,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-ind-3",
+      "role": "independent_check",
+      "passageGroup": "gs-i3",
+      "format": "form_scope",
+      "passage_sha256": "ac49b75b09a31936cf8932f1544e8f52462401c9bacd2bab9eaf2ec2e87fb6e9",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-ind-4",
+      "role": "independent_check",
+      "passageGroup": "gs-i4",
+      "format": "form_scope",
+      "passage_sha256": "98ded2e55a7b3ee6b5cfa0449f87591b703e884740181a65fb83e87885cc1479",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 4,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "set": "s-form-scope.v1",
+      "taskId": "s.form_scope",
+      "runtime_registered": true,
+      "id": "gs-transfer-2",
+      "role": "transfer",
+      "passageGroup": "gs-x2",
+      "format": "form_scope",
+      "passage_sha256": "7ecd872ab290f020aa7aeec5473bcaf4a771d830fa1e895ac70a266f6da1e90c",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "correction",
+        "marks"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "sc-t1",
+      "format": "segment_choice",
+      "passage_sha256": "39cf7bc9486988b7be38ef47465cee2b994078e7da450b361949406d6bc27e93",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "sc-g1",
+      "format": "segment_choice",
+      "passage_sha256": "913684574e773df02c632c51cd69096e748fe65d22c09970e1e7b1451650af9a",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-ind-1",
+      "role": "independent_check",
+      "passageGroup": "sc-i1",
+      "format": "segment_choice",
+      "passage_sha256": "c0af6c4a5304acbe979d57586f760587d3c0522a06e005e17bbac6f759819522",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-ind-2",
+      "role": "independent_check",
+      "passageGroup": "sc-i2",
+      "format": "segment_choice",
+      "passage_sha256": "f3978b54998f0033af2e05af65b1adf82b70bc2635954407b291af00ef2618d0",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 0,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-transfer-1",
+      "role": "transfer",
+      "passageGroup": "sc-x1",
+      "format": "segment_choice",
+      "passage_sha256": "d8c09b9398b47cbfdc040a365a8ee9b5c223efbeeef4d96dd3874808b7b56624",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "sc-d1",
+      "format": "segment_choice",
+      "passage_sha256": "3165b4535b988a3d5771538f7eeb1fd6dbffd368dccf005522bc6314c229df62",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 4,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-ind-3",
+      "role": "independent_check",
+      "passageGroup": "sc-i3",
+      "format": "segment_choice",
+      "passage_sha256": "653d1cd4810acfa5fe93a125e7e1aea33d8db35fdd7d80de4a4c402473d9c2e6",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 4,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-ind-4",
+      "role": "independent_check",
+      "passageGroup": "sc-i4",
+      "format": "segment_choice",
+      "passage_sha256": "3707f3339f869d077125a5eb35ee91232c07d81b1ae2b630a76267cab8876eb6",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "set": "s-sentence-core.v1",
+      "taskId": "s.sentence_core",
+      "runtime_registered": true,
+      "id": "sc-transfer-2",
+      "role": "transfer",
+      "passageGroup": "sc-x2",
+      "format": "segment_choice",
+      "passage_sha256": "0f4eca0431851304fb70e6621bb8673ca0cd02cf67ff9adcfff54fa870c49871",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "sr-t1",
+      "format": "segment_choice",
+      "passage_sha256": "30970a88400c8eb8eb37253e70835ce6ff70edeb707e6c8a28bf96c46a40270e",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 4,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "sr-g1",
+      "format": "segment_choice",
+      "passage_sha256": "dcbc8b15a0ca83451505acad090fae295b0936c1d84768291c0de4ca229be75b",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-ind-1",
+      "role": "independent_check",
+      "passageGroup": "sr-i1",
+      "format": "segment_choice",
+      "passage_sha256": "ea1184a6230ee9a980021663515142c7979b43abe054cb1b098fed64882921fb",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-ind-2",
+      "role": "independent_check",
+      "passageGroup": "sr-i2",
+      "format": "segment_choice",
+      "passage_sha256": "3ef0eaa7724f8583a8938b15d8ad3915e3027295bcad2db93bb9fa0c6a929459",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 0,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-transfer-1",
+      "role": "transfer",
+      "passageGroup": "sr-x1",
+      "format": "segment_choice",
+      "passage_sha256": "d3e26d96e8facb352f3855903f93216f9699cf2e3f8a5ccb414b1a16fe35fee1",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "sr-d1",
+      "format": "segment_choice",
+      "passage_sha256": "1e33c6557f065f41a4ef163fb36289ac04ff06fa77d7e0184454ba2f647604ae",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 2,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-ind-3",
+      "role": "independent_check",
+      "passageGroup": "sr-i3",
+      "format": "segment_choice",
+      "passage_sha256": "3d3a3064bce675f7f7ed1ab9560856593d2b174bb4668407c8f966c68fa0a170",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 4,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-ind-4",
+      "role": "independent_check",
+      "passageGroup": "sr-i4",
+      "format": "segment_choice",
+      "passage_sha256": "f7c6daeec513e96a50a64ceaae4422faf37baf8e2489e56a6ca58cf33c873323",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 3,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "set": "s-structural-relation.v1",
+      "taskId": "s.structural_relation",
+      "runtime_registered": true,
+      "id": "sr-transfer-2",
+      "role": "transfer",
+      "passageGroup": "sr-x2",
+      "format": "segment_choice",
+      "passage_sha256": "22b1beca4bc7d1c9fb690f8ac0ce802d248d5aea21ba78362546298fc39b26cb",
+      "sentences": 5,
+      "response_type": "structured",
+      "answer": 1,
+      "composite_keys": [
+        "reason",
+        "segments"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "vcs-t1",
+      "format": "contextual_sense",
+      "passage_sha256": "7288aaef5abf713331aa76a4b3088e6d98668e57291816a6e27c9e336da1e570",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "vcs-t2",
+      "format": "contextual_sense",
+      "passage_sha256": "b43720fd0e3266708c3031584ddeee8828d66652bd65f9d59a4e6680d6b879f0",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-ind-1",
+      "role": "independent_check",
+      "passageGroup": "vcs-t3",
+      "format": "contextual_sense",
+      "passage_sha256": "924b70e83bc33c96e6575cd3ad48e75c70a72e4f2a0bd12f41898cced365b2c1",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-ind-2",
+      "role": "independent_check",
+      "passageGroup": "vcs-t4",
+      "format": "contextual_sense",
+      "passage_sha256": "c19a7758a2617b58cf61092b822bc7784dc084177f0af1592216049bb29a0295",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-transfer-1",
+      "role": "transfer",
+      "passageGroup": "vcs-t5",
+      "format": "contextual_sense",
+      "passage_sha256": "ecbda0a679a818219dcfd1c1d2969fa515d657f07cd70232c13cff167c8e858f",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "vcs-t6",
+      "format": "contextual_sense",
+      "passage_sha256": "84f39499ae3b720822635ea79e331158324edb1201305d51afc53a2584a528bb",
+      "sentences": 6,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-ind-3",
+      "role": "independent_check",
+      "passageGroup": "vcs-t7",
+      "format": "contextual_sense",
+      "passage_sha256": "aa8256f1a8a2e5c7db0b326001bdf23bd75d229d945fa08c4911750113e1aa26",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-ind-4",
+      "role": "independent_check",
+      "passageGroup": "vcs-t8",
+      "format": "contextual_sense",
+      "passage_sha256": "7caafd5a3443760d435273b0ead3b3a5154014ac4fd07b441d8646059f909949",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "set": "v-contextual-sense.v1",
+      "taskId": "v.contextual_sense",
+      "runtime_registered": true,
+      "id": "vcs-transfer-2",
+      "role": "transfer",
+      "passageGroup": "vcs-t9",
+      "format": "contextual_sense",
+      "passage_sha256": "d0f74044fca76a29d45a2cfba4d15b9b944b4493a67a3a4d3e0286db8db2975a",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "mw-t1",
+      "format": "contextual_sense",
+      "passage_sha256": "2826c841c205e4aad7628333a68085b6d01a6150cfb57e530f6657dea3735aaa",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "mw-t2",
+      "format": "contextual_sense",
+      "passage_sha256": "789e8a85cec6624a8952bcfd14d0b4a6c7ac7f6a625397027d373f8f3f59c155",
+      "sentences": 4,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-ind-1",
+      "role": "independent_check",
+      "passageGroup": "mw-t3",
+      "format": "contextual_sense",
+      "passage_sha256": "f30435d9c135993875b07def784626f9304ab1393970a9c0073328e7cdbbaf32",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-ind-2",
+      "role": "independent_check",
+      "passageGroup": "mw-t4",
+      "format": "contextual_sense",
+      "passage_sha256": "02fccfd55e4b78c6c01ec51bd7c84f44c727b29ea891be638a649779a84d0b6e",
+      "sentences": 4,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-transfer-1",
+      "role": "transfer",
+      "passageGroup": "mw-t5",
+      "format": "contextual_sense",
+      "passage_sha256": "a7a4a9f976dcfa0dc8198b0d8fec768586ed56e92cc5cd3b5517584073ee3bad",
+      "sentences": 5,
+      "response_type": "choice_5",
+      "answer": 4,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "mw-t6",
+      "format": "contextual_sense",
+      "passage_sha256": "9d92800346f63ce1e6893cfd3c7ad086267ace18cdf7d8c63bafcdf73a71e06b",
+      "sentences": 3,
+      "response_type": "choice_5",
+      "answer": 2,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-ind-3",
+      "role": "independent_check",
+      "passageGroup": "mw-t7",
+      "format": "contextual_sense",
+      "passage_sha256": "dd66e043b7d755bfbc9c9ee7ccc49c472a1338c4572a567971b04874ed724d2a",
+      "sentences": 4,
+      "response_type": "choice_5",
+      "answer": 1,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-ind-4",
+      "role": "independent_check",
+      "passageGroup": "mw-t8",
+      "format": "contextual_sense",
+      "passage_sha256": "b94e993f2db59edf0956e3ca4c7e4fbfc81b8aa14ce9cd81406f352449bfee4b",
+      "sentences": 4,
+      "response_type": "choice_5",
+      "answer": 3,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "set": "v-multiword.v1",
+      "taskId": "v.multiword",
+      "runtime_registered": true,
+      "id": "mw-transfer-2",
+      "role": "transfer",
+      "passageGroup": "mw-t9",
+      "format": "contextual_sense",
+      "passage_sha256": "dafb093426cdafb850c7d033991d799d3e88f87bb2354cf62d4b403a8ec6f71b",
+      "sentences": 4,
+      "response_type": "choice_5",
+      "answer": 0,
+      "composite_keys": [
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-teach-1",
+      "role": "model_explanation",
+      "passageGroup": "sem-t1",
+      "format": "equivalence",
+      "passage_sha256": "7f125c2b9b01e4504d270675979d2468be3284748cb6de1bc5d98746a8b73ecd",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "sem-t2",
+      "format": "equivalence",
+      "passage_sha256": "ab673eb67c8bfbcdbaa5c3780a36169811b62e7d543e144cf0a2c993322afd38",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-ind-1",
+      "role": "independent_check",
+      "passageGroup": "sem-t3",
+      "format": "equivalence",
+      "passage_sha256": "2c577dcec2931c539c82468e0aef33d88b08a2293389d96cac486b5ce369de5b",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-ind-2",
+      "role": "independent_check",
+      "passageGroup": "sem-t4",
+      "format": "equivalence",
+      "passage_sha256": "93d34d0bd4f75a0e314040e7680b33a5855e2d9b2ca66bd474a7ddfd6aa8e1ec",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-transfer-1",
+      "role": "transfer",
+      "passageGroup": "sem-t5",
+      "format": "equivalence",
+      "passage_sha256": "2d22d63cecdb3510d6c2518020123d1a47559848b0b1d121ff622695da151642",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "sem-t6",
+      "format": "equivalence",
+      "passage_sha256": "4d490de6486f930b6ac1054fbada8ecf6e6bcc72a177939cbacdbf199d322fe5",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-ind-3",
+      "role": "independent_check",
+      "passageGroup": "sem-t7",
+      "format": "equivalence",
+      "passage_sha256": "84d29ae69abb42adf66a24c516a8e5a9c7fa78ceef204cbd9e3b7811b1965866",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-ind-4",
+      "role": "independent_check",
+      "passageGroup": "sem-t8",
+      "format": "equivalence",
+      "passage_sha256": "76fa636f6f317d890aa0080d74904d7a9e9e5f077a1aced2dc2f8848c9f9fa72",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    },
+    {
+      "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "set": "v-semantic-relation.v1",
+      "taskId": "v.semantic_relation",
+      "runtime_registered": true,
+      "id": "sem-transfer-2",
+      "role": "transfer",
+      "passageGroup": "sem-t9",
+      "format": "equivalence",
+      "passage_sha256": "efc6df3a35df7517c77f189eaec809042969e191bcc3b21ccc5746df4adb0b45",
+      "sentences": 5,
+      "response_type": "equivalence_same+relation",
+      "answer": null,
+      "composite_keys": [
+        "same",
+        "relation",
+        "cue"
+      ],
+      "alternatives_declared": [],
+      "alternatives_nonempty": [],
+      "free_text_response": false,
+      "defects": []
+    }
+  ]
+}

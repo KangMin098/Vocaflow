@@ -1,0 +1,1946 @@
+{
+  "generated_at": "2026-10-23T02:41:55.803Z",
+  "input_head": "791ee473e2173cacd3d2d98932d280fce317274c",
+  "generator": "docs/research/goal-data-batches/D4-assessment/_compute.mjs",
+  "input_sha256": {
+    "docs/csat-learner/v4/codebook.json": "e53141985380c410be02cc8cf84e204479f075520b92448a40dde366551c1c6a",
+    "apps/web/src/lib/csat/map/v4/definition.data.ts": "33036711acceb618ef10a495e661a2691b24a129be1e0b9ad8d0695ee85d6d59",
+    "docs/csat-learner/v4/workspaces.json": "406fb3b81ee23cd9f629fb2a5ea8d52b82930da2ec352a770db88add31c59d95",
+    "docs/csat-learner/v4/relations.json": "716b0b940cd96013e12303ddc3555b362abb345b6cfb1ad252952c4704521b24",
+    "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+    "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+    "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+    "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+    "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+    "apps/web/src/lib/knowledge/authored/r-inference.v1.json": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+    "apps/web/src/lib/knowledge/authored/r-reference.v1.json": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+    "apps/web/src/lib/knowledge/authored/r-relation.v1.json": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+    "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+    "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+    "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+    "apps/web/src/lib/knowledge/authored/s-attachment.v1.json": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+    "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+    "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+    "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+    "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+    "apps/web/src/lib/knowledge/authored/source-lesson-title-route.v3.json": "0b653454bfea053f0523cee1647de1eb97ad5038661bd2fac49162336db0c7f0",
+    "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+    "apps/web/src/lib/knowledge/authored/v-multiword.v1.json": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+    "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+    "apps/web/src/lib/knowledge/authored/tasks.ts": "3aef7dffdcf278b7f5bb752e7c937a7d72d238cd9805837832f14ea631a26edf",
+    "apps/web/src/lib/knowledge/authored/formats.ts": "0a84e761f4cd4f4da4a99290b754eb1cf0fd5114eec7e0f0f55137734efc7b62",
+    "apps/web/src/lib/knowledge/authored/authored-items.ts": "d364356846a4b255cfc64cec870e9d899b8d3d8ee86695f535fd398607e94858",
+    "apps/web/src/lib/knowledge/authored/labels.ts": "0bf25ca6588a856c7fc908d2503bbbc852e7b7d836dc9f780a4e0daf4d2fae66",
+    "docs/final/AUTHORING_SPEC.md": "4d24a73037f4c672c7cb04160915ca49f4734afb1b55fdbc2737849db0a8ad27",
+    "docs/final/APPROVAL_PACKAGE.md": "ed58da4abd19d25f4b256ed6e20fe75c16f9df38dfd475e5b6226e27614bcb5a",
+    "docs/final/review/r5-authored-gold-packet.md": "706887dc7edf35604572d1d909933e2a10c16329af6d0e3654a4c5cfac09b35d",
+    "docs/csat-learner/v62/data-expansion/coverage.json": "bf2589662e18df2ea30be52242060115a72b03672ad6879376c34389b7d37164",
+    "apps/web/src/lib/csat/map/skill-diagnosis.ts": "d5f01c1ca6065bc1913b57d8444937700d77c4fd9d19beba7c2b2b9fafc88880",
+    "apps/web/src/lib/csat/map/v4/observation.ts": "b85060fe21fff627452f863c103bd1ae6c6cec43364db224d1d98d2a30ee6313",
+    "apps/web/src/lib/csat/map/v4/to-be.ts": "ebc23333a1c193fc9d296d934020c2d270d1f0e583d43fc300fbc7e1d0a3ba6a",
+    "apps/web/src/lib/csat/map/lifecycle-evidence.ts": "c2ff74ea3e149b52dbe6f4f7c77ffe78155ca27c27278ff9d2a1d808ebbcd5d4",
+    "apps/web/src/lib/csat/map/load.ts": "883fb9aa12128546b0cab243d9cef3c8d59f6188f70343d2dfab7477799db201",
+    "apps/web/src/lib/csat/map/v62/supply.ts": "8252d056aad73202bf86151709c7bb59018a42bee178feb163452232b5d553e5"
+  },
+  "scope": {
+    "active_tasks": 21,
+    "held_tasks_out_of_scope": [
+      "L1 l.sound",
+      "L2 l.sentence",
+      "L3 l.retain",
+      "L4 l.respond",
+      "X1 x.time_allocation",
+      "X2 x.sequence",
+      "X3 x.recovery_adaptation",
+      "X4 x.attention_stamina",
+      "X-O1 x.o.whole_test_stability"
+    ]
+  },
+  "t0087_packet": {
+    "path": "docs/final/review/r5-authored-gold-packet.md",
+    "ledger": "docs/final/FINAL_LEDGER.md §34",
+    "packet_sha256": "706887dc7edf35604572d1d909933e2a10c16329af6d0e3654a4c5cfac09b35d",
+    "declared_input": {
+      "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "revision": "r5-central-meaning.v3",
+      "sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846"
+    },
+    "current_input_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+    "input_matches": true,
+    "note": "기록만 — 패킷 변경 없음"
+  },
+  "code_refs": {
+    "verify": "apps/web/src/lib/csat/map/skill-diagnosis.ts:15",
+    "check": "apps/web/src/lib/csat/map/skill-diagnosis.ts:16",
+    "resolveLoop": "apps/web/src/lib/csat/map/skill-diagnosis.ts:130",
+    "expiry": "apps/web/src/lib/csat/map/skill-diagnosis.ts:17",
+    "obsDirect": "apps/web/src/lib/csat/map/v4/observation.ts:31",
+    "transferFinished": "apps/web/src/lib/csat/map/lifecycle-evidence.ts:148",
+    "groupMix": "apps/web/src/lib/knowledge/authored/authored-items.ts:142",
+    "assessRoles": "apps/web/src/lib/knowledge/authored/authored-items.ts:34",
+    "delayedLabel": "apps/web/src/lib/csat/map/load.ts:322",
+    "supplyDelayed": "apps/web/src/lib/csat/map/v62/supply.ts:70"
+  },
+  "tasks": [
+    {
+      "task": "v.core_meaning",
+      "display": "V1",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "시험 빈도 낱말의 기본 의미를 문맥 없이도 바로 꺼낸다",
+        "conditions": "고등 기출 빈도 어휘 · 시간 제한 없음",
+        "evidence": "낱말 → 뜻 인출 정답(독립 첫 시도)",
+        "criterion": "도움 없이 맞히고, 다른 날 다시 맞힌다",
+        "quantity_policy": "모르는 낱말 수 기준 간격 반복 분량(FSRS due)"
+      },
+      "sets": [],
+      "formats": [],
+      "role_counts": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 0,
+        "transfer": 0,
+        "delayed_check": 0
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 0,
+        "transfer": 0,
+        "delayed_check": 0
+      },
+      "passage_independence": null,
+      "scoring_contract": null,
+      "judgment_code": {
+        "implemented": "no_authored_path",
+        "note": "창작 세트 없음 · AUTHORED_TASK_KEYS 에 없음. 「다른 날 다시 맞힌다」는 FSRS(WordVault·Flashcard) 쪽이며 이 지도 판정 경로와 결속된 코드 없음(검색 결과 map/ 아래 v.core_meaning 참조 = definition.data 뿐).",
+        "common_rule": null
+      },
+      "direct_assessable": "no — 등록 창작 세트 없음",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.vocab-context"
+      ],
+      "assessment_class": {
+        "code": "tool_missing",
+        "label": "평가 도구 부족",
+        "reason": "등록 창작 세트 · 정본 확인 키 · FSRS→지도 결속 코드 모두 없음",
+        "release_gate": null,
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "시험 빈도 낱말의 기본 의미를 문맥 없이도 바로 꺼낸다 (조건: 고등 기출 빈도 어휘 · 시간 제한 없음)",
+        "q2_measurable": "현재 직접 측정 불가 — 등록 창작 세트 · 정본 확인 키 · FSRS→지도 결속 코드 모두 없음",
+        "q3_success_condition": "정의된 성공 판정 없음(관찰 기록만 또는 경로 없음)",
+        "q4_unverified": [
+          "등록 창작 세트 · 정본 확인 키 · FSRS→지도 결속 코드 모두 없음",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "도구: FSRS(Flashcard/WordVault) 첫 인출 → 다른 날 재인출을 V1 근거로 결속하는 경로",
+          "자료: 기출 빈도 어휘 목록(shared_dictionary) 기반 인출 문항 — 새 창작보다 기존 기록 재사용이 먼저"
+        ]
+      }
+    },
+    {
+      "task": "v.contextual_sense",
+      "display": "V2",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "다의어에서 이 문장에 맞는 의미를 고른다",
+        "conditions": "기출 지문 문장 안",
+        "evidence": "문맥 의미 선택 정답 + 근거 낱말 지목",
+        "criterion": "서로 다른 문맥 2개 이상에서 맞힌다",
+        "quantity_policy": "확인 문항 묶음 단위"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+          "set_revision": "v-contextual-sense.v1",
+          "sha256": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "contextual_sense"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "contextual_sense",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:225"
+          }
+        ],
+        "response_types": [
+          "choice_5"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「서로 다른 문맥 2개 이상」 — 연속 2정답이 서로 다른 문항이면 대개 다른 지문이지만 지문 구분을 검사하지 않는다.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.inference"
+      ],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "「서로 다른 문맥 2」 — 판정은 문항 구분만 본다",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "다의어에서 이 문장에 맞는 의미를 고른다 (조건: 기출 지문 문장 안)",
+        "q2_measurable": "contextual_sense 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「서로 다른 문맥 2개 이상에서 맞힌다」",
+        "q4_unverified": [
+          "「서로 다른 문맥 2」 — 판정은 문항 구분만 본다",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "판정: 서로 다른 passage 해시 2개 조건",
+          "자료: 지연 문항 2개 이상"
+        ]
+      }
+    },
+    {
+      "task": "v.multiword",
+      "display": "V3",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "구·숙어·연어를 한 의미 단위로 읽는다",
+        "conditions": "기출 지문",
+        "evidence": "덩어리 경계·의미 정답",
+        "criterion": "낱낱 해석으로 바꾸지 않고 의미를 말한다",
+        "quantity_policy": "표현 목록 간격 반복"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+          "set_revision": "v-multiword.v1",
+          "sha256": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "contextual_sense"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "contextual_sense",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:225"
+          }
+        ],
+        "response_types": [
+          "choice_5"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "proxy",
+        "note": "「낱낱 해석으로 바꾸지 않고 의미를 말한다」(산출) ↔ 5지선다 선택 + cue 문장. 산출 응답 없음.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.vocab-context"
+      ],
+      "assessment_class": {
+        "code": "partial",
+        "label": "부분 평가 가능",
+        "reason": "「의미를 말한다」(산출) → 5지선다 proxy",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "구·숙어·연어를 한 의미 단위로 읽는다 (조건: 기출 지문)",
+        "q2_measurable": "contextual_sense 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「낱낱 해석으로 바꾸지 않고 의미를 말한다」",
+        "q4_unverified": [
+          "「의미를 말한다」(산출) → 5지선다 proxy",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "형식: 짧은 산출(뜻 쓰기) 응답 또는 정본에 proxy 명시",
+          "자료: 지연 문항 2개 이상"
+        ]
+      }
+    },
+    {
+      "task": "v.semantic_relation",
+      "display": "V4",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "유의·반의·상하위 표현의 의미 동등성을 판단한다",
+        "conditions": "본문 표현 ↔ 다른 표현",
+        "evidence": "두 표현이 같은 뜻인지 판정 + 이유",
+        "criterion": "재진술 쌍을 가려낸다",
+        "quantity_policy": "확인 문항 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+          "set_revision": "v-semantic-relation.v1",
+          "sha256": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "equivalence"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "equivalence",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:424"
+          }
+        ],
+        "response_types": [
+          "equivalence_same+relation"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "yes_by_format",
+        "note": "「재진술 쌍을 가려낸다」 ↔ same + relation 둘 다 맞아야 정답(equivalence).",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.option-match"
+      ],
+      "assessment_class": {
+        "code": "human_gate",
+        "label": "사람 Gold·권리 승인 대기",
+        "reason": "형식 충족 · 근거는 창작 세트뿐(정본 확인 키 없음, ws.option-match 에서는 보조 TASK 라 판정 안 받음)",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "유의·반의·상하위 표현의 의미 동등성을 판단한다 (조건: 본문 표현 ↔ 다른 표현)",
+        "q2_measurable": "equivalence 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「재진술 쌍을 가려낸다」",
+        "q4_unverified": [
+          "형식 충족 · 근거는 창작 세트뿐(정본 확인 키 없음, ws.option-match 에서는 보조 TASK 라 판정 안 받음)",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "승인: 창작 세트 Gold · 권리",
+          "자료: 지연 문항 2개 이상"
+        ]
+      }
+    },
+    {
+      "task": "s.sentence_core",
+      "display": "S1",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "주어·서술어·목적어·보어를 찾는다",
+        "conditions": "기출 긴 문장",
+        "evidence": "뼈대 표시 정답",
+        "criterion": "3문장 이상 연속 정확",
+        "quantity_policy": "막힌 문장 수집량 기준"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+          "set_revision": "s-sentence-core.v1",
+          "sha256": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "segment_choice"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "segment_choice",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:392"
+          }
+        ],
+        "response_types": [
+          "structured"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「3문장 이상 연속 정확」 ↔ resolved 는 연속 2. 3연속 요건 미구현.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.sentence-core"
+      ],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "「3문장 연속」 — 해소 규칙은 연속 2",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "주어·서술어·목적어·보어를 찾는다 (조건: 기출 긴 문장)",
+        "q2_measurable": "segment_choice 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「3문장 이상 연속 정확」",
+        "q4_unverified": [
+          "「3문장 연속」 — 해소 규칙은 연속 2",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "판정: 연속 3(코드북) 또는 코드북 수치 정정 — 사람 결정",
+          "자료: 연속 3을 받치려면 독립+지연 문항 여분 확대"
+        ]
+      }
+    },
+    {
+      "task": "s.chunk_boundary",
+      "display": "S2",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "구·절 경계를 끊어 읽는다",
+        "conditions": "기출 문장",
+        "evidence": "경계 표시",
+        "criterion": "경계 오류 없이 풀어 쓴다",
+        "quantity_policy": "문장 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+          "set_revision": "s-chunk-boundary.v1",
+          "sha256": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "segment_choice"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "segment_choice",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:392"
+          }
+        ],
+        "response_types": [
+          "structured"
+        ],
+        "alternatives_declared_items": 6,
+        "alternatives_nonempty_items": 6,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "proxy",
+        "note": "「경계 오류 없이 풀어 쓴다」(산출) ↔ 덩어리 선택 + 이유 선택. 풀어 쓰기 응답 없음.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.sentence-core"
+      ],
+      "assessment_class": {
+        "code": "partial",
+        "label": "부분 평가 가능",
+        "reason": "「풀어 쓴다」(산출) → 선택 + 이유 proxy",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "구·절 경계를 끊어 읽는다 (조건: 기출 문장)",
+        "q2_measurable": "segment_choice 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「경계 오류 없이 풀어 쓴다」",
+        "q4_unverified": [
+          "「풀어 쓴다」(산출) → 선택 + 이유 proxy",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "형식: 풀어 쓰기 산출 또는 proxy 명시",
+          "자료: 지연 문항 2개 이상"
+        ]
+      }
+    },
+    {
+      "task": "s.attachment",
+      "display": "S3",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "무엇이 무엇을 꾸미는지 정한다",
+        "conditions": "수식어가 긴 문장",
+        "evidence": "피수식어 지목",
+        "criterion": "다른 문장에서도 맞힌다",
+        "quantity_policy": "문장 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+          "set_revision": "s-attachment.v1",
+          "sha256": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+          "items": 6,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "segment_choice"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 2,
+        "transfer": 1,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 4,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "segment_choice",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:392"
+          }
+        ],
+        "response_types": [
+          "structured"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「다른 문장에서도 맞힌다」 ↔ 서로 다른 문항 2 연속 정답(문장 구분 검사 없음).",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "「다른 문장에서도」 — 지문 구분 미검사 · 독립 2/전이 1로 여분도 가장 적다",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "무엇이 무엇을 꾸미는지 정한다 (조건: 수식어가 긴 문장)",
+        "q2_measurable": "segment_choice 응답(닫힌 형식)으로 독립 2 · 전이 1 · 지연 1문항(평가 4)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「다른 문장에서도 맞힌다」",
+        "q4_unverified": [
+          "「다른 문장에서도」 — 지문 구분 미검사 · 독립 2/전이 1로 여분도 가장 적다",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "자료: 독립 2→4, 전이 1→2(다른 세트와 같은 수준)",
+          "판정: 서로 다른 문장/지문 조건"
+        ]
+      }
+    },
+    {
+      "task": "s.structural_relation",
+      "display": "S4",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "병렬·종속·삽입·생략·도치를 풀어낸다",
+        "conditions": "복합 구조 문장",
+        "evidence": "구조 복원 정답",
+        "criterion": "풀어 쓰기가 원문 의미와 같다",
+        "quantity_policy": "문장 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+          "set_revision": "s-structural-relation.v1",
+          "sha256": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "segment_choice"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "segment_choice",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:392"
+          }
+        ],
+        "response_types": [
+          "structured"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "proxy",
+        "note": "「풀어 쓰기가 원문 의미와 같다」 ↔ 선택 + 이유. 풀어 쓰기 산출 없음.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.sentence-core"
+      ],
+      "assessment_class": {
+        "code": "partial",
+        "label": "부분 평가 가능",
+        "reason": "「풀어 쓰기」(산출) → 선택형 proxy",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "병렬·종속·삽입·생략·도치를 풀어낸다 (조건: 복합 구조 문장)",
+        "q2_measurable": "segment_choice 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「풀어 쓰기가 원문 의미와 같다」",
+        "q4_unverified": [
+          "「풀어 쓰기」(산출) → 선택형 proxy",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "형식: 풀어 쓰기 산출 또는 proxy 명시",
+          "자료: 지연 문항 2개 이상"
+        ]
+      }
+    },
+    {
+      "task": "s.form_scope",
+      "display": "S5",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "문법 형태와 부정·비교·조건의 범위를 판단한다",
+        "conditions": "어법 문항 + 독해 문장",
+        "evidence": "어법 판정 + 이유",
+        "criterion": "포인트별 서로 다른 문항 2개 이상",
+        "quantity_policy": "포인트별 기출 반복"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+          "set_revision": "s-form-scope.v1",
+          "sha256": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "form_scope"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "form_scope",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:282"
+          }
+        ],
+        "response_types": [
+          "structured"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「포인트별 서로 다른 문항 2개 이상」 ↔ 문항 2개는 충족, 포인트(reason)별 구분 없음.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "「포인트별 서로 다른 문항 2」 — 포인트 구분 필드가 판정에 없다",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "문법 형태와 부정·비교·조건의 범위를 판단한다 (조건: 어법 문항 + 독해 문장)",
+        "q2_measurable": "form_scope 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「포인트별 서로 다른 문항 2개 이상」",
+        "q4_unverified": [
+          "「포인트별 서로 다른 문항 2」 — 포인트 구분 필드가 판정에 없다",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "데이터: 문항별 문법 포인트 태그 + 포인트별 2문항 판정",
+          "자료: 포인트 수 × 2 이상의 독립 문항"
+        ]
+      }
+    },
+    {
+      "task": "s.o.sentence_meaning_model",
+      "display": "S-O1",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "한 문장의 명제와 핵심·부가 정보를 우리말로 구성한다",
+        "conditions": "기출 문장 · 도움 없이",
+        "evidence": "명제 풀어 쓰기",
+        "criterion": "숙달도 계산 없음 — 관찰 기록만",
+        "quantity_policy": "없음(통합 관찰)"
+      },
+      "sets": [],
+      "formats": [],
+      "role_counts": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 0,
+        "transfer": 0,
+        "delayed_check": 0
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 0,
+        "transfer": 0,
+        "delayed_check": 0
+      },
+      "passage_independence": null,
+      "scoring_contract": null,
+      "judgment_code": {
+        "implemented": "observation_only",
+        "note": "통합 관찰 — 자기 문항 없음 · apps/web/src/lib/csat/map/v4/observation.ts:31 하위 TASK 직접 판정 집계만(unmeasurable/insufficient/observable).",
+        "common_rule": null
+      },
+      "direct_assessable": "no — 통합 관찰(설계상 자기 문항 없음)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.inference"
+      ],
+      "assessment_class": {
+        "code": "tool_missing",
+        "label": "평가 도구 부족",
+        "reason": "설계상 관찰 전용 — 숙달 판정 도구가 없다(정본 「숙달도 계산 없음」)",
+        "release_gate": null,
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "한 문장의 명제와 핵심·부가 정보를 우리말로 구성한다 (조건: 기출 문장 · 도움 없이)",
+        "q2_measurable": "현재 직접 측정 불가 — 설계상 관찰 전용 — 숙달 판정 도구가 없다(정본 「숙달도 계산 없음」)",
+        "q3_success_condition": "정의된 성공 판정 없음(관찰 기록만 또는 경로 없음)",
+        "q4_unverified": [
+          "설계상 관찰 전용 — 숙달 판정 도구가 없다(정본 「숙달도 계산 없음」)",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "관찰: 기출 문장 통째 해석 산출 과제(점수 없음)"
+        ]
+      }
+    },
+    {
+      "task": "r.reference",
+      "display": "R1",
+      "status": "canon_candidate",
+      "direct_check_codebook": "ready",
+      "definition": {
+        "goal": "대명사·지시어·같은 개념의 연결을 추적한다",
+        "conditions": "기출 지문",
+        "evidence": "지시 대상 지목",
+        "criterion": "서로 다른 지문 2개",
+        "quantity_policy": "확인 문항 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+          "set_revision": "r-reference.v1",
+          "sha256": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "choice_evidence"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "choice_evidence",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:152"
+          }
+        ],
+        "response_types": [
+          "choice_5"
+        ],
+        "alternatives_declared_items": 9,
+        "alternatives_nonempty_items": 9,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「서로 다른 지문 2개」 — 지문 구분 검사 없음(문항 구분만).",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.cohesion"
+      ],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "「서로 다른 지문 2」 — 지문 구분 미검사",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "대명사·지시어·같은 개념의 연결을 추적한다 (조건: 기출 지문)",
+        "q2_measurable": "choice_evidence 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「서로 다른 지문 2개」",
+        "q4_unverified": [
+          "「서로 다른 지문 2」 — 지문 구분 미검사",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "판정: 서로 다른 지문 2 조건",
+          "자료: 지연 문항 2개 이상"
+        ]
+      }
+    },
+    {
+      "task": "r.relation",
+      "display": "R2",
+      "status": "canon_candidate",
+      "direct_check_codebook": "ready",
+      "definition": {
+        "goal": "인접 문장의 관계(인과·대조·예시·재진술 …)를 구성한다",
+        "conditions": "기출 지문 · relation facet 기록",
+        "evidence": "관계 종류 + 근거 단서",
+        "criterion": "facet 별 막대 없음 — 관찰 근거 내역만",
+        "quantity_policy": "확인 문항 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+          "set_revision": "r-relation.v1",
+          "sha256": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "sentence_relation"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "sentence_relation",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:254"
+          }
+        ],
+        "response_types": [
+          "pair_relations"
+        ],
+        "alternatives_declared_items": 9,
+        "alternatives_nonempty_items": 4,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "yes_by_format",
+        "note": "「facet 별 막대 없음 — 관찰 근거 내역만」 ↔ 쌍 관계 전부 맞아야 정답 · 별도 막대 없음.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [
+        "cohesion-link"
+      ],
+      "aux_in_templates": [],
+      "assessment_class": {
+        "code": "assessable",
+        "label": "실제 평가 가능",
+        "reason": "형식 충족 + 정본 확인 키 cohesion-link",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "인접 문장의 관계(인과·대조·예시·재진술 …)를 구성한다 (조건: 기출 지문 · relation facet 기록)",
+        "q2_measurable": "sentence_relation 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7) + 정본 확인 키 cohesion-link",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「facet 별 막대 없음 — 관찰 근거 내역만」",
+        "q4_unverified": [
+          "형식 충족 + 정본 확인 키 cohesion-link",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "자료: 지연 문항 2개 이상"
+        ]
+      }
+    },
+    {
+      "task": "r.discourse_function",
+      "display": "R3",
+      "status": "canon_candidate",
+      "direct_check_codebook": "live",
+      "definition": {
+        "goal": "이 문장이 지금 하는 역할(근거·예시·반론 …)을 말한다",
+        "conditions": "기출 지문",
+        "evidence": "역할 표시",
+        "criterion": "§20-2 하향 조건 — Gold tagging 에서 R4 와 독립 관찰 확인 전 잠정",
+        "quantity_policy": "확인 문항 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+          "set_revision": "r-discourse-function.v1",
+          "sha256": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "discourse_roles"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "discourse_roles",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:312"
+          }
+        ],
+        "response_types": [
+          "structured"
+        ],
+        "alternatives_declared_items": 9,
+        "alternatives_nonempty_items": 9,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「Gold tagging 에서 R4 와 독립 관찰 확인 전 잠정」 — R3/R4 가 같은 discourse_roles 형식 · 같은 gradeStructure 사용. 독립 관찰 확인 코드 없음.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.central-meaning"
+      ],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "R4 와 같은 형식 · 같은 채점 함수 — 정본의 독립 관찰 조건을 확인할 코드가 없다",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "이 문장이 지금 하는 역할(근거·예시·반론 …)을 말한다 (조건: 기출 지문)",
+        "q2_measurable": "discourse_roles 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「§20-2 하향 조건 — Gold tagging 에서 R4 와 독립 관찰 확인 전 잠정」",
+        "q4_unverified": [
+          "R4 와 같은 형식 · 같은 채점 함수 — 정본의 독립 관찰 조건을 확인할 코드가 없다",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "근거: Gold tagging 으로 R3/R4 독립 관찰 확인(사람)",
+          "형식: R4 와 구별되는 응답 형식 검토"
+        ]
+      }
+    },
+    {
+      "task": "r.discourse_structure",
+      "display": "R4",
+      "status": "canon_candidate",
+      "direct_check_codebook": "live",
+      "definition": {
+        "goal": "역할들이 모여 만드는 전개 방식을 재구성한다",
+        "conditions": "기출 지문",
+        "evidence": "구조 유형 + 근거",
+        "criterion": "R3 와 다른 근거로 관찰될 때만 독립",
+        "quantity_policy": "확인 문항 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+          "set_revision": "r-discourse-structure.v1",
+          "sha256": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "discourse_roles"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "discourse_roles",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:312"
+          }
+        ],
+        "response_types": [
+          "structured"
+        ],
+        "alternatives_declared_items": 9,
+        "alternatives_nonempty_items": 5,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「R3 와 다른 근거로 관찰될 때만 독립」 — R3 와 같은 형식 · 채점 함수. 근거 분리 검사 없음.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.central-meaning"
+      ],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "R3 와 같은 이유",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "역할들이 모여 만드는 전개 방식을 재구성한다 (조건: 기출 지문)",
+        "q2_measurable": "discourse_roles 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「R3 와 다른 근거로 관찰될 때만 독립」",
+        "q4_unverified": [
+          "R3 와 같은 이유",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "근거: R3 와 같음"
+        ]
+      }
+    },
+    {
+      "task": "r.central_meaning",
+      "display": "R5",
+      "status": "canon_candidate",
+      "direct_check_codebook": "live",
+      "definition": {
+        "goal": "중심과 부연을 가르고 핵심 주장을 한 줄로 압축한다",
+        "conditions": "주제·요지·제목 지문",
+        "evidence": "한 줄 요지 + 중심 문장",
+        "criterion": "서로 다른 지문 2개 독립 확인 + 다른 날 재확인",
+        "quantity_policy": "확인 9문항 묶음(claim-support) 기준"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+          "set_revision": "r5-central-meaning.v3",
+          "sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+          "items": 11,
+          "runtime_registered": true
+        },
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+          "set_revision": "r5-central-meaning-cycle.v1",
+          "sha256": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+          "items": 3,
+          "runtime_registered": false
+        },
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+          "set_revision": "r5-central-meaning-cycle.v2",
+          "sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+          "items": 3,
+          "runtime_registered": true
+        },
+        {
+          "file": "apps/web/src/lib/knowledge/authored/source-lesson-title-route.v3.json",
+          "set_revision": "title-route-central-meaning.v3",
+          "sha256": "0b653454bfea053f0523cee1647de1eb97ad5038661bd2fac49162336db0c7f0",
+          "items": 0,
+          "runtime_registered": false
+        }
+      ],
+      "formats": [
+        "central_meaning(기본값)",
+        "central_meaning"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 2,
+        "independent_check": 6,
+        "transfer": 3,
+        "delayed_check": 2
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 2,
+        "independent_check": 6,
+        "transfer": 3,
+        "delayed_check": 2
+      },
+      "passage_independence": {
+        "assessment_items": 11,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "central_meaning(기본값)",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:113"
+          },
+          {
+            "format": "central_meaning",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:113"
+          }
+        ],
+        "response_types": [
+          "choice_5"
+        ],
+        "alternatives_declared_items": 14,
+        "alternatives_nonempty_items": 13,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「서로 다른 지문 2개 독립 확인 + 다른 날 재확인」 — 연속 2정답만. 다른 날 경과 검사 없음(delayed_check 는 라벨 · 공급 역할일 뿐).",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [
+        "claim-support"
+      ],
+      "aux_in_templates": [
+        "ws.option-match"
+      ],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "「다른 날 재확인」 — 경과 일수 미검사(정본 확인 키 claim-support 는 있음)",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "중심과 부연을 가르고 핵심 주장을 한 줄로 압축한다 (조건: 주제·요지·제목 지문)",
+        "q2_measurable": "central_meaning(기본값) · central_meaning 응답(닫힌 형식)으로 독립 6 · 전이 3 · 지연 2문항(평가 11) + 정본 확인 키 claim-support",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「서로 다른 지문 2개 독립 확인 + 다른 날 재확인」",
+        "q4_unverified": [
+          "「다른 날 재확인」 — 경과 일수 미검사(정본 확인 키 claim-support 는 있음)",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "판정: 다른 날 최소 경과(값은 사람 결정)",
+          "승인: T-0087 R5 패킷 결정란"
+        ]
+      }
+    },
+    {
+      "task": "r.inference",
+      "display": "R6",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "쓰이지 않은 의미를 글 근거로 도출한다",
+        "conditions": "함축·빈칸 지문",
+        "evidence": "추론 + 근거 문장",
+        "criterion": "근거 없는 추론은 실패",
+        "quantity_policy": "확인 문항 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+          "set_revision": "r-inference.v1",
+          "sha256": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "choice_evidence"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "choice_evidence",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:152"
+          }
+        ],
+        "response_types": [
+          "choice_5"
+        ],
+        "alternatives_declared_items": 9,
+        "alternatives_nonempty_items": 9,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "yes_by_format",
+        "note": "「근거 없는 추론은 실패」 ↔ choice + decisive 근거 + 범주 밖 문장 없음이어야 정답(choice_evidence).",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [],
+      "assessment_class": {
+        "code": "human_gate",
+        "label": "사람 Gold·권리 승인 대기",
+        "reason": "형식 충족 · 근거는 창작 세트뿐(ws.inference 는 content_keys 비어 있음)",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "쓰이지 않은 의미를 글 근거로 도출한다 (조건: 함축·빈칸 지문)",
+        "q2_measurable": "choice_evidence 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「근거 없는 추론은 실패」",
+        "q4_unverified": [
+          "형식 충족 · 근거는 창작 세트뿐(ws.inference 는 content_keys 비어 있음)",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "승인: 창작 세트 Gold · 권리",
+          "자료: 정본 확인 키(기출 추론 문항 묶음) 연결"
+        ]
+      }
+    },
+    {
+      "task": "r.o.global_meaning_model",
+      "display": "R-O1",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "글 전체의 일관된 의미를 구성한다",
+        "conditions": "장문·고난도",
+        "evidence": "구조도 + 요지",
+        "criterion": "숙달도 계산 없음",
+        "quantity_policy": "없음"
+      },
+      "sets": [],
+      "formats": [],
+      "role_counts": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 0,
+        "transfer": 0,
+        "delayed_check": 0
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 0,
+        "transfer": 0,
+        "delayed_check": 0
+      },
+      "passage_independence": null,
+      "scoring_contract": null,
+      "judgment_code": {
+        "implemented": "observation_only",
+        "note": "통합 관찰 — apps/web/src/lib/csat/map/v4/observation.ts:31.",
+        "common_rule": null
+      },
+      "direct_assessable": "no — 통합 관찰(설계상 자기 문항 없음)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [],
+      "assessment_class": {
+        "code": "tool_missing",
+        "label": "평가 도구 부족",
+        "reason": "설계상 관찰 전용",
+        "release_gate": null,
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "글 전체의 일관된 의미를 구성한다 (조건: 장문·고난도)",
+        "q2_measurable": "현재 직접 측정 불가 — 설계상 관찰 전용",
+        "q3_success_condition": "정의된 성공 판정 없음(관찰 기록만 또는 경로 없음)",
+        "q4_unverified": [
+          "설계상 관찰 전용",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "관찰: 요지 · 구조 동시 응답 지문(점수 없음)"
+        ]
+      }
+    },
+    {
+      "task": "e.task_demand",
+      "display": "E1",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "발문이 요구하는 판단을 정확히 말한다",
+        "conditions": "모든 유형",
+        "evidence": "요구 진술",
+        "criterion": "유형 2개 이상",
+        "quantity_policy": "확인 문항"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+          "set_revision": "e-task-demand.v1",
+          "sha256": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "demand_choice"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "demand_choice",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:335"
+          }
+        ],
+        "response_types": [
+          "choice_5"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「유형 2개 이상」 ↔ 유형 구분 검사 없음(문항 2개).",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [
+        "ws.evidence-locate"
+      ],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "「유형 2개 이상」 — 유형 구분 미검사",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "발문이 요구하는 판단을 정확히 말한다 (조건: 모든 유형)",
+        "q2_measurable": "demand_choice 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7)",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「유형 2개 이상」",
+        "q4_unverified": [
+          "「유형 2개 이상」 — 유형 구분 미검사",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "데이터: 문항별 유형 태그 + 유형 2개 판정"
+        ]
+      }
+    },
+    {
+      "task": "e.evidence_location",
+      "display": "E2",
+      "status": "canon_candidate",
+      "direct_check_codebook": "live",
+      "definition": {
+        "goal": "판단을 정하는 본문 근거 문장을 특정한다",
+        "conditions": "빈칸 지문 등",
+        "evidence": "근거 문장 지목(Evidence Anchor 결속)",
+        "criterion": "서로 다른 확인 문항 2개 독립 정답 → 다른 날 재확인",
+        "quantity_policy": "확인 5문항 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+          "set_revision": "e-evidence-location.v1",
+          "sha256": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "choice_evidence"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "choice_evidence",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:152"
+          }
+        ],
+        "response_types": [
+          "choice_5"
+        ],
+        "alternatives_declared_items": 9,
+        "alternatives_nonempty_items": 9,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "partial",
+        "note": "「서로 다른 확인 문항 2개 독립 정답 → 다른 날 재확인」 — 앞부분 구현, 다른 날 재확인 미구현.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [
+        "evidence-locate"
+      ],
+      "aux_in_templates": [],
+      "assessment_class": {
+        "code": "criterion_unverified",
+        "label": "도달 조건 검증 부족",
+        "reason": "「다른 날 재확인」 — 경과 일수 미검사(정본 확인 키 evidence-locate 는 있음)",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "판단을 정하는 본문 근거 문장을 특정한다 (조건: 빈칸 지문 등)",
+        "q2_measurable": "choice_evidence 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7) + 정본 확인 키 evidence-locate",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「서로 다른 확인 문항 2개 독립 정답 → 다른 날 재확인」",
+        "q4_unverified": [
+          "「다른 날 재확인」 — 경과 일수 미검사(정본 확인 키 evidence-locate 는 있음)",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "판정: 다른 날 최소 경과"
+        ]
+      }
+    },
+    {
+      "task": "e.option_correspondence",
+      "display": "E3",
+      "status": "canon_candidate",
+      "direct_check_codebook": "live",
+      "definition": {
+        "goal": "선지가 본문의 어떤 의미를 다시 말했는지(또는 바꿨는지) 판단한다",
+        "conditions": "주제·제목·요지 지문 · judgment facet 기록",
+        "evidence": "대응 본문 문장 지목",
+        "criterion": "facet 별 막대 없음 · 함정 선택만으로 약함 판정 금지",
+        "quantity_policy": "확인 6문항 묶음"
+      },
+      "sets": [
+        {
+          "file": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+          "set_revision": "e-option-correspondence.v1",
+          "sha256": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+          "items": 9,
+          "runtime_registered": true
+        }
+      ],
+      "formats": [
+        "option_correspondence"
+      ],
+      "role_counts": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 1,
+        "guided_practice": 1,
+        "independent_check": 4,
+        "transfer": 2,
+        "delayed_check": 1
+      },
+      "passage_independence": {
+        "assessment_items": 7,
+        "assessment_sharing_instruction_passage": [],
+        "assessment_sharing_passage_among_themselves": [],
+        "verdict": "independent(정확 해시 기준)"
+      },
+      "scoring_contract": {
+        "grade_function": [
+          {
+            "format": "option_correspondence",
+            "isCorrect_line": "apps/web/src/lib/knowledge/authored/formats.ts:194"
+          }
+        ],
+        "response_types": [
+          "choice_5"
+        ],
+        "alternatives_declared_items": 0,
+        "alternatives_nonempty_items": 0,
+        "free_text_items": 0,
+        "defect_items": 0,
+        "defects": [],
+        "status": "structurally_complete(정적 검사)"
+      },
+      "judgment_code": {
+        "implemented": "yes_by_format",
+        "note": "「함정 선택만으로 약함 판정 금지」 — 확정은 오답 2문항 기준이라 함정 선택 1회로 확정하지 않음. 선지별 verdict 전부 + 문장 일치까지 맞아야 정답.",
+        "common_rule": "공통 판정 = apps/web/src/lib/csat/map/skill-diagnosis.ts:15(확정 2) · apps/web/src/lib/csat/map/skill-diagnosis.ts:130(연속 정답 2 → resolved) · 만료 apps/web/src/lib/csat/map/skill-diagnosis.ts:17. 서로 다른 지문 · 다른 날 · 역할(transfer/delayed) 구분을 resolved 조건에 쓰지 않는다."
+      },
+      "direct_assessable": "yes — 창작 세트(콘텐츠 출시 승인 별도)",
+      "canonical_check_keys": [
+        "option-restate"
+      ],
+      "aux_in_templates": [],
+      "assessment_class": {
+        "code": "assessable",
+        "label": "실제 평가 가능",
+        "reason": "형식 충족 + 정본 확인 키 option-restate",
+        "release_gate": "창작 세트 근거는 사람 Gold · 권리 · 출시 승인 전 실제 근거 아님",
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "선지가 본문의 어떤 의미를 다시 말했는지(또는 바꿨는지) 판단한다 (조건: 주제·제목·요지 지문 · judgment facet 기록)",
+        "q2_measurable": "option_correspondence 응답(닫힌 형식)으로 독립 4 · 전이 2 · 지연 1문항(평가 7) + 정본 확인 키 option-restate",
+        "q3_success_condition": "코드: 확인 문항 독립 첫 시도 2개 연속 실패로 확정 → 확정 뒤 처음 본 다른 문항 연속 2정답이면 resolved(apps/web/src/lib/csat/map/skill-diagnosis.ts:130). 코드북 기준: 「facet 별 막대 없음 · 함정 선택만으로 약함 판정 금지」",
+        "q4_unverified": [
+          "형식 충족 + 정본 확인 키 option-restate",
+          "창작 정답(gold 필드)은 AI 제안 — 사람 Gold 아님",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "자료: 지연 문항 2개 이상"
+        ]
+      }
+    },
+    {
+      "task": "e.o.final_judgment",
+      "display": "E-O1",
+      "status": "canon_candidate",
+      "direct_check_codebook": "content_needed",
+      "definition": {
+        "goal": "정답 선택과 배제 이유를 함께 낸다",
+        "conditions": "정답 + 과정 근거",
+        "evidence": "선택 + 근거 + 배제 이유",
+        "criterion": "추측 정답은 근거 아님",
+        "quantity_policy": "없음"
+      },
+      "sets": [],
+      "formats": [],
+      "role_counts": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 0,
+        "transfer": 0,
+        "delayed_check": 0
+      },
+      "distinct_passages_by_role": {
+        "model_explanation": 0,
+        "guided_practice": 0,
+        "independent_check": 0,
+        "transfer": 0,
+        "delayed_check": 0
+      },
+      "passage_independence": null,
+      "scoring_contract": null,
+      "judgment_code": {
+        "implemented": "observation_only",
+        "note": "통합 관찰 — 「추측 정답은 근거 아님」을 구분하는 코드(확신도 · 근거 응답) 없음 · apps/web/src/lib/csat/map/v4/observation.ts:31.",
+        "common_rule": null
+      },
+      "direct_assessable": "no — 통합 관찰(설계상 자기 문항 없음)",
+      "canonical_check_keys": [],
+      "aux_in_templates": [],
+      "assessment_class": {
+        "code": "tool_missing",
+        "label": "평가 도구 부족",
+        "reason": "설계상 관찰 전용 · 「추측 정답」을 가를 응답 형식이 없다",
+        "release_gate": null,
+        "verdict_source": "AI 감사(_classify.mjs) — 사람 판정 아님"
+      },
+      "completion_answers": {
+        "q1_learns": "정답 선택과 배제 이유를 함께 낸다 (조건: 정답 + 과정 근거)",
+        "q2_measurable": "현재 직접 측정 불가 — 설계상 관찰 전용 · 「추측 정답」을 가를 응답 형식이 없다",
+        "q3_success_condition": "정의된 성공 판정 없음(관찰 기록만 또는 경로 없음)",
+        "q4_unverified": [
+          "설계상 관찰 전용 · 「추측 정답」을 가를 응답 형식이 없다",
+          "처음부터 맞히는 학습자의 「도달」 상태가 없다(M1)"
+        ],
+        "q5_needs": [
+          "형식: 선택 + 결정 근거 문장(E2 choice_evidence 재사용) — 근거가 틀린 정답은 근거로 세지 않음"
+        ]
+      }
+    }
+  ],
+  "classification": {
+    "generator": "docs/research/goal-data-batches/D4-assessment/_classify.mjs",
+    "labels": {
+      "assessable": "실제 평가 가능",
+      "partial": "부분 평가 가능",
+      "tool_missing": "평가 도구 부족",
+      "criterion_unverified": "도달 조건 검증 부족",
+      "human_gate": "사람 Gold·권리 승인 대기"
+    },
+    "counts": {
+      "assessable": 2,
+      "partial": 3,
+      "tool_missing": 4,
+      "criterion_unverified": 10,
+      "human_gate": 2
+    },
+    "code_refs": {
+      "resolve_streak": "apps/web/src/lib/csat/map/skill-diagnosis.ts:130",
+      "verify_requires_no_correct": "apps/web/src/lib/csat/map/skill-diagnosis.ts:110",
+      "practice_excluded": "apps/web/src/lib/csat/map/skill-diagnosis.ts:91",
+      "unverified_to_checking": "apps/web/src/lib/csat/map/v4/as-is.ts:236",
+      "skill_to_task": "apps/web/src/lib/csat/map/v4/as-is.ts:135",
+      "core_only_keys": "apps/web/src/lib/csat/map/v4/definition.ts:69"
+    }
+  }
+}
