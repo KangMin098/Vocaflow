@@ -10,10 +10,12 @@ import { LOCAL, ROOT } from './pilot-lib.mjs'
 
 const DIR = path.join(ROOT, 'docs/csat-learner/v62/data-expansion')
 const pts = new Map()
-for (const f of ['pilot-input.json', 'expand-input.json']) for (const r of JSON.parse(fs.readFileSync(path.join(LOCAL, f), 'utf8')).rows) pts.set(r.item_id, { exam: r.item_id.split('#')[0], points: r.source.points ?? null })
+for (const f of ['pilot-input.json', 'expand-input.json', 'fix-input.json', 'fix2-input.json'].filter((x) => fs.existsSync(path.join(LOCAL, x)))) for (const r of JSON.parse(fs.readFileSync(path.join(LOCAL, f), 'utf8')).rows) pts.set(r.item_id, { exam: r.item_id.split('#')[0], points: r.source.points ?? null })
 const links = [
   ...JSON.parse(fs.readFileSync(path.join(DIR, 'pilot-links.json'), 'utf8')).links.filter((l) => l.task === 'r.central_meaning' || l.task === 'r.inference'),
   ...JSON.parse(fs.readFileSync(path.join(DIR, 'r5r6-links.json'), 'utf8')).links,
+  // 발문 수정 문항의 수정 후 재판정(Claude A × Codex B) — r5r6 의 수정 전 판정은 SOURCE_DEFECT 로 빠져 있다
+  ...['r5r6-fix-links.json', 'r5r6-fix2-links.json'].filter((x) => fs.existsSync(path.join(DIR, x))).flatMap((x) => JSON.parse(fs.readFileSync(path.join(DIR, x), 'utf8')).links),
 ]
 const exams = {}
 for (const [id, p] of pts) (exams[p.exam] ??= { items: 0, points: 0, points_unknown: 0, R5_direct: [], R5_indirect: [], R6_direct: [], disputed: 0, source_defect: 0 }), exams[p.exam].items++, p.points == null ? exams[p.exam].points_unknown++ : (exams[p.exam].points += p.points)
