@@ -1,0 +1,83 @@
+{
+  "code_sha": "80fa4454023c6b7086ac5cf4d7c12d459d26b0a0",
+  "method": "실제 저장소 TS 메모리 실행 · 고정 시각 · DB 없음",
+  "assertions_passed": 14,
+  "observations": [
+    {
+      "id": "M1-성공만4회",
+      "actual": "unverified",
+      "expected": "unverified",
+      "passed": true
+    },
+    {
+      "id": "M2-같은날같은지문역할없음2실패2성공",
+      "actual": "resolved",
+      "expected": "resolved",
+      "passed": true
+    },
+    {
+      "id": "M4-합성만",
+      "actual": "resolved",
+      "expected": "resolved",
+      "passed": true
+    },
+    {
+      "id": "M4-연습화면만",
+      "actual": "unverified",
+      "expected": "unverified",
+      "passed": true
+    },
+    {
+      "id": "M4-해설후만",
+      "actual": "unverified",
+      "expected": "unverified",
+      "passed": true
+    },
+    {
+      "id": "M7-V4-정본키",
+      "actual": 0,
+      "expected": 0,
+      "passed": true
+    },
+    {
+      "id": "M7-option-restate-중심",
+      "actual": "e.option_correspondence",
+      "expected": "e.option_correspondence",
+      "passed": true
+    },
+    {
+      "id": "R5-채점범위-탐색",
+      "parsed": true,
+      "grade": {
+        "claimOk": true,
+        "claimRestated": false,
+        "supportOk": false,
+        "supportMissed": [
+          2,
+          3,
+          4
+        ],
+        "supportExtra": [],
+        "relationOk": false,
+        "isCorrect": true,
+        "choiceOk": true,
+        "choiceDesign": null
+      },
+      "fixture": "r5-cm-ind-1"
+    }
+  ],
+  "inventory": {
+    "sets": 18,
+    "tasks": 17,
+    "items": 155,
+    "roles": {
+      "model_explanation": 17,
+      "guided_practice": 18,
+      "independent_check": 68,
+      "transfer": 34,
+      "delayed_check": 18
+    },
+    "duplicate_passages": 0,
+    "validation_errors": []
+  }
+}

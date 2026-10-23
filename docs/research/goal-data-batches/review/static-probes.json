@@ -1,0 +1,209 @@
+{
+  "refs": {
+    "head": "80fa4454023c6b7086ac5cf4d7c12d459d26b0a0",
+    "d4": "1b8f089e590536e2ef03c49cb3b6c85c0432ba85",
+    "goal_plan": "c44f41a5cbab4348908e7bc18fe39e09ad183592"
+  },
+  "results": {
+    "first_correct": {
+      "status": "unverified",
+      "verified": false,
+      "verifiedAt": null,
+      "verifiedItems": [],
+      "check": {
+        "right": 0,
+        "wrong": 0,
+        "need": 2,
+        "remaining": []
+      },
+      "resolvedAt": null
+    },
+    "same_day": {
+      "episodeStart": null,
+      "verifiedAt": "2026-10-01T00:00:01Z",
+      "verifiedItems": [
+        "a",
+        "b"
+      ],
+      "check": {
+        "right": 2,
+        "wrong": 0,
+        "need": 2,
+        "remaining": [],
+        "wrongItems": [],
+        "lastWrongAt": null
+      },
+      "status": "resolved",
+      "verified": false,
+      "resolvedAt": "2026-10-01T00:00:03Z"
+    },
+    "synthetic": {
+      "episodeStart": null,
+      "verifiedAt": "2026-10-01T00:00:01Z",
+      "verifiedItems": [
+        "a",
+        "b"
+      ],
+      "check": {
+        "right": 2,
+        "wrong": 0,
+        "need": 2,
+        "remaining": [],
+        "wrongItems": [],
+        "lastWrongAt": null
+      },
+      "status": "resolved",
+      "verified": false,
+      "resolvedAt": "2026-10-01T00:00:03Z"
+    },
+    "practice": {
+      "status": "unverified",
+      "verified": false,
+      "verifiedAt": null,
+      "verifiedItems": [],
+      "check": {
+        "right": 0,
+        "wrong": 0,
+        "need": 2,
+        "remaining": []
+      },
+      "resolvedAt": null
+    }
+  },
+  "criteria": [
+    {
+      "id": "v.core_meaning",
+      "display": "V1",
+      "criterion": "도움 없이 맞히고, 다른 날 다시 맞힌다",
+      "keys": []
+    },
+    {
+      "id": "v.contextual_sense",
+      "display": "V2",
+      "criterion": "서로 다른 문맥 2개 이상에서 맞힌다",
+      "keys": []
+    },
+    {
+      "id": "v.multiword",
+      "display": "V3",
+      "criterion": "낱낱 해석으로 바꾸지 않고 의미를 말한다",
+      "keys": []
+    },
+    {
+      "id": "v.semantic_relation",
+      "display": "V4",
+      "criterion": "재진술 쌍을 가려낸다",
+      "keys": []
+    },
+    {
+      "id": "s.sentence_core",
+      "display": "S1",
+      "criterion": "3문장 이상 연속 정확",
+      "keys": []
+    },
+    {
+      "id": "s.chunk_boundary",
+      "display": "S2",
+      "criterion": "경계 오류 없이 풀어 쓴다",
+      "keys": []
+    },
+    {
+      "id": "s.attachment",
+      "display": "S3",
+      "criterion": "다른 문장에서도 맞힌다",
+      "keys": []
+    },
+    {
+      "id": "s.structural_relation",
+      "display": "S4",
+      "criterion": "풀어 쓰기가 원문 의미와 같다",
+      "keys": []
+    },
+    {
+      "id": "s.form_scope",
+      "display": "S5",
+      "criterion": "포인트별 서로 다른 문항 2개 이상",
+      "keys": []
+    },
+    {
+      "id": "s.o.sentence_meaning_model",
+      "display": "S-O1",
+      "criterion": "숙달도 계산 없음 — 관찰 기록만",
+      "keys": []
+    },
+    {
+      "id": "r.reference",
+      "display": "R1",
+      "criterion": "서로 다른 지문 2개",
+      "keys": []
+    },
+    {
+      "id": "r.relation",
+      "display": "R2",
+      "criterion": "facet 별 막대 없음 — 관찰 근거 내역만",
+      "keys": [
+        "cohesion-link"
+      ]
+    },
+    {
+      "id": "r.discourse_function",
+      "display": "R3",
+      "criterion": "§20-2 하향 조건 — Gold tagging 에서 R4 와 독립 관찰 확인 전 잠정",
+      "keys": []
+    },
+    {
+      "id": "r.discourse_structure",
+      "display": "R4",
+      "criterion": "R3 와 다른 근거로 관찰될 때만 독립",
+      "keys": []
+    },
+    {
+      "id": "r.central_meaning",
+      "display": "R5",
+      "criterion": "서로 다른 지문 2개 독립 확인 + 다른 날 재확인",
+      "keys": [
+        "claim-support"
+      ]
+    },
+    {
+      "id": "r.inference",
+      "display": "R6",
+      "criterion": "근거 없는 추론은 실패",
+      "keys": []
+    },
+    {
+      "id": "r.o.global_meaning_model",
+      "display": "R-O1",
+      "criterion": "숙달도 계산 없음",
+      "keys": []
+    },
+    {
+      "id": "e.task_demand",
+      "display": "E1",
+      "criterion": "유형 2개 이상",
+      "keys": []
+    },
+    {
+      "id": "e.evidence_location",
+      "display": "E2",
+      "criterion": "서로 다른 확인 문항 2개 독립 정답 → 다른 날 재확인",
+      "keys": [
+        "evidence-locate"
+      ]
+    },
+    {
+      "id": "e.option_correspondence",
+      "display": "E3",
+      "criterion": "facet 별 막대 없음 · 함정 선택만으로 약함 판정 금지",
+      "keys": [
+        "option-restate"
+      ]
+    },
+    {
+      "id": "e.o.final_judgment",
+      "display": "E-O1",
+      "criterion": "추측 정답은 근거 아님",
+      "keys": []
+    }
+  ]
+}

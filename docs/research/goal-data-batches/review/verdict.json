@@ -1,0 +1,1928 @@
+{
+  "task": "T-0088",
+  "owner": "goal-data-independent",
+  "language": "ko",
+  "nature": "Codex 독립 AI 검증 · 사람 Gold 아님 · 출시/DB 변경 승인 아님",
+  "inputs": {
+    "d1_d3": "80fa4454023c6b7086ac5cf4d7c12d459d26b0a0",
+    "d4": "1b8f089e590536e2ef03c49cb3b6c85c0432ba85",
+    "d4_code": "80fa44540",
+    "goal_plan": "c44f41a5cbab4348908e7bc18fe39e09ad183592",
+    "local_originals": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json",
+    "partial_draft": "임시 초안은 참고했으나 이 결과의 증거가 아니다. 아래 판정은 원문·실제 코드·DB 조회 및 메모리 실행으로 재검증한 범위만 담았다."
+  },
+  "verdict_semantics": "confirmed=명시된 좁은 주장/선택한 후보가 근거로 지지됨. refuted=명시된 주장 또는 특정 트랙 분류를 반박함. unclear=자료·계약 경계 부족. 관련성 후보 지지와 실제 학습자 수행 검증을 구분한다.",
+  "db": {
+    "method": "PostgREST GET만 사용(SELECT 의미). RPC/SQL 실행·DB 쓰기 없음.",
+    "at": "2026-10-23T03:35:24.642Z",
+    "evidence": "docs/research/goal-data-batches/review/db-checks.json:1",
+    "requests": 6,
+    "all_http_200": true
+  },
+  "d1": [
+    {
+      "id": "D1-insert-raw-block",
+      "verdict": "confirmed",
+      "evidence": [
+        "docs/research/goal-data-batches/review/db-checks.json:1"
+      ],
+      "note": "DB의 R-INSERT 262행 모두 raw_block=null. 표준 발문 정규식 일치 252행이다. 이것은 결손 탐지 신호의 재현이며 문장 결손 확정이 아니다."
+    },
+    {
+      "id": "D1-insert-sentence-missing-262",
+      "verdict": "unclear",
+      "evidence": [
+        "docs/research/goal-data-batches/review/db-checks.json:1",
+        "80fa44540:docs/research/goal-data-batches/D1-source-audit/source-quality-report.md:28"
+      ],
+      "note": "262문항 모두의 주어진 문장 결손은 입증되지 않았다. 2025#38·#39는 DB passage 접두 문장이 각각 위험 전환·선형 생애주기 반박 기능으로 정답 위치 ④와 이어진다. 로컬 입력과 DB passage도 일치한다. 별도 필드 부재와 내용 부재를 혼동하면 안 된다. 공식 원본 PDF 대조 및 262문항별 경계 복원은 미실행."
+    },
+    {
+      "id": "D1-insert-blanket-exclusion",
+      "verdict": "refuted",
+      "evidence": [
+        "docs/research/goal-data-batches/review/db-checks.json:1"
+      ],
+      "note": "raw_block null만으로 삽입 전체를 분석·진단 부적격으로 확정하는 확대 해석은 지지되지 않는다. D1 원문은 후보라고 유보했으므로 후보 보고 자체를 오류로 단정하지 않는다."
+    },
+    {
+      "id": "D1-M2709",
+      "verdict": "confirmed",
+      "evidence": [
+        "docs/research/goal-data-batches/review/db-checks.json:1"
+      ],
+      "note": "csat_exams의 id=M2709 또는 exam_year=2027/month=9 조회와 csat_items exam_id=M2709 조회가 모두 HTTP 200 빈 배열이다. 현재 해당 시험·문항 미적재 주장을 확인했다. 실제 시험 시행 여부는 이번 범위 밖이다."
+    },
+    {
+      "id": "D1-2023-38",
+      "verdict": "confirmed",
+      "evidence": [
+        "docs/research/goal-data-batches/review/db-checks.json:1"
+      ],
+      "note": "id=2023#38 한 행의 body_ok=true, choices=null을 직접 확인했다."
+    },
+    {
+      "id": "D1-redistribution-record-0",
+      "verdict": "confirmed",
+      "evidence": [
+        "docs/research/goal-data-batches/review/db-checks.json:1",
+        "80fa44540:scripts/research/goal-data/d1-source-audit.mjs:34"
+      ],
+      "note": "134시험 중 source_note가 비지 않은 것은 M2009뿐이고 그 시험 문항은 0행이다. 따라서 문항이 있는 시험의 source_note 기록을 요구하는 D1 기준으로 적격 0(미정)을 재현했다. source_note는 권리 증명 원장 전체와 같지 않다."
+    },
+    {
+      "id": "D1-legal-redistribution-0",
+      "verdict": "unclear",
+      "evidence": [
+        "docs/research/goal-data-batches/review/db-checks.json:1"
+      ],
+      "note": "권리 기록 없음은 법적 재배포 불가 0개 확정과 다르다. 별도 계약·원장·허가를 전량 검토하지 않았다. 이 AI 검증은 법적 권리 판단이나 출시 승인이 아니다."
+    }
+  ],
+  "d2": {
+    "selection": "R1: 입력 순서로 서로 다른 문항 첫 링크 30개(25·38·39 제외). 갈림: R3 전부 + 입력 순서 나머지 19. D3: b2-v2 어법·순서 각 첫 4개를 먼저, 나머지 유형별 첫 2개를 순서대로 택하여 30에서 자름. 의도 표본이며 모집단 추정 아님.",
+    "r1": [
+      {
+        "id": "D2-R1-M2609#18-R4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:1",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:7"
+        ],
+        "note": "도입의 등록 열의와 후반 장소 변경 결정을 구분하면 목적이 닫힌다. 도입을 목적으로 올리는 ① 반사실은 본문에 기반한 가설이다.",
+        "item": "M2609#18",
+        "task": "R4",
+        "source_sha256": "335c75571e72a9b486fe5cf57f071ea7f7b088e56d5f17c57e3f3f8be88fb560",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#19-V1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:4",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:178"
+        ],
+        "note": "긴장 행동→칭찬 뒤 환호를 영어 감정어 쌍과 가르는 경로에서 V1의 기본 뜻 대비가 직접 쓰인다.",
+        "item": "M2609#19",
+        "task": "V1",
+        "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#20-R2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:8",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:322"
+        ],
+        "note": "처벌 통념을 In fact가 반박한다. 이를 필자 처방으로 읽으면 상벌 정비 ③으로 가는 경로가 구체적이다.",
+        "item": "M2609#20",
+        "task": "R2",
+        "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#21-R1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:11",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488"
+        ],
+        "note": "This relationship/phenomenon은 주파수 배수 관계를 받는다. 같은 주파수로 돌아간다는 ②는 다름을 놓친 오독이다. A의 ④ 경로는 B보다 약하며 실제 학생 유인 효과는 미검증이다.",
+        "item": "M2609#21",
+        "task": "R1",
+        "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#22-R5",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:14",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661"
+        ],
+        "note": "관계망·사회적 자본이라는 시작과 끝을 정의·예시와 구분하는 중심 의미 경로를 지지한다.",
+        "item": "M2609#22",
+        "task": "R5",
+        "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#23-R2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:16",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:834"
+        ],
+        "note": "by contrast가 기억 사용의 차이를 세운다. 이를 놓치면 자료 유사성 ④로 오인할 수 있다.",
+        "item": "M2609#23",
+        "task": "R2",
+        "source_sha256": "52760ba28bb28b3b4edd88098d1ba1ee064204f9a7e8573fcde37614b2824922",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#24-R2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:19",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010"
+        ],
+        "note": "사회 기여와 자발적 고립의 양보 관계가 제목의 역설을 지지한다. 고립 강요 ②는 관계·주체를 잘못 읽은 경우다.",
+        "item": "M2609#24",
+        "task": "R2",
+        "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#26-E1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:24",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1313"
+        ],
+        "note": "일치하지 않는다는 부정 요구를 적용해야 사실 진술 ①~④를 버린다. E1 direct 경계와 맞는다.",
+        "item": "M2609#26",
+        "task": "E1",
+        "source_sha256": "60b2ee1d6c01a18a3f0818645142bb1550fa0ea26afa71aecad4e30875027889",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#27-S5",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:27",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1459"
+        ],
+        "note": "No private restroom과 공용 화장실 접근 가능을 갈라 읽어야 ③ 불일치를 판정한다. locus는 실제 본문에 있다.",
+        "item": "M2609#27",
+        "task": "S5",
+        "source_sha256": "20b3b404518f8daa507b29d8011e44489b67eea81a730505cee2b907316ef5fa",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#28-E2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:31",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1602"
+        ],
+        "note": "일정·상금·지침·평가 비중의 여러 구역을 찾아 대조해야 ⑤가 남는다. E2 direct를 지지한다.",
+        "item": "M2609#28",
+        "task": "E2",
+        "source_sha256": "522f523fdee7d95b9fb620b760d6320564b02256f0d49cd1cd108590327d1a44",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#29-S3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:33",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754"
+        ],
+        "note": "분사구문의 의미상 주어와 관계절의 복수 선행사 연결은 각각 ①·④를 틀렸다고 오인하는 구체 경로다.",
+        "item": "M2609#29",
+        "task": "S3",
+        "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#30-V1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:37",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904"
+        ],
+        "note": "insignificant의 기본 뜻을 ecologically important와 대비하는 경로가 직접 결정에 쓰인다.",
+        "item": "M2609#30",
+        "task": "V1",
+        "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#31-R6",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:39",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2052"
+        ],
+        "note": "강제 원근과 수컷이 크게 보이는 사례에서 지각 편향이라는 상위 개념을 도출한다.",
+        "item": "M2609#31",
+        "task": "R6",
+        "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#32-V1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:41",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2199"
+        ],
+        "note": "counterproductive를 모르면 역효과라는 결론을 선지에 연결하지 못한다. 제시된 오답 번호들은 실제 오답이나 어느 쪽으로 유인되는지는 행동 자료가 없다.",
+        "item": "M2609#32",
+        "task": "V1",
+        "source_sha256": "c453746d4e4bb78ff5f42c16d595401947b0e5948f1ca0be5c7feae6a3102052",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#33-R6",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:45",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2371"
+        ],
+        "note": "습지 조림의 문제 사례와 생태학자 비판을 비숲 전환의 정당화 금지로 일반화하는 추론 경로다.",
+        "item": "M2609#33",
+        "task": "R6",
+        "source_sha256": "aa4026632f812140d417528e74ab2520bfd39ab8fe7a9c2a3b0c1aaf14ad3a23",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#34-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:47",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2520"
+        ],
+        "note": "추첨·동률 해소를 randomization/tiebreaking으로 재진술하는 의미 대응이 있다.",
+        "item": "M2609#34",
+        "task": "V4",
+        "source_sha256": "d0c6620ffd0fd9436e10d2260bbc24f01dd6763632a44324d392399595eba3ac",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#35-R1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:51",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2685"
+        ],
+        "note": "these mentoring opportunities의 앞선 멘토 관계 연결을 놓치면 ⑤를 무관하게 보는 반사실이 성립한다.",
+        "item": "M2609#35",
+        "task": "R1",
+        "source_sha256": "e337c68ce82b297791d63b73f96a35725ebff240b49d28eddafdce7b4fb98c11",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#36-R1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:53",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833"
+        ],
+        "note": "Such instruction→전통 수업, In this way→반복 피드백을 받는 지시 연결이 배열을 고정한다.",
+        "item": "M2609#36",
+        "task": "R1",
+        "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#37-R1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:56",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3004"
+        ],
+        "note": "B 첫 문장은 주어진 글의 이해 못한 경험을 받으므로 지시 연결 경로는 지지된다. 단 B의 those가 B 질문의 신호를 받는다는 부연은 잘못이다. those는 A 안의 기호 나열을 받는다.",
+        "item": "M2609#37",
+        "task": "R1",
+        "source_sha256": "2eb48e5e3ed5c4951de56d2f73639ddb1ac9465a4ee8e941c738fbc759fdf359",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": true
+      },
+      {
+        "id": "D2-R1-M2609#40-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:64",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3494"
+        ],
+        "note": "재등장과 특성 변화의 의미가 feature/transformation으로 대응한다.",
+        "item": "M2609#40",
+        "task": "V4",
+        "source_sha256": "409d8ce0ccb4d4d99935cf185d63435c3db85238fd6d9fd5137c2fb4792952cb",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#41-R5",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:69",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3639"
+        ],
+        "note": "연구와 예시를 걸러 메시지에 맞는 채널 선택을 중심으로 압축한다.",
+        "item": "M2609#41",
+        "task": "R5",
+        "source_sha256": "315eed6e7bd14b15bfe2a08b0ae647d00943addf94a8b0ef8f606d67bb45a7e5",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#42-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:71",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3780"
+        ],
+        "note": "confusing/ambiguous에 대응할 lean 쪽은 routine이어야 한다. less routine은 같은 방향이므로 의미 대조 판단이 결정에 쓰인다.",
+        "item": "M2609#42",
+        "task": "V4",
+        "source_sha256": "99ddc7bdb2894612a30c73ba82e5cd9e541c24ed447d4e5a9070584a095a6105",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#43-R1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:73",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3926"
+        ],
+        "note": "C의 Chavez 소개→D의 동일 인물 행동이라는 지시·개체 연결이 배열 판단에 쓰인다.",
+        "item": "M2609#43",
+        "task": "R1",
+        "source_sha256": "6f7b26c5f60546727698fe6fde79820b8ac44fa8a1850ad89119ee4971ef7544",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#44-R1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:76",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4072"
+        ],
+        "note": "(d) his만 Chavez이고 나머지는 Mike이다. 지시 대상 판정 자체를 요구한다.",
+        "item": "M2609#44",
+        "task": "R1",
+        "source_sha256": "eb50bb2aa7e6e6a8fd48681ff5451b77e1854a26bae4a18f8542ccce66c26572",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-M2609#45-E1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:77",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4222"
+        ],
+        "note": "적절하지 않다는 부정 요구를 적용하여 홈런을 치지 못했다는 ②를 골라야 한다.",
+        "item": "M2609#45",
+        "task": "E1",
+        "source_sha256": "10df37cc6226809e04426c0b604317e8c1e78dd6f968cb377e927cf77bbdfc10",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-2025#22-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:80",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4370"
+        ],
+        "note": "cooperate·소통 촉진과 ①의 의미 대응이 있다. 제시 반사실은 정의·예시를 중심으로 올리는 가설로만 인정한다.",
+        "item": "2025#22",
+        "task": "V4",
+        "source_sha256": "146e78ef1c3e9c81486120541db9c1253f10796329d760936f74e03534f15dd9",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-2025#23-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:83",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4531"
+        ],
+        "note": "수확 주기에서 시계 중심으로의 변화를 work-time paradigm shift와 대응하는 경로다.",
+        "item": "2025#23",
+        "task": "V4",
+        "source_sha256": "03004b183dcfd8fec0f6904f8802c56f48b59efe47b7a924063f5c33d51ac896",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-2025#29-S4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:86",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4698"
+        ],
+        "note": "It is A that 강조 구조를 관계절 오류로 오인하면 옳은 ④를 고를 수 있어 S4 간접 경로를 지지한다.",
+        "item": "2025#29",
+        "task": "S4",
+        "source_sha256": "4f393ce6f1aa8c0a3457a1b30565cfe39cd416e7d0574c96074cbc31d8d162b0",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-2025#31-R2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:89",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4830"
+        ],
+        "note": "기계적 분석과 전인적 몰입의 대조를 놓치면 linguistic insight ⑤로 향하는 구체 경로가 있다.",
+        "item": "2025#31",
+        "task": "R2",
+        "source_sha256": "bb1be4be320719747b4b76bd47e076fe6c04fbf2b2503f35ae707b3f55d7a42a",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      },
+      {
+        "id": "D2-R1-2025#32-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:93",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5014"
+        ],
+        "note": "liberation과 frees의 동의 계열 연결이 있다. intensify를 문맥 밖에서도 liberation의 반의어라고 일반화해서는 안 된다.",
+        "item": "2025#32",
+        "task": "V4",
+        "source_sha256": "eedb830dfce4b3392add1ce77a48b75c3c33869f7eb20fc9643bedcf4be04ca4",
+        "scope": "관련성 후보 경로 지지. 사람 검토·직접 측정·반사실의 실제 유인 효과 확인 아님",
+        "explanation_error": false
+      }
+    ],
+    "disputes": [
+      {
+        "id": "D2-dispute-M2609#22-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:6",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "M2609#22",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#36-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:31",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "M2609#36",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#37-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:32",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3004"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "M2609#37",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "2eb48e5e3ed5c4951de56d2f73639ddb1ac9465a4ee8e941c738fbc759fdf359",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#41-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:36",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3639"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "M2609#41",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "315eed6e7bd14b15bfe2a08b0ae647d00943addf94a8b0ef8f606d67bb45a7e5",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-2025#22-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:47",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4370"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "2025#22",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "146e78ef1c3e9c81486120541db9c1253f10796329d760936f74e03534f15dd9",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-2025#23-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:49",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4531"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "2025#23",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "03004b183dcfd8fec0f6904f8802c56f48b59efe47b7a924063f5c33d51ac896",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-2025#34-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:63",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5325"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "2025#34",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "48f7ff56c977f73874222d8a6d1893625378bff3d391453322c3d5e0b2d1e5b8",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-2025#36-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:67",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5501"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "2025#36",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "dfc1d2805a63a9d42ac5bc383e361474b903126e85051c397d82b5354c4d9f8e",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-2025#37-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:71",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5668"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "2025#37",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "8be1c544b0a5c469a31f7b1202fc2a58e88708abc1accdfccdfe8f86f25dd221",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-2025#38-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:73",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5816"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "2025#38",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "19b4e438e3d039337a0bfbd92a6f6c7a53e2235b029a160551f36b18a572b93a",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-2025#39-R3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:75",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5963"
+        ],
+        "note": "정의·예시·결론·전환·해석 역할은 해당 원문에서 설명 가능한 경로다. 하지만 v2는 R3 경계 행이 없고 역할 명명 요구와 역할 해석 기여를 구분하지 않는다. A/B 중 하나를 정본으로 승격하지 않는다. 삽입 #38·#39 역시 본문 접두 문장 가능성을 배제하고 결손으로 고정하지 않는다.",
+        "item": "2025#39",
+        "task": "R3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "e4b5592bcebeb358eb2ee442ee3d1a5c739d92380b7a43053f11a718db28d3b1",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#19-E3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:1",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:178"
+        ],
+        "note": "감정 추론을 두 영어 감정어와 대응시키는 경로는 독립적으로 존재한다. 다른 TASK로 이미 처리했다는 A 사유만으로 배제할 수 없다.",
+        "item": "M2609#19",
+        "task": "E3",
+        "supported_track": "B",
+        "reviewer_candidate": "direct",
+        "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#20-V3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:2",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:322"
+        ],
+        "note": "bad apples의 비유는 실재하지만 이를 일반 평가 대상으로 오독하면 동료 평가 ⑤로 간다는 연결은 추가 추정을 요한다. 허위로 확정하지 않으며 A 반사실 지지는 미확인이다.",
+        "item": "M2609#20",
+        "task": "V3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": true
+      },
+      {
+        "id": "D2-dispute-M2609#21-V3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:3",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488"
+        ],
+        "note": "비유 구 전체의 해석인지 R6 문맥 추론인지 경계가 남는다. come back home을 고정 숙어로 전제할 근거는 없다.",
+        "item": "M2609#21",
+        "task": "V3",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#21-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:4",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488"
+        ],
+        "note": "유사한 소리·같은 음 이름과 동일 주파수를 구별하는 의미 대비는 실제 선지 변별 경로다.",
+        "item": "M2609#21",
+        "task": "V4",
+        "supported_track": "A",
+        "reviewer_candidate": "direct",
+        "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#21-E3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:5",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488"
+        ],
+        "note": "③의 이름 반복·다른 음높이를 주파수 배수 설명과 대응하는 경로가 있다. V4와 중복된다는 이유만으로 무관하지 않다.",
+        "item": "M2609#21",
+        "task": "E3",
+        "supported_track": "B",
+        "reviewer_candidate": "direct",
+        "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#22-R4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:7",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661"
+        ],
+        "note": "정의·예시·재강조의 배열을 못 보고 정의 부분을 요지 ②로 올리는 반사실은 원문에 닫힌다.",
+        "item": "M2609#22",
+        "task": "R4",
+        "supported_track": "A",
+        "reviewer_candidate": "indirect",
+        "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#24-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:8",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010"
+        ],
+        "note": "고립과 공동체 기여를 제목의 detached/attached로 바꿔 읽는 의미 대응이 존재한다.",
+        "item": "M2609#24",
+        "task": "V4",
+        "supported_track": "B",
+        "reviewer_candidate": "direct",
+        "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#24-R6",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:9",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010"
+        ],
+        "note": "제목의 역설을 함축 추론으로 볼지 V4 의미 대응·R5 중심 압축으로 볼지는 계약만으로 닫히지 않는다.",
+        "item": "M2609#24",
+        "task": "R6",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#25-S4",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:10",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1177"
+        ],
+        "note": "higher than과 lower than의 병렬은 실제 존재하여 B의 구조 부재 사유는 부정확하다. 그러나 도표가 없어 A의 ④ 진위 오판 반사실은 끝까지 검증할 수 없다.",
+        "item": "M2609#25",
+        "task": "S4",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "608e6d5b0b6be1df881af29917818eec71c2da107d34cbcde73b04ea712210c0",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": true
+      },
+      {
+        "id": "D2-dispute-M2609#28-S5",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:11",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1602"
+        ],
+        "note": "no participation fee를 흘리면 참가비가 있다는 실제 오답 ③을 고른다. 명시 부정 범위가 있다.",
+        "item": "M2609#28",
+        "task": "S5",
+        "supported_track": "B",
+        "reviewer_candidate": "indirect",
+        "source_sha256": "522f523fdee7d95b9fb620b760d6320564b02256f0d49cd1cd108590327d1a44",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#29-S1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:12",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754"
+        ],
+        "note": "honeys/are blended로 관계절의 주어·서술어를 찾지 못하면 which가 주어라고 오인하는 locus 경로가 있다.",
+        "item": "M2609#29",
+        "task": "S1",
+        "supported_track": "B",
+        "reviewer_candidate": "indirect",
+        "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#29-E1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:13",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754"
+        ],
+        "note": "어법상 틀린 것을 묻는 부정 요구다. 표준 발문이라는 이유로 B가 무관 처리한 것은 v2 E1 direct 경계 위반이다.",
+        "item": "M2609#29",
+        "task": "E1",
+        "supported_track": "A",
+        "reviewer_candidate": "direct",
+        "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+        "contract_boundary_violation": "B",
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#30-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:14",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904"
+        ],
+        "note": "insignificant와 important의 반대 의미 대비가 바로 부적절 낱말을 가른다.",
+        "item": "M2609#30",
+        "task": "V4",
+        "supported_track": "B",
+        "reviewer_candidate": "direct",
+        "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#30-R2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:15",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904"
+        ],
+        "note": "hard/soft 접근의 대조를 뒤집으면 modesty ④를 어색하다고 볼 수 있다. 연결어 존재만이 아니라 구체 오답을 제시했다.",
+        "item": "M2609#30",
+        "task": "R2",
+        "supported_track": "B",
+        "reviewer_candidate": "indirect",
+        "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#30-R4",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:16",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904"
+        ],
+        "note": "개입 정도의 점층은 원문에 있으나 이를 놓치는 것만으로 permanently ②를 오류로 고르는 필연적 연결은 약하다. 반사실 허위로 확정하지 않는다.",
+        "item": "M2609#30",
+        "task": "R4",
+        "supported_track": null,
+        "reviewer_candidate": null,
+        "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": true
+      },
+      {
+        "id": "D2-dispute-M2609#30-E2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:17",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904"
+        ],
+        "note": "밑줄 문장의 정오가 다른 문장 ecologically important에 달려 있다. v2의 다른 문장 탐색 direct 조건에 맞아 A indirect는 경계 위반이다.",
+        "item": "M2609#30",
+        "task": "E2",
+        "supported_track": "B",
+        "reviewer_candidate": "direct",
+        "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+        "contract_boundary_violation": "A",
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#31-V4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:18",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2052"
+        ],
+        "note": "forced perspective·실제보다 크게 보임을 perceptual biases로 추상화한 표현 대응이 정답 변별 경로다. B의 ④ 반사실도 허위는 아니다.",
+        "item": "M2609#31",
+        "task": "V4",
+        "supported_track": "A",
+        "reviewer_candidate": "direct",
+        "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#31-R1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:19",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2052"
+        ],
+        "note": "This의 선행 내용은 크기별 거리 배치다. 배치와 착시의 연결을 놓치는 locus 반사실을 지지한다.",
+        "item": "M2609#31",
+        "task": "R1",
+        "supported_track": "B",
+        "reviewer_candidate": "indirect",
+        "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      },
+      {
+        "id": "D2-dispute-M2609#31-R2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:20",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2052"
+        ],
+        "note": "무질서한 장식이 아니라 배치 방식이라는 But의 대조를 놓치면 decorating skills ④로 읽는 경로가 있다.",
+        "item": "M2609#31",
+        "task": "R2",
+        "supported_track": "B",
+        "reviewer_candidate": "indirect",
+        "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+        "contract_boundary_violation": null,
+        "counterfactual_false": false,
+        "counterfactual_semantics_held": false
+      }
+    ],
+    "summary": {
+      "r1": {
+        "confirmed": 30
+      },
+      "disputes": {
+        "unclear": 16,
+        "confirmed": 14
+      },
+      "r3_reviewed": 11,
+      "structural_contract_errors": 0,
+      "confirmed_boundary_violations": 2,
+      "violation_unit": "A/B의 개별 TASK 판정 2개(표본 링크 60개 중 서로 다른 갈림 링크 2개)",
+      "counterfactual_false_confirmed": 0,
+      "counterfactual_semantics_held": 3,
+      "explanation_errors": 2,
+      "explanation_error_details": [
+        "M2609#37 R1 B의 those 선행 대상 설명",
+        "M2609#25 S4 B의 병렬 구조 부재 설명"
+      ],
+      "counterfactual_note": "인용·오답 번호 형식 통과와 반사실의 실제 유인 효과는 다르다. 허위 확정 0은 60개 모두 참 또는 효과 검증을 뜻하지 않는다."
+    },
+    "r3_claim": {
+      "id": "D2-R3-boundary",
+      "verdict": "confirmed",
+      "evidence": [
+        "80fa44540:docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md:18",
+        "80fa44540:docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:25"
+      ],
+      "note": "R3 경계 행 부재와 11개 전수 갈림을 확인했다. 개별 관련성 판정은 unclear를 유지한다."
+    },
+    "product_use": "모든 relevance=unknown 유지. 이 결과를 NeedRank/진단/숙달 근거로 직접 쓰지 않는다."
+  },
+  "d3": {
+    "sample": [
+      {
+        "id": "D3-M2609#29-choice1",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:205",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754"
+        ],
+        "note": "꿀이 불리는 대상이므로 referred가 옳다. A/B 모두 옳은 형태라는 원문 설명은 맞다. form_error가 실제 형태 오류인지 어법상 유인 일반인지 계약의 적용 범위가 모호하므로 B를 허위로 확정하지 않는다. A other와 B form_error 중 단일 범주 판정은 보류한다.",
+        "item": "M2609#29",
+        "choice": 1,
+        "reviewer_distortion": null,
+        "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#29-choice3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:206",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754"
+        ],
+        "note": "find의 목적격 보어로 strong이 옳다. A/B 모두 옳은 형태라는 원문 설명은 맞다. form_error가 실제 형태 오류인지 어법상 유인 일반인지 계약의 적용 범위가 모호하므로 B를 허위로 확정하지 않는다. A other와 B form_error 중 단일 범주 판정은 보류한다.",
+        "item": "M2609#29",
+        "choice": 3,
+        "reviewer_distortion": null,
+        "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#29-choice4",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:207",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754"
+        ],
+        "note": "producers and retailers를 받는 복수 feel이 옳다. A/B 모두 옳은 형태라는 원문 설명은 맞다. form_error가 실제 형태 오류인지 어법상 유인 일반인지 계약의 적용 범위가 모호하므로 B를 허위로 확정하지 않는다. A other와 B form_error 중 단일 범주 판정은 보류한다.",
+        "item": "M2609#29",
+        "choice": 4,
+        "reviewer_distortion": null,
+        "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#29-choice5",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:208",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754"
+        ],
+        "note": "단수 Clover를 받는 its가 옳다. A/B 모두 옳은 형태라는 원문 설명은 맞다. form_error가 실제 형태 오류인지 어법상 유인 일반인지 계약의 적용 범위가 모호하므로 B를 허위로 확정하지 않는다. A other와 B form_error 중 단일 범주 판정은 보류한다.",
+        "item": "M2609#29",
+        "choice": 5,
+        "reviewer_distortion": null,
+        "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#36-choice1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:233",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833"
+        ],
+        "note": "전통 작문의 평가 단계 C가 먼저 와야 대조 A가 이어진다. 연결·배열 단절을 other로 설명하는 것은 현 계약에서 허용되지만 같은 레이블만으로 단절 종류는 복원되지 않는다.",
+        "item": "M2609#36",
+        "choice": 1,
+        "reviewer_distortion": "other",
+        "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#36-choice2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:234",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833"
+        ],
+        "note": "B의 In this way는 A의 반복 피드백을 받으므로 B가 먼저 올 수 없다. 연결·배열 단절을 other로 설명하는 것은 현 계약에서 허용되지만 같은 레이블만으로 단절 종류는 복원되지 않는다.",
+        "item": "M2609#36",
+        "choice": 2,
+        "reviewer_distortion": "other",
+        "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#36-choice3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:235",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833"
+        ],
+        "note": "과정 작문의 효과 B는 과정 소개 A 뒤에 와야 한다. 연결·배열 단절을 other로 설명하는 것은 현 계약에서 허용되지만 같은 레이블만으로 단절 종류는 복원되지 않는다.",
+        "item": "M2609#36",
+        "choice": 3,
+        "reviewer_distortion": "other",
+        "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#36-choice5",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:236",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833"
+        ],
+        "note": "C 뒤 B를 붙이면 In this way가 전통 수업을 받게 되어 연결이 끊긴다. 연결·배열 단절을 other로 설명하는 것은 현 계약에서 허용되지만 같은 레이블만으로 단절 종류는 복원되지 않는다.",
+        "item": "M2609#36",
+        "choice": 5,
+        "reviewer_distortion": "other",
+        "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#18-choice1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:161",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:7"
+        ],
+        "note": "열의·등록 언급을 동기 조사로 바꾼 선지다. A/B 표면어 대응 설명이 본문과 맞는다.",
+        "item": "M2609#18",
+        "choice": 1,
+        "reviewer_distortion": "surface_word_match",
+        "source_sha256": "335c75571e72a9b486fe5cf57f071ea7f7b088e56d5f17c57e3f3f8be88fb560",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#18-choice3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:162",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:7"
+        ],
+        "note": "이미 등록한 참여자에게 장소를 알리는 글이며 새 프로그램 홍보는 없다.",
+        "item": "M2609#18",
+        "choice": 3,
+        "reviewer_distortion": "unmentioned",
+        "source_sha256": "335c75571e72a9b486fe5cf57f071ea7f7b088e56d5f17c57e3f3f8be88fb560",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#19-choice1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:165",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:178"
+        ],
+        "note": "걱정과 환호를 분노와 차분함으로 오지정한다. 감정 종류 오류는 other 설명과 맞는다.",
+        "item": "M2609#19",
+        "choice": 1,
+        "reviewer_distortion": "other",
+        "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#19-choice2",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:166",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:178"
+        ],
+        "note": "마지막 bored가 환희에 반하지만 시작 frustrated도 걱정의 정확한 재표현이 아니다. reversal/other 중 단일 범주 결정 규칙이 없다.",
+        "item": "M2609#19",
+        "choice": 2,
+        "reviewer_distortion": null,
+        "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#20-choice1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:169",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:322"
+        ],
+        "note": "교육은 맞으나 생산성·주기적 윤리 교육은 추가됐고 기준 마련은 빠졌다.",
+        "item": "M2609#20",
+        "choice": 1,
+        "reviewer_distortion": "partial_truth",
+        "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#20-choice3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:170",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:322"
+        ],
+        "note": "비판 대상인 처벌 접근을 필자의 처방으로 올렸다.",
+        "item": "M2609#20",
+        "choice": 3,
+        "reviewer_distortion": "reversal",
+        "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#21-choice1",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:173",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488"
+        ],
+        "note": "차이를 식별한다는 방향 전환과 같은 옥타브 안이라는 범위·대상 변경이 함께 있다. A/B 단일 범주 우선순위가 없다.",
+        "item": "M2609#21",
+        "choice": 1,
+        "reviewer_distortion": null,
+        "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#21-choice2",
+        "verdict": "refuted",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:174",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488"
+        ],
+        "note": "주파수가 달라지는데 identical frequency라고 한 모순이다. A overgeneralization의 일반화 대상이 없고 B other의 비유 직역도 부가 해석이다. 유사→동일 의미 변경을 더 정확히 표시해야 한다.",
+        "item": "M2609#21",
+        "choice": 2,
+        "reviewer_distortion": null,
+        "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#22-choice2",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:177",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661"
+        ],
+        "note": "정의 요소를 요지로 올린 부분 사실이면서 원문 낱말을 재사용한다. 두 범주가 중첩돼 하나로 닫히지 않는다.",
+        "item": "M2609#22",
+        "choice": 2,
+        "reviewer_distortion": null,
+        "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#22-choice3",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:178",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661"
+        ],
+        "note": "범위 확대를 형성 방식 변화로 바꾼 진술이다. 부분 사실·표면어 일치 구분 기준이 부족하다.",
+        "item": "M2609#22",
+        "choice": 3,
+        "reviewer_distortion": null,
+        "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#23-choice2",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:181",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:834"
+        ],
+        "note": "가족 자료 하나로 초점을 줄인 동시에 표면어를 재사용했다. 범위 축소와 표면어 우선순위 미정이다.",
+        "item": "M2609#23",
+        "choice": 2,
+        "reviewer_distortion": null,
+        "source_sha256": "52760ba28bb28b3b4edd88098d1ba1ee064204f9a7e8573fcde37614b2824922",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#23-choice3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:182",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:834"
+        ],
+        "note": "자료 사용 차이를 자료가 서사 품질에 미치는 인과로 바꿨다.",
+        "item": "M2609#23",
+        "choice": 3,
+        "reviewer_distortion": "causal_error",
+        "source_sha256": "52760ba28bb28b3b4edd88098d1ba1ee064204f9a7e8573fcde37614b2824922",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#24-choice1",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:185",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010"
+        ],
+        "note": "수도원의 위상을 개인 이익을 얻는 방법으로 바꿨다. 발문·목표 이탈과 표면어 대응이 겹친다.",
+        "item": "M2609#24",
+        "choice": 1,
+        "reviewer_distortion": null,
+        "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#24-choice2",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:186",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010"
+        ],
+        "note": "자발적 고립을 시대가 요구한 고립으로 바꿨다. 주체 혼합과 잘못된 인과가 모두 가능하다.",
+        "item": "M2609#24",
+        "choice": 2,
+        "reviewer_distortion": null,
+        "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#25-choice1",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:189",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1177"
+        ],
+        "note": "도표 원수치가 없다. 정답 번호 ⑤로 ①을 참이라고 역산한 것은 원문 독립 검증이 아니다.",
+        "item": "M2609#25",
+        "choice": 1,
+        "reviewer_distortion": null,
+        "source_sha256": "608e6d5b0b6be1df881af29917818eec71c2da107d34cbcde73b04ea712210c0",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#25-choice2",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:190",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1177"
+        ],
+        "note": "도표 원수치가 없어 최저 연령대 진술의 참·거짓을 확인할 수 없다.",
+        "item": "M2609#25",
+        "choice": 2,
+        "reviewer_distortion": null,
+        "source_sha256": "608e6d5b0b6be1df881af29917818eec71c2da107d34cbcde73b04ea712210c0",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#26-choice1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:193",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1313"
+        ],
+        "note": "어린 시절 전기기기에 관심이 있었다는 본문 진술과 일치한다.",
+        "item": "M2609#26",
+        "choice": 1,
+        "reviewer_distortion": "true_statement",
+        "source_sha256": "60b2ee1d6c01a18a3f0818645142bb1550fa0ea26afa71aecad4e30875027889",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#26-choice2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:194",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1313"
+        ],
+        "note": "21세에 석사과정을 시작했다는 본문 진술과 일치한다.",
+        "item": "M2609#26",
+        "choice": 2,
+        "reviewer_distortion": "true_statement",
+        "source_sha256": "60b2ee1d6c01a18a3f0818645142bb1550fa0ea26afa71aecad4e30875027889",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#27-choice1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:197",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1459"
+        ],
+        "note": "매년 다시 참여한다는 본문 진술과 일치한다.",
+        "item": "M2609#27",
+        "choice": 1,
+        "reviewer_distortion": "true_statement",
+        "source_sha256": "20b3b404518f8daa507b29d8011e44489b67eea81a730505cee2b907316ef5fa",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#27-choice2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:198",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1459"
+        ],
+        "note": "활동에 정글 조류 관찰이 명시됐다.",
+        "item": "M2609#27",
+        "choice": 2,
+        "reviewer_distortion": "true_statement",
+        "source_sha256": "20b3b404518f8daa507b29d8011e44489b67eea81a730505cee2b907316ef5fa",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#30-choice1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:209",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904"
+        ],
+        "note": "개입을 늘린 대응으로 나무를 제거하고 원래 길을 복원한다는 서술에 맞는다.",
+        "item": "M2609#30",
+        "choice": 1,
+        "reviewer_distortion": "true_statement",
+        "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      },
+      {
+        "id": "D3-M2609#30-choice2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:210",
+          "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904"
+        ],
+        "note": "더 강한 개입에서 포장을 통해 더 영구적으로 넣는다는 문맥에 맞는다.",
+        "item": "M2609#30",
+        "choice": 2,
+        "reviewer_distortion": "true_statement",
+        "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+        "meaning": "confirmed=원문에 맞는 최소 한 분류/설명 지지, refuted=특정 분류 주장 반박(설명에서 대상 명시), unclear=범주 경계 또는 원천 부족"
+      }
+    ],
+    "claims": [
+      {
+        "id": "D3-grammar-category-absent",
+        "verdict": "refuted",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:44",
+          "80fa44540:docs/research/goal-data-batches/D3-principles/reasoning-review.md:18"
+        ],
+        "note": "계약 v1(따라서 v2)에 form_error(어법·형태)가 이미 있다. 어법 표본 네 선지는 실제로 옳고 A=other/B=form_error로 갈린다. 부재라고 단정한 원인은 틀렸으며 정상 형태 유인과 실제 형태 오류의 적용 경계가 부족하다는 결론은 가능하다."
+      },
+      {
+        "id": "D3-order-granularity-gap",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:233",
+          "80fa44540:docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md:44"
+        ],
+        "note": "순서 표본 네 개 모두 A/B=other이나 지시 선행·대조·과정 소개/효과 순서 단절의 설명은 서로 다르다. 전용 연결·배열 범주 부재로 정밀 정보가 other에 뭉치는 주장은 지지된다. other 사용 자체는 계약 위반이 아니다."
+      },
+      {
+        "id": "D3-agreement-is-not-truth",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/research/goal-data-batches/D3-principles/principle-groups.json:23"
+        ],
+        "note": "164/280은 A/B 일치 집계다. 원문 대조 정확도·사람 Gold·학습자 오답 원인 정확도로 읽을 수 없다. 이번 30 표본도 모집단 정확도 추정이 아니다."
+      }
+    ],
+    "summary": {
+      "sample": {
+        "unclear": 13,
+        "confirmed": 16,
+        "refuted": 1
+      },
+      "sample_count": 30,
+      "grammar": 4,
+      "order": 4,
+      "source_gap": 2,
+      "classification_refuted": 1,
+      "meaning": "함축 ② A 과일반화 1개 반박. 어법 4개는 레이블 적용 범위가 모호해 unclear.",
+      "full_recount": {
+        "total": 320,
+        "source_text": 280,
+        "agree_source_text": 164
+      }
+    },
+    "product_use": "왜곡 유형을 학습자 오답 원인·진단 판정 입력으로 쓰지 않는다."
+  },
+  "d4": {
+    "handoff": [
+      {
+        "id": "D4-handoff-1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:91",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:119",
+          "80fa44540:apps/web/src/lib/csat/map/v62/supply.ts:76",
+          "80fa44540:apps/web/src/lib/csat/map/load.ts:318",
+          "80fa44540:apps/web/src/lib/csat/map/lifecycle-evidence.ts:8",
+          "80fa44540:apps/web/src/lib/csat/map/v62/evidence-claims.ts:175",
+          "docs/research/goal-data-batches/review/runtime-checks.json:1"
+        ],
+        "note": "진단은 다른 날·서로 다른 지문·transfer/delayed 역할을 도달 조건으로 검사하지 않는다. lifecycle에는 확정 이후·운영 진행량 검사, supply에는 역할별 자격 검사가 있으나 지연 기억 판정은 아니다. 같은 날 같은 지문 메타데이터의 서로 다른 4문항 2실패→2정답으로 resolved를 재현했다. 실제 공급에서 같은 지문 노출을 막는 별도 가드가 있으므로 전체 제품에 아무 지문 방어도 없다는 주장은 하지 않는다."
+      },
+      {
+        "id": "D4-handoff-2-M1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:110",
+          "80fa44540:apps/web/src/lib/csat/map/v4/as-is.ts:236",
+          "c44f41a5cbab4348908e7bc18fe39e09ad183592:apps/web/src/lib/csat/map/v4/plan.ts:32",
+          "c44f41a5cbab4348908e7bc18fe39e09ad183592:apps/web/src/lib/csat/map/v62/goal-plan.ts:106",
+          "docs/research/goal-data-batches/review/runtime-checks.json:1"
+        ],
+        "note": "성공만 4회면 unverified이고 실제 독립 근거가 있으면 As-Is checking으로 남는다. feat/goal-plan 고정 SHA의 plan은 checking→checking, resolved→resolved를 별도로 매핑하고 goal-plan은 shown.achievement를 전달한다. 이 경로에서 checking을 도달로 승격하지 않는다. 후속 feat/goal-achievement 브랜치의 현재 구현 상태를 결론에 섞지 않았다."
+      },
+      {
+        "id": "D4-handoff-3-21classes",
+        "verdict": "refuted",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/knowledge/cohesion-link.ts:74",
+          "80fa44540:apps/web/src/lib/knowledge/evidence-locate.ts:104",
+          "80fa44540:docs/csat-learner/v4/codebook.json:370",
+          "80fa44540:docs/csat-learner/v4/codebook.json:536"
+        ],
+        "note": "21건을 각각 아래에 검토했다. R2·E3에 실제 기출 확인 키가 붙은 것은 맞지만 정본 측정 범위·약함 판정 제한까지 충족한다는 분류는 반박한다. V4·R6는 형식만 확인되며 현재 승인·자격·납품과 사람만 대기라는 전체 분류는 unclear다."
+      },
+      {
+        "id": "D4-handoff-4-M4",
+        "verdict": "refuted",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:91",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:95",
+          "80fa44540:apps/web/src/lib/knowledge/effect-signals.ts:80",
+          "docs/research/goal-data-batches/review/runtime-checks.json:1"
+        ],
+        "note": "연습 화면·도움·해설 뒤·시각 불확실 제외는 코드로 확인된다. 하지만 본인 진단은 synthetic:false로 바꿔 isEligible을 호출한다. 합성 2실패→2정답도 resolved여서 합성 제외까지 방어됐다는 M4 전체 주장은 틀리다. 집단 효과 표본의 합성 제외와 구분해야 한다."
+      },
+      {
+        "id": "D4-handoff-4-M7",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/csat/map/v4/definition.ts:65",
+          "80fa44540:apps/web/src/lib/knowledge/authored/tasks.ts:4",
+          "80fa44540:apps/web/src/lib/csat/map/v4/definition.ts:74",
+          "docs/research/goal-data-batches/review/runtime-checks.json:1"
+        ],
+        "note": "정본 확인 키는 중심 TASK 하나만 받는다. 창작 키도 task별 하나로 분리하며 별도 납품 경로를 통해 추가된다. V4의 정본 키 0, option-restate→E3 한 개를 실제 함수로 확인했다. 한 능력을 두 다른 TASK로 관찰할 수 있는 R3/R4 측정 중복 문제까지 해결하는 가드는 아니다."
+      },
+      {
+        "id": "D4-handoff-5-omissions",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:113",
+          "80fa44540:apps/web/src/lib/knowledge/claim-support.ts:134",
+          "80fa44540:docs/csat-learner/v4/codebook.json:536",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:95",
+          "80fa44540:supabase/migrations/20261021175340_learning_outcomes_ai_factory_activation_approved_20261022.sql:884"
+        ],
+        "note": "누락은 아래 세부 항목으로 제시한다. 독립 검증은 평가 정본·제품 수정·현재 DB 승인 상태 확정을 하지 않는다."
+      }
+    ],
+    "tasks": [
+      {
+        "id": "D4-task-V1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:139",
+          "80fa44540:apps/web/src/lib/knowledge/authored/tasks.ts:4"
+        ],
+        "note": "등록 창작 키에 V1이 없고 정본은 다른 날 재인출을 요구한다. FSRS가 존재한다는 사실과 TASK 판정 결속은 다르다."
+      },
+      {
+        "id": "D4-task-V2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:160",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:19"
+        ],
+        "note": "서로 다른 문맥 2개 조건을 문맥 identity로 세지 않는다. 현재 문항 텍스트가 서로 다른 것과 판정 가드는 별개다."
+      },
+      {
+        "id": "D4-task-V3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:179",
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:213"
+        ],
+        "note": "의미를 말하는 기준을 뜻·근거 선택형으로 대신한다. 산출 동일성은 입증하지 않는다."
+      },
+      {
+        "id": "D4-task-V4",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:198",
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:398"
+        ],
+        "note": "같음 여부와 의미 관계를 채점하여 형식은 맞는다. 추가 날짜·횟수 도달 조건은 없다. 그러나 사람 승인만 남았다는 분류는 AI 결정 허용 SQL과 대조가 필요하고 현재 납품·승인 상태를 읽지 않았다."
+      },
+      {
+        "id": "D4-task-S1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:217",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:130"
+        ],
+        "note": "연속 3문장 기준과 공통 연속 2정답 판정은 다르다. 한 덩어리 선택이 뼈대 전체 표시와 같은지도 미확인이다."
+      },
+      {
+        "id": "D4-task-S2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:239",
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:376"
+        ],
+        "note": "덩어리·이유 선택은 경계 오류 없이 풀어 쓴 산출의 의미 동일성을 검증하지 않는다."
+      },
+      {
+        "id": "D4-task-S3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:260",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:19"
+        ],
+        "note": "다른 문장에서도 성공해야 하지만 진단 입력에는 문장·지문 identity가 없다."
+      },
+      {
+        "id": "D4-task-S4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:279",
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:376"
+        ],
+        "note": "구조·이유 선택은 풀어 쓴 산출과 다르다. 부분 평가 분류를 지지한다."
+      },
+      {
+        "id": "D4-task-S5",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:299",
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:269"
+        ],
+        "note": "Gold에는 문법 범주가 있지만 공통 진단은 포인트별로 서로 다른 문항 2개를 세지 않는다. 포인트 자료 자체가 없다는 해석은 과도하다."
+      },
+      {
+        "id": "D4-task-S-O1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:321",
+          "80fa44540:apps/web/src/lib/csat/map/v4/observation.ts:3"
+        ],
+        "note": "정본이 숙달 계산 없이 관찰만 요구한다. 숙달 도구 부재는 설계와 일치하며 관찰 기능 자체 부재를 뜻하지 않는다."
+      },
+      {
+        "id": "D4-task-R1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:340",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:98"
+        ],
+        "note": "itemRef 구분은 있지만 서로 다른 지문 2개 조건이 없다."
+      },
+      {
+        "id": "D4-task-R2",
+        "verdict": "refuted",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:361",
+          "80fa44540:apps/web/src/lib/knowledge/cohesion-link.ts:74"
+        ],
+        "note": "cohesion-link는 2022#36 주석과 연결되지만 지시 대상 문장+순서를 채점한다. 정본 관계 종류+근거 단서를 직접 받지 않으며 관찰 내역만이라는 제한도 빠졌다. 키 존재로 전체 TASK 실제 평가 가능을 닫을 수 없다."
+      },
+      {
+        "id": "D4-task-R3",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:382",
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:287"
+        ],
+        "note": "R4와 discourse_roles/gradeStructure를 공유하며 Gold tagging 독립 관찰 조건을 검사하지 않는다. 같은 함수라는 사실만으로 능력 동일성을 단정하지 않는다."
+      },
+      {
+        "id": "D4-task-R4",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:404",
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:312"
+        ],
+        "note": "R3와 독립 관찰을 확인하는 코드가 없다. 도달 조건 검증 부족을 지지한다."
+      },
+      {
+        "id": "D4-task-R5",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:426",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:119"
+        ],
+        "note": "확정 후 시간 순서와 120일 상한만 있고 다른 날·새 지문 조건은 없다. evidence-claims도 delayedRetention=NOT_ESTABLISHED로 선언한다."
+      },
+      {
+        "id": "D4-task-R6",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:448",
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:144"
+        ],
+        "note": "정답·결정 근거·허용 근거 밖 없음은 검사한다. 정본에 추가 날짜·횟수 조건은 없다. 사람 승인만 대기라는 현재 상태·단일 경로 주장은 DB에서 확인하지 않았다."
+      },
+      {
+        "id": "D4-task-R-O1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:467",
+          "80fa44540:apps/web/src/lib/csat/map/v4/observation.ts:31"
+        ],
+        "note": "하위 근거 취합은 있으며 자기 숙달 도구 없음은 설계와 일치한다. 이를 일반 측정 불가능으로 확대하지 않는다."
+      },
+      {
+        "id": "D4-task-E1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:486",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:19"
+        ],
+        "note": "유형 2개 이상 조건이 입력·집계에 없다. 요구 진술 선택도 직접 말하기와 구분해야 한다."
+      },
+      {
+        "id": "D4-task-E2",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:505",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:119"
+        ],
+        "note": "다른 문항 2독립 정답→다른 날 재확인을 확정 뒤 2정답으로 대신한다. 역할 납품이 최소 간격을 보장하지 않는다."
+      },
+      {
+        "id": "D4-task-E3",
+        "verdict": "refuted",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:527",
+          "80fa44540:apps/web/src/lib/knowledge/evidence-locate.ts:104"
+        ],
+        "note": "option-restate의 기출 6문항 연결은 확인된다. 그러나 lurePicked도 isCorrect=false라 공통 2실패가 학습 요구를 확정할 수 있다. 함정 선택만으로 약함 판정 금지라는 정본과 충돌해 전체 실제 평가 가능 분류는 반박한다. 좁은 대응 문장 지목 기능은 실행 가능하다."
+      },
+      {
+        "id": "D4-task-E-O1",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:550",
+          "80fa44540:apps/web/src/lib/csat/map/v4/observation.ts:31"
+        ],
+        "note": "정답·근거·배제 이유를 함께 내는 통합 관찰 성공 도구는 없다. 선택+결정 근거만 추가하는 제안은 버린 답 이유까지 충족하지 않는다."
+      }
+    ],
+    "omissions": [
+      {
+        "id": "D4-N1-approval-policy",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:supabase/migrations/20261021175340_learning_outcomes_ai_factory_activation_approved_20261022.sql:884"
+        ],
+        "note": "저장소 SQL은 human OR revision/Gold 해시 결속 AI 결정 OR 제한된 DCP source_policy를 허용한다. 따라서 사람 승인만 남았다고 일반화하면 실행 정책과 충돌한다. SQL 존재를 현재 DB 적용·개별 자료 승인 완료로 읽지 않는다. DCP 대안은 guided_practice 한정이다."
+      },
+      {
+        "id": "D4-N2-same-task-different-score",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/knowledge/authored/formats.ts:113",
+          "80fa44540:apps/web/src/lib/knowledge/claim-support.ts:134",
+          "docs/research/goal-data-batches/review/runtime-checks.json:1"
+        ],
+        "note": "R5 창작은 선택+중심 문장만 정답 조건이고 기존 claim-support는 근거+관계도 필수다. r5-cm-ind-1에서 supportOk=false/relationOk=false/isCorrect=true를 재현했다. 자체 명시 계약이라 구현 버그로 단정하지 않지만 두 키를 동일 측정 범위로 합치면 충돌한다."
+      },
+      {
+        "id": "D4-N3-observation-vs-need",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:docs/csat-learner/v4/codebook.json:370",
+          "80fa44540:docs/csat-learner/v4/codebook.json:536",
+          "80fa44540:apps/web/src/lib/knowledge/evidence-locate.ts:104",
+          "80fa44540:apps/web/src/lib/csat/map/skill-diagnosis.ts:110"
+        ],
+        "note": "R2의 관찰 근거 내역만 및 E3의 함정 선택만으로 약함 판정 금지 제한을 공통 약점 확정에 반영하지 않는다. E3 lure 정오 false 두 개는 공통 실패 규칙에 들어갈 수 있다."
+      },
+      {
+        "id": "D4-N4-future-passage-duplication",
+        "verdict": "confirmed",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/knowledge/authored/authored-items.ts:141",
+          "80fa44540:apps/web/src/lib/csat/map/v62/assessment-exposure.ts:40"
+        ],
+        "note": "validateAuthoredSet은 passageGroup 문자열의 교수/평가 혼합을 검사한다. 실제 본문 해시 중복을 이 함수에서 검사하지 않는다. 공급 시 노출 원장의 같은 지문 방어는 별도로 있으므로 제품 전역 방어가 없다고 확대하지 않는다."
+      },
+      {
+        "id": "D4-current-release",
+        "verdict": "unclear",
+        "evidence": [
+          "80fa44540:apps/web/src/lib/csat/map/load.ts:299"
+        ],
+        "note": "이번 DB 조회는 D1 원천 테이블만 읽었다. 현재 AI/사람 결정·권리·자격·출시·개별 학습자 납품은 미조회다. 과거 패킷의 0건을 현재 값으로 쓰지 않는다."
+      }
+    ],
+    "summary": {
+      "tasks": {
+        "confirmed": 17,
+        "unclear": 2,
+        "refuted": 2
+      },
+      "task_count": 21
+    },
+    "runtime": {
+      "assertions_passed": 14,
+      "evidence": "docs/research/goal-data-batches/review/runtime-checks.json:1",
+      "scope": "고정 fixture의 순수 함수 재현. 공개 화면·DB 납품 E2E 통과 아님."
+    }
+  },
+  "top_5_gaps": [
+    {
+      "rank": 1,
+      "ids": [
+        "D4-handoff-2-M1"
+      ],
+      "gap": "선행 실패 없이 이미 가능한 TASK의 도달 근거 경로",
+      "impact": "성공만 한 학습자가 checking에 남아 이미 가능한 TASK를 재확인하게 될 수 있다.",
+      "next": "실패를 선행 조건으로 요구하지 않는 성공 근거와 도달 상태 계약을 정하고 PLAN 경로까지 검증한다."
+    },
+    {
+      "rank": 2,
+      "ids": [
+        "D4-handoff-1",
+        "D4-task-S1",
+        "D4-task-S5",
+        "D4-task-E1"
+      ],
+      "gap": "TASK 도달 조건과 공통 연속 2정답 판정의 불일치",
+      "impact": "같은 날 성공을 다른 날 유지로, 문항 차이를 새 문맥으로, 한 유형·포인트를 범위 전체 성공으로 과대해석할 수 있다.",
+      "next": "정본의 날짜·문맥 identity·포인트·유형·횟수 조건을 각각 결속한다. 승인되지 않은 최소 간격은 임의로 정하지 않는다."
+    },
+    {
+      "rank": 3,
+      "ids": [
+        "D1-insert-sentence-missing-262",
+        "D1-M2709",
+        "D1-2023-38",
+        "D1-redistribution-record-0"
+      ],
+      "gap": "원천 결손과 저장 형식 차이·권리 미정을 구분한 공급 적격 근거",
+      "impact": "최신 시험 공백과 실제 선지 결손은 공급을 제한한다. 반대로 접두 삽입 문장을 놓치면 정상 후보를 대량으로 부적격 처리한다.",
+      "next": "삽입 대상/본문 경계를 전량 복원 대조하고 권리 상태는 명시 원장으로 결속한다. DB 수정은 별도 승인 범위다."
+    },
+    {
+      "rank": 4,
+      "ids": [
+        "D4-task-R2",
+        "D4-task-E3",
+        "D4-N2-same-task-different-score",
+        "D4-N1-approval-policy"
+      ],
+      "gap": "확인 키별 측정 범위·관찰 제한·승인 정책 결속",
+      "impact": "키의 존재를 TASK 전체 평가 가능으로 읽거나 다른 채점 범위를 하나의 성취로 합치면 잘못된 목표 상태를 만든다.",
+      "next": "도구별 관찰 범위와 상태 승격 제한을 명시하고 동일 revision의 결정·자격·납품을 읽어 확인한다."
+    },
+    {
+      "rank": 5,
+      "ids": [
+        "D2-R3-boundary",
+        "D3-grammar-category-absent",
+        "D3-order-granularity-gap"
+      ],
+      "gap": "R3 경계와 오답 왜곡 범주 적용 기준",
+      "impact": "AI 일치 후보라도 관련성·오답 원인을 확정할 수 없고 NeedRank·진단 입력으로 넘기면 불확실성이 사라진다.",
+      "next": "R3 역할 해석/명명 경계, 정상 어법 유인/형태 오류, 순서 연결 단절 범주를 계약에서 구분하고 같은 원문으로 재검증한다."
+    }
+  ],
+  "verification": {
+    "passed": [
+      "고정 커밋 git show 입력 읽기",
+      "D1 GET 6개 HTTP 200",
+      "D2 R1 30+갈림30/R3 11 원문 대조",
+      "D3 오답30 원문 대조(도표2 unclear)",
+      "90표본 원문 SHA와 인용/반사실 형식 검사",
+      "D4 실제 TS 순수 함수 메모리 재현 14 assertions · D4 입력 해시38개 일치"
+    ],
+    "unrun": [
+      "262 삽입 문항 공식 원본 PDF 전량 대조",
+      "현재 승인·권리·자격·납품 DB 조회",
+      "공개 학습자 E2E",
+      "앱 전체 lint/typecheck/test(제품 코드 변경 없음)"
+    ],
+    "git_commit": {
+      "status": "blocked",
+      "reason": "git add 단계에서 중앙 Git worktree index.lock 생성 Permission denied. 인덱스·커밋 변경 없음. 권한 우회·push·통합 없음.",
+      "path": "D:/workspace/Vocaflow/.git/worktrees/Vocaflow-goal-data-review/index.lock"
+    },
+    "scope_safety": "제품·DB·D1–D4 폴더 수정 없음. 이 review 경로의 자기 파일만 커밋. push 없음."
+  }
+}

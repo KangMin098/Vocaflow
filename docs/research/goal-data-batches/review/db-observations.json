@@ -1,0 +1,1959 @@
+{
+  "observed_at": "2026-10-23T03:35:06.717Z",
+  "queries": [
+    {
+      "method": "GET",
+      "table": "csat_items",
+      "query": "select=id,stem,passage,choices,raw_block&type_id=eq.R-INSERT&order=id"
+    },
+    {
+      "method": "GET",
+      "table": "csat_exams",
+      "query": "select=id&or=(id.eq.M2709,and(exam_year.eq.2027,month.eq.9))"
+    },
+    {
+      "method": "GET",
+      "table": "csat_items",
+      "query": "select=id,body_ok,choices&id=eq.2023%2338"
+    },
+    {
+      "method": "GET",
+      "table": "csat_exams",
+      "query": "select=id,source_note&order=id"
+    },
+    {
+      "method": "GET",
+      "table": "csat_items",
+      "query": "select=exam_id&order=id"
+    },
+    {
+      "method": "GET",
+      "table": "knowledge_applications",
+      "query": "select=surface_ref,status&surface=eq.csat_item_task&or=(surface_ref.like.cohesion-link:*,surface_ref.like.option-restate:*)&order=surface_ref"
+    }
+  ],
+  "insert": {
+    "count": 262,
+    "raw_block_null": 262,
+    "rows": [
+      {
+        "id": "2014A#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+        "passage_chars": 815,
+        "choices_count": 5,
+        "sha256": "668ce956b8d0e797e3667316524c1d04eae657c15c5e09e6f53f69c2941eb322"
+      },
+      {
+        "id": "2014B#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳은?",
+        "passage_chars": 997,
+        "choices_count": 5,
+        "sha256": "bb8cf4a298f328393f7d0c32690a46270ea933e5216f1885eb96348155277fc7"
+      },
+      {
+        "id": "2015#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 980,
+        "choices_count": 5,
+        "sha256": "16d987b0ead1036df045cfcedde9f082bfc858a062d661e0bb9de5bdfdec225a"
+      },
+      {
+        "id": "2015#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 989,
+        "choices_count": 5,
+        "sha256": "6e93139a655aab6e71d8107b7a64ba26bca6754ae493ea7932202dbeda2b6cfa"
+      },
+      {
+        "id": "2016#37",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 833,
+        "choices_count": 5,
+        "sha256": "aca8d6513536e7b372ae34744a8a7297ca38890da58b88afd2beb2239caf41bc"
+      },
+      {
+        "id": "2016#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 952,
+        "choices_count": 5,
+        "sha256": "960c877e7a2c3060543ae5782c824b6a064d12cb070358def0307b223d83a98d"
+      },
+      {
+        "id": "2017#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1011,
+        "choices_count": 5,
+        "sha256": "ad8846b47f4e1a49a2bc25e95177c72ec35818d2d8d741d765c6d061299659ef"
+      },
+      {
+        "id": "2017#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1094,
+        "choices_count": 5,
+        "sha256": "6407e6fe589aab8a0593d8877c3c567422338fb6d61ed715140697ae19c7de20"
+      },
+      {
+        "id": "2018#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 953,
+        "choices_count": 5,
+        "sha256": "288a65e18765b66f8677cf613dbd4e09d6c25c2633ebdf76074397d283b03523"
+      },
+      {
+        "id": "2018#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1078,
+        "choices_count": 5,
+        "sha256": "42c50f80ab8e4c73f78d3d94d3b812e77445330215b50e6ac354cfe571ee0517"
+      },
+      {
+        "id": "2019#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1006,
+        "choices_count": 5,
+        "sha256": "875448db63595ad46c5e7fbe446ff8abc5bd9a8145bdbf6818ae0a24367d0159"
+      },
+      {
+        "id": "2019#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1000,
+        "choices_count": 5,
+        "sha256": "809f6eaa91fe83e9e8188feb680d908e373004057c1f8b48e1b633bb0a4337e3"
+      },
+      {
+        "id": "2020#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1228,
+        "choices_count": 5,
+        "sha256": "fdf5df03d9fe01d853e92208b17d80dc15f08ee5ae30e7a4f8d18cbd83a6ad4f"
+      },
+      {
+        "id": "2020#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1154,
+        "choices_count": 5,
+        "sha256": "e5dea44203ef8dfda9a0ed3fe63650dff72a7cbdaaeab648e2ece1b0d2155c9d"
+      },
+      {
+        "id": "2021#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1155,
+        "choices_count": 5,
+        "sha256": "a555413e37144c2a17596e442fd1c1df652d400f8f5a8349cda7d7e843521565"
+      },
+      {
+        "id": "2021#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1039,
+        "choices_count": 5,
+        "sha256": "1a68548cb0adc7ab5415c4854accb307751fb4921572fea1bf0749f97d298054"
+      },
+      {
+        "id": "2022#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1011,
+        "choices_count": 5,
+        "sha256": "6e7435a63ad09f35eeda0077dc013596b807ecf4a0840e7ea8fe0e94e7f3487b"
+      },
+      {
+        "id": "2022#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1101,
+        "choices_count": 5,
+        "sha256": "ca4e0794b984348e1845c5c94d36d9b84b9b399bc079519621a1e80c1c6228bf"
+      },
+      {
+        "id": "2023#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1215,
+        "choices_count": null,
+        "sha256": "192411307071ea0a1150b4857f667cde923de810fe38ca5ece46054840004147"
+      },
+      {
+        "id": "2023#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1005,
+        "choices_count": 5,
+        "sha256": "1611a176c34c26ba40c9de7d4c7f035e3a3862e730e618669343e27f100eb864"
+      },
+      {
+        "id": "2024#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 995,
+        "choices_count": 5,
+        "sha256": "21722e62b70cc4dacb8d45a3b7b793492ae67fc0dbaadd3224781bf601b6ee36"
+      },
+      {
+        "id": "2024#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 988,
+        "choices_count": 5,
+        "sha256": "bf9a022ea4a9c1f3b9346f2acdc0f6f4ac15ef9191b41d0b9a328a0d4f7b2572"
+      },
+      {
+        "id": "2025#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1106,
+        "choices_count": 5,
+        "sha256": "8854cc848f0ab3e263dc496b2131896394eb445b85d15ee0aaa2ee945a491922"
+      },
+      {
+        "id": "2025#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1213,
+        "choices_count": 5,
+        "sha256": "4b05ba2d2888fa1f6f4760f9003529ddaeccf0cb92dc467d00a9f5c13701ebc5"
+      },
+      {
+        "id": "2026#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1125,
+        "choices_count": 5,
+        "sha256": "f33719b4a456757026b114e0d30a4c27f44eed889b473d8e23676d08e9fceae9"
+      },
+      {
+        "id": "2026#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 998,
+        "choices_count": 5,
+        "sha256": "684f984a2477578c5d083e293490d03010ff8480be99095015a7e2906cb1f3bc"
+      },
+      {
+        "id": "H1803G1#37",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가 장 적절한 곳을 고르시오.",
+        "passage_chars": 908,
+        "choices_count": 5,
+        "sha256": "ccea760a167efc7dc5cec955cb6a6245de048e7ea0e2cb043f90efcd9eb24450"
+      },
+      {
+        "id": "H1803G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가 장 적절한 곳을 고르시오.",
+        "passage_chars": 850,
+        "choices_count": 5,
+        "sha256": "b7f5df3e215f77ca1c17957cc0c529e57995c986da85ef879f10607080c215d3"
+      },
+      {
+        "id": "H1803G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 925,
+        "choices_count": 5,
+        "sha256": "63b2d773fee89f8193c9db30b1024fc8da5f83afcae34b83d94b65ad09e70383"
+      },
+      {
+        "id": "H1803G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 868,
+        "choices_count": 5,
+        "sha256": "1cc369fcc3cff03751aab2a3b881bb9a0542b8d4345903f78b13e6e3f4ea7fb7"
+      },
+      {
+        "id": "H1803G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가 장 적절한 곳을 고르시오.",
+        "passage_chars": 1002,
+        "choices_count": 5,
+        "sha256": "00c1b997f5defac21e741c4799ebe5d9ffc99ccb802f2e1561b13ed83236f59d"
+      },
+      {
+        "id": "H1803G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가 장 적절한 곳을 고르시오.",
+        "passage_chars": 1103,
+        "choices_count": 5,
+        "sha256": "5f44132593922e947cd58abfa9355a02bc97b1d72c1ae6655c22db9bfc3abba0"
+      },
+      {
+        "id": "H1804G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 907,
+        "choices_count": 5,
+        "sha256": "e82cb6a36da1a2173950bdebd9bd87026de31dd43d5080359dd77510ba649071"
+      },
+      {
+        "id": "H1804G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 904,
+        "choices_count": 5,
+        "sha256": "60c0d247e02cb378b3ac76cadffe43c0e33f0a5f8d7a0bc3d1737de44347f7ec"
+      },
+      {
+        "id": "H1806G1#37",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 679,
+        "choices_count": 5,
+        "sha256": "a3d68044c778634331b22960fd927f1e97efd982556c0cf0c59d808de2d060f0"
+      },
+      {
+        "id": "H1806G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 835,
+        "choices_count": 5,
+        "sha256": "bb2abf1f1cac0c719fcea6949a1c0d0e024b57f674cf640d636f02637b51ee08"
+      },
+      {
+        "id": "H1806G2#37",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 878,
+        "choices_count": 5,
+        "sha256": "846a98a64912edfe1d5e89fecc09fec078a083a6b5748ff0a866c7324d06ce11"
+      },
+      {
+        "id": "H1806G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 772,
+        "choices_count": 5,
+        "sha256": "339fb9b72d8664bd33344054d491addc1111f1b3d36a7694dd79518e3fad4f5b"
+      },
+      {
+        "id": "H1807G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 997,
+        "choices_count": 5,
+        "sha256": "ff6687fc865455ef5ab01b40a3dd2f2576451a42ed7ccd6865d63673ccd070d6"
+      },
+      {
+        "id": "H1807G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 805,
+        "choices_count": 5,
+        "sha256": "12a785e78cd4d2cbaf41e5a8abca03a01437e7bfc49168fbf0f59747999119ce"
+      },
+      {
+        "id": "H1809G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1154,
+        "choices_count": 5,
+        "sha256": "5e0f494eb15b8155156b4da0dee0c593ef7a543c6a05a1ade11394767363d20f"
+      },
+      {
+        "id": "H1809G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 826,
+        "choices_count": 5,
+        "sha256": "eab0f040a3fa6643806bc1f09aa6570a54cfb321f573d3a54d943e482a8b367d"
+      },
+      {
+        "id": "H1809G2#37",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1010,
+        "choices_count": 5,
+        "sha256": "60f401339017f31a6198713f2f08baaf24d8fd2262284f0eab8306ae053c8536"
+      },
+      {
+        "id": "H1809G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 924,
+        "choices_count": 5,
+        "sha256": "009ee83f62116e2dc4ffa4ecd3ae267bf351b17bb1ed71f182b6c0e6bf8b86d7"
+      },
+      {
+        "id": "H1810G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1170,
+        "choices_count": 5,
+        "sha256": "43db32e8ff9322982e9928fc2744f734601aff1dd48e044400987341c45a22de"
+      },
+      {
+        "id": "H1810G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 975,
+        "choices_count": 5,
+        "sha256": "b37329b9a8b2399e78f20a4f0c0a00bcb5cb3eed1cbdc2786acd20aef90e42a2"
+      },
+      {
+        "id": "H1811G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 937,
+        "choices_count": 5,
+        "sha256": "43783885fae940ffc0c97b5a67bd0fb5eb62999d8778c3ebb3b091e08873ad83"
+      },
+      {
+        "id": "H1811G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 939,
+        "choices_count": 5,
+        "sha256": "3dc38cb3fd9898af2d82ac3eb590b9bb193ac9885b7586de7693f68ef1e65514"
+      },
+      {
+        "id": "H1811G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 880,
+        "choices_count": 5,
+        "sha256": "f536c71256710474dcb9963cf703b4d3ee8ae6011182eba78f582536ab9798e6"
+      },
+      {
+        "id": "H1811G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 972,
+        "choices_count": 5,
+        "sha256": "992f7a75eb2e4a9abf928230a55b8ecdb289721ac4b73a5ca1acc0fc51a914ff"
+      },
+      {
+        "id": "H1903G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 863,
+        "choices_count": 5,
+        "sha256": "7e33e6d856a1ed41fead4022419399e940e509c55ae2e7a73e74f58f6bf4bb7a"
+      },
+      {
+        "id": "H1903G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 761,
+        "choices_count": 5,
+        "sha256": "2cca7fbe412953db536c480af5ff7a7cec6e0d8933aecbb600e94f588f8406f2"
+      },
+      {
+        "id": "H1903G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 904,
+        "choices_count": 5,
+        "sha256": "880fbffc0b34e3ee1b2c6a4dec5c4b235c9bc71949f35f5cb357f4dc0c907b92"
+      },
+      {
+        "id": "H1903G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 944,
+        "choices_count": 5,
+        "sha256": "a2be51bbf6b1760e9bea60ff8a06fc143198b5fd9a60cc080707958ded982db1"
+      },
+      {
+        "id": "H1903G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1044,
+        "choices_count": 5,
+        "sha256": "23364e58c31b85a26a30516a29a36aa98f7569beceb802be98a8df87336f8cf1"
+      },
+      {
+        "id": "H1903G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 955,
+        "choices_count": 5,
+        "sha256": "874b35434f118441c9194a8104dfeb9574c5f2a9876368e4b3fbfc6527f6a8d9"
+      },
+      {
+        "id": "H1904G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 815,
+        "choices_count": 5,
+        "sha256": "04c1cb2c319f89282e595f61e50466f74902d83d7d20f0933e60d42c70b21bd9"
+      },
+      {
+        "id": "H1904G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 948,
+        "choices_count": 5,
+        "sha256": "be4f813bfb2e96c80c788bd62317cf4429b260c61721e5986e27c41b858707ed"
+      },
+      {
+        "id": "H1906G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 757,
+        "choices_count": 5,
+        "sha256": "919a33d318bfead81f235adb0e8b07f34c703b29183964ad8ccce26ed4abd1c4"
+      },
+      {
+        "id": "H1906G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 932,
+        "choices_count": 5,
+        "sha256": "36136a6a4c3266a85d6c614ff364a30703eb1e5a10fb43bbb4d5e10632a42852"
+      },
+      {
+        "id": "H1907G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 848,
+        "choices_count": 5,
+        "sha256": "dd045798efbde7dd404ed76f1c8542c841de2a9f4df46f01328ebed33091164b"
+      },
+      {
+        "id": "H1907G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1010,
+        "choices_count": 5,
+        "sha256": "2192b47577c1f0a448537893f3cf14dab688e7a8caca47f0d01c7e72a40f2390"
+      },
+      {
+        "id": "H1909G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 743,
+        "choices_count": 5,
+        "sha256": "b2d1561057e7f736f872a3bfdb0174007827bc54f7735d09aab9a62261580e81"
+      },
+      {
+        "id": "H1909G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 843,
+        "choices_count": 5,
+        "sha256": "1750a3482bbb4e7a9439f2299147081fe40cc14c01c6e10c2b434fbf1aca9a3d"
+      },
+      {
+        "id": "H1909G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1091,
+        "choices_count": 5,
+        "sha256": "667ec2dd7c5b500c5fbbca623aa122269350879ba28b75a643f2d2863df8559d"
+      },
+      {
+        "id": "H1909G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 982,
+        "choices_count": 5,
+        "sha256": "74b04007ec83fb41cf3c89745102aaf04fa1433cb2af835f42edd4d71db43c6d"
+      },
+      {
+        "id": "H1910G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1060,
+        "choices_count": 5,
+        "sha256": "499a2f7e90cdc5a3898d65d5848b477c1c4cf81a3161b099bc7e638c97f89bf2"
+      },
+      {
+        "id": "H1910G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1153,
+        "choices_count": 5,
+        "sha256": "fe5a36183f527fcb8c6f8216426df939bded1dd7bc605e42a72e4cae944903aa"
+      },
+      {
+        "id": "H1911G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 825,
+        "choices_count": 5,
+        "sha256": "5c80266b809e67ba69cd737d41114ac2396982a87c805968c71497fb5f38b314"
+      },
+      {
+        "id": "H1911G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 950,
+        "choices_count": 5,
+        "sha256": "4e934aa5c4f5256ec1a70d4cebe13405f42a248e18e1d2879a8dcbd3644ba1bd"
+      },
+      {
+        "id": "H1911G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 929,
+        "choices_count": 5,
+        "sha256": "eb558207b2ba1566a7d3d68b66fa050ca8384709c1cf4e8553764fc868e5c141"
+      },
+      {
+        "id": "H1911G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1135,
+        "choices_count": 5,
+        "sha256": "821812d7b93ebe32afcf5a941e54d7b7ed9ac85920073cdef52d4f2fffaf6945"
+      },
+      {
+        "id": "H2003G1#37",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 872,
+        "choices_count": 5,
+        "sha256": "5d2270472ddf8d2c109ae9756a638c6bc7f9e8cb37401196b11d02a83b38593d"
+      },
+      {
+        "id": "H2003G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 736,
+        "choices_count": 5,
+        "sha256": "6b184e9b493026263a2ec55df6969bb1d546e14ee96dab20221aaf0c1c522f91"
+      },
+      {
+        "id": "H2003G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 850,
+        "choices_count": 5,
+        "sha256": "c48ff27e0e35672fb493d7143e699cc147725bea0b5619d53751a338d07c1f08"
+      },
+      {
+        "id": "H2003G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 997,
+        "choices_count": 5,
+        "sha256": "c4d3fc67d35a2c9fa75262e3a149b1ec1ddbad378d1da49c7fba9acaa984d66a"
+      },
+      {
+        "id": "H2003G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1085,
+        "choices_count": 5,
+        "sha256": "fb0da6757076d4bd15b9bd8d0f0919cc8d78f55c26b577736c7032c0821c26d7"
+      },
+      {
+        "id": "H2003G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1083,
+        "choices_count": 5,
+        "sha256": "8745de95a74805fffa1a75130cbcdb533bd24a023e7fc77e46d8af65bae3089d"
+      },
+      {
+        "id": "H2006G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 706,
+        "choices_count": 5,
+        "sha256": "5373e6118ec6415bd92917fa4ec3578615ca6f5a3d4911d430922b403731d4d1"
+      },
+      {
+        "id": "H2006G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 792,
+        "choices_count": 5,
+        "sha256": "03185f246bbb5d39996dfc01e4f9f07b778f3de3edcf3f13dd8f51fcf9134b17"
+      },
+      {
+        "id": "H2006G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1056,
+        "choices_count": 5,
+        "sha256": "e55681baa88f2c255bf9ef4c8a6456aad3130e7907ca5e46a025a1ffc281999f"
+      },
+      {
+        "id": "H2006G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 960,
+        "choices_count": 5,
+        "sha256": "001ae4db2d807d2e20e50c97a7dd64d2b395f0b2c930d7ebcdae3554fcbfa50c"
+      },
+      {
+        "id": "H2007G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 919,
+        "choices_count": 5,
+        "sha256": "6e551d817dc8d67b8191603a822cb0dd19534e5535dfb4905e53c9dd1a45ff44"
+      },
+      {
+        "id": "H2007G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1026,
+        "choices_count": 5,
+        "sha256": "2d3660ee20248b2058647ab4a35fc4596de35a1bbce350f991f6f95a5b12ff40"
+      },
+      {
+        "id": "H2009G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 816,
+        "choices_count": 5,
+        "sha256": "1a28376266919493dd0388164ce079a3f3063fa744ff2645751c91d4efca0d28"
+      },
+      {
+        "id": "H2009G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 961,
+        "choices_count": 5,
+        "sha256": "88f3ef58f49d0d173ba98d3a0b7ebe5eb0b7a94102c6aa79d7eabfcf68bc4363"
+      },
+      {
+        "id": "H2009G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1070,
+        "choices_count": 5,
+        "sha256": "ec3e78bc9c83e647ae12aa131e02d72791b8d172632be15ca607e0ef2be886f6"
+      },
+      {
+        "id": "H2009G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 874,
+        "choices_count": 5,
+        "sha256": "267799c560500bbab96185688994986e8ab73e48558b25891acc85d8303d36b1"
+      },
+      {
+        "id": "H2010G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1216,
+        "choices_count": 5,
+        "sha256": "dec009613d5b2b1c645463383efe256364f1b0f75962e0012e118872ceaec3e5"
+      },
+      {
+        "id": "H2010G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1019,
+        "choices_count": 5,
+        "sha256": "17040bd0804503cacb035eeae71114394ac2ec9e0451b62f6291d849fed2480a"
+      },
+      {
+        "id": "H2011G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 985,
+        "choices_count": 5,
+        "sha256": "20de6c58cacac75c6bb3813833125ed6586ef75a9161ae436f66aabeaee16e79"
+      },
+      {
+        "id": "H2011G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1003,
+        "choices_count": 5,
+        "sha256": "82674e4037799e631bbb27dede9ed3d138e12e0414ca839582c3cbb3a5c69e5b"
+      },
+      {
+        "id": "H2011G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 877,
+        "choices_count": 5,
+        "sha256": "31ca7b1e1b554f95e13746290ea0b6e35d21e206ae0679c83bf0994ab0cbbf96"
+      },
+      {
+        "id": "H2011G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1010,
+        "choices_count": 5,
+        "sha256": "80955746090bc7a6ab1be66cbb0e9d65de14b533d093cfa879c963874114a067"
+      },
+      {
+        "id": "H2103G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 956,
+        "choices_count": 5,
+        "sha256": "abf2f989e5dfcceeca8cd8b0d6b16e47d4e8fd744007792e356978e080481c46"
+      },
+      {
+        "id": "H2103G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 847,
+        "choices_count": 5,
+        "sha256": "bc5464a7fa4c3168e8b9a3c20e6ba035718837ed3ab9363e3e29c3bb502bd68d"
+      },
+      {
+        "id": "H2103G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1006,
+        "choices_count": 5,
+        "sha256": "a08a918cdb76fcf66723f20c52e0be1a8e0a42a96960341ab96576044b186c59"
+      },
+      {
+        "id": "H2103G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 813,
+        "choices_count": 5,
+        "sha256": "f67f6d699170fc08fe3c77f163f6a09ebfc06edfa48e9fb288d020b5255c3ae9"
+      },
+      {
+        "id": "H2103G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1065,
+        "choices_count": 5,
+        "sha256": "871cbe89e0c4636b47dabc097c28d7ad7e472844248812f400d43c02cda08d78"
+      },
+      {
+        "id": "H2103G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1199,
+        "choices_count": 5,
+        "sha256": "9eada0cd4fca91029b0a8c6354b95c5a17fbaa2f66e073d5e51913db06d30b49"
+      },
+      {
+        "id": "H2104G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1160,
+        "choices_count": 5,
+        "sha256": "3ce1108a1a2e16ecb2470932646d9f1b3502497047314e716f33a38f80aa8097"
+      },
+      {
+        "id": "H2104G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1119,
+        "choices_count": 5,
+        "sha256": "8f63b2a4e7ac5af0e21f4a22b0276370ade38bb62b0d1c2a8469c434cd9d9aed"
+      },
+      {
+        "id": "H2106G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 867,
+        "choices_count": 5,
+        "sha256": "024200dfccf6c025ab0c26a67a46a936a4847fd4364ddf67c539149a07a31747"
+      },
+      {
+        "id": "H2106G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 801,
+        "choices_count": 5,
+        "sha256": "19ee4a414bed7fc1cb09236d0acd611da68d8014514f4fbd5d0cafeb51ac9d21"
+      },
+      {
+        "id": "H2106G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 990,
+        "choices_count": 5,
+        "sha256": "2aba5e93975412553ef0f61129641946f84369171a2abae7e3506965ffb2a5c4"
+      },
+      {
+        "id": "H2106G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 927,
+        "choices_count": 5,
+        "sha256": "f16d1aa80c513ee3988ef0456d3225c431031dc5602cec0a2710a25ee43f4912"
+      },
+      {
+        "id": "H2107G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 952,
+        "choices_count": 5,
+        "sha256": "45cd96de9febc0af27432a098c195c52ff07942a1eaefebeb339bb1d76d70f02"
+      },
+      {
+        "id": "H2107G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 867,
+        "choices_count": 5,
+        "sha256": "2969f3375ac2bddd13f421fd0263db1eb835b56d449699570ebb79cd97c70fcf"
+      },
+      {
+        "id": "H2109G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 853,
+        "choices_count": 5,
+        "sha256": "8614f4db3dbb9102968a396d84cff31e0fd4b17d73cddfc953c89e26adca40cf"
+      },
+      {
+        "id": "H2109G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 687,
+        "choices_count": 5,
+        "sha256": "72a5883a73a47bcad3f50585d6dbdaa3b3e59cfabd726a1a4d3452b4f5ab0062"
+      },
+      {
+        "id": "H2109G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 926,
+        "choices_count": 5,
+        "sha256": "48d3006dc2a500ae2f9ed7bcd555f7e99c80c4ccfa779d4baa35a873f5974d98"
+      },
+      {
+        "id": "H2109G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 942,
+        "choices_count": 5,
+        "sha256": "2fa3a874dd90391a2df4e4732f3ece448f50b2d4993e43a7ce230a6f548743c0"
+      },
+      {
+        "id": "H2110G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 976,
+        "choices_count": 5,
+        "sha256": "3c7e41dabce4de5ce0c26e053a547a2f077f9681179c3f22dc3081e82bdfddd7"
+      },
+      {
+        "id": "H2110G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1189,
+        "choices_count": 5,
+        "sha256": "f4ebe9478fa8ca38596f5679ce6b6a73f3f82c46fcbbfa518233cbdc2e1495d2"
+      },
+      {
+        "id": "H2111G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 866,
+        "choices_count": 5,
+        "sha256": "0f92c5286a56da63cde2339fd25dc0bd79e05fea81ad1d5fcc3a6117516707f6"
+      },
+      {
+        "id": "H2111G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 873,
+        "choices_count": 5,
+        "sha256": "715b27f0a166e4491fadbcdbf943a6221b841ac2d7508673a26ce76b91228473"
+      },
+      {
+        "id": "H2111G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 998,
+        "choices_count": 5,
+        "sha256": "d05ac85d78defba5bc6c5608e54f57627b7a26482171fc246e4a845b8fa719fb"
+      },
+      {
+        "id": "H2111G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 968,
+        "choices_count": 5,
+        "sha256": "57902bea4ec8c57998f366ffe481ddd60ebd4f44066f5091fd9fdcf11bc74177"
+      },
+      {
+        "id": "H2203G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 825,
+        "choices_count": 5,
+        "sha256": "4b7b91f2ce17689dc297fd67a00840991d4c38d2a88df3b3bc9d5cf1d10b463b"
+      },
+      {
+        "id": "H2203G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 754,
+        "choices_count": 5,
+        "sha256": "e306211fbcaafd3983095ae6cd905e80496725b868830b1477c1a8313bca513e"
+      },
+      {
+        "id": "H2203G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1153,
+        "choices_count": 5,
+        "sha256": "d4bfc2400ee9e75990426b2cca8c777fe8f2e4527458f16941fb1a7f5ed42519"
+      },
+      {
+        "id": "H2203G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 987,
+        "choices_count": 5,
+        "sha256": "7d119d4e3695e78f987a22f46748c856973a8c2e6d58f174c146a5f07e5cd813"
+      },
+      {
+        "id": "H2203G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1085,
+        "choices_count": 5,
+        "sha256": "6b772f4ccb4c8fa46bebe290d35a6d27fa98b0c5d3d24290f45c7d0873fe0ecb"
+      },
+      {
+        "id": "H2203G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1136,
+        "choices_count": 5,
+        "sha256": "db924ae3f4a039fa4e931101c37ec13c680d295dada6e23d822608462474bbfe"
+      },
+      {
+        "id": "H2204G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1183,
+        "choices_count": 5,
+        "sha256": "b2e15df7681f5b3be859eb0f4bd56137492eb9e502f27801104ef9f0b6fa13dd"
+      },
+      {
+        "id": "H2204G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1049,
+        "choices_count": 5,
+        "sha256": "043e23fe0cd8f76a3b47d4cbe3fea517babf02994f47b5411e953c87b11b06f8"
+      },
+      {
+        "id": "H2206G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 866,
+        "choices_count": 5,
+        "sha256": "aa094eb5ca763e7f658c61d30ea6567ad5c7eda3eb7ef0246e235e8e400c2010"
+      },
+      {
+        "id": "H2206G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1027,
+        "choices_count": 5,
+        "sha256": "bcdc0d5bf0ae4d92711b0fe6e3943febf18d2b7bbaceb6d235ccc4ba49252fd1"
+      },
+      {
+        "id": "H2206G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 913,
+        "choices_count": 5,
+        "sha256": "ac4f1542b6bb817133fa977947b64d4373e53a7e8ebbd7219884adb61aa71881"
+      },
+      {
+        "id": "H2206G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 854,
+        "choices_count": 5,
+        "sha256": "b7714c2f8fdc216ae3b3e2deefaae09bf13b5a41a6ea445a60421da38b3f6937"
+      },
+      {
+        "id": "H2207G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1160,
+        "choices_count": 5,
+        "sha256": "ae05f460ada4635567ec0d3ab1adc7238d991794e56323f5ed278f2b271ebe93"
+      },
+      {
+        "id": "H2207G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1014,
+        "choices_count": 5,
+        "sha256": "30b0363f25f3642c3122ba5a23161754b184649992ba68e9a287122b56a8d3c4"
+      },
+      {
+        "id": "H2209G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 922,
+        "choices_count": 5,
+        "sha256": "a7c77c07bede4828e93a5c4e8a16dc161637237596a441dd2a534a3d42f772c7"
+      },
+      {
+        "id": "H2209G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 889,
+        "choices_count": 5,
+        "sha256": "c0188cc666077085ef549c990f8177a25dec4003ed5d66e74acc5620e57fdbd6"
+      },
+      {
+        "id": "H2209G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1094,
+        "choices_count": 5,
+        "sha256": "2c3fd528e85e41f375698b32cbe421fb5f6cc758bff11a5d1c0266caa1423861"
+      },
+      {
+        "id": "H2209G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 901,
+        "choices_count": 5,
+        "sha256": "7c8f5a71e478ce9bd8e48411aee997031b8e4f67eda27d348f5981bb6428a004"
+      },
+      {
+        "id": "H2210G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1142,
+        "choices_count": 5,
+        "sha256": "08adad2da708b59ca0375248de6fe621726150b74840816b652618fc1475be31"
+      },
+      {
+        "id": "H2210G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1089,
+        "choices_count": 5,
+        "sha256": "f8d8cf5d5b338faa82a21bf21c92bd87935960ef6a096dd9e443f3b3b82fb5a4"
+      },
+      {
+        "id": "H2211G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1060,
+        "choices_count": 5,
+        "sha256": "d566077e4614b4f3c24c18bfde753799b21fd151cafe1073f405cf769405eb96"
+      },
+      {
+        "id": "H2211G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 906,
+        "choices_count": 5,
+        "sha256": "6de211fffdc85a5e40ad18586543709506c697ff82f230759edf9020b5cb6f3b"
+      },
+      {
+        "id": "H2211G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 879,
+        "choices_count": 5,
+        "sha256": "7a0be2841b8102914c1c9f122100740337240452a62884198dff34007975efc2"
+      },
+      {
+        "id": "H2211G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1020,
+        "choices_count": 5,
+        "sha256": "448ca513512ed3a959fbf67e045b46cae301a8387f795bd931edd94f644167b6"
+      },
+      {
+        "id": "H2303G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 737,
+        "choices_count": 5,
+        "sha256": "a69c7d6e7d99d6ebbb5c3a5d8d67efe20c43dfb5c7610fbace992eae3500fbf8"
+      },
+      {
+        "id": "H2303G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 933,
+        "choices_count": 5,
+        "sha256": "c58e4772a561416ea50c080b6b6b2bf7176f4d3e309b90eeb5e80cf3b8f13dc7"
+      },
+      {
+        "id": "H2303G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 910,
+        "choices_count": 5,
+        "sha256": "755f1783fb9fa08e654ba02064d23d385e588adc87db775ba8455b4607e1fe83"
+      },
+      {
+        "id": "H2303G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1071,
+        "choices_count": 5,
+        "sha256": "f33e57988bbe86e3649f0625b73a8f40ec3479858ccc361d4d174d236eba363c"
+      },
+      {
+        "id": "H2303G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1217,
+        "choices_count": 5,
+        "sha256": "dee2c9095be9f6da52e52f20661d2de160b785e398d63b32978419d4f472fd47"
+      },
+      {
+        "id": "H2303G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1364,
+        "choices_count": 5,
+        "sha256": "905a63d47811bcf46e1893ae04a6dd9bb3b99cd5d3fed8995c9abd5fa6208ea4"
+      },
+      {
+        "id": "H2304G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1048,
+        "choices_count": 5,
+        "sha256": "8b3eac7a6b0e4657a441fdf0e738c31d0135fdf45a01146cc25a83a327613dd0"
+      },
+      {
+        "id": "H2304G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1158,
+        "choices_count": 5,
+        "sha256": "c46d0ae115fde4192f48c12b53cda179679ea40b48a2ccad0f6019916eea334b"
+      },
+      {
+        "id": "H2306G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 863,
+        "choices_count": 5,
+        "sha256": "a1a4dd12312264735d8943f5b62781384c1941be03e80eac55c099728eb0d148"
+      },
+      {
+        "id": "H2306G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1045,
+        "choices_count": 5,
+        "sha256": "b324aeff4710c3a1ced4f1c153497ef2ae72ed79a7c326a1164cd01fe8b813d4"
+      },
+      {
+        "id": "H2306G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1057,
+        "choices_count": 5,
+        "sha256": "37b7c5f77037f90ec64928031d76000c6edfa3a6c1269036c5b37a20a9f738ec"
+      },
+      {
+        "id": "H2306G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1038,
+        "choices_count": 5,
+        "sha256": "20bd4f91d2d2256767dcf211923db79eebeef21b77b967ccb9bdc0e6b937796d"
+      },
+      {
+        "id": "H2307G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1096,
+        "choices_count": 5,
+        "sha256": "419fe2ea229dd8176cb092891252269a8480460153f56764886cf1762b7440a5"
+      },
+      {
+        "id": "H2307G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1150,
+        "choices_count": 5,
+        "sha256": "8d8ba74d7512d3fbf3c259c8302ce93be95d589e3d829d9fff23195494a1974e"
+      },
+      {
+        "id": "H2309G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1065,
+        "choices_count": 5,
+        "sha256": "564451f8e4955548d3808004432914128ca4793d168f4fbd1227370fb77198c5"
+      },
+      {
+        "id": "H2309G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 862,
+        "choices_count": 5,
+        "sha256": "fff26242ba260cc8361730b27978ff31087da9335f8f727b27ddabee34321302"
+      },
+      {
+        "id": "H2309G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 890,
+        "choices_count": 5,
+        "sha256": "4dd69ad710ae554dc9994d94f8066fdaea99b5ca38803a67bb50baae03cffebe"
+      },
+      {
+        "id": "H2309G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1155,
+        "choices_count": 5,
+        "sha256": "7ad65bcf0a46bc2b6c7baa77c3c6f4ec2d53dcbd280cb8d4db07e1bc0a9eece8"
+      },
+      {
+        "id": "H2310G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1313,
+        "choices_count": 5,
+        "sha256": "2a9d2c87c8d1d974c764c88af54c20fcd6da75652fd158d1115942a080abd1e3"
+      },
+      {
+        "id": "H2310G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1175,
+        "choices_count": 5,
+        "sha256": "0403236ae1015245cb591d45bdda60806ee59f509612cc8d54caa3a59fcee28c"
+      },
+      {
+        "id": "H2311G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 938,
+        "choices_count": 5,
+        "sha256": "c02edac903460832ff7821c3c14f910e6286a0f241c122af427eb37faec52a73"
+      },
+      {
+        "id": "H2311G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 979,
+        "choices_count": 5,
+        "sha256": "f40d9ec855c92cc76c8ec1b35f6b0dc2ef4ed0aaa2b13ca7792b1d7b08c1b5af"
+      },
+      {
+        "id": "H2311G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1077,
+        "choices_count": 5,
+        "sha256": "b5eb2f23e5de6cc3adf8db2b9ec23d5fdff51f71c8591997f47002fb33344617"
+      },
+      {
+        "id": "H2311G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1083,
+        "choices_count": 5,
+        "sha256": "ab119f36f83c4eb470d834dee34f3daf7cb0dc3320033c5277fc025fa8cf4db5"
+      },
+      {
+        "id": "H2403G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 905,
+        "choices_count": 5,
+        "sha256": "91fd15d6a128ee293cee212479de69312158835913fdbda6fecbeef2b60683c7"
+      },
+      {
+        "id": "H2403G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 834,
+        "choices_count": 5,
+        "sha256": "c21472f5eade9d9b2e39361752af24fdf32adf1f7f0f243f8963c6b051b2b199"
+      },
+      {
+        "id": "H2403G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1146,
+        "choices_count": 5,
+        "sha256": "7cbb34b6a54a201eab1185c274f97236546043e2f5c1644a2be3641118918283"
+      },
+      {
+        "id": "H2403G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 950,
+        "choices_count": 5,
+        "sha256": "d5bb9735e51e767ccc19bb705706601febb72f42187c33aac84000f0299fad2f"
+      },
+      {
+        "id": "H2403G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1174,
+        "choices_count": 5,
+        "sha256": "1b90b6e867787168f744875272682463702b2654252e994c2cdfa35689930fec"
+      },
+      {
+        "id": "H2403G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1092,
+        "choices_count": 5,
+        "sha256": "1aca4c184039c69c7ad3c87b0621d2a2b2c6d342aed851b3d28eb5368295f503"
+      },
+      {
+        "id": "H2404G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1143,
+        "choices_count": 5,
+        "sha256": "45ba84cf5a6f62230b97b7730e0fd44281cdaa17ec2913b64397edbd3c1b61c8"
+      },
+      {
+        "id": "H2404G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1113,
+        "choices_count": 5,
+        "sha256": "90ed973e9b50dbd77f060d6e4ab8547a8f542b8449c96e4d3a082398b5af60ba"
+      },
+      {
+        "id": "H2406G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1009,
+        "choices_count": 5,
+        "sha256": "7ac40b9e0fccef901e9552f05471376ec1ce5315f742daef9e55eff7789d843d"
+      },
+      {
+        "id": "H2406G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 963,
+        "choices_count": 5,
+        "sha256": "5b3722da5992ae9a8d208cb311dbbe310c8b49e2ea5015340919066fbbaba74e"
+      },
+      {
+        "id": "H2406G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 886,
+        "choices_count": 5,
+        "sha256": "72ab6e37f9a460b96cd67b952445c48c4006507f2be601050c07396fbcfeed75"
+      },
+      {
+        "id": "H2406G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1001,
+        "choices_count": 5,
+        "sha256": "753a24a395620e1e490af4aa9dad44c15b1aee5c17d190fd7e10a1eb113f9389"
+      },
+      {
+        "id": "H2407G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1028,
+        "choices_count": 5,
+        "sha256": "dcb905534f719fe1921d4eab79f9dbbc2b9209469feebc9da6f8615b682e341e"
+      },
+      {
+        "id": "H2407G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1147,
+        "choices_count": 5,
+        "sha256": "0c11b2de025dbee48ff113381bf85fcf1e8fff93d1133cd1dabaa43c50d100db"
+      },
+      {
+        "id": "H2409G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1118,
+        "choices_count": 5,
+        "sha256": "290de9e9207fe9fa1ee38a1fe5e17fda90443a42ea9caba19bf421b0f21d6c9f"
+      },
+      {
+        "id": "H2409G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1147,
+        "choices_count": 5,
+        "sha256": "9b92e89c7238360534094b4899d12727615b9660ca136ecc64bc679512f0a0a2"
+      },
+      {
+        "id": "H2409G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 926,
+        "choices_count": 5,
+        "sha256": "6236fdabf41c9de050d47d3ef2a6b4a4b24a8e67c456a280a0395def823bec4c"
+      },
+      {
+        "id": "H2409G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 955,
+        "choices_count": 5,
+        "sha256": "be71531dacdf031a4c89c7c6e829f9e2893f0291d3533bf7d2cec45e1e1ae434"
+      },
+      {
+        "id": "H2410G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 962,
+        "choices_count": 5,
+        "sha256": "28a2f5059c7918ce1c5aa7fdb88d56d8174c74ee31599f58403a9d1f20ec6154"
+      },
+      {
+        "id": "H2410G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 991,
+        "choices_count": 5,
+        "sha256": "33923bf4f88ec1a2f114d5dc1bb37fed2a5d484d23198772d678c6a9623609cf"
+      },
+      {
+        "id": "H2410G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1181,
+        "choices_count": 5,
+        "sha256": "5d3e2d7efaa39d907ff25c4c1b4419644fbf26c1df0b8c3b59c4c1dfa63a657d"
+      },
+      {
+        "id": "H2410G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1147,
+        "choices_count": 5,
+        "sha256": "8612a653fc6843408224d30866c281bacfec7cbe6b6d4e03e82acbcc0e39e271"
+      },
+      {
+        "id": "H2410G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1106,
+        "choices_count": 5,
+        "sha256": "87de001082d6c4324049c970add771b442de17755c85faabe4242155c149afe3"
+      },
+      {
+        "id": "H2410G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1128,
+        "choices_count": 5,
+        "sha256": "8268ba8119b2df88d15a622637cd53f6706150c59f97074cb501975711af11e6"
+      },
+      {
+        "id": "H2503G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 927,
+        "choices_count": 5,
+        "sha256": "6485b52f16014efdb17b5dbab07b134d9c3a2c58584426b036d28afae195bb19"
+      },
+      {
+        "id": "H2503G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 979,
+        "choices_count": 5,
+        "sha256": "29eac867838a21ea8fd3daf28a6f7a9cd4d42cc1a5c7b675d4dc63d26c12fd3e"
+      },
+      {
+        "id": "H2503G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1085,
+        "choices_count": 5,
+        "sha256": "221d79bd1b3311bf8614f1a97aa1f18e4003a8dbab4a190370e32099881e9053"
+      },
+      {
+        "id": "H2503G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1021,
+        "choices_count": 5,
+        "sha256": "12273ae642858cf689c9c4561172b860510a72345d5489e6623f4123484317ec"
+      },
+      {
+        "id": "H2503G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1265,
+        "choices_count": 5,
+        "sha256": "4dd01a086a80a2a09359e76b7b652bc7922b8c9542c479261da76cdf9f96bcbc"
+      },
+      {
+        "id": "H2503G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1320,
+        "choices_count": 5,
+        "sha256": "bda89bc7a41bcbd10966296ceeb1ea5fea1f9d480702ab26d1b31a3ce4e7ee90"
+      },
+      {
+        "id": "H2505G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1151,
+        "choices_count": 5,
+        "sha256": "dc9c46b1d275b02f93e4e48f7fa22e0a2d5aee65996b84d9709358be4419b65c"
+      },
+      {
+        "id": "H2505G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1016,
+        "choices_count": 5,
+        "sha256": "dc1468d7a2e6cee370439a69fa892cc8ff7dddd8bbbaf5ecb977fc1043c0c940"
+      },
+      {
+        "id": "H2506G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 989,
+        "choices_count": 5,
+        "sha256": "bb3affbd11ae0c4d5dd3d56b8ee14291fc66ccc1dfdf49f2cd627a1ee19c59ca"
+      },
+      {
+        "id": "H2506G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 911,
+        "choices_count": 5,
+        "sha256": "6932c6652596a23540f719d81bbbecdb07064dbca678f058ffdc26587198e927"
+      },
+      {
+        "id": "H2506G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1160,
+        "choices_count": 5,
+        "sha256": "a3a7dfddc338eab51491dd6cff100779f3b77c22700af7532eb3807c30bcd209"
+      },
+      {
+        "id": "H2506G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1118,
+        "choices_count": 5,
+        "sha256": "68120526cd479a0f4130ed8f37341d15bc0734af2e1bc12a95cb68de7e62e62b"
+      },
+      {
+        "id": "H2507G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1234,
+        "choices_count": 5,
+        "sha256": "3bf83dabe2da48a927c98a9affd9fd2bc91c3a8a6a66ee9fe474c7d581abb8b4"
+      },
+      {
+        "id": "H2507G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1056,
+        "choices_count": 5,
+        "sha256": "6a30cfbae9883bdf5dbfbb4c3c0ca4710f7c290a3b2c9368e7d73d23ef13552d"
+      },
+      {
+        "id": "H2509G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1015,
+        "choices_count": 5,
+        "sha256": "26d3f14c4ef39a38126da12f3cc73fc8a95fa31d76bbdcfa0f632de3e2c40ff5"
+      },
+      {
+        "id": "H2509G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1052,
+        "choices_count": 5,
+        "sha256": "7bdae0208c24346a29a2c093b38fc857078cea7d79626867f6eea48acefa7225"
+      },
+      {
+        "id": "H2509G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 902,
+        "choices_count": 5,
+        "sha256": "27d812919a5dcc18f8061b31deb25b77169c7756390d5c132fbf914b58244005"
+      },
+      {
+        "id": "H2509G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1085,
+        "choices_count": 5,
+        "sha256": "a0f15a1e690392db7c17a22e38dbd4b6d856ca0316ff58343896a05146a4e760"
+      },
+      {
+        "id": "H2510G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 926,
+        "choices_count": 5,
+        "sha256": "5034e671d734112bb20e55fa1967546c7f4fce5ae982b528774f428d3930831a"
+      },
+      {
+        "id": "H2510G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1090,
+        "choices_count": 5,
+        "sha256": "e3ea2d53adddb19146c4c141171efd11c396b1aabe807db861cc116336a8b737"
+      },
+      {
+        "id": "H2510G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1030,
+        "choices_count": 5,
+        "sha256": "066900525ff19eb22863cacdaf524d128cbab3e62b89d651e4cd3d295be6bb22"
+      },
+      {
+        "id": "H2510G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1155,
+        "choices_count": 5,
+        "sha256": "582cbb6493eb1346ccc3bb889f79c1f6319b956dcf326f6727417a1c347a7c5b"
+      },
+      {
+        "id": "H2510G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1055,
+        "choices_count": 5,
+        "sha256": "329de2443771e2bd78e077d11d3202272d3a9cc59a0c3afe54d69dd69c6d1411"
+      },
+      {
+        "id": "H2510G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1138,
+        "choices_count": 5,
+        "sha256": "55be8495586e6b22bfa320124d954a2fca78c6f81c78f7caa84b3924f9159b94"
+      },
+      {
+        "id": "H2603G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 859,
+        "choices_count": 5,
+        "sha256": "51ae655bcaaa0e465688983f2d856d374091af4b8e5ff5cf8b541c1082564368"
+      },
+      {
+        "id": "H2603G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 831,
+        "choices_count": 5,
+        "sha256": "d1f2c019f66654c586962c41bdb8a23850f13793b774fa40215607e8a3e285a6"
+      },
+      {
+        "id": "H2603G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1017,
+        "choices_count": 5,
+        "sha256": "3c42822b5affe18e9a802aaf307d6cece3e30bc28e2c0f0905cdc7b482086012"
+      },
+      {
+        "id": "H2603G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1068,
+        "choices_count": 5,
+        "sha256": "2c7eda4aaaaec33eba0ee5a5f36a01ffeac4cf6b583b57829c9d9ef7251ad863"
+      },
+      {
+        "id": "H2603G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1294,
+        "choices_count": 5,
+        "sha256": "baa696306b3863c68ab41c88e1e1f6550027ad4096510c80ec3cf5656a88ab3e"
+      },
+      {
+        "id": "H2603G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1211,
+        "choices_count": 5,
+        "sha256": "c13a7155b0f5bf22f7d29397fbc9e4c5abf0bb397ed9885b8725d1cd6c7111f1"
+      },
+      {
+        "id": "H2605G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1167,
+        "choices_count": 5,
+        "sha256": "26f21f3a5f76a56eef347d54335d4f7fbbe410be8a8348bb32c60ebea1a48bf9"
+      },
+      {
+        "id": "H2605G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1101,
+        "choices_count": 5,
+        "sha256": "9f88ff458e2f7bf47a60da5c34a933a3c3f4ba1c52699acdeb7657c93785e45b"
+      },
+      {
+        "id": "H2606G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1024,
+        "choices_count": 5,
+        "sha256": "8e7ab201510144e3a280dee7326a09e2a6dc0d7b4c25fc4b9c206da24da5a000"
+      },
+      {
+        "id": "H2606G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 972,
+        "choices_count": 5,
+        "sha256": "7711555acb5c42dd856abbb3394ddfca6c2e0c812f64d80353e7854723c58e05"
+      },
+      {
+        "id": "H2606G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1143,
+        "choices_count": 5,
+        "sha256": "c36279e9c224f42c41c12328d697a4183471fb3d62815a0a50df091915bbe6c6"
+      },
+      {
+        "id": "H2606G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 996,
+        "choices_count": 5,
+        "sha256": "066a2fc3af100bd373286e814951798814c36dcee7c2113c405c075811b418ba"
+      },
+      {
+        "id": "H2607G3#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1001,
+        "choices_count": 5,
+        "sha256": "c3caec370cb0ceaebb9cf276be48bb6ef2bc308f1c2eb02289e0abd63754fd95"
+      },
+      {
+        "id": "H2607G3#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1042,
+        "choices_count": 5,
+        "sha256": "a81849697f4f9e153a8ee0b6e68b7b8b4664f31e3ec679fd10e18845c4332e3a"
+      },
+      {
+        "id": "H2609G1#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1063,
+        "choices_count": 5,
+        "sha256": "f5d9c6e16211e056dc5601d9e98b3443cc9792daf2340529a047e0d50e5f57d5"
+      },
+      {
+        "id": "H2609G1#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 795,
+        "choices_count": 5,
+        "sha256": "525db7c28ce6e7ea065b5514934625dadbfac3f6f287a21afd4784896a9db8e3"
+      },
+      {
+        "id": "H2609G2#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1081,
+        "choices_count": 5,
+        "sha256": "f8360edc19c1150311f4228d231292e9f069e233858a89647539452ef09b822d"
+      },
+      {
+        "id": "H2609G2#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 969,
+        "choices_count": 5,
+        "sha256": "094c6dd603a29aff4c97cbaed5ec47b68e16530185364a53e56e426d5331671f"
+      },
+      {
+        "id": "M1809#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 871,
+        "choices_count": 5,
+        "sha256": "44fb40d4abef16c824fe5add946895a1e994412c55a2911040e60361aeacb5c7"
+      },
+      {
+        "id": "M1809#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 927,
+        "choices_count": 5,
+        "sha256": "c08507d0988c5677640ad825491c12761af497e68203814e04cd001eef3c8cf0"
+      },
+      {
+        "id": "M2006#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1095,
+        "choices_count": 5,
+        "sha256": "d5d72c92398975632b88009913d8823d3713dd958bf2f9bf2a2ad81460c9db27"
+      },
+      {
+        "id": "M2006#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1118,
+        "choices_count": 5,
+        "sha256": "7d7c176b00190cb38e8e8faa8b9b10a528a248701ef9c745386f6e841a5dad36"
+      },
+      {
+        "id": "M2106#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1092,
+        "choices_count": 5,
+        "sha256": "9650ebb0316e29f7c37f57bb7fc46adfcf56a2c8418cb852e98559655dfb7e7b"
+      },
+      {
+        "id": "M2106#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1070,
+        "choices_count": 5,
+        "sha256": "bb4481a38b740ce9a6731a386386f4b4b026b5afe59ec0344522010a391afdd1"
+      },
+      {
+        "id": "M2109#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 960,
+        "choices_count": 5,
+        "sha256": "052acf1d0b377af0f8c835f49d517c7fc8154b149ecb54c80fc678014e919d32"
+      },
+      {
+        "id": "M2109#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 881,
+        "choices_count": 5,
+        "sha256": "f73c0b8d95253880bf5c22a7a11c8ee8fce11745928974ecf8c4ab1748258ec2"
+      },
+      {
+        "id": "M2206#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1018,
+        "choices_count": 5,
+        "sha256": "c5108a70a275f84cd5243f2fecce9b978d0c428c59e6e63b313c552f4371ea63"
+      },
+      {
+        "id": "M2206#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1098,
+        "choices_count": 5,
+        "sha256": "506a2f7908d02ee0ff4d2dbee0103ca34aabb71c53d9e09219be8714c2c1eaf4"
+      },
+      {
+        "id": "M2209#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1210,
+        "choices_count": 5,
+        "sha256": "5944d3dabff48a02c11477ef9c148e7802568a9bb8a59715d0fab7bbc84809f8"
+      },
+      {
+        "id": "M2209#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1063,
+        "choices_count": 5,
+        "sha256": "6535d94839b16555394a668dfa3c35e9f95b71f6d75d9615c982e439f54867bd"
+      },
+      {
+        "id": "M2306#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장                                   Mobilities in transit offer a broad field to be explored by 적절한 곳을 고르시오.                                                       different disciplines in all faculties, in addition to the",
+        "passage_chars": 1232,
+        "choices_count": 5,
+        "sha256": "e60f7612702572b7913e9918fc3ae562e876c0cf2c7c33df9ebcdc0400ab9e11"
+      },
+      {
+        "id": "M2306#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장                                   Mobilities in transit offer a broad field to be explored by 적절한 곳을 고르시오.                                                       different disciplines in all faculties, in addition to the",
+        "passage_chars": 1100,
+        "choices_count": 5,
+        "sha256": "38ab4460ea82974237d5769b6e9cc7986622cbb22c240e4e23db569725a086ae"
+      },
+      {
+        "id": "M2309#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1068,
+        "choices_count": 5,
+        "sha256": "66743a7c93c812e165fa5eddd329fb45b67734d8af60d7c90a8a72f60fb4c221"
+      },
+      {
+        "id": "M2309#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1104,
+        "choices_count": 5,
+        "sha256": "25f7b83c1a6520bbcdd2e9961f1f7ca683c9b9c1ec3b32804d575ff6c958dbc0"
+      },
+      {
+        "id": "M2406#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장                                     The evolutionary process works on the genetic variation 적절한 곳을 고르시오.                                                         that is available. It follows that natural selection is unlikely",
+        "passage_chars": 1169,
+        "choices_count": 5,
+        "sha256": "5a0971e4599483139966548b3559e9dcb09eb74c6eae70189964e71f780ee936"
+      },
+      {
+        "id": "M2406#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장                                     The evolutionary process works on the genetic variation 적절한 곳을 고르시오.                                                         that is available. It follows that natural selection is unlikely",
+        "passage_chars": 1014,
+        "choices_count": 5,
+        "sha256": "714dd6c5003ed4ea3032cb7cecfe354aab625a1da197c9f8ffa12b310b52915c"
+      },
+      {
+        "id": "M2409#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1302,
+        "choices_count": 5,
+        "sha256": "857a8cc5a99e6245b3ee1896937d36533781c3143885e0a68b6d40e1f3cfefcc"
+      },
+      {
+        "id": "M2409#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1115,
+        "choices_count": 5,
+        "sha256": "bf6478bc27b25651a8c5af20463fa3b9737db8af756f844cd8aff6a1dc410a48"
+      },
+      {
+        "id": "M2506#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1084,
+        "choices_count": 5,
+        "sha256": "81dcfe292778a88d4d00f08290e1a89042907158c8aa407e2202adde2ce4e680"
+      },
+      {
+        "id": "M2506#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1057,
+        "choices_count": 5,
+        "sha256": "ea5754ccc4f2cba69336d64cee1f06afe97ce8cdd0d3c1d0703a4374a732ab13"
+      },
+      {
+        "id": "M2509#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1067,
+        "choices_count": 5,
+        "sha256": "54467b8387d800a8fe46fcd08af324d26ab4bc8e087d09c42f581f58111e94ec"
+      },
+      {
+        "id": "M2509#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1208,
+        "choices_count": 5,
+        "sha256": "539edff8a44167a14d2285e435a07c46d13e395ad561c93ef301bcbe3202340c"
+      },
+      {
+        "id": "M2606#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 903,
+        "choices_count": 5,
+        "sha256": "cf507fa6610a0dfeff52f6c6f05db0051ac030d9f8c43072cb8a412cbc6ad6ed"
+      },
+      {
+        "id": "M2606#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1021,
+        "choices_count": 5,
+        "sha256": "1502ed259993dbee62967321435dffc2b38e2c0f3737793444bc9ae6f8d99eed"
+      },
+      {
+        "id": "M2609#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 976,
+        "choices_count": 5,
+        "sha256": "ea2e4495545a94161ec121458a8f6511d5b96c68399c4df7561fcf759f484813"
+      },
+      {
+        "id": "M2609#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1226,
+        "choices_count": 5,
+        "sha256": "ca7ba01f335a0b9c96b9806b4c8502df810570ab1781222f3b58c89c475d982b"
+      },
+      {
+        "id": "M2706#38",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1203,
+        "choices_count": 5,
+        "sha256": "f7571fadeed9d8708e1d32b451d2e5e47d05c9e0af12700b49a643e6ad094821"
+      },
+      {
+        "id": "M2706#39",
+        "stem": "글의 흐름으로 보아, 주어진 문장이 들어가기에 가장 적절한 곳을 고르시오.",
+        "passage_chars": 1172,
+        "choices_count": 5,
+        "sha256": "489060cadc8459112785851956c6d453bedb712f56222cab0073e671bd9a2f71"
+      }
+    ]
+  },
+  "M2709": [],
+  "choices_2023_38": [
+    {
+      "id": "2023#38",
+      "body_ok": true,
+      "choices": null
+    }
+  ],
+  "rights": {
+    "exams_with_items": 133,
+    "nonempty_notes": []
+  },
+  "applications": [
+    {
+      "surface_ref": "cohesion-link:2022-36",
+      "status": "draft"
+    },
+    {
+      "surface_ref": "option-restate:2025-22",
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2025-23",
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2025-24",
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2026-22",
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2026-23",
+      "status": "active"
+    },
+    {
+      "surface_ref": "option-restate:2026-24",
+      "status": "active"
+    }
+  ],
+  "insertion_samples": [
+    {
+      "id": "2025#38",
+      "local_same": true,
+      "prefix_sha256": "7ff0177e308b7998a02bcdf4adc995815e1bbdc2583b44d925a1f90796cacc1a"
+    },
+    {
+      "id": "2025#39",
+      "local_same": true,
+      "prefix_sha256": "398438e9589b15c9cb02fee575143af661c8f46c0dcce671500e9f9cf553e274"
+    },
+    {
+      "id": "2026#38",
+      "local_same": false,
+      "prefix_sha256": "b17cbe9c89f0adc28d297f488ae2554d341844c81c98eb2d138bb969edc997d9"
+    },
+    {
+      "id": "2026#39",
+      "local_same": false,
+      "prefix_sha256": "146df8a4ab68f7b2c64b97f7b2f790fbc6e922eae08e1fde9d719b678fd4d930"
+    },
+    {
+      "id": "M2609#38",
+      "local_same": true,
+      "prefix_sha256": "4dbf6945c3d0344ab6ac054338d030050b0bbd7bab49565cc694c6caf959c423"
+    },
+    {
+      "id": "M2609#39",
+      "local_same": true,
+      "prefix_sha256": "521a420fcbad28b8c4aa7131aa0c6b7e83ad03ceb70c87b1d51a83a495904e98"
+    },
+    {
+      "id": "M2706#38",
+      "local_same": false,
+      "prefix_sha256": "95f634470c79ccc06c62c87e5a05ed6e9081dad76d8afdfd9129ca35ff3963c9"
+    },
+    {
+      "id": "M2706#39",
+      "local_same": false,
+      "prefix_sha256": "ca9b8b5a283b77f23f14b8cbb6a8a6214aad5706b622734c5cf9fed0a53f8c02"
+    }
+  ]
+}

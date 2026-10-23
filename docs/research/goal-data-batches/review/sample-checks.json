@@ -1,0 +1,821 @@
+{
+  "selection": "R1: 입력 순서로 서로 다른 문항 첫 링크 30개(25·38·39 제외). 갈림: R3 전부 + 입력 순서 나머지 19. D3: b2-v2 어법·순서 각 첫 4개를 먼저, 나머지 유형별 첫 2개를 순서대로 택하여 30에서 자름. 의도 표본이며 모집단 추정 아님.",
+  "counts": {
+    "r1": 30,
+    "disputes": 30,
+    "r3": 11,
+    "d3": 30
+  },
+  "checks": [
+    {
+      "group": "r1",
+      "id": "M2609#18",
+      "task": "R4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:1",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:7",
+      "source_sha256": "335c75571e72a9b486fe5cf57f071ea7f7b088e56d5f17c57e3f3f8be88fb560",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#19",
+      "task": "V1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:4",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:178",
+      "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#20",
+      "task": "R2",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:8",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:322",
+      "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#21",
+      "task": "R1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:11",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488",
+      "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#22",
+      "task": "R5",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:14",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661",
+      "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#23",
+      "task": "R2",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:16",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:834",
+      "source_sha256": "52760ba28bb28b3b4edd88098d1ba1ee064204f9a7e8573fcde37614b2824922",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#24",
+      "task": "R2",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:19",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010",
+      "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#26",
+      "task": "E1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:24",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1313",
+      "source_sha256": "60b2ee1d6c01a18a3f0818645142bb1550fa0ea26afa71aecad4e30875027889",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#27",
+      "task": "S5",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:27",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1459",
+      "source_sha256": "20b3b404518f8daa507b29d8011e44489b67eea81a730505cee2b907316ef5fa",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#28",
+      "task": "E2",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:31",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1602",
+      "source_sha256": "522f523fdee7d95b9fb620b760d6320564b02256f0d49cd1cd108590327d1a44",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#29",
+      "task": "S3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:33",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754",
+      "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#30",
+      "task": "V1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:37",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904",
+      "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#31",
+      "task": "R6",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:39",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2052",
+      "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#32",
+      "task": "V1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:41",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2199",
+      "source_sha256": "c453746d4e4bb78ff5f42c16d595401947b0e5948f1ca0be5c7feae6a3102052",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#33",
+      "task": "R6",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:45",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2371",
+      "source_sha256": "aa4026632f812140d417528e74ab2520bfd39ab8fe7a9c2a3b0c1aaf14ad3a23",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#34",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:47",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2520",
+      "source_sha256": "d0c6620ffd0fd9436e10d2260bbc24f01dd6763632a44324d392399595eba3ac",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#35",
+      "task": "R1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:51",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2685",
+      "source_sha256": "e337c68ce82b297791d63b73f96a35725ebff240b49d28eddafdce7b4fb98c11",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#36",
+      "task": "R1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:53",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833",
+      "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#37",
+      "task": "R1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:56",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3004",
+      "source_sha256": "2eb48e5e3ed5c4951de56d2f73639ddb1ac9465a4ee8e941c738fbc759fdf359",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#40",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:64",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3494",
+      "source_sha256": "409d8ce0ccb4d4d99935cf185d63435c3db85238fd6d9fd5137c2fb4792952cb",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#41",
+      "task": "R5",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:69",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3639",
+      "source_sha256": "315eed6e7bd14b15bfe2a08b0ae647d00943addf94a8b0ef8f606d67bb45a7e5",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#42",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:71",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3780",
+      "source_sha256": "99ddc7bdb2894612a30c73ba82e5cd9e541c24ed447d4e5a9070584a095a6105",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#43",
+      "task": "R1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:73",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3926",
+      "source_sha256": "6f7b26c5f60546727698fe6fde79820b8ac44fa8a1850ad89119ee4971ef7544",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#44",
+      "task": "R1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:76",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4072",
+      "source_sha256": "eb50bb2aa7e6e6a8fd48681ff5451b77e1854a26bae4a18f8542ccce66c26572",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "M2609#45",
+      "task": "E1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:77",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4222",
+      "source_sha256": "10df37cc6226809e04426c0b604317e8c1e78dd6f968cb377e927cf77bbdfc10",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "2025#22",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:80",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4370",
+      "source_sha256": "146e78ef1c3e9c81486120541db9c1253f10796329d760936f74e03534f15dd9",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "2025#23",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:83",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4531",
+      "source_sha256": "03004b183dcfd8fec0f6904f8802c56f48b59efe47b7a924063f5c33d51ac896",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "2025#29",
+      "task": "S4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:86",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4698",
+      "source_sha256": "4f393ce6f1aa8c0a3457a1b30565cfe39cd416e7d0574c96074cbc31d8d162b0",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "2025#31",
+      "task": "R2",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:89",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4830",
+      "source_sha256": "bb1be4be320719747b4b76bd47e076fe6c04fbf2b2503f35ae707b3f55d7a42a",
+      "errors": []
+    },
+    {
+      "group": "r1",
+      "id": "2025#32",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-item-task-links.jsonl:93",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5014",
+      "source_sha256": "eedb830dfce4b3392add1ce77a48b75c3c33869f7eb20fc9643bedcf4be04ca4",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#22",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:6",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661",
+      "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#36",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:31",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833",
+      "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#37",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:32",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3004",
+      "source_sha256": "2eb48e5e3ed5c4951de56d2f73639ddb1ac9465a4ee8e941c738fbc759fdf359",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#41",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:36",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:3639",
+      "source_sha256": "315eed6e7bd14b15bfe2a08b0ae647d00943addf94a8b0ef8f606d67bb45a7e5",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "2025#22",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:47",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4370",
+      "source_sha256": "146e78ef1c3e9c81486120541db9c1253f10796329d760936f74e03534f15dd9",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "2025#23",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:49",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:4531",
+      "source_sha256": "03004b183dcfd8fec0f6904f8802c56f48b59efe47b7a924063f5c33d51ac896",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "2025#34",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:63",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5325",
+      "source_sha256": "48f7ff56c977f73874222d8a6d1893625378bff3d391453322c3d5e0b2d1e5b8",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "2025#36",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:67",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5501",
+      "source_sha256": "dfc1d2805a63a9d42ac5bc383e361474b903126e85051c397d82b5354c4d9f8e",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "2025#37",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:71",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5668",
+      "source_sha256": "8be1c544b0a5c469a31f7b1202fc2a58e88708abc1accdfccdfe8f86f25dd221",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "2025#38",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:73",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5816",
+      "source_sha256": "19b4e438e3d039337a0bfbd92a6f6c7a53e2235b029a160551f36b18a572b93a",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "2025#39",
+      "task": "R3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:75",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:5963",
+      "source_sha256": "e4b5592bcebeb358eb2ee442ee3d1a5c739d92380b7a43053f11a718db28d3b1",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#19",
+      "task": "E3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:1",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:178",
+      "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#20",
+      "task": "V3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:2",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:322",
+      "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#21",
+      "task": "V3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:3",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488",
+      "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#21",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:4",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488",
+      "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#21",
+      "task": "E3",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:5",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488",
+      "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#22",
+      "task": "R4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:7",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661",
+      "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#24",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:8",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010",
+      "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#24",
+      "task": "R6",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:9",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010",
+      "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#25",
+      "task": "S4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:10",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1177",
+      "source_sha256": "608e6d5b0b6be1df881af29917818eec71c2da107d34cbcde73b04ea712210c0",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#28",
+      "task": "S5",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:11",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1602",
+      "source_sha256": "522f523fdee7d95b9fb620b760d6320564b02256f0d49cd1cd108590327d1a44",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#29",
+      "task": "S1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:12",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754",
+      "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#29",
+      "task": "E1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:13",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754",
+      "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#30",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:14",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904",
+      "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#30",
+      "task": "R2",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:15",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904",
+      "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#30",
+      "task": "R4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:16",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904",
+      "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#30",
+      "task": "E2",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:17",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904",
+      "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#31",
+      "task": "V4",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:18",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2052",
+      "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#31",
+      "task": "R1",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:19",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2052",
+      "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+      "errors": []
+    },
+    {
+      "group": "disputes",
+      "id": "M2609#31",
+      "task": "R2",
+      "evidence": "80fa44540:docs/research/goal-data-batches/D2-task-mapping/b2-v2-disputed-links.jsonl:20",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2052",
+      "source_sha256": "1f580dc835e35296e10471dec1379e9a75fbd7d8dda13da39fd5115379e83287",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#29",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:205",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754",
+      "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#29",
+      "task": 3,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:206",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754",
+      "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#29",
+      "task": 4,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:207",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754",
+      "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#29",
+      "task": 5,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:208",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1754",
+      "source_sha256": "d947eef9669a26042d74408aa4ee930d84c3e071f1cee2b9daf50d6254047d77",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#36",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:233",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833",
+      "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#36",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:234",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833",
+      "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#36",
+      "task": 3,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:235",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833",
+      "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#36",
+      "task": 5,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:236",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:2833",
+      "source_sha256": "35626484a5fd0e7cd28e62dff0f3094e26c488a6e72104934365e64968e048e1",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#18",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:161",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:7",
+      "source_sha256": "335c75571e72a9b486fe5cf57f071ea7f7b088e56d5f17c57e3f3f8be88fb560",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#18",
+      "task": 3,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:162",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:7",
+      "source_sha256": "335c75571e72a9b486fe5cf57f071ea7f7b088e56d5f17c57e3f3f8be88fb560",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#19",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:165",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:178",
+      "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#19",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:166",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:178",
+      "source_sha256": "476181041701d4439c9f47915354be883d6cbe20ac520184ecf25b0180a559b8",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#20",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:169",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:322",
+      "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#20",
+      "task": 3,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:170",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:322",
+      "source_sha256": "dc74721f2df44648df9824fb29b2a0265b172c4321267e88a65f89ff19b646b5",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#21",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:173",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488",
+      "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#21",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:174",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:488",
+      "source_sha256": "487748f7b7a1e3010061a7309be571c0ac6e1c12271007787119d127af3c00ef",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#22",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:177",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661",
+      "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#22",
+      "task": 3,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:178",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:661",
+      "source_sha256": "6a6afca71a6fa46397fec8828d74c830ac50c291bafc33ed8aee921146ef1458",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#23",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:181",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:834",
+      "source_sha256": "52760ba28bb28b3b4edd88098d1ba1ee064204f9a7e8573fcde37614b2824922",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#23",
+      "task": 3,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:182",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:834",
+      "source_sha256": "52760ba28bb28b3b4edd88098d1ba1ee064204f9a7e8573fcde37614b2824922",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#24",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:185",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010",
+      "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#24",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:186",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1010",
+      "source_sha256": "d3e6b6a0aafd43349c12704884bc632e60248dd25eddc264ff5d6713261775f3",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#25",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:189",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1177",
+      "source_sha256": "608e6d5b0b6be1df881af29917818eec71c2da107d34cbcde73b04ea712210c0",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#25",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:190",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1177",
+      "source_sha256": "608e6d5b0b6be1df881af29917818eec71c2da107d34cbcde73b04ea712210c0",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#26",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:193",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1313",
+      "source_sha256": "60b2ee1d6c01a18a3f0818645142bb1550fa0ea26afa71aecad4e30875027889",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#26",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:194",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1313",
+      "source_sha256": "60b2ee1d6c01a18a3f0818645142bb1550fa0ea26afa71aecad4e30875027889",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#27",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:197",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1459",
+      "source_sha256": "20b3b404518f8daa507b29d8011e44489b67eea81a730505cee2b907316ef5fa",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#27",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:198",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1459",
+      "source_sha256": "20b3b404518f8daa507b29d8011e44489b67eea81a730505cee2b907316ef5fa",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#30",
+      "task": 1,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:209",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904",
+      "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+      "errors": []
+    },
+    {
+      "group": "d3",
+      "id": "M2609#30",
+      "task": 2,
+      "evidence": "80fa44540:docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl:210",
+      "source": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b2-v2/input.json:1904",
+      "source_sha256": "bd927a27a43ae7e2100715b6378745d3a849d456f09414cdaec0f686282e2c44",
+      "errors": []
+    }
+  ]
+}

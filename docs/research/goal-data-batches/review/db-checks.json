@@ -1,0 +1,91 @@
+{
+  "queried_at": "2026-10-23T03:35:24.642Z",
+  "project": "dev",
+  "writes": 0,
+  "results": [
+    {
+      "id": "insert",
+      "table": "csat_items",
+      "query": "select=id,exam_id,no,stem,passage,choices,raw_block&type_id=eq.R-INSERT",
+      "method": "GET",
+      "status": 200,
+      "summary": {
+        "rows": 262,
+        "raw_block_null": 262,
+        "stem_standard_only": 252,
+        "non_null_raw_ids": [],
+        "counterexamples": [
+          {
+            "id": "2025#39",
+            "raw_block_null": true,
+            "passage_sha256": "b93d540f66b0a529c41f69ce6695019e67c12a381f8ac584ba27689fb661ef06",
+            "first_sentence_sha256": "398438e9589b15c9cb02fee575143af661c8f46c0dcce671500e9f9cf553e274",
+            "prefix_matches_local": true,
+            "interpretation": "첫 문장은 선형 생애주기를 부정하고 수리·보관·재활용을 예시하여, 뒤 본문의 불완전한 정의 비판→추가 사례 사이 ④를 잇는다."
+          },
+          {
+            "id": "2025#38",
+            "raw_block_null": true,
+            "passage_sha256": "095d22183bdc9530124113532dcba1c687bf9f4b44611aa86d5877a9da8600fe",
+            "first_sentence_sha256": "7ff0177e308b7998a02bcdf4adc995815e1bbdc2583b44d925a1f90796cacc1a",
+            "prefix_matches_local": true,
+            "interpretation": "첫 문장은 영업비밀 법적 보호가 없을 때 유출 위험으로 전환하고, 뒤 본문의 비밀 유지 이점→아이디어 공개 사이 ④를 잇는다."
+          }
+        ],
+        "limitation": "raw_block null은 별도 저장소 전체 결손의 증명이 아니다. 삽입 대상 문장으로 해석되는 두 접두 문장은 외부 공식 PDF 대조까지 끝난 판정은 아니다."
+      }
+    },
+    {
+      "id": "m2709",
+      "table": "csat_exams",
+      "query": "select=id,label&or=(id.eq.M2709,and(exam_year.eq.2027,month.eq.9))",
+      "method": "GET",
+      "status": 200,
+      "summary": []
+    },
+    {
+      "id": "m2709-items",
+      "table": "csat_items",
+      "query": "select=id&exam_id=eq.M2709",
+      "method": "GET",
+      "status": 200,
+      "summary": []
+    },
+    {
+      "id": "2023-38",
+      "table": "csat_items",
+      "query": "select=id,choices,body_ok&id=eq.2023%2338",
+      "method": "GET",
+      "status": 200,
+      "summary": [
+        {
+          "id": "2023#38",
+          "choices": null,
+          "body_ok": true
+        }
+      ]
+    },
+    {
+      "id": "rights",
+      "table": "csat_exams",
+      "query": "select=id,source_note",
+      "method": "GET",
+      "status": 200,
+      "summary": {
+        "exams": 134,
+        "source_note_present": [
+          "M2009"
+        ],
+        "limitation": "source_note 부재만으로 법적 재배포 불가를 확정하지 않는다"
+      }
+    },
+    {
+      "id": "rights-positive-exam-items",
+      "table": "csat_items",
+      "query": "select=id&exam_id=eq.M2009",
+      "method": "GET",
+      "status": 200,
+      "summary": []
+    }
+  ]
+}

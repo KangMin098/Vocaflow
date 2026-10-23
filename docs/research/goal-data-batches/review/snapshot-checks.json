@@ -1,0 +1,236 @@
+{
+  "d4_input_head": "791ee473e2173cacd3d2d98932d280fce317274c",
+  "files": [
+    {
+      "path": "docs/csat-learner/v4/codebook.json",
+      "expected": "e53141985380c410be02cc8cf84e204479f075520b92448a40dde366551c1c6a",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/definition.data.ts",
+      "expected": "33036711acceb618ef10a495e661a2691b24a129be1e0b9ad8d0695ee85d6d59",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "docs/csat-learner/v4/workspaces.json",
+      "expected": "406fb3b81ee23cd9f629fb2a5ea8d52b82930da2ec352a770db88add31c59d95",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "docs/csat-learner/v4/relations.json",
+      "expected": "716b0b940cd96013e12303ddc3555b362abb345b6cfb1ad252952c4704521b24",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/e-evidence-location.v1.json",
+      "expected": "b98f5d11282528b90740ef78334afb6dc455045ca32768c518552b24140613fe",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/e-option-correspondence.v1.json",
+      "expected": "09654111ee813850861249cfb142ce0ec887c36bd65ffd15294911ed5115ea0f",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/e-task-demand.v1.json",
+      "expected": "8a91033b38d9ee68108a02422aff00790f0c21b5428facb4c56a2fa78c068bda",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-discourse-function.v1.json",
+      "expected": "a50f17d423ae4b1d09a9970be80ec0e6b9033f949a04f6f0b65f2c23faf1b083",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-discourse-structure.v1.json",
+      "expected": "3f8345758d6106c7dfc8348004fb5d246903fea70c8cfd32d1644c10b9374a9e",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-inference.v1.json",
+      "expected": "651ccbe064fbc5ba63feea4e2e3fa3d0522eb378649bffd03f3ffa27cda3902d",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-reference.v1.json",
+      "expected": "6807473e00f86c456b6500ca8007bc5e497196dc2f1930183d25d6024f5f5ecf",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r-relation.v1.json",
+      "expected": "4a8c34feaa40228b3ec2389b6c6a7bd8852f067ba181e708e1285389bf7d5ea0",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r5-central-meaning.v1.json",
+      "expected": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v1.json",
+      "expected": "109c813ef06a2c631586f56b9735cdf148b0970b6cc5e1ddfcb53f1182e39d74",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/r5-cycle-supplement.v2.json",
+      "expected": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-attachment.v1.json",
+      "expected": "aed0b88228a2fb9b10182ac2c6fb32f97df05511383c37288b95a01d4d942c40",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-chunk-boundary.v1.json",
+      "expected": "c7a0526ce33047116682931bc5818e12a05f4f87a2015737783b2e854e02f2de",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-form-scope.v1.json",
+      "expected": "cedf02062f07755698bd3816f889baf5959942a80dbaceefa334a3dfaafb1604",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-sentence-core.v1.json",
+      "expected": "b10859fbc4b7cab9063d306804ee2f2a218deaf9bc861dd47b7ceb7e4843fcc9",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/s-structural-relation.v1.json",
+      "expected": "d393dfe4bd475fee2b677f2170e176e291694536b092a71eb7ab8834df34b83c",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/source-lesson-title-route.v3.json",
+      "expected": "0b653454bfea053f0523cee1647de1eb97ad5038661bd2fac49162336db0c7f0",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/v-contextual-sense.v1.json",
+      "expected": "fb8bfaeba6461a2cf94ae65d22c95240c88e9a283f72f2bfaca840c5c3026ddb",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/v-multiword.v1.json",
+      "expected": "179725ab501da614cebd6d2076f475b2123829657e194e462fb579a5f49fb5b6",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/v-semantic-relation.v1.json",
+      "expected": "2763dfa3786da48773b54f0f74e3eb8dcf0ceeb710924d478aefe94c59995358",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/tasks.ts",
+      "expected": "3aef7dffdcf278b7f5bb752e7c937a7d72d238cd9805837832f14ea631a26edf",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/formats.ts",
+      "expected": "0a84e761f4cd4f4da4a99290b754eb1cf0fd5114eec7e0f0f55137734efc7b62",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/authored-items.ts",
+      "expected": "d364356846a4b255cfc64cec870e9d899b8d3d8ee86695f535fd398607e94858",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/knowledge/authored/labels.ts",
+      "expected": "0bf25ca6588a856c7fc908d2503bbbc852e7b7d836dc9f780a4e0daf4d2fae66",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "docs/final/AUTHORING_SPEC.md",
+      "expected": "4d24a73037f4c672c7cb04160915ca49f4734afb1b55fdbc2737849db0a8ad27",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "docs/final/APPROVAL_PACKAGE.md",
+      "expected": "ed58da4abd19d25f4b256ed6e20fe75c16f9df38dfd475e5b6226e27614bcb5a",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "docs/final/review/r5-authored-gold-packet.md",
+      "expected": "706887dc7edf35604572d1d909933e2a10c16329af6d0e3654a4c5cfac09b35d",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "docs/csat-learner/v62/data-expansion/coverage.json",
+      "expected": "bf2589662e18df2ea30be52242060115a72b03672ad6879376c34389b7d37164",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/skill-diagnosis.ts",
+      "expected": "d5f01c1ca6065bc1913b57d8444937700d77c4fd9d19beba7c2b2b9fafc88880",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/observation.ts",
+      "expected": "b85060fe21fff627452f863c103bd1ae6c6cec43364db224d1d98d2a30ee6313",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v4/to-be.ts",
+      "expected": "ebc23333a1c193fc9d296d934020c2d270d1f0e583d43fc300fbc7e1d0a3ba6a",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/lifecycle-evidence.ts",
+      "expected": "c2ff74ea3e149b52dbe6f4f7c77ffe78155ca27c27278ff9d2a1d808ebbcd5d4",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/load.ts",
+      "expected": "883fb9aa12128546b0cab243d9cef3c8d59f6188f70343d2dfab7477799db201",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    },
+    {
+      "path": "apps/web/src/lib/csat/map/v62/supply.ts",
+      "expected": "8252d056aad73202bf86151709c7bb59018a42bee178feb163452232b5d553e5",
+      "working_bytes_match": true,
+      "git_input_matches_review": true
+    }
+  ],
+  "all_git_inputs_identical": true,
+  "all_working_bytes_match": true,
+  "note": "파일 바이트 해시가 다르면 줄바꿈까지 같은 것으로 주장하지 않는다. git input blob 동일성은 별도 검사했다."
+}
