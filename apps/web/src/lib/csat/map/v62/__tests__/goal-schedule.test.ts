@@ -1,0 +1,189 @@
+// apps/web/src/lib/csat/map/v62/__tests__/goal-schedule.test.ts
+import { describe, expect, it } from 'vitest'
+import { parseGoalBudget, sameBudget, type GoalBudget } from '../goal-budget'
+import { budgetUsage, goalSchedule, scheduleChanges } from '../goal-schedule'
+import { parseGoalInput, type GoalVersion } from '../target-goal'
+import type { GoalPlanRow, GoalPlanSummaryData } from '../goal-plan'
+import { CANON_VERSION } from '../../v4/definition'
+import type { TaskPlan, WorkspacePlanView } from '../../v4/plan'
+import type { SavedPlans } from '../../v4/plan-store'
+import { goalLearning } from '../goal-learning'
+
+export const BUDGET: GoalBudget = { weeklyMinutes: 120, dailyMinutes: [20, 20, 20, 20, 20, 20, 0], minutesPerUnit: 10, priorities: [] }
+export const GOAL: GoalVersion = { id: 1, exam: 'suneung', score: 80, grade: null, date: '2026-11-01', createdAt: '2026-10-23T00:00:00Z', budget: BUDGET }
+export function row(overrides: Partial<GoalPlanRow> = {}): GoalPlanRow {
+  return { task: 'r.central_meaning', needRank: 1, need: 'CONFIRM', evidence: 'unmeasured', basis: 'none', independentItems: null, relevance: { items: 2, pointsPerExam: 4 }, stage: 'check', workspace: 'ws.central-meaning', quantity: { unit: '문항', planned: 4, remaining: 4, done: 0, source: 'saved' }, criterion: '근거를 들어 설명한다', achievement: 'not_checked', action: { rank: 1, href: '/csat/learn/authored-central-meaning?phase=check', label: '혼자 확인하기' }, planGate: null, replanWhy: null, blocked: null, unresolved: [], ...overrides }
+}
+
+describe('goal budget validation', () => {
+  it.each([NaN, Infinity, -1, 1.5, 10081, '120'])('rejects invalid weekly cap %s', weeklyMinutes => {
+    expect(parseGoalBudget({ ...BUDGET, weeklyMinutes }).ok).toBe(false)
+  })
+  it('zero is an explicit no-allocation budget, compatible with profile weekly_hours=0', () => {
+    const budget = { ...BUDGET, weeklyMinutes: 0, dailyMinutes: null }
+    expect(parseGoalBudget(budget)).toEqual({ ok: true, budget })
+    expect(goalSchedule({ ...GOAL, budget }, [row()], '2026-10-23')).toMatchObject({ allocations: [], unassigned: [{ task: 'r.central_meaning', amount: 4, unit: '문항', reason: 'time' }] })
+  })
+  it.each([[10, 20], [0, 0, 0, 0, 0, 0, -1], [100, 100, 0, 0, 0, 0, 0]])('rejects invalid daily caps %j', (...dailyMinutes) => {
+    expect(parseGoalBudget({ ...BUDGET, dailyMinutes }).ok).toBe(false)
+  })
+  it('rejects unknown, held, duplicated priorities and fields', () => {
+    for (const priorities of [['invented'], ['r.central_meaning', 'r.central_meaning']]) expect(parseGoalBudget({ ...BUDGET, priorities }).ok).toBe(false)
+    expect(parseGoalBudget({ ...BUDGET, autoConfirm: true }).ok).toBe(false)
+  })
+  it('requires exam/date with a budget and never converts grade into a score', () => {
+    expect(parseGoalInput({ target: 80, exam: 'suneung', date: '2026-11-01', budget: BUDGET, expectedGoalVersion: null }, '2026-10-23').ok).toBe(true)
+    expect(parseGoalInput({ target: 80, exam: 'suneung', date: '2026-11-01', budget: BUDGET }, '2026-10-23').ok).toBe(false)
+    expect(parseGoalInput({ target: 80, budget: BUDGET }, '2026-10-23').ok).toBe(false)
+    expect(parseGoalInput({ grade: 2, exam: 'suneung', date: '2026-11-01', budget: BUDGET }, '2026-10-23').ok).toBe(false)
+    expect(parseGoalInput({ target: 80, exam: 'suneung', date: '2040-11-01', budget: BUDGET }, '2026-10-23').ok).toBe(false)
+  })
+  it('compares normalized budgets structurally, independent of object key order', () => {
+    expect(sameBudget(BUDGET, { priorities: [], minutesPerUnit: 10, dailyMinutes: [...BUDGET.dailyMinutes!], weeklyMinutes: 120 })).toBe(true)
+    expect(sameBudget(BUDGET, { ...BUDGET, weeklyMinutes: 60 })).toBe(false)
+  })
+})
+
+describe('goal calendar allocation: synthetic A/B/C', () => {
+  it('A: independent failure returns the repair stage; no unrelated TASK is promoted', () => {
+    const original = [row(), row({ task: 'e.option_correspondence', needRank: 2, workspace: 'ws.option-match' })]
+    const copy = structuredClone(original)
+    const before = goalSchedule(GOAL, original, '2026-10-23')
+    const repaired = [row({ stage: 'repair', need: 'REPAIR', evidence: 'verified_need', quantity: { planned: 1, remaining: 1, done: 0, unit: '문항', source: 'saved' } }), original[1]]
+    const after = goalSchedule(GOAL, repaired, '2026-10-23')
+    expect(after.allocations[0].stage).toBe('repair')
+    expect(after.allocations.filter(a => a.task === original[1].task).reduce((n, a) => n + a.amount, 0)).toBe(4)
+    expect(scheduleChanges(before, after, false)).toEqual([{ task: original[0].task, before: 4, after: 1, reason: 'evidence_or_content' }])
+    expect(original).toEqual(copy)
+  })
+  it('B: no exam record remains unmeasured, yet an actual independent link can be scheduled', () => {
+    const r = row()
+    const s = goalSchedule(GOAL, [r], '2026-10-23')
+    expect(s.allocations[0]).toMatchObject({ evidence: 'unmeasured', stage: 'check', date: '2026-10-23', amount: 2 })
+    expect(r.basis).toBe('none')
+    const noContent = goalSchedule(GOAL, [row({ action: null, quantity: { ...r.quantity, remaining: null, planned: null } })], '2026-10-23')
+    expect(noContent.unassigned[0]).toMatchObject({ amount: null, reason: 'content' })
+    expect(noContent.allocations).toEqual([])
+  })
+  it('C: less time/new goal yields less work; stale PLAN must be reconfirmed and old inputs stay immutable', () => {
+    const old = structuredClone(GOAL)
+    const before = goalSchedule(GOAL, [row()], '2026-10-23')
+    const newGoal = { ...GOAL, id: 2, date: '2026-10-23', budget: { ...BUDGET, weeklyMinutes: 10, dailyMinutes: [0, 0, 0, 0, 10, 0, 0] } }
+    const after = goalSchedule(newGoal, [row()], '2026-10-23')
+    expect(after.allocations[0].amount).toBe(1)
+    expect(after.unassigned[0]).toMatchObject({ amount: 3, reason: 'time' })
+    expect(scheduleChanges(before, after, true)[0].reason).toBe('goal')
+    expect(goalSchedule(newGoal, [row({ action: null, planGate: 'replan' })], '2026-10-23').unassigned[0].reason).toBe('plan')
+    expect(GOAL).toEqual(old)
+  })
+  it('never guesses quantities for missing content, unknown relevance, ledger failures or maintenance', () => {
+    const s = goalSchedule(GOAL, [row({ need: 'RELEVANCE_UNKNOWN' }), row({ task: 'e.option_correspondence', quantity: { unit: '문항', planned: null, remaining: null, done: 0, source: 'unknown' } }), row({ task: 'r.inference', blocked: 'maintain_pending' })], '2026-10-23')
+    expect(s.allocations).toEqual([])
+    expect(s.unassigned.map(a => a.reason)).toEqual(['relevance', 'unknown', 'maintenance'])
+    expect(s.unassigned.every(a => a.amount === null)).toBe(true)
+  })
+  it('uses whole units with automatic daily allocation, including small weekly budgets', () => {
+    const s = goalSchedule({ ...GOAL, budget: { ...BUDGET, weeklyMinutes: 60, dailyMinutes: null } }, [row()], '2026-10-26')
+    expect(s.allocations.reduce((n, a) => n + a.amount, 0)).toBe(4)
+  })
+  it('reserves recorded attempts on refresh, preventing an already completed unit from replenishing today’s budget', () => {
+    const event = { attemptId: 'one', taskKey: 'authored-central-meaning', itemRef: 'authored:one', phase: 'practice', isCorrect: false, answeredAt: '2026-10-22T15:10:00Z', receivedAt: '2026-10-22T15:10:02Z', synthetic: false }
+    const usage = budgetUsage(BUDGET, [event, event, { ...event, attemptId: 'synthetic', synthetic: true }, { ...event, attemptId: 'future', receivedAt: '2026-10-24T00:00:00Z' }], '2026-10-23T01:00:00Z')
+    expect(usage).toEqual([{ date: '2026-10-23', minutes: 10 }])
+    const after = goalSchedule(GOAL, [row({ quantity: { planned: 4, remaining: 3, done: 1, source: 'saved', unit: '문항' } })], '2026-10-23', usage)
+    expect(after.allocations.filter(a => a.date === '2026-10-23').reduce((n, a) => n + a.minutes, 0)).toBe(10)
+    expect(after.weeks[0].reserved).toBe(10)
+    expect(after.weeks.every(w => w.minutes + w.reserved <= BUDGET.weeklyMinutes)).toBe(true)
+  })
+  it('limits every date and calendar week over a range of budgets and partial-week deadlines', () => {
+    for (const weeklyMinutes of [1, 9, 10, 60, 121, 500, 10080]) {
+      const s = goalSchedule({ ...GOAL, budget: { ...BUDGET, weeklyMinutes, dailyMinutes: null } }, [row({ quantity: { unit: '지문', planned: 999, remaining: 999, done: 0, source: 'saved' } })], '2026-10-23')
+      expect(s.weeks.every(w => w.minutes <= w.capacity && w.capacity <= weeklyMinutes)).toBe(true)
+      expect(s.allocations.every(a => a.date <= GOAL.date! && a.date >= '2026-10-23' && a.minutes <= 1440)).toBe(true)
+      expect(s.allocations.reduce((n, a) => n + a.amount, 0) + s.unassigned.reduce((n, a) => n + (a.amount ?? 0), 0)).toBe(999)
+    }
+  })
+  it('expired and invalid dates are explicit; no invented link or future evidence', () => {
+    expect(goalSchedule(GOAL, [row()], '2026-11-02')).toMatchObject({ status: 'expired', allocations: [], unassigned: [{ reason: 'deadline', amount: 4, task: 'r.central_meaning', unit: '문항' }] })
+    expect(() => goalSchedule(GOAL, [], '2026-02-30')).toThrow()
+    expect(goalSchedule({ ...GOAL, budget: undefined }, [], '2026-10-23').status).toBe('missing_budget')
+  })
+})
+
+const TASK = 'r.central_meaning', WS = 'ws.central-meaning'
+const goal = { id: 1, score: 85, grade: 2, exam: 'suneung' as const, date: '2026-11-19', createdAt: '2026-10-01T00:00:00Z', budget: { weeklyMinutes: 120, dailyMinutes: null, minutesPerUnit: 10, priorities: [] } }
+const saved: SavedPlans = { status: 'installed', goal, goalVersionId: 1, goalHistory: [goal], byTemplate: { [WS]: { template: WS, workspaceId: 'sql-workspace', history: [], latest: { version: 7, goalVersionId: 1, createdAt: '2026-10-20T00:00:00Z', asOf: '2026-10-20T00:00:00Z', canon: CANON_VERSION, reason: 'initial', note: null, restoredFrom: null, plan: { order: [TASK], tasks: [{ task: TASK, stage: 'check', planned: 2, available: 2, rule: null }] } } } } }
+const task = { task: TASK, stage: 'check', need: 'CONFIRM', basis: 'none', achievement: 'not_checked', quantity: { unit: '문항', available: 2, planned: 2, remaining: 2, done: 0 } } as TaskPlan
+const summary: GoalPlanSummaryData = { rows: [{ task: TASK, needRank: 1, need: 'CONFIRM', evidence: 'unmeasured', basis: 'none', independentItems: null, relevance: { items: 2, pointsPerExam: 4 }, stage: 'check', workspace: WS, quantity: { unit: '문항', planned: 2, remaining: 2, done: 0, source: 'saved' }, criterion: '근거를 설명한다', achievement: 'not_checked', action: { rank: 1, href: '/csat/learn/a?d=sql-delivery', label: '혼자 확인하기' }, planGate: null, replanWhy: null, blocked: null, unresolved: [] }], examSessions: 0, required: 1, relevanceUnknown: 0, directTasks: 0, actionable: 1 }
+function input() { return { summary: structuredClone(summary), saved: structuredClone(saved), plans: { [WS]: { workspace: WS, core: [TASK], tasks: [structuredClone(task)], progress: null } as WorkspacePlanView }, taskPlans: [structuredClone(task)], sessions: [], activity: [], asOf: '2026-10-23T01:00:00Z', profileWeeklyMinutes: 60 } }
+
+describe('single goal / PLAN / schedule / outcome projection', () => {
+  it('uses the goal budget before profile hours; profile zero stays zero and is not silently saved', () => {
+    const a = input()
+    expect(goalLearning(a).budget).toMatchObject({ source: 'goal', weeklyMinutes: 120 })
+    a.saved.goal = { ...goal, budget: undefined }
+    const b = goalLearning({ ...a, profileWeeklyMinutes: 0 })
+    expect(b.budget).toMatchObject({ source: 'profile', weeklyMinutes: 0, budget: null })
+    expect(b.schedule?.status).toBe('missing_budget')
+    expect(b.schedule?.allocations).toEqual([])
+  })
+  it('keeps one goal id and real next URL while saved version and unknown exam result remain separate', () => {
+    const a = input(), original = structuredClone(a.saved)
+    const v = goalLearning(a)
+    expect(v.schedule?.goalVersion).toBe(v.outcome?.goalVersion)
+    expect(v.schedule?.allocations.reduce((n, a) => n + a.amount, 0)).toBe(2)
+    expect(v.schedule?.allocations[0].action?.href).toBe(summary.rows[0].action?.href)
+    expect(v.revisions[0]).toMatchObject({ fromVersion: 7, goalVersion: 1, reason: null })
+    expect(v.outcome?.score.status).toBe('no_followup')
+    expect(v.outcome?.attainment.status).toBe('unconfirmed')
+    expect(a.saved).toEqual(original)
+  })
+  it('direct failure changes the PLAN proposal to repair, gating execution until explicit confirmation', () => {
+    const a = input(), previous = goalLearning(a)
+    a.plans[WS].tasks[0].stage = 'repair'; a.taskPlans[0].stage = 'repair'
+    a.taskPlans[0].next = { href: '/csat/learn/repair?d=real-repair', label: '바로잡기' }
+    a.summary.rows[0] = { ...a.summary.rows[0], stage: 'repair', evidence: 'verified_need', action: null, planGate: 'replan', replanWhy: 'content', quantity: { ...a.summary.rows[0].quantity, source: 'proposed' } }
+    const v = goalLearning({ ...a, previous })
+    expect(v.revisions[0]).toMatchObject({ fromVersion: 7, reason: 'check_result', changes: [{ task: TASK, kind: 'stage_changed', from: 'check', to: 'repair' }] })
+    expect(v.schedule?.allocations).toEqual([])
+    expect(v.allocationChanges?.[0]).toMatchObject({ task: TASK, before: 2, after: 0 })
+    expect(a.saved.byTemplate[WS].latest.version).toBe(7)
+    expect(a.saved.byTemplate[WS].latest.plan.tasks[0].stage).toBe('check')
+    expect(v.replan.reasons).toEqual(['check_result'])
+    expect(v.replan.before!.allocations.every(a => a.action === null)).toBe(true)
+    expect(v.replan.after!.allocations[0].action?.href).toBe('/csat/learn/repair?d=real-repair')
+  })
+  it('a new valid exam suggests new_exam; a met criterion never silently becomes final attainment or a saved PLAN', () => {
+    const a = input()
+    const sessions = [{ id: 'exam', examId: 'new-paper', examLabel: '새 시험', examScope: 'suneung' as const, takenAt: '2026-10-21', enteredAt: '2026-10-22T00:00:00Z', raw: 90, grade: 1, diagnosable: true, examReady: true, mode: 'live' as const, firstExposure: 'unseen' as const }]
+    const v = goalLearning({ ...a, sessions })
+    expect(v.outcome?.score.status).toBe('reached')
+    expect(v.outcome?.attainment.status).toBe('unconfirmed')
+    expect(v.revisions[0].reason).toBe('new_exam')
+    expect(a.saved.byTemplate[WS].latest.version).toBe(7)
+  })
+  it('a changed goal/time budget keeps the previous PLAN version and demands goal_change', () => {
+    const a = input(), old = structuredClone(a.saved.byTemplate[WS].latest)
+    a.saved.goal = { ...goal, id: 2, budget: { ...goal.budget, weeklyMinutes: 20 } }; a.saved.goalVersionId = 2
+    a.summary.rows[0].action = null; a.summary.rows[0].planGate = 'replan'
+    const v = goalLearning(a)
+    expect(v.revisions[0]).toMatchObject({ reason: 'goal_change', fromVersion: 7, goalVersion: 2 })
+    expect(v.schedule?.allocations).toEqual([])
+    expect(a.saved.byTemplate[WS].latest).toEqual(old)
+    expect(v.replan.unchanged).toBe(false)
+  })
+  it('an exam entered after PLAN on the same calendar day is a new_exam revision', () => {
+    const a = input()
+    a.saved.byTemplate[WS].latest.createdAt = '2026-10-21T09:00:00Z'
+    a.saved.byTemplate[WS].latest.asOf = '2026-10-21T09:00:00Z'
+    a.summary.rows[0].planGate = 'replan'
+    const sessions = [{ id: 'exam', examId: 'new-paper', examLabel: '새 시험', examScope: 'suneung' as const, takenAt: '2026-10-21', enteredAt: '2026-10-21T10:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true, mode: 'live' as const, firstExposure: 'unseen' as const }]
+    const v = goalLearning({ ...a, sessions })
+    expect(v.revisions[0]).toMatchObject({ reason: 'new_exam', newExam: true })
+    expect(v.replan.reasons).toEqual(['new_exam'])
+  })
+  it('a failed saved-state read cannot yield a schedule, outcome or fabricated history', () => {
+    const a = input(); a.saved.error = true
+    expect(goalLearning(a)).toMatchObject({ schedule: null, outcome: null, allocationChanges: null, revisions: [] })
+  })
+})

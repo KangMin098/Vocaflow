@@ -7,6 +7,22 @@
  * Inspector 폭 360(정본 §9.2 의 340~380 안). 페이지 가로 넘침 금지 — 넘치는 것은 캔버스 안에서만 스크롤.
  */
 
+/* Period allocation uses the existing neutral Workspace rows and disclosures. */
+.schedule { margin: 12px 0; padding: 16px 24px; border: 1px solid var(--m-line); border-radius: 8px; background: var(--m-bg); word-break: keep-all; }
+.scheduleHead { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.scheduleHead h2 { display: flex; align-items: center; gap: 8px; }
+.scheduleRows { list-style: none; margin: 8px 0; padding: 0; }
+.scheduleRows > li { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--m-line); }
+.scheduleRows > li > div { display: grid; gap: 4px; min-width: 0; }
+.scheduleRows strong { font-size: 14px; color: var(--m-ink); }
+.scheduleRows span, .scheduleDetails { font-size: 13px; color: var(--m-ink2); }
+.schedule a, .schedule button, .scheduleDetails > summary { min-height: 44px; }
+.scheduleDetails > summary { display: flex; align-items: center; cursor: pointer; color: var(--m-ink); }
+.scheduleDetails ul { padding-left: 20px; }
+.scheduleDetails li { padding: 4px 0; }
+.scheduleWeek { padding: 10px 0; border-bottom: 1px solid var(--m-line); }
+.schedule :is(a, button, summary):focus-visible { outline: 2px solid var(--m-ink); outline-offset: 3px; }
+
 .wrap {
   --col-gap: 12px;
   container-type: inline-size;

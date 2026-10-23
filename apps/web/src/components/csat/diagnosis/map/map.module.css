@@ -776,10 +776,16 @@
 }
 .goalMore > .inputWrap {
   display: grid;
-  grid-template-columns: 84px minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1fr);
   width: 100%;
   margin-bottom: 8px;
 }
+.goalMore .inputLabel { white-space: normal; word-break: keep-all; }
+.goalMore > .goalToggle { grid-template-columns: 20px minmax(0, 1fr); cursor: pointer; }
+.goalToggle input { width: 16px; height: 16px; }
+.budgetFields { min-width: 0; border: 0; padding: 8px 0 0; }
+.budgetDays { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; }
+.budgetDays .inputWrap { display: grid; min-width: 0; }
 
 @media (min-width: 900px) {
   .root { --m-elev: none; }
