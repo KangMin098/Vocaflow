@@ -1,0 +1,235 @@
+{
+  "task_id": "T-0109",
+  "owner_id": "goal-data-independent",
+  "session": "t-0109-codex",
+  "type": "review",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; 수용 기준 전량 충족이나 제품 적용 승인이 아님",
+  "skip_count": 0,
+  "observed_at": "2026-10-23T07:06:52.490Z",
+  "source_commit": "78ff7df3925acc35d5a8b5130da2055013e95307",
+  "base_commit": "fdde27456da8b943ad67b85b090bf56729ea7c2f",
+  "diff_sha256": "704f0b917f4fad1d53e69b7c7f8e9459c455226e442e33208d0dcadd3e636a6e",
+  "changed_files": [
+    "docs/research/goal-data-batches/D2-task-mapping/b6-v23-item-task-links.jsonl",
+    "docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl",
+    "docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json",
+    "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md",
+    "docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl",
+    "docs/research/goal-data-batches/D3-principles/principle-groups.json",
+    "scripts/research/goal-data/d2-validate.check.mjs",
+    "scripts/research/goal-data/d2-validate.mjs"
+  ],
+  "acceptance": [
+    {
+      "index": 0,
+      "status": "resolved",
+      "finding": "T-0108 P1 해소. 실제 direct 1개·primary 일치만 골격 예외. 공급 검사6/6, 기존6종 및 독자6종 반례/대조군을 D2·D3에서 재현. b2–b6 현행 계약 회귀 결함0.",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d2-validate.mjs:86",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d2-validate.check.mjs:12",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d2-run.mjs:32",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d3-build.mjs:49",
+        "scripts/research/goal-data/review-b6/recheck3-detail.mjs:25"
+      ]
+    },
+    {
+      "index": 1,
+      "status": "unresolved",
+      "correction_status": "resolved",
+      "finding": "T-0108 P2의 지정 설명과 #33(A) E3 why 수정은 원문에 부합하고 D3 전파 완료. 링크 판정·primary·일치율·κ·R1·갈림 수는 불변. 다만 수치 전체 불변이라는 문자 그대로의 조건은 충족하지 않음: #34(B) 결정 위치 인용 변경으로 D3 same_decision_locus 97→96. 정당한 파생값 변경이며 새 P0/P1이 아니다.",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b6-v23/input.json:2156",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b6-v23/input.json:2303",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b6-v23/chunk-A-01.out.json:1716",
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b6-v23/chunk-B-01.out.json:1912",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b6-v23-item-task-links.jsonl:41",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl:552",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl:173",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl:174",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/principle-groups.json:40"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "resolved",
+      "finding": "새 P0 0·P1 0. v2.4는 §4 결정 대기·연구 후보 표시를 유지하는 조건으로 봉인 가능. 본 검토는 입력을 수정하거나 실제 봉인하지 않는다.",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/d2-validate.mjs:86",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:27",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:36",
+        "docs/research/goal-data-batches/review-b6/recheck3.json:1"
+      ]
+    }
+  ],
+  "prior_findings": [
+    {
+      "id": "T0108-P1-01",
+      "status": "resolved"
+    },
+    {
+      "id": "T0108-P2-01",
+      "status": "resolved"
+    }
+  ],
+  "new_P0": [],
+  "new_P1": [],
+  "seal": {
+    "allowed": true,
+    "condition": "§4 결정 대기와 연구 후보 표시 유지. 공개 relevance=unknown·NeedRank 입력 금지 유지",
+    "one_line": "v2.4 봉인 가능 — 새 P0/P1 없음; §4 결정 대기 유지, 동일 결정 위치 97→96 예외 명시."
+  },
+  "verification": {
+    "supplied_checks": 6,
+    "independent_probes": 6,
+    "previous_probes": 6,
+    "regression": {
+      "b2-v2": {
+        "expected": 40,
+        "accepted_A": 40,
+        "accepted_B": 40,
+        "defects": 0
+      },
+      "b3-insert": {
+        "expected": 8,
+        "accepted_A": 8,
+        "accepted_B": 8,
+        "defects": 0
+      },
+      "b4-v21": {
+        "expected": 40,
+        "accepted_A": 40,
+        "accepted_B": 40,
+        "defects": 0
+      },
+      "b5-v22": {
+        "expected": 38,
+        "accepted_A": 38,
+        "accepted_B": 38,
+        "defects": 0
+      },
+      "b6-v23": {
+        "expected": 40,
+        "accepted_A": 40,
+        "accepted_B": 40,
+        "defects": 0
+      }
+    },
+    "agreement": {
+      "n": 240,
+      "agree": 225,
+      "ratio": 0.9375,
+      "kappa": 0.8921542194661634,
+      "primary": 33
+    },
+    "counts": {
+      "b6_r1": 93,
+      "combined_r1": 604,
+      "b6_disputed": 15,
+      "combined_disputed": 343
+    },
+    "d3_totals": {
+      "items": 198,
+      "primary_agree": 166,
+      "wrong": 792,
+      "wrong_agree": 514,
+      "source_wrong": 780,
+      "source_wrong_agree": 502
+    },
+    "same_decision_locus": {
+      "before": 97,
+      "after": 96
+    },
+    "propagation_all_40": true,
+    "packet_hashes": {
+      "scripts/research/goal-data/local/b2-v2/chunk-A-01.json": "1c10d4d222d70486c4b0b60bfa67b764c4f9929393170b27df697d73a922940a",
+      "scripts/research/goal-data/local/b2-v2/chunk-A-01.out.json": "b3229b1b47dfaf39e7653536d2d9ac5c98b56aa8a968accf8d13b694e16abe31",
+      "scripts/research/goal-data/local/b2-v2/chunk-A-02.json": "0a9876b7d2d865f8988d2ee86b19f4833a8566f7c5e6678b3d736d77884276ab",
+      "scripts/research/goal-data/local/b2-v2/chunk-A-02.out.json": "9aee330a9ddbb71741e7344ed2b54a2d059f7d56f4d40714e236b5934750ea92",
+      "scripts/research/goal-data/local/b2-v2/chunk-A-03.json": "da1d7606525b4289d111947cfddd97ceadcdb7c57c81530686c714d449e5a1a5",
+      "scripts/research/goal-data/local/b2-v2/chunk-A-03.out.json": "57274050386aa60919573f636ee1e68bdcf0a33ee0a12221e673cc79203fccad",
+      "scripts/research/goal-data/local/b2-v2/chunk-A-04.json": "90cd21c4af74325d61cd84a1c958231631d9b4c25a076e4439ad2b25789a5c8d",
+      "scripts/research/goal-data/local/b2-v2/chunk-A-04.out.json": "deb5586e3a2e2074e077d75a27894b10afb89e9b182e0ce892d5a16c5c456291",
+      "scripts/research/goal-data/local/b2-v2/chunk-B-01.json": "932793f4fdcad81164912d811759916fd1128632df0facba06a22f1bad9ee93b",
+      "scripts/research/goal-data/local/b2-v2/chunk-B-01.out.json": "ffd07416e51419cd87d797845abdea8f812673999ce149c5e37b79b2e165b810",
+      "scripts/research/goal-data/local/b2-v2/chunk-B-02.json": "f047b1ad1ba22120b796d8888d54abc2b2a6dca00e7d69e6b19338ae15a4c24e",
+      "scripts/research/goal-data/local/b2-v2/chunk-B-02.out.json": "f52329b272bfbb83324d6c9fac8f10cb8f148ae9c0678c56c53b83bb260a4595",
+      "scripts/research/goal-data/local/b2-v2/chunk-B-03.json": "038dda233e8754450fab1c5b886b5abe434330c35df65ac6daa76ad3eda3c461",
+      "scripts/research/goal-data/local/b2-v2/chunk-B-03.out.json": "55cfa1b68e515279237e55163af5edd2ef7dc590930cbf3a107c9d734e84c1f9",
+      "scripts/research/goal-data/local/b2-v2/chunk-B-04.json": "56821ecca2530b6f496254488ee5727598b9f8c97eb7309c6d3e0daddb65bc13",
+      "scripts/research/goal-data/local/b2-v2/chunk-B-04.out.json": "dad929bc4d3111cc11081a8628d776e98e2681c887439bb2d402dc5dc9920df9",
+      "scripts/research/goal-data/local/b2-v2/input.json": "b0c77226c404e08f6515f96745177ab3a244030c261b5bc83a9d3ba34ca6db12",
+      "scripts/research/goal-data/local/b2-v2/r3-third.out.json": "b7268dc6091ba160ef5e0a5ae04457b2a5a5da3a124a236a0405ecf64e371bc9",
+      "scripts/research/goal-data/local/b3-insert/chunk-A-01.json": "14db56af1bcb9ed7b3f5579c2677d53b7a9ad0d0f4b3ad0e086fdc91fede00a9",
+      "scripts/research/goal-data/local/b3-insert/chunk-A-01.out.json": "7d080ddeaa51a5d25df2a75ca1ffc2cb7f08e3bc7d3da67062867aad70dbf986",
+      "scripts/research/goal-data/local/b3-insert/chunk-B-01.json": "82ebd1cb9a9dbc645b9cce9da6ec5ad024a7f971d407e2b2a11228154d78e4a9",
+      "scripts/research/goal-data/local/b3-insert/chunk-B-01.out.json": "1d4107952a51ae0c5d0c71fd77b5455e1a94a63499f760ea1e41a457b09f163b",
+      "scripts/research/goal-data/local/b3-insert/input.json": "e9cb00e9f0dcf798d09adee2a9bb87cf9f50f043f28b8e0cc60d59c03414ce18",
+      "scripts/research/goal-data/local/b4-v21/chunk-A-01.json": "f0892c08de3a80317c0a0e34cd561fa2d226571c89f4e1c32582e37522ecf639",
+      "scripts/research/goal-data/local/b4-v21/chunk-A-01.out.json": "f307dad57a20a281ab68f126a3068446eec6e74edf543f64ecc7d390e00fdc14",
+      "scripts/research/goal-data/local/b4-v21/chunk-A-02.json": "10eaa494b5368dd016ffa7c9fa72e4214c79d27dec6d18f6a0e287823da66fb2",
+      "scripts/research/goal-data/local/b4-v21/chunk-A-02.out.json": "9ed14d31599c7f42be6ab4d6b66be201e2f3a69f802930e6473a023bb99472e5",
+      "scripts/research/goal-data/local/b4-v21/chunk-B-01.json": "9691c62fb887f58ccabba477589bcd6cf542cc02810e573c0cc8c16242513f69",
+      "scripts/research/goal-data/local/b4-v21/chunk-B-01.out.json": "a46053c9e72d3022a40d81dbe8210c25d0226d5d5fbbbea3b68e99212c468f93",
+      "scripts/research/goal-data/local/b4-v21/chunk-B-02.json": "c091249969f924f892e37c43d28c071b867f1aab3f8af076fe84e3092c06c727",
+      "scripts/research/goal-data/local/b4-v21/chunk-B-02.out.json": "4def56bd75f69409e0f044fac164b71a1e3a65392ba4aefab55b7405717e9981",
+      "scripts/research/goal-data/local/b4-v21/input.json": "50b927c4c29e6d18794a68fd20d4f128f0b3ef307552e491c1145aaef16fa70c",
+      "scripts/research/goal-data/local/b5-v22/chunk-A-01.json": "8241d6b47ec69ec0805264dc05bd2221e4af7c2bf2b0a41d7df61dab4340454a",
+      "scripts/research/goal-data/local/b5-v22/chunk-A-01.out.json": "2f7fc6e8920e24ae4b0b8a07f84dd2f865c788fef80acd33343a2e53e7febe6d",
+      "scripts/research/goal-data/local/b5-v22/chunk-A-02.json": "74c93e1538b8bbd66ff4cba837b47d45900cce1c96024f4e6283060e97645e20",
+      "scripts/research/goal-data/local/b5-v22/chunk-A-02.out.json": "666e9fb9126c72bc1bb818c026478783204206af01509e0f3efcef9cb4596d1c",
+      "scripts/research/goal-data/local/b5-v22/chunk-B-01.json": "16cfc5bfc6d6c6a443732df1b476c28d7b8b822614927dee7117385ecd941045",
+      "scripts/research/goal-data/local/b5-v22/chunk-B-01.out.json": "bad96d0846bc5049e360651e6b59d504dad9745842bae93b77be388bfc76b8df",
+      "scripts/research/goal-data/local/b5-v22/chunk-B-02.json": "7f631f28c13debb76bfaed8efa02e5368073878a7d4239a23ada849a20c8349e",
+      "scripts/research/goal-data/local/b5-v22/chunk-B-02.out.json": "961086a50ad2778bee29886e21e9c6895145738c151e10b7cb66663025fde100",
+      "scripts/research/goal-data/local/b5-v22/input.json": "e8747b0f531f585030a1972bc4e4b77c191e710e3c485849df720578f5f5b764",
+      "scripts/research/goal-data/local/b6-v23/chunk-A-01.json": "3809476288a1f017e8d647020408a8b97cc42cba52e5fb166827e104759b9317",
+      "scripts/research/goal-data/local/b6-v23/chunk-A-01.out.json": "66f151e8613c3b9ec6a79af2e6f8383cf0e16a4e3c3651353f341f34253a7a54",
+      "scripts/research/goal-data/local/b6-v23/chunk-A-02.json": "153f3e808efe1d8f9cf743b865582f852123edb712f9d737b4ffcaeb187870fd",
+      "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json": "87716ef7cb91b5da9f06dafacd37d43e43d3d4842d96266ccf2de5e52cf1ff38",
+      "scripts/research/goal-data/local/b6-v23/chunk-B-01.json": "cdf66bf9f5f28f83cf1511a5b90aad4190db856983e565368affd3542115975c",
+      "scripts/research/goal-data/local/b6-v23/chunk-B-01.out.json": "ffa8346837500324417abfb3852ea29a2f4a158d5f41772871df50140fe90bae",
+      "scripts/research/goal-data/local/b6-v23/chunk-B-02.json": "4d17476bbe7f59731582302e3deaaa997c15751d093c5b64a9e678b2665764b7",
+      "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json": "78f9e42832d6fede01c1d50dc49eae52b7f9f29f04858f9621019abb7bd60406",
+      "scripts/research/goal-data/local/b6-v23/input.json": "58e9ea9af8355bf7604f85175e6a53f5de6519cc6a5dfef33380a0593f82454b",
+      "scripts/research/goal-data/local/b6-v23/primary-rule-test.out.json": "0cd781408f243286af8b106e4fb001de84e7a249a49e0178e7605489297f59be"
+    }
+  },
+  "unclear": [
+    "A/B 생성 과정의 실제 독립성: 독립 세션 로그 없음",
+    "고친 §4 규칙의 미관측 b7 타당도·학생 효과",
+    "기존 2022#33 E2/R5 우열·E3 경계 및 b5 원천 복구 이력",
+    "direct 집합의 제품 관련도 사용 적격성"
+  ],
+  "not_run_out_of_scope": [
+    "DB/SQL 실행",
+    "제품 E2E",
+    "사람 검수·D5 외부 검증",
+    "입력 worktree 쓰기·봉인 실행",
+    "main/원격 통합"
+  ],
+  "raw_local_files": [
+    "scripts/research/goal-data/review-b6/recheck3-diff.local.json",
+    "scripts/research/goal-data/review-b6/recheck3-packets.local.json",
+    "scripts/research/goal-data/review-b6/recheck3-metrics.local.json",
+    "scripts/research/goal-data/review-b6/recheck3-probes.local.json",
+    "scripts/research/goal-data/review-b6/recheck3-detail.local.json",
+    "scripts/research/goal-data/review-b6/recheck3-command-output.local.json"
+  ],
+  "git": {
+    "attempted": true,
+    "committed": false,
+    "attempts": [
+      {
+        "action": "add",
+        "exit_code": 128
+      },
+      {
+        "action": "commit",
+        "exit_code": 1
+      }
+    ],
+    "blocker": "공유 Git 관리 영역 쓰기 권한 차단; add 실패로 새 파일 commit도 실패",
+    "raw_output": "scripts/research/goal-data/review-b6/recheck3-command-output.local.json"
+  }
+}
