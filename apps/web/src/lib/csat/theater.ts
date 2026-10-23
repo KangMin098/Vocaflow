@@ -104,7 +104,7 @@ export function theaterSteps(outline: LectureStep[]): TheaterStep[] {
  * 남은 번호가 정답이다(2026-10-24 cue 공개 감사). 번호는 강의를 고른 뒤 받은 cue 의 강조로만 드러난다.
  */
 export function maskDisclosureSteps(steps: TheaterStep[]): TheaterStep[] {
-  return steps.map((s) => (/^analysis:reject:d$/.test(s.targetKey) ? { ...s, name: '오답 지우기', targetKey: 'analysis:reject' } : s))
+  return steps.map((s) => (/^analysis:reject:\d$/.test(s.targetKey) ? { ...s, name: '오답 지우기', targetKey: 'analysis:reject' } : s))
 }
 
 /** 상영 전체 길이 — 「약 n분」 한 줄에 쓴다 */

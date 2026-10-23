@@ -864,7 +864,7 @@ export function AnalysisTheater({
   // ── 정답 공개 경로(2026-10-24 P1~P5) — 강의를 듣기 전에 학습자가 고른다. 고르기 전에는 어떤 cue 도 받지도 틀지도 않는다.
   // 원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지(검증된 경계가 있을 때만). 강제 퀴즈 · 필수 선지 선택으로 대신하지 않는다
   const [lecturePath, setLecturePath] = useState<'self' | 'full' | 'until' | null>(null)
-  const [chooser, setChooser] = useState<{ from: number } | null>(null)
+  const [chooser, setChooser] = useState<{ from: number; byLearner: boolean } | null>(null)
   const [untilFailed, setUntilFailed] = useState(false)
   const [atBoundary, setAtBoundary] = useState(false)
   const chooserRef = useRef<HTMLHeadingElement | null>(null)
@@ -877,7 +877,7 @@ export function AnalysisTheater({
     if (!lec) return
     if (lecturePath === 'full') return lec.start(from, 'start', 'full')
     if (lecturePath === 'until' && untilOk) return lec.start(untilFrom(from), 'start', 'until')
-    setChooser({ from })
+    setChooser({ from, byLearner: true })
   }
   const choosePath = (p: 'self' | 'full' | 'until') => {
     const from = chooser?.from ?? 0
@@ -888,19 +888,17 @@ export function AnalysisTheater({
     if (p === 'until') lec.start(untilFrom(from), 'start', 'until')
     else lec.start(from, 'start', 'full')
   }
+  // 포커스는 학습자가 연 경우에만 옮긴다 — 강의가 경계에 닿거나 서버가 거절해 열린 안내는 aria-live 로만 알린다(T-0140 Codex P2)
   useEffect(() => {
-    if (chooser) chooserRef.current?.focus()
+    if (chooser?.byLearner) chooserRef.current?.focus()
   }, [chooser])
-  useEffect(() => {
-    if (atBoundary) boundaryRef.current?.focus()
-  }, [atBoundary])
   useEffect(() => {
     if (lecturePath !== 'until' || !lec) return
     // 서버가 경계를 거절했다(결속 불일치 등) — 안전 구간을 추정하지 않고 다시 고르게 한다
     if (lec.status === 'error') {
       setUntilFailed(true)
       setLecturePath(null)
-      setChooser({ from: 0 })
+      setChooser({ from: 0, byLearner: false })
     }
     // 받은 범위(경계 직전)까지 다 들었다 — 넘을지는 학습자가 고른다
     if (lec.status === 'ended') setAtBoundary(true)
@@ -1533,7 +1531,7 @@ export function AnalysisTheater({
                   ) : lec.status === 'error' && !lec.cues.length ? (
                     <p className={styles.quiet} role="status">
                       대본을 불러오지 못했어요. 탐구 장면의 설명은 그대로 읽을 수 있어요.{' '}
-                      <button type="button" className={styles.back} onClick={() => (lecturePath === 'full' || lecturePath === 'until' ? lec.load(lecturePath) : setChooser({ from: 0 }))}>
+                      <button type="button" className={styles.back} onClick={() => (lecturePath === 'full' || lecturePath === 'until' ? lec.load(lecturePath) : setChooser({ from: 0, byLearner: true }))}>
                         다시 불러오기
                       </button>
                     </p>
@@ -1541,7 +1539,7 @@ export function AnalysisTheater({
                     // 공개 경로를 고르기 전에는 대본을 받지 않는다 — 읽기 강의도 정답을 말한다
                     <p className={styles.quiet}>
                       대본에는 정답과, 정답을 좁히는 단서가 있어요.{' '}
-                      <button type="button" className={styles.back} onClick={() => setChooser({ from: 0 })} data-testid="script-choose">
+                      <button type="button" className={styles.back} onClick={() => setChooser({ from: 0, byLearner: true })} data-testid="script-choose">
                         어떻게 볼지 고르기
                       </button>
                     </p>
