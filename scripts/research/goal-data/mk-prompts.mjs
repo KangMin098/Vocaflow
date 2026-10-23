@@ -27,12 +27,12 @@ const runs = chunks.map((f) => {
   const chunk = f.replace(/\.json$/, '')
   const track = chunk.split('-')[1]
   const label = `${batch}-${chunk.replace('chunk-', '')}`
-  const text = body.replaceAll('{BATCH}', batch).replaceAll('{TRACK}', track).replaceAll('{CHUNK}', chunk).replaceAll('{LABEL}', label).replaceAll('{TRACK_RULE}', RULE[track])
+  const text = body.replaceAll('{BATCH}', batch).replaceAll('{TRACK}', track).replaceAll('{CHUNK}', chunk).replaceAll('{NN}', chunk.split('-')[2]).replaceAll('{LABEL}', label).replaceAll('{TRACK_RULE}', RULE[track])
   if (/\{[A-Z_]+\}/.test(text)) throw new Error(`치환 안 된 자리 ${label}`)
   fs.writeFileSync(path.join(outDir, `${label}.md`), text)
   return {
     label, track, chunk, prompt_file: path.relative(ROOT, path.join(outDir, `${label}.md`)).replaceAll('\\', '/'), prompt_sha256: sha(text), input_chunk_sha256: sha(fs.readFileSync(path.join(LOCAL, f))),
-    allowed_inputs: ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', 'docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md … CONTRACT_V2_4.md', 'docs/csat-learner/v4/codebook.json', `scripts/research/goal-data/local/${batch}/${f}`, `d2-run ${batch} validate ${track} 출력`],
+    allowed_inputs: ['docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md', 'docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md … CONTRACT_V2_4.md', 'docs/csat-learner/v4/codebook.json', `scripts/research/goal-data/local/${batch}/${f}`, `d2-run ${batch} validate ${track} ${chunk.split('-')[2]} 출력(이 청크 결함만)`],
     forbidden_inputs: ['CONTRACT_V2_5.md · V2_5_* · prereg-* · v2_5-*', '같은 배치 다른 청크 · 다른 트랙 · input.json · history/ · prompts/', '다른 배치 폴더', 'docs 의 *-agreement* · *-links* · *-sample* · *-corrections* · *-comparison* · mapping-review.md', 'scripts/research/goal-data/*.mjs(검증기 · 실행기 소스)'],
   }
 })

@@ -54,14 +54,35 @@ function chunks() {
 /** 트랙 출력 로더 — d2-validate.loadTrack(prereg-compare 와 공용) */
 const load = (track) => loadTrack(LOCAL, track, nChunks, V, [...byId.keys()])
 
-function validate(only) {
+/**
+ * validate [A|B] [NN] — 청크 번호를 주면 그 청크 문항의 결함만 보인다(b16: 분석자가 같은 트랙 다른 청크의 결함 · 설명을 봤다).
+ *   트랙 전체 결함(반복 검사)은 이 청크 문항이 들어 있을 때만, 다른 청크 문항 번호는 가려서 보인다. 종료 코드는 이 청크 기준
+ */
+function validate(only, chunkNo) {
   let bad = 0
-  if (only && !['A', 'B'].includes(only)) { console.error('validate [A|B]'); process.exit(2) }
+  if (only && !['A', 'B'].includes(only)) { console.error('validate [A|B] [NN]'); process.exit(2) }
+  if (chunkNo && !only) { console.error('청크 번호는 트랙과 함께: validate A 01'); process.exit(2) }
   for (const t of only ? [only] : ['A', 'B']) {
     const { out, errors } = load(t)
-    console.log(`${t}: 통과 ${out.size}/${byId.size} · 결함 ${errors.length}`)
-    for (const e of errors.slice(0, 80)) console.log('  ' + e)
-    bad += errors.length
+    if (!chunkNo) {
+      console.log(`${t}: 통과 ${out.size}/${byId.size} · 결함 ${errors.length}`)
+      for (const e of errors.slice(0, 80)) console.log('  ' + e)
+      bad += errors.length
+      continue
+    }
+    const nn = String(chunkNo).padStart(2, '0')
+    const own = new Set(JSON.parse(fs.readFileSync(path.join(LOCAL, `chunk-${t}-${nn}.json`), 'utf8')).items.map((r) => r.item_id))
+    const others = [...byId.keys()].filter((id) => !own.has(id))
+    // 다른 청크의 트랙 전체 결함(반복)은 내용을 가리고, 이 청크가 함께 배제됐다는 사실만 알린다.
+    // 그때 이 청크 행의 「출력 없음」 은 배제 때문이라 이 청크 결함으로 세지 않는다(출력 파일이 있을 때)
+    const foreignTrack = errors.some((e) => e.startsWith(`${t} 트랙`) && ![...own].some((id) => e.includes(id)))
+    const excludedOnly = foreignTrack && fs.existsSync(path.join(LOCAL, `chunk-${t}-${nn}.out.json`))
+    const mine = errors.filter((e) => [...own].some((id) => e.includes(id)) && !(excludedOnly && e.endsWith('출력 없음')))
+      .map((e) => others.reduce((s, id) => s.split(id).join('(다른 청크)'), e))
+    console.log(`${t}-${nn}: 통과 ${[...own].filter((id) => out.has(id)).length}/${own.size} · 이 청크 결함 ${mine.length}`)
+    for (const e of mine.slice(0, 80)) console.log('  ' + e)
+    if (foreignTrack) console.log('  (다른 청크의 트랙 전체 반복 결함으로 이 트랙 행이 함께 배제됨 — 내용은 보이지 않는다 · 이 청크 결함이 0 이면 기다린다)')
+    bad += mine.length
   }
   process.exit(bad ? 1 : 0)
 }
@@ -161,6 +182,6 @@ function snapshot(label) {
 
 if (cmd === 'chunks') chunks()
 else if (cmd === 'snapshot') snapshot(process.argv[4])
-else if (cmd === 'validate') validate(process.argv[4])
+else if (cmd === 'validate') validate(process.argv[4], process.argv[5])
 else if (cmd === 'agree') agree()
 else { console.error('<batch> chunks | validate [A|B] | agree | snapshot <label>'); process.exit(2) }
