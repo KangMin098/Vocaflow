@@ -62,3 +62,11 @@ test('staticGates — independent 는 user_request_ref 가 정렬 근거다(정�
   assert.ok(gate({ kind: 'independent', parent_goal_id: null, user_request_ref: '  ' }).some((f) => f.startsWith('align:')))
   assert.ok(gate({ kind: 'platform', parent_goal_id: null, user_request_ref: '2026-10-24 user: 요청' }).some((f) => f.startsWith('align:')))
 })
+
+test('pathInScope — 끝이 「/」 인 디렉터리 표기는 그 아래 전부(허용·금지 모두), 형제 경로는 아니다', () => {
+  assert.equal(T.pathInScope('docs/x/a.md', ['docs/x/']), true)
+  assert.equal(T.pathInScope('docs/x/sub/a.md', ['docs/x/']), true)
+  assert.equal(T.pathInScope('docs/xy/a.md', ['docs/x/']), false)
+  assert.equal(T.pathInScope('docs/x', ['docs/x/']), false)
+  assert.equal(T.pathInScope('supabase/migrations/a.sql', ['supabase/']), true)
+})
