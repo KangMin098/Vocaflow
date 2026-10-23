@@ -91,9 +91,9 @@ A1 어휘 / A2 구문 / A3 논리흐름 / A4 재진술 / A5 근거판단 / A6 �
 
 전체 문항/상태 행은 `ITEM_METADATA.json`에서 ID별 조회 가능하다. 로컬 수능 읽기 382개는 DB 수능 382개와 같은 ID 범위라 중복 합산하지 않는다. 전체 관측 ID 합집합은 3,962개(3,714 + 로컬 듣기 248)이며, 전 시험 전수 기출을 수집했다는 뜻이 아니다.
 
-## 부록 A. 추가 관측(원 작업 T-0131 run1, 재검증해 유지한 항목)
+## 부록 A. 추가 관측과 원 작업의 미검증 후보
 
-- **로드맵 임시 ID 대응(추정):** R01 목적=R-PURPOSE · R02=R-MOOD · R03=R-CLAIM · R04=R-GIST · R05=R-TOPIC · R06=R-TITLE · R07=R-IMPLY · R08=R-BLANK(+R-BLANK2) · R09=R-IRRELEVANT · R10=R-ORDER · R11=R-INSERT · R12=R-CHART · R13=R-FACT · R14=R-NOTICE · R15=R-GRAMMAR · R16=R-VOCAB · R17=R-SUMMARY · R18=X-TITLE/X-VOCAB/X-BLANK* · R19=X-ORDER/X-REFER/X-FACT. R-REFER(폐지)는 대응 없음. R01~R19/L01~L07은 저장소·DB에 없고 사용자 Downloads 로드맵 초안에만 있다.
-- **미분류 16의 형식별 원인(발문 앞부분 관측):** (A)(B)(C) 네모 어법 4(H1803G1#29·H1803G3#29·H1806G2#28·H1903G1#28 — 대응 유형 행 없음) · 내용 불일치 1(H1806G2#27, R-FACT 후보) · 요약문 2(H2503G1#40·H2603G1#40, R-SUMMARY 후보) · 발문 파싱 실패 9(H1906G1#31~34·#36~39·H2403G2#20). 분류 수정은 DB 쓰기라 승인 대상.
-- **선지 언어(관리자 저장값, `choices::text ~ '[가-힣]'`):** 한글 선지 = R-PURPOSE·R-CLAIM·R-GIST·R-FACT·R-NOTICE·X-FACT 전량; 영문 = R-BLANK·R-IMPLY·R-MOOD·R-TITLE·R-TOPIC·R-ORDER·R-SUMMARY·X-*(FACT 제외); 혼재 = R-INSERT 162/262·R-GRAMMAR 64/129·R-VOCAB 72/132·R-IRRELEVANT 71/132. 삽입형은 선지 배열에 위치 사이 본문 조각이 저장된다(2026#38).
-- **역량 가중치:** `csat_dx_type_attribute` 67행에서 A7은 어떤 유형에도 없다(DB에 듣기 유형이 없으므로 정합).
+- **로드맵 임시 ID 대응(설계 후보):** R01 목적=R-PURPOSE · R02=R-MOOD · R03=R-CLAIM · R04=R-GIST · R05=R-TOPIC · R06=R-TITLE · R07=R-IMPLY · R08=R-BLANK(+R-BLANK2) · R09=R-IRRELEVANT · R10=R-ORDER · R11=R-INSERT · R12=R-CHART · R13=R-FACT · R14=R-NOTICE · R15=R-GRAMMAR · R16=R-VOCAB · R17=R-SUMMARY · R18=X-TITLE/X-VOCAB/X-BLANK* · R19=X-ORDER/X-REFER/X-FACT. 이 대응은 임시 설계 편의표이며 공인 분류나 저장소 전역에서 해당 문자열이 없다는 증거가 아니다. 채택하지 않으며 실제 유형/교수 모델 목록을 대체하지 않는다.
+- **미분류 16의 원인 후보(원 작업 run1 주장, 정확성 NOT_VERIFIED):** 네모 어법 4 · 내용 불일치 1 · 요약문 2 · 발문 파싱 실패 9라는 설명이 제안되어 있다. 이번 정정에서는 각 원문·발문을 다시 대조하지 않았으므로 확정 분류/원인/새 유형 행 필요로 승격하지 않는다. 위 표의 실제 ID와 NULL 상태만 확정 관측이며 세부 원인은 DATA_GAP이다. 분류 수정은 DB 쓰기라 승인 대상.
+- **선지 언어 신호(신규 집계, 내용 감수 아님):** `choices::text ~ '[가-힣]'`의 한글 포함 행은 R-PURPOSE 131/131 · R-CLAIM127/127 · R-GIST132/132 · R-FACT131/131 · R-NOTICE265/265 · X-FACT133/133, R-INSERT162/262 · R-GRAMMAR64/129 · R-VOCAB72/132 · R-IRRELEVANT71/132 · R-TOPIC1/134 · R-CHART6/133 · R-REFER6/18이다. 나머지 등록 유형은 이 신호0이다. 한글 포함 여부는 전체 선지의 언어/추출 정확성을 보증하지 않는다. 삽입 위치와 문장번호의 의미 대조는 별도다.
+- **역량 가중치(신규 집계):** `csat_dx_type_attribute`67행에서 attribute_code=A7인 행0. 이것은 현재 저장된 유형 가중치 범위이며 듣기 능력이 필요 없다는 교육적 결론이 아니다. 근거: AI-Control `verification/reviews/T-0131-v6-recheck-20261023/appendix-metadata.json`.
