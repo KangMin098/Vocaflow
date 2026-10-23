@@ -91,6 +91,16 @@
 - 가드: `coverage-audit` 의 `integrity.duplicate_long_stems`(같은 시험 · 서로 다른 문항 · 같은 60자 초과 발문). 처음 장문 세트를 「정상 공통 발문」으로 제외했다가 판정자 보고로 틀린 제외임을 확인하고 되돌렸다(제외 전후 오탐 0).
 - 링크 배치는 이 문항들을 `SOURCE_DEFECT` 로 두고 R1 후보 · 일치 계산에서 뺀다.
 
+## 8. AI-Control 등록 독립 검증 T-0089 (Codex · [review.md](./review/review.md) · [verdict.json](./review/verdict.json))
+
+P0 0 · P1 3. 등록: owner `map-data-independent`(Codex) · 리뷰 worktree main 기준 · 쓰기는 `review/` 만.
+
+- **R1 direct 관련성 29/30 confirmed**, 반박 0 · unclear 1(M2609#32 R6 → `REVIEW_UNCLEAR` · 후보 내림). 갈림 30 중 28 판정 가능.
+- **P1-01 인접 TASK 오정의**: 표본 18쌍(R4 를 「세부 · 사실 확인」으로 설명 16쌍 등). 원인 — R5/R6 청크에 인접 TASK 정의를 주지 않아 판정자가 R4 뜻을 짐작했다. 전량에서 좁은 패턴만으로 85링크(A 53 · B 32)를 확인했다. 조치: 앞으로 청크에 비보류 21 정의 전체(`reference_tasks`), r5r6 배치의 `task_distinction` 은 **근거로 쓰지 않음**(`task_distinction_reliable:false`). 관련성 값은 유지.
+- **P1-02(goal-batches 대상)**: 「삽입 262문항 주어진 문장 결손」은 refuted — 8문항은 지문 선두에 대상 문장이 있다(이 작업의 「짧은 발문은 정상 형식」 판단과 일치). 2023#38 choices=null 은 별도 실제 결손.
+- **P1-03 두 작업의 E2 기준 불일치**: goal-batches 계약 v2(거리 기준)와 이 작업 v2.1(경쟁 후보 특정)이 같은 이름 아래 다르다 → 합의 필요(열린 질문으로 등록).
+- 결함 링크 tier 를 R0 로 정정(이전 13개가 R1 표기). 겹치는 80문항 · 160 논리쌍 — 두 작업 문항 수를 합산하지 않는다.
+
 ## 재실행
 
 ```bash
