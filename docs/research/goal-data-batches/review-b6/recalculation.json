@@ -1,0 +1,2301 @@
+{
+  "task": "T-0105",
+  "source_commit": "c6adb90901ec4045bc09c979a909b369ce408b22",
+  "base_commit": "e81b759f1b4fce33b4d4327b7820a70d55b3e4e7",
+  "observed_at": "2026-10-23T06:27:58.886Z",
+  "source_read_only": true,
+  "db_access": false,
+  "skip_count": 0,
+  "diff_sha256": "523b718ba6fcc66aac0c67607fc288af6cde6d8a01c098b9ab24ef4638921581",
+  "diff_summary": [
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/b6-v23-agreement.json",
+      "sha256": "4afa455c3f2de2ac4a2ecb3ab874ecbc427b12cba9915a1d67021d3ad6b8259c",
+      "lines": 887
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/b6-v23-disputed-links.jsonl",
+      "before": 0,
+      "after": 15,
+      "added": 15,
+      "removed": 0
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/b6-v23-item-task-links.jsonl",
+      "before": 0,
+      "after": 91,
+      "added": 91,
+      "removed": 0
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/b6-v23-review-sample.json",
+      "sha256": "c83b9655f55547949bf239db819b74857778d8928236e11be7d8bc4f26d86937",
+      "lines": 209
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/disputed-links.jsonl",
+      "before": 328,
+      "after": 343,
+      "added": 15,
+      "removed": 0
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/item-task-links.jsonl",
+      "before": 511,
+      "after": 602,
+      "added": 91,
+      "removed": 0
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/mapping-coverage.json",
+      "sha256": "dc4bc3ee13cdcc606bce31db20c050e0a44eb414c00fe5b679b5cf92b9b4c8f0",
+      "lines": 894
+    },
+    {
+      "file": "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md",
+      "sha256": "2839d093358cc09d16ec06b800fa045e5739390b745d7a9d09e19c4a2a3c8943",
+      "lines": 141
+    },
+    {
+      "file": "docs/research/goal-data-batches/D3-principles/distractor-logic.jsonl",
+      "before": 632,
+      "after": 792,
+      "added": 160,
+      "removed": 0
+    },
+    {
+      "file": "docs/research/goal-data-batches/D3-principles/item-reasoning.jsonl",
+      "before": 158,
+      "after": 198,
+      "added": 40,
+      "removed": 0
+    },
+    {
+      "file": "docs/research/goal-data-batches/D3-principles/principle-groups.json",
+      "sha256": "f5f8977042780dec0ff2dd87bae6db30a30b7257e278832bbc90d8d180be7830",
+      "lines": 393
+    },
+    {
+      "file": "docs/research/goal-data-batches/D3-principles/reasoning-review.md",
+      "sha256": "62072e782a74baa0bba2d5c706271997d2d21434775e61842d5874f5292360f2",
+      "lines": 40
+    },
+    {
+      "file": "docs/research/goal-data-batches/README.md",
+      "sha256": "7497649b9c4989220f2c0b3cff47abb0578e27187b4f5085a326809e6f62f97d",
+      "lines": 31
+    },
+    {
+      "file": "docs/research/goal-data-batches/authored-ai-review/nonrelease-plan.json",
+      "sha256": "37686ee0b86d7e9f0647fc405188fcef93aec7918d4a19c94a092c6ebb1c964d",
+      "lines": 1312
+    },
+    {
+      "file": "scripts/research/goal-data/authored-ai-review/record-nonrelease.mts",
+      "sha256": "9e7fe6aca7698a54dae425bc8813c3ca8232ec69d66aa4e62dd7f79d077140d1",
+      "lines": 109
+    },
+    {
+      "file": "scripts/research/goal-data/d2-run.mjs",
+      "sha256": "b90634920afca83d1ee732c1f392f43316313ee529ea4f6c5faa0cfc1eb76070",
+      "lines": 204
+    },
+    {
+      "file": "scripts/research/goal-data/d3-build.mjs",
+      "sha256": "6f2893b72cbfcfc800589e8726fd26bb5159833959a83241cf45e26603299af8",
+      "lines": 111
+    }
+  ],
+  "regression": {
+    "b2-v2": {
+      "code": 0,
+      "logs": [
+        "A: 통과 40/40 · 결함 0",
+        "B: 통과 40/40 · 결함 0"
+      ]
+    },
+    "b3-insert": {
+      "code": 0,
+      "logs": [
+        "A: 통과 8/8 · 결함 0",
+        "B: 통과 8/8 · 결함 0"
+      ]
+    },
+    "b4-v21": {
+      "code": 0,
+      "logs": [
+        "A: 통과 40/40 · 결함 0",
+        "B: 통과 40/40 · 결함 0"
+      ]
+    },
+    "b5-v22": {
+      "code": 0,
+      "logs": [
+        "A: 통과 38/38 · 결함 0",
+        "B: 통과 38/38 · 결함 0"
+      ]
+    },
+    "b6-v23": {
+      "code": 0,
+      "logs": [
+        "A: 통과 40/40 · 결함 0",
+        "B: 통과 40/40 · 결함 0"
+      ]
+    }
+  },
+  "d3Regression": {
+    "b2-v2": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    },
+    "b3-insert": {
+      "expected": 8,
+      "accepted_A": 8,
+      "accepted_B": 8
+    },
+    "b4-v21": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    },
+    "b5-v22": {
+      "expected": 38,
+      "accepted_A": 38,
+      "accepted_B": 38
+    },
+    "b6-v23": {
+      "expected": 40,
+      "accepted_A": 40,
+      "accepted_B": 40
+    }
+  },
+  "counterexamples": [
+    {
+      "contract": "v2.1",
+      "mode": "valid",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "nonempty_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "direct_present",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "no_subset",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)",
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다",
+        "  B M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "missing_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.1",
+      "mode": "null_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "valid",
+      "item": "M2509#18",
+      "d2_target_accepted": true,
+      "d2_errors": [],
+      "d3_target_accepted": true
+    },
+    {
+      "contract": "v2.2",
+      "mode": "nonempty_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "direct_present",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "no_subset",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)",
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다",
+        "  B M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "missing_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.2",
+      "mode": "null_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "valid",
+      "item": "M2509#18",
+      "d2_target_accepted": true,
+      "d2_errors": [],
+      "d3_target_accepted": true
+    },
+    {
+      "contract": "v2.3",
+      "mode": "nonempty_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "direct_present",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "no_subset",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  A M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)",
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다",
+        "  B M2509#18: TASK v.core_meaning 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.contextual_sense 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.multiword 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK v.semantic_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.sentence_core 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.chunk_boundary 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.attachment 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.structural_relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK s.form_scope 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.reference 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.relation 판정 0회(정확히 1회)",
+        "  B M2509#18: TASK r.discourse_function 판정 0회(정확히 1회)"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "missing_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    },
+    {
+      "contract": "v2.3",
+      "mode": "null_secondary",
+      "item": "M2509#18",
+      "d2_target_accepted": false,
+      "d2_errors": [
+        "  A M2509#18: 주 TASK null 가 direct 가 아니다"
+      ],
+      "d3_target_accepted": false
+    }
+  ],
+  "repeatTests": [
+    {
+      "kind": "insert_E2_unknown",
+      "targets": [
+        "M2506#39",
+        "2023#38",
+        "2022#38",
+        "2022#39"
+      ],
+      "repeat_detected": false,
+      "code": 0,
+      "repeat_errors": []
+    },
+    {
+      "kind": "insert_R4_direct",
+      "targets": [
+        "M2506#39",
+        "2023#38",
+        "2022#38",
+        "2022#39"
+      ],
+      "repeat_detected": true,
+      "code": 1,
+      "repeat_errors": [
+        "  A chunk-A-02.out.json: 문항 4개에 같은 문장 반복(M2506#39,2023#38,2022#38…): 「검증용으로 세 문항 이상의 근거 설명을 똑같이 복제한 문장이다」"
+      ]
+    },
+    {
+      "kind": "noninsert_E2_direct",
+      "targets": [
+        "M2506#18",
+        "M2506#19",
+        "M2506#20"
+      ],
+      "repeat_detected": true,
+      "code": 1,
+      "repeat_errors": [
+        "  A chunk-A-01.out.json: 문항 3개에 같은 문장 반복(M2506#18,M2506#19,M2506#20…): 「검증용으로 세 문항 이상의 근거 설명을 똑같이 복제한 문장이다」"
+      ]
+    },
+    {
+      "kind": "insert_E2_direct",
+      "targets": [
+        "M2506#39",
+        "2023#38",
+        "2022#38",
+        "2022#39"
+      ],
+      "repeat_detected": true,
+      "code": 1,
+      "repeat_errors": [
+        "  A chunk-A-02.out.json: 문항 4개에 같은 문장 반복(M2506#39,2023#38,2022#38…): 「검증용으로 세 문항 이상의 근거 설명을 똑같이 복제한 문장이다」"
+      ]
+    },
+    {
+      "kind": "decision_path",
+      "targets": [
+        "M2506#18",
+        "M2506#19",
+        "M2506#20"
+      ],
+      "repeat_detected": true,
+      "code": 1,
+      "repeat_errors": [
+        "  A chunk-A-01.out.json: 문항 3개에 같은 문장 반복(M2506#18,M2506#19,M2506#20…): 「dp:특정 결정 문장을 보지 않고 모든 문항을 같은 수행 설명으로 판정한」"
+      ]
+    }
+  ],
+  "regenerated": {
+    "b6-v23-item-task-links.jsonl": true,
+    "b6-v23-disputed-links.jsonl": true,
+    "b6-v23-review-sample.json": true,
+    "b6-v23-agreement.json": true
+  },
+  "insertChecks": [
+    {
+      "item": "M2506#38",
+      "given_in_passage": true,
+      "body_in_passage": true,
+      "isolated": true
+    },
+    {
+      "item": "M2506#39",
+      "given_in_passage": true,
+      "body_in_passage": true,
+      "isolated": true
+    },
+    {
+      "item": "2023#38",
+      "given_in_passage": true,
+      "body_in_passage": true,
+      "isolated": true
+    },
+    {
+      "item": "2022#38",
+      "given_in_passage": true,
+      "body_in_passage": true,
+      "isolated": true
+    },
+    {
+      "item": "2022#39",
+      "given_in_passage": true,
+      "body_in_passage": true,
+      "isolated": true
+    }
+  ],
+  "blindChecks": [
+    {
+      "track": "A",
+      "chunk": 1,
+      "items": 20,
+      "source_bound": true,
+      "prior_analysis_count": 20,
+      "prior_traps_count": 20
+    },
+    {
+      "track": "A",
+      "chunk": 2,
+      "items": 20,
+      "source_bound": true,
+      "prior_analysis_count": 20,
+      "prior_traps_count": 20
+    },
+    {
+      "track": "B",
+      "chunk": 1,
+      "items": 20,
+      "source_bound": true,
+      "prior_analysis_count": 0,
+      "prior_traps_count": 0
+    },
+    {
+      "track": "B",
+      "chunk": 2,
+      "items": 20,
+      "source_bound": true,
+      "prior_analysis_count": 0,
+      "prior_traps_count": 0
+    }
+  ],
+  "selection": {
+    "n": 40,
+    "unique": 40,
+    "exam_totals": {
+      "2022": 12,
+      "2023": 1,
+      "M2506": 27
+    },
+    "selection_hash": true,
+    "sourceChecks": [
+      {
+        "item": "M2506#18",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#19",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#20",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#21",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#22",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#23",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#24",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#26",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#27",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#28",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#29",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#30",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#31",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#32",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#33",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#34",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#35",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#36",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#37",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#38",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#39",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#40",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#41",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#42",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#43",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#44",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "M2506#45",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2023#38",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#22",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#23",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#29",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#31",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#32",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#33",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#34",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#36",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#37",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#38",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#39",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      },
+      {
+        "item": "2022#40",
+        "source_hash": true,
+        "passage_hash": true,
+        "selection_bound": true,
+        "eligible": true
+      }
+    ],
+    "excluded": [
+      {
+        "item": "M2506#25",
+        "source_hash": true,
+        "passage_hash": true,
+        "type_preserved": false,
+        "body_ok": true
+      }
+    ]
+  },
+  "restored": {
+    "old_raw_available": false,
+    "new_choices": [
+      "①",
+      "②",
+      "③",
+      "④",
+      "⑤"
+    ],
+    "new_hash": "314d91e5d4812c44ff02466f5fa89be3cc67a545d80d55b038fd2aa4f35b2da6",
+    "old_passage_matches": null
+  },
+  "overall": {
+    "n": 240,
+    "agree": 225,
+    "agreement": 0.9375,
+    "kappa": 0.8907203351243056,
+    "counts": {
+      "A": {
+        "direct": 74,
+        "indirect": 24,
+        "not_applicable": 137,
+        "unknown": 5
+      },
+      "B": {
+        "direct": 77,
+        "indirect": 24,
+        "not_applicable": 134,
+        "unknown": 5
+      }
+    }
+  },
+  "per_task": {
+    "r.central_meaning": {
+      "n": 40,
+      "agree": 39,
+      "agreement": 0.975,
+      "kappa": 0.9550561797752809,
+      "counts": {
+        "A": {
+          "direct": 18,
+          "indirect": 2,
+          "not_applicable": 20,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 18,
+          "indirect": 3,
+          "not_applicable": 19,
+          "unknown": 0
+        }
+      }
+    },
+    "r.inference": {
+      "n": 40,
+      "agree": 40,
+      "agreement": 1,
+      "kappa": 1,
+      "counts": {
+        "A": {
+          "direct": 2,
+          "indirect": 0,
+          "not_applicable": 38,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 2,
+          "indirect": 0,
+          "not_applicable": 38,
+          "unknown": 0
+        }
+      }
+    },
+    "e.task_demand": {
+      "n": 40,
+      "agree": 40,
+      "agreement": 1,
+      "kappa": 1,
+      "counts": {
+        "A": {
+          "direct": 9,
+          "indirect": 2,
+          "not_applicable": 29,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 9,
+          "indirect": 2,
+          "not_applicable": 29,
+          "unknown": 0
+        }
+      }
+    },
+    "e.option_correspondence": {
+      "n": 40,
+      "agree": 38,
+      "agreement": 0.95,
+      "kappa": 0.913326110509209,
+      "counts": {
+        "A": {
+          "direct": 19,
+          "indirect": 3,
+          "not_applicable": 18,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 17,
+          "indirect": 4,
+          "not_applicable": 19,
+          "unknown": 0
+        }
+      }
+    },
+    "r.discourse_structure": {
+      "n": 40,
+      "agree": 37,
+      "agreement": 0.925,
+      "kappa": 0.8851674641148326,
+      "counts": {
+        "A": {
+          "direct": 11,
+          "indirect": 10,
+          "not_applicable": 19,
+          "unknown": 0
+        },
+        "B": {
+          "direct": 11,
+          "indirect": 13,
+          "not_applicable": 16,
+          "unknown": 0
+        }
+      }
+    },
+    "e.evidence_location": {
+      "n": 40,
+      "agree": 31,
+      "agreement": 0.775,
+      "kappa": 0.6703296703296704,
+      "counts": {
+        "A": {
+          "direct": 15,
+          "indirect": 7,
+          "not_applicable": 13,
+          "unknown": 5
+        },
+        "B": {
+          "direct": 20,
+          "indirect": 2,
+          "not_applicable": 13,
+          "unknown": 5
+        }
+      }
+    }
+  },
+  "stop_alarm": {
+    "r.central_meaning": "ok",
+    "r.inference": "ok",
+    "e.task_demand": "ok",
+    "e.option_correspondence": "ok",
+    "r.discourse_structure": "ok"
+  },
+  "primary_pattern": {
+    "priority": [
+      "r.central_meaning",
+      "r.discourse_structure",
+      "e.option_correspondence",
+      "e.evidence_location",
+      "r.inference",
+      "e.task_demand"
+    ],
+    "pattern": {
+      "A": [
+        {
+          "chunk": 1,
+          "total": 20,
+          "matches": 18,
+          "multi_direct": 14,
+          "multi_direct_matches": 12,
+          "details": [
+            {
+              "item": "M2506#18",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#19",
+              "primary": "r.inference",
+              "predicted": "e.evidence_location",
+              "matches": false,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#20",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#21",
+              "primary": "r.inference",
+              "predicted": "e.option_correspondence",
+              "matches": false,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#22",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#23",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#24",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#26",
+              "primary": "e.option_correspondence",
+              "predicted": "e.option_correspondence",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#27",
+              "primary": "e.option_correspondence",
+              "predicted": "e.option_correspondence",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#28",
+              "primary": "e.option_correspondence",
+              "predicted": "e.option_correspondence",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#29",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#30",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#31",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#32",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#33",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#34",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#35",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#36",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#37",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#38",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            }
+          ],
+          "repeated_why": [
+            {
+              "items": [
+                "M2506#31",
+                "M2506#33"
+              ],
+              "count": 2,
+              "text_sha256": "f7f225798ffd7dace54bb66b95cdce9f00e6aa2fe677d7773cbfcc05705c15eb",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            }
+          ],
+          "repeated_distinction": [],
+          "repeated_15char_spans": [
+            {
+              "field": "why",
+              "items": [
+                "M2506#18",
+                "M2506#19",
+                "M2506#20",
+                "M2506#28",
+                "M2506#32",
+                "M2506#34",
+                "M2506#36",
+                "M2506#38"
+              ],
+              "count": 8,
+              "text_sha256": "bb658ba3349e00ede98e13dd863d10723e69de751b2232f8a8948558218b9171",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#21",
+                "M2506#22",
+                "M2506#23",
+                "M2506#24",
+                "M2506#31",
+                "M2506#33"
+              ],
+              "count": 6,
+              "text_sha256": "9a5210a70bb409c37495ed5d58bbf41852185b1903c87968ece80bb8268b67e4",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#18",
+                "M2506#20",
+                "M2506#28",
+                "M2506#34"
+              ],
+              "count": 4,
+              "text_sha256": "7dfb8e7f22656e26bced67b7f0184a3f243d97a414c72ed11d3cd29ee742123a",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#20",
+                "M2506#23",
+                "M2506#35",
+                "M2506#37"
+              ],
+              "count": 4,
+              "text_sha256": "161985af5cfcb89ac1b9e428daab16e066b7bfae12627c37e0b37d6d77544b1f",
+              "task": "e.evidence_location",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#23",
+                "M2506#32",
+                "M2506#33",
+                "M2506#34"
+              ],
+              "count": 4,
+              "text_sha256": "4f6afb61e404b90893bd19d41256a1328e24668c3abf346fc9c5142fa0f27104",
+              "task": "e.option_correspondence",
+              "relevance": "direct"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#31",
+                "M2506#32",
+                "M2506#33",
+                "M2506#34"
+              ],
+              "count": 4,
+              "text_sha256": "e5bd161e64691130d790c52e8f3e41e1c5cc6f05deb11b584e989139bb7fb045",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#19",
+                "M2506#32",
+                "M2506#36"
+              ],
+              "count": 3,
+              "text_sha256": "16c489492a02f23a66e072d1194a50e5c8912bd60a6eee1a98b79007e561762e",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#20",
+                "M2506#28",
+                "M2506#34"
+              ],
+              "count": 3,
+              "text_sha256": "cba67060be9331cdd5afe37bae00d66c1000f166a65fb028f3eb041384c3b1dc",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#23",
+                "M2506#33",
+                "M2506#34"
+              ],
+              "count": 3,
+              "text_sha256": "ae746b9739b431315f83bc2b3366d47840b2a250ede35e3cf3360aee6e9ec2fb",
+              "task": "e.option_correspondence",
+              "relevance": "direct"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#23",
+                "M2506#24",
+                "M2506#35"
+              ],
+              "count": 3,
+              "text_sha256": "f13484c992d0d6b7878543643b793236b85e8d90886a526d1efdf89b9ac127de",
+              "task": "e.evidence_location",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#27",
+                "M2506#29",
+                "M2506#35"
+              ],
+              "count": 3,
+              "text_sha256": "27e2e97a21f261d316eb38c572737631814c73dda41fa9d18ddd6ed158462f73",
+              "task": "e.task_demand",
+              "relevance": "direct"
+            }
+          ]
+        },
+        {
+          "chunk": 2,
+          "total": 20,
+          "matches": 20,
+          "multi_direct": 10,
+          "multi_direct_matches": 10,
+          "details": [
+            {
+              "item": "M2506#39",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#40",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#41",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#42",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#43",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#44",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#45",
+              "primary": "e.option_correspondence",
+              "predicted": "e.option_correspondence",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "2023#38",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#22",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "2022#23",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "2022#29",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#31",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "2022#32",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "2022#33",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "2022#34",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "2022#36",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#37",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#38",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#39",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#40",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            }
+          ],
+          "repeated_why": [
+            {
+              "items": [
+                "M2506#43",
+                "2022#36",
+                "2022#37"
+              ],
+              "count": 3,
+              "text_sha256": "0176656bf3104ea5ea5f5ef10cfc4492c2e2680251f7eba3e8f3a91a8bf43866",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "items": [
+                "2023#38",
+                "2022#38",
+                "2022#39"
+              ],
+              "count": 3,
+              "text_sha256": "de2c6e80ba188e0308c0ed6545a3ffc8da0e7ad0725d59aa3be9d649e412b09e",
+              "task": "r.central_meaning",
+              "relevance": "not_applicable"
+            },
+            {
+              "items": [
+                "2023#38",
+                "2022#38",
+                "2022#39"
+              ],
+              "count": 3,
+              "text_sha256": "7948fcd5325e01d657e8cba5e8bea1be8fd007b993d2b67a407e975ad689bb69",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "items": [
+                "2023#38",
+                "2022#38",
+                "2022#39"
+              ],
+              "count": 3,
+              "text_sha256": "d111aee9ecc88611f19bca374bcdfda19355a78e647e07b53a7951de99667539",
+              "task": "e.option_correspondence",
+              "relevance": "not_applicable"
+            },
+            {
+              "items": [
+                "2022#32",
+                "2022#33",
+                "2022#34"
+              ],
+              "count": 3,
+              "text_sha256": "2a22330a3ebe6b5a052f8eccfa103ca9808381a746347e0033befc0668b91323",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "items": [
+                "2022#36",
+                "2022#37"
+              ],
+              "count": 2,
+              "text_sha256": "b41abcfeebeef3552d9346bfe9b227c54007669880e7eb927da209468dfb8f94",
+              "task": "r.central_meaning",
+              "relevance": "not_applicable"
+            },
+            {
+              "items": [
+                "2022#36",
+                "2022#37"
+              ],
+              "count": 2,
+              "text_sha256": "ed73f51bb11cda1aaf23042499af2b60aa3674dab56c484407468347c5a48fed",
+              "task": "e.option_correspondence",
+              "relevance": "not_applicable"
+            }
+          ],
+          "repeated_distinction": [
+            {
+              "items": [
+                "2022#32",
+                "2022#33"
+              ],
+              "count": 2,
+              "text_sha256": "dabe6e2841b5d52ffbecb4fd28596a8c5766890b4e8bf297deced5fecb6444d8",
+              "task": "e.evidence_location",
+              "relevance": "direct"
+            }
+          ],
+          "repeated_15char_spans": [
+            {
+              "field": "why",
+              "items": [
+                "M2506#39",
+                "2023#38",
+                "2022#38",
+                "2022#39"
+              ],
+              "count": 4,
+              "text_sha256": "87381006034685fd1f3653ae99d695a0e3ba2e8b2e1857c2fc5d5f327a925894",
+              "task": "r.central_meaning",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#39",
+                "2023#38",
+                "2022#38",
+                "2022#39"
+              ],
+              "count": 4,
+              "text_sha256": "2375145c5dd3af1b7e4f8a78dce040b87835ae77e0f76112af24475457e7e3e6",
+              "task": "e.evidence_location",
+              "relevance": "unknown"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#39",
+                "2022#38",
+                "2022#39"
+              ],
+              "count": 3,
+              "text_sha256": "dfe2c43d8c4680eb0d1dee3f9667725b813e15253c72ae98b04c03ecd89849f1",
+              "task": "e.evidence_location",
+              "relevance": "unknown"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#43",
+                "2022#36",
+                "2022#37"
+              ],
+              "count": 3,
+              "text_sha256": "8ee86f4878f3fd1875ffb81310cd711df966a90748e76cf781b2774bca9ac292",
+              "task": "r.central_meaning",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "2023#38",
+                "2022#38",
+                "2022#39"
+              ],
+              "count": 3,
+              "text_sha256": "036b5768a84cc15643c4282614a93519fdeae4d6acea230530ad570095e57f43",
+              "task": "r.central_meaning",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "2022#23",
+                "2022#32",
+                "2022#34"
+              ],
+              "count": 3,
+              "text_sha256": "76fd161ae3f948e78dbfdc2d465f29d65c0fce23b07ee0f5c2b0a69cd3bf13b4",
+              "task": "e.option_correspondence",
+              "relevance": "direct"
+            },
+            {
+              "field": "why",
+              "items": [
+                "2022#23",
+                "2022#31",
+                "2022#32"
+              ],
+              "count": 3,
+              "text_sha256": "4a2721fd7662a5a783c08f974b10ebc0d4ccb0dcde1ddc065288e35d81c6201d",
+              "task": "r.discourse_structure",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "task_distinction",
+              "items": [
+                "M2506#40",
+                "2022#32",
+                "2022#33"
+              ],
+              "count": 3,
+              "text_sha256": "8122c8b34d1a26e407d4e9e5aefb26af93947b88fc3a83bd25636aa5ec951827",
+              "task": "e.evidence_location",
+              "relevance": "direct"
+            },
+            {
+              "field": "task_distinction",
+              "items": [
+                "M2506#42",
+                "M2506#45",
+                "2022#29"
+              ],
+              "count": 3,
+              "text_sha256": "4238ee33b0ecd4051b50c3f1bf0a46fe131697d3d934dc71fa8be5ef22bb19e1",
+              "task": "e.task_demand",
+              "relevance": "direct"
+            },
+            {
+              "field": "task_distinction",
+              "items": [
+                "M2506#43",
+                "2022#36",
+                "2022#37"
+              ],
+              "count": 3,
+              "text_sha256": "65ad4f4de3d11f00bb560368cb47320016ea7e243d8a6103987b48a607ee6ab2",
+              "task": "e.evidence_location",
+              "relevance": "indirect"
+            },
+            {
+              "field": "task_distinction",
+              "items": [
+                "2022#32",
+                "2022#33",
+                "2022#34"
+              ],
+              "count": 3,
+              "text_sha256": "d79c15c9f12b49c99ced9451380dbcaab90da5497ddb386eceb661f3c697c29c",
+              "task": "e.evidence_location",
+              "relevance": "direct"
+            }
+          ]
+        }
+      ],
+      "B": [
+        {
+          "chunk": 1,
+          "total": 20,
+          "matches": 18,
+          "multi_direct": 15,
+          "multi_direct_matches": 13,
+          "details": [
+            {
+              "item": "M2506#18",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#19",
+              "primary": "r.inference",
+              "predicted": "e.evidence_location",
+              "matches": false,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#20",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#21",
+              "primary": "r.inference",
+              "predicted": "e.option_correspondence",
+              "matches": false,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#22",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#23",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#24",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#26",
+              "primary": "e.option_correspondence",
+              "predicted": "e.option_correspondence",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#27",
+              "primary": "e.option_correspondence",
+              "predicted": "e.option_correspondence",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#28",
+              "primary": "e.option_correspondence",
+              "predicted": "e.option_correspondence",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#29",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#30",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#31",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#32",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#33",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#34",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "M2506#35",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#36",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#37",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#38",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            }
+          ],
+          "repeated_why": [
+            {
+              "items": [
+                "M2506#31",
+                "M2506#33",
+                "M2506#34"
+              ],
+              "count": 3,
+              "text_sha256": "99c0743f99708abb4f00655e70e871004101b82156be658191a2c54fd2288e9e",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            }
+          ],
+          "repeated_distinction": [],
+          "repeated_15char_spans": [
+            {
+              "field": "why",
+              "items": [
+                "M2506#31",
+                "M2506#32",
+                "M2506#33",
+                "M2506#34"
+              ],
+              "count": 4,
+              "text_sha256": "8b3a383916a29c9abb5ae627c0e0b5a1d6d80b677f195d311dc01b7cde64a64a",
+              "task": "r.central_meaning",
+              "relevance": "direct"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#29",
+                "M2506#30",
+                "M2506#35"
+              ],
+              "count": 3,
+              "text_sha256": "75fdba9b696b9c99bb3afebb6b38715c8a7863b508efe15c59dafa332cc5fb18",
+              "task": "e.task_demand",
+              "relevance": "direct"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#32",
+                "M2506#33",
+                "M2506#34"
+              ],
+              "count": 3,
+              "text_sha256": "730663d1888f349340ba0dbae27cd58d0f68dbad7fc62fae23bfe90fdf110885",
+              "task": "r.central_meaning",
+              "relevance": "direct"
+            },
+            {
+              "field": "task_distinction",
+              "items": [
+                "M2506#18",
+                "M2506#20",
+                "M2506#22",
+                "M2506#23",
+                "M2506#32"
+              ],
+              "count": 5,
+              "text_sha256": "8122c8b34d1a26e407d4e9e5aefb26af93947b88fc3a83bd25636aa5ec951827",
+              "task": "e.evidence_location",
+              "relevance": "direct"
+            },
+            {
+              "field": "task_distinction",
+              "items": [
+                "M2506#24",
+                "M2506#33",
+                "M2506#34"
+              ],
+              "count": 3,
+              "text_sha256": "1a7502408cc4d33c967e5cb774b0913a187c168a946ab64a7efa310747d8efc2",
+              "task": "e.evidence_location",
+              "relevance": "direct"
+            }
+          ]
+        },
+        {
+          "chunk": 2,
+          "total": 20,
+          "matches": 20,
+          "multi_direct": 10,
+          "multi_direct_matches": 10,
+          "details": [
+            {
+              "item": "M2506#39",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#40",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#41",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "M2506#42",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#43",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#44",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "M2506#45",
+              "primary": "e.option_correspondence",
+              "predicted": "e.option_correspondence",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "2023#38",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#22",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "2022#23",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "2022#29",
+              "primary": "e.task_demand",
+              "predicted": "e.task_demand",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#31",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "2022#32",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "2022#33",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            },
+            {
+              "item": "2022#34",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 3
+            },
+            {
+              "item": "2022#36",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#37",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#38",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#39",
+              "primary": "r.discourse_structure",
+              "predicted": "r.discourse_structure",
+              "matches": true,
+              "direct_count": 1
+            },
+            {
+              "item": "2022#40",
+              "primary": "r.central_meaning",
+              "predicted": "r.central_meaning",
+              "matches": true,
+              "direct_count": 2
+            }
+          ],
+          "repeated_why": [],
+          "repeated_distinction": [],
+          "repeated_15char_spans": [
+            {
+              "field": "why",
+              "items": [
+                "M2506#39",
+                "M2506#41",
+                "M2506#43",
+                "2022#34",
+                "2022#36",
+                "2022#38"
+              ],
+              "count": 6,
+              "text_sha256": "bb658ba3349e00ede98e13dd863d10723e69de751b2232f8a8948558218b9171",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#41",
+                "2022#32",
+                "2022#33",
+                "2022#34"
+              ],
+              "count": 4,
+              "text_sha256": "8168ee4ff8fe465636571bc958887874412fe7bceeffb279c2d434914fe87a90",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#40",
+                "2022#31",
+                "2022#40"
+              ],
+              "count": 3,
+              "text_sha256": "d3d37fef61a409b492e5c52fb8da80ba58d8a83109e5fef5fa5e4776a4aa5364",
+              "task": "r.inference",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#41",
+                "2022#32",
+                "2022#34"
+              ],
+              "count": 3,
+              "text_sha256": "f4d9ce4d5eda98e246f4bc896ffcb5c0adedecb58ad31cf760c14a2f0c2db5ab",
+              "task": "r.inference",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#42",
+                "M2506#45",
+                "2022#29"
+              ],
+              "count": 3,
+              "text_sha256": "a685310597f31a54f93fdd19384c6b2996e79b1bba725c4e999a65d0a7856249",
+              "task": "e.task_demand",
+              "relevance": "direct"
+            },
+            {
+              "field": "why",
+              "items": [
+                "M2506#43",
+                "2022#36",
+                "2022#37"
+              ],
+              "count": 3,
+              "text_sha256": "6d684e08c45c981cd5e3f10908d99e156865a32b2e44f1cbc4bd88c6518c9a35",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "2023#38",
+                "2022#23",
+                "2022#38"
+              ],
+              "count": 3,
+              "text_sha256": "fbd6177505c77b322870665187fab7aaedbd72115e15ace5faf40d18d6cbcfd8",
+              "task": "r.inference",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "2022#31",
+                "2022#32",
+                "2022#34"
+              ],
+              "count": 3,
+              "text_sha256": "2a819d86817b87ea5bdeb77e846a88ad24a39d393c790f91874434e5196ce8f6",
+              "task": "r.inference",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "why",
+              "items": [
+                "2022#32",
+                "2022#33",
+                "2022#34"
+              ],
+              "count": 3,
+              "text_sha256": "b3a6f406d0d0b87f252868ad680e47781d82363fec275be193bd9a1c277d54b3",
+              "task": "e.task_demand",
+              "relevance": "not_applicable"
+            },
+            {
+              "field": "task_distinction",
+              "items": [
+                "M2506#40",
+                "2022#32",
+                "2022#40"
+              ],
+              "count": 3,
+              "text_sha256": "4899cb94237af73ca72f33aeaa50967231c280600e3a326f57e3b1426acab819",
+              "task": "r.central_meaning",
+              "relevance": "direct"
+            },
+            {
+              "field": "task_distinction",
+              "items": [
+                "M2506#40",
+                "2022#31",
+                "2022#33"
+              ],
+              "count": 3,
+              "text_sha256": "fe4a051a192a19c06f68c6276eba1a53199b7e6fef4eb0770fcae87675a30740",
+              "task": "e.option_correspondence",
+              "relevance": "indirect"
+            }
+          ]
+        }
+      ]
+    },
+    "primary_agreement": 40
+  },
+  "links": {
+    "candidates": 91,
+    "disputed": 15,
+    "all_unknown": true,
+    "combined_candidates": 602,
+    "combined_disputed": 343
+  },
+  "packet_hashes": {
+    "scripts/research/goal-data/local/b2-v2/chunk-A-01.json": "1c10d4d222d70486c4b0b60bfa67b764c4f9929393170b27df697d73a922940a",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-01.out.json": "b3229b1b47dfaf39e7653536d2d9ac5c98b56aa8a968accf8d13b694e16abe31",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-02.json": "0a9876b7d2d865f8988d2ee86b19f4833a8566f7c5e6678b3d736d77884276ab",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-02.out.json": "9aee330a9ddbb71741e7344ed2b54a2d059f7d56f4d40714e236b5934750ea92",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-03.json": "da1d7606525b4289d111947cfddd97ceadcdb7c57c81530686c714d449e5a1a5",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-03.out.json": "57274050386aa60919573f636ee1e68bdcf0a33ee0a12221e673cc79203fccad",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-04.json": "90cd21c4af74325d61cd84a1c958231631d9b4c25a076e4439ad2b25789a5c8d",
+    "scripts/research/goal-data/local/b2-v2/chunk-A-04.out.json": "deb5586e3a2e2074e077d75a27894b10afb89e9b182e0ce892d5a16c5c456291",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-01.json": "932793f4fdcad81164912d811759916fd1128632df0facba06a22f1bad9ee93b",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-01.out.json": "ffd07416e51419cd87d797845abdea8f812673999ce149c5e37b79b2e165b810",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-02.json": "f047b1ad1ba22120b796d8888d54abc2b2a6dca00e7d69e6b19338ae15a4c24e",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-02.out.json": "f52329b272bfbb83324d6c9fac8f10cb8f148ae9c0678c56c53b83bb260a4595",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-03.json": "038dda233e8754450fab1c5b886b5abe434330c35df65ac6daa76ad3eda3c461",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-03.out.json": "55cfa1b68e515279237e55163af5edd2ef7dc590930cbf3a107c9d734e84c1f9",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-04.json": "56821ecca2530b6f496254488ee5727598b9f8c97eb7309c6d3e0daddb65bc13",
+    "scripts/research/goal-data/local/b2-v2/chunk-B-04.out.json": "dad929bc4d3111cc11081a8628d776e98e2681c887439bb2d402dc5dc9920df9",
+    "scripts/research/goal-data/local/b2-v2/input.json": "b0c77226c404e08f6515f96745177ab3a244030c261b5bc83a9d3ba34ca6db12",
+    "scripts/research/goal-data/local/b2-v2/r3-third.out.json": "b7268dc6091ba160ef5e0a5ae04457b2a5a5da3a124a236a0405ecf64e371bc9",
+    "scripts/research/goal-data/local/b3-insert/chunk-A-01.json": "14db56af1bcb9ed7b3f5579c2677d53b7a9ad0d0f4b3ad0e086fdc91fede00a9",
+    "scripts/research/goal-data/local/b3-insert/chunk-A-01.out.json": "7d080ddeaa51a5d25df2a75ca1ffc2cb7f08e3bc7d3da67062867aad70dbf986",
+    "scripts/research/goal-data/local/b3-insert/chunk-B-01.json": "82ebd1cb9a9dbc645b9cce9da6ec5ad024a7f971d407e2b2a11228154d78e4a9",
+    "scripts/research/goal-data/local/b3-insert/chunk-B-01.out.json": "1d4107952a51ae0c5d0c71fd77b5455e1a94a63499f760ea1e41a457b09f163b",
+    "scripts/research/goal-data/local/b3-insert/input.json": "e9cb00e9f0dcf798d09adee2a9bb87cf9f50f043f28b8e0cc60d59c03414ce18",
+    "scripts/research/goal-data/local/b4-v21/chunk-A-01.json": "f0892c08de3a80317c0a0e34cd561fa2d226571c89f4e1c32582e37522ecf639",
+    "scripts/research/goal-data/local/b4-v21/chunk-A-01.out.json": "f307dad57a20a281ab68f126a3068446eec6e74edf543f64ecc7d390e00fdc14",
+    "scripts/research/goal-data/local/b4-v21/chunk-A-02.json": "10eaa494b5368dd016ffa7c9fa72e4214c79d27dec6d18f6a0e287823da66fb2",
+    "scripts/research/goal-data/local/b4-v21/chunk-A-02.out.json": "9ed14d31599c7f42be6ab4d6b66be201e2f3a69f802930e6473a023bb99472e5",
+    "scripts/research/goal-data/local/b4-v21/chunk-B-01.json": "9691c62fb887f58ccabba477589bcd6cf542cc02810e573c0cc8c16242513f69",
+    "scripts/research/goal-data/local/b4-v21/chunk-B-01.out.json": "a46053c9e72d3022a40d81dbe8210c25d0226d5d5fbbbea3b68e99212c468f93",
+    "scripts/research/goal-data/local/b4-v21/chunk-B-02.json": "c091249969f924f892e37c43d28c071b867f1aab3f8af076fe84e3092c06c727",
+    "scripts/research/goal-data/local/b4-v21/chunk-B-02.out.json": "4def56bd75f69409e0f044fac164b71a1e3a65392ba4aefab55b7405717e9981",
+    "scripts/research/goal-data/local/b4-v21/input.json": "50b927c4c29e6d18794a68fd20d4f128f0b3ef307552e491c1145aaef16fa70c",
+    "scripts/research/goal-data/local/b5-v22/chunk-A-01.json": "8241d6b47ec69ec0805264dc05bd2221e4af7c2bf2b0a41d7df61dab4340454a",
+    "scripts/research/goal-data/local/b5-v22/chunk-A-01.out.json": "2f7fc6e8920e24ae4b0b8a07f84dd2f865c788fef80acd33343a2e53e7febe6d",
+    "scripts/research/goal-data/local/b5-v22/chunk-A-02.json": "74c93e1538b8bbd66ff4cba837b47d45900cce1c96024f4e6283060e97645e20",
+    "scripts/research/goal-data/local/b5-v22/chunk-A-02.out.json": "666e9fb9126c72bc1bb818c026478783204206af01509e0f3efcef9cb4596d1c",
+    "scripts/research/goal-data/local/b5-v22/chunk-B-01.json": "16cfc5bfc6d6c6a443732df1b476c28d7b8b822614927dee7117385ecd941045",
+    "scripts/research/goal-data/local/b5-v22/chunk-B-01.out.json": "bad96d0846bc5049e360651e6b59d504dad9745842bae93b77be388bfc76b8df",
+    "scripts/research/goal-data/local/b5-v22/chunk-B-02.json": "7f631f28c13debb76bfaed8efa02e5368073878a7d4239a23ada849a20c8349e",
+    "scripts/research/goal-data/local/b5-v22/chunk-B-02.out.json": "961086a50ad2778bee29886e21e9c6895145738c151e10b7cb66663025fde100",
+    "scripts/research/goal-data/local/b5-v22/input.json": "e8747b0f531f585030a1972bc4e4b77c191e710e3c485849df720578f5f5b764",
+    "scripts/research/goal-data/local/b6-v23/chunk-A-01.json": "3809476288a1f017e8d647020408a8b97cc42cba52e5fb166827e104759b9317",
+    "scripts/research/goal-data/local/b6-v23/chunk-A-01.out.json": "ff61263698d93216bc3fbd1315f47c0c6a54b66573a9563a024a74eb016c5e25",
+    "scripts/research/goal-data/local/b6-v23/chunk-A-02.json": "153f3e808efe1d8f9cf743b865582f852123edb712f9d737b4ffcaeb187870fd",
+    "scripts/research/goal-data/local/b6-v23/chunk-A-02.out.json": "fef2a7c141aabb17bb1817a3adba836379fe056f65329270687f9de249d0c49c",
+    "scripts/research/goal-data/local/b6-v23/chunk-B-01.json": "cdf66bf9f5f28f83cf1511a5b90aad4190db856983e565368affd3542115975c",
+    "scripts/research/goal-data/local/b6-v23/chunk-B-01.out.json": "7fe2ac0e97fbdd2674a2abec4dbe02de326f514306aef8c9af730f5c3f69eb8b",
+    "scripts/research/goal-data/local/b6-v23/chunk-B-02.json": "4d17476bbe7f59731582302e3deaaa997c15751d093c5b64a9e678b2665764b7",
+    "scripts/research/goal-data/local/b6-v23/chunk-B-02.out.json": "0fcc6e1be1bfeb06ce2ee74f5878c5bc2c5e9194472f544dfa81b76b6e876330",
+    "scripts/research/goal-data/local/b6-v23/input.json": "58e9ea9af8355bf7604f85175e6a53f5de6519cc6a5dfef33380a0593f82454b"
+  },
+  "assertions": "passed"
+}

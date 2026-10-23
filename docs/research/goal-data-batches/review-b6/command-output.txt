@@ -1,0 +1,207 @@
+T-0105 exact command output (UTF-8)
+
+$ git add -- docs/research/goal-data-batches/review-b6/ scripts/research/goal-data/review-b6/
+exit_code: 128
+stdout:
+stderr:
+fatal: Unable to create 'D:/workspace/Vocaflow/.git/worktrees/vocaflow-goal-data-review-b5/index.lock': Permission denied
+
+$ git commit --only docs/research/goal-data-batches/review-b6/ scripts/research/goal-data/review-b6/ -m docs: independently review b6 mapping and validator -m Recompute b6 agreement, source bindings and selection.
+Verify secondary-task counterexamples and repetition guards.
+Record primary-task procedure failures and unresolved source boundaries.
+
+No migration, route or RPC changes.
+
+Co-Authored-By: Codex <noreply@openai.com>
+exit_code: 1
+stdout:
+stderr:
+error: pathspec 'docs/research/goal-data-batches/review-b6/' did not match any file(s) known to git
+error: pathspec 'scripts/research/goal-data/review-b6/' did not match any file(s) known to git
+
+$ write runtime/t0105-ev.json
+{
+  "type": "review",
+  "command_or_protocol": "T-0105 independent review @c6adb9090; node scripts/research/goal-data/review-b6/check.mjs; node scripts/research/goal-data/review-b6/write-review.mjs",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "docs/research/goal-data-batches/review-b6/verdict.json",
+  "observed_at": "2026-10-23T06:39:06.742Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ]
+}
+
+$ node bin/vfc.mjs task evidence T-0105 --file runtime/t0105-ev.json --by goal-data-independent
+exit_code: 0
+stdout:
+{
+  "evidence_id": "T-0105-R1-E01",
+  "run_seq": 1,
+  "recorded_by": "goal-data-independent",
+  "type": "review",
+  "command_or_protocol": "T-0105 independent review @c6adb9090; node scripts/research/goal-data/review-b6/check.mjs; node scripts/research/goal-data/review-b6/write-review.mjs",
+  "result": "pass",
+  "skip_count": 0,
+  "artifact_path_or_url": "docs/research/goal-data-batches/review-b6/verdict.json",
+  "observed_at": "2026-10-23T06:39:06.742Z",
+  "covers": [
+    0,
+    1,
+    2,
+    3,
+    4
+  ],
+  "artifact_sha256": "68c6db99804eddbce8fbc779249bf72e44e5c6e06e068b8916958b4aa8c7fd91",
+  "recorded_at": "2026-10-23T06:39:06.896Z"
+}
+stderr:
+
+$ node bin/vfc.mjs task submit T-0105 --by goal-data-independent
+exit_code: 0
+stdout:
+{
+  "task": {
+    "task_id": "T-0105",
+    "goal_id": "VG-L3-A1-01",
+    "related_goal_ids": [],
+    "template": null,
+    "title": "802 확대 b6-v23 · P2-01 수정 독립 검증(Codex)",
+    "description": "data/goal-batches-20261023 @c6adb9090(b6 a39559ef4 + P2-01 c6adb9090)의 b6-v23(M2506 27 + 2023#38 재결속 + 2022 12, 6 TASK, 계약 v2.3)과 검증기 보완을 독립 검증한다. 읽기 전용.",
+    "priority": "P1",
+    "status": "REVIEW",
+    "owner_id": "goal-data-independent",
+    "branch": "review/goal-data-b5-20261023",
+    "worktree": "d:/workspace/vocaflow-goal-data-review-b5",
+    "allowed_paths": [
+      "docs/research/goal-data-batches/review-b6/**",
+      "scripts/research/goal-data/review-b6/**",
+      ".agent-goal.md"
+    ],
+    "forbidden_paths": [
+      "supabase/**",
+      ".env*",
+      "apps/**",
+      "docs/research/goal-data-batches/D2-task-mapping/**"
+    ],
+    "db_scope": {
+      "mode": "none",
+      "targets": []
+    },
+    "approval_required": false,
+    "approval_kinds": [],
+    "approval": null,
+    "acceptance": [
+      "P2-01: secondary_tasks 누락·null 거부 반례 재실행, b2–b6 회귀 결함 0, 삽입 E2 고정 문구 반복 검사 제외가 지름길 탐지를 완화하지 않는지",
+      "b6 선정 40 · 제외 M2506#25 스냅샷 · 2023#38 새 source_sha256 재결속 · 일치 .938 · κ .891 · 중단 경보 재계산",
+      "B-02 분석자의 주 TASK 고정 우선순위 스크립트 선택(v2.3 §1 위반 자진 보고): 영향 범위 · 링크가 실제로 문항별 판단인지 표본으로 확인 · 주 TASK 일치 40/40 근거 사용 금지 확인 · 재판정 필요 여부",
+      "원문 표본: 후보 10 · 갈림 10(빈칸 재진술 R5/R6 2022#31·#33·#34·M2506#33·#34, E2 목적·요지·제목 경계 포함), E3 .721→.913 인과 unclear",
+      "review-b6/verdict.json + review.md, unclear 유지"
+    ],
+    "evidence": [
+      {
+        "evidence_id": "T-0105-R1-E01",
+        "run_seq": 1,
+        "recorded_by": "goal-data-independent",
+        "type": "review",
+        "command_or_protocol": "T-0105 independent review @c6adb9090; node scripts/research/goal-data/review-b6/check.mjs; node scripts/research/goal-data/review-b6/write-review.mjs",
+        "result": "pass",
+        "skip_count": 0,
+        "artifact_path_or_url": "docs/research/goal-data-batches/review-b6/verdict.json",
+        "observed_at": "2026-10-23T06:39:06.742Z",
+        "covers": [
+          0,
+          1,
+          2,
+          3,
+          4
+        ],
+        "artifact_sha256": "68c6db99804eddbce8fbc779249bf72e44e5c6e06e068b8916958b4aa8c7fd91",
+        "recorded_at": "2026-10-23T06:39:06.896Z"
+      }
+    ],
+    "run_seq": 1,
+    "depends_on": [],
+    "criterion_claims": [],
+    "impact": {
+      "kind": "independent",
+      "parent_goal_id": null,
+      "acceptance_ids": [],
+      "current_gap": "b6 배치와 검증기 보완이 데이터 담당 단일 세션 판정만 거쳤고 분석자 절차 위반이 자진 보고됐다",
+      "expected_impact": "advances",
+      "evidence_required": [
+        "재계산",
+        "반례 재실행",
+        "원문 대조 판정",
+        "verdict.json"
+      ],
+      "next_dependency": "다음 배치 진행 여부",
+      "out_of_scope": [
+        "DB 쓰기",
+        "D2 산출물 수정"
+      ],
+      "dependency_type": "direct",
+      "user_request_ref": "2026-10-23 사용자: codex 와 협의하여 진행",
+      "canon_version": "1.1.0",
+      "base_commit": null,
+      "gate_ms": 0.2789
+    },
+    "flags": [],
+    "pr": null,
+    "requires_ci": false,
+    "verified_commit": null,
+    "orchestration": {
+      "rounds": 0,
+      "failures": {},
+      "budget_used_usd": 0
+    },
+    "source": null,
+    "created_at": "2026-10-23T06:24:54.068Z",
+    "updated_at": "2026-10-23T06:39:07.121Z",
+    "history": [
+      {
+        "at": "2026-10-23T06:24:54.068Z",
+        "from": null,
+        "to": "READY",
+        "by": "platform-goal",
+        "note": "created"
+      },
+      {
+        "at": "2026-10-23T06:25:04.640Z",
+        "from": "READY",
+        "to": "IN_PROGRESS",
+        "by": "goal-data-independent",
+        "note": "t-0105-codex"
+      },
+      {
+        "at": "2026-10-23T06:39:07.121Z",
+        "from": "IN_PROGRESS",
+        "to": "REVIEW",
+        "by": "goal-data-independent",
+        "note": null
+      }
+    ],
+    "run": {
+      "run_seq": 1,
+      "session": "t-0105-codex",
+      "agent": "codex",
+      "pid": 16176,
+      "host": "SKCC23N00265",
+      "started_at": "2026-10-23T06:25:04.640Z",
+      "locks": [],
+      "product_lock_token": null,
+      "start_head": "0481b48d0fbf909b7d2e4dd6dc28347930af3e95",
+      "ended_at": "2026-10-23T06:39:07.121Z"
+    }
+  },
+  "released": [
+    "task--T-0105",
+    "worktree--d__workspace_vocaflow-goal-data-review-b5"
+  ]
+}
+stderr:
+
