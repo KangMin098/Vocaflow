@@ -1,0 +1,23 @@
+{
+  "at": "2026-10-23T13:37:39.226Z",
+  "task_id": "T-0131",
+  "head": "fae57cba1c2ae7bd0ee4f44427b2464dc42d2704",
+  "base": "local/integration",
+  "mode": "LOCAL_FAST",
+  "ok": false,
+  "dry_run": false,
+  "fail": [
+    "align: 목표 정렬 근거 없음(impact.parent_goal_id · user_goal_id)",
+    "align: 허용 범위 밖 변경 .gitignore, AGENTS.md, CLAUDE.md, DESIGN.md, agents/policies/PR_AUTOMATION_POLICY.md 외 489",
+    "approval: supabase/migrations/20261021175340_learning_outcomes_ai_factory_activation_approved_20261022.sql 은 사용자 DB 승인(sql_sha256)과 일치하지 않는다 — 승인형 DB 러너로",
+    "approval: supabase/migrations/20261023090000_csat_goal_budget.sql 은 사용자 DB 승인(sql_sha256)과 일치하지 않는다 — 승인형 DB 러너로",
+    "approval: supabase/migrations/20261023100000_csat_item_response_stats.sql 은 사용자 DB 승인(sql_sha256)과 일치하지 않는다 — 승인형 DB 러너로",
+    "approval: supabase/migrations/20261023142000_csat_goal_budget_conflict.sql 은 사용자 DB 승인(sql_sha256)과 일치하지 않는다 — 승인형 DB 러너로",
+    "approval: supabase/migrations/20261023170000_csat_goal_final_assessment.sql 은 사용자 DB 승인(sql_sha256)과 일치하지 않는다 — 승인형 DB 러너로"
+  ],
+  "files": 495,
+  "checks": [],
+  "integrated": null,
+  "wall_ms": 1176,
+  "github_calls": 0
+}
