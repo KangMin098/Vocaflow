@@ -1,0 +1,110 @@
+{
+  "task_id": "T-0118",
+  "owner": "goal-data-independent",
+  "session": "t-0118-codex",
+  "input_commit": "48fa2a404d33219f1560edb4996030dd31513349",
+  "base_commit": "2b3f3bafb",
+  "observed_at": "2026-10-23T09:09:43.801Z",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; 오염 부재·봉인·학생 타당도 인증 아님",
+  "skip_count": 0,
+  "checks": {
+    "passed": 97,
+    "failed": 0
+  },
+  "acceptance": [
+    {
+      "index": 0,
+      "verdict": "unclear",
+      "why": "80행 최종 v2.4 통과; A E1 회피는 문항별 이유로 설명 가능하지만 §4의 사실형 확장·금지로는 설명 불가. 최초 B19는 v2.5 §3에만 적합; 실제 열람/유입 경로는 원 프롬프트·대화 부재로 미확정.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:28",
+        "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md:33",
+        "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_5.md:8",
+        "scripts/research/goal-data/d2-validate.mjs:85",
+        "scripts/research/goal-data/local/b11-v24/history/2026-10-23T09-02-24-937Z-B01-first/chunk-B-01.out.json:108"
+      ]
+    },
+    {
+      "index": 1,
+      "verdict": "confirmed",
+      "why": "B02-first M2309#41 구 검증기 허용/신 검증기 거부 재현. 최종 b2–b11 전체 18트랙 결함 0. 단일·복수·fallback·answers 우선·정당 오답 반례 확인.",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:35",
+        "scripts/research/goal-data/local/b11-v24/history/2026-10-23T09-04-05-104Z-B02-first/chunk-B-02.out.json:54"
+      ]
+    },
+    {
+      "index": 2,
+      "verdict": "confirmed",
+      "why": "선정40·도표2·해시·생성4파일 재현·227/240·κ .899452·주36·경보 ok. 동결 3차이는 종료 후 수정3파일뿐, 기준선 복원16/16 및 비교2파일 불변.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:235",
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:229",
+        "docs/research/goal-data-batches/D2-task-mapping/b11-v24-agreement.json:43"
+      ]
+    },
+    {
+      "index": 3,
+      "verdict": "unclear",
+      "why": "후보10·갈림10·주TASK4 전수 원문대조 완료; E2/E3 3 및 E1/R4 분해는 기록한 모호함과 일치. R4/E2 직접성·오답 경로 가설의 유일한 Gold는 미확정.",
+      "evidence": [
+        "scripts/research/goal-data/local/b11-v24/input.json:2514",
+        "scripts/research/goal-data/local/b11-v24/input.json:4124",
+        "scripts/research/goal-data/local/b11-v24/input.json:5540",
+        "scripts/research/goal-data/local/b11-v24/input.json:5676"
+      ]
+    },
+    {
+      "index": 4,
+      "verdict": "confirmed",
+      "why": "verdict.json/review.md, 새 P0/P1, 다음 배치 및 unclear 명시",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b11/review.md:1",
+        "docs/research/goal-data-batches/review-b11/verdict.json:1"
+      ]
+    }
+  ],
+  "metrics": {
+    "pairs": 240,
+    "agree": 227,
+    "agreement": 0.9458333333333333,
+    "kappa": 0.8994521430873349,
+    "primary_agree": 36,
+    "items": 40
+  },
+  "findings": [
+    {
+      "id": "B11-P1-01",
+      "priority": "P1",
+      "verdict": "confirmed",
+      "title": "v2.5 적합 최초 B19와 원 프롬프트/열람 증거 부재로 블라인드 독립성 미입증",
+      "impact": "b11을 미노출 v2.4 기준선·계약 효과 근거로 사용하지 않는다. 최종 링크는 제한을 붙인 연구 후보로만 보존.",
+      "actual_exposure": "unclear",
+      "evidence": [
+        "scripts/research/goal-data/d2-validate.mjs:85",
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:235",
+        "scripts/research/goal-data/local/b11-v24/history/2026-10-23T09-02-24-937Z-B01-first/chunk-B-01.out.json:108"
+      ]
+    },
+    {
+      "id": "B11-P2-01",
+      "priority": "P2",
+      "verdict": "confirmed",
+      "title": "README가 종료된 v2.5를 봉인 후보·수동 대기로 표기",
+      "evidence": [
+        "docs/research/goal-data-batches/README.md:10"
+      ]
+    }
+  ],
+  "new_P0": 0,
+  "new_P1": 1,
+  "next_batch": "조건부 가능: v2.4 연구 확대만, 양 트랙 허용 입력/금지 문서와 실제 프롬프트를 보존하고 b11을 미노출 기준선으로 재사용하지 않는다.",
+  "unclear": [
+    "v2.5 실제 열람·노출 경로와 의미 판정에 미친 영향",
+    "원 b11 프롬프트의 금지 누락 사실 독립 입증(보고만 있음)",
+    "다중 direct primary의 유일한 정답·실제 학습자 오답 경로",
+    "학생 성취·제품 진단·NeedRank 적격성"
+  ],
+  "integration": "요청 범위는 독립 검증·커밋 시도·evidence·submit. DB/입력 수정/main/원격 통합 미실행."
+}
