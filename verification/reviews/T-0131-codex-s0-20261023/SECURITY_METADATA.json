@@ -1,0 +1,214 @@
+{
+  "view": " SELECT i.id,\n    i.exam_id,\n    i.no,\n    i.section,\n    i.in_scope,\n    i.type_id,\n    i.stem,\n        CASE\n            WHEN csat_ec_private.item_answer_embargoed(i.id) THEN NULL::integer\n            ELSE i.answer\n        END AS answer,\n    i.points,\n    i.high_score,\n    e.organizer,\n    e.grade\n   FROM csat_items i\n     JOIN csat_exams e ON e.id = i.exam_id\n  WHERE e.organizer = 'kice'::text OR e.organizer = 'edu_office'::text AND (EXISTS ( SELECT 1\n           FROM csat_item_analyses a\n          WHERE a.item_id = i.id AND a.status = 'published'::text));",
+  "policies": [
+    {
+      "cmd": "SELECT",
+      "qual": "true",
+      "roles": [
+        "anon",
+        "authenticated"
+      ],
+      "table": "csat_exams",
+      "policy": "csat_exams_read"
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "((status = 'published'::text) AND (NOT csat_ec_private.item_answer_embargoed(item_id)))",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "csat_item_analyses",
+      "policy": "csat_analyses_read"
+    },
+    {
+      "cmd": "SELECT",
+      "qual": "false",
+      "roles": [
+        "authenticated"
+      ],
+      "table": "csat_items",
+      "policy": "csat_items_read"
+    }
+  ],
+  "privileges": [
+    [
+      "csat_item_analyses",
+      "anon",
+      "INSERT"
+    ],
+    [
+      "csat_item_analyses",
+      "anon",
+      "SELECT"
+    ],
+    [
+      "csat_item_analyses",
+      "anon",
+      "UPDATE"
+    ],
+    [
+      "csat_item_analyses",
+      "anon",
+      "DELETE"
+    ],
+    [
+      "csat_item_analyses",
+      "anon",
+      "TRUNCATE"
+    ],
+    [
+      "csat_item_analyses",
+      "anon",
+      "REFERENCES"
+    ],
+    [
+      "csat_item_analyses",
+      "anon",
+      "TRIGGER"
+    ],
+    [
+      "csat_item_analyses",
+      "authenticated",
+      "INSERT"
+    ],
+    [
+      "csat_item_analyses",
+      "authenticated",
+      "SELECT"
+    ],
+    [
+      "csat_item_analyses",
+      "authenticated",
+      "UPDATE"
+    ],
+    [
+      "csat_item_analyses",
+      "authenticated",
+      "DELETE"
+    ],
+    [
+      "csat_item_analyses",
+      "authenticated",
+      "TRUNCATE"
+    ],
+    [
+      "csat_item_analyses",
+      "authenticated",
+      "REFERENCES"
+    ],
+    [
+      "csat_item_analyses",
+      "authenticated",
+      "TRIGGER"
+    ],
+    [
+      "csat_items",
+      "anon",
+      "INSERT"
+    ],
+    [
+      "csat_items",
+      "anon",
+      "SELECT"
+    ],
+    [
+      "csat_items",
+      "anon",
+      "UPDATE"
+    ],
+    [
+      "csat_items",
+      "anon",
+      "DELETE"
+    ],
+    [
+      "csat_items",
+      "anon",
+      "TRUNCATE"
+    ],
+    [
+      "csat_items",
+      "anon",
+      "REFERENCES"
+    ],
+    [
+      "csat_items",
+      "anon",
+      "TRIGGER"
+    ],
+    [
+      "csat_items",
+      "authenticated",
+      "INSERT"
+    ],
+    [
+      "csat_items",
+      "authenticated",
+      "SELECT"
+    ],
+    [
+      "csat_items",
+      "authenticated",
+      "UPDATE"
+    ],
+    [
+      "csat_items",
+      "authenticated",
+      "DELETE"
+    ],
+    [
+      "csat_items",
+      "authenticated",
+      "TRUNCATE"
+    ],
+    [
+      "csat_items",
+      "authenticated",
+      "REFERENCES"
+    ],
+    [
+      "csat_items",
+      "authenticated",
+      "TRIGGER"
+    ]
+  ],
+  "related_tables": [
+    "csat_analysis_reviews",
+    "csat_ec_review_assignment",
+    "csat_ec_review_round",
+    "csat_independent_reviews",
+    "csat_item_reviews",
+    "csat_map_edge_source",
+    "csat_map_node_source",
+    "csat_map_source",
+    "csat_review_batches",
+    "csat_review_followups",
+    "csat_review_prechecks",
+    "csat_review_queue",
+    "csat_review_runs",
+    "csat_review_visual_analysis_bindings",
+    "csat_review_visual_assets",
+    "csat_review_visual_deliveries",
+    "csat_review_visual_heads",
+    "csat_review_visual_receipts",
+    "csat_source_eligibility",
+    "csat_source_eligibility_history",
+    "csat_source_operations",
+    "csat_source_operations_summary",
+    "csat_source_registry",
+    "csat_source_snapshots",
+    "csat_source_targets"
+  ],
+  "related_columns": [
+    [
+      "csat_stage_catalog",
+      "license_class",
+      "text"
+    ],
+    [
+      "csat_source_registry",
+      "license_class",
+      "text"
+    ]
+  ]
+}

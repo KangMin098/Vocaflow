@@ -1,0 +1,66 @@
+{
+  "files": [
+    {
+      "file": "BASELINE_v4.0.md",
+      "bytes": 32490,
+      "sha256": "a5c7fd8d1f2b734c632217c586933a6427cd481164d5563cc3cd33e5c825d773"
+    },
+    {
+      "file": "CHECKS.json",
+      "bytes": 1882,
+      "sha256": "58ac4c3be77131b7de2e54ac452823d9bb5b8c7d04f9c7687d6d7d173f77fb41"
+    },
+    {
+      "file": "GAP_AND_ASSUMPTION_REGISTER.md",
+      "bytes": 3617,
+      "sha256": "00b23f4910cf3f84406249af1abe83c684420c04a7c3ff6e02d68d77317a2539"
+    },
+    {
+      "file": "ITEM_METADATA.json",
+      "bytes": 5737823,
+      "sha256": "6d44c53c6861c87ecade32c7fc11469fc8bf3834cc6185500df8ea1e37c9b4d1"
+    },
+    {
+      "file": "READINESS_MATRIX.md",
+      "bytes": 6714,
+      "sha256": "a1f25378ef21592b3375d5ca54da75c9d765af1b9b2ea89c764bde55db80390d"
+    },
+    {
+      "file": "README.md",
+      "bytes": 1683,
+      "sha256": "6ba999b54321f8b65d545df194d8c99a2474827f08d7745505612f8a89a1c64a"
+    },
+    {
+      "file": "REPRESENTATIVE_EDGE_CASES.md",
+      "bytes": 14557,
+      "sha256": "027c8e7e603955a95f87118de12cc8dfd0a8b5669f5297e5b4b1da953e8ecbbc"
+    },
+    {
+      "file": "REPRODUCE.sql",
+      "bytes": 2570,
+      "sha256": "420cb28a49b7466de973be0e40e38e62b9350e2d2c4159c1af97702a41ca091b"
+    },
+    {
+      "file": "S0_INSTRUCTION.txt",
+      "bytes": 3247,
+      "sha256": "aee4115df19a203c31cdd8763b52ec80b1b17f4c1a628b5ce3da5ecff8e7644c"
+    },
+    {
+      "file": "S1_ADAPTER_PLAN.md",
+      "bytes": 9014,
+      "sha256": "77c0b709ef5f703ae17327a56f4b21f90a37018e219de666348765abc3c7cbc4"
+    },
+    {
+      "file": "SECURITY_METADATA.json",
+      "bytes": 4239,
+      "sha256": "3c1670a2e567586cbf2076fcc7f84c5d5543279cd5fe06644d2c9e375210f288"
+    },
+    {
+      "file": "TYPE_REGISTRY.md",
+      "bytes": 13852,
+      "sha256": "4184816f18d708da0d9699ee0fa943f683cdbfbf47ffd64fde07c3d992243a01"
+    }
+  ],
+  "productSourceCommit": "3f437e9b65e06c00a96f64890402500417377c92",
+  "reviewedCommit": "6781f80d89a13858ae06089e0a7ce78c82578028"
+}

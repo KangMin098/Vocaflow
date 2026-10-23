@@ -1,0 +1,67 @@
+{
+  "date": "2026-10-23",
+  "sourceCommit": "3f437e9b65e06c00a96f64890402500417377c92",
+  "metadataReconciled": {
+    "dbItems": 3714,
+    "mapped": 3698,
+    "unmapped": 16,
+    "publicCatalog": 3412,
+    "localHistoricalItems": 630,
+    "localListeningItems": 248,
+    "observedTypes": 44
+  },
+  "allRequestedFilesExist": true,
+  "coreDecisions": 12,
+  "acceptanceTestsMapped": 20,
+  "cueCount": 37,
+  "revisionProposals": 6,
+  "originalAssetHashesUnchanged": true,
+  "tests": {
+    "pure": {
+      "files": 3,
+      "passed": 25,
+      "failed": 0
+    },
+    "liveCopyrightBoundary": {
+      "result": "BLOCKED_INITIALIZATION",
+      "reason": "Invalid login credentials",
+      "suitesBlocked": 2,
+      "notClaimedPassed": true
+    },
+    "fullBuild": "NOT_RUN",
+    "fullCI": "NOT_RUN"
+  },
+  "dbProtocolValidation": {
+    "result": "QUERY_BLOCKED",
+    "reason": "statement timeout in csat_blind_protocol_valid; no accepted result claimed"
+  },
+  "productUIChanged": false,
+  "dbOrSeedChanged": false,
+  "originalLectureModified": false,
+  "contentValidation": "NOT_COMPLETE",
+  "productVerification": "NOT_COMPLETE",
+  "learnerUsability": "NOT_EVALUATED",
+  "transferEffect": "NOT_EVALUATED",
+  "classifierReplay": {
+    "rows": 630,
+    "mismatches": 0,
+    "ruleTypes": 44
+  },
+  "sourceInputs": {
+    "baseline": {
+      "name": "Vocaflow_CSAT_전역_기본골격_최종합의기준_v4.0_20261023.md",
+      "sha256": "a5c7fd8d1f2b734c632217c586933a6427cd481164d5563cc3cd33e5c825d773"
+    },
+    "instruction": {
+      "name": "Vocaflow_CSAT_v4.0_S0_착수지시문_20261023.txt",
+      "sha256": "aee4115df19a203c31cdd8763b52ec80b1b17f4c1a628b5ce3da5ecff8e7644c"
+    }
+  },
+  "serving": {
+    "port": 3000,
+    "pid": 15488,
+    "worktree": "D:/workspace/Vocaflow-main-serving",
+    "branch": "main",
+    "sourceCommit": "3f437e9b65e06c00a96f64890402500417377c92"
+  }
+}
