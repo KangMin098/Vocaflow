@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d3-build.mjs",
- "generated_at": "2026-10-23T09:28:48.257Z",
+ "generated_at": "2026-10-23T09:50:47.274Z",
  "inputs": [
   {
    "batch": "pilot-1",
@@ -56,29 +56,34 @@
    "batch": "b12-v24",
    "items": 40,
    "input_sha256": "28392ccc1ac7b65a59f6d16a9338631ae46f93fb358861677b75bdad789f7e77"
+  },
+  {
+   "batch": "b13-v24",
+   "items": 40,
+   "input_sha256": "71ccdddc1974ab2ef29086855d77552a302b4c52bafa7da1f6d3af96a75433ab"
   }
  ],
  "totals": {
-  "items": 398,
-  "items_source_gap": 4,
-  "primary_task_agree": 340,
-  "same_decision_locus": 207,
-  "wrong_options": 1592,
-  "distortion_agree": 1131,
-  "distortion_agree_source_text": 1115,
-  "wrong_options_source_text": 1576
+  "items": 438,
+  "items_source_gap": 5,
+  "primary_task_agree": 376,
+  "same_decision_locus": 229,
+  "wrong_options": 1752,
+  "distortion_agree": 1239,
+  "distortion_agree_source_text": 1221,
+  "wrong_options_source_text": 1732
  },
  "note": "두 AI 판정에서 모은 가설 · 분류다. 사람 검수 · Gold · 출제 의도 사실이 아니다. 5문항 미만 유형은 small_sample — 일반화 금지.",
  "groups": {
   "R-BLANK": {
-   "items": 60,
-   "wrong_options": 240,
-   "distortion_agreement": 0.617,
+   "items": 65,
+   "wrong_options": 260,
+   "distortion_agreement": 0.627,
    "agreed_distortions": {
-    "unmentioned": 52,
-    "reversal": 43,
-    "surface_word_match": 28,
-    "wrong_target": 14,
+    "unmentioned": 56,
+    "reversal": 50,
+    "surface_word_match": 30,
+    "wrong_target": 16,
     "causal_error": 4,
     "partial_truth": 2,
     "other": 2,
@@ -86,111 +91,113 @@
     "scope_shrink": 1
    },
    "primary_task_pairs": {
-    "r.inference": 33,
+    "r.inference": 35,
     "r.relation|r.inference": 1,
     "s.form_scope|r.inference": 1,
     "r.inference|r.central_meaning": 1,
     "v.semantic_relation|r.inference": 1,
-    "r.central_meaning|r.inference": 2,
+    "r.central_meaning|r.inference": 3,
     "r.central_meaning|e.evidence_location": 2,
     "r.central_meaning|e.option_correspondence": 1,
     "e.evidence_location|r.central_meaning": 2,
-    "r.central_meaning": 16
+    "r.central_meaning": 18
    },
    "small_sample": false
   },
   "R-CLAIM": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.683,
+   "items": 17,
+   "wrong_options": 68,
+   "distortion_agreement": 0.706,
    "agreed_distortions": {
-    "unmentioned": 14,
-    "reversal": 11,
-    "surface_word_match": 7,
+    "unmentioned": 16,
+    "reversal": 12,
+    "surface_word_match": 9,
+    "wrong_target": 4,
     "partial_truth": 4,
-    "wrong_target": 3,
     "off_demand": 1,
-    "overgeneralization": 1
+    "overgeneralization": 1,
+    "scope_shrink": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 15
+    "r.central_meaning": 16,
+    "e.option_correspondence|r.central_meaning": 1
    },
    "small_sample": false
   },
   "R-FACT": {
-   "items": 15,
-   "wrong_options": 60,
+   "items": 17,
+   "wrong_options": 68,
    "distortion_agreement": 1,
    "agreed_distortions": {
-    "true_statement": 60
+    "true_statement": 68
    },
    "primary_task_pairs": {
-    "e.option_correspondence": 13,
+    "e.option_correspondence": 15,
     "e.option_correspondence|e.evidence_location": 2
    },
    "small_sample": false
   },
   "R-GIST": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.583,
+   "items": 17,
+   "wrong_options": 68,
+   "distortion_agreement": 0.588,
    "agreed_distortions": {
-    "unmentioned": 16,
-    "partial_truth": 6,
-    "surface_word_match": 5,
-    "reversal": 3,
+    "unmentioned": 18,
+    "partial_truth": 7,
+    "surface_word_match": 6,
+    "reversal": 4,
     "causal_error": 2,
     "scope_shrink": 1,
     "overgeneralization": 1,
     "wrong_target": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 15
+    "r.central_meaning": 17
    },
    "small_sample": false
   },
   "R-GRAMMAR": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.333,
+   "items": 17,
+   "wrong_options": 68,
+   "distortion_agreement": 0.353,
    "agreed_distortions": {
     "true_statement": 12,
-    "other": 8
+    "other": 12
    },
    "primary_task_pairs": {
     "s.sentence_core": 1,
     "s.form_scope": 4,
     "s.structural_relation|s.form_scope": 1,
-    "e.task_demand": 9
+    "e.task_demand": 11
    },
    "small_sample": false
   },
   "R-IMPLY": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.55,
+   "items": 17,
+   "wrong_options": 68,
+   "distortion_agreement": 0.574,
    "agreed_distortions": {
-    "reversal": 13,
-    "unmentioned": 7,
-    "surface_word_match": 5,
+    "reversal": 15,
+    "unmentioned": 8,
+    "surface_word_match": 6,
     "partial_truth": 3,
+    "wrong_target": 3,
     "causal_error": 2,
-    "overgeneralization": 2,
-    "wrong_target": 1
+    "overgeneralization": 2
    },
    "primary_task_pairs": {
-    "r.inference": 13,
+    "r.inference": 15,
     "r.inference|e.option_correspondence": 1,
     "e.option_correspondence|r.inference": 1
    },
    "small_sample": false
   },
   "R-INSERT": {
-   "items": 30,
-   "wrong_options": 120,
-   "distortion_agreement": 0.817,
+   "items": 32,
+   "wrong_options": 128,
+   "distortion_agreement": 0.805,
    "agreed_distortions": {
-    "other": 97,
+    "other": 102,
     "surface_word_match": 1
    },
    "primary_task_pairs": {
@@ -199,14 +206,14 @@
     "r.reference": 3,
     "r.discourse_function|r.relation": 1,
     "r.discourse_structure|r.relation": 2,
-    "r.discourse_structure": 18
+    "r.discourse_structure": 20
    },
    "small_sample": false
   },
   "R-IRRELEVANT": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.717,
+   "items": 16,
+   "wrong_options": 64,
+   "distortion_agreement": 0.672,
    "agreed_distortions": {
     "true_statement": 31,
     "other": 12
@@ -215,7 +222,7 @@
     "r.central_meaning|r.discourse_structure": 2,
     "r.relation|r.central_meaning": 1,
     "r.discourse_function": 1,
-    "r.discourse_structure": 5,
+    "r.discourse_structure": 6,
     "e.task_demand": 2,
     "r.central_meaning": 2,
     "e.task_demand|r.discourse_structure": 2
@@ -223,90 +230,91 @@
    "small_sample": false
   },
   "R-MOOD": {
-   "items": 15,
-   "wrong_options": 60,
+   "items": 17,
+   "wrong_options": 68,
    "distortion_agreement": 0.75,
    "agreed_distortions": {
-    "reversal": 25,
-    "partial_truth": 11,
-    "unmentioned": 8,
+    "reversal": 27,
+    "partial_truth": 13,
+    "unmentioned": 10,
     "other": 1
    },
    "primary_task_pairs": {
-    "r.inference": 7,
+    "r.inference": 8,
     "e.option_correspondence": 1,
-    "null": 4,
+    "null": 5,
     "r.central_meaning|null": 1,
     "r.discourse_structure|null": 2
    },
    "small_sample": false
   },
   "R-NOTICE": {
-   "items": 29,
-   "wrong_options": 116,
+   "items": 32,
+   "wrong_options": 128,
    "distortion_agreement": 0.922,
    "agreed_distortions": {
-    "true_statement": 60,
+    "true_statement": 68,
     "reversal": 28,
-    "mixed_attribution": 7,
+    "mixed_attribution": 9,
     "scope_expand": 4,
     "other": 4,
     "scope_shrink": 3,
-    "wrong_target": 1
+    "wrong_target": 2
    },
    "primary_task_pairs": {
-    "e.option_correspondence": 12,
+    "e.option_correspondence": 14,
     "e.evidence_location|e.option_correspondence": 6,
     "e.option_correspondence|e.evidence_location": 5,
-    "e.evidence_location": 6
+    "e.evidence_location": 6,
+    "e.task_demand": 1
    },
    "small_sample": false
   },
   "R-ORDER": {
-   "items": 30,
-   "wrong_options": 120,
-   "distortion_agreement": 0.875,
+   "items": 32,
+   "wrong_options": 128,
+   "distortion_agreement": 0.883,
    "agreed_distortions": {
-    "other": 105
+    "other": 113
    },
    "primary_task_pairs": {
     "r.reference": 1,
     "r.reference|r.relation": 3,
-    "r.discourse_structure": 25,
+    "r.discourse_structure": 27,
     "r.relation|r.discourse_structure": 1
    },
    "small_sample": false
   },
   "R-PURPOSE": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.717,
+   "items": 17,
+   "wrong_options": 68,
+   "distortion_agreement": 0.721,
    "agreed_distortions": {
-    "unmentioned": 21,
-    "surface_word_match": 9,
-    "wrong_target": 8,
+    "unmentioned": 22,
+    "surface_word_match": 12,
+    "wrong_target": 9,
+    "partial_truth": 3,
     "reversal": 2,
-    "partial_truth": 2,
     "off_demand": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 15
+    "r.central_meaning": 17
    },
    "small_sample": false
   },
   "R-SUMMARY": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.6,
+   "items": 16,
+   "wrong_options": 64,
+   "distortion_agreement": 0.625,
    "agreed_distortions": {
-    "reversal": 15,
-    "partial_truth": 10,
-    "unmentioned": 8,
+    "reversal": 17,
+    "partial_truth": 11,
+    "unmentioned": 9,
     "surface_word_match": 2,
     "other": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 9,
+    "r.central_meaning": 10,
     "v.semantic_relation|r.central_meaning": 2,
     "e.option_correspondence|r.central_meaning": 2,
     "v.semantic_relation": 1,
@@ -315,51 +323,53 @@
    "small_sample": false
   },
   "R-TITLE": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.55,
+   "items": 17,
+   "wrong_options": 68,
+   "distortion_agreement": 0.544,
    "agreed_distortions": {
-    "reversal": 8,
-    "unmentioned": 8,
+    "unmentioned": 10,
+    "reversal": 9,
     "surface_word_match": 7,
     "scope_shrink": 3,
     "wrong_target": 2,
     "scope_expand": 2,
     "partial_truth": 1,
     "overgeneralization": 1,
-    "off_demand": 1
+    "off_demand": 1,
+    "causal_error": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 14,
-    "r.central_meaning|e.option_correspondence": 1
+    "r.central_meaning": 15,
+    "r.central_meaning|e.option_correspondence": 1,
+    "e.option_correspondence|r.central_meaning": 1
    },
    "small_sample": false
   },
   "R-TOPIC": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.633,
+   "items": 17,
+   "wrong_options": 68,
+   "distortion_agreement": 0.603,
    "agreed_distortions": {
-    "unmentioned": 14,
+    "unmentioned": 16,
     "reversal": 11,
-    "surface_word_match": 7,
+    "surface_word_match": 8,
     "scope_shrink": 2,
     "wrong_target": 2,
     "causal_error": 1,
     "off_demand": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 15
+    "r.central_meaning": 17
    },
    "small_sample": false
   },
   "R-VOCAB": {
-   "items": 15,
-   "wrong_options": 60,
-   "distortion_agreement": 0.7,
+   "items": 17,
+   "wrong_options": 68,
+   "distortion_agreement": 0.676,
    "agreed_distortions": {
     "true_statement": 24,
-    "other": 16,
+    "other": 20,
     "form_error": 1,
     "partial_truth": 1
    },
@@ -367,43 +377,44 @@
     "v.contextual_sense": 1,
     "v.core_meaning": 1,
     "v.semantic_relation|v.core_meaning": 1,
-    "e.task_demand": 10,
+    "e.task_demand": 12,
     "e.evidence_location|e.task_demand": 1,
     "e.evidence_location": 1
    },
    "small_sample": false
   },
   "X-FACT": {
-   "items": 12,
-   "wrong_options": 48,
+   "items": 13,
+   "wrong_options": 52,
    "distortion_agreement": 1,
    "agreed_distortions": {
-    "true_statement": 48
+    "true_statement": 52
    },
    "primary_task_pairs": {
     "e.option_correspondence": 8,
     "e.evidence_location": 2,
-    "e.evidence_location|e.option_correspondence": 2
+    "e.evidence_location|e.option_correspondence": 2,
+    "e.option_correspondence|e.evidence_location": 1
    },
    "small_sample": false
   },
   "X-ORDER": {
-   "items": 13,
-   "wrong_options": 52,
-   "distortion_agreement": 0.904,
+   "items": 14,
+   "wrong_options": 56,
+   "distortion_agreement": 0.911,
    "agreed_distortions": {
-    "other": 47
+    "other": 51
    },
    "primary_task_pairs": {
     "r.discourse_structure|r.relation": 1,
-    "r.discourse_structure": 12
+    "r.discourse_structure": 13
    },
    "small_sample": false
   },
   "X-REFER": {
-   "items": 12,
-   "wrong_options": 48,
-   "distortion_agreement": 0.458,
+   "items": 13,
+   "wrong_options": 52,
+   "distortion_agreement": 0.423,
    "agreed_distortions": {
     "true_statement": 10,
     "other": 9,
@@ -413,17 +424,17 @@
    "primary_task_pairs": {
     "r.reference": 3,
     "e.evidence_location|e.task_demand": 1,
-    "e.task_demand": 8
+    "e.task_demand": 9
    },
    "small_sample": false
   },
   "X-TITLE": {
-   "items": 14,
-   "wrong_options": 56,
-   "distortion_agreement": 0.554,
+   "items": 15,
+   "wrong_options": 60,
+   "distortion_agreement": 0.55,
    "agreed_distortions": {
     "surface_word_match": 12,
-    "unmentioned": 8,
+    "unmentioned": 10,
     "reversal": 4,
     "wrong_target": 2,
     "scope_shrink": 2,
@@ -432,16 +443,16 @@
     "off_demand": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 11,
+    "r.central_meaning": 12,
     "e.option_correspondence|r.central_meaning": 2,
     "e.option_correspondence": 1
    },
    "small_sample": false
   },
   "X-VOCAB": {
-   "items": 14,
-   "wrong_options": 56,
-   "distortion_agreement": 0.714,
+   "items": 15,
+   "wrong_options": 60,
+   "distortion_agreement": 0.667,
    "agreed_distortions": {
     "true_statement": 32,
     "other": 8
@@ -450,7 +461,7 @@
     "v.contextual_sense": 1,
     "v.semantic_relation": 1,
     "v.semantic_relation|v.core_meaning": 1,
-    "e.task_demand": 11
+    "e.task_demand": 12
    },
    "small_sample": false
   }
