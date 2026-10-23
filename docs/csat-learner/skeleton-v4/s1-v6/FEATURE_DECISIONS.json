@@ -165,7 +165,7 @@
           "gate": "NOT_VERIFIED",
           "fitness": "SCOPED_DESIGN_PREFERENCE_NOT_FULL_PASS",
           "costComparison": "DEFERRED_UNTIL_ADMISSIBLE",
-          "observation": "기존 앵커 참조를 유지하고 관찰/추론 출처 라벨과 연결 이유를 선택 공개한다.",
+          "observation": "B에서 기존 meaning/sentences 참조의 선택·강조와 저장된 decisive 설명 열람을 시연했다. 관찰/추론 출처 라벨을 따로 구현한 시연은 없으며 이는 다음 개선 제안이다.",
           "remainingRisk": "단순 클릭으로 추론 숙달을 판단하지 않으며 label 내용 감수는 남는다.",
           "status": "EVIDENCE_PENDING"
         },
@@ -424,7 +424,7 @@
       "alternatives": [
         {
           "kind": "REUSE",
-          "proposal": "현 강의 그대로 사용. 자동 장면·스크롤은 학습자 소유 계약과 충돌하므로 REJECTED_CONTROL. 비용과 관계없이 탈락.",
+          "proposal": "현 강의 그대로 사용. 자동 장면·스크롤은 학습자 소유 계약과 충돌하므로 ELIMINATED. 비용과 관계없이 탈락.",
           "gate": "ELIMINATED_CONTROL",
           "fitness": "INELIGIBLE",
           "costComparison": "DEFERRED_UNTIL_ADMISSIBLE",
@@ -438,7 +438,7 @@
           "gate": "NOT_VERIFIED",
           "fitness": "SCOPED_DESIGN_PREFERENCE_NOT_FULL_PASS",
           "costComparison": "DEFERRED_UNTIL_ADMISSIBLE",
-          "observation": "기존37cue와 player 상태를 유지하되 화면 탐색을 분리하고 한 차례씩 요청해 본다.",
+          "observation": "B/C/D 공통 하단에서 원본 cue의 차례 선택과 READ/SILENT/OFF 로컬 UI 상태만 시연했다. 실제 LecturePlayer/TTS는 연결하지 않았다. 기존 player 상태를 보존하는 구현은 후속 검증 제안이다.",
           "remainingRisk": "하네스는 실제 재생/음성 엔진 미연결;취소·오류·rate·OFF의 실제 동작은 남는다.",
           "status": "EVIDENCE_PENDING"
         },
@@ -448,8 +448,8 @@
           "gate": "NOT_VERIFIED",
           "fitness": "NO_DEMONSTRATED_PRIORITY",
           "costComparison": "DEFERRED_UNTIL_ADMISSIBLE",
-          "observation": "현재 강의 패널을 cue/근거 두 면으로 교체하는 C의 부가영역을 시연했다.",
-          "remainingRisk": "판단 대조와 강의 대조를 동시에 펴면 수직 공간과 스크롤이 늘어나는 위험이 있다.",
+          "observation": "C 역시 B/D와 같은 공통 하단 cue UI와 판단 작업면을 사용했다. C 전용 강의 cue/근거 두면 교체는 이번에 구현·시연하지 않은 제안이다.",
+          "remainingRisk": "제안한 강의 두면을 실제로 렌더한 뒤 판단 영역과 동시 공개할 때의 수직 공간·스크롤·근거 연결을 검증해야 한다.",
           "status": "EVIDENCE_PENDING"
         },
         {
@@ -475,7 +475,7 @@
       ],
       "recommendation": "IMPROVE",
       "recommendationScope": "ISOLATED_PARTIAL_ANALYSIS_NEXT_VALIDATION_CANDIDATE",
-      "observedEvidence": "AnalysisTheater liveScene→selectScene 및 LectureStage active.scrollIntoView 정적 반례. B/C/D 각18조건에서 READ/SILENT/OFF·cue 다음을 키보드로 조작했고 scene/scroll/focus 불변. core.test45 PASS는 순수 상태기계만.",
+      "observedEvidence": "AnalysisTheater liveScene→selectScene 및 LectureStage active.scrollIntoView 정적 반례. B/C/D 합계18조건에서 READ/SILENT/OFF·cue 다음을 키보드로 조작했고 scene/scroll/focus 불변. core.test45 PASS는 순수 상태기계만.",
       "nextValidation": "실제 LecturePlayer를 격리 앱에 연결하고 silent/cancel/error/rate/seek 후 장면·포커스·스크롤을 검사 → 정상 API 공개게이트 → 사용자가 허용한 TTS로 실청취.37원본과6제안은 계속 분리.",
       "typeExtension": "강의TTS와 듣기평가원음은 데이터/공개/성공상태를 공유하지 않는다."
     },
@@ -497,7 +497,7 @@
       "alternatives": [
         {
           "kind": "REUSE",
-          "proposal": "현재 레이아웃·자동 장면 정책 그대로. 자동 장면 변경이 명시적 사용자 제어 계약에 충돌하므로 REJECTED_CONTROL.",
+          "proposal": "현재 레이아웃·자동 장면 정책 그대로. 자동 장면 변경이 명시적 사용자 제어 계약에 충돌하므로 ELIMINATED.",
           "gate": "ELIMINATED_CONTROL",
           "fitness": "INELIGIBLE",
           "costComparison": "DEFERRED_UNTIL_ADMISSIBLE",
@@ -511,7 +511,7 @@
           "gate": "NOT_VERIFIED",
           "fitness": "NO_DEMONSTRATED_PRIORITY",
           "costComparison": "DEFERRED_UNTIL_ADMISSIBLE",
-          "observation": "현Shell을 유지하면서 질문/한정과 상세 선택 공개를 더하는B를 렌더했다.",
+          "observation": "B는 CsatRail과 V3Judgment를 재사용한 문서용 새 .fit Shell이다. 질문/한정 고정·판단 패널 연결만 관측했고 AnalysisTheater 기존 Shell을 직접 보완한 구현은 이번에 시연하지 않았다.",
           "remainingRisk": "한 선지 판과 여러 기존 출처배지가 남아 동시 비교/검수상태 표현은 보완해야 한다.",
           "status": "EVIDENCE_PENDING"
         },
@@ -538,7 +538,7 @@
       ],
       "decision": "DRAFT_RECOMMENDATION",
       "selected": null,
-      "reason": "C의 증거/판단 두 면은34의 질문·한정과 두 선택을 함께 두면서1280/1440 가로 넘침0을 확인했다. 현3열 A와 기능 전체를 새로 만드는 D 사이에서 판단 작업면 교체를 다음 검증 후보로 권고한다. PDF전문 없이 2면의 최종 폭·가독성을 확정하지 않는다.",
+      "reason": "C의 증거/판단 두 면은34의 질문·한정과 두 선택을 함께 두면서1280/1440 가로 넘침0을 확인했다. 이를 작업면 교체의 다음 검증 후보로 권고한다. B도 문서용 새 Shell이므로 기존 Shell을 실제 보완한 IMPROVE와의 우위는 아직 미정이다. PDF전문 없이 최종 폭·가독성을 확정하지 않는다.",
       "acceptance": "첫 질문을 찾고 조건을 보면서 판단할 수 있는가. 해설/강의부터 시작해도 잠금·강제 단계가 없고, 닫기/복귀 후 문항·TASK 맥락이 유지되는가.",
       "ats": [
         "AT07",
