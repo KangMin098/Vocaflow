@@ -86,6 +86,38 @@ export function validateRow(row, input, tasks) {
   return errs
 }
 
+/** 링크만 판정하는 행(확대 배치 · 규칙 재판정) — 지정한 TASK 만, 같은 인용 · 경로 · 반복 검사 */
+export function validateLinkRow(row, input, taskIds) {
+  const errs = []
+  const src = input.source
+  if (row.item_id !== input.item_id) errs.push('item_id 불일치')
+  if (row.source_sha256 !== input.source_sha256) errs.push('source_sha256 불일치(다른 원문을 읽었다)')
+  if (row.status !== 'AI_PROPOSED') errs.push('status 는 AI_PROPOSED 여야 한다')
+  const dp = row.decision_path
+  if (norm(dp?.summary).length < 40) errs.push('decision_path.summary 없음 또는 40자 미만')
+  if (!dp?.quote || norm(dp.quote).length < 3 || !['passage', 'stem', 'choices'].includes(dp.field) || !norm(fieldText(src, dp.field)).includes(norm(dp.quote))) errs.push('decision_path 인용이 원문에 없다')
+  const links = Array.isArray(row.links) ? row.links : []
+  for (const id of taskIds) if (links.filter((l) => l.task_id === id).length !== 1) errs.push(`TASK ${id} 판정 횟수가 1이 아니다`)
+  for (const l of links) {
+    if (!taskIds.includes(l.task_id)) errs.push(`대상 밖 TASK ${l.task_id}`)
+    if (!RELEVANCE.includes(l.relevance)) errs.push(`${l.task_id} relevance 값 ${l.relevance}`)
+    if (norm(l.why).length < 15) errs.push(`${l.task_id} why 가 비었거나 너무 짧다`)
+    if (l.relevance === 'direct' || l.relevance === 'indirect') {
+      const q = norm(l.anchor?.quote)
+      if (q.length < 3 || !['passage', 'stem', 'choices'].includes(l.anchor?.field) || !norm(fieldText(src, l.anchor.field)).includes(q)) errs.push(`${l.task_id} 인용이 원문에 없다`)
+      if (norm(l.task_distinction).length < 10) errs.push(`${l.task_id} task_distinction 없음`)
+    }
+  }
+  return errs
+}
+
+/** 링크 행 묶음의 상투문 — why · decision_path 가 문항 3개 이상에서 같으면 결함 */
+export function validateLinkChunk(rows) {
+  const seen = new Map()
+  for (const r of rows) for (const k of new Set([`dp:${norm(r.decision_path?.summary)}`, ...(r.links ?? []).map((l) => `${l.task_id}:${norm(l.why)}`)])) seen.set(k, [...(seen.get(k) ?? []), r.item_id])
+  return [...seen].filter(([, ids]) => ids.length >= 3).map(([k, ids]) => `문항 ${ids.length}개에 같은 문장(${ids.slice(0, 3).join(',')}…): 「${k.slice(0, 40)}」`)
+}
+
 /** 청크 전체의 상투문 — 문항이 달라도 같은 문장이 반복되면 생성기로 찍어낸 것이다 */
 export function validateChunk(rows) {
   const errs = []
