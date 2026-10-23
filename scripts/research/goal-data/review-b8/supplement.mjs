@@ -1,0 +1,41 @@
+// scripts/research/goal-data/review-b8/supplement.mjs
+import fs from 'node:fs';
+import crypto from 'node:crypto';
+import path from 'node:path';
+import assert from 'node:assert/strict';
+import {execFileSync} from 'node:child_process';
+const local='scripts/research/goal-data/review-b8/',doc='docs/research/goal-data-batches/D2-task-mapping/',base='scripts/research/goal-data/local/';
+const at=(p,r='1fa75b9cc')=>execFileSync('git',['show',`${r}:${p}`],{encoding:'utf8',maxBuffer:30e6});
+const hash=s=>crypto.createHash('sha256').update(s).digest('hex');
+const snap=JSON.parse(fs.readFileSync(local+'packets.local.json','utf8')),read=p=>JSON.parse(snap.files[p]);
+const code=at(base.replace('local/','')+'d2-run.mjs');
+const fn=code.slice(code.indexOf('function snapshot('),code.indexOf("\nif (cmd === 'chunks')"));
+const store=new Map(),copies=[],original=new Map(Object.entries(snap.files).filter(([p])=>p.startsWith(base+'b7-v24/')&&p.endsWith('.out.json')).map(([p,s])=>[path.basename(p),s]));
+const mem={mkdirSync:()=>{},readdirSync:()=>[...original.keys(),'input.json'],copyFileSync:(a,b)=>{store.set(b,original.get(path.basename(a)));copies.push(b);},readFileSync:p=>original.get(path.basename(p)),writeFileSync:(p,s)=>store.set(p,s)};
+class FixedDate extends Date{constructor(){super('2026-10-23T08:00:00Z');}}
+new Function('fs','path','LOCAL','ROOT','sha','batch','Date','console',fn+';snapshot("probe/label");')(mem,path,'virtual/b7-v24','virtual',hash,'b7-v24',FixedDate,{log:()=>{}});
+const manifestEntry=[...store].find(([p])=>p.endsWith('manifest.json')),manifest=JSON.parse(manifestEntry[1]);
+assert.equal(copies.length,4);assert.ok(copies.every(p=>p.includes('probe_label')));
+const verify=()=>manifest.files.map(f=>({file:f.file,ok:hash(store.get(path.join(path.dirname(manifestEntry[0]),f.file)))===f.sha256}));
+assert.ok(verify().every(x=>x.ok));
+original.set(manifest.files[0].file,'edited current output');assert.ok(verify().every(x=>x.ok));
+store.set(copies[0],store.get(copies[0])+' ');assert.equal(verify().filter(x=>!x.ok).length,1);
+const historyRoot='D:/workspace/Vocaflow-goal-data/'+base+'b7-v24/history',history={};
+const prior=JSON.parse(fs.readFileSync('scripts/research/goal-data/review-b7/packets.local.json','utf8'));
+for(const folder of fs.readdirSync(historyRoot)){
+ const files={};for(const f of fs.readdirSync(historyRoot+'/'+folder))files[f]=fs.readFileSync(historyRoot+'/'+folder+'/'+f,'utf8');
+ const m=JSON.parse(files['manifest.json']);history[folder]=m.files.map(f=>({file:f.file,manifest:hash(files[f.file])===f.sha256,prior_review:files[f.file]===prior.files[base+'b7-v24/'+f.file],current:files[f.file]===snap.files[base+'b7-v24/'+f.file]}));
+ fs.writeFileSync(local+'history.local.json',JSON.stringify({folder,files},null,2));
+}assert.ok(Object.values(history).flat().every(x=>x.manifest&&x.prior_review&&x.current));
+const inp=read(base+'b8-v24/input.json'),selection=JSON.parse(at(doc+'b8-v24-selection.json'));
+const priorIds=new Set(JSON.parse(at('docs/csat-learner/v62/data-expansion/pilot-selection.json')).items.map(x=>x.item_id));
+const excluded=selection.excluded.map(e=>({id:e.item_id,reason:e.reason,type:inp.excluded_raw.find(r=>r.item_id===e.item_id).type_id,pilot:priorIds.has(e.item_id)}));
+assert.equal(excluded.filter(x=>x.pilot).length,12);assert.equal(excluded.filter(x=>x.type==='R-CHART').length,2);
+const tracks=Object.fromEntries(['A','B'].map(t=>[t,[1,2].flatMap(n=>read(base+`b8-v24/chunk-${t}-0${n}.out.json`).rows)]));
+const primary=tracks.A.filter((a,i)=>a.primary_task!==tracks.B[i].primary_task).map((a,i)=>({id:a.item_id,A:a.primary_task,B:tracks.B.find(b=>b.item_id===a.item_id).primary_task}));assert.equal(primary.length,3);
+const outside=tracks.A.filter(a=>a.main_performance_outside_subset!==tracks.B.find(b=>b.item_id===a.item_id).main_performance_outside_subset).map(a=>a.item_id);assert.deepEqual(outside,['M2409#39']);
+const unchanged=execFileSync('git',['diff','--name-only','e87bdc173..1fa75b9cc','--',doc+'b7-v24*'],{encoding:'utf8'}).trim()==='';assert.ok(unchanged);
+const all=JSON.parse(fs.readFileSync(local+'diff-detail.local.json','utf8'));
+const inspected=all.map(d=>({path:d.path,lines:(d.content??'').split('\n').length,added:d.added?.length,removed:d.removed?.length,sha256:d.content?hash(d.content):undefined}));
+const out={snapshot_probes:{copied:4,current_edit_preserves_history:true,history_mutation_detected:1,label_sanitized:true,automatic_verify_command:false,authenticated_manifest:false},history,b7_committed_unchanged:unchanged,excluded,primary,outside,inspected};
+fs.writeFileSync(local+'supplement.local.json',JSON.stringify(out,null,2));console.log(JSON.stringify(out,null,2));
