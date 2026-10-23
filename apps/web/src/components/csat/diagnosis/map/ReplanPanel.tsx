@@ -52,11 +52,18 @@ export function ReplanPanel({ p, onOpenWs }: { p: ReplanProposal; onOpenWs: (ws:
                   )
                 })}
               </tbody>
-              {p.thisWeek && (
-                <tfoot data-testid="replan-week">
-                  <tr><td colSpan={2}>이번 주 합계</td><td className={u.rpNum}>{p.thisWeek.current}분</td><td className={u.rpNum}>{p.thisWeek.before}분</td><td className={u.rpNum}>{p.thisWeek.after}분</td></tr>
-                </tfoot>
-              )}
+              {/* T-0110 rework — 합계는 표의 행과 같은 TASK 집합(소계). 이번 주 전체(다른 TASK 포함)는 값이 다를 때만 따로 구분해 보인다 */}
+              {p.weekRows.length > 0 && (() => {
+                const sub = p.weekRows.reduce((a, w) => ({ current: a.current + w.current, before: a.before + w.before, after: a.after + w.after }), { current: 0, before: 0, after: 0 })
+                const all = p.thisWeek
+                const differs = !!all && (all.current !== sub.current || all.before !== sub.before || all.after !== sub.after)
+                return (
+                  <tfoot data-testid="replan-week">
+                    <tr data-testid="replan-subtotal"><td colSpan={2}>수정안 대상 소계</td><td className={u.rpNum}>{sub.current}분</td><td className={u.rpNum}>{sub.before}분</td><td className={u.rpNum}>{sub.after}분</td></tr>
+                    {differs && <tr data-testid="replan-week-all"><td colSpan={2}>이번 주 전체(다른 TASK 포함)</td><td className={u.rpNum}>{all!.current}분</td><td className={u.rpNum}>{all!.before}분</td><td className={u.rpNum}>{all!.after}분</td></tr>}
+                  </tfoot>
+                )
+              })()}
             </table>
           ) : null}
           {p.thisWeek && <p className={u.gpNote} data-testid="replan-week-note">다시 확정하기 전이라 이 TASK 는 「오늘의 학습」에 아직 배정되지 않아요(지금 배정). 확정하면 수정안대로 배정돼요.</p>}

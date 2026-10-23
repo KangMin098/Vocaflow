@@ -81,4 +81,13 @@ describe('replanProposal', () => {
   it('저장 조회 실패면 수정안과 이전 일정을 만들지 않는다', () => {
     expect(replanProposal({ goal, rows: [row('v.core_meaning')], plans, saved: { ...saved('check', 2), error: true }, today: TODAY }).none).toBe(true)
   })
+
+  it('T-0110 Codex 반례 — 다른 TASK 가 이미 배정된 주: weekRows 는 재확정 TASK 만 · thisWeek 는 전체(화면은 소계와 전체를 구분)', () => {
+    const other = row('r.central_meaning', { planGate: null, action: { rank: 2, href: '/x', label: 'x' }, needRank: 2, quantity: { unit: '문항', planned: 2, done: 0, remaining: 2, source: 'saved' } })
+    const p = replanProposal({ goal, rows: [row('v.core_meaning'), other], plans, saved: saved('check', 2), today: TODAY, revisions: [] })
+    const sub = p.weekRows.reduce((a, w) => a + w.after, 0)
+    expect(p.weekRows.map((w) => w.task)).toEqual(['v.core_meaning'])
+    expect(p.thisWeek!.after).toBeGreaterThan(sub) // 전체에는 다른 TASK 20분이 더 있다 — 같은 「합계」로 보이면 안 된다
+    expect(p.thisWeek!.current).toBe(20)
+  })
 })
