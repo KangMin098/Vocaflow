@@ -1,0 +1,368 @@
+{
+  "task_id": "T-0129",
+  "owner_id": "goal-data-independent",
+  "source_commit": "c839832caa110f886b397aa84fc3b7c9679f08b6",
+  "diff_base": "8980aaa59",
+  "result": "pass",
+  "result_meaning": "검증 수행 완료; 모든 주장 통과 아님",
+  "skip_count": 0,
+  "observed_at": "2026-10-23T11:51:40.364Z",
+  "acceptance": [
+    {
+      "index": 0,
+      "status": "confirmed",
+      "claim": "자기 최초79→최종80행 전량 비교. 기존9행의 지정 필드 수정과 B01 누락1행 수기 추가. 관측된 출력 후 수정은 문항별 Edit이며 일괄 치환·판정 자동 생성 없음.",
+      "evidence": [
+        "scripts/research/goal-data/review-b17/assembly.mjs:11",
+        "scripts/research/goal-data/review-b17/supplement.mjs:18",
+        "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:376",
+        "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:510",
+        "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:638",
+        "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:1125",
+        "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:1225",
+        "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:1325",
+        "scripts/research/goal-data/local/b17-v24/chunk-A-02.out.json:1771",
+        "scripts/research/goal-data/local/b17-v24/chunk-B-01.out.json:77",
+        "scripts/research/goal-data/local/b17-v24/chunk-B-01.out.json:477",
+        "scripts/research/goal-data/local/b17-v24/chunk-B-02.out.json:1433"
+      ]
+    },
+    {
+      "index": 1,
+      "status": "confirmed",
+      "claim": "B02 스크립트의 첫 출력 전 특정 리터럴 한 곳 수정은 스냅샷 우회로 관측되지 않음. 수정 전후를 메모리 재실행해 차이는 2017#29 오답1 유형뿐. 세 조립 경로와 B01 직접 Write가 자기 최초본을 구조적으로 재현. 프롬프트·manifest·실행 전문 일치; 관측 validator 타 청크 ID0. 절대 미노출은 unclear.",
+      "evidence": [
+        "scripts/research/goal-data/review-b17/assembly.mjs:14",
+        "scripts/research/goal-data/local/b17-v24/prompts/manifest.json:1",
+        "scripts/research/goal-data/review-b17/supplement.mjs:25"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "confirmed",
+      "claim": "40선정·해시·일치224/240·κ .874739·primary34/40·R6 κ .545455/공동direct3·경보를 재계산. 17개 로컬 배치 validate 결함0, 실제 격리 회귀32/32. runner/validator/회귀 소스는 8980aaa59와 동일.",
+      "evidence": [
+        "docs/research/goal-data-batches/D2-task-mapping/b17-v24-agreement.json:43",
+        "scripts/research/goal-data/review-b17/audit.mjs:45",
+        "scripts/research/goal-data/review-b17/regression.mjs:14",
+        "scripts/research/goal-data/review-b17/supplement.mjs:13"
+      ]
+    },
+    {
+      "index": 3,
+      "status": "unclear",
+      "claim": "후보10·갈림10 및 primary갈림6의 원문 대조 완료. 후보 근거 지지, 의미·primary Gold 미확정. 심경 계약 개정 후보는 지지하나 b13/b14/b15에서도 A/B primary가 반복 불일치했다는 해석은 refuted.",
+      "evidence": [
+        "scripts/research/goal-data/review-b17/row-review.md:1",
+        "docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:317",
+        "docs/research/goal-data-batches/review-b13/review.md:70"
+      ]
+    },
+    {
+      "index": 4,
+      "status": "confirmed",
+      "claim": "verdict/review·새 P0/P1·다음 배치 가부 및 unclear 명시.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b17/verdict.json:1",
+        "docs/research/goal-data-batches/review-b17/review.md:1"
+      ]
+    }
+  ],
+  "new_p0": [],
+  "new_p1": [],
+  "next_batch": "가능 — v2.4 연구 후보 확대만; 문항별 수기 수정·최초 스냅샷·실행 로그 보존과 의미 경계 미확정 유지.",
+  "history_changes": [
+    {
+      "label": "A-01",
+      "item": "2018#21",
+      "added": false,
+      "fields": [
+        "stem_demand"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-35-829Z-b17-v24-A-01-first/chunk-A-01.out.json:376",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:376"
+    },
+    {
+      "label": "A-01",
+      "item": "2018#22",
+      "added": false,
+      "fields": [
+        "stem_demand"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-35-829Z-b17-v24-A-01-first/chunk-A-01.out.json:510",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:510"
+    },
+    {
+      "label": "A-01",
+      "item": "2018#23",
+      "added": false,
+      "fields": [
+        "stem_demand"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-35-829Z-b17-v24-A-01-first/chunk-A-01.out.json:638",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:638"
+    },
+    {
+      "label": "A-01",
+      "item": "2018#28",
+      "added": false,
+      "fields": [
+        "not_observable.0"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-35-829Z-b17-v24-A-01-first/chunk-A-01.out.json:1125",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:1125"
+    },
+    {
+      "label": "A-01",
+      "item": "2018#29",
+      "added": false,
+      "fields": [
+        "not_observable.0"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-35-829Z-b17-v24-A-01-first/chunk-A-01.out.json:1230",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:1225"
+    },
+    {
+      "label": "A-01",
+      "item": "2018#30",
+      "added": false,
+      "fields": [
+        "not_observable.0"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-35-829Z-b17-v24-A-01-first/chunk-A-01.out.json:1335",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-A-01.out.json:1325"
+    },
+    {
+      "label": "A-02",
+      "item": "2017#27",
+      "added": false,
+      "fields": [
+        "distractors.0.why"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-43-243Z-b17-v24-A-02-first/chunk-A-02.out.json:1771",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-A-02.out.json:1771"
+    },
+    {
+      "label": "B-01",
+      "item": "2018#21",
+      "added": false,
+      "fields": [
+        "distractors.1.why"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-50-429Z-b17-v24-B-01-first/chunk-B-01.out.json:77",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-B-01.out.json:77"
+    },
+    {
+      "label": "B-01",
+      "item": "2018#38",
+      "added": true,
+      "fields": [
+        "entire added row"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-50-429Z-b17-v24-B-01-first/chunk-B-01.out.json:1 (item absent)",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-B-01.out.json:477"
+    },
+    {
+      "label": "B-02",
+      "item": "2017#23",
+      "added": false,
+      "fields": [
+        "distractors.0.why"
+      ],
+      "first": "scripts/research/goal-data/local/b17-v24/history/2026-10-23T11-38-05-215Z-b17-v24-B-02-first/chunk-B-02.out.json:1433",
+      "final": "scripts/research/goal-data/local/b17-v24/chunk-B-02.out.json:1433"
+    }
+  ],
+  "stats": {
+    "overall": {
+      "n": 240,
+      "agree": 224,
+      "agreement": 0.9333333333333333,
+      "kappa": 0.8747390396659708
+    },
+    "per_task": {
+      "r.central_meaning": {
+        "n": 40,
+        "agree": 37,
+        "agreement": 0.925,
+        "kappa": 0.8378378378378379
+      },
+      "r.inference": {
+        "n": 40,
+        "agree": 36,
+        "agreement": 0.9,
+        "kappa": 0.5454545454545455
+      },
+      "e.task_demand": {
+        "n": 40,
+        "agree": 40,
+        "agreement": 1,
+        "kappa": 1
+      },
+      "e.option_correspondence": {
+        "n": 40,
+        "agree": 37,
+        "agreement": 0.925,
+        "kappa": 0.883495145631068
+      },
+      "r.discourse_structure": {
+        "n": 40,
+        "agree": 37,
+        "agreement": 0.925,
+        "kappa": 0.8601398601398602
+      },
+      "e.evidence_location": {
+        "n": 40,
+        "agree": 37,
+        "agreement": 0.925,
+        "kappa": 0.8705501618122978
+      }
+    },
+    "primary_agree": 34,
+    "primary_disagreements": [
+      {
+        "item": "2018#19",
+        "A": "r.inference",
+        "B": null
+      },
+      {
+        "item": "2018#35",
+        "A": "e.task_demand",
+        "B": "r.discourse_structure"
+      },
+      {
+        "item": "2018#42",
+        "A": "r.inference",
+        "B": "r.central_meaning"
+      },
+      {
+        "item": "2017#19",
+        "A": "r.central_meaning",
+        "B": "r.inference"
+      },
+      {
+        "item": "2017#26",
+        "A": "e.task_demand",
+        "B": "e.option_correspondence"
+      },
+      {
+        "item": "2017#31",
+        "A": "r.inference",
+        "B": "r.central_meaning"
+      }
+    ],
+    "r6_joint_direct": [
+      "2018#31",
+      "2018#33",
+      "2018#34"
+    ],
+    "cumulative": {
+      "items": 586,
+      "exams": 23,
+      "r1": 1371,
+      "disputed": 509
+    },
+    "d3": {
+      "items": 586,
+      "items_source_gap": 5,
+      "primary_task_agree": 504,
+      "same_decision_locus": 297,
+      "wrong_options": 2344,
+      "distortion_agree": 1678,
+      "distortion_agree_source_text": 1660,
+      "wrong_options_source_text": 2324
+    }
+  },
+  "historical_mood": [
+    {
+      "batch": "b13-v24",
+      "item": "M2206#19",
+      "primary": {
+        "A": "r.inference",
+        "B": "r.inference"
+      },
+      "input": "scripts/research/goal-data/local/b13-v24/input.json:193"
+    },
+    {
+      "batch": "b13-v24",
+      "item": "2021#19",
+      "primary": {
+        "A": null,
+        "B": null
+      },
+      "input": "scripts/research/goal-data/local/b13-v24/input.json:4473"
+    },
+    {
+      "batch": "b14-v24",
+      "item": "M2109#19",
+      "primary": {
+        "A": null,
+        "B": null
+      },
+      "input": "scripts/research/goal-data/local/b14-v24/input.json:2434"
+    },
+    {
+      "batch": "b15-v24",
+      "item": "M2106#19",
+      "primary": {
+        "A": null,
+        "B": null
+      },
+      "input": "scripts/research/goal-data/local/b15-v24/input.json:330"
+    },
+    {
+      "batch": "b17-v24",
+      "item": "2018#19",
+      "primary": {
+        "A": "r.inference",
+        "B": null
+      },
+      "input": "scripts/research/goal-data/local/b17-v24/input.json:180"
+    },
+    {
+      "batch": "b17-v24",
+      "item": "2017#19",
+      "primary": {
+        "A": "r.central_meaning",
+        "B": "r.inference"
+      },
+      "input": "scripts/research/goal-data/local/b17-v24/input.json:4410"
+    }
+  ],
+  "refuted_subclaims": [
+    {
+      "claim": "b13 b14 b15 모두 심경 A/B primary가 불일치",
+      "reason": "지정 과거 심경4문항은 A/B 일치. b17 두 문항에서만 primary 불일치. 과거 독립 검토의 의미 unclear와 구분해야 한다.",
+      "evidence": [
+        "scripts/research/goal-data/local/b13-v24/input.json:193",
+        "scripts/research/goal-data/local/b13-v24/input.json:4473",
+        "scripts/research/goal-data/local/b14-v24/input.json:2434",
+        "scripts/research/goal-data/local/b15-v24/input.json:330",
+        "scripts/research/goal-data/local/b17-v24/input.json:180",
+        "scripts/research/goal-data/local/b17-v24/input.json:4410"
+      ]
+    }
+  ],
+  "unclear": [
+    "행동·상황 정서 명명의 R5/R6/outside 경계",
+    "2018#42·2017#31 재진술/결합 경계",
+    "2018#35 R3/R4 단위와 2017#26 primary 단일 우열",
+    "E2/E3 갈림의 의미 Gold",
+    "관측 필드의 진단 타당성·실제 학생 수행·학습 효과",
+    "기록 밖 노출·이전 지식과 인과 오염의 절대 부재"
+  ],
+  "verification": {
+    "independent_checks": 387,
+    "failed": 0,
+    "shipped_regressions": 32,
+    "local_packet_count": 324,
+    "source_unchanged": true
+  },
+  "not_run": [
+    "DB 읽기/쓰기",
+    "제품 빌드/E2E",
+    "사람 Gold/학생 측정",
+    "봉인/NeedRank 승인",
+    "main/원격 통합"
+  ]
+}
