@@ -28,14 +28,12 @@ export interface RecordPoint {
   label: string
   takenAt: string
   raw: number
-  grade: number
+  grade: number | null
 }
 
 export interface GoalSummary {
   goalSet: boolean
   goal: number
-  goalGrade: number
-  goalBand: string
   /** 원점수가 있는 기록 수 */
   recordCount: number
   latest: RecordPoint | null
@@ -48,15 +46,12 @@ export interface GoalSummary {
 export function goalSummary(model: Pick<MapModel, 'goal' | 'goalSet'>, records: readonly LearnerRecord[]): GoalSummary {
   const points: RecordPoint[] = records
     .filter((r): r is LearnerRecord & { raw: number } => typeof r.raw === 'number' && Number.isFinite(r.raw))
-    .map((r) => ({ label: r.label, takenAt: r.takenAt, raw: r.raw, grade: r.grade ?? gradeOf(r.raw) }))
+    .map((r) => ({ label: r.label, takenAt: r.takenAt, raw: r.raw, grade: typeof r.grade === 'number' && Number.isInteger(r.grade) && r.grade >= 1 && r.grade <= 9 ? r.grade : null }))
   const latest = points.at(-1) ?? null
   const previous = points.length >= 2 ? points[points.length - 2] : null
-  const goalGrade = gradeOf(model.goal)
   return {
     goalSet: model.goalSet,
     goal: model.goal,
-    goalGrade,
-    goalBand: gradeBand(goalGrade),
     recordCount: points.length,
     latest,
     previous,

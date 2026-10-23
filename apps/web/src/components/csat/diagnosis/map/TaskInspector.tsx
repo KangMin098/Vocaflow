@@ -56,6 +56,7 @@ import { GAP_LABEL, type LedgerKey } from '@/lib/csat/map/v62/coverage'
 import { DOMAIN_QUESTION, type InspectorEvidence, type ResearchFlag, type TaskInspectorDTO } from '@/lib/csat/map/v62/graph'
 import type { SupportStatus } from '@/lib/csat/map/v62/inventory'
 import type { NotActionableReason } from '@/lib/csat/map/v62/rank'
+import { MAINTAIN_PASSED_LABEL } from '@/lib/csat/map/v62/maintenance-state'
 
 import { integratedObservation, OBSERVATION_LABEL, OBSERVATION_NOTE } from '@/lib/csat/map/v4/observation'
 
@@ -66,8 +67,10 @@ import u from './unified.module.css'
 import { useTaskDone } from './useTaskDone'
 
 export const EVIDENCE_V62_LABEL: Record<InspectorEvidence, string> = {
-  unmeasurable: '측정 방법을 정하는 중',
-  not_measured: '아직 확인 전',
+  unmeasurable: '측정 도구 준비 중',
+  not_measured: '확인 기록 없음',
+  analysis_pending: '시험 분석 대기',
+  insufficient: '관찰 근거 부족',
   axis_observation: '기출 기록에서 관찰 · 확정 아님',
   checking: '직접 확인 중',
   need_confirmed: '이 조건에서 보완 필요',
@@ -75,7 +78,7 @@ export const EVIDENCE_V62_LABEL: Record<InspectorEvidence, string> = {
   recheck_due: '다시 확인할 때',
 }
 
-export const NEED_V62_LABEL = { ...NEED_LABEL, RELEVANCE_UNKNOWN: '목표 시험과의 연결 확인 전' } as const
+export const NEED_V62_LABEL = { ...NEED_LABEL, CONFIRM: '직접 확인 필요', RELEVANCE_UNKNOWN: '목표 시험과의 연결 확인 전' } as const
 
 export const BLOCKED_LABEL: Record<NotActionableReason, string> = {
   content_gap: '확인 콘텐츠를 준비하고 있어요',
@@ -85,6 +88,8 @@ export const BLOCKED_LABEL: Record<NotActionableReason, string> = {
   canon_hold: '측정 방법을 정하는 중이에요(보류)',
   relevance_unknown: '목표 시험 문항과의 연결을 아직 검토하지 않았어요',
   no_next_activity: '지금 바로 할 활동은 없어요',
+  // T-0082 — 지금 확인 통과 · 유지 확인 기준 미정(앞 단계 미완료 · 숙달 아님)
+  maintain_pending: MAINTAIN_PASSED_LABEL,
 }
 
 const FLAG_LABEL: Record<ResearchFlag, string> = {
@@ -168,7 +173,7 @@ export function returnLinesFor(task: TaskId, view: V4View, data: MapPageData, ho
 }
 
 /** 학습계획 편집(PlanSection)은 Workspace 상세 모달의 계획 탭에서 연다(LM-W1) — 여기서는 열기 요청만 */
-export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null, returnRef = null }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null; returnRef?: ReturnRef }) {
+export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTogglePlan, returned = null, returnRef = null, embedded = false }: { ins: TaskInspectorDTO; view: V4View; data: MapPageData; past: boolean; restoreWs: string | null; planOpen: boolean; onTogglePlan: (ws: string) => void; returned?: readonly ReturnNote[] | null; returnRef?: ReturnRef; embedded?: boolean }) {
   const [sheet, setSheet] = useState<StepView | null>(null)
   const tasks = useTaskDone(data.doneTaskIds)
   const t = ins.task
@@ -329,7 +334,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
               </ol>
               {ins.plan && <p className={u.fine}>이번 계획 수행 {ins.plan.done}{ins.plan.planned !== null ? ` / ${ins.plan.planned}` : ''} — 수행량은 실력 점수가 아니에요.</p>}
               {view.plans[home] && (
-                <button type="button" className={u.ghost} aria-haspopup="dialog" aria-expanded={planOpen} onClick={() => onTogglePlan(home)} data-testid="inspector-plan-toggle">
+                <button type="button" className={u.ghost} aria-haspopup={embedded ? undefined : 'dialog'} aria-expanded={planOpen} onClick={() => onTogglePlan(home)} data-testid="inspector-plan-toggle">
                   <ChevronDown size={14} aria-hidden="true" className={u.chev} data-open={planOpen} />
                   학습계획 열기 · 조정
                 </button>
@@ -497,7 +502,10 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
         </details>
       </div>
 
-      {sheet && <StepSheet data={data} step={sheet} tasks={tasks} onClose={() => setSheet(null)} />}
+      {sheet && <StepSheet embedded={embedded} data={data} step={sheet} tasks={tasks} onClose={() => {
+        setSheet(null)
+        if (embedded) requestAnimationFrame(() => document.querySelector<HTMLElement>('[data-testid="inspector-evidence-detail"]')?.focus())
+      }} />}
     </aside>
   )
 }

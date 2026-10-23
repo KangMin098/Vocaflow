@@ -37,6 +37,9 @@ export function DcpPlayer({
   backCta = '홈으로',
   grade = gradeDcpItem,
   recordCause = recordDcpErrorCause,
+  doneCopy,
+  onGraded,
+  onBack,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -48,6 +51,14 @@ export function DcpPlayer({
    */
   grade?: typeof gradeDcpItem
   recordCause?: typeof recordDcpErrorCause
+  /**
+   * 완료 문구 교체 — 기본 격려(「꾸준함이 실력이 돼요」)가 향상 근거처럼 읽히면 안 되는 화면(공장 안내 연습 · 1D)이 넣는다.
+   */
+  doneCopy?: (s: { total: number; correct: number }) => { title: string; body: string }
+  /** 채점 성공 직후(계측용) — 실패는 부르지 않는다 */
+  onGraded?: (item: DcpItem, result: DcpGradeOk) => void
+  /** 완료 화면의 돌아가기를 눌렀다(계측용) */
+  onBack?: () => void
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -87,6 +98,7 @@ export function DcpPlayer({
       return
     }
     setResult(res)
+    onGraded?.(item, res)
     if (res.correct) setCorrectCount((c) => c + 1)
     setPhase('graded')
   }
@@ -110,6 +122,7 @@ export function DcpPlayer({
 
   // ── 완료 요약 ──
   if (phase === 'done') {
+    const custom = doneCopy?.({ total, correct: correctCount })
     return (
       <section
         aria-label="구문 연습 완료"
@@ -123,14 +136,15 @@ export function DcpPlayer({
         </span>
         <div>
           <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">
-            {items.every((x) => isUnderlineChoiceDcpType(x.type)) ? '어휘 연습을 마쳤어요' : '오늘 구문 연습을 마쳤어요'}
+            {custom ? custom.title : items.every((x) => isUnderlineChoiceDcpType(x.type)) ? '어휘 연습을 마쳤어요' : '오늘 구문 연습을 마쳤어요'}
           </h2>
-          <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
-            {total}문항 중 {correctCount}문항을 맞혔어요. 꾸준함이 실력이 돼요.
+          <p className="mt-1 break-keep font-body text-[13px] text-[var(--t2)]" data-testid="dcp-done-body">
+            {custom ? custom.body : `${total}문항 중 ${correctCount}문항을 맞혔어요. 꾸준함이 실력이 돼요.`}
           </p>
         </div>
         <Link
           href={backHref}
+          onClick={onBack}
           className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
         >
           <Home size={16} strokeWidth={2} aria-hidden />

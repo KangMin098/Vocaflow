@@ -1,5 +1,9 @@
 # Conventions
 
+## 로컬 3000 서버의 실제 작업 폴더
+
+화면이 이전 버전으로 보이면 수정 전에 `pnpm dev:check`로 중앙 `main_worktree`의 dev 소유 파일(cwd·PID)과 실제 3000 포트 소유 PID를 함께 대조한다. 소유 파일만 남은 상태나 다른 워크트리의 서버를 성공으로 세지 않는다. 2026-10-23에는 최신 main 코드가 보존돼 있었지만 이전 `D:/workspace/Vocaflow`의 서버가 3000을 점유했다. 재기동은 확인한 dev 프로세스 트리만 종료하고 정본의 `apps/web`에서 `pnpm dev --port 3000`으로 실행한다. 다른 작업 폴더의 미커밋 변경이나 DB는 서버 교체 때문에 수정하지 않는다.
+
 ## 공유 PC의 프로덕션 빌드
 
 Next 14의 Terser 병렬도는 `experimental.cpus`를 따른다. 전체 CPU 수로 큰 청크를 Worker에 보내면 공유 16GB PC에서 `DataCloneError: Data cannot be cloned, out of memory`가 발생해, 기본 병렬도를 2로 제한한다. SWC 대체·minify 비활성화로 검사나 산출물 형식을 바꾸지 않는다. 검증 빌드는 실행 서버와 별도 `NEXT_DIST_DIR`을 사용한다. 실패 로그와 재실행 로그는 구분해 보존한다.

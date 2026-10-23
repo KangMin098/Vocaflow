@@ -13,13 +13,15 @@ import { beforeAll, describe, expect, it } from 'vitest'
 import { AXES, B_SQL, C_SQL, STUB } from '../../map/v62/__tests__/supply-sql-harness'
 import type { V4View } from '../../map/v4/compose'
 import { asIsMap } from '../../map/v4/as-is'
-import { DOMAINS } from '../../map/v4/definition'
+import { DOMAINS, taskOf } from '../../map/v4/definition'
+import { reachPolicyOf } from '../../map/skill-diagnosis'
 import { repairGate, workspacePlan, type PlanActivity } from '../../map/v4/plan'
 import { toBeMap } from '../../map/v4/to-be'
 import { planWorkspaces } from '../../map/v4/workspace'
 import type { AttemptWrite, AttemptWriter } from '@/lib/knowledge/practice-writer'
 import { AUTHORED_SETS, R5_AUTHORED_SET, authoredRef, isAssessmentRole, registrationArgs, type AuthoredGold, type AuthoredSet } from '@/lib/knowledge/authored/authored-items'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
+import { bindDeliveryAttempt, boundAttemptId } from '../../map/v62/delivery-binding'
 import { applyAuthoredBindings } from '../evidence'
 import { listDelivered, openDelivered, recordAuthoredAttempt, requestAuthoredSupply } from '../server'
 import { FakeClient } from './pglite-supabase'
@@ -49,6 +51,9 @@ const TD = AUTHORED_SETS.find((x) => x.taskId === 'e.task_demand')!
 // T-0066 — 보조 발문 요구(e.task_demand) 전체 순환 학습자(pass · fail)
 const H = '00000000-0000-4000-8000-0000000000c8'
 const I = '00000000-0000-4000-8000-0000000000c9'
+// T-0083 — 학습 전용 보조 진입(ws.sentence-core × s.attachment) 학습자
+const K = '00000000-0000-4000-8000-0000000000ca'
+const AT = AUTHORED_SETS.find((x) => x.taskId === 's.attachment')!
 // T-0068 — 비보류 13 TASK 순환(세트마다 pass · fail 학습자 한 쌍 · 다른 시험과 상태 분리)
 const T68 = [
   ['e.option_correspondence', 'ws.option-match', 'opt'], ['r.discourse_function', 'ws.central-meaning', 'df'], ['r.discourse_structure', 'ws.central-meaning', 'ds'],
@@ -125,14 +130,14 @@ beforeAll(async () => {
   await db.exec(read('20261018120000_workspace_supply_c_annotation_binding.sql'))
   await db.exec(read('20261018120100_r5_delivery_g2_binding.sql'))
   await db.exec(read('_pending_authored_supply.sql'))
-  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'), ('${G}'), ('${H}'), ('${I}'), ${T68.flatMap((x) => [x.pass, x.fail]).map((u) => `('${u}')`).join(', ')}; insert into public.admins values ('${ADMIN}', 'admin');`)
-  for (const uid of [A, B, C, D, E, F, G, H, I, ...T68.flatMap((x) => [x.pass, x.fail])]) {
+  await db.exec(`insert into auth.users values ('${ADMIN}'), ('${A}'), ('${B}'), ('${C}'), ('${D}'), ('${E}'), ('${F}'), ('${G}'), ('${H}'), ('${I}'), ('${K}'), ${T68.flatMap((x) => [x.pass, x.fail]).map((u) => `('${u}')`).join(', ')}; insert into public.admins values ('${ADMIN}', 'admin');`)
+  for (const uid of [A, B, C, D, E, F, G, H, I, K, ...T68.flatMap((x) => [x.pass, x.fail])]) {
     ws[uid] = (await q1<{ id: string }>(`insert into public.learner_workspace (user_id) values ($1) returning id`, [uid])).id
     await db.query(`insert into public.learner_workspace_plan (workspace_id, user_id, plan_version) values ($1, $2, 1)`, [ws[uid], uid])
   }
   admin = new FakeClient(db, ADMIN) as unknown as SupabaseClient
   // ── 승인 패키지 실행 흉내: 등록 → 자격 → 사람 결정(권리 · 평가 역할 Gold) → 승인 ──
-  for (const [set, item] of [S, EVL, TD, ...T68.map((x) => x.set)].flatMap((x) => x.items.map((i) => [x, i] as const))) {
+  for (const [set, item] of [S, EVL, TD, AT, ...T68.map((x) => x.set)].flatMap((x) => x.items.map((i) => [x, i] as const))) {
     const r = await (admin as unknown as FakeClient).rpc('authored_item_register', registrationArgs(set, item))
     if (r.error) throw new Error(r.error.message)
     const ref = authoredRef(item.id)
@@ -160,7 +165,9 @@ describe('공급 요청 — 수요 · 공급 · 주문', () => {
     if (r.status !== 'ok') return
     const byRole = Object.fromEntries(r.lines.map((l) => [l.role, l]))
     expect(byRole.model_explanation.delivered).toEqual([ref('r5-cm-teach-1')])
-    expect(byRole.guided_practice.delivered).toHaveLength(1)
+    // 2D — 안내 연습 기본 수량 = 교수 청사진 활동 수 3(demand.ts GUIDED_LESSON_ITEMS) → 창작 재고 2 전부 + 부족 1 은 생산 주문(초과 납품 아님 · 요구량 안)
+    expect(byRole.guided_practice.delivered).toHaveLength(2)
+    expect(byRole.guided_practice.orderOpened).toBe(true)
     expect(byRole.source_analysis).toMatchObject({ delivered: [], orderOpened: true })
   })
 
@@ -197,6 +204,25 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
     const again = await recordAuthoredAttempt(admin, learner(A), { id: A, email: 'a@test.local' }, ref('r5-cm-ind-1'), body, Date.now(), writer)
     expect(again.binding).toMatchObject({ status: 'bound', evidence: true })
     expect((await q1<{ n: number }>(`select count(*)::int n from public.workspace_delivery_attempt where user_id = $1 and artifact_ref = $2`, [A, ref('r5-cm-ind-1')])).n).toBe(1)
+  })
+
+  it('T-0075 복구 — 같은 제출 id 다시 연결 = 같은 결속 · 본인 결속 행의 같은 수행 id · 시도/결속 행 수 불변 · 다른 학습자는 특정 불가', async () => {
+    // 앞 시험에서 이미 저장 · 결속된 제출(새 시도를 만들지 않는다 — 이 화면의 「다시 연결하기」와 같은 조건)
+    const saved = await q1<{ id: string; cmid: string; bid: string; ev: boolean }>(`select a.id::text id, a.client_mutation_id::text cmid, w.id::text bid, w.evidence ev from public.learning_task_attempts a join public.workspace_delivery_attempt w on w.attempt_id = a.id where a.user_id = $1 and a.item_ref = $2 order by a.id limit 1`, [A, ref('r5-cm-ind-1')])
+    const body = { deliveryId: await dOf(A, ref('r5-cm-ind-1')), clientMutationId: saved.cmid }
+    const first = { attemptId: saved.id, binding: { id: saved.bid, evidence: saved.ev } }
+    expect(first.attemptId).toMatch(/^[1-9][0-9]*$/)
+    const count = async () => (await q1<{ a: number; b: number }>(`select (select count(*)::int from public.learning_task_attempts where user_id = $1) a, (select count(*)::int from public.workspace_delivery_attempt where user_id = $1) b`, [A]))
+    const before = await count()
+    const input = { userId: A, itemRef: ref('r5-cm-ind-1'), clientMutationId: body.clientMutationId as string, artifactKind: 'authored_item' as const, deliveryId: body.deliveryId }
+    const rebound = await bindDeliveryAttempt(learner(A), input)
+    expect(rebound).toMatchObject({ status: 'bound', id: first.binding.id, evidence: first.binding.evidence })
+    expect(await boundAttemptId(learner(A), A, rebound)).toBe(first.attemptId)
+    expect(await count()).toEqual(before)
+    // 다른 학습자 · 결속 아님 · 모르는 id → 특정 불가(null) — 추정하지 않는다
+    expect(await boundAttemptId(learner(B), B, rebound)).toBeNull()
+    expect(await boundAttemptId(learner(A), A, { status: 'error' })).toBeNull()
+    expect(await boundAttemptId(learner(A), A, { status: 'bound', id: '00000000-0000-4000-8000-00000000dead' })).toBeNull()
   })
 
   it('단서를 연 혼자 확인 = 비근거(도움) · 교수 자료 풀이 = 연습 기록', async () => {
@@ -236,6 +262,8 @@ describe('자료 열기 · 풀이 · G2 결속', () => {
 interface CycleCfg { label: string; set: AuthoredSet; task: string; template: string; key: string; ind: [string, string]; fresh: [string, string]; guided: string; tr: [string, string]; pass: string; fail: string }
 function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적용 → 새 독립 확인 → 해소 · 재실패는 새 회차`, () => {
   const { key: KEY, task: CT, template: CW } = cfg
+  // T-0096 — 이 TASK 의 코드북 도달 · 관찰 조건(skill-diagnosis 와 같은 도출)
+  const policy = reachPolicyOf(taskOf(CT as never).criterion)
   const goldOfC = (id: string) => cfg.set.items.find((i) => i.id === id)!.gold as Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
   // 형식별 유효 정답 · 유효 오답 응답 — 시험 어댑터(authored-responses · 제품 채점기로 자체 검증) · 오답은 틀린 판단 + 맞는 이유 쪽
   const fmtC = cfg.set.format ?? 'central_meaning'
@@ -250,7 +278,9 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
     const deliveries = (await db.query<Row>('select * from workspace_content_delivery where user_id = $1 order by delivered_at', [uid])).rows
     const check = deliveries.filter((d) => d.role === 'independent_check')
     const asOf = new Date(Math.max(Date.now(), ...attempts.map((a) => new Date(a.answered_at).getTime())) + 1000).toISOString()
-    const map = asIsMap({ asOf, sessions: [{ id: 'synthetic-exam-record', examId: 'E', examLabel: 'Synthetic', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: { state: Object.fromEntries(DOMAINS.map((d) => [d, 'check_first'])), contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) } as never, checks: [{ taskKey: KEY, items: check.map((d) => d.artifact_ref) }], attempts: read })
+    // T-0096 — 실제 loadMapPage 처럼 확인 문항에 DB 지문 정체(authored_item.passage_key)를 싣는다(서로 다른 지문 조건)
+    const pk = new Map((await db.query<Row>('select ref, passage_key from public.authored_item where ref = any($1)', [check.map((d) => d.artifact_ref)])).rows.map((r) => [r.ref, `authored:${r.passage_key}`]))
+    const map = asIsMap({ asOf, sessions: [{ id: 'synthetic-exam-record', examId: 'E', examLabel: 'Synthetic', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: { state: Object.fromEntries(DOMAINS.map((d) => [d, 'check_first'])), contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) } as never, checks: [{ taskKey: KEY, items: check.map((d) => d.artifact_ref), passages: Object.fromEntries(check.map((d) => [d.artifact_ref, pk.get(d.artifact_ref) ?? null])) }], attempts: read })
     const link = (d: Row) => ({ target: d.artifact_ref, href: '/csat/learn/' + d.artifact_ref.slice(9) + '?d=' + d.id, label: d.role })
     const links = { [KEY]: check.map(link) }
     const refs = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
@@ -291,12 +321,31 @@ function cycle(cfg: CycleCfg) { describe(`${cfg.label} — 바로잡기 → 적�
     expect(req.lines.flatMap((l) => l.delivered).sort(), '이미 본 평가 지문(ind-1 · 2)은 다시 납품하지 않는다').toEqual([ref(cfg.fresh[0]), ref(cfg.fresh[1])].sort())
     return bindings(uid)
   }
-  it('pass — 새 지문 독립 확인 2 정답 → 해소 · 앞선 G2 결속 불변', async () => {
+  if (policy.observationOnly) {
+    // 코드북 관찰 제한(E3 「함정 선택만으로 약함 판정 금지」 · R2 「관찰 근거 내역만」) — 객관식 독립 오답 2개로 학습 요구를 확정하지 않는다.
+    //   바로잡기 순환 자체가 열리지 않는 것이 정본이다(채점 · G2 결속은 그대로 남는다)
+    it('관찰 제한 — 독립 오답 2개로 학습 요구 · 바로잡기가 열리지 않고 G2 결속은 근거로 남는다', async () => {
+      const U = cfg.pass
+      await supplyC(U, 'check', 2)
+      await answer(U, cfg.ind[0], false); await answer(U, cfg.ind[1], false)
+      const w = await world(U)
+      expect(w.task.status).not.toBe('verified_need')
+      expect(w.task.check?.status).toBe('unverified')
+      expect(w.task.check?.independentItems, '독립 시도 관찰은 남는다').toBe(2)
+      expect(w.row.stage).not.toBe('repair')
+      expect((await bindings(U)).map((r) => r.evidence), '오답 기록 · 결속은 그대로(채점 불변)').toEqual([true, true])
+    }, 120000)
+    return
+  }
+  it('pass — 새 지문 독립 확인 2 정답 → 해소(다른 날 조건 TASK 는 다른 날 재확인 차례) · 앞선 G2 결속 불변', async () => {
     const U = cfg.pass
     const before = await toRecheck(U)
     await answer(U, cfg.fresh[0], true); await answer(U, cfg.fresh[1], true)
     const w = await world(U)
-    expect(w.task.status).toBe('resolved'); expect(w.row.achievement).toBe('resolved')
+    if (policy.differentDay) {
+      // D4-DEC-01 — 같은 날 새 독립 2 정답은 초기 확인 완료일 뿐이다. 다른 날(KST · 12시간) 재확인 전에는 해소가 아니다
+      expect(w.task.check?.status).toBe('pending_delayed'); expect(w.task.status).toBe('checking')
+    } else { expect(w.task.status).toBe('resolved'); expect(w.row.achievement).toBe('resolved') }
     const after = await bindings(U)
     expect(after.slice(0, before.length), '처음 독립 오답 · 안내 연습 · 전이 결속은 그대로').toEqual(before)
     expect(after.slice(before.length).map((r) => r.evidence), '새 독립 확인 2 = 근거').toEqual([true, true])
@@ -464,4 +513,32 @@ describe('T-0056 보조 TASK — 실제 공급 · 교수/연습 · 첫 독립 �
     const binds = (await db.query<{ evidence: boolean; artifact_ref: string }>('select evidence, artifact_ref from workspace_delivery_attempt where user_id = $1 order by attempt_id', [G])).rows
     expect(binds.filter((b) => b.evidence).map((b) => b.artifact_ref).sort(), '독립 근거 = 처음 독립 확인 2 뿐').toEqual([ref('td-ind-1'), ref('td-ind-2')])
   }, 120000)
+})
+
+describe('T-0083 학습 전용 보조 진입 — 실제 공급 · 시도 · G2', () => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  type Row = Record<string, any>
+  const view = { taskPlans: [], asIs: { asOf: '2026-10-21T00:00:00.000Z', tasks: { 's.attachment': { status: 'not_measured', check: null } } }, toBe: null } as unknown as V4View
+  const item = (id: string) => AT.items.find((i) => i.id === id)!
+  it('교수 2역할만 납품(평가 납품 0) → 안내 연습 오답 · 정답 = G2 evidence false · 다른 TASK 근거 · 계획 이력 불변', async () => {
+    const plansBefore = (await q1<{ n: number }>('select count(*)::int n from public.learner_workspace_plan where user_id = $1', [K])).n
+    const r = await requestAuthoredSupply(admin, learner(K), K, { view, task: 's.attachment' as never, template: 'ws.sentence-core', workspaceId: ws[K], planVersion: 1, goalVersion: null })
+    expect(r.status).toBe('ok'); if (r.status !== 'ok') throw new Error('supply')
+    expect(r.lines.map((l) => l.role).sort()).toEqual(['guided_practice', 'model_explanation'])
+    const deliveries = (await db.query<Row>('select role, artifact_ref from workspace_content_delivery where user_id = $1', [K])).rows
+    expect(deliveries.map((d) => d.role).sort()).toEqual(['guided_practice', 'model_explanation'])
+    expect(deliveries.some((d) => ['independent_check', 'transfer', 'delayed_check'].includes(d.role)), '평가 역할 납품 0').toBe(false)
+    // 안내 연습 — 오답 뒤 정답(같은 납품 · 연습 기록)
+    for (const right of [false, true]) {
+      const g = item('at-guided-1')
+      await recordAuthoredAttempt(admin, learner(K), { id: K, email: null }, ref('at-guided-1'), { ...meta({ helpLevel: 'viewed_first' }), deliveryId: await dOf(K, ref('at-guided-1')), response: right ? rightResponse(AT.format!, g.gold as never) : wrongResponse(AT.format!, g.body as never, g.gold as never) }, Date.now(), writer)
+    }
+    const binds = (await db.query<Row>('select b.evidence from workspace_delivery_attempt b where b.user_id = $1', [K])).rows
+    expect(binds.length).toBe(2)
+    expect(binds.every((b) => b.evidence === false), '교수 · 안내 연습은 독립 근거가 아니다').toBe(true)
+    const acts = (await db.query<Row>('select activity from public.learning_task_attempts where user_id = $1', [K])).rows
+    expect(acts.length).toBe(2)
+    expect(acts.every((x) => x.activity === 'practice'), '모든 시도 = 연습 기록(독립 확인 · 전이 시도 0)').toBe(true)
+    expect((await q1<{ n: number }>('select count(*)::int n from public.learner_workspace_plan where user_id = $1', [K])).n, '계획 이력 불변').toBe(plansBefore)
+  })
 })

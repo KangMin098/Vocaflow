@@ -16,9 +16,9 @@ import { isEligible } from '@/lib/knowledge/effect-signals'
 import { attemptRole } from './assessment-exposure'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
 
-import { passageIdentity, repairWindow, type ActivityRow } from '../lifecycle-evidence'
+import { passageIdentity, repairSuccess, type ActivityRow } from '../lifecycle-evidence'
 import type { AsIsTask } from '../v4/as-is'
-import { checkKeysOfTask, type TaskId } from '../v4/definition'
+import { checkKeysOfTask, evidenceKeysOfTask, type TaskId } from '../v4/definition'
 
 export type FieldStatus = 'CONFIRMED' | 'UNKNOWN' | 'STALE' | 'INELIGIBLE' | 'NOT_APPLICABLE'
 
@@ -91,8 +91,9 @@ export interface EvidenceInput {
 }
 
 export function evidenceView(input: EvidenceInput): EvidenceView {
-  const keys = new Set(checkKeysOfTask(input.task))
-  const key = [...keys][0] ?? null
+  // T-0076 — 읽기 범위 = PLAN · As-Is 와 같은 근거 키(정본 확인 키 + 그 TASK 의 창작 채점 키). 표시용 대표 키는 정본 확인 키가 먼저
+  const keys = new Set(evidenceKeysOfTask(input.task))
+  const key = checkKeysOfTask(input.task)[0] ?? [...keys][0] ?? null
   const c = input.check
   const ledger: EvidenceView['ledger'] = input.firsts && input.activity ? 'complete' : 'unknown'
   const mine = (input.activity ?? []).filter((a) => a.itemRef && keys.has(a.taskKey.replace(/-skeleton$/, '')))
@@ -115,7 +116,11 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
     const candidate = a.attemptId ? firstById.get(a.attemptId) : undefined
     const f = candidate && tuple(candidate) === tuple(a) ? candidate : null
     let independence: FieldStatus = 'NOT_APPLICABLE'
-    if (a.activity === 'practice' || f?.activity === 'practice') {
+    const unbound = (f as (FindAttemptRow & { authoredBinding?: 'missing' | 'mismatch' }) | null)?.authoredBinding
+    if (unbound) {
+      // 창작 첫 시도의 납품 결속이 없거나 다름 — 근거로 세지 않지만, 도움을 받았다는 사실은 아니다(authored/evidence 가 fail-closed 로 viewed_first 표지를 붙인다)
+      independence = 'INELIGIBLE'; reasons.push('받은 자료와의 연결을 확인할 수 없음 — 근거로 세지 않음')
+    } else if (a.activity === 'practice' || f?.activity === 'practice') {
       independence = 'INELIGIBLE'; reasons.push('연습 화면 기록 — 확인 근거 아님')
     } else if (a.phase === 'practice' && a.helpLevel != null && a.helpLevel !== 'independent') {
       independence = 'INELIGIBLE'; reasons.push('도움 · 해설 뒤 수행')
@@ -152,15 +157,13 @@ export function evidenceView(input: EvidenceInput): EvidenceView {
   for (const x of attempts) if (x.phase === 'practice' && x.passage && x.passage !== x.itemRef) byPassage.set(x.passage, new Set([...(byPassage.get(x.passage) ?? []), x.itemRef]))
   const sharedPassageGroups = [...byPassage.values()].filter((s) => s.size > 1).map((s) => [...s].sort())
 
-  // 교수 경로 — lifecycle 창 그대로
+  // 교수 경로 — PLAN repairGate · lifecycle 와 **같은 판정**(repairSuccess): 막힌 기출 재시도 · 정확히 결속된 같은 TASK 안내 연습(판단 · 서버 수신 모두 회차 뒤).
+  //   창작 평가 재풀이는 성공도 시도도 아니다(T-0076)
   let repair: EvidenceView['instructionPath']['repair'] = ledger === 'unknown' ? 'unknown' : 'none'
   if (ledger === 'complete' && c?.verifiedAt) {
-    const w = repairWindow({ status: c.status, verifiedAt: c.verifiedAt, verifiedItems: c.verifiedItems, check: { wrongItems: c.wrongItems, lastWrongAt: c.lastWrongAt ?? null } })
-    if (w) {
-      const blocked = new Set(w.blocked)
-      const tries = mine.filter((a) => a.phase !== 'transfer' && blocked.has(a.itemRef!) && !!a.answeredAt && a.answeredAt > w.since)
-      repair = tries.some((a) => a.isCorrect === true) ? 'succeeded' : tries.length ? 'tried' : 'none'
-    }
+    const r = repairSuccess({ status: c.status, verifiedAt: c.verifiedAt, verifiedItems: c.verifiedItems, check: { wrongItems: c.wrongItems, lastWrongAt: c.lastWrongAt ?? null } }, keys,
+      (input.activity ?? []).map((a) => ({ ...a, taskKey: a.taskKey.replace(/-skeleton$/, '') })))
+    repair = r.at !== null ? 'succeeded' : r.tried ? 'tried' : 'none'
   }
   const status = c ? CHECK_OF[c.status] ?? 'checking' : input.firsts === undefined ? 'unknown' : 'not_started'
   return {

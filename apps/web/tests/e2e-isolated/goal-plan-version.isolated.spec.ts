@@ -67,10 +67,22 @@ for (const width of [1440, 1280]) {
     await expect(notice).toHaveAttribute('data-current-goal', String(goalB))
     await expect(dlg.locator('[data-testid="plan-save-state"]')).not.toHaveAttribute('data-state', 'saved')
     await expect(dlg.locator('[data-testid="plan-reason"]')).toHaveValue('goal_change')
+    // T-0077 — 다시 확정 전: 저장본 → 지금 제안(아직 저장 안 함) · 그때/지금 목표 기준
+    const proposal = dlg.locator('[data-testid="plan-change-proposal"]')
+    await expect(proposal).toContainText('아직 저장하지 않았어요')
+    await expect(dlg.locator('[data-testid="plan-change-proposal-goal"]')).toContainText('그때 목표')
+    await expect(dlg.locator('[data-testid="plan-change-proposal-goal"]')).toContainText('지금 목표')
     const save = dlg.locator('[data-testid="plan-save"]')
     await save.focus(); await page.keyboard.press('Enter')
     await expect(dlg.locator('[data-testid="plan-save-state"]'), '서버 재조회 뒤 저장됨').toHaveAttribute('data-state', 'saved', { timeout: 30_000 })
     await expect(dlg.locator('[data-testid="plan-goal-changed"]')).toHaveCount(0)
+    // T-0077 — 저장 · 재조회 뒤: 제안 비교는 사라지고 저장된 변화(버전 1 → 2 · 사유) 한 번 · 이력에 단계 + 계획량
+    await expect(proposal).toHaveCount(0)
+    const history = dlg.locator('[data-testid="plan-history"]')
+    await history.locator('summary').focus(); await page.keyboard.press('Enter')
+    await expect(history.locator('[data-testid="plan-change-saved"]')).toContainText('버전 1 → 2')
+    await expect(history.locator('[data-testid="plan-change-saved-goal"]')).toContainText('지금 목표')
+    await expect(history.locator('[data-testid="plan-history-tasks"]').first()).toContainText(/확인하기|바로잡기|다른 글에 적용|다시 확인하기|단계 미정/)
     // append-only — 이전 버전은 목표 A 그대로 · 새 버전은 목표 B · goal_change
     expect(await plans()).toEqual([{ plan_version: 1, reason: 'initial', goal_version_id: goalA }, { plan_version: 2, reason: 'goal_change', goal_version_id: goalB }])
     expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth)).toBeLessThanOrEqual(1)

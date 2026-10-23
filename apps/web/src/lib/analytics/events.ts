@@ -24,6 +24,8 @@ type LevelValue = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | null
  * "지문이 샐 수 없다" 의 구조적 근거다.
  */
 export type PublicEvent =
+  | { name: 'csat_summary_opened'; props: { evidence_count: number; conditions_count: number } }
+  | { name: 'csat_summary_explored'; props: { action: 'stage' | 'evidence' | 'condition'; index: number } }
   /** `/fit` 진입 — 퍼널의 분모 */
   | { name: 'fit_viewed'; props: { shared: boolean } }
   /** 분석 1회 완료 — "실제로 써 봤다" */
@@ -235,7 +237,7 @@ export type PublicEvent =
   | {
       name: 'csat_resume_clicked'
       /** map_check · map_plan = 지도 홈 첫 제안의 「지도에서 하던 일」(v3 M1 후속) */
-      props: { kind: 'set' | 'review' | 'comeback' | 'start' | 'map_check' | 'map_plan'; from: 'home' | 'today' | 'record' }
+      props: { kind: 'set' | 'review' | 'comeback' | 'start' | 'map_check' | 'map_plan'; from: 'home' | 'today' | 'record' | 'rail' }
     }
   /** 복습 세션을 시작했다 / 끝냈다. `substituted` = 같은 공식의 **다른 문항**으로 냈는가(외운 답 차단). */
   | {
@@ -272,14 +274,18 @@ export type PublicEvent =
   | {
       name: 'csat_path_chosen'
       props: {
-        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder'
+        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder' | 'map_detail' | 'workspace_view' | 'home_panel'
         need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
         /** axis=menu 일 때만 — 어느 상시 메뉴 */
-        menu?: 'map' | 'browse'
+        menu?: 'map' | 'browse' | 'continue' | 'record' | 'diagnosis' | 'formulas' | 'practice'
         /** axis=finder 일 때만 — 연 자리 */
         origin?: 'item' | 'compare' | 'browse' | 'home'
         /** axis=finder 일 때만 — open(열기) · cancel(취소/닫기/뒤로) · same(지금 문항) · go(다른 문항 탐구) · apply(서가에 적용) · browse(전체 서가로) */
         action?: 'open' | 'cancel' | 'same' | 'go' | 'apply' | 'browse'
+        /** Existing DB event name; map/workspace UI selections use closed properties only. */
+        source?: 'task' | 'workspace'
+        tab?: 'overview' | 'evidence' | 'plan'
+        view?: 'board' | 'list' | 'workspace' | 'map'
       }
     }
   /** 문항 해설에서 목록으로 돌아갔다(막다른 길 해소). */
@@ -317,6 +323,18 @@ export type PublicEvent =
    */
   | { name: 'csat_workspace_opened'; props: { workspace: 'central-meaning' | 'option-match' | 'evidence-locate' | 'cohesion' | 'none'; reason: 'goal_need' | 'verified_need' | 'checking' | 'axis_check_first' | 'available' | 'none'; goal_set: boolean } }
   | { name: 'csat_workspace_suggestion_applied'; props: { workspace: 'central-meaning' | 'option-match' | 'evidence-locate' | 'cohesion'; stage: 'check' | 'recheck' } }
+  /**
+   * 단계 1D — Workspace 로 납품된 공장 DCP 안내 연습(중심 의미). 질문: 받은 자료를 실제로 열고 · 풀고 · Workspace 로 돌아가는가.
+   * 납품 · 문항 · 응답 id 와 본문은 보내지 않는다(D3). 연습 정오는 목표 달성 · 향상 근거가 아니다(evidence=false).
+   * DB 허용 목록은 `_pending_factory_dcp_learning.sql`(미적용 — 적용 전에는 서버가 거절해 0건이다).
+   */
+  | { name: 'csat_factory_dcp_opened'; props: { type: 'topic' | 'title' | 'main_point'; attempts: number } }
+  | { name: 'csat_factory_dcp_submitted'; props: { type: 'topic' | 'title' | 'main_point'; correct: boolean; replayed: boolean } }
+  | { name: 'csat_factory_dcp_returned'; props: { finished: boolean } }
+  /** 2F — Workspace 카드의 공장 연습 자료 요청 결과. id · 자유 문자열 없음. 허용 목록 `_pending_factory_dcp_learning.sql`(미적용) */
+  | { name: 'csat_factory_dcp_requested'; props: { outcome: 'delivered' | 'waiting_link' | 'waiting_approval' | 'not_in_stage' | 'failed' } }
+  /** 2B — 한 원문 안내 연습의 자기 설명이 저장됐다(형성 피드백 근거 충분/함께 검토). DB 허용 목록 `_pending_source_lesson_reflection.sql`(미적용) */
+  | { name: 'csat_source_lesson_reflected'; props: { step: 'main_point' | 'title' | 'topic'; support: 'sufficient' | 'discussable'; replayed: boolean } }
   /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
@@ -560,6 +578,8 @@ export type PublicEventName = PublicEvent['name']
  *    Record 로 적으면 이름을 하나라도 빠뜨렸을 때 **타입 검사가 막는다.**
  */
 const EVENT_REGISTRY: Record<PublicEventName, true> = {
+  csat_summary_opened: true,
+  csat_summary_explored: true,
   fit_viewed: true,
   fit_analyzed: true,
   fit_shared: true,
@@ -611,6 +631,11 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_map_task_toggled: true,
   csat_workspace_opened: true,
   csat_workspace_suggestion_applied: true,
+  csat_factory_dcp_opened: true,
+  csat_factory_dcp_submitted: true,
+  csat_factory_dcp_returned: true,
+  csat_factory_dcp_requested: true,
+  csat_source_lesson_reflected: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

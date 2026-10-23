@@ -2,7 +2,7 @@
 //
 // **일곱 학습 장면 — 문항 해설을 「출제 설계 탐구」 순서로 묶는 계층.** (v3 · docs/csat-learner/v3/CSAT_LEARNING_PROCESS_V3.md)
 //
-// 평가 과제 → 원문 의미·구조 → 문항 성립(정답 + 모든 비선정 선지) → 설계 재구성(가설) → 기출 비교 → 조건부 원리 → 내 설명.
+// 평가 과제 → 원문 의미·구조 → 문항 성립(정답 + 모든 비선정 선지) → 설계 재구성(가설) → 기출 비교 → 조건부 원리 → 학습 정리(옛 「내 설명」).
 // 장면은 자유 이동이고 순서(`next`)는 추천일 뿐이다 — 어느 장면도 답 제출 · 확신 · 강의 청취 · 이전 장면 방문을 조건으로 잠그지 않는다.
 // URL `?scene=` 로 공유 · 뒤로가기를 지원한다. vNext2 의 여섯 장면 값(essence · structure · answer · distractor)은 별칭으로 받는다.
 // 이 일곱 장면은 개인 능력 경로(map/learner-path) · 확인 과제 절차(map/curriculum PROTOCOL)의 번호와 다른 층이다 — 섞지 않는다.
@@ -29,7 +29,8 @@ export const SCENES: readonly SceneDef[] = [
   { id: 'design', label: '설계 재구성', question: '관찰된 의미 관계를 어떤 판단 과제로 이용했다고 해석할 수 있는가' },
   { id: 'compare', label: '기출 비교', question: '다른 기출에도 같은 관계가 있으며 무엇이 같고 무엇이 다른가' },
   { id: 'principle', label: '조건부 원리', question: '어떤 조건에서 같은 판단을 적용하고 어느 경우 적용하지 못하는가' },
-  { id: 'explain', label: '내 설명', question: '원리 · 근거 · 조건 · 경계를 내 말로 연결할 수 있는가' },
+  // id 는 옛 주소(scene=explain) 호환으로 그대로 — 내용은 시스템이 준비한 학습 정리다(T-0091 · 서술 입력 없음)
+  { id: 'explain', label: '학습 정리', question: '준비된 관계 · 근거 · 원리 · 조건을 한곳에서 확인하고 다음 활동으로 이어 간다' },
 ]
 
 /** vNext2 장면 값 → v3 (UX v3 §2) */
@@ -61,7 +62,7 @@ export function normalizeScene(raw: string | null | undefined): SceneId {
   return parseScene(raw).scene
 }
 
-/** 추천 다음 장면 — 마지막(내 설명)은 없다 */
+/** 추천 다음 장면 — 마지막(학습 정리)은 없다 */
 export function nextScene(id: SceneId): SceneId | null {
   const i = SCENE_IDS.indexOf(id)
   return SCENE_IDS[i + 1] ?? null

@@ -1,0 +1,14 @@
+<!-- docs/implementation/learning-outcomes-20261021/prompts/01C-REPAIR-CLAUDE.md -->
+# 신규 Claude 세션 — 1C 독립 반례 수정과 실제 호출 연결
+
+작업공간 D:/workspace/Vocaflow-learning-outcomes-20261021-work. 새 세션이며 resume하지 않는다. 기준65e2613bf 이후의 미커밋 1C 작업을 이어받는다. 너만 이 작업공간을 쓰며 다른 작업자의 기존 변경은 되돌리지 않는다. AGENTS/CLAUDE/개발정책과 01C-SUPPLY-SPEC/RESULT를 읽는다. 외부 DB/원격 Git/커밋/마이그레이션 실제 적용은 하지 않는다. subagent/재조사 확대 금지.
+
+Codex 판정은 REQUEST_CHANGES. 원시 실패 runtime/learning-outcomes-20261021/production-1c-codex-before-isolated.log에 있다.
+
+1. `dcp-recovery.test.ts`: factory_dcp_admit 성공 후 content_qualification_record가 실패하면, 재요청은 replay라는 이유로 자격을 영구 건너뛴다. 실제 실패/응답 유실/재요청을 복구해야 한다. 필요하면 pending SQL에 기존 content_qualification_record를 호출하는 최소 멱등 qualification RPC를 추가하고 등록 영수증을 잠가 동일 판본/근거의 자격을 한 번만 만든다. 신규 자격 체계는 만들지 않는다. 성공 응답이 유실되어도 같은 q id를 복구하고 concurrency 계약을 보존한다. held→검수 개선은 새 대상 판본/명시적 처리, 오래된 승인 상속 금지. replay qualification_id=null을 성공 기준으로 둔 기존 테스트는 올바른 기대(같은 기존 id, 추가 행 없음)로 고친다. Codex fake 경계 테스트는 새 RPC 경계에 맞게 바꿔도 되지만 실패 주입·복구 검증을 없애지 않는다. 실제 SQL 실패 후 복구·응답 유실도 시험한다.
+2. `dcp-supply.pglite.test.ts` Codex C3: plan1 수요 생성 후 plan2가 저장되어도 receiveForLearner가 납품을 성공시킨다. 현재 goal/plan/Workspace/line/order/자격/제품주문 계보가 결속되어야 한다. `factory_lineage_personal_current` 및 `factory_order_link_product`의 기존 계약을 실제로 사용한다. 관리자(service_role + 실제 actor)가 D3 등록/링크를 담당하고 학습자 본인이 주문/납품을 담당한다. auth.uid를 서비스에서 흉내내지 않는다. 새 공급 전 현재성 검사와 DB 원자적 검사로 TOCTOU도 피한다. helper만 부르고 실제 D3 링크를 건너뛰지 않는다. goal/plan변경, 다른line/다른제품주문, 링크/철회 실패를 격리 실제 SQL로 검증한다. 고정plan1을 찍는 기존 test lineFor는 필요한 최신plan을 읽게 고치되 stale 테스트는 명시적1을 유지한다.
+3. 현재 dcp-supply.ts는 시험에서만 호출되고 CLI는 snapshot 파일 dry-run뿐이다. 실제 제품 호출부를 연결한다. 가능한 최소는 인증된 관리자 **읽기 전용 preview** API(현재 source를 createAdminClient SELECT로 읽어 planAdmission 호출) + 기존 CLI의 preview 호출이다. 또한 실제 입고 서비스가 호출될 경계(관리자 로그인 세션 RPC)를 같은 서버 서비스/route의 명시적 action으로 구현한다. 쓰기는 이 작업에서 실행하지 않는다. 실제 관리자 세션(createClient)이 content qualification/admin-only RPC를 호출하고 service_role은 D3의 기존 actor 검증에만 사용한다. requireAdminApi, origin/json/size검증, bounded schema, no-store를 기존 1A 패턴으로 재사용. 학습자 수신 API는 본인 세션만 사용하며 body userId/actor를 믿지 않는다. 새 API를 만들면 실제 CLI/기존 호출부 및 route-callers 회귀·ROUTES를 동반한다. 무설치 RPC는 not_installed로 명시하고 synthetic/권리unknown 검수를 실등록하지 않는다. 필요 이상 UI를 만들지 않는다.
+
+현재 실제 1B admission-plan CLI는 Codex가 실행해 3문항·real_admissible=false·qualification_ready=0을 확인했다. 이 부분 NOT_RUN은 해소했다. 원문 snapshot/실DBSELECT는 같았지만 shared writes0이다. 기존 권리 근거를 AI가 발급했다고 말하지 말고 실제 원저작/라이선스 문서 관측값에 대한 AI 검수로 모델링한다. RightsEvidence의 주석이 사람/기관만을 요구하는 것은 최신 사용자 '모든 검수역할 AI' 지침과 맞지 않는다. AI 판단이 외부 권리를 새로 발급한다는 뜻이 되지 않도록 정확히 고친다.
+
+관련 core/SQL/서비스/route/CLI 시험, 웹/scripts 타입과 변경TS lint를 실행한다. Vitest 단일fork flags 유지. stdout를 grep/head로 잘라 실패를 숨기지 말고 직접 명령 결과를 보고한다. 01C-SUPPLY-RESULT.md에 최초 부분완료·Codex 실제 실패→수정·재검증을 추가하고 수용 기준 중 미실행을 PASS로 적지 않는다. 커밋하지 말고 종료한다.

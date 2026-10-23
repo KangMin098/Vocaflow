@@ -12,6 +12,7 @@ import { NextResponse } from 'next/server'
 import { failure, learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
 import { loadMapPage } from '@/lib/csat/map/load'
 import { composeV4 } from '@/lib/csat/map/v4/compose'
+import { EVIDENCE_UNAVAILABLE, evidenceReadOf } from '@/lib/csat/map/v62/evidence-read'
 import { buildCommitPayload, parseCommitRequest, sameCommitRequest } from '@/lib/csat/map/v4/plan-commit'
 import { commitPlan, findCommitByKey, loadSavedPlans, storeStatus } from '@/lib/csat/map/v4/plan-store'
 
@@ -45,6 +46,8 @@ export async function POST(req: Request) {
     // 서버가 지금 계획 보기를 다시 계산한다 — 화면과 같은 함수(composeV4) · 같은 입력(loadMapPage)
     const data = await loadMapPage(ctx.db, ctx.userId, new Date())
     if (!data) return NextResponse.json({ error: 'map_not_ready', code: 'map_not_ready' }, { status: 422 })
+    // T-0078 — 수행 기록을 읽지 못했으면 새 계획을 저장하지 않는다(0건으로 다시 계산한 계획 금지). 같은 키의 이미 성공한 영수증은 위에서 먼저 돌려준다
+    if (evidenceReadOf(data) !== 'ok') return NextResponse.json({ error: '수행 기록을 지금 읽지 못했어요 — 잠시 뒤 다시 확인해 주세요', code: EVIDENCE_UNAVAILABLE }, { status: 503 })
     const calculatedGoalVersion = data.v4?.saved.goalVersionId ?? null
     if (parsed.req.expectedGoalVersion !== undefined && parsed.req.expectedGoalVersion !== calculatedGoalVersion) {
       return NextResponse.json({ error: '목표가 바뀌었어요 — 새 목표 기준으로 계획을 다시 확인해 주세요', code: 'goal_changed' }, { status: 409 })

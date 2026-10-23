@@ -1,0 +1,52 @@
+/* packages/design-tokens/src/skins/csat-app.css
+ * PC CSAT: neutral surfaces restored per user correction, 2026-10-22.
+ * Geometry remains in docs/design/refs/3b/access-map/spec.json; memory/status colors keep their meaning.
+ */
+@media (min-width: 900px) {
+  :root[data-skin]:has([data-design-scope="csat"]) {
+    --csat-modal-w: 680px;
+    --csat-modal-h: 760px;
+    --csat-modal-head: 56px;
+    --csat-modal-foot: 56px;
+    --csat-modal-inset: 64px;
+    --csat-canvas: #faf9f7;
+    --csat-panel: #ffffff;
+    --csat-soft: #efeeec;
+    --csat-hover: #f8f7f5;
+    --csat-line: #e8e7e4;
+    --csat-divider: #eeeceb;
+    --csat-ink: #18181b;
+    --csat-ink2: #56565c;
+    --csat-muted: #6e6e74;
+    --csat-accent: #7c5cfa;
+    --csat-control: #18181b;
+    --csat-edge: #dedbd6;
+    --csat-overlay: #0d0d1729;
+    --csat-green: #dceee4;
+    --csat-teal: #d9efed;
+    --csat-peach: #ffe5d7;
+    --csat-pink: #fce0ed;
+    --csat-blue: #e0edf2;
+    --bg: var(--csat-panel);
+    --bg2: var(--csat-canvas);
+    --bg3: var(--csat-soft);
+    --canvas: var(--csat-canvas);
+    --bd: var(--csat-line);
+    --bdf: var(--csat-accent);
+    --t1: var(--csat-ink);
+    --t2: var(--csat-ink2);
+    --t3: var(--csat-muted);
+    --p: var(--csat-accent);
+    --p-light: var(--csat-soft);
+    --p-hover: var(--csat-ink);
+    --p-dark: var(--csat-control);
+    --on-p: #ffffff;
+    --font-sans: var(--font-admin-sans), 'Pretendard', system-ui, sans-serif;
+    --font-display: var(--font-sans);
+    --font-serif: var(--font-sans);
+    --font-body: var(--font-sans);
+    --font-ko-display: var(--font-sans);
+    --font-mono: var(--font-admin-mono), ui-monospace, monospace;
+    --sh-overlay: 0 18px 60px #0d0d171a;
+  }
+}

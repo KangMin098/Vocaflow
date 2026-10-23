@@ -214,6 +214,12 @@ export function OrderWizard({
     <div className="flex flex-col gap-4">
       <StepHeader step={stepByKey('order')} help={<AdminScreenHelp screen="csat-new" />} />
       {guide}
+      <a
+        href="/admin/csat/new/fast"
+        className="self-start rounded-[var(--r-md)] border border-[var(--line)] px-3 py-2 font-body text-[13px] text-[var(--t1)] hover:bg-[var(--bg-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+      >
+        빠른 학습지 — 기존 제작 팩 하나를 고쳐 문제지 · 해설지로
+      </a>
 
       <div id="wizard" className="flex scroll-mt-20 flex-col gap-0.5">
         <h2 className="font-display text-[16px] font-[800] text-[var(--t1)]">한 권 고르기</h2>

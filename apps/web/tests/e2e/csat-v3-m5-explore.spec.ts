@@ -61,7 +61,7 @@ for (const width of [1280, 1440]) {
 
     // ① 장면 이동 — 2026#34 일곱 장면 탭을 직접 누른다
     await page.goto('/csat/item/2026-34?scene=task', { waitUntil: 'domcontentloaded' })
-    for (const label of ['원문 이해', '문항 성립', '설계 재구성', '기출 비교', '조건부 원리', '내 설명', '평가 과제']) {
+    for (const label of ['원문 이해', '문항 성립', '설계 재구성', '기출 비교', '조건부 원리', '학습 정리', '평가 과제']) {
       await page.locator(`[data-testid="dock-scene"][aria-label="${label}"]`).click()
       await expect(page).toHaveURL(/scene=/)
     }
@@ -160,31 +160,17 @@ for (const width of [1280, 1440]) {
     await expect(levels).toBeVisible()
     await expect(levels).toContainText('이 문항에서 얻은 잠정 원리')
 
-    // ⑤ 원리 노트 — 저장 실패 주입 → 입력 보존 → 다시 저장 → 재진입
-    await page.locator('[data-testid="dock-scene"][aria-label="내 설명"]').click()
-    const note = page.getByTestId('reasoning-note')
-    await expect(note).toBeVisible()
-    const statement = `M5 노트 ${width} — 주어진 문장은 기대는 문장과 근거 사이에 넣지 않는다`
-    await note.getByTestId('note-statement').fill(statement)
-    await note.getByTestId('note-limit').fill('지시어가 없으면 다르다')
-    await page.evaluate(() => { (window as unknown as { __failPut: boolean }).__failPut = true })
-    await note.getByTestId('note-save').click()
-    await expect(note.getByTestId('note-status')).toHaveAttribute('data-status', 'failed')
-    await expect(note.getByTestId('note-statement')).toHaveValue(statement) // 입력 보존
-    await expect(note.getByTestId('note-save')).toHaveText('다시 저장')
-    await page.screenshot({ path: path.join(SHOTS, `note-failed_${width}.png`) })
-    await page.evaluate(() => { (window as unknown as { __failPut: boolean }).__failPut = false })
-    await note.getByTestId('note-save').click()
-    await expect(note.getByTestId('note-status')).toHaveAttribute('data-status', 'saved')
-    await expect(note.getByTestId('note-compare')).toContainText(statement)
-    await axeClean(page, '[data-testid="reasoning-note"]')
-    await note.getByTestId('note-open-model').click()
-    // 재진입 — 새로 고침 뒤에도 노트가 남아 있다
+    // ⑤ 학습 정리(T-0091) — 준비된 관계 · 근거 · 원리 · 다음 활동, 서술 입력 없음 · 새로 고침 뒤 같은 장면(scene=explain)
+    await page.locator('[data-testid="dock-scene"][aria-label="학습 정리"]').click()
+    const summary = page.getByTestId('learning-summary')
+    await expect(summary).toBeVisible()
+    await expect(summary.locator('textarea')).toHaveCount(0)
+    await summary.getByTestId('summary-stage-2').click()
+    await expect(summary.getByTestId('summary-checks')).toHaveAttribute('data-readiness', /^(prepared|preparing)$/)
+    await page.screenshot({ path: path.join(SHOTS, `summary_${width}.png`) })
+    await axeClean(page, '[data-testid="learning-summary"]')
     await page.reload({ waitUntil: 'domcontentloaded' })
-    await page.locator('[data-testid="dock-scene"][aria-label="내 설명"]').click()
-    await expect(page.getByTestId('note-show-last')).toBeVisible({ timeout: 60_000 })
-    await page.getByTestId('note-show-last').click()
-    await expect(page.getByTestId('note-compare')).toContainText(statement)
+    await expect(page.getByTestId('learning-summary')).toBeVisible({ timeout: 60_000 })
 
     // ⑥ 학습 지도 복귀 — 링크가 지도로 간다
     // v3 M1(7c91e0c7e)부터 「학습 지도로」 는 지도 홈(/csat)에 복귀 문맥을 싣는다 — 이 기대값은 M1 이전 값이었다(main 에서도 같은 실패)

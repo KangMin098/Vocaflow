@@ -1,0 +1,362 @@
+Fresh independent AI content/Gold reviewer. User assigns all teacher/reviewer roles to Claude Code and Codex. No tools, files, browsing or other sessions. Review the actual five revised items, all choices, claims, support/opposed/disputed sets, relation probes, hints and explanations. Previous independent reviews found a stale explanation in ind-2, a baker no-longer presupposition and overlapping relation labels, and delayed sentence 3 as a valid claim alternative. The candidate fixes those four points. Do not accept merely because the summary says so; verify the supplied text. Prior numerical, cost, global legal and untraced office-worker experiment claims have also been removed. Hypothetical examples are not empirical findings. This is a first-party candidate content judgment, not an external rights grant or release. Return one valid JSON object only, with no trailing prose: {verdict:'accept'|'revise'|'hold',source_file_sha256,items:[{id,verdict,choice_0based,claim_alternatives_0based:[],gold_issues:[],why}],limitations:[],required_changes:[]}. Distinguish actual defects from optional refinements and preserve uncertainty.
+{
+  "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+  "set": "r5-central-meaning.v3",
+  "taskId": "r.central_meaning",
+  "indexing": "Gold choices and sentence indexes are 0-based. Prose references for learners are 1-based.",
+  "provenance": {
+    "author": "Claude Opus 5.5 (Claude Code agent, Vocaflow FINAL session)",
+    "method": "Vocaflow 자체 창작 — 기출 지문을 옮기거나 고쳐 쓰지 않았다. 평가원 문항의 '형식'(요지·제목·주제 5지선다)만 따랐다.",
+    "derivedFrom": [],
+    "createdAt": "2026-10-18",
+    "humanGold": "pending — 사람 Gold 확정 전(검수 패킷 docs/final/review/r5-authored-gold-packet.md)",
+    "rights": "pending — 사람 원저작 확인 전(같은 패킷)",
+    "revisionNote": "v2(2026-10-18): 정답 선택지 3건 바꿔 쓰기(ind-2 · transfer-2 · delayed-1, 맹검 C 단서 노출 지적) · transfer-1 약한 오답 2건 강화. 사람 Gold 전. · 오답 근거 감사 반영(guided-1 요지 과장 수정 · guided-2 오답① 유형 · 설명 문구 4건) · delayed-1 정답 재표현. · FI-005(#297): ind-1 5번 문장을 원논문(성인 · 응답 수 증가 · 독창성 차이 비유의)에 맞게 수정 — 아동 · 독창성 서술 제거. · v3 candidate 2026-10-21 Codex: independent AI reviews c0b6f657/fde8422c identified logical/distractor defects. Correct selected five items; remove untraced statistics, global legal assertion and invented office-worker experiment. ind-3 is an explicitly hypothetical baker example about selecting task-relevant memory, not a claim that detailed memory prevents recognition. Only these five are submitted for current AI review; all other items remain outside this review scope. · candidate R2: independent Claude/Codex both found stale GPS distractor explanation; remove it. Accept delayed sentence 3 as a restated claim and probe its explicitly hypothetical example at sentence 4. Remove baker no-longer presupposition and use example relation for its concrete case. Earlier candidate and both dissenting reviews preserved.",
+    "aiReviewScope": [
+      "r5-cm-guided-1",
+      "r5-cm-ind-2",
+      "r5-cm-ind-3",
+      "r5-cm-transfer-1",
+      "r5-cm-delayed-1"
+    ]
+  },
+  "items": [
+    {
+      "id": "r5-cm-guided-1",
+      "role": "guided_practice",
+      "passageGroup": "r5cm-p1",
+      "body": {
+        "sentences": [
+          "On a hot summer afternoon, the air above a parking lot can be several degrees warmer than the air in a nearby park.",
+          "This difference is not simply a matter of shade.",
+          "Trees also release water vapor through their leaves, and this process uses heat from the surrounding air.",
+          "This cooling can therefore come from the use of heat to evaporate water as well as from blocked sunlight.",
+          "For this reason, planting trees can be a useful way for cities to cool outdoor spaces.",
+          "Air conditioners, by contrast, cool the inside of buildings while pushing even more heat into the streets.",
+          "A city that wants cooler summers should therefore think of its trees as part of its infrastructure, not as decoration."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "도시의 주차장은 공원보다 기온이 높다.",
+          "나뭇잎에서 물이 증발할 때 주위 공기의 열이 쓰인다.",
+          "도시의 나무는 도심 공간의 열을 줄이는 기반 시설로 다룰 필요가 있다.",
+          "에어컨 사용을 줄이면 도시 전체의 에너지를 아낄 수 있다.",
+          "도시의 아름다움을 위해 나무를 장식으로 활용해야 한다."
+        ],
+        "hints": [
+          "For this reason이 앞의 설명을 어떤 판단으로 잇는지 살펴보세요.",
+          "증발과 그늘은 냉각 방법이 유용하다는 판단을 뒷받침하는 기제예요.",
+          "마지막 문장이 앞의 판단을 도시의 선택으로 다시 말하는지 확인하세요."
+        ]
+      },
+      "gold": {
+        "answer": 2,
+        "claim": 4,
+        "claimRestated": [
+          6
+        ],
+        "support": [
+          2,
+          3
+        ],
+        "supportDisputed": [
+          0,
+          1,
+          5
+        ],
+        "opposed": [],
+        "relationProbe": {
+          "sentence": 2,
+          "relation": "reason"
+        },
+        "gist": "도시의 나무는 그늘과 증발에 의한 냉각을 제공하므로 장식 이상의 기반 시설로 볼 필요가 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "too_narrow",
+            "why": "도입부의 관찰(1번)만 옮겼다."
+          },
+          {
+            "choice": 1,
+            "design": "too_narrow",
+            "why": "증발에 열이 쓰인다는 설명은 나무의 냉각 기능을 뒷받침하는 기제 하나이며, 도시가 나무를 어떻게 다룰지에 대한 중심 판단 전체가 아니다."
+          },
+          {
+            "choice": 3,
+            "design": "distorted",
+            "why": "6번(에어컨)의 소재를 가져와 글에 없는 에너지 절약 주장으로 비약했다."
+          },
+          {
+            "choice": 4,
+            "design": "reversed",
+            "why": "필자는 나무를 장식이 아니라 기반 시설로 보라고 한다(7번)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-ind-2",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i2",
+      "body": {
+        "sentences": [
+          "Relying on turn-by-turn directions may be weakening our ability to understand the places we live in.",
+          "When a device tells us where to turn, we no longer need to build a mental picture of how streets connect.",
+          "Following these instructions can leave a driver with less knowledge of how the parts of a route fit together.",
+          "Some people argue that this hardly matters, since the device is always available.",
+          "But devices fail, batteries die, and signals disappear, and a person with no sense of direction is then truly lost.",
+          "Moreover, finding our own way requires us to attend to landmarks and their connections."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "길 안내 기기는 운전자의 안전을 높여 준다.",
+          "스스로 길을 찾지 않으면 주변 공간을 이해하는 힘이 줄어들 수 있다.",
+          "배터리와 신호 문제 때문에 길 안내 기기는 믿을 수 없다.",
+          "기억력을 높이려면 지도를 직접 그려 보아야 한다.",
+          "기기는 늘 쓸 수 있으므로 방향 감각은 중요하지 않다."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "claim": 0,
+        "claimRestated": [],
+        "support": [
+          1,
+          2,
+          4,
+          5
+        ],
+        "supportDisputed": [],
+        "opposed": [
+          3
+        ],
+        "relationProbe": {
+          "sentence": 3,
+          "relation": "opposed"
+        },
+        "gist": "길 안내 기기에 기대면 우리가 사는 곳을 이해하는 능력이 약해질 수 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "off_text",
+            "why": "안전은 글에 나오지 않는다."
+          },
+          {
+            "choice": 2,
+            "design": "too_narrow",
+            "why": "반론을 반박하는 근거 하나(5번)만 옮기고 ‘믿을 수 없다’로 단정해 과장했다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "글은 지도를 직접 그리라는 방법이나 일반 기억력 향상이라는 목표를 제시하지 않는다. 길 안내 의존과 공간 이해에 관한 논의를 글에 없는 처방으로 바꿨다."
+          },
+          {
+            "choice": 4,
+            "design": "opposed_view",
+            "why": "필자가 반박하는 생각(4번)이다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-transfer-1",
+      "role": "transfer",
+      "passageGroup": "r5cm-x1",
+      "body": {
+        "sentences": [
+          "Imagine a group of shoppers who trust a drink more after seeing the word \"natural\" on its label.",
+          "They treat the word as if it guaranteed that the drink were healthier or safer.",
+          "The word alone, however, does not describe which ingredients are inside the drink.",
+          "The imagined drink could still contain a long list of sweeteners and additives.",
+          "The word, in short, tells buyers far less than they believe it does.",
+          "Reading the list of ingredients is a much more reliable way to judge what is inside the package."
+        ],
+        "stem": "다음 글의 제목으로 가장 적절한 것은?",
+        "choices": [
+          "Why Shoppers Should Avoid Natural Foods",
+          "The Empty Promise of the \"Natural\" Label",
+          "How Additives Make Drinks Sweeter",
+          "Reading Ingredients: The Key to Healthy Eating",
+          "Natural or Artificial: Which Food Is Safer?"
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "claim": 4,
+        "claimRestated": [],
+        "support": [
+          2,
+          3
+        ],
+        "supportDisputed": [
+          0,
+          5
+        ],
+        "opposed": [
+          1
+        ],
+        "relationProbe": {
+          "sentence": 3,
+          "relation": "example"
+        },
+        "gist": "'natural' 표시는 소비자가 믿는 것보다 훨씬 적은 것을 알려 준다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "distorted",
+            "why": "표시를 믿지 말라는 글을 자연식품을 피하라는 주장으로 넘겨 확대했다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "글은 가상의 음료에 감미료와 첨가물이 들어갈 수 있다고 예를 들지만, 첨가물이 음료를 달게 만드는 과정은 설명하지 않는다."
+          },
+          {
+            "choice": 3,
+            "design": "too_narrow",
+            "why": "성분표 읽기는 마지막의 후속 조언이며 글 전체의 중심인 표시의 정보 한계를 대신하지 못한다. 건강한 식사 전반의 열쇠라는 제목은 본문의 범위도 넘어선다."
+          },
+          {
+            "choice": 4,
+            "design": "off_text",
+            "why": "글은 자연식품과 인공식품의 안전성을 비교하지 않는다 — 표시의 의미를 따질 뿐이다(소재는 같지만 질문이 다르다)."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-delayed-1",
+      "role": "delayed_check",
+      "passageGroup": "r5cm-d1",
+      "body": {
+        "sentences": [
+          "It seems logical that working longer hours without stopping should get more done.",
+          "Yet uninterrupted work does not guarantee an unchanging degree of attention.",
+          "During a long repetitive task, attention can drift and errors can become easier to miss.",
+          "A short change of activity can sometimes help a person return to a repetitive task with renewed focus.",
+          "Consider a worker who pauses to check a different simple task, then returns and notices an error that was previously overlooked.",
+          "Used in this way, a brief break can support the work rather than simply take time away from it."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "일을 잘하려면 쉬지 않고 오래 일해야 한다.",
+          "집중력은 하루 중 아침 시간에 가장 높다.",
+          "짧은 휴식만으로도 떨어진 집중력이 완전히 회복된다.",
+          "사무실 환경이 업무 성과를 좌우한다.",
+          "짧게 활동을 바꾸는 휴식은 뒤이은 작업에 집중하는 데 도움이 될 수 있다."
+        ]
+      },
+      "gold": {
+        "answer": 4,
+        "claim": 5,
+        "claimRestated": [
+          3
+        ],
+        "support": [
+          2,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 4,
+          "relation": "example"
+        },
+        "gist": "적절한 짧은 활동 전환은 작업을 방해하기보다 다시 집중하는 데 도움이 될 수 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "필자가 뒤집는 상식(1번)이다."
+          },
+          {
+            "choice": 1,
+            "design": "off_text",
+            "why": "시간대는 글에 없다."
+          },
+          {
+            "choice": 2,
+            "design": "distorted",
+            "why": "집중에 도움이 될 수 있다는 한정된 진술을 짧은 휴식만으로 완전히 회복된다는 보장으로 부풀린다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "가상의 작업자 사례는 활동 전환을 설명할 뿐 사무실 환경이 집중력의 원인이라는 주장을 하지 않는다."
+          }
+        ]
+      }
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "role": "independent_check",
+      "passageGroup": "r5cm-i3",
+      "body": {
+        "sentences": [
+          "Some people judge a good memory by how many exact details a person can reproduce.",
+          "Imagine a baker who memorizes the color of every bowl and the position of every spoon used to make a cake.",
+          "When the kitchen is rearranged, those incidental details do not tell her which mixing and baking steps to follow.",
+          "Remembering the order of the mixing and baking steps would still help her make the cake in the new kitchen.",
+          "She need not forget the bowls and spoons; she can set them aside in thought while recalling the steps that matter.",
+          "Useful remembering, then, involves selecting information for the present task rather than reproducing every detail of a past scene."
+        ],
+        "stem": "다음 글의 요지로 가장 적절한 것은?",
+        "choices": [
+          "좋은 기억력은 모든 일을 정확하게 떠올리는 능력이다.",
+          "기억은 현재 과제에 필요한 정보를 골라 쓸 때 더 유용해질 수 있다.",
+          "사람의 얼굴을 잘 기억하려면 반복해서 보아야 한다.",
+          "나이가 들수록 기억력이 떨어지는 것은 자연스럽다.",
+          "기억을 정확하게 하려면 세부 사항에 집중해야 한다."
+        ]
+      },
+      "gold": {
+        "answer": 1,
+        "claim": 5,
+        "claimRestated": [],
+        "support": [
+          2,
+          3,
+          4
+        ],
+        "supportDisputed": [
+          1
+        ],
+        "opposed": [
+          0
+        ],
+        "relationProbe": {
+          "sentence": 3,
+          "relation": "example"
+        },
+        "gist": "유용한 기억은 과거의 모든 세부를 그대로 재현하기보다 현재 과제에 맞는 정보를 선택해 쓰는 데 달려 있다.",
+        "distractors": [
+          {
+            "choice": 0,
+            "design": "opposed_view",
+            "why": "필자가 반박하는 통념(1번)을 그대로 옮겼다."
+          },
+          {
+            "choice": 2,
+            "design": "off_text",
+            "why": "같은 얼굴을 반복해서 보라는 방법은 글에 없다. 글은 제빵사의 가상 사례로 과제에 필요한 기억을 선택하는 일을 설명한다."
+          },
+          {
+            "choice": 3,
+            "design": "off_text",
+            "why": "나이와 기억력의 관계는 글에 없다."
+          },
+          {
+            "choice": 4,
+            "design": "distorted",
+            "why": "세부에 주의를 기울여 정확한 회상을 높이라는 처방은 현재 과제에 맞춰 정보를 고르는 유용성의 논점을 다른 목표로 바꾼다."
+          }
+        ]
+      }
+    }
+  ]
+}
