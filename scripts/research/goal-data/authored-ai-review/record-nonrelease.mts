@@ -5,7 +5,7 @@
 //   · 재사용 자격은 반환 ID 의 axes · revision · annotation 을 SELECT 로 대조해 어긋나면 중단(조용히 통과시키지 않는다).
 // 건식(기본): 영수증 검증 + H 프로브 + 호출 계획만 출력, DB 접속 없음.
 //   TSX_TSCONFIG_PATH=tsconfig.json <tsx> ../../scripts/research/goal-data/authored-ai-review/record-nonrelease.mts
-// 실행: --execute --confirm <plan_sha256> · 환경변수 VF_ADMIN_EMAIL · VF_ADMIN_PASSWORD · NEXT_PUBLIC_SUPABASE_URL · NEXT_PUBLIC_SUPABASE_ANON_KEY
+// 실행: --execute --confirm <sql_sha256 — 사용자 승인값> · 환경변수 VF_ADMIN_EMAIL · VF_ADMIN_PASSWORD · NEXT_PUBLIC_SUPABASE_URL · NEXT_PUBLIC_SUPABASE_ANON_KEY
 //       · VF_SUPABASE_JS(@supabase/supabase-js 패키지 경로 — 이 worktree 에 node_modules 가 없을 때)
 import { createHash } from 'node:crypto'
 import fs from 'node:fs'
@@ -64,12 +64,43 @@ for (const s of man.sets) {
 }
 const planSha = sha(JSON.stringify(plan))
 const h = { pass: plan.filter((p) => p.runnable).length, unknown: plan.filter((p) => !p.runnable).length }
+
+// 승인 대상 SQL — 실행기가 부를 RPC 를 같은 인자로 적은 문서(사용자가 보고 sha256 으로 승인). 관리자 로그인 세션에서만 성공한다(auth.uid 필수)
+const lit = (v: unknown) => { const s = typeof v === 'string' ? v : JSON.stringify(v); if (s.includes('$vf$')) throw new Error('literal 충돌'); return `$vf$${s}$vf$` }
+const sqlParts: string[] = [
+  '-- T-0098 비출시 기록 — 등록 → AI 결정 → 자격(출시 승인 · 사람 결정 없음)',
+  `-- plan_sha256 ${planSha} · ${sets.length}세트 · ${plan.length}문항 · H pass ${h.pass} / unknown ${h.unknown}`,
+  '-- 실행: scripts/research/goal-data/authored-ai-review/record-nonrelease.mts --execute (관리자 로그인 세션 RPC, 이 파일과 같은 인자)',
+  '-- 호출하지 않는 것: content_release_approve · content_human_decision_record · 기존 행 UPDATE/DELETE',
+]
+for (const { set, receipt } of sets) {
+  sqlParts.push('', `-- 세트 ${set.set} · 영수증 source ${receipt.source_file_sha256}`, 'do $do$', `declare v_receipt jsonb := ${lit(receipt)}::jsonb; v_ref text; v_decision uuid;`, 'begin')
+  for (const id of receipt.scope) {
+    const it = set.items.find((x) => x.id === id)!
+    const p = plan.find((x) => x.id === id && x.set === set.set)!
+    const a = registrationArgs(set, it) as Record<string, unknown>
+    const named = Object.entries(a).map(([k, v]) => `${k} => ${lit(v)}${typeof v === 'object' && v !== null ? '::jsonb' : ''}`).join(', ')
+    sqlParts.push(
+      `  v_ref := public.authored_item_register(${named});`,
+      '  v_decision := public.content_ai_decision_record(p_ref => v_ref, p_receipt => v_receipt);',
+      `  perform public.authored_ai_qualify(p_ref => v_ref, p_role => ${lit(it.role)}, p_axes => ${lit(p.axes)}::jsonb, p_annotation_ref => ${lit(a.p_annotation_ref)}, p_evidence_ids => array['ai_decision:' || v_decision, ${lit('ai_receipt:' + receipt.source_file_sha256)}, ${lit('js_gold:' + jsCanonicalSha(it.gold))}, 'rights:first_party_original_declaration', ${lit(`h_probe:${p.runnable ? 'gold_response_graded_correct' : 'not_runnable'}`)}]);`,
+    )
+  }
+  sqlParts.push('end $do$;')
+}
+const sqlText = sqlParts.join('\n') + '\n'
+const sqlSha = sha(sqlText)
+fs.writeFileSync(path.join(OUT, 'nonrelease-calls.sql'), sqlText)
 fs.writeFileSync(path.join(OUT, 'nonrelease-plan.json'), JSON.stringify({ plan_sha256: planSha, items: plan.length, H: h, calls: ['authored_item_register', 'content_ai_decision_record', 'authored_ai_qualify'], not_called: ['content_release_approve', 'content_human_decision_record'], plan }, null, 2) + '\n')
-console.log(JSON.stringify({ plan_sha256: planSha, sets: sets.length, items: plan.length, H: h }))
+console.log(JSON.stringify({ plan_sha256: planSha, sql_sha256: sqlSha, sets: sets.length, items: plan.length, H: h }))
 if (!execute) process.exit(0)
 
 // ── 실행(관리자 로그인 세션) ─────────────────────────────────────────
-if (confirm !== planSha) { console.error('중단 — --confirm 이 현재 계획 sha 와 다르다'); process.exit(2) }
+// --confirm 은 사용자가 승인한 SQL sha256 — 이 파일과 AI-Control T-0098 승인값 둘 다와 같아야 한다
+if (confirm !== sqlSha) { console.error('중단 — --confirm 이 현재 nonrelease-calls.sql sha 와 다르다'); process.exit(2) }
+const q0 = JSON.parse(fs.readFileSync(path.join(process.env.VF_CONTROL_ROOT ?? 'D:/workspace/Vocaflow-AI-Control', 'state/TASK_QUEUE.json'), 'utf8'))
+const t0098 = (q0.tasks ?? q0).find((t: { task_id: string }) => t.task_id === 'T-0098')
+if (t0098?.approval?.by !== 'user' || t0098.approval.sql_sha256 !== sqlSha) { console.error('중단 — T-0098 사용자 승인(sql_sha256)이 이 SQL 과 다르다'); process.exit(2) }
 const env = (k: string) => { const v = process.env[k]; if (!v) { console.error(`중단 — ${k} 없음`); process.exit(2) } return v }
 const req = createRequire(process.env.VF_SUPABASE_JS ? path.join(process.env.VF_SUPABASE_JS, 'package.json') : import.meta.url)
 const { createClient } = req(process.env.VF_SUPABASE_JS ?? '@supabase/supabase-js') as typeof import('@supabase/supabase-js')
