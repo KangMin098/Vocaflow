@@ -11,14 +11,16 @@ import { fileURLToPath } from 'node:url'
 import { createClient } from '@supabase/supabase-js'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '../../../../..')
-const OUT = path.join(ROOT, 'scripts/csat/map/v62/data/local/fix-input.json')
+// FIX_BATCH 미지정 = 1차(batch 없음) → fix-input.json · FIX_BATCH=2 → fix2-input.json
+const FIX_BATCH = process.env.FIX_BATCH ?? ''
+const OUT = path.join(ROOT, `scripts/csat/map/v62/data/local/fix${FIX_BATCH}-input.json`)
 if (fs.existsSync(OUT)) throw new Error(`${path.relative(ROOT, OUT)} 가 이미 있다 — 선정은 동결이다`)
 if (!String(process.env.NEXT_PUBLIC_SUPABASE_URL).includes('jajenrevcbmrpaliomxv')) throw new Error('개발 프로젝트가 아니다')
 const db = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL as string, process.env.SUPABASE_SERVICE_ROLE_KEY as string, { auth: { persistSession: false } })
 const sha = (v: unknown) => crypto.createHash('sha256').update(typeof v === 'string' ? v : JSON.stringify(v)).digest('hex')
 const md5 = (s: string) => crypto.createHash('md5').update(s).digest('hex')
 
-const fixes: { item: string; new_md5: string }[] = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/csat-learner/v62/data-expansion/source-fixes.json'), 'utf8')).fixes
+const fixes: { item: string; new_md5: string; batch?: string }[] = JSON.parse(fs.readFileSync(path.join(ROOT, 'docs/csat-learner/v62/data-expansion/source-fixes.json'), 'utf8')).fixes.filter((x: { batch?: string }) => (x.batch ?? '') === FIX_BATCH)
 const { data, error } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices, answer, answers, points').in('id', fixes.map((f) => f.item))
 if (error) throw new Error(`csat_items: ${error.message}`)
 const rows = fixes.map((f) => {

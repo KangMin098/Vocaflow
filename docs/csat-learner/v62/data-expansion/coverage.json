@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/csat/map/v62/data/coverage-audit.mts",
- "generated_at": "2026-10-23T04:15:32.024Z",
+ "generated_at": "2026-10-23T07:30:57.555Z",
  "note": "읽기 전용 실측. 원천 · 문항 · 분석 · 검수 · 출시는 다른 상태다. 분석 published 는 v3 드레인 AI 분석의 공개 상태이며 사람 검수 · Gold 가 아니다.",
  "totals": {
   "exams": 134,
@@ -137,34 +137,6 @@
   "duplicate_long_stems": [],
   "stem_format": [
    {
-    "item": "2015#24",
-    "kind": "truncated"
-   },
-   {
-    "item": "2018#29",
-    "kind": "truncated"
-   },
-   {
-    "item": "2019#30",
-    "kind": "truncated"
-   },
-   {
-    "item": "2021#26",
-    "kind": "truncated"
-   },
-   {
-    "item": "2021#30",
-    "kind": "truncated"
-   },
-   {
-    "item": "2022#30",
-    "kind": "truncated"
-   },
-   {
-    "item": "2024#27",
-    "kind": "truncated"
-   },
-   {
     "item": "H1906G1#33",
     "kind": "truncated"
    },
@@ -193,27 +165,11 @@
     "kind": "truncated"
    },
    {
-    "item": "M2406#42",
-    "kind": "truncated"
-   },
-   {
     "item": "M2506#19",
     "kind": "tail_after_question"
    },
    {
-    "item": "M2506#25",
-    "kind": "truncated"
-   },
-   {
     "item": "M2506#28",
-    "kind": "truncated"
-   },
-   {
-    "item": "M2506#36",
-    "kind": "truncated"
-   },
-   {
-    "item": "M2506#37",
     "kind": "truncated"
    }
   ],
@@ -835,7 +791,7 @@
    "error": null
   },
   "csat_map_goal_version": {
-   "n": 2,
+   "n": 26,
    "error": null
   },
   "csat_session_attempts": {
