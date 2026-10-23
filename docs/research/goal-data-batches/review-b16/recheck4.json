@@ -1,0 +1,73 @@
+{
+  "task_id": "T-0128",
+  "owner": "goal-data-independent",
+  "input_worktree": "D:/workspace/Vocaflow-goal-data",
+  "input_commit": "8980aaa59eff4156a8e4a916fbaeeb5e1dc37e1c",
+  "previous_commit": "fc3690e3abafc213ab04afbbf394f4cd384c4935",
+  "observed_at": "2026-10-23T11:29:24.685Z",
+  "result": "pass",
+  "result_meaning": "verification completed",
+  "skip_count": 0,
+  "acceptance": [
+    {
+      "index": 0,
+      "status": "resolved",
+      "finding": "Malformed batch input and undefined task: actual runner spawn, stdout/stderr external IDs 0, one masked failure line, stderr empty, exit 1. Both handlers registered before input parsing and task resolution.",
+      "locations": [
+        "scripts/research/goal-data/d2-run.mjs:17",
+        "scripts/research/goal-data/d2-run.mjs:18",
+        "scripts/research/goal-data/d2-run.mjs:19",
+        "scripts/research/goal-data/d2-run.mjs:20",
+        "scripts/research/goal-data/d2-run.mjs:29",
+        "scripts/research/goal-data/d2-run.mjs:36"
+      ]
+    },
+    {
+      "index": 1,
+      "status": "resolved",
+      "finding": "Shipped regression 32/32. Sixteen captured batches b2-b16 including b9t: full validate and agree stdout/stderr/exit unchanged (32 comparisons); agree generated files byte hashes unchanged. Own defect, own malformed output and other-unreadable plus own-empty retain exit 1.",
+      "locations": [
+        "scripts/research/goal-data/d2-validate.check.mjs:176",
+        "scripts/research/goal-data/d2-run.mjs:17",
+        "scripts/research/goal-data/d2-run.mjs:80",
+        "scripts/research/goal-data/d2-run.mjs:93",
+        "scripts/research/goal-data/d2-run.mjs:101",
+        "scripts/research/goal-data/review-b16/recheck4.mjs:1"
+      ]
+    },
+    {
+      "index": 2,
+      "status": "resolved",
+      "finding": "Requested JSON/Markdown artifacts, new P0/P1 and b17 decision recorded.",
+      "locations": [
+        "docs/research/goal-data-batches/review-b16/recheck4.json:1",
+        "docs/research/goal-data-batches/review-b16/recheck4.md:1"
+      ]
+    }
+  ],
+  "checks": {
+    "passed": 41,
+    "failed": 0,
+    "shipped_passed": 32,
+    "shipped_total": 32,
+    "batches": 16,
+    "full_mode_comparisons": 32,
+    "agree_artifacts_unchanged": true
+  },
+  "previous_finding": {
+    "id": "RECHECK3-P1-01",
+    "status": "resolved"
+  },
+  "new_findings": {
+    "P0": [],
+    "P1": []
+  },
+  "b17": "진행 가능 — 이번 초기화 예외 가림 재검 범위에서 차단 P0/P1 없음.",
+  "raw_evidence": "scripts/research/goal-data/review-b16/recheck4.local.json",
+  "limits": [
+    "Read-only pinned source; all spawn and agree writes confined to temporary copies in reviewer worktree.",
+    "32/32 includes shipped structural stubs; independent defect scenarios use actual runner and full validators.",
+    "Product build/E2E, DB writes, learner measurement and main/remote integration not run; not required by this narrow review."
+  ],
+  "harness_corrections": "Initial harness omitted a source file read by shipped regression, assumed only two changed paths despite the review note, and expected catch text for a normal JSON defect. Corrected before final run; initial output retained in recheck4-initial.local.json."
+}
