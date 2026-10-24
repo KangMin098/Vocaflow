@@ -83,7 +83,8 @@ describe('첫 응답(문항 페이지 HTML · RSC props)', () => {
     expect(payload).not.toContain('마지막 일반화 문장 찾기')
     // 의미 단위도 통째로 공개 응답으로(R147-08 — 키워드 필터가 결정적 설명을 놓쳤다)
     expect(initial.inquiry?.v3?.meanings).toEqual([])
-    expect(initial.inquiry?.v3?.requirement.requested).toBe(inquiry.v3?.requirement.requested)
+    // 발문 요약 · 읽기 범위도 공개 응답으로(R147-09) — 첫 응답은 극성만
+    expect(initial.inquiry?.v3?.requirement).toEqual({ requested: '', polarity: inquiry.v3?.requirement.polarity, conditions: [] })
     expect(initial.inquiry?.v3?.requirement.conditions).toEqual([])
     expect(initial.inquiry?.v3?.units_hash).toBe(inquiry.v3?.units_hash)
   })
@@ -102,7 +103,7 @@ describe('실제 탐구 정본 전체', () => {
       const s = JSON.stringify(i.inquiry)
       const claims = [...(rec.v3?.design.claims.map((c) => c.text) ?? []), ...(rec.v3?.design.limitation ? [rec.v3.design.limitation] : [])]
       const pointsAtChoice = (i.inquiry?.v3?.meanings ?? []).some((m) => /정답|선지\s*[①-⑤\d]|\d\s*번\s*선지/.test(`${m.meaning_ko} ${m.scope.note ?? ''}`))
-      if (/selected_as_answer|requirement_fit|content_truth/.test(s) || (i.inquiry?.v3?.requirement.conditions.length ?? 0) > 0 || pointsAtChoice || claims.some((t) => s.includes(t)) || (i.inquiry?.distractors.length ?? 0) > 0 || i.inquiry?.principle != null) bad.push(id)
+      if (/selected_as_answer|requirement_fit|content_truth/.test(s) || (i.inquiry?.v3?.requirement.conditions.length ?? 0) > 0 || (i.inquiry?.v3?.requirement.requested ?? '') !== '' || i.inquiry?.v3?.requirement.reading_scope != null || pointsAtChoice || claims.some((t) => s.includes(t)) || (i.inquiry?.distractors.length ?? 0) > 0 || i.inquiry?.principle != null) bad.push(id)
       if (JSON.stringify(mergeReveal(i, r).inquiry) !== JSON.stringify(rec) && JSON.stringify(sortKeys(mergeReveal(i, r).inquiry)) !== JSON.stringify(sortKeys(rec))) bad.push(`${id}:merge`)
     }
     expect(bad).toEqual([])

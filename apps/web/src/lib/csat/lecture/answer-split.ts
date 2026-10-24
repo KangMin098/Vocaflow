@@ -43,7 +43,7 @@ export interface AnswerReveal {
   comparePairs: ComparePair[]
   /** v3 비교 쌍 전체 */
   v3Pairs: V3PairView[]
-  inquiry: Pick<InquiryRecord, 'distractors' | 'principle'> & { v3?: { choices: NonNullable<InquiryRecord['v3']>['choices']; claims: NonNullable<InquiryRecord['v3']>['design']['claims']; limitation: string; conditions: string[]; meanings: NonNullable<InquiryRecord['v3']>['meanings'] } }
+  inquiry: Pick<InquiryRecord, 'distractors' | 'principle'> & { v3?: { choices: NonNullable<InquiryRecord['v3']>['choices']; claims: NonNullable<InquiryRecord['v3']>['design']['claims']; limitation: string; requirement: NonNullable<InquiryRecord['v3']>['requirement']; meanings: NonNullable<InquiryRecord['v3']>['meanings'] } }
   gate: { answer: number | null; evidence: number[]; selection: string | null; transform_note: string | null }
   /** 지도 문장(근거 인용 · 앵커 id 포함, `splitMapSentences`) — 지도가 없으면 null */
   mapSentences?: SkeletonSentence[] | null
@@ -78,7 +78,8 @@ export function splitAnswer(full: TheaterAnswerData, analysisVersion: number | n
           ? {
               v3: {
                 ...v3,
-                requirement: { ...v3.requirement, conditions: [] },
+                // 발문 요약(requested) · 읽기 범위도 옮긴다 — 정답의 뜻을 그대로 적는 문항이 있다(R147-09). 첫 응답은 극성만
+                requirement: { requested: '', polarity: v3.requirement.polarity, conditions: [] },
                 meanings: [],
                 choices: [],
                 design: { claims: [], limitation: '' },
@@ -111,7 +112,7 @@ export function splitAnswer(full: TheaterAnswerData, analysisVersion: number | n
       inquiry: {
         distractors: full.inquiry?.distractors ?? [],
         principle: full.inquiry?.principle ?? null,
-        ...(v3 ? { v3: { choices: v3.choices, claims: v3.design.claims, limitation: v3.design.limitation, conditions: v3.requirement.conditions, meanings: v3.meanings } } : {}),
+        ...(v3 ? { v3: { choices: v3.choices, claims: v3.design.claims, limitation: v3.design.limitation, requirement: v3.requirement, meanings: v3.meanings } } : {}),
       },
       gate: { answer: full.gate.answer, evidence: full.gate.evidence, selection: design?.selection ?? null, transform_note: design?.transform_note ?? null },
     },
@@ -145,7 +146,7 @@ export function mergeReveal(initial: TheaterAnswerData, reveal: AnswerReveal): T
             ? {
                 v3: {
                   ...v3,
-                  requirement: { ...v3.requirement, conditions: reveal.inquiry.v3.conditions },
+                  requirement: reveal.inquiry.v3.requirement,
                   meanings: reveal.inquiry.v3.meanings,
                   choices: reveal.inquiry.v3.choices,
                   design: { ...v3.design, claims: reveal.inquiry.v3.claims, limitation: reveal.inquiry.v3.limitation },
