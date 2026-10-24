@@ -36,6 +36,13 @@ export const STAGES = {
     sha256: '9583f2a551102eee5520354bec8d9e0610bcede15fdd4aca209244a0cc2c49ce',
     verify: `select count(*) = 29, count(*)::text from public.csat_item_analyses where analyst_run = 'vf-20261025-fix-round3' and status = 'in_review'`,
   },
+  // C 원문 정정 2건(2014B#36 · 2017#42 csat_items.passage 끝 배점·선지 표 머리 꼬리) — 본문은 research/csat-lecture-audit-c-20261024
+  //   docs/csat-learner/lecture-audit-c-20261024/g/db-fix/D-two/forward.sql. 사용자 승인 2026-10-25(「2014B#36·2017#42 우선 DB 정정 승인」)
+  'c-src2': {
+    sha256: 'a358a7d717a7d3d14dbfcc6d3c231bb3b089c1c989bcf292077443393a762e9a',
+    verify: `select count(*) = 2, string_agg(id || ':' || left(md5(passage), 8), ',' order by id) from public.csat_items
+      where (id = '2014B#36' and md5(passage) = '0b6a803ce0d702594d3d85705013be45') or (id = '2017#42' and md5(passage) = 'ac52fa4ae3dae03384dc2983a4fb6430')`,
+  },
 }
 
 const sha256 = (b) => crypto.createHash('sha256').update(b).digest('hex')
