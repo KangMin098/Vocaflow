@@ -62,8 +62,8 @@ async function bootstrap(database: PGlite) {
     create table public.csat_map_goal(user_id uuid primary key references auth.users(id),target_score smallint not null,updated_at timestamptz not null default now());
     insert into auth.users values ('${A}'),('${B}');`)
   await database.exec(read('20261010180218_map_v4_plan.sql'))
-  await database.exec(read('20261023090000_csat_goal_budget.sql'))
-  await database.exec(read('20261023142000_csat_goal_budget_conflict.sql'))
+  await database.exec(read('20261023043453_csat_goal_budget.sql'))
+  await database.exec(read('20261023061401_csat_goal_budget_conflict.sql'))
 }
 
 let db: PGlite
@@ -89,7 +89,7 @@ describe('final assessment — before installation', () => {
 })
 
 describe('final assessment — proposed SQL installed', () => {
-  beforeAll(async () => { await db.exec(read('20261023170000_csat_goal_final_assessment.sql')) })
+  beforeAll(async () => { await db.exec(read('20261023082930_csat_goal_final_assessment.sql')) })
 
   it('binds once to the latest goal version, replays the same key, refuses a different body for that key', async () => {
     const g = (await loadLatestGoal(api, A))!

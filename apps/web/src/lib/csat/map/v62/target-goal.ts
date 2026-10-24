@@ -5,7 +5,7 @@
 //   · csat_map_goal_set(p_user, p_score, p_grade, p_exam, p_date, p_client_key) 가 최신 표 + 이력을 한 트랜잭션에(사용자 잠금 · 요청키 멱등).
 //   RPC 는 같은 요청키의 **다른 본문**을 막지 않는다 → 사전 및 저장 후 불변 행 비교로 라우트가 409 를 낸다(SQL 변경 없음).
 // 계산에 쓰는 필드: 점수(기존 toBeMap) · 시험(기준 시험 후보 범위). 목표일 · budget은 현재 PLAN의 기간 배분에만 쓴다.
-// budget 저장 확장 SQL은 20261023090000_csat_goal_budget.sql(공유 DB 적용 승인 필요). 등급을 점수나 학습량으로 환산하지 않는다.
+// budget 저장 확장 SQL은 20261023043453_csat_goal_budget.sql(공유 DB 적용 승인 필요). 등급을 점수나 학습량으로 환산하지 않는다.
 // 점수 ↔ 등급을 서로 바꿔 채우지 않는다. 점수에서 계산한 등급은 「참고 구간」으로만 따로 말한다.
 
 import type { ExamCandidate } from '../target'

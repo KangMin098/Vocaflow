@@ -10,6 +10,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 
 import { expect, test, type Page } from '@playwright/test'
+import { readAuthoredSets } from './authored-sets'
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 
 const URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
@@ -18,7 +19,7 @@ const SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
 const SET_DIR = path.resolve(__dirname, '../../src/lib/knowledge/authored')
 type Item = { id: string; role: string; body: Record<string, unknown>; gold: Record<string, unknown> }
 type Set = { set: string; taskId: string; taskKey: string; format?: string; items: Item[] }
-const SETS: Set[] = fs.readdirSync(SET_DIR).filter((x) => x.endsWith('.json')).map((x) => JSON.parse(fs.readFileSync(path.join(SET_DIR, x), 'utf8')))
+const SETS: Set[] = readAuthoredSets<Set>(SET_DIR)
 const bySet = (name: string) => SETS.find((x) => x.set.startsWith(name))!
 
 test.beforeAll(() => {

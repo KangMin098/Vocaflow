@@ -3,10 +3,10 @@
 // T-0079 — 실제 Next + 격리 DB: 시험 기록 0 인 학습자가 지도에서 계획 → 자료 → 혼자 확인 1회로 직접 근거를 만든 뒤 홈(/csat)에 오면
 //   「기록 없음 · 시험 기록을 넣어야」 안내가 아니라 지도의 다음 학습으로 간다(첫 제안 check · 지도에서 보기). 시험 기록은 끝까지 0.
 //   진짜 첫 사용자(직접 근거 0)는 no_records 이지만 시험 기록을 필수라 하지 않는다. 정답 입력은 map-no-record-start 의 형식별 helper 와 같다.
-import fs from 'node:fs'
 import path from 'node:path'
 
 import { expect, test, type Locator } from '@playwright/test'
+import { readAuthoredSets } from './authored-sets'
 import { createClient } from '@supabase/supabase-js'
 
 const URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
@@ -14,8 +14,7 @@ const SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
 const SET_DIR = path.resolve(__dirname, '../../src/lib/knowledge/authored')
 type Item = { id: string; gold: Record<string, any>; body: Record<string, any> } // eslint-disable-line @typescript-eslint/no-explicit-any
 const ITEMS = new Map<string, { item: Item; format: string; taskId: string | null }>()
-for (const f of fs.readdirSync(SET_DIR).filter((x) => x.endsWith('.json'))) {
-  const s = JSON.parse(fs.readFileSync(path.join(SET_DIR, f), 'utf8')) as { format?: string; taskId?: string; items: Item[] }
+for (const s of readAuthoredSets<{ format?: string; taskId?: string; items: Item[] }>(SET_DIR)) {
   for (const it of s.items) ITEMS.set(it.id, { item: it, format: s.format ?? 'central_meaning', taskId: s.taskId ?? null })
 }
 

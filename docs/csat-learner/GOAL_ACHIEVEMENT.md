@@ -8,7 +8,7 @@
 
 - 기존 `csat_map_goal_version`의 시험·점수·선택 등급·목표일·id를 사용한다. 등급만인 목표는 기존 DB의 점수 필수 제약 때문에 지원하지 않으며 임의 점수로 채우지 않는다.
 - 상단 요약도 점수에서 목표/기록 등급을 만들지 않는다. 저장한1~9등급만 사용하며, 적격성 검사를 거치지 않은 최근 기록으로 ‘목표까지 N점’을 표시하지 않는다. 목표 대비 판정은 아래 단일 독립 평가 계약을 따른다.
-- `20261023090000_csat_goal_budget.sql`은 **개발 DB 미적용·사용자 승인 대기**다. nullable `planning_budget` 열과 검증 함수·service-role 전용 `csat_map_goal_budget_set`을 추가한다. 새 예산은 새 목표 버전에만 저장하고 옛 목표·PLAN을 수정하지 않는다.
+- `20261023043453_csat_goal_budget.sql`은 **개발 DB 미적용·사용자 승인 대기**다. nullable `planning_budget` 열과 검증 함수·service-role 전용 `csat_map_goal_budget_set`을 추가한다. 새 예산은 새 목표 버전에만 저장하고 옛 목표·PLAN을 수정하지 않는다.
 - 예산은 주간0~10080분·월~일7칸0~1440분/합계≤주간 또는 null·잠정 단위1~240분·우선 TASK다. API가 보류/알 수 없는 우선 TASK를 거절하며 SQL은 형식·유일성·최대21개를 검사한다. 0은 배정 없음, null은 미지정이다.
 - 목표 버전의 명시 예산이 우선이다. 기존 `csat_dx_profile_hist.weekly_hours`는 분으로 변환한 입력 제안만 제공하며 저장/배정된 예산으로 승격하지 않는다. 기간 계획에는 시험·목표일·점수·저장 주간 예산이 필요하다.
 - 예산 저장에는 화면에서 본 `expectedGoalVersion`이 필요하다(첫 목표는null). 설치 후 예산 해제(SQL NULL)를 포함한 목표 저장은 새 writer의 동일 사용자 잠금 안에서 최신 id를 비교한다. 다른 기기에서 목표가 바뀌면409 `goal_changed`다. 성공한 같은 키 재전송은 원래 영수증을 반환한다. 본문 일치는 서버의 불변 저장 행 대조가 책임지며 SQL 단독으로는 키만 비교한다.
@@ -94,6 +94,6 @@ Claude 후속 `9f23f9b9b`의 네 상태(`no_record`·`not_judgeable`·`below`·`
 - **시점**: 응시일은 목표를 정한 서울 날짜의 **다음 날 ~ 목표일**. 응시일 전 `scheduled`, 지난 뒤 그날 목표 종류 기록이 없으면 `awaiting_record` — 다른 날 · 다른 종류 · 나중 기록으로 대신하지 않는다.
 - **자격 · 비교 가능성**: 응시일까지의 기록에 `goalOutcome` 을 그대로 적용한다(첫 풀이 · live · 분석 적격 · 입력 신뢰 · 앱 노출 없음 · 같은 시험지 재풀이 아님 · 유효 원점수). 노출 원장은 결속 기록에 대해서도 따로 읽는다(`load.ts`). 하나라도 확인 못 하면 `not_judgeable`(사유 보존).
 - **판정**: 점수 기준 + (목표 등급이 있으면) 기록된 등급 → `met` · `not_met`. 등급 미기록이면 판정 불가 — 점수로 등급을 만들지 않는다. `met` 도 그 한 번의 결과이며 학습 효과 · 다른 시험 결과를 말하지 않는다.
-- **저장**: 제안 SQL `20261023170000_csat_goal_final_assessment.sql`(추가 전용 · service_role writer · 최신 목표만 · PT409). **2026-10-23 사용자 승인 후 개발 DB 적용**(이력 `20261023082930` · 원문 SHA256 `a5bbdc46…34cb` · 전후 목표 26행/PLAN 10행 해시 불변 · anon/authenticated 실행 불가 · RLS · 추가 전용 트리거 확인). 미설치 환경이면 `not_installed`(최종 달성 미확인), 쓰기는 503 — 저장된 것처럼 보이지 않는다.
+- **저장**: 제안 SQL `20261023082930_csat_goal_final_assessment.sql`(추가 전용 · service_role writer · 최신 목표만 · PT409). **2026-10-23 사용자 승인 후 개발 DB 적용**(이력 `20261023082930` · 원문 SHA256 `a5bbdc46…34cb` · 전후 목표 26행/PLAN 10행 해시 불변 · anon/authenticated 실행 불가 · RLS · 추가 전용 트리거 확인). 미설치 환경이면 `not_installed`(최종 달성 미확인), 쓰기는 503 — 저장된 것처럼 보이지 않는다.
 - **화면**: 결속 전 「판정에 쓰는 기록 | 쓰지 않는 기록」 대조 → 응시일 선택(같은 선택 재시도 = 같은 요청 키). 결속 뒤 「목표 기준 | 그날 기록」 대조. 퍼센트 · 예측 없음.
 - **검증**: `final-assessment.test.ts`(판정 11) · `final-assessment.pglite.test.ts`(정본 목표 SQL + 제안 SQL · 실제 서버 결속 · 멱등 · 충돌 · 창 · 타인 · 추가 전용 · 권한 8) · 격리 브라우저 `final-assessment.browser.spec.ts` 1440/1280(goal-outcome 하네스) · **실제 인증 종단** `scripts/verify-final-assessment-live.mts`(합성 계정 · 공용 3000 · 지도에서 결속 → scheduled · 재결속 409 · 범위 밖 400 · 새 목표 미결속 · 옛 버전 409 goal_changed · RLS · 직접 RPC/INSERT 거부 · 기존 행 불변 · 계정 정지) 6/6 PASS. 판정 상태(met·not_met·not_judgeable)는 응시일이 오늘 뒤여야 해서 실환경이 아니라 위 오프라인 검증으로만 확인했다.
