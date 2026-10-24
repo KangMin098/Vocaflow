@@ -1,0 +1,166 @@
+{
+  "base_commit": "8ec1cd04b9c51ea08ae610c8285c52a6e695da5b",
+  "compared": 18,
+  "identical": 0,
+  "diff": 13,
+  "size_or_missing": 5,
+  "rows": [
+    {
+      "name": "a-pc-1280-0-start.png",
+      "status": "diff",
+      "size": "1280x900",
+      "diff_pixels": 52045,
+      "diff_ratio": 0.045178,
+      "base_sha256": "473d564900e7117413a17f6c8c33bf9694b3bf5d200b809842d0507cdc5dddc2",
+      "current_sha256": "3254c2d9e2307cf9413d5189cffbbf71c6c9aa24d6c7970d2eab28408d903076"
+    },
+    {
+      "name": "a-pc-1280-1-judging.png",
+      "status": "diff",
+      "size": "1280x900",
+      "diff_pixels": 105515,
+      "diff_ratio": 0.091593,
+      "base_sha256": "e856ea0a7cc7837a658208c41e7611d4124dad4bc48735ff82983cde4758355d",
+      "current_sha256": "010e0cf0f879e9f9e78b60698f5d195af651479a115453b231ae5c0ad82f2352"
+    },
+    {
+      "name": "a-pc-1280-2-revealed.png",
+      "status": "size",
+      "base": "1280x1206",
+      "current": "1280x1097",
+      "base_sha256": "41ef95c05b47589c10f35f52f6d19523193530f9b97273b28f580546028ef48d",
+      "current_sha256": "cad6568922f30267c8d9ec51af24033d1f03f39765526897a9fbbbdab36390b9"
+    },
+    {
+      "name": "a-pc-1440-0-start.png",
+      "status": "diff",
+      "size": "1440x900",
+      "diff_pixels": 52045,
+      "diff_ratio": 0.040158,
+      "base_sha256": "d6c3982c56cd487b332adc70fcf84c1d59cd1f6e1196a5005970b86fd992eff1",
+      "current_sha256": "ef6d07dc1a3168b27c9d32ac4dd8c0ed9064183ffe6fc8b5826cfa415c9f56a9"
+    },
+    {
+      "name": "a-pc-1440-1-judging.png",
+      "status": "diff",
+      "size": "1440x900",
+      "diff_pixels": 105547,
+      "diff_ratio": 0.081441,
+      "base_sha256": "3db8465ab04dd5e2894973832d8b1cdad33a0f8c3958094e8dd98056db3641ee",
+      "current_sha256": "a23a14c72f4189130e512f14e026774a4b827c5680218e4c67d6fbaa1c95c4c4"
+    },
+    {
+      "name": "a-pc-1440-2-revealed.png",
+      "status": "size",
+      "base": "1440x1206",
+      "current": "1440x1097",
+      "base_sha256": "bb5b0da6175e472d4a83f3f9d33abe54a130aafb470f5c1b21cf7bb478247741",
+      "current_sha256": "185b6065fea24930ddac13ed9df3593c89e5004e8fb4bfd913d8134696d4dd38"
+    },
+    {
+      "name": "b-pc-1280-0-start.png",
+      "status": "diff",
+      "size": "1280x900",
+      "diff_pixels": 61654,
+      "diff_ratio": 0.053519,
+      "base_sha256": "6691cd1a137547d217667adeccb05e2fe8d13cd9552ae2d4334093c0ac46d3fe",
+      "current_sha256": "ddd0297db5b1db33b42f58adbcdbc05bcf787721514f16148cda880524d4270d"
+    },
+    {
+      "name": "b-pc-1280-1-judging.png",
+      "status": "diff",
+      "size": "1280x900",
+      "diff_pixels": 138309,
+      "diff_ratio": 0.12006,
+      "base_sha256": "b71e866b56eff6cedd66174440b465716a8bbf68e56ab6467a91df4035e4fa54",
+      "current_sha256": "a804915355a082699d90e614a8a13e3095a5a4220365235ae1e7d9dbb302eb42"
+    },
+    {
+      "name": "b-pc-1280-2-revealed.png",
+      "status": "size",
+      "base": "1280x2101",
+      "current": "1280x2081",
+      "base_sha256": "600ed6a511a51d8befbd1602f8b18266835093c62b9b6ec606c036c34dfad7c7",
+      "current_sha256": "0a44f422bc8ccab0e068d0ff1cfb941f0435535873546dec12d87082ea83ec0f"
+    },
+    {
+      "name": "b-pc-1440-0-start.png",
+      "status": "diff",
+      "size": "1440x900",
+      "diff_pixels": 64648,
+      "diff_ratio": 0.049883,
+      "base_sha256": "1ddd0d1e65e2adeabc9cae8714997e58c1ff5a374c859c8b1be3c0f235606e73",
+      "current_sha256": "9f0c5f07b6d348a6affc08e932461641722bea431763775adfb650b664d80a51"
+    },
+    {
+      "name": "b-pc-1440-1-judging.png",
+      "status": "diff",
+      "size": "1440x900",
+      "diff_pixels": 135903,
+      "diff_ratio": 0.104863,
+      "base_sha256": "b9ec3b820d6e5e59cb972f62f0c4893534f78a3cbac5a067d79462d3d1402fba",
+      "current_sha256": "a0c68a8cea23e48fc4aa29e82340fcdfd7c8fe2fb0cac6ddf0975e9f036e940e"
+    },
+    {
+      "name": "b-pc-1440-2-revealed.png",
+      "status": "diff",
+      "size": "1440x1981",
+      "diff_pixels": 166940,
+      "diff_ratio": 0.058521,
+      "base_sha256": "2acc9163f1a26f52e17e4477382d986a3c199dbb376e4cd8187cb7963222eb4c",
+      "current_sha256": "cbf0d54d5e960af58e16a05721f478ccc67255e0c17695084cc86614ec5cc4e9"
+    },
+    {
+      "name": "c-pc-1280-0-start.png",
+      "status": "diff",
+      "size": "1280x900",
+      "diff_pixels": 63528,
+      "diff_ratio": 0.055146,
+      "base_sha256": "e3bd00602b02d0251e239e97117aba9104e3ae1061bfc80e326959273bff9cf4",
+      "current_sha256": "9cb5481a91550d4f8ac7c6af54441ea212c09c52bdb7793a50d636c8db662934"
+    },
+    {
+      "name": "c-pc-1280-1-judging.png",
+      "status": "diff",
+      "size": "1280x900",
+      "diff_pixels": 69502,
+      "diff_ratio": 0.060332,
+      "base_sha256": "d4f2fa6de42b447f8f33d22db92d11ca7a200114830c04215527045564c80f02",
+      "current_sha256": "768a82b02d4d2b4585fc7e7f2a325e8f864dbc164cb9ce15cc863e40addef45d"
+    },
+    {
+      "name": "c-pc-1280-2-revealed.png",
+      "status": "size",
+      "base": "1280x1109",
+      "current": "1280x1093",
+      "base_sha256": "5df4dd2f2bc827f974e4e6e51af2a5ffdc7e85921ee95509461c239e4f4aa9a4",
+      "current_sha256": "37db76760523bfb6f9a60ebbe454c3ae2ff8bc9870659061d6f03898ff8d42f1"
+    },
+    {
+      "name": "c-pc-1440-0-start.png",
+      "status": "diff",
+      "size": "1440x900",
+      "diff_pixels": 62946,
+      "diff_ratio": 0.048569,
+      "base_sha256": "c359348b9bd09c69b8525948b86b783f23998a7cda7ead1314e6ab4fbd3242f0",
+      "current_sha256": "da201c06a918c414d6d123590cec12c8b545c69d35e681d0d9c5d2477c45e9bf"
+    },
+    {
+      "name": "c-pc-1440-1-judging.png",
+      "status": "diff",
+      "size": "1440x900",
+      "diff_pixels": 69379,
+      "diff_ratio": 0.053533,
+      "base_sha256": "05dbdf6223a16fbe7579dd9320db9709b1edfde11b78e40d9becad07fd348e39",
+      "current_sha256": "c709410d9fbe8e6503bf5eac4902d956456d939266a2c93b21e813805223857a"
+    },
+    {
+      "name": "c-pc-1440-2-revealed.png",
+      "status": "size",
+      "base": "1440x1109",
+      "current": "1440x1093",
+      "base_sha256": "adb4ce9665bd8860e382e1b6e22b03bf3ed30ed7ffbcf127c04c2116ff6c8003",
+      "current_sha256": "5f0a36dbd24e3f3fa5257ff5b72bebfce6ab80631885499f8bfbe9a53f38aae6"
+    }
+  ]
+}

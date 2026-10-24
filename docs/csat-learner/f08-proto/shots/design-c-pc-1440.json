@@ -1,0 +1,36 @@
+{
+  "candidate": "c",
+  "viewport": "pc-1440",
+  "focus": {
+    "style": "solid",
+    "width": "2px",
+    "color": "rgb(124, 92, 250)"
+  },
+  "pressed": {
+    "onBg": "rgb(24, 24, 27)",
+    "offBg": "rgb(255, 255, 255)",
+    "onGlyph": "\"✓ \" / \"\"",
+    "onName": "부정·조건 범위 표시"
+  },
+  "textNodes": 53,
+  "lowContrast": [],
+  "splitLabels": [],
+  "smallButtons": [],
+  "tinyText": [],
+  "koNoKeep": [],
+  "passage": {
+    "fontPx": 19,
+    "lineHeight": 1.9,
+    "approxCharsPerLine": 97,
+    "color": "rgb(24, 24, 27)"
+  },
+  "fontFamily": "\"Inter Variable\", Arial, Pretendard, system-ui, sans-serif",
+  "pageColor": "rgb(24, 24, 27)",
+  "canvas": "rgb(250, 249, 247)",
+  "tokens": {
+    "canvas": "rgb(250, 249, 247)",
+    "panel": "rgb(255, 255, 255)",
+    "ink": "rgb(24, 24, 27)",
+    "accent": "rgb(124, 92, 250)"
+  }
+}

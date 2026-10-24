@@ -168,6 +168,8 @@ for (const cand of ['a', 'b', 'c'] as const) {
       if (cand === 'c') await page.getByRole('tab', { name: '내 판단' }).click()
       await page.getByRole('button', { name: '정답·해설 보기' }).click()
       await page.getByRole('button', { name: '공개하기' }).click()
+      // 로딩 상태가 실제로 보인다(지연 1.5초 동안)
+      await expect(page.locator('[data-candidate]').getByText('불러오는 중…')).toBeVisible()
       await page.locator('#f08-s2').focus()
       await expect(page.getByTestId('answer-line')).toBeVisible({ timeout: 10_000 })
       await page.waitForTimeout(300)
