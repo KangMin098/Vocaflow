@@ -16,6 +16,15 @@ const { build } = viteRequire('esbuild') as HarnessEsbuildApi
 const ARTIFACTS = process.env.S2B_ARTIFACTS ?? path.resolve(ROOT, '../../../Vocaflow-AI-Control/runtime/t0145-s2b/ui')
 let html: string
 
+// UI 수용 체크리스트 → 아래 실행 단언에 결속한다(부모 통합의 통과를 뜻하지 않는다).
+// SUPPLEMENT §3: 밝은 3B → AT13 canvas/layout + initial/compare/bound 골든(1280/1440).
+// SUPPLEMENT §3: 근거↔선택지 왕복·키보드/포커스 → AT03 및 AT15 + 내부 탐색 상태 테스트.
+// SUPPLEMENT §3: 불필요한 단계·강제 퀴즈 없음 → 첫 진입 네 도구 + 입력/submit 부재.
+// SUPPLEMENT §3: F08 미선정·금지 부모/강의 경계 → 패널 하네스에 한정, 통합은 NOT_VERIFIED.
+// PROMPT §2: 범위·조건·근거·선택지 비교 → AT03 및 내부 탐색 상태 테스트.
+// PROMPT §2: focus·44px·break-keep·기존 토큰 → AT03/13 단언.
+// navigation_progress 전체 게이트: 실제 AnalysisTheater 장면·진행 연결은 T-0140 통합 후.
+
 function imports(file: string, seen = new Set<string>()): string {
   if (seen.has(file)) return ''
   seen.add(file)
@@ -75,6 +84,7 @@ for (const width of [1280, 1440]) test.describe(`S2-b PC ${width}`, () => {
     await expect(page.locator('textarea,input[type="text"],button[type="submit"]')).toHaveCount(0)
     expect(await page.evaluate(() => window.__s2bEvidence)).toEqual([])
     await page.screenshot({ path: path.join(ARTIFACTS, `compare-${width}.png`), fullPage: true })
+    await expect(page).toHaveScreenshot(`compare-${width}.png`, { fullPage: true, animations: 'disabled', maxDiffPixels: 0 })
   })
   test('AT13·14·21: 실제 조작 영역·비색상 상태·자료 부재 보존', async ({ page }) => {
     for (const button of await page.locator('button:visible').all()) {
@@ -88,6 +98,7 @@ for (const width of [1280, 1440]) test.describe(`S2-b PC ${width}`, () => {
     await expect(page.getByTestId('s2b-source-binding')).toContainText('외부')
     await expect(page.getByTestId('s2b-compare')).toContainText('전이 완료나 숙달을 판정하지 않아요')
     await page.screenshot({ path: path.join(ARTIFACTS, `initial-${width}.png`), fullPage: true })
+    await expect(page).toHaveScreenshot(`initial-${width}.png`, { fullPage: true, animations: 'disabled', maxDiffPixels: 0 })
     for (const state of ['NO_DATA', 'STALE', 'HELD_CONTENT_APPROVAL', 'VERIFICATION_FAILED', 'NO_PERMISSION', 'UNREGISTERED']) {
       await page.goto(`https://s2b.test/34#${state}`)
       await page.reload()
@@ -116,5 +127,48 @@ for (const width of [1280, 1440]) test.describe(`S2-b PC ${width}`, () => {
     expect(requests).toEqual([])
     expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 })
     await page.screenshot({ path: path.join(ARTIFACTS, `bound-${width}.png`), fullPage: true })
+    await expect(page).toHaveScreenshot(`bound-${width}.png`, { fullPage: true, animations: 'disabled', maxDiffPixels: 0 })
+  })
+  test('design_acceptance SUPPLEMENT §3·PROMPT §2: 네 도구 직접 탐색과 패널 선택 상태 보존(부모 진행 미검증)', async ({ page }) => {
+    await page.goto('https://s2b.test/34#BOUND')
+    await page.reload()
+    const scope = page.getByRole('region', { name: '발문과 한정 범위 대조' })
+    const qualifiers = page.getByRole('region', { name: '조건·한정 관계' })
+    const evidence = page.getByRole('region', { name: '본문 근거 연결' })
+    const compare = page.getByRole('region', { name: '완성 명제 두 개 대조' })
+    for (const tool of [scope, qualifiers, evidence, compare]) await expect(tool).toBeVisible()
+    // 첫 진입부터 접근 가능: 다음 단계/제출/강제 답안 입력 없이 판단을 바꾼다.
+    await expect(page.locator('textarea,input,button[type="submit"]')).toHaveCount(0)
+    await expect(page.getByRole('button', { name: /다음|제출|퀴즈 시작/ })).toHaveCount(0)
+    const ifButton = scope.getByRole('button', { name: 'If', exact: true })
+    await ifButton.focus(); await page.keyboard.press('Enter')
+    await expect(ifButton).toHaveAttribute('aria-pressed', 'true')
+    const condition = qualifiers.getByRole('button', { name: '조건 2', exact: true })
+    await condition.focus(); await page.keyboard.press('Space')
+    await expect(condition).toHaveAttribute('aria-pressed', 'true')
+    const left = page.getByRole('region', { name: '왼쪽 비교 명제' })
+    const choice = left.getByRole('button', { name: '②', exact: true })
+    await choice.focus(); await page.keyboard.press('Enter')
+    await expect(choice).toHaveAttribute('aria-pressed', 'true')
+    await expect(left).toContainText('원문만으로 확정 불가')
+    await expect(left).toContainText('발문 요구를 충족하지 못함')
+    const relation = left.getByRole('button', { name: 'then the law cannot be', exact: true })
+    await relation.focus(); await page.keyboard.press('Enter')
+    await expect(evidence).toContainText('등록 선지')
+    const openEvidence = evidence.getByRole('button', { name: '이 관계의 본문 근거 보기' })
+    await openEvidence.focus(); await page.keyboard.press('Enter')
+    expect(await page.evaluate(() => window.__s2bEvidence)).toEqual([{ sentences: [7], key: 'then the law cannot be' }])
+    const back = evidence.getByRole('button', { name: '선택한 관계로 돌아가기' })
+    await back.focus(); await page.keyboard.press('Enter')
+    await expect(relation).toBeFocused()
+    // 각 도구의 탐색 상태가 연결/왕복 후 유지된다. 학습 진도·숙달 증거로 쓰지 않는다.
+    await expect(ifButton).toHaveAttribute('aria-pressed', 'true')
+    await expect(condition).toHaveAttribute('aria-pressed', 'true')
+    await expect(choice).toHaveAttribute('aria-pressed', 'true')
+    await expect(page.getByRole('region', { name: '오른쪽 비교 명제' })).toContainText('공식 정답')
+    await expect(compare).toContainText('전이 완료나 숙달을 판정하지 않아요')
+    expect(await page.evaluate(() => ({ local: localStorage.length, session: sessionStorage.length }))).toEqual({ local: 0, session: 0 })
+    await expect(page.getByRole('button', { name: /F08|강의 재생/ })).toHaveCount(0)
+    expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true)
   })
 })
