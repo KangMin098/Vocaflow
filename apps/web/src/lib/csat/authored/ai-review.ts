@@ -125,8 +125,8 @@ export type AiSupplyOutcome =
 export async function recordAiReviewedSupply(db: SupabaseClient, set: AuthoredSet, setBytes: string | Buffer, receipt: AiReviewReceipt, raw: RawEvidence = {}): Promise<AiSupplyOutcome> {
   const check = verifyAiReviewReceipt(receipt, set, setBytes, raw)
   if (!check.ok) return { status: 'rejected', errors: check.errors }
-  const call = async <T>(fn: string, args: Record<string, unknown>): Promise<T> => {
-    const r = await db.rpc(fn, args)
+  // RPC 이름은 호출부에 리터럴로 둔다(rpc-call-sites 권한 감사가 수집한다) — 여기서는 결과만 푼다
+  const unwrap = <T>(fn: string, r: { data: unknown; error: { message?: string; code?: string } | null }): T => {
     if (r.error) throw new Error(`${fn}: ${r.error.message ?? r.error.code}`)
     return r.data as T
   }
@@ -134,15 +134,15 @@ export async function recordAiReviewedSupply(db: SupabaseClient, set: AuthoredSe
   for (const id of receipt.scope) {
     const it = set.items.find((x) => x.id === id)!
     const args = registrationArgs(set, it)
-    const ref = await call<string>('authored_item_register', args)
-    const decisionId = await call<string>('content_ai_decision_record', { p_ref: ref, p_receipt: receipt })
+    const ref = unwrap<string>('authored_item_register', await db.rpc('authored_item_register', args))
+    const decisionId = unwrap<string>('content_ai_decision_record', await db.rpc('content_ai_decision_record', { p_ref: ref, p_receipt: receipt }))
     const g = it.gold as { answer?: number; claim?: number; support?: number[]; relationProbe?: { relation: string } }
     const runnable = gradeAuthored(set, it, { claim: g.claim, support: g.support, relation: g.relationProbe?.relation, choice: g.answer })?.grade.isCorrect === true
     const goldHash = jsCanonicalSha(it.gold)
-    const qualificationId = await call<string>('authored_ai_qualify', {
+    const qualificationId = unwrap<string>('authored_ai_qualify', await db.rpc('authored_ai_qualify', {
       p_ref: ref, p_role: it.role, p_axes: aiQualificationAxes(it, runnable), p_annotation_ref: args.p_annotation_ref,
       p_evidence_ids: [`ai_decision:${decisionId}`, `ai_receipt:${receipt.source_file_sha256}`, `js_gold:${goldHash}`, 'rights:first_party_original_declaration'],
-    })
+    }))
     const approvals = [await approve(db, qualificationId, 'public')]
     if (isAssessmentRole(it.role)) approvals.push(await approve(db, qualificationId, 'assessment'))
     items.push({ ref, decisionId, qualificationId, approvals })

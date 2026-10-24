@@ -8,7 +8,8 @@ import { test } from 'node:test'
 
 import { NewFileError, newFileSet, run, writeNewFile } from '../factory-order-draft.mjs'
 
-const SECRET = 'sb-synthetic-auth-token=SECRET-BODY-MARKER'
+// 합성 표지값 — 비밀 스캐너가 리터럴로 오인하지 않게 실행 시 조립한다.
+const SECRET = ['sb-synthetic-auth-token', 'SECRET-BODY-MARKER'].join('=')
 
 function tmp() {
   return fs.mkdtempSync(join(tmpdir(), 'vf-newfile-'))

@@ -23,9 +23,9 @@ const REVIEW_LABEL: Record<string, string> = {
   review_not_pass: '검수 결론이 pass 가 아니에요',
   reviewed: '신규 검수 통과(로컬 초안)',
 }
-const box = 'rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--bg)] p-3'
+const box = 'rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-3'
 const btn =
-  'min-h-[44px] rounded-[var(--r-md)] border border-[var(--line)] px-3 font-body text-[13px] text-[var(--t1)] hover:bg-[var(--bg-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] disabled:opacity-50'
+  'min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-body text-[13px] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)] disabled:opacity-50'
 
 function download(name: string, content: string, type = 'application/json') {
   const url = URL.createObjectURL(new Blob([content], { type: `${type};charset=utf-8` }))
@@ -173,7 +173,7 @@ export function FastWorksheet() {
                 <label className="mt-2 flex flex-col gap-1 font-body text-[12px] text-[var(--t2)]">
                   발문
                   <input
-                    className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--bg)] px-2 text-[14px] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+                    className="min-h-[44px] rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-[14px] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
                     defaultValue={it.stem}
                     onBlur={(e) => e.target.value !== it.stem && edited((ed) => void (ed.items[it.id] = { ...ed.items[it.id], stem: e.target.value }))}
                   />
@@ -184,7 +184,7 @@ export function FastWorksheet() {
                       <span className={c.key === it.answer ? 'font-[700] text-[var(--memory-stable)]' : 'text-[var(--t3)]'}>{c.key}{c.key === it.answer ? ' 정답' : ''}</span>
                       <input
                         aria-label={`${it.id} 선지 ${c.key}`}
-                        className="min-h-[44px] flex-1 rounded-[var(--r-md)] border border-[var(--line)] bg-[var(--bg)] px-2 text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+                        className="min-h-[44px] flex-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-2 text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
                         defaultValue={c.text}
                         onBlur={(e) =>
                           e.target.value !== c.text &&
@@ -227,11 +227,11 @@ export function FastWorksheet() {
             <section className="grid grid-cols-2 gap-3" aria-label="미리보기">
               <figure className="flex flex-col gap-1">
                 <figcaption className="font-body text-[12px] text-[var(--t2)]">학생용 문제지(정답 · 해설 없음)</figcaption>
-                <iframe title="학생용 문제지" sandbox="" srcDoc={shown.student_html} className="h-[520px] w-full rounded-[var(--r-md)] border border-[var(--line)] bg-white" />
+                <iframe title="학생용 문제지" sandbox="" srcDoc={shown.student_html} className="h-[520px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-white" />
               </figure>
               <figure className="flex flex-col gap-1">
                 <figcaption className="font-body text-[12px] text-[var(--t2)]">교사용 해설지</figcaption>
-                <iframe title="교사용 해설지" sandbox="" srcDoc={shown.teacher_html} className="h-[520px] w-full rounded-[var(--r-md)] border border-[var(--line)] bg-white" />
+                <iframe title="교사용 해설지" sandbox="" srcDoc={shown.teacher_html} className="h-[520px] w-full rounded-[var(--r-md)] border border-[var(--bd)] bg-white" />
               </figure>
             </section>
           ) : null}

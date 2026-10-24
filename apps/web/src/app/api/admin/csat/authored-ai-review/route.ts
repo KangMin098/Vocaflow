@@ -4,4 +4,4 @@ import { requireAdminApi } from '@/lib/auth/require-admin-api'
 import { createClient } from '@/lib/supabase/server'
 
 export const dynamic = 'force-dynamic'
-export const POST = createAuthoredAiPost({ guard: requireAdminApi, session: createClient })
+export const POST = createAuthoredAiPost({ guard: () => requireAdminApi(), session: createClient })

@@ -160,11 +160,14 @@ describe('허용 이벤트 목록', () => {
     'csat_dx_attempt_saved',
     // 2026-10-02 — 학습 지도(내 진단). DB 허용 목록은 20261002120100_funnel_allow_csat_map
     'csat_map_viewed',
+    // 2026-10-23 — 시스템 제공 학습 정리(86d068f45).
+    'csat_summary_opened',
+    'csat_summary_explored',
     'csat_meaning_unit_selected',
     'csat_meaning_depth_changed',
     'csat_meaning_relation_opened',
     'csat_meaning_whole_traced',
-    'csat_meaning_draft_compared',
+    // csat_meaning_draft_compared: T-0091(97a140c2e) 이 자유서술 대조 흐름을 걷어 은퇴(DB 과거 목록 유지).
     'csat_meaning_bridge_followed',
     'csat_map_node_opened',
     'csat_map_goal_set',

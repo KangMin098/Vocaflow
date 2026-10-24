@@ -19,7 +19,20 @@ import { fileURLToPath } from 'node:url'
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
 // 저장소의 창작 세트 전부(R5 + 확장) — 형식별 브라우저 e2e 가 각 TASK 의 자료를 받는다
 const SET_DIR = path.join(ROOT, 'apps/web/src/lib/knowledge/authored')
-const SETS = fs.readdirSync(SET_DIR).filter((x) => x.endsWith('.json')).sort().map((x) => JSON.parse(fs.readFileSync(path.join(SET_DIR, x), 'utf8')))
+// 같은 디렉터리에 세트가 아닌 자산(예: schema 'vf.source-central-meaning-lesson/1' 수업 모델)도 산다 — `set` 키가 없으면 세트가 아니다.
+// 세트인데 items 가 배열이 아니거나 세트가 0개면 조용히 넘기지 않고 실패한다
+export function loadSets(dir = SET_DIR) {
+  const sets = []
+  for (const name of fs.readdirSync(dir).filter((x) => x.endsWith('.json')).sort()) {
+    const doc = JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8'))
+    if (typeof doc?.set !== 'string') continue
+    if (!Array.isArray(doc.items) || doc.items.length === 0) throw new Error(`창작 세트 ${name} 에 items 배열이 없다`)
+    sets.push(doc)
+  }
+  if (sets.length === 0) throw new Error(`창작 세트가 없다: ${dir}`)
+  return sets
+}
+const SETS = loadSets()
 const ASSESS = new Set(['independent_check', 'transfer', 'delayed_check'])
 const AXES = Object.fromEntries(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map((k) => [k, { state: 'pass' }]))
 export const FIXTURE_NOTE = 'CI 격리 fixture — 사람 결정 아님'

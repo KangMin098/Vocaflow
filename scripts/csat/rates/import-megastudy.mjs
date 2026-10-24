@@ -2,7 +2,7 @@
 //
 // 메가스터디 정답률 원장(fetch-megastudy.mjs 산출) → csat_item_response_stats (source_id='megastudy').
 //
-//   node --tls-max-v1.2 scripts/csat/rates/import-megastudy.mjs [--in <원장.json>] [--commit]
+//   node --tls-max-v1.2 scripts/csat/rates/import-megastudy.mjs [--in <원장.json>] [--set all|kice|hakpyeong] [--commit]
 //
 // 회차·유형 대응 = 정답 키: 같은 학년 · 같은 시행년(exam_year)의 DB 회차 × 원장 유형(홀/짝) 중 DB 문항 정답이
 //   전부 같은 쌍(겹치는 문항 ≥ 20)이 정확히 하나일 때만 넣는다. 날짜·월은 쓰지 않는다 — 2020 코로나 연기 · 2022-08-31 모평처럼
@@ -15,10 +15,17 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
+import { isKiceExam } from '../lib-exam-id.mjs'
+
 const HERE = path.dirname(fileURLToPath(import.meta.url))
 const args = process.argv.slice(2)
 const IN = (() => { const i = args.indexOf('--in'); return i >= 0 ? args[i + 1] : path.join(HERE, 'source', 'megastudy-correct-rate.json') })()
 const COMMIT = args.includes('--commit')
+// 집합: 메가스터디 원장은 수능·모평·학평을 함께 담는다. 정답 키 대응이라 섞여도 오대응은 없지만, 대상 회차 집합은 명시한다.
+//   --set all(기본) | kice(수능·모평) | hakpyeong(학평). 판정은 공용 lib-exam-id 의 isKiceExam.
+const SET = (() => { const i = args.indexOf('--set'); return i >= 0 ? args[i + 1] : 'all' })()
+if (!['all', 'kice', 'hakpyeong'].includes(SET)) throw new Error(`--set ${SET}: all | kice | hakpyeong`)
+const inSet = (examId) => SET === 'all' || (SET === 'kice' ? isKiceExam(examId) : !isKiceExam(examId))
 
 const fromFiles = (name) => {
   for (const f of ['.env.local', '.env', 'apps/web/.env.local', 'apps/web/.env']) {
@@ -36,19 +43,21 @@ const { createClient } = await import('@supabase/supabase-js')
 const db = createClient(url, key, { auth: { persistSession: false } })
 console.log(`대상 DB: ${new URL(url).host}`)
 
+// keyset(pk id) — 뒤 페이지가 앞을 다시 훑지 않는다(offset-paging-budget). id 를 함께 읽는다.
 async function all(table, cols) {
   const out = []
-  for (let from = 0; ; from += 1000) {
-    const { data, error } = await db.from(table).select(cols).range(from, from + 999)
+  for (let last = ''; ; ) {
+    const { data, error } = await db.from(table).select(`id, ${cols}`).gt('id', last).order('id').limit(1000)
     if (error) throw new Error(`${table}: ${error.message}`)
     out.push(...data)
     if (data.length < 1000) return out
+    last = String(data[data.length - 1].id)
   }
 }
 
 const led = JSON.parse(fs.readFileSync(IN, 'utf8'))
-const exams = await all('csat_exams', 'id, kind, exam_year, month, grade')
-const items = await all('csat_items', 'exam_id, no, answer, answers, points')
+const exams = (await all('csat_exams', 'kind, exam_year, month, grade')).filter((x) => inSet(x.id))
+const items = (await all('csat_items', 'exam_id, no, answer, answers, points')).filter((it) => inSet(it.exam_id))
 const itemsByExam = new Map()
 for (const it of items) {
   if (!itemsByExam.has(it.exam_id)) itemsByExam.set(it.exam_id, new Map())

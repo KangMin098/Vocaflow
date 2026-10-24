@@ -14,8 +14,8 @@
 .scheduleRows { list-style: none; margin: 8px 0; padding: 0; }
 .scheduleRows > li { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--m-line); }
 .scheduleRows > li > div { display: grid; gap: 4px; min-width: 0; }
-.scheduleRows strong { font-size: 14px; color: var(--m-ink); }
-.scheduleRows span, .scheduleDetails { font-size: 13px; color: var(--m-ink2); }
+.scheduleRows strong { font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale))); color: var(--m-ink); }
+.scheduleRows span, .scheduleDetails { font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale))); color: var(--m-ink2); }
 .schedule a, .schedule button, .scheduleDetails > summary { min-height: 44px; }
 .scheduleDetails > summary { display: flex; align-items: center; cursor: pointer; color: var(--m-ink); }
 .scheduleDetails ul { padding-left: 20px; }
@@ -1711,7 +1711,7 @@ p.dockL {
 .goScaleEnd { position: absolute; top: 8px; color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
 .goScaleEnd[data-end='min'] { left: 0; }
 .goScaleEnd[data-end='max'] { right: 0; }
-.goMark { position: absolute; left: calc(var(--at) * 100%); top: -6px; width: 2px; height: 14px; background: var(--m-ink); transform: translateX(-1px); }
+.goMark { position: absolute; left: calc(var(--at, 0) * 100%); top: -6px; width: 2px; height: 14px; background: var(--m-ink); transform: translateX(-1px); }
 .goMark[data-kind='record'] { width: 10px; height: 10px; top: -4px; border-radius: 50%; transform: translateX(-5px); }
 .goMarkLabel { position: absolute; top: 14px; white-space: nowrap; transform: translateX(-50%); color: var(--m-ink); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
 .goMark[data-kind='target'] .goMarkLabel { top: -18px; }

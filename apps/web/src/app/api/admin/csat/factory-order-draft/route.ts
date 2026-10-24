@@ -10,7 +10,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 export const dynamic = 'force-dynamic'
 
 export const POST = createFactoryOrderDraftPost({
-  guard: requireAdminApi,
+  guard: () => requireAdminApi(),
   reader: () => supabaseFactoryOrderDraftReader(createAdminClient()),
   // 서버 경계에서 한 번 읽어 주입한다 — 서비스는 시계를 읽지 않는다
   now: () => new Date().toISOString(),

@@ -216,7 +216,7 @@ export function OrderWizard({
       {guide}
       <a
         href="/admin/csat/new/fast"
-        className="self-start rounded-[var(--r-md)] border border-[var(--line)] px-3 py-2 font-body text-[13px] text-[var(--t1)] hover:bg-[var(--bg-2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
+        className="self-start rounded-[var(--r-md)] border border-[var(--bd)] inline-flex min-h-[44px] items-center px-3 py-2 font-body text-[13px] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
       >
         빠른 학습지 — 기존 제작 팩 하나를 고쳐 문제지 · 해설지로
       </a>
