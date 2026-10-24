@@ -1,0 +1,2110 @@
+{
+ "generated_at": "2026-10-24",
+ "hash_rule": "sha256(정규 JSON{choice_analysis, answer_locus, solve_procedure, design_intent}, 객체 키 정렬)",
+ "summary": {
+  "items": 20,
+  "candidates_semantic_conflict": [
+   "M2706#34",
+   "2025#39",
+   "M2509#38",
+   "M2606#38",
+   "M2706#38"
+  ],
+  "candidates_rename_only": [
+   "2025#38"
+  ],
+  "anchors_semantic_conflict": [
+   "2026#34",
+   "2026#38"
+  ],
+  "answer_misaligned_revisions": [],
+  "accepted_revisions": 0
+ },
+ "items": [
+  {
+   "item_id": "2026#22",
+   "role": "anchor",
+   "official_answer": 1,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "38beef27dcf9bb6c0124ccfb35cf8e6671be5c897a94b1d76810312aab5e50de",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "지문 밖 상식",
+      "3": "부분 사실",
+      "4": "범위 과소",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "8a0212c6d713206e4df5df3655495f5c1a1d30046c66b5cdefb1f7b5ba9c1917",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "지문 밖 상식",
+      "3": "부분 사실",
+      "4": "범위 과소",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "8a0212c6d713206e4df5df3655495f5c1a1d30046c66b5cdefb1f7b5ba9c1917",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "지문 밖 상식",
+      "3": "부분 사실",
+      "4": "범위 과소",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "cd5f30d4b525ce10f701a279d80140f4fcd70e8a9ffe9474497cea7ac9a6c3d8",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "지문 밖 상식",
+      "3": "부분 사실",
+      "4": "범위 과소",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "c635141e31a33a2fb1222a95acddefc3e40f54ce79df0ab04e3f11943e29bf83",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "지문 밖 상식",
+      "3": "부분 사실",
+      "4": "범위 과소",
+      "5": "어휘 함정"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "2026#34",
+   "role": "anchor",
+   "official_answer": 3,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "eb3429384bd5e5e60faf17afaefca8042c1b098b5487bfb22f9b94e9a1e48967",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "반대 진술",
+      "2": "어휘 함정",
+      "3": "correct",
+      "4": "부분 사실",
+      "5": "무관"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "a57c0e2b056169003f84ff3dfa21900bd1242ba7ad8ac432da1647b828f42287",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "반대 진술",
+      "2": "어휘 함정",
+      "3": "correct",
+      "4": "부분 사실",
+      "5": "무관"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "a57c0e2b056169003f84ff3dfa21900bd1242ba7ad8ac432da1647b828f42287",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "반대 진술",
+      "2": "어휘 함정",
+      "3": "correct",
+      "4": "부분 사실",
+      "5": "무관"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "f50a805795404f8290f831e3e4742857f96c3570eb93eb0bc5e18fb55b8263fc",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "반대 진술",
+      "2": "어휘 함정",
+      "3": "correct",
+      "4": "부분 사실",
+      "5": "무관"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "b5660557e7aadc2bf72f500fd11cd6f992f83d48cb99ded3677e32afddfbce0e",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "반대 진술",
+      "2": "주체 역전",
+      "3": "correct",
+      "4": "반대 진술",
+      "5": "어휘 함정"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "SEMANTIC",
+   "trap_changes": [
+    {
+     "option": 2,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "어휘 함정",
+      "2": "어휘 함정",
+      "3": "어휘 함정",
+      "4": "어휘 함정",
+      "5": "주체 역전"
+     }
+    },
+    {
+     "option": 4,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "부분 사실",
+      "2": "부분 사실",
+      "3": "부분 사실",
+      "4": "부분 사실",
+      "5": "반대 진술"
+     }
+    },
+    {
+     "option": 5,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "무관",
+      "2": "무관",
+      "3": "무관",
+      "4": "무관",
+      "5": "어휘 함정"
+     }
+    }
+   ],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "2026#38",
+   "role": "anchor",
+   "official_answer": 5,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "359be7d9db52bdfd78fc3305dc36bdbfcdf6b37d231fe773d7fec38430b661c6",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "인과 연쇄 절단",
+      "3": "예시-일반화 절단",
+      "4": "지시어 선행사 절단",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "40a79499141f4057056399db8ce1a41807200dc6fe05574eaa4eb80dec097c05",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "인과 연쇄 절단",
+      "3": "예시-일반화 절단",
+      "4": "지시어 선행사 절단",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "40a79499141f4057056399db8ce1a41807200dc6fe05574eaa4eb80dec097c05",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "인과 연쇄 절단",
+      "3": "예시-일반화 절단",
+      "4": "지시어 선행사 절단",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "90a0e45c62dedff4334f62287c9ddb82c60a6c1d1304c2b21b10c81bb4d87d74",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "인과 연쇄 절단",
+      "3": "예시-일반화 절단",
+      "4": "지시어 선행사 절단",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "8be151452199f3330bdb9c0536297d7f8381d69980f769f31b3c8c660b999c0e",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "어휘 반복 유인",
+      "3": "지시어 선행사 절단",
+      "4": "지시어 선행사 절단",
+      "5": "correct"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "SEMANTIC",
+   "trap_changes": [
+    {
+     "option": 2,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "인과 연쇄 절단",
+      "2": "인과 연쇄 절단",
+      "3": "인과 연쇄 절단",
+      "4": "인과 연쇄 절단",
+      "5": "어휘 반복 유인"
+     }
+    },
+    {
+     "option": 3,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "예시-일반화 절단",
+      "2": "예시-일반화 절단",
+      "3": "예시-일반화 절단",
+      "4": "예시-일반화 절단",
+      "5": "지시어 선행사 절단"
+     }
+    }
+   ],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "2025#22",
+   "role": "candidate",
+   "official_answer": 1,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "ceb2b3467d6928c2bc1b72f0d743908e16f371bc4a1a55294aa4b9f9296161ad",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "인과 역전",
+      "3": "범위 과소",
+      "4": "부분 사실",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "98b80fdfdf9aa708ba7a01b0ecab07daacf60d28aa8ace1416c42cdd1d1d7e43",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "인과 역전",
+      "3": "범위 과소",
+      "4": "부분 사실",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "98b80fdfdf9aa708ba7a01b0ecab07daacf60d28aa8ace1416c42cdd1d1d7e43",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "인과 역전",
+      "3": "범위 과소",
+      "4": "부분 사실",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "5e01ff69902d157534dc04dbf2eb244ecf6f798a6c536f631b1a933dd7c0fb51",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "인과 역전",
+      "3": "범위 과소",
+      "4": "부분 사실",
+      "5": "어휘 함정"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2509#22",
+   "role": "candidate",
+   "official_answer": 3,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "24a8cec24fb227f31ad8908e8faa63820fcc96c464d57321b00bda296ec5eda4",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "어휘 함정",
+      "2": "반대 진술",
+      "3": "correct",
+      "4": "부분 사실",
+      "5": "범위 과소"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "a2c443af0879fe214cbe3579e102f215224c8ac6fb71db768e15ba1d9827bf07",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "어휘 함정",
+      "2": "반대 진술",
+      "3": "correct",
+      "4": "부분 사실",
+      "5": "범위 과소"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "a2c443af0879fe214cbe3579e102f215224c8ac6fb71db768e15ba1d9827bf07",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "어휘 함정",
+      "2": "반대 진술",
+      "3": "correct",
+      "4": "부분 사실",
+      "5": "범위 과소"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "4504e38f22a1670da628148397c7a683e1827552381f3812a5b6d58563edb11c",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "어휘 함정",
+      "2": "반대 진술",
+      "3": "correct",
+      "4": "부분 사실",
+      "5": "범위 과소"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2606#22",
+   "role": "candidate",
+   "official_answer": 1,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "f726bccaa141ad3394b09ab8b8b8eae7b22023d792520fe731be382d74ea715d",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "어휘 함정",
+      "3": "지문 밖 상식",
+      "4": "무관",
+      "5": "반대 진술"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "f22edce17a662dd1feb892a700ca9d5e7bdbbc39f1c9b3a47a26ab86c5fb0e77",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "어휘 함정",
+      "3": "지문 밖 상식",
+      "4": "무관",
+      "5": "반대 진술"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "f22edce17a662dd1feb892a700ca9d5e7bdbbc39f1c9b3a47a26ab86c5fb0e77",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "어휘 함정",
+      "3": "지문 밖 상식",
+      "4": "무관",
+      "5": "반대 진술"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "9b804692b2e67f59311b4a9270d68f815cfe3f29c5bfeccc9d7c6ee056b5b5a0",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "어휘 함정",
+      "3": "지문 밖 상식",
+      "4": "무관",
+      "5": "반대 진술"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2609#22",
+   "role": "candidate",
+   "official_answer": 1,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "824f986ff719bc82bad63f836fa4577f268ca5b76c13027e0bfcb71d12e26036",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "부분 사실",
+      "3": "어휘 함정",
+      "4": "인과 역전",
+      "5": "무관"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "bbf6fa1e36305f9311cb008d4394f363668767bf02fc999e4bc975f5413dff7c",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "부분 사실",
+      "3": "어휘 함정",
+      "4": "인과 역전",
+      "5": "무관"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "bbf6fa1e36305f9311cb008d4394f363668767bf02fc999e4bc975f5413dff7c",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "부분 사실",
+      "3": "어휘 함정",
+      "4": "인과 역전",
+      "5": "무관"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "69de9d61a54fb5486bbb43eecba1fa51173790fbcc29ac0e3c5ddcb8b561f016",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "부분 사실",
+      "3": "어휘 함정",
+      "4": "인과 역전",
+      "5": "무관"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2706#22",
+   "role": "candidate",
+   "official_answer": 1,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "32277f728ebe1b8b6d8e9b02b3fcd427c9fb29ab7c376b55c603d9ede5166943",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "부분 사실",
+      "3": "범위 과대",
+      "4": "무관",
+      "5": "반대 진술"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "ff6e15bec37a5eec1669fdcef5014dfaf82262b893bf847b35a282cec7ed5c3b",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "부분 사실",
+      "3": "범위 과대",
+      "4": "무관",
+      "5": "반대 진술"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "ff6e15bec37a5eec1669fdcef5014dfaf82262b893bf847b35a282cec7ed5c3b",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "부분 사실",
+      "3": "범위 과대",
+      "4": "무관",
+      "5": "반대 진술"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "afdbfdc0a5d4f600e06fe51af5f27b23ac8fb388bfcb95b0ae9cc3ae08c8f408",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "부분 사실",
+      "3": "범위 과대",
+      "4": "무관",
+      "5": "반대 진술"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "2025#34",
+   "role": "candidate",
+   "official_answer": 5,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "4bc7b87ae2292489c25ed877ef5cdffde0b6b2d53cdabcf7352a3d2f53ff8b85",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "어휘 함정",
+      "2": "무관",
+      "3": "범위 과대",
+      "4": "부분 사실",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "5d0276dccc59faefdfba779c5e9ba33456f805c460848124275ecf136cb6c28a",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "어휘 함정",
+      "2": "무관",
+      "3": "범위 과대",
+      "4": "부분 사실",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "5d0276dccc59faefdfba779c5e9ba33456f805c460848124275ecf136cb6c28a",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "어휘 함정",
+      "2": "무관",
+      "3": "범위 과대",
+      "4": "부분 사실",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "a518a3ecb01729089c3c272e297dd7d8a3a864a1fc596f0389187566e3cccabc",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "어휘 함정",
+      "2": "무관",
+      "3": "범위 과대",
+      "4": "부분 사실",
+      "5": "correct"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "2025#33",
+   "role": "candidate",
+   "official_answer": 2,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "f911a1027c1594250aab1fd5f2a1484321ebe1f8d06dc2dee58d736f99bc13a1",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "범위 과대",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "인과 역전",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "012727cbb9aa1b349a99642fb36f2dcf06734ded2b03383a72cf924df29aa79f",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "범위 과대",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "인과 역전",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "012727cbb9aa1b349a99642fb36f2dcf06734ded2b03383a72cf924df29aa79f",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "범위 과대",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "인과 역전",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "d4152b38977e0143dde8c396173130c7f58f44613eafdec3d15f14bb76ced56c",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "범위 과대",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "인과 역전",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "c3b3ffad92f813dafdcadeb075db7b461835461891bf1ebed977cd56f95f0d4f",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "범위 과대",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "인과 역전",
+      "5": "어휘 함정"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2509#34",
+   "role": "candidate",
+   "official_answer": 3,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "cb8810cccec526d4353db79284f667b2248bf10d6f87fa75f63abf78ce7b9b84",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "지문 밖 상식",
+      "2": "어휘 함정",
+      "3": "correct",
+      "4": "반대 진술",
+      "5": "부분 사실"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "1b764f1445ddd862d4867b4f3b04bf51e73bc3ef8fc44607a3b65a7753d2409d",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "지문 밖 상식",
+      "2": "어휘 함정",
+      "3": "correct",
+      "4": "반대 진술",
+      "5": "부분 사실"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "1b764f1445ddd862d4867b4f3b04bf51e73bc3ef8fc44607a3b65a7753d2409d",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "지문 밖 상식",
+      "2": "어휘 함정",
+      "3": "correct",
+      "4": "반대 진술",
+      "5": "부분 사실"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "1902b2aa489c133821f371f894892dc3b25567c5c49816bfb3757584f2772b76",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "지문 밖 상식",
+      "2": "어휘 함정",
+      "3": "correct",
+      "4": "반대 진술",
+      "5": "부분 사실"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2606#34",
+   "role": "candidate",
+   "official_answer": 2,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "7b84cd4c3508f2c2be44a1fe7a88c0d2060da2ab13268d7445f78bb0f95445b7",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "무관",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "어휘 함정",
+      "5": "부분 사실"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "0ba0d8603408d5a918e9adc5b5118982fa9cec426ac75d541434fba05fc7a38a",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "무관",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "어휘 함정",
+      "5": "부분 사실"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "0ba0d8603408d5a918e9adc5b5118982fa9cec426ac75d541434fba05fc7a38a",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "무관",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "어휘 함정",
+      "5": "부분 사실"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "08ceaf25460816e7d4b5982fa6c38bd4f99c046156970babe240aff33ea09c8b",
+     "correct_option": [
+      2
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "무관",
+      "2": "correct",
+      "3": "지문 밖 상식",
+      "4": "어휘 함정",
+      "5": "부분 사실"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2609#34",
+   "role": "candidate",
+   "official_answer": 1,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "88fd00058f51556e995ca4cfd8a52158cfdeb42fb64665057168ebfa85caa969",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "범위 과소",
+      "3": "반대 진술",
+      "4": "어휘 함정",
+      "5": "범위 과대"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "e69d45e24e5adfc533c9c29af3afd8a34a55e88e7876758631a79854b8180006",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "범위 과소",
+      "3": "반대 진술",
+      "4": "어휘 함정",
+      "5": "범위 과대"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "e69d45e24e5adfc533c9c29af3afd8a34a55e88e7876758631a79854b8180006",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "범위 과소",
+      "3": "반대 진술",
+      "4": "어휘 함정",
+      "5": "범위 과대"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "5c1a2af17ecb0591cb27f8ca64d2924ce83fc3bfd871b467db87a66576c43af4",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "범위 과소",
+      "3": "반대 진술",
+      "4": "어휘 함정",
+      "5": "범위 과대"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2706#34",
+   "role": "candidate",
+   "official_answer": 1,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "ecb013e4b8959c5be84970c0f9c4a9c9ae099dc6cd1b220e1e14676f69377c83",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "무관",
+      "3": "인과 역전",
+      "4": "부분 사실",
+      "5": "범위 과대"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "235d76142383e0177b904fd1226229b6e4180f5330fe556adacae63d122b1b9d",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "무관",
+      "3": "인과 역전",
+      "4": "부분 사실",
+      "5": "범위 과대"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "235d76142383e0177b904fd1226229b6e4180f5330fe556adacae63d122b1b9d",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "무관",
+      "3": "인과 역전",
+      "4": "부분 사실",
+      "5": "범위 과대"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "b2fced18f9f3495f394cd3bbd9a7267dc0c532e75bbdeebe4c7e9474bbb38bea",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "무관",
+      "3": "인과 역전",
+      "4": "부분 사실",
+      "5": "범위 과대"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "a16c1279eb8696f2ffb2eb50d9681ba187330b1f80e0356ab1ce2ee7db30b590",
+     "correct_option": [
+      1
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "correct",
+      "2": "무관",
+      "3": "반대 진술",
+      "4": "어휘 함정",
+      "5": "반대 진술"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "SEMANTIC",
+   "trap_changes": [
+    {
+     "option": 3,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "인과 역전",
+      "2": "인과 역전",
+      "3": "인과 역전",
+      "4": "인과 역전",
+      "5": "반대 진술"
+     }
+    },
+    {
+     "option": 4,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "부분 사실",
+      "2": "부분 사실",
+      "3": "부분 사실",
+      "4": "부분 사실",
+      "5": "어휘 함정"
+     }
+    },
+    {
+     "option": 5,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "범위 과대",
+      "2": "범위 과대",
+      "3": "범위 과대",
+      "4": "범위 과대",
+      "5": "반대 진술"
+     }
+    }
+   ],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "2025#38",
+   "role": "candidate",
+   "official_answer": 4,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "a7ce637c8f2d8fee4988e9dce7a304460bbb834e6124dce464ea2b4dc90c52d6",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "열거 병렬 절단",
+      "4": "correct",
+      "5": "인과 순서 역전"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "862b5e4debaa18588db30a3e7f21759014163982370d3a379910a35be34f959d",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "열거 병렬 절단",
+      "4": "correct",
+      "5": "인과 순서 역전"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "862b5e4debaa18588db30a3e7f21759014163982370d3a379910a35be34f959d",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "열거 병렬 절단",
+      "4": "correct",
+      "5": "인과 순서 역전"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "910e72f0243d51ea650620f96afcff0b93a44c8f1b630a1bc8f0e0423cb0f196",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "열거 병렬 절단",
+      "4": "correct",
+      "5": "인과 순서 역전"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "c374fd05819a8eb6c05cabc1e0f938b8135a00134427817f6c51a1956375b9ba",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "열거·병렬 절단",
+      "4": "correct",
+      "5": "시간·인과 순서 역전"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "RENAME_ONLY",
+   "trap_changes": [
+    {
+     "option": 3,
+     "kind": "RENAME",
+     "by_version": {
+      "1": "열거 병렬 절단",
+      "2": "열거 병렬 절단",
+      "3": "열거 병렬 절단",
+      "4": "열거 병렬 절단",
+      "5": "열거·병렬 절단"
+     }
+    },
+    {
+     "option": 5,
+     "kind": "RENAME",
+     "by_version": {
+      "1": "인과 순서 역전",
+      "2": "인과 순서 역전",
+      "3": "인과 순서 역전",
+      "4": "인과 순서 역전",
+      "5": "시간·인과 순서 역전"
+     }
+    }
+   ],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "2025#39",
+   "role": "candidate",
+   "official_answer": 4,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "61934b79682d22eba5545b4410b8fd2773e493a1f54dd1cc466824bb69ec19ce",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "반박-피반박 순서 역전",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "4c355646dc8b94d085be6864a03d344ef739ef5d524d92e68dd424ac4b8c847e",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "반박-피반박 순서 역전",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "4c355646dc8b94d085be6864a03d344ef739ef5d524d92e68dd424ac4b8c847e",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "반박-피반박 순서 역전",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "d5e0e2d4ac30605840bf4fa4d9d7bc86d575b45227b233cebdffa6f2bfab2c81",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "반박-피반박 순서 역전",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "f5d3eb5ff0b1f63443516fd5f48c50f8af1f4bd4a3e17ea17a64e20079ef8aa3",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "지시어 선행사 절단",
+      "3": "총론-각론 역전",
+      "4": "correct",
+      "5": "열거·병렬 절단"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "SEMANTIC",
+   "trap_changes": [
+    {
+     "option": 3,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "반박-피반박 순서 역전",
+      "2": "반박-피반박 순서 역전",
+      "3": "반박-피반박 순서 역전",
+      "4": "반박-피반박 순서 역전",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "option": 5,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "총론-각론 역전",
+      "2": "총론-각론 역전",
+      "3": "총론-각론 역전",
+      "4": "총론-각론 역전",
+      "5": "열거·병렬 절단"
+     }
+    }
+   ],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2509#38",
+   "role": "candidate",
+   "official_answer": 5,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "fbda895eef9adecf196786aff119975cc5901b96e96c989a99571d9e479c3729",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "연결사 방향 충돌",
+      "3": "조건-귀결 절단",
+      "4": "조건 대상 오지정",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "3e9032423867b27357797cdf1c346eaa956172592875e3272d48b603f2bdf83e",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "연결사 방향 충돌",
+      "3": "조건-귀결 절단",
+      "4": "조건 대상 오지정",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "3e9032423867b27357797cdf1c346eaa956172592875e3272d48b603f2bdf83e",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "연결사 방향 충돌",
+      "3": "조건-귀결 절단",
+      "4": "조건 대상 오지정",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "1b19865e46fc9cb3126a56a67cdfd2a350786ebe2e2fe05dd706082d1ce61e2a",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "연결사 방향 충돌",
+      "3": "조건-귀결 절단",
+      "4": "조건 대상 오지정",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-01",
+     "analyst_run": "fix-kice-quote-20261001-4d7a",
+     "content_sha256": "18528dda6a915b00d303934bcfedcd1ea03d062e0e6f2c4226c07d783b0ae19f",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "연결사 방향 충돌",
+      "3": "조건-귀결 절단",
+      "4": "조건 대상 오지정",
+      "5": "correct"
+     }
+    },
+    {
+     "version": 6,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "3365bcb475d55af6e12837f19793dec8a760a1ec74995bab5ef32418bf3a2f7a",
+     "correct_option": [
+      5
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "첫 등장 위반",
+      "2": "연결사 방향 충돌",
+      "3": "조건-귀결 절단",
+      "4": "조건-귀결 절단",
+      "5": "correct"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "SEMANTIC",
+   "trap_changes": [
+    {
+     "option": 4,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "조건 대상 오지정",
+      "2": "조건 대상 오지정",
+      "3": "조건 대상 오지정",
+      "4": "조건 대상 오지정",
+      "5": "조건 대상 오지정",
+      "6": "조건-귀결 절단"
+     }
+    }
+   ],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2606#38",
+   "role": "candidate",
+   "official_answer": 4,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "825d17eb94425fdbaeda3dad4dc7df98b42ff119ac12c4b111e1d70513f348a5",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "연결사 방향 충돌",
+      "2": "총론-각론 절단",
+      "3": "열거 병렬 절단",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "aa0f3b75b4ad723de2d438d065d90ef29dcbd4a09c5534386c4bb8492e72a0e3",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "연결사 방향 충돌",
+      "2": "총론-각론 절단",
+      "3": "열거 병렬 절단",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "aa0f3b75b4ad723de2d438d065d90ef29dcbd4a09c5534386c4bb8492e72a0e3",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "연결사 방향 충돌",
+      "2": "총론-각론 절단",
+      "3": "열거 병렬 절단",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "cc90774b43419eeac8087736e62d38dc43b595e2275d3c9fb70782b2a22088c9",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "연결사 방향 충돌",
+      "2": "총론-각론 절단",
+      "3": "열거 병렬 절단",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "c05d2ebd2adab6757bd4ef439c01c6330b97a0102cce9a01380e53d6c34872c0",
+     "correct_option": [
+      4
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "연결사 방향 충돌",
+      "2": "열거·병렬 절단",
+      "3": "열거·병렬 절단",
+      "4": "correct",
+      "5": "총론-각론 역전"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "SEMANTIC",
+   "trap_changes": [
+    {
+     "option": 2,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "총론-각론 절단",
+      "2": "총론-각론 절단",
+      "3": "총론-각론 절단",
+      "4": "총론-각론 절단",
+      "5": "열거·병렬 절단"
+     }
+    },
+    {
+     "option": 3,
+     "kind": "RENAME",
+     "by_version": {
+      "1": "열거 병렬 절단",
+      "2": "열거 병렬 절단",
+      "3": "열거 병렬 절단",
+      "4": "열거 병렬 절단",
+      "5": "열거·병렬 절단"
+     }
+    }
+   ],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2609#38",
+   "role": "candidate",
+   "official_answer": 3,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "c3fd76d54381da2dd21a9dc254a32bb898852454d530628776311632e09e8e04",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "조건-귀결 절단",
+      "2": "열거 병렬 절단",
+      "3": "correct",
+      "4": "지시어 선행사 절단",
+      "5": "어휘 되받음 절단"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "ddd8fdb8e0866299997c07333cd5f93fb1c20fe7a7cb535785bb3283054872f2",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "조건-귀결 절단",
+      "2": "열거 병렬 절단",
+      "3": "correct",
+      "4": "지시어 선행사 절단",
+      "5": "어휘 되받음 절단"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "ddd8fdb8e0866299997c07333cd5f93fb1c20fe7a7cb535785bb3283054872f2",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "조건-귀결 절단",
+      "2": "열거 병렬 절단",
+      "3": "correct",
+      "4": "지시어 선행사 절단",
+      "5": "어휘 되받음 절단"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "eb34d9802c2a5016994451eec4336d899a07e2b6a8aa77c2b3299c3ffc88f15e",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "조건-귀결 절단",
+      "2": "열거 병렬 절단",
+      "3": "correct",
+      "4": "지시어 선행사 절단",
+      "5": "어휘 되받음 절단"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "NONE",
+   "trap_changes": [],
+   "all_revisions_answer_aligned": true
+  },
+  {
+   "item_id": "M2706#38",
+   "role": "candidate",
+   "official_answer": 3,
+   "revisions": [
+    {
+     "version": 1,
+     "status": "published",
+     "updated": "2026-09-02",
+     "analyst_run": null,
+     "content_sha256": "1ecf943bf53ccbbfbe8dd46efb3ce2d15f4b3ea29236dc571c79be9eaf61d117",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "인과 연쇄 절단",
+      "2": "지시어 선행사 절단",
+      "3": "correct",
+      "4": "총론-각론 역전",
+      "5": "열거 병렬 절단"
+     }
+    },
+    {
+     "version": 2,
+     "status": "published",
+     "updated": "2026-09-03",
+     "analyst_run": null,
+     "content_sha256": "4eb573a2663576e857ce76f76515759708abb0035a85aa373219a3a70b726959",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "인과 연쇄 절단",
+      "2": "지시어 선행사 절단",
+      "3": "correct",
+      "4": "총론-각론 역전",
+      "5": "열거 병렬 절단"
+     }
+    },
+    {
+     "version": 3,
+     "status": "published",
+     "updated": "2026-09-04",
+     "analyst_run": null,
+     "content_sha256": "4eb573a2663576e857ce76f76515759708abb0035a85aa373219a3a70b726959",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "인과 연쇄 절단",
+      "2": "지시어 선행사 절단",
+      "3": "correct",
+      "4": "총론-각론 역전",
+      "5": "열거 병렬 절단"
+     }
+    },
+    {
+     "version": 4,
+     "status": "published",
+     "updated": "2026-09-15",
+     "analyst_run": null,
+     "content_sha256": "1d9bb2a66399116d83711223cc32a7904e7c6e3e138ccf7adb8b06d6d75ec023",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "인과 연쇄 절단",
+      "2": "지시어 선행사 절단",
+      "3": "correct",
+      "4": "총론-각론 역전",
+      "5": "열거 병렬 절단"
+     }
+    },
+    {
+     "version": 5,
+     "status": "published",
+     "updated": "2026-10-11",
+     "analyst_run": null,
+     "content_sha256": "d161f00f2d70fbc6382247e1d90878119ed4d33febdd0e66f1f4edb7cfb357bb",
+     "correct_option": [
+      3
+     ],
+     "aligned_with_official": true,
+     "traps": {
+      "1": "시간·인과 순서 역전",
+      "2": "지시어 선행사 절단",
+      "3": "correct",
+      "4": "지시어 선행사 앞당김",
+      "5": "열거·병렬 절단"
+     }
+    }
+   ],
+   "accepted_revision": null,
+   "accepted_reason": "사람 내용 감수 전 — 최신 revision 을 자동 정본으로 쓰지 않는다",
+   "trap_conflict": "SEMANTIC",
+   "trap_changes": [
+    {
+     "option": 1,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "인과 연쇄 절단",
+      "2": "인과 연쇄 절단",
+      "3": "인과 연쇄 절단",
+      "4": "인과 연쇄 절단",
+      "5": "시간·인과 순서 역전"
+     }
+    },
+    {
+     "option": 4,
+     "kind": "SEMANTIC",
+     "by_version": {
+      "1": "총론-각론 역전",
+      "2": "총론-각론 역전",
+      "3": "총론-각론 역전",
+      "4": "총론-각론 역전",
+      "5": "지시어 선행사 앞당김"
+     }
+    },
+    {
+     "option": 5,
+     "kind": "RENAME",
+     "by_version": {
+      "1": "열거 병렬 절단",
+      "2": "열거 병렬 절단",
+      "3": "열거 병렬 절단",
+      "4": "열거 병렬 절단",
+      "5": "열거·병렬 절단"
+     }
+    }
+   ],
+   "all_revisions_answer_aligned": true
+  }
+ ]
+}

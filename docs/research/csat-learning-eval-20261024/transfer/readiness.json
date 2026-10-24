@@ -1,0 +1,856 @@
+{
+ "generated_at": "2026-10-24",
+ "rule": "전이 적격 = SOURCE_READY(문항) AND PARTICIPANT_READY(학습자별). 어느 하나라도 아니면 부적격.",
+ "SOURCE_READY_requires": [
+  "original: 사람 확인 서명(기계 대조 + 출처)",
+  "answer: 공식 정답표 대조",
+  "analysis_revision: 사람 감수로 수용된 revision + content_sha256",
+  "rights: 연구 사용 범위 확인",
+  "same_principle: 사람 판정",
+  "scoring_evidence: 근거 span·대체 설명·가까운 오답 사람 승인"
+ ],
+ "PARTICIPANT_READY_requires": [
+  "해당 학습자의 문항 사전 노출 없음(P6 원장 + 자기보고)",
+  "시도 전 도움 노출 X0/X1 (05 모델)",
+  "시도 기록 완결(exposure_order_at·help_level)",
+  "학습한 문항과 다름(studied_item_ids)"
+ ],
+ "PARTICIPANT_READY_status": "학습자 0명 · P6 원장 0행 → 판정 대상 없음",
+ "counts": {
+  "candidates": 17,
+  "SOURCE_READY": 0,
+  "answer_verified": 17,
+  "original_machine_match": 17,
+  "original_human_signed": 0,
+  "revision_semantic_conflict": 5,
+  "revision_rename_only": 1,
+  "revision_accepted": 0,
+  "ai_same": 5,
+  "ai_unsure": 4,
+  "ai_different": 8,
+  "transfer_eligible": 0
+ },
+ "items": [
+  {
+   "item_id": "2025#22",
+   "type": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+     "table_value": 1,
+     "db": 1,
+     "match": true,
+     "note": "홀수형과 22번 정답이 다르다(홀 ②/짝 ①) — 문제지 형(짝수형)과 결속 필수"
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_UNSURE",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-22.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2509#22",
+   "type": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 3,
+     "db": 3,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_DIFFERENT",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-22.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2606#22",
+   "type": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 1,
+     "db": 1,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_DIFFERENT",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-22.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2609#22",
+   "type": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 1,
+     "db": 1,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_UNSURE",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-22.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2706#22",
+   "type": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 1,
+     "db": 1,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_DIFFERENT",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-22.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "2025#34",
+   "type": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+     "table_value": 5,
+     "db": 5,
+     "match": true,
+     "note": "홀수형과 22번 정답이 다르다(홀 ②/짝 ①) — 문제지 형(짝수형)과 결속 필수"
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_DIFFERENT",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-34.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "2025#33",
+   "type": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+     "table_value": 2,
+     "db": 2,
+     "match": true,
+     "note": "홀수형과 22번 정답이 다르다(홀 ②/짝 ①) — 문제지 형(짝수형)과 결속 필수"
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 5,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_UNSURE",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-34.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2509#34",
+   "type": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 3,
+     "db": 3,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_DIFFERENT",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-34.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2606#34",
+   "type": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 2,
+     "db": 2,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_DIFFERENT",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-34.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2609#34",
+   "type": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 1,
+     "db": 1,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_DIFFERENT",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-34.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2706#34",
+   "type": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 1,
+     "db": 1,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 5,
+     "trap_conflict": "SEMANTIC",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_DIFFERENT",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-34.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "2025#38",
+   "type": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+     "table_value": 4,
+     "db": 4,
+     "match": true,
+     "note": "홀수형과 22번 정답이 다르다(홀 ②/짝 ①) — 문제지 형(짝수형)과 결속 필수"
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 5,
+     "trap_conflict": "RENAME_ONLY",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_SAME",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-38.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "2025#39",
+   "type": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+     "table_value": 4,
+     "db": 4,
+     "match": true,
+     "note": "홀수형과 22번 정답이 다르다(홀 ②/짝 ①) — 문제지 형(짝수형)과 결속 필수"
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 5,
+     "trap_conflict": "SEMANTIC",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_SAME",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-38.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2509#38",
+   "type": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 5,
+     "db": 5,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 6,
+     "trap_conflict": "SEMANTIC",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_UNSURE",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-38.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2606#38",
+   "type": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 4,
+     "db": 4,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 5,
+     "trap_conflict": "SEMANTIC",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_SAME",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-38.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2609#38",
+   "type": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 3,
+     "db": 3,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 4,
+     "trap_conflict": "NONE",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_SAME",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-38.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  },
+  {
+   "item_id": "M2706#38",
+   "type": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "SOURCE_READY": false,
+   "source_gates": {
+    "original": {
+     "status": "MACHINE_MATCH",
+     "human_signoff": null
+    },
+    "answer": {
+     "status": "VERIFIED_OFFICIAL_TABLE",
+     "method": "정답표 PDF 텍스트 자동 해독",
+     "table_value": 3,
+     "db": 3,
+     "match": true
+    },
+    "analysis_revision": {
+     "status": "NOT_ACCEPTED",
+     "revisions": 5,
+     "trap_conflict": "SEMANTIC",
+     "all_revisions_answer_aligned": true,
+     "accepted_revision": null
+    },
+    "rights": {
+     "status": "RESERVED",
+     "note": "연구 사용권 미확인 — 활용 범위 유보. 원문·정답표 사본은 저장소에 두지 않음"
+    },
+    "same_principle": {
+     "status": "AI_CANDIDATE_ONLY",
+     "ai_verdict": "AI_CANDIDATE_SAME",
+     "human_verdict": null
+    },
+    "scoring_evidence": {
+     "status": "AI_CANDIDATE_ONLY",
+     "source": "review/ai-candidates-38.json",
+     "human_approval": null
+    }
+   },
+   "source_blocking": [
+    "original",
+    "analysis_revision",
+    "rights",
+    "same_principle",
+    "scoring_evidence"
+   ],
+   "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
+   "transfer_eligible": false
+  }
+ ]
+}
