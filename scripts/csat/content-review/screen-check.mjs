@@ -44,6 +44,10 @@ for (const width of [1280, 1440]) {
   const outline = await page.evaluate(() => getComputedStyle(document.activeElement).outlineStyle)
   check(`${width} 키보드로 대기열 도달 · 초점 표시`, focusedLink && outline !== 'none', `outline=${outline}`)
 
+  // 증거 체크 터치 영역 ≥ 44px
+  const evH = await page.locator('section[aria-labelledby="cr-state"] fieldset label').evaluateAll((ls) => Math.min(...ls.map((l) => l.getBoundingClientRect().height)))
+  check(`${width} 증거 선택 영역 44px 이상`, evH >= 44, `min=${evH}`)
+
   // AI 확인자는 승인 못 한다 — 시연 원장 거부 문구
   await page.selectOption('#cr-who', 'demo-ai-checker')
   await page.fill('#cr-reason', '시연 검토 시작')
