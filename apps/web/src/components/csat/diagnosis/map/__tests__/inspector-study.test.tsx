@@ -21,7 +21,7 @@ describe('TaskInspector 기출 목록 가드', () => {
   it('목록 링크는 entriesFor 결과(entry.entries)에서만 — study.items 를 그리지 않는다', () => {
     expect(block).toContain('entry.entries.map')
     expect(block).not.toContain('study.items.map')
-    expect(src).toContain("ledger: reserved ? data.v4?.assessmentExposure ?? { status: 'error', failed: [] } : { status: 'error', failed: [] }")
+    expect(src).toContain("ledger: reserved ? data.v4?.studyExposure ?? { status: 'error', failed: [] } : { status: 'error', failed: [] }")
     expect(src).toContain('transfer: transferProtect')
   })
   it('추천 이유 · 판단 능력 · 해설 열람 의미를 보인다', () => {
@@ -62,8 +62,8 @@ describe('실제 렌더(r5 fixture) — 학습지도 기출 목록', async () =>
   const { TaskInspector } = await import('../TaskInspector')
   const draw = (passageKeys: Record<string, string>, goalSet = true, reservedExtra: string[] = [], withReserved = true) => {
     const b = build({ goalSet, attempts: [], activity: [], asOfDay: 30, saved: true, fq: { status: 'not_installed' } })
-    const v4 = b.data.v4 as unknown as { assessmentExposure: ExposureLedger; transferReserved?: Record<string, string[]>; transferTargets: Record<string, { target: string }[]> }
-    v4.assessmentExposure = { status: 'ok', events: [], passageKeys }
+    const v4 = b.data.v4 as unknown as { studyExposure: ExposureLedger; transferReserved?: Record<string, string[]>; transferTargets: Record<string, { target: string }[]> }
+    v4.studyExposure = { status: 'ok', events: [], passageKeys }
     if (withReserved) v4.transferReserved = Object.fromEntries(Object.entries(v4.transferTargets).map(([k, xs]) => [k, [...xs.map((x) => x.target), ...reservedExtra]]))
     return renderToStaticMarkup(<TaskInspector ins={b.ins} view={b.view} data={b.data} past={false} restoreWs={null} planOpen={false} onTogglePlan={() => {}} returned={null} />)
   }
@@ -103,10 +103,19 @@ describe('Codex P2 — 화면 원장에 연구 사례 지문 키가 실린다', 
   const { compactLedger } = await import('@/lib/csat/map/v62/assessment-exposure')
   const loadSrc = readFileSync(join(__dirname, '..', '..', '..', '..', '..', 'lib', 'csat', 'map', 'load.ts'), 'utf8')
   it('load.ts 는 원장 조회 · 압축 모두 연구 사례를 포함한 후보로 하고, 거르기 전 전이 예약을 싣는다', () => {
-    expect(loadSrc).toContain('loadExposureLedger(db, userId, ledgerCandidates)')
-    expect(loadSrc).toContain('}), ledgerCandidates)')
-    expect(loadSrc).toContain('const ledgerCandidates = [...new Set([...assessCandidates, ...STUDY_CANDIDATES])]')
+    expect(loadSrc).toContain('const studyCandidates = [...new Set([...assessCandidates, ...STUDY_CANDIDATES])]')
+    expect(loadSrc).toContain('loadExposureLedger(db, userId, studyCandidates)')
+    expect(loadSrc).toContain('const studyExposure = compactLedger(studyLedger, studyCandidates)')
+    expect(loadSrc).toContain('studyExposure,')
     expect(loadSrc.indexOf('const transferReserved')).toBeLessThan(loadSrc.indexOf('executableTransferTargets(targets, assessmentExposure)'))
+  })
+  it('Codex r2 P1 — 평가 원장(공급 · 전이 실행 필터 입력)은 원래 확인 · 전이 후보로만 읽고 압축한다', () => {
+    expect(loadSrc).toContain('loadExposureLedger(db, userId, assessCandidates)')
+    expect(loadSrc).toContain('const assessmentExposure = compactLedger(assessLedger, assessCandidates)')
+    expect(loadSrc).not.toContain('compactLedger(studyLedger, assessCandidates)')
+    expect(loadSrc).not.toContain('loadExposureLedger(db, userId, ledgerCandidates)')
+    expect(loadSrc).toContain('executableTransferTargets(targets, assessmentExposure)')
+    expect(src).toContain("exposure: data.v4?.assessmentExposure ?? { status: 'error', failed: [] }")
   })
   it('압축 후보에 연구 사례가 있으면 그 지문 키가 남는다(없으면 사라진다)', () => {
     const full: ExposureLedger = { status: 'ok', events: [], passageKeys: { '2026#22': 'a', '2015#32': 'b' } }

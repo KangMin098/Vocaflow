@@ -128,6 +128,8 @@ export interface MapV4Input {
   assessmentExposure?: ExposureLedger
   /** T-0159 — 실행 가능 여부로 거르기 전의 전이 예약 문항(과제 키별). 화면 기출 목록의 보호 입력 — 링크 목록(transferTargets)과 다르다 */
   transferReserved?: Record<string, string[]>
+  /** T-0159 — 지도 기출 목록(연구 사례 포함) 같은 지문 보호 전용 원장. 평가 · 공급 계산에는 쓰지 않는다 */
+  studyExposure?: ExposureLedger
   /** #281 E04 — 정식 자격(I1) reader 상태. 설치 전이면 not_installed */
   fqReader?: FqReader
   /** LM-G1.3a — 계산에 쓴 저장 목표(최신 이력 행 · 없으면 null)와 목표 시험 범위 · 지원 상태 · 실제 기준 시험 */
@@ -647,9 +649,15 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
 
   // #281 E01 · E04 — 확인 · 전이 후보의 노출(모든 원장)과 정식 자격 reader. 실패는 error 로 남겨 화면이 「미노출」로 보지 않게 한다
   const assessCandidates = [...new Set([...Object.values(practiceLinks).flatMap((l) => l.confirm.map((c) => c.target)), ...Object.values(transferTargets).flatMap((xs) => xs.map((x) => x.target))])]
-  // T-0159 — 지도 기출 목록 후보(연구 합의 사례)의 지문 키도 실어야 화면이 같은 지문 보호를 판정한다(없으면 전부 보류)
-  const ledgerCandidates = [...new Set([...assessCandidates, ...STUDY_CANDIDATES])]
-  const assessmentExposure = compactLedger(await loadExposureLedger(db, userId, ledgerCandidates).catch((e): ExposureLedger => { console.error('[csat-map exposure ledger]', e); return { status: 'error', failed: [] } }), ledgerCandidates)
+  // T-0159 — 지도 기출 목록 보호 전용 원장(평가 원장과 분리 — 후보에 따라 이벤트가 달라지므로 섞으면 평가 · 전이 공급 결과가 바뀐다).
+  //   후보 = 확인 · 전이 후보 + 연구 합의 사례. 화면 기출 목록만 읽는다
+  const studyCandidates = [...new Set([...assessCandidates, ...STUDY_CANDIDATES])]
+  const [assessLedger, studyLedger] = await Promise.all([
+    loadExposureLedger(db, userId, assessCandidates).catch((e): ExposureLedger => { console.error('[csat-map exposure ledger]', e); return { status: 'error', failed: [] } }),
+    loadExposureLedger(db, userId, studyCandidates).catch((e): ExposureLedger => { console.error('[csat-map study exposure ledger]', e); return { status: 'error', failed: [] } }),
+  ])
+  const assessmentExposure = compactLedger(assessLedger, assessCandidates)
+  const studyExposure = compactLedger(studyLedger, studyCandidates)
   // 정식 자격 — 원장은 관리자 전용 RLS 라 서버 전용 클라이언트로만 판정한다(없으면 적격 0건). 현재 주석 해시는 TASK 의 확인 과제 키가 하나일 때만 대 본다
   let fqAdmin: SupabaseClient | null = null
   try { fqAdmin = createAdminClient() as unknown as SupabaseClient } catch { fqAdmin = null }
@@ -689,6 +697,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       supplyLedger,
       assessmentExposure,
       transferReserved,
+      studyExposure,
       fqReader,
       // LM-G1.3a — 계산에 쓴 목표(저장 이력 그대로) · 목표 시험 범위와 지원 상태(미지원은 다른 시험으로 대신하지 않는다)
       target: { goal: goalVersion, scope: { exam: scope.exam, status: scope.status, reason: scope.reason, exams: selection.exams.map((e) => ({ id: e.id, label: e.label })) } },

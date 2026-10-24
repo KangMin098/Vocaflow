@@ -206,7 +206,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
     check,
     confirm: confirmMine,
     transfer: transferProtect,
-    ledger: reserved ? data.v4?.assessmentExposure ?? { status: 'error', failed: [] } : { status: 'error', failed: [] },
+    // 기출 목록 보호 전용 원장(연구 사례 지문 키 포함) — 평가 원장(assessmentExposure)은 공급 계산용으로 따로 둔다(T-0159 Codex r2 P1)
+    ledger: reserved ? data.v4?.studyExposure ?? { status: 'error', failed: [] } : { status: 'error', failed: [] },
     typeOf: researchTypeOf,
     ctx: past ? {} : outgoingCtx(data.v4?.saved, t.id, home),
   })
