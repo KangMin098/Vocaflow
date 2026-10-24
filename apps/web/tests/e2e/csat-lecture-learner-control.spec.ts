@@ -132,6 +132,72 @@ test.describe('강의 학습자 제어', () => {
       await page.screenshot({ path: `test-results/lecture-learner-control-${width}.png` })
     })
 
+    // 수용 기준 4(T-0140 r14 공식 처리 REJECT 보완) — 실제 cue 진행 동안 학습자가 둔 포커스(같은 요소)와 학습자가 직접 접은 층이 그대로인가.
+    // 접는 층은 강의 대상(data-lecture-target)을 품은 details 를 우선 고른다. 없으면 실패한다(skip 으로 넘기지 않는다)
+    test(`포커스 · 접은 층 보존 ${width}px — 실제 cue 진행 중`, async ({ page }) => {
+      test.setTimeout(240_000)
+      await page.setViewportSize({ width, height: 900 })
+      await page.goto(`/csat/item/${ITEM}?lecture-debug=1&lecture-silent=1`, { waitUntil: 'domcontentloaded' })
+      const theater = page.getByTestId('analysis-theater')
+      await expect(theater).toBeVisible({ timeout: 90_000 })
+      const play = theater.locator('header button', { hasText: /하이라이트만|상영 시작/ })
+      await expect(async () => {
+        await play.click()
+        await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
+      }).toPass({ timeout: 60_000 })
+      await page.getByTestId('lecture-path-full').click()
+      await expect.poll(() => statusOf(page), { timeout: 60_000 }).toBe('playing')
+
+      // 학습자가 층을 직접 접는다 — details 가 있으면 강의 대상을 품은 것, 없으면 강의가 가리키는 지문 지도를 품은 근거 판(「근거 판 접기」)
+      const picked = await page.evaluate(() => {
+        const all = Array.from(document.querySelectorAll<HTMLDetailsElement>('[data-csat-theater] details'))
+        const d = all.find((x) => x.querySelector('[data-lecture-target]')) ?? all[0]
+        if (d) {
+          d.dataset.probeLayer = '1'
+          return { kind: 'details' as const, open: d.open, targeted: Boolean(d.querySelector('[data-lecture-target]')) }
+        }
+        const t = document.querySelector<HTMLElement>('[data-testid="evidence-toggle"]')
+        return t ? { kind: 'evidence' as const, open: t.getAttribute('aria-pressed') !== 'true', targeted: document.querySelectorAll('[data-lecture-target^="anchor:sentence"]').length > 0 } : null
+      })
+      expect(picked, '이 화면에 학습자가 접을 수 있는 층이 없다 — 시나리오 성립 불가').not.toBeNull()
+      expect(picked!.targeted, '접을 층이 강의 대상을 품지 않는다').toBe(true)
+      const layerClosed = () =>
+        page.evaluate((k) => (k === 'details' ? !(document.querySelector('[data-probe-layer="1"]') as HTMLDetailsElement).open : document.querySelector('[data-testid="evidence-toggle"]')?.getAttribute('aria-pressed') === 'true'), picked!.kind)
+      const toggle = picked!.kind === 'details' ? page.locator('[data-probe-layer="1"] > summary') : page.getByTestId('evidence-toggle')
+      if (picked!.open) await toggle.click()
+      else {
+        await toggle.click()
+        await toggle.click()
+      }
+      await expect.poll(layerClosed).toBe(true)
+
+      // 학습자가 포커스를 둔 요소(강의 조작 밖) — 같은 요소인지 표식으로 잰다
+      await page.evaluate(() => {
+        const el = Array.from(document.querySelectorAll<HTMLElement>('[data-csat-theater] button, [data-csat-theater] a[href]')).find(
+          (x) => !x.closest('header') && !x.closest('[data-testid^="lecture-"]') && x.offsetParent !== null,
+        )
+        if (!el) throw new Error('포커스를 둘 요소가 없다')
+        el.dataset.probeFocus = '1'
+        el.focus()
+      })
+      expect(await page.evaluate(() => (document.activeElement as HTMLElement | null)?.dataset.probeFocus)).toBe('1')
+      const scene0 = await sceneOf(page)
+      const doc0 = await page.evaluate(() => Math.round(window.scrollY))
+      const index0 = await page.evaluate(() => (window as unknown as { __LECTURE__?: { player?: { getState(): { index: number } } | null } }).__LECTURE__?.player?.getState().index ?? -1)
+
+      // 실제 cue 진행을 기다린다(키 입력 없이 — 포커스를 학습자 요소에 둔 채)
+      await expect
+        .poll(() => page.evaluate(() => (window as unknown as { __LECTURE__?: { player?: { getState(): { index: number } } | null } }).__LECTURE__?.player?.getState().index ?? -1), { timeout: 120_000, intervals: [1_000] })
+        .toBeGreaterThan(index0)
+      await page.waitForTimeout(800)
+
+      expect(await page.evaluate(() => (document.activeElement as HTMLElement | null)?.dataset.probeFocus), 'cue 진행이 학습자 포커스를 옮겼다').toBe('1')
+      expect(await layerClosed(), 'cue 진행이 학습자가 접은 층을 다시 열었다').toBe(true)
+      expect(await sceneOf(page), 'cue 진행이 장면을 바꿨다').toBe(scene0)
+      // 따라가기가 켜진 채라면 강조 대상 쪽으로 옮길 수 있다 — 접은 층 · 포커스와 별개로 문서 스크롤은 따라가기 계약(③)에서 본다
+      test.info().annotations.push({ type: 'probe', description: JSON.stringify({ picked, index0, doc0, scene0 }) })
+    })
+
     // 재진입 — 강의 경로는 저장하지 않는다(컴포넌트 상태). 앞 실행에서 「전체(정답 포함)」 를 골랐던 같은 계정 · 같은 문항으로 다시 들어와도
     // 자동 재생 · 강의 요청 · 정답 포함 강의 자동 전환이 없고, 재생을 누르면 경로를 다시 고르게 한다
     test(`재진입 ${width}px — 저장된 경로 복원 없음 · 자동 재생 없음 · 다시 고르기`, async ({ page }) => {
