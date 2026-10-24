@@ -23,6 +23,41 @@ export function glossesOf(text: string): { mark: string; term: string; gloss: st
 }
 
 /**
+ * 안내문 문장형 각주 「* The museum is closed on the first Monday of every month.」 — 어휘 풀이(「* term: 뜻」)가 아니라
+ * 표지가 붙은 항목(Hours*)에 조건을 덧붙이는 영어 문장이다. 별표가 낱말 뒤가 아니라 문장 경계(시작 · 공백 · 문장부호 뒤)에 오고,
+ * 대문자 · 숫자(앞에 여는 따옴표 · 괄호 허용)로 시작하는 세 낱말 이상의 문장이 마침표로 끝나야 한다.
+ * 콜론 풀이로 시작하면 어휘 각주라 여기서 세지 않는다.
+ */
+// 문장 끝 = 마침표(+닫는 따옴표·괄호) 뒤에 대문자 · 별표 · 여는 괄호로 시작하는 다음 항목이 오거나 글이 끝날 때.
+// 「9 a.m. on weekends」 처럼 소문자가 이어지면 약어 마침표라 문장이 계속된다.
+// 낱말은 문장부호로 끝나지 않는다 — 끝 마침표를 낱말이 먹으면 첫 문장에서 멈추지 못한다(약어만 예외: 뒤에 소문자 · 숫자)
+// 낱말 사이는 줄바꿈도 허용한다(PDF 줄 넘김) — 빈 줄은 각주를 넘는 단락 경계라 허용하지 않는다.
+// 숫자로 시작하는 다음 문장(「12 children …」)도 새 문장이다 — 약어 예외는 뒤에 소문자가 올 때만
+const NOTE = /(?:^|(?<=[\s.!?)]))(\*{1,3})[ \t]+((?:["“‘'(][ \t]*)?[A-Z0-9][A-Za-z0-9’']*(?:(?:[ \t,]|\r?\n(?!\s*\r?\n))+(?:[^\s*]*[^\s*.!?]|[^\s*]+\.(?=\s+[a-z]))){2,}?[.!?]["”’')]?)(?=\s+[A-Z0-9*(※"“]|\s*$)/g
+/**
+ * 약어일 수 있는 끝 — 마지막 공백 단위 토큰 전체를 본다(정규식 분기로 모양을 열거하면 9:30a.m. 같은 붙은 표기를 놓친다 — T-0166 R1–R4).
+ * 끝 문장부호·따옴표를 뗀 몸통에 마침표가 남거나(U.S. · 9:30a.m.) · 대문자로 시작하거나(Prof. · Smith.) · 글자가 4자 이하이거나(vol. · pp. · cf.)
+ * · 흔한 긴 약어면 문장 끝인지 약어인지 글자만으로 가를 수 없다.
+ * 정상 문장 끝을 미확정(candidate)으로 낮추는 것은 안전하고, 잘린 문장을 exact 로 내는 것은 안 된다
+ */
+const LONG_ABBREV = new Set(['approx', 'admin', 'govt', 'misc', 'incl', 'assoc', 'intl', 'corp', 'dept', 'tel', 'ext', 'est'])
+function endsWithPossibleAbbrev(note: string): boolean {
+  const last = note.trim().split(/\s+/).pop() ?? ''
+  const body = last.replace(/^["“‘'(]+/, '').replace(/["”’')]+$/, '').replace(/[.!?]$/, '')
+  const letters = body.replace(/[^A-Za-z]/g, '')
+  return /\./.test(body) || /^[A-Z]/.test(body) || letters.length <= 4 || LONG_ABBREV.has(body.toLowerCase())
+}
+/**
+ * ambiguous: 각주 문장이 약어 마침표에서 끝났다 — 「* Visitors from the U.S. Embassy …」 가 「… the U.S.」 에서 잘렸을 수 있다.
+ * 각주가 있다는 사실(표지 짝)은 확정이지만 문장 범위는 확정이 아니다 → 앵커는 exact 가 아니라 candidate
+ */
+export function notesOf(text: string): { mark: string; note: string; at: number; ambiguous: boolean }[] {
+  return [...text.matchAll(NOTE)]
+    .filter((m) => !/^["“‘'(]?\s*[A-Za-z][A-Za-z\- ’']{0,40}?\s*[:：]/.test(m[2]))
+    .map((m) => ({ mark: m[1], note: m[2].trim(), at: m.index ?? 0, ambiguous: endsWithPossibleAbbrev(m[2]) }))
+}
+
+/**
  * 각주 정의 용어가 표지 낱말의 것인가 — 굴절(constraints* ↔ constraint)과 구 용어(body clock ↔ clock*)를 허용한다.
  * 맞는지 모르면 false — 그 표지는 정의 없음(unavailable)으로 남는다.
  */
@@ -63,6 +98,11 @@ function inAddress(passage: string, at: number): boolean {
   const e = passage.indexOf(' ', at)
   const token = passage.slice(s, e < 0 ? passage.length : e)
   return /www\.|@|https?:|\.(?:com|org|net|kr|edu|gov)\b/i.test(token)
+}
+
+/** 표지에 짝인 문장형 각주 — 같은 별표 수 · 표지보다 뒤(각주는 항목 아래 인쇄된다). 없으면 undefined */
+export function noteFor<N extends { mark: string; at: number }>(notes: N[], m: { mark: string; at: number }): N | undefined {
+  return notes.find((n) => n.mark === m.mark && n.at > m.at)
 }
 
 export function marksOf(passage: string): { mark: string; at: number; word: string; before: string }[] {
@@ -110,8 +150,10 @@ export function detectDefects(item: ItemText): ExtractionDefect[] {
   const allGlosses = [passage, ...choices].flatMap(glossesOf)
   const inlineGloss = new Set(glossesOf(passage).map((g) => g.at))
   const marks = marksOf(passage).filter((m) => ![...inlineGloss].some((g) => m.at >= g && m.at <= g + 3))
+  // 안내문 문장형 각주는 용어가 없다 — 같은 별표 수의 문장 각주가 표지 뒤에 있으면 그 표지는 정의가 있는 것으로 센다
+  const notes = notesOf(passage)
   for (const m of marks) {
-    if (!allGlosses.some((g) => g.mark === m.mark && glossMatches(g.term, m.before))) {
+    if (!allGlosses.some((g) => g.mark === m.mark && glossMatches(g.term, m.before)) && !noteFor(notes, m)) {
       out.push({ code: 'footnote_mark_without_gloss', mark: m.mark, at: m.at, context: passage.slice(Math.max(0, m.at - 20), m.at + 12).trim() })
     }
   }

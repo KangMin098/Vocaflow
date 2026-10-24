@@ -48,8 +48,8 @@ export type ValueAnchor = AnchorBase & {
 }
 /** 안내문의 조건·한정(only · except · must · 요일 · 시간대 · 연령) */
 export type ConditionAnchor = AnchorBase & { kind: 'condition'; cue: ConditionCue; start: number; end: number; quote: string }
-/** 각주 — 표지(*)와 정의. 정의가 빠졌으면 precision unavailable */
-export type FootnoteAnchor = AnchorBase & { kind: 'footnote'; mark: string; term: string | null; gloss: string | null; at: number }
+/** 각주 — 표지(*)와 정의. 어휘 풀이는 gloss, 안내문 문장형 각주는 note. 둘 다 없으면 precision unavailable */
+export type FootnoteAnchor = AnchorBase & { kind: 'footnote'; mark: string; term: string | null; gloss: string | null; note: string | null; at: number }
 
 export type EvidenceAnchor = SpanAnchor | UnitAnchor | MarkerAnchor | ChoiceAnchor | ValueAnchor | ConditionAnchor | FootnoteAnchor
 
