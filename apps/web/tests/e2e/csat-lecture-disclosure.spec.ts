@@ -62,3 +62,73 @@ test.describe('강의 정답 공개 경로', () => {
     })
   }
 })
+
+// ── 판단 장면 정답 지연 조회 (b) · 화면 간 이동(T-0147 navigation_progress) — 실제 로그인 화면 · 실제 서버 · 개발 DB ──────────────
+// 첫 HTML · RSC 응답에 정답 자료가 없고, 「정답 보기」 → 판단 라우트(노출 원장 기록) 200 → 공개 · 장면 이동해도 공개 유지 ·
+// 다른 문항으로 가면 그 문항은 다시 감춤(요청 0) · 돌아와도 저장소로 되살리지 않는다. 기록된 노출 id 는 출력해 DB 로 대조한다.
+const NAV_ITEM = process.env.JUDGMENT_ITEM ?? '2026-30'
+const NAV_OTHER = process.env.JUDGMENT_OTHER ?? '2026-31'
+const ANSWER_LEAK = /정답 [①-⑤]|analysis:reject:\d|"selected_as_answer"|"why_correct"|"how_to_reject"/
+
+test.describe('판단 장면 정답 지연 · 화면 이동', () => {
+  test.use({ storageState: STATE_PATH })
+
+  for (const width of [1280, 1440]) {
+    test(`T-0147 navigation_progress ${width}px`, async ({ page }) => {
+      test.setTimeout(300_000)
+      await page.setViewportSize({ width, height: 900 })
+      const judgments: { status: number; body: unknown }[] = []
+      page.on('response', async (r) => {
+        if (r.url().includes('/judgment') && r.request().method() === 'POST') judgments.push({ status: r.status(), body: await r.json().catch(() => null) })
+      })
+
+      // 첫 응답(HTML · RSC 직렬화) — 로그인 세션 그대로 서버에 직접 묻는다
+      for (const slug of [NAV_ITEM, NAV_OTHER]) {
+        const html = await (await page.request.get(`/csat/item/${slug}?scene=judgment`)).text()
+        expect(html, `${slug} 첫 HTML 에 정답 자료`).not.toMatch(ANSWER_LEAK)
+        const rsc = await (await page.request.get(`/csat/item/${slug}?scene=judgment`, { headers: { RSC: '1' } })).text()
+        expect(rsc.length, `${slug} RSC 응답이 비었다`).toBeGreaterThan(1000)
+        expect(rsc, `${slug} RSC 에 정답 자료`).not.toMatch(ANSWER_LEAK)
+      }
+
+      await page.goto(`/csat/item/${NAV_ITEM}?scene=judgment`, { waitUntil: 'domcontentloaded' })
+      await expect(page.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
+      const reveal = page.getByTestId('judgment-reveal')
+      await expect(reveal).toBeVisible()
+      expect(judgments, '마운트만으로 정답을 요청했다').toHaveLength(0)
+
+      // 키보드로 「정답 보기」 → 판단 라우트 200(노출 원장 기록 뒤) → 공개 · 포커스는 정답 근거 쪽
+      const btn = reveal.getByRole('button', { name: '정답 보기' })
+      await btn.focus()
+      await page.keyboard.press('Enter')
+      await expect.poll(() => judgments.length, { timeout: 60_000 }).toBe(1)
+      expect(judgments[0].status).toBe(200)
+      const exposureId = (judgments[0].body as { exposureId?: unknown })?.exposureId
+      expect(typeof exposureId === 'number' || typeof exposureId === 'string').toBe(true)
+      console.log(`EXPOSURE ${width} ${NAV_ITEM} ${String(exposureId)}`)
+      await expect(page.getByTestId('judgment-reveal')).toHaveCount(0)
+      await expect(page.locator('[data-block="analysis:answer"]')).toBeVisible()
+
+      // 장면 이동 — 공개 상태 유지 · 새 요청 없음 · 화면 이동은 학습자 조작으로만
+      const sceneBefore = await page.getByTestId('workspace-frame').getAttribute('data-scene')
+      await page.getByTestId('scene-next').click()
+      await expect(page.getByTestId('workspace-frame')).not.toHaveAttribute('data-scene', sceneBefore ?? '')
+      await expect(page.locator('[data-withheld="true"]')).toHaveCount(0)
+      expect(judgments).toHaveLength(1)
+
+      // 다른 문항 — 그 문항은 다시 감춤 · 요청 0
+      await page.goto(`/csat/item/${NAV_OTHER}?scene=judgment`, { waitUntil: 'domcontentloaded' })
+      await expect(page.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
+      await expect(page.getByTestId('judgment-reveal')).toBeVisible()
+      expect(await page.content()).not.toMatch(/정답 [①-⑤]/)
+      expect(judgments).toHaveLength(1)
+
+      // 돌아오기 — 받은 자료를 저장소로 되살리지 않는다(다시 감춤 · 다시 요청해야 공개)
+      await page.goBack({ waitUntil: 'domcontentloaded' })
+      await expect(page.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
+      await expect(page.getByTestId('judgment-reveal')).toBeVisible()
+      expect(judgments).toHaveLength(1)
+      await page.screenshot({ path: `test-results/judgment-nav-${width}.png` })
+    })
+  }
+})
