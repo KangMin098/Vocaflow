@@ -1,0 +1,121 @@
+{
+  "source": "csat_item_analyses status=published",
+  "reveal": [
+    {
+      "id": "H2609G2#35",
+      "analysisVersion": 1,
+      "unitsVersion": 1,
+      "answer": 4,
+      "designIntent": "[u1][u2]가 디지털 트윈을 정의하고 ①~③이 실시간 데이터로 정밀해진다는 발전 서술을 잇는다. ⑤는 For instance 로 실제 적용 사례를 든다. ④는 Similarly 를 달아 앞과 같은 방향인 척하지만 감정·문화 요소를 못 담는다는 한계로 방향이 뒤집혀 있다.",
+      "answerLocus": {
+        "quote": "The digital twin becomes a realtime accurate copy of a physical object’s properties and states.",
+        "reasoning": "[u5]가 트윈이 실시간 정확한 사본이 된다는 결론을 내리고 [u7]의 For instance 가 그 트윈이 터빈·제트엔진에서 흔해진다는 사례를 바로 단다. [u6]은 Similarly 로 시작하지만 fails to capture 로 한계를 말해 [u5]와 유사 관계가 성립하지 않는다.",
+        "sentence_index": [
+          5,
+          6,
+          7
+        ]
+      },
+      "choices": [
+        {
+          "n": 1,
+          "trap": "역접 표지 오판",
+          "verdict": "distractor",
+          "why_tempting": "However 로 시작해 앞 [u2]의 Digital twins are not new 와 반대 흐름을 여는 것처럼 보여 이질적이다.",
+          "how_to_reject": "[u3]의 However 는 '새롭지 않다' 에서 '그러나 더 정밀해졌다' 로 넘어가는 정상 전환이며, much more detailed and dynamic 이 이후 ②③의 실시간 갱신 서술을 연다."
+        },
+        {
+          "n": 2,
+          "trap": "기술 세부 유인",
+          "verdict": "distractor",
+          "why_tempting": "sensors·connected device 같은 기술 절차 설명이 정의 중심 흐름에서 곁가지처럼 보인다.",
+          "how_to_reject": "[u4]의 'continuously update the digital twin' 은 [u3]의 realtime data 가 트윈을 어떻게 dynamic 하게 하는지 구체화한 단계다."
+        },
+        {
+          "n": 3,
+          "trap": "결론 문장 반복 오판",
+          "verdict": "distractor",
+          "why_tempting": "[u5]가 [u1]의 정의(digital replicas)를 되풀이해 새 정보가 없는 군더더기처럼 보인다.",
+          "how_to_reject": "[u5]의 'realtime accurate copy' 는 [u4]의 갱신 결과를 정리하는 귀결이고, 뒤 [u7]의 사례가 이 결론을 받는다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "[u6]의 'Similarly, the twin fails to capture emotional or cultural factors' 는 Similarly 가 약속한 '앞과 같은 방향'을 깨고 [u5]의 'realtime accurate copy' 라는 긍정 결론과 반대인 한계를 꺼낸다. 또 emotional·cultural 은 물리 자산의 데이터 복제라는 화제에 없는 범주다.",
+          "confirmed_at": {
+            "note": "[u5]의 정확한 사본 결론을 [u7]의 For instance 가 바로 예시로 받는다",
+            "sentence_index": [
+              5,
+              7
+            ]
+          }
+        },
+        {
+          "n": 5,
+          "trap": "예시 위치 오판",
+          "verdict": "distractor",
+          "why_tempting": "For instance 사례가 맨 끝에 와서 앞 문장과 떨어진 덧붙임처럼 보인다.",
+          "how_to_reject": "[u7]의 'digital twins of physical assets' 는 [u5]의 physical object 를 받아 실제 산업 사례를 든다 — 물리 자산이라는 범주가 일치한다."
+        }
+      ]
+    },
+    {
+      "id": "H2609G1#35",
+      "analysisVersion": 1,
+      "unitsVersion": 1,
+      "answer": 4,
+      "designIntent": "[u1]이 돌봄 기준을 제시하고 ①이 For example 로 개 목욕 사례를 연다. ②③⑤는 모두 bath 빈도를 줄이라는 같은 축이다. ④는 pet·vet 와 같은 소재 어휘를 공유하지만 목욕이 아닌 정기검진의 이점을 말해 사례 축을 벗어난다.",
+      "answerLocus": {
+        "quote": "most dogs don’t need to be bathed on a regular basis",
+        "reasoning": "[u4]가 대부분의 개는 정기 목욕이 필요 없다고 하고 [u6]의 Even dogs with thick, heavy coats 가 그 주장을 털이 많은 개까지 넓힌다. [u5]의 checkups 는 bath 와 무관해 둘 사이를 끊는다.",
+        "sentence_index": [
+          4,
+          5,
+          6
+        ]
+      },
+      "choices": [
+        {
+          "n": 1,
+          "trap": "예시 표지 오판",
+          "verdict": "distractor",
+          "why_tempting": "For example 로 시작하고 veterinary dermatologists 라는 전문가 경고가 나와 도입과 동떨어진 새 화제처럼 보인다.",
+          "how_to_reject": "[u1]의 'What do I want?' 를 [u2]의 'because they want to avoid the ‘doggy’ smell' 이 그대로 구현한 사례다 — 주인 욕구 대 개의 필요라는 대비가 맞물린다."
+        },
+        {
+          "n": 2,
+          "trap": "해결책 제시 오판",
+          "verdict": "distractor",
+          "why_tempting": "waterless shampoo·brush 같은 대안 제시가 비판 흐름과 다른 조언처럼 느껴진다.",
+          "how_to_reject": "[u3]의 'keep the baths down to once or twice a week' 는 [u2]의 냄새 걱정을 받아 목욕 횟수를 줄이라는 같은 축의 처방이다."
+        },
+        {
+          "n": 3,
+          "trap": "조건절 예외 유인",
+          "verdict": "distractor",
+          "why_tempting": "'Unless they have a skin condition' 이라는 예외 조건이 붙어 의료 화제로 빠진 것처럼 보인다.",
+          "how_to_reject": "조건절을 걷어낸 주절 most dogs don’t need to be bathed 가 목욕 빈도 축을 그대로 잇는다 — 예외 단서는 주장을 정밀하게 할 뿐이다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "[u5]의 'Regular pet checkups can help identify health problems' 는 목욕 빈도 축이 아니라 검진의 이점이다. 앞 [u4]의 'don’t need to be bathed' 와 뒤 [u6]의 'only need baths every 6 to 8 weeks' 가 바로 이어지는데 그 사이에 목욕 낱말이 하나도 없는 문장이 끼었다.",
+          "confirmed_at": {
+            "note": "[u4]의 목욕 불필요 주장을 [u6]의 Even 이 바로 받아 확장한다",
+            "sentence_index": [
+              4,
+              6
+            ]
+          }
+        },
+        {
+          "n": 5,
+          "trap": "강조 표지 오판",
+          "verdict": "distractor",
+          "why_tempting": "'Even dogs with thick, heavy coats' 가 털 종류라는 새 화제를 여는 것처럼 보인다.",
+          "how_to_reject": "[u6]의 'only need baths every 6 to 8 weeks' 는 [u4]의 주장을 극단 사례로 확장하는 Even 강조다 — baths 낱말이 축을 유지한다."
+        }
+      ]
+    }
+  ]
+}
