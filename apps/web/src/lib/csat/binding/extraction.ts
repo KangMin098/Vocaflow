@@ -33,9 +33,16 @@ export function glossMatches(term: string, before: string): boolean {
     if (s.endsWith('e')) out.add(`${s.slice(0, -1)}ing`)
     return out
   }
-  const t = term.toLowerCase().split(/[\s-]+/).filter(Boolean)
-  // 구 용어는 표지 바로 앞 원문이 구 전체여야 짝이다 — 한 낱말만 같으면 아니다(after hours ↔ Hours* — T-0154 H1)
-  const b = (before.toLowerCase().match(/[a-z’']+/g) ?? []).map((x) => x.replace(/[’']s$/, ''))
+  // 정의 용어와 원문을 같은 함수로 낱말화한다 — 한쪽만 소유격을 떼면 bird's-eye 가 어긋난다(T-0154 I2)
+  const words = (s: string) => {
+    const w = s.toLowerCase().replace(/’/g, "'").replace(/[()]/g, ' ').split(/[\s-]+/).filter((x) => /[a-z]/.test(x))
+    if (w.length) w[w.length - 1] = w[w.length - 1].replace(/'s$/, '')
+    return w
+  }
+  const t = words(term)
+  // 구 용어는 표지 바로 앞 원문이 구 전체여야 짝이다 — 한 낱말만 같으면 아니다(after hours ↔ Hours* — T-0154 H1).
+  // 문장부호에서 끊긴 구는 구가 아니다(「fee. Hours*」 ↔ fee hours — T-0154 I1)
+  const b = words(before.split(/[.!?;:,"“”\n]/).pop() ?? '')
   if (!t.length || b.length < t.length) return false
   const tail = b.slice(b.length - t.length)
   const last = t.length - 1

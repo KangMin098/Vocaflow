@@ -214,6 +214,25 @@ describe('T-0154 Codex 독립 검증 반례 회귀', () => {
     expect(hours.precision).toBe('unavailable')
     expect(hours.gloss).toBeNull()
   })
+  it('I1 — 문장부호를 넘는 구는 짝이 아니다(실제 2014A#29 「fee. Hours*」 ↔ * fee hours)', async () => {
+    const { glossMatches } = await import('../extraction')
+    expect(glossMatches('fee hours', 'for an additional fee. Hours')).toBe(false)
+    expect(glossMatches('body clock', 'the body. Clock')).toBe(false)
+    const r = structuredClone(row('2014A#29'))
+    const choices = r.item.choices as string[]
+    choices[4] = `${choices[4]} * fee hours: 업무 시간 외`
+    const b = bindItem(r)
+    expect(b.reasons).toContain('footnote_missing')
+    expect(b.structure.footnotes.find((f) => f.term === 'Hours')?.precision).toBe('unavailable')
+  })
+  it('I2 — 원문과 정의가 같은 소유격 복합어는 짝이다(bird’s-eye)', async () => {
+    const { glossMatches, detectDefects } = await import('../extraction')
+    expect(glossMatches("bird's-eye", "a bird's-eye")).toBe(true)
+    expect(glossMatches("bird's-eye", 'a bird’s-eye')).toBe(true)
+    expect(glossMatches('body clock', 'resets the body (clock)')).toBe(true)
+    const passage = "It offers a bird's-eye* view of the city. It is open daily."
+    expect(detectDefects({ typeId: 'R-NOTICE', passage, choices: ['a', 'b', 'c', 'd', "e * bird's-eye: 조감의"] }).map((d) => d.code)).not.toContain('footnote_mark_without_gloss')
+  })
   it.each([[null], [[]]])('G1 — 복수 정답인데 결속 판 선지 분석이 %j 이면 차단한다', (empty) => {
     const r = structuredClone(row('H1811G1#27'))
     r.item.answers = [3, 5]
