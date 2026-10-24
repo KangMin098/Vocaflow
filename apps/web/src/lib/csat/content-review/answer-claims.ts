@@ -45,7 +45,25 @@ const ANY_NOT = new RegExp(NOT, 'g')
  * 소비되지 않은 부분에 남으면 문장 뜻을 뒤집을 수 있는 말 — 남아 있으면 부분 해석을 버린다.
  * (번호·「아니」만 보면 「④가 정답 … 틀렸습니다」의 뒤집기를 놓친다)
  */
-const FLIP = /없|틀|커녕|않|못|잘못|거짓|아[니닙닌]|반대|대신|말고|빼고|제외|오답|정답/g
+const FLIP = /없|틀|커녕|않|못|잘못|거짓|아[니닙닌]|반대|대신|말고|빼고|제외|오답|정답|오류|허위|철회|착각|오해|취소|번복|수정|만\s|지만|으나|는데/g
+
+/**
+ * **진술에 소비되지 않은 나머지가 가질 수 있는 것(화이트리스트)** — 이것 말고 한 글자라도 남으면 사람 확인.
+ * 블랙리스트(FLIP)는 원리상 완결되지 않는다(「오류 · 허위 · 철회」… — T-0158 Codex 7차 P1).
+ *  - 종결·연결 어미와 문장부호 · 「으로 인정됐어요」류
+ *  - 위치 설명어: 「여기 다섯 번째 문장 · 비 밑줄 · 자리」
+ *  - 담화 표지: 「여러분 · 자 · 그래서 · 따라서 · 즉 · 결국 · 여기서」
+ *  - 동격(정답은 N, X): X 가 그 선지 본문과 같을 때만(호출자가 choices 를 줄 때)
+ */
+const RESIDUE_OK = new RegExp([
+  '\\s+', '[,.。!]',
+  '입니다', '이에요', '예요', '이다', '이죠', '죠', '이고', '이며', '요',
+  '으로\\s*인정(?:됐어요|되었습니다|됐습니다|됩니다|된다|돼요)',
+  '여러분', '자', '그래서', '따라서', '즉', '결국', '여기서', '여기',
+  '(?:첫|두|세|네|다섯|여섯|일곱|여덟|아홉|열)\\s*번째', '문장', '비\\s*밑줄', '밑줄', '자리', '씨',
+].map((p) => `(?:${p})`).join('|'), 'g')
+
+const norm = (t: string) => t.replace(/^[①-⑤]\s*/, '').replace(/[\s.,。!]+/g, '').replace(/(?:입니다|이에요|예요|이다|이죠|죠)$/, '')
 
 export interface AnswerClaim {
   choices: number[]
@@ -76,7 +94,17 @@ function refsIn(text: string, offset = 0): { n: number; at: number }[] {
 const uniq = (xs: number[]) => [...new Set(xs)]
 const inside = (at: number, spans: Span[]) => spans.some((s) => at >= s.start && at < s.end)
 
-export function readClaims(text: string): ClaimReading {
+/** 문장에서 소비된 구간을 뺀 나머지가 화이트리스트만으로 이뤄졌는가 */
+function residueClean(sentence: string, used: Span[], appositionOk: (s: string) => boolean): boolean {
+  let rest = ''
+  for (let i = 0; i < sentence.length; i++) rest += inside(i, used) ? '\u0000' : sentence[i]
+  // 동격 — 「정답은 N 번, X(입니다).」의 X 가 그 선지 본문이면 소비
+  rest = rest.replace(/\u0000\s*,\s*([^\u0000]+?)\s*(?:입니다|이에요|예요|이다)?\s*[.。!]?\s*$/, (whole, x: string) => (appositionOk(x) ? '\u0000' : whole))
+  const left = rest.split('\u0000').join(' ').replace(RESIDUE_OK, '')
+  return left.trim() === ''
+}
+
+export function readClaims(text: string, ctx: { choices?: readonly string[] } = {}): ClaimReading {
   const answers: AnswerClaim[] = []
   const rejected: number[] = []
   const unparsed: string[] = []
@@ -102,17 +130,30 @@ export function readClaims(text: string): ClaimReading {
       const particle = m[3] ?? ''
       mine.push({ choices: uniq(refsIn(m[2]!).map((r) => r.n)), exclusive: !!m[1] || particle.startsWith('만'), inclusive: particle === '도', sentence })
     }
+    const rejectGaps: string[] = []
     for (const m of sentence.matchAll(REJECT)) {
       used.push({ start: m.index!, end: m.index! + m[0].length })
       mineRejected.push(...refsIn(m[1]!).map((r) => r.n))
+      rejectGaps.push(m[0].slice(m[1]!.length, m[0].length - m[2]!.length))
     }
     // 소비되지 않은 선지 번호나 부정이 남았으면 이 문장은 사람이 읽는다
     const strayRef = refsIn(sentence).some((r) => !inside(r.at, used))
     const strayNot = [...sentence.matchAll(ANY_NOT)].some((m) => !inside(m.index!, used))
-      || [...sentence.matchAll(FLIP)].some((m) => !inside(m.index!, used))
+    // 오답 진술의 사이 구간(「오 번은 맞는 진술이고, 답이 아닙니다」)은 자유 서술이라 뒤집는 말 목록으로 본다
+    const gapFlip = rejectGaps.some((g) => { FLIP.lastIndex = 0; return FLIP.test(g) })
+    // 나머지는 화이트리스트로 — 동격은 그 진술이 가리킨 선지 본문과 같을 때만
+    const claimed = uniq(mine.flatMap((a) => a.choices))
+    const appositionOk = (x: string) => {
+      const nx = norm(x)
+      return nx.length > 0 && claimed.some((n) => {
+        const c = ctx.choices?.[n - 1]
+        return c != null && (norm(c).includes(nx) || nx.includes(norm(c)))
+      })
+    }
+    const residueBad = !residueClean(sentence, used, appositionOk)
     // 물음은 단언이 아니다 — 「④가 정답이죠?」를 정답 진술로 세지 않는다
     const question = /[?？]\s*$/.test(sentence)
-    if (strayRef || strayNot || question || (mine.length === 0 && mineRejected.length === 0)) {
+    if (strayRef || strayNot || gapFlip || residueBad || question || (mine.length === 0 && mineRejected.length === 0)) {
       unparsed.push(sentence)
       continue
     }

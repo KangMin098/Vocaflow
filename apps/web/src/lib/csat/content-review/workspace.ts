@@ -120,6 +120,7 @@ function prepublishFor(itemId: string, item: SnapshotItem, c: ReviewCandidate | 
     itemId,
     officialAnswers: item.officialAnswers,
     choiceVerdicts: (item.analysis?.choiceVerdicts ?? []).map((v) => ({ choice: v.n, verdict: v.verdict })),
+    choices: item.choices,
     cues: item.cues.map(toLectureCue),
     changes: c ? c.changes : [],
   })

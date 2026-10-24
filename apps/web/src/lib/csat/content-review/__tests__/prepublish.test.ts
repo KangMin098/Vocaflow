@@ -290,3 +290,31 @@ describe('T-0158 6차 자체 반례 — 물음·문장 밖 부정 응답', () =>
     expect(run([4], text).blocked).toBe(true)
   })
 })
+
+describe('T-0158 7차 반례 — 나머지 화이트리스트', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string, choices?: string[]) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], choices, cues: [cue(text)] })
+  it.each([
+    '④가 정답이고 이는 오류입니다.',
+    '④가 정답입니다만 이 설명은 허위입니다.',
+    '④가 정답이며 이 판단은 오류입니다.',
+    '④가 정답이고 그 주장은 철회합니다.',
+    '④가 정답이고 무엇이든 덧붙인 서술입니다.',
+  ])('{4} · %s → 차단(사람 확인)', (text) => {
+    expect(run([4], text).blocked).toBe(true)
+  })
+  const choices = ['a', 'b', 'c', '역할과 관행을 세워 생산적 활동을 돕는다', 'e']
+  it('동격이 그 선지 본문이면 통과, 아니면 사람 확인', () => {
+    expect(run([4], '정답은 사 번, 역할과 관행을 세워 생산적 활동을 돕는다.', choices).findings).toEqual([])
+    expect(run([4], '정답은 사 번, 이는 오류입니다.', choices).blocked).toBe(true)
+    expect(run([4], '정답은 사 번, 역할과 관행을 세워 생산적 활동을 돕는다.').blocked).toBe(true) // 선지 모르면 사람 확인
+  })
+  it('위치 설명 동격·담화 표지는 통과', () => {
+    expect(run([4], '여기 다섯 번째 문장, 사 번이 정답입니다.').findings).toEqual([])
+    expect(run([2], '정답은 이 번, 비 밑줄입니다.').findings).toEqual([])
+  })
+})

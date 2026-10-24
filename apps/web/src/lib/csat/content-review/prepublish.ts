@@ -32,6 +32,8 @@ export interface PrepublishInput {
   /** 출제 의도에 공식 근거(평가원 해설·이의심사 발표)가 있는가 */
   intentOfficiallySourced?: boolean
   choiceVerdicts: ChoiceVerdict[]
+  /** 선지 본문(①~⑤ 순) — 「정답은 삼 번, <선지 본문>」 동격을 대조한다. 없으면 동격 문장은 사람 확인 */
+  choices?: readonly string[]
   cues: LectureCue[]
   /** 적용할 수정 후보 — target 'cue:<id>' 의 proposed 가 cue 본문(ko-KR 한 덩이)을 대신한다 */
   changes?: ProposedChange[]
@@ -93,7 +95,7 @@ export function validatePrepublish(input: PrepublishInput): PrepublishReport {
     const where = `cue:${c.id}`
     const text = c.segments.map((s) => s.text).join(' ')
     if (answers) {
-      const claims = readClaims(text)
+      const claims = readClaims(text, { choices: input.choices })
       // (2) 정답 진술 — 집합 단위로 공식 정답과 대조
       // cue 안의 정답 진술을 **합쳐서** 본다 — 「④가 정답이고 ⑤도 정답」은 {4,5} 를 말한 것이다(5차 P2)
       const said = [...new Set(claims.answers.flatMap((a) => a.choices))]
@@ -115,7 +117,8 @@ export function validatePrepublish(input: PrepublishInput): PrepublishReport {
       }
       // 해석하지 못한 정답 진술은 통과시키지 않는다(fail-closed)
       for (const s of claims.unparsed) {
-        push('BLOCK', 'CUE_ANSWER_UNPARSED', where, `정답 진술을 선지 집합으로 읽지 못했다 — 사람이 확인한다: 「${s.slice(0, 60)}」`)
+        // 기계가 확인하지 못한 문장 — 틀렸다는 판정이 아니다. 영어 선지의 한국어 풀이 동격(「정답은 삼 번, 메시지입니다」)도 여기로 온다
+        push('BLOCK', 'CUE_ANSWER_UNPARSED', where, `정답 진술을 기계로 다 확인하지 못했다(오류 판정 아님) — 사람이 문장 전체를 확인한다: 「${s.slice(0, 60)}」`)
       }
       // (3) 공식 정답을 소거
       const rej = /^reject:(\d)$/.exec(c.target.id)
