@@ -51,7 +51,7 @@ async function audit(page: Page) {
     const koNoKeep = [...root.querySelectorAll('p, li, td, th, span')].filter((el) => shown(el) && /[가-힣]{6,}/.test(el.textContent ?? '') && getComputedStyle(el).wordBreak !== 'keep-all')
       .map((el) => el.textContent!.trim().slice(0, 16))
     // 범위 표지([조건·한정]·[부정 범위])는 한 덩어리로 읽혀야 한다 — 줄 끝에서 쪼개지면 표지가 깨진다
-    const splitLabels = [...root.querySelectorAll('mark > span')].filter((el) => el.getClientRects().length > 1).map((el) => el.textContent)
+    const splitLabels = [...root.querySelectorAll('mark > span')].filter((el) => (window as unknown as { __f08Lines: (e: Element) => number }).__f08Lines(el) > 1).map((el) => el.textContent)
     const s1 = document.getElementById('f08-s1')!
     const ps = getComputedStyle(s1)
     const passage = s1.parentElement!
@@ -70,6 +70,14 @@ async function audit(page: Page) {
 
 for (const cand of ['a', 'b', 'c'] as const) {
   test(`디자인 수용 측정 — 후보 ${cand.toUpperCase()}`, async ({ page }, info) => {
+    // 글자 줄 수 — 요소 안 글자 Range 의 줄별 사각형 top 개수. inline-block 표지도 내부 줄바꿈을 센다.
+    await page.addInitScript(() => {
+      ;(window as unknown as { __f08Lines: (e: Element) => number }).__f08Lines = (el: Element) => {
+        const r = document.createRange()
+        r.selectNodeContents(el)
+        return new Set([...r.getClientRects()].filter((x) => x.width > 0).map((x) => Math.round(x.top))).size
+      }
+    })
     await page.goto(`/dev/f08/${cand}`)
     await page.evaluate(() => sessionStorage.clear())
     await page.reload()
@@ -80,6 +88,22 @@ for (const cand of ['a', 'b', 'c'] as const) {
     if (cand === 'c') { await page.getByRole('tab', { name: '내 판단' }).click(); await page.getByRole('button', { name: '3번', exact: true }).click() }
     await page.getByRole('group', { name: '3번 선지에 대한 내 판단' }).getByRole('button', { name: /맞을 것 같다/ }).click()
 
+    // ✓ 표지는 화면에만 — 눌린 뒤에도 접근성 이름이 그대로다(exact 이름으로 찾혀야 한다)
+    await expect(page.getByRole('button', { name: '부정·조건 범위 표시', exact: true })).toHaveAttribute('aria-pressed', 'true')
+    await expect(page.getByRole('group', { name: '3번 선지에 대한 내 판단' }).getByRole('button', { name: '맞을 것 같다', exact: true })).toHaveAttribute('aria-pressed', 'true')
+    // 줄 수 검사기 감도 — 표지를 복제해 일부러 줄바꿈시키면 2줄 이상으로 세야 한다(요소 사각형 수로는 1)
+    const probe = await page.evaluate(() => {
+      const src = document.querySelector('mark > span')!
+      const c = src.cloneNode(true) as HTMLElement
+      c.style.cssText = 'display:inline-block;white-space:normal;width:2ch;position:absolute;left:0;top:0'
+      document.body.appendChild(c)
+      const out = { lines: (window as unknown as { __f08Lines: (e: Element) => number }).__f08Lines(c), rects: c.getClientRects().length }
+      c.remove()
+      return out
+    })
+    expect(probe.lines, '줄 수 검사기가 강제 줄바꿈을 잡는다').toBeGreaterThan(1)
+    expect(probe.rects, '요소 사각형 수로는 못 잡는다(검사 교체 근거)').toBe(1)
+
     // 초점 표시 색·두께
     await page.getByRole('button', { name: '부정·조건 범위 표시' }).focus()
     await page.keyboard.press('Shift+Tab'); await page.keyboard.press('Tab')
@@ -88,7 +112,7 @@ for (const cand of ['a', 'b', 'c'] as const) {
     const pressed = await page.evaluate(() => {
       const on = document.querySelector('[data-candidate] [aria-pressed="true"]:not([id^="f08-s"])') as HTMLElement
       const off = document.querySelector('[data-candidate] [aria-pressed="false"]:not([id^="f08-s"])') as HTMLElement
-      return { onBg: getComputedStyle(on).backgroundColor, offBg: getComputedStyle(off).backgroundColor, onGlyph: getComputedStyle(on, '::before').content, onName: on.textContent }
+      return { onBg: getComputedStyle(on).backgroundColor, offBg: getComputedStyle(off).backgroundColor, onGlyph: getComputedStyle(on, '::before').content }
     })
     const a = await audit(page)
     const result = { candidate: cand, viewport: info.project.name, focus, pressed, ...a, tokens: TOKENS }
@@ -103,7 +127,7 @@ for (const cand of ['a', 'b', 'c'] as const) {
     if (cand !== 'b') {
       for (const n of [1, 2, 3, 4, 5]) {
         await page.getByRole('button', { name: `${n}번`, exact: true }).click()
-        const split = await page.evaluate(() => [...document.querySelectorAll('#f08-s7 mark > span')].filter((el) => el.getClientRects().length > 1).map((el) => el.textContent))
+        const split = await page.evaluate(() => [...document.querySelectorAll('#f08-s7 mark > span')].filter((el) => (window as unknown as { __f08Lines: (e: Element) => number }).__f08Lines(el) > 1).map((el) => el.textContent))
         expect.soft(split, `D3 범위 표지 한 줄 — 빈칸에 ${n}번`).toEqual([])
       }
     }
