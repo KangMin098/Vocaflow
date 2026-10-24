@@ -338,3 +338,22 @@ describe('T-0158 8차 반례 — 오답 진술 사이 자유 서술 금지', () 
     expect(run([4], '오 번은 답이 아닙니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 9차 반례 — 동격은 선지 본문과 정확히 같을 때만', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const choices = ['a', 'b', 'c', '역할과 관행을 세워 생산적 활동을 돕는다', 'e']
+  const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [4], choiceVerdicts: [], choices, cues: [cue(text)] })
+  it.each([
+    '정답은 ④, ‘역할과 관행을 세워 생산적 활동을 돕는다’는 오답입니다.',
+    '정답은 ④, ‘역할과 관행을 세워 생산적 활동을 돕는다’가 정답이라는 판단은 오류입니다.',
+    '정답은 ④, 역할과 관행을 세워 생산적 활동을 돕는다 — 이 주장은 허위입니다.',
+  ])('%s → 차단', (text) => {
+    expect(run(text).blocked).toBe(true)
+  })
+  it('본문 그대로의 동격은 통과', () => {
+    expect(run('정답은 ④, 역할과 관행을 세워 생산적 활동을 돕는다.').findings).toEqual([])
+  })
+})

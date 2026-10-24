@@ -151,7 +151,8 @@ export function readClaims(text: string, ctx: { choices?: readonly string[] } = 
       const nx = norm(x)
       return nx.length > 0 && claimed.some((n) => {
         const c = ctx.choices?.[n - 1]
-        return c != null && (norm(c).includes(nx) || nx.includes(norm(c)))
+        // **정확히 같을 때만** — 포함 관계를 허용하면 선지 본문 뒤에 붙인 「…는 오답입니다」까지 동격으로 소비한다(T-0158 Codex 9차 P1)
+        return c != null && norm(c) === nx
       })
     }
     const residueBad = !residueClean(sentence, used, appositionOk)
