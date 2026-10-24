@@ -47,8 +47,24 @@ describe('loadJudgmentItem', () => {
     expect(r.item.version).toEqual({ unitsVersion: 1, unitsHash: 'h1', analysisVersion: 2 })
     expect(r.item.units).toEqual([{ id: 'u1', n: 1, kind: 'sentence', text: 'A.' }, { id: 'u2', n: 2, kind: 'sentence', text: 'B.' }])
     expect(leakedAnswerKeys(r.item)).toEqual([])
-    const itemCols = selects.filter((s) => s.table === 'csat_items').map((s) => s.cols).join(',')
-    expect(itemCols).not.toMatch(/answer/)
+    // 모든 테이블의 select 목록 — 정답 · 정답 위치 · 선지 판정 · 해설 컬럼이 하나도 없다(T-0151 P2-R2-01)
+    const allCols = selects.map((s) => s.cols).join(',')
+    for (const col of ['answer', 'design_intent', 'answer_locus', 'choice_analysis', 'why_correct', 'verdict']) expect(allCols, col).not.toContain(col)
+    expect(selects.map((s) => s.table).sort()).toEqual(['csat_item_analyses', 'csat_item_units', 'csat_items'])
+  })
+
+  it.each([
+    ['분석 해시 null', null],
+    ['분석 해시 빈 문자열', ''],
+  ] as const)('%s → 대조를 건너뛰지 않고 unavailable(T-0151 P2-R2-02)', async (_n, hash) => {
+    const rows = base(); rows.csat_item_analyses[0].units_hash = hash
+    expect(await loadJudgmentItem(fakeDb(rows).db, 'H1#35', 2)).toEqual({ state: 'unavailable', reason: 'version-mismatch' })
+    expect(await loadJudgmentReveal(fakeDb(rows).db, 'H1#35', 2)).toBeNull()
+  })
+
+  it('원문 단위 쪽 해시가 비면 unavailable', async () => {
+    const rows = { ...base(), csat_item_units: [{ item_id: 'H1#35', units_version: 1, units_hash: '', units: UNITS }] }
+    expect(await loadJudgmentItem(fakeDb(rows).db, 'H1#35', 2)).toEqual({ state: 'unavailable', reason: 'version-mismatch' })
   })
 
   it.each([

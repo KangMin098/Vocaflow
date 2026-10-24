@@ -17,28 +17,36 @@ export type JudgmentItemLoad = { state: 'ready'; item: JudgmentItem } | Judgment
 type AnalysisRow = { version: number; units_version: number | null; units_hash: string | null; status: string; design_intent: string | null; answer_locus: unknown; choice_analysis: unknown }
 type UnitRow = { units: { id: string; n: number; kind: string; text: string }[]; units_version: number; units_hash: string }
 
+/** 결속 메타데이터만 — 공개 전 경로가 쓴다. 해설(design_intent · answer_locus · choice_analysis)은 select 하지 않는다(T-0151 P2-R2-01) */
+const BINDING_COLUMNS = 'version, units_version, units_hash, status'
+/** 공개 뒤에만 읽는 해설 컬럼 */
+const REVEAL_COLUMNS = 'version, design_intent, answer_locus, choice_analysis'
+
 async function boundAnalysis(db: SupabaseClient, itemId: string, analysisVersion: number) {
   const { data, error } = await db
     .from('csat_item_analyses')
-    .select('version, units_version, units_hash, status, design_intent, answer_locus, choice_analysis')
+    .select(BINDING_COLUMNS)
     .eq('item_id', itemId)
     .eq('version', analysisVersion)
     .eq('status', 'published')
     .limit(1)
   if (error) return { error: 'db' as const }
-  const a = (data?.[0] ?? null) as AnalysisRow | null
+  const a = (data?.[0] ?? null) as Pick<AnalysisRow, 'version' | 'units_version' | 'units_hash' | 'status'> | null
   if (!a) return { error: 'no-analysis' as const }
   if (a.units_version == null) return { error: 'no-units' as const }
+  // 분석 쪽 해시가 없으면 원문 단위와의 동일성을 확인할 수 없다 — 대조를 건너뛰지 않고 닫는다(T-0151 P2-R2-02)
+  if (!a.units_hash) return { error: 'version-mismatch' as const }
   const u = await db.from('csat_item_units').select('units, units_version, units_hash').eq('item_id', itemId).eq('units_version', a.units_version).limit(1)
   if (u.error) return { error: 'db' as const }
   const units = (u.data?.[0] ?? null) as UnitRow | null
   if (!units || !Array.isArray(units.units) || units.units.length < 2) return { error: 'no-units' as const }
-  if (a.units_hash && units.units_hash !== a.units_hash) return { error: 'version-mismatch' as const }
+  if (!units.units_hash || units.units_hash !== a.units_hash) return { error: 'version-mismatch' as const }
   return { a, units }
 }
 
 /**
- * 공개 전 문항 자료 — 정답 번호 · verdict · 정답 위치 · 해설을 읽지도 않는다(select 에 없음).
+ * 공개 전 문항 자료 — 정답 번호 · verdict · 정답 위치 · 해설을 읽지도 않는다. 어떤 테이블에도 그 컬럼을 select 하지 않는다
+ * (csat_items: answer 없음 · csat_item_analyses: BINDING_COLUMNS 만). server.test 가 전체 select 목록으로 지킨다.
  * analysisVersion 은 문항 페이지가 이미 읽은 판본(CsatItemExplain.analysis_version)을 넘긴다 — 해설 판본과 원문 단위가 갈리지 않게.
  */
 export async function loadJudgmentItem(db: SupabaseClient, itemId: string, analysisVersion: number | null): Promise<JudgmentItemLoad> {
@@ -76,15 +84,19 @@ export async function loadJudgmentReveal(db: SupabaseClient, itemId: string, ana
   if (it.error || answer == null) return null
   const bound = await boundAnalysis(db, itemId, analysisVersion)
   if ('error' in bound) return null
-  const choices = bound.a.choice_analysis
+  // 해설 컬럼은 결속 확인을 통과한 뒤 같은 published 판본에서만 읽는다
+  const c = await db.from('csat_item_analyses').select(REVEAL_COLUMNS).eq('item_id', itemId).eq('version', bound.a.version).eq('status', 'published').limit(1)
+  const content = (c.data?.[0] ?? null) as Pick<AnalysisRow, 'version' | 'design_intent' | 'answer_locus' | 'choice_analysis'> | null
+  if (c.error || !content) return null
+  const choices = content.choice_analysis
   if (!Array.isArray(choices) || choices.length !== 5) return null
   return {
     id: itemId,
     analysisVersion: bound.a.version,
     unitsVersion: bound.units.units_version,
     answer,
-    designIntent: bound.a.design_intent ?? undefined,
-    answerLocus: (bound.a.answer_locus ?? undefined) as RevealData['answerLocus'],
+    designIntent: content.design_intent ?? undefined,
+    answerLocus: (content.answer_locus ?? undefined) as RevealData['answerLocus'],
     choices: choices as ChoiceAnalysis[],
   }
 }

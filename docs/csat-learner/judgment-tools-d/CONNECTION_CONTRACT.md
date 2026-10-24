@@ -29,7 +29,8 @@ judgmentRouteProvider(slug, deps?): RevealProvider   // POST /api/csat/item/[slu
 hasJudgmentTool(typeId, stages?): boolean
 ```
 
-- `JudgmentItem` 에는 정답 번호 · verdict · 정답 위치 · 해설이 **없다**(로더가 그 컬럼을 select 하지도 않는다).
+- `JudgmentItem` 에는 정답 번호 · verdict · 정답 위치 · 해설이 **없다**. `loadJudgmentItem` 은 어떤 테이블에서도 그 컬럼을 select 하지 않는다 — `csat_items` 는 answer 없이, `csat_item_analyses` 는 결속 메타데이터(version · units_version · units_hash · status)만 읽는다. 해설 컬럼(design_intent · answer_locus · choice_analysis)과 `csat_items.answer` 는 `loadJudgmentReveal` 만 읽는다. `server.test.ts` 가 전체 select 목록으로 지킨다.
+- 분석 쪽이나 원문 단위 쪽 `units_hash` 가 비어 있으면 동일성을 확인할 수 없으므로 `unavailable`(공개 로더는 `null`)로 닫는다.
 - `db` 는 **service-role 서버 클라이언트**(`createAdminClient()`)여야 한다. `csat_item_units` 는 authenticated SELECT 권한 · RLS 정책이 없다(2026-10-24 확인). 스키마 · 권한 변경은 필요 없고 요청하지 않는다.
 - `analysisVersion` 은 페이지가 이미 읽은 `CsatItemExplain.analysis_version` 을 넘긴다 — 해설 판본과 원문 단위 판본이 갈리지 않는다. 판본 · 단위 해시가 안 맞으면 `unavailable` 로 아무것도 내지 않는다.
 - 공개 상태는 문항 id · 분석 판본 · 단위 판본에 묶인다. 같은 인스턴스에 다른 문항이 와도 이전 해설 · 학습자 선택이 이월되지 않고, 진행 중 요청의 늦은 응답은 버린다(T-0151 P1-01 수정).
@@ -64,7 +65,7 @@ const judgmentReveal = useMemo(() => judgmentRouteProvider(slug), [slug])
 {judgmentItem && <TypeJudgment item={judgmentItem} reveal={judgmentReveal} />}
 ```
 - 도구는 자기 안에 원문 증거면 + 판단면(각자 스크롤)을 가진 두 면 레이아웃이다. 기존 장면의 문제지 · 강의 레일과 겹쳐 놓지 말고 **판단 장면 하나를 통째로** 차지하게 둔다.
-- 도구는 `scrollIntoView` · 전역 keydown · 숙달/기록 API · analytics 를 쓰지 않는다. 강의 진행이 도구 안 선택 · 스크롤을 바꾸는 경로를 만들지 않는다(owner 의 학습자 제어 계약과 같다).
+- 도구는 전역 keydown · 숙달/기록 API · analytics 를 쓰지 않는다. 스크롤 이동은 **학습자가 원문 위치 칩(「n번 문장 · 위/아래로 가기」)을 누를 때만** `EvidencePassage` 가 `scrollIntoView` 로 한다 — 강의 진행이나 판단 조작에 따른 자동 이동은 없다(`contract.test.ts` 가 이 한 곳만 허용한다). 강의 진행이 도구 안 선택 · 스크롤을 바꾸는 경로를 만들지 않는다(owner 의 학습자 제어 계약과 같다).
 
 ## 4. 유형별 연결 준비도 (2026-10-24 DB 실측)
 
