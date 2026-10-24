@@ -184,6 +184,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- content(dict·textbook): 뜻별 예문 한국어역 4,706건 적재(잔량 4,798 중 결함·부적절 예문 92 보류, 독립 표본 480 중 실패 1 반영) · 교재 V5(reading) 3인 검수 2회 456행(1회 80문항 3인 통과 31 · 2회 72문항 통과 36, 떨어진 문항은 loadVolume 이 재고로 교체) · V5 해설 35건. 결함 대부분은 원문 추출(소제목 결합 · 약어 마침표 분할 · 인용 잔재 · 없는 그림 참조). 2026-10-25 사용자 승인.
 - content(dict): 발행 단어장 대표 예문 한국어역 9,050건 적재(잔량 9,073 중 원문 예문 결함 23건 보류) · pending_words 반복 출현 후보 4,675 판정 적재(사전 +1,730 · 고유명사 +137 · 노이즈 +529 · 보류 1,888+361). 독립 표본 검수 실패 0·2건 반영. pending export 페이지 중복·누락 수정(lemma 동률 해소) · 예문 import 기존 번역 덮어쓰기 차단 · 실행별 --dir. 2026-10-24 사용자 승인.
 - fix(csat): 평가원(수능·모평) 원문 수리 경로 연결 — build-corpus 가 `scripts/csat/data/kice-source-repairs.json` 을 공식 문제지 해시 결속으로 입히고, source-repair 가 평가원 ID 를 받는다(한 계획 한 집합). corpus-sync 전체 `--commit` 은 DB 원문과 다른 문항이 있으면 쓰기 없이 멈춘다(2026-10-24 실측 재생성 원장 801 중 534 가 DB 와 다름, `--allow-source-overwrite` 로만 진행). 수리 기록 3건(2017#24 · 2018#24 · M2509#25 선지 ⑤ 끝 잔여물)은 같은 날 사용자 승인으로 개발 DB 에 적용한 값과 같다. T-0153 Codex APPROVE.
 - feat(csat): 기출 원문·근거·선지 결속 계층(대량작업 G, `lib/csat/binding`) — 공통 근거 앵커(span·unit·marker·value·condition·footnote, 판본 basis·precision) · 읽기 전용 어댑터(현재 원문 해시 단위 + 결속된 published 분석만) · 복수 정답·추출 결함·누락 각주·그림 전용 도표 값 검출 · 판본 무효화 · 학습자 PDF sha256 대조 탐색 · 유형별 준비도. 전수 감사 `apps/web/scripts/csat-binding-audit.mts`(DB 읽기 전용). DB·화면 변경 없음.
