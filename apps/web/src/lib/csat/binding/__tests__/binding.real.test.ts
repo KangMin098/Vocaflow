@@ -233,6 +233,17 @@ describe('T-0154 Codex 독립 검증 반례 회귀', () => {
     const passage = "It offers a bird's-eye* view of the city. It is open daily."
     expect(detectDefects({ typeId: 'R-NOTICE', passage, choices: ['a', 'b', 'c', 'd', "e * bird's-eye: 조감의"] }).map((d) => d.code)).not.toContain('footnote_mark_without_gloss')
   })
+  it.each([
+    [`It resets 'body clock'* daily.`],
+    [`It resets "body clock*" daily.`],
+    [`It resets “body clock”* daily.`],
+  ])('J1 — 따옴표 안 각주 %s: 정의가 있으면 짝, 없으면 누락으로 잡는다', async (passage) => {
+    const { detectDefects, marksOf } = await import('../extraction')
+    expect(marksOf(passage)).toHaveLength(1)
+    const choices = ['a', 'b', 'c', 'd']
+    expect(detectDefects({ typeId: 'R-NOTICE', passage, choices: [...choices, 'e * body clock: 생체 시계'] }).map((d) => d.code)).not.toContain('footnote_mark_without_gloss')
+    expect(detectDefects({ typeId: 'R-NOTICE', passage, choices: [...choices, 'e'] }).map((d) => d.code)).toContain('footnote_mark_without_gloss')
+  })
   it.each([[null], [[]]])('G1 — 복수 정답인데 결속 판 선지 분석이 %j 이면 차단한다', (empty) => {
     const r = structuredClone(row('H1811G1#27'))
     r.item.answers = [3, 5]

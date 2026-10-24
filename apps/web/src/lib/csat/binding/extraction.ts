@@ -11,7 +11,8 @@ import type { ExtractionDefect } from './types'
 /** 각주 정의 「* term: 뜻」 「** term: 뜻」 — 뜻은 한글로 시작한다 */
 const GLOSS = /(\*{1,3})\s*([A-Za-z][A-Za-z\- ’']{0,40}?)\s*[:：]\s*([가-힣][^*]*?)(?=\s*\*|\s+\d{1,2}\s*$|$)/g
 /** 본문 속 각주 표지 — 낱말 바로 뒤의 * (곱셈·빈칸 기호와 구분하려고 앞 글자가 영문·닫는 괄호여야 한다) */
-const MARK = /([A-Za-z)’'])(\*{1,3})(?=[\s,.;:)]|$)/g
+// 앞뒤의 닫는 따옴표도 허용한다 — 「'body clock'*」「"body clock*"」(T-0154 J1)
+const MARK = /([A-Za-z)’'"”])(\*{1,3})(?=[\s,.;:)’'"”]|$)/g
 /** 선지 끝의 쪽번호 — 각주 뒤나 문장부호 뒤의 1–2자리 숫자 */
 const PAGE_TAIL = /(?:[.!?’'”"」)]|[가-힣])\s+(\d{1,2})\s*$/
 
@@ -35,14 +36,18 @@ export function glossMatches(term: string, before: string): boolean {
   }
   // 정의 용어와 원문을 같은 함수로 낱말화한다 — 한쪽만 소유격을 떼면 bird's-eye 가 어긋난다(T-0154 I2)
   const words = (s: string) => {
-    const w = s.toLowerCase().replace(/’/g, "'").replace(/[()]/g, ' ').split(/[\s-]+/).filter((x) => /[a-z]/.test(x))
+    // 낱말을 감싸는 따옴표는 떼고 낱말 안 아포스트로피(bird's)는 둔다 — 「'body clock'*」(T-0154 J1)
+    const w = s.toLowerCase().replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[()]/g, ' ').split(/[\s-]+/)
+      .map((x) => x.replace(/^['"]+/, '').replace(/(?<!s)['"]+$/, '').replace(/"+$/, ''))
+      .filter((x) => /[a-z]/.test(x))
     if (w.length) w[w.length - 1] = w[w.length - 1].replace(/'s$/, '')
     return w
   }
   const t = words(term)
   // 구 용어는 표지 바로 앞 원문이 구 전체여야 짝이다 — 한 낱말만 같으면 아니다(after hours ↔ Hours* — T-0154 H1).
   // 문장부호에서 끊긴 구는 구가 아니다(「fee. Hours*」 ↔ fee hours — T-0154 I1)
-  const b = words(before.split(/[.!?;:,"“”\n]/).pop() ?? '')
+  // 따옴표는 문장 경계가 아니다(「“body clock”*」 — T-0154 J1). 따옴표는 words 가 뗀다
+  const b = words(before.split(/[.!?;:,\n]/).pop() ?? '')
   if (!t.length || b.length < t.length) return false
   const tail = b.slice(b.length - t.length)
   const last = t.length - 1
