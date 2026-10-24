@@ -357,3 +357,22 @@ describe('T-0158 9차 반례 — 동격은 선지 본문과 정확히 같을 때
     expect(run('정답은 ④, 역할과 관행을 세워 생산적 활동을 돕는다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 10차 반례 — 진입 조건 확대', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    [[5], '①은 답입니다.'],
+    [[5], '정답은 1입니다.'],
+    [[4, 5], '④만이 답입니다.'],
+  ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
+    expect(run(answers, text).blocked).toBe(true)
+  })
+  it('연도·소수의 숫자는 선지 번호가 아니다', () => {
+    expect(run([4], '2015년 값은 1.8배라 답을 구하기 쉽습니다.').findings).toEqual([])
+  })
+})

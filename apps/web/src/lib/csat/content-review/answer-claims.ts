@@ -14,7 +14,11 @@ const KO_NUM: Record<string, number> = { 일: 1, 이: 2, 삼: 3, 사: 4, 오: 5,
 
 /** 선지 하나: 「④」 또는 「사 번 · 4번」 — 원문자에는 「번」이 없어도 된다 */
 const C = '(?:[①-⑤]|[일이삼사오1-5]\\s*번)'
-const C_RE = /([①-⑤])|([일이삼사오1-5])\s*번/g
+/**
+ * 번호 **탐지**용 — 진술 꼴(C)에 없는 「번 없는 숫자」(「정답은 1입니다」)도 번호로 센다(T-0158 Codex 10차 P1).
+ * 소비되지 않으면 남은 번호 검사가 사람 확인으로 보낸다. 연도·소수·큰 수 안의 숫자(「2015」·「1.8」)는 제외.
+ */
+const C_RE = /([①-⑤])|([일이삼사오1-5])\s*번|(?<![\d.,])([1-5])(?![\d.]|\s*번)/g
 /** 선지 목록: 「④와 ⑤」 · 「사 번과 오 번」 · 「①, ③」 */
 const LIST = `${C}(?:\\s*(?:와|과|,|및)\\s*${C})*`
 const NOT = '아[니닙닌]'
@@ -43,7 +47,8 @@ const CLAIM_END = '(?=\\s*(?:입니다|이에요|예요|이다|이죠|죠|이고
 const ANSWER_TAIL = new RegExp(`(오직|단|딱)?\\s*(${LIST})\\s*(만이?|도|[이가은는])?\\s*(?:모두\\s*|둘\\s*다\\s*)?정답${CLAIM_END}`, 'g')
 /** 「④(와 ⑤)는 오답」 · 「오 번은 … 답이 아닙니다」 · 「⑤는 정답이 아닙니다」 */
 const REJECT = new RegExp(`(${LIST})\\s*(?:[은는이가도]|모두)?\\s*${GAP}(오답${CLAIM_END}|정?답이\\s*${NOT}(?:니다|에요|다|고|며))`, 'g')
-const TALKS_ANSWER = /정답|오답|답이\s*아[니닙닌]/
+/** 검사 진입 — 「답」이 들어간 문장은 모두(「①은 답입니다」·「④만이 답」도 — 10차 P1). 아는 꼴이 아니면 사람 확인 */
+const TALKS_ANSWER = /답/
 const ANY_NOT = new RegExp(NOT, 'g')
 /**
  * 소비되지 않은 부분에 남으면 문장 뜻을 뒤집을 수 있는 말 — 남아 있으면 부분 해석을 버린다.
@@ -90,7 +95,8 @@ interface Span { start: number; end: number }
 function refsIn(text: string, offset = 0): { n: number; at: number }[] {
   const out: { n: number; at: number }[] = []
   for (const m of text.matchAll(C_RE)) {
-    const n = KO_NUM[(m[1] ?? m[2])!] ?? Number(m[2])
+    const g = (m[1] ?? m[2] ?? m[3])!
+    const n = KO_NUM[g] ?? Number(g)
     if (n >= 1 && n <= 5) out.push({ n, at: offset + m.index! })
   }
   return out
