@@ -12,7 +12,7 @@ import {
 import { EvidencePassage } from './EvidencePassage'
 import { JudgmentShell, judgmentStyles as js } from './JudgmentShell'
 import { RefText } from './RefText'
-import { REVEAL_ERROR_TEXT, useReveal } from './useReveal'
+import { REVEAL_ERROR_TEXT, revealBinding, useReveal } from './useReveal'
 import s from './SummaryTool.module.css'
 
 const SLOTS: Slot[] = ['A', 'B']
@@ -46,7 +46,7 @@ const FLAG_TEXT: Record<Flag['kind'], { title: string; why: string; limit: strin
   },
 }
 
-export function SummaryTool({ item, reveal }: JudgmentToolProps) {
+function SummaryToolBody({ item, reveal }: JudgmentToolProps) {
   const src = useMemo(() => summarySource(item.units), [item.units])
   const cands = useMemo(() => candidatesOf(item.choices), [item.choices])
   const parsedOk = useMemo(() => parseChoices(item.choices) !== null, [item.choices])
@@ -183,7 +183,7 @@ export function SummaryTool({ item, reveal }: JudgmentToolProps) {
       <section className={js.section} aria-label="해설">
         <h3>해설</h3>
         {rv.status !== 'shown' && (
-          <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={() => void request()} disabled={rv.status === 'loading'}>
+          <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={() => void request()} aria-disabled={rv.status === 'loading'}>
             {rv.status === 'error' ? '해설 다시 불러오기' : '해설 보기'}
           </button>
         )}
@@ -232,7 +232,7 @@ function RevealView({ data, item, st, focus, onPoint }: { data: RevealData; item
   const nOf = (id: string) => item.units.find((u) => u.id === id)?.n
   const one = (id: string) => onPoint([id])
   return (
-    <div data-reveal-body>
+    <div data-reveal-body data-revealed>
       <p className={s.answer}>정답 {CIRCLED[data.answer - 1]} {item.choices[data.answer - 1]}</p>
       <table className={s.cmp}>
         <thead><tr><th scope="col">칸</th><th scope="col">내 선택</th><th scope="col">해설</th><th scope="col">대조</th></tr></thead>
@@ -270,4 +270,9 @@ function RevealView({ data, item, st, focus, onPoint }: { data: RevealData; item
       </ul>
     </div>
   )
+}
+
+/** 문항(id · 판본)이 바뀌면 학습자 조작 상태까지 새로 시작한다 — 이전 문항의 선택 · 공개 상태가 새 원문에 이월되지 않는다 */
+export function SummaryTool(props: JudgmentToolProps) {
+  return <SummaryToolBody key={revealBinding(props.item)} {...props} />
 }

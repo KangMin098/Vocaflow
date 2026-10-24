@@ -25,7 +25,7 @@ for (const slug of slugs) {
   const bundle = fs.readFileSync(js, 'utf8')
   const cssFile = js.replace(/\.js$/, '.css')
   const css = fs.existsSync(cssFile) ? fs.readFileSync(cssFile, 'utf8') : ''
-  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${tokens}</style><style>${css}</style><style>*{box-sizing:border-box}body{margin:0;font-family:system-ui,'Malgun Gothic',sans-serif;background:var(--bg)}button{font:inherit}</style></head><body><div id="root"></div><script type="module">${bundle.replace(/<\/script/g, '<\\/script')}</script></body></html>`
+  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>판단 도구 격리 화면</title><style>${tokens}</style><style>${css}</style><style>*{box-sizing:border-box}body{margin:0;font-family:system-ui,'Malgun Gothic',sans-serif;background:var(--bg)}button{font:inherit}</style></head><body><div id="root"></div><script type="module">${bundle.replace(/<\/script/g, '<\\/script')}</script></body></html>`
   const { check } = await import(pathToFileURL(path.join(here, 'cases', `${slug}.check.mjs`)).href)
   const results = []
   for (const width of [1280, 1440]) {
@@ -37,8 +37,20 @@ for (const slug of slugs) {
     const t = {
       width,
       check: (name, pass, detail) => results.push({ width, name, pass: Boolean(pass), detail }),
+      // 원문 문장은 여러 줄 인라인이라 요소 사각형 가운데가 문장 사이 공백일 수 있다 — 실제 글줄 조각(가장 넓은 것)의 가운데를 누른다
+      clickUnit: async (id) => {
+        const p = await page.evaluate((u) => {
+          const el = document.querySelector(`[data-unit="${u}"]`)
+          if (!el) return null
+          el.scrollIntoView({ block: 'center' })
+          const r = [...el.getClientRects()].sort((a, b) => b.width - a.width)[0]
+          return r ? { x: r.left + r.width / 2, y: r.top + r.height / 2 } : null
+        }, id)
+        if (!p) throw new Error(`원문 단위 없음: ${id}`)
+        await page.mouse.click(p.x, p.y)
+      },
       shot: (label) => page.screenshot({ path: path.join(here, 'out', `${slug}-${width}${label ? '-' + label : ''}.png`) }),
-      open: async (query = '') => { await page.goto(`http://harness.local/${query}`); await page.waitForSelector('[data-judgment-shell], [data-judgment-empty]') },
+      open: async (query = '') => { await page.goto(`http://harness.local/${query}`); await page.waitForSelector('[data-judgment-shell], [data-judgment-empty], [data-swap-root]') },
     }
     try {
       await check(page, t)

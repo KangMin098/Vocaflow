@@ -51,7 +51,17 @@ export type RevealState =
   | { status: 'hidden' }
   | { status: 'loading' }
   | { status: 'shown'; data: RevealData }
-  | { status: 'error'; reason: 'fetch' | 'version' | 'shape' }
+  | { status: 'error'; reason: RevealFailure }
+
+/** 공개 실패 이유 — auth: 로그인 필요(401) · held: 시험 공개 보류(423) · version: 판본 불일치(409 또는 판본 다른 자료) */
+export type RevealFailure = 'fetch' | 'version' | 'shape' | 'auth' | 'held'
+
+/** provider 가 이유를 알 때 던진다 — useReveal 이 그대로 상태로 옮긴다 */
+export class RevealError extends Error {
+  constructor(readonly reason: RevealFailure) {
+    super(`reveal failed: ${reason}`)
+  }
+}
 
 /** 판단 도구 공통 props */
 export type JudgmentToolProps = {

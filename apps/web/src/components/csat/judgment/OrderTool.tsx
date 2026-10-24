@@ -13,7 +13,7 @@ import type { JudgmentToolProps } from '@/lib/csat/judgment/types'
 import { EvidencePassage } from './EvidencePassage'
 import { JudgmentShell, judgmentStyles as js } from './JudgmentShell'
 import { RefText } from './RefText'
-import { REVEAL_ERROR_TEXT, useReveal } from './useReveal'
+import { REVEAL_ERROR_TEXT, revealBinding, useReveal } from './useReveal'
 import s from './OrderTool.module.css'
 
 const STATUS_TEXT: Record<LinkStatus, { sym: string; text: string }> = {
@@ -24,7 +24,7 @@ const STATUS_TEXT: Record<LinkStatus, { sym: string; text: string }> = {
 
 const clip = (t: string, n = 70) => (t.length > n ? `${t.slice(0, n).trimEnd()}…` : t)
 
-export function OrderTool({ item, reveal }: JudgmentToolProps) {
+function OrderToolBody({ item, reveal }: JudgmentToolProps) {
   const model = useMemo(() => parseOrder(item.units), [item.units])
   const cues = useMemo(() => (model ? cueCandidates(item, model) : []), [item, model])
   const [arr, setArr] = useState<Arrangement>(['A', 'B', 'C'])
@@ -72,6 +72,7 @@ export function OrderTool({ item, reveal }: JudgmentToolProps) {
     if (!active) { setFocus([unitId]); setSay(`${unitN(unitId)}번 문장을 가리킴. 연결하려면 먼저 단서를 고른다`); return }
     const l = makeLink(active, unitId, model)
     if ('error' in l) { setSay(l.error); return }
+    if ('inside' in l) { setSay(l.message); setActive(null); return }
     setLinks((ls) => [...ls.filter((x) => x.cueId !== l.cueId), l])
     setActive(null)
     setFocus([unitId])
@@ -201,8 +202,8 @@ export function OrderTool({ item, reveal }: JudgmentToolProps) {
       <section aria-labelledby="ord-lim" className={js.section}>
         <h3 id="ord-lim">성립 · 실패 조건 · 한계</h3>
         <ul className={s.conds}>
-          <li><b>성립</b> 지시어·시간·예시·대비 단서는 앞 내용을 전제하므로, 전제 대상이 바로 앞 단락 끝에 있으면 이음매가 닫힌다.</li>
-          <li><b>실패 조건</b> 같은 낱말 반복만으로 잇기 · 정관사 하나로 단정하기 — 방향을 정하지 않는다.</li>
+          <li><b>성립</b> 지시어·시간·예시·대비 단서가 앞 내용을 전제하고, 그 전제 대상이 바로 앞 단락 끝에 있으며 <em>의미가 실제로 맞을 때</em>(가리키는 대상·시점·주장이 일치) 이음매가 닫힌다. 표지가 있다는 것만으로는 닫히지 않는다.</li>
+          <li><b>실패 조건</b> 같은 낱말 반복만으로 잇기 · 정관사 하나로 단정하기 · 같은 문장 안에서 이미 해소되는 대명사를 앞 단락에 억지로 잇기 — 방향을 정하지 않는다.</li>
           <li><b>한계</b> 단서가 양방향으로 읽히면(두 단락이 서로를 전제하는 듯하면) 이 원리만으로 순서가 정해지지 않는다.</li>
         </ul>
         {warns.length > 0 && (
@@ -214,8 +215,9 @@ export function OrderTool({ item, reveal }: JudgmentToolProps) {
 
       <section aria-labelledby="ord-rev" className={js.section}>
         <h3 id="ord-rev">해설</h3>
-        {state.status === 'hidden' && <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={request}>해설 보기</button>}
-        {state.status === 'loading' && <p className={js.status}>해설을 불러오는 중…</p>}
+        {/* 로딩 중에도 자리를 지킨다 — 지우면 판단면 높이가 줄어 학습자 스크롤이 끌려 올라간다 */}
+        {(state.status === 'hidden' || state.status === 'loading') && <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={request} aria-disabled={state.status === 'loading'}>해설 보기</button>}
+        {state.status === 'loading' && <p className={js.status} data-reveal-loading>해설을 불러오는 중…</p>}
         {state.status === 'error' && (
           <div>
             <p className={js.error} role="alert" data-reveal-error>{REVEAL_ERROR_TEXT[state.reason]}</p>
@@ -280,4 +282,9 @@ export function OrderTool({ item, reveal }: JudgmentToolProps) {
       judgment={judgment}
     />
   )
+}
+
+/** 문항(id · 판본)이 바뀌면 학습자 조작 상태까지 새로 시작한다 — 이전 문항의 선택 · 공개 상태가 새 원문에 이월되지 않는다 */
+export function OrderTool(props: JudgmentToolProps) {
+  return <OrderToolBody key={revealBinding(props.item)} {...props} />
 }

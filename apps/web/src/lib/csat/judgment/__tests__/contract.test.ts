@@ -31,7 +31,11 @@ describe('공개 전 문항 자료', () => {
       for (const it of itemsOf(type)) {
         const r = await revealOf(type, it.id)
         expect(checkReveal(it, r).ok).toBe(true)
-        const texts = r.choices.flatMap((c) => (c.verdict === 'correct' ? [c.why_correct] : [c.why_tempting ?? '', c.how_to_reject ?? '']))
+        // 공개 자료 전체(선지 · designIntent · answerLocus · confirmed_at)의 모든 문자열을 본다(T-0151 P2-03)
+        const texts: string[] = []
+        const walk = (v: unknown): void => { if (typeof v === 'string') texts.push(v); else if (v && typeof v === 'object') Object.values(v).forEach(walk) }
+        walk(r)
+        expect(texts.some((t) => /\[u\d+\]/.test(t))).toBe(true)
         const dead = texts.flatMap((t) => splitRefs(t, it.units)).filter((p) => p.kind === 'ref' && !p.known)
         expect(dead).toEqual([])
       }
@@ -42,6 +46,9 @@ describe('공개 전 문항 자료', () => {
 describe('판단 컴포넌트 소스', () => {
   it('공개 자료 파일(*.reveal.json)을 정적 import 하지 않는다', () => {
     for (const { f, text } of sources()) expect(text, f).not.toMatch(/reveal\.json/)
+  })
+  it('서버 전용 로더(judgment/server)를 클라이언트 컴포넌트가 import 하지 않는다', () => {
+    for (const { f, text } of sources()) expect(text, f).not.toMatch(/judgment\/server['"]/)
   })
   it('숙달·진도·학습기록 API 를 부르지 않는다(탐색·클릭을 숙달로 세지 않음)', () => {
     for (const { f, text } of sources()) {

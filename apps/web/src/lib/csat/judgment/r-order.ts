@@ -39,7 +39,7 @@ export function parseChoiceOrder(s: string): Movable[] | null {
   return ks.length === 3 && new Set(ks).size === 3 ? ks : null
 }
 
-export type CueKind = 'example' | 'time' | 'contrast' | 'demonstrative' | 'pronoun' | 'definite' | 'repeat'
+export type CueKind = 'example' | 'time' | 'contrast' | 'demonstrative' | 'pronoun' | 'pronounInner' | 'definite' | 'repeat'
 export type Cue = { id: string; para: Movable; unitId: string; text: string; kind: CueKind }
 
 /** 단서 종류별 — 무엇을 전제하는가 · 약한 단서인가 */
@@ -48,7 +48,8 @@ export const CUE_INFO: Record<CueKind, { name: string; presupposes: string; weak
   time: { name: '시간 표지', presupposes: '앞에 기준이 되는 이전 시점이 있다', weak: false },
   contrast: { name: '대비 표지', presupposes: '앞에 반대 방향의 서술이 있다', weak: false },
   demonstrative: { name: '지시어', presupposes: '앞에 가리킬 구체적 대상·현상이 서술돼 있다', weak: false },
-  pronoun: { name: '대명사', presupposes: '앞에 수·성이 맞는 선행 명사가 있다', weak: false },
+  pronoun: { name: '문두 대명사', presupposes: '단락 첫머리 대명사라 선행 명사가 앞 단락에 있을 가능성이 크다', weak: false },
+  pronounInner: { name: '문장 안 대명사', presupposes: '같은 문장 앞쪽에 선행사가 있으면 단락 순서와 무관하다 — 먼저 같은 문장 안에서 찾는다', weak: true },
   definite: { name: '정관사', presupposes: '앞에 이 명사가 이미 소개됐을 수 있다(일반 지식으로도 쓰인다)', weak: true },
   repeat: { name: '같은 낱말', presupposes: '다른 단락에도 같은 낱말이 있다 — 방향을 정하지 않는다', weak: true },
 }
@@ -84,7 +85,14 @@ export function cueCandidates(item: JudgmentItem, model: OrderModel): Cue[] {
       taken.push([at, at + s.length, kind])
       out.push({ id: `${k}-${out.length}`, para: k, unitId: head.id, text: s, kind })
     }
-    for (const { kind, re } of PATTERNS) for (const m of text.matchAll(re)) if (!(kind === 'definite' && cap('definite', 2))) push(kind, m.index ?? 0, m[0])
+    for (const { kind, re } of PATTERNS) {
+      for (const m of text.matchAll(re)) {
+        if (kind === 'definite' && cap('definite', 2)) continue
+        // 문장 중간 대명사는 대개 같은 문장의 앞 명사를 받는다(T-0151 P1-02) — 단락 간 강한 단서로 올리지 않는다
+        const at = m.index ?? 0
+        push(kind === 'pronoun' && at > 0 ? 'pronounInner' : kind, at, m[0])
+      }
+    }
     // 같은 낱말 반복 — 다른 단락에도 같은 어간이 있는 내용어
     const elsewhere = new Set(item.units.filter((u) => model.unitPara[u.id] !== k).flatMap((u) => words(u.text).map(stem)))
     const seenRep = new Set<string>()
@@ -101,10 +109,13 @@ export function cueCandidates(item: JudgmentItem, model: OrderModel): Cue[] {
 /** 학습자가 만든 연결: 단서 → 그 단서가 전제하는 원문 단위 */
 export type Link = { cueId: string; para: Movable; cueText: string; kind: CueKind; antecedent: string; antecedentPara: ParaKey }
 
-export function makeLink(cue: Cue, antecedentUnit: string, model: OrderModel): Link | { error: string } {
+/** 같은 단락 안에서 전제 대상이 해소됨 — 올바른 읽기일 수 있지만 단락 순서의 근거는 아니다 */
+export type InsideLink = { inside: true; cueId: string; antecedent: string; message: string }
+
+export function makeLink(cue: Cue, antecedentUnit: string, model: OrderModel): Link | InsideLink | { error: string } {
   const p = model.unitPara[antecedentUnit]
   if (!p) return { error: '원문에 없는 단위다.' }
-  if (p === cue.para) return { error: '같은 단락 안의 문장은 단락 순서를 정하지 못한다. 다른 단락에서 고른다.' }
+  if (p === cue.para) return { inside: true, cueId: cue.id, antecedent: antecedentUnit, message: `'${cue.text}' 는 같은 단락 안에서 해소된다 — 맞는 읽기일 수 있지만 단락 순서를 정하는 근거는 아니다.` }
   return { cueId: cue.id, para: cue.para, cueText: cue.text, kind: cue.kind, antecedent: antecedentUnit, antecedentPara: p }
 }
 

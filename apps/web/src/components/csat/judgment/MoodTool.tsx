@@ -26,7 +26,7 @@ import {
 import { EvidencePassage } from './EvidencePassage'
 import { JudgmentShell, judgmentStyles as s } from './JudgmentShell'
 import { RefText } from './RefText'
-import { REVEAL_ERROR_TEXT, useReveal } from './useReveal'
+import { REVEAL_ERROR_TEXT, revealBinding, useReveal } from './useReveal'
 import m from './MoodTool.module.css'
 
 const SIDE_LABEL: Record<Side, string> = { before: '앞 칸', after: '뒤 칸' }
@@ -51,7 +51,7 @@ function warningText(w: Warning, nOf: (id: string) => number | undefined): strin
   }
 }
 
-export function MoodTool({ item, reveal }: JudgmentToolProps) {
+function MoodToolBody({ item, reveal }: JudgmentToolProps) {
   const [state, setState] = useState<MoodState>(initialMood)
   const [active, setActive] = useState<string | null>(null)
   const [drafts, setDrafts] = useState<Record<string, Partial<{ kind: SignalKind; polarity: Polarity; strength: Strength }>>>({})
@@ -219,8 +219,9 @@ export function MoodTool({ item, reveal }: JudgmentToolProps) {
 
       <div className={s.section}>
         <h3>해설</h3>
-        {rv.status === 'hidden' && <button type="button" className={`${s.button} ${s.primary}`} onClick={request} data-act="reveal">해설 보기</button>}
-        {rv.status === 'loading' && <p className={s.status} aria-live="polite">해설을 불러오는 중…</p>}
+        {/* 로딩 중에도 자리를 지킨다 — 지우면 판단면 높이가 줄어 학습자 스크롤이 끌려 올라간다 */}
+        {(rv.status === 'hidden' || rv.status === 'loading') && <button type="button" className={`${s.button} ${s.primary}`} onClick={request} data-act="reveal" aria-disabled={rv.status === 'loading'}>해설 보기</button>}
+        {rv.status === 'loading' && <p className={s.status} aria-live="polite" data-reveal-loading>해설을 불러오는 중…</p>}
         {rv.status === 'error' && (
           <div aria-live="polite">
             <p className={s.error} data-reveal-error={rv.reason}>{REVEAL_ERROR_TEXT[rv.reason]}</p>
@@ -279,4 +280,9 @@ export function MoodTool({ item, reveal }: JudgmentToolProps) {
       judgment={judgment}
     />
   )
+}
+
+/** 문항(id · 판본)이 바뀌면 학습자 조작 상태까지 새로 시작한다 — 이전 문항의 선택 · 공개 상태가 새 원문에 이월되지 않는다 */
+export function MoodTool(props: JudgmentToolProps) {
+  return <MoodToolBody key={revealBinding(props.item)} {...props} />
 }

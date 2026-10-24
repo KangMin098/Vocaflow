@@ -27,7 +27,7 @@ import type { JudgmentToolProps } from '@/lib/csat/judgment/types'
 import { EvidencePassage } from './EvidencePassage'
 import { JudgmentShell, judgmentStyles as js } from './JudgmentShell'
 import { RefText } from './RefText'
-import { REVEAL_ERROR_TEXT, useReveal } from './useReveal'
+import { REVEAL_ERROR_TEXT, revealBinding, useReveal } from './useReveal'
 import s from './InfoMatchTool.module.css'
 
 const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧']
@@ -41,7 +41,7 @@ export function InfoMatchEmpty() {
   )
 }
 
-export function InfoMatchTool({ item, reveal }: JudgmentToolProps) {
+function InfoMatchToolBody({ item, reveal }: JudgmentToolProps) {
   const [state, setState] = useState(() => initialState(item))
   const [choice, setChoice] = useState(1)
   const [active, setActive] = useState<string | null>(null)
@@ -192,13 +192,14 @@ export function InfoMatchTool({ item, reveal }: JudgmentToolProps) {
 
       <section className={js.section} aria-label="해설">
         <h3>해설</h3>
-        {rv.status === 'hidden' && (
+        {(rv.status === 'hidden' || rv.status === 'loading') && (
           <>
             <p className={js.note}>먼저 풀지 않아도 해설을 볼 수 있다. 본 뒤에는 해설 근거와 내 연결을 나란히 비교한다.</p>
-            <button type="button" className={`${js.button} ${js.primary}`} data-action="reveal" onClick={request}>해설 보기</button>
+            {/* 로딩 중에도 자리를 지킨다 — 지우면 판단면 높이가 줄어 학습자 스크롤이 끌려 올라간다 */}
+            <button type="button" className={`${js.button} ${js.primary}`} data-action="reveal" onClick={request} aria-disabled={rv.status === 'loading'}>해설 보기</button>
           </>
         )}
-        {rv.status === 'loading' && <p className={js.status} aria-live="polite">해설을 불러오는 중</p>}
+        {rv.status === 'loading' && <p className={js.status} aria-live="polite" data-reveal-loading>해설을 불러오는 중</p>}
         {rv.status === 'error' && (
           <div aria-live="polite">
             <p className={js.error} data-reveal-error={rv.reason}>{REVEAL_ERROR_TEXT[rv.reason]}</p>
@@ -248,4 +249,9 @@ function RefLink({ id, n, active, onRef }: { id: string; n?: number; active: str
       {n ? `${n}번 문장` : id}
     </button>
   )
+}
+
+/** 문항(id · 판본)이 바뀌면 학습자 조작 상태까지 새로 시작한다 — 이전 문항의 선택 · 공개 상태가 새 원문에 이월되지 않는다 */
+export function InfoMatchTool(props: JudgmentToolProps) {
+  return <InfoMatchToolBody key={revealBinding(props.item)} {...props} />
 }
