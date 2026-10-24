@@ -49,7 +49,7 @@ function withScope(text: string, meanings: ProtoMeaning[]) {
     out.push(
       <mark key={m.id} className={m.scope === 'negation' ? 'bg-[#fde9c8] font-semibold underline decoration-2' : 'bg-[#dbeafe] underline decoration-dotted decoration-2'}>
         {m.expression}
-        <span className="ml-1 align-super text-[11px] font-medium no-underline">[{SCOPE_LABEL[m.scope]}]</span>
+        <span data-scope-label className="ml-1 inline-block whitespace-nowrap align-super text-[11px] font-medium no-underline">[{SCOPE_LABEL[m.scope]}]</span>
       </mark>,
     )
     cursor = at + m.expression.length

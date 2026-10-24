@@ -50,6 +50,8 @@ async function audit(page: Page) {
       .map((el) => `${el.textContent!.trim().slice(0, 16)}(${getComputedStyle(el).fontSize})`)
     const koNoKeep = [...root.querySelectorAll('p, li, td, th, span')].filter((el) => shown(el) && /[가-힣]{6,}/.test(el.textContent ?? '') && getComputedStyle(el).wordBreak !== 'keep-all')
       .map((el) => el.textContent!.trim().slice(0, 16))
+    // 범위 표지([조건·한정]·[부정 범위])는 한 덩어리로 읽혀야 한다 — 줄 끝에서 쪼개지면 표지가 깨진다
+    const splitLabels = [...root.querySelectorAll('mark > span')].filter((el) => el.getClientRects().length > 1).map((el) => el.textContent)
     const s1 = document.getElementById('f08-s1')!
     const ps = getComputedStyle(s1)
     const passage = s1.parentElement!
@@ -58,7 +60,7 @@ async function audit(page: Page) {
     const page = getComputedStyle(document.body)
     const canvasEl = document.querySelector('[data-f08-canvas]') ?? document.body
     return {
-      textNodes, lowContrast, smallButtons: small, tinyText, koNoKeep,
+      textNodes, lowContrast, splitLabels, smallButtons: small, tinyText, koNoKeep,
       passage: { fontPx: parseFloat(ps.fontSize), lineHeight: +(parseFloat(ps.lineHeight) / parseFloat(ps.fontSize)).toFixed(2), approxCharsPerLine: cpl, color: ps.color },
       fontFamily: body.fontFamily, pageColor: page.color,
       canvas: getComputedStyle(canvasEl).backgroundColor,
@@ -96,6 +98,15 @@ for (const cand of ['a', 'b', 'c'] as const) {
     // ── 판정 기준 ──
     expect.soft(a.lowContrast, 'D7 글자 대비 AA').toEqual([])
     expect.soft(a.smallButtons, 'D5 조작 44px').toEqual([])
+    expect.soft(a.splitLabels, 'D3 범위 표지 한 줄').toEqual([])
+    // A·C 는 빈칸에 선지를 넣으면 7번 문장 줄바꿈이 바뀐다 — 다섯 선지 모두에서 표지가 한 줄인지 본다
+    if (cand !== 'b') {
+      for (const n of [1, 2, 3, 4, 5]) {
+        await page.getByRole('button', { name: `${n}번`, exact: true }).click()
+        const split = await page.evaluate(() => [...document.querySelectorAll('#f08-s7 mark > span')].filter((el) => el.getClientRects().length > 1).map((el) => el.textContent))
+        expect.soft(split, `D3 범위 표지 한 줄 — 빈칸에 ${n}번`).toEqual([])
+      }
+    }
     expect.soft(a.tinyText, 'D3·D7 11px 미만 글자').toEqual([])
     expect.soft(a.koNoKeep, 'I7 한글 break-keep').toEqual([])
     expect.soft(a.passage.fontPx, 'D1 원문 글자').toBeGreaterThanOrEqual(17)
