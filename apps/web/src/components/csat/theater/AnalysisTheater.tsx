@@ -1533,7 +1533,8 @@ export function AnalysisTheater({
                       ) : null}
                     </section>
                   ) : null}
-                  {scene === 'task' && v3 ? <V3Task v3={v3} /> : null}
+                  {/* T-0145 판단 도구(2026-34 · Interactive34) — 정답 공개(판단 라우트 · 노출 원장 기록 뒤 revealed)일 때만 answerRevealed. 공개 전에는 도구가 안내만 그리고, v3 본문은 첫 응답에 없다(answer-split) */}
+                  {scene === 'task' && v3 ? <V3Task v3={v3} answerRevealed={Boolean(revealed)} /> : null}
                   {scene === 'meaning' && ms ? (
                     <MeaningSupportPanel
                       view={ms}
@@ -1559,15 +1560,15 @@ export function AnalysisTheater({
                       onSpeaking={setMsSpeak}
                     />
                   ) : null}
-                  {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
+                  {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} answerRevealed={Boolean(revealed)} /> : null}
                   {scene === 'judgment' && v3 && withheld ? withheldPanel('judgment', '정답 판단') : null}
-                  {scene === 'judgment' && v3 && !withheld ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {scene === 'judgment' && v3 && !withheld ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} sourceUnitsHash={v3.units_hash} /> : null}
                   {scene === 'design' ? (
                     <p className={styles.quiet} data-testid="design-epistemic">
                       아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
                     </p>
                   ) : null}
-                  {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} /> : null}
                   {relation && !showRelation && !evidenceCollapsed ? (
                     <p className={styles.quiet} data-testid="relation-hint">
                       이 장면의 설계 도식은 왼쪽 근거 판의 「관계」 보기에 있어요.
