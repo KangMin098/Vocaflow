@@ -39,3 +39,10 @@ AI 검수 행은 발행 게이트(`csat_guard_published`: 페르소나 3 pass)�
 
 - T-0154(원문·근거·선지 결속 계층)는 2014A#29 를 `footnote_missing` 실례로 쓴다. 테스트는 고정 fixture(`binding/__tests__/fixtures/real-items.json`)라 단계 1 뒤에도 깨지지 않는다. 실데이터 감사(`csat-binding-audit.mts`)에서는 단계 1 뒤 이 결함이 사라지는 것이 기대 결과다 — 단계 1 검증에 이 감사 1 문항 실행을 넣는다.
 - 콘텐츠 브랜치 `content/2014a29-footnote`(b449561b3)는 0430c9ece 기준이다. 단계 5 병합 전에 최신 main 을 합쳐 재검증한다.
+
+## 적용 기록 (2026-10-25 · 사용자 승인 「승인」 — 단계 1 만)
+
+- stage1.sql sha256 `12c2915e…8764` 재확인 → 적용. 지문 md5 354dba3d… → `6b4dd8818f63a6c9086b06dd8833027a`(각주 문장 포함).
+- v6 draft 1행: choice_analysis `6d6966e6…` · design_intent `26bda96c…` · solve_procedure `6a6e9fb5…` = BINDING 예정값. 검수 행 0 · 최신 published = v5(학습자 화면 불변).
+- 원장 수리 기록(passage) 로컬 main ff0a5da48 에 병합 · 재생성 원장 지문 = DB.
+- 미실행: 단계 2(사람 내용 승인 · digest 재생성 대기) · stage1-recovery.sql(초안 삭제 — 별도 삭제 승인 필요).

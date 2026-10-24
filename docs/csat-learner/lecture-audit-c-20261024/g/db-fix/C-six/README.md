@@ -42,3 +42,9 @@
 - **탐구 문구 1곳 낡음(정정 뒤):** `inquiry-data.json` M1809#35 「7번 문장 끝의 주석 잔여(hallmark · steepability)는 판단에 영향이 없어 무시했다」 — DB 꼬리를 전제한 메모. 판정에는 영향 없음. 적용 뒤 콘텐츠 정정 후보로 둔다(이번 범위에서 고치지 않음).
 - **원장 수리 기록:** `recipe-C-six.json` 6건 중 2025#30 은 로컬 main 수리 목록(94e227dd0)에 **passage** 수리가 이미 있다. C-six 는 **choices** 라 필드가 달라 `mergeSourceRepair` 로 병합한다(새 항목 추가 금지 — 같은 문항 두 항목이 된다).
 - **롤백 조건:** forward 는 바뀐 행이 6 이 아니면 전체 예외 · 무변경. recovery 는 정정 후 md5 와 같을 때만, 6 이 아니면 전체 예외.
+
+## 적용 기록 (2026-10-25 · 사용자 승인 「승인」)
+
+- forward.sql sha256 `d79e119c…aa58` 재확인 → 적용 전 6/6 before → 적용 → 6/6 after md5 · passage md5 불변.
+- 수리 기록 병합: 로컬 main ff0a5da48(커밋 1f466e8eb) — 5 추가 · 2025#30 필드 병합. 재생성 원장 선지 6/6 = DB.
+- recovery.sql 은 실행하지 않음(필요 시 그대로 사용 가능).
