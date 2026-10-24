@@ -103,3 +103,10 @@ test('인용 안 된 칸 중간 따옴표(8"") · 닫는 따옴표 뒤 글자는
   const t2 = csv(passing).replace('W01,8,4,', 'W01,"8"x,4,')
   assert.match(readSheet(t2).problems.join(), /닫는 따옴표 뒤/)
 })
+
+test('공백 한 칸 점수는 0점이 아니라 미입력(INCOMPLETE)', () => {
+  const t = csv((b, i) => (i < 14 ? { A: 8, B: ' ', w2: '예' } : { A: 8, B: 8, w2: '아니오' }))
+  const s = readSheet(t)
+  assert.match(s.problems.join(), /점수 누락/)
+  assert.equal(aggregate([s], key).verdict, 'INCOMPLETE')
+})

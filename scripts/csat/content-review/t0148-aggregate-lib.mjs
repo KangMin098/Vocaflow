@@ -67,8 +67,9 @@ export function readSheet(text, label = 'csv') {
     if (r.length === 1 && r[0] === '') continue
     if (r.length !== CSV_COLUMNS.length) { problems.push(`${label}: 열 수 ${r.length} 행`); continue }
     const o = Object.fromEntries(CSV_COLUMNS.map((c, i) => [c, r[i]]))
-    const A = o.score_A === '' ? null : Number(o.score_A)
-    const B = o.score_B === '' ? null : Number(o.score_B)
+    // 공백만 있는 칸도 미입력이다 — Number(' ') 은 0 이라 그대로 두면 빈 점수가 0점으로 집계된다(T-0158 Codex 3차 P1)
+    const A = o.score_A.trim() === '' ? null : Number(o.score_A)
+    const B = o.score_B.trim() === '' ? null : Number(o.score_B)
     const okScore = (v) => Number.isInteger(v) && v >= 0 && v <= 10
     const ynu = (v) => v === '예' || v === '아니오' || v === '모름'
     if (!okScore(A) || !okScore(B)) problems.push(`${label} ${o.blind}: 점수 누락·범위 밖`)

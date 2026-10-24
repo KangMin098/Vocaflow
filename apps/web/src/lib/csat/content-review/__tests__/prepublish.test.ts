@@ -172,3 +172,19 @@ describe('T-0158 2차 반례', () => {
     expect(run([4, 5], '④가 정답이고 ⑤는 오답입니다.').blocked).toBe(true)
   })
 })
+
+describe('T-0158 3차 반례', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it('P1 「④만 정답입니다」 — 복수정답 {4,5} 축소', () => {
+    expect(run([4, 5], '④만 정답입니다.').findings.map((f) => f.code)).toContain('CUE_PARTIAL_ANSWER')
+    expect(run([4, 5], '사 번만이 정답이에요.').blocked).toBe(true)
+  })
+  it('단일 정답 {4} 에서 「④만 정답」은 통과', () => {
+    expect(run([4], '④만 정답입니다.').findings).toEqual([])
+  })
+})
