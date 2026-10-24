@@ -18,7 +18,7 @@ export default function F08Index() {
   return (
     <main className="mx-auto max-w-3xl space-y-6 break-keep">
       <h1 className="text-2xl font-semibold">F08 화면 후보 비교 — 2026 수능 34번</h1>
-      <p className="text-sm text-[#3d3a35]">내부 비교용 프로토타입이다. 최종 배치는 정하지 않았다. 실제 학습 효과: NOT_EVALUATED.</p>
+      <p className="text-sm text-[var(--csat-ink2)]">내부 비교용 프로토타입이다. 최종 배치는 정하지 않았다. 실제 학습 효과: NOT_EVALUATED.</p>
       <section aria-labelledby="task">
         <h2 id="task" className="mb-2 font-semibold">세 후보에 같은 과제</h2>
         <ol className="list-decimal space-y-1 pl-5 text-sm">{TASK.map((t) => <li key={t}>{t}</li>)}</ol>
@@ -26,10 +26,10 @@ export default function F08Index() {
       <ul className="grid grid-cols-3 gap-3">
         {CANDIDATES.map((c) => (
           <li key={c.id}>
-            <Link href={`/dev/f08/${c.id}`} className="block min-h-[44px] rounded-md border border-[#c9c4bb] bg-white p-4 hover:bg-[#f4f1ec] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1d4ed8]">
+            <Link href={`/dev/f08/${c.id}`} className="block min-h-[44px] rounded-md border border-[var(--csat-edge)] bg-white p-4 hover:bg-[var(--csat-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--csat-accent)]">
               <span className="block font-semibold">후보 {c.id.toUpperCase()}</span>
               <span className="block text-sm">{c.name}</span>
-              <span className="mt-1 block text-xs text-[#6b655c]">{c.idea}</span>
+              <span className="mt-1 block text-xs text-[var(--csat-muted)]">{c.idea}</span>
             </Link>
           </li>
         ))}

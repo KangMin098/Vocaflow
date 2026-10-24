@@ -32,7 +32,7 @@ export function CandidateB({ item, proto, fault }: { item: ProtoItem; proto: Ret
           부정·조건 범위 표시
         </button>
         {state.linking && state.activeChoice && (
-          <p role="status" className="mb-2 rounded bg-[#efe9df] p-2 text-xs break-keep">{state.activeChoice}번 선지 근거로 묶을 문장을 고른다. 다시 누르면 풀린다.</p>
+          <p role="status" className="mb-2 rounded bg-[var(--csat-soft)] p-2 text-xs break-keep">{state.activeChoice}번 선지 근거로 묶을 문장을 고른다. 다시 누르면 풀린다.</p>
         )}
         <Passage item={item} state={state} dispatch={dispatch} focusSentence={focus} onSentence={setFocus} />
         <div className="mt-4"><ProvenanceNote item={item} /></div>
@@ -46,7 +46,7 @@ export function CandidateB({ item, proto, fault }: { item: ProtoItem; proto: Ret
             const inCompare = state.compare.includes(n)
             const linkingThis = state.linking && state.activeChoice === n
             return (
-              <li key={n} className={`rounded-md border p-2 ${inCompare ? 'border-[#1f1d1a]' : 'border-[#e3ded5]'}`} data-testid={`prop-${n}`}>
+              <li key={n} className={`rounded-md border p-2 ${inCompare ? 'border-[var(--csat-ink)]' : 'border-[var(--csat-line)]'}`} data-testid={`prop-${n}`}>
                 <p className="text-xs font-semibold">{n}번</p>
                 <p lang="en" className="text-sm italic">…{completed(item, n)}</p>
                 <div className="mt-1 flex flex-wrap gap-1">
@@ -77,7 +77,7 @@ export function CandidateB({ item, proto, fault }: { item: ProtoItem; proto: Ret
       <section aria-labelledby="f08b-compare" className="sticky top-4 min-w-0 self-start text-sm break-keep">
         <h2 id="f08b-compare" className="mb-2 font-semibold">조건 대조표</h2>
         {state.compare.length < 2 ? (
-          <p className="text-[#6b655c]">완성 명제 두 개를 대조표에 놓으면 발문 조건마다 나란히 판단한다. {state.compare.length === 1 ? `(${state.compare[0]}번 놓임)` : ''}</p>
+          <p className="text-[var(--csat-muted)]">완성 명제 두 개를 대조표에 놓으면 발문 조건마다 나란히 판단한다. {state.compare.length === 1 ? `(${state.compare[0]}번 놓임)` : ''}</p>
         ) : (
           <table className="w-full border-collapse text-xs">
             <caption className="sr-only">{state.compare.join('번과 ')}번 선지의 조건별 대조</caption>
@@ -108,7 +108,7 @@ export function CandidateB({ item, proto, fault }: { item: ProtoItem; proto: Ret
                 <th scope="row" className="p-1 text-left align-top font-normal">연결한 근거</th>
                 {state.compare.map((n) => (
                   <td key={n} className="p-1 align-top">
-                    {(state.links[n] ?? []).map((s) => <p key={s} lang="en" className="mb-1 border-l-2 border-[#c9c4bb] pl-1">{s}. {item.sentences[s - 1].slice(0, 90)}…</p>)}
+                    {(state.links[n] ?? []).map((s) => <p key={s} lang="en" className="mb-1 border-l-2 border-[var(--csat-edge)] pl-1">{s}. {item.sentences[s - 1].slice(0, 90)}…</p>)}
                   </td>
                 ))}
               </tr>

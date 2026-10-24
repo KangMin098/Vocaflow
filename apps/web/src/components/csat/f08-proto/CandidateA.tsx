@@ -32,7 +32,7 @@ export function CandidateA({ item, proto, fault }: { item: ProtoItem; proto: Ret
   return (
     <div className="grid grid-cols-[minmax(0,1fr)_380px] gap-8" data-candidate="a">
       <main aria-label="원문" className="mx-auto max-w-[70ch]">
-        <p className="mb-3 text-sm font-medium text-[#3d3a35]">{item.stem}</p>
+        <p className="mb-3 text-sm font-medium text-[var(--csat-ink2)]">{item.stem}</p>
         <div className="mb-3 flex items-center gap-2">
           <button type="button" aria-pressed={state.scopeOn} onClick={() => dispatch({ type: 'scope', on: !state.scopeOn })} className={`${btn} ${state.scopeOn ? btnOn : ''}`}>
             부정·조건 범위 표시
@@ -45,9 +45,9 @@ export function CandidateA({ item, proto, fault }: { item: ProtoItem; proto: Ret
         </div>
         <Passage item={item} state={state} dispatch={dispatch} focusSentence={focus} onSentence={setFocus} large />
         {focus && meaningsHere.length > 0 && (
-          <aside aria-label={`${focus}번 문장 표현 풀이`} className="mt-4 rounded-md border border-[#e3ded5] bg-[#faf8f4] p-3 text-sm break-keep">
+          <aside aria-label={`${focus}번 문장 표현 풀이`} className="mt-4 rounded-md border border-[var(--csat-line)] bg-[var(--csat-hover)] p-3 text-sm break-keep">
             {meaningsHere.map((m) => (
-              <p key={m.id}><span lang="en" className="font-medium">{m.expression}</span> — {m.meaningKo}{m.scopeNote && <span className="block text-xs text-[#6b655c]">{m.scopeNote}</span>}</p>
+              <p key={m.id}><span lang="en" className="font-medium">{m.expression}</span> — {m.meaningKo}{m.scopeNote && <span className="block text-xs text-[var(--csat-muted)]">{m.scopeNote}</span>}</p>
             ))}
           </aside>
         )}
@@ -63,14 +63,14 @@ export function CandidateA({ item, proto, fault }: { item: ProtoItem; proto: Ret
           ))}
         </div>
         {state.tool && (
-          <div id="f08a-tool" role="tabpanel" aria-labelledby={`f08a-tab-${state.tool}`} className="rounded-md border border-[#c9c4bb] bg-white p-4 text-sm break-keep">
+          <div id="f08a-tool" role="tabpanel" aria-labelledby={`f08a-tab-${state.tool}`} className="rounded-md border border-[var(--csat-edge)] bg-white p-4 text-sm break-keep">
             {state.tool === 'task' && (
               <div className="space-y-2">
                 <p className="font-semibold">발문이 요구하는 것</p>
                 <p>{item.requirement.requested}</p>
                 <p className="font-semibold">확인할 조건</p>
                 <ol className="list-decimal space-y-1 pl-4">{item.requirement.conditions.map((c) => <li key={c}>{c}</li>)}</ol>
-                <p className="text-xs text-[#6b655c]">읽을 범위: {item.requirement.readingScope}</p>
+                <p className="text-xs text-[var(--csat-muted)]">읽을 범위: {item.requirement.readingScope}</p>
               </div>
             )}
             {state.tool === 'choice' && (
@@ -84,12 +84,12 @@ export function CandidateA({ item, proto, fault }: { item: ProtoItem; proto: Ret
                 </div>
                 {state.activeChoice ? (
                   <>
-                    <p lang="en" className="rounded bg-[#faf8f4] p-2 italic">…{completed(item, state.activeChoice)}</p>
+                    <p lang="en" className="rounded bg-[var(--csat-hover)] p-2 italic">…{completed(item, state.activeChoice)}</p>
                     <MarkButtons n={state.activeChoice} state={state} dispatch={dispatch} />
                     <SentenceChips n={state.activeChoice} state={state} onJump={jump} />
                     {state.reveal && <VerdictLine reveal={state.reveal} n={state.activeChoice} state={state} />}
                   </>
-                ) : <p className="text-[#6b655c]">선지를 고르면 원문 빈칸에 들어가 완성 명제로 읽힌다.</p>}
+                ) : <p className="text-[var(--csat-muted)]">선지를 고르면 원문 빈칸에 들어가 완성 명제로 읽힌다.</p>}
               </div>
             )}
             {state.tool === 'reveal' && (
@@ -98,7 +98,7 @@ export function CandidateA({ item, proto, fault }: { item: ProtoItem; proto: Ret
                 {state.reveal && (
                   <>
                     <p className="font-semibold" id="f08-answer" tabIndex={-1} data-testid="answer-line">공식 정답 {state.reveal.answer}번</p>
-                    <p className="text-xs text-[#6b655c]">선지별 판정은 「선지 넣어 보기」에서 선지마다 본다.</p>
+                    <p className="text-xs text-[var(--csat-muted)]">선지별 판정은 「선지 넣어 보기」에서 선지마다 본다.</p>
                     <PrincipleLimits reveal={state.reveal} />
                     <RevisionLog state={state} />
                   </>

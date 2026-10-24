@@ -27,12 +27,12 @@ export default function F08Candidate({ params, searchParams }: { params: { candi
     <div className="mx-auto max-w-[1400px]">
       <header className="mb-5 flex items-baseline justify-between gap-4">
         <div>
-          <p className="text-xs text-[#6b655c]"><Link href="/dev/f08" className="underline">F08 후보 비교</Link> · 2026 수능 34번 · 빈칸</p>
+          <p className="text-xs text-[var(--csat-muted)]"><Link href="/dev/f08" className="underline">F08 후보 비교</Link> · 2026 수능 34번 · 빈칸</p>
           <h1 className="text-xl font-semibold">후보 {meta.id.toUpperCase()} — {meta.name}</h1>
         </div>
         <nav aria-label="다른 후보" className="flex gap-2 text-sm">
           {CANDIDATES.filter((c) => c.id !== meta.id).map((c) => (
-            <Link key={c.id} href={`/dev/f08/${c.id}`} className="inline-flex min-h-[44px] items-center rounded-md border border-[#c9c4bb] px-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1d4ed8]">후보 {c.id.toUpperCase()}</Link>
+            <Link key={c.id} href={`/dev/f08/${c.id}`} className="inline-flex min-h-[44px] items-center rounded-md border border-[var(--csat-edge)] px-3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--csat-accent)]">후보 {c.id.toUpperCase()}</Link>
           ))}
         </nav>
       </header>
@@ -42,7 +42,7 @@ export default function F08Candidate({ params, searchParams }: { params: { candi
         <div role="alert" className="max-w-xl rounded-md border border-[#9c3a30] bg-[#fbeeec] p-4 break-keep" data-testid="state-error">
           <p className="font-semibold">{MESSAGE[built.state].title}</p>
           <p className="mt-1 text-sm">{MESSAGE[built.state].body}</p>
-          <p className="mt-2 text-xs text-[#6b655c]">{built.detail}</p>
+          <p className="mt-2 text-xs text-[var(--csat-muted)]">{built.detail}</p>
         </div>
       )}
     </div>

@@ -12,10 +12,11 @@ import { MARK_LABEL, type OwnMark } from '@/lib/csat/f08-proto/types'
 
 import type { Action, ProtoState } from './useProtoState'
 
-export const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#1d4ed8]'
-export const btn = `min-h-[44px] rounded-md border border-[#c9c4bb] bg-white px-3 text-sm text-[#1f1d1a] hover:bg-[#f4f1ec] ${focusRing}`
+export const focusRing = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--csat-accent)]'
+// 눌림·선택은 색만으로 말하지 않는다 — 토글은 ✓ 글자, 탭은 밑줄을 함께 붙인다.
+export const btn = `min-h-[44px] rounded-md border border-[var(--csat-edge)] bg-white px-3 text-sm text-[var(--csat-ink)] hover:bg-[var(--csat-hover)] aria-selected:underline aria-selected:decoration-2 aria-selected:underline-offset-4 ${focusRing}`
 // btn 의 bg-white 가 CSS 순서상 이겨 눌린 버튼이 흰 바탕 흰 글자로 사라졌다 — 켜짐 상태는 important 로 덮는다.
-export const btnOn = '!border-[#1f1d1a] !bg-[#1f1d1a] !text-white hover:!bg-[#33302b]'
+export const btnOn = '!border-[var(--csat-ink)] !bg-[var(--csat-ink)] !text-white hover:!bg-[var(--csat-ink2)]'
 
 const SCOPE_LABEL: Record<string, string> = { negation: '부정 범위', condition: '조건·한정' }
 
@@ -48,7 +49,7 @@ function withScope(text: string, meanings: ProtoMeaning[]) {
     out.push(
       <mark key={m.id} className={m.scope === 'negation' ? 'bg-[#fde9c8] font-semibold underline decoration-2' : 'bg-[#dbeafe] underline decoration-dotted decoration-2'}>
         {m.expression}
-        <span className="ml-1 align-super text-[10px] font-medium no-underline">[{SCOPE_LABEL[m.scope]}]</span>
+        <span className="ml-1 align-super text-[11px] font-medium no-underline">[{SCOPE_LABEL[m.scope]}]</span>
       </mark>,
     )
     cursor = at + m.expression.length
@@ -71,7 +72,7 @@ export function Passage({
   const active = state.activeChoice
   const linked = active ? state.links[active] ?? [] : []
   return (
-    <div className={`leading-[1.9] text-[#1f1d1a] ${large ? 'text-[19px]' : 'text-[17px]'}`} lang="en">
+    <div className={`leading-[1.9] text-[var(--csat-ink)] ${large ? 'text-[19px]' : 'text-[17px]'}`} lang="en">
       {item.sentences.map((s, i) => {
         const n = i + 1
         const isBlank = n === item.blankSentence
@@ -89,14 +90,14 @@ export function Passage({
               if (state.linking && active) dispatch({ type: 'toggleLink', n: active, sentence: n })
               onSentence(n)
             }}
-            className={`mr-1 inline rounded px-0.5 text-left ${focusRing} ${isLinked ? 'border-b-2 border-[#1f1d1a] bg-[#efe9df]' : ''} ${isFocus ? 'outline outline-1 outline-[#8a8278]' : ''} ${isCue ? 'bg-[#fff4d6] shadow-[inset_3px_0_0_#b5803a]' : ''}`}
+            className={`mr-1 inline rounded px-0.5 text-left ${focusRing} ${isLinked ? 'border-b-2 border-[var(--csat-ink)] bg-[var(--csat-soft)]' : ''} ${isFocus ? 'outline outline-1 outline-[var(--csat-muted)]' : ''} ${isCue ? 'bg-[#fff4d6] shadow-[inset_3px_0_0_#b5803a]' : ''}`}
           >
-            <sup className="mr-0.5 select-none font-sans text-[11px] text-[#6b655c]" aria-hidden>{n}</sup>
+            <sup className="mr-0.5 select-none text-[11px] text-[var(--csat-muted)]" aria-hidden>{n}</sup>
             <span className="sr-only" lang="ko">{n}번 문장{isLinked ? ' (근거로 연결됨)' : ''}{isCue ? ' (강의가 가리키는 문장)' : ''}: </span>
             {isBlank ? (
               <>
                 {state.scopeOn ? withScope(parts[0], item.meanings) : parts[0]}
-                <span className="mx-1 inline-block min-w-[6em] border-b-2 border-dashed border-[#1f1d1a] px-1 font-medium" aria-label={active ? `빈칸에 ${active}번 선지를 넣어 봄` : '빈칸'}>
+                <span className="mx-1 inline-block min-w-[6em] border-b-2 border-dashed border-[var(--csat-ink)] px-1 font-medium" aria-label={active ? `빈칸에 ${active}번 선지를 넣어 봄` : '빈칸'}>
                   {active ? item.choices[active - 1] : ' '}
                 </span>
                 {parts[1]}
@@ -121,7 +122,7 @@ export function MarkButtons({ n, state, dispatch }: { n: number; state: ProtoSta
     <div role="group" aria-label={`${n}번 선지에 대한 내 판단`} className="flex flex-wrap gap-1">
       {(Object.keys(MARK_LABEL) as OwnMark[]).map((m) => (
         <button key={m} type="button" aria-pressed={state.marks[n] === m} onClick={() => dispatch({ type: 'mark', n, mark: m })} className={`${btn} ${state.marks[n] === m ? btnOn : ''} text-xs`}>
-          {state.marks[n] === m ? '✓ ' : ''}{MARK_LABEL[m]}
+          {MARK_LABEL[m]}
         </button>
       ))}
     </div>
@@ -130,7 +131,7 @@ export function MarkButtons({ n, state, dispatch }: { n: number; state: ProtoSta
 
 export function SentenceChips({ n, state, onJump }: { n: number; state: ProtoState; onJump: (s: number) => void }) {
   const linked = state.links[n] ?? []
-  if (!linked.length) return <p className="text-xs text-[#6b655c]">연결한 근거 문장 없음</p>
+  if (!linked.length) return <p className="text-xs text-[var(--csat-muted)]">연결한 근거 문장 없음</p>
   return (
     <ul className="flex flex-wrap gap-1" aria-label={`${n}번 선지 근거 문장`}>
       {linked.map((s) => (
@@ -222,7 +223,7 @@ export function RevealControl({ status, setStatus, request, revealed }: ReturnTy
         <button id="f08-reveal-open" type="button" className={btn} onClick={() => setStatus('confirm')}>정답·해설 보기</button>
       )}
       {status === 'confirm' && (
-        <div className="rounded-md border border-[#c9c4bb] bg-[#faf8f4] p-3 text-sm">
+        <div className="rounded-md border border-[var(--csat-edge)] bg-[var(--csat-hover)] p-3 text-sm">
           <p className="break-keep">정답과 선지별 판정이 열린다. 지금까지 남긴 판단은 그대로 두고 나중에 고칠 수 있다.</p>
           <div className="mt-2 flex gap-2">
             <button id="f08-reveal-confirm" type="button" className={`${btn} ${btnOn}`} onClick={request}>공개하기</button>
@@ -257,10 +258,10 @@ export function VerdictLine({ reveal, n, state }: { reveal: ProtoReveal; n: numb
   const mine = state.marks[n]
   const agrees = mine && mine !== 'unsure' ? (mine === 'fits') === v.isAnswer : null
   return (
-    <div className="mt-2 rounded-md border-l-4 border-[#1f1d1a] bg-[#faf8f4] p-2 text-sm break-keep" data-testid={`verdict-${n}`}>
+    <div className="mt-2 rounded-md border-l-4 border-[var(--csat-ink)] bg-[var(--csat-hover)] p-2 text-sm break-keep" data-testid={`verdict-${n}`}>
       <p className="font-semibold">{v.isAnswer ? '정답' : '오답'} · 완성 명제: {TRUTH_LABEL[v.truth]} · 근거 {v.sentences.join('·')}번 문장</p>
       <p className="mt-1">{v.decisive}</p>
-      {mine && <p className="mt-1 text-xs text-[#6b655c]">내 판단: {MARK_LABEL[mine]}{agrees === null ? '' : agrees ? ' — 판정과 같은 쪽' : ' — 판정과 다른 쪽(고칠 수 있다)'}</p>}
+      {mine && <p className="mt-1 text-xs text-[var(--csat-muted)]">내 판단: {MARK_LABEL[mine]}{agrees === null ? '' : agrees ? ' — 판정과 같은 쪽' : ' — 판정과 다른 쪽(고칠 수 있다)'}</p>}
     </div>
   )
 }
@@ -274,7 +275,7 @@ export function PrincipleLimits({ reveal }: { reveal: ProtoReveal }) {
         <div><p className="text-xs font-semibold">통하는 경우</p><ul className="list-disc pl-4">{reveal.principle.whenApplies.map((t) => <li key={t}>{t}</li>)}</ul></div>
         <div><p className="text-xs font-semibold">통하지 않는 경우</p><ul className="list-disc pl-4">{reveal.principle.whenNot.map((t) => <li key={t}>{t}</li>)}</ul></div>
       </div>
-      <p className="text-xs text-[#6b655c]">확인할 수 없는 것: {reveal.limitation}</p>
+      <p className="text-xs text-[var(--csat-muted)]">확인할 수 없는 것: {reveal.limitation}</p>
     </section>
   )
 }
@@ -283,7 +284,7 @@ export function RevisionLog({ state }: { state: ProtoState }) {
   const after = state.revisions.filter((r) => r.afterReveal)
   if (!after.length) return null
   return (
-    <p className="text-xs text-[#6b655c]" data-testid="revision-log">
+    <p className="text-xs text-[var(--csat-muted)]" data-testid="revision-log">
       공개 뒤 고친 판단 {after.length}건: {after.map((r) => `${r.n}번 ${r.from ? MARK_LABEL[r.from] : '없음'}→${MARK_LABEL[r.to]}`).join(' · ')}
     </p>
   )
@@ -291,7 +292,7 @@ export function RevisionLog({ state }: { state: ProtoState }) {
 
 export function ProvenanceNote({ item }: { item: ProtoItem }) {
   return (
-    <p className="text-[11px] text-[#6b655c]">
+    <p className="text-[11px] text-[var(--csat-muted)]">
       원문 csat_items {item.itemId} 스냅숏(sha256 {item.provenance.passageSha256.slice(0, 12)}) · 분석 v{item.provenance.analysisVersion} {item.provenance.review} · units {item.provenance.unitsHash}
     </p>
   )

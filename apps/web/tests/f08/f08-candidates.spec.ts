@@ -232,6 +232,46 @@ for (const cand of ['a', 'b', 'c'] as const) {
       expect(bad.map((v) => `${v.id}: ${v.nodes.length}`)).toEqual([])
     })
 
+    test('초점 복귀 분기 — 확인 취소 · 거절 후 닫기 · 실패 후 재시도 (키보드)', async ({ page }) => {
+      const openTools = async () => {
+        if (cand === 'a' && (await page.getByRole('tab', { name: '정답·해설' }).getAttribute('aria-selected')) !== 'true') await page.getByRole('tab', { name: '정답·해설' }).click()
+        if (cand === 'c' && !(await page.getByRole('button', { name: '정답·해설 보기' }).isVisible())) await page.getByRole('tab', { name: '내 판단' }).click()
+      }
+      const fresh = async (q: string) => {
+        await page.goto(`/dev/f08/${cand}${q}`)
+        await page.evaluate(() => sessionStorage.clear())
+        await page.reload()
+        await expect(page.locator('#f08-s1')).toBeVisible()
+        await openTools()
+        await page.getByRole('button', { name: '정답·해설 보기' }).focus()
+        await page.keyboard.press('Enter')
+        await expect(page.getByRole('button', { name: '공개하기' })).toBeFocused()
+      }
+      // 확인 취소 → 「정답·해설 보기」로 복귀
+      await fresh('')
+      await page.getByRole('button', { name: '아직 안 본다' }).focus()
+      await page.keyboard.press('Enter')
+      await expect(page.getByRole('button', { name: '정답·해설 보기' })).toBeFocused()
+      await expect(page.getByTestId('answer-line')).toHaveCount(0)
+      // 거절 → 알림 → 닫기 → 「정답·해설 보기」로 복귀
+      await fresh('?fault=reveal-refused')
+      await page.keyboard.press('Enter')
+      const alert = page.locator('[data-candidate] [role="alert"]')
+      await expect(alert).toBeFocused()
+      await alert.getByRole('button', { name: '닫기' }).focus()
+      await page.keyboard.press('Enter')
+      await expect(page.getByRole('button', { name: '정답·해설 보기' })).toBeFocused()
+      // 실패 → 알림 → 다시 시도(다시 실패) → 알림으로 복귀, 정답 없음
+      await fresh('?fault=reveal-error')
+      await page.keyboard.press('Enter')
+      await expect(alert).toBeFocused()
+      await alert.getByRole('button', { name: '다시 시도' }).focus()
+      await page.keyboard.press('Enter')
+      await expect(alert).toContainText('해설을 불러오지 못했다')
+      await expect(alert).toBeFocused()
+      await expect(page.getByTestId('answer-line')).toHaveCount(0)
+    })
+
     test('오류 상태 — 원문 없음 · 공개 거절 · 해설 실패', async ({ page }) => {
       await page.goto(`/dev/f08/${cand}?fault=no-source`)
       await expect(page.getByTestId('state-error')).toContainText('검증된 원문이 없다')

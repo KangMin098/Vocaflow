@@ -52,7 +52,7 @@ export function CandidateC({ item, proto, fault }: { item: ProtoItem; proto: Ret
           <button id="f08c-tab-lecture" role="tab" type="button" aria-selected={mode === 'lecture'} aria-controls="f08c-panel" onClick={() => dispatch({ type: 'tool', tool: 'lecture' })} className={`${btn} ${mode === 'lecture' ? btnOn : ''}`}>강의</button>
           <button id="f08c-tab-judge" role="tab" type="button" aria-selected={mode === 'judge'} aria-controls="f08c-panel" onClick={() => dispatch({ type: 'tool', tool: 'judge' })} className={`${btn} ${mode === 'judge' ? btnOn : ''}`}>내 판단</button>
         </div>
-        <div id="f08c-panel" role="tabpanel" aria-labelledby={`f08c-tab-${mode}`} className="rounded-md border border-[#c9c4bb] bg-white p-4">
+        <div id="f08c-panel" role="tabpanel" aria-labelledby={`f08c-tab-${mode}`} className="rounded-md border border-[var(--csat-edge)] bg-white p-4">
           {mode === 'lecture' && (lectureFailed ? (
             <div role="alert" className="space-y-2" data-testid="lecture-failed">
               <p className="font-semibold">강의를 불러오지 못했다</p>
@@ -62,7 +62,7 @@ export function CandidateC({ item, proto, fault }: { item: ProtoItem; proto: Ret
           ) : cue ? (
             <div className="space-y-3">
               <p className="rounded bg-[#fff4d6] p-2 text-xs" role="note">검수 미확인 강의 원고(자막) — 음성 재생 없음. 판단 근거로는 원문을 본다.</p>
-              <p className="text-xs text-[#6b655c]" aria-live="polite">강의 {cueIndex + 1}/{cues.length}{locked ? ` · 정답을 말하는 큐 ${locked}개는 공개 뒤에 열린다` : ''}</p>
+              <p className="text-xs text-[var(--csat-muted)]" aria-live="polite">강의 {cueIndex + 1}/{cues.length}{locked ? ` · 정답을 말하는 큐 ${locked}개는 공개 뒤에 열린다` : ''}</p>
               <div data-testid="cue-text">
                 {cue.lines.map((l, i) => <p key={i} lang={l.lang === 'en-US' ? 'en' : 'ko'} className={l.lang === 'en-US' ? 'italic' : ''}>{l.text}</p>)}
               </div>
@@ -79,7 +79,7 @@ export function CandidateC({ item, proto, fault }: { item: ProtoItem; proto: Ret
 
           {mode === 'judge' && (
             <div className="space-y-3">
-              {!lectureFailed && cues.length > 0 && <p className="text-xs text-[#6b655c]">강의는 {cueIndex + 1}번째 큐에 멈춰 있다.</p>}
+              {!lectureFailed && cues.length > 0 && <p className="text-xs text-[var(--csat-muted)]">강의는 {cueIndex + 1}번째 큐에 멈춰 있다.</p>}
               <div role="group" aria-label="빈칸에 넣을 선지" className="flex flex-wrap gap-1">
                 {item.choices.map((_, i) => (
                   <button key={i} type="button" aria-pressed={state.activeChoice === i + 1} onClick={() => dispatch({ type: 'choose', n: state.activeChoice === i + 1 ? null : i + 1 })} className={`${btn} ${state.activeChoice === i + 1 ? btnOn : ''}`}>{i + 1}번</button>
@@ -87,14 +87,14 @@ export function CandidateC({ item, proto, fault }: { item: ProtoItem; proto: Ret
               </div>
               {state.activeChoice && (
                 <>
-                  <p lang="en" className="rounded bg-[#faf8f4] p-2 italic">…{completed(item, state.activeChoice)}</p>
+                  <p lang="en" className="rounded bg-[var(--csat-hover)] p-2 italic">…{completed(item, state.activeChoice)}</p>
                   <MarkButtons n={state.activeChoice} state={state} dispatch={dispatch} />
                   <SentenceChips n={state.activeChoice} state={state} onJump={jump} />
                   {state.reveal && <VerdictLine reveal={state.reveal} n={state.activeChoice} state={state} />}
                 </>
               )}
               <details>
-                <summary className="cursor-pointer rounded py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[#1d4ed8]">발문 요구·조건</summary>
+                <summary className="cursor-pointer rounded py-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--csat-accent)]">발문 요구·조건</summary>
                 <p className="mt-1">{item.requirement.requested}</p>
                 <ol className="mt-1 list-decimal pl-4">{item.requirement.conditions.map((c) => <li key={c}>{c}</li>)}</ol>
               </details>
