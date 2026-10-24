@@ -31,6 +31,7 @@ const reveal: RevealProvider = async (it) => {
   w.__REVEAL_CALLS__++
   w.__REVEAL_IDS__.push(it.id)
   await new Promise((r) => setTimeout(r, delay))
+  if (q.get('fail') === '1') throw new Error('harness: fetch failed')
   return base(it)
 }
 const items = itemsOf(type)

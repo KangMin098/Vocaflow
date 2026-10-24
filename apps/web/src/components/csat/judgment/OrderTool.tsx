@@ -216,7 +216,7 @@ function OrderToolBody({ item, reveal }: JudgmentToolProps) {
       <section aria-labelledby="ord-rev" className={js.section}>
         <h3 id="ord-rev">해설</h3>
         {state.status === 'hidden' && <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={request}>해설 보기</button>}
-        {state.status === 'loading' && <p className={js.status}>해설을 불러오는 중…</p>}
+        {state.status === 'loading' && <p className={js.status} data-reveal-loading>해설을 불러오는 중…</p>}
         {state.status === 'error' && (
           <div>
             <p className={js.error} role="alert" data-reveal-error>{REVEAL_ERROR_TEXT[state.reason]}</p>

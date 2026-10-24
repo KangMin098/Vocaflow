@@ -153,12 +153,12 @@ function GrammarToolBody({ item, reveal }: JudgmentToolProps) {
       <section className={js.section} aria-labelledby="g-reveal">
         <h3 id="g-reveal">해설</h3>
         {rv.status !== 'shown' && (
-          <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={() => { void request() }} disabled={rv.status === 'loading'}>
+          <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={() => { void request() }} aria-disabled={rv.status === 'loading'}>
             {rv.status === 'error' && rv.reason === 'fetch' ? '해설 다시 불러오기' : '해설 보기'}
           </button>
         )}
         <div aria-live="polite">
-          {rv.status === 'loading' && <p className={js.status}>해설을 불러오는 중</p>}
+          {rv.status === 'loading' && <p className={js.status} data-reveal-loading>해설을 불러오는 중</p>}
           {rv.status === 'error' && <p className={js.error} data-reveal-error={rv.reason}>{REVEAL_ERROR_TEXT[rv.reason]}</p>}
         </div>
         {shown && (

@@ -192,13 +192,14 @@ function InfoMatchToolBody({ item, reveal }: JudgmentToolProps) {
 
       <section className={js.section} aria-label="해설">
         <h3>해설</h3>
-        {rv.status === 'hidden' && (
+        {(rv.status === 'hidden' || rv.status === 'loading') && (
           <>
             <p className={js.note}>먼저 풀지 않아도 해설을 볼 수 있다. 본 뒤에는 해설 근거와 내 연결을 나란히 비교한다.</p>
-            <button type="button" className={`${js.button} ${js.primary}`} data-action="reveal" onClick={request}>해설 보기</button>
+            {/* 로딩 중에도 자리를 지킨다 — 지우면 판단면 높이가 줄어 학습자 스크롤이 끌려 올라간다 */}
+            <button type="button" className={`${js.button} ${js.primary}`} data-action="reveal" onClick={request} aria-disabled={rv.status === 'loading'}>해설 보기</button>
           </>
         )}
-        {rv.status === 'loading' && <p className={js.status} aria-live="polite">해설을 불러오는 중</p>}
+        {rv.status === 'loading' && <p className={js.status} aria-live="polite" data-reveal-loading>해설을 불러오는 중</p>}
         {rv.status === 'error' && (
           <div aria-live="polite">
             <p className={js.error} data-reveal-error={rv.reason}>{REVEAL_ERROR_TEXT[rv.reason]}</p>

@@ -25,7 +25,7 @@ for (const slug of slugs) {
   const bundle = fs.readFileSync(js, 'utf8')
   const cssFile = js.replace(/\.js$/, '.css')
   const css = fs.existsSync(cssFile) ? fs.readFileSync(cssFile, 'utf8') : ''
-  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><style>${tokens}</style><style>${css}</style><style>*{box-sizing:border-box}body{margin:0;font-family:system-ui,'Malgun Gothic',sans-serif;background:var(--bg)}button{font:inherit}</style></head><body><div id="root"></div><script type="module">${bundle.replace(/<\/script/g, '<\\/script')}</script></body></html>`
+  const html = `<!doctype html><html lang="ko"><head><meta charset="utf-8"><title>판단 도구 격리 화면</title><style>${tokens}</style><style>${css}</style><style>*{box-sizing:border-box}body{margin:0;font-family:system-ui,'Malgun Gothic',sans-serif;background:var(--bg)}button{font:inherit}</style></head><body><div id="root"></div><script type="module">${bundle.replace(/<\/script/g, '<\\/script')}</script></body></html>`
   const { check } = await import(pathToFileURL(path.join(here, 'cases', `${slug}.check.mjs`)).href)
   const results = []
   for (const width of [1280, 1440]) {

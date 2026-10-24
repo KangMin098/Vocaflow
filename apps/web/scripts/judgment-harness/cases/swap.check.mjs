@@ -55,4 +55,42 @@ export async function check(page, t) {
     t.check(`${tool}: 공개 뒤 근거 링크 ≥44×44`, sizes.length > 0 && sizes.every(([w, h]) => w >= 44 && h >= 44), { n: sizes.length, small: sizes.filter(([w, h]) => w < 44 || h < 44).slice(0, 5) })
     if (tool === 'irrelevant') await t.shot('refs-44')
   }
+
+  // ⑤ 키보드로 해설을 열거나 실패해도 포커스가 body 로 떨어지지 않는다(T-0151 디자인 수용 측정에서 발견) — 5개 도구
+  for (const tool of ['info', 'irrelevant', 'order', 'grammar', 'mood']) {
+    for (const q of ['', '&fail=1']) {
+      await t.open(`?tool=${tool}${q}`)
+      await (await revealBtn(page)).focus()
+      await page.keyboard.press('Enter')
+      await page.waitForFunction(() => !/불러오는 중/.test(document.querySelector('[data-scroll-pane="judgment"]').innerText), null, { timeout: 8000 })
+      await page.waitForTimeout(250)
+      const f = await page.evaluate(() => { const a = document.activeElement; return { body: !a || a === document.body, inShell: Boolean(a?.closest('[data-judgment-shell]')), mark: a ? [...a.attributes].map((x) => x.name).filter((n) => n.startsWith('data-')).join(',') : null } })
+      t.check(`${tool}${q ? ' 실패' : ' 공개'}: 키보드 상태 변경 뒤 포커스가 판단 도구 안에 남는다`, !f.body && f.inShell, f)
+    }
+  }
+
+  // ⑥ 로딩 중 포커스 · 공개 전후 판단면 스크롤 · 중복 요청 차단 · 문항 재마운트(사용자 T-0151 마무리 지시 2항)
+  const paneTop = () => page.evaluate(() => document.querySelector('[data-scroll-pane="judgment"]').scrollTop)
+  for (const tool of ['info', 'irrelevant', 'order', 'grammar', 'mood']) {
+    await t.open(`?tool=${tool}&delay=1500`)
+    const btn = await revealBtn(page)
+    await btn.scrollIntoViewIfNeeded()
+    const before = await paneTop()
+    await btn.focus()
+    await page.keyboard.press('Enter')
+    await page.waitForTimeout(300)
+    const during = await page.evaluate(() => { const a = document.activeElement; return { body: !a || a === document.body, inShell: Boolean(a?.closest('[data-judgment-shell]')) } })
+    t.check(`${tool}: 로딩 중에도 포커스가 판단 도구 안에 남는다`, !during.body && during.inShell, during)
+    await page.keyboard.press('Enter') // 로딩 중 재요청
+    await page.waitForFunction(() => !/불러오는 중/.test(document.querySelector('[data-scroll-pane="judgment"]').innerText), null, { timeout: 8000 })
+    await page.waitForTimeout(250)
+    t.check(`${tool}: 로딩 중 재요청은 provider 를 다시 부르지 않는다`, (await page.evaluate(() => window.__REVEAL_CALLS__)) === 1, await page.evaluate(() => window.__REVEAL_CALLS__))
+    const after = await paneTop()
+    t.check(`${tool}: 공개로 포커스를 옮겨도 판단면 스크롤은 그대로(preventScroll)`, Math.abs(after - before) <= 2, { before, after })
+    // 문항 재마운트 — 이전 문항의 포커스 대상이 분리된 노드로 남지 않고, 이전 해설이 없다
+    await page.evaluate(() => window.__SWAP__())
+    await page.waitForTimeout(300)
+    const re = await page.evaluate(() => { const a = document.activeElement; return { detached: Boolean(a && !a.isConnected), revealed: Boolean(document.querySelector('[data-revealed]')), top: document.querySelector('[data-scroll-pane="judgment"]').scrollTop } })
+    t.check(`${tool}: 문항 재마운트 뒤 분리된 포커스 없음 · 이전 해설 없음`, !re.detached && !re.revealed, re)
+  }
 }
