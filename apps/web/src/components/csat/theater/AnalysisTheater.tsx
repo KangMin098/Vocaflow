@@ -727,6 +727,18 @@ export function AnalysisTheater({
     ms && msBridge && msUnitObj
       ? { unitLabel: msUnitObj.labelKo, ...bridgeOf(ms, msUnitObj.id), onReturn: () => selectScene('meaning') }
       : null
+  // 판단 도구 인스턴스 결속 — 분석 revision 이 바뀌면 지난 단위 인스턴스를 버린다(선택이 다른 revision 으로 넘어가지 않게)
+  const toolRev = String(inquiry?.analysis_version ?? 'na')
+  const [bridgeSeen, setBridgeSeen] = useState<{ rev: string; units: string[] }>({ rev: toolRev, units: [] })
+  const bridgeUnit = msBridgeFocus ? msUnit : null
+  useEffect(() => {
+    setBridgeSeen((cur) => {
+      const units = cur.rev === toolRev ? cur.units : []
+      if (cur.rev === toolRev && (!bridgeUnit || units.includes(bridgeUnit))) return cur
+      return { rev: toolRev, units: bridgeUnit && !units.includes(bridgeUnit) ? [...units, bridgeUnit] : units }
+    })
+  }, [toolRev, bridgeUnit])
+  const bridgeUnits = (bridgeSeen.rev === toolRev ? bridgeSeen.units : []).concat(bridgeUnit && !(bridgeSeen.rev === toolRev && bridgeSeen.units.includes(bridgeUnit)) ? [bridgeUnit] : [])
   useEffect(() => {
     // 뒤로가기 · 앞으로가기 — 장면 · 의미 · 깊이 · 관계 · 이어 온 맥락을 **주소에서** 되살린다(서버와 같은 파서 · allowlist)
     const onPop = () => {
@@ -1574,7 +1586,17 @@ export function AnalysisTheater({
                   {scene === 'judgment' && v3 && withheld ? withheldPanel('judgment', '정답 판단') : null}
                   {v3 && !withheld && (scene === 'judgment' || keepTools) ? (
                     <div style={{ display: scene === 'judgment' ? 'contents' : 'none' }} data-tool-scene="judgment">
-                      <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} sourceUnitsHash={sourceUnitsHash ?? undefined} />
+                      {/* 도구 선택은 인스턴스 안에 있다 — bridge 왕복이 지우지 않도록 「분석 revision · 단위」 별 인스턴스를 숨겨 유지한다(R152-01). 문항이 바뀌면 화면째 새로 그려지고, revision 이 바뀌면 키가 달라져 넘어가지 않는다 */}
+                      {[null, ...bridgeUnits].map((u) => {
+                        const active = (msBridgeFocus ? msUnit : null) === u
+                        const unitObj = u && ms ? ms.units.find((x) => x.id === u) ?? null : null
+                        const focus = u === null ? undefined : active ? msBridgeFocus : ms && unitObj ? { unitLabel: unitObj.labelKo, ...bridgeOf(ms, unitObj.id), onReturn: () => selectScene('meaning') } : undefined
+                        return (
+                          <div key={`${toolRev}:${u ?? 'plain'}`} style={{ display: active ? 'contents' : 'none' }} data-tool-instance={u ?? 'plain'}>
+                            <V3Judgment v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={focus} answerRevealed={Boolean(revealed)} sourceUnitsHash={sourceUnitsHash ?? undefined} />
+                          </div>
+                        )
+                      })}
                     </div>
                   ) : null}
                   {scene === 'design' ? (

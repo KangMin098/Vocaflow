@@ -141,6 +141,39 @@ test.describe('판단 도구 34 × 해설 화면', () => {
       await expect(choice2, '장면 왕복 뒤 비교 선택이 사라졌다').toHaveAttribute('aria-pressed', 'true')
       expect(await J.getByTestId('s2b-scope').innerText()).toBe(scopeText)
 
+      // R152-01 — bridge 왕복(원문 이해 → 문항 성립 bridge → 돌아가기 → 다시 bridge)에서 재마운트로 선택이 지워지지 않는다.
+      // bridge 인스턴스와 일반 인스턴스는 서로 섞이지 않는다(같은 문항 · 같은 revision 안에서만 각자 유지)
+      const toMeaning = async () => {
+        for (let i = 0; i < 4 && (await page.getByTestId('workspace-frame').getAttribute('data-scene')) !== 'meaning'; i++) await page.getByTestId('scene-prev').click()
+        await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'meaning')
+      }
+      await toMeaning()
+      await page.getByTestId('ms-go-judgment').click()
+      await expect(page.getByTestId('ms-bridge')).toBeVisible()
+      const B = J.locator('[data-tool-instance]:not([data-tool-instance="plain"])')
+      await expect(B).toHaveCount(1)
+      const bIf = B.getByRole('button', { name: 'If', exact: true })
+      const bChoice2 = B.getByRole('region', { name: '왼쪽 비교 명제' }).getByRole('button', { name: '②', exact: true })
+      await expect(bIf, 'bridge 인스턴스가 일반 인스턴스 선택을 넘겨받았다').toHaveAttribute('aria-pressed', 'false')
+      await bIf.click()
+      await bChoice2.click()
+      await expect(bIf).toHaveAttribute('aria-pressed', 'true')
+      await page.getByTestId('ms-bridge-return').click()
+      await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'meaning')
+      await page.getByTestId('ms-go-judgment').click()
+      await expect(page.getByTestId('ms-bridge')).toBeVisible()
+      await expect(B).toHaveCount(1)
+      await expect(bIf, 'bridge 왕복 뒤 범위 선택이 사라졌다(재마운트)').toHaveAttribute('aria-pressed', 'true')
+      await expect(bChoice2, 'bridge 왕복 뒤 비교 선택이 사라졌다(재마운트)').toHaveAttribute('aria-pressed', 'true')
+      // 일반 판단 장면으로 돌아가면 일반 인스턴스의 선택이 그대로다
+      await page.getByTestId('ms-bridge-return').click()
+      await page.getByTestId('scene-next').click()
+      await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'judgment')
+      await expect(page.getByTestId('ms-bridge')).toHaveCount(0)
+      await expect(ifBtn, 'bridge 왕복 뒤 일반 범위 선택이 사라졌다').toHaveAttribute('aria-pressed', 'true')
+      await expect(choice2).toHaveAttribute('aria-pressed', 'true')
+      expect(judgments, 'bridge 왕복이 판단 요청을 다시 보냈다').toEqual([200])
+
       // D6 — 강의를 실제로 재생한 뒤 장면을 고르면 멈춘다 · 도구 포커스를 빼앗지 않는다
       const play = page.getByTestId('analysis-theater').locator('header button', { hasText: /하이라이트만|상영 시작/ })
       await expect(async () => {
