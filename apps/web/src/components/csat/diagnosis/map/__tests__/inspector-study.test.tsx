@@ -5,7 +5,11 @@
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-import { describe, expect, it } from 'vitest'
+import { describe, expect, it, vi } from 'vitest'
+
+vi.mock('next/navigation', () => ({ useRouter: () => ({ refresh() {} }) }))
+vi.mock('@/lib/analytics/client', () => ({ track: () => {} }))
+vi.mock('@/lib/csat/map/learner-path', () => ({ learnerPath: () => ({ read: [], listen: [] }) }))
 
 import type { ExposureLedger } from '@/lib/csat/map/v62/assessment-exposure'
 import { entriesFor, researchTypeOf } from '@/lib/csat/bridge/entry'
@@ -48,5 +52,37 @@ describe('화면이 받는 원장(compactLedger 형태)으로 같은 지문 보�
     expect(researchTypeOf('2019#23')).toBe('R-TOPIC')
     expect(researchTypeOf('2019-23')).toBe('R-TOPIC')
     expect(researchTypeOf('1999#1')).toBeNull()
+  })
+})
+
+describe('실제 렌더(r5 fixture) — 학습지도 기출 목록', async () => {
+  const { renderToStaticMarkup } = await import('react-dom/server')
+  const { build, CHECK_ITEMS, pick } = await import('./r5-inspector-fixture')
+  const { TaskInspector } = await import('../TaskInspector')
+  const draw = (passageKeys: Record<string, string>, goalSet = true) => {
+    const b = build({ goalSet, attempts: [], activity: [], asOfDay: 30, saved: true, fq: { status: 'not_installed' } })
+    ;(b.data.v4 as unknown as { assessmentExposure: ExposureLedger }).assessmentExposure = { status: 'ok', events: [], passageKeys }
+    return renderToStaticMarkup(<TaskInspector ins={b.ins} view={b.view} data={b.data} past={false} restoreWs={null} planOpen={false} onTogglePlan={() => {}} returned={null} />)
+  }
+  const own = Object.fromEntries([...CHECK_ITEMS, '2020#24', '2019#24'].map((r) => [r, `p:${r}`]))
+  const linksOf = (html: string) => pick(html, 'inspector-study-link').map((l) => l.attrs.href)
+
+  it('연구 사례 지문을 모르면 링크를 만들지 않는다(fail-closed)', () => {
+    expect(linksOf(draw(own))).toEqual([])
+  })
+  it('같은 지문이면 빠지고, 다른 지문이면 이유 · 판단 능력 · 복귀 문맥과 함께 열린다', () => {
+    const html = draw({ ...own, '2019#23': 'p:2026#22', '2015#32': 'p:x1', '2014B#38': 'p:x2', '2020#36': 'p:x3' })
+    const links = linksOf(html)
+    expect(links.some((h) => h.includes('2019-23'))).toBe(false) // 안 푼 확인 문항 2026#22 와 같은 지문
+    expect(links.some((h) => h.includes('2015-32'))).toBe(true)
+    expect(links.every((h) => h.includes('from=map') && h.includes('map_task=r.central_meaning'))).toBe(true)
+    const why = pick(html, 'inspector-study-why').map((w) => w.text).join(' ')
+    expect(why).toContain('판단 능력')
+    expect(pick(html, 'inspector-study-meaning')[0].text).toContain('혼자 판단한 기록으로는 세지 않아요')
+    expect(pick(html, 'inspector-study-withheld')[0].text).toMatch(/같은 지문/)
+  })
+  it('목표 미설정이면 목표 관계를 계산하지 않았다고 말한다', () => {
+    const html = draw({ ...own, '2015#32': 'p:x1' }, false)
+    expect(pick(html, 'inspector-study-goal')[0].attrs['data-goal']).toBe('goal_not_set')
   })
 })
