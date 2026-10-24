@@ -1,0 +1,764 @@
+{
+ "generated_at": "2026-10-24",
+ "method": "scratch 스크립트(저장소 밖): DB csat_items REST GET(읽기 전용) ↔ scripts/csat/pdf-cid-text.mjs 로 추출한 로컬 문제지·정답표 PDF. 영문 30자·국문 8자 조각 포함률. 2025·M2509·M2706 문제지는 영문 글리프가 ASCII+2 로 밀려 있어 대조용으로만 되돌렸다. 원문 텍스트는 저장하지 않는다.",
+ "status_meaning": {
+  "MACHINE_MATCH": "기계 대조 일치 — 사람 확인 서명 전에는 PASS 아님",
+  "PARTIAL": "단일 수기 전사 출처",
+  "PILOT_TIME": "파일럿 때 학습자별로 판정"
+ },
+ "reference_items": [
+  {
+   "item_id": "2026#22",
+   "paper_sha256_16": "788830081bb2a3ad",
+   "passage": 1,
+   "choices": 1,
+   "official_key": 1,
+   "db": 1
+  },
+  {
+   "item_id": "2026#34",
+   "paper_sha256_16": "788830081bb2a3ad",
+   "passage": 1,
+   "choices": 1,
+   "official_key": 3,
+   "db": 3
+  },
+  {
+   "item_id": "2026#38",
+   "paper_sha256_16": "788830081bb2a3ad",
+   "passage": 0.967,
+   "choices": 1,
+   "official_key": 5,
+   "db": 5
+  }
+ ],
+ "reference_note": "2026 문제지 해시는 kice-source.ts 의 평가원 내려받기 대조값과 같다(출처가 확인된 유일한 회차). 2026 정답표는 홀수형.",
+ "items": [
+  {
+   "item_id": "2025#22",
+   "anchor": null,
+   "type_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "de8035bedf1ac1a5",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PARTIAL",
+    "db_answer": 1,
+    "key_answer": null,
+    "key_source": "scripts/csat/data/answers-manual.json (정답표 화면 캡처 수기 전사, 짝수형, 사용자 제공 2026-08-22) — 공식 PDF 자동 해독 불가"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "answer",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2509#22",
+   "anchor": null,
+   "type_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "73a48f9bba4265fe",
+    "passage_chunk_coverage": 0.958,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 3,
+    "key_answer": 3,
+    "key_source": "로컬 정답표 PDF 202509_영어영역_정답표.pdf sha256:012bd55d632e57bd"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2606#22",
+   "anchor": null,
+   "type_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "55ba46646ada079e",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 1,
+    "key_answer": 1,
+    "key_source": "로컬 정답표 PDF 202606_영어영역_정답표.pdf sha256:1b72358ff5e41a6f"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2609#22",
+   "anchor": null,
+   "type_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "4fdb1e11fc03a3dc",
+    "passage_chunk_coverage": 0.917,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 1,
+    "key_answer": 1,
+    "key_source": "로컬 정답표 PDF 202609_영어영역_정답표.pdf sha256:c7a548798966af8f"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2706#22",
+   "anchor": null,
+   "type_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "b7e913209134cd89",
+    "passage_chunk_coverage": 0.933,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 1,
+    "key_answer": 1,
+    "key_source": "로컬 정답표 PDF 202706_영어영역_정답표.pdf sha256:d3ffe0557794da38"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "2025#34",
+   "anchor": null,
+   "type_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "de8035bedf1ac1a5",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PARTIAL",
+    "db_answer": 5,
+    "key_answer": null,
+    "key_source": "scripts/csat/data/answers-manual.json (정답표 화면 캡처 수기 전사, 짝수형, 사용자 제공 2026-08-22) — 공식 PDF 자동 해독 불가"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시 — 34 조건 명제 구조 해당 여부 별도 판정 필요"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "answer",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "2025#33",
+   "anchor": null,
+   "type_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "de8035bedf1ac1a5",
+    "passage_chunk_coverage": 0.913,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PARTIAL",
+    "db_answer": 2,
+    "key_answer": null,
+    "key_source": "scripts/csat/data/answers-manual.json (정답표 화면 캡처 수기 전사, 짝수형, 사용자 제공 2026-08-22) — 공식 PDF 자동 해독 불가"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 5,
+    "reason": "published 분석 5개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시 — 34 조건 명제 구조 해당 여부 별도 판정 필요"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "answer",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2509#34",
+   "anchor": null,
+   "type_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "73a48f9bba4265fe",
+    "passage_chunk_coverage": 0.84,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 3,
+    "key_answer": 3,
+    "key_source": "로컬 정답표 PDF 202509_영어영역_정답표.pdf sha256:012bd55d632e57bd"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시 — 34 조건 명제 구조 해당 여부 별도 판정 필요"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2606#34",
+   "anchor": null,
+   "type_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "55ba46646ada079e",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 2,
+    "key_answer": 2,
+    "key_source": "로컬 정답표 PDF 202606_영어영역_정답표.pdf sha256:1b72358ff5e41a6f"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시 — 34 조건 명제 구조 해당 여부 별도 판정 필요"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2609#34",
+   "anchor": null,
+   "type_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "4fdb1e11fc03a3dc",
+    "passage_chunk_coverage": 0.828,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 1,
+    "key_answer": 1,
+    "key_source": "로컬 정답표 PDF 202609_영어영역_정답표.pdf sha256:c7a548798966af8f"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시 — 34 조건 명제 구조 해당 여부 별도 판정 필요"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2706#34",
+   "anchor": null,
+   "type_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "b7e913209134cd89",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 1,
+    "key_answer": 1,
+    "key_source": "로컬 정답표 PDF 202706_영어영역_정답표.pdf sha256:d3ffe0557794da38"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 5,
+    "reason": "published 분석 5개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시 — 34 조건 명제 구조 해당 여부 별도 판정 필요"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "2025#38",
+   "anchor": null,
+   "type_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "de8035bedf1ac1a5",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 0.968,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PARTIAL",
+    "db_answer": 4,
+    "key_answer": null,
+    "key_source": "scripts/csat/data/answers-manual.json (정답표 화면 캡처 수기 전사, 짝수형, 사용자 제공 2026-08-22) — 공식 PDF 자동 해독 불가"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 5,
+    "reason": "published 분석 5개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "answer",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "2025#39",
+   "anchor": null,
+   "type_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "de8035bedf1ac1a5",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PARTIAL",
+    "db_answer": 4,
+    "key_answer": null,
+    "key_source": "scripts/csat/data/answers-manual.json (정답표 화면 캡처 수기 전사, 짝수형, 사용자 제공 2026-08-22) — 공식 PDF 자동 해독 불가"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 5,
+    "reason": "published 분석 5개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "answer",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2509#38",
+   "anchor": null,
+   "type_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "73a48f9bba4265fe",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 5,
+    "key_answer": 5,
+    "key_source": "로컬 정답표 PDF 202509_영어영역_정답표.pdf sha256:012bd55d632e57bd"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 6,
+    "reason": "published 분석 6개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2606#38",
+   "anchor": null,
+   "type_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "55ba46646ada079e",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 4,
+    "key_answer": 4,
+    "key_source": "로컬 정답표 PDF 202606_영어영역_정답표.pdf sha256:1b72358ff5e41a6f"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 5,
+    "reason": "published 분석 5개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2609#38",
+   "anchor": null,
+   "type_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "4fdb1e11fc03a3dc",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 3,
+    "key_answer": 3,
+    "key_source": "로컬 정답표 PDF 202609_영어영역_정답표.pdf sha256:c7a548798966af8f"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 4,
+    "reason": "published 분석 4개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  },
+  {
+   "item_id": "M2706#38",
+   "anchor": null,
+   "type_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+   "original": {
+    "status": "MACHINE_MATCH",
+    "paper_sha256_16": "b7e913209134cd89",
+    "passage_chunk_coverage": 1,
+    "choices_min_coverage": 1,
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)"
+   },
+   "answer": {
+    "status": "PASS",
+    "db_answer": 3,
+    "key_answer": 3,
+    "key_source": "로컬 정답표 PDF 202706_영어영역_정답표.pdf sha256:d3ffe0557794da38"
+   },
+   "analysis_version": {
+    "status": "UNKNOWN",
+    "published_versions": 5,
+    "reason": "published 분석 5개 공존, 정본 revision 고정 없음"
+   },
+   "rights": {
+    "status": "UNKNOWN",
+    "reason": "권리 필드 없음. 제품 경계(CSAT_LEARNER_DELIVERY §5: 원문 미게재, 학습자 보유 PDF)로 연구 사용 범위를 정할지 사용자 결정 필요"
+   },
+   "principle_same": {
+    "status": "UNKNOWN",
+    "reason": "type_id 일치만 확인. 동일 원리 판정 미실시"
+   },
+   "unseen_by_learner": {
+    "status": "PILOT_TIME",
+    "reason": "학습자별 게이트 — 문항 자체로 판정 불가, 파일럿 시점 P6/자기보고로 확인"
+   },
+   "eligible": false,
+   "blocking": [
+    "analysis_version",
+    "rights",
+    "principle_same",
+    "original_human_signoff"
+   ]
+  }
+ ],
+ "counts": {
+  "total": 17,
+  "eligible": 0,
+  "original_machine_match": 17,
+  "answer_pass": 12,
+  "answer_partial": 5
+ }
+}

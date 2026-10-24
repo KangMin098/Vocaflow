@@ -14,5 +14,6 @@
 | [06_PATHS_USABILITY_LOAD.md](06_PATHS_USABILITY_LOAD.md) · `instruments/load-usability.json` | 경로별 평가 · 공정성 · 부담/사용성 도구 |
 | [07_TOOLING.md](07_TOOLING.md) · `tool/` | 평가 보조 코드 · 일치율 · 불일치 검토 HTML · 비교 · 점검 |
 | [08_INTEGRATION_PILOT_PROTOCOL.md](08_INTEGRATION_PILOT_PROTOCOL.md) | 통합 판정 · 전후 분석 방법 · 파일럿 선행 조건 |
+| [09_HANDOFF.md](09_HANDOFF.md) · `transfer/source-evidence.json` | 종료 인계 — 차단 우선순위 · 후보 17건 원문·정답 대조 근거 · 34/22/38 감수 항목 · P6 인계 · 입력 계약 · 설문 타당화 근거 |
 
 테스트: `node --test docs/research/csat-learning-eval-20261024/tool/__tests__/*.test.mjs`
