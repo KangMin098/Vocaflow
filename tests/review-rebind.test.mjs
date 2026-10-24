@@ -89,3 +89,14 @@ test('staticGates — json 블록이 있으면 마지막 블록 판정만 본다
   const git = (...a) => (a[1] === '--name-status' ? 'M\tscripts/a.mjs' : '+++ b/x\n+const y = 1')
   assert.ok(staticGates({ task, head: COMMIT, base: 'b', git, reviewRoot: root }).fail.some((f) => /REQUEST_CHANGES/.test(f)))
 })
+
+test('마지막 json 블록이 닫히지 않으면 앞 APPROVE 로 내려가지 않는다(재결속 · 게이트)', () => {
+  const text = `\`\`\`json\n{"verdict":"APPROVE","commit":"${COMMIT}"}\n\`\`\`\n최종\n\`\`\`json\n{"verdict":"REQUEST_CHANGES","commit":"${COMMIT}"}\n`
+  assert.equal(T.finalReviewJson(text), null)
+  const { state: s } = state()
+  assert.throws(() => T.rebindReview(s, 'T-9', { caller: 'reviewer', review_path: write('unclosed.md', text) }), /판정이 없음/)
+  fs.writeFileSync(path.join(root, 'u.md'), text)
+  const task = { task_id: 'T-6', status: 'COMPLETED', verified_commit: COMMIT, review_record: 'u.md', review_record_sha256: sha(text), impact: { parent_goal_id: 'VG-1' }, allowed_paths: ['scripts/**'] }
+  const git = (...a) => (a[1] === '--name-status' ? 'M\tscripts/a.mjs' : '+++ b/x\n+const y = 1')
+  assert.ok(staticGates({ task, head: COMMIT, base: 'b', git, reviewRoot: root }).fail.some((f) => /판정 없음/.test(f)))
+})
