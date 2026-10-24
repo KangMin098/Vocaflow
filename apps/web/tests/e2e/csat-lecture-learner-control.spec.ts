@@ -131,5 +131,30 @@ test.describe('강의 학습자 제어', () => {
       await expect(follow).toBeFocused()
       await page.screenshot({ path: `test-results/lecture-learner-control-${width}.png` })
     })
+
+    // 재진입 — 강의 경로는 저장하지 않는다(컴포넌트 상태). 앞 실행에서 「전체(정답 포함)」 를 골랐던 같은 계정 · 같은 문항으로 다시 들어와도
+    // 자동 재생 · 강의 요청 · 정답 포함 강의 자동 전환이 없고, 재생을 누르면 경로를 다시 고르게 한다
+    test(`재진입 ${width}px — 저장된 경로 복원 없음 · 자동 재생 없음 · 다시 고르기`, async ({ page }) => {
+      test.setTimeout(180_000)
+      await page.setViewportSize({ width, height: 900 })
+      const lectureCalls: string[] = []
+      page.on('request', (r) => { if (r.url().includes('/api/csat/lecture')) lectureCalls.push(r.url()) })
+      await page.goto(`/csat/item/${ITEM}?lecture-debug=1&lecture-silent=1`, { waitUntil: 'domcontentloaded' })
+      const theater = page.getByTestId('analysis-theater')
+      await expect(theater).toBeVisible({ timeout: 90_000 })
+      await page.waitForTimeout(3_000)
+      expect(await statusOf(page), '재진입에서 저절로 재생됐다').not.toBe('playing')
+      expect(lectureCalls, '고르기 전에 강의를 받았다').toEqual([])
+      const play = theater.locator('header button', { hasText: /하이라이트만|상영 시작/ })
+      await expect(async () => {
+        await play.click()
+        await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
+      }).toPass({ timeout: 60_000 })
+      expect(lectureCalls, '선택 창을 여는 것만으로 강의를 받았다').toEqual([])
+      // 「정답 직전까지」 를 고르면 until 만 — 앞서 고른 전체로 자동 전환되지 않는다
+      await page.getByTestId('lecture-path-until').click()
+      await expect.poll(() => lectureCalls.at(-1) ?? '').toContain('scope=until')
+      expect(lectureCalls.every((u) => u.includes('scope=until'))).toBe(true)
+    })
   }
 })
