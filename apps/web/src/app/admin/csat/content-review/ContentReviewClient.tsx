@@ -96,7 +96,7 @@ export function ContentReviewClient({
   const integrity = useMemo(() => verifyLedger(ledger), [ledger])
 
   return (
-    <main className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-6">
       <header className="flex flex-wrap items-baseline justify-between gap-3">
         <div>
           <h1 className="font-display text-[20px] font-[700] text-[var(--t1)]">기출분석 콘텐츠 검수</h1>
@@ -165,7 +165,7 @@ export function ContentReviewClient({
           <p className={card}>후보가 없다.</p>
         )}
       </div>
-    </main>
+    </div>
   )
 }
 
@@ -175,7 +175,7 @@ function Detail({ detail, ledger, setLedger }: { detail: CandidateDetail; ledger
   const changedCueIds = new Set(c.changes.filter((ch) => ch.target.startsWith('cue:')).map((ch) => ch.target.slice(4)))
 
   return (
-    <div className="grid grid-cols-2 gap-4 min-[1440px]:grid-cols-[minmax(0,1fr)_minmax(0,1fr)_340px]">
+    <div className="grid grid-cols-2 gap-4">
       {/* ① 공식 원문 */}
       <section aria-labelledby="cr-official" className={card}>
         <h2 id="cr-official" className={h2}>공식 원문</h2>
@@ -249,7 +249,7 @@ function Detail({ detail, ledger, setLedger }: { detail: CandidateDetail; ledger
       </section>
 
       {/* ③ 수정 후보 · 검증 · 상태 */}
-      <div className="col-span-2 flex flex-col gap-4 min-[1440px]:col-span-1">
+      <div className="col-span-2 grid grid-cols-2 items-start gap-4">
         <section aria-labelledby="cr-change" className={card}>
           <h2 id="cr-change" className={h2}>수정 후보 {c.changes.length}</h2>
           <p className={`${small} mt-1 break-keep`}>{SOURCE_LABEL[c.source]} {c.sourceRef} · {DEFECT_LABEL[c.defect]}</p>

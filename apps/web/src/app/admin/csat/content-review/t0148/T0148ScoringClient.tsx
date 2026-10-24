@@ -109,7 +109,7 @@ export function T0148ScoringClient({ blind }: { blind: BlindData }) {
   const s1Locked = sheet.stage !== 'stage1'
 
   return (
-    <main className="flex flex-col gap-4 p-6">
+    <div className="flex flex-col gap-4 p-6">
       <header>
         <h1 className="font-display text-[20px] font-[700] text-[var(--t1)]">T-0148 정리 cue 블라인드 채점</h1>
         <p role="status" className="mt-2 rounded-[var(--r-md)] border border-[var(--memory-risk)] p-3 font-body text-[13px] text-[var(--t1)] break-keep">
@@ -225,6 +225,6 @@ export function T0148ScoringClient({ blind }: { blind: BlindData }) {
           )
         })}
       </ol>
-    </main>
+    </div>
   )
 }
