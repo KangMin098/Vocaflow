@@ -1,0 +1,1492 @@
+{
+ "group": "S4",
+ "rows": [
+  {
+   "item_id": "M2109#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2109#28",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2109#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2109#32",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2109#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2109#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장 PDF 일치; 원장은 (A)(B) 표지 위치·요약문 머리 중복"
+  },
+  {
+   "item_id": "M2109#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2109#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2109#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2206#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2206#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2206#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2206#32",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2206#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2206#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장 PDF 일치; 원장은 (A)(B) 표지 위치·요약문 머리 중복"
+  },
+  {
+   "item_id": "M2206#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2206#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2206#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2209#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2209#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2209#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2209#32",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2209#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2209#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장 PDF 일치; 원장은 (A)(B) 표지 위치·요약문 머리 중복"
+  },
+  {
+   "item_id": "M2209#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2209#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2209#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2306#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2306#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2306#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2306#32",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2306#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2306#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장 PDF 일치; 원장은 (A)(B) 표지 위치·요약문 머리 중복"
+  },
+  {
+   "item_id": "M2306#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2306#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2306#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2309#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2309#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2309#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2309#32",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2309#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2309#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장 PDF 일치; 원장은 (A)(B) 표지 위치·요약문 머리 중복"
+  },
+  {
+   "item_id": "M2309#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2309#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2309#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2406#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2406#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2406#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2406#32",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2406#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2406#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장 PDF 일치; 원장은 (A)(B) 표지 위치·요약문 머리 중복"
+  },
+  {
+   "item_id": "M2406#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2406#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  },
+  {
+   "item_id": "M2406#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치; 원장 차이는 쪽번호·표지·띄어쓰기 잔여물"
+  }
+ ],
+ "recipes": [
+  {
+   "item_id": "M2109#24",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "choices": [
+     "Summits Yet to Be Reached: An Onward Journey to Knowledge",
+     "Over the Mountain: A Single But Giant Step to Success",
+     "Integrating Parts into a Whole: The Road to Perfection",
+     "How to Live Together in an Age of Uncertainty",
+     "The Two Faces of a Knowledge-Based Society 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "Summits Yet to Be Reached: An Onward Journey to Knowledge",
+     "Over the Mountain: A Single But Giant Step to Success",
+     "Integrating Parts into a Whole: The Road to Perfection",
+     "How to Live Together in an Age of Uncertainty",
+     "The Two Faces of a Knowledge-Based Society"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#28",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "passage": "Poetry Writing Basics Workshop Join our Poetry Writing Basics Workshop and meet the poet, Ms. Grace Larson! All students of George Clarkson University are invited. When: Thursday, September 24, 2020 (1:00 p.m. — 4:00 p.m.) Where: Main Seminar Room, 1st Floor, Student Union After an introduction to the basic techniques of poetry writing, you will: Write your own poem. Read it aloud to the other participants. Receive expert feedback from Ms. Larson. Registration Fee: $10 ※ Register on or before September 18 and pay only $7. Any related inquiries should be sent via email to studentun@georgeclarkson.edu.",
+    "choices": [
+     "목요일 오전에 진행된다 .",
+     "학생회관 3 층에서 열린다 .",
+     "참가자는 자신이 창작한 시를 낭독할 것이다 .",
+     "9 월 18 일까지는 등록비가 10 달러이다 .",
+     "관련 문의는 이메일로 할 수 없다 ."
+    ]
+   },
+   "after": {
+    "passage": "Poetry Writing Basics Workshop Join our Poetry Writing Basics Workshop and meet the poet, Ms. Grace Larson! All students of George Clarkson University are invited. When: Thursday, September 24, 2020 (1:00 p.m. — 4:00 p.m.) Where: Main Seminar Room, 1st Floor, Student Union After an introduction to the basic techniques of poetry writing, you will: 1. Write your own poem. 2. Read it aloud to the other participants. 3. Receive expert feedback from Ms. Larson. Registration Fee: $10 ※ Register on or before September 18 and pay only $7. Any related inquiries should be sent via email to studentun@georgeclarkson.edu.",
+    "choices": [
+     "목요일 오전에 진행된다.",
+     "학생회관 3층에서 열린다.",
+     "참가자는 자신이 창작한 시를 낭독할 것이다.",
+     "9월 18일까지는 등록비가 10달러이다.",
+     "관련 문의는 이메일로 할 수 없다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#30",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "passage": "If I say to you, ‘Don’t think of a white bear’, you will find it difficult not to think of a white bear. In this way, ‘thought suppression can actually increase the thoughts one wishes to suppress instead of calming them’. One common example of this is that people on a diet who try not to think about food often begin to think much ① more about food. This process is therefore also known as the ______ rebound effect. The ② ironic effect seems to be caused by the interplay of two related cognitive processes. This dual-process system involves, first, an intentional operating process, which consciously attempts to locate thoughts ③ unrelated to the suppressed ones. Second, and simultaneously, an unconscious monitoring process tests whether the operating system is functioning effectively. If the monitoring system encounters thoughts inconsistent with the intended ones, it prompts the intentional operating process to ensure that these are replaced by ④ inappropriate thoughts. However, it is argued, the intentional operating system can fail due to increased cognitive load caused by fatigue, stress and emotional factors, and so the monitoring process filters the inappropriate thoughts into consciousness, making them highly ⑤ accessible. 5 5"
+   },
+   "after": {
+    "passage": "If I say to you, ‘Don’t think of a white bear’, you will find it difficult not to think of a white bear. In this way, ‘thought suppression can actually increase the thoughts one wishes to suppress instead of calming them’. One common example of this is that people on a diet who try not to think about food often begin to think much ① more about food. This process is therefore also known as the rebound effect. The ② ironic effect seems to be caused by the interplay of two related cognitive processes. This dual-process system involves, first, an intentional operating process, which consciously attempts to locate thoughts ③ unrelated to the suppressed ones. Second, and simultaneously, an unconscious monitoring process tests whether the operating system is functioning effectively. If the monitoring system encounters thoughts inconsistent with the intended ones, it prompts the intentional operating process to ensure that these are replaced by ④ inappropriate thoughts. However, it is argued, the intentional operating system can fail due to increased cognitive load caused by fatigue, stress and emotional factors, and so the monitoring process filters the inappropriate thoughts into consciousness, making them highly ⑤ accessible."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#32",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "passage": "Genetic engineering followed by cloning to distribute many identical animals or plants is sometimes seen as a threat to the diversity of nature. However, humans have been replacing diverse natural habitats with artificial monoculture for millennia. Most natural habitats in the advanced nations have already been replaced with some form of artificial environment based on mass production or repetition. The real threat to biodiversity is surely the need to convert ever more of our planet into production zones to feed the ever-increasing human population. The cloning and transgenic alteration of domestic animals makes little difference to the overall situation. Conversely, the renewed interest in genetics has led to a growing awareness that there are many wild plants and animals with interesting or useful genetic properties that could be used for a variety of as-yet-unknown purposes. This has led in turn to a realization that because they may harbor tomorrow’s drugs against cancer, malaria, or obesity.",
+    "choices": [
+     "ecological systems are genetically programmed",
+     "we should avoid destroying natural ecosystems",
+     "we need to stop creating genetically modified organisms",
+     "artificial organisms can survive in natural environments",
+     "living things adapt themselves to their physical environments 8"
+    ]
+   },
+   "after": {
+    "passage": "Genetic engineering followed by cloning to distribute many identical animals or plants is sometimes seen as a threat to the diversity of nature. However, humans have been replacing diverse natural habitats with artificial monoculture for millennia. Most natural habitats in the advanced nations have already been replaced with some form of artificial environment based on mass production or repetition. The real threat to biodiversity is surely the need to convert ever more of our planet into production zones to feed the ever-increasing human population. The cloning and transgenic alteration of domestic animals makes little difference to the overall situation. Conversely, the renewed interest in genetics has led to a growing awareness that there are many wild plants and animals with interesting or useful genetic properties that could be used for a variety of as-yet-unknown purposes. This has led in turn to a realization that ______ because they may harbor tomorrow’s drugs against cancer, malaria, or obesity.",
+    "choices": [
+     "ecological systems are genetically programmed",
+     "we should avoid destroying natural ecosystems",
+     "we need to stop creating genetically modified organisms",
+     "artificial organisms can survive in natural environments",
+     "living things adapt themselves to their physical environments"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#38",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "passage": "As long as you do not run out of copies before completing this process, you will know that you have a sufficient number to go around. We sometimes solve number problems almost without realizing it. ( ①) For example, suppose you are conducting a meeting and you want to ensure that everyone there has a copy of the agenda. ( ②) You can deal with this by labelling each copy of the handout in turn with the initials of each of those present. ( ③) You ______ have then solved this problem without resorting to arithmetic and without explicit counting. ( ④) There are numbers at work for us here all the same and they allow precise comparison of one collection with another, even though the members that make up the collections could have entirely different characters, as is the case here, where one set is a collection of people, while the other consists of pieces of paper. ( ⑤) What numbers allow us to do is to compare the relative size of one set with another. 7 7"
+   },
+   "after": {
+    "passage": "As long as you do not run out of copies before completing this process, you will know that you have a sufficient number to go around. We sometimes solve number problems almost without realizing it. ( ① ) For example, suppose you are conducting a meeting and you want to ensure that everyone there has a copy of the agenda. ( ② ) You can deal with this by labelling each copy of the handout in turn with the initials of each of those present. ( ③ ) You have then solved this problem without resorting to arithmetic and without explicit counting. ( ④ ) There are numbers at work for us here all the same and they allow precise comparison of one collection with another, even though the members that make up the collections could have entirely different characters, as is the case here, where one set is a collection of people, while the other consists of pieces of paper. ( ⑤ ) What numbers allow us to do is to compare the relative size of one set with another."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#40",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "passage": "Research from the Harwood Institute for Public Innovation in the USA shows ______ that people feel that ‘materialism’ somehow comes between them and the satisfaction of their social needs. A report entitled Yearning for Balance, based on a nationwide survey of Americans, concluded that they were ‘deeply ambivalent about wealth and material gain’. A large majority of people wanted society to ‘move away from greed and excess toward a way of life more centred on values, community, and family’. But they also felt that these priorities were not shared by most of their fellow Americans, who, they believed, had become ‘increasingly atomized, selfish, and irresponsible’. As a result they often felt isolated. However, the report says, that when brought together in focus groups to discuss these issues, people were ‘surprised and excited to find that others share[d] their views’. Rather than uniting us with others in a common cause, the unease we feel about the loss of social values and the way we are drawn into the pursuit of material gain is often experienced as if it were a purely private ambivalence which cuts us off from others. 󰀻 Many Americans, believing that materialism keeps them (A) from ______ social values, feel detached from most (B) others, but this is actually a fairly ______ concern. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "pursuing …… unnecessary",
+     "pursuing …… common",
+     "holding …… personal",
+     "denying …… ethical",
+     "denying …… primary 8"
+    ]
+   },
+   "after": {
+    "passage": "Research from the Harwood Institute for Public Innovation in the USA shows that people feel that ‘materialism’ somehow comes between them and the satisfaction of their social needs. A report entitled Yearning for Balance, based on a nationwide survey of Americans, concluded that they were ‘deeply ambivalent about wealth and material gain’. A large majority of people wanted society to ‘move away from greed and excess toward a way of life more centred on values, community, and family’. But they also felt that these priorities were not shared by most of their fellow Americans, who, they believed, had become ‘increasingly atomized, selfish, and irresponsible’. As a result they often felt isolated. However, the report says, that when brought together in focus groups to discuss these issues, people were ‘surprised and excited to find that others share[d] their views’. Rather than uniting us with others in a common cause, the unease we feel about the loss of social values and the way we are drawn into the pursuit of material gain is often experienced as if it were a purely private ambivalence which cuts us off from others. Many Americans, believing that materialism keeps them from (A) ______ social values, feel detached from most others, but this is actually a fairly (B) ______ concern.",
+    "choices": [
+     "pursuing …… unnecessary",
+     "pursuing …… common",
+     "holding …… personal",
+     "denying …… ethical",
+     "denying …… primary"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#43",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "passage": "(A) The children arrived at sunrise at their grandmother’s house. They always gathered at this time of year to assist with her corn harvest. In return, their grandmother would reward them with a present and by cooking a delicious feast. The children were all in great spirits. But not Sally. She disliked working in the corn field as she hated the heat and the dust. (a) She sat silently as the others took a sack each and then sang their way to the field. 8 (B) Sally just wanted to get her present and leave the field because she was starting to get hot and feel irritated. (b) She had only filled her sack twice, but the others were now taking their third sacks to the granary. Sally sighed heavily. Then an idea struck her. To make the sack lighter and speed things up, she quickly filled her last sack with corn stalks. Sally reached the granary first, and her grandmother asked (c) her to put aside the final load and write her name on it. (C) They reached the field and started to work happily. Soon after, Sally joined them with her sack. Around mid-morning, their grandmother came with ice-cold lemonade and peach pie. After finishing, the children continued working until the sun was high and their sacks were bursting. Each child had to make three trips to the granary. Grandmother was impressed by their efforts and (d) she wanted to give them presents accordingly. (D) Grandmother asked the other children to do the same thing. Then, all of the children enjoyed their grandmother’s delicious lunch. “I am so pleased with your work,” she told them after lunch. “This year, you can all take home your final load as a present!” The children cheered for joy, gladly thanked her, and lifted their sacks to take home. Sally was terribly disappointed. There was nothing but useless corn stalks in (e) her sack. She then made the long walk home, pretending that she was carrying a heavy load."
+   },
+   "after": {
+    "passage": "(A) The children arrived at sunrise at their grandmother’s house. They always gathered at this time of year to assist with her corn harvest. In return, their grandmother would reward them with a present and by cooking a delicious feast. The children were all in great spirits. But not Sally. She disliked working in the corn field as she hated the heat and the dust. (a) She sat silently as the others took a sack each and then sang their way to the field. (B) Sally just wanted to get her present and leave the field because she was starting to get hot and feel irritated. (b) She had only filled her sack twice, but the others were now taking their third sacks to the granary. Sally sighed heavily. Then an idea struck her. To make the sack lighter and speed things up, she quickly filled her last sack with corn stalks. Sally reached the granary first, and her grandmother asked (c) her to put aside the final load and write her name on it. (C) They reached the field and started to work happily. Soon after, Sally joined them with her sack. Around mid-morning, their grandmother came with ice-cold lemonade and peach pie. After finishing, the children continued working until the sun was high and their sacks were bursting. Each child had to make three trips to the granary. Grandmother was impressed by their efforts and (d) she wanted to give them presents accordingly. (D) Grandmother asked the other children to do the same thing. Then, all of the children enjoyed their grandmother’s delicious lunch. “I am so pleased with your work,” she told them after lunch. “This year, you can all take home your final load as a present!” The children cheered for joy, gladly thanked her, and lifted their sacks to take home. Sally was terribly disappointed. There was nothing but useless corn stalks in (e) her sack. She then made the long walk home, pretending that she was carrying a heavy load."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#44",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "passage": "(A) The children arrived at sunrise at their grandmother’s house. They always gathered at this time of year to assist with her corn harvest. In return, their grandmother would reward them with a present and by cooking a delicious feast. The children were all in great spirits. But not Sally. She disliked working in the corn field as she hated the heat and the dust. (a) She sat silently as the others took a sack each and then sang their way to the field. 8 (B) Sally just wanted to get her present and leave the field because she was starting to get hot and feel irritated. (b) She had only filled her sack twice, but the others were now taking their third sacks to the granary. Sally sighed heavily. Then an idea struck her. To make the sack lighter and speed things up, she quickly filled her last sack with corn stalks. Sally reached the granary first, and her grandmother asked (c) her to put aside the final load and write her name on it. (C) They reached the field and started to work happily. Soon after, Sally joined them with her sack. Around mid-morning, their grandmother came with ice-cold lemonade and peach pie. After finishing, the children continued working until the sun was high and their sacks were bursting. Each child had to make three trips to the granary. Grandmother was impressed by their efforts and (d) she wanted to give them presents accordingly. (D) Grandmother asked the other children to do the same thing. Then, all of the children enjoyed their grandmother’s delicious lunch. “I am so pleased with your work,” she told them after lunch. “This year, you can all take home your final load as a present!” The children cheered for joy, gladly thanked her, and lifted their sacks to take home. Sally was terribly disappointed. There was nothing but useless corn stalks in (e) her sack. She then made the long walk home, pretending that she was carrying a heavy load."
+   },
+   "after": {
+    "passage": "(A) The children arrived at sunrise at their grandmother’s house. They always gathered at this time of year to assist with her corn harvest. In return, their grandmother would reward them with a present and by cooking a delicious feast. The children were all in great spirits. But not Sally. She disliked working in the corn field as she hated the heat and the dust. (a) She sat silently as the others took a sack each and then sang their way to the field. (B) Sally just wanted to get her present and leave the field because she was starting to get hot and feel irritated. (b) She had only filled her sack twice, but the others were now taking their third sacks to the granary. Sally sighed heavily. Then an idea struck her. To make the sack lighter and speed things up, she quickly filled her last sack with corn stalks. Sally reached the granary first, and her grandmother asked (c) her to put aside the final load and write her name on it. (C) They reached the field and started to work happily. Soon after, Sally joined them with her sack. Around mid-morning, their grandmother came with ice-cold lemonade and peach pie. After finishing, the children continued working until the sun was high and their sacks were bursting. Each child had to make three trips to the granary. Grandmother was impressed by their efforts and (d) she wanted to give them presents accordingly. (D) Grandmother asked the other children to do the same thing. Then, all of the children enjoyed their grandmother’s delicious lunch. “I am so pleased with your work,” she told them after lunch. “This year, you can all take home your final load as a present!” The children cheered for joy, gladly thanked her, and lifted their sacks to take home. Sally was terribly disappointed. There was nothing but useless corn stalks in (e) her sack. She then made the long walk home, pretending that she was carrying a heavy load."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#45",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "passage": "(A) The children arrived at sunrise at their grandmother’s house. They always gathered at this time of year to assist with her corn harvest. In return, their grandmother would reward them with a present and by cooking a delicious feast. The children were all in great spirits. But not Sally. She disliked working in the corn field as she hated the heat and the dust. (a) She sat silently as the others took a sack each and then sang their way to the field. 8 (B) Sally just wanted to get her present and leave the field because she was starting to get hot and feel irritated. (b) She had only filled her sack twice, but the others were now taking their third sacks to the granary. Sally sighed heavily. Then an idea struck her. To make the sack lighter and speed things up, she quickly filled her last sack with corn stalks. Sally reached the granary first, and her grandmother asked (c) her to put aside the final load and write her name on it. (C) They reached the field and started to work happily. Soon after, Sally joined them with her sack. Around mid-morning, their grandmother came with ice-cold lemonade and peach pie. After finishing, the children continued working until the sun was high and their sacks were bursting. Each child had to make three trips to the granary. Grandmother was impressed by their efforts and (d) she wanted to give them presents accordingly. (D) Grandmother asked the other children to do the same thing. Then, all of the children enjoyed their grandmother’s delicious lunch. “I am so pleased with your work,” she told them after lunch. “This year, you can all take home your final load as a present!” The children cheered for joy, gladly thanked her, and lifted their sacks to take home. Sally was terribly disappointed. There was nothing but useless corn stalks in (e) her sack. She then made the long walk home, pretending that she was carrying a heavy load.",
+    "choices": [
+     "아이들은 할머니의 옥수수 수확을 돕기 위해 모였다 .",
+     "Sally 는 덥고 짜증나서 옥수수 밭을 떠나고 싶었다 .",
+     "아이들은 각자 세 번씩 옥수수가 담긴 자루를 곡물창고로 날라야 했다 .",
+     "할머니는 아이들에게 맛있는 점심을 제공했다 .",
+     "Sally 는 옥수수가 담긴 무거운 자루를 가지고 집으로 갔다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) The children arrived at sunrise at their grandmother’s house. They always gathered at this time of year to assist with her corn harvest. In return, their grandmother would reward them with a present and by cooking a delicious feast. The children were all in great spirits. But not Sally. She disliked working in the corn field as she hated the heat and the dust. (a) She sat silently as the others took a sack each and then sang their way to the field. (B) Sally just wanted to get her present and leave the field because she was starting to get hot and feel irritated. (b) She had only filled her sack twice, but the others were now taking their third sacks to the granary. Sally sighed heavily. Then an idea struck her. To make the sack lighter and speed things up, she quickly filled her last sack with corn stalks. Sally reached the granary first, and her grandmother asked (c) her to put aside the final load and write her name on it. (C) They reached the field and started to work happily. Soon after, Sally joined them with her sack. Around mid-morning, their grandmother came with ice-cold lemonade and peach pie. After finishing, the children continued working until the sun was high and their sacks were bursting. Each child had to make three trips to the granary. Grandmother was impressed by their efforts and (d) she wanted to give them presents accordingly. (D) Grandmother asked the other children to do the same thing. Then, all of the children enjoyed their grandmother’s delicious lunch. “I am so pleased with your work,” she told them after lunch. “This year, you can all take home your final load as a present!” The children cheered for joy, gladly thanked her, and lifted their sacks to take home. Sally was terribly disappointed. There was nothing but useless corn stalks in (e) her sack. She then made the long walk home, pretending that she was carrying a heavy load.",
+    "choices": [
+     "아이들은 할머니의 옥수수 수확을 돕기 위해 모였다.",
+     "Sally는 덥고 짜증나서 옥수수 밭을 떠나고 싶었다.",
+     "아이들은 각자 세 번씩 옥수수가 담긴 자루를 곡물창고로 날라야 했다.",
+     "할머니는 아이들에게 맛있는 점심을 제공했다.",
+     "Sally는 옥수수가 담긴 무거운 자루를 가지고 집으로 갔다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#22",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "choices": [
+     "계획 수립 절차를 간소화하면 일의 진행 속도가 빨라진다 .",
+     "안정적인 예산 확보는 일의 원활한 진행을 위해 필수적이다 .",
+     "사업 계획은 급변하는 상황에 따라 유연하게 변경될 수 있다 .",
+     "면밀한 계획 수립은 일의 효율성을 증대시키고 성공 가능성을 높인다 .",
+     "대규모 사업에서는 지속적인 성장을 목표로 하는 세부 계획이 중요하다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "계획 수립 절차를 간소화하면 일의 진행 속도가 빨라진다.",
+     "안정적인 예산 확보는 일의 원활한 진행을 위해 필수적이다.",
+     "사업 계획은 급변하는 상황에 따라 유연하게 변경될 수 있다.",
+     "면밀한 계획 수립은 일의 효율성을 증대시키고 성공 가능성을 높인다.",
+     "대규모 사업에서는 지속적인 성장을 목표로 하는 세부 계획이 중요하다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#24",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "choices": [
+     "Social Perception in Old Age: It’s Not All Bad News!",
+     "Blocking Out the Negative Sharpens Social Skills",
+     "Lessons on Life-long Goals from Senior Achievers",
+     "Getting Old: A Road to Maturity and Objectivity",
+     "Positive Mind and Behavior: Tips for Reversing Aging 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "Social Perception in Old Age: It’s Not All Bad News!",
+     "Blocking Out the Negative Sharpens Social Skills",
+     "Lessons on Life-long Goals from Senior Achievers",
+     "Getting Old: A Road to Maturity and Objectivity",
+     "Positive Mind and Behavior: Tips for Reversing Aging"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#30",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "passage": "Sport can trigger an emotional response in its consumers of the kind rarely brought forth by other products. Imagine bank customers buying memorabilia to show loyalty to their bank, or consumers ① identifying so strongly with their car insurance company that they get a tattoo with its logo. We know that some sport followers are so ② passionate about players, teams and the sport itself that their interest borders on obsession. This addiction provides the emotional glue that binds fans to teams, and maintains loyalty even in the face of on-field ③ failure. While most managers can only dream of having customers that are as passionate about their products as sport fans, the emotion triggered by sport can also have a negative impact. Sport’s emotional intensity can mean that organisations have strong attachments to the past through nostalgia and club tradition. As a result, they may ④ increase efficiency, productivity and the need to respond quickly to changing market conditions. For example, a proposal to change club colours in order to project a more attractive image may be ⑤ defeated because it breaks a link with tradition. 5 5"
+   },
+   "after": {
+    "passage": "Sport can trigger an emotional response in its consumers of the kind rarely brought forth by other products. Imagine bank customers buying memorabilia to show loyalty to their bank, or consumers ① identifying so strongly with their car insurance company that they get a tattoo with its logo. We know that some sport followers are so ② passionate about players, teams and the sport itself that their interest borders on obsession. This addiction provides the emotional glue that binds fans to teams, and maintains loyalty even in the face of on-field ③ failure. While most managers can only dream of having customers that are as passionate about their products as sport fans, the emotion triggered by sport can also have a negative impact. Sport’s emotional intensity can mean that organisations have strong attachments to the past through nostalgia and club tradition. As a result, they may ④ increase efficiency, productivity and the need to respond quickly to changing market conditions. For example, a proposal to change club colours in order to project a more attractive image may be ⑤ defeated because it breaks a link with tradition."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#32",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "choices": [
+     "highlight the value of preferred activities",
+     "make current activities less attractive",
+     "cut their attachment to past activities",
+     "enable them to enjoy more activities",
+     "potentially become known to others 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "highlight the value of preferred activities",
+     "make current activities less attractive",
+     "cut their attachment to past activities",
+     "enable them to enjoy more activities",
+     "potentially become known to others"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#38",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "passage": "A problem, however, is that supervisors often work in locations apart from their employees and therefore are not able to observe their subordinates’ performance. In most organizations, the employee’s immediate supervisor evaluates the employee’s performance. ( ①) This is because the supervisor is responsible for the employee’s performance, providing supervision, handing out assignments, and developing the employee. ( ②) Should supervisors rate employees on performance dimensions they cannot observe? ( ③) To eliminate this dilemma, more and more organizations are implementing assessments referred to as 360 - degree evaluations. ( ④) Employees are rated not only by their supervisors but by coworkers, clients or citizens, professionals in other agencies with whom they work, and subordinates. ( ⑤) The reason for this approach is that often coworkers and clients or citizens have a greater opportunity to observe an employee’s performance and are in a better position to evaluate many performance dimensions. 7 7"
+   },
+   "after": {
+    "passage": "A problem, however, is that supervisors often work in locations apart from their employees and therefore are not able to observe their subordinates’ performance. In most organizations, the employee’s immediate supervisor evaluates the employee’s performance. ( ① ) This is because the supervisor is responsible for the employee’s performance, providing supervision, handing out assignments, and developing the employee. ( ② ) Should supervisors rate employees on performance dimensions they cannot observe? ( ③ ) To eliminate this dilemma, more and more organizations are implementing assessments referred to as 360-degree evaluations. ( ④ ) Employees are rated not only by their supervisors but by coworkers, clients or citizens, professionals in other agencies with whom they work, and subordinates. ( ⑤ ) The reason for this approach is that often coworkers and clients or citizens have a greater opportunity to observe an employee’s performance and are in a better position to evaluate many performance dimensions."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#40",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "passage": "The idea that planting trees could have a social or political significance appears to have been invented by the English, though it has since spread widely. According to Keith Thomas’s history Man and the Natural World ______ , seventeenthand eighteenth-century aristocrats began planting hardwood trees, usually in lines, to declare the extent of their property and the permanence of their claim to it. “What can be more pleasant,” the editor of a magazine for gentlemen asked his readers, “than to have the bounds and limits of your own property preserved and continued from age to age by the testimony of such living and growing witnesses?” Planting trees had the additional advantage of being regarded as a patriotic act, for the Crown had declared a severe shortage of the hardwood on which the Royal Navy depended. 󰀻 For English aristocrats, planting trees served as statements (A) to mark the ______ ownership of their land, and it (B) was also considered to be a(n) ______ of their loyalty to the nation. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "unstable …… confirmation",
+     "unstable …… exaggeration",
+     "lasting …… exhibition",
+     "lasting …… manipulation",
+     "official …… justification 8"
+    ]
+   },
+   "after": {
+    "passage": "The idea that planting trees could have a social or political significance appears to have been invented by the English, though it has since spread widely. According to Keith Thomas’s history Man and the Natural World, seventeenth- and eighteenth-century aristocrats began planting hardwood trees, usually in lines, to declare the extent of their property and the permanence of their claim to it. “What can be more pleasant,” the editor of a magazine for gentlemen asked his readers, “than to have the bounds and limits of your own property preserved and continued from age to age by the testimony of such living and growing witnesses?” Planting trees had the additional advantage of being regarded as a patriotic act, for the Crown had declared a severe shortage of the hardwood on which the Royal Navy depended. For English aristocrats, planting trees served as statements to mark the (A) ______ ownership of their land, and it was also considered to be a(n) (B) ______ of their loyalty to the nation.",
+    "choices": [
+     "unstable …… confirmation",
+     "unstable …… exaggeration",
+     "lasting …… exhibition",
+     "lasting …… manipulation",
+     "official …… justification"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#43",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "passage": "(A) Fighting against the force of the water was a thrilling challenge. Sophia tried to keep herself planted firmly in the boat, paying attention to the waves crashing against the rocks. As the water got rougher, she was forced to paddle harder to keep the waves from tossing her into the water. Her friends Mia and Rebecca were paddling eagerly behind her to balance the boat. They were soaked from all of the spray. Mia shouted to Sophia, “Are you OK? Aren’t (a) you scared?” 8 (B) “You’ve got a good point. It’s a real advantage to graduate from college with the mindset of a daring adventurer,” Mia said. Rebecca quickly added, “That’s why I went to Mongolia before I started my first job out of college. Teaching English there for two months was a big challenge for me. But (b) I learned a lot from the experience. It really gave me the courage to try anything in life.” Listening to her friends, Sophia looked at (c) her own reflection in the water and saw a confident young woman smiling back at her. (C) “I’m great!” Sophia shouted back excitedly. Even though the boat was getting thrown around, the girls managed to avoid hitting any rocks. Suddenly, almost as quickly as the water had got rougher, the river seemed to calm down, and they all felt relaxed. With a sigh of relief, Sophia looked around. “Wow! What a wonderful view!” (d) she shouted. The scenery around them was breathtaking. Everyone was speechless. As they enjoyed the emerald green Rocky Mountains, Mia said, “No wonder rafting is the best thing to do in Colorado!” (D) Agreeing with her friend, Rebecca gave a ______ thumbs-up. “Sophia, your choice was excellent!” she said with a delighted smile. “I thought you were afraid of water, though, Sophia,” Mia said. Sophia explained, “Well, I was before I started rafting. But I graduate from college in a few months. And, before I do, I wanted to do something really adventurous to test my bravery. I thought that if I did something completely crazy, it might give (e) me more confidence when I’m interviewing for jobs.” Now they could see why she had suggested going rafting."
+   },
+   "after": {
+    "passage": "(A) Fighting against the force of the water was a thrilling challenge. Sophia tried to keep herself planted firmly in the boat, paying attention to the waves crashing against the rocks. As the water got rougher, she was forced to paddle harder to keep the waves from tossing her into the water. Her friends Mia and Rebecca were paddling eagerly behind her to balance the boat. They were soaked from all of the spray. Mia shouted to Sophia, “Are you OK? Aren’t (a) you scared?” (B) “You’ve got a good point. It’s a real advantage to graduate from college with the mindset of a daring adventurer,” Mia said. Rebecca quickly added, “That’s why I went to Mongolia before I started my first job out of college. Teaching English there for two months was a big challenge for me. But (b) I learned a lot from the experience. It really gave me the courage to try anything in life.” Listening to her friends, Sophia looked at (c) her own reflection in the water and saw a confident young woman smiling back at her. (C) “I’m great!” Sophia shouted back excitedly. Even though the boat was getting thrown around, the girls managed to avoid hitting any rocks. Suddenly, almost as quickly as the water had got rougher, the river seemed to calm down, and they all felt relaxed. With a sigh of relief, Sophia looked around. “Wow! What a wonderful view!” (d) she shouted. The scenery around them was breathtaking. Everyone was speechless. As they enjoyed the emerald green Rocky Mountains, Mia said, “No wonder rafting is the best thing to do in Colorado!” (D) Agreeing with her friend, Rebecca gave a thumbs-up. “Sophia, your choice was excellent!” she said with a delighted smile. “I thought you were afraid of water, though, Sophia,” Mia said. Sophia explained, “Well, I was before I started rafting. But I graduate from college in a few months. And, before I do, I wanted to do something really adventurous to test my bravery. I thought that if I did something completely crazy, it might give (e) me more confidence when I’m interviewing for jobs.” Now they could see why she had suggested going rafting."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#44",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "passage": "(A) Fighting against the force of the water was a thrilling challenge. Sophia tried to keep herself planted firmly in the boat, paying attention to the waves crashing against the rocks. As the water got rougher, she was forced to paddle harder to keep the waves from tossing her into the water. Her friends Mia and Rebecca were paddling eagerly behind her to balance the boat. They were soaked from all of the spray. Mia shouted to Sophia, “Are you OK? Aren’t (a) you scared?” 8 (B) “You’ve got a good point. It’s a real advantage to graduate from college with the mindset of a daring adventurer,” Mia said. Rebecca quickly added, “That’s why I went to Mongolia before I started my first job out of college. Teaching English there for two months was a big challenge for me. But (b) I learned a lot from the experience. It really gave me the courage to try anything in life.” Listening to her friends, Sophia looked at (c) her own reflection in the water and saw a confident young woman smiling back at her. (C) “I’m great!” Sophia shouted back excitedly. Even though the boat was getting thrown around, the girls managed to avoid hitting any rocks. Suddenly, almost as quickly as the water had got rougher, the river seemed to calm down, and they all felt relaxed. With a sigh of relief, Sophia looked around. “Wow! What a wonderful view!” (d) she shouted. The scenery around them was breathtaking. Everyone was speechless. As they enjoyed the emerald green Rocky Mountains, Mia said, “No wonder rafting is the best thing to do in Colorado!” (D) Agreeing with her friend, Rebecca gave a ______ thumbs-up. “Sophia, your choice was excellent!” she said with a delighted smile. “I thought you were afraid of water, though, Sophia,” Mia said. Sophia explained, “Well, I was before I started rafting. But I graduate from college in a few months. And, before I do, I wanted to do something really adventurous to test my bravery. I thought that if I did something completely crazy, it might give (e) me more confidence when I’m interviewing for jobs.” Now they could see why she had suggested going rafting."
+   },
+   "after": {
+    "passage": "(A) Fighting against the force of the water was a thrilling challenge. Sophia tried to keep herself planted firmly in the boat, paying attention to the waves crashing against the rocks. As the water got rougher, she was forced to paddle harder to keep the waves from tossing her into the water. Her friends Mia and Rebecca were paddling eagerly behind her to balance the boat. They were soaked from all of the spray. Mia shouted to Sophia, “Are you OK? Aren’t (a) you scared?” (B) “You’ve got a good point. It’s a real advantage to graduate from college with the mindset of a daring adventurer,” Mia said. Rebecca quickly added, “That’s why I went to Mongolia before I started my first job out of college. Teaching English there for two months was a big challenge for me. But (b) I learned a lot from the experience. It really gave me the courage to try anything in life.” Listening to her friends, Sophia looked at (c) her own reflection in the water and saw a confident young woman smiling back at her. (C) “I’m great!” Sophia shouted back excitedly. Even though the boat was getting thrown around, the girls managed to avoid hitting any rocks. Suddenly, almost as quickly as the water had got rougher, the river seemed to calm down, and they all felt relaxed. With a sigh of relief, Sophia looked around. “Wow! What a wonderful view!” (d) she shouted. The scenery around them was breathtaking. Everyone was speechless. As they enjoyed the emerald green Rocky Mountains, Mia said, “No wonder rafting is the best thing to do in Colorado!” (D) Agreeing with her friend, Rebecca gave a thumbs-up. “Sophia, your choice was excellent!” she said with a delighted smile. “I thought you were afraid of water, though, Sophia,” Mia said. Sophia explained, “Well, I was before I started rafting. But I graduate from college in a few months. And, before I do, I wanted to do something really adventurous to test my bravery. I thought that if I did something completely crazy, it might give (e) me more confidence when I’m interviewing for jobs.” Now they could see why she had suggested going rafting."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2206#45",
+   "pdf_file": "202206_영어영역_문제지.pdf",
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34",
+   "before": {
+    "passage": "(A) Fighting against the force of the water was a thrilling challenge. Sophia tried to keep herself planted firmly in the boat, paying attention to the waves crashing against the rocks. As the water got rougher, she was forced to paddle harder to keep the waves from tossing her into the water. Her friends Mia and Rebecca were paddling eagerly behind her to balance the boat. They were soaked from all of the spray. Mia shouted to Sophia, “Are you OK? Aren’t (a) you scared?” 8 (B) “You’ve got a good point. It’s a real advantage to graduate from college with the mindset of a daring adventurer,” Mia said. Rebecca quickly added, “That’s why I went to Mongolia before I started my first job out of college. Teaching English there for two months was a big challenge for me. But (b) I learned a lot from the experience. It really gave me the courage to try anything in life.” Listening to her friends, Sophia looked at (c) her own reflection in the water and saw a confident young woman smiling back at her. (C) “I’m great!” Sophia shouted back excitedly. Even though the boat was getting thrown around, the girls managed to avoid hitting any rocks. Suddenly, almost as quickly as the water had got rougher, the river seemed to calm down, and they all felt relaxed. With a sigh of relief, Sophia looked around. “Wow! What a wonderful view!” (d) she shouted. The scenery around them was breathtaking. Everyone was speechless. As they enjoyed the emerald green Rocky Mountains, Mia said, “No wonder rafting is the best thing to do in Colorado!” (D) Agreeing with her friend, Rebecca gave a ______ thumbs-up. “Sophia, your choice was excellent!” she said with a delighted smile. “I thought you were afraid of water, though, Sophia,” Mia said. Sophia explained, “Well, I was before I started rafting. But I graduate from college in a few months. And, before I do, I wanted to do something really adventurous to test my bravery. I thought that if I did something completely crazy, it might give (e) me more confidence when I’m interviewing for jobs.” Now they could see why she had suggested going rafting.",
+    "choices": [
+     "Mia 와 Rebecca 는 보트의 균형을 유지하려고 애썼다 .",
+     "Rebecca 는 몽골에서 영어를 가르친 경험이 있다 .",
+     "Sophia 와 친구들이 함께 탄 보트는 바위에 부딪치지 않았다 .",
+     "Sophia 는 래프팅을 하기 전에는 물을 두려워했다 .",
+     "Sophia 는 용기를 시험할 모험을 대학 졸업 후에 하길 원했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) Fighting against the force of the water was a thrilling challenge. Sophia tried to keep herself planted firmly in the boat, paying attention to the waves crashing against the rocks. As the water got rougher, she was forced to paddle harder to keep the waves from tossing her into the water. Her friends Mia and Rebecca were paddling eagerly behind her to balance the boat. They were soaked from all of the spray. Mia shouted to Sophia, “Are you OK? Aren’t (a) you scared?” (B) “You’ve got a good point. It’s a real advantage to graduate from college with the mindset of a daring adventurer,” Mia said. Rebecca quickly added, “That’s why I went to Mongolia before I started my first job out of college. Teaching English there for two months was a big challenge for me. But (b) I learned a lot from the experience. It really gave me the courage to try anything in life.” Listening to her friends, Sophia looked at (c) her own reflection in the water and saw a confident young woman smiling back at her. (C) “I’m great!” Sophia shouted back excitedly. Even though the boat was getting thrown around, the girls managed to avoid hitting any rocks. Suddenly, almost as quickly as the water had got rougher, the river seemed to calm down, and they all felt relaxed. With a sigh of relief, Sophia looked around. “Wow! What a wonderful view!” (d) she shouted. The scenery around them was breathtaking. Everyone was speechless. As they enjoyed the emerald green Rocky Mountains, Mia said, “No wonder rafting is the best thing to do in Colorado!” (D) Agreeing with her friend, Rebecca gave a thumbs-up. “Sophia, your choice was excellent!” she said with a delighted smile. “I thought you were afraid of water, though, Sophia,” Mia said. Sophia explained, “Well, I was before I started rafting. But I graduate from college in a few months. And, before I do, I wanted to do something really adventurous to test my bravery. I thought that if I did something completely crazy, it might give (e) me more confidence when I’m interviewing for jobs.” Now they could see why she had suggested going rafting.",
+    "choices": [
+     "Mia와 Rebecca는 보트의 균형을 유지하려고 애썼다.",
+     "Rebecca는 몽골에서 영어를 가르친 경험이 있다.",
+     "Sophia와 친구들이 함께 탄 보트는 바위에 부딪치지 않았다.",
+     "Sophia는 래프팅을 하기 전에는 물을 두려워했다.",
+     "Sophia는 용기를 시험할 모험을 대학 졸업 후에 하길 원했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#22",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "choices": [
+     "전문직에 부여되는 자율성은 그에 상응하는 사회적 책임을 수반한다 .",
+     "전문직의 권위는 해당 집단의 이익을 추구하는 데 이용되어 왔다 .",
+     "전문직의 사회적 책임을 규정할 수 있는 제도 정비가 필요하다 .",
+     "전문직이 되기 위한 자격 요건은 사회 경제적 요구에 따라 변화해 왔다 .",
+     "전문직의 업무 성과는 일정 수준의 자율성과 특권이 부여될 때 높아진다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "전문직에 부여되는 자율성은 그에 상응하는 사회적 책임을 수반한다.",
+     "전문직의 권위는 해당 집단의 이익을 추구하는 데 이용되어 왔다.",
+     "전문직의 사회적 책임을 규정할 수 있는 제도 정비가 필요하다.",
+     "전문직이 되기 위한 자격 요건은 사회 경제적 요구에 따라 변화해 왔다.",
+     "전문직의 업무 성과는 일정 수준의 자율성과 특권이 부여될 때 높아진다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#24",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "choices": [
+     "A Sound Citizen Responsibility in a Sound Government",
+     "Always Better than Nothing: The Roles of Modern Government",
+     "Decreased Citizen Involvement: A Cost of Governmental Services",
+     "Why Does Global Citizenship Matter in Contemporary Society?",
+     "How to Maximize Public Benefits of Urban-Based Society 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "A Sound Citizen Responsibility in a Sound Government",
+     "Always Better than Nothing: The Roles of Modern Government",
+     "Decreased Citizen Involvement: A Cost of Governmental Services",
+     "Why Does Global Citizenship Matter in Contemporary Society?",
+     "How to Maximize Public Benefits of Urban-Based Society"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#30",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "passage": "In economic systems what takes place in one sector has impacts on another; demand for a good or service in one sector is derived from another. For instance, a consumer buying a good in a store will likely trigger the replacement of this product, which will generate ① demands for activities such as manufacturing, resource extraction and, of course, transport. What is different about transport is that it cannot exist alone and a movement cannot be ② stored. An unsold product can remain on the shelf of a store until bought (often with discount incentives), but an unsold seat on a flight or unused cargo capacity in the same flight remains unsold and cannot be brought back as additional capacity ③ later. In this case an opportunity has been ④ seized, since the amount of transport being offered has exceeded the demand for it. The derived demand of transportation is often very difficult to reconcile with an equivalent supply, and actually transport companies would prefer to have some additional capacity to accommodate ⑤ unforeseen demand (often at much higher prices). 5 5"
+   },
+   "after": {
+    "passage": "In economic systems what takes place in one sector has impacts on another; demand for a good or service in one sector is derived from another. For instance, a consumer buying a good in a store will likely trigger the replacement of this product, which will generate ① demands for activities such as manufacturing, resource extraction and, of course, transport. What is different about transport is that it cannot exist alone and a movement cannot be ② stored. An unsold product can remain on the shelf of a store until bought (often with discount incentives), but an unsold seat on a flight or unused cargo capacity in the same flight remains unsold and cannot be brought back as additional capacity ③ later. In this case an opportunity has been ④ seized, since the amount of transport being offered has exceeded the demand for it. The derived demand of transportation is often very difficult to reconcile with an equivalent supply, and actually transport companies would prefer to have some additional capacity to accommodate ⑤ unforeseen demand (often at much higher prices)."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#32",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "choices": [
+     "ignore uncomfortable comments from their close peers",
+     "escape painful self-awareness through distraction",
+     "receive constructive feedback from the media",
+     "refocus their divided attention to a given task",
+     "engage themselves in intense self-reflection 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "ignore uncomfortable comments from their close peers",
+     "escape painful self-awareness through distraction",
+     "receive constructive feedback from the media",
+     "refocus their divided attention to a given task",
+     "engage themselves in intense self-reflection"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#38",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "passage": "It was not until relatively recent times that scientists came to understand the relationships between the structural elements of materials and their properties. The earliest humans had access to only a very limited number of materials, those that occur naturally: stone, wood, clay, skins, and so on. ( ①) With time, they discovered techniques for producing materials that had properties superior to those of the natural ones; these new materials included pottery and various metals. ( ②) Furthermore, it was discovered that the properties of a material could be altered by heat treatments and by the addition of other substances. ( ③) At this point, materials utilization was totally a selection process that involved deciding from a given, rather limited set of materials, the one best suited for an application based on its characteristics. ( ④) This knowledge, acquired over approximately the past 100 years, has empowered them to fashion, to a large degree, the characteristics of materials. ( ⑤) Thus, tens of thousands of different materials have evolved with rather specialized characteristics that meet the needs of our modern and complex society, including metals, plastics, glasses, and fibers. 7 7"
+   },
+   "after": {
+    "passage": "It was not until relatively recent times that scientists came to understand the relationships between the structural elements of materials and their properties. The earliest humans had access to only a very limited number of materials, those that occur naturally: stone, wood, clay, skins, and so on. ( ① ) With time, they discovered techniques for producing materials that had properties superior to those of the natural ones; these new materials included pottery and various metals. ( ② ) Furthermore, it was discovered that the properties of a material could be altered by heat treatments and by the addition of other substances. ( ③ ) At this point, materials utilization was totally a selection process that involved deciding from a given, rather limited set of materials, the one best suited for an application based on its characteristics. ( ④ ) This knowledge, acquired over approximately the past 100 years, has empowered them to fashion, to a large degree, the characteristics of materials. ( ⑤ ) Thus, tens of thousands of different materials have evolved with rather specialized characteristics that meet the needs of our modern and complex society, including metals, plastics, glasses, and fibers."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#40",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "passage": "The computer has, to a considerable extent, solved the problem of acquiring, preserving, and retrieving information. Data can be stored in effectively unlimited quantities and in manageable form. The computer makes available a range of data unattainable in the age of books. It packages it effectively; style is no longer needed to make it accessible, nor is memorization. In dealing with a single decision separated from its context, the computer supplies tools unimaginable even a decade ago. But it also diminishes perspective. Because information is so accessible and communication instantaneous, there is a diminution of focus on its significance, or even on the definition of what is significant. This dynamic may encourage policymakers to wait for an issue to arise rather than anticipate it, and to regard moments of decision as a series of isolated events rather than part of a historical continuum. When this happens, manipulation of information replaces reflection as the principal policy tool. 󰀻 (A) Although the computer is clearly ______ at handling information in a decontextualized way, it interferes with our (B) making ______ judgments related to the broader context, as can be seen in policymaking processes. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "competent …… comprehensive",
+     "dominant …… biased",
+     "imperfect …… informed",
+     "impressive …… legal",
+     "inefficient …… timely 8"
+    ]
+   },
+   "after": {
+    "passage": "The computer has, to a considerable extent, solved the problem of acquiring, preserving, and retrieving information. Data can be stored in effectively unlimited quantities and in manageable form. The computer makes available a range of data unattainable in the age of books. It packages it effectively; style is no longer needed to make it accessible, nor is memorization. In dealing with a single decision separated from its context, the computer supplies tools unimaginable even a decade ago. But it also diminishes perspective. Because information is so accessible and communication instantaneous, there is a diminution of focus on its significance, or even on the definition of what is significant. This dynamic may encourage policymakers to wait for an issue to arise rather than anticipate it, and to regard moments of decision as a series of isolated events rather than part of a historical continuum. When this happens, manipulation of information replaces reflection as the principal policy tool. Although the computer is clearly (A) ______ at handling information in a decontextualized way, it interferes with our making (B) ______ judgments related to the broader context, as can be seen in policymaking processes.",
+    "choices": [
+     "competent …… comprehensive",
+     "dominant …… biased",
+     "imperfect …… informed",
+     "impressive …… legal",
+     "inefficient …… timely"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#43",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "passage": "(A) When Sally came back home from her photography class, she could hear Katie moving around, chopping things on a wooden cutting board. Wondering what her roommate was doing, (a) she ran to the kitchen. Sally watched Katie cooking something that looked delicious. But Katie didn’t notice her because she was too focused on preparing for her cooking test the next day. She was trying to remember what her professor had said in class that day. 8 (B) Katie, surprised by her roommate’s words, turned her head to Sally and sighed, “I don’t know. This is really hard.” Stirring her sauce for pasta, Katie continued, “Professor Brown said that visual aspects make up a key part of a meal. My recipe seems good, but I can’t think of any ways to alter the feeling of the final dish.” Visibly frustrated, (b) she was just about to throw away all of her hard work and start again, when Sally suddenly stopped her. (C) “Wait! You don’t have to start over. You just need to add some color to the plate.” Being curious, Katie asked, “How can (c) I do that?” Sally took out a container of vegetables from the refrigerator and replied, “How about making colored pasta to go with (d) your sauce?” Smiling, she added, “It’s not that hard, and all you need are brightly colored vegetables to make your pasta green, orange, or even purple.” Katie smiled, knowing that now she could make her pasta with beautiful colors like a photographer. (D) In that class, Professor Brown said, “You have to present your food properly, considering every stage of the dining experience. Imagine you are a photographer.” Recalling what the professor had mentioned, Katie said to herself, “We need to see our ingredients as colors that make up a picture.” Sally could clearly see that Katie was having a hard time preparing for her cooking test. Trying to make (e) her feel better, Sally kindly asked, “Is there anything I can do to help?”"
+   },
+   "after": {
+    "passage": "(A) When Sally came back home from her photography class, she could hear Katie moving around, chopping things on a wooden cutting board. Wondering what her roommate was doing, (a) she ran to the kitchen. Sally watched Katie cooking something that looked delicious. But Katie didn’t notice her because she was too focused on preparing for her cooking test the next day. She was trying to remember what her professor had said in class that day. (B) Katie, surprised by her roommate’s words, turned her head to Sally and sighed, “I don’t know. This is really hard.” Stirring her sauce for pasta, Katie continued, “Professor Brown said that visual aspects make up a key part of a meal. My recipe seems good, but I can’t think of any ways to alter the feeling of the final dish.” Visibly frustrated, (b) she was just about to throw away all of her hard work and start again, when Sally suddenly stopped her. (C) “Wait! You don’t have to start over. You just need to add some color to the plate.” Being curious, Katie asked, “How can (c) I do that?” Sally took out a container of vegetables from the refrigerator and replied, “How about making colored pasta to go with (d) your sauce?” Smiling, she added, “It’s not that hard, and all you need are brightly colored vegetables to make your pasta green, orange, or even purple.” Katie smiled, knowing that now she could make her pasta with beautiful colors like a photographer. (D) In that class, Professor Brown said, “You have to present your food properly, considering every stage of the dining experience. Imagine you are a photographer.” Recalling what the professor had mentioned, Katie said to herself, “We need to see our ingredients as colors that make up a picture.” Sally could clearly see that Katie was having a hard time preparing for her cooking test. Trying to make (e) her feel better, Sally kindly asked, “Is there anything I can do to help?”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#44",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "passage": "(A) When Sally came back home from her photography class, she could hear Katie moving around, chopping things on a wooden cutting board. Wondering what her roommate was doing, (a) she ran to the kitchen. Sally watched Katie cooking something that looked delicious. But Katie didn’t notice her because she was too focused on preparing for her cooking test the next day. She was trying to remember what her professor had said in class that day. 8 (B) Katie, surprised by her roommate’s words, turned her head to Sally and sighed, “I don’t know. This is really hard.” Stirring her sauce for pasta, Katie continued, “Professor Brown said that visual aspects make up a key part of a meal. My recipe seems good, but I can’t think of any ways to alter the feeling of the final dish.” Visibly frustrated, (b) she was just about to throw away all of her hard work and start again, when Sally suddenly stopped her. (C) “Wait! You don’t have to start over. You just need to add some color to the plate.” Being curious, Katie asked, “How can (c) I do that?” Sally took out a container of vegetables from the refrigerator and replied, “How about making colored pasta to go with (d) your sauce?” Smiling, she added, “It’s not that hard, and all you need are brightly colored vegetables to make your pasta green, orange, or even purple.” Katie smiled, knowing that now she could make her pasta with beautiful colors like a photographer. (D) In that class, Professor Brown said, “You have to present your food properly, considering every stage of the dining experience. Imagine you are a photographer.” Recalling what the professor had mentioned, Katie said to herself, “We need to see our ingredients as colors that make up a picture.” Sally could clearly see that Katie was having a hard time preparing for her cooking test. Trying to make (e) her feel better, Sally kindly asked, “Is there anything I can do to help?”"
+   },
+   "after": {
+    "passage": "(A) When Sally came back home from her photography class, she could hear Katie moving around, chopping things on a wooden cutting board. Wondering what her roommate was doing, (a) she ran to the kitchen. Sally watched Katie cooking something that looked delicious. But Katie didn’t notice her because she was too focused on preparing for her cooking test the next day. She was trying to remember what her professor had said in class that day. (B) Katie, surprised by her roommate’s words, turned her head to Sally and sighed, “I don’t know. This is really hard.” Stirring her sauce for pasta, Katie continued, “Professor Brown said that visual aspects make up a key part of a meal. My recipe seems good, but I can’t think of any ways to alter the feeling of the final dish.” Visibly frustrated, (b) she was just about to throw away all of her hard work and start again, when Sally suddenly stopped her. (C) “Wait! You don’t have to start over. You just need to add some color to the plate.” Being curious, Katie asked, “How can (c) I do that?” Sally took out a container of vegetables from the refrigerator and replied, “How about making colored pasta to go with (d) your sauce?” Smiling, she added, “It’s not that hard, and all you need are brightly colored vegetables to make your pasta green, orange, or even purple.” Katie smiled, knowing that now she could make her pasta with beautiful colors like a photographer. (D) In that class, Professor Brown said, “You have to present your food properly, considering every stage of the dining experience. Imagine you are a photographer.” Recalling what the professor had mentioned, Katie said to herself, “We need to see our ingredients as colors that make up a picture.” Sally could clearly see that Katie was having a hard time preparing for her cooking test. Trying to make (e) her feel better, Sally kindly asked, “Is there anything I can do to help?”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2209#45",
+   "pdf_file": "202209_영어영역_문제지.pdf",
+   "pdf_sha256": "2f6929923c6b0ddf4fc8a176310304765a5803cc7f43412396bd631b7b92149c",
+   "before": {
+    "passage": "(A) When Sally came back home from her photography class, she could hear Katie moving around, chopping things on a wooden cutting board. Wondering what her roommate was doing, (a) she ran to the kitchen. Sally watched Katie cooking something that looked delicious. But Katie didn’t notice her because she was too focused on preparing for her cooking test the next day. She was trying to remember what her professor had said in class that day. 8 (B) Katie, surprised by her roommate’s words, turned her head to Sally and sighed, “I don’t know. This is really hard.” Stirring her sauce for pasta, Katie continued, “Professor Brown said that visual aspects make up a key part of a meal. My recipe seems good, but I can’t think of any ways to alter the feeling of the final dish.” Visibly frustrated, (b) she was just about to throw away all of her hard work and start again, when Sally suddenly stopped her. (C) “Wait! You don’t have to start over. You just need to add some color to the plate.” Being curious, Katie asked, “How can (c) I do that?” Sally took out a container of vegetables from the refrigerator and replied, “How about making colored pasta to go with (d) your sauce?” Smiling, she added, “It’s not that hard, and all you need are brightly colored vegetables to make your pasta green, orange, or even purple.” Katie smiled, knowing that now she could make her pasta with beautiful colors like a photographer. (D) In that class, Professor Brown said, “You have to present your food properly, considering every stage of the dining experience. Imagine you are a photographer.” Recalling what the professor had mentioned, Katie said to herself, “We need to see our ingredients as colors that make up a picture.” Sally could clearly see that Katie was having a hard time preparing for her cooking test. Trying to make (e) her feel better, Sally kindly asked, “Is there anything I can do to help?”",
+    "choices": [
+     "Sally 는 사진 수업 후 집으로 돌아왔다 .",
+     "Brown 교수님은 음식에서 시각적인 면이 중요하다고 말했다 .",
+     "Sally 는 냉장고에서 채소가 든 그릇을 꺼냈다 .",
+     "Sally 는 색깔 있는 파스타를 만드는 것이 어렵다고 말했다 .",
+     "Katie 는 요리 시험 준비에 어려움을 겪고 있었다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) When Sally came back home from her photography class, she could hear Katie moving around, chopping things on a wooden cutting board. Wondering what her roommate was doing, (a) she ran to the kitchen. Sally watched Katie cooking something that looked delicious. But Katie didn’t notice her because she was too focused on preparing for her cooking test the next day. She was trying to remember what her professor had said in class that day. (B) Katie, surprised by her roommate’s words, turned her head to Sally and sighed, “I don’t know. This is really hard.” Stirring her sauce for pasta, Katie continued, “Professor Brown said that visual aspects make up a key part of a meal. My recipe seems good, but I can’t think of any ways to alter the feeling of the final dish.” Visibly frustrated, (b) she was just about to throw away all of her hard work and start again, when Sally suddenly stopped her. (C) “Wait! You don’t have to start over. You just need to add some color to the plate.” Being curious, Katie asked, “How can (c) I do that?” Sally took out a container of vegetables from the refrigerator and replied, “How about making colored pasta to go with (d) your sauce?” Smiling, she added, “It’s not that hard, and all you need are brightly colored vegetables to make your pasta green, orange, or even purple.” Katie smiled, knowing that now she could make her pasta with beautiful colors like a photographer. (D) In that class, Professor Brown said, “You have to present your food properly, considering every stage of the dining experience. Imagine you are a photographer.” Recalling what the professor had mentioned, Katie said to herself, “We need to see our ingredients as colors that make up a picture.” Sally could clearly see that Katie was having a hard time preparing for her cooking test. Trying to make (e) her feel better, Sally kindly asked, “Is there anything I can do to help?”",
+    "choices": [
+     "Sally는 사진 수업 후 집으로 돌아왔다.",
+     "Brown 교수님은 음식에서 시각적인 면이 중요하다고 말했다.",
+     "Sally는 냉장고에서 채소가 든 그릇을 꺼냈다.",
+     "Sally는 색깔 있는 파스타를 만드는 것이 어렵다고 말했다.",
+     "Katie는 요리 시험 준비에 어려움을 겪고 있었다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#22",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "choices": [
+     "개인정보 제공의 속성을 심층적으로 이해하면 주체적 소비자가 된다 .",
+     "소비자는 디지털 시대에 유용한 앱을 적극 활용하는 자세가 필요하다 .",
+     "현명한 소비자가 되려면 다양한 디지털 데이터를 활용해야 한다 .",
+     "기업의 디지털 서비스를 이용하면 상응하는 대가가 뒤따른다 .",
+     "타인과의 정보 공유로 인해 개인정보가 유출되기도 한다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "개인정보 제공의 속성을 심층적으로 이해하면 주체적 소비자가 된다.",
+     "소비자는 디지털 시대에 유용한 앱을 적극 활용하는 자세가 필요하다.",
+     "현명한 소비자가 되려면 다양한 디지털 데이터를 활용해야 한다.",
+     "기업의 디지털 서비스를 이용하면 상응하는 대가가 뒤따른다.",
+     "타인과의 정보 공유로 인해 개인정보가 유출되기도 한다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#24",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "choices": [
+     "Better Together: Human and Machine Collaboration",
+     "Can Robots Join Forces to Outperform Human Teams?",
+     "Loss of Humanity in the Human and Machine Conflict",
+     "Power Off: When and How to Say No to Robot Partners",
+     "Shifting from Service Animals to Robot Assistants of Humans 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "Better Together: Human and Machine Collaboration",
+     "Can Robots Join Forces to Outperform Human Teams?",
+     "Loss of Humanity in the Human and Machine Conflict",
+     "Power Off: When and How to Say No to Robot Partners",
+     "Shifting from Service Animals to Robot Assistants of Humans"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#30",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "passage": "In recent years urban transport professionals globally have largely acquiesced to the view that automobile demand in cities needs to be managed rather than accommodated. Rising incomes inevitably lead to increases in motorization. Even without the imperative of climate change, the physical constraints of densely inhabited cities and the corresponding demands of accessibility, mobility, safety, air pollution, and urban livability all ① limit the option of expanding road networks purely to accommodate this rising demand. As a result, as cities develop and their residents become more prosperous, ______ ② persuading people to choose not to use cars becomes an increasingly key focus of city managers and planners. Improving the quality of ③ alternative options, such as walking, cycling, and public transport, is a central element of this strategy. However, the most direct approach to ④ accommodating automobile demand is making motorized travel more expensive or restricting it with administrative rules. The contribution of motorized travel to climate change ⑤ reinforces this imperative. 5 5"
+   },
+   "after": {
+    "passage": "In recent years urban transport professionals globally have largely acquiesced to the view that automobile demand in cities needs to be managed rather than accommodated. Rising incomes inevitably lead to increases in motorization. Even without the imperative of climate change, the physical constraints of densely inhabited cities and the corresponding demands of accessibility, mobility, safety, air pollution, and urban livability all ① limit the option of expanding road networks purely to accommodate this rising demand. As a result, as cities develop and their residents become more prosperous, ② persuading people to choose not to use cars becomes an increasingly key focus of city managers and planners. Improving the quality of ③ alternative options, such as walking, cycling, and public transport, is a central element of this strategy. However, the most direct approach to ④ accommodating automobile demand is making motorized travel more expensive or restricting it with administrative rules. The contribution of motorized travel to climate change ⑤ reinforces this imperative."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#32",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "choices": [
+     "putting himself or herself both inside and outside it",
+     "finding a middle ground between it and the world",
+     "searching for historical realities revealed within it",
+     "looking inside it, not outside it or beyond it",
+     "exploring its characters’ cultural relevance 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "putting himself or herself both inside and outside it",
+     "finding a middle ground between it and the world",
+     "searching for historical realities revealed within it",
+     "looking inside it, not outside it or beyond it",
+     "exploring its characters’ cultural relevance"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#38",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "passage": "Also, it has become difficult for companies to develop new pesticides, even those that can have major beneficial effects and few negative effects. Simply maintaining yields at current levels often requires new cultivars and management methods, since pests and diseases continue to evolve, and aspects of the chemical, physical, and social environment can change over several decades. ( ①) In the 1960s, many people considered pesticides to be mainly beneficial to mankind. ( ②) Developing new, broadly effective, and persistent pesticides often was considered to be the best way to control pests on crop plants. ( ③) Since that time, it has become apparent that broadly effective pesticides can have harmful effects on beneficial insects, which can negate their effects in controlling pests, and that persistent pesticides can damage non-target organisms in the ecosystem, such as birds and people. ( ④) Very high costs are involved in following all of the procedures needed to gain government approval for new pesticides. ( ⑤) Consequently, more consideration is being given to other ways to manage pests, such as incorporating greater resistance to pests into cultivars by breeding and using other biological control methods. 7 7"
+   },
+   "after": {
+    "passage": "Also, it has become difficult for companies to develop new pesticides, even those that can have major beneficial effects and few negative effects. Simply maintaining yields at current levels often requires new cultivars and management methods, since pests and diseases continue to evolve, and aspects of the chemical, physical, and social environment can change over several decades. ( ① ) In the 1960s, many people considered pesticides to be mainly beneficial to mankind. ( ② ) Developing new, broadly effective, and persistent pesticides often was considered to be the best way to control pests on crop plants. ( ③ ) Since that time, it has become apparent that broadly effective pesticides can have harmful effects on beneficial insects, which can negate their effects in controlling pests, and that persistent pesticides can damage non-target organisms in the ecosystem, such as birds and people. ( ④ ) Very high costs are involved in following all of the procedures needed to gain government approval for new pesticides. ( ⑤ ) Consequently, more consideration is being given to other ways to manage pests, such as incorporating greater resistance to pests into cultivars by breeding and using other biological control methods."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#40",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "passage": "Mobilities in transit offer a broad field to be explored by different disciplines in all faculties, in addition to the humanities. In spite of increasing acceleration, for example in travelling through geographical or virtual space, our body becomes more and more a passive non-moving container, which is transported by artefacts or loaded up with inner feelings of being mobile in the so-called information society. Technical mobilities turn human beings into some kind of terminal creatures, who spend most of their time at rest and who need to participate in sports in order to balance their daily disproportion of motion and rest. Have we come closer to Aristotle’s image of God as the immobile mover, when elites exercise their power to move money, things and people, while they themselves do not need to move at all? Others, at the bottom of this power, are victims of mobility-structured social exclusion. They cannot decide how and where to move, but are just moved around or locked out or even locked in without either the right to move or the right to stay. 󰀻 In a technology and information society, human beings, (A) whose bodily movement is less ______ , appear to have gained increased mobility and power, and such a mobility-related human condition raises the issue of social (B) . (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "necessary …… inequality",
+     "necessary …… growth",
+     "limited …… consciousness",
+     "desirable …… service",
+     "desirable …… divide 8"
+    ]
+   },
+   "after": {
+    "passage": "Mobilities in transit offer a broad field to be explored by different disciplines in all faculties, in addition to the humanities. In spite of increasing acceleration, for example in travelling through geographical or virtual space, our body becomes more and more a passive non-moving container, which is transported by artefacts or loaded up with inner feelings of being mobile in the so-called information society. Technical mobilities turn human beings into some kind of terminal creatures, who spend most of their time at rest and who need to participate in sports in order to balance their daily disproportion of motion and rest. Have we come closer to Aristotle’s image of God as the immobile mover, when elites exercise their power to move money, things and people, while they themselves do not need to move at all? Others, at the bottom of this power, are victims of mobility-structured social exclusion. They cannot decide how and where to move, but are just moved around or locked out or even locked in without either the right to move or the right to stay.\n\nIn a technology and information society, human beings, whose bodily movement is less (A) ______ , appear to have gained increased mobility and power, and such a mobility-related human condition raises the issue of social (B) ______ .",
+    "choices": [
+     "necessary…… inequality",
+     "necessary…… growth",
+     "limited …… consciousness",
+     "desirable …… service",
+     "desirable …… divide"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#43",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "passage": "(A) It was the first day of the semester. Looking around his shared dorm room, Noah thought that it looked exactly like every other dorm room at the university, and he became disappointed. His roommate Steve noticed it and asked what was wrong. Noah answered quietly that he thought their room was totally boring. (a) He wished the space felt a bit more like their space. Steve agreed and suggested that they could start personalizing the room like Noah wanted, the next day. 8 (B) As they walked through a furniture store, Steve found a pretty yellow table. Since he knew that yellow was Noah’s favorite color, Steve asked (b) him what he thought about buying that table. Noah was happy about the yellow table and said it would make their room more unique. Delighted, Noah added, “Well, yesterday our room was just like any other place at this school. But after today, (c) I really feel like it’ll be our place.” Now, they both knew that the place would provide them with energy and refreshment. (C) Noah hardly slept that night making plans for the room. After Steve woke up, they started to rearrange the furniture. All of the chairs and the sofa in their room were facing the TV. Noah mentioned to Steve that most of their visitors usually just sat and watched TV instead of chatting. In response to (d) his idea, Steve suggested, “How about we put the sofa over there by the wall so it will be easier to have conversations?” Noah agreed, and they moved it by the wall. (D) After changing the place of the sofa, they could see that they now had a lot of space in the middle of their room. Then, Noah remembered that his brother Sammy had a big table in his living room for playing board games and told Steve about it. Steve and Noah both really enjoyed playing board games. So, Steve replied to Noah, “(e) I think putting a table in the middle of our room would be great for drinking tea as well as playing board games!” Both Noah and Steve agreed and decided to go shopping for a table."
+   },
+   "after": {
+    "passage": "(A) It was the first day of the semester. Looking around his shared dorm room, Noah thought that it looked exactly like every other dorm room at the university, and he became disappointed. His roommate Steve noticed it and asked what was wrong. Noah answered quietly that he thought their room was totally boring. (a) He wished the space felt a bit more like their space. Steve agreed and suggested that they could start personalizing the room like Noah wanted, the next day. (B) As they walked through a furniture store, Steve found a pretty yellow table. Since he knew that yellow was Noah’s favorite color, Steve asked (b) him what he thought about buying that table. Noah was happy about the yellow table and said it would make their room more unique. Delighted, Noah added, “Well, yesterday our room was just like any other place at this school. But after today, (c) I really feel like it’ll be our place.” Now, they both knew that the place would provide them with energy and refreshment. (C) Noah hardly slept that night making plans for the room. After Steve woke up, they started to rearrange the furniture. All of the chairs and the sofa in their room were facing the TV. Noah mentioned to Steve that most of their visitors usually just sat and watched TV instead of chatting. In response to (d) his idea, Steve suggested, “How about we put the sofa over there by the wall so it will be easier to have conversations?” Noah agreed, and they moved it by the wall. (D) After changing the place of the sofa, they could see that they now had a lot of space in the middle of their room. Then, Noah remembered that his brother Sammy had a big table in his living room for playing board games and told Steve about it. Steve and Noah both really enjoyed playing board games. So, Steve replied to Noah, “(e) I think putting a table in the middle of our room would be great for drinking tea as well as playing board games!” Both Noah and Steve agreed and decided to go shopping for a table."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#44",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "passage": "(A) It was the first day of the semester. Looking around his shared dorm room, Noah thought that it looked exactly like every other dorm room at the university, and he became disappointed. His roommate Steve noticed it and asked what was wrong. Noah answered quietly that he thought their room was totally boring. (a) He wished the space felt a bit more like their space. Steve agreed and suggested that they could start personalizing the room like Noah wanted, the next day. 8 (B) As they walked through a furniture store, Steve found a pretty yellow table. Since he knew that yellow was Noah’s favorite color, Steve asked (b) him what he thought about buying that table. Noah was happy about the yellow table and said it would make their room more unique. Delighted, Noah added, “Well, yesterday our room was just like any other place at this school. But after today, (c) I really feel like it’ll be our place.” Now, they both knew that the place would provide them with energy and refreshment. (C) Noah hardly slept that night making plans for the room. After Steve woke up, they started to rearrange the furniture. All of the chairs and the sofa in their room were facing the TV. Noah mentioned to Steve that most of their visitors usually just sat and watched TV instead of chatting. In response to (d) his idea, Steve suggested, “How about we put the sofa over there by the wall so it will be easier to have conversations?” Noah agreed, and they moved it by the wall. (D) After changing the place of the sofa, they could see that they now had a lot of space in the middle of their room. Then, Noah remembered that his brother Sammy had a big table in his living room for playing board games and told Steve about it. Steve and Noah both really enjoyed playing board games. So, Steve replied to Noah, “(e) I think putting a table in the middle of our room would be great for drinking tea as well as playing board games!” Both Noah and Steve agreed and decided to go shopping for a table."
+   },
+   "after": {
+    "passage": "(A) It was the first day of the semester. Looking around his shared dorm room, Noah thought that it looked exactly like every other dorm room at the university, and he became disappointed. His roommate Steve noticed it and asked what was wrong. Noah answered quietly that he thought their room was totally boring. (a) He wished the space felt a bit more like their space. Steve agreed and suggested that they could start personalizing the room like Noah wanted, the next day. (B) As they walked through a furniture store, Steve found a pretty yellow table. Since he knew that yellow was Noah’s favorite color, Steve asked (b) him what he thought about buying that table. Noah was happy about the yellow table and said it would make their room more unique. Delighted, Noah added, “Well, yesterday our room was just like any other place at this school. But after today, (c) I really feel like it’ll be our place.” Now, they both knew that the place would provide them with energy and refreshment. (C) Noah hardly slept that night making plans for the room. After Steve woke up, they started to rearrange the furniture. All of the chairs and the sofa in their room were facing the TV. Noah mentioned to Steve that most of their visitors usually just sat and watched TV instead of chatting. In response to (d) his idea, Steve suggested, “How about we put the sofa over there by the wall so it will be easier to have conversations?” Noah agreed, and they moved it by the wall. (D) After changing the place of the sofa, they could see that they now had a lot of space in the middle of their room. Then, Noah remembered that his brother Sammy had a big table in his living room for playing board games and told Steve about it. Steve and Noah both really enjoyed playing board games. So, Steve replied to Noah, “(e) I think putting a table in the middle of our room would be great for drinking tea as well as playing board games!” Both Noah and Steve agreed and decided to go shopping for a table."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2306#45",
+   "pdf_file": "202306_영어영역_문제지.pdf",
+   "pdf_sha256": "c8c18c6a7987b2d5c34238098f98ca97237713a3b3b7c79c2cf4944b1df8bea9",
+   "before": {
+    "passage": "(A) It was the first day of the semester. Looking around his shared dorm room, Noah thought that it looked exactly like every other dorm room at the university, and he became disappointed. His roommate Steve noticed it and asked what was wrong. Noah answered quietly that he thought their room was totally boring. (a) He wished the space felt a bit more like their space. Steve agreed and suggested that they could start personalizing the room like Noah wanted, the next day. 8 (B) As they walked through a furniture store, Steve found a pretty yellow table. Since he knew that yellow was Noah’s favorite color, Steve asked (b) him what he thought about buying that table. Noah was happy about the yellow table and said it would make their room more unique. Delighted, Noah added, “Well, yesterday our room was just like any other place at this school. But after today, (c) I really feel like it’ll be our place.” Now, they both knew that the place would provide them with energy and refreshment. (C) Noah hardly slept that night making plans for the room. After Steve woke up, they started to rearrange the furniture. All of the chairs and the sofa in their room were facing the TV. Noah mentioned to Steve that most of their visitors usually just sat and watched TV instead of chatting. In response to (d) his idea, Steve suggested, “How about we put the sofa over there by the wall so it will be easier to have conversations?” Noah agreed, and they moved it by the wall. (D) After changing the place of the sofa, they could see that they now had a lot of space in the middle of their room. Then, Noah remembered that his brother Sammy had a big table in his living room for playing board games and told Steve about it. Steve and Noah both really enjoyed playing board games. So, Steve replied to Noah, “(e) I think putting a table in the middle of our room would be great for drinking tea as well as playing board games!” Both Noah and Steve agreed and decided to go shopping for a table.",
+    "choices": [
+     "Noah 는 학기 첫날 자신의 기숙사 방을 둘러보고 실망했다 .",
+     "Noah 는 노 란 색 탁 자 가 자 신 들 의 방 을 더 독 특 하 게 만 들 것 이 라 고 말 했 다.",
+     "Noah 는 Steve 가 잠든 사이에 가구를 다시 배치했다 .",
+     "Noah 는 Sammy 의 거실에 커다란 탁자가 있던 것을 떠올렸다 .",
+     "Noah 와 Steve 둘 다 보드게임 하는 것을 즐겼다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) It was the first day of the semester. Looking around his shared dorm room, Noah thought that it looked exactly like every other dorm room at the university, and he became disappointed. His roommate Steve noticed it and asked what was wrong. Noah answered quietly that he thought their room was totally boring. (a) He wished the space felt a bit more like their space. Steve agreed and suggested that they could start personalizing the room like Noah wanted, the next day. (B) As they walked through a furniture store, Steve found a pretty yellow table. Since he knew that yellow was Noah’s favorite color, Steve asked (b) him what he thought about buying that table. Noah was happy about the yellow table and said it would make their room more unique. Delighted, Noah added, “Well, yesterday our room was just like any other place at this school. But after today, (c) I really feel like it’ll be our place.” Now, they both knew that the place would provide them with energy and refreshment. (C) Noah hardly slept that night making plans for the room. After Steve woke up, they started to rearrange the furniture. All of the chairs and the sofa in their room were facing the TV. Noah mentioned to Steve that most of their visitors usually just sat and watched TV instead of chatting. In response to (d) his idea, Steve suggested, “How about we put the sofa over there by the wall so it will be easier to have conversations?” Noah agreed, and they moved it by the wall. (D) After changing the place of the sofa, they could see that they now had a lot of space in the middle of their room. Then, Noah remembered that his brother Sammy had a big table in his living room for playing board games and told Steve about it. Steve and Noah both really enjoyed playing board games. So, Steve replied to Noah, “(e) I think putting a table in the middle of our room would be great for drinking tea as well as playing board games!” Both Noah and Steve agreed and decided to go shopping for a table.",
+    "choices": [
+     "Noah는 학기 첫날 자신의 기숙사 방을 둘러보고 실망했다.",
+     "Noah는 노란색 탁자가 자신들의 방을 더 독특하게 만들 것이라고 말했다.",
+     "Noah는 Steve가 잠든 사이에 가구를 다시 배치했다.",
+     "Noah는 Sammy의 거실에 커다란 탁자가 있던 것을 떠올렸다.",
+     "Noah와 Steve 둘 다 보드게임 하는 것을 즐겼다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#22",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "choices": [
+     "분배 정의를 실현하려면 시민 단체의 역할이 필요하다 .",
+     "사회적 합의는 민주적인 정책 수립의 선행 조건이다 .",
+     "성실한 납세는 안정적인 정부 예산 확보의 기반이 된다 .",
+     "경제학은 세법을 개정할 때 이론적 근거를 제공한다 .",
+     "세법을 만들 때 도덕적 목표를 설정하는 것이 중요하다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "분배 정의를 실현하려면 시민 단체의 역할이 필요하다.",
+     "사회적 합의는 민주적인 정책 수립의 선행 조건이다.",
+     "성실한 납세는 안정적인 정부 예산 확보의 기반이 된다.",
+     "경제학은 세법을 개정할 때 이론적 근거를 제공한다.",
+     "세법을 만들 때 도덕적 목표를 설정하는 것이 중요하다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#24",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "choices": [
+     "How to Build a Successful Career in Music Criticism",
+     "Never the Same: The Value of Variation in Music Performance",
+     "The Importance of Personal Expression in Music Therapy",
+     "Keep Your Cool: Overcoming Stage Fright When Playing Music",
+     "What’s New in the Classical Music Industry? 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "How to Build a Successful Career in Music Criticism",
+     "Never the Same: The Value of Variation in Music Performance",
+     "The Importance of Personal Expression in Music Therapy",
+     "Keep Your Cool: Overcoming Stage Fright When Playing Music",
+     "What’s New in the Classical Music Industry?"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#30",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "passage": "Although the wonders of modern technology have provided people with opportunities beyond the wildest dreams of our ancestors, the good, as usual, is weakened by a downside. One of those downsides is that anyone who so chooses can pick up the virtual megaphone that is the Internet and put in their two cents on any of an infinite number of topics, regardless of their ① qualifications. After all, on the Internet, there are no regulations ② preventing a kindergarten teacher from offering medical advice or a physician from suggesting ways to safely make structural changes to your home. As a result, misinformation gets disseminated as information, and it is not always easy to ③ differentiate the two. This can be particularly frustrating for scientists, who spend their lives learning how to understand the intricacies of the world around them, only to have their work summarily ______ ④ challenged by people whose experience with the topic can be measured in minutes. This frustration is then ⑤ diminished by the fact that, to the general public, both the scientist and the challenger are awarded equal credibility. 5 5"
+   },
+   "after": {
+    "passage": "Although the wonders of modern technology have provided people with opportunities beyond the wildest dreams of our ancestors, the good, as usual, is weakened by a downside. One of those downsides is that anyone who so chooses can pick up the virtual megaphone that is the Internet and put in their two cents on any of an infinite number of topics, regardless of their ① qualifications. After all, on the Internet, there are no regulations ② preventing a kindergarten teacher from offering medical advice or a physician from suggesting ways to safely make structural changes to your home. As a result, misinformation gets disseminated as information, and it is not always easy to ③ differentiate the two. This can be particularly frustrating for scientists, who spend their lives learning how to understand the intricacies of the world around them, only to have their work summarily ④ challenged by people whose experience with the topic can be measured in minutes. This frustration is then ⑤ diminished by the fact that, to the general public, both the scientist and the challenger are awarded equal credibility."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#32",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "passage": "Fans feel for feeling’s own sake. They make meanings beyond what seems to be on offer. They build identities and experiences, and make artistic creations of their own to share with others. A person can be an individual fan, feeling an “idealized connection with a star, strong feelings of memory and nostalgia,” and engaging in activities like “collecting to develop a sense of self.” But, more often, individual experiences are embedded in social contexts where other people with shared attachments socialize around the object of their affections. Much of the pleasure of fandom . In their diaries, Bostonians of the 1800s described being part of the crowds at concerts as part of the pleasure of attendance. A compelling argument can be made that what fans love is less the object of their fandom than the attachments to (and differentiations from) one another that those affections afford.",
+    "choices": [
+     "is enhanced by collaborations between global stars",
+     "results from frequent personal contact with a star",
+     "deepens as fans age together with their idols",
+     "comes from being connected to other fans",
+     "is heightened by stars’ media appearances 8"
+    ]
+   },
+   "after": {
+    "passage": "Fans feel for feeling’s own sake. They make meanings beyond what seems to be on offer. They build identities and experiences, and make artistic creations of their own to share with others. A person can be an individual fan, feeling an “idealized connection with a star, strong feelings of memory and nostalgia,” and engaging in activities like “collecting to develop a sense of self.” But, more often, individual experiences are embedded in social contexts where other people with shared attachments socialize around the object of their affections. Much of the pleasure of fandom ______ . In their diaries, Bostonians of the 1800s described being part of the crowds at concerts as part of the pleasure of attendance. A compelling argument can be made that what fans love is less the object of their fandom than the attachments to (and differentiations from) one another that those affections afford.",
+    "choices": [
+     "is enhanced by collaborations between global stars",
+     "results from frequent personal contact with a star",
+     "deepens as fans age together with their idols",
+     "comes from being connected to other fans",
+     "is heightened by stars’ media appearances"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#38",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "passage": "In particular, they define a group as two or more people who interact with, and exert mutual influences on, each other. In everyday life, we tend to see any collection of people as a group. ( ① ) However, social psychologists use this term more precisely. ( ②) It is this sense of mutual interaction or inter-dependence for a common purpose which distinguishes the members of a group from a mere aggregation of individuals. ( ③) For example, as Kenneth Hodge observed, a collection of people who happen to go for a swim after work on the same day each week does not, strictly speaking, constitute a group because these swimmers do not interact with each other in a structured manner. ( ④) By contrast, a squad of young competitive swimmers who train every morning before going to school is a group because they not only share a common objective (training for competition) but also interact with each other in formal ways (e.g., by warming up together beforehand). ( ⑤) It is this sense of people coming together to achieve a common objective that defines a “team”. 7 7"
+   },
+   "after": {
+    "passage": "In particular, they define a group as two or more people who interact with, and exert mutual influences on, each other. In everyday life, we tend to see any collection of people as a group. ( ① ) However, social psychologists use this term more precisely. ( ② ) It is this sense of mutual interaction or inter-dependence for a common purpose which distinguishes the members of a group from a mere aggregation of individuals. ( ③ ) For example, as Kenneth Hodge observed, a collection of people who happen to go for a swim after work on the same day each week does not, strictly speaking, constitute a group because these swimmers do not interact with each other in a structured manner. ( ④ ) By contrast, a squad of young competitive swimmers who train every morning before going to school is a group because they not only share a common objective (training for competition) but also interact with each other in formal ways (e.g., by warming up together beforehand). ( ⑤ ) It is this sense of people coming together to achieve a common objective that defines a “team”."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#40",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "passage": "A striving to demonstrate individual personality through designs should not be surprising. Most designers are educated to work as individuals, and design literature contains countless references to ‘the designer’. Personal flair is without doubt an absolute necessity in some product categories, particularly relatively small objects, with a low degree of technological complexity, such as furniture, lighting, small appliances, and housewares. In larger-scale projects, however, even where a strong personality exercises powerful influence, the fact that substantial numbers of designers are employed in implementing a concept can easily be overlooked. The emphasis on individuality is therefore problematic ― rather than actually designing, many successful designer ‘personalities’ function more as creative managers. A distinction needs to be made between designers working truly alone and those working in a group. In the latter case, management organization and processes can be equally as relevant as designers’ creativity. 󰀻 (A) Depending on the ______ of a project, the capacity of (B) designers to ______ team-based working environments can be just as important as their personal qualities. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "size …… coordinate",
+     "cost …… systematize",
+     "size …… identify",
+     "cost …… innovate",
+     "goal …… investigate 8"
+    ]
+   },
+   "after": {
+    "passage": "A striving to demonstrate individual personality through designs should not be surprising. Most designers are educated to work as individuals, and design literature contains countless references to ‘the designer’. Personal flair is without doubt an absolute necessity in some product categories, particularly relatively small objects, with a low degree of technological complexity, such as furniture, lighting, small appliances, and housewares. In larger-scale projects, however, even where a strong personality exercises powerful influence, the fact that substantial numbers of designers are employed in implementing a concept can easily be overlooked. The emphasis on individuality is therefore problematic ― rather than actually designing, many successful designer ‘personalities’ function more as creative managers. A distinction needs to be made between designers working truly alone and those working in a group. In the latter case, management organization and processes can be equally as relevant as designers’ creativity. Depending on the (A) ______ of a project, the capacity of designers to (B) ______ team-based working environments can be just as important as their personal qualities.",
+    "choices": [
+     "size …… coordinate",
+     "cost…… systematize",
+     "size …… identify",
+     "cost…… innovate",
+     "goal…… investigate"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#43",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "passage": "(A) Walking out of Charing Cross Station in London, Emilia and her traveling companion, Layla, already felt their hearts pounding. It was the second day of their European summer trip. They were about to visit one of the world’s most famous art galleries. The two of them started hurrying with excitement. Suddenly, Emilia shouted, “Look! There it is! We’re finally at the National Gallery!” Layla laughed and responded, “(a) Your dream’s finally come true!” 8 (B) “Don’t lose hope yet! Which gallery is the special exhibition at?” Layla asked. Emilia responded, “Well, his Sunflowers is still in England, but it’s at a gallery in Liverpool. That’s a long way, isn’t it?” After a quick search on her phone, Layla stated, “No! It’s only two hours to Liverpool by train. The next train leaves in an hour. Why don’t we take it?” After considering the idea, Emilia, now relieved, responded, “Yeah, but (b) you always wanted to see Rembrandt’s paintings. Let’s do that first, Layla! Then, after lunch, we can catch the next train.” Layla smiled brightly. (C) However, after searching all the exhibition rooms, Emilia and Layla couldn’t find van Gogh’s masterpiece anywhere. “That’s weird. Van Gogh’s Sunflowers should be here. Where is it?” Emilia looked upset, but Layla kept calm and said, “Maybe (c) you’ve missed a notice about it. Check the National Gallery app.” Emilia checked it quickly. Then, she sighed, “ Sunflowers isn’t here! It’s been lent to a different gallery for a special exhibition. (d) I can’t believe I didn’t check!” (D) Upon entering the National Gallery, Emilia knew exactly where to go first. (e) She grabbed Layla’s hand and dragged her hurriedly to find van Gogh’s Sunflowers. It was Emilia’s favorite painting and had inspired her to become a painter. Emilia loved his use of bright colors and light. She couldn’t wait to finally see his masterpiece in person. “It’ll be amazing to see how he communicated the feelings of isolation and loneliness in his work,” she said eagerly."
+   },
+   "after": {
+    "passage": "(A) Walking out of Charing Cross Station in London, Emilia and her traveling companion, Layla, already felt their hearts pounding. It was the second day of their European summer trip. They were about to visit one of the world’s most famous art galleries. The two of them started hurrying with excitement. Suddenly, Emilia shouted, “Look! There it is! We’re finally at the National Gallery!” Layla laughed and responded, “(a) Your dream’s finally come true!” (B) “Don’t lose hope yet! Which gallery is the special exhibition at?” Layla asked. Emilia responded, “Well, his Sunflowers is still in England, but it’s at a gallery in Liverpool. That’s a long way, isn’t it?” After a quick search on her phone, Layla stated, “No! It’s only two hours to Liverpool by train. The next train leaves in an hour. Why don’t we take it?” After considering the idea, Emilia, now relieved, responded, “Yeah, but (b) you always wanted to see Rembrandt’s paintings. Let’s do that first, Layla! Then, after lunch, we can catch the next train.” Layla smiled brightly. (C) However, after searching all the exhibition rooms, Emilia and Layla couldn’t find van Gogh’s masterpiece anywhere. “That’s weird. Van Gogh’s Sunflowers should be here. Where is it?” Emilia looked upset, but Layla kept calm and said, “Maybe (c) you’ve missed a notice about it. Check the National Gallery app.” Emilia checked it quickly. Then, she sighed, “Sunflowers isn’t here! It’s been lent to a different gallery for a special exhibition. (d) I can’t believe I didn’t check!” (D) Upon entering the National Gallery, Emilia knew exactly where to go first. (e) She grabbed Layla’s hand and dragged her hurriedly to find van Gogh’s Sunflowers. It was Emilia’s favorite painting and had inspired her to become a painter. Emilia loved his use of bright colors and light. She couldn’t wait to finally see his masterpiece in person. “It’ll be amazing to see how he communicated the feelings of isolation and loneliness in his work,” she said eagerly."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#44",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "passage": "(A) Walking out of Charing Cross Station in London, Emilia and her traveling companion, Layla, already felt their hearts pounding. It was the second day of their European summer trip. They were about to visit one of the world’s most famous art galleries. The two of them started hurrying with excitement. Suddenly, Emilia shouted, “Look! There it is! We’re finally at the National Gallery!” Layla laughed and responded, “(a) Your dream’s finally come true!” 8 (B) “Don’t lose hope yet! Which gallery is the special exhibition at?” Layla asked. Emilia responded, “Well, his Sunflowers is still in England, but it’s at a gallery in Liverpool. That’s a long way, isn’t it?” After a quick search on her phone, Layla stated, “No! It’s only two hours to Liverpool by train. The next train leaves in an hour. Why don’t we take it?” After considering the idea, Emilia, now relieved, responded, “Yeah, but (b) you always wanted to see Rembrandt’s paintings. Let’s do that first, Layla! Then, after lunch, we can catch the next train.” Layla smiled brightly. (C) However, after searching all the exhibition rooms, Emilia and Layla couldn’t find van Gogh’s masterpiece anywhere. “That’s weird. Van Gogh’s Sunflowers should be here. Where is it?” Emilia looked upset, but Layla kept calm and said, “Maybe (c) you’ve missed a notice about it. Check the National Gallery app.” Emilia checked it quickly. Then, she sighed, “ Sunflowers isn’t here! It’s been lent to a different gallery for a special exhibition. (d) I can’t believe I didn’t check!” (D) Upon entering the National Gallery, Emilia knew exactly where to go first. (e) She grabbed Layla’s hand and dragged her hurriedly to find van Gogh’s Sunflowers. It was Emilia’s favorite painting and had inspired her to become a painter. Emilia loved his use of bright colors and light. She couldn’t wait to finally see his masterpiece in person. “It’ll be amazing to see how he communicated the feelings of isolation and loneliness in his work,” she said eagerly."
+   },
+   "after": {
+    "passage": "(A) Walking out of Charing Cross Station in London, Emilia and her traveling companion, Layla, already felt their hearts pounding. It was the second day of their European summer trip. They were about to visit one of the world’s most famous art galleries. The two of them started hurrying with excitement. Suddenly, Emilia shouted, “Look! There it is! We’re finally at the National Gallery!” Layla laughed and responded, “(a) Your dream’s finally come true!” (B) “Don’t lose hope yet! Which gallery is the special exhibition at?” Layla asked. Emilia responded, “Well, his Sunflowers is still in England, but it’s at a gallery in Liverpool. That’s a long way, isn’t it?” After a quick search on her phone, Layla stated, “No! It’s only two hours to Liverpool by train. The next train leaves in an hour. Why don’t we take it?” After considering the idea, Emilia, now relieved, responded, “Yeah, but (b) you always wanted to see Rembrandt’s paintings. Let’s do that first, Layla! Then, after lunch, we can catch the next train.” Layla smiled brightly. (C) However, after searching all the exhibition rooms, Emilia and Layla couldn’t find van Gogh’s masterpiece anywhere. “That’s weird. Van Gogh’s Sunflowers should be here. Where is it?” Emilia looked upset, but Layla kept calm and said, “Maybe (c) you’ve missed a notice about it. Check the National Gallery app.” Emilia checked it quickly. Then, she sighed, “Sunflowers isn’t here! It’s been lent to a different gallery for a special exhibition. (d) I can’t believe I didn’t check!” (D) Upon entering the National Gallery, Emilia knew exactly where to go first. (e) She grabbed Layla’s hand and dragged her hurriedly to find van Gogh’s Sunflowers. It was Emilia’s favorite painting and had inspired her to become a painter. Emilia loved his use of bright colors and light. She couldn’t wait to finally see his masterpiece in person. “It’ll be amazing to see how he communicated the feelings of isolation and loneliness in his work,” she said eagerly."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2309#45",
+   "pdf_file": "202309_영어영역_문제지.pdf",
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647",
+   "before": {
+    "passage": "(A) Walking out of Charing Cross Station in London, Emilia and her traveling companion, Layla, already felt their hearts pounding. It was the second day of their European summer trip. They were about to visit one of the world’s most famous art galleries. The two of them started hurrying with excitement. Suddenly, Emilia shouted, “Look! There it is! We’re finally at the National Gallery!” Layla laughed and responded, “(a) Your dream’s finally come true!” 8 (B) “Don’t lose hope yet! Which gallery is the special exhibition at?” Layla asked. Emilia responded, “Well, his Sunflowers is still in England, but it’s at a gallery in Liverpool. That’s a long way, isn’t it?” After a quick search on her phone, Layla stated, “No! It’s only two hours to Liverpool by train. The next train leaves in an hour. Why don’t we take it?” After considering the idea, Emilia, now relieved, responded, “Yeah, but (b) you always wanted to see Rembrandt’s paintings. Let’s do that first, Layla! Then, after lunch, we can catch the next train.” Layla smiled brightly. (C) However, after searching all the exhibition rooms, Emilia and Layla couldn’t find van Gogh’s masterpiece anywhere. “That’s weird. Van Gogh’s Sunflowers should be here. Where is it?” Emilia looked upset, but Layla kept calm and said, “Maybe (c) you’ve missed a notice about it. Check the National Gallery app.” Emilia checked it quickly. Then, she sighed, “ Sunflowers isn’t here! It’s been lent to a different gallery for a special exhibition. (d) I can’t believe I didn’t check!” (D) Upon entering the National Gallery, Emilia knew exactly where to go first. (e) She grabbed Layla’s hand and dragged her hurriedly to find van Gogh’s Sunflowers. It was Emilia’s favorite painting and had inspired her to become a painter. Emilia loved his use of bright colors and light. She couldn’t wait to finally see his masterpiece in person. “It’ll be amazing to see how he communicated the feelings of isolation and loneliness in his work,” she said eagerly.",
+    "choices": [
+     "Emilia 와 Layla 는 유럽 여행 중이었다 .",
+     "Layla 는 Emilia 에게 Liverpool 로 가자고 제안했다 .",
+     "Emilia 는 기차를 점심 식사 전에 타자고 말했다 .",
+     "National Gallery 에는 van Gogh 의 Sunflowers 가 없었다 .",
+     "Emilia 는 van Gogh 의 Sunflowers 를 좋아했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) Walking out of Charing Cross Station in London, Emilia and her traveling companion, Layla, already felt their hearts pounding. It was the second day of their European summer trip. They were about to visit one of the world’s most famous art galleries. The two of them started hurrying with excitement. Suddenly, Emilia shouted, “Look! There it is! We’re finally at the National Gallery!” Layla laughed and responded, “(a) Your dream’s finally come true!” (B) “Don’t lose hope yet! Which gallery is the special exhibition at?” Layla asked. Emilia responded, “Well, his Sunflowers is still in England, but it’s at a gallery in Liverpool. That’s a long way, isn’t it?” After a quick search on her phone, Layla stated, “No! It’s only two hours to Liverpool by train. The next train leaves in an hour. Why don’t we take it?” After considering the idea, Emilia, now relieved, responded, “Yeah, but (b) you always wanted to see Rembrandt’s paintings. Let’s do that first, Layla! Then, after lunch, we can catch the next train.” Layla smiled brightly. (C) However, after searching all the exhibition rooms, Emilia and Layla couldn’t find van Gogh’s masterpiece anywhere. “That’s weird. Van Gogh’s Sunflowers should be here. Where is it?” Emilia looked upset, but Layla kept calm and said, “Maybe (c) you’ve missed a notice about it. Check the National Gallery app.” Emilia checked it quickly. Then, she sighed, “Sunflowers isn’t here! It’s been lent to a different gallery for a special exhibition. (d) I can’t believe I didn’t check!” (D) Upon entering the National Gallery, Emilia knew exactly where to go first. (e) She grabbed Layla’s hand and dragged her hurriedly to find van Gogh’s Sunflowers. It was Emilia’s favorite painting and had inspired her to become a painter. Emilia loved his use of bright colors and light. She couldn’t wait to finally see his masterpiece in person. “It’ll be amazing to see how he communicated the feelings of isolation and loneliness in his work,” she said eagerly.",
+    "choices": [
+     "Emilia와 Layla는 유럽 여행 중이었다.",
+     "Layla는 Emilia에게 Liverpool로 가자고 제안했다.",
+     "Emilia는 기차를 점심 식사 전에 타자고 말했다.",
+     "National Gallery에는 van Gogh의 Sunflowers가 없었다.",
+     "Emilia는 van Gogh의 Sunflowers를 좋아했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#22",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "choices": [
+     "가상 세계 특유의 익명성 때문에 표현의 자유가 남용되기도 한다 .",
+     "인터넷 정보의 신뢰도를 검증하는 기술은 점진적으로 향상되고 있다 .",
+     "가상 세계에서는 현실 세 계와 달리 자유로운 정보 공유가 가능하다 .",
+     "안전한 인터넷 환경 구축을 위해 보안 프로그램을 설치하는 것이 좋다 .",
+     "방어 기제가 덜 작 동하는 가상 세계 에서는 신중 한 정보 검증 이 중요 하다. 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "가상 세계 특유의 익명성 때문에 표현의 자유가 남용되기도 한다.",
+     "인터넷 정보의 신뢰도를 검증하는 기술은 점진적으로 향상되고 있다.",
+     "가상 세계에서는 현실 세계와 달리 자유로운 정보 공유가 가능하다.",
+     "안전한 인터넷 환경 구축을 위해 보안 프로그램을 설치하는 것이 좋다.",
+     "방어 기제가 덜 작동하는 가상 세계에서는 신중한 정보 검증이 중요하다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#24",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "choices": [
+     "Is Hyper-mobility Always Good for Cities?",
+     "Accessibility: A Guide to a Web of Urban Areas",
+     "A Long and Winding Road to Economic Success",
+     "Inevitable Regional Conflicts from Hyper-mobility",
+     "Infrastructure: An Essential Element of Hyper-mobility 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "Is Hyper-mobility Always Good for Cities?",
+     "Accessibility: A Guide to a Web of Urban Areas",
+     "A Long and Winding Road to Economic Success",
+     "Inevitable Regional Conflicts from Hyper-mobility",
+     "Infrastructure: An Essential Element of Hyper-mobility"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#30",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "passage": "To the extent that an agent relies on the prior knowledge of its designer rather than on its own percepts, we say that the agent lacks autonomy. A rational agent should be autonomous ― it should learn what it can to (A) compensate / prepare for partial or incorrect prior knowledge. For example, a vacuum-cleaning agent that learns to foresee where and when additional dirt will appear will do better than one that does not. As a practical matter, one seldom requires complete autonomy from the start: when the agent has had little or no experience, it would have to act (B) purposefully / randomly unless the designer gave some assistance. So, just as evolution provides animals with enough built-in reflexes to survive long enough to learn for themselves, it would be reasonable to provide an artificial intelligent agent with some initial knowledge as well as an ability to learn. After sufficient experience of its environment, the behavior of a rational agent can become effectively (C) independent / protective of its prior knowledge. Hence, the incorporation of learning allows one to design a single rational agent that will succeed in a vast variety of environments. (A) ______ (B) ______ (C) ① compensate …… ______ randomly ______ …… ______ protective ② compensate …… ______ purposefully …… ______ protective ③ prepare ______ …… ______ randomly ______ …… ______ protective ④ compensate …… ______ randomly ______ …… ______ independent ⑤ prepare ______ …… ______ purposefully …… ______ independent 5 5"
+   },
+   "after": {
+    "passage": "To the extent that an agent relies on the prior knowledge of its designer rather than on its own percepts, we say that the agent lacks autonomy. A rational agent should be autonomous ― it should learn what it can to (A) compensate / prepare for partial or incorrect prior knowledge. For example, a vacuum-cleaning agent that learns to foresee where and when additional dirt will appear will do better than one that does not. As a practical matter, one seldom requires complete autonomy from the start: when the agent has had little or no experience, it would have to act (B) purposefully / randomly unless the designer gave some assistance. So, just as evolution provides animals with enough built-in reflexes to survive long enough to learn for themselves, it would be reasonable to provide an artificial intelligent agent with some initial knowledge as well as an ability to learn. After sufficient experience of its environment, the behavior of a rational agent can become effectively (C) independent / protective of its prior knowledge. Hence, the incorporation of learning allows one to design a single rational agent that will succeed in a vast variety of environments. (A) (B) (C) ① compensate …… randomly …… protective ② compensate …… purposefully …… protective ③ prepare …… randomly …… protective ④ compensate …… randomly …… independent ⑤ prepare …… purposefully …… independent"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#32",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "choices": [
+     "legally established",
+     "regularly reported",
+     "socially regulated",
+     "manually calculated",
+     "carefully documented 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "legally established",
+     "regularly reported",
+     "socially regulated",
+     "manually calculated",
+     "carefully documented"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#38",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "passage": "Instead, much like the young child learning how to play ‘nicely’, the apprentice scientist gains his or her understanding of the moral values inherent in the role by absorption from their colleagues ― socialization. As particular practices are repeated over time and become more widely shared, the values that they embody are reinforced and reproduced and we speak of them as becoming ‘institutionalized’. ( ①) In some cases, this institutionalization has a formal face to it, with rules and protocols written down, and specialized roles created to ensure that procedures are followed correctly. ( ②) The main institutions of state ― parliament, courts, police and so on ― along with certain of the professions, exhibit this formal character. ( ③) Other social institutions, perhaps the majority, are not like this; science is an example. ( ④) Although scientists are trained in the substantive content of their discipline, they are not formally instructed in ‘how to be a good scientist’. ( ⑤) We think that these values, along with the values that inform many of the professions, are under threat, just as the value of the professions themselves is under threat. 7 7"
+   },
+   "after": {
+    "passage": "Instead, much like the young child learning how to play ‘nicely’, the apprentice scientist gains his or her understanding of the moral values inherent in the role by absorption from their colleagues ― socialization. As particular practices are repeated over time and become more widely shared, the values that they embody are reinforced and reproduced and we speak of them as becoming ‘institutionalized’. ( ① ) In some cases, this institutionalization has a formal face to it, with rules and protocols written down, and specialized roles created to ensure that procedures are followed correctly. ( ② ) The main institutions of state ― parliament, courts, police and so on ― along with certain of the professions, exhibit this formal character. ( ③ ) Other social institutions, perhaps the majority, are not like this; science is an example. ( ④ ) Although scientists are trained in the substantive content of their discipline, they are not formally instructed in ‘how to be a good scientist’. ( ⑤ ) We think that these values, along with the values that inform many of the professions, are under threat, just as the value of the professions themselves is under threat."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#40",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "passage": "The evolutionary process works on the genetic variation that is available. It follows that natural selection is unlikely to lead to the evolution of perfect, ‘maximally fit’ individuals. Rather, organisms come to match their environments by being ‘the fittest available’ or ‘the fittest yet’: they are not ‘the best imaginable’. Part of the lack of fit arises because the present properties of an organism have not all originated in an environment similar in every respect to the one in which it now lives. Over the course of its evolutionary history, an organism’s remote ancestors may have evolved a set of characteristics ― evolutionary ‘baggage’ ― that subsequently constrain future evolution. For many millions of years, the evolution of vertebrates has been limited to what can be achieved by organisms with a vertebral column. Moreover, much of what we now see as precise matches between an organism and its environment may equally be seen as constraints: koala bears live successfully on Eucalyptus foliage, but, from another perspective, koala bears cannot live without Eucalyptus foliage. 󰀻 The survival characteristics that an organism currently (A) carries may act as a(n) ______ to its adaptability when the organism finds itself coping with changes that arise in (B) its ______ . (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "improvement …… diet",
+     "obstacle …… surroundings",
+     "advantage …… genes",
+     "regulator …… mechanisms",
+     "guide …… traits 8"
+    ]
+   },
+   "after": {
+    "passage": "The evolutionary process works on the genetic variation that is available. It follows that natural selection is unlikely to lead to the evolution of perfect, ‘maximally fit’ individuals. Rather, organisms come to match their environments by being ‘the fittest available’ or ‘the fittest yet’: they are not ‘the best imaginable’. Part of the lack of fit arises because the present properties of an organism have not all originated in an environment similar in every respect to the one in which it now lives. Over the course of its evolutionary history, an organism’s remote ancestors may have evolved a set of characteristics ― evolutionary ‘baggage’ ― that subsequently constrain future evolution. For many millions of years, the evolution of vertebrates has been limited to what can be achieved by organisms with a vertebral column. Moreover, much of what we now see as precise matches between an organism and its environment may equally be seen as constraints: koala bears live successfully on Eucalyptus foliage, but, from another perspective, koala bears cannot live without Eucalyptus foliage. The survival characteristics that an organism currently carries may act as a(n) (A) ______ to its adaptability when the organism finds itself coping with changes that arise in its (B) ______ .",
+    "choices": [
+     "improvement …… diet",
+     "obstacle …… surroundings",
+     "advantage …… genes",
+     "regulator …… mechanisms",
+     "guide …… traits"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#43",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "passage": "(A) When invited by her mother to go shopping after lunch, Ellen hesitantly replied, “Sorry, Mom. I have an English essay assignment I need to finish.” Her mother persisted, “Come on! Your father’s birthday is just around the corner, and you wanted to buy his birthday present by yourself.” Ellen suddenly realized that her father’s birthday was just two days away. So (a) she altered her original plan to do the assignment in the library and decided to go to the shopping mall with her mother. 8 (B) Ellen wanted to get a strawberry smoothie in the cafe, but it was sold out. So she bought a yogurt smoothie instead. The cafe was not very busy for a Saturday afternoon, and Ellen settled at a large table to work on her assignment. However, after a while, a group of students came in, and there weren’t any large tables left. One of them came over to Ellen’s table and politely asked, “Could (b) you possibly move to that smaller table?” Ellen replied, “It’s okay. I was just leaving anyway.” She hurriedly gathered her assignment leaving the shoe bag behind under the table. (C) Upon arrival at the shopping center, her mother inquired, “Ellen, have you decided what to buy for his birthday present?” She quickly replied, “(c) I would like to buy him a pair of soccer shoes.” Ellen knew that her father had joined the morning soccer club recently and needed some new soccer shoes. She entered a shoe store and selected a pair of red soccer shoes. After buying the present, she told her mother, “Mom, now, I’m going to do my assignment in the cafe while you are shopping.” (D) “It must be in the cafe,” Ellen suddenly exclaimed when (d) she realized the gift for her father was missing upon returning home. She felt so disheartened, worrying it would be impossible to find it. “Why don’t you call the cafe?” suggested her mother. When she phoned the cafe and asked about the shoe bag, the manager said that she would check and let her know. After a few minutes, she called back and told Ellen that (e) she had just discovered it. Ellen was so pleased that the birthday gift had been found."
+   },
+   "after": {
+    "passage": "(A) When invited by her mother to go shopping after lunch, Ellen hesitantly replied, “Sorry, Mom. I have an English essay assignment I need to finish.” Her mother persisted, “Come on! Your father’s birthday is just around the corner, and you wanted to buy his birthday present by yourself.” Ellen suddenly realized that her father’s birthday was just two days away. So (a) she altered her original plan to do the assignment in the library and decided to go to the shopping mall with her mother. (B) Ellen wanted to get a strawberry smoothie in the cafe, but it was sold out. So she bought a yogurt smoothie instead. The cafe was not very busy for a Saturday afternoon, and Ellen settled at a large table to work on her assignment. However, after a while, a group of students came in, and there weren’t any large tables left. One of them came over to Ellen’s table and politely asked, “Could (b) you possibly move to that smaller table?” Ellen replied, “It’s okay. I was just leaving anyway.” She hurriedly gathered her assignment leaving the shoe bag behind under the table. (C) Upon arrival at the shopping center, her mother inquired, “Ellen, have you decided what to buy for his birthday present?” She quickly replied, “(c) I would like to buy him a pair of soccer shoes.” Ellen knew that her father had joined the morning soccer club recently and needed some new soccer shoes. She entered a shoe store and selected a pair of red soccer shoes. After buying the present, she told her mother, “Mom, now, I’m going to do my assignment in the cafe while you are shopping.” (D) “It must be in the cafe,” Ellen suddenly exclaimed when (d) she realized the gift for her father was missing upon returning home. She felt so disheartened, worrying it would be impossible to find it. “Why don’t you call the cafe?” suggested her mother. When she phoned the cafe and asked about the shoe bag, the manager said that she would check and let her know. After a few minutes, she called back and told Ellen that (e) she had just discovered it. Ellen was so pleased that the birthday gift had been found."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#44",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "passage": "(A) When invited by her mother to go shopping after lunch, Ellen hesitantly replied, “Sorry, Mom. I have an English essay assignment I need to finish.” Her mother persisted, “Come on! Your father’s birthday is just around the corner, and you wanted to buy his birthday present by yourself.” Ellen suddenly realized that her father’s birthday was just two days away. So (a) she altered her original plan to do the assignment in the library and decided to go to the shopping mall with her mother. 8 (B) Ellen wanted to get a strawberry smoothie in the cafe, but it was sold out. So she bought a yogurt smoothie instead. The cafe was not very busy for a Saturday afternoon, and Ellen settled at a large table to work on her assignment. However, after a while, a group of students came in, and there weren’t any large tables left. One of them came over to Ellen’s table and politely asked, “Could (b) you possibly move to that smaller table?” Ellen replied, “It’s okay. I was just leaving anyway.” She hurriedly gathered her assignment leaving the shoe bag behind under the table. (C) Upon arrival at the shopping center, her mother inquired, “Ellen, have you decided what to buy for his birthday present?” She quickly replied, “(c) I would like to buy him a pair of soccer shoes.” Ellen knew that her father had joined the morning soccer club recently and needed some new soccer shoes. She entered a shoe store and selected a pair of red soccer shoes. After buying the present, she told her mother, “Mom, now, I’m going to do my assignment in the cafe while you are shopping.” (D) “It must be in the cafe,” Ellen suddenly exclaimed when (d) she realized the gift for her father was missing upon returning home. She felt so disheartened, worrying it would be impossible to find it. “Why don’t you call the cafe?” suggested her mother. When she phoned the cafe and asked about the shoe bag, the manager said that she would check and let her know. After a few minutes, she called back and told Ellen that (e) she had just discovered it. Ellen was so pleased that the birthday gift had been found."
+   },
+   "after": {
+    "passage": "(A) When invited by her mother to go shopping after lunch, Ellen hesitantly replied, “Sorry, Mom. I have an English essay assignment I need to finish.” Her mother persisted, “Come on! Your father’s birthday is just around the corner, and you wanted to buy his birthday present by yourself.” Ellen suddenly realized that her father’s birthday was just two days away. So (a) she altered her original plan to do the assignment in the library and decided to go to the shopping mall with her mother. (B) Ellen wanted to get a strawberry smoothie in the cafe, but it was sold out. So she bought a yogurt smoothie instead. The cafe was not very busy for a Saturday afternoon, and Ellen settled at a large table to work on her assignment. However, after a while, a group of students came in, and there weren’t any large tables left. One of them came over to Ellen’s table and politely asked, “Could (b) you possibly move to that smaller table?” Ellen replied, “It’s okay. I was just leaving anyway.” She hurriedly gathered her assignment leaving the shoe bag behind under the table. (C) Upon arrival at the shopping center, her mother inquired, “Ellen, have you decided what to buy for his birthday present?” She quickly replied, “(c) I would like to buy him a pair of soccer shoes.” Ellen knew that her father had joined the morning soccer club recently and needed some new soccer shoes. She entered a shoe store and selected a pair of red soccer shoes. After buying the present, she told her mother, “Mom, now, I’m going to do my assignment in the cafe while you are shopping.” (D) “It must be in the cafe,” Ellen suddenly exclaimed when (d) she realized the gift for her father was missing upon returning home. She felt so disheartened, worrying it would be impossible to find it. “Why don’t you call the cafe?” suggested her mother. When she phoned the cafe and asked about the shoe bag, the manager said that she would check and let her know. After a few minutes, she called back and told Ellen that (e) she had just discovered it. Ellen was so pleased that the birthday gift had been found."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2406#45",
+   "pdf_file": "202406_영어영역_문제지.pdf",
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180",
+   "before": {
+    "passage": "(A) When invited by her mother to go shopping after lunch, Ellen hesitantly replied, “Sorry, Mom. I have an English essay assignment I need to finish.” Her mother persisted, “Come on! Your father’s birthday is just around the corner, and you wanted to buy his birthday present by yourself.” Ellen suddenly realized that her father’s birthday was just two days away. So (a) she altered her original plan to do the assignment in the library and decided to go to the shopping mall with her mother. 8 (B) Ellen wanted to get a strawberry smoothie in the cafe, but it was sold out. So she bought a yogurt smoothie instead. The cafe was not very busy for a Saturday afternoon, and Ellen settled at a large table to work on her assignment. However, after a while, a group of students came in, and there weren’t any large tables left. One of them came over to Ellen’s table and politely asked, “Could (b) you possibly move to that smaller table?” Ellen replied, “It’s okay. I was just leaving anyway.” She hurriedly gathered her assignment leaving the shoe bag behind under the table. (C) Upon arrival at the shopping center, her mother inquired, “Ellen, have you decided what to buy for his birthday present?” She quickly replied, “(c) I would like to buy him a pair of soccer shoes.” Ellen knew that her father had joined the morning soccer club recently and needed some new soccer shoes. She entered a shoe store and selected a pair of red soccer shoes. After buying the present, she told her mother, “Mom, now, I’m going to do my assignment in the cafe while you are shopping.” (D) “It must be in the cafe,” Ellen suddenly exclaimed when (d) she realized the gift for her father was missing upon returning home. She felt so disheartened, worrying it would be impossible to find it. “Why don’t you call the cafe?” suggested her mother. When she phoned the cafe and asked about the shoe bag, the manager said that she would check and let her know. After a few minutes, she called back and told Ellen that (e) she had just discovered it. Ellen was so pleased that the birthday gift had been found.",
+    "choices": [
+     "Ellen 은 끝내야 할 영어 과제가 있었다 .",
+     "카페에서는 요거트 스무디를 팔지 않았다 .",
+     "한 무리의 학생들이 카페에 들어왔다 .",
+     "Ellen 의 아버지는 최근에 아침 축구 클럽에 가입했다 .",
+     "Ellen 은 카페에 전화를 걸었다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) When invited by her mother to go shopping after lunch, Ellen hesitantly replied, “Sorry, Mom. I have an English essay assignment I need to finish.” Her mother persisted, “Come on! Your father’s birthday is just around the corner, and you wanted to buy his birthday present by yourself.” Ellen suddenly realized that her father’s birthday was just two days away. So (a) she altered her original plan to do the assignment in the library and decided to go to the shopping mall with her mother. (B) Ellen wanted to get a strawberry smoothie in the cafe, but it was sold out. So she bought a yogurt smoothie instead. The cafe was not very busy for a Saturday afternoon, and Ellen settled at a large table to work on her assignment. However, after a while, a group of students came in, and there weren’t any large tables left. One of them came over to Ellen’s table and politely asked, “Could (b) you possibly move to that smaller table?” Ellen replied, “It’s okay. I was just leaving anyway.” She hurriedly gathered her assignment leaving the shoe bag behind under the table. (C) Upon arrival at the shopping center, her mother inquired, “Ellen, have you decided what to buy for his birthday present?” She quickly replied, “(c) I would like to buy him a pair of soccer shoes.” Ellen knew that her father had joined the morning soccer club recently and needed some new soccer shoes. She entered a shoe store and selected a pair of red soccer shoes. After buying the present, she told her mother, “Mom, now, I’m going to do my assignment in the cafe while you are shopping.” (D) “It must be in the cafe,” Ellen suddenly exclaimed when (d) she realized the gift for her father was missing upon returning home. She felt so disheartened, worrying it would be impossible to find it. “Why don’t you call the cafe?” suggested her mother. When she phoned the cafe and asked about the shoe bag, the manager said that she would check and let her know. After a few minutes, she called back and told Ellen that (e) she had just discovered it. Ellen was so pleased that the birthday gift had been found.",
+    "choices": [
+     "Ellen은 끝내야 할 영어 과제가 있었다.",
+     "카페에서는 요거트 스무디를 팔지 않았다.",
+     "한 무리의 학생들이 카페에 들어왔다.",
+     "Ellen의 아버지는 최근에 아침 축구 클럽에 가입했다.",
+     "Ellen은 카페에 전화를 걸었다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  }
+ ]
+}

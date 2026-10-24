@@ -32,3 +32,13 @@
 
 - forward: compare-and-set, 6행이 아니면 전체 롤백. recovery: 정정 후 md5 가 같을 때만 꼬리를 그대로 다시 붙인다.
 - 실행 순서(승인 뒤): sha256 재확인 → `check.sql`(before 6) → `forward.sql` → `check.sql`(after 6) → 공식 문제지 재대조 → 수리 기록 합치기.
+
+## 최종 승인 자료 보강 (2026-10-24 재확인 · SELECT 만)
+
+- **현재 상태:** 6행 모두 `before` choices md5 · passage md5 는 check.sql 주석값과 같음.
+- **정답 영향 없음:** 바꾸는 칸은 ⑤ 하나, 6건의 정답은 2025#30 ④ · M1809#35 ③ · M2006#35 ④ · M2106#35 ④ · M2206#35 ④ · M2209#35 ③ — 정답 선지가 아니다. `answer` 열은 바꾸지 않는다.
+- **분석 영향 없음:** 최신 published 분석(2025#30 v6 · M1809#35 v4 · M2006#35 v4 · M2106#35 v4 · M2206#35 v3 · M2209#35 v3)의 choice_analysis · design_intent · solve_procedure 에 지우는 꼬리 문자열 0건.
+- **강의 영향 없음:** 강의 대본의 hallmark · steepability · contraband 낭독은 강의가 스스로 가르치는 어휘 풀이(en-US 조각 + 한국어 뜻)이고 DB 꼬리를 인용하지 않는다. 학습자 화면은 공식 PDF 를 쓴다.
+- **탐구 문구 1곳 낡음(정정 뒤):** `inquiry-data.json` M1809#35 「7번 문장 끝의 주석 잔여(hallmark · steepability)는 판단에 영향이 없어 무시했다」 — DB 꼬리를 전제한 메모. 판정에는 영향 없음. 적용 뒤 콘텐츠 정정 후보로 둔다(이번 범위에서 고치지 않음).
+- **원장 수리 기록:** `recipe-C-six.json` 6건 중 2025#30 은 로컬 main 수리 목록(94e227dd0)에 **passage** 수리가 이미 있다. C-six 는 **choices** 라 필드가 달라 `mergeSourceRepair` 로 병합한다(새 항목 추가 금지 — 같은 문항 두 항목이 된다).
+- **롤백 조건:** forward 는 바뀐 행이 6 이 아니면 전체 예외 · 무변경. recovery 는 정정 후 md5 와 같을 때만, 6 이 아니면 전체 예외.

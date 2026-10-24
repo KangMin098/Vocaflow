@@ -1,0 +1,1435 @@
+{
+  "group": "S1",
+  "rows": [
+    {
+      "item_id": "2014A#24",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#26",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#28",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#30",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#31",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#37",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#40",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#43",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#44",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014A#45",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#24",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#26",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#28",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#32",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#34",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#36",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "BOTH_DIFF",
+      "why": "DB도 [3점]·표 머리 (A)(B) 잔여와 빈칸 표지 누락, 원장은 표지 위치 오류"
+    },
+    {
+      "item_id": "2014B#40",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#42",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#43",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#44",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2014B#45",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#22",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#24",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#28",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#30",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#32",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#38",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#40",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#43",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#44",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2015#45",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#22",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#24",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#28",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#30",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#32",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#38",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#40",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#43",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#44",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2016#45",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#22",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#24",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#28",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#30",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#32",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#38",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#40",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#42",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "BOTH_DIFF",
+      "why": "DB도 [3점]·표 머리 (A)(B) 잔여와 빈칸 표지 누락, 원장은 표지 위치 오류"
+    },
+    {
+      "item_id": "2017#43",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#44",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2017#45",
+      "fields": [
+        "passage",
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2018#22",
+      "fields": [
+        "choices"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    },
+    {
+      "item_id": "2018#24",
+      "fields": [
+        "passage"
+      ],
+      "verdict": "DB_CORRECT",
+      "why": "DB 문장·선지 PDF 일치, 원장 쪽 차이는 쪽번호·표지·띄어쓰기 잔여"
+    }
+  ],
+  "recipes": [
+    {
+      "item_id": "2014A#24",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "choices": [
+          "난관을 극복할 때 성취감이 생긴다 .",
+          "항상 타인의 입장을 먼저 고려해야 한다 .",
+          "자신이 원하지 않는 일은 거절할 필요가 있다 .",
+          "자신의 의견을 고집하면 대인 관계가 악화된다 .",
+          "제안을 승낙하기 전에는 그 의도를 파악해야 한다 . 3"
+        ]
+      },
+      "after": {
+        "choices": [
+          "난관을 극복할 때 성취감이 생긴다.",
+          "항상 타인의 입장을 먼저 고려해야 한다.",
+          "자신이 원하지 않는 일은 거절할 필요가 있다.",
+          "자신의 의견을 고집하면 대인 관계가 악화된다.",
+          "제안을 승낙하기 전에는 그 의도를 파악해야 한다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#26",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "passage": "Large animals are actually less dangerous to hikers than smaller ones. Common sense tells us that we should avoid tigers, bears, and other large threatening animals. But smaller animals are actually more threatening than bigger animals. To overcome disadvantages of their size, small animals have developed useful weapons ______ such as poison to protect themselves in the wild. Each year, only a few people are attacked by tigers or bears, and most of these incidents are caused by the people themselves. However, more people are killed by bites from small poisonous snakes than by these large animals. Even more people lose their lives from allergic reactions to common bee stings. For these reasons, hikers should be careful about small dangerous creatures.",
+        "choices": [
+          "How to Deal with Allergies",
+          "Watch Out for Small Animals!",
+          "Animals: Human’s True Friends",
+          "Animals Attack Human Villages!",
+          "Why Are Wild Animals Endangered? 8"
+        ]
+      },
+      "after": {
+        "passage": "Large animals are actually less dangerous to hikers than smaller ones. Common sense tells us that we should avoid tigers, bears, and other large threatening animals. But smaller animals are actually more threatening than bigger animals. To overcome disadvantages of their size, small animals have developed useful weapons such as poison to protect themselves in the wild. Each year, only a few people are attacked by tigers or bears, and most of these incidents are caused by the people themselves. However, more people are killed by bites from small poisonous snakes than by these large animals. Even more people lose their lives from allergic reactions to common bee stings. For these reasons, hikers should be careful about small dangerous creatures.",
+        "choices": [
+          "How to Deal with Allergies",
+          "Watch Out for Small Animals!",
+          "Animals: Human’s True Friends",
+          "Animals Attack Human Villages!",
+          "Why Are Wild Animals Endangered?"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#28",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "passage": "As we all know, it is not always easy to get work done at the office. There is (A) frequently / rarely quiet time during regular business hours to sit and concentrate. Office workers are regularly interrupted by ringing phones, impromptu meetings, and chattering coworkers. This can be as frustrating for an employee as it is for the employer who is paying for this nonproductive work time. Working at home can free you from these (B) attractions / distractions , giving you long blocks of time to focus on your work. Although your home may present its own problems, too, there are ways to deal with them. Your productivity will certainly (C) decrease / increase , as will the quality of your work product. At the same time, you will get to enjoy the personal satisfaction of focusing on your work and getting it done. (A) ______ (B) ______ (C) ① frequently …… distractions …… increase ② frequently …… attractions …… decrease ③ rarely ______ …… distractions …… increase ④ rarely ______ …… attractions …… decrease ⑤ rarely ______ …… distractions …… decrease 4"
+      },
+      "after": {
+        "passage": "As we all know, it is not always easy to get work done at the office. There is (A) frequently / rarely quiet time during regular business hours to sit and concentrate. Office workers are regularly interrupted by ringing phones, impromptu meetings, and chattering coworkers. This can be as frustrating for an employee as it is for the employer who is paying for this nonproductive work time. Working at home can free you from these (B) attractions / distractions , giving you long blocks of time to focus on your work. Although your home may present its own problems, too, there are ways to deal with them. Your productivity will certainly (C) decrease / increase , as will the quality of your work product. At the same time, you will get to enjoy the personal satisfaction of focusing on your work and getting it done. (A) (B) (C) ① frequently …… distractions …… increase ② frequently …… attractions …… decrease ③ rarely …… distractions …… increase ④ rarely …… attractions …… decrease ⑤ rarely …… distractions …… decrease"
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#30",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "choices": [
+          "일 년에 $50 를 내면 모든 혜택을 누린다 .",
+          "일 년 동안 월간 잡지 Nature World 를 받는다 .",
+          "재단 주최 행사에 관한 월간 뉴스레터를 받는다 .",
+          "재단 발행 도서 구입 시 10% 를 할인받는다 .",
+          "국립공원 입장료를 할인받는다 . 5"
+        ]
+      },
+      "after": {
+        "choices": [
+          "일 년에 $50를 내면 모든 혜택을 누린다.",
+          "일 년 동안 월간 잡지 Nature World를 받는다.",
+          "재단 주최 행사에 관한 월간 뉴스레터를 받는다.",
+          "재단 발행 도서 구입 시 10%를 할인받는다.",
+          "국립공원 입장료를 할인받는다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#31",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "passage": "Harmony Youth Orchestra Auditions For the 2014 Season Audition Dates: December 16th-20th, 2013 The Harmony Youth Orchestra is for you if you wish to participate in great musical performances under Harmony’s conductor. You must... ∙ currently be a middle or high school student. ∙ send in a completed audition application form and a recommendation ______ from your music teacher by November 30th. ∙ prepare to play a piece of your choice for the audition. You will... ∙ receive an e-mail with your audition time and place about 10 days before your audition day. ∙ be notified of the final results by e-mail about a week after the audition. Application forms can be downloaded from the Harmony Youth Orchestra website (www.hyo.org).",
+        "choices": [
+          "오디션 기간은 2013 년 12 월 16 일부터 20 일까지이다 .",
+          "중 ․ 고등학생들이 지원할 수 있다 .",
+          "11 월 30 일까지 지원서와 추천서를 제출해야 한다 .",
+          "오디션 시간과 장소를 이메일로 받는다 .",
+          "오디션의 최종 결과를 전화로 통지받는다 . 8"
+        ]
+      },
+      "after": {
+        "passage": "Harmony Youth Orchestra Auditions For the 2014 Season Audition Dates: December 16th-20th, 2013 The Harmony Youth Orchestra is for you if you wish to participate in great musical performances under Harmony’s conductor. You must... ∙ currently be a middle or high school student. ∙ send in a completed audition application form and a recommendation from your music teacher by November 30th. ∙ prepare to play a piece of your choice for the audition. You will... ∙ receive an e-mail with your audition time and place about 10 days before your audition day. ∙ be notified of the final results by e-mail about a week after the audition. Application forms can be downloaded from the Harmony Youth Orchestra website (www.hyo.org).",
+        "choices": [
+          "오디션 기간은 2013년 12월 16일부터 20일까지이다.",
+          "중․고등학생들이 지원할 수 있다.",
+          "11월 30일까지 지원서와 추천서를 제출해야 한다.",
+          "오디션 시간과 장소를 이메일로 받는다.",
+          "오디션의 최종 결과를 전화로 통지받는다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#37",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "choices": [
+          "(A) － (C) － (B)",
+          "(B) － (A) － (C)",
+          "(B) － (C) － (A)",
+          "(C) － (A) － (B)",
+          "(C) － (B) － (A) 7"
+        ]
+      },
+      "after": {
+        "choices": [
+          "(A) － (C) － (B)",
+          "(B) － (A) － (C)",
+          "(B) － (C) － (A)",
+          "(C) － (A) － (B)",
+          "(C) － (B) － (A)"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#40",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "choices": [
+          "bored",
+          "irritated",
+          "envious",
+          "indifferent",
+          "delighted 8"
+        ]
+      },
+      "after": {
+        "choices": [
+          "bored",
+          "irritated",
+          "envious",
+          "indifferent",
+          "delighted"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#43",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "passage": "(A) Mom once said that my grandmother came to America as a poor uneducated Greek immigrant at eighteen. My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family. Though she never learned to read in school, she knew many traditional stories from her home country. 8 (B) One day, when I saw my grandmother on the street by chance, I noticed that (b) she had difficulty in reading an English sign. Right at that moment, it hit upon me to teach her to read English in return for all she had taught me. I talked to my mom about it, and (c) she was delighted with my plan. So my grandmother and I worked hard together using books for beginners. (C) My efforts were rewarded only a month later on the morning of my eighteenth birthday. My grandmother decorated a cake with “HAPPY BIRTHDAY BETTY.” I had only taught her the basics of reading, but (d) she had written these words all by herself. Touched by this simple message, I said, “It’s not just my birthday, Grandma. You stepped into this country at eighteen. Now, you are stepping into another new world. So it’s your birthday, too.” (D) My grandmother liked to tell me these interesting stories at night. I still remember a few stories in which the gods made promises with each other like humans. Those who broke their promises were punished. While listening to the stories, I decided that I would not break any promises. The morals of (e) her stories taught me how I should live my life."
+      },
+      "after": {
+        "passage": "(A) Mom once said that my grandmother came to America as a poor uneducated Greek immigrant at eighteen. My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family. Though she never learned to read in school, she knew many traditional stories from her home country. (B) One day, when I saw my grandmother on the street by chance, I noticed that (b) she had difficulty in reading an English sign. Right at that moment, it hit upon me to teach her to read English in return for all she had taught me. I talked to my mom about it, and (c) she was delighted with my plan. So my grandmother and I worked hard together using books for beginners. (C) My efforts were rewarded only a month later on the morning of my eighteenth birthday. My grandmother decorated a cake with “HAPPY BIRTHDAY BETTY.” I had only taught her the basics of reading, but (d) she had written these words all by herself. Touched by this simple message, I said, “It’s not just my birthday, Grandma. You stepped into this country at eighteen. Now, you are stepping into another new world. So it’s your birthday, too.” (D) My grandmother liked to tell me these interesting stories at night. I still remember a few stories in which the gods made promises with each other like humans. Those who broke their promises were punished. While listening to the stories, I decided that I would not break any promises. The morals of (e) her stories taught me how I should live my life."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#44",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "passage": "(A) Mom once said that my grandmother came to America as a poor uneducated Greek immigrant at eighteen. My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family. Though she never learned to read in school, she knew many traditional stories from her home country. 8 (B) One day, when I saw my grandmother on the street by chance, I noticed that (b) she had difficulty in reading an English sign. Right at that moment, it hit upon me to teach her to read English in return for all she had taught me. I talked to my mom about it, and (c) she was delighted with my plan. So my grandmother and I worked hard together using books for beginners. (C) My efforts were rewarded only a month later on the morning of my eighteenth birthday. My grandmother decorated a cake with “HAPPY BIRTHDAY BETTY.” I had only taught her the basics of reading, but (d) she had written these words all by herself. Touched by this simple message, I said, “It’s not just my birthday, Grandma. You stepped into this country at eighteen. Now, you are stepping into another new world. So it’s your birthday, too.” (D) My grandmother liked to tell me these interesting stories at night. I still remember a few stories in which the gods made promises with each other like humans. Those who broke their promises were punished. While listening to the stories, I decided that I would not break any promises. The morals of (e) her stories taught me how I should live my life."
+      },
+      "after": {
+        "passage": "(A) Mom once said that my grandmother came to America as a poor uneducated Greek immigrant at eighteen. My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family. Though she never learned to read in school, she knew many traditional stories from her home country. (B) One day, when I saw my grandmother on the street by chance, I noticed that (b) she had difficulty in reading an English sign. Right at that moment, it hit upon me to teach her to read English in return for all she had taught me. I talked to my mom about it, and (c) she was delighted with my plan. So my grandmother and I worked hard together using books for beginners. (C) My efforts were rewarded only a month later on the morning of my eighteenth birthday. My grandmother decorated a cake with “HAPPY BIRTHDAY BETTY.” I had only taught her the basics of reading, but (d) she had written these words all by herself. Touched by this simple message, I said, “It’s not just my birthday, Grandma. You stepped into this country at eighteen. Now, you are stepping into another new world. So it’s your birthday, too.” (D) My grandmother liked to tell me these interesting stories at night. I still remember a few stories in which the gods made promises with each other like humans. Those who broke their promises were punished. While listening to the stories, I decided that I would not break any promises. The morals of (e) her stories taught me how I should live my life."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014A#45",
+      "pdf_file": "2014_영어A-홀수형_문제.pdf",
+      "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e",
+      "before": {
+        "passage": "(A) Mom once said that my grandmother came to America as a poor uneducated Greek immigrant at eighteen. My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family. Though she never learned to read in school, she knew many traditional stories from her home country. 8 (B) One day, when I saw my grandmother on the street by chance, I noticed that (b) she had difficulty in reading an English sign. Right at that moment, it hit upon me to teach her to read English in return for all she had taught me. I talked to my mom about it, and (c) she was delighted with my plan. So my grandmother and I worked hard together using books for beginners. (C) My efforts were rewarded only a month later on the morning of my eighteenth birthday. My grandmother decorated a cake with “HAPPY BIRTHDAY BETTY.” I had only taught her the basics of reading, but (d) she had written these words all by herself. Touched by this simple message, I said, “It’s not just my birthday, Grandma. You stepped into this country at eighteen. Now, you are stepping into another new world. So it’s your birthday, too.” (D) My grandmother liked to tell me these interesting stories at night. I still remember a few stories in which the gods made promises with each other like humans. Those who broke their promises were punished. While listening to the stories, I decided that I would not break any promises. The morals of (e) her stories taught me how I should live my life.",
+        "choices": [
+          "18 세에 그리스에서 미국으로 이민을 왔다 .",
+          "학교에서 읽기를 배운 적이 없다 .",
+          "필자와 초보자용 책으로 공부하였다 .",
+          "필자의 생일 케이크에 축하 문구로 장식을 하였다 .",
+          "필자에게 밤에 재미있는 이야기를 듣는 것을 좋아했다 ."
+        ]
+      },
+      "after": {
+        "passage": "(A) Mom once said that my grandmother came to America as a poor uneducated Greek immigrant at eighteen. My grandmother wanted to go to school, but the harsh immigrant life pushed (a) her to support her family. Though she never learned to read in school, she knew many traditional stories from her home country. (B) One day, when I saw my grandmother on the street by chance, I noticed that (b) she had difficulty in reading an English sign. Right at that moment, it hit upon me to teach her to read English in return for all she had taught me. I talked to my mom about it, and (c) she was delighted with my plan. So my grandmother and I worked hard together using books for beginners. (C) My efforts were rewarded only a month later on the morning of my eighteenth birthday. My grandmother decorated a cake with “HAPPY BIRTHDAY BETTY.” I had only taught her the basics of reading, but (d) she had written these words all by herself. Touched by this simple message, I said, “It’s not just my birthday, Grandma. You stepped into this country at eighteen. Now, you are stepping into another new world. So it’s your birthday, too.” (D) My grandmother liked to tell me these interesting stories at night. I still remember a few stories in which the gods made promises with each other like humans. Those who broke their promises were punished. While listening to the stories, I decided that I would not break any promises. The morals of (e) her stories taught me how I should live my life.",
+        "choices": [
+          "18세에 그리스에서 미국으로 이민을 왔다.",
+          "학교에서 읽기를 배운 적이 없다.",
+          "필자와 초보자용 책으로 공부하였다.",
+          "필자의 생일 케이크에 축하 문구로 장식을 하였다.",
+          "필자에게 밤에 재미있는 이야기를 듣는 것을 좋아했다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#24",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "choices": [
+          "necessity of parental intervention in ensuring children’s safety",
+          "roles of parental authority in children’s social skills development",
+          "consequences of offering parental supervision for children’s independence",
+          "requirements for preventing children from being disobedient to their parents",
+          "importance of communicating parental authority to children for their independence 3"
+        ]
+      },
+      "after": {
+        "choices": [
+          "necessity of parental intervention in ensuring children’s safety",
+          "roles of parental authority in children’s social skills development",
+          "consequences of offering parental supervision for children’s independence",
+          "requirements for preventing children from being disobedient to their parents",
+          "importance of communicating parental authority to children for their independence"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#26",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "passage": "A friend of mine was sitting in the Miami airport reading a magazine while she waited to catch a plane to New York. Her attention was distracted by a rough, noisy quarrel taking place at the ticket counter. “But I must get to New York today!” ① an angry lady hotly told the clerk. “I’m sorry, ma’am, but there are no more seats available,” came the reply. “But my eight-year-old daughter is on that plane. ② I can’t let her fly into New York City all by herself,” she cried. “Sorry, lady. The flight is full,” came the same answer. My friend had been watching and listening to the woman’s woeful story, and her heart was touched with compassion for ③ the distressed mother. She walked over to the ticket agent and offered to take a later flight, if it meant the woman could use ④ her ticket to travel to New York with her daughter. The agent welcomed my friend’s solution and quickly issued a revalidated ticket to ⑤ the woman, and then arranged for another flight for my friend. 8 4"
+      },
+      "after": {
+        "passage": "A friend of mine was sitting in the Miami airport reading a magazine while she waited to catch a plane to New York. Her attention was distracted by a rough, noisy quarrel taking place at the ticket counter. “But I must get to New York today!” ① an angry lady hotly told the clerk. “I’m sorry, ma’am, but there are no more seats available,” came the reply. “But my eight-year-old daughter is on that plane. ② I can’t let her fly into New York City all by herself,” she cried. “Sorry, lady. The flight is full,” came the same answer. My friend had been watching and listening to the woman’s woeful story, and her heart was touched with compassion for ③ the distressed mother. She walked over to the ticket agent and offered to take a later flight, if it meant the woman could use ④ her ticket to travel to New York with her daughter. The agent welcomed my friend’s solution and quickly issued a revalidated ticket to ⑤ the woman, and then arranged for another flight for my friend."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#28",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "passage": "When people started to plant stored seed stock deliberately, they also began protecting their plants. This changed the evolutionary ① pressure that these food plants experienced, as they no longer had to survive in a natural environment. Instead, people created a new environment for them, and selected for other characteristics than nature previously had. Seeds recovered at archaeological sites clearly show that farmers selected for larger seeds and ② thinner seed coats. Thick seed coats are often ③ essential for seeds to survive in a natural environment because the seeds of many wild plants remain dormant for months until winter is over and rain sets in. But under human management ______ thick seed coats are unnecessary, as farmers ④ evade responsibility for storing seeds away from moisture and predators. In fact, seeds with thinner coats were ⑤ preferred as they are easier to eat or process into flour, and they allow seedlings to sprout more quickly when sown. 4"
+      },
+      "after": {
+        "passage": "When people started to plant stored seed stock deliberately, they also began protecting their plants. This changed the evolutionary ① pressure that these food plants experienced, as they no longer had to survive in a natural environment. Instead, people created a new environment for them, and selected for other characteristics than nature previously had. Seeds recovered at archaeological sites clearly show that farmers selected for larger seeds and ② thinner seed coats. Thick seed coats are often ③ essential for seeds to survive in a natural environment because the seeds of many wild plants remain dormant for months until winter is over and rain sets in. But under human management thick seed coats are unnecessary, as farmers ④ evade responsibility for storing seeds away from moisture and predators. In fact, seeds with thinner coats were ⑤ preferred as they are easier to eat or process into flour, and they allow seedlings to sprout more quickly when sown."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#32",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "passage": "The success of human beings depends crucially on numbers and connections. A few hundred people cannot sustain a sophisticated technology. Recall that Australia was colonized 45,000 years ago by pioneers spreading east from Africa along the shore of Asia. The vanguard of such a migration must have been small in number and must have traveled comparatively light. The chances are they had only a sample of the technology available to their relatives back at the Red Sea crossing. This may explain why Australian aboriginal technology, although it developed and elaborated steadily over the ensuing millennia, was lacking in so many features of the Old World ― elastic weapons, for example, such as bows and catapults, were unknown, as were ovens. It was not that they were ‘primitive’ or that they had mentally regressed; it was that they and did not have a dense enough population and therefore a large enough collective brain to develop them much further.",
+        "choices": [
+          "were too tightly connected to develop new technologies",
+          "focused on developing and elaborating elastic weapons",
+          "had arrived with only a subset of technologies",
+          "inherited none of their relatives’ technologies in Africa",
+          "failed to transfer their technical insights to the Old World 5"
+        ]
+      },
+      "after": {
+        "passage": "The success of human beings depends crucially on numbers and connections. A few hundred people cannot sustain a sophisticated technology. Recall that Australia was colonized 45,000 years ago by pioneers spreading east from Africa along the shore of Asia. The vanguard of such a migration must have been small in number and must have traveled comparatively light. The chances are they had only a sample of the technology available to their relatives back at the Red Sea crossing. This may explain why Australian aboriginal technology, although it developed and elaborated steadily over the ensuing millennia, was lacking in so many features of the Old World ― elastic weapons, for example, such as bows and catapults, were unknown, as were ovens. It was not that they were ‘primitive’ or that they had mentally regressed; it was that they ______ and did not have a dense enough population and therefore a large enough collective brain to develop them much further.",
+        "choices": [
+          "were too tightly connected to develop new technologies",
+          "focused on developing and elaborating elastic weapons",
+          "had arrived with only a subset of technologies",
+          "inherited none of their relatives’ technologies in Africa",
+          "failed to transfer their technical insights to the Old World"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#34",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "passage": "Like many errors and biases that seem irrational on the surface, auditory looming turns out, on closer examination, to be pretty smart. Animals like rhesus monkeys have evolved the same bias. This intentional error functions as an advance warning system, manned by the self-protection subself, providing individuals with a margin of safety when they are confronted with potentially dangerous approaching objects. If you spot a rhinoceros or hear an avalanche speeding toward you, auditory looming will motivate you to jump out of the way now rather than wait until the last second. The evolutionary benefits of immediately getting out of the way of approaching dangers were so strong that natural selection endowed us ― and other mammals ______ ― with brains that ______ . Although this kind of bias might inhibit economically ______ rational judgment in laboratory tasks, it leads us to behave in a deeply rational manner in the real world. Being accurate is not always smart.",
+        "choices": [
+          "intentionally see and hear the world inaccurately",
+          "are geared to evaluate aural information precisely",
+          "deliberately make rational yet ineffective decisions",
+          "prompt us to overlook dangers without thinking rationally",
+          "accurately detect, but irrationally ignore, approaching dangers 8"
+        ]
+      },
+      "after": {
+        "passage": "Like many errors and biases that seem irrational on the surface, auditory looming turns out, on closer examination, to be pretty smart. Animals like rhesus monkeys have evolved the same bias. This intentional error functions as an advance warning system, manned by the self-protection subself, providing individuals with a margin of safety when they are confronted with potentially dangerous approaching objects. If you spot a rhinoceros or hear an avalanche speeding toward you, auditory looming will motivate you to jump out of the way now rather than wait until the last second. The evolutionary benefits of immediately getting out of the way of approaching dangers were so strong that natural selection endowed us ― and other mammals ― with brains that ______ . Although this kind of bias might inhibit economically rational judgment in laboratory tasks, it leads us to behave in a deeply rational manner in the real world. Being accurate is not always smart.",
+        "choices": [
+          "intentionally see and hear the world inaccurately",
+          "are geared to evaluate aural information precisely",
+          "deliberately make rational yet ineffective decisions",
+          "prompt us to overlook dangers without thinking rationally",
+          "accurately detect, but irrationally ignore, approaching dangers"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#40",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "passage": "Low-balling describes the technique where ______ two individuals arrive at an agreement and then one increases the cost to be incurred by the other. For example, after the consumer has agreed to purchase a car for $8,000, the salesperson begins to add on $100 for tax and $200 for tires. These additional costs might be thought of as a metaphorical ‘low ball’ that the salesperson throws the consumer. One explanation for the effectiveness of low-balling is in terms of self-perception theory. When the consumer agrees to purchase the product under the original terms, that behavior might be used by the consumer to infer his sincere interest in the product. This inferred sincere interest in the product may enable him to endure the increased cost. An alternative explanation is in terms of impression management theory. If the consumer were to withdraw from the deal after the ‘slight’ change in the terms of agreement, he might foster the rather undesirable impression of being an irresponsible consumer unaware of these necessary charges. 󰀻 Low-balling is effective in sales contexts because the consumer, by not withdrawing from the deal, tends to (A) ______ his purchase decision or tries to save (B) . (A) ______ (B) ______ (A) ______ (B)",
+        "choices": [
+          "justify …… time",
+          "justify …… face",
+          "cherish …… time",
+          "modify …… face",
+          "modify …… trouble 7"
+        ]
+      },
+      "after": {
+        "passage": "Low-balling describes the technique where two individuals arrive at an agreement and then one increases the cost to be incurred by the other. For example, after the consumer has agreed to purchase a car for $8,000, the salesperson begins to add on $100 for tax and $200 for tires. These additional costs might be thought of as a metaphorical ‘low ball’ that the salesperson throws the consumer. One explanation for the effectiveness of low-balling is in terms of self-perception theory. When the consumer agrees to purchase the product under the original terms, that behavior might be used by the consumer to infer his sincere interest in the product. This inferred sincere interest in the product may enable him to endure the increased cost. An alternative explanation is in terms of impression management theory. If the consumer were to withdraw from the deal after the ‘slight’ change in the terms of agreement, he might foster the rather undesirable impression of being an irresponsible consumer unaware of these necessary charges.\n\nLow-balling is effective in sales contexts because the consumer, by not withdrawing from the deal, tends to (A) ______ his purchase decision or tries to save (B) ______ .",
+        "choices": [
+          "justify …… time",
+          "justify …… face",
+          "cherish …… time",
+          "modify …… face",
+          "modify …… trouble"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#42",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "choices": [
+          "adventurous endeavors",
+          "technological outbursts",
+          "face-to-face encounters",
+          "dialogs with social robots",
+          "supernatural interventions 8"
+        ]
+      },
+      "after": {
+        "choices": [
+          "adventurous endeavors",
+          "technological outbursts",
+          "face-to-face encounters",
+          "dialogs with social robots",
+          "supernatural interventions"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#43",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "passage": "(A) How much space do you need to be happy? Part of the American story is that bigger is better, and with cheap credit and tax breaks for home buyers, it’s tempting to stretch one’s finances to build or buy a larger house. My grandpa Otto chose a different path. (a) He didn’t want to find himself working longer and longer hours just to pay for more space and the stuff to fill it. He grew up in a farming community and within a very large family, so living simply was integral to his life philosophy. (B) Yet my grandpa loved his little home and was content with what he had. Even though the house was small, it didn’t feel cramped. As my dad said, “Everyone was happy and content. The size of the house didn’t matter.” My grandpa taught me that living a simple life isn’t about self-deprivation. Instead, it’s about giving yourself the time, freedom, and money to pursue your dreams. In many ways, I’ve modeled my life after that of my grandpa. I learned from (b) him that simplicity isn’t about austerity. It’s a revolution in personal growth. (C) In the 1950s, when my dad was a little boy, my grandpa built a 600-square-foot cottage. (c) He put the twenty-bythirty-foot structure on a small plot of land in Pleasant Hill. Dad remarked, “Reusing and recycling was a necessity. In essence, (d) he was recycling before it became ‘cool.’” Grandpa got most of the materials for his little house from the Oakland docks, where he was working. It took four years to build the small cottage, and when they moved in, the roof wasn’t even on! (D) My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid before falling asleep. Dad didn’t mind living in an unfinished house. (e) He described Pleasant Hill as “open and private. It felt like all the homes were on ten acres.” Over the years, my dad and grandpa noticed dramatic changes in their community. Each year more farmland was devoured to build strip malls and neighborhoods with larger homes. As real estate prices rose, many of their neighbors sold their homes and lots. Soon my grandpa had the only small house on the block, surrounded by a sea of homes four times the size of his dwelling. 8"
+      },
+      "after": {
+        "passage": "(A) How much space do you need to be happy? Part of the American story is that bigger is better, and with cheap credit and tax breaks for home buyers, it’s tempting to stretch one’s finances to build or buy a larger house. My grandpa Otto chose a different path. (a) He didn’t want to find himself working longer and longer hours just to pay for more space and the stuff to fill it. He grew up in a farming community and within a very large family, so living simply was integral to his life philosophy. (B) Yet my grandpa loved his little home and was content with what he had. Even though the house was small, it didn’t feel cramped. As my dad said, “Everyone was happy and content. The size of the house didn’t matter.” My grandpa taught me that living a simple life isn’t about self-deprivation. Instead, it’s about giving yourself the time, freedom, and money to pursue your dreams. In many ways, I’ve modeled my life after that of my grandpa. I learned from (b) him that simplicity isn’t about austerity. It’s a revolution in personal growth. (C) In the 1950s, when my dad was a little boy, my grandpa built a 600-square-foot cottage. (c) He put the twenty-by-thirty-foot structure on a small plot of land in Pleasant Hill. Dad remarked, “Reusing and recycling was a necessity. In essence, (d) he was recycling before it became ‘cool.’” Grandpa got most of the materials for his little house from the Oakland docks, where he was working. It took four years to build the small cottage, and when they moved in, the roof wasn’t even on! (D) My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid before falling asleep. Dad didn’t mind living in an unfinished house. (e) He described Pleasant Hill as “open and private. It felt like all the homes were on ten acres.” Over the years, my dad and grandpa noticed dramatic changes in their community. Each year more farmland was devoured to build strip malls and neighborhoods with larger homes. As real estate prices rose, many of their neighbors sold their homes and lots. Soon my grandpa had the only small house on the block, surrounded by a sea of homes four times the size of his dwelling."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#44",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "passage": "(A) How much space do you need to be happy? Part of the American story is that bigger is better, and with cheap credit and tax breaks for home buyers, it’s tempting to stretch one’s finances to build or buy a larger house. My grandpa Otto chose a different path. (a) He didn’t want to find himself working longer and longer hours just to pay for more space and the stuff to fill it. He grew up in a farming community and within a very large family, so living simply was integral to his life philosophy. (B) Yet my grandpa loved his little home and was content with what he had. Even though the house was small, it didn’t feel cramped. As my dad said, “Everyone was happy and content. The size of the house didn’t matter.” My grandpa taught me that living a simple life isn’t about self-deprivation. Instead, it’s about giving yourself the time, freedom, and money to pursue your dreams. In many ways, I’ve modeled my life after that of my grandpa. I learned from (b) him that simplicity isn’t about austerity. It’s a revolution in personal growth. (C) In the 1950s, when my dad was a little boy, my grandpa built a 600-square-foot cottage. (c) He put the twenty-bythirty-foot structure on a small plot of land in Pleasant Hill. Dad remarked, “Reusing and recycling was a necessity. In essence, (d) he was recycling before it became ‘cool.’” Grandpa got most of the materials for his little house from the Oakland docks, where he was working. It took four years to build the small cottage, and when they moved in, the roof wasn’t even on! (D) My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid before falling asleep. Dad didn’t mind living in an unfinished house. (e) He described Pleasant Hill as “open and private. It felt like all the homes were on ten acres.” Over the years, my dad and grandpa noticed dramatic changes in their community. Each year more farmland was devoured to build strip malls and neighborhoods with larger homes. As real estate prices rose, many of their neighbors sold their homes and lots. Soon my grandpa had the only small house on the block, surrounded by a sea of homes four times the size of his dwelling. 8"
+      },
+      "after": {
+        "passage": "(A) How much space do you need to be happy? Part of the American story is that bigger is better, and with cheap credit and tax breaks for home buyers, it’s tempting to stretch one’s finances to build or buy a larger house. My grandpa Otto chose a different path. (a) He didn’t want to find himself working longer and longer hours just to pay for more space and the stuff to fill it. He grew up in a farming community and within a very large family, so living simply was integral to his life philosophy. (B) Yet my grandpa loved his little home and was content with what he had. Even though the house was small, it didn’t feel cramped. As my dad said, “Everyone was happy and content. The size of the house didn’t matter.” My grandpa taught me that living a simple life isn’t about self-deprivation. Instead, it’s about giving yourself the time, freedom, and money to pursue your dreams. In many ways, I’ve modeled my life after that of my grandpa. I learned from (b) him that simplicity isn’t about austerity. It’s a revolution in personal growth. (C) In the 1950s, when my dad was a little boy, my grandpa built a 600-square-foot cottage. (c) He put the twenty-by-thirty-foot structure on a small plot of land in Pleasant Hill. Dad remarked, “Reusing and recycling was a necessity. In essence, (d) he was recycling before it became ‘cool.’” Grandpa got most of the materials for his little house from the Oakland docks, where he was working. It took four years to build the small cottage, and when they moved in, the roof wasn’t even on! (D) My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid before falling asleep. Dad didn’t mind living in an unfinished house. (e) He described Pleasant Hill as “open and private. It felt like all the homes were on ten acres.” Over the years, my dad and grandpa noticed dramatic changes in their community. Each year more farmland was devoured to build strip malls and neighborhoods with larger homes. As real estate prices rose, many of their neighbors sold their homes and lots. Soon my grandpa had the only small house on the block, surrounded by a sea of homes four times the size of his dwelling."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2014B#45",
+      "pdf_file": "2014_영어B-홀수형_문제.pdf",
+      "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+      "before": {
+        "passage": "(A) How much space do you need to be happy? Part of the American story is that bigger is better, and with cheap credit and tax breaks for home buyers, it’s tempting to stretch one’s finances to build or buy a larger house. My grandpa Otto chose a different path. (a) He didn’t want to find himself working longer and longer hours just to pay for more space and the stuff to fill it. He grew up in a farming community and within a very large family, so living simply was integral to his life philosophy. (B) Yet my grandpa loved his little home and was content with what he had. Even though the house was small, it didn’t feel cramped. As my dad said, “Everyone was happy and content. The size of the house didn’t matter.” My grandpa taught me that living a simple life isn’t about self-deprivation. Instead, it’s about giving yourself the time, freedom, and money to pursue your dreams. In many ways, I’ve modeled my life after that of my grandpa. I learned from (b) him that simplicity isn’t about austerity. It’s a revolution in personal growth. (C) In the 1950s, when my dad was a little boy, my grandpa built a 600-square-foot cottage. (c) He put the twenty-bythirty-foot structure on a small plot of land in Pleasant Hill. Dad remarked, “Reusing and recycling was a necessity. In essence, (d) he was recycling before it became ‘cool.’” Grandpa got most of the materials for his little house from the Oakland docks, where he was working. It took four years to build the small cottage, and when they moved in, the roof wasn’t even on! (D) My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid before falling asleep. Dad didn’t mind living in an unfinished house. (e) He described Pleasant Hill as “open and private. It felt like all the homes were on ten acres.” Over the years, my dad and grandpa noticed dramatic changes in their community. Each year more farmland was devoured to build strip malls and neighborhoods with larger homes. As real estate prices rose, many of their neighbors sold their homes and lots. Soon my grandpa had the only small house on the block, surrounded by a sea of homes four times the size of his dwelling. 8",
+        "choices": [
+          "농촌 사회의 대가족 속에서 성장했다 .",
+          "여러 가지 면에서 필자의 삶의 모델이 되었다 .",
+          "1950 년대에 600 제곱 피트의 집을 지었다 .",
+          "집을 짓는 데 필요한 대부분의 자재를 부두에서 구했다 .",
+          "지역 사회의 급격한 변화를 알아차리지 못했다 ."
+        ]
+      },
+      "after": {
+        "passage": "(A) How much space do you need to be happy? Part of the American story is that bigger is better, and with cheap credit and tax breaks for home buyers, it’s tempting to stretch one’s finances to build or buy a larger house. My grandpa Otto chose a different path. (a) He didn’t want to find himself working longer and longer hours just to pay for more space and the stuff to fill it. He grew up in a farming community and within a very large family, so living simply was integral to his life philosophy. (B) Yet my grandpa loved his little home and was content with what he had. Even though the house was small, it didn’t feel cramped. As my dad said, “Everyone was happy and content. The size of the house didn’t matter.” My grandpa taught me that living a simple life isn’t about self-deprivation. Instead, it’s about giving yourself the time, freedom, and money to pursue your dreams. In many ways, I’ve modeled my life after that of my grandpa. I learned from (b) him that simplicity isn’t about austerity. It’s a revolution in personal growth. (C) In the 1950s, when my dad was a little boy, my grandpa built a 600-square-foot cottage. (c) He put the twenty-by-thirty-foot structure on a small plot of land in Pleasant Hill. Dad remarked, “Reusing and recycling was a necessity. In essence, (d) he was recycling before it became ‘cool.’” Grandpa got most of the materials for his little house from the Oakland docks, where he was working. It took four years to build the small cottage, and when they moved in, the roof wasn’t even on! (D) My dad recalled looking up at the stars in the roofless house as a twelve-year-old kid before falling asleep. Dad didn’t mind living in an unfinished house. (e) He described Pleasant Hill as “open and private. It felt like all the homes were on ten acres.” Over the years, my dad and grandpa noticed dramatic changes in their community. Each year more farmland was devoured to build strip malls and neighborhoods with larger homes. As real estate prices rose, many of their neighbors sold their homes and lots. Soon my grandpa had the only small house on the block, surrounded by a sea of homes four times the size of his dwelling.",
+        "choices": [
+          "농촌 사회의 대가족 속에서 성장했다.",
+          "여러 가지 면에서 필자의 삶의 모델이 되었다.",
+          "1950년대에 600제곱 피트의 집을 지었다.",
+          "집을 짓는 데 필요한 대부분의 자재를 부두에서 구했다.",
+          "지역 사회의 급격한 변화를 알아차리지 못했다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#22",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "choices": [
+          "Feeling Guilty? Check Your Self-Esteem First",
+          "Do Not Let Your Moral Principles Change!",
+          "Moral Integrity: A Principle of Philosophy",
+          "How Do People Form Their Personalities?",
+          "Moral Principles: Guiding Our Conduct 3"
+        ]
+      },
+      "after": {
+        "choices": [
+          "Feeling Guilty? Check Your Self-Esteem First",
+          "Do Not Let Your Moral Principles Change!",
+          "Moral Integrity: A Principle of Philosophy",
+          "How Do People Form Their Personalities?",
+          "Moral Principles: Guiding Our Conduct"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#24",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "choices": [
+          "18 세기의 가장 위대한 식물 화가로서 칭송받는다 .",
+          "정원사의 아들이었다 .",
+          "젊은 시절 주로 마차로 유럽을 여행하였다 .",
+          "다수의 원예 출판물에 삽화를 제공하였다 .",
+          "영국에 정착하였다 . 8"
+        ]
+      },
+      "after": {
+        "choices": [
+          "18세기의 가장 위대한 식물 화가로서 칭송받는다.",
+          "정원사의 아들이었다.",
+          "젊은 시절 주로 마차로 유럽을 여행하였다.",
+          "다수의 원예 출판물에 삽화를 제공하였다.",
+          "영국에 정착하였다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#28",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "passage": "During the early stages when the aquaculture industry was rapidly expanding, mistakes were made and these were costly both in terms of direct losses and in respect of the industry’s image. High-density rearing led to outbreaks of infectious diseases that in some cases ① devastated not just the caged fish, but local wild fish populations too. The negative impact on local wildlife inhabiting areas ② close to the fish farms continues to be an ongoing public relations problem for the industry. Furthermore, a general lack of knowledge and insufficient care being taken when fish pens were initially constructed ③ meaning that pollution from excess feed and fish waste created huge barren underwater deserts. These were costly lessons to learn, but now stricter regulations are in place to ensure that fish pens are placed in sites ④ where there is good water flow to remove fish waste. This, in addition to other methods that decrease the overall amount of uneaten food, ⑤ has helped aquaculture to clean up its act. 8"
+      },
+      "after": {
+        "passage": "During the early stages when the aquaculture industry was rapidly expanding, mistakes were made and these were costly both in terms of direct losses and in respect of the industry’s image. High-density rearing led to outbreaks of infectious diseases that in some cases ① devastated not just the caged fish, but local wild fish populations too. The negative impact on local wildlife inhabiting areas ② close to the fish farms continues to be an ongoing public relations problem for the industry. Furthermore, a general lack of knowledge and insufficient care being taken when fish pens were initially constructed ③ meaning that pollution from excess feed and fish waste created huge barren underwater deserts. These were costly lessons to learn, but now stricter regulations are in place to ensure that fish pens are placed in sites ④ where there is good water flow to remove fish waste. This, in addition to other methods that decrease the overall amount of uneaten food, ⑤ has helped aquaculture to clean up its act."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#30",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "passage": "While the eye sees at the surface, the ear tends to penetrate below the surface. Joachim-Ernst Berendt points out that the ear is the only sense that (A) fuses / replaces an ability to measure with an ability to judge. We can discern different colors, but we can give a precise number to different sounds. Our eyes do not let us perceive with this kind of (B) diversity / precision . An unmusical person can recognize an octave and, perhaps once instructed, a quality of tone, that is, a C or an F-sharp. Berendt points out that there are few ‘acoustical illusions’ ― something sounding like something that in fact it is not ― while there are many optical illusions. The ears do not lie. The sense of hearing gives us a remarkable connection with the invisible, underlying order of things. Through our ears we gain access to vibration, which (C) underlies / undermines everything around us. The sense of tone and music in another’s voice gives us an enormous amount of information about that person, about her stance toward life, about her intentions. (A) ______ (B) ______ (C) ① fuses ______ …… precision …… undermines ② replaces …… diversity …… underlies ③ fuses ______ …… diversity …… undermines ④ replaces …… precision …… underlies ⑤ fuses ______ …… precision …… underlies 5 5"
+      },
+      "after": {
+        "passage": "While the eye sees at the surface, the ear tends to penetrate below the surface. Joachim-Ernst Berendt points out that the ear is the only sense that (A) fuses / replaces an ability to measure with an ability to judge. We can discern different colors, but we can give a precise number to different sounds. Our eyes do not let us perceive with this kind of (B) diversity / precision . An unmusical person can recognize an octave and, perhaps once instructed, a quality of tone, that is, a C or an F-sharp. Berendt points out that there are few ‘acoustical illusions’ ― something sounding like something that in fact it is not ― while there are many optical illusions. The ears do not lie. The sense of hearing gives us a remarkable connection with the invisible, underlying order of things. Through our ears we gain access to vibration, which (C) underlies / undermines everything around us. The sense of tone and music in another’s voice gives us an enormous amount of information about that person, about her stance toward life, about her intentions. (A) (B) (C) ① fuses …… precision …… undermines ② replaces …… diversity …… underlies ③ fuses …… diversity …… undermines ④ replaces …… precision …… underlies ⑤ fuses …… precision …… underlies"
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#32",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "passage": "My friend was disappointed that scientific progress has not cured the world’s ills by abolishing wars and starvation; that gross human inequality is still widespread; that happiness is not universal. My friend made a common mistake ______ ― a basic misunderstanding in the nature of knowledge. Knowledge is amoral ― not immoral but morality neutral. It can be used for any purpose, but many people assume it will be used to further their favorite hopes for society ― and this is the fundamental flaw. Knowledge of the world is one thing; its uses create a separate issue. To be disappointed that our progress in understanding has not remedied the social ills of the world is a legitimate view, but ______ . To argue that knowledge is not progressing because of the African or Middle Eastern conflicts misses the point. There is nothing inherent in knowledge that dictates any specific social or moral application.",
+        "choices": [
+          "to confuse this with the progress of knowledge is absurd",
+          "to know the nature of knowledge is to practice its moral value",
+          "to remove social inequality is the inherent purpose of knowledge",
+          "to accumulate knowledge is to enhance its social application",
+          "to make science progress is to make it cure social ills 8"
+        ]
+      },
+      "after": {
+        "passage": "My friend was disappointed that scientific progress has not cured the world’s ills by abolishing wars and starvation; that gross human inequality is still widespread; that happiness is not universal. My friend made a common mistake ― a basic misunderstanding in the nature of knowledge. Knowledge is amoral ― not immoral but morality neutral. It can be used for any purpose, but many people assume it will be used to further their favorite hopes for society ― and this is the fundamental flaw. Knowledge of the world is one thing; its uses create a separate issue. To be disappointed that our progress in understanding has not remedied the social ills of the world is a legitimate view, but ______. To argue that knowledge is not progressing because of the African or Middle Eastern conflicts misses the point. There is nothing inherent in knowledge that dictates any specific social or moral application.",
+        "choices": [
+          "to confuse this with the progress of knowledge is absurd",
+          "to know the nature of knowledge is to practice its moral value",
+          "to remove social inequality is the inherent purpose of knowledge",
+          "to accumulate knowledge is to enhance its social application",
+          "to make science progress is to make it cure social ills"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#38",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "passage": "The researchers had made this happen by lengthening the period of daylight to which the peach trees on whose roots the insects fed were exposed. Exactly how cicadas keep track of time has always intrigued researchers, and it has always been assumed that the insects must rely on an internal clock. Recently, however, one group of scientists working with the 17-year cicada in California have suggested that the nymphs use an external cue and that they can count. ( ①) For ______ their experiments they took 15-year-old nymphs and moved them to an experimental enclosure. ( ②) These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year. ( ③) By ______ doing this, the trees were “tricked” into flowering twice during the year rather than the usual once. ( ④) Flowering in trees coincides with a peak in amino acid concentrations in the sap that the insects feed on. ( ⑤) So it seems that the cicadas keep track of time by counting the peaks. 7 7"
+      },
+      "after": {
+        "passage": "The researchers had made this happen by lengthening the period of daylight to which the peach trees on whose roots the insects fed were exposed. Exactly how cicadas keep track of time has always intrigued researchers, and it has always been assumed that the insects must rely on an internal clock. Recently, however, one group of scientists working with the 17-year cicada in California have suggested that the nymphs use an external cue and that they can count. ( ① ) For their experiments they took 15-year-old nymphs and moved them to an experimental enclosure. ( ② ) These nymphs should have taken a further two years to emerge as adults, but in fact they took just one year. ( ③ ) By doing this, the trees were “tricked” into flowering twice during the year rather than the usual once. ( ④ ) Flowering in trees coincides with a peak in amino acid concentrations in the sap that the insects feed on. ( ⑤ ) So it seems that the cicadas keep track of time by counting the peaks."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#40",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "passage": "Plato and Tolstoy both assume that it can be firmly established that certain works have certain effects. Plato is sure that the representation of cowardly people makes us cowardly; the only way to prevent this effect is to suppress such representations. Tolstoy is confident that the artist who sincerely expresses feelings of pride will pass those feelings on to us; we can no more escape than we could escape an infectious disease. In fact, however, the effects of art are neither so certain nor so direct. People vary a great deal both in the intensity of their response to art and in the form which that response takes. Some people may indulge fantasies of violence by watching a film instead of working out those fantasies in real life. Others may be disgusted by even glamorous representations of violence. Still others may be left unmoved, neither attracted nor disgusted. 󰀻 Although Plato and Tolstoy claim that works of art have a(n) (A) ______ impact on people’s feelings, the degrees and forms of people’s actual responses (B) ______ greatly. (A) ______ (B) ______ (A) ______ (B)",
+        "choices": [
+          "unavoidable …… differ",
+          "direct …… converge",
+          "temporary …… fluctuate",
+          "unexpected …… converge",
+          "favorable …… differ 8"
+        ]
+      },
+      "after": {
+        "passage": "Plato and Tolstoy both assume that it can be firmly established that certain works have certain effects. Plato is sure that the representation of cowardly people makes us cowardly; the only way to prevent this effect is to suppress such representations. Tolstoy is confident that the artist who sincerely expresses feelings of pride will pass those feelings on to us; we can no more escape than we could escape an infectious disease. In fact, however, the effects of art are neither so certain nor so direct. People vary a great deal both in the intensity of their response to art and in the form which that response takes. Some people may indulge fantasies of violence by watching a film instead of working out those fantasies in real life. Others may be disgusted by even glamorous representations of violence. Still others may be left unmoved, neither attracted nor disgusted.\n\nAlthough Plato and Tolstoy claim that works of art have a(n) (A) ______ impact on people’s feelings, the degrees and forms of people’s actual responses (B) ______ greatly.",
+        "choices": [
+          "unavoidable …… differ",
+          "direct …… converge",
+          "temporary …… fluctuate",
+          "unexpected …… converge",
+          "favorable …… differ"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#43",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "passage": "(A) In my office, I have a framed letter from a couple of children I have never met. The letter holds a special significance for me. It reads, “Dear Dr. Brown, thanks for teaching Mr. Wills to teach Tisha and Kelly.” Mr. Wills is Jeremy Wills, and (a) he is one of my former students. A few years back, he took my positive psychology class in college. 8 (B) Before long, the reality hit Jeremy hard. Even after spending many hours each day preparing lesson plans, it became clear that his methods were not working. One of the worst moments was when (b) he distributed a math test. Many students didn’t even look at the exam. They just put their heads on their desks and slept. Jeremy became so stressed that he even dreaded going into his classroom. (C) After graduation, Jeremy joined an organization that recruits future leaders to teach in low-income communities. (c) He was assigned to a small school in a poor rural county in North Carolina. Later, his assistant principal took note of Jeremy’s high expectations and asked him to take over (d) his math class. He took charge of about a dozen failing “special ed” kids, and Tisha and Kelly were among them. His idealism ran high, and he thought he would be able to magically fix all of their problems. (D) Jeremy knew something had to change. (e) He then thought back to my class, remembering how negative emotions can drag you down, leaving positive emotions unnoticed. That’s when he decided to focus more on building positive attitudes within the classroom. He borrowed lessons from my positive psychology class and even mentioned my name to his students. As the students’ attitudes became more optimistic, their confidence with math grew too. At the end of the school year, 80 percent of Jeremy’s students passed the state’s math test."
+      },
+      "after": {
+        "passage": "(A) In my office, I have a framed letter from a couple of children I have never met. The letter holds a special significance for me. It reads, “Dear Dr. Brown, thanks for teaching Mr. Wills to teach Tisha and Kelly.” Mr. Wills is Jeremy Wills, and (a) he is one of my former students. A few years back, he took my positive psychology class in college. (B) Before long, the reality hit Jeremy hard. Even after spending many hours each day preparing lesson plans, it became clear that his methods were not working. One of the worst moments was when (b) he distributed a math test. Many students didn’t even look at the exam. They just put their heads on their desks and slept. Jeremy became so stressed that he even dreaded going into his classroom. (C) After graduation, Jeremy joined an organization that recruits future leaders to teach in low-income communities. (c) He was assigned to a small school in a poor rural county in North Carolina. Later, his assistant principal took note of Jeremy’s high expectations and asked him to take over (d) his math class. He took charge of about a dozen failing “special ed” kids, and Tisha and Kelly were among them. His idealism ran high, and he thought he would be able to magically fix all of their problems. (D) Jeremy knew something had to change. (e) He then thought back to my class, remembering how negative emotions can drag you down, leaving positive emotions unnoticed. That’s when he decided to focus more on building positive attitudes within the classroom. He borrowed lessons from my positive psychology class and even mentioned my name to his students. As the students’ attitudes became more optimistic, their confidence with math grew too. At the end of the school year, 80 percent of Jeremy’s students passed the state’s math test."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#44",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "passage": "(A) In my office, I have a framed letter from a couple of children I have never met. The letter holds a special significance for me. It reads, “Dear Dr. Brown, thanks for teaching Mr. Wills to teach Tisha and Kelly.” Mr. Wills is Jeremy Wills, and (a) he is one of my former students. A few years back, he took my positive psychology class in college. 8 (B) Before long, the reality hit Jeremy hard. Even after spending many hours each day preparing lesson plans, it became clear that his methods were not working. One of the worst moments was when (b) he distributed a math test. Many students didn’t even look at the exam. They just put their heads on their desks and slept. Jeremy became so stressed that he even dreaded going into his classroom. (C) After graduation, Jeremy joined an organization that recruits future leaders to teach in low-income communities. (c) He was assigned to a small school in a poor rural county in North Carolina. Later, his assistant principal took note of Jeremy’s high expectations and asked him to take over (d) his math class. He took charge of about a dozen failing “special ed” kids, and Tisha and Kelly were among them. His idealism ran high, and he thought he would be able to magically fix all of their problems. (D) Jeremy knew something had to change. (e) He then thought back to my class, remembering how negative emotions can drag you down, leaving positive emotions unnoticed. That’s when he decided to focus more on building positive attitudes within the classroom. He borrowed lessons from my positive psychology class and even mentioned my name to his students. As the students’ attitudes became more optimistic, their confidence with math grew too. At the end of the school year, 80 percent of Jeremy’s students passed the state’s math test."
+      },
+      "after": {
+        "passage": "(A) In my office, I have a framed letter from a couple of children I have never met. The letter holds a special significance for me. It reads, “Dear Dr. Brown, thanks for teaching Mr. Wills to teach Tisha and Kelly.” Mr. Wills is Jeremy Wills, and (a) he is one of my former students. A few years back, he took my positive psychology class in college. (B) Before long, the reality hit Jeremy hard. Even after spending many hours each day preparing lesson plans, it became clear that his methods were not working. One of the worst moments was when (b) he distributed a math test. Many students didn’t even look at the exam. They just put their heads on their desks and slept. Jeremy became so stressed that he even dreaded going into his classroom. (C) After graduation, Jeremy joined an organization that recruits future leaders to teach in low-income communities. (c) He was assigned to a small school in a poor rural county in North Carolina. Later, his assistant principal took note of Jeremy’s high expectations and asked him to take over (d) his math class. He took charge of about a dozen failing “special ed” kids, and Tisha and Kelly were among them. His idealism ran high, and he thought he would be able to magically fix all of their problems. (D) Jeremy knew something had to change. (e) He then thought back to my class, remembering how negative emotions can drag you down, leaving positive emotions unnoticed. That’s when he decided to focus more on building positive attitudes within the classroom. He borrowed lessons from my positive psychology class and even mentioned my name to his students. As the students’ attitudes became more optimistic, their confidence with math grew too. At the end of the school year, 80 percent of Jeremy’s students passed the state’s math test."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2015#45",
+      "pdf_file": "2015_영어영역-홀수.pdf",
+      "pdf_sha256": "8db1c92833c70a646530ded24c671958c9daba7d64b27e44a1040fcc8d788e27",
+      "before": {
+        "passage": "(A) In my office, I have a framed letter from a couple of children I have never met. The letter holds a special significance for me. It reads, “Dear Dr. Brown, thanks for teaching Mr. Wills to teach Tisha and Kelly.” Mr. Wills is Jeremy Wills, and (a) he is one of my former students. A few years back, he took my positive psychology class in college. 8 (B) Before long, the reality hit Jeremy hard. Even after spending many hours each day preparing lesson plans, it became clear that his methods were not working. One of the worst moments was when (b) he distributed a math test. Many students didn’t even look at the exam. They just put their heads on their desks and slept. Jeremy became so stressed that he even dreaded going into his classroom. (C) After graduation, Jeremy joined an organization that recruits future leaders to teach in low-income communities. (c) He was assigned to a small school in a poor rural county in North Carolina. Later, his assistant principal took note of Jeremy’s high expectations and asked him to take over (d) his math class. He took charge of about a dozen failing “special ed” kids, and Tisha and Kelly were among them. His idealism ran high, and he thought he would be able to magically fix all of their problems. (D) Jeremy knew something had to change. (e) He then thought back to my class, remembering how negative emotions can drag you down, leaving positive emotions unnoticed. That’s when he decided to focus more on building positive attitudes within the classroom. He borrowed lessons from my positive psychology class and even mentioned my name to his students. As the students’ attitudes became more optimistic, their confidence with math grew too. At the end of the school year, 80 percent of Jeremy’s students passed the state’s math test.",
+        "choices": [
+          "대학에서 긍정 심리학을 수강했다 .",
+          "많은 시간을 들여 수업 계획서를 준비했다 .",
+          "스트레스로 인해 교실에 들어가기를 두려워했다 .",
+          "저소득 지역에서 가르칠 미래 지도자를 모집하는 단체에 가입했다 .",
+          "학년말에 그의 학생의 80 퍼센트가 수학 시험에 불합격했다 ."
+        ]
+      },
+      "after": {
+        "passage": "(A) In my office, I have a framed letter from a couple of children I have never met. The letter holds a special significance for me. It reads, “Dear Dr. Brown, thanks for teaching Mr. Wills to teach Tisha and Kelly.” Mr. Wills is Jeremy Wills, and (a) he is one of my former students. A few years back, he took my positive psychology class in college. (B) Before long, the reality hit Jeremy hard. Even after spending many hours each day preparing lesson plans, it became clear that his methods were not working. One of the worst moments was when (b) he distributed a math test. Many students didn’t even look at the exam. They just put their heads on their desks and slept. Jeremy became so stressed that he even dreaded going into his classroom. (C) After graduation, Jeremy joined an organization that recruits future leaders to teach in low-income communities. (c) He was assigned to a small school in a poor rural county in North Carolina. Later, his assistant principal took note of Jeremy’s high expectations and asked him to take over (d) his math class. He took charge of about a dozen failing “special ed” kids, and Tisha and Kelly were among them. His idealism ran high, and he thought he would be able to magically fix all of their problems. (D) Jeremy knew something had to change. (e) He then thought back to my class, remembering how negative emotions can drag you down, leaving positive emotions unnoticed. That’s when he decided to focus more on building positive attitudes within the classroom. He borrowed lessons from my positive psychology class and even mentioned my name to his students. As the students’ attitudes became more optimistic, their confidence with math grew too. At the end of the school year, 80 percent of Jeremy’s students passed the state’s math test.",
+        "choices": [
+          "대학에서 긍정 심리학을 수강했다.",
+          "많은 시간을 들여 수업 계획서를 준비했다.",
+          "스트레스로 인해 교실에 들어가기를 두려워했다.",
+          "저소득 지역에서 가르칠 미래 지도자를 모집하는 단체에 가입했다.",
+          "학년말에 그의 학생의 80퍼센트가 수학 시험에 불합격했다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#22",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "choices": [
+          "distinct differences in the ways of recording history",
+          "universal features discovered in different cultures",
+          "historians’ efforts to advocate their own culture",
+          "pros and cons of two cross-cultural perspectives",
+          "beliefs that cause biased interpretations of the past 3"
+        ]
+      },
+      "after": {
+        "choices": [
+          "distinct differences in the ways of recording history",
+          "universal features discovered in different cultures",
+          "historians’ efforts to advocate their own culture",
+          "pros and cons of two cross-cultural perspectives",
+          "beliefs that cause biased interpretations of the past"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#24",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "The above graph shows the results of a survey conducted in 2012. It compares the percentage of parents of minor children (hereafter, parents) and that of other adults in terms of their involvement in six library activities. ① Most notably, the percentage of parents is higher than that of other adults in all activity types. ② The percentage of parents who browsed shelves is the same as that of parents who borrowed print books. ③ The percentage gap between parents and other adults is largest in the activity of attending classes or events for children and is smallest in the activity of using computers or the Internet. ④ The percentage of other adults who browsed shelves is twice as high as that of other adults who borrowed DVDs, CDs, or videotapes. ⑤ Finally, the percentage of parents who borrowed e-books is less than 10% but is higher than that of other adults who did the same activity. 8 4"
+      },
+      "after": {
+        "passage": "The above graph shows the results of a survey conducted in 2012. It compares the percentage of parents of minor children (hereafter, parents) and that of other adults in terms of their involvement in six library activities. ① Most notably, the percentage of parents is higher than that of other adults in all activity types. ② The percentage of parents who browsed shelves is the same as that of parents who borrowed print books. ③ The percentage gap between parents and other adults is largest in the activity of attending classes or events for children and is smallest in the activity of using computers or the Internet. ④ The percentage of other adults who browsed shelves is twice as high as that of other adults who borrowed DVDs, CDs, or videotapes. ⑤ Finally, the percentage of parents who borrowed e-books is less than 10% but is higher than that of other adults who did the same activity."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#28",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "The Greeks’ focus on the salient object and its attributes led to ① their failure to understand the fundamental nature of causality. Aristotle explained that a stone falling through the air is due to the stone having the property of “gravity.” But of course a piece of wood ② tossed into water floats instead of sinking. This phenomenon Aristotle explained as being due to the wood having the property of “levity”! In both cases the focus is ③ exclusively on the object, with no attention paid to the possibility that some force outside the object might be relevant. But the Chinese saw the world as consisting of continuously interacting substances, so their attempts to understand it ④ causing them to be oriented toward the complexities of the entire “field,” that is, the context or environment as a whole. The notion ______ ⑤ that events always occur in a field of forces would have been completely intuitive to the Chinese. 8"
+      },
+      "after": {
+        "passage": "The Greeks’ focus on the salient object and its attributes led to ① their failure to understand the fundamental nature of causality. Aristotle explained that a stone falling through the air is due to the stone having the property of “gravity.” But of course a piece of wood ② tossed into water floats instead of sinking. This phenomenon Aristotle explained as being due to the wood having the property of “levity”! In both cases the focus is ③ exclusively on the object, with no attention paid to the possibility that some force outside the object might be relevant. But the Chinese saw the world as consisting of continuously interacting substances, so their attempts to understand it ④ causing them to be oriented toward the complexities of the entire “field,” that is, the context or environment as a whole. The notion ⑤ that events always occur in a field of forces would have been completely intuitive to the Chinese."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#30",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "The dancers stood on a two-step elevated stage, so that there was a natural gap between those who came to dance and those who came to watch. The host randomly pulled the name of a well-known dancer, Linx, out of a hat. People cheered. According to the format, Linx had to “call out” another dancer to battle him on stage. Instead of deliberately choosing someone, however, ① he decided to select his opponent randomly by making himself into a human spin-wheel. He propelled himself into a backspin, covered ② his eyes, and extended his arm above his head. When his body finally stopped spinning, ③ his arm pointed away from the dancers on stage and directly at Dan Tres, standing among the spectators. The crowd erupted in “Ohhhhs!” because ______ ④ he was an older family man who had not danced hip-hop in many years, while the much younger Linx was a nimble b-boy. Linx looked embarrassed, but nonetheless ⑤ he called out the respected elder to battle. 5 5"
+      },
+      "after": {
+        "passage": "The dancers stood on a two-step elevated stage, so that there was a natural gap between those who came to dance and those who came to watch. The host randomly pulled the name of a well-known dancer, Linx, out of a hat. People cheered. According to the format, Linx had to “call out” another dancer to battle him on stage. Instead of deliberately choosing someone, however, ① he decided to select his opponent randomly by making himself into a human spin-wheel. He propelled himself into a backspin, covered ② his eyes, and extended his arm above his head. When his body finally stopped spinning, ③ his arm pointed away from the dancers on stage and directly at Dan Tres, standing among the spectators. The crowd erupted in “Ohhhhs!” because ④ he was an older family man who had not danced hip-hop in many years, while the much younger Linx was a nimble b-boy. Linx looked embarrassed, but nonetheless ⑤ he called out the respected elder to battle."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#32",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "Some distinctions between good and bad are hardwired into our biology. Infants enter the world ready to respond to pain as bad and to sweet (up to a point) as good. In many situations, however, the boundary between good and bad is a reference point that changes over time and depends on the immediate circumstances. Imagine that you are out in the country on a cold night, inadequately dressed for the pouring rain, your clothes soaked. A stinging cold wind completes your misery. As you wander around, you find a large rock that provides some shelter from the fury of the elements. The biologist Michel Cabanac would call the experience of that moment intensely pleasurable because it functions, as pleasure normally does, to indicate the direction of ______ . The pleasant relief will not last very long, of course, and you will soon be shivering behind the rock again, driven by your renewed suffering to seek better shelter.",
+        "choices": [
+          "a permanent emotional adjustment to circumstantial demands",
+          "enhancing self-consciousness through physical suffering",
+          "a biologically significant improvement of circumstances",
+          "judging desirable and undesirable conditions impartially",
+          "a mentally pre-determined inclination for emotional stability 8"
+        ]
+      },
+      "after": {
+        "passage": "Some distinctions between good and bad are hardwired into our biology. Infants enter the world ready to respond to pain as bad and to sweet (up to a point) as good. In many situations, however, the boundary between good and bad is a reference point that changes over time and depends on the immediate circumstances. Imagine that you are out in the country on a cold night, inadequately dressed for the pouring rain, your clothes soaked. A stinging cold wind completes your misery. As you wander around, you find a large rock that provides some shelter from the fury of the elements. The biologist Michel Cabanac would call the experience of that moment intensely pleasurable because it functions, as pleasure normally does, to indicate the direction of ______. The pleasant relief will not last very long, of course, and you will soon be shivering behind the rock again, driven by your renewed suffering to seek better shelter.",
+        "choices": [
+          "a permanent emotional adjustment to circumstantial demands",
+          "enhancing self-consciousness through physical suffering",
+          "a biologically significant improvement of circumstances",
+          "judging desirable and undesirable conditions impartially",
+          "a mentally pre-determined inclination for emotional stability"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#38",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "Even so, it is not the money per se that is valuable, but the fact that it can potentially yield more positive experiences. Money ― beyond the bare minimum necessary for food and shelter ― is nothing more than a means to an end. Yet so often we confuse means with ends, and sacrifice happiness (end) for money (means). It is easy to do this when material wealth is elevated to the position of the ultimate end, as it so often is in our society. ( ①) This is not to say that the accumulation and production of material wealth is in itself wrong. ( ②) Material prosperity can help individuals, as well as society, attain higher levels of happiness. ( ③) Financial security can liberate us from work we do not find meaningful and from having to worry about the next paycheck. ( ______ ④) Moreover, the desire to make money can challenge and inspire us. ( ⑤) Material wealth in and of itself does not necessarily generate meaning or lead to emotional wealth. 7 7"
+      },
+      "after": {
+        "passage": "Even so, it is not the money per se that is valuable, but the fact that it can potentially yield more positive experiences. Money ― beyond the bare minimum necessary for food and shelter ― is nothing more than a means to an end. Yet so often we confuse means with ends, and sacrifice happiness (end) for money (means). It is easy to do this when material wealth is elevated to the position of the ultimate end, as it so often is in our society. ( ① ) This is not to say that the accumulation and production of material wealth is in itself wrong. ( ② ) Material prosperity can help individuals, as well as society, attain higher levels of happiness. ( ③ ) Financial security can liberate us from work we do not find meaningful and from having to worry about the next paycheck. ( ④ ) Moreover, the desire to make money can challenge and inspire us. ( ⑤ ) Material wealth in and of itself does not necessarily generate meaning or lead to emotional wealth."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#40",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "Performance must be judged in terms of what is under the control of the individuals being evaluated rather than those influences on performance that are beyond their control. There can be broad, influential factors, sometimes of an economic nature, that hold down the performance of everyone being judged. One example is in sales. If there is a general downturn in the economy and products or services are not being purchased with the same frequency as in the previous year, sales could be down, for example, by an average of 15%. This 15% (actually － 15%) figure would then represent “average” performance. Perhaps the best salesperson in the year had only a 3% drop in sales over the previous year. Thus, “good” performance in this situation is a smaller loss compared to some average or norm group. 󰀻 In performance evaluation, we should consider ______ (A) factors affecting the individual’s performance rather than (B) ______ figures only. (A) ______ (B)",
+        "choices": [
+          "contextual …… put aside",
+          "contextual …… rely on",
+          "controllable …… put aside",
+          "positive …… ignore",
+          "positive …… rely on 8"
+        ]
+      },
+      "after": {
+        "passage": "Performance must be judged in terms of what is under the control of the individuals being evaluated rather than those influences on performance that are beyond their control. There can be broad, influential factors, sometimes of an economic nature, that hold down the performance of everyone being judged. One example is in sales. If there is a general downturn in the economy and products or services are not being purchased with the same frequency as in the previous year, sales could be down, for example, by an average of 15%. This 15% (actually － 15%) figure would then represent “average” performance. Perhaps the best salesperson in the year had only a 3% drop in sales over the previous year. Thus, “good” performance in this situation is a smaller loss compared to some average or norm group.\n\nIn performance evaluation, we should consider (A) ______ factors affecting the individual’s performance rather than (B) ______ figures only.",
+        "choices": [
+          "contextual …… put aside",
+          "contextual …… rely on",
+          "controllable …… put aside",
+          "positive …… ignore",
+          "positive …… rely on"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#43",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "(A) The midday sun was glorious. The high school grounds were filled with well-dressed people, posing in fancy dresses and suits for cheerful photographers. Congratulations, hugs, and laughter were contagious. Hannah looked at all the familiar faces that had been part of (a) her life for the last few years. Soon her mother would be joining them. She recalled the first day of school when she had stood in that same place, in the middle of many anxious freshmen, some of whom had become her closest friends. 8 (B) “Hannah, you look so serious. What are you thinking about?” “Oh, Mom, just, you know.” Her mother smiled. “You’ll miss this place, won’t you?” Hannah nodded. “Quick,” her mother said, “stand over there . . . and smile, Hannah. You have such a pretty smile.” (b) She hurried out her cell phone, zoomed in on her daughter, and realized suddenly that she was looking at a young lady. “You’re all grown-up,” she whispered. Hannah took more photos with her teachers in the school garden. She wished all the memories would remain in her mind forever. (C) Hannah struggled with the many class hours, the endless assignments, and the exams. However, there were exciting events like sports days and school festivals. How could (c) she ever forget her second year! She had sung and danced with her friends in the festival, part of a sensational performance. After that, she had become more confident and active. Her thoughts wandering, Hannah vaguely heard her mother’s voice. “Here you are!” Her mother hurried over, and gave (d) her a bundle of lilies and roses and a big hug. (D) That day was unusually foggy as if something mysterious were ahead. Hannah was nervous and trembling. The principal was energetically addressing them, talking of the challenges and thrills of high school life, but she could not concentrate. Later, a tall, strict-looking man introduced himself as (e) her homeroom teacher. The classroom was old, but neat and inviting. Hannah was seated in the fifth row, hallway side, even though she had wanted a window seat. High school life soon proved as challenging as the principal had predicted."
+      },
+      "after": {
+        "passage": "(A) The midday sun was glorious. The high school grounds were filled with well-dressed people, posing in fancy dresses and suits for cheerful photographers. Congratulations, hugs, and laughter were contagious. Hannah looked at all the familiar faces that had been part of (a) her life for the last few years. Soon her mother would be joining them. She recalled the first day of school when she had stood in that same place, in the middle of many anxious freshmen, some of whom had become her closest friends. (B) “Hannah, you look so serious. What are you thinking about?” “Oh, Mom, just, you know.” Her mother smiled. “You’ll miss this place, won’t you?” Hannah nodded. “Quick,” her mother said, “stand over there . . . and smile, Hannah. You have such a pretty smile.” (b) She hurried out her cell phone, zoomed in on her daughter, and realized suddenly that she was looking at a young lady. “You’re all grown-up,” she whispered. Hannah took more photos with her teachers in the school garden. She wished all the memories would remain in her mind forever. (C) Hannah struggled with the many class hours, the endless assignments, and the exams. However, there were exciting events like sports days and school festivals. How could (c) she ever forget her second year! She had sung and danced with her friends in the festival, part of a sensational performance. After that, she had become more confident and active. Her thoughts wandering, Hannah vaguely heard her mother’s voice. “Here you are!” Her mother hurried over, and gave (d) her a bundle of lilies and roses and a big hug. (D) That day was unusually foggy as if something mysterious were ahead. Hannah was nervous and trembling. The principal was energetically addressing them, talking of the challenges and thrills of high school life, but she could not concentrate. Later, a tall, strict-looking man introduced himself as (e) her homeroom teacher. The classroom was old, but neat and inviting. Hannah was seated in the fifth row, hallway side, even though she had wanted a window seat. High school life soon proved as challenging as the principal had predicted."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#44",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "(A) The midday sun was glorious. The high school grounds were filled with well-dressed people, posing in fancy dresses and suits for cheerful photographers. Congratulations, hugs, and laughter were contagious. Hannah looked at all the familiar faces that had been part of (a) her life for the last few years. Soon her mother would be joining them. She recalled the first day of school when she had stood in that same place, in the middle of many anxious freshmen, some of whom had become her closest friends. 8 (B) “Hannah, you look so serious. What are you thinking about?” “Oh, Mom, just, you know.” Her mother smiled. “You’ll miss this place, won’t you?” Hannah nodded. “Quick,” her mother said, “stand over there . . . and smile, Hannah. You have such a pretty smile.” (b) She hurried out her cell phone, zoomed in on her daughter, and realized suddenly that she was looking at a young lady. “You’re all grown-up,” she whispered. Hannah took more photos with her teachers in the school garden. She wished all the memories would remain in her mind forever. (C) Hannah struggled with the many class hours, the endless assignments, and the exams. However, there were exciting events like sports days and school festivals. How could (c) she ever forget her second year! She had sung and danced with her friends in the festival, part of a sensational performance. After that, she had become more confident and active. Her thoughts wandering, Hannah vaguely heard her mother’s voice. “Here you are!” Her mother hurried over, and gave (d) her a bundle of lilies and roses and a big hug. (D) That day was unusually foggy as if something mysterious were ahead. Hannah was nervous and trembling. The principal was energetically addressing them, talking of the challenges and thrills of high school life, but she could not concentrate. Later, a tall, strict-looking man introduced himself as (e) her homeroom teacher. The classroom was old, but neat and inviting. Hannah was seated in the fifth row, hallway side, even though she had wanted a window seat. High school life soon proved as challenging as the principal had predicted."
+      },
+      "after": {
+        "passage": "(A) The midday sun was glorious. The high school grounds were filled with well-dressed people, posing in fancy dresses and suits for cheerful photographers. Congratulations, hugs, and laughter were contagious. Hannah looked at all the familiar faces that had been part of (a) her life for the last few years. Soon her mother would be joining them. She recalled the first day of school when she had stood in that same place, in the middle of many anxious freshmen, some of whom had become her closest friends. (B) “Hannah, you look so serious. What are you thinking about?” “Oh, Mom, just, you know.” Her mother smiled. “You’ll miss this place, won’t you?” Hannah nodded. “Quick,” her mother said, “stand over there . . . and smile, Hannah. You have such a pretty smile.” (b) She hurried out her cell phone, zoomed in on her daughter, and realized suddenly that she was looking at a young lady. “You’re all grown-up,” she whispered. Hannah took more photos with her teachers in the school garden. She wished all the memories would remain in her mind forever. (C) Hannah struggled with the many class hours, the endless assignments, and the exams. However, there were exciting events like sports days and school festivals. How could (c) she ever forget her second year! She had sung and danced with her friends in the festival, part of a sensational performance. After that, she had become more confident and active. Her thoughts wandering, Hannah vaguely heard her mother’s voice. “Here you are!” Her mother hurried over, and gave (d) her a bundle of lilies and roses and a big hug. (D) That day was unusually foggy as if something mysterious were ahead. Hannah was nervous and trembling. The principal was energetically addressing them, talking of the challenges and thrills of high school life, but she could not concentrate. Later, a tall, strict-looking man introduced himself as (e) her homeroom teacher. The classroom was old, but neat and inviting. Hannah was seated in the fifth row, hallway side, even though she had wanted a window seat. High school life soon proved as challenging as the principal had predicted."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2016#45",
+      "pdf_file": "2016_영어영역-홀수.pdf",
+      "pdf_sha256": "4ed5aa706ff79586bb885bf9a4394bf73e549b2f3f6bd9cfac26f2bbcf883ef1",
+      "before": {
+        "passage": "(A) The midday sun was glorious. The high school grounds were filled with well-dressed people, posing in fancy dresses and suits for cheerful photographers. Congratulations, hugs, and laughter were contagious. Hannah looked at all the familiar faces that had been part of (a) her life for the last few years. Soon her mother would be joining them. She recalled the first day of school when she had stood in that same place, in the middle of many anxious freshmen, some of whom had become her closest friends. 8 (B) “Hannah, you look so serious. What are you thinking about?” “Oh, Mom, just, you know.” Her mother smiled. “You’ll miss this place, won’t you?” Hannah nodded. “Quick,” her mother said, “stand over there . . . and smile, Hannah. You have such a pretty smile.” (b) She hurried out her cell phone, zoomed in on her daughter, and realized suddenly that she was looking at a young lady. “You’re all grown-up,” she whispered. Hannah took more photos with her teachers in the school garden. She wished all the memories would remain in her mind forever. (C) Hannah struggled with the many class hours, the endless assignments, and the exams. However, there were exciting events like sports days and school festivals. How could (c) she ever forget her second year! She had sung and danced with her friends in the festival, part of a sensational performance. After that, she had become more confident and active. Her thoughts wandering, Hannah vaguely heard her mother’s voice. “Here you are!” Her mother hurried over, and gave (d) her a bundle of lilies and roses and a big hug. (D) That day was unusually foggy as if something mysterious were ahead. Hannah was nervous and trembling. The principal was energetically addressing them, talking of the challenges and thrills of high school life, but she could not concentrate. Later, a tall, strict-looking man introduced himself as (e) her homeroom teacher. The classroom was old, but neat and inviting. Hannah was seated in the fifth row, hallway side, even though she had wanted a window seat. High school life soon proved as challenging as the principal had predicted.",
+        "choices": [
+          "다른 신입생들과 함께 운동장에 서 있었다 .",
+          "학교 정원에서 선생님들과 사진을 찍었다 .",
+          "축제에서 노래를 부르고 춤을 추었다 .",
+          "교장 선생님의 말씀에 집중할 수가 없었다 .",
+          "교실에서 다섯 번째 줄 창가 자리에 앉았다 ."
+        ]
+      },
+      "after": {
+        "passage": "(A) The midday sun was glorious. The high school grounds were filled with well-dressed people, posing in fancy dresses and suits for cheerful photographers. Congratulations, hugs, and laughter were contagious. Hannah looked at all the familiar faces that had been part of (a) her life for the last few years. Soon her mother would be joining them. She recalled the first day of school when she had stood in that same place, in the middle of many anxious freshmen, some of whom had become her closest friends. (B) “Hannah, you look so serious. What are you thinking about?” “Oh, Mom, just, you know.” Her mother smiled. “You’ll miss this place, won’t you?” Hannah nodded. “Quick,” her mother said, “stand over there . . . and smile, Hannah. You have such a pretty smile.” (b) She hurried out her cell phone, zoomed in on her daughter, and realized suddenly that she was looking at a young lady. “You’re all grown-up,” she whispered. Hannah took more photos with her teachers in the school garden. She wished all the memories would remain in her mind forever. (C) Hannah struggled with the many class hours, the endless assignments, and the exams. However, there were exciting events like sports days and school festivals. How could (c) she ever forget her second year! She had sung and danced with her friends in the festival, part of a sensational performance. After that, she had become more confident and active. Her thoughts wandering, Hannah vaguely heard her mother’s voice. “Here you are!” Her mother hurried over, and gave (d) her a bundle of lilies and roses and a big hug. (D) That day was unusually foggy as if something mysterious were ahead. Hannah was nervous and trembling. The principal was energetically addressing them, talking of the challenges and thrills of high school life, but she could not concentrate. Later, a tall, strict-looking man introduced himself as (e) her homeroom teacher. The classroom was old, but neat and inviting. Hannah was seated in the fifth row, hallway side, even though she had wanted a window seat. High school life soon proved as challenging as the principal had predicted.",
+        "choices": [
+          "다른 신입생들과 함께 운동장에 서 있었다.",
+          "학교 정원에서 선생님들과 사진을 찍었다.",
+          "축제에서 노래를 부르고 춤을 추었다.",
+          "교장 선생님의 말씀에 집중할 수가 없었다.",
+          "교실에서 다섯 번째 줄 창가 자리에 앉았다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#22",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "choices": [
+          "Erase Ambiguity in Language Production!",
+          "Not Creative but Simple: The Way Language Works",
+          "Communication as a Universal Goal in Language Use",
+          "What in Language Creates Varied Understanding?",
+          "Language: A Crystal-Clear Looking Glass 3"
+        ]
+      },
+      "after": {
+        "choices": [
+          "Erase Ambiguity in Language Production!",
+          "Not Creative but Simple: The Way Language Works",
+          "Communication as a Universal Goal in Language Use",
+          "What in Language Creates Varied Understanding?",
+          "Language: A Crystal-Clear Looking Glass"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#24",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "The two pie charts above show how much of the information found using search engines is considered to be accurate or trustworthy by two groups of respondents (AP & NWP teachers and U.S. adult search users) in 2012. ① As for AP & NWP teachers, five percent say that “All / Almost all” of the information found using search engines is accurate or trustworthy, while 28 percent of U.S. adult search users say the same. ② The largest percentage of both AP & NWP teachers and U.S. adult search users answer that “Most” of the information is accurate or trustworthy. ③ In addition, 40 percent of AP & NWP teachers say that “Some” of the information is accurate or trustworthy, and more than 30 percent of U.S. adult search users respond the same. ④ U.S. adult search users saying that “Very little / None” of the information found using search engines is accurate or trustworthy account for less than five percent. ⑤ The percentage of U.S. adult search users who answer “Don’t know” is only one percent. 8 4"
+      },
+      "after": {
+        "passage": "The two pie charts above show how much of the information found using search engines is considered to be accurate or trustworthy by two groups of respondents (AP & NWP teachers and U.S. adult search users) in 2012. ① As for AP & NWP teachers, five percent say that “All / Almost all” of the information found using search engines is accurate or trustworthy, while 28 percent of U.S. adult search users say the same. ② The largest percentage of both AP & NWP teachers and U.S. adult search users answer that “Most” of the information is accurate or trustworthy. ③ In addition, 40 percent of AP & NWP teachers say that “Some” of the information is accurate or trustworthy, and more than 30 percent of U.S. adult search users respond the same. ④ U.S. adult search users saying that “Very little / None” of the information found using search engines is accurate or trustworthy account for less than five percent. ⑤ The percentage of U.S. adult search users who answer “Don’t know” is only one percent."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#28",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "When people face real adversity ─ disease, unemployment, or the disabilities of age ─ affection from a pet takes on new meaning. A pet’s continuing affection becomes crucially important for ① those enduring hardship because it reassures them that their core essence has not been damaged. Thus pets are important in the treatment of ② depressed or chronically ill patients. In addition, pets are ③ used to great advantage with the institutionalized aged. In such institutions it is difficult for the staff to retain optimism when all the patients are declining in health. Children who visit cannot help but remember ④ what their parents or grandparents once were and be depressed by their incapacities. Animals, however, have no expectations about mental capacity. They do not worship youth. They have no memories about what the aged once ⑤ was and greet them as if they were children. An old man holding a puppy can relive a childhood moment with complete accuracy. His joy and the animal’s response are the same. 8"
+      },
+      "after": {
+        "passage": "When people face real adversity ─ disease, unemployment, or the disabilities of age ─ affection from a pet takes on new meaning. A pet’s continuing affection becomes crucially important for ① those enduring hardship because it reassures them that their core essence has not been damaged. Thus pets are important in the treatment of ② depressed or chronically ill patients. In addition, pets are ③ used to great advantage with the institutionalized aged. In such institutions it is difficult for the staff to retain optimism when all the patients are declining in health. Children who visit cannot help but remember ④ what their parents or grandparents once were and be depressed by their incapacities. Animals, however, have no expectations about mental capacity. They do not worship youth. They have no memories about what the aged once ⑤ was and greet them as if they were children. An old man holding a puppy can relive a childhood moment with complete accuracy. His joy and the animal’s response are the same."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#30",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "Dr. Paul Odland and his friend Bob travel frequently to South America, where they provide free medical treatment for disabled children of poor families. One day, they went to a local marketplace. Paul wanted to buy some souvenirs, and ① he spotted a carving that he liked. The non-English speaking seller was asking 500 pesos for the carving. With Bob acting as interpreter, Paul offered 300 and ② his opponent proposed 450. The bargaining in the noisy market became spirited, even intense, with Paul stepping up ③ his price slightly and the seller going down slowly. The pace increased so fast that Bob could not keep up with the back-and-forth interpretation. Meanwhile, observing the seller carefully, Paul sensed something wrong in Bob’s interpretation. In fact, the seller had gone below Paul’s last offer. When Paul raised his doubt, Bob instantly recognized the error and corrected ④ his interpretation. At length, they settled the deal, and ⑤ he was delighted to purchase the carving at a reasonable price and thanked Bob. 5 5"
+      },
+      "after": {
+        "passage": "Dr. Paul Odland and his friend Bob travel frequently to South America, where they provide free medical treatment for disabled children of poor families. One day, they went to a local marketplace. Paul wanted to buy some souvenirs, and ① he spotted a carving that he liked. The non-English speaking seller was asking 500 pesos for the carving. With Bob acting as interpreter, Paul offered 300 and ② his opponent proposed 450. The bargaining in the noisy market became spirited, even intense, with Paul stepping up ③ his price slightly and the seller going down slowly. The pace increased so fast that Bob could not keep up with the back-and-forth interpretation. Meanwhile, observing the seller carefully, Paul sensed something wrong in Bob’s interpretation. In fact, the seller had gone below Paul’s last offer. When Paul raised his doubt, Bob instantly recognized the error and corrected ④ his interpretation. At length, they settled the deal, and ⑤ he was delighted to purchase the carving at a reasonable price and thanked Bob."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#32",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "Temporal resolution is particularly interesting in the context of satellite remote sensing. The temporal density of remotely sensed imagery is large, impressive, and growing. Satellites are collecting a great deal of imagery as you read this sentence. However, most applications in geography and environmental studies do not require extremely fine-grained temporal resolution. Meteorologists may require visible, infrared, and radar information at sub-hourly temporal resolution; urban planners might require imagery at monthly or annual resolution; and transportation planners may not need any time series information at all for some applications. Again, the temporal resolution of imagery used should . Sometimes researchers have to search archives of aerial photographs to get information from that past that pre-date the collection of satellite imagery.",
+        "choices": [
+          "be selected for general purposes",
+          "meet the requirements of your inquiry",
+          "be as high as possible for any occasion",
+          "be applied to new technology by experts",
+          "rely exclusively upon satellite information 8"
+        ]
+      },
+      "after": {
+        "passage": "Temporal resolution is particularly interesting in the context of satellite remote sensing. The temporal density of remotely sensed imagery is large, impressive, and growing. Satellites are collecting a great deal of imagery as you read this sentence. However, most applications in geography and environmental studies do not require extremely fine-grained temporal resolution. Meteorologists may require visible, infrared, and radar information at sub-hourly temporal resolution; urban planners might require imagery at monthly or annual resolution; and transportation planners may not need any time series information at all for some applications. Again, the temporal resolution of imagery used should ______ . Sometimes researchers have to search archives of aerial photographs to get information from that past that pre-date the collection of satellite imagery.",
+        "choices": [
+          "be selected for general purposes",
+          "meet the requirements of your inquiry",
+          "be as high as possible for any occasion",
+          "be applied to new technology by experts",
+          "rely exclusively upon satellite information"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#38",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "Most readers of reports and papers are reading the documents because they are interested in, and know something about, the subject. What is the best order for a report, paper or other technical document? Of course, it must be logical; but that means simply that the paper must have connection and sequence, and a variety of orders is possible under this heading. Too many writers interpret the term logical to mean chronological, and it has become habitual to begin reports and papers with careful reviews of previous work. ( ①) Usually, this is tactically weak. ( ②) Therefore, to rehearse to them the findings of previous work is simply to bore them with unnecessary reminders. ( ③) The interesting thing for them is the new information ─ the new findings and conclusions. ( ④) So it is usually best to start with those pieces of information. ( ⑤) To give a long chronological account of work or procedures is normally appropriate only when the essential point of the paper is the chronological sequence. 7 7"
+      },
+      "after": {
+        "passage": "Most readers of reports and papers are reading the documents because they are interested in, and know something about, the subject. What is the best order for a report, paper or other technical document? Of course, it must be logical; but that means simply that the paper must have connection and sequence, and a variety of orders is possible under this heading. Too many writers interpret the term logical to mean chronological, and it has become habitual to begin reports and papers with careful reviews of previous work. ( ① ) Usually, this is tactically weak. ( ② ) Therefore, to rehearse to them the findings of previous work is simply to bore them with unnecessary reminders. ( ③ ) The interesting thing for them is the new information ─ the new findings and conclusions. ( ④ ) So it is usually best to start with those pieces of information. ( ⑤ ) To give a long chronological account of work or procedures is normally appropriate only when the essential point of the paper is the chronological sequence."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#40",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "The impacts of tourism on the environment are evident to scientists, but not all residents attribute environmental damage to tourism. Residents commonly have positive views on the economic and some sociocultural influences of tourism on quality of life, but their reactions to environmental impacts are mixed. Some residents feel tourism provides more parks and recreation areas, improves the quality of the roads and public facilities, and does not contribute to ecological decline. Many do not blame tourism for traffic problems, overcrowded outdoor recreation, or the disturbance of peace and tranquility of parks. Alternatively, some residents express concern that tourists overcrowd the local fishing, hunting, and other recreation areas or may cause traffic and pedestrian congestion. Some ______ studies suggest that variations in residents’ feelings about tourism’s relationship to environmental damage are related to the type of tourism, the extent to which residents feel the natural environment needs to be protected, and the distance residents live from the tourist attractions. 󰀻 Residents do not ______ (A) ______ tourism’s environmental influences identically since they take (B) ______ postures based on factors such as the type of tourism, opinions on the degree of protection, and their distance from an attraction. (A) ______ (B) ______ (A) ______ (B)",
+        "choices": [
+          "weigh …… common",
+          "weigh …… balanced",
+          "weigh …… dissimilar",
+          "control …… favorable",
+          "control …… conflicting 8"
+        ]
+      },
+      "after": {
+        "passage": "The impacts of tourism on the environment are evident to scientists, but not all residents attribute environmental damage to tourism. Residents commonly have positive views on the economic and some sociocultural influences of tourism on quality of life, but their reactions to environmental impacts are mixed. Some residents feel tourism provides more parks and recreation areas, improves the quality of the roads and public facilities, and does not contribute to ecological decline. Many do not blame tourism for traffic problems, overcrowded outdoor recreation, or the disturbance of peace and tranquility of parks. Alternatively, some residents express concern that tourists overcrowd the local fishing, hunting, and other recreation areas or may cause traffic and pedestrian congestion. Some studies suggest that variations in residents’ feelings about tourism’s relationship to environmental damage are related to the type of tourism, the extent to which residents feel the natural environment needs to be protected, and the distance residents live from the tourist attractions. Residents do not (A) ______ tourism’s environmental influences identically since they take (B) ______ postures based on factors such as the type of tourism, opinions on the degree of protection, and their distance from an attraction.",
+        "choices": [
+          "weigh …… common",
+          "weigh …… balanced",
+          "weigh …… dissimilar",
+          "control …… favorable",
+          "control …… conflicting"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#43",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "(A) A seventeen-year-old German boy named Erik Brandes stepped out onto the empty vast stage of the Cologne Opera House. It was the most exciting day of Erik’s life. (a) The youngest concert promoter in Germany had persuaded the Opera House to host a late-night concert of improvised jazz by the American pianist Keith Jarrett. The concert was a sellout, and later that evening, Keith would sit down at the piano and play. 8 (B) When Keith began to play, everybody immediately knew this was magic. Erik too was deeply touched. Keith was unexpectedly producing the performance of a lifetime despite the shortcomings of the piano. (b) His left hand produced thundering, repetitive bass riffs as a way of covering up the piano’s lack of resonance. Keith really had to play that piano very hard to get enough volume to get to the balconies. Standing up and sitting down, Keith played the unplayable piano to produce something unique. It wasn’t the music that he ever imagined playing. But faced with a challenge, he accepted it and flew high. (C) Understandably, Keith didn’t want to perform. He left and went to wait in his car, leaving Erik to anticipate the arrival of soon-to-be furious concert-goers. Desperate, (c) the German teenager caught up with Keith and begged the jazz pianist to play. The pianist looked out at him standing in the rain, completely soaked, and took pity on him. “Never forget,” Keith said. “Only for (d) you.” A few hours later, Keith walked out to the unplayable piano in front of a packed concert hall. (D) But when Erik introduced Keith and his producer Manfred to the piano on the stage that afternoon, it didn’t go well. Keith and Manfred played a few notes. Then after a long silence, Manfred came to (e) him and said, “Erik, if you don’t get another piano, Keith can’t play tonight.” Erik knew that Keith had requested a specific instrument, which the Opera House had agreed to provide. What he hadn’t realized was that the administrative staff hadn’t been able to find the requested Bösendorfer piano, and they had instead installed a tiny little Bösendorfer that was in poor condition."
+      },
+      "after": {
+        "passage": "(A) A seventeen-year-old German boy named Erik Brandes stepped out onto the empty vast stage of the Cologne Opera House. It was the most exciting day of Erik’s life. (a) The youngest concert promoter in Germany had persuaded the Opera House to host a late-night concert of improvised jazz by the American pianist Keith Jarrett. The concert was a sellout, and later that evening, Keith would sit down at the piano and play. (B) When Keith began to play, everybody immediately knew this was magic. Erik too was deeply touched. Keith was unexpectedly producing the performance of a lifetime despite the shortcomings of the piano. (b) His left hand produced thundering, repetitive bass riffs as a way of covering up the piano’s lack of resonance. Keith really had to play that piano very hard to get enough volume to get to the balconies. Standing up and sitting down, Keith played the unplayable piano to produce something unique. It wasn’t the music that he ever imagined playing. But faced with a challenge, he accepted it and flew high. (C) Understandably, Keith didn’t want to perform. He left and went to wait in his car, leaving Erik to anticipate the arrival of soon-to-be furious concert-goers. Desperate, (c) the German teenager caught up with Keith and begged the jazz pianist to play. The pianist looked out at him standing in the rain, completely soaked, and took pity on him. “Never forget,” Keith said. “Only for (d) you.” A few hours later, Keith walked out to the unplayable piano in front of a packed concert hall. (D) But when Erik introduced Keith and his producer Manfred to the piano on the stage that afternoon, it didn’t go well. Keith and Manfred played a few notes. Then after a long silence, Manfred came to (e) him and said, “Erik, if you don’t get another piano, Keith can’t play tonight.” Erik knew that Keith had requested a specific instrument, which the Opera House had agreed to provide. What he hadn’t realized was that the administrative staff hadn’t been able to find the requested Bösendorfer piano, and they had instead installed a tiny little Bösendorfer that was in poor condition."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#44",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "(A) A seventeen-year-old German boy named Erik Brandes stepped out onto the empty vast stage of the Cologne Opera House. It was the most exciting day of Erik’s life. (a) The youngest concert promoter in Germany had persuaded the Opera House to host a late-night concert of improvised jazz by the American pianist Keith Jarrett. The concert was a sellout, and later that evening, Keith would sit down at the piano and play. 8 (B) When Keith began to play, everybody immediately knew this was magic. Erik too was deeply touched. Keith was unexpectedly producing the performance of a lifetime despite the shortcomings of the piano. (b) His left hand produced thundering, repetitive bass riffs as a way of covering up the piano’s lack of resonance. Keith really had to play that piano very hard to get enough volume to get to the balconies. Standing up and sitting down, Keith played the unplayable piano to produce something unique. It wasn’t the music that he ever imagined playing. But faced with a challenge, he accepted it and flew high. (C) Understandably, Keith didn’t want to perform. He left and went to wait in his car, leaving Erik to anticipate the arrival of soon-to-be furious concert-goers. Desperate, (c) the German teenager caught up with Keith and begged the jazz pianist to play. The pianist looked out at him standing in the rain, completely soaked, and took pity on him. “Never forget,” Keith said. “Only for (d) you.” A few hours later, Keith walked out to the unplayable piano in front of a packed concert hall. (D) But when Erik introduced Keith and his producer Manfred to the piano on the stage that afternoon, it didn’t go well. Keith and Manfred played a few notes. Then after a long silence, Manfred came to (e) him and said, “Erik, if you don’t get another piano, Keith can’t play tonight.” Erik knew that Keith had requested a specific instrument, which the Opera House had agreed to provide. What he hadn’t realized was that the administrative staff hadn’t been able to find the requested Bösendorfer piano, and they had instead installed a tiny little Bösendorfer that was in poor condition."
+      },
+      "after": {
+        "passage": "(A) A seventeen-year-old German boy named Erik Brandes stepped out onto the empty vast stage of the Cologne Opera House. It was the most exciting day of Erik’s life. (a) The youngest concert promoter in Germany had persuaded the Opera House to host a late-night concert of improvised jazz by the American pianist Keith Jarrett. The concert was a sellout, and later that evening, Keith would sit down at the piano and play. (B) When Keith began to play, everybody immediately knew this was magic. Erik too was deeply touched. Keith was unexpectedly producing the performance of a lifetime despite the shortcomings of the piano. (b) His left hand produced thundering, repetitive bass riffs as a way of covering up the piano’s lack of resonance. Keith really had to play that piano very hard to get enough volume to get to the balconies. Standing up and sitting down, Keith played the unplayable piano to produce something unique. It wasn’t the music that he ever imagined playing. But faced with a challenge, he accepted it and flew high. (C) Understandably, Keith didn’t want to perform. He left and went to wait in his car, leaving Erik to anticipate the arrival of soon-to-be furious concert-goers. Desperate, (c) the German teenager caught up with Keith and begged the jazz pianist to play. The pianist looked out at him standing in the rain, completely soaked, and took pity on him. “Never forget,” Keith said. “Only for (d) you.” A few hours later, Keith walked out to the unplayable piano in front of a packed concert hall. (D) But when Erik introduced Keith and his producer Manfred to the piano on the stage that afternoon, it didn’t go well. Keith and Manfred played a few notes. Then after a long silence, Manfred came to (e) him and said, “Erik, if you don’t get another piano, Keith can’t play tonight.” Erik knew that Keith had requested a specific instrument, which the Opera House had agreed to provide. What he hadn’t realized was that the administrative staff hadn’t been able to find the requested Bösendorfer piano, and they had instead installed a tiny little Bösendorfer that was in poor condition."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2017#45",
+      "pdf_file": "2017_영어_짝.pdf",
+      "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+      "before": {
+        "passage": "(A) A seventeen-year-old German boy named Erik Brandes stepped out onto the empty vast stage of the Cologne Opera House. It was the most exciting day of Erik’s life. (a) The youngest concert promoter in Germany had persuaded the Opera House to host a late-night concert of improvised jazz by the American pianist Keith Jarrett. The concert was a sellout, and later that evening, Keith would sit down at the piano and play. 8 (B) When Keith began to play, everybody immediately knew this was magic. Erik too was deeply touched. Keith was unexpectedly producing the performance of a lifetime despite the shortcomings of the piano. (b) His left hand produced thundering, repetitive bass riffs as a way of covering up the piano’s lack of resonance. Keith really had to play that piano very hard to get enough volume to get to the balconies. Standing up and sitting down, Keith played the unplayable piano to produce something unique. It wasn’t the music that he ever imagined playing. But faced with a challenge, he accepted it and flew high. (C) Understandably, Keith didn’t want to perform. He left and went to wait in his car, leaving Erik to anticipate the arrival of soon-to-be furious concert-goers. Desperate, (c) the German teenager caught up with Keith and begged the jazz pianist to play. The pianist looked out at him standing in the rain, completely soaked, and took pity on him. “Never forget,” Keith said. “Only for (d) you.” A few hours later, Keith walked out to the unplayable piano in front of a packed concert hall. (D) But when Erik introduced Keith and his producer Manfred to the piano on the stage that afternoon, it didn’t go well. Keith and Manfred played a few notes. Then after a long silence, Manfred came to (e) him and said, “Erik, if you don’t get another piano, Keith can’t play tonight.” Erik knew that Keith had requested a specific instrument, which the Opera House had agreed to provide. What he hadn’t realized was that the administrative staff hadn’t been able to find the requested Bösendorfer piano, and they had instead installed a tiny little Bösendorfer that was in poor condition.",
+        "choices": [
+          "연주회의 표가 매진되었다 .",
+          "연주가 시작되자마자 관객들은 감동을 받았다 .",
+          "Keith 는 충분한 피아노 음량을 만들기 위해 노력했다 .",
+          "Keith 는 빗속에 서 있는 Erik 을 보고도 외면했다 .",
+          "Keith 와 Manfred 는 연주회장의 피아노를 쳐 보았다 ."
+        ]
+      },
+      "after": {
+        "passage": "(A) A seventeen-year-old German boy named Erik Brandes stepped out onto the empty vast stage of the Cologne Opera House. It was the most exciting day of Erik’s life. (a) The youngest concert promoter in Germany had persuaded the Opera House to host a late-night concert of improvised jazz by the American pianist Keith Jarrett. The concert was a sellout, and later that evening, Keith would sit down at the piano and play. (B) When Keith began to play, everybody immediately knew this was magic. Erik too was deeply touched. Keith was unexpectedly producing the performance of a lifetime despite the shortcomings of the piano. (b) His left hand produced thundering, repetitive bass riffs as a way of covering up the piano’s lack of resonance. Keith really had to play that piano very hard to get enough volume to get to the balconies. Standing up and sitting down, Keith played the unplayable piano to produce something unique. It wasn’t the music that he ever imagined playing. But faced with a challenge, he accepted it and flew high. (C) Understandably, Keith didn’t want to perform. He left and went to wait in his car, leaving Erik to anticipate the arrival of soon-to-be furious concert-goers. Desperate, (c) the German teenager caught up with Keith and begged the jazz pianist to play. The pianist looked out at him standing in the rain, completely soaked, and took pity on him. “Never forget,” Keith said. “Only for (d) you.” A few hours later, Keith walked out to the unplayable piano in front of a packed concert hall. (D) But when Erik introduced Keith and his producer Manfred to the piano on the stage that afternoon, it didn’t go well. Keith and Manfred played a few notes. Then after a long silence, Manfred came to (e) him and said, “Erik, if you don’t get another piano, Keith can’t play tonight.” Erik knew that Keith had requested a specific instrument, which the Opera House had agreed to provide. What he hadn’t realized was that the administrative staff hadn’t been able to find the requested Bösendorfer piano, and they had instead installed a tiny little Bösendorfer that was in poor condition.",
+        "choices": [
+          "연주회의 표가 매진되었다.",
+          "연주가 시작되자마자 관객들은 감동을 받았다.",
+          "Keith는 충분한 피아노 음량을 만들기 위해 노력했다.",
+          "Keith는 빗속에 서 있는 Erik을 보고도 외면했다.",
+          "Keith와 Manfred는 연주회장의 피아노를 쳐 보았다."
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2018#22",
+      "pdf_file": "2018_영어_짝.pdf",
+      "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+      "before": {
+        "choices": [
+          "necessity of consuming a varied diet in daily life",
+          "reasons for people’s rejection of unfamiliar foods",
+          "changes in people’s preference for basic food items",
+          "impact of food variety on the amount of food people consume",
+          "importance of maintaining food diversity to prevent overeating 3"
+        ]
+      },
+      "after": {
+        "choices": [
+          "necessity of consuming a varied diet in daily life",
+          "reasons for people’s rejection of unfamiliar foods",
+          "changes in people’s preference for basic food items",
+          "impact of food variety on the amount of food people consume",
+          "importance of maintaining food diversity to prevent overeating"
+        ]
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    },
+    {
+      "item_id": "2018#24",
+      "pdf_file": "2018_영어_짝.pdf",
+      "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+      "before": {
+        "passage": "The above graph shows the sales of four types of ethical produce in the UK in 2010 and 2015. ① In 2015, the sales of each of the four types of ethical produce showed an increase from the sales of its corresponding type in 2010. ② Among the four types of ethical produce, the sales of Organic ranked the highest in 2010 but ranked the second highest in 2015. ③ Among the four types of ethical produce, Rainforest Alliance recorded the second highest sales in 2010 and recorded the highest sales in 2015. ④ The sales of Fairtrade in 2015 were twice as high as those in 2010. ⑤ In both 2010 and 2015, the sales of Vegetarian meat alternatives were the lowest among the four types of ethical produce. 8 4"
+      },
+      "after": {
+        "passage": "The above graph shows the sales of four types of ethical produce in the UK in 2010 and 2015. ① In 2015, the sales of each of the four types of ethical produce showed an increase from the sales of its corresponding type in 2010. ② Among the four types of ethical produce, the sales of Organic ranked the highest in 2010 but ranked the second highest in 2015. ③ Among the four types of ethical produce, Rainforest Alliance recorded the second highest sales in 2010 and recorded the highest sales in 2015. ④ The sales of Fairtrade in 2015 were twice as high as those in 2010. ⑤ In both 2010 and 2015, the sales of Vegetarian meat alternatives were the lowest among the four types of ethical produce."
+      },
+      "note": "추출 잔여물 — 공식 문제지 대조"
+    }
+  ]
+}

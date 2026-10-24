@@ -1,0 +1,1465 @@
+{
+ "group": "S3",
+ "rows": [
+  {
+   "item_id": "2024#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2024#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2024#32",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2024#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2024#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 빈칸 표지 위치·요약표 잔여, DB 문장은 문제지와 일치"
+  },
+  {
+   "item_id": "2024#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2024#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2024#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2025#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2025#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2025#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2025#32",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2025#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2025#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 빈칸 표지 위치·요약표 잔여, DB 문장은 문제지와 일치"
+  },
+  {
+   "item_id": "2025#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2025#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2025#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2026#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2026#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2026#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2026#40",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 빈칸 표지 위치·요약표 잔여, DB 문장은 문제지와 일치"
+  },
+  {
+   "item_id": "2026#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2026#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "2026#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#24",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#28",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#32",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 빈칸 표지 위치·요약표 잔여, DB 문장은 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M1809#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#22",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#24",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#32",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 빈칸 표지 위치·요약표 잔여, DB 문장은 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2006#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#24",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#27",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#32",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 빈칸 표지 위치·요약표 잔여, DB 문장은 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2106#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  },
+  {
+   "item_id": "M2109#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "원장 쪽번호·띄어쓰기 잔여, DB 문장·선지는 문제지와 일치"
+  }
+ ],
+ "recipes": [
+  {
+   "item_id": "2024#24",
+   "pdf_file": "2024_영어영역_문제지.pdf",
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+   "before": {
+    "choices": [
+     "The Solutions to Overtourism: From Complex to Simple",
+     "What Makes Popular Destinations Attractive to Visitors?",
+     "Are Tourist Attractions Winners or Losers of Overtourism?",
+     "The Severity of Overtourism: Much Worse than Imagined",
+     "Overtourism: Not Simply a Matter of People and Places 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "The Solutions to Overtourism: From Complex to Simple",
+     "What Makes Popular Destinations Attractive to Visitors?",
+     "Are Tourist Attractions Winners or Losers of Overtourism?",
+     "The Severity of Overtourism: Much Worse than Imagined",
+     "Overtourism: Not Simply a Matter of People and Places"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2024#30",
+   "pdf_file": "2024_영어영역_문제지.pdf",
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+   "before": {
+    "passage": "Bazaar economies feature an apparently flexible price-setting mechanism that sits atop more enduring ties of shared culture. Both the buyer and seller are aware of each other’s ① restrictions. In Delhi’s bazaars, buyers and sellers can ② assess to a large extent the financial constraints that other actors have in their everyday life. Each actor belonging to a specific economic class understands what the other sees as a necessity and a luxury. In the case of electronic products like video games, they are not a ③ necessity at the same level as other household purchases such as food items. So, the seller in Delhi’s bazaars is careful not to directly ask for very ④ low prices for video games because at no point will the buyer see possession of them as an absolute necessity. Access to this type of knowledge establishes a price consensus by relating to each other’s preferences and limitations of belonging to a ⑤ similar cultural and economic universe. 5 5"
+   },
+   "after": {
+    "passage": "Bazaar economies feature an apparently flexible price-setting mechanism that sits atop more enduring ties of shared culture. Both the buyer and seller are aware of each other’s ① restrictions. In Delhi’s bazaars, buyers and sellers can ② assess to a large extent the financial constraints that other actors have in their everyday life. Each actor belonging to a specific economic class understands what the other sees as a necessity and a luxury. In the case of electronic products like video games, they are not a ③ necessity at the same level as other household purchases such as food items. So, the seller in Delhi’s bazaars is careful not to directly ask for very ④ low prices for video games because at no point will the buyer see possession of them as an absolute necessity. Access to this type of knowledge establishes a price consensus by relating to each other’s preferences and limitations of belonging to a ⑤ similar cultural and economic universe."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2024#32",
+   "pdf_file": "2024_영어영역_문제지.pdf",
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+   "before": {
+    "passage": "A musical score within any film can add an additional layer to the film text, which goes beyond simply imitating the action viewed. In films that tell of futuristic worlds, composers, much like sound designers, have added freedom to create a world that is unknown and new to the viewer. However, unlike sound designers, composers often shy away from creating unique pieces that reflect these new worlds and often present musical scores that possess familiar structures and cadences. While it is possible that this may interfere with creativity and a sense of space and time, it in fact ______ . Through recognizable scores, visions of the future or a galaxy far, far away can be placed within a recognizable context. Such familiarity allows the viewer to be placed in a comfortable space so that the film may then lead the viewer to what is an unfamiliar, but acceptable vision of a world different from their own.",
+    "choices": [
+     "frees the plot of its familiarity",
+     "aids in viewer access to the film",
+     "adds to an exotic musical experience",
+     "orients audiences to the film’s theme",
+     "inspires viewers to think more deeply 8"
+    ]
+   },
+   "after": {
+    "passage": "A musical score within any film can add an additional layer to the film text, which goes beyond simply imitating the action viewed. In films that tell of futuristic worlds, composers, much like sound designers, have added freedom to create a world that is unknown and new to the viewer. However, unlike sound designers, composers often shy away from creating unique pieces that reflect these new worlds and often present musical scores that possess familiar structures and cadences. While it is possible that this may interfere with creativity and a sense of space and time, it in fact ______. Through recognizable scores, visions of the future or a galaxy far, far away can be placed within a recognizable context. Such familiarity allows the viewer to be placed in a comfortable space so that the film may then lead the viewer to what is an unfamiliar, but acceptable vision of a world different from their own.",
+    "choices": [
+     "frees the plot of its familiarity",
+     "aids in viewer access to the film",
+     "adds to an exotic musical experience",
+     "orients audiences to the film’s theme",
+     "inspires viewers to think more deeply"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2024#38",
+   "pdf_file": "2024_영어영역_문제지.pdf",
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+   "before": {
+    "passage": "Yes, some contests are seen as world class, such as identification of the Higgs particle or the development of high temperature superconductors. Science is sometimes described as a winner-take-all contest, meaning that there are no rewards for being second or third. This is an extreme view of the nature of scientific contests. ( ①) Even those who describe scientific contests in such a way note that it is a somewhat inaccurate description, given that replication and verification have social value and are common in science. ( ②) It is also inaccurate to the extent that it suggests that only a handful of contests exist. ( ③) But many other contests have multiple parts, and the number of such contests may be increasing. ( ④ ) By way of example, for many years it was thought that there would be “one” cure for cancer, but it is now realized that cancer takes multiple forms and that multiple approaches are needed to provide a cure. ( ⑤) There won’t be one winner ― there will be many. 7 7"
+   },
+   "after": {
+    "passage": "Yes, some contests are seen as world class, such as identification of the Higgs particle or the development of high temperature superconductors. Science is sometimes described as a winner-take-all contest, meaning that there are no rewards for being second or third. This is an extreme view of the nature of scientific contests. ( ① ) Even those who describe scientific contests in such a way note that it is a somewhat inaccurate description, given that replication and verification have social value and are common in science. ( ② ) It is also inaccurate to the extent that it suggests that only a handful of contests exist. ( ③ ) But many other contests have multiple parts, and the number of such contests may be increasing. ( ④ ) By way of example, for many years it was thought that there would be “one” cure for cancer, but it is now realized that cancer takes multiple forms and that multiple approaches are needed to provide a cure. ( ⑤ ) There won’t be one winner ― there will be many."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2024#40",
+   "pdf_file": "2024_영어영역_문제지.pdf",
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+   "before": {
+    "passage": "Even those with average talent can produce notable work in the various sciences, so long as they do not try to embrace all of them at once. Instead, they should concentrate attention on one subject after another (that is, in different periods of time), although later work will weaken earlier attainments in the other spheres. This amounts to saying that the brain adapts to universal science in time but not in space. In fact, even those with great abilities proceed in this way. Thus, when we are astonished by someone with publications in different scientific fields, realize that each topic was explored during a specific period of time. Knowledge gained earlier certainly will not have disappeared from the mind of the author, but it will have become simplified by condensing into formulas or greatly abbreviated symbols. Thus, sufficient space remains for the perception and learning of new images on the cerebral blackboard. 󰀻 Exploring one scientific subject after another ______ (A) remarkable work across the sciences, as the previously gained knowledge is retained in simplified forms within the brain, which ______ (B) ______ room for new learning. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "enables …… leaves",
+     "challenges …… spares",
+     "delays …… creates",
+     "requires …… removes",
+     "invites …… diminishes 8"
+    ]
+   },
+   "after": {
+    "passage": "Even those with average talent can produce notable work in the various sciences, so long as they do not try to embrace all of them at once. Instead, they should concentrate attention on one subject after another (that is, in different periods of time), although later work will weaken earlier attainments in the other spheres. This amounts to saying that the brain adapts to universal science in time but not in space. In fact, even those with great abilities proceed in this way. Thus, when we are astonished by someone with publications in different scientific fields, realize that each topic was explored during a specific period of time. Knowledge gained earlier certainly will not have disappeared from the mind of the author, but it will have become simplified by condensing into formulas or greatly abbreviated symbols. Thus, sufficient space remains for the perception and learning of new images on the cerebral blackboard. Exploring one scientific subject after another (A) ______ remarkable work across the sciences, as the previously gained knowledge is retained in simplified forms within the brain, which (B) ______ room for new learning.",
+    "choices": [
+     "enables …… leaves",
+     "challenges …… spares",
+     "delays …… creates",
+     "requires …… removes",
+     "invites …… diminishes"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2024#43",
+   "pdf_file": "2024_영어영역_문제지.pdf",
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+   "before": {
+    "passage": "(A) Emma and Clara stood side by side on the beach road, with their eyes fixed on the boundless ocean. The breathtaking scene that surrounded them was beyond description. Just after sunrise, they finished their preparations for the bicycle ride along the beach road. Emma turned to Clara with a question, “Do you think this will be your favorite ride ever?” Clara’s face lit up with a bright smile as she nodded. “Definitely! (a) I can’t wait to ride while watching those beautiful waves!” 8 (B) When they reached their destination, Emma and Clara stopped their bikes. Emma approached Clara, saying “Bicycle riding is unlike swimming, isn’t it?” Clara answered with a smile, “Quite similar, actually. Just like swimming, riding makes me feel truly alive.” She added, “It shows (b) me what it means to live while facing life’s tough challenges.” Emma nodded in agreement and suggested, “Your first beach bike ride was a great success. How about coming back next summer?” Clara replied with delight, “With (c) you, absolutely!” (C) Clara used to be a talented swimmer, but she had to give up her dream of becoming an Olympic medalist in swimming because of shoulder injuries. Yet she responded to the hardship in a constructive way. After years of hard training, she made an incredible recovery and found a new passion for bike riding. Emma saw how the painful past made her maturer and how it made (d) her stronger in the end. One hour later, Clara, riding ahead of Emma, turned back and shouted, “Look at the white cliff!” (D) Emma and Clara jumped on their bikes and started to pedal toward the white cliff where the beach road ended. Speeding up and enjoying the wide blue sea, Emma couldn’t hide her excitement and exclaimed, “Clara, the view is amazing!” Clara’s silence, however, seemed to say that she was lost in her thoughts. Emma understood the meaning of her silence. Watching Clara riding beside her, Emma thought about Clara’s past tragedy, which (e) she now seemed to have overcome."
+   },
+   "after": {
+    "passage": "(A) Emma and Clara stood side by side on the beach road, with their eyes fixed on the boundless ocean. The breathtaking scene that surrounded them was beyond description. Just after sunrise, they finished their preparations for the bicycle ride along the beach road. Emma turned to Clara with a question, “Do you think this will be your favorite ride ever?” Clara’s face lit up with a bright smile as she nodded. “Definitely! (a) I can’t wait to ride while watching those beautiful waves!” (B) When they reached their destination, Emma and Clara stopped their bikes. Emma approached Clara, saying “Bicycle riding is unlike swimming, isn’t it?” Clara answered with a smile, “Quite similar, actually. Just like swimming, riding makes me feel truly alive.” She added, “It shows (b) me what it means to live while facing life’s tough challenges.” Emma nodded in agreement and suggested, “Your first beach bike ride was a great success. How about coming back next summer?” Clara replied with delight, “With (c) you, absolutely!” (C) Clara used to be a talented swimmer, but she had to give up her dream of becoming an Olympic medalist in swimming because of shoulder injuries. Yet she responded to the hardship in a constructive way. After years of hard training, she made an incredible recovery and found a new passion for bike riding. Emma saw how the painful past made her maturer and how it made (d) her stronger in the end. One hour later, Clara, riding ahead of Emma, turned back and shouted, “Look at the white cliff!” (D) Emma and Clara jumped on their bikes and started to pedal toward the white cliff where the beach road ended. Speeding up and enjoying the wide blue sea, Emma couldn’t hide her excitement and exclaimed, “Clara, the view is amazing!” Clara’s silence, however, seemed to say that she was lost in her thoughts. Emma understood the meaning of her silence. Watching Clara riding beside her, Emma thought about Clara’s past tragedy, which (e) she now seemed to have overcome."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2024#44",
+   "pdf_file": "2024_영어영역_문제지.pdf",
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+   "before": {
+    "passage": "(A) Emma and Clara stood side by side on the beach road, with their eyes fixed on the boundless ocean. The breathtaking scene that surrounded them was beyond description. Just after sunrise, they finished their preparations for the bicycle ride along the beach road. Emma turned to Clara with a question, “Do you think this will be your favorite ride ever?” Clara’s face lit up with a bright smile as she nodded. “Definitely! (a) I can’t wait to ride while watching those beautiful waves!” 8 (B) When they reached their destination, Emma and Clara stopped their bikes. Emma approached Clara, saying “Bicycle riding is unlike swimming, isn’t it?” Clara answered with a smile, “Quite similar, actually. Just like swimming, riding makes me feel truly alive.” She added, “It shows (b) me what it means to live while facing life’s tough challenges.” Emma nodded in agreement and suggested, “Your first beach bike ride was a great success. How about coming back next summer?” Clara replied with delight, “With (c) you, absolutely!” (C) Clara used to be a talented swimmer, but she had to give up her dream of becoming an Olympic medalist in swimming because of shoulder injuries. Yet she responded to the hardship in a constructive way. After years of hard training, she made an incredible recovery and found a new passion for bike riding. Emma saw how the painful past made her maturer and how it made (d) her stronger in the end. One hour later, Clara, riding ahead of Emma, turned back and shouted, “Look at the white cliff!” (D) Emma and Clara jumped on their bikes and started to pedal toward the white cliff where the beach road ended. Speeding up and enjoying the wide blue sea, Emma couldn’t hide her excitement and exclaimed, “Clara, the view is amazing!” Clara’s silence, however, seemed to say that she was lost in her thoughts. Emma understood the meaning of her silence. Watching Clara riding beside her, Emma thought about Clara’s past tragedy, which (e) she now seemed to have overcome."
+   },
+   "after": {
+    "passage": "(A) Emma and Clara stood side by side on the beach road, with their eyes fixed on the boundless ocean. The breathtaking scene that surrounded them was beyond description. Just after sunrise, they finished their preparations for the bicycle ride along the beach road. Emma turned to Clara with a question, “Do you think this will be your favorite ride ever?” Clara’s face lit up with a bright smile as she nodded. “Definitely! (a) I can’t wait to ride while watching those beautiful waves!” (B) When they reached their destination, Emma and Clara stopped their bikes. Emma approached Clara, saying “Bicycle riding is unlike swimming, isn’t it?” Clara answered with a smile, “Quite similar, actually. Just like swimming, riding makes me feel truly alive.” She added, “It shows (b) me what it means to live while facing life’s tough challenges.” Emma nodded in agreement and suggested, “Your first beach bike ride was a great success. How about coming back next summer?” Clara replied with delight, “With (c) you, absolutely!” (C) Clara used to be a talented swimmer, but she had to give up her dream of becoming an Olympic medalist in swimming because of shoulder injuries. Yet she responded to the hardship in a constructive way. After years of hard training, she made an incredible recovery and found a new passion for bike riding. Emma saw how the painful past made her maturer and how it made (d) her stronger in the end. One hour later, Clara, riding ahead of Emma, turned back and shouted, “Look at the white cliff!” (D) Emma and Clara jumped on their bikes and started to pedal toward the white cliff where the beach road ended. Speeding up and enjoying the wide blue sea, Emma couldn’t hide her excitement and exclaimed, “Clara, the view is amazing!” Clara’s silence, however, seemed to say that she was lost in her thoughts. Emma understood the meaning of her silence. Watching Clara riding beside her, Emma thought about Clara’s past tragedy, which (e) she now seemed to have overcome."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2024#45",
+   "pdf_file": "2024_영어영역_문제지.pdf",
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d",
+   "before": {
+    "passage": "(A) Emma and Clara stood side by side on the beach road, with their eyes fixed on the boundless ocean. The breathtaking scene that surrounded them was beyond description. Just after sunrise, they finished their preparations for the bicycle ride along the beach road. Emma turned to Clara with a question, “Do you think this will be your favorite ride ever?” Clara’s face lit up with a bright smile as she nodded. “Definitely! (a) I can’t wait to ride while watching those beautiful waves!” 8 (B) When they reached their destination, Emma and Clara stopped their bikes. Emma approached Clara, saying “Bicycle riding is unlike swimming, isn’t it?” Clara answered with a smile, “Quite similar, actually. Just like swimming, riding makes me feel truly alive.” She added, “It shows (b) me what it means to live while facing life’s tough challenges.” Emma nodded in agreement and suggested, “Your first beach bike ride was a great success. How about coming back next summer?” Clara replied with delight, “With (c) you, absolutely!” (C) Clara used to be a talented swimmer, but she had to give up her dream of becoming an Olympic medalist in swimming because of shoulder injuries. Yet she responded to the hardship in a constructive way. After years of hard training, she made an incredible recovery and found a new passion for bike riding. Emma saw how the painful past made her maturer and how it made (d) her stronger in the end. One hour later, Clara, riding ahead of Emma, turned back and shouted, “Look at the white cliff!” (D) Emma and Clara jumped on their bikes and started to pedal toward the white cliff where the beach road ended. Speeding up and enjoying the wide blue sea, Emma couldn’t hide her excitement and exclaimed, “Clara, the view is amazing!” Clara’s silence, however, seemed to say that she was lost in her thoughts. Emma understood the meaning of her silence. Watching Clara riding beside her, Emma thought about Clara’s past tragedy, which (e) she now seemed to have overcome.",
+    "choices": [
+     "Emma 와 Clara 는 자전거 탈 준비를 일출 직후에 마쳤다 .",
+     "Clara 는 자전거 타기와 수영이 꽤 비슷하다고 말했다 .",
+     "Clara 는 올림픽 수영 경기에서 메달을 땄다 .",
+     "Emma 와 Clara 는 자전거를 타고 하얀 절벽 쪽으로 갔다 .",
+     "Emma 는 Clara 의 침묵의 의미를 이해했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) Emma and Clara stood side by side on the beach road, with their eyes fixed on the boundless ocean. The breathtaking scene that surrounded them was beyond description. Just after sunrise, they finished their preparations for the bicycle ride along the beach road. Emma turned to Clara with a question, “Do you think this will be your favorite ride ever?” Clara’s face lit up with a bright smile as she nodded. “Definitely! (a) I can’t wait to ride while watching those beautiful waves!” (B) When they reached their destination, Emma and Clara stopped their bikes. Emma approached Clara, saying “Bicycle riding is unlike swimming, isn’t it?” Clara answered with a smile, “Quite similar, actually. Just like swimming, riding makes me feel truly alive.” She added, “It shows (b) me what it means to live while facing life’s tough challenges.” Emma nodded in agreement and suggested, “Your first beach bike ride was a great success. How about coming back next summer?” Clara replied with delight, “With (c) you, absolutely!” (C) Clara used to be a talented swimmer, but she had to give up her dream of becoming an Olympic medalist in swimming because of shoulder injuries. Yet she responded to the hardship in a constructive way. After years of hard training, she made an incredible recovery and found a new passion for bike riding. Emma saw how the painful past made her maturer and how it made (d) her stronger in the end. One hour later, Clara, riding ahead of Emma, turned back and shouted, “Look at the white cliff!” (D) Emma and Clara jumped on their bikes and started to pedal toward the white cliff where the beach road ended. Speeding up and enjoying the wide blue sea, Emma couldn’t hide her excitement and exclaimed, “Clara, the view is amazing!” Clara’s silence, however, seemed to say that she was lost in her thoughts. Emma understood the meaning of her silence. Watching Clara riding beside her, Emma thought about Clara’s past tragedy, which (e) she now seemed to have overcome.",
+    "choices": [
+     "Emma와 Clara는 자전거 탈 준비를 일출 직후에 마쳤다.",
+     "Clara는 자전거 타기와 수영이 꽤 비슷하다고 말했다.",
+     "Clara는 올림픽 수영 경기에서 메달을 땄다.",
+     "Emma와 Clara는 자전거를 타고 하얀 절벽 쪽으로 갔다.",
+     "Emma는 Clara의 침묵의 의미를 이해했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#22",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "choices": [
+     "감정 이해 능력은 집단 내 원활한 소통과 협력을 촉진한다 .",
+     "타인에 대한 공감 능력은 자신의 감정 표현 능력을 향상한다 .",
+     "자신의 감정 상태에 대한 이해는 사회성 함양에 필수적 요소이다 .",
+     "감정 관련 어휘에 대한 지식은 공감 능력 발달의 기반이 된다 .",
+     "집단 구성원 간 갈등 해소를 위해 감정 조절이 중요하다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "감정 이해 능력은 집단 내 원활한 소통과 협력을 촉진한다.",
+     "타인에 대한 공감 능력은 자신의 감정 표현 능력을 향상한다.",
+     "자신의 감정 상태에 대한 이해는 사회성 함양에 필수적 요소이다.",
+     "감정 관련 어휘에 대한 지식은 공감 능력 발달의 기반이 된다.",
+     "집단 구성원 간 갈등 해소를 위해 감정 조절이 중요하다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#24",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "choices": [
+     "Are Selfies Just a Temporary Trend in Art History?",
+     "Fantasy or Reality: Your Selfie Is Not the Real You",
+     "The Selfie: A Symbol of Self-oriented Global Culture",
+     "The End of Self-portraits: How Selfies Are Taking Over",
+     "Selfies, the Latest Innovation in Representing Ourselves 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "Are Selfies Just a Temporary Trend in Art History?",
+     "Fantasy or Reality: Your Selfie Is Not the Real You",
+     "The Selfie: A Symbol of Self-oriented Global Culture",
+     "The End of Self-portraits: How Selfies Are Taking Over",
+     "Selfies, the Latest Innovation in Representing Ourselves"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#30",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "passage": "Studies in psychology have reported cases in which competitive incentives resulted in lower task effort, and their focus was on the psychological underpinnings of the reduction in motivation. For example, competition presents an inevitable conflict between the motivation to achieve one’s personal goal and the ① desire to maintain good relationships with others. When the maintenance of interpersonal relationships is important, with their counterparts in particular or with others generally, competitors experience an ② internal conflict that can harm their desire to achieve their goal and taint the good feeling brought about by winning. Exline and Lobel found that the perception of oneself as a target for upward social comparison often makes people ③ uncomfortable. When they believe that others are making envious comparisons with them, people feel uneasiness, distress, or sorrow. Feelings of guilt, an emotion generally associated with high motivation for goal-achievement, lead to ④ stronger motivation and performance in the pursuit of competitive goals. Consequences of this emotional state include lower task motivation in a competition and preferences for more cooperative and altruistic outcomes, such as ⑤ diminishing the significance of the outcome or sharing the winner’s reward. 5 5"
+   },
+   "after": {
+    "passage": "Studies in psychology have reported cases in which competitive incentives resulted in lower task effort, and their focus was on the psychological underpinnings of the reduction in motivation. For example, competition presents an inevitable conflict between the motivation to achieve one’s personal goal and the ① desire to maintain good relationships with others. When the maintenance of interpersonal relationships is important, with their counterparts in particular or with others generally, competitors experience an ② internal conflict that can harm their desire to achieve their goal and taint the good feeling brought about by winning. Exline and Lobel found that the perception of oneself as a target for upward social comparison often makes people ③ uncomfortable. When they believe that others are making envious comparisons with them, people feel uneasiness, distress, or sorrow. Feelings of guilt, an emotion generally associated with high motivation for goal-achievement, lead to ④ stronger motivation and performance in the pursuit of competitive goals. Consequences of this emotional state include lower task motivation in a competition and preferences for more cooperative and altruistic outcomes, such as ⑤ diminishing the significance of the outcome or sharing the winner’s reward."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#32",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "passage": "Education, at its best, teaches more than just knowledge. It teaches critical thinking: the ability to stop and think before acting, to avoid succumbing to emotional pressures. This is not thought control. It is the very reverse: mental liberation. Even the most advanced intellectual will be imperfect at this skill. But even imperfect possession of it of being ‘stimulus-driven’, constantly reacting to the immediate ______ environment, the brightest colours or loudest sounds. Being driven by heuristic responses, living by instinct and emotion all the time, is a very easy way to live, in many ways: thought is effortful, especially for the inexperienced. But emotions are also exhausting, and short-term reactions may not, in the long term, be the most beneficial for health and survival. Just as we reach for burgers for the sake of convenience, storing up the arterial fat which may one day kill us, so our reliance on feelings can do us great harm.",
+    "choices": [
+     "allows us to accept the inevitability",
+     "frees a person from the burden",
+     "intensifies people’s danger",
+     "enhances our understanding",
+     "requires one to have the experience 8"
+    ]
+   },
+   "after": {
+    "passage": "Education, at its best, teaches more than just knowledge. It teaches critical thinking: the ability to stop and think before acting, to avoid succumbing to emotional pressures. This is not thought control. It is the very reverse: mental liberation. Even the most advanced intellectual will be imperfect at this skill. But even imperfect possession of it ______ of being ‘stimulus-driven’, constantly reacting to the immediate environment, the brightest colours or loudest sounds. Being driven by heuristic responses, living by instinct and emotion all the time, is a very easy way to live, in many ways: thought is effortful, especially for the inexperienced. But emotions are also exhausting, and short-term reactions may not, in the long term, be the most beneficial for health and survival. Just as we reach for burgers for the sake of convenience, storing up the arterial fat which may one day kill us, so our reliance on feelings can do us great harm.",
+    "choices": [
+     "allows us to accept the inevitability",
+     "frees a person from the burden",
+     "intensifies people’s danger",
+     "enhances our understanding",
+     "requires one to have the experience"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#38",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "passage": "Without any special legal protection for trade secrets, however, the secretive inventor risks that an employee or contractor will disclose the proprietary information. Trade secret law aims to promote innovation, although it accomplishes this objective in a very different manner than patent protection. ( ①) Notwithstanding the advantages of obtaining a patent, many innovators prefer to protect their innovation through secrecy. ( ②) They may believe that the cost and delay of seeking a patent are too great or that secrecy better protects their investment and increases their profit. ( ③) They might also believe that the invention can best be utilized over a longer period of time than a patent would allow. ( ④) Once the idea is released, it will be “free as the air” under the background norms of a free market economy. ( ⑤) Such a predicament would lead any inventor seeking to rely upon secrecy to spend an inordinate amount of resources building high and impassable fences around their research facilities and greatly limiting the number of people with access to the proprietary information. 7 7"
+   },
+   "after": {
+    "passage": "Without any special legal protection for trade secrets, however, the secretive inventor risks that an employee or contractor will disclose the proprietary information. Trade secret law aims to promote innovation, although it accomplishes this objective in a very different manner than patent protection. ( ① ) Notwithstanding the advantages of obtaining a patent, many innovators prefer to protect their innovation through secrecy. ( ② ) They may believe that the cost and delay of seeking a patent are too great or that secrecy better protects their investment and increases their profit. ( ③ ) They might also believe that the invention can best be utilized over a longer period of time than a patent would allow. ( ④ ) Once the idea is released, it will be “free as the air” under the background norms of a free market economy. ( ⑤ ) Such a predicament would lead any inventor seeking to rely upon secrecy to spend an inordinate amount of resources building high and impassable fences around their research facilities and greatly limiting the number of people with access to the proprietary information."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#40",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "passage": "People often assume that synthetic food ingredients are more harmful than natural ones, but this is not always the case. Typically, synthetic ingredients can be made in a precisely controlled fashion and have well-defined compositions and properties, allowing careful evaluation of their potential toxicity. On the other hand, natural ingredients often vary appreciably in their composition and properties depending on their origin, the time of year they were harvested, the climate they experienced throughout their lifetime, the soil quality, and how they were isolated and stored. These variations can make testing their safety extremely difficult ― one is never sure about the potential toxicity of minor components that may vary from time to time. In some cases, a natural food component has been consumed for hundreds or thousands of years without causing any obvious health problems and can, therefore, be assumed to be safe. However, one must still be very careful. 󰀻 The ______ (A) ______ of the production process for synthetic food ingredients and the variability of natural food ingredients may ______ (B) ______ people’s commonly held assumption that the natural ingredients are more secure. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "controllability …… challenge",
+     "predictability …… support",
+     "manageability …… intensify",
+     "affordability …… reverse",
+     "accessibility …… question 8"
+    ]
+   },
+   "after": {
+    "passage": "People often assume that synthetic food ingredients are more harmful than natural ones, but this is not always the case. Typically, synthetic ingredients can be made in a precisely controlled fashion and have well-defined compositions and properties, allowing careful evaluation of their potential toxicity. On the other hand, natural ingredients often vary appreciably in their composition and properties depending on their origin, the time of year they were harvested, the climate they experienced throughout their lifetime, the soil quality, and how they were isolated and stored. These variations can make testing their safety extremely difficult ― one is never sure about the potential toxicity of minor components that may vary from time to time. In some cases, a natural food component has been consumed for hundreds or thousands of years without causing any obvious health problems and can, therefore, be assumed to be safe. However, one must still be very careful. The (A) ______ of the production process for synthetic food ingredients and the variability of natural food ingredients may (B) ______ people’s commonly held assumption that the natural ingredients are more secure.",
+    "choices": [
+     "controllability …… challenge",
+     "predictability …… support",
+     "manageability …… intensify",
+     "affordability …… reverse",
+     "accessibility …… question"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#43",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "passage": "(A) “Do you remember when Sean used to tell me that I was the best dad in the world?” Ethan asked his wife, Grace. “Yes, I do. I always envied your relationship with Sean,” she replied. Ethan then shared how things had changed since (a) his son started middle school. Grace had noticed Ethan often pushing Sean to study harder. “Maybe he isn’t that into school right now. How about going hiking, just the two of you?” she suggested. He agreed, and realizing that both his and Sean’s hiking jackets were still at the laundry, he asked his wife to go and pick them up with him. 8 (B) Ethan and Grace came back home with the jackets and checked if Sean had everything else he needed for hiking. Luckily, in his drawers they found his hat, shoes, sunglasses, and hiking sticks. When Sean returned from school, Ethan softly said, “Sean, let’s go hiking this Saturday, just the two of us.” Though Sean thanked (b) him for the suggestion, he said he had to go to the library. Grace stepped in, “You know, the weather this weekend will be the best of the year. Why not enjoy it?” After a moment’s hesitation, (c) he agreed. (C) “When did you bring the jackets in?” the clerk at the laundry asked. “Maybe two weeks ago,” Ethan replied. Then, Grace quickly reminded (d) him, “Honey, we actually left them here a month ago.” The clerk went into the storage area to look for the clothes. Finally, he returned with the jackets and handed them to Ethan. The clerk politely said, “I am sorry, but please collect your items earlier next time. Our storage is too full.” Ethan felt embarrassed for the late collection and apologized. (D) The weather was perfect. Ethan and Sean set off hiking along the valley by Aicken Mountain. They walked in silence until Sean fell over a rock and twisted his ankle. Realizing he couldn’t walk, Ethan carried his son down on his back. He felt Sean’s heartbeat, something he hadn’t felt since Sean was a baby. Suddenly, Sean said, “Dad, I’m sorry. At some point, I started to become afraid of disappointing (e) you. But you are still the best dad.” Energized, he felt no weight on his back and replied, “You are the best son, no matter what.”"
+   },
+   "after": {
+    "passage": "(A) “Do you remember when Sean used to tell me that I was the best dad in the world?” Ethan asked his wife, Grace. “Yes, I do. I always envied your relationship with Sean,” she replied. Ethan then shared how things had changed since (a) his son started middle school. Grace had noticed Ethan often pushing Sean to study harder. “Maybe he isn’t that into school right now. How about going hiking, just the two of you?” she suggested. He agreed, and realizing that both his and Sean’s hiking jackets were still at the laundry, he asked his wife to go and pick them up with him. (B) Ethan and Grace came back home with the jackets and checked if Sean had everything else he needed for hiking. Luckily, in his drawers they found his hat, shoes, sunglasses, and hiking sticks. When Sean returned from school, Ethan softly said, “Sean, let’s go hiking this Saturday, just the two of us.” Though Sean thanked (b) him for the suggestion, he said he had to go to the library. Grace stepped in, “You know, the weather this weekend will be the best of the year. Why not enjoy it?” After a moment’s hesitation, (c) he agreed. (C) “When did you bring the jackets in?” the clerk at the laundry asked. “Maybe two weeks ago,” Ethan replied. Then, Grace quickly reminded (d) him, “Honey, we actually left them here a month ago.” The clerk went into the storage area to look for the clothes. Finally, he returned with the jackets and handed them to Ethan. The clerk politely said, “I am sorry, but please collect your items earlier next time. Our storage is too full.” Ethan felt embarrassed for the late collection and apologized. (D) The weather was perfect. Ethan and Sean set off hiking along the valley by Aicken Mountain. They walked in silence until Sean fell over a rock and twisted his ankle. Realizing he couldn’t walk, Ethan carried his son down on his back. He felt Sean’s heartbeat, something he hadn’t felt since Sean was a baby. Suddenly, Sean said, “Dad, I’m sorry. At some point, I started to become afraid of disappointing (e) you. But you are still the best dad.” Energized, he felt no weight on his back and replied, “You are the best son, no matter what.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#44",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "passage": "(A) “Do you remember when Sean used to tell me that I was the best dad in the world?” Ethan asked his wife, Grace. “Yes, I do. I always envied your relationship with Sean,” she replied. Ethan then shared how things had changed since (a) his son started middle school. Grace had noticed Ethan often pushing Sean to study harder. “Maybe he isn’t that into school right now. How about going hiking, just the two of you?” she suggested. He agreed, and realizing that both his and Sean’s hiking jackets were still at the laundry, he asked his wife to go and pick them up with him. 8 (B) Ethan and Grace came back home with the jackets and checked if Sean had everything else he needed for hiking. Luckily, in his drawers they found his hat, shoes, sunglasses, and hiking sticks. When Sean returned from school, Ethan softly said, “Sean, let’s go hiking this Saturday, just the two of us.” Though Sean thanked (b) him for the suggestion, he said he had to go to the library. Grace stepped in, “You know, the weather this weekend will be the best of the year. Why not enjoy it?” After a moment’s hesitation, (c) he agreed. (C) “When did you bring the jackets in?” the clerk at the laundry asked. “Maybe two weeks ago,” Ethan replied. Then, Grace quickly reminded (d) him, “Honey, we actually left them here a month ago.” The clerk went into the storage area to look for the clothes. Finally, he returned with the jackets and handed them to Ethan. The clerk politely said, “I am sorry, but please collect your items earlier next time. Our storage is too full.” Ethan felt embarrassed for the late collection and apologized. (D) The weather was perfect. Ethan and Sean set off hiking along the valley by Aicken Mountain. They walked in silence until Sean fell over a rock and twisted his ankle. Realizing he couldn’t walk, Ethan carried his son down on his back. He felt Sean’s heartbeat, something he hadn’t felt since Sean was a baby. Suddenly, Sean said, “Dad, I’m sorry. At some point, I started to become afraid of disappointing (e) you. But you are still the best dad.” Energized, he felt no weight on his back and replied, “You are the best son, no matter what.”"
+   },
+   "after": {
+    "passage": "(A) “Do you remember when Sean used to tell me that I was the best dad in the world?” Ethan asked his wife, Grace. “Yes, I do. I always envied your relationship with Sean,” she replied. Ethan then shared how things had changed since (a) his son started middle school. Grace had noticed Ethan often pushing Sean to study harder. “Maybe he isn’t that into school right now. How about going hiking, just the two of you?” she suggested. He agreed, and realizing that both his and Sean’s hiking jackets were still at the laundry, he asked his wife to go and pick them up with him. (B) Ethan and Grace came back home with the jackets and checked if Sean had everything else he needed for hiking. Luckily, in his drawers they found his hat, shoes, sunglasses, and hiking sticks. When Sean returned from school, Ethan softly said, “Sean, let’s go hiking this Saturday, just the two of us.” Though Sean thanked (b) him for the suggestion, he said he had to go to the library. Grace stepped in, “You know, the weather this weekend will be the best of the year. Why not enjoy it?” After a moment’s hesitation, (c) he agreed. (C) “When did you bring the jackets in?” the clerk at the laundry asked. “Maybe two weeks ago,” Ethan replied. Then, Grace quickly reminded (d) him, “Honey, we actually left them here a month ago.” The clerk went into the storage area to look for the clothes. Finally, he returned with the jackets and handed them to Ethan. The clerk politely said, “I am sorry, but please collect your items earlier next time. Our storage is too full.” Ethan felt embarrassed for the late collection and apologized. (D) The weather was perfect. Ethan and Sean set off hiking along the valley by Aicken Mountain. They walked in silence until Sean fell over a rock and twisted his ankle. Realizing he couldn’t walk, Ethan carried his son down on his back. He felt Sean’s heartbeat, something he hadn’t felt since Sean was a baby. Suddenly, Sean said, “Dad, I’m sorry. At some point, I started to become afraid of disappointing (e) you. But you are still the best dad.” Energized, he felt no weight on his back and replied, “You are the best son, no matter what.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2025#45",
+   "pdf_file": "2025_영어영역_문제지(짝수형).pdf",
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4",
+   "before": {
+    "passage": "(A) “Do you remember when Sean used to tell me that I was the best dad in the world?” Ethan asked his wife, Grace. “Yes, I do. I always envied your relationship with Sean,” she replied. Ethan then shared how things had changed since (a) his son started middle school. Grace had noticed Ethan often pushing Sean to study harder. “Maybe he isn’t that into school right now. How about going hiking, just the two of you?” she suggested. He agreed, and realizing that both his and Sean’s hiking jackets were still at the laundry, he asked his wife to go and pick them up with him. 8 (B) Ethan and Grace came back home with the jackets and checked if Sean had everything else he needed for hiking. Luckily, in his drawers they found his hat, shoes, sunglasses, and hiking sticks. When Sean returned from school, Ethan softly said, “Sean, let’s go hiking this Saturday, just the two of us.” Though Sean thanked (b) him for the suggestion, he said he had to go to the library. Grace stepped in, “You know, the weather this weekend will be the best of the year. Why not enjoy it?” After a moment’s hesitation, (c) he agreed. (C) “When did you bring the jackets in?” the clerk at the laundry asked. “Maybe two weeks ago,” Ethan replied. Then, Grace quickly reminded (d) him, “Honey, we actually left them here a month ago.” The clerk went into the storage area to look for the clothes. Finally, he returned with the jackets and handed them to Ethan. The clerk politely said, “I am sorry, but please collect your items earlier next time. Our storage is too full.” Ethan felt embarrassed for the late collection and apologized. (D) The weather was perfect. Ethan and Sean set off hiking along the valley by Aicken Mountain. They walked in silence until Sean fell over a rock and twisted his ankle. Realizing he couldn’t walk, Ethan carried his son down on his back. He felt Sean’s heartbeat, something he hadn’t felt since Sean was a baby. Suddenly, Sean said, “Dad, I’m sorry. At some point, I started to become afraid of disappointing (e) you. But you are still the best dad.” Energized, he felt no weight on his back and replied, “You are the best son, no matter what.”",
+    "choices": [
+     "Grace 는 Ethan 과 Sean 의 관계를 부러워했다고 말했다 .",
+     "Grace 는 Ethan 에게 Sean 과 둘이서 하이킹할 것을 권했다 .",
+     "Sean 의 선글라스가 서랍장 안에 있었다 .",
+     "Ethan 은 혼자서 세탁소에 하이킹 재킷을 찾으러 갔다 .",
+     "Sean 은 하이킹하는 도중 돌에 걸려 넘어졌다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) “Do you remember when Sean used to tell me that I was the best dad in the world?” Ethan asked his wife, Grace. “Yes, I do. I always envied your relationship with Sean,” she replied. Ethan then shared how things had changed since (a) his son started middle school. Grace had noticed Ethan often pushing Sean to study harder. “Maybe he isn’t that into school right now. How about going hiking, just the two of you?” she suggested. He agreed, and realizing that both his and Sean’s hiking jackets were still at the laundry, he asked his wife to go and pick them up with him. (B) Ethan and Grace came back home with the jackets and checked if Sean had everything else he needed for hiking. Luckily, in his drawers they found his hat, shoes, sunglasses, and hiking sticks. When Sean returned from school, Ethan softly said, “Sean, let’s go hiking this Saturday, just the two of us.” Though Sean thanked (b) him for the suggestion, he said he had to go to the library. Grace stepped in, “You know, the weather this weekend will be the best of the year. Why not enjoy it?” After a moment’s hesitation, (c) he agreed. (C) “When did you bring the jackets in?” the clerk at the laundry asked. “Maybe two weeks ago,” Ethan replied. Then, Grace quickly reminded (d) him, “Honey, we actually left them here a month ago.” The clerk went into the storage area to look for the clothes. Finally, he returned with the jackets and handed them to Ethan. The clerk politely said, “I am sorry, but please collect your items earlier next time. Our storage is too full.” Ethan felt embarrassed for the late collection and apologized. (D) The weather was perfect. Ethan and Sean set off hiking along the valley by Aicken Mountain. They walked in silence until Sean fell over a rock and twisted his ankle. Realizing he couldn’t walk, Ethan carried his son down on his back. He felt Sean’s heartbeat, something he hadn’t felt since Sean was a baby. Suddenly, Sean said, “Dad, I’m sorry. At some point, I started to become afraid of disappointing (e) you. But you are still the best dad.” Energized, he felt no weight on his back and replied, “You are the best son, no matter what.”",
+    "choices": [
+     "Grace는 Ethan과 Sean의 관계를 부러워했다고 말했다.",
+     "Grace는 Ethan에게 Sean과 둘이서 하이킹할 것을 권했다.",
+     "Sean의 선글라스가 서랍장 안에 있었다.",
+     "Ethan은 혼자서 세탁소에 하이킹 재킷을 찾으러 갔다.",
+     "Sean은 하이킹하는 도중 돌에 걸려 넘어졌다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2026#22",
+   "pdf_file": "2026_영어영역_문제지.pdf",
+   "pdf_sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+   "before": {
+    "choices": [
+     "스포츠 산업에서는 협력과 경쟁 사이의 균형 잡힌 접근이 요구된다 .",
+     "협력에 기반한 경쟁을 위해서 스포츠 정신 함양 교육이 필수적이다 .",
+     "스포츠에서는 성과를 중요시하기 때문에 협력을 과소평가하기 쉽다 .",
+     "스포츠 산업에서는 효율적 자원 활용을 위한 전략이 필요하다 .",
+     "스포츠 산업에서의 성취는 경쟁을 필연적으로 수반한다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "스포츠 산업에서는 협력과 경쟁 사이의 균형 잡힌 접근이 요구된다.",
+     "협력에 기반한 경쟁을 위해서 스포츠 정신 함양 교육이 필수적이다.",
+     "스포츠에서는 성과를 중요시하기 때문에 협력을 과소평가하기 쉽다.",
+     "스포츠 산업에서는 효율적 자원 활용을 위한 전략이 필요하다.",
+     "스포츠 산업에서의 성취는 경쟁을 필연적으로 수반한다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2026#30",
+   "pdf_file": "2026_영어영역_문제지.pdf",
+   "pdf_sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+   "before": {
+    "passage": "Situational ethics is an ethical theory that takes into account the context of a situation or an act when judging whether it is ethical. Supporters of this theory willingly permit casting aside ① absolute moral standards. In the absence of a universal standard or law, what matters is the outcome or consequences; so, the end ② justifies the means. Possibly the following contrasting realities can help illustrate the application of situational ethics. In a pickup game of basketball played among friends, everyone is expected to call his or her own fouls or acknowledge knocking the ball out-of-bounds. Caring about one’s friends and maybe getting to ③ keep playing with the group leads to these actions. But, once an organized game is played with officials, most athletes will not admit to the same fouls or violations as the end goal of winning is more important than expressing ④ concern for competitors. Situational ethics has been extended by many athletes and coaches to mean trying to get away with as many actions on the field or court as possible to ⑤ abandon competitive advantages. 5 5"
+   },
+   "after": {
+    "passage": "Situational ethics is an ethical theory that takes into account the context of a situation or an act when judging whether it is ethical. Supporters of this theory willingly permit casting aside ① absolute moral standards. In the absence of a universal standard or law, what matters is the outcome or consequences; so, the end ② justifies the means. Possibly the following contrasting realities can help illustrate the application of situational ethics. In a pickup game of basketball played among friends, everyone is expected to call his or her own fouls or acknowledge knocking the ball out-of-bounds. Caring about one’s friends and maybe getting to ③ keep playing with the group leads to these actions. But, once an organized game is played with officials, most athletes will not admit to the same fouls or violations as the end goal of winning is more important than expressing ④ concern for competitors. Situational ethics has been extended by many athletes and coaches to mean trying to get away with as many actions on the field or court as possible to ⑤ abandon competitive advantages."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2026#38",
+   "pdf_file": "2026_영어영역_문제지.pdf",
+   "pdf_sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+   "before": {
+    "passage": "Sometimes these internal narratives we form not only shape our beliefs and opinions but also become deeply rooted in our identity. While stories clearly dominate statistics from both memorability and persuasiveness perspectives, it’s rarely a battle between facts and anecdotes ― or even facts and other facts. The real clash is actually between stories: the predominant incumbent and a new challenger. ( ①) As storytelling creatures, we routinely form narratives to help us understand the world around us. ( ②) When we experience different events or encounter various facts, our minds seek to make sense of them by forming stories around them. ( ③) For example, if you have had some bad experiences with graduates from a particular university, you may create a negative narrative in your mind about people who went to that school. ( ④) Suddenly, you judge everyone from the university by what you’ve experienced on just a few unfortunate occasions. ( ⑤) For example, the narratives you have formed around gun control or climate change are most likely related with your political ideology ― who you are as an individual. 7 7"
+   },
+   "after": {
+    "passage": "Sometimes these internal narratives we form not only shape our beliefs and opinions but also become deeply rooted in our identity. While stories clearly dominate statistics from both memorability and persuasiveness perspectives, it’s rarely a battle between facts and anecdotes ― or even facts and other facts. The real clash is actually between stories: the predominant incumbent and a new challenger. ( ① ) As storytelling creatures, we routinely form narratives to help us understand the world around us. ( ② ) When we experience different events or encounter various facts, our minds seek to make sense of them by forming stories around them. ( ③ ) For example, if you have had some bad experiences with graduates from a particular university, you may create a negative narrative in your mind about people who went to that school. ( ④ ) Suddenly, you judge everyone from the university by what you’ve experienced on just a few unfortunate occasions. ( ⑤ ) For example, the narratives you have formed around gun control or climate change are most likely related with your political ideology ― who you are as an individual."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2026#40",
+   "pdf_file": "2026_영어영역_문제지.pdf",
+   "pdf_sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+   "before": {
+    "passage": "In modern societies, the performing arts form a distinct category of public entertainment in opposition to the mass distribution through the media of expertly staged performances which have been recorded and edited. By contrast, theater, ballet, circus, concert, rodeo, storytelling, etc., unfold their signs in real space and time, and engage audiences who respond cognitively and emotionally on the spot. Performers and audiences are involved in shared enjoyment. But sometimes frustration occurs within the boundaries of such ritualistic events. In industrialized and computerized cultures, the performing arts become economically unstable because the institutions which sustain them increasingly depend on public and corporate funding. However, they retain their power of fascination for large, if not massive audiences, who prize the experiential, risk-loaded and one-time event quality they afford. In traditional and local cultures, performances still survive and provide their audiences with a unique fulfillment in smaller scale, economically sustainable institutional settings. 󰀻 In a situation of financial (A) ______ due to reliance on external funding, the performing arts, which provide unique and live experiences, (B) ______ audiences who value those experiences. (A) ______ (B) ______ (A) ______ (B)"
+   },
+   "after": {
+    "passage": "In modern societies, the performing arts form a distinct category of public entertainment in opposition to the mass distribution through the media of expertly staged performances which have been recorded and edited. By contrast, theater, ballet, circus, concert, rodeo, storytelling, etc., unfold their signs in real space and time, and engage audiences who respond cognitively and emotionally on the spot. Performers and audiences are involved in shared enjoyment. But sometimes frustration occurs within the boundaries of such ritualistic events. In industrialized and computerized cultures, the performing arts become economically unstable because the institutions which sustain them increasingly depend on public and corporate funding. However, they retain their power of fascination for large, if not massive audiences, who prize the experiential, risk-loaded and one-time event quality they afford. In traditional and local cultures, performances still survive and provide their audiences with a unique fulfillment in smaller scale, economically sustainable institutional settings. In a situation of financial (A) ______ due to reliance on external funding, the performing arts, which provide unique and live experiences, (B) ______ audiences who value those experiences."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2026#43",
+   "pdf_file": "2026_영어영역_문제지.pdf",
+   "pdf_sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+   "before": {
+    "passage": "(A) “Mia, let’s go walk our dog!” Julia called out, but there was no answer. She checked her daughter’s room and found that Mia was absorbed in her smartphone, wearing her earbuds. Julia was concerned about her daughter. She turned to her husband, Sam. “Mia seems to live inside her phone, not with us.” Sam nodded, “I know. I feel like (a) she is growing distant from us. Why don’t we set up a family reading club?” Julia brightened at the suggestion, and Sam promised to talk with Mia about it. 8 (B) Mia’s family held their first book club meeting on Saturday afternoon. Everyone enjoyed the book Mia had chosen. Julia was the first to speak: “Dr. Duvall nearly invented a drug for eternal life, yet disappeared one day and ended up running Café Paris. That’s such a mystery.” Mia responded, her eyes sparkling, “Mom, I understand him. He always dreamed of being a barista, and his dream came true.” Sam supported (b) his daughter, and their conversation grew lively. During the discussion, Mia felt reconnected with her parents and already looked forward to their next book club meeting. (C) At the library, Mia scanned the shelves for nearly an hour, feeling lost among the endless titles. Then, a librarian approached and asked, “Looking for something in particular?” “I need a book for my family’s reading club,” Mia admitted. “What genre do you enjoy?” she asked kindly. “Hmm, I like mysteries,” Mia replied. The librarian handed her a book titled Café Paris and said with a smile, “You’ll love this one.” Mia thanked (c) her and checked it out. (D) When Sam suggested starting a family reading club, Mia immediately shook her head and said, “No, Dad. I don’t have time to read books. You know how busy (d) I am with exams all semester.” He didn’t give up. “But wouldn’t it be fun if we all read the same story and shared our thoughts? You could simply read for 20 minutes, maybe during your lunch break.” After some persuasion, Mia reluctantly agreed. Deep down, (e) she knew she was spending too much time on her phone. So she asked, “Dad, can I choose the first book?” Sam gladly said, “Yes.”"
+   },
+   "after": {
+    "passage": "(A) “Mia, let’s go walk our dog!” Julia called out, but there was no answer. She checked her daughter’s room and found that Mia was absorbed in her smartphone, wearing her earbuds. Julia was concerned about her daughter. She turned to her husband, Sam. “Mia seems to live inside her phone, not with us.” Sam nodded, “I know. I feel like (a) she is growing distant from us. Why don’t we set up a family reading club?” Julia brightened at the suggestion, and Sam promised to talk with Mia about it. (B) Mia’s family held their first book club meeting on Saturday afternoon. Everyone enjoyed the book Mia had chosen. Julia was the first to speak: “Dr. Duvall nearly invented a drug for eternal life, yet disappeared one day and ended up running Café Paris. That’s such a mystery.” Mia responded, her eyes sparkling, “Mom, I understand him. He always dreamed of being a barista, and his dream came true.” Sam supported (b) his daughter, and their conversation grew lively. During the discussion, Mia felt reconnected with her parents and already looked forward to their next book club meeting. (C) At the library, Mia scanned the shelves for nearly an hour, feeling lost among the endless titles. Then, a librarian approached and asked, “Looking for something in particular?” “I need a book for my family’s reading club,” Mia admitted. “What genre do you enjoy?” she asked kindly. “Hmm, I like mysteries,” Mia replied. The librarian handed her a book titled Café Paris and said with a smile, “You’ll love this one.” Mia thanked (c) her and checked it out. (D) When Sam suggested starting a family reading club, Mia immediately shook her head and said, “No, Dad. I don’t have time to read books. You know how busy (d) I am with exams all semester.” He didn’t give up. “But wouldn’t it be fun if we all read the same story and shared our thoughts? You could simply read for 20 minutes, maybe during your lunch break.” After some persuasion, Mia reluctantly agreed. Deep down, (e) she knew she was spending too much time on her phone. So she asked, “Dad, can I choose the first book?” Sam gladly said, “Yes.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2026#44",
+   "pdf_file": "2026_영어영역_문제지.pdf",
+   "pdf_sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+   "before": {
+    "passage": "(A) “Mia, let’s go walk our dog!” Julia called out, but there was no answer. She checked her daughter’s room and found that Mia was absorbed in her smartphone, wearing her earbuds. Julia was concerned about her daughter. She turned to her husband, Sam. “Mia seems to live inside her phone, not with us.” Sam nodded, “I know. I feel like (a) she is growing distant from us. Why don’t we set up a family reading club?” Julia brightened at the suggestion, and Sam promised to talk with Mia about it. 8 (B) Mia’s family held their first book club meeting on Saturday afternoon. Everyone enjoyed the book Mia had chosen. Julia was the first to speak: “Dr. Duvall nearly invented a drug for eternal life, yet disappeared one day and ended up running Café Paris. That’s such a mystery.” Mia responded, her eyes sparkling, “Mom, I understand him. He always dreamed of being a barista, and his dream came true.” Sam supported (b) his daughter, and their conversation grew lively. During the discussion, Mia felt reconnected with her parents and already looked forward to their next book club meeting. (C) At the library, Mia scanned the shelves for nearly an hour, feeling lost among the endless titles. Then, a librarian approached and asked, “Looking for something in particular?” “I need a book for my family’s reading club,” Mia admitted. “What genre do you enjoy?” she asked kindly. “Hmm, I like mysteries,” Mia replied. The librarian handed her a book titled Café Paris and said with a smile, “You’ll love this one.” Mia thanked (c) her and checked it out. (D) When Sam suggested starting a family reading club, Mia immediately shook her head and said, “No, Dad. I don’t have time to read books. You know how busy (d) I am with exams all semester.” He didn’t give up. “But wouldn’t it be fun if we all read the same story and shared our thoughts? You could simply read for 20 minutes, maybe during your lunch break.” After some persuasion, Mia reluctantly agreed. Deep down, (e) she knew she was spending too much time on her phone. So she asked, “Dad, can I choose the first book?” Sam gladly said, “Yes.”"
+   },
+   "after": {
+    "passage": "(A) “Mia, let’s go walk our dog!” Julia called out, but there was no answer. She checked her daughter’s room and found that Mia was absorbed in her smartphone, wearing her earbuds. Julia was concerned about her daughter. She turned to her husband, Sam. “Mia seems to live inside her phone, not with us.” Sam nodded, “I know. I feel like (a) she is growing distant from us. Why don’t we set up a family reading club?” Julia brightened at the suggestion, and Sam promised to talk with Mia about it. (B) Mia’s family held their first book club meeting on Saturday afternoon. Everyone enjoyed the book Mia had chosen. Julia was the first to speak: “Dr. Duvall nearly invented a drug for eternal life, yet disappeared one day and ended up running Café Paris. That’s such a mystery.” Mia responded, her eyes sparkling, “Mom, I understand him. He always dreamed of being a barista, and his dream came true.” Sam supported (b) his daughter, and their conversation grew lively. During the discussion, Mia felt reconnected with her parents and already looked forward to their next book club meeting. (C) At the library, Mia scanned the shelves for nearly an hour, feeling lost among the endless titles. Then, a librarian approached and asked, “Looking for something in particular?” “I need a book for my family’s reading club,” Mia admitted. “What genre do you enjoy?” she asked kindly. “Hmm, I like mysteries,” Mia replied. The librarian handed her a book titled Café Paris and said with a smile, “You’ll love this one.” Mia thanked (c) her and checked it out. (D) When Sam suggested starting a family reading club, Mia immediately shook her head and said, “No, Dad. I don’t have time to read books. You know how busy (d) I am with exams all semester.” He didn’t give up. “But wouldn’t it be fun if we all read the same story and shared our thoughts? You could simply read for 20 minutes, maybe during your lunch break.” After some persuasion, Mia reluctantly agreed. Deep down, (e) she knew she was spending too much time on her phone. So she asked, “Dad, can I choose the first book?” Sam gladly said, “Yes.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "2026#45",
+   "pdf_file": "2026_영어영역_문제지.pdf",
+   "pdf_sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a",
+   "before": {
+    "passage": "(A) “Mia, let’s go walk our dog!” Julia called out, but there was no answer. She checked her daughter’s room and found that Mia was absorbed in her smartphone, wearing her earbuds. Julia was concerned about her daughter. She turned to her husband, Sam. “Mia seems to live inside her phone, not with us.” Sam nodded, “I know. I feel like (a) she is growing distant from us. Why don’t we set up a family reading club?” Julia brightened at the suggestion, and Sam promised to talk with Mia about it. 8 (B) Mia’s family held their first book club meeting on Saturday afternoon. Everyone enjoyed the book Mia had chosen. Julia was the first to speak: “Dr. Duvall nearly invented a drug for eternal life, yet disappeared one day and ended up running Café Paris. That’s such a mystery.” Mia responded, her eyes sparkling, “Mom, I understand him. He always dreamed of being a barista, and his dream came true.” Sam supported (b) his daughter, and their conversation grew lively. During the discussion, Mia felt reconnected with her parents and already looked forward to their next book club meeting. (C) At the library, Mia scanned the shelves for nearly an hour, feeling lost among the endless titles. Then, a librarian approached and asked, “Looking for something in particular?” “I need a book for my family’s reading club,” Mia admitted. “What genre do you enjoy?” she asked kindly. “Hmm, I like mysteries,” Mia replied. The librarian handed her a book titled Café Paris and said with a smile, “You’ll love this one.” Mia thanked (c) her and checked it out. (D) When Sam suggested starting a family reading club, Mia immediately shook her head and said, “No, Dad. I don’t have time to read books. You know how busy (d) I am with exams all semester.” He didn’t give up. “But wouldn’t it be fun if we all read the same story and shared our thoughts? You could simply read for 20 minutes, maybe during your lunch break.” After some persuasion, Mia reluctantly agreed. Deep down, (e) she knew she was spending too much time on her phone. So she asked, “Dad, can I choose the first book?” Sam gladly said, “Yes.”",
+    "choices": [
+     "Julia 는 스마트폰에 빠져 있는 Mia 를 걱정했다 .",
+     "가족들은 Mia 가 선정한 책을 좋아했다 .",
+     "Mia 는 책장을 살펴보며 거의 한 시간을 보냈다 .",
+     "Mia 는 미스터리 장르를 좋아한다고 말했다 .",
+     "Mia 는 Sam 의 독서 모임 제안을 처음부터 환영했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) “Mia, let’s go walk our dog!” Julia called out, but there was no answer. She checked her daughter’s room and found that Mia was absorbed in her smartphone, wearing her earbuds. Julia was concerned about her daughter. She turned to her husband, Sam. “Mia seems to live inside her phone, not with us.” Sam nodded, “I know. I feel like (a) she is growing distant from us. Why don’t we set up a family reading club?” Julia brightened at the suggestion, and Sam promised to talk with Mia about it. (B) Mia’s family held their first book club meeting on Saturday afternoon. Everyone enjoyed the book Mia had chosen. Julia was the first to speak: “Dr. Duvall nearly invented a drug for eternal life, yet disappeared one day and ended up running Café Paris. That’s such a mystery.” Mia responded, her eyes sparkling, “Mom, I understand him. He always dreamed of being a barista, and his dream came true.” Sam supported (b) his daughter, and their conversation grew lively. During the discussion, Mia felt reconnected with her parents and already looked forward to their next book club meeting. (C) At the library, Mia scanned the shelves for nearly an hour, feeling lost among the endless titles. Then, a librarian approached and asked, “Looking for something in particular?” “I need a book for my family’s reading club,” Mia admitted. “What genre do you enjoy?” she asked kindly. “Hmm, I like mysteries,” Mia replied. The librarian handed her a book titled Café Paris and said with a smile, “You’ll love this one.” Mia thanked (c) her and checked it out. (D) When Sam suggested starting a family reading club, Mia immediately shook her head and said, “No, Dad. I don’t have time to read books. You know how busy (d) I am with exams all semester.” He didn’t give up. “But wouldn’t it be fun if we all read the same story and shared our thoughts? You could simply read for 20 minutes, maybe during your lunch break.” After some persuasion, Mia reluctantly agreed. Deep down, (e) she knew she was spending too much time on her phone. So she asked, “Dad, can I choose the first book?” Sam gladly said, “Yes.”",
+    "choices": [
+     "Julia는 스마트폰에 빠져 있는 Mia를 걱정했다.",
+     "가족들은 Mia가 선정한 책을 좋아했다.",
+     "Mia는 책장을 살펴보며 거의 한 시간을 보냈다.",
+     "Mia는 미스터리 장르를 좋아한다고 말했다.",
+     "Mia는 Sam의 독서 모임 제안을 처음부터 환영했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#22",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "choices": [
+     "disadvantages of experience in creative thinking",
+     "significance of analytical thinking in gaining insight",
+     "contribution of insight in forming a new perspective",
+     "necessity of separating insight from analytical thinking",
+     "difficulty of acquiring in-depth knowledge from experience 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "disadvantages of experience in creative thinking",
+     "significance of analytical thinking in gaining insight",
+     "contribution of insight in forming a new perspective",
+     "necessity of separating insight from analytical thinking",
+     "difficulty of acquiring in-depth knowledge from experience"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#24",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "passage": "The above graph shows the number of multipurpose industrial robots per 10,000 employees in 2011 for six selected countries. ① All of the six countries have more multipurpose industrial robots per 10,000 employees in automotive industries than in all other industries. ② Among the countries in the graph, Japan has the largest number of multipurpose industrial robots per 10,000 employees in automotive industries. ③ While the Republic of Korea has the smallest number ______ of multipurpose industrial robots per 10,000 employees in automotive industries, it has the largest number in all other industries. ④ Both the USA and ______ the United Kingdom have more than 600 units of multipurpose industrial robots per 10,000 employees in automotive industries but have fewer than 200 units in all other industries. ⑤ Among the six countries in the graph, Japan, Italy, and Germany are the top three countries for the number of multipurpose industrial robots per 10,000 employees in automotive industries. 8 4"
+   },
+   "after": {
+    "passage": "The above graph shows the number of multipurpose industrial robots per 10,000 employees in 2011 for six selected countries. ① All of the six countries have more multipurpose industrial robots per 10,000 employees in automotive industries than in all other industries. ② Among the countries in the graph, Japan has the largest number of multipurpose industrial robots per 10,000 employees in automotive industries. ③ While the Republic of Korea has the smallest number of multipurpose industrial robots per 10,000 employees in automotive industries, it has the largest number in all other industries. ④ Both the USA and the United Kingdom have more than 600 units of multipurpose industrial robots per 10,000 employees in automotive industries but have fewer than 200 units in all other industries. ⑤ Among the six countries in the graph, Japan, Italy, and Germany are the top three countries for the number of multipurpose industrial robots per 10,000 employees in automotive industries."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#28",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "passage": "The lack of real, direct experience in and with nature has caused many children to regard the natural world as mere abstraction, that fantastic, beautifully filmed place ① filled with endangered rainforests and polar bears in peril. This overstated, often fictionalized version of nature is no more real ― and yet no less real ― to them than the everyday nature right outside their doors, ② waits to be discovered in a child’s way, at a child’s pace. Consider the University of Cambridge study which found that a group of eight-year-old children was able to identify ③ substantially more characters from animations than common wildlife species. One wonders whether our children’s inherent capacity to recognize, classify, and order information about their environment ― abilities once essential to our very survival ― is slowly devolving to facilitate life in ④ their increasingly virtualized world. It’s all part of ⑤ what Robert Pyle first called “the extinction of experience.” 8"
+   },
+   "after": {
+    "passage": "The lack of real, direct experience in and with nature has caused many children to regard the natural world as mere abstraction, that fantastic, beautifully filmed place ① filled with endangered rainforests and polar bears in peril. This overstated, often fictionalized version of nature is no more real ― and yet no less real ― to them than the everyday nature right outside their doors, ② waits to be discovered in a child’s way, at a child’s pace. Consider the University of Cambridge study which found that a group of eight-year-old children was able to identify ③ substantially more characters from animations than common wildlife species. One wonders whether our children’s inherent capacity to recognize, classify, and order information about their environment ― abilities once essential to our very survival ― is slowly devolving to facilitate life in ④ their increasingly virtualized world. It’s all part of ⑤ what Robert Pyle first called “the extinction of experience.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#30",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "passage": "Most of us probably parent the way we were parented. Louise, a mother who attended my seminars, shared how ① her mother dealt with sibling fighting. Louise said her mother’s infamous threat was always, “If you kids don’t stop fighting, ② I’m going to knock your three heads together!” Louise and her siblings were always puzzled about the specifics of how their mother would actually accomplish such a task, which, thankfully, ③ she never attempted. But what drove her mother to make this empty threat? Extreme annoyance with the sibling arguments, probably. No doubt, Louise’s mother had learned this threatening tactic from ④ her own mother, and, in the absence of any other parenting tools she knew of, she said it to her own children, regardless of whether it worked. If Louise had not learned the effective parenting skills taught in the seminars, ⑤ she would probably be using similarly ineffective threatening techniques with her own children today! 5 5"
+   },
+   "after": {
+    "passage": "Most of us probably parent the way we were parented. Louise, a mother who attended my seminars, shared how ① her mother dealt with sibling fighting. Louise said her mother’s infamous threat was always, “If you kids don’t stop fighting, ② I’m going to knock your three heads together!” Louise and her siblings were always puzzled about the specifics of how their mother would actually accomplish such a task, which, thankfully, ③ she never attempted. But what drove her mother to make this empty threat? Extreme annoyance with the sibling arguments, probably. No doubt, Louise’s mother had learned this threatening tactic from ④ her own mother, and, in the absence of any other parenting tools she knew of, she said it to her own children, regardless of whether it worked. If Louise had not learned the effective parenting skills taught in the seminars, ⑤ she would probably be using similarly ineffective threatening techniques with her own children today!"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#32",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "choices": [
+     "desire to make better choices",
+     "point of view similar to that of others",
+     "personal preference on where to shop",
+     "particular take on what is happening",
+     "tendency to stick to traditions 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "desire to make better choices",
+     "point of view similar to that of others",
+     "personal preference on where to shop",
+     "particular take on what is happening",
+     "tendency to stick to traditions"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#38",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "passage": "But the examination of the accuracy of information obtained in this manner is not a simple matter. The one area in which the Internet could be considered an aid to thinking is the rapid acquisition of new information. ( ①) But this is more fictional than real. ( ②) Yes, the simple act of typing a few words into a search engine will virtually instantaneously produce links related to the topic at hand. ( ③ ) What one often gets is no more than abstract summaries of lengthy articles. ( ④) As a consequence, I suspect that the number of downloads of any given scientific paper has little relevance to the number of times the entire article has been read from beginning to end. ( ⑤) My advice is that if you want to do some serious thinking, then you’d better disconnect the Internet, phone, and television set and try spending twenty-four hours in absolute solitude. 7 7"
+   },
+   "after": {
+    "passage": "But the examination of the accuracy of information obtained in this manner is not a simple matter. The one area in which the Internet could be considered an aid to thinking is the rapid acquisition of new information. ( ① ) But this is more fictional than real. ( ② ) Yes, the simple act of typing a few words into a search engine will virtually instantaneously produce links related to the topic at hand. ( ③ ) What one often gets is no more than abstract summaries of lengthy articles. ( ④ ) As a consequence, I suspect that the number of downloads of any given scientific paper has little relevance to the number of times the entire article has been read from beginning to end. ( ⑤ ) My advice is that if you want to do some serious thinking, then you’d better disconnect the Internet, phone, and television set and try spending twenty-four hours in absolute solitude."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#40",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "passage": "The weakness of local networks lies in their self-containment, for they lack input as well as outreach. In a classic study of urban politics, Herbert Gans found that neighborhoods with the highest levels of solidarity often were unable to block unfavorable policies and programs for lack of ties to possible allies elsewhere in the city. It was for this reason that Gans referred to them as “urban villagers.” As the opposite of local networks, cosmopolitan networks offer little solidarity and have little capacity to comfort and sustain members. But members benefit from a constant flow of new information and from the great reach of their influence, even if it tends to be somewhat lacking in strength. Local networks tend to be small. In contrast, cosmopolitan networks can be huge. Thus, while the “urban villagers” lacked ties even to their local city government, cosmopolitan network ties often lead into the White House. 󰀻 Unlike the “urban villagers,” whose ______ (A) ______ ties to the outside restrict them within their boundaries, cosmopolitan networks ______ (B) ______ from exposure to new information and a more extensive range of relationships. (A) ______ (B)",
+    "choices": [
+     "loose …… profit",
+     "loose …… stem",
+     "loose …… withdraw",
+     "close …… profit",
+     "close …… stem 8"
+    ]
+   },
+   "after": {
+    "passage": "The weakness of local networks lies in their self-containment, for they lack input as well as outreach. In a classic study of urban politics, Herbert Gans found that neighborhoods with the highest levels of solidarity often were unable to block unfavorable policies and programs for lack of ties to possible allies elsewhere in the city. It was for this reason that Gans referred to them as “urban villagers.” As the opposite of local networks, cosmopolitan networks offer little solidarity and have little capacity to comfort and sustain members. But members benefit from a constant flow of new information and from the great reach of their influence, even if it tends to be somewhat lacking in strength. Local networks tend to be small. In contrast, cosmopolitan networks can be huge. Thus, while the “urban villagers” lacked ties even to their local city government, cosmopolitan network ties often lead into the White House. Unlike the “urban villagers,” whose (A) ______ ties to the outside restrict them within their boundaries, cosmopolitan networks (B) ______ from exposure to new information and a more extensive range of relationships.",
+    "choices": [
+     "loose …… profit",
+     "loose …… stem",
+     "loose …… withdraw",
+     "close …… profit",
+     "close …… stem"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#43",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "passage": "(A) An important lesson to remember is that we should try to see the positives in life even while we are stuck in the middle of trouble. Riccardo, who was named after his father, an immigrant from Mexico, learned this lesson at a young age. Although the family called him Ricky, his father had his own nickname for him: Good-for-Nothing. Why did the elder Riccardo call (a) him that? Because Ricky hated fishing. 8 (B) The nation came to know Ricky as the most complete player of his generation, and he was voted into the Hall of Fame. And his father, the elder Riccardo, what did he think about it? Though he had wanted all of his sons to join the family business, he was finally proud of Ricky and respected his accomplishments. Ricky held onto hope in one of the most difficult moments ______ of (b) his life and achieved greatness. (C) Since these jobs were not fishing, his father saw no value in them. Young Ricky hated fishing. Everything would be fine if it were not fishing, he thought to himself. Soon, Ricky began to follow his older brother who used to play sandlot ball. For Ricky, playing baseball with (c) him was a way to forget his hardship. Fortunately, Ricky was very good at it, and was treated like a hero among his playmates. When Ricky was sixteen, he decided to drop out of school to become a baseball player. And by the time he was through with baseball, (d) he had become a legend. (D) His father saw this very negatively, because he was a fisherman. He loved the fishing business. So did all of his sons, except for Good-for-Nothing Ricky. The boy did not like being on the boat, and the smell of fish made him sick. Instead, Ricky ― who was not afraid of hard work ― delivered newspapers, shined shoes, worked in the office, and even repaired nets. (e) His income went to the family. Even so, his father was strongly dissatisfied with him and still always said that he was good for nothing."
+   },
+   "after": {
+    "passage": "(A) An important lesson to remember is that we should try to see the positives in life even while we are stuck in the middle of trouble. Riccardo, who was named after his father, an immigrant from Mexico, learned this lesson at a young age. Although the family called him Ricky, his father had his own nickname for him: Good-for-Nothing. Why did the elder Riccardo call (a) him that? Because Ricky hated fishing. (B) The nation came to know Ricky as the most complete player of his generation, and he was voted into the Hall of Fame. And his father, the elder Riccardo, what did he think about it? Though he had wanted all of his sons to join the family business, he was finally proud of Ricky and respected his accomplishments. Ricky held onto hope in one of the most difficult moments of (b) his life and achieved greatness. (C) Since these jobs were not fishing, his father saw no value in them. Young Ricky hated fishing. Everything would be fine if it were not fishing, he thought to himself. Soon, Ricky began to follow his older brother who used to play sandlot ball. For Ricky, playing baseball with (c) him was a way to forget his hardship. Fortunately, Ricky was very good at it, and was treated like a hero among his playmates. When Ricky was sixteen, he decided to drop out of school to become a baseball player. And by the time he was through with baseball, (d) he had become a legend. (D) His father saw this very negatively, because he was a fisherman. He loved the fishing business. So did all of his sons, except for Good-for-Nothing Ricky. The boy did not like being on the boat, and the smell of fish made him sick. Instead, Ricky ― who was not afraid of hard work ― delivered newspapers, shined shoes, worked in the office, and even repaired nets. (e) His income went to the family. Even so, his father was strongly dissatisfied with him and still always said that he was good for nothing."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#44",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "passage": "(A) An important lesson to remember is that we should try to see the positives in life even while we are stuck in the middle of trouble. Riccardo, who was named after his father, an immigrant from Mexico, learned this lesson at a young age. Although the family called him Ricky, his father had his own nickname for him: Good-for-Nothing. Why did the elder Riccardo call (a) him that? Because Ricky hated fishing. 8 (B) The nation came to know Ricky as the most complete player of his generation, and he was voted into the Hall of Fame. And his father, the elder Riccardo, what did he think about it? Though he had wanted all of his sons to join the family business, he was finally proud of Ricky and respected his accomplishments. Ricky held onto hope in one of the most difficult moments ______ of (b) his life and achieved greatness. (C) Since these jobs were not fishing, his father saw no value in them. Young Ricky hated fishing. Everything would be fine if it were not fishing, he thought to himself. Soon, Ricky began to follow his older brother who used to play sandlot ball. For Ricky, playing baseball with (c) him was a way to forget his hardship. Fortunately, Ricky was very good at it, and was treated like a hero among his playmates. When Ricky was sixteen, he decided to drop out of school to become a baseball player. And by the time he was through with baseball, (d) he had become a legend. (D) His father saw this very negatively, because he was a fisherman. He loved the fishing business. So did all of his sons, except for Good-for-Nothing Ricky. The boy did not like being on the boat, and the smell of fish made him sick. Instead, Ricky ― who was not afraid of hard work ― delivered newspapers, shined shoes, worked in the office, and even repaired nets. (e) His income went to the family. Even so, his father was strongly dissatisfied with him and still always said that he was good for nothing."
+   },
+   "after": {
+    "passage": "(A) An important lesson to remember is that we should try to see the positives in life even while we are stuck in the middle of trouble. Riccardo, who was named after his father, an immigrant from Mexico, learned this lesson at a young age. Although the family called him Ricky, his father had his own nickname for him: Good-for-Nothing. Why did the elder Riccardo call (a) him that? Because Ricky hated fishing. (B) The nation came to know Ricky as the most complete player of his generation, and he was voted into the Hall of Fame. And his father, the elder Riccardo, what did he think about it? Though he had wanted all of his sons to join the family business, he was finally proud of Ricky and respected his accomplishments. Ricky held onto hope in one of the most difficult moments of (b) his life and achieved greatness. (C) Since these jobs were not fishing, his father saw no value in them. Young Ricky hated fishing. Everything would be fine if it were not fishing, he thought to himself. Soon, Ricky began to follow his older brother who used to play sandlot ball. For Ricky, playing baseball with (c) him was a way to forget his hardship. Fortunately, Ricky was very good at it, and was treated like a hero among his playmates. When Ricky was sixteen, he decided to drop out of school to become a baseball player. And by the time he was through with baseball, (d) he had become a legend. (D) His father saw this very negatively, because he was a fisherman. He loved the fishing business. So did all of his sons, except for Good-for-Nothing Ricky. The boy did not like being on the boat, and the smell of fish made him sick. Instead, Ricky ― who was not afraid of hard work ― delivered newspapers, shined shoes, worked in the office, and even repaired nets. (e) His income went to the family. Even so, his father was strongly dissatisfied with him and still always said that he was good for nothing."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M1809#45",
+   "pdf_file": "201809_영어영역_문제지.pdf",
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95",
+   "before": {
+    "passage": "(A) An important lesson to remember is that we should try to see the positives in life even while we are stuck in the middle of trouble. Riccardo, who was named after his father, an immigrant from Mexico, learned this lesson at a young age. Although the family called him Ricky, his father had his own nickname for him: Good-for-Nothing. Why did the elder Riccardo call (a) him that? Because Ricky hated fishing. 8 (B) The nation came to know Ricky as the most complete player of his generation, and he was voted into the Hall of Fame. And his father, the elder Riccardo, what did he think about it? Though he had wanted all of his sons to join the family business, he was finally proud of Ricky and respected his accomplishments. Ricky held onto hope in one of the most difficult moments ______ of (b) his life and achieved greatness. (C) Since these jobs were not fishing, his father saw no value in them. Young Ricky hated fishing. Everything would be fine if it were not fishing, he thought to himself. Soon, Ricky began to follow his older brother who used to play sandlot ball. For Ricky, playing baseball with (c) him was a way to forget his hardship. Fortunately, Ricky was very good at it, and was treated like a hero among his playmates. When Ricky was sixteen, he decided to drop out of school to become a baseball player. And by the time he was through with baseball, (d) he had become a legend. (D) His father saw this very negatively, because he was a fisherman. He loved the fishing business. So did all of his sons, except for Good-for-Nothing Ricky. The boy did not like being on the boat, and the smell of fish made him sick. Instead, Ricky ― who was not afraid of hard work ― delivered newspapers, shined shoes, worked in the office, and even repaired nets. (e) His income went to the family. Even so, his father was strongly dissatisfied with him and still always said that he was good for nothing.",
+    "choices": [
+     "아버지의 이름을 따서 Riccardo 라고 이름 지어졌다 .",
+     "야구 선수로 성공했지만 아버지가 자랑스러워하지 않았다 .",
+     "야구 선수가 되기 위해 학교를 그만두기로 결심했다 .",
+     "아버지의 직업이 어부였다 .",
+     "힘든 일을 두려워하지 않았다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) An important lesson to remember is that we should try to see the positives in life even while we are stuck in the middle of trouble. Riccardo, who was named after his father, an immigrant from Mexico, learned this lesson at a young age. Although the family called him Ricky, his father had his own nickname for him: Good-for-Nothing. Why did the elder Riccardo call (a) him that? Because Ricky hated fishing. (B) The nation came to know Ricky as the most complete player of his generation, and he was voted into the Hall of Fame. And his father, the elder Riccardo, what did he think about it? Though he had wanted all of his sons to join the family business, he was finally proud of Ricky and respected his accomplishments. Ricky held onto hope in one of the most difficult moments of (b) his life and achieved greatness. (C) Since these jobs were not fishing, his father saw no value in them. Young Ricky hated fishing. Everything would be fine if it were not fishing, he thought to himself. Soon, Ricky began to follow his older brother who used to play sandlot ball. For Ricky, playing baseball with (c) him was a way to forget his hardship. Fortunately, Ricky was very good at it, and was treated like a hero among his playmates. When Ricky was sixteen, he decided to drop out of school to become a baseball player. And by the time he was through with baseball, (d) he had become a legend. (D) His father saw this very negatively, because he was a fisherman. He loved the fishing business. So did all of his sons, except for Good-for-Nothing Ricky. The boy did not like being on the boat, and the smell of fish made him sick. Instead, Ricky ― who was not afraid of hard work ― delivered newspapers, shined shoes, worked in the office, and even repaired nets. (e) His income went to the family. Even so, his father was strongly dissatisfied with him and still always said that he was good for nothing.",
+    "choices": [
+     "아버지의 이름을 따서 Riccardo라고 이름 지어졌다.",
+     "야구 선수로 성공했지만 아버지가 자랑스러워하지 않았다.",
+     "야구 선수가 되기 위해 학교를 그만두기로 결심했다.",
+     "아버지의 직업이 어부였다.",
+     "힘든 일을 두려워하지 않았다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#22",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "passage": "The twenty-first century is the age of information and knowledge. It is a century that is characterized by knowledge as the important resource that gains competitive advantage for companies. To acquire all these knowledge and information, organizations must rely on the data that they store. Data, the basic element, is gathered daily from different input sources. Information is extracted or learned from these sources of data, and this captured information is then transformed into knowledge that is eventually used to trigger actions or decisions. By and large, organizations do not have any problem of not having enough data because most organizations are rich with data. The problem however is that many ______ organizations are poor in information and knowledge. This fact translates into one of the biggest challenges faced by organizations: how to transform raw data into information and eventually into knowledge, which if exploited correctly provides the capabilities to predict customers’ behaviour and business trends.",
+    "choices": [
+     "고객의 특성은 기업의 데이터 처리 과정에서 주요 고려 사항이다 .",
+     "성공하는 기업은 사실에 기반한 판단을 통해 위기를 극복한다 .",
+     "기업 경쟁력은 데이터를 정보와 지식으로 변환하는 능력에서 나온다 .",
+     "지식 정보화 시대에는 기초 데이터 확보의 중요성이 커지고 있다 .",
+     "데이터의 가치는 그것이 가지는 잠재적 수익성에 의해 결정된다 . 3"
+    ]
+   },
+   "after": {
+    "passage": "The twenty-first century is the age of information and knowledge. It is a century that is characterized by knowledge as the important resource that gains competitive advantage for companies. To acquire all these knowledge and information, organizations must rely on the data that they store. Data, the basic element, is gathered daily from different input sources. Information is extracted or learned from these sources of data, and this captured information is then transformed into knowledge that is eventually used to trigger actions or decisions. By and large, organizations do not have any problem of not having enough data because most organizations are rich with data. The problem however is that many organizations are poor in information and knowledge. This fact translates into one of the biggest challenges faced by organizations: how to transform raw data into information and eventually into knowledge, which if exploited correctly provides the capabilities to predict customers’ behaviour and business trends.",
+    "choices": [
+     "고객의 특성은 기업의 데이터 처리 과정에서 주요 고려 사항이다.",
+     "성공하는 기업은 사실에 기반한 판단을 통해 위기를 극복한다.",
+     "기업 경쟁력은 데이터를 정보와 지식으로 변환하는 능력에서 나온다.",
+     "지식 정보화 시대에는 기초 데이터 확보의 중요성이 커지고 있다.",
+     "데이터의 가치는 그것이 가지는 잠재적 수익성에 의해 결정된다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#24",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "passage": "Racial and ethnic relations in the United States are better today than in the past, but many changes are needed before sports are a model of inclusion and fairness. The challenges today are different from the ones faced twenty years ago, and experience shows that when current challenges are met, a new social situation is created in which new challenges emerge. For example, once racial and ethnic segregation is eliminated and people come together, they must learn to live, work, and play with each other despite diverse experiences and cultural perspectives. Meeting this challenge requires a commitment to equal treatment, plus learning about the perspectives of others, understanding how they define and give meaning to the world, and then determining how to form and maintain relationships while respecting differences, making compromises, ______ and supporting one another in the pursuit of goals that may not always be shared. None of this is easy, and challenges are never met once and for all time.",
+    "choices": [
+     "On-going Challenges in Sports: Racial and Ethnic Issues",
+     "Racial and Ethnic Injustice in Sports: Cause and Effect",
+     "The History of Racial and Ethnic Diversity in Sports",
+     "All for One, One for All: The Power of Team Sports",
+     "Cooperation Lies at the Heart of Sportsmanship 8"
+    ]
+   },
+   "after": {
+    "passage": "Racial and ethnic relations in the United States are better today than in the past, but many changes are needed before sports are a model of inclusion and fairness. The challenges today are different from the ones faced twenty years ago, and experience shows that when current challenges are met, a new social situation is created in which new challenges emerge. For example, once racial and ethnic segregation is eliminated and people come together, they must learn to live, work, and play with each other despite diverse experiences and cultural perspectives. Meeting this challenge requires a commitment to equal treatment, plus learning about the perspectives of others, understanding how they define and give meaning to the world, and then determining how to form and maintain relationships while respecting differences, making compromises, and supporting one another in the pursuit of goals that may not always be shared. None of this is easy, and challenges are never met once and for all time.",
+    "choices": [
+     "On-going Challenges in Sports: Racial and Ethnic Issues",
+     "Racial and Ethnic Injustice in Sports: Cause and Effect",
+     "The History of Racial and Ethnic Diversity in Sports",
+     "All for One, One for All: The Power of Team Sports",
+     "Cooperation Lies at the Heart of Sportsmanship"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#30",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "passage": "Sometimes the awareness that one is distrusted can provide the necessary incentive for self-reflection. An employee who ① realizes she isn’t being trusted by her co-workers with shared responsibilities at work might, upon reflection, identify areas where she has consistently let others down or failed to follow through on previous commitments. Others’ distrust of her might then ② forbid her to perform her share of the duties in a way that makes her more worthy of their trust. But distrust of one who is ③ sincere in her efforts to be a trustworthy and dependable person can be disorienting and might cause her to doubt her own perceptions and to distrust herself. Consider, for instance, a teenager whose parents are ④ suspicious and distrustful when she goes out at night; even if she has been forthright about her plans and is not ⑤ breaking any agreed-upon rules, her identity as a respectable moral subject is undermined by a pervasive parental attitude that expects deceit and betrayal. 5 5"
+   },
+   "after": {
+    "passage": "Sometimes the awareness that one is distrusted can provide the necessary incentive for self-reflection. An employee who ① realizes she isn’t being trusted by her co-workers with shared responsibilities at work might, upon reflection, identify areas where she has consistently let others down or failed to follow through on previous commitments. Others’ distrust of her might then ② forbid her to perform her share of the duties in a way that makes her more worthy of their trust. But distrust of one who is ③ sincere in her efforts to be a trustworthy and dependable person can be disorienting and might cause her to doubt her own perceptions and to distrust herself. Consider, for instance, a teenager whose parents are ④ suspicious and distrustful when she goes out at night; even if she has been forthright about her plans and is not ⑤ breaking any agreed-upon rules, her identity as a respectable moral subject is undermined by a pervasive parental attitude that expects deceit and betrayal."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#32",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "choices": [
+     "from the data which they had discovered",
+     "from comparisons of data in other fields",
+     "to explore more sites for their future studies",
+     "by supposing possible theoretical frameworks",
+     "by observing the hypothesis-testing procedures 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "from the data which they had discovered",
+     "from comparisons of data in other fields",
+     "to explore more sites for their future studies",
+     "by supposing possible theoretical frameworks",
+     "by observing the hypothesis-testing procedures"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#38",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "passage": "Rather, happiness is often found in those moments we are most vulnerable, alone or in pain. We seek out feel-good experiences, always on the lookout for the next holiday, purchase or culinary experience. This approach to happiness is relatively recent; it depends on our capacity both to pad our lives with material pleasures and to feel that we can control our suffering. ( ①) Painkillers, as we know them today, are a relatively recent invention and access to material comfort is now within reach of a much larger proportion of the world’s population. ( ②) These technological and economic advances have had significant cultural implications, leading us to see our negative experiences as a problem and maximizing our positive experiences as the answer. ( ③ ) Yet, through this we have forgotten that being happy in life is not just about pleasure. ( ④) Comfort, contentment and satisfaction have never been the elixir of happiness. ( ⑤) Happiness is there, on the edges of these experiences, and when we get a glimpse of that kind of happiness it is powerful, transcendent and compelling. 7 7"
+   },
+   "after": {
+    "passage": "Rather, happiness is often found in those moments we are most vulnerable, alone or in pain. We seek out feel-good experiences, always on the lookout for the next holiday, purchase or culinary experience. This approach to happiness is relatively recent; it depends on our capacity both to pad our lives with material pleasures and to feel that we can control our suffering. ( ① ) Painkillers, as we know them today, are a relatively recent invention and access to material comfort is now within reach of a much larger proportion of the world’s population. ( ② ) These technological and economic advances have had significant cultural implications, leading us to see our negative experiences as a problem and maximizing our positive experiences as the answer. ( ③ ) Yet, through this we have forgotten that being happy in life is not just about pleasure. ( ④ ) Comfort, contentment and satisfaction have never been the elixir of happiness. ( ⑤ ) Happiness is there, on the edges of these experiences, and when we get a glimpse of that kind of happiness it is powerful, transcendent and compelling."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#40",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "passage": "After the United Nations environmental conference in Rio de Janeiro in 1992 made the term “sustainability” widely known around the world, the word became a popular buzzword by those who wanted to be seen as pro-environmental but who did not really intend to change their behavior. It became a public relations term, an attempt to be seen as abreast with the latest thinking of what we must do to save our planet from widespread harm. But then, in a decade or so, some governments, industries, educational institutions, and organizations started to use the term in a serious manner. In the United States a number of large corporations appointed a vice president for sustainability. Not only were these officials interested in how their companies could profit by producing “green” products, but they were often given the task of making the company more efficient by reducing wastes and pollution and by reducing its carbon emissions. 󰀻 While the term “sustainability,” in the initial phase, was (A) popular among those who ______ to be eco-conscious, (B) it later came to be used by those who would their pro-environmental thoughts. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "pretended …… actualize",
+     "pretended …… disregard",
+     "refused …… realize",
+     "refused …… idealize",
+     "attempted …… mask 8"
+    ]
+   },
+   "after": {
+    "passage": "After the United Nations environmental conference in Rio de Janeiro in 1992 made the term “sustainability” widely known around the world, the word became a popular buzzword by those who wanted to be seen as pro-environmental but who did not really intend to change their behavior. It became a public relations term, an attempt to be seen as abreast with the latest thinking of what we must do to save our planet from widespread harm. But then, in a decade or so, some governments, industries, educational institutions, and organizations started to use the term in a serious manner. In the United States a number of large corporations appointed a vice president for sustainability. Not only were these officials interested in how their companies could profit by producing “green” products, but they were often given the task of making the company more efficient by reducing wastes and pollution and by reducing its carbon emissions. While the term “sustainability,” in the initial phase, was popular among those who (A) ______ to be eco-conscious, it later came to be used by those who would (B) ______ their pro-environmental thoughts.",
+    "choices": [
+     "pretended …… actualize",
+     "pretended …… disregard",
+     "refused …… realize",
+     "refused …… idealize",
+     "attempted …… mask"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#43",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "passage": "(A) When Master Brooks played a Mozart piece on the violin for his class to learn, the room was filled with waves of beautiful, soul-stirring sound. The class tried to emulate the music played by this renowned guest musician. Among the students in the class, Joe Brooks was by far the best. In fact, Joe was the master’s son. His father had placed a baby violin in his hands at the age of four, and Joe was a natural talent. Now, just twelve years later, he was already on (a) his way to becoming a virtuoso like his father. 8 (B) When they finished practicing, Joe noticed his father standing in the corner. “Wow, that was quite wonderful,” he said with admiration. Master Brooks came toward his son. “I love the way you created those unique sounds while keeping the spirit of the violin. I underestimated the power that crossover music can create,” said Master Brooks to (b) him. Joe and his father returned home, both humming the melody that the band had been practicing. (C) “Well, did you get permission?” asked Brian as soon as Joe entered the practice room the following day. “Um, I’m not sure,” answered Joe without confidence. “(c) You can tell us about it after practice,” Brian said as he placed his fingers on the keyboard. Beside him, Nick was tuning his guitar. Joe thought that he would play just one last time before telling them that (d) he might pull out of the concert. The trio swung into their routine, as easily as only a group that had practiced long and hard together could. (D) After the class, Joe was alone with his father. He had something important to talk about. Joe took a deep breath and said, “I have been asked to play in a concert, and I would like your permission first. It is a crossover concert.” Master Brooks looked surprised. Indeed, the master’s dislike of crossover music was no secret. “Father,” Joe took a deep breath and continued, “I respect your views, but it is not what (e) you think. Why don’t you come and listen to our practice tomorrow? If you don’t like it, I will cancel.”"
+   },
+   "after": {
+    "passage": "(A) When Master Brooks played a Mozart piece on the violin for his class to learn, the room was filled with waves of beautiful, soul-stirring sound. The class tried to emulate the music played by this renowned guest musician. Among the students in the class, Joe Brooks was by far the best. In fact, Joe was the master’s son. His father had placed a baby violin in his hands at the age of four, and Joe was a natural talent. Now, just twelve years later, he was already on (a) his way to becoming a virtuoso like his father. (B) When they finished practicing, Joe noticed his father standing in the corner. “Wow, that was quite wonderful,” he said with admiration. Master Brooks came toward his son. “I love the way you created those unique sounds while keeping the spirit of the violin. I underestimated the power that crossover music can create,” said Master Brooks to (b) him. Joe and his father returned home, both humming the melody that the band had been practicing. (C) “Well, did you get permission?” asked Brian as soon as Joe entered the practice room the following day. “Um, I’m not sure,” answered Joe without confidence. “(c) You can tell us about it after practice,” Brian said as he placed his fingers on the keyboard. Beside him, Nick was tuning his guitar. Joe thought that he would play just one last time before telling them that (d) he might pull out of the concert. The trio swung into their routine, as easily as only a group that had practiced long and hard together could. (D) After the class, Joe was alone with his father. He had something important to talk about. Joe took a deep breath and said, “I have been asked to play in a concert, and I would like your permission first. It is a crossover concert.” Master Brooks looked surprised. Indeed, the master’s dislike of crossover music was no secret. “Father,” Joe took a deep breath and continued, “I respect your views, but it is not what (e) you think. Why don’t you come and listen to our practice tomorrow? If you don’t like it, I will cancel.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#44",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "passage": "(A) When Master Brooks played a Mozart piece on the violin for his class to learn, the room was filled with waves of beautiful, soul-stirring sound. The class tried to emulate the music played by this renowned guest musician. Among the students in the class, Joe Brooks was by far the best. In fact, Joe was the master’s son. His father had placed a baby violin in his hands at the age of four, and Joe was a natural talent. Now, just twelve years later, he was already on (a) his way to becoming a virtuoso like his father. 8 (B) When they finished practicing, Joe noticed his father standing in the corner. “Wow, that was quite wonderful,” he said with admiration. Master Brooks came toward his son. “I love the way you created those unique sounds while keeping the spirit of the violin. I underestimated the power that crossover music can create,” said Master Brooks to (b) him. Joe and his father returned home, both humming the melody that the band had been practicing. (C) “Well, did you get permission?” asked Brian as soon as Joe entered the practice room the following day. “Um, I’m not sure,” answered Joe without confidence. “(c) You can tell us about it after practice,” Brian said as he placed his fingers on the keyboard. Beside him, Nick was tuning his guitar. Joe thought that he would play just one last time before telling them that (d) he might pull out of the concert. The trio swung into their routine, as easily as only a group that had practiced long and hard together could. (D) After the class, Joe was alone with his father. He had something important to talk about. Joe took a deep breath and said, “I have been asked to play in a concert, and I would like your permission first. It is a crossover concert.” Master Brooks looked surprised. Indeed, the master’s dislike of crossover music was no secret. “Father,” Joe took a deep breath and continued, “I respect your views, but it is not what (e) you think. Why don’t you come and listen to our practice tomorrow? If you don’t like it, I will cancel.”"
+   },
+   "after": {
+    "passage": "(A) When Master Brooks played a Mozart piece on the violin for his class to learn, the room was filled with waves of beautiful, soul-stirring sound. The class tried to emulate the music played by this renowned guest musician. Among the students in the class, Joe Brooks was by far the best. In fact, Joe was the master’s son. His father had placed a baby violin in his hands at the age of four, and Joe was a natural talent. Now, just twelve years later, he was already on (a) his way to becoming a virtuoso like his father. (B) When they finished practicing, Joe noticed his father standing in the corner. “Wow, that was quite wonderful,” he said with admiration. Master Brooks came toward his son. “I love the way you created those unique sounds while keeping the spirit of the violin. I underestimated the power that crossover music can create,” said Master Brooks to (b) him. Joe and his father returned home, both humming the melody that the band had been practicing. (C) “Well, did you get permission?” asked Brian as soon as Joe entered the practice room the following day. “Um, I’m not sure,” answered Joe without confidence. “(c) You can tell us about it after practice,” Brian said as he placed his fingers on the keyboard. Beside him, Nick was tuning his guitar. Joe thought that he would play just one last time before telling them that (d) he might pull out of the concert. The trio swung into their routine, as easily as only a group that had practiced long and hard together could. (D) After the class, Joe was alone with his father. He had something important to talk about. Joe took a deep breath and said, “I have been asked to play in a concert, and I would like your permission first. It is a crossover concert.” Master Brooks looked surprised. Indeed, the master’s dislike of crossover music was no secret. “Father,” Joe took a deep breath and continued, “I respect your views, but it is not what (e) you think. Why don’t you come and listen to our practice tomorrow? If you don’t like it, I will cancel.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2006#45",
+   "pdf_file": "202006_영어영역_문제지.pdf",
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa",
+   "before": {
+    "passage": "(A) When Master Brooks played a Mozart piece on the violin for his class to learn, the room was filled with waves of beautiful, soul-stirring sound. The class tried to emulate the music played by this renowned guest musician. Among the students in the class, Joe Brooks was by far the best. In fact, Joe was the master’s son. His father had placed a baby violin in his hands at the age of four, and Joe was a natural talent. Now, just twelve years later, he was already on (a) his way to becoming a virtuoso like his father. 8 (B) When they finished practicing, Joe noticed his father standing in the corner. “Wow, that was quite wonderful,” he said with admiration. Master Brooks came toward his son. “I love the way you created those unique sounds while keeping the spirit of the violin. I underestimated the power that crossover music can create,” said Master Brooks to (b) him. Joe and his father returned home, both humming the melody that the band had been practicing. (C) “Well, did you get permission?” asked Brian as soon as Joe entered the practice room the following day. “Um, I’m not sure,” answered Joe without confidence. “(c) You can tell us about it after practice,” Brian said as he placed his fingers on the keyboard. Beside him, Nick was tuning his guitar. Joe thought that he would play just one last time before telling them that (d) he might pull out of the concert. The trio swung into their routine, as easily as only a group that had practiced long and hard together could. (D) After the class, Joe was alone with his father. He had something important to talk about. Joe took a deep breath and said, “I have been asked to play in a concert, and I would like your permission first. It is a crossover concert.” Master Brooks looked surprised. Indeed, the master’s dislike of crossover music was no secret. “Father,” Joe took a deep breath and continued, “I respect your views, but it is not what (e) you think. Why don’t you come and listen to our practice tomorrow? If you don’t like it, I will cancel.”",
+    "choices": [
+     "Joe 는 바이올린에 천부적인 재능이 있었다 .",
+     "Master Brooks 는 Joe 가 속한 밴드의 연습을 보러 갔다 .",
+     "Master Brooks 는 크로스오버 음악에 대한 자신의 견해를 바꾸었다 .",
+     "Joe 가 속한 밴드는 두 명의 연주자로 구성되었다 .",
+     "Joe 는 수업이 끝난 후에 아버지와 단둘이 대화를 나눴다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) When Master Brooks played a Mozart piece on the violin for his class to learn, the room was filled with waves of beautiful, soul-stirring sound. The class tried to emulate the music played by this renowned guest musician. Among the students in the class, Joe Brooks was by far the best. In fact, Joe was the master’s son. His father had placed a baby violin in his hands at the age of four, and Joe was a natural talent. Now, just twelve years later, he was already on (a) his way to becoming a virtuoso like his father. (B) When they finished practicing, Joe noticed his father standing in the corner. “Wow, that was quite wonderful,” he said with admiration. Master Brooks came toward his son. “I love the way you created those unique sounds while keeping the spirit of the violin. I underestimated the power that crossover music can create,” said Master Brooks to (b) him. Joe and his father returned home, both humming the melody that the band had been practicing. (C) “Well, did you get permission?” asked Brian as soon as Joe entered the practice room the following day. “Um, I’m not sure,” answered Joe without confidence. “(c) You can tell us about it after practice,” Brian said as he placed his fingers on the keyboard. Beside him, Nick was tuning his guitar. Joe thought that he would play just one last time before telling them that (d) he might pull out of the concert. The trio swung into their routine, as easily as only a group that had practiced long and hard together could. (D) After the class, Joe was alone with his father. He had something important to talk about. Joe took a deep breath and said, “I have been asked to play in a concert, and I would like your permission first. It is a crossover concert.” Master Brooks looked surprised. Indeed, the master’s dislike of crossover music was no secret. “Father,” Joe took a deep breath and continued, “I respect your views, but it is not what (e) you think. Why don’t you come and listen to our practice tomorrow? If you don’t like it, I will cancel.”",
+    "choices": [
+     "Joe는 바이올린에 천부적인 재능이 있었다.",
+     "Master Brooks는 Joe가 속한 밴드의 연습을 보러 갔다.",
+     "Master Brooks는 크로스오버 음악에 대한 자신의 견해를 바꾸었다.",
+     "Joe가 속한 밴드는 두 명의 연주자로 구성되었다.",
+     "Joe는 수업이 끝난 후에 아버지와 단둘이 대화를 나눴다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#22",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "choices": [
+     "운동선수의 기량은 경기 자체를 즐길 때 향상된다 .",
+     "공정한 승부를 위해 합리적인 경기 규칙이 필요하다 .",
+     "스포츠의 대중화는 스포츠 산업의 정의를 바꾸고 있다 .",
+     "스포츠의 정의는 신체 활동 참여와 건강에 영향을 미친다 .",
+     "활발한 여가 활동은 원만한 대인 관계 유지에 도움이 된다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "운동선수의 기량은 경기 자체를 즐길 때 향상된다.",
+     "공정한 승부를 위해 합리적인 경기 규칙이 필요하다.",
+     "스포츠의 대중화는 스포츠 산업의 정의를 바꾸고 있다.",
+     "스포츠의 정의는 신체 활동 참여와 건강에 영향을 미친다.",
+     "활발한 여가 활동은 원만한 대인 관계 유지에 도움이 된다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#24",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "A common ______ error in current Darwinian thinking is the assumption that “selfish genes” are the prime mover in evolution. In strict Darwinism the prime mover is environmental threat. In the absence of threat, natural selection tends to resist change. It is un-biological to “explain” behavioural change as resulting from genetic change or the ex vacuo emergence of domain-specific brain modules. Evolutionary psychologists surely know why brains evolved: as Cosmides and Tooby point out, brains are found only in animals that move. Brains are behavioural organs, and behavioural adaptation, being immediate and non-random, is vastly more efficient than genetic adaptation. So, in animals with brains, behavioural change is the usual first response to environmental threat. If the change is successful, genetic adaptation to the new behaviour will follow more gradually. Animals do not evolve carnivore teeth and then decide it might be a good idea to eat meat.",
+    "choices": [
+     "Which Adapts First, Behaviour or Genes?",
+     "The Brain Under Control of Selfish Genes",
+     "Why Animals Eat Meat: A Story of Survival",
+     "Genes Always Win the Battle Against Nature!",
+     "The Superior Efficiency of Genetic Adaptation 8"
+    ]
+   },
+   "after": {
+    "passage": "A common error in current Darwinian thinking is the assumption that “selfish genes” are the prime mover in evolution. In strict Darwinism the prime mover is environmental threat. In the absence of threat, natural selection tends to resist change. It is un-biological to “explain” behavioural change as resulting from genetic change or the ex vacuo emergence of domain-specific brain modules. Evolutionary psychologists surely know why brains evolved: as Cosmides and Tooby point out, brains are found only in animals that move. Brains are behavioural organs, and behavioural adaptation, being immediate and non-random, is vastly more efficient than genetic adaptation. So, in animals with brains, behavioural change is the usual first response to environmental threat. If the change is successful, genetic adaptation to the new behaviour will follow more gradually. Animals do not evolve carnivore teeth and then decide it might be a good idea to eat meat.",
+    "choices": [
+     "Which Adapts First, Behaviour or Genes?",
+     "The Brain Under Control of Selfish Genes",
+     "Why Animals Eat Meat: A Story of Survival",
+     "Genes Always Win the Battle Against Nature!",
+     "The Superior Efficiency of Genetic Adaptation"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#27",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "Singing Tommy Congratulations! Tommy is now your singing friend. Read these instructions to learn how to play with and care for him. Tommy sings to you anytime, anywhere. An Internet connection is not required to play the songs! Before Use Remove the protective film covering Tommy’s eyes. Insert two AA batteries into the battery box and press the power button. Choose your volume setting: LOW volume or HIGH volume. Operation Play - Touch Tommy’s right ear to start a song. Stop - Press Tommy’s hat to stop the song. Control - Choose from five songs. - Push Tommy’s badge to skip to the next song. Caution Tommy is not waterproof. Be careful not to get Tommy wet!",
+    "choices": [
+     "인터넷에 연결되지 않아도 노래를 재생할 수 있다 .",
+     "사용 전에 두 개의 AA 건전지를 넣어야 한다 .",
+     "모자를 누르면 노래가 시작된다 .",
+     "다섯 곡의 노래 중에 선택할 수 있다 .",
+     "방수가 되지 않는다 ."
+    ]
+   },
+   "after": {
+    "passage": "Singing Tommy Congratulations! Tommy is now your singing friend. Read these instructions to learn how to play with and care for him. Tommy sings to you anytime, anywhere. An Internet connection is not required to play the songs! Before Use 1. Remove the protective film covering Tommy’s eyes. 2. Insert two AA batteries into the battery box and press the power button. 3. Choose your volume setting: LOW volume or HIGH volume. Operation 1. Play - Touch Tommy’s right ear to start a song. 2. Stop - Press Tommy’s hat to stop the song. 3. Control - Choose from five songs. - Push Tommy’s badge to skip to the next song. Caution Tommy is not waterproof. Be careful not to get Tommy wet!",
+    "choices": [
+     "인터넷에 연결되지 않아도 노래를 재생할 수 있다.",
+     "사용 전에 두 개의 AA 건전지를 넣어야 한다.",
+     "모자를 누르면 노래가 시작된다.",
+     "다섯 곡의 노래 중에 선택할 수 있다.",
+     "방수가 되지 않는다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#30",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "Chunking is vital for cognition of music. If we had to encode it in our brains note by note, we’d ① struggle to make sense of anything more complex than the simplest children’s songs. Of course, most accomplished musicians can play compositions containing many thousands of notes entirely from ② memory, without a note out of place. But this seemingly awesome accomplishment of recall is made ③ improbable by remembering the musical process, not the individual notes as such. If you ask a pianist to start a Mozart sonata from bar forty-one, she’ll probably have to ④ mentally replay the music from the start until reaching that bar ― the score is not simply laid out in her mind, to be read from any random point. It’s rather like describing how you drive to work: you don’t simply recite the names of roads as an abstract list, but have to construct your route by mentally retracing it. When musicians make a mistake during rehearsal, they wind back to the ⑤ start of a musical phrase (‘let’s take it from the second verse’) before restarting. 5 5"
+   },
+   "after": {
+    "passage": "Chunking is vital for cognition of music. If we had to encode it in our brains note by note, we’d ① struggle to make sense of anything more complex than the simplest children’s songs. Of course, most accomplished musicians can play compositions containing many thousands of notes entirely from ② memory, without a note out of place. But this seemingly awesome accomplishment of recall is made ③ improbable by remembering the musical process, not the individual notes as such. If you ask a pianist to start a Mozart sonata from bar forty-one, she’ll probably have to ④ mentally replay the music from the start until reaching that bar ― the score is not simply laid out in her mind, to be read from any random point. It’s rather like describing how you drive to work: you don’t simply recite the names of roads as an abstract list, but have to construct your route by mentally retracing it. When musicians make a mistake during rehearsal, they wind back to the ⑤ start of a musical phrase (‘let’s take it from the second verse’) before restarting."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#32",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "One of the great risks of writing is that even the simplest of choices regarding wording or punctuation can sometimes in ways that may seem unfair. For example, look again at the old grammar rule forbidding the splitting of infinitives. After decades of telling students to never split an infinitive (something just done in this sentence), most composition experts now acknowledge that a split infinitive is not a grammar crime. Suppose you have written a position paper trying to convince your city council of the need to hire security personnel for the library, and half of the council members ― the people you wish to convince ― remember their eighth-grade grammar teacher’s warning about splitting infinitives. How will they respond when you tell them, in your introduction, that librarians are compelled “to always accompany” visitors to the rare book room because of the threat of damage? How much of their attention have you suddenly lost because of their automatic recollection of what is now a nonrule? It is possible, in other words, to write correctly and still offend your readers’ notions of your language competence.",
+    "choices": [
+     "reveal your hidden intention",
+     "distort the meaning of the sentence",
+     "prejudice your audience against you",
+     "test your audience’s reading comprehension",
+     "create fierce debates about your writing topic 8"
+    ]
+   },
+   "after": {
+    "passage": "One of the great risks of writing is that even the simplest of choices regarding wording or punctuation can sometimes ______ in ways that may seem unfair. For example, look again at the old grammar rule forbidding the splitting of infinitives. After decades of telling students to never split an infinitive (something just done in this sentence), most composition experts now acknowledge that a split infinitive is not a grammar crime. Suppose you have written a position paper trying to convince your city council of the need to hire security personnel for the library, and half of the council members ― the people you wish to convince ― remember their eighth-grade grammar teacher’s warning about splitting infinitives. How will they respond when you tell them, in your introduction, that librarians are compelled “to always accompany” visitors to the rare book room because of the threat of damage? How much of their attention have you suddenly lost because of their automatic recollection of what is now a nonrule? It is possible, in other words, to write correctly and still offend your readers’ notions of your language competence.",
+    "choices": [
+     "reveal your hidden intention",
+     "distort the meaning of the sentence",
+     "prejudice your audience against you",
+     "test your audience’s reading comprehension",
+     "create fierce debates about your writing topic"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#38",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "Compounding the difficulty, now more than ever, is what ergonomists call information overload, where a leader is overrun with inputs ― via e-mails, meetings, and phone calls ― that only distract and confuse her thinking. Clarity is often a difficult thing for a leader to obtain. Concerns of the present tend to seem larger than potentially greater concerns that lie farther away. ( ①) Some decisions by their nature present great complexity, whose many variables must come together a certain way for the leader to succeed. ( ② ) Alternatively, the leader’s information might be only fragmentary, which might cause her to fill in the gaps with assumptions ― sometimes without recognizing them as such. ( ③) And the merits of a leader’s most important decisions, by their nature, typically are not clear-cut. ( ④) Instead those decisions involve a process of assigning weights to competing interests, and then determining, based upon some criterion, which one predominates. ( ⑤) The result is one of judgment, of shades of gray; like saying that Beethoven is a better composer than Brahms. 7 7"
+   },
+   "after": {
+    "passage": "Compounding the difficulty, now more than ever, is what ergonomists call information overload, where a leader is overrun with inputs ― via e-mails, meetings, and phone calls ― that only distract and confuse her thinking. Clarity is often a difficult thing for a leader to obtain. Concerns of the present tend to seem larger than potentially greater concerns that lie farther away. ( ① ) Some decisions by their nature present great complexity, whose many variables must come together a certain way for the leader to succeed. ( ② ) Alternatively, the leader’s information might be only fragmentary, which might cause her to fill in the gaps with assumptions ― sometimes without recognizing them as such. ( ③ ) And the merits of a leader’s most important decisions, by their nature, typically are not clear-cut. ( ④ ) Instead those decisions involve a process of assigning weights to competing interests, and then determining, based upon some criterion, which one predominates. ( ⑤ ) The result is one of judgment, of shades of gray; like saying that Beethoven is a better composer than Brahms."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#40",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "Some environments are more likely to lead to fossilization and subsequent discovery than others. Thus, we cannot assume that more fossil evidence from a particular period or place means that more individuals were present at that time, or in that place. It may just be that the circumstances at one period of time, or at one location, were more favourable for fossilization than they were at other times, or in other places. Likewise, the absence of hominin fossil evidence at a particular time or place does not have the same implication as its presence. As the saying goes, ‘absence of evidence is not evidence of absence’. Similar logic suggests that taxa are likely to have arisen before they first appear in the fossil record, and they are likely to have survived beyond the time of their most recent appearance in the fossil record. Thus, the first appearance datum, and the last appearance datum of taxa in the hominin fossil record are likely to be conservative statements about the times of origin and extinction of a taxon. 󰀻 Since fossilization and fossil discovery are affected by (A) conditions, the fossil evidence of a taxon cannot (B) definitely ______ its population size or the times of its appearance and extinction. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "experimental …… confirm",
+     "experimental …… reveal",
+     "environmental …… clarify",
+     "environmental …… conceal",
+     "accidental …… mask 8"
+    ]
+   },
+   "after": {
+    "passage": "Some environments are more likely to lead to fossilization and subsequent discovery than others. Thus, we cannot assume that more fossil evidence from a particular period or place means that more individuals were present at that time, or in that place. It may just be that the circumstances at one period of time, or at one location, were more favourable for fossilization than they were at other times, or in other places. Likewise, the absence of hominin fossil evidence at a particular time or place does not have the same implication as its presence. As the saying goes, ‘absence of evidence is not evidence of absence’. Similar logic suggests that taxa are likely to have arisen before they first appear in the fossil record, and they are likely to have survived beyond the time of their most recent appearance in the fossil record. Thus, the first appearance datum, and the last appearance datum of taxa in the hominin fossil record are likely to be conservative statements about the times of origin and extinction of a taxon. Since fossilization and fossil discovery are affected by (A) ______ conditions, the fossil evidence of a taxon cannot definitely (B) ______ its population size or the times of its appearance and extinction.",
+    "choices": [
+     "experimental …… confirm",
+     "experimental …… reveal",
+     "environmental…… clarify",
+     "environmental…… conceal",
+     "accidental …… mask"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#43",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "(A) “Congratulations!” That was the first word that Steven saw when he opened the envelope that his dad handed to him. He knew that he would win the essay contest. Overly excited, he shouted, “Hooray!” At that moment, two tickets to Ace Amusement Park, the prize, slipped out of the envelope. He picked them up and read the letter thoroughly while sitting on the stairs in front of his house. “Wait a minute! That’s not my name!” (a) he said, puzzled. The letter was addressed to his classmate Stephanie, who had also participated in the contest. 8 (B) Once Steven had heard his dad’s words, tears started to fill up in his eyes. “I was foolish,” Steven said regretfully. He took the letter and the prize to school and handed them to Stephanie. He congratulated her wholeheartedly and she was thrilled. On the way home after school, his steps were light and full of joy. That night, his dad was very pleased to hear what he had done at school. “(b) I am so proud of you, Steven,” he said. Then, without a word, he handed Steven two Ace Amusement Park tickets and winked. (C) “If I don’t tell Stephanie, perhaps she will never know,” Steven thought for a moment. He remembered that the winner would only be notified by mail. As long as he kept quiet, nobody would know. So he decided to sleep on it. The next morning, he felt miserable and his dad recognized it right away. “What’s wrong, (c) Son?” asked his dad. Steven was hesitant at first but soon disclosed his secret. After listening attentively to the end, his dad advised him to do the right thing. (D) Reading on, Steven realized the letter had been delivered mistakenly. “Unfortunately,” it should have gone to Stephanie, who was the real winner. (d) He looked at the tickets and then the letter. He had really wanted those tickets. He had planned to go there with his younger sister. Steven was his sister’s hero, and he had bragged to her that he would win the contest. However, if she found out that her hero hadn’t won, she would be terribly disappointed, and (e) he would feel ashamed."
+   },
+   "after": {
+    "passage": "(A) “Congratulations!” That was the first word that Steven saw when he opened the envelope that his dad handed to him. He knew that he would win the essay contest. Overly excited, he shouted, “Hooray!” At that moment, two tickets to Ace Amusement Park, the prize, slipped out of the envelope. He picked them up and read the letter thoroughly while sitting on the stairs in front of his house. “Wait a minute! That’s not my name!” (a) he said, puzzled. The letter was addressed to his classmate Stephanie, who had also participated in the contest. (B) Once Steven had heard his dad’s words, tears started to fill up in his eyes. “I was foolish,” Steven said regretfully. He took the letter and the prize to school and handed them to Stephanie. He congratulated her wholeheartedly and she was thrilled. On the way home after school, his steps were light and full of joy. That night, his dad was very pleased to hear what he had done at school. “(b) I am so proud of you, Steven,” he said. Then, without a word, he handed Steven two Ace Amusement Park tickets and winked. (C) “If I don’t tell Stephanie, perhaps she will never know,” Steven thought for a moment. He remembered that the winner would only be notified by mail. As long as he kept quiet, nobody would know. So he decided to sleep on it. The next morning, he felt miserable and his dad recognized it right away. “What’s wrong, (c) Son?” asked his dad. Steven was hesitant at first but soon disclosed his secret. After listening attentively to the end, his dad advised him to do the right thing. (D) Reading on, Steven realized the letter had been delivered mistakenly. “Unfortunately,” it should have gone to Stephanie, who was the real winner. (d) He looked at the tickets and then the letter. He had really wanted those tickets. He had planned to go there with his younger sister. Steven was his sister’s hero, and he had bragged to her that he would win the contest. However, if she found out that her hero hadn’t won, she would be terribly disappointed, and (e) he would feel ashamed."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#44",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "(A) “Congratulations!” That was the first word that Steven saw when he opened the envelope that his dad handed to him. He knew that he would win the essay contest. Overly excited, he shouted, “Hooray!” At that moment, two tickets to Ace Amusement Park, the prize, slipped out of the envelope. He picked them up and read the letter thoroughly while sitting on the stairs in front of his house. “Wait a minute! That’s not my name!” (a) he said, puzzled. The letter was addressed to his classmate Stephanie, who had also participated in the contest. 8 (B) Once Steven had heard his dad’s words, tears started to fill up in his eyes. “I was foolish,” Steven said regretfully. He took the letter and the prize to school and handed them to Stephanie. He congratulated her wholeheartedly and she was thrilled. On the way home after school, his steps were light and full of joy. That night, his dad was very pleased to hear what he had done at school. “(b) I am so proud of you, Steven,” he said. Then, without a word, he handed Steven two Ace Amusement Park tickets and winked. (C) “If I don’t tell Stephanie, perhaps she will never know,” Steven thought for a moment. He remembered that the winner would only be notified by mail. As long as he kept quiet, nobody would know. So he decided to sleep on it. The next morning, he felt miserable and his dad recognized it right away. “What’s wrong, (c) Son?” asked his dad. Steven was hesitant at first but soon disclosed his secret. After listening attentively to the end, his dad advised him to do the right thing. (D) Reading on, Steven realized the letter had been delivered mistakenly. “Unfortunately,” it should have gone to Stephanie, who was the real winner. (d) He looked at the tickets and then the letter. He had really wanted those tickets. He had planned to go there with his younger sister. Steven was his sister’s hero, and he had bragged to her that he would win the contest. However, if she found out that her hero hadn’t won, she would be terribly disappointed, and (e) he would feel ashamed."
+   },
+   "after": {
+    "passage": "(A) “Congratulations!” That was the first word that Steven saw when he opened the envelope that his dad handed to him. He knew that he would win the essay contest. Overly excited, he shouted, “Hooray!” At that moment, two tickets to Ace Amusement Park, the prize, slipped out of the envelope. He picked them up and read the letter thoroughly while sitting on the stairs in front of his house. “Wait a minute! That’s not my name!” (a) he said, puzzled. The letter was addressed to his classmate Stephanie, who had also participated in the contest. (B) Once Steven had heard his dad’s words, tears started to fill up in his eyes. “I was foolish,” Steven said regretfully. He took the letter and the prize to school and handed them to Stephanie. He congratulated her wholeheartedly and she was thrilled. On the way home after school, his steps were light and full of joy. That night, his dad was very pleased to hear what he had done at school. “(b) I am so proud of you, Steven,” he said. Then, without a word, he handed Steven two Ace Amusement Park tickets and winked. (C) “If I don’t tell Stephanie, perhaps she will never know,” Steven thought for a moment. He remembered that the winner would only be notified by mail. As long as he kept quiet, nobody would know. So he decided to sleep on it. The next morning, he felt miserable and his dad recognized it right away. “What’s wrong, (c) Son?” asked his dad. Steven was hesitant at first but soon disclosed his secret. After listening attentively to the end, his dad advised him to do the right thing. (D) Reading on, Steven realized the letter had been delivered mistakenly. “Unfortunately,” it should have gone to Stephanie, who was the real winner. (d) He looked at the tickets and then the letter. He had really wanted those tickets. He had planned to go there with his younger sister. Steven was his sister’s hero, and he had bragged to her that he would win the contest. However, if she found out that her hero hadn’t won, she would be terribly disappointed, and (e) he would feel ashamed."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2106#45",
+   "pdf_file": "202106_영어영역_문제지.pdf",
+   "pdf_sha256": "5167f4ed959c34e394d88580e2ec5b95c643f213bb626996f887e73e11853e74",
+   "before": {
+    "passage": "(A) “Congratulations!” That was the first word that Steven saw when he opened the envelope that his dad handed to him. He knew that he would win the essay contest. Overly excited, he shouted, “Hooray!” At that moment, two tickets to Ace Amusement Park, the prize, slipped out of the envelope. He picked them up and read the letter thoroughly while sitting on the stairs in front of his house. “Wait a minute! That’s not my name!” (a) he said, puzzled. The letter was addressed to his classmate Stephanie, who had also participated in the contest. 8 (B) Once Steven had heard his dad’s words, tears started to fill up in his eyes. “I was foolish,” Steven said regretfully. He took the letter and the prize to school and handed them to Stephanie. He congratulated her wholeheartedly and she was thrilled. On the way home after school, his steps were light and full of joy. That night, his dad was very pleased to hear what he had done at school. “(b) I am so proud of you, Steven,” he said. Then, without a word, he handed Steven two Ace Amusement Park tickets and winked. (C) “If I don’t tell Stephanie, perhaps she will never know,” Steven thought for a moment. He remembered that the winner would only be notified by mail. As long as he kept quiet, nobody would know. So he decided to sleep on it. The next morning, he felt miserable and his dad recognized it right away. “What’s wrong, (c) Son?” asked his dad. Steven was hesitant at first but soon disclosed his secret. After listening attentively to the end, his dad advised him to do the right thing. (D) Reading on, Steven realized the letter had been delivered mistakenly. “Unfortunately,” it should have gone to Stephanie, who was the real winner. (d) He looked at the tickets and then the letter. He had really wanted those tickets. He had planned to go there with his younger sister. Steven was his sister’s hero, and he had bragged to her that he would win the contest. However, if she found out that her hero hadn’t won, she would be terribly disappointed, and (e) he would feel ashamed.",
+    "choices": [
+     "Steven 은 집 앞 계단에 앉아 편지를 자세히 읽었다 .",
+     "방과 후에 집으로 돌아오는 Steven 의 발걸음은 무거웠다 .",
+     "아버지는 Steven 에게 옳은 일을 하라고 조언했다 .",
+     "에세이 대회에서 우승한 사람은 Stephanie 였다.",
+     "Steven 은 여동생과 놀이공원에 갈 계획이었다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) “Congratulations!” That was the first word that Steven saw when he opened the envelope that his dad handed to him. He knew that he would win the essay contest. Overly excited, he shouted, “Hooray!” At that moment, two tickets to Ace Amusement Park, the prize, slipped out of the envelope. He picked them up and read the letter thoroughly while sitting on the stairs in front of his house. “Wait a minute! That’s not my name!” (a) he said, puzzled. The letter was addressed to his classmate Stephanie, who had also participated in the contest. (B) Once Steven had heard his dad’s words, tears started to fill up in his eyes. “I was foolish,” Steven said regretfully. He took the letter and the prize to school and handed them to Stephanie. He congratulated her wholeheartedly and she was thrilled. On the way home after school, his steps were light and full of joy. That night, his dad was very pleased to hear what he had done at school. “(b) I am so proud of you, Steven,” he said. Then, without a word, he handed Steven two Ace Amusement Park tickets and winked. (C) “If I don’t tell Stephanie, perhaps she will never know,” Steven thought for a moment. He remembered that the winner would only be notified by mail. As long as he kept quiet, nobody would know. So he decided to sleep on it. The next morning, he felt miserable and his dad recognized it right away. “What’s wrong, (c) Son?” asked his dad. Steven was hesitant at first but soon disclosed his secret. After listening attentively to the end, his dad advised him to do the right thing. (D) Reading on, Steven realized the letter had been delivered mistakenly. “Unfortunately,” it should have gone to Stephanie, who was the real winner. (d) He looked at the tickets and then the letter. He had really wanted those tickets. He had planned to go there with his younger sister. Steven was his sister’s hero, and he had bragged to her that he would win the contest. However, if she found out that her hero hadn’t won, she would be terribly disappointed, and (e) he would feel ashamed.",
+    "choices": [
+     "Steven은 집 앞 계단에 앉아 편지를 자세히 읽었다.",
+     "방과 후에 집으로 돌아오는 Steven의 발걸음은 무거웠다.",
+     "아버지는 Steven에게 옳은 일을 하라고 조언했다.",
+     "에세이 대회에서 우승한 사람은 Stephanie였다.",
+     "Steven은 여동생과 놀이공원에 갈 계획이었다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2109#22",
+   "pdf_file": "202109_영어영역_문제지.pdf",
+   "pdf_sha256": "47a52f3d2213c581e0c56d6df4ae07d8f5a4191b9cb264f454bec5955ec7b20e",
+   "before": {
+    "choices": [
+     "아이들의 균형 잡힌 성장을 위해서는 다양한 경험이 중요하다 .",
+     "사회적 편견과 문화적 선호도는 서로 밀접하게 관련되어 있다 .",
+     "어린 나이에 다양한 음악에 노출되면 예술적 감각이 향상된다 .",
+     "음악을 포함한 예술은 특정 문화에 대한 당대의 사회적 시각을 반영한다 .",
+     "음악은 아이들을 사회 ･ 문화적으로 균형 잡힌 시민으로 성장하게 해 준다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "아이들의 균형 잡힌 성장을 위해서는 다양한 경험이 중요하다.",
+     "사회적 편견과 문화적 선호도는 서로 밀접하게 관련되어 있다.",
+     "어린 나이에 다양한 음악에 노출되면 예술적 감각이 향상된다.",
+     "음악을 포함한 예술은 특정 문화에 대한 당대의 사회적 시각을 반영한다.",
+     "음악은 아이들을 사회･문화적으로 균형 잡힌 시민으로 성장하게 해 준다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  }
+ ]
+}

@@ -1,0 +1,1445 @@
+{
+ "group": "S5",
+ "rows": [
+  {
+   "item_id": "M2409#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2409#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2409#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2409#32",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2409#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2409#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2409#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2409#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2409#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2506#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2506#24",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2506#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2506#32",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2506#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2506#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2506#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2506#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2506#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2509#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2509#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2509#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2509#32",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2509#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2509#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2509#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2509#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2509#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2606#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2606#27",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "BOTH_DIFF",
+   "why": "표 지문: 원장·DB 모두 PDF 표 읽기 순서와 다름(원장은 빈칸 표지 잔여 추가)"
+  },
+  {
+   "item_id": "M2606#27",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2606#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2606#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2606#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2606#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2606#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2606#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2609#22",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2609#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2609#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2609#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2609#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2609#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2609#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2706#22",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2706#24",
+   "fields": [
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2706#30",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2706#32",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2706#36",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2706#38",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2706#40",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  },
+  {
+   "item_id": "M2706#43",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2706#44",
+   "fields": [
+    "passage"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치"
+  },
+  {
+   "item_id": "M2706#45",
+   "fields": [
+    "passage",
+    "choices"
+   ],
+   "verdict": "DB_CORRECT",
+   "why": "DB 문장·선지 PDF 일치, 원장 차이=지문 쪽번호·(A)(B) 잔여/빈칸 표지 위치·선지 끝 쪽번호·공백 잔여"
+  }
+ ],
+ "recipes": [
+  {
+   "item_id": "M2409#22",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "choices": [
+     "이민자 고유의 정체성을 유지할 권리에 대한 공동체의 인식이 필요하다 .",
+     "이민자의 적응을 돕기 위해 그들의 요구를 반영한 정책 수립이 중요하다 .",
+     "이민자는 미래 사회의 긍정적 변화에 핵심적 역할을 수행할 수 있다 .",
+     "다문 화 사 회 의 안 정 을 위 해 서 는 국 제 적 차원 의 지 속적 인 협 력 이 요 구 된 다.",
+     "문 화적 동 화 는 장 기 적 이 고 체 계 적 인 과정 을 통 해 점 진 적 으로 이 루어 진 다. 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "이민자 고유의 정체성을 유지할 권리에 대한 공동체의 인식이 필요하다.",
+     "이민자의 적응을 돕기 위해 그들의 요구를 반영한 정책 수립이 중요하다.",
+     "이민자는 미래 사회의 긍정적 변화에 핵심적 역할을 수행할 수 있다.",
+     "다문화 사회의 안정을 위해서는 국제적 차원의 지속적인 협력이 요구된다.",
+     "문화적 동화는 장기적이고 체계적인 과정을 통해 점진적으로 이루어진다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2409#24",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "choices": [
+     "Web-based Journalism: Lasting Longer and Contextually Wider",
+     "With the Latest Content, Online News Beats Daily Newspapers!",
+     "How Online Media Journalists Reveal Hidden Stories Behind News",
+     "Let’s Begin a Journey to the Past with Printed Newspapers!",
+     "Present and Future of Journalism in the Web World 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "Web-based Journalism: Lasting Longer and Contextually Wider",
+     "With the Latest Content, Online News Beats Daily Newspapers!",
+     "How Online Media Journalists Reveal Hidden Stories Behind News",
+     "Let’s Begin a Journey to the Past with Printed Newspapers!",
+     "Present and Future of Journalism in the Web World"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2409#30",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "passage": "Why is the value of place so important? From a historical perspective, until the 1700s textile production was a hand process using the fibers available within a ① particular geographic region, for example, cotton, wool, silk, and flax. Trade among regions ______ ② increased the availability of these fibers and associated textiles made from the fibers. The First Industrial Revolution and subsequent technological advancements in manufactured fibers ③ added to the fact that fibers and textiles were no longer “place-bound.” Fashion companies created and consumers could acquire textiles and products made from textiles with little or no connection to where, how, or by whom the products were made. This ______ ④ countered a disconnect between consumers and the products they use on a daily basis, a loss of understanding and appreciation in the skills and resources necessary to create these products, and an associated disregard for the human and natural resources necessary for the products’ creation. Therefore, renewing a value on place ⑤ reconnects the company and the consumer with the people, geography, and culture of a particular location. 5 5"
+   },
+   "after": {
+    "passage": "Why is the value of place so important? From a historical perspective, until the 1700s textile production was a hand process using the fibers available within a ① particular geographic region, for example, cotton, wool, silk, and flax. Trade among regions ② increased the availability of these fibers and associated textiles made from the fibers. The First Industrial Revolution and subsequent technological advancements in manufactured fibers ③ added to the fact that fibers and textiles were no longer “place-bound.” Fashion companies created and consumers could acquire textiles and products made from textiles with little or no connection to where, how, or by whom the products were made. This ④ countered a disconnect between consumers and the products they use on a daily basis, a loss of understanding and appreciation in the skills and resources necessary to create these products, and an associated disregard for the human and natural resources necessary for the products’ creation. Therefore, renewing a value on place ⑤ reconnects the company and the consumer with the people, geography, and culture of a particular location."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2409#32",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "choices": [
+     "a set of words that allow users to identify an individual object",
+     "a comprehensive description of what is happening in an image",
+     "a reliable resource for categorizing information by pictures",
+     "a primary means of organizing a sequential order of words",
+     "a useful filter for sorting similar but not identical images 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "a set of words that allow users to identify an individual object",
+     "a comprehensive description of what is happening in an image",
+     "a reliable resource for categorizing information by pictures",
+     "a primary means of organizing a sequential order of words",
+     "a useful filter for sorting similar but not identical images"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2409#38",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "passage": "Because the manipulation of digitally converted sounds meant the reprogramming of binary information, editing operations could be performed with millisecond precision. The shift from analog to digital technology significantly influenced how music was produced. First and foremost, the digitization of sounds ― that is, their conversion into numbers ― enabled music makers to undo what was done. ( ______ ① ) One could, in other words, twist and bend sounds toward something new without sacrificing the original version. ( ②) This “undo” ability made mistakes considerably less momentous, sparking the creative process and encouraging a generally more experimental mindset. ( ③) In addition, digitally converted sounds could be manipulated simply by programming digital messages rather than using physical tools, simplifying the editing process significantly. ( ④) For example, while editing once involved razor blades to physically cut and splice audiotapes, it now involved the cursor and mouse-click of the computer-based sequencer program, which was obviously less time consuming. ( ⑤ ) This microlevel access at once made it easier to conceal any traces of manipulations (such as joining tracks in silent spots) and introduced new possibilities for manipulating sounds in audible and experimental ways. 7 7"
+   },
+   "after": {
+    "passage": "Because the manipulation of digitally converted sounds meant the reprogramming of binary information, editing operations could be performed with millisecond precision. The shift from analog to digital technology significantly influenced how music was produced. First and foremost, the digitization of sounds ― that is, their conversion into numbers ― enabled music makers to undo what was done. ( ① ) One could, in other words, twist and bend sounds toward something new without sacrificing the original version. ( ② ) This “undo” ability made mistakes considerably less momentous, sparking the creative process and encouraging a generally more experimental mindset. ( ③ ) In addition, digitally converted sounds could be manipulated simply by programming digital messages rather than using physical tools, simplifying the editing process significantly. ( ④ ) For example, while editing once involved razor blades to physically cut and splice audiotapes, it now involved the cursor and mouse-click of the computer-based sequencer program, which was obviously less time consuming. ( ⑤ ) This microlevel access at once made it easier to conceal any traces of manipulations (such as joining tracks in silent spots) and introduced new possibilities for manipulating sounds in audible and experimental ways."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2409#40",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "passage": "Research for historical fiction may focus on under-documented ordinary people, events, or sites. Fiction helps portray everyday situations, feelings, and atmosphere that recreate the historical context. Historical fiction adds “flesh to the bare bones that historians are able to uncover and by doing so provides an account that while not necessarily true provides a clearer indication of past events, circumstances and cultures.” Fiction adds color, sound, drama to the past, as much as it invents parts of the past. And Robert Rosenstone argues that invention is not the weakness of films, it is their strength. Fiction can allow users to see parts of the past that have never ― for lack of archives ― been represented. In fact, Gilden Seavey explains that if producers of historical fiction had strongly held the strict academic standards, many historical subjects would remain unexplored for lack of appropriate evidence. Historical fiction should, therefore, not be seen as the opposite of professional history, but rather as a challenging representation of the past from which both public historians and popular audiences may learn. 󰀻 While historical fiction reconstructs the past using (A) evidence, it provides an inviting description, (B) which may ______ people’s understanding of historical events. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "insignificant …… delay",
+     "insufficient …… enrich",
+     "concrete …… enhance",
+     "outdated …… improve",
+     "limited …… disturb 8"
+    ]
+   },
+   "after": {
+    "passage": "Research for historical fiction may focus on under-documented ordinary people, events, or sites. Fiction helps portray everyday situations, feelings, and atmosphere that recreate the historical context. Historical fiction adds “flesh to the bare bones that historians are able to uncover and by doing so provides an account that while not necessarily true provides a clearer indication of past events, circumstances and cultures.” Fiction adds color, sound, drama to the past, as much as it invents parts of the past. And Robert Rosenstone argues that invention is not the weakness of films, it is their strength. Fiction can allow users to see parts of the past that have never ― for lack of archives ― been represented. In fact, Gilden Seavey explains that if producers of historical fiction had strongly held the strict academic standards, many historical subjects would remain unexplored for lack of appropriate evidence. Historical fiction should, therefore, not be seen as the opposite of professional history, but rather as a challenging representation of the past from which both public historians and popular audiences may learn.\n\nWhile historical fiction reconstructs the past using (A) ______ evidence, it provides an inviting description, which may (B) ______ people’s understanding of historical events.",
+    "choices": [
+     "insignificant …… delay",
+     "insufficient …… enrich",
+     "concrete …… enhance",
+     "outdated …… improve",
+     "limited …… disturb"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2409#43",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "passage": "(A) In July, people in the city often escaped to relax in the mountains. Sean didn’t yet know it, but he was about to have the experience of a lifetime. “When I look around, all I see is the work I haven’t finished and the bills I haven’t paid,” he complained over the phone to his friend and doctor, Alex. Concerned about Sean, he said, “(a) You’ve been stressed for weeks. Come see me for medical treatment if things don’t improve.” 8 (B) Having hiked for several hours, Sean was thrilled to reach the top of Vincent Mountain. As Toby started to bark, Sean turned around and found him running toward a large pond. “What a nice, quiet place,” Sean whispered to himself. Among the trees, he could ease the stress of recent weeks. As night approached, however, the wind blew fiercely. Sean became nervous. Unable to sleep, (b) he called to his companion, “Come here, Boy!” He held the dog close in an effort to ignore the fear rushing in. (C) After what felt like the longest night of Sean’s life, the sky finally turned a beautiful shade of pink, and the warm sun shone around him. He packed up his equipment, enjoying his last moments in the mountain air. Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am after surviving a night like that!” Sean went down the mountain with a renewed sense of joy, and he exclaimed, “My treatment worked like a charm!” (D) Upon hearing this offer, Sean replied, “Thanks, but (d) I know just the treatment I need.” He told his friend about the Vincent Mountain hike he had read about. Alex anxiously warned, “Even in the summer, hiking can be dangerous. Don’t forget your safety checklist.” Following his friend’s words, (e) he added protective gear to his camping equipment. Sean put on his hiking clothes and tied up his boots. He almost forgot his new hiking sticks as he walked out the door with his dog, Toby."
+   },
+   "after": {
+    "passage": "(A) In July, people in the city often escaped to relax in the mountains. Sean didn’t yet know it, but he was about to have the experience of a lifetime. “When I look around, all I see is the work I haven’t finished and the bills I haven’t paid,” he complained over the phone to his friend and doctor, Alex. Concerned about Sean, he said, “(a) You’ve been stressed for weeks. Come see me for medical treatment if things don’t improve.” (B) Having hiked for several hours, Sean was thrilled to reach the top of Vincent Mountain. As Toby started to bark, Sean turned around and found him running toward a large pond. “What a nice, quiet place,” Sean whispered to himself. Among the trees, he could ease the stress of recent weeks. As night approached, however, the wind blew fiercely. Sean became nervous. Unable to sleep, (b) he called to his companion, “Come here, Boy!” He held the dog close in an effort to ignore the fear rushing in. (C) After what felt like the longest night of Sean’s life, the sky finally turned a beautiful shade of pink, and the warm sun shone around him. He packed up his equipment, enjoying his last moments in the mountain air. Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am after surviving a night like that!” Sean went down the mountain with a renewed sense of joy, and he exclaimed, “My treatment worked like a charm!” (D) Upon hearing this offer, Sean replied, “Thanks, but (d) I know just the treatment I need.” He told his friend about the Vincent Mountain hike he had read about. Alex anxiously warned, “Even in the summer, hiking can be dangerous. Don’t forget your safety checklist.” Following his friend’s words, (e) he added protective gear to his camping equipment. Sean put on his hiking clothes and tied up his boots. He almost forgot his new hiking sticks as he walked out the door with his dog, Toby."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2409#44",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "passage": "(A) In July, people in the city often escaped to relax in the mountains. Sean didn’t yet know it, but he was about to have the experience of a lifetime. “When I look around, all I see is the work I haven’t finished and the bills I haven’t paid,” he complained over the phone to his friend and doctor, Alex. Concerned about Sean, he said, “(a) You’ve been stressed for weeks. Come see me for medical treatment if things don’t improve.” 8 (B) Having hiked for several hours, Sean was thrilled to reach the top of Vincent Mountain. As Toby started to bark, Sean turned around and found him running toward a large pond. “What a nice, quiet place,” Sean whispered to himself. Among the trees, he could ease the stress of recent weeks. As night approached, however, the wind blew fiercely. Sean became nervous. Unable to sleep, (b) he called to his companion, “Come here, Boy!” He held the dog close in an effort to ignore the fear rushing in. (C) After what felt like the longest night of Sean’s life, the sky finally turned a beautiful shade of pink, and the warm sun shone around him. He packed up his equipment, enjoying his last moments in the mountain air. Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am after surviving a night like that!” Sean went down the mountain with a renewed sense of joy, and he exclaimed, “My treatment worked like a charm!” (D) Upon hearing this offer, Sean replied, “Thanks, but (d) I know just the treatment I need.” He told his friend about the Vincent Mountain hike he had read about. Alex anxiously warned, “Even in the summer, hiking can be dangerous. Don’t forget your safety checklist.” Following his friend’s words, (e) he added protective gear to his camping equipment. Sean put on his hiking clothes and tied up his boots. He almost forgot his new hiking sticks as he walked out the door with his dog, Toby."
+   },
+   "after": {
+    "passage": "(A) In July, people in the city often escaped to relax in the mountains. Sean didn’t yet know it, but he was about to have the experience of a lifetime. “When I look around, all I see is the work I haven’t finished and the bills I haven’t paid,” he complained over the phone to his friend and doctor, Alex. Concerned about Sean, he said, “(a) You’ve been stressed for weeks. Come see me for medical treatment if things don’t improve.” (B) Having hiked for several hours, Sean was thrilled to reach the top of Vincent Mountain. As Toby started to bark, Sean turned around and found him running toward a large pond. “What a nice, quiet place,” Sean whispered to himself. Among the trees, he could ease the stress of recent weeks. As night approached, however, the wind blew fiercely. Sean became nervous. Unable to sleep, (b) he called to his companion, “Come here, Boy!” He held the dog close in an effort to ignore the fear rushing in. (C) After what felt like the longest night of Sean’s life, the sky finally turned a beautiful shade of pink, and the warm sun shone around him. He packed up his equipment, enjoying his last moments in the mountain air. Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am after surviving a night like that!” Sean went down the mountain with a renewed sense of joy, and he exclaimed, “My treatment worked like a charm!” (D) Upon hearing this offer, Sean replied, “Thanks, but (d) I know just the treatment I need.” He told his friend about the Vincent Mountain hike he had read about. Alex anxiously warned, “Even in the summer, hiking can be dangerous. Don’t forget your safety checklist.” Following his friend’s words, (e) he added protective gear to his camping equipment. Sean put on his hiking clothes and tied up his boots. He almost forgot his new hiking sticks as he walked out the door with his dog, Toby."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2409#45",
+   "pdf_file": "202409_영어영역_문제지.pdf",
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c",
+   "before": {
+    "passage": "(A) In July, people in the city often escaped to relax in the mountains. Sean didn’t yet know it, but he was about to have the experience of a lifetime. “When I look around, all I see is the work I haven’t finished and the bills I haven’t paid,” he complained over the phone to his friend and doctor, Alex. Concerned about Sean, he said, “(a) You’ve been stressed for weeks. Come see me for medical treatment if things don’t improve.” 8 (B) Having hiked for several hours, Sean was thrilled to reach the top of Vincent Mountain. As Toby started to bark, Sean turned around and found him running toward a large pond. “What a nice, quiet place,” Sean whispered to himself. Among the trees, he could ease the stress of recent weeks. As night approached, however, the wind blew fiercely. Sean became nervous. Unable to sleep, (b) he called to his companion, “Come here, Boy!” He held the dog close in an effort to ignore the fear rushing in. (C) After what felt like the longest night of Sean’s life, the sky finally turned a beautiful shade of pink, and the warm sun shone around him. He packed up his equipment, enjoying his last moments in the mountain air. Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am after surviving a night like that!” Sean went down the mountain with a renewed sense of joy, and he exclaimed, “My treatment worked like a charm!” (D) Upon hearing this offer, Sean replied, “Thanks, but (d) I know just the treatment I need.” He told his friend about the Vincent Mountain hike he had read about. Alex anxiously warned, “Even in the summer, hiking can be dangerous. Don’t forget your safety checklist.” Following his friend’s words, (e) he added protective gear to his camping equipment. Sean put on his hiking clothes and tied up his boots. He almost forgot his new hiking sticks as he walked out the door with his dog, Toby.",
+    "choices": [
+     "Sean 은 친구 Alex 에게 어려움을 토로했다 .",
+     "Toby 가 큰 연못으로 달려갔다 .",
+     "밤이 되자 바람이 잦아들었다 .",
+     "Sean 은 산을 내려오며 기쁨을 느꼈다 .",
+     "Sean 은 Vincent Mountain 하이킹에 대해 읽은 적이 있다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) In July, people in the city often escaped to relax in the mountains. Sean didn’t yet know it, but he was about to have the experience of a lifetime. “When I look around, all I see is the work I haven’t finished and the bills I haven’t paid,” he complained over the phone to his friend and doctor, Alex. Concerned about Sean, he said, “(a) You’ve been stressed for weeks. Come see me for medical treatment if things don’t improve.” (B) Having hiked for several hours, Sean was thrilled to reach the top of Vincent Mountain. As Toby started to bark, Sean turned around and found him running toward a large pond. “What a nice, quiet place,” Sean whispered to himself. Among the trees, he could ease the stress of recent weeks. As night approached, however, the wind blew fiercely. Sean became nervous. Unable to sleep, (b) he called to his companion, “Come here, Boy!” He held the dog close in an effort to ignore the fear rushing in. (C) After what felt like the longest night of Sean’s life, the sky finally turned a beautiful shade of pink, and the warm sun shone around him. He packed up his equipment, enjoying his last moments in the mountain air. Finding Toby energetically running next to the campsite, Sean said, “(c) You must be as excited as I am after surviving a night like that!” Sean went down the mountain with a renewed sense of joy, and he exclaimed, “My treatment worked like a charm!” (D) Upon hearing this offer, Sean replied, “Thanks, but (d) I know just the treatment I need.” He told his friend about the Vincent Mountain hike he had read about. Alex anxiously warned, “Even in the summer, hiking can be dangerous. Don’t forget your safety checklist.” Following his friend’s words, (e) he added protective gear to his camping equipment. Sean put on his hiking clothes and tied up his boots. He almost forgot his new hiking sticks as he walked out the door with his dog, Toby.",
+    "choices": [
+     "Sean은 친구 Alex에게 어려움을 토로했다.",
+     "Toby가 큰 연못으로 달려갔다.",
+     "밤이 되자 바람이 잦아들었다.",
+     "Sean은 산을 내려오며 기쁨을 느꼈다.",
+     "Sean은 Vincent Mountain 하이킹에 대해 읽은 적이 있다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#22",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "choices": [
+     "수렵인과 현대인은 언어에 대한 유사한 가치를 가지고 있다 .",
+     "인간은 언어를 사용하여 자원을 보다 효율적으로 배분해 왔다 .",
+     "현대 사회는 고대 수렵 사회보다 평등한 체계에 의해 운영된다 .",
+     "인간 의사소통의 평등성은 공유와 공조 가치 기반을 형성했다 .",
+     "인간은 의사소통을 통해 자원을 공유하는 평등한 사회를 건설했다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "수렵인과 현대인은 언어에 대한 유사한 가치를 가지고 있다.",
+     "인간은 언어를 사용하여 자원을 보다 효율적으로 배분해 왔다.",
+     "현대 사회는 고대 수렵 사회보다 평등한 체계에 의해 운영된다.",
+     "인간 의사소통의 평등성은 공유와 공조 가치 기반을 형성했다.",
+     "인간은 의사소통을 통해 자원을 공유하는 평등한 사회를 건설했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#24",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "passage": "As far back as 32,000 years ago, prehistoric cave artists skillfully used modeling shadows to give their horses and bison volume. A few thousand years ago ancient Egyptian and then ancient Greek art presented human forms in shadow-style silhouette. But cast shadows do not appear in Western art until about 400 BCE in Athens. It was only after shadows had become an established, if controversial, part of representation that classical writers claimed that art itself had begun with the tracing of a human shadow. Greeks and Romans were the first to make the transition from modeling shadows to cast shadows, a practice that implied a consistent light source, a fixed point of view, and an understanding of geometric projection. In fact, what we might now call “shadow studies” ― the exploration of shadows ______ in their various artistic representations ― has its roots in ancient Athens. Ever since, the practice of portraying shadows has evolved along with critical analysis of them, as artists and theoreticians have engaged in an ongoing debate about the significance of shadow representation.",
+    "choices": [
+     "The Journey of Shadows in Art from Prehistoric Caves Onward",
+     "Portrayals of Human Shadows from the Artistic Perspective",
+     "Representing Shadows as a Key Part of Contemporary Art",
+     "What Are the Primary Challenges for Shadow Painters?",
+     "Unique Views on Shadows: From Cave Artists to Romans 8"
+    ]
+   },
+   "after": {
+    "passage": "As far back as 32,000 years ago, prehistoric cave artists skillfully used modeling shadows to give their horses and bison volume. A few thousand years ago ancient Egyptian and then ancient Greek art presented human forms in shadow-style silhouette. But cast shadows do not appear in Western art until about 400 BCE in Athens. It was only after shadows had become an established, if controversial, part of representation that classical writers claimed that art itself had begun with the tracing of a human shadow. Greeks and Romans were the first to make the transition from modeling shadows to cast shadows, a practice that implied a consistent light source, a fixed point of view, and an understanding of geometric projection. In fact, what we might now call “shadow studies” ― the exploration of shadows in their various artistic representations ― has its roots in ancient Athens. Ever since, the practice of portraying shadows has evolved along with critical analysis of them, as artists and theoreticians have engaged in an ongoing debate about the significance of shadow representation.",
+    "choices": [
+     "The Journey of Shadows in Art from Prehistoric Caves Onward",
+     "Portrayals of Human Shadows from the Artistic Perspective",
+     "Representing Shadows as a Key Part of Contemporary Art",
+     "What Are the Primary Challenges for Shadow Painters?",
+     "Unique Views on Shadows: From Cave Artists to Romans"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#30",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "passage": "Internalization depends on supports for autonomy. Contexts that use controlling strategies such as salient rewards and punishments or evaluative, selfesteem-hooking pressures are ① least likely to lead people to value activities as their own. This is not to say that controls don’t ② work to produce behavior ― decades of operant psychology prove that they can. It is rather that the more salient the external control over a person’s behavior, the more the person is likely to be merely externally regulated or introjected in his or her actions. Consequently, the person does not ③ develop a value or investment in the behaviors, but instead remains dependent on external controls. Thus, parents who reward, force, or cajole their child to do homework are more likely to have a child who does so only when rewarded, cajoled, or forced. The salience of external controls ④ drives the acquisition of self-responsibility. Alternatively, parents who supply reasons, show an emotional understanding of difficulties overcoming problems, and use a ⑤ minimum of external incentives are more likely to cultivate a sense of willingness and value for work in their child. 5 5"
+   },
+   "after": {
+    "passage": "Internalization depends on supports for autonomy. Contexts that use controlling strategies such as salient rewards and punishments or evaluative, selfesteem-hooking pressures are ① least likely to lead people to value activities as their own. This is not to say that controls don’t ② work to produce behavior ― decades of operant psychology prove that they can. It is rather that the more salient the external control over a person’s behavior, the more the person is likely to be merely externally regulated or introjected in his or her actions. Consequently, the person does not ③ develop a value or investment in the behaviors, but instead remains dependent on external controls. Thus, parents who reward, force, or cajole their child to do homework are more likely to have a child who does so only when rewarded, cajoled, or forced. The salience of external controls ④ drives the acquisition of self-responsibility. Alternatively, parents who supply reasons, show an emotional understanding of difficulties overcoming problems, and use a ⑤ minimum of external incentives are more likely to cultivate a sense of willingness and value for work in their child."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#32",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "passage": "Creativity is commonly ______ defined as the production of ideas that are both novel (original, new) and useful (appropriate, feasible). Ideas that are original but not useful are irrelevant, and ideas that are useful but not original are unremarkable. While this definition is widely used in research, an important aspect of creativity is often ignored: Generating creative ideas rarely is the final goal. Rather, to successfully solve problems or innovate requires one or a few good ideas that really work, and work better than previous approaches. This requires that people evaluate the products of their own or each other’s imagination, and choose those ideas that seem promising enough to develop further, and abandon those that are unlikely to be successful. Thus, being creative ______ . In fact, the ability to generate creative ideas is essentially useless if these ideas subsequently die a silent death.",
+    "choices": [
+     "does not stop with idea generation",
+     "rarely originates from practical ideas",
+     "is often regarded as a shortcut to innovation",
+     "frequently gives way to unanticipated success",
+     "brings out tension between novelty and relevancy 8"
+    ]
+   },
+   "after": {
+    "passage": "Creativity is commonly defined as the production of ideas that are both novel (original, new) and useful (appropriate, feasible). Ideas that are original but not useful are irrelevant, and ideas that are useful but not original are unremarkable. While this definition is widely used in research, an important aspect of creativity is often ignored: Generating creative ideas rarely is the final goal. Rather, to successfully solve problems or innovate requires one or a few good ideas that really work, and work better than previous approaches. This requires that people evaluate the products of their own or each other’s imagination, and choose those ideas that seem promising enough to develop further, and abandon those that are unlikely to be successful. Thus, being creative ______. In fact, the ability to generate creative ideas is essentially useless if these ideas subsequently die a silent death.",
+    "choices": [
+     "does not stop with idea generation",
+     "rarely originates from practical ideas",
+     "is often regarded as a shortcut to innovation",
+     "frequently gives way to unanticipated success",
+     "brings out tension between novelty and relevancy"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#38",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "passage": "Continuous emissions measurement ______ can be costly, particularly where there are many separate sources of emissions, and for many pollution problems this may be a major disincentive to direct taxation of emissions. Environmental taxes based directly on measured emissions can, in principle, be very precisely targeted to the policy’s environmental objectives. ( ①) If a firm pollutes more, it pays additional tax directly in proportion to the rise in emissions. ( ②) The polluter thus has an incentive to reduce emissions in any manner that is less costly per unit of abatement than the tax on each unit of residual emissions. ( ③) The great attraction of basing the tax directly on measured emissions is that the actions the polluter can take to reduce tax liability are actions that also reduce emissions. ( ④) Nevertheless, the technologies available for monitoring the concentrations and flows of particular substances in waste discharges have been developing rapidly. ( ⑤) In the future, it may be possible to think of taxing measured emissions in a wider range of applications. 7 7"
+   },
+   "after": {
+    "passage": "Continuous emissions measurement can be costly, particularly where there are many separate sources of emissions, and for many pollution problems this may be a major disincentive to direct taxation of emissions. Environmental taxes based directly on measured emissions can, in principle, be very precisely targeted to the policy’s environmental objectives. ( ① ) If a firm pollutes more, it pays additional tax directly in proportion to the rise in emissions. ( ② ) The polluter thus has an incentive to reduce emissions in any manner that is less costly per unit of abatement than the tax on each unit of residual emissions. ( ③ ) The great attraction of basing the tax directly on measured emissions is that the actions the polluter can take to reduce tax liability are actions that also reduce emissions. ( ④ ) Nevertheless, the technologies available for monitoring the concentrations and flows of particular substances in waste discharges have been developing rapidly. ( ⑤ ) In the future, it may be possible to think of taxing measured emissions in a wider range of applications."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#40",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "passage": "There is a tendency, once the dust of an emergency has settled down, to seek the reduction of famine vulnerability primarily in enhanced economic growth, or the revival of the rural economy, or the diversification of economic activities. The potential contribution of greater economic success, if it involves vulnerable groups, cannot be denied. At the same time, it is important to recognize that, no matter how fast they grow, countries where a large part of the population derive their livelihood from uncertain sources cannot hope to prevent famines without specialized entitlement protection mechanisms involving direct public intervention. Rapid growth of the economy in Botswana, or of the agricultural sector in Kenya, or of food production in Zimbabwe, explains at best only a small part of their success in preventing recurrent threats of famine. The real achievements of these countries lie in having provided direct public support to their populations in times of crisis. 󰀻 Although economic growth can be somewhat ______ (A) ______ in diminishing a country’s risk of famine, direct approaches to helping the affected people play a(n) (B) ______ role in this process. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "productive …… complicated",
+     "fruitful …… critical",
+     "dominant …… comprehensive",
+     "restrictive …… appropriate",
+     "desirable …… cost-effective 8"
+    ]
+   },
+   "after": {
+    "passage": "There is a tendency, once the dust of an emergency has settled down, to seek the reduction of famine vulnerability primarily in enhanced economic growth, or the revival of the rural economy, or the diversification of economic activities. The potential contribution of greater economic success, if it involves vulnerable groups, cannot be denied. At the same time, it is important to recognize that, no matter how fast they grow, countries where a large part of the population derive their livelihood from uncertain sources cannot hope to prevent famines without specialized entitlement protection mechanisms involving direct public intervention. Rapid growth of the economy in Botswana, or of the agricultural sector in Kenya, or of food production in Zimbabwe, explains at best only a small part of their success in preventing recurrent threats of famine. The real achievements of these countries lie in having provided direct public support to their populations in times of crisis. Although economic growth can be somewhat (A) ______ in diminishing a country’s risk of famine, direct approaches to helping the affected people play a(n) (B) ______ role in this process.",
+    "choices": [
+     "productive…… complicated",
+     "fruitful …… critical",
+     "dominant …… comprehensive",
+     "restrictive…… appropriate",
+     "desirable …… cost-effective"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#43",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "passage": "(A) Garcia stood outside Frontcountry Mall, waiting for his brother, Jeff. Garcia’s band had been chosen to perform at the welcoming ceremony for a large group of students from their sister university in Singapore. Garcia was hoping to find the perfect clothing for the performance. That was why (a) he had asked Jeff to help him pick out new clothes. “I’m sorry. I’m late because traffic was terrible,” Jeff apologized as he arrived. “Don’t worry. I haven’t waited long,” Garcia replied as they entered the lively shopping center. 8 (B) The band performance was the first event of the ceremony. The host introduced the band, and each member took their place on stage. Garcia stood at the center of the stage. As he started playing, everyone fell silent, fascinated by the music. Garcia’s trumpet playing was flawless. When the band was finished, the audience loudly cheered. After the show, Jeff approached Garcia. “It was fantastic. I think that was the best performance I’ve ever seen,” (b) he said. Garcia beamed with joy at his brother’s praise. (C) Garcia felt good as he arrived at the concert hall for the rehearsal wearing his new clothes. His confidence was, however, quickly changed to nervousness when he thought of how many people would be there. As the rehearsal began, (c) he struggled with the rhythm, making several mistakes. Tom, Garcia’s band mate, came over and put a hand on Garcia’s back, saying, “Don’t worry, I’ll be right behind (d) you.” He looked at his friend, took a deep breath and started to feel much better. (D) “Aren’t these cool?” Garcia asked, pointing at a patterned red shirt and yellow pants he had found in the store. “Um, I think they’re a bit too colorful,” Jeff objected. Instead, Jeff picked out a white shirt and black jeans. He asked the store clerk, “Don’t you think these would look great on (e) my brother?” The clerk stopped her work and looked at the clothes, quickly agreeing with Jeff’s choice. Garcia bought the recommended clothes, saying, “Maybe I’ll wear these for tonight’s rehearsal, too.”"
+   },
+   "after": {
+    "passage": "(A) Garcia stood outside Frontcountry Mall, waiting for his brother, Jeff. Garcia’s band had been chosen to perform at the welcoming ceremony for a large group of students from their sister university in Singapore. Garcia was hoping to find the perfect clothing for the performance. That was why (a) he had asked Jeff to help him pick out new clothes. “I’m sorry. I’m late because traffic was terrible,” Jeff apologized as he arrived. “Don’t worry. I haven’t waited long,” Garcia replied as they entered the lively shopping center. (B) The band performance was the first event of the ceremony. The host introduced the band, and each member took their place on stage. Garcia stood at the center of the stage. As he started playing, everyone fell silent, fascinated by the music. Garcia’s trumpet playing was flawless. When the band was finished, the audience loudly cheered. After the show, Jeff approached Garcia. “It was fantastic. I think that was the best performance I’ve ever seen,” (b) he said. Garcia beamed with joy at his brother’s praise. (C) Garcia felt good as he arrived at the concert hall for the rehearsal wearing his new clothes. His confidence was, however, quickly changed to nervousness when he thought of how many people would be there. As the rehearsal began, (c) he struggled with the rhythm, making several mistakes. Tom, Garcia’s band mate, came over and put a hand on Garcia’s back, saying, “Don’t worry, I’ll be right behind (d) you.” He looked at his friend, took a deep breath and started to feel much better. (D) “Aren’t these cool?” Garcia asked, pointing at a patterned red shirt and yellow pants he had found in the store. “Um, I think they’re a bit too colorful,” Jeff objected. Instead, Jeff picked out a white shirt and black jeans. He asked the store clerk, “Don’t you think these would look great on (e) my brother?” The clerk stopped her work and looked at the clothes, quickly agreeing with Jeff’s choice. Garcia bought the recommended clothes, saying, “Maybe I’ll wear these for tonight’s rehearsal, too.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#44",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "passage": "(A) Garcia stood outside Frontcountry Mall, waiting for his brother, Jeff. Garcia’s band had been chosen to perform at the welcoming ceremony for a large group of students from their sister university in Singapore. Garcia was hoping to find the perfect clothing for the performance. That was why (a) he had asked Jeff to help him pick out new clothes. “I’m sorry. I’m late because traffic was terrible,” Jeff apologized as he arrived. “Don’t worry. I haven’t waited long,” Garcia replied as they entered the lively shopping center. 8 (B) The band performance was the first event of the ceremony. The host introduced the band, and each member took their place on stage. Garcia stood at the center of the stage. As he started playing, everyone fell silent, fascinated by the music. Garcia’s trumpet playing was flawless. When the band was finished, the audience loudly cheered. After the show, Jeff approached Garcia. “It was fantastic. I think that was the best performance I’ve ever seen,” (b) he said. Garcia beamed with joy at his brother’s praise. (C) Garcia felt good as he arrived at the concert hall for the rehearsal wearing his new clothes. His confidence was, however, quickly changed to nervousness when he thought of how many people would be there. As the rehearsal began, (c) he struggled with the rhythm, making several mistakes. Tom, Garcia’s band mate, came over and put a hand on Garcia’s back, saying, “Don’t worry, I’ll be right behind (d) you.” He looked at his friend, took a deep breath and started to feel much better. (D) “Aren’t these cool?” Garcia asked, pointing at a patterned red shirt and yellow pants he had found in the store. “Um, I think they’re a bit too colorful,” Jeff objected. Instead, Jeff picked out a white shirt and black jeans. He asked the store clerk, “Don’t you think these would look great on (e) my brother?” The clerk stopped her work and looked at the clothes, quickly agreeing with Jeff’s choice. Garcia bought the recommended clothes, saying, “Maybe I’ll wear these for tonight’s rehearsal, too.”"
+   },
+   "after": {
+    "passage": "(A) Garcia stood outside Frontcountry Mall, waiting for his brother, Jeff. Garcia’s band had been chosen to perform at the welcoming ceremony for a large group of students from their sister university in Singapore. Garcia was hoping to find the perfect clothing for the performance. That was why (a) he had asked Jeff to help him pick out new clothes. “I’m sorry. I’m late because traffic was terrible,” Jeff apologized as he arrived. “Don’t worry. I haven’t waited long,” Garcia replied as they entered the lively shopping center. (B) The band performance was the first event of the ceremony. The host introduced the band, and each member took their place on stage. Garcia stood at the center of the stage. As he started playing, everyone fell silent, fascinated by the music. Garcia’s trumpet playing was flawless. When the band was finished, the audience loudly cheered. After the show, Jeff approached Garcia. “It was fantastic. I think that was the best performance I’ve ever seen,” (b) he said. Garcia beamed with joy at his brother’s praise. (C) Garcia felt good as he arrived at the concert hall for the rehearsal wearing his new clothes. His confidence was, however, quickly changed to nervousness when he thought of how many people would be there. As the rehearsal began, (c) he struggled with the rhythm, making several mistakes. Tom, Garcia’s band mate, came over and put a hand on Garcia’s back, saying, “Don’t worry, I’ll be right behind (d) you.” He looked at his friend, took a deep breath and started to feel much better. (D) “Aren’t these cool?” Garcia asked, pointing at a patterned red shirt and yellow pants he had found in the store. “Um, I think they’re a bit too colorful,” Jeff objected. Instead, Jeff picked out a white shirt and black jeans. He asked the store clerk, “Don’t you think these would look great on (e) my brother?” The clerk stopped her work and looked at the clothes, quickly agreeing with Jeff’s choice. Garcia bought the recommended clothes, saying, “Maybe I’ll wear these for tonight’s rehearsal, too.”"
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2506#45",
+   "pdf_file": "202506_영어영역_문제지.pdf",
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca",
+   "before": {
+    "passage": "(A) Garcia stood outside Frontcountry Mall, waiting for his brother, Jeff. Garcia’s band had been chosen to perform at the welcoming ceremony for a large group of students from their sister university in Singapore. Garcia was hoping to find the perfect clothing for the performance. That was why (a) he had asked Jeff to help him pick out new clothes. “I’m sorry. I’m late because traffic was terrible,” Jeff apologized as he arrived. “Don’t worry. I haven’t waited long,” Garcia replied as they entered the lively shopping center. 8 (B) The band performance was the first event of the ceremony. The host introduced the band, and each member took their place on stage. Garcia stood at the center of the stage. As he started playing, everyone fell silent, fascinated by the music. Garcia’s trumpet playing was flawless. When the band was finished, the audience loudly cheered. After the show, Jeff approached Garcia. “It was fantastic. I think that was the best performance I’ve ever seen,” (b) he said. Garcia beamed with joy at his brother’s praise. (C) Garcia felt good as he arrived at the concert hall for the rehearsal wearing his new clothes. His confidence was, however, quickly changed to nervousness when he thought of how many people would be there. As the rehearsal began, (c) he struggled with the rhythm, making several mistakes. Tom, Garcia’s band mate, came over and put a hand on Garcia’s back, saying, “Don’t worry, I’ll be right behind (d) you.” He looked at his friend, took a deep breath and started to feel much better. (D) “Aren’t these cool?” Garcia asked, pointing at a patterned red shirt and yellow pants he had found in the store. “Um, I think they’re a bit too colorful,” Jeff objected. Instead, Jeff picked out a white shirt and black jeans. He asked the store clerk, “Don’t you think these would look great on (e) my brother?” The clerk stopped her work and looked at the clothes, quickly agreeing with Jeff’s choice. Garcia bought the recommended clothes, saying, “Maybe I’ll wear these for tonight’s rehearsal, too.”",
+    "choices": [
+     "Jeff 는 교통 체증 때문에 늦었다 .",
+     "Garcia 는 환영식 공연 무대의 중앙에 섰다 .",
+     "밴드가 환영식 공연에서 연주를 마치자 관객은 환호했다 .",
+     "Garcia 는 리허설을 앞두고 긴장감을 느꼈다 .",
+     "Garcia 는 본인이 가리킨 색상의 옷을 구매했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) Garcia stood outside Frontcountry Mall, waiting for his brother, Jeff. Garcia’s band had been chosen to perform at the welcoming ceremony for a large group of students from their sister university in Singapore. Garcia was hoping to find the perfect clothing for the performance. That was why (a) he had asked Jeff to help him pick out new clothes. “I’m sorry. I’m late because traffic was terrible,” Jeff apologized as he arrived. “Don’t worry. I haven’t waited long,” Garcia replied as they entered the lively shopping center. (B) The band performance was the first event of the ceremony. The host introduced the band, and each member took their place on stage. Garcia stood at the center of the stage. As he started playing, everyone fell silent, fascinated by the music. Garcia’s trumpet playing was flawless. When the band was finished, the audience loudly cheered. After the show, Jeff approached Garcia. “It was fantastic. I think that was the best performance I’ve ever seen,” (b) he said. Garcia beamed with joy at his brother’s praise. (C) Garcia felt good as he arrived at the concert hall for the rehearsal wearing his new clothes. His confidence was, however, quickly changed to nervousness when he thought of how many people would be there. As the rehearsal began, (c) he struggled with the rhythm, making several mistakes. Tom, Garcia’s band mate, came over and put a hand on Garcia’s back, saying, “Don’t worry, I’ll be right behind (d) you.” He looked at his friend, took a deep breath and started to feel much better. (D) “Aren’t these cool?” Garcia asked, pointing at a patterned red shirt and yellow pants he had found in the store. “Um, I think they’re a bit too colorful,” Jeff objected. Instead, Jeff picked out a white shirt and black jeans. He asked the store clerk, “Don’t you think these would look great on (e) my brother?” The clerk stopped her work and looked at the clothes, quickly agreeing with Jeff’s choice. Garcia bought the recommended clothes, saying, “Maybe I’ll wear these for tonight’s rehearsal, too.”",
+    "choices": [
+     "Jeff는 교통 체증 때문에 늦었다.",
+     "Garcia는 환영식 공연 무대의 중앙에 섰다.",
+     "밴드가 환영식 공연에서 연주를 마치자 관객은 환호했다.",
+     "Garcia는 리허설을 앞두고 긴장감을 느꼈다.",
+     "Garcia는 본인이 가리킨 색상의 옷을 구매했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#22",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "choices": [
+     "도덕성은 자신의 선택에 대해 책임을 진다는 개념이다 .",
+     "동물과 인간을 구별하는 중요한 특징은 분별력과 언어이다 .",
+     "도덕성은 학습되는 문화적 도구로서 인간 사회에만 나타난다 .",
+     "동물과 인간은 공통적으로 다른 개체와 협력하는 경향이 있다 .",
+     "문화적 도구로서의 도덕성은 개체의 의사 결정에 영향을 미친다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "도덕성은 자신의 선택에 대해 책임을 진다는 개념이다.",
+     "동물과 인간을 구별하는 중요한 특징은 분별력과 언어이다.",
+     "도덕성은 학습되는 문화적 도구로서 인간 사회에만 나타난다.",
+     "동물과 인간은 공통적으로 다른 개체와 협력하는 경향이 있다.",
+     "문화적 도구로서의 도덕성은 개체의 의사 결정에 영향을 미친다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#24",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "choices": [
+     "Why Are Open-office Plans So Cost-efficient?",
+     "How to Incorporate Retro Styles into Office Spaces",
+     "An Office Divided: Why Partitions Limit Productivity",
+     "Office Designs: What Goes Around Comes Around",
+     "Tips for Managing Contemporary Office Spaces 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "Why Are Open-office Plans So Cost-efficient?",
+     "How to Incorporate Retro Styles into Office Spaces",
+     "An Office Divided: Why Partitions Limit Productivity",
+     "Office Designs: What Goes Around Comes Around",
+     "Tips for Managing Contemporary Office Spaces"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#30",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "passage": "We all like to think of ourselves as rational actors, careful and considered in our thinking, capable of sound and reliable judgments. We might believe that we generally consider different points of view and make ① informed decisions. We are, in fact, “predictably irrational,” as psychologist Dan Ariely titled his book on the topic. All of us engage in automatic, reflexive thinking, typically taking the ② easier path and conserving mental effort. Although we each may have the subjective impression that we are careful thinkers, we often make snap judgments or no real judgments at all. In addition, numerous biases inhibit or override reflective, deliberative thought; intuitive theories can also interfere with ③ acceptance of accurate scientific explanations. Understanding more about how our minds work and how biases may operate can make us each ④ less subject to fallacious reasoning, more rational, and more aware of the problems in others’ thinking. Learning to understand the built-in ⑤ rationality of our mental processes can also help us improve our ability to inform others more effectively. 5 5"
+   },
+   "after": {
+    "passage": "We all like to think of ourselves as rational actors, careful and considered in our thinking, capable of sound and reliable judgments. We might believe that we generally consider different points of view and make ① informed decisions. We are, in fact, “predictably irrational,” as psychologist Dan Ariely titled his book on the topic. All of us engage in automatic, reflexive thinking, typically taking the ② easier path and conserving mental effort. Although we each may have the subjective impression that we are careful thinkers, we often make snap judgments or no real judgments at all. In addition, numerous biases inhibit or override reflective, deliberative thought; intuitive theories can also interfere with ③ acceptance of accurate scientific explanations. Understanding more about how our minds work and how biases may operate can make us each ④ less subject to fallacious reasoning, more rational, and more aware of the problems in others’ thinking. Learning to understand the built-in ⑤ rationality of our mental processes can also help us improve our ability to inform others more effectively."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#32",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "passage": "One of the factors determining the use of technologies of communication will be the kinds of investments made in equipment and personnel; who makes them, and what they expect in return. There is no guarantee that the investment will necessarily be in forms of communication ______ that . Because the ownership of investment funds tends to be in the hands of commercial organisations, the modernisation of communications infrastructure only takes place on the basis of potential profitability. Take, for example, the installation of fibre-optic communications cable across the African continent. A number of African nations are involved in the development but its operational structures will be oriented to those who can pay for access. Many states that might wish to use it for education and information may not only find it too expensive but also simply unavailable to them. There can be no doubt that the development has been led by investment opportunity rather than community demand.",
+    "choices": [
+     "require minimal cost and effort to maintain",
+     "are most appropriate for the majority of people",
+     "are in line with current standards and global norms",
+     "employ some of the most advanced technologies",
+     "promote the commercial interests of companies 8"
+    ]
+   },
+   "after": {
+    "passage": "One of the factors determining the use of technologies of communication will be the kinds of investments made in equipment and personnel; who makes them, and what they expect in return. There is no guarantee that the investment will necessarily be in forms of communication that ______. Because the ownership of investment funds tends to be in the hands of commercial organisations, the modernisation of communications infrastructure only takes place on the basis of potential profitability. Take, for example, the installation of fibre-optic communications cable across the African continent. A number of African nations are involved in the development but its operational structures will be oriented to those who can pay for access. Many states that might wish to use it for education and information may not only find it too expensive but also simply unavailable to them. There can be no doubt that the development has been led by investment opportunity rather than community demand.",
+    "choices": [
+     "require minimal cost and effort to maintain",
+     "are most appropriate for the majority of people",
+     "are in line with current standards and global norms",
+     "employ some of the most advanced technologies",
+     "promote the commercial interests of companies"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#38",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "passage": "If not, the robot might endlessly chase itself rather than the blocks. People involved in the conception and engineering of robots designed to perceive and act know how fundamental is the ability to discriminate oneself from other entities in the environment. Without such an ability, no goal-oriented action would be possible. ( ①) Imagine that you have to build a robot able to search for blocks scattered in a room in order to pile them. ( ②) Even this simple task would require that your machine be able to discriminate between stimulation that originates from its own machinery and stimulation that originates from the blocks in the environment. ( ③) Suppose that you equip your robot with an artificial eye and an artificial arm to detect, grab, and pile the blocks. ( ④) To be successful, your machine will have to have some built-in system enabling it to discriminate between the detection of a block and the detection of its own arm. ( ⑤) Your robot would engage in circular, self-centered acts that would drive it away from the target or external goal. 7 7"
+   },
+   "after": {
+    "passage": "If not, the robot might endlessly chase itself rather than the blocks. People involved in the conception and engineering of robots designed to perceive and act know how fundamental is the ability to discriminate oneself from other entities in the environment. Without such an ability, no goal-oriented action would be possible. ( ① ) Imagine that you have to build a robot able to search for blocks scattered in a room in order to pile them. ( ② ) Even this simple task would require that your machine be able to discriminate between stimulation that originates from its own machinery and stimulation that originates from the blocks in the environment. ( ③ ) Suppose that you equip your robot with an artificial eye and an artificial arm to detect, grab, and pile the blocks. ( ④ ) To be successful, your machine will have to have some built-in system enabling it to discriminate between the detection of a block and the detection of its own arm. ( ⑤ ) Your robot would engage in circular, self-centered acts that would drive it away from the target or external goal."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#40",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "passage": "Human speech differs from the cries of other species in many ways. One very important distinction is that all other animals use one call for one message as the general principle of communication. This means that the number of possible messages is very restricted. If a new message is to be included in the system, a new sound has to be introduced, too. After the first few tens of sounds it becomes difficult to invent new distinctive sounds, and also to remember them for the next time they are needed. Human speech builds on the principle of combining a restricted number of sounds into an unlimited number of messages. In a typical human language there are something like thirty or forty distinctive speech sounds. These sounds can be combined into chains to form a literally unlimited number of words. Even a small child, who can communicate by only one word at a time, uses a system for communication that is infinitely superior to any system utilized by any other animal. 󰀻 In animal cries, each call (A) ______ a different message, which limits the number of possible messages, whereas human language creates an unlimited number of messages using a ______ (B) ______ set of distinctive sounds. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "represents …… finite",
+     "symbolizes …… universal",
+     "distorts …… fixed",
+     "expresses …… novel",
+     "records …… complex 8"
+    ]
+   },
+   "after": {
+    "passage": "Human speech differs from the cries of other species in many ways. One very important distinction is that all other animals use one call for one message as the general principle of communication. This means that the number of possible messages is very restricted. If a new message is to be included in the system, a new sound has to be introduced, too. After the first few tens of sounds it becomes difficult to invent new distinctive sounds, and also to remember them for the next time they are needed. Human speech builds on the principle of combining a restricted number of sounds into an unlimited number of messages. In a typical human language there are something like thirty or forty distinctive speech sounds. These sounds can be combined into chains to form a literally unlimited number of words. Even a small child, who can communicate by only one word at a time, uses a system for communication that is infinitely superior to any system utilized by any other animal.\n\nIn animal cries, each call (A) ______ a different message, which limits the number of possible messages, whereas human language creates an unlimited number of messages using a (B) ______ set of distinctive sounds.",
+    "choices": [
+     "represents…… finite",
+     "symbolizes…… universal",
+     "distorts …… fixed",
+     "expresses …… novel",
+     "records …… complex"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#43",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "passage": "(A) Helen was thrilled when she received a notification on a second-hand shopping app from a seller named Anna. For months, she had been looking for a Philodendron gloriosum, a Colombian plant with dark, velvety leaves shaped like hearts. She had almost given up on getting one. Anna, though, had put one up for sale. The posting read, “(a) I’m selling my favorite plant, because I’m moving abroad. If you pick it up today from Edincester Heights, you can have it for the current price, which is half the market rate.” 8 (B) Arriving at the building, Helen could identify Julia by the large paper bag she was holding. The bag had leaves sticking out of the top. (b) She said, “You must be Julia!” Laughing, the woman said, “Yes! Please take good care of this plant. Anna had it for six years, so she considers it family.” From the bag, she pulled out another plant, a tiny one with thick, glossy leaves. “Are you familiar with this? It’s called a Dragon’s Tail. (c) My housemate said you could take it too, if you’d like.” (C) Helen immediately messaged the seller. “Hello! I’m interested in purchasing (d) your plant. If it works for your schedule, I can be there in 10 minutes!” Anna replied, “Hi, there! I am at work right now, but my housemate, Julia, can meet you in front of the building.” Unable to believe her good luck, Helen typed back in excitement, “Great! I can leave now. I’ll wear a black baseball cap.” (D) Helen exclaimed, “Yes, I’d love to! Please thank Anna for me. Both are in such wonderful condition. Do you have any tips for keeping them in good shape?” Handing over the bag, Julia replied, “I’m not a plant expert, but I know that Anna kept them away from windows to avoid direct sunlight. Why don’t you message (e) her? She would be happy to offer advice.” “I’ll be sure to do that,” Helen said, as she handed over the cash."
+   },
+   "after": {
+    "passage": "(A) Helen was thrilled when she received a notification on a second-hand shopping app from a seller named Anna. For months, she had been looking for a Philodendron gloriosum, a Colombian plant with dark, velvety leaves shaped like hearts. She had almost given up on getting one. Anna, though, had put one up for sale. The posting read, “(a) I’m selling my favorite plant, because I’m moving abroad. If you pick it up today from Edincester Heights, you can have it for the current price, which is half the market rate.” (B) Arriving at the building, Helen could identify Julia by the large paper bag she was holding. The bag had leaves sticking out of the top. (b) She said, “You must be Julia!” Laughing, the woman said, “Yes! Please take good care of this plant. Anna had it for six years, so she considers it family.” From the bag, she pulled out another plant, a tiny one with thick, glossy leaves. “Are you familiar with this? It’s called a Dragon’s Tail. (c) My housemate said you could take it too, if you’d like.” (C) Helen immediately messaged the seller. “Hello! I’m interested in purchasing (d) your plant. If it works for your schedule, I can be there in 10 minutes!” Anna replied, “Hi, there! I am at work right now, but my housemate, Julia, can meet you in front of the building.” Unable to believe her good luck, Helen typed back in excitement, “Great! I can leave now. I’ll wear a black baseball cap.” (D) Helen exclaimed, “Yes, I’d love to! Please thank Anna for me. Both are in such wonderful condition. Do you have any tips for keeping them in good shape?” Handing over the bag, Julia replied, “I’m not a plant expert, but I know that Anna kept them away from windows to avoid direct sunlight. Why don’t you message (e) her? She would be happy to offer advice.” “I’ll be sure to do that,” Helen said, as she handed over the cash."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#44",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "passage": "(A) Helen was thrilled when she received a notification on a second-hand shopping app from a seller named Anna. For months, she had been looking for a Philodendron gloriosum, a Colombian plant with dark, velvety leaves shaped like hearts. She had almost given up on getting one. Anna, though, had put one up for sale. The posting read, “(a) I’m selling my favorite plant, because I’m moving abroad. If you pick it up today from Edincester Heights, you can have it for the current price, which is half the market rate.” 8 (B) Arriving at the building, Helen could identify Julia by the large paper bag she was holding. The bag had leaves sticking out of the top. (b) She said, “You must be Julia!” Laughing, the woman said, “Yes! Please take good care of this plant. Anna had it for six years, so she considers it family.” From the bag, she pulled out another plant, a tiny one with thick, glossy leaves. “Are you familiar with this? It’s called a Dragon’s Tail. (c) My housemate said you could take it too, if you’d like.” (C) Helen immediately messaged the seller. “Hello! I’m interested in purchasing (d) your plant. If it works for your schedule, I can be there in 10 minutes!” Anna replied, “Hi, there! I am at work right now, but my housemate, Julia, can meet you in front of the building.” Unable to believe her good luck, Helen typed back in excitement, “Great! I can leave now. I’ll wear a black baseball cap.” (D) Helen exclaimed, “Yes, I’d love to! Please thank Anna for me. Both are in such wonderful condition. Do you have any tips for keeping them in good shape?” Handing over the bag, Julia replied, “I’m not a plant expert, but I know that Anna kept them away from windows to avoid direct sunlight. Why don’t you message (e) her? She would be happy to offer advice.” “I’ll be sure to do that,” Helen said, as she handed over the cash."
+   },
+   "after": {
+    "passage": "(A) Helen was thrilled when she received a notification on a second-hand shopping app from a seller named Anna. For months, she had been looking for a Philodendron gloriosum, a Colombian plant with dark, velvety leaves shaped like hearts. She had almost given up on getting one. Anna, though, had put one up for sale. The posting read, “(a) I’m selling my favorite plant, because I’m moving abroad. If you pick it up today from Edincester Heights, you can have it for the current price, which is half the market rate.” (B) Arriving at the building, Helen could identify Julia by the large paper bag she was holding. The bag had leaves sticking out of the top. (b) She said, “You must be Julia!” Laughing, the woman said, “Yes! Please take good care of this plant. Anna had it for six years, so she considers it family.” From the bag, she pulled out another plant, a tiny one with thick, glossy leaves. “Are you familiar with this? It’s called a Dragon’s Tail. (c) My housemate said you could take it too, if you’d like.” (C) Helen immediately messaged the seller. “Hello! I’m interested in purchasing (d) your plant. If it works for your schedule, I can be there in 10 minutes!” Anna replied, “Hi, there! I am at work right now, but my housemate, Julia, can meet you in front of the building.” Unable to believe her good luck, Helen typed back in excitement, “Great! I can leave now. I’ll wear a black baseball cap.” (D) Helen exclaimed, “Yes, I’d love to! Please thank Anna for me. Both are in such wonderful condition. Do you have any tips for keeping them in good shape?” Handing over the bag, Julia replied, “I’m not a plant expert, but I know that Anna kept them away from windows to avoid direct sunlight. Why don’t you message (e) her? She would be happy to offer advice.” “I’ll be sure to do that,” Helen said, as she handed over the cash."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2509#45",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "passage": "(A) Helen was thrilled when she received a notification on a second-hand shopping app from a seller named Anna. For months, she had been looking for a Philodendron gloriosum, a Colombian plant with dark, velvety leaves shaped like hearts. She had almost given up on getting one. Anna, though, had put one up for sale. The posting read, “(a) I’m selling my favorite plant, because I’m moving abroad. If you pick it up today from Edincester Heights, you can have it for the current price, which is half the market rate.” 8 (B) Arriving at the building, Helen could identify Julia by the large paper bag she was holding. The bag had leaves sticking out of the top. (b) She said, “You must be Julia!” Laughing, the woman said, “Yes! Please take good care of this plant. Anna had it for six years, so she considers it family.” From the bag, she pulled out another plant, a tiny one with thick, glossy leaves. “Are you familiar with this? It’s called a Dragon’s Tail. (c) My housemate said you could take it too, if you’d like.” (C) Helen immediately messaged the seller. “Hello! I’m interested in purchasing (d) your plant. If it works for your schedule, I can be there in 10 minutes!” Anna replied, “Hi, there! I am at work right now, but my housemate, Julia, can meet you in front of the building.” Unable to believe her good luck, Helen typed back in excitement, “Great! I can leave now. I’ll wear a black baseball cap.” (D) Helen exclaimed, “Yes, I’d love to! Please thank Anna for me. Both are in such wonderful condition. Do you have any tips for keeping them in good shape?” Handing over the bag, Julia replied, “I’m not a plant expert, but I know that Anna kept them away from windows to avoid direct sunlight. Why don’t you message (e) her? She would be happy to offer advice.” “I’ll be sure to do that,” Helen said, as she handed over the cash.",
+    "choices": [
+     "Helen 은 중고 거래 앱에서 알림을 받았다 .",
+     "Julia 는 큰 종이 가방을 들고 있었다 .",
+     "Helen 은 판매자와 메시지를 주고받았다 .",
+     "Helen 은 야구 모자를 쓰겠다고 답했다 .",
+     "Julia 는 자신이 식물 전문가라고 말했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) Helen was thrilled when she received a notification on a second-hand shopping app from a seller named Anna. For months, she had been looking for a Philodendron gloriosum, a Colombian plant with dark, velvety leaves shaped like hearts. She had almost given up on getting one. Anna, though, had put one up for sale. The posting read, “(a) I’m selling my favorite plant, because I’m moving abroad. If you pick it up today from Edincester Heights, you can have it for the current price, which is half the market rate.” (B) Arriving at the building, Helen could identify Julia by the large paper bag she was holding. The bag had leaves sticking out of the top. (b) She said, “You must be Julia!” Laughing, the woman said, “Yes! Please take good care of this plant. Anna had it for six years, so she considers it family.” From the bag, she pulled out another plant, a tiny one with thick, glossy leaves. “Are you familiar with this? It’s called a Dragon’s Tail. (c) My housemate said you could take it too, if you’d like.” (C) Helen immediately messaged the seller. “Hello! I’m interested in purchasing (d) your plant. If it works for your schedule, I can be there in 10 minutes!” Anna replied, “Hi, there! I am at work right now, but my housemate, Julia, can meet you in front of the building.” Unable to believe her good luck, Helen typed back in excitement, “Great! I can leave now. I’ll wear a black baseball cap.” (D) Helen exclaimed, “Yes, I’d love to! Please thank Anna for me. Both are in such wonderful condition. Do you have any tips for keeping them in good shape?” Handing over the bag, Julia replied, “I’m not a plant expert, but I know that Anna kept them away from windows to avoid direct sunlight. Why don’t you message (e) her? She would be happy to offer advice.” “I’ll be sure to do that,” Helen said, as she handed over the cash.",
+    "choices": [
+     "Helen은 중고 거래 앱에서 알림을 받았다.",
+     "Julia는 큰 종이 가방을 들고 있었다.",
+     "Helen은 판매자와 메시지를 주고받았다.",
+     "Helen은 야구 모자를 쓰겠다고 답했다.",
+     "Julia는 자신이 식물 전문가라고 말했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2606#22",
+   "pdf_file": "202606_영어영역_문제지.pdf",
+   "pdf_sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+   "before": {
+    "choices": [
+     "우리는 정보를 해석함으로써 의미를 만들어 낸다 .",
+     "우리는 경험적 확률에 근거하여 미래를 예측한다 .",
+     "정보의 양이 너무 많으면 정확한 분석이 어려워진다 .",
+     "정보의 진위 여부를 판단할 때 출처 확인이 필수이다 .",
+     "정보 해석에 개인의 감정이 개입되면 의미가 왜곡된다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "우리는 정보를 해석함으로써 의미를 만들어 낸다.",
+     "우리는 경험적 확률에 근거하여 미래를 예측한다.",
+     "정보의 양이 너무 많으면 정확한 분석이 어려워진다.",
+     "정보의 진위 여부를 판단할 때 출처 확인이 필수이다.",
+     "정보 해석에 개인의 감정이 개입되면 의미가 왜곡된다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2606#27",
+   "pdf_file": "202606_영어영역_문제지.pdf",
+   "pdf_sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+   "before": {
+    "choices": [
+     "주제는 한옥의 아름다움이다 .",
+     "예술가와 사회적 기업이 응모할 수 있다 .",
+     "선정된 작품은 한옥 마을 기념품점에서 판매될 것이다 .",
+     "응모 신청서 양식은 웹사이트에서 다운로드해야 한다 .",
+     "응모자는 작품을 우편으로 제출해야 한다 ."
+    ]
+   },
+   "after": {
+    "choices": [
+     "주제는 한옥의 아름다움이다.",
+     "예술가와 사회적 기업이 응모할 수 있다.",
+     "선정된 작품은 한옥 마을 기념품점에서 판매될 것이다.",
+     "응모 신청서 양식은 웹사이트에서 다운로드해야 한다.",
+     "응모자는 작품을 우편으로 제출해야 한다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2606#30",
+   "pdf_file": "202606_영어영역_문제지.pdf",
+   "pdf_sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+   "before": {
+    "passage": "Gaining an audience for your writing involves not just finding a voice but ensuring that voice resonates with your intended readers. Entrepreneurs understand the importance of building a brand that makes them memorable and distinct from their competitors, drawing customers to their products or services. They achieve this by ① pinpointing their target audience, crafting a unique value proposition, and shaping a recognizable identity. While scholars might initially find these entrepreneurial concepts ② alien, they actually engage in similar practices when they set themselves apart in their academic writing. Consider the typical literature review and motivation section of a scholarly article ― the aim is to highlight ③ gaps in existing research and position oneself as the one who will address these overlooked areas. The challenge, as Labaree suggests, is not just in developing innovative ideas but in ④ cultivating a distinctive voice that makes readers think, “Ah, this sounds like [the author].” It’s about balancing the expression of your ideas with the development of a unique voice that leaves a ⑤ temporary impression on your audience. 5 5"
+   },
+   "after": {
+    "passage": "Gaining an audience for your writing involves not just finding a voice but ensuring that voice resonates with your intended readers. Entrepreneurs understand the importance of building a brand that makes them memorable and distinct from their competitors, drawing customers to their products or services. They achieve this by ① pinpointing their target audience, crafting a unique value proposition, and shaping a recognizable identity. While scholars might initially find these entrepreneurial concepts ② alien, they actually engage in similar practices when they set themselves apart in their academic writing. Consider the typical literature review and motivation section of a scholarly article ― the aim is to highlight ③ gaps in existing research and position oneself as the one who will address these overlooked areas. The challenge, as Labaree suggests, is not just in developing innovative ideas but in ④ cultivating a distinctive voice that makes readers think, “Ah, this sounds like [the author].” It’s about balancing the expression of your ideas with the development of a unique voice that leaves a ⑤ temporary impression on your audience."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2606#38",
+   "pdf_file": "202606_영어영역_문제지.pdf",
+   "pdf_sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+   "before": {
+    "passage": "But cute and beautiful designs also have downsides. Research finds that people show a strong visceral interest in and desire to approach and own cute-looking and beautiful (elegant) designs. ( ①) However, cute and beautiful designs elicit two very different motivations. ( ②) A cute product or package design elicits a nurturing motivation ― a desire to take care of and keep the product, to hold it dear to our hearts and never let it go. ( ③) The beautiful product or package design elicits a self-expressive, or signaling, motivation ― a desire to express oneself to others through product ownership. ( ④) Certain types of cute products can be associated with a lack of sophistication or seriousness, which can reduce performance expectations (lowering perceived enablement benefits). ( ⑤) Beautiful-looking designs may not attract attention over time because people become desensitized to them. 7 7"
+   },
+   "after": {
+    "passage": "But cute and beautiful designs also have downsides. Research finds that people show a strong visceral interest in and desire to approach and own cute-looking and beautiful (elegant) designs. ( ① ) However, cute and beautiful designs elicit two very different motivations. ( ② ) A cute product or package design elicits a nurturing motivation ― a desire to take care of and keep the product, to hold it dear to our hearts and never let it go. ( ③ ) The beautiful product or package design elicits a self-expressive, or signaling, motivation ― a desire to express oneself to others through product ownership. ( ④ ) Certain types of cute products can be associated with a lack of sophistication or seriousness, which can reduce performance expectations (lowering perceived enablement benefits). ( ⑤ ) Beautiful-looking designs may not attract attention over time because people become desensitized to them."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2606#40",
+   "pdf_file": "202606_영어영역_문제지.pdf",
+   "pdf_sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+   "before": {
+    "passage": "A serious deterioration in people’s working lives would be deeply disturbing to the social order. Indeed, few consequences of technological change would be as dangerous. Today, the world of work is the main way that we share out the fruits of growth: for most people, their job is their main, if not their only, source of income. Technological unemployment would weaken that longstanding arrangement, encouraging an even more extreme version of inequality in which some people receive more income than others and many receive nothing at all. Nor would the disturbance be only economic. For many people, their work is both a source of income and of meaning. And with that in mind, the threat is even broader: not only that the labor market might be hollowed out, leaving some unable to find a good job and a reliable income, but that this sense of fulfilment that some people are fortunate to feel in their jobs might be hollowed out as well, leaving them unable to find purpose and live a satisfying life. 󰀻 By creating unemployment, technology would upset the social order, affecting the ______ (A) ______ of wealth and possibly eliminating the emotional ______ (B) ______ that some discover in work. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "distribution …… emptiness",
+     "distribution …… rewards",
+     "concentration …… conflicts",
+     "investment …… challenges",
+     "investment …… growth"
+    ]
+   },
+   "after": {
+    "passage": "A serious deterioration in people’s working lives would be deeply disturbing to the social order. Indeed, few consequences of technological change would be as dangerous. Today, the world of work is the main way that we share out the fruits of growth: for most people, their job is their main, if not their only, source of income. Technological unemployment would weaken that longstanding arrangement, encouraging an even more extreme version of inequality in which some people receive more income than others and many receive nothing at all. Nor would the disturbance be only economic. For many people, their work is both a source of income and of meaning. And with that in mind, the threat is even broader: not only that the labor market might be hollowed out, leaving some unable to find a good job and a reliable income, but that this sense of fulfilment that some people are fortunate to feel in their jobs might be hollowed out as well, leaving them unable to find purpose and live a satisfying life. By creating unemployment, technology would upset the social order, affecting the (A) ______ of wealth and possibly eliminating the emotional (B) ______ that some discover in work.",
+    "choices": [
+     "distribution …… emptiness",
+     "distribution…… rewards",
+     "concentration…… conflicts",
+     "investment …… challenges",
+     "investment …… growth"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2606#43",
+   "pdf_file": "202606_영어영역_문제지.pdf",
+   "pdf_sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+   "before": {
+    "passage": "(A) “Hi! I’m over here!” shouted Laura, waving brightly at Cathy at the entrance of Darlingdale Farmer’s Market. Seeing her friend, Cathy rushed over in delight. Cathy had recently moved into Laura’s town, and this was going to be (a) her first experience at a real farmer’s market. Born and raised in a big city, where large supermarkets were more common, Cathy had never had a chance to buy freshly-picked fruits or vegetables. 8 (B) Carrying the bags of peaches, Cathy came back and noticed Laura holding a box of blueberries and jars of jam. “Cathy, those peaches look delicious! I bought some blueberries. Would you like to go to my place and make blueberry pancakes together?” Laura asked. “Yes, that’s an excellent idea!” replied Cathy happily. As they walked out of the market, Cathy thanked her friend for the special experience, saying “(b) I really love this place! Thank you for the wonderful day.” (C) Entering the market, Laura said, “Let me show you around. Are you ready?” Cathy answered excitedly, “Absolutely! I’m going to buy some fresh peaches!” The market was already crowded with people of all ages. “Cathy, you can taste the best of the season here,” said Laura. Cathy smiled and began to look around. Meanwhile, Laura found some strawberry jam for sale. She walked over to buy some. Curious to explore more, Cathy said, “While (c) you’re buying jam, I’ll look around the market and get some peaches.” (D) Wandering away from Laura, Cathy began to search for peaches. Cathy walked past booths of fresh flowers and hand-made soaps, which smelled heavenly. From a fruit stand, (d) she picked out some beautiful, ripe peaches. The fruit seller told her, “Those peaches are a great choice because they’re only here until this week. If you miss them now, (e) you’ll have to wait another year for the season.” Hearing that, Cathy said, “Oh, I’ll get some more then! They’re really cheap!” She bought two bags of peaches."
+   },
+   "after": {
+    "passage": "(A) “Hi! I’m over here!” shouted Laura, waving brightly at Cathy at the entrance of Darlingdale Farmer’s Market. Seeing her friend, Cathy rushed over in delight. Cathy had recently moved into Laura’s town, and this was going to be (a) her first experience at a real farmer’s market. Born and raised in a big city, where large supermarkets were more common, Cathy had never had a chance to buy freshly-picked fruits or vegetables. (B) Carrying the bags of peaches, Cathy came back and noticed Laura holding a box of blueberries and jars of jam. “Cathy, those peaches look delicious! I bought some blueberries. Would you like to go to my place and make blueberry pancakes together?” Laura asked. “Yes, that’s an excellent idea!” replied Cathy happily. As they walked out of the market, Cathy thanked her friend for the special experience, saying “(b) I really love this place! Thank you for the wonderful day.” (C) Entering the market, Laura said, “Let me show you around. Are you ready?” Cathy answered excitedly, “Absolutely! I’m going to buy some fresh peaches!” The market was already crowded with people of all ages. “Cathy, you can taste the best of the season here,” said Laura. Cathy smiled and began to look around. Meanwhile, Laura found some strawberry jam for sale. She walked over to buy some. Curious to explore more, Cathy said, “While (c) you’re buying jam, I’ll look around the market and get some peaches.” (D) Wandering away from Laura, Cathy began to search for peaches. Cathy walked past booths of fresh flowers and hand-made soaps, which smelled heavenly. From a fruit stand, (d) she picked out some beautiful, ripe peaches. The fruit seller told her, “Those peaches are a great choice because they’re only here until this week. If you miss them now, (e) you’ll have to wait another year for the season.” Hearing that, Cathy said, “Oh, I’ll get some more then! They’re really cheap!” She bought two bags of peaches."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2606#44",
+   "pdf_file": "202606_영어영역_문제지.pdf",
+   "pdf_sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+   "before": {
+    "passage": "(A) “Hi! I’m over here!” shouted Laura, waving brightly at Cathy at the entrance of Darlingdale Farmer’s Market. Seeing her friend, Cathy rushed over in delight. Cathy had recently moved into Laura’s town, and this was going to be (a) her first experience at a real farmer’s market. Born and raised in a big city, where large supermarkets were more common, Cathy had never had a chance to buy freshly-picked fruits or vegetables. 8 (B) Carrying the bags of peaches, Cathy came back and noticed Laura holding a box of blueberries and jars of jam. “Cathy, those peaches look delicious! I bought some blueberries. Would you like to go to my place and make blueberry pancakes together?” Laura asked. “Yes, that’s an excellent idea!” replied Cathy happily. As they walked out of the market, Cathy thanked her friend for the special experience, saying “(b) I really love this place! Thank you for the wonderful day.” (C) Entering the market, Laura said, “Let me show you around. Are you ready?” Cathy answered excitedly, “Absolutely! I’m going to buy some fresh peaches!” The market was already crowded with people of all ages. “Cathy, you can taste the best of the season here,” said Laura. Cathy smiled and began to look around. Meanwhile, Laura found some strawberry jam for sale. She walked over to buy some. Curious to explore more, Cathy said, “While (c) you’re buying jam, I’ll look around the market and get some peaches.” (D) Wandering away from Laura, Cathy began to search for peaches. Cathy walked past booths of fresh flowers and hand-made soaps, which smelled heavenly. From a fruit stand, (d) she picked out some beautiful, ripe peaches. The fruit seller told her, “Those peaches are a great choice because they’re only here until this week. If you miss them now, (e) you’ll have to wait another year for the season.” Hearing that, Cathy said, “Oh, I’ll get some more then! They’re really cheap!” She bought two bags of peaches."
+   },
+   "after": {
+    "passage": "(A) “Hi! I’m over here!” shouted Laura, waving brightly at Cathy at the entrance of Darlingdale Farmer’s Market. Seeing her friend, Cathy rushed over in delight. Cathy had recently moved into Laura’s town, and this was going to be (a) her first experience at a real farmer’s market. Born and raised in a big city, where large supermarkets were more common, Cathy had never had a chance to buy freshly-picked fruits or vegetables. (B) Carrying the bags of peaches, Cathy came back and noticed Laura holding a box of blueberries and jars of jam. “Cathy, those peaches look delicious! I bought some blueberries. Would you like to go to my place and make blueberry pancakes together?” Laura asked. “Yes, that’s an excellent idea!” replied Cathy happily. As they walked out of the market, Cathy thanked her friend for the special experience, saying “(b) I really love this place! Thank you for the wonderful day.” (C) Entering the market, Laura said, “Let me show you around. Are you ready?” Cathy answered excitedly, “Absolutely! I’m going to buy some fresh peaches!” The market was already crowded with people of all ages. “Cathy, you can taste the best of the season here,” said Laura. Cathy smiled and began to look around. Meanwhile, Laura found some strawberry jam for sale. She walked over to buy some. Curious to explore more, Cathy said, “While (c) you’re buying jam, I’ll look around the market and get some peaches.” (D) Wandering away from Laura, Cathy began to search for peaches. Cathy walked past booths of fresh flowers and hand-made soaps, which smelled heavenly. From a fruit stand, (d) she picked out some beautiful, ripe peaches. The fruit seller told her, “Those peaches are a great choice because they’re only here until this week. If you miss them now, (e) you’ll have to wait another year for the season.” Hearing that, Cathy said, “Oh, I’ll get some more then! They’re really cheap!” She bought two bags of peaches."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2606#45",
+   "pdf_file": "202606_영어영역_문제지.pdf",
+   "pdf_sha256": "55ba46646ada079ea781b00986a45877b0dc46f4a423d8c3f26a64e0213921fb",
+   "before": {
+    "passage": "(A) “Hi! I’m over here!” shouted Laura, waving brightly at Cathy at the entrance of Darlingdale Farmer’s Market. Seeing her friend, Cathy rushed over in delight. Cathy had recently moved into Laura’s town, and this was going to be (a) her first experience at a real farmer’s market. Born and raised in a big city, where large supermarkets were more common, Cathy had never had a chance to buy freshly-picked fruits or vegetables. 8 (B) Carrying the bags of peaches, Cathy came back and noticed Laura holding a box of blueberries and jars of jam. “Cathy, those peaches look delicious! I bought some blueberries. Would you like to go to my place and make blueberry pancakes together?” Laura asked. “Yes, that’s an excellent idea!” replied Cathy happily. As they walked out of the market, Cathy thanked her friend for the special experience, saying “(b) I really love this place! Thank you for the wonderful day.” (C) Entering the market, Laura said, “Let me show you around. Are you ready?” Cathy answered excitedly, “Absolutely! I’m going to buy some fresh peaches!” The market was already crowded with people of all ages. “Cathy, you can taste the best of the season here,” said Laura. Cathy smiled and began to look around. Meanwhile, Laura found some strawberry jam for sale. She walked over to buy some. Curious to explore more, Cathy said, “While (c) you’re buying jam, I’ll look around the market and get some peaches.” (D) Wandering away from Laura, Cathy began to search for peaches. Cathy walked past booths of fresh flowers and hand-made soaps, which smelled heavenly. From a fruit stand, (d) she picked out some beautiful, ripe peaches. The fruit seller told her, “Those peaches are a great choice because they’re only here until this week. If you miss them now, (e) you’ll have to wait another year for the season.” Hearing that, Cathy said, “Oh, I’ll get some more then! They’re really cheap!” She bought two bags of peaches.",
+    "choices": [
+     "Cathy 는 대도시에서 태어나고 성장했다 .",
+     "Laura 와 Cathy 는 블루베리 팬케이크를 만들기로 했다 .",
+     "시장은 다양한 나이의 사람들로 붐볐다 .",
+     "Laura 는 판매 중인 딸기 잼을 발견했다 .",
+     "Cathy 는 복숭아 가격이 비싸다고 생각했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) “Hi! I’m over here!” shouted Laura, waving brightly at Cathy at the entrance of Darlingdale Farmer’s Market. Seeing her friend, Cathy rushed over in delight. Cathy had recently moved into Laura’s town, and this was going to be (a) her first experience at a real farmer’s market. Born and raised in a big city, where large supermarkets were more common, Cathy had never had a chance to buy freshly-picked fruits or vegetables. (B) Carrying the bags of peaches, Cathy came back and noticed Laura holding a box of blueberries and jars of jam. “Cathy, those peaches look delicious! I bought some blueberries. Would you like to go to my place and make blueberry pancakes together?” Laura asked. “Yes, that’s an excellent idea!” replied Cathy happily. As they walked out of the market, Cathy thanked her friend for the special experience, saying “(b) I really love this place! Thank you for the wonderful day.” (C) Entering the market, Laura said, “Let me show you around. Are you ready?” Cathy answered excitedly, “Absolutely! I’m going to buy some fresh peaches!” The market was already crowded with people of all ages. “Cathy, you can taste the best of the season here,” said Laura. Cathy smiled and began to look around. Meanwhile, Laura found some strawberry jam for sale. She walked over to buy some. Curious to explore more, Cathy said, “While (c) you’re buying jam, I’ll look around the market and get some peaches.” (D) Wandering away from Laura, Cathy began to search for peaches. Cathy walked past booths of fresh flowers and hand-made soaps, which smelled heavenly. From a fruit stand, (d) she picked out some beautiful, ripe peaches. The fruit seller told her, “Those peaches are a great choice because they’re only here until this week. If you miss them now, (e) you’ll have to wait another year for the season.” Hearing that, Cathy said, “Oh, I’ll get some more then! They’re really cheap!” She bought two bags of peaches.",
+    "choices": [
+     "Cathy는 대도시에서 태어나고 성장했다.",
+     "Laura와 Cathy는 블루베리 팬케이크를 만들기로 했다.",
+     "시장은 다양한 나이의 사람들로 붐볐다.",
+     "Laura는 판매 중인 딸기 잼을 발견했다.",
+     "Cathy는 복숭아 가격이 비싸다고 생각했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2609#22",
+   "pdf_file": "202609_영어영역_문제지.pdf",
+   "pdf_sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3",
+   "before": {
+    "passage": "One reason that people participate in social media is because it builds social relations. We increase our social capital when we successfully engage in social media. Social capital describes the networks of relationships we have that are built on mutuality and sharing of identity, understanding, norms and values. We build ties that may pay off with a job lead or a letter of recommendation. We reinforce our identities through our online presentation in a personal blog or our profile. “The premise behind the notion of social capital is rather simple and straightforward: investment in social relations with expected returns,” noted sociologist Nan Lin. Lin’s work stresses that it is who you know as much as ______ what you know that shapes our experience in society. With new media, our reach of connecting is all the greater, expanding our “who you know” to greater and greater lengths.",
+    "choices": [
+     "소셜 미디어를 통한 관계망의 확장은 중요한 사회적 자본이 된다 .",
+     "사회적 규범과 가치를 공유하는 것이 인간관계 형성의 기반이다 .",
+     "뉴 미디어의 등장은 사회적 자본 형성의 방식을 변화시킨다 .",
+     "다양한 인적 자본 구축은 소셜 미디어 활동에 필수적이다 .",
+     "사회적 경험은 인격 함양과 세계관 확장에 도움이 된다 . 3"
+    ]
+   },
+   "after": {
+    "passage": "One reason that people participate in social media is because it builds social relations. We increase our social capital when we successfully engage in social media. Social capital describes the networks of relationships we have that are built on mutuality and sharing of identity, understanding, norms and values. We build ties that may pay off with a job lead or a letter of recommendation. We reinforce our identities through our online presentation in a personal blog or our profile. “The premise behind the notion of social capital is rather simple and straightforward: investment in social relations with expected returns,” noted sociologist Nan Lin. Lin’s work stresses that it is who you know as much as what you know that shapes our experience in society. With new media, our reach of connecting is all the greater, expanding our “who you know” to greater and greater lengths.",
+    "choices": [
+     "소셜 미디어를 통한 관계망의 확장은 중요한 사회적 자본이 된다.",
+     "사회적 규범과 가치를 공유하는 것이 인간관계 형성의 기반이다.",
+     "뉴 미디어의 등장은 사회적 자본 형성의 방식을 변화시킨다.",
+     "다양한 인적 자본 구축은 소셜 미디어 활동에 필수적이다.",
+     "사회적 경험은 인격 함양과 세계관 확장에 도움이 된다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2609#30",
+   "pdf_file": "202609_영어영역_문제지.pdf",
+   "pdf_sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3",
+   "before": {
+    "passage": "What is soft-path river engineering? One way to visualize its spirit is to liken it to a footpath in the forest. Suppose a tree falls across a footpath. A soft-path response would be simply to redirect the trail around the fallen tree. A more interventionist response would be to ______ ① remove the tree and restore the original route. A still more interventionist response might be to straighten and pave the path to insert it more ② permanently in the landscape. The true high-modernist step would, of course, be to ③ create a superhighway that removes the landscape and bulldozes straight through all obstacles in the topography. Soft-path engineering has the unique advantage of intellectual ④ modesty with respect to what we actually know about river movement and its environmental effects. In contrast to hard-path engineering, soft-path engineering accepts variability in the river’s movement as ⑤ insignificant until proven otherwise. Backwaters, short-lived wetlands, braids and channels, swamps ― all undesirable to hard-path engineering ― are presumed by soft-path engineers to be ecologically important. 5 5"
+   },
+   "after": {
+    "passage": "What is soft-path river engineering? One way to visualize its spirit is to liken it to a footpath in the forest. Suppose a tree falls across a footpath. A soft-path response would be simply to redirect the trail around the fallen tree. A more interventionist response would be to ① remove the tree and restore the original route. A still more interventionist response might be to straighten and pave the path to insert it more ② permanently in the landscape. The true high-modernist step would, of course, be to ③ create a superhighway that removes the landscape and bulldozes straight through all obstacles in the topography. Soft-path engineering has the unique advantage of intellectual ④ modesty with respect to what we actually know about river movement and its environmental effects. In contrast to hard-path engineering, soft-path engineering accepts variability in the river’s movement as ⑤ insignificant until proven otherwise. Backwaters, short-lived wetlands, braids and channels, swamps ― all undesirable to hard-path engineering ― are presumed by soft-path engineers to be ecologically important."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2609#38",
+   "pdf_file": "202609_영어영역_문제지.pdf",
+   "pdf_sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3",
+   "before": {
+    "passage": "As winter approaches, the length of the day shortens, the temperature drops, and plants, including trees, can detect this change. It is worth pointing out that leaves don’t drop to the ground because they are dying ― rather, the tree initiates an active process of clever recycling called senescence. A tree, like an oak for example, would struggle to survive through a harsh winter if it retained its canopy of leaves. ( ①) It would risk damage from strong winter winds and would lose more water from its leaves than it could draw up from the frozen ground. ( ②) If it didn’t blow over, it would die of thirst. ( ③) It signals to them that it is time to lose their leaves. ( ④) First, however, trees carefully suck all of the useful nutrients out of the leaves and then, with surgical precision, block up that pathway into the leaves. ( ⑤) That blocked pathway at the base of the leaf stem creates a weakness and, in the wind, the leaves snap off and fall to the ground. 7 7"
+   },
+   "after": {
+    "passage": "As winter approaches, the length of the day shortens, the temperature drops, and plants, including trees, can detect this change. It is worth pointing out that leaves don’t drop to the ground because they are dying ― rather, the tree initiates an active process of clever recycling called senescence. A tree, like an oak for example, would struggle to survive through a harsh winter if it retained its canopy of leaves. ( ① ) It would risk damage from strong winter winds and would lose more water from its leaves than it could draw up from the frozen ground. ( ② ) If it didn’t blow over, it would die of thirst. ( ③ ) It signals to them that it is time to lose their leaves. ( ④ ) First, however, trees carefully suck all of the useful nutrients out of the leaves and then, with surgical precision, block up that pathway into the leaves. ( ⑤ ) That blocked pathway at the base of the leaf stem creates a weakness and, in the wind, the leaves snap off and fall to the ground."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2609#40",
+   "pdf_file": "202609_영어영역_문제지.pdf",
+   "pdf_sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3",
+   "before": {
+    "passage": "In most fiction, characters’ lives are limited to the individual work. Readers may disagree on the characteristics and traits of fictional figures, and in drama there is room for different interpretations of characters. However, it is less common for characters in literary fiction to reappear in subsequent works than in genre fiction, where series featuring the same central characters are common. This is even more pronounced in comics, which are typically serialized in newspaper strips or comic books. Thus characters introduced in the 1930s, like Superman and Batman, may still enjoy new adventures decades later. During these characters’ long histories, they change in various ways for a variety of reasons. If a character is created by a single author, like Sherlock Holmes, the character’s core traits may change little from story to story, but readers learn more about him with each successive story. On the other hand, if characters are the work of several hands over decades, they may change considerably. 󰀻 While characters in most literary fiction hardly ever (A) in successive works, those in genre fiction and comics often do so, and may undergo ______ (B) ______ in their traits especially when written about by different authors over time. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "resurface …… simplification",
+     "endure …… degradation",
+     "fade …… variation",
+     "feature …… transformation",
+     "disappear …… fossilization"
+    ]
+   },
+   "after": {
+    "passage": "In most fiction, characters’ lives are limited to the individual work. Readers may disagree on the characteristics and traits of fictional figures, and in drama there is room for different interpretations of characters. However, it is less common for characters in literary fiction to reappear in subsequent works than in genre fiction, where series featuring the same central characters are common. This is even more pronounced in comics, which are typically serialized in newspaper strips or comic books. Thus characters introduced in the 1930s, like Superman and Batman, may still enjoy new adventures decades later. During these characters’ long histories, they change in various ways for a variety of reasons. If a character is created by a single author, like Sherlock Holmes, the character’s core traits may change little from story to story, but readers learn more about him with each successive story. On the other hand, if characters are the work of several hands over decades, they may change considerably. While characters in most literary fiction hardly ever (A) ______ in successive works, those in genre fiction and comics often do so, and may undergo (B) ______ in their traits especially when written about by different authors over time.",
+    "choices": [
+     "resurface …… simplification",
+     "endure …… degradation",
+     "fade …… variation",
+     "feature …… transformation",
+     "disappear…… fossilization"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2609#43",
+   "pdf_file": "202609_영어영역_문제지.pdf",
+   "pdf_sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3",
+   "before": {
+    "passage": "(A) Mike had always dreamed about going to a baseball game. He watched his favorite team, the Arrows, on TV all the time, but he had never seen a game in person. One afternoon, Mike’s dad came home earlier than usual. “Hey, Mike,” he said, “I just got two tickets for tonight’s Arrows game. Do (a) you want to go?” Mike was so excited that he ran to grab his Arrows hat. In the car, his dad handed him a new baseball glove and added, “Just in case a fly ball comes our way.” 8 (B) Several hours later, Mike’s favorite team hit a home run and won the game. Fireworks filled the sky, and the team song played throughout the stadium. When they got home, Mike told his mom all about his favorite plays and showed her the ball he caught. (b) He knew this was a day he would never forget. It wasn’t just the game ― it was the cheering, the excitement, and best of all, spending time with his dad. He couldn’t wait for the next time they would get to go to a game. (C) The stadium was full of people wearing Arrows shirts. Mike couldn’t believe how big the stadium looked in person. As the players ran onto the field, Mike and his dad cheered for their team’s players. His dad pointed at the player running out to third base, saying “Look, it’s Chavez, (c) your favorite player!” Mike saw him warming up on the field and waved hoping to get (d) his attention. After the players warmed up, Mike and his dad went to get some snacks. As soon as they sat back down, the pitcher threw the first pitch. (D) Before long, it was Chavez’s turn to hit. He hit a high fly ball into the stands. The whole crowd stood up, but Mike reached up with his glove and grabbed the ball. Everyone clapped and smiled at Mike. (e) He tightly held the ball and felt a little surprised, but very proud. Both teams kept scoring and the game stayed close. Mike and his dad cheered for every hit and held their breath during every big play. They high-fived each other every time the Arrows scored."
+   },
+   "after": {
+    "passage": "(A) Mike had always dreamed about going to a baseball game. He watched his favorite team, the Arrows, on TV all the time, but he had never seen a game in person. One afternoon, Mike’s dad came home earlier than usual. “Hey, Mike,” he said, “I just got two tickets for tonight’s Arrows game. Do (a) you want to go?” Mike was so excited that he ran to grab his Arrows hat. In the car, his dad handed him a new baseball glove and added, “Just in case a fly ball comes our way.” (B) Several hours later, Mike’s favorite team hit a home run and won the game. Fireworks filled the sky, and the team song played throughout the stadium. When they got home, Mike told his mom all about his favorite plays and showed her the ball he caught. (b) He knew this was a day he would never forget. It wasn’t just the game ― it was the cheering, the excitement, and best of all, spending time with his dad. He couldn’t wait for the next time they would get to go to a game. (C) The stadium was full of people wearing Arrows shirts. Mike couldn’t believe how big the stadium looked in person. As the players ran onto the field, Mike and his dad cheered for their team’s players. His dad pointed at the player running out to third base, saying “Look, it’s Chavez, (c) your favorite player!” Mike saw him warming up on the field and waved hoping to get (d) his attention. After the players warmed up, Mike and his dad went to get some snacks. As soon as they sat back down, the pitcher threw the first pitch. (D) Before long, it was Chavez’s turn to hit. He hit a high fly ball into the stands. The whole crowd stood up, but Mike reached up with his glove and grabbed the ball. Everyone clapped and smiled at Mike. (e) He tightly held the ball and felt a little surprised, but very proud. Both teams kept scoring and the game stayed close. Mike and his dad cheered for every hit and held their breath during every big play. They high-fived each other every time the Arrows scored."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2609#44",
+   "pdf_file": "202609_영어영역_문제지.pdf",
+   "pdf_sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3",
+   "before": {
+    "passage": "(A) Mike had always dreamed about going to a baseball game. He watched his favorite team, the Arrows, on TV all the time, but he had never seen a game in person. One afternoon, Mike’s dad came home earlier than usual. “Hey, Mike,” he said, “I just got two tickets for tonight’s Arrows game. Do (a) you want to go?” Mike was so excited that he ran to grab his Arrows hat. In the car, his dad handed him a new baseball glove and added, “Just in case a fly ball comes our way.” 8 (B) Several hours later, Mike’s favorite team hit a home run and won the game. Fireworks filled the sky, and the team song played throughout the stadium. When they got home, Mike told his mom all about his favorite plays and showed her the ball he caught. (b) He knew this was a day he would never forget. It wasn’t just the game ― it was the cheering, the excitement, and best of all, spending time with his dad. He couldn’t wait for the next time they would get to go to a game. (C) The stadium was full of people wearing Arrows shirts. Mike couldn’t believe how big the stadium looked in person. As the players ran onto the field, Mike and his dad cheered for their team’s players. His dad pointed at the player running out to third base, saying “Look, it’s Chavez, (c) your favorite player!” Mike saw him warming up on the field and waved hoping to get (d) his attention. After the players warmed up, Mike and his dad went to get some snacks. As soon as they sat back down, the pitcher threw the first pitch. (D) Before long, it was Chavez’s turn to hit. He hit a high fly ball into the stands. The whole crowd stood up, but Mike reached up with his glove and grabbed the ball. Everyone clapped and smiled at Mike. (e) He tightly held the ball and felt a little surprised, but very proud. Both teams kept scoring and the game stayed close. Mike and his dad cheered for every hit and held their breath during every big play. They high-fived each other every time the Arrows scored."
+   },
+   "after": {
+    "passage": "(A) Mike had always dreamed about going to a baseball game. He watched his favorite team, the Arrows, on TV all the time, but he had never seen a game in person. One afternoon, Mike’s dad came home earlier than usual. “Hey, Mike,” he said, “I just got two tickets for tonight’s Arrows game. Do (a) you want to go?” Mike was so excited that he ran to grab his Arrows hat. In the car, his dad handed him a new baseball glove and added, “Just in case a fly ball comes our way.” (B) Several hours later, Mike’s favorite team hit a home run and won the game. Fireworks filled the sky, and the team song played throughout the stadium. When they got home, Mike told his mom all about his favorite plays and showed her the ball he caught. (b) He knew this was a day he would never forget. It wasn’t just the game ― it was the cheering, the excitement, and best of all, spending time with his dad. He couldn’t wait for the next time they would get to go to a game. (C) The stadium was full of people wearing Arrows shirts. Mike couldn’t believe how big the stadium looked in person. As the players ran onto the field, Mike and his dad cheered for their team’s players. His dad pointed at the player running out to third base, saying “Look, it’s Chavez, (c) your favorite player!” Mike saw him warming up on the field and waved hoping to get (d) his attention. After the players warmed up, Mike and his dad went to get some snacks. As soon as they sat back down, the pitcher threw the first pitch. (D) Before long, it was Chavez’s turn to hit. He hit a high fly ball into the stands. The whole crowd stood up, but Mike reached up with his glove and grabbed the ball. Everyone clapped and smiled at Mike. (e) He tightly held the ball and felt a little surprised, but very proud. Both teams kept scoring and the game stayed close. Mike and his dad cheered for every hit and held their breath during every big play. They high-fived each other every time the Arrows scored."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2609#45",
+   "pdf_file": "202609_영어영역_문제지.pdf",
+   "pdf_sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3",
+   "before": {
+    "passage": "(A) Mike had always dreamed about going to a baseball game. He watched his favorite team, the Arrows, on TV all the time, but he had never seen a game in person. One afternoon, Mike’s dad came home earlier than usual. “Hey, Mike,” he said, “I just got two tickets for tonight’s Arrows game. Do (a) you want to go?” Mike was so excited that he ran to grab his Arrows hat. In the car, his dad handed him a new baseball glove and added, “Just in case a fly ball comes our way.” 8 (B) Several hours later, Mike’s favorite team hit a home run and won the game. Fireworks filled the sky, and the team song played throughout the stadium. When they got home, Mike told his mom all about his favorite plays and showed her the ball he caught. (b) He knew this was a day he would never forget. It wasn’t just the game ― it was the cheering, the excitement, and best of all, spending time with his dad. He couldn’t wait for the next time they would get to go to a game. (C) The stadium was full of people wearing Arrows shirts. Mike couldn’t believe how big the stadium looked in person. As the players ran onto the field, Mike and his dad cheered for their team’s players. His dad pointed at the player running out to third base, saying “Look, it’s Chavez, (c) your favorite player!” Mike saw him warming up on the field and waved hoping to get (d) his attention. After the players warmed up, Mike and his dad went to get some snacks. As soon as they sat back down, the pitcher threw the first pitch. (D) Before long, it was Chavez’s turn to hit. He hit a high fly ball into the stands. The whole crowd stood up, but Mike reached up with his glove and grabbed the ball. Everyone clapped and smiled at Mike. (e) He tightly held the ball and felt a little surprised, but very proud. Both teams kept scoring and the game stayed close. Mike and his dad cheered for every hit and held their breath during every big play. They high-fived each other every time the Arrows scored.",
+    "choices": [
+     "Mike 의 아빠는 평소보다 일찍 집에 왔다 .",
+     "Mike 가 가장 좋아하는 팀은 홈런을 치지 못했다 .",
+     "경기장이 Arrows 셔츠를 입은 사람들로 가득했다 .",
+     "Chavez 가 친 공은 관중석으로 날아갔다 .",
+     "Arrows 가 득점할 때마다 Mike 와 아빠는 하이파이브를 했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) Mike had always dreamed about going to a baseball game. He watched his favorite team, the Arrows, on TV all the time, but he had never seen a game in person. One afternoon, Mike’s dad came home earlier than usual. “Hey, Mike,” he said, “I just got two tickets for tonight’s Arrows game. Do (a) you want to go?” Mike was so excited that he ran to grab his Arrows hat. In the car, his dad handed him a new baseball glove and added, “Just in case a fly ball comes our way.” (B) Several hours later, Mike’s favorite team hit a home run and won the game. Fireworks filled the sky, and the team song played throughout the stadium. When they got home, Mike told his mom all about his favorite plays and showed her the ball he caught. (b) He knew this was a day he would never forget. It wasn’t just the game ― it was the cheering, the excitement, and best of all, spending time with his dad. He couldn’t wait for the next time they would get to go to a game. (C) The stadium was full of people wearing Arrows shirts. Mike couldn’t believe how big the stadium looked in person. As the players ran onto the field, Mike and his dad cheered for their team’s players. His dad pointed at the player running out to third base, saying “Look, it’s Chavez, (c) your favorite player!” Mike saw him warming up on the field and waved hoping to get (d) his attention. After the players warmed up, Mike and his dad went to get some snacks. As soon as they sat back down, the pitcher threw the first pitch. (D) Before long, it was Chavez’s turn to hit. He hit a high fly ball into the stands. The whole crowd stood up, but Mike reached up with his glove and grabbed the ball. Everyone clapped and smiled at Mike. (e) He tightly held the ball and felt a little surprised, but very proud. Both teams kept scoring and the game stayed close. Mike and his dad cheered for every hit and held their breath during every big play. They high-fived each other every time the Arrows scored.",
+    "choices": [
+     "Mike의 아빠는 평소보다 일찍 집에 왔다.",
+     "Mike가 가장 좋아하는 팀은 홈런을 치지 못했다.",
+     "경기장이 Arrows 셔츠를 입은 사람들로 가득했다.",
+     "Chavez가 친 공은 관중석으로 날아갔다.",
+     "Arrows가 득점할 때마다 Mike와 아빠는 하이파이브를 했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#22",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "choices": [
+     "소비자 심리를 반영한 성난 외관의 자동차가 인기를 끌고 있다 .",
+     "자동차 판매 증가를 위해 다양한 학문적 접근이 시도되고 있다 .",
+     "구매자들은 이성보다는 감정적 판단에 근거하여 차를 선택한다 .",
+     "자동차의 전면 디자인을 개조하기 위한 다양한 서비스가 있다 .",
+     "안전감을 원하는 운전자들은 거친 모습의 SUV 차량을 선호하지 않는다 . 3"
+    ]
+   },
+   "after": {
+    "choices": [
+     "소비자 심리를 반영한 성난 외관의 자동차가 인기를 끌고 있다.",
+     "자동차 판매 증가를 위해 다양한 학문적 접근이 시도되고 있다.",
+     "구매자들은 이성보다는 감정적 판단에 근거하여 차를 선택한다.",
+     "자동차의 전면 디자인을 개조하기 위한 다양한 서비스가 있다.",
+     "안전감을 원하는 운전자들은 거친 모습의 SUV 차량을 선호하지 않는다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#24",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "choices": [
+     "The Bright and Dark Sides of Collapsing Tour Resources",
+     "Separate to Combined: Changes in the Tourism Business",
+     "Reduced Roles of Tour Operators in the Tourism Industry",
+     "Integration’s Failure: Not Meeting Customers’ Various Needs",
+     "New Challenges Facing Service Providers in Modern Tourism 8 㢨ٻⱬ㥐㫴㜄ٻḴ䚐ٻ㤴㣅Ề㡴ٻ䚐ạẄ㡕Ḱ㥉䓽ᴴ㠄㜄ٻ㢼㏩⏼␘ډ"
+    ]
+   },
+   "after": {
+    "choices": [
+     "The Bright and Dark Sides of Collapsing Tour Resources",
+     "Separate to Combined: Changes in the Tourism Business",
+     "Reduced Roles of Tour Operators in the Tourism Industry",
+     "Integration’s Failure: Not Meeting Customers’ Various Needs",
+     "New Challenges Facing Service Providers in Modern Tourism"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#30",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "passage": "Classical works by playwrights such as Shakespeare or Euripides or even American musical song lyrics contain unconventional and unrealistic methods ______ of communicating characters’ thoughts and feelings, and take a bit more skill and patience to understand. The reader must be mindful not to let the poetic form or archaic word usage get in the way of getting meaningful information about the story, but instead see the form itself as a ① revealing stylistic technique. Scripts with complex language or unfamiliar styles may require several additional readings in order for the nuance to become ② clear. Musical theater pieces are particularly difficult to visualize when reading because of the diminished emphasis on dialogue and a ③ significant emphasis on song and dance. For example, when the music and lyrics are removed from a musical theater script, what is left is the dialogue, known as the book or libretto, and it can be very ④ thick. There is an emphasis on dance, movement, or action in musical theater that can be ⑤ time-consuming when actually performed on stage, but can take very little space when typed into a play script. 5 5"
+   },
+   "after": {
+    "passage": "Classical works by playwrights such as Shakespeare or Euripides or even American musical song lyrics contain unconventional and unrealistic methods of communicating characters’ thoughts and feelings, and take a bit more skill and patience to understand. The reader must be mindful not to let the poetic form or archaic word usage get in the way of getting meaningful information about the story, but instead see the form itself as a ① revealing stylistic technique. Scripts with complex language or unfamiliar styles may require several additional readings in order for the nuance to become ② clear. Musical theater pieces are particularly difficult to visualize when reading because of the diminished emphasis on dialogue and a ③ significant emphasis on song and dance. For example, when the music and lyrics are removed from a musical theater script, what is left is the dialogue, known as the book or libretto, and it can be very ④ thick. There is an emphasis on dance, movement, or action in musical theater that can be ⑤ time-consuming when actually performed on stage, but can take very little space when typed into a play script."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#32",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "passage": "Speakers don’t always put everything that’s important to them into words. Very often you can understand a speaker’s meaning by observing their nonverbal behaviors such as a change in a vocal tone or volume, eye contact, facial expressions and gestures. As it is easy to misinterpret nonverbal behavior, effective listeners verbally confirm their interpretations of someone’s nonverbal communication. A question as simple as “Do your nods indicate a ______ yes vote?” can make sure that everyone is on the same wavelength. If, as nonverbal research indicates, more than half of a speaker’s meaning is conveyed nonverbally, we are missing a lot of important information if we fail to “listen” to nonverbal behavior. Even Freud suggested that “he that has eyes to see and ears to hear may convince himself that no mortal can keep a secret. If his lips are silent, he chatters with his fingertips; betrayal oozes out of him at every pore.” No wonder it is difficult for most people to in a face-to-face group discussion.",
+    "choices": [
+     "pretend to pay attention to others",
+     "conceal what they mean and feel",
+     "interpret one’s nonverbal behavior",
+     "maintain the nonverbal communication",
+     "encounter a chance to understand others 8 㢨ٻⱬ㥐㫴㜄ٻḴ䚐ٻ㤴㣅Ề㡴ٻ䚐ạẄ㡕Ḱ㥉䓽ᴴ㠄㜄ٻ㢼㏩⏼␘ډ"
+    ]
+   },
+   "after": {
+    "passage": "Speakers don’t always put everything that’s important to them into words. Very often you can understand a speaker’s meaning by observing their nonverbal behaviors such as a change in a vocal tone or volume, eye contact, facial expressions and gestures. As it is easy to misinterpret nonverbal behavior, effective listeners verbally confirm their interpretations of someone’s nonverbal communication. A question as simple as “Do your nods indicate a yes vote?” can make sure that everyone is on the same wavelength. If, as nonverbal research indicates, more than half of a speaker’s meaning is conveyed nonverbally, we are missing a lot of important information if we fail to “listen” to nonverbal behavior. Even Freud suggested that “he that has eyes to see and ears to hear may convince himself that no mortal can keep a secret. If his lips are silent, he chatters with his fingertips; betrayal oozes out of him at every pore.” No wonder it is difficult for most people to ______ in a face-to-face group discussion.",
+    "choices": [
+     "pretend to pay attention to others",
+     "conceal what they mean and feel",
+     "interpret one’s nonverbal behavior",
+     "maintain the nonverbal communication",
+     "encounter a chance to understand others"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#36",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "passage": "Plants have evolved defenses almost as diverse as the number of genera. Some load their tissues with harsh compounds that either are unpleasant to insects or intoxicate them, encouraging the insects to go bother another plant or at least slowing down their eating. (A) The back-and-forth is not a matter of natural balance, but more like a drawn-out evolutionary conversation. New plant defenses unintentionally select for insects with ways to get around them, which in turn help bring about more resilient and resistant plant species. New variations, shading into entire new forms and adaptations, maintain the stalemate. (B) Plants can release chemical compounds that let their same-species neighbors know ______ that an attack is likely coming, pushing those nearby plants to start building up defensive compounds in their tissues. Some of these cues even attract insect predators, a call for an assist that benefits both the plant and its bug-eating collaborators. (C) Structural defenses like thick coats of wax on leaves may prevent some insect species from damaging the plant tissues altogether. Nor are individual plants entirely on their own while under attack.",
+    "choices": [
+     "(A) － (C) － (B)",
+     "(B) － (A) － (C)",
+     "(B) － (C) － (A)",
+     "(C) － (A) － (B)",
+     "(C) － (B) － (A) 8 㢨ٻⱬ㥐㫴㜄ٻḴ䚐ٻ㤴㣅Ề㡴ٻ䚐ạẄ㡕Ḱ㥉䓽ᴴ㠄㜄ٻ㢼㏩⏼␘ډ"
+    ]
+   },
+   "after": {
+    "passage": "Plants have evolved defenses almost as diverse as the number of genera. Some load their tissues with harsh compounds that either are unpleasant to insects or intoxicate them, encouraging the insects to go bother another plant or at least slowing down their eating. (A) The back-and-forth is not a matter of natural balance, but more like a drawn-out evolutionary conversation. New plant defenses unintentionally select for insects with ways to get around them, which in turn help bring about more resilient and resistant plant species. New variations, shading into entire new forms and adaptations, maintain the stalemate. (B) Plants can release chemical compounds that let their same-species neighbors know that an attack is likely coming, pushing those nearby plants to start building up defensive compounds in their tissues. Some of these cues even attract insect predators, a call for an assist that benefits both the plant and its bug-eating collaborators. (C) Structural defenses like thick coats of wax on leaves may prevent some insect species from damaging the plant tissues altogether. Nor are individual plants entirely on their own while under attack.",
+    "choices": [
+     "(A) － (C) － (B)",
+     "(B) － (A) － (C)",
+     "(B) － (C) － (A)",
+     "(C) － (A) － (B)",
+     "(C) － (B) － (A)"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#38",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "passage": "To minimize vortex shedding, skyscraper designers do everything in their powers to confuse the wind. To minimize building costs and maximize revenues, skyscrapers generally take the shape of squares or rectangles. These are not particularly aerodynamic shapes, and this results in a wind phenomenon ______ called “vortex shedding.” As wind meets a rectangular skyscraper it pushes on the flat face of the building before flowing around its sides, where eventually it separates from the face of the structure. ( ①) The difference in pressures on the front and back faces of the building gives rise to vortices, or spinning currents of wind, that flow downstream from the building. ( ②) The vortices pull and push the building in a direction perpendicular to the wind at frequencies that can become dangerously self-sustaining. ( ③) Orienting the building so that the longer face of the structure is parallel with prevailing winds can help. ( ④) Chopping or rounding off corners of a building can likewise make it more aerodynamic. ( ⑤) Roughing up the corners of the building through the careful placement of balconies or stepped corners can help by disturbing or delaying the formation of strong vortices. 7 7"
+   },
+   "after": {
+    "passage": "To minimize vortex shedding, skyscraper designers do everything in their powers to confuse the wind. To minimize building costs and maximize revenues, skyscrapers generally take the shape of squares or rectangles. These are not particularly aerodynamic shapes, and this results in a wind phenomenon called “vortex shedding.” As wind meets a rectangular skyscraper it pushes on the flat face of the building before flowing around its sides, where eventually it separates from the face of the structure. ( ① ) The difference in pressures on the front and back faces of the building gives rise to vortices, or spinning currents of wind, that flow downstream from the building. ( ② ) The vortices pull and push the building in a direction perpendicular to the wind at frequencies that can become dangerously self-sustaining. ( ③ ) Orienting the building so that the longer face of the structure is parallel with prevailing winds can help. ( ④ ) Chopping or rounding off corners of a building can likewise make it more aerodynamic. ( ⑤ ) Roughing up the corners of the building through the careful placement of balconies or stepped corners can help by disturbing or delaying the formation of strong vortices."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#40",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "passage": "In the pharmaceutical industry, algorithms are being employed to find treatments and drugs for rare diseases that to date haven’t received much attention. The hard truth has always been that pharma devotes more research and development resources to diseases that affect the rich. The definition of rare has too often been associated with poor ― that is, even if a disease is quite prevalent in a population that cannot a ff ord to pay for it (for example, people living in the developing world), the disease has been neglected compared to First World illnesses. By lowering the cost of data collection, mining, and analysis in drug development and clinical trials, AI can help o ff set imbalances in the pharmaceutical industry that direct attention to diseases that “pay,” whether because the disease is more common or because it is prevalent among demographics that can pay more. We see the democratizing power of AI to broaden the attention of the medical and research communities to find cures to traditionally neglected health issues and among traditionally neglected populations. 󰀻 By lowering the cost of pharmaceutical research and development, AI can help reduce the imbalance in investment (A) that has led to the ______ of less profitable diseases, thereby broadening the focus of medical research to include (B) ______ populations. (A) ______ (B) ______ (A) ______ (B)",
+    "choices": [
+     "prevention …… marginalized",
+     "spread …… general",
+     "overlook …… native",
+     "ignorance …… wealthy",
+     "disregard …… underserved 8 㢨ٻⱬ㥐㫴㜄ٻḴ䚐ٻ㤴㣅Ề㡴ٻ䚐ạẄ㡕Ḱ㥉䓽ᴴ㠄㜄ٻ㢼㏩⏼␘ډ"
+    ]
+   },
+   "after": {
+    "passage": "In the pharmaceutical industry, algorithms are being employed to find treatments and drugs for rare diseases that to date haven’t received much attention. The hard truth has always been that pharma devotes more research and development resources to diseases that affect the rich. The definition of rare has too often been associated with poor ― that is, even if a disease is quite prevalent in a population that cannot afford to pay for it (for example, people living in the developing world), the disease has been neglected compared to First World illnesses. By lowering the cost of data collection, mining, and analysis in drug development and clinical trials, AI can help offset imbalances in the pharmaceutical industry that direct attention to diseases that “pay,” whether because the disease is more common or because it is prevalent among demographics that can pay more. We see the democratizing power of AI to broaden the attention of the medical and research communities to find cures to traditionally neglected health issues and among traditionally neglected populations. By lowering the cost of pharmaceutical research and development, AI can help reduce the imbalance in investment that has led to the (A) ______ of less profitable diseases, thereby broadening the focus of medical research to include (B) ______ populations.",
+    "choices": [
+     "prevention …… marginalized",
+     "spread …… general",
+     "overlook …… native",
+     "ignorance …… wealthy",
+     "disregard …… underserved"
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#43",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "passage": "(A) Every day after school, Sally walked home through the park. She liked listening to music in her headphones and looking at the trees on her way home. One day, while she was changing songs, she heard strange, unpolished music. She took off her headphones and followed the music through the park. She saw a kind-looking old woman sitting on a small bench and playing the violin. While (a) her music wasn’t perfect, there was something warm and welcoming about it. So, Sally walked closer. 8 (B) The following day, they met at the same bench. Sally was happy to hear the old woman’s music again, but when she sat, the woman stopped playing. “Today is your first full lesson,” she said as she handed the violin to Sally. (b) She showed the young woman how to place her fingers on the strings. After an hour, she had learned some basics. Then, the old woman played the same music from the day before. Sally promised to meet her every day and started walking home. As she walked, simple, unpolished music was playing in her mind. (C) The old woman asked Sally if she played any instruments. Suddenly, Sally remembered learning the recorder from her older sister Beatrice when she was a girl. Beatrice had said, “You just have no musical talent.” Sally looked back to the old woman sadly and told (c) her the story. The old woman winked, handed the violin to Sally, and said, “You don’t need talent to enjoy playing.” Feeling brave, Sally accepted the instrument and tried playing. The sound was rough, and she felt embarrassed. But the old woman just smiled and said, “That’s how it begins. (d) I hope to see you again tomorrow.” (D) “Hello! Are you going to listen to my performance?” the old woman looked up and asked. Sally laughed and replied, “Oh sorry, I was just passing by.” (e) She turned to continue walking home, but decided to stop for a bit and listen. After the woman’s music finished, Sally asked her when she had started playing the violin. “I just started last year, but I always wanted to learn,” the woman answered. Sally was impressed by her response. Even though she loved listening to music, she could not play any instruments well."
+   },
+   "after": {
+    "passage": "(A) Every day after school, Sally walked home through the park. She liked listening to music in her headphones and looking at the trees on her way home. One day, while she was changing songs, she heard strange, unpolished music. She took off her headphones and followed the music through the park. She saw a kind-looking old woman sitting on a small bench and playing the violin. While (a) her music wasn’t perfect, there was something warm and welcoming about it. So, Sally walked closer. (B) The following day, they met at the same bench. Sally was happy to hear the old woman’s music again, but when she sat, the woman stopped playing. “Today is your first full lesson,” she said as she handed the violin to Sally. (b) She showed the young woman how to place her fingers on the strings. After an hour, she had learned some basics. Then, the old woman played the same music from the day before. Sally promised to meet her every day and started walking home. As she walked, simple, unpolished music was playing in her mind. (C) The old woman asked Sally if she played any instruments. Suddenly, Sally remembered learning the recorder from her older sister Beatrice when she was a girl. Beatrice had said, “You just have no musical talent.” Sally looked back to the old woman sadly and told (c) her the story. The old woman winked, handed the violin to Sally, and said, “You don’t need talent to enjoy playing.” Feeling brave, Sally accepted the instrument and tried playing. The sound was rough, and she felt embarrassed. But the old woman just smiled and said, “That’s how it begins. (d) I hope to see you again tomorrow.” (D) “Hello! Are you going to listen to my performance?” the old woman looked up and asked. Sally laughed and replied, “Oh sorry, I was just passing by.” (e) She turned to continue walking home, but decided to stop for a bit and listen. After the woman’s music finished, Sally asked her when she had started playing the violin. “I just started last year, but I always wanted to learn,” the woman answered. Sally was impressed by her response. Even though she loved listening to music, she could not play any instruments well."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#44",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "passage": "(A) Every day after school, Sally walked home through the park. She liked listening to music in her headphones and looking at the trees on her way home. One day, while she was changing songs, she heard strange, unpolished music. She took off her headphones and followed the music through the park. She saw a kind-looking old woman sitting on a small bench and playing the violin. While (a) her music wasn’t perfect, there was something warm and welcoming about it. So, Sally walked closer. 8 (B) The following day, they met at the same bench. Sally was happy to hear the old woman’s music again, but when she sat, the woman stopped playing. “Today is your first full lesson,” she said as she handed the violin to Sally. (b) She showed the young woman how to place her fingers on the strings. After an hour, she had learned some basics. Then, the old woman played the same music from the day before. Sally promised to meet her every day and started walking home. As she walked, simple, unpolished music was playing in her mind. (C) The old woman asked Sally if she played any instruments. Suddenly, Sally remembered learning the recorder from her older sister Beatrice when she was a girl. Beatrice had said, “You just have no musical talent.” Sally looked back to the old woman sadly and told (c) her the story. The old woman winked, handed the violin to Sally, and said, “You don’t need talent to enjoy playing.” Feeling brave, Sally accepted the instrument and tried playing. The sound was rough, and she felt embarrassed. But the old woman just smiled and said, “That’s how it begins. (d) I hope to see you again tomorrow.” (D) “Hello! Are you going to listen to my performance?” the old woman looked up and asked. Sally laughed and replied, “Oh sorry, I was just passing by.” (e) She turned to continue walking home, but decided to stop for a bit and listen. After the woman’s music finished, Sally asked her when she had started playing the violin. “I just started last year, but I always wanted to learn,” the woman answered. Sally was impressed by her response. Even though she loved listening to music, she could not play any instruments well."
+   },
+   "after": {
+    "passage": "(A) Every day after school, Sally walked home through the park. She liked listening to music in her headphones and looking at the trees on her way home. One day, while she was changing songs, she heard strange, unpolished music. She took off her headphones and followed the music through the park. She saw a kind-looking old woman sitting on a small bench and playing the violin. While (a) her music wasn’t perfect, there was something warm and welcoming about it. So, Sally walked closer. (B) The following day, they met at the same bench. Sally was happy to hear the old woman’s music again, but when she sat, the woman stopped playing. “Today is your first full lesson,” she said as she handed the violin to Sally. (b) She showed the young woman how to place her fingers on the strings. After an hour, she had learned some basics. Then, the old woman played the same music from the day before. Sally promised to meet her every day and started walking home. As she walked, simple, unpolished music was playing in her mind. (C) The old woman asked Sally if she played any instruments. Suddenly, Sally remembered learning the recorder from her older sister Beatrice when she was a girl. Beatrice had said, “You just have no musical talent.” Sally looked back to the old woman sadly and told (c) her the story. The old woman winked, handed the violin to Sally, and said, “You don’t need talent to enjoy playing.” Feeling brave, Sally accepted the instrument and tried playing. The sound was rough, and she felt embarrassed. But the old woman just smiled and said, “That’s how it begins. (d) I hope to see you again tomorrow.” (D) “Hello! Are you going to listen to my performance?” the old woman looked up and asked. Sally laughed and replied, “Oh sorry, I was just passing by.” (e) She turned to continue walking home, but decided to stop for a bit and listen. After the woman’s music finished, Sally asked her when she had started playing the violin. “I just started last year, but I always wanted to learn,” the woman answered. Sally was impressed by her response. Even though she loved listening to music, she could not play any instruments well."
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  },
+  {
+   "item_id": "M2706#45",
+   "pdf_file": "202706_영어영역_문제지.pdf",
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15",
+   "before": {
+    "passage": "(A) Every day after school, Sally walked home through the park. She liked listening to music in her headphones and looking at the trees on her way home. One day, while she was changing songs, she heard strange, unpolished music. She took off her headphones and followed the music through the park. She saw a kind-looking old woman sitting on a small bench and playing the violin. While (a) her music wasn’t perfect, there was something warm and welcoming about it. So, Sally walked closer. 8 (B) The following day, they met at the same bench. Sally was happy to hear the old woman’s music again, but when she sat, the woman stopped playing. “Today is your first full lesson,” she said as she handed the violin to Sally. (b) She showed the young woman how to place her fingers on the strings. After an hour, she had learned some basics. Then, the old woman played the same music from the day before. Sally promised to meet her every day and started walking home. As she walked, simple, unpolished music was playing in her mind. (C) The old woman asked Sally if she played any instruments. Suddenly, Sally remembered learning the recorder from her older sister Beatrice when she was a girl. Beatrice had said, “You just have no musical talent.” Sally looked back to the old woman sadly and told (c) her the story. The old woman winked, handed the violin to Sally, and said, “You don’t need talent to enjoy playing.” Feeling brave, Sally accepted the instrument and tried playing. The sound was rough, and she felt embarrassed. But the old woman just smiled and said, “That’s how it begins. (d) I hope to see you again tomorrow.” (D) “Hello! Are you going to listen to my performance?” the old woman looked up and asked. Sally laughed and replied, “Oh sorry, I was just passing by.” (e) She turned to continue walking home, but decided to stop for a bit and listen. After the woman’s music finished, Sally asked her when she had started playing the violin. “I just started last year, but I always wanted to learn,” the woman answered. Sally was impressed by her response. Even though she loved listening to music, she could not play any instruments well.",
+    "choices": [
+     "Sally 는 헤드폰으로 음악을 듣는 것을 좋아했다 .",
+     "노부인의 연주를 다시 듣게 되어 Sally 는 행복했다 .",
+     "Sally 는 노부인을 매일 만나기로 약속했다 .",
+     "Beatrice 는 Sally 의 음악적 재능을 칭찬했다 .",
+     "노부인은 항상 바이올린을 배우고 싶어 했다 ."
+    ]
+   },
+   "after": {
+    "passage": "(A) Every day after school, Sally walked home through the park. She liked listening to music in her headphones and looking at the trees on her way home. One day, while she was changing songs, she heard strange, unpolished music. She took off her headphones and followed the music through the park. She saw a kind-looking old woman sitting on a small bench and playing the violin. While (a) her music wasn’t perfect, there was something warm and welcoming about it. So, Sally walked closer. (B) The following day, they met at the same bench. Sally was happy to hear the old woman’s music again, but when she sat, the woman stopped playing. “Today is your first full lesson,” she said as she handed the violin to Sally. (b) She showed the young woman how to place her fingers on the strings. After an hour, she had learned some basics. Then, the old woman played the same music from the day before. Sally promised to meet her every day and started walking home. As she walked, simple, unpolished music was playing in her mind. (C) The old woman asked Sally if she played any instruments. Suddenly, Sally remembered learning the recorder from her older sister Beatrice when she was a girl. Beatrice had said, “You just have no musical talent.” Sally looked back to the old woman sadly and told (c) her the story. The old woman winked, handed the violin to Sally, and said, “You don’t need talent to enjoy playing.” Feeling brave, Sally accepted the instrument and tried playing. The sound was rough, and she felt embarrassed. But the old woman just smiled and said, “That’s how it begins. (d) I hope to see you again tomorrow.” (D) “Hello! Are you going to listen to my performance?” the old woman looked up and asked. Sally laughed and replied, “Oh sorry, I was just passing by.” (e) She turned to continue walking home, but decided to stop for a bit and listen. After the woman’s music finished, Sally asked her when she had started playing the violin. “I just started last year, but I always wanted to learn,” the woman answered. Sally was impressed by her response. Even though she loved listening to music, she could not play any instruments well.",
+    "choices": [
+     "Sally는 헤드폰으로 음악을 듣는 것을 좋아했다.",
+     "노부인의 연주를 다시 듣게 되어 Sally는 행복했다.",
+     "Sally는 노부인을 매일 만나기로 약속했다.",
+     "Beatrice는 Sally의 음악적 재능을 칭찬했다.",
+     "노부인은 항상 바이올린을 배우고 싶어 했다."
+    ]
+   },
+   "note": "추출 잔여물 — 공식 문제지 대조"
+  }
+ ]
+}
