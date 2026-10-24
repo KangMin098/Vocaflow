@@ -46,3 +46,10 @@ AI 검수 행은 발행 게이트(`csat_guard_published`: 페르소나 3 pass)�
 - v6 draft 1행: choice_analysis `6d6966e6…` · design_intent `26bda96c…` · solve_procedure `6a6e9fb5…` = BINDING 예정값. 검수 행 0 · 최신 published = v5(학습자 화면 불변).
 - 원장 수리 기록(passage) 로컬 main ff0a5da48 에 병합 · 재생성 원장 지문 = DB.
 - 미실행: 단계 2(사람 내용 승인 · digest 재생성 대기) · stage1-recovery.sql(초안 삭제 — 별도 삭제 승인 필요).
+
+## 2026-10-25 사용자 결정 반영
+
+- 발행 보류: 권한 있는 **실제 사람** 검수자의 트랙별(분석 v6 · 강의 c9 v3 · 탐구) 내용 승인 전에는 단계 2 SQL 생성 · 실행 · 브랜치 통합을 하지 않는다. AI 세 역할 검수는 AI 검토 기록일 뿐이다.
+- 실행 경로: 단계 2 는 MCP 가 아니라 승인형 러너 단계로만(dev-mode `db_apply` 2026-10-25) — 러너 단계는 사람 승인 뒤 만든다.
+- 판본 충돌(published v5 · 강의 v2 「보류」 ↔ DB 지문 각주)은 **미해결**. 혼합 방지: v6 발행과 강의 v3 통합은 한 잠금 구간(단계 5)에서만.
+- digest 재생성: owner `csat-lecture-disclosure` 에 요청(AI-Control `runtime/c-2014a29-review/DELIVERY-digest.md`). HTML/RSC 검증은 digest · 사람 승인 뒤 단계 5 에서.

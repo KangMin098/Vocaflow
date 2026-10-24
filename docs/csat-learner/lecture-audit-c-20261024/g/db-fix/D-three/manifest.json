@@ -1,0 +1,41 @@
+[
+ {
+  "id": "2023#32",
+  "file": "2023_영어영역_문제지.pdf",
+  "pdf_sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532",
+  "from": "trans-missible",
+  "to": "transmissible",
+  "before_md5": "03a62be16a1bc6357446a0d3a4c25ad9",
+  "after_md5": "839326bfae83588520b8e107aaf0e8e3",
+  "before_len": 882,
+  "after_len": 881,
+  "ledger_equals_after": true,
+  "basis": "32번 지문 줄 끝 하이픈 「trans-」 + 다음 줄 「missible」 — 줄바꿈 하이픈"
+ },
+ {
+  "id": "2014B#36",
+  "file": "2014_영어B-홀수형_문제.pdf",
+  "pdf_sha256": "7485178378a951d3f102e2a6f8dd3f979a0f1121b9da2196b3dd09a53ad430c2",
+  "from": " [3점] (A) (B) (A) (B)",
+  "to": "",
+  "before_md5": "4910c6d0824e9e5b8e1a29265b29659d",
+  "after_md5": "0b6a803ce0d702594d3d85705013be45",
+  "before_len": 1060,
+  "after_len": 1039,
+  "ledger_equals_after": false,
+  "basis": "배점 [3점] · 선지 표 머리 (A) (B) 는 지문이 아니다. 빈칸 표지 (A)(B) 는 지문 안에 그대로"
+ },
+ {
+  "id": "2017#42",
+  "file": "2017_영어_짝.pdf",
+  "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+  "from": "\n\n(A) (B) (A) (B)",
+  "to": "",
+  "before_md5": "5bb996e451c82758a15c4fe0e5b00ea2",
+  "after_md5": "ac52fa4ae3dae03384dc2983a4fb6430",
+  "before_len": 1487,
+  "after_len": 1470,
+  "ledger_equals_after": false,
+  "basis": "선지 표 머리 (A) (B) 는 지문이 아니다"
+ }
+]
