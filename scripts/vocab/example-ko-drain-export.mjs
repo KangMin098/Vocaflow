@@ -79,7 +79,8 @@ const TARGET = (() => {
   return t
 })()
 
-const OUT_DIR = path.resolve('scripts/vocab/example-ko-drain')
+// `--dir` — 병렬 세션이 같은 chunk-NN 번호를 덮지 않도록 실행별 폴더를 받는다(기본은 옛 고정 경로).
+const OUT_DIR = path.resolve(arg('dir', 'scripts/vocab/example-ko-drain'))
 const HIDDEN = ['library_book', 'library_article']
 
 const supabase = createClient(

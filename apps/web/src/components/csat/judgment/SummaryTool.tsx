@@ -183,7 +183,7 @@ function SummaryToolBody({ item, reveal }: JudgmentToolProps) {
       <section className={js.section} aria-label="해설">
         <h3>해설</h3>
         {rv.status !== 'shown' && (
-          <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={() => void request()} disabled={rv.status === 'loading'}>
+          <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={() => void request()} aria-disabled={rv.status === 'loading'}>
             {rv.status === 'error' ? '해설 다시 불러오기' : '해설 보기'}
           </button>
         )}
@@ -232,7 +232,7 @@ function RevealView({ data, item, st, focus, onPoint }: { data: RevealData; item
   const nOf = (id: string) => item.units.find((u) => u.id === id)?.n
   const one = (id: string) => onPoint([id])
   return (
-    <div data-reveal-body>
+    <div data-reveal-body data-revealed>
       <p className={s.answer}>정답 {CIRCLED[data.answer - 1]} {item.choices[data.answer - 1]}</p>
       <table className={s.cmp}>
         <thead><tr><th scope="col">칸</th><th scope="col">내 선택</th><th scope="col">해설</th><th scope="col">대조</th></tr></thead>

@@ -198,13 +198,13 @@ function IrrelevantToolBody({ item, reveal }: JudgmentToolProps) {
             {rv.status !== 'shown' && (
               <>
                 <p className={js.note}>먼저 풀지 않아도 볼 수 있다. 해설을 열면 지금 표시와 해설 근거를 문장별로 나란히 본다.</p>
-                <button type="button" className={`${js.button} ${js.primary}`} onClick={() => void request()} disabled={rv.status === 'loading'} data-reveal-btn>
+                <button type="button" className={`${js.button} ${js.primary}`} onClick={() => void request()} aria-disabled={rv.status === 'loading'} data-reveal-btn>
                   {rv.status === 'error' ? '해설 다시 불러오기' : '해설 보기'}
                 </button>
               </>
             )}
             <div aria-live="polite">
-              {rv.status === 'loading' && <p className={js.status}>해설을 불러오는 중…</p>}
+              {rv.status === 'loading' && <p className={js.status} data-reveal-loading>해설을 불러오는 중…</p>}
               {rv.status === 'error' && <p className={js.error} data-reveal-error={rv.reason}>{REVEAL_ERROR_TEXT[rv.reason]}</p>}
             </div>
             {shown && (

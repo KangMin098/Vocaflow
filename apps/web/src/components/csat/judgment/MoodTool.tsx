@@ -219,8 +219,9 @@ function MoodToolBody({ item, reveal }: JudgmentToolProps) {
 
       <div className={s.section}>
         <h3>해설</h3>
-        {rv.status === 'hidden' && <button type="button" className={`${s.button} ${s.primary}`} onClick={request} data-act="reveal">해설 보기</button>}
-        {rv.status === 'loading' && <p className={s.status} aria-live="polite">해설을 불러오는 중…</p>}
+        {/* 로딩 중에도 자리를 지킨다 — 지우면 판단면 높이가 줄어 학습자 스크롤이 끌려 올라간다 */}
+        {(rv.status === 'hidden' || rv.status === 'loading') && <button type="button" className={`${s.button} ${s.primary}`} onClick={request} data-act="reveal" aria-disabled={rv.status === 'loading'}>해설 보기</button>}
+        {rv.status === 'loading' && <p className={s.status} aria-live="polite" data-reveal-loading>해설을 불러오는 중…</p>}
         {rv.status === 'error' && (
           <div aria-live="polite">
             <p className={s.error} data-reveal-error={rv.reason}>{REVEAL_ERROR_TEXT[rv.reason]}</p>

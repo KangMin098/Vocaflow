@@ -184,7 +184,10 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- content(dict·textbook): 뜻별 예문 한국어역 4,706건 적재(잔량 4,798 중 결함·부적절 예문 92 보류, 독립 표본 480 중 실패 1 반영) · 교재 V5(reading) 3인 검수 2회 456행(1회 80문항 3인 통과 31 · 2회 72문항 통과 36, 떨어진 문항은 loadVolume 이 재고로 교체) · V5 해설 35건. 결함 대부분은 원문 추출(소제목 결합 · 약어 마침표 분할 · 인용 잔재 · 없는 그림 참조). 2026-10-25 사용자 승인.
+- content(dict): 발행 단어장 대표 예문 한국어역 9,050건 적재(잔량 9,073 중 원문 예문 결함 23건 보류) · pending_words 반복 출현 후보 4,675 판정 적재(사전 +1,730 · 고유명사 +137 · 노이즈 +529 · 보류 1,888+361). 독립 표본 검수 실패 0·2건 반영. pending export 페이지 중복·누락 수정(lemma 동률 해소) · 예문 import 기존 번역 덮어쓰기 차단 · 실행별 --dir. 2026-10-24 사용자 승인.
 - fix(csat): 평가원(수능·모평) 원문 수리 경로 연결 — build-corpus 가 `scripts/csat/data/kice-source-repairs.json` 을 공식 문제지 해시 결속으로 입히고, source-repair 가 평가원 ID 를 받는다(한 계획 한 집합). corpus-sync 전체 `--commit` 은 DB 원문과 다른 문항이 있으면 쓰기 없이 멈춘다(2026-10-24 실측 재생성 원장 801 중 534 가 DB 와 다름, `--allow-source-overwrite` 로만 진행). 수리 기록 3건(2017#24 · 2018#24 · M2509#25 선지 ⑤ 끝 잔여물)은 같은 날 사용자 승인으로 개발 DB 에 적용한 값과 같다. T-0153 Codex APPROVE.
+- feat(csat): 기출 원문·근거·선지 결속 계층(대량작업 G, `lib/csat/binding`) — 공통 근거 앵커(span·unit·marker·value·condition·footnote, 판본 basis·precision) · 읽기 전용 어댑터(현재 원문 해시 단위 + 결속된 published 분석만) · 복수 정답·추출 결함·누락 각주·그림 전용 도표 값 검출 · 판본 무효화 · 학습자 PDF sha256 대조 탐색 · 유형별 준비도. 전수 감사 `apps/web/scripts/csat-binding-audit.mts`(DB 읽기 전용). DB·화면 변경 없음.
 - fix(db): 원격 동기화 차단 해소 — 마이그레이션 4건을 개발 DB 적용 이력(버전·본문)에 맞춤(`20261023043453` · `20261023020321` · `20261023061401` · `20261023082930`, 실행 SQL 동일) · 학습 정리 이벤트 2종을 `funnel_events_event_check` 에 추가(`20261024025906`, 사용자 승인 · 그동안 조용히 0건)
 - **CSAT 학습지도↔기출분석 연결(대량작업 H)** — `lib/csat/bridge/`: TASK·NeedRank→기출 진입 어댑터·추천 이유, P6 노출 소비자(X0~X3), 독립 수행 증거 공급·승격 검문, 왕복 문맥(분석 판본), 사고 기능↔TASK 매핑, 통합 격리 시나리오. 공유 화면·DB 무변경, 연결 계약 `docs/csat-learner/bridge-h-contract.md`.
 - fix(csat): 코퍼스 지문 의심 판정에서 학평 요약문(R-SUMMARY)은 (A)·(B) 자리가 있으면 빈칸 표시 없이도 정상 — build-corpus 가 학평 `______` 를 지우면서 같은 유형에 빈칸을 요구하던 모순(학평 요약문 101건 중 약 74건이 이 규칙에만 걸림). 판정 함수를 `scripts/csat/lib-body-suspect.mjs` 로 옮기고 회귀 테스트 추가. DB `body_ok` 반영은 코퍼스 재생성 · 동기화(승인) 뒤
