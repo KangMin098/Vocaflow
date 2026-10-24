@@ -47,3 +47,9 @@
 ## 실제 인증 E2E 수행 가능 범위
 - 가능(지금): 격리 단위·시나리오(34건). T-0147 브랜치의 judgment route 격리 E2E는 그 브랜치에서 PASS 기록.
 - 불가(BLOCKED): main 기준 실계정 E2E — judgment route가 main에 없고, 학습지도 화면에 H 연결이 없다. 합성 계정 기록 생성은 기존 테스트 계정·권한 확인 뒤 owner 경로로만 한다(이 작업은 실사용자·DB 기록을 만들지 않았다).
+
+## K6-a 통일 계약 제안(2026-10-24 · 미적용)
+- 실측(개발 DB 읽기): `csat_items` 3,714문항 중 **641문항(254 지문 묶음)이 지문 공유** · `learning_exposures` 122행·3문항 · 추적 시작 뒤 시도 0건 · DB 함수는 `item_ref` 만 비교.
+- 제안 SQL: [k6a-unified-exposure-proposal.sql](./k6a-unified-exposure-proposal.sql) — `csat_passage_key()` + `learning_attempt_independence` 본문 교체(같은 지문 노출 → `after_exposure`, 지문 미상 → `passage_unknown`). 표·열·데이터·권한·서명 무변경, 복구 = 파일 끝 ROLLBACK.
+- SQL 지문 키 ↔ 앱 `normalizedPassageKey` 표본 2건 일치 확인(2014A#23 · 2014A#34). 적용 전 전수 대조 필요.
+- 적용 전까지: 앱(H4·H5)이 같은 지문 노출 · 지문 미상을 막으므로 판정 불가 기록은 숙달 증거로 공급되지 않는다. **사용자 승인 없이 적용하지 않는다.**
