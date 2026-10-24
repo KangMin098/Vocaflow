@@ -897,6 +897,17 @@ export function AnalysisTheater({
       setRevealed(body.reveal)
       setAnswerConsent(true)
       setRevealState('idle')
+      // 판단 장면에서 학습자가 누른 「정답 보기」 — 누른 단추가 사라지므로 포커스를 공개된 정답 근거 제목으로 옮긴다(문서 밖으로 빠지지 않게).
+      // 강의(전체 · 경계 계속)로 연 경우는 포커스를 옮기지 않는다(강의 진행이 포커스를 가져가지 않는 계약)
+      if (source === 'judgment_scene') {
+        requestAnimationFrame(() => {
+          const h = document.querySelector<HTMLElement>('[data-block="analysis:answer"] h2') ?? document.querySelector<HTMLElement>('[data-testid="judgment-options"]')
+          if (h) {
+            h.tabIndex = -1
+            h.focus()
+          }
+        })
+      }
       return true
     } catch {
       // 기록 실패 · 판본 변경 · 보류 — 정답을 보이지 않는다(서버도 보내지 않았다)
@@ -1674,7 +1685,9 @@ export function AnalysisTheater({
                       }
                     />
                   ) : null}
-                  {!sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (
+                  {/* 정답을 받기 전에는 「설명이 없다」 가 아니라 감춘 것이다 — 판단 · 비교 장면 밖에서도 정답 요청 자리를 둔다 */}
+                  {!revealed && !withheld && scene !== 'judgment' && scene !== 'compare' && !sceneBlocks.length && !sceneChecks.length ? withheldPanel('scene-pending', sceneDef?.label ?? '분석') : null}
+                  {revealed && !sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (
                     <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="scene-empty">
                       이 문항은 이 장면에 해당하는 검수된 설명이 아직 없어요. 다른 장면의 분석은 그대로 읽을 수 있어요.
                     </p>
