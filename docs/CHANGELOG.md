@@ -184,6 +184,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(db): 원격 동기화 차단 해소 — 마이그레이션 4건을 개발 DB 적용 이력(버전·본문)에 맞춤(`20261023043453` · `20261023020321` · `20261023061401` · `20261023082930`, 실행 SQL 동일) · 학습 정리 이벤트 2종을 `funnel_events_event_check` 에 추가(`20261024025906`, 사용자 승인 · 그동안 조용히 0건)
 - fix(csat): 코퍼스 지문 의심 판정에서 학평 요약문(R-SUMMARY)은 (A)·(B) 자리가 있으면 빈칸 표시 없이도 정상 — build-corpus 가 학평 `______` 를 지우면서 같은 유형에 빈칸을 요구하던 모순(학평 요약문 101건 중 약 74건이 이 규칙에만 걸림). 판정 함수를 `scripts/csat/lib-body-suspect.mjs` 로 옮기고 회귀 테스트 추가. DB `body_ok` 반영은 코퍼스 재생성 · 동기화(승인) 뒤
 - feat(csat): 최종 평가 결속 — 학습자가 목표 버전마다 「목표 시험 종류 · 응시일」을 최종 평가로 한 번 정하고(추론 금지), 그날 첫 풀이 live 기록만 goalOutcome 적격성으로 판정(met·not_met·not_judgeable·scheduled·awaiting_record). API `POST /api/csat/diagnosis/map/goal/final-assessment`. 제안 SQL `20261023082930_csat_goal_final_assessment`(추가 전용 테이블 + service_role writer) 2026-10-23 사용자 승인 후 개발 DB 적용(이력 20261023082930) · 실제 인증 종단 6/6.
 - feat(csat): 목표 대비 · 재처방 카드를 비교 구조로(T-0110) — 점수 축(목표·기록 표식) · 시험 기록 vs TASK 활동 대조, 재처방은 지금 배정·저장 계획대로·수정안 비교표(오늘의 학습과 같은 지금 값). 점수 충족·등급 미기록 다음 안내 record_grade. 판정·DB 변경 없음.

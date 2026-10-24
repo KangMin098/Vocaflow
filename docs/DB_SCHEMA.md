@@ -1295,6 +1295,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 | `funnel_events_event_check` (2026-09-19 · 사용자 승인 후 적용, DB 버전 `20260918232454`) | `fit_level_moved` · `fit_sheet_opened` 추가 (38 → 40종) — `20260919100000_funnel_allow_fit_paint.sql`. 목록은 적용 시점 DB 제약에서 옮겼다 |
 | `funnel_events_event_check` (2026-09-22 · 사용자 승인 후 적용, DB 버전 `20260922004102`) | `hub_promo_clicked` · `hub_hero_moved` 추가 (40 → 42종) — `20260922090000_funnel_allow_hub_portal.sql`. 목록은 2026-09-22 DB 제약에서 옮겼다 |
 | `funnel_events_event_check` (2026-10-14 · 사용자 승인 후 적용) | 원문 이해 교수 판 6종 `csat_meaning_unit_selected` · `csat_meaning_depth_changed` · `csat_meaning_relation_opened` · `csat_meaning_whole_traced` · `csat_meaning_draft_compared` · `csat_meaning_bridge_followed` 추가 (83 → 89종) — `20261014091841_funnel_allow_csat_meaning.sql`. 목록은 적용 직전 DB 제약에서 옮겼다(재조회로 83 확인 뒤 적용) |
+| `funnel_events_event_check` (2026-10-24 · 사용자 승인 후 적용, DB 버전 `20261024025906`) | 학습 정리 `csat_summary_opened` · `csat_summary_explored` 추가 (94 → 96종) — `20261024025906_funnel_events_csat_summary.sql`. 은퇴한 `csat_meaning_draft_compared`(T-0091) 는 과거 행 때문에 남김. ⚠️ `_pending_factory_dcp_learning` · `_pending_source_lesson_reflection` 은 이 제약을 두 이벤트 없이 다시 정의한다 — 적용 전 목록 갱신 필요 |
 
 ⚠️ **왜 공개 버킷인가**: 이 영상의 첫 독자는 로그인하지 않은 **교사**다
 (허용 CAC ₩400 → 교사→학급 경로만 성립, `PLATFORM_AUDIT.md`). 로그인 뒤에 두면
