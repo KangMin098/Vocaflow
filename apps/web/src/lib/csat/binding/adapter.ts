@@ -180,7 +180,9 @@ export function bindItem(input: BindInput): BoundItem {
     const g = glosses.find((x) => x.mark === m.mark && glossMatches(x.term, m.before))
     // 어휘 풀이가 없을 때만 안내문 문장형 각주를 짝으로 본다(풀이가 있으면 풀이가 우선)
     const n = g ? undefined : noteFor(notes, m)
-    return { kind: 'footnote', basis: structBasis, precision: g || n ? 'exact' : 'unavailable', mark: m.mark, term: g?.term ?? m.word ?? null, gloss: g?.gloss ?? null, note: n?.note ?? null, at: m.at }
+    // 약어 마침표에서 끝난 문장 각주는 범위가 확정이 아니다(잘렸을 수 있다) — exact 로 내지 않는다
+    const precision = g ? 'exact' : n ? (n.ambiguous ? 'candidate' : 'exact') : 'unavailable'
+    return { kind: 'footnote', basis: structBasis, precision, mark: m.mark, term: g?.term ?? m.word ?? null, gloss: g?.gloss ?? null, note: n?.note ?? null, at: m.at }
   })
 
   // ── 분석 근거 ──

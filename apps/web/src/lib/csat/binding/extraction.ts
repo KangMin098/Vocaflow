@@ -25,16 +25,23 @@ export function glossesOf(text: string): { mark: string; term: string; gloss: st
 /**
  * 안내문 문장형 각주 「* The museum is closed on the first Monday of every month.」 — 어휘 풀이(「* term: 뜻」)가 아니라
  * 표지가 붙은 항목(Hours*)에 조건을 덧붙이는 영어 문장이다. 별표가 낱말 뒤가 아니라 문장 경계(시작 · 공백 · 문장부호 뒤)에 오고,
- * 대문자로 시작하는 세 낱말 이상의 문장이 마침표로 끝나야 한다. 콜론 풀이로 시작하면 어휘 각주라 여기서 세지 않는다.
+ * 대문자 · 숫자(앞에 여는 따옴표 · 괄호 허용)로 시작하는 세 낱말 이상의 문장이 마침표로 끝나야 한다.
+ * 콜론 풀이로 시작하면 어휘 각주라 여기서 세지 않는다.
  */
-// 문장 끝 = 마침표 뒤에 대문자 · 별표 · 여는 괄호로 시작하는 다음 항목이 오거나 글이 끝날 때. 「9 a.m. on weekends」 처럼
-// 소문자가 이어지면 약어 마침표라 문장이 계속된다
+// 문장 끝 = 마침표(+닫는 따옴표·괄호) 뒤에 대문자 · 별표 · 여는 괄호로 시작하는 다음 항목이 오거나 글이 끝날 때.
+// 「9 a.m. on weekends」 처럼 소문자가 이어지면 약어 마침표라 문장이 계속된다.
 // 낱말은 문장부호로 끝나지 않는다 — 끝 마침표를 낱말이 먹으면 첫 문장에서 멈추지 못한다(약어만 예외: 뒤에 소문자 · 숫자)
-const NOTE = /(?:^|(?<=[\s.!?)]))(\*{1,3})[ \t]+([A-Z][A-Za-z’']*(?:[ \t,]+(?:[^\s*]*[^\s*.!?]|[^\s*]+\.(?=\s+[a-z0-9$]))){2,}?[.!?])(?=\s+[A-Z*(※]|\s*$)/g
-export function notesOf(text: string): { mark: string; note: string; at: number }[] {
+const NOTE = /(?:^|(?<=[\s.!?)]))(\*{1,3})[ \t]+((?:["“‘'(][ \t]*)?[A-Z0-9][A-Za-z0-9’']*(?:[ \t,]+(?:[^\s*]*[^\s*.!?]|[^\s*]+\.(?=\s+[a-z0-9$]))){2,}?[.!?]["”’')]?)(?=\s+[A-Z*(※"“]|\s*$)/g
+/** 약어로 끝나는 마침표(U.S. · a.m. · Mr.) — 문장 끝인지 약어인지 글자만으로 가를 수 없다 */
+const ABBREV_END = /(?:\b(?:[A-Za-z]\.){2,}|\b(?:Mr|Mrs|Ms|Dr|St|No|Jr|Sr|vs|etc|Inc|Ltd|Co|Ave|Rd)\.)["”’')]?$/
+/**
+ * ambiguous: 각주 문장이 약어 마침표에서 끝났다 — 「* Visitors from the U.S. Embassy …」 가 「… the U.S.」 에서 잘렸을 수 있다.
+ * 각주가 있다는 사실(표지 짝)은 확정이지만 문장 범위는 확정이 아니다 → 앵커는 exact 가 아니라 candidate
+ */
+export function notesOf(text: string): { mark: string; note: string; at: number; ambiguous: boolean }[] {
   return [...text.matchAll(NOTE)]
-    .filter((m) => !/^[A-Za-z][A-Za-z\- ’']{0,40}?\s*[:：]/.test(m[2]))
-    .map((m) => ({ mark: m[1], note: m[2].trim(), at: m.index ?? 0 }))
+    .filter((m) => !/^["“‘'(]?\s*[A-Za-z][A-Za-z\- ’']{0,40}?\s*[:：]/.test(m[2]))
+    .map((m) => ({ mark: m[1], note: m[2].trim(), at: m.index ?? 0, ambiguous: ABBREV_END.test(m[2].trim()) }))
 }
 
 /**
@@ -81,7 +88,7 @@ function inAddress(passage: string, at: number): boolean {
 }
 
 /** 표지에 짝인 문장형 각주 — 같은 별표 수 · 표지보다 뒤(각주는 항목 아래 인쇄된다). 없으면 undefined */
-export function noteFor(notes: { mark: string; note: string; at: number }[], m: { mark: string; at: number }) {
+export function noteFor<N extends { mark: string; at: number }>(notes: N[], m: { mark: string; at: number }): N | undefined {
   return notes.find((n) => n.mark === m.mark && n.at > m.at)
 }
 

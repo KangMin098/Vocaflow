@@ -26,6 +26,20 @@ describe('안내문 문장형 각주', () => {
   it('문장 각주는 첫 문장 끝에서 끊고, 낱말 안 마침표(a.m.)에서는 끊지 않는다', () => {
     expect(notesOf('Hours* Open daily. * The desk opens at 9 a.m. on weekends. Fees Adults: $5').map((n) => n.note)).toEqual(['The desk opens at 9 a.m. on weekends.'])
   })
+  it('약어 마침표 뒤 대문자(U.S. Embassy · a.m. Monday)에서 끝나면 범위 미확정(ambiguous) — 짝은 맞지만 exact 가 아니다(T-0166 R1 P2)', () => {
+    const us = notesOf('Tickets* Open daily. * Visitors from the U.S. Embassy enter for free.')
+    expect(us).toEqual([expect.objectContaining({ note: 'Visitors from the U.S.', ambiguous: true })])
+    const am = notesOf('Hours* Open daily. * The desk opens at 9 a.m. Monday through Friday.')
+    expect(am).toEqual([expect.objectContaining({ ambiguous: true })])
+    expect(codes('Tickets* Open daily. * Visitors from the U.S. Embassy enter for free.')).not.toContain('footnote_mark_without_gloss')
+    expect(notesOf(FIXED)[0].ambiguous).toBe(false)
+  })
+  it('따옴표 · 괄호 · 숫자로 시작하는 문장 각주도 짝이다(T-0166 R1 P3)', () => {
+    expect(notesOf('Hours* Open daily. * "The office is closed on holidays."').map((n) => n.note)).toEqual(['"The office is closed on holidays."'])
+    expect(notesOf('Hours* Open daily. * (The office is closed on holidays.)').map((n) => n.note)).toEqual(['(The office is closed on holidays.)'])
+    expect(notesOf('Admission* Open daily. * 12 children must accompany an adult.').map((n) => n.note)).toEqual(['12 children must accompany an adult.'])
+    expect(notesOf('Open Hours* daily. * "Hours: 운영 시간"')).toEqual([])
+  })
   it('표지보다 앞에 있는 문장 각주는 짝이 아니다', () => {
     expect(codes('* The office is closed on holidays. Hours* Weekdays: 9:00 a.m. － 6:00 p.m.')).toContain('footnote_mark_without_gloss')
   })
