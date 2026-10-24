@@ -28,8 +28,8 @@ from csat_items i group by 1 order by 1;
 | 대응표 기술 | 실제 main | 차이 |
 |---|---|---|
 | 유형별 판단 도구 10종(T-ROLE·T-PROP·T-SEAM·T-AXIS·T-SLOT·T-CELL·T-FORM·T-TURN·T-TRACK·T-LISTEN) | **0종 구현.** 44유형 모두 공통 `AnalysisTheater` + `InquiryV3Panels`로 렌더 | 전 유형 구현 준비도 = **NEW 필요**(설계만 있음) |
-| 유형별 분기 | 실제 분기는 4곳뿐: `teachingModelOf`(문구·불리언 2, `AnalysisTheater.tsx`) · `understanding-check.ts` `POSITION_TYPES`(R-INSERT·R-ORDER·R-IRRELEVANT·X-ORDER) · `reflow/reflow.ts` 인라인 기호·시각 원지 집합 · `learner-text.ts` R-NOTICE "줄" 명칭. 그 밖에 지도 라벨(`TaskInspector.tsx`)·주문 마법사(`order-model.ts`, 관리자) | `POSITION_TYPES`가 R-IRRELEVANT를 위치형으로 묶음 → 진위 축 n_a 처리는 대응표 D1 제외와 **정합**. 단 T-AXIS(축 유지) 판정은 코드에 없음 |
-| 강의 공개 게이트(05 §3) | main에 `disclosure` 참조 **0건**. 공개 경로·sidecar loader 없음 | 게이트는 T-0140 브랜치에만(미수용·미통합) |
+| 유형별 분기 | **학습자 화면의 주요 분기 4곳**(완전한 목록 아님): `teachingModelOf`(문구·불리언 2, `AnalysisTheater.tsx`) · `understanding-check.ts` `POSITION_TYPES`(R-INSERT·R-ORDER·R-IRRELEVANT·X-ORDER) · `reflow/` 원문 처리(`reflow.ts` 인라인 기호·시각 원지 집합·R-SUMMARY 특수 처리, `paper-marks.ts` R-IMPLY·X-* 처리) · `learner-text.ts` R-NOTICE "줄" 명칭. 학습자 화면 밖: 학평 검수(`hakpyeong-review.ts` R-CHART) · 진단 seed·지도 v62 매핑 · 지도 라벨(`TaskInspector.tsx`) · 주문 마법사(`order-model.ts`, 관리자). 어느 것도 판단 도구가 아님(T-0142 리뷰 T142-02) | `POSITION_TYPES`가 R-IRRELEVANT를 위치형으로 묶음 → 진위 축 n_a 처리는 대응표 D1 제외와 **정합**. 단 T-AXIS(축 유지) 판정은 코드에 없음 |
+| 강의 공개 게이트(05 §3) | main에 **실행되는 강의 공개 게이트 참조 0건**(문자열 `disclosure`는 콘텐츠 문구 5줄·CSS 주석 1줄에만 존재 — T-0142 리뷰 T142-01). 공개 경로·sidecar loader 없음 | 게이트는 T-0140 브랜치에만(미수용·미통합) |
 | 듣기 18 | 제품 코드·교수 모델·DB 문항 모두 0 | 대응표와 일치(BLOCKED) |
 
 ## 2. 데이터 준비도 (DB, 04:28:39 KST) — 대응표와의 차이

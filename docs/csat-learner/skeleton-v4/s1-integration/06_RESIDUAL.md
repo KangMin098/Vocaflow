@@ -109,7 +109,8 @@ T-0140(owner `csat-lecture-disclosure`, `feat/lecture-learner-control`@`6eb6f345
 | 문항 | T-0140 경계 | sidecar@810a463ac | 수용 계약(T-0138 05 §3) 대비 |
 |---|---|---|---|
 | 2026-34 | `stopBefore: 3`(0기준 → c1~c3 재생), `preStopRisk: "hint"` | c3 = 지역 UNKNOWN(검토자 불일치) | **충돌**: UNKNOWN은 안전 구간 아님(fail-closed). c3을 HINT 동의 구간에 포함하면 안 됨 |
-| 2014A#30 · 2015#36 · 2025#35 · M2306#35 | 경계 전 포함, `preStopRisk: "decisive_confirmed"` | 조기 DECISIVE(05 §2) | 위험 등급은 표시됨. **DECISIVE는 OFFICIAL_ANSWER 동급 동의**가 필요 — 해당 동의 UX인지는 T-0140 검증 범위 |
+| 2014A#30 · 2015#36 · 2025#35 | 경계 전 포함, `preStopRisk: "decisive_confirmed"` | 조기 DECISIVE(05 §2) | 위험 등급은 표시됨. **DECISIVE는 OFFICIAL_ANSWER 동급 동의**가 필요 — 해당 동의 UX인지는 T-0140 검증 범위 |
+| M2306#35 | `stopBefore: 4`, `preStopRisk: "decisive_confirmed"` | 조기 ANSWER는 c5(index 4) — 경계에서 **제외**됨. 남은 c1~c4는 sidecar상 NONE/HINT | 경계 위치는 정합. 위험 표기가 실제 prefix보다 높음(과대 표기이지 안전 승인 아님) — T-0141 리뷰 T141-03 정정 |
 | M2109#19 | `stopBefore: 5`, `preStopRisk: "hint"` | 조기 ANSWER c6(index 5) | 정합(경계 이전에서 정지) |
 
 처리: T-0140 파일·데이터는 수정하지 않는다. 이 충돌은 T-0140 owner와 그 독립 검증자에게 전달할 근거로 기록한다(전달 여부는 증거가 생길 때까지 주장하지 않음). S2-c 제품 적용 전 **경계 데이터를 수용 계약(05 §3: UNKNOWN fail-closed, DECISIVE=OFFICIAL_ANSWER 동의)과 맞추는 것**을 착수 조건으로 둔다.

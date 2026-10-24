@@ -2,7 +2,18 @@
 
 - AI-Control **T-0138** · 작성 owner `csat-s1-integration`(Claude Code) · 독립 검증 owner `csat-s1-codex-review`(Codex, 작성 미참여) · 2026-10-24
 - 브랜치 `docs/csat-s1-integration-20261024`(기준 `81d6732b2`, T-0136 수용 커밋). G3(T-0137, Codex `csat-v4-s0`)와 파일을 공유하지 않는다.
-- 상태: **DRAFT — run 2(공식 반려 보정) 재검증 전.** S1 설계 수용 ≠ 제품 구현 ≠ S2 전체 착수 ≠ main 통합. 학습 효과는 어떤 항목도 검증하지 않았다.
+- 상태: **S1 설계 정리 종료(2026-10-24).** T-0138·T-0141·T-0142 모두 Codex 공식 ACCEPT·COMPLETED(아래 표). S1 설계 수용 ≠ 제품 구현 ≠ S2 전체 착수 ≠ main 통합. 학습 효과는 어떤 항목도 검증하지 않았다.
+
+## 공식 수용 기록
+
+| TASK | 범위 | 검증 커밋 | 리뷰(AI-Control `verification/reviews/`) | 남은 비차단 |
+|---|---|---|---|---|
+| T-0138 | S1 통합 상세설계 01~05 | `102245ee9` | `T-0138-codex-review-102245ee9.md`(run 1 반려: `T-0138-codex-cue-sidecar-15831882a-20261024.md`) | 01 근거 표기·02 R-IRRELEVANT 사례 → T-0141에서 정정 |
+| T-0139 | G1 연구(입력 근거) | `810a463ac` | `T-0139-codex-review-810a463ac-r2.md`(DB 독립 재현) | 일치율 0.8498<0.85 · 역사 서술 읽는 순서 |
+| T-0141 | 06 잔여 보완 | `ff57a8b2b` | `T-0141-codex-review-ff57a8b2b.md`(run 1 반려: `…-7d31fde74.md`) | T141-03 → 이 정리 커밋에서 정정 |
+| T-0142 | 07 S2-d 준비도 실측 | `7f0983141` | `T-0142-codex-review-7f0983141.md` | T142-01·02 → 이 정리 커밋에서 정정 |
+
+연관 수용: T-0136 `81d6732b2`(34 이관 설계·D1·D2) · T-0137 `fb6bf663e`(G3 차이분석).
 
 ## 산출물
 
@@ -21,9 +32,9 @@
 | 입력 | 위치 · 고정값 |
 |---|---|
 | v6.0 기준서 | 사용자 제공 `Vocaflow_CSAT_5인_최종교차심사_목표우선_통합설계_v6.0_20261023.md`(저장소 밖) |
-| G1 전체 유형 연구 | 브랜치 `research/csat-all-types-20261024` 커밋 **`810a463acf8e9221fca3484d66f31d843f4a543d`**(원격 일치). 문서 00~21 · `cue-audit/sidecar-reviewed/*.disclosure.json` 29 · `review-summary.json` · `review/group-{1..5}.{A,B}.json` · `sidecar-build.mjs`/`review-merge.mjs`. 원본 강의 `e3e0a6a0e` 29파일 blob·SHA256·cue SHA256 결속. 정답 출처 DB `csat_items.answer` SELECT. 미검수·미커밋 `cue-audit/sidecar/` 30파일은 정본 아님. 연구 산출물이며 공식 수용 아님(T-0139 REVIEW) |
+| G1 전체 유형 연구 | 브랜치 `research/csat-all-types-20261024` 커밋 **`810a463acf8e9221fca3484d66f31d843f4a543d`**(원격 일치). 문서 00~21 · `cue-audit/sidecar-reviewed/*.disclosure.json` 29 · `review-summary.json` · `review/group-{1..5}.{A,B}.json` · `sidecar-build.mjs`/`review-merge.mjs`. 원본 강의 `e3e0a6a0e` 29파일 blob·SHA256·cue SHA256 결속. 정답 출처 DB `csat_items.answer` SELECT. 미검수·미커밋 `cue-audit/sidecar/` 30파일은 정본 아님. 연구 산출물. **T-0139 ACCEPT·COMPLETED @`810a463ac`(연구 범위)**. 이후 연구 커밋(원격 `research/csat-all-types-20261024` = `144eaba3f`)은 수용 승계 없음 |
 | T-0136 수용 범위 · 34번 이관 명세 | `skeleton-v4/s1-v6/correction/r2/`@`81d6732b2`(COMPLETED, 리뷰 `T-0136-R2-claude-review-81d6732b2.md`) |
-| 강의 학습자 제어 | `feat/lecture-learner-control`@`0e36138e3`(main `e3e0a6a0e` 위 5파일, 미통합) |
+| 강의 학습자 제어 | 설계 입력 시점 `feat/lecture-learner-control`@`0e36138e3`. 현재 원격 `5807c6f70`(T-0140 보정 포함, owner `csat-lecture-disclosure`, BLOCKED_AUTH, main 미통합) |
 | S0 수용 | DL-0201 @`68633c195` |
 
 ## 이번에 직접 재확인한 사실 (2026-10-24)
@@ -50,4 +61,4 @@
 | 품질 조건 | — | 일치율 0.8497718498 < 0.85 원비율 표기, κ 0.701 한계 명시(05 §1) |
 | 작성자 보류 P6·P7 | 따라가기 기본 켜짐 조건부 허용 · 34 이관 대조가 T-0136 기준 | G3(T-0137 ACCEPT)에 맞춰 기본 수동(01 C2, 03 K12), 이관 대조 갱신(03 §2) |
 
-보존: T-0136 제한 수용 · F08 미선정 · C1 콘텐츠 미승인 · F02/F06/F09/F10 BLOCKED_EVIDENCE · 공통 교수설계 계약(01 A·D·E·F). 이 정정은 작성자 자체 검증이며 Codex 공식 재검증 전이다.
+보존: T-0136 제한 수용 · F08 미선정 · C1 콘텐츠 미승인 · F02/F06/F09/F10 BLOCKED_EVIDENCE · 공통 교수설계 계약(01 A·D·E·F). run 2는 이후 `102245ee9`에서 Codex 공식 ACCEPT.
