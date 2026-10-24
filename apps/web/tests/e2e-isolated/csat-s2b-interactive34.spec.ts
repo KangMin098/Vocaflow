@@ -1,4 +1,4 @@
-// apps/web/e2e/isolated/csat-s2b-interactive34.spec.ts
+// apps/web/tests/e2e-isolated/csat-s2b-interactive34.spec.ts
 // 실제 제품 패널·실제 CSS를 쓰는 읽기 전용 격리 검증. DB/인증/PDF/강의 종단은 범위 밖.
 import fs from 'node:fs'
 import path from 'node:path'
