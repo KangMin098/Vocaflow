@@ -1,233 +1,318 @@
 {
-  "family": "38",
-  "anchor": "2026#38",
-  "anchor_profile": "R-INSERT · TWO_BOUNDARY_COHESION · 정답 ⑤ · 결정 이음매 = 뒤(following) 접합",
-  "status": "AI_CANDIDATE_NOT_APPROVED",
-  "generated_by": "claude subagent",
-  "generated_at": "2026-10-24",
-  "method": "DB SELECT(csat_items, csat_item_analyses) 원문 직접 판독. 문장 번호: [1]=주어진 문장(DB passage 첫 문장), [2..n]=본문. 인용은 6단어 이하.",
-  "data_flags": [
-    "CC-07 동형 결함: 후보 6건 모두 csat_items.choices 가 위치 표지(①~⑤)가 아니라 각 자리 뒤 본문 문장 조각(괄호 파편 ') ... (' 포함)이며, ⑤ 선지 끝에 각주·쪽번호('* ...', '7', '[3 점]')가 섞여 있다.",
-    "passage 첫 문장에 주어진 문장이 구분 표지 없이 붙어 있다(H2509G2#38 처럼 [주어진 문장] 구획 없음).",
-    "choice_analysis[].choice/no 필드가 null — 선지 번호는 배열 순서로만 추정(1..5)."
-  ],
-  "items": [
+ "family": "38",
+ "anchor": "2026#38",
+ "anchor_profile": "R-INSERT · TWO_BOUNDARY_COHESION · 정답 ⑤ · 결정 이음매 = 뒤(following) 접합",
+ "status": "AI_CANDIDATE_NOT_APPROVED",
+ "generated_by": "claude subagent",
+ "generated_at": "2026-10-24",
+ "method": "DB SELECT(csat_items, csat_item_analyses) 원문 직접 판독. 문장 번호: [1]=주어진 문장(DB passage 첫 문장), [2..n]=본문. 인용은 6단어 이하.",
+ "data_flags": [
+  "CC-07 동형 결함: 후보 6건 모두 csat_items.choices 가 위치 표지(①~⑤)가 아니라 각 자리 뒤 본문 문장 조각(괄호 파편 ') ... (' 포함)이며, ⑤ 선지 끝에 각주·쪽번호('* ...', '7', '[3 점]')가 섞여 있다.",
+  "passage 첫 문장에 주어진 문장이 구분 표지 없이 붙어 있다(H2509G2#38 처럼 [주어진 문장] 구획 없음).",
+  "choice_analysis[].choice/no 필드가 null — 선지 번호는 배열 순서로만 추정(1..5)."
+ ],
+ "items": [
+  {
+   "item_id": "2025#38",
+   "type": "R-INSERT",
+   "answer": 4,
+   "same_function": "AI_CANDIDATE_SAME",
+   "decisive_boundary": "following (preceding 보조)",
+   "reason": "[6] 'Once the idea is released' 는 공개 사건을 전제하나 [2]~[5]에 유출 진술이 없음 → 주어진 문장 'employee or contract…' 가 공급. [7] 'Such a predicament' 도 주어진 문장의 risks 를 받음. 앞 경계는 'however' 로 [3]~[5] 비밀 선호 이유 나열과 대조되나 보조적. 뒤 접합이 결정적이라는 점에서 기준과 같음.",
+   "non_application_conditions": [
+    "[6] 이 앞 문장의 다른 공개 사건(예: 특허 출원 공개)을 받을 수 있다면 뒤 접합 원리 불성립",
+    "however 만으로 자리를 고르면 ②·③ 앞 대조 지점과 구분 안 됨(SE-LOCAL)"
+   ],
+   "evidence_span": {
+    "given": "[1] 'disclose the proprie…' · 'however'",
+    "following": "[6] 'Once the idea is released' · [7] 'Such a predicament'",
+    "preceding": "[5] 'utilized over a longer period'"
+   },
+   "accepted_alternatives": [
+    "[7] Such a predicament 을 1차 표지로 지목해도 [6] released 연결을 함께 들면 인정 후보"
+   ],
+   "near_distractor": {
+    "position": 5,
+    "failure_reason": "⑤에 넣으면 [6] 'released' 가 선행 유출 없이 먼저 등장하고, 위험→공개 순서가 뒤집힘",
+    "code": "SEQ_REVERSAL",
+    "secondary_code": "FIRST_MENTION_VIOLATION",
+    "evidence": "[6] 'Once the idea is released' 가 [1] 'will disclose' 보다 앞서게 됨"
+   },
+   "revision_notes": [
     {
-      "item_id": "2025#38",
-      "type": "R-INSERT",
-      "answer": 4,
-      "same_function": "AI_CANDIDATE_SAME",
-      "decisive_boundary": "following (preceding 보조)",
-      "reason": "[6] 'Once the idea is released' 는 공개 사건을 전제하나 [2]~[5]에 유출 진술이 없음 → 주어진 문장 'employee or contractor will disclose' 가 공급. [7] 'Such a predicament' 도 주어진 문장의 risks 를 받음. 앞 경계는 'however' 로 [3]~[5] 비밀 선호 이유 나열과 대조되나 보조적. 뒤 접합이 결정적이라는 점에서 기준과 같음.",
-      "non_application_conditions": [
-        "[6] 이 앞 문장의 다른 공개 사건(예: 특허 출원 공개)을 받을 수 있다면 뒤 접합 원리 불성립",
-        "however 만으로 자리를 고르면 ②·③ 앞 대조 지점과 구분 안 됨(SE-LOCAL)"
-      ],
-      "evidence_span": {
-        "given": "[1] 'disclose the proprietary information' · 'however'",
-        "following": "[6] 'Once the idea is released' · [7] 'Such a predicament'",
-        "preceding": "[5] 'utilized over a longer period'"
-      },
-      "accepted_alternatives": ["[7] Such a predicament 을 1차 표지로 지목해도 [6] released 연결을 함께 들면 인정 후보"],
-      "near_distractor": {
-        "position": 5,
-        "failure_reason": "⑤에 넣으면 [6] 'released' 가 선행 유출 없이 먼저 등장하고, 위험→공개 순서가 뒤집힘",
-        "code": "SEQ_REVERSAL",
-        "secondary_code": "FIRST_MENTION_VIOLATION",
-        "evidence": "[6] 'Once the idea is released' 가 [1] 'will disclose' 보다 앞서게 됨"
-      },
-      "revision_notes": [
-        {"option": 3, "fact": "v1~v4 '열거 병렬 절단' → v5 '열거·병렬 절단' (표기 정규화)"},
-        {"option": 5, "fact": "v1~v4 '인과 순서 역전' → v5 '시간·인과 순서 역전'"},
-        {"option": "1,2", "fact": "v1~v5 동일(첫 등장 위반 / 지시어 선행사 절단)"}
-      ],
-      "rubric_links": ["EV-U2-CHAIN-1", "EV-U2-CHAIN-2", "EV-U3-CHAIN-1"],
-      "confidence": 0.8,
-      "reviewer_checks": [
-        "공식 정답표로 ④ 확인(DB answer 만 봄)",
-        "⑤ 근접 오답 판정을 SEQ_REVERSAL 로 둘지 FIRST_MENTION_VIOLATION 으로 둘지 결정",
-        "choices CC-07 동형 결함 수정 대상 등록"
-      ]
+     "option": 3,
+     "fact": "v1~v4 '열거 병렬 절단' → v5 '열거·병렬 절단' (표기 정규화)"
     },
     {
-      "item_id": "2025#39",
-      "type": "R-INSERT",
-      "answer": 4,
-      "same_function": "AI_CANDIDATE_SAME",
-      "decisive_boundary": "following (preceding 보조)",
-      "reason": "[6] 'Additionally, objects may enter' 는 같은 층위의 앞 항목(비선형 행로)을 요구하는데 [5]는 통념 비판뿐 → 주어진 문장의 행로 목록이 공급. [7] 'than a simplistic linear progression' 이 [1] 'linear lifecycle model' 을 되받음. 앞 경계 'In reality' 는 [5] 'incomplete definition' 과 대조로 맞물림. 결정 표지가 뒤 문장 연결사라는 점에서 기준과 같음(단 기준은 For example, 여기는 Additionally — 표지 종류 다름).",
-      "non_application_conditions": [
-        "[5] 자체가 비선형 행로 항목을 담고 있으면 Additionally 가 [5]에 붙어 원리 불성립",
-        "'In reality' 를 '앞 문장 부정' 신호로만 읽으면 ③(이상적 수명 연장 진술 뒤)도 그럴듯해짐"
-      ],
-      "evidence_span": {
-        "given": "[1] 'do not conform to a linear' · 'In reality'",
-        "following": "[6] 'Additionally, objects may enter' · [7] 'simplistic linear progression'",
-        "preceding": "[5] 'provides an incomplete definition'"
-      },
-      "accepted_alternatives": ["[7] As such 결론과 [1] linear 되받음을 2차 근거로 지목"],
-      "near_distractor": {
-        "position": 3,
-        "failure_reason": "③에 넣으면 [5] Krebs and Weber 의 통념 비판(피반박→반박 도입)보다 반박 사례가 먼저 와 반박 순서가 뒤집힘; [4] 'In this context' 이 수명 연장 통념인 점에 끌림",
-        "code": "OTHER_ATLAS",
-        "atlas_key_v1_v4": "반박-피반박 순서 역전",
-        "code_v5": "GENERAL_SPECIFIC_REVERSAL",
-        "evidence": "[5] 'critically engage with anthropomorphic metaphors' 가 [1] 뒤로 밀림"
-      },
-      "revision_notes": [
-        {"option": 3, "fact": "v1~v4 '반박-피반박 순서 역전' → v5 '총론-각론 역전'"},
-        {"option": 5, "fact": "v1~v4 '총론-각론 역전' → v5 '열거·병렬 절단'"},
-        {"option": "1,2", "fact": "v1~v5 동일"}
-      ],
-      "rubric_links": ["EV-U2-CHAIN-1", "EV-U3-CHAIN-1"],
-      "confidence": 0.7,
-      "reviewer_checks": [
-        "v5 에서 ③·⑤ 함정 라벨이 의미적으로 바뀜(정규화 아님) — 어느 버전을 정본으로 할지 판정",
-        "'반박-피반박 순서 역전' 이 distractor-logic.json 코드에 없음 → OTHER_ATLAS 처리 확인",
-        "levels.json u5_pairs 의 후보로 이미 언급됨(결정 이음매가 다르다는 기록과 이 판정의 충돌 확인)"
-      ]
+     "option": 5,
+     "fact": "v1~v4 '인과 순서 역전' → v5 '시간·인과 순서 역전'"
     },
     {
-      "item_id": "M2509#38",
-      "type": "R-INSERT",
-      "answer": 5,
-      "same_function": "AI_UNSURE",
-      "decisive_boundary": "both",
-      "reason": "주어진 문장 'If not' 은 바로 앞 요건 [7] 'will have to have' 를 필수로 요구(앞 경계 결정), [8] 'Your robot would engage' 는 조건절 없는 가정법이라 앞 조건을 요구(뒤 경계 결정). 두 경계가 동등하게 결정적이라 '뒤 접합이 결정적'인 기준과 기능이 일부만 겹침.",
-      "non_application_conditions": [
-        "[8] 이 독립 서술(조건 없이 성립)로 읽히면 뒤 경계 근거 소멸, 앞 경계만 남음",
-        "앞 문장들([3]·[4]·[6])에도 요건 진술이 있어 If not 만으로는 자리 확정 불가(SE-LOCAL)"
-      ],
-      "evidence_span": {
-        "given": "[1] 'If not, the robot' · 'chase itself'",
-        "preceding": "[7] 'will have to have'",
-        "following": "[8] 'circular, self-centered acts' (would)"
-      },
-      "accepted_alternatives": ["앞 경계 [7] 만 지목하고 뒤 [8] would 를 빠뜨린 답은 부분 인정 후보(EV-U2-CHAIN-1 부분)"],
-      "near_distractor": {
-        "position": 4,
-        "failure_reason": "④에 넣으면 If not 이 [6] 'Suppose that you equip' 가정(장치 부착)을 부정하게 되어 부정 대상이 요건이 아님; [7] 요건이 결과보다 뒤로 밀림",
-        "code": "COND_RESULT_CUT",
-        "atlas_key_v1_v5": "조건 대상 오지정",
-        "evidence": "[6] 'Suppose that you equip' 는 요건이 아니라 상황 가정"
-      },
-      "revision_notes": [
-        {"option": 4, "fact": "v1~v5 '조건 대상 오지정' → v6 '조건-귀결 절단'(③과 같은 라벨로 합쳐짐)"},
-        {"option": "1,2,3", "fact": "v1~v6 동일"},
-        {"option": "answer_locus", "fact": "v5 quote 가 [7] 문장에서 '⑤ 경계 문자열'로 바뀌고 v6 에서 [7] 로 복귀"}
-      ],
-      "rubric_links": ["EV-U2-CHAIN-1", "EV-U3-CHAIN-1"],
-      "confidence": 0.6,
-      "reviewer_checks": [
-        "두 경계 동등 결정 구조를 TWO_BOUNDARY_COHESION 의 '같은 기능'으로 볼지 결정",
-        "'조건 대상 오지정' 은 코드표에 없음 — v6 COND_RESULT_CUT 통합을 승인할지",
-        "v6 에서 ③·④ 동일 라벨 → 근접 오답 변별 정보 손실 여부"
-      ]
-    },
-    {
-      "item_id": "M2606#38",
-      "type": "R-INSERT",
-      "answer": 4,
-      "same_function": "AI_CANDIDATE_SAME",
-      "decisive_boundary": "following (preceding 보조)",
-      "reason": "주어진 문장 'also have downsides' 는 표제 — [6] 'lack of sophistication' 이 첫 부정 평가이므로 표제는 [6] 바로 앞(뒤 접합 결정). 앞 경계 'But … also' 는 [2]~[5] 장점·동기 서술 전체와 대조. 일반 진술이 뒤 사례를 묶는 구조가 기준(For example 이 요구하는 일반 진술)과 같은 기능.",
-      "non_application_conditions": [
-        "[6] 이 단점이 아닌 중립 설명으로 읽히면 표제-각론 연결 불성립",
-        "But 만 보면 ①(However 앞)과 혼동 — 역접 이중 충돌 확인 필요"
-      ],
-      "evidence_span": {
-        "given": "[1] 'But' · 'also have downsides'",
-        "following": "[6] 'lack of sophistication or seriousness' · [7] 'may not attract attention'",
-        "preceding": "[5] 'self-expressive, or signaling'"
-      },
-      "accepted_alternatives": ["[7] 을 두 번째 단점 각론으로 함께 지목"],
-      "near_distractor": {
-        "position": 5,
-        "failure_reason": "⑤에 넣으면 표제가 첫 단점 [6] 뒤에 와 총론-각론 순서가 뒤집힘",
-        "code": "GENERAL_SPECIFIC_REVERSAL",
-        "evidence": "[6] 'Certain types of cute' 가 [1] 'downsides' 보다 앞섬"
-      },
-      "revision_notes": [
-        {"option": 2, "fact": "v1~v4 '총론-각론 절단' → v5 '열거·병렬 절단'(③과 같은 라벨)"},
-        {"option": 3, "fact": "v1~v4 '열거 병렬 절단' → v5 '열거·병렬 절단' (표기 정규화)"},
-        {"option": "1,5", "fact": "v1~v5 동일"}
-      ],
-      "rubric_links": ["EV-U2-CHAIN-1", "EV-U3-CHAIN-1"],
-      "confidence": 0.75,
-      "reviewer_checks": [
-        "① 오답의 '연결사 방향 충돌'(But+However 이중 역접) 근거 원문 확인",
-        "v5 ② 라벨 변경 승인 여부"
-      ]
-    },
-    {
-      "item_id": "M2609#38",
-      "type": "R-INSERT",
-      "answer": 3,
-      "same_function": "AI_CANDIDATE_SAME",
-      "decisive_boundary": "following",
-      "reason": "[6] 'It signals to them' 의 복수 them/their 는 [3]~[5] 단수 it(a tree) 로 받을 수 없고, 문두 It 이 받을 'this change' 도 없음 → 주어진 문장 'plants, including trees' · 'this change' 가 공급. 앞 경계는 결정력이 약하고 뒤 문장 지시어가 결정 — 기준과 같은 기능(뒤 접합).",
-      "non_application_conditions": [
-        "them 을 [5] 이전의 다른 복수명사(leaves 등)로 오연결하면 원리 무력화(SE-REFER)",
-        "It 을 'a tree' 로 읽으면 주어진 문장 없이도 이어지는 것처럼 보임"
-      ],
-      "evidence_span": {
-        "given": "[1] 'plants, including trees' · 'detect this change'",
-        "following": "[6] 'It signals to them'",
-        "preceding": "[5] 'die of thirst'"
-      },
-      "accepted_alternatives": ["문두 It ↔ this change 연결만 지목해도 EV-U2-CHAIN-2 후보", "[7] 'First, however' 순서 연결은 보조 근거"],
-      "near_distractor": {
-        "position": 4,
-        "failure_reason": "④에 넣으면 [6] them/their 가 선행사 없이 먼저 나와 지시가 끊김",
-        "code": "REF_ANTECEDENT_CUT",
-        "evidence": "[6] 'to them … their leaves' 복수 선행사 부재"
-      },
-      "revision_notes": [
-        {"option": "1~5", "fact": "v1~v4 라벨 변동 없음(③ 정답 null)"}
-      ],
-      "rubric_links": ["EV-U2-CHAIN-1", "EV-U2-CHAIN-2", "EV-U3-CHAIN-1"],
-      "confidence": 0.85,
-      "reviewer_checks": [
-        "passage [2] 'As winter approaches' 가 원래 본문 첫 문장인지 원문지 확인(DB 에 주어진 문장이 앞에 붙음)",
-        "① 의 '조건-귀결 절단' 라벨 근거 원문 확인"
-      ]
-    },
-    {
-      "item_id": "M2706#38",
-      "type": "R-INSERT",
-      "answer": 3,
-      "same_function": "AI_CANDIDATE_SAME",
-      "decisive_boundary": "following",
-      "reason": "[7] 'can help' 는 무엇에 돕는지 목적이 없음 → 주어진 문장 'To minimize vortex shedding … confuse the wind' 가 목표 총론을 세워 [7]~[9] 수단 목록을 묶음. 뒤 문장이 일반 진술을 요구하는 점이 기준(For example → 일반 진술)과 같은 기능. 앞 [6]은 문제 서술로 전환 경계만 제공.",
-      "non_application_conditions": [
-        "[7] 이 [6] 진동 문제에 바로 '도움'으로 읽혀도 자연스러우면 뒤 경계 결정력 약화",
-        "[8] 'likewise' 만 보고 ④를 고르면 총론 위치 오판(SE-LOCAL)"
-      ],
-      "evidence_span": {
-        "given": "[1] 'To minimize vortex shedding' · 'confuse the wind'",
-        "following": "[7] 'can help' · [8] 'likewise' · [9] 'can help'",
-        "preceding": "[6] 'dangerously self-sustaining'"
-      },
-      "accepted_alternatives": ["[8] likewise · [9] can help 로 수단 목록 범위를 지목"],
-      "near_distractor": {
-        "position": 4,
-        "failure_reason": "④에 넣으면 첫 수단 [7] 이 총론보다 먼저 나와 총론-각론 순서가 뒤집힘",
-        "code": "GENERAL_SPECIFIC_REVERSAL",
-        "code_v5_label": "지시어 선행사 앞당김(코드표 없음)",
-        "evidence": "[7] 'Orienting the building' 이 [1] 'To minimize' 앞에 놓임"
-      },
-      "revision_notes": [
-        {"option": 1, "fact": "v1~v4 '인과 연쇄 절단' → v5 '시간·인과 순서 역전'"},
-        {"option": 4, "fact": "v1~v4 '총론-각론 역전' → v5 '지시어 선행사 앞당김'"},
-        {"option": 5, "fact": "v1~v4 '열거 병렬 절단' → v5 '열거·병렬 절단' (표기 정규화)"},
-        {"option": 2, "fact": "v1~v5 동일"}
-      ],
-      "rubric_links": ["EV-U2-CHAIN-1", "EV-U3-CHAIN-1"],
-      "confidence": 0.75,
-      "reviewer_checks": [
-        "v5 ④ '지시어 선행사 앞당김' 은 지시어 근거가 원문에서 약함 — v4 라벨 유지 여부",
-        "'인과 연쇄 절단'·'지시어 선행사 앞당김' 은 코드표 밖(OTHER_ATLAS)"
-      ]
+     "option": "1,2",
+     "fact": "v1~v5 동일(첫 등장 위반 / 지시어 선행사 절단)"
     }
-  ]
+   ],
+   "rubric_links": [
+    "EV-U2-CHAIN-1",
+    "EV-U2-CHAIN-2",
+    "EV-U3-CHAIN-1"
+   ],
+   "confidence": 0.8,
+   "reviewer_checks": [
+    "공식 정답표로 ④ 확인(DB answer 만 봄)",
+    "⑤ 근접 오답 판정을 SEQ_REVERSAL 로 둘지 FIRST_MENTION_VIOLATION 으로 둘지 결정",
+    "choices CC-07 동형 결함 수정 대상 등록"
+   ]
+  },
+  {
+   "item_id": "2025#39",
+   "type": "R-INSERT",
+   "answer": 4,
+   "same_function": "AI_CANDIDATE_SAME",
+   "decisive_boundary": "following (preceding 보조)",
+   "reason": "[6] 'Additionally, object…' 는 같은 층위의 앞 항목(비선형 행로)을 요구하는데 [5]는 통념 비판뿐 → 주어진 문장의 행로 목록이 공급. [7] 'than a simplistic li…' 이 [1] 'linear lifecycle model' 을 되받음. 앞 경계 'In reality' 는 [5] 'incomplete definition' 과 대조로 맞물림. 결정 표지가 뒤 문장 연결사라는 점에서 기준과 같음(단 기준은 For example, 여기는 Additionally — 표지 종류 다름).",
+   "non_application_conditions": [
+    "[5] 자체가 비선형 행로 항목을 담고 있으면 Additionally 가 [5]에 붙어 원리 불성립",
+    "'In reality' 를 '앞 문장 부정' 신호로만 읽으면 ③(이상적 수명 연장 진술 뒤)도 그럴듯해짐"
+   ],
+   "evidence_span": {
+    "given": "[1] 'do not conform to a linear' · 'In reality'",
+    "following": "[6] 'Additionally, object…' · [7] 'simplistic linear progression'",
+    "preceding": "[5] 'provides an incomple…'"
+   },
+   "accepted_alternatives": [
+    "[7] As such 결론과 [1] linear 되받음을 2차 근거로 지목"
+   ],
+   "near_distractor": {
+    "position": 3,
+    "failure_reason": "③에 넣으면 [5] Krebs and Weber 의 통념 비판(피반박→반박 도입)보다 반박 사례가 먼저 와 반박 순서가 뒤집힘; [4] 'In this context' 이 수명 연장 통념인 점에 끌림",
+    "code": "OTHER_ATLAS",
+    "atlas_key_v1_v4": "반박-피반박 순서 역전",
+    "code_v5": "GENERAL_SPECIFIC_REVERSAL",
+    "evidence": "[5] 'critically engage wi…' 가 [1] 뒤로 밀림"
+   },
+   "revision_notes": [
+    {
+     "option": 3,
+     "fact": "v1~v4 '반박-피반박 순서 역전' → v5 '총론-각론 역전'"
+    },
+    {
+     "option": 5,
+     "fact": "v1~v4 '총론-각론 역전' → v5 '열거·병렬 절단'"
+    },
+    {
+     "option": "1,2",
+     "fact": "v1~v5 동일"
+    }
+   ],
+   "rubric_links": [
+    "EV-U2-CHAIN-1",
+    "EV-U3-CHAIN-1"
+   ],
+   "confidence": 0.7,
+   "reviewer_checks": [
+    "v5 에서 ③·⑤ 함정 라벨이 의미적으로 바뀜(정규화 아님) — 어느 버전을 정본으로 할지 판정",
+    "'반박-피반박 순서 역전' 이 distractor-logic.json 코드에 없음 → OTHER_ATLAS 처리 확인",
+    "levels.json u5_pairs 의 후보로 이미 언급됨(결정 이음매가 다르다는 기록과 이 판정의 충돌 확인)"
+   ]
+  },
+  {
+   "item_id": "M2509#38",
+   "type": "R-INSERT",
+   "answer": 5,
+   "same_function": "AI_UNSURE",
+   "decisive_boundary": "both",
+   "reason": "주어진 문장 'If not' 은 바로 앞 요건 [7] 'will have to have' 를 필수로 요구(앞 경계 결정), [8] 'Your robot would engage' 는 조건절 없는 가정법이라 앞 조건을 요구(뒤 경계 결정). 두 경계가 동등하게 결정적이라 '뒤 접합이 결정적'인 기준과 기능이 일부만 겹침.",
+   "non_application_conditions": [
+    "[8] 이 독립 서술(조건 없이 성립)로 읽히면 뒤 경계 근거 소멸, 앞 경계만 남음",
+    "앞 문장들([3]·[4]·[6])에도 요건 진술이 있어 If not 만으로는 자리 확정 불가(SE-LOCAL)"
+   ],
+   "evidence_span": {
+    "given": "[1] 'If not, the robot' · 'chase itself'",
+    "preceding": "[7] 'will have to have'",
+    "following": "[8] 'circular, self-centered acts' (would)"
+   },
+   "accepted_alternatives": [
+    "앞 경계 [7] 만 지목하고 뒤 [8] would 를 빠뜨린 답은 부분 인정 후보(EV-U2-CHAIN-1 부분)"
+   ],
+   "near_distractor": {
+    "position": 4,
+    "failure_reason": "④에 넣으면 If not 이 [6] 'Suppose that you equip' 가정(장치 부착)을 부정하게 되어 부정 대상이 요건이 아님; [7] 요건이 결과보다 뒤로 밀림",
+    "code": "COND_RESULT_CUT",
+    "atlas_key_v1_v5": "조건 대상 오지정",
+    "evidence": "[6] 'Suppose that you equip' 는 요건이 아니라 상황 가정"
+   },
+   "revision_notes": [
+    {
+     "option": 4,
+     "fact": "v1~v5 '조건 대상 오지정' → v6 '조건-귀결 절단'(③과 같은 라벨로 합쳐짐)"
+    },
+    {
+     "option": "1,2,3",
+     "fact": "v1~v6 동일"
+    },
+    {
+     "option": "answer_locus",
+     "fact": "v5 quote 가 [7] 문장에서 '⑤ 경계 문자열'로 바뀌고 v6 에서 [7] 로 복귀"
+    }
+   ],
+   "rubric_links": [
+    "EV-U2-CHAIN-1",
+    "EV-U3-CHAIN-1"
+   ],
+   "confidence": 0.6,
+   "reviewer_checks": [
+    "두 경계 동등 결정 구조를 TWO_BOUNDARY_COHESION 의 '같은 기능'으로 볼지 결정",
+    "'조건 대상 오지정' 은 코드표에 없음 — v6 COND_RESULT_CUT 통합을 승인할지",
+    "v6 에서 ③·④ 동일 라벨 → 근접 오답 변별 정보 손실 여부"
+   ]
+  },
+  {
+   "item_id": "M2606#38",
+   "type": "R-INSERT",
+   "answer": 4,
+   "same_function": "AI_CANDIDATE_SAME",
+   "decisive_boundary": "following (preceding 보조)",
+   "reason": "주어진 문장 'also have downsides' 는 표제 — [6] 'lack of sophistication' 이 첫 부정 평가이므로 표제는 [6] 바로 앞(뒤 접합 결정). 앞 경계 'But … also' 는 [2]~[5] 장점·동기 서술 전체와 대조. 일반 진술이 뒤 사례를 묶는 구조가 기준(For example 이 요구하는 일반 진술)과 같은 기능.",
+   "non_application_conditions": [
+    "[6] 이 단점이 아닌 중립 설명으로 읽히면 표제-각론 연결 불성립",
+    "But 만 보면 ①(However 앞)과 혼동 — 역접 이중 충돌 확인 필요"
+   ],
+   "evidence_span": {
+    "given": "[1] 'But' · 'also have downsides'",
+    "following": "[6] 'lack of sophisticati…' · [7] 'may not attract attention'",
+    "preceding": "[5] 'self-expressive, or signaling'"
+   },
+   "accepted_alternatives": [
+    "[7] 을 두 번째 단점 각론으로 함께 지목"
+   ],
+   "near_distractor": {
+    "position": 5,
+    "failure_reason": "⑤에 넣으면 표제가 첫 단점 [6] 뒤에 와 총론-각론 순서가 뒤집힘",
+    "code": "GENERAL_SPECIFIC_REVERSAL",
+    "evidence": "[6] 'Certain types of cute' 가 [1] 'downsides' 보다 앞섬"
+   },
+   "revision_notes": [
+    {
+     "option": 2,
+     "fact": "v1~v4 '총론-각론 절단' → v5 '열거·병렬 절단'(③과 같은 라벨)"
+    },
+    {
+     "option": 3,
+     "fact": "v1~v4 '열거 병렬 절단' → v5 '열거·병렬 절단' (표기 정규화)"
+    },
+    {
+     "option": "1,5",
+     "fact": "v1~v5 동일"
+    }
+   ],
+   "rubric_links": [
+    "EV-U2-CHAIN-1",
+    "EV-U3-CHAIN-1"
+   ],
+   "confidence": 0.75,
+   "reviewer_checks": [
+    "① 오답의 '연결사 방향 충돌'(But+However 이중 역접) 근거 원문 확인",
+    "v5 ② 라벨 변경 승인 여부"
+   ]
+  },
+  {
+   "item_id": "M2609#38",
+   "type": "R-INSERT",
+   "answer": 3,
+   "same_function": "AI_CANDIDATE_SAME",
+   "decisive_boundary": "following",
+   "reason": "[6] 'It signals to them' 의 복수 them/their 는 [3]~[5] 단수 it(a tree) 로 받을 수 없고, 문두 It 이 받을 'this change' 도 없음 → 주어진 문장 'plants, including trees' · 'this change' 가 공급. 앞 경계는 결정력이 약하고 뒤 문장 지시어가 결정 — 기준과 같은 기능(뒤 접합).",
+   "non_application_conditions": [
+    "them 을 [5] 이전의 다른 복수명사(leaves 등)로 오연결하면 원리 무력화(SE-REFER)",
+    "It 을 'a tree' 로 읽으면 주어진 문장 없이도 이어지는 것처럼 보임"
+   ],
+   "evidence_span": {
+    "given": "[1] 'plants, including trees' · 'detect this change'",
+    "following": "[6] 'It signals to them'",
+    "preceding": "[5] 'die of thirst'"
+   },
+   "accepted_alternatives": [
+    "문두 It ↔ this change 연결만 지목해도 EV-U2-CHAIN-2 후보",
+    "[7] 'First, however' 순서 연결은 보조 근거"
+   ],
+   "near_distractor": {
+    "position": 4,
+    "failure_reason": "④에 넣으면 [6] them/their 가 선행사 없이 먼저 나와 지시가 끊김",
+    "code": "REF_ANTECEDENT_CUT",
+    "evidence": "[6] 'to them … their leaves' 복수 선행사 부재"
+   },
+   "revision_notes": [
+    {
+     "option": "1~5",
+     "fact": "v1~v4 라벨 변동 없음(③ 정답 null)"
+    }
+   ],
+   "rubric_links": [
+    "EV-U2-CHAIN-1",
+    "EV-U2-CHAIN-2",
+    "EV-U3-CHAIN-1"
+   ],
+   "confidence": 0.85,
+   "reviewer_checks": [
+    "passage [2] 'As winter approaches' 가 원래 본문 첫 문장인지 원문지 확인(DB 에 주어진 문장이 앞에 붙음)",
+    "① 의 '조건-귀결 절단' 라벨 근거 원문 확인"
+   ]
+  },
+  {
+   "item_id": "M2706#38",
+   "type": "R-INSERT",
+   "answer": 3,
+   "same_function": "AI_CANDIDATE_SAME",
+   "decisive_boundary": "following",
+   "reason": "[7] 'can help' 는 무엇에 돕는지 목적이 없음 → 주어진 문장 'To minimize vortex shedding … confuse the wind' 가 목표 총론을 세워 [7]~[9] 수단 목록을 묶음. 뒤 문장이 일반 진술을 요구하는 점이 기준(For example → 일반 진술)과 같은 기능. 앞 [6]은 문제 서술로 전환 경계만 제공.",
+   "non_application_conditions": [
+    "[7] 이 [6] 진동 문제에 바로 '도움'으로 읽혀도 자연스러우면 뒤 경계 결정력 약화",
+    "[8] 'likewise' 만 보고 ④를 고르면 총론 위치 오판(SE-LOCAL)"
+   ],
+   "evidence_span": {
+    "given": "[1] 'To minimize vortex shedding' · 'confuse the wind'",
+    "following": "[7] 'can help' · [8] 'likewise' · [9] 'can help'",
+    "preceding": "[6] 'dangerously self-sustaining'"
+   },
+   "accepted_alternatives": [
+    "[8] likewise · [9] can help 로 수단 목록 범위를 지목"
+   ],
+   "near_distractor": {
+    "position": 4,
+    "failure_reason": "④에 넣으면 첫 수단 [7] 이 총론보다 먼저 나와 총론-각론 순서가 뒤집힘",
+    "code": "GENERAL_SPECIFIC_REVERSAL",
+    "code_v5_label": "지시어 선행사 앞당김(코드표 없음)",
+    "evidence": "[7] 'Orienting the building' 이 [1] 'To minimize' 앞에 놓임"
+   },
+   "revision_notes": [
+    {
+     "option": 1,
+     "fact": "v1~v4 '인과 연쇄 절단' → v5 '시간·인과 순서 역전'"
+    },
+    {
+     "option": 4,
+     "fact": "v1~v4 '총론-각론 역전' → v5 '지시어 선행사 앞당김'"
+    },
+    {
+     "option": 5,
+     "fact": "v1~v4 '열거 병렬 절단' → v5 '열거·병렬 절단' (표기 정규화)"
+    },
+    {
+     "option": 2,
+     "fact": "v1~v5 동일"
+    }
+   ],
+   "rubric_links": [
+    "EV-U2-CHAIN-1",
+    "EV-U3-CHAIN-1"
+   ],
+   "confidence": 0.75,
+   "reviewer_checks": [
+    "v5 ④ '지시어 선행사 앞당김' 은 지시어 근거가 원문에서 약함 — v4 라벨 유지 여부",
+    "'인과 연쇄 절단'·'지시어 선행사 앞당김' 은 코드표 밖(OTHER_ATLAS)"
+   ]
+  }
+ ],
+ "redaction": "2026-10-24: 지문·선지 30자 이상 연속 인용을 앞 20자+… 로 축약(저작권 경계). 판정 내용 불변."
 }
