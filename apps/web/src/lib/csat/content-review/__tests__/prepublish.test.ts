@@ -615,3 +615,22 @@ describe('T-0158 20차 반례 — 생략 주어는 문장 경계를 넘어 이�
     expect(run([5], '일 번은 두 번째 문장을 짚어 보세요. 맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 21차 반례 — 생략 주어의 선행어는 가장 최근에 언급된 선지', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '②는 오답입니다. ⑤를 보세요. 답이 아닙니다.',
+    '②는 오답입니다. 오 번을 보세요. 답이 아닙니다.',
+    '①은 오답입니다. ⑤에 주목하세요. 오답입니다.',
+    '②는 오답입니다. ①과 ⑤를 비교하세요. 답이 아닙니다.',
+  ])('reject:1 · {5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+  it('최근 언급이 공식 정답이 아니면 그 선지의 소거로 자동 판정', () => {
+    expect(run([5], '②는 오답입니다. ③을 보세요. 답이 아닙니다.').findings).toEqual([])
+  })
+})

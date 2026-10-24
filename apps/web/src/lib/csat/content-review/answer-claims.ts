@@ -114,7 +114,10 @@ const norm = (t: string) => t.replace(/^[①-⑤]\s*/, '').replace(/[\s.,。!]+/
 interface Parsed { claims: { polarity: Polarity; claim: AnswerClaim }[] }
 
 /** 한 문장을 절 구조로 끝까지 읽는다. 하나라도 구조에 안 맞으면 null(의미 불명확) */
-/** cue 안에서 문장을 넘어 이어지는 주어(생략 주어의 선행 주어) */
+/**
+ * cue 안에서 문장을 넘어 이어지는 생략 주어의 선행어 — **가장 최근에 언급된 선지**(진술 문장이든 아니든).
+ * null = 아직 언급 없음(→ cue target 후보), [] = 선행어를 정할 수 없음(→ 생략 주어 진술은 의미 불명확).
+ */
 interface Carry { lastSubject: number[] | null }
 
 function parseSentence(sentence: string, ctx: ClaimContext, carry: Carry): Parsed | null {
@@ -160,6 +163,7 @@ function parseSentence(sentence: string, ctx: ClaimContext, carry: Carry): Parse
       // 생략 주어는 **같은 문장 앞 절의 주어를 이어받는다**(「⑤는 정답이고 답이 아닙니다」의 뒤 절 주어는 ⑤ — 19차 P1).
       // cue target 은 문장에 명시된 주어가 하나도 없을 때만 쓴다.
       if (g.list) { choices = choicesIn(g.list); lastSubject = choices }
+      else if (lastSubject && lastSubject.length === 0) return null // 선행어 불명(여러 선지 언급 · 해석 실패 문장 뒤)
       else if (lastSubject) choices = lastSubject
       else if (ctx.rejectTarget != null) { choices = [ctx.rejectTarget]; implicit = true }
       else return null // 주어가 없고 cue target 도 소거가 아니면 누구에 대한 진술인지 모른다
@@ -213,11 +217,25 @@ export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReadin
     if (UI_GUIDE.test(sentence)) continue
     // 정답과 무관한 「답」 낱말(대답 · 답하다 · 보답 · 응답 · 답장 · 답변)을 빼고도 「답」이 없으면 진술이 아니다
     const gate = sentence.replace(/대답|답하|답해|답했|답한|답할|보답|응답|답장|답변/g, '')
-    if (!/답/.test(gate)) continue
+    // 진술이 아닌 문장도 선지를 언급하면 생략 주어의 선행어가 바뀐다(「②는 오답입니다. ⑤를 보세요. 답이 아닙니다.」 — 21차 P1)
+    const mentionedHere = choicesIn(sentence)
+    if (!/답/.test(gate)) {
+      if (mentionedHere.length) carry.lastSubject = mentionedHere.length === 1 ? mentionedHere : []
+      continue
+    }
     // 물음은 단언이 아니다
-    if (/[?？]\s*$/.test(sentence)) { unparsed.push(sentence); continue }
+    if (/[?？]\s*$/.test(sentence)) {
+      unparsed.push(sentence)
+      if (mentionedHere.length) carry.lastSubject = []
+      continue
+    }
     const parsed = parseSentence(sentence, sctx, carry)
-    if (!parsed) { unparsed.push(sentence); continue }
+    if (!parsed) {
+      unparsed.push(sentence)
+      // 해석 못 한 문장이 선지를 언급했다면 뒤의 생략 주어는 정할 수 없다
+      if (mentionedHere.length) carry.lastSubject = []
+      continue
+    }
     for (const { polarity, claim } of parsed.claims) {
       if (polarity === 'answer') answers.push(claim)
       else for (const n of claim.choices) if (!rejected.includes(n)) rejected.push(n)
