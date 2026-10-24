@@ -42,14 +42,16 @@ describe('2015#25 복수정답', () => {
     expect(codes(r, 'cue:c1')).toContain('CUE_ASSUMES_SINGLE_ANSWER')
     expect(codes(r, 'cue:c4')).toContain('CUE_PARTIAL_ANSWER')
   })
-  it('정답 아닌 ①②③ 소거 cue 는 걸지 않는다', () => {
-    for (const id of ['c6', 'c7', 'c8']) expect(codes(r, `cue:${id}`)).toEqual([])
+  // 17차부터 번호 없는 부정형 소거 문장은 사람 확인(UNPARSED)이다 — 여기서는 「오진단 코드가 없다」만 본다
+  const misdiag = (rr: ReturnType<typeof validatePrepublish>, where: string) => codes(rr, where).filter((c) => c !== 'CUE_ANSWER_UNPARSED')
+  it('정답 아닌 ①②③ 소거 cue 는 오진단하지 않는다', () => {
+    for (const id of ['c6', 'c7', 'c8']) expect(misdiag(r, `cue:${id}`)).toEqual([])
   })
   it('BLOCK 이다', () => expect(r.blocked).toBe(true))
 
   it('단일 정답 {4} 로 줄이면 c9 는 걸리지 않는다 — 집합이 판정을 바꾼다', () => {
     const single = validatePrepublish({ itemId: '2015#25', officialAnswers: [4], choiceVerdicts: verdictsV5, cues: lecture.cues })
-    expect(codes(single, 'cue:c9')).toEqual([])
+    expect(misdiag(single, 'cue:c9')).toEqual([])
   })
 
   it('문안만 고치고 하이라이트가 reject:5 그대로면 여전히 걸린다 — 대상도 옮겨야 한다', () => {
@@ -150,9 +152,9 @@ describe('T-0158 반례 — 일반적인 정답·오답 표현', () => {
   it('「⑤가 정답」 · 「정답은 사 번」 — 맞는 번호는 통과', () => {
     expect(run([4, 5], '④와 ⑤가 정답입니다. 정답은 사 번과 오 번이에요.').blocked).toBe(false)
   })
-  it('「다섯 번째 문장」 같은 서수는 선지로 읽지 않는다(소거 cue 안 — 15차부터 부정형 건너뜀은 소거 cue 만)', () => {
+  it('「다섯 번째 문장」 같은 서수는 선지로 읽지 않는다 — 오진단 없음(17차부터 번호 없는 부정형은 사람 확인)', () => {
     const r = validatePrepublish({ itemId: 'X#1', officialAnswers: [4], choiceVerdicts: [], cues: [cue('다섯 번째 문장을 짚어 보세요. 이 문장은 답이 아닙니다.', 'reject:2')] })
-    expect(r.blocked).toBe(false)
+    expect(r.findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
   })
 })
 
@@ -462,9 +464,9 @@ describe('T-0158 14차 반례 — 「답」 문장은 기본 검사(건너뜀은
     '{5} · %s → 사람 확인', (text) => {
       expect(run([5], text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
     })
-  it('번호 없는 부정형(소거 cue 안)·UI 이름·무관한 낱말은 건너뛴다', () => {
+  it('UI 이름·무관한 낱말만 건너뛴다(번호 없는 부정형은 17차부터 사람 확인)', () => {
     const reject1 = { ...cue('맞는 진술이고, 답이 아닙니다.'), target: { kind: 'analysis' as const, id: 'reject:1' } }
-    expect(validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [reject1] }).findings).toEqual([])
+    expect(validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [reject1] }).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
     expect(run([5], '정답 블록을 확인하세요.').findings).toEqual([])
     expect(run([5], '캐시가 좋다고 대답해요.').findings).toEqual([])
   })
@@ -485,9 +487,8 @@ describe('T-0158 15차 반례 — 부정형 건너뜀은 정확한 꼴만', () =
     expect(run([5], text).blocked).toBe(true)
     expect(run([5], text, 'reject:1').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
   })
-  it('소거 cue 의 정확한 부정형만 target 에 맡긴다', () => {
-    expect(run([5], '맞는 진술이고, 답이 아닙니다.', 'reject:1').findings).toEqual([])
-    // 소거 cue 가 아니면 같은 문장도 주어를 몰라 사람 확인
+  it('번호 없는 부정형은 소거 cue 안팎 모두 사람 확인(17차 — 예외 삭제)', () => {
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.', 'reject:1').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
     expect(run([5], '맞는 진술이고, 답이 아닙니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
     // 앞부분이 다른 선지를 말로 가리키면 사람 확인
     expect(run([5], '첫 번째 선지는 답이 아닙니다.', 'reject:3').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
@@ -503,8 +504,19 @@ describe('T-0158 16차 반례 — 「오답이 아닙니다」는 소거가 아�
   it.each(['오답이 아닙니다.', '이것은 오답이 아닙니다.', '보면 오답이 아니죠.'])('reject:1 · %s → 사람 확인', (text) => {
     expect(run(text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
   })
-  it('정상 소거(「정답이 아닙니다」 · 「답이 아닙니다」)는 target 에 맡긴다', () => {
-    expect(run('정답이 아닙니다.').findings).toEqual([])
-    expect(run('맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+  it('정상 소거 문장도 17차부터 사람 확인(오진단 코드 없이)', () => {
+    expect(run('정답이 아닙니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+    expect(run('맞는 진술이고, 답이 아닙니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+})
+
+describe('T-0158 17차 반례 — 부정형 건너뜀 예외 삭제', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['다섯 번째 선택지는 정답이 아닙니다.', '마지막 선택지는 정답이 아닙니다.', '맨 끝 것은 정답이 아닙니다.'])('reject:1 · %s → 사람 확인', (text) => {
+    expect(run(text).findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
   })
 })

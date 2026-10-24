@@ -132,7 +132,7 @@ function canonicalNumbers(text: string): string {
 /** 정규화 뒤에도 남은 「①~⑤·ASCII 숫자가 아닌 숫자 문자」 — 해석하지 않고 사람 확인 */
 const exoticNumber = (s: string) => /[^①-⑤\d]/u.test(s.replace(/[^\p{N}]/gu, ''))
 
-export function readClaims(rawText: string, ctx: { choices?: readonly string[]; rejectTarget?: number } = {}): ClaimReading {
+export function readClaims(rawText: string, ctx: { choices?: readonly string[] } = {}): ClaimReading {
   const text = canonicalNumbers(rawText)
   const answers: AnswerClaim[] = []
   const rejected: number[] = []
@@ -148,25 +148,13 @@ export function readClaims(rawText: string, ctx: { choices?: readonly string[]; 
     if (!sentence || !TALKS_ANSWER.test(gateText)) continue
     // 선지 번호가 없는 문장(「…맞는 진술이고, 답이 아닙니다」)의 주어는 cue target(reject:n)이 정한다 — 호출자가 따로 검사한다
     if (exoticNumber(sentence)) { unparsed.push(sentence); continue }
-    // 번호처럼 보일 수 있는 것(숫자 문자 · 「일~오 번」)이 하나도 없으면 cue target 이 맡는다.
-    // 「선지 번호인가」를 휴리스틱으로 가리지 않는다 — 소수·연도 예외가 「1,2,3」을 통째로 놓쳤다(T-0158 Codex 13차 P1).
-    // 단, **긍정형 정답 진술**(「정답」·「답은/답입/답이(아니 제외)/답=:」)은 번호가 안 보여도 넘기지 않는다 —
-    // 「정답은 오.」·「마지막 선지가 정답」·「정답은 five」처럼 번호를 말로 쓰면 번호 탐지는 끝이 없다. 아는 꼴로 다 읽히지 않으면 사람 확인.
-    // 긍정형을 목록으로 판별하면 끝이 없다(「답 맞습니다」·「답으로」·문장 끝 「답」 — 14차 P1). 그래서 거꾸로:
-    // 이 문장의 「답」이 **모두** 번호 없는 부정형(「답이 아닙니다」)이나 UI 이름(「정답 블록」)일 때만 건너뛴다(cue target 이 맡는다).
-    // 건너뜀은 **정확한 꼴**만(15차 P1 — 「정답이 아니라는 말은 틀렸습니다」를 부정형으로 건너뛰었다):
-    //  (a) UI 이름 「정답 블록」만 든 문장, 또는
-    //  (b) 소거 cue(target reject:n) 안에서 「…답이 아닙니다/아니에요/아니다.」로 **끝나고** 「답」이 그 한 번뿐이며,
-    //      앞부분에 다른 선지를 가리키는 말이 없는 문장 — 주어는 cue target 이 정한다.
-    //      (앞부분 부정어는 결론을 못 뒤집는다 — 이중 부정은 부정이 **뒤에** 와야 하는데 끝 꼴 조건이 그것을 막는다.
-    //       「묻지 않으니 맞는 진술이고, 답이 아닙니다」 같은 실제 소거 문장을 막지 않는다)
-    const noUi = gateText.replace(/정답\s*블록/g, '')
-    const uiOnly = !/답/.test(noUi)
-    // 「오답이 아닙니다」(= 정답이라는 뜻)는 이 꼴이 아니다 — 「답이」 앞 글자가 「오」면 제외(16차 P1)
-    const negTail = /^(.*?)(?<!오)정?답이\s*아(?:닙니다|니에요|니다|니죠)[.。!]?$/.exec(noUi)
-    const targetNegative = ctx.rejectTarget != null && negTail != null && (noUi.match(/답/g) ?? []).length === 1
-      && !/선지|보기|번(?!째)/.test(negTail[1]!)
-    if (!/\p{N}/u.test(sentence) && refsIn(sentence).length === 0 && (uiOnly || targetNegative)) continue
+    // **건너뜀 예외는 UI 이름(「정답 블록」)만 남긴다.** 「답」이 든 그 밖의 문장은 아는 꼴로 다 읽히거나 사람 확인이다.
+    // 번호 없는 부정형(「…답이 아닙니다」)을 cue target 에 맡기던 예외는 13~17차 내내 앞부분 서술로 뚫렸다
+    // (「정답이 아니라는 말은 틀렸습니다」·「오답이 아닙니다」·「다섯 번째 선택지는 정답이 아닙니다」).
+    // 실측: 예외를 없애도 실제 49문항의 사람 확인은 18문항 그대로(+4문장) — 지킬 값이 없는 예외였다.
+    // 소거 cue 의 공식 정답 충돌은 target(reject:n) 대조가 별도로 BLOCK 한다.
+    const uiOnly = !/답/.test(gateText.replace(/정답\s*블록/g, ''))
+    if (!/\p{N}/u.test(sentence) && refsIn(sentence).length === 0 && uiOnly) continue
     const mine: AnswerClaim[] = []
     const mineRejected: number[] = []
     const used: Span[] = [] // 진술 꼴이 소비한 구간(선지 번호·부정 포함)
