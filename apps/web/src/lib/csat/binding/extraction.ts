@@ -35,11 +35,18 @@ export function glossesOf(text: string): { mark: string; term: string; gloss: st
 // 숫자로 시작하는 다음 문장(「12 children …」)도 새 문장이다 — 약어 예외는 뒤에 소문자가 올 때만
 const NOTE = /(?:^|(?<=[\s.!?)]))(\*{1,3})[ \t]+((?:["“‘'(][ \t]*)?[A-Z0-9][A-Za-z0-9’']*(?:(?:[ \t,]|\r?\n(?!\s*\r?\n))+(?:[^\s*]*[^\s*.!?]|[^\s*]+\.(?=\s+[a-z]))){2,}?[.!?]["”’')]?)(?=\s+[A-Z0-9*(※"“]|\s*$)/g
 /**
- * 약어일 수 있는 끝 — 마지막 낱말이 점을 품었거나(U.S. · a.m.) · 대문자로 시작하거나(Prof. · Smith.) · 4자 이하(vol. · pp. · fig. · cf.)면
- * 문장 끝인지 약어인지 글자만으로 가를 수 없다. 약어 목록은 다 셀 수 없으므로(T-0166 R1–R3) 마지막 낱말 모양만 본다 —
+ * 약어일 수 있는 끝 — 마지막 공백 단위 토큰 전체를 본다(정규식 분기로 모양을 열거하면 9:30a.m. 같은 붙은 표기를 놓친다 — T-0166 R1–R4).
+ * 끝 문장부호·따옴표를 뗀 몸통에 마침표가 남거나(U.S. · 9:30a.m.) · 대문자로 시작하거나(Prof. · Smith.) · 글자가 4자 이하이거나(vol. · pp. · cf.)
+ * · 흔한 긴 약어면 문장 끝인지 약어인지 글자만으로 가를 수 없다.
  * 정상 문장 끝을 미확정(candidate)으로 낮추는 것은 안전하고, 잘린 문장을 exact 로 내는 것은 안 된다
  */
-const ABBREV_END = /(?:^|[\s(“"'‘])(?:[A-Za-z]+\.){2,}["”’')]?$|(?:^|[\s(“"'‘])(?:[A-Z][A-Za-z0-9’'-]*|[A-Za-z0-9’'-]{1,4}|approx|admin|govt|misc|incl|assoc|intl|corp|dept)[.!?]["”’')]?$/
+const LONG_ABBREV = new Set(['approx', 'admin', 'govt', 'misc', 'incl', 'assoc', 'intl', 'corp', 'dept', 'tel', 'ext', 'est'])
+function endsWithPossibleAbbrev(note: string): boolean {
+  const last = note.trim().split(/\s+/).pop() ?? ''
+  const body = last.replace(/^["“‘'(]+/, '').replace(/["”’')]+$/, '').replace(/[.!?]$/, '')
+  const letters = body.replace(/[^A-Za-z]/g, '')
+  return /\./.test(body) || /^[A-Z]/.test(body) || letters.length <= 4 || LONG_ABBREV.has(body.toLowerCase())
+}
 /**
  * ambiguous: 각주 문장이 약어 마침표에서 끝났다 — 「* Visitors from the U.S. Embassy …」 가 「… the U.S.」 에서 잘렸을 수 있다.
  * 각주가 있다는 사실(표지 짝)은 확정이지만 문장 범위는 확정이 아니다 → 앵커는 exact 가 아니라 candidate
@@ -47,7 +54,7 @@ const ABBREV_END = /(?:^|[\s(“"'‘])(?:[A-Za-z]+\.){2,}["”’')]?$|(?:^|[\s
 export function notesOf(text: string): { mark: string; note: string; at: number; ambiguous: boolean }[] {
   return [...text.matchAll(NOTE)]
     .filter((m) => !/^["“‘'(]?\s*[A-Za-z][A-Za-z\- ’']{0,40}?\s*[:：]/.test(m[2]))
-    .map((m) => ({ mark: m[1], note: m[2].trim(), at: m.index ?? 0, ambiguous: ABBREV_END.test(m[2].trim()) }))
+    .map((m) => ({ mark: m[1], note: m[2].trim(), at: m.index ?? 0, ambiguous: endsWithPossibleAbbrev(m[2]) }))
 }
 
 /**

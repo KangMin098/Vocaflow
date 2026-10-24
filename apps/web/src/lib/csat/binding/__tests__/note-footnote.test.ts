@@ -44,6 +44,8 @@ describe('안내문 문장형 각주', () => {
     for (const p of ['Hours* Open daily. * Please read vol. II for details.', 'Hours* Open daily. * Please see pp. 12 through 15.', 'Hours* Open daily. * Please see fig. 3 for details.', 'Hours* Open daily. * For details cf. Smith and Jones.'])
       expect(notesOf(p).every((n) => n.ambiguous)).toBe(true)
     expect(notesOf('Hours* Open daily. * The office is closed\r\non holidays.').map((n) => n.ambiguous)).toEqual([false])
+    // 숫자에 붙은 약어(9:30a.m.) — 마지막 토큰 몸통의 마침표로 잡는다(T-0166 R4)
+    expect(notesOf('Hours* Open daily. * The desk opens at 9:30a.m. Monday through Friday.').every((n) => n.ambiguous)).toBe(true)
     // 끝 낱말이 5자 이상 소문자일 때만 exact — 2014A#29 「month.」
     expect(notesOf('Hours* Open daily. * The office is closed on public holidays.')[0].ambiguous).toBe(false)
   })
