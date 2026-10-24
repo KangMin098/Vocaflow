@@ -59,3 +59,30 @@ describe('보조', () => {
     ])
   })
 })
+
+// ── T-0158 Codex 24차 반례: 다른 문항 승인 원장의 후보 ID 만 바꾼 이식 ──────────
+import { bindingHash, transition, verifyLedger } from '../state'
+import type { LedgerEntry, Reviewer } from '../types'
+
+describe('T-0158 24차 반례 — 승인 이식 차단', () => {
+  it('다른 문항의 정상 승인 원장을 후보 ID 만 바꿔도 발행 게이트가 닫혀 있다', () => {
+    const A = S.candidates.find((c) => c.id === 'cr_6132c29377569b4a')!
+    const B = S.candidates.find((c) => c.id === 'cr_81e20c41c8c918ae')!
+    const human: Reviewer = { id: 'h', kind: 'human', roles: ['content_reviewer'] }
+    const h = bindingHash(A.binding)
+    const led: LedgerEntry[] = []
+    for (const [to, evidence] of [['in_review', []], ['content_approved', [{ kind: 'official_pdf_text', ref: 'x', boundHash: h }, { kind: 'lecture_cue', ref: 'x', boundHash: h }]]] as const) {
+      const r = transition(led, { candidate: A, track: 'lecture_cue', to, by: human, currentBinding: A.binding, evidence: [...evidence], reason: 'r', at: '2026-10-24T00:00:00Z' })
+      if (!r.ok) throw new Error(r.message)
+      led.push(r.entry)
+    }
+    const forged = led.map((e) => ({ ...e, candidateId: B.id }))
+    const bReport = candidateDetail(S, B.id)!.prepublishNow
+    const gate = publishAllowed(forged, { ...B, tracks: ['lecture_cue'] }, bReport)
+    expect(gate.allowed).toBe(false)
+    expect(gate.reasons.join()).toMatch(/판본|다른 문항/)
+    // 한 원장 안에서 같은 후보가 두 문항을 오가면 무결성 오류
+    const mixed = [led[0]!, { ...led[1]!, binding: B.binding }]
+    expect(verifyLedger(mixed).problems.join()).toMatch(/문항이/)
+  })
+})

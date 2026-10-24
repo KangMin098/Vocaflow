@@ -9,7 +9,7 @@
 
 import type { LectureCue } from '../lecture/types'
 import { readClaims } from './answer-claims'
-import { currentState, verifyLedger } from './state'
+import { currentState, sameBinding, verifyLedger } from './state'
 import type { LedgerEntry, ProposedChange, ReviewCandidate } from './types'
 
 export type PrepublishSeverity = 'BLOCK' | 'HYPOTHESIS' | 'REVIEW'
@@ -168,7 +168,12 @@ export function publishAllowed(
     }
     const last = [...ledger].reverse().find((e) => e.candidateId === candidate.id && e.track === t)
     if (!last || last.by.kind !== 'human') reasons.push(`트랙 ${t} 의 승인이 사람 승인이 아니다`)
+    // 승인 줄의 판본이 **이 후보의 판본**이어야 한다 — 다른 문항 승인 원장의 후보 ID 만 바꿔 이식하면 막는다(24차 P1)
+    else if (!sameBinding(last.binding, candidate.binding)) reasons.push(`트랙 ${t} 의 승인 판본이 이 후보의 판본과 다르다(${last.binding.itemId})`)
   }
+  // 이 후보 이름으로 된 줄이 모두 이 후보의 문항이어야 한다
+  const foreign = ledger.filter((e) => e.candidateId === candidate.id && e.binding.itemId !== candidate.itemId)
+  if (foreign.length) reasons.push(`다른 문항 판본으로 기록된 원장 줄 ${foreign.length}건(${foreign[0]!.binding.itemId})`)
   if (!report) reasons.push('발행 전 검증을 실행하지 않았다')
   else if (report.itemId !== candidate.itemId) reasons.push('발행 전 검증이 다른 문항의 결과다')
   else if (report.blocked) reasons.push(`발행 전 검증 BLOCK ${report.findings.filter((f) => f.severity === 'BLOCK').length}건`)

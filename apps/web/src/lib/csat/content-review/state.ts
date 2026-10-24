@@ -286,8 +286,13 @@ export function verifyLedger(ledger: readonly LedgerEntry[]): { ok: boolean; pro
   const state = new Map<string, ReviewState>()
   // 후보별로 원장이 마지막으로 본 판본 — stale 줄이 새 판본을 기록하면 그보다 옛 판본의 승인은 무효다
   const latest = new Map<string, RevisionBinding>()
+  // 한 후보의 줄은 모두 한 문항이어야 한다 — 다른 문항 승인 줄의 후보 ID 만 바꾼 이식을 잡는다(24차 P1)
+  const itemOf = new Map<string, string>()
   ledger.forEach((e, i) => {
     if (e.seq !== i + 1) problems.push(`seq ${e.seq} 가 ${i + 1} 자리에 있다`)
+    const item = itemOf.get(e.candidateId)
+    if (item == null) itemOf.set(e.candidateId, e.binding.itemId)
+    else if (item !== e.binding.itemId) problems.push(`seq ${e.seq}: 후보 ${e.candidateId} 의 문항이 ${item} 에서 ${e.binding.itemId} 로 바뀐다`)
     const k = `${e.candidateId}|${e.track}`
     const prev = state.get(k) ?? 'queued'
     if (e.from !== prev) problems.push(`seq ${e.seq}: from=${e.from} 인데 직전 상태는 ${prev}`)
