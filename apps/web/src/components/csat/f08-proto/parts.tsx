@@ -172,6 +172,16 @@ export function ReturnButton({ origin, back }: { origin: HTMLElement | null; bac
 
 export type RevealStatus = 'idle' | 'confirm' | 'loading' | 'refused' | 'error'
 
+/**
+ * 누른 버튼이 사라져 초점이 갈 곳을 잃었을 때만 옮긴다. 학습자가 기다리는 사이 스스로 다른 곳(원문 문장 등)에
+ * 초점을 두었으면 빼앗지 않는다. preventScroll — 공개 결과는 버튼이 있던 자리에 나타나므로 읽던 위치를 흔들지 않는다.
+ */
+export function focusIfUnclaimed(id: string) {
+  const active = document.activeElement
+  if (active && active !== document.body && active.isConnected) return
+  document.getElementById(id)?.focus({ preventScroll: true })
+}
+
 export function useRevealRequest(itemId: string, fault: string, dispatch: (a: Action) => void) {
   const [status, setStatus] = useState<RevealStatus>('idle')
   const request = useCallback(async () => {
@@ -188,7 +198,7 @@ export function useRevealRequest(itemId: string, fault: string, dispatch: (a: Ac
       dispatch({ type: 'reveal', reveal })
       setStatus('idle')
       // 공개 버튼이 사라지므로 초점을 정답 줄로 옮긴다(키보드·스크린리더가 결과를 놓치지 않게).
-      requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById('f08-answer')?.focus()))
+      requestAnimationFrame(() => requestAnimationFrame(() => focusIfUnclaimed('f08-answer')))
     } catch {
       setStatus('error')
     }
@@ -203,7 +213,7 @@ export function RevealControl({ status, setStatus, request, revealed }: ReturnTy
     if (prev.current === status) return
     prev.current = status
     const target = { idle: 'f08-reveal-open', confirm: 'f08-reveal-confirm', loading: null, refused: 'f08-reveal-alert', error: 'f08-reveal-alert' }[status]
-    if (target) document.getElementById(target)?.focus()
+    if (target) focusIfUnclaimed(target)
   }, [status])
   if (revealed) return null
   return (

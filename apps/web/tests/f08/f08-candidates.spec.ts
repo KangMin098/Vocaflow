@@ -151,6 +151,41 @@ for (const cand of ['a', 'b', 'c'] as const) {
       await expect(marks).toHaveCount(2)
       await expect(marks.nth(0)).toContainText('they would not rationally choose to do anyway')
       await expect(marks.nth(1)).toContainText('then the law cannot be')
+      // 강조가 범위 종류를 글자로 말하고(색만이 아님), 학습자가 확인할 발문 조건과 같은 대상을 가리킨다
+      await expect(marks.nth(0)).toContainText('[조건·한정]')
+      await expect(marks.nth(1)).toContainText('[부정 범위]')
+      if (cand === 'a') await page.getByRole('tab', { name: '발문 요구·조건' }).click()
+      if (cand === 'c') { await page.getByRole('tab', { name: '내 판단' }).click(); await page.getByText('발문 요구·조건').click() }
+      if (cand === 'b') { await page.getByTestId('prop-1').getByRole('button', { name: '대조표에 놓기' }).click(); await page.getByTestId('prop-3').getByRole('button', { name: '대조표에 놓기' }).click() }
+      await expect(page.getByText(/7번 문장의 If 조건/).first()).toBeVisible()
+      await expect(page.getByText(/cannot be 는 빈칸 표현 전체를 부정/).first()).toBeVisible()
+    })
+
+    test('공개 응답 대기 중 학습자가 옮긴 초점은 빼앗지 않고, 공개는 스크롤을 움직이지 않는다', async ({ page }) => {
+      await page.route('**/api/dev/f08-reveal', async (route) => { await new Promise((r) => setTimeout(r, 1500)); await route.continue() })
+      if (cand === 'a') await page.getByRole('tab', { name: '정답·해설' }).click()
+      if (cand === 'c') await page.getByRole('tab', { name: '내 판단' }).click()
+      await page.getByRole('button', { name: '정답·해설 보기' }).click()
+      await page.getByRole('button', { name: '공개하기' }).click()
+      await page.locator('#f08-s2').focus()
+      await expect(page.getByTestId('answer-line')).toBeVisible({ timeout: 10_000 })
+      await page.waitForTimeout(300)
+      await expect(page.locator('#f08-s2')).toBeFocused()
+
+      // 새로 시작해 스크롤 보존 확인 — 공개 확인을 키보드로 누른 뒤 scrollY 가 그대로다
+      await page.evaluate(() => sessionStorage.clear())
+      await page.reload()
+      if (cand === 'a') await page.getByRole('tab', { name: '정답·해설' }).click()
+      if (cand === 'c') await page.getByRole('tab', { name: '내 판단' }).click()
+      await page.getByRole('button', { name: '정답·해설 보기' }).click()
+      await page.mouse.wheel(0, 120)
+      await page.waitForTimeout(200)
+      const before = await page.evaluate(() => window.scrollY)
+      await page.getByRole('button', { name: '공개하기' }).focus({})
+      await page.keyboard.press('Enter')
+      await expect(page.getByTestId('answer-line')).toBeFocused({ timeout: 10_000 })
+      const after = await page.evaluate(() => window.scrollY)
+      expect(Math.abs(after - before)).toBeLessThanOrEqual(4)
     })
 
     test('키보드만으로 공개 — 단계마다 초점이 다음 조작 지점으로 간다', async ({ page }) => {
