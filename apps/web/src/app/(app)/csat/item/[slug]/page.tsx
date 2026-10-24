@@ -105,8 +105,9 @@ export default async function CsatItemTheaterPage({
   // 이 페이지의 HTML · RSC props 에는 initial 만 싣는다 — 정답 번호 · 정답 근거 · 오답 소거 · 이해 확인 · 비교 선지 번호 ·
   // v3 선지 판정 · 설계 주장 · 문항 원리는 학습자가 정답을 요청하면 판단 라우트가 노출 원장 커밋 뒤에만 보낸다.
   const loaded = await loadTheaterAnswer(item)
-  const { initial, skeleton, siblings, openById } = loaded
-  const map: TheaterMap | null = skeleton && loaded.mapReady ? { sentences: skeleton.sentences, anchors: initial.anchors, placements: initial.placements } : null
+  const { initial, siblings, openById } = loaded
+  // 지도 문장은 길이만(근거 인용 · 앵커 id 는 공개 응답 — R147-07)
+  const map: TheaterMap | null = loaded.mapSentences ? { sentences: loaded.mapSentences, anchors: initial.anchors, placements: initial.placements } : null
 
   const outline = lectureOutline(item.id)
   const meta = lectureMeta(item.id)

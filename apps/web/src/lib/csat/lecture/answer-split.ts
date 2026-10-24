@@ -15,6 +15,7 @@
 import type { ComparePair } from '@/components/csat/theater/ComparePairs'
 import type { InquiryRecord, V3PairView } from '@/lib/csat/inquiry/labels'
 import type { MeaningSupportView } from '@/lib/csat/meaning-support/labels'
+import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 import type { MapAnchor, MapPlacement } from '@/lib/csat/passage-map-model'
 import type { GateKey } from '@/lib/csat/reveal-gate'
 import type { TheaterBlock } from '@/lib/csat/theater'
@@ -44,13 +45,13 @@ export interface AnswerReveal {
   v3Pairs: V3PairView[]
   inquiry: Pick<InquiryRecord, 'distractors' | 'principle'> & { v3?: { choices: NonNullable<InquiryRecord['v3']>['choices']; claims: NonNullable<InquiryRecord['v3']>['design']['claims']; limitation: string; conditions: string[]; meanings: NonNullable<InquiryRecord['v3']>['meanings'] } }
   gate: { answer: number | null; evidence: number[]; selection: string | null; transform_note: string | null }
+  /** 지도 문장(근거 인용 · 앵커 id 포함, `splitMapSentences`) — 지도가 없으면 null */
+  mapSentences?: SkeletonSentence[] | null
   /** 원문 이해 교수 설명 전체(`splitMeaningSupport`) — 없으면 null */
   meaningSupport?: MeaningSupportView | null
 }
 
 const ANSWER_CHIP = /^정답 \S+$/
-/** 의미 단위 설명이 정답 · 특정 선지를 가리키는가(실제 정본 4건: 「정답 제목 …」 · 「빈칸 선지 ④의 …」) */
-const POINTS_AT_CHOICE = /정답|선지\s*[①-⑤\d]|\d\s*번\s*선지/
 // 첫 응답에 남기는 블록은 머리(문항 이름 · 유형 · 배점 — 정답 칩은 바꾼다)와 어휘뿐이다. 재는 능력 · 출제 의도 · 절차도 문항별 풀이라
 // 실제 분석에 정답 성분 · 소거 순서가 들어 있다(T-0147 Codex R147-02: 2015#33 의도 「정답이 '크다 + 느슨하다 + 경쟁적이다' …」,
 // 분석 산출물 1,165행 중 507행 후보). 문장 단위 결정성 감수 전까지는 블록째 공개 응답으로 옮긴다(fail-closed)
@@ -71,13 +72,14 @@ export function splitAnswer(full: TheaterAnswerData, analysisVersion: number | n
         principle: null,
         // 설계 한계 문장도 옮긴다 — 실제 정본 45건이 「2~5번 선지의 content_truth=false」 처럼 선지 판정을 적는다(전수 검사)
         // 발문 조건(requirement.conditions)도 옮긴다 — 59건이 「④는 …와 대조한다」 · 「정답은 … 어긋나는 선지」 처럼 선지별 판정을 적는다.
-        // 의미 단위는 정답 · 특정 선지를 가리키는 것만 뺀다(근거 탐색은 남긴다). 발문 · 읽기 범위는 일반 지시라 남긴다
+        // 의미 단위도 통째로 옮긴다 — 키워드 필터는 결정적 설명을 놓쳤다(R147-08: 2014A#39 「… 끝나는 지점이 ④ 앞이다」 · 2014A#27 밑줄 ④ 문맥).
+        // 문장 단위 결정성 감수 전까지 fail-closed. 발문 · 읽기 범위는 일반 지시라 남긴다
         ...(v3
           ? {
               v3: {
                 ...v3,
                 requirement: { ...v3.requirement, conditions: [] },
-                meanings: v3.meanings.filter((m) => !POINTS_AT_CHOICE.test(`${m.meaning_ko} ${m.scope.note ?? ''}`)),
+                meanings: [],
                 choices: [],
                 design: { claims: [], limitation: '' },
               },
@@ -163,7 +165,7 @@ export function mergeReveal(initial: TheaterAnswerData, reveal: AnswerReveal): T
 /**
  * 원문 이해 교수 설명(meaningSupport) — 통째로 공개 응답으로 옮긴다. 선지 연결(bridges)만이 아니라 본문도 선지 판정을 적는다
  * (T-0147 Codex R147-01 · R147-05: 2026#30 whole.summaryKo 「⑤는 이와 충돌한다」 · 2026#35 units 「흐름 밖의 문장 … (④)」).
- * 문장 단위 결정성 감수 전까지 첫 응답에는 싣지 않는다(fail-closed) — 의미 장면은 그동안 v3 의미 단위(정답 가리키는 것 제외)로 탐색한다.
+ * 문장 단위 결정성 감수 전까지 첫 응답에는 싣지 않는다(fail-closed).
  */
 export function splitMeaningSupport(view: MeaningSupportView | null): { initial: MeaningSupportView | null; reveal: MeaningSupportView | null } {
   return { initial: null, reveal: view }
@@ -171,4 +173,12 @@ export function splitMeaningSupport(view: MeaningSupportView | null): { initial:
 
 export function mergeMeaningSupport(initial: MeaningSupportView | null, revealed: MeaningSupportView | null | undefined): MeaningSupportView | null {
   return revealed ?? initial
+}
+
+/**
+ * 지도 문장 골격 — 첫 응답에는 문장 길이만 둔다. 문장 안의 `reveals`(앵커 id 와 근거 인용)는 정답 근거 자리 · 오답 id 를 그대로 담는다
+ * (T-0147 Codex R147-07: 배포 골격 802건 전부 answer 표식, 445건은 오답 id 넷이 모두 있어 남는 선지로 정답 확정). 공개 응답이 원래 문장을 돌려준다.
+ */
+export function splitMapSentences(sentences: SkeletonSentence[]): { initial: SkeletonSentence[]; reveal: SkeletonSentence[] } {
+  return { initial: sentences.map((s) => ({ chars: s.chars, reveals: [] })), reveal: sentences }
 }

@@ -328,7 +328,10 @@ export function AnalysisTheater({
   const v3Pairs = merged?.v3Pairs ?? initialV3Pairs
   const inquiry = merged?.inquiry ?? initialInquiry
   const gate = merged?.gate ?? initialGate
-  const map = useMemo(() => (initialMap && merged ? { ...initialMap, anchors: merged.anchors, placements: merged.placements } : initialMap), [initialMap, merged])
+  const map = useMemo(
+    () => (initialMap && merged ? { ...initialMap, sentences: revealed?.mapSentences ?? initialMap.sentences, anchors: merged.anchors, placements: merged.placements } : initialMap),
+    [initialMap, merged, revealed],
+  )
   // ── 기출 찾기(FND2 · FND3) — 학습 상태(장면 · 근거 · 초안)와 분리된 팝업 상태 ──────────────
   const [finderOpen, setFinderOpen] = useState<FinderOrigin | null>(null)
   // 「찾기 전 문항으로」 — 찾기로 이 문항에 왔을 때만(탭 메모리 · 첫 렌더 뒤에 읽는다: 서버 렌더와 어긋나지 않게)

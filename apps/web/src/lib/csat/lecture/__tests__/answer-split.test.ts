@@ -7,7 +7,8 @@ import { describe, expect, it } from 'vitest'
 import { lookupInquiry } from '@/lib/csat/inquiry/data'
 import { theaterBlocks, type TheaterSource } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
-import { mergeMeaningSupport, mergeReveal, splitAnswer, splitMeaningSupport, type TheaterAnswerData } from '../answer-split'
+import { mergeMeaningSupport, mergeReveal, splitAnswer, splitMapSentences, splitMeaningSupport, type TheaterAnswerData } from '../answer-split'
+import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 import type { MeaningSupportView } from '@/lib/csat/meaning-support/labels'
 
 const hit = lookupInquiry('2014A#23', 4)
@@ -80,7 +81,8 @@ describe('첫 응답(문항 페이지 HTML · RSC props)', () => {
     expect(initial.blocks.map((b) => b.kind)).toEqual(['head'])
     expect(payload).not.toContain('일반화 문장 찾기')
     expect(payload).not.toContain('마지막 일반화 문장 찾기')
-    expect(initial.inquiry?.v3?.meanings.length).toBeGreaterThan(0)
+    // 의미 단위도 통째로 공개 응답으로(R147-08 — 키워드 필터가 결정적 설명을 놓쳤다)
+    expect(initial.inquiry?.v3?.meanings).toEqual([])
     expect(initial.inquiry?.v3?.requirement.requested).toBe(inquiry.v3?.requirement.requested)
     expect(initial.inquiry?.v3?.requirement.conditions).toEqual([])
     expect(initial.inquiry?.v3?.units_hash).toBe(inquiry.v3?.units_hash)
@@ -128,6 +130,32 @@ describe('원문 이해 교수 설명(meaningSupport) — 실제 배포 정본 �
       expect(mergeMeaningSupport(i, r)).toEqual(v)
     }
     expect(splitMeaningSupport(null)).toEqual({ initial: null, reveal: null })
+  })
+})
+
+describe('지도 문장 골격 — 실제 배포 골격 전체', () => {
+  it('첫 응답 문장에 근거 인용 · 앵커 id 가 없고 길이는 같으며, 공개 응답이 원래 문장을 돌려준다(R147-07)', async () => {
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const dir = path.join(__dirname, '..', '..', 'skeleton-data')
+    let items = 0
+    let withReject4 = 0
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json') && x !== 'index.json')) {
+      const exam = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')) as { items: { id: string; sentences: SkeletonSentence[] }[] }
+      for (const it of exam.items) {
+        items++
+        const ids = new Set(it.sentences.flatMap((s) => s.reveals.map((r) => (r as { anchorId?: string }).anchorId)).filter((x) => x?.startsWith('reject:')))
+        if (ids.size >= 4) withReject4++
+        const { initial: i, reveal: r } = splitMapSentences(it.sentences)
+        expect(i.every((s) => s.reveals.length === 0)).toBe(true)
+        expect(i.map((s) => s.chars)).toEqual(it.sentences.map((s) => s.chars))
+        expect(JSON.stringify(i)).not.toMatch(/anchorId|answer|reject/)
+        expect(r).toBe(it.sentences)
+      }
+    }
+    // 재현 전제 — 배포 골격에 오답 id 넷이 모두 실린 문항이 있다(없으면 이 검사가 아무것도 지키지 않는다)
+    expect(items).toBeGreaterThan(700)
+    expect(withReject4).toBeGreaterThan(100)
   })
 })
 
