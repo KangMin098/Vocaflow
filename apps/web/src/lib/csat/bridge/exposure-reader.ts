@@ -1,8 +1,8 @@
 // apps/web/src/lib/csat/bridge/exposure-reader.ts
 //
 // H4 — P6 노출 원장 서버 reader(읽기 전용). 쓰기(learning_exposure_record)는 하지 않는다 — 기록 경로는 판단 장면 owner(T-0147) 몫이다.
-//   인증 경계: userId 는 호출자가 서버에서 인증한 값(auth.getUser)이어야 한다. 학습자 세션 클라이언트면 RLS(본인 행만)가 한 번 더 막고,
-//   서버 전용 클라이언트를 넘기면 user_id 조건만 남는다 — 요청 본문 · 주소의 사용자 id 를 넘기지 않는다.
+//   인증 경계: 사용자 id 를 인자로 받지 않는다 — 학습자 세션 클라이언트의 auth.getUser() 로 서버가 확인한 사용자만 쓰고,
+//   RLS(learning_exposures_own_select)가 본인 행만 돌려준다. 로그인이 없으면 unauthenticated(빈 원장으로 보지 않는다).
 //   K6-a: 문항으로 걸러 읽지 않고 그 학습자 원장 전체를 읽는다(같은 지문의 다른 문항 노출을 놓치지 않게). 지문 키는 앱 원장과 같은 정규화 해시.
 //   표 · 함수가 없으면 not_installed(정상 0건과 구별), 다른 오류 · 잘림은 error — 일부만 읽은 원장을 「노출 없음」 근거로 쓰지 않는다.
 import 'server-only'
@@ -18,12 +18,17 @@ const MISSING = new Set(['42P01', 'PGRST205', 'PGRST202', '42883', '42703', 'PGR
 export type ExposureRead =
   | { status: 'ok'; rows: ExposureRow[]; trackingStartedAt: string | null }
   | { status: 'not_installed' }
+  | { status: 'unauthenticated' }
   | { status: 'error' }
 
 type Row = Record<string, unknown>
 const code = (e: unknown) => (e as { code?: string } | null)?.code ?? ''
 
-export async function readExposures(db: SupabaseClient, userId: string): Promise<ExposureRead> {
+/** db = 학습자 세션 클라이언트(lib/supabase/server createClient) — 서버 전용 클라이언트를 넘기면 getUser 가 사용자를 주지 않아 unauthenticated */
+export async function readExposures(db: SupabaseClient): Promise<ExposureRead> {
+  const { data: auth, error: authErr } = await db.auth.getUser()
+  if (authErr || !auth?.user?.id) return { status: 'unauthenticated' }
+  const userId = auth.user.id
   const [ex, tr] = await Promise.all([
     db.from('learning_exposures').select('item_ref, kind, source, received_at, clock_suspect, analysis_version', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
     db.from('learning_exposure_tracking').select('started_at').limit(1),

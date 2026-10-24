@@ -14,7 +14,6 @@ export interface FeedAttempt extends AttemptForExposure {
   taskKey: string
   isCorrect: boolean | null
   contentHash: string | null
-  passageKey: string | null
   skill: ThinkingSkillId | null
   /** learning_attempt_independence 결과 — null = 조회 실패 · 함수 없음 */
   independence: IndependenceStatus | null
@@ -27,7 +26,8 @@ export interface FeedObservation {
   itemRef: string
   taskKey: string
   skill: ThinkingSkillId | null
-  passageKey: string | null
+  /** 노출 판정과 같은 정규화 지문 키(passageOf) — 호출자 입력 키를 쓰지 않는다(T-0156 P1) */
+  passageKey: string
   correct: boolean
   level: ExposureLevel
   /** 서버 관측 범위 안의 독립 — 외부 노출은 모른다 */
@@ -66,9 +66,12 @@ export function buildEvidenceFeed(attempts: readonly FeedAttempt[], rows: readon
     if (meaning.kind === 'not_evidence') { reject(a, 'not_check_phase', meaning); continue }
     if (a.independence !== 'independent_candidate') { reject(a, 'independence_unknown', meaning); continue }
     if (level !== 'X0' && level !== 'X1') { reject(a, 'exposure_unknown', meaning); continue }
+    // 지문 수 집계도 노출 판정과 같은 키로 — 식별 불가면 공급하지 않는다(X0/X1 이면 이미 식별됐지만 이중 확인)
+    const passageKey = passageOf(a.itemRef)
+    if (!passageKey) { reject(a, 'exposure_unknown', meaning); continue }
     const now = currentHash(a.itemRef, a.taskKey)
     if (!now || !a.contentHash || now !== a.contentHash) { reject(a, 'stale_analysis', meaning); continue }
-    out.accepted.push({ attemptId: a.attemptId, itemRef: a.itemRef, taskKey: a.taskKey, skill: a.skill, passageKey: a.passageKey, correct: a.isCorrect, level, scope: 'observed_independent' })
+    out.accepted.push({ attemptId: a.attemptId, itemRef: a.itemRef, taskKey: a.taskKey, skill: a.skill, passageKey, correct: a.isCorrect, level, scope: 'observed_independent' })
   }
   return out
 }
@@ -83,7 +86,7 @@ export type SkillClaim =
 /** 한 사고 기능에 대해 공급된 증거로 말할 수 있는 가장 강한 주장 — 같은 지문 · 같은 문항 반복은 하나로 센다 */
 export function skillClaimOf(feed: EvidenceFeed, skill: ThinkingSkillId): { claim: SkillClaim; passages: number; mastery: 'NOT_ESTABLISHED' } {
   const mine = feed.accepted.filter((o) => o.skill === skill)
-  const ok = new Set(mine.filter((o) => o.correct).map((o) => o.passageKey ?? `item:${o.itemRef}`))
+  const ok = new Set(mine.filter((o) => o.correct).map((o) => o.passageKey))
   const claim: SkillClaim = ok.size >= 2 ? 'repeated_independent_success' : ok.size === 1 ? 'single_independent_success' : mine.length ? 'independent_but_incorrect' : 'no_valid_evidence'
   return { claim, passages: ok.size, mastery: 'NOT_ESTABLISHED' }
 }
@@ -97,6 +100,6 @@ export function promotionGate(feed: EvidenceFeed, evidenceAttemptIds: readonly s
   const byId = new Map(feed.accepted.map((o) => [o.attemptId, o]))
   const obs = evidenceAttemptIds.map((id) => byId.get(id))
   if (obs.some((o) => !o || !o.correct)) return { ok: false, reason: 'invalid_evidence' }
-  const passages = new Set(obs.map((o) => o!.passageKey ?? `item:${o!.itemRef}`))
+  const passages = new Set(obs.map((o) => o!.passageKey))
   return passages.size >= 2 ? { ok: true } : { ok: false, reason: 'single_passage' }
 }

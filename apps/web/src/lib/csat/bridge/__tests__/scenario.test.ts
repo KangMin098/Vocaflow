@@ -82,14 +82,14 @@ describe('H8 통합 시나리오', () => {
 
   it('⑥ 학습 → 기록 → 다음 TASK — 정답 열람 뒤 수행 · 도움 · 서버 오류 · 중복 · 판본 변경을 가른다', () => {
     const exposures: ExposureRow[] = [{ itemRef: '2019#23', kind: 'answer_direct', source: 'lecture_full', receivedAt: '2026-10-24T01:00:00Z', clockSuspect: false, analysisVersion: 1 }]
-    const a = (o: Partial<FeedAttempt>): FeedAttempt => ({ attemptId: '1', itemRef: '2024#22', taskKey: 'claim-support', isCorrect: true, contentHash: 'h1', passageKey: 'pShared', skill: 'central_generalize', independence: 'independent_candidate', exposureOrderAt: '2026-10-24T02:00:00Z', helpLevel: 'independent', afterExplanation: false, afterViewedFirst: false, timingUncertain: false, ...o })
+    const a = (o: Partial<FeedAttempt>): FeedAttempt => ({ attemptId: '1', itemRef: '2024#22', taskKey: 'claim-support', isCorrect: true, contentHash: 'h1', skill: 'central_generalize', independence: 'independent_candidate', exposureOrderAt: '2026-10-24T02:00:00Z', helpLevel: 'independent', afterExplanation: false, afterViewedFirst: false, timingUncertain: false, ...o })
     const attempts = [
-      a({ attemptId: '10', itemRef: '2019#23', passageKey: 'pA' }), // 정답 열람 뒤 같은 문항 — 도움 받은 수행
+      a({ attemptId: '10', itemRef: '2019#23' }), // 정답 열람 뒤 같은 문항 — 도움 받은 수행
       a({ attemptId: '11' }), // 안 푼 확인 문항 첫 독립 시도
       a({ attemptId: '11' }), // 중복 요청
-      a({ attemptId: '12', itemRef: '2024#21', passageKey: 'pD', independence: null }), // 서버 오류
-      a({ attemptId: '13', itemRef: '2014B#38', passageKey: 'pC', contentHash: 'h0' }), // 옛 판본
-      a({ attemptId: '14', itemRef: '2015#32', passageKey: 'pB', independence: 'helped', helpLevel: 'hint' }), // 도움 받은 시도
+      a({ attemptId: '12', itemRef: '2024#21', independence: null }), // 서버 오류
+      a({ attemptId: '13', itemRef: '2014B#38', contentHash: 'h0' }), // 옛 판본
+      a({ attemptId: '14', itemRef: '2015#32', independence: 'helped', helpLevel: 'hint' }), // 도움 받은 시도
     ]
     const P = (r: string) => (passageKeys as Record<string, string>)[r]
     const feed = buildEvidenceFeed(attempts, exposures, () => 'h1', P)
