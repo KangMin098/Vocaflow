@@ -86,17 +86,28 @@ test.describe('강의 학습자 제어', () => {
       // 따라가기 단추는 늘 있고 켜짐/꺼짐만 바뀐다(aria-pressed)
       const follow = page.getByTestId('lecture-offer-follow')
       await expect(follow).toHaveAttribute('aria-pressed', 'false', { timeout: 5_000 })
+      // 요소별로 잰다 — 위치 목록을 문자열로 이으면 다음 큐로 스크롤 가능한 요소가 하나 늘기만 해도 목록이 밀려 오탐한다
+      // (실계정 E2E 2026-10-24: `0,75,0,…` → `0,0,75,…`, 기존 값은 그대로). 처음 있던 요소는 같은 요소의 위치를, 새로 생긴 요소는 0 인지를 본다
       const scrollOf = () =>
         page.evaluate(() => {
           const els = [document.scrollingElement, ...Array.from(document.querySelectorAll<HTMLElement>('[data-csat-theater] *'))].filter(
-            (el): el is Element => el != null && el.scrollHeight > el.clientHeight + 1,
+            (el): el is HTMLElement => el != null && el.scrollHeight > el.clientHeight + 1,
           )
-          return els.map((el) => Math.round(el.scrollTop)).join(',')
+          let n = Number(document.body.dataset.scrollSeq ?? 0)
+          const out: Record<string, number> = {}
+          for (const el of els) {
+            if (!el.dataset.scrollId) el.dataset.scrollId = String(n++)
+            out[el.dataset.scrollId] = Math.round(el.scrollTop)
+          }
+          document.body.dataset.scrollSeq = String(n)
+          return out
         })
       const before = await scrollOf()
       await page.locator('body').press('ArrowRight')
       await page.waitForTimeout(1_200)
-      expect(await scrollOf(), '따라가기를 끈 뒤 강의가 화면을 옮겼다').toBe(before)
+      const after = await scrollOf()
+      const moved = Object.entries(after).filter(([id, y]) => (id in before ? before[id] !== y : y !== 0))
+      expect(moved, `따라가기를 끈 뒤 강의가 화면을 옮겼다 — 전 ${JSON.stringify(before)} · 후 ${JSON.stringify(after)}`).toEqual([])
 
       // ④ 학습자가 다시 고르면 켜진다
       await follow.click()
