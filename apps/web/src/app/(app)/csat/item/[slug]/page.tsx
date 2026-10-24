@@ -31,27 +31,20 @@ import type { CohesionPanelProps } from '@/lib/knowledge/cohesion-link-labels'
 import { KICE_ARCHIVE_URL, kiceSourceOf } from '@/lib/csat/kice-source'
 import { fromItemSlug, loadCsatItemExplain } from '@/lib/csat/learner'
 import { toItemSlug } from '@/lib/csat/item-slug'
-import { lectureMeta, lectureOutline } from '@/lib/csat/lecture/store'
+import { lectureDisclosure } from '@/lib/csat/lecture/disclosure'
+import { lectureMeta, lectureOutline, loadLecture } from '@/lib/csat/lecture/store'
 import { pickNextItem } from '@/lib/csat/next-item'
-import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadSessionCatalog, type LearnerCatalog } from '@/lib/csat/session/catalog'
 import { examOrder } from '@/lib/csat/session/model'
 import { isKiceExam } from '@/lib/csat/exam-id'
-import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings, skeletonSiblings } from '@/lib/csat/skeleton'
-import { canRevealItem, loadRevealScope } from '@/lib/csat/embargo-gate'
+import { canRevealItem } from '@/lib/csat/embargo-gate'
+import { loadTheaterAnswer } from '@/lib/csat/judgment-reveal'
 import { loadItemPrinciple } from '@/lib/knowledge/product-server'
-import { createClient } from '@/lib/supabase/server'
-import type { SupabaseClient } from '@supabase/supabase-js'
-import { CIRCLED, theaterBlocks, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
-import { buildChecks } from '@/lib/csat/understanding-check'
+import { theaterMinutes } from '@/lib/csat/theater'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
-import { inquiryBinding, lookupInquiry } from '@/lib/csat/inquiry/data'
 import { browseReturn } from '@/lib/csat/browse-url'
 import { mapReturnQuery, parseMapReturn, returnQueryOf } from '@/lib/csat/map-return'
-import { lookupMeaningSupport } from '@/lib/csat/meaning-support/data'
 import { parseMeaningParams, relationsOfUnit } from '@/lib/csat/meaning-support/model'
-import compareData from '@/lib/csat/compare-data.json'
-import { projectV3Pairs, v3PairPartners } from '@/lib/csat/inquiry/compare-v3'
 
 export const dynamic = 'force-dynamic'
 
@@ -108,67 +101,24 @@ export default async function CsatItemTheaterPage({
     )
   }
 
-  // 지도는 **구워 둔 골격**에서만 온다(DB 의 지문을 런타임에 만지는 경로가 없어야 한다).
-  // 학평 골격은 DB 의 구운 행(발행분만 · 학습자 RLS) — 지문 원본이 아니라 문장 길이와 해설 인용뿐이다
-  await primeLearnerHakpyeongSkeletons((await createClient()) as unknown as SupabaseClient)
-  const skeleton = await loadRevealedSkeleton(item.id)
-  const anchors: MapAnchor[] = [
-    ...(item.answer != null && !item.answer_unknown && item.why_correct
-      ? [{ id: 'answer', label: CIRCLED[item.answer] ?? String(item.answer), kind: 'answer' as const, detail: item.why_correct }]
-      : []),
-    ...item.distractors.map((d) => ({
-      id: `reject:${d.n}`,
-      label: CIRCLED[d.n] ?? String(d.n),
-      kind: 'reject' as const,
-      detail: d.how_to_reject,
-      tempting: d.why_tempting,
-    })),
-  ]
-  // 골격이 실제로 자리를 찾은 앵커만 지도에 올린다 — 못 찾은 칩은 눌러도 아무 일이 없다.
-  const shown = skeleton
-    ? anchors.flatMap((a) => {
-        const placed = skeleton.anchors.find((x) => x.id === a.id)
-        return placed ? [{ ...a, origin: placed.from }] : []
-      })
-    : []
-  const map: TheaterMap | null =
-    skeleton && shown.length > 0 ? { sentences: skeleton.sentences, anchors: shown, placements: skeleton.anchors } : null
+  // 정답 자료는 서버 로더 한 곳에서 만들고 첫 응답(initial) · 공개 응답(reveal)으로 나눈다(판단 장면 (b) · T-0147).
+  // 이 페이지의 HTML · RSC props 에는 initial 만 싣는다 — 정답 번호 · 정답 근거 · 오답 소거 · 이해 확인 · 비교 선지 번호 ·
+  // v3 선지 판정 · 설계 주장 · 문항 원리는 학습자가 정답을 요청하면 판단 라우트가 노출 원장 커밋 뒤에만 보낸다.
+  const loaded = await loadTheaterAnswer(item)
+  const { initial, siblings, openById } = loaded
+  // 지도 문장은 길이만(근거 인용 · 앵커 id 는 공개 응답 — R147-07)
+  const map: TheaterMap | null = loaded.mapSentences ? { sentences: loaded.mapSentences, anchors: initial.anchors, placements: initial.placements } : null
 
   const outline = lectureOutline(item.id)
   const meta = lectureMeta(item.id)
-  const steps = theaterSteps(outline)
-  const blocks = theaterBlocks(item)
-  // 이해 확인(M4) — 검수된 근거 자리 · 함정 라벨로만 만든다(새 생성 없음)
-  const answerPlacement = skeleton?.anchors.find((x) => x.id === 'answer')
-  const checks = buildChecks({
-    id: item.id,
-    type_id: item.type_id,
-    distractors: item.distractors,
-    map: skeleton && answerPlacement ? { sentenceCount: skeleton.sentences.length, answerSentences: answerPlacement.sentences } : null,
-  })
+  // 레일 차례 — 첫 응답은 대상(문장 위치 · 블록 · 이름) 없는 중립 차례(R147-10). 원래 차례는 판단 라우트가 노출 원장 뒤에 준다
+  const steps = loaded.steps
+  // 검증된 「직접 정답 공개」 경계(없거나 대본이 바뀌었으면 verified=false — 「정답 직전까지」 경로를 내주지 않는다)
+  const disclosure = lectureDisclosure(item.id, loadLecture(item.id))
 
-  // 같은 유형의 다음 문항 — 조회 0회(커밋된 골격이 `type_id` 를 들고 있다)
-  const siblings = item.type_id
-    ? revealedSkeletonSiblings(item.type_id, await loadRevealScope()).map((sib) => ({
-        id: sib.id,
-        slug: toItemSlug(sib.id),
-        exam_label: sib.exam_label,
-        no: sib.no,
-        explained: true,
-      }))
-    : []
   const nextPick = pickNextItem(siblings, item.id, () => true)
-  // 같은 원리 비교 쌍(M4) — 검수 통과분 중 지금 열 수 있는(같은 유형 공개 목록에 있는) 문항만
-  const sibById = new Map(siblings.map((x) => [x.id, x]))
-  const pairs = (compareData.items as Record<string, { kind?: 'same' | 'contrast'; other: string; choice: number; otherChoice: number; trap: string; note: string }[]>)[item.id] ?? []
-  const comparePairs = pairs.flatMap((p) => {
-    const o = sibById.get(p.other)
-    return o ? [{ ...p, otherSlug: o.slug, otherLabel: `${o.exam_label} ${o.no}번` }] : []
-  })
-  // v3 비교 쌍(M4) — 상대는 같은 유형 siblings 가 아니라 **상대 유형의 공개 목록**에서 확인한다(교차 유형 허용 · 비공개 상대는 뺀다)
-  const inquiryHit = lookupInquiry(item.id, item.analysis_version)
-  // v3.1 원문 이해 교수 설명 — 문항 접근 · 탐구 ready 뒤에만, 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때 문항 1개 projection 만 넘긴다
-  const msHit = lookupMeaningSupport(item.id, item.analysis_version, inquiryHit.state === 'ready', { skeletonChars: skeleton?.sentences.map((s) => s.chars) ?? null })
+  // v3.1 원문 이해 교수 설명 — 로더가 결속을 확인하고 단위 ↔ 선지 연결(bridges)을 뺀 첫 응답용 projection 을 준다
+  const msHit = { view: loaded.meaningSupport }
   const msParams = msHit.view
     ? parseMeaningParams(
         { meaning: first(sp.meaning) ?? null, depth: first(sp.depth) ?? null, rel: first(sp.rel) ?? null, bridge: first(sp.bridge) ?? null },
@@ -177,27 +127,6 @@ export default async function CsatItemTheaterPage({
         (u) => relationsOfUnit(msHit.view!, u).map((r) => r.id),
       )
     : null
-  const revealScope = await loadRevealScope()
-  const partnerTypes = [...new Set(v3PairPartners(item.id).map((x) => x.type).filter((t): t is string => Boolean(t)))]
-  const openById = new Map<string, { slug: string; label: string }>()
-  const knownIds = new Set<string>()
-  for (const t of partnerTypes) {
-    for (const sib of t === item.type_id ? siblings.map((x) => ({ id: x.id, exam_label: x.exam_label, no: x.no })) : revealedSkeletonSiblings(t, revealScope)) {
-      openById.set(sib.id, { slug: toItemSlug(sib.id), label: `${sib.exam_label} ${sib.no}번` })
-    }
-    // 공개 필터 전 골격 — 있는데 열 수 없으면 보류/접근 제한, 골격에도 없으면 삭제 · 미발행(서로 다른 이유)
-    for (const sib of skeletonSiblings(t)) knownIds.add(sib.id)
-  }
-  const v3Compare = projectV3Pairs(
-    item.id,
-    inquiryHit.state === 'ready',
-    (id) => {
-      const o = openById.get(id)
-      return o ? { state: 'open' as const, ...o } : knownIds.has(id) ? { state: 'held' as const } : { state: 'missing' as const }
-    },
-    undefined,
-    inquiryBinding,
-  )
   const examId = item.id.split('#')[0]
   const paper = kiceSourceOf(examId)
   // 평가원 회차는 링크가 없으면 평가원 게시판으로, 학평은 갈 곳이 없다(평가원 게시판으로 보내지 않는다)
@@ -235,12 +164,13 @@ export default async function CsatItemTheaterPage({
       points={item.points}
       minutes={theaterMinutes(outline)}
       steps={steps}
-      blocks={blocks}
-      checks={checks}
-      comparePairs={comparePairs}
-      v3Pairs={v3Compare.pairs}
-      pairAbsence={v3Compare.absence}
-      pairWithheld={v3Compare.withheld}
+      lectureDisclosure={disclosure.verified ? { verified: true, stopBefore: disclosure.stopBefore, preStopRisk: disclosure.preStopRisk } : { verified: false }}
+      blocks={initial.blocks}
+      checks={initial.checks}
+      comparePairs={initial.comparePairs}
+      v3Pairs={initial.v3Pairs}
+      pairAbsence={loaded.pairAbsence}
+      pairWithheld={loaded.pairWithheld}
       initialPairId={first(sp.pair) ?? null}
       currentSlug={slug}
       compareReturn={(() => {
@@ -253,9 +183,9 @@ export default async function CsatItemTheaterPage({
         return { href: `/csat/item/${b}?scene=compare${pr ? `&pair=${encodeURIComponent(pr)}` : ''}${carry}`, label }
       })()}
       // 지금 읽은 분석 버전과 같은 버전으로 만든 탐구 데이터만 — 다르면 stale 로 빼고 기존 블록만 보인다
-      inquiry={inquiryHit.state === 'ready' ? inquiryHit.record : null}
+      inquiry={initial.inquiry}
       initialScene={parsedScene.scene}
-      meaningSupport={msHit.view}
+      meaningSupport={loaded.meaningSupport}
       initialMeaning={msParams?.unitId ?? null}
       initialDepth={msParams?.depth ?? 'brief'}
       initialRelation={msParams?.relationId ?? null}
@@ -278,11 +208,8 @@ export default async function CsatItemTheaterPage({
       // 같은 유형 다음 문항도 기출 탐구 조건(ret)을 이어 간다 — 「뒤로」 가 처음 고른 서가 조건으로 돌아가게
       next={nextPick ? { href: `/csat/item/${nextPick.item.slug}${browseReturn(first(sp.ret)) ? `?ret=${encodeURIComponent(browseReturn(first(sp.ret))!)}` : ''}`, label: `${nextPick.item.exam_label} ${nextPick.item.no}번` } : null}
       paper={{ catalog: paperCatalog, examId, no: item.no }}
-      gate={{
-        answer: item.answer != null && !item.answer_unknown ? item.answer : null,
-        evidence: skeleton?.anchors.find((x) => x.id === 'answer')?.sentences ?? [],
-        design: item.design,
-      }}
+      gate={initial.gate}
+      analysisVersion={item.analysis_version ?? null}
       typeId={item.type_id ?? ''}
       source={{ url: paperUrl, direct: paper.paperUrl != null, reason: paper.reason }}
       siblings={siblings
