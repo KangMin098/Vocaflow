@@ -184,6 +184,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): 기출 원문·근거·선지 결속 계층(대량작업 G, `lib/csat/binding`) — 공통 근거 앵커(span·unit·marker·value·condition·footnote, 판본 basis·precision) · 읽기 전용 어댑터(현재 원문 해시 단위 + 결속된 published 분석만) · 복수 정답·추출 결함·누락 각주·그림 전용 도표 값 검출 · 판본 무효화 · 학습자 PDF sha256 대조 탐색 · 유형별 준비도. 전수 감사 `apps/web/scripts/csat-binding-audit.mts`(DB 읽기 전용). DB·화면 변경 없음.
 - fix(db): 원격 동기화 차단 해소 — 마이그레이션 4건을 개발 DB 적용 이력(버전·본문)에 맞춤(`20261023043453` · `20261023020321` · `20261023061401` · `20261023082930`, 실행 SQL 동일) · 학습 정리 이벤트 2종을 `funnel_events_event_check` 에 추가(`20261024025906`, 사용자 승인 · 그동안 조용히 0건)
 - fix(csat): 코퍼스 지문 의심 판정에서 학평 요약문(R-SUMMARY)은 (A)·(B) 자리가 있으면 빈칸 표시 없이도 정상 — build-corpus 가 학평 `______` 를 지우면서 같은 유형에 빈칸을 요구하던 모순(학평 요약문 101건 중 약 74건이 이 규칙에만 걸림). 판정 함수를 `scripts/csat/lib-body-suspect.mjs` 로 옮기고 회귀 테스트 추가. DB `body_ok` 반영은 코퍼스 재생성 · 동기화(승인) 뒤
 - feat(csat): 최종 평가 결속 — 학습자가 목표 버전마다 「목표 시험 종류 · 응시일」을 최종 평가로 한 번 정하고(추론 금지), 그날 첫 풀이 live 기록만 goalOutcome 적격성으로 판정(met·not_met·not_judgeable·scheduled·awaiting_record). API `POST /api/csat/diagnosis/map/goal/final-assessment`. 제안 SQL `20261023082930_csat_goal_final_assessment`(추가 전용 테이블 + service_role writer) 2026-10-23 사용자 승인 후 개발 DB 적용(이력 20261023082930) · 실제 인증 종단 6/6.

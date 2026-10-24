@@ -21,8 +21,27 @@ export function glossesOf(text: string): { mark: string; term: string; gloss: st
   return [...text.matchAll(GLOSS)].map((m) => ({ mark: m[1], term: m[2].trim(), gloss: m[3].trim(), at: m.index ?? 0 }))
 }
 
+/**
+ * 각주 정의 용어가 표지 낱말의 것인가 — 굴절(constraints* ↔ constraint)과 구 용어(body clock ↔ clock*)를 허용한다.
+ * 맞는지 모르면 false — 그 표지는 정의 없음(unavailable)으로 남는다.
+ */
+export function glossMatches(term: string, word: string): boolean {
+  const w = word.toLowerCase().replace(/[’']s$/, '')
+  if (w.length < 2) return false
+  const stem = (s: string) => s.slice(0, Math.max(4, Math.min(s.length, w.length) - 2))
+  return term.toLowerCase().split(/[\s-]+/).some((t) => t.length >= 2 && (t === w || (t.length >= 4 && w.length >= 4 && (t.startsWith(stem(w)) || w.startsWith(stem(t))))))
+}
+
+/** 별표가 든 공백 단위 토큰이 주소·메일인가 — 안내문은 실제 주소를 「www.wabu*.com」 처럼 가린다(각주 표지가 아니다) */
+function inAddress(passage: string, at: number): boolean {
+  const s = passage.lastIndexOf(' ', at) + 1
+  const e = passage.indexOf(' ', at)
+  const token = passage.slice(s, e < 0 ? passage.length : e)
+  return /www\.|@|https?:|\.(?:com|org|net|kr|edu|gov)\b/i.test(token)
+}
+
 export function marksOf(passage: string): { mark: string; at: number; word: string }[] {
-  return [...passage.matchAll(MARK)].map((m) => {
+  return [...passage.matchAll(MARK)].filter((m) => !inAddress(passage, (m.index ?? 0) + m[1].length)).map((m) => {
     const at = (m.index ?? 0) + m[1].length
     const word = passage.slice(0, at).match(/([A-Za-z’'\-]+)\)?$/)?.[1] ?? ''
     return { mark: m[2], at, word }
@@ -62,17 +81,12 @@ export function detectDefects(item: ItemText): ExtractionDefect[] {
     }
   }
 
-  // 각주 표지는 있는데 정의가 지문·선지 어디에도 없다 — 같은 별표 수의 정의가 모자란 만큼
+  // 각주 표지는 있는데 그 낱말의 정의가 지문·선지 어디에도 없다 — 별표 수가 같고 용어가 표지 낱말과 맞는 정의만 짝으로 센다
   const allGlosses = [passage, ...choices].flatMap(glossesOf)
   const inlineGloss = new Set(glossesOf(passage).map((g) => g.at))
   const marks = marksOf(passage).filter((m) => ![...inlineGloss].some((g) => m.at >= g && m.at <= g + 3))
-  const byMark = new Map<string, number>()
-  for (const g of allGlosses) byMark.set(g.mark, (byMark.get(g.mark) ?? 0) + 1)
-  const seen = new Map<string, number>()
   for (const m of marks) {
-    const k = (seen.get(m.mark) ?? 0) + 1
-    seen.set(m.mark, k)
-    if (k > (byMark.get(m.mark) ?? 0)) {
+    if (!allGlosses.some((g) => g.mark === m.mark && glossMatches(g.term, m.word))) {
       out.push({ code: 'footnote_mark_without_gloss', mark: m.mark, at: m.at, context: passage.slice(Math.max(0, m.at - 20), m.at + 12).trim() })
     }
   }

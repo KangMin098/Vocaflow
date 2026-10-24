@@ -36,7 +36,9 @@ export function anchorValidity(a: EvidenceAnchor, cur: CurrentState): Validity {
   if (a.kind === 'span' || a.kind === 'condition') {
     if (p.slice(a.start, a.end) !== a.quote) reasons.push('text_mismatch')
   } else if (a.kind === 'marker') {
-    if (p.slice(a.at, a.at + a.mark.length) !== a.mark) reasons.push('text_mismatch')
+    // 표지 글자와 그 뒤 밑줄 시작 낱말(head)까지 대조한다 — 같은 길이로 낱말만 고친 원문을 잡는다(T-0154 F3)
+    const after = p.slice(a.at + a.mark.length).replace(/^\s+/, '')
+    if (p.slice(a.at, a.at + a.mark.length) !== a.mark || (a.head && !after.startsWith(a.head))) reasons.push('text_mismatch')
   } else if (a.kind === 'value' && a.span) {
     if (p.slice(a.span.start, a.span.end) !== a.raw) reasons.push('text_mismatch')
   }

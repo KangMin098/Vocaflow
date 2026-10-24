@@ -102,6 +102,11 @@ describe('오탐 방지', () => {
   it('H1811G1#27 「1:00 p.m. every day.」 는 조각이 아니다', () => {
     expect(codes('H1811G1#27')).not.toContain('orphan_fragment')
   })
+  it('가려진 주소·메일의 별표는 각주 표지가 아니다(M2609#27 · M2606#28 원문 꼴)', async () => {
+    const { detectDefects } = await import('../extraction')
+    const passage = 'Visit our website at www.wabu*.com and fill out the form. For more information, email us at wabu*@*mail.com. ※ Visit www.*s*gc*.com.'
+    expect(detectDefects({ typeId: 'R-NOTICE', passage, choices: ['a', 'b', 'c', 'd', 'e'] }).map((d) => d.code)).not.toContain('footnote_mark_without_gloss')
+  })
 })
 
 describe('결속된 문항 — 근거 앵커와 무효화', () => {
@@ -145,6 +150,54 @@ describe('결속된 문항 — 근거 앵커와 무효화', () => {
     const cur = { itemId: 'A', inputHash: 'h', passage: '', unitsVersion: 4, unitsHash: 'u', analysisVersion: 5 }
     expect(judgmentItemValidity({ id: 'A', version: { unitsVersion: 4, unitsHash: 'u', analysisVersion: 5 } }, cur).status).toBe('valid')
     expect(judgmentItemValidity({ id: 'A', version: { unitsVersion: 3, unitsHash: 'u', analysisVersion: 5 } }, cur)).toEqual({ status: 'stale', reasons: ['units_version'] })
+  })
+})
+
+describe('T-0154 Codex 독립 검증 반례 회귀', () => {
+  it('F4 — 결속 문항 H1811G1#27(v2)의 단위 앵커가 실제로 생성된다(정답 u8 · 선지별 번호)', () => {
+    const b = bind('H1811G1#27')
+    expect(b.analysisPick).toBe('bound')
+    expect(b.answerAnchors.filter((a) => a.kind === 'unit').map((a) => (a.kind === 'unit' ? a.n : 0))).toEqual([8])
+    expect(b.answerAnchors.some((a) => a.kind === 'span' && a.precision === 'exact')).toBe(true)
+    const units = (n: number) => b.choices[n - 1].anchors.filter((a) => a.kind === 'unit').map((a) => (a.kind === 'unit' ? a.n : 0))
+    expect([1, 2, 3, 4, 5].map(units)).toEqual([[4, 3], [5], [8], [10, 11], [13]])
+  })
+  it('F1 — 결속 판이 정답 하나를 빠뜨리면 최신 판이 다 맞아도 차단한다', () => {
+    const r = structuredClone(row('H1811G1#27'))
+    r.item.answers = [3, 5]
+    const bound = r.analyses[0]
+    const later = { ...structuredClone(bound), version: bound.version + 1, units_version: null, units_hash: null }
+    later.choice_analysis = later.choice_analysis!.map((c) => (c.n === 5 ? { ...c, verdict: 'correct' } : c))
+    r.analyses = [bound, later]
+    const b = bindItem(r)
+    expect(b.analysisVersion).toBe(bound.version)
+    expect(b.coverage).toEqual({ status: 'partial', missing: [5], extra: [] })
+    expect(b.reasons).toContain('multi_answer_partial_analysis')
+  })
+  it('F2 — 무관한 정의(* pottery)가 있어도 Hours* 의 빠진 각주는 unavailable', () => {
+    const r = structuredClone(row('2014A#29'))
+    const choices = r.item.choices as string[]
+    choices[4] = `${choices[4]} * pottery: 도자기`
+    const b = bindItem(r)
+    expect(b.reasons).toContain('footnote_missing')
+    const hours = b.structure.footnotes.find((f) => f.term === 'Hours')!
+    expect(hours.precision).toBe('unavailable')
+    expect(hours.gloss).toBeNull()
+  })
+  it('F2 — 굴절형 정의는 짝으로 인정한다(constraints* ↔ constraint)', async () => {
+    const { glossMatches } = await import('../extraction')
+    expect(glossMatches('constraint', 'constraints')).toBe(true)
+    expect(glossMatches('body clock', 'clock')).toBe(true)
+    expect(glossMatches('pottery', 'Hours')).toBe(false)
+  })
+  it('F3 — 표지 뒤 밑줄 시작 낱말만 같은 길이로 고쳐도 marker 앵커가 무효가 된다', () => {
+    const b = bind('2024#29')
+    const p = row('2024#29').item.passage!
+    const m = b.structure.markers[1]
+    const at = p.indexOf('which they', m.at)
+    const edited = p.slice(0, at) + 'X' + p.slice(at + 1)
+    const cur = { itemId: b.id, inputHash: b.basis.inputHash, passage: edited, unitsVersion: b.basis.unitsVersion, unitsHash: b.basis.unitsHash, analysisVersion: b.analysisVersion }
+    expect(anchorValidity(m, cur)).toEqual({ status: 'stale', reasons: ['text_mismatch'] })
   })
 })
 

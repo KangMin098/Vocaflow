@@ -7,7 +7,7 @@
 //     published 가 여러 판이어도(809문항) 결속이 맞지 않는 판은 근거로 쓰지 않는다.
 // 이 함수는 DB 를 고치지 않고, 없는 근거를 만들지 않는다. 확인할 수 없는 것은 차단 이유로 남긴다.
 import { answerCoverage, answerSetOf } from './answers'
-import { detectDefects, glossesOf, hasMissingFootnote, marksOf } from './extraction'
+import { detectDefects, glossesOf, glossMatches, hasMissingFootnote, marksOf } from './extraction'
 import { markerAnchors, UNDERLINE_TYPES } from './markers'
 import { choiceKeys, conditionAnchors, readValues, valueAnchors } from './values'
 import type {
@@ -175,7 +175,8 @@ export function bindItem(input: BindInput): BoundItem {
   const conditions = typeId === 'R-NOTICE' || typeId === 'R-FACT' || typeId === 'X-FACT' ? conditionAnchors(passage, structBasis) : []
   const glosses = [passage, ...choicesText].flatMap(glossesOf)
   const footnotes: FootnoteAnchor[] = marksOf(passage).map((m) => {
-    const g = glosses.find((x) => x.mark === m.mark)
+    // 별표 수만이 아니라 표지 낱말과 정의 용어가 맞아야 짝이다 — 무관한 정의를 빠진 각주에 붙이지 않는다(T-0154 F2)
+    const g = glosses.find((x) => x.mark === m.mark && glossMatches(x.term, m.word))
     return { kind: 'footnote', basis: structBasis, precision: g ? 'exact' : 'unavailable', mark: m.mark, term: g?.term ?? m.word ?? null, gloss: g?.gloss ?? null, at: m.at }
   })
 
@@ -185,12 +186,19 @@ export function bindItem(input: BindInput): BoundItem {
   const choices: ChoiceBinding[] = choicesText.map((_, i) => ({ n: i + 1, anchors: [] as EvidenceAnchor[] }))
   // 결함 검출은 결속과 무관하게 최신 published 판으로 한다 — 결속이 없다고 복수 정답 누락·근거 없는 수치를 못 보면 안 된다.
   // 근거 앵커는 아래에서 결속된 판(an)으로만 만든다.
+  // 근거로 쓰는 결속 판(an)과 최신 판 둘 다 검사한다 — 한쪽이 맞다고 다른 쪽의 누락을 덮지 않는다(T-0154 F1).
   const latest = [...input.analyses].filter((a) => a.status === 'published').sort((a, b) => b.version - a.version)[0] ?? null
-  const coverage: AnswerCoverage = latest ? answerCoverage(answer, latest.choice_analysis) : { status: 'no_analysis' }
-  if (latest && typeId === 'R-CHART') {
-    const loc = latest.answer_locus ?? {}
-    const claims = [loc.reasoning, ...(latest.choice_analysis ?? []).flatMap((c) => [c.why_correct, c.how_to_reject])].filter(Boolean).join(' \n ')
-    if (valueAnchors(claims, passage, structBasis).some((v) => v.imageOnly)) reasons.add('chart_value_unverified')
+  const checked = [...new Set([an, latest].filter((a): a is AnalysisRow => a != null))]
+  const coverages = checked.map((a) => answerCoverage(answer, a.choice_analysis))
+  // 화면이 보는 coverage 는 근거로 쓰는 판의 것. 결속 판이 없으면 최신 판
+  const coverage: AnswerCoverage = coverages[0] ?? { status: 'no_analysis' }
+  const partial = coverages.some((c) => c.status === 'partial')
+  if (typeId === 'R-CHART') {
+    for (const a of checked) {
+      const loc = a.answer_locus ?? {}
+      const claims = [loc.reasoning, ...(a.choice_analysis ?? []).flatMap((c) => [c.why_correct, c.how_to_reject])].filter(Boolean).join(' \n ')
+      if (valueAnchors(claims, passage, structBasis).some((v) => v.imageOnly)) reasons.add('chart_value_unverified')
+    }
   }
 
   if (an) {
@@ -215,7 +223,7 @@ export function bindItem(input: BindInput): BoundItem {
       answerAnchors.push(...valueAnchors(claims, passage, basis).filter((v) => !v.imageOnly))
     }
   }
-  if (answer.multiple && coverage.status === 'partial') reasons.add('multi_answer_partial_analysis')
+  if (answer.multiple && partial) reasons.add('multi_answer_partial_analysis')
 
   // ── 유형 구조를 선지에 붙인다 ──
   for (const slot of choices) {
