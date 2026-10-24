@@ -31,11 +31,21 @@ const ANSWER_HEAD = new RegExp(`정답은\\s*(오직|바로|단|딱)?\\s*(${LIST
  * 「(오직) ④(와 ⑤)(만/도/가) (모두) 정답」 · 「오 번도 정답으로 인정됐어요」.
  * 뒤에 「이 아니」·「에」·「을/를」·(인정이 아닌)「으로」가 오면 이 꼴이 아니다.
  */
-const ANSWER_TAIL = new RegExp(`(오직|단|딱)?\\s*(${LIST})\\s*(만이?|도|[이가은는])?\\s*(?:모두\\s*|둘\\s*다\\s*)?정답(?!\\s*이\\s*${NOT}|에|으로(?!\\s*인정)|을|를)`, 'g')
+/**
+ * 진술 바로 뒤에 올 수 있는 것 — 서술어 종결·연결(「이고 · 이며」)·쉼표·문장 끝·「으로 인정」뿐.
+ * 「정답이 될 수 없다 · 정답일 리 없다 · 정답이라는 말은 틀렸다 · 정답은커녕」은 여기서 끊겨 이 꼴로 읽히지 않는다(T-0158 Codex 6차 P1).
+ */
+const CLAIM_END = '(?=\\s*(?:입니다|이에요|예요|이다|이죠|죠|이고|이며|이에요|[,.。]|$|으로\\s*인정))'
+const ANSWER_TAIL = new RegExp(`(오직|단|딱)?\\s*(${LIST})\\s*(만이?|도|[이가은는])?\\s*(?:모두\\s*|둘\\s*다\\s*)?정답${CLAIM_END}`, 'g')
 /** 「④(와 ⑤)는 오답」 · 「오 번은 … 답이 아닙니다」 · 「⑤는 정답이 아닙니다」 */
-const REJECT = new RegExp(`(${LIST})\\s*(?:[은는이가도]|모두)?\\s*${GAP}(오답(?!\\s*이\\s*${NOT})|정?답이\\s*${NOT})`, 'g')
+const REJECT = new RegExp(`(${LIST})\\s*(?:[은는이가도]|모두)?\\s*${GAP}(오답${CLAIM_END}|정?답이\\s*${NOT}(?:니다|에요|다|고|며))`, 'g')
 const TALKS_ANSWER = /정답|오답|답이\s*아[니닙닌]/
 const ANY_NOT = new RegExp(NOT, 'g')
+/**
+ * 소비되지 않은 부분에 남으면 문장 뜻을 뒤집을 수 있는 말 — 남아 있으면 부분 해석을 버린다.
+ * (번호·「아니」만 보면 「④가 정답 … 틀렸습니다」의 뒤집기를 놓친다)
+ */
+const FLIP = /없|틀|커녕|않|못|잘못|거짓|아[니닙닌]|반대|대신|말고|빼고|제외|오답|정답/g
 
 export interface AnswerClaim {
   choices: number[]
@@ -70,6 +80,10 @@ export function readClaims(text: string): ClaimReading {
   const answers: AnswerClaim[] = []
   const rejected: number[] = []
   const unparsed: string[] = []
+  // 문장 밖에서 앞 진술을 뒤집는 응답(「④가 정답이죠? 아니요, ①입니다.」) — 문장 단위로는 못 읽는다
+  if (/아니요|아뇨|아니에요[,.]?\s*[①-⑤일이삼사오1-5]/.test(text) && refsIn(text).length > 0) {
+    return { answers: [], rejected: [], unparsed: [text.trim()] }
+  }
   for (const raw of text.split(/(?<=[.。?!])\s*/)) {
     const sentence = raw.trim()
     if (!sentence || !TALKS_ANSWER.test(sentence)) continue
@@ -95,7 +109,10 @@ export function readClaims(text: string): ClaimReading {
     // 소비되지 않은 선지 번호나 부정이 남았으면 이 문장은 사람이 읽는다
     const strayRef = refsIn(sentence).some((r) => !inside(r.at, used))
     const strayNot = [...sentence.matchAll(ANY_NOT)].some((m) => !inside(m.index!, used))
-    if (strayRef || strayNot || (mine.length === 0 && mineRejected.length === 0)) {
+      || [...sentence.matchAll(FLIP)].some((m) => !inside(m.index!, used))
+    // 물음은 단언이 아니다 — 「④가 정답이죠?」를 정답 진술로 세지 않는다
+    const question = /[?？]\s*$/.test(sentence)
+    if (strayRef || strayNot || question || (mine.length === 0 && mineRejected.length === 0)) {
       unparsed.push(sentence)
       continue
     }

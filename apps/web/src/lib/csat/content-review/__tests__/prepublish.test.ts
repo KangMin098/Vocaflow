@@ -250,3 +250,43 @@ describe('T-0158 5차 반례 — 부분 해석 금지(fail-closed) · 부정 범
     expect(run([4, 5], '사 번이 정답입니다. 오 번도 정답이에요.').findings).toEqual([])
   })
 })
+
+describe('T-0158 6차 반례 — 진술 뒤 뒤집기', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    [[4], '④가 정답이 될 수 없습니다.'],
+    [[4], '④가 정답일 리 없습니다.'],
+    [[4], '④가 정답이라는 말은 틀렸습니다.'],
+    [[4], '④가 정답은커녕 오답입니다.'],
+    [[4, 5], '④가 정답이고 ⑤가 정답은커녕 오답입니다.'],
+    [[4], '④가 정답이고 그 반대로 읽으면 안 됩니다.'],
+    [[4], '정답은 ④, 하지만 틀린 설명입니다.'],
+  ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
+    expect(run(answers, text).blocked).toBe(true)
+  })
+  it('정상 연결은 그대로 통과', () => {
+    expect(run([4], '④가 정답이고, ⑤는 오답입니다.').findings).toEqual([])
+    expect(run([4], '정답은 사 번입니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 6차 자체 반례 — 물음·문장 밖 부정 응답', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '④가 정답이죠? 아니요, ①입니다.',
+    '④가 정답이죠? 아뇨.',
+    '사 번이 정답일까요?',
+  ])('{4} · %s → 차단(사람 확인)', (text) => {
+    expect(run([4], text).blocked).toBe(true)
+  })
+})
