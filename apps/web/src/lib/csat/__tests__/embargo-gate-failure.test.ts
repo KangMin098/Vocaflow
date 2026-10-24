@@ -7,7 +7,13 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 const gate = vi.hoisted(() => ({ mode: 'error' as 'error' | 'hang' | 'held' | 'clear' }))
 
 vi.mock('@/lib/supabase/server', () => ({
-  createClient: async () => ({ auth: { getUser: async () => ({ data: { user: { id: 'u1' } } }) } }),
+  // 전체 강의는 정답 노출 원장(learning_exposures)이 먼저 있어야 준다(T-0147) — 대조군이 「관문 통과 → 데이터」를 보도록 노출 1행을 둔다
+  createClient: async () => {
+    const q: Record<string, unknown> = {}
+    for (const m of ['select', 'eq']) q[m] = () => q
+    q.limit = async () => ({ data: [{ id: 1 }], error: null })
+    return { auth: { getUser: async () => ({ data: { user: { id: 'u1' } } }) }, from: () => q }
+  },
 }))
 vi.mock('@/lib/supabase/admin', () => ({
   createAdminClient: () => ({
