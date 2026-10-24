@@ -142,7 +142,9 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     for (const id of ['judgment', 'distractors', 'checks', 'compare']) expect(theater).toContain(`withheldPanel('${id}'`)
     expect(theater).toMatch(/scene === 'judgment' && v3 && !withheld \? <V3Judgment/)
     expect(theater).toMatch(/sceneChecks\.length && !withheld \? \(\s*<UnderstandingChecks/)
-    expect(theater).toMatch(/scene === 'compare' && !withheld \? \(\s*<V3CompareExplorer/)
+    // (b) R147-06 — 비교는 정답을 받은 뒤에만(첫 응답에 비교 쌍이 없다)
+    expect(theater).toMatch(/scene === 'compare' && !withheld && revealed \? \(\s*<V3CompareExplorer/)
+    expect(theater).toMatch(/scene === 'compare' && \(withheld \|\| !revealed\) \? withheldPanel\('compare'/)
     expect(theater).toMatch(/withheld \? withheldPanel\('distractors', '오답 설계'\) : <DistractorDesign/)
     // r6 R6-01 — 저장된 예측 대조 카드 · 완료 카드 채점도 동의 전에는 없다
     // (b) — 대조 · 채점은 서버가 정답을 돌려준(revealed) 뒤에만

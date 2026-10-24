@@ -69,7 +69,9 @@ describe('첫 응답(문항 페이지 HTML · RSC props)', () => {
     expect(payload).not.toContain('selected_as_answer')
     expect(initial.inquiry?.distractors).toEqual([])
     expect(initial.inquiry?.principle).toBeNull()
-    expect(initial.v3Pairs[0].mappings[0].self).toEqual({ sentences: [6] })
+    // v3 비교 쌍은 통째로 공개 응답으로(R147-06 — relation 문장이 오답 소거를 적는다)
+    expect(initial.v3Pairs).toEqual([])
+    expect(payload).not.toContain('같은 일반화')
     expect(payload).not.toMatch(/"choices":\[\d/)
   })
 
@@ -112,22 +114,20 @@ function sortKeys(v: unknown): unknown {
 }
 
 describe('원문 이해 교수 설명(meaningSupport) — 실제 배포 정본 전체', () => {
-  it('첫 응답에 단위 ↔ 선지 · 설계 주장 연결이 없고, 단위 설명은 남으며, 합치면 돌아온다(R147-01)', async () => {
+  it('첫 응답에 교수 설명이 통째로 없고(본문도 선지 판정을 적는다), 공개 응답이 그대로 돌려준다(R147-01 · R147-05)', async () => {
     const data = (await import('@/lib/csat/meaning-support-data.json')).default as unknown as { items: Record<string, MeaningSupportView> }
     const ids = Object.keys(data.items)
     expect(ids.length).toBeGreaterThan(0)
-    let linked = 0
+    // 재현 전제 — 실제 정본 본문에 선지 판정 문장이 있다(2026#30 「⑤는 이와 충돌한다」 · 2026#35 「흐름 밖의 문장 … (④)」)
+    expect(JSON.stringify(data.items['2026#30'] ?? '')).toContain('⑤는 이와 충돌한다')
+    expect(JSON.stringify(data.items['2026#35'] ?? '')).toMatch(/흐름 밖의 문장[^"]*\(④\)/)
     for (const id of ids) {
       const v = data.items[id]
-      if (v.bridges.some((b) => b.choiceNumbers.length > 0)) linked++
-      const { initial: i, bridges } = splitMeaningSupport(v)
-      expect(i!.bridges.every((b) => b.choiceNumbers.length === 0 && b.designClaimIndices.length === 0)).toBe(true)
-      expect(i!.units).toEqual(v.units)
-      expect(mergeMeaningSupport(i, bridges)).toEqual(v)
+      const { initial: i, reveal: r } = splitMeaningSupport(v)
+      expect(i).toBeNull()
+      expect(mergeMeaningSupport(i, r)).toEqual(v)
     }
-    // 재현 전제 — 실제 정본에 선지 연결이 있다(없으면 이 검사가 아무것도 지키지 않는다)
-    expect(linked).toBeGreaterThan(0)
-    expect(splitMeaningSupport(null)).toEqual({ initial: null, bridges: null })
+    expect(splitMeaningSupport(null)).toEqual({ initial: null, reveal: null })
   })
 })
 

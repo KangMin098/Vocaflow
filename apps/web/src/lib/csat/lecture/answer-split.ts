@@ -40,12 +40,12 @@ export interface AnswerReveal {
   placements: MapPlacement[]
   checks: UnderstandingCheck[]
   comparePairs: ComparePair[]
-  /** v3 쌍별 매핑 선지 번호(매핑 순서대로) */
-  v3Choices: { pairId: string; choices: { self?: number[]; other?: number[] }[] }[]
+  /** v3 비교 쌍 전체 */
+  v3Pairs: V3PairView[]
   inquiry: Pick<InquiryRecord, 'distractors' | 'principle'> & { v3?: { choices: NonNullable<InquiryRecord['v3']>['choices']; claims: NonNullable<InquiryRecord['v3']>['design']['claims']; limitation: string; conditions: string[]; meanings: NonNullable<InquiryRecord['v3']>['meanings'] } }
   gate: { answer: number | null; evidence: number[]; selection: string | null; transform_note: string | null }
-  /** 원문 이해 교수 설명의 단위 ↔ 선지 · 설계 주장 연결(`splitMeaningSupport`) — 교수 설명이 없으면 null */
-  msBridges?: MeaningSupportView['bridges'] | null
+  /** 원문 이해 교수 설명 전체(`splitMeaningSupport`) — 없으면 null */
+  meaningSupport?: MeaningSupportView | null
 }
 
 const ANSWER_CHIP = /^정답 \S+$/
@@ -93,7 +93,8 @@ export function splitAnswer(full: TheaterAnswerData, analysisVersion: number | n
       placements: [],
       checks: [],
       comparePairs: [],
-      v3Pairs: full.v3Pairs.map((p) => ({ ...p, mappings: p.mappings.map((m) => ({ ...m, self: { sentences: m.self.sentences }, other: { sentences: m.other.sentences } })) })),
+      // v3 비교 쌍은 통째로 공개 응답으로 — 선지 번호를 빼도 relation · focus · differences 문장이 오답 소거를 적는다(R147-06: 2014A#23 「왼쪽 ①은 …」)
+      v3Pairs: [],
       inquiry: initialInquiry,
       gate: { answer: null, evidence: [], design: design ? { ...design, selection: '', transform_note: '' } : design },
     },
@@ -104,7 +105,7 @@ export function splitAnswer(full: TheaterAnswerData, analysisVersion: number | n
       placements: full.placements,
       checks: full.checks,
       comparePairs: full.comparePairs,
-      v3Choices: full.v3Pairs.map((p) => ({ pairId: p.pairId, choices: p.mappings.map((m) => ({ ...(m.self.choices ? { self: m.self.choices } : {}), ...(m.other.choices ? { other: m.other.choices } : {}) })) })),
+      v3Pairs: full.v3Pairs,
       inquiry: {
         distractors: full.inquiry?.distractors ?? [],
         principle: full.inquiry?.principle ?? null,
@@ -132,12 +133,7 @@ export function mergeReveal(initial: TheaterAnswerData, reveal: AnswerReveal): T
     placements: reveal.placements,
     checks: reveal.checks,
     comparePairs: reveal.comparePairs,
-    v3Pairs: initial.v3Pairs.map((p) => {
-      const c = reveal.v3Choices.find((x) => x.pairId === p.pairId)?.choices
-      return c
-        ? { ...p, mappings: p.mappings.map((m, i) => ({ ...m, self: { ...m.self, ...(c[i]?.self ? { choices: c[i].self } : {}) }, other: { ...m.other, ...(c[i]?.other ? { choices: c[i].other } : {}) } })) }
-        : p
-    }),
+    v3Pairs: reveal.v3Pairs,
     inquiry: initial.inquiry
       ? {
           ...initial.inquiry,
@@ -165,14 +161,14 @@ export function mergeReveal(initial: TheaterAnswerData, reveal: AnswerReveal): T
 }
 
 /**
- * 원문 이해 교수 설명(meaningSupport) — 단위 · 명제 · 관계 설명(근거 탐색)은 첫 응답에 두고, 단위 ↔ 선지 번호 · 설계 주장 연결(bridges)만
- * 공개 응답으로 옮긴다(T-0147 Codex R147-01: ready 27건 전부 choiceNumbers 가 정답 선지를 가리켰다 · 2026#21 u1 → 선지 2).
+ * 원문 이해 교수 설명(meaningSupport) — 통째로 공개 응답으로 옮긴다. 선지 연결(bridges)만이 아니라 본문도 선지 판정을 적는다
+ * (T-0147 Codex R147-01 · R147-05: 2026#30 whole.summaryKo 「⑤는 이와 충돌한다」 · 2026#35 units 「흐름 밖의 문장 … (④)」).
+ * 문장 단위 결정성 감수 전까지 첫 응답에는 싣지 않는다(fail-closed) — 의미 장면은 그동안 v3 의미 단위(정답 가리키는 것 제외)로 탐색한다.
  */
-export function splitMeaningSupport(view: MeaningSupportView | null): { initial: MeaningSupportView | null; bridges: MeaningSupportView['bridges'] | null } {
-  if (!view) return { initial: null, bridges: null }
-  return { initial: { ...view, bridges: view.bridges.map((b) => ({ ...b, choiceNumbers: [], designClaimIndices: [] })) }, bridges: view.bridges }
+export function splitMeaningSupport(view: MeaningSupportView | null): { initial: MeaningSupportView | null; reveal: MeaningSupportView | null } {
+  return { initial: null, reveal: view }
 }
 
-export function mergeMeaningSupport(initial: MeaningSupportView | null, bridges: MeaningSupportView['bridges'] | null | undefined): MeaningSupportView | null {
-  return initial && bridges ? { ...initial, bridges } : initial
+export function mergeMeaningSupport(initial: MeaningSupportView | null, revealed: MeaningSupportView | null | undefined): MeaningSupportView | null {
+  return revealed ?? initial
 }

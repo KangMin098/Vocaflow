@@ -12,6 +12,7 @@
 // 누른 뒤에 여기서 받는다 — 화면 HTML 에 대본이 남지 않게(지시문 A1 · F2).
 // 문항 화면과 같은 문턱(로그인)을 둔다.
 
+import type { SupabaseClient } from '@supabase/supabase-js'
 import { NextResponse } from 'next/server'
 
 import { canRevealItem, revealHeldResponse } from '@/lib/csat/embargo-gate'
@@ -55,6 +56,22 @@ export async function GET(req: Request) {
     return NextResponse.json(
       { ok: true, lecture: lectureUntil(lecture, d.stopBefore), disclosure: { scope: 'until', verified: true, stopBefore: d.stopBefore, preStopRisk: d.preStopRisk } },
       { headers: { 'cache-control': 'no-store' } },
+    )
+  }
+  // 전체(정답 포함) 대본은 이 학습자의 정답 노출이 원장에 먼저 커밋돼 있어야 준다(판단 장면 (b) · T-0147 R147-03).
+  // 기록은 판단 라우트(POST /api/csat/item/[slug]/judgment · source lecture_full · lecture_continue)가 남긴다. 본인 행만 보이는 RLS 로 확인 —
+  // 조회가 실패해도 없다고 보고 내주지 않는다(fail-closed)
+  const { data: exposed, error: expErr } = await (supabase as unknown as SupabaseClient)
+    .from('learning_exposures')
+    .select('id')
+    .eq('user_id', user.id)
+    .eq('item_ref', itemId)
+    .eq('kind', 'answer_direct')
+    .limit(1)
+  if (expErr || !exposed?.length) {
+    return NextResponse.json(
+      { ok: false, error: '정답이 담긴 전체 강의는 정답 공개를 고른 뒤에 열려요', disclosure: { scope: 'full', needsReveal: true } },
+      { status: 403, headers: { 'cache-control': 'no-store' } },
     )
   }
   return NextResponse.json({ ok: true, lecture, disclosure: { scope: 'full' } }, { headers: { 'cache-control': 'no-store' } })

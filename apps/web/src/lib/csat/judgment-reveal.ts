@@ -119,11 +119,11 @@ export async function loadTheaterAnswer(item: CsatItemExplain): Promise<TheaterL
   }
   const { initial, reveal } = splitAnswer(full, item.analysis_version ?? null)
   // v3.1 원문 이해 교수 설명 — 문항 접근 · 탐구 ready 뒤에만, 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때 문항 1개 projection.
-  // 단위 ↔ 선지 연결(bridges)은 공개 응답으로
+  // 교수 설명은 통째로 공개 응답으로(본문도 선지 판정을 적는다 — answer-split.ts splitMeaningSupport)
   const ms = splitMeaningSupport(lookupMeaningSupport(item.id, item.analysis_version, inquiryHit.state === 'ready', { skeletonChars: skeleton?.sentences.map((s) => s.chars) ?? null }).view)
   return {
     initial,
-    reveal: { ...reveal, msBridges: ms.bridges },
+    reveal: { ...reveal, meaningSupport: ms.reveal },
     meaningSupport: ms.initial,
     skeleton,
     mapReady: Boolean(skeleton && shown.length > 0),

@@ -586,7 +586,7 @@ export function AnalysisTheater({
   // 자기 설명 · 원리 노트 작성 초안은 없다(T-0091 학습 정리 전환) — 탭 메모리의 옛 초안 칸(item-tab-memory)은 손대지 않고 둔다
   // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이 · 구절)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다.
   //   주소에는 검증된 meaning · depth · rel · bridge 만 싣는다(초안 · 구절 선택은 싣지 않는다). 뒤로/앞으로는 주소에서 모두 되살린다.
-  const ms = useMemo(() => mergeMeaningSupport(initialMeaningSupport, revealed?.msBridges), [initialMeaningSupport, revealed])
+  const ms = useMemo(() => mergeMeaningSupport(initialMeaningSupport, revealed?.meaningSupport), [initialMeaningSupport, revealed])
   const [msUnit, setMsUnit] = useState<string | null>(initialMeaning ?? ms?.defaultUnitId ?? null)
   const [msRelation, setMsRelation] = useState<string | null>(initialRelation)
   const [msDepth, setMsDepth] = useState<MsDepth>(initialDepth)
@@ -915,7 +915,7 @@ export function AnalysisTheater({
   const withheldPanel = (id: string, title: string) => (
     <section key={id} className={styles.block} data-withheld="true" data-testid={`withheld-${id}`} aria-label={title}>
       <h2>{title}</h2>
-      <p className="break-keep">「정답 직접 안내 전까지」 를 골라 정답 · 오답을 정하는 내용은 아직 감춰 두었어요.</p>
+      <p className="break-keep">{withheld ? '「정답 직접 안내 전까지」 를 골라 정답 · 오답을 정하는 내용은 아직 감춰 두었어요.' : '정답 · 오답을 정하는 내용이라 정답을 요청한 뒤에 보여요. 열면 「정답을 본 뒤」 로 기록돼요.'}</p>
       {revealButton}
     </section>
   )
@@ -1585,8 +1585,8 @@ export function AnalysisTheater({
                   {sceneChecks.length && !withheld ? (
                     <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
                   ) : null}
-                  {scene === 'compare' && withheld ? withheldPanel('compare', '기출 비교') : null}
-                  {scene === 'compare' && !withheld ? (
+                  {scene === 'compare' && (withheld || !revealed) ? withheldPanel('compare', '기출 비교') : null}
+                  {scene === 'compare' && !withheld && revealed ? (
                     <V3CompareExplorer
                       key={`cmp-${itemId}`}
                       pairs={v3Pairs}
@@ -1604,7 +1604,7 @@ export function AnalysisTheater({
                       onFindOther={finder ? () => openFinder('compare') : undefined}
                     />
                   ) : null}
-                  {scene === 'compare' && !withheld ? (
+                  {scene === 'compare' && !withheld && revealed ? (
                     comparePairs.length ? (
                       <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">
                         <p className="break-keep text-[13px] text-[var(--t2)]">아래는 v3 검수 전의 1차 비교 메모예요(문장 근거와 결속되지 않았어요).</p>
