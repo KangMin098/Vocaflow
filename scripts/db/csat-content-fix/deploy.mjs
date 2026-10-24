@@ -29,7 +29,7 @@ const RUNNER = 'csat-content-fix'
 /** 단계 = 승인된 SQL 하나. sha256 은 사용자가 대화에서 승인한 값 그대로. verify 는 (ok boolean, detail) 한 행. */
 export const STAGES = {
   'hk-meta-r2': {
-    sha256: '7e101b7e08ede44c2e3d694c0207156337208252ac5106e0a4bac55ac56eb7e9',
+    sha256: '03a9c004fdfe4548c5e010e1daefdd006cf9fb4854a2f23abcecf9563fa0f11c',
     verify: `select count(*) = 14, count(*)::text from public.csat_item_analyses where analyst_run = 'vf-20261025-fix-round2' and status = 'in_review'`,
   },
 }
