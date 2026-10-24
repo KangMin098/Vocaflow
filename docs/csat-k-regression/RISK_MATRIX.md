@@ -27,7 +27,7 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 | `gaps.ts` | 결함 등록부(open / fixed) |
 | `k-contracts.test.ts` | 지금 지켜지는 계약. PASS 만 담는다 |
 | `k-repro.test.ts` | open 결함 재현. 결함이 있다는 것을 직접 단언한다 |
-| `k-targets.test.ts` | 고친 뒤의 목표 동작. open 동안 skip 이다 |
+| `k-targets.test.ts` | 고친 뒤의 목표 동작. open 동안은 `TARGETS` 표에 보관만 하고 테스트로 등록하지 않는다(r4) |
 | `k-registry.test.ts` | 등록부 · 재현 · 목표 · 이 표의 정합 |
 
 ## 대응표
@@ -72,8 +72,8 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 ### K6-a 상세
 - DB 함수 `learning_attempt_independence` 는 같은 `item_ref` 의 노출만 본다. 2026-10-24 `pg_get_functiondef` 로 확인했다.
 - 앱 노출 원장은 같은 지문 해시를 쓰는 문항까지 노출로 본다.
-- DB 쪽 재현 테스트는 P6 마이그레이션이 기준에 없어 skip 이다(NOT_IN_BASELINE). 앱 쪽 재현만 실행된다(`exposureOf` 행동 단언).
-- 목표 테스트는 아직 없다(NOT_IMPLEMENTED). DB·앱 행동 비교는 P6 스키마를 PGlite 에 올려야 해서, 고치는 owner 가 `target('K6-a', …)` 로 작성한다. 그 전에 fixed 로 바꾸면 `k-targets` 끝의 결속 테스트가 실패한다. SQL 문자열 검사는 목표가 될 수 없다(T-0155 K-R1).
+- DB 쪽 재현은 P6 마이그레이션이 기준에 없어 등록하지 않는다(NOT_IN_BASELINE · 재현 NOT_RUN). 대신 「기준에 없다」 사실만 단언한다(r4). 앱 쪽 재현만 실행된다(`exposureOf` 행동 단언).
+- 목표 테스트는 아직 없다(NOT_IMPLEMENTED). DB·앱 행동 비교는 P6 스키마를 PGlite 에 올려야 해서, 고치는 owner 가 `TARGETS['K6-a']` 에 넣고 `NOT_IMPLEMENTED` 에서 뺀다. 그 전에 fixed 로 바꾸면 목표 보관 정합 테스트가 실패한다. SQL 문자열 검사는 목표가 될 수 없다(T-0155 K-R1).
 
 ### K6-b 상세
 - `loadExposureLedger` 는 원장 6종만 읽는다: G2 시도·세션, 함정, 문제지, 복습 큐, 진단.
@@ -115,7 +115,7 @@ P6 마이그레이션(`e9c2fe99c`)은 아직 없다.
 | `judgment/__tests__/server.live.test.ts` 8건 | 라이브 DB 환경 미설정으로 skip. K 소관 아님, NOT_RUN |
 | T-0152 · T-0145 | 공식 미완료 그대로(READY · BLOCKED) |
 
-## skip 12건의 공식 처리 (DL-0208)
+## skip 12건의 공식 처리 (DL-0208 · r4 로 대체됨, 기록 보존)
 - 목표 11건은 open 결함의 적용 제외다. 결함을 고친 뒤 fixed 로 바꿔야만 돈다. PASS 가 아니다.
 - DB 재현 1건은 NOT_RUN 이다. P6 마이그레이션이 기준에 들어오면 자동 실행된다.
 - AI-Control 완료 게이트는 범위 안 skip 을 통과로 세지 않고, 공식 적용 제외 기능이 없다. 게이트를 고치거나 우회하지 않았다. 그래서 T-0155 는 REVIEW 다.

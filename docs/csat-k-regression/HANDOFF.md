@@ -38,7 +38,7 @@ K 세션은 공유 제품 파일 · DB 를 고치지 않는다. 각 owner 가 �
   - 동일 지문 공유 문항 간 노출의 의미를 정의한다.
   - DB · 앱에서 같은 판정 계약을 쓴다.
 - DB 변경 조건: SQL 전문 · SHA-256 · 영향 분석 · 복구 절차를 제출하고 사용자 승인을 받기 전에는 실행하지 않는다.
-- 목표 테스트: DB·앱 행동을 비교하는 PGlite 테스트를 고치는 owner 가 `k-targets` 에 `target('K6-a', …)` 로 넣는다. 목표 없이 fixed 로 바꾸면 결속 테스트가 실패한다.
+- 목표 테스트: DB·앱 행동을 비교하는 PGlite 테스트를 고치는 owner 가 `k-targets` 의 `TARGETS['K6-a']` 에 넣고 `NOT_IMPLEMENTED` 목록에서 뺀다. 목록에 있는 동안 fixed 로 바꾸면 목표 보관 정합 테스트가 실패한다.
 
 ## K6-b → P6 · 학습기록 — **우선 처리** (T-0155 run 2 에서 추가)
 - 재현: `loadExposureLedger` 가 `learning_exposures` 를 읽지 않는다. 정답 직접 노출이 있어도 그 문항은 `unseen` 이다. 가짜 DB 로 행동을 단언했다.
