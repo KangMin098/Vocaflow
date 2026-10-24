@@ -1,0 +1,13 @@
+{"persona":"tutor","verdict":"pass","findings":[
+"이력: 1차 판정은 revise였다. 4단계 on_fail 이 판정 결과를 다시 적고 ③을 미리 짚었기 때문이다. 제안 문안으로 바뀐 것을 재확인했다.",
+"새 4단계 on_fail 은 각주를 못 찾았을 때 * 표시 찾기 → 각주 문장 읽기 → every 뒤 낱말·first 확인 → 선지 주기와 대조라는 실제 행동을 준다.",
+"새 on_fail 은 선지 번호와 결론을 말하지 않아 다른 단계와 형식이 맞는다. 정답 ⑤ 를 미리 짚는 단계는 없다.",
+"5단계는 서로 다른 항목을 다루고 순환 표현이 없다.",
+"강의 c9·탐구 6곳·how_to_reject·design_intent 는 모두 ③ 불일치로 v6 와 같은 판정을 말한다.",
+"각주 위치 안내는 학습자가 직접 찾는 행동으로 옮길 수 있다."
+],"checked":[
+"FINAL_CONTENT.json 의 갱신된 solve_procedure[3].on_fail",
+"FINAL_CONTENT.json 의 v6 변경 3곳·강의 c9·탐구 6곳에 보류 문안이 남지 않음",
+"official_2014A_29.txt 의 Hours 각주(first Monday of every month)와 정답 ⑤",
+"DB v5 solve_procedure 5단계·required_vocab·time_budget_sec 70 (SELECT 만)"
+]}

@@ -1,0 +1,13 @@
+{"persona":"analyst","verdict":"pass","findings":[
+"정답 5는 csat_items.answer=5, 공식 문제지 정답 ⑤와 일치한다.",
+"오답 넷은 서로 다른 항목·성분을 짚는다: ① 비용 조건(Fees·[3][6]), ② 비교 방향(Hours·[4][5]), ③ 휴관 주기(Hours 각주), ④ 금액 대상(Fees·[6]).",
+"③의 새 근거 'the first Monday of every month'는 공식 각주 원문과 사실이 일치하고, '매주'와 주기를 대조하는 판정이 맞다.",
+"design_intent의 '오답 넷' 서술이 choice_analysis 4개 distractor, ⑤ why_correct의 '나머지 넷'과 일관된다.",
+"사소한 점: ③ how_to_reject는 [4] Hours를, 강의 c9는 '다섯 번째 문장 끝'([5])을 위치로 짚는다. 각주가 [4]와 [5]에 걸친 것으로 보여 모순은 아니지만, 표기를 하나로 맞추면 더 명확하다.",
+"근거 없는 유인·심리 서술은 없다. '휴관 범위를 넓힌 함정'은 매월 1회에서 매주로 바뀐 사실에 근거한 서술이다."
+],"checked":[
+"FINAL_CONTENT.json v6 변경 3곳·강의 c9·탐구 6곳",
+"official_2014A_29.txt Hours 각주와 선지",
+"current.json 옛 보류 문안 대비",
+"DB v5 choice_analysis·answer_locus·design_intent, csat_items.answer (SELECT만)"
+]}
