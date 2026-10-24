@@ -45,7 +45,8 @@ test('rebindReview — 자기 리뷰 · 미완료 · 통과 아닌 판정 · 검
   assert.throws(run({}, 'author', ok), /SELF_REVIEW|자기/)
   assert.throws(run({ status: 'REVIEW' }, 'reviewer', ok), /COMPLETED 만/)
   assert.throws(run({}, 'reviewer', `{"verdict":"REQUEST_CHANGES","commit":"${COMMIT}"}`), /통과\(APPROVE\|PASS\)만/)
-  assert.throws(run({}, 'reviewer', '{"verdict":"APPROVE"}'), /검증 커밋/)
+  assert.throws(run({}, 'reviewer', '```json\n{"verdict":"APPROVE"}\n```'), /검증 커밋/)
+  assert.throws(run({}, 'reviewer', '{"verdict":"APPROVE"}'), /json 판정이 없음/)
   assert.throws(run({}, 'nobody', ok), /등록된 owner/)
 })
 
@@ -69,4 +70,22 @@ test('pathInScope — 끝이 「/」 인 디렉터리 표기는 그 아래 전�
   assert.equal(T.pathInScope('docs/xy/a.md', ['docs/x/']), false)
   assert.equal(T.pathInScope('docs/x', ['docs/x/']), false)
   assert.equal(T.pathInScope('supabase/migrations/a.sql', ['supabase/']), true)
+})
+
+test('rebindReview — 판정은 마지막 json 블록만: 앞의 예시 APPROVE · 다른 커밋 승인은 거부(Codex P1-01 · P1-02)', () => {
+  const OTHER = '1111111111111111111111111111111111111111'
+  const run = (text) => { const { state: s } = state(); return () => T.rebindReview(s, 'T-9', { caller: 'reviewer', review_path: write(`p-${Math.random()}.md`, text) }) }
+  const example = `예시 \`{"verdict":"APPROVE"}\` ${COMMIT}\n\`\`\`json\n{"verdict":"REQUEST_CHANGES","commit":"${COMMIT}","findings":[{"severity":"P1"}]}\n\`\`\`\n`
+  assert.throws(run(example), /마지막 json 판정이 REQUEST_CHANGES/)
+  const other = `검증 커밋 ${COMMIT} 참고\n\`\`\`json\n{"verdict":"APPROVE","commit":"${OTHER}"}\n\`\`\`\n`
+  assert.throws(run(other), /commit/)
+  assert.throws(run(`\`\`\`json\n{"verdict":"APPROVE","commit":"${COMMIT.slice(0, 7)}"}\n\`\`\``), /commit/)
+})
+
+test('staticGates — json 블록이 있으면 마지막 블록 판정만 본다', () => {
+  const text = `예시 "verdict":"APPROVE"\n\`\`\`json\n{"verdict":"REQUEST_CHANGES"}\n\`\`\`\n`
+  fs.writeFileSync(path.join(root, 'h.md'), text)
+  const task = { task_id: 'T-7', status: 'COMPLETED', verified_commit: COMMIT, review_record: 'h.md', review_record_sha256: sha(text), impact: { parent_goal_id: 'VG-1' }, allowed_paths: ['scripts/**'] }
+  const git = (...a) => (a[1] === '--name-status' ? 'M\tscripts/a.mjs' : '+++ b/x\n+const y = 1')
+  assert.ok(staticGates({ task, head: COMMIT, base: 'b', git, reviewRoot: root }).fail.some((f) => /REQUEST_CHANGES/.test(f)))
 })
