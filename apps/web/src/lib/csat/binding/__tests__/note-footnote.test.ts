@@ -40,6 +40,13 @@ describe('안내문 문장형 각주', () => {
     expect(notesOf('Hours* Open daily. * The office is closed\non holidays.').map((n) => n.note)).toEqual(['The office is closed\non holidays.'])
     expect(notesOf('Hours* Open daily. * The office is closed\n\non holidays.')).toEqual([])
   })
+  it('소문자 약어(vol. · pp. · fig. · cf.)에서 끝나도 범위 미확정 · CRLF 줄 넘김 인식(T-0166 R3)', () => {
+    for (const p of ['Hours* Open daily. * Please read vol. II for details.', 'Hours* Open daily. * Please see pp. 12 through 15.', 'Hours* Open daily. * Please see fig. 3 for details.', 'Hours* Open daily. * For details cf. Smith and Jones.'])
+      expect(notesOf(p).every((n) => n.ambiguous)).toBe(true)
+    expect(notesOf('Hours* Open daily. * The office is closed\r\non holidays.').map((n) => n.ambiguous)).toEqual([false])
+    // 끝 낱말이 5자 이상 소문자일 때만 exact — 2014A#29 「month.」
+    expect(notesOf('Hours* Open daily. * The office is closed on public holidays.')[0].ambiguous).toBe(false)
+  })
   it('따옴표 · 괄호 · 숫자로 시작하는 문장 각주도 짝이다(T-0166 R1 P3)', () => {
     expect(notesOf('Hours* Open daily. * "The office is closed on holidays."').map((n) => n.note)).toEqual(['"The office is closed on holidays."'])
     expect(notesOf('Hours* Open daily. * (The office is closed on holidays.)').map((n) => n.note)).toEqual(['(The office is closed on holidays.)'])
