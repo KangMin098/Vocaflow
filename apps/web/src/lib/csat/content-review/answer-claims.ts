@@ -1,124 +1,101 @@
 // apps/web/src/lib/csat/content-review/answer-claims.ts
 //
-// **강의·해설 문장에서 「정답/오답 진술」을 선지 집합으로 읽는다(F6 보조).**
+// **강의·해설 문장의 정답·오답 진술을 의미 구조로 읽는다(F6 보조).**
 //
-// 한국어 정답 진술의 꼴은 끝이 없다(「① 또는 ④」 · 「① 역시」 · 「④가 아니라 ①」 · 「오답이 아닙니다」 …).
-// 그래서 이 해석기의 목표는 「모든 문장을 이해한다」가 아니라 **「이해하지 못한 부분이 하나라도 있으면
-// 그 문장을 사람 확인으로 돌린다」**이다(T-0158 Codex 5차).
-//   - 정답·오답을 말하는 문장 안의 **모든 선지 번호**가 아는 진술 꼴에 소비돼야 한다. 하나라도 남으면 unparsed.
-//   - 「아니/아닙/아닌」은 아는 꼴(「답이 아닙니다」) 안에서만 허용한다. 그 밖의 부정은 범위를 모르므로 unparsed.
-//   - unparsed 문장의 부분 해석은 버린다 — 반쯤 읽은 결과로 「충돌 없음」이나 엉뚱한 진단을 내지 않는다.
-// 해석하지 못했다고 통과시키지 않는다. 옳지만 복잡한 문장도 사람이 확인한다(의도된 한계).
+// 1~17차 독립 검증에서 「문자열 패턴 + 건너뜀 예외」 구조는 매번 새 꼴로 뚫렸다. 그래서 문장을 **절**로 나누고,
+// 각 절을 [주어] [이유] [술어] 의 고정 구조로만 읽는다(사용자 지시 2026-10-24 「정답·오답 진술 처리 재설계」).
+//
+//   주어   = 선지 집합(「④」·「사 번」·「④와 ⑤」) + 조사·한정·추가 표지 — 또는 **비어 있음**(→ 소거 cue 의 target)
+//            그 밖의 말(「다섯 번째 선택지는」·「①을 배제하면」)이 주어 자리에 오면 의미 불명확.
+//   이유   = 「…라 · …서 · …니 · …므로」로 끝나는 짧은 서술. 「답」·선지 번호·숫자를 담을 수 없다.
+//   술어   = 정답 긍정(정답이다 · 답이다 · 정답으로 인정) · 정답 부정(답이 아니다) · 오답 긍정(오답이다 → 정답 부정)
+//            · 오답 부정(오답이 아니다 → **정답 긍정**). 술어 바로 뒤는 문장 끝 · 쉼표 · 연결(「이고·이며·고·며」)뿐.
+//   앞 절  = 주어·술어 없는 이유 절(「맞는 진술이고,」·「여기 다섯 번째 문장,」)은 앞에만 올 수 있다. 마지막 절은 반드시 술어 절.
+//   표제형 = 「정답은 (오직) ④(와 ⑤)(뿐)(입니다)」 · 「정답은 ①이 아닙니다」 · 「정답은 삼 번, <선지 본문 그대로>」.
+//
+// 구조에 맞지 않는 문장은 부분 해석을 버리고 **의미 불명확(사람 확인)** 이다 — 자동 발행하지 않는다.
+// 구조에 맞는 문장은 공식 정답 집합과 대조해 자동으로 허용·차단한다(호출자 prepublish.ts).
 
 const KO_NUM: Record<string, number> = { 일: 1, 이: 2, 삼: 3, 사: 4, 오: 5, '①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5 }
 
-/** 선지 하나: 「④」 또는 「사 번 · 4번」 — 원문자에는 「번」이 없어도 된다 */
+/** 선지 하나: 「④」 또는 「사 번 · 4번」 */
 const C = '(?:[①-⑤]|[일이삼사오1-5]\\s*번)'
-/**
- * 번호 **탐지**용 — 진술 꼴(C)에 없는 「번 없는 숫자」(「정답은 1입니다」)도 번호로 센다(T-0158 Codex 10차 P1).
- * 소비되지 않으면 남은 번호 검사가 사람 확인으로 보낸다. 연도·소수·큰 수 안의 숫자(「2015」·「1.8」)는 제외.
- */
-// 소수 판정은 「. 뒤에 숫자」일 때만 — 「정답은 1.」의 문장 끝 마침표를 소수로 보면 번호를 놓친다(11차 P1)
-const C_RE = /([①-⑤])|([일이삼사오1-5])\s*번|(?<!\d|\d[.,])([1-5])(?!\d|[.,]\d|\s*번)/g
+const C_ONE = /([①-⑤])|([일이삼사오1-5])\s*번/g
 /** 선지 목록: 「④와 ⑤」 · 「사 번과 오 번」 · 「①, ③」 */
 const LIST = `${C}(?:\\s*(?:와|과|,|및)\\s*${C})*`
-const NOT = '아[니닙닌]'
-/** 번호와 술어 사이: 다른 선지 번호·「정답」·부정을 넘지 않는다 */
 /**
- * 번호와 「오답 · 답이 아닙니다」 사이 — **공백·쉼표·「역시」만**. 자유 서술을 허용하면 「①을 배제하면 오답」을
- * 「①은 오답」으로 반대로 읽는다(T-0158 Codex 8차 P1). 사이에 서술이 끼면 이 꼴이 아니고, 남은 번호 검사가 사람 확인으로 보낸다.
+ * 이유 서술 — 「답」·선지 번호·숫자·**선지를 가리키는 말**을 담지 않고 이유 연결 어미로 끝난다.
+ * (「다섯 번째 선택지라 답이 아닙니다」에서 주어를 target 으로 오인하지 않게 — 지칭 어휘는 남은 한계로 보고한다)
  */
-const GAP = '(?:\\s|,|역시)*'
+// 「다섯 번째 문장 · 두 번째 단락」 같은 **위치 설명**은 지칭이 아니다 — 「번째」 뒤가 문장·단락·줄·밑줄·칸이면 허용
+const DESIGNATOR = '선지|선택지|보기|번째(?!\\s*(?:문장|단락|줄|밑줄|칸|빈칸|예시))|첫째|둘째|셋째|넷째|다섯째|마지막|맨\\s*(?:앞|뒤|끝)'
+const REASON_BODY = `(?:(?!답|[①-⑤]|[일이삼사오1-5]\\s*번|\\p{N}|${DESIGNATOR})[^,.。?!])*?`
+const REASON_END = '(?:이라서|라서|아서|어서|여서|해서|이라|라|서|으니까|니까|으니|니|므로|기에|고|며)'
+/** 문장 종결·연결 */
+const COPULA = '(?:입니다|이에요|예요|이다|이죠|이고|이며)?'
+/** 술어 뒤: 문장 끝·쉼표, 또는 연결 어미(「이고 · 이며 · 니고 · 니며」) 다음 띄어쓰기로 다음 절이 이어짐 */
+const TAIL = '(?:(?<=이고|이며|니고|니며)\\s+|(?=\\s*(?:[,.。!]|$)))'
 
-/**
- * 「정답은 (오직) ④(와 ⑤)(뿐)(입니다)」 · 「정답은 삼 번.」 · 「정답은 이 번, 해치기입니다.」 · 「정답은 삼 번 자리입니다.」
- * 실제 강의의 표준 꼴이다. 번호 뒤는 문장 끝 · 쉼표 동격 · 서술어만 허용한다 — 「④가 아니라 ①」처럼 조사가 붙으면
- * 이 꼴이 아니다(동격 안에 다른 번호·부정이 있으면 남은 번호·부정 검사가 잡는다).
- */
-const ANSWER_HEAD = new RegExp(`정답은\\s*(오직|바로|단|딱)?\\s*(${LIST})\\s*(하나뿐|하나|뿐|만)?(?:\\s*자리)?\\s*(?=[,.。]|$|이에요|예요|입니다|이다|이죠|죠)`, 'g')
-/**
- * 「(오직) ④(와 ⑤)(만/도/가) (모두) 정답」 · 「오 번도 정답으로 인정됐어요」.
- * 뒤에 「이 아니」·「에」·「을/를」·(인정이 아닌)「으로」가 오면 이 꼴이 아니다.
- */
-/**
- * 진술 바로 뒤에 올 수 있는 것 — 서술어 종결·연결(「이고 · 이며」)·쉼표·문장 끝·「으로 인정」뿐.
- * 「정답이 될 수 없다 · 정답일 리 없다 · 정답이라는 말은 틀렸다 · 정답은커녕」은 여기서 끊겨 이 꼴로 읽히지 않는다(T-0158 Codex 6차 P1).
- */
-const CLAIM_END = '(?=\\s*(?:입니다|이에요|예요|이다|이죠|죠|이고|이며|이에요|[,.。]|$|으로\\s*인정))'
-const ANSWER_TAIL = new RegExp(`(오직|단|딱)?\\s*(${LIST})\\s*(만이?|도|[이가은는])?\\s*(?:모두\\s*|둘\\s*다\\s*)?정답${CLAIM_END}`, 'g')
-/** 「④(와 ⑤)는 오답」 · 「오 번은 … 답이 아닙니다」 · 「⑤는 정답이 아닙니다」 */
-const REJECT = new RegExp(`(${LIST})\\s*(?:[은는이가도]|모두)?\\s*${GAP}(오답${CLAIM_END}|정?답이\\s*${NOT}(?:니다|에요|다|고|며))`, 'g')
-/** 검사 진입 — 「답」이 들어간 문장은 모두(「①은 답입니다」·「④만이 답」도 — 10차 P1). 아는 꼴이 아니면 사람 확인 */
-const TALKS_ANSWER = /답/
-const ANY_NOT = new RegExp(NOT, 'g')
-/**
- * 소비되지 않은 부분에 남으면 문장 뜻을 뒤집을 수 있는 말 — 남아 있으면 부분 해석을 버린다.
- * (번호·「아니」만 보면 「④가 정답 … 틀렸습니다」의 뒤집기를 놓친다)
- */
-const FLIP = /없|틀|커녕|않|못|잘못|거짓|아[니닙닌]|반대|대신|말고|빼고|제외|오답|정답|오류|허위|철회|착각|오해|취소|번복|수정|만\s|지만|으나|는데/g
+/** 술어(절 끝). 그룹 이름으로 의미를 가른다 */
+const PRED = [
+  '(?<wneg>오답이\\s*아(?:닙니다|니에요|니다|니죠|니고|니며))',
+  '(?<aneg>정?답이\\s*아(?:닙니다|니에요|니다|니죠|니고|니며))',
+  '(?<wpos>오답(?:입니다|이에요|예요|이다|이죠|이고|이며)?)',
+  '(?<apos>(?:모두\\s*|둘\\s*다\\s*)?(?:정답(?:\\s*으로\\s*인정(?:됐어요|되었습니다|됐습니다|됩니다|된다|돼요))?(?:입니다|이에요|예요|이다|이죠|이고|이며)?|답(?:입니다|이에요|예요|이다|이죠|이고|이며)))',
+].join('|')
 
-/**
- * **진술에 소비되지 않은 나머지가 가질 수 있는 것(화이트리스트)** — 이것 말고 한 글자라도 남으면 사람 확인.
- * 블랙리스트(FLIP)는 원리상 완결되지 않는다(「오류 · 허위 · 철회」… — T-0158 Codex 7차 P1).
- *  - 종결·연결 어미와 문장부호 · 「으로 인정됐어요」류
- *  - 위치 설명어: 「여기 다섯 번째 문장 · 비 밑줄 · 자리」
- *  - 담화 표지: 「여러분 · 자 · 그래서 · 따라서 · 즉 · 결국 · 여기서」
- *  - 동격(정답은 N, X): X 가 그 선지 본문과 같을 때만(호출자가 choices 를 줄 때)
- */
-const RESIDUE_OK = new RegExp([
-  '\\s+', '[,.。!]',
-  '입니다', '이에요', '예요', '이다', '이죠', '죠', '이고', '이며', '요',
-  '으로\\s*인정(?:됐어요|되었습니다|됐습니다|됩니다|된다|돼요)',
-  '여러분', '자', '그래서', '따라서', '즉', '결국', '여기서', '여기',
-  '(?:첫|두|세|네|다섯|여섯|일곱|여덟|아홉|열)\\s*번째', '문장', '비\\s*밑줄', '밑줄', '자리', '씨',
-].map((p) => `(?:${p})`).join('|'), 'g')
+/** 술어 절: [한정]? [선지 목록 + 조사·표지]? [이유]? 술어 */
+const PRED_CLAUSE = new RegExp(
+  `^\\s*(?<only>오직|단|딱)?\\s*(?:(?<list>${LIST})\\s*(?<part>만이|만|은|는|이|가|도)?\\s*(?<also>역시|또한)?\\s+)?` +
+  `(?:${REASON_BODY}${REASON_END}\\s+)?(?:${PRED})${TAIL}`,
+  'u',
+)
+/** 표제형: 「정답은 (오직) ④(와 ⑤)(하나|뿐)(자리)(입니다)」 */
+const HEAD_CLAUSE = new RegExp(`^\\s*정답은\\s*(?<only>오직|바로|단|딱)?\\s*(?<list>${LIST})\\s*(?<lim>하나뿐|하나|뿐|만)?(?:\\s*자리)?\\s*${COPULA}${TAIL}`, 'u')
+/** 표제 부정형: 「정답은 ①이 아닙니다」 */
+const HEAD_NEG = new RegExp(`^\\s*정답은\\s*(?<list>${LIST})\\s*[이가]\\s*아(?:닙니다|니에요|니다|니죠)${TAIL}`, 'u')
+/** 표제형 뒤 위치 설명 동격: 「, 비 밑줄입니다」·「, 다섯 번째 문장입니다」·「, 밑줄 씨」·「, 자리입니다」 */
+const POSITION_APPOSITION = /^\s*,\s*(?:(?:첫|두|세|네|다섯|여섯|일곱|여덟|아홉|열)\s*번째\s*(?:문장|단락|줄|밑줄|칸)|비\s*밑줄|밑줄(?:\s*씨)?|자리)\s*(?:입니다|이에요|예요|이다)?\s*$/
+/** 이유 절(앞에만): 주어·술어 없는 서술 + 쉼표 또는 이유·연결 어미 */
+const REASON_CLAUSE = new RegExp(`^\\s*${REASON_BODY}(?:,|${REASON_END}\\s*,)`, 'u')
 
-const norm = (t: string) => t.replace(/^[①-⑤]\s*/, '').replace(/[\s.,。!]+/g, '').replace(/(?:입니다|이에요|예요|이다|이죠|죠)$/, '')
+export type Polarity = 'answer' | 'notAnswer'
 
 export interface AnswerClaim {
   choices: number[]
   /** 「오직 · 만 · 뿐 · 하나」 — 이 집합만 정답이라는 진술 */
   exclusive: boolean
-  /** 「도」 — 다른 정답이 있음을 전제하는 진술 */
+  /** 「도 · 역시 · 또한」 — 다른 정답이 있음을 전제하는 진술 */
   inclusive: boolean
+  /** 주어가 비어 cue target 으로 정해졌는가 */
+  implicit: boolean
   sentence: string
 }
 
 export interface ClaimReading {
   answers: AnswerClaim[]
   rejected: number[]
-  /** 정답·오답을 말하는데 전부 해석하지 못한 문장 — 부분 해석은 버렸다 */
+  /** 구조에 맞지 않아 의미가 불명확한 문장 — 부분 해석은 버렸다(사람 확인) */
   unparsed: string[]
 }
 
-interface Span { start: number; end: number }
+export interface ClaimContext {
+  /** 선지 본문(①~⑤ 순) — 표제형 동격 대조 */
+  choices?: readonly string[]
+  /** 소거 cue 의 대상 선지(target reject:n) — 주어 없는 술어 절의 주어 */
+  rejectTarget?: number
+}
 
-function refsIn(text: string, offset = 0): { n: number; at: number }[] {
-  const out: { n: number; at: number }[] = []
-  for (const m of text.matchAll(C_RE)) {
-    const g = (m[1] ?? m[2] ?? m[3])!
-    const n = KO_NUM[g] ?? Number(g)
-    if (n >= 1 && n <= 5) out.push({ n, at: offset + m.index! })
+function choicesIn(list: string): number[] {
+  const out: number[] = []
+  for (const m of list.matchAll(C_ONE)) {
+    const n = KO_NUM[(m[1] ?? m[2])!] ?? Number(m[2])
+    if (n >= 1 && n <= 5 && !out.includes(n)) out.push(n)
   }
   return out
 }
-const uniq = (xs: number[]) => [...new Set(xs)]
-const inside = (at: number, spans: Span[]) => spans.some((s) => at >= s.start && at < s.end)
 
-/** 문장에서 소비된 구간을 뺀 나머지가 화이트리스트만으로 이뤄졌는가 */
-function residueClean(sentence: string, used: Span[], appositionOk: (s: string) => boolean): boolean {
-  let rest = ''
-  for (let i = 0; i < sentence.length; i++) rest += inside(i, used) ? '\u0000' : sentence[i]
-  // 동격 — 「정답은 N 번, X(입니다).」의 X 가 그 선지 본문이면 소비
-  rest = rest.replace(/\u0000\s*,\s*([^\u0000]+?)\s*(?:입니다|이에요|예요|이다)?\s*[.。!]?\s*$/, (whole, x: string) => (appositionOk(x) ? '\u0000' : whole))
-  const left = rest.split('\u0000').join(' ').replace(RESIDUE_OK, '')
-  return left.trim() === ''
-}
-
-/**
- * 번호 표기 변형을 ①~⑤ 로 모은다(❶ · ➀ · ➊ · ⓵ · ⑴ · ⒈ · 전각 １ … — T-0158 Codex 12차 P1).
- * 여기 없는 숫자 문자는 아래 `exoticNumber` 가 잡아 사람 확인으로 보낸다(변형 목록을 완결할 필요가 없게).
- */
+/** 번호 표기 변형을 ①~⑤ 로(❶ · ➀ · ➊ · ⓵ · ⑴ · ⒈ · 전각 １ — 12차). 그 밖의 숫자 문자는 구조 밖이라 의미 불명확으로 떨어진다 */
 const NUMBER_VARIANTS: readonly (readonly string[])[] = [
   ['❶', '❷', '❸', '❹', '❺'], ['➀', '➁', '➂', '➃', '➄'], ['➊', '➋', '➌', '➍', '➎'],
   ['⓵', '⓶', '⓷', '⓸', '⓹'], ['⑴', '⑵', '⑶', '⑷', '⑸'], ['⒈', '⒉', '⒊', '⒋', '⒌'], ['１', '２', '３', '４', '５'],
@@ -129,77 +106,96 @@ function canonicalNumbers(text: string): string {
   for (const set of NUMBER_VARIANTS) set.forEach((ch, i) => { t = t.split(ch).join(CIRCLED[i]!) })
   return t
 }
-/** 정규화 뒤에도 남은 「①~⑤·ASCII 숫자가 아닌 숫자 문자」 — 해석하지 않고 사람 확인 */
-const exoticNumber = (s: string) => /[^①-⑤\d]/u.test(s.replace(/[^\p{N}]/gu, ''))
 
-export function readClaims(rawText: string, ctx: { choices?: readonly string[] } = {}): ClaimReading {
+const norm = (t: string) => t.replace(/^[①-⑤]\s*/, '').replace(/[\s.,。!]+/g, '').replace(/(?:입니다|이에요|예요|이다|이죠|죠)$/, '')
+
+interface Parsed { claims: { polarity: Polarity; claim: AnswerClaim }[] }
+
+/** 한 문장을 절 구조로 끝까지 읽는다. 하나라도 구조에 안 맞으면 null(의미 불명확) */
+function parseSentence(sentence: string, ctx: ClaimContext): Parsed | null {
+  const claims: Parsed['claims'] = []
+  // 문장 첫머리 담화 표지 하나(「그래서 정답은 일 번입니다」) — 뜻을 바꾸지 않는다
+  let rest = sentence.replace(/[.。!]\s*$/, '').replace(/^\s*(?:그래서|따라서|즉|결국|여러분|자|여기서)\s*,?\s+/, '')
+  let sawPredicate = false
+  while (rest.trim() !== '') {
+    // 표제형
+    const head = HEAD_CLAUSE.exec(rest)
+    if (head) {
+      const choices = choicesIn(head.groups!.list!)
+      claims.push({ polarity: 'answer', claim: { choices, exclusive: !!(head.groups!.only || head.groups!.lim), inclusive: false, implicit: false, sentence } })
+      rest = rest.slice(head[0].length)
+      sawPredicate = true
+      // 「정답은 이 번, 비 밑줄입니다」·「정답은 삼 번, 다섯 번째 문장입니다」 — 위치 설명 동격
+      if (POSITION_APPOSITION.test(rest)) { rest = ''; break }
+      // 「정답은 삼 번, <선지 본문 그대로>」 — 동격은 그 선지 본문과 **정확히** 같을 때만(9차)
+      const app = /^\s*,\s*(.+)$/.exec(rest)
+      if (app && choices.length === 1) {
+        const c = ctx.choices?.[choices[0]! - 1]
+        if (c != null && norm(c) === norm(app[1]!) && norm(c).length > 0) { rest = ''; break }
+      }
+      rest = rest.replace(/^\s*,?\s*/, '')
+      continue
+    }
+    const headNeg = HEAD_NEG.exec(rest)
+    if (headNeg) {
+      claims.push({ polarity: 'notAnswer', claim: { choices: choicesIn(headNeg.groups!.list!), exclusive: false, inclusive: false, implicit: false, sentence } })
+      rest = rest.slice(headNeg[0].length).replace(/^\s*,?\s*/, '')
+      sawPredicate = true
+      continue
+    }
+    const pc = PRED_CLAUSE.exec(rest)
+    if (pc) {
+      const g = pc.groups!
+      let choices: number[]
+      let implicit = false
+      if (g.list) choices = choicesIn(g.list)
+      else if (ctx.rejectTarget != null) { choices = [ctx.rejectTarget]; implicit = true }
+      else return null // 주어가 없고 cue target 도 소거가 아니면 누구에 대한 진술인지 모른다
+      const polarity: Polarity = g.apos || g.wneg ? 'answer' : 'notAnswer'
+      const part = g.part ?? ''
+      claims.push({
+        polarity,
+        claim: {
+          choices,
+          exclusive: !!g.only || part.startsWith('만'),
+          inclusive: part === '도' || !!g.also,
+          implicit,
+          sentence,
+        },
+      })
+      rest = rest.slice(pc[0].length).replace(/^\s*,?\s*/, '')
+      sawPredicate = true
+      continue
+    }
+    // 이유 절은 술어 절 **앞**에만 — 술어 뒤에 붙은 서술(「…정답이고 이는 오류입니다」)은 의미 불명확
+    const rc = sawPredicate ? null : REASON_CLAUSE.exec(rest)
+    if (rc) { rest = rest.slice(rc[0].length); continue }
+    return null
+  }
+  return sawPredicate ? { claims } : null
+}
+
+export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReading {
   const text = canonicalNumbers(rawText)
   const answers: AnswerClaim[] = []
   const rejected: number[] = []
   const unparsed: string[] = []
   // 문장 밖에서 앞 진술을 뒤집는 응답(「④가 정답이죠? 아니요, ①입니다.」) — 문장 단위로는 못 읽는다
-  if (/아니요|아뇨|아니에요[,.]?\s*[①-⑤일이삼사오1-5]/.test(text) && refsIn(text).length > 0) {
-    return { answers: [], rejected: [], unparsed: [text.trim()] }
-  }
+  if (/아니요|아뇨/.test(text) && /답/.test(text)) return { answers: [], rejected: [], unparsed: [text.trim()] }
   for (const raw of text.split(/(?<=[.。?!])\s*/)) {
     const sentence = raw.trim()
-    // 「답」이 들었지만 정답과 무관한 낱말(대답 · 답하다 · 보답 · 응답 · 답장 · 답변)은 진입 판정에서 지운다
-    const gateText = sentence.replace(/대답|답하|답해|답했|답한|답할|보답|응답|답장|답변/g, '')
-    if (!sentence || !TALKS_ANSWER.test(gateText)) continue
-    // 선지 번호가 없는 문장(「…맞는 진술이고, 답이 아닙니다」)의 주어는 cue target(reject:n)이 정한다 — 호출자가 따로 검사한다
-    if (exoticNumber(sentence)) { unparsed.push(sentence); continue }
-    // **건너뜀 예외는 UI 이름(「정답 블록」)만 남긴다.** 「답」이 든 그 밖의 문장은 아는 꼴로 다 읽히거나 사람 확인이다.
-    // 번호 없는 부정형(「…답이 아닙니다」)을 cue target 에 맡기던 예외는 13~17차 내내 앞부분 서술로 뚫렸다
-    // (「정답이 아니라는 말은 틀렸습니다」·「오답이 아닙니다」·「다섯 번째 선택지는 정답이 아닙니다」).
-    // 실측: 예외를 없애도 실제 49문항의 사람 확인은 18문항 그대로(+4문장) — 지킬 값이 없는 예외였다.
-    // 소거 cue 의 공식 정답 충돌은 target(reject:n) 대조가 별도로 BLOCK 한다.
-    const uiOnly = !/답/.test(gateText.replace(/정답\s*블록/g, ''))
-    if (!/\p{N}/u.test(sentence) && refsIn(sentence).length === 0 && uiOnly) continue
-    const mine: AnswerClaim[] = []
-    const mineRejected: number[] = []
-    const used: Span[] = [] // 진술 꼴이 소비한 구간(선지 번호·부정 포함)
-    for (const m of sentence.matchAll(ANSWER_HEAD)) {
-      used.push({ start: m.index!, end: m.index! + m[0].length })
-      mine.push({ choices: uniq(refsIn(m[2]!).map((r) => r.n)), exclusive: !!(m[1] || m[3]), inclusive: false, sentence })
+    if (!sentence) continue
+    // 정답과 무관한 「답」 낱말(대답 · 답하다 · 보답 · 응답 · 답장 · 답변)과 UI 이름(「정답 블록」)을 빼고도 「답」이 없으면 진술이 아니다
+    const gate = sentence.replace(/대답|답하|답해|답했|답한|답할|보답|응답|답장|답변|정답\s*블록/g, '')
+    if (!/답/.test(gate)) continue
+    // 물음은 단언이 아니다
+    if (/[?？]\s*$/.test(sentence)) { unparsed.push(sentence); continue }
+    const parsed = parseSentence(sentence, ctx)
+    if (!parsed) { unparsed.push(sentence); continue }
+    for (const { polarity, claim } of parsed.claims) {
+      if (polarity === 'answer') answers.push(claim)
+      else for (const n of claim.choices) if (!rejected.includes(n)) rejected.push(n)
     }
-    for (const m of sentence.matchAll(ANSWER_TAIL)) {
-      if (inside(m.index! + m[0].length - 1, used)) continue
-      used.push({ start: m.index!, end: m.index! + m[0].length })
-      const particle = m[3] ?? ''
-      mine.push({ choices: uniq(refsIn(m[2]!).map((r) => r.n)), exclusive: !!m[1] || particle.startsWith('만'), inclusive: particle === '도', sentence })
-    }
-    const rejectGaps: string[] = []
-    for (const m of sentence.matchAll(REJECT)) {
-      used.push({ start: m.index!, end: m.index! + m[0].length })
-      mineRejected.push(...refsIn(m[1]!).map((r) => r.n))
-      rejectGaps.push(m[0].slice(m[1]!.length, m[0].length - m[2]!.length))
-    }
-    // 소비되지 않은 선지 번호나 부정이 남았으면 이 문장은 사람이 읽는다
-    // 진술에 소비되지 않은 번호 — 「일~오 번」 꼴이든 **어떤 숫자 문자든**(연도·소수·쉼표 나열 구분 없이) 남으면 사람 확인
-    const strayRef = refsIn(sentence).some((r) => !inside(r.at, used))
-      || [...sentence.matchAll(/\p{N}/gu)].some((m) => !inside(m.index!, used))
-    const strayNot = [...sentence.matchAll(ANY_NOT)].some((m) => !inside(m.index!, used))
-    // 오답 진술의 사이 구간(「오 번은 맞는 진술이고, 답이 아닙니다」)은 자유 서술이라 뒤집는 말 목록으로 본다
-    const gapFlip = rejectGaps.some((g) => { FLIP.lastIndex = 0; return FLIP.test(g) })
-    // 나머지는 화이트리스트로 — 동격은 그 진술이 가리킨 선지 본문과 같을 때만
-    const claimed = uniq(mine.flatMap((a) => a.choices))
-    const appositionOk = (x: string) => {
-      const nx = norm(x)
-      return nx.length > 0 && claimed.some((n) => {
-        const c = ctx.choices?.[n - 1]
-        // **정확히 같을 때만** — 포함 관계를 허용하면 선지 본문 뒤에 붙인 「…는 오답입니다」까지 동격으로 소비한다(T-0158 Codex 9차 P1)
-        return c != null && norm(c) === nx
-      })
-    }
-    const residueBad = !residueClean(sentence, used, appositionOk)
-    // 물음은 단언이 아니다 — 「④가 정답이죠?」를 정답 진술로 세지 않는다
-    const question = /[?？]\s*$/.test(sentence)
-    if (strayRef || strayNot || gapFlip || residueBad || question || (mine.length === 0 && mineRejected.length === 0)) {
-      unparsed.push(sentence)
-      continue
-    }
-    answers.push(...mine)
-    for (const n of mineRejected) if (!rejected.includes(n)) rejected.push(n)
   }
   return { answers, rejected, unparsed }
 }

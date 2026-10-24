@@ -95,7 +95,9 @@ export function validatePrepublish(input: PrepublishInput): PrepublishReport {
     const where = `cue:${c.id}`
     const text = c.segments.map((s) => s.text).join(' ')
     if (answers) {
-      const claims = readClaims(text, { choices: input.choices })
+      // 주어 없는 술어 절(「맞는 진술이고, 답이 아닙니다」)의 주어는 소거 cue 의 target — 의미가 정해지면 공식 정답과 자동 대조
+      const rejectOf = c.target.kind === 'analysis' ? /^reject:([1-5])$/.exec(c.target.id) : null
+      const claims = readClaims(text, { choices: input.choices, rejectTarget: rejectOf ? Number(rejectOf[1]) : undefined })
       // (2) 정답 진술 — 집합 단위로 공식 정답과 대조
       // cue 안의 정답 진술을 **합쳐서** 본다 — 「④가 정답이고 ⑤도 정답」은 {4,5} 를 말한 것이다(5차 P2)
       const said = [...new Set(claims.answers.flatMap((a) => a.choices))]

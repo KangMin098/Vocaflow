@@ -464,9 +464,9 @@ describe('T-0158 14차 반례 — 「답」 문장은 기본 검사(건너뜀은
     '{5} · %s → 사람 확인', (text) => {
       expect(run([5], text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
     })
-  it('UI 이름·무관한 낱말만 건너뛴다(번호 없는 부정형은 17차부터 사람 확인)', () => {
+  it('번호 없는 정상 소거(소거 cue 안)는 target 으로 자동 판정, UI 이름·무관한 낱말은 진술 아님', () => {
     const reject1 = { ...cue('맞는 진술이고, 답이 아닙니다.'), target: { kind: 'analysis' as const, id: 'reject:1' } }
-    expect(validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [reject1] }).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+    expect(validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [reject1] }).findings).toEqual([])
     expect(run([5], '정답 블록을 확인하세요.').findings).toEqual([])
     expect(run([5], '캐시가 좋다고 대답해요.').findings).toEqual([])
   })
@@ -487,8 +487,10 @@ describe('T-0158 15차 반례 — 부정형 건너뜀은 정확한 꼴만', () =
     expect(run([5], text).blocked).toBe(true)
     expect(run([5], text, 'reject:1').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
   })
-  it('번호 없는 부정형은 소거 cue 안팎 모두 사람 확인(17차 — 예외 삭제)', () => {
-    expect(run([5], '맞는 진술이고, 답이 아닙니다.', 'reject:1').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  it('번호 없는 부정형: 소거 cue 안은 target 으로 자동 판정, 밖은 주어를 몰라 사람 확인', () => {
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.', 'reject:1').findings).toEqual([])
+    // target 이 공식 정답이면 자동 차단
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.', 'reject:5').findings.map((f) => f.code)).toContain('CUE_ELIMINATES_OFFICIAL')
     expect(run([5], '맞는 진술이고, 답이 아닙니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
     // 앞부분이 다른 선지를 말로 가리키면 사람 확인
     expect(run([5], '첫 번째 선지는 답이 아닙니다.', 'reject:3').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
@@ -501,12 +503,16 @@ describe('T-0158 16차 반례 — 「오답이 아닙니다」는 소거가 아�
     segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
   })
   const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [cue(text)] })
-  it.each(['오답이 아닙니다.', '이것은 오답이 아닙니다.', '보면 오답이 아니죠.'])('reject:1 · %s → 사람 확인', (text) => {
-    expect(run(text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  // 재설계: 「오답이 아닙니다」 = 정답 긍정 → 공식 정답 {5} 와 대조해 자동 차단
+  it('reject:1 · 「오답이 아닙니다」 → ①을 정답으로 주장 → 자동 차단', () => {
+    expect(run('오답이 아닙니다.').findings.map((f) => f.code)).toContain('CUE_WRONG_ANSWER')
   })
-  it('정상 소거 문장도 17차부터 사람 확인(오진단 코드 없이)', () => {
-    expect(run('정답이 아닙니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
-    expect(run('맞는 진술이고, 답이 아닙니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  it.each(['이것은 오답이 아닙니다.', '보면 오답이 아니죠.'])('reject:1 · %s → 차단(주어 불명확·사람 확인)', (text) => {
+    expect(run(text).blocked).toBe(true)
+  })
+  it('정상 소거 문장은 target 으로 자동 통과', () => {
+    expect(run('정답이 아닙니다.').findings).toEqual([])
+    expect(run('맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
   })
 })
 
@@ -518,5 +524,38 @@ describe('T-0158 17차 반례 — 부정형 건너뜀 예외 삭제', () => {
   const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [cue(text)] })
   it.each(['다섯 번째 선택지는 정답이 아닙니다.', '마지막 선택지는 정답이 아닙니다.', '맨 끝 것은 정답이 아닙니다.'])('reject:1 · %s → 사람 확인', (text) => {
     expect(run(text).findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
+  })
+})
+
+// ── 재설계 매트릭스(사용자 지시 2026-10-24): 7 문장 × 공식 정답 집합 — 옳은 문장은 통과, 틀린 문장은 자동 차단 ──
+describe('의미 구조 판정 매트릭스', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const codesOf = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] }).findings.map((f) => f.code)
+  // [문장, 공식 정답, 기대 코드(빈 배열 = 통과)]
+  const M: [string, number[], string[]][] = [
+    ['④는 오답입니다.', [3], []],
+    ['④는 오답입니다.', [4], ['CUE_ELIMINATES_OFFICIAL']],
+    ['④는 오답이 아닙니다.', [4], []],
+    ['④는 오답이 아닙니다.', [3], ['CUE_WRONG_ANSWER']],
+    ['④는 답이 아닙니다.', [3], []],
+    ['④는 답이 아닙니다.', [4], ['CUE_ELIMINATES_OFFICIAL']],
+    ['정답은 ④와 ⑤입니다.', [4, 5], []],
+    ['정답은 ④와 ⑤입니다.', [4], ['CUE_WRONG_ANSWER']],
+    ['정답은 오직 ④입니다.', [4], []],
+    ['정답은 오직 ④입니다.', [4, 5], ['CUE_PARTIAL_ANSWER']],
+    ['④도 정답입니다.', [4, 5], []],
+    ['④도 정답입니다.', [5], ['CUE_WRONG_ANSWER']],
+    ['④와 ⑤는 오답입니다.', [3], []],
+    ['④와 ⑤는 오답입니다.', [5], ['CUE_ELIMINATES_OFFICIAL']],
+    ['④와 ⑤는 오답입니다.', [4, 5], ['CUE_ELIMINATES_OFFICIAL']],
+  ]
+  it.each(M)('%s · 공식 %j → %j', (text, answers, expected) => {
+    const got = codesOf(answers, text)
+    if (expected.length === 0) expect(got).toEqual([])
+    else for (const c of expected) expect(got).toContain(c)
   })
 })
