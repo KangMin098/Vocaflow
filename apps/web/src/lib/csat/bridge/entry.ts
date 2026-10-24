@@ -12,6 +12,8 @@ import type { AsIsTask } from '../map/v4/as-is'
 import type { TaskId } from '../map/v4/definition'
 import { NEED_LABEL, type ConfirmLink, type Need } from '../map/v4/to-be'
 
+import RESEARCH from '../map/v62/research-v14.data.json'
+
 import { bridgeItemHref, type BridgeCtx } from './round-trip'
 import { itemFitsTask, skillOfType, skillsOfTask, type ThinkingSkill } from './skill-map'
 
@@ -58,6 +60,11 @@ export interface EntryResult {
 }
 
 const norm = (id: string) => id.replace('-', '#')
+
+const RESEARCH_TYPE: ReadonlyMap<string, string> = new Map(RESEARCH.links.map((l) => [l.item, l.type] as const))
+
+/** 연구 v1.4 에 기록된 문항 유형(없으면 null — 화면이 유형을 추정하지 않는다) */
+export const researchTypeOf = (itemRef: string): string | null => RESEARCH_TYPE.get(norm(itemRef)) ?? null
 
 export function entriesFor(input: EntryInput): EntryResult {
   const study = studyItemsFor(input.task, input.check, input.confirm, input.transfer)
