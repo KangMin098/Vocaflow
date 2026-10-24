@@ -1,0 +1,395 @@
+{
+ "2014A#29": {
+  "from": "DATA_GAP",
+  "to": "ISSUE_CONFIRMED",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "EXTRACTION_GAP",
+   "CONTENT_ERROR",
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "2014_영어A-홀수형_문제.pdf",
+   "page": 4,
+   "pdf_sha256": "d770c96243ee38efc278f58825e49068754d0ee6f1756e7c84f4458a119cdb7e"
+  },
+  "item_md5": "119bbb4a3c78d7f1bd774342a516d806",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [
+   {
+    "cue_id": "c9",
+    "said": "휴관 각주가 조각만 남아 주기를 확인할 수 없다 → ③ 판정 보류",
+    "official": "closed on the first Monday of every month → ③(매주 월요일 휴관) 불일치로 소거 가능",
+    "effect": "오답 ③의 소거 근거 누락. 정답 ⑤는 유지"
+   }
+  ],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2017#24": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES",
+   "CHOICE_TAIL_PAGE_NUMBER"
+  ],
+  "official": {
+   "file": "2017_영어_짝.pdf",
+   "page": 3,
+   "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a"
+  },
+  "item_md5": "e48a3528571f28578adb2a7c3e984251",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2018#24": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES",
+   "CHOICE_TAIL_PAGE_NUMBER"
+  ],
+  "official": {
+   "file": "2018_영어_짝.pdf",
+   "page": 3,
+   "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f"
+  },
+  "item_md5": "c947412252250a45ecec2ec23dcbc8a3",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2020#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "2020_영어_짝.pdf",
+   "page": 4,
+   "pdf_sha256": "d629652b55ac82cde277edbe018044f8a2ff8192946884bf0a0220fbcc0d1c66"
+  },
+  "item_md5": "0083ea4892fda747dc08a227212b5b20",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2021#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "2021_3교시_영어영역_짝.pdf",
+   "page": 4,
+   "pdf_sha256": "d4053816710862089f173e9a09de9be21cc956ea3a7484b818581c9e1bd46634"
+  },
+  "item_md5": "794598dc115a58d8c68c36ea257ad017",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2022#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "2022_영어영역_짝수형.pdf",
+   "page": 4,
+   "pdf_sha256": "2cf1ac95656794f6587bfb159c26f9dfef271936b24964c77f0cc3f35f60aa5a"
+  },
+  "item_md5": "5222172fad5154acc6dbe1a367304d88",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2023#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "2023_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "428f0e56f69b096b149e676b16a9b632e3d437eea667854070a6b797e22a9532"
+  },
+  "item_md5": "ffa3664be5647b900d45286ee4f0983b",
+  "an_ver": 6,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M1809#24": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "EXTRACTION_GAP",
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "201809_영어영역_문제지.pdf",
+   "page": 3,
+   "pdf_sha256": "6e5b5a04b9f8618a8ac019f956b8d1d99ef1a3b89acdbfaccca3182202c26b95"
+  },
+  "item_md5": "f897f5046ad7d11b243cc8a2ab24ab43",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님 · 수치 라벨 없는 막대라 눈금 어림"
+ },
+ "M2006#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "202006_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "64b7fa2942b260a39c10fad311d519d6666b6112bca56f99d14f3355e4f420fa"
+  },
+  "item_md5": "14718d99a993b974946b0f79ba6e6652",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M2206#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "202206_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "20356214cc91ec70c83b3f2799e8452f4c01e6f00f5fd03c4b0f342f1d40db34"
+  },
+  "item_md5": "d0b6cfacfcf79df9eeac9174bc105063",
+  "an_ver": 4,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M2309#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "202309_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "fcc09df79f62af4993b5a758ff7d94aa83b63060e1363d7286a8cb78ac7f2647"
+  },
+  "item_md5": "66e31567e648f758f173ac09146c44d5",
+  "an_ver": 4,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M2406#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "202406_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "4ac402cc9b4dd5a6d35ef8f92fea1b4e47b639109c56069c54b9047499f4b180"
+  },
+  "item_md5": "fe5bed567d7c3a6b1b2de8112b29939c",
+  "an_ver": 4,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M2506#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "202506_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "5b416f213d5a5e6eb9e845cd63d51af5b1e1eba224a86df0b74ccb6660de84ca"
+  },
+  "item_md5": "6401d20a13af0f45195a891e4a5e67ce",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M2509#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES",
+   "CHOICE_TAIL_FOOTNOTE"
+  ],
+  "official": {
+   "file": "202509_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5"
+  },
+  "item_md5": "1e5e4b49b080f606f5a7b82a33204b59",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M2609#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "202609_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "4fdb1e11fc03a3dcb2f9798c0503652264548065583bd2e931438964334b8bf3"
+  },
+  "item_md5": "9b02d4efb581cb1f8ae0dec6af3404c4",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M2706#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "202706_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "b7e913209134cd89b99895ef11ac074176f2c544f0c6a189c4fd3601c4b2ce15"
+  },
+  "item_md5": "b7f40168e25f14a98fd8e780efd0b8c4",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2024#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "2024_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "085262bbaf486668f863cafc4d0170995ac9065c7b832c821b7c262736dcf30d"
+  },
+  "item_md5": "2fad00d6a93f0a45ed061a4b77022700",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2025#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "2025_영어영역_문제지(짝수형).pdf",
+   "page": 4,
+   "pdf_sha256": "de8035bedf1ac1a58a37e14c68303e489af9c75f5e3e29292a3c4bbf67ed1eb4"
+  },
+  "item_md5": "1b16e3a1192d303aed7d76cdd2a7e595",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "2026#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "2026_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "788830081bb2a3adef1014c1625b7cc9562ad0af4438edafb8449782595af88a"
+  },
+  "item_md5": "6c8dd47c79d1254e5541e73c3b5962f6",
+  "an_ver": 5,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ },
+ "M2409#25": {
+  "from": "DATA_GAP",
+  "to": "PASS",
+  "by": "f5-official-pdf-image",
+  "classes": [
+   "DB_TEXT_NO_CHART_VALUES"
+  ],
+  "official": {
+   "file": "202409_영어영역_문제지.pdf",
+   "page": 4,
+   "pdf_sha256": "33e3d9ae10a018add9ae2e4f746c2d13e6f442db14ab11d8aebc738643e7534c"
+  },
+  "item_md5": "53c098b76a3fabc34ea97474d4d6c554",
+  "an_ver": 4,
+  "answer_holds": true,
+  "content_errors": [],
+  "cross_verified": false,
+  "note": "공식 문제지 쪽 이미지로 수치 판독(서브에이전트 1명) — 사람 확인 아님"
+ }
+}

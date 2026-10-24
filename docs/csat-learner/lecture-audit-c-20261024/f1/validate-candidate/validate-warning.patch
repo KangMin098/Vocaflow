@@ -1,0 +1,154 @@
+diff --git a/apps/web/src/lib/csat/lecture/__tests__/choice-pointing.test.ts b/apps/web/src/lib/csat/lecture/__tests__/choice-pointing.test.ts
+new file mode 100644
+index 000000000..2fb629ee8
+--- /dev/null
++++ b/apps/web/src/lib/csat/lecture/__tests__/choice-pointing.test.ts
+@@ -0,0 +1,51 @@
++// apps/web/src/lib/csat/lecture/__tests__/choice-pointing.test.ts
++import fs from 'node:fs'
++import path from 'node:path'
++import { describe, expect, it } from 'vitest'
++import { checkChoicePointing, spokenHereChoices } from '../choice-pointing'
++import { lectureTargets } from '../targets'
++import type { Lecture } from '../types'
++import { validateLecture, type ValidateContext } from '../validate'
++
++const cue = (id: string, kind: string, tid: string, text: string) => ({ id, target: { kind, id: tid }, segments: [{ lang: 'ko-KR', text }] })
++
++describe('choice-pointing — 「여기 N 번 문장」 ↔ ⓝ 문장 anchor', () => {
++  it('선지 번호 가리키기만 센다', () => {
++    expect(spokenHereChoices('정답은 사 번. 여기 사 번 문장을 보세요.')).toEqual([4])
++    expect(spokenHereChoices('여기 세 번째 문장을 보세요.')).toEqual([])
++    expect(spokenHereChoices('사 번 문장을 가리고 이어 읽으세요.')).toEqual([])
++  })
++
++  it('ⓝ 문장과 다른 anchor 는 경고, 같으면 통과, 문맥 없으면 건너뜀', () => {
++    const m = { 4: 5 }
++    expect(checkChoicePointing([cue('c5', 'anchor', 'sentence:1', '여기 사 번 문장을 보세요.')], m)).toHaveLength(1)
++    expect(checkChoicePointing([cue('c5', 'anchor', 'sentence:5', '여기 사 번 문장을 보세요.')], m)).toHaveLength(0)
++    expect(checkChoicePointing([cue('c5', 'anchor', 'sentence:1', '여기 사 번 문장을 보세요.')], null)).toHaveLength(0)
++  })
++
++  it('실제 강의 35번: 확정 9 만 걸리고 정상 대조군 17 은 통과', () => {
++    // 선지→ⓝ 문장 index: csat_items.passage 를 문장 단위로 0부터 센 값(대량작업 C, 2026-10-24 SELECT) — 다섯 선지 전부
++    const map: Record<string, Record<number, number>> = JSON.parse(fs.readFileSync(path.join(__dirname, "choice-sentence-map-35.json"), "utf8")).map
++    const dir = path.resolve(__dirname, '../../lecture-data')
++    const lectures: Record<string, { cues: Parameters<typeof checkChoicePointing>[0] }> = {}
++    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json') && x !== 'index.json'))
++      Object.assign(lectures, JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')).lectures)
++    const hit = Object.keys(map).filter((id) => checkChoicePointing(lectures[id].cues, map[id]).length > 0).sort()
++    expect(hit).toEqual(['2019#35', '2020#35', '2022#35', 'M1809#35', 'M2006#35', 'M2106#35', 'M2206#35', 'M2209#35', 'M2306#35'])
++  })
++
++  it('validateLecture: 경고는 warnings 에만 — ok · issues 는 choiceSentence 유무와 같다', () => {
++    const dir = path.resolve(__dirname, '../../lecture-data')
++    const lec = JSON.parse(fs.readFileSync(path.join(dir, 'M2106.json'), 'utf8')).lectures['M2106#35'] as Lecture
++    const base: ValidateContext = {
++      targets: lectureTargets({ answer: 4, answer_unknown: false, has_ability: true, has_intent: true, distractors: [1, 2, 3, 5], procedure_len: 3, vocab_len: 4, skeleton: { sentences: 12, placedAnchorIds: ['answer'] } }),
++      answer: 4, wrongChoices: [], hasTrapLabels: false, hasVocab: false, analysisTexts: [], sourceTexts: [],
++    }
++    const without = validateLecture(lec, base)
++    const withMap = validateLecture(lec, { ...base, choiceSentence: { 1: 3, 2: 4, 3: 5, 4: 6, 5: 7 } })
++    expect(withMap.ok).toBe(without.ok)
++    expect(withMap.issues).toEqual(without.issues)
++    expect(without.warnings).toBeUndefined()
++    expect(withMap.warnings?.map((w) => w.code)).toContain('pointing-choice')
++  })
++})
+diff --git a/apps/web/src/lib/csat/lecture/__tests__/choice-sentence-map-35.json b/apps/web/src/lib/csat/lecture/__tests__/choice-sentence-map-35.json
+new file mode 100644
+index 000000000..1c4cf4216
+--- /dev/null
++++ b/apps/web/src/lib/csat/lecture/__tests__/choice-sentence-map-35.json
+@@ -0,0 +1 @@
++{"source":"csat_items.passage SELECT 2026-10-24 · regexp_split_to_table 문장 분리(마침표·물음표·느낌표 뒤 공백) 0-기준 · 원문자 ①~⑤ 가 든 문장 k","map":{"2015#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"2017#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"2018#35":{"1":1,"2":2,"3":3,"4":4,"5":5},"2019#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"2020#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"2021#35":{"1":3,"2":4,"3":5,"4":6,"5":7},"2022#35":{"1":1,"2":2,"3":3,"4":4,"5":5},"2023#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"2024#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"2025#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"2026#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M1809#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2006#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2106#35":{"1":3,"2":4,"3":5,"4":6,"5":7},"M2109#35":{"1":3,"2":4,"3":5,"4":6,"5":7},"M2206#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2209#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2306#35":{"1":1,"2":2,"3":3,"4":4,"5":5},"M2309#35":{"1":3,"2":4,"3":5,"4":6,"5":7},"M2406#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2409#35":{"1":1,"2":2,"3":3,"4":4,"5":5},"M2506#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2509#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2606#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2609#35":{"1":2,"2":3,"3":4,"4":5,"5":6},"M2706#35":{"1":2,"2":3,"3":4,"4":5,"5":6}}}
+diff --git a/apps/web/src/lib/csat/lecture/choice-pointing.ts b/apps/web/src/lib/csat/lecture/choice-pointing.ts
+new file mode 100644
+index 000000000..0895f6aba
+--- /dev/null
++++ b/apps/web/src/lib/csat/lecture/choice-pointing.ts
+@@ -0,0 +1,41 @@
++// apps/web/src/lib/csat/lecture/choice-pointing.ts
++// validate.ts 가 경고(warnings)로만 쓴다 — 적재·발행을 막지 않는다.
++// 「여기 사 번 문장」처럼 선지 번호로 문장을 가리키면, 화면이 켠 anchor 가 그 원문자 ⓝ 이 붙은 문장이어야 한다.
++// 기존 `pointing`(「여기 N번째 문장」 서수 ↔ anchor k+1)의 짝이다 — 35번 29강의 중 9강의가 도입 문장을 켰다(대량작업 C).
++
++const CHOICE: Record<string, number> = { 일: 1, 이: 2, 삼: 3, 사: 4, 오: 5 }
++// 「여기 사 번 문장」 · 「여기, 삼 번 문장」. 「번째」가 붙으면 서수라 기존 검사 몫이다.
++const HERE_CHOICE = /여기[,\s]*(일|이|삼|사|오)\s*번\s+문장/g
++
++/** 「여기 사 번 문장을 보세요」 → [4]. 「사 번째 문장」 · 「여기」 없는 언급은 세지 않는다. */
++export function spokenHereChoices(ko: string): number[] {
++  return [...ko.matchAll(HERE_CHOICE)].map((m) => CHOICE[m[1]])
++}
++
++export interface ChoicePointingIssue {
++  code: 'pointing-choice'
++  cue: string
++  msg: string
++}
++
++/**
++ * choiceSentence: 선지 번호 → 원문자 ⓝ 이 붙은 문장 index(0-기준). 모르면 검사하지 않는다(건너뜀은 통과가 아니다 — 호출 측이 센다).
++ */
++export function checkChoicePointing(
++  cues: { id: string; target?: { kind: string; id: string }; segments?: { lang: string; text: string }[] }[],
++  choiceSentence: Record<number, number> | null,
++): ChoicePointingIssue[] {
++  if (!choiceSentence) return []
++  const out: ChoicePointingIssue[] = []
++  for (const c of cues) {
++    const ko = (c.segments ?? []).filter((g) => g.lang === 'ko-KR').map((g) => g.text).join(' ')
++    for (const n of spokenHereChoices(ko)) {
++      const want = choiceSentence[n]
++      if (want == null) continue
++      const k = c.target?.kind === 'anchor' && /^sentence:\d+$/.test(c.target.id) ? Number(c.target.id.split(':')[1]) : NaN
++      if (k !== want)
++        out.push({ code: 'pointing-choice', cue: c.id, msg: `「여기 ${n}번 문장」이라 말하는데 화면은 ${c.target?.kind}:${c.target?.id} 를 켠다(ⓝ 문장 sentence:${want})` })
++    }
++  }
++  return out
++}
+diff --git a/apps/web/src/lib/csat/lecture/validate.ts b/apps/web/src/lib/csat/lecture/validate.ts
+index c0b4f0c97..a9ee2b0b6 100644
+--- a/apps/web/src/lib/csat/lecture/validate.ts
++++ b/apps/web/src/lib/csat/lecture/validate.ts
+@@ -17,6 +17,7 @@
+ import { cueFocus } from './focus'
+ import { enWords, estimateSec, koSentences, segmentIssues, syllables } from './speakable'
+ import { isValidTarget, type TargetSet } from './targets'
++import { checkChoicePointing } from './choice-pointing'
+ import { ROLE_ORDER, V3_SCENES, V3_SCENE_ROLES, type Lecture, type LectureCue, type LectureRole, type LectureV3 } from './types'
+ 
+ export interface ValidateContext {
+@@ -32,6 +33,8 @@ export interface ValidateContext {
+   analysisTexts: string[]
+   /** 기출 원문(지문·문두·선지) — 8단어 연속 인용을 잡는다. **결과에 남기지 않는다.** */
+   sourceTexts: string[]
++  /** 선지 번호 → 원문자 ⓝ 이 붙은 문장 index(0-기준). 무관한 문장처럼 선지가 문장에 붙은 유형만 — 모르면 null(검사 건너뜀) */
++  choiceSentence?: Record<number, number> | null
+ }
+ 
+ export interface Issue {
+@@ -43,6 +46,8 @@ export interface Issue {
+ export interface ValidateResult {
+   ok: boolean
+   issues: Issue[]
++  /** 적재를 막지 않는 경고 — 근거만 남긴다(`ok` 에 영향 없음) */
++  warnings?: Issue[]
+   /** 기계 채점 두 칸 */
+   mechanical: { reading: number; time: number }
+   stats: {
+@@ -236,7 +241,11 @@ function validateLegacy(lec: Lecture, ctx: ValidateContext): ValidateResult {
+     if (ctx.answer != null && n === ctx.answer) add('eliminate-answer', '정답을 지우는 큐가 있다')
+   }
+ 
+-  return speechAndLength(cues, ctx, issues, add)
++  // 「여기 사 번 문장」(선지 번호)이라 말하면 그 ⓝ 문장이 켜져 있어야 한다 — 35번 9강의가 도입 문장을 켰다(대량작업 C).
++  // 첫 rollout 은 경고만: 기존 강의 적재·발행을 막지 않고 근거만 남긴다.
++  const warnings = checkChoicePointing(cues, ctx.choiceSentence ?? null).map(({ code, cue, msg }) => ({ code, cue, msg }))
++  const result = speechAndLength(cues, ctx, issues, add)
++  return warnings.length ? { ...result, warnings } : result
+ }
+ 
+ type SpeechCue = Pick<LectureCue, 'id' | 'segments' | 'pause_after_ms'>
