@@ -98,3 +98,24 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 ## 결론
 - 수용 대상은 K 회귀 하네스뿐이다.
 - 전체 제품 수용은 보류한다. 강의·34번 연결의 main 통합, 1280/1440 통합 E2E, 결함 4건 수정이 남았다.
+
+## r3 — 최신 로컬 main `0430c9ece` 재확인 (2026-10-24)
+T-0140·T-0147 검증 커밋(`253a6f34e`·`59a981a04`)이 로컬 main 에 들어왔다.
+판단 도구 제품 연결부(`feat/csat-judgment-bridge`)도 들어왔다.
+P6 마이그레이션(`e9c2fe99c`)은 아직 없다.
+
+검사 방법: main `0430c9ece` 위에 하네스 `1d1c6596a` 를 얹은 임시 detached worktree 에서 실행했다(main-serving 무변경).
+결과: 291 passed · 20 skipped. 로그는 AI-Control `runtime/k-regression/on-main-0430c9ece.log` 다.
+
+| 항목 | 최신 main 상태 |
+|---|---|
+| K 재현 10건 | 그대로 PASS. 결함 5건 모두 최신 main 에서도 open 이다 |
+| K2 첫 응답 정답 분리 · K6 기록 실패 503 | 이제 기준 안. main 에서 judgment route · lecture 테스트 PASS(단위). 실제 HTML·RSC 응답 대조는 NOT_RUN |
+| K6 DB 재현 | 여전히 NOT_IN_BASELINE(P6 마이그레이션 미포함) |
+| `judgment/__tests__/server.live.test.ts` 8건 | 라이브 DB 환경 미설정으로 skip. K 소관 아님, NOT_RUN |
+| T-0152 · T-0145 | 공식 미완료 그대로(READY · BLOCKED) |
+
+## skip 12건의 공식 처리 (DL-0208)
+- 목표 11건은 open 결함의 적용 제외다. 결함을 고친 뒤 fixed 로 바꿔야만 돈다. PASS 가 아니다.
+- DB 재현 1건은 NOT_RUN 이다. P6 마이그레이션이 기준에 들어오면 자동 실행된다.
+- AI-Control 완료 게이트는 범위 안 skip 을 통과로 세지 않고, 공식 적용 제외 기능이 없다. 게이트를 고치거나 우회하지 않았다. 그래서 T-0155 는 REVIEW 다.
