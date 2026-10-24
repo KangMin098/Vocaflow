@@ -40,7 +40,9 @@ select
   ),
   (
     select jsonb_agg(
-      case when ord = 2 then jsonb_set(s, '{step}', to_jsonb('선지마다 비교 종류를 표시한다 — each/highest 는 크기 비교, three times 는 나눗셈, 「몇 퍼센트 증가」는 원래 값 대비 비율, 「몇 퍼센트포인트」는 뺄셈.'::text)) else s end order by ord)
+      -- 2단계: step 과 on_fail 둘 다(감수 r2 — on_fail 이 「숫자 낱말만 보고 곱셈/차이」로 남으면 eighteen percent 를 차이로 오독)
+      case when ord = 2 then jsonb_set(jsonb_set(s, '{step}', to_jsonb('선지마다 비교 종류를 표시한다 — each/highest 는 크기 비교, three times 는 나눗셈, 「몇 퍼센트 증가」는 원래 값 대비 비율, 「몇 퍼센트포인트」는 뺄셈.'::text)),
+        '{on_fail}', to_jsonb('숫자만 보지 말고 함께 쓰인 표현을 확인한다. three times 는 비교값÷기준값, percent increase 는 (나중 값−처음 값)÷처음 값×100, percentage points 는 두 백분율 값의 차이로 계산한다.'::text)) else s end order by ord)
     from jsonb_array_elements(solve_procedure) with ordinality as t(s, ord)
   ),
   time_budget_sec, difficulty, required_vocab, answer_unknown, body_recovered,

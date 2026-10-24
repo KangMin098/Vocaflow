@@ -1,0 +1,110 @@
+{
+  "judge": "B",
+  "tracks": {
+    "T1": {
+      "verdict": "ACCEPT",
+      "items": {
+        "O1": {
+          "result": "PASS",
+          "basis": "answer-sheet-2015-odd.pdf 1쪽 정답표의 25번을 직접 렌더링해 확인했다. 정답은 ④, ⑤이며 배점은 2점이다. 직접 계산한 SHA-256도 package.json의 eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce와 일치한다."
+        },
+        "O2": {
+          "result": "PASS",
+          "basis": "사본 기준. official-briefing-2014-11-24.md 두 번째 인용문은 percent와 percent point의 차이를 ⑤의 복수정답 인정 사유로 명시한다. 네트워크 접근 없이 감수했으므로 공식 웹 원문과 사본의 일치 여부는 독립 확인하지 않았다."
+        },
+        "O3": {
+          "result": "PASS",
+          "basis": "db-2015-25.json의 item.answers는 [4,5], item.answer는 4다. 집합 필드는 공식 정답과 일치한다. 현재 DB가 아닌 제공된 덤프 기준이다."
+        },
+        "O4": {
+          "result": "PASS",
+          "basis": "package.json의 official.reason_source.note 및 analysis_v6.design_intent, README.md 1절은 원래 ④ 하나만 의도했는지를 확정하지 않는다고 명시한다. analysis-v6.draft.sql의 design_intent도 같은 구분을 유지한다."
+        }
+      }
+    },
+    "T2": {
+      "verdict": "REVISE",
+      "items": {
+        "E1": {
+          "result": "PASS",
+          "basis": "exam-2015-odd.pdf 4쪽 25번 도표에서 Cell Phone Numbers는 2006년 2%, 2012년 20%다. 차이는 18퍼센트포인트, 증가율은 (20−2)÷2×100=900%다. package.json의 analysis_v6.choice_n5.why_correct와 SQL의 대응 문장은 이 계산과 일치한다."
+        },
+        "E2": {
+          "result": "PASS",
+          "basis": "exam-2015-odd.pdf 4쪽 Email Addresses는 2006년 29%, 2012년 53%다. 29×3=87, 53÷29≈1.8276이므로 약 1.8배라는 설명과 세 배 주장에 대한 반박은 맞다. SQL은 v5의 ④ 설명을 유지한다."
+        },
+        "E3": {
+          "result": "PASS",
+          "basis": "exam-2015-odd.pdf 4쪽 도표를 직접 확인했다. 2006/2012 값은 사진 79/91, 학교 이름 49/71, 도시 이름 61/71, 이메일 29/53, 휴대폰 2/20이다. 모두 증가하고, 사진이 두 해 모두 최고이며, 2006년 도시 61은 학교 49보다 높다. db-2015-25.json의 ①②③ 판정과 일치하고 SQL의 else e가 이를 보존한다."
+        },
+        "E4": {
+          "result": "FAIL",
+          "basis": "package.json의 solve_procedure_step2.to와 SQL의 2단계 step 수정 자체는 맞다. 그러나 db-2015-25.json의 2단계 on_fail은 숫자 낱말 three times, eighteen만 보고 '곱셈인지 차이인지부터' 분류하게 한다. SQL은 step만 바꾸므로 이 안내가 그대로 남는다. eighteen percent를 차이로 오독하게 하는 보조 규칙까지 함께 수정해야 한다."
+        },
+        "E5": {
+          "result": "PASS",
+          "basis": "package.json의 analysis_v6.design_intent와 SQL의 design_intent는 정답 집합 및 ⑤ 인정 사유를 공식 사실로, ④ 단독 출제 의도는 확정하지 않음으로 구분한다. v5의 다른 항목에서 배수 인상을 유도했다는 추정도 새 의도 문장에서 제거했다."
+        },
+        "E6": {
+          "result": "PASS",
+          "basis": "package.json의 inquiry는 ⑤를 distractors에서 제거하고, 배수·퍼센트 증가는 비율, 퍼센트포인트는 차이로 구분한다. 기존의 모든 증가 진술을 차이로 계산하는 과잉 일반화는 제거된다. 판정 대상은 제시된 수정 문안이며 실제 탐구 데이터 반영 여부는 포함하지 않는다."
+        },
+        "E7": {
+          "result": "PASS",
+          "basis": "analysis-v6.draft.sql은 v5를 SELECT하여 version=6, status=in_review로 INSERT하고 v1~v5를 변경하는 실행문은 없다. answer_locus는 병합하여 quote를 유지하고, choice_analysis는 ⑤의 모순된 how_to_reject만 제거하며 ①~④를 보존한다. solve_procedure의 다른 키와 나머지 명시된 내용 필드도 복사한다. 정적 검토 결과이며 SQL은 실행하지 않았다."
+        }
+      }
+    },
+    "T3": {
+      "verdict": "REVISE",
+      "items": {
+        "L1": {
+          "result": "PASS",
+          "basis": "package.json의 lecture_changes 7개를 각각 검토했다. c1은 단일 정답 전제를 제거하고, c2는 비교 종류를 구분하며, c4는 ④·⑤를 함께 인정한다. c9의 2→20, 18퍼센트포인트, 900% 및 c10의 이메일 29→53은 문제지 4쪽과 일치한다. c11·c12의 퍼센트 증가와 퍼센트포인트 구분도 맞다. c10의 학습자 인상에 관한 표현 문제는 L7에 별도 기록한다."
+        },
+        "L2": {
+          "result": "PASS",
+          "basis": "package.json의 lecture_after_preview에서 c4는 ④·⑤를 함께 정답으로 밝히고 c9도 ⑤를 정답으로 설명한다. 소거 cue c6~c8은 ①②③만 대상으로 한다. 수정 후 발화에는 ⑤를 정답에서 제외하는 진술이 없다."
+        },
+        "L3": {
+          "result": "PASS",
+          "basis": "package.json의 lecture_after_preview에서 stopBefore=3 앞의 c1~c3은 발문 읽기, 비교 방법, 문장 구조와 범례만 설명한다. 정답 번호나 특정 선지의 참·거짓은 밝히지 않는다. c9 이동은 c5 뒤이므로 이 세 cue의 순서에 영향이 없다. 실제 sidecar 재생성 여부는 확인하지 않았다."
+        },
+        "L4": {
+          "result": "PASS",
+          "basis": "item-2015-25-snapshot.json의 passageSentences[5]는 ⑤ 휴대폰 번호 문장이다. package.json의 c9는 여섯 번째 문장과 그 수치를 설명하며 newTarget=anchor:sentence:5, newRole=evidence로 지정한다. 문장 위치와 근거 설명 역할이 일치한다."
+        },
+        "L5": {
+          "result": "PASS",
+          "basis": "package.json의 수정 c10은 anchor:sentence:4인 ④ 이메일 주소 문장을 가리키며, 다른 항목인 휴대폰 번호 대신 이메일의 29→53을 사용한다. 해당 수치는 문제지 4쪽과 일치한다. '세 배쯤 되어 보이기 쉽다'는 표현의 교육적 적절성은 L7에서 별도로 판정한다."
+        },
+        "L6": {
+          "result": "PASS",
+          "basis": "lecture-2015-25-current.json의 c3·c5~c8을 수정 후 preview와 대조했다. c3의 여섯 문장 구조와 진한 막대=2006년·옅은 막대=2012년은 원문과 맞다. c5의 29×3=87 및 약 1.8배, c6의 전 항목 증가, c7의 사진 79/91과 최고값, c8의 2006년 도시 61>학교 49도 문제지 4쪽과 일치한다."
+        },
+        "L7": {
+          "result": "FAIL",
+          "basis": "package.json의 c10은 '이십구에서 오십삼으로 크게 늘어, 세 배쯤 되어 보이기 쉽죠'라고 말한다. 실제로는 두 배인 58에도 못 미치는데, 세 배로 보이기 쉽다는 학습자 반응을 근거 없이 전제하여 바로 앞 c5의 약 1.8배 설명을 흐린다. 또한 c12의 '원래 값에 대한 비율'은 증가분을 분자로 삼는다는 점이 빠져, 최종값의 비율 1000%와 증가율 900%를 혼동할 여지가 있다."
+        }
+      }
+    }
+  },
+  "revisions": [
+    {
+      "track": "T2",
+      "where": "analysis-v6.draft.sql의 solve_procedure 2단계 on_fail 및 package.json의 대응 수정안",
+      "proposed": "숫자만 보지 말고 함께 쓰인 표현을 확인한다. three times는 비교값÷기준값, percent increase는 (나중 값−처음 값)÷처음 값×100, percentage points는 두 백분율 값의 차이로 계산한다."
+    },
+    {
+      "track": "T3",
+      "where": "package.json의 lecture_changes c10 및 lecture_after_preview c10",
+      "proposed": "여기 다섯 번째 문장의 배수 주장을 확인하세요. 이메일 주소는 이십구에서 오십삼으로 늘었지만, 두 배인 오십팔에도 못 미칩니다. 세 배라면 팔십칠이어야 하므로 도표와 맞지 않습니다."
+    },
+    {
+      "track": "T3",
+      "where": "package.json의 lecture_changes c12 첫 발화 및 lecture_after_preview c12",
+      "proposed": "정리할게요. 배수는 비교하는 값을 기준값으로 나눠 확인합니다. 퍼센트 증가율은 늘어난 양을 처음 값으로 나눈 뒤 백을 곱하고, 퍼센트포인트 차이는 두 백분율 값을 빼서 확인합니다."
+    }
+  ],
+  "notes": "판정자 A의 결과를 찾거나 열지 않았다. 제공된 입력 자료만 내용 근거로 사용했으며 네트워크·DB 접근과 파일 수정은 하지 않았다. PDF는 메모리에서 렌더링하여 정답표와 도표를 직접 확인했다. 작성자의 validation 결과는 PASS 근거로 사용하지 않았다. 공식 발표는 제공된 사본 기준, DB 내용은 제공된 덤프 기준이다. SQL 실행·애플리케이션 적재·sidecar 재생성 검증은 미실시이며 통과로 간주하지 않았다. 이 결과는 독립 에이전트 감수이며 사람 내용 승인이나 발행 승인이 아니다."
+}

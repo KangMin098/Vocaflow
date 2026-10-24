@@ -1,0 +1,16 @@
+{
+  "round": 1,
+  "protocol": "review/PROTOCOL.md @3ab82653a",
+  "package_commit": "3dae81c01",
+  "rule": "둘 다 ACCEPT 인 트랙만 위임 감수 통과",
+  "tracks": {
+    "T1": { "A": "ACCEPT", "B": "ACCEPT", "result": "PASSED_DELEGATED" },
+    "T2": { "A": "ACCEPT", "B": "REVISE", "result": "NOT_PASSED", "disagreement": [{ "item": "E4", "A": "PASS", "B": "FAIL", "why": "풀이 2단계 on_fail 이 「숫자 낱말만 보고 곱셈인지 차이인지」 분류하게 남아 eighteen percent 를 차이로 오독하게 한다 — A 가 놓침" }] },
+    "T3": { "A": "REVISE", "B": "REVISE", "result": "NOT_PASSED", "items": [
+      { "item": "L1", "A": "FAIL(c12 배수 표현이 c5·c10 과 불일치)", "B": "PASS" },
+      { "item": "L7", "A": "FAIL(c10 「도」)", "B": "FAIL(c10 근거 없는 학습자 반응 전제 · c12 증가율 분자 누락)" }
+    ] }
+  },
+  "next": "A·B 수정 제안을 합쳐 수정안 r2 → 같은 규약으로 재판정(B 는 A 판정을 보지 않는다)",
+  "not_human_content_approval": true
+}
