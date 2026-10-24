@@ -95,13 +95,22 @@ export function validatePrepublish(input: PrepublishInput): PrepublishReport {
     if (answers) {
       const claims = readClaims(text)
       // (2) 정답 진술 — 집합 단위로 공식 정답과 대조
-      for (const a of claims.answers) {
-        const wrong = a.choices.filter((n) => !answers.includes(n))
-        if (wrong.length) push('BLOCK', 'CUE_WRONG_ANSWER', where, `cue 가 ${wrong.join(',')}번을 정답이라 하지만 공식 정답은 ${setLabel}`)
-        // 「⑤도 정답」은 다른 정답을 전제한다 — 축소로 보지 않는다. 배타(「오직 ④」)·단정(「④가 정답」)은 집합 전체를 말해야 한다
-        const missing = answers.filter((n) => !a.choices.includes(n))
-        if (multi && !a.inclusive && missing.length) {
-          push('BLOCK', 'CUE_PARTIAL_ANSWER', where, `cue 가 정답을 ${a.choices.join(',')}번${a.exclusive ? '만' : ''} 말한다 — 공식 복수정답 ${setLabel}`)
+      // cue 안의 정답 진술을 **합쳐서** 본다 — 「④가 정답이고 ⑤도 정답」은 {4,5} 를 말한 것이다(5차 P2)
+      const said = [...new Set(claims.answers.flatMap((a) => a.choices))]
+      const wrong = said.filter((n) => !answers.includes(n))
+      if (wrong.length) push('BLOCK', 'CUE_WRONG_ANSWER', where, `cue 가 ${wrong.join(',')}번을 정답이라 하지만 공식 정답은 ${setLabel}`)
+      if (multi && said.length) {
+        // 배타 진술(「오직 ④」)은 그 진술 하나가 집합 전체여야 한다
+        for (const a of claims.answers.filter((x) => x.exclusive)) {
+          if (!answers.every((n) => a.choices.includes(n))) {
+            push('BLOCK', 'CUE_PARTIAL_ANSWER', where, `cue 가 정답을 ${a.choices.join(',')}번만이라고 한정한다 — 공식 복수정답 ${setLabel}`)
+          }
+        }
+        // 「⑤도 정답」은 다른 정답을 전제한다 — 그런 표현이 없는데 합집합이 모자라면 축소다
+        const inclusive = claims.answers.some((a) => a.inclusive)
+        const missing = answers.filter((n) => !said.includes(n))
+        if (!inclusive && missing.length && !claims.answers.some((a) => a.exclusive)) {
+          push('BLOCK', 'CUE_PARTIAL_ANSWER', where, `cue 가 정답을 ${said.join(',')}번만 말한다 — 공식 복수정답 ${setLabel}`)
         }
       }
       // 해석하지 못한 정답 진술은 통과시키지 않는다(fail-closed)

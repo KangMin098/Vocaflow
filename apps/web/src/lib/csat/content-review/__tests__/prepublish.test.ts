@@ -205,9 +205,48 @@ describe('T-0158 4차 반례 — 선지 집합 읽기', () => {
     [[4, 5], '④와 ⑤ 모두 정답입니다.', false],
     [[4], '④가 정답이고 ⑤는 오답입니다.', false],
     [[4], '정답은 ④ 하나뿐입니다.', false],
-    [[4, 5], '④는 물론 정답인데 ⑤도 정답으로 인정됐어요.', false],
+    [[4, 5], '④가 정답이고 ⑤도 정답으로 인정됐어요.', false],
   ]
   it.each(CASES)('%j · %s → blocked=%s', (answers, text, blocked) => {
     expect(run(answers, text).blocked).toBe(blocked)
+  })
+  it('해석 못 하는 꼴(「④는 물론 정답인데」)은 오진단 없이 사람 확인으로만 막는다', () => {
+    const codes = run([4, 5], '④는 물론 정답인데 ⑤도 정답으로 인정됐어요.').findings.map((f) => f.code)
+    expect(codes).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+})
+
+describe('T-0158 5차 반례 — 부분 해석 금지(fail-closed) · 부정 범위 · cue 합집합', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  // P1: 일부만 해석된 문장 — 모두 차단(통과 금지)
+  it.each([
+    '정답은 ④가 아니라 ①입니다.',
+    '④가 정답이며 ① 역시 정답입니다.',
+    '④는 정답이고 정답에 ①도 포함됩니다.',
+    '① 또는 ④가 정답입니다.',
+    '①도 ④도 정답입니다.',
+    '④가 정답이고, 정답으로 ①을 고릅니다.',
+  ])('{4} · %s → 차단', (text) => {
+    expect(run([4], text).blocked).toBe(true)
+  })
+  // P2: 부정·연결 — 오진단하지 않는다(해석 못 하면 「사람 확인」으로만)
+  it('「④는 오답이 아닙니다」 — 공식 정답 소거로 오진단하지 않는다', () => {
+    const codes = run([4], '④는 오답이 아닙니다.').findings.map((f) => f.code)
+    expect(codes).not.toContain('CUE_ELIMINATES_OFFICIAL')
+  })
+  it('「정답은 ①이 아닙니다」 — ①을 정답 주장으로 읽지 않는다', () => {
+    const codes = run([4], '정답은 ①이 아닙니다.').findings.map((f) => f.code)
+    expect(codes).not.toContain('CUE_WRONG_ANSWER')
+  })
+  it('{4,5} · 「④가 정답이고 ⑤도 정답입니다」 — 통과', () => {
+    expect(run([4, 5], '④가 정답이고 ⑤도 정답입니다.').findings).toEqual([])
+  })
+  it('{4,5} · 문장을 나눠도 cue 합집합으로 본다', () => {
+    expect(run([4, 5], '사 번이 정답입니다. 오 번도 정답이에요.').findings).toEqual([])
   })
 })
