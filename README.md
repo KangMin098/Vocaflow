@@ -14,6 +14,8 @@ Claude Code · Codex · ChatGPT 가 **같은 Vocaflow 플랫폼 목표**를 기�
 
 FINAL MISSION 협업은 `config/dev-mode.json`의 `final_collaboration`에 명시된 mission과 owner에만 적용한다. 일반 개발의 `dynamic_roles`·`auto_codex_review`는 꺼진 상태를 유지한다. `VFC_AUTO_CODEX=0`은 FINAL 자동 리뷰도 중단한다. `doctor`의 작업별 `automatic_independent_review`·`dynamic_roles`와 실제 PID/세션을 함께 확인한다. 중앙 실행기는 살아 있는 담당자의 작업을 재인수하지 않으며, 기존 standalone owner-worker는 플랫폼 경로에서 실행하지 않는다. LOCAL_FAST 일반 작업은 원격을 호출하지 않는다. 원격은 기존 백업·Work Bridge·`bin/main-sync.mjs` 일일 동기화로 분리한다. TASK 없는 로컬 main 통합은 `development_policy.local_integration`의 기존 잠금·검증 SHA 병합을 사용한다.
 
+끝난 워크트리는 일일 동기화 래퍼(`bin/main-sync.cmd`)가 `bin/worktree-reap.mjs --apply`로 정리한다. 로컬 main에 들어갔고, 미커밋 변경·git 밖 데이터(캐시·에이전트 메모 제외)·main과 다른 `.env.local`·살아 있는 잠금·사용 중인 프로세스·끝나지 않은 TASK가 없고, 3일 이상 활동이 없는 워크트리만 지운다. 하나라도 판정 정보를 못 읽으면 아무것도 지우지 않는다. 브랜치는 남는다. 이어서 남은 워크트리의 오래된 검증 빌드 사본(`.next-*`)을 정리한다. 미리보기는 `node bin/worktree-reap.mjs`, 기록은 `runtime/worktree-reap.json`.
+
 기존 로컬 통합은 검증 HEAD **전체**를 병합한다. 오래된 통합 기준선과 제품 브랜치의 누적 변경은 개별 TASK의 작은 검증 범위로 승인하지 않는다. aggregate 수용/공식 통합으로 기준선을 정리하기 전에는 `integration_blocked`가 정상적인 중단이며, 설정·큐 등록·리뷰 성공을 연속 제품 통합 성공으로 보고하지 않는다. SQL 적용·사람 Gold·권리 승인은 별개다.
 
 | 경로 | 내용 | Git |
