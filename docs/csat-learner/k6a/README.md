@@ -5,7 +5,7 @@
 
 | 파일 | SHA-256 |
 |---|---|
-| [forward.sql](./forward.sql) | `18533958635586ab703341741909ebe0429bcef17e35ce6e249e1853aea5de2f` |
+| [forward.sql](./forward.sql) | `049b4c47c24c5df8ecde7748d47e4a0c756ebc73356b2280445498b0b2ef9294` (v2 · 2026-10-25 권한 축소) |
 | [recovery.sql](./recovery.sql) | `b1406ba9fdd0966e46afc474b97e9d048ec3cdf2b7dba93bf1f19eccc92657d7` |
 
 ## 1. 현재 함수(복구 기준)
@@ -31,12 +31,13 @@
 
 시뮬레이션은 관리자 권한 질의다 — 학습자 권한 경로는 §4 를 근거로 definer 로 고쳤고, 적용 뒤 학습자 세션 확인 질의를 `forward.sql` 끝에 둔다.
 
-## 4. 권한 · RLS — 초안 결함과 보완
-- `csat_items` RLS 정책 `csat_items_read` 조건 = **`false`**. authenticated 는 열 권한이 있어도 행이 안 보인다.
-- 초안의 `csat_passage_key` 는 security invoker → 학습자 호출에서 모든 키 null → 같은 지문 미검출 + 다른 문항 노출마다 passage_unknown(안전하지만 기능 상실).
-- 보완: `csat_passage_key` = **security definer**, 반환은 정규화 본문의 sha256 해시뿐(본문 · 정답 없음). 학습자가 얻는 정보는 「두 문항의 지문이 같은가」뿐. `search_path` 고정 · public · anon 회수 · authenticated · service_role 실행.
-- `learning_attempt_independence` 는 CREATE OR REPLACE — ACL · invoker · STABLE 유지(본인 시도 · 본인 노출만 RLS 로 보인다).
-- 같은 이유로 앱 `bridge/exposure-reader.readPassageKeys` 는 **서버 전용 클라이언트로만** 호출해야 한다(학습자 세션이면 빈 키 → 전부 보류).
+## 4. 권한 · RLS — v2(권한 축소)
+- `csat_items` RLS: 정책 `csat_items_read`(authenticated · 조건 **false**) 하나. authenticated · anon 은 bypassrls 없음 → 0행. service_role · postgres 는 bypassrls.
+- 학습자가 읽는 `csat_items_public` 뷰는 `passage` · `stem` 을 주지 않고 미발행 학평 문항을 뺀다.
+- **v1 결함**: 지문 키 함수를 definer + authenticated 실행으로 열면, 학습자가 임의 문항 ID(보호 · 미발행 포함)로 지문 존재 · 두 문항 같은 지문 여부를 알고, 후보 본문을 해시로 대조할 수 있다(새 조회 표면).
+- **v2**: `csat_passage_key` 는 definer · **service_role 만 실행**. `learning_attempt_independence` 를 **definer** 로 바꾸고 시도 행을 「본인(`auth.uid()`) 또는 `auth.role() = 'service_role'`」로 연다 — 학습자가 얻는 것은 지금처럼 **본인 시도의 판정 문자열 하나**뿐이다. 정의자 권한은 RLS 를 넘으므로 노출 · 첫 시도 조회는 그 시도의 user_id · id 로 본문이 직접 묶는다. `auth.role()` 은 JWT 클레임을 읽어 실행 역할(정의자)과 무관하게 호출자를 가린다(개발 DB 함수 원문 확인).
+- `recovery.sql` 은 그대로 유효: 원래 본문(SECURITY DEFINER 없음)으로 CREATE OR REPLACE → invoker 복귀 · ACL 유지 · 키 함수 DROP.
+- 서버 `readPassageKeys` · 지도 `loadExposureLedger`: 호출처 4곳 모두 `createAdminClient`(service_role) — 실제 권한으로 지문을 읽는다(T-0159 실계정 E2E 에서 연구 사례 4건 표시로 확인). 학습자 세션으로 부르면 빈 키 → 전부 보류(안전 쪽 실패).
 
 ## 5. 새 반환값 `passage_unknown` 의 소비자 영향
 - 저장소 호출처: `apps/web/src/lib/csat/bridge/exposure-reader.ts` `readIndependence` 하나(제품 화면 미연결). `parseIndependence` 는 모르는 값을 null → `evidence-feed` 가 `independence_unknown` 으로 보류. **공급되지 않는다.**
