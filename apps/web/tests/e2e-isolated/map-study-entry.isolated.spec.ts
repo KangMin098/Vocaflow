@@ -6,15 +6,15 @@
 import { expect, test, type Page } from '@playwright/test'
 import { createClient } from '@supabase/supabase-js'
 
-const URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
+const SB_URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
 const SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
 const WS = 'ws.central-meaning'
 
 test.beforeAll(() => {
-  expect(URL, '격리 e2e 는 로컬 Supabase(127.0.0.1:54321)에서만 돈다').toMatch(/^http:\/\/(127\.0\.0\.1|localhost):54321/)
+  expect(SB_URL, '격리 e2e 는 로컬 Supabase(127.0.0.1:54321)에서만 돈다').toMatch(/^http:\/\/(127\.0\.0\.1|localhost):54321/)
   expect(SERVICE.length).toBeGreaterThan(20)
 })
-const admin = () => createClient(URL, SERVICE, { auth: { persistSession: false } })
+const admin = () => createClient(SB_URL, SERVICE, { auth: { persistSession: false } })
 async function noOverflow(page: Page) {
   expect(await page.evaluate(() => document.documentElement.scrollWidth - document.documentElement.clientWidth), '문서 가로 넘침').toBeLessThanOrEqual(1)
 }
