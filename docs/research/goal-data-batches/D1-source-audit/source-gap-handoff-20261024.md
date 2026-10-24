@@ -39,3 +39,20 @@
 1. 분석 · 강의: M1809#26 의 `csat_item_analyses` v1–v5(published)는 잘린 지문으로 만들어졌다 — 정답 근거 서술 재검토 대상(C 의 2014A#29 단계 경로와 같은 방식 권장: 지문 정정 → 분석 draft → 사람 승인 → 발행).
 2. 연구 데이터(goal-data): M1809#26 을 A/B 두 트랙으로 재판정 뒤 `scripts/research/goal-data/source-gaps.mjs` 에서 뺀다. 2014A#29 는 C 단계 1 적용 뒤 같은 절차.
 3. 근본 수정: 지문 조립 파서가 `* ` 로 시작하는 영어 문장 각주 줄과, 세트 공유 지문의 빈칸 표시를 문항마다 보존하게 고친 뒤 전체 재추출 대조.
+
+## 4. 적용 기록 (2026-10-25 · 사용자 승인)
+
+- 원장 재생성(`build-corpus.mjs` — 평가원 802 · 산출 `corpus.json` 은 git 무시) → 미리보기(5 변경) → 사용자 승인 「적용」 → `source-repair.mjs --file <계획> --commit`(compare-and-set) · Vocaflow-main-serving `main` · `lock.mjs` acquire/release.
+- 수리 기록: `scripts/csat/data/kice-source-repairs.json` +5 → 로컬 main 커밋 `dc553b0a9`. 재생성 때 부수로 바뀐 `corpus-report.json` 은 범위 밖이라 되돌림.
+- DB 확인(읽기): 5건 모두 반영 · `body_ok` true 유지 · 정답 불변.
+
+| 문항 | 적용 뒤 md5 | 확인 |
+|---|---|---|
+| 2014A#41 | 8958d2f8ae3e9a04ea1152cdc48783dd | 빈칸 표시 있음 · 정답 1 |
+| 2014B#41 | 4517514e25ffa7648f1a948f5b594482 | 빈칸 표시 있음 · 정답 4 |
+| 2016#41 | a83f0e8ba92e6d7bc330bbd23529d248 | 빈칸 표시 있음 · 정답 1 |
+| M1809#41 | cd44c4c6635a77135355df6a813d7c63 | 빈칸 표시 있음 · 정답 1 |
+| M1809#26 | 8c9eb6ddfb280c7f2b569199305fc9fc | 각주 문장 있음 · 정답 3 |
+
+- 되돌리기: 계획 파일의 `before` 를 `after` 로 바꾼 역계획을 같은 도구로(`--commit`, compare-and-set — 적용 뒤 md5 가 위와 같을 때만).
+- 남은 일: M1809#26 분석 v1–v5 정답 근거 서술 재검토 · M1809#26 두 트랙 재판정 뒤 `source-gaps.mjs` 에서 제외 · 학평 9건 · 파서 근본 수정 · 2014A#29 는 C 단계 경로.
