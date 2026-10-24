@@ -43,5 +43,6 @@ const next: ReviewCandidate = {
 next.id = candidateId(next)
 snap.candidates = snap.candidates.map((c: ReviewCandidate) => (c.id === oldId ? next : c))
 snap.relations = buildRelations(snap.candidates)
-writeFileSync(snapPath, JSON.stringify(snap, null, 2) + '\n')
+// 스냅샷 원본 형식(build-snapshot 출력 — 1칸 들여쓰기) 그대로 — 형식만 바뀐 diff 를 만들지 않는다
+writeFileSync(snapPath, JSON.stringify(snap, null, 1) + '\n')
 console.log(JSON.stringify({ item: pkg.item_id, oldId, newId: next.id, proposed: changes.filter((c) => c.proposed != null).length, of: changes.length }))
