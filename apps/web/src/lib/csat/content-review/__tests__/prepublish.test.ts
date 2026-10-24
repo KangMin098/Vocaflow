@@ -150,8 +150,9 @@ describe('T-0158 반례 — 일반적인 정답·오답 표현', () => {
   it('「⑤가 정답」 · 「정답은 사 번」 — 맞는 번호는 통과', () => {
     expect(run([4, 5], '④와 ⑤가 정답입니다. 정답은 사 번과 오 번이에요.').blocked).toBe(false)
   })
-  it('「다섯 번째 문장」 같은 서수는 선지로 읽지 않는다', () => {
-    expect(run([4], '다섯 번째 문장을 짚어 보세요. 이 문장은 답이 아닙니다.').blocked).toBe(false)
+  it('「다섯 번째 문장」 같은 서수는 선지로 읽지 않는다(소거 cue 안 — 15차부터 부정형 건너뜀은 소거 cue 만)', () => {
+    const r = validatePrepublish({ itemId: 'X#1', officialAnswers: [4], choiceVerdicts: [], cues: [cue('다섯 번째 문장을 짚어 보세요. 이 문장은 답이 아닙니다.', 'reject:2')] })
+    expect(r.blocked).toBe(false)
   })
 })
 
@@ -461,9 +462,34 @@ describe('T-0158 14차 반례 — 「답」 문장은 기본 검사(건너뜀은
     '{5} · %s → 사람 확인', (text) => {
       expect(run([5], text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
     })
-  it('번호 없는 부정형·UI 이름·무관한 낱말은 건너뛴다', () => {
-    expect(run([5], '맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+  it('번호 없는 부정형(소거 cue 안)·UI 이름·무관한 낱말은 건너뛴다', () => {
+    const reject1 = { ...cue('맞는 진술이고, 답이 아닙니다.'), target: { kind: 'analysis' as const, id: 'reject:1' } }
+    expect(validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [reject1] }).findings).toEqual([])
     expect(run([5], '정답 블록을 확인하세요.').findings).toEqual([])
     expect(run([5], '캐시가 좋다고 대답해요.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 15차 반례 — 부정형 건너뜀은 정확한 꼴만', () => {
+  const cue = (text: string, target = 'answer') => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: target },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string, target?: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text, target)] })
+  it.each([
+    '첫 번째 선지가 정답이 아니라는 말은 틀렸습니다.',
+    '첫 번째 선지가 정답이 아닌 것은 아닙니다.',
+    '첫 번째 선지가 정답이 아니라고 할 수 없습니다.',
+  ])('{5} · %s → 차단(소거 cue 안에서도)', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+    expect(run([5], text, 'reject:1').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
+  })
+  it('소거 cue 의 정확한 부정형만 target 에 맡긴다', () => {
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.', 'reject:1').findings).toEqual([])
+    // 소거 cue 가 아니면 같은 문장도 주어를 몰라 사람 확인
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+    // 앞부분이 다른 선지를 말로 가리키면 사람 확인
+    expect(run([5], '첫 번째 선지는 답이 아닙니다.', 'reject:3').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
   })
 })
