@@ -1,0 +1,37 @@
+// ~/.claude/hooks/vocaflow-db-mcp-guard.mjs
+// Vocaflow DB 쓰기는 승인 러너(main-serving scripts/db/<id>/deploy.mjs apply — db-approval 훅의 1회용 티켓)로만 한다(사용자 결정 2026-10-25).
+// MCP SQL 도구(mcp__supabase__* · mcp__claude_ai_Supabase__* 등 이름에 supabase 가 든 서버의 execute_sql · apply_migration)는
+// 승인 티켓 · 실행 이력이 남지 않으므로 Vocaflow 워크트리에서는 읽기 전용 SELECT 만 통과시킨다.
+//   · apply_migration → 언제나 deny
+//   · execute_sql → 주석 · 문자열 · 달러 인용을 지운 본문이 select/with/explain/show 로 시작하고 쓰기 낱말이 없을 때만 통과
+//   · 판정 못 하면 deny(우회 경로를 열지 않는다). 이 훅은 무엇도 allow 하지 않는다 — 통과 = 출력 없음.
+let input = ''
+process.stdin.on('data', (c) => { input += c })
+process.stdin.on('end', () => {
+  let event
+  try { event = JSON.parse(input) } catch { return }
+  const tool = String(event.tool_name || '')
+  if (!/^mcp__.*supabase.*__(execute_sql|apply_migration)$/i.test(tool)) return
+  const norm = (p) => String(p || '').split('\\').join('/').toLowerCase()
+  const cwd = norm(event.cwd || process.cwd())
+  if (!(cwd === 'd:/workspace/vocaflow' || cwd.startsWith('d:/workspace/vocaflow-') || cwd.startsWith('d:/workspace/vocaflow/'))) return
+  const deny = (why) => {
+    process.stdout.write(JSON.stringify({ hookSpecificOutput: { hookEventName: 'PreToolUse', permissionDecision: 'deny', permissionDecisionReason:
+      `[Vocaflow DB 쓰기 경로] ${why} — DB 쓰기는 승인 러너(node scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>, 승인 창 티켓)로만 한다. MCP 는 읽기 전용 SELECT 만.` } }))
+  }
+  if (/apply_migration$/i.test(tool)) return deny('apply_migration 은 MCP 로 실행하지 않는다')
+  const sql = String(event.tool_input?.query ?? '')
+  const body = sql
+    .replace(/\$([A-Za-z_]*)\$[\s\S]*?\$\1\$/g, ' ')
+    .replace(/--[^\n]*/g, ' ')
+    .replace(/\/\*[\s\S]*?\*\//g, ' ')
+    .replace(/'(?:[^']|'')*'/g, ' ')
+    .replace(/"(?:[^"]|"")*"/g, ' ')
+    .toLowerCase()
+  const WRITE = /\b(insert|update|delete|merge|upsert|truncate|drop|alter|create|grant|revoke|comment|copy|call|do|vacuum|reindex|cluster|refresh|lock|set|reset|begin|commit|rollback|savepoint|prepare|execute|listen|notify|security|import|load|discard)\b/
+  if (!/^\s*(select|with|explain|show|table|values)\b/.test(body)) return deny('SELECT 로 시작하지 않는 SQL')
+  if (WRITE.test(body)) return deny(`쓰기·세션 변경 낱말(${body.match(WRITE)[1]}) 포함`)
+  if (/\b(pg_read_file|pg_ls_dir|lo_import|lo_export|dblink|set_config|nextval|setval|pg_terminate_backend|pg_cancel_backend)\s*\(/.test(body)) return deny('부작용 함수 호출')
+  // 사용자 정의 함수가 쓰기를 할 수 있다 — public 스키마 함수 호출(괄호 앞 식별자 중 내장 아닌 것)은 판정 불가로 막지 않고, 쓰기 RPC 이름만 막는다
+  if (/\b(record_|apply_|publish_|approve_|reject_|insert_|update_|delete_|upsert_|set_|reset_|close_|capture_)\w*\s*\(/.test(body)) return deny('쓰기 성격 함수 호출')
+})
