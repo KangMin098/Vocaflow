@@ -901,8 +901,8 @@ export function AnalysisTheater({
   const [atBoundary, setAtBoundary] = useState(false)
   const chooserRef = useRef<HTMLHeadingElement | null>(null)
   const boundaryRef = useRef<HTMLHeadingElement | null>(null)
-  // 건너뛰기 · 멈춤 안내(aria-live) — 동의가 아니다
-  const [boundaryNote, setBoundaryNote] = useState<'skipped' | null>(null)
+  // 정답 없이 강의를 마쳤다는 안내(aria-live) — 동의가 아니다
+  const [boundaryNote, setBoundaryNote] = useState<'closed' | null>(null)
   // 경계가 첫 cue 이면 들을 것이 없다 — 이 경로를 내주지 않는다
   const untilOk = stopAt != null && stopAt > 0 && !untilFailed
   const untilFrom = (from: number) => (stopAt != null ? Math.min(from, Math.max(0, stopAt - 1)) : from)
@@ -1179,14 +1179,15 @@ export function AnalysisTheater({
               type="button"
               className={styles.lectureOfferBtn}
               onClick={() => {
-                // 이 구간 건너뛰기 — 정답 안내 cue 를 받지도 틀지도 않고, 차례 · 강조도 경계 앞에 둔다. 공개 동의가 아니다(D6-03)
+                // R3 「건너뛰기」 = 정답 없이 강의를 마친다(2026-10-24 사용자 결정). 정답 구간으로 옮기지 않고, 정답 cue 를 받지도 틀지도 않으며,
+                // 차례 · 강조 · 장면 · 스크롤 · 포커스를 바꾸지 않는다. 공개 동의가 아니다 — 정답을 들으려면 「계속 듣기(정답 공개)」 를 따로 고른다(D6-03)
                 pauseLecture()
                 setAtBoundary(false)
-                setBoundaryNote('skipped')
+                setBoundaryNote('closed')
               }}
               data-testid="lecture-boundary-skip"
             >
-              이 구간 건너뛰기
+              정답 없이 강의 마치기
             </button>
             <button
               type="button"
@@ -1237,7 +1238,7 @@ export function AnalysisTheater({
       {/* 장면이 갈릴 때만 알린다(큐마다 읽지 않는다) — 알림 영역은 처음부터 문서에 있어야 첫 변경도 읽힌다 */}
       {lec ? (
         <span className={styles.srOnly} aria-live="polite">
-          {atBoundary ? '정답을 직접 말하기 직전에서 멈췄어요. 계속 들을지 고르세요' : boundaryNote === 'skipped' ? '정답 안내 구간을 건너뛰었어요. 정답은 계속 감춰 둡니다' : lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
+          {atBoundary ? '정답을 직접 말하기 직전에서 멈췄어요. 계속 들을지 고르세요' : boundaryNote === 'closed' ? '정답을 듣지 않고 강의를 마쳤어요. 정답은 계속 감춰 둡니다' : lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
         </span>
       ) : null}
 

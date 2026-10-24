@@ -110,7 +110,10 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     expect(move).not.toMatch(/setCursor/)
     // D6-03 — 건너뛰기는 공개 동의를 켜지 않는다(동의는 「계속 듣기(정답 공개)」 · 「정답 보기」 · 「전체(정답 포함)」 선택만)
     const skip = theater.slice(theater.indexOf('data-testid="lecture-boundary-stop"'), theater.indexOf('data-testid="lecture-boundary-skip"'))
-    expect(skip).toMatch(/setBoundaryNote\('skipped'\)/)
+    expect(skip).toMatch(/setBoundaryNote\('closed'\)/)
+    // R3 건너뛰기 = 정답 없이 강의 마치기 — 정답 구간 이동 · 장면 · 포커스 · 스크롤 변경 없음
+    expect(skip).not.toMatch(/goto\(|setScene|pickScene|\.focus\(|scrollIntoView|stopAt\)/)
+    expect(theater).toMatch(/data-testid="lecture-boundary-skip"\s*>\s*정답 없이 강의 마치기/)
     expect(skip).not.toMatch(/setAnswerConsent|setLecturePath|lec\.start|setCursor/)
     expect(theater.match(/setAnswerConsent\(true\)/g)?.length).toBe(4)
     // r4 R4-02 — 강의 오류로 경로가 풀려도 감춤은 남는다(감춤은 경로가 아니라 answerHide 로 정한다)
