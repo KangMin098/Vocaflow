@@ -5,10 +5,14 @@
       "command": "node",
       "args": [
         "node_modules/@supabase/mcp-server-supabase/dist/transports/stdio.js",
-        "--project-ref=jajenrevcbmrpaliomxv"
+        "--project-ref=jajenrevcbmrpaliomxv",
+        "--read-only"
       ],
       "env": {},
-      "envFromShell": ["SUPABASE_ACCESS_TOKEN"]
+      "envFromShell": [
+        "SUPABASE_ACCESS_TOKEN"
+      ],
+      "$comment_read_only": "2026-10-25 사용자 결정: Claude Code · Codex 모두 읽기 전용. DB 쓰기는 승인형 러너(scripts/db 의 단계별 러너, db-approval 티켓)로만"
     }
   }
 }
