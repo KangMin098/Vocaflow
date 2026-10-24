@@ -1,5 +1,7 @@
 // apps/web/src/lib/csat/k-regression/__tests__/k-registry.test.ts
 // 등록부 · 재현 · 목표 · 대응표가 같은 결함 목록을 말하는지 — 한쪽만 고쳐 open 결함이 PASS 로 보이는 일을 막는다.
+// fixed 전환 시 목표가 실제로 단언과 함께 돌았는지는 k-targets 의 afterAll 결속이 실행 시점에 확인한다
+// (소스 문자열로 실행 가능성을 판정하던 가드는 빈 본문 · 블록 경계로 우회됐다 — T-0155 K-R1 run 3).
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
 
@@ -12,34 +14,12 @@ const repro = read('./k-repro.test.ts')
 const targets = read('./k-targets.test.ts')
 const matrix = read('../../../../../../../docs/csat-k-regression/RISK_MATRIX.md')
 
-/** TARGET <id> describe 블록 — 다음 describe 앞까지 */
-export function targetBlock(src: string, id: string): string {
-  const at = src.indexOf(`'TARGET ${id} `)
-  if (at < 0) return ''
-  const next = src.indexOf('\ndescribe', at)
-  return src.slice(at, next < 0 ? undefined : next)
-}
-/** 실행 가능한 목표 — todo 가 없고 본문 있는 it 이 하나 이상 */
-export const targetRunnable = (block: string) => !/\bit\.todo\(/.test(block) && /\bit(\.each\([^)]*\))?\(\s*'/.test(block)
-
 describe('K 결함 등록부 정합', () => {
-  // fixed 로 바꾸면 재현이 꺼지므로, 그때 목표가 todo 면 아무것도 검증하지 않은 채 PASS 가 된다(T-0155 K-R1 run 2)
-  it('fixed 결함은 실행 가능한 목표 테스트가 있어야 한다', () => {
-    for (const [id, g] of Object.entries(K_GAPS)) {
-      if (g.status === 'fixed') expect(targetRunnable(targetBlock(targets, id)), `${id}: 목표가 todo 이거나 비어 있다 — fixed 불가`).toBe(true)
-    }
-  })
-  it('가드 자가 검증: 현재 K6-a 목표는 todo 라 fixed 로 바꿀 수 없다, K4-a 는 실행 가능하다', () => {
-    expect(targetRunnable(targetBlock(targets, 'K6-a'))).toBe(false)
-    expect(targetRunnable(targetBlock(targets, 'K4-a'))).toBe(true)
-  })
-
   for (const [id, g] of Object.entries(K_GAPS)) {
-    it(`${id}: 재현 · 목표 테스트가 모두 있다`, () => {
+    it(`${id}: 재현 테스트가 있고 목표 파일이 이 id 를 다룬다`, () => {
       expect(repro).toContain(`REPRO ${id} `)
       expect(repro).toContain(`isOpen('${id}')`)
-      expect(targets).toContain(`TARGET ${id} `)
-      expect(targets).toContain(`isOpen('${id}')`)
+      expect(targets).toContain(`'${id}'`)
     })
     it(`${id}: 대응표 상태가 등록부와 같다(${g.status})`, () => {
       const row = matrix.split('\n').find((l) => l.startsWith(`| ${id} |`))
