@@ -29,11 +29,21 @@ export function useReveal(item: JudgmentItem, provider: RevealProvider) {
     seq.current++
   }, [bind])
 
+  // 요청을 시작한 판단 도구(shell) — 요청 시점에 잡는다(버튼은 공개 뒤 DOM 에서 빠져 closest 로 다시 찾을 수 없다)
+  const origin = useRef<Element | null>(null)
+
+  // 로딩 중 재요청 차단 — 버튼은 disabled 대신 aria-disabled 라(포커스 유지) 눌려도 여기서 막는다
+  const inflight = useRef<string | null>(null)
+
   const request = useCallback(async () => {
-    const my = ++seq.current
     const at = revealBinding(item)
+    if (inflight.current === at) return
+    inflight.current = at
+    origin.current = typeof document !== 'undefined' ? document.activeElement?.closest('[data-judgment-shell]') ?? null : null
+    const my = ++seq.current
     setHeld({ bind: at, state: { status: 'loading' } })
     const settle = (state: RevealState) => {
+      if (inflight.current === at) inflight.current = null
       if (my !== seq.current || live.current !== at) return
       setHeld({ bind: at, state })
     }
@@ -49,6 +59,26 @@ export function useReveal(item: JudgmentItem, provider: RevealProvider) {
   // 렌더 시점 결속 확인 — 상태가 다른 문항 것이거나 공개 자료의 id 가 현재 문항과 다르면 보이지 않는다
   let state = held.bind === bind ? held.state : HIDDEN
   if (state.status === 'shown' && state.data.id !== item.id) state = HIDDEN
+
+  // 포커스 보존(T-0151 디자인 수용 측정에서 발견) — 해설 버튼이 로딩 · 공개 · 오류에서 사라지면 포커스가 body 로 떨어진다.
+  // 학습자가 다른 곳으로 옮기지 않았다면 지금 상태의 영역(로딩 문구 · 해설 · 오류)으로 옮긴다. 스크롤은 옮기지 않는다(preventScroll).
+  const status = state.status
+  useEffect(() => {
+    if (status === 'hidden') return
+    const root = origin.current
+    if (!root || !root.isConnected) return
+    const id = requestAnimationFrame(() => {
+      const active = document.activeElement
+      if (active && active !== document.body && active.isConnected) return
+      const order = status === 'shown' ? ['[data-revealed]', '[data-reveal-choice]'] : status === 'error' ? ['[data-reveal-error]', '[data-reveal-status]'] : ['[data-reveal-loading]', '[data-reveal-status]']
+      const target = order.map((s) => root.querySelector<HTMLElement>(s)).find(Boolean)
+      if (!target) return
+      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
+      target.focus({ preventScroll: true })
+    })
+    return () => cancelAnimationFrame(id)
+  }, [status])
+
   return { state, request }
 }
 

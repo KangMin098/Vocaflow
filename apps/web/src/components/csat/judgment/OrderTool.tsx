@@ -215,8 +215,9 @@ function OrderToolBody({ item, reveal }: JudgmentToolProps) {
 
       <section aria-labelledby="ord-rev" className={js.section}>
         <h3 id="ord-rev">해설</h3>
-        {state.status === 'hidden' && <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={request}>해설 보기</button>}
-        {state.status === 'loading' && <p className={js.status}>해설을 불러오는 중…</p>}
+        {/* 로딩 중에도 자리를 지킨다 — 지우면 판단면 높이가 줄어 학습자 스크롤이 끌려 올라간다 */}
+        {(state.status === 'hidden' || state.status === 'loading') && <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={request} aria-disabled={state.status === 'loading'}>해설 보기</button>}
+        {state.status === 'loading' && <p className={js.status} data-reveal-loading>해설을 불러오는 중…</p>}
         {state.status === 'error' && (
           <div>
             <p className={js.error} role="alert" data-reveal-error>{REVEAL_ERROR_TEXT[state.reason]}</p>
