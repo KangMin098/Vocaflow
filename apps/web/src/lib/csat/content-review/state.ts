@@ -208,6 +208,10 @@ export function revert(
     const before = ledger.filter((e) => e.seq < seq && e.candidateId === target.candidateId && e.track === target.track && e.to === target.from)
     const origin = before[before.length - 1]
     if (!origin) return { ok: false, code: 'NO_PRIOR_APPROVAL', message: '되돌아갈 승인 줄이 원장에 없다' }
+    // 판본 무효화(stale)를 되돌려 옛 판본의 승인을 살리지 않는다 — 복원은 지금 판본과 같은 승인만(T-0158 Codex 2차 P1)
+    if (!sameBinding(origin.binding, target.binding)) {
+      return { ok: false, code: 'BINDING_MISMATCH', message: `복원할 승인은 옛 판본의 것이다(${bindingDiff(origin.binding, target.binding).join(' · ')}) — 재검수한다` }
+    }
     binding = origin.binding
     evidence = origin.evidence
   }
@@ -280,6 +284,8 @@ export function staleSweep(
 export function verifyLedger(ledger: readonly LedgerEntry[]): { ok: boolean; problems: string[] } {
   const problems: string[] = []
   const state = new Map<string, ReviewState>()
+  // 후보별로 원장이 마지막으로 본 판본 — stale 줄이 새 판본을 기록하면 그보다 옛 판본의 승인은 무효다
+  const latest = new Map<string, RevisionBinding>()
   ledger.forEach((e, i) => {
     if (e.seq !== i + 1) problems.push(`seq ${e.seq} 가 ${i + 1} 자리에 있다`)
     const k = `${e.candidateId}|${e.track}`
@@ -294,10 +300,13 @@ export function verifyLedger(ledger: readonly LedgerEntry[]): { ok: boolean; pro
     } else if (!TRANSITIONS[e.from].includes(e.to)) {
       problems.push(`seq ${e.seq}: ${e.from} → ${e.to} 는 허용 전이가 아니다`)
     }
+    const known = latest.get(e.candidateId)
     if (isApprovalState(e.to)) {
       const p = approvalProblem(e)
       if (p) problems.push(`seq ${e.seq}: ${p}`)
+      if (known && !sameBinding(known, e.binding)) problems.push(`seq ${e.seq}: 무효화된 옛 판본의 승인`)
     }
+    if (e.to === 'stale' || !known) latest.set(e.candidateId, e.binding)
     state.set(k, e.to)
   })
   return { ok: problems.length === 0, problems }

@@ -154,3 +154,21 @@ describe('T-0158 반례 — 일반적인 정답·오답 표현', () => {
     expect(run([4], '다섯 번째 문장을 짚어 보세요. 이 문장은 답이 아닙니다.').blocked).toBe(false)
   })
 })
+
+describe('T-0158 2차 반례', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it('P1 「①도 정답입니다」 — 공식 정답 {4} 밖', () => {
+    expect(run([4], '①도 정답입니다.').findings.map((f) => f.code)).toContain('CUE_WRONG_ANSWER')
+  })
+  it('P2 「④가 정답이고 ⑤는 오답입니다」 — 정상 대조 설명은 통과', () => {
+    expect(run([4], '④가 정답이고 ⑤는 오답입니다.').findings).toEqual([])
+  })
+  it('같은 문장이라도 공식 정답을 오답이라 하면 잡는다', () => {
+    expect(run([4, 5], '④가 정답이고 ⑤는 오답입니다.').blocked).toBe(true)
+  })
+})

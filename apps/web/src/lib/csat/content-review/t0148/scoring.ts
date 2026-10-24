@@ -154,17 +154,23 @@ export function parseCsvRecords(text: string): string[][] {
   let row: string[] = []
   let cur = ''
   let q = false
+  let closed = false
   const s = text.replace(/^﻿/, '')
   for (let i = 0; i < s.length; i++) {
     const ch = s[i]!
     if (q) {
       if (ch === '"') {
-        if (s[i + 1] === '"') { cur += '"'; i++ } else q = false
+        if (s[i + 1] === '"') { cur += '"'; i++ } else { q = false; closed = true }
       } else if (!(ch === '\r' && s[i + 1] === '\n')) cur += ch
       continue
     }
-    if (ch === '"') q = true
-    else if (ch === ',') { row.push(cur); cur = '' }
+    // 닫는 따옴표 바로 뒤에는 구분자만 올 수 있다 · 인용은 칸의 처음에서만 연다(RFC 4180)
+    if (closed && ch !== ',' && ch !== '\r' && ch !== '\n') throw new Error('닫는 따옴표 뒤에 글자가 있다')
+    closed = false
+    if (ch === '"') {
+      if (cur !== '') throw new Error('인용하지 않은 칸 중간에 따옴표가 있다')
+      q = true
+    } else if (ch === ',') { row.push(cur); cur = '' }
     else if (ch === '\r') { /* CRLF — \n 에서 끊는다 */ }
     else if (ch === '\n') { row.push(cur); out.push(row); row = []; cur = '' }
     else cur += ch

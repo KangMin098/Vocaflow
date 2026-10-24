@@ -16,17 +16,23 @@ export function parseCsvRecords(text) {
   let row = []
   let cur = ''
   let q = false
+  let closed = false
   const s = text.replace(/^﻿/, '')
   for (let i = 0; i < s.length; i++) {
     const ch = s[i]
     if (q) {
       if (ch === '"') {
-        if (s[i + 1] === '"') { cur += '"'; i++ } else q = false
+        if (s[i + 1] === '"') { cur += '"'; i++ } else { q = false; closed = true }
       } else if (!(ch === '\r' && s[i + 1] === '\n')) cur += ch
       continue
     }
-    if (ch === '"') q = true
-    else if (ch === ',') { row.push(cur); cur = '' }
+    // 닫는 따옴표 바로 뒤에는 구분자만 올 수 있다 · 인용은 칸의 처음에서만 연다(RFC 4180)
+    if (closed && ch !== ',' && ch !== '\r' && ch !== '\n') throw new Error('닫는 따옴표 뒤에 글자가 있다')
+    closed = false
+    if (ch === '"') {
+      if (cur !== '') throw new Error('인용하지 않은 칸 중간에 따옴표가 있다')
+      q = true
+    } else if (ch === ',') { row.push(cur); cur = '' }
     else if (ch === '\r') { /* skip */ }
     else if (ch === '\n') { row.push(cur); out.push(row); row = []; cur = '' }
     else cur += ch
@@ -103,6 +109,11 @@ export function aggregate(sheets, key, rekeyed = {}) {
   for (const s of sheets) problems.push(...s.problems)
   const { groups, problems: kp } = keyGroups(key)
   problems.push(...kp)
+  // H5 재감수 값은 'bad' | 'good' 만 — null·오타가 「해결됨」으로 세지 않게(T-0158 Codex 2차 P1)
+  for (const [b, v] of Object.entries(rekeyed)) {
+    if (!groups.has(b)) problems.push(`재감수: 키에 없는 대본 ${b}`)
+    if (v !== 'bad' && v !== 'good') problems.push(`재감수: ${b} 값 ${JSON.stringify(v)} 는 bad/good 이 아니다`)
+  }
   for (const s of sheets) {
     const blinds = new Set(s.rows.map((r) => r.blind))
     for (const b of groups.keys()) if (!blinds.has(b)) problems.push(`${s.scorer}: ${b} 행 없음`)

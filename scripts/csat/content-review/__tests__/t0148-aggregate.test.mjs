@@ -86,3 +86,20 @@ test('닫히지 않은 따옴표·키에 없는 행이 붙으면 INCOMPLETE', ()
   assert.equal(r2.verdict, 'INCOMPLETE')
   assert.match(r2.problems.join(), /키에 없는 행 EXTRA/)
 })
+
+// ── T-0158 Codex 2차 반례 회귀 ────────────────────────────────────────
+test('H5 재감수 값이 null·오타면 해결로 세지 않는다(INCOMPLETE)', () => {
+  const fn = (b, i) => (i === 20 ? { A: 8, B: 8, w2: '예' } : passing(b, i))
+  assert.equal(aggregate([readSheet(csv(fn))], key).verdict, 'NOT_MET')
+  const r = aggregate([readSheet(csv(fn))], key, { W21: null })
+  assert.equal(r.verdict, 'INCOMPLETE')
+  assert.match(r.problems.join(), /bad\/good 이 아니다/)
+  assert.equal(aggregate([readSheet(csv(fn))], key, { W99: 'bad' }).verdict, 'INCOMPLETE')
+})
+
+test('인용 안 된 칸 중간 따옴표(8"") · 닫는 따옴표 뒤 글자는 구문 오류', () => {
+  const t1 = csv(passing).replace('W01,8,4,', 'W01,8"",4,')
+  assert.equal(aggregate([readSheet(t1)], key).verdict, 'INCOMPLETE')
+  const t2 = csv(passing).replace('W01,8,4,', 'W01,"8"x,4,')
+  assert.match(readSheet(t2).problems.join(), /닫는 따옴표 뒤/)
+})

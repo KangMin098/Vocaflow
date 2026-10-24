@@ -218,3 +218,25 @@ describe('T-0158 반례', () => {
     expect(verifyLedger(l)).toEqual({ ok: true, problems: [] })
   })
 })
+
+// ── T-0158 Codex 2차 반례(P1) 회귀 ───────────────────────────────────
+describe('T-0158 2차 반례 — stale 되돌림', () => {
+  it('판본 무효화를 되돌려 옛 판본 승인을 살리지 못하고, 수제로 붙여도 무결성에서 걸린다', () => {
+    const single: typeof candidate = { ...candidate, tracks: ['explanation'] }
+    let l: LedgerEntry[] = []
+    for (const [to, evidence] of [['in_review', []], ['content_approved', EXPLAIN_EV]] as const) {
+      const r = transition(l, req({ candidate: single, to, evidence: [...evidence], reason: 'r' }))
+      if (!r.ok) throw new Error(r.message)
+      l = [...l, r.entry]
+    }
+    const sys: Reviewer = { id: 'system', kind: 'ai', roles: [] }
+    const changed = { ...binding, lectureHash: 'NEW' }
+    l = [...l, ...staleSweep(l, [single], new Map([[single.itemId, changed]]), sys, AT)]
+    const staleSeq = l[l.length - 1]!.seq
+    expect(revert(l, staleSeq, human, '무효화 취소', AT)).toMatchObject({ ok: false, code: 'BINDING_MISMATCH' })
+    // 전이 함수를 거치지 않고 복원 줄을 붙인 원장
+    const forged: LedgerEntry[] = [...l, { ...l[1]!, seq: staleSeq + 1, from: 'stale', to: 'content_approved', revertsSeq: staleSeq }]
+    expect(verifyLedger(forged).problems.join()).toMatch(/무효화된 옛 판본의 승인/)
+    expect(publishAllowed(forged, single, { itemId: single.itemId, findings: [], blocked: false }).allowed).toBe(false)
+  })
+})
