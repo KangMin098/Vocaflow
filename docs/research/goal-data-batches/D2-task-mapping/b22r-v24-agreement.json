@@ -1,0 +1,334 @@
+{
+ "batch": "b22r-v24",
+ "tasks_judged": [
+  "R5",
+  "R6",
+  "E1",
+  "E3",
+  "R4",
+  "E2"
+ ],
+ "subset": true,
+ "contracts": [
+  {
+   "path": "docs/csat-learner/v62/data-expansion/ANALYST_CONTRACT.md",
+   "sha256": "91eecbbf158e20e98d5f783aa5d4640bc97ab608c9e98995c2c67e1869acdb32"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2.md",
+   "sha256": "586e814bc9629885cf2d8a4f146121bf1afd8efbc3eef363fea763c72e1ed949"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_1.md",
+   "sha256": "4d1bc84c81879f3242b6d5525b68078c3fa368af153fc8e4c6b38381271e79fe"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_2.md",
+   "sha256": "eb00328d84e76eb3da75e60fea0c9c0909587b250accbfc093e934a0bb77fec1"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_3.md",
+   "sha256": "565da9c4a42efe242cbf9deb024fce17dbbc47feca0024520943a29231f3ea4d"
+  },
+  {
+   "path": "docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_4.md",
+   "sha256": "434e43791f4e0bbea90bb09db5e5d8d4bebf3f6f7388f15ad44b5402a5404e62"
+  }
+ ],
+ "input_sha256": "a43113c182068b2d28940a0a3c9b5125ede886e7750c7d6cde2c2a84319eb8e2",
+ "rule": "잔여 — M2006 18–45 미판정 + 포함 시험 미기록 장문(2023#41–45 · M2409#44–45 · M2209#45 — M2406#43–44 는 사전 등록 제외라 기록만 · T-0122) · 도표 · 결손 · 기판정 · 같은 문항 중복 제외 · 계약 v2.4",
+ "tasks": 6,
+ "items": 11,
+ "pairs": 66,
+ "agreement": 0.9394,
+ "kappa": 0.8765,
+ "primary_task_agreement": 10,
+ "per_task": {
+  "r.central_meaning": {
+   "display": "R5",
+   "n": 11,
+   "agreement": 1,
+   "kappa": 1,
+   "both_direct": 1,
+   "both_indirect": 0,
+   "both_not_applicable": 10,
+   "disputed": 0
+  },
+  "r.inference": {
+   "display": "R6",
+   "n": 11,
+   "agreement": 0.8182,
+   "kappa": 0,
+   "both_direct": 0,
+   "both_indirect": 0,
+   "both_not_applicable": 9,
+   "disputed": 2
+  },
+  "e.task_demand": {
+   "display": "E1",
+   "n": 11,
+   "agreement": 1,
+   "kappa": 1,
+   "both_direct": 8,
+   "both_indirect": 0,
+   "both_not_applicable": 3,
+   "disputed": 0
+  },
+  "e.option_correspondence": {
+   "display": "E3",
+   "n": 11,
+   "agreement": 1,
+   "kappa": 1,
+   "both_direct": 4,
+   "both_indirect": 1,
+   "both_not_applicable": 6,
+   "disputed": 0
+  },
+  "r.discourse_structure": {
+   "display": "R4",
+   "n": 11,
+   "agreement": 1,
+   "kappa": 1,
+   "both_direct": 2,
+   "both_indirect": 1,
+   "both_not_applicable": 8,
+   "disputed": 0
+  },
+  "e.evidence_location": {
+   "display": "E2",
+   "n": 11,
+   "agreement": 0.8182,
+   "kappa": 0.6857,
+   "both_direct": 4,
+   "both_indirect": 0,
+   "both_not_applicable": 5,
+   "disputed": 2
+  }
+ },
+ "human_review": 0,
+ "student_measurement": 0,
+ "note": "두 AI 판정의 일치는 사람 검수 · 학생 성취가 아니다. relevance 는 전부 unknown — 일치한 direct·indirect 만 candidateRelevance(R1).",
+ "items_detail": [
+  {
+   "item_id": "M2006#43",
+   "exam_id": "M2006",
+   "type_id": "X-ORDER",
+   "source_sha256": "b9f53463ad01d1c50f4150f3898f54c9dfe5e44cf7d1e6f98e78e61ac44cadd7",
+   "analysis_version": 6,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [
+    "r.discourse_structure"
+   ],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "source_gap": null,
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2006#44",
+   "exam_id": "M2006",
+   "type_id": "X-REFER",
+   "source_sha256": "cf11511f6d9ab72cdef409c458ddf2675f21038d468349cf0d12b422affb7995",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "not_suitable"
+   },
+   "source_gap": null,
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2006#45",
+   "exam_id": "M2006",
+   "type_id": "X-FACT",
+   "source_sha256": "374245069ea4ad9b5e4344b28aed7c28692e5dd0b87ec4d100763aed0a3e36b5",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.option_correspondence",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "source_gap": null,
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2023#41",
+   "exam_id": "2023",
+   "type_id": "X-TITLE",
+   "source_sha256": "8149960b1e5ff1e1dfaa207668860cb9342b4da2eb34af9260189fe9e301bc43",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "r.central_meaning",
+    "B": "r.central_meaning",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "source_gap": null,
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2023#42",
+   "exam_id": "2023",
+   "type_id": "X-VOCAB",
+   "source_sha256": "fa0140bb6a575e75de5f0292239a790a04fb94b94042fdbe382fecceb8637bda",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "not_suitable",
+    "B": "not_suitable"
+   },
+   "source_gap": null,
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2023#43",
+   "exam_id": "2023",
+   "type_id": "X-ORDER",
+   "source_sha256": "b58a59c75989f9e01ac1f2efd7caa4ee173195967bfa1976720d0be4c01a4457",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "r.discourse_structure",
+    "B": "r.discourse_structure",
+    "agree": true
+   },
+   "directly_observable_both": [
+    "r.discourse_structure"
+   ],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "source_gap": null,
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "2023#44",
+   "exam_id": "2023",
+   "type_id": "X-REFER",
+   "source_sha256": "3b5046fae8dd7bc6fca00ebfa6a8fbf07692dd677fdd12950356bb91a093837b",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "not_suitable"
+   },
+   "source_gap": null,
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "2023#45",
+   "exam_id": "2023",
+   "type_id": "X-FACT",
+   "source_sha256": "21a85909bad961224d9576e2c30dc67a5d385818c3d9ce356cbb1d385760f882",
+   "analysis_version": 5,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.option_correspondence",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "source_gap": null,
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2409#44",
+   "exam_id": "M2409",
+   "type_id": "X-REFER",
+   "source_sha256": "80d375d12a021a6e6e89eb352c1c56b700a21672e4ea5b2d1e40ee3855336404",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.task_demand",
+    "B": "e.task_demand",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "not_suitable"
+   },
+   "source_gap": null,
+   "use": "teaching_case_or_indirect"
+  },
+  {
+   "item_id": "M2409#45",
+   "exam_id": "M2409",
+   "type_id": "X-FACT",
+   "source_sha256": "d867618adaaffe9e5411e433df768ee2e95f020a75b964f654f9601f41acfa1d",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.evidence_location",
+    "B": "e.evidence_location",
+    "agree": true
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "source_gap": null,
+   "use": "independent_check_candidate"
+  },
+  {
+   "item_id": "M2209#45",
+   "exam_id": "M2209",
+   "type_id": "X-FACT",
+   "source_sha256": "450ae8dcd66ff978c770cbc121286cda4469a4caa53bd914bd2ac6229d625741",
+   "analysis_version": 4,
+   "primary_task": {
+    "A": "e.option_correspondence",
+    "B": "e.evidence_location",
+    "agree": false
+   },
+   "directly_observable_both": [],
+   "independent_assessment": {
+    "A": "candidate_if_unexposed",
+    "B": "candidate_if_unexposed"
+   },
+   "source_gap": null,
+   "use": "independent_check_candidate"
+  }
+ ],
+ "stop_alarm": {
+  "R5": "ok",
+  "R6": "ok",
+  "E1": "ok",
+  "E3": "ok",
+  "R4": "ok"
+ },
+ "stop": false
+}

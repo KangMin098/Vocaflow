@@ -1,0 +1,148 @@
+{
+ "batch": "b22r-v24",
+ "rule": "R1 후보 10 · 갈림 10(삽입 · E1 · E3 우선 · 문항 중복 없음) — 원문 대조는 독립 검증자가 한다",
+ "candidates": [
+  {
+   "item": "2023#42",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2023#44",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2023#45",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "M2006#44",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "M2006#45",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "M2209#45",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "M2409#44",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "M2409#45",
+   "task": "e.task_demand",
+   "display": "E1",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2023#41",
+   "task": "e.option_correspondence",
+   "display": "E3",
+   "judgments": {
+    "A": "indirect",
+    "B": "indirect"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  },
+  {
+   "item": "2023#43",
+   "task": "r.discourse_structure",
+   "display": "R4",
+   "judgments": {
+    "A": "direct",
+    "B": "direct"
+   },
+   "state": "INDEPENDENTLY_CHECKED"
+  }
+ ],
+ "disputed": [
+  {
+   "item": "2023#44",
+   "task": "e.evidence_location",
+   "display": "E2",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "2023#45",
+   "task": "r.inference",
+   "display": "R6",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "M2006#45",
+   "task": "r.inference",
+   "display": "R6",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "state": "DISPUTED"
+  },
+  {
+   "item": "M2409#44",
+   "task": "e.evidence_location",
+   "display": "E2",
+   "judgments": {
+    "A": "indirect",
+    "B": "not_applicable"
+   },
+   "state": "DISPUTED"
+  }
+ ]
+}

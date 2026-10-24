@@ -1,6 +1,6 @@
 {
  "generated_by": "scripts/research/goal-data/d3-build.mjs",
- "generated_at": "2026-10-24T09:55:23.744Z",
+ "generated_at": "2026-10-24T14:54:13.049Z",
  "inputs": [
   {
    "batch": "pilot-1",
@@ -101,17 +101,22 @@
    "batch": "b21-v24",
    "items": 40,
    "input_sha256": "885af291c5eb798899e20e80d05232b92dc7e94583f7f6c39868958bb821ea45"
+  },
+  {
+   "batch": "b22r-v24",
+   "items": 11,
+   "input_sha256": "a43113c182068b2d28940a0a3c9b5125ede886e7750c7d6cde2c2a84319eb8e2"
   }
  ],
  "totals": {
-  "items": 746,
+  "items": 757,
   "items_source_gap": 7,
-  "primary_task_agree": 649,
-  "same_decision_locus": 384,
-  "wrong_options": 2984,
-  "distortion_agree": 2151,
-  "distortion_agree_source_text": 2126,
-  "wrong_options_source_text": 2956
+  "primary_task_agree": 659,
+  "same_decision_locus": 389,
+  "wrong_options": 3028,
+  "distortion_agree": 2177,
+  "distortion_agree_source_text": 2152,
+  "wrong_options_source_text": 3000
  },
  "note": "두 AI 판정에서 모은 가설 · 분류다. 사람 검수 · Gold · 출제 의도 사실이 아니다. 5문항 미만 유형은 small_sample — 일반화 금지.",
  "groups": {
@@ -504,37 +509,37 @@
    "small_sample": true
   },
   "X-FACT": {
-   "items": 23,
-   "wrong_options": 92,
+   "items": 27,
+   "wrong_options": 108,
    "distortion_agreement": 1,
    "agreed_distortions": {
-    "true_statement": 92
+    "true_statement": 108
    },
    "primary_task_pairs": {
-    "e.option_correspondence": 13,
-    "e.evidence_location": 4,
+    "e.option_correspondence": 15,
+    "e.evidence_location": 5,
     "e.evidence_location|e.option_correspondence": 4,
-    "e.option_correspondence|e.evidence_location": 2
+    "e.option_correspondence|e.evidence_location": 3
    },
    "small_sample": false
   },
   "X-ORDER": {
-   "items": 25,
-   "wrong_options": 100,
+   "items": 27,
+   "wrong_options": 108,
    "distortion_agreement": 0.87,
    "agreed_distortions": {
-    "other": 87
+    "other": 94
    },
    "primary_task_pairs": {
     "r.discourse_structure|r.relation": 1,
-    "r.discourse_structure": 24
+    "r.discourse_structure": 26
    },
    "small_sample": false
   },
   "X-REFER": {
-   "items": 24,
-   "wrong_options": 96,
-   "distortion_agreement": 0.563,
+   "items": 27,
+   "wrong_options": 108,
+   "distortion_agreement": 0.5,
    "agreed_distortions": {
     "true_statement": 34,
     "other": 17,
@@ -544,19 +549,19 @@
    "primary_task_pairs": {
     "r.reference": 3,
     "e.evidence_location|e.task_demand": 1,
-    "e.task_demand": 19,
+    "e.task_demand": 22,
     "e.task_demand|e.evidence_location": 1
    },
    "small_sample": false
   },
   "X-TITLE": {
-   "items": 27,
-   "wrong_options": 108,
-   "distortion_agreement": 0.583,
+   "items": 28,
+   "wrong_options": 112,
+   "distortion_agreement": 0.589,
    "agreed_distortions": {
+    "unmentioned": 21,
     "surface_word_match": 21,
-    "unmentioned": 20,
-    "reversal": 9,
+    "reversal": 11,
     "wrong_target": 5,
     "partial_truth": 4,
     "scope_shrink": 2,
@@ -564,16 +569,16 @@
     "off_demand": 1
    },
    "primary_task_pairs": {
-    "r.central_meaning": 24,
+    "r.central_meaning": 25,
     "e.option_correspondence|r.central_meaning": 2,
     "e.option_correspondence": 1
    },
    "small_sample": false
   },
   "X-VOCAB": {
-   "items": 20,
-   "wrong_options": 80,
-   "distortion_agreement": 0.65,
+   "items": 21,
+   "wrong_options": 84,
+   "distortion_agreement": 0.619,
    "agreed_distortions": {
     "true_statement": 44,
     "other": 8
@@ -582,7 +587,7 @@
     "v.contextual_sense": 1,
     "v.semantic_relation": 1,
     "v.semantic_relation|v.core_meaning": 1,
-    "e.task_demand": 17
+    "e.task_demand": 18
    },
    "small_sample": false
   }
