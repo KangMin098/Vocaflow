@@ -50,6 +50,7 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 | K6 | 기록 실패 시 정답 미전달(503) | NOT_IN_BASELINE | U(브랜치) | 참조 브랜치 judgment route 테스트 |
 | K6 | 노출·도움 뒤 시도의 독립 판정 실측 | NOT_RUN | L | 추적 시작 뒤 시도 0건. 노출은 71행, 3문항 |
 | K6-a | DB·앱 노출 기준 불일치 | KNOWN_GAP | U·L | 아래 「K6-a 상세」 |
+| K6-b | 앱 평가용 노출 원장이 P6 정답 노출을 읽지 않는다 | KNOWN_GAP | U | 아래 「K6-b 상세」 |
 | K7 | PDF·강의·근거 동시 사용 성능·장애 | NOT_RUN | — | 통합 화면이 기준에 없다 |
 | K7 | 1280/1440 통합 화면 | NOT_RUN | — | 같은 이유 |
 | K8 | 검증 상태 구별 | PASS | U | `k-registry.test.ts` 가 이 표와 등록부를 맞춘다 |
@@ -71,7 +72,14 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 ### K6-a 상세
 - DB 함수 `learning_attempt_independence` 는 같은 `item_ref` 의 노출만 본다. 2026-10-24 `pg_get_functiondef` 로 확인했다.
 - 앱 노출 원장은 같은 지문 해시를 쓰는 문항까지 노출로 본다.
-- DB 쪽 재현 테스트는 P6 마이그레이션이 기준에 없어 skip 이다(NOT_IN_BASELINE). 앱 쪽 재현만 실행된다.
+- DB 쪽 재현 테스트는 P6 마이그레이션이 기준에 없어 skip 이다(NOT_IN_BASELINE). 앱 쪽 재현만 실행된다(`exposureOf` 행동 단언).
+- 목표 테스트는 `it.todo` 다. DB·앱 행동 비교는 P6 스키마를 PGlite 에 올려야 해서, 고치는 owner 가 작성한다. SQL 문자열 검사는 목표가 될 수 없다(T-0155 K-R1).
+
+### K6-b 상세
+- `loadExposureLedger` 는 원장 6종만 읽는다: G2 시도·세션, 함정, 문제지, 복습 큐, 진단.
+- P6 `learning_exposures` 는 읽지 않는다. main · 강의 브랜치 · P6 브랜치 모두 0건이다.
+- 그래서 판단 장면에서 정답을 직접 연 문항(answer_direct)도 독립 평가 후보 선정에서는 `unseen` 이다.
+- 재현은 가짜 DB 로 행동을 단언한다. 실계정 오판 재현은 NOT_RUN 이다.
 
 ## 재발 사례 대응
 
@@ -84,7 +92,7 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 | 문항 조건·한정의 과도한 일반화 | — | NOT_RUN (탐지기 T-0148 BLOCKED) |
 | 원문 누락·도표 수치·각주 | — | NOT_RUN |
 | P6 기록 실패 이후 정답 전달 | K6 | NOT_IN_BASELINE (브랜치 단위 PASS) |
-| 도움 받은 학습의 독립 수행 오판 | K6·K6-a | 실측 NOT_RUN · 기준 불일치 KNOWN_GAP |
+| 도움 받은 학습의 독립 수행 오판 | K6·K6-a·K6-b | 실측 NOT_RUN · 기준 불일치 KNOWN_GAP · P6 원장 미반영 KNOWN_GAP |
 | 분석 판본 변경 후 근거 앵커 불일치 | K3·K3-a | 판본 번호 PASS · 해시 KNOWN_GAP |
 
 ## 결론

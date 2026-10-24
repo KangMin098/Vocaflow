@@ -6,9 +6,11 @@
 import { describe, expect, it } from 'vitest'
 
 import { checkReveal, leakedAnswerKeys } from '@/lib/csat/judgment/evidence'
-import { normalizedPassageKey } from '@/lib/csat/map/v62/exposure-ledger'
+import { exposureOf, type ExposureEvent } from '@/lib/csat/map/v62/assessment-exposure'
+import { loadExposureLedger, normalizedPassageKey } from '@/lib/csat/map/v62/exposure-ledger'
 
 import { isOpen } from '../gaps'
+import { fakeDb } from './fake-db'
 import { ALL, fiveChoice, reveal, withCorrect } from './fixture'
 import { latestFunctionDef } from './migrations'
 
@@ -39,9 +41,14 @@ describe.runIf(isOpen('K4-a'))('REPRO K4-a 복수 정답 형태 미검사(2015#2
   })
 })
 
+const g2 = (itemRef: string): ExposureEvent => ({ itemRef, source: 'g2_attempt', taskKey: null, activity: null, phase: null, helpLevel: null, sessionId: null, contentHash: null, deleted: false })
+
 describe.runIf(isOpen('K6-a'))('REPRO K6-a 지문 공유 노출 기준 불일치', () => {
-  it('앱: 같은 지문(공백 · 대소문자 차이)을 쓰는 두 문항은 같은 노출 키다', () => {
-    expect(normalizedPassageKey({ text: 'A  shared\nPassage' })).toBe(normalizedPassageKey({ text: 'a shared passage' }))
+  it('앱: 다른 문항 · 같은 지문의 선행 노출을 exposed(samePassage) 로 판정한다', () => {
+    const key = normalizedPassageKey({ text: 'a shared passage' })!
+    expect(normalizedPassageKey({ text: 'A  shared\nPassage' })).toBe(key)
+    const v = exposureOf('X#2', { status: 'ok', events: [g2('X#1')], passageKeys: { 'X#1': key, 'X#2': key } })
+    expect(v).toMatchObject({ state: 'exposed', sameItem: false, samePassage: true })
   })
   const def = latestFunctionDef('learning_attempt_independence')
   // 기준 스냅샷에 P6 마이그레이션이 없으면 DB 쪽은 여기서 재현하지 않는다(2026-10-24 개발 DB pg_get_functiondef 로 확인한 사실은 RISK_MATRIX 에)
@@ -49,5 +56,19 @@ describe.runIf(isOpen('K6-a'))('REPRO K6-a 지문 공유 노출 기준 불일치
     const exposed = def!.sql.slice(def!.sql.indexOf('exposed as'))
     expect(exposed).toMatch(/e\.item_ref\s*=\s*a\.item_ref/)
     expect(exposed).not.toMatch(/passage/i)
+  })
+})
+
+describe.runIf(isOpen('K6-b'))('REPRO K6-b 앱 노출 원장이 P6 정답 노출을 읽지 않는다', () => {
+  it('learning_exposures 에 정답 직접 노출이 있어도 읽지 않고, 그 문항은 unseen 이다', async () => {
+    const { db, read } = fakeDb({
+      learning_exposures: [{ item_ref: '2015#25', kind: 'answer_direct', received_at: '2026-10-24T00:00:00Z' }],
+      csat_items: [{ exam_id: '2015', no: 25, passage: { text: 'p' } }],
+    })
+    const ledger = await loadExposureLedger(db, 'u1', ['2015#25'])
+    expect(ledger.status).toBe('ok')
+    expect(read).toContain('learning_task_attempts')
+    expect(read).not.toContain('learning_exposures')
+    expect(exposureOf('2015#25', ledger)).toEqual({ state: 'unseen' })
   })
 })

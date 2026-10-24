@@ -22,6 +22,14 @@ export const reveal = (item: JudgmentItem, o: Partial<RevealData> = {}): RevealD
   ...o,
 })
 
+/** 객체의 문자열 값(키 포함) 어디에 text 가 들어 있는가 — 직렬화 이스케이프와 무관하게 값 그대로 비교한다 */
+export function containsText(value: unknown, text: string): boolean {
+  if (typeof value === 'string') return value.includes(text)
+  if (Array.isArray(value)) return value.some((v) => containsText(v, text))
+  if (value && typeof value === 'object') return Object.entries(value).some(([k, v]) => k.includes(text) || containsText(v, text))
+  return false
+}
+
 /** 정답 번호와 별개로 verdict=correct 를 줄 선지 번호들 */
 export const withCorrect = (item: JudgmentItem, answer: number, correct: number[]): RevealData =>
   reveal(item, {

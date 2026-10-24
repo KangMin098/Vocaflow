@@ -8,7 +8,7 @@ import { checkReveal, leakedAnswerKeys, refsOf, splitRefs } from '@/lib/csat/jud
 import { revealOf } from '@/lib/csat/judgment/fixtures'
 import { normalizedPassageKey } from '@/lib/csat/map/v62/exposure-ledger'
 
-import { ALL, fiveChoice, reveal } from './fixture'
+import { ALL, containsText, fiveChoice, reveal, withCorrect } from './fixture'
 
 describe('K2 공개 전 정답 누출 — 초기 props', () => {
   it('D 픽스처 13건의 초기 JudgmentItem 에 정답 키가 없다', () => {
@@ -20,18 +20,25 @@ describe('K2 공개 전 정답 누출 — 초기 props', () => {
     expect(leakedAnswerKeys({ a: [{ b: { answerLocus: {} } }] })).toEqual(['.a[0].b.answerLocus'])
   })
 
-  // 키 이름이 아니라 값으로 — 공개 자료의 정답 근거 · 소거 문장이 초기 자료 어디에도 문자열로 실리지 않는다
-  it('공개 자료의 정답 근거 · 오답 소거 문장이 초기 JudgmentItem 직렬화에 없다', async () => {
+  // 키 이름이 아니라 값으로 — 공개 자료의 정답 근거 · 소거 문장이 초기 자료의 어떤 문자열 값에도 들어 있지 않다.
+  // JSON 직렬화 문자열을 검색하면 따옴표 · 줄바꿈 · 역슬래시가 이스케이프돼 누출을 놓친다(T-0155 K-R3) — 값을 순회한다
+  it('검사기 자가 검증: 따옴표 · 줄바꿈이 든 정답 근거를 심으면 잡는다', () => {
+    const s = '정답은 "the key"\n이다 \\ 근거'
+    expect(containsText({ a: [{ note: `앞 ${s} 뒤` }] }, s)).toBe(true)
+    expect(containsText({ a: [{ note: '무관' }] }, s)).toBe(false)
+  })
+
+  it('공개 자료의 정답 근거 · 오답 소거 문장이 초기 JudgmentItem 문자열 값에 없다', async () => {
     let checked = 0
     for (const { t, item } of ALL) {
-      const initial = JSON.stringify(item)
+      const initial = item
       const r = await revealOf(t, item.id)
       for (const c of r.choices) {
         const texts = c.verdict === 'correct' ? [c.why_correct] : [c.how_to_reject, c.why_tempting]
         for (const s of texts) {
           if (!s || s.length < 12) continue
           checked++
-          expect(initial.includes(s), `${item.id} 선지 ${c.n}`).toBe(false)
+          expect(containsText(initial, s), `${item.id} 선지 ${c.n}`).toBe(false)
         }
       }
     }
@@ -68,9 +75,10 @@ describe('K3 판본 불일치 — 잘못된 근거 거절', () => {
 
 describe('K4 복수 정답 칸', () => {
   // 남는 키는 통과시킨다 — 복수 정답 칸을 더해도 판본 검사가 거절하지는 않는다(타입 RevealData 에는 아직 없다)
-  it('추가 answers 칸이 있어도 판본 검사는 통과한다', () => {
+  // 입력 자체가 일관돼야 한다 — 정답 4 · 판정 4,5 · answers {4,5}(2015#25 모양). 수정 뒤에도 수용돼야 하는 정상 복수 정답이다(T-0155 K-R2)
+  it('일관된 복수 정답 자료(answers={4,5} · 판정 4,5)는 판본 검사를 통과한다', () => {
     const five = fiveChoice()
-    expect(checkReveal(five, { ...reveal(five, { answer: 4 }), answers: [4, 5] }).ok).toBe(true)
+    expect(checkReveal(five, { ...withCorrect(five, 4, [4, 5]), answers: [4, 5] }).ok).toBe(true)
   })
 })
 

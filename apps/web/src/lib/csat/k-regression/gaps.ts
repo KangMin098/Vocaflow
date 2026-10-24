@@ -20,6 +20,7 @@ export const K_GAPS = {
   'K3-a': { status: 'open', owner: 'G 데이터 정합성', summary: 'RevealData 에 units 해시가 없어 같은 판본 번호 · 다른 본문을 구별하지 못한다' },
   'K4-a': { status: 'open', owner: '문항 데이터 · 판단 도구(csat-judgment-d)', summary: 'checkReveal 이 answer 와 어긋나는 verdict=correct 선지(복수 정답 형태)를 거절하지 않는다' },
   'K6-a': { status: 'open', owner: 'P6 · 학습기록', summary: '독립 판정 DB 함수는 같은 item_ref 만, 앱 노출 원장은 같은 지문 해시까지 노출로 본다 — 기준 불일치' },
+  'K6-b': { status: 'open', owner: 'P6 · 학습기록', summary: '앱 평가용 노출 원장(loadExposureLedger)이 P6 learning_exposures(정답 직접 노출)를 읽지 않는다 — 정답을 본 문항이 독립 평가 후보로 남는다' },
 } as const satisfies Record<string, Gap>
 
 export type GapId = keyof typeof K_GAPS
