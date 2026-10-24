@@ -1,0 +1,38 @@
+{
+  "goal_id": "VG-L3-B1-01",
+  "title": "대량작업 C-F1: 강의 정리 규칙 계약(WRITER·GRADER) · 과잉 일반화 탐지기 · 35번 선지 번호 가리키기 검증 후보 독립 검증",
+  "description": "2026-10-24 사용자 지시 「대량작업 C 후속 실행」 C-F1. 작성 owner csat-lecture-audit-c(Claude), 독립 검증은 작성에 참여하지 않은 Codex(independent-review). 범위: research/csat-lecture-audit-c-20261024 의 main(7f11a8538) 대비 변경 — apps/web/scripts/csat-lecture/WRITER.md·GRADER.md 의 공식(formula) 기준을 「한 줄 확인 절차 + 적용 조건」으로 바꾼 생성 지침 후보, scripts/csat/lecture-wrapup-scope-audit.mjs 읽기 전용 탐지기와 테스트, validate.ts 후보 패치(docs/.../f1/validate-candidate — 제품 파일 미적용, owner csat-lecture-disclosure 결정 대상), 채점 기준 블라인드 회귀(f1/grader_regression_*). 과거 강의 87개를 오류로 승격하거나 원본을 수정하는 것은 범위 밖. main 통합은 독립 검증 통과 뒤 사용자 확인.",
+  "priority": "P1",
+  "owner_id": "csat-lecture-audit-c",
+  "allowed_paths": [
+    "apps/web/scripts/csat-lecture/WRITER.md",
+    "apps/web/scripts/csat-lecture/GRADER.md",
+    "scripts/csat/lecture-wrapup-scope-audit.mjs",
+    "scripts/csat/__tests__/lecture-wrapup-scope-audit.test.mjs",
+    "docs/csat-learner/lecture-audit-c-20261024/"
+  ],
+  "forbidden_paths": [
+    "apps/web/src/lib/csat/lecture-data/",
+    "apps/web/src/lib/csat/lecture/",
+    "apps/web/src/components/csat/",
+    "supabase/",
+    ".env*"
+  ],
+  "acceptance": [
+    "WRITER·GRADER 변경이 기존 규칙과 모순 없이 정리(formula)를 확인 절차·적용 조건으로 요구하고, 조건 없는 단정 규칙 감점이 기준으로 재현 가능",
+    "블라인드 채점 회귀에서 과잉 일반화 14건의 formula 점수가 OLD 대비 내려가고, 정상 정리 12건의 점수가 유의하게 내려가지 않음(정상 교수 원리 억제 없음)",
+    "탐지기 테스트 실패 0, 796 강의 실행 결과·확정 14건 탐지 수·알려진 누락(2024#35)·오탐 한계가 문서와 일치",
+    "validate 후보 패치가 main 7f11a8538 에 git apply --check 통과하고, 후보 헬퍼 드라이런이 35번 26문항 중 확정 9강의만 잡음(정상 17 오탐 0)",
+    "632 집계가 reconcile.mjs 로 ID 단위 재현되고 최초 판정 파일이 덮어써지지 않음",
+    "강의 원본·DB·공식 정답·lib/csat/lecture/ 변경 없음",
+    "작성과 다른 Codex 리뷰어의 독립 검증 기록"
+  ],
+  "impact": {
+    "current_gap": "강의 생성 지침이 마무리 cue 에 「다음 유형에 옮길 한 줄 규칙」을 요구해 조건 없는 단정 규칙이 고득점 경로가 됨 — 확정 결함 26건 중 14건, 796 강의 중 87건이 같은 형식. 35번 선지 번호 가리키기 결속 검사 부재로 9강의가 낭독과 다른 문장을 강조",
+    "expected_impact": "advances",
+    "evidence_required": ["test", "review", "artifact"],
+    "kind": "independent",
+    "user_request_ref": "2026-10-24 사용자 지시 「Vocaflow CSAT — 대량작업 C 후속 실행」 C-F1",
+    "out_of_scope": ["과거 강의 원본 일괄 수정", "validate.ts 실제 적용(owner csat-lecture-disclosure)", "DB 쓰기", "main 통합"]
+  }
+}

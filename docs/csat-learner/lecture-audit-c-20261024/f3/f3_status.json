@@ -1,0 +1,809 @@
+{
+ "2014A#27": {
+  "r1": "REVIEW_REQUIRED",
+  "known": null,
+  "by": "F1",
+  "xv": "ISSUE_CONFIRMED",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "2014A#30": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014A#36": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014A#38": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014A#43": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014A#44": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014A#45": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014B#23": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014B#26": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014B#34": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2014B#41": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#20": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#25": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#28": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#31": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#34": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#35": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#43": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#44": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2015#45": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2016#19": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2016#22": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2016#28": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2016#39": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_D1",
+  "by": "F1",
+  "xv": "AGREE(KNOWN_D1 재확인)",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "2016#42": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2016#45": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2017#18": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F1",
+  "final": "PASS"
+ },
+ "2017#35": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2017#42": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2017#43": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2017#44": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2017#45": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2018#20": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2018#21": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2018#25": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2018#31": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2018#39": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2018#43": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2019#20": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2019#22": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2019#26": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2019#28": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2020#20": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2020#26": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2020#44": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2021#20": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2021#22": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2021#26": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2021#27": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2021#28": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2021#40": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2021#44": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2022#20": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2022#26": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F2",
+  "final": "PASS"
+ },
+ "2022#27": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2022#28": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2022#30": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2022#37": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2022#40": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2022#44": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2023#19": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2023#29": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2023#31": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2024#25": {
+  "r1": "DATA_GAP",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "DATA_GAP"
+ },
+ "2024#27": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2024#30": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2024#33": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2024#44": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2024#45": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2025#21": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2025#25": {
+  "r1": "DATA_GAP",
+  "known": null,
+  "by": "F3",
+  "final": "DATA_GAP"
+ },
+ "2025#44": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2025#45": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2026#22": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2026#25": {
+  "r1": "DATA_GAP",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "DATA_GAP"
+ },
+ "2026#34": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2026#38": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "2026#43": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "M2006#18": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "M2006#19": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "M2006#22": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F3",
+  "final": "PASS"
+ },
+ "M2106#18": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2106#19": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2106#27": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2106#31": {
+  "r1": "REVIEW_REQUIRED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "REVIEW_REQUIRED"
+ },
+ "M2106#34": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2106#40": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2109#19": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2109#28": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_B",
+  "by": "F4",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2109#42": {
+  "r1": "REVIEW_REQUIRED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "REVIEW_REQUIRED"
+ },
+ "M2206#19": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2206#21": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2209#22": {
+  "r1": "REVIEW_REQUIRED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "REVIEW_REQUIRED"
+ },
+ "M2209#25": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2209#29": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2209#31": {
+  "r1": "REVIEW_REQUIRED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "REVIEW_REQUIRED"
+ },
+ "M2209#40": {
+  "r1": "REVIEW_REQUIRED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "REVIEW_REQUIRED"
+ },
+ "M2306#20": {
+  "r1": "REVIEW_REQUIRED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "REVIEW_REQUIRED"
+ },
+ "M2306#26": {
+  "r1": "PASS",
+  "known": "KNOWN_B",
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2306#35": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_C",
+  "by": "F4",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2306#44": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_B",
+  "by": "F4",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2306#45": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2309#21": {
+  "r1": "REVIEW_REQUIRED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "REVIEW_REQUIRED"
+ },
+ "M2309#22": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2309#28": {
+  "r1": "REVIEW_REQUIRED",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "REVIEW_REQUIRED"
+ },
+ "M2309#35": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2309#44": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_B",
+  "by": "F4",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2406#27": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F4",
+  "final": "PASS"
+ },
+ "M2406#34": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2406#35": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2406#43": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2406#45": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2409#25": {
+  "r1": "DATA_GAP",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "DATA_GAP"
+ },
+ "M2409#32": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2409#33": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2409#34": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2409#35": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2409#36": {
+  "r1": "REVIEW_REQUIRED",
+  "known": null,
+  "by": "F5",
+  "xv": "ISSUE_CONFIRMED",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2409#43": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2506#27": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2506#28": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2506#34": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2506#35": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2506#40": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2506#43": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2506#44": {
+  "r1": "ISSUE_CONFIRMED",
+  "known": "KNOWN_B",
+  "by": "F5",
+  "final": "ISSUE_CONFIRMED"
+ },
+ "M2509#19": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2509#24": {
+  "r1": "PASS",
+  "known": null,
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2509#28": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2606#19": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2606#40": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2609#19": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2609#34": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ },
+ "M2706#20": {
+  "r1": "PASS",
+  "known": "KNOWN_D1",
+  "by": "F5",
+  "final": "PASS"
+ }
+}

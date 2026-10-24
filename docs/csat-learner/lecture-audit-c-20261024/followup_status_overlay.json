@@ -47,5 +47,13 @@
   "by": "followup",
   "evidence": "선지별 선택률 자료 없음 — 대표 함정 주장 유보",
   "cross_verified": false
+ },
+ "2014A#32": {
+  "from": "ISSUE_CONFIRMED",
+  "to": "PASS",
+  "by": "followup-official-chart",
+  "evidence": "공식 문제지 2014A 홀수형 6쪽 도표 렌더링: 45-54=170. c4 「백오십팔과 백칠십이라」는 170+서술격 조사 「이라」로 읽힌다 — 172 오독 판정(C01·XV 모두)은 오판. 남는 것은 청각 모호성(「백칠십이」로 들릴 수 있음) P3 문구 후보: 「백칠십이어서」 대신 「백칠십, 그래서 맞아요」",
+  "cross_verified": false,
+  "note": "1차 확정·교차검증 AGREE 가 함께 틀린 사례 — AI 간 일치의 한계"
  }
 }
