@@ -97,7 +97,7 @@ export function CandidateA({ item, proto, fault }: { item: ProtoItem; proto: Ret
                 <RevealControl {...reveal} revealed={!!state.reveal} />
                 {state.reveal && (
                   <>
-                    <p className="font-semibold" data-testid="answer-line">공식 정답 {state.reveal.answer}번</p>
+                    <p className="font-semibold" id="f08-answer" tabIndex={-1} data-testid="answer-line">공식 정답 {state.reveal.answer}번</p>
                     <p className="text-xs text-[#6b655c]">선지별 판정은 「선지 넣어 보기」에서 선지마다 본다.</p>
                     <PrincipleLimits reveal={state.reveal} />
                     <RevisionLog state={state} />

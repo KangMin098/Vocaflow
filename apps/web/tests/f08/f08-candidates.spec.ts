@@ -27,7 +27,9 @@ async function passageMetrics(page: Page): Promise<Metrics> {
     const main = document.querySelector('main[aria-label="원문"]') as HTMLElement
     const s7 = document.getElementById('f08-s7')!.getBoundingClientRect()
     const fontSize = parseFloat(getComputedStyle(document.getElementById('f08-s1')!).fontSize)
-    const controls = document.querySelectorAll('[data-candidate] button').length
+    const isShown = (b: Element) => { const r = (b as HTMLElement).getBoundingClientRect(); return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight }
+    // 원문 문장 버튼을 뺀, 지금 화면(뷰포트) 안에 보이는 조작 버튼 수
+    const controls = [...document.querySelectorAll('[data-candidate] button')].filter((b) => !(b as HTMLElement).id.startsWith('f08-s') && isShown(b)).length
     const small = [...document.querySelectorAll('[data-candidate] button')].filter((b) => {
       const r = (b as HTMLElement).getBoundingClientRect()
       return r.width > 0 && r.height > 0 && r.height < 44 && !(b as HTMLElement).id.startsWith('f08-s')
@@ -143,6 +145,25 @@ for (const cand of ['a', 'b', 'c'] as const) {
       expect(invisible).toBe(0)
     })
 
+    test('범위 표시 — 7번 문장의 If 조건과 부정이 함께 강조된다', async ({ page }) => {
+      await page.getByRole('button', { name: '부정·조건 범위 표시' }).click()
+      const marks = page.locator('#f08-s7 mark')
+      await expect(marks).toHaveCount(2)
+      await expect(marks.nth(0)).toContainText('they would not rationally choose to do anyway')
+      await expect(marks.nth(1)).toContainText('then the law cannot be')
+    })
+
+    test('키보드만으로 공개 — 단계마다 초점이 다음 조작 지점으로 간다', async ({ page }) => {
+      if (cand === 'a') { await page.getByRole('tab', { name: '정답·해설' }).focus(); await page.keyboard.press('Enter') }
+      if (cand === 'c') { await page.getByRole('tab', { name: '내 판단' }).focus(); await page.keyboard.press('Enter') }
+      await page.getByRole('button', { name: '정답·해설 보기' }).focus()
+      await page.keyboard.press('Enter')
+      await expect(page.getByRole('button', { name: '공개하기' })).toBeFocused()
+      await page.keyboard.press('Enter')
+      await expect(page.getByTestId('answer-line')).toBeFocused()
+      await expect(page.getByTestId('answer-line')).toContainText('3번')
+    })
+
     test('키보드 — 문장까지 Tab 으로 닿고 포커스가 보인다', async ({ page }) => {
       let reached = false
       for (let i = 0; i < 40 && !reached; i++) {
@@ -152,8 +173,6 @@ for (const cand of ['a', 'b', 'c'] as const) {
       expect(reached).toBe(true)
       const outline = await page.evaluate(() => getComputedStyle(document.activeElement!).outlineStyle)
       expect(outline).not.toBe('none')
-      await page.keyboard.press('Enter')
-      await expect(page.locator('#f08-s1')).toBeFocused()
     })
 
     test('근거 문장으로 갔다가 판단 자리로 돌아온다 · 새로고침해도 판단이 남는다', async ({ page }) => {
@@ -166,6 +185,9 @@ for (const cand of ['a', 'b', 'c'] as const) {
       await expect(chip).toBeFocused()
       await page.reload()
       await expect(page.getByRole('button', { name: '7번 문장으로' }).first()).toBeVisible()
+      // 판단값도 돌아온다 — 3번 「맞을 것 같다」, 1번 「아닐 것 같다」
+      await expect(page.getByRole('group', { name: '3번 선지에 대한 내 판단' }).getByRole('button', { name: /맞을 것 같다/ })).toHaveAttribute('aria-pressed', 'true')
+      if (cand === 'b') await expect(page.getByRole('group', { name: '1번 선지에 대한 내 판단' }).getByRole('button', { name: /아닐 것 같다/ })).toHaveAttribute('aria-pressed', 'true')
     })
 
     test('axe — 심각·치명 위반 없음', async ({ page }) => {
@@ -185,6 +207,7 @@ for (const cand of ['a', 'b', 'c'] as const) {
         const c = counter()
         await openReveal(page, cand, c)
         await expect(page.locator('[data-candidate] [role="alert"]')).toContainText(text)
+        await expect(page.locator('[data-candidate] [role="alert"]')).toBeFocused()
         await expect(page.getByTestId('answer-line')).toHaveCount(0)
       }
     })

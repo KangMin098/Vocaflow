@@ -5,7 +5,7 @@
 
 'use client'
 
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 
 import type { ProtoItem, ProtoMeaning, ProtoReveal } from '@/lib/csat/f08-proto/types'
 import { MARK_LABEL, type OwnMark } from '@/lib/csat/f08-proto/types'
@@ -23,24 +23,37 @@ export function sentenceId(n: number) {
   return `f08-s${n}`
 }
 
+/** 범위 표현을 **원문 위치 순서**로 표시한다 — 분석 배열 순서로 자르면 앞쪽 표현(7번 문장의 If 조건)이 사라졌다. */
+export function scopeSpans(text: string, meanings: ProtoMeaning[]) {
+  const found = meanings
+    .filter((m) => m.scope !== 'none')
+    .map((m) => ({ m, at: text.indexOf(m.expression) }))
+    .filter((x) => x.at >= 0)
+    .sort((a, b) => a.at - b.at)
+  const spans: { m: ProtoMeaning; at: number }[] = []
+  for (const x of found) {
+    const last = spans[spans.length - 1]
+    if (!last || x.at >= last.at + last.m.expression.length) spans.push(x)
+  }
+  return spans
+}
+
 function withScope(text: string, meanings: ProtoMeaning[]) {
-  const marks = meanings.filter((m) => m.scope !== 'none' && text.includes(m.expression))
-  if (!marks.length) return [text]
+  const spans = scopeSpans(text, meanings)
+  if (!spans.length) return [text]
   const out: React.ReactNode[] = []
-  let rest = text
-  for (const m of marks) {
-    const i = rest.indexOf(m.expression)
-    if (i < 0) continue
-    out.push(rest.slice(0, i))
+  let cursor = 0
+  for (const { m, at } of spans) {
+    out.push(text.slice(cursor, at))
     out.push(
       <mark key={m.id} className={m.scope === 'negation' ? 'bg-[#fde9c8] font-semibold underline decoration-2' : 'bg-[#dbeafe] underline decoration-dotted decoration-2'}>
         {m.expression}
         <span className="ml-1 align-super text-[10px] font-medium no-underline">[{SCOPE_LABEL[m.scope]}]</span>
       </mark>,
     )
-    rest = rest.slice(i + m.expression.length)
+    cursor = at + m.expression.length
   }
-  out.push(rest)
+  out.push(text.slice(cursor))
   return out
 }
 
@@ -174,6 +187,8 @@ export function useRevealRequest(itemId: string, fault: string, dispatch: (a: Ac
       const { reveal } = (await res.json()) as { reveal: ProtoReveal }
       dispatch({ type: 'reveal', reveal })
       setStatus('idle')
+      // 공개 버튼이 사라지므로 초점을 정답 줄로 옮긴다(키보드·스크린리더가 결과를 놓치지 않게).
+      requestAnimationFrame(() => requestAnimationFrame(() => document.getElementById('f08-answer')?.focus()))
     } catch {
       setStatus('error')
     }
@@ -182,31 +197,39 @@ export function useRevealRequest(itemId: string, fault: string, dispatch: (a: Ac
 }
 
 export function RevealControl({ status, setStatus, request, revealed }: ReturnType<typeof useRevealRequest> & { revealed: boolean }) {
+  // 단계마다 누른 버튼이 사라진다 — 다음 단계의 조작 지점으로 초점을 옮긴다. 첫 렌더에는 옮기지 않는다.
+  const prev = useRef<RevealStatus>(status)
+  useEffect(() => {
+    if (prev.current === status) return
+    prev.current = status
+    const target = { idle: 'f08-reveal-open', confirm: 'f08-reveal-confirm', loading: null, refused: 'f08-reveal-alert', error: 'f08-reveal-alert' }[status]
+    if (target) document.getElementById(target)?.focus()
+  }, [status])
   if (revealed) return null
   return (
     <div className="space-y-2" aria-live="polite">
       {status === 'idle' && (
-        <button type="button" className={btn} onClick={() => setStatus('confirm')}>정답·해설 보기</button>
+        <button id="f08-reveal-open" type="button" className={btn} onClick={() => setStatus('confirm')}>정답·해설 보기</button>
       )}
       {status === 'confirm' && (
         <div className="rounded-md border border-[#c9c4bb] bg-[#faf8f4] p-3 text-sm">
           <p className="break-keep">정답과 선지별 판정이 열린다. 지금까지 남긴 판단은 그대로 두고 나중에 고칠 수 있다.</p>
           <div className="mt-2 flex gap-2">
-            <button type="button" className={`${btn} ${btnOn}`} onClick={request}>공개하기</button>
+            <button id="f08-reveal-confirm" type="button" className={`${btn} ${btnOn}`} onClick={request}>공개하기</button>
             <button type="button" className={btn} onClick={() => setStatus('idle')}>아직 안 본다</button>
           </div>
         </div>
       )}
       {status === 'loading' && <p className="text-sm">불러오는 중…</p>}
       {status === 'refused' && (
-        <div role="alert" className="rounded-md border border-[#9c3a30] bg-[#fbeeec] p-3 text-sm break-keep">
+        <div id="f08-reveal-alert" tabIndex={-1} role="alert" className="rounded-md border border-[#9c3a30] bg-[#fbeeec] p-3 text-sm break-keep">
           <p className="font-semibold">공개가 거절됐다</p>
           <p>이 문항의 정답 공개가 지금 허용되지 않는다. 원문·조건·내 판단 도구는 계속 쓸 수 있다.</p>
           <button type="button" className={`${btn} mt-2`} onClick={() => setStatus('idle')}>닫기</button>
         </div>
       )}
       {status === 'error' && (
-        <div role="alert" className="rounded-md border border-[#9c3a30] bg-[#fbeeec] p-3 text-sm break-keep">
+        <div id="f08-reveal-alert" tabIndex={-1} role="alert" className="rounded-md border border-[#9c3a30] bg-[#fbeeec] p-3 text-sm break-keep">
           <p className="font-semibold">해설을 불러오지 못했다</p>
           <p>남긴 판단은 저장돼 있다.</p>
           <button type="button" className={`${btn} mt-2`} onClick={request}>다시 시도</button>

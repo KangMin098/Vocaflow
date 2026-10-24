@@ -101,7 +101,7 @@ export function CandidateC({ item, proto, fault }: { item: ProtoItem; proto: Ret
               <RevealControl {...reveal} revealed={!!state.reveal} />
               {state.reveal && (
                 <>
-                  <p className="font-semibold" data-testid="answer-line">공식 정답 {state.reveal.answer}번 · 강의 해설 큐가 열렸다</p>
+                  <p className="font-semibold" id="f08-answer" tabIndex={-1} data-testid="answer-line">공식 정답 {state.reveal.answer}번 · 강의 해설 큐가 열렸다</p>
                   <PrincipleLimits reveal={state.reveal} />
                   <RevisionLog state={state} />
                 </>
