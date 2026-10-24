@@ -38,7 +38,8 @@ export function glossMatches(term: string, before: string): boolean {
   const words = (s: string) => {
     // 낱말을 감싸는 따옴표는 떼고 낱말 안 아포스트로피(bird's)는 둔다 — 「'body clock'*」(T-0154 J1)
     const w = s.toLowerCase().replace(/[’‘]/g, "'").replace(/[“”]/g, '"').replace(/[()]/g, ' ').split(/[\s-]+/)
-      .map((x) => x.replace(/^['"]+/, '').replace(/(?<!s)['"]+$/, '').replace(/"+$/, ''))
+      // 끝 따옴표는 늘 뗀다 — 「'Hours'*」의 닫는 따옴표가 남으면 hours 와 어긋난다(T-0154 K1). 복수 소유격 students' 도 굴절 비교로 맞는다
+      .map((x) => x.replace(/^['"]+/, '').replace(/['"]+$/, ''))
       .filter((x) => /[a-z]/.test(x))
     if (w.length) w[w.length - 1] = w[w.length - 1].replace(/'s$/, '')
     return w

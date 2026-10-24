@@ -244,6 +244,24 @@ describe('T-0154 Codex 독립 검증 반례 회귀', () => {
     expect(detectDefects({ typeId: 'R-NOTICE', passage, choices: [...choices, 'e * body clock: 생체 시계'] }).map((d) => d.code)).not.toContain('footnote_mark_without_gloss')
     expect(detectDefects({ typeId: 'R-NOTICE', passage, choices: [...choices, 'e'] }).map((d) => d.code)).toContain('footnote_mark_without_gloss')
   })
+  it.each([['Hours'], [`'Hours'`], ['‘Hours’'], ['"Hours"']])('K1 — 실제 2014A#29 의 %s* 에 * hours 정의가 있으면 짝, 없으면 누락', (wrapped) => {
+    const base = structuredClone(row('2014A#29'))
+    base.item.passage = base.item.passage!.replace('Hours*', `${wrapped}*`)
+    const withGloss = structuredClone(base)
+    const choices = withGloss.item.choices as string[]
+    choices[4] = `${choices[4]} * hours: 운영 시간`
+    const ok = bindItem(withGloss)
+    expect(ok.reasons).not.toContain('footnote_missing')
+    expect(ok.structure.footnotes[0]).toMatchObject({ precision: 'exact', gloss: '운영 시간' })
+    const missing = bindItem(base)
+    expect(missing.reasons).toContain('footnote_missing')
+    expect(missing.structure.footnotes[0].precision).toBe('unavailable')
+  })
+  it('K1 — 복수 소유격·낱말 안 아포스트로피는 유지된다', async () => {
+    const { glossMatches } = await import('../extraction')
+    expect(glossMatches('student', "the students'")).toBe(true)
+    expect(glossMatches("bird's-eye", "a 'bird's-eye'")).toBe(true)
+  })
   it.each([[null], [[]]])('G1 — 복수 정답인데 결속 판 선지 분석이 %j 이면 차단한다', (empty) => {
     const r = structuredClone(row('H1811G1#27'))
     r.item.answers = [3, 5]
