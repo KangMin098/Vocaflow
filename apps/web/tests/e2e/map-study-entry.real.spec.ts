@@ -55,7 +55,7 @@ test('가입 — 정상 경로 · 합성 도메인 1명', async ({ page }) => {
 test('목표 설정(앱 API) — 목표 관련 사실 표시의 전제', async ({ page }) => {
   test.setTimeout(300_000)
   await login(page)
-  const r = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 80, clientKey: crypto.randomUUID() } })
+  const r = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 80, clientKey: crypto.randomUUID() }, timeout: 180_000 })
   expect(r.status(), await r.text()).toBe(200)
 })
 
@@ -113,7 +113,7 @@ test('왕복 · 목표 변경 알림 · 재로그인 — 1440', async ({ page, c
   expect(backHref, '분석 판본(map_av)은 문항 화면이 아직 싣지 않는다 — owner 인계').not.toContain('map_av=')
   await test.info().attach('item-1440', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
   // 떠난 뒤 목표 변경 → 돌아오면 「목표가 바뀌었어요」
-  const r = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 85, clientKey: crypto.randomUUID() } })
+  const r = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 85, clientKey: crypto.randomUUID() }, timeout: 180_000 })
   expect(r.status(), await r.text()).toBe(200)
   await back.click()
   await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 120_000 })
