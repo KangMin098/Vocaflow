@@ -123,7 +123,8 @@ function bodyOf(exam, no, typeId) {
   // `passageOf` 가 줄머리 ① 을 선지 블록 머리로 오인해 지문을 거기서 끊는다
   // (실측 2026-09-13: 27문항 · 최악 M1809#30 은 958자 중 106자만 남았다 — `INLINE_SYMBOL_TYPES` 주석).
   const symbolsInline = INLINE_SYMBOL_TYPES.has(typeId)
-  const keepEnglishNotes = SET === 'hakpyeong' && typeId === 'R-NOTICE'
+  // 안내문의 영어 운영 조건 각주(`* No cash donations will be accepted.`)는 본문이다 — 평가원도 같다(M1809#26 · 2014A#29: 각주가 정답 근거인데 빠졌다)
+  const keepEnglishNotes = typeId === 'R-NOTICE'
   const man = manualBody.get(`${exam}#${no}`)
   const blocks = itemBlocks(exam, no)
   if (!blocks.length) {
