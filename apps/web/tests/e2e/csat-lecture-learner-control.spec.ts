@@ -38,7 +38,11 @@ test.describe('강의 학습자 제어', () => {
 
       const play = theater.locator('header button', { hasText: /하이라이트만|상영 시작/ })
       await expect(play).toBeVisible({ timeout: 30_000 })
-      await play.click()
+      // 서버 HTML 의 단추는 하이드레이션 전에도 보인다 — 느린 dev 서버에서 첫 클릭이 버려지면 경로 선택이 열릴 때까지 다시 누른다
+      await expect(async () => {
+        await play.click()
+        await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
+      }).toPass({ timeout: 60_000 })
       // 정답 공개 경로(P1) — 재생은 경로를 고른 뒤에만 시작한다
       await expect(page.getByTestId('lecture-chooser')).toBeVisible()
       expect(await statusOf(page), '고르기 전에 재생이 시작됐다').not.toBe('playing')

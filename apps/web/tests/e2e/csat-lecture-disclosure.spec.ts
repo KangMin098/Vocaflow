@@ -99,9 +99,14 @@ test.describe('판단 장면 정답 지연 · 화면 이동', () => {
 
       // 키보드로 「정답 보기」 → 판단 라우트 200(노출 원장 기록 뒤) → 공개 · 포커스는 정답 근거 쪽
       const btn = reveal.getByRole('button', { name: '정답 보기' })
-      await btn.focus()
-      await page.keyboard.press('Enter')
-      await expect.poll(() => judgments.length, { timeout: 60_000 }).toBe(1)
+      // 하이드레이션 전 키 입력은 버려진다 — 요청이 나갈 때까지 포커스 + Enter 를 다시(이미 나갔으면 단추가 사라져 더 누르지 않는다)
+      await expect(async () => {
+        if (judgments.length === 0 && (await btn.count())) {
+          await btn.focus()
+          await page.keyboard.press('Enter')
+        }
+        expect(judgments.length).toBe(1)
+      }).toPass({ timeout: 90_000, intervals: [3_000] })
       expect(judgments[0].status).toBe(200)
       const exposureId = (judgments[0].body as { exposureId?: unknown })?.exposureId
       expect(typeof exposureId === 'number' || typeof exposureId === 'string').toBe(true)
@@ -123,11 +128,20 @@ test.describe('판단 장면 정답 지연 · 화면 이동', () => {
       expect(await page.content()).not.toMatch(/정답 [①-⑤]/)
       expect(judgments).toHaveLength(1)
 
-      // 돌아오기 — 받은 자료를 저장소로 되살리지 않는다(다시 감춤 · 다시 요청해야 공개)
+      // 돌아오기 — 브라우저 bfcache 가 메모리 상태(이미 기록된 공개)를 복원할 수는 있다. 그러나 새 요청은 없고,
+      // 받은 정답 자료를 브라우저 저장소(localStorage · sessionStorage)에 남기지 않는다
       await page.goBack({ waitUntil: 'domcontentloaded' })
       await expect(page.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
-      await expect(page.getByTestId('judgment-reveal')).toBeVisible()
       expect(judgments).toHaveLength(1)
+      const stored = await page.evaluate(() => [localStorage, sessionStorage].flatMap((s) => Object.keys(s).map((k) => s.getItem(k) ?? '')).join('\n'))
+      expect(stored, '정답 자료가 브라우저 저장소에 남았다').not.toMatch(/"why_correct"|"how_to_reject"|"selected_as_answer"|정답 근거|analysis:reject:\d/)
+      // 새로 연 문항 화면(같은 문항 새 탭)은 다시 감춘다 — 공개는 다시 요청해야 한다
+      const fresh = await page.context().newPage()
+      await fresh.setViewportSize({ width, height: 900 })
+      await fresh.goto(`/csat/item/${NAV_ITEM}?scene=judgment`, { waitUntil: 'domcontentloaded' })
+      await expect(fresh.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
+      await expect(fresh.getByTestId('judgment-reveal')).toBeVisible()
+      await fresh.close()
       await page.screenshot({ path: `test-results/judgment-nav-${width}.png` })
     })
   }
