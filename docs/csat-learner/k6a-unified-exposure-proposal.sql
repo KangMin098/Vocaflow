@@ -1,4 +1,5 @@
 -- docs/csat-learner/k6a-unified-exposure-proposal.sql
+-- ※ 대체됨(2026-10-25): k6a/forward.sql · recovery.sql · README.md 를 볼 것. 이 초안은 security invoker 라 csat_items RLS(false) 때문에 학습자 호출에서 지문 키가 모두 null 이 된다.
 -- 제안(미적용 · 사용자 승인 전 실행 금지): K6-a 앱 ↔ DB 독립 판정 노출 기준 통일.
 --
 -- 문제: learning_attempt_independence 는 노출 조건이 e.item_ref = a.item_ref 뿐이다. 앱(exposure-ledger · bridge/exposure-consumer)은
