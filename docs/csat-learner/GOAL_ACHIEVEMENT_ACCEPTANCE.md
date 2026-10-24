@@ -28,13 +28,13 @@
 
 ### rev3 최소 보정 — 승인된 원문 보존
 
-원문: `supabase/migrations/20261023142000_csat_goal_budget_conflict.sql`.
+원문: `supabase/migrations/20261023061401_csat_goal_budget_conflict.sql`.
 SHA256: **`29fe915485f0fc772262228776a1ce9cce1fefd12109c83e8cc5fdc7c5577b4c`**.
 
 설치된 writer의 `pg_get_functiondef` MD5 `555ce3e705ec0432a12f389dfcc91072`와 정확히 일치할 때, 아래 한 구문만 바꾼다. 다른 정의는 거절하며 이미 같은 보정이 적용된 재실행은 무변경이다. CREATE OR REPLACE로 함수 identity·소유자·실행권을 유지하고 행·RLS·트리거·advisory lock·멱등키·CAS 로직·기존 SQL 원문은 변경하지 않는다. rev2 승인과 구별해 새 원문을 제시했고, 별도 승인 후 위와 같이 적용했다.
 
 ```sql
--- supabase/migrations/20261023142000_csat_goal_budget_conflict.sql
+-- supabase/migrations/20261023061401_csat_goal_budget_conflict.sql
 -- PROPOSED: separate user approval required. Preserve the installed rev2 migration.
 -- Change only the business-conflict SQLSTATE; retain rows, locks, RLS, grants and function identity.
 -- 40001 triggers PostgREST transaction retries. PT409 returns a non-retryable HTTP 409.
@@ -72,7 +72,7 @@ $patch$;
 
 - 수정/설치: `C:/Users/Administrator/.codex/hooks/codex-review-root.mjs`, 회귀 `__tests__/codex-review-root.test.mjs`. **19/19 PASS**, skip0. 실제 여러 워크트리에서도 현재 승인 경로 `D:/workspace/Vocaflow-main-serving`을 선택했다. 사전 파일은 각각 `.bak-goal-budget-20261023`에 보존했다.
 - 훅 SHA256: 변경 전 `b2fdcea424ec5ac8b1518e7519d96857d6549bc34912d873bfdec18e8087070c`, 변경 후 `0e382e9bc3e707aa5645d786013b300084d4166e620fe6803c33f28b131a3934`. 머신 로컬 훅 수정이며 프로젝트 Git에 훅 파일이 포함된 것은 아니다.
-- `apply_migration(name=csat_goal_budget)` 성공. **실제 서버 이력 버전 `20261023043453`**. 저장소 승인 원본 `20261023090000_csat_goal_budget.sql`과 DB 이력 statements의 SHA256이 모두 `fbd370acc6d2c2eba552678de101079fff26a589629b38a4a800d83ba47181ae`로 정확히 일치한다. 파일 버전과 MCP가 부여한 이력 버전을 혼동하지 않으며, 이 SQL을 다시 적용하지 않는다.
+- `apply_migration(name=csat_goal_budget)` 성공. **실제 서버 이력 버전 `20261023043453`**. 저장소 승인 원본 `20261023043453_csat_goal_budget.sql`과 DB 이력 statements의 SHA256이 모두 `fbd370acc6d2c2eba552678de101079fff26a589629b38a4a800d83ba47181ae`로 정확히 일치한다. 파일 버전과 MCP가 부여한 이력 버전을 혼동하지 않으며, 이 SQL을 다시 적용하지 않는다.
 - 적용 직전 04:33:18 UTC / 사후 04:35:10 UTC: 기존 목표2행·PLAN2행·현재 목표 내용, RLS 정책·트리거·옛 writer 정의의 해시가 모두 동일했다. 새 nullable JSONB 열의 DEFAULT는 없으며 기존2행은 NULL이다. 두 CHECK는 validated=true, goal/PLAN RLS=true다. 새 두 함수는 anon/authenticated 실행 불가·service_role 실행 가능이고 고정 search_path를 확인했다.
 - 설치된 실제 validator의 SQL NULL·0분·상한·정상 요일·음수·소수·요일 합계 초과·요일 길이 오류·중복 TASK·추가 키·필수 키 누락·단위0 등 **12/12 PASS**. 검증 중 학습자 행 변경 없음.
 - checkpoint `20261023090000_goal_budget_rev2_apply_after_root_fix`: before04:33:33 UTC→after04:35:09 UTC. diff는 회전 bloat 표본 교체·연결 수·checkpoint 자체 관측 표 증가·시간 경과 지표다. 목표/PLAN 데이터의 직접 해시 검증은 별도로 통과했다.
@@ -86,7 +86,7 @@ $patch$;
 - 사전 확인 04:21:25 UTC: 새 열/함수 없음, 충돌 없음, 다른 active 연결0. 목표2행·PLAN2행과 현재 목표·정책·트리거·옛 writer 정의의 해시를 기록했다.
 - `apply_migration(name=csat_goal_budget)` 요청은 PreToolUse가 거절했다: 같은 SQL이 `D:/workspace/Vocaflow-main-serving`과 `D:/workspace/vocaflow-n3-review`에 있어 어느 `.agent-goal.md`를 승인 근거로 선택할지 정할 수 없다는 이유다. DB에서 실행 중인 DDL이나 새 객체는 확인되지 않았다. 현재 작업트리의 `.agent-goal.md`에 실제 사용자 승인과 SHA를 기록했지만, 현행 훅은 이 기록을 읽기 전에 중복 워크트리를 거절한다.
 - 사후 확인 04:25:55 UTC: 열/두 함수 여전히 부재. 목표2행·PLAN2행·현재 목표·RLS 정책·트리거·옛 writer 정의 해시 모두 사전과 동일하다. 목표 해시 `0ca16043e8f2487aea802ce8552eebb8`, PLAN 해시 `194d23bb3cddf057a4a0bf9a0dd4def3`.
-- checkpoint 라벨 `20261023090000_csat_goal_budget_rev2_approved_20261023`: before 04:21:36 UTC, after 04:25:54 UTC에 NOT_APPLIED 사유로 닫았다. 차이는 bloat 회전 표본 교체와 시간 경과 지표뿐이다. 사후 checkpoint를 적용 성공으로 해석하지 않는다.
+- checkpoint 라벨 `20261023043453_csat_goal_budget_rev2_approved_20261023`: before 04:21:36 UTC, after 04:25:54 UTC에 NOT_APPLIED 사유로 닫았다. 차이는 bloat 회전 표본 교체와 시간 경과 지표뿐이다. 사후 checkpoint를 적용 성공으로 해석하지 않는다.
 - 차단 원문 위치: `C:/Users/Administrator/.codex/hooks/codex-review-root.mjs`의 중복 roots 거절과 `codex-review-gate.mjs`의 적용 직전 승인 확인. 다른 작업트리·승인 SQL·훅을 변경하거나 다른 경로로 DDL을 실행하지 않았다.
 
 해결 제안(미적용): 중복 SQL의 후보 중 **명시적 적용 경로·사용자 승인·일치하는 SHA를 가진 승인 기록이 정확히 하나일 때만** 그 작업 루트를 선택하고, 승인 부재/해시 불일치/복수 승인/경로 불일치는 계속 차단한다. 이 훅 수정은 별도 허용이 필요한 실행 환경 변경이다. SQL 자체의 추가 승인은 필요하지 않다. 현재 적용·설치 후 검증·실제 인증 종단·DB 동시성·최종 main 통합은 NOT_RUN/대기다.
@@ -137,7 +137,7 @@ P0 발견 없음. 원커밋에서 반례7개가 실패했으며 수정 후 통�
 
 ## SQL 원문·영향·승인 대상
 
-파일: [20261023090000_csat_goal_budget.sql](../../supabase/migrations/20261023090000_csat_goal_budget.sql).
+파일: [20261023043453_csat_goal_budget.sql](../../supabase/migrations/20261023043453_csat_goal_budget.sql).
 
 - 검토 전 SHA256: `5f812df94bda6a91dd4e3468143e7e0664ee161b17d695622664e44e24a292a9`.
 - **현재 승인 요청 rev2 SHA256: `fbd370acc6d2c2eba552678de101079fff26a589629b38a4a800d83ba47181ae`**.
@@ -179,7 +179,7 @@ P0 발견 없음. 원커밋에서 반례7개가 실패했으며 수정 후 통�
 ## 승인 대상 SQL 전체 원문
 
 ```sql
--- supabase/migrations/20261023090000_csat_goal_budget.sql
+-- supabase/migrations/20261023043453_csat_goal_budget.sql
 -- PROPOSED: user approval required before applying to the shared development DB.
 -- Additive only: no data rewrite, deletion, trigger removal, or legacy RPC replacement.
 -- Rollback without deletion: switch application back to the legacy RPC; preserve new history.

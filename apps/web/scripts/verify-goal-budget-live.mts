@@ -28,7 +28,7 @@ const mark = (name: string) => { report.checks.push(name); console.log(`PASS ${n
 const boundedFetch: typeof fetch = (input, init) => fetch(input, { ...init, signal: init?.signal ? AbortSignal.any([init.signal, AbortSignal.timeout(30_000)]) : AbortSignal.timeout(30_000) })
 const saveReport = () => {
   fs.mkdirSync('output', { recursive: true })
-  const sourceFiles = ['scripts/verify-goal-budget-live.mts', 'src/components/csat/diagnosis/map/GoalRecordBar.tsx', 'src/lib/csat/map/goal-view.ts', 'src/lib/csat/map/v4/plan-store.ts', 'src/lib/csat/map/v62/target-goal.ts', 'src/lib/csat/map/v62/goal-budget.ts', 'src/app/api/csat/diagnosis/map/goal/route.ts', 'src/lib/csat/map/server.ts', '../../supabase/migrations/20261023090000_csat_goal_budget.sql', '../../supabase/migrations/20261023142000_csat_goal_budget_conflict.sql']
+  const sourceFiles = ['scripts/verify-goal-budget-live.mts', 'src/components/csat/diagnosis/map/GoalRecordBar.tsx', 'src/lib/csat/map/goal-view.ts', 'src/lib/csat/map/v4/plan-store.ts', 'src/lib/csat/map/v62/target-goal.ts', 'src/lib/csat/map/v62/goal-budget.ts', 'src/app/api/csat/diagnosis/map/goal/route.ts', 'src/lib/csat/map/server.ts', '../../supabase/migrations/20261023043453_csat_goal_budget.sql', '../../supabase/migrations/20261023061401_csat_goal_budget_conflict.sql']
   const sourceHashes = Object.fromEntries(sourceFiles.map(file => [file, createHash('sha256').update(fs.readFileSync(file)).digest('hex')]))
   const body = JSON.stringify({ ...report, sourceHashes }, null, 2) + '\n'
   fs.writeFileSync(`output/goal-schedule-live${apiOnly ? '-api' : ''}.json`, body)
@@ -41,8 +41,8 @@ async function run(now: Date) {
   assert.ok(url && key && anon, 'Supabase environment missing')
   assert.equal(new URL(url).hostname.split('.')[0], 'jajenrevcbmrpaliomxv', 'Only the approved development project is allowed')
   assert.ok(['localhost', '127.0.0.1'].includes(new URL(baseURL).hostname), 'Only the local Next server is allowed')
-  assert.equal(createHash('sha256').update(fs.readFileSync(path.resolve('../../supabase/migrations/20261023090000_csat_goal_budget.sql'))).digest('hex'), SHA)
-  assert.equal(createHash('sha256').update(fs.readFileSync(path.resolve('../../supabase/migrations/20261023142000_csat_goal_budget_conflict.sql'))).digest('hex'), PATCH_SHA)
+  assert.equal(createHash('sha256').update(fs.readFileSync(path.resolve('../../supabase/migrations/20261023043453_csat_goal_budget.sql'))).digest('hex'), SHA)
+  assert.equal(createHash('sha256').update(fs.readFileSync(path.resolve('../../supabase/migrations/20261023061401_csat_goal_budget_conflict.sql'))).digest('hex'), PATCH_SHA)
   const admin = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false }, global: { fetch: boundedFetch } })
   const snapshot = async (table: 'csat_map_goal_version' | 'learner_workspace_plan') => {
     const rows: { id: unknown }[] = []

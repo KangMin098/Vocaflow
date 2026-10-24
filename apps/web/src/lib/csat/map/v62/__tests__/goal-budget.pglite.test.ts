@@ -60,8 +60,8 @@ async function bootstrap(database: PGlite) {
 beforeAll(async () => {
   db = new PGlite()
   await bootstrap(db)
-  await db.exec(read('20261023090000_csat_goal_budget.sql'))
-  await db.exec(read('20261023142000_csat_goal_budget_conflict.sql'))
+  await db.exec(read('20261023043453_csat_goal_budget.sql'))
+  await db.exec(read('20261023061401_csat_goal_budget_conflict.sql'))
 }, 40000)
 afterAll(async () => { await db?.close() })
 
@@ -71,10 +71,10 @@ describe('budget goal: actual versioned SQL and server write', () => {
     const patched = await definition()
     expect(patched).toContain("raise exception 'goal_changed' using errcode = 'PT409';")
     expect(patched).not.toContain("errcode = '40001'")
-    await db.exec(read('20261023142000_csat_goal_budget_conflict.sql'))
+    await db.exec(read('20261023061401_csat_goal_budget_conflict.sql'))
     expect(await definition()).toBe(patched)
     await db.exec(patched.replace('v_latest bigint;', 'v_latest bigint; changed boolean;'))
-    await expect(db.exec(read('20261023142000_csat_goal_budget_conflict.sql'))).rejects.toThrow('goal_budget_writer_definition_changed')
+    await expect(db.exec(read('20261023061401_csat_goal_budget_conflict.sql'))).rejects.toThrow('goal_budget_writer_definition_changed')
     await db.exec(patched)
     await expect(db.query("select csat_map_goal_budget_set($1,80::smallint,null,'suneung','2026-11-19',$2,$3::jsonb,999999::bigint)", [A, key(), JSON.stringify(budget)])).rejects.toMatchObject({ code: 'PT409', message: 'goal_changed' })
   })

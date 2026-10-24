@@ -1,5 +1,5 @@
 // apps/web/src/lib/csat/map/v62/final-assessment-store.ts
-// Read/bind the learner-declared final assessment (20261023170000_csat_goal_final_assessment.sql — approval required).
+// Read/bind the learner-declared final assessment (20261023082930_csat_goal_final_assessment.sql — approval required).
 // Missing table/RPC = not installed (attainment stays unconfirmed). Other errors propagate or surface as read_error; never an empty binding.
 import type { SupabaseClient } from '@supabase/supabase-js'
 

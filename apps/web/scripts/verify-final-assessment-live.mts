@@ -29,7 +29,7 @@ const boundedFetch: typeof fetch = (input, init) => fetch(input, { ...init, sign
 const seoulDay = (d: Date, plus = 0) => new Date(d.getTime() + 9 * 3600000 + plus * 86400000).toISOString().slice(0, 10)
 const saveReport = () => {
   fs.mkdirSync('output', { recursive: true })
-  const files = ['scripts/verify-final-assessment-live.mts', 'src/components/csat/diagnosis/map/FinalAssessment.tsx', 'src/lib/csat/map/v62/final-assessment.ts', 'src/lib/csat/map/v62/final-assessment-store.ts', 'src/app/api/csat/diagnosis/map/goal/final-assessment/route.ts', '../../supabase/migrations/20261023170000_csat_goal_final_assessment.sql']
+  const files = ['scripts/verify-final-assessment-live.mts', 'src/components/csat/diagnosis/map/FinalAssessment.tsx', 'src/lib/csat/map/v62/final-assessment.ts', 'src/lib/csat/map/v62/final-assessment-store.ts', 'src/app/api/csat/diagnosis/map/goal/final-assessment/route.ts', '../../supabase/migrations/20261023082930_csat_goal_final_assessment.sql']
   const sourceHashes = Object.fromEntries(files.map(f => [f, createHash('sha256').update(fs.readFileSync(f)).digest('hex')]))
   const body = JSON.stringify({ ...report, sourceHashes }, null, 2) + '\n'
   fs.writeFileSync('output/final-assessment-live.json', body)
@@ -40,7 +40,7 @@ async function run(now: Date) {
   assert.ok(url && key && anon, 'Supabase environment missing')
   assert.equal(new URL(url).hostname.split('.')[0], 'jajenrevcbmrpaliomxv', 'Only the approved development project is allowed')
   assert.ok(['localhost', '127.0.0.1'].includes(new URL(baseURL).hostname), 'Only the local Next server is allowed')
-  assert.equal(createHash('sha256').update(fs.readFileSync(path.resolve('../../supabase/migrations/20261023170000_csat_goal_final_assessment.sql'))).digest('hex'), SQL_SHA)
+  assert.equal(createHash('sha256').update(fs.readFileSync(path.resolve('../../supabase/migrations/20261023082930_csat_goal_final_assessment.sql'))).digest('hex'), SQL_SHA)
   const admin = createClient(url, key, { auth: { persistSession: false, autoRefreshToken: false }, global: { fetch: boundedFetch } })
   const installed = await admin.from('csat_map_goal_final_assessment').select('id').limit(1)
   assert.equal(installed.error, null, 'Approved final-assessment table must be installed')

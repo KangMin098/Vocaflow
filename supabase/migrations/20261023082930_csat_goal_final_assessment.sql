@@ -1,12 +1,3 @@
--- supabase/migrations/20261023170000_csat_goal_final_assessment.sql
--- PROPOSED: user approval required before applying to the shared development DB.
--- Additive only: one new append-only table + one service_role writer. No existing row, trigger, policy or RPC changes.
--- Rollback without deletion: the app treats a missing table/RPC as "not installed" (final attainment stays unconfirmed); keep history.
---
--- Contract: a goal version may bind exactly one final assessment — the goal's own exam kind (target_exam) administered on
--- assessment_date. The learner states it explicitly; it is never inferred from exam kind or target date. A new goal version
--- starts unbound (bindings never carry over). Judgment (eligibility · comparability · grade) stays in the app (final-assessment.ts).
-
 create table public.csat_map_goal_final_assessment (
   id              bigint generated always as identity primary key,
   user_id         uuid not null references auth.users (id) on delete cascade,
