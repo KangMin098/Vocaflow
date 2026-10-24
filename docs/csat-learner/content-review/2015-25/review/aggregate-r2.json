@@ -1,0 +1,16 @@
+{
+  "round": 2,
+  "protocol": "review/PROTOCOL.md @3ab82653a",
+  "package_commit": "1021af230",
+  "rule": "둘 다 ACCEPT 인 트랙만 위임 감수 통과",
+  "tracks": {
+    "T1": { "A": "ACCEPT", "B": "ACCEPT", "result": "PASSED_DELEGATED" },
+    "T2": { "A": "ACCEPT", "B": "ACCEPT", "result": "PASSED_DELEGATED" },
+    "T3": { "A": "ACCEPT", "B": "ACCEPT", "result": "PASSED_DELEGATED" }
+  },
+  "closed_from_r1": ["T2 E4 풀이 2단계 on_fail", "T3 L1 c12 배수 표현 일관성", "T3 L7 c10 반응 전제·「도」 · c12 증가율 분자"],
+  "kind": "agent_delegated_review",
+  "not_human_content_approval": true,
+  "not_db_approval_record": true,
+  "next": "사용자 DB 승인(분석 v6 in_review 삽입) → owner 반영(강의 v4 · 골격 · 공개 경계 · 탐구 · K4-a) → 같은 binding 확인 → published·발행은 별도 승인"
+}

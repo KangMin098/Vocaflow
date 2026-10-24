@@ -1,0 +1,95 @@
+{
+  "judge": "B",
+  "round": 2,
+  "tracks": {
+    "T1": {
+      "verdict": "ACCEPT",
+      "items": {
+        "O1": {
+          "result": "PASS",
+          "basis": "answer-sheet-2015-odd.pdf 1쪽을 메모리에서 렌더링해 직접 확인했다. 25번 정답은 ④, ⑤이며 배점은 2점이다."
+        },
+        "O2": {
+          "result": "PASS",
+          "basis": "사본 기준. official-briefing-2014-11-24.md는 ⑤를 추가 정답으로 인정하며, percent는 백분율이고 percent point는 백분율 간 차이라는 구분을 인정 사유로 명시한다. 공식 웹 원문과의 일치 여부는 미확인이다."
+        },
+        "O3": {
+          "result": "PASS",
+          "basis": "db-2015-25.json의 item.answers=[4,5], item.answer=4다. 제공된 덤프의 정답 집합은 정답표와 일치한다."
+        },
+        "O4": {
+          "result": "PASS",
+          "basis": "package.json의 official.reason_source.note와 analysis_v6.design_intent, SQL의 design_intent는 원래 ④ 하나만 의도했는지를 확정하지 않는다고 명시한다."
+        }
+      }
+    },
+    "T2": {
+      "verdict": "ACCEPT",
+      "items": {
+        "E1": {
+          "result": "PASS",
+          "basis": "exam-2015-odd.pdf 4쪽 도표를 직접 렌더링해 확인했다. 휴대폰 번호는 2%→20%이므로 차이는 18퍼센트포인트, 증가율은 (20−2)÷2×100=900%다. package.json의 choice_n5.why_correct와 SQL이 일치한다."
+        },
+        "E2": {
+          "result": "PASS",
+          "basis": "문제지 4쪽 이메일 주소는 29%→53%다. 29×3=87, 53÷29≈1.8276이므로 약 1.8배라는 설명과 세 배 주장에 대한 반박은 맞다."
+        },
+        "E3": {
+          "result": "PASS",
+          "basis": "문제지 4쪽의 2006/2012 값은 사진 79/91, 학교 이름 49/71, 도시 이름 61/71, 이메일 29/53, 휴대폰 번호 2/20이다. 전 항목 증가, 두 해 사진 최고, 2006년 도시 61>학교 49가 성립한다. db-2015-25.json의 ①②③ 판정과 일치하며 SQL의 else e가 이를 보존한다."
+        },
+        "E4": {
+          "result": "PASS",
+          "basis": "1회차 지적이 해소됐다. package.json의 solve_procedure_step2와 SQL의 ord=2 분기는 step과 on_fail을 함께 수정한다. on_fail은 배수=비교값÷기준값, 증가율=(나중−처음)÷처음×100, 퍼센트포인트=두 백분율 값의 차이로 명시한다."
+        },
+        "E5": {
+          "result": "PASS",
+          "basis": "package.json과 SQL의 design_intent는 복수정답 및 ⑤ 인정 사유를 공식 사실로, ④ 단독 출제 의도는 확정하지 않음으로 구분한다. 다른 항목의 증가가 배수 착각을 유도했다는 기존 추정도 제거했다."
+        },
+        "E6": {
+          "result": "PASS",
+          "basis": "package.json의 inquiry는 ⑤를 distractors에서 제거하고 배수·퍼센트 증가는 비율, 퍼센트포인트는 차이로 구분한다. 모든 증가를 차이로 처리하던 과잉 일반화가 해소됐다. 제안 문안 기준이다."
+        },
+        "E7": {
+          "result": "PASS",
+          "basis": "analysis-v6.draft.sql은 v5에서 복사한 v6를 in_review로 INSERT한다. v1~v5 변경 실행문은 없다. answer_locus의 quote와 기존 키, ①~④ 분석, 풀이의 나머지 단계 및 명시된 내용 필드를 보존한다. ⑤의 모순된 how_to_reject 제거와 2단계 step·on_fail 수정은 의도된 변경이다. 정적 검토이며 SQL은 미실행이다."
+        }
+      }
+    },
+    "T3": {
+      "verdict": "ACCEPT",
+      "items": {
+        "L1": {
+          "result": "PASS",
+          "basis": "package.json의 변경 cue 7개를 각각 재검토했다. c1은 단일 정답 전제를 제거하고, c2는 비교 방법을 구분하며, c4는 ④·⑤를 인정한다. c9의 2→20·18퍼센트포인트·900%, c10의 29→53·두 배 58은 문제지와 일치한다. c11·c12의 증가율과 퍼센트포인트 구분도 맞다."
+        },
+        "L2": {
+          "result": "PASS",
+          "basis": "lecture_after_preview의 c4·c9는 ④·⑤를 정답으로 인정한다. c6~c8은 ①②③만 소거한다. 수정 후 발화에 공식 정답 집합과 충돌하는 진술은 없다."
+        },
+        "L3": {
+          "result": "PASS",
+          "basis": "stopBefore=3 앞의 c1~c3은 발문, 비교 방법, 문장 구조와 범례를 설명하며 정답 번호나 특정 선지의 참·거짓을 공개하지 않는다. c9는 c5 뒤로 이동하므로 이 경계 앞 구성에 영향이 없다. 실제 sidecar 재생성은 미검증이다."
+        },
+        "L4": {
+          "result": "PASS",
+          "basis": "문제지 4쪽과 item-2015-25-snapshot.json의 passageSentences[5]는 ⑤ 휴대폰 번호 문장이다. c9의 newTarget=anchor:sentence:5와 newRole=evidence는 여섯 번째 문장의 수치로 정답 근거를 설명하는 발화와 일치한다."
+        },
+        "L5": {
+          "result": "PASS",
+          "basis": "수정 c10은 anchor:sentence:4인 ④ 이메일 주소 안에서만 설명한다. 29→53이며 두 배인 58에도 못 미친다는 진술은 참이다. 다른 항목의 휴대폰 번호를 연결하던 추정은 제거됐다."
+        },
+        "L6": {
+          "result": "PASS",
+          "basis": "lecture-2015-25-current.json의 c3·c5~c8을 preview 및 문제지 4쪽과 대조했다. 여섯 문장 구조, 진한 막대=2006·옅은 막대=2012, 다섯 항목, 29×3=87·약 1.8배, 전 항목 증가, 사진 79/91과 최고값, 도시 61>학교 49 및 2012년 두 항목 71 동률이 모두 맞다."
+        },
+        "L7": {
+          "result": "PASS",
+          "basis": "1회차 지적이 해소됐다. c10은 근거 없는 '세 배쯤 되어 보이기 쉽다'를 제거하고 두 배에도 못 미친다는 확인 가능한 비교를 제시한다. c12는 증가율의 분자를 '늘어난 양', 분모를 '처음 값'으로 명시하여 최종값 비율과의 혼동을 해소한다. 배수의 곱셈 검산은 c5·c10과도 일관된다."
+        }
+      }
+    }
+  },
+  "revisions": [],
+  "notes": "판정자 A의 판정 파일은 찾거나 열지 않았다. 정답표와 문제지 해당 페이지는 이번 회차에 메모리에서 렌더링해 직접 확인했다. 작성자의 validation은 PASS 근거로 사용하지 않았다. 네트워크·DB 접근, 파일 수정, SQL 실행, 애플리케이션 적재 및 sidecar 재생성은 하지 않았다. 공식 발표는 제공된 사본 기준이며 DB는 제공된 덤프 기준이다. 문서 정합성 참고: README.md 5절의 'on_fail 4단계 모두 동일·2단계 step만 교체'는 실제 r2 SQL과 다르므로 '2단계 step·on_fail 교체, 나머지 보존'으로 갱신할 필요가 있다. package.json의 correct_statements_kept에 남은 옛 c10 설명과 c9 변경 사유의 answer 이동 설명도 실제 수정안에 맞춰 정리할 필요가 있다. 실행 대상 SQL과 최종 cue 문안은 위 항목을 충족한다. 이 결과는 독립 에이전트 감수이며 사람 내용 승인이나 발행 승인이 아니다."
+}
