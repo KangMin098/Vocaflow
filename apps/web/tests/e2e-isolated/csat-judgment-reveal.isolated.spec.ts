@@ -123,6 +123,36 @@ async function open(page: Page, id: string) {
   return { calls, props, reveal }
 }
 
+/**
+ * 시각 회귀(UI 게이트 ⑤) — 기준 이미지는 제품 저장소 밖(ARTIFACTS/baseline)에 둔다(TASK 허용 경로를 넓히지 않는다).
+ * T0147_UPDATE_BASELINE=1 일 때만 기준을 쓰고, 그 밖에는 기준이 없으면 실패한다(갱신 없이 재비교가 통과해야 PASS).
+ * 비교는 의존성 없이 브라우저 캔버스로 — 채널 차 > 16 인 픽셀이 0.1% 를 넘으면 회귀.
+ */
+async function matchBaseline(page: Page, name: string, shot: Buffer) {
+  const dir = path.join(ARTIFACTS, 'baseline')
+  const file = path.join(dir, `${name}.png`)
+  if (process.env.T0147_UPDATE_BASELINE === '1') {
+    fs.mkdirSync(dir, { recursive: true })
+    fs.writeFileSync(file, shot)
+    return
+  }
+  if (!fs.existsSync(file)) throw new Error(`기준 이미지 없음: ${file} — T0147_UPDATE_BASELINE=1 로 한 번 만든 뒤 갱신 없이 다시 비교한다`)
+  const base = fs.readFileSync(file)
+  const diff = await page.evaluate(async ([a, b]) => {
+    const load = (src: string) => new Promise<HTMLImageElement>((ok, no) => { const i = new Image(); i.onload = () => ok(i); i.onerror = no; i.src = src })
+    const [x, y] = await Promise.all([load(a), load(b)])
+    if (x.width !== y.width || x.height !== y.height) return { size: true, ratio: 1 }
+    const px = (img: HTMLImageElement) => { const c = document.createElement('canvas'); c.width = img.width; c.height = img.height; const g = c.getContext('2d')!; g.drawImage(img, 0, 0); return g.getImageData(0, 0, img.width, img.height).data }
+    const p = px(x)
+    const q = px(y)
+    let bad = 0
+    for (let i = 0; i < p.length; i += 4) if (Math.abs(p[i] - q[i]) > 16 || Math.abs(p[i + 1] - q[i + 1]) > 16 || Math.abs(p[i + 2] - q[i + 2]) > 16) bad++
+    return { size: false, ratio: bad / (p.length / 4) }
+  }, [`data:image/png;base64,${base.toString('base64')}`, `data:image/png;base64,${shot.toString('base64')}`] as const)
+  expect(diff.size, `${name} 크기가 기준과 다르다`).toBe(false)
+  expect(diff.ratio, `${name} 기준 대비 달라진 픽셀 비율`).toBeLessThanOrEqual(0.001)
+}
+
 /** 렌더된 화면 DOM(속성 포함 — data-* · aria-* · 숨은 텍스트) + 첫 응답 props 직렬화(RSC 에 해당). 번들 스크립트 본문은 제외 */
 const dom = (page: Page) => page.evaluate(() => [document.getElementById('root')?.outerHTML ?? '', JSON.stringify((window as unknown as { __props: unknown }).__props)].join(' '))
 
@@ -151,7 +181,8 @@ for (const width of [1280, 1440]) {
         // 감춘 것을 「설명이 없다」 로 말하지 않는다
         await expect(page.getByTestId('scene-empty')).toHaveCount(0)
         expect(calls).toEqual([])
-        await page.screenshot({ path: path.join(ARTIFACTS, `${id.replace('#', '-')}-before-${width}.png`), fullPage: false })
+        const shot = await page.screenshot({ path: path.join(ARTIFACTS, `${id.replace('#', '-')}-before-${width}.png`), fullPage: false })
+        await matchBaseline(page, `${id.replace('#', '-')}-before-${width}`, shot)
       })
     }
 
@@ -177,7 +208,8 @@ for (const width of [1280, 1440]) {
       // 포커스가 문서 밖으로 튀지 않았다
       // 누른 단추가 사라지므로 포커스는 공개된 정답 근거 제목으로 옮겨진다(문서 밖으로 빠지지 않는다)
       await expect.poll(() => page.evaluate(() => document.activeElement?.closest('[data-block="analysis:answer"]') != null)).toBe(true)
-      await page.screenshot({ path: path.join(ARTIFACTS, `${id.replace('#', '-')}-after-${width}.png`), fullPage: false })
+      const shot = await page.screenshot({ path: path.join(ARTIFACTS, `${id.replace('#', '-')}-after-${width}.png`), fullPage: false })
+      await matchBaseline(page, `${id.replace('#', '-')}-after-${width}`, shot)
     })
 
     test('기록 실패(503) — 정답을 그리지 않고 다시 누를 수 있다', async ({ page }) => {
