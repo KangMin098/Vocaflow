@@ -867,23 +867,23 @@
        {
         "option": 3,
         "agree": false,
-        "accepted_label": null,
         "a": "반대 진술",
-        "b": "NONE"
+        "b": "NONE",
+        "pair_agreed_label_not_reflected": null
        },
        {
         "option": 4,
         "agree": true,
-        "accepted_label": "어휘 함정",
         "a": "어휘 함정",
-        "b": "어휘 함정"
+        "b": "어휘 함정",
+        "pair_agreed_label_not_reflected": "어휘 함정"
        },
        {
         "option": 5,
         "agree": false,
-        "accepted_label": null,
         "a": "반대 진술",
-        "b": "범위 과대"
+        "b": "범위 과대",
+        "pair_agreed_label_not_reflected": null
        }
       ],
       "reflected": false,
@@ -1051,16 +1051,16 @@
        {
         "option": 3,
         "agree": false,
-        "accepted_label": null,
         "a": "반박-피반박 순서 역전",
-        "b": "총론-각론 역전"
+        "b": "총론-각론 역전",
+        "pair_agreed_label_not_reflected": null
        },
        {
         "option": 5,
         "agree": true,
-        "accepted_label": "열거·병렬 절단",
         "a": "열거·병렬 절단",
-        "b": "열거·병렬 절단"
+        "b": "열거·병렬 절단",
+        "pair_agreed_label_not_reflected": "열거·병렬 절단"
        }
       ],
       "reflected": false,
@@ -1148,9 +1148,9 @@
        {
         "option": 4,
         "agree": true,
-        "accepted_label": "조건 대상 오지정",
         "a": "조건 대상 오지정",
-        "b": "조건 대상 오지정"
+        "b": "조건 대상 오지정",
+        "pair_agreed_label_not_reflected": "조건 대상 오지정"
        }
       ],
       "reflected": false,
@@ -1238,9 +1238,9 @@
        {
         "option": 2,
         "agree": true,
-        "accepted_label": "총론-각론 절단",
         "a": "총론-각론 절단",
-        "b": "총론-각론 절단"
+        "b": "총론-각론 절단",
+        "pair_agreed_label_not_reflected": "총론-각론 절단"
        }
       ],
       "reflected": false,
@@ -1410,16 +1410,16 @@
        {
         "option": 1,
         "agree": true,
-        "accepted_label": "인과 연쇄 절단",
         "a": "인과 연쇄 절단",
-        "b": "인과 연쇄 절단"
+        "b": "인과 연쇄 절단",
+        "pair_agreed_label_not_reflected": "인과 연쇄 절단"
        },
        {
         "option": 4,
         "agree": true,
-        "accepted_label": "총론-각론 역전",
         "a": "총론-각론 역전",
-        "b": "총론-각론 역전"
+        "b": "총론-각론 역전",
+        "pair_agreed_label_not_reflected": "총론-각론 역전"
        }
       ],
       "reflected": false,
