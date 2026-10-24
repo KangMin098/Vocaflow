@@ -493,3 +493,18 @@ describe('T-0158 15차 반례 — 부정형 건너뜀은 정확한 꼴만', () =
     expect(run([5], '첫 번째 선지는 답이 아닙니다.', 'reject:3').findings.map((f) => f.code)).toContain('CUE_ANSWER_UNPARSED')
   })
 })
+
+describe('T-0158 16차 반례 — 「오답이 아닙니다」는 소거가 아니다', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['오답이 아닙니다.', '이것은 오답이 아닙니다.', '보면 오답이 아니죠.'])('reject:1 · %s → 사람 확인', (text) => {
+    expect(run(text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+  it('정상 소거(「정답이 아닙니다」 · 「답이 아닙니다」)는 target 에 맡긴다', () => {
+    expect(run('정답이 아닙니다.').findings).toEqual([])
+    expect(run('맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+  })
+})

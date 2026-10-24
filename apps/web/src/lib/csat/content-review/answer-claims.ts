@@ -162,7 +162,8 @@ export function readClaims(rawText: string, ctx: { choices?: readonly string[]; 
     //       「묻지 않으니 맞는 진술이고, 답이 아닙니다」 같은 실제 소거 문장을 막지 않는다)
     const noUi = gateText.replace(/정답\s*블록/g, '')
     const uiOnly = !/답/.test(noUi)
-    const negTail = /^(.*?)정?답이\s*아(?:닙니다|니에요|니다|니죠)[.。!]?$/.exec(noUi)
+    // 「오답이 아닙니다」(= 정답이라는 뜻)는 이 꼴이 아니다 — 「답이」 앞 글자가 「오」면 제외(16차 P1)
+    const negTail = /^(.*?)(?<!오)정?답이\s*아(?:닙니다|니에요|니다|니죠)[.。!]?$/.exec(noUi)
     const targetNegative = ctx.rejectTarget != null && negTail != null && (noUi.match(/답/g) ?? []).length === 1
       && !/선지|보기|번(?!째)/.test(negTail[1]!)
     if (!/\p{N}/u.test(sentence) && refsIn(sentence).length === 0 && (uiOnly || targetNegative)) continue
