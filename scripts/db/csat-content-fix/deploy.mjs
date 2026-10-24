@@ -8,7 +8,7 @@
 //   · 본문 SQL 은 저장소 밖에 둔다(--sql): 학평 분석 문장에 지문 인용이 들어 있다(EBSi 무단 전재·재배포 금지 — lib-drain-set.mjs 참조).
 //
 //   node scripts/db/csat-content-fix/deploy.mjs preflight --stage <s> --sql <file> --deps <dir> [--db-url-env KEY]   # 읽기 전용
-//   node scripts/db/csat-content-fix/deploy.mjs apply     --stage <s> --sql <file> --deps <dir> [--db-url-env KEY] --confirm-sha <sha>
+//   node scripts/db/csat-content-fix/deploy.mjs apply     --stage <s> --sql <file> --deps <dir> [--db-url-env KEY] [--ca <CA 파일>] --confirm-sha <sha>
 //
 // 종료 코드: 0 성공 · 1 사용법 · 2 적용 전 차단 · 3 롤백됨 · 4 결과 불명/검증 실패(재시도 금지 · /db-incident)
 
@@ -29,8 +29,15 @@ const RUNNER = 'csat-content-fix'
 /** 단계 = 승인된 SQL 하나. sha256 은 사용자가 대화에서 승인한 값 그대로. verify 는 (ok boolean, detail) 한 행. */
 export const STAGES = {
   'hk-meta-r2': {
-    sha256: '7e101b7e08ede44c2e3d694c0207156337208252ac5106e0a4bac55ac56eb7e9',
+    sha256: '03a9c004fdfe4548c5e010e1daefdd006cf9fb4854a2f23abcecf9563fa0f11c',
     verify: `select count(*) = 14, count(*)::text from public.csat_item_analyses where analyst_run = 'vf-20261025-fix-round2' and status = 'in_review'`,
+  },
+  // C 원문 정정 2건(2014B#36 · 2017#42 csat_items.passage 끝 배점·선지 표 머리 꼬리) — 본문은 research/csat-lecture-audit-c-20261024
+  //   docs/csat-learner/lecture-audit-c-20261024/g/db-fix/D-two/forward.sql. 사용자 승인 2026-10-25(「2014B#36·2017#42 우선 DB 정정 승인」)
+  'c-src2': {
+    sha256: 'a358a7d717a7d3d14dbfcc6d3c231bb3b089c1c989bcf292077443393a762e9a',
+    verify: `select count(*) = 2, string_agg(id || ':' || left(md5(passage), 8), ',' order by id) from public.csat_items
+      where (id = '2014B#36' and md5(passage) = '0b6a803ce0d702594d3d85705013be45') or (id = '2017#42' and md5(passage) = 'ac52fa4ae3dae03384dc2983a4fb6430')`,
   },
 }
 
@@ -98,7 +105,7 @@ async function applyStage(client, text) {
 function args(a = process.argv.slice(2)) {
   const get = (n) => { const i = a.indexOf(n); return i >= 0 ? a[i + 1] : undefined }
   return { cmd: a[0], stage: get('--stage'), sql: get('--sql'), deps: get('--deps'), urlEnv: get('--db-url-env') ?? 'VF_DEPLOY_DB_URL',
-    confirmSha: get('--confirm-sha'), approvalNonce: get(NONCE_FLAG) }
+    ca: get('--ca'), confirmSha: get('--confirm-sha'), approvalNonce: get(NONCE_FLAG) }
 }
 
 async function main() {
@@ -134,7 +141,10 @@ async function main() {
   const target = targetOf(url)
   if (!target.ok) { console.error(target.why); process.exit(2) }
   const pg = createRequire(path.join(o.deps, 'package.json'))('pg')
-  const client = new pg.Client({ connectionString: url, application_name: 'vf-csat-content-fix-deploy', ssl: { rejectUnauthorized: true } })
+  // --ca: Supabase 는 자체 루트(Supabase Root 2021 CA)로 서명한다 — 검증은 끄지 않고 신뢰할 루트만 준다(apply-approved-sql.mjs 와 같은 방식).
+  //   URL 의 sslmode 는 떼어 낸다 — pg 가 sslmode 를 읽으면 아래 ssl 설정을 덮는다.
+  const ssl = o.ca ? { ca: fs.readFileSync(o.ca, 'utf8'), rejectUnauthorized: true } : { rejectUnauthorized: true }
+  const client = new pg.Client({ connectionString: url.replace(/[?&]sslmode=[^&]*/, ''), application_name: 'vf-csat-content-fix-deploy', ssl })
   await client.connect()
   const log = { package: 'csat-content-fix-deploy', stage: o.stage, command: o.cmd, target: target.target, stage_sha256: st.sha256,
     git_head: execFileSync('git', ['rev-parse', 'HEAD'], { cwd: ROOT, encoding: 'utf8', windowsHide: true }).trim(),

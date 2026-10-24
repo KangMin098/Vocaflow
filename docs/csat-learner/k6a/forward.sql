@@ -8,10 +8,14 @@
 -- 정규화 지문 키 = 앱 normalizedPassageKey: lower → \s+ 를 ' ' 로 → 앞뒤 공백 제거 → JSON 문자열 인코딩 → sha256 hex. 빈 값 = 키 없음.
 --   개발 DB 3,714문항 전수 대조 일치(2026-10-25 · 정렬 다이제스트 md5 be10b1f65c4969ce43bf218ec12bab2e, 양쪽 동일 · 키 없음 0).
 -- 범위: 새 함수 1(csat_passage_key) · learning_attempt_independence 본문 교체. 표 · 열 · 트리거 · 데이터 · RLS 무변경.
---   learning_attempt_independence 는 CREATE OR REPLACE → 기존 ACL(authenticated · service_role EXECUTE) · security invoker · STABLE · search_path 유지.
---   csat_passage_key 는 **security definer**(소유자 권한으로 csat_items 를 읽는다). 이유: csat_items RLS 정책 csat_items_read 의 조건이 false 라
---     학습자(authenticated) 호출에서 invoker 로는 한 줄도 못 읽어 모든 지문 키가 null → 같은 지문을 못 잡고 다른 문항 노출마다 passage_unknown 이 된다(2026-10-25 확인).
---     반환은 정규화 본문의 sha256 해시뿐(본문 · 정답 · 다른 칸 없음) — 학습자가 알 수 있는 것은 두 문항의 지문이 같은지뿐이다. search_path 고정 · anon 회수.
+-- 권한(보완 v2 · 2026-10-25 — 학습자에게 새 조회 표면을 만들지 않는다):
+--   csat_items RLS 정책 csat_items_read 의 조건은 false(authenticated 0행 · bypassrls 없음). 학습자는 csat_items_public 뷰로만 읽고 그 뷰는 passage · stem 을 주지 않으며 미발행 학평 문항을 뺀다.
+--   v1 처럼 지문 키 함수를 authenticated 에 열면 임의 문항 ID(보호 · 미발행 포함)로 지문 존재 · 같은 지문 여부 · 후보 본문 일치(해시 대조)를 알 수 있다 → 열지 않는다.
+--   · csat_passage_key: security definer · **service_role 만 실행**(public · anon · authenticated 회수). 학습자는 직접 부를 수 없다.
+--   · learning_attempt_independence: **security definer** 로 바꾸고 시도 행을 「본인 시도(auth.uid()) 또는 service_role 호출」로만 연다.
+--     정의자 권한으로 csat_passage_key 를 부르므로 학습자 호출에서도 같은 지문을 판정한다. 반환은 지금과 같은 판정 문자열 하나 — 본인 시도 외에는 null(지금 RLS 결과와 같음).
+--     정의자 권한은 RLS 를 넘으므로 사용자 결속을 본문이 직접 건다: 시도(a) = 호출자 본인 · 노출(win) = 그 시도의 user_id · 첫 시도 뷰(f) = 그 시도 id.
+--     ACL 은 CREATE OR REPLACE 로 유지(authenticated · service_role EXECUTE).
 -- 새 반환값 passage_unknown: 저장소 소비자는 bridge/exposure-reader(parseIndependence) 하나 — 모르는 값은 null(보류)로 다루므로 공급되지 않는다.
 --   적용 시 bridge/exposure-consumer.ts 의 IndependenceStatus 에 'passage_unknown' 을 더해 보류 사유를 명시하는 앱 변경을 함께 낸다(없어도 안전).
 
@@ -29,15 +33,18 @@ language sql stable security definer set search_path = public, pg_temp as $$
     limit 1
   ) s
 $$;
-revoke all on function public.csat_passage_key(text) from public, anon;
-grant execute on function public.csat_passage_key(text) to authenticated, service_role;
+revoke all on function public.csat_passage_key(text) from public, anon, authenticated;
+grant execute on function public.csat_passage_key(text) to service_role;
 
 create or replace function public.learning_attempt_independence(p_attempt_id bigint) returns text
-language sql stable security invoker set search_path = public, pg_temp as $$
+language sql stable security definer set search_path = public, pg_temp as $$
   with a as (
     select t.id, t.user_id, t.item_ref, t.task_key, t.phase, t.activity, t.session_id, t.is_correct, t.answered_at, t.exposure_order_at,
            public.csat_passage_key(t.item_ref) as pkey
-    from public.learning_task_attempts t where t.id = p_attempt_id
+    from public.learning_task_attempts t
+    where t.id = p_attempt_id
+      -- 정의자 권한은 RLS 를 넘는다 — 본인 시도 또는 서버(service_role) 호출만
+      and (t.user_id = (select auth.uid()) or (select auth.role()) = 'service_role')
   ), f as (
     select v.* from public.learning_first_attempts v, a where v.attempt_id = a.id
   ), win as (
@@ -67,6 +74,10 @@ $$;
 commit;
 
 -- 적용 전 확인(읽기 전용):
---   select pg_get_expr(polqual, polrelid) from pg_policy where polrelid = 'public.csat_items'::regclass;  -- false 이면 definer 가 필요하다(현재 false)
---   적용 뒤 학습자 세션으로: select public.csat_passage_key('2014A#24') = public.csat_passage_key('2014B#23');  -- true(같은 지문 쌍)
---   select p.proacl::text from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname='learning_attempt_independence';
+--   select pg_get_expr(polqual, polrelid) from pg_policy where polrelid = 'public.csat_items'::regclass;  -- 현재 false — 학습자는 csat_items 를 못 읽는다
+--   select to_regprocedure('auth.uid()'), to_regprocedure('auth.role()');  -- 둘 다 있어야 한다
+-- 적용 뒤 확인:
+--   service_role: select public.csat_passage_key('2014A#24') = public.csat_passage_key('2014B#23');  -- true(같은 지문 쌍)
+--   학습자 세션: select public.csat_passage_key('2014A#24');  -- permission denied(학습자에게 열지 않는다)
+--   학습자 세션: 남의 시도 id 로 learning_attempt_independence → null(본인 시도만)
+--   select p.proname, p.prosecdef, p.proacl::text from pg_proc p join pg_namespace n on n.oid=p.pronamespace where n.nspname='public' and p.proname in ('learning_attempt_independence','csat_passage_key');
