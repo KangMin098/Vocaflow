@@ -376,3 +376,24 @@ describe('T-0158 10차 반례 — 진입 조건 확대', () => {
     expect(run([4], '2015년 값은 1.8배라 답을 구하기 쉽습니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 11차 반례 — 문장 끝 숫자', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    [[5], '정답은 1.'],
+    [[5], '정답은 1'],
+    [[4, 5], '정답은 4.'],
+    [[5], '답은 1!'],
+    [[5], '정답: 1.'],
+  ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
+    expect(run(answers, text).blocked).toBe(true)
+  })
+  it('소수 1.8 은 번호가 아니다', () => {
+    expect(run([4], '값이 1.8배라서 답을 쉽게 찾습니다.').findings).toEqual([])
+  })
+})
