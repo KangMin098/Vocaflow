@@ -1,6 +1,6 @@
 // apps/web/src/lib/csat/k-regression/__tests__/k-registry.test.ts
 // 등록부 · 재현 · 목표 · 대응표가 같은 결함 목록을 말하는지 — 한쪽만 고쳐 open 결함이 PASS 로 보이는 일을 막는다.
-// fixed 전환 시 목표가 실제로 단언과 함께 돌았는지는 k-targets 의 afterAll 결속이 실행 시점에 확인한다
+// fixed 전환 시 목표가 실제로 단언과 함께 돌았는지는 k-targets 끝의 결속 it 이 실행 시점에 확인한다
 // (소스 문자열로 실행 가능성을 판정하던 가드는 빈 본문 · 블록 경계로 우회됐다 — T-0155 K-R1 run 3).
 import { readFileSync } from 'node:fs'
 import { fileURLToPath } from 'node:url'
