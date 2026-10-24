@@ -56,6 +56,8 @@ const HEAD_CLAUSE = new RegExp(`^\\s*정답은\\s*(?<only>오직|바로|단|딱)
 const HEAD_NEG = new RegExp(`^\\s*정답은\\s*(?<list>${LIST})\\s*[이가]\\s*아(?:닙니다|니에요|니다|니죠)${TAIL}`, 'u')
 /** 표제형 뒤 위치 설명 동격: 「, 비 밑줄입니다」·「, 다섯 번째 문장입니다」·「, 밑줄 씨」·「, 자리입니다」 */
 const POSITION_APPOSITION = /^\s*,\s*(?:(?:첫|두|세|네|다섯|여섯|일곱|여덟|아홉|열)\s*번째\s*(?:문장|단락|줄|밑줄|칸)|비\s*밑줄|밑줄(?:\s*씨)?|자리)\s*(?:입니다|이에요|예요|이다)?\s*$/
+/** 해설 화면 UI 안내 — 이 꼴 그대로일 때만 진술이 아니다 */
+const UI_GUIDE = /^\s*(?:(?:그래서|이제|여기서|여러분)\s*,?\s*)?정답\s*블록을\s*(?:확인하세요|확인해\s*보세요|보세요|봅시다|봐요|열어\s*보세요)\s*[.。!]?\s*$/
 /** 이유 절(앞에만): 주어·술어 없는 서술 + 쉼표 또는 이유·연결 어미 */
 const REASON_CLAUSE = new RegExp(`^\\s*${REASON_BODY}(?:,|${REASON_END}\\s*,)`, 'u')
 
@@ -185,8 +187,11 @@ export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReadin
   for (const raw of text.split(/(?<=[.。?!])\s*/)) {
     const sentence = raw.trim()
     if (!sentence) continue
-    // 정답과 무관한 「답」 낱말(대답 · 답하다 · 보답 · 응답 · 답장 · 답변)과 UI 이름(「정답 블록」)을 빼고도 「답」이 없으면 진술이 아니다
-    const gate = sentence.replace(/대답|답하|답해|답했|답한|답할|보답|응답|답장|답변|정답\s*블록/g, '')
+    // UI 안내는 **정확한 꼴**만 진술이 아니다(「정답 블록을 확인하세요 · 보세요」). 「정답 블록에는 첫 번째 선택지만 들어갑니다」처럼
+    // 블록 이름에 선택지를 붙이면 일반 검사로 간다(18차 P1 — 블록 이름 예외가 정답 지정·배제를 건너뛰었다)
+    if (UI_GUIDE.test(sentence)) continue
+    // 정답과 무관한 「답」 낱말(대답 · 답하다 · 보답 · 응답 · 답장 · 답변)을 빼고도 「답」이 없으면 진술이 아니다
+    const gate = sentence.replace(/대답|답하|답해|답했|답한|답할|보답|응답|답장|답변/g, '')
     if (!/답/.test(gate)) continue
     // 물음은 단언이 아니다
     if (/[?？]\s*$/.test(sentence)) { unparsed.push(sentence); continue }

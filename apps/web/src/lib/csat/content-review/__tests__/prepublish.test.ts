@@ -559,3 +559,23 @@ describe('의미 구조 판정 매트릭스', () => {
     else for (const c of expected) expect(got).toContain(c)
   })
 })
+
+describe('T-0158 18차 반례 — 「정답 블록」 예외는 UI 안내 꼴만', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: [5], choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '정답 블록에는 첫 번째 선택지만 들어갑니다.',
+    '정답 블록: 첫 번째 선택지.',
+    '마지막 선택지는 정답 블록에서 제외합니다.',
+    '다섯 번째 선택지는 정답 블록에 들어갈 수 없습니다.',
+    '⑤는 정답 블록에서 제외합니다.',
+  ])('%s → 차단', (text) => {
+    expect(run(text).blocked).toBe(true)
+  })
+  it.each(['정답 블록을 확인하세요.', '정답 블록을 보세요.', '여기서 정답 블록을 확인해 보세요.'])('%s → UI 안내(진술 아님)', (text) => {
+    expect(run(text).findings).toEqual([])
+  })
+})
