@@ -34,6 +34,8 @@ export interface TheaterLoad {
   steps: TheaterStep[]
   /** 지도 문장(첫 응답용 — 길이만 · 근거 인용 없음). 지도를 세울 수 없으면 null */
   mapSentences: SkeletonSentence[] | null
+  /** 판단 도구 근거 연결용 units_hash — 원문 이해 배포 결속 · 지도 분할 일치일 때만(아니면 null) */
+  boundUnitsHash: string | null
   /** 원문 이해 교수 설명(첫 응답에는 없다 — null) */
   meaningSupport: MeaningSupportView | null
   skeleton: Awaited<ReturnType<typeof loadRevealedSkeleton>>
@@ -138,6 +140,9 @@ export async function loadTheaterAnswer(item: CsatItemExplain): Promise<TheaterL
     steps: neutralSteps(lectureSteps),
     mapSentences: mapReady ? sentences.initial : null,
     meaningSupport: ms.initial,
+    // 판단 도구 근거 연결(T-0145 C2)의 독립 결속 — 원문 이해 배포 기록(분석 판본 · units_hash · 공개 레코드 해시)과 지도 골격 문장 길이가 모두 맞을 때만 units_hash 를 준다.
+    // 같은 v3 의 units_hash 를 그대로 넘기면 자기 대조라 다른 분할을 막지 못한다(T-0152 R152-03). 결속이 없으면 null — 도구가 근거 강조를 끈다
+    boundUnitsHash: ms.reveal?.splitOk && inquiryHit.state === 'ready' ? inquiryHit.record.v3?.units_hash ?? null : null,
     skeleton,
     mapReady,
     siblings,

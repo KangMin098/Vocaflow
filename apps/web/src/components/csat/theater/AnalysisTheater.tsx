@@ -225,6 +225,7 @@ export function AnalysisTheater({
   paper,
   gate: initialGate,
   analysisVersion = null,
+  sourceUnitsHash = null,
   typeId,
   meaningSupport: initialMeaningSupport = null,
   initialMeaning = null,
@@ -289,6 +290,8 @@ export function AnalysisTheater({
   gate: GateKey
   /** 이 화면이 읽은 분석 버전 — 정답 요청 때 서버가 같은 판본인지 맞춘다(다르면 409) */
   analysisVersion?: number | null
+  /** 판단 도구 근거 연결의 독립 결속 해시(서버 · 원문 이해 배포 결속 + 지도 분할 일치일 때만) — 없으면 근거 강조를 끈다 */
+  sourceUnitsHash?: string | null
   /** 유형 id — 학습 목표(이 문항에서 설명할 관계)를 유형 교수 계약에서 고른다 */
   typeId?: string
   /** v3.1 원문 이해 교수 설명 — 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때만 서버가 넘긴다. 없으면 기존 v3 의미 패널 */
@@ -329,6 +332,9 @@ export function AnalysisTheater({
   const v3Pairs = merged?.v3Pairs ?? initialV3Pairs
   const inquiry = merged?.inquiry ?? initialInquiry
   const gate = merged?.gate ?? initialGate
+  // T-0145 판단 도구(interaction34)는 선택 상태를 자식 안에 둔다 — 정답 공개 뒤에는 장면을 옮겨도 패널을 마운트한 채 숨겨
+  // 학습자가 고른 범위 · 조건 · 비교 쌍 · 설계 선택을 보존한다(연결 계약 C7 · T-0152 R152-01). 공개 전에는 도구가 안내만 그리므로 유지할 상태가 없다
+  const keepTools = Boolean(revealed && inquiry?.v3?.interaction34)
   const map = useMemo(
     () => (initialMap && merged ? { ...initialMap, sentences: revealed?.mapSentences ?? initialMap.sentences, anchors: merged.anchors, placements: merged.placements } : initialMap),
     [initialMap, merged, revealed],
@@ -1534,7 +1540,11 @@ export function AnalysisTheater({
                     </section>
                   ) : null}
                   {/* T-0145 판단 도구(2026-34 · Interactive34) — 정답 공개(판단 라우트 · 노출 원장 기록 뒤 revealed)일 때만 answerRevealed. 공개 전에는 도구가 안내만 그리고, v3 본문은 첫 응답에 없다(answer-split) */}
-                  {scene === 'task' && v3 ? <V3Task v3={v3} answerRevealed={Boolean(revealed)} /> : null}
+                  {v3 && (scene === 'task' || keepTools) ? (
+                    <div hidden={scene !== 'task'} data-tool-scene="task">
+                      <V3Task v3={v3} answerRevealed={Boolean(revealed)} />
+                    </div>
+                  ) : null}
                   {scene === 'meaning' && ms ? (
                     <MeaningSupportPanel
                       view={ms}
@@ -1562,13 +1572,21 @@ export function AnalysisTheater({
                   ) : null}
                   {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} answerRevealed={Boolean(revealed)} /> : null}
                   {scene === 'judgment' && v3 && withheld ? withheldPanel('judgment', '정답 판단') : null}
-                  {scene === 'judgment' && v3 && !withheld ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} sourceUnitsHash={v3.units_hash} /> : null}
+                  {v3 && !withheld && (scene === 'judgment' || keepTools) ? (
+                    <div hidden={scene !== 'judgment'} data-tool-scene="judgment">
+                      <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} sourceUnitsHash={sourceUnitsHash ?? undefined} />
+                    </div>
+                  ) : null}
                   {scene === 'design' ? (
                     <p className={styles.quiet} data-testid="design-epistemic">
                       아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
                     </p>
                   ) : null}
-                  {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} /> : null}
+                  {v3 && (scene === 'design' || keepTools) ? (
+                    <div hidden={scene !== 'design'} data-tool-scene="design">
+                      <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} />
+                    </div>
+                  ) : null}
                   {relation && !showRelation && !evidenceCollapsed ? (
                     <p className={styles.quiet} data-testid="relation-hint">
                       이 장면의 설계 도식은 왼쪽 근거 판의 「관계」 보기에 있어요.

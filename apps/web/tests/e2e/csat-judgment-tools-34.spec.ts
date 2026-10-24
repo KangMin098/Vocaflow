@@ -37,11 +37,19 @@ test.describe('판단 도구 34 × 해설 화면', () => {
       page.on('console', (m) => { if (m.type() === 'error') consoleErrors.push(m.text()) })
       page.on('pageerror', (e) => consoleErrors.push(String(e)))
       const judgments: number[] = []
-      page.on('response', (r) => { if (r.url().includes('/judgment') && r.request().method() === 'POST') judgments.push(r.status()) })
+      const exposureIds: unknown[] = []
+      page.on('response', async (r) => {
+        if (!r.url().includes('/judgment') || r.request().method() !== 'POST') return
+        judgments.push(r.status())
+        exposureIds.push(((await r.json().catch(() => null)) as { exposureId?: unknown } | null)?.exposureId)
+      })
 
       // D4 — 첫 HTML · RSC
-      for (const scene of ['judgment', 'task', 'design']) {
-        const html = await (await page.request.get(`/csat/item/${SLUG}?scene=${scene}`)).text()
+      for (const scene of ['judgment', 'task', 'meaning', 'design']) {
+        const res = await page.request.get(`/csat/item/${SLUG}?scene=${scene}`)
+        expect(res.status(), `${scene} 첫 응답이 200 이 아니다(로그인 화면 우회 금지)`).toBe(200)
+        const html = await res.text()
+        expect(html, `${scene} 첫 응답이 실제 해설 화면이 아니다`).toContain('analysis-theater')
         const rsc = await (await page.request.get(`/csat/item/${SLUG}?scene=${scene}`, { headers: { RSC: '1' } })).text()
         for (const body of [html, rsc]) {
           expect(body, `${scene} 첫 응답에 정답 자료`).not.toMatch(LEAK)
@@ -49,7 +57,7 @@ test.describe('판단 도구 34 × 해설 화면', () => {
         }
       }
 
-      await page.goto(`/csat/item/${SLUG}?scene=judgment`, { waitUntil: 'domcontentloaded' })
+      await page.goto(`/csat/item/${SLUG}?scene=judgment&lecture-debug=1&lecture-silent=1`, { waitUntil: 'domcontentloaded' })
       await expect(page.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
       // 공개 전 — 도구는 안내만, 비교 · 관계 없음
       await expect(page.getByTestId('judgment-reveal')).toBeVisible()
@@ -66,30 +74,73 @@ test.describe('판단 도구 34 × 해설 화면', () => {
         }
         expect(judgments.length).toBe(1)
       }).toPass({ timeout: 90_000, intervals: [3_000] })
+      // 공개 뒤 판단 도구는 장면마다 숨긴 채 유지된다(R152-01) — 판단 장면 컨테이너 안에서만 찾는다
+      const J = page.locator('[data-tool-scene="judgment"]')
       expect(judgments).toEqual([200])
-      await expect(page.getByTestId('s2b-compare')).toBeVisible({ timeout: 30_000 })
-      await expect(page.getByTestId('s2b-scope')).toBeVisible()
-      await expect(page.getByTestId('s2b-undisclosed')).toHaveCount(0)
+      await expect(J.getByTestId('s2b-compare')).toBeVisible({ timeout: 30_000 })
+      await expect(J.getByTestId('s2b-scope')).toBeVisible()
+      await expect(J.getByTestId('s2b-undisclosed')).toHaveCount(0)
 
-      // D3 — 키보드만으로 범위 표현 고르기 · 보이는 focus
-      const ifBtn = page.getByRole('button', { name: 'If', exact: true }).first()
+      // D3 · D5 — 키보드만으로 네 도구 조작(Enter · Space · Tab) · 보이는 focus · ② 진위 미확정과 발문 불충족 분리 · 관계 표시
+      const scope = J.getByRole('region', { name: '발문과 한정 범위 대조' })
+      const qualifiers = J.getByRole('region', { name: '조건·한정 관계' })
+      const evidenceRegion = J.getByRole('region', { name: '본문 근거 연결' })
+      const compareRegion = J.getByRole('region', { name: '완성 명제 두 개 대조' })
+      for (const r of [scope, qualifiers, evidenceRegion, compareRegion]) await expect(r).toBeVisible()
+      const ifBtn = scope.getByRole('button', { name: 'If', exact: true })
+      const scopeBefore = await J.getByTestId('s2b-scope').innerText()
       await ifBtn.focus()
-      expect(await ifBtn.evaluate((el) => getComputedStyle(el).outlineStyle)).not.toBe('none')
+      expect(await ifBtn.evaluate((el) => getComputedStyle(el).outlineStyle), 'focus 가 보이지 않는다').not.toBe('none')
       await page.keyboard.press('Enter')
-      const scopeText = await page.getByTestId('s2b-scope').innerText()
-      expect(scopeText.length).toBeGreaterThan(0)
+      await expect(ifBtn).toHaveAttribute('aria-pressed', 'true')
+      const scopeText = await J.getByTestId('s2b-scope').innerText()
+      expect(scopeText, 'If 를 골라도 범위 설명이 바뀌지 않았다').not.toBe(scopeBefore)
+      const condition = qualifiers.getByRole('button', { name: '조건 2', exact: true })
+      await condition.focus()
+      await page.keyboard.press('Space')
+      await expect(condition).toHaveAttribute('aria-pressed', 'true')
+      const left = J.getByRole('region', { name: '왼쪽 비교 명제' })
+      const choice2 = left.getByRole('button', { name: '②', exact: true })
+      await choice2.focus()
+      await page.keyboard.press('Enter')
+      await expect(choice2).toHaveAttribute('aria-pressed', 'true')
+      await expect(left).toContainText('원문만으로 확정 불가')
+      await expect(left).toContainText('발문 요구를 충족하지 못함')
+      const rel = left.getByRole('button', { name: 'then the law cannot be', exact: true })
+      await rel.focus()
+      await page.keyboard.press('Enter')
+      await expect(J.getByTestId('s2b-relation')).toBeVisible()
+      await J.getByRole('button', { name: '선택한 관계로 돌아가기' }).click()
+      // Tab 으로 도구 단추에 실제로 닿는다
+      await ifBtn.focus()
+      await page.keyboard.press('Tab')
+      expect(await page.evaluate(() => Boolean(document.activeElement?.closest('[data-tool-scene="judgment"]'))), 'Tab 이 판단 도구 밖으로 튀었다').toBe(true)
 
-      // D1 — 가로 넘침 없음 · 원문(지도) · 도구 · 관계가 한 화면에
+      // D1 — 원문(문제지 열) · 지도 · 판단 도구 · 관계가 한 화면, 가로 넘침 없음 · 도구 영역이 판 밖으로 넘치지 않음
       expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), '가로로 넘친다').toBe(true)
       await expect(page.locator('[data-proof="passage-map"]')).toBeVisible()
+      await expect(page.getByTestId('workspace-paper')).toBeVisible()
+      expect(await compareRegion.evaluate((el) => el.scrollWidth <= el.clientWidth + 1), '비교 영역이 가로로 넘친다').toBe(true)
 
-      // D2 — 근거 판(원문 쪽) 접기 → 열기 뒤 도구 상태 보존
+      // D2 — 원문 쪽(근거 판) 접기 · 열기 왕복과 장면 왕복(판단 → 설계 → 판단) 뒤 도구 선택 보존(C7 · R152-01)
       await page.getByTestId('evidence-toggle').click()
       await page.getByTestId('evidence-toggle').click()
       await expect(page.locator('[data-proof="passage-map"]')).toBeVisible()
-      expect(await page.getByTestId('s2b-scope').innerText(), '원문 쪽 왕복 뒤 도구 선택이 바뀌었다').toBe(scopeText)
+      await page.getByTestId('scene-next').click()
+      await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'design')
+      await expect(page.locator('[data-tool-scene="design"]')).toBeVisible()
+      await page.goBack().catch(() => {})
+      if ((await page.getByTestId('workspace-frame').getAttribute('data-scene')) !== 'judgment') {
+        await page.getByRole('button', { name: /문항 설계/ }).first().click()
+        await page.getByRole('button', { name: /문항 성립|판단/ }).first().click().catch(() => {})
+      }
+      await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'judgment', { timeout: 10_000 })
+      await expect(ifBtn, '장면 왕복 뒤 범위 선택이 사라졌다').toHaveAttribute('aria-pressed', 'true')
+      await expect(condition, '장면 왕복 뒤 조건 선택이 사라졌다').toHaveAttribute('aria-pressed', 'true')
+      await expect(choice2, '장면 왕복 뒤 비교 선택이 사라졌다').toHaveAttribute('aria-pressed', 'true')
+      expect(await J.getByTestId('s2b-scope').innerText()).toBe(scopeText)
 
-      // D6 — 강의를 틀고 장면을 고르면 멈춘다
+      // D6 — 강의를 실제로 재생한 뒤 장면을 고르면 멈춘다 · 도구 포커스를 빼앗지 않는다
       const play = page.getByTestId('analysis-theater').locator('header button', { hasText: /하이라이트만|상영 시작/ })
       await expect(async () => {
         await play.click()
@@ -97,22 +148,37 @@ test.describe('판단 도구 34 × 해설 화면', () => {
       }).toPass({ timeout: 60_000 })
       await page.getByTestId('lecture-path-until').click()
       const status = () => page.evaluate(() => (window as unknown as { __LECTURE__?: { player?: { getState(): { status: string } } | null } }).__LECTURE__?.player?.getState().status ?? 'none')
-      await page.waitForTimeout(500)
+      await expect.poll(status, { timeout: 30_000 }).toBe('playing')
+      await ifBtn.focus()
+      await page.waitForTimeout(1_500)
+      expect(await page.evaluate(() => (document.activeElement?.textContent ?? '').trim()), '재생 중 강의가 도구 포커스를 가져갔다').toBe('If')
       await page.getByTestId('scene-next').click()
       await expect.poll(status, { timeout: 15_000 }).not.toBe('playing')
 
-      // D7 — 도구 탐색 · 장면 이동은 판단 요청을 더 만들지 않는다
-      expect(judgments).toHaveLength(1)
+      // D7 — 공개 1회 = 판단 요청 1회(노출 id) · 도구 탐색 · 장면 이동은 요청 0
+      expect(judgments).toEqual([200])
+      expect(typeof exposureIds[0] === 'number' || typeof exposureIds[0] === 'string', '노출 id 가 없다').toBe(true)
+      console.log(`EXPOSURE34 ${width} ${String(exposureIds[0])}`)
 
-      // D8 — 다시 들어오면 다시 감춤 · 콘솔 오류 0
+      // D8 — 다시 들어오면 다시 감춤 → 다시 공개하면 판단 라우트가 다시 확인(200) · 콘솔 오류 0(두 화면 모두)
       const fresh = await page.context().newPage()
       await fresh.setViewportSize({ width, height: 900 })
       const freshErrors: string[] = []
       fresh.on('pageerror', (e) => freshErrors.push(String(e)))
+      fresh.on('console', (m) => { if (m.type() === 'error') freshErrors.push(m.text()) })
+      const freshJudgments: number[] = []
+      fresh.on('response', (r) => { if (r.url().includes('/judgment') && r.request().method() === 'POST') freshJudgments.push(r.status()) })
       await fresh.goto(`/csat/item/${SLUG}?scene=judgment`, { waitUntil: 'domcontentloaded' })
       await expect(fresh.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
       await expect(fresh.getByTestId('judgment-reveal')).toBeVisible()
       await expect(fresh.getByTestId('s2b-compare')).toHaveCount(0)
+      const again = fresh.getByTestId('judgment-reveal').getByRole('button', { name: '정답 보기' })
+      await expect(async () => {
+        if (freshJudgments.length === 0 && (await again.count())) await again.click()
+        expect(freshJudgments.length).toBe(1)
+      }).toPass({ timeout: 60_000, intervals: [3_000] })
+      expect(freshJudgments).toEqual([200])
+      await expect(fresh.locator('[data-tool-scene="judgment"]').getByTestId('s2b-compare')).toBeVisible({ timeout: 30_000 })
       await fresh.close()
       expect([...consoleErrors, ...freshErrors].filter((e) => !/Download the React DevTools|favicon/i.test(e)), '콘솔 오류').toEqual([])
       await page.screenshot({ path: `test-results/judgment-tools-34-${width}.png` })
