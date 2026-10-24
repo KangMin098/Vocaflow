@@ -195,6 +195,9 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   const obs = t.kind === 'integrated' ? integratedObservation(t.id, view.asIs) : null
   const study = studyItemsFor(t.id, check, confirmMine, transferMine)
   // 대량작업 H — 학습자에게 보이는 기출 목록은 같은 지문 보호(노출 원장)까지 거친 entriesFor 로. 공급 · 계획 계산은 위 study 그대로(엔진 입력 불변)
+  // 보호 입력은 실행 가능 여부로 거르기 전의 전이 예약 전체(T-0159 Codex P1) — 없으면 원장 오류로 보고 연구 사례를 보류한다
+  const reserved = data.v4?.transferReserved
+  const transferProtect = reserved ? keys.flatMap((k) => reserved[k] ?? []).map((target) => ({ target, href: '', label: '' })) : transferMine
   const entry = entriesFor({
     task: t.id,
     need: ranksOf(view).needRank.find((r) => r.task === t.id) ?? null,
@@ -202,8 +205,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
     goalSet: !!view.toBe,
     check,
     confirm: confirmMine,
-    transfer: transferMine,
-    ledger: data.v4?.assessmentExposure ?? { status: 'error', failed: [] },
+    transfer: transferProtect,
+    ledger: reserved ? data.v4?.assessmentExposure ?? { status: 'error', failed: [] } : { status: 'error', failed: [] },
     typeOf: researchTypeOf,
     ctx: past ? {} : outgoingCtx(data.v4?.saved, t.id, home),
   })
