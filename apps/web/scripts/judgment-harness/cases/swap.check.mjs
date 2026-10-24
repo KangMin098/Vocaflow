@@ -86,7 +86,7 @@ export async function check(page, t) {
     await page.waitForTimeout(250)
     t.check(`${tool}: 로딩 중 재요청은 provider 를 다시 부르지 않는다`, (await page.evaluate(() => window.__REVEAL_CALLS__)) === 1, await page.evaluate(() => window.__REVEAL_CALLS__))
     const after = await paneTop()
-    t.check(`${tool}: 공개로 포커스를 옮겨도 판단면 스크롤은 그대로(preventScroll)`, Math.abs(after - before) <= 2, { before, after })
+    t.check(`${tool}: 공개로 포커스를 옮겨도 판단면 스크롤은 그대로(preventScroll)`, after === before, { before, after })
     // 문항 재마운트 — 이전 문항의 포커스 대상이 분리된 노드로 남지 않고, 이전 해설이 없다
     await page.evaluate(() => window.__SWAP__())
     await page.waitForTimeout(300)
