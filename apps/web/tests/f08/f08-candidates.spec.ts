@@ -89,7 +89,8 @@ const TASK: Record<'a' | 'b' | 'c', (page: Page, c: ReturnType<typeof counter>) 
 }
 
 async function openReveal(page: Page, cand: 'a' | 'b' | 'c', c: ReturnType<typeof counter>) {
-  if (cand === 'a') await c.click(page.getByRole('tab', { name: '정답·해설' }))
+  // 도구 탭은 토글이다 — 복원된 상태로 이미 열려 있으면 다시 누르지 않는다(누르면 닫힌다)
+  if (cand === 'a' && (await page.getByRole('tab', { name: '정답·해설' }).getAttribute('aria-selected')) !== 'true') await c.click(page.getByRole('tab', { name: '정답·해설' }))
   if (cand === 'c' && !(await page.getByRole('button', { name: '정답·해설 보기' }).isVisible())) await c.click(page.getByRole('tab', { name: '내 판단' }))
   await c.click(page.getByRole('button', { name: '정답·해설 보기' }))
   await c.click(page.getByRole('button', { name: '공개하기' }))
