@@ -397,3 +397,23 @@ describe('T-0158 11차 반례 — 문장 끝 숫자', () => {
     expect(run([4], '값이 1.8배라서 답을 쉽게 찾습니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 12차 반례 — 번호 표기 변형', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    [[5], '❶은 정답입니다.'], [[5], '⑴은 정답입니다.'], [[5], '１은 정답입니다.'],
+    [[4, 5], '❹만 정답입니다.'], [[4, 5], '⑸는 오답입니다.'],
+    [[5], 'Ⅰ이 정답입니다.'], [[5], '⑹이 정답입니다.'], [[5], '❻은 답입니다.'],
+  ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
+    expect(run(answers, text).blocked).toBe(true)
+  })
+  it('변형 표기도 옳은 진술이면 통과', () => {
+    expect(run([5], '❺가 정답입니다.').findings).toEqual([])
+    expect(run([4, 5], '정답은 ④와 ⑸입니다.').findings).toEqual([])
+  })
+})

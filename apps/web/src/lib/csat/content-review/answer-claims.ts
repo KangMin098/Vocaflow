@@ -115,7 +115,25 @@ function residueClean(sentence: string, used: Span[], appositionOk: (s: string) 
   return left.trim() === ''
 }
 
-export function readClaims(text: string, ctx: { choices?: readonly string[] } = {}): ClaimReading {
+/**
+ * 번호 표기 변형을 ①~⑤ 로 모은다(❶ · ➀ · ➊ · ⓵ · ⑴ · ⒈ · 전각 １ … — T-0158 Codex 12차 P1).
+ * 여기 없는 숫자 문자는 아래 `exoticNumber` 가 잡아 사람 확인으로 보낸다(변형 목록을 완결할 필요가 없게).
+ */
+const NUMBER_VARIANTS: readonly (readonly string[])[] = [
+  ['❶', '❷', '❸', '❹', '❺'], ['➀', '➁', '➂', '➃', '➄'], ['➊', '➋', '➌', '➍', '➎'],
+  ['⓵', '⓶', '⓷', '⓸', '⓹'], ['⑴', '⑵', '⑶', '⑷', '⑸'], ['⒈', '⒉', '⒊', '⒋', '⒌'], ['１', '２', '３', '４', '５'],
+]
+const CIRCLED = ['①', '②', '③', '④', '⑤']
+function canonicalNumbers(text: string): string {
+  let t = text
+  for (const set of NUMBER_VARIANTS) set.forEach((ch, i) => { t = t.split(ch).join(CIRCLED[i]!) })
+  return t
+}
+/** 정규화 뒤에도 남은 「①~⑤·ASCII 숫자가 아닌 숫자 문자」 — 해석하지 않고 사람 확인 */
+const exoticNumber = (s: string) => /[^①-⑤\d]/u.test(s.replace(/[^\p{N}]/gu, ''))
+
+export function readClaims(rawText: string, ctx: { choices?: readonly string[] } = {}): ClaimReading {
+  const text = canonicalNumbers(rawText)
   const answers: AnswerClaim[] = []
   const rejected: number[] = []
   const unparsed: string[] = []
@@ -127,6 +145,7 @@ export function readClaims(text: string, ctx: { choices?: readonly string[] } = 
     const sentence = raw.trim()
     if (!sentence || !TALKS_ANSWER.test(sentence)) continue
     // 선지 번호가 없는 문장(「…맞는 진술이고, 답이 아닙니다」)의 주어는 cue target(reject:n)이 정한다 — 호출자가 따로 검사한다
+    if (exoticNumber(sentence)) { unparsed.push(sentence); continue }
     if (refsIn(sentence).length === 0) continue
     const mine: AnswerClaim[] = []
     const mineRejected: number[] = []
