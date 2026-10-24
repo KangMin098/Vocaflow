@@ -7,7 +7,7 @@
 //     published 가 여러 판이어도(809문항) 결속이 맞지 않는 판은 근거로 쓰지 않는다.
 // 이 함수는 DB 를 고치지 않고, 없는 근거를 만들지 않는다. 확인할 수 없는 것은 차단 이유로 남긴다.
 import { answerCoverage, answerSetOf } from './answers'
-import { detectDefects, glossesOf, glossMatches, hasMissingFootnote, marksOf } from './extraction'
+import { detectDefects, glossesOf, glossMatches, hasMissingFootnote, marksOf, noteFor, notesOf } from './extraction'
 import { markerAnchors, UNDERLINE_TYPES } from './markers'
 import { choiceKeys, conditionAnchors, readValues, valueAnchors } from './values'
 import type {
@@ -174,10 +174,13 @@ export function bindItem(input: BindInput): BoundItem {
   if (typeId && UNDERLINE_TYPES.has(typeId) && markers.length !== 5) reasons.add('marker_anchor_unavailable')
   const conditions = typeId === 'R-NOTICE' || typeId === 'R-FACT' || typeId === 'X-FACT' ? conditionAnchors(passage, structBasis) : []
   const glosses = [passage, ...choicesText].flatMap(glossesOf)
+  const notes = notesOf(passage)
   const footnotes: FootnoteAnchor[] = marksOf(passage).map((m) => {
     // 별표 수만이 아니라 표지 낱말과 정의 용어가 맞아야 짝이다 — 무관한 정의를 빠진 각주에 붙이지 않는다(T-0154 F2)
     const g = glosses.find((x) => x.mark === m.mark && glossMatches(x.term, m.before))
-    return { kind: 'footnote', basis: structBasis, precision: g ? 'exact' : 'unavailable', mark: m.mark, term: g?.term ?? m.word ?? null, gloss: g?.gloss ?? null, at: m.at }
+    // 어휘 풀이가 없을 때만 안내문 문장형 각주를 짝으로 본다(풀이가 있으면 풀이가 우선)
+    const n = g ? undefined : noteFor(notes, m)
+    return { kind: 'footnote', basis: structBasis, precision: g || n ? 'exact' : 'unavailable', mark: m.mark, term: g?.term ?? m.word ?? null, gloss: g?.gloss ?? null, note: n?.note ?? null, at: m.at }
   })
 
   // ── 분석 근거 ──

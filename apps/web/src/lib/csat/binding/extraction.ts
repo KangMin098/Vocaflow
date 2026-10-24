@@ -23,6 +23,21 @@ export function glossesOf(text: string): { mark: string; term: string; gloss: st
 }
 
 /**
+ * 안내문 문장형 각주 「* The museum is closed on the first Monday of every month.」 — 어휘 풀이(「* term: 뜻」)가 아니라
+ * 표지가 붙은 항목(Hours*)에 조건을 덧붙이는 영어 문장이다. 별표가 낱말 뒤가 아니라 문장 경계(시작 · 공백 · 문장부호 뒤)에 오고,
+ * 대문자로 시작하는 세 낱말 이상의 문장이 마침표로 끝나야 한다. 콜론 풀이로 시작하면 어휘 각주라 여기서 세지 않는다.
+ */
+// 문장 끝 = 마침표 뒤에 대문자 · 별표 · 여는 괄호로 시작하는 다음 항목이 오거나 글이 끝날 때. 「9 a.m. on weekends」 처럼
+// 소문자가 이어지면 약어 마침표라 문장이 계속된다
+// 낱말은 문장부호로 끝나지 않는다 — 끝 마침표를 낱말이 먹으면 첫 문장에서 멈추지 못한다(약어만 예외: 뒤에 소문자 · 숫자)
+const NOTE = /(?:^|(?<=[\s.!?)]))(\*{1,3})[ \t]+([A-Z][A-Za-z’']*(?:[ \t,]+(?:[^\s*]*[^\s*.!?]|[^\s*]+\.(?=\s+[a-z0-9$]))){2,}?[.!?])(?=\s+[A-Z*(※]|\s*$)/g
+export function notesOf(text: string): { mark: string; note: string; at: number }[] {
+  return [...text.matchAll(NOTE)]
+    .filter((m) => !/^[A-Za-z][A-Za-z\- ’']{0,40}?\s*[:：]/.test(m[2]))
+    .map((m) => ({ mark: m[1], note: m[2].trim(), at: m.index ?? 0 }))
+}
+
+/**
  * 각주 정의 용어가 표지 낱말의 것인가 — 굴절(constraints* ↔ constraint)과 구 용어(body clock ↔ clock*)를 허용한다.
  * 맞는지 모르면 false — 그 표지는 정의 없음(unavailable)으로 남는다.
  */
@@ -63,6 +78,11 @@ function inAddress(passage: string, at: number): boolean {
   const e = passage.indexOf(' ', at)
   const token = passage.slice(s, e < 0 ? passage.length : e)
   return /www\.|@|https?:|\.(?:com|org|net|kr|edu|gov)\b/i.test(token)
+}
+
+/** 표지에 짝인 문장형 각주 — 같은 별표 수 · 표지보다 뒤(각주는 항목 아래 인쇄된다). 없으면 undefined */
+export function noteFor(notes: { mark: string; note: string; at: number }[], m: { mark: string; at: number }) {
+  return notes.find((n) => n.mark === m.mark && n.at > m.at)
 }
 
 export function marksOf(passage: string): { mark: string; at: number; word: string; before: string }[] {
@@ -110,8 +130,10 @@ export function detectDefects(item: ItemText): ExtractionDefect[] {
   const allGlosses = [passage, ...choices].flatMap(glossesOf)
   const inlineGloss = new Set(glossesOf(passage).map((g) => g.at))
   const marks = marksOf(passage).filter((m) => ![...inlineGloss].some((g) => m.at >= g && m.at <= g + 3))
+  // 안내문 문장형 각주는 용어가 없다 — 같은 별표 수의 문장 각주가 표지 뒤에 있으면 그 표지는 정의가 있는 것으로 센다
+  const notes = notesOf(passage)
   for (const m of marks) {
-    if (!allGlosses.some((g) => g.mark === m.mark && glossMatches(g.term, m.before))) {
+    if (!allGlosses.some((g) => g.mark === m.mark && glossMatches(g.term, m.before)) && !noteFor(notes, m)) {
       out.push({ code: 'footnote_mark_without_gloss', mark: m.mark, at: m.at, context: passage.slice(Math.max(0, m.at - 20), m.at + 12).trim() })
     }
   }
