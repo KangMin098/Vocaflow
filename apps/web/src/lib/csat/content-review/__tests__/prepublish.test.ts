@@ -188,3 +188,26 @@ describe('T-0158 3차 반례', () => {
     expect(run([4], '④만 정답입니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 4차 반례 — 선지 집합 읽기', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  const CASES: [number[], string, boolean][] = [
+    [[4], '정답은 ④와 ①입니다.', true], // 잘못 추가한 ①
+    [[4], '④와 ⑤는 오답입니다.', true], // 공식 정답 ④ 소거
+    [[4, 5], '정답은 오직 ④입니다.', true], // 복수정답 축소
+    [[4, 5], '정답은 ④와 ⑤입니다.', false], // 옳은 나열
+    [[4, 5], '사 번과 오 번이 정답이에요.', false],
+    [[4, 5], '④와 ⑤ 모두 정답입니다.', false],
+    [[4], '④가 정답이고 ⑤는 오답입니다.', false],
+    [[4], '정답은 ④ 하나뿐입니다.', false],
+    [[4, 5], '④는 물론 정답인데 ⑤도 정답으로 인정됐어요.', false],
+  ]
+  it.each(CASES)('%j · %s → blocked=%s', (answers, text, blocked) => {
+    expect(run(answers, text).blocked).toBe(blocked)
+  })
+})

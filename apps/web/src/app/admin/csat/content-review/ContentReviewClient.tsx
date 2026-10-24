@@ -55,6 +55,21 @@ const EVIDENCE_LABEL: Record<Evidence['kind'], string> = {
   reviewer_note: '검수자 메모',
 }
 
+/**
+ * 지문 문장이 몇 번 선지 본문과 같은가(앞 원문자·공백 무시). 없으면 null.
+ * 35번(무관한 문장)·도표 문항은 시험지에서도 선지가 지문 안의 번호 문장이다 — 추출 오류가 아니라 형식이다.
+ * 「(e)」 같은 짧은 표지 선지는 접두 일치로 오인하므로 15자 이상 본문만 대조한다.
+ */
+function choiceLike(sentence: string, choices: readonly string[]): number | null {
+  const norm = (t: string) => t.replace(/^[①-⑤]\s*/, '').replace(/\s+/g, ' ').trim()
+  const s = norm(sentence)
+  const i = choices.findIndex((c) => {
+    const n = norm(c)
+    return n.length >= 15 && (s === n || s.startsWith(n) || n.startsWith(s))
+  })
+  return i < 0 ? null : i + 1
+}
+
 function readLedger(): LedgerEntry[] {
   try {
     const raw = window.localStorage.getItem(LEDGER_KEY)
@@ -192,12 +207,17 @@ function Detail({ detail, ledger, setLedger }: { detail: CandidateDetail; ledger
         </p>
         {item?.stem ? <p className="mt-2 font-body text-[13px] text-[var(--t2)] break-keep">{item.stem}</p> : null}
         <ol className="mt-2 flex flex-col gap-1">
-          {(item?.passageSentences ?? []).map((s, i) => (
-            <li key={i} className="font-body text-[13px] leading-relaxed text-[var(--t1)]">
-              <span className="mr-1 font-mono text-[11px] text-[var(--t3)]">s{i}</span>
-              {s}
-            </li>
-          ))}
+          {/* 문장 번호는 제품 분할기와 같아야 cue 의 「N 번째 문장」을 대조할 수 있다 — 선지가 섞인 문장도 지우지 않고 표시만 한다 */}
+          {(item?.passageSentences ?? []).map((s, i) => {
+            const asChoice = choiceLike(s, item?.choices ?? [])
+            return (
+              <li key={i} className="font-body text-[13px] leading-relaxed text-[var(--t1)]">
+                <span className="mr-1 font-mono text-[11px] text-[var(--t3)]">s{i}</span>
+                {s}
+                {asChoice ? <span className="ml-1 font-body text-[11px] text-[var(--t3)]">= 선지 {CIRCLED[asChoice - 1]}(지문 안 번호 문장)</span> : null}
+              </li>
+            )
+          })}
         </ol>
         <ol className="mt-3 flex flex-col gap-1 border-t border-[var(--bd)] pt-2">
           {(item?.choices ?? []).map((ch, i) => (

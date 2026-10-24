@@ -8,6 +8,7 @@
 // - 출제 의도 단정은 공식 근거가 없으면 HYPOTHESIS(사실 아님) 경고.
 
 import type { LectureCue } from '../lecture/types'
+import { readClaims } from './answer-claims'
 import { currentState, verifyLedger } from './state'
 import type { LedgerEntry, ProposedChange, ReviewCandidate } from './types'
 
@@ -42,25 +43,7 @@ export interface PrepublishReport {
   blocked: boolean
 }
 
-const KO_NUM: Record<string, number> = { 일: 1, 이: 2, 삼: 3, 사: 4, 오: 5, '①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5 }
-const toNum = (s: string): number | null => KO_NUM[s] ?? (/^[1-5]$/.test(s) ? Number(s) : null)
-
-// 선지 가리키기: 「④」 또는 「사 번 · 4번」(원문자에는 「번」이 없어도 된다). 그룹 1 = 번호 글자.
-const CHOICE = '(?:([①-⑤])|([일이삼사오1-5])\\s*번)'
-// 정답이라고 말하는 표현 — 「사 번이 정답」 · 「정답은 ⑤」 · 「⑤가 정답」 (어순·표기와 관계없이 — T-0158 Codex P1)
-const ANSWER_SAY_RES = [
-  // 「④만 정답」 — 배타 표현도 정답 진술이다(복수정답이면 축소로 걸린다 — T-0158 Codex 3차 P1)
-  new RegExp(`${CHOICE}\\s*(?:[이가은는도]|만이?)?\\s*정답(?!이\\s*아[니닙닌])`, 'g'),
-  new RegExp(`정답은\\s*(?:바로\\s*)?${CHOICE}`, 'g'),
-]
-// 오답이라고 말하는 표현 — 「⑤는 오답」 · 「오 번은 … 답이 아닙니다」
-// 「아닙니다」의 첫 음절은 「닙」이다 — 「아니」만 쓰면 가장 흔한 꼴을 놓친다
-const ALSO_ANSWER_RE = new RegExp(`${CHOICE}\\s*도\\s*정답`)
-// 번호와 「오답」 사이에 **다른 선지 번호나 「정답」이 끼면** 그 번호의 서술이 아니다
-// (「④가 정답이고 ⑤는 오답」에서 ④를 소거로 읽지 않는다 — T-0158 Codex 2차 P2)
-const GAP = '(?:(?![①-⑤]|[일이삼사오1-5]\\s*번|정답)[^.。?!]){0,60}?'
-const REJECT_SAY_RE = new RegExp(`${CHOICE}\\s*[은는이가도]?\\s*${GAP}(오답|정?답이\\s*아[니닙닌])`, 'g')
-const choiceOf = (m: RegExpMatchArray): number | null => toNum((m[1] ?? m[2])!)
+// 정답·오답 진술은 선지 **집합**으로 읽는다 — answer-claims.ts (T-0158 Codex 4차: 나열·배타·포함)
 const FOUR_OTHERS_RE = /답이\s*아닌\s*(네|4)\s*(개|선지)|나머지\s*(네|4)\s*(개|선지)/
 const INTENT_RE = /출제자[는가]?[^.。]*?(의도|노렸|노린|노리)|출제\s*의도는/
 
@@ -110,24 +93,25 @@ export function validatePrepublish(input: PrepublishInput): PrepublishReport {
     const where = `cue:${c.id}`
     const text = c.segments.map((s) => s.text).join(' ')
     if (answers) {
-      // (2) 「N 번이 정답」
-      const said = [...new Set(ANSWER_SAY_RES.flatMap((re) => [...text.matchAll(re)].map(choiceOf)).filter((n): n is number => n != null))]
-      for (const n of said) {
-        if (!answers.includes(n)) push('BLOCK', 'CUE_WRONG_ANSWER', where, `cue 가 ${n}번을 정답이라 하지만 공식 정답은 ${setLabel}`)
+      const claims = readClaims(text)
+      // (2) 정답 진술 — 집합 단위로 공식 정답과 대조
+      for (const a of claims.answers) {
+        const wrong = a.choices.filter((n) => !answers.includes(n))
+        if (wrong.length) push('BLOCK', 'CUE_WRONG_ANSWER', where, `cue 가 ${wrong.join(',')}번을 정답이라 하지만 공식 정답은 ${setLabel}`)
+        // 「⑤도 정답」은 다른 정답을 전제한다 — 축소로 보지 않는다. 배타(「오직 ④」)·단정(「④가 정답」)은 집합 전체를 말해야 한다
+        const missing = answers.filter((n) => !a.choices.includes(n))
+        if (multi && !a.inclusive && missing.length) {
+          push('BLOCK', 'CUE_PARTIAL_ANSWER', where, `cue 가 정답을 ${a.choices.join(',')}번${a.exclusive ? '만' : ''} 말한다 — 공식 복수정답 ${setLabel}`)
+        }
       }
-      // 「⑤도 정답」은 다른 정답이 있음을 전제한다 — 정답 번호 검사에는 넣되, 「하나만 말한다」로는 보지 않는다
-      const inclusive = ALSO_ANSWER_RE.test(text)
-      if (multi && said.length > 0 && !inclusive && !answers.every((a) => said.includes(a))) {
-        push('BLOCK', 'CUE_PARTIAL_ANSWER', where, `cue 가 정답을 ${said.join(',')}번만 말한다 — 공식 복수정답 ${setLabel}`)
+      // 해석하지 못한 정답 진술은 통과시키지 않는다(fail-closed)
+      for (const s of claims.unparsed) {
+        push('BLOCK', 'CUE_ANSWER_UNPARSED', where, `정답 진술을 선지 집합으로 읽지 못했다 — 사람이 확인한다: 「${s.slice(0, 60)}」`)
       }
       // (3) 공식 정답을 소거
       const rej = /^reject:(\d)$/.exec(c.target.id)
-      const eliminated = new Set<number>()
+      const eliminated = new Set<number>(claims.rejected)
       if (c.target.kind === 'analysis' && rej) eliminated.add(Number(rej[1]))
-      for (const m of text.matchAll(REJECT_SAY_RE)) {
-        const n = choiceOf(m)
-        if (n != null) eliminated.add(n)
-      }
       for (const n of eliminated) {
         if (answers.includes(n)) {
           push('BLOCK', 'CUE_ELIMINATES_OFFICIAL', where, `cue 가 공식 정답 ${n}번을 소거(오답 처리)한다 — 공식 정답 ${setLabel}`)
