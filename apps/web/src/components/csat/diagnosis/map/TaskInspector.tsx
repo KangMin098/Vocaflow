@@ -409,7 +409,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
                           {e.item.replace('#', ' · ')}번
                           <span className={u.bStatus}>{r.why.basis === 'attempted_check_item' ? '이미 풀어 본 확인 문항' : '연구 사례(AI 2명 합의 · 사람 검수 전)'}</span>
                         </Link>
-                        <p className={u.fine} data-testid="inspector-study-why">
+                        <p className={`${u.fine} ${u.studyWhy}`} data-testid="inspector-study-why">
                           왜: {r.why.need}{r.why.confirmed ? '' : ' — 근거가 아직 부족해 약점으로 확정하지 않았어요'}
                           {r.skills.length > 0 && <> · 판단 능력: {r.skills.map((s) => s.label).join(' / ')}</>}
                           {r.fit === 'other' && ' · 다른 유형에서 같은 판단이 쓰인 사례'}
