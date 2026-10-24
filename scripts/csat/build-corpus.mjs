@@ -18,7 +18,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { itemBlocks, setBlockFor, passageOf, choicesOf, INLINE_SYMBOL_TYPES } from './lib-passage.mjs'
 import { examMetaOf, listeningEndOf } from './lib-exam-id.mjs'
-import {applySourceRepair} from './lib-source-repair.mjs'
+import {applySourceRepair, repairPdfFolder, repairRecipeFile} from './lib-source-repair.mjs'
 import { suspectBody } from './lib-body-suspect.mjs'
 
 const DIR = path.resolve('scripts/csat/data')
@@ -35,11 +35,12 @@ const read = (f) => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'))
 const SET = process.argv.includes('--set') ? process.argv[process.argv.indexOf('--set') + 1] : 'kice'
 if (!['kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 kice | hakpyeong: ${SET}`)
 const OUT_NAME = SET === 'kice' ? 'corpus' : 'corpus-hakpyeong'
-const repairFile = path.join(DIR, 'hakpyeong-source-repairs.json')
-const sourceRepairs = SET === 'hakpyeong' && fs.existsSync(repairFile)
+// 공식 문제지로 확인한 수리(source-repair --commit 이 기록)를 원장에 다시 입힌다 — 두 집합 모두.
+// 평가원 쪽이 빠져 있어 각주·선지 잔여물 정정이 재생성 때 되살아날 수 있었다(대량작업 C, 2026-10-24).
+const repairFile = path.join(DIR, repairRecipeFile(SET))
+const sourceRepairs = fs.existsSync(repairFile)
   ? new Map(JSON.parse(fs.readFileSync(repairFile, 'utf8')).repairs.map(repair => [repair.item_id, repair]))
   : new Map()
-const pdfFolder = process.env.CSAT_HAKPYEONG_DIR ?? 'C:/Users/Administrator/Documents/영어/학력평가'
 
 const TYPES = new Map(read('classified.json').types.map((t) => [t.id, t]))
 
@@ -263,7 +264,7 @@ for (const q of rows) {
   let inspected = {id:itemId, passage, choices, stem:q.stem}
   if (repair) {
     if (path.basename(repair.pdf_file) !== repair.pdf_file || !repair.pdf_file.endsWith('.pdf')) throw new Error('원문 수리 PDF는 정본 폴더의 파일명만 받는다')
-    inspected = applySourceRepair(inspected, repair, fs.readFileSync(path.join(pdfFolder, repair.pdf_file)))
+    inspected = applySourceRepair(inspected, repair, fs.readFileSync(path.join(repairPdfFolder(itemId), repair.pdf_file)))
   }
   items.push({
     id: `${q.exam}#${String(q.no).padStart(2, '0')}`,

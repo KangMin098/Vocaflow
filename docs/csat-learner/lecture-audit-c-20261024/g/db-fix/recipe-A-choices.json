@@ -1,0 +1,76 @@
+{
+ "repairs": [
+  {
+   "item_id": "2017#24",
+   "pdf_file": "2017_영어_짝.pdf",
+   "pdf_sha256": "659ded02ae7f24e450180edf038501c9f75a832ebffa14c2b201086bae63707a",
+   "before": {
+    "choices": [
+     "As for AP & NWP teachers, five percent say that “All / Almost all” of the information found using search engines is accurate or trustworthy, while 28 percent of U.S. adult search users say the same.",
+     "The largest percentage of both AP & NWP teachers and U.S. adult search users answer that “Most” of the information is accurate or trustworthy.",
+     "In addition, 40 percent of AP & NWP teachers say that “Some” of the information is accurate or trustworthy, and more than 30 percent of U.S. adult search users respond the same.",
+     "U.S. adult search users saying that “Very little / None” of the information found using search engines is accurate or trustworthy account for less than five percent.",
+     "The percentage of U.S. adult search users who answer “Don’t know” is only one percent. 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "As for AP & NWP teachers, five percent say that “All / Almost all” of the information found using search engines is accurate or trustworthy, while 28 percent of U.S. adult search users say the same.",
+     "The largest percentage of both AP & NWP teachers and U.S. adult search users answer that “Most” of the information is accurate or trustworthy.",
+     "In addition, 40 percent of AP & NWP teachers say that “Some” of the information is accurate or trustworthy, and more than 30 percent of U.S. adult search users respond the same.",
+     "U.S. adult search users saying that “Very little / None” of the information found using search engines is accurate or trustworthy account for less than five percent.",
+     "The percentage of U.S. adult search users who answer “Don’t know” is only one percent."
+    ]
+   },
+   "note": "선지 ⑤ 끝 추출 잔여물 제거(공식 문제지 대조)"
+  },
+  {
+   "item_id": "2018#24",
+   "pdf_file": "2018_영어_짝.pdf",
+   "pdf_sha256": "9c113b0849c86f17ddb503b1a4cbc9203c97560387ab8405d23502206bcdb70f",
+   "before": {
+    "choices": [
+     "In 2015, the sales of each of the four types of ethical produce showed an increase from the sales of its corresponding type in 2010.",
+     "Among the four types of ethical produce, the sales of Organic ranked the highest in 2010 but ranked the second highest in 2015.",
+     "Among the four types of ethical produce, Rainforest Alliance recorded the second highest sales in 2010 and recorded the highest sales in 2015.",
+     "The sales of Fairtrade in 2015 were twice as high as those in 2010.",
+     "In both 2010 and 2015, the sales of Vegetarian meat alternatives were the lowest among the four types of ethical produce. 8"
+    ]
+   },
+   "after": {
+    "choices": [
+     "In 2015, the sales of each of the four types of ethical produce showed an increase from the sales of its corresponding type in 2010.",
+     "Among the four types of ethical produce, the sales of Organic ranked the highest in 2010 but ranked the second highest in 2015.",
+     "Among the four types of ethical produce, Rainforest Alliance recorded the second highest sales in 2010 and recorded the highest sales in 2015.",
+     "The sales of Fairtrade in 2015 were twice as high as those in 2010.",
+     "In both 2010 and 2015, the sales of Vegetarian meat alternatives were the lowest among the four types of ethical produce."
+    ]
+   },
+   "note": "선지 ⑤ 끝 추출 잔여물 제거(공식 문제지 대조)"
+  },
+  {
+   "item_id": "M2509#25",
+   "pdf_file": "202509_영어영역_문제지.pdf",
+   "pdf_sha256": "73a48f9bba4265fee9875d86f8277aa7946fcb630c69c11ad03986568bead7e5",
+   "before": {
+    "choices": [
+     "For each country, the percentage of respondents familiar with VR was greater than the percentage of respondents familiar with AR.",
+     "The country with the highest percentage of respondents familiar with AR was South Korea.",
+     "The country with the largest gap between the percentage of respondents familiar with VR and that of respondents familiar with AR was Canada.",
+     "In Japan, the percentage of respondents familiar with VR was greater than 60%.",
+     "The percentage of respondents familiar with VR and that of respondents familiar with AR were lower in Switzerland than in Japan, respectively. * augmented reality: 증강 현실"
+    ]
+   },
+   "after": {
+    "choices": [
+     "For each country, the percentage of respondents familiar with VR was greater than the percentage of respondents familiar with AR.",
+     "The country with the highest percentage of respondents familiar with AR was South Korea.",
+     "The country with the largest gap between the percentage of respondents familiar with VR and that of respondents familiar with AR was Canada.",
+     "In Japan, the percentage of respondents familiar with VR was greater than 60%.",
+     "The percentage of respondents familiar with VR and that of respondents familiar with AR were lower in Switzerland than in Japan, respectively."
+    ]
+   },
+   "note": "선지 ⑤ 끝 추출 잔여물 제거(공식 문제지 대조)"
+  }
+ ]
+}

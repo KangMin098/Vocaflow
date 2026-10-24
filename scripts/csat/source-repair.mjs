@@ -4,14 +4,17 @@ import fs from 'node:fs'
 import path from 'node:path'
 import {createClient} from '@supabase/supabase-js'
 import {isDeepStrictEqual} from 'node:util'
-import {applySourceRepair,mergeSourceRepair,completeSource} from './lib-source-repair.mjs'
+import {applySourceRepair,mergeSourceRepair,completeSource,repairPdfFolder,repairRecipeFile,repairSetOf} from './lib-source-repair.mjs'
 
 const argv=process.argv.slice(2)
 const value=key=>argv[argv.indexOf(key)+1]
 if(!argv.includes('--file')||!value('--file'))throw Error('--file 수리 계획 JSON이 필요하다')
 const plan=JSON.parse(fs.readFileSync(value('--file'),'utf8'))
 if(!Array.isArray(plan.repairs)||!plan.repairs.length||plan.repairs.length>100)throw Error('한 번에 1~100문항 수리만 받는다')
-if(new Set(plan.repairs.map(r=>r.item_id)).size!==plan.repairs.length||plan.repairs.some(r=>!/^H\d{4}G[123]#\d{2}$/.test(r.item_id)))throw Error('학평 문항만 중복 없이 받는다')
+// 한 계획은 한 집합(학평 또는 평가원)만 — 수리 기록과 원장 파일이 집합마다 따로다.
+const sets=new Set(plan.repairs.map(r=>repairSetOf(r.item_id)))
+if(new Set(plan.repairs.map(r=>r.item_id)).size!==plan.repairs.length||sets.has(null)||sets.size!==1)throw Error('한 집합(학평 또는 평가원) 문항만 중복 없이 받는다')
+const SET=[...sets][0]
 const env=name=>{
   if(process.env[name])return process.env[name]
   for(const file of ['.env.local','.env','apps/web/.env.local','apps/web/.env']){
@@ -21,25 +24,24 @@ const env=name=>{
   }
 }
 const db=createClient(env('NEXT_PUBLIC_SUPABASE_URL')??env('SUPABASE_URL'),env('SUPABASE_SERVICE_ROLE_KEY'),{auth:{persistSession:false}})
-const folder=process.env.CSAT_HAKPYEONG_DIR??'C:/Users/Administrator/Documents/영어/학력평가'
 const {data:rows,error}=await db.from('csat_items').select('id,type_id,stem,passage,choices,answer,answers,body_ok').in('id',plan.repairs.map(r=>r.item_id))
 if(error)throw Error(error.message)
 const patches=plan.repairs.map(repair=>{
   const old=rows.find(r=>r.id===repair.item_id)
   if(!old)throw Error(`${repair.item_id}: 문항 없음`)
   if(path.basename(repair.pdf_file)!==repair.pdf_file||!repair.pdf_file.endsWith('.pdf'))throw Error('PDF는 정본 폴더의 파일명만 받는다')
-  const next=applySourceRepair(old,repair,fs.readFileSync(path.join(folder,repair.pdf_file)))
+  const next=applySourceRepair(old,repair,fs.readFileSync(path.join(repairPdfFolder(repair.item_id),repair.pdf_file)))
   // Nonempty fields do not prove that a previously defective source is complete.
   // Clearing its flag requires an inspected plan binding all three source fields.
   const fullyVerified=['stem','passage','choices'].every(field=>Object.hasOwn(repair.after,field))
   const patch={...repair.after,body_ok:completeSource(next)&&(old.body_ok===true||fullyVerified)}
   return {old,patch,changed:!Object.entries(patch).every(([field,v])=>isDeepStrictEqual(old[field],v)),next}
 })
-const recipeFile='scripts/csat/data/hakpyeong-source-repairs.json'
+const recipeFile=`scripts/csat/data/${repairRecipeFile(SET)}`
 const recipes=fs.existsSync(recipeFile)?JSON.parse(fs.readFileSync(recipeFile,'utf8')).repairs:[]
 const byId=new Map(recipes.map(r=>[r.item_id,r]))
 for(const repair of plan.repairs)byId.set(repair.item_id,mergeSourceRepair(byId.get(repair.item_id),repair))
-const corpusFile='scripts/csat/data/corpus-hakpyeong.json'
+const corpusFile=`scripts/csat/data/${SET==='kice'?'corpus':'corpus-hakpyeong'}.json`
 const corpus=JSON.parse(fs.readFileSync(corpusFile,'utf8'))
 for(const {old} of patches)if(!corpus.items.some(r=>r.id===old.id))throw Error(`${old.id}: 로컬 원장 문항 없음 — 수리 전에 원장을 재생성한다`)
 console.log(JSON.stringify({mode:argv.includes('--commit')?'commit':'preview',items:patches.length,changed:patches.filter(p=>p.changed).length,unchanged:patches.filter(p=>!p.changed).length,protected:['type_id','answer','answers','raw_block'],scope:patches.map(p=>({item:p.old.id,fields:Object.keys(p.patch)}))}))
