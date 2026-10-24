@@ -12,11 +12,13 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 import { EXPOSURE_LABELS, EXPOSURE_LEVELS, canTransition, exposureView, type ExposureContext, type ExposureLevel } from '@/lib/csat/listening/exposure'
 import type { ClientTraceCandidate as TraceCandidate, ClientTraceFixture as ListeningTraceFixture } from '@/lib/csat/listening/fixtures'
 import { LISTENING_TYPE_LABELS, type EvidenceRole, type ListeningUtterance } from '@/lib/csat/listening/types'
-import type { RevealDecision } from '@/lib/csat/embargo-gate'
 
 import { BTN, ListeningAudioBar, OFF, ON } from './ListeningAudioBar'
 import {
+  analysisReveal,
   compareCandidate,
+  toAnalysisState,
+  type AnalysisState,
   initialItemState,
   judge,
   loadSnapshot,
@@ -50,11 +52,12 @@ const LEVEL_BLOCK: Readonly<Record<string, string>> = {
   'reveal-held': '정답 공개 보류(Reveal Gate) — 열 수 없다',
   skip: '한 단계씩 올린다',
 }
-const REVEAL_TEXT: Readonly<Record<string, string>> = {
+const ANALYSIS_TEXT: Readonly<Record<AnalysisState['status'], string>> = {
+  idle: '제출 뒤 확인',
+  loading: '불러오는 중',
   open: '열림',
-  embargo: '보류 중(수집 중인 시험)',
-  failure: '판정 실패 — 닫아 둔다',
-  null: '판정 전 — 닫아 둔다',
+  held: '정답 공개 보류 중(수집 중인 시험)',
+  failure: '불러오기 실패 — 닫아 둔다',
 }
 
 function fmtMs(ms: number): string {
@@ -85,14 +88,17 @@ function Highlighted({ u, fx, show }: { u: ListeningUtterance; fx: ListeningTrac
 export interface ListeningTracerProps {
   fixtures: readonly ListeningTraceFixture[]
   initialKey?: string | null
-  /** 서버가 embargo-gate 로 얻은 판정. null = 판정 전(닫힘) */
-  reveal: RevealDecision | null
+  /** 제출 뒤 분석 열기(서버 액션). 없거나 실패하면 L4 이상은 닫힌 채다 */
+  loadAnalysis?: (itemId: string) => Promise<unknown>
+  /** 시험 · 미리보기용 — 문항별 분석 상태를 미리 채운다 */
+  initialAnalysis?: Record<string, AnalysisState>
   audioFactory?: AudioFactory
   /** 주어지면 sessionStorage 복원을 건너뛰고 이 상태로 시작한다(시험 · 미리보기) */
   initialSnapshot?: TracerSnapshot
 }
 
-export function ListeningTracer({ fixtures, initialKey, reveal, audioFactory, initialSnapshot }: ListeningTracerProps) {
+export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAnalysis, audioFactory, initialSnapshot }: ListeningTracerProps) {
+  const [analysis, setAnalysis] = useState<Record<string, AnalysisState>>(initialAnalysis ?? {})
   const fallbackKey = fixtures.some((f) => f.key === initialKey) ? (initialKey as string) : fixtures[0].key
   const [snap, setSnap] = useState<TracerSnapshot>(initialSnapshot ?? { selectedKey: fallbackKey, byItem: {} })
   const [hydrated, setHydrated] = useState(false)
@@ -125,9 +131,25 @@ export function ListeningTracer({ fixtures, initialKey, reveal, audioFactory, in
     }
   }, [snap, hydrated])
 
-  const fx = fixtures.find((f) => f.key === snap.selectedKey) ?? fixtures[0]
-  const st: ItemTraceState = snap.byItem[fx.key] ?? initialItemState()
+  const baseFx = fixtures.find((f) => f.key === snap.selectedKey) ?? fixtures[0]
+  const st: ItemTraceState = snap.byItem[baseFx.key] ?? initialItemState()
+  const an = analysis[baseFx.key]
+  // 분석이 'open' 으로 도착했을 때만 정답이 담긴 픽스처로 바꾼다
+  const fx = an?.status === 'open' ? an.fixture : baseFx
+  const reveal = analysisReveal(an)
   const ctx: ExposureContext = { submitted: st.submitted, reveal }
+
+  // 제출(또는 제출 상태 복원) 뒤에만 서버에 분석을 묻는다
+  useEffect(() => {
+    if (!st.submitted || !loadAnalysis) return
+    const key = baseFx.key
+    if (analysis[key] && analysis[key].status !== 'idle') return
+    setAnalysis((p) => ({ ...p, [key]: { status: 'loading' } }))
+    loadAnalysis(key).then(
+      (r) => setAnalysis((p) => ({ ...p, [key]: toAnalysisState(key, r) })),
+      () => setAnalysis((p) => ({ ...p, [key]: { status: 'failure' } })),
+    )
+  }, [st.submitted, baseFx.key, loadAnalysis, analysis])
   const level = shownLevel(st, ctx)
   const view = exposureView(st.level, ctx)
   const audio = useListeningAudio(fx.audio, audioFactory)
@@ -199,7 +221,7 @@ export function ListeningTracer({ fixtures, initialKey, reveal, audioFactory, in
             서버·DB 연동 미검증
           </span>
           <span className="rounded-[var(--r-md)] border border-[var(--bd)] px-2 py-1 break-keep">로컬 자료 · 전사 검수 전(NOT_VERIFIED)</span>
-          <span className="rounded-[var(--r-md)] border border-[var(--bd)] px-2 py-1 break-keep">정답 공개 판정: {REVEAL_TEXT[String(reveal)]}</span>
+          <span className="rounded-[var(--r-md)] border border-[var(--bd)] px-2 py-1 break-keep">분석: {ANALYSIS_TEXT[an?.status ?? 'idle']}</span>
         </div>
         <h1 className="text-[20px] font-bold leading-snug break-keep">{fx.stem}</h1>
         <p className="text-[15px] text-[var(--t2)] break-keep">{fx.prompt}</p>
@@ -396,7 +418,15 @@ export function ListeningTracer({ fixtures, initialKey, reveal, audioFactory, in
           ) : (
             <p className="text-[14px] break-keep" data-testid="submitted">
               제출했다 — 판단은 잠겼다.{' '}
-              {reveal !== 'open' ? '정답 공개가 보류돼 L4 이상(분석 비교 · 정답 번호)은 열리지 않는다.' : rankBelow(level, 'L4') ? 'L4 로 올리면 분석과 맞대어 볼 수 있다.' : null}
+              {an?.status === 'open'
+                ? rankBelow(level, 'L4')
+                  ? 'L4 로 올리면 분석과 맞대어 볼 수 있다.'
+                  : null
+                : an?.status === 'held'
+                  ? '정답 공개가 보류돼 L4 이상(분석 비교 · 정답 번호)은 열리지 않는다.'
+                  : an?.status === 'failure'
+                    ? '분석을 불러오지 못했다 — L4 이상은 닫아 둔다.'
+                    : '분석을 불러오는 중 — 도착하기 전에는 L4 이상이 열리지 않는다.'}
             </p>
           )}
 

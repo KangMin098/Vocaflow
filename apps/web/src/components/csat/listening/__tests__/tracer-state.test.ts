@@ -5,6 +5,8 @@ import { TRACE_FIXTURES, traceFixtureByKey } from '@/lib/csat/listening/fixtures
 
 import {
   STORAGE_KEY,
+  analysisReveal,
+  toAnalysisState,
   compareCandidate,
   initialItemState,
   judge,
@@ -103,5 +105,22 @@ describe('복원', () => {
     saveSnapshot({ selectedKey: '2023-L07', byItem: { '2023-L07': st } }, store)
     expect(mem.has(STORAGE_KEY)).toBe(true)
     expect(loadSnapshot(TRACE_FIXTURES, '2023-L10', store).byItem['2023-L07']).toEqual(st)
+  })
+})
+
+describe('제출 뒤 분석', () => {
+  it('L4 이상은 서버 분석이 open 으로 도착해야 열린다', () => {
+    const s = { ...submit(fx, all(initialItemState())), level: 'L3' as const }
+    for (const a of [undefined, { status: 'idle' }, { status: 'loading' }, { status: 'held' }, { status: 'failure' }] as const) {
+      expect(moveLevel(s, 'L4', { submitted: true, reveal: analysisReveal(a) }).level).toBe('L3')
+    }
+    expect(moveLevel(s, 'L4', { submitted: true, reveal: analysisReveal({ status: 'open', fixture: fx as never }) }).level).toBe('L4')
+  })
+  it('응답 해석: 다른 문항 픽스처 · 이상한 모양은 실패', () => {
+    expect(toAnalysisState('2023-L07', { status: 'open', fixture: fx }).status).toBe('open')
+    expect(toAnalysisState('2023-L10', { status: 'open', fixture: fx }).status).toBe('failure')
+    expect(toAnalysisState('2023-L07', { status: 'held' }).status).toBe('held')
+    expect(toAnalysisState('2023-L07', { status: 'invalid' }).status).toBe('failure')
+    expect(toAnalysisState('2023-L07', null).status).toBe('failure')
   })
 })

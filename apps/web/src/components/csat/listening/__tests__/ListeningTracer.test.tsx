@@ -6,7 +6,7 @@ import { describe, expect, it } from 'vitest'
 import { TRACE_FIXTURES, redactForClient, traceFixtureByKey } from '@/lib/csat/listening/fixtures'
 
 import { ListeningTracer } from '../ListeningTracer'
-import { initialItemState, judge, submit, type ItemTraceState, type TracerSnapshot } from '../tracer-state'
+import { initialItemState, judge, submit, type AnalysisState, type ItemTraceState, type TracerSnapshot } from '../tracer-state'
 
 const fx = traceFixtureByKey('2023-L10')!
 const judged = (): ItemTraceState =>
@@ -18,8 +18,17 @@ const judged = (): ItemTraceState =>
     ['E', 'remaining', '2023-L10-u10'],
   ].reduce((s, [id, v, u]) => judge(s, id, { verdict: v as 'eliminated', utteranceId: u }), initialItemState())
 
+// 페이지와 같게: 첫 props 는 언제나 정답을 지운 픽스처. reveal 은 「제출 뒤 서버 액션이 돌려준 분석」으로 흉내 낸다
+const REDACTED = TRACE_FIXTURES.map(redactForClient)
+const analysisFor = (reveal: 'open' | 'embargo' | 'failure' | null): Record<string, AnalysisState> =>
+  Object.fromEntries(
+    TRACE_FIXTURES.map((f) => [
+      f.key,
+      reveal === 'open' ? { status: 'open', fixture: f } : reveal === 'embargo' ? { status: 'held' } : reveal === 'failure' ? { status: 'failure' } : { status: 'loading' },
+    ]),
+  ) as Record<string, AnalysisState>
 const html = (snap: TracerSnapshot, reveal: 'open' | 'embargo' | 'failure' | null = 'open') =>
-  renderToStaticMarkup(<ListeningTracer fixtures={TRACE_FIXTURES} reveal={reveal} initialSnapshot={snap} />)
+  renderToStaticMarkup(<ListeningTracer fixtures={REDACTED} initialAnalysis={analysisFor(reveal)} initialSnapshot={snap} />)
 
 describe('ListeningTracer', () => {
   it('기본: 원음 없음 · 서버·DB 연동 미검증 · 합성 표지 · 선지 층 BLOCKED, 근거 강조·정답 없음', () => {
@@ -86,7 +95,7 @@ describe('ListeningTracer', () => {
       const h = html({ selectedKey: '2023-L10', byItem: { '2023-L10': st } }, r)
       expect(h).not.toContain('data-testid="compare"')
       expect(h).not.toContain('data-testid="official-answer"')
-      expect(h).toContain('정답 공개가 보류')
+      expect(h).toMatch(/정답 공개가 보류|불러오지 못했다|불러오는 중/)
     }
   })
 
@@ -108,10 +117,18 @@ describe('ListeningTracer', () => {
   it('서버가 지운 픽스처(embargo)로도 판단·제출 화면이 그려지고 정답 흔적이 없다', () => {
     const st = { ...submit(fx, judged()), level: 'L5' as const }
     const h = renderToStaticMarkup(
-      <ListeningTracer fixtures={TRACE_FIXTURES.map((f) => redactForClient(f, 'embargo'))} reveal="embargo" initialSnapshot={{ selectedKey: '2023-L10', byItem: { '2023-L10': st } }} />,
+      <ListeningTracer fixtures={REDACTED} initialAnalysis={analysisFor('embargo')} initialSnapshot={{ selectedKey: '2023-L10', byItem: { '2023-L10': st } }} />,
     )
     expect(h).toContain('남은 행 1개 / 5개')
     expect(h).not.toContain('decisive')
+    expect(h).not.toContain('공식 정답 번호')
+  })
+
+  it('분석 없이(서버 액션 미도착) 제출 + L5 요청이어도 정답·역할이 없다', () => {
+    const st = { ...submit(fx, judged()), level: 'L5' as const }
+    const h = renderToStaticMarkup(<ListeningTracer fixtures={REDACTED} initialSnapshot={{ selectedKey: '2023-L10', byItem: { '2023-L10': st } }} />)
+    expect(h).not.toContain('decisive')
+    expect(h).not.toContain('data-testid="compare"')
     expect(h).not.toContain('공식 정답 번호')
   })
 })

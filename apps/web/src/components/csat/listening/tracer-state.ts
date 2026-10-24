@@ -147,3 +147,31 @@ export function saveSnapshot(snap: TracerSnapshot, store: StorageLike | null = s
 export function shownLevel(state: ItemTraceState, ctx: ExposureContext): ExposureLevel {
   return effectiveLevel(state.level, ctx)
 }
+
+// ── 제출 뒤 분석(서버 액션 결과) ─────────────────────────────────────────
+// 첫 렌더 픽스처에는 정답이 없다. 분석이 'open' 으로 도착해야 Reveal 판정이 'open' 이 되고 L4 이상이 열린다.
+
+export type AnalysisState =
+  | { status: 'idle' }
+  | { status: 'loading' }
+  | { status: 'open'; fixture: ListeningTraceFixture }
+  | { status: 'held' }
+  | { status: 'failure' }
+
+/** 노출 계약에 넘길 Reveal 판정 — 분석이 도착하기 전(idle · loading)은 null(닫힘) */
+export function analysisReveal(a: AnalysisState | undefined): 'open' | 'embargo' | 'failure' | null {
+  if (!a) return null
+  if (a.status === 'open') return 'open'
+  if (a.status === 'held') return 'embargo'
+  if (a.status === 'failure') return 'failure'
+  return null
+}
+
+/** 서버 액션 응답 → 화면 상태. 모르는 모양 · 다른 문항의 픽스처는 실패로 */
+export function toAnalysisState(key: string, r: unknown): AnalysisState {
+  if (!r || typeof r !== 'object') return { status: 'failure' }
+  const x = r as { status?: unknown; fixture?: { key?: unknown } }
+  if (x.status === 'open' && x.fixture && x.fixture.key === key) return { status: 'open', fixture: x.fixture as ListeningTraceFixture }
+  if (x.status === 'held') return { status: 'held' }
+  return { status: 'failure' }
+}
