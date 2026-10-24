@@ -93,7 +93,7 @@ describe('H3 활동 의미', () => {
   })
 })
 
-const fa = (o: Partial<FeedAttempt> = {}): FeedAttempt => ({ ...base, attemptId: '1', taskKey: 'claim-support', isCorrect: true, contentHash: 'h1', passageKey: 'p1', skill: 'central_generalize', independence: 'independent_candidate', ...o })
+const fa = (o: Partial<FeedAttempt> = {}): FeedAttempt => ({ ...base, attemptId: '1', taskKey: 'claim-support', isCorrect: true, contentHash: 'h1', skill: 'central_generalize', independence: 'independent_candidate', ...o })
 
 describe('H5 증거 공급 계약', () => {
   const hash = () => 'h1'
@@ -118,10 +118,10 @@ describe('H5 증거 공급 계약', () => {
     expect(d.rejected[0].reason).toBe('duplicate')
   })
   it('숙달 주장은 서로 다른 지문 2개 이상 — 그래도 NOT_ESTABLISHED', () => {
-    const one = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#22' })], [], hash, P)
+    const one = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#23' })], [], hash, P) // 2024#23 은 2024#21 과 같은 지문
     expect(skillClaimOf(one, 'central_generalize')).toEqual({ claim: 'single_independent_success', passages: 1, mastery: 'NOT_ESTABLISHED' })
     expect(promotionGate(one, ['1', '2'])).toEqual({ ok: false, reason: 'single_passage' })
-    const two = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#22', passageKey: 'p2' })], [], hash, P)
+    const two = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#22' })], [], hash, P)
     expect(skillClaimOf(two, 'central_generalize').claim).toBe('repeated_independent_success')
     expect(promotionGate(two, ['1', '2'])).toEqual({ ok: true })
     expect(promotionGate(two, ['1', '9'])).toEqual({ ok: false, reason: 'invalid_evidence' })
@@ -170,5 +170,14 @@ describe('K6-a 같은 지문 공유 문항 노출', () => {
     expect(exposureLevelOf(base, [row({ itemRef: '1999#1' })], P).level).toBe('X_UNKNOWN')
     expect(itemExposureNow('2024#99', [row({ itemRef: '1999#1' })], P)).toBe('unknown')
     expect(buildEvidenceFeed([fa()], [], () => 'h1', () => undefined).held[0].reason).toBe('exposure_unknown')
+  })
+})
+
+describe('T-0156 P1 회귀 — 지문 집계는 노출 판정과 같은 정규화 키', () => {
+  it('같은 지문의 서로 다른 두 문항은 한 지문으로 센다(호출자 입력 키에 의존하지 않음)', () => {
+    const f = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#23' })], [], () => 'h1', P)
+    expect(f.accepted.map((o) => o.passageKey)).toEqual(['p1', 'p1'])
+    expect(promotionGate(f, ['1', '2'])).toEqual({ ok: false, reason: 'single_passage' })
+    expect(skillClaimOf(f, 'central_generalize')).toMatchObject({ claim: 'single_independent_success', passages: 1 })
   })
 })
