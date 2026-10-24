@@ -1,0 +1,4 @@
+*.local.json
+assembly-*/
+isolated-*/
+*.local.log

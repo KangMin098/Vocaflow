@@ -1,0 +1,272 @@
+{
+  "task_id": "T-0162",
+  "owner_id": "goal-data-independent",
+  "input": {
+    "root": "D:/workspace/Vocaflow-goal-data",
+    "revision": "3cf2b8cbb4710002d8f20da621220e3b8445b4b0",
+    "observed_head": "b11944d4557833da746cc42d917cde4cf9ce7fee",
+    "pin_method": "Git CLI 없이 객체 SHA1 무결성 검사·commit tree 직접 읽기; 비추적 local 입력은 SHA256 manifest",
+    "read_only": true
+  },
+  "result": "completed_with_uncertainty",
+  "result_meaning": "검증 수행 완료; AC3·13건 전수 재현 등 unclear를 PASS로 세지 않음",
+  "acceptance": [
+    {
+      "id": 0,
+      "status": "confirmed",
+      "claim": "임시 재조립·최초 snapshot·수정 경로",
+      "why": "4/4 바이트 동일. 손 원본 80행 모든 제공 필드 동일. 최초 대비 16/80행의 설명·관측 필드만 변경, primary/relevance/왜곡 유형 변경0. 관측된 Write/Edit와 셸 명령에서 출력 직접 수정0. 손 원본 Write/Edit 재생17파일 모두 현재본과 일치.",
+      "evidence": [
+        "scripts/research/goal-data/review-b21/assembly.mjs:1",
+        "scripts/research/goal-data/review-b21/source-chain.mjs:1",
+        "scripts/research/goal-data/review-b21/supplement.mjs:1"
+      ]
+    },
+    {
+      "id": 1,
+      "status": "confirmed",
+      "claim": "A-02 중단·오케스트레이터 후속·미수집 명시",
+      "why": "분석자 로그는 assemble 작성과 실행 요청 뒤 중단(실행 결과 없음), 최종 보고 없음. 오케스트레이터가 동일 assemble을 읽고 실행→첫 snapshot→결함0 결과를 남김. 손 판정 내용 생성·변경 없이 형식 변환만 수행. 첫 snapshot과 최종 동일. §25는 미수집을 명시함.",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b21-v24/sources/A-02/assemble.mjs:10",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:362",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60.jsonl:6907",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60.jsonl:6913",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60.jsonl:6914",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60/subagents/agent-a93f86f2656c694c7.jsonl:105"
+      ]
+    },
+    {
+      "id": 2,
+      "status": "confirmed",
+      "claim": "관측 독립성·해시·선정·산술·회귀",
+      "why": "실제 최초 지시4/4 보존본 일치, 템플릿 재생·chunk·원천·snapshot 해시 일치, B prior 분석 미포함. 관측 로그에 금지 판정 내용 열람 없음(파일명 목록은 보임). 40선정/41제외, 223/240 κ0.8665576451, primary35/40, R4 κ0.6645702306 일치율0.8로 중단 경보 없음. b2–b21 및 b9t 두 변형 총21개 validate 결함0, 격리32/32.",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b21-v24/prompts/manifest.json:4",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b21-v24-agreement.json:44",
+        "scripts/research/goal-data/review-b21/audit.mjs:1",
+        "scripts/research/goal-data/review-b21/supplement.mjs:1",
+        "scripts/research/goal-data/review-b21/regression.mjs:1",
+        "scripts/research/goal-data/review-b21/provenance.mjs:1"
+      ],
+      "limits": [
+        "관측 밖 절대 미접근은 unclear; A-02 자기 최종 읽기 보고 미수집"
+      ]
+    },
+    {
+      "id": 3,
+      "status": "unclear",
+      "claim": "R3/R4 의미 경계·주 TASK Gold",
+      "why": "주 TASK 갈림5개는 기록과 agreement/D3에 보존. R4 갈림8개 원문 대조 완료. 단일 기능과 여러 문장 단계 오독의 간접 경로를 현재 계약만으로 유일하게 결정할 수 없어 Gold 미확정. 순서5개는 모두 배열 자체가 결정이며 양측 R4 direct에 부합. §25의 갈림8 유형 요약은 부정확(순서0).",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:362",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_1.md:14",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_3.md:27",
+        "scripts/research/goal-data/review-b21/row-review.md:1"
+      ],
+      "subclaims": {
+        "five_primary_unresolved": "confirmed",
+        "order_boundary_five": "confirmed",
+        "eight_disputes_include_order": "refuted",
+        "task_gold": "unclear"
+      }
+    },
+    {
+      "id": 4,
+      "status": "confirmed",
+      "claim": "원천 결손 대조·13건 재현 가능 범위·승격 금지",
+      "why": "두 #41/#42 지문은 빈칸·공백 제거 시 동일하며 표시 유무만 다름. 원문 추출은 빈 공간/줄바꿈을 보존하지만 실제 밑줄 문자는 없음. 제목 정답을 지지하는 다른 문장이 남아 연구 유지 근거는 지지. 로컬 배치로 평가원4쌍 재현, 과거 SQL·13쌍 응답 확인. 학평9쌍 본문 전수·현재 DB는 재조회 금지로 독립 재현 unclear. 결합 relevance 전부 unknown·D3 가설 상태·README 사용 금지 보존, 확정 전이/학생 숙달/출제 원리 승격 없음.",
+      "evidence": [
+        "D:/workspace/Vocaflow/scripts/csat/data/columns/2014A.txt:613",
+        "D:/workspace/Vocaflow/scripts/csat/data/columns2/M1809.txt:653",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60.jsonl:6787",
+        "C:/Users/Administrator/.claude/projects/d--workspace-Vocaflow/c4d62ec5-d73f-4d51-898b-475f87e9be60.jsonl:6792",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/README.md:29",
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/principle-groups.json:116",
+        "scripts/research/goal-data/review-b21/deep.mjs:1"
+      ],
+      "subclaims": {
+        "two_marker_gaps": "confirmed",
+        "local_four_pairs": "confirmed",
+        "historical_query_returned_thirteen": "confirmed",
+        "independent_full_thirteen_reproduction": "unclear",
+        "no_promotion_in_scoped_artifacts": "confirmed"
+      }
+    },
+    {
+      "id": 5,
+      "status": "confirmed",
+      "claim": "검증 산출·결함·다음 배치·불확실성",
+      "why": "review.md와 verdict.json 작성. 새 P0/P1 없음. 연구 다음 배치 허용, Gold/진단 승격은 불허. 미실행과 불확실성을 별도 보존.",
+      "evidence": [
+        "docs/research/goal-data-batches/review-b21/review.md:1",
+        "docs/research/goal-data-batches/review-b21/verdict.json:1"
+      ]
+    }
+  ],
+  "findings": [],
+  "new_P0": 0,
+  "new_P1": 0,
+  "notes": [
+    {
+      "id": "B21-N1",
+      "severity": "documentation",
+      "title": "§25의 R4 갈림8 유형 설명에 순서가 포함됐으나 실제 순서 갈림0",
+      "evidence": [
+        "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:362",
+        "scripts/research/goal-data/review-b21/row-review.md:1"
+      ]
+    },
+    {
+      "id": "B21-N2",
+      "severity": "evidence_precision",
+      "title": "추출 txt에는 문자 밑줄이 아니라 빈 공간/줄바꿈; #42의 밑줄 표시는 별도 근거",
+      "evidence": [
+        "D:/workspace/Vocaflow/scripts/csat/data/columns/2014A.txt:613",
+        "D:/workspace/Vocaflow/scripts/csat/data/columns2/M1809.txt:653"
+      ]
+    }
+  ],
+  "next_batch": {
+    "decision": "allow_research_only",
+    "condition": "현재 계약·동일 원천 격리·후보/가설 상태 유지, R4/primary 미확정 보존. DB 복구·제품 진단·Gold 승인은 포함하지 않음"
+  },
+  "statistics": {
+    "overall": {
+      "n": 240,
+      "agree": 223,
+      "agreement": 0.9291666666666667,
+      "kappa": 0.8665576451349141
+    },
+    "per_task": {
+      "r.central_meaning": {
+        "n": 40,
+        "agree": 34,
+        "agreement": 0.85,
+        "kappa": 0.7215777262180975
+      },
+      "r.inference": {
+        "n": 40,
+        "agree": 40,
+        "agreement": 1,
+        "kappa": 1
+      },
+      "e.task_demand": {
+        "n": 40,
+        "agree": 39,
+        "agreement": 0.975,
+        "kappa": 0.9481193255512321
+      },
+      "e.option_correspondence": {
+        "n": 40,
+        "agree": 39,
+        "agreement": 0.975,
+        "kappa": 0.9573560767590618
+      },
+      "r.discourse_structure": {
+        "n": 40,
+        "agree": 32,
+        "agreement": 0.8,
+        "kappa": 0.6645702306079666
+      },
+      "e.evidence_location": {
+        "n": 40,
+        "agree": 39,
+        "agreement": 0.975,
+        "kappa": 0.960435212660732
+      }
+    },
+    "primary_agree": 35,
+    "primary_n": 40,
+    "primary_disputes": [
+      {
+        "item": "2014A#38",
+        "A": "r.central_meaning",
+        "B": "e.task_demand"
+      },
+      {
+        "item": "2014A#40",
+        "A": "r.central_meaning",
+        "B": null
+      },
+      {
+        "item": "M2006#19",
+        "A": "r.central_meaning",
+        "B": null
+      },
+      {
+        "item": "M2006#28",
+        "A": "e.evidence_location",
+        "B": "e.option_correspondence"
+      },
+      {
+        "item": "M2006#35",
+        "A": "e.task_demand",
+        "B": "r.central_meaning"
+      }
+    ],
+    "R4_disputes": [
+      "M1809#40",
+      "M1809#41",
+      "M1809#42",
+      "M2006#23",
+      "M2006#24",
+      "M2006#32",
+      "M2006#35",
+      "M2006#41"
+    ],
+    "selected": 40,
+    "excluded": 41,
+    "combined_items": 746,
+    "R1": 1685,
+    "disputed": 580,
+    "D3": {
+      "items": 746,
+      "items_source_gap": 7,
+      "primary_task_agree": 649,
+      "same_decision_locus": 384,
+      "wrong_options": 2984,
+      "distortion_agree": 2151,
+      "distortion_agree_source_text": 2126,
+      "wrong_options_source_text": 2956
+    }
+  },
+  "verification": {
+    "static_and_binding_checks": 198,
+    "additional_rebuild_checks": 11,
+    "failed": 0,
+    "assembly_byte_equal": 4,
+    "hand_rows": 80,
+    "source_chain_files": 17,
+    "changed_track_rows": 16,
+    "isolated_tests": 32,
+    "local_batch_variants": 21,
+    "regenerated_batch_files": 4,
+    "regenerated_combined_D3_files": 6,
+    "json_timestamp_ignored": true,
+    "observed_prompts_equal": 4,
+    "local_blank_pairs": 4
+  },
+  "unclear": [
+    "R4 갈림8의 간접 관련도 및 주 TASK 갈림5의 Gold",
+    "학평9쌍 본문 기반 13건 독립 전수 재현과 현재 DB 상태",
+    "프롬프트 탐지율 개선·과잉 보고율(고유2건·보고3청크, A-02 미수집)",
+    "관측 로그 밖 절대 미접근",
+    "학생 숙달·실제 학습 효과·제품 소비 상태"
+  ],
+  "unrun": [
+    "DB 재조회/쓰기 및 학평9쌍 본문 전수 대조",
+    "제품 build/E2E·학생 측정(연구 검증 범위 밖)",
+    "Git 명령·커밋·main 통합·TASK 상태 변경(명시 금지)"
+  ],
+  "evidence": {
+    "mapping": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/mapping-review.md:362",
+    "a02": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b21-v24/sources/A-02/assemble.mjs:10",
+    "manifest": "D:/workspace/Vocaflow-goal-data/scripts/research/goal-data/local/b21-v24/prompts/manifest.json:4",
+    "agreement": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/b21-v24-agreement.json:44",
+    "contract1": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_1.md:14",
+    "contract3": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D2-task-mapping/CONTRACT_V2_3.md:27",
+    "readme": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/README.md:29",
+    "d3": "D:/workspace/Vocaflow-goal-data/docs/research/goal-data-batches/D3-principles/principle-groups.json:116"
+  }
+}
