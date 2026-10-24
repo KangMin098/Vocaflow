@@ -29,7 +29,8 @@ export function makeValidator(input, tasks, { legacyV1 = false } = {}) {
   const subset = !!input.tasks
   const byId = new Map(input.rows.map((r) => [r.item_id, r]))
   const reasonsRequired = V24_PLUS.includes(input.contract)
-  const BATCH_NO = Number(/^b(\d+)-/.exec(String(input.batch))?.[1] ?? 0)
+  // 배치 번호 — 접미사 있는 이름(b22r-v24)도 번호로 읽는다(못 읽으면 0 이 되어 b14 · b15 부터의 가드가 꺼진다)
+  const BATCH_NO = Number(/^b(\d+)[a-z]*-/.exec(String(input.batch))?.[1] ?? 0)
 
   function v2(row, inp) {
     if (legacyV1) return []
