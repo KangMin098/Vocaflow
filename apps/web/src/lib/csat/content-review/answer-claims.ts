@@ -196,6 +196,9 @@ function parseSentence(sentence: string, ctx: ClaimContext, carry: Carry): Parse
   return { claims }
 }
 
+/** 문장이 어떤 선지든 가리킬 수 있는가 — 알아본 선지 · 숫자 문자 · 지칭어 중 하나라도 있으면 true */
+const pointsSomewhere = (s: string) => choicesIn(s).length > 0 || /\p{N}/u.test(s) || new RegExp(DESIGNATOR).test(s)
+
 export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReading {
   const text = canonicalNumbers(rawText)
   const answers: AnswerClaim[] = []
@@ -220,20 +223,25 @@ export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReadin
     // 진술이 아닌 문장도 선지를 언급하면 생략 주어의 선행어가 바뀐다(「②는 오답입니다. ⑤를 보세요. 답이 아닙니다.」 — 21차 P1)
     const mentionedHere = choicesIn(sentence)
     if (!/답/.test(gate)) {
-      if (mentionedHere.length) carry.lastSubject = mentionedHere.length === 1 ? mentionedHere : []
+      // 알아본 선지 하나 말고도 **선지를 가리킬 수 있는 것**(숫자 문자 · 지칭어)이 남으면 선행어를 정할 수 없다
+      // (「5를 보세요」 — 22차 P1. 지칭 꼴을 하나씩 더하지 않고 모르는 지칭은 사람 확인으로 닫는다)
+      const residue = sentence.replace(new RegExp(C, 'g'), ' ')
+      const unknownPointer = /\p{N}/u.test(residue) || new RegExp(DESIGNATOR).test(residue)
+      if (unknownPointer) carry.lastSubject = []
+      else if (mentionedHere.length) carry.lastSubject = mentionedHere.length === 1 ? mentionedHere : []
       continue
     }
     // 물음은 단언이 아니다
     if (/[?？]\s*$/.test(sentence)) {
       unparsed.push(sentence)
-      if (mentionedHere.length) carry.lastSubject = []
+      if (pointsSomewhere(sentence)) carry.lastSubject = []
       continue
     }
     const parsed = parseSentence(sentence, sctx, carry)
     if (!parsed) {
       unparsed.push(sentence)
       // 해석 못 한 문장이 선지를 언급했다면 뒤의 생략 주어는 정할 수 없다
-      if (mentionedHere.length) carry.lastSubject = []
+      if (pointsSomewhere(sentence)) carry.lastSubject = []
       continue
     }
     for (const { polarity, claim } of parsed.claims) {

@@ -634,3 +634,22 @@ describe('T-0158 21차 반례 — 생략 주어의 선행어는 가장 최근에
     expect(run([5], '②는 오답입니다. ③을 보세요. 답이 아닙니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 22차 반례 — 모르는 지칭(숫자·지칭어)이 낀 전환은 선행어 불명', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '②는 오답입니다. 5를 보세요. 답이 아닙니다.',
+    '②는 오답입니다. 5에 주목하세요. 오답입니다.',
+    '②는 오답입니다. 마지막 선택지를 보세요. 답이 아닙니다.',
+    '5를 보세요. 답이 아닙니다.',
+  ])('reject:1 · {5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+  it('위치 설명(「두 번째 문장」)은 지칭이 아니다 — 실제 소거 cue 자동 판정 유지', () => {
+    expect(run([5], '일 번은 두 번째 문장을 짚어 보세요. 맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+  })
+})
