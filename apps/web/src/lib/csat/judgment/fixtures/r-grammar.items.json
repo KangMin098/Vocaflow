@@ -1,0 +1,149 @@
+{
+  "source": "csat_items+csat_item_units (published analysis units_version)",
+  "items": [
+    {
+      "id": "H2609G2#29",
+      "examId": "H2609G2",
+      "no": 29,
+      "typeId": "R-GRAMMAR",
+      "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은? [3점]",
+      "choices": [
+        "one in which islands of cash exchange exist within oceans of cheap ― or potentially cheap ― natures.",
+        "Reproducing life within the cash nexus is expensive, and it grows more expensive over time. Workers’ wages can be frozen, even rolled back, but in the end inequality leads to crises of the kind we’ve recently seen",
+        "bring about populist protests in the United States and the United Kingdom. Workers demand dignity, and their labor becomes expensive. Production processes burn through an island, and energy is no longer cheap. The climate changes, and crops can no longer grow as",
+        "abundantly as they once did. Frontiers are so important in these processes because they offer places",
+        "which the new cheap things can be seized ― and the cheap work of humans and other natures can be forcefully taken. * cash nexus: 현금 거래 관계"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "Capitalism is not a system where cash is everywhere but rather ① one in which islands of cash exchange exist within oceans of cheap ― or potentially cheap ― natures."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "② Reproducing life within the cash nexus is expensive, and it grows more expensive over time."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "Workers’ wages can be frozen, even rolled back, but in the end inequality leads to crises of the kind we’ve recently seen ③ bring about populist protests in the United States and the United Kingdom."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "Workers demand dignity, and their labor becomes expensive."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "Production processes burn through an island, and energy is no longer cheap."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "The climate changes, and crops can no longer grow as ④ abundantly as they once did."
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "Frontiers are so important in these processes because they offer places ⑤ which the new cheap things can be seized ― and the cheap work of humans and other natures can be forcefully taken."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "0c7f7a68d7d3b8a67304f6f745ec5f6bb80e9f730e78bacfff64a682981ef5bc",
+        "analysisVersion": 1
+      }
+    },
+    {
+      "id": "H2609G1#29",
+      "examId": "H2609G1",
+      "no": 29,
+      "typeId": "R-GRAMMAR",
+      "stem": "다음 글의 밑줄 친 부분 중, 어법상 틀린 것은?",
+      "choices": [
+        "which is called anaerobic respiration. Anaerobic energy is generated only with glucose (a simple sugar), and it’s quicker and easier for our bodies",
+        "to access. It’s a kind of backup system and turbo boost when the body doesn’t have enough oxygen. But anaerobic energy is inefficient and can be toxic",
+        "creating too much lactic acid. The sickness, muscle weakness, and sweating you experience after you’ve pushed it too hard at the gym is the feeling of anaerobic overload. This process explains why the first few minutes of an intense workout",
+        "is often so miserable. Our lungs and respiratory system haven’t caught up to supply the oxygen our bodies need, and so the body has to use anaerobic respiration. This also explains why, after we’re",
+        "warmed up, exercise feels easier. The body has switched from anaerobic to aerobic respiration. * aerobic respiration: 유산소 호흡 ** lactic acid: 젖산"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "To understand how breathing affects athletic performance, we first need to understand how the body makes energy from air and food."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "There are two options: with oxygen, a process known as aerobic respiration, and without it, ① which is called anaerobic respiration."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "Anaerobic energy is generated only with glucose (a simple sugar), and it’s quicker and easier for our bodies ② to access."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "It’s a kind of backup system and turbo boost when the body doesn’t have enough oxygen."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "But anaerobic energy is inefficient and can be toxic, ③ creating too much lactic acid."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "The sickness, muscle weakness, and sweating you experience after you’ve pushed it too hard at the gym is the feeling of anaerobic overload."
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "This process explains why the first few minutes of an intense workout ④ is often so miserable."
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "sentence",
+          "text": "Our lungs and respiratory system haven’t caught up to supply the oxygen our bodies need, and so the body has to use anaerobic respiration."
+        },
+        {
+          "id": "u9",
+          "n": 9,
+          "kind": "sentence",
+          "text": "This also explains why, after we’re ⑤ warmed up, exercise feels easier."
+        },
+        {
+          "id": "u10",
+          "n": 10,
+          "kind": "sentence",
+          "text": "The body has switched from anaerobic to aerobic respiration."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "2725e9d1129b276826f0a063b94291f1cf3c98b346ded6054d86bca61208c38f",
+        "analysisVersion": 1
+      }
+    }
+  ]
+}

@@ -1,0 +1,64 @@
+{
+  "source": "csat_item_analyses status=published",
+  "reveal": [
+    {
+      "id": "H1906G1#40",
+      "analysisVersion": 3,
+      "unitsVersion": 3,
+      "answer": 2,
+      "designIntent": "PDF 원문과 복구된 5선지 조합을 직접 확인했다. 공상 집단의 did worse와 기대 집단의 did better를 비교해 방법의 효과를 묻고, 취업·시험 합격·수술 회복을 목표 달성 결과로 묶게 한다. 오답은 공상의 낮은 성과를 기대에 붙이거나 도전 과제의 성격을 결과로 바꾼다.",
+      "answerLocus": {
+        "quote": "Those who had more positive expectations for success did better",
+        "reasoning": "[u7] 공상 집단 did worse 와 [u8] 기대 집단 did better 의 대비가 (A) 의 비교 방향을, [u9] 앞 문장의 found jobs, passed their exams 가 (B) 의 결과를 정한다.",
+        "sentence_index": [
+          7,
+          8,
+          9
+        ]
+      },
+      "choices": [
+        {
+          "n": 1,
+          "trap": "부분 사실",
+          "verdict": "distractor",
+          "why_tempting": "(A) effective 는 맞고, [u7] 의 did worse 가 머리에 남아 「좌절」 frustration 을 (B) 에 넣게 된다.",
+          "how_to_reject": "[u7] did worse 는 공상한 집단의 결과다. 요약문의 they 는 positive expectations 이고, 그 집단은 [u9] 앞 문장에서 일자리를 얻고 시험에 붙었다 — 기대가 높이는 것은 좌절이 아니라 성공의 가능성이다."
+        },
+        {
+          "n": 2,
+          "verdict": "correct",
+          "why_correct": "effective 는 [u8] positive expectations 집단이 did better 이고 [u7] 공상 집단이 did worse 였다는 비교를 「더 효과적」으로 옮긴 말이며, chances of success 는 [u9] 의 found jobs·passed their exams·recovered 를 하나로 묶은 말이다.",
+          "confirmed_at": {
+            "note": "비교(A) · 목표 달성 결과(B)",
+            "sentence_index": [
+              7,
+              8,
+              9
+            ]
+          }
+        },
+        {
+          "n": 3,
+          "trap": "무관",
+          "verdict": "distractor",
+          "why_tempting": "[u5] expectation is … based on a person’s past experiences 가 공상(idealized future)보다 덜 고무적으로 들려 discouraging 을, 목표 달성이라는 말에서 협력을 떠올려 cooperation 을 고른다.",
+          "how_to_reject": "cooperation은 개인의 직업·시험·수술 목표가 도움이나 협력을 절대 포함하지 못해서 틀린 것이 아니다. 본문은 기대 집단의 더 나은 성과와 실제 목표 달성만 결과로 제시하며 협력 증가를 말하지 않는다. discouraging도 did better라는 방법 비교와 맞지 않는다."
+        },
+        {
+          "n": 4,
+          "trap": "반대 진술",
+          "verdict": "distractor",
+          "why_tempting": "[u7] 의 did worse 를 positive expectations 쪽 결과로 잘못 붙이면 두 칸이 한꺼번에 discouraging·failure 로 뒤집힌다.",
+          "how_to_reject": "[u7] 에서 did worse 의 주어는 those who had engaged in fantasizing 이고, [u8] 기대 집단은 did better 다 — 두 칸 모두 지문과 정반대다."
+        },
+        {
+          "n": 5,
+          "trap": "어휘 함정",
+          "verdict": "distractor",
+          "why_tempting": "[u2] 의 life challenges(job·exam·surgery)가 누구나 겪는 일이라 common 이, challenges 라는 낱말이 difficulty 로 이어진다.",
+          "how_to_reject": "요약문 (A) 는 more (A) than fantasizing 이라 두 방법의 결과 비교를 묻는다 — [u7]·[u8] 은 흔함이 아니라 성과를 비교한다. difficulty 는 [u2] 의 과제 상황이지 기대가 늘리는 결과가 아니다."
+        }
+      ]
+    }
+  ]
+}
