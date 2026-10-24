@@ -596,3 +596,22 @@ describe('T-0158 19차 반례 — 생략 주어는 앞 절 주어를 이어받�
     expect(run([5], '⑤는 정답이고 오답이 아닙니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 20차 반례 — 생략 주어는 문장 경계를 넘어 이어진다', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each([
+    '⑤는 정답입니다. 오답입니다.',
+    '⑤는 정답입니다. 답이 아닙니다.',
+    '정답은 ⑤입니다. 오답입니다.',
+    '오 번을 보세요. 답이 아닙니다.',
+  ])('reject:1 · {5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+  it('target 만 가리키는 실제 소거 cue 는 그대로 자동 판정', () => {
+    expect(run([5], '일 번은 두 번째 문장을 짚어 보세요. 맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+  })
+})

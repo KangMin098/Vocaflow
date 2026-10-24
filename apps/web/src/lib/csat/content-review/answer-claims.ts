@@ -114,12 +114,16 @@ const norm = (t: string) => t.replace(/^[①-⑤]\s*/, '').replace(/[\s.,。!]+/
 interface Parsed { claims: { polarity: Polarity; claim: AnswerClaim }[] }
 
 /** 한 문장을 절 구조로 끝까지 읽는다. 하나라도 구조에 안 맞으면 null(의미 불명확) */
-function parseSentence(sentence: string, ctx: ClaimContext): Parsed | null {
+/** cue 안에서 문장을 넘어 이어지는 주어(생략 주어의 선행 주어) */
+interface Carry { lastSubject: number[] | null }
+
+function parseSentence(sentence: string, ctx: ClaimContext, carry: Carry): Parsed | null {
   const claims: Parsed['claims'] = []
   // 문장 첫머리 담화 표지 하나(「그래서 정답은 일 번입니다」) — 뜻을 바꾸지 않는다
   let rest = sentence.replace(/[.。!]\s*$/, '').replace(/^\s*(?:그래서|따라서|즉|결국|여러분|자|여기서)\s*,?\s+/, '')
   let sawPredicate = false
-  let lastSubject: number[] | null = null
+  // 생략 주어는 앞 절 · **앞 문장**의 명시 주어를 이어받는다(「⑤는 정답입니다. 오답입니다.」 — 20차 P1)
+  let lastSubject: number[] | null = carry.lastSubject
   while (rest.trim() !== '') {
     // 표제형
     const head = HEAD_CLAUSE.exec(rest)
@@ -184,6 +188,7 @@ function parseSentence(sentence: string, ctx: ClaimContext): Parsed | null {
   // 한 문장 안에서 같은 선지를 정답이라고도, 정답이 아니라고도 하면 모순 — 의미 불명확(「⑤는 정답이고 오답입니다」)
   const yes = new Set(claims.filter((c) => c.polarity === 'answer').flatMap((c) => c.claim.choices))
   if (claims.some((c) => c.polarity === 'notAnswer' && c.claim.choices.some((n) => yes.has(n)))) return null
+  carry.lastSubject = lastSubject
   return { claims }
 }
 
@@ -194,6 +199,12 @@ export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReadin
   const unparsed: string[] = []
   // 문장 밖에서 앞 진술을 뒤집는 응답(「④가 정답이죠? 아니요, ①입니다.」) — 문장 단위로는 못 읽는다
   if (/아니요|아뇨/.test(text) && /답/.test(text)) return { answers: [], rejected: [], unparsed: [text.trim()] }
+  // cue target 을 주어로 삼는 것은 cue 전체에 **target 아닌 선지 번호가 하나도 없을 때만** —
+  // 「오 번을 보세요. 답이 아닙니다.」처럼 진술 밖 문장이 다른 선지를 가리키면 생략 주어를 정할 수 없다
+  const mentioned = choicesIn(text)
+  const targetOk = ctx.rejectTarget != null && mentioned.every((n) => n === ctx.rejectTarget)
+  const sctx: ClaimContext = { ...ctx, rejectTarget: targetOk ? ctx.rejectTarget : undefined }
+  const carry: Carry = { lastSubject: null }
   for (const raw of text.split(/(?<=[.。?!])\s*/)) {
     const sentence = raw.trim()
     if (!sentence) continue
@@ -205,12 +216,15 @@ export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReadin
     if (!/답/.test(gate)) continue
     // 물음은 단언이 아니다
     if (/[?？]\s*$/.test(sentence)) { unparsed.push(sentence); continue }
-    const parsed = parseSentence(sentence, ctx)
+    const parsed = parseSentence(sentence, sctx, carry)
     if (!parsed) { unparsed.push(sentence); continue }
     for (const { polarity, claim } of parsed.claims) {
       if (polarity === 'answer') answers.push(claim)
       else for (const n of claim.choices) if (!rejected.includes(n)) rejected.push(n)
     }
   }
+  // cue 전체에서 같은 선지를 정답·비정답으로 동시에 말하면 모순 — 이 cue 의 해석 전체를 사람 확인으로
+  const yes = new Set(answers.flatMap((a) => a.choices))
+  if (rejected.some((n) => yes.has(n))) return { answers: [], rejected: [], unparsed: [...unparsed, text.trim()] }
   return { answers, rejected, unparsed }
 }
