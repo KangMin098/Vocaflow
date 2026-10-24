@@ -1,0 +1,90 @@
+{
+  "$comment": "E3 정답·오답 설계 논리 평가 루브릭. failure_codes 는 새 분류가 아니라 기존 trap-atlas 키(csat_item_analyses.choice_analysis[].trap 집계)에 ASCII 코드를 붙인 사상(mapping)이다. 수치는 trap-atlas.json(built_at 2026-10-11) 실측. cases 는 DB csat_item_analyses version 1~5 를 2026-10-24 SELECT 로 대조한 결과.",
+  "source": {
+    "taxonomy": "D:/workspace/Vocaflow-main-serving/apps/web/src/lib/csat/trap-atlas.json (생성기 scripts/csat/build-trap-atlas.mjs, 802문항·distractors 2680·named 2232·distinct 303)",
+    "item_data": "DB csat_item_analyses.choice_analysis (item_id, version) — SELECT 2026-10-24",
+    "conflicts": "vocaflow-csat-all-types-research@810a463ac docs/csat-learner/all-types-research-20261024/02_CONTENT_CONFLICTS.md",
+    "designer_model": "D:/workspace/Vocaflow-main-serving/docs/CSAT_DESIGNER_MODEL.md §4.0, §6.12"
+  },
+  "failure_codes": [
+    {"code": "LEX_BAIT", "desc": "어휘 함정 — 지문 낱말을 끌어와 다른 명제를 만든 선지", "atlas_key": "어휘 함정", "atlas_n": 331, "source_ref": "trap-atlas.json traps[key=어휘 함정]"},
+    {"code": "REVERSAL", "desc": "반대 진술 — 지문 명제의 극성·방향을 뒤집음", "atlas_key": "반대 진술", "atlas_n": 328, "source_ref": "trap-atlas.json traps[key=반대 진술]"},
+    {"code": "OFF_TOPIC", "desc": "무관 — 지문이 다루지 않는 명제", "atlas_key": "무관", "atlas_n": 266, "source_ref": "trap-atlas.json traps[key=무관]"},
+    {"code": "PARTIAL_TRUE", "desc": "부분 사실 — 지문에 있는 말이나 결론/요지가 아님(진단·세부)", "atlas_key": "부분 사실", "atlas_n": 244, "source_ref": "trap-atlas.json traps[key=부분 사실]"},
+    {"code": "OUTSIDE_KNOWLEDGE", "desc": "지문 밖 상식 — 통념에 기대며 지문 근거 없음", "atlas_key": "지문 밖 상식", "atlas_n": 195, "source_ref": "trap-atlas.json traps[key=지문 밖 상식]"},
+    {"code": "AGENT_SWAP", "desc": "주체 역전 — 행위자/대상을 바꿈", "atlas_key": "주체 역전", "atlas_n": 108, "source_ref": "trap-atlas.json traps[key=주체 역전]"},
+    {"code": "SCOPE_OVER", "desc": "범위 과대 — 지문 한정보다 넓힘", "atlas_key": "범위 과대", "atlas_n": 103, "source_ref": "trap-atlas.json traps[key=범위 과대]"},
+    {"code": "SCOPE_UNDER", "desc": "범위 과소 — 여러 축 중 한쪽만 담음", "atlas_key": "범위 과소", "atlas_n": 73, "source_ref": "trap-atlas.json traps[key=범위 과소]"},
+    {"code": "CAUSE_REVERSAL", "desc": "인과 역전", "atlas_key": "인과 역전", "atlas_n": 61, "source_ref": "trap-atlas.json traps[key=인과 역전]"},
+    {"code": "REF_ANTECEDENT_CUT", "desc": "지시어 선행사 절단 (위치형: 삽입·순서·무관문장)", "atlas_key": "지시어 선행사 절단", "atlas_n": 88, "source_ref": "trap-atlas.json traps[key=지시어 선행사 절단]"},
+    {"code": "LEX_REPEAT_LURE", "desc": "어휘 반복 유인 (위치형) — 낱말 겹침이 자리처럼 보이게 함", "atlas_key": "어휘 반복 유인", "atlas_n": 70, "source_ref": "trap-atlas.json traps[key=어휘 반복 유인]"},
+    {"code": "CLOSER_MISPLACE", "desc": "마무리 문장 위치 오판 (위치형)", "atlas_key": "마무리 문장 위치 오판", "atlas_n": 61, "source_ref": "trap-atlas.json traps[key=마무리 문장 위치 오판]"},
+    {"code": "SEQ_REVERSAL", "desc": "시간·인과 순서 역전 (위치형)", "atlas_key": "시간·인과 순서 역전", "atlas_n": 50, "source_ref": "trap-atlas.json traps[key=시간·인과 순서 역전]"},
+    {"code": "CONNECTIVE_CLASH", "desc": "연결사 방향 충돌 (위치형)", "atlas_key": "연결사 방향 충돌", "atlas_n": 47, "source_ref": "trap-atlas.json traps[key=연결사 방향 충돌]"},
+    {"code": "FIRST_MENTION_VIOLATION", "desc": "첫 등장 위반 (위치형) — 지시 대상이 아직 등장하지 않은 자리", "atlas_key": "첫 등장 위반", "atlas_n": 45, "source_ref": "trap-atlas.json traps[key=첫 등장 위반]"},
+    {"code": "COND_RESULT_CUT", "desc": "조건-귀결 절단 (위치형)", "atlas_key": "조건-귀결 절단", "atlas_n": 40, "source_ref": "trap-atlas.json traps[key=조건-귀결 절단]"},
+    {"code": "GENERAL_SPECIFIC_REVERSAL", "desc": "총론-각론 역전 (위치형)", "atlas_key": "총론-각론 역전", "atlas_n": 34, "source_ref": "trap-atlas.json traps[key=총론-각론 역전]"},
+    {"code": "ENUM_CUT", "desc": "열거·병렬 절단 (위치형)", "atlas_key": "열거·병렬 절단", "atlas_n": 31, "source_ref": "trap-atlas.json traps[key=열거·병렬 절단]"},
+    {"code": "OTHER_ATLAS", "desc": "atlas 상위 목록 밖의 이름(303가지 중 꼬리). 원래 trap 문자열을 함께 보관", "atlas_key": null, "atlas_n": null, "source_ref": "trap-atlas.json corpus.distinct_traps=303"},
+    {"code": "UNCODED", "desc": "분석에 trap 이름 없음 — 평가 대상에서 제외(NOT_EVALUATED)", "atlas_key": null, "atlas_n": null, "source_ref": "trap-atlas.json corpus: distractors 2680 중 named 2232"}
+  ],
+  "scoring": {
+    "level": "U3 DISTRACTOR_FAILURE",
+    "response_format": {
+      "per_option": ["verdict(정답/오답) 선택", "failure_code 1~2개 선택(닫힌 목록, 해당 유형 계열만 노출)", "반증 근거 span 선택(문장 index 또는 토큰 범위)"],
+      "free_text": "허용하되 채점하지 않음"
+    },
+    "option_credit": {
+      "full_1.0": "verdict 정답 AND code ∈ expected_failure_codes AND span 이 evidence_ref 문장 집합과 겹침",
+      "partial_0.5": "verdict 정답 AND (code 일치 XOR span 일치)",
+      "zero": "verdict 정답이나 code·span 모두 불일치 (= '틀렸다'만 앎) 또는 verdict 오류",
+      "contested_option": "expected_failure_codes 가 분석 버전 간 갈린 선지는 code 축을 채점하지 않고 span 만 채점(최대 0.5), 또는 NOT_EVALUATED"
+    },
+    "item_U3_pass": "검증된 오답 선지 중 full 비율 ≥ 0.75 AND verdict 오류 0 AND 노출 X0/X1 + INDEPENDENT_ELIGIBLE. 판정 문턱은 제안값이며 학습자 데이터로 보정 전 UNVERIFIED_THRESHOLD",
+    "traps": {
+      "recall_elimination": "같은 문항 재노출(X2/X3) 또는 해설·강의 cue 열람 뒤 응답은 ASSISTED_ONLY — U3 승급 금지",
+      "guessing": "code 무작위 선택 기대 일치율 = |expected|/|노출 code 수|. 노출 목록 ≥6개 유지, span 필수로 우연 일치 억제. 응답 시간·코드 분포 단일값 몰림(같은 code 전 선지)은 플래그",
+      "lexical_shortcut": "span 이 선지와 낱말만 겹치는 문장이고 evidence_ref 와 다르면 code 가 맞아도 partial 상한",
+      "click_or_lecture": "클릭·펼치기·강의 시청은 어떤 점수도 만들지 않는다",
+      "ai_label_as_truth": "expected_failure_codes 는 AI 분석 라벨이다. 진리가 아니며 버전 간 불일치 선지는 contested 로 취급"
+    }
+  },
+  "cases": [
+    {
+      "item_id": "2026#22", "type": "R-GIST", "answer": 1,
+      "verified": true,
+      "verification_note": "DB version 1~5 trap 라벨 동일. 02_CONTENT_CONFLICTS #10: ③ 선지 문구와 원문 7번 동일성은 NOT_VERIFIED",
+      "options": [
+        {"no": 1, "role": "correct", "expected_failure_codes": [], "evidence_ref": "answer_locus sentence_index [6,9,10]"},
+        {"no": 2, "expected_failure_codes": ["OUTSIDE_KNOWLEDGE"], "evidence_ref": "choice_analysis n=2 how_to_reject — 4번 문장 trust and confidence, 처방 6·9·10"},
+        {"no": 3, "expected_failure_codes": ["PARTIAL_TRUE"], "evidence_ref": "n=3 — 7번(Often 경향 진단) vs 9번 처방", "caveat": "선지-7번 동일성 NOT_VERIFIED(CONFLICTS #10)"},
+        {"no": 4, "expected_failure_codes": ["SCOPE_UNDER"], "evidence_ref": "n=4 — 3번 문장 but potentially compete, 마지막 문장"},
+        {"no": 5, "expected_failure_codes": ["LEX_BAIT"], "evidence_ref": "n=5 — 8번 By necessity 의 피수식은 정보 공유"}
+      ]
+    },
+    {
+      "item_id": "2026#34", "type": "R-BLANK", "answer": 3,
+      "verified": false,
+      "verification_note": "DB v1~4 와 v5(2026-10-11) 라벨이 ②④⑤에서 다름. ②는 G1 CC-02(진위 unknown vs 강의 '주체 역전' 거짓 단정) 미조치. 조건 명제(If/Ideally) 판단을 다른 문항으로 일반화 금지(CC-03)",
+      "options": [
+        {"no": 1, "expected_failure_codes": ["REVERSAL"], "evidence_ref": "v1~v5 일치 — 7번(제한 자체 없음)·6번", "contested": false},
+        {"no": 2, "expected_failure_codes": ["LEX_BAIT", "AGENT_SWAP"], "evidence_ref": "v1~4 어휘 함정 / v5 주체 역전 — 1번 문장 strong defender=Kant", "contested": true, "note": "CC-02: 분석 content_truth unknown"},
+        {"no": 3, "role": "correct", "expected_failure_codes": [], "evidence_ref": "6·7번 + If 조건 + Ideally 한정(CONFLICTS #5)"},
+        {"no": 4, "expected_failure_codes": ["PARTIAL_TRUE", "REVERSAL"], "evidence_ref": "v1~4 부분 사실 / v5 반대 진술 — 5번 문장 harmony in a legal system", "contested": true},
+        {"no": 5, "expected_failure_codes": ["OFF_TOPIC", "LEX_BAIT"], "evidence_ref": "v1~4 무관 / v5 어휘 함정 — 6번 이상적 법", "contested": true}
+      ]
+    },
+    {
+      "item_id": "2026#38", "type": "R-INSERT", "answer": 5,
+      "verified": false,
+      "verification_note": "v1~4 와 v5 라벨이 ②③에서 다름. v1~4 의 '인과 연쇄 절단'·'예시-일반화 절단'은 atlas 상위 키 밖(OTHER_ATLAS). ⑤ decisive 의 these 범위는 CC-01(6~7 vs 4~7) 미승인",
+      "options": [
+        {"no": 1, "expected_failure_codes": ["FIRST_MENTION_VIOLATION"], "evidence_ref": "v1~v5 일치 — [3] stories vs [4] we routinely form narratives", "contested": false},
+        {"no": 2, "expected_failure_codes": ["OTHER_ATLAS:인과 연쇄 절단", "LEX_REPEAT_LURE"], "evidence_ref": "[4]→[5] 주장-작동 사슬", "contested": true},
+        {"no": 3, "expected_failure_codes": ["OTHER_ATLAS:예시-일반화 절단", "REF_ANTECEDENT_CUT"], "evidence_ref": "[5] 일반 진술 → [6] 예시", "contested": true},
+        {"no": 4, "expected_failure_codes": ["REF_ANTECEDENT_CUT"], "evidence_ref": "v1~v5 일치 — [7] the university ← [6] a particular university", "contested": false},
+        {"no": 5, "role": "correct", "expected_failure_codes": [], "evidence_ref": "두 번째 For example 의 일반 진술 + identity; these 범위 CC-01 미확정"}
+      ]
+    }
+  ]
+}

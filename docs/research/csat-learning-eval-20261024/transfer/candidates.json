@@ -1,0 +1,383 @@
+{
+  "generated_at": "2026-10-24",
+  "db": "jajenrevcbmrpaliomxv (SELECT only)",
+  "rule": "UNKNOWN 이 하나라도 있으면 eligible=false",
+  "reference_cases": [
+    {
+      "item_id": "2026#22",
+      "type_id": "R-GIST"
+    },
+    {
+      "item_id": "2026#34",
+      "type_id": "R-BLANK"
+    },
+    {
+      "item_id": "2026#38",
+      "type_id": "R-INSERT"
+    }
+  ],
+  "candidates": [
+    {
+      "item_id": "2025#22",
+      "reference": "2026#22",
+      "principle_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate(learner exposure 미확인)",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=2025#22: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2509#22",
+      "reference": "2026#22",
+      "principle_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate(learner exposure 미확인)",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2509#22: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2606#22",
+      "reference": "2026#22",
+      "principle_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2606#22: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2609#22",
+      "reference": "2026#22",
+      "principle_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2609#22: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2706#22",
+      "reference": "2026#22",
+      "principle_family": "R-GIST (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2706#22: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "2025#34",
+      "reference": "2026#34",
+      "principle_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate(learner exposure 미확인)",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=2025#34: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "2025#33",
+      "reference": "2026#34",
+      "principle_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate(learner exposure 미확인)",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=2025#33: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2509#34",
+      "reference": "2026#34",
+      "principle_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate(learner exposure 미확인)",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2509#34: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2606#34",
+      "reference": "2026#34",
+      "principle_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2606#34: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2609#34",
+      "reference": "2026#34",
+      "principle_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2609#34: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2706#34",
+      "reference": "2026#34",
+      "principle_family": "R-BLANK (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2706#34: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "2025#38",
+      "reference": "2026#38",
+      "principle_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate(learner exposure 미확인)",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=2025#38: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "2025#39",
+      "reference": "2026#38",
+      "principle_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate(learner exposure 미확인)",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=2025#39: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2509#38",
+      "reference": "2026#38",
+      "principle_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate(learner exposure 미확인)",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2509#38: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2606#38",
+      "reference": "2026#38",
+      "principle_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2606#38: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2609#38",
+      "reference": "2026#38",
+      "principle_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2609#38: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    },
+    {
+      "item_id": "M2706#38",
+      "reference": "2026#38",
+      "principle_family": "R-INSERT (type_id 일치만 확인 · 동일 원리 판정 미실시)",
+      "transfer_distance": "near-candidate",
+      "gates": {
+        "original": "UNKNOWN",
+        "answer": "PASS",
+        "rights": "UNKNOWN",
+        "version": "UNKNOWN",
+        "unseen_by_learner": "UNKNOWN"
+      },
+      "eligible": false,
+      "evidence_ref": "csat_items id=M2706#38: body_ok=true,in_scope=true,answer NOT NULL; csat_exams.has_answer_key=true, organizer=kice (2026-10-24 SELECT)",
+      "missing": [
+        "공식 원문(PDF) 대조 기록",
+        "권리·노출 적격 필드 부재(csat_items/csat_exams 에 rights 컬럼 없음)",
+        "분석 버전 고정(analysis revision/hash) 미확인",
+        "학습자 기노출 이력 확인"
+      ]
+    }
+  ],
+  "counts": {
+    "total": 17,
+    "eligible": 0,
+    "ineligible": 17
+  }
+}

@@ -1,0 +1,153 @@
+{
+  "$schema_note": "E1 출제 사고 이해 루브릭 기계 판독본. E7 scorer 소비용. code 는 안정 id — 의미를 바꿀 때는 새 code 를 만들고 옛 code 는 deprecated 로 남긴다.",
+  "version": "e1-rubric-20261024.1",
+  "source_doc": "01_DESIGNER_THINKING_RUBRIC.md",
+  "ordinal": ["U0", "U1", "U2", "U3", "U4", "U5"],
+  "special": ["NOT_EVALUATED", "UNKNOWN"],
+  "global_rules": {
+    "monotone_award": "Uk 는 Uk-1 이하 min_evidence 가 같은 문항·같은 시도에서 충족될 때만 부여한다(U5 는 예외: 앵커 문항 U4 + 전이 문항 U2 이상).",
+    "exposure_cap": {
+      "X0": "cap U5",
+      "X1": "cap U5, 단 cue 가 가리킨 판단 단계의 증거는 ASSISTED_ONLY 로 별도 표기",
+      "X2": "cap U1 for INDEPENDENT; 해당 판단 증거는 ASSISTED_ONLY",
+      "X3": "cap U0 for INDEPENDENT; 이후 같은 문항 증거 전부 ASSISTED_ONLY",
+      "X_UNKNOWN": "independence=UNKNOWN, 수준은 부여하되 독립 산입 금지"
+    },
+    "never_grant_from": ["click", "navigation", "dwell_time", "lecture_play", "lecture_complete", "explanation_open", "scroll_depth"],
+    "free_text": "자유서술은 채점하지 않는다. 닫힌 선택(선지·문장 번호·구간·판정 칸)만 증거로 쓴다.",
+    "missing_data": "증거가 없으면 NOT_EVALUATED, 기록이 손상·모호하면 UNKNOWN. 점수를 추정하지 않는다.",
+    "rater_agreement": "여러 AI 평가자 일치는 객관적 사실이 아니다. key 가 NOT_VERIFIED 인 판정 칸은 scorer 가 해당 code 를 award 에 쓰지 않는다.",
+    "real_learner": "실제 학습자 결과 = NOT_EVALUATED. 학습 효과를 주장하지 않는다."
+  },
+  "levels": [
+    {
+      "id": "U0",
+      "name": "RECALL",
+      "definition": "정답 번호 또는 해설 문장을 기억·재현한다. 이해 여부와 무관.",
+      "evidence_codes": [
+        {"code": "EV-U0-a", "desc": "정답 선지를 고름", "observable_as": "choice_select == official_answer"},
+        {"code": "EV-U0-b", "desc": "해설·강의에 나온 문장/용어를 그대로 재인", "observable_as": "recognition_item(explanation_phrase) correct"}
+      ],
+      "min_evidence": {"all_of": [], "any_of": ["EV-U0-a", "EV-U0-b"]},
+      "elicited_by": ["choice_only"],
+      "traps": [
+        {"code": "TR-U0-1", "desc": "정답 일치를 이해로 읽음(찍기·기억 구분 불가)"}
+      ]
+    },
+    {
+      "id": "U1",
+      "name": "MEANING",
+      "definition": "핵심 문장·핵심 표현의 의미를 지문 범위 안에서 바르게 식별한다.",
+      "evidence_codes": [
+        {"code": "EV-U1-a", "desc": "핵심 문장의 의미 진술을 닫힌 보기 중에서 바르게 고름(해설 문장과 다른 표면형)", "observable_as": "meaning_choice correct AND option_surface != explanation_surface"},
+        {"code": "EV-U1-b", "desc": "핵심 표현의 범위 한정자(한정어·조건·부정)를 포함한 의미를 고름", "observable_as": "meaning_choice with scope_marker correct"},
+        {"code": "EV-U1-c", "desc": "그럴듯한 의미 왜곡 보기(과잉일반화·주체 역전)를 기각", "observable_as": "meaning_distortion_option rejected"}
+      ],
+      "min_evidence": {"all_of": ["EV-U1-a"], "any_of": ["EV-U1-b", "EV-U1-c"]},
+      "elicited_by": ["meaning_paraphrase_choice"],
+      "traps": [
+        {"code": "TR-U1-1", "desc": "해설 문장과 같은 표면형 보기 선택 = U0"},
+        {"code": "TR-U1-2", "desc": "핵심어 번역만 맞히고 한정자 무시"}
+      ]
+    },
+    {
+      "id": "U2",
+      "name": "EVIDENCE_LINK",
+      "definition": "정답 판단을 결정하는 지문 근거(문장·구간)와 선지 사이의 관계를 스스로 지정한다.",
+      "evidence_codes": [
+        {"code": "EV-U2-a", "desc": "결정 근거 문장/구간을 선택(정답 키 구간과 일치 또는 승인된 허용 구간)", "observable_as": "evidence_span_select within key_span (tolerance per item)"},
+        {"code": "EV-U2-b", "desc": "선택한 근거와 선지의 관계 유형을 닫힌 보기에서 지정(재진술/귀결/요구-공급 등)", "observable_as": "relation_type_select correct"},
+        {"code": "EV-U2-c", "desc": "근거가 아닌 미끼 구간(어휘만 겹치는 문장)을 근거로 쓰지 않음", "observable_as": "decoy_span not selected"}
+      ],
+      "min_evidence": {"all_of": ["EV-U2-a", "EV-U2-b"], "any_of": []},
+      "elicited_by": ["evidence_span_selection", "choice_with_reason"],
+      "traps": [
+        {"code": "TR-U2-1", "desc": "해설 문구를 다른 말로 바꿔 말함 = U0(근거 지정 아님)"},
+        {"code": "TR-U2-2", "desc": "하이라이트·강의가 근거를 이미 표시한 뒤의 선택(X2 이상) = ASSISTED_ONLY"},
+        {"code": "TR-U2-3", "desc": "어휘 겹침으로 근거를 고름(정답 구간과 우연 일치) — EV-U2-c 실패 동반 시 기각"},
+        {"code": "TR-U2-4", "desc": "근거 범위를 너무 좁게 잡은 것을 정답 키로 사용(2026-38 these 범위 사례) — 키 자체 결함"}
+      ]
+    },
+    {
+      "id": "U3",
+      "name": "DISTRACTOR_FAILURE",
+      "definition": "매력 오답이 어떤 논리 조건에서 실패하는지(참이지만 요구 불충족, 진위 미확정, 연결 파괴 등)를 지정한다.",
+      "evidence_codes": [
+        {"code": "EV-U3-a", "desc": "오답 선지별 실패 조건을 닫힌 보기에서 지정", "observable_as": "failure_condition_select correct for >=1 attractive distractor"},
+        {"code": "EV-U3-b", "desc": "content_truth 와 requirement_fit 을 분리 판정(true/false/unknown × fits/fails)", "observable_as": "two_axis_judgment matches key on both axes"},
+        {"code": "EV-U3-c", "desc": "진위 미확정(unknown) 선지를 거짓으로 단정하지 않음", "observable_as": "unknown_option not marked false"},
+        {"code": "EV-U3-d", "desc": "가장 강한 매력 오답의 실패 근거 구간을 지정", "observable_as": "failure_span_select within key"}
+      ],
+      "min_evidence": {"all_of": ["EV-U3-a"], "any_of": ["EV-U3-b", "EV-U3-d"]},
+      "elicited_by": ["distractor_failure_condition_pick", "two_axis_grid"],
+      "traps": [
+        {"code": "TR-U3-1", "desc": "'정답이 아니라서 틀림' 류의 순환 사유 선택"},
+        {"code": "TR-U3-2", "desc": "unknown 을 false 로 단정했는데 키가 false 로 잘못 저장되어 통과(2026-34 ② 위험)"},
+        {"code": "TR-U3-3", "desc": "오답 실패 키가 NOT_VERIFIED(독립 승인 없음)인 칸으로 award"},
+        {"code": "TR-U3-4", "desc": "약한 오답(근거 없음 명백)만 기각하고 매력 오답은 미판정"}
+      ]
+    },
+    {
+      "id": "U4",
+      "name": "PRINCIPLE_CONDITIONS",
+      "definition": "문항의 출제 원리를 적용 조건과 예외(when_applies/when_not)까지 구분한다.",
+      "evidence_codes": [
+        {"code": "EV-U4-a", "desc": "조건 조작 과제: 지문 조건(한정어·부정·표지·위치)을 바꾼 변형에서 판단이 바르게 바뀜/유지됨", "observable_as": "condition_manipulation variants all correct"},
+        {"code": "EV-U4-b", "desc": "원리의 비적용 사례(when_not)를 닫힌 보기에서 식별", "observable_as": "when_not_case identified"},
+        {"code": "EV-U4-c", "desc": "과잉일반화 원리 진술을 기각", "observable_as": "overgeneralized_principle rejected"}
+      ],
+      "min_evidence": {"all_of": ["EV-U4-a"], "any_of": ["EV-U4-b", "EV-U4-c"]},
+      "elicited_by": ["condition_manipulation"],
+      "traps": [
+        {"code": "TR-U4-1", "desc": "원리 문장 암기 재인 = U0"},
+        {"code": "TR-U4-2", "desc": "변형 1개만 맞힘(우연) — 최소 2개 변형, 바뀌는 쪽·유지되는 쪽 각 1 이상"},
+        {"code": "TR-U4-3", "desc": "변형 문항이 원 문항과 표면이 같아 원 답 기억으로 풀림"},
+        {"code": "TR-U4-4", "desc": "변형 지문 자체가 미검수(합성 변형 키 NOT_VERIFIED)"}
+      ]
+    },
+    {
+      "id": "U5",
+      "name": "TRANSFER",
+      "definition": "다른 실제 기출(같은 사고 구조, 다른 표면)에서 노출 없이 적절히 판단한다.",
+      "evidence_codes": [
+        {"code": "EV-U5-a", "desc": "승인된 구조 짝 실제 기출에서 X0 정답 + 근거 지정(U2 수준)", "observable_as": "novel_real_item X0 choice correct AND EV-U2-a,b on novel item"},
+        {"code": "EV-U5-b", "desc": "전이 문항에서 매력 오답 실패 조건 지정(U3 수준)", "observable_as": "EV-U3-a on novel item"},
+        {"code": "EV-U5-c", "desc": "구조가 다른 반례 문항에 원리를 잘못 적용하지 않음", "observable_as": "counterexample_item: principle not misapplied"}
+      ],
+      "min_evidence": {"all_of": ["EV-U5-a"], "any_of": ["EV-U5-b", "EV-U5-c"], "prerequisite": "anchor item U4 on same structure", "pair_required": "approved real pair; pairs==0 -> NOT_EVALUATED"},
+      "elicited_by": ["novel_real_item"],
+      "traps": [
+        {"code": "TR-U5-1", "desc": "이미 풀어 본 문항(노출 이력) = 전이 아님"},
+        {"code": "TR-U5-2", "desc": "짝이 미승인/0개인데 임의 문항으로 전이 판정(2026-34 pairs=0)"},
+        {"code": "TR-U5-3", "desc": "합성·변형 문항을 실제 기출 전이로 계산"},
+        {"code": "TR-U5-4", "desc": "표면 유형만 같고 사고 구조가 다른 문항으로 전이 판정(34 조건문 → 31 인과)"}
+      ]
+    }
+  ],
+  "cases": [
+    {
+      "item": "2026#34", "type": "R-BLANK", "answer": 3, "answer_status": "VERIFIED(DB answer + S1 CORRECTION 공식 정답표)", "paper_pdf": "NOT_VERIFIED",
+      "structure": "CONDITIONAL_NEGATION_ENTAILMENT",
+      "u2_key": "마지막 두 문장(Ideally… / If… then the law cannot be ___)",
+      "u3_key": {"1": "VERIFIED_CONTRACT: 부정 범위 대입 시 '합리적 제한' 축 없음", "2": "content_truth=unknown, requirement_fit=fails", "4": "NOT_VERIFIED", "5": "NOT_VERIFIED"},
+      "u4_when_not": "빈칸이 부정·조건 범위 밖(2026#31 인과, #32 대조, #33 전건)",
+      "u5_pairs": "0 -> NOT_EVALUATED"
+    },
+    {
+      "item": "2026#22", "type": "R-GIST", "answer": 1, "answer_status": "VERIFIED(DB answer)", "paper_pdf": "NOT_VERIFIED",
+      "structure": "DISCOURSE_ROLE_COVERAGE",
+      "u2_key": "처방 문장(This means… 6·9번) + 정의→진단→경향→처방 역할",
+      "u3_key": {"3": "content_truth=true(동일성 NOT_VERIFIED CC-09), requirement_fit=fails(진단만)", "4": "정의 속 세부(가설)"},
+      "u4_when_not": "두괄·예시·재진술(2025#22), 예외 조건 선두(2026#23)",
+      "u5_pairs": "UNVERIFIED(후보 2025#22, 승인 기록 미확인)"
+    },
+    {
+      "item": "2026#38", "type": "R-INSERT", "answer": 5, "answer_status": "VERIFIED(S1 공식 정답표 SHA 결속)", "paper_pdf": "NOT_VERIFIED", "db_choices_defect": "CC-07",
+      "structure": "TWO_BOUNDARY_COHESION",
+      "u2_key": "8번 For example 이 요구하는 정체성 일반 진술 = 주어진 문장(뒤 접합 결정), these 지시 범위 4~7(C1 미승인)",
+      "u3_key": {"4": "앞 these 충족, 6→7 동일 예시 분리", "3": "5→6 일반-예시 단절(충족 강도 NOT_VERIFIED)", "1": "서사 미등장", "2": "4→5 사슬 단절"},
+      "u4_when_not": "두 예시가 같은 진술의 연속 사례면 원리 불성립(v3 when_not)",
+      "u5_pairs": "UNVERIFIED(후보 2026#39·2025#39, 결정 이음매가 다름)"
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "$comment": "E6 인지 부담·사용성 도구. 어떤 도구도 학습(U0-U5)을 측정하지 않는다. 실제 학습자 결과 없음 = NOT_EVALUATED. PC 웹·키보드 조작 전제.",
+  "measures_learning": false,
+  "instruments": [
+    {
+      "id": "PAAS_ME",
+      "name": "Paas 정신적 노력 척도",
+      "items": 1,
+      "scale": "9점 (1=아주아주 낮은 노력 ~ 9=아주아주 높은 노력)",
+      "citation": "Paas, F. G. W. C. (1992). Training strategies for attaining transfer of problem-solving skill in statistics: A cognitive-load approach. Journal of Educational Psychology, 84(4), 429-434.",
+      "translation_status": "UNVERIFIED",
+      "when_administered": ["학습 단계 종료 직후", "독립 새 문항 확인 직후"],
+      "paths": ["FREE", "EXPLANATION_FIRST", "LECTURE_FIRST"],
+      "research_questions": ["RQ-L1"]
+    },
+    {
+      "id": "NASA_TLX_RAW",
+      "name": "NASA-TLX Raw (가중치 없음)",
+      "items": 6,
+      "scale": "차원별 0-100 (5 단위 21칸), 평균 = Raw TLX",
+      "citation": "Hart, S. G., & Staveland, L. E. (1988). Development of NASA-TLX. In P. A. Hancock & N. Meshkati (Eds.), Human Mental Workload (pp. 139-183). North-Holland; Hart, S. G. (2006). NASA-Task Load Index (NASA-TLX); 20 years later. Proc. HFES 50th Annual Meeting, 904-908.",
+      "translation_status": "UNVERIFIED",
+      "when_administered": ["세션 종료 1회"],
+      "paths": ["FREE", "EXPLANATION_FIRST", "LECTURE_FIRST"],
+      "research_questions": ["RQ-L2"]
+    },
+    {
+      "id": "SUS",
+      "name": "System Usability Scale",
+      "items": 10,
+      "scale": "5점 리커트, 0-100 환산",
+      "citation": "Brooke, J. (1996). SUS: A 'quick and dirty' usability scale. In P. W. Jordan et al. (Eds.), Usability Evaluation in Industry (pp. 189-194). Taylor & Francis.",
+      "translation_status": "UNVERIFIED",
+      "when_administered": ["전체 세션 종료 1회"],
+      "paths": ["FREE", "EXPLANATION_FIRST", "LECTURE_FIRST"],
+      "research_questions": ["RQ-U1"]
+    },
+    {
+      "id": "SEQ",
+      "name": "Single Ease Question",
+      "items": 1,
+      "scale": "7점 (1=매우 어려움 ~ 7=매우 쉬움)",
+      "citation": "Sauro, J., & Dumas, J. S. (2009). Comparison of three one-question, post-task usability questionnaires. Proc. CHI 2009, 1599-1608.",
+      "translation_status": "UNVERIFIED",
+      "when_administered": ["판단 유발 화면 과제(근거 지목·조건 조작 등) 직후, 세션당 최대 3회"],
+      "paths": ["FREE", "EXPLANATION_FIRST", "LECTURE_FIRST"],
+      "research_questions": ["RQ-U2"]
+    },
+    {
+      "id": "TIMING",
+      "name": "시간 기반 지표 (로그 파생)",
+      "items": 0,
+      "scale": "단계별 체류(ms)·첫 응답 지연·독립 응답 시간·비활성 구간 표시; 중앙값·분포만",
+      "citation": "외부 척도 아님 (로그 파생)",
+      "translation_status": "NOT_APPLICABLE",
+      "when_administered": ["상시 로그"],
+      "paths": ["FREE", "EXPLANATION_FIRST", "LECTURE_FIRST"],
+      "research_questions": ["RQ-L3"],
+      "caveats": ["시간 = 부담/능력으로 해석 금지", "경로 간 효율 비교 금지", "탭 전환·자리 비움·재생 속도 혼입"]
+    },
+    {
+      "id": "THINK_ALOUD",
+      "name": "동시 발화 사고 프로토콜 (선택)",
+      "items": 0,
+      "scale": "질적 코딩 (시선 대상·판단 발화·혼란 지점); 점수 없음",
+      "citation": "Ericsson, K. A., & Simon, H. A. (1993). Protocol Analysis: Verbal Reports as Data (rev. ed.). MIT Press.",
+      "translation_status": "UNVERIFIED",
+      "when_administered": ["소수 참가자 별도 세션; 응답은 학습 판정 데이터에서 분리"],
+      "paths": ["FREE", "EXPLANATION_FIRST", "LECTURE_FIRST"],
+      "research_questions": ["RQ-U3"],
+      "caveats": ["반응성(발화가 수행을 바꿈)", "자유서술 채점에 쓰지 않음"]
+    }
+  ]
+}

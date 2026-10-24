@@ -1,0 +1,12 @@
+{
+  "$comment": "E7 테스트용 소형 노출 지도(E5 rubric/p6-exposure-map.json 의 정본이 아님).",
+  "default": "X_UNKNOWN",
+  "rules": [
+    { "id": "item-viewed", "match": { "event_type": "item_viewed" }, "level": "X0", "precedence": 0 },
+    { "id": "hint-generic", "match": { "event_type": "hint_shown" }, "level": "X1", "precedence": 0 },
+    { "id": "hint-decisive", "match": { "event_type": "hint_shown", "hint_kind": "decisive" }, "level": "X2", "precedence": 10 },
+    { "id": "lecture-covers", "match": { "event_type": "lecture_segment_played", "covers_answer": true }, "level": "X2", "precedence": 5 },
+    { "id": "lecture-general", "match": { "event_type": "lecture_segment_played" }, "level": "X1", "precedence": 0 },
+    { "id": "reveal", "match": { "event_type": ["answer_revealed", "explanation_opened"] }, "level": "X3", "precedence": 20 }
+  ]
+}

@@ -1,0 +1,2389 @@
+{
+  "$comment": "E7 합성 데이터셋(SYNTHETIC). 실제 학습자 아님 · 학습 효과 근거 아님.",
+  "records": [
+    {
+      "record_id": "syn-001",
+      "learner_pseudo_id": "syn-L01",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "FREE",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-002",
+      "learner_pseudo_id": "syn-L01",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "FREE",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U3",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-003",
+      "learner_pseudo_id": "syn-L01",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "FREE",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-004",
+      "learner_pseudo_id": "syn-L02",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-005",
+      "learner_pseudo_id": "syn-L02",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [
+          "F-DISTRACT"
+        ],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U3",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            }
+          ],
+          "note": "합성 판정",
+          "eligibility": "INDEPENDENT_ELIGIBLE"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 AI 판정",
+          "eligibility": "ASSISTED_ONLY"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "explanation_opened",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-006",
+      "learner_pseudo_id": "syn-L02",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-007",
+      "learner_pseudo_id": "syn-L03",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "LECTURE_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-008",
+      "learner_pseudo_id": "syn-L03",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "LECTURE_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "lecture_segment_played",
+          "covers_answer": false,
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-009",
+      "learner_pseudo_id": "syn-L03",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "LECTURE_FIRST",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U4",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            },
+            {
+              "code": "EV-U4-a",
+              "ref": "toggle:T1"
+            },
+            {
+              "code": "EV-U4-b",
+              "ref": "toggle:T2"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-010",
+      "learner_pseudo_id": "syn-L04",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "FREE",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-011",
+      "learner_pseudo_id": "syn-L04",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "FREE",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "hint_shown",
+          "hint_kind": "non_decisive",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-012",
+      "learner_pseudo_id": "syn-L04",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "FREE",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U2-c",
+              "ref": "span:S9"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-013",
+      "learner_pseudo_id": "syn-L05",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-014",
+      "learner_pseudo_id": "syn-L05",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [
+          "F-DISTRACT"
+        ],
+        "condition_toggles": {
+          "T1": true,
+          "T2": true
+        }
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U4",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            },
+            {
+              "code": "EV-U4-a",
+              "ref": "toggle:T1"
+            },
+            {
+              "code": "EV-U4-b",
+              "ref": "toggle:T2"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U4",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            },
+            {
+              "code": "EV-U4-a",
+              "ref": "toggle:T1"
+            },
+            {
+              "code": "EV-U4-b",
+              "ref": "toggle:T2"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-015",
+      "learner_pseudo_id": "syn-L05",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [
+          "F-DISTRACT"
+        ],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U3",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U3",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-016",
+      "learner_pseudo_id": "syn-L06",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "LECTURE_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-017",
+      "learner_pseudo_id": "syn-L06",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "LECTURE_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [
+          "F-DISTRACT"
+        ],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U3",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 AI 판정",
+          "item_version": "v2"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "lecture_segment_played",
+          "covers_answer": true,
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-018",
+      "learner_pseudo_id": "syn-L06",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "LECTURE_FIRST",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-019",
+      "learner_pseudo_id": "syn-L07",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "FREE",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        },
+        {
+          "event_type": "p6_unmapped_event",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-020",
+      "learner_pseudo_id": "syn-L07",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "FREE",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-021",
+      "learner_pseudo_id": "syn-L07",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "FREE",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "UNKNOWN",
+          "evidence_codes": [],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-022",
+      "learner_pseudo_id": "syn-L08",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U2",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-023",
+      "learner_pseudo_id": "syn-L08",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [
+          "F-DISTRACT"
+        ],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U3",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U3",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-024",
+      "learner_pseudo_id": "syn-L08",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "EXPLANATION_FIRST",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [
+          "F-DISTRACT"
+        ],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U3",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U4",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            },
+            {
+              "code": "EV-U4-a",
+              "ref": "toggle:T1"
+            },
+            {
+              "code": "EV-U4-b",
+              "ref": "toggle:T2"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-025",
+      "learner_pseudo_id": "syn-L09",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "LECTURE_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-026",
+      "learner_pseudo_id": "syn-L09",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "LECTURE_FIRST",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3"
+        ],
+        "failure_codes": [
+          "F-DISTRACT"
+        ],
+        "condition_toggles": {
+          "T1": true,
+          "T2": true
+        }
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U4",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            },
+            {
+              "code": "EV-U4-a",
+              "ref": "toggle:T1"
+            },
+            {
+              "code": "EV-U4-b",
+              "ref": "toggle:T2"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U4",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            },
+            {
+              "code": "EV-U4-a",
+              "ref": "toggle:T1"
+            },
+            {
+              "code": "EV-U4-b",
+              "ref": "toggle:T2"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "lecture_segment_played",
+          "covers_answer": false,
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-027",
+      "learner_pseudo_id": "syn-L09",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "LECTURE_FIRST",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1",
+          "S2",
+          "S3",
+          "S4",
+          "S5"
+        ],
+        "failure_codes": [
+          "F-DISTRACT"
+        ],
+        "condition_toggles": {
+          "T1": true,
+          "T2": true
+        }
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U5",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            },
+            {
+              "code": "EV-U4-a",
+              "ref": "toggle:T1"
+            },
+            {
+              "code": "EV-U4-b",
+              "ref": "toggle:T2"
+            },
+            {
+              "code": "EV-U5-a",
+              "ref": "span:S4"
+            },
+            {
+              "code": "EV-U5-b",
+              "ref": "span:S5"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U5",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            },
+            {
+              "code": "EV-U2-a",
+              "ref": "span:S2"
+            },
+            {
+              "code": "EV-U2-b",
+              "ref": "span:S3"
+            },
+            {
+              "code": "EV-U3-a",
+              "ref": "failure:F-DISTRACT"
+            },
+            {
+              "code": "EV-U4-a",
+              "ref": "toggle:T1"
+            },
+            {
+              "code": "EV-U4-b",
+              "ref": "toggle:T2"
+            },
+            {
+              "code": "EV-U5-a",
+              "ref": "span:S4"
+            },
+            {
+              "code": "EV-U5-b",
+              "ref": "span:S5"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-12T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-028",
+      "learner_pseudo_id": "syn-L10",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "PRE",
+      "path": "FREE",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-10T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "NOT_EVALUATED",
+          "evidence_codes": [],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-10T08:50:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-029",
+      "learner_pseudo_id": "syn-L10",
+      "item_id": "csat-2026-31",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "POST_INDEPENDENT",
+      "path": "FREE",
+      "task_format": "mcq_with_evidence",
+      "attempt_started_at": "2026-10-11T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": false,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [
+          "S1"
+        ],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U1",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            },
+            {
+              "code": "EV-U1-a",
+              "ref": "span:S1"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC",
+      "exposure_events": [
+        {
+          "event_type": "item_viewed",
+          "at": "2026-10-11T08:50:00Z"
+        },
+        {
+          "event_type": "answer_revealed",
+          "at": "2026-10-11T09:20:00Z"
+        }
+      ]
+    },
+    {
+      "record_id": "syn-030",
+      "learner_pseudo_id": "syn-L10",
+      "item_id": "csat-2025-33",
+      "item_version": "v1",
+      "analysis_version": "a1",
+      "phase": "TRANSFER",
+      "path": "FREE",
+      "task_format": "evidence_select",
+      "attempt_started_at": "2026-10-12T09:00:00Z",
+      "studied_item_ids": [
+        "csat-2026-31"
+      ],
+      "transfer_eligibility_verified": true,
+      "response": {
+        "selected_option": "3",
+        "evidence_span_ids": [],
+        "failure_codes": [],
+        "condition_toggles": {}
+      },
+      "rater_judgments": [
+        {
+          "rater_id": "rater-h1",
+          "rater_kind": "human",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 판정"
+        },
+        {
+          "rater_id": "rater-ai1",
+          "rater_kind": "ai",
+          "level": "U0",
+          "evidence_codes": [
+            {
+              "code": "EV-U0-a",
+              "ref": "option:3"
+            }
+          ],
+          "note": "합성 AI 판정"
+        }
+      ],
+      "data_origin": "SYNTHETIC"
+    }
+  ]
+}

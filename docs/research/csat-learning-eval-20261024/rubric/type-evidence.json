@@ -1,0 +1,145 @@
+{
+  "$comment": "E2 유형군별 근거·조건·범위 평가 기준. 유형군 코드 EV-U2-<FAM>-x 등은 E1 rubric/levels.json 의 일반 코드(EV-U2-*, EV-U3-*, EV-U4-*)의 하위 코드다. parent 필드로 결속하며, E1 코드명이 다르면 parent 만 고친다. 점수·학습효과 수치 없음. 실제 학습자 = NOT_EVALUATED. 클릭·탐색·강의 청취는 어떤 코드도 부여하지 않는다. 자유서술은 연구용 보조 증거(human/AI 평정)이며 숙달 산입 불가.",
+  "version": "E2-20261024",
+  "source": "G1 810a463ac 01_TYPE_MATRIX §3 판단 기능 코드(F-*) — 작업 라벨, 정본 아님",
+  "global_rules": [
+    "U2 이상은 X0~X1 노출에서 INDEPENDENT_ELIGIBLE 일 때만 독립 수준으로 기록. X2·X3 뒤 응답은 ASSISTED_ONLY.",
+    "선지 정답만 맞고 근거 선택이 없거나 틀리면 U2 미부여(최대 U1 또는 UNKNOWN).",
+    "근거 단위 정답 범위(span gold)는 문항별 사전 확정·검수 필요. 미확정 문항은 NOT_EVALUATED.",
+    "AI 평정자 합의는 진실 아님 — gold 는 사람 검수 표시가 있어야 채점에 사용.",
+    "2026#34 식 조건명제(if/only when/unless) 판단 코드는 FAM-SLOT 중 조건명제가 핵심인 문항에만 적용. 다른 유형군에 일반화 금지."
+  ],
+  "families": [
+    {
+      "id": "FAM-CENTRAL",
+      "types": ["R-GIST", "R-TOPIC", "R-TITLE", "X-TITLE", "R-CLAIM"],
+      "reference_case": "2026#22 (요지)",
+      "evidence_unit": "중심명제 문장(span) + 그것을 뒷받침하는 예시/대조 span 묶음과의 '일반-구체' 관계",
+      "task_formats": ["span 선택: 중심명제 문장 1개 지목", "span 분류: 각 문장을 중심/예시/배경/양보로 태그", "선지+사유코드: 오답 선지마다 {너무 좁음, 너무 넓음, 본문 없음, 반대 방향, 세부 사실} 중 선택"],
+      "codes": [
+        {"code": "EV-U2-CENTRAL-1", "parent": "EV-U2-*", "level": "U2", "desc": "정답 선지와 함께 중심명제 span 을 gold 범위 안에서 지목", "observable_as": "choice=gold AND span∈gold_central"},
+        {"code": "EV-U2-CENTRAL-2", "parent": "EV-U2-*", "level": "U2", "desc": "예시 span 을 중심명제와 구분해 태그", "observable_as": "span_tags 정확도가 gold 와 일치(문항별 기준 사전 확정)"},
+        {"code": "EV-U3-CENTRAL-1", "parent": "EV-U3-*", "level": "U3", "desc": "오답 선지의 실패 사유(범위 과대/과소/세부)를 맞게 코딩", "observable_as": "distractor_reason_code==gold 인 선지 수 ≥ 문항별 기준"},
+        {"code": "EV-U4-CENTRAL-1", "parent": "EV-U4-*", "level": "U4", "desc": "'중심명제 = 예시들이 공통으로 지지하는 일반화' 조건을 새 문단에서 적용", "observable_as": "다른 문항(동일 유형군) span 선택 정답 — U5 는 다른 주제·장르로 이동 시"}
+      ],
+      "scope_errors": ["SE-OVERGEN: 예시 하나를 글 전체로 확대", "SE-NARROW: 세부 사실을 요지로 선택", "SE-SHIFT: 양보절(물론 ~이지만) 앞부분을 주장으로 착각", "SE-EXTERNAL: 본문에 없는 상식적 일반론 선택"]
+    },
+    {
+      "id": "FAM-ACT",
+      "types": ["R-PURPOSE", "R-CLAIM"],
+      "evidence_unit": "화행 표지 span(요청·제안·감사·항의 동사/구문) + 수신자 관계",
+      "task_formats": ["span 선택: 목적을 드러내는 요청 문장", "선택+사유코드: 배경 설명 vs 핵심 요청 구분"],
+      "codes": [
+        {"code": "EV-U2-ACT-1", "parent": "EV-U2-*", "level": "U2", "desc": "목적/주장 화행 span 을 지목", "observable_as": "choice=gold AND span∈gold_act"},
+        {"code": "EV-U3-ACT-1", "parent": "EV-U3-*", "level": "U3", "desc": "배경·사정 설명 문장을 목적으로 고른 선지의 실패 사유 코딩", "observable_as": "distractor_reason_code=='배경을 목적으로'"}
+      ],
+      "scope_errors": ["SE-SHIFT: 도입부 사정 설명을 목적으로", "SE-PARTIAL: 부수적 요청을 주 목적으로"]
+    },
+    {
+      "id": "FAM-MOOD",
+      "types": ["R-MOOD"],
+      "evidence_unit": "전환점 span(사건) + 전·후 감정 표지 span 2개 + 극성(+/−)",
+      "task_formats": ["span 3개 선택(전 감정·전환점·후 감정)", "극성 토글(전/후 각각 +/−)"],
+      "codes": [
+        {"code": "EV-U2-MOOD-1", "parent": "EV-U2-*", "level": "U2", "desc": "전·후 감정 span 과 전환점 span 지목", "observable_as": "3 span 모두 gold 범위"},
+        {"code": "EV-U2-MOOD-2", "parent": "EV-U2-*", "level": "U2", "desc": "전/후 극성 토글 정확", "observable_as": "polarity_before/after==gold"}
+      ],
+      "scope_errors": ["SE-PARTIAL: 한쪽 감정만 근거로 선지 선택", "SE-SHIFT: 전환점 이전 감정을 결말 감정으로"],
+      "data_note": "G1 매트릭스상 의미 자료 0 → PARTIAL. gold span 준비 전 NOT_EVALUATED."
+    },
+    {
+      "id": "FAM-IMPLY",
+      "types": ["R-IMPLY"],
+      "evidence_unit": "밑줄(비유) ↔ 원관념을 진술하는 본문 span 의 대응 관계",
+      "task_formats": ["연결: 밑줄 표현 → 원관념 span 선택", "선지+사유코드: {문자적 해석, 본문 반대, 부분만}"],
+      "codes": [
+        {"code": "EV-U2-IMPLY-1", "parent": "EV-U2-*", "level": "U2", "desc": "원관념 span 을 지목", "observable_as": "link_target∈gold_referent_span"},
+        {"code": "EV-U3-IMPLY-1", "parent": "EV-U3-*", "level": "U3", "desc": "문자적 해석 선지를 실패 사유로 코딩", "observable_as": "distractor_reason_code=='문자적'"}
+      ],
+      "scope_errors": ["SE-LITERAL: 비유를 문자 그대로", "SE-PARTIAL: 원관념의 일부 속성만"]
+    },
+    {
+      "id": "FAM-COMPARE",
+      "types": ["R-FACT", "X-FACT", "R-NOTICE", "R-CHART"],
+      "evidence_unit": "선지별 대응 span(또는 도표 셀) + 성분 대조(주체·수량·시간·조건·허용/금지)",
+      "task_formats": ["선지별 대응 span/셀 연결", "선지별 판정 토글 {일치, 불일치, 본문 없음}", "불일치 성분 태그 {주체, 수치, 시점, 조건, 극성}", "R-CHART: 비교 연산 선택(>,<,배수,차) + 셀 2개 지목"],
+      "codes": [
+        {"code": "EV-U2-COMPARE-1", "parent": "EV-U2-*", "level": "U2", "desc": "정답 선지의 대응 span/셀 지목", "observable_as": "link∈gold_span_or_cell"},
+        {"code": "EV-U2-COMPARE-2", "parent": "EV-U2-*", "level": "U2", "desc": "불일치 성분 태그 정확", "observable_as": "mismatch_component==gold"},
+        {"code": "EV-U3-COMPARE-1", "parent": "EV-U3-*", "level": "U3", "desc": "모든 선지 판정 토글 + 대응 근거가 gold 와 일치", "observable_as": "5/5 토글·연결 일치"},
+        {"code": "EV-U4-CHART-1", "parent": "EV-U4-*", "level": "U4", "desc": "수치 조건(배수·차·순위)을 셀 값으로 계산해 판정", "observable_as": "operation==gold AND cells==gold"},
+        {"code": "EV-U4-NOTICE-1", "parent": "EV-U4-*", "level": "U4", "desc": "허용/금지·예외 조건의 적용 범위를 토글로 판정", "observable_as": "condition_scope_toggle==gold"}
+      ],
+      "scope_errors": ["SE-PARTIAL: 성분 하나만 대조하고 일치 판정", "SE-SCOPE: 예외 조건(단, ~제외)을 전체 규칙으로", "SE-QUANT: 배수/차 혼동", "SE-EXTERNAL: 상식으로 '본문 없음'을 일치로"],
+      "data_note": "R-CHART 도표 셀 결속 DATA_GAP → R-CHART 코드는 셀 자료 확보 전 NOT_EVALUATED. R-NOTICE bodyOK 92%."
+    },
+    {
+      "id": "FAM-POLAR",
+      "types": ["R-VOCAB", "X-VOCAB"],
+      "evidence_unit": "밑줄 낱말 주변 논리 관계(원인·대조) span + 요구 극성",
+      "task_formats": ["극성 토글(문맥이 요구하는 방향)", "span 선택: 극성을 결정하는 연결 span"],
+      "codes": [
+        {"code": "EV-U2-POLAR-1", "parent": "EV-U2-*", "level": "U2", "desc": "극성 결정 span 지목 + 토글 정확", "observable_as": "span∈gold AND polarity==gold"}
+      ],
+      "scope_errors": ["SE-LOCAL: 낱말 뜻만 보고 문맥 방향 무시", "SE-SHIFT: 대조 표지 앞뒤 혼동"]
+    },
+    {
+      "id": "FAM-FORM",
+      "types": ["R-GRAMMAR"],
+      "evidence_unit": "구조 관계(주어-동사 수일치, 수식 대상, 절 완결성 등) — 대상 낱말과 지배 성분의 쌍",
+      "task_formats": ["연결: 밑줄 형태 → 지배 성분 span", "구조 사유코드 선택 {수일치, 태, 관계사 완결성, 병렬, 준동사}"],
+      "codes": [
+        {"code": "EV-U2-FORM-1", "parent": "EV-U2-*", "level": "U2", "desc": "지배 성분 연결 + 구조 사유코드 정확", "observable_as": "link∈gold AND reason==gold"}
+      ],
+      "scope_errors": ["SE-NEAREST: 가장 가까운 명사에 수일치", "SE-PARTIAL: 절 완결성 일부만 확인"]
+    },
+    {
+      "id": "FAM-SLOT",
+      "types": ["R-BLANK", "R-SUMMARY", "R-INSERT(부분)"],
+      "reference_case": "2026#34 (빈칸)",
+      "evidence_unit": "빈칸 자리 조건(앞뒤 연결 표지·재진술 span) + 재진술 근거 span. 문항에 따라 조건명제(조건→귀결) 구조",
+      "task_formats": ["span 선택: 빈칸 내용을 재진술한 본문 span", "자리 조건 태그 {재진술, 대조, 인과, 조건}", "조건 토글(34형에 한함): 조건 성립/불성립 시 귀결 판정", "R-SUMMARY: (A)(B) 각각 근거 span 연결"],
+      "codes": [
+        {"code": "EV-U2-SLOT-1", "parent": "EV-U2-*", "level": "U2", "desc": "재진술 근거 span 지목", "observable_as": "span∈gold_restatement"},
+        {"code": "EV-U2-SLOT-2", "parent": "EV-U2-*", "level": "U2", "desc": "자리 조건 태그 정확", "observable_as": "slot_relation==gold"},
+        {"code": "EV-U3-SLOT-1", "parent": "EV-U3-*", "level": "U3", "desc": "매력 오답의 실패 사유 {극성 반대, 일부만 충족, 본문 어휘 재사용} 코딩", "observable_as": "distractor_reason_code==gold"},
+        {"code": "EV-U4-SLOT-COND-1", "parent": "EV-U4-*", "level": "U4", "applies_only_to": "FAM-SLOT 중 gold 메타데이터 has_conditional_proposition=true 인 문항(2026#34 류)", "desc": "조건명제의 조건 범위를 토글로 바꿔 귀결을 정확히 판정(필요/충분 혼동 없음)", "observable_as": "condition_toggle 결과 전부 gold 일치"}
+      ],
+      "scope_errors": ["SE-PARTIAL: 빈칸 앞 문장만 보고 뒤 재진술 무시", "SE-POLAR: 방향 반대 선지", "SE-NEC-SUFF(34형 한정): 필요조건/충분조건 뒤바꿈", "SE-OVERGEN: 한정 조건(only/under)을 무조건 명제로"],
+      "non_generalization": "EV-U4-SLOT-COND-1·SE-NEC-SUFF 는 34형 조건명제 판단 전용. FAM-CENTRAL(22형)·FAM-CHAIN(38형) 등 다른 유형군 채점에 쓰지 않는다.",
+      "data_note": "R-BLANK bodyOK 67%, R-SUMMARY bodyOK 22% → 본문 불완전 문항 NOT_EVALUATED."
+    },
+    {
+      "id": "FAM-CHAIN",
+      "types": ["R-ORDER", "X-ORDER", "R-INSERT", "R-IRRELEVANT"],
+      "reference_case": "2026#38 (삽입)",
+      "evidence_unit": "담화 연결 표지(대명사·지시어·연결사·관사 정/부정) + 선후 문장 쌍의 관계",
+      "task_formats": ["연결: 표지 → 선행 지시 대상 span", "자리 선택 + 근거 표지 2개(앞 단절·뒤 연결) 지목", "순서 배열 + 쌍별 연결 표지 지목", "R-IRRELEVANT: 문장 선택 + 이탈 사유 {주제 이탈, 관점 전환}"],
+      "codes": [
+        {"code": "EV-U2-CHAIN-1", "parent": "EV-U2-*", "level": "U2", "desc": "정답 자리/순서와 함께 결정적 연결 표지 지목", "observable_as": "answer==gold AND marker∈gold_markers"},
+        {"code": "EV-U2-CHAIN-2", "parent": "EV-U2-*", "level": "U2", "desc": "지시어의 선행 대상 연결", "observable_as": "antecedent∈gold"},
+        {"code": "EV-U3-CHAIN-1", "parent": "EV-U3-*", "level": "U3", "desc": "인접 오답 자리에서 끊기는 연결(단절점) 지목", "observable_as": "break_point==gold"}
+      ],
+      "scope_errors": ["SE-LOCAL: 표지 하나만 보고 전체 흐름 확인 안 함", "SE-REFER: 대명사 선행사 오인", "SE-TOPIC: 같은 소재 어휘를 관련 문장으로 착각(무관 문장)"]
+    },
+    {
+      "id": "FAM-REFER",
+      "types": ["X-REFER"],
+      "evidence_unit": "지칭 표현 ↔ 인물 span 대응",
+      "task_formats": ["연결: 각 지칭 → 인물 선택"],
+      "codes": [
+        {"code": "EV-U2-REFER-1", "parent": "EV-U2-*", "level": "U2", "desc": "다섯 지칭 모두 인물 연결 + 판별 근거 span", "observable_as": "links==gold"}
+      ],
+      "scope_errors": ["SE-REFER: 시점 전환 후 인물 혼동"]
+    },
+    {
+      "id": "FAM-LISTENING",
+      "types": ["L-* 18유형(로컬 classified.json)"],
+      "evidence_unit": "DATA_GAP — 선지 전문 없음, 원음 0, 전사 권리·검수 NOT_VERIFIED",
+      "task_formats": [],
+      "codes": [],
+      "scope_errors": [],
+      "status": "DATA_GAP → 모든 코드 NOT_EVALUATED"
+    }
+  ]
+}

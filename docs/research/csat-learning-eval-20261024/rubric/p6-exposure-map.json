@@ -1,0 +1,35 @@
+{
+  "version": "e5-20261024",
+  "source": {
+    "migrations": [
+      {"file": "20261023194123_learning_exposures.sql", "sha256": "741e0585ac4dd606c997a2b8b8fd47456e10853957ecc0b3867579b3f3d6be8e"},
+      {"file": "20261024012226_learning_exposures_fix_v3_1.sql", "sha256": "3f8b9e996820f4d327a14634d3bdc50af121e75d1fa13789e85c5b202cc7f5b8"}
+    ],
+    "base_view": "public.learning_first_attempts (20261008160000/180000)",
+    "db_observed_2026-10-24": {"learning_exposures_rows": 0, "attempts_with_exposure_order_at": 0, "tracking_started_at": "2026-10-23T19:41:23.452957Z"}
+  },
+  "window": "같은 user_id·item_ref 의 행 중 learning_exposures.received_at <= learning_task_attempts.exposure_order_at (동률 포함). 창 안에서 가장 높은 노출이 이긴다.",
+  "precedence": ["X3", "X2", "X_UNKNOWN", "X1", "X0"],
+  "rules": [
+    {"id": "R1", "when": {"attempt.exposure_order_at": null}, "exposure": "X_UNKNOWN", "note": "추적 이전/트리거 밖 시도(legacy_unknown). 노출 정보 없음 — X0 으로 두지 않는다"},
+    {"id": "R2", "when": {"attempt.item_ref": null}, "exposure": "X_UNKNOWN", "note": "문항 결속 없음 — 원장과 대조 불가"},
+    {"id": "R3", "when": {"exposure.kind": "answer_direct"}, "exposure": "X3", "note": "source 무관(lecture_*·judgment_scene·reveal_api·item_page_render) 정답 직접 노출"},
+    {"id": "R4", "when": {"first_attempt.after_explanation": true}, "exposure": "X3", "note": "해설 열람 뒤 시도"},
+    {"id": "R5", "when": {"first_attempt.after_viewed_first": true}, "exposure": "X3", "note": "정답 먼저 보기 뒤"},
+    {"id": "R6", "when": {"first_attempt.help_level": "viewed_first"}, "exposure": "X3", "note": "기존 도움 수준"},
+    {"id": "R7", "when": {"exposure.kind": "decisive_hint"}, "exposure": "X2", "note": "강의(lecture_until/full/continue) 결정적 단서. cue_id 로 단서 특정"},
+    {"id": "R8", "when": {"exposure.clock_suspect": true}, "exposure": "X_UNKNOWN", "note": "occurred_at 이 서버 시계와 600초 넘게 어긋남 — 순서는 received_at 기준이지만 해석은 보류. 상위 규칙(R3·R7)이 이미 맞으면 그쪽이 이긴다"},
+    {"id": "R9", "when": {"first_attempt.timing_uncertain": true}, "exposure": "X_UNKNOWN", "note": "시각 불확실(timing_held)"},
+    {"id": "R10", "when": {"first_attempt.help_level": null}, "exposure": "X_UNKNOWN", "note": "도움 수준 미기록"},
+    {"id": "R11", "when": {"first_attempt.help_level": "hint"}, "exposure": "X1", "note": "비결정적 힌트. P6 는 힌트 내용의 결정성을 구분하지 않으므로 X1 은 '서버가 결정적이라 표시하지 않은 힌트' 의미"},
+    {"id": "R12", "when": {"first_attempt.help_level": "independent", "ledger_rows_in_window": 0, "attempt.exposure_order_at": "not null"}, "exposure": "X0", "note": "서버 관측 범위 안에서만 X0. 외부 노출(다른 탭 캐시·답지·종이책·튜터)은 항상 관측 밖 — 별도 external_exposure=UNKNOWN 표기 유지"}
+  ],
+  "default": "X_UNKNOWN",
+  "external_exposure": {"value": "UNKNOWN", "note": "서버가 관측할 수 없는 노출은 사실로 추론하지 않는다. 어떤 규칙도 이 값을 바꾸지 않는다"},
+  "eligibility": {
+    "INDEPENDENT_ELIGIBLE": "max_exposure in {X0,X1} AND learning_attempt_independence(attempt)='independent_candidate' AND 판본(content_hash) 일치 AND 원장 경로가 해당 화면에서 실제 기록 중임이 확인됨",
+    "ASSISTED_ONLY": "max_exposure in {X2,X3} OR status in {helped, after_exposure} OR 단계가 REPAIR/practice 화면/해설 뒤 재확인",
+    "UNKNOWN": "max_exposure = X_UNKNOWN OR status in {legacy_unknown, timing_held, unbound, ungraded} OR 기록 경로 미연결",
+    "not_check_phase/repeat": "판정 대상 아님(NOT_EVALUATED) — 독립 근거로 쓰지 않는다"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$comment": "E7 테스트용 소형 루브릭(E1 rubric/levels.json 의 정본이 아님).",
+  "levels": [
+    { "level": "U0", "min_evidence": 1, "codes": ["EV-U0-a"] },
+    { "level": "U1", "min_evidence": 1, "codes": ["EV-U1-a", "EV-U1-b"] },
+    { "level": "U2", "min_evidence": 2, "codes": ["EV-U2-a", "EV-U2-b", "EV-U2-c"] },
+    { "level": "U3", "min_evidence": 1, "codes": ["EV-U3-a", "EV-U3-b"] },
+    { "level": "U4", "min_evidence": 2, "codes": ["EV-U4-a", "EV-U4-b"] },
+    { "level": "U5", "min_evidence": 2, "codes": ["EV-U5-a", "EV-U5-b"] }
+  ],
+  "navigation_codes": ["EV-NAV-click", "EV-NAV-scroll"]
+}
