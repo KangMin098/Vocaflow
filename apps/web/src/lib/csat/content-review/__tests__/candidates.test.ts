@@ -88,11 +88,14 @@ describe('snapshot.json', () => {
     for (const c of s.candidates) expect(c.binding).toEqual(s.currentBindings[c.itemId])
     expect(s.generatedFrom.humanApprovals).toBe(0)
   })
-  it('2015#25 는 정답 집합 {4,5} · 세 트랙 · 보도 근거', () => {
+  it('2015#25 는 정답 집합 {4,5} · 세 트랙 · 평가원 정답표 근거 · 제안 문안 6 · 사람 승인 없음', () => {
     const c = s.candidates.find((x) => x.itemId === '2015#25')!
     expect(c.officialAnswers).toEqual([4, 5])
     expect(c.tracks).toEqual(['official_answer', 'explanation', 'lecture_cue'])
-    expect(c.officialAnswerBasis).toBe('press_verified')
+    // 정정 패키지(docs/csat-learner/content-review/2015-25)에서 보도 근거 → 평가원 정답표 원본으로 올렸다
+    expect(c.officialAnswerBasis).toBe('kice_answer_sheet')
+    expect(c.changes.filter((ch) => ch.proposed != null)).toHaveLength(6)
+    expect(c.note).toMatch(/사람 내용 승인 없음/)
   })
   it('AI 합의는 aiEvidence 로만 남는다(gold 18)', () => {
     const g = s.candidates.filter((x) => x.source === 'E_T0149_GOLD')
