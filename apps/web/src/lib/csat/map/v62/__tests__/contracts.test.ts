@@ -22,6 +22,8 @@ import { savedTargetFields, targetSpecOf, unsavedTargetFields } from '../target-
 const KEY = 'claim-support'
 const TASK = 'r.central_meaning'
 const ITEMS = ['i1', 'i2', 'i3', 'i4', 'i5', 'i6']
+// T-0096 — R5 서로 다른 지문 조건: 문항마다 다른 지문
+const PASSAGES = Object.fromEntries(ITEMS.map((i) => [i, `p-${i}`]))
 const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target: t, href: `/csat/item/${t}?check=1#principle`, label: t })) }
 const proxy = (s: AxisProxyState) => ({ state: Object.fromEntries(DOMAINS.map((d) => [d, s])) as Record<Domain, AxisProxyState>, contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) as Record<Domain, number> })
 const day = (n: number) => new Date(Date.UTC(2026, 8, 1) + n * 86_400_000).toISOString()
@@ -31,13 +33,29 @@ const REF: RefItem[] = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no
 const lineRefItems = { B6: REF.slice(17, 24), A5: REF.slice(28, 34) }
 
 function view(attempts: FindAttemptRow[], asOfDay: number, goalSet = true): V4View {
-  const asIs = asIsMap({ asOf: day(asOfDay), sessions: [{ id: 's1', examId: 'E', examLabel: 'E', takenAt: '2026-08-20', enteredAt: '2026-08-21T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: proxy('check_first'), checks: [{ taskKey: KEY, items: ITEMS }], attempts })
+  const asIs = asIsMap({ asOf: day(asOfDay), sessions: [{ id: 's1', examId: 'E', examLabel: 'E', takenAt: '2026-08-20', enteredAt: '2026-08-21T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: proxy('check_first'), checks: [{ taskKey: KEY, items: ITEMS, passages: PASSAGES }], attempts })
   const toBe = toBeMap({ asIs, goal: { score: 80, set: goalSet }, refItems: REF, lineRefItems, confirmLinks: links })
   const plan = planWorkspaces({ asIs, toBe, confirmLinks: links, transferItems: { [KEY]: 4 }, transferTargets: { [KEY]: ['t1', 't2'].map((i) => ({ target: i, href: `/csat/practice/claim-support?item=${i}`, label: '다른 글에 적용' })) } })
   const plans = Object.fromEntries([plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w).map((w) => [w.id, workspacePlan(w, asIs, toBe, plan, [])]))
   return { asIs, toBe, plan, plans, taskPlans: allTaskPlans(asIs, toBe, plan, []) }
 }
 const verified = [att('i1', false, 10), att('i2', false, 11)]
+
+describe('TASK 근거 표시 — 미확인과 플랫폼 분석 대기를 합치지 않는다', () => {
+  it.each([
+    ['unmeasured', 'not_measured'],
+    ['analysis_pending', 'analysis_pending'],
+    ['insufficient', 'insufficient'],
+    ['unmeasurable', 'unmeasurable'],
+    ['checking', 'checking'],
+  ] as const)('%s는 %s로 구분한다', (status, evidence) => {
+    const v = view([], 20)
+    v.asIs.tasks[TASK].status = status
+    const before = structuredClone(v.asIs.tasks[TASK])
+    expect(taskInspector(TASK, v, ranksOf(v), null).now.evidence).toBe(evidence)
+    expect(v.asIs.tasks[TASK]).toEqual(before)
+  })
+})
 
 describe('DomainTaskGraphDTO — 30 영구 TASK · 21 비보류(원자 18 · 통합 3) · 9 보류', () => {
   const g = domainTaskGraph()
@@ -159,7 +177,7 @@ describe('단일 계산 — MAP(As-Is) · PLAN · Inspector · Rank 가 같은 �
     expect(ins.now.observed?.independent).toBe(v.asIs.tasks[TASK].check!.independentItems)
   })
   it('해소 — 운영 정책 통과(passed_current_policy) · 일반 숙달 · 지연 유지로 바꾸지 않는다', () => {
-    const v = view([...verified, att('i3', true, 20), att('i4', true, 21)], 22)
+    const v = view([...verified, att('i3', true, 20), att('i4', true, 21), att('i5', true, 22)], 23)
     const ins = taskInspector(TASK, v, ranksOf(v), null)
     expect(v.asIs.tasks[TASK].status).toBe('resolved')
     expect(ins.now.evidence).toBe('passed_current_policy')

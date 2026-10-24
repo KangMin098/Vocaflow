@@ -160,11 +160,14 @@ describe('허용 이벤트 목록', () => {
     'csat_dx_attempt_saved',
     // 2026-10-02 — 학습 지도(내 진단). DB 허용 목록은 20261002120100_funnel_allow_csat_map
     'csat_map_viewed',
+    // 2026-10-23 — 시스템 제공 학습 정리(86d068f45).
+    'csat_summary_opened',
+    'csat_summary_explored',
     'csat_meaning_unit_selected',
     'csat_meaning_depth_changed',
     'csat_meaning_relation_opened',
     'csat_meaning_whole_traced',
-    'csat_meaning_draft_compared',
+    // csat_meaning_draft_compared: T-0091(97a140c2e) 이 자유서술 대조 흐름을 걷어 은퇴(DB 과거 목록 유지).
     'csat_meaning_bridge_followed',
     'csat_map_node_opened',
     'csat_map_goal_set',
@@ -172,6 +175,14 @@ describe('허용 이벤트 목록', () => {
     // 2026-10-10 — 학습 지도 rev4 Workspace 2종. DB 허용 목록은 20261008160000_learning_sessions_integrated 에 이미 있다
     'csat_workspace_opened',
     'csat_workspace_suggestion_applied',
+    // 2026-10-21 — 1D 공장 DCP 안내 연습 3종. DB 허용 목록은 _pending_factory_dcp_learning.sql(미적용)
+    'csat_factory_dcp_opened',
+    'csat_factory_dcp_submitted',
+    'csat_factory_dcp_returned',
+    // 2F — Workspace 카드의 공장 연습 자료 요청 결과(닫힌 열거형)
+    'csat_factory_dcp_requested',
+    // 2B — 한 원문 안내 연습의 자기 설명 저장(닫힌 속성: 단계 · 근거 충분/함께 검토 · 재전송)
+    'csat_source_lesson_reflected',
     'screen_viewed',
     // 2026-09-12 — 구성요소 영상 2종(`packages/video-factory`). **만든 수가 아니라 본 수**를
     // 센다: 141개를 찍어 낼 수 있어도 본 사람이 0 이면 공급만 늘린 것이다(§D).

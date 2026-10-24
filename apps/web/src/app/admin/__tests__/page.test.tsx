@@ -46,7 +46,7 @@ const STATS: DashboardStats = {
   vcb: { pending: 0, exported: 0, enriched: 2000, flagged: 0, failed: 0 },
   vrl: { openConcerns: 0, classified: 45682 },
   words: { dict: 45682, pending: 0, judgments: 16, chapterQuiz: 1019 },
-  learners: { total: 3, activeToday: 1 },
+  learners: { total: 3, activeToday: 1, verified: 0, verifiedActiveToday: 0 },
   texts: 275,
   qualityLastMeasuredAt: '2026-08-10T18:25:00.015026+00:00',
   recentUnread: [],
@@ -93,7 +93,9 @@ describe('AdminDashboardPage', () => {
     expect(html).toContain('83')
     // 오늘 학습자 / 가입자
     expect(html).toContain('오늘 학습자')
-    expect(html).toContain('가입 3명')
+    // 실사용(검증 외부)만 주 수치 · 전체 계정은 내부·미분류 포함으로 따로(T-0084)
+    expect(html).toContain('실사용 0명 · 전체 계정 3')
+    expect(html).not.toContain('가입 3명')
 
     // 목업 시절의 상수가 남아 있지 않다
     expect(html).not.toContain('1,247')

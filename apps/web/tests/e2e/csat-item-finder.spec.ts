@@ -602,19 +602,12 @@ test('9. 열고 닫기 반복 · 뒤로/앞으로 — history 한 칸 · 역이�
 })
 
 // ── 10. 문항 왕복 뒤 복원(프레임 W3 통합) — 2번(취소 보존)과 다른 사례 ─────────────────
-test('10. 다른 문항 → 찾기 전 문항으로 · 브라우저 뒤로 — 장면 · 근거 · 판 스크롤 · 무저장 초안 복원', async ({ page }) => {
+test('10. 다른 문항 → 찾기 전 문항으로 · 브라우저 뒤로 — 장면 · 근거 · 판 스크롤 · 학습 정리 복원', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 900 })
   await login(page)
+  // scene=explain 옛 주소 → 학습 정리(T-0091 — 쓰는 초안이 없다)
   await page.goto('/csat/item/2026-34?scene=explain', { waitUntil: 'domcontentloaded' })
-  const card = page.getByTestId('self-explain')
-  await expect(card).toBeVisible({ timeout: 120_000 })
-  const pick = card.locator('[role="group"] button').first()
-  await expect(async () => {
-    await pick.click()
-    await expect(pick).toHaveAttribute('aria-pressed', 'true', { timeout: 1000 })
-  }).toPass({ timeout: 30_000 })
-  const draft = `왕복 초안 ${Date.now()}`
-  await card.locator('textarea').first().fill(draft)
+  await expect(page.getByTestId('learning-summary')).toBeVisible({ timeout: 120_000 })
   // 문항 성립 장면에서 근거 하나 고르고 판을 내린다
   await page.locator('[data-testid="dock-scene"][data-scene="judgment"]').click()
   await page.locator('button[data-choice="3"]').first().click()
@@ -638,7 +631,8 @@ test('10. 다른 문항 → 찾기 전 문항으로 · 브라우저 뒤로 — �
       await expect.poll(() => page.locator('[data-testid="pane-explain"] [class*="blockPane"]').evaluate((el) => Math.round(el.scrollTop)), { message: `${how} 판 스크롤` }).toBeGreaterThanOrEqual(scrolled - 4)
     }
     await page.locator('[data-testid="dock-scene"][data-scene="explain"]').click()
-    await expect(page.getByTestId('self-explain').locator('textarea').first(), `${how} 무저장 초안`).toHaveValue(draft)
+    await expect(page.getByTestId('learning-summary'), `${how} 학습 정리`).toBeVisible()
+    await expect(page.getByTestId('learning-summary').locator('textarea'), `${how} 서술 입력 없음`).toHaveCount(0)
     await page.locator('[data-testid="dock-scene"][data-scene="judgment"]').click()
   }
 

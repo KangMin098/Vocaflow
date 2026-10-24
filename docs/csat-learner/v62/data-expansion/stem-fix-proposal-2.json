@@ -1,0 +1,27 @@
+{
+ "status": "PROPOSED — DB 미적용 · Codex 검증(T-0090) 후 사용자 승인 대상",
+ "detected_by": "coverage-audit integrity.stem_format (2026-10-23, 20건)",
+ "rule": "restore_suffix = 끝 「것은?」만 소실, 같은 유형 표준 발문과 접두가 같다 · drop_tail = 물음 뒤 섞인 꼬리 제거 · needs_source = 원문 대조 없이는 복원 불가(DB 수정하지 않음)",
+ "items": [
+  { "item": "2015#24", "type": "R-FACT", "old_md5": "06a4386d3e9ec3190664f92776065e73", "action": "restore_suffix", "new_stem": "Georg Dionysius Ehret에 관한 다음 글의 내용과 일치하지 않는 것은?" },
+  { "item": "2018#29", "type": "R-VOCAB", "old_md5": "305881c804b0ce8597e6b96166795c4b", "action": "restore_suffix", "new_stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?" },
+  { "item": "2019#30", "type": "R-VOCAB", "old_md5": "305881c804b0ce8597e6b96166795c4b", "action": "restore_suffix", "new_stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?" },
+  { "item": "2021#26", "type": "R-FACT", "old_md5": "4761a92212d1ac3866633fa7eaf79ef5", "action": "restore_suffix", "new_stem": "Frank Hyneman Knight에 관한 다음 글의 내용과 일치하지 않는 것은?" },
+  { "item": "2021#30", "type": "R-VOCAB", "old_md5": "305881c804b0ce8597e6b96166795c4b", "action": "restore_suffix", "new_stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?" },
+  { "item": "2022#30", "type": "R-VOCAB", "old_md5": "305881c804b0ce8597e6b96166795c4b", "action": "restore_suffix", "new_stem": "다음 글의 밑줄 친 부분 중, 문맥상 낱말의 쓰임이 적절하지 않은 것은?" },
+  { "item": "2024#27", "type": "R-NOTICE", "old_md5": "37e1e3e1efc20c9f39443a8b546eb560", "action": "restore_suffix", "new_stem": "Turtle Island Boat Tour에 관한 다음 안내문의 내용과 일치하지 않는 것은?" },
+  { "item": "M2406#42", "type": "X-VOCAB", "old_md5": "f9ef8475d220d42125fcc5262ee4185e", "action": "restore_suffix", "new_stem": "밑줄 친 (a)～(e) 중에서 문맥상 낱말의 쓰임이 적절하지 않은 것은?" },
+  { "item": "M2506#36", "type": "R-ORDER", "old_md5": "91f89e42cf796396580a0a7c2dc4c737", "action": "restore_suffix", "new_stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?" },
+  { "item": "M2506#37", "type": "R-ORDER", "old_md5": "91f89e42cf796396580a0a7c2dc4c737", "action": "restore_suffix", "new_stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것은?" },
+  { "item": "M2506#25", "type": "R-CHART", "old_md5": "01eff7155356a3769384f31458529f36", "action": "drop_tail", "new_stem": "다음 도표의 내용과 일치하지 않는 것은?" },
+  { "item": "M2506#19", "type": "R-MOOD", "old_md5": "aee71ac170a7d8fcc14de5273454ecd7", "action": "needs_source", "note": "물음 뒤 섞인 꼬리 — 배점 표기 [3점] 의 원래 위치 · 존재를 원문으로 확인해야 함" },
+  { "item": "M2506#28", "type": "R-NOTICE", "old_md5": "74c405d6cdde3f76ddd372f3c9600026", "action": "needs_source", "note": "안내문 이름이 잘림(LCU Geograp…) — 원문 명칭 필요" },
+  { "item": "H1906G1#33", "type": null, "old_md5": "61a15c0cd8fe5314e8b149a9230736c4", "action": "needs_source", "note": "발문 자리에 지문 문장 · type_id null — 추출 결함(학평)" },
+  { "item": "H1906G1#34", "type": null, "old_md5": "2e2d9bc9b70096ddce78e9f89b95fbf1", "action": "needs_source", "note": "발문 자리에 지문 문장 · type_id null" },
+  { "item": "H1906G1#36", "type": null, "old_md5": "d41d8cd98f00b204e9800998ecf8427e", "action": "needs_source", "note": "빈 발문 · type_id null" },
+  { "item": "H1906G1#37", "type": null, "old_md5": "d41d8cd98f00b204e9800998ecf8427e", "action": "needs_source", "note": "빈 발문 · type_id null" },
+  { "item": "H1906G1#38", "type": null, "old_md5": "d41d8cd98f00b204e9800998ecf8427e", "action": "needs_source", "note": "빈 발문 · type_id null" },
+  { "item": "H1906G1#39", "type": null, "old_md5": "d41d8cd98f00b204e9800998ecf8427e", "action": "needs_source", "note": "빈 발문 · type_id null" },
+  { "item": "H2403G2#20", "type": null, "old_md5": "f2eee140130e27f953e888d2eae4b075", "action": "needs_source", "note": "발문 자리에 지문 문장 · type_id null" }
+ ]
+}

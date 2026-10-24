@@ -46,6 +46,12 @@ const ALLOWED_ORPHAN_PAGES = ['/join/[code]']
 const ALLOWED_ORPHAN_APIS = [
   // HTTP automation is called by scripts/db/factory-i1/d3-live-check.mts; RSC uses the same server loader directly.
   '/api/admin/csat/product-order-lineage',
+  // Admin-only HTTP contracts with no page caller: scripts/textbook/factory-order-draft.mjs CLI calls
+  // factory-order-draft (prepare) and dcp-admission (admission-preview); authored-ai-review is a manual
+  // admin POST with AI receipt files (docs/ROUTES.md 2A). All three are guarded by requireAdminApi.
+  '/api/admin/csat/authored-ai-review',
+  '/api/admin/csat/dcp-admission',
+  '/api/admin/csat/factory-order-draft',
   // Analysis redesign preserves the old answer-reveal API for existing clients.
   '/api/csat/session/reveal',
   '/api/acp/dev-enqueue',

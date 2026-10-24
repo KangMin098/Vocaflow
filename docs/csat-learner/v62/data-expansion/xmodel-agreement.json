@@ -1,0 +1,72 @@
+{
+ "seed": "xmodel-20261023",
+ "n": 94,
+ "note": "Claude A/B(같은 모델)와 Codex(다른 모델) 판정 비교. R1 direct 유지율 = 두 Claude 가 일치한 direct 중 Codex 도 direct 인 비율. 사람 검수 아님.",
+ "per_task": {
+  "r.central_meaning": {
+   "n": 94,
+   "kappa": {
+    "claudeA_claudeB": 0.9024,
+    "claudeA_codex": 0.6819,
+    "claudeB_codex": 0.7145
+   },
+   "direct_binary_kappa": {
+    "claudeA_claudeB": 0.9172,
+    "claudeA_codex": 0.7117,
+    "claudeB_codex": 0.7372
+   },
+   "r1_direct": {
+    "n": 23,
+    "codex_direct": 23,
+    "codex_other": []
+   },
+   "codex_direct_not_r1": [
+    "2015#33:A=indirect,B=indirect",
+    "2017#34:A=indirect,B=indirect",
+    "2019#32:A=indirect,B=indirect",
+    "2019#33:A=indirect,B=indirect",
+    "2019#35:A=indirect,B=direct",
+    "2021#21:A=indirect,B=indirect",
+    "2023#35:A=direct,B=indirect",
+    "M2309#32:A=indirect,B=indirect",
+    "M2506#33:A=indirect,B=indirect",
+    "M2506#34:A=indirect,B=indirect",
+    "M2509#18:A=indirect,B=direct",
+    "M2606#35:A=indirect,B=indirect",
+    "M2609#34:A=indirect,B=indirect"
+   ]
+  },
+  "r.inference": {
+   "n": 94,
+   "kappa": {
+    "claudeA_claudeB": 0.6661,
+    "claudeA_codex": 0.4399,
+    "claudeB_codex": 0.4126
+   },
+   "direct_binary_kappa": {
+    "claudeA_claudeB": 0.9677,
+    "claudeA_codex": 0.6045,
+    "claudeB_codex": 0.6299
+   },
+   "r1_direct": {
+    "n": 19,
+    "codex_direct": 13,
+    "codex_other": [
+     "2014B#32:not_applicable",
+     "2019#32:not_applicable",
+     "M2006#34:not_applicable",
+     "M2309#32:not_applicable",
+     "M2506#33:not_applicable",
+     "M2609#34:not_applicable"
+    ]
+   },
+   "codex_direct_not_r1": [
+    "2014B#28:A=indirect,B=indirect",
+    "2019#39:A=not_applicable,B=indirect",
+    "M2509#42:A=indirect,B=indirect",
+    "M2606#30:A=not_applicable,B=not_applicable",
+    "M2706#42:A=indirect,B=not_applicable"
+   ]
+  }
+ }
+}

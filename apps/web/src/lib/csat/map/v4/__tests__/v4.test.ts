@@ -25,7 +25,8 @@ const proxy = (state: AxisProxyState, over: Partial<Record<Domain, AxisProxyStat
 
 const KEY = 'claim-support'
 const ITEMS = ['i1', 'i2', 'i3', 'i4', 'i5']
-const checks = [{ taskKey: KEY, items: ITEMS }]
+// T-0096 — R5 서로 다른 지문 조건: 문항마다 다른 지문
+const checks = [{ taskKey: KEY, items: ITEMS, passages: Object.fromEntries(ITEMS.map((i) => [i, `p-${i}`])) }]
 const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target: t, href: `/csat/item/${t}`, label: t })) }
 
 const attempt = (itemRef: string, isCorrect: boolean, answeredAt: string, o: Partial<FindAttemptRow> = {}): FindAttemptRow => ({
@@ -316,7 +317,7 @@ describe('Workspace 대표 선정 · 단계', () => {
   })
 
   it('다시 확인 통과(resolved) 뒤 — 적용은 실제 문항이 있으면 열리고 To-Be 는 TRANSFER', () => {
-    const at = [attempt('i1', false, '2026-09-10T00:00:00Z'), attempt('i2', false, '2026-09-11T00:00:00Z'), attempt('i3', true, '2026-09-20T00:00:00Z'), attempt('i4', true, '2026-09-21T00:00:00Z')]
+    const at = [attempt('i1', false, '2026-09-10T00:00:00Z'), attempt('i2', false, '2026-09-11T00:00:00Z'), attempt('i3', true, '2026-09-20T00:00:00Z'), attempt('i4', true, '2026-09-21T00:00:00Z'), attempt('i5', true, '2026-09-22T00:00:00Z')]
     const a = asIsMap(base({ attempts: at }))
     expect(a.tasks['r.central_meaning'].status).toBe('resolved')
     const tb = toBeMap({ asIs: a, goal: goal(90), refItems: REF, lineRefItems, confirmLinks: links })!

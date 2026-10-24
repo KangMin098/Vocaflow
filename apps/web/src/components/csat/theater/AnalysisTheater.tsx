@@ -83,7 +83,7 @@ import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 import type { CropMarkRequest } from '@/lib/csat/reflow/crop-mark-view'
 import { groupOf, rememberScene, type DockGroupId } from '@/lib/csat/inquiry/dock'
 import { sceneKey, tabMemory } from '@/lib/csat/item-tab-memory'
-import { EMPTY_EXPLAIN, EMPTY_NOTE, linkableEvidence, type ExplainDraft, type NoteDraft } from '@/lib/csat/explain-draft'
+import { buildLearningSummary, hasWrittenHistory } from '@/lib/csat/system-learning'
 import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff } from './PredictGate'
@@ -96,6 +96,7 @@ import { SessionDone } from './SessionDone'
 import { InquiryDock } from './InquiryDock'
 import { PaperResizer } from './PaperResizer'
 import { ReasoningNoteForm } from './ReasoningNoteForm'
+import { SystemLearningSummary } from './SystemLearningSummary'
 import { V3CompareExplorer, type PairWithheldView } from './V3CompareExplorer'
 import { V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './InquiryV3Panels'
 import { DesignSelection, DistractorDesign, PrincipleDesign, TransformDiagram } from './SceneDiagrams'
@@ -348,14 +349,6 @@ export function AnalysisTheater({
         return saved
       })
       .catch(() => false)
-  // 실제 저장 결과를 돌려준다 — 실패면 화면이 입력을 지키고 「다시 저장」을 연다(낙관적 완료 표시 금지 · M5)
-  const saveNote = (x: ReasoningNote): Promise<boolean> =>
-    persist((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
-      .then(({ record, saved }) => {
-        if (saved) pickNotes(record)
-        return saved
-      })
-      .catch(() => false)
   // 이 문항의 이해 확인 시도(M4)
   const [checked, setChecked] = useState<CheckAttempt[]>([])
   const pickChecked = (r: DissectionRecord) => setChecked((r.checks ?? []).filter((x) => x.item === itemId))
@@ -442,14 +435,6 @@ export function AnalysisTheater({
     void persist((r) => stepSession(r, id, cursor, Date.now()))
   }, [cursor, session])
   const finished = session?.stage === 'finished'
-  // 자기 설명 — 같은 id 는 교체(다시 저장이 두 건이 되지 않게) · 실제 기기 저장이 성공했을 때만 목록 · 대조를 갱신한다(낙관적 완료 표시 금지 · 작업공간 W3)
-  const saveExplanation = (x: SelfExplanation): Promise<boolean> =>
-    persist((r) => ({ ...r, explanations: [...(r.explanations ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
-      .then(({ record, saved }) => {
-        if (saved) pickExplained(record)
-        return saved
-      })
-      .catch(() => false)
   // 원리 저장(M4) — 유형 관계 · 적용 조건 · 한계 · 출처 문항을 함께. 같은 유형 원리는 한 줄로 모이고 출처만 늘어난다
   const principleTag = goal ? hashTag(`theater|${typeId}|${goal.relation}`) : null
   const [principleSaved, setPrincipleSaved] = useState(false)
@@ -473,10 +458,6 @@ export function AnalysisTheater({
   const recordCheck = (x: CheckAttempt) => {
     setChecked((xs) => [...xs, x])
     void persist((r) => ({ ...r, checks: [...(r.checks ?? []), x], updatedAt: Date.now() })).then(({ record }) => pickChecked(record))
-  }
-  const compareExplanation = (id: string) => {
-    setExplained((xs) => xs.map((x) => (x.id === id ? { ...x, compared: true } : x)))
-    void persist((r) => ({ ...r, explanations: (r.explanations ?? []).map((x) => (x.id === id ? { ...x, compared: true } : x)), updatedAt: Date.now() })).then(({ record }) => pickExplained(record))
   }
   const finish = () => {
     if (!session) return
@@ -515,12 +496,8 @@ export function AnalysisTheater({
   const v3 = inquiry?.v3 ?? null
   // 지도 문장 수가 v3 작성 때와 같을 때만 연결한다 — 원문 분할이 다르면 잘못된 문장을 비추지 않는다
   const v3Linkable = Boolean(v3 && map && map.sentences.length === v3.sentence_count)
-  // 마지막으로 고른 근거 — 내 설명 장면의 「이 근거를 노트에 연결」 후보(앞 장면의 선택을 미리 보여 줄 뿐 자동 저장하지 않는다)
-  const [recentEvidence, setRecentEvidence] = useState<number[] | null>(null)
   const onEvidence = (sentences: number[], key: string) => {
-    const off = evidence?.key === key
-    setEvidence(off ? null : { sentences, key })
-    setRecentEvidence(off ? null : sentences)
+    setEvidence(evidence?.key === key ? null : { sentences, key })
   }
   // 작업공간 W2/W3 — 장면별 근거 선택 · 오른쪽 판 스크롤을 이 탭 메모리에 문항별로 기억한다. 주소 · 뒤로가기가 장면을 정하고, 메모리는 그 장면의 선택만 되살린다.
   //   기억이 없으면(미방문) 선택 없음, 학습자가 해제했으면 해제(null) 그대로 — 자동 선택으로 덮지 않는다.
@@ -576,17 +553,7 @@ export function AnalysisTheater({
     pendingScroll.current = null
   }, [evidenceCollapsed])
   const [evidenceView, setEvidenceView] = useState<'map' | 'relation'>('map')
-  // 자기 설명 · 원리 노트 초안 — 문항별 탭 메모리(장면 왕복에도 남고, 새로고침 · 탭 종료면 사라진다)
-  const [explainDrafts, setExplainDrafts] = useState<Record<string, ExplainDraft>>(() => tabMemory.explain)
-  const [noteDrafts, setNoteDrafts] = useState<Record<string, NoteDraft>>(() => tabMemory.note)
-  useEffect(() => {
-    tabMemory.explain = explainDrafts
-  }, [explainDrafts])
-  useEffect(() => {
-    tabMemory.note = noteDrafts
-  }, [noteDrafts])
-  const draftExplain = (fn: (d: ExplainDraft) => ExplainDraft) => setExplainDrafts((m) => ({ ...m, [itemId]: fn(m[itemId] ?? EMPTY_EXPLAIN) }))
-  const draftNote = (fn: (d: NoteDraft) => NoteDraft) => setNoteDrafts((m) => ({ ...m, [itemId]: fn(m[itemId] ?? EMPTY_NOTE) }))
+  // 자기 설명 · 원리 노트 작성 초안은 없다(T-0091 학습 정리 전환) — 탭 메모리의 옛 초안 칸(item-tab-memory)은 손대지 않고 둔다
   // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이 · 구절)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다.
   //   주소에는 검증된 meaning · depth · rel · bridge 만 싣는다(초안 · 구절 선택은 싣지 않는다). 뒤로/앞으로는 주소에서 모두 되살린다.
   const ms = meaningSupport
@@ -969,8 +936,6 @@ export function AnalysisTheater({
   const mapFocus = msActive ? (msMapOk && msSpeak.length ? msSpeak.map((n) => n - 1) : msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
   const focusSummary = msActive ? (msMapOk && msFocus.length ? msFocus : []) : v3Linkable && evidence ? evidence.sentences : []
   const evidenceLabel = focusSummary.length ? `${focusSummary.join(' · ')}번 문장` : '고른 근거 없음'
-  // 노트에 연결할 수 있는 근거 — 지금 고른 문장 근거 중 이 문항 지도 범위 안(결속 확인된 v3 근거만)
-  const noteCandidate = linkableEvidence(v3Linkable ? evidence?.sentences ?? recentEvidence : null, v3Linkable && map ? map.sentences.length : null)
   // 하단 도크 · 다음 장면 — 학습자의 직접 선택이 강의의 자동 따라가기보다 먼저다(재생 중이면 멈춘다 · 재개는 학습자가)
   const pickScene = (id: SceneId) => {
     setTab('analysis')
@@ -1312,10 +1277,7 @@ export function AnalysisTheater({
                       carry={carry}
                       returnTo={compareReturn}
                       onEvidence={onEvidence}
-                      onClearEvidence={() => {
-                        if (evidence && /^(pair|diff)-/.test(evidence.key)) setRecentEvidence(null)
-                        setEvidence((cur) => (cur && /^(pair|diff)-/.test(cur.key) ? null : cur))
-                      }}
+                      onClearEvidence={() => setEvidence((cur) => (cur && /^(pair|diff)-/.test(cur.key) ? null : cur))}
                       linkable={v3Linkable}
                       selectedKey={evidence?.key ?? null}
                       onFindOther={finder ? () => openFinder('compare') : undefined}
@@ -1348,31 +1310,43 @@ export function AnalysisTheater({
                     </section>
                   ) : null}
                   {scene === 'explain' ? (
-                    <SelfExplain
-                      key={itemId}
-                      itemId={itemId}
-                      rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
-                      choiceTruth={distractorsAreTrue(typeId, itemId)}
-                      saved={explained}
-                      draft={explainDrafts[itemId]}
-                      onDraft={draftExplain}
-                      onSave={saveExplanation}
-                      onCompare={compareExplanation}
-                    />
-                  ) : null}
-                  {scene === 'explain' ? (
-                    <ReasoningNoteForm
-                      key={`note-${itemId}`}
-                      itemId={itemId}
-                      analysisVersion={inquiry?.analysis_version ?? null}
-                      principle={inquiry?.principle ?? null}
-                      pairs={v3Pairs}
-                      saved={notes}
-                      onSave={saveNote}
-                      draft={noteDrafts[itemId]}
-                      onDraft={draftNote}
-                      candidate={noteCandidate}
-                      onShowEvidence={v3Linkable ? (sentences) => { setEvidence({ sentences, key: 'note-evidence' }); setEvidenceCollapsed(false); setEvidenceView('map') } : undefined}
+                    <SystemLearningSummary
+                      key={`summary-${itemId}`}
+                      summary={buildLearningSummary({
+                        goal,
+                        principle: inquiry?.principle ?? null,
+                        rejects: blocks.filter((b) => b.kind === 'reject'),
+                        choiceEvidence: v3Linkable ? v3?.choices : undefined,
+                        checks,
+                        checkScene: sceneOfCheck,
+                        hasCompare: v3Pairs.length > 0,
+                        hasLecture: Boolean(lec && steps.length),
+                      })}
+                      canKeep={Boolean(goal)}
+                      kept={principleSaved}
+                      onKeep={savePrinciple}
+                      onGo={pickScene}
+                      initialEvidenceKey={evidence?.key}
+                      onShowEvidence={(sentences, key) => {
+                        setEvidence(sentences.length ? { sentences, key } : null)
+                        if (sentences.length) { setEvidenceCollapsed(false); setEvidenceView('map') }
+                      }}
+                      onLecture={() => setTab('script')}
+                      historyState={session === undefined ? 'loading' : 'ready'}
+                      history={
+                        hasWrittenHistory({ explanations: explained.length, notes: notes.length }) ? (
+                          <>
+                            <SelfExplain saved={explained} />
+                            <ReasoningNoteForm
+                              analysisVersion={inquiry?.analysis_version ?? null}
+                              principle={inquiry?.principle ?? null}
+                              saved={notes}
+                              showModel={false}
+                              onShowEvidence={v3Linkable ? (sentences) => { setEvidence({ sentences, key: 'note-evidence' }); setEvidenceCollapsed(false); setEvidenceView('map') } : undefined}
+                            />
+                          </>
+                        ) : null
+                      }
                     />
                   ) : null}
                   {!sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (

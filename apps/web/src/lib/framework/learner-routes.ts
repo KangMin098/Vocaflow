@@ -214,6 +214,17 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
     section: '연습과 세션',
   },
+  // 학습 지도에서 납품된 공장 DCP 연습 한 문항(명시적 납품 id 만, 본인 세션 factory_dcp_open 판정).
+  {
+    path: '/csat/factory/[deliveryId]',
+    screen: 'csat-factory-dcp',
+    label: '납품 연습 풀기',
+    says: '학습 지도에서 받은 연습 한 문항으로 글의 중심 의미 · 주제 · 요지를 고르고 지도로 돌아간다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+    section: '연습과 세션',
+  },
   {
     path: '/csat/dissect',
     screen: 'csat-dissect',
