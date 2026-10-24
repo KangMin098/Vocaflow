@@ -91,7 +91,8 @@ describe('H8 통합 시나리오', () => {
       a({ attemptId: '13', itemRef: '2014B#38', passageKey: 'pC', contentHash: 'h0' }), // 옛 판본
       a({ attemptId: '14', itemRef: '2015#32', passageKey: 'pB', independence: 'helped', helpLevel: 'hint' }), // 도움 받은 시도
     ]
-    const feed = buildEvidenceFeed(attempts, exposures, () => 'h1')
+    const P = (r: string) => (passageKeys as Record<string, string>)[r]
+    const feed = buildEvidenceFeed(attempts, exposures, () => 'h1', P)
     expect(feed.accepted.map((o) => o.attemptId)).toEqual(['11'])
     expect(Object.fromEntries(feed.rejected.map((r) => [r.attemptId, r.reason]))).toEqual({ 10: 'helped_or_exposed', 11: 'duplicate', 14: 'helped_or_exposed' })
     expect(Object.fromEntries(feed.held.map((r) => [r.attemptId, r.reason]))).toEqual({ 12: 'independence_unknown', 13: 'stale_analysis' })
@@ -100,7 +101,10 @@ describe('H8 통합 시나리오', () => {
     expect(promotionGate(feed, ['11'])).toEqual({ ok: false, reason: 'single_passage' })
 
     const entry = entriesFor(input()).entries.find((x) => x.item === '2019#23')!
-    const s = learnerSummary(entry, exposures, feed, false)
+    const s = learnerSummary(entry, exposures, feed, false, P)
+    // K6-a — 안 푼 확인 문항과 같은 지문(2020#36)의 정답을 먼저 봤다면 그 확인 시도는 독립 증거가 아니다
+    const shared = buildEvidenceFeed([a({ attemptId: '11' })], [{ ...exposures[0], itemRef: '2020#36' }], () => 'h1', P)
+    expect(shared.accepted).toHaveLength(0)
     expect(s.help.observed.map((m) => m.kind)).toEqual(['lecture_viewed'])
     expect(s.help.external).toBe('UNKNOWN')
     expect(s.understood[0].claim).toBe('single_independent_success')
@@ -109,6 +113,6 @@ describe('H8 통합 시나리오', () => {
     expect(s.learningEffect).toBe('NOT_EVALUATED')
     expect(JSON.stringify(s)).not.toMatch(/해소|달성했|숙달했/)
     // 원장을 못 읽으면 도움 여부도 미확인
-    expect(learnerSummary(entry, null, buildEvidenceFeed([], null, () => 'h1'), null).unconfirmed[0]).toContain('도움 여부는 미확인')
+    expect(learnerSummary(entry, null, buildEvidenceFeed([], null, () => 'h1', P), null).unconfirmed[0]).toContain('도움 여부는 미확인')
   })
 })

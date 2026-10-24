@@ -7,7 +7,7 @@
 import { meaningOfExposure, type ActivityMeaning } from './activity-meaning'
 import type { Entry } from './entry'
 import { skillClaimOf, type EvidenceFeed, type SkillClaim } from './evidence-feed'
-import type { ExposureRow } from './exposure-consumer'
+import type { ExposureRow, PassageOf } from './exposure-consumer'
 
 export interface LearnerSummary {
   item: string
@@ -28,11 +28,11 @@ const CLAIM_TEXT: Record<SkillClaim, string> = {
   no_valid_evidence: '아직 혼자 판단한 기록이 없어요 — 분석을 본 것만으로는 이해를 확인할 수 없어요.',
 }
 
-export function learnerSummary(entry: Entry, exposures: readonly ExposureRow[] | null, feed: EvidenceFeed, hasUnseenCheck: boolean | null): LearnerSummary {
+export function learnerSummary(entry: Entry, exposures: readonly ExposureRow[] | null, feed: EvidenceFeed, hasUnseenCheck: boolean | null, passageOf?: PassageOf): LearnerSummary {
   const r = entry.rationale
   const why = `${r.why.need}${r.why.confirmed ? '' : '(근거 부족 — 약점으로 확정하지 않았어요)'} · ${r.why.basis === 'attempted_check_item' ? '이미 풀어 본 확인 문항이라 해설을 봐도 확인 기록을 해치지 않아요' : '연구에서 이 판단 능력의 사례로 합의된 문항이에요(사람 검수 전)'}`
   const goalRole = r.goalRole.status === 'linked' ? `목표 시험에서 이 능력이 걸린 문항 ${r.goalRole.items}개 · 회당 ${r.goalRole.pointsPerExam}점 — 점수 상승을 약속하지는 않아요` : r.goalRole.status === 'goal_not_set' ? '목표를 정하지 않아 목표에서의 역할은 계산하지 않았어요' : '목표와의 연결을 확인하지 못했어요'
-  const observed = exposures === null ? [] : exposures.filter((e) => e.itemRef === entry.item).map((e) => meaningOfExposure(e.source))
+  const observed = exposures === null ? [] : exposures.filter((e) => e.itemRef === entry.item || (!!passageOf?.(entry.item) && passageOf(e.itemRef) === passageOf(entry.item))).map((e) => meaningOfExposure(e.source))
   const understood = r.skills.map((s) => { const c = skillClaimOf(feed, s.id); return { claim: c.claim, text: `${s.label}: ${CLAIM_TEXT[c.claim]}` } })
   const unconfirmed = [
     ...(exposures === null ? ['받은 도움 기록을 읽지 못했어요 — 도움 여부는 미확인이에요'] : []),
