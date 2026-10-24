@@ -119,11 +119,13 @@ function parseSentence(sentence: string, ctx: ClaimContext): Parsed | null {
   // 문장 첫머리 담화 표지 하나(「그래서 정답은 일 번입니다」) — 뜻을 바꾸지 않는다
   let rest = sentence.replace(/[.。!]\s*$/, '').replace(/^\s*(?:그래서|따라서|즉|결국|여러분|자|여기서)\s*,?\s+/, '')
   let sawPredicate = false
+  let lastSubject: number[] | null = null
   while (rest.trim() !== '') {
     // 표제형
     const head = HEAD_CLAUSE.exec(rest)
     if (head) {
       const choices = choicesIn(head.groups!.list!)
+      lastSubject = choices // 「정답은 ⑤이고 답이 아닙니다」 — 뒤 절 생략 주어도 ⑤
       claims.push({ polarity: 'answer', claim: { choices, exclusive: !!(head.groups!.only || head.groups!.lim), inclusive: false, implicit: false, sentence } })
       rest = rest.slice(head[0].length)
       sawPredicate = true
@@ -140,7 +142,8 @@ function parseSentence(sentence: string, ctx: ClaimContext): Parsed | null {
     }
     const headNeg = HEAD_NEG.exec(rest)
     if (headNeg) {
-      claims.push({ polarity: 'notAnswer', claim: { choices: choicesIn(headNeg.groups!.list!), exclusive: false, inclusive: false, implicit: false, sentence } })
+      lastSubject = choicesIn(headNeg.groups!.list!)
+      claims.push({ polarity: 'notAnswer', claim: { choices: lastSubject, exclusive: false, inclusive: false, implicit: false, sentence } })
       rest = rest.slice(headNeg[0].length).replace(/^\s*,?\s*/, '')
       sawPredicate = true
       continue
@@ -150,7 +153,10 @@ function parseSentence(sentence: string, ctx: ClaimContext): Parsed | null {
       const g = pc.groups!
       let choices: number[]
       let implicit = false
-      if (g.list) choices = choicesIn(g.list)
+      // 생략 주어는 **같은 문장 앞 절의 주어를 이어받는다**(「⑤는 정답이고 답이 아닙니다」의 뒤 절 주어는 ⑤ — 19차 P1).
+      // cue target 은 문장에 명시된 주어가 하나도 없을 때만 쓴다.
+      if (g.list) { choices = choicesIn(g.list); lastSubject = choices }
+      else if (lastSubject) choices = lastSubject
       else if (ctx.rejectTarget != null) { choices = [ctx.rejectTarget]; implicit = true }
       else return null // 주어가 없고 cue target 도 소거가 아니면 누구에 대한 진술인지 모른다
       const polarity: Polarity = g.apos || g.wneg ? 'answer' : 'notAnswer'
@@ -174,7 +180,11 @@ function parseSentence(sentence: string, ctx: ClaimContext): Parsed | null {
     if (rc) { rest = rest.slice(rc[0].length); continue }
     return null
   }
-  return sawPredicate ? { claims } : null
+  if (!sawPredicate) return null
+  // 한 문장 안에서 같은 선지를 정답이라고도, 정답이 아니라고도 하면 모순 — 의미 불명확(「⑤는 정답이고 오답입니다」)
+  const yes = new Set(claims.filter((c) => c.polarity === 'answer').flatMap((c) => c.claim.choices))
+  if (claims.some((c) => c.polarity === 'notAnswer' && c.claim.choices.some((n) => yes.has(n)))) return null
+  return { claims }
 }
 
 export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReading {

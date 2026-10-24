@@ -579,3 +579,20 @@ describe('T-0158 18차 반례 — 「정답 블록」 예외는 UI 안내 꼴만
     expect(run(text).findings).toEqual([])
   })
 })
+
+describe('T-0158 19차 반례 — 생략 주어는 앞 절 주어를 이어받는다 · 문장 안 모순', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['⑤는 정답이고 답이 아닙니다.', '⑤는 정답이고 오답입니다.', '⑤는 오답이 아니고 정답이 아닙니다.', '정답은 ⑤이고 답이 아닙니다.'])('reject:1 · {5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+  it('앞 절 주어를 이어받은 일관된 진술은 그대로 판정', () => {
+    // ②는 오답이고, (②는) 답이 아닙니다 — 공식 {5} 와 충돌 없음
+    expect(run([5], '②는 오답이고 답이 아닙니다.').findings).toEqual([])
+    // ⑤는 정답이고, (⑤는) 오답이 아닙니다 — 공식 {5} 와 일치
+    expect(run([5], '⑤는 정답이고 오답이 아닙니다.').findings).toEqual([])
+  })
+})
