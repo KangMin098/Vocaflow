@@ -75,8 +75,10 @@ describe('HomeLanding — 첫 제안 분기', () => {
   it('T-0079 — 기록 0(no_records) = 미측정 · 시작 전(시험 기록이 필수라 하지 않음) · 대기(records_only) = 기록 없음이라 하지 않음', () => {
     const none = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="record" returned={null} />)
     expect(none).toContain('data-kind="no_records"')
-    expect(none).toContain('약점을 정한 것은 아니에요')
-    expect(none).toContain('계획을 정하고 받은 자료로 바로 확인을 시작할 수 있어요')
+    // 9c539ad00(설명 밀도 정본, DESIGN.md 2026-10-22) — 긴 문단 대신 「미측정」 한 줄 + 계획 → 자료 → 직접 확인 흐름으로 같은 계약을 말한다
+    expect(none).toContain('아직 미측정이에요')
+    expect(none).toMatch(/계획 선택.*자료 받기.*직접 확인/)
+    expect(none).not.toContain('약점')
     expect(none).not.toContain('기록을 넣으면 그려져요')
     const waiting = renderToStaticMarkup(<HomeLanding exams={exams} map="ok" mapData={null} focusKind="pending" returned={null} />)
     expect(waiting).toContain('data-kind="records_only"')

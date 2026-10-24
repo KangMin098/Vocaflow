@@ -1,4 +1,5 @@
-/* apps/web/src/components/csat/diagnosis/map/FinalAssessment.module.css — 최종 평가 결속 카드(지도 공통 gp 카드 안쪽만) */
+/* apps/web/src/components/csat/diagnosis/map/FinalAssessment.module.css — 최종 평가 결속 카드(지도 공통 gp 카드 안쪽만) 
+ * tokens-from: ./map.module.css — UnifiedLearningMap(map.module.css .root) 안에 렌더돼 --m-* 를 상속한다 */
 .body { display: grid; gap: 10px; padding: 0 14px 12px; }
 .contrast { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0; border: 1px solid var(--m-line); border-radius: 10px; overflow: hidden; }
 .col { min-width: 0; padding: 10px 12px; }

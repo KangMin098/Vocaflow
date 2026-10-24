@@ -24,8 +24,9 @@ const pilot = new Set(JSON.parse(fs.readFileSync(path.join(LOCAL, 'pilot-input.j
 const { data: exams, error: eErr } = await db.from('csat_exams').select('id').eq('organizer', 'kice')
 if (eErr) throw new Error(`csat_exams: ${eErr.message}`)
 const rows: Record<string, unknown>[] = []
-for (let from = 0; ; from += 1000) {
-  const { data, error } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices, answer, answers, points').in('exam_id', (exams ?? []).map((e) => e.id)).order('id').range(from, from + 999)
+// keyset(id) — 뒤 페이지가 앞을 다시 훑지 않는다(offset-paging-budget). 순서·산출은 order('id') 그대로.
+for (let last = ''; ; ) {
+  const { data, error } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, passage, choices, answer, answers, points').in('exam_id', (exams ?? []).map((e) => e.id)).gt('id', last).order('id').limit(1000)
   if (error) throw new Error(`csat_items: ${error.message}`)
   for (const i of data ?? []) {
     if (pilot.has(i.id)) continue
@@ -33,6 +34,7 @@ for (let from = 0; ; from += 1000) {
     rows.push({ item_id: i.id, exam_id: i.exam_id, no: i.no, type_id: i.type_id, source, source_sha256: sha(source) })
   }
   if ((data ?? []).length < 1000) break
+  last = String(data![data!.length - 1].id)
 }
 // 같은 시험 · 번호 순 — 세트 문항(41–42 · 43–45)이 같은 청크에 모이게
 rows.sort((a, b) => String(a.exam_id).localeCompare(String(b.exam_id)) || (a.no as number) - (b.no as number))

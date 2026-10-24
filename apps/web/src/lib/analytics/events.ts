@@ -312,7 +312,6 @@ export type PublicEvent =
   | { name: 'csat_meaning_depth_changed'; props: { depth: 'brief' | 'why' | 'deep' } }
   | { name: 'csat_meaning_relation_opened'; props: { kind: 'add' | 'example' | 'contrast' | 'concession' | 'cause' | 'condition' | 'reference' | 'temporal' | 'purpose' | 'other'; from: 'unit' | 'trace' } }
   | { name: 'csat_meaning_whole_traced'; props: { target: 'step' | 'link' | 'boundary' } }
-  | { name: 'csat_meaning_draft_compared'; props: { length: 'lt50' | 'lt200' | 'gte200' } }
   | { name: 'csat_meaning_bridge_followed'; props: { scene: 'judgment' | 'design' } }
   | { name: 'csat_map_node_opened'; props: { kind: 'goal' | 'axis' | 'line' | 'principle' | 'track' | 'task' } }
   | { name: 'csat_map_goal_set'; props: { goal: number } }
@@ -624,7 +623,6 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_meaning_depth_changed: true,
   csat_meaning_relation_opened: true,
   csat_meaning_whole_traced: true,
-  csat_meaning_draft_compared: true,
   csat_meaning_bridge_followed: true,
   csat_map_node_opened: true,
   csat_map_goal_set: true,
