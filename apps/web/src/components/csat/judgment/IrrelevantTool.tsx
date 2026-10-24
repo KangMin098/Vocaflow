@@ -28,14 +28,14 @@ import type { EvidenceUnit, JudgmentToolProps, RevealData } from '@/lib/csat/jud
 import { EvidencePassage } from './EvidencePassage'
 import { JudgmentShell, judgmentStyles as js } from './JudgmentShell'
 import { RefText } from './RefText'
-import { REVEAL_ERROR_TEXT, useReveal } from './useReveal'
+import { REVEAL_ERROR_TEXT, revealBinding, useReveal } from './useReveal'
 import s from './IrrelevantTool.module.css'
 
 const CIRCLED = ['①', '②', '③', '④', '⑤']
 const SEAM_TITLE: Record<Seam, string> = { back: '앞 문장 → 이 문장', forward: '이 문장 → 뒤 문장', bridge: '빼고 읽기: 앞 문장 → 뒤 문장' }
 const VERDICT_TEXT = { holds: { back: '○ 이어진다', forward: '○ 이어진다', bridge: '○ 빼도 이어진다' }, breaks: { back: '✕ 끊긴다', forward: '✕ 끊긴다', bridge: '✕ 빼면 빈다' } } as const
 
-export function IrrelevantTool({ item, reveal }: JudgmentToolProps) {
+function IrrelevantToolBody({ item, reveal }: JudgmentToolProps) {
   const structure = useMemo(() => parseStructure(item), [item])
   const { lead, slots } = structure
   const [state, setState] = useState<ToolState>(initialState)
@@ -337,4 +337,9 @@ function RevealView(props: {
       )}
     </div>
   )
+}
+
+/** 문항(id · 판본)이 바뀌면 학습자 조작 상태까지 새로 시작한다 — 이전 문항의 선택 · 공개 상태가 새 원문에 이월되지 않는다 */
+export function IrrelevantTool(props: JudgmentToolProps) {
+  return <IrrelevantToolBody key={revealBinding(props.item)} {...props} />
 }

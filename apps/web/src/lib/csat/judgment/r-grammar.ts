@@ -128,8 +128,8 @@ export function patchMark(s: GrammarState, n: number, patch: Partial<MarkState>)
 }
 
 // ── 대안 형태(조건 조작) ─────────────────────────────────────────
-// 낱말을 지어내지 않는다: 철자가 규칙으로 확정되는 것(which↔where, is↔are, -ly 떼기)만 낱말로 쓰고,
-// 나머지는 「형태 종류」 이름으로 보인다.
+// 낱말을 지어내지 않는다: 철자가 확정되는 것(which↔where, is↔are, 아래 확인된 부사↔형용사 쌍)만 낱말로 쓰고,
+// 나머지는 「형태 종류」 이름으로 보인다. -ly 를 기계적으로 떼면 early→ear 같은 가짜 낱말이 생긴다(T-0151 P2-02).
 
 export type Alt = { id: string; label: string }
 
@@ -142,6 +142,13 @@ const REL_SWAP: Record<string, string[]> = {
   whom: ['who'],
   when: ['which'],
 }
+/** 사전으로 확인한 부사 → 형용사 쌍만 쓴다(early·truly·fully·simply 처럼 규칙이 깨지는 낱말은 넣지 않는다) */
+const ADV_ADJ: Record<string, string> = {
+  abundantly: 'abundant', frequently: 'frequent', efficiently: 'efficient', effectively: 'effective', successfully: 'successful',
+  easily: 'easy', rapidly: 'rapid', directly: 'direct', completely: 'complete', relatively: 'relative', differently: 'different',
+  similarly: 'similar', necessarily: 'necessary', increasingly: 'increasing', significantly: 'significant', naturally: 'natural',
+  carefully: 'careful', quickly: 'quick', slowly: 'slow', clearly: 'clear', possibly: 'possible', probably: 'probable',
+}
 const BE_SWAP: Record<string, string> = { is: 'are', are: 'is', was: 'were', were: 'was', has: 'have', have: 'has', does: 'do', do: 'does' }
 
 export function alternativesOf(m: Mark, len: number): Alt[] {
@@ -153,15 +160,18 @@ export function alternativesOf(m: Mark, len: number): Alt[] {
   else if (BE_SWAP[w]) alts.push({ id: `num:${BE_SWAP[w]}`, label: [BE_SWAP[w], ...words.slice(1)].join(' ') + ' (수 바꾸기)' })
   else if (w === 'to' && words[1]) {
     alts.push({ id: 'form:ing', label: `${words[1]} 의 -ing 형` }, { id: 'form:bare', label: `to 없는 원형 ${words[1]}` })
+  } else if (ADV_ADJ[w]) {
+    alts.push({ id: `adj:${ADV_ADJ[w]}`, label: `${ADV_ADJ[w]} (형용사형)` })
   } else if (/ly$/.test(w) && w.length > 4) {
-    const adj = w.endsWith('ily') ? w.slice(0, -3) + 'y' : w.endsWith('bly') ? w.slice(0, -1) + 'e' : w.slice(0, -2)
-    alts.push({ id: `adj:${adj}`, label: `${adj} (형용사형)` })
+    // 확인되지 않은 -ly 낱말은 철자를 만들지 않고 형태 종류로만 묻는다
+    alts.push({ id: 'form:adj', label: `${w} 대신 형용사형(철자는 사전으로 확인)` })
   } else if (/ing$/.test(w)) {
     alts.push({ id: 'form:finite', label: `${w} 대신 정동사형(-s/-ed)` }, { id: 'form:pp', label: `${w} 대신 과거분사형` }, { id: 'form:to', label: `${w} 대신 to부정사` })
   } else if (/ed$/.test(w)) {
     alts.push({ id: 'form:ing', label: `${w} 대신 -ing 형` }, { id: 'form:bare', label: `${w} 대신 원형` })
   } else {
-    alts.push({ id: 'form:to', label: `to ${w}` }, { id: 'form:ing', label: `${w} 의 -ing 형` }, { id: 'form:pp', label: `${w} 의 과거분사형` })
+    // 품사를 모르는 낱말(대명사 one · 명사 등)에 동사 활용을 붙이지 않는다 — 이 자리에 필요한 품사부터 고르게 한다
+    alts.push({ id: 'form:other', label: `${w} 대신 다른 품사·형태(이 자리에 필요한 것을 먼저 정한다)` })
   }
   return [original, ...alts]
 }

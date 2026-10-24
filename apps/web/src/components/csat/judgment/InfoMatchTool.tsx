@@ -27,7 +27,7 @@ import type { JudgmentToolProps } from '@/lib/csat/judgment/types'
 import { EvidencePassage } from './EvidencePassage'
 import { JudgmentShell, judgmentStyles as js } from './JudgmentShell'
 import { RefText } from './RefText'
-import { REVEAL_ERROR_TEXT, useReveal } from './useReveal'
+import { REVEAL_ERROR_TEXT, revealBinding, useReveal } from './useReveal'
 import s from './InfoMatchTool.module.css'
 
 const CIRCLED = ['①', '②', '③', '④', '⑤', '⑥', '⑦', '⑧']
@@ -41,7 +41,7 @@ export function InfoMatchEmpty() {
   )
 }
 
-export function InfoMatchTool({ item, reveal }: JudgmentToolProps) {
+function InfoMatchToolBody({ item, reveal }: JudgmentToolProps) {
   const [state, setState] = useState(() => initialState(item))
   const [choice, setChoice] = useState(1)
   const [active, setActive] = useState<string | null>(null)
@@ -248,4 +248,9 @@ function RefLink({ id, n, active, onRef }: { id: string; n?: number; active: str
       {n ? `${n}번 문장` : id}
     </button>
   )
+}
+
+/** 문항(id · 판본)이 바뀌면 학습자 조작 상태까지 새로 시작한다 — 이전 문항의 선택 · 공개 상태가 새 원문에 이월되지 않는다 */
+export function InfoMatchTool(props: JudgmentToolProps) {
+  return <InfoMatchToolBody key={revealBinding(props.item)} {...props} />
 }

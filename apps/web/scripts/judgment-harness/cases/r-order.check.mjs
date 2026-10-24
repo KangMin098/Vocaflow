@@ -42,7 +42,7 @@ export async function check(page, t) {
   // 원문↔판단 왕복: 판단면 스크롤 · 선택 상태 보존
   await page.$eval(J, (el) => { el.scrollTop = 260 })
   const before = await page.$eval(J, (el) => el.scrollTop)
-  await page.click('[data-unit="u4"]')
+  await t.clickUnit('u4')
   // 판단면 조작은 자동 스크롤 없이(프로그램 클릭) — 도구 자체가 위치를 바꾸는지만 본다
   await page.$eval('[data-link] button', (b) => { b.focus({ preventScroll: true }); b.click() })
   const after = await page.$eval(J, (el) => el.scrollTop)

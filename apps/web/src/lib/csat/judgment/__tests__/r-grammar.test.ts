@@ -95,6 +95,22 @@ describe('대안 형태(조건 조작)', () => {
     expect(alternativesOf(m1[1], 2).map((a) => a.id)).toEqual(['orig', 'form:ing', 'form:bare'])
     for (const m of [...m1, ...m2]) expect(alternativesOf(m, m.defaultLen)[0].id).toBe('orig')
   })
+
+  it('규칙이 깨지는 -ly 낱말 · 품사 불명 낱말에 가짜 철자나 동사 활용을 만들지 않는다(T-0151 P2-02)', () => {
+    const m1 = parseMarks(g1.units)
+    // 진단용 합성 입력(실제 밑줄 아님) — 규칙이 깨지는 낱말을 직접 넣는다
+    const fake = (word: string) => ({ ...m1[0], tokens: [word, 'x'], at: 0, defaultLen: 1 })
+    // 실제 문항 H2609G2#29 ① one(명사 대용) — 동사 활용을 내지 않는다
+    const realOne = alternativesOf(parseMarks(g2.units)[0], 1).map((a) => a.label).join(' ')
+    expect(realOne).not.toMatch(/to one|-ing|과거분사/)
+    for (const w of ['early', 'truly', 'fully', 'simply']) {
+      const labels = alternativesOf(fake(w) as typeof m1[0], 1).map((a) => a.label).join(' ')
+      expect(labels).not.toMatch(/\b(ear|tru|ful|simp) \(형용사형\)/)
+      expect(labels).toContain('사전으로 확인')
+    }
+    const one = alternativesOf(fake('one') as typeof m1[0], 1).map((a) => a.label).join(' ')
+    expect(one).not.toMatch(/to one|-ing|과거분사/)
+  })
 })
 
 describe('공개 상태', () => {
