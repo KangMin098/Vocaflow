@@ -793,6 +793,10 @@ summary.subH {
   outline: 2px solid var(--m-ink);
   outline-offset: 2px;
 }
+/* T-0159 — 링크 아래 추천 이유. 포커스 외곽선(2px + 간격 2px)이 첫 줄을 가리지 않게 띄운다(1440 실화면에서 겹침 확인) */
+.studyWhy {
+  margin-top: 6px;
+}
 
 /* ════════ LM-W1 ③ Workspace 리스트 — 캔버스 바로 아래 · 컴팩트 행 · 최대 높이 안에서만 스크롤 ════════ */
 .wsList {
