@@ -9,7 +9,7 @@
    - **A = 현재 main 기준:** 「다음 같은 유형에 옮길 한 줄 규칙 + 첫 십 초에 할 일」
    - **B = v3 후보:** `GRADER_formula_v3_candidate.md` 의 판정 순서
 3. 이 정리 규칙이 학습자에게 틀린 일반 규칙을 가르치는지 **예 / 아니오 / 모름** 으로 답하고, 예라면 반례 문항 ID 를 적는다.
-4. 결과는 `human_scores_<채점자>.csv` 로 저장한다. 열: `blind,score_A,score_B,teaches_wrong_rule,counterexample,memo`
+4. 결과는 `human_scores_<채점자>.csv` 로 저장한다. 열과 2단계(반례 자료) 절차·판정 기준은 `../g/A_T0148_HUMAN_EVAL_CONTRACT.md` 를 따른다
 
 ## 판정 기준 (사람 채점 후)
 
