@@ -188,7 +188,27 @@ describe('T-0154 Codex 독립 검증 반례 회귀', () => {
     const { glossMatches } = await import('../extraction')
     expect(glossMatches('constraint', 'constraints')).toBe(true)
     expect(glossMatches('body clock', 'clock')).toBe(true)
+    expect(glossMatches('kinaesthetically', 'kinaesthetically')).toBe(true)
     expect(glossMatches('pottery', 'Hours')).toBe(false)
+  })
+  it('G2 — 공통 접두어만 같은 정의(* hourglass)는 Hours* 의 짝이 아니다', async () => {
+    const { glossMatches } = await import('../extraction')
+    expect(glossMatches('hourglass', 'Hours')).toBe(false)
+    const r = structuredClone(row('2014A#29'))
+    const choices = r.item.choices as string[]
+    choices[4] = `${choices[4]} * hourglass: 모래시계`
+    const b = bindItem(r)
+    expect(b.reasons).toContain('footnote_missing')
+    expect(b.structure.footnotes.find((f) => f.term === 'Hours')?.precision).toBe('unavailable')
+  })
+  it.each([[null], [[]]])('G1 — 복수 정답인데 결속 판 선지 분석이 %j 이면 차단한다', (empty) => {
+    const r = structuredClone(row('H1811G1#27'))
+    r.item.answers = [3, 5]
+    r.analyses = r.analyses.map((a) => ({ ...a, choice_analysis: empty as never }))
+    const b = bindItem(r)
+    expect(b.coverage.status).toBe('no_analysis')
+    expect(b.reasons).toContain('multi_answer_partial_analysis')
+    expect(isBlocking('multi_answer_partial_analysis')).toBe(true)
   })
   it('F3 — 표지 뒤 밑줄 시작 낱말만 같은 길이로 고쳐도 marker 앵커가 무효가 된다', () => {
     const b = bind('2024#29')

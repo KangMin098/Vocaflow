@@ -28,8 +28,14 @@ export function glossesOf(text: string): { mark: string; term: string; gloss: st
 export function glossMatches(term: string, word: string): boolean {
   const w = word.toLowerCase().replace(/[’']s$/, '')
   if (w.length < 2) return false
-  const stem = (s: string) => s.slice(0, Math.max(4, Math.min(s.length, w.length) - 2))
-  return term.toLowerCase().split(/[\s-]+/).some((t) => t.length >= 2 && (t === w || (t.length >= 4 && w.length >= 4 && (t.startsWith(stem(w)) || w.startsWith(stem(t))))))
+  // 접두어 추정은 하지 않는다(Hours ↔ hourglass 를 짝으로 만든다 — T-0154 G2). 규칙 굴절만 허용한다
+  const forms = (s: string) => {
+    const out = new Set([s, `${s}s`, `${s}es`, `${s}ed`, `${s}d`, `${s}ing`, `${s}ly`])
+    if (s.endsWith('y')) for (const x of ['ies', 'ied']) out.add(s.slice(0, -1) + x)
+    if (s.endsWith('e')) out.add(`${s.slice(0, -1)}ing`)
+    return out
+  }
+  return term.toLowerCase().split(/[\s-]+/).some((t) => t.length >= 2 && (forms(t).has(w) || forms(w).has(t)))
 }
 
 /** 별표가 든 공백 단위 토큰이 주소·메일인가 — 안내문은 실제 주소를 「www.wabu*.com」 처럼 가린다(각주 표지가 아니다) */

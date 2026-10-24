@@ -192,7 +192,8 @@ export function bindItem(input: BindInput): BoundItem {
   const coverages = checked.map((a) => answerCoverage(answer, a.choice_analysis))
   // 화면이 보는 coverage 는 근거로 쓰는 판의 것. 결속 판이 없으면 최신 판
   const coverage: AnswerCoverage = coverages[0] ?? { status: 'no_analysis' }
-  const partial = coverages.some((c) => c.status === 'partial')
+  // 복수 정답은 「다 다뤘다(covered)」를 확인해야 통과 — 선지 분석이 비면(no_analysis) 확인 못 한 것이다(T-0154 G1)
+  const partial = coverages.some((c) => c.status !== 'covered')
   if (typeId === 'R-CHART') {
     for (const a of checked) {
       const loc = a.answer_locus ?? {}
