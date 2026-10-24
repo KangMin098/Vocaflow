@@ -246,7 +246,14 @@ export function readClaims(rawText: string, ctx: ClaimContext = {}): ClaimReadin
     }
     for (const { polarity, claim } of parsed.claims) {
       if (polarity === 'answer') answers.push(claim)
-      else for (const n of claim.choices) if (!rejected.includes(n)) rejected.push(n)
+      else {
+        for (const n of claim.choices) if (!rejected.includes(n)) rejected.push(n)
+        // 「②만 오답입니다」·「오직 ②는 오답」 = ② 말고는 **모두 정답**이라는 배타 진술(23차 P1) — 나머지 집합을 정답 주장으로도 판정
+        if (claim.exclusive) {
+          const rest = [1, 2, 3, 4, 5].filter((n) => !claim.choices.includes(n))
+          answers.push({ ...claim, choices: rest, exclusive: true, inclusive: false })
+        }
+      }
     }
   }
   // cue 전체에서 같은 선지를 정답·비정답으로 동시에 말하면 모순 — 이 cue 의 해석 전체를 사람 확인으로

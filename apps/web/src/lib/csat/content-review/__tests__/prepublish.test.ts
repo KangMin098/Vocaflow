@@ -653,3 +653,18 @@ describe('T-0158 22차 반례 — 모르는 지칭(숫자·지칭어)이 낀 전
     expect(run([5], '일 번은 두 번째 문장을 짚어 보세요. 맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 23차 반례 — 부정 진술의 배타 한정(②만 오답 = 나머지 모두 정답)', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'eliminate' as const, target: { kind: 'analysis' as const, id: 'reject:1' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) => validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['②만 오답입니다.', '오직 ②는 오답입니다.', '②만 정답이 아닙니다.'])('{5} · %s → 차단', (text) => {
+    expect(run([5], text).findings.map((f) => f.code)).toContain('CUE_WRONG_ANSWER')
+  })
+  it('한정 없는 부정은 그대로 통과', () => {
+    expect(run([5], '정답은 ②가 아닙니다.').findings).toEqual([])
+    expect(run([5], '②는 오답입니다.').findings).toEqual([])
+  })
+})
