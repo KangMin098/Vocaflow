@@ -1,0 +1,7 @@
+{
+ "file": "judgments-B2.json",
+ "source": "judgments-B2.raw.json",
+ "by": "orchestrator",
+ "rule": "revision_options[].label → chosen_label 키 이름만 변경(값 불변). 원인: 판정 프롬프트 예시에 필드 이름 누락(A2 도 같은 빈틈을 만남). 원본: judgments-B2.raw.json",
+ "count": 9
+}
