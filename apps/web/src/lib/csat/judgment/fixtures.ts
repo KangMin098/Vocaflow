@@ -28,7 +28,7 @@ export function itemsOf(type: FixtureType): JudgmentItem[] {
   return ITEMS[type].items
 }
 
-/** 공개 자료 — 동적 import 라 공개 전 번들 초기 경로에 정답이 실리지 않는다 */
+/** 공개 자료 — 테스트 · 격리 하네스 전용. 하네스(splitting:false)에서는 이 JSON 이 번들에 인라인되므로 공개 제어가 아니다(T-0151). 제품은 서버 판단 라우트(provider.ts)를 쓴다 */
 export async function revealOf(type: FixtureType, id: string): Promise<RevealData> {
   const slug = type.toLowerCase()
   const mod = (await import(`./fixtures/${slug}.reveal.json`)) as { default?: { reveal: RevealData[] }; reveal?: RevealData[] }

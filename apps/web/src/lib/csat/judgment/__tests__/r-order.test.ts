@@ -4,7 +4,7 @@ import { describe, expect, it } from 'vitest'
 import { checkReveal, leakedAnswerKeys, refsOf } from '../evidence'
 import { itemsOf, revealOf } from '../fixtures'
 import {
-  cautions, compareChoices, cueCandidates, junctions, makeLink, moveIn, parseChoiceOrder, parseOrder, revealNotes,
+  CUE_INFO, cautions, compareChoices, cueCandidates, junctions, makeLink, moveIn, parseChoiceOrder, parseOrder, revealNotes,
   type Arrangement, type Cue, type Link, type OrderModel,
 } from '../r-order'
 
@@ -69,8 +69,20 @@ describe('학습자 연결과 배열', () => {
   const c36 = cueCandidates(i36, m36)
   const forEx = link(cueOf(c36, /^For example$/), 'u5', m36)
   const later = link(cueOf(c36, /^Later$/), 'u2', m36)
-  it('같은 단락 안 문장은 연결 대상으로 받지 않는다', () => {
-    expect('error' in makeLink(cueOf(c36, /^Later$/), 'u4', m36)).toBe(true)
+  it('같은 단락 안 문장은 「단락 안에서 해소」로 받고, 단락 순서 연결로 세지 않는다', () => {
+    const r = makeLink(cueOf(c36, /^Later$/), 'u4', m36)
+    expect('inside' in r && r.inside).toBe(true)
+    expect('para' in r).toBe(false)
+  })
+  it('#36 (C) 문장 안 they/their 는 강한 단락 간 단서가 아니다 — 같은 문장 animals 로 해소(T-0151 P1-02)', () => {
+    const inner = c36.filter((c) => c.para === 'C' && /^(they|their)$/.test(c.text))
+    expect(inner.length).toBeGreaterThan(0)
+    for (const c of inner) {
+      expect(c.kind).toBe('pronounInner')
+      expect(CUE_INFO[c.kind].weak).toBe(true)
+      const r = makeLink(c, c.unitId, m36)
+      expect('inside' in r).toBe(true)
+    }
   })
   it('#36: For example→u5, Later→u2 이면 (C)-(A)-(B) 에서만 끊긴 연결 0', () => {
     const cmp = compareChoices(i36, ['A', 'B', 'C'], [forEx, later])

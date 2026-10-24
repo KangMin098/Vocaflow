@@ -41,7 +41,7 @@ export async function check(page, t) {
   const seamY = () => page.evaluate(() => Math.round(document.querySelector('[data-seam="back"]').getBoundingClientRect().top))
   const before = await seamY()
   await page.focus('[data-unit="u1"]'); await page.keyboard.press('Enter')
-  await page.click('[data-unit="u2"]')
+  await t.clickUnit('u2')
   const after = await page.evaluate(() => ({
     top: Math.round(document.querySelector('[data-seam="back"]').getBoundingClientRect().top),
     tab: document.querySelector('[role="tab"][aria-selected="true"]')?.getAttribute('data-slot'),
@@ -62,7 +62,7 @@ export async function check(page, t) {
   await t.shot('revealed')
 
   // 버튼 높이 · 가로 스크롤
-  const small = await page.evaluate(() => [...document.querySelectorAll('[data-scroll-pane="judgment"] button')].filter((b) => !b.hasAttribute('data-ref')).map((b) => b.getBoundingClientRect().height).filter((h) => h > 0 && h < 44))
+  const small = await page.evaluate(() => [...document.querySelectorAll('[data-scroll-pane="judgment"] button')].map((b) => b.getBoundingClientRect().height).filter((h) => h > 0 && h < 44))
   t.check('주요 버튼 높이 ≥44', small.length === 0, small)
   t.check('가로 스크롤 없음', await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
 
