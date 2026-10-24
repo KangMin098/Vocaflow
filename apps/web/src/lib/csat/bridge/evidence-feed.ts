@@ -6,7 +6,7 @@
 //   하나라도 모르면 held(UNKNOWN 보존) — 실패로 바꾸지도, 독립으로 올리지도 않는다.
 
 import { meaningOfAttempt, type ActivityMeaning } from './activity-meaning'
-import { exposureLevelOf, type AttemptForExposure, type ExposureLevel, type ExposureRow, type IndependenceStatus } from './exposure-consumer'
+import { exposureLevelOf, type AttemptForExposure, type ExposureLevel, type ExposureRow, type IndependenceStatus, type PassageOf } from './exposure-consumer'
 import type { ThinkingSkillId } from './skill-map'
 
 export interface FeedAttempt extends AttemptForExposure {
@@ -47,7 +47,7 @@ const HELD: ReadonlySet<FeedRejection> = new Set(['independence_unknown', 'expos
 /**
  * rows = P6 원장 행(null = 못 읽음 · 설치 전). currentHash = 문항 → 지금 분석 판본 해시(undefined/null = 모름).
  */
-export function buildEvidenceFeed(attempts: readonly FeedAttempt[], rows: readonly ExposureRow[] | null, currentHash: (itemRef: string, taskKey: string) => string | null | undefined): EvidenceFeed {
+export function buildEvidenceFeed(attempts: readonly FeedAttempt[], rows: readonly ExposureRow[] | null, currentHash: (itemRef: string, taskKey: string) => string | null | undefined, passageOf: PassageOf): EvidenceFeed {
   const out: EvidenceFeed = { accepted: [], rejected: [], held: [], learningEffect: 'NOT_EVALUATED' }
   const seen = new Set<string>()
   const reject = (a: FeedAttempt, reason: FeedRejection, meaning: ActivityMeaning | null) => {
@@ -59,7 +59,8 @@ export function buildEvidenceFeed(attempts: readonly FeedAttempt[], rows: readon
     seen.add(a.attemptId)
     if (!a.itemRef || a.isCorrect === null) { reject(a, 'not_performed', null); continue }
     if (rows === null) { reject(a, 'ledger_unavailable', null); continue }
-    const level = exposureLevelOf(a, rows).level
+    // K6-a: DB 의 independent_candidate 는 같은 item_ref 노출만 본다 — 같은 지문 노출은 여기 노출 수준이 막는다
+    const level = exposureLevelOf(a, rows, passageOf).level
     const meaning = meaningOfAttempt(a.independence, level)
     if (meaning.kind === 'post_explanation_check' || meaning.kind === 'helped_attempt') { reject(a, 'helped_or_exposed', meaning); continue }
     if (meaning.kind === 'not_evidence') { reject(a, 'not_check_phase', meaning); continue }

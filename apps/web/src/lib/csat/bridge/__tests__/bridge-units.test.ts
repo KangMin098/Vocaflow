@@ -12,6 +12,8 @@ const T0 = '2026-10-24T01:00:00.000Z'
 const before = '2026-10-24T00:59:00.000Z'
 const after = '2026-10-24T01:01:00.000Z'
 const base: AttemptForExposure = { itemRef: '2024#21', exposureOrderAt: T0, helpLevel: 'independent', afterExplanation: false, afterViewedFirst: false, timingUncertain: false }
+const PASSAGES: Record<string, string> = { '2024#21': 'p1', '2024#22': 'p2', '2024#23': 'p1', '2024#99': 'p9' }
+const P = (ref: string) => PASSAGES[ref]
 const row = (o: Partial<ExposureRow> = {}): ExposureRow => ({ itemRef: '2024#21', kind: 'answer_direct', source: 'lecture_full', receivedAt: before, clockSuspect: false, analysisVersion: 1, ...o })
 
 describe('H7 사고 기능 ↔ TASK 매핑', () => {
@@ -38,35 +40,35 @@ describe('H7 사고 기능 ↔ TASK 매핑', () => {
 
 describe('H4 P6 노출 소비자(R1~R12)', () => {
   it('추적 이전 · 문항 없음은 X_UNKNOWN', () => {
-    expect(exposureLevelOf({ ...base, exposureOrderAt: null }, []).rule).toBe('R1')
-    expect(exposureLevelOf({ ...base, itemRef: null }, []).rule).toBe('R2')
+    expect(exposureLevelOf({ ...base, exposureOrderAt: null }, [], P).rule).toBe('R1')
+    expect(exposureLevelOf({ ...base, itemRef: null }, [], P).rule).toBe('R2')
   })
   it('창 안 정답 노출은 X3 · 동률 포함 · 시도 뒤 노출은 앞 판정을 바꾸지 않는다', () => {
-    expect(exposureLevelOf(base, [row()]).level).toBe('X3')
-    expect(exposureLevelOf(base, [row({ receivedAt: T0 })]).level).toBe('X3')
-    expect(exposureLevelOf(base, [row({ receivedAt: after })]).level).toBe('X0')
+    expect(exposureLevelOf(base, [row()], P).level).toBe('X3')
+    expect(exposureLevelOf(base, [row({ receivedAt: T0 })], P).level).toBe('X3')
+    expect(exposureLevelOf(base, [row({ receivedAt: after })], P).level).toBe('X0')
   })
   it('다른 문항 노출은 이 시도에 영향 없음', () => {
-    expect(exposureLevelOf(base, [row({ itemRef: '2024#22' })]).level).toBe('X0')
+    expect(exposureLevelOf(base, [row({ itemRef: '2024#22' })], P).level).toBe('X0')
   })
   it('해설 · 정답 먼저 보기 · viewed_first 는 X3, 결정적 단서는 X2', () => {
-    expect(exposureLevelOf({ ...base, afterExplanation: true }, []).rule).toBe('R4')
-    expect(exposureLevelOf({ ...base, afterViewedFirst: true }, []).rule).toBe('R5')
-    expect(exposureLevelOf({ ...base, helpLevel: 'viewed_first' }, []).rule).toBe('R6')
-    expect(exposureLevelOf(base, [row({ kind: 'decisive_hint' })]).level).toBe('X2')
+    expect(exposureLevelOf({ ...base, afterExplanation: true }, [], P).rule).toBe('R4')
+    expect(exposureLevelOf({ ...base, afterViewedFirst: true }, [], P).rule).toBe('R5')
+    expect(exposureLevelOf({ ...base, helpLevel: 'viewed_first' }, [], P).rule).toBe('R6')
+    expect(exposureLevelOf(base, [row({ kind: 'decisive_hint' })], P).level).toBe('X2')
   })
   it('시계 의심 · 시각 보류 · 도움 기록 없음은 UNKNOWN, hint 는 X1', () => {
-    expect(exposureLevelOf(base, [row({ kind: 'decisive_hint', clockSuspect: true })]).level).toBe('X2')
-    expect(exposureLevelOf(base, [row({ receivedAt: 'bad' })]).rule).toBe('R8')
-    expect(exposureLevelOf({ ...base, timingUncertain: true }, []).rule).toBe('R9')
-    expect(exposureLevelOf({ ...base, helpLevel: null }, []).rule).toBe('R10')
-    expect(exposureLevelOf({ ...base, helpLevel: 'hint' }, []).level).toBe('X1')
-    expect(exposureLevelOf(base, []).external).toBe('UNKNOWN')
+    expect(exposureLevelOf(base, [row({ kind: 'decisive_hint', clockSuspect: true })], P).level).toBe('X2')
+    expect(exposureLevelOf(base, [row({ receivedAt: 'bad' })], P).rule).toBe('R8')
+    expect(exposureLevelOf({ ...base, timingUncertain: true }, [], P).rule).toBe('R9')
+    expect(exposureLevelOf({ ...base, helpLevel: null }, [], P).rule).toBe('R10')
+    expect(exposureLevelOf({ ...base, helpLevel: 'hint' }, [], P).level).toBe('X1')
+    expect(exposureLevelOf(base, [], P).external).toBe('UNKNOWN')
   })
   it('문항 단위 현재 노출 · 원장 없음은 unknown', () => {
     expect(itemExposureNow('2024#21', null)).toBe('unknown')
-    expect(itemExposureNow('2024#21', [row({ kind: 'decisive_hint' })])).toBe('hint_seen')
-    expect(itemExposureNow('2024#99', [row()])).toBe('none_observed')
+    expect(itemExposureNow('2024#21', [row({ kind: 'decisive_hint' })], P)).toBe('hint_seen')
+    expect(itemExposureNow('2024#99', [row()], P)).toBe('none_observed')
     expect(parseIndependence('independent_candidate')).toBe('independent_candidate')
     expect(parseIndependence('mastered')).toBeNull()
   })
@@ -96,30 +98,30 @@ const fa = (o: Partial<FeedAttempt> = {}): FeedAttempt => ({ ...base, attemptId:
 describe('H5 증거 공급 계약', () => {
   const hash = () => 'h1'
   it('유효한 독립 수행만 공급', () => {
-    const f = buildEvidenceFeed([fa()], [], hash)
+    const f = buildEvidenceFeed([fa()], [], hash, P)
     expect(f.accepted).toHaveLength(1)
     expect(f.accepted[0].scope).toBe('observed_independent')
     expect(f.learningEffect).toBe('NOT_EVALUATED')
   })
   it('원장 못 읽음 · 독립 판정 실패 · 판본 변경은 보류(UNKNOWN 보존)', () => {
-    expect(buildEvidenceFeed([fa()], null, hash).held[0].reason).toBe('ledger_unavailable')
-    expect(buildEvidenceFeed([fa({ independence: null })], [], hash).held[0].reason).toBe('independence_unknown')
-    expect(buildEvidenceFeed([fa({ contentHash: 'h0' })], [], hash).held[0].reason).toBe('stale_analysis')
-    expect(buildEvidenceFeed([fa()], [], () => undefined).held[0].reason).toBe('stale_analysis')
+    expect(buildEvidenceFeed([fa()], null, hash, P).held[0].reason).toBe('ledger_unavailable')
+    expect(buildEvidenceFeed([fa({ independence: null })], [], hash, P).held[0].reason).toBe('independence_unknown')
+    expect(buildEvidenceFeed([fa({ contentHash: 'h0' })], [], hash, P).held[0].reason).toBe('stale_analysis')
+    expect(buildEvidenceFeed([fa()], [], () => undefined, P).held[0].reason).toBe('stale_analysis')
   })
   it('도움 · 정답 노출 뒤 · 반복 · 미채점 · 중복은 거절', () => {
-    expect(buildEvidenceFeed([fa()], [row()], hash).rejected[0].reason).toBe('helped_or_exposed')
-    expect(buildEvidenceFeed([fa({ independence: 'repeat' })], [], hash).rejected[0].reason).toBe('not_check_phase')
-    expect(buildEvidenceFeed([fa({ isCorrect: null })], [], hash).rejected[0].reason).toBe('not_performed')
-    const d = buildEvidenceFeed([fa(), fa()], [], hash)
+    expect(buildEvidenceFeed([fa()], [row()], hash, P).rejected[0].reason).toBe('helped_or_exposed')
+    expect(buildEvidenceFeed([fa({ independence: 'repeat' })], [], hash, P).rejected[0].reason).toBe('not_check_phase')
+    expect(buildEvidenceFeed([fa({ isCorrect: null })], [], hash, P).rejected[0].reason).toBe('not_performed')
+    const d = buildEvidenceFeed([fa(), fa()], [], hash, P)
     expect(d.accepted).toHaveLength(1)
     expect(d.rejected[0].reason).toBe('duplicate')
   })
   it('숙달 주장은 서로 다른 지문 2개 이상 — 그래도 NOT_ESTABLISHED', () => {
-    const one = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#22' })], [], hash)
+    const one = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#22' })], [], hash, P)
     expect(skillClaimOf(one, 'central_generalize')).toEqual({ claim: 'single_independent_success', passages: 1, mastery: 'NOT_ESTABLISHED' })
     expect(promotionGate(one, ['1', '2'])).toEqual({ ok: false, reason: 'single_passage' })
-    const two = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#22', passageKey: 'p2' })], [], hash)
+    const two = buildEvidenceFeed([fa(), fa({ attemptId: '2', itemRef: '2024#22', passageKey: 'p2' })], [], hash, P)
     expect(skillClaimOf(two, 'central_generalize').claim).toBe('repeated_independent_success')
     expect(promotionGate(two, ['1', '2'])).toEqual({ ok: true })
     expect(promotionGate(two, ['1', '9'])).toEqual({ ok: false, reason: 'invalid_evidence' })
@@ -148,5 +150,25 @@ describe('H6 왕복 문맥', () => {
     expect(bridgeReturnNotes(null, { analysisVersion: '2' }, 3)).toEqual([{ kind: 'analysis_changed', from: 2, to: 3 }])
     expect(bridgeReturnNotes(null, { analysisVersion: '2' }, null)).toEqual([])
     expect(bridgeReturnNotes(null, { analysisVersion: '2' }, 2)).toEqual([])
+  })
+})
+
+describe('K6-a 같은 지문 공유 문항 노출', () => {
+  it('같은 지문의 다른 문항에서 정답을 봤으면 이 문항 시도도 X3 — DB 함수가 independent_candidate 를 내도 공급하지 않는다', () => {
+    const sibling = row({ itemRef: '2024#23' }) // 2024#21 과 같은 지문 p1
+    expect(exposureLevelOf(base, [sibling], P)).toMatchObject({ level: 'X3', rule: 'R3' })
+    const f = buildEvidenceFeed([fa()], [sibling], () => 'h1', P)
+    expect(f.accepted).toHaveLength(0)
+    expect(f.rejected[0].reason).toBe('helped_or_exposed')
+    expect(itemExposureNow('2024#21', [sibling], P)).toBe('answer_seen')
+  })
+  it('지문을 식별하지 못하면 기록이 없어도 X0 을 주지 않는다', () => {
+    expect(exposureLevelOf(base, [], () => undefined)).toMatchObject({ level: 'X_UNKNOWN', rule: 'passage_unknown' })
+    expect(exposureLevelOf(base, [])).toMatchObject({ level: 'X_UNKNOWN', rule: 'passage_unknown' })
+    expect(exposureLevelOf({ ...base, helpLevel: 'hint' }, [], () => undefined).level).toBe('X_UNKNOWN')
+    // 원장에 지문 미상 문항 노출이 있으면 이 문항과 같은 지문인지 모른다
+    expect(exposureLevelOf(base, [row({ itemRef: '1999#1' })], P).level).toBe('X_UNKNOWN')
+    expect(itemExposureNow('2024#99', [row({ itemRef: '1999#1' })], P)).toBe('unknown')
+    expect(buildEvidenceFeed([fa()], [], () => 'h1', () => undefined).held[0].reason).toBe('exposure_unknown')
   })
 })

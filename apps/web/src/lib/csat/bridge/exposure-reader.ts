@@ -1,12 +1,15 @@
 // apps/web/src/lib/csat/bridge/exposure-reader.ts
 //
-// H4 — P6 노출 원장 서버 reader(읽기 전용). 학습자 세션 클라이언트로 본인 행만 읽는다(RLS learning_exposures_own_select).
+// H4 — P6 노출 원장 서버 reader(읽기 전용). 쓰기(learning_exposure_record)는 하지 않는다 — 기록 경로는 판단 장면 owner(T-0147) 몫이다.
+//   인증 경계: userId 는 호출자가 서버에서 인증한 값(auth.getUser)이어야 한다. 학습자 세션 클라이언트면 RLS(본인 행만)가 한 번 더 막고,
+//   서버 전용 클라이언트를 넘기면 user_id 조건만 남는다 — 요청 본문 · 주소의 사용자 id 를 넘기지 않는다.
+//   K6-a: 문항으로 걸러 읽지 않고 그 학습자 원장 전체를 읽는다(같은 지문의 다른 문항 노출을 놓치지 않게). 지문 키는 앱 원장과 같은 정규화 해시.
 //   표 · 함수가 없으면 not_installed(정상 0건과 구별), 다른 오류 · 잘림은 error — 일부만 읽은 원장을 「노출 없음」 근거로 쓰지 않는다.
-//   쓰기(learning_exposure_record)는 하지 않는다 — 기록 경로는 강의 · 판단 장면 owner(T-0147) 몫이다.
 import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { normalizedPassageKey } from '../map/v62/exposure-ledger'
 import { parseIndependence, type ExposureRow, type IndependenceStatus } from './exposure-consumer'
 
 const LIMIT = 2000
@@ -20,12 +23,9 @@ export type ExposureRead =
 type Row = Record<string, unknown>
 const code = (e: unknown) => (e as { code?: string } | null)?.code ?? ''
 
-export async function readExposures(db: SupabaseClient, userId: string, itemRefs: readonly string[]): Promise<ExposureRead> {
-  const refs = [...new Set(itemRefs)]
+export async function readExposures(db: SupabaseClient, userId: string): Promise<ExposureRead> {
   const [ex, tr] = await Promise.all([
-    refs.length
-      ? db.from('learning_exposures').select('item_ref, kind, source, received_at, clock_suspect, analysis_version', { count: 'exact' }).eq('user_id', userId).in('item_ref', refs).limit(LIMIT)
-      : Promise.resolve({ data: [] as Row[], error: null, count: 0 }),
+    db.from('learning_exposures').select('item_ref, kind, source, received_at, clock_suspect, analysis_version', { count: 'exact' }).eq('user_id', userId).limit(LIMIT),
     db.from('learning_exposure_tracking').select('started_at').limit(1),
   ])
   if (ex.error || tr.error) return MISSING.has(code(ex.error)) || MISSING.has(code(tr.error)) ? { status: 'not_installed' } : { status: 'error' }
@@ -37,6 +37,21 @@ export async function readExposures(db: SupabaseClient, userId: string, itemRefs
   }
   const started = Array.isArray(tr.data) && tr.data[0] && typeof (tr.data[0] as Row).started_at === 'string' ? String((tr.data[0] as Row).started_at) : null
   return { status: 'ok', rows, trackingStartedAt: started }
+}
+
+/** 문항(`시험#번호`) → 정규화 지문 키. 조회 실패면 null(전체 판정 보류), 지문이 비면 그 문항만 키 없음 */
+export async function readPassageKeys(db: SupabaseClient, itemRefs: readonly string[]): Promise<Record<string, string> | null> {
+  const exams = [...new Set(itemRefs.map((x) => x.split('#')[0]).filter(Boolean))]
+  const out: Record<string, string> = {}
+  for (let i = 0; i < exams.length; i += 10) {
+    const { data, error } = await db.from('csat_items').select('exam_id, no, passage').in('exam_id', exams.slice(i, i + 10))
+    if (error || !Array.isArray(data)) return null
+    for (const row of data as { exam_id: string; no: number; passage: unknown }[]) {
+      const k = normalizedPassageKey(row.passage)
+      if (k) out[`${row.exam_id}#${row.no}`] = k
+    }
+  }
+  return out
 }
 
 /** 시도별 독립 후보 판정(P6 RPC) — 하나라도 실패하면 그 시도는 null(보류). 함수가 없으면 not_installed */

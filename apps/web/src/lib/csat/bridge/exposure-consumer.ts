@@ -31,24 +31,38 @@ export interface AttemptForExposure {
   timingUncertain: boolean
 }
 
+/**
+ * 문항 → 정규화 지문 키(exposure-ledger.normalizedPassageKey). undefined/null = 식별 불가.
+ * K6-a: DB 함수 learning_attempt_independence 는 같은 item_ref 만 본다. 앱 원장(exposure-ledger)은 같은 지문을 쓰는 다른 문항의 노출도 노출로 본다.
+ * 이 소비자는 앱 기준을 따른다 — 같은 지문 문항의 정답 노출은 이 시도에도 노출이고, 지문을 식별하지 못하면 X0 을 주지 않는다.
+ */
+export type PassageOf = (itemRef: string) => string | null | undefined
+
 export interface ExposureJudgement {
   level: ExposureLevel
-  rule: 'R1' | 'R2' | 'R3' | 'R4' | 'R5' | 'R6' | 'R7' | 'R8' | 'R9' | 'R10' | 'R11' | 'R12' | 'default'
+  rule: 'R1' | 'R2' | 'R3' | 'R4' | 'R5' | 'R6' | 'R7' | 'R8' | 'R9' | 'R10' | 'R11' | 'R12' | 'passage_unknown' | 'default'
   /** 서버가 관측할 수 없는 외부 노출(답지 · 검색 · 교재 · 구두 도움) — 언제나 UNKNOWN */
   external: 'UNKNOWN'
 }
 
 const at = (s: string) => Date.parse(s)
 
-/** 시도 하나의 노출 수준 — rows 는 그 학습자의 원장 행(다른 문항 행이 섞여도 된다) */
-export function exposureLevelOf(a: AttemptForExposure, rows: readonly ExposureRow[]): ExposureJudgement {
+/**
+ * 시도 하나의 노출 수준 — rows 는 그 학습자의 **전체** 원장 행(문항으로 걸러 읽으면 같은 지문의 다른 문항 노출을 놓친다).
+ * passageOf 가 없거나 이 문항 · 원장 행 문항의 지문을 식별하지 못하면 X0 을 주지 않는다(passage_unknown).
+ */
+export function exposureLevelOf(a: AttemptForExposure, rows: readonly ExposureRow[], passageOf?: PassageOf): ExposureJudgement {
   const j = (level: ExposureLevel, rule: ExposureJudgement['rule']): ExposureJudgement => ({ level, rule, external: 'UNKNOWN' })
   if (!a.exposureOrderAt || !Number.isFinite(at(a.exposureOrderAt))) return j('X_UNKNOWN', 'R1')
   if (!a.itemRef) return j('X_UNKNOWN', 'R2')
   const order = at(a.exposureOrderAt)
-  const win = rows.filter((r) => r.itemRef === a.itemRef && Number.isFinite(at(r.receivedAt)) && at(r.receivedAt) <= order)
-  // 시각을 읽을 수 없는 같은 문항 행 — 창 안인지 모른다
-  const unreadable = rows.some((r) => r.itemRef === a.itemRef && !Number.isFinite(at(r.receivedAt)))
+  const mine = passageOf?.(a.itemRef) ?? null
+  // 같은 문항, 또는 같은 지문을 쓰는 다른 문항의 노출
+  const related = (r: ExposureRow) => r.itemRef === a.itemRef || (mine !== null && passageOf?.(r.itemRef) === mine)
+  const passageUnknown = mine === null || rows.some((r) => r.itemRef !== a.itemRef && !passageOf?.(r.itemRef))
+  const win = rows.filter((r) => related(r) && Number.isFinite(at(r.receivedAt)) && at(r.receivedAt) <= order)
+  // 시각을 읽을 수 없는 관련 행 — 창 안인지 모른다
+  const unreadable = rows.some((r) => related(r) && !Number.isFinite(at(r.receivedAt)))
   if (win.some((r) => r.kind === 'answer_direct')) return j('X3', 'R3')
   if (a.afterExplanation) return j('X3', 'R4')
   if (a.afterViewedFirst) return j('X3', 'R5')
@@ -57,17 +71,20 @@ export function exposureLevelOf(a: AttemptForExposure, rows: readonly ExposureRo
   if (win.some((r) => r.clockSuspect) || unreadable) return j('X_UNKNOWN', 'R8')
   if (a.timingUncertain) return j('X_UNKNOWN', 'R9')
   if (a.helpLevel === null) return j('X_UNKNOWN', 'R10')
-  if (a.helpLevel === 'hint') return j('X1', 'R11')
-  if (a.helpLevel === 'independent' && win.length === 0) return j('X0', 'R12')
+  if (a.helpLevel === 'hint') return passageUnknown ? j('X_UNKNOWN', 'passage_unknown') : j('X1', 'R11')
+  if (a.helpLevel === 'independent' && win.length === 0) return passageUnknown ? j('X_UNKNOWN', 'passage_unknown') : j('X0', 'R12')
   return j('X_UNKNOWN', 'default')
 }
 
 /** 문항 단위(아직 시도 전) — 지금까지 원장에 정답 · 결정적 단서 노출이 있는가. 원장을 못 읽었으면 unknown */
-export function itemExposureNow(itemRef: string, rows: readonly ExposureRow[] | null): 'answer_seen' | 'hint_seen' | 'none_observed' | 'unknown' {
+export function itemExposureNow(itemRef: string, rows: readonly ExposureRow[] | null, passageOf?: PassageOf): 'answer_seen' | 'hint_seen' | 'none_observed' | 'unknown' {
   if (rows === null) return 'unknown'
-  const mine = rows.filter((r) => r.itemRef === itemRef)
+  const p = passageOf?.(itemRef) ?? null
+  const mine = rows.filter((r) => r.itemRef === itemRef || (p !== null && passageOf?.(r.itemRef) === p))
   if (mine.some((r) => r.kind === 'answer_direct')) return 'answer_seen'
   if (mine.some((r) => r.kind === 'decisive_hint')) return 'hint_seen'
+  // 지문을 식별하지 못하면 「관측된 노출 없음」도 확정하지 않는다
+  if (p === null || rows.some((r) => r.itemRef !== itemRef && !passageOf?.(r.itemRef))) return 'unknown'
   return 'none_observed'
 }
 
