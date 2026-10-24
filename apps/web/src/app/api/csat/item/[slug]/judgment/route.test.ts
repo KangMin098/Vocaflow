@@ -86,7 +86,9 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
 
   it('비로그인 401 · 기록 없음', async () => {
     st.user = null
-    expect((await call()).status).toBe(401)
+    const res = await call()
+    expect(res.status).toBe(401)
+    expect(res.headers.get('cache-control')).toBe('no-store')
     expect(st.calls).toEqual([])
   })
 

@@ -79,7 +79,7 @@ import {
 import type { Pattern, Transform } from '@/lib/csat/design'
 import { committedOf, grade, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
 import { answerWithheld, boundaryGate, gateBlocks, gatedLiveKey, type AnswerGateState } from '@/lib/csat/lecture/answer-gate'
-import { mergeReveal, type AnswerReveal } from '@/lib/csat/lecture/answer-split'
+import { mergeMeaningSupport, mergeReveal, type AnswerReveal } from '@/lib/csat/lecture/answer-split'
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
@@ -226,7 +226,7 @@ export function AnalysisTheater({
   gate: initialGate,
   analysisVersion = null,
   typeId,
-  meaningSupport = null,
+  meaningSupport: initialMeaningSupport = null,
   initialMeaning = null,
   initialDepth = 'brief',
   initialRelation = null,
@@ -586,7 +586,7 @@ export function AnalysisTheater({
   // 자기 설명 · 원리 노트 작성 초안은 없다(T-0091 학습 정리 전환) — 탭 메모리의 옛 초안 칸(item-tab-memory)은 손대지 않고 둔다
   // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이 · 구절)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다.
   //   주소에는 검증된 meaning · depth · rel · bridge 만 싣는다(초안 · 구절 선택은 싣지 않는다). 뒤로/앞으로는 주소에서 모두 되살린다.
-  const ms = meaningSupport
+  const ms = useMemo(() => mergeMeaningSupport(initialMeaningSupport, revealed?.msBridges), [initialMeaningSupport, revealed])
   const [msUnit, setMsUnit] = useState<string | null>(initialMeaning ?? ms?.defaultUnitId ?? null)
   const [msRelation, setMsRelation] = useState<string | null>(initialRelation)
   const [msDepth, setMsDepth] = useState<MsDepth>(initialDepth)
@@ -873,9 +873,13 @@ export function AnalysisTheater({
   const sceneBlocks = shownBlocks.filter((b) => sceneOfBlock(b.kind) === scene)
   const sceneChecks = checks.filter((c) => sceneOfCheck(c.kind) === scene)
   // 동의 전 정답 · 소거를 다루는 다른 패널(판단 · 오답 설계 · 이해 확인 · 비교)도 같은 자리표시로 — 장면을 여는 것은 동의가 아니다(r4 R4-01 · R4-03)
-  const requestReveal = async (source: 'judgment_scene' | 'lecture_full' | 'lecture_continue') => {
-    if (revealed) return setAnswerConsent(true)
-    if (revealState === 'pending') return
+  // 성공(서버가 노출 원장을 커밋하고 공개 자료를 돌려줌)이면 true — 정답이 담긴 강의(전체 · 경계 계속)는 true 를 받은 뒤에만 튼다(R147-03)
+  const requestReveal = async (source: 'judgment_scene' | 'lecture_full' | 'lecture_continue'): Promise<boolean> => {
+    if (revealed) {
+      setAnswerConsent(true)
+      return true
+    }
+    if (revealState === 'pending') return false
     setRevealState('pending')
     try {
       const res = await fetch(`/api/csat/item/${toItemSlug(itemId)}/judgment`, {
@@ -889,9 +893,11 @@ export function AnalysisTheater({
       setRevealed(body.reveal)
       setAnswerConsent(true)
       setRevealState('idle')
+      return true
     } catch {
       // 기록 실패 · 판본 변경 · 보류 — 정답을 보이지 않는다(서버도 보내지 않았다)
       setRevealState('failed')
+      return false
     }
   }
   const revealButton = (
@@ -971,15 +977,21 @@ export function AnalysisTheater({
     setChooser(null)
     setAtBoundary(false)
     setBoundaryNote(null)
+    // 「전체(정답 포함)」 는 정답 공개 동의다 — 노출 원장 기록이 성공한 뒤에만 경로를 정하고 강의를 받는다. 실패하면 다시 고르게 둔다(R147-03)
+    if (p === 'full') {
+      void requestReveal('lecture_full').then((ok) => {
+        if (!ok) return setChooser({ from, byLearner: false })
+        setLecturePath('full')
+        lec?.start(from, 'start', 'full')
+      })
+      return
+    }
     setLecturePath(p)
     if (p === 'until') setAnswerHide(true)
-    // 「전체(정답 포함)」 를 고른 것은 정답 공개 동의다
-    if (p === 'full') void requestReveal('lecture_full')
     // 경계 뒤에 서 있던 차례는 경계 앞으로 — 고른 순간 정답 블록이 강조되지 않게
     if (p === 'until' && stopAt != null && cursor >= stopAt && !playing) setCursor(Math.max(0, stopAt - 1))
     if (!lec || p === 'self') return
     if (p === 'until') lec.start(untilFrom(from), 'start', 'until')
-    else lec.start(from, 'start', 'full')
   }
   // 포커스는 학습자가 연 경우에만 옮긴다 — 강의가 경계에 닿거나 서버가 거절해 열린 안내는 aria-live 로만 알린다(T-0140 Codex P2)
   useEffect(() => {
@@ -1000,9 +1012,12 @@ export function AnalysisTheater({
   const continuePastBoundary = () => {
     setAtBoundary(false)
     setBoundaryNote(null)
-    void requestReveal('lecture_continue')
-    setLecturePath('full')
-    if (lec && stopAt != null) lec.start(stopAt, 'start', 'full')
+    // 경계 뒤(정답 cue)는 노출 원장 기록이 성공한 뒤에만 받는다 — 실패하면 경계 안내를 다시 연다(R147-03)
+    void requestReveal('lecture_continue').then((ok) => {
+      if (!ok) return setAtBoundary(true)
+      setLecturePath('full')
+      if (lec && stopAt != null) lec.start(stopAt, 'start', 'full')
+    })
   }
 
   const move = (delta: number) => {

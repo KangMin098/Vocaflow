@@ -14,6 +14,7 @@
 
 import type { ComparePair } from '@/components/csat/theater/ComparePairs'
 import type { InquiryRecord, V3PairView } from '@/lib/csat/inquiry/labels'
+import type { MeaningSupportView } from '@/lib/csat/meaning-support/labels'
 import type { MapAnchor, MapPlacement } from '@/lib/csat/passage-map-model'
 import type { GateKey } from '@/lib/csat/reveal-gate'
 import type { TheaterBlock } from '@/lib/csat/theater'
@@ -43,12 +44,17 @@ export interface AnswerReveal {
   v3Choices: { pairId: string; choices: { self?: number[]; other?: number[] }[] }[]
   inquiry: Pick<InquiryRecord, 'distractors' | 'principle'> & { v3?: { choices: NonNullable<InquiryRecord['v3']>['choices']; claims: NonNullable<InquiryRecord['v3']>['design']['claims']; limitation: string; conditions: string[]; meanings: NonNullable<InquiryRecord['v3']>['meanings'] } }
   gate: { answer: number | null; evidence: number[]; selection: string | null; transform_note: string | null }
+  /** 원문 이해 교수 설명의 단위 ↔ 선지 · 설계 주장 연결(`splitMeaningSupport`) — 교수 설명이 없으면 null */
+  msBridges?: MeaningSupportView['bridges'] | null
 }
 
 const ANSWER_CHIP = /^정답 \S+$/
 /** 의미 단위 설명이 정답 · 특정 선지를 가리키는가(실제 정본 4건: 「정답 제목 …」 · 「빈칸 선지 ④의 …」) */
 const POINTS_AT_CHOICE = /정답|선지\s*[①-⑤\d]|\d\s*번\s*선지/
-const confirms = (b: TheaterBlock) => b.kind === 'answer' || b.kind === 'reject'
+// 첫 응답에 남기는 블록은 머리(문항 이름 · 유형 · 배점 — 정답 칩은 바꾼다)와 어휘뿐이다. 재는 능력 · 출제 의도 · 절차도 문항별 풀이라
+// 실제 분석에 정답 성분 · 소거 순서가 들어 있다(T-0147 Codex R147-02: 2015#33 의도 「정답이 '크다 + 느슨하다 + 경쟁적이다' …」,
+// 분석 산출물 1,165행 중 507행 후보). 문장 단위 결정성 감수 전까지는 블록째 공개 응답으로 옮긴다(fail-closed)
+const confirms = (b: TheaterBlock) => b.kind !== 'head' && b.kind !== 'vocab'
 
 /** 전체 자료 → 첫 응답(정답 없음) + 공개 응답 */
 export function splitAnswer(full: TheaterAnswerData, analysisVersion: number | null): { initial: TheaterAnswerData; reveal: AnswerReveal } {
@@ -116,7 +122,7 @@ export function splitAnswer(full: TheaterAnswerData, analysisVersion: number | n
 export function mergeReveal(initial: TheaterAnswerData, reveal: AnswerReveal): TheaterAnswerData {
   const head = reveal.blocks.find((b) => b.kind === 'head')
   const base = initial.blocks.map((b) => (b.kind === 'head' && head ? head : b))
-  const at = base.findIndex((b) => b.kind === 'procedure' || b.kind === 'vocab')
+  const at = base.findIndex((b) => b.kind === 'vocab')
   const add = reveal.blocks.filter((b) => b.kind !== 'head')
   const blocks = at < 0 ? [...base, ...add] : [...base.slice(0, at), ...add, ...base.slice(at)]
   const v3 = initial.inquiry?.v3
@@ -156,4 +162,17 @@ export function mergeReveal(initial: TheaterAnswerData, reveal: AnswerReveal): T
       design: initial.gate.design ? { ...initial.gate.design, selection: reveal.gate.selection ?? '', transform_note: reveal.gate.transform_note ?? '' } : initial.gate.design,
     },
   }
+}
+
+/**
+ * 원문 이해 교수 설명(meaningSupport) — 단위 · 명제 · 관계 설명(근거 탐색)은 첫 응답에 두고, 단위 ↔ 선지 번호 · 설계 주장 연결(bridges)만
+ * 공개 응답으로 옮긴다(T-0147 Codex R147-01: ready 27건 전부 choiceNumbers 가 정답 선지를 가리켰다 · 2026#21 u1 → 선지 2).
+ */
+export function splitMeaningSupport(view: MeaningSupportView | null): { initial: MeaningSupportView | null; bridges: MeaningSupportView['bridges'] | null } {
+  if (!view) return { initial: null, bridges: null }
+  return { initial: { ...view, bridges: view.bridges.map((b) => ({ ...b, choiceNumbers: [], designClaimIndices: [] })) }, bridges: view.bridges }
+}
+
+export function mergeMeaningSupport(initial: MeaningSupportView | null, bridges: MeaningSupportView['bridges'] | null | undefined): MeaningSupportView | null {
+  return initial && bridges ? { ...initial, bridges } : initial
 }

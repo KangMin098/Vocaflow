@@ -44,7 +44,6 @@ import { maskDisclosureSteps, theaterMinutes, theaterSteps } from '@/lib/csat/th
 import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { browseReturn } from '@/lib/csat/browse-url'
 import { mapReturnQuery, parseMapReturn, returnQueryOf } from '@/lib/csat/map-return'
-import { lookupMeaningSupport } from '@/lib/csat/meaning-support/data'
 import { parseMeaningParams, relationsOfUnit } from '@/lib/csat/meaning-support/model'
 
 export const dynamic = 'force-dynamic'
@@ -106,7 +105,7 @@ export default async function CsatItemTheaterPage({
   // 이 페이지의 HTML · RSC props 에는 initial 만 싣는다 — 정답 번호 · 정답 근거 · 오답 소거 · 이해 확인 · 비교 선지 번호 ·
   // v3 선지 판정 · 설계 주장 · 문항 원리는 학습자가 정답을 요청하면 판단 라우트가 노출 원장 커밋 뒤에만 보낸다.
   const loaded = await loadTheaterAnswer(item)
-  const { initial, skeleton, siblings, inquiryHit, openById } = loaded
+  const { initial, skeleton, siblings, openById } = loaded
   const map: TheaterMap | null = skeleton && loaded.mapReady ? { sentences: skeleton.sentences, anchors: initial.anchors, placements: initial.placements } : null
 
   const outline = lectureOutline(item.id)
@@ -117,8 +116,8 @@ export default async function CsatItemTheaterPage({
   const disclosure = lectureDisclosure(item.id, loadLecture(item.id))
 
   const nextPick = pickNextItem(siblings, item.id, () => true)
-  // v3.1 원문 이해 교수 설명 — 문항 접근 · 탐구 ready 뒤에만, 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때 문항 1개 projection 만 넘긴다
-  const msHit = lookupMeaningSupport(item.id, item.analysis_version, inquiryHit.state === 'ready', { skeletonChars: skeleton?.sentences.map((s) => s.chars) ?? null })
+  // v3.1 원문 이해 교수 설명 — 로더가 결속을 확인하고 단위 ↔ 선지 연결(bridges)을 뺀 첫 응답용 projection 을 준다
+  const msHit = { view: loaded.meaningSupport }
   const msParams = msHit.view
     ? parseMeaningParams(
         { meaning: first(sp.meaning) ?? null, depth: first(sp.depth) ?? null, rel: first(sp.rel) ?? null, bridge: first(sp.bridge) ?? null },
@@ -185,7 +184,7 @@ export default async function CsatItemTheaterPage({
       // 지금 읽은 분석 버전과 같은 버전으로 만든 탐구 데이터만 — 다르면 stale 로 빼고 기존 블록만 보인다
       inquiry={initial.inquiry}
       initialScene={parsedScene.scene}
-      meaningSupport={msHit.view}
+      meaningSupport={loaded.meaningSupport}
       initialMeaning={msParams?.unitId ?? null}
       initialDepth={msParams?.depth ?? 'brief'}
       initialRelation={msParams?.relationId ?? null}

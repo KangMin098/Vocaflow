@@ -27,7 +27,11 @@ const fail = (status: number, error: string) => NextResponse.json({ ok: false, e
 
 export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
   const ctx = await learnerContext()
-  if (ctx instanceof NextResponse) return ctx
+  if (ctx instanceof NextResponse) {
+    // 비로그인 401 도 캐시에 남기지 않는다(R147-04)
+    ctx.headers.set('cache-control', 'no-store')
+    return ctx
+  }
   const { slug } = await params
   if (!/^[A-Za-z0-9]+-\d{1,2}$/.test(slug)) return fail(404, '문항을 찾지 못했어요')
   const o = ((await readJson(req)) ?? {}) as Record<string, unknown>

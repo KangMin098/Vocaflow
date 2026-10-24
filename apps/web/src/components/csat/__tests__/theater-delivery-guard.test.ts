@@ -121,8 +121,12 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     expect(reveal.match(/setAnswerConsent\(true\)/g)?.length).toBe(2)
     expect(reveal).toMatch(/setRevealed\(body\.reveal\)\s*setAnswerConsent\(true\)/)
     // 「계속 듣기(정답 공개)」 · 「전체(정답 포함)」 · 「정답 보기」 만 요청한다 — 마운트 효과 · prefetch 로 요청하지 않는다
-    expect(theater).toMatch(/void requestReveal\('lecture_continue'\)/)
-    expect(theater).toMatch(/if \(p === 'full'\) void requestReveal\('lecture_full'\)/)
+    // R147-03 — 정답이 담긴 강의(전체 · 경계 계속)는 기록 성공(ok) 뒤에만 경로를 정하고 받는다
+    const cont = theater.slice(theater.indexOf('const continuePastBoundary = () => {'), theater.indexOf('const move = '))
+    expect(cont).toMatch(/void requestReveal\('lecture_continue'\)\.then\(\(ok\) => \{\s*if \(!ok\) return setAtBoundary\(true\)\s*setLecturePath\('full'\)\s*if \(lec && stopAt != null\) lec\.start\(stopAt, 'start', 'full'\)/)
+    const choose = theater.slice(theater.indexOf('const choosePath = '), theater.indexOf('const continuePastBoundary = () => {'))
+    expect(choose).toMatch(/void requestReveal\('lecture_full'\)\.then\(\(ok\) => \{\s*if \(!ok\) return setChooser\([^)]*\)\s*setLecturePath\('full'\)\s*lec\?\.start\(from, 'start', 'full'\)/)
+    expect(choose.match(/'start', 'full'\)/g)?.length).toBe(1)
     expect(theater).toMatch(/onClick=\{\(\) => void requestReveal\('judgment_scene'\)\}/)
     // 호출은 위 세 곳뿐 — 효과(useEffect) 안에서 부르지 않는다
     expect(theater.match(/requestReveal\(/g)?.length).toBe(3)

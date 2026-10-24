@@ -7,7 +7,8 @@ import { describe, expect, it } from 'vitest'
 import { lookupInquiry } from '@/lib/csat/inquiry/data'
 import { theaterBlocks, type TheaterSource } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
-import { mergeReveal, splitAnswer, type TheaterAnswerData } from '../answer-split'
+import { mergeMeaningSupport, mergeReveal, splitAnswer, splitMeaningSupport, type TheaterAnswerData } from '../answer-split'
+import type { MeaningSupportView } from '@/lib/csat/meaning-support/labels'
 
 const hit = lookupInquiry('2014A#23', 4)
 if (hit.state !== 'ready') throw new Error('2014A#23 탐구 정본이 바뀌었다 — 픽스처를 다시 고른다')
@@ -73,7 +74,10 @@ describe('첫 응답(문항 페이지 HTML · RSC props)', () => {
   })
 
   it('비결정적 근거 탐색은 남긴다 — 재는 능력 · 의도 · 절차 · v3 의미 단위 · 발문 요구', () => {
-    expect(initial.blocks.map((b) => b.kind)).toEqual(['head', 'ability', 'intent', 'procedure'])
+    // 재는 능력 · 의도 · 절차는 문항별 풀이라 공개 응답으로(R147-02 — 문장 결정성 감수 전 fail-closed). 머리 · 어휘만 남는다
+    expect(initial.blocks.map((b) => b.kind)).toEqual(['head'])
+    expect(payload).not.toContain('일반화 문장 찾기')
+    expect(payload).not.toContain('마지막 일반화 문장 찾기')
     expect(initial.inquiry?.v3?.meanings.length).toBeGreaterThan(0)
     expect(initial.inquiry?.v3?.requirement.requested).toBe(inquiry.v3?.requirement.requested)
     expect(initial.inquiry?.v3?.requirement.conditions).toEqual([])
@@ -106,6 +110,26 @@ function sortKeys(v: unknown): unknown {
   if (v && typeof v === 'object') return Object.fromEntries(Object.keys(v as object).sort().map((k) => [k, sortKeys((v as Record<string, unknown>)[k])]))
   return v
 }
+
+describe('원문 이해 교수 설명(meaningSupport) — 실제 배포 정본 전체', () => {
+  it('첫 응답에 단위 ↔ 선지 · 설계 주장 연결이 없고, 단위 설명은 남으며, 합치면 돌아온다(R147-01)', async () => {
+    const data = (await import('@/lib/csat/meaning-support-data.json')).default as unknown as { items: Record<string, MeaningSupportView> }
+    const ids = Object.keys(data.items)
+    expect(ids.length).toBeGreaterThan(0)
+    let linked = 0
+    for (const id of ids) {
+      const v = data.items[id]
+      if (v.bridges.some((b) => b.choiceNumbers.length > 0)) linked++
+      const { initial: i, bridges } = splitMeaningSupport(v)
+      expect(i!.bridges.every((b) => b.choiceNumbers.length === 0 && b.designClaimIndices.length === 0)).toBe(true)
+      expect(i!.units).toEqual(v.units)
+      expect(mergeMeaningSupport(i, bridges)).toEqual(v)
+    }
+    // 재현 전제 — 실제 정본에 선지 연결이 있다(없으면 이 검사가 아무것도 지키지 않는다)
+    expect(linked).toBeGreaterThan(0)
+    expect(splitMeaningSupport(null)).toEqual({ initial: null, bridges: null })
+  })
+})
 
 describe('공개 응답과 합치기', () => {
   it('합치면 원래 자료와 같다(블록 순서 포함)', () => {

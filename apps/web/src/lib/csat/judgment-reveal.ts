@@ -13,7 +13,9 @@ import { projectV3Pairs, v3PairPartners } from '@/lib/csat/inquiry/compare-v3'
 import { inquiryBinding, lookupInquiry, type InquiryLookup } from '@/lib/csat/inquiry/data'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import type { CsatItemExplain } from '@/lib/csat/learner'
-import { splitAnswer, type AnswerReveal, type TheaterAnswerData } from '@/lib/csat/lecture/answer-split'
+import { splitAnswer, splitMeaningSupport, type AnswerReveal, type TheaterAnswerData } from '@/lib/csat/lecture/answer-split'
+import { lookupMeaningSupport } from '@/lib/csat/meaning-support/data'
+import type { MeaningSupportView } from '@/lib/csat/meaning-support/labels'
 import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadRevealScope } from '@/lib/csat/embargo-gate'
 import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings, skeletonSiblings } from '@/lib/csat/skeleton'
@@ -26,6 +28,8 @@ export interface TheaterSibling { id: string; slug: string; exam_label: string; 
 export interface TheaterLoad {
   initial: TheaterAnswerData
   reveal: AnswerReveal
+  /** 원문 이해 교수 설명(첫 응답용 — 선지 연결 없음) */
+  meaningSupport: MeaningSupportView | null
   skeleton: Awaited<ReturnType<typeof loadRevealedSkeleton>>
   /** 지도를 세울 수 있나(골격이 정답 · 오답 자리를 하나라도 찾았다) — 앵커 자체는 공개 응답에만 */
   mapReady: boolean
@@ -114,9 +118,13 @@ export async function loadTheaterAnswer(item: CsatItemExplain): Promise<TheaterL
     },
   }
   const { initial, reveal } = splitAnswer(full, item.analysis_version ?? null)
+  // v3.1 원문 이해 교수 설명 — 문항 접근 · 탐구 ready 뒤에만, 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때 문항 1개 projection.
+  // 단위 ↔ 선지 연결(bridges)은 공개 응답으로
+  const ms = splitMeaningSupport(lookupMeaningSupport(item.id, item.analysis_version, inquiryHit.state === 'ready', { skeletonChars: skeleton?.sentences.map((s) => s.chars) ?? null }).view)
   return {
     initial,
-    reveal,
+    reveal: { ...reveal, msBridges: ms.bridges },
+    meaningSupport: ms.initial,
     skeleton,
     mapReady: Boolean(skeleton && shown.length > 0),
     siblings,
