@@ -372,8 +372,9 @@ describe('T-0158 10차 반례 — 진입 조건 확대', () => {
   ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
     expect(run(answers, text).blocked).toBe(true)
   })
-  it('연도·소수의 숫자는 선지 번호가 아니다', () => {
-    expect(run([4], '2015년 값은 1.8배라 답을 구하기 쉽습니다.').findings).toEqual([])
+  // 13차부터: 「답」 문장의 숫자는 번호인지 가리지 않는다 — 오진단 없이 사람 확인으로만 막는다
+  it('연도·소수가 든 「답」 문장은 오진단 없이 사람 확인', () => {
+    expect(run([4], '2015년 값은 1.8배라 답을 구하기 쉽습니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
   })
 })
 
@@ -393,8 +394,11 @@ describe('T-0158 11차 반례 — 문장 끝 숫자', () => {
   ] as [number[], string][])('%j · %s → 차단', (answers, text) => {
     expect(run(answers, text).blocked).toBe(true)
   })
-  it('소수 1.8 은 번호가 아니다', () => {
-    expect(run([4], '값이 1.8배라서 답을 쉽게 찾습니다.').findings).toEqual([])
+  it('소수가 든 「답」 문장은 오진단 없이 사람 확인', () => {
+    expect(run([4], '값이 1.8배라서 답을 쉽게 찾습니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+  it('숫자가 없는 「답」 문장은 cue target 이 맡는다', () => {
+    expect(run([4], '값이 두 배라서 답을 쉽게 찾습니다.').findings).toEqual([])
   })
 })
 
@@ -415,5 +419,32 @@ describe('T-0158 12차 반례 — 번호 표기 변형', () => {
   it('변형 표기도 옳은 진술이면 통과', () => {
     expect(run([5], '❺가 정답입니다.').findings).toEqual([])
     expect(run([4, 5], '정답은 ④와 ⑸입니다.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 13차 반례 — 쉼표 나열 숫자', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['정답은 1,2입니다.', '정답: 1,2.', '정답은 1,2,3.', '정답은 1/2.', '답 = 12'])('{5} · %s → 차단', (text) => {
+    expect(run([5], text).blocked).toBe(true)
+  })
+})
+
+describe('T-0158 13차 자체 반례 — 번호를 말로 쓴 긍정 정답 진술', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['정답은 오.', '마지막 선지가 정답입니다.', '정답은 five.', '첫째 선지가 답이에요.', '답: 다섯째'])('{4} · %s → 사람 확인', (text) => {
+    expect(run([4], text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+  })
+  it('「정답 블록을 확인하세요」(UI 이름)는 진술이 아니다', () => {
+    expect(run([4], '정답 블록을 확인하세요.').findings).toEqual([])
   })
 })
