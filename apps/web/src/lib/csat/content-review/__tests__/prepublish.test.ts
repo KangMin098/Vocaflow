@@ -318,3 +318,23 @@ describe('T-0158 7차 반례 — 나머지 화이트리스트', () => {
     expect(run([2], '정답은 이 번, 비 밑줄입니다.').findings).toEqual([])
   })
 })
+
+describe('T-0158 8차 반례 — 오답 진술 사이 자유 서술 금지', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['①을 배제하면 오답입니다.', '①을 소거하면 오답입니다.', '①을 빠뜨리면 오답입니다.', '오 번은 맞는 진술이고, 답이 아닙니다.'])(
+    '{4} · %s → 오답 진술로 읽지 않고 사람 확인', (text) => {
+      const r = run([4], text)
+      expect(r.blocked).toBe(true)
+      expect(r.findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+    })
+  it('조사만 낀 오답 진술은 그대로 읽는다', () => {
+    expect(run([4], '⑤는 오답입니다.').findings).toEqual([])
+    expect(run([4, 5], '⑤는 오답입니다.').findings.map((f) => f.code)).toContain('CUE_ELIMINATES_OFFICIAL')
+    expect(run([4], '오 번은 답이 아닙니다.').findings).toEqual([])
+  })
+})
