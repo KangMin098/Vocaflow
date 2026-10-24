@@ -25,4 +25,6 @@ export const K_GAPS = {
 
 export type GapId = keyof typeof K_GAPS
 
-export const isOpen = (id: GapId) => K_GAPS[id].status === 'open'
+/** 넓은 GapStatus 로 읽는다 — as const 라 지금 값(open)으로 좁혀지면 fixed 분기가 타입 오류가 된다 */
+export const statusOf = (id: GapId): GapStatus => K_GAPS[id].status
+export const isOpen = (id: GapId) => statusOf(id) === 'open'
