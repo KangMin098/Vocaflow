@@ -25,17 +25,23 @@ export function glossesOf(text: string): { mark: string; term: string; gloss: st
  * 각주 정의 용어가 표지 낱말의 것인가 — 굴절(constraints* ↔ constraint)과 구 용어(body clock ↔ clock*)를 허용한다.
  * 맞는지 모르면 false — 그 표지는 정의 없음(unavailable)으로 남는다.
  */
-export function glossMatches(term: string, word: string): boolean {
-  const w = word.toLowerCase().replace(/[’']s$/, '')
-  if (w.length < 2) return false
-  // 접두어 추정은 하지 않는다(Hours ↔ hourglass 를 짝으로 만든다 — T-0154 G2). 규칙 굴절만 허용한다
+export function glossMatches(term: string, before: string): boolean {
+  // 접두어 추정은 하지 않는다(Hours ↔ hourglass — T-0154 G2). 마지막 낱말은 규칙 굴절만 허용한다
   const forms = (s: string) => {
     const out = new Set([s, `${s}s`, `${s}es`, `${s}ed`, `${s}d`, `${s}ing`, `${s}ly`])
     if (s.endsWith('y')) for (const x of ['ies', 'ied']) out.add(s.slice(0, -1) + x)
     if (s.endsWith('e')) out.add(`${s.slice(0, -1)}ing`)
     return out
   }
-  return term.toLowerCase().split(/[\s-]+/).some((t) => t.length >= 2 && (forms(t).has(w) || forms(w).has(t)))
+  const t = term.toLowerCase().split(/[\s-]+/).filter(Boolean)
+  // 구 용어는 표지 바로 앞 원문이 구 전체여야 짝이다 — 한 낱말만 같으면 아니다(after hours ↔ Hours* — T-0154 H1)
+  const b = (before.toLowerCase().match(/[a-z’']+/g) ?? []).map((x) => x.replace(/[’']s$/, ''))
+  if (!t.length || b.length < t.length) return false
+  const tail = b.slice(b.length - t.length)
+  const last = t.length - 1
+  if (t.slice(0, last).some((x, i) => x !== tail[i])) return false
+  const w = tail[last]
+  return w.length >= 2 && (forms(t[last]).has(w) || forms(w).has(t[last]))
 }
 
 /** 별표가 든 공백 단위 토큰이 주소·메일인가 — 안내문은 실제 주소를 「www.wabu*.com」 처럼 가린다(각주 표지가 아니다) */
@@ -46,11 +52,11 @@ function inAddress(passage: string, at: number): boolean {
   return /www\.|@|https?:|\.(?:com|org|net|kr|edu|gov)\b/i.test(token)
 }
 
-export function marksOf(passage: string): { mark: string; at: number; word: string }[] {
+export function marksOf(passage: string): { mark: string; at: number; word: string; before: string }[] {
   return [...passage.matchAll(MARK)].filter((m) => !inAddress(passage, (m.index ?? 0) + m[1].length)).map((m) => {
     const at = (m.index ?? 0) + m[1].length
     const word = passage.slice(0, at).match(/([A-Za-z’'\-]+)\)?$/)?.[1] ?? ''
-    return { mark: m[2], at, word }
+    return { mark: m[2], at, word, before: passage.slice(Math.max(0, at - 80), at) }
   })
 }
 
@@ -92,7 +98,7 @@ export function detectDefects(item: ItemText): ExtractionDefect[] {
   const inlineGloss = new Set(glossesOf(passage).map((g) => g.at))
   const marks = marksOf(passage).filter((m) => ![...inlineGloss].some((g) => m.at >= g && m.at <= g + 3))
   for (const m of marks) {
-    if (!allGlosses.some((g) => g.mark === m.mark && glossMatches(g.term, m.word))) {
+    if (!allGlosses.some((g) => g.mark === m.mark && glossMatches(g.term, m.before))) {
       out.push({ code: 'footnote_mark_without_gloss', mark: m.mark, at: m.at, context: passage.slice(Math.max(0, m.at - 20), m.at + 12).trim() })
     }
   }

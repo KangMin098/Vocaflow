@@ -176,7 +176,7 @@ export function bindItem(input: BindInput): BoundItem {
   const glosses = [passage, ...choicesText].flatMap(glossesOf)
   const footnotes: FootnoteAnchor[] = marksOf(passage).map((m) => {
     // 별표 수만이 아니라 표지 낱말과 정의 용어가 맞아야 짝이다 — 무관한 정의를 빠진 각주에 붙이지 않는다(T-0154 F2)
-    const g = glosses.find((x) => x.mark === m.mark && glossMatches(x.term, m.word))
+    const g = glosses.find((x) => x.mark === m.mark && glossMatches(x.term, m.before))
     return { kind: 'footnote', basis: structBasis, precision: g ? 'exact' : 'unavailable', mark: m.mark, term: g?.term ?? m.word ?? null, gloss: g?.gloss ?? null, at: m.at }
   })
 

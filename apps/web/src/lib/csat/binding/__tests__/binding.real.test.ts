@@ -186,20 +186,33 @@ describe('T-0154 Codex 독립 검증 반례 회귀', () => {
   })
   it('F2 — 굴절형 정의는 짝으로 인정한다(constraints* ↔ constraint)', async () => {
     const { glossMatches } = await import('../extraction')
-    expect(glossMatches('constraint', 'constraints')).toBe(true)
-    expect(glossMatches('body clock', 'clock')).toBe(true)
-    expect(glossMatches('kinaesthetically', 'kinaesthetically')).toBe(true)
-    expect(glossMatches('pottery', 'Hours')).toBe(false)
+    expect(glossMatches('constraint', 'the financial constraints')).toBe(true)
+    expect(glossMatches('body clock', 'resets the body clock')).toBe(true)
+    expect(glossMatches('kinaesthetically', 'own kinaesthetically')).toBe(true)
+    expect(glossMatches('pottery', 'Museum Hours')).toBe(false)
   })
   it('G2 — 공통 접두어만 같은 정의(* hourglass)는 Hours* 의 짝이 아니다', async () => {
     const { glossMatches } = await import('../extraction')
-    expect(glossMatches('hourglass', 'Hours')).toBe(false)
+    expect(glossMatches('hourglass', 'Museum Hours')).toBe(false)
     const r = structuredClone(row('2014A#29'))
     const choices = r.item.choices as string[]
     choices[4] = `${choices[4]} * hourglass: 모래시계`
     const b = bindItem(r)
     expect(b.reasons).toContain('footnote_missing')
     expect(b.structure.footnotes.find((f) => f.term === 'Hours')?.precision).toBe('unavailable')
+  })
+  it('H1 — 구 용어(* after hours)는 원문에 구 전체가 있어야 짝이다 — Hours* 는 여전히 unavailable', async () => {
+    const { glossMatches } = await import('../extraction')
+    expect(glossMatches('after hours', 'development of modern pottery. Hours')).toBe(false)
+    expect(glossMatches('after hours', 'we stay open after hours')).toBe(true)
+    const r = structuredClone(row('2014A#29'))
+    const choices = r.item.choices as string[]
+    choices[4] = `${choices[4]} * after hours: 업무 시간 외`
+    const b = bindItem(r)
+    expect(b.reasons).toContain('footnote_missing')
+    const hours = b.structure.footnotes.find((f) => f.term === 'Hours')!
+    expect(hours.precision).toBe('unavailable')
+    expect(hours.gloss).toBeNull()
   })
   it.each([[null], [[]]])('G1 — 복수 정답인데 결속 판 선지 분석이 %j 이면 차단한다', (empty) => {
     const r = structuredClone(row('H1811G1#27'))
