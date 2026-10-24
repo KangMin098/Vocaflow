@@ -1,0 +1,51 @@
+{
+ "2019#35": {
+  "from": "PASS",
+  "to": "ISSUE_CONFIRMED",
+  "by": "followup-anchor-check",
+  "evidence": "evidence cue 「여기 N 번 문장」 target ∉ csat_item_analyses(published).answer_locus.sentence_index",
+  "cross_verified": false
+ },
+ "2020#35": {
+  "from": "PASS",
+  "to": "ISSUE_CONFIRMED",
+  "by": "followup-anchor-check",
+  "evidence": "evidence cue 「여기 N 번 문장」 target ∉ csat_item_analyses(published).answer_locus.sentence_index",
+  "cross_verified": false
+ },
+ "2022#35": {
+  "from": "PASS",
+  "to": "ISSUE_CONFIRMED",
+  "by": "followup-anchor-check",
+  "evidence": "evidence cue 「여기 N 번 문장」 target ∉ csat_item_analyses(published).answer_locus.sentence_index",
+  "cross_verified": false
+ },
+ "M1809#35": {
+  "from": "PASS",
+  "to": "ISSUE_CONFIRMED",
+  "by": "followup-anchor-check",
+  "evidence": "evidence cue 「여기 N 번 문장」 target ∉ csat_item_analyses(published).answer_locus.sentence_index",
+  "cross_verified": false
+ },
+ "M2006#35": {
+  "from": "PASS",
+  "to": "ISSUE_CONFIRMED",
+  "by": "followup-anchor-check",
+  "evidence": "evidence cue 「여기 N 번 문장」 target ∉ csat_item_analyses(published).answer_locus.sentence_index",
+  "cross_verified": false
+ },
+ "2025#30": {
+  "from": "REVIEW_REQUIRED",
+  "to": "REVIEW_REQUIRED",
+  "by": "followup-pdf-check",
+  "evidence": "공식 PDF 2025 짝수형 30번 본문 = DB passage(md5 2814438c60e252d285fb6a972875bb7c) 낱말 단위 일치 — 전사 쟁점 해소, 남은 쟁점은 c4·c11 내용",
+  "cross_verified": false
+ },
+ "2023#21": {
+  "from": "REVIEW_REQUIRED",
+  "to": "REVIEW_REQUIRED",
+  "by": "followup",
+  "evidence": "선지별 선택률 자료 없음 — 대표 함정 주장 유보",
+  "cross_verified": false
+ }
+}
