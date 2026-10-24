@@ -49,6 +49,7 @@
 - H UNKNOWN 계약: 지문 미상 → X0 금지 / held — 제안의 passage_unknown 과 같은 방향.
 
 ## 7. 적용 시 절차(승인 뒤)
+- 2026-10-25 개발 정책: DB 쓰기는 **승인형 배포 러너로만**(main-serving `scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>` · db-approval 훅 1회용 티켓). MCP SQL 은 SELECT 만 — 이 보완의 모든 DB 조회는 SELECT 였다.
 1. 적용 직전 `pg_get_functiondef` 를 다시 떠서 `recovery.sql` 본문과 같은지 확인(다르면 중단).
-2. `forward.sql` 실행 → 끝의 확인 질의(학습자 세션 같은 지문 쌍 true · ACL).
-3. 문제 시 `recovery.sql`.
+2. 러너로 `forward.sql`(SHA 위 표) 적용 → 끝의 확인 질의(학습자 세션 같은 지문 쌍 true · ACL).
+3. 문제 시 러너로 `recovery.sql`.
