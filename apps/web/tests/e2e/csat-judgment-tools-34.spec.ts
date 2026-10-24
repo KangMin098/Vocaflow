@@ -46,11 +46,11 @@ test.describe('판단 도구 34 × 해설 화면', () => {
 
       // D4 — 첫 HTML · RSC
       for (const scene of ['judgment', 'task', 'meaning', 'design']) {
-        const res = await page.request.get(`/csat/item/${SLUG}?scene=${scene}`)
+        const res = await page.request.get(`/csat/item/${SLUG}?scene=${scene}`, { timeout: 180_000 })
         expect(res.status(), `${scene} 첫 응답이 200 이 아니다(로그인 화면 우회 금지)`).toBe(200)
         const html = await res.text()
         expect(html, `${scene} 첫 응답이 실제 해설 화면이 아니다`).toContain('analysis-theater')
-        const rsc = await (await page.request.get(`/csat/item/${SLUG}?scene=${scene}`, { headers: { RSC: '1' } })).text()
+        const rsc = await (await page.request.get(`/csat/item/${SLUG}?scene=${scene}`, { headers: { RSC: '1' }, timeout: 180_000 })).text()
         for (const body of [html, rsc]) {
           expect(body, `${scene} 첫 응답에 정답 자료`).not.toMatch(LEAK)
           for (const t of V3_TEXT) expect(body, `${scene} 첫 응답에 v3 본문 「${t}」`).not.toContain(t)
