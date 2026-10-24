@@ -14,7 +14,8 @@ import postcss from 'postcss'
 import tailwindcss from 'tailwindcss'
 
 import { lookupInquiry } from '../../src/lib/csat/inquiry/data'
-import { lectureOutline } from '../../src/lib/csat/lecture/store'
+import { lectureDisclosure, lectureUntil } from '../../src/lib/csat/lecture/disclosure'
+import { lectureMeta, lectureOutline, loadLecture } from '../../src/lib/csat/lecture/store'
 import { neutralSteps, splitAnswer, splitMapSentences, type TheaterAnswerData } from '../../src/lib/csat/lecture/answer-split'
 import { maskDisclosureSteps, theaterBlocks, theaterSteps, type TheaterSource } from '../../src/lib/csat/theater'
 import { buildChecks } from '../../src/lib/csat/understanding-check'
@@ -79,7 +80,10 @@ test.beforeAll(async () => {
       contents: [
         "import { createRoot } from 'react-dom/client'",
         "import { AnalysisTheater } from '@/components/csat/theater/AnalysisTheater'",
-        'createRoot(document.getElementById("root")).render(<AnalysisTheater {...window.__props} />)',
+        "import { LectureStage } from '@/components/csat/lecture/LectureStage'",
+        // 강의 조작 검사는 실제 문항 페이지처럼 실제 LectureStage(무음 모드 · 실제 플레이어) 안에 극장을 둔다
+        'const L = window.__lecture',
+        'createRoot(document.getElementById("root")).render(L ? <LectureStage slug={L.slug} meta={L.meta} keys={false}><AnalysisTheater {...window.__props} /></LectureStage> : <AnalysisTheater {...window.__props} />)',
       ].join('\n'),
       loader: 'tsx', resolveDir: ROOT, sourcefile: 'judgment-harness.tsx',
     },
@@ -230,6 +234,134 @@ for (const width of [1280, 1440]) {
       for (const s of Object.values(SECRET)) expect(dom1).not.toContain(s)
       expect(n).toBe(1)
       await expect(page.getByTestId('judgment-reveal').getByRole('button', { name: '정답 보기' })).toBeEnabled()
+    })
+  })
+}
+
+// ── 강의 조작(UI 게이트 수용 기준 ③) — 실제 LectureStage · 실제 플레이어(무음 모드 ?lecture-silent=1) · 가상 시계 ──────────────
+// 2026#34: 검증 경계 stopBefore=2(c1 · c2 만) — 검토 불일치 c3 은 안전 cue 가 아니다(T-0140 B1). 강의 API 는 route 로
+// 실제 lectureUntil 결과(until)를 주고, 전체(full)는 판단 라우트 기록 뒤에만 준다(서버 관문과 같은 순서 — 실제 서버 코드는 아님).
+const LID = '2026#34'
+function lectureFixture() {
+  const lecture = loadLecture(LID)!
+  const d = lectureDisclosure(LID, lecture)
+  if (!d.verified) throw new Error('2026#34 경계 결속 실패')
+  const base = propsFor(LID)
+  const props = { ...base.props, initialScene: 'task', lectureDisclosure: { verified: true, stopBefore: d.stopBefore, preStopRisk: d.preStopRisk } }
+  return { lecture, d, props, reveal: base.reveal, meta: lectureMeta(LID)! }
+}
+
+async function openLecture(page: Page) {
+  const fx = lectureFixture()
+  const log: string[] = []
+  let revealed = false
+  const html = `<!doctype html><html lang="ko" data-skin="tines"><head><meta charset="utf-8"><style>${css}</style></head><body><div id="root"></div><script>window.__props=${JSON.stringify(fx.props).replace(/</g, '\\u003c')};window.__lecture=${JSON.stringify({ slug: '2026-34', meta: fx.meta })}</script><script>${bundle.replace(/<\/script/g, '<\\/script')}</script></body></html>`
+  await page.route('https://judgment.test/**', async (route) => {
+    const u = new URL(route.request().url())
+    if (u.pathname === '/api/csat/lecture') {
+      const scope = u.searchParams.get('scope') ?? 'full'
+      log.push(`lecture:${scope}`)
+      if (scope === 'until') return route.fulfill({ contentType: 'application/json', body: JSON.stringify({ ok: true, lecture: lectureUntil(fx.lecture, fx.d.stopBefore), disclosure: { scope: 'until', verified: true, stopBefore: fx.d.stopBefore, preStopRisk: fx.d.preStopRisk } }) })
+      if (!revealed) return route.fulfill({ status: 403, contentType: 'application/json', body: '{"ok":false,"disclosure":{"scope":"full","needsReveal":true}}' })
+      return route.fulfill({ contentType: 'application/json', body: JSON.stringify({ ok: true, lecture: fx.lecture, disclosure: { scope: 'full' } }) })
+    }
+    if (u.pathname.endsWith('/judgment')) {
+      log.push(`judgment:${(JSON.parse(route.request().postData() ?? '{}') as { source?: string }).source}`)
+      revealed = true
+      return route.fulfill({ contentType: 'application/json', body: JSON.stringify({ ok: true, exposureId: 1, reveal: fx.reveal }) })
+    }
+    if (u.pathname.startsWith('/api/')) return route.fulfill({ status: 404, contentType: 'application/json', body: '{}' })
+    return route.fulfill({ contentType: 'text/html', body: html })
+  })
+  await page.clock.install()
+  await page.goto('https://judgment.test/csat/item/2026-34?lecture-silent=1')
+  const play = page.locator('header button').filter({ hasText: /하이라이트만|상영 시작|멈춤|이어서|처음부터/ })
+  await expect(play).toBeVisible()
+  return { fx, log, play }
+}
+
+for (const width of [1280, 1440]) {
+  test.describe(`T-0147 강의 조작 · PC ${width}`, () => {
+    test.use({ viewport: { width, height: 1000 } })
+
+    test('①②③④ 경로 명시 선택 → until 만 받음(c3 제외) → 일시정지/이어서 → 경계 도달 → 정답 없이 마치기', async ({ page }) => {
+      const { fx, log, play } = await openLecture(page)
+      // ① 고르기 전에는 어떤 강의도 받지 않는다
+      await play.click()
+      await expect(page.getByTestId('lecture-chooser')).toBeVisible()
+      expect(log).toEqual([])
+      await page.getByTestId('lecture-path-until').click()
+      await expect.poll(() => log).toEqual(['lecture:until'])
+      // ⑥ 받은 범위 = c1 · c2(경계 앞) — c3 · 정답 cue 는 응답에 없다
+      expect(lectureUntil(fx.lecture, fx.d.stopBefore).cues.map((c) => c.id)).toEqual(['c1', 'c2'])
+      await expect(play).toHaveText(/멈춤/)
+      // ② 일시정지 · 이어서 — 위치 유지
+      const before = await page.evaluate(() => ({ y: window.scrollY, focus: document.activeElement?.tagName }))
+      await play.click()
+      await expect(play).toHaveText(/이어서/)
+      await play.click()
+      await expect(play).toHaveText(/멈춤/)
+      // ③ 경계까지 재생(가상 시계) — 경계 안내가 열리되 포커스를 빼앗지 않는다(⑧)
+      await page.clock.runFor((fx.lecture.cues[0].est_sec + fx.lecture.cues[1].est_sec + 5) * 1000)
+      await expect(page.getByTestId('lecture-boundary')).toBeVisible()
+      const after = await page.evaluate(() => ({ y: window.scrollY, focus: document.activeElement?.tagName, inBoundary: document.activeElement?.closest('[data-testid="lecture-boundary"]') != null }))
+      expect(after.y).toBe(before.y)
+      expect(after.inBoundary).toBe(false)
+      // ④ 정답 없이 강의 마치기 — 전체 강의 · 정답 요청 없음, 경계 안내 닫힘
+      await page.getByTestId('lecture-boundary-skip').click()
+      await expect(page.getByTestId('lecture-boundary')).toHaveCount(0)
+      await expect(page.locator('[aria-live="polite"]').filter({ hasText: '정답을 듣지 않고 강의를 마쳤어요' })).toHaveCount(1)
+      expect(log).toEqual(['lecture:until'])
+      expect(await page.locator('[data-live="true"]').count()).toBe(0)
+      const shot = await page.screenshot({ path: path.join(ARTIFACTS, `lecture-closed-${width}.png`) })
+      await matchBaseline(page, `lecture-closed-${width}`, shot)
+    })
+
+    test('⑦ 경계에서 화살표 · 다음 차례로 넘지 못한다(끝남 · 일시정지 상태) — 경계 안내로', async ({ page }) => {
+      const { fx, log, play } = await openLecture(page)
+      await play.click()
+      await page.getByTestId('lecture-path-until').click()
+      await page.clock.runFor((fx.lecture.cues[0].est_sec + fx.lecture.cues[1].est_sec + 5) * 1000)
+      await expect(page.getByTestId('lecture-boundary')).toBeVisible()
+      await page.getByTestId('lecture-boundary-skip').click()
+      // 포커스를 본문으로 돌리고(입력 · 단추 위가 아님) → 키를 여러 번
+      await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+      for (let i = 0; i < 4; i++) await page.keyboard.press('ArrowRight')
+      await expect(page.getByTestId('lecture-boundary')).toBeVisible()
+      expect(await page.locator('[data-live="true"]').count()).toBe(0)
+      expect(log).toEqual(['lecture:until'])
+    })
+
+    test('⑤ 정답 포함 계속 듣기는 별도 동의 — 판단 기록(lecture_continue)이 먼저, 그 뒤에만 전체 강의', async ({ page }) => {
+      const { fx, log, play } = await openLecture(page)
+      await play.click()
+      await page.getByTestId('lecture-path-until').click()
+      await page.clock.runFor((fx.lecture.cues[0].est_sec + fx.lecture.cues[1].est_sec + 5) * 1000)
+      await expect(page.getByTestId('lecture-boundary')).toBeVisible()
+      // 경계 안내 자체는 동의가 아니다 — 아직 정답 요청 · 전체 강의 0
+      expect(log).toEqual(['lecture:until'])
+      await page.getByTestId('lecture-boundary-continue').focus()
+      await page.keyboard.press('Enter')
+      await expect.poll(() => log).toEqual(['lecture:until', 'judgment:lecture_continue', 'lecture:full'])
+      await expect(play).toHaveText(/멈춤/)
+    })
+
+    test('⑤ 「전체(정답 포함)」 도 기록 뒤에만 — 실패하면 전체 강의를 받지 않고 다시 고르게', async ({ page }) => {
+      const fx = lectureFixture()
+      const log: string[] = []
+      const html = `<!doctype html><html lang="ko" data-skin="tines"><head><meta charset="utf-8"><style>${css}</style></head><body><div id="root"></div><script>window.__props=${JSON.stringify(fx.props).replace(/</g, '\\u003c')};window.__lecture=${JSON.stringify({ slug: '2026-34', meta: fx.meta })}</script><script>${bundle.replace(/<\/script/g, '<\\/script')}</script></body></html>`
+      await page.route('https://judgment.test/**', async (route) => {
+        const u = new URL(route.request().url())
+        if (u.pathname === '/api/csat/lecture') { log.push(`lecture:${u.searchParams.get('scope') ?? 'full'}`); return route.fulfill({ status: 403, body: '{"ok":false}' }) }
+        if (u.pathname.endsWith('/judgment')) { log.push('judgment:fail'); return route.fulfill({ status: 503, contentType: 'application/json', body: '{"ok":false}' }) }
+        if (u.pathname.startsWith('/api/')) return route.fulfill({ status: 404, body: '{}' })
+        return route.fulfill({ contentType: 'text/html', body: html })
+      })
+      await page.goto('https://judgment.test/csat/item/2026-34?lecture-silent=1')
+      await page.locator('header button').filter({ hasText: /하이라이트만|상영 시작/ }).click()
+      await page.getByTestId('lecture-path-full').click()
+      await expect.poll(() => log).toEqual(['judgment:fail'])
+      await expect(page.getByTestId('lecture-chooser')).toBeVisible()
     })
   })
 }
