@@ -1,0 +1,836 @@
+{
+ "reviewer": "B-codex",
+ "items": [
+  {
+   "item_id": "2026#22",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "협력과 경쟁의 정의부터 균형 처방까지 이어지며 다섯 선지도 온전하다."
+   },
+   "evidence": {
+    "decisive": [
+     6,
+     9,
+     10
+    ],
+    "accepted_alternatives": [
+     [
+      6,
+      9
+     ]
+    ],
+    "reason": "6의 균형 요구를 9와 10이 동시 추구와 편중 방지로 구체화한다."
+   },
+   "near_distractor": {
+    "option": 3,
+    "failure_code": "PARTIAL_TRUE",
+    "counter_evidence": [
+     6,
+     9,
+     10
+    ],
+    "reason": "7의 경쟁 편중 경향은 담지만 이를 조정하라는 최종 처방을 빠뜨린다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2026#34",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "법과 자유의 관계를 묻는 조건문이 완결되며 선지에도 추출 잔재가 없다."
+   },
+   "evidence": {
+    "decisive": [
+     6,
+     7
+    ],
+    "accepted_alternatives": [],
+    "reason": "6의 자발적 합의라는 한정 아래 7의 금지는 합리적 선택을 빼앗지 않는다."
+   },
+   "near_distractor": {
+    "option": 4,
+    "failure_code": "REVERSAL",
+    "counter_evidence": [
+     4,
+     5,
+     7
+    ],
+    "reason": "악한 본성을 억제하는 법의 작동을 부정하게 되어 4와 5의 설명에 어긋난다."
+   },
+   "revision_options": [
+    {
+     "option": 2,
+     "chosen_label": "어휘 함정",
+     "reason": "1의 옹호자 표현을 재사용하지만 6과 7에서 사법제도 수호 여부는 귀결되지 않는다."
+    },
+    {
+     "option": 4,
+     "chosen_label": "반대 진술",
+     "reason": "7의 부정까지 결합하면 효과적인 법 집행을 부인하여 4와 5의 기능 설명을 거스른다."
+    },
+    {
+     "option": 5,
+     "chosen_label": "어휘 함정",
+     "reason": "6의 이상적 법이라는 표현을 가져와 7에서 이미 주어진 가정의 수용을 부정한다."
+    }
+   ]
+  },
+  {
+   "item_id": "2026#38",
+   "original": {
+    "verdict": "REJECT",
+    "reason": "삽입 위치를 나타낼 선지가 문맥 조각으로 추출되었고 마지막에는 각주와 쪽수가 섞였다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     7,
+     8
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      4,
+      5,
+      8
+     ]
+    ],
+    "reason": "7까지 형성된 내적 이야기를 1이 정체성으로 확장하고 8이 그 확장을 예시한다."
+   },
+   "near_distractor": {
+    "option": 4,
+    "failure_code": "REF_ANTECEDENT_CUT",
+    "counter_evidence": [
+     6,
+     7,
+     8
+    ],
+    "reason": "6의 특정 대학 경험을 곧바로 일반화하는 7의 지시 관계를 끊고 정체성 예시도 멀어진다."
+   },
+   "revision_options": [
+    {
+     "option": 2,
+     "chosen_label": "어휘 반복 유인",
+     "reason": "4와 1의 내적 이야기 관련 어휘는 겹치지만 5는 정체성 확장의 예시가 아니다."
+    },
+    {
+     "option": 3,
+     "chosen_label": "예시-일반화 절단",
+     "reason": "5의 이야기 형성과 6의 대학 경험 예시 사이에 정체성 일반화를 끼워 예시의 초점을 바꾼다."
+    }
+   ]
+  },
+  {
+   "item_id": "2025#22",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "감정 이해의 집단 효과와 갈등 사례가 완결되어 있고 선지 다섯 개도 정상 문장이다."
+   },
+   "evidence": {
+    "decisive": [
+     2,
+     3
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      4,
+      5,
+      6
+     ]
+    ],
+    "reason": "2가 명확한 의사소통을, 3이 자신과 타인의 요구를 함께 고려하는 협력을 제시한다."
+   },
+   "near_distractor": {
+    "option": 5,
+    "failure_code": "LEX_BAIT",
+    "counter_evidence": [
+     4,
+     5,
+     6
+    ],
+    "reason": "갈등 해소라는 결과는 닮았지만 원인을 감정 이해와 관점 수용에서 감정 조절로 바꾼다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "감정 이해가 소통과 협력을 낳는 인과 설명이며 경쟁 편중 진단 뒤 균형을 처방하는 구조가 아니다.",
+    "non_application": "6의 집단 기능 개선을 처방으로 바꾸어 읽으면 능력의 효과를 설명하는 문장 역할을 오인한다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2509#22",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "개의 사례와 인간 도덕의 문화적 성격이 자연스럽게 연결되며 대조 비율도 기준 이상이다."
+   },
+   "evidence": {
+    "decisive": [
+     3,
+     4,
+     5
+    ],
+    "accepted_alternatives": [
+     [
+      4,
+      5,
+      6
+     ]
+    ],
+    "reason": "3의 인간 전용 개념, 4의 문화적 도구, 5의 학습이라는 속성을 함께 포괄해야 한다."
+   },
+   "near_distractor": {
+    "option": 5,
+    "failure_code": "SCOPE_UNDER",
+    "counter_evidence": [
+     3,
+     5,
+     6
+    ],
+    "reason": "도덕의 행동 영향만 남겨 인간 사회에서 학습되는 개념이라는 핵심 한정을 놓친다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "도덕과 타고난 협력 성향을 구별하여 개념의 성격을 규정하며 행동 간 균형을 권고하지 않는다.",
+    "non_application": "6의 협력 성향을 실천 처방으로 취급하면 선천적 성향과 사회적 도덕 해석의 구별이 사라진다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2606#22",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "정보와 의미의 구별을 동전 사례로 설명하며 지문과 다섯 선지에 문장 단절이 없다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     2
+    ],
+    "accepted_alternatives": [
+     [
+      2,
+      5,
+      6
+     ]
+    ],
+    "reason": "1과 2는 가공되지 않은 정보와 해석으로 얻는 의미를 구별하여 정답의 생성 관계를 정한다."
+   },
+   "near_distractor": {
+    "option": 2,
+    "failure_code": "LEX_BAIT",
+    "counter_evidence": [
+     2,
+     4,
+     5
+    ],
+    "reason": "확률과 동전 사례를 가져오지만 5는 이미 나온 결과의 해석이며 미래 예측이 아니다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "정보와 의미를 정의하고 해석 사례로 뒷받침하는 구조로서 경향 진단 뒤 처방하는 기능이 없다.",
+    "non_application": "6의 해석 중요성을 행동 지침으로 치환하면 의미가 만들어지는 과정을 설명하는 요지를 벗어난다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2609#22",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "사회적 자본의 정의와 온라인 관계망의 효용이 끝까지 이어지며 선지 누락도 보이지 않는다."
+   },
+   "evidence": {
+    "decisive": [
+     2,
+     3,
+     8
+    ],
+    "accepted_alternatives": [
+     [
+      2,
+      6,
+      8
+     ]
+    ],
+    "reason": "2와 3의 관계망 자본을 8의 뉴 미디어를 통한 연결 확장과 결합해야 한다."
+   },
+   "near_distractor": {
+    "option": 2,
+    "failure_code": "PARTIAL_TRUE",
+    "counter_evidence": [
+     2,
+     8
+    ],
+    "reason": "3의 관계망 정의 일부는 반영하지만 소셜 미디어가 연결 범위를 넓혀 자본을 늘린다는 논지를 빠뜨린다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "온라인 관계 확대의 자본 가치를 설명하며 경쟁과 협력 사이의 편중을 조정하는 처방은 제시하지 않는다.",
+    "non_application": "6의 관계 투자를 무조건적인 권고로 읽으면 사회적 자본의 정의와 효용 설명을 처방으로 오인한다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#22",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "자동차 전면 디자인의 심리적 배경과 판매 반응이 이어지며 인용문과 선지가 완결되어 있다."
+   },
+   "evidence": {
+    "decisive": [
+     4,
+     5,
+     7
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      4,
+      5,
+      6,
+      7
+     ]
+    ],
+    "reason": "4의 성난 외관 경향을 5의 안전감 욕구와 7의 판매 반응이 설명하고 뒷받침한다."
+   },
+   "near_distractor": {
+    "option": 2,
+    "failure_code": "PARTIAL_TRUE",
+    "counter_evidence": [
+     4,
+     5,
+     6,
+     7
+    ],
+    "reason": "2의 전문가 활용은 도입부의 사실이지만 후반을 지배하는 성난 외관의 인기까지 설명하지 못한다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "성난 자동차 외관의 인기라는 현상을 심리와 판매 자료로 설명하며 균형 전략을 제안하지 않는다.",
+    "non_application": "디자이너의 소비자 연구를 필자의 처방으로 간주하면 4부터 7까지 이어지는 인기 현상 설명을 놓친다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#34",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "야구와 악보에서 법적 역할로 확장되는 논증이 완결되어 있고 빈칸과 선지 연결도 정상이다."
+   },
+   "evidence": {
+    "decisive": [
+     3,
+     5,
+     7,
+     8
+    ],
+    "accepted_alternatives": [
+     [
+      2,
+      4,
+      5,
+      6,
+      7
+     ]
+    ],
+    "reason": "규칙은 기존 행동을 제한하는 데 그치지 않고 실천과 역할 자체를 만들어 활동 기회를 제공한다."
+   },
+   "near_distractor": {
+    "option": 4,
+    "failure_code": "PARTIAL_TRUE",
+    "counter_evidence": [
+     3,
+     7,
+     8
+    ],
+    "reason": "행동의 규제 효과만 강조하여 규칙이 실천과 역할을 먼저 성립시킨다는 창설 기능을 놓친다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "규칙의 제한 기능과 창설 기능을 대비하여 사례를 일반화하며 이상적 법의 조건부 자유 판단을 요구하지 않는다.",
+    "non_application": "법이라는 공통 소재만으로 2026#34의 합리적 선택과 부정 조건을 가져오면 이 문항의 역할 창설 논증을 대체한다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#33",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "주의력의 거래와 무료 서비스의 수익 구조가 이어지며 마지막 긴 문장도 문법적으로 완결된다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     2,
+     3
+    ],
+    "accepted_alternatives": [
+     [
+      2,
+      3,
+      4
+     ]
+    ],
+    "reason": "1과 2에서 거래되는 것이 이용자의 주의력이므로 3의 무료 서비스에서는 이용자가 상품이 된다."
+   },
+   "near_distractor": {
+    "option": 3,
+    "failure_code": "OUTSIDE_KNOWLEDGE",
+    "counter_evidence": [
+     1,
+     2,
+     4
+    ],
+    "reason": "무료 서비스의 개인정보 문제는 연상되지만 지문이 거래 대상으로 설명하는 것은 주의력이다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "무료 서비스의 숨은 상품을 주의력 거래에서 추론하며 합리적 선택과 법적 금지의 양립 여부를 판정하지 않는다.",
+    "non_application": "3에 조건 표현이 있다는 이유만으로 자유 제한의 부정 논리를 적용하면 주의력 경제의 거래 관계가 사라진다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2509#34",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "루소의 자족 열망과 사회적 자아 형성의 대비가 완결되며 기계 대조도 하한을 넘는다."
+   },
+   "evidence": {
+    "decisive": [
+     2,
+     6,
+     7,
+     8
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      3,
+      4,
+      6,
+      7,
+      8
+     ]
+    ],
+    "reason": "6의 전환 뒤 7의 관계적 자아와 8의 공감이 타인과의 정서적 결속에 의한 개인 형성을 구체화한다."
+   },
+   "near_distractor": {
+    "option": 4,
+    "failure_code": "REVERSAL",
+    "counter_evidence": [
+     2,
+     3,
+     4,
+     7
+    ],
+    "reason": "5의 독립 열망에 끌리지만 자족을 불가능하다고 한 4와 관계적 자아를 말한 7에 반대된다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "개인적 열망과 저술의 통찰을 대비하여 사회적 자아 형성을 복원하는 문항으로 조건부 법 명제 판단과 다르다.",
+    "non_application": "4의 부정을 형식적 부정 처리만으로 풀면 6의 전환과 7에서 8로 이어지는 정서적 관계의 내용을 놓친다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2606#34",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "지리학의 공간적 관점이 일상과 정책 사례로 확장되며 선지와 빈칸도 온전하게 읽힌다."
+   },
+   "evidence": {
+    "decisive": [
+     4,
+     6,
+     7,
+     8
+    ],
+    "accepted_alternatives": [
+     [
+      2,
+      3,
+      4,
+      6
+     ]
+    ],
+    "reason": "4의 공간 배치와 연결이 7의 입지 및 8의 이주 사례를 함께 포괄하는 빈칸 내용이다."
+   },
+   "near_distractor": {
+    "option": 5,
+    "failure_code": "SCOPE_UNDER",
+    "counter_evidence": [
+     4,
+     7,
+     8
+    ],
+    "reason": "8의 영토 정치 요소에 가까우나 7의 인구와 도로 배치까지 포함하는 공간적 설명을 담지 못한다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "여러 규모의 사례에서 공간 배치라는 공통 개념을 추출하는 기능이며 자유에 관한 조건과 부정의 귀결이 아니다.",
+    "non_application": "6의 부정적 필요 조건만 떼어 논리식으로 처리하면 7과 8의 사례를 모두 덮는 공간 개념을 고를 수 없다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2609#34",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "동률 사례에서 공정성 원칙과 추첨 필요성으로 이어지며 낮은 편의 대조 비율도 기준 이상이다."
+   },
+   "evidence": {
+    "decisive": [
+     2,
+     3,
+     4
+    ],
+    "accepted_alternatives": [
+     [
+      2,
+      4,
+      5
+     ]
+    ],
+    "reason": "2의 대칭적 선호에서는 3의 공정성 조건을 함께 지키기 어려워 4의 추첨이 필요해진다."
+   },
+   "near_distractor": {
+    "option": 2,
+    "failure_code": "PARTIAL_TRUE",
+    "counter_evidence": [
+     4,
+     5
+    ],
+    "reason": "2의 결정론적 선택 한계는 반영하지만 4와 5가 도출하는 추첨이라는 해결 요구를 제시하지 않는다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "대칭적 선호와 공정성 제약에서 동률 해소 수단의 필요성을 도출하며 합리적 금지가 자유 제한인지 묻지 않는다.",
+    "non_application": "2의 불가능성 진술을 2026#34의 부정 조건과 동일시하면 4와 5의 무작위 선택이라는 별도 귀결을 잃는다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#34",
+   "original": {
+    "verdict": "CONFIRM",
+    "reason": "미술 가치의 가변성과 수집가의 결단이 완결된 논증을 이루며 다섯 선지에도 혼입 흔적이 없다."
+   },
+   "evidence": {
+    "decisive": [
+     3,
+     4,
+     5,
+     7
+    ],
+    "accepted_alternatives": [
+     [
+      2,
+      3,
+      5,
+      6,
+      7
+     ]
+    ],
+    "reason": "3의 미래적 중요성에 대한 믿음은 4와 5의 현재 합의의 불안정성을 넘어서는 예측 확신을 요구한다."
+   },
+   "near_distractor": {
+    "option": 5,
+    "failure_code": "SCOPE_OVER",
+    "counter_evidence": [
+     1,
+     4,
+     5
+    ],
+    "reason": "가치가 달라지고 현재의 합의도 교체된다는 한정을 넘어 작품의 독창성을 불변의 것으로 보장한다."
+   },
+   "anchor_function": {
+    "verdict": "DIFFERENT",
+    "reason": "불확실한 미술사적 가치 속에서 구매가 표현하는 미래 예측의 확신을 추론하며 조건부 자유 명제를 검증하지 않는다.",
+    "non_application": "7의 확신을 객관적으로 보장된 사실로 취급하거나 법 문항의 부정 처리를 가져오면 수집가의 주관적 결단을 오해한다."
+   },
+   "revision_options": [
+    {
+     "option": 3,
+     "chosen_label": "NONE",
+     "reason": "3의 미래적 중요성을 현재 시대의 재현으로 바꾸지만 제시된 인과 역전이나 직접적인 반대 진술에는 맞지 않는다."
+    },
+    {
+     "option": 4,
+     "chosen_label": "어휘 함정",
+     "reason": "1의 시장과 3의 지불 행위를 즉각적인 수익으로 연결하지만 지문은 미술사적 가치의 미래를 논한다."
+    },
+    {
+     "option": 5,
+     "chosen_label": "범위 과대",
+     "reason": "4와 5에서 현재 합의조차 잠정적인데 작품의 독창성에는 흔들림이 없다고 단정하여 보장 범위를 넓힌다."
+    }
+   ]
+  },
+  {
+   "item_id": "2025#38",
+   "original": {
+    "verdict": "REJECT",
+    "reason": "위치 선택지가 주변 문장 조각으로 되어 있고 마지막 선지에 배점과 각주 및 쪽수가 붙어 있다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     5,
+     6
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      3,
+      4,
+      6,
+      7
+     ]
+    ],
+    "reason": "5까지의 비밀 유지 이점 뒤 1이 유출 위험으로 전환하고 6이 유출 이후의 결과를 이어받는다."
+   },
+   "near_distractor": {
+    "option": 5,
+    "failure_code": "SEQ_REVERSAL",
+    "counter_evidence": [
+     1,
+     6,
+     7
+    ],
+    "reason": "6의 공개 후 결과가 먼저 나오고 나서야 1의 유출 위험이 제시되어 원인과 결과의 설명 순서가 뒤집힌다."
+   },
+   "anchor_function": {
+    "verdict": "SAME",
+    "reason": "앞의 비밀 유지 장점에서 위험으로 전환하면서 뒤의 공개 결과에 필요한 사건을 공급해야 위치가 결정된다.",
+    "non_application": "비밀 유지라는 소재 반복이나 1의 역접만 보면 이른 위치도 가능해 보이므로 6의 유출 결과 연결을 함께 확인해야 한다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#39",
+   "original": {
+    "verdict": "REJECT",
+    "reason": "다섯 위치의 표지가 온전한 선지 대신 문맥 조각으로 추출되었고 마지막에는 어휘 각주가 섞였다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     5,
+     6
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      5,
+      6,
+      7
+     ]
+    ],
+    "reason": "5의 선형 생애 모형 비판을 1의 실제 경로가 구체화하고 6이 재활용 경로를 추가한다."
+   },
+   "near_distractor": {
+    "option": 5,
+    "failure_code": "ENUM_CUT",
+    "counter_evidence": [
+     1,
+     5,
+     6
+    ],
+    "reason": "6의 추가 연결이 요구하는 구체적 비선형 경로를 1이 뒤늦게 공급하여 병렬 사례의 연결이 어긋난다."
+   },
+   "anchor_function": {
+    "verdict": "SAME",
+    "reason": "앞의 선형 모형 비판을 받아 실제 경로를 제시하고 뒤의 추가 사례를 가능하게 하는 양쪽 연결이 결정적이다.",
+    "non_application": "1과 7의 복잡한 경로라는 의미 유사성만 따르면 마지막 위치에 끌리므로 6의 추가 관계가 성립하는지 확인해야 한다."
+   },
+   "revision_options": [
+    {
+     "option": 3,
+     "chosen_label": "총론-각론 역전",
+     "reason": "5의 모형이 불완전하다는 포괄적 비판보다 1의 고장과 보관 등 구체 경로를 먼저 놓아 설명의 위계가 뒤집힌다."
+    },
+    {
+     "option": 5,
+     "chosen_label": "열거·병렬 절단",
+     "reason": "1의 재발견과 재사용 경로가 있어야 6의 재활용 및 중고 경로를 추가 사례로 자연스럽게 연결할 수 있다."
+    }
+   ]
+  },
+  {
+   "item_id": "M2509#38",
+   "original": {
+    "verdict": "REJECT",
+    "reason": "로봇 지문 자체는 이어지지만 위치 선지가 문장 조각이며 마지막에 각주와 쪽수 잔재가 있다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     7,
+     8
+    ],
+    "accepted_alternatives": [],
+    "reason": "7의 자기 팔과 블록 구별이 실패하는 경우를 1이 제시하고 8이 그 자기 추적 행동을 풀어 설명한다."
+   },
+   "near_distractor": {
+    "option": 4,
+    "failure_code": "COND_RESULT_CUT",
+    "counter_evidence": [
+     1,
+     6,
+     7,
+     8
+    ],
+    "reason": "6의 장치 부착 뒤에 넣으면 실패 조건이 구별 능력이 아닌 장치 유무로 읽히고 7과 8의 성공·실패 전환도 끊긴다."
+   },
+   "anchor_function": {
+    "verdict": "SAME",
+    "reason": "부정 조건이 앞의 식별 체계를 받아야 하고 뒤의 자기중심적 반복 행동을 예고해야 한다는 두 경계가 함께 작동한다.",
+    "non_application": "로봇과 블록의 반복만으로 위치를 고르면 6의 장치와 7의 식별 능력을 혼동하므로 조건의 대상과 8의 결과를 같이 대조해야 한다."
+   },
+   "revision_options": [
+    {
+     "option": 4,
+     "chosen_label": "조건 대상 오지정",
+     "reason": "6 뒤에서는 1의 부정 조건이 눈과 팔의 부착을 가리키게 되지만 실제로 부정되어야 하는 것은 7의 식별 능력이다."
+    }
+   ]
+  },
+  {
+   "item_id": "M2606#38",
+   "original": {
+    "verdict": "REJECT",
+    "reason": "디자인 효과의 논지는 완결되지만 위치 선지가 문맥 조각이며 마지막에 각주와 쪽수가 혼입되었다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     5,
+     6
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      4,
+      5,
+      6,
+      7
+     ]
+    ],
+    "reason": "5까지 두 디자인의 긍정적 동기를 설명한 뒤 1이 단점으로 전환하고 6이 첫 단점을 제시한다."
+   },
+   "near_distractor": {
+    "option": 3,
+    "failure_code": "ENUM_CUT",
+    "counter_evidence": [
+     3,
+     4,
+     5,
+     6
+    ],
+    "reason": "4와 5는 3이 예고한 두 동기의 병렬 설명인데 그 사이에 단점 전환을 넣으면 두 번째 동기를 단점처럼 만든다."
+   },
+   "anchor_function": {
+    "verdict": "SAME",
+    "reason": "앞의 긍정적 동기 설명을 닫으면서 뒤의 부정적 사례를 여는 전환문이므로 양쪽 문장의 기능을 함께 판정해야 한다.",
+    "non_application": "같은 디자인 명칭이 반복된다는 이유로 삽입하면 두 동기의 병렬이 깨지므로 6과 7이 실제 단점인지도 확인해야 한다."
+   },
+   "revision_options": [
+    {
+     "option": 2,
+     "chosen_label": "총론-각론 절단",
+     "reason": "3이 두 동기를 예고한 직후 1을 넣으면 4와 5의 동기 설명으로 내려가는 총론과 각론의 연결이 끊긴다."
+    }
+   ]
+  },
+  {
+   "item_id": "M2609#38",
+   "original": {
+    "verdict": "REJECT",
+    "reason": "낙엽 과정은 완결되어 있으나 위치 선택지가 문맥 조각이고 마지막에 각주와 쪽수가 붙어 있다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     5,
+     6
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      3,
+      4,
+      6
+     ]
+    ],
+    "reason": "5까지 겨울 생존 위험을 설명한 후 1의 계절 변화가 6의 신호 주체와 식물 지시 대상을 제공한다."
+   },
+   "near_distractor": {
+    "option": 4,
+    "failure_code": "REF_ANTECEDENT_CUT",
+    "counter_evidence": [
+     1,
+     6,
+     7
+    ],
+    "reason": "6 뒤에 넣으면 신호를 주는 계절 변화와 신호를 받는 식물이 지시 표현보다 늦게 도입된다."
+   },
+   "anchor_function": {
+    "verdict": "SAME",
+    "reason": "앞의 겨울 위험 설명에서 계절 감지로 넘어가면서 뒤의 신호 문장에 필요한 두 지시 대상을 공급해야 한다.",
+    "non_application": "겨울이라는 공통 소재만으로 앞에 넣으면 4와 5의 가정적 위험 설명을 분절하므로 6의 지시 관계까지 확인해야 한다."
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#38",
+   "original": {
+    "verdict": "REJECT",
+    "reason": "와류와 설계 대책의 설명은 이어지지만 위치 선지가 문맥 조각이며 마지막에는 각주와 쪽수가 섞였다."
+   },
+   "evidence": {
+    "decisive": [
+     1,
+     6,
+     7
+    ],
+    "accepted_alternatives": [
+     [
+      1,
+      6,
+      7,
+      8
+     ]
+    ],
+    "reason": "6에서 와류의 위험 설명이 끝난 뒤 1이 저감 대책을 총괄하고 7이 첫 설계 방안을 제시한다."
+   },
+   "near_distractor": {
+    "option": 4,
+    "failure_code": "GENERAL_SPECIFIC_REVERSAL",
+    "counter_evidence": [
+     1,
+     7,
+     8
+    ],
+    "reason": "7의 구체적 배치 대책을 먼저 제시한 뒤 1의 포괄적 대책을 놓아 8과 이어지는 사례 묶음의 위계를 흐린다."
+   },
+   "anchor_function": {
+    "verdict": "SAME",
+    "reason": "앞의 위험 발생 설명을 받고 뒤의 설계 사례들을 총괄하는 전환 위치를 양쪽 연결로 결정해야 한다.",
+    "non_application": "와류라는 낱말의 반복만 따라가면 발생 원인과 위험 사이에 대책을 넣게 되므로 7부터 시작되는 해결 사례를 함께 보아야 한다."
+   },
+   "revision_options": [
+    {
+     "option": 1,
+     "chosen_label": "인과 연쇄 절단",
+     "reason": "4의 바람 분리에서 5의 압력 차와 와류 발생으로 이어지는 원인 설명 사이에 설계 대책을 끼워 넣는다."
+    },
+    {
+     "option": 4,
+     "chosen_label": "총론-각론 역전",
+     "reason": "7의 건물 방향 조정은 1의 포괄적인 와류 저감 전략에 속하는 첫 사례이므로 총괄 설명보다 먼저 두기 어렵다."
+    }
+   ]
+  }
+ ]
+}

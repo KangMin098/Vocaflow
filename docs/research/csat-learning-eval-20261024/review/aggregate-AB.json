@@ -1,0 +1,935 @@
+{
+ "generated_at": "2026-10-24",
+ "protocol_commit": "8795b3604",
+ "floor": 0.85,
+ "gates": {
+  "original": {
+   "n": 20,
+   "agree": 13,
+   "rate": 0.65,
+   "reflect": false
+  },
+  "evidence": {
+   "n": 20,
+   "agree": 18,
+   "rate": 0.9,
+   "reflect": true
+  },
+  "near_distractor": {
+   "n": 20,
+   "agree": 10,
+   "rate": 0.5,
+   "reflect": false
+  },
+  "anchor_function": {
+   "n": 17,
+   "agree": 13,
+   "rate": 0.765,
+   "reflect": false
+  },
+  "revision_options": {
+   "n": 14,
+   "agree": 10,
+   "rate": 0.714,
+   "reflect": false
+  }
+ },
+ "rows": [
+  {
+   "item_id": "2026#22",
+   "role": "anchor",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.667,
+    "gold": [
+     9,
+     10
+    ],
+    "a": [
+     9,
+     10
+    ],
+    "b": [
+     6,
+     9,
+     10
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "3:PARTIAL_TRUE",
+    "b": "3:PARTIAL_TRUE"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2026#34",
+   "role": "anchor",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 1,
+    "gold": [
+     6,
+     7
+    ],
+    "a": [
+     6,
+     7
+    ],
+    "b": [
+     6,
+     7
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "4:REVERSAL",
+    "b": "4:REVERSAL"
+   },
+   "revision_options": [
+    {
+     "option": 2,
+     "agree": true,
+     "accepted_label": "어휘 함정",
+     "a": "어휘 함정",
+     "b": "어휘 함정"
+    },
+    {
+     "option": 4,
+     "agree": true,
+     "accepted_label": "반대 진술",
+     "a": "반대 진술",
+     "b": "반대 진술"
+    },
+    {
+     "option": 5,
+     "agree": true,
+     "accepted_label": "어휘 함정",
+     "a": "어휘 함정",
+     "b": "어휘 함정"
+    }
+   ]
+  },
+  {
+   "item_id": "2026#38",
+   "role": "anchor",
+   "original": {
+    "agree": false,
+    "accepted": false,
+    "a": "CONFIRM",
+    "b": "REJECT"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.667,
+    "gold": [
+     1,
+     8
+    ],
+    "a": [
+     1,
+     8
+    ],
+    "b": [
+     1,
+     7,
+     8
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": true,
+    "a": "4:COND_RESULT_CUT",
+    "b": "4:REF_ANTECEDENT_CUT"
+   },
+   "revision_options": [
+    {
+     "option": 2,
+     "agree": false,
+     "accepted_label": null,
+     "a": "인과 연쇄 절단",
+     "b": "어휘 반복 유인"
+    },
+    {
+     "option": 3,
+     "agree": true,
+     "accepted_label": "예시-일반화 절단",
+     "a": "예시-일반화 절단",
+     "b": "예시-일반화 절단"
+    }
+   ]
+  },
+  {
+   "item_id": "2025#22",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.667,
+    "gold": [
+     2,
+     3
+    ],
+    "a": [
+     1,
+     2,
+     3
+    ],
+    "b": [
+     2,
+     3
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "5:LEX_BAIT",
+    "b": "5:LEX_BAIT"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2509#22",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.5,
+    "gold": [
+     4,
+     5
+    ],
+    "a": [
+     4,
+     5,
+     6
+    ],
+    "b": [
+     3,
+     4,
+     5
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": true,
+    "a": "5:PARTIAL_TRUE",
+    "b": "5:SCOPE_UNDER"
+   },
+   "anchor_function": {
+    "agree": false,
+    "accepted": null,
+    "a": "UNSURE",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2606#22",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": false,
+    "jaccard": 0.333,
+    "gold": null,
+    "a": [
+     2,
+     6
+    ],
+    "b": [
+     1,
+     2
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "2:LEX_BAIT",
+    "b": "2:LEX_BAIT"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2609#22",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.667,
+    "gold": [
+     2,
+     8
+    ],
+    "a": [
+     2,
+     8
+    ],
+    "b": [
+     2,
+     3,
+     8
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": false,
+    "a": "3:PARTIAL_TRUE",
+    "b": "2:PARTIAL_TRUE"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#22",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.667,
+    "gold": [
+     4,
+     7
+    ],
+    "a": [
+     4,
+     7
+    ],
+    "b": [
+     4,
+     5,
+     7
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "2:PARTIAL_TRUE",
+    "b": "2:PARTIAL_TRUE"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#34",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.5,
+    "gold": [
+     3,
+     5
+    ],
+    "a": [
+     3,
+     5
+    ],
+    "b": [
+     3,
+     5,
+     7,
+     8
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "4:PARTIAL_TRUE",
+    "b": "4:PARTIAL_TRUE"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#33",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.667,
+    "gold": [
+     1,
+     2
+    ],
+    "a": [
+     1,
+     2
+    ],
+    "b": [
+     1,
+     2,
+     3
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": false,
+    "a": "1:LEX_BAIT",
+    "b": "3:OUTSIDE_KNOWLEDGE"
+   },
+   "anchor_function": {
+    "agree": false,
+    "accepted": null,
+    "a": "SAME",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2509#34",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.5,
+    "gold": [
+     2,
+     7
+    ],
+    "a": [
+     2,
+     7
+    ],
+    "b": [
+     2,
+     6,
+     7,
+     8
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "4:REVERSAL",
+    "b": "4:REVERSAL"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2606#34",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.5,
+    "gold": [
+     4,
+     6
+    ],
+    "a": [
+     4,
+     6
+    ],
+    "b": [
+     4,
+     6,
+     7,
+     8
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": true,
+    "a": "5:LEX_BAIT",
+    "b": "5:SCOPE_UNDER"
+   },
+   "anchor_function": {
+    "agree": false,
+    "accepted": null,
+    "a": "SAME",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2609#34",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 0.667,
+    "gold": [
+     2,
+     4
+    ],
+    "a": [
+     2,
+     4
+    ],
+    "b": [
+     2,
+     3,
+     4
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": true,
+    "a": "2:LEX_BAIT",
+    "b": "2:PARTIAL_TRUE"
+   },
+   "anchor_function": {
+    "agree": false,
+    "accepted": null,
+    "a": "UNSURE",
+    "b": "DIFFERENT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#34",
+   "role": "candidate",
+   "original": {
+    "agree": true,
+    "accepted": true,
+    "a": "CONFIRM",
+    "b": "CONFIRM"
+   },
+   "evidence": {
+    "agree": false,
+    "jaccard": 0.2,
+    "gold": null,
+    "a": [
+     3,
+     6
+    ],
+    "b": [
+     3,
+     4,
+     5,
+     7
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": false,
+    "a": "3:REVERSAL",
+    "b": "5:SCOPE_OVER"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT"
+   },
+   "revision_options": [
+    {
+     "option": 3,
+     "agree": false,
+     "accepted_label": null,
+     "a": "반대 진술",
+     "b": "NONE"
+    },
+    {
+     "option": 4,
+     "agree": true,
+     "accepted_label": "어휘 함정",
+     "a": "어휘 함정",
+     "b": "어휘 함정"
+    },
+    {
+     "option": 5,
+     "agree": false,
+     "accepted_label": null,
+     "a": "반대 진술",
+     "b": "범위 과대"
+    }
+   ]
+  },
+  {
+   "item_id": "2025#38",
+   "role": "candidate",
+   "original": {
+    "agree": false,
+    "accepted": false,
+    "a": "CONFIRM",
+    "b": "REJECT"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 1,
+    "gold": [
+     1,
+     5,
+     6
+    ],
+    "a": [
+     1,
+     5,
+     6
+    ],
+    "b": [
+     1,
+     5,
+     6
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": true,
+    "a": "5:FIRST_MENTION_VIOLATION",
+    "b": "5:SEQ_REVERSAL"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "SAME",
+    "a": "SAME",
+    "b": "SAME"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#39",
+   "role": "candidate",
+   "original": {
+    "agree": false,
+    "accepted": false,
+    "a": "CONFIRM",
+    "b": "REJECT"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 1,
+    "gold": [
+     1,
+     5,
+     6
+    ],
+    "a": [
+     1,
+     5,
+     6
+    ],
+    "b": [
+     1,
+     5,
+     6
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "5:ENUM_CUT",
+    "b": "5:ENUM_CUT"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "SAME",
+    "a": "SAME",
+    "b": "SAME"
+   },
+   "revision_options": [
+    {
+     "option": 3,
+     "agree": false,
+     "accepted_label": null,
+     "a": "반박-피반박 순서 역전",
+     "b": "총론-각론 역전"
+    },
+    {
+     "option": 5,
+     "agree": true,
+     "accepted_label": "열거·병렬 절단",
+     "a": "열거·병렬 절단",
+     "b": "열거·병렬 절단"
+    }
+   ]
+  },
+  {
+   "item_id": "M2509#38",
+   "role": "candidate",
+   "original": {
+    "agree": false,
+    "accepted": false,
+    "a": "CONFIRM",
+    "b": "REJECT"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 1,
+    "gold": [
+     1,
+     7,
+     8
+    ],
+    "a": [
+     1,
+     7,
+     8
+    ],
+    "b": [
+     1,
+     7,
+     8
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "4:COND_RESULT_CUT",
+    "b": "4:COND_RESULT_CUT"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "SAME",
+    "a": "SAME",
+    "b": "SAME"
+   },
+   "revision_options": [
+    {
+     "option": 4,
+     "agree": true,
+     "accepted_label": "조건 대상 오지정",
+     "a": "조건 대상 오지정",
+     "b": "조건 대상 오지정"
+    }
+   ]
+  },
+  {
+   "item_id": "M2606#38",
+   "role": "candidate",
+   "original": {
+    "agree": false,
+    "accepted": false,
+    "a": "CONFIRM",
+    "b": "REJECT"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 1,
+    "gold": [
+     1,
+     5,
+     6
+    ],
+    "a": [
+     1,
+     5,
+     6
+    ],
+    "b": [
+     1,
+     5,
+     6
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": false,
+    "a": "5:GENERAL_SPECIFIC_REVERSAL",
+    "b": "3:ENUM_CUT"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "SAME",
+    "a": "SAME",
+    "b": "SAME"
+   },
+   "revision_options": [
+    {
+     "option": 2,
+     "agree": true,
+     "accepted_label": "총론-각론 절단",
+     "a": "총론-각론 절단",
+     "b": "총론-각론 절단"
+    }
+   ]
+  },
+  {
+   "item_id": "M2609#38",
+   "role": "candidate",
+   "original": {
+    "agree": false,
+    "accepted": false,
+    "a": "CONFIRM",
+    "b": "REJECT"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 1,
+    "gold": [
+     1,
+     5,
+     6
+    ],
+    "a": [
+     1,
+     5,
+     6
+    ],
+    "b": [
+     1,
+     5,
+     6
+    ]
+   },
+   "near_distractor": {
+    "agree": false,
+    "option_agree": true,
+    "a": "4:FIRST_MENTION_VIOLATION",
+    "b": "4:REF_ANTECEDENT_CUT"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "SAME",
+    "a": "SAME",
+    "b": "SAME"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#38",
+   "role": "candidate",
+   "original": {
+    "agree": false,
+    "accepted": false,
+    "a": "CONFIRM",
+    "b": "REJECT"
+   },
+   "evidence": {
+    "agree": true,
+    "jaccard": 1,
+    "gold": [
+     1,
+     6,
+     7
+    ],
+    "a": [
+     1,
+     6,
+     7
+    ],
+    "b": [
+     1,
+     6,
+     7
+    ]
+   },
+   "near_distractor": {
+    "agree": true,
+    "option_agree": true,
+    "a": "4:GENERAL_SPECIFIC_REVERSAL",
+    "b": "4:GENERAL_SPECIFIC_REVERSAL"
+   },
+   "anchor_function": {
+    "agree": true,
+    "accepted": "SAME",
+    "a": "SAME",
+    "b": "SAME"
+   },
+   "revision_options": [
+    {
+     "option": 1,
+     "agree": true,
+     "accepted_label": "인과 연쇄 절단",
+     "a": "인과 연쇄 절단",
+     "b": "인과 연쇄 절단"
+    },
+    {
+     "option": 4,
+     "agree": true,
+     "accepted_label": "총론-각론 역전",
+     "a": "총론-각론 역전",
+     "b": "총론-각론 역전"
+    }
+   ]
+  }
+ ]
+}

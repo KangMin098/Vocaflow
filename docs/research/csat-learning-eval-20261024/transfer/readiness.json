@@ -28,7 +28,8 @@
   "ai_same": 5,
   "ai_unsure": 4,
   "ai_different": 8,
-  "transfer_eligible": 0
+  "transfer_eligible": 0,
+  "evidence_gold_accepted": 15
  },
  "items": [
   {
@@ -38,7 +39,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -53,7 +59,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -62,12 +73,34 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_UNSURE",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "DIFFERENT",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-22.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       2,
+       3
+      ],
+      "jaccard": 0.667,
+      "a": [
+       1,
+       2,
+       3
+      ],
+      "b": [
+       2,
+       3
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -87,7 +120,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -101,7 +139,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -110,12 +153,35 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_DIFFERENT",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "UNSURE",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-22.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       4,
+       5
+      ],
+      "jaccard": 0.5,
+      "a": [
+       4,
+       5,
+       6
+      ],
+      "b": [
+       3,
+       4,
+       5
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -135,7 +201,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -149,7 +220,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -158,12 +234,30 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_DIFFERENT",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "DIFFERENT",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
      "status": "AI_CANDIDATE_ONLY",
      "source": "review/ai-candidates-22.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": false,
+      "gold_decisive": null,
+      "jaccard": 0.333,
+      "a": [
+       2,
+       6
+      ],
+      "b": [
+       1,
+       2
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -183,7 +277,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -197,7 +296,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -206,12 +310,34 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_UNSURE",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "DIFFERENT",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-22.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       2,
+       8
+      ],
+      "jaccard": 0.667,
+      "a": [
+       2,
+       8
+      ],
+      "b": [
+       2,
+       3,
+       8
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -231,7 +357,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -245,7 +376,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -254,12 +390,34 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_DIFFERENT",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "DIFFERENT",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-22.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       4,
+       7
+      ],
+      "jaccard": 0.667,
+      "a": [
+       4,
+       7
+      ],
+      "b": [
+       4,
+       5,
+       7
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -279,7 +437,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -294,7 +457,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -303,12 +471,35 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_DIFFERENT",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "DIFFERENT",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-34.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       3,
+       5
+      ],
+      "jaccard": 0.5,
+      "a": [
+       3,
+       5
+      ],
+      "b": [
+       3,
+       5,
+       7,
+       8
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -328,7 +519,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -343,7 +539,12 @@
      "revisions": 5,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -352,12 +553,34 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_UNSURE",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "SAME",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-34.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       1,
+       2
+      ],
+      "jaccard": 0.667,
+      "a": [
+       1,
+       2
+      ],
+      "b": [
+       1,
+       2,
+       3
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -377,7 +600,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -391,7 +619,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -400,12 +633,35 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_DIFFERENT",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "DIFFERENT",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-34.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       2,
+       7
+      ],
+      "jaccard": 0.5,
+      "a": [
+       2,
+       7
+      ],
+      "b": [
+       2,
+       6,
+       7,
+       8
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -425,7 +681,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -439,7 +700,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -448,12 +714,35 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_DIFFERENT",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "SAME",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-34.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       4,
+       6
+      ],
+      "jaccard": 0.5,
+      "a": [
+       4,
+       6
+      ],
+      "b": [
+       4,
+       6,
+       7,
+       8
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -473,7 +762,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -487,7 +781,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -496,12 +795,34 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_DIFFERENT",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "UNSURE",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-34.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       2,
+       4
+      ],
+      "jaccard": 0.667,
+      "a": [
+       2,
+       4
+      ],
+      "b": [
+       2,
+       3,
+       4
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -521,7 +842,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "CONFIRM",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -535,7 +861,34 @@
      "revisions": 5,
      "trap_conflict": "SEMANTIC",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [
+       {
+        "option": 3,
+        "agree": false,
+        "accepted_label": null,
+        "a": "반대 진술",
+        "b": "NONE"
+       },
+       {
+        "option": 4,
+        "agree": true,
+        "accepted_label": "어휘 함정",
+        "a": "어휘 함정",
+        "b": "어휘 함정"
+       },
+       {
+        "option": 5,
+        "agree": false,
+        "accepted_label": null,
+        "a": "반대 진술",
+        "b": "범위 과대"
+       }
+      ],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -544,12 +897,32 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_DIFFERENT",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "DIFFERENT",
+      "b": "DIFFERENT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
      "status": "AI_CANDIDATE_ONLY",
      "source": "review/ai-candidates-34.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": false,
+      "gold_decisive": null,
+      "jaccard": 0.2,
+      "a": [
+       3,
+       6
+      ],
+      "b": [
+       3,
+       4,
+       5,
+       7
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -569,7 +942,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "REJECT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -584,7 +962,12 @@
      "revisions": 5,
      "trap_conflict": "RENAME_ONLY",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -593,12 +976,36 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_SAME",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "SAME",
+      "b": "SAME",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-38.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       1,
+       5,
+       6
+      ],
+      "jaccard": 1,
+      "a": [
+       1,
+       5,
+       6
+      ],
+      "b": [
+       1,
+       5,
+       6
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -618,7 +1025,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "REJECT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -633,7 +1045,27 @@
      "revisions": 5,
      "trap_conflict": "SEMANTIC",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [
+       {
+        "option": 3,
+        "agree": false,
+        "accepted_label": null,
+        "a": "반박-피반박 순서 역전",
+        "b": "총론-각론 역전"
+       },
+       {
+        "option": 5,
+        "agree": true,
+        "accepted_label": "열거·병렬 절단",
+        "a": "열거·병렬 절단",
+        "b": "열거·병렬 절단"
+       }
+      ],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -642,12 +1074,36 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_SAME",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "SAME",
+      "b": "SAME",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-38.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       1,
+       5,
+       6
+      ],
+      "jaccard": 1,
+      "a": [
+       1,
+       5,
+       6
+      ],
+      "b": [
+       1,
+       5,
+       6
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -667,7 +1123,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "REJECT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -681,7 +1142,20 @@
      "revisions": 6,
      "trap_conflict": "SEMANTIC",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [
+       {
+        "option": 4,
+        "agree": true,
+        "accepted_label": "조건 대상 오지정",
+        "a": "조건 대상 오지정",
+        "b": "조건 대상 오지정"
+       }
+      ],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -690,12 +1164,36 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_UNSURE",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "SAME",
+      "b": "SAME",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-38.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       1,
+       7,
+       8
+      ],
+      "jaccard": 1,
+      "a": [
+       1,
+       7,
+       8
+      ],
+      "b": [
+       1,
+       7,
+       8
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -715,7 +1213,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "REJECT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -729,7 +1232,20 @@
      "revisions": 5,
      "trap_conflict": "SEMANTIC",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [
+       {
+        "option": 2,
+        "agree": true,
+        "accepted_label": "총론-각론 절단",
+        "a": "총론-각론 절단",
+        "b": "총론-각론 절단"
+       }
+      ],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -738,12 +1254,36 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_SAME",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "SAME",
+      "b": "SAME",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-38.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       1,
+       5,
+       6
+      ],
+      "jaccard": 1,
+      "a": [
+       1,
+       5,
+       6
+      ],
+      "b": [
+       1,
+       5,
+       6
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -763,7 +1303,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "REJECT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -777,7 +1322,12 @@
      "revisions": 4,
      "trap_conflict": "NONE",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -786,12 +1336,36 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_SAME",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "SAME",
+      "b": "SAME",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-38.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       1,
+       5,
+       6
+      ],
+      "jaccard": 1,
+      "a": [
+       1,
+       5,
+       6
+      ],
+      "b": [
+       1,
+       5,
+       6
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -811,7 +1385,12 @@
    "source_gates": {
     "original": {
      "status": "MACHINE_MATCH",
-     "human_signoff": null
+     "dual_agent": {
+      "a": "CONFIRM",
+      "b": "REJECT",
+      "reflected": false,
+      "reason": "게이트 일치율 0.65<0.85"
+     }
     },
     "answer": {
      "status": "VERIFIED_OFFICIAL_TABLE",
@@ -825,7 +1404,27 @@
      "revisions": 5,
      "trap_conflict": "SEMANTIC",
      "all_revisions_answer_aligned": true,
-     "accepted_revision": null
+     "accepted_revision": null,
+     "dual_agent": {
+      "options": [
+       {
+        "option": 1,
+        "agree": true,
+        "accepted_label": "인과 연쇄 절단",
+        "a": "인과 연쇄 절단",
+        "b": "인과 연쇄 절단"
+       },
+       {
+        "option": 4,
+        "agree": true,
+        "accepted_label": "총론-각론 역전",
+        "a": "총론-각론 역전",
+        "b": "총론-각론 역전"
+       }
+      ],
+      "reflected": false,
+      "reason": "게이트 일치율 0.714<0.85"
+     }
     },
     "rights": {
      "status": "RESERVED",
@@ -834,12 +1433,36 @@
     "same_principle": {
      "status": "AI_CANDIDATE_ONLY",
      "ai_verdict": "AI_CANDIDATE_SAME",
-     "human_verdict": null
+     "dual_agent": {
+      "a": "SAME",
+      "b": "SAME",
+      "reflected": false,
+      "reason": "게이트 일치율 0.765<0.85"
+     }
     },
     "scoring_evidence": {
-     "status": "AI_CANDIDATE_ONLY",
+     "status": "EVIDENCE_GOLD_ACCEPTED_NEAR_DISTRACTOR_OPEN",
      "source": "review/ai-candidates-38.json",
-     "human_approval": null
+     "dual_agent": {
+      "reflected": true,
+      "gold_decisive": [
+       1,
+       6,
+       7
+      ],
+      "jaccard": 1,
+      "a": [
+       1,
+       6,
+       7
+      ],
+      "b": [
+       1,
+       6,
+       7
+      ],
+      "note": "결정 근거만 수용. 대체 근거·가까운 오답은 게이트 미반영(가까운 오답 일치율 0.50)"
+     }
     }
    },
    "source_blocking": [
@@ -852,5 +1475,51 @@
    "PARTICIPANT_READY": "PER_LEARNER_NOT_EVALUATED",
    "transfer_eligible": false
   }
- ]
+ ],
+ "review": {
+  "protocol": "11_DUAL_AGENT_REVIEW.md@8795b3604",
+  "reviewers": [
+   "A-claude",
+   "B-codex"
+  ],
+  "aggregate": "review/aggregate-AB.json",
+  "gates": {
+   "original": {
+    "n": 20,
+    "agree": 13,
+    "rate": 0.65,
+    "reflect": false
+   },
+   "evidence": {
+    "n": 20,
+    "agree": 18,
+    "rate": 0.9,
+    "reflect": true
+   },
+   "near_distractor": {
+    "n": 20,
+    "agree": 10,
+    "rate": 0.5,
+    "reflect": false
+   },
+   "anchor_function": {
+    "n": 17,
+    "agree": 13,
+    "rate": 0.765,
+    "reflect": false
+   },
+   "revision_options": {
+    "n": 14,
+    "agree": 10,
+    "rate": 0.714,
+    "reflect": false
+   }
+  },
+  "spot_check": [
+   "2026#34 [6,7]",
+   "2025#38 [1,5,6]",
+   "M2509#34 [2,7]"
+  ],
+  "ai_control_task": "T-0149"
+ }
 }
