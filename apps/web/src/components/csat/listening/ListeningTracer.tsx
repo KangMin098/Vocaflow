@@ -89,7 +89,7 @@ export interface ListeningTracerProps {
   fixtures: readonly ListeningTraceFixture[]
   initialKey?: string | null
   /** 제출 뒤 분석 열기(서버 액션). 없거나 실패하면 L4 이상은 닫힌 채다 */
-  loadAnalysis?: (itemId: string) => Promise<unknown>
+  loadAnalysis?: (itemId: string, submission: ItemTraceState['judgments']) => Promise<unknown>
   /** 시험 · 미리보기용 — 문항별 분석 상태를 미리 채운다 */
   initialAnalysis?: Record<string, AnalysisState>
   audioFactory?: AudioFactory
@@ -145,11 +145,11 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
     const key = baseFx.key
     if (analysis[key] && analysis[key].status !== 'idle') return
     setAnalysis((p) => ({ ...p, [key]: { status: 'loading' } }))
-    loadAnalysis(key).then(
+    loadAnalysis(key, st.judgments).then(
       (r) => setAnalysis((p) => ({ ...p, [key]: toAnalysisState(key, r) })),
       () => setAnalysis((p) => ({ ...p, [key]: { status: 'failure' } })),
     )
-  }, [st.submitted, baseFx.key, loadAnalysis, analysis])
+  }, [st.submitted, st.judgments, baseFx.key, loadAnalysis, analysis])
   const level = shownLevel(st, ctx)
   const view = exposureView(st.level, ctx)
   const audio = useListeningAudio(fx.audio, audioFactory)
