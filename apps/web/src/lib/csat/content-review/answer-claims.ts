@@ -143,16 +143,19 @@ export function readClaims(rawText: string, ctx: { choices?: readonly string[] }
   }
   for (const raw of text.split(/(?<=[.。?!])\s*/)) {
     const sentence = raw.trim()
-    if (!sentence || !TALKS_ANSWER.test(sentence)) continue
+    // 「답」이 들었지만 정답과 무관한 낱말(대답 · 답하다 · 보답 · 응답 · 답장 · 답변)은 진입 판정에서 지운다
+    const gateText = sentence.replace(/대답|답하|답해|답했|답한|답할|보답|응답|답장|답변/g, '')
+    if (!sentence || !TALKS_ANSWER.test(gateText)) continue
     // 선지 번호가 없는 문장(「…맞는 진술이고, 답이 아닙니다」)의 주어는 cue target(reject:n)이 정한다 — 호출자가 따로 검사한다
     if (exoticNumber(sentence)) { unparsed.push(sentence); continue }
     // 번호처럼 보일 수 있는 것(숫자 문자 · 「일~오 번」)이 하나도 없으면 cue target 이 맡는다.
     // 「선지 번호인가」를 휴리스틱으로 가리지 않는다 — 소수·연도 예외가 「1,2,3」을 통째로 놓쳤다(T-0158 Codex 13차 P1).
     // 단, **긍정형 정답 진술**(「정답」·「답은/답입/답이(아니 제외)/답=:」)은 번호가 안 보여도 넘기지 않는다 —
     // 「정답은 오.」·「마지막 선지가 정답」·「정답은 five」처럼 번호를 말로 쓰면 번호 탐지는 끝이 없다. 아는 꼴로 다 읽히지 않으면 사람 확인.
-    // 「정답 블록」은 해설 화면의 블록 이름(UI)이다 — 정답 진술이 아니다
-    const affirmsAnswer = /정답|답\s*[은는:=]|답입|답이(?!\s*아[니닙닌])|답이다/.test(sentence.replace(/정답\s*블록/g, ''))
-    if (!/\p{N}/u.test(sentence) && refsIn(sentence).length === 0 && !affirmsAnswer) continue
+    // 긍정형을 목록으로 판별하면 끝이 없다(「답 맞습니다」·「답으로」·문장 끝 「답」 — 14차 P1). 그래서 거꾸로:
+    // 이 문장의 「답」이 **모두** 번호 없는 부정형(「답이 아닙니다」)이나 UI 이름(「정답 블록」)일 때만 건너뛴다(cue target 이 맡는다).
+    const onlyNegativeOrUi = !/답/.test(gateText.replace(/정답\s*블록/g, '').replace(/정?답이\s*아[니닙닌]/g, ''))
+    if (!/\p{N}/u.test(sentence) && refsIn(sentence).length === 0 && onlyNegativeOrUi) continue
     const mine: AnswerClaim[] = []
     const mineRejected: number[] = []
     const used: Span[] = [] // 진술 꼴이 소비한 구간(선지 번호·부정 포함)

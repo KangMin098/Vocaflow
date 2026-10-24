@@ -397,8 +397,9 @@ describe('T-0158 11차 반례 — 문장 끝 숫자', () => {
   it('소수가 든 「답」 문장은 오진단 없이 사람 확인', () => {
     expect(run([4], '값이 1.8배라서 답을 쉽게 찾습니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
   })
-  it('숫자가 없는 「답」 문장은 cue target 이 맡는다', () => {
-    expect(run([4], '값이 두 배라서 답을 쉽게 찾습니다.').findings).toEqual([])
+  // 14차부터: 부정형·UI 이름이 아닌 「답」 문장은 숫자가 없어도 기본 검사 → 아는 꼴이 아니면 사람 확인
+  it('숫자가 없는 일반 「답」 문장도 사람 확인', () => {
+    expect(run([4], '값이 두 배라서 답을 쉽게 찾습니다.').findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
   })
 })
 
@@ -446,5 +447,23 @@ describe('T-0158 13차 자체 반례 — 번호를 말로 쓴 긍정 정답 진�
   })
   it('「정답 블록을 확인하세요」(UI 이름)는 진술이 아니다', () => {
     expect(run([4], '정답 블록을 확인하세요.').findings).toEqual([])
+  })
+})
+
+describe('T-0158 14차 반례 — 「답」 문장은 기본 검사(건너뜀은 번호 없는 부정형·UI 이름만)', () => {
+  const cue = (text: string) => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: 'answer' },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it.each(['첫 번째 선지가 답 맞습니다.', '답으로 첫 번째를 고르세요.', '첫 번째 선지가 답.', '답은 첫 번째 선지입니다.', '맨 앞 선지를 답으로 칩니다.'])(
+    '{5} · %s → 사람 확인', (text) => {
+      expect(run([5], text).findings.map((f) => f.code)).toEqual(['CUE_ANSWER_UNPARSED'])
+    })
+  it('번호 없는 부정형·UI 이름·무관한 낱말은 건너뛴다', () => {
+    expect(run([5], '맞는 진술이고, 답이 아닙니다.').findings).toEqual([])
+    expect(run([5], '정답 블록을 확인하세요.').findings).toEqual([])
+    expect(run([5], '캐시가 좋다고 대답해요.').findings).toEqual([])
   })
 })
