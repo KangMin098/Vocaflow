@@ -125,24 +125,47 @@ test('왕복 · 목표 변경 알림 · 재로그인 — 1440', async ({ page, c
   await openStudy(page)
 })
 
-test('정답 공개 — 서버 오류(503 모의)면 정답 없음, 실제 요청은 노출 기록 뒤 공개 — 1280', async ({ page }) => {
+test('정답 공개 — 서버 오류(503 모의)면 정답 · 결정적 근거 없음, 실제 요청은 200 · 노출 기록(P6) 결속 뒤 공개 — 1280', async ({ page }) => {
   test.setTimeout(300_000)
   await page.setViewportSize({ width: 1280, height: 800 })
   await login(page)
   await page.goto('/csat/item/2015-32?scene=judgment', { waitUntil: 'domcontentloaded', timeout: 240_000 })
   const reveal = page.getByTestId('judgment-reveal')
   await expect(reveal).toBeVisible({ timeout: 120_000 })
-  const btn = reveal.getByRole('button', { name: '정답 보기' })
+  const answerBlock = page.locator('[data-block="analysis:answer"]')
+  const evidenceChips = page.locator('[role="group"][aria-label="근거 고르기"] > *')
+  // 공개 전 — 정답 근거 블록 · 근거 칩이 화면에 없다
+  await expect(answerBlock).toHaveCount(0)
+  await expect(evidenceChips).toHaveCount(0)
   let fail = true
   await page.route('**/api/csat/item/*/judgment', (route) => (fail ? route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ ok: false, error: '지금은 정답을 열 수 없어요' }) }) : route.continue()))
-  await btn.click()
-  await expect(reveal.getByRole('button', { name: '정답 보기' }), '실패 뒤 다시 누를 수 있다').toBeVisible()
+  await reveal.getByRole('button', { name: '정답 보기' }).click()
+  // 503 — 실패 안내 · 정답 근거 블록 0 · 근거 칩 0 · 다시 누를 수 있다
+  await expect(page.getByTestId('answer-reveal-failed').first()).toBeVisible({ timeout: 60_000 })
+  await expect(answerBlock).toHaveCount(0)
+  await expect(evidenceChips).toHaveCount(0)
+  await expect(reveal.getByRole('button', { name: '정답 보기' }), '실패 뒤 다시 누를 수 있다').toBeEnabled()
   await test.info().attach('reveal-503-1280', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
+  // 실제 요청 — 정확히 200 · ok · exposureId, 그 뒤에만 정답 근거가 그려진다
   fail = false
   const res = page.waitForResponse((r) => /\/api\/csat\/item\/.+\/judgment$/.test(new URL(r.url()).pathname) && r.request().method() === 'POST', { timeout: 180_000 })
   await reveal.getByRole('button', { name: '정답 보기' }).click()
   const real = await res
-  test.info().annotations.push({ type: 'judgment-status', description: String(real.status()) })
-  expect([200, 409, 423, 503]).toContain(real.status())
+  expect(real.status(), await real.text()).toBe(200)
+  const body = await real.json() as { ok?: boolean; exposureId?: number | string; reveal?: unknown }
+  expect(body.ok).toBe(true)
+  expect(body.exposureId, '노출 원장 행 id').toBeTruthy()
+  expect(body.reveal, '공개 자료').toBeTruthy()
+  await expect(answerBlock.first()).toBeVisible({ timeout: 60_000 })
   await test.info().attach('reveal-real-1280', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
+  // P6 결속 — 응답의 exposureId 행이 이 합성 계정 · 이 문항 · 정답 직접 노출 · 판단 장면 · 합성 표지인가(서버 키로 읽기만)
+  const SB = process.env.NEXT_PUBLIC_SUPABASE_URL ?? '', KEY = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
+  expect(SB).toMatch(/jajenrevcbmrpaliomxv/)
+  const q = await fetch(`${SB}/rest/v1/learning_exposures?id=eq.${body.exposureId}&select=user_id,item_ref,kind,source,synthetic,received_at`, { headers: { apikey: KEY, authorization: `Bearer ${KEY}` } })
+  expect(q.status).toBe(200)
+  const rows = await q.json() as { user_id: string; item_ref: string; kind: string; source: string; synthetic: boolean; received_at: string }[]
+  expect(rows).toHaveLength(1)
+  const u = await fetch(`${SB}/auth/v1/admin/users/${rows[0].user_id}`, { headers: { apikey: KEY, authorization: `Bearer ${KEY}` } })
+  expect((await u.json() as { email?: string }).email).toBe(EMAIL)
+  expect(rows[0]).toMatchObject({ item_ref: '2015#32', kind: 'answer_direct', source: 'judgment_scene', synthetic: true })
 })
