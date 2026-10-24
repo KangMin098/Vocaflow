@@ -1,0 +1,363 @@
+{
+ "id": "2025#30",
+ "examId": "2025",
+ "no": 30,
+ "typeId": "R-VOCAB",
+ "answer": {
+  "answers": [
+   4
+  ],
+  "multiple": false,
+  "legacyMismatch": false
+ },
+ "coverage": {
+  "status": "covered"
+ },
+ "analysisVersion": null,
+ "analysisPick": "unbound",
+ "publishedVersions": [
+  1,
+  2,
+  3,
+  4,
+  5,
+  6
+ ],
+ "basis": {
+  "itemId": "2025#30",
+  "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+  "unitsVersion": null,
+  "unitsHash": null,
+  "analysisVersion": null
+ },
+ "defects": [
+  {
+   "code": "choice_overrun",
+   "choice": 1,
+   "chars": 206
+  },
+  {
+   "code": "choice_overrun",
+   "choice": 2,
+   "chars": 233
+  },
+  {
+   "code": "choice_overrun",
+   "choice": 3,
+   "chars": 233
+  },
+  {
+   "code": "choice_overrun",
+   "choice": 4,
+   "chars": 226
+  },
+  {
+   "code": "choice_overrun",
+   "choice": 5,
+   "chars": 75
+  }
+ ],
+ "answerAnchors": [],
+ "choices": [
+  {
+   "n": 1,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 1
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 1,
+     "at": 311,
+     "head": "desire to",
+     "mark": "①"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 2
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 2,
+     "at": 520,
+     "head": "internal conflict",
+     "mark": "②"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 3
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 3,
+     "at": 756,
+     "head": "uncomfortable. When",
+     "mark": "③"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 4
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 4,
+     "at": 992,
+     "head": "stronger motivation",
+     "mark": "④"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 5
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "2025#30",
+      "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 5,
+     "at": 1221,
+     "head": "diminishing the",
+     "mark": "⑤"
+    }
+   ]
+  }
+ ],
+ "structure": {
+  "markers": [
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "2025#30",
+     "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 1,
+    "at": 311,
+    "head": "desire to",
+    "mark": "①"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "2025#30",
+     "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 2,
+    "at": 520,
+    "head": "internal conflict",
+    "mark": "②"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "2025#30",
+     "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 3,
+    "at": 756,
+    "head": "uncomfortable. When",
+    "mark": "③"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "2025#30",
+     "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 4,
+    "at": 992,
+    "head": "stronger motivation",
+    "mark": "④"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "2025#30",
+     "inputHash": "30edadfae8914f786076b2ac9c9fcba25973ad04962144d0746167e37884964c",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 5,
+    "at": 1221,
+    "head": "diminishing the",
+    "mark": "⑤"
+   }
+  ],
+  "conditions": [],
+  "footnotes": []
+ },
+ "reasons": [
+  "no_current_units",
+  "analysis_unbound",
+  "extraction_defect"
+ ]
+}
+{
+ "items": 3714,
+ "exams": 133,
+ "current_units": 2912,
+ "analysis_pick": {
+  "bound": 2449,
+  "unbound": 963,
+  "stale": 0,
+  "none": 302
+ },
+ "multi_published": 809,
+ "readiness": {
+  "total": 3714,
+  "ready": 2282,
+  "toolReady": 864
+ },
+ "blocked": {
+  "no_type": 16,
+  "no_published_analysis": 302,
+  "body_not_ok": 284,
+  "no_current_units": 802,
+  "analysis_unbound": 963,
+  "chart_value_unverified": 30,
+  "multi_answer_partial_analysis": 1,
+  "footnote_missing": 1
+ },
+ "warned": {
+  "no_pdf_anchor": 2912,
+  "extraction_defect": 528
+ },
+ "extraction": {
+  "items": 529,
+  "counts": {
+   "choice_overrun": 1093,
+   "footnote_mark_without_gloss": 1,
+   "choice_paren_residue": 1080,
+   "choice_page_number": 52,
+   "choice_footnote_merged": 337,
+   "choice_count": 1,
+   "orphan_fragment": 12
+  }
+ },
+ "pdf": 802,
+ "lectures": {
+  "valid": 0,
+  "stale": 0,
+  "unverifiable": 796,
+  "orphan": 0
+ },
+ "anchorCues": 2590,
+ "judgment": {
+  "valid": 13
+ }
+}

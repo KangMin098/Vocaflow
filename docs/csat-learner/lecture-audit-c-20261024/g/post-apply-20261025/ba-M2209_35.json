@@ -1,0 +1,333 @@
+{
+ "id": "M2209#35",
+ "examId": "M2209",
+ "no": 35,
+ "typeId": "R-IRRELEVANT",
+ "answer": {
+  "answers": [
+   3
+  ],
+  "multiple": false,
+  "legacyMismatch": false
+ },
+ "coverage": {
+  "status": "covered"
+ },
+ "analysisVersion": null,
+ "analysisPick": "unbound",
+ "publishedVersions": [
+  1,
+  2,
+  3
+ ],
+ "basis": {
+  "itemId": "M2209#35",
+  "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+  "unitsVersion": null,
+  "unitsHash": null,
+  "analysisVersion": null
+ },
+ "defects": [],
+ "answerAnchors": [],
+ "choices": [
+  {
+   "n": 1,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 1
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 1,
+     "at": 167,
+     "head": "From this",
+     "mark": "①"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 2
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 2,
+     "at": 415,
+     "head": "Benefits may",
+     "mark": "②"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 3
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 3,
+     "at": 554,
+     "head": "People with",
+     "mark": "③"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 4
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 4,
+     "at": 682,
+     "head": "Individual costs",
+     "mark": "④"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 5
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2209#35",
+      "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 5,
+     "at": 933,
+     "head": "Psychic costs",
+     "mark": "⑤"
+    }
+   ]
+  }
+ ],
+ "structure": {
+  "markers": [
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2209#35",
+     "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 1,
+    "at": 167,
+    "head": "From this",
+    "mark": "①"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2209#35",
+     "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 2,
+    "at": 415,
+    "head": "Benefits may",
+    "mark": "②"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2209#35",
+     "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 3,
+    "at": 554,
+    "head": "People with",
+    "mark": "③"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2209#35",
+     "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 4,
+    "at": 682,
+    "head": "Individual costs",
+    "mark": "④"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2209#35",
+     "inputHash": "af31a9b32cd64c49115d4a96a4845a14aa3eaa3787fc24f4d36da49d0e93fd43",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 5,
+    "at": 933,
+    "head": "Psychic costs",
+    "mark": "⑤"
+   }
+  ],
+  "conditions": [],
+  "footnotes": []
+ },
+ "reasons": [
+  "no_current_units",
+  "analysis_unbound"
+ ]
+}
+{
+ "items": 3714,
+ "exams": 133,
+ "current_units": 2912,
+ "analysis_pick": {
+  "bound": 2449,
+  "unbound": 963,
+  "stale": 0,
+  "none": 302
+ },
+ "multi_published": 809,
+ "readiness": {
+  "total": 3714,
+  "ready": 2282,
+  "toolReady": 864
+ },
+ "blocked": {
+  "no_type": 16,
+  "no_published_analysis": 302,
+  "body_not_ok": 284,
+  "no_current_units": 802,
+  "analysis_unbound": 963,
+  "chart_value_unverified": 30,
+  "multi_answer_partial_analysis": 1,
+  "footnote_missing": 1
+ },
+ "warned": {
+  "no_pdf_anchor": 2912,
+  "extraction_defect": 528
+ },
+ "extraction": {
+  "items": 529,
+  "counts": {
+   "choice_overrun": 1093,
+   "footnote_mark_without_gloss": 1,
+   "choice_paren_residue": 1080,
+   "choice_page_number": 52,
+   "choice_footnote_merged": 337,
+   "choice_count": 1,
+   "orphan_fragment": 12
+  }
+ },
+ "pdf": 802,
+ "lectures": {
+  "valid": 0,
+  "stale": 0,
+  "unverifiable": 796,
+  "orphan": 0
+ },
+ "anchorCues": 2590,
+ "judgment": {
+  "valid": 13
+ }
+}

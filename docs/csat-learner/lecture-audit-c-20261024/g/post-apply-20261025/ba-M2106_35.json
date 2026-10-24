@@ -1,0 +1,334 @@
+{
+ "id": "M2106#35",
+ "examId": "M2106",
+ "no": 35,
+ "typeId": "R-IRRELEVANT",
+ "answer": {
+  "answers": [
+   4
+  ],
+  "multiple": false,
+  "legacyMismatch": false
+ },
+ "coverage": {
+  "status": "covered"
+ },
+ "analysisVersion": null,
+ "analysisPick": "unbound",
+ "publishedVersions": [
+  1,
+  2,
+  3,
+  4
+ ],
+ "basis": {
+  "itemId": "M2106#35",
+  "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+  "unitsVersion": null,
+  "unitsHash": null,
+  "analysisVersion": null
+ },
+ "defects": [],
+ "answerAnchors": [],
+ "choices": [
+  {
+   "n": 1,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 1
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 1,
+     "at": 395,
+     "head": "The pattern",
+     "mark": "①"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 2
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 2,
+     "at": 606,
+     "head": "City dwellers",
+     "mark": "②"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 3
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 3,
+     "at": 715,
+     "head": "The larger",
+     "mark": "③"
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 4
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 4,
+     "at": 849,
+     "head": "This illustrates",
+     "mark": "④"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "anchors": [
+    {
+     "kind": "choice",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "exact",
+     "choice": 5
+    },
+    {
+     "kind": "marker",
+     "basis": {
+      "itemId": "M2106#35",
+      "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+      "unitsVersion": null,
+      "unitsHash": null,
+      "analysisVersion": null
+     },
+     "precision": "marker",
+     "choice": 5,
+     "at": 971,
+     "head": "It’s clear",
+     "mark": "⑤"
+    }
+   ]
+  }
+ ],
+ "structure": {
+  "markers": [
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2106#35",
+     "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 1,
+    "at": 395,
+    "head": "The pattern",
+    "mark": "①"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2106#35",
+     "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 2,
+    "at": 606,
+    "head": "City dwellers",
+    "mark": "②"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2106#35",
+     "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 3,
+    "at": 715,
+    "head": "The larger",
+    "mark": "③"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2106#35",
+     "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 4,
+    "at": 849,
+    "head": "This illustrates",
+    "mark": "④"
+   },
+   {
+    "kind": "marker",
+    "basis": {
+     "itemId": "M2106#35",
+     "inputHash": "16179527cf56b786ceac3e3ab040df9a9472acc4f64ed5fc1dcee7587bbbd5ba",
+     "unitsVersion": null,
+     "unitsHash": null,
+     "analysisVersion": null
+    },
+    "precision": "marker",
+    "choice": 5,
+    "at": 971,
+    "head": "It’s clear",
+    "mark": "⑤"
+   }
+  ],
+  "conditions": [],
+  "footnotes": []
+ },
+ "reasons": [
+  "no_current_units",
+  "analysis_unbound"
+ ]
+}
+{
+ "items": 3714,
+ "exams": 133,
+ "current_units": 2912,
+ "analysis_pick": {
+  "bound": 2449,
+  "unbound": 963,
+  "stale": 0,
+  "none": 302
+ },
+ "multi_published": 809,
+ "readiness": {
+  "total": 3714,
+  "ready": 2282,
+  "toolReady": 864
+ },
+ "blocked": {
+  "no_type": 16,
+  "no_published_analysis": 302,
+  "body_not_ok": 284,
+  "no_current_units": 802,
+  "analysis_unbound": 963,
+  "chart_value_unverified": 30,
+  "multi_answer_partial_analysis": 1,
+  "footnote_missing": 1
+ },
+ "warned": {
+  "no_pdf_anchor": 2912,
+  "extraction_defect": 528
+ },
+ "extraction": {
+  "items": 529,
+  "counts": {
+   "choice_overrun": 1093,
+   "footnote_mark_without_gloss": 1,
+   "choice_paren_residue": 1080,
+   "choice_page_number": 52,
+   "choice_footnote_merged": 337,
+   "choice_count": 1,
+   "orphan_fragment": 12
+  }
+ },
+ "pdf": 802,
+ "lectures": {
+  "valid": 0,
+  "stale": 0,
+  "unverifiable": 796,
+  "orphan": 0
+ },
+ "anchorCues": 2590,
+ "judgment": {
+  "valid": 13
+ }
+}
