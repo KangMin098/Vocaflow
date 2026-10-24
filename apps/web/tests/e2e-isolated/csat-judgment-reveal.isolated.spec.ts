@@ -185,7 +185,7 @@ for (const width of [1280, 1440]) {
         // 감춘 것을 「설명이 없다」 로 말하지 않는다
         await expect(page.getByTestId('scene-empty')).toHaveCount(0)
         expect(calls).toEqual([])
-        const shot = await page.screenshot({ path: path.join(ARTIFACTS, `${id.replace('#', '-')}-before-${width}.png`), fullPage: false })
+        const shot = await page.screenshot({ path: path.join(ARTIFACTS, `${id.replace('#', '-')}-before-${width}.png`), fullPage: false, animations: 'disabled', caret: 'hide' })
         await matchBaseline(page, `${id.replace('#', '-')}-before-${width}`, shot)
       })
     }
@@ -212,7 +212,7 @@ for (const width of [1280, 1440]) {
       // 포커스가 문서 밖으로 튀지 않았다
       // 누른 단추가 사라지므로 포커스는 공개된 정답 근거 제목으로 옮겨진다(문서 밖으로 빠지지 않는다)
       await expect.poll(() => page.evaluate(() => document.activeElement?.closest('[data-block="analysis:answer"]') != null)).toBe(true)
-      const shot = await page.screenshot({ path: path.join(ARTIFACTS, `${id.replace('#', '-')}-after-${width}.png`), fullPage: false })
+      const shot = await page.screenshot({ path: path.join(ARTIFACTS, `${id.replace('#', '-')}-after-${width}.png`), fullPage: false, animations: 'disabled', caret: 'hide' })
       await matchBaseline(page, `${id.replace('#', '-')}-after-${width}`, shot)
     })
 
@@ -313,7 +313,7 @@ for (const width of [1280, 1440]) {
       await expect(page.locator('[aria-live="polite"]').filter({ hasText: '정답을 듣지 않고 강의를 마쳤어요' })).toHaveCount(1)
       expect(log).toEqual(['lecture:until'])
       expect(await page.locator('[data-live="true"]').count()).toBe(0)
-      const shot = await page.screenshot({ path: path.join(ARTIFACTS, `lecture-closed-${width}.png`) })
+      const shot = await page.screenshot({ path: path.join(ARTIFACTS, `lecture-closed-${width}.png`), animations: 'disabled', caret: 'hide' })
       await matchBaseline(page, `lecture-closed-${width}`, shot)
     })
 
