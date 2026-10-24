@@ -70,12 +70,13 @@ export function EvidencePassage(props: {
                 role={onPick ? 'button' : undefined}
                 tabIndex={onPick ? 0 : -1}
                 aria-pressed={onPick ? isPinned : undefined}
-                aria-label={`${u.n}번 문장${isPinned ? ' · 근거로 고름' : ''}${st === 'focus' ? ' · 지금 가리킴' : ''}`}
                 onClick={onPick ? () => onPick(u.id) : undefined}
                 onKeyDown={onPick ? (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); onPick(u.id) } } : undefined}
               >
+                {/* 접근성 이름 = 번호 · 상태 + 실제 문장(aria-label 로 덮어쓰지 않는다 — T-0151 P1-03) */}
+                <span className={styles.srInline}>{`${u.n}번 문장${st === 'focus' ? ' (지금 가리킴)' : ''}: `}</span>
                 <span className={styles.unitNo} aria-hidden>{u.n}</span>
-                <span aria-hidden={false}>{u.text}</span>
+                <span>{u.text}</span>
                 {marks[u.id] && <span className={styles.unitMark}>{marks[u.id]}</span>}
               </span>{' '}
             </span>

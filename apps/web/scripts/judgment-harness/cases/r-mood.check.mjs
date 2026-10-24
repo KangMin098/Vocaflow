@@ -35,8 +35,8 @@ export async function check(page, t) {
   // 원문↔판단 왕복
   await page.evaluate(() => { document.querySelector('[data-scroll-pane="judgment"]').scrollTop = 200 })
   const before = await page.evaluate(() => document.querySelector('[data-scroll-pane="judgment"]').scrollTop)
-  await page.click('[data-unit="u3"]')
-  await page.click('[data-unit="u7"]')
+  await t.clickUnit('u3')
+  await t.clickUnit('u7')
   const after = await page.evaluate(() => ({
     top: document.querySelector('[data-scroll-pane="judgment"]').scrollTop,
     turn: document.querySelector('[data-unit="u9"]')?.innerText.includes('전환점'),
@@ -57,7 +57,7 @@ export async function check(page, t) {
   t.check('근거 링크 → 원문 단위 focus', (await page.getAttribute(`[data-unit="${rid}"]`, 'data-state')) === 'focus', rid)
   await t.shot('revealed')
 
-  const small = await page.evaluate(() => [...document.querySelectorAll('[data-scroll-pane="judgment"] button')].filter((b) => !b.hasAttribute('data-ref')).map((b) => b.getBoundingClientRect().height).filter((h) => h > 0 && h < 44))
+  const small = await page.evaluate(() => [...document.querySelectorAll('[data-scroll-pane="judgment"] button')].map((b) => b.getBoundingClientRect().height).filter((h) => h > 0 && h < 44))
   t.check('주요 버튼 높이 ≥44', small.length === 0, small)
   t.check('가로 스크롤 없음', await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
 

@@ -43,8 +43,8 @@ export function makeCheck(opts) {
     // 원문↔판단 왕복: 판단면 스크롤 → 원문 문장 누름(연결 토글 두 번) → scrollTop·선택 보존
     await page.evaluate(() => { document.querySelector('[data-scroll-pane="judgment"]').scrollTop = 160 })
     const before = await page.evaluate(() => document.querySelector('[data-scroll-pane="judgment"]').scrollTop)
-    await page.click('[data-unit="u1"]')
-    await page.click('[data-unit="u1"]')
+    await t.clickUnit('u1')
+    await t.clickUnit('u1')
     const after = await page.evaluate(({ free }) => ({
       top: document.querySelector('[data-scroll-pane="judgment"]').scrollTop,
       choice: document.querySelector('[data-choice][aria-pressed="true"]')?.getAttribute('data-choice'),
@@ -68,7 +68,7 @@ export function makeCheck(opts) {
     t.check('공개 뒤 해설 근거와 내 연결 대조', /해설 판정/.test(cmpText) && /내가 연결한 문장/.test(cmpText), cmpText.slice(0, 200))
     await t.shot('revealed')
 
-    const small = await page.evaluate(() => [...document.querySelectorAll('[data-scroll-pane="judgment"] button')].filter((b) => !b.hasAttribute('data-ref')).map((b) => b.getBoundingClientRect().height).filter((h) => h > 0 && h < 44))
+    const small = await page.evaluate(() => [...document.querySelectorAll('[data-scroll-pane="judgment"] button')].map((b) => b.getBoundingClientRect().height).filter((h) => h > 0 && h < 44))
     t.check('주요 버튼 높이 ≥44', small.length === 0, small)
     t.check('가로 스크롤 없음', await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth))
 

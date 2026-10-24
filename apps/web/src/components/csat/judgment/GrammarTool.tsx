@@ -13,13 +13,13 @@ import {
 import { EvidencePassage } from './EvidencePassage'
 import { JudgmentShell, judgmentStyles as js } from './JudgmentShell'
 import { RefText } from './RefText'
-import { REVEAL_ERROR_TEXT, useReveal } from './useReveal'
+import { REVEAL_ERROR_TEXT, revealBinding, useReveal } from './useReveal'
 import s from './GrammarTool.module.css'
 
 const ROLES: (Role | 'erase')[] = ['S', 'V', 'M', 'erase']
 const ROLE_SIGN: Record<Role, string> = { S: 'S', V: 'V', M: '( )' }
 
-export function GrammarTool({ item, reveal }: JudgmentToolProps) {
+function GrammarToolBody({ item, reveal }: JudgmentToolProps) {
   const marks = useMemo(() => parseMarks(item.units), [item.units])
   const defects = useMemo(() => choiceDefects(item, marks), [item, marks])
   const { state: rv, request } = useReveal(item, reveal)
@@ -228,4 +228,9 @@ function Compare({ sel, analysis, record, units, refFocus, onRef }: {
       </div>
     </div>
   )
+}
+
+/** 문항(id · 판본)이 바뀌면 학습자 조작 상태까지 새로 시작한다 — 이전 문항의 선택 · 공개 상태가 새 원문에 이월되지 않는다 */
+export function GrammarTool(props: JudgmentToolProps) {
+  return <GrammarToolBody key={revealBinding(props.item)} {...props} />
 }

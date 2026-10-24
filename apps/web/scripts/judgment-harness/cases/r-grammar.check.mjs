@@ -41,12 +41,12 @@ export async function check(page, t) {
   const pane = '[data-scroll-pane="judgment"]'
   await page.$eval(pane, (el) => { el.scrollTop = 200 })
   const before = await page.$eval(pane, (el) => el.scrollTop)
-  await page.click('[data-unit="u7"]')
+  await t.clickUnit('u7')
   const after = await page.$eval(pane, (el) => el.scrollTop)
   t.check('원문 클릭 뒤 판단면 scrollTop 보존', before === after, { before, after })
   t.check('원문 클릭 뒤 선택 보존', (await page.getAttribute('[data-mark="5"]', 'aria-pressed')) === 'true'
     && (await page.getAttribute(`[data-tok="${idx.things}"]`, 'data-role')) === 'S')
-  await page.click('[data-unit="u6"]')
+  await t.clickUnit('u6')
   t.check('원문 문장 고르면 그 문장 지점(④)으로', (await page.getAttribute('[data-mark="4"]', 'aria-pressed')) === 'true')
   await page.click('[data-mark="5"]')
 

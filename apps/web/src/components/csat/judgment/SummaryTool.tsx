@@ -12,7 +12,7 @@ import {
 import { EvidencePassage } from './EvidencePassage'
 import { JudgmentShell, judgmentStyles as js } from './JudgmentShell'
 import { RefText } from './RefText'
-import { REVEAL_ERROR_TEXT, useReveal } from './useReveal'
+import { REVEAL_ERROR_TEXT, revealBinding, useReveal } from './useReveal'
 import s from './SummaryTool.module.css'
 
 const SLOTS: Slot[] = ['A', 'B']
@@ -46,7 +46,7 @@ const FLAG_TEXT: Record<Flag['kind'], { title: string; why: string; limit: strin
   },
 }
 
-export function SummaryTool({ item, reveal }: JudgmentToolProps) {
+function SummaryToolBody({ item, reveal }: JudgmentToolProps) {
   const src = useMemo(() => summarySource(item.units), [item.units])
   const cands = useMemo(() => candidatesOf(item.choices), [item.choices])
   const parsedOk = useMemo(() => parseChoices(item.choices) !== null, [item.choices])
@@ -270,4 +270,9 @@ function RevealView({ data, item, st, focus, onPoint }: { data: RevealData; item
       </ul>
     </div>
   )
+}
+
+/** 문항(id · 판본)이 바뀌면 학습자 조작 상태까지 새로 시작한다 — 이전 문항의 선택 · 공개 상태가 새 원문에 이월되지 않는다 */
+export function SummaryTool(props: JudgmentToolProps) {
+  return <SummaryToolBody key={revealBinding(props.item)} {...props} />
 }
