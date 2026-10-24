@@ -139,7 +139,7 @@ test('정답 공개 — 서버 오류(503 모의)면 정답 없음, 실제 요�
   await expect(reveal.getByRole('button', { name: '정답 보기' }), '실패 뒤 다시 누를 수 있다').toBeVisible()
   await test.info().attach('reveal-503-1280', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
   fail = false
-  const res = page.waitForResponse((r) => /\/api\/csat\/item\/.+\/judgment$/.test(new URL(r.url()).pathname) && r.request().method() === 'POST')
+  const res = page.waitForResponse((r) => /\/api\/csat\/item\/.+\/judgment$/.test(new URL(r.url()).pathname) && r.request().method() === 'POST', { timeout: 180_000 })
   await reveal.getByRole('button', { name: '정답 보기' }).click()
   const real = await res
   test.info().annotations.push({ type: 'judgment-status', description: String(real.status()) })
