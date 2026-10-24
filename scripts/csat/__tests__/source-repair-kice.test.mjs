@@ -165,7 +165,8 @@ test('build-corpus 가 평가원 수리 목록을 입히고, 정본 PDF 가 바�
   const dir = sandbox()
   try {
     assert.equal(build(dir).status, 0, '수리 없는 기준 재생성')
-    const base = corpusOf(dir).items.find((x) => x.id === '2017#24')
+    const baseline = corpusOf(dir).items
+    const base = baseline.find((x) => x.id === '2017#24')
     const after = base.choices.map((c, i) => (i === 4 ? c.replace(/\s+8$/, '') : c))
     assert.notDeepEqual(after, base.choices, '현재 추출에는 쪽번호 잔여물이 있다(전제)')
     const pdf = Buffer.from('fictional 2017 paper')
@@ -176,7 +177,10 @@ test('build-corpus 가 평가원 수리 목록을 입히고, 정본 PDF 가 바�
     assert.equal(build(dir).status, 0, '수리 목록을 입힌 재생성')
     const repaired = corpusOf(dir).items
     assert.deepEqual(repaired.find((x) => x.id === '2017#24').choices, after)
-    assert.deepEqual(repaired.find((x) => x.id === '2018#24').choices.at(-1), corpusOf(dir).items.find((x) => x.id === '2018#24').choices.at(-1), '목록에 없는 문항은 그대로')
+    // 목록 밖 문항은 수리 전 원장과 같아야 한다(Codex T-0153 P2: 재생성 파일끼리 비교하면 아무것도 못 잡는다)
+    const changedOthers = repaired.filter((x) => x.id !== '2017#24' && JSON.stringify(x) !== JSON.stringify(baseline.find((b) => b.id === x.id)))
+    assert.deepEqual(changedOthers.map((x) => x.id), [], '목록에 없는 문항은 그대로')
+    assert.equal(repaired.length, baseline.length)
 
     fs.writeFileSync(path.join(dir, 'pdf', 'paper.pdf'), Buffer.from('another paper'))
     const changed = build(dir)

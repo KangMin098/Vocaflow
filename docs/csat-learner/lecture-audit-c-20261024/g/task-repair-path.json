@@ -1,0 +1,39 @@
+{
+  "goal_id": "VG-L3-B1-01",
+  "title": "대량작업 C 후속: 평가원 원문 수리 경로 연결 · 재생성 원장 전체 동기화 덮어쓰기 가드 독립 검증",
+  "description": "2026-10-24 사용자 지시 「대량작업 C 최종 후속 처리」 3번(추출·동기화 재발 방지). 작성 owner csat-lecture-audit-c(Claude), 독립 검증은 Codex(independent-review). 범위: research/csat-lecture-audit-c-20261024 @e1d8ad030 의 main 7f11a8538 대비 scripts/csat 변경 — lib-source-repair(집합·폴더 판정, sourceOverwrites), build-corpus(평가원 수리 목록 적용), source-repair(평가원 ID · 한 계획 한 집합), corpus-sync(전체 --commit 전 DB 원문 대조, 다르면 쓰기 없이 중단, --allow-source-overwrite), 회귀 테스트 source-repair-kice.test.mjs. DB 쓰기 · 수리 목록 실제 등록 · 정정 SQL 적용 · main 통합은 범위 밖.",
+  "priority": "P1",
+  "owner_id": "csat-lecture-audit-c",
+  "allowed_paths": [
+    "scripts/csat/lib-source-repair.mjs",
+    "scripts/csat/build-corpus.mjs",
+    "scripts/csat/source-repair.mjs",
+    "scripts/csat/corpus-sync.mjs",
+    "scripts/csat/__tests__/source-repair-kice.test.mjs",
+    "docs/csat-learner/lecture-audit-c-20261024/"
+  ],
+  "forbidden_paths": [
+    "apps/web/src/lib/csat/lecture-data/",
+    "apps/web/src/lib/csat/lecture/",
+    "scripts/csat/data/kice-source-repairs.json",
+    "scripts/csat/data/hakpyeong-source-repairs.json",
+    "supabase/",
+    ".env*"
+  ],
+  "acceptance": [
+    "build-corpus 가 평가원 집합에서 kice-source-repairs.json 을 공식 문제지 해시 결속으로 입히고, 해시가 다르면 멈춘다(학평 동작 불변)",
+    "source-repair 가 평가원 ID 계획을 평가원 수리 목록 · corpus.json 에 기록하고, 학평과 섞인 계획은 DB 를 읽기 전에 거부한다",
+    "corpus-sync 전체 --commit 이 DB 와 다른 지문 · 선지를 발견하면 쓰기 요청 없이 비정상 종료하고, 같으면 기존대로 진행한다(--items 경로 불변)",
+    "scripts/csat 테스트 실패 0 · apps/web exam-id 가드 테스트 통과(회차 id 직접 파싱 없음)",
+    "DB · 수리 목록 파일 · 강의 원본 변경 없음",
+    "작성과 다른 Codex 리뷰어의 독립 검증 기록"
+  ],
+  "impact": {
+    "current_gap": "평가원(수능·모평) 원문 수리 경로가 없어 각주 누락 · 선지 잔여물 정정이 원장 재생성 때 되살아나고, 재생성 원장 전체 동기화가 DB 정정값을 조용히 덮을 수 있다(표본 40 중 33 이 DB 와 다름)",
+    "expected_impact": "advances",
+    "evidence_required": ["test", "review"],
+    "kind": "independent",
+    "user_request_ref": "2026-10-24 사용자 지시 「Vocaflow CSAT — 대량작업 C 최종 후속 처리」 3번",
+    "out_of_scope": ["DB 쓰기", "kice-source-repairs.json 실제 등록", "정정 SQL 적용", "main 통합", "대규모 ETL 재설계"]
+  }
+}
