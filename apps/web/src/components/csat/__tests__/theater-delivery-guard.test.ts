@@ -160,8 +160,11 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     expect(theater).toMatch(/const pauseLecture = \(\) => \{[^}]*if \(lec\?\.status === 'playing'\) lec\.toggle\(\)/)
   })
 
-  it('레일 차례는 오답 소거 번호를 지운 채 서버가 넘긴다 · 경계는 결속 확인을 거친다', () => {
-    expect(page).toMatch(/maskDisclosureSteps\(theaterSteps\(outline\)\)/)
+  it('레일 차례는 대상 없는 중립 차례로 서버가 넘긴다 · 경계는 결속 확인을 거친다', () => {
+    // R147-10 — 오답 번호만이 아니라 근거 문장 위치 · 이름도 첫 응답에 없다(원래 차례는 공개 응답)
+    expect(page).toMatch(/const steps = loaded\.steps/)
+    expect(page).not.toMatch(/theaterSteps\(/)
+    expect(theater).toMatch(/const steps = revealed\?\.steps \?\? initialSteps/)
     // (b) — 페이지는 정답 자료를 서버 로더의 첫 응답(initial)으로만 넘긴다. 정답 번호 · 앵커 · 확인 과제를 직접 만들지 않는다
     expect(page).toMatch(/await loadTheaterAnswer\(item\)/)
     for (const p of ['blocks={initial.blocks}', 'checks={initial.checks}', 'comparePairs={initial.comparePairs}', 'v3Pairs={initial.v3Pairs}', 'inquiry={initial.inquiry}', 'gate={initial.gate}'])

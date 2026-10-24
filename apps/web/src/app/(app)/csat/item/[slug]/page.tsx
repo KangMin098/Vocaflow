@@ -40,7 +40,7 @@ import { isKiceExam } from '@/lib/csat/exam-id'
 import { canRevealItem } from '@/lib/csat/embargo-gate'
 import { loadTheaterAnswer } from '@/lib/csat/judgment-reveal'
 import { loadItemPrinciple } from '@/lib/knowledge/product-server'
-import { maskDisclosureSteps, theaterMinutes, theaterSteps } from '@/lib/csat/theater'
+import { theaterMinutes } from '@/lib/csat/theater'
 import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { browseReturn } from '@/lib/csat/browse-url'
 import { mapReturnQuery, parseMapReturn, returnQueryOf } from '@/lib/csat/map-return'
@@ -111,8 +111,8 @@ export default async function CsatItemTheaterPage({
 
   const outline = lectureOutline(item.id)
   const meta = lectureMeta(item.id)
-  // 오답 소거 번호를 지운 차례 — 강의를 고르기 전 레일로 답이 새지 않게
-  const steps = maskDisclosureSteps(theaterSteps(outline))
+  // 레일 차례 — 첫 응답은 대상(문장 위치 · 블록 · 이름) 없는 중립 차례(R147-10). 원래 차례는 판단 라우트가 노출 원장 뒤에 준다
+  const steps = loaded.steps
   // 검증된 「직접 정답 공개」 경계(없거나 대본이 바뀌었으면 verified=false — 「정답 직전까지」 경로를 내주지 않는다)
   const disclosure = lectureDisclosure(item.id, loadLecture(item.id))
 

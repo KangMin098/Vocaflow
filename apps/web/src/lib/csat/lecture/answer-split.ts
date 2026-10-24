@@ -18,7 +18,7 @@ import type { MeaningSupportView } from '@/lib/csat/meaning-support/labels'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 import type { MapAnchor, MapPlacement } from '@/lib/csat/passage-map-model'
 import type { GateKey } from '@/lib/csat/reveal-gate'
-import type { TheaterBlock } from '@/lib/csat/theater'
+import type { TheaterBlock, TheaterStep } from '@/lib/csat/theater'
 import type { UnderstandingCheck } from '@/lib/csat/understanding-check'
 
 export interface TheaterAnswerData {
@@ -45,6 +45,8 @@ export interface AnswerReveal {
   v3Pairs: V3PairView[]
   inquiry: Pick<InquiryRecord, 'distractors' | 'principle'> & { v3?: { choices: NonNullable<InquiryRecord['v3']>['choices']; claims: NonNullable<InquiryRecord['v3']>['design']['claims']; limitation: string; requirement: NonNullable<InquiryRecord['v3']>['requirement']; meanings: NonNullable<InquiryRecord['v3']>['meanings'] } }
   gate: { answer: number | null; evidence: number[]; selection: string | null; transform_note: string | null }
+  /** 강의 레일 원래 차례(대상 · 이름 포함, 오답 번호는 이미 지운 것) — 강의가 없으면 빈 배열 */
+  steps?: TheaterStep[]
   /** 지도 문장(근거 인용 · 앵커 id 포함, `splitMapSentences`) — 지도가 없으면 null */
   mapSentences?: SkeletonSentence[] | null
   /** 원문 이해 교수 설명 전체(`splitMeaningSupport`) — 없으면 null */
@@ -182,4 +184,13 @@ export function mergeMeaningSupport(initial: MeaningSupportView | null, revealed
  */
 export function splitMapSentences(sentences: SkeletonSentence[]): { initial: SkeletonSentence[]; reveal: SkeletonSentence[] } {
   return { initial: sentences.map((s) => ({ chars: s.chars, reveals: [] })), reveal: sentences }
+}
+
+/**
+ * 강의 레일 차례 — 첫 응답에는 대상(문장 위치 · 블록 키 · 이름)을 지운 중립 차례만 둔다. 오답 번호만 지워서는 부족했다 —
+ * 「근거 · 7번째 문장」 · `anchor:sentence:7` 같은 근거 타깃이 어법 문항의 정답 밑줄 위치를 특정한다(T-0147 Codex R147-10:
+ * 2014A#27 · 2023#30 · M2309#30). 공개 응답이 원래 차례를 돌려준다. 재생 중 강조는 서버가 범위를 자른 cue 로만 정해진다.
+ */
+export function neutralSteps(steps: TheaterStep[]): TheaterStep[] {
+  return steps.map((s, i) => ({ ...s, name: `${i + 1}번째 설명`, targetKey: 'analysis:none' }))
 }

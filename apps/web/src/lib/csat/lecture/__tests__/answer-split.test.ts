@@ -7,7 +7,7 @@ import { describe, expect, it } from 'vitest'
 import { lookupInquiry } from '@/lib/csat/inquiry/data'
 import { theaterBlocks, type TheaterSource } from '@/lib/csat/theater'
 import { buildChecks } from '@/lib/csat/understanding-check'
-import { mergeMeaningSupport, mergeReveal, splitAnswer, splitMapSentences, splitMeaningSupport, type TheaterAnswerData } from '../answer-split'
+import { mergeMeaningSupport, mergeReveal, neutralSteps, splitAnswer, splitMapSentences, splitMeaningSupport, type TheaterAnswerData } from '../answer-split'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 import type { MeaningSupportView } from '@/lib/csat/meaning-support/labels'
 
@@ -157,6 +157,35 @@ describe('지도 문장 골격 — 실제 배포 골격 전체', () => {
     // 재현 전제 — 배포 골격에 오답 id 넷이 모두 실린 문항이 있다(없으면 이 검사가 아무것도 지키지 않는다)
     expect(items).toBeGreaterThan(700)
     expect(withReject4).toBeGreaterThan(100)
+  })
+})
+
+describe('강의 레일 차례 — 실제 강의 전체', () => {
+  it('첫 응답 차례에 문장 위치 · 블록 키 · 대상 이름이 없고, 원래 차례는 공개 응답에만(R147-10)', async () => {
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const { lectureOutline } = await import('@/lib/csat/lecture/store')
+    const { maskDisclosureSteps, theaterSteps } = await import('@/lib/csat/theater')
+    const dir = path.join(__dirname, '..', '..', 'lecture-data')
+    let lectures = 0
+    let sentenceTargets = 0
+    for (const f of fs.readdirSync(dir).filter((x) => x.endsWith('.json'))) {
+      const src = JSON.parse(fs.readFileSync(path.join(dir, f), 'utf8')) as { lectures?: Record<string, unknown> }
+      if (!src.lectures) continue
+      for (const id of Object.keys(src.lectures)) {
+        const full = maskDisclosureSteps(theaterSteps(lectureOutline(id)))
+        if (!full.length) continue
+        lectures++
+        sentenceTargets += full.filter((s) => /^anchor:sentence:\d+$/.test(s.targetKey)).length
+        const n = neutralSteps(full)
+        expect(n.map((s) => s.targetKey).every((k) => k === 'analysis:none')).toBe(true)
+        expect(n.map((s) => s.name)).toEqual(full.map((_, i) => `${i + 1}번째 설명`))
+        expect(n.map((s) => [s.id, s.index, s.sec])).toEqual(full.map((s) => [s.id, s.index, s.sec]))
+      }
+    }
+    // 재현 전제 — 실제 강의에 문장 위치 근거 타깃이 있다
+    expect(lectures).toBeGreaterThan(700)
+    expect(sentenceTargets).toBeGreaterThan(100)
   })
 })
 

@@ -13,14 +13,15 @@ import { projectV3Pairs, v3PairPartners } from '@/lib/csat/inquiry/compare-v3'
 import { inquiryBinding, lookupInquiry, type InquiryLookup } from '@/lib/csat/inquiry/data'
 import { toItemSlug } from '@/lib/csat/item-slug'
 import type { CsatItemExplain } from '@/lib/csat/learner'
-import { splitAnswer, splitMapSentences, splitMeaningSupport, type AnswerReveal, type TheaterAnswerData } from '@/lib/csat/lecture/answer-split'
+import { neutralSteps, splitAnswer, splitMapSentences, splitMeaningSupport, type AnswerReveal, type TheaterAnswerData } from '@/lib/csat/lecture/answer-split'
 import { lookupMeaningSupport } from '@/lib/csat/meaning-support/data'
 import type { MeaningSupportView } from '@/lib/csat/meaning-support/labels'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 import type { MapAnchor } from '@/lib/csat/passage-map-model'
 import { loadRevealScope } from '@/lib/csat/embargo-gate'
 import { loadRevealedSkeleton, primeLearnerHakpyeongSkeletons, revealedSkeletonSiblings, skeletonSiblings } from '@/lib/csat/skeleton'
-import { CIRCLED, theaterBlocks } from '@/lib/csat/theater'
+import { CIRCLED, maskDisclosureSteps, theaterBlocks, theaterSteps, type TheaterStep } from '@/lib/csat/theater'
+import { lectureOutline } from '@/lib/csat/lecture/store'
 import { buildChecks } from '@/lib/csat/understanding-check'
 import { createClient } from '@/lib/supabase/server'
 
@@ -29,6 +30,8 @@ export interface TheaterSibling { id: string; slug: string; exam_label: string; 
 export interface TheaterLoad {
   initial: TheaterAnswerData
   reveal: AnswerReveal
+  /** 강의 레일 차례(첫 응답용 — 대상 · 이름 없음) */
+  steps: TheaterStep[]
   /** 지도 문장(첫 응답용 — 길이만 · 근거 인용 없음). 지도를 세울 수 없으면 null */
   mapSentences: SkeletonSentence[] | null
   /** 원문 이해 교수 설명(첫 응답에는 없다 — null) */
@@ -122,6 +125,8 @@ export async function loadTheaterAnswer(item: CsatItemExplain): Promise<TheaterL
   }
   const { initial, reveal } = splitAnswer(full, item.analysis_version ?? null)
   const mapReady = Boolean(skeleton && shown.length > 0)
+  // 강의 레일 — 오답 번호를 지운 차례는 공개 응답, 첫 응답은 대상 없는 중립 차례(R147-10)
+  const lectureSteps = maskDisclosureSteps(theaterSteps(lectureOutline(item.id)))
   // 지도 문장의 근거 인용 · 앵커 id 는 공개 응답으로 — 첫 응답은 문장 길이만(R147-07)
   const sentences = splitMapSentences(skeleton?.sentences ?? [])
   // v3.1 원문 이해 교수 설명 — 문항 접근 · 탐구 ready 뒤에만, 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때 문항 1개 projection.
@@ -129,7 +134,8 @@ export async function loadTheaterAnswer(item: CsatItemExplain): Promise<TheaterL
   const ms = splitMeaningSupport(lookupMeaningSupport(item.id, item.analysis_version, inquiryHit.state === 'ready', { skeletonChars: skeleton?.sentences.map((s) => s.chars) ?? null }).view)
   return {
     initial,
-    reveal: { ...reveal, meaningSupport: ms.reveal, mapSentences: mapReady ? sentences.reveal : null },
+    reveal: { ...reveal, meaningSupport: ms.reveal, mapSentences: mapReady ? sentences.reveal : null, steps: lectureSteps },
+    steps: neutralSteps(lectureSteps),
     mapSentences: mapReady ? sentences.initial : null,
     meaningSupport: ms.initial,
     skeleton,

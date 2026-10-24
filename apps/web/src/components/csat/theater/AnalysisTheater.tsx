@@ -197,7 +197,7 @@ export function AnalysisTheater({
   typeName,
   points,
   minutes,
-  steps,
+  steps: initialSteps,
   blocks: initialBlocks,
   checks: initialChecks = [],
   comparePairs: initialComparePairs = [],
@@ -322,6 +322,7 @@ export function AnalysisTheater({
         : null,
     [revealed, initialBlocks, initialMap, initialChecks, initialComparePairs, initialV3Pairs, initialInquiry, initialGate],
   )
+  const steps = revealed?.steps ?? initialSteps
   const blocks = merged?.blocks ?? initialBlocks
   const checks = merged?.checks ?? initialChecks
   const comparePairs = merged?.comparePairs ?? initialComparePairs
