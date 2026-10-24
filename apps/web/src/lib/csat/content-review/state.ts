@@ -61,6 +61,14 @@ export function bindingDiff(a: RevisionBinding, b: RevisionBinding): string[] {
   return keys.filter((k) => a[k] !== b[k])
 }
 
+/**
+ * 판본 결속 해시 — 증거의 `boundHash` 가 **이 값과 같아야** 그 판본의 증거로 센다.
+ * (비어 있지 않은지만 보면 다른 문항·옛 판본의 증거로 승인이 통과한다 — T-0158 Codex P1)
+ */
+export function bindingHash(b: RevisionBinding): string {
+  return `${b.itemId}|${b.itemMd5}|${b.analysisVersion}|${b.analysisMd5}|${b.lectureVersion ?? '-'}|${b.lectureHash ?? '-'}`
+}
+
 export type Rejection = { ok: false; code: string; message: string }
 export type Accepted = { ok: true; entry: LedgerEntry }
 
@@ -132,7 +140,7 @@ export function transition(ledger: readonly LedgerEntry[], req: TransitionReques
       return { ok: false, code: 'ROLE_REQUIRED', message: `이 동작에는 ${role} 역할이 필요하다` }
     }
     if (to === 'content_approved') {
-      const bound = req.evidence.filter((e) => e.kind !== 'ai_consensus' && e.boundHash)
+      const bound = req.evidence.filter((e) => e.kind !== 'ai_consensus' && e.boundHash === bindingHash(req.currentBinding))
       const missing = REQUIRED_EVIDENCE[track].filter((k) => !bound.some((e) => e.kind === k))
       if (missing.length) {
         return { ok: false, code: 'EVIDENCE_MISSING', message: `판본에 묶인 증거가 없다: ${missing.join(', ')}` }
@@ -188,6 +196,21 @@ export function revert(
     return { ok: false, code: 'NOT_LATEST', message: '그 뒤에 상태가 또 바뀌었다 — 최신 줄부터 되돌린다' }
   }
   if (ledger.some((e) => e.revertsSeq === seq)) return { ok: false, code: 'ALREADY_REVERTED', message: '이미 되돌렸다' }
+  // 승인 상태로 **돌아가는** 되돌림은 그 자체가 승인이다 — 같은 역할을 요구하고, 원래 승인 줄의
+  // 판본·증거를 그대로 잇는다(빈 증거로 승인 상태를 만들지 않는다 — T-0158 Codex P1).
+  let binding = target.binding
+  let evidence: Evidence[] = []
+  if (isApprovalState(target.from)) {
+    const role = requiredRole(target.from, target.track)
+    if (!by.roles.includes(role)) {
+      return { ok: false, code: 'ROLE_REQUIRED', message: `승인 상태로 되돌리려면 ${role} 역할이 필요하다` }
+    }
+    const before = ledger.filter((e) => e.seq < seq && e.candidateId === target.candidateId && e.track === target.track && e.to === target.from)
+    const origin = before[before.length - 1]
+    if (!origin) return { ok: false, code: 'NO_PRIOR_APPROVAL', message: '되돌아갈 승인 줄이 원장에 없다' }
+    binding = origin.binding
+    evidence = origin.evidence
+  }
   const entry: LedgerEntry = {
     seq: ledger[ledger.length - 1]!.seq + 1,
     candidateId: target.candidateId,
@@ -195,13 +218,34 @@ export function revert(
     from: target.to,
     to: target.from,
     by,
-    binding: target.binding,
-    evidence: [],
+    binding,
+    evidence,
     reason,
     at,
     revertsSeq: seq,
   }
   return { ok: true, entry }
+}
+
+function isApprovalState(s: ReviewState): boolean {
+  return s === 'content_approved' || s === 'publish_pending'
+}
+
+function requiredRole(to: ReviewState, track: ReviewTrack): Reviewer['roles'][number] {
+  return to === 'publish_pending' ? 'publisher' : REQUIRED_ROLE[track]
+}
+
+/** 승인 줄 하나가 계약(사람 · 역할 · 판본에 묶인 필수 증거)을 지키는지 */
+function approvalProblem(e: LedgerEntry): string | null {
+  if (e.by.kind !== 'human') return '사람 아닌 승인'
+  const role = requiredRole(e.to, e.track)
+  if (!e.by.roles.includes(role)) return `${role} 역할 없는 승인`
+  if (e.to === 'content_approved') {
+    const h = bindingHash(e.binding)
+    const missing = REQUIRED_EVIDENCE[e.track].filter((k) => !e.evidence.some((x) => x.kind === k && x.boundHash === h))
+    if (missing.length) return `판본에 묶인 증거 없음: ${missing.join(', ')}`
+  }
+  return null
 }
 
 /** 판본이 바뀐 후보를 stale 로 보내는 줄들(자동). 승인·발행 대기에 있던 것도 내려간다. */
@@ -229,7 +273,10 @@ export function staleSweep(
   return out
 }
 
-/** 원장이 손으로 고쳐졌는지 — seq 연속 · 각 줄의 from 이 직전 상태와 같은지 */
+/**
+ * 원장이 손으로 고쳐졌는지 — seq 연속 · from 이 직전 상태와 같은지 · 허용 전이(또는 실제 줄의 되돌림)인지 ·
+ * 승인 줄마다 사람 · 역할 · 판본에 묶인 필수 증거가 있는지. 전이 함수를 거치지 않고 만든 원장도 여기서 걸린다.
+ */
 export function verifyLedger(ledger: readonly LedgerEntry[]): { ok: boolean; problems: string[] } {
   const problems: string[] = []
   const state = new Map<string, ReviewState>()
@@ -238,8 +285,18 @@ export function verifyLedger(ledger: readonly LedgerEntry[]): { ok: boolean; pro
     const k = `${e.candidateId}|${e.track}`
     const prev = state.get(k) ?? 'queued'
     if (e.from !== prev) problems.push(`seq ${e.seq}: from=${e.from} 인데 직전 상태는 ${prev}`)
-    if ((e.to === 'content_approved' || e.to === 'publish_pending') && !e.revertsSeq && e.by.kind !== 'human') {
-      problems.push(`seq ${e.seq}: 사람 아닌 승인`)
+    if (e.revertsSeq != null) {
+      const ref = ledger.find((x) => x.seq === e.revertsSeq)
+      if (!ref || ref.seq >= e.seq || ref.candidateId !== e.candidateId || ref.track !== e.track || ref.to !== e.from || ref.from !== e.to) {
+        problems.push(`seq ${e.seq}: ${e.revertsSeq}번 줄의 되돌림이 아니다`)
+      }
+      if (e.by.kind !== 'human') problems.push(`seq ${e.seq}: 사람 아닌 되돌림`)
+    } else if (!TRANSITIONS[e.from].includes(e.to)) {
+      problems.push(`seq ${e.seq}: ${e.from} → ${e.to} 는 허용 전이가 아니다`)
+    }
+    if (isApprovalState(e.to)) {
+      const p = approvalProblem(e)
+      if (p) problems.push(`seq ${e.seq}: ${p}`)
     }
     state.set(k, e.to)
   })

@@ -72,8 +72,12 @@ export function stage1Complete(r: ScoreRow): boolean {
   return isScore(r.score_A) && isScore(r.score_B) && isYnu(r.teaches_wrong_rule_1)
 }
 
+/**
+ * 2단계가 다 찼는가 — 반례 후보 판정 기록 + 다시 답한 「틀린 규칙」.
+ * 계약 §2: 반례 후보마다 성립·불성립을 판정한다. 후보가 없는 대본도 「해당 없음」을 적는다(빈칸 ≠ 판정).
+ */
 export function stage2Complete(r: ScoreRow): boolean {
-  return isYnu(r.teaches_wrong_rule_2)
+  return r.ce_adjudication.trim() !== '' && isYnu(r.teaches_wrong_rule_2)
 }
 
 export function rowProblems(r: ScoreRow, stage: Stage): string[] {
@@ -81,7 +85,7 @@ export function rowProblems(r: ScoreRow, stage: Stage): string[] {
   if (r.score_A !== null && !isScore(r.score_A)) p.push('A 점수는 0~10 정수')
   if (r.score_B !== null && !isScore(r.score_B)) p.push('B 점수는 0~10 정수')
   if (!stage1Complete(r)) p.push('1단계 미완료')
-  if ((stage === 'stage2' || stage === 'locked2') && !stage2Complete(r)) p.push('2단계 「틀린 규칙」 미답')
+  if ((stage === 'stage2' || stage === 'locked2') && !stage2Complete(r)) p.push('2단계 반례 판정·「틀린 규칙」 미답')
   return p
 }
 
@@ -165,6 +169,8 @@ export function parseCsvRecords(text: string): string[][] {
     else if (ch === '\n') { row.push(cur); out.push(row); row = []; cur = '' }
     else cur += ch
   }
+  // 닫히지 않은 따옴표 — 뒤 행을 한 칸으로 삼켜 「문제 없음」이 되던 구멍(T-0158 Codex P2)
+  if (q) throw new Error('닫히지 않은 따옴표가 있다')
   if (cur !== '' || row.length) { row.push(cur); out.push(row) }
   return out
 }
@@ -178,7 +184,12 @@ function toScore(v: string): number | null {
 export type ParseResult = { ok: true; sheet: ScoringSheet } | { ok: false; message: string }
 
 export function parseCsv(text: string): ParseResult {
-  const recs = parseCsvRecords(text)
+  let recs: string[][]
+  try {
+    recs = parseCsvRecords(text)
+  } catch (e) {
+    return { ok: false, message: e instanceof Error ? e.message : 'CSV 구문 오류' }
+  }
   let scorer = ''
   let stage: Stage = 'stage1'
   const head = recs[0]?.join(',') ?? ''

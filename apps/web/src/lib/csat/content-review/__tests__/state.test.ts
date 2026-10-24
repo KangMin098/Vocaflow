@@ -4,7 +4,9 @@
 
 import { describe, expect, it } from 'vitest'
 
+import { publishAllowed } from '../prepublish'
 import {
+  bindingHash,
   countHumanApprovals,
   currentState,
   revert,
@@ -30,7 +32,7 @@ const human: Reviewer = { id: 'h1', kind: 'human', roles: ['content_reviewer', '
 const reviewerOnly: Reviewer = { id: 'h2', kind: 'human', roles: ['content_reviewer'] }
 const ai: Reviewer = { id: 'claude', kind: 'ai', roles: ['content_reviewer', 'answer_authority', 'publisher'] }
 
-const ev = (kind: Evidence['kind'], bound = true): Evidence => ({ kind, ref: kind, boundHash: bound ? 'h' : null })
+const ev = (kind: Evidence['kind'], bound = true): Evidence => ({ kind, ref: kind, boundHash: bound ? bindingHash(binding) : null })
 const EXPLAIN_EV = [ev('official_pdf_text'), ev('analysis_revision')]
 const ANSWER_EV = [ev('official_answer_sheet')]
 
@@ -164,5 +166,55 @@ describe('승인 수', () => {
   })
   it('사람 승인 한 트랙 = 1건', () => {
     expect(countHumanApprovals(approved('explanation', EXPLAIN_EV))).toBe(1)
+  })
+})
+
+// ── T-0158 Codex 독립 검증 반례(P1) 회귀 ─────────────────────────────
+describe('T-0158 반례', () => {
+  it('P1-1 다른 판본 해시의 증거로는 승인되지 않는다', () => {
+    const l = apply([], { to: 'in_review' })
+    const wrong = EXPLAIN_EV.map((e) => ({ ...e, boundHash: 'WRONG' }))
+    expect(transition(l, req({ to: 'content_approved', evidence: wrong }))).toMatchObject({ ok: false, code: 'EVIDENCE_MISSING' })
+    const other = EXPLAIN_EV.map((e) => ({ ...e, boundHash: bindingHash({ ...binding, itemId: '2016#25' }) }))
+    expect(transition(l, req({ to: 'content_approved', evidence: other }))).toMatchObject({ ok: false, code: 'EVIDENCE_MISSING' })
+  })
+  it('P1-2 역할 없는 사람은 되돌림으로 승인 상태를 복원하지 못한다', () => {
+    let l = approved('explanation', EXPLAIN_EV)
+    l = apply(l, { to: 'in_review', reason: '다시 보기' })
+    const noRole: Reviewer = { id: 'h3', kind: 'human', roles: [] }
+    expect(revert(l, l[l.length - 1]!.seq, noRole, '복원', AT)).toMatchObject({ ok: false, code: 'ROLE_REQUIRED' })
+    const ok = revert(l, l[l.length - 1]!.seq, reviewerOnly, '복원', AT)
+    expect(ok.ok).toBe(true)
+    if (!ok.ok) return
+    // 복원 줄은 원래 승인의 판본·증거를 잇는다 → 무결성 유지
+    expect(ok.entry.evidence).toEqual(l[1]!.evidence)
+    expect(verifyLedger([...l, ok.entry]).ok).toBe(true)
+  })
+  it('P1-3 손으로 만든 승인 원장은 무결성 검사와 발행 게이트에서 걸린다', () => {
+    const single: typeof candidate = { ...candidate, tracks: ['explanation'] }
+    const forged: LedgerEntry[] = [{
+      seq: 1, candidateId: single.id, track: 'explanation', from: 'queued', to: 'content_approved',
+      by: { id: 'x', kind: 'human', roles: [] }, binding, evidence: [], reason: '수제', at: AT,
+    }]
+    const v = verifyLedger(forged)
+    expect(v.ok).toBe(false)
+    expect(v.problems.join()).toMatch(/허용 전이가 아니다/)
+    expect(v.problems.join()).toMatch(/역할 없는 승인/)
+    const gate = publishAllowed(forged, single, { itemId: single.itemId, findings: [], blocked: false })
+    expect(gate.allowed).toBe(false)
+    expect(gate.reasons.join()).toMatch(/원장 무결성 오류/)
+  })
+  it('P1-3 증거 없는 승인 줄도 무결성 오류다', () => {
+    const forged: LedgerEntry[] = [
+      { seq: 1, candidateId: candidate.id, track: 'explanation', from: 'queued', to: 'in_review', by: human, binding, evidence: [], reason: 'r', at: AT },
+      { seq: 2, candidateId: candidate.id, track: 'explanation', from: 'in_review', to: 'content_approved', by: human, binding, evidence: [], reason: 'r', at: AT },
+    ]
+    expect(verifyLedger(forged).problems.join()).toMatch(/판본에 묶인 증거 없음/)
+  })
+  it('정상 경로로 만든 승인·발행 대기 원장은 무결성을 지킨다', () => {
+    let l = approved('official_answer', ANSWER_EV)
+    l = approved('explanation', EXPLAIN_EV, l)
+    l = apply(l, { track: 'explanation', to: 'publish_pending', reason: '발행 준비' })
+    expect(verifyLedger(l)).toEqual({ ok: true, problems: [] })
   })
 })

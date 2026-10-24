@@ -199,7 +199,7 @@ export function T0148ScoringClient({ blind }: { blind: BlindData }) {
                   </ul>
                   <div className="mt-2 grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)] gap-3">
                     <label className="flex flex-col gap-1" htmlFor={id('ce')}>
-                      <span className={small}>반례 후보 판정(예: 2020#41 성립)</span>
+                      <span className={small}>반례 후보 판정(예: 2020#41 성립 · 후보 없으면 「해당 없음」) — 필수</span>
                       <input id={id('ce')} className={ctl} disabled={sheet.stage !== 'stage2'} value={row.ce_adjudication}
                         onChange={(e) => edit(s.blind, 'ce_adjudication', e.target.value)} />
                     </label>

@@ -98,3 +98,31 @@ describe('판정 격리', () => {
     expect(hits).toEqual([])
   })
 })
+
+describe('T-0158 반례 — 2단계 반례 판정 필수 · CSV 구문', () => {
+  it('반례 판정 빈칸이면 2단계를 잠그지 못한다', () => {
+    let s = filled()
+    for (const step of [advance, advance]) {
+      const r = step(s)
+      if (!r.ok) throw new Error(r.message)
+      s = r.sheet
+    }
+    for (const b of BLINDS) {
+      const r = editField(s, b, 'teaches_wrong_rule_2', '아니오')
+      if (!r.ok) throw new Error(r.message)
+      s = r.sheet
+    }
+    expect(advance(s).ok).toBe(false)
+    for (const b of BLINDS) {
+      const r = editField(s, b, 'ce_adjudication', '해당 없음')
+      if (!r.ok) throw new Error(r.message)
+      s = r.sheet
+    }
+    const locked = advance(s)
+    expect(locked.ok && locked.sheet.stage).toBe('locked2')
+  })
+  it('닫히지 않은 따옴표는 구문 오류', () => {
+    const r = parseCsv(toCsv(filled()) + 'W27,1,1,예,,,,"open\r\n')
+    expect(r).toMatchObject({ ok: false })
+  })
+})

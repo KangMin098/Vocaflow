@@ -12,7 +12,7 @@ function csv(fn, stage = 'locked2', scorer = 'S1') {
   const lines = [`# scorer=${scorer};stage=${stage}`, CSV_COLUMNS.join(',')]
   blinds.forEach((b, i) => {
     const r = fn(b, i)
-    lines.push([b, r.A, r.B, r.w1 ?? '예', '', '', r.w2, r.memo ?? ''].join(','))
+    lines.push([b, r.A, r.B, r.w1 ?? '예', '', r.ce ?? '해당 없음', r.w2, r.memo ?? ''].join(','))
   })
   return lines.join('\r\n') + '\r\n'
 }
@@ -64,8 +64,25 @@ test('채점자 2명이면 점수 차 ≤2 비율', () => {
 })
 
 test('따옴표 안 쉼표·줄바꿈 메모를 읽는다', () => {
-  const t = csv(passing).replace('W01,8,4,예,,,예,', 'W01,8,4,예,,,예,"메모, 둘째 줄\r\n""인용"""')
+  const t = csv(passing).replace('W01,8,4,예,,해당 없음,예,', 'W01,8,4,예,,해당 없음,예,"메모, 둘째 줄\r\n""인용"""')
   const s = readSheet(t)
   assert.equal(s.problems.length, 0)
   assert.equal(s.rows[0].memo, '메모, 둘째 줄\n"인용"')
+})
+
+// ── T-0158 Codex 독립 검증 반례(P1-5 · P2-6) 회귀 ───────────────────
+test('반례 판정이 비면 INCOMPLETE — 반례 자료 없이 재개 근거를 만들지 않는다', () => {
+  const r = aggregate([readSheet(csv((b, i) => ({ ...passing(b, i), ce: '' })))], key)
+  assert.equal(r.verdict, 'INCOMPLETE')
+  assert.match(r.problems.join(), /반례 판정 빈칸/)
+})
+
+test('닫히지 않은 따옴표·키에 없는 행이 붙으면 INCOMPLETE', () => {
+  const extra = csv(passing) + 'EXTRA,8,8,예,,해당 없음,아니오,"unterminated\r\n'
+  const r = aggregate([readSheet(extra)], key)
+  assert.equal(r.verdict, 'INCOMPLETE')
+  assert.match(r.problems.join(), /닫히지 않은 따옴표/)
+  const r2 = aggregate([readSheet(csv(passing) + 'EXTRA,8,8,예,,해당 없음,아니오,\r\n')], key)
+  assert.equal(r2.verdict, 'INCOMPLETE')
+  assert.match(r2.problems.join(), /키에 없는 행 EXTRA/)
 })

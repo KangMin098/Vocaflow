@@ -8,7 +8,7 @@
 // - 출제 의도 단정은 공식 근거가 없으면 HYPOTHESIS(사실 아님) 경고.
 
 import type { LectureCue } from '../lecture/types'
-import { currentState } from './state'
+import { currentState, verifyLedger } from './state'
 import type { LedgerEntry, ProposedChange, ReviewCandidate } from './types'
 
 export type PrepublishSeverity = 'BLOCK' | 'HYPOTHESIS' | 'REVIEW'
@@ -45,9 +45,19 @@ export interface PrepublishReport {
 const KO_NUM: Record<string, number> = { 일: 1, 이: 2, 삼: 3, 사: 4, 오: 5, '①': 1, '②': 2, '③': 3, '④': 4, '⑤': 5 }
 const toNum = (s: string): number | null => KO_NUM[s] ?? (/^[1-5]$/.test(s) ? Number(s) : null)
 
-const ANSWER_SAY_RE = /([일이삼사오1-5①-⑤])\s*번[이은]?\s*정답/g
-const LEAD_CHOICE_RE = /^\s*([일이삼사오1-5①-⑤])\s*번[은는이]?/
-const NOT_ANSWER_RE = /답이\s*아닙니다|답이\s*아니에요|답이\s*아니다|정답이\s*아닙니다/
+// 선지 가리키기: 「④」 또는 「사 번 · 4번」(원문자에는 「번」이 없어도 된다). 그룹 1 = 번호 글자.
+const CHOICE = '(?:([①-⑤])|([일이삼사오1-5])\\s*번)'
+// 정답이라고 말하는 표현 — 「사 번이 정답」 · 「정답은 ⑤」 · 「⑤가 정답」 (어순·표기와 관계없이 — T-0158 Codex P1)
+const ANSWER_SAY_RES = [
+  new RegExp(`${CHOICE}\\s*[이가은는]?\\s*정답(?!이\\s*아[니닙닌])`, 'g'),
+  new RegExp(`정답은\\s*(?:바로\\s*)?${CHOICE}`, 'g'),
+]
+// 오답이라고 말하는 표현 — 「⑤는 오답」 · 「오 번은 … 답이 아닙니다」
+// 「아닙니다」의 첫 음절은 「닙」이다 — 「아니」만 쓰면 가장 흔한 꼴을 놓친다
+const REJECT_SAY_RE = new RegExp(`${CHOICE}\\s*[은는이가]?\\s*(?:[^.。?!]{0,60}?)(오답|정?답이\\s*아[니닙닌])`, 'g')
+const LEAD_CHOICE_RE = new RegExp(`^\\s*${CHOICE}`)
+const NOT_ANSWER_RE = /답이\s*아닙니다|답이\s*아니에요|답이\s*아니다|정답이\s*아닙니다|오답입니다|오답이에요/
+const choiceOf = (m: RegExpMatchArray): number | null => toNum((m[1] ?? m[2])!)
 const FOUR_OTHERS_RE = /답이\s*아닌\s*(네|4)\s*(개|선지)|나머지\s*(네|4)\s*(개|선지)/
 const INTENT_RE = /출제자[는가]?[^.。]*?(의도|노렸|노린|노리)|출제\s*의도는/
 
@@ -98,7 +108,7 @@ export function validatePrepublish(input: PrepublishInput): PrepublishReport {
     const text = c.segments.map((s) => s.text).join(' ')
     if (answers) {
       // (2) 「N 번이 정답」
-      const said = [...text.matchAll(ANSWER_SAY_RE)].map((m) => toNum(m[1]!)).filter((n): n is number => n != null)
+      const said = [...new Set(ANSWER_SAY_RES.flatMap((re) => [...text.matchAll(re)].map(choiceOf)).filter((n): n is number => n != null))]
       for (const n of said) {
         if (!answers.includes(n)) push('BLOCK', 'CUE_WRONG_ANSWER', where, `cue 가 ${n}번을 정답이라 하지만 공식 정답은 ${setLabel}`)
       }
@@ -111,7 +121,11 @@ export function validatePrepublish(input: PrepublishInput): PrepublishReport {
       const eliminated = new Set<number>()
       if (c.target.kind === 'analysis' && rej) eliminated.add(Number(rej[1]))
       if (lead && NOT_ANSWER_RE.test(text)) {
-        const n = toNum(lead[1]!)
+        const n = choiceOf(lead)
+        if (n != null) eliminated.add(n)
+      }
+      for (const m of text.matchAll(REJECT_SAY_RE)) {
+        const n = choiceOf(m)
         if (n != null) eliminated.add(n)
       }
       for (const n of eliminated) {
@@ -145,6 +159,9 @@ export function publishAllowed(
   report: PrepublishReport | null,
 ): PublishGate {
   const reasons: string[] = []
+  // 원장 자체가 계약을 어기면(전이 함수를 거치지 않은 승인 줄 등) 상태를 믿지 않는다
+  const integrity = verifyLedger(ledger)
+  if (!integrity.ok) reasons.push(`원장 무결성 오류: ${integrity.problems.slice(0, 3).join(' · ')}`)
   for (const t of candidate.tracks) {
     const s = currentState(ledger, candidate.id, t)
     if (s !== 'content_approved' && s !== 'publish_pending') {

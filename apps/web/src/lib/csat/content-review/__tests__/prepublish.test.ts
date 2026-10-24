@@ -8,7 +8,8 @@ import { describe, expect, it } from 'vitest'
 import exam2015 from '../../lecture-data/2015.json'
 import type { Lecture } from '../../lecture/types'
 import { publishAllowed, validatePrepublish } from '../prepublish'
-import type { LedgerEntry, ReviewCandidate, Reviewer, RevisionBinding } from '../types'
+import { bindingHash, transition } from '../state'
+import type { Evidence, LedgerEntry, ReviewCandidate, Reviewer, RevisionBinding } from '../types'
 
 const lecture = (exam2015 as unknown as { lectures: Record<string, Lecture> }).lectures["2015#25"]!
 
@@ -110,9 +111,46 @@ describe('발행 게이트', () => {
   })
   it('두 트랙 사람 승인이어도 검증 BLOCK 이 있으면 막힌다', () => {
     const blocked = validatePrepublish({ itemId: '2015#25', officialAnswers: [4, 5], choiceVerdicts: verdictsV5, cues: lecture.cues })
-    const led = [entry(1, 'official_answer', human), entry(2, 'explanation', human)]
+    // 전이 함수로 만든 정상 승인 원장(판본에 묶인 필수 증거 포함) — 수제 원장은 무결성 검사가 막는다
+    const h = bindingHash(binding)
+    const ev = (kinds: Evidence['kind'][]): Evidence[] => kinds.map((kind) => ({ kind, ref: kind, boundHash: h }))
+    const led: LedgerEntry[] = []
+    const step = (track: LedgerEntry['track'], to: LedgerEntry['to'], evidence: Evidence[] = []) => {
+      const r = transition(led, { candidate: cand, track, to, by: human, currentBinding: binding, evidence, reason: 'r', at: '2026-10-24T00:00:00Z' })
+      if (!r.ok) throw new Error(r.message)
+      led.push(r.entry)
+    }
+    step('official_answer', 'in_review')
+    step('official_answer', 'content_approved', ev(['official_answer_sheet']))
+    step('explanation', 'in_review')
+    step('explanation', 'content_approved', ev(['official_pdf_text', 'analysis_revision']))
     expect(publishAllowed(led, cand, blocked).allowed).toBe(false)
     expect(publishAllowed(led, cand, null).allowed).toBe(false)
     expect(publishAllowed(led, cand, clean).allowed).toBe(true)
+  })
+})
+
+// ── T-0158 Codex 독립 검증 반례(P1-4) 회귀 ───────────────────────────
+describe('T-0158 반례 — 일반적인 정답·오답 표현', () => {
+  const cue = (text: string, target = 'answer') => ({
+    id: 'cx', order: 0, role: 'evidence' as const, target: { kind: 'analysis' as const, id: target },
+    segments: [{ lang: 'ko-KR' as const, text }], est_sec: 0, pause_after_ms: 0,
+  })
+  const run = (answers: number[], text: string) =>
+    validatePrepublish({ itemId: 'X#1', officialAnswers: answers, choiceVerdicts: [], cues: [cue(text)] })
+  it('「정답은 ⑤입니다」 — 공식 정답 {4} 와 충돌', () => {
+    expect(run([4], '정답은 ⑤입니다.').blocked).toBe(true)
+  })
+  it('「⑤는 오답입니다」 — 공식 복수정답 {4,5} 의 소거', () => {
+    expect(run([4, 5], '⑤는 오답입니다.').findings.map((f) => f.code)).toContain('CUE_ELIMINATES_OFFICIAL')
+  })
+  it('「오 번은 … 답이 아닙니다」 — 문장 중간 번호도 잡는다', () => {
+    expect(run([4, 5], '그래서 오 번은 맞는 진술이고, 답이 아닙니다.').blocked).toBe(true)
+  })
+  it('「⑤가 정답」 · 「정답은 사 번」 — 맞는 번호는 통과', () => {
+    expect(run([4, 5], '④와 ⑤가 정답입니다. 정답은 사 번과 오 번이에요.').blocked).toBe(false)
+  })
+  it('「다섯 번째 문장」 같은 서수는 선지로 읽지 않는다', () => {
+    expect(run([4], '다섯 번째 문장을 짚어 보세요. 이 문장은 답이 아닙니다.').blocked).toBe(false)
   })
 })

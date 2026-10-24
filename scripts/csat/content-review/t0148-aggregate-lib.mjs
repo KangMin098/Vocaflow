@@ -31,13 +31,19 @@ export function parseCsvRecords(text) {
     else if (ch === '\n') { row.push(cur); out.push(row); row = []; cur = '' }
     else cur += ch
   }
+  if (q) throw new Error('닫히지 않은 따옴표가 있다')
   if (cur !== '' || row.length) { row.push(cur); out.push(row) }
   return out
 }
 
 /** 채점 CSV 하나 → { scorer, stage, rows, problems } */
 export function readSheet(text, label = 'csv') {
-  const recs = parseCsvRecords(text)
+  let recs
+  try {
+    recs = parseCsvRecords(text)
+  } catch (e) {
+    return { scorer: label, stage: null, rows: [], problems: [`${label}: ${e.message}`] }
+  }
   let scorer = label
   let stage = null
   const problems = []
@@ -62,6 +68,8 @@ export function readSheet(text, label = 'csv') {
     if (!okScore(A) || !okScore(B)) problems.push(`${label} ${o.blind}: 점수 누락·범위 밖`)
     if (!ynu(o.teaches_wrong_rule_1)) problems.push(`${label} ${o.blind}: 1단계 「틀린 규칙」 미답`)
     if (!ynu(o.teaches_wrong_rule_2)) problems.push(`${label} ${o.blind}: 2단계 「틀린 규칙」 미답`)
+    // 계약 §2 — 반례 후보 판정 없이 2단계를 냈으면 제출이 아니다(후보 없는 대본은 「해당 없음」)
+    if (!o.ce_adjudication.trim()) problems.push(`${label} ${o.blind}: 2단계 반례 판정 빈칸`)
     rows.push({ ...o, score_A: A, score_B: B })
   }
   if (stage !== 'locked2') problems.push(`${label}: 2단계 잠금(locked2) 전 — 제출 파일이 아니다`)
@@ -98,6 +106,7 @@ export function aggregate(sheets, key, rekeyed = {}) {
   for (const s of sheets) {
     const blinds = new Set(s.rows.map((r) => r.blind))
     for (const b of groups.keys()) if (!blinds.has(b)) problems.push(`${s.scorer}: ${b} 행 없음`)
+    for (const b of blinds) if (!groups.has(b)) problems.push(`${s.scorer}: 키에 없는 행 ${b}`)
     if (blinds.size !== s.rows.length) problems.push(`${s.scorer}: 중복 행`)
   }
   if (problems.length) return { verdict: 'INCOMPLETE', problems }

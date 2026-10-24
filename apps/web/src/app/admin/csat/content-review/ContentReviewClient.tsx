@@ -15,6 +15,7 @@ import {
   STATE_LABEL,
   TRACK_LABEL,
   TRANSITIONS,
+  bindingHash,
   countHumanApprovals,
   currentState,
   revert,
@@ -347,11 +348,11 @@ function StatePanel({ detail, ledger, setLedger }: { detail: CandidateDetail; le
   const by = DEMO_REVIEWERS.find((r) => r.id === reviewerId)!
   const state = currentState(ledger, c.id, track)
   const mine = ledger.filter((e) => e.candidateId === c.id)
-  const bindingHash = `${c.binding.itemMd5}:${c.binding.analysisMd5}:${c.binding.lectureHash ?? '-'}`
 
   function go(to: ReviewState) {
     if (!detail.currentBinding) { setMessage('현재 판본을 모른다 — 상태를 바꾸지 않는다'); return }
-    const evidence: Evidence[] = [...checked].map((kind) => ({ kind, ref: c.sourceRef, boundHash: bindingHash }))
+    // 증거는 검수자가 **지금 보고 있는 판본**에 묶는다
+    const evidence: Evidence[] = [...checked].map((kind) => ({ kind, ref: c.sourceRef, boundHash: bindingHash(detail.currentBinding!) }))
     const r = transition(ledger, { candidate: c, track, to, by, currentBinding: detail.currentBinding, evidence, reason, at: new Date().toISOString() })
     if (!r.ok) { setMessage(r.message); return }
     setLedger([...ledger, r.entry])
@@ -380,7 +381,7 @@ function StatePanel({ detail, ledger, setLedger }: { detail: CandidateDetail; le
         <fieldset className="flex flex-col gap-1">
           <legend className={small}>판본에 묶인 증거</legend>
           {(Object.keys(EVIDENCE_LABEL) as Evidence['kind'][]).map((k) => (
-            <label key={k} className="flex min-h-[32px] items-center gap-2 font-body text-[12.5px] text-[var(--t1)]">
+            <label key={k} className="flex min-h-[44px] cursor-pointer items-center gap-2 font-body text-[12.5px] text-[var(--t1)]">
               <input
                 type="checkbox"
                 className="h-4 w-4 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--p)]"
