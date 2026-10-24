@@ -13,7 +13,7 @@ import { EXPOSURE_LABELS, EXPOSURE_LEVELS, canTransition, exposureView, type Exp
 import type { ClientTraceCandidate as TraceCandidate, ClientTraceFixture as ListeningTraceFixture } from '@/lib/csat/listening/fixtures'
 import { LISTENING_TYPE_LABELS, type EvidenceRole, type ListeningUtterance } from '@/lib/csat/listening/types'
 
-import { BTN, ListeningAudioBar, OFF, ON } from './ListeningAudioBar'
+import { BTN, ListeningAudioBar, OFF, ON, PRIMARY } from './ListeningAudioBar'
 import {
   analysisReveal,
   compareCandidate,
@@ -76,7 +76,7 @@ function Highlighted({ u, fx, show }: { u: ListeningUtterance; fx: ListeningTrac
     parts.push(
       <mark key={s.id} data-evidence={s.id} data-role={s.role} className={`rounded-sm px-0.5 text-[var(--t1)] ${ROLE_CLASS[s.role]}`}>
         {u.text.slice(s.charStart, s.charEnd)}
-        <span className="ml-1 whitespace-nowrap align-middle text-[11px] font-semibold not-italic text-[var(--t2)]">[{ROLE_LABEL[s.role]}]</span>
+        <span className="ml-1 whitespace-nowrap align-middle text-[length:max(var(--csat-fs-min),calc(11px*var(--csat-fs-scale)))] font-semibold not-italic text-[var(--t2)]">[{ROLE_LABEL[s.role]}]</span>
       </mark>,
     )
     at = s.charEnd
@@ -215,7 +215,7 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
             </button>
           ))}
         </div>
-        <div className="flex flex-wrap items-center gap-2 text-[12px]">
+        <div className="flex flex-wrap items-center gap-2 text-[length:max(var(--csat-fs-min),calc(12px*var(--csat-fs-scale)))]">
           <span data-testid="badge-unverified" className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--t2)] px-2 py-1 font-semibold break-keep">
             <ShieldAlert size={13} aria-hidden="true" />
             서버·DB 연동 미검증
@@ -223,8 +223,8 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
           <span className="rounded-[var(--r-md)] border border-[var(--bd)] px-2 py-1 break-keep">로컬 자료 · 전사 검수 전(NOT_VERIFIED)</span>
           <span className="rounded-[var(--r-md)] border border-[var(--bd)] px-2 py-1 break-keep">분석: {ANALYSIS_TEXT[an?.status ?? 'idle']}</span>
         </div>
-        <h1 className="text-[20px] font-bold leading-snug break-keep">{fx.stem}</h1>
-        <p className="text-[15px] text-[var(--t2)] break-keep">{fx.prompt}</p>
+        <h1 className="text-[length:max(var(--csat-fs-min),calc(18.5px*var(--csat-fs-scale)))] font-bold leading-snug break-keep">{fx.stem}</h1>
+        <p className="text-[length:max(var(--csat-fs-min),calc(15px*var(--csat-fs-scale)))] text-[var(--t2)] break-keep">{fx.prompt}</p>
       </header>
 
       <ListeningAudioBar source={fx.audio} audio={audio} segment={segment} />
@@ -262,17 +262,17 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
           </button>
         </div>
         {level === 'L3' && !view.evidenceHighlights ? (
-          <p data-testid="evidence-held" className="text-[14px] text-[var(--t2)] break-keep">
+          <p data-testid="evidence-held" className="text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] text-[var(--t2)] break-keep">
             L3 근거 강조는 판단을 제출하고 정답 공개가 열린 뒤에 보인다. 지금은 내가 짚은 발화(연결 칩)만 표시된다.
           </p>
         ) : null}
-        {!view.transcript ? <p className="text-[14px] text-[var(--t2)] break-keep">L0 음성만 — 원음이 없어 들을 것이 없다. L1 로 올리면 대본으로 판단할 수 있다.</p> : null}
+        {!view.transcript ? <p className="text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] text-[var(--t2)] break-keep">L0 음성만 — 원음이 없어 들을 것이 없다. L1 로 올리면 대본으로 판단할 수 있다.</p> : null}
       </section>
 
       <div className="grid grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] gap-4">
         {/* 발화 목록 */}
-        <section aria-labelledby="utt-h" className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3">
-          <h2 id="utt-h" className="text-[15px] font-bold break-keep">
+        <section aria-labelledby="utt-h" className="flex flex-col gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+          <h2 id="utt-h" className="text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] font-bold break-keep">
             발화 {fx.utterances.length}개 {view.timing && !hasTiming ? <span className="font-normal text-[var(--t2)]">· 시각 정보 없음</span> : null}
           </h2>
           <ol className="flex flex-col gap-1.5">
@@ -291,20 +291,20 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
                     disabled={!canLink}
                     aria-label={canLink ? undefined : `${i + 1}번 발화 — 대본이 닫혀 있다`}
                     onClick={() => setPickedUtterance(picked ? null : u.id)}
-                    className={`flex min-h-[44px] w-full items-start gap-2 rounded-[var(--r-md)] border px-3 py-2 text-left text-[15px] leading-relaxed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ju)] disabled:cursor-default ${picked ? 'border-[var(--t1)] border-2 bg-[var(--bg3)]' : 'border-[var(--bd)]'}`}
+                    className={`flex min-h-[44px] w-full items-start gap-2 rounded-[var(--r-md)] border px-3 py-2 text-left text-[length:max(var(--csat-fs-min),calc(15px*var(--csat-fs-scale)))] leading-relaxed focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ju)] disabled:cursor-default ${picked ? 'border-[var(--t1)] border-2 bg-[var(--bg3)]' : 'border-[var(--bd)] bg-[var(--bg)]'}`}
                   >
-                    <span className="w-7 shrink-0 font-mono text-[13px] text-[var(--t2)]">{i + 1}</span>
-                    {view.speakerStructure ? <span className="w-10 shrink-0 text-[13px] font-semibold break-keep">{speaker(u.speaker)}</span> : null}
-                    {view.timing && u.startMs !== undefined ? <span className="shrink-0 font-mono text-[12px] text-[var(--t2)]">{fmtMs(u.startMs)}</span> : null}
+                    <span className="w-7 shrink-0 font-mono text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] text-[var(--t2)]">{i + 1}</span>
+                    {view.speakerStructure ? <span className="w-10 shrink-0 text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] font-semibold break-keep">{speaker(u.speaker)}</span> : null}
+                    {view.timing && u.startMs !== undefined ? <span className="shrink-0 font-mono text-[length:max(var(--csat-fs-min),calc(12px*var(--csat-fs-scale)))] text-[var(--t2)]">{fmtMs(u.startMs)}</span> : null}
                     <span className="min-w-0 flex-1">
                       {view.transcript && st.captions ? <Highlighted u={u} fx={fx} show={view.evidenceHighlights} /> : <span className="text-[var(--t3)]">{view.transcript ? '자막 끔' : '대본 닫힘'}</span>}
                     </span>
-                    {picked ? <span className="shrink-0 text-[12px] font-semibold">짚음</span> : null}
+                    {picked ? <span className="shrink-0 text-[length:max(var(--csat-fs-min),calc(12px*var(--csat-fs-scale)))] font-semibold">짚음</span> : null}
                   </button>
                   {links.length ? (
                     <div className="flex flex-wrap gap-1 pl-9">
                       {links.map(({ cand, verdict }) => (
-                        <button key={cand.id} type="button" className={`${BTN} ${OFF} text-[13px]`} onClick={() => goCandidate(cand.id)} aria-label={`${cand.label} 판단으로 가기 — ${verdict === 'eliminated' ? '지움' : '남김'}`}>
+                        <button key={cand.id} type="button" className={`${BTN} ${OFF} text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))]`} onClick={() => goCandidate(cand.id)} aria-label={`${cand.label} 판단으로 가기 — ${verdict === 'eliminated' ? '지움' : '남김'}`}>
                           <Link2 size={14} aria-hidden="true" />
                           {cand.label} {verdict === 'eliminated' ? '지움' : '남김'}
                         </button>
@@ -318,21 +318,21 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
         </section>
 
         {/* 후보 판단 */}
-        <section aria-labelledby="judge-h" className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-3">
-          <h2 id="judge-h" className="text-[15px] font-bold break-keep">
+        <section aria-labelledby="judge-h" className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
+          <h2 id="judge-h" className="text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] font-bold break-keep">
             {fx.mode === 'table-filter' ? '표 행 거르기' : '이유 후보 소거'}
           </h2>
-          <p data-testid="candidates-source" className={`rounded-[var(--r-md)] border px-2 py-1.5 text-[13px] break-keep ${synthetic ? 'border-dashed border-[var(--t2)]' : 'border-[var(--bd)]'}`}>
+          <p data-testid="candidates-source" className={`rounded-[var(--r-md)] border px-2 py-1.5 text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] break-keep ${synthetic ? 'border-dashed border-[var(--t2)]' : 'border-[var(--bd)]'}`}>
             {synthetic
               ? '테스트용 합성 자료 — 공식 표가 아니다. 대본의 조건을 걸어 보는 연습용 재구성 행이다.'
               : '대본에서 나온 이유 후보 — 공식 선지가 아니다.'}
           </p>
 
           {fx.mode === 'table-filter' ? (
-            <table className="w-full border-collapse text-[14px]">
+            <table className="w-full border-collapse text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))]">
               <caption className="sr-only">재구성 표 — 행을 골라 지우거나 남긴다</caption>
               <thead>
-                <tr className="text-left text-[12px] text-[var(--t2)]">
+                <tr className="text-left text-[length:max(var(--csat-fs-min),calc(12px*var(--csat-fs-scale)))] text-[var(--t2)]">
                   <th scope="col" className="p-1">행</th>
                   {fx.candidateColumns?.map((c) => (
                     <th key={c} scope="col" className="p-1 break-keep">{c}</th>
@@ -365,7 +365,7 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
               {fx.candidates.map((c) => {
                 const j = st.judgments[c.id]
                 return (
-                  <li key={c.id} className={`flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] p-2 ${j?.verdict === 'eliminated' ? 'text-[var(--t3)]' : ''}`}>
+                  <li key={c.id} className={`flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2 ${j?.verdict === 'eliminated' ? 'text-[var(--t3)]' : ''}`}>
                     <CandidateButton c={c} picked={pickedCandidate === c.id} disabled={st.submitted} onPick={pickCandidate} refs={candRefs} strike={j?.verdict === 'eliminated'} />
                     <span className="ml-auto">
                       <JudgmentTag j={j} uttNo={uttNo} onGo={goUtterance} />
@@ -377,8 +377,8 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
           )}
 
           {!st.submitted ? (
-            <div className="flex flex-col gap-2 rounded-[var(--r-md)] bg-[var(--bg2)] p-2" aria-label="판단 확정">
-              <p className="text-[14px] break-keep" aria-live="polite">
+            <div className="flex flex-col gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] p-2" aria-label="판단 확정">
+              <p className="text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] break-keep" aria-live="polite">
                 {selCand ? <b>{selCand.label}</b> : '① 후보를 고르고'} · {selUtt ? <b>{uttNo(selUtt.id)}번 발화</b> : '② 근거 발화를 짚고'} · ③ 확정
               </p>
               <div className="flex flex-wrap gap-2">
@@ -403,20 +403,20 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
             </div>
           ) : null}
 
-          <p role="status" data-testid="remaining" className="text-[14px] font-semibold break-keep">
+          <p role="status" data-testid="remaining" className="text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] font-semibold break-keep">
             남은 {fx.mode === 'table-filter' ? '행' : '후보'} {remaining}개 / {fx.candidates.length}개
           </p>
 
           {!st.submitted ? (
             <div className="flex flex-col gap-1">
-              <button type="button" className={`${BTN} ${ON}`} disabled={block !== null} onClick={() => update((s) => submit(fx, s))}>
+              <button type="button" className={`${BTN} ${PRIMARY}`} disabled={block !== null} onClick={() => update((s) => submit(fx, s))}>
                 판단 제출
               </button>
-              {block === 'unjudged' ? <p className="text-[13px] text-[var(--t2)] break-keep">모든 후보를 지우거나 남겨야 제출할 수 있다.</p> : null}
-              {block === 'none-remaining' ? <p className="text-[13px] text-[var(--t2)] break-keep">하나는 남겨야 한다 — 모두 지웠다.</p> : null}
+              {block === 'unjudged' ? <p className="text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] text-[var(--t2)] break-keep">모든 후보를 지우거나 남겨야 제출할 수 있다.</p> : null}
+              {block === 'none-remaining' ? <p className="text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] text-[var(--t2)] break-keep">하나는 남겨야 한다 — 모두 지웠다.</p> : null}
             </div>
           ) : (
-            <p className="text-[14px] break-keep" data-testid="submitted">
+            <p className="text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] break-keep" data-testid="submitted">
               제출했다 — 판단은 잠겼다.{' '}
               {an?.status === 'open'
                 ? rankBelow(level, 'L4')
@@ -432,8 +432,8 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
 
           {view.rationales ? (
             <section aria-label="분석과 비교" data-testid="compare" className="flex flex-col gap-2 border-t border-[var(--bd)] pt-2">
-              <h3 className="text-[14px] font-bold">분석과 비교</h3>
-              <ul className="flex flex-col gap-1.5 text-[14px]">
+              <h3 className="text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] font-bold">분석과 비교</h3>
+              <ul className="flex flex-col gap-1.5 text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))]">
                 {fx.candidates.map((c) => {
                   const m = compareCandidate(fx, st, c.id)
                   return (
@@ -444,7 +444,7 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
                         {c.keyUtteranceIds?.[0] ? (
                           <>
                             {' · '}
-                            <button type="button" className="underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--ju)]" onClick={() => goUtterance(c.keyUtteranceIds![0])}>
+                            <button type="button" className="inline-flex min-h-[44px] min-w-[44px] items-center rounded-[var(--r-md)] px-1.5 underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ju)]" onClick={() => goUtterance(c.keyUtteranceIds![0])}>
                               {uttNo(c.keyUtteranceIds[0])}번 발화
                             </button>
                           </>
@@ -458,7 +458,7 @@ export function ListeningTracer({ fixtures, initialKey, loadAnalysis, initialAna
             </section>
           ) : null}
 
-          <section aria-label="선지 층" className="flex flex-col gap-1 border-t border-[var(--bd)] pt-2 text-[13px] break-keep" data-testid="choice-layer">
+          <section aria-label="선지 층" className="flex flex-col gap-1 border-t border-[var(--bd)] pt-2 text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] break-keep" data-testid="choice-layer">
             <p>
               <b>선지 층: {fx.choiceLayer.status}</b> — {fx.choiceLayer.status === 'BLOCKED_EVIDENCE' ? fx.choiceLayer.reason : fx.choiceLayer.label}
             </p>
@@ -512,9 +512,9 @@ function CandidateButton({
 }
 
 function JudgmentTag({ j, uttNo, onGo }: { j: { verdict: string; utteranceId: string } | undefined; uttNo: (id: string) => number; onGo: (id: string) => void }) {
-  if (!j) return <span className="text-[13px] text-[var(--t2)]">미판단</span>
+  if (!j) return <span className="text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] text-[var(--t2)]">미판단</span>
   return (
-    <button type="button" className={`${BTN} ${OFF} text-[13px] no-underline`} style={{ textDecoration: 'none' }} onClick={() => onGo(j.utteranceId)} aria-label={`${j.verdict === 'eliminated' ? '지움' : '남김'} — ${uttNo(j.utteranceId)}번 발화로 가기`}>
+    <button type="button" className={`${BTN} ${OFF} text-[length:max(var(--csat-fs-min),calc(13px*var(--csat-fs-scale)))] no-underline`} style={{ textDecoration: 'none' }} onClick={() => onGo(j.utteranceId)} aria-label={`${j.verdict === 'eliminated' ? '지움' : '남김'} — ${uttNo(j.utteranceId)}번 발화로 가기`}>
       {j.verdict === 'eliminated' ? <X size={14} aria-hidden="true" /> : <Check size={14} aria-hidden="true" />}
       {j.verdict === 'eliminated' ? '지움' : '남김'} · {uttNo(j.utteranceId)}번
     </button>

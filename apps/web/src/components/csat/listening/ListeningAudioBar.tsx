@@ -11,9 +11,11 @@ import type { ListeningAudioSource } from '@/lib/csat/listening/types'
 import { PLAYBACK_RATES, type ListeningAudio } from './useListeningAudio'
 
 export const BTN =
-  'inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-[var(--r-md)] border px-3 text-[14px] break-keep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ju)] disabled:cursor-not-allowed disabled:opacity-50'
+  'inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1.5 rounded-[var(--r-md)] border px-3 text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] break-keep focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ju)] disabled:cursor-not-allowed disabled:opacity-50'
 export const ON = 'border-[var(--t1)] bg-[var(--bg3)] font-semibold text-[var(--t1)]'
 export const OFF = 'border-[var(--bd)] bg-[var(--bg)] text-[var(--t2)]'
+/** 3B 1차 행동 — 먹색 알약(skins/csat-app.css --csat-control · --on-p) */
+export const PRIMARY = '!rounded-full border-[var(--csat-control)] bg-[var(--csat-control)] font-semibold text-[var(--on-p)]'
 
 export interface ListeningAudioBarProps {
   source: ListeningAudioSource
@@ -29,19 +31,19 @@ export function ListeningAudioBar({ source, audio, segment }: ListeningAudioBarP
   return (
     <section aria-label="음성 재생" className="flex flex-wrap items-center gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-3">
       {noSource ? (
-        <p role="status" data-testid="audio-none" className="flex min-h-[44px] items-center gap-2 text-[14px] font-semibold text-[var(--t1)] break-keep">
+        <p role="status" data-testid="audio-none" className="flex min-h-[44px] items-center gap-2 text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] font-semibold text-[var(--t1)] break-keep">
           <VolumeX size={18} aria-hidden="true" />
           원음 없음 — 공식 음원이 확보되지 않았다. 합성 음성(TTS)으로 대신하지 않는다. 대본으로 판단한다.
         </p>
       ) : null}
       {failed ? (
-        <p role="alert" data-testid="audio-error" className="flex min-h-[44px] items-center gap-2 text-[14px] font-semibold text-[var(--t1)] break-keep">
+        <p role="alert" data-testid="audio-error" className="flex min-h-[44px] items-center gap-2 text-[length:max(var(--csat-fs-min),calc(14px*var(--csat-fs-scale)))] font-semibold text-[var(--t1)] break-keep">
           <AlertTriangle size={18} aria-hidden="true" />
           재생 실패 — 음원을 불러오지 못했다.
         </p>
       ) : null}
       {source.kind === 'synthetic-test-fixture' ? (
-        <span className="rounded-[var(--r-md)] border border-dashed border-[var(--t2)] px-2 py-1 text-[12px] text-[var(--t1)] break-keep">테스트용 합성 음원 · 공식 아님</span>
+        <span className="rounded-[var(--r-md)] border border-dashed border-[var(--t2)] px-2 py-1 text-[length:max(var(--csat-fs-min),calc(12px*var(--csat-fs-scale)))] text-[var(--t1)] break-keep">테스트용 합성 음원 · 공식 아님</span>
       ) : null}
       <div className="ml-auto flex flex-wrap items-center gap-2">
         <button
