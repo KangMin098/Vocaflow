@@ -34,6 +34,12 @@ describe('안내문 문장형 각주', () => {
     expect(codes('Tickets* Open daily. * Visitors from the U.S. Embassy enter for free.')).not.toContain('footnote_mark_without_gloss')
     expect(notesOf(FIXED)[0].ambiguous).toBe(false)
   })
+  it('목록 밖 약어(Prof.)도 범위 미확정 · 숫자로 시작하는 다음 문장은 각주에 넣지 않는다 · 줄 넘김 각주 인식(T-0166 R2)', () => {
+    expect(notesOf('Hours* Open daily. * Please contact Prof. Smith for details.')).toEqual([expect.objectContaining({ ambiguous: true })])
+    expect(notesOf('Hours* Open daily. * The office is closed on holidays. 12 children may enter.').map((n) => n.note)).toEqual(['The office is closed on holidays.'])
+    expect(notesOf('Hours* Open daily. * The office is closed\non holidays.').map((n) => n.note)).toEqual(['The office is closed\non holidays.'])
+    expect(notesOf('Hours* Open daily. * The office is closed\n\non holidays.')).toEqual([])
+  })
   it('따옴표 · 괄호 · 숫자로 시작하는 문장 각주도 짝이다(T-0166 R1 P3)', () => {
     expect(notesOf('Hours* Open daily. * "The office is closed on holidays."').map((n) => n.note)).toEqual(['"The office is closed on holidays."'])
     expect(notesOf('Hours* Open daily. * (The office is closed on holidays.)').map((n) => n.note)).toEqual(['(The office is closed on holidays.)'])
