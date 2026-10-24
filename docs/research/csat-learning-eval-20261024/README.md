@@ -16,6 +16,7 @@
 | [08_INTEGRATION_PILOT_PROTOCOL.md](08_INTEGRATION_PILOT_PROTOCOL.md) | 통합 판정 · 전후 분석 방법 · 파일럿 선행 조건 |
 | [10_SOURCE_READINESS.md](10_SOURCE_READINESS.md) · `transfer/readiness.json` · `transfer/analysis-revisions.json` · `review/ai-candidates-*.json` | SOURCE_READY/PARTICIPANT_READY 분리 · 2025 정답 독립 확인 · 문자 이동 복원 이력 · revision 해시 결속 · AI 채점 근거 후보(미승인) |
 | [11_DUAL_AGENT_REVIEW.md](11_DUAL_AGENT_REVIEW.md) · [12_DUAL_AGENT_RESULT.md](12_DUAL_AGENT_RESULT.md) · `tool/review-gates.mjs` · `review/judgments-*.json` · `review/aggregate-AB.json` | 사람 검수 대체 — Claude(A)·Codex(B) 독립 이중 판정 규약·결과(T-0149) |
+| [13_DUAL_AGENT_REVIEW_V2.md](13_DUAL_AGENT_REVIEW_V2.md) · [14_DUAL_AGENT_RESULT_V2.md](14_DUAL_AGENT_RESULT_V2.md) · `tool/review-gates-v2.mjs` · `review/v2/` · `transfer/readiness-v2.json` | 미반영 4게이트 보정 규약 v2·재판정(T-0150) — 원문·같은 원리 반영, 매력 오답·revision 미반영, 후보 17건 기록 |
 | [09_HANDOFF.md](09_HANDOFF.md) · `transfer/source-evidence.json` | 종료 인계 — 차단 우선순위 · 후보 17건 원문·정답 대조 근거 · 34/22/38 감수 항목 · P6 인계 · 입력 계약 · 설문 타당화 근거 |
 
 테스트: `node --test docs/research/csat-learning-eval-20261024/tool/__tests__/*.test.mjs`

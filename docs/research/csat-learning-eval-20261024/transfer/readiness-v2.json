@@ -1,0 +1,2876 @@
+{
+ "generated_at": "2026-10-24",
+ "task": "T-0150",
+ "supersedes": null,
+ "preserves": "transfer/readiness.json (T-0149 v1) — 수정하지 않음",
+ "rule": "SOURCE_READY(연구 내부) = 원문 내용 반영 CONFIRM · 공식 정답 확인 · revision 충돌 해소 · 같은 원리 SAME 반영 · T-0149 결정 근거 gold · 매력 오답 반영 · 권리 연구 내부. PARTICIPANT_READY 는 학습자별(현재 학습자 0 → 판정 대상 없음). 학습자 대상 사용 RESERVED.",
+ "gates": {
+  "original": {
+   "n": 17,
+   "agree": 17,
+   "rate": 1,
+   "meets_floor": true,
+   "audit": {
+    "pass": true,
+    "method": "오케스트레이터가 10건 지문 전체를 읽어 문장 흐름 확인 + source-evidence 지문 조각 포함률(≥0.83) 대조",
+    "sampled": [
+     "M2609#22",
+     "M2706#22",
+     "2025#39",
+     "M2606#38",
+     "M2706#38",
+     "2025#38",
+     "M2509#38",
+     "2025#33",
+     "M2606#34",
+     "M2609#38"
+    ],
+    "failed_items": [],
+    "finding": "38계열 6건 모두 주어진 문장이 지문 1번 문장에 붙어 있음(GIVEN_SENTENCE_MERGED) — 두 판정자 모두 기록하지 않음. 내용 판정에는 영향 없음, 결함 목록에 감사 발견으로 추가"
+   },
+   "reflect": true
+  },
+  "anchor_function": {
+   "n": 17,
+   "agree": 16,
+   "rate": 0.941,
+   "meets_floor": true,
+   "audit": {
+    "pass": true,
+    "method": "오케스트레이터가 13 §2 조건 C1–C3 을 원문으로 다시 판정해 합의 verdict 와 비교",
+    "sampled": [
+     "M2609#22",
+     "M2706#22",
+     "2025#39",
+     "M2606#38",
+     "M2706#38",
+     "2025#38",
+     "M2509#38",
+     "2025#33",
+     "M2606#34",
+     "M2609#38"
+    ],
+    "failed_items": [],
+    "result": "10/10 합의 verdict 와 같음"
+   },
+   "reflect": true
+  },
+  "near_distractor": {
+   "n": 17,
+   "agree": 9,
+   "rate": 0.529,
+   "meets_floor": false,
+   "audit": null,
+   "reflect": false
+  },
+  "revision_options": {
+   "n": 9,
+   "agree": 4,
+   "rate": 0.444,
+   "meets_floor": false,
+   "audit": null,
+   "reflect": false
+  }
+ },
+ "counts": {
+  "candidates": 17,
+  "SOURCE_READY_research_internal": 0,
+  "original_content_reflected": 17,
+  "same_principle_reflected_SAME": 7,
+  "same_principle_reflected_DIFFERENT": 9,
+  "same_principle_unresolved": 1,
+  "near_distractor_reflected": 0,
+  "revision_conflict_items": 5,
+  "transfer_eligible": 0
+ },
+ "PARTICIPANT_READY": "판정 대상 없음(학습자 0 · P6 원장 0행)",
+ "items": [
+  {
+   "item_id": "2025#22",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:de8035bedf1ac1a5…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+    "form": "짝수형"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 1,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "ceb2b3467d6928c2bc1b72f0d743908e16f371bc4a1a55294aa4b9f9296161ad"
+     },
+     {
+      "v": 2,
+      "sha256": "98b80fdfdf9aa708ba7a01b0ecab07daacf60d28aa8ace1416c42cdd1d1d7e43"
+     },
+     {
+      "v": 3,
+      "sha256": "98b80fdfdf9aa708ba7a01b0ecab07daacf60d28aa8ace1416c42cdd1d1d7e43"
+     },
+     {
+      "v": 4,
+      "sha256": "5e01ff69902d157534dc04dbf2eb244ecf6f798a6c536f631b1a933dd7c0fb51"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        2,
+        3,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        4,
+        5
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        4,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        2,
+        3,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        4,
+        5,
+        6
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "⑤를 '갈등 상황에서 상대 관점 이해가 필요하다'로 바꾸면 C3가 true가 된다",
+    "b": "오답 5번을 감정 이해가 자신의 감정 표현을 돕는다는 세부 진술로 바꾸면 C3가 true가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 5,
+     "code": "LEX_BAIT",
+     "counter_evidence": [
+      4,
+      5
+     ],
+     "reason": "갈등·집단 낱말을 끌어왔지만 지문은 감정 조절이 아니라 감정 이해를 말함"
+    },
+    "b": {
+     "option": 5,
+     "code": "OUTSIDE_KNOWLEDGE",
+     "counter_evidence": [
+      4,
+      5,
+      6
+     ],
+     "reason": "갈등 상황이라는 소재는 맞지만, 조절의 중요성은 이해와 관점 수용을 설명한 지문 대신 일반적인 갈등 관리 통념에 의존한다."
+    },
+    "pair_agreed_value": null,
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    2,
+    3
+   ],
+   "disagreements": [
+    "매력 오답 A=5:LEX_BAIT B=5:OUTSIDE_KNOWLEDGE"
+   ],
+   "unresolved": [
+    "same_principle",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2509#22",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:73a48f9bba4265fe…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 0.958,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 3,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "24a8cec24fb227f31ad8908e8faa63820fcc96c464d57321b00bda296ec5eda4"
+     },
+     {
+      "v": 2,
+      "sha256": "a2c443af0879fe214cbe3579e102f215224c8ac6fb71db768e15ba1d9827bf07"
+     },
+     {
+      "v": 3,
+      "sha256": "a2c443af0879fe214cbe3579e102f215224c8ac6fb71db768e15ba1d9827bf07"
+     },
+     {
+      "v": 4,
+      "sha256": "4504e38f22a1670da628148397c7a683e1827552381f3812a5b6d58563edb11c"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "SAME",
+    "b": "DIFFERENT",
+    "pair_agreed_value": null,
+    "reflected_value": null,
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        4
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        3,
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        4,
+        5,
+        6
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "⑤에 '학습되어 인간 사회에만'을 더하면 C3의 실패 지점이 사라진다",
+    "b": "오답 5번을 첫 문장의 개 사례만 요약하는 참인 진술로 바꾸면 C3가 true가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 5,
+     "code": "SCOPE_UNDER",
+     "counter_evidence": [
+      5,
+      6
+     ],
+     "reason": "주장 문장 s4의 영향 축만 옮기고 학습성·인간 전용이라는 축을 빠뜨림"
+    },
+    "b": {
+     "option": 5,
+     "code": "SCOPE_UNDER",
+     "counter_evidence": [
+      3,
+      4,
+      5,
+      6
+     ],
+     "reason": "도덕의 문화적 도구라는 주장 축은 반영하지만, 선천적 성향과 구별되는 학습 및 인간 사회의 한정을 빠뜨린다."
+    },
+    "pair_agreed_value": {
+     "option": 5,
+     "code": "SCOPE_UNDER",
+     "counter_evidence_union": [
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    4,
+    5
+   ],
+   "disagreements": [
+    "같은 원리 A=SAME B=DIFFERENT"
+   ],
+   "unresolved": [
+    "same_principle",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2606#22",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:55ba46646ada079e…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 1,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "f726bccaa141ad3394b09ab8b8b8eae7b22023d792520fe731be382d74ea715d"
+     },
+     {
+      "v": 2,
+      "sha256": "f22edce17a662dd1feb892a700ca9d5e7bdbbc39f1c9b3a47a26ab86c5fb0e77"
+     },
+     {
+      "v": 3,
+      "sha256": "f22edce17a662dd1feb892a700ca9d5e7bdbbc39f1c9b3a47a26ab86c5fb0e77"
+     },
+     {
+      "v": 4,
+      "sha256": "9b804692b2e67f59311b4a9270d68f815cfe3f29c5bfeccc9d7c6ee056b5b5a0"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        4,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        2,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        4,
+        5
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        2,
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        2,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        2,
+        5,
+        6
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "②를 '연승 결과를 행운이나 속임수로 해석한다'로 바꾸면 C3가 true",
+    "b": "오답 5번을 동전 게임의 결과에 서로 다른 설명을 붙인다는 예시 요약으로 바꾸면 C3가 true가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 2,
+     "code": "LEX_BAIT",
+     "counter_evidence": [
+      2,
+      5
+     ],
+     "reason": "probability·게임 낱말을 빌렸으나 예측 명제는 지문 어디에도 없음"
+    },
+    "b": {
+     "option": 5,
+     "code": "OUTSIDE_KNOWLEDGE",
+     "counter_evidence": [
+      2,
+      5,
+      6
+     ],
+     "reason": "여러 해석이 가능하다는 설명을 감정 개입의 오류로 바꾸지만, 감정이 의미를 왜곡한다는 평가는 지문에 없다."
+    },
+    "pair_agreed_value": null,
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": null,
+   "disagreements": [
+    "매력 오답 A=2:LEX_BAIT B=5:OUTSIDE_KNOWLEDGE"
+   ],
+   "unresolved": [
+    "same_principle",
+    "evidence_gold",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2609#22",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:4fdb1e11fc03a3dc…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 0.917,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 1,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "824f986ff719bc82bad63f836fa4577f268ca5b76c13027e0bfcb71d12e26036"
+     },
+     {
+      "v": 2,
+      "sha256": "bbf6fa1e36305f9311cb008d4394f363668767bf02fc999e4bc975f5413dff7c"
+     },
+     {
+      "v": 3,
+      "sha256": "bbf6fa1e36305f9311cb008d4394f363668767bf02fc999e4bc975f5413dff7c"
+     },
+     {
+      "v": 4,
+      "sha256": "69de9d61a54fb5486bbb43eecba1fa51173790fbcc29ac0e3c5ddcb8b561f016"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "SAME",
+    "b": "SAME",
+    "pair_agreed_value": "SAME",
+    "reflected_value": "SAME",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        3,
+        8
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        2,
+        8
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        3
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        2,
+        3,
+        4,
+        8
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        2,
+        6,
+        8
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        3,
+        8
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "s3 정의 문장을 삭제하면 ②가 지문에 참이 아니게 되어 C3가 false",
+    "b": "3번의 관계망 정의를 삭제하여 규범과 가치 공유에 관한 근거가 사라지면 C3가 false가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence": [
+      1,
+      8
+     ],
+     "reason": "사회적 자본 정의 문장의 규범·가치 공유를 옮겼을 뿐 미디어 확장 결론과 무관"
+    },
+    "b": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence": [
+      2,
+      3,
+      8
+     ],
+     "reason": "규범과 가치의 공유는 관계망을 설명하는 실제 내용이지만, 소셜 미디어가 연결 범위를 넓혀 자본을 형성한다는 결론을 대신하지 못한다."
+    },
+    "pair_agreed_value": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence_union": [
+      1,
+      2,
+      3,
+      8
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    2,
+    8
+   ],
+   "disagreements": [],
+   "unresolved": [
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2706#22",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:b7e913209134cd89…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 0.933,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 1,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "32277f728ebe1b8b6d8e9b02b3fcd427c9fb29ab7c376b55c603d9ede5166943"
+     },
+     {
+      "v": 2,
+      "sha256": "ff6e15bec37a5eec1669fdcef5014dfaf82262b893bf847b35a282cec7ed5c3b"
+     },
+     {
+      "v": 3,
+      "sha256": "ff6e15bec37a5eec1669fdcef5014dfaf82262b893bf847b35a282cec7ed5c3b"
+     },
+     {
+      "v": 4,
+      "sha256": "afdbfdc0a5d4f600e06fe51af5f27b23ac8fb388bfcb95b0ae9cc3ae08c8f408"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "SAME",
+    "b": "SAME",
+    "pair_agreed_value": "SAME",
+    "reflected_value": "SAME",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        2,
+        6,
+        7
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        4,
+        5,
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        2
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        2,
+        4,
+        5,
+        7
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        4,
+        5,
+        6,
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        2,
+        6,
+        7
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "s2의 전문가 동원 대목을 빼면 ②가 근거를 잃어 C3 false",
+    "b": "2번의 다양한 전문가 활용 내용을 삭제하면 오답 2번이 지문에서 참이라는 C3의 요건이 사라진다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence": [
+      6,
+      7
+     ],
+     "reason": "디자이너가 심리학자 등을 동원했다는 세부만 담아 추세 결론을 놓침"
+    },
+    "b": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence": [
+      2,
+      4,
+      5,
+      7
+     ],
+     "reason": "전문가들을 활용하는 디자인 접근은 소개되지만, 글이 설명하는 성난 인상과 소비자 안전감 및 판매 호응을 포괄하지 못한다."
+    },
+    "pair_agreed_value": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence_union": [
+      2,
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    4,
+    7
+   ],
+   "disagreements": [],
+   "unresolved": [
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "2025#34",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:de8035bedf1ac1a5…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+    "form": "짝수형"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 5,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "4bc7b87ae2292489c25ed877ef5cdffde0b6b2d53cdabcf7352a3d2f53ff8b85"
+     },
+     {
+      "v": 2,
+      "sha256": "5d0276dccc59faefdfba779c5e9ba33456f805c460848124275ecf136cb6c28a"
+     },
+     {
+      "v": 3,
+      "sha256": "5d0276dccc59faefdfba779c5e9ba33456f805c460848124275ecf136cb6c28a"
+     },
+     {
+      "v": 4,
+      "sha256": "a518a3ecb01729089c3c272e297dd7d8a3a864a1fc596f0389187566e3cccabc"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        1
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        1,
+        3
+       ]
+      },
+      {
+       "id": "C3",
+       "met": "unsure",
+       "evidence": []
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        1,
+        8
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        1,
+        2,
+        3,
+        8
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        3,
+        5,
+        6,
+        7
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "빈칸을 s8 'Without them' 귀결 절로 옮기면 C1이 성립 가능",
+    "b": "빈칸을 규칙이 없다는 조건 아래 역할 수행이 불가능하다는 부정 귀결로 옮기면 C1과 C2가 true가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 4,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence": [
+      5,
+      7
+     ],
+     "reason": "규칙이 행동을 제약한다는 양보부만 반영하고 역할·관행 창출이라는 주장을 놓침"
+    },
+    "b": {
+     "option": 4,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence": [
+      3,
+      5,
+      7,
+      8
+     ],
+     "reason": "기존 역할 안에서 행동을 규율하는 측면에 머물러, 규칙이 역할과 활동 자체를 성립시킨다는 창출 기능을 놓친다."
+    },
+    "pair_agreed_value": {
+     "option": 4,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence_union": [
+      3,
+      5,
+      7,
+      8
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    3,
+    5
+   ],
+   "disagreements": [],
+   "unresolved": [
+    "same_principle",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "2025#33",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:de8035bedf1ac1a5…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+    "form": "짝수형"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 0.913,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 2,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "f911a1027c1594250aab1fd5f2a1484321ebe1f8d06dc2dee58d736f99bc13a1"
+     },
+     {
+      "v": 2,
+      "sha256": "012727cbb9aa1b349a99642fb36f2dcf06734ded2b03383a72cf924df29aa79f"
+     },
+     {
+      "v": 3,
+      "sha256": "012727cbb9aa1b349a99642fb36f2dcf06734ded2b03383a72cf924df29aa79f"
+     },
+     {
+      "v": 4,
+      "sha256": "d4152b38977e0143dde8c396173130c7f58f44613eafdec3d15f14bb76ced56c"
+     },
+     {
+      "v": 5,
+      "sha256": "c3b3ffad92f813dafdcadeb075db7b461835461891bf1ebed977cd56f95f0d4f"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        3
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        3
+       ]
+      },
+      {
+       "id": "C3",
+       "met": "unsure",
+       "evidence": [
+        1,
+        2
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        3
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        3
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        1,
+        2,
+        3,
+        4
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "귀결 절을 부정형으로 바꾸면 C2가 true가 될 수 있다",
+    "b": "빈칸 귀결을 이용자가 판매 대상이라는 해석을 부정할 수 없다는 형식으로 바꾸면 C2가 true가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 3,
+     "code": "OUTSIDE_KNOWLEDGE",
+     "counter_evidence": [
+      1,
+      2
+     ],
+     "reason": "사생활 침해는 무료 앱 통념이지 지문의 주의력 판매 논리에 근거 없음"
+    },
+    "b": {
+     "option": 3,
+     "code": "OUTSIDE_KNOWLEDGE",
+     "counter_evidence": [
+      1,
+      2,
+      4
+     ],
+     "reason": "무료 플랫폼에 관한 친숙한 개인정보 우려를 자극하지만, 이 지문이 판매 대상으로 설명한 것은 주의력과 이용 시간이다."
+    },
+    "pair_agreed_value": {
+     "option": 3,
+     "code": "OUTSIDE_KNOWLEDGE",
+     "counter_evidence_union": [
+      1,
+      2,
+      4
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    1,
+    2
+   ],
+   "disagreements": [],
+   "unresolved": [
+    "same_principle",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2509#34",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:73a48f9bba4265fe…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 0.84,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 3,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "cb8810cccec526d4353db79284f667b2248bf10d6f87fa75f63abf78ce7b9b84"
+     },
+     {
+      "v": 2,
+      "sha256": "1b764f1445ddd862d4867b4f3b04bf51e73bc3ef8fc44607a3b65a7753d2409d"
+     },
+     {
+      "v": 3,
+      "sha256": "1b764f1445ddd862d4867b4f3b04bf51e73bc3ef8fc44607a3b65a7753d2409d"
+     },
+     {
+      "v": 4,
+      "sha256": "1902b2aa489c133821f371f894892dc3b25567c5c49816bfb3757584f2772b76"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        7,
+        8
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        5,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        4,
+        5,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        2,
+        3,
+        7,
+        8
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "조건·부정 구조가 아예 없으므로 빈칸을 if 귀결로 재구성해야만 C1이 바뀜",
+    "b": "빈칸을 타인과의 관계가 없을 때 자아 형성이 불가능하다는 조건부 부정 귀결로 바꾸면 조건 추론 구조가 성립한다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 4,
+     "code": "REVERSAL",
+     "counter_evidence": [
+      4,
+      6
+     ],
+     "reason": "자립적 인간 형성은 자족이 불가능한 환상이라는 지문 극성을 뒤집음"
+    },
+    "b": {
+     "option": 5,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence": [
+      2,
+      5,
+      6,
+      7,
+      8
+     ],
+     "reason": "사회생활의 불안에 관한 개인적 갈망을 확대해 읽게 하지만, 빈칸은 그 갈망과 대비되는 저술의 사회적 자아론을 요구한다."
+    },
+    "pair_agreed_value": null,
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    2,
+    7
+   ],
+   "disagreements": [
+    "매력 오답 A=4:REVERSAL B=5:PARTIAL_TRUE"
+   ],
+   "unresolved": [
+    "same_principle",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2606#34",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:55ba46646ada079e…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 2,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "7b84cd4c3508f2c2be44a1fe7a88c0d2060da2ab13268d7445f78bb0f95445b7"
+     },
+     {
+      "v": 2,
+      "sha256": "0ba0d8603408d5a918e9adc5b5118982fa9cec426ac75d541434fba05fc7a38a"
+     },
+     {
+      "v": 3,
+      "sha256": "0ba0d8603408d5a918e9adc5b5118982fa9cec426ac75d541434fba05fc7a38a"
+     },
+     {
+      "v": 4,
+      "sha256": "08ceaf25460816e7d4b5982fa6c38bd4f99c046156970babe240aff33ea09c8b"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": "unsure",
+       "evidence": [
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": "unsure",
+       "evidence": []
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        2,
+        4,
+        6,
+        7,
+        8
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "빈칸을 'it is difficult to ___' 귀결 절로 옮기면 C1이 true",
+    "b": "빈칸을 공간 인식이 없으면 합리적 판단을 할 수 없다는 문장의 부정 귀결 부분으로 이동하면 C1이 true가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 5,
+     "code": "LEX_BAIT",
+     "counter_evidence": [
+      4,
+      8
+     ],
+     "reason": "territory 낱말을 끌어왔으나 권한 주체 명제는 지문에 없음"
+    },
+    "b": {
+     "option": 5,
+     "code": "LEX_BAIT",
+     "counter_evidence": [
+      4,
+      6,
+      7,
+      8
+     ],
+     "reason": "마지막 사례의 영토와 정치 조직을 끌어오지만, 판단의 전제는 결정권자의 신원이 아니라 현상의 공간적 배열이다."
+    },
+    "pair_agreed_value": {
+     "option": 5,
+     "code": "LEX_BAIT",
+     "counter_evidence_union": [
+      4,
+      6,
+      7,
+      8
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    4,
+    6
+   ],
+   "disagreements": [],
+   "unresolved": [
+    "same_principle",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2609#34",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:4fdb1e11fc03a3dc…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 0.828,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 1,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "88fd00058f51556e995ca4cfd8a52158cfdeb42fb64665057168ebfa85caa969"
+     },
+     {
+      "v": 2,
+      "sha256": "e69d45e24e5adfc533c9c29af3afd8a34a55e88e7876758631a79854b8180006"
+     },
+     {
+      "v": 3,
+      "sha256": "e69d45e24e5adfc533c9c29af3afd8a34a55e88e7876758631a79854b8180006"
+     },
+     {
+      "v": 4,
+      "sha256": "5c1a2af17ecb0591cb27f8ca64d2924ce83fc3bfd871b467db87a66576c43af4"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": "unsure",
+       "evidence": [
+        1
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        1,
+        2
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        4,
+        5
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        1,
+        2,
+        5
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        2,
+        3,
+        4,
+        5
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "빈칸 절을 'cannot be resolved without ___'로 바꾸면 C2가 true",
+    "b": "빈칸 절을 특정 경우에 무작위 절차를 피할 수 없다는 부정 형식으로 바꾸면 C2가 true가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 2,
+     "code": "LEX_BAIT",
+     "counter_evidence": [
+      2,
+      4
+     ],
+     "reason": "impartial 낱말을 빌렸지만 공정 선택이 무효화된다는 명제는 지문에 없음"
+    },
+    "b": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence": [
+      2,
+      4,
+      5
+     ],
+     "reason": "결정론적 선택이 공정성 조건을 위반하는 난점은 실제 내용이지만, 그 난점을 해결하기 위한 무작위화의 필요성을 제시하지 못한다."
+    },
+    "pair_agreed_value": null,
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    2,
+    4
+   ],
+   "disagreements": [
+    "매력 오답 A=2:LEX_BAIT B=2:PARTIAL_TRUE"
+   ],
+   "unresolved": [
+    "same_principle",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2706#34",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:b7e913209134cd89…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [],
+    "data_defect_effect": null,
+    "official_answer": 1,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "ecb013e4b8959c5be84970c0f9c4a9c9ae099dc6cd1b220e1e14676f69377c83"
+     },
+     {
+      "v": 2,
+      "sha256": "235d76142383e0177b904fd1226229b6e4180f5330fe556adacae63d122b1b9d"
+     },
+     {
+      "v": 3,
+      "sha256": "235d76142383e0177b904fd1226229b6e4180f5330fe556adacae63d122b1b9d"
+     },
+     {
+      "v": 4,
+      "sha256": "b2fced18f9f3495f394cd3bbd9a7267dc0c532e75bbdeebe4c7e9474bbb38bea"
+     },
+     {
+      "v": 5,
+      "sha256": "a16c1279eb8696f2ffb2eb50d9681ba187330b1f80e0356ab1ce2ee7db30b590"
+     }
+    ],
+    "trap_conflict": "SEMANTIC",
+    "accepted_revision": null,
+    "options": [
+     {
+      "option": 3,
+      "a": "NONE",
+      "b": "반대 진술",
+      "pair_agreed_value": null,
+      "reflected_value": null
+     },
+     {
+      "option": 4,
+      "a": "어휘 함정",
+      "b": "어휘 함정",
+      "pair_agreed_value": "어휘 함정",
+      "reflected_value": null
+     },
+     {
+      "option": 5,
+      "a": "반대 진술",
+      "b": "NONE",
+      "pair_agreed_value": null,
+      "reflected_value": null
+     }
+    ]
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        7
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        3
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        6,
+        7
+       ]
+      },
+      {
+       "id": "C2",
+       "met": false,
+       "evidence": [
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": false,
+       "evidence": [
+        3,
+        6,
+        7
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "조건·부정이 없어 if 귀결 구조로 재작성하지 않는 한 원리 불일치 유지",
+    "b": "빈칸을 현재의 합의만 믿을 경우 미래 가치를 확신할 수 없다는 조건부 부정 귀결로 바꾸면 현재와 다른 추론 구조가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 5,
+     "code": "REVERSAL",
+     "counter_evidence": [
+      4,
+      5
+     ],
+     "reason": "합의는 대체되기 마련이라 했는데 독창성이 흔들리지 않는다고 극성을 뒤집음"
+    },
+    "b": {
+     "option": 3,
+     "code": "REVERSAL",
+     "counter_evidence": [
+      3,
+      4,
+      5,
+      7
+     ],
+     "reason": "작품의 역사적 의미라는 소재는 맞지만, 구매에 담긴 미래의 지속적 의의에 대한 확신을 현재 시대의 반영으로 돌린다."
+    },
+    "pair_agreed_value": null,
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": null,
+   "disagreements": [
+    "매력 오답 A=5:REVERSAL B=3:REVERSAL",
+    "revision 3번 A=NONE B=반대 진술",
+    "revision 5번 A=반대 진술 B=NONE"
+   ],
+   "unresolved": [
+    "revision",
+    "same_principle",
+    "evidence_gold",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "2025#38",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:de8035bedf1ac1a5…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+    "form": "짝수형"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 0.968
+    },
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE",
+     "GIVEN_SENTENCE_MERGED"
+    ],
+    "data_defect_effect": "이 결함이 있는 표시 데이터(선지 등)는 채점·학습자 화면에 쓰지 않음",
+    "official_answer": 4,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "a7ce637c8f2d8fee4988e9dce7a304460bbb834e6124dce464ea2b4dc90c52d6"
+     },
+     {
+      "v": 2,
+      "sha256": "862b5e4debaa18588db30a3e7f21759014163982370d3a379910a35be34f959d"
+     },
+     {
+      "v": 3,
+      "sha256": "862b5e4debaa18588db30a3e7f21759014163982370d3a379910a35be34f959d"
+     },
+     {
+      "v": 4,
+      "sha256": "910e72f0243d51ea650620f96afcff0b93a44c8f1b630a1bc8f0e0423cb0f196"
+     },
+     {
+      "v": 5,
+      "sha256": "c374fd05819a8eb6c05cabc1e0f938b8135a00134427817f6c51a1956375b9ba"
+     }
+    ],
+    "trap_conflict": "RENAME_ONLY",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "SAME",
+    "b": "SAME",
+    "pair_agreed_value": "SAME",
+    "reflected_value": "SAME",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        5
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        6,
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        6,
+        7
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        3,
+        4,
+        5
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        1,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        1,
+        6,
+        7
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "s7의 Such a predicament를 일반 진술로 바꾸면 C2 결정력이 약해진다",
+    "b": "6번을 정보 공개와 무관한 독립 문장으로 바꾸면 주어진 문장을 요구하는 뒤 이음매가 사라져 C2가 false가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 5,
+     "code": "SEQ_REVERSAL",
+     "counter_evidence": [
+      6
+     ],
+     "reason": "유출 뒤 공개 결과(s6)가 유출 위험 제기보다 앞서 순서가 뒤집힘"
+    },
+    "b": {
+     "option": 5,
+     "code": "SEQ_REVERSAL",
+     "counter_evidence": [
+      1,
+      6,
+      7
+     ],
+     "reason": "곤경을 받는 마지막 문장과는 잘 연결되지만, 유출 위험의 도입보다 아이디어 공개 이후의 결과가 앞서게 된다."
+    },
+    "pair_agreed_value": {
+     "option": 5,
+     "code": "SEQ_REVERSAL",
+     "counter_evidence_union": [
+      1,
+      6,
+      7
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    1,
+    5,
+    6
+   ],
+   "disagreements": [],
+   "unresolved": [
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "2025#39",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:de8035bedf1ac1a5…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "공식 정답표 PDF(이미지) 렌더 → 짝수형 쪽 판독(AI 시각 판독)",
+    "form": "짝수형"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE",
+     "GIVEN_SENTENCE_MERGED"
+    ],
+    "data_defect_effect": "이 결함이 있는 표시 데이터(선지 등)는 채점·학습자 화면에 쓰지 않음",
+    "official_answer": 4,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "61934b79682d22eba5545b4410b8fd2773e493a1f54dd1cc466824bb69ec19ce"
+     },
+     {
+      "v": 2,
+      "sha256": "4c355646dc8b94d085be6864a03d344ef739ef5d524d92e68dd424ac4b8c847e"
+     },
+     {
+      "v": 3,
+      "sha256": "4c355646dc8b94d085be6864a03d344ef739ef5d524d92e68dd424ac4b8c847e"
+     },
+     {
+      "v": 4,
+      "sha256": "d5e0e2d4ac30605840bf4fa4d9d7bc86d575b45227b233cebdffa6f2bfab2c81"
+     },
+     {
+      "v": 5,
+      "sha256": "f5d3eb5ff0b1f63443516fd5f48c50f8af1f4bd4a3e17ea17a64e20079ef8aa3"
+     }
+    ],
+    "trap_conflict": "SEMANTIC",
+    "accepted_revision": null,
+    "options": [
+     {
+      "option": 3,
+      "a": "NONE",
+      "b": "총론-각론 역전",
+      "pair_agreed_value": null,
+      "reflected_value": null
+     },
+     {
+      "option": 5,
+      "a": "열거·병렬 절단",
+      "b": "총론-각론 역전",
+      "pair_agreed_value": null,
+      "reflected_value": null
+     }
+    ]
+   },
+   "same_principle": {
+    "a": "SAME",
+    "b": "SAME",
+    "pair_agreed_value": "SAME",
+    "reflected_value": "SAME",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        5
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        4,
+        5
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        5
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        1,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        1,
+        4,
+        5
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "s6의 Additionally를 지우면 뒤 이음매가 약해져 C2가 false",
+    "b": "6번에서 추가 관계를 없애고 앞 사례 없이 이해되는 독립 주제로 바꾸면 C2가 false가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 3,
+     "code": "ENUM_CUT",
+     "counter_evidence": [
+      5,
+      6
+     ],
+     "reason": "주어진 문장과 s6 Additionally 사례 열거 사이에 Krebs·Weber 비판이 끼어듦"
+    },
+    "b": {
+     "option": 3,
+     "code": "GENERAL_SPECIFIC_REVERSAL",
+     "counter_evidence": [
+      1,
+      5,
+      6
+     ],
+     "reason": "수명 연장 설명 뒤의 현실적 반론처럼 보이지만, 기존 모형이 불완전하다는 일반적 비판보다 그 구체적 실제 경로가 먼저 제시된다."
+    },
+    "pair_agreed_value": null,
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    1,
+    5,
+    6
+   ],
+   "disagreements": [
+    "매력 오답 A=3:ENUM_CUT B=3:GENERAL_SPECIFIC_REVERSAL",
+    "revision 3번 A=NONE B=총론-각론 역전",
+    "revision 5번 A=열거·병렬 절단 B=총론-각론 역전"
+   ],
+   "unresolved": [
+    "revision",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2509#38",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:73a48f9bba4265fe…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE",
+     "GIVEN_SENTENCE_MERGED"
+    ],
+    "data_defect_effect": "이 결함이 있는 표시 데이터(선지 등)는 채점·학습자 화면에 쓰지 않음",
+    "official_answer": 5,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "fbda895eef9adecf196786aff119975cc5901b96e96c989a99571d9e479c3729"
+     },
+     {
+      "v": 2,
+      "sha256": "3e9032423867b27357797cdf1c346eaa956172592875e3272d48b603f2bdf83e"
+     },
+     {
+      "v": 3,
+      "sha256": "3e9032423867b27357797cdf1c346eaa956172592875e3272d48b603f2bdf83e"
+     },
+     {
+      "v": 4,
+      "sha256": "1b19865e46fc9cb3126a56a67cdfd2a350786ebe2e2fe05dd706082d1ce61e2a"
+     },
+     {
+      "v": 5,
+      "sha256": "18528dda6a915b00d303934bcfedcd1ea03d062e0e6f2c4226c07d783b0ae19f"
+     },
+     {
+      "v": 6,
+      "sha256": "3365bcb475d55af6e12837f19793dec8a760a1ec74995bab5ef32418bf3a2f7a"
+     }
+    ],
+    "trap_conflict": "SEMANTIC",
+    "accepted_revision": null,
+    "options": [
+     {
+      "option": 4,
+      "a": "조건-귀결 절단",
+      "b": "조건-귀결 절단",
+      "pair_agreed_value": "조건-귀결 절단",
+      "reflected_value": null
+     }
+    ]
+   },
+   "same_principle": {
+    "a": "SAME",
+    "b": "SAME",
+    "pair_agreed_value": "SAME",
+    "reflected_value": "SAME",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        7
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        8
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        6,
+        7
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        7
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        1,
+        8
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        1,
+        6,
+        7
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "s8의 would 귀결을 독립 진술로 바꾸면 C2가 false",
+    "b": "8번을 자기 추적과 무관한 로봇의 독립적 성능 설명으로 바꾸면 C2가 false가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 4,
+     "code": "COND_RESULT_CUT",
+     "counter_evidence": [
+      7,
+      8
+     ],
+     "reason": "④에 넣으면 조건 s7이 결과보다 뒤에 오고 s8 귀결이 조건과 떨어짐"
+    },
+    "b": {
+     "option": 4,
+     "code": "COND_RESULT_CUT",
+     "counter_evidence": [
+      1,
+      7,
+      8
+     ],
+     "reason": "장비를 갖춘다는 앞 문장과 조건처럼 이어지지만, 부정 조건의 결과 설명과 뒤의 순환 행동 사이에 성공 조건이 끼어 결과의 연속성이 끊긴다."
+    },
+    "pair_agreed_value": {
+     "option": 4,
+     "code": "COND_RESULT_CUT",
+     "counter_evidence_union": [
+      1,
+      7,
+      8
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    1,
+    7,
+    8
+   ],
+   "disagreements": [],
+   "unresolved": [
+    "revision",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2606#38",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:55ba46646ada079e…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE",
+     "GIVEN_SENTENCE_MERGED"
+    ],
+    "data_defect_effect": "이 결함이 있는 표시 데이터(선지 등)는 채점·학습자 화면에 쓰지 않음",
+    "official_answer": 4,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "825d17eb94425fdbaeda3dad4dc7df98b42ff119ac12c4b111e1d70513f348a5"
+     },
+     {
+      "v": 2,
+      "sha256": "aa0f3b75b4ad723de2d438d065d90ef29dcbd4a09c5534386c4bb8492e72a0e3"
+     },
+     {
+      "v": 3,
+      "sha256": "aa0f3b75b4ad723de2d438d065d90ef29dcbd4a09c5534386c4bb8492e72a0e3"
+     },
+     {
+      "v": 4,
+      "sha256": "cc90774b43419eeac8087736e62d38dc43b595e2275d3c9fb70782b2a22088c9"
+     },
+     {
+      "v": 5,
+      "sha256": "c05d2ebd2adab6757bd4ef439c01c6330b97a0102cce9a01380e53d6c34872c0"
+     }
+    ],
+    "trap_conflict": "SEMANTIC",
+    "accepted_revision": null,
+    "options": [
+     {
+      "option": 2,
+      "a": "열거·병렬 절단",
+      "b": "열거·병렬 절단",
+      "pair_agreed_value": "열거·병렬 절단",
+      "reflected_value": null
+     }
+    ]
+   },
+   "same_principle": {
+    "a": "SAME",
+    "b": "SAME",
+    "pair_agreed_value": "SAME",
+    "reflected_value": "SAME",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        4,
+        5
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        6,
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        3,
+        4
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        4,
+        5
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        1,
+        6,
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        1,
+        4,
+        5
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "s6을 단점이 아닌 장점 서술로 바꾸면 뒤 이음매 C2가 false",
+    "b": "6–7번을 디자인의 추가 장점으로 바꾸면 단점 예고를 받아야 하는 C2가 false가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 2,
+     "code": "ENUM_CUT",
+     "counter_evidence": [
+      3,
+      4,
+      5
+     ],
+     "reason": "두 동기 총론 s3과 그 열거 항목 s4·s5 사이를 끊어 놓음"
+    },
+    "b": {
+     "option": 3,
+     "code": "ENUM_CUT",
+     "counter_evidence": [
+      3,
+      4,
+      5,
+      6
+     ],
+     "reason": "귀여운 디자인 설명 뒤의 전환으로는 그럴듯하지만, 두 동기를 차례로 설명하는 병렬 구조의 중간을 단점 예고가 가른다."
+    },
+    "pair_agreed_value": null,
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    1,
+    5,
+    6
+   ],
+   "disagreements": [
+    "매력 오답 A=2:ENUM_CUT B=3:ENUM_CUT"
+   ],
+   "unresolved": [
+    "revision",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2609#38",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:4fdb1e11fc03a3dc…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE",
+     "GIVEN_SENTENCE_MERGED"
+    ],
+    "data_defect_effect": "이 결함이 있는 표시 데이터(선지 등)는 채점·학습자 화면에 쓰지 않음",
+    "official_answer": 3,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "c3fd76d54381da2dd21a9dc254a32bb898852454d530628776311632e09e8e04"
+     },
+     {
+      "v": 2,
+      "sha256": "ddd8fdb8e0866299997c07333cd5f93fb1c20fe7a7cb535785bb3283054872f2"
+     },
+     {
+      "v": 3,
+      "sha256": "ddd8fdb8e0866299997c07333cd5f93fb1c20fe7a7cb535785bb3283054872f2"
+     },
+     {
+      "v": 4,
+      "sha256": "eb34d9802c2a5016994451eec4336d899a07e2b6a8aa77c2b3299c3ffc88f15e"
+     }
+    ],
+    "trap_conflict": "NONE",
+    "accepted_revision": null,
+    "options": []
+   },
+   "same_principle": {
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "pair_agreed_value": "DIFFERENT",
+    "reflected_value": "DIFFERENT",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        1
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": "unsure",
+       "evidence": [
+        4,
+        5
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": false,
+       "evidence": [
+        1,
+        5
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        1,
+        6
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        1,
+        4,
+        5
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "주어진 문장에 'Therefore' 같은 앞 연결사를 넣으면 C1이 true가 될 수 있다",
+    "b": "주어진 문장에 앞 문장의 겨울 생존 위험을 직접 받는 지시 표현을 추가하면 C1이 true가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 2,
+     "code": "REF_ANTECEDENT_CUT",
+     "counter_evidence": [
+      4,
+      5
+     ],
+     "reason": "s5 blow over가 s4 강풍을 받는데 삽입이 둘을 떼어 놓음"
+    },
+    "b": {
+     "option": 2,
+     "code": "REF_ANTECEDENT_CUT",
+     "counter_evidence": [
+      1,
+      4,
+      5
+     ],
+     "reason": "겨울의 위험을 말한 뒤 계절 변화를 넣으면 자연스러워 보이지만, 나무의 바람 피해를 받는 다음 단수 지시 앞에 복수 식물과 변화가 끼어든다."
+    },
+    "pair_agreed_value": {
+     "option": 2,
+     "code": "REF_ANTECEDENT_CUT",
+     "counter_evidence_union": [
+      1,
+      4,
+      5
+     ]
+    },
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    1,
+    5,
+    6
+   ],
+   "disagreements": [],
+   "unresolved": [
+    "same_principle",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  },
+  {
+   "item_id": "M2706#38",
+   "source": {
+    "exam_paper": "로컬 평가원 문제지 PDF sha256:b7e913209134cd89…",
+    "provenance": "UNVERIFIED (사용자 PC 로컬 폴더, 평가원 내려받기 해시 대조 기록 없음)",
+    "answer_key": "정답표 PDF 텍스트 자동 해독",
+    "form": "단일"
+   },
+   "original_answer": {
+    "content": "CONFIRM",
+    "machine_coverage": {
+     "passage": 1,
+     "choices": 1
+    },
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE",
+     "GIVEN_SENTENCE_MERGED"
+    ],
+    "data_defect_effect": "이 결함이 있는 표시 데이터(선지 등)는 채점·학습자 화면에 쓰지 않음",
+    "official_answer": 3,
+    "answer_verified": true
+   },
+   "analysis_revision": {
+    "revisions": [
+     {
+      "v": 1,
+      "sha256": "1ecf943bf53ccbbfbe8dd46efb3ce2d15f4b3ea29236dc571c79be9eaf61d117"
+     },
+     {
+      "v": 2,
+      "sha256": "4eb573a2663576e857ce76f76515759708abb0035a85aa373219a3a70b726959"
+     },
+     {
+      "v": 3,
+      "sha256": "4eb573a2663576e857ce76f76515759708abb0035a85aa373219a3a70b726959"
+     },
+     {
+      "v": 4,
+      "sha256": "1d9bb2a66399116d83711223cc32a7904e7c6e3e138ccf7adb8b06d6d75ec023"
+     },
+     {
+      "v": 5,
+      "sha256": "d161f00f2d70fbc6382247e1d90878119ed4d33febdd0e66f1f4edb7cfb357bb"
+     }
+    ],
+    "trap_conflict": "SEMANTIC",
+    "accepted_revision": null,
+    "options": [
+     {
+      "option": 1,
+      "a": "시간·인과 순서 역전",
+      "b": "시간·인과 순서 역전",
+      "pair_agreed_value": "시간·인과 순서 역전",
+      "reflected_value": null
+     },
+     {
+      "option": 4,
+      "a": "총론-각론 역전",
+      "b": "NONE",
+      "pair_agreed_value": null,
+      "reflected_value": null
+     }
+    ]
+   },
+   "same_principle": {
+    "a": "SAME",
+    "b": "SAME",
+    "pair_agreed_value": "SAME",
+    "reflected_value": "SAME",
+    "conditions": {
+     "a": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        3,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        7,
+        8
+       ]
+      }
+     ],
+     "b": [
+      {
+       "id": "C1",
+       "met": true,
+       "evidence": [
+        1,
+        3,
+        5,
+        6
+       ]
+      },
+      {
+       "id": "C2",
+       "met": true,
+       "evidence": [
+        1,
+        7
+       ]
+      },
+      {
+       "id": "C3",
+       "met": true,
+       "evidence": [
+        1,
+        7,
+        8
+       ]
+      }
+     ]
+    }
+   },
+   "conditions_and_counterexample": {
+    "a": "s7을 문제 서술로 바꾸면 뒤 이음매가 사라져 C2 false",
+    "b": "7번을 와류 억제 목표와 관계없는 독립적 배치 설명으로 바꾸면 뒤 이음매를 요구하는 C2가 false가 된다."
+   },
+   "near_distractor": {
+    "a": {
+     "option": 4,
+     "code": "GENERAL_SPECIFIC_REVERSAL",
+     "counter_evidence": [
+      7
+     ],
+     "reason": "대응책 각론 s7이 대응 총론인 주어진 문장보다 먼저 와 순서가 뒤집힘"
+    },
+    "b": {
+     "option": 4,
+     "code": "ENUM_CUT",
+     "counter_evidence": [
+      7,
+      8,
+      9
+     ],
+     "reason": "뒤의 모서리 가공이 목표를 설명하는 사례처럼 보이지만, 건물 방향 조정과 그에 병렬로 이어지는 가공 방법 사이를 총괄 목표가 가른다."
+    },
+    "pair_agreed_value": null,
+    "reflected_value": null
+   },
+   "evidence_gold_T0149": [
+    1,
+    6,
+    7
+   ],
+   "disagreements": [
+    "매력 오답 A=4:GENERAL_SPECIFIC_REVERSAL B=4:ENUM_CUT",
+    "revision 4번 A=총론-각론 역전 B=NONE"
+   ],
+   "unresolved": [
+    "revision",
+    "near_distractor"
+   ],
+   "rights": {
+    "scope": "RESEARCH_INTERNAL",
+    "basis": "사용자 결정 2026-10-24: 접근 확인된 로컬 연구 환경에서만 원문 사용, 저장소 미복제",
+    "learner_use": "RESERVED",
+    "external_use": "RESERVED"
+   },
+   "SOURCE_READY_research_internal": false,
+   "human_content_review_needed": [
+    "매력 오답 코드·revision 라벨은 이중 판정이 하한 미달 — 사람 콘텐츠 감수 또는 코드표 재설계 필요"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,1003 @@
+{
+ "reviewer": "A2-claude",
+ "rules_sha256": "d5c3453b8ac88457360c886df37e64bcb0fc2d2816c0cebe8ea7825ead0aed48",
+ "items": [
+  {
+   "item_id": "2025#22",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 1.0, 감정 이해와 집단 소통의 6문장 흐름이 끊김 없이 이어짐"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       1,
+       6
+      ],
+      "note": "s1 주장·s6 결론과 s4-5 갈등 예시가 서로 다른 역할로 공존"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       2,
+       3,
+       6
+      ],
+      "note": "정답 ①이 소통·협력 촉진이라는 결론 축을 그대로 담음"
+     },
+     {
+      "id": "C3",
+      "met": false,
+      "evidence": [
+       4,
+       5
+      ],
+      "note": "가장 끌리는 ⑤의 감정 조절은 지문에 없는 명제라 '지문에 참' 조건 불충족"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "⑤를 '갈등 상황에서 상대 관점 이해가 필요하다'로 바꾸면 C3가 true가 된다"
+   },
+   "near_distractor": {
+    "option": 5,
+    "primary_code": "LEX_BAIT",
+    "counter_evidence": [
+     4,
+     5
+    ],
+    "reason": "갈등·집단 낱말을 끌어왔지만 지문은 감정 조절이 아니라 감정 이해를 말함",
+    "code_decision_path": "무관 아님(갈등 다룸)·통념 기댐보다 낱말 차용이 핵심·극성 반전 아님·범위·부분사실은 지문에 명제가 있어야 하는데 없음 → LEX_BAIT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2509#22",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 0.958, 개의 예에서 도덕의 문화적 학습으로 가는 논지 완결"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       1,
+       4,
+       5,
+       6
+      ],
+      "note": "s1 예시와 s4-6 도덕은 학습된 문화 도구라는 결론이 구분됨"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       4,
+       5,
+       6
+      ],
+      "note": "정답 ③이 학습·문화 도구·인간 사회 한정을 모두 담음"
+     },
+     {
+      "id": "C3",
+      "met": true,
+      "evidence": [
+       4
+      ],
+      "note": "⑤는 s4의 사회 행동 영향 부분과 맞지만 학습·인간 한정이라는 결론 핵심을 놓침"
+     }
+    ],
+    "verdict": "SAME",
+    "counterexample_condition": "⑤에 '학습되어 인간 사회에만'을 더하면 C3의 실패 지점이 사라진다"
+   },
+   "near_distractor": {
+    "option": 5,
+    "primary_code": "SCOPE_UNDER",
+    "counter_evidence": [
+     5,
+     6
+    ],
+    "reason": "주장 문장 s4의 영향 축만 옮기고 학습성·인간 전용이라는 축을 빠뜨림",
+    "code_decision_path": "무관·통념·반전·과대 아님 → 옮긴 문장 s4가 주장 문장이므로 PARTIAL_TRUE 아닌 SCOPE_UNDER"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2606#22",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 1.0, 정보와 의미 구분에서 해석 중심 결론까지 온전함"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       1,
+       4,
+       6
+      ],
+      "note": "정의·동전 던지기 예시와 s6 해석 중심 결론이 다른 역할"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       2,
+       6
+      ],
+      "note": "정답 ①이 해석을 통한 의미 생성이라는 결론을 담음"
+     },
+     {
+      "id": "C3",
+      "met": false,
+      "evidence": [
+       4,
+       5
+      ],
+      "note": "끌리는 ②의 확률로 미래 예측은 지문에 참인 명제가 아님"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "②를 '연승 결과를 행운이나 속임수로 해석한다'로 바꾸면 C3가 true"
+   },
+   "near_distractor": {
+    "option": 2,
+    "primary_code": "LEX_BAIT",
+    "counter_evidence": [
+     2,
+     5
+    ],
+    "reason": "probability·게임 낱말을 빌렸으나 예측 명제는 지문 어디에도 없음",
+    "code_decision_path": "무관 아님·통념 의존보다 지문 낱말 차용·반전/과대/과소/부분사실은 지문 명제 필요 → LEX_BAIT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2609#22",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 0.917, 소셜 미디어와 사회적 자본 논지가 끝까지 이어짐"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       1,
+       3,
+       8
+      ],
+      "note": "s3 정의·s4-5 세부와 s8 관계망 확장 결론이 구분"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       2,
+       8
+      ],
+      "note": "정답 ①이 미디어를 통한 관계망 확장=사회적 자본 결론을 담음"
+     },
+     {
+      "id": "C3",
+      "met": true,
+      "evidence": [
+       3
+      ],
+      "note": "②는 s3 정의의 공유 요소로 지문에 참이나 결론 역할이 아님"
+     }
+    ],
+    "verdict": "SAME",
+    "counterexample_condition": "s3 정의 문장을 삭제하면 ②가 지문에 참이 아니게 되어 C3가 false"
+   },
+   "near_distractor": {
+    "option": 2,
+    "primary_code": "PARTIAL_TRUE",
+    "counter_evidence": [
+     1,
+     8
+    ],
+    "reason": "사회적 자본 정의 문장의 규범·가치 공유를 옮겼을 뿐 미디어 확장 결론과 무관",
+    "code_decision_path": "무관·통념·반전·과대 아님, 옮긴 s3는 주장 아닌 정의 문장이라 SCOPE_UNDER 아닌 PARTIAL_TRUE"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#22",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 0.933, 자동차 얼굴 디자인 추세 서술이 기사 인용까지 온전"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       2,
+       6,
+       7
+      ],
+      "note": "s2 연구 방법 세부와 s6-7 성난 외관 인기라는 결론이 다른 역할"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       4,
+       5,
+       7
+      ],
+      "note": "정답 ①이 심리 반영·성난 외관 인기 결론을 담음"
+     },
+     {
+      "id": "C3",
+      "met": true,
+      "evidence": [
+       2
+      ],
+      "note": "②는 s2 학자 동원 세부로 참이지만 결론 아님"
+     }
+    ],
+    "verdict": "SAME",
+    "counterexample_condition": "s2의 전문가 동원 대목을 빼면 ②가 근거를 잃어 C3 false"
+   },
+   "near_distractor": {
+    "option": 2,
+    "primary_code": "PARTIAL_TRUE",
+    "counter_evidence": [
+     6,
+     7
+    ],
+    "reason": "디자이너가 심리학자 등을 동원했다는 세부만 담아 추세 결론을 놓침",
+    "code_decision_path": "무관·통념·반전·과대 아님, s2는 주장 문장이 아닌 세부 → PARTIAL_TRUE"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#34",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 1.0, 첫 문장 빈칸 뒤 야구·악보·법 규칙 예시가 이어진 원형"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": false,
+      "evidence": [
+       1
+      ],
+      "note": "빈칸은 조건절 없는 주제문 s1에 있음"
+     },
+     {
+      "id": "C2",
+      "met": false,
+      "evidence": [
+       1,
+       3
+      ],
+      "note": "빈칸 절에 부정 없음, 부정은 s3 예시에만"
+     },
+     {
+      "id": "C3",
+      "met": "unsure",
+      "evidence": [],
+      "note": "조건 구조 자체가 없어 귀결 추론 여부 판단 대상 아님"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "빈칸을 s8 'Without them' 귀결 절로 옮기면 C1이 성립 가능"
+   },
+   "near_distractor": {
+    "option": 4,
+    "primary_code": "PARTIAL_TRUE",
+    "counter_evidence": [
+     5,
+     7
+    ],
+    "reason": "규칙이 행동을 제약한다는 양보부만 반영하고 역할·관행 창출이라는 주장을 놓침",
+    "code_decision_path": "무관·통념 아님, 반전 아님(제약은 지문에 참), 과대 아님, s7 양보절은 주장 아님 → PARTIAL_TRUE"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#33",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 0.913, 주의력 경제와 무료 서비스 통념 빈칸 흐름이 유지됨"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       3
+      ],
+      "note": "if 조건 뒤 then 귀결 쪽에 빈칸"
+     },
+     {
+      "id": "C2",
+      "met": false,
+      "evidence": [
+       3
+      ],
+      "note": "can't는 조건절에 있고 빈칸 귀결 절은 긍정"
+     },
+     {
+      "id": "C3",
+      "met": "unsure",
+      "evidence": [
+       1,
+       2
+      ],
+      "note": "s1-2 재진술로도 정해질 여지가 있어 판단 유보"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "귀결 절을 부정형으로 바꾸면 C2가 true가 될 수 있다"
+   },
+   "near_distractor": {
+    "option": 3,
+    "primary_code": "OUTSIDE_KNOWLEDGE",
+    "counter_evidence": [
+     1,
+     2
+    ],
+    "reason": "사생활 침해는 무료 앱 통념이지 지문의 주의력 판매 논리에 근거 없음",
+    "code_decision_path": "완전 무관은 아님(무료 서비스 맥락) → 지문 근거 없는 통념이므로 2단계 OUTSIDE_KNOWLEDGE"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2509#34",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 0.84, 루소의 사회적 자아 논지가 인용까지 이어져 기출로 판단"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": false,
+      "evidence": [
+       6
+      ],
+      "note": "빈칸은 But 대조 뒤 목적어 자리, 조건 표지 없음"
+     },
+     {
+      "id": "C2",
+      "met": false,
+      "evidence": [
+       6
+      ],
+      "note": "빈칸 절에 부정 표현 없음 — 빈칸 절 자체는 긍정 서술"
+     },
+     {
+      "id": "C3",
+      "met": false,
+      "evidence": [
+       7,
+       8
+      ],
+      "note": "s7 인용 재진술로 정답이 정해짐"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "조건·부정 구조가 아예 없으므로 빈칸을 if 귀결로 재구성해야만 C1이 바뀜"
+   },
+   "near_distractor": {
+    "option": 4,
+    "primary_code": "REVERSAL",
+    "counter_evidence": [
+     4,
+     6
+    ],
+    "reason": "자립적 인간 형성은 자족이 불가능한 환상이라는 지문 극성을 뒤집음",
+    "code_decision_path": "무관 아님(자립 다룸)·통념 아님 → s4 명제의 방향을 뒤집으므로 3단계 REVERSAL"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2606#34",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 1.0, 지리학의 where 질문에서 공간 인식 필요까지 전개 완결"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": false,
+      "evidence": [
+       6
+      ],
+      "note": "빈칸이 without 조건 쪽(전건)에 있어 귀결 쪽이 아님"
+     },
+     {
+      "id": "C2",
+      "met": "unsure",
+      "evidence": [
+       6
+      ],
+      "note": "difficult는 준부정이나 빈칸은 그 범위 밖 전건"
+     },
+     {
+      "id": "C3",
+      "met": "unsure",
+      "evidence": [],
+      "note": "C1 실패로 귀결 추론 판단 보류"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "빈칸을 'it is difficult to ___' 귀결 절로 옮기면 C1이 true"
+   },
+   "near_distractor": {
+    "option": 5,
+    "primary_code": "LEX_BAIT",
+    "counter_evidence": [
+     4,
+     8
+    ],
+    "reason": "territory 낱말을 끌어왔으나 권한 주체 명제는 지문에 없음",
+    "code_decision_path": "무관 아님(영토 언급)·통념 아님·반전/과대/과소/부분사실은 지문 명제가 있어야 함 → LEX_BAIT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2609#34",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 0.828이나 집단 선택과 추첨 논리 흐름이 일관되어 원문 판단"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": "unsure",
+      "evidence": [
+       1
+      ],
+      "note": "When 절은 시간 상황 제시로 명시적 조건 한정인지 불분명"
+     },
+     {
+      "id": "C2",
+      "met": false,
+      "evidence": [
+       1,
+       2
+      ],
+      "note": "빈칸 절은 긍정, 부정 no는 s2 예시 문장에만"
+     },
+     {
+      "id": "C3",
+      "met": false,
+      "evidence": [
+       4,
+       5
+      ],
+      "note": "s4-5 추첨·동점 해소를 재진술하면 정답 도출"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "빈칸 절을 'cannot be resolved without ___'로 바꾸면 C2가 true"
+   },
+   "near_distractor": {
+    "option": 2,
+    "primary_code": "LEX_BAIT",
+    "counter_evidence": [
+     2,
+     4
+    ],
+    "reason": "impartial 낱말을 빌렸지만 공정 선택이 무효화된다는 명제는 지문에 없음",
+    "code_decision_path": "무관·통념 아님, 반전으로 볼 명제 대응 없음, 범위·부분사실 아님 → LEX_BAIT"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#34",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "NONE"
+    ],
+    "reason": "대조율 1.0, 수집가의 미술사적 판단과 확신 빈칸으로 마무리"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": false,
+      "evidence": [
+       7
+      ],
+      "note": "빈칸은 the conviction that 내용절, 조건 표지 없음"
+     },
+     {
+      "id": "C2",
+      "met": false,
+      "evidence": [
+       7
+      ],
+      "note": "빈칸 절 부정 없음 — 빈칸 절 자체는 긍정 서술"
+     },
+     {
+      "id": "C3",
+      "met": false,
+      "evidence": [
+       3
+      ],
+      "note": "s3 미래 존재 믿음 재진술로 정해짐"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "조건·부정이 없어 if 귀결 구조로 재작성하지 않는 한 원리 불일치 유지"
+   },
+   "near_distractor": {
+    "option": 5,
+    "primary_code": "REVERSAL",
+    "counter_evidence": [
+     4,
+     5
+    ],
+    "reason": "합의는 대체되기 마련이라 했는데 독창성이 흔들리지 않는다고 극성을 뒤집음",
+    "code_decision_path": "무관·통념 아님 → s5의 가변성 명제를 반대로 진술하므로 3단계 REVERSAL"
+   },
+   "revision_options": [
+    {
+     "option": 3,
+     "evidence": [
+      2,
+      3
+     ],
+     "reason": "시대 이야기는 미술사 낱말을 끌어온 명제로 인과 역전도 반대 진술도 아님",
+     "chosen_label": "NONE"
+    },
+    {
+     "option": 4,
+     "evidence": [
+      1
+     ],
+     "reason": "시장 낱말만 빌려 즉각 이익 명제를 만든 어휘 함정이 순서상 맞음",
+     "chosen_label": "어휘 함정"
+    },
+    {
+     "option": 5,
+     "evidence": [
+      5
+     ],
+     "reason": "합의 대체 가능성과 반대로 불변성을 말하므로 반대 진술",
+     "chosen_label": "반대 진술"
+    }
+   ]
+  },
+  {
+   "item_id": "2025#38",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reason": "영업비밀 지문 내용은 온전, 선지는 본문 조각이고 ⑤에 배점·각주 혼입"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       1,
+       5
+      ],
+      "note": "however와 the secretive inventor가 비밀 선호 이점 s3-5를 요구"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       6,
+       7
+      ],
+      "note": "s6 아이디어 유출과 s7 such a predicament가 주어진 문장 위험을 받음"
+     },
+     {
+      "id": "C3",
+      "met": true,
+      "evidence": [
+       6,
+       7
+      ],
+      "note": "⑤에서는 뒤 predicament는 맞지만 앞의 유출 서술이 위험 언급보다 먼저 와 깨짐"
+     }
+    ],
+    "verdict": "SAME",
+    "counterexample_condition": "s7의 Such a predicament를 일반 진술로 바꾸면 C2 결정력이 약해진다"
+   },
+   "near_distractor": {
+    "option": 5,
+    "primary_code": "SEQ_REVERSAL",
+    "counter_evidence": [
+     6
+    ],
+    "reason": "유출 뒤 공개 결과(s6)가 유출 위험 제기보다 앞서 순서가 뒤집힘",
+    "code_decision_path": "선행 대상은 이미 등장(1 아님), 기존 지시어 절단 없음(2 아님), 조건·열거 분리 아님 → 순서 역전 4단계"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#39",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reason": "사물 생애주기 지문은 완결, 선지는 위치 표지 아닌 문장 조각·⑤ 각주 혼입"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       5
+      ],
+      "note": "In reality가 s5의 불완전한 정의 비판을 앞에 요구"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       6
+      ],
+      "note": "s6 Additionally가 주어진 문장의 비선형 사례 열거에 덧붙음"
+     },
+     {
+      "id": "C3",
+      "met": true,
+      "evidence": [
+       4,
+       5
+      ],
+      "note": "③은 앞 s4 수명 연장과 대조는 되나 뒤 s5가 열거를 끊음"
+     }
+    ],
+    "verdict": "SAME",
+    "counterexample_condition": "s6의 Additionally를 지우면 뒤 이음매가 약해져 C2가 false"
+   },
+   "near_distractor": {
+    "option": 3,
+    "primary_code": "ENUM_CUT",
+    "counter_evidence": [
+     5,
+     6
+    ],
+    "reason": "주어진 문장과 s6 Additionally 사례 열거 사이에 Krebs·Weber 비판이 끼어듦",
+    "code_decision_path": "선행 대상 있음(1 아님), 지시어-선행사 분리 없음(2 아님) → 열거 항목 분리라 3단계 ENUM_CUT"
+   },
+   "revision_options": [
+    {
+     "option": 3,
+     "evidence": [
+      5,
+      6
+     ],
+     "reason": "실패는 열거 절단이라 반박 순서 역전·총론 각론 역전 어느 라벨도 아님",
+     "chosen_label": "NONE"
+    },
+    {
+     "option": 5,
+     "evidence": [
+      6,
+      7
+     ],
+     "reason": "Additionally 항목이 첫 항목보다 앞서 열거 관계가 끊기므로 열거·병렬 절단",
+     "chosen_label": "열거·병렬 절단"
+    }
+   ]
+  },
+  {
+   "item_id": "M2509#38",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reason": "로봇 자기 구별 지문 흐름 온전, 선지 조각과 ⑤ 각주 표시가 결함"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       7
+      ],
+      "note": "If not이 s7의 구별 시스템 요구를 앞에 필요로 함"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       8
+      ],
+      "note": "s8 would 귀결이 주어진 문장의 자기 추적을 부연"
+     },
+     {
+      "id": "C3",
+      "met": true,
+      "evidence": [
+       6,
+       7
+      ],
+      "note": "④는 뒤 s7과는 이어지나 앞 s6에 부정할 조건이 없어 깨짐"
+     }
+    ],
+    "verdict": "SAME",
+    "counterexample_condition": "s8의 would 귀결을 독립 진술로 바꾸면 C2가 false"
+   },
+   "near_distractor": {
+    "option": 4,
+    "primary_code": "COND_RESULT_CUT",
+    "counter_evidence": [
+     7,
+     8
+    ],
+    "reason": "④에 넣으면 조건 s7이 결과보다 뒤에 오고 s8 귀결이 조건과 떨어짐",
+    "code_decision_path": "구별 요구는 s5에 이미 나와 첫 등장 위반 아님, 지시어 절단 없음 → 조건-귀결 분리 3단계"
+   },
+   "revision_options": [
+    {
+     "option": 4,
+     "evidence": [
+      7,
+      8
+     ],
+     "reason": "If not 귀결이 s7 조건과 분리되므로 조건-귀결 절단이 판단 순서에 맞음",
+     "chosen_label": "조건-귀결 절단"
+    }
+   ]
+  },
+  {
+   "item_id": "M2606#38",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reason": "귀여운·아름다운 디자인 지문 완결, 선지 조각과 ⑤ 각주 혼입"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       4,
+       5
+      ],
+      "note": "But ... also downsides가 앞의 긍정적 동기 서술을 요구"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       6,
+       7
+      ],
+      "note": "s6 귀여움 단점·s7 아름다움 단점이 주어진 문장을 구체화"
+     },
+     {
+      "id": "C3",
+      "met": true,
+      "evidence": [
+       3,
+       4
+      ],
+      "note": "②는 앞 However 대조와 어울리나 뒤 s4가 단점이 아닌 동기라 깨짐"
+     }
+    ],
+    "verdict": "SAME",
+    "counterexample_condition": "s6을 단점이 아닌 장점 서술로 바꾸면 뒤 이음매 C2가 false"
+   },
+   "near_distractor": {
+    "option": 2,
+    "primary_code": "ENUM_CUT",
+    "counter_evidence": [
+     3,
+     4,
+     5
+    ],
+    "reason": "두 동기 총론 s3과 그 열거 항목 s4·s5 사이를 끊어 놓음",
+    "code_decision_path": "대상 이미 등장(1 아님), s4에 지시어 없음(2 아님) → 열거 분리 3단계 ENUM_CUT"
+   },
+   "revision_options": [
+    {
+     "option": 2,
+     "evidence": [
+      3,
+      4,
+      5
+     ],
+     "reason": "s3 두 동기와 s4-5 열거 사이 삽입이라 열거·병렬 절단이 맞음",
+     "chosen_label": "열거·병렬 절단"
+    }
+   ]
+  },
+  {
+   "item_id": "M2609#38",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reason": "낙엽 노화 지문 흐름 정상, 선지는 본문 조각이며 ⑤에 각주"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": false,
+      "evidence": [
+       1
+      ],
+      "note": "주어진 문장에 앞을 요구하는 지시어·연결사가 없음(this change는 문장 내부 지시)"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       6
+      ],
+      "note": "s6 It·them이 주어진 문장의 change·plants를 받음"
+     },
+     {
+      "id": "C3",
+      "met": "unsure",
+      "evidence": [
+       4,
+       5
+      ],
+      "note": "②에서 어느 이음매가 맞는지 앞 단서 부재로 판단 어려움"
+     }
+    ],
+    "verdict": "DIFFERENT",
+    "counterexample_condition": "주어진 문장에 'Therefore' 같은 앞 연결사를 넣으면 C1이 true가 될 수 있다"
+   },
+   "near_distractor": {
+    "option": 2,
+    "primary_code": "REF_ANTECEDENT_CUT",
+    "counter_evidence": [
+     4,
+     5
+    ],
+    "reason": "s5 blow over가 s4 강풍을 받는데 삽입이 둘을 떼어 놓음",
+    "code_decision_path": "주어진 문장 대상은 자체 완결이라 첫 등장 위반 아님 → 뒤쪽 기존 연결 절단 2단계"
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#38",
+   "original": {
+    "content_verdict": "CONFIRM",
+    "data_defects": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reason": "와류 탈락 문제와 설계 대응 지문이 완결, 선지 조각·각주 결함"
+   },
+   "anchor_function": {
+    "conditions": [
+     {
+      "id": "C1",
+      "met": true,
+      "evidence": [
+       3,
+       6
+      ],
+      "note": "vortex shedding이 앞에서 정의·위험 제시된 뒤에야 최소화 목표가 성립"
+     },
+     {
+      "id": "C2",
+      "met": true,
+      "evidence": [
+       7
+      ],
+      "note": "s7 can help 대응책이 주어진 문장의 노력 총론을 요구"
+     },
+     {
+      "id": "C3",
+      "met": true,
+      "evidence": [
+       7,
+       8
+      ],
+      "note": "④는 뒤 likewise와는 맞지만 앞에 이미 대응책 s7이 나와 깨짐"
+     }
+    ],
+    "verdict": "SAME",
+    "counterexample_condition": "s7을 문제 서술로 바꾸면 뒤 이음매가 사라져 C2 false"
+   },
+   "near_distractor": {
+    "option": 4,
+    "primary_code": "GENERAL_SPECIFIC_REVERSAL",
+    "counter_evidence": [
+     7
+    ],
+    "reason": "대응책 각론 s7이 대응 총론인 주어진 문장보다 먼저 와 순서가 뒤집힘",
+    "code_decision_path": "대상 기출(1 아님), 지시어 절단 없음(2 아님), 조건·열거 분리 아님, 시간 순서보다 총론-각론 문제 → 4단계"
+   },
+   "revision_options": [
+    {
+     "option": 1,
+     "evidence": [
+      4,
+      5
+     ],
+     "reason": "압력 차로 와류가 생기는 과정 이전에 대응을 꺼내 시간·인과 순서 역전",
+     "chosen_label": "시간·인과 순서 역전"
+    },
+    {
+     "option": 4,
+     "evidence": [
+      7,
+      8
+     ],
+     "reason": "대응 총론이 첫 대응책 뒤에 놓여 총론-각론 역전이 맞음",
+     "chosen_label": "총론-각론 역전"
+    }
+   ]
+  }
+ ],
+ "self_report": {
+  "files_read": [
+   "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/ff6cb818-df48-4652-9707-e1911695a8da/scratchpad/prompt-v2-A.md",
+   "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/ff6cb818-df48-4652-9707-e1911695a8da/scratchpad/v2-input-A/RULES-v2.md",
+   "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/ff6cb818-df48-4652-9707-e1911695a8da/scratchpad/v2-input-A/failure-codes.json",
+   "C:/Users/ADMINI~1/AppData/Local/Temp/claude/d--workspace-Vocaflow/ff6cb818-df48-4652-9707-e1911695a8da/scratchpad/v2-input-A/packet-v2.json"
+  ]
+ }
+}

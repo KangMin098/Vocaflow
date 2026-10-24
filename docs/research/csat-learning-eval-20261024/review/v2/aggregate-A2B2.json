@@ -1,0 +1,779 @@
+{
+ "generated_at": "2026-10-24",
+ "rules_commit": "7bf900ec4",
+ "rules_sha256": {
+  "13_DUAL_AGENT_REVIEW_V2.md": "d5c3453b8ac88457360c886df37e64bcb0fc2d2816c0cebe8ea7825ead0aed48",
+  "tool/review-gates-v2.mjs": "6c662e147bd3fdefb32687fc06f0b96a541346b13967b4b4377f65e48d34d2d8"
+ },
+ "floor": 0.85,
+ "gates": {
+  "original": {
+   "n": 17,
+   "agree": 17,
+   "rate": 1,
+   "meets_floor": true,
+   "audit": {
+    "pass": true,
+    "method": "오케스트레이터가 10건 지문 전체를 읽어 문장 흐름 확인 + source-evidence 지문 조각 포함률(≥0.83) 대조",
+    "sampled": [
+     "M2609#22",
+     "M2706#22",
+     "2025#39",
+     "M2606#38",
+     "M2706#38",
+     "2025#38",
+     "M2509#38",
+     "2025#33",
+     "M2606#34",
+     "M2609#38"
+    ],
+    "failed_items": [],
+    "finding": "38계열 6건 모두 주어진 문장이 지문 1번 문장에 붙어 있음(GIVEN_SENTENCE_MERGED) — 두 판정자 모두 기록하지 않음. 내용 판정에는 영향 없음, 결함 목록에 감사 발견으로 추가"
+   },
+   "reflect": true
+  },
+  "anchor_function": {
+   "n": 17,
+   "agree": 16,
+   "rate": 0.941,
+   "meets_floor": true,
+   "audit": {
+    "pass": true,
+    "method": "오케스트레이터가 13 §2 조건 C1–C3 을 원문으로 다시 판정해 합의 verdict 와 비교",
+    "sampled": [
+     "M2609#22",
+     "M2706#22",
+     "2025#39",
+     "M2606#38",
+     "M2706#38",
+     "2025#38",
+     "M2509#38",
+     "2025#33",
+     "M2606#34",
+     "M2609#38"
+    ],
+    "failed_items": [],
+    "result": "10/10 합의 verdict 와 같음"
+   },
+   "reflect": true
+  },
+  "near_distractor": {
+   "n": 17,
+   "agree": 9,
+   "rate": 0.529,
+   "meets_floor": false,
+   "audit": null,
+   "reflect": false
+  },
+  "revision_options": {
+   "n": 9,
+   "agree": 4,
+   "rate": 0.444,
+   "meets_floor": false,
+   "audit": null,
+   "reflect": false
+  }
+ },
+ "rows": [
+  {
+   "item_id": "2025#22",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "5:LEX_BAIT",
+    "b": "5:OUTSIDE_KNOWLEDGE",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2509#22",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "SAME",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": false
+    },
+    "reflected_value": null
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 5,
+     "code": "SCOPE_UNDER",
+     "counter_evidence_union": [
+      3,
+      4,
+      5,
+      6
+     ]
+    },
+    "a": "5:SCOPE_UNDER",
+    "b": "5:SCOPE_UNDER",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2606#22",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "2:LEX_BAIT",
+    "b": "5:OUTSIDE_KNOWLEDGE",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2609#22",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "SAME",
+    "a": "SAME",
+    "b": "SAME",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "SAME"
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence_union": [
+      1,
+      2,
+      3,
+      8
+     ]
+    },
+    "a": "2:PARTIAL_TRUE",
+    "b": "2:PARTIAL_TRUE",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#22",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "SAME",
+    "a": "SAME",
+    "b": "SAME",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "SAME"
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 2,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence_union": [
+      2,
+      4,
+      5,
+      6,
+      7
+     ]
+    },
+    "a": "2:PARTIAL_TRUE",
+    "b": "2:PARTIAL_TRUE",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#34",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": false
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 4,
+     "code": "PARTIAL_TRUE",
+     "counter_evidence_union": [
+      3,
+      5,
+      7,
+      8
+     ]
+    },
+    "a": "4:PARTIAL_TRUE",
+    "b": "4:PARTIAL_TRUE",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#33",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": false
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 3,
+     "code": "OUTSIDE_KNOWLEDGE",
+     "counter_evidence_union": [
+      1,
+      2,
+      4
+     ]
+    },
+    "a": "3:OUTSIDE_KNOWLEDGE",
+    "b": "3:OUTSIDE_KNOWLEDGE",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2509#34",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "4:REVERSAL",
+    "b": "5:PARTIAL_TRUE",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2606#34",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": false,
+     "C3": false
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 5,
+     "code": "LEX_BAIT",
+     "counter_evidence_union": [
+      4,
+      6,
+      7,
+      8
+     ]
+    },
+    "a": "5:LEX_BAIT",
+    "b": "5:LEX_BAIT",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2609#34",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": false,
+     "C2": true,
+     "C3": false
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "2:LEX_BAIT",
+    "b": "2:PARTIAL_TRUE",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#34",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "5:REVERSAL",
+    "b": "3:REVERSAL",
+    "reflected_value": null
+   },
+   "revision_options": [
+    {
+     "option": 3,
+     "agree": false,
+     "pair_agreed_value": null,
+     "a": "NONE",
+     "b": "반대 진술",
+     "reflected_value": null
+    },
+    {
+     "option": 4,
+     "agree": true,
+     "pair_agreed_value": "어휘 함정",
+     "a": "어휘 함정",
+     "b": "어휘 함정",
+     "reflected_value": null
+    },
+    {
+     "option": 5,
+     "agree": false,
+     "pair_agreed_value": null,
+     "a": "반대 진술",
+     "b": "NONE",
+     "reflected_value": null
+    }
+   ]
+  },
+  {
+   "item_id": "2025#38",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "SAME",
+    "a": "SAME",
+    "b": "SAME",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "SAME"
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 5,
+     "code": "SEQ_REVERSAL",
+     "counter_evidence_union": [
+      1,
+      6,
+      7
+     ]
+    },
+    "a": "5:SEQ_REVERSAL",
+    "b": "5:SEQ_REVERSAL",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "2025#39",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "SAME",
+    "a": "SAME",
+    "b": "SAME",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "SAME"
+   },
+   "near_distractor": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "3:ENUM_CUT",
+    "b": "3:GENERAL_SPECIFIC_REVERSAL",
+    "reflected_value": null
+   },
+   "revision_options": [
+    {
+     "option": 3,
+     "agree": false,
+     "pair_agreed_value": null,
+     "a": "NONE",
+     "b": "총론-각론 역전",
+     "reflected_value": null
+    },
+    {
+     "option": 5,
+     "agree": false,
+     "pair_agreed_value": null,
+     "a": "열거·병렬 절단",
+     "b": "총론-각론 역전",
+     "reflected_value": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2509#38",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "SAME",
+    "a": "SAME",
+    "b": "SAME",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "SAME"
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 4,
+     "code": "COND_RESULT_CUT",
+     "counter_evidence_union": [
+      1,
+      7,
+      8
+     ]
+    },
+    "a": "4:COND_RESULT_CUT",
+    "b": "4:COND_RESULT_CUT",
+    "reflected_value": null
+   },
+   "revision_options": [
+    {
+     "option": 4,
+     "agree": true,
+     "pair_agreed_value": "조건-귀결 절단",
+     "a": "조건-귀결 절단",
+     "b": "조건-귀결 절단",
+     "reflected_value": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2606#38",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "SAME",
+    "a": "SAME",
+    "b": "SAME",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "SAME"
+   },
+   "near_distractor": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "2:ENUM_CUT",
+    "b": "3:ENUM_CUT",
+    "reflected_value": null
+   },
+   "revision_options": [
+    {
+     "option": 2,
+     "agree": true,
+     "pair_agreed_value": "열거·병렬 절단",
+     "a": "열거·병렬 절단",
+     "b": "열거·병렬 절단",
+     "reflected_value": null
+    }
+   ]
+  },
+  {
+   "item_id": "M2609#38",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "DIFFERENT",
+    "a": "DIFFERENT",
+    "b": "DIFFERENT",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": false
+    },
+    "reflected_value": "DIFFERENT"
+   },
+   "near_distractor": {
+    "agree": true,
+    "pair_agreed_value": {
+     "option": 2,
+     "code": "REF_ANTECEDENT_CUT",
+     "counter_evidence_union": [
+      1,
+      4,
+      5
+     ]
+    },
+    "a": "2:REF_ANTECEDENT_CUT",
+    "b": "2:REF_ANTECEDENT_CUT",
+    "reflected_value": null
+   },
+   "revision_options": []
+  },
+  {
+   "item_id": "M2706#38",
+   "original": {
+    "agree": true,
+    "pair_agreed_value": "CONFIRM",
+    "a": "CONFIRM",
+    "b": "CONFIRM",
+    "data_defects_union": [
+     "CHOICES_ARE_FRAGMENTS",
+     "FOOTNOTE_IN_CHOICE"
+    ],
+    "reflected_value": "CONFIRM"
+   },
+   "anchor_function": {
+    "agree": true,
+    "pair_agreed_value": "SAME",
+    "a": "SAME",
+    "b": "SAME",
+    "conditions_agree": {
+     "C1": true,
+     "C2": true,
+     "C3": true
+    },
+    "reflected_value": "SAME"
+   },
+   "near_distractor": {
+    "agree": false,
+    "pair_agreed_value": null,
+    "a": "4:GENERAL_SPECIFIC_REVERSAL",
+    "b": "4:ENUM_CUT",
+    "reflected_value": null
+   },
+   "revision_options": [
+    {
+     "option": 1,
+     "agree": true,
+     "pair_agreed_value": "시간·인과 순서 역전",
+     "a": "시간·인과 순서 역전",
+     "b": "시간·인과 순서 역전",
+     "reflected_value": null
+    },
+    {
+     "option": 4,
+     "agree": false,
+     "pair_agreed_value": null,
+     "a": "총론-각론 역전",
+     "b": "NONE",
+     "reflected_value": null
+    }
+   ]
+  }
+ ]
+}
