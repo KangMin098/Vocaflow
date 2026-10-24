@@ -128,7 +128,8 @@ test.describe('판단 도구 34 × 해설 화면', () => {
       await expect(page.locator('[data-proof="passage-map"]')).toBeVisible()
       await page.getByTestId('scene-next').click()
       await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'design')
-      await expect(page.locator('[data-tool-scene="design"]')).toBeVisible()
+      // 래퍼는 display: contents 라 상자가 없다 — 그 안의 설계 도구가 보이는지로 본다
+      await expect(page.locator('[data-tool-scene="design"] section').first()).toBeVisible()
       await page.goBack().catch(() => {})
       if ((await page.getByTestId('workspace-frame').getAttribute('data-scene')) !== 'judgment') {
         await page.getByRole('button', { name: /문항 설계/ }).first().click()

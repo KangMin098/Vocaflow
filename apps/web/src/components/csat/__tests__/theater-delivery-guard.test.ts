@@ -141,7 +141,9 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     // r4 R4-01 · R4-03 — 판단 · 오답 설계 · 이해 확인 · 비교 패널도 동의 전에는 자리표시
     for (const id of ['judgment', 'distractors', 'checks', 'compare']) expect(theater).toContain(`withheldPanel('${id}'`)
     // 판단 패널은 감춤(withheld) 동안 그리지 않는다 — 공개 뒤 판단 도구(interaction34)는 장면을 옮겨도 숨긴 채 유지(T-0152 R152-01)
-    expect(theater).toMatch(/v3 && !withheld && \(scene === 'judgment' \|\| keepTools\) \? \(\s*<div hidden=\{scene !== 'judgment'\}[^>]*>\s*<V3Judgment/)
+    // 래퍼는 display: contents(보일 때 상자 없음 — 공개 전 화면 · 도구 간격이 래퍼 없을 때와 같다) / none(숨김)
+    expect(theater).toMatch(/v3 && !withheld && \(scene === 'judgment' \|\| keepTools\) \? \(\s*<div style=\{\{ display: scene === 'judgment' \? 'contents' : 'none' \}\}[^>]*>\s*<V3Judgment/)
+    expect(theater).not.toMatch(/<div hidden=\{scene !== '(task|judgment|design)'\}/)
     expect(theater).toMatch(/const keepTools = Boolean\(revealed && inquiry\?\.v3\?\.interaction34\)/)
     // 판단 도구는 정답 공개 응답일 때만 answerRevealed · 근거 연결 해시는 서버 독립 결속값(자기 대조 금지 — R152-03)
     expect(theater.match(/answerRevealed=\{Boolean\(revealed\)\}/g)?.length).toBe(4)

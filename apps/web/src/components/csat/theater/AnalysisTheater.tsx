@@ -1541,7 +1541,7 @@ export function AnalysisTheater({
                   ) : null}
                   {/* T-0145 판단 도구(2026-34 · Interactive34) — 정답 공개(판단 라우트 · 노출 원장 기록 뒤 revealed)일 때만 answerRevealed. 공개 전에는 도구가 안내만 그리고, v3 본문은 첫 응답에 없다(answer-split) */}
                   {v3 && (scene === 'task' || keepTools) ? (
-                    <div hidden={scene !== 'task'} data-tool-scene="task">
+                    <div style={{ display: scene === 'task' ? 'contents' : 'none' }} data-tool-scene="task">
                       <V3Task v3={v3} answerRevealed={Boolean(revealed)} />
                     </div>
                   ) : null}
@@ -1573,7 +1573,7 @@ export function AnalysisTheater({
                   {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} answerRevealed={Boolean(revealed)} /> : null}
                   {scene === 'judgment' && v3 && withheld ? withheldPanel('judgment', '정답 판단') : null}
                   {v3 && !withheld && (scene === 'judgment' || keepTools) ? (
-                    <div hidden={scene !== 'judgment'} data-tool-scene="judgment">
+                    <div style={{ display: scene === 'judgment' ? 'contents' : 'none' }} data-tool-scene="judgment">
                       <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} sourceUnitsHash={sourceUnitsHash ?? undefined} />
                     </div>
                   ) : null}
@@ -1583,7 +1583,7 @@ export function AnalysisTheater({
                     </p>
                   ) : null}
                   {v3 && (scene === 'design' || keepTools) ? (
-                    <div hidden={scene !== 'design'} data-tool-scene="design">
+                    <div style={{ display: scene === 'design' ? 'contents' : 'none' }} data-tool-scene="design">
                       <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} />
                     </div>
                   ) : null}
