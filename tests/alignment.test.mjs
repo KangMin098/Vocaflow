@@ -183,3 +183,17 @@ test('수용 기준별 상태: 겨냥 기준이 전부 PASS 면 갭 없음 · �
   s.goalStatus.goals[MAP_A].criteria_status[ac(MAP_A)].status = 'UNKNOWN'
   assert.ok(add(s, spec()).task_id)
 })
+
+test('goalLevel: independent 완료 작업은 목표 단계 근거가 아니다 — independent_done 에만 남는다', () => {
+  const s = state()
+  s.taskQueue.tasks.push({ task_id: 'T-IND', goal_id: MAP_A, status: 'COMPLETED', impact: { kind: 'independent' }, criterion_claims: [] })
+  let lv = goalLevel(s, MAP_A)
+  assert.equal(lv.level, 'NONE')
+  assert.deepEqual(lv.tasks_done, [])
+  assert.deepEqual(lv.independent_done, ['T-IND'])
+  s.taskQueue.tasks.push({ task_id: 'T-PLAT', goal_id: MAP_A, status: 'COMPLETED', impact: { kind: 'platform', dependency_type: 'prerequisite' }, criterion_claims: [] })
+  lv = goalLevel(s, MAP_A)
+  assert.equal(lv.level, 'TASK_COMPLETED')
+  assert.deepEqual(lv.tasks_done, ['T-PLAT'])
+  assert.deepEqual(lv.independent_done, ['T-IND'])
+})
