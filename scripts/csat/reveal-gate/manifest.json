@@ -1390,6 +1390,10 @@
     "lib/knowledge/product-server.ts": {
       "class": "PUBLIC_CONTENT",
       "gate": "원문 결속 대조(anchorGate)만 — 원문 · 정답을 학습자에게 내지 않는다"
+    },
+    "lib/csat/bridge/exposure-reader.ts": {
+      "class": "OPS_META",
+      "gate": "H4 — 본인 P6 노출 행(item_ref · kind · 시각) · 독립 판정 문자열 · 문항 지문의 정규화 해시만 읽는다(정답 · 정오 · 선택지 · 해설 칸 없음, 본문은 해시로만 쓰고 내보내지 않는다). 결과는 독립 증거 공급을 줄이는 방향(보류)으로만 쓴다"
     }
   }
 }
