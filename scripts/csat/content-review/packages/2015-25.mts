@@ -13,7 +13,9 @@ import { fileURLToPath } from 'node:url'
 
 import { analyzeImpact } from '../../../../apps/web/src/lib/csat/content-review/impact.ts'
 import { validatePrepublish } from '../../../../apps/web/src/lib/csat/content-review/prepublish.ts'
+import { lectureTargets } from '../../../../apps/web/src/lib/csat/lecture/targets.ts'
 import type { Lecture, LectureCue } from '../../../../apps/web/src/lib/csat/lecture/types.ts'
+import { validateLecture } from '../../../../apps/web/src/lib/csat/lecture/validate.ts'
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '../../../..')
 const lectures = JSON.parse(readFileSync(join(ROOT, 'apps/web/src/lib/csat/lecture-data/2015.json'), 'utf8'))
@@ -27,14 +29,18 @@ const OFFICIAL = {
   sha256: 'eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce',
   reads: '25번 정답 「④, ⑤」 (홀수형 정답표 원본)',
   reason_source: {
-    kind: 'press_verified',
-    note: '정정 사유(⑤ 「eighteen percent increase」는 2%→20% 의 퍼센트포인트 차를 퍼센트로 잘못 쓴 진술 — 증가율은 900%)는 2014-11-24 주요 보도로 확인. 평가원 이의심사 원문은 미확보 — 사유는 보도 근거, 정답 집합은 정답표 근거.',
+    kind: 'official_briefing',
+    url: 'https://www.korea.kr/news/policyNewsView.do?newsId=148787539',
+    publisher: '대한민국 정책브리핑(교육부 정책뉴스) · 2014-11-24 — 평가원 이의심사 결과 발표',
+    quote: "'percent'는 백분율을 나타내고, 'percent point'는 백분율 간 차이를 나타내기 때문에 'percent'라고 표현한 답지 ⑤번은 주어진 그래프의 내용과 일치하지 않는다",
+    note: '복수정답(④·⑤)과 ⑤의 퍼센트·퍼센트포인트 혼동 사유 모두 공식 발표 사실. 원래 ④ 하나만 의도했다는 추정은 공식 근거 없음 — 출제 의도로 확정하지 않는다.',
+    press_also: ['https://www.ajunews.com/view/20141124104332823', 'https://www.kwnews.co.kr/article/201411241722091'],
   },
   db: { answer: 4, answers: [4, 5] },
 }
 
 /** 강의 cue 수정안 — 바꾸는 cue 만. target 을 옮기는 cue 는 newTarget 을 둔다 */
-const CUE_CHANGES: { id: string; why: string; text: string[]; newTarget?: LectureCue['target'] }[] = [
+const CUE_CHANGES: { id: string; why: string; text: string[]; newTarget?: LectureCue['target']; newRole?: LectureCue['role']; moveAfter?: string }[] = [
   {
     id: 'c1',
     why: '「답이 아닌 네 선지는 도표와 맞는 진술」은 단일 정답 전제 — 공식 정답은 ④·⑤ 둘. c1 은 정답 공개 경계(stopBefore 3) 앞이라 정답 번호를 밝히지 않고 전제 문장만 지운다.',
@@ -43,7 +49,7 @@ const CUE_CHANGES: { id: string; why: string; text: string[]; newTarget?: Lectur
   {
     id: 'c2',
     why: '「몇 포인트 증가는 뺄셈」 자체는 맞지만, ⑤의 「percent increase」를 같은 틀(뺄셈)로 읽게 심는다. 퍼센트포인트(차)와 퍼센트 증가(비율)를 처음부터 가른다.',
-    text: ['읽기 전에 할 일은 하나예요. 선지마다 비교 종류를 먼저 표시하세요.', '가장 높다는 크기 비교, 세 배는 나눗셈이에요. 퍼센트 값끼리 몇 포인트 늘었다는 건 뺄셈이지만, 몇 퍼센트 증가는 원래 값에 대한 비율입니다.'],
+    text: ['선지마다 비교 종류를 먼저 표시하세요.', '최고는 크기 비교, 세 배는 나눗셈, 몇 퍼센트 증가는 비율, 몇 포인트는 뺄셈입니다.'],
   },
   {
     id: 'c4',
@@ -54,17 +60,26 @@ const CUE_CHANGES: { id: string; why: string; text: string[]; newTarget?: Lectur
     id: 'c9',
     why: '공식 정답 ⑤를 「맞는 진술이고, 답이 아닙니다」로 소거한다(정면 충돌). 하이라이트 대상도 reject:5 → answer 로 옮겨야 소거 대상으로 읽히지 않는다.',
     text: [
-      '오 번은 여섯 번째 문장을 짚어 보세요. 휴대폰 번호는 이에서 이십으로, 값의 차이는 십팔 퍼센트포인트예요.',
-      '그런데 선지는 십팔 퍼센트 증가라고 했죠. 이에서 이십이면 원래 값의 아홉 배가 늘어난 것이라, 증가율은 구백 퍼센트입니다.',
-      '퍼센트와 퍼센트포인트를 섞어 쓴 진술이라 도표와 맞지 않아요.',
+      '여기 여섯 번째 문장을 보세요. 휴대폰 번호는 이에서 이십, 차이는 십팔 퍼센트포인트예요.',
+      '증가율로는 구백 퍼센트라, 십팔 퍼센트 증가는 도표와 맞지 않아요.',
       '그래서 오 번도 정답입니다.',
     ],
-    newTarget: { kind: 'analysis', id: 'answer' },
+    // analysis:answer 블록은 단일 정답(④)의 칩·해설만 보여 준다(theater.ts:218 · learner.ts:616) — ⑤ 설명과 어긋난다.
+    // c9 가 말하는 「여섯 번째 문장」 그 자리(지문 지도 index 5 = ⑤ 선지 문장)를 비춘다 — 화면 복수정답 처리(K4-a)와 무관하게 맞다
+    newTarget: { kind: 'anchor', id: 'sentence:5' },
+    // 소거(eliminate) 역할은 원문 자리를 가리킬 수 없다(validate role-target) — ⑤ 의 정답 근거이므로 evidence 로, c5 바로 뒤로
+    newRole: 'evidence',
+    moveAfter: 'c5',
+  },
+  {
+    id: 'c10',
+    why: '④(이메일 주소)의 배수 과장 함정을 ⑤ 항목(휴대폰 번호 열 배)으로 설명한다 — 서로 다른 항목을 「그래서 세 배도 그럴듯해 보인다」로 잇는 근거 없는 추정이고, ⑤가 정답이 된 뒤에는 휴대폰 번호를 ④의 함정 재료로 쓰는 것이 학습자를 헷갈리게 한다. 함정 설명을 ④ 항목 안으로 좁힌다(정답 공개 경계 뒤 index 9 — 공개 위험 없음).',
+    text: ['여기 다섯 번째 문장이 배수 과장 함정입니다.', '이메일 주소도 이십구에서 오십삼으로 크게 늘어, 세 배쯤 되어 보이기 쉽죠.', '배수가 나오면 작은 값에 배수를 곱해 큰 값과 직접 견주세요.'],
   },
   {
     id: 'c11',
     why: '「increase — 여기서는 뺄셈」은 ⑤의 percent increase 를 뺄셈으로 고착시킨다.',
-    text: ['어휘를 보세요.', 'three times higher', '세 배, 곧 나눗셈으로 확인합니다.', 'increase', '증가. 몇 퍼센트 증가는 비율이고, 퍼센트포인트는 두 퍼센트 값의 차이예요.', 'category', '항목,', 'overall', '전반적인이라는 뜻입니다.'],
+    text: ['어휘를 보세요.', 'three times higher', '세 배, 나눗셈으로 확인합니다.', 'increase', '증가, 퍼센트 증가는 비율이에요.', 'category', '항목,', 'overall', '전반적인.'],
   },
   {
     id: 'c12',
@@ -73,15 +88,21 @@ const CUE_CHANGES: { id: string; why: string; text: string[]; newTarget?: Lectur
   },
 ]
 
-const after: Lecture = {
-  ...before,
-  version: before.version + 1,
-  cues: before.cues.map((c) => {
-    const ch = CUE_CHANGES.find((x) => x.id === c.id)
-    if (!ch) return c
-    return { ...c, target: ch.newTarget ?? c.target, segments: ch.text.map((t) => ({ lang: 'ko-KR' as const, text: t.replace(/^(three times higher|increase|category|overall)$/, '$1') })) }
-  }),
+const edited = before.cues.map((c) => {
+  const ch = CUE_CHANGES.find((x) => x.id === c.id)
+  if (!ch) return c
+  // focus 는 적재가 계산해 덮는 값이다 — 대상을 옮긴 cue 는 옛 focus 를 들고 가지 않는다
+  const { focus: _oldFocus, ...rest } = c
+  void _oldFocus
+  return { ...rest, role: ch.newRole ?? c.role, target: ch.newTarget ?? c.target, segments: ch.text.map((t) => ({ lang: 'ko-KR' as const, text: t })) }
+})
+// 자리 옮기기(moveAfter) 후 order 다시 매김
+for (const ch of CUE_CHANGES.filter((x) => x.moveAfter)) {
+  const from = edited.findIndex((c) => c.id === ch.id)
+  const [moved] = edited.splice(from, 1)
+  edited.splice(edited.findIndex((c) => c.id === ch.moveAfter) + 1, 0, moved!)
 }
+const after: Lecture = { ...before, version: before.version + 1, cues: edited.map((c, i) => ({ ...c, order: i + 1 })) }
 // 영어 낭독 조각은 en-US 로(원본과 같은 규칙)
 for (const c of after.cues) {
   c.segments = c.segments.map((s) => (/^[a-z ]+$/i.test(s.text) ? { lang: 'en-US' as const, text: s.text } : s))
@@ -91,9 +112,10 @@ for (const c of after.cues) {
 const ANALYSIS_V6 = {
   base_version: 5,
   design_intent:
-    'Email Addresses 는 2006년 29%, 2012년 53%다. 53÷29 는 약 1.8배라 「three times」가 성립하지 않는다(④). Cell Phone Numbers 는 2%→20%로, 두 퍼센트 값의 차는 18 퍼센트포인트이지만 증가율은 900%다. ⑤의 「an eighteen percent increase」는 퍼센트포인트를 퍼센트로 쓴 진술이라 도표와 맞지 않고, 평가원은 정답표에서 ④·⑤를 모두 정답으로 인정했다. [사실] 정답 집합 ④·⑤ — 평가원 정답표. [보도 근거] ⑤의 정정 사유(퍼센트·퍼센트포인트 혼동). [가설] 원래 출제 설계는 ④ 하나를 겨냥했을 가능성 — 공식 확인 없음.',
-  answer_locus: {
-    quote: ['the percentage of 2012 was three times higher than that of 2006', 'an eighteen percent increase in the category of cell phone numbers'],
+    'Email Addresses 는 2006년 29%, 2012년 53%다. 53÷29 는 약 1.8배라 「three times」가 성립하지 않는다(④). Cell Phone Numbers 는 2%→20%로, 두 퍼센트 값의 차는 18 퍼센트포인트이지만 증가율은 900%다. ⑤의 「an eighteen percent increase」는 퍼센트포인트를 퍼센트로 쓴 진술이라 도표와 맞지 않고, 평가원은 ④·⑤를 모두 정답으로 인정했다. [공식 사실] 정답 집합 ④·⑤(정답표) · ⑤ 인정 사유 percent 와 percent point 의 구분(평가원 이의심사 결과 발표, 정책브리핑 2014-11-24). [확정하지 않음] 원래 ④ 하나만 의도했는지는 공식 근거가 없다.',
+  // answer_locus.quote 는 **문자열**이다(binding/adapter.ts:51 · evidence.ts:60 · learner.ts 의 quote 처리) — 배열로 바꾸면 로더가 깨진다.
+  // quote 는 v5 그대로(④ 문장) 두고, 근거 설명과 문장 번호(분석은 1부터: ④=[5] · ⑤=[6])에 ⑤를 더한다. 그 밖의 키는 보존.
+  answer_locus_patch: {
     reasoning: '④: 29×3=87 이어야 하지만 53 이라 약 1.8배. ⑤: 2→20 의 차는 18 퍼센트포인트, 증가율은 (20−2)÷2=900% 라 「eighteen percent increase」는 도표와 어긋난다. 정답 집합은 평가원 정답표의 ④·⑤.',
     sentence_index: [5, 6],
   },
@@ -103,7 +125,7 @@ const ANALYSIS_V6 = {
     trap: '퍼센트·퍼센트포인트 혼동',
     why_correct:
       '[6]의 「an eighteen percent increase」를 Cell Phone Numbers 의 두 값으로 확인한다. 2→20 은 차이로는 18 퍼센트포인트, 원래 값 대비 증가율로는 900%다. 「percent increase」는 증가율을 말하므로 18% 증가는 도표와 맞지 않는다. 평가원은 이 선지를 ④와 함께 정답으로 인정했다(정답표 「④, ⑤」).',
-    confirmed_at: { note: '평가원 정답표 2015 홀수형 25번 「④, ⑤」(sha256 eec2f406…). 도표 값은 v5 확인값(Cell Phone Numbers 2/20) 그대로.', sentence_index: [6] },
+    confirmed_at: { note: '평가원 정답표 2015 홀수형 25번 「④, ⑤」(sha256 eec2f406…) · 평가원 이의심사 결과 발표(정책브리핑 2014-11-24) — percent 는 백분율, percent point 는 백분율 간 차이. 도표 값은 v5 확인값(Cell Phone Numbers 2/20) 그대로.', sentence_index: [6] },
   },
   solve_procedure_step2: {
     from: '선지마다 비교 종류를 표시한다 — each/highest 는 크기 비교, three times 는 나눗셈, increase 숫자는 뺄셈.',
@@ -136,6 +158,17 @@ const impact = analyzeImpact({
   analysisVersionAfter: 6,
   analysisChanged: true,
 })
+
+// ── 강의 적재 검사(validate.ts) — v6 가 만드는 대상 목록으로 수정 강의를 실제로 돌린다 ──
+// v6 에서 ⑤ 는 distractor 가 아니므로 reject:5 대상이 **사라진다** — 옛 c9(reject:5)는 이 검사에서 실패해야 하고, 새 c9(anchor:sentence:5)는 통과해야 한다
+const skel = JSON.parse(readFileSync(join(ROOT, 'apps/web/src/lib/csat/skeleton-data/2015.json'), 'utf8')).items.find((i: { id: string }) => i.id === '2015#25')
+const snapItem = JSON.parse(readFileSync(join(ROOT, 'apps/web/src/lib/csat/content-review/data/snapshot.json'), 'utf8')).items['2015#25']
+const placed = skel.sentences.flatMap((s: { reveals: { anchorId: string }[] }) => s.reveals.map((r) => r.anchorId))
+const targetsV6 = lectureTargets({ answer: 4, answer_unknown: false, has_ability: true, has_intent: true, distractors: [1, 2, 3], procedure_len: 4, vocab_len: 3, skeleton: { sentences: skel.sentences.length, placedAnchorIds: placed } })
+const vctx = { targets: targetsV6, answer: 4, wrongChoices: [1, 2, 3], hasTrapLabels: true, hasVocab: true, analysisTexts: [], sourceTexts: [...snapItem.passageSentences, ...snapItem.choices] }
+const lectureCheckAfter = validateLecture(after, vctx)
+const lectureCheckOldC9 = validateLecture({ ...after, cues: after.cues.map((c) => (c.id === 'c9' ? { ...c, target: { kind: 'analysis' as const, id: 'reject:5' } } : c)) }, vctx)
+const targetIssues = (r: ReturnType<typeof validateLecture>) => r.issues.filter((i) => /target|대상/i.test(`${i.code} ${i.msg}`))
 
 const sha = (s: string) => createHash('sha256').update(s, 'utf8').digest('hex').slice(0, 16)
 const pkg = {
@@ -176,4 +209,9 @@ console.log(JSON.stringify({
   now_blocked: nowReport.blocked, now: nowReport.findings.map((f) => `${f.code}@${f.where}`),
   after_blocked: afterReport.blocked, after: afterReport.findings.map((f) => `${f.code}@${f.where}`),
   impact: { changed: impact.changedCues, version_bump: impact.lectureVersionBumpRequired, disclosure_invalidated: impact.disclosureInvalidated, analysis_bump: impact.analysisRevisionBumpRequired, findings: impact.findings.map((f) => `${f.severity}:${f.code}@${f.cueId ?? '-'}`) },
+}, null, 1))
+console.log(JSON.stringify({
+  lecture_validate_after: { ok: lectureCheckAfter.ok, issues: lectureCheckAfter.issues.map((i) => `${i.code}@${i.cue ?? '-'}: ${i.msg}`) },
+  lecture_validate_old_c9_target: targetIssues(lectureCheckOldC9).map((i) => `${i.code}@${i.cue ?? '-'}`),
+  targets_v6: targetsV6,
 }, null, 1))

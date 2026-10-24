@@ -22,18 +22,19 @@ insert into csat_item_analyses (item_id, version, measured_ability, design_inten
   time_budget_sec, difficulty, required_vocab, answer_unknown, body_recovered, status, source, analyst_run, units_version, units_hash)
 select
   item_id, 6, measured_ability,
-  'Email Addresses 는 2006년 29%, 2012년 53%다. 53÷29 는 약 1.8배라 「three times」가 성립하지 않는다(④). Cell Phone Numbers 는 2%→20%로, 두 퍼센트 값의 차는 18 퍼센트포인트이지만 증가율은 900%다. ⑤의 「an eighteen percent increase」는 퍼센트포인트를 퍼센트로 쓴 진술이라 도표와 맞지 않고, 평가원은 정답표에서 ④·⑤를 모두 정답으로 인정했다. [사실] 정답 집합 ④·⑤ — 평가원 정답표. [보도 근거] ⑤의 정정 사유(퍼센트·퍼센트포인트 혼동). [가설] 원래 출제 설계는 ④ 하나를 겨냥했을 가능성 — 공식 확인 없음.',
-  jsonb_build_object(
-    'quote', jsonb_build_array('the percentage of 2012 was three times higher than that of 2006', 'an eighteen percent increase in the category of cell phone numbers'),
+  'Email Addresses 는 2006년 29%, 2012년 53%다. 53÷29 는 약 1.8배라 「three times」가 성립하지 않는다(④). Cell Phone Numbers 는 2%→20%로, 두 퍼센트 값의 차는 18 퍼센트포인트이지만 증가율은 900%다. ⑤의 「an eighteen percent increase」는 퍼센트포인트를 퍼센트로 쓴 진술이라 도표와 맞지 않고, 평가원은 ④·⑤를 모두 정답으로 인정했다. [공식 사실] 정답 집합 ④·⑤(정답표) · ⑤ 인정 사유 percent 와 percent point 의 구분(평가원 이의심사 결과 발표, 정책브리핑 2014-11-24). [확정하지 않음] 원래 ④ 하나만 의도했는지는 공식 근거가 없다.',
+  -- answer_locus: 기존 키 보존(quote 는 **문자열** 그대로 — 로더 계약), reasoning · sentence_index 만 덮는다
+  answer_locus || jsonb_build_object(
     'reasoning', '④: 29×3=87 이어야 하지만 53 이라 약 1.8배. ⑤: 2→20 의 차는 18 퍼센트포인트, 증가율은 (20−2)÷2=900% 라 「eighteen percent increase」는 도표와 어긋난다. 정답 집합은 평가원 정답표의 ④·⑤.',
     'sentence_index', jsonb_build_array(5, 6)
   ),
   (
+    -- ⑤: 기존 키 보존 + 판정·근거 추가. how_to_reject(「맞는 진술이라 답이 아니다」)만 새 판정과 모순이라 뺀다 — v5 에 원문이 남는다
     select jsonb_agg(
-      case when (e->>'n')::int = 5 then jsonb_build_object(
-        'n', 5, 'verdict', 'correct', 'trap', '퍼센트·퍼센트포인트 혼동',
+      case when (e->>'n')::int = 5 then (e - 'how_to_reject') || jsonb_build_object(
+        'verdict', 'correct', 'trap', '퍼센트·퍼센트포인트 혼동',
         'why_correct', '[6]의 「an eighteen percent increase」를 Cell Phone Numbers 의 두 값으로 확인한다. 2→20 은 차이로는 18 퍼센트포인트, 원래 값 대비 증가율로는 900%다. 「percent increase」는 증가율을 말하므로 18% 증가는 도표와 맞지 않는다. 평가원은 이 선지를 ④와 함께 정답으로 인정했다(정답표 「④, ⑤」).',
-        'confirmed_at', jsonb_build_object('note', '평가원 정답표 2015 홀수형 25번 「④, ⑤」(sha256 eec2f406…). 도표 값은 v5 확인값(Cell Phone Numbers 2/20) 그대로.', 'sentence_index', jsonb_build_array(6))
+        'confirmed_at', jsonb_build_object('note', '평가원 정답표 2015 홀수형 25번 「④, ⑤」(sha256 eec2f406…) · 평가원 이의심사 결과 발표(정책브리핑 2014-11-24) — percent 는 백분율, percent point 는 백분율 간 차이. 도표 값은 v5 확인값(Cell Phone Numbers 2/20) 그대로.', 'sentence_index', jsonb_build_array(6))
       ) else e end order by (e->>'n')::int)
     from jsonb_array_elements(choice_analysis) e
   ),

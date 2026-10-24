@@ -17,8 +17,15 @@
     "sha256": "eec2f40632fe48ff0ab8628ea89b6114ee4036d9531c8c8ba984bbc67db467ce",
     "reads": "25번 정답 「④, ⑤」 (홀수형 정답표 원본)",
     "reason_source": {
-      "kind": "press_verified",
-      "note": "정정 사유(⑤ 「eighteen percent increase」는 2%→20% 의 퍼센트포인트 차를 퍼센트로 잘못 쓴 진술 — 증가율은 900%)는 2014-11-24 주요 보도로 확인. 평가원 이의심사 원문은 미확보 — 사유는 보도 근거, 정답 집합은 정답표 근거."
+      "kind": "official_briefing",
+      "url": "https://www.korea.kr/news/policyNewsView.do?newsId=148787539",
+      "publisher": "대한민국 정책브리핑(교육부 정책뉴스) · 2014-11-24 — 평가원 이의심사 결과 발표",
+      "quote": "'percent'는 백분율을 나타내고, 'percent point'는 백분율 간 차이를 나타내기 때문에 'percent'라고 표현한 답지 ⑤번은 주어진 그래프의 내용과 일치하지 않는다",
+      "note": "복수정답(④·⑤)과 ⑤의 퍼센트·퍼센트포인트 혼동 사유 모두 공식 발표 사실. 원래 ④ 하나만 의도했다는 추정은 공식 근거 없음 — 출제 의도로 확정하지 않는다.",
+      "press_also": [
+        "https://www.ajunews.com/view/20141124104332823",
+        "https://www.kwnews.co.kr/article/201411241722091"
+      ]
     },
     "db": {
       "answer": 4,
@@ -122,8 +129,8 @@
       "id": "c2",
       "why": "「몇 포인트 증가는 뺄셈」 자체는 맞지만, ⑤의 「percent increase」를 같은 틀(뺄셈)로 읽게 심는다. 퍼센트포인트(차)와 퍼센트 증가(비율)를 처음부터 가른다.",
       "text": [
-        "읽기 전에 할 일은 하나예요. 선지마다 비교 종류를 먼저 표시하세요.",
-        "가장 높다는 크기 비교, 세 배는 나눗셈이에요. 퍼센트 값끼리 몇 포인트 늘었다는 건 뺄셈이지만, 몇 퍼센트 증가는 원래 값에 대한 비율입니다."
+        "선지마다 비교 종류를 먼저 표시하세요.",
+        "최고는 크기 비교, 세 배는 나눗셈, 몇 퍼센트 증가는 비율, 몇 포인트는 뺄셈입니다."
       ]
     },
     {
@@ -139,15 +146,25 @@
       "id": "c9",
       "why": "공식 정답 ⑤를 「맞는 진술이고, 답이 아닙니다」로 소거한다(정면 충돌). 하이라이트 대상도 reject:5 → answer 로 옮겨야 소거 대상으로 읽히지 않는다.",
       "text": [
-        "오 번은 여섯 번째 문장을 짚어 보세요. 휴대폰 번호는 이에서 이십으로, 값의 차이는 십팔 퍼센트포인트예요.",
-        "그런데 선지는 십팔 퍼센트 증가라고 했죠. 이에서 이십이면 원래 값의 아홉 배가 늘어난 것이라, 증가율은 구백 퍼센트입니다.",
-        "퍼센트와 퍼센트포인트를 섞어 쓴 진술이라 도표와 맞지 않아요.",
+        "여기 여섯 번째 문장을 보세요. 휴대폰 번호는 이에서 이십, 차이는 십팔 퍼센트포인트예요.",
+        "증가율로는 구백 퍼센트라, 십팔 퍼센트 증가는 도표와 맞지 않아요.",
         "그래서 오 번도 정답입니다."
       ],
       "newTarget": {
-        "kind": "analysis",
-        "id": "answer"
-      }
+        "kind": "anchor",
+        "id": "sentence:5"
+      },
+      "newRole": "evidence",
+      "moveAfter": "c5"
+    },
+    {
+      "id": "c10",
+      "why": "④(이메일 주소)의 배수 과장 함정을 ⑤ 항목(휴대폰 번호 열 배)으로 설명한다 — 서로 다른 항목을 「그래서 세 배도 그럴듯해 보인다」로 잇는 근거 없는 추정이고, ⑤가 정답이 된 뒤에는 휴대폰 번호를 ④의 함정 재료로 쓰는 것이 학습자를 헷갈리게 한다. 함정 설명을 ④ 항목 안으로 좁힌다(정답 공개 경계 뒤 index 9 — 공개 위험 없음).",
+      "text": [
+        "여기 다섯 번째 문장이 배수 과장 함정입니다.",
+        "이메일 주소도 이십구에서 오십삼으로 크게 늘어, 세 배쯤 되어 보이기 쉽죠.",
+        "배수가 나오면 작은 값에 배수를 곱해 큰 값과 직접 견주세요."
+      ]
     },
     {
       "id": "c11",
@@ -155,13 +172,13 @@
       "text": [
         "어휘를 보세요.",
         "three times higher",
-        "세 배, 곧 나눗셈으로 확인합니다.",
+        "세 배, 나눗셈으로 확인합니다.",
         "increase",
-        "증가. 몇 퍼센트 증가는 비율이고, 퍼센트포인트는 두 퍼센트 값의 차이예요.",
+        "증가, 퍼센트 증가는 비율이에요.",
         "category",
         "항목,",
         "overall",
-        "전반적인이라는 뜻입니다."
+        "전반적인."
       ]
     },
     {
@@ -182,7 +199,7 @@
     {
       "id": "c2",
       "target": "analysis:procedure",
-      "text": "읽기 전에 할 일은 하나예요. 선지마다 비교 종류를 먼저 표시하세요. / 가장 높다는 크기 비교, 세 배는 나눗셈이에요. 퍼센트 값끼리 몇 포인트 늘었다는 건 뺄셈이지만, 몇 퍼센트 증가는 원래 값에 대한 비율입니다."
+      "text": "선지마다 비교 종류를 먼저 표시하세요. / 최고는 크기 비교, 세 배는 나눗셈, 몇 퍼센트 증가는 비율, 몇 포인트는 뺄셈입니다."
     },
     {
       "id": "c3",
@@ -200,6 +217,11 @@
       "text": "같은 문장에서 뒤 절을 확인하세요. / 세 배라면 이십구에 삼을 곱한 팔십칠이 되어야 하죠. / 오십삼은 대략 일 점 팔 배라서, 쓰리 타임스라는 배수가 도표와 어긋납니다."
     },
     {
+      "id": "c9",
+      "target": "anchor:sentence:5",
+      "text": "여기 여섯 번째 문장을 보세요. 휴대폰 번호는 이에서 이십, 차이는 십팔 퍼센트포인트예요. / 증가율로는 구백 퍼센트라, 십팔 퍼센트 증가는 도표와 맞지 않아요. / 그래서 오 번도 정답입니다."
+    },
+    {
       "id": "c6",
       "target": "analysis:reject:1",
       "text": "일 번은 두 번째 문장을 짚어 보세요. 항목마다 이천십이 년이 늘었다고 하죠. / 다섯 항목 모두 흰 막대가 더 높아서 맞는 진술이고, 답이 아닙니다."
@@ -215,19 +237,14 @@
       "text": "삼 번은 네 번째 문장을 보세요. 이천육 년만 묻습니다. / 도시 이름 육십일이 학교 이름 사십구보다 높아요. 이천십이 년 동률은 묻지 않으니 맞는 진술이고, 답이 아닙니다."
     },
     {
-      "id": "c9",
-      "target": "analysis:answer",
-      "text": "오 번은 여섯 번째 문장을 짚어 보세요. 휴대폰 번호는 이에서 이십으로, 값의 차이는 십팔 퍼센트포인트예요. / 그런데 선지는 십팔 퍼센트 증가라고 했죠. 이에서 이십이면 원래 값의 아홉 배가 늘어난 것이라, 증가율은 구백 퍼센트입니다. / 퍼센트와 퍼센트포인트를 섞어 쓴 진술이라 도표와 맞지 않아요. / 그래서 오 번도 정답입니다."
-    },
-    {
       "id": "c10",
       "target": "anchor:sentence:4",
-      "text": "여기 다섯 번째 문장이 배수 과장 함정입니다. / 휴대폰 번호가 열 배로 늘어, 세 배도 그럴듯해 보이죠. / 배수가 나오면 작은 값에 배수를 곱해 큰 값과 직접 견주세요."
+      "text": "여기 다섯 번째 문장이 배수 과장 함정입니다. / 이메일 주소도 이십구에서 오십삼으로 크게 늘어, 세 배쯤 되어 보이기 쉽죠. / 배수가 나오면 작은 값에 배수를 곱해 큰 값과 직접 견주세요."
     },
     {
       "id": "c11",
       "target": "analysis:vocab",
-      "text": "어휘를 보세요. / three times higher / 세 배, 곧 나눗셈으로 확인합니다. / increase / 증가. 몇 퍼센트 증가는 비율이고, 퍼센트포인트는 두 퍼센트 값의 차이예요. / category / 항목, / overall / 전반적인이라는 뜻입니다."
+      "text": "어휘를 보세요. / three times higher / 세 배, 나눗셈으로 확인합니다. / increase / 증가, 퍼센트 증가는 비율이에요. / category / 항목, / overall / 전반적인."
     },
     {
       "id": "c12",
@@ -237,12 +254,8 @@
   ],
   "analysis_v6": {
     "base_version": 5,
-    "design_intent": "Email Addresses 는 2006년 29%, 2012년 53%다. 53÷29 는 약 1.8배라 「three times」가 성립하지 않는다(④). Cell Phone Numbers 는 2%→20%로, 두 퍼센트 값의 차는 18 퍼센트포인트이지만 증가율은 900%다. ⑤의 「an eighteen percent increase」는 퍼센트포인트를 퍼센트로 쓴 진술이라 도표와 맞지 않고, 평가원은 정답표에서 ④·⑤를 모두 정답으로 인정했다. [사실] 정답 집합 ④·⑤ — 평가원 정답표. [보도 근거] ⑤의 정정 사유(퍼센트·퍼센트포인트 혼동). [가설] 원래 출제 설계는 ④ 하나를 겨냥했을 가능성 — 공식 확인 없음.",
-    "answer_locus": {
-      "quote": [
-        "the percentage of 2012 was three times higher than that of 2006",
-        "an eighteen percent increase in the category of cell phone numbers"
-      ],
+    "design_intent": "Email Addresses 는 2006년 29%, 2012년 53%다. 53÷29 는 약 1.8배라 「three times」가 성립하지 않는다(④). Cell Phone Numbers 는 2%→20%로, 두 퍼센트 값의 차는 18 퍼센트포인트이지만 증가율은 900%다. ⑤의 「an eighteen percent increase」는 퍼센트포인트를 퍼센트로 쓴 진술이라 도표와 맞지 않고, 평가원은 ④·⑤를 모두 정답으로 인정했다. [공식 사실] 정답 집합 ④·⑤(정답표) · ⑤ 인정 사유 percent 와 percent point 의 구분(평가원 이의심사 결과 발표, 정책브리핑 2014-11-24). [확정하지 않음] 원래 ④ 하나만 의도했는지는 공식 근거가 없다.",
+    "answer_locus_patch": {
       "reasoning": "④: 29×3=87 이어야 하지만 53 이라 약 1.8배. ⑤: 2→20 의 차는 18 퍼센트포인트, 증가율은 (20−2)÷2=900% 라 「eighteen percent increase」는 도표와 어긋난다. 정답 집합은 평가원 정답표의 ④·⑤.",
       "sentence_index": [
         5,
@@ -255,7 +268,7 @@
       "trap": "퍼센트·퍼센트포인트 혼동",
       "why_correct": "[6]의 「an eighteen percent increase」를 Cell Phone Numbers 의 두 값으로 확인한다. 2→20 은 차이로는 18 퍼센트포인트, 원래 값 대비 증가율로는 900%다. 「percent increase」는 증가율을 말하므로 18% 증가는 도표와 맞지 않는다. 평가원은 이 선지를 ④와 함께 정답으로 인정했다(정답표 「④, ⑤」).",
       "confirmed_at": {
-        "note": "평가원 정답표 2015 홀수형 25번 「④, ⑤」(sha256 eec2f406…). 도표 값은 v5 확인값(Cell Phone Numbers 2/20) 그대로.",
+        "note": "평가원 정답표 2015 홀수형 25번 「④, ⑤」(sha256 eec2f406…) · 평가원 이의심사 결과 발표(정책브리핑 2014-11-24) — percent 는 백분율, percent point 는 백분율 간 차이. 도표 값은 v5 확인값(Cell Phone Numbers 2/20) 그대로.",
         "sentence_index": [
           6
         ]
@@ -328,12 +341,13 @@
         "c2",
         "c4",
         "c9",
+        "c10",
         "c11",
         "c12"
       ],
       "addedCues": [],
       "removedCues": [],
-      "orderChanged": false,
+      "orderChanged": true,
       "lectureVersionBumpRequired": true,
       "disclosureInvalidated": true,
       "meaningSupportInvalidated": false,
@@ -343,7 +357,19 @@
           "severity": "REVIEW",
           "code": "TARGET_CHANGED",
           "cueId": "c9",
-          "message": "하이라이트 대상이 analysis:reject:5 → analysis:answer 로 바뀐다"
+          "message": "하이라이트 대상이 analysis:reject:5 → anchor:sentence:5 로 바뀐다"
+        },
+        {
+          "severity": "REVIEW",
+          "code": "ROLE_CHANGED",
+          "cueId": "c9",
+          "message": "역할이 eliminate → evidence 로 바뀐다"
+        },
+        {
+          "severity": "BLOCK",
+          "code": "DISCLOSURE_INDEX_SHIFT",
+          "cueId": null,
+          "message": "cue 수·순서가 바뀌어 경계 위치(stopBefore=3)를 다시 계산해야 한다"
         },
         {
           "severity": "REVIEW",
@@ -358,11 +384,11 @@
           "message": "경계 앞(2번째) cue 가 바뀌어 공개 수준을 다시 판정해야 한다"
         }
       ],
-      "ok": true
+      "ok": false
     }
   },
   "hashes": {
-    "cue_changes": "d9d9bcb18281b5d1",
-    "analysis_v6": "523410c43294dc9a"
+    "cue_changes": "46baf250988ffe63",
+    "analysis_v6": "099c4efce9d16cac"
   }
 }

@@ -94,7 +94,7 @@ describe('snapshot.json', () => {
     expect(c.tracks).toEqual(['official_answer', 'explanation', 'lecture_cue'])
     // 정정 패키지(docs/csat-learner/content-review/2015-25)에서 보도 근거 → 평가원 정답표 원본으로 올렸다
     expect(c.officialAnswerBasis).toBe('kice_answer_sheet')
-    expect(c.changes.filter((ch) => ch.proposed != null)).toHaveLength(6)
+    expect(c.changes.filter((ch) => ch.proposed != null)).toHaveLength(8)
     expect(c.note).toMatch(/사람 내용 승인 없음/)
   })
   it('AI 합의는 aiEvidence 로만 남는다(gold 18)', () => {

@@ -32,6 +32,14 @@ const changes: ProposedChange[] = target.changes.map((ch) => {
   if (ch.target === 'analysis:reject:5') return { ...ch, proposed: `verdict correct — ${pkg.analysis_v6.choice_n5.why_correct}`, draftRef }
   return ch
 })
+// 패키지가 고치는데 후보에 아직 없는 cue(예: c4 · c10)는 현재 문안과 함께 덧붙인다
+const cues = snap.items[pkg.item_id].cues as { id: string; text: string }[]
+for (const lc of pkg.lecture_changes as { id: string; text: string[] }[]) {
+  if (changes.some((c) => c.target === `cue:${lc.id}`)) continue
+  const cur = cues.find((c) => c.id === lc.id)
+  changes.push({ target: `cue:${lc.id}`, current: cur?.text ?? '', proposed: lc.text.join(' '), draftRef })
+}
+changes.sort((a, b) => a.target.localeCompare(b.target, 'en', { numeric: true }))
 const oldId = target.id
 const next: ReviewCandidate = {
   ...target,

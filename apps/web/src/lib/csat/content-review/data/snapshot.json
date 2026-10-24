@@ -1317,6 +1317,12 @@
    },
    "changes": [
     {
+     "target": "analysis:reject:5",
+     "current": "⑤ verdict distractor — 공식 판정(⑤도 정답)과 반대",
+     "proposed": "verdict correct — [6]의 「an eighteen percent increase」를 Cell Phone Numbers 의 두 값으로 확인한다. 2→20 은 차이로는 18 퍼센트포인트, 원래 값 대비 증가율로는 900%다. 「percent increase」는 증가율을 말하므로 18% 증가는 도표와 맞지 않는다. 평가원은 이 선지를 ④와 함께 정답으로 인정했다(정답표 「④, ⑤」).",
+     "draftRef": "docs/csat-learner/content-review/2015-25/package.json"
+    },
+    {
      "target": "cue:c1",
      "current": "여러분, 이 문항은 도표와 맞지 않는 진술을 고르는 문제예요. 발문의 않는 것은에 표시하세요. 답이 아닌 네 선지는 도표와 맞는 진술입니다.",
      "proposed": "여러분, 이 문항은 도표와 맞지 않는 진술을 고르는 문제예요. 발문의 않는 것은에 표시하세요. 선지마다 도표와 맞는지 하나씩 판정합니다.",
@@ -1325,31 +1331,37 @@
     {
      "target": "cue:c2",
      "current": "읽기 전에 할 일은 하나예요. 선지마다 비교 종류를 먼저 표시하세요. 가장 높다는 크기 비교, 세 배는 나눗셈, 몇 포인트 증가는 뺄셈입니다.",
-     "proposed": "읽기 전에 할 일은 하나예요. 선지마다 비교 종류를 먼저 표시하세요. 가장 높다는 크기 비교, 세 배는 나눗셈이에요. 퍼센트 값끼리 몇 포인트 늘었다는 건 뺄셈이지만, 몇 퍼센트 증가는 원래 값에 대한 비율입니다.",
+     "proposed": "선지마다 비교 종류를 먼저 표시하세요. 최고는 크기 비교, 세 배는 나눗셈, 몇 퍼센트 증가는 비율, 몇 포인트는 뺄셈입니다.",
+     "draftRef": "docs/csat-learner/content-review/2015-25/package.json"
+    },
+    {
+     "target": "cue:c4",
+     "current": "여기 다섯 번째 문장, 사 번이 정답입니다. 이메일 주소는 이천육 년 이십구, 이천십이 년 오십삼이에요.",
+     "proposed": "여기 다섯 번째 문장, 사 번이 정답입니다. 오 번도 정답이에요. 평가원이 두 선지를 함께 인정했어요. 이메일 주소는 이천육 년 이십구, 이천십이 년 오십삼이에요.",
      "draftRef": "docs/csat-learner/content-review/2015-25/package.json"
     },
     {
      "target": "cue:c9",
      "current": "오 번은 여섯 번째 문장을 짚어 보세요. 휴대폰 번호는 이에서 이십으로 올라 차이가 십팔이에요. 여기서 증가는 값의 차이를 말하니 맞는 진술이고, 답이 아닙니다.",
-     "proposed": "오 번은 여섯 번째 문장을 짚어 보세요. 휴대폰 번호는 이에서 이십으로, 값의 차이는 십팔 퍼센트포인트예요. 그런데 선지는 십팔 퍼센트 증가라고 했죠. 이에서 이십이면 원래 값의 아홉 배가 늘어난 것이라, 증가율은 구백 퍼센트입니다. 퍼센트와 퍼센트포인트를 섞어 쓴 진술이라 도표와 맞지 않아요. 그래서 오 번도 정답입니다.",
+     "proposed": "여기 여섯 번째 문장을 보세요. 휴대폰 번호는 이에서 이십, 차이는 십팔 퍼센트포인트예요. 증가율로는 구백 퍼센트라, 십팔 퍼센트 증가는 도표와 맞지 않아요. 그래서 오 번도 정답입니다.",
+     "draftRef": "docs/csat-learner/content-review/2015-25/package.json"
+    },
+    {
+     "target": "cue:c10",
+     "current": "여기 다섯 번째 문장이 배수 과장 함정입니다. 휴대폰 번호가 열 배로 늘어, 세 배도 그럴듯해 보이죠. 배수가 나오면 작은 값에 배수를 곱해 큰 값과 직접 견주세요.",
+     "proposed": "여기 다섯 번째 문장이 배수 과장 함정입니다. 이메일 주소도 이십구에서 오십삼으로 크게 늘어, 세 배쯤 되어 보이기 쉽죠. 배수가 나오면 작은 값에 배수를 곱해 큰 값과 직접 견주세요.",
      "draftRef": "docs/csat-learner/content-review/2015-25/package.json"
     },
     {
      "target": "cue:c11",
      "current": "어휘를 보세요. three times higher 세 배, 곧 나눗셈으로 확인합니다. increase 증가, 여기서는 뺄셈이에요. category 항목, overall 전반적인이라는 뜻입니다.",
-     "proposed": "어휘를 보세요. three times higher 세 배, 곧 나눗셈으로 확인합니다. increase 증가. 몇 퍼센트 증가는 비율이고, 퍼센트포인트는 두 퍼센트 값의 차이예요. category 항목, overall 전반적인이라는 뜻입니다.",
+     "proposed": "어휘를 보세요. three times higher 세 배, 나눗셈으로 확인합니다. increase 증가, 퍼센트 증가는 비율이에요. category 항목, overall 전반적인.",
      "draftRef": "docs/csat-learner/content-review/2015-25/package.json"
     },
     {
      "target": "cue:c12",
      "current": "정리할게요. 배수는 곱해서, 증가는 빼서 확인한다, 이것이 규칙입니다. 다음에는 첫 십 초에 선지마다 크기, 배수, 차이 중 어느 비교인지부터 표시하세요.",
      "proposed": "정리할게요. 배수는 나눠서, 퍼센트 증가는 원래 값에 대한 비율로, 퍼센트포인트는 빼서 확인합니다. 다음에는 첫 십 초에 선지마다 크기, 배수, 비율, 차이 중 어느 비교인지부터 표시하세요.",
-     "draftRef": "docs/csat-learner/content-review/2015-25/package.json"
-    },
-    {
-     "target": "analysis:reject:5",
-     "current": "⑤ verdict distractor — 공식 판정(⑤도 정답)과 반대",
-     "proposed": "verdict correct — [6]의 「an eighteen percent increase」를 Cell Phone Numbers 의 두 값으로 확인한다. 2→20 은 차이로는 18 퍼센트포인트, 원래 값 대비 증가율로는 900%다. 「percent increase」는 증가율을 말하므로 18% 증가는 도표와 맞지 않는다. 평가원은 이 선지를 ④와 함께 정답으로 인정했다(정답표 「④, ⑤」).",
      "draftRef": "docs/csat-learner/content-review/2015-25/package.json"
     }
    ],
@@ -1367,7 +1379,7 @@
     "콘텐츠 정정 패키지 2015-25 · F 발행 전 검증 수정 후 BLOCK 0"
    ],
    "note": "공식 정답 ④·⑤ = 평가원 정답표(sha256 eec2f406…). 사람 내용 승인 없음.",
-   "id": "cr_3383375b1d81168a"
+   "id": "cr_c1c10b90a202ff94"
   },
   {
    "itemId": "2026#22",
