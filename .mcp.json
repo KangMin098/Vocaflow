@@ -4,7 +4,8 @@
       "command": "node",
       "args": [
         "node_modules/@supabase/mcp-server-supabase/dist/transports/stdio.js",
-        "--project-ref=jajenrevcbmrpaliomxv"
+        "--project-ref=jajenrevcbmrpaliomxv",
+        "--read-only"
       ],
       "env": {
         "SUPABASE_ACCESS_TOKEN": "${SUPABASE_ACCESS_TOKEN}"
