@@ -115,7 +115,21 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     expect(skip).not.toMatch(/goto\(|setScene|pickScene|\.focus\(|scrollIntoView|stopAt\)/)
     expect(theater).toMatch(/data-testid="lecture-boundary-skip"\s*>\s*정답 없이 강의 마치기/)
     expect(skip).not.toMatch(/setAnswerConsent|setLecturePath|lec\.start|setCursor/)
-    expect(theater.match(/setAnswerConsent\(true\)/g)?.length).toBe(4)
+    // (b) — 공개 동의는 서버 판단 라우트가 노출 원장을 커밋해 공개 자료를 돌려준 뒤에만 켠다(requestReveal 안의 두 곳)
+    expect(theater.match(/setAnswerConsent\(true\)/g)?.length).toBe(2)
+    const reveal = theater.slice(theater.indexOf('const requestReveal = async'), theater.indexOf('const revealButton = ('))
+    expect(reveal.match(/setAnswerConsent\(true\)/g)?.length).toBe(2)
+    expect(reveal).toMatch(/setRevealed\(body\.reveal\)\s*setAnswerConsent\(true\)/)
+    // 「계속 듣기(정답 공개)」 · 「전체(정답 포함)」 · 「정답 보기」 만 요청한다 — 마운트 효과 · prefetch 로 요청하지 않는다
+    expect(theater).toMatch(/void requestReveal\('lecture_continue'\)/)
+    expect(theater).toMatch(/if \(p === 'full'\) void requestReveal\('lecture_full'\)/)
+    expect(theater).toMatch(/onClick=\{\(\) => void requestReveal\('judgment_scene'\)\}/)
+    // 호출은 위 세 곳뿐 — 효과(useEffect) 안에서 부르지 않는다
+    expect(theater.match(/requestReveal\(/g)?.length).toBe(3)
+    expect(theater).not.toMatch(/useEffect\(\(\) => \{[^}]*requestReveal/)
+    // 받은 공개 자료는 컴포넌트 상태에만 — 저장소에 쓰지 않는다(기존 REVEAL_KEY 는 공개 시각 기록 재전송 대기열이고 정답 자료가 아니다)
+    expect(reveal).not.toMatch(/setItem|localStorage|sessionStorage|indexedDB/)
+    expect(theater).not.toMatch(/setItem\([^)]*(revealed|body\.reveal)/)
     // r4 R4-02 — 강의 오류로 경로가 풀려도 감춤은 남는다(감춤은 경로가 아니라 answerHide 로 정한다)
     expect(theater).toMatch(/hideAnswer: answerHide/)
     const onError = theater.slice(theater.indexOf("if (lec.status === 'error') {"), theater.indexOf("if (lec.status === 'ended') setAtBoundary(true)"))
@@ -127,8 +141,9 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
     expect(theater).toMatch(/scene === 'compare' && !withheld \? \(\s*<V3CompareExplorer/)
     expect(theater).toMatch(/withheld \? withheldPanel\('distractors', '오답 설계'\) : <DistractorDesign/)
     // r6 R6-01 — 저장된 예측 대조 카드 · 완료 카드 채점도 동의 전에는 없다
-    expect(theater).toMatch(/const diff = mine && !withheld \? <GateDiff/)
-    expect(theater).toMatch(/result=\{committed && !isSkipPrediction\(committed\) && mine && !withheld \? grade/)
+    // (b) — 대조 · 채점은 서버가 정답을 돌려준(revealed) 뒤에만
+    expect(theater).toMatch(/const diff = mine && !withheld && revealed \? <GateDiff/)
+    expect(theater).toMatch(/result=\{committed && !isSkipPrediction\(committed\) && mine && !withheld && revealed \? grade/)
     // r5 R5-01~03 — 동의 전 장면은 허용 목록(유형 단위 탐구 질문 + 자리표시)만. 지도 · 설계 · 원리 · 정리 · 과제는 그 분기 밖
     const allow = theater.slice(theater.indexOf("withheldPanel('scene'") - 600, theater.indexOf("withheldPanel('scene'") + 200)
     for (const c of ['<PassageMap', '<V3Design', '<V3Task', '<V3Meaning', '<PrincipleDesign', '<SystemLearningSummary', 'renderBlock']) expect(allow).not.toContain(c)
@@ -141,6 +156,11 @@ describe('정답 공개 경로(2026-10-24 P1~P5)', () => {
 
   it('레일 차례는 오답 소거 번호를 지운 채 서버가 넘긴다 · 경계는 결속 확인을 거친다', () => {
     expect(page).toMatch(/maskDisclosureSteps\(theaterSteps\(outline\)\)/)
+    // (b) — 페이지는 정답 자료를 서버 로더의 첫 응답(initial)으로만 넘긴다. 정답 번호 · 앵커 · 확인 과제를 직접 만들지 않는다
+    expect(page).toMatch(/await loadTheaterAnswer\(item\)/)
+    for (const p of ['blocks={initial.blocks}', 'checks={initial.checks}', 'comparePairs={initial.comparePairs}', 'v3Pairs={initial.v3Pairs}', 'inquiry={initial.inquiry}', 'gate={initial.gate}'])
+      expect(page).toContain(p)
+    expect(page).not.toMatch(/theaterBlocks\(|buildChecks\(|item\.why_correct|item\.answer\b|loaded\.reveal|\.reveal\b/)
     expect(page).toMatch(/lectureDisclosure\(item\.id, loadLecture\(item\.id\)\)/)
   })
 })

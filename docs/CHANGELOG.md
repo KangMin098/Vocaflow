@@ -184,6 +184,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(csat): 판단 장면 정답 지연 서버 조회 (b) 제한 구현(T-0147) — 문항 페이지 첫 HTML · RSC 에서 정답 번호 · 정답 근거 · 오답 소거 · 지도 정답/오답 앵커 · 이해 확인 · 비교 선지 번호 · v3 선지 판정 · 설계 주장/한계 · 발문 조건 · 정답 가리키는 의미 단위 · 오답 설계 · 원리 제외. 새 `POST /api/csat/item/[slug]/judgment` 가 노출 원장(`learning_exposure_record`) 커밋 뒤에만 반환(실패 503). 「정답 보기」 · 「계속 듣기(정답 공개)」 · 「전체(정답 포함)」 만 요청. 경계 건너뛰기는 「정답 없이 강의 마치기」.
 - fix(csat): 정답 공개 경로 보정(T-0140 · drain D6) — 경계 앞에는 독립 2인 합의 cue 만(불일치 · UNKNOWN · 검수 미완은 그 앞에서 끊음: 2026#34 경계 3→2, 796→661강 · 넓어진 경계 0). 「정답 직접 안내 전까지」 동의 전 정답 칩 · 정답 근거 · 오답 소거 블록 화면 미표시(「정답 보기」 로 동의). ←/→ · 이전/다음 차례도 경계 검사(`lib/csat/lecture/answer-gate.ts`). 경계 안내에 「이 구간 건너뛰기」(동의 아님). 첫 HTML · props 지연 조회는 판단 장면 (b) 별도.
 - feat(csat): 해설 강의 정답 공개 경로(P1~P5) — 재생 전 「원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지」 선택, 검증된 경계(cue 공개 수준 sidecar v2 결속 · `lib/csat/lecture/disclosure-data.json`)에서 정지 후 계속/멈춤/원문. `GET /api/csat/lecture?scope=until` 이 경계 뒤 cue 를 응답에서 뺌(결속 불일치 409). 레일 오답 소거 번호 마스킹. 강의 진행이 학습자 장면 · 스크롤 · 층 · 포커스를 바꾸지 않음. DB 변경 없음 · 기록 4종(P6) 미구현.
 - feat(csat): 최종 평가 결속 — 학습자가 목표 버전마다 「목표 시험 종류 · 응시일」을 최종 평가로 한 번 정하고(추론 금지), 그날 첫 풀이 live 기록만 goalOutcome 적격성으로 판정(met·not_met·not_judgeable·scheduled·awaiting_record). API `POST /api/csat/diagnosis/map/goal/final-assessment`. 제안 SQL `20261023170000_csat_goal_final_assessment`(추가 전용 테이블 + service_role writer) 2026-10-23 사용자 승인 후 개발 DB 적용(이력 20261023082930) · 실제 인증 종단 6/6.

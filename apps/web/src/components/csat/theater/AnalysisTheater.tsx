@@ -79,6 +79,7 @@ import {
 import type { Pattern, Transform } from '@/lib/csat/design'
 import { committedOf, grade, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
 import { answerWithheld, boundaryGate, gateBlocks, gatedLiveKey, type AnswerGateState } from '@/lib/csat/lecture/answer-gate'
+import { mergeReveal, type AnswerReveal } from '@/lib/csat/lecture/answer-split'
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
@@ -197,10 +198,10 @@ export function AnalysisTheater({
   points,
   minutes,
   steps,
-  blocks,
-  checks = [],
-  comparePairs = [],
-  v3Pairs = [],
+  blocks: initialBlocks,
+  checks: initialChecks = [],
+  comparePairs: initialComparePairs = [],
+  v3Pairs: initialV3Pairs = [],
   pairAbsence = null,
   pairWithheld = { held: 0, missing: 0, changed: 0 },
   initialPairId = null,
@@ -209,8 +210,8 @@ export function AnalysisTheater({
   initialScene = 'task',
   initialJudgmentView = 'answer',
   sceneNormalized = false,
-  inquiry = null,
-  map,
+  inquiry: initialInquiry = null,
+  map: initialMap,
   itemId,
   backHref,
   backTo = 'home',
@@ -222,7 +223,8 @@ export function AnalysisTheater({
   siblings,
   examLabel,
   paper,
-  gate,
+  gate: initialGate,
+  analysisVersion = null,
   typeId,
   meaningSupport = null,
   initialMeaning = null,
@@ -285,6 +287,8 @@ export function AnalysisTheater({
   paper: { catalog: LearnerCatalog; examId: string; no: number }
   /** 지난 예측 기록(2026-10-10 이전 예측 관문)의 차이 카드를 다시 보이는 데만 쓴다 — 새 예측은 받지 않는다 */
   gate: GateKey
+  /** 이 화면이 읽은 분석 버전 — 정답 요청 때 서버가 같은 판본인지 맞춘다(다르면 409) */
+  analysisVersion?: number | null
   /** 유형 id — 학습 목표(이 문항에서 설명할 관계)를 유형 교수 계약에서 고른다 */
   typeId?: string
   /** v3.1 원문 이해 교수 설명 — 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때만 서버가 넘긴다. 없으면 기존 v3 의미 패널 */
@@ -304,6 +308,27 @@ export function AnalysisTheater({
   lectureDisclosure?: { verified: true; stopBefore: number; preStopRisk: PreStopRiskCode } | { verified: false } | null
 }) {
   const lec = useLecture()
+  // ── 판단 장면 정답 지연 조회 (b) — 첫 응답에는 정답 · 확정 해설이 없다. 학습자가 요청하면 서버가 노출 원장을 먼저 커밋하고
+  // 공개 자료를 돌려준다. 받은 자료는 이 컴포넌트 상태에만 둔다(저장소 · 캐시 없음). 마운트 · prefetch 로는 요청하지 않는다
+  const [revealed, setRevealed] = useState<AnswerReveal | null>(null)
+  const [revealState, setRevealState] = useState<'idle' | 'pending' | 'failed'>('idle')
+  const merged = useMemo(
+    () =>
+      revealed
+        ? mergeReveal(
+            { blocks: initialBlocks, anchors: initialMap?.anchors ?? [], placements: initialMap?.placements ?? [], checks: initialChecks, comparePairs: initialComparePairs, v3Pairs: initialV3Pairs, inquiry: initialInquiry, gate: initialGate },
+            revealed,
+          )
+        : null,
+    [revealed, initialBlocks, initialMap, initialChecks, initialComparePairs, initialV3Pairs, initialInquiry, initialGate],
+  )
+  const blocks = merged?.blocks ?? initialBlocks
+  const checks = merged?.checks ?? initialChecks
+  const comparePairs = merged?.comparePairs ?? initialComparePairs
+  const v3Pairs = merged?.v3Pairs ?? initialV3Pairs
+  const inquiry = merged?.inquiry ?? initialInquiry
+  const gate = merged?.gate ?? initialGate
+  const map = useMemo(() => (initialMap && merged ? { ...initialMap, anchors: merged.anchors, placements: merged.placements } : initialMap), [initialMap, merged])
   // ── 기출 찾기(FND2 · FND3) — 학습 상태(장면 · 근거 · 초안)와 분리된 팝업 상태 ──────────────
   const [finderOpen, setFinderOpen] = useState<FinderOrigin | null>(null)
   // 「찾기 전 문항으로」 — 찾기로 이 문항에 왔을 때만(탭 메모리 · 첫 렌더 뒤에 읽는다: 서버 렌더와 어긋나지 않게)
@@ -813,7 +838,7 @@ export function AnalysisTheater({
   const answerGate: AnswerGateState = { path: lecturePath, stopAt, consented: answerConsent, hideAnswer: answerHide }
   const withheld = answerWithheld(answerGate)
   // 저장된 예측과 출제자 답의 대조 · 완료 카드의 채점도 정답 공개다 — 동의 전에는 그리지 않는다(T-0140 r6 R6-01)
-  const diff = mine && !withheld ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
+  const diff = mine && !withheld && revealed ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
   const nextLive = useMemo(() => {
     if (!seen) return next ? { ...next, revisit: false } : null
     const pick = pickNextItem(
@@ -830,7 +855,7 @@ export function AnalysisTheater({
     finished && session ? (
       <SessionDone
         session={session}
-        result={committed && !isSkipPrediction(committed) && mine && !withheld ? grade(mine, gate) : null}
+        result={committed && !isSkipPrediction(committed) && mine && !withheld && revealed ? grade(mine, gate) : null}
         next={nextLive}
         typeHref={typeHref}
         now={Date.now()}
@@ -848,13 +873,44 @@ export function AnalysisTheater({
   const sceneBlocks = shownBlocks.filter((b) => sceneOfBlock(b.kind) === scene)
   const sceneChecks = checks.filter((c) => sceneOfCheck(c.kind) === scene)
   // 동의 전 정답 · 소거를 다루는 다른 패널(판단 · 오답 설계 · 이해 확인 · 비교)도 같은 자리표시로 — 장면을 여는 것은 동의가 아니다(r4 R4-01 · R4-03)
+  const requestReveal = async (source: 'judgment_scene' | 'lecture_full' | 'lecture_continue') => {
+    if (revealed) return setAnswerConsent(true)
+    if (revealState === 'pending') return
+    setRevealState('pending')
+    try {
+      const res = await fetch(`/api/csat/item/${toItemSlug(itemId)}/judgment`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        cache: 'no-store',
+        body: JSON.stringify({ analysisVersion, clientExposureId: crypto.randomUUID(), source }),
+      })
+      const body = (await res.json().catch(() => null)) as { ok?: boolean; reveal?: AnswerReveal } | null
+      if (!res.ok || !body?.ok || !body.reveal) throw new Error(String(res.status))
+      setRevealed(body.reveal)
+      setAnswerConsent(true)
+      setRevealState('idle')
+    } catch {
+      // 기록 실패 · 판본 변경 · 보류 — 정답을 보이지 않는다(서버도 보내지 않았다)
+      setRevealState('failed')
+    }
+  }
+  const revealButton = (
+    <>
+      <button type="button" className={styles.back} onClick={() => void requestReveal('judgment_scene')} disabled={revealState === 'pending'} data-testid="answer-reveal">
+        {revealState === 'pending' ? '정답을 여는 중…' : '정답 보기'}
+      </button>
+      {revealState === 'failed' ? (
+        <p className="break-keep" role="status" data-testid="answer-reveal-failed">
+          지금은 정답을 열 수 없어요. 잠시 뒤 다시 눌러 주세요.
+        </p>
+      ) : null}
+    </>
+  )
   const withheldPanel = (id: string, title: string) => (
     <section key={id} className={styles.block} data-withheld="true" data-testid={`withheld-${id}`} aria-label={title}>
       <h2>{title}</h2>
       <p className="break-keep">「정답 직접 안내 전까지」 를 골라 정답 · 오답을 정하는 내용은 아직 감춰 두었어요.</p>
-      <button type="button" className={styles.back} onClick={() => setAnswerConsent(true)}>
-        정답 보기
-      </button>
+      {revealButton}
     </section>
   )
   const renderBlock = (b: TheaterBlock & { withheld?: boolean }) =>
@@ -862,9 +918,7 @@ export function AnalysisTheater({
       <article key={b.key} data-block={b.key} data-kind={b.kind} data-withheld="true" data-live={false} className={styles.block}>
         <h2>{b.title}</h2>
         <p className="break-keep">「정답 직접 안내 전까지」 를 골라 정답을 정하는 설명은 아직 감춰 두었어요.</p>
-        <button type="button" className={styles.back} onClick={() => setAnswerConsent(true)}>
-          정답 보기
-        </button>
+        {revealButton}
       </article>
     ) : (
     <article key={b.key} data-block={b.key} data-lecture-target={b.key} data-kind={b.kind} data-live={b.key === liveKey} className={styles.block}>
@@ -920,7 +974,7 @@ export function AnalysisTheater({
     setLecturePath(p)
     if (p === 'until') setAnswerHide(true)
     // 「전체(정답 포함)」 를 고른 것은 정답 공개 동의다
-    if (p === 'full') setAnswerConsent(true)
+    if (p === 'full') void requestReveal('lecture_full')
     // 경계 뒤에 서 있던 차례는 경계 앞으로 — 고른 순간 정답 블록이 강조되지 않게
     if (p === 'until' && stopAt != null && cursor >= stopAt && !playing) setCursor(Math.max(0, stopAt - 1))
     if (!lec || p === 'self') return
@@ -946,7 +1000,7 @@ export function AnalysisTheater({
   const continuePastBoundary = () => {
     setAtBoundary(false)
     setBoundaryNote(null)
-    setAnswerConsent(true)
+    void requestReveal('lecture_continue')
     setLecturePath('full')
     if (lec && stopAt != null) lec.start(stopAt, 'start', 'full')
   }
@@ -1494,6 +1548,13 @@ export function AnalysisTheater({
                     <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>
                     {step ? `${step.kind} · ${Math.round(step.sec)}초` : '분석'}
                   </p>
+                  {scene === 'judgment' && !revealed ? (
+                    <section className={styles.block} data-testid="judgment-reveal" aria-label="정답 확인">
+                      <h2>정답 확인</h2>
+                      <p className="break-keep">정답과 오답을 가르는 설명은 직접 판단해 본 뒤 요청할 때 열려요. 열면 「정답을 본 뒤」 로 기록돼요.</p>
+                      {revealButton}
+                    </section>
+                  ) : null}
                   {scene === 'judgment' ? (
                     <>
                       {sceneBlocks.filter((b) => b.kind !== 'reject').map(renderBlock)}
