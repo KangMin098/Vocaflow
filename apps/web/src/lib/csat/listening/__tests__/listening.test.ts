@@ -72,6 +72,13 @@ describe('validateListeningItem', () => {
     expect(codes(k)).toContain('utterance-timing-not-monotone')
   })
 
+  it('non-finite timing is invalid (NaN / Infinity)', () => {
+    for (const [a, b] of [[0, NaN], [NaN, 1000], [0, Infinity], [-Infinity, 1000]] as const) {
+      const i = base(); i.utterances[0] = { ...i.utterances[0]!, startMs: a, endMs: b }
+      expect(codes(i)).toContain('utterance-timing-invalid')
+    }
+  })
+
   it('missing references', () => {
     const i = base(); i.evidence[0]!.utteranceId = 'zz'; i.rationales[1]!.evidenceIds = ['nope']
     expect(codes(i)).toEqual(expect.arrayContaining(['evidence-utterance-missing', 'rationale-evidence-missing']))
@@ -104,6 +111,15 @@ describe('exposure', () => {
     expect(exposureView('L5', { submitted: true, reveal: null }).choiceLinks).toBe(false)
     expect(exposureView('L5', open).answer).toBe(true)
     expect(effectiveLevel('L5', { submitted: false, reveal: 'open' })).toBe('L3')
+  })
+  it('evidence highlights/roles need submit + open even at L3 (T-0157 P1)', () => {
+    for (const reveal of ['open', 'embargo', 'failure', null] as const) {
+      const v = exposureView('L3', { submitted: false, reveal })
+      expect(v.evidenceHighlights).toBe(false)
+      expect(v.evidenceRoles).toBe(false)
+    }
+    for (const reveal of ['embargo', 'failure', null] as const) expect(exposureView('L3', { submitted: true, reveal }).evidenceRoles).toBe(false)
+    expect(exposureView('L3', { submitted: true, reveal: 'open' }).evidenceRoles).toBe(true)
   })
   it('layers per level', () => {
     expect(exposureView('L0', open)).toMatchObject({ audio: true, transcript: false })

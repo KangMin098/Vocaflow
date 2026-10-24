@@ -76,7 +76,7 @@ export function validateListeningItem(item: ListeningItem): ListeningValidationE
     if (!speakers.has(u.speaker)) push('speaker-unknown', p, `speakers 에 없는 화자: ${u.speaker}`)
     const hasS = u.startMs !== undefined
     const hasE = u.endMs !== undefined
-    if (hasS !== hasE || (hasS && hasE && (u.startMs! < 0 || u.endMs! <= u.startMs!))) {
+    if (hasS !== hasE || (hasS && hasE && (!Number.isFinite(u.startMs) || !Number.isFinite(u.endMs) || u.startMs! < 0 || u.endMs! <= u.startMs!))) {
       push('utterance-timing-invalid', p, 'startMs/endMs 는 함께 있고 0 ≤ start < end 여야 함')
       return
     }

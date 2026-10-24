@@ -3,7 +3,7 @@
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
-import { TRACE_FIXTURES, traceFixtureByKey } from '@/lib/csat/listening/fixtures'
+import { TRACE_FIXTURES, redactForClient, traceFixtureByKey } from '@/lib/csat/listening/fixtures'
 
 import { ListeningTracer } from '../ListeningTracer'
 import { initialItemState, judge, submit, type ItemTraceState, type TracerSnapshot } from '../tracer-state'
@@ -42,8 +42,22 @@ describe('ListeningTracer', () => {
     expect(h).toContain('대본 닫힘')
   })
 
-  it('L3: 근거 강조와 역할 글자 표지(색만으로 전달하지 않음), 정답 비교는 아직', () => {
-    const h = html({ selectedKey: '2023-L10', byItem: { '2023-L10': { ...initialItemState(), level: 'L3' } } })
+  it('제출 전 L3: 공개 판정이 무엇이든 근거 역할·강조가 없다(T-0157 P1)', () => {
+    for (const key of ['2023-L07', '2023-L10']) {
+      for (const r of ['open', 'embargo', 'failure', null] as const) {
+        const h = html({ selectedKey: key, byItem: { [key]: { ...initialItemState(), level: 'L3' } } }, r)
+        expect(h).not.toContain('decisive')
+        expect(h).not.toContain('data-role')
+        expect(h).not.toContain('data-evidence')
+        expect(h).not.toContain('[결정]')
+        expect(h).toContain('data-testid="evidence-held"')
+      }
+    }
+  })
+
+  it('제출 + open 의 L3: 근거 강조와 역할 글자 표지(색만으로 전달하지 않음), 정답 비교는 아직', () => {
+    const st = { ...submit(fx, judged()), level: 'L3' as const }
+    const h = html({ selectedKey: '2023-L10', byItem: { '2023-L10': st } })
     expect(h).toContain('data-evidence="e-price"')
     expect(h).toContain('[결정]')
     expect(h).not.toContain('data-testid="compare"')
@@ -89,5 +103,15 @@ describe('ListeningTracer', () => {
     expect(h).toContain('자막 끔')
     expect(h).not.toContain('Then, what’s the matter?')
     expect(h).toContain('남자')
+  })
+
+  it('서버가 지운 픽스처(embargo)로도 판단·제출 화면이 그려지고 정답 흔적이 없다', () => {
+    const st = { ...submit(fx, judged()), level: 'L5' as const }
+    const h = renderToStaticMarkup(
+      <ListeningTracer fixtures={TRACE_FIXTURES.map((f) => redactForClient(f, 'embargo'))} reveal="embargo" initialSnapshot={{ selectedKey: '2023-L10', byItem: { '2023-L10': st } }} />,
+    )
+    expect(h).toContain('남은 행 1개 / 5개')
+    expect(h).not.toContain('decisive')
+    expect(h).not.toContain('공식 정답 번호')
   })
 })

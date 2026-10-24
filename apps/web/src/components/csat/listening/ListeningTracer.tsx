@@ -10,7 +10,7 @@ import { Check, CircleSlash, Link2, ShieldAlert, X } from 'lucide-react'
 import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { EXPOSURE_LABELS, EXPOSURE_LEVELS, canTransition, exposureView, type ExposureContext, type ExposureLevel } from '@/lib/csat/listening/exposure'
-import type { ListeningTraceFixture, TraceCandidate } from '@/lib/csat/listening/fixtures'
+import type { ClientTraceCandidate as TraceCandidate, ClientTraceFixture as ListeningTraceFixture } from '@/lib/csat/listening/fixtures'
 import { LISTENING_TYPE_LABELS, type EvidenceRole, type ListeningUtterance } from '@/lib/csat/listening/types'
 import type { RevealDecision } from '@/lib/csat/embargo-gate'
 
@@ -239,6 +239,11 @@ export function ListeningTracer({ fixtures, initialKey, reveal, audioFactory, in
             자막(대본) {st.captions ? '켬' : '끔'}
           </button>
         </div>
+        {level === 'L3' && !view.evidenceHighlights ? (
+          <p data-testid="evidence-held" className="text-[14px] text-[var(--t2)] break-keep">
+            L3 근거 강조는 판단을 제출하고 정답 공개가 열린 뒤에 보인다. 지금은 내가 짚은 발화(연결 칩)만 표시된다.
+          </p>
+        ) : null}
         {!view.transcript ? <p className="text-[14px] text-[var(--t2)] break-keep">L0 음성만 — 원음이 없어 들을 것이 없다. L1 로 올리면 대본으로 판단할 수 있다.</p> : null}
       </section>
 
@@ -405,10 +410,15 @@ export function ListeningTracer({ fixtures, initialKey, reveal, audioFactory, in
                     <li key={c.id} className="flex flex-col gap-0.5 break-keep">
                       <span className="flex items-center gap-1 font-semibold">
                         {m === 'match' ? <Check size={14} aria-hidden="true" /> : <X size={14} aria-hidden="true" />}
-                        {c.label} · 분석: {c.expected === 'eliminated' ? '지움' : '남김'} ·{' '}
-                        <button type="button" className="underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--ju)]" onClick={() => goUtterance(c.keyUtteranceIds[0])}>
-                          {uttNo(c.keyUtteranceIds[0])}번 발화
-                        </button>
+                        {c.label} · 분석: {c.expected === 'eliminated' ? '지움' : '남김'}
+                        {c.keyUtteranceIds?.[0] ? (
+                          <>
+                            {' · '}
+                            <button type="button" className="underline underline-offset-2 focus-visible:outline focus-visible:outline-2 focus-visible:outline-[var(--ju)]" onClick={() => goUtterance(c.keyUtteranceIds![0])}>
+                              {uttNo(c.keyUtteranceIds[0])}번 발화
+                            </button>
+                          </>
+                        ) : null}
                       </span>
                       <span>{MATCH_TEXT[m]} — {c.note}</span>
                     </li>

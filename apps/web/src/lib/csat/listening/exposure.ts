@@ -64,13 +64,15 @@ export function effectiveLevel(requested: ExposureLevel, ctx: ExposureContext): 
 /** 단계별로 각 UI 층이 보여도 되는 것. 요청 단계는 먼저 effectiveLevel 로 깎인다 */
 export function exposureView(requested: ExposureLevel, ctx: ExposureContext): ExposureView {
   const r = rank(effectiveLevel(requested, ctx))
+  // 근거 강조·역할(decisive 등)은 정답 근거를 특정하므로 L3 이어도 제출 + Reveal Gate 'open' 일 때만(T-0157 P1)
+  const sensitive = answerSensitiveOpen(ctx)
   return {
     audio: true,
     transcript: r >= 1,
     speakerStructure: r >= 2,
     timing: r >= 2,
-    evidenceHighlights: r >= 3,
-    evidenceRoles: r >= 3,
+    evidenceHighlights: r >= 3 && sensitive,
+    evidenceRoles: r >= 3 && sensitive,
     choiceLinks: r >= 4,
     rationales: r >= 4,
     answer: r >= 5,

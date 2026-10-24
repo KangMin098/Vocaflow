@@ -63,3 +63,16 @@ export interface ListeningTraceFixture {
   choiceLayer: ChoiceLayer
   officialAnswer: OfficialAnswerRef | null
 }
+
+// ── 클라이언트로 보내는 모양(T-0157 P1-b) ──────────────────────────────
+// Reveal Gate 가 'open' 이 아니면 서버가 정답 민감 필드(기대 판정 · 핵심 발화 · 근거 연결 · 해설 · 근거 구간 · 정답 번호)를
+// 지우고 보낸다(`redact.ts`). 'open' 이면 정답이 공개된 상태라 그대로 보내고, 제출 전 숨김은 화면(exposure.ts)이 맡는다.
+
+export type ClientTraceCandidate = Omit<TraceCandidate, 'expected' | 'keyUtteranceIds' | 'evidenceIds' | 'note'> &
+  Partial<Pick<TraceCandidate, 'expected' | 'keyUtteranceIds' | 'evidenceIds' | 'note'>>
+
+export type ClientTraceFixture = Omit<ListeningTraceFixture, 'candidates'> & {
+  candidates: ClientTraceCandidate[]
+  /** true = 서버가 정답 민감 필드를 지웠다 */
+  answerRedacted?: boolean
+}

@@ -4,7 +4,7 @@
 // sessionStorage 복원. 시계를 읽지 않는다. 저장소 접근은 모두 try/catch(사생활 모드 · 차단에서도 화면은 뜬다).
 
 import { EXPOSURE_LEVELS, canTransition, effectiveLevel, type ExposureContext, type ExposureLevel } from '@/lib/csat/listening/exposure'
-import type { CandidateVerdict, ListeningTraceFixture } from '@/lib/csat/listening/fixtures'
+import type { CandidateVerdict, ClientTraceFixture as ListeningTraceFixture } from '@/lib/csat/listening/fixtures'
 
 export interface CandidateJudgment {
   verdict: CandidateVerdict
@@ -68,9 +68,9 @@ export type LinkMatch = 'match' | 'verdict-differs' | 'utterance-differs' | 'unj
 export function compareCandidate(fx: ListeningTraceFixture, state: ItemTraceState, candidateId: string): LinkMatch {
   const c = fx.candidates.find((x) => x.id === candidateId)
   const j = state.judgments[candidateId]
-  if (!c || !j) return 'unjudged'
+  if (!c || !j || !c.expected) return 'unjudged'
   if (j.verdict !== c.expected) return 'verdict-differs'
-  return c.keyUtteranceIds.includes(j.utteranceId) ? 'match' : 'utterance-differs'
+  return (c.keyUtteranceIds ?? []).includes(j.utteranceId) ? 'match' : 'utterance-differs'
 }
 
 // ── 복원 ────────────────────────────────────────────────────────────────

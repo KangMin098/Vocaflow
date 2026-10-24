@@ -3,6 +3,7 @@ import { FIXTURE_2023_L07, FIXTURE_2023_L10 } from './csat-2023'
 import type { ListeningTraceFixture } from './types'
 
 export * from './types'
+export { redactForClient } from './redact'
 export { FIXTURE_2023_L07, FIXTURE_2023_L10 } from './csat-2023'
 
 /** 화면 순서 — 표 거르기 먼저, 이유 소거 다음 */
