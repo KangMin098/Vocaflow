@@ -88,25 +88,37 @@ test.describe('강의 학습자 제어', () => {
       await expect(follow).toHaveAttribute('aria-pressed', 'false', { timeout: 5_000 })
       // 요소별로 잰다 — 위치 목록을 문자열로 이으면 다음 큐로 스크롤 가능한 요소가 하나 늘기만 해도 목록이 밀려 오탐한다
       // (실계정 E2E 2026-10-24: `0,75,0,…` → `0,0,75,…`, 기존 값은 그대로). 처음 있던 요소는 같은 요소의 위치를, 새로 생긴 요소는 0 인지를 본다
-      const scrollOf = () =>
+      // Codex 5822d24b1 REJECT 보완 — 처음 있던 요소는 **같은 요소 참조**로 다시 잰다(overflow 가 빠져도). 사라지거나 교체된 요소는
+      // 처음 위치가 0 이 아니었으면 이동으로 본다(같은 영역이 새 노드로 바뀌며 맨 위로 돌아간 경우). 문서 스크롤은 필터와 관계없이 늘 잰다
+      const snapshot = () =>
         page.evaluate(() => {
-          const els = [document.scrollingElement, ...Array.from(document.querySelectorAll<HTMLElement>('[data-csat-theater] *'))].filter(
-            (el): el is HTMLElement => el != null && el.scrollHeight > el.clientHeight + 1,
-          )
+          const w = window as unknown as { __scrollRefs?: Map<string, Element> }
+          w.__scrollRefs ??= new Map()
+          const els = Array.from(document.querySelectorAll<HTMLElement>('[data-csat-theater] *')).filter((el) => el.scrollHeight > el.clientHeight + 1)
           let n = Number(document.body.dataset.scrollSeq ?? 0)
-          const out: Record<string, number> = {}
+          const current: Record<string, number> = {}
           for (const el of els) {
             if (!el.dataset.scrollId) el.dataset.scrollId = String(n++)
-            out[el.dataset.scrollId] = Math.round(el.scrollTop)
+            w.__scrollRefs.set(el.dataset.scrollId, el)
+            current[el.dataset.scrollId] = Math.round(el.scrollTop)
           }
           document.body.dataset.scrollSeq = String(n)
-          return out
+          // 앞서 잰 요소는 지금 overflow 여부와 관계없이 같은 참조로 — 연결이 끊겼으면 gone
+          const known: Record<string, number | 'gone'> = {}
+          for (const [id, el] of w.__scrollRefs) known[id] = el.isConnected ? Math.round(el.scrollTop) : 'gone'
+          return { doc: Math.round(window.scrollY), current, known }
         })
-      const before = await scrollOf()
+      const before = await snapshot()
       await page.locator('body').press('ArrowRight')
       await page.waitForTimeout(1_200)
-      const after = await scrollOf()
-      const moved = Object.entries(after).filter(([id, y]) => (id in before ? before[id] !== y : y !== 0))
+      const after = await snapshot()
+      const moved: string[] = []
+      if (after.doc !== before.doc) moved.push(`document ${before.doc}→${after.doc}`)
+      for (const [id, y] of Object.entries(before.current)) {
+        const now = after.known[id]
+        if (now === 'gone' ? y !== 0 : now !== y) moved.push(`#${id} ${y}→${now}`)
+      }
+      for (const [id, y] of Object.entries(after.current)) if (!(id in before.current) && y !== 0) moved.push(`new #${id} ${y}`)
       expect(moved, `따라가기를 끈 뒤 강의가 화면을 옮겼다 — 전 ${JSON.stringify(before)} · 후 ${JSON.stringify(after)}`).toEqual([])
 
       // ④ 학습자가 다시 고르면 켜진다
