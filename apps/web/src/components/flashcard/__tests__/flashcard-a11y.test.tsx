@@ -57,6 +57,14 @@ describe('Flashcard 접근성 마크업', () => {
     expect(html).toMatch(/<button[^>]*data-card-flip[^>]*aria-label="luminous — 카드 뒤집어 정답 확인"[^>]*aria-disabled="false"/)
   })
 
+  it('뒷면에는 뜻을 내부 텍스트로 가진 「카드 앞면 보기」 네이티브 버튼이 있다 — 버튼 안에 버튼은 없다', () => {
+    const html = card('flipped')
+    const m = html.match(/<button[^>]*data-card-unflip[^>]*aria-label="빛나는 — 카드 앞면 보기"[^>]*>([\s\S]*?)<\/button>/)
+    expect(m, '앞면 보기 버튼이 없다').not.toBeNull()
+    expect(m![1]).toContain('빛나는')
+    expect(m![1]).not.toMatch(/<button/)
+  })
+
   it('회상 중에는 뒤집기 버튼이 비활성으로 알려진다', () => {
     expect(card('recall')).toMatch(/<button[^>]*data-card-flip[^>]*aria-disabled="true"/)
   })
