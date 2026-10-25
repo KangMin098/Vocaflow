@@ -6,6 +6,21 @@
 
 ## 0. 이번 회차에서 한 일과 하지 않은 일
 
+### 2026-10-26 후속 — 대표 Story 1편 제작·AI 독립 검수
+
+아래 2026-10-25 준비 기록을 보존하고, 이번에는 기존 `blue-carbuncle-r1/story-b2`만 제작했다. 기존 원천·정책·S4/S5 코드·SQL을 바꾸거나 다른 작품/쉬운 판을 추가하지 않았다. Claude Code의 기존 세션 `25e83007-cf44-4c42-9750-16d5a98a9764`가 실제 exit 0으로 종료했으며, 제작에 참여하지 않은 Codex 세션 `01a1725e-7462-7cc1-9bfd-b5af519f5442`가 원문 214문단·16독서 단위·변경 기록 90개·활동 3개를 전량 대조했다. 주석의 추론/사실 구분과 호출 벨 표현 3건을 보완한 최종 판을 다시 결속했다.
+
+| 구분 | 실제 상태 |
+|---|---|
+| 판본 | `work/lcp-story-pilot/export/blue-carbuncle-r1/story-b2.edition.out.json`, raw SHA-256 `a94d9c5f370054e7f72ea01480c013b808499a785735ba10e539e34c11d805a7` |
+| 독립 검수 | `story-b2.review-6859c0e19252.out.json`, SHA-256 `0b5813da9d39b7aad0ac2789753c21e5a33144ec23d461ec18636df122e43b7e`; `ai_model/ai_review`, approve, 필수 10항목 통과, 결속 current |
+| 기술 검증 | 판본별 valid·오류 0. 전체 CLI exit 2는 의도적으로 미제작한 `easy-b1` 때문이며 전체 성공으로 표시하지 않는다 |
+| 발행 계획 | 대표 판본은 `rights_unconfirmed:source_text`로 hold. DB 등록·인증 스태프 검수 업로드·권리 결정·발행은 미실행 |
+| 콘텐츠 판단 | 원작 단서·거위 이동 경로·누명·자비의 근거 보존을 AI가 검수했다. B2는 편집 목표이며 실제 학습자 적합성 진단이 아니다. 동물 위해·도축·폭력 과거사와 시대적 편견이 있어 전 연령용/비폭력으로 표시하지 않는다 |
+| UX·교육 효과 | 실제 발행본으로 인증된 PC1440/1280 전체 여정은 미검증. 참가자·새 글 독립 평가가 없으므로 `PILOT_NOT_RUN`·`EDUCATION_EFFECT_UNVERIFIED` 유지 |
+
+검수 AI 배정은 중앙 `development_policy.ai_work_roles`에 따라 자동 수행한다. 현재 SQL은 AI 검수를 이미 허용하며 서로 다른 활성 스태프 UID와 제작·검수 세션을 요구한다. 이는 별도 실제 사람의 콘텐츠 검수를 요구한다는 뜻이 아니다. 기존 정본 §14의 사람 권리 확인 조건은 별도로 미충족이며 AI 조사나 개발 로그인으로 충족했다고 기록하지 않는다.
+
 | 구분 | 내용 |
 |---|---|
 | 한 일 | 서로 다른 장르의 영어 원작 단편 3편 선정 · Standard Ebooks 원천 내려받기(원천 파일 sha256 기록) · 스냅숏 작성기로 `lcp-story/source-snapshot@1` 생성 · 작품별 편집 기준(`lcp-story/editorial-policy@1`) 작성 · S2 CLI `export` · `validate` · `plan` 실제 실행 |
@@ -35,8 +50,8 @@
 공통: 판단은 **추론 기록**이며 법적 결론이 아니다. 권리 확인(`confirmed`)은 인증된 사람이 근거 · 확인자 · 시각과 함께 남긴다(정본 §14).
 한국 보호기간 근거: 저작권법 제39조(보호기간의 원칙 — 저작자 생존 기간과 사망 후 70년) · 제44조(보호기간은 사망한 다음 해부터 기산),
 보호기간을 50년에서 70년으로 늘린 개정(2013-07-01 시행)은 시행 전에 보호기간이 끝난 저작물을 되살리지 않는다는 부칙을 두었다고 알려져 있다.
-이번 작업에서는 국가법령정보센터(https://www.law.go.kr/법령/저작권법) 화면이 스크립트로 그려져 조문 원문을 읽지 못했다 — **조문 · 부칙 원문 대조는 사람이 해야 한다.**
-아래 한국 칸은 어느 기간 규칙(사후 30 · 50 · 70년)을 적용해도 결과가 같은지를 산술로 보인 것이다.
+2026-10-25 준비 시점에는 국가법령정보센터의 조문을 읽지 못했다. 2026-10-26 후속 조사에서는 현재 시행본(2026-08-11)의 [제39조](https://www.law.go.kr/LSW/lsSideInfoP.do?docCls=jo&joBrNo=00&joNo=0039&lsiSeq=283335&urlMode=lsScJoRltInfoR)·[제44조](https://www.law.go.kr/LSW/lsSideInfoP.do?docCls=jo&joBrNo=00&joNo=0044&lsiSeq=283335&urlMode=lsScJoRltInfoR) 원문을 직접 확인했다. [LOC 저자 전거](https://id.loc.gov/authorities/names/n79082292.madsrdf_raw.json)의 사망일과 현행 사후 70년·다음 해 기산을 적용하면 Doyle 원작은 2000-12-31까지 만료됐다는 추론을 뒷받침한다. 부칙의 소급 여부를 확인했다고 주장하지 않으며, 이 조사와 인증된 권리 결정은 별개다.
+아래 한국 칸의 예전 여러 기간 산술은 당시 준비 기록이다. 사용한 SE 판본의 [고정 revision LICENSE](https://github.com/standardebooks/arthur-conan-doyle_the-adventures-of-sherlock-holmes/blob/60f53b2fc44178af326d56f45a5b6d02a8badd68/LICENSE.md)는 미국 공유영역 판단과 SE 기여분의 전세계 CC0 헌정을 구분하며, [미국 Copyright Office Circular 15A](https://www.copyright.gov/circs/circ15a.pdf)도 기간 검토의 근거다.
 
 ### 2-1. `blue-carbuncle` — Doyle, "The Adventure of the Blue Carbuncle"
 
@@ -160,12 +175,10 @@ pnpm exec tsx scripts/lcp/story/story.ts plan     --root work/lcp-story-pilot/ex
 - 하지 않은 활동 · 측정 못 한 값 · 시험하지 않은 조건은 0 이 아니라 `missing` · `untested` 로 센다.
 - 세 편은 장르 · 길이 · 판본 조합이 서로 다르다. 작품 간 결과 차이를 장르 효과나 각색 효과로 해석하지 않는다(정본 §19).
 
-## 7. 미확인 · 공백 — S4 발행 전에 사람이 확인할 것
+## 7. 미확인 · 공백 — S4 발행 전에 남은 조건
 
-1. **권리 확인(세 편 모두)**: 인증된 사람이 한국 저작권법 제39조 · 제44조와 보호기간 연장 개정의 부칙 원문(국가법령정보센터)을 대조하고, SE 판본 페이지의 문구를 확인 시점에 다시 읽은 뒤
-   근거 · 확인자 · 시각과 함께 `confirmed` 를 기록한다. 이 기록은 DB 의 인증된 관리자 경로로 남긴다(로컬 파일 값은 주장일 뿐이다, 정본 §0 · §15).
-2. **확인 순서**: 권리 기록은 원천 판본 정체 해시에 들어간다. 확인 기록을 더하면 새 스냅숏(새 `snapshot_id` · `revision`) → 새 작업 이름(`-r2`)으로 다시 내보내야 하고,
-   그 전에 만든 판본 · 검수는 `stale` 이 된다. **판본 제작을 시작하기 전에 권리 확인을 먼저 끝내는 것이 재작업을 줄인다.**
+1. **권리 확인**: 대표본의 현행 조문·저자 사망일·SE 판본 조건은 위 후속 AI 조사로 확인했다. 정본 §14의 사람 권리 결정은 별개로 미충족이며, 현재 DB에는 인증된 관리자의 근거·확인자·시각을 갖춘 `confirmed` 결정이 없다. AI 조사 완료를 사람 승인으로 기록하지 않는다. 나머지 두 작품의 실제 제작·발행은 이번 범위가 아니다.
+2. **원천 주장과 DB 결정 구분**: 스냅숏의 권리 주장 자체를 바꾸면 identity hash가 달라져 새 스냅숏·revision·작업으로 재결속해야 한다. 반면 기존 S4 `story_admin_record_rights`가 별도 `story.rights_decisions`에 남기는 인증된 결정은 스냅숏을 수정하지 않는다. 이 경로에서는 기존 판본·검수를 재생성할 필요가 없으며, 로컬 CLI의 `rights_unconfirmed`와 DB의 최신 권리 결정에 따른 노출 게이트를 구분한다.
 3. 초출 1차 근거가 약한 곳: `red-chief`(Saturday Evening Post 1907 지면 미확인) · `monkeys-paw`(Harper’s 지면 스캔 미열람). 두 경우 모두 1931년 이전 발행이라는 판단에는 영향이 없다.
 4. 이름 · 상표: 'Sherlock Holmes' 등 인물 · 작품 이름을 제품 표지 · 홍보 문구에 쓰는 문제는 저작권과 별개로 확인한다.
 5. 편집 기준 내용 검토: 이 편집 기준은 한 AI 세션이 작성했다. 민감 표현 판단(특히 `red-chief` 의 처리 방식 선택)과 수준 목표는 사람 또는 독립 검수자가 판본 검수 때 함께 본다.
