@@ -13,6 +13,16 @@
 > 복구 `_pending_lcp_story_s3_quarantine.sql`(SHA-256 `a9e7258907f6c0afeb564b8d2bc312f7ad7398588fa7a11357cd1be0ac74f016` · RPC 16개 실행 회수 · 이력 보존). 복구 적용도 SQL 전문·SHA·영향·복구의 사용자 승인을 지킨다. MCP 쓰기 또는 main-serving 의 승인형 러너를 쓸 수 있다.
 > **공유 DB 적용 완료** — 2026-10-25 09:44:50 UTC, MCP 원장 `20261025094450`, 저장된 SQL SHA-256이 승인본과 동일하다. 사후 검사 15/15 · 원본 5표 행/정의 지문 10/10 불변 · Story 표 12개 초기 행 0. 러너의 고정 버전도 실제 원장에 맞췄다. SQL 머리말의 보류 표시는 승인 당시 바이트를 보존한 역사적 표기다. 결정 · 실측: [S3_DB_AUDIT](lcp-story/S3_DB_AUDIT.md) · 계약: [LCP_STORY §15](LCP_STORY.md).
 
+> **승인·적용 완료 LCP Story S5 읽기 문맥 · 이벤트 허용**(2026-10-25 · T-0176 후속): 사용자 명시 승인 SQL r3(SHA-256 `a57ef729cedddc9f6271370fa5f93595a1dca6e273230b741bdfffc535f161ab` · 34,577바이트)를
+> MCP 로 dev `jajenrevcbmrpaliomxv` 에 적용 — 원장 **`20261025143031`** `lcp_story_s5_reader_context`(원장 statements 배열의 단일 원문 항목 · 승인 바이트 그대로). 저장소 파일 `supabase/migrations/20261025143031_lcp_story_s5_reader_context.sql` 은 승인 원본 바이트이며 머리말의 「제안 · 미적용」 문구는 승인 당시 기록이다. **재적용하지 않는다.**
+> - 새 RPC `public.story_reader_context(text, integer) returns jsonb` — 읽기 전용 · STABLE · SECURITY DEFINER · `search_path = pg_catalog, pg_temp` · 클라이언트 실행 권한 authenticated 만(anon · service_role · PUBLIC false).
+>   `story.require_learner()` 뒤 호출마다 철회 · 권리(`story.source_rights_ok`)를 확인하고, 발행본의 불변 판(`releases.edition_version_id`)에서 발행 메타 · 본인 진도 · 목차(단위별 본인 완료) · 고른 단위의 검증 앵커 인용(UTF-16 오프셋 메타) · 원천 판본 메타 허용 목록만 돌려준다.
+>   본문(`story_read_unit` 이 준다) · artifact · 활동 · 정답 · 검수 · 권리 · 내부 id 는 돌려주지 않는다. 저장값이 어긋나면 `story:reader_context_mismatch`.
+> - `funnel_events_event_check` 는 적용 시점 실제 식을 그대로 두고 `OR event = ANY(story_catalog_viewed, story_reader_action)` 로 추가 확장(검증 · 주석 보존).
+> - 적용 전후: 기존 Story RPC 16개 정의 · ACL 불변 · 새 표 · 진도 스키마 없음 · Story 12표 + `library_books` · `texts` · `vocabularies` 행 지문 15 · 정의 15 불변. `funnel_events` 는 적용 전 50,868행 코호트 지문이 그대로이고, 뒤에 들어온 `screen_viewed` 19행만 관찰했다(행위자 단정 없음 — 표 전체 행수 · 지문 불변 주장 아님).
+> - 사후 증거: 익명 PostgREST HTTP — `story_catalog` 200 · 빈 배열(공유 DB Story 발행 0), `story_reader_context` 401/PostgreSQL `42501`(노출됨 · anon 거부, PGRST202 없음 · 스키마 재적재 불필요). 실제 CHECK 식을 SELECT 로 평가해 현재 `EVENT_REGISTRY` 62개 이름이 모두 허용됨.
+>   공유 DB 에 쓰는 `db-allowlist.integration.test.ts` 는 **NOT_RUN**(INSERT/DELETE 승인 없음). 인증된 학습자의 실제 본문 · 진도 응답은 발행된 작품이 없어 확인하지 못했다. 복구 SQL(SHA `8596e09d…3d8a` · 새 RPC 실행 회수)은 실행 승인 없음.
+
 > **2026-10-23 목표 예산 rev2·보정 승인 적용 완료:** 실제 DB 이력 **`20261023043453`**은 승인 원본 `20261023043453_csat_goal_budget.sql` SHA `fbd370ac…181ae`와 일치한다. 이후 별도 승인한 `20261023061401_csat_goal_budget_conflict.sql`은 **`20261023061401`**로 적용됐으며 SHA `29fe9154…77b4c`가 정확히 같다. 설치 정의 MD5를 검사하고 목표 충돌 SQLSTATE만40001→PT409로 바꿨다. 함수의 나머지 정의·ACL·RLS와 적용 전후 목표12행/PLAN4행 전체 해시가 동일하다. 실제 인증 HTTP/RPC 동시성·0분/NULL·본인 읽기·직접 실행 거절·이력 보존도 통과했다. **두 SQL을 재적용하지 않는다.** 아래 미적용/차단 표기는 당시 이력이다. [전체 원문·SHA·checkpoint·검증 경계](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
 
 > **2026-10-23 목표 예산 rev2 사용자 승인 완료·적용 차단:** 사용자 “승인” 후 SHA `fbd370ac…181ae` 원문으로 적용을 요청했지만 PreToolUse가 동일 SQL의 두 워크트리 중 승인 루트를 고르지 못해 실행을 거절했다. 04:25 UTC 재조회에서 새 열/함수는 없고 기존 목표2행·PLAN2행·정책/트리거/옛 writer 해시는 변하지 않았다. **설치 완료가 아니다.** [승인 이후 상태·차단 사유](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
@@ -1309,6 +1319,7 @@ set id 만 알면 구독됐다. **화면 게이트는 노출 경계의 증거가
 | `funnel_events_event_check` (2026-09-22 · 사용자 승인 후 적용, DB 버전 `20260922004102`) | `hub_promo_clicked` · `hub_hero_moved` 추가 (40 → 42종) — `20260922090000_funnel_allow_hub_portal.sql`. 목록은 2026-09-22 DB 제약에서 옮겼다 |
 | `funnel_events_event_check` (2026-10-14 · 사용자 승인 후 적용) | 원문 이해 교수 판 6종 `csat_meaning_unit_selected` · `csat_meaning_depth_changed` · `csat_meaning_relation_opened` · `csat_meaning_whole_traced` · `csat_meaning_draft_compared` · `csat_meaning_bridge_followed` 추가 (83 → 89종) — `20261014091841_funnel_allow_csat_meaning.sql`. 목록은 적용 직전 DB 제약에서 옮겼다(재조회로 83 확인 뒤 적용) |
 | `funnel_events_event_check` (2026-10-24 · 사용자 승인 후 적용, DB 버전 `20261024025906`) | 학습 정리 `csat_summary_opened` · `csat_summary_explored` 추가 (94 → 96종) — `20261024025906_funnel_events_csat_summary.sql`. 은퇴한 `csat_meaning_draft_compared`(T-0091) 는 과거 행 때문에 남김. ⚠️ `_pending_factory_dcp_learning` · `_pending_source_lesson_reflection` 은 이 제약을 두 이벤트 없이 다시 정의한다 — 적용 전 목록 갱신 필요 |
+| `funnel_events_event_check` (2026-10-25 · 사용자 승인 후 적용, DB 버전 `20261025143031`) | LCP Story `story_catalog_viewed` · `story_reader_action` 추가 — `20261025143031_lcp_story_s5_reader_context.sql` §C. 목록을 복사하지 않고 적용 시점 식(`pg_get_expr`)에 `OR` 로 더했다. ⚠️ 목록을 손으로 복사해 DROP/ADD 하는 후속 SQL(위 두 `_pending_*` 포함)은 이 두 이름도 지운다 — 보존형으로 고친다 |
 
 ⚠️ **왜 공개 버킷인가**: 이 영상의 첫 독자는 로그인하지 않은 **교사**다
 (허용 CAC ₩400 → 교사→학급 경로만 성립, `PLATFORM_AUDIT.md`). 로그인 뒤에 두면

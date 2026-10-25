@@ -28,7 +28,7 @@
 | S2 | 로컬 export/validate/plan + 합성 fixture | `VERIFIED` | 위와 같음. 실제 파일 기반 제작 흐름 확인 |
 | S3 | live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 | `VERIFIED` | T-0169 작성자 검증: SELECT 감사 · 미적용 SQL(표 12 · RPC 16) · 러너 시험 · 격리 PGlite/PostgreSQL 17 하네스 통과 · 독립 검토 지적 반영. T-0169 Codex 별도 수용 완료(검증 커밋 `6dfa0c0c6`). 승인 뒤 공유 DB는 MCP 원장 `20261025094450`로 적용 완료(승인 SHA 일치 · 사후 15/15 · 원본 지문 10/10 불변). 러너 TLS preflight는 미실행 |
 | S4 | 승인된 DB 적용 + 관리자 후보/제작/검수/발행 + 도움말 | `VERIFIED` | T-0174 Codex 별도 수용 완료(`fcf57c225e2a`) · 로컬 main 통합 `02411a5f7`. 같은 커밋 단위 235 · 격리 브라우저 7 통과(skip 0), 타입/lint 통과. 실제 두 번째 스태프 · 공유 DB 발행 · live 쿠키/RPC E2E 는 미실행 |
-| S5 | 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 | `IMPLEMENTED`(코드 · 작성자 working-tree 실행) · `DB_APPROVAL_REQUIRED` | T-0176. 읽기 문맥 RPC · 이벤트 허용 목록 SQL r3(SHA `a57ef729…161ab`) 미승인 · 미적용 — 공유 DB 에서 독서 화면은 「준비 중」이다. committed-HEAD 정식 브라우저 실행 · 독립 수용 · live E2E 전이라 `VERIFIED` 아님 |
+| S5 | 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 | `IN_PROGRESS` — 코드 · DDL 완료, 실제 작품 live 여정 미실행 | T-0176 코드 `9b39634c5` 독립 수용(격리 UX 1440/1280 포함). SQL r3(SHA `a57ef729…161ab`) 사용자 승인 · 공유 dev DB 적용(원장 `20261025143031`). 공유 DB Story 발행 0 이라 인증 본문/진도 live 여정 · 콘텐츠 적합 · 파일럿은 `NOT_RUN` — 아래 「승인 · 적용 뒤 현재 상태」 |
 | S6 | 선택적 Deep/Bridge · 실제 표현 어휘 연결 · 추천 다양성 | `PENDING` | S5 |
 | S7 | 권리 확인된 서로 다른 장르 3편 제작 · 파일럿 | `PILOT_NOT_RUN` | 기본 독서 경로는 S4·S5 후 검증. 심화 활동 회차는 S6 후 · 실제 참가자 |
 | S8 | 관찰된 근거에 맞춘 운영 자동화 · 품질/활용/비용 계측 | `PENDING` | S7 관찰 기록 |
@@ -287,7 +287,7 @@ LCP Story S4 를 진행한다. docs/LCP_STORY.md, docs/lcp-story/IMPLEMENTATION.
 통과 · skip 수를 그대로 보고한다. 승인 범위 밖 SQL 이 필요하면 그 지점에서 새 SQL 을 보이고 승인을 요청한다.
 ```
 
-## S5 — 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 · `IMPLEMENTED`(작성자) · `DB_APPROVAL_REQUIRED`
+## S5 — 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 · `IN_PROGRESS`(코드 수용 · SQL 적용 완료 · live 여정 · 콘텐츠 · 파일럿 미실행)
 
 - **목적**: 학습자가 이야기로 고르고(HOOK 포함) 판본별로 읽고 이어 읽으며, 원하면 원문 대응을 연다.
 - **선행**: S4. 새 이벤트의 DB 허용 목록 SQL 승인(정본 §17).
@@ -311,6 +311,18 @@ LCP Story S4 를 진행한다. docs/LCP_STORY.md, docs/lcp-story/IMPLEMENTATION.
 - **복구**: 라우트 비노출(게이트) · 코드 되돌리기. 이벤트 허용 목록은 그대로 둔다.
 - **완료 증거**: 테스트 결과 · 화면 확인 · 해당하는 독립 검토 계약이 있으면 그 판정.
 - **다음**: S6. 기본 독서 경로의 S7 파일럿은 병행할 수 있으며, 선택적 심화 기능 완료를 기다리지 않는다.
+
+### 승인 · 적용 뒤 현재 상태 (2026-10-25 · 이 절이 현재 판정 — 아래 작성자 · 커밋 전 기록은 그때의 역사다)
+
+| 항목 | 실제 결과 | 남은 한계 |
+|---|---|---|
+| 코드 | T-0176 커밋 `9b39634c511fe43d91bafe013a2f46c3dbc519fe` Codex 독립 수용(AI-Control `verification/reviews/T-0176-lcp-story-s5-codex.md`). 같은 커밋 범위 vitest 35파일 769 · 격리 브라우저 34(1440/1280) · web tsc · eslint 0 · 통과 실행 skip 0 · native 종료 0 · 동결 38파일 · 소스 86 · 글꼴 1049(+CSS 32) · 캡처 148 · 기준선 8 불변 · 로컬 main 코드 통합 `1a5253561` | 전역 `learner-routes` `/csat/listening` 1 실패 · 7 통과는 깨끗한 기준선에서도 재현된 기존 실패 — 새 실패도 전체 통과도 아니다. |
+| SQL | 사용자 명시 승인 r3(SHA-256 `a57ef729cedddc9f6271370fa5f93595a1dca6e273230b741bdfffc535f161ab` · 34,577바이트) → MCP 적용 dev `jajenrevcbmrpaliomxv` 원장 `20261025143031` `lcp_story_s5_reader_context`(원장 statements 배열의 단일 원문 항목 · 승인 바이트 그대로). 저장소 `supabase/migrations/20261025143031_lcp_story_s5_reader_context.sql` | 머리말의 제안 · 미적용 문구는 역사적 표기. 복구 SQL 실행 승인 없음 |
+| DB 전후 | 새 `public.story_reader_context(text,integer)→jsonb`(STABLE · DEFINER · 고정 search_path · authenticated 만) · 이벤트 2 이름 추가(기존 식 · 검증 · 주석 보존) · 기존 Story RPC 16 정의/ACL · 원본/Story 15표 행 지문 · 정의 15 불변 · 새 표 없음 | `funnel_events` 는 적용 전 50,868행 코호트 지문 보존 · 뒤에 `screen_viewed` 19행 관찰(표 전체 불변 · 행위자 단정 아님) |
+| live | 익명 PostgREST: `story_catalog` 200 · 빈 배열 · `story_reader_context` 401/`42501`(노출 · anon 거부 · PGRST202 없음). 실제 CHECK 식 SELECT 평가로 `EVENT_REGISTRY` 62/62 허용 · 실제 로컬 main Next/RSC PC1440/1280 빈 서가 · 비로그인 진입(개인 DOM · 넘침 · 페이지 오류 0, 자체 시험 브라우저 계측 차단) | 공유 DB Story 12표 비어 있음(발행 0) → 인증 RSC · 쿠키 · Server Action HTTP · 본문/진도 여정 **NOT_RUN** · 쓰기형 `db-allowlist.integration.test.ts` **NOT_RUN** |
+| 콘텐츠 · 교육 | 편집 목표는 목표 표기이며 진단된 적합이 아니다 | 권리 확인된 실제 작품 0 → 콘텐츠 적합 **NOT_RUN** · `PILOT_NOT_RUN` · 학습 효과 근거 없음 |
+
+S5 는 **코드 · DDL 완료와 격리 UX 수용**까지다. 실제 작품 발행 뒤 인증 학습자의 live 전체 여정 · 콘텐츠 적합 · 파일럿 전에는 S5 전체 완료 · 학습 효과를 주장하지 않는다.
 
 ### 작성자 구현 현황 (T-0176, 2026-10-25, 커밋 전 작업 트리 · base `f81a5c1a4`)
 
@@ -339,15 +351,15 @@ LCP Story S4 를 진행한다. docs/LCP_STORY.md, docs/lcp-story/IMPLEMENTATION.
 - 이 dev 실행은 **커밋 전 작업 트리**다. 커밋된 HEAD 에서의 정식 하네스 빌드 · 전체 실행 · 독립 수용은 아직 없다 — 그 전에는 「최종 브라우저 통과」로 쓰지 않는다.
 - 코디네이터 보고(이 문서 작성자가 실행하지 않음): W1 · W2 단위 시험 · web `tsc` · 범위 vitest 592/592. `lib/framework/learner-routes` 의 `/csat/listening` 실패는 깨끗한 `f81a5c1a4` 에서도 나는 **기존 실패**이며 이 작업에서 고치지 않았다.
 
-### S5 여섯 영역 판정 (실제 코드 + 실제 하네스 증거 기준)
+### S5 여섯 영역 판정 (2026-10-25 적용 뒤 · 실제 코드 + 브라우저/DB 증거 기준)
 
 | 영역 | 구현됨(S5) | 현재 작업 중 | 후속 계획 | 미설계 |
 |---|---|---|---|---|
 | Discover | 작품별 묶음 · HOOK · 편집 목표(진단 아님) · 실제 수 · 빈/실패 구분 · 익명 메타 + 로그인 복귀 | — | 추천 · 다양성(S6) | — |
-| Start | 입구(HOOK · 편집 목표 · 원천 줄) → 명시적 시작 = 위치 기록 | 공유 DB 의 읽기 문맥 RPC(SQL r3 승인 · 적용) | — | — |
+| Start | 입구(HOOK · 편집 목표 · 원천 줄) → 명시적 시작 = 위치 기록 · 읽기 문맥 RPC 공유 DB 적용(2026-10-25) | 실제 작품 발행 뒤 인증 live 여정 확인 | — | — |
 | Read | 단위 본문(텍스트 노드) · 원문 대응(요청 시 · 저장 인용) · 단어 뜻(요청 시 · 기존 `WordLookupPopover` 읽기 전용) · 키보드 | — | Deep/Bridge 의미 탐구(S6) | — |
 | Continue | 판본별 위치 ≠ 완료 · 이어 읽기 · 전 단위 표시 뒤 완료 · 「다음 이야기 고르기」 · 판본 전환 승계 없음 | — | — | — |
-| Quality | 인증 표시 문 · `viewer_changed` · 서버 거부 정리 · 닫힌 계측 · PC 1440/1280 넘침 없음 · 실제 글꼴 | committed-HEAD 정식 실행 · 독립 수용 | live 쿠키/RLS/HTTP E2E · DB 허용 목록 시험 | — |
+| Quality | 인증 표시 문 · `viewer_changed` · 서버 거부 정리 · 닫힌 계측 · PC 1440/1280 · 커밋 HEAD 정식 실행 · 독립 수용 · DB 권한/노출 확인 | 실제 작품의 인증 live 여정 확인 | 콘텐츠 권리 · 언어 적합성 검토 · 쓰기형 DB 허용 목록 시험은 승인된 범위에서 | — |
 | Integration | 사전 단어 뜻(기존 팝오버 · 읽기 전용) | — | TTS 얇은 어댑터 · 낱말 출처 결속 · 인쇄(아래) | Story 를 위한 VCB · FAST 학습지 콘텐츠 계약 |
 
 **후속(S5 확장이 아니다)**: `workspace/tts-controller.ts` 는 이미 `SentenceItem[]{paragraphId,sentenceIdx,text}` 를 받으므로 Story 의 보이는 본문 큐 어댑터에 새 엔진이 필요 없다(단위 · 인증이 바뀌면 멈춰야 하고 완료 근거가 되지 않는다) ·
@@ -355,10 +367,10 @@ LCP Story S4 를 진행한다. docs/LCP_STORY.md, docs/lcp-story/IMPLEMENTATION.
 WLP 는 실제 본문 구간을 뽑을 수 있으나 `slice===surface` 를 검증해야 한다 · `PrintSheet` 는 검증된 낱말/뜻 행을 받으므로 나중에 재사용할 수 있다 ·
 VCB 컴포저(도서 · 챕터 · 텍스트 · 아티클 범위)와 FAST 학습지(검증된 CSAT 원천 패킷 필요)에는 Story 콘텐츠 계약이 없다 — **미설계**.
 
-**판정 분리**: 기술 완성 = 코드 · 작성자 단위/하네스 working-tree 실행(SQL r3 미적용 · committed-HEAD 정식 실행 전 · `VERIFIED` 아님) ·
-UX 완성 = 하네스가 실제로 그린 화면까지(실제 앱 서버 · live 쿠키 화면은 미확인) · 콘텐츠 적합 = 권리 확인된 실제 작품 발행 0 → **`NOT_RUN`** ·
+**판정 분리(2026-10-25 적용 뒤 갱신)**: 기술 완성 = 코드 `9b39634c5` 독립 수용 + SQL r3 공유 dev DB 적용(전후 지문 · 익명 PostgREST 노출/거부 확인) — 인증 live 여정 전 ·
+UX 완성 = 격리 하네스가 실제로 그린 1440/1280 화면 수용까지(실제 로컬 main의 비로그인 · 빈 상태도 확인 · 인증된 본문/진도 화면은 미확인) · 콘텐츠 적합 = 권리 확인된 실제 작품 발행 0 → **`NOT_RUN`** ·
 교육 효과 = 실제 학습자 없음 → **`NOT_RUN`**(`PILOT_NOT_RUN` — 흥미 · 이해 · 성장 효과를 주장하지 않고 합성 학습자로 대신하지 않는다).
-SQL r3 의 PG17 38/38(작성자 · 루트 격리 실행, 코디네이터 보고)은 격리 DB 증거일 뿐 공유 live DB 증거가 아니다.
+SQL r3 의 PG17 38/38(작성자 · 루트 격리)은 격리 DB 증거이고, 공유 DB 증거는 위 「승인 · 적용 뒤 현재 상태」의 전후 검사 · 익명 HTTP 뿐이다.
 
 ```text
 [S5 시작 지시]

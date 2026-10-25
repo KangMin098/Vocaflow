@@ -107,7 +107,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `/library/books` | `(main)/library/books/page.tsx` | 도서 그리드 (BooksExplorer) |
 | `/library/books/[bookId]` | `(main)/library/books/[bookId]/page.tsx` | 도서 상세 |
 | `/library/stories` | `(main)/library/stories/page.tsx` | **Stories(LCP Story 서가 · S5)** — 작품별 HOOK · 판본(편집 목표) · 로그인하면 내 진도. 공개 · 본문 없음. 원본 Books 표 · `texts` 를 쓰지 않는다([LCP_STORY §12](./LCP_STORY.md)) |
-| `/library/stories/[releaseKey]` | `(main)/library/stories/[releaseKey]/page.tsx` + `../actions.ts` | 판본 하나. `?unit=` 없음 = 입구, `?unit=N`(0부터) = 단위 본문(로그인 필요 — `/library` 는 공개 접두사라 loader 가 직접 판정). 렌더는 기록 0 · 위치/완료는 명시적 서버 액션. 읽기 문맥 RPC(S5 SQL r3) 미적용 환경은 「준비 중」 |
+| `/library/stories/[releaseKey]` | `(main)/library/stories/[releaseKey]/page.tsx` + `../actions.ts` | 판본 하나. `?unit=` 없음 = 입구, `?unit=N`(0부터) = 단위 본문(로그인 필요 — `/library` 는 공개 접두사라 loader 가 직접 판정). 렌더는 기록 0 · 위치/완료는 명시적 서버 액션(저장 전 본인 · 읽기 문맥 확인). 읽기 문맥 RPC `story_reader_context`(S5 SQL r3)는 2026-10-25 공유 dev DB 적용 · authenticated 만 — 그 RPC 가 없는 환경은 「준비 중」 |
 | `/comics` | `(main)/comics/page.tsx` + `layout.tsx` | **만화 — 레일 밖**(상단 Read 패널의 하단 링크 줄 · 열 밖 · 번호 밖). redirect → `/comics/adapted`. layout 에 ComicsTabs(Book Comics·Vintage Comics) |
 | `/comics/adapted` | `(main)/comics/adapted/page.tsx` | **Book Comics(책 만화 · CCP)** — 라이브러리 도서를 만화로. 발행 카탈로그 + 이어서 보기 (ComicsBrowser) |
 | `/comics/adapted/[bookId]` | `(main)/comics/adapted/[bookId]/page.tsx` | 만화 상세 — 미등록·비로그인 프리뷰 3컷 + 포맷 선택(ComicFormatChoice) |
