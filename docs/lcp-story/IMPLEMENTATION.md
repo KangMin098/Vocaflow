@@ -28,7 +28,7 @@
 | S2 | 로컬 export/validate/plan + 합성 fixture | `VERIFIED` | 위와 같음. 실제 파일 기반 제작 흐름 확인 |
 | S3 | live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 | `VERIFIED` | T-0169 작성자 검증: SELECT 감사 · 미적용 SQL(표 12 · RPC 16) · 러너 시험 · 격리 PGlite/PostgreSQL 17 하네스 통과 · 독립 검토 지적 반영. T-0169 Codex 별도 수용 완료(검증 커밋 `6dfa0c0c6`). 승인 뒤 공유 DB는 MCP 원장 `20261025094450`로 적용 완료(승인 SHA 일치 · 사후 15/15 · 원본 지문 10/10 불변). 러너 TLS preflight는 미실행 |
 | S4 | 승인된 DB 적용 + 관리자 후보/제작/검수/발행 + 도움말 | `VERIFIED` | T-0174 Codex 별도 수용 완료(`fcf57c225e2a`) · 로컬 main 통합 `02411a5f7`. 같은 커밋 단위 235 · 격리 브라우저 7 통과(skip 0), 타입/lint 통과. 실제 두 번째 스태프 · 공유 DB 발행 · live 쿠키/RPC E2E 는 미실행 |
-| S5 | 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 | `PENDING` | S4 · 새 이벤트 허용 목록 SQL 승인 |
+| S5 | 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 | `IMPLEMENTED`(코드 · 작성자 working-tree 실행) · `DB_APPROVAL_REQUIRED` | T-0176. 읽기 문맥 RPC · 이벤트 허용 목록 SQL r3(SHA `a57ef729…161ab`) 미승인 · 미적용 — 공유 DB 에서 독서 화면은 「준비 중」이다. committed-HEAD 정식 브라우저 실행 · 독립 수용 · live E2E 전이라 `VERIFIED` 아님 |
 | S6 | 선택적 Deep/Bridge · 실제 표현 어휘 연결 · 추천 다양성 | `PENDING` | S5 |
 | S7 | 권리 확인된 서로 다른 장르 3편 제작 · 파일럿 | `PILOT_NOT_RUN` | 기본 독서 경로는 S4·S5 후 검증. 심화 활동 회차는 S6 후 · 실제 참가자 |
 | S8 | 관찰된 근거에 맞춘 운영 자동화 · 품질/활용/비용 계측 | `PENDING` | S7 관찰 기록 |
@@ -287,7 +287,7 @@ LCP Story S4 를 진행한다. docs/LCP_STORY.md, docs/lcp-story/IMPLEMENTATION.
 통과 · skip 수를 그대로 보고한다. 승인 범위 밖 SQL 이 필요하면 그 지점에서 새 SQL 을 보이고 승인을 요청한다.
 ```
 
-## S5 — 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 · `PENDING`
+## S5 — 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 · `IMPLEMENTED`(작성자) · `DB_APPROVAL_REQUIRED`
 
 - **목적**: 학습자가 이야기로 고르고(HOOK 포함) 판본별로 읽고 이어 읽으며, 원하면 원문 대응을 연다.
 - **선행**: S4. 새 이벤트의 DB 허용 목록 SQL 승인(정본 §17).
@@ -311,6 +311,54 @@ LCP Story S4 를 진행한다. docs/LCP_STORY.md, docs/lcp-story/IMPLEMENTATION.
 - **복구**: 라우트 비노출(게이트) · 코드 되돌리기. 이벤트 허용 목록은 그대로 둔다.
 - **완료 증거**: 테스트 결과 · 화면 확인 · 해당하는 독립 검토 계약이 있으면 그 판정.
 - **다음**: S6. 기본 독서 경로의 S7 파일럿은 병행할 수 있으며, 선택적 심화 기능 완료를 기다리지 않는다.
+
+### 작성자 구현 현황 (T-0176, 2026-10-25, 커밋 전 작업 트리 · base `f81a5c1a4`)
+
+| 범위 | 파일 | 상태 |
+|---|---|---|
+| 서버 판정 · 저장 | `apps/web/src/lib/library/story/{learner,learner-types}.ts` · `app/(main)/library/stories/actions.ts` | 구현. 렌더(GET)는 기록 0. 저장 전 공통 문 = 쿠키 세션 학습자 판정 → `expectedViewerId` 와 다르면 `viewer_changed`(RPC 0) → `story_reader_context` 확인 → 그다음에만 `story_record_position` · `story_complete_unit` |
+| 화면 | `app/(main)/library/stories/{page,[releaseKey]/page}.tsx` · `components/library/story/**` · `lib/library/tabs.ts`(Stories 면) | 구현. 개인 내용(본문 · 앵커 · 진도 · 이력)은 브라우저 신원이 서버 viewerId 와 같다고 **긍정 확인된 뒤에만** 그린다(표시 · 요청 발송 보호 — 이미 받은 SSR/RSC 응답 바이트를 회수하지는 않는다) |
+| 이벤트 | `lib/analytics/events.ts` `story_catalog_viewed` · `story_reader_action` | 코드만. DB 허용 목록은 SQL r3 §C 미적용 — `db-allowlist.integration.test.ts` **NOT_RUN** |
+| DB | AI-Control `runtime/lcp-story-20261025/s5-proposal-forward.sql` r3 · SHA-256 `a57ef729cedddc9f6271370fa5f93595a1dca6e273230b741bdfffc535f161ab` | **미승인 · 미적용**(코디네이터 보고: 루트 PG17 격리 38/38). 적용 전 공유 DB 의 독서 화면 = `reader_not_ready`(꾸민 목차 · 앵커 없음) |
+| 격리 브라우저 하네스 | `apps/web/scripts/build-lcp-story-reader-harness.mts` · `tests/e2e-isolated/lcp-story-reader.isolated.spec.ts` · `tests/fixtures/lcp-story/reader-baseline-books.ts` · `scripts/lcp/story/s5-reader-{fixtures,harness-eval}.ts` | 구현 · 작성자 working-tree dev 실행(아래) |
+
+하네스: 실제 클라이언트 컴포넌트 + 실제 앱 CSS(tines 스킨) + `app/layout.tsx` 의 실제 @fontsource 파일(서빙 · 로드 단언 + CDP 실제 렌더 글꼴). 서버 판정 · 액션은 tsx 자식 프로세스가 **실제 `learner.ts`** 를 S3 학습자 RPC 와 미적용 `story_reader_context` 를 흉내 낸 메모리 가짜 DB(합성 gull-rock)로 돌린다.
+대역: next/navigation(History API · 소프트 이동은 loader 재실행) · next/link · `@/lib/supabase/client`(인증 이벤트 · 지연 기준선 · 합성 사전 `lookup_word_meaning`) · 계측(전송 없음). 알려진 요청 밖은 전부 abort(Pretendard CDN 은 「알려진 외부」로 기록 — 한글 산세리프는 시스템 대체).
+표현하지 않는 것: middleware · RSC 실행(페이지 마크업은 옮겨 적음) · 실제 쿠키 인증 · PostgREST/RLS · 실제 Server Action HTTP · DB 허용 목록. 컴포넌트 수준 증거이며 live E2E 가 아니다.
+
+### 작성자 실행 기록 — working-tree dev run (T-0176 W3, 2026-10-25 · HEAD `f81a5c1a4` + 미커밋 변경)
+
+- 기준선(Stories 면 추가 전, `--baseline` = HEAD 내용으로 구움): `playwright … lcp-story-reader.isolated.spec.ts` 기준선 2 통과 — 캡처 `work/lcp-story-s5/shots/baseline-library-{books,rail}-{1440,1280}.png`(sha256 은 `work/lcp-story-s5/baseline-ready.txt`).
+- 마지막 전체 dev 실행: `LCP_STORY_READER_SHOTS=../../work/lcp-story-s5/shots-dev pnpm.cmd exec playwright test -c playwright.isolated.config.ts tests/e2e-isolated/lcp-story-reader.isolated.spec.ts --reporter=list`(apps/web) → **34 passed · 0 failed · 0 skipped (3.9m)**, 로그 `work/lcp-story-s5/scratch/dev-run3.log`.
+  그 뒤 전체 여정 시험에 「다른 작품 고르기」를 더해 그 시험만 두 폭에서 다시 돌렸다 → **2 passed · 0 failed · 0 skipped**, 로그 `work/lcp-story-s5/scratch/dev-run4-flow.log`.
+  1440 · 1280 각 16: 익명 서가 · 빈 서가 · 조회 실패 · 전체 여정(발견 → 시작 → 읽기 → 떠났다 이어 읽기 → 마지막만 표시는 미완 → 전 단위 표시 → 각색 완독 → 다음 이야기 고르기 → 다른 작품 입구는 자기 메타 · 빈 진도 · 앞 작품 완료 유지) · 에피소드 · 판본 전환 · 저장 실패/응답 유실/연타 · 원문 대응(저장 URL 그대로 링크 · javascript:/data: 비링크) · 철회/권리 보류/서가 누락 · 읽은 뒤 서버 거부 정리 · 읽기 문맥 RPC 없음(쓰기 RPC 0) · 정지 계정 · 지연 기준선(확인 중 개인 DOM 0 · 액션 0) · 인증 경계(`viewer_changed` 쓰기 전 거부) · 단어 뜻 · 키보드 · Books 탭 비교.
+  모든 실행: 예상 밖 외부 요청 0 · 하네스가 모르는 요청 0 · pageerror 0 · 계측은 두 이름 · 닫힌 속성만(id · URL · 본문 · 고른 낱말 없음).
+- 코디네이터 동결 직전 실행(같은 작업 트리 · 하네스 다시 구움): 하네스 캡처로 본 두 결함을 고친 뒤 — 독서 화면 자기 건너뛰기 링크가 셸의 「본문으로 건너뛰기」와
+  이름이 같았던 것(→ 「이야기 본문으로 건너뛰기」, 키보드 시험이 두 링크를 따로 단언) · 서가 작품 머리(제목 · HOOK)가 맨 앞 Story Edition 이 아니라
+  Easy Reader 에서 오던 것 — 같은 명령 전체 → **34 passed · 0 failed · 0 skipped (4.3m)**, 로그 `work/lcp-story-s5/scratch/dev-run8-full.log`.
+- 이 dev 실행은 **커밋 전 작업 트리**다. 커밋된 HEAD 에서의 정식 하네스 빌드 · 전체 실행 · 독립 수용은 아직 없다 — 그 전에는 「최종 브라우저 통과」로 쓰지 않는다.
+- 코디네이터 보고(이 문서 작성자가 실행하지 않음): W1 · W2 단위 시험 · web `tsc` · 범위 vitest 592/592. `lib/framework/learner-routes` 의 `/csat/listening` 실패는 깨끗한 `f81a5c1a4` 에서도 나는 **기존 실패**이며 이 작업에서 고치지 않았다.
+
+### S5 여섯 영역 판정 (실제 코드 + 실제 하네스 증거 기준)
+
+| 영역 | 구현됨(S5) | 현재 작업 중 | 후속 계획 | 미설계 |
+|---|---|---|---|---|
+| Discover | 작품별 묶음 · HOOK · 편집 목표(진단 아님) · 실제 수 · 빈/실패 구분 · 익명 메타 + 로그인 복귀 | — | 추천 · 다양성(S6) | — |
+| Start | 입구(HOOK · 편집 목표 · 원천 줄) → 명시적 시작 = 위치 기록 | 공유 DB 의 읽기 문맥 RPC(SQL r3 승인 · 적용) | — | — |
+| Read | 단위 본문(텍스트 노드) · 원문 대응(요청 시 · 저장 인용) · 단어 뜻(요청 시 · 기존 `WordLookupPopover` 읽기 전용) · 키보드 | — | Deep/Bridge 의미 탐구(S6) | — |
+| Continue | 판본별 위치 ≠ 완료 · 이어 읽기 · 전 단위 표시 뒤 완료 · 「다음 이야기 고르기」 · 판본 전환 승계 없음 | — | — | — |
+| Quality | 인증 표시 문 · `viewer_changed` · 서버 거부 정리 · 닫힌 계측 · PC 1440/1280 넘침 없음 · 실제 글꼴 | committed-HEAD 정식 실행 · 독립 수용 | live 쿠키/RLS/HTTP E2E · DB 허용 목록 시험 | — |
+| Integration | 사전 단어 뜻(기존 팝오버 · 읽기 전용) | — | TTS 얇은 어댑터 · 낱말 출처 결속 · 인쇄(아래) | Story 를 위한 VCB · FAST 학습지 콘텐츠 계약 |
+
+**후속(S5 확장이 아니다)**: `workspace/tts-controller.ts` 는 이미 `SentenceItem[]{paragraphId,sentenceIdx,text}` 를 받으므로 Story 의 보이는 본문 큐 어댑터에 새 엔진이 필요 없다(단위 · 인증이 바뀌면 멈춰야 하고 완료 근거가 되지 않는다) ·
+원본 LibriVox 챕터 오디오 매핑은 Story 정렬이 아니다 · `adaptiveExtractWords` 는 원본 `libraryBookId`/`chapterIdx`/개인 `textId` 를 요구하고 단어장 · FSRS 를 쓰므로 Story 발행 키를 넘기지 않는다 ·
+WLP 는 실제 본문 구간을 뽑을 수 있으나 `slice===surface` 를 검증해야 한다 · `PrintSheet` 는 검증된 낱말/뜻 행을 받으므로 나중에 재사용할 수 있다 ·
+VCB 컴포저(도서 · 챕터 · 텍스트 · 아티클 범위)와 FAST 학습지(검증된 CSAT 원천 패킷 필요)에는 Story 콘텐츠 계약이 없다 — **미설계**.
+
+**판정 분리**: 기술 완성 = 코드 · 작성자 단위/하네스 working-tree 실행(SQL r3 미적용 · committed-HEAD 정식 실행 전 · `VERIFIED` 아님) ·
+UX 완성 = 하네스가 실제로 그린 화면까지(실제 앱 서버 · live 쿠키 화면은 미확인) · 콘텐츠 적합 = 권리 확인된 실제 작품 발행 0 → **`NOT_RUN`** ·
+교육 효과 = 실제 학습자 없음 → **`NOT_RUN`**(`PILOT_NOT_RUN` — 흥미 · 이해 · 성장 효과를 주장하지 않고 합성 학습자로 대신하지 않는다).
+SQL r3 의 PG17 38/38(작성자 · 루트 격리 실행, 코디네이터 보고)은 격리 DB 증거일 뿐 공유 live DB 증거가 아니다.
 
 ```text
 [S5 시작 지시]

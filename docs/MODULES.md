@@ -96,6 +96,8 @@ PC 학습자 본문 재배치(2026-10-19): `/library/books`의 검색·분류를
 학습 모듈·판정 정본·DB 스키마는 바꾸지 않는다.
 <!-- csat-sources-workspace:end -->
 
+이야기 서가 · 판본 독서(LCP Story S5, 2026-10-25 · T-0176 작성자 구현): `/library/stories` 는 작품별 HOOK · 편집 목표 · 판본을 보이고, `/library/stories/[releaseKey]` 는 입구 → 명시적 시작 → 단위 본문 → 단위마다 읽음 표시 → 이어 읽기를 판본별로 기록한다(`components/library/story/**` · `lib/library/story/learner.ts`). 원문 대응 · 단어 뜻(기존 `WordLookupPopover`)은 요청할 때만 열고 기록하지 않는다. 원본 Books · `texts` · 단어장 · FSRS 를 쓰지 않는다. 읽기 문맥 RPC SQL r3 미적용 환경에서는 「준비 중」. 정본 [LCP_STORY §12](./LCP_STORY.md).
+
 FAST 빠른 학습지(`/admin/csat/new/fast`, 2026-10-21): 원문 파생 지도 연습 DCP 팩(중심 의미 3유형) 하나를 고쳐 교사가 내려받는 **로컬 검수 초안**이다. 학습자 화면·DB 공급 판본과 별개이며 authored 세트나 DEEP 교수 순서를 바꾸지 않는다. 학생용 문제지에는 정답·해설·Gold 가 없고 교사용 해설지는 관리자 응답에서만 만든다.
 
 | # | 모듈 | 계층 | 인지 유형 | 라우트 | 구현 상태 |

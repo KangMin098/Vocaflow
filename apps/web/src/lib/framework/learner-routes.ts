@@ -348,6 +348,23 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
   },
   {
+    // LCP Story S5 — 작품 단위 이야기 서가(원본 Books 와 별개 라인 · docs/LCP_STORY.md).
+    path: '/library/stories',
+    screen: 'library-stories',
+    label: 'Stories',
+    group: 'main',
+    kind: 'screen',
+  },
+  {
+    // 발행 키는 계측에 싣지 않는다 — 동적 세그먼트는 이 닫힌 id 하나로 접힌다.
+    path: '/library/stories/[releaseKey]',
+    screen: 'library-story',
+    label: '이야기 판본 한 편',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+  },
+  {
     path: '/library/textbooks',
     screen: 'library-textbooks',
     label: 'Textbooks',

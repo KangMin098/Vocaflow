@@ -183,6 +183,10 @@ describe('허용 이벤트 목록', () => {
     'csat_factory_dcp_requested',
     // 2B — 한 원문 안내 연습의 자기 설명 저장(닫힌 속성: 단계 · 근거 충분/함께 검토 · 재전송)
     'csat_source_lesson_reflected',
+    // 2026-10-25 — LCP Story S5 서가 진입 수 · 독서 행동(닫힌 열거형 · 숫자 · 불리언만 · docs/LCP_STORY.md §17).
+    // DB 허용 목록은 S5 SQL 승인 · 적용 전이라 아직 없다(코드만 먼저 — 승인 대기).
+    'story_catalog_viewed',
+    'story_reader_action',
     'screen_viewed',
     // 2026-09-12 — 구성요소 영상 2종(`packages/video-factory`). **만든 수가 아니라 본 수**를
     // 센다: 141개를 찍어 낼 수 있어도 본 사람이 0 이면 공급만 늘린 것이다(§D).

@@ -76,7 +76,7 @@ revision · 대응 도서 · 권리 기록이면 다름) · 기준 · 목표 · 
 복구 SQL · 승인형 러너(`scripts/db/lcp-story-s3/`) · 격리 PGlite/PostgreSQL 17 검증. 사용자 승인 뒤 MCP 원장 `20261025094450`로 적용했고, 저장 SQL SHA가 승인본과 일치하며 사후 검사 15개·원본 5표의 행/정의 지문 10개를 통과했다.
 S4(T-0174, 작성자 구현 · 독립 수용 전): 관리자 이야기 라인 `/admin/curation?line=story`(화면 `app/admin/curation/StoryCurationClient.tsx` · 서버 액션 `story-actions.ts` ·
 서버 로직 `lib/library/story/{admin,witness}.ts` · 패키지 exports `@vocaflow/library-pipeline/story`). 검증 증인은 활성 스태프(admin · curator)가 그 버튼을 눌렀을 때만, 쿠키 세션의 스태프 확인을 통과한 뒤 서버가 service_role 로 실행한다(목록 · 번들 · 화면 진입은 읽기만).
-실제 발행에는 제출 계정과 다른 두 번째 인증 스태프가 필요하며, 이 작업에서 실제 발행 · 계정 추가는 하지 않았다. 학습자 화면(S5)은 없다. 화면 · 경계는 [ADMIN_CONSOLE §/admin/curation](./ADMIN_CONSOLE.md) · [LCP_STORY §18](./LCP_STORY.md).
+실제 발행에는 제출 계정과 다른 두 번째 인증 스태프가 필요하며, 이 작업에서 실제 발행 · 계정 추가는 하지 않았다. 학습자 화면(S5, T-0176 작성자 구현)은 `/library/stories` 이며, 읽기 문맥 RPC SQL r3 이 승인 · 적용되기 전에는 공유 DB 에서 독서 화면이 「준비 중」이다([LCP_STORY §12](./LCP_STORY.md)). 화면 · 경계는 [ADMIN_CONSOLE §/admin/curation](./ADMIN_CONSOLE.md) · [LCP_STORY §18](./LCP_STORY.md).
 원본 `auto_curate_book` · force-publish · `content_chunks` · `get_chapter_content` 경로는 `story` 를 읽지도 쓰지도 않으므로 Story 판본이 그 길로 새지 않는다.
 원본 쪽의 기존 노출(로그인 사용자의 `content_chunks` 전체 조회 등)은 원본 LCP 결함으로 남아 있다([S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md) D5).
 정본 [LCP_STORY](./LCP_STORY.md) · 단계 지시 [lcp-story/IMPLEMENTATION](./lcp-story/IMPLEMENTATION.md).
