@@ -22,21 +22,30 @@ export const RELEASE_KEY_RE = /^lsr_[0-9a-f]{32}$/
 /** 채우지 않은 값으로 보이는 문자열 — 빈 결과를 성공으로 들이지 않는다. */
 export const PLACEHOLDER_RE = /\b(TODO|TBD|FIXME|XXX)\b|lorem ipsum|\{\{|<fill|__FILL__/i
 
-const LIBRARY_SOURCES = [
+/**
+ * library_book 원천이 가리킬 수 있는 `library_books.source` 값. 실 DB 의 `library_books_source_check` 허용 목록과 같다
+ * (S3 DB 감사 2026-10-25 — `docs/lcp-story/S3_DB_AUDIT.md`). types.ts 의 LibrarySource 보다 넓다(open_library · hathitrust ·
+ * voa_learning 이 DB 에 있다). 좁게 두면 그 도서에 대응하는 원천을 등록할 수 없다.
+ */
+export const LIBRARY_BOOK_SOURCES = [
   'gutenberg',
   'standard_ebooks',
   'wikisource',
   'wikibooks',
-  'librivox',
-  'openstax',
   'simple_wikipedia',
+  'openstax',
+  'open_library',
+  'hathitrust',
+  'voa_learning',
+  'librivox',
   'lit2go',
   'storyweaver',
   'pressbooks',
   'manual',
-] as const satisfies readonly LibrarySource[]
+] as const satisfies readonly string[]
+const LIBRARY_SOURCES = LIBRARY_BOOK_SOURCES
 
-// types.ts 의 LibrarySource 에 값이 늘면 여기서 컴파일 오류가 난다.
+// types.ts 의 LibrarySource 에 값이 늘면 여기서 컴파일 오류가 난다(DB 허용 목록에도 함께 더해야 한다).
 type MissingSource = Exclude<LibrarySource, (typeof LIBRARY_SOURCES)[number]>
 const LIBRARY_SOURCES_EXHAUSTIVE: MissingSource extends never ? true : MissingSource = true
 void LIBRARY_SOURCES_EXHAUSTIVE

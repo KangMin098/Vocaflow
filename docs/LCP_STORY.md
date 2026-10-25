@@ -14,7 +14,8 @@
 | 로컬 제작 CLI | `scripts/lcp/story/story.ts` → `src/story/{workdir,cli}.ts` (`export` · `validate` · `plan`) | 구현 · 위와 같음 |
 | 독립 수용 | T-0165 두 owner 수용 계약(작성 `lcp-story-claude` · 검증 `lcp-story-codex`) | 현재 판정은 AI-Control 의 T-0165 수용 기록(`verification/reviews/T-0165-*`)이 정본 — 이 문서가 미리 적지 않는다 |
 | 합성 fixture | `packages/library-pipeline/src/story/fixtures/gull-rock.*.json` — 직접 쓴 짧은 완결 이야기 | 합성 · 실제 도서 아님 |
-| DB 테이블 · RPC · RLS · 발행 게이트 | 없음 | 제안(S3 감사 → SQL 승인 → S4) |
+| live DB 읽기 감사 · 코드 경로 감사 | `docs/lcp-story/S3_DB_AUDIT.md`(SELECT 전용 실측 · 결정) · `docs/lcp-story/S3_CODE_PATHS.md` | 작성됨(T-0169) |
+| DB 테이블 · RPC · RLS · 발행 게이트 | `supabase/migrations/_pending_lcp_story_s3_schema.sql` · 복구 `_pending_lcp_story_s3_quarantine.sql` · 러너 `scripts/db/lcp-story-s3/deploy.mjs` · 격리 시험 `verify-isolated.ts` | **미적용** — 격리 PGlite · PostgreSQL 17 에서만 실행. 공유 DB 적용은 사용자 대화 승인 뒤 러너로(S4) |
 | 관리자 화면 · 학습자 화면 · 이벤트 · 추천 | 없음 | 제안(S4~S6) |
 | 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 | 없음 | 미실행(S7) |
 
@@ -238,19 +239,25 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
 - 사이트 단위 PD 표지(`claimed_by_source`)로 판본 · 번역 · 삽화 · 오디오 권리를 확정하지 않는다. 근거가 없으면 보류다.
 - 이 알고리즘은 법적 적법성을 판정하지 않는다. 권리 확인은 사람이 근거와 함께 기록한다. 로컬 파일의 권리 기록은 주장일 뿐이다(§0).
 
-## 15. 노출 게이트 (S3/S4 제안)
+## 15. 노출 게이트 (S3 결정 · 미적용 SQL 준비됨)
 
-저장소 마이그레이션 · 코드 기준으로 확인할 경로(실 DB 상태는 S3 가 `to_regclass` · `pg_policies` · 함수 정의로 다시 확인한다):
+live DB 실측(2026-10-25, [S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md))과 코드 경로 감사([S3_CODE_PATHS](./lcp-story/S3_CODE_PATHS.md))로 원본 경로의 실제 동작을 확인했다:
 
-| 경로 | 저장소 기준 현재 동작 | 파생 판본에 필요한 것 |
+| 원본 경로(live) | 실제 동작 | Story 를 `library_books` 행으로 두면 |
 |---|---|---|
-| `auto_curate_book` | 조건을 채우면 `published` 로 자동 전이 → 단어장 발행 트리거 | 파생 판본은 이 경로로 발행되지 않음 |
-| 관리자 `force-publish-book` API | `copyright_safe_in_kr` 확인 후 `status='published'` | 파생 판본 검수 결속 없이는 거부 |
-| `enroll_library_book` | `status='published' AND copyright_safe_in_kr` 이면 등록 | 발행본 · 철회 상태 확인 |
-| RLS `anyone_read_published_safe` (library_books) | 같은 조건으로 SELECT | 목록뿐 아니라 직접 링크 · RPC · 리더까지 같은 게이트 |
-| `content_chunks` RLS `authenticated_read_chunks` | 로그인 사용자 SELECT(2026-05-08 마이그레이션 기준) | 미발행 · 철회 판본 본문의 해시 직접 조회 차단 여부 확인 |
-| `applyBookReadGate` (웹) | `status='published'` 만 거는 조회 편의 함수 | **보안 보장으로 재사용하지 않는다** — 보안은 RLS · RPC 가 정한다 |
+| `auto_curate_book` · `admin_force_publish_book` · 정책 `admin_curator_all_books` 직접 UPDATE · `scripts/lcp/publish-ready-books.mjs` | 검수 · 권리 근거 없이 `status='published'`(권리는 license 문자열 트리거 `copyright_safe_in_kr`) | 검수 없이 발행된다 |
+| `trg_lb_enqueue` · 단어장 발행 트리거 · `failed` 30일 보관 cron | 새 행 · 상태 전이에 자동으로 붙는다 | 파이프라인 · 단어장이 붙는다 |
+| `content_chunks` 정책 `authenticated_read_chunks` | 로그인 사용자 누구나 전체 본문 SELECT(도서 · 상태 열 없음) | 미발행 · 보류 · 철회 본문이 읽힌다 |
+| `get_chapter_content`(DEFINER) · `texts` 직접 INSERT | 소유만 확인, 도서 상태 무관 — 미발행 도서를 가리키는 `texts` 를 만들면 본문이 나온다(정의상) | 철회 뒤에도 읽힌다 |
+| `applyBookReadGate`(웹) | `status='published'` 조회 편의 함수 | **보안 보장이 아니다** |
 
+**결정: Story 는 원본 표 · 함수 · 정책을 하나도 쓰지 않는 격리 스키마 `story` 에 둔다**(PostgREST 비노출 · `supabase/config.toml` 은 `public` · `graphql_public` 만 노출).
+- `story.*` 표 10개: RLS 켜짐 · 정책 없음 · anon/authenticated/service_role 에 스키마 USAGE · 표 권한 없음. 원본 표에 FK 를 걸지 않는다(원본 도서 삭제 · 재처리를 막지 않는다).
+- 문은 `public.story_*` RPC 13개뿐(SECURITY DEFINER · `search_path = pg_catalog, pg_temp` · 표는 모두 스키마를 붙여 부름):
+  관리 9개(authenticated 실행 · 내부에서 `auth.uid()` 의 `user_profiles` 역할 + `status='active'` 확인 · service_role 은 실행 권한 없음) ·
+  서가 `story_catalog`(anon + authenticated · 메타 · 진입 장면만) · 본문 `story_read_unit` · 진도 `story_record_progress` · `story_my_progress`(authenticated).
+- 원본 경로는 `story` 를 읽지도 쓰지도 않는다 — 저장소 코드 · 마이그레이션의 `story.` · `story_` 참조 0(코드 경로 감사 기준선). 그래서 원본 쪽 수정 없이 우회가 닫힌다.
+- 위 표의 원본 노출(`content_chunks` · `get_chapter_content`)은 **원본 LCP 자체의 기존 결함**이다. Story 와 무관하게 남아 있으며, 고치려면 원본 객체 변경이 필요해 이 작업 범위 밖이다(별도 작업 · 승인 필요).
 - 철회는 노출 · 열람을 막되 학습 이력을 지우지 않는다.
 - 학습자 노출 게이트와 별개로, 관리자 전용 초안 · 검수 저장(보류 판본 포함)은 학습자 경로에서 읽히지 않는 자체 RLS 로 둔다(§10).
 - 로컬 드레인의 권리 · 대응 도서 · 생산자 · 검수자 기록은 입력이 주장하는 값이다(§0). DB 로 옮길 때 인증된 관리자 신원 · 권한으로 다시 기록하고,

@@ -1,5 +1,15 @@
 # DB Schema
 
+> **LCP Story S3 검토 상태**: 아래 미적용 SQL은 초기 초안이다. 직접 RPC 검증·완독 범위·권리 보류 후 접근의 독립 재현 결함이 남아 있어
+> 적용 승인 요청 전 수정·재검증이 필요하다(2026-10-25 · T-0169). 공유 DB 미적용.
+
+> **미적용 승인안 LCP Story S3**(2026-10-25 · T-0169): `supabase/migrations/_pending_lcp_story_s3_schema.sql` — 새 스키마 `story`(PostgREST 비노출)에
+> 원천 스냅숏 · 편집 기준 · 판본 자리 · 판본 판 · 검수 · 권리 결정 · 발행본 · 발행 단위 본문 · 발행본별 진도 · 작업 기록 표 10개(전부 RLS · 정책 없음 · 클라이언트 역할 권한 0 ·
+> 불변/철회/진도 가드 트리거)와 `public.story_*` SECURITY DEFINER RPC 13개(관리 9 = authenticated + `user_profiles` 역할 · active 확인 · 서가 `story_catalog` = anon + authenticated ·
+> 학습 3 = authenticated · service_role 실행 없음). 해시 · 원천 판본 정체 · release_key 를 S2 와 같은 정본 직렬화로 DB 가 다시 계산한다. 원본 도서 객체 · 행 변경 0, 원본 표 FK 없음.
+> 복구 `_pending_lcp_story_s3_quarantine.sql`(RPC 실행 회수 · 이력 보존). 적용은 사용자 대화 승인 뒤 `scripts/db/lcp-story-s3/deploy.mjs` 로만.
+> **공유 DB 미적용** — 격리 PGlite · PostgreSQL 17 에서만 실행. 결정 · 실측: [S3_DB_AUDIT](lcp-story/S3_DB_AUDIT.md) · 계약: [LCP_STORY §15](LCP_STORY.md).
+
 > **2026-10-23 목표 예산 rev2·보정 승인 적용 완료:** 실제 DB 이력 **`20261023043453`**은 승인 원본 `20261023043453_csat_goal_budget.sql` SHA `fbd370ac…181ae`와 일치한다. 이후 별도 승인한 `20261023061401_csat_goal_budget_conflict.sql`은 **`20261023061401`**로 적용됐으며 SHA `29fe9154…77b4c`가 정확히 같다. 설치 정의 MD5를 검사하고 목표 충돌 SQLSTATE만40001→PT409로 바꿨다. 함수의 나머지 정의·ACL·RLS와 적용 전후 목표12행/PLAN4행 전체 해시가 동일하다. 실제 인증 HTTP/RPC 동시성·0분/NULL·본인 읽기·직접 실행 거절·이력 보존도 통과했다. **두 SQL을 재적용하지 않는다.** 아래 미적용/차단 표기는 당시 이력이다. [전체 원문·SHA·checkpoint·검증 경계](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
 
 > **2026-10-23 목표 예산 rev2 사용자 승인 완료·적용 차단:** 사용자 “승인” 후 SHA `fbd370ac…181ae` 원문으로 적용을 요청했지만 PreToolUse가 동일 SQL의 두 워크트리 중 승인 루트를 고르지 못해 실행을 거절했다. 04:25 UTC 재조회에서 새 열/함수는 없고 기존 목표2행·PLAN2행·정책/트리거/옛 writer 해시는 변하지 않았다. **설치 완료가 아니다.** [승인 이후 상태·차단 사유](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).

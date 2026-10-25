@@ -181,6 +181,27 @@ describe('원천 판본 정체 해시 — 본문 해시와 따로 결속한다(F
     expect(other.identity_sha256).not.toBe(base.identity_sha256)
   })
 
+  it.each(['open_library', 'hathitrust', 'voa_learning'])(
+    '실 DB library_books.source 허용 값 %s 의 도서에도 대응 원천을 등록할 수 있다(S3 감사)',
+    (src) => {
+      const s = realLikeSnapshot()
+      s.edition.source_kind = 'library_book'
+      s.edition.library_book_id = '33333333-3333-4333-8333-333333333333'
+      s.edition.source = src
+      s.edition.source_id = 'test-only-id'
+      expect(validateSnapshot(s, NOW).errors).toEqual([])
+    },
+  )
+
+  it('DB 허용 목록 밖의 원천 이름은 거부한다', () => {
+    const s = realLikeSnapshot()
+    s.edition.source_kind = 'library_book'
+    s.edition.library_book_id = '33333333-3333-4333-8333-333333333333'
+    s.edition.source = 'arxiv'
+    s.edition.source_id = 'test-only-id'
+    expect(codes(validateSnapshot(s, NOW))).toContain('schema_invalid_enum_value')
+  })
+
   it('다른 대응 도서(library_book_id)도 다른 정체다', () => {
     const a = realLikeSnapshot()
     a.edition.source_kind = 'library_book'
