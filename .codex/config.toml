@@ -31,7 +31,7 @@ statusMessage = "파괴 명령·커밋 전 검사"
 
 [mcp_servers.supabase]
 command = "node"
-args = ["node_modules/@supabase/mcp-server-supabase/dist/transports/stdio.js", "--project-ref=jajenrevcbmrpaliomxv"]
+args = ["node_modules/@supabase/mcp-server-supabase/dist/transports/stdio.js", "--project-ref=jajenrevcbmrpaliomxv", "--read-only"]
 env_vars = ["SUPABASE_ACCESS_TOKEN"]
 
 # <<< GENERATED mcp_servers
