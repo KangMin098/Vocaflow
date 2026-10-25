@@ -120,3 +120,16 @@ describe('/api/csat/state — 같은 자리 근거 손실 방지(Codex P2)', () 
     expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(held)
   })
 })
+
+describe('/api/csat/state PUT — 기기 기록의 소유자 결속(T-0172 공용 기기)', () => {
+  it('다른 계정 소유로 표시된 기록은 403 으로 거절하고 아무 행도 쓰지 않는다', async () => {
+    const res = await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'someone-else', record: h.stored }) }))
+    expect(res.status).toBe(403)
+    expect(h.upserts).toEqual([])
+  })
+  it('본인 소유로 표시된 기록은 그대로 저장한다', async () => {
+    const res = await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'u1', record: h.stored }) }))
+    expect(res.status).toBe(200)
+    expect(h.upserts).toHaveLength(1)
+  })
+})
