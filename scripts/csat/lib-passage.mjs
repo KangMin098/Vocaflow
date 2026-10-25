@@ -255,6 +255,8 @@ export function passageOf(block, opts = {}) {
     // 학평 안내문은 * 뒤의 영어 운영 조건도 본문이다. 한국어 어휘 각주는 계속 제외한다.
     const noticeNote = opts.keepEnglishNotes && /^\*+\s+[A-Z]/.test(l) && !/[가-힣]/.test(l)
     if (starred && !noticeNote) continue
+    // 각주를 남기는 안내문은 각주를 가리키는 표시도 지면대로 붙인다 — PDF 추출은 `Hours  *` 처럼 떼어 놓는다(2014A#29).
+    if (opts.keepEnglishNotes) l = l.replace(/(\S)\s+(\*+)\s*$/, '$1$2')
     if (koRatio(l) >= 0.3) continue // 발문·안내·배점 표기
     // 발문 꼬리가 문장 앞에 붙어 있으면 거기까지 떼어 낸다 (`적절한 것은? [3점] As we all know,`).
     // 고유명사가 섞인 발문(`Harmony Youth Orchestra Auditions에 관한 다음 안내문의`)은
