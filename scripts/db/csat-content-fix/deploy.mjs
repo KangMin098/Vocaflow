@@ -43,6 +43,12 @@ export const STAGES = {
       where (id in ('H1803G1#29','H1803G3#29','H1806G2#28') and type_id = 'R-GRAMMAR') or (id = 'H1806G2#27' and type_id = 'R-FACT')
          or (id in ('H2503G1#40','H2603G1#40') and type_id = 'R-SUMMARY')`,
   },
+  // 위 6문항의 새 분석(독립 검수 전 in_review) — analysis-drain-import 학평 비도표 경로와 같은 칸
+  'hk-type6-analyses': {
+    sha256: 'c92fb975f77ca3cea565b12e52d10463fedcb6d26afcee9bf1881413c701b6de',
+    verify: `select count(*) = 6, string_agg(item_id, ',' order by item_id) from public.csat_item_analyses
+      where analyst_run like 'vf-20261025-analyst-type6-%' and status = 'in_review'`,
+  },
   // C 원문 정정 2건(2014B#36 · 2017#42 csat_items.passage 끝 배점·선지 표 머리 꼬리) — 본문은 research/csat-lecture-audit-c-20261024
   //   docs/csat-learner/lecture-audit-c-20261024/g/db-fix/D-two/forward.sql. 사용자 승인 2026-10-25(「2014B#36·2017#42 우선 DB 정정 승인」)
   'c-src2': {
