@@ -63,3 +63,19 @@ describe('지연된 getSession 응답은 최신 인증 이벤트를 덮지 않�
     expect(q.map((p) => p.owner)).toEqual(['user-B'])
   })
 })
+
+describe('같은 계정 재로그인 — SRS 평가가 보류 · 유실되지 않는다(T-0172 r3 확인)', () => {
+  it('A 로그아웃 → A 재로그인 뒤 평가는 owner A, 이전 A 평가와 함께 A 확인 전송에 실린다', async () => {
+    const storage = await import('../session-storage')
+    const flush = await import('../flush-session')
+    h.user = 'user-A'
+    await flush.resolveSrsQueueOwner()
+    storage.pushPendingResult({ cardId: 'c1', word: 'apple', cardUpdate: {}, rating: 3, reviewedAt: '2026-10-25T01:00:00.000Z', module: 'flashcard' })
+    h.user = null
+    for (const cb of h.listeners) cb('SIGNED_OUT', null)
+    h.user = 'user-A'
+    for (const cb of h.listeners) cb('SIGNED_IN', { user: { id: 'user-A' } })
+    storage.pushPendingResult({ cardId: 'c2', word: 'banana', cardUpdate: {}, rating: 3, reviewedAt: '2026-10-25T02:00:00.000Z', module: 'flashcard' })
+    expect(storage.getPendingResults().map((p) => [p.word, p.owner])).toEqual([['apple', 'user-A'], ['banana', 'user-A']])
+  })
+})

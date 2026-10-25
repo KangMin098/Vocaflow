@@ -82,6 +82,38 @@ describe('공용 기기 — 쥐고 있던 기록의 재결속 금지(T-0172 r2 P
   })
 })
 
+describe('같은 계정 재로그인 — 화면 기록 저장 복구(T-0172 r3 P1)', () => {
+  const signOut = () => { h.user = null; for (const cb of h.listeners) cb('SIGNED_OUT', null) }
+
+  it('A 가 다른 탭에서 로그아웃 → A 로 재로그인하면 기존 화면 기록 저장이 다시 된다', async () => {
+    h.user = 'user-A'
+    const store = await import('../store')
+    const a = await store.loadDissectionRecord()
+    signOut()
+    switchTo('user-A')
+    const ok = await store.saveDissectionRecord({ ...a, completed: [...a.completed, { id: 'A-NEW', at: 2000 }] })
+    await vi.advanceTimersByTimeAsync(5000)
+    expect(ok).toBe(true)
+    expect(ids(h.idb.get('record')?.get('dissection-v1:user-A'))).toEqual(['A-OWN', 'A-NEW'])
+    expect(h.puts.at(-1)?.owner).toBe('user-A')
+  })
+
+  it('A→B→A: B 동안은 거부되고, A 로 돌아오면 A 화면 기록이 A 키에만 저장된다(B 키 불변)', async () => {
+    h.user = 'user-A'
+    const store = await import('../store')
+    const a = await store.loadDissectionRecord()
+    switchTo('user-B')
+    expect(await store.saveDissectionRecord({ ...a, completed: [...a.completed, { id: 'A-MID', at: 1500 }] })).toBe(false)
+    switchTo('user-A')
+    const ok = await store.saveDissectionRecord({ ...a, completed: [...a.completed, { id: 'A-MID', at: 1500 }, { id: 'A-NEW', at: 2000 }] })
+    await vi.advanceTimersByTimeAsync(5000)
+    expect(ok).toBe(true)
+    expect(ids(h.idb.get('record')?.get('dissection-v1:user-A'))).toEqual(['A-OWN', 'A-MID', 'A-NEW'])
+    expect(ids(h.idb.get('record')?.get('dissection-v1:user-B'))).toEqual(['B-OWN'])
+    expect(h.puts.every((p) => p.owner === 'user-A')).toBe(true)
+  })
+})
+
 describe('공용 기기 — 지연된 getSession 응답(T-0172 r2 P1-2 · CSAT 같은 규칙)', () => {
   it('조회 대기 중 B 이벤트가 오면 늦게 온 A 응답을 쓰지 않는다', async () => {
     h.user = 'user-B'
