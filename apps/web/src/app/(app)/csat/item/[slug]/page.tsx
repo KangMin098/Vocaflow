@@ -210,6 +210,7 @@ export default async function CsatItemTheaterPage({
       paper={{ catalog: paperCatalog, examId, no: item.no }}
       gate={initial.gate}
       analysisVersion={item.analysis_version ?? null}
+      sourceUnitsHash={loaded.boundUnitsHash}
       typeId={item.type_id ?? ''}
       source={{ url: paperUrl, direct: paper.paperUrl != null, reason: paper.reason }}
       siblings={siblings

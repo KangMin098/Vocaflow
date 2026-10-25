@@ -28,14 +28,19 @@ test.describe('강의 정답 공개 경로', () => {
       const lectureCalls: string[] = []
       page.on('request', (r) => { if (r.url().includes('/api/csat/lecture')) lectureCalls.push(r.url()) })
       await page.setViewportSize({ width, height: 900 })
-      await page.goto(`/csat/item/${ITEM}?lecture-silent=1&lecture-debug=1`, { waitUntil: 'domcontentloaded' })
+      // 첫 컴파일이 느린 dev 서버 — 진입 대기만 늘린다(검사 내용은 그대로)
+      await page.goto(`/csat/item/${ITEM}?lecture-silent=1&lecture-debug=1`, { waitUntil: 'domcontentloaded', timeout: 180_000 })
       const theater = page.getByTestId('analysis-theater')
       await expect(theater).toBeVisible({ timeout: 90_000 })
 
       // ① 고르기 전
       expect(await page.content(), '레일이 오답 번호를 드러낸다').not.toMatch(/오답 [①-⑤] 지우기/)
       expect(lectureCalls).toHaveLength(0)
-      await theater.locator('header button', { hasText: /하이라이트만|상영 시작/ }).click()
+      // 서버 HTML 의 단추는 하이드레이션 전에도 보인다 — 첫 클릭이 버려지면 선택 창이 열릴 때까지 다시 누른다(열리기 전 강의 요청 0 은 아래에서 그대로 본다)
+      await expect(async () => {
+        await theater.locator('header button', { hasText: /하이라이트만|상영 시작/ }).click()
+        await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
+      }).toPass({ timeout: 60_000 })
       await expect(page.getByTestId('lecture-chooser')).toBeVisible()
       expect(lectureCalls, '고르기 전에 강의를 받았다').toHaveLength(0)
 
@@ -84,9 +89,9 @@ test.describe('판단 장면 정답 지연 · 화면 이동', () => {
 
       // 첫 응답(HTML · RSC 직렬화) — 로그인 세션 그대로 서버에 직접 묻는다
       for (const slug of [NAV_ITEM, NAV_OTHER]) {
-        const html = await (await page.request.get(`/csat/item/${slug}?scene=judgment`)).text()
+        const html = await (await page.request.get(`/csat/item/${slug}?scene=judgment`, { timeout: 180_000 })).text()
         expect(html, `${slug} 첫 HTML 에 정답 자료`).not.toMatch(ANSWER_LEAK)
-        const rsc = await (await page.request.get(`/csat/item/${slug}?scene=judgment`, { headers: { RSC: '1' } })).text()
+        const rsc = await (await page.request.get(`/csat/item/${slug}?scene=judgment`, { headers: { RSC: '1' }, timeout: 180_000 })).text()
         expect(rsc.length, `${slug} RSC 응답이 비었다`).toBeGreaterThan(1000)
         expect(rsc, `${slug} RSC 에 정답 자료`).not.toMatch(ANSWER_LEAK)
       }

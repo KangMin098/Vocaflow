@@ -110,7 +110,8 @@
 .lectureOfferBtn:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
 
 /* ── 본문 2열 ─────────────────────────────────────────── */
-.body { display: grid; grid-template-columns: var(--paper-w, clamp(304px, 24.45vw, 360px)) minmax(0, 1fr); flex: 1; min-height: 0; }
+/* 원문 열 기본 폭(--paper-w 가 걸리기 전 첫 그림)도 JS shownPaperWidth 와 같은 제한: max(PAPER_MIN, min(기본 폭, 본문 − MAIN_MIN)) — 1280 첫 그림이 313px 로 메인 열을 703px 로 밀던 결함(T-0152 r3) */
+.body { display: grid; grid-template-columns: var(--paper-w, max(256px, min(clamp(304px, 24.45vw, 360px), calc(100% - 712px)))) minmax(0, 1fr); flex: 1; min-height: 0; }
 
 /* ① 레일 */
 .rail { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg2); border-right: 1px solid var(--bd); }
@@ -752,7 +753,7 @@
   height: var(--csat-workspace-dock); padding: 0 var(--csat-workspace-gap); border-top: 1px solid var(--bd); flex-shrink: 0;
 }
 .dockGroup {
-  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 4px; min-width: 0;
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 2px; min-width: 0;
   height: var(--csat-workspace-dock-item); padding: 0 0 0 3px; border: 1px solid transparent; border-radius: 10px;
   background: var(--dock-tint); box-shadow: inset 3px 0 0 var(--dock-ink);
 }
@@ -762,7 +763,7 @@
 .dockGroup[data-tint='peach'] { --dock-tint: #f3ece4; --dock-ink: #8a5a2b; }
 .dockGroup[data-active='true'] { border-color: var(--dock-ink); background: var(--bg); }
 .dockTitle {
-  flex: 1; min-width: var(--csat-workspace-target); min-height: var(--csat-workspace-target); padding: 0 2px 0 7px; text-align: left;
+  flex: 1; min-width: var(--csat-workspace-target); min-height: var(--csat-workspace-target); padding: 0 0 0 7px; text-align: left; /* 오른쪽 여백 · 그룹 간격 각 2px → 제목 4px: 메인 최소 폭 712 에서 「비교와 원리」 가 1px 잘리던 결함(T-0152 r3) */
   font-size: var(--csat-workspace-name); font-weight: 500; color: var(--t1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-radius: 8px;
 }
 .dockTitle[aria-pressed='true'] { font-weight: 600; }

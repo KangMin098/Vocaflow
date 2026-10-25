@@ -225,6 +225,7 @@ export function AnalysisTheater({
   paper,
   gate: initialGate,
   analysisVersion = null,
+  sourceUnitsHash = null,
   typeId,
   meaningSupport: initialMeaningSupport = null,
   initialMeaning = null,
@@ -289,6 +290,8 @@ export function AnalysisTheater({
   gate: GateKey
   /** 이 화면이 읽은 분석 버전 — 정답 요청 때 서버가 같은 판본인지 맞춘다(다르면 409) */
   analysisVersion?: number | null
+  /** 판단 도구 근거 연결의 독립 결속 해시(서버 · 원문 이해 배포 결속 + 지도 분할 일치일 때만) — 없으면 근거 강조를 끈다 */
+  sourceUnitsHash?: string | null
   /** 유형 id — 학습 목표(이 문항에서 설명할 관계)를 유형 교수 계약에서 고른다 */
   typeId?: string
   /** v3.1 원문 이해 교수 설명 — 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때만 서버가 넘긴다. 없으면 기존 v3 의미 패널 */
@@ -329,6 +332,9 @@ export function AnalysisTheater({
   const v3Pairs = merged?.v3Pairs ?? initialV3Pairs
   const inquiry = merged?.inquiry ?? initialInquiry
   const gate = merged?.gate ?? initialGate
+  // T-0145 판단 도구(interaction34)는 선택 상태를 자식 안에 둔다 — 정답 공개 뒤에는 장면을 옮겨도 패널을 마운트한 채 숨겨
+  // 학습자가 고른 범위 · 조건 · 비교 쌍 · 설계 선택을 보존한다(연결 계약 C7 · T-0152 R152-01). 공개 전에는 도구가 안내만 그리므로 유지할 상태가 없다
+  const keepTools = Boolean(revealed && inquiry?.v3?.interaction34)
   const map = useMemo(
     () => (initialMap && merged ? { ...initialMap, sentences: revealed?.mapSentences ?? initialMap.sentences, anchors: merged.anchors, placements: merged.placements } : initialMap),
     [initialMap, merged, revealed],
@@ -721,6 +727,18 @@ export function AnalysisTheater({
     ms && msBridge && msUnitObj
       ? { unitLabel: msUnitObj.labelKo, ...bridgeOf(ms, msUnitObj.id), onReturn: () => selectScene('meaning') }
       : null
+  // 판단 도구 인스턴스 결속 — 분석 revision 이 바뀌면 지난 단위 인스턴스를 버린다(선택이 다른 revision 으로 넘어가지 않게)
+  const toolRev = String(inquiry?.analysis_version ?? 'na')
+  const [bridgeSeen, setBridgeSeen] = useState<{ rev: string; units: string[] }>({ rev: toolRev, units: [] })
+  const bridgeUnit = msBridgeFocus ? msUnit : null
+  useEffect(() => {
+    setBridgeSeen((cur) => {
+      const units = cur.rev === toolRev ? cur.units : []
+      if (cur.rev === toolRev && (!bridgeUnit || units.includes(bridgeUnit))) return cur
+      return { rev: toolRev, units: bridgeUnit && !units.includes(bridgeUnit) ? [...units, bridgeUnit] : units }
+    })
+  }, [toolRev, bridgeUnit])
+  const bridgeUnits = (bridgeSeen.rev === toolRev ? bridgeSeen.units : []).concat(bridgeUnit && !(bridgeSeen.rev === toolRev && bridgeSeen.units.includes(bridgeUnit)) ? [bridgeUnit] : [])
   useEffect(() => {
     // 뒤로가기 · 앞으로가기 — 장면 · 의미 · 깊이 · 관계 · 이어 온 맥락을 **주소에서** 되살린다(서버와 같은 파서 · allowlist)
     const onPop = () => {
@@ -1009,8 +1027,30 @@ export function AnalysisTheater({
     if (p === 'until') lec.start(untilFrom(from), 'start', 'until')
   }
   // 포커스는 학습자가 연 경우에만 옮긴다 — 강의가 경계에 닿거나 서버가 거절해 열린 안내는 aria-live 로만 알린다(T-0140 Codex P2)
+  // 닫힐 때(Escape · 「닫기」 · 경로 선택) 포커스는 선택을 연 단추로 돌아간다. 그 단추가 사라졌으면 머리 줄 재생 단추, 그것도 없으면 극장 자체(T-0152 r3)
+  const chooserOpenerRef = useRef<HTMLElement | null>(null)
+  const chooserWasOpen = useRef(false)
+  const playBtnRef = useRef<HTMLButtonElement | null>(null)
+  const theaterRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
-    if (chooser?.byLearner) chooserRef.current?.focus()
+    if (chooser?.byLearner) {
+      const a = document.activeElement
+      if (a instanceof HTMLElement && a !== document.body && !a.closest('[data-testid="lecture-chooser"]')) chooserOpenerRef.current = a
+      chooserRef.current?.focus()
+    }
+    if (chooser) {
+      chooserWasOpen.current = true
+      return
+    }
+    if (!chooserWasOpen.current) return
+    chooserWasOpen.current = false
+    const opener = chooserOpenerRef.current
+    chooserOpenerRef.current = null
+    // 학습자가 연 선택이 아니었다면(경계 · 서버 거절) 포커스를 옮기지 않는다 — 단, 포커스가 사라진 선택 안에 있었으면 문서 밖으로 빠지지 않게 되돌린다
+    const lost = !document.activeElement || document.activeElement === document.body
+    if (!opener && !lost) return
+    const target = [opener, playBtnRef.current, theaterRef.current].find((el): el is HTMLElement => Boolean(el && el.isConnected && el.getClientRects().length > 0))
+    target?.focus()
   }, [chooser])
   useEffect(() => {
     if (lecturePath !== 'until' || !lec) return
@@ -1145,7 +1185,7 @@ export function AnalysisTheater({
   }
 
   return (
-    <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
+    <div className={styles.workspace} data-csat-theater data-testid="analysis-theater" ref={theaterRef} tabIndex={-1}>
       {/* ── 문항 머리: ← · 회차/번호/유형 · 학습 지도/목록 복귀 · 강의 도구 ─────────────── */}
       <header className={styles.bar}>
         <Link className={styles.backIcon} href={backHref} onClick={back(backTo)} data-testid="item-back-home" data-back={backTo} aria-label={backTo === 'browse' ? '기출 탐구 — 고른 조건으로' : '내 학습 지도'}>
@@ -1203,6 +1243,7 @@ export function AnalysisTheater({
           ) : null}
           {lec ? (
             <button
+              ref={playBtnRef}
               type="button"
               className={styles.play}
               onClick={() => (status === 'idle' || status === 'error' ? requestPlay(cursor) : lec.toggle())}
@@ -1213,7 +1254,17 @@ export function AnalysisTheater({
         </div>
       </header>
       {chooser && lec ? (
-        <section className={styles.lectureChooser} aria-labelledby="lecture-chooser-h" data-testid="lecture-chooser">
+        <section
+          className={styles.lectureChooser}
+          aria-labelledby="lecture-chooser-h"
+          data-testid="lecture-chooser"
+          onKeyDown={(e) => {
+            // Escape = 「닫기」(강의를 시작하지 않고 선택만 접는다) — 극장 전역 단축키로 새지 않게 여기서 멈춘다
+            if (e.key !== 'Escape') return
+            e.stopPropagation()
+            setChooser(null)
+          }}
+        >
           <h2 id="lecture-chooser-h" ref={chooserRef} tabIndex={-1} className={styles.chooserTitle}>
             강의를 어떻게 볼까요?
           </h2>
@@ -1533,7 +1584,12 @@ export function AnalysisTheater({
                       ) : null}
                     </section>
                   ) : null}
-                  {scene === 'task' && v3 ? <V3Task v3={v3} /> : null}
+                  {/* T-0145 판단 도구(2026-34 · Interactive34) — 정답 공개(판단 라우트 · 노출 원장 기록 뒤 revealed)일 때만 answerRevealed. 공개 전에는 도구가 안내만 그리고, v3 본문은 첫 응답에 없다(answer-split) */}
+                  {v3 && (scene === 'task' || keepTools) ? (
+                    <div style={{ display: scene === 'task' ? 'contents' : 'none' }} data-tool-scene="task">
+                      <V3Task v3={v3} answerRevealed={Boolean(revealed)} />
+                    </div>
+                  ) : null}
                   {scene === 'meaning' && ms ? (
                     <MeaningSupportPanel
                       view={ms}
@@ -1559,15 +1615,33 @@ export function AnalysisTheater({
                       onSpeaking={setMsSpeak}
                     />
                   ) : null}
-                  {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
+                  {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} answerRevealed={Boolean(revealed)} /> : null}
                   {scene === 'judgment' && v3 && withheld ? withheldPanel('judgment', '정답 판단') : null}
-                  {scene === 'judgment' && v3 && !withheld ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {v3 && !withheld && (scene === 'judgment' || keepTools) ? (
+                    <div style={{ display: scene === 'judgment' ? 'contents' : 'none' }} data-tool-scene="judgment">
+                      {/* 도구 선택은 인스턴스 안에 있다 — bridge 왕복이 지우지 않도록 「분석 revision · 단위」 별 인스턴스를 숨겨 유지한다(R152-01). 문항이 바뀌면 화면째 새로 그려지고, revision 이 바뀌면 키가 달라져 넘어가지 않는다 */}
+                      {[null, ...bridgeUnits].map((u) => {
+                        const active = (msBridgeFocus ? msUnit : null) === u
+                        const unitObj = u && ms ? ms.units.find((x) => x.id === u) ?? null : null
+                        const focus = u === null ? undefined : active ? msBridgeFocus : ms && unitObj ? { unitLabel: unitObj.labelKo, ...bridgeOf(ms, unitObj.id), onReturn: () => selectScene('meaning') } : undefined
+                        return (
+                          <div key={`${toolRev}:${u ?? 'plain'}`} style={{ display: active ? 'contents' : 'none' }} data-tool-instance={u ?? 'plain'}>
+                            <V3Judgment v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={focus} answerRevealed={Boolean(revealed)} sourceUnitsHash={sourceUnitsHash ?? undefined} />
+                          </div>
+                        )
+                      })}
+                    </div>
+                  ) : null}
                   {scene === 'design' ? (
                     <p className={styles.quiet} data-testid="design-epistemic">
                       아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
                     </p>
                   ) : null}
-                  {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {v3 && (scene === 'design' || keepTools) ? (
+                    <div style={{ display: scene === 'design' ? 'contents' : 'none' }} data-tool-scene="design">
+                      <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} />
+                    </div>
+                  ) : null}
                   {relation && !showRelation && !evidenceCollapsed ? (
                     <p className={styles.quiet} data-testid="relation-hint">
                       이 장면의 설계 도식은 왼쪽 근거 판의 「관계」 보기에 있어요.
