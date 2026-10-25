@@ -916,7 +916,8 @@ export function AnalysisTheater({
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         cache: 'no-store',
-        body: JSON.stringify({ analysisVersion, clientExposureId: crypto.randomUUID(), source }),
+        // tool — 화면에 D 판단 도구가 있으면 그 결속(라우트가 지금 결속과 대조), 없으면 null(도구 없는 정상 공개 · T-0161 r2)
+        body: JSON.stringify({ analysisVersion, clientExposureId: crypto.randomUUID(), source, tool: judgmentItem ? { analysisVersion: judgmentItem.version.analysisVersion, unitsHash: judgmentItem.version.unitsHash } : null }),
       })
       const body = (await res.json().catch(() => null)) as { ok?: boolean; reveal?: AnswerReveal } | null
       if (!res.ok || !body?.ok || !body.reveal) throw new Error(String(res.status))

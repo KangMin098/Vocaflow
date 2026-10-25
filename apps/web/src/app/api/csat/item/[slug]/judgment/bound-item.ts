@@ -18,11 +18,12 @@ import { judgmentItemValidity } from '@/lib/csat/binding/invalidate'
 import type { PdfAnchorFile } from '@/lib/csat/binding/pdf'
 import { isBlocking } from '@/lib/csat/binding/readiness'
 import type { JudgmentItem } from '@/lib/csat/judgment/types'
+import { lectureMeta } from '@/lib/csat/lecture/store'
 
 /** 제품에 연결한 단계 — 첫 연결은 R-IRRELEVANT 만(TypeJudgment 'first') */
 export const JUDGMENT_STAGES = ['first'] as const
 /** 'first' 단계 유형(TypeJudgment.JUDGMENT_TOOLS 와 같다) — 클라이언트 모듈 함수는 서버에서 부를 수 없어 여기 둔다. 화면은 TypeJudgment 가 한 번 더 거른다 */
-const FIRST_STAGE_TYPES = new Set(['R-IRRELEVANT'])
+export const JUDGMENT_TOOL_TYPES: ReadonlySet<string> = new Set(['R-IRRELEVANT'])
 
 export type BoundJudgment = { item: JudgmentItem } | { item: null; reason: string }
 
@@ -49,7 +50,9 @@ export async function loadBoundJudgmentItem(db: SupabaseClient, itemId: string, 
   const row = (it.data?.[0] ?? null) as ItemRow | null
   if (!row) return { item: null, reason: 'no_item' }
   // 도구가 없는 유형은 결속을 읽지도 않는다
-  if (!row.type_id || !FIRST_STAGE_TYPES.has(row.type_id)) return { item: null, reason: 'no_tool' }
+  if (!row.type_id || !JUDGMENT_TOOL_TYPES.has(row.type_id)) return { item: null, reason: 'no_tool' }
+  // 강의가 있는 문항에는 도구를 붙이지 않는다(T-0161 r2 · 강의 진행 × 도구 조작 동시 노출은 실물 검증 전)
+  if (lectureMeta(itemId)) return { item: null, reason: 'lecture_present' }
   const [u, an] = await Promise.all([
     db.rpc('csat_current_units_many', { p_items: [itemId] }),
     db.from('csat_item_analyses').select('version,status,units_version,units_hash,answer_locus,choice_analysis').eq('item_id', itemId).eq('status', 'published'),

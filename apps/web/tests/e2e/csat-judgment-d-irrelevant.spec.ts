@@ -18,6 +18,8 @@ import fs from 'node:fs'
 
 import { expect, test, type Page } from '@playwright/test'
 
+import { leakedAnswerKeys } from '../../src/lib/csat/judgment/evidence'
+
 const STATE_PATH = 'playwright-auth/.auth-csat-lecture-control.json'
 const A = { slug: 'H1803G2-35', id: 'H1803G2#35', answer: 3 }
 const B = { slug: 'H1803G3-35', id: 'H1803G3#35', answer: 4 }
@@ -26,9 +28,35 @@ const SECRET: Record<string, string[]> = {
   [A.id]: ['은 저장 시 대기 조절이 중요하다는 화제다', 'carbon dioxide 를 저장 조절 대상으로 들여오자', '는 이산화탄소가 pollutant 로 여겨진다는 환경 관점이다'],
   [B.id]: ['은 독서를 관점 취하기의 기술로 규정하고', '는 Reading is 로 시작해'],
 }
-const LEAK = /"verdict"\s*:\s*"correct"|"why_correct"|"answerLocus"|"answer_locus"|"design_intent"|"how_to_reject"/
+// 문서 전체(HTML · RSC)에서 정답을 확정하는 키 — 따옴표가 이스케이프된 RSC(\"key\":)도 잡는다.
+// answer · answers · correct 같은 범용 키는 다른 화면 자료(예: 빈 gate)에도 있어 문서 전체가 아니라 직렬화된 judgmentItem 에만 T-0171 별칭 전체로 검사한다
+const DOC_KEYS = ['verdict', 'why_correct', 'answerLocus', 'answer_locus', 'design_intent', 'how_to_reject', 'isCorrect', 'is_correct', 'answer_no', 'correctIndex', 'correct_choice']
+const docLeaks = (body: string) => DOC_KEYS.filter((k) => body.includes(`"${k}":`) || body.includes(`\\"${k}\\":`))
+/** RSC 에 직렬화된 judgmentItem 객체를 꺼낸다(중괄호 균형) — 이스케이프된 형태면 한 번 풀어서 */
+function serializedJudgmentItem(body: string): unknown {
+  const raw = body.includes('"judgmentItem":') ? body : body.replace(/\\"/g, '"')
+  const at = raw.indexOf('"judgmentItem":')
+  if (at < 0) return undefined
+  const after = raw.slice(at + '"judgmentItem":'.length).trimStart()
+  if (after.startsWith('null')) return null
+  if (!after.startsWith('{')) return undefined
+  let i = raw.indexOf('{', at)
+  const start = i
+  let depth = 0
+  let inStr = false
+  for (; i < raw.length; i += 1) {
+    const ch = raw[i]
+    if (inStr) { if (ch === '\\') i += 1; else if (ch === '"') inStr = false; continue }
+    if (ch === '"') inStr = true
+    else if (ch === '{') depth += 1
+    else if (ch === '}') { depth -= 1; if (depth === 0) break }
+  }
+  return JSON.parse(raw.slice(start, i + 1))
+}
+const UNITS_HASH_FAKE = '0'.repeat(64)
 // 도구가 없어야 하는 문항: 수능(단위 결속 0) · 모평(단위 결속 0) · R-GRAMMAR(isolated) · 다중 정답(2015#25 도표 ④⑤)
-const NO_TOOL = ['2025-35', 'M2506-35', 'H1803G1-29', '2015-25']
+// 2025#35 · M2506#35 는 R-IRRELEVANT 이면서 강의가 있다(lecture-data/index.json) — 강의 문항에는 도구를 붙이지 않는다(T-0161 r2 P1-2)
+const NO_TOOL = ['2025-35', 'M2506-35', 'H1804G3-28', '2015-25']
 
 const tool = (page: Page) => page.getByTestId('judgment-tool-d')
 
@@ -67,9 +95,15 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
         expect(html, '도구가 첫 응답에 있어야 한다').toContain('judgment-tool-d')
         const rsc = await (await page.request.get(`/csat/item/${it.slug}?scene=judgment`, { headers: { RSC: '1' }, timeout: 180_000 })).text()
         for (const body of [html, rsc]) {
-          expect(body, `${it.id} 첫 응답에 정답 자료 키`).not.toMatch(LEAK)
+          expect(docLeaks(body), `${it.id} 첫 응답에 정답 자료 키`).toEqual([])
           for (const t of SECRET[it.id]) expect(body, `${it.id} 첫 응답에 해설 「${t}」`).not.toContain(t)
         }
+        // 실제 직렬화된 도구 props — T-0171 별칭 전체(evidence.ts ANSWER_KEYS 12개)
+        const props = serializedJudgmentItem(rsc) as { id?: string; version?: { analysisVersion?: number; unitsHash?: string } } | undefined
+        expect(props?.id, 'RSC 에 judgmentItem').toBe(it.id)
+        expect(leakedAnswerKeys(props), `${it.id} 도구 props 에 정답 키`).toEqual([])
+        expect(props?.version?.analysisVersion).toBe(1)
+        expect(props?.version?.unitsHash).toMatch(/^[0-9a-f]{64}$/)
       }
       // A2 · A3 — 판본 불일치 API: 409 · 원장 없음 · 정답 자료 없음
       const mism = await page.request.post(`/api/csat/item/${A.slug}/judgment`, { data: { analysisVersion: 99, clientExposureId: crypto.randomUUID(), source: 'judgment_scene' } })
@@ -77,6 +111,26 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
       const mismText = await mism.text()
       expect(mismText).not.toMatch(/"judgment"|"reveal"|"answer"/)
       for (const t of SECRET[A.id]) expect(mismText).not.toContain(t)
+      // P1-1 — 화면 도구 결속(unitsHash)이 지금 결속과 다르다 → 409 · 응답 전체에 정답 자료 없음(원장 기록 전)
+      const stale = await page.request.post(`/api/csat/item/${A.slug}/judgment`, { data: { analysisVersion: 1, clientExposureId: crypto.randomUUID(), source: 'judgment_scene', tool: { analysisVersion: 1, unitsHash: UNITS_HASH_FAKE } } })
+      expect(stale.status(), '결속 불일치는 409').toBe(409)
+      const staleText = await stale.text()
+      expect(leakedAnswerKeys(JSON.parse(staleText))).toEqual([])
+      expect(staleText).not.toMatch(/"judgment"|"reveal"|"gate"|"blocks"/)
+      for (const t of SECRET[A.id]) expect(staleText).not.toContain(t)
+      // P1-2 — 강의 있는 R-IRRELEVANT(2025#35)에 도구 provider 형태 요청 → 결속 없음 409 · 정답 자료 없음
+      const lecItem = await page.request.get('/csat/item/2025-35?scene=judgment', { timeout: 180_000 })
+      expect(lecItem.status()).toBe(200)
+      const lecHtml = await lecItem.text()
+      // 최신 published 판본(MCP SELECT 2026-10-25: 2025#35 → 4). 판본이 바뀌어도 라우트는 409(판본)로 막는다
+      const lecVer = 4
+      expect(lecHtml).not.toContain('judgment-tool-d')
+      const lecRsc = await (await page.request.get('/csat/item/2025-35?scene=judgment', { headers: { RSC: '1' }, timeout: 180_000 })).text()
+      expect(serializedJudgmentItem(lecRsc) ?? null, '강의 문항 judgmentItem 은 null').toBeNull()
+      {
+        const lecPost = await page.request.post('/api/csat/item/2025-35/judgment', { data: { analysisVersion: lecVer, clientExposureId: crypto.randomUUID(), source: 'judgment_scene' } })
+        expect(lecPost.status()).toBe(409)
+      }
       // 비로그인 API: 401 · 정답 자료 없음
       const anon = await page.context().browser()!.newContext({ storageState: { cookies: [], origins: [] } })
       const anonRes = await anon.request.post(`${test.info().project.use.baseURL ?? process.env.PLAYWRIGHT_BASE_URL}/api/csat/item/${A.slug}/judgment`, { data: { analysisVersion: 1, clientExposureId: crypto.randomUUID(), source: 'judgment_scene' }, maxRedirects: 0 })
@@ -176,33 +230,49 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
       await expect(shellB.locator('[data-revealed]')).toHaveCount(0)
       await expect(shellB.locator('[data-reveal-btn]')).toBeVisible()
       expect(await shellB.locator('[aria-pressed="true"][data-verdict]').count()).toBe(0)
-      // 늦은 응답: 요청을 걸어 둔 채 다시 열고(같은 문항 새 인스턴스) — 늦게 온 응답이 새 화면에 해설을 만들지 않는다
+      // 늦은 응답(유효한 실제 응답): B 의 판단 응답을 서버에서 받아 둔 채 붙잡고, 「같은 유형 다음 문항」(클라이언트 이동)으로 옮긴 뒤 놓는다.
+      // 새 화면 어디에도 B 의 해설이 그려지면 안 된다
       let release!: () => void
       const gate = new Promise<void>((r) => { release = r })
-      await page.route(`**/api/csat/item/${B.slug}/judgment`, async (r) => { await gate; await r.fulfill({ status: 200, contentType: 'application/json', body: JSON.stringify({ ok: true, exposureId: 1, judgment: { id: A.id, analysisVersion: 1, unitsVersion: 1, unitsHash: 'x', answer: 3, choices: [] } }) }).catch(() => {}) })
+      let lateBody: Record<string, unknown> | null = null
+      await page.route(`**/api/csat/item/${B.slug}/judgment`, async (r) => {
+        const real = await r.fetch()
+        lateBody = (await real.json().catch(() => null)) as Record<string, unknown> | null
+        await gate
+        await r.fulfill({ response: real, json: lateBody ?? undefined }).catch(() => {})
+      })
       await shellB.locator('[data-reveal-btn]').focus()
       await page.keyboard.press('Enter')
       await expect(shellB.locator('[data-reveal-loading]')).toBeVisible()
-      await openJudgment(page, A.slug)
+      await expect.poll(() => lateBody != null, { timeout: 60_000 }).toBe(true)
+      expect((lateBody as unknown as { judgment?: { id?: string } }).judgment?.id, '붙잡은 응답은 유효한 B 공개 자료').toBe(B.id)
+      const nextLink = page.getByTestId('next-item')
+      await expect(nextLink).toBeVisible()
+      await nextLink.click()
+      await page.waitForURL((u) => !u.pathname.endsWith(B.slug), { timeout: 120_000 })
+      await expect(page.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
       release()
       await page.waitForTimeout(1500)
-      await expect(tool(page)).toHaveAttribute('data-item', A.id)
-      await expect(tool(page).locator('[data-revealed]'), '새 화면에 이전 공개 상태 없음').toHaveCount(0)
+      if (await tool(page).count()) expect(await tool(page).getAttribute('data-item')).not.toBe(B.id)
+      await expect(page.locator('[data-revealed]'), '이동한 화면에 B 의 늦은 해설 없음').toHaveCount(0)
+      for (const t of SECRET[B.id]) expect(await page.content()).not.toContain(t)
       await page.unroute(`**/api/csat/item/${B.slug}/judgment`)
 
       // ── A5 · 도구 미노출 문항 ──
       for (const slug of NO_TOOL) {
         const res = await page.request.get(`/csat/item/${slug}?scene=judgment`, { timeout: 180_000 })
-        if (res.status() === 404) continue
-        expect(res.status()).toBe(200)
-        expect(await res.text(), `${slug} 에 도구`).not.toContain('judgment-tool-d')
+        expect(res.status(), `${slug} 는 실제 문항 화면이어야 한다(404 를 통과로 세지 않는다)`).toBe(200)
+        expect(await res.text()).toContain('analysis-theater')
+        const again = await (await page.request.get(`/csat/item/${slug}?scene=judgment`, { timeout: 180_000 })).text()
+        expect(again, `${slug} 에 도구`).not.toContain('judgment-tool-d')
       }
       await openJudgment(page, NO_TOOL[0])
       await expect(tool(page)).toHaveCount(0)
 
       console.log('4xx/5xx', JSON.stringify(bad))
       // 허용: 이 스펙이 일부러 만든 503 · 423(가로챈 응답) · 학평 회차 로컬 문제지 없음(dev-paper 404, 기존 동작)
-      expect(bad.filter((b) => !/^(503|423) POST \/api\/csat\/item\/H1803G2-35\/judgment$|^404 GET \/api\/csat\/dev-paper$/.test(b)), '예상 밖 오류 응답').toEqual([])
+      //       · 빠른 클라이언트 이동 중 학습 상태 저장의 판본 충돌(409 PUT /api/csat/state — 상태 저장소의 기존 동시성 제어, 판단 자료와 무관)
+      expect(bad.filter((b) => !/^(503|423) POST \/api\/csat\/item\/H1803G2-35\/judgment$|^404 GET \/api\/csat\/dev-paper$|^409 PUT \/api\/csat\/state$/.test(b)), '예상 밖 오류 응답').toEqual([])
       expect(consoleErrors.filter((e) => !/favicon|Download the React DevTools|Failed to load resource/.test(e)), '콘솔 오류').toEqual([])
     })
   }

@@ -14,7 +14,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { loadJudgmentReveal } from '@/lib/csat/judgment/server'
 import type { RevealData } from '@/lib/csat/judgment/types'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { loadBoundJudgmentItem } from './bound-item'
+import { JUDGMENT_TOOL_TYPES, loadBoundJudgmentItem } from './bound-item'
 
 import { learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
 import { canRevealItem, revealHeldResponse } from '@/lib/csat/embargo-gate'
@@ -29,6 +29,7 @@ export const dynamic = 'force-dynamic'
 const NO_STORE = { 'cache-control': 'no-store' }
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 const SOURCES = new Set(['judgment_scene', 'lecture_full', 'lecture_continue'])
+const TOOL_STALE = '원문 · 해설 판본이 바뀌어 이 판단 도구의 해설을 열 수 없어요. 화면을 새로 열어 주세요'
 const fail = (status: number, error: string) => NextResponse.json({ ok: false, error }, { status, headers: NO_STORE })
 
 export async function POST(req: Request, { params }: { params: Promise<{ slug: string }> }) {
@@ -56,6 +57,22 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   // 화면이 읽은 분석과 지금 분석이 다르면 섞지 않는다 — 새로 열게 한다
   if ((item.analysis_version ?? null) !== analysisVersion) return fail(409, '해설이 새 판본으로 바뀌었어요. 화면을 새로 열어 주세요')
 
+  // D 판단 도구 결속(T-0161 r2) — 「도구 없는 정상 문항」과 「도구를 보였는데 결속이 바뀜」을 가른다.
+  //   tool: null              → 화면에 도구가 없다(해설 극장의 정답 보기 · 강의) — 기존 공개만
+  //   tool: {analysisVersion, unitsHash} → 화면에 도구가 있다 — 지금 결속이 같아야 한다
+  //   tool 키 없음            → 도구 provider(D, 본문을 바꿀 수 없다). 도구 유형 문항이면 도구 요청으로 본다
+  // 도구 요청인데 결속이 없거나 다르면 원장 기록 전에 409 — 정답 · 근거 · 해설 어느 것도 보내지 않는다
+  const toolField = Object.prototype.hasOwnProperty.call(o, 'tool') ? o.tool : undefined
+  const toolClaim = toolField && typeof toolField === 'object' ? (toolField as Record<string, unknown>) : null
+  if (toolField !== undefined && toolField !== null && (!toolClaim || typeof toolClaim.unitsHash !== 'string' || toolClaim.analysisVersion !== analysisVersion)) return fail(400, '요청 형식이 올바르지 않아요')
+  const toolRequest = toolField === undefined ? Boolean(item.type_id && JUDGMENT_TOOL_TYPES.has(item.type_id)) : toolClaim != null
+  const admin = toolRequest ? (createAdminClient() as unknown as SupabaseClient) : null
+  let bound: Awaited<ReturnType<typeof loadBoundJudgmentItem>> | null = null
+  if (admin) {
+    bound = await loadBoundJudgmentItem(admin, itemId, analysisVersion)
+    if (!bound.item || (toolClaim && toolClaim.unitsHash !== bound.item.version.unitsHash)) return fail(409, TOOL_STALE)
+  }
+
   const { data, error: recErr } = await ctx.db.rpc('learning_exposure_record', {
     p_user: ctx.userId,
     p_client_exposure_id: clientExposureId,
@@ -75,15 +92,14 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   }
   // 커밋 뒤 마지막 관문 — 기록 사이에 보류가 시작됐으면 내지 않는다
   if (!(await canRevealItem(itemId))) return revealHeldResponse()
-  const { reveal } = await loadTheaterAnswer(item)
-  // D 판단 도구 공개 자료(T-0161) — 원장 커밋 · 마지막 관문 뒤에만. 페이지와 같은 G 현재 판본 결속이 같은 analysisVersion 으로
-  // 성립할 때만 loadJudgmentReveal 을 부른다. 결속이 깨졌거나 도구 없는 문항이면 null(도구 provider 는 형식 오류로 닫는다)
+  // D 판단 도구 공개 자료 — 원장 커밋 · 마지막 관문 뒤, 기록 전에 확인한 결속과 같은 판본 · 단위 해시일 때만.
+  // 그 사이 결속이 바뀌었으면 409 이고 극장 공개 자료(reveal)도 보내지 않는다(원장 행은 남는다 — 「정답 요청」 기록이 과대 쪽으로만 틀린다)
   let judgment: RevealData | null = null
-  if (analysisVersion != null) {
-    const admin = createAdminClient() as unknown as SupabaseClient
-    const bound = await loadBoundJudgmentItem(admin, itemId, analysisVersion)
-    if (bound.item) judgment = await loadJudgmentReveal(admin, itemId, bound.item.version.analysisVersion)
-    if (judgment && judgment.unitsHash !== bound.item?.version.unitsHash) judgment = null
+  if (admin && bound?.item) {
+    const again = await loadBoundJudgmentItem(admin, itemId, analysisVersion)
+    judgment = again.item && again.item.version.unitsHash === bound.item.version.unitsHash ? await loadJudgmentReveal(admin, itemId, bound.item.version.analysisVersion) : null
+    if (!judgment || judgment.unitsHash !== bound.item.version.unitsHash || judgment.analysisVersion !== bound.item.version.analysisVersion) return fail(409, TOOL_STALE)
   }
+  const { reveal } = await loadTheaterAnswer(item)
   return NextResponse.json({ ok: true, exposureId: data, reveal, judgment }, { headers: NO_STORE })
 }

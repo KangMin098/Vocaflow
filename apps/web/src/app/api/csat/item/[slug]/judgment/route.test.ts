@@ -11,6 +11,8 @@ const st = vi.hoisted(() => ({
   calls: [] as string[],
   bound: { id: '2014A#23', version: { unitsVersion: 1, unitsHash: 'h1', analysisVersion: 4 } } as null | { id: string; version: { unitsVersion: number; unitsHash: string; analysisVersion: number } },
   revealHash: 'h1',
+  type: 'R-IRRELEVANT' as string | null,
+  boundSeq: [] as (null | 'other')[],
 }))
 
 vi.mock('@/lib/csat/diagnosis/route-helpers', async () => {
@@ -37,7 +39,7 @@ vi.mock('@/lib/csat/embargo-gate', () => ({
   revealHeldResponse: () => new Response(JSON.stringify({ held: 'exam_embargo' }), { status: 423, headers: { 'cache-control': 'no-store' } }),
 }))
 vi.mock('@/lib/csat/learner', () => ({
-  loadCsatItemExplain: async (id: string) => ({ item: { id, analysis_version: st.version }, error: null, held: false }),
+  loadCsatItemExplain: async (id: string) => ({ item: { id, analysis_version: st.version, type_id: st.type }, error: null, held: false }),
 }))
 vi.mock('@/lib/csat/judgment-reveal', () => ({
   loadTheaterAnswer: async () => {
@@ -48,9 +50,12 @@ vi.mock('@/lib/csat/judgment-reveal', () => ({
 
 vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: () => ({}) }))
 vi.mock('./bound-item', () => ({
+  JUDGMENT_TOOL_TYPES: new Set(['R-IRRELEVANT']),
   loadBoundJudgmentItem: async (_db: unknown, id: string, v: number | null) => {
     st.calls.push(`bound:${id}:${v}`)
-    return st.bound ? { item: st.bound } : { item: null, reason: 'no_tool' }
+    const next = st.boundSeq.shift()
+    if (next === null || !st.bound) return { item: null, reason: 'stale' }
+    return { item: next === 'other' ? { ...st.bound, version: { ...st.bound.version, unitsHash: 'h2' } } : st.bound }
   },
 }))
 vi.mock('@/lib/csat/judgment/server', () => ({
@@ -60,7 +65,16 @@ vi.mock('@/lib/csat/judgment/server', () => ({
   },
 }))
 
+import { leakedAnswerKeys } from '@/lib/csat/judgment/evidence'
 import { POST } from './route'
+
+/** 정답 자료가 전혀 없는 응답인지 — T-0171 별칭 전체 + 극장 공개 자료 키 + 해설 문구 */
+async function assertNoAnswer(res: Response) {
+  const text = await res.text()
+  const j = JSON.parse(text) as unknown
+  expect(leakedAnswerKeys(j)).toEqual([])
+  expect(text).not.toMatch(/"reveal"|"judgment"|"gate"|"blocks"|정답 근거/)
+}
 
 const body = (o: Record<string, unknown> = {}) => ({ analysisVersion: 4, clientExposureId: '0b0c8f0e-1b2a-4c3d-8e9f-0a1b2c3d4e5f', source: 'judgment_scene', ...o })
 const call = (o?: Record<string, unknown>, slug = '2014A-23') =>
@@ -75,6 +89,8 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     st.calls = []
     st.bound = { id: '2014A#23', version: { unitsVersion: 1, unitsHash: 'h1', analysisVersion: 4 } }
     st.revealHash = 'h1'
+    st.type = 'R-IRRELEVANT'
+    st.boundSeq = []
   })
 
   it('성공 — answer_direct · judgment_scene 기록이 공개 자료보다 먼저, no-store', async () => {
@@ -83,7 +99,7 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     expect(res.headers.get('cache-control')).toBe('no-store')
     const j = await res.json()
     expect(j).toMatchObject({ ok: true, exposureId: 77, reveal: { gate: { answer: 5 } } })
-    expect(st.calls).toEqual(['rpc:learning_exposure_record:answer_direct:judgment_scene:2014A#23:4', 'load-reveal', 'bound:2014A#23:4', 'judgment-reveal:4'])
+    expect(st.calls).toEqual(['bound:2014A#23:4', 'rpc:learning_exposure_record:answer_direct:judgment_scene:2014A#23:4', 'bound:2014A#23:4', 'judgment-reveal:4', 'load-reveal'])
     expect(j.judgment).toMatchObject({ answer: 3, analysisVersion: 4, unitsHash: 'h1' })
   })
 
@@ -129,16 +145,53 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     expect(st.calls).toEqual([])
   })
 
-  it('판단 도구 결속이 없으면(도구 없는 유형 · 차단 · 판본 다름) judgment 는 null — 해설 자료를 읽지 않는다', async () => {
-    st.bound = null
-    const j = await (await call()).json()
-    expect(j.judgment).toBeNull()
-    expect(st.calls.some((c) => c.startsWith('judgment-reveal'))).toBe(false)
+  it('도구 없는 정상 문항(tool: null) — 결속을 보지 않고 극장 공개만, judgment null', async () => {
+    const j = await (await call({ tool: null })).json()
+    expect(j).toMatchObject({ ok: true, reveal: { gate: { answer: 5 } }, judgment: null })
+    expect(st.calls.some((c) => c.startsWith('bound') || c.startsWith('judgment-reveal'))).toBe(false)
   })
 
-  it('공개 자료의 단위 해시가 결속과 다르면 judgment null', async () => {
+  it('도구 유형이 아닌 문항 · tool 키 없음 — 기존 공개 그대로', async () => {
+    st.type = 'R-BLANK'
+    const j = await (await call()).json()
+    expect(j.reveal).toBeTruthy()
+    expect(j.judgment).toBeNull()
+  })
+
+  it('도구 요청인데 지금 결속이 없다 → 409 · 원장 기록 전 · 정답 자료 전혀 없음', async () => {
+    st.boundSeq = [null]
+    const res = await call()
+    expect(res.status).toBe(409)
+    expect(res.headers.get('cache-control')).toBe('no-store')
+    await assertNoAnswer(res)
+    expect(st.calls.some((c) => c.startsWith('rpc:'))).toBe(false)
+  })
+
+  it('화면 도구의 unitsHash 가 지금 결속과 다르다 → 409 · 원장 기록 전 · 정답 자료 없음', async () => {
+    const res = await call({ tool: { analysisVersion: 4, unitsHash: 'h0' } })
+    expect(res.status).toBe(409)
+    await assertNoAnswer(res)
+    expect(st.calls.some((c) => c.startsWith('rpc:'))).toBe(false)
+  })
+
+  it('tool 판본이 요청 판본과 다르면 400', async () => {
+    expect((await call({ tool: { analysisVersion: 3, unitsHash: 'h1' } })).status).toBe(400)
+  })
+
+  it('원장 커밋 뒤 결속이 바뀌었다 → 409 · 극장 reveal 도 없음', async () => {
+    st.boundSeq = [undefined as never, 'other']
+    const res = await call({ tool: { analysisVersion: 4, unitsHash: 'h1' } })
+    expect(res.status).toBe(409)
+    await assertNoAnswer(res)
+    expect(st.calls).not.toContain('load-reveal')
+  })
+
+  it('공개 자료의 단위 해시가 결속과 다르다 → 409 · 정답 자료 없음', async () => {
     st.revealHash = 'other'
-    expect((await (await call()).json()).judgment).toBeNull()
+    const res = await call()
+    expect(res.status).toBe(409)
+    await assertNoAnswer(res)
+    expect(st.calls).not.toContain('load-reveal')
   })
 
   it('원장 커밋 뒤 보류가 시작되면 423 · judgment 없음', async () => {
@@ -148,12 +201,13 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     const res = await call()
     expect(res.status).toBe(423)
     expect(await res.text()).not.toMatch(/judgment|answer/)
-    expect(st.calls.some((c) => c.startsWith('bound') || c.startsWith('judgment-reveal'))).toBe(false)
+    expect(st.calls.some((c) => c.startsWith('judgment-reveal'))).toBe(false)
+    expect(st.calls).not.toContain('load-reveal')
     vi.restoreAllMocks()
   })
 
   it('강의 전체 · 경계 계속도 같은 원장(source 만 다름)', async () => {
     await call({ source: 'lecture_continue' })
-    expect(st.calls[0]).toBe('rpc:learning_exposure_record:answer_direct:lecture_continue:2014A#23:4')
+    expect(st.calls).toContain('rpc:learning_exposure_record:answer_direct:lecture_continue:2014A#23:4')
   })
 })
