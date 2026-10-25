@@ -17,8 +17,8 @@
 | live DB 읽기 감사 · 코드 경로 감사 | `docs/lcp-story/S3_DB_AUDIT.md`(SELECT 전용 실측 · 결정) · `docs/lcp-story/S3_CODE_PATHS.md` | 작성됨(T-0169) |
 | DB 테이블 · RPC · RLS · 발행 게이트 | `supabase/migrations/20261025094450_lcp_story_s3_schema.sql` · 복구 `_pending_lcp_story_s3_quarantine.sql` · 러너 `scripts/db/lcp-story-s3/deploy.mjs` · 격리 시험 `verify-isolated.ts` | **공유 DB 적용 완료** — 사용자 승인 뒤 MCP 원장 `20261025094450` · 승인 SHA 일치 · 사후 검사 15/15. 관리자/학습자 런타임은 별도(S4/S5) |
 | S2 검증 증명 어댑터 | `packages/library-pipeline/src/story/attest.ts`(`buildValidationAttestation`) — DB 가 돌려준 저장값을 S2 검증기로 검사해 발행에 필요한 결속 증명을 만든다(§15) | 순수 함수 구현 · 작성자 테스트 |
-| 검증 증인 런타임(S4) | `apps/web/src/lib/library/story/witness.ts` · 서버 액션 `attestStoryValidationAction` — 쿠키 세션 스태프 확인 뒤에만 service_role 로 §15 의 1~3 을 실행(§15) | 작성자 구현 · 가짜 클라이언트 단위 시험 · 격리 브라우저 하네스(T-0174). 공유 DB 에서 실제 실행 · 실제 발행은 하지 않음 · 독립 수용 전 |
-| 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 작성자 구현 · 단위 · 격리 브라우저 하네스(T-0174). 두 번째 인증 스태프 계정 없음 · 실제 발행 미실행 · 독립 수용 전 |
+| 검증 증인 런타임(S4) | `apps/web/src/lib/library/story/witness.ts` · 서버 액션 `attestStoryValidationAction` — 쿠키 세션 스태프 확인 뒤에만 service_role 로 §15 의 1~3 을 실행(§15) | 작성자 구현 · 가짜 클라이언트 단위 시험 · 격리 브라우저 하네스(T-0174). 공유 DB 에서 실제 실행 · 실제 발행은 하지 않음 · 독립 수용 완료(T-0174 `fcf57c225e2a`) |
+| 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 작성자 구현 · 단위 · 격리 브라우저 하네스(T-0174). 두 번째 인증 스태프 계정 없음 · 실제 발행 미실행 · 독립 수용 완료(T-0174 `fcf57c225e2a`) |
 | 학습자 화면 · 이벤트 · 추천 | 없음 | 제안(S5~S6) |
 | 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 | 없음 | 미실행(S7) |
 
@@ -292,7 +292,7 @@ live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번
 - **신뢰 경계**: 증명은 「service_role 자격을 가진 백엔드가 S2 통과를 주장했다」는 기록이다. S2 가 실제로 돌았다는 암호학적 증거가 아니다 —
   service_role 키를 가진 주체는 결속을 맞춘 증명을 손으로 쓸 수 있다. 보호 수단은 그 키의 보관과 백엔드 어댑터 경로다.
 - **S2 규칙을 강화하면** 어댑터의 `ATTESTATION_VALIDATOR.contract` 와 DB `story.current_validator()` 를 함께 올리는 새 승인 마이그레이션이 필요하다 — 그러면 옛 계약판 증명은 발행을 허가하지 못한다.
-- **증인 런타임(S4, 작성자 구현 · 독립 수용 전)**: `lib/library/story/witness.ts` 가 위 1~3 을 이 순서로만 한다 — 쿠키 세션의 활성 스태프(admin · curator) 확인이 실패하면 service_role 클라이언트를 만들지도, 어떤 RPC 도 부르지 않는다.
+- **증인 런타임(S4, 독립 수용 완료 · T-0174 `fcf57c225e2a`)**: `lib/library/story/witness.ts` 가 위 1~3 을 이 순서로만 한다 — 쿠키 세션의 활성 스태프(admin · curator) 확인이 실패하면 service_role 클라이언트를 만들지도, 어떤 RPC 도 부르지 않는다.
   `story_service_validation_input` 응답을 복사 · 정규화 없이 어댑터에 넘기고, 통과했을 때만 `story_service_attest_validation` 을 부른다. 클라이언트가 보낸 증명 · 검증 결과는 받지 않는다(입력은 판 id 하나).
   증인은 관리자 화면의 「검증 실행」 버튼(명시적 액션)으로만 돈다 — 목록 · 번들 읽기 · 화면 진입은 증인 · 권리 · 발행 요청을 보내지 않는다(격리 브라우저 하네스가 요청 기록으로 단언). 증인 뒤 발행은 별개의 쿠키 세션 `story_admin_publish` 다.
   이 런타임은 공유 DB 에서 실제로 실행되지 않았다 — 검증은 가짜 클라이언트 시험과 격리 하네스(실제 서버 로직 + 메모리 가짜 DB)까지다. 증인이 배포되지 않은 환경에서는 여전히 발행이 막힌다(fail closed).
@@ -335,7 +335,7 @@ live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번
 본문 · 원문 · 자유 텍스트 · UUID · URL 을 넣지 않는다. 세부 식별자는 서버 쪽 데이터 계약에서 다룬다.
 이벤트 이름은 `apps/web/src/lib/analytics/events.ts` 와 DB `funnel_events_event_check` 허용 목록 **둘 다**에 있어야 한다(후자는 마이그레이션 = DB 승인).
 
-## 18. 관리자 화면 (S4 — 작성자 구현 · 독립 수용 전, T-0174)
+## 18. 관리자 화면 (S4 — 독립 수용 완료 · T-0174 `fcf57c225e2a`, T-0174)
 
 `/admin/curation` 맨 위 「작업 라인」에서 **원본 도서**와 **이야기 판본**(`line=story`)을 고른다. 라인 전환은 `line` 하나만 바꿔 원본 라인의 보기 · 검색 · 필터 · 쪽 · 선택 URL 이 그대로 남는다.
 이야기 라인 URL 에는 식별자만 둔다(`story_slot` · `story_panel=files`) — 원문 · 파일 내용은 URL · 브라우저 저장소에 넣지 않는다. 화면 · 경계 표는 [ADMIN_CONSOLE §/admin/curation](./ADMIN_CONSOLE.md).
