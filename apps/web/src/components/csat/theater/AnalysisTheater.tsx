@@ -1027,8 +1027,30 @@ export function AnalysisTheater({
     if (p === 'until') lec.start(untilFrom(from), 'start', 'until')
   }
   // 포커스는 학습자가 연 경우에만 옮긴다 — 강의가 경계에 닿거나 서버가 거절해 열린 안내는 aria-live 로만 알린다(T-0140 Codex P2)
+  // 닫힐 때(Escape · 「닫기」 · 경로 선택) 포커스는 선택을 연 단추로 돌아간다. 그 단추가 사라졌으면 머리 줄 재생 단추, 그것도 없으면 극장 자체(T-0152 r3)
+  const chooserOpenerRef = useRef<HTMLElement | null>(null)
+  const chooserWasOpen = useRef(false)
+  const playBtnRef = useRef<HTMLButtonElement | null>(null)
+  const theaterRef = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
-    if (chooser?.byLearner) chooserRef.current?.focus()
+    if (chooser?.byLearner) {
+      const a = document.activeElement
+      if (a instanceof HTMLElement && a !== document.body && !a.closest('[data-testid="lecture-chooser"]')) chooserOpenerRef.current = a
+      chooserRef.current?.focus()
+    }
+    if (chooser) {
+      chooserWasOpen.current = true
+      return
+    }
+    if (!chooserWasOpen.current) return
+    chooserWasOpen.current = false
+    const opener = chooserOpenerRef.current
+    chooserOpenerRef.current = null
+    // 학습자가 연 선택이 아니었다면(경계 · 서버 거절) 포커스를 옮기지 않는다 — 단, 포커스가 사라진 선택 안에 있었으면 문서 밖으로 빠지지 않게 되돌린다
+    const lost = !document.activeElement || document.activeElement === document.body
+    if (!opener && !lost) return
+    const target = [opener, playBtnRef.current, theaterRef.current].find((el): el is HTMLElement => Boolean(el && el.isConnected && el.getClientRects().length > 0))
+    target?.focus()
   }, [chooser])
   useEffect(() => {
     if (lecturePath !== 'until' || !lec) return
@@ -1163,7 +1185,7 @@ export function AnalysisTheater({
   }
 
   return (
-    <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
+    <div className={styles.workspace} data-csat-theater data-testid="analysis-theater" ref={theaterRef} tabIndex={-1}>
       {/* ── 문항 머리: ← · 회차/번호/유형 · 학습 지도/목록 복귀 · 강의 도구 ─────────────── */}
       <header className={styles.bar}>
         <Link className={styles.backIcon} href={backHref} onClick={back(backTo)} data-testid="item-back-home" data-back={backTo} aria-label={backTo === 'browse' ? '기출 탐구 — 고른 조건으로' : '내 학습 지도'}>
@@ -1221,6 +1243,7 @@ export function AnalysisTheater({
           ) : null}
           {lec ? (
             <button
+              ref={playBtnRef}
               type="button"
               className={styles.play}
               onClick={() => (status === 'idle' || status === 'error' ? requestPlay(cursor) : lec.toggle())}

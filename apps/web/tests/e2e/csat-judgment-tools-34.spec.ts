@@ -276,15 +276,33 @@ test.describe('판단 도구 34 × 해설 화면', () => {
         await play.click()
         await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
       }).toPass({ timeout: 60_000 })
-      // Escape 는 「닫기」와 같다 — 강의를 시작하지 않고 선택만 접는다(r3 관찰 결함 수정). 다시 열어 이어 간다
+      // 강의 선택을 닫는 세 길(Escape · 「닫기」 · 경로 선택) 모두 포커스가 선택을 연 단추로 돌아온다(r3 객관 결함 수정). 키보드로 연다
+      const opener = await play.elementHandle()
+      const focusOnOpener = () => page.evaluate((el) => el === document.activeElement, opener)
+      const openByKeyboard = async () => {
+        await expect(async () => {
+          await play.focus()
+          await page.keyboard.press('Enter')
+          await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
+        }).toPass({ timeout: 60_000 })
+      }
+      await page.keyboard.press('Escape') // 위에서 연 선택(마우스)을 먼저 접는다
+      await expect(page.getByTestId('lecture-chooser'), 'Escape 로 강의 선택이 닫히지 않는다').toHaveCount(0)
+      await openByKeyboard()
       await page.getByTestId('lecture-chooser').locator('button').first().focus()
       await page.keyboard.press('Escape')
       await expect(page.getByTestId('lecture-chooser'), 'Escape 로 강의 선택이 닫히지 않는다').toHaveCount(0)
-      await expect(async () => {
-        await play.click()
-        await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
-      }).toPass({ timeout: 60_000 })
-      await page.getByTestId('lecture-path-until').click()
+      expect(await focusOnOpener(), 'Escape 뒤 포커스가 선택을 연 단추로 돌아오지 않았다').toBe(true)
+      await openByKeyboard()
+      await page.getByTestId('lecture-path-cancel').focus()
+      await page.keyboard.press('Enter')
+      await expect(page.getByTestId('lecture-chooser'), '「닫기」 로 강의 선택이 닫히지 않는다').toHaveCount(0)
+      expect(await focusOnOpener(), '「닫기」 뒤 포커스가 선택을 연 단추로 돌아오지 않았다').toBe(true)
+      await openByKeyboard()
+      await page.getByTestId('lecture-path-until').focus()
+      await page.keyboard.press('Enter')
+      await expect(page.getByTestId('lecture-chooser')).toHaveCount(0)
+      expect(await focusOnOpener(), '경로 선택 뒤 포커스가 선택을 연 단추로 돌아오지 않았다').toBe(true)
       await expect(page.getByTestId('lecture-boundary')).toBeVisible({ timeout: 180_000 })
       await page.getByTestId('lecture-boundary-skip').click()
       const lectureStatus = () => page.evaluate(() => (window as unknown as { __LECTURE__?: { player?: { getState(): { status: string } } | null } }).__LECTURE__?.player?.getState().status ?? 'none')
