@@ -1,24 +1,49 @@
 -- supabase/migrations/_pending_lcp_story_s3_schema.sql
 -- ⚠️ 보류(적용 안 함) — LCP Story S3. 공유 DB 적용은 별도 사용자 대화 승인(L4) 뒤 승인형 배포 러너
---    (scripts/db/lcp-story-s3/deploy.mjs apply --stage schema --confirm-sha <이 파일 SHA-256>)로만 한다.
---    격리 PGlite 시험(scripts/db/lcp-story-s3/verify-isolated.ts)에서만 실행했다.
+--    (main-serving 의 scripts/db/lcp-story-s3/deploy.mjs apply --stage schema --confirm-sha <이 파일 SHA-256>)로만 한다.
+--    격리 임시 DB(PGlite · 임시 PostgreSQL 클러스터) 시험에서만 실행했다.
+-- ⚠️ 트랜잭션: 이 파일에는 BEGIN/COMMIT 이 없다. 승인형 러너가 이 단계 본문 전체와 원장(supabase_migrations) 행을 한 트랜잭션으로
+--    감싸 적용하고, 실패하면 전부 되돌린다. 이 파일을 psql · SQL 편집기 · MCP 도구 등으로 공유 DB 에 단독 실행하는 것은 금지다
+--    (중간 실패 시 일부 객체만 남을 수 있고, 원장 · 승인 기록이 남지 않는다).
 --
--- 무엇: 이야기 판본 라인(docs/LCP_STORY.md)의 격리 저장소. 기존 원본 도서 테이블 · 함수 · 정책 · 행을 하나도 바꾸지 않는다.
---   · 새 스키마 story(PostgREST 비노출) — 원천 스냅숏 · 편집 기준 · 판본 자리 · 판본 판 · 검수 · 권리 결정 · 발행본 · 발행 단위 본문 ·
---     발행본별 읽기 진도 · 작업 기록. 모든 표 RLS 켜짐 + 정책 없음 + anon/authenticated/service_role 권한 없음.
---   · public.story_* RPC(SECURITY DEFINER, search_path = pg_catalog, pg_temp — 표는 모두 스키마를 붙여 부른다)만 문이다. 관리자 RPC 는 auth.uid() 의 user_profiles 역할로
---     판단한다 — service_role(사용자 없음)은 행위자가 아니다. 호출자가 보낸 생산자 · 검수자 · 권리 값은 「주장」으로만 저장한다.
---   · 본문 해시 · 원천 판본 정체 해시 · 기준/목표/판본/활동/검수 해시 · release_key 를 DB 가 S2(packages/library-pipeline/src/story)와
+-- 무엇: 이야기 판본 라인(계약 정본 docs/LCP_STORY.md §8–§15 와 이 파일)의 격리 저장소. 기존 원본 도서 테이블 · 함수 · 정책 · 행을 하나도 바꾸지 않는다.
+--   · 새 스키마 story(PostgREST 비노출) 표 12 — 원천 스냅숏 · 편집 기준 · 판본 자리 · 판본 판 · 검수 · 검증 증명 · 권리 결정 · 발행본 ·
+--     발행 단위 본문 · 발행본별 읽기 진도 · 단위 완료 기록 · 작업 기록. 모든 표 RLS 켜짐 + 정책 없음 + anon/authenticated/service_role 권한 없음.
+--   · 문은 public.story_* RPC 16개뿐(SECURITY DEFINER, search_path = pg_catalog, pg_temp — 표 · 함수는 모두 스키마를 붙여 부른다):
+--     관리 9(authenticated · 내부에서 auth.uid() 의 user_profiles 역할 + status='active' 확인) · 검증 증인 2(service_role 만) ·
+--     학습자 5(서가 story_catalog = anon + authenticated · 나머지 authenticated).
+--   · 행위자: 관리 RPC 는 auth.uid() 로만 판단한다 — service_role(사용자 없음)은 관리 행위자가 아니다. 호출자가 보낸 생산자 · 검수자 · 권리 값은
+--     「주장」으로만 저장한다. DB 가 강제하는 분리는 정확히 이것이다:
+--       검수 계정 ≠ 판본 제출 계정(그리고 검수자 세션 주장 ≠ 생산자 세션 주장) · 발행자 = admin 이고 판본 제출 계정이 아니다 ·
+--       권리 결정 · 철회 = admin. 검수자와 발행 admin 은 같은 계정이어도 된다 — 실제 발행에 필요한 인증 계정은 최소 2개
+--       (예: curator 제출 + admin 검수 · 발행)다. 세 사람(생산자 · 검수자 · 발행자 모두 다름)을 요구하지 않는다.
+--     live 감사(2026-10-25, docs/lcp-story/S3_DB_AUDIT.md)는 active admin 1 · curator 0 을 보았다 — 실제 발행 전에 두 번째 인증 스태프 계정이
+--     실제로 있어야 한다. 이 마이그레이션은 역할을 만들거나 부여하지 않으며, 로컬 AI 세션 id 는 스태프 계정이 아니다(주장일 뿐이다).
+--   · 검증 증인: DB 는 S2 구조 검증(앵커의 UTF-16 구간 · 인용 · 정렬 누락 · 보존 요소 · 변경 기록 · 진입 장면 · 요청 활동 등)을 SQL 로
+--     다시 구현하지 않는다(아래 판본 제출 검사는 방어용 일부일 뿐 S2 검증이 아니다). 대신 발행은 백엔드 서비스 주체(service_role)만 쓸 수 있는
+--     검증 증명(story.validation_attestations)이 지금 저장된 원천 · 정체 · 기준 · 목표 · 판본 · 활동 · 검수 해시 묶음에 결속돼 있을 때만 된다.
+--     증명은 S2 어댑터(packages/library-pipeline/src/story/attest.ts)가 story_service_validation_input 이 돌려준 저장값 그대로를 S2 검증기로 검사한 뒤
+--     story_service_attest_validation 으로 쓰고, DB 가 결속을 다시 계산해 대조한다. authenticated · curator · admin 은 증명을 쓸 수 없고,
+--     어댑터가 없는 배포는 발행이 막힌다(fail closed). 서비스 주체는 증인일 뿐 생산자 · 검수자 · 권리 결정자 · 발행자로 기록되지 않는다
+--     (action_log actor_kind='service_validator', actor 없음). 초안 · 검수 저장은 증명 없이 된다(학습자에게 보이지 않는다).
+--   · 해시: 본문 해시 · 원천 판본 정체 해시 · 기준/목표/판본/활동/검수/검증 결속 해시 · release_key 를 DB 가 S2(packages/library-pipeline/src/story)와
 --     같은 정본 직렬화(키 UTF-16=ASCII 순 정렬 · 배열 순서 보존 · JSON.stringify 와 같은 문자열 이스케이프 · 정수만)로 다시 계산한다.
---   · 발행은 최신 판 · 현재 결속 검수 전부 적격 · 생산자 ≠ 검수자 ≠ 발행자(발행자 ≠ 생산자) · 원문(+선언/번역) 권리 confirmed ·
---     자산 없음 · 같은 자리 살아 있는 발행본 없음일 때만. 발행본 행 · 단위 본문은 불변, 철회는 철회 칸만 한 번 채운다.
---   · 학습자는 살아 있는 발행본만 읽고(로그인), 진도는 발행본별로만 쌓인다. 철회는 본문 · 직접 읽기를 막고 진도 · 이력을 보존한다.
+--   · 발행 조건: 최신 판(판본 자리 잠금을 쥔 채 계산한 max(seq)) · 그 판의 검수 전부 적격 · 발행자 admin ≠ 판본 제출자 · 원문(+번역) 권리 최신 결정
+--     confirmed · 자산 없음 · 합성 아님 · 같은 자리 살아 있는 발행본 없음 · 현재 결속의 검증 증명 있음. 발행본 행 · 단위 본문은 불변, 철회는 철회 칸만 한 번 채운다.
+--   · 권리: 발행본 「이용 가능」 = 철회되지 않음 AND story.source_rights_ok(원천) — 필요 권리(source_text, 그리고 번역본이거나 스냅숏이 translation 권리를
+--     주장하면 translation)의 최신 인증 결정이 모두 confirmed. 서가 · 본문 · 위치 · 완료 · 내 진도 · 발행이 모두 이 판정을 쓴다. 나중의 hold · rejected 는
+--     발행본 행을 바꾸지 않고 즉시 열람을 닫으며(이력 보존) 다시 confirmed 면 열린다. 쓰지 않는 오디오 · 삽화 권리는 본문을 막지 않는다.
+--   · 진도: 위치(story_record_position — 이동만, 단위 완료 · 발행본 완료를 만들지 않는다)와 단위 완료(story_complete_unit — 학습자의 명시적 표시)를 나눈다.
+--     발행본 완료(completed_at)는 0..unit_count-1 모든 단위에 완료 기록이 있을 때 한 번만 찍힌다 — 마지막 단위로 건너뛰어도 완료가 아니다.
+--     진도는 발행본별이고 원문 완독 · 숙달 · FSRS 로 세지 않으며 다른 판본 · 발행본으로 승계하지 않는다(원본 texts · 학습 표를 쓰지 않는다).
+--   · 잠금 순서(모든 변경 RPC 공통): story.sources 행 → story.edition_slots 행 → story.releases 행(FOR UPDATE). 권리 결정은 원천 잠금을 쥐므로 발행과
+--     한 줄로 선다. 발행 · 검증 증명은 READ COMMITTED(PostgREST 기본)에서만 실행된다 — 잠금을 얻은 뒤의 문장마다 새 스냅숏으로 최신 판 · 검수 · 권리를 읽기 위해서다.
 --
--- 영향: 기존 행 0 · 기존 객체 변경 0(새 스키마 1 · 새 표 10 · 새 함수 · 트리거 · 인덱스만). public.library_books 는 읽기만 한다
---   (library_book 원천의 대응 확인). FK 를 걸지 않아 원본 도서 삭제 · 재처리 동작을 막지 않는다.
+-- 영향: 기존 행 0 · 기존 객체 변경 0(새 스키마 1 · 새 표 12 · 새 함수 · 트리거 · 인덱스만). public.library_books 는 읽기만 한다
+--   (library_book 원천의 대응 확인). 원본 표에 FK 를 걸지 않아 원본 도서 삭제 · 재처리 동작을 막지 않는다.
 -- 전제: PostgreSQL 13+(IS NFC NORMALIZED · gen_random_uuid · sha256), auth.uid(), public.user_profiles(user_id, role, status),
---   public.library_books(id, source, source_id, status), 역할 anon · authenticated · service_role. 스키마 story 가 없어야 한다.
--- 되돌리기: 파괴 없이 _pending_lcp_story_s3_quarantine.sql(모든 public.story_* 실행 권한 회수 — 표 · 이력 보존).
+--   public.library_books(id, source, source_id, status), 역할 anon · authenticated · service_role. 스키마 story · public.story_* 함수가 없어야 한다.
+-- 되돌리기: 파괴 없이 _pending_lcp_story_s3_quarantine.sql(public.story_* RPC 16개 실행 권한 회수 — 표 · 이력 보존).
 
 do $$
 declare v_missing text[];
@@ -141,7 +166,7 @@ as $fn$
             then array['assets'] else '{}'::text[] end
 $fn$;
 
--- ── 2. 행위자 ──────────────────────────────────────────────────────────────────
+-- ── 2. 행위자 · 실행 조건 ─────────────────────────────────────────────────────
 
 -- 관리 행위자 = 로그인한 사용자 + user_profiles 역할 + active. service_role 은 auth.uid() 가 없어 여기서 막힌다.
 create function story.require_staff(p_min_role text)
@@ -194,6 +219,48 @@ begin
     raise exception 'story:account_blocked' using errcode = '42501';
   end if;
   return v_uid;
+end
+$fn$;
+
+-- 검증 증인 = 백엔드 서비스 주체. 1차 문은 EXECUTE 권한(service_role 만)이다. 이것은 방어 겹:
+-- JWT 역할 주장이 있으면(request.jwt.claim.role 또는 request.jwt.claims->>'role') service_role 이어야 한다. 읽을 수 없는 주장은 거부한다.
+create function story.require_service_validator()
+returns void
+language plpgsql
+stable
+set search_path = pg_catalog, pg_temp
+as $fn$
+declare
+  v_claim text := nullif(pg_catalog.current_setting('request.jwt.claim.role', true), '');
+  v_claims text := nullif(pg_catalog.current_setting('request.jwt.claims', true), '');
+  v_claims_role text;
+begin
+  if v_claims is not null then
+    begin
+      v_claims_role := v_claims::jsonb ->> 'role';
+    exception when others then
+      raise exception 'story:service_role_required' using errcode = '42501', detail = 'unreadable request.jwt.claims';
+    end;
+  end if;
+  if (v_claim is not null and v_claim <> 'service_role')
+     or (v_claims_role is not null and v_claims_role <> 'service_role') then
+    raise exception 'story:service_role_required' using errcode = '42501';
+  end if;
+end
+$fn$;
+
+-- 발행 · 검증 증명은 잠금을 얻은 뒤 문장마다 새 스냅숏으로 최신 판 · 검수 · 권리를 읽어야 한다. REPEATABLE READ · SERIALIZABLE 에서는
+-- 잠금 전 스냅숏으로 옛 상태를 읽을 수 있으므로 거부한다(PostgREST 기본은 READ COMMITTED).
+create function story.require_read_committed()
+returns void
+language plpgsql
+stable
+set search_path = pg_catalog, pg_temp
+as $fn$
+begin
+  if pg_catalog.current_setting('transaction_isolation') is distinct from 'read committed' then
+    raise exception 'story:read_committed_required' using detail = pg_catalog.current_setting('transaction_isolation');
+  end if;
 end
 $fn$;
 
@@ -268,6 +335,7 @@ create table story.edition_versions (
   submitted_at timestamptz not null default pg_catalog.now(),
   unique (slot_id, edition_sha256, activities_sha256)
 );
+comment on table story.edition_versions is '판본 판(초안 포함). 저장은 S2 검증 통과를 뜻하지 않는다 — 발행은 검증 증명이 따로 있어야 한다.';
 
 create table story.reviews (
   id uuid primary key default pg_catalog.gen_random_uuid(),
@@ -283,6 +351,19 @@ create table story.reviews (
   unique (edition_version_id, review_sha256)
 );
 
+-- 백엔드 검증 증인(service_role)만 쓰는 S2 검증 증명. 결속 = 지금 저장된 원천 · 정체 · 기준 · 목표 · 판본 · 활동 · 검수 해시 전부.
+create table story.validation_attestations (
+  id uuid primary key default pg_catalog.gen_random_uuid(),
+  edition_version_id uuid not null references story.edition_versions (id) on delete restrict,
+  binding jsonb not null,
+  binding_sha256 text not null check (binding_sha256 ~ '^[0-9a-f]{64}$'),
+  attestation jsonb not null,
+  attested_at timestamptz not null default pg_catalog.now(),
+  constraint validation_attestations_version_binding_key unique (edition_version_id, binding_sha256)
+);
+comment on table story.validation_attestations is
+  'S2 검증 증명 — story_service_attest_validation(service_role)만 쓴다. 관리자 · 사용자 행위가 아니며 사람 검수의 증거도 아니다.';
+
 create table story.rights_decisions (
   id uuid primary key default pg_catalog.gen_random_uuid(),
   seq bigint generated always as identity,
@@ -296,7 +377,8 @@ create table story.rights_decisions (
   constraint rights_decisions_confirmed_evidence check (
     status <> 'confirmed' or (evidence_ref is not null and pg_catalog.length(pg_catalog.btrim(evidence_ref)) > 0))
 );
-comment on table story.rights_decisions is '인증된 관리자(admin)의 권리 결정. 스냅숏의 권리 「주장」과 별개이며 발행 게이트는 이 표만 본다.';
+comment on table story.rights_decisions is
+  '인증된 관리자(admin)의 권리 결정(추가만). 스냅숏의 권리 「주장」과 별개이며 발행 · 열람 게이트는 자산별 최신(seq) 결정만 본다.';
 
 create table story.releases (
   id uuid primary key default pg_catalog.gen_random_uuid(),
@@ -304,6 +386,7 @@ create table story.releases (
   slot_id uuid not null references story.edition_slots (id) on delete restrict,
   edition_version_id uuid not null references story.edition_versions (id) on delete restrict,
   source_id uuid not null references story.sources (id) on delete restrict,
+  validation_attestation_id uuid not null references story.validation_attestations (id) on delete restrict,
   work_key text not null,
   edition_key text not null,
   kind text not null,
@@ -333,8 +416,10 @@ create table story.releases (
 );
 -- 같은 판본 자리에 살아 있는 발행본은 하나 — 동시 발행 경합의 최종 방어.
 create unique index releases_one_live_per_slot on story.releases (slot_id) where withdrawn_at is null;
+comment on table story.releases is
+  '발행본(불변). 학습자 이용 가능 = withdrawn_at 없음 AND story.source_rights_ok(source_id) — 권리 보류는 행을 바꾸지 않고 열람을 닫는다.';
 
--- 학습자 본문은 메타데이터 JSON 이 아니라 이 표의 text 열에만 있다. 읽기는 story_read_unit(살아 있는 발행본)뿐이다.
+-- 학습자 본문은 메타데이터 JSON 이 아니라 이 표의 text 열에만 있다. 읽기는 story_read_unit(이용 가능한 발행본)뿐이다.
 create table story.release_units (
   release_id uuid not null references story.releases (id) on delete restrict,
   unit_index integer not null check (unit_index >= 0),
@@ -344,24 +429,43 @@ create table story.release_units (
   primary key (release_id, unit_index)
 );
 
--- 진도는 발행본별이다. 다른 판본 · 발행본으로 승계하지 않고, 숙달 · FSRS 표를 건드리지 않는다.
+-- 진도는 발행본별이다. 위치(last · furthest)는 이동 기록일 뿐 완료가 아니다. 다른 판본 · 발행본으로 승계하지 않고, 숙달 · FSRS 표를 건드리지 않는다.
 create table story.reading_progress (
   user_id uuid not null,
   release_id uuid not null references story.releases (id) on delete restrict,
+  last_unit_index integer not null check (last_unit_index >= 0),
   furthest_unit_index integer not null check (furthest_unit_index >= 0),
+  completed_unit_count integer not null default 0 check (completed_unit_count >= 0),
   completed_at timestamptz,
   first_read_at timestamptz not null default pg_catalog.now(),
   updated_at timestamptz not null default pg_catalog.now(),
-  primary key (user_id, release_id)
+  constraint reading_progress_pkey primary key (user_id, release_id),
+  constraint reading_progress_position check (furthest_unit_index >= last_unit_index)
+);
+
+-- 학습자가 명시적으로 「이 단위를 읽었다」고 표시한 기록(추가만). 발행본 완료는 모든 단위의 기록이 있을 때만이다.
+create table story.reading_unit_completions (
+  user_id uuid not null,
+  release_id uuid not null,
+  unit_index integer not null check (unit_index >= 0),
+  completed_at timestamptz not null default pg_catalog.now(),
+  constraint reading_unit_completions_pkey primary key (user_id, release_id, unit_index),
+  constraint reading_unit_completions_progress foreign key (user_id, release_id)
+    references story.reading_progress (user_id, release_id) on delete restrict,
+  constraint reading_unit_completions_unit foreign key (release_id, unit_index)
+    references story.release_units (release_id, unit_index) on delete restrict
 );
 
 create table story.action_log (
   id bigint generated always as identity primary key,
   action text not null,
-  actor uuid not null,
+  actor_kind text not null default 'user' check (actor_kind in ('user', 'service_validator')),
+  actor uuid,
   target_id uuid,
   detail jsonb not null default '{}'::jsonb,
-  at timestamptz not null default pg_catalog.now()
+  at timestamptz not null default pg_catalog.now(),
+  -- 사용자 행위는 인증된 행위자가 있고, 검증 증인(service_validator)은 사람 · 계정 행위자로 기록하지 않는다.
+  constraint action_log_actor check ((actor_kind = 'user') = (actor is not null))
 );
 
 create index edition_versions_slot_seq on story.edition_versions (slot_id, seq desc);
@@ -369,7 +473,7 @@ create index reviews_version on story.reviews (edition_version_id);
 create index rights_decisions_source_asset on story.rights_decisions (source_id, asset, seq desc);
 create index reading_progress_release on story.reading_progress (release_id);
 
--- ── 4. 불변 · 철회 · 진도 가드 ──────────────────────────────────────────────────
+-- ── 4. 불변 · 철회 · 진도 가드, 권리 · 결속 판정 ─────────────────────────────────
 
 create function story.forbid_mutation()
 returns trigger
@@ -402,23 +506,112 @@ begin
 end
 $fn$;
 
-create function story.guard_progress_update()
+-- 진도 가드: 새 행은 완료 0 으로만 시작한다. 키 · 처음 읽은 시각 불변, furthest · completed_unit_count 는 줄지 않고,
+-- completed_unit_count 는 실제 단위 완료 기록 수와 같아야 하며, completed_at 은 모든 단위 완료 기록이 있을 때 한 번만 찍힌다.
+create function story.guard_progress()
 returns trigger
 language plpgsql
 set search_path = pg_catalog, pg_temp
 as $fn$
+declare
+  v_done integer;
+  v_units integer;
 begin
   if tg_op = 'DELETE' then
     raise exception 'story:immutable_row' using detail = 'reading_progress DELETE';
   end if;
+  if tg_op = 'INSERT' then
+    if new.completed_unit_count <> 0 or new.completed_at is not null then
+      raise exception 'story:progress_invalid';
+    end if;
+    return new;
+  end if;
   if new.user_id is distinct from old.user_id or new.release_id is distinct from old.release_id
      or new.first_read_at is distinct from old.first_read_at
      or new.furthest_unit_index < old.furthest_unit_index
+     or new.completed_unit_count < old.completed_unit_count
      or (old.completed_at is not null and new.completed_at is distinct from old.completed_at) then
     raise exception 'story:progress_regression';
   end if;
+  if new.completed_unit_count is distinct from old.completed_unit_count
+     or (new.completed_at is not null and old.completed_at is null) then
+    select pg_catalog.count(*)::integer into v_done from story.reading_unit_completions c
+     where c.user_id = new.user_id and c.release_id = new.release_id;
+    if new.completed_unit_count <> v_done then
+      raise exception 'story:progress_count_mismatch';
+    end if;
+    if new.completed_at is not null and old.completed_at is null then
+      select rl.unit_count into v_units from story.releases rl where rl.id = new.release_id;
+      if v_done is distinct from v_units then
+        raise exception 'story:completion_incomplete';
+      end if;
+    end if;
+  end if;
   return new;
 end
+$fn$;
+
+-- 본문을 이루는 필요 권리와 자산별 최신 인증 결정(seq 순). 원문 + (번역본이거나 스냅숏이 번역 권리를 주장하면) 번역.
+-- 쓰지 않는 오디오 · 삽화 결정은 여기 없다 — 본문을 막지 않는다. 결정이 없으면 status 는 null 이다.
+create function story.required_rights(p_source_id uuid)
+returns table (asset text, status text)
+language sql
+stable
+set search_path = pg_catalog, pg_temp
+as $fn$
+  select req.asset, d.status
+    from story.sources s
+    cross join lateral (
+      select 'source_text'::text as asset
+      union all
+      select 'translation'::text
+       where s.original_language <> s.text_language
+          or exists (select 1 from pg_catalog.jsonb_array_elements(s.snapshot_meta -> 'rights') as r
+                      where r ->> 'asset' = 'translation')
+    ) as req
+    left join lateral (
+      select rd.status from story.rights_decisions rd
+       where rd.source_id = s.id and rd.asset = req.asset
+       order by rd.seq desc
+       limit 1
+    ) as d on true
+   where s.id = p_source_id
+$fn$;
+
+-- 지금 권리로 본문을 내보내도 되는가 — 필요 권리 전부의 최신 결정이 confirmed. 원천이 없으면 false.
+create function story.source_rights_ok(p_source_id uuid)
+returns boolean
+language sql
+stable
+set search_path = pg_catalog, pg_temp
+as $fn$
+  select coalesce(pg_catalog.bool_and(rr.status is not distinct from 'confirmed'), false)
+    from story.required_rights(p_source_id) as rr
+$fn$;
+
+-- 검증 증명 결속 — 저장된 값에서 DB 가 다시 계산한다(호출자 값을 쓰지 않는다). review_sha256s 는 그 판의 검수 전부, "C" 오름차순.
+create function story.attestation_binding(p_edition_version_id uuid)
+returns jsonb
+language sql
+stable
+set search_path = pg_catalog, pg_temp
+as $fn$
+  select pg_catalog.jsonb_build_object(
+           'source_sha256', s.text_sha256,
+           'source_identity_sha256', s.identity_sha256,
+           'policy_sha256', p.policy_sha256,
+           'target_sha256', es.target_sha256,
+           'edition_sha256', ev.edition_sha256,
+           'activities_sha256', ev.activities_sha256,
+           'review_sha256s', coalesce(
+             (select pg_catalog.jsonb_agg(r.review_sha256 order by r.review_sha256 collate "C")
+                from story.reviews r where r.edition_version_id = ev.id),
+             '[]'::jsonb))
+    from story.edition_versions ev
+    join story.edition_slots es on es.id = ev.slot_id
+    join story.sources s on s.id = es.source_id
+    join story.policies p on p.id = es.policy_id
+   where ev.id = p_edition_version_id
 $fn$;
 
 create trigger sources_immutable before update or delete on story.sources for each row execute function story.forbid_mutation();
@@ -426,21 +619,25 @@ create trigger policies_immutable before update or delete on story.policies for 
 create trigger edition_slots_immutable before update or delete on story.edition_slots for each row execute function story.forbid_mutation();
 create trigger edition_versions_immutable before update or delete on story.edition_versions for each row execute function story.forbid_mutation();
 create trigger reviews_immutable before update or delete on story.reviews for each row execute function story.forbid_mutation();
+create trigger validation_attestations_immutable before update or delete on story.validation_attestations for each row execute function story.forbid_mutation();
 create trigger rights_decisions_immutable before update or delete on story.rights_decisions for each row execute function story.forbid_mutation();
 create trigger release_units_immutable before update or delete on story.release_units for each row execute function story.forbid_mutation();
+create trigger reading_unit_completions_immutable before update or delete on story.reading_unit_completions for each row execute function story.forbid_mutation();
 create trigger action_log_immutable before update or delete on story.action_log for each row execute function story.forbid_mutation();
 create trigger releases_guard before update or delete on story.releases for each row execute function story.guard_release_update();
-create trigger reading_progress_guard before update or delete on story.reading_progress for each row execute function story.guard_progress_update();
+create trigger reading_progress_guard before insert or update or delete on story.reading_progress for each row execute function story.guard_progress();
 
 create trigger sources_no_truncate before truncate on story.sources for each statement execute function story.forbid_mutation();
 create trigger policies_no_truncate before truncate on story.policies for each statement execute function story.forbid_mutation();
 create trigger edition_slots_no_truncate before truncate on story.edition_slots for each statement execute function story.forbid_mutation();
 create trigger edition_versions_no_truncate before truncate on story.edition_versions for each statement execute function story.forbid_mutation();
 create trigger reviews_no_truncate before truncate on story.reviews for each statement execute function story.forbid_mutation();
+create trigger validation_attestations_no_truncate before truncate on story.validation_attestations for each statement execute function story.forbid_mutation();
 create trigger rights_decisions_no_truncate before truncate on story.rights_decisions for each statement execute function story.forbid_mutation();
 create trigger releases_no_truncate before truncate on story.releases for each statement execute function story.forbid_mutation();
 create trigger release_units_no_truncate before truncate on story.release_units for each statement execute function story.forbid_mutation();
 create trigger reading_progress_no_truncate before truncate on story.reading_progress for each statement execute function story.forbid_mutation();
+create trigger reading_unit_completions_no_truncate before truncate on story.reading_unit_completions for each statement execute function story.forbid_mutation();
 create trigger action_log_no_truncate before truncate on story.action_log for each statement execute function story.forbid_mutation();
 
 -- ── 5. 직접 접근 차단 ──────────────────────────────────────────────────────────
@@ -450,17 +647,19 @@ alter table story.policies enable row level security;
 alter table story.edition_slots enable row level security;
 alter table story.edition_versions enable row level security;
 alter table story.reviews enable row level security;
+alter table story.validation_attestations enable row level security;
 alter table story.rights_decisions enable row level security;
 alter table story.releases enable row level security;
 alter table story.release_units enable row level security;
 alter table story.reading_progress enable row level security;
+alter table story.reading_unit_completions enable row level security;
 alter table story.action_log enable row level security;
 
 revoke all on all tables in schema story from public, anon, authenticated, service_role;
 revoke all on all sequences in schema story from public, anon, authenticated, service_role;
 revoke all on all functions in schema story from public, anon, authenticated, service_role;
 
--- ── 6. 관리 RPC ────────────────────────────────────────────────────────────────
+-- ── 6. 관리 RPC(authenticated · 내부 역할 검사) ───────────────────────────────────
 
 create function public.story_admin_register_source(p_snapshot jsonb)
 returns table (source_id uuid, identity_sha256 text, text_sha256 text, created boolean)
@@ -568,7 +767,8 @@ declare
   v_item jsonb;
   v_last integer;
 begin
-  select * into v_source from story.sources s where s.id = p_source_id;
+  -- 잠금 순서 1: 원천.
+  select * into v_source from story.sources s where s.id = p_source_id for update;
   if not found then
     raise exception 'story:source_not_found';
   end if;
@@ -632,6 +832,7 @@ begin
 end
 $fn$;
 
+-- 판본 판 제출(초안 저장). 아래 형태 검사는 방어용 일부다 — S2 검증을 대신하지 않으며, 발행은 검증 증명이 따로 있어야 한다.
 create function public.story_admin_submit_edition(p_slot_id uuid, p_artifact jsonb)
 returns table (edition_version_id uuid, edition_sha256 text, activities_sha256 text, created boolean)
 language plpgsql
@@ -649,11 +850,13 @@ declare
   v_existing uuid;
   v_id uuid;
 begin
+  -- 판본 자리 행은 불변이라 잠금 없이 원천 id 를 읽고, 잠금 순서(원천 → 판본 자리)대로 잠근다.
   select * into v_slot from story.edition_slots es where es.id = p_slot_id;
   if not found then
     raise exception 'story:slot_not_found';
   end if;
-  select * into v_source from story.sources s where s.id = v_slot.source_id;
+  select * into v_source from story.sources s where s.id = v_slot.source_id for update;
+  select * into v_slot from story.edition_slots es where es.id = p_slot_id for update;
   select * into v_policy from story.policies p where p.id = v_slot.policy_id;
   if p_artifact ->> 'schema' is distinct from 'lcp-story/edition@1' then
     raise exception 'story:edition_schema';
@@ -730,11 +933,14 @@ begin
   if not found then
     raise exception 'story:edition_version_not_found';
   end if;
+  -- 검수 계정 ≠ 판본 제출 계정.
   if v_version.submitted_by = v_actor then
     raise exception 'story:self_review';
   end if;
+  -- 잠금 순서: 원천 → 판본 자리(발행 · 검증 증명과 한 줄로 선다).
   select * into v_slot from story.edition_slots es where es.id = v_version.slot_id;
-  select * into v_source from story.sources s where s.id = v_slot.source_id;
+  select * into v_source from story.sources s where s.id = v_slot.source_id for update;
+  select * into v_slot from story.edition_slots es where es.id = v_version.slot_id for update;
   select * into v_policy from story.policies p where p.id = v_slot.policy_id;
   if p_review ->> 'schema' is distinct from 'lcp-story/review@1' then
     raise exception 'story:review_schema';
@@ -745,6 +951,7 @@ begin
   if (p_review ->> 'provenance' = 'human_review') is distinct from (p_review #>> '{reviewer,kind}' = 'human') then
     raise exception 'story:review_provenance';
   end if;
+  -- 검수자 세션 주장 ≠ 생산자 세션 주장.
   if coalesce(p_review #>> '{reviewer,session_id}', '') = ''
      or p_review #>> '{reviewer,session_id}' = v_version.producer_claim ->> 'session_id' then
     raise exception 'story:self_review_claim';
@@ -806,6 +1013,8 @@ begin
 end
 $fn$;
 
+-- 권리 결정(admin, 추가만). 원천 잠금을 쥐어 같은 원천의 발행과 한 줄로 선다. 보류 · 거부는 발행본 행을 바꾸지 않고
+-- story.source_rights_ok 를 통해 서가 · 본문 · 진도를 즉시 닫는다.
 create function public.story_admin_record_rights(
   p_source_id uuid, p_asset text, p_status text, p_basis text, p_evidence_ref text)
 returns uuid
@@ -817,14 +1026,17 @@ declare
   v_actor uuid := story.require_staff('admin');
   v_id uuid;
 begin
-  if not exists (select 1 from story.sources s where s.id = p_source_id) then
+  -- 잠금 순서 1: 원천.
+  perform 1 from story.sources s where s.id = p_source_id for update;
+  if not found then
     raise exception 'story:source_not_found';
   end if;
   insert into story.rights_decisions (source_id, asset, status, basis, evidence_ref, decided_by)
   values (p_source_id, p_asset, p_status, p_basis, p_evidence_ref, v_actor)
   returning id into v_id;
   insert into story.action_log (action, actor, target_id, detail)
-  values ('record_rights', v_actor, v_id, pg_catalog.jsonb_build_object('asset', p_asset, 'status', p_status));
+  values ('record_rights', v_actor, v_id,
+          pg_catalog.jsonb_build_object('source_id', p_source_id, 'asset', p_asset, 'status', p_status));
   return v_id;
 end
 $fn$;
@@ -844,26 +1056,31 @@ declare
   v_latest uuid;
   v_review_ids uuid[];
   v_review_shas text[];
+  v_binding jsonb;
+  v_binding_sha text;
+  v_attestation uuid;
   v_identity jsonb;
   v_key text;
   v_full boolean;
   v_id uuid;
-  v_asset text;
-  v_status text;
 begin
+  perform story.require_read_committed();
   select * into v_version from story.edition_versions ev where ev.id = p_edition_version_id;
   if not found then
     raise exception 'story:edition_version_not_found';
   end if;
-  -- 같은 자리의 발행 · 철회를 한 줄로 세운다.
+  -- 잠금 순서: 원천 → 판본 자리. 같은 원천의 권리 결정 · 같은 자리의 판 제출 · 검수 · 검증 증명 · 발행 · 철회가 한 줄로 선다.
+  select * into v_slot from story.edition_slots es where es.id = v_version.slot_id;
+  select * into v_source from story.sources s where s.id = v_slot.source_id for update;
   select * into v_slot from story.edition_slots es where es.id = v_version.slot_id for update;
-  select * into v_source from story.sources s where s.id = v_slot.source_id;
   select * into v_policy from story.policies p where p.id = v_slot.policy_id;
 
+  -- 현재 판 = 판본 자리 잠금을 쥔 채 계산한 max(seq).
   select ev.id into v_latest from story.edition_versions ev where ev.slot_id = v_slot.id order by ev.seq desc limit 1;
   if v_latest is distinct from v_version.id then
     raise exception 'story:not_latest_version';
   end if;
+  -- 발행자 = admin(require_staff) 이고 판본 제출 계정이 아니다. 검수 계정과는 같아도 된다.
   if v_version.submitted_by = v_actor then
     raise exception 'story:publisher_is_producer';
   end if;
@@ -875,22 +1092,12 @@ begin
     raise exception 'story:synthetic_not_allowed';
   end if;
 
-  -- 본문을 이루는 권리: 원문 + (번역본이거나 번역 권리를 주장했으면) 번역. 인증된 결정 중 최신만 본다.
-  for v_asset in
-    select 'source_text'
-    union all
-    select 'translation'
-     where v_source.original_language <> v_source.text_language
-        or exists (select 1 from pg_catalog.jsonb_array_elements(v_source.snapshot_meta -> 'rights') r
-                    where r ->> 'asset' = 'translation')
-  loop
-    select rd.status into v_status from story.rights_decisions rd
-     where rd.source_id = v_source.id and rd.asset = v_asset order by rd.seq desc limit 1;
-    if v_status is distinct from 'confirmed' then
-      raise exception 'story:rights_unconfirmed' using detail = v_asset || ':' || coalesce(v_status, 'missing');
-    end if;
-    v_status := null;
-  end loop;
+  -- 본문을 이루는 권리(원문 + 필요하면 번역)의 최신 인증 결정이 모두 confirmed — 열람 게이트와 같은 판정.
+  if not story.source_rights_ok(v_source.id) then
+    raise exception 'story:rights_unconfirmed' using detail = (
+      select pg_catalog.string_agg(rr.asset || ':' || coalesce(rr.status, 'missing'), ',' order by rr.asset)
+        from story.required_rights(v_source.id) as rr);
+  end if;
 
   if not exists (select 1 from story.reviews r where r.edition_version_id = v_version.id) then
     raise exception 'story:review_missing';
@@ -900,6 +1107,16 @@ begin
   end if;
   if exists (select 1 from story.releases rl where rl.slot_id = v_slot.id and rl.withdrawn_at is null) then
     raise exception 'story:live_release_exists';
+  end if;
+
+  -- 검증 증명: 지금 저장값에서 다시 계산한 결속에 대한 증명이 있어야 한다. 증명 뒤에 검수가 더해지면 결속이 바뀌어 다시 증명해야 한다.
+  -- 백엔드 검증 증인이 없는 배포는 여기서 막힌다(fail closed).
+  v_binding := story.attestation_binding(v_version.id);
+  v_binding_sha := story.canonical_sha256(v_binding);
+  select va.id into v_attestation from story.validation_attestations va
+   where va.edition_version_id = v_version.id and va.binding_sha256 = v_binding_sha;
+  if not found then
+    raise exception 'story:validation_attestation_missing' using detail = v_binding_sha;
   end if;
 
   select pg_catalog.array_agg(r.id order by r.review_sha256 collate "C"),
@@ -925,21 +1142,24 @@ begin
   end if;
   v_full := v_slot.coverage = 'complete_work' and v_source.coverage = 'complete_work';
 
-  insert into story.releases (release_key, slot_id, edition_version_id, source_id, work_key, edition_key, kind, coverage,
-                              completion_label, counts_as_work_completion, source_identity_sha256, source_text_sha256,
-                              policy_sha256, target_sha256, edition_sha256, activities_sha256, review_ids, review_sha256s,
-                              title, hook_text, unit_count, target_cefr, published_by)
-  values (v_key, v_slot.id, v_version.id, v_source.id, v_source.work_key, v_slot.edition_key, v_slot.kind, v_slot.coverage,
-          case when v_full then 'adapted_full_work' else 'adapted_partial' end, v_full, v_source.identity_sha256,
-          v_source.text_sha256, v_policy.policy_sha256, v_slot.target_sha256, v_version.edition_sha256,
-          v_version.activities_sha256, v_review_ids, v_review_shas, v_version.artifact ->> 'title',
+  insert into story.releases (release_key, slot_id, edition_version_id, source_id, validation_attestation_id, work_key,
+                              edition_key, kind, coverage, completion_label, counts_as_work_completion,
+                              source_identity_sha256, source_text_sha256, policy_sha256, target_sha256, edition_sha256,
+                              activities_sha256, review_ids, review_sha256s, title, hook_text, unit_count, target_cefr,
+                              published_by)
+  values (v_key, v_slot.id, v_version.id, v_source.id, v_attestation, v_source.work_key, v_slot.edition_key, v_slot.kind,
+          v_slot.coverage, case when v_full then 'adapted_full_work' else 'adapted_partial' end, v_full,
+          v_source.identity_sha256, v_source.text_sha256, v_policy.policy_sha256, v_slot.target_sha256,
+          v_version.edition_sha256, v_version.activities_sha256, v_review_ids, v_review_shas, v_version.artifact ->> 'title',
           v_version.artifact #>> '{hook,text}', v_version.unit_count, v_slot.production #>> '{target,language,cefr}', v_actor)
   returning id into v_id;
   insert into story.release_units (release_id, unit_index, unit_id, unit_title, body)
   select v_id, (u.i - 1)::integer, u.e ->> 'unit_id', u.e ->> 'title', u.e ->> 'text'
     from pg_catalog.jsonb_array_elements(v_version.artifact -> 'units') with ordinality as u(e, i);
   insert into story.action_log (action, actor, target_id, detail)
-  values ('publish', v_actor, v_id, pg_catalog.jsonb_build_object('release_key', v_key));
+  values ('publish', v_actor, v_id,
+          pg_catalog.jsonb_build_object('release_key', v_key, 'validation_attestation_id', v_attestation,
+                                        'binding_sha256', v_binding_sha));
   return query select v_id, v_key;
 end
 $fn$;
@@ -957,10 +1177,14 @@ begin
   if coalesce(pg_catalog.btrim(p_reason), '') = '' then
     raise exception 'story:withdraw_reason_required';
   end if;
-  select * into v_release from story.releases rl where rl.release_key = p_release_key for update;
+  -- 잠금 없이 위치만 찾고(원천 · 자리 id 는 불변), 잠금 순서 원천 → 판본 자리 → 발행본으로 잠근 뒤 다시 읽는다.
+  select * into v_release from story.releases rl where rl.release_key = p_release_key;
   if not found then
     raise exception 'story:release_not_found';
   end if;
+  perform 1 from story.sources s where s.id = v_release.source_id for update;
+  perform 1 from story.edition_slots es where es.id = v_release.slot_id for update;
+  select * into v_release from story.releases rl where rl.id = v_release.id for update;
   if v_release.withdrawn_at is not null then
     return query select v_release.release_key, v_release.withdrawn_at, false;
     return;
@@ -1008,6 +1232,9 @@ as $fn$
 declare
   v_version story.edition_versions;
   v_slot story.edition_slots;
+  v_binding jsonb;
+  v_binding_sha text;
+  v_rights_ok boolean;
 begin
   perform story.require_staff('curator');
   select * into v_version from story.edition_versions ev where ev.id = p_edition_version_id;
@@ -1015,6 +1242,9 @@ begin
     raise exception 'story:edition_version_not_found';
   end if;
   select * into v_slot from story.edition_slots es where es.id = v_version.slot_id;
+  v_binding := story.attestation_binding(v_version.id);
+  v_binding_sha := story.canonical_sha256(v_binding);
+  v_rights_ok := story.source_rights_ok(v_slot.source_id);
   return pg_catalog.jsonb_build_object(
     'source', (select pg_catalog.jsonb_build_object('id', s.id, 'meta', s.snapshot_meta, 'body', s.body,
                  'text_sha256', s.text_sha256, 'identity_sha256', s.identity_sha256, 'correspondence', s.correspondence,
@@ -1033,20 +1263,142 @@ begin
                  'review_sha256', r.review_sha256, 'verdict', r.verdict, 'qualifies', r.qualifies,
                  'submitted_by', r.submitted_by, 'submitted_at', r.submitted_at) order by r.submitted_at)
                  from story.reviews r where r.edition_version_id = v_version.id), '[]'::jsonb),
+    -- 검증 증명: 지금 결속과 그 결속에 대한 증명 존재 여부(관리자가 발행 전에 본다). 증명 내용은 백엔드 증인의 기록이다.
+    'validation', pg_catalog.jsonb_build_object('binding', v_binding, 'binding_sha256', v_binding_sha,
+                 'attested', exists (select 1 from story.validation_attestations va
+                                      where va.edition_version_id = v_version.id and va.binding_sha256 = v_binding_sha)),
+    'rights_ok', v_rights_ok,
     'rights', coalesce((select pg_catalog.jsonb_agg(pg_catalog.jsonb_build_object('asset', d.asset, 'status', d.status,
                  'basis', d.basis, 'evidence_ref', d.evidence_ref, 'decided_by', d.decided_by, 'decided_at', d.decided_at)
                  order by d.asset)
                  from (select distinct on (rd.asset) rd.* from story.rights_decisions rd
                         where rd.source_id = v_slot.source_id order by rd.asset, rd.seq desc) d), '[]'::jsonb),
     'releases', coalesce((select pg_catalog.jsonb_agg(pg_catalog.jsonb_build_object('release_key', rl.release_key,
-                 'published_at', rl.published_at, 'withdrawn_at', rl.withdrawn_at) order by rl.published_at)
+                 'published_at', rl.published_at, 'withdrawn_at', rl.withdrawn_at,
+                 'available', rl.withdrawn_at is null and v_rights_ok) order by rl.published_at)
                  from story.releases rl where rl.slot_id = v_slot.id), '[]'::jsonb));
 end
 $fn$;
 
--- ── 7. 학습자 RPC ──────────────────────────────────────────────────────────────
+-- ── 7. 검증 증인 RPC(service_role 만) ─────────────────────────────────────────
 
--- 서가(로그인 없이도): 살아 있는 발행본의 메타 · 진입 장면만. 본문 단위는 없다.
+-- S2 어댑터가 검사할 「저장된 그대로」의 입력. 어댑터는 이 값만 검증하고(로컬 파일 · 호출자 값이 아니다) 결과를 증명으로 돌려준다.
+create function public.story_service_validation_input(p_edition_version_id uuid)
+returns jsonb
+language plpgsql
+stable
+security definer
+set search_path = pg_catalog, pg_temp
+as $fn$
+declare
+  v_version story.edition_versions;
+  v_slot story.edition_slots;
+begin
+  perform story.require_service_validator();
+  select * into v_version from story.edition_versions ev where ev.id = p_edition_version_id;
+  if not found then
+    raise exception 'story:edition_version_not_found';
+  end if;
+  select * into v_slot from story.edition_slots es where es.id = v_version.slot_id;
+  return pg_catalog.jsonb_build_object(
+    'edition_version_id', v_version.id,
+    'edition_key', v_slot.edition_key,
+    'snapshot', (select s.snapshot_meta || pg_catalog.jsonb_build_object('text', s.body, 'text_sha256', s.text_sha256)
+                   from story.sources s where s.id = v_slot.source_id),
+    'policy', (select p.policy from story.policies p where p.id = v_slot.policy_id),
+    'artifact', v_version.artifact,
+    'reviews', coalesce((select pg_catalog.jsonb_agg(r.review order by r.review_sha256 collate "C")
+                           from story.reviews r where r.edition_version_id = v_version.id), '[]'::jsonb));
+end
+$fn$;
+
+-- S2 검증 증명 기록. DB 가 결속을 다시 계산해 증명의 결속과 정확히 같을 때만 저장한다(같은 결속 재호출은 기존 행을 돌려준다).
+-- 서비스 주체는 증인일 뿐이다 — 작업 기록은 actor_kind='service_validator', actor 없음.
+create function public.story_service_attest_validation(p_edition_version_id uuid, p_attestation jsonb)
+returns table (attestation_id uuid, binding_sha256 text, created boolean)
+language plpgsql
+security definer
+set search_path = pg_catalog, pg_temp
+as $fn$
+declare
+  v_version story.edition_versions;
+  v_slot story.edition_slots;
+  v_binding jsonb;
+  v_sha text;
+  v_keys text[];
+  v_validated_at timestamptz;
+  v_id uuid;
+begin
+  perform story.require_service_validator();
+  perform story.require_read_committed();
+  select * into v_version from story.edition_versions ev where ev.id = p_edition_version_id;
+  if not found then
+    raise exception 'story:edition_version_not_found';
+  end if;
+  -- 잠금 순서: 원천 → 판본 자리(검수 추가 · 발행과 한 줄로 선다).
+  select * into v_slot from story.edition_slots es where es.id = v_version.slot_id;
+  perform 1 from story.sources s where s.id = v_slot.source_id for update;
+  perform 1 from story.edition_slots es where es.id = v_slot.id for update;
+
+  v_binding := story.attestation_binding(v_version.id);
+  if pg_catalog.jsonb_array_length(v_binding -> 'review_sha256s') = 0 then
+    raise exception 'story:review_missing';
+  end if;
+
+  if pg_catalog.jsonb_typeof(p_attestation) is distinct from 'object' then
+    raise exception 'story:attestation_invalid' using detail = 'not an object';
+  end if;
+  select pg_catalog.array_agg(k order by k collate "C") into v_keys from pg_catalog.jsonb_object_keys(p_attestation) as k;
+  if v_keys is distinct from array['binding', 'checks', 'schema', 'validated_at', 'validator'] then
+    raise exception 'story:attestation_invalid' using detail = 'keys';
+  end if;
+  if p_attestation ->> 'schema' is distinct from 'lcp-story/validation-attestation@1'
+     or (p_attestation -> 'validator') is distinct from '{"name": "lcp-story-s2", "contract": "lcp-story/s2@1"}'::jsonb then
+    raise exception 'story:attestation_invalid' using detail = 'schema/validator';
+  end if;
+  if (p_attestation -> 'checks')
+     is distinct from '{"snapshot": "valid", "policy": "valid", "edition": "valid", "reviews": "valid"}'::jsonb then
+    raise exception 'story:attestation_invalid' using detail = 'checks';
+  end if;
+  if pg_catalog.jsonb_typeof(p_attestation -> 'validated_at') is distinct from 'string'
+     or (p_attestation ->> 'validated_at')
+        !~ '^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(\.[0-9]{1,9})?(Z|[+-][0-9]{2}:[0-9]{2})$' then
+    raise exception 'story:attestation_invalid' using detail = 'validated_at';
+  end if;
+  begin
+    v_validated_at := (p_attestation ->> 'validated_at')::timestamptz;
+  exception when data_exception then
+    raise exception 'story:attestation_invalid' using detail = 'validated_at';
+  end;
+  if v_validated_at > pg_catalog.now() then
+    raise exception 'story:time_in_future';
+  end if;
+  if (p_attestation -> 'binding') is distinct from v_binding then
+    raise exception 'story:attestation_binding_mismatch';
+  end if;
+
+  v_sha := story.canonical_sha256(v_binding);
+  insert into story.validation_attestations as va (edition_version_id, binding, binding_sha256, attestation)
+  values (v_version.id, v_binding, v_sha, p_attestation)
+  on conflict on constraint validation_attestations_version_binding_key do nothing
+  returning va.id into v_id;
+  if v_id is null then
+    select va.id into v_id from story.validation_attestations va
+     where va.edition_version_id = v_version.id and va.binding_sha256 = v_sha;
+    return query select v_id, v_sha, false;
+    return;
+  end if;
+  insert into story.action_log (action, actor_kind, actor, target_id, detail)
+  values ('attest_validation', 'service_validator', null, v_id,
+          pg_catalog.jsonb_build_object('edition_version_id', v_version.id, 'binding_sha256', v_sha));
+  return query select v_id, v_sha, true;
+end
+$fn$;
+
+-- ── 8. 학습자 RPC ──────────────────────────────────────────────────────────────
+-- 「이용 가능」 = 철회되지 않음 AND story.source_rights_ok(원천). 권리가 나중에 보류 · 거부되면 아래 모두가 즉시 닫힌다.
+
+-- 서가(로그인 없이도): 이용 가능한 발행본의 메타 · 진입 장면만. 본문 단위는 없다.
 create function public.story_catalog()
 returns table (release_key text, work_key text, edition_key text, kind text, coverage text, completion_label text,
                title text, hook_text text, unit_count integer, target_cefr text, published_at timestamptz)
@@ -1058,7 +1410,7 @@ as $fn$
   select rl.release_key, rl.work_key, rl.edition_key, rl.kind, rl.coverage, rl.completion_label, rl.title, rl.hook_text,
          rl.unit_count, rl.target_cefr, rl.published_at
     from story.releases rl
-   where rl.withdrawn_at is null
+   where rl.withdrawn_at is null and story.source_rights_ok(rl.source_id)
    order by rl.work_key, rl.edition_key
 $fn$;
 
@@ -1074,7 +1426,7 @@ declare
 begin
   perform story.require_learner();
   select * into v_release from story.releases rl where rl.release_key = p_release_key and rl.withdrawn_at is null;
-  if not found then
+  if not found or not story.source_rights_ok(v_release.source_id) then
     raise exception 'story:release_unavailable';
   end if;
   return query
@@ -1086,8 +1438,10 @@ begin
 end
 $fn$;
 
-create function public.story_record_progress(p_release_key text, p_unit_index integer)
-returns table (release_key text, furthest_unit_index integer, unit_count integer, completed boolean, completion_label text)
+-- 위치 기록(이동만): 마지막 위치 · 가장 먼 위치만 바꾼다. 단위 완료 · 발행본 완료를 만들지 않는다.
+create function public.story_record_position(p_release_key text, p_unit_index integer)
+returns table (release_key text, last_unit_index integer, furthest_unit_index integer, completed_unit_count integer,
+               unit_count integer, completed boolean)
 language plpgsql
 security definer
 set search_path = pg_catalog, pg_temp
@@ -1097,31 +1451,75 @@ declare
   v_release story.releases;
 begin
   select * into v_release from story.releases rl where rl.release_key = p_release_key and rl.withdrawn_at is null;
-  if not found then
+  if not found or not story.source_rights_ok(v_release.source_id) then
     raise exception 'story:release_unavailable';
   end if;
   if p_unit_index is null or p_unit_index < 0 or p_unit_index >= v_release.unit_count then
     raise exception 'story:unit_not_found';
   end if;
-  insert into story.reading_progress as rp (user_id, release_id, furthest_unit_index, completed_at)
-  values (v_user, v_release.id, p_unit_index,
-          case when p_unit_index = v_release.unit_count - 1 then pg_catalog.now() end)
-  on conflict (user_id, release_id) do update
-     set furthest_unit_index = greatest(rp.furthest_unit_index, excluded.furthest_unit_index),
-         completed_at = coalesce(rp.completed_at, excluded.completed_at),
+  insert into story.reading_progress as rp (user_id, release_id, last_unit_index, furthest_unit_index)
+  values (v_user, v_release.id, p_unit_index, p_unit_index)
+  on conflict on constraint reading_progress_pkey do update
+     set last_unit_index = excluded.last_unit_index,
+         furthest_unit_index = greatest(rp.furthest_unit_index, excluded.furthest_unit_index),
          updated_at = pg_catalog.now();
   return query
-  select v_release.release_key, rp.furthest_unit_index, v_release.unit_count, rp.completed_at is not null,
-         v_release.completion_label
+  select v_release.release_key, rp.last_unit_index, rp.furthest_unit_index, rp.completed_unit_count, v_release.unit_count,
+         rp.completed_at is not null
     from story.reading_progress rp where rp.user_id = v_user and rp.release_id = v_release.id;
 end
 $fn$;
 
--- 내 진도: 철회된 발행본도 이력으로 남는다(본문 없이 release_available = false). 원문 완독으로 세지 않는다.
+-- 단위 완료(학습자의 명시적 표시 · 재호출 안전): 그 단위 하나만 완료로 기록하고 위치도 그 단위로 옮긴다.
+-- 발행본 완료(completed_at)는 0..unit_count-1 모든 단위에 완료 기록이 있을 때 한 번만 찍힌다. completion_label 은 완료일 때만 뜻이 있다.
+create function public.story_complete_unit(p_release_key text, p_unit_index integer)
+returns table (release_key text, unit_index integer, completed_unit_count integer, unit_count integer, completed boolean,
+               completion_label text)
+language plpgsql
+security definer
+set search_path = pg_catalog, pg_temp
+as $fn$
+declare
+  v_user uuid := story.require_learner();
+  v_release story.releases;
+  v_done integer;
+  v_completed_at timestamptz;
+begin
+  select * into v_release from story.releases rl where rl.release_key = p_release_key and rl.withdrawn_at is null;
+  if not found or not story.source_rights_ok(v_release.source_id) then
+    raise exception 'story:release_unavailable';
+  end if;
+  if p_unit_index is null or p_unit_index < 0 or p_unit_index >= v_release.unit_count then
+    raise exception 'story:unit_not_found';
+  end if;
+  -- 진도 행을 먼저 올려(그 학습자 · 발행본 행 잠금) 같은 학습자의 동시 완료 표시를 한 줄로 세운다.
+  insert into story.reading_progress as rp (user_id, release_id, last_unit_index, furthest_unit_index)
+  values (v_user, v_release.id, p_unit_index, p_unit_index)
+  on conflict on constraint reading_progress_pkey do update
+     set last_unit_index = excluded.last_unit_index,
+         furthest_unit_index = greatest(rp.furthest_unit_index, excluded.furthest_unit_index),
+         updated_at = pg_catalog.now();
+  insert into story.reading_unit_completions as c (user_id, release_id, unit_index)
+  values (v_user, v_release.id, p_unit_index)
+  on conflict on constraint reading_unit_completions_pkey do nothing;
+  select pg_catalog.count(*)::integer into v_done from story.reading_unit_completions c
+   where c.user_id = v_user and c.release_id = v_release.id;
+  update story.reading_progress rp
+     set completed_unit_count = v_done,
+         completed_at = coalesce(rp.completed_at, case when v_done = v_release.unit_count then pg_catalog.now() end),
+         updated_at = pg_catalog.now()
+   where rp.user_id = v_user and rp.release_id = v_release.id
+  returning rp.completed_at into v_completed_at;
+  return query select v_release.release_key, p_unit_index, v_done, v_release.unit_count, v_completed_at is not null,
+                      v_release.completion_label;
+end
+$fn$;
+
+-- 내 진도: 철회 · 권리 보류된 발행본도 이력으로 남는다(본문 없이 release_available = false). 원문 완독으로 세지 않는다.
 create function public.story_my_progress()
 returns table (release_key text, work_key text, edition_key text, completion_label text, counts_as_work_completion boolean,
-               counts_as_original_text_completion boolean, furthest_unit_index integer, unit_count integer,
-               completed_at timestamptz, release_available boolean)
+               counts_as_original_text_completion boolean, last_unit_index integer, furthest_unit_index integer,
+               completed_unit_count integer, unit_count integer, completed_at timestamptz, release_available boolean)
 language plpgsql
 stable
 security definer
@@ -1132,14 +1530,16 @@ declare
 begin
   return query
   select rl.release_key, rl.work_key, rl.edition_key, rl.completion_label, rl.counts_as_work_completion, false,
-         rp.furthest_unit_index, rl.unit_count, rp.completed_at, rl.withdrawn_at is null
+         rp.last_unit_index, rp.furthest_unit_index, rp.completed_unit_count, rl.unit_count, rp.completed_at,
+         rl.withdrawn_at is null and story.source_rights_ok(rl.source_id)
     from story.reading_progress rp join story.releases rl on rl.id = rp.release_id
    where rp.user_id = v_user
    order by rp.updated_at desc;
 end
 $fn$;
 
--- ── 8. 실행 권한 ───────────────────────────────────────────────────────────────
+-- ── 9. 실행 권한(16) ──────────────────────────────────────────────────────────
+-- 관리 9 = authenticated(내부 역할 검사) · 검증 증인 2 = service_role 만 · 서가 = anon + authenticated · 학습 4 = authenticated.
 
 revoke all on function public.story_admin_register_source(jsonb) from public, anon, authenticated, service_role;
 revoke all on function public.story_admin_register_policy(uuid, jsonb) from public, anon, authenticated, service_role;
@@ -1150,9 +1550,12 @@ revoke all on function public.story_admin_publish(uuid) from public, anon, authe
 revoke all on function public.story_admin_withdraw(text, text) from public, anon, authenticated, service_role;
 revoke all on function public.story_admin_list_slots() from public, anon, authenticated, service_role;
 revoke all on function public.story_admin_get_bundle(uuid) from public, anon, authenticated, service_role;
+revoke all on function public.story_service_validation_input(uuid) from public, anon, authenticated, service_role;
+revoke all on function public.story_service_attest_validation(uuid, jsonb) from public, anon, authenticated, service_role;
 revoke all on function public.story_catalog() from public, anon, authenticated, service_role;
 revoke all on function public.story_read_unit(text, integer) from public, anon, authenticated, service_role;
-revoke all on function public.story_record_progress(text, integer) from public, anon, authenticated, service_role;
+revoke all on function public.story_record_position(text, integer) from public, anon, authenticated, service_role;
+revoke all on function public.story_complete_unit(text, integer) from public, anon, authenticated, service_role;
 revoke all on function public.story_my_progress() from public, anon, authenticated, service_role;
 
 grant execute on function public.story_admin_register_source(jsonb) to authenticated;
@@ -1164,7 +1567,10 @@ grant execute on function public.story_admin_publish(uuid) to authenticated;
 grant execute on function public.story_admin_withdraw(text, text) to authenticated;
 grant execute on function public.story_admin_list_slots() to authenticated;
 grant execute on function public.story_admin_get_bundle(uuid) to authenticated;
+grant execute on function public.story_service_validation_input(uuid) to service_role;
+grant execute on function public.story_service_attest_validation(uuid, jsonb) to service_role;
 grant execute on function public.story_catalog() to anon, authenticated;
 grant execute on function public.story_read_unit(text, integer) to authenticated;
-grant execute on function public.story_record_progress(text, integer) to authenticated;
+grant execute on function public.story_record_position(text, integer) to authenticated;
+grant execute on function public.story_complete_unit(text, integer) to authenticated;
 grant execute on function public.story_my_progress() to authenticated;

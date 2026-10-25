@@ -85,3 +85,5 @@ export {
   writeNoClobber,
 } from './workdir'
 export { STORY_CLI_USAGE, parseStoryArgs, runStoryCli } from './cli'
+export { ATTESTATION_SCHEMA, ATTESTATION_VALIDATOR, buildValidationAttestation, snapshotFromStored } from './attest'
+export type { AttestationBinding, AttestationResult, AttestationStage, ValidationAttestation } from './attest'
