@@ -16,6 +16,7 @@
 | 합성 fixture | `packages/library-pipeline/src/story/fixtures/gull-rock.*.json` — 직접 쓴 짧은 완결 이야기 | 합성 · 실제 도서 아님 |
 | live DB 읽기 감사 · 코드 경로 감사 | `docs/lcp-story/S3_DB_AUDIT.md`(SELECT 전용 실측 · 결정) · `docs/lcp-story/S3_CODE_PATHS.md` | 작성됨(T-0169) |
 | DB 테이블 · RPC · RLS · 발행 게이트 | `supabase/migrations/_pending_lcp_story_s3_schema.sql` · 복구 `_pending_lcp_story_s3_quarantine.sql` · 러너 `scripts/db/lcp-story-s3/deploy.mjs` · 격리 시험 `verify-isolated.ts` | **미적용** — 격리 PGlite · PostgreSQL 17 에서만 실행. 공유 DB 적용은 사용자 대화 승인 뒤 러너로(S4) |
+| S2 검증 증명 어댑터 | `packages/library-pipeline/src/story/attest.ts`(`buildValidationAttestation`) — DB 가 돌려준 저장값을 S2 검증기로 검사해 발행에 필요한 결속 증명을 만든다(§15) | 순수 함수 구현 · 작성자 테스트. 이를 service_role 로 실제 호출하는 백엔드 런타임은 없음(S4) |
 | 관리자 화면 · 학습자 화면 · 이벤트 · 추천 | 없음 | 제안(S4~S6) |
 | 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 | 없음 | 미실행(S7) |
 
@@ -203,7 +204,7 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
 (S4 제안) candidate ─사람 승인 + DB 게이트▶ published ─철회▶ withdrawn(노출 · 열람 차단, 학습 이력 보존)
 ```
 
-## 12. 학습자 진도 · 완료 계약 (S5 제안 — 지금 runtime 없음)
+## 12. 학습자 진도 · 완료 계약 (DB 쪽은 S3 미적용 SQL · 화면 runtime 은 S5 — 지금 없음)
 
 - 기존 runtime 은 `library_book_id` 중심이다: `enroll_library_book(p_book_id)` 가 챕터별 `texts` 를 만들고,
   `completeChapter` 는 같은 `library_book_id` 의 모든 `texts` 가 completed 면 도서 완료로 본다(`apps/web/src/lib/library/complete-chapter.ts`).
@@ -214,7 +215,11 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
   그래서 완료 이름을 `completion_label` 로 나눈다 — 각색 전권 `adapted_full_work` · 각색 일부 `adapted_partial`. Story 라인의 판본은
   `counts_as_original_text_completion:false` 로 고정이며, 원문 완독 이름 · 기록은 원본 라인에만 둔다. 화면 문구도 이 구분을 따른다.
 - 같은 작품의 여러 판본을 여러 작품 읽은 것으로 세지 않는다(`countReleases` 의 `distinct_works`).
-- 이 단계에서는 계약만 둔다. 아직 소비하지 않는 가짜 runtime 을 만들지 않는다.
+- **읽은 위치는 완료가 아니다.** 위치(마지막 · 가장 먼 단위)는 이동 기록일 뿐이다. 단위 완료는 학습자가 단위마다 명시적으로 표시한 기록이고,
+  각색 전권 완료(`completed_at`)는 그 발행본의 **모든 단위**(0..unit_count-1)에 완료 기록이 있을 때 한 번만 생긴다. 마지막 단위로 건너뛰기 ·
+  마지막 단위만 완료 · 중간 단위 누락은 완료가 아니다. 순서와 무관하게 전 단위를 덮으면 완료다. 완료 기록은 숙달 · FSRS 성공 · 원문 완독이 아니다.
+- DB 쪽 계약은 S3 SQL 의 `story_record_position`(위치만) · `story_complete_unit`(단위 하나 완료) · `story_my_progress` 다(§15). 화면 · 이벤트 runtime 은 S5 이며 아직 없다 —
+  소비하지 않는 가짜 runtime 을 만들지 않는다.
 
 ## 13. 학습 근거 정책 (`EVIDENCE_POLICY`)
 
@@ -252,13 +257,61 @@ live DB 실측(2026-10-25, [S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md))과 코드 
 | `applyBookReadGate`(웹) | `status='published'` 조회 편의 함수 | **보안 보장이 아니다** |
 
 **결정: Story 는 원본 표 · 함수 · 정책을 하나도 쓰지 않는 격리 스키마 `story` 에 둔다**(PostgREST 비노출 · `supabase/config.toml` 은 `public` · `graphql_public` 만 노출).
-- `story.*` 표 10개: RLS 켜짐 · 정책 없음 · anon/authenticated/service_role 에 스키마 USAGE · 표 권한 없음. 원본 표에 FK 를 걸지 않는다(원본 도서 삭제 · 재처리를 막지 않는다).
-- 문은 `public.story_*` RPC 13개뿐(SECURITY DEFINER · `search_path = pg_catalog, pg_temp` · 표는 모두 스키마를 붙여 부름):
-  관리 9개(authenticated 실행 · 내부에서 `auth.uid()` 의 `user_profiles` 역할 + `status='active'` 확인 · service_role 은 실행 권한 없음) ·
-  서가 `story_catalog`(anon + authenticated · 메타 · 진입 장면만) · 본문 `story_read_unit` · 진도 `story_record_progress` · `story_my_progress`(authenticated).
+- `story.*` 표 12개: RLS 켜짐 · 정책 없음 · PUBLIC/anon/authenticated/service_role 에 스키마 USAGE · 표 · 시퀀스 · 내부 함수 권한 없음.
+  원본 표에 FK 를 걸지 않는다(원본 도서 삭제 · 재처리를 막지 않는다).
+- 문은 `public.story_*` RPC 16개뿐(SECURITY DEFINER · `search_path = pg_catalog, pg_temp` · 표는 모두 스키마를 붙여 부름):
+  - 관리 9개 — authenticated 실행 · 내부에서 `auth.uid()` 의 `user_profiles` 역할 + `status='active'` 확인(`register_source` · `register_policy` · `submit_edition` ·
+    `submit_review` · `record_rights` · `publish` · `withdraw` · `list_slots` · `get_bundle`).
+  - 검증 증인 2개 — **service_role 만** 실행: `story_service_validation_input`(검증할 저장값 그대로) · `story_service_attest_validation`(증명 기록).
+  - 학습자 5개 — 서가 `story_catalog`(anon + authenticated · 메타 · 진입 장면만) · 본문 `story_read_unit` · 위치 `story_record_position` · 단위 완료 `story_complete_unit` ·
+    `story_my_progress`(authenticated).
 - 원본 경로는 `story` 를 읽지도 쓰지도 않는다 — 저장소 코드 · 마이그레이션의 `story.` · `story_` 참조 0(코드 경로 감사 기준선). 그래서 원본 쪽 수정 없이 우회가 닫힌다.
+
+**행위자.** DB 가 강제하는 분리는 「검수 계정 ≠ 판본 제출 계정」(검수자 세션 주장 ≠ 생산자 세션 주장도) · 「발행자 = admin 이고 제출 계정이 아님」 · 「권리 결정 · 철회 = admin」이다.
+검수자와 발행 admin 은 같은 계정이어도 된다 — 실제 발행에 필요한 인증 계정은 최소 2개(예: curator 제출 + admin 검수 · 발행)이며, 세 사람을 요구하지 않는다.
+live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번째 인증 스태프 계정은 **실제 발행 · 운영의 전제**다(빈 스키마 설치의 전제는 아니다 — SQL · preflight 는 계정 수를 검사하지 않는다).
+계정 추가 · 역할 부여는 이 작업에서 승인되지도 실행되지도 않았다. 로컬 AI 세션 id 는 스태프 계정이 아니다.
+
+**검증 증명(발행의 마지막 문).** 초안 · 검수는 검증 없이 저장된다(학습자에게 보이지 않는다). 발행은 백엔드 서비스 주체가 쓴 증명이 **지금 저장된 결속**과 맞을 때만 된다:
+1. service_role 이 `story_service_validation_input(판 id)` 로 저장값 그대로(`snapshot` = 저장 메타 + 본문 + 본문 해시 · `policy` · `artifact` · 그 판의 `reviews` 전부)를 받는다.
+2. S2 어댑터 `buildValidationAttestation({ validationInput, now })`(`packages/library-pipeline/src/story/attest.ts`)가 `validateSnapshot` · `validatePolicy` · `validateEdition` ·
+   모든 검수 `validateReview`(현재 결속)를 실제로 돌린다. 하나라도 어기면(앵커 누락 · 거짓 진입 장면 · 허위 인용 · 범위 밖 구간 · 정렬 누락 · 보존 누락 · 민감 처리 누락 ·
+   요청 활동 누락 · 낡은/다른 판 검수 · 합성 자료 · 잘못된 시각) 증명을 만들지 않고 단계(`input`/`snapshot`/`policy`/`edition`/`reviews`)와 오류를 돌려준다.
+3. 통과하면 결속 `{source_sha256, source_identity_sha256, policy_sha256, target_sha256, edition_sha256, activities_sha256, review_sha256s(그 판 검수 전부, 오름차순)}` 과
+   증명 `{schema:'lcp-story/validation-attestation@1', validator, binding, checks(4개 valid), validated_at}` 를 `story_service_attest_validation` 으로 쓴다.
+   DB 는 정확히 그 다섯 키만 받고, 결속을 저장값에서 다시 계산해 대조하며, DB 시계(`clock_timestamp()`)보다 30초 넘게 앞선 `validated_at` 을 거부한다
+   (**시계 계약**: 백엔드 서버 시계는 DB 와 30초 안으로 동기화돼 있어야 한다. 어댑터는 주입받은 `now` 를 쓴다).
+4. `story_admin_publish` 는 지금 결속의 증명이 없으면 `story:validation_attestation_missing` 으로 실패한다. 증명 뒤 검수가 더해지면 결속이 바뀌어 다시 증명해야 한다.
+   발행은 **현재 검증기 계약판**(`story.current_validator()` = `{name:'lcp-story-s2', contract:'lcp-story/s2@1'}`)으로 쓴 증명만 인정한다. 발행본은 자신을 허가한 증명 id 를 기록한다.
+- DB 는 S2 구조 검증을 SQL 로 다시 구현하지 않는다(제출 RPC 의 일부 검사는 방어용일 뿐이다). 클라이언트가 보낸 `validated` 같은 값은 어디에서도 믿지 않는다.
+- authenticated · curator · admin 은 증인 RPC 실행 권한도 표 권한도 없어 증명을 쓸 수 없다. 증인 RPC 는 실행 권한(service_role 만)에 더해 **JWT 역할 주장이 실제로 `service_role`** 이어야 한다 —
+  주장이 없거나(소유자 · SQL 편집기 · MCP SQL 세션) 깨졌거나 서로 다르면 `story:service_role_required` 다. PostgREST 의 service_role 요청은 이 주장을 항상 싣는다.
+  서비스 주체는 증인일 뿐 생산자 · 검수자 · 권리 결정자 · 발행자로 기록되지 않는다(`action_log.actor_kind='service_validator'` · `actor` 없음).
+- **신뢰 경계**: 증명은 「service_role 자격을 가진 백엔드가 S2 통과를 주장했다」는 기록이다. S2 가 실제로 돌았다는 암호학적 증거가 아니다 —
+  service_role 키를 가진 주체는 결속을 맞춘 증명을 손으로 쓸 수 있다. 보호 수단은 그 키의 보관과 백엔드 어댑터 경로다.
+- **S2 규칙을 강화하면** 어댑터의 `ATTESTATION_VALIDATOR.contract` 와 DB `story.current_validator()` 를 함께 올리는 새 승인 마이그레이션이 필요하다 — 그러면 옛 계약판 증명은 발행을 허가하지 못한다.
+- **이 어댑터를 service_role 로 실제 호출하는 백엔드 런타임은 아직 없다(S4).** 그 전에 적용되면 발행은 막힌다(fail closed).
+
+**발행본 유일성.** 같은 원천 판본(`source_id` = 원천 정체) · 같은 판본 키에 살아 있는 발행본은 하나다(편집 기준을 다시 등록해 판본 자리가 새로 생겨도 같다) —
+두 번째 발행은 `story:live_release_exists`. 철회하면 그 자리를 새 발행본이 이어받을 수 있다. 원천 판본이 다르면(다른 스냅숏 · 정체) 같은 작품이라도 각자 발행본을 가질 수 있다.
+같은 스냅숏을 동시에 등록해도 한 행만 생기고 둘 다 성공한다(`created=false` 가 기존 행을 돌려준다).
+
+**권리 — 열람 때마다.** 발행본 「이용 가능」 = 철회되지 않음 AND 필요 권리(원문 `source_text`, 그리고 원작 언어 ≠ 본문 언어이거나 스냅숏이 번역 권리를 주장하면 `translation`)의
+최신 인증 결정이 모두 `confirmed`. 서가 · 본문 · 위치 · 단위 완료 · 내 진도(`release_available`) · 발행이 같은 판정을 쓴다. 나중의 `hold` · `rejected` 는 발행본 행을 바꾸지 않고
+즉시 열람을 닫고(이력 · 진도 보존), 다시 `confirmed` 면 열린다. 쓰지 않는 오디오 · 삽화 결정은 본문을 막지 않는다. DB 권리 결정은 스냅숏의 권리 주장 · 원천 정체를 고쳐 쓰지 않는다 —
+로컬 plan 의 권리 `hold`(§14)는 스냅숏 주장에서 나온 별개 판정이며, DB 결정으로 그 판정을 우회하지 않는다.
+
+**동시성.** 관리 · 증인 변경 RPC 의 잠금 순서는 `story.sources` → `story.edition_slots` → `story.releases`(FOR UPDATE)다(원천 등록은 잠글 행이 아직 없고,
+학습자 위치 · 완료 RPC 는 외래 키의 KEY SHARE 만 잡는다). 「현재 판」은 판본 자리 잠금을 쥔 채 계산한 max(seq)다.
+권리 결정은 원천 잠금을 쥐므로 동시 발행이 보류를 넘어 다시 열 수 없다. 발행 · 증명은 READ COMMITTED(PostgREST 기본)에서만 실행된다(`story:read_committed_required`).
+
+**진도.** §12 의 위치 ≠ 완료 계약을 DB 가 강제한다: `story_record_position` 은 이동만, `story_complete_unit` 은 단위 하나(중복 무해 · 위치도 옮김), 발행본 완료는 전 단위 완료 기록이 있을 때 한 번.
+진도는 발행본별이고 원본 `texts` · 학습 · FSRS 표를 쓰지 않으며 다른 판본 · 발행본으로 승계하지 않는다.
 - 위 표의 원본 노출(`content_chunks` · `get_chapter_content`)은 **원본 LCP 자체의 기존 결함**이다. Story 와 무관하게 남아 있으며, 고치려면 원본 객체 변경이 필요해 이 작업 범위 밖이다(별도 작업 · 승인 필요).
 - 철회는 노출 · 열람을 막되 학습 이력을 지우지 않는다.
+- **학습 기록 보존의 한계**: S3 의 Story 위치 · 단위 완료 기록에는 지우는 경로가 없다(불변 트리거 · `auth.users` FK 없음). 계정 삭제 때 이 기록을 어떻게 할지는
+  이 단계에서 정하지 않았다 — 별도로 승인된 설계가 필요하다.
+- **복구 뒤 다시 열기**: 복구 SQL 은 RPC 실행 권한만 회수한다. 다시 열려면 새 SQL 파일 · 새 러너 단계 · 새 사용자 승인이 필요하다(지금 러너 단계는 schema · quarantine 둘뿐이다).
 - 학습자 노출 게이트와 별개로, 관리자 전용 초안 · 검수 저장(보류 판본 포함)은 학습자 경로에서 읽히지 않는 자체 RLS 로 둔다(§10).
 - 로컬 드레인의 권리 · 대응 도서 · 생산자 · 검수자 기록은 입력이 주장하는 값이다(§0). DB 로 옮길 때 인증된 관리자 신원 · 권한으로 다시 기록하고,
   로컬 값을 권한 근거로 쓰지 않는다.

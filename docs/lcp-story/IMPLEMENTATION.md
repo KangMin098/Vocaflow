@@ -25,7 +25,7 @@
 | S0 | 정본 · 편집 기준 · 단계 지시 | `VERIFIED` | Codex 별도 검증: 패키지 2,940 통과 · 추가 검증 33 통과 · skip 0. 최종 커밋·통합 여부는 AI-Control T-0165 수용 기록(`verification/reviews/T-0165-*`)을 따른다 |
 | S1 | 도메인 스키마 · 해시 · 원문 대응 · 검수 결속 | `VERIFIED` | 위와 같음. F1~F5 수정 확인 |
 | S2 | 로컬 export/validate/plan + 합성 fixture | `VERIFIED` | 위와 같음. 실제 파일 기반 제작 흐름 확인 |
-| S3 | live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 | `PENDING` | S0~S2 수용(T-0165 두 owner 계약) |
+| S3 | live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 | `IMPLEMENTED` | T-0169 작성자 검증: SELECT 감사 · 미적용 SQL(표 12 · RPC 16) · 러너 시험 · 격리 PGlite/PostgreSQL 17 하네스 통과 · 독립 검토 지적 반영. 최종 수용은 루트 판정(이 표가 미리 적지 않는다). 실제 TLS preflight · 공유 DB 적용은 미실행 |
 | S4 | 승인된 DB 적용 + 관리자 후보/제작/검수/발행 + 도움말 | `DB_APPROVAL_REQUIRED` | S3 SQL 의 사용자 대화 승인 |
 | S5 | 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 | `PENDING` | S4 · 새 이벤트 허용 목록 SQL 승인 |
 | S6 | 선택적 Deep/Bridge · 실제 표현 어휘 연결 · 추천 다양성 | `PENDING` | S5 |
@@ -142,7 +142,7 @@
 
 ---
 
-## S3 — live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 · `PENDING`
+## S3 — live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 · `IMPLEMENTED`(작성자 검증 · 최종 수용 대기)
 
 - **목적**: 실제 DB 의 테이블 · RPC · 트리거 · RLS · 자동 발행 경로를 전수 확인하고, 파생 판본을 안전하게 담을 **최소** 추가 스키마 · RPC SQL ·
   권한 · 복구 · 영향을 준비해 사용자에게 보인다. **적용하지 않는다** — 적용은 S4 의 별도 대화 승인 뒤다.
@@ -176,6 +176,10 @@
 - **중단 조건**: 쓰기가 필요한 조사 · 실 DB 와 저장소 마이그레이션의 불일치 · 기존 원본 도서에 영향이 생기는 설계 → 기록하고 그 지점에서 사용자에게 보고.
 - **복구**: 산출물이 문서 · 미적용 SQL · 실행 전 러너뿐이다.
 - **완료 증거**: 감사 문서 커밋 · SQL 초안 커밋 · 사용자에게 보인 SQL 의 SHA-256.
+- **실행 기록(T-0169 작성자, 2026-10-25 — SQL 해시는 `docs/DB_SCHEMA.md` 안내문 · 러너 `STAGES` 와 같다)**:
+  `node --test scripts/db/lcp-story-s3/deploy.test.mjs` 26 통과 · `pnpm exec tsx scripts/db/lcp-story-s3/verify-isolated.ts` PGlite 47 통과 · 0 실패 · 10 미실행
+  (두 연결이 필요한 경합 · 러너 경로 — 종료 코드 3) · `… --engine pg17 --deps <dir>` PostgreSQL 17 59 통과 · 0 실패 · 0 미실행(경합마다 두 번째 연결의 Lock 대기 관찰) ·
+  패키지 vitest 2,965 통과 · tsc 통과. **미실행**: 공유 DB 대상 TLS preflight · 적용 · 사후 verify.
 - **다음**: S4(사용자 승인 후).
 
 ```text
@@ -198,7 +202,12 @@ S3 의 감사 대상 1~9 를 실제 DB 읽기 질의(SELECT)와 저장소 코드
   `apps/web/src/app/admin/curation/**`(이야기 라인) · `apps/web/src/lib/admin/help/curation.ts`(화면과 같은 커밋) · `apps/web/src/lib/library/story/**`(서버 게이트 · 액션) ·
   `packages/library-pipeline/src/story/**`(DB 적재 어댑터 · 배럴) · `packages/library-pipeline/package.json`(`./story` exports) ·
   `docs/DB_SCHEMA.md` · `docs/ADMIN_CONSOLE.md` · `docs/LCP_STORY.md` · `docs/CHANGELOG.md`.
-- **계약**: 정본 §9 · §10 · §14 · §15 · §18. 발행 = 관리자 승인 + 현재 결속 검수(자기 승인 아님) + 본문 권리(원문 · 선언된 번역) confirmed.
+- **계약**: 정본 §9 · §10 · §14 · §15 · §18. 발행 = 관리자 승인 + 현재 결속 검수(자기 승인 아님) + 본문 권리(원문 · 선언된 번역) confirmed
+  + service_role 검증 증명(현재 결속). S4 는 S3 SQL 이 요구하는 **백엔드 검증 증인 런타임**(서버에서 service_role 로 `story_service_validation_input` →
+  `buildValidationAttestation` → `story_service_attest_validation`)을 만든다 — 그것이 없으면 발행은 막힌 채다. 실제 발행 전 **두 번째 인증 스태프 계정**이 있어야 한다
+  (live 2026-10-25: admin 1 · curator 0. 계정 생성 · 역할 부여는 이 문서가 하지 않는 운영 조치다).
+  DB 는 같은 원천 · 같은 판본 키의 살아 있는 발행본을 하나로 막지만, 원천 스냅숏이 다르면 같은 작품 · 판본 키가 각자 살아 있을 수 있다 —
+  관리자 화면은 새 원천으로 발행할 때 옛 발행본 철회를 안내해 학습자 서가 중복을 막는다.
   적재는 S2 `plan` 의 `candidate` 를 서버에서 다시 검증한 뒤에만. `fixture_only` 는 적재하지 않는다. `hold` 판본은 관리자 초안 저장소에만 두고 학습자에게 열지 않는다.
   원본 도서의 `auto_curate_book` · force-publish 경로로 파생 판본이 발행되지 않는다. 철회는 노출 · 열람 차단, 이력 보존.
 - **수용 기준**
@@ -298,8 +307,9 @@ Deep Reading 은 choose_evidence · order_events, Original Bridge 는 판본 구
 - **선행**: 기본 독서 경로 파일럿은 S4·S5 후 실행한다. S6는 심화 활동을 관찰하는 후속 회차의 선행 조건이며, 첫 독서 경험 검증을 미루는 조건이 아니다.
   작품 선정 · 편집 준비는 기존 승인 범위다(별도 확인을 기다리지 않는다). 실제 권리가 불확실한 작품은 그 작품만 보류하고,
   실제 DB 적재 · 학습자 발행은 승인 경계를 따른다.
-- **소유 파일(예정)**: `docs/lcp-story/S7_PILOT.md`(선정 · 권리 근거 · 측정 계획 · 관찰 기록) · 작품별 원천 스냅숏 · 편집 기준 JSON
-  (원문 전문이 든 스냅숏은 커밋하지 않는 위치에 두고, 커밋할 편집 기준의 위치는 S7 시작 때 정해 이 줄을 고친다) · 계약이 바뀌면 정본.
+- **소유 파일**: `docs/lcp-story/S7_PILOT.md`(선정 · 권리 근거 · 측정 계획 · 관찰 기록) · 작품별 편집 기준 `scripts/lcp/story/pilot/<work>.policy.json`(커밋) ·
+  원천 목록 `scripts/lcp/story/pilot/sources.json` · 준비 스크립트 `scripts/lcp/story/pilot/build.ts`. 원문 전문이 든 스냅숏 · 작업 폴더는 커밋하지 않는
+  `work/lcp-story-pilot/` 에 둔다. 계약이 바뀌면 정본. (준비 = 원천 · 편집 기준까지. 판본 제작 · 검수 · 권리 확인 · 파일럿은 아직 없다.)
 - **계약**: 정본 §14 · §19. 합성 fixture 를 실제 도서나 전문가 검수로 부르지 않는다. AI 검수는 AI 검수로 적는다.
   합성 에이전트 워크스루는 인터페이스 점검이며 학습자 사용성 · 효과 근거가 아니다. 실제 참가자가 없으면 `PILOT_NOT_RUN` 그대로다.
 - **측정 계획(실행 전 고정 · 지금 데이터는 모두 NOT_RUN)**

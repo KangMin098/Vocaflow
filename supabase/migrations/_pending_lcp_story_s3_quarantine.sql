@@ -10,8 +10,11 @@
 --   · story 스키마는 처음부터 anon · authenticated · service_role 에 USAGE · 표 권한이 없으므로 회수 뒤에는 RPC 경로까지 모두 닫힌다
 --     (서가 · 본문 · 진도 · 관리 · 검증 증명 · 발행 모두).
 --   · 기존 원본 도서 객체 · 행은 건드리지 않는다.
--- 다시 열기: _pending_lcp_story_s3_schema.sql 의 「9. 실행 권한」 grant 문을 같은 승인 절차로 다시 실행한다.
+-- 다시 열기: 러너에는 다시 여는 단계가 없다(단계는 schema · quarantine 뿐). 다시 열려면 grant 문을 담은 새 SQL 파일 + 새 러너 단계 +
+--   새 사용자 승인이 필요하다(_pending_lcp_story_s3_schema.sql 「9. 실행 권한」의 grant 목록이 그 기준이다).
 -- 완전 제거(DROP SCHEMA story CASCADE)는 이력 삭제라 이 파일에 넣지 않는다 — 필요하면 내용을 따로 밝혀 별도 명시 승인을 받는다.
+-- 학습자 기록: 회수 뒤에도 Story 진도 · 단위 완료 행은 남는다. S3 에는 이 행을 지우는 경로가 없으며, 계정 삭제 처리는 이 범위 밖이라
+--   별도로 승인된 설계가 필요하다.
 
 do $$
 begin

@@ -513,18 +513,22 @@ describe('실제 스크립트(scripts/lcp/story/story.ts)를 tsx 로 실행한�
   const tsxCli = join(REPO, 'node_modules', 'tsx', 'dist', 'cli.mjs')
   const script = join(REPO, 'scripts', 'lcp', 'story', 'story.ts')
   const run = (args: string[]) => spawnSync(process.execPath, [tsxCli, script, ...args], { cwd: REPO, encoding: 'utf8', timeout: 60_000 })
+  // 실패하면 종료 코드만이 아니라 신호 · spawn 오류(ETIMEDOUT 등) · 출력 끝을 남긴다 — 원인 없이 「실패 1건」만 남지 않게.
+  const why = (r: ReturnType<typeof run>) =>
+    `status=${r.status} signal=${r.signal} error=${r.error ? `${(r.error as NodeJS.ErrnoException).code ?? ''} ${r.error.message}` : 'none'}\n` +
+    `stderr: ${(r.stderr ?? '').slice(-2000)}\nstdout: ${(r.stdout ?? '').slice(-1000)}`
 
   it('export 0 · validate 2(결과 대기) · 없는 작업 1 — 종료 코드가 프로세스 밖으로 나온다', () => {
     expect(existsSync(tsxCli), `tsx 가 없다: ${tsxCli} — pnpm install 필요`).toBe(true)
     const root = tmp()
     const now = '2026-10-25T12:00:00+09:00'
     const ex = run(['export', '--root', root, '--work', WORK, '--source', SNAP, '--policy', POLICY, '--now', now])
-    expect(ex.status, ex.stderr).toBe(0)
+    expect(ex.status, why(ex)).toBe(0)
     expect(JSON.parse(ex.stdout).files).toHaveLength(5)
     const va = run(['validate', '--root', root, '--work', WORK, '--now', now])
-    expect(va.status, va.stderr).toBe(2)
+    expect(va.status, why(va)).toBe(2)
     const missing = run(['plan', '--root', root, '--work', 'nope', '--now', now])
-    expect(missing.status).toBe(1)
+    expect(missing.status, why(missing)).toBe(1)
     expect(JSON.parse(missing.stdout).errors.map((e: Json) => e.code)).toEqual(['work_missing'])
     expect(readdirSync(root)).toEqual([WORK])
   }, 120_000)
@@ -532,7 +536,7 @@ describe('실제 스크립트(scripts/lcp/story/story.ts)를 tsx 로 실행한�
   it('toString 명령도 프로세스 밖으로 JSON 사용법 오류 · 종료 1 이며 처리되지 않은 예외가 없다', () => {
     const root = tmp()
     const r = run(['toString', '--root', root, '--work', 'probe'])
-    expect(r.status).toBe(1)
+    expect(r.status, why(r)).toBe(1)
     expect(JSON.parse(r.stdout).errors.map((e: Json) => e.code)).toEqual(['usage'])
     expect(r.stderr).not.toMatch(/TypeError|at .*cli\.ts/)
     expect(readdirSync(root)).toEqual([])

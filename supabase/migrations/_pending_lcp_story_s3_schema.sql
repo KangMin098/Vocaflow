@@ -23,27 +23,40 @@
 --     다시 구현하지 않는다(아래 판본 제출 검사는 방어용 일부일 뿐 S2 검증이 아니다). 대신 발행은 백엔드 서비스 주체(service_role)만 쓸 수 있는
 --     검증 증명(story.validation_attestations)이 지금 저장된 원천 · 정체 · 기준 · 목표 · 판본 · 활동 · 검수 해시 묶음에 결속돼 있을 때만 된다.
 --     증명은 S2 어댑터(packages/library-pipeline/src/story/attest.ts)가 story_service_validation_input 이 돌려준 저장값 그대로를 S2 검증기로 검사한 뒤
---     story_service_attest_validation 으로 쓰고, DB 가 결속을 다시 계산해 대조한다. authenticated · curator · admin 은 증명을 쓸 수 없고,
+--     story_service_attest_validation 으로 쓰고, DB 가 결속을 다시 계산해 대조한다. 두 증인 RPC 는 EXECUTE 가 service_role 에만 있고,
+--     그에 더해 JWT 역할 주장(request.jwt.claims->>'role' 또는 request.jwt.claim.role)이 반드시 있고 모두 service_role 이어야 한다 —
+--     PostgREST 의 service_role 요청만 통과한다. authenticated · curator · admin 과, 주장이 없는 소유자 · SQL 편집기 · MCP SQL 세션은 증명을 쓸 수 없다.
 --     어댑터가 없는 배포는 발행이 막힌다(fail closed). 서비스 주체는 증인일 뿐 생산자 · 검수자 · 권리 결정자 · 발행자로 기록되지 않는다
 --     (action_log actor_kind='service_validator', actor 없음). 초안 · 검수 저장은 증명 없이 된다(학습자에게 보이지 않는다).
+--     신뢰 경계: 증명은 「service_role 자격 증명을 가진 주체가 S2 통과를 주장했다」는 신뢰된 증인 기록이지, S2 가 실제로 실행됐다는 암호학적 증거가 아니다.
+--     증명의 검증기 판은 story.current_validator() 이고 발행은 그 판의 증명만 받는다 — S2 규칙을 강화하면 어댑터와 이 함수의 contract 를 함께 올리는
+--     새 승인 마이그레이션으로 옛 증명 전부를 무효로 만든다. validated_at 은 DB 시계 + 30초까지 받는다(백엔드 시계는 DB 와 30초 안으로 맞춘다).
 --   · 해시: 본문 해시 · 원천 판본 정체 해시 · 기준/목표/판본/활동/검수/검증 결속 해시 · release_key 를 DB 가 S2(packages/library-pipeline/src/story)와
 --     같은 정본 직렬화(키 UTF-16=ASCII 순 정렬 · 배열 순서 보존 · JSON.stringify 와 같은 문자열 이스케이프 · 정수만)로 다시 계산한다.
 --   · 발행 조건: 최신 판(판본 자리 잠금을 쥔 채 계산한 max(seq)) · 그 판의 검수 전부 적격 · 발행자 admin ≠ 판본 제출자 · 원문(+번역) 권리 최신 결정
---     confirmed · 자산 없음 · 합성 아님 · 같은 자리 살아 있는 발행본 없음 · 현재 결속의 검증 증명 있음. 발행본 행 · 단위 본문은 불변, 철회는 철회 칸만 한 번 채운다.
+--     confirmed · 자산 없음 · 합성 아님 · 같은 원천 · 같은 판본 키(source_id, edition_key)의 살아 있는 발행본 없음(기준을 다시 등록해 판본 자리가
+--     둘이 돼도 하나뿐) · 현재 결속 + 현재 검증기 판의 검증 증명 있음. 발행본 행 · 단위 본문은 불변, 철회는 철회 칸만 한 번 채운다.
 --   · 권리: 발행본 「이용 가능」 = 철회되지 않음 AND story.source_rights_ok(원천) — 필요 권리(source_text, 그리고 번역본이거나 스냅숏이 translation 권리를
 --     주장하면 translation)의 최신 인증 결정이 모두 confirmed. 서가 · 본문 · 위치 · 완료 · 내 진도 · 발행이 모두 이 판정을 쓴다. 나중의 hold · rejected 는
 --     발행본 행을 바꾸지 않고 즉시 열람을 닫으며(이력 보존) 다시 confirmed 면 열린다. 쓰지 않는 오디오 · 삽화 권리는 본문을 막지 않는다.
 --   · 진도: 위치(story_record_position — 이동만, 단위 완료 · 발행본 완료를 만들지 않는다)와 단위 완료(story_complete_unit — 학습자의 명시적 표시)를 나눈다.
 --     발행본 완료(completed_at)는 0..unit_count-1 모든 단위에 완료 기록이 있을 때 한 번만 찍힌다 — 마지막 단위로 건너뛰어도 완료가 아니다.
 --     진도는 발행본별이고 원문 완독 · 숙달 · FSRS 로 세지 않으며 다른 판본 · 발행본으로 승계하지 않는다(원본 texts · 학습 표를 쓰지 않는다).
---   · 잠금 순서(모든 변경 RPC 공통): story.sources 행 → story.edition_slots 행 → story.releases 행(FOR UPDATE). 권리 결정은 원천 잠금을 쥐므로 발행과
---     한 줄로 선다. 발행 · 검증 증명은 READ COMMITTED(PostgREST 기본)에서만 실행된다 — 잠금을 얻은 뒤의 문장마다 새 스냅숏으로 최신 판 · 검수 · 권리를 읽기 위해서다.
+--     보존: S3 에는 Story 진도 · 단위 완료 행을 지우는 경로가 없다(DELETE 는 트리거가 막는다). 계정 삭제 처리는 이 범위 밖이며
+--     별도로 승인된 설계가 필요하다.
+--   · 잠금 순서(관리 · 증인 변경 RPC — register_policy · submit_edition · submit_review · record_rights · publish · withdraw ·
+--     service_attest_validation): story.sources 행 → story.edition_slots 행 → story.releases 행(FOR UPDATE). register_source 는 잠글 기존 행이 없고
+--     (같은 정체의 동시 등록은 on conflict 로 created=false), 학습자 RPC(record_position · complete_unit)는 자기 진도 행과 FK KEY SHARE 만 잡는다.
+--     권리 결정은 원천 잠금을 쥐므로 발행과 한 줄로 선다. 자연 키가 있는 등록(원천 · 기준 · 판 · 검수 · 증명 · 단위 완료)은 재호출 · 동시 호출에
+--     같은 행을 created=false 로 돌려준다. 발행 · 검증 증명은 READ COMMITTED(PostgREST 기본)에서만 실행된다 — 잠금을 얻은 뒤의 문장마다
+--     새 스냅숏으로 최신 판 · 검수 · 권리를 읽기 위해서다.
 --
 -- 영향: 기존 행 0 · 기존 객체 변경 0(새 스키마 1 · 새 표 12 · 새 함수 · 트리거 · 인덱스만). public.library_books 는 읽기만 한다
 --   (library_book 원천의 대응 확인). 원본 표에 FK 를 걸지 않아 원본 도서 삭제 · 재처리 동작을 막지 않는다.
 -- 전제: PostgreSQL 13+(IS NFC NORMALIZED · gen_random_uuid · sha256), auth.uid(), public.user_profiles(user_id, role, status),
 --   public.library_books(id, source, source_id, status), 역할 anon · authenticated · service_role. 스키마 story · public.story_* 함수가 없어야 한다.
 -- 되돌리기: 파괴 없이 _pending_lcp_story_s3_quarantine.sql(public.story_* RPC 16개 실행 권한 회수 — 표 · 이력 보존).
+--   다시 여는 단계는 러너에 없다 — 다시 열려면 새 SQL 파일 + 새 러너 단계 + 새 사용자 승인이 필요하다.
 
 do $$
 declare v_missing text[];
@@ -65,8 +78,9 @@ end
 $$;
 
 create schema story;
-comment on schema story is 'LCP Story 격리 저장소 — 직접 접근 없음, public.story_* RPC 만 문이다(docs/LCP_STORY.md).';
-revoke all on schema story from public;
+comment on schema story is 'LCP Story 격리 저장소 — 직접 접근 없음, public.story_* RPC 만 문이다(docs/LCP_STORY.md §15).';
+-- 클라이언트 역할(PUBLIC · anon · authenticated · service_role)에 스키마 USAGE · CREATE 를 주지 않는다. 표 · 시퀀스 · 내부 함수 회수는 5절.
+revoke all on schema story from public, anon, authenticated, service_role;
 
 -- ── 1. 정본 직렬화 · 해시(S2 canonical.ts 와 같은 의미) ─────────────────────────────
 
@@ -222,8 +236,9 @@ begin
 end
 $fn$;
 
--- 검증 증인 = 백엔드 서비스 주체. 1차 문은 EXECUTE 권한(service_role 만)이다. 이것은 방어 겹:
--- JWT 역할 주장이 있으면(request.jwt.claim.role 또는 request.jwt.claims->>'role') service_role 이어야 한다. 읽을 수 없는 주장은 거부한다.
+-- 검증 증인 = 백엔드 서비스 주체(PostgREST 의 service_role 요청). 1차 문은 EXECUTE 권한(service_role 만)이고, 이것이 둘째 문이다:
+-- JWT 역할 주장(request.jwt.claims->>'role' 또는 옛 GUC request.jwt.claim.role)이 하나 이상 반드시 있고, 있는 것은 모두 정확히 'service_role'
+-- 이어야 한다. 주장이 없는 세션(소유자 · SQL 편집기 · MCP SQL), JSON 객체가 아닌 claims, 다른 역할, 두 주장이 서로 다른 경우는 모두 거부한다.
 create function story.require_service_validator()
 returns void
 language plpgsql
@@ -233,20 +248,44 @@ as $fn$
 declare
   v_claim text := nullif(pg_catalog.current_setting('request.jwt.claim.role', true), '');
   v_claims text := nullif(pg_catalog.current_setting('request.jwt.claims', true), '');
+  v_claims_json jsonb;
   v_claims_role text;
 begin
   if v_claims is not null then
     begin
-      v_claims_role := v_claims::jsonb ->> 'role';
+      v_claims_json := v_claims::jsonb;
     exception when others then
       raise exception 'story:service_role_required' using errcode = '42501', detail = 'unreadable request.jwt.claims';
     end;
+    if pg_catalog.jsonb_typeof(v_claims_json) is distinct from 'object' then
+      raise exception 'story:service_role_required' using errcode = '42501', detail = 'request.jwt.claims is not an object';
+    end if;
+    if v_claims_json ? 'role' then
+      if pg_catalog.jsonb_typeof(v_claims_json -> 'role') is distinct from 'string' then
+        raise exception 'story:service_role_required' using errcode = '42501', detail = 'role claim is not a string';
+      end if;
+      v_claims_role := v_claims_json ->> 'role';
+    end if;
   end if;
-  if (v_claim is not null and v_claim <> 'service_role')
-     or (v_claims_role is not null and v_claims_role <> 'service_role') then
+  if v_claim is null and v_claims_role is null then
+    raise exception 'story:service_role_required' using errcode = '42501', detail = 'no role claim';
+  end if;
+  if (v_claim is not null and v_claim is distinct from 'service_role')
+     or (v_claims_role is not null and v_claims_role is distinct from 'service_role') then
     raise exception 'story:service_role_required' using errcode = '42501';
   end if;
 end
+$fn$;
+
+-- 지금 발행을 허가하는 S2 검증기 판. 증명 기록(같아야 저장)과 발행(이 판의 증명만 인정)이 함께 쓴다.
+-- S2 규칙을 강화하면 어댑터(packages/library-pipeline/src/story/attest.ts)와 이 값을 함께 올리는 새 승인 마이그레이션으로 옛 증명을 무효로 한다.
+create function story.current_validator()
+returns jsonb
+language sql
+immutable
+set search_path = pg_catalog, pg_temp
+as $fn$
+  select '{"name": "lcp-story-s2", "contract": "lcp-story/s2@1"}'::jsonb
 $fn$;
 
 -- 발행 · 검증 증명은 잠금을 얻은 뒤 문장마다 새 스냅숏으로 최신 판 · 검수 · 권리를 읽어야 한다. REPEATABLE READ · SERIALIZABLE 에서는
@@ -273,7 +312,7 @@ create table story.sources (
   snapshot_meta jsonb not null,
   body text not null,
   text_sha256 text not null check (text_sha256 ~ '^[0-9a-f]{64}$'),
-  identity_sha256 text not null unique check (identity_sha256 ~ '^[0-9a-f]{64}$'),
+  identity_sha256 text not null check (identity_sha256 ~ '^[0-9a-f]{64}$'),
   original_language text not null check (original_language ~ '^[a-z]{2,3}$'),
   text_language text not null check (text_language = 'en'),
   translator text,
@@ -288,6 +327,7 @@ create table story.sources (
   constraint sources_body_story_text check (
     body <> '' and body is nfc normalized and pg_catalog.strpos(body, E'\r') = 0
     and body !~ E'\n\n\n' and body !~ E'[ \t]\n' and body !~ E'^[ \t\n]' and body !~ E'[ \t\n]$'),
+  constraint sources_identity_sha256_key unique (identity_sha256),
   constraint sources_translation check ((original_language = text_language) = (translator is null)),
   constraint sources_library_book check ((correspondence = 'library_book_id_source_match') = (library_book_id is not null))
 );
@@ -357,9 +397,13 @@ create table story.validation_attestations (
   edition_version_id uuid not null references story.edition_versions (id) on delete restrict,
   binding jsonb not null,
   binding_sha256 text not null check (binding_sha256 ~ '^[0-9a-f]{64}$'),
+  -- 증명을 쓴 S2 검증기 판(story.current_validator() 의 그때 값). 발행은 지금 판과 같은 행만 인정한다.
+  validator jsonb not null,
   attestation jsonb not null,
   attested_at timestamptz not null default pg_catalog.now(),
-  constraint validation_attestations_version_binding_key unique (edition_version_id, binding_sha256)
+  -- null 안전 비교: attestation 에 validator 키가 없으면(null) 통과하지 않는다.
+  constraint validation_attestations_validator check (validator is not distinct from (attestation -> 'validator')),
+  constraint validation_attestations_version_binding_validator_key unique (edition_version_id, binding_sha256, validator)
 );
 comment on table story.validation_attestations is
   'S2 검증 증명 — story_service_attest_validation(service_role)만 쓴다. 관리자 · 사용자 행위가 아니며 사람 검수의 증거도 아니다.';
@@ -414,8 +458,9 @@ create table story.releases (
     (withdrawn_at is null) = (withdrawn_by is null) and (withdrawn_at is null) = (withdraw_reason is null)),
   constraint releases_completion check ((completion_label = 'adapted_full_work') = counts_as_work_completion)
 );
--- 같은 판본 자리에 살아 있는 발행본은 하나 — 동시 발행 경합의 최종 방어.
-create unique index releases_one_live_per_slot on story.releases (slot_id) where withdrawn_at is null;
+-- 같은 원천 · 같은 판본 키에 살아 있는 발행본은 하나 — 기준을 다시 등록해 자리가 여럿이어도 마찬가지(자리 하나 = 원천 하나 + 판본 키 하나라
+-- 자리 기준 유일성도 함께 성립한다). 발행의 원천 잠금 아래 검사(story:live_release_exists)가 1차, 이 색인이 동시 경합의 최종 방어다.
+create unique index releases_one_live_per_source_edition on story.releases (source_id, edition_key) where withdrawn_at is null;
 comment on table story.releases is
   '발행본(불변). 학습자 이용 가능 = withdrawn_at 없음 AND story.source_rights_ok(source_id) — 권리 보류는 행을 바꾸지 않고 열람을 닫는다.';
 
@@ -738,14 +783,24 @@ begin
     raise exception 'story:source_kind_not_allowed' using detail = coalesce(v_kind, 'null');
   end if;
 
-  insert into story.sources (snapshot_id, work_key, snapshot_meta, body, text_sha256, identity_sha256, original_language,
-                             text_language, translator, coverage, paragraph_count, library_book_id, correspondence,
-                             correspondence_library_status, registered_by)
+  -- 같은 정체의 동시 등록: 먼저 커밋한 쪽만 넣고, 다른 쪽은 23505 대신 그 행을 created=false 로 돌려준다.
+  insert into story.sources as s (snapshot_id, work_key, snapshot_meta, body, text_sha256, identity_sha256, original_language,
+                                  text_language, translator, coverage, paragraph_count, library_book_id, correspondence,
+                                  correspondence_library_status, registered_by)
   values (p_snapshot ->> 'snapshot_id', p_snapshot #>> '{work,work_key}', p_snapshot - 'text' - 'text_sha256', v_text, v_sha,
           v_identity, p_snapshot #>> '{work,original_language}', p_snapshot #>> '{edition,text_language}',
           p_snapshot #>> '{edition,translator}', p_snapshot ->> 'coverage',
           pg_catalog.array_length(pg_catalog.string_to_array(v_text, E'\n\n'), 1), v_lb_id, v_corr, v_lb_status, v_actor)
-  returning id into v_id;
+  on conflict on constraint sources_identity_sha256_key do nothing
+  returning s.id into v_id;
+  if v_id is null then
+    select s.id into v_existing from story.sources s where s.identity_sha256 = v_identity;
+    if not found then
+      raise exception 'story:source_not_found' using detail = v_identity;
+    end if;
+    return query select v_existing, v_identity, v_sha, false;
+    return;
+  end if;
   insert into story.action_log (action, actor, target_id, detail)
   values ('register_source', v_actor, v_id, pg_catalog.jsonb_build_object('identity_sha256', v_identity, 'correspondence', v_corr));
   return query select v_id, v_identity, v_sha, true;
@@ -1105,16 +1160,20 @@ begin
   if exists (select 1 from story.reviews r where r.edition_version_id = v_version.id and not r.qualifies) then
     raise exception 'story:review_not_qualifying';
   end if;
-  if exists (select 1 from story.releases rl where rl.slot_id = v_slot.id and rl.withdrawn_at is null) then
+  -- 같은 원천 · 같은 판본 키의 살아 있는 발행본은 하나(다른 기준 등록으로 생긴 다른 자리 포함). 원천 잠금 아래라 같은 원천의 발행끼리 한 줄로 선다.
+  if exists (select 1 from story.releases rl
+              where rl.source_id = v_source.id and rl.edition_key = v_slot.edition_key and rl.withdrawn_at is null) then
     raise exception 'story:live_release_exists';
   end if;
 
-  -- 검증 증명: 지금 저장값에서 다시 계산한 결속에 대한 증명이 있어야 한다. 증명 뒤에 검수가 더해지면 결속이 바뀌어 다시 증명해야 한다.
+  -- 검증 증명: 지금 저장값에서 다시 계산한 결속 + 현재 검증기 판(story.current_validator())의 증명이 있어야 한다.
+  -- 증명 뒤에 검수가 더해지면 결속이 바뀌어 다시 증명해야 하고, 검증기 판이 오르면 옛 증명은 발행을 허가하지 않는다.
   -- 백엔드 검증 증인이 없는 배포는 여기서 막힌다(fail closed).
   v_binding := story.attestation_binding(v_version.id);
   v_binding_sha := story.canonical_sha256(v_binding);
   select va.id into v_attestation from story.validation_attestations va
-   where va.edition_version_id = v_version.id and va.binding_sha256 = v_binding_sha;
+   where va.edition_version_id = v_version.id and va.binding_sha256 = v_binding_sha
+     and va.validator = story.current_validator();
   if not found then
     raise exception 'story:validation_attestation_missing' using detail = v_binding_sha;
   end if;
@@ -1266,7 +1325,8 @@ begin
     -- 검증 증명: 지금 결속과 그 결속에 대한 증명 존재 여부(관리자가 발행 전에 본다). 증명 내용은 백엔드 증인의 기록이다.
     'validation', pg_catalog.jsonb_build_object('binding', v_binding, 'binding_sha256', v_binding_sha,
                  'attested', exists (select 1 from story.validation_attestations va
-                                      where va.edition_version_id = v_version.id and va.binding_sha256 = v_binding_sha)),
+                                      where va.edition_version_id = v_version.id and va.binding_sha256 = v_binding_sha
+                                        and va.validator = story.current_validator())),
     'rights_ok', v_rights_ok,
     'rights', coalesce((select pg_catalog.jsonb_agg(pg_catalog.jsonb_build_object('asset', d.asset, 'status', d.status,
                  'basis', d.basis, 'evidence_ref', d.evidence_ref, 'decided_by', d.decided_by, 'decided_at', d.decided_at)
@@ -1353,7 +1413,7 @@ begin
     raise exception 'story:attestation_invalid' using detail = 'keys';
   end if;
   if p_attestation ->> 'schema' is distinct from 'lcp-story/validation-attestation@1'
-     or (p_attestation -> 'validator') is distinct from '{"name": "lcp-story-s2", "contract": "lcp-story/s2@1"}'::jsonb then
+     or (p_attestation -> 'validator') is distinct from story.current_validator() then
     raise exception 'story:attestation_invalid' using detail = 'schema/validator';
   end if;
   if (p_attestation -> 'checks')
@@ -1370,7 +1430,8 @@ begin
   exception when data_exception then
     raise exception 'story:attestation_invalid' using detail = 'validated_at';
   end;
-  if v_validated_at > pg_catalog.now() then
+  -- 백엔드 시계와 DB 시계의 허용 차이는 30초다(그보다 앞선 증명 시각은 거부).
+  if v_validated_at > pg_catalog.clock_timestamp() + interval '30 seconds' then
     raise exception 'story:time_in_future';
   end if;
   if (p_attestation -> 'binding') is distinct from v_binding then
@@ -1378,19 +1439,21 @@ begin
   end if;
 
   v_sha := story.canonical_sha256(v_binding);
-  insert into story.validation_attestations as va (edition_version_id, binding, binding_sha256, attestation)
-  values (v_version.id, v_binding, v_sha, p_attestation)
-  on conflict on constraint validation_attestations_version_binding_key do nothing
+  -- 유일 키는 (판, 결속, 검증기 판)이다 — 다른 검증기 판의 옛 행이 같은 결속을 쥐고 있어도 현재 판의 증명은 새 행으로 들어간다.
+  insert into story.validation_attestations as va (edition_version_id, binding, binding_sha256, validator, attestation)
+  values (v_version.id, v_binding, v_sha, story.current_validator(), p_attestation)
+  on conflict on constraint validation_attestations_version_binding_validator_key do nothing
   returning va.id into v_id;
   if v_id is null then
     select va.id into v_id from story.validation_attestations va
-     where va.edition_version_id = v_version.id and va.binding_sha256 = v_sha;
+     where va.edition_version_id = v_version.id and va.binding_sha256 = v_sha and va.validator = story.current_validator();
     return query select v_id, v_sha, false;
     return;
   end if;
   insert into story.action_log (action, actor_kind, actor, target_id, detail)
   values ('attest_validation', 'service_validator', null, v_id,
-          pg_catalog.jsonb_build_object('edition_version_id', v_version.id, 'binding_sha256', v_sha));
+          pg_catalog.jsonb_build_object('edition_version_id', v_version.id, 'binding_sha256', v_sha,
+                                        'validator', story.current_validator()));
   return query select v_id, v_sha, true;
 end
 $fn$;

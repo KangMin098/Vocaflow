@@ -1,8 +1,9 @@
 # LCP Story S3 — live DB 읽기 감사
 
-> **검토 중 초안 · 적용 금지(2026-10-25)**: Codex의 별도 PGlite 재현에서 직접 RPC의 S2 구조 검증 우회, 마지막 단위만 기록해 완독 처리,
-> 권리 보류 뒤에도 발행 본문을 읽는 문제를 확인했다. 배포 위치·1회용 승인 티켓 경계도 수정 대상이다. 아래 SQL·하네스는 초기 초안이며
-> 일반 검사 통과가 이 결함들의 해결을 뜻하지 않는다. 같은 T-0169에서 수정·재검증하며, 실제 DB 쓰기·적용은 하지 않았다.
+> **상태(2026-10-25 · T-0169 보강 회차)**: 별도 PGlite 재현으로 확인된 결함 3건(직접 RPC 의 S2 구조 검증 우회 발행 · 마지막 단위만 기록해 완독 ·
+> 권리 보류 뒤 발행 본문 열람)과 배포 위치 · 1회용 승인 티켓 경계, 독립 검토 지적(소유자 세션 증명 · 판본 중복 발행 등)을 같은 작업에서 고쳤다.
+> 고친 방식은 아래 D2~D4, 실행 근거는 격리 PGlite · PostgreSQL 17 하네스와 러너 시험이다(작성자 검증 — 최종 수용은 루트 판정).
+> **실제 DB 쓰기 · 적용은 하지 않았다.** 남은 것: 사용자 적용 승인 · 실제 TLS preflight(미실행) · 백엔드 검증 증인 런타임(S4) · 두 번째 인증 스태프 계정(발행 전제).
 
 > 이 앞부분(측정 정보 ~ 미확인 · 공백)은 **실측 사실**만 담는다. 결정 · SQL 초안은 이 문서 뒤쪽의 별도 절(작성: 상위 세션)에서 다룬다.
 > 각 절은 `work/lcp-story-s3/audit/` 의 원자료 파일(질의 SQL 전문 · `observed_at` · 결과 JSON)을 인용한다. 그 폴더는 `/work/` gitignore 대상이라 커밋되지 않는다.
@@ -19,7 +20,8 @@
 | 접속 신원 | `current_user = postgres` · `session_user = postgres` · `transaction_read_only = off` (01) |
 | 읽기 전용 여부 | 실행한 질의는 전부 `SELECT` 다(INSERT/UPDATE/DELETE/DDL/SET/DO/CALL/nextval · 서버 파일 접근 없음). 접속 자체는 쓰기 가능한 세션이므로 읽기 전용은 질의 선택으로만 보장했다. 어떤 DB 쓰기도 하지 않았다 |
 | 실행자 | Claude Code DB 감사 서브에이전트 |
-| 비고 | 감사 프로세스가 한 번 재시작됐다. 01~04 는 `2026-10-24T17:4xZ`, 05~13 은 `2026-10-25T04:4x~05xZ` 에 관측했다. 두 구간 사이에 다른 세션이 DB 를 바꿨는지는 확인하지 않았다 |
+| 비고 | 감사 프로세스가 한 번 재시작됐다. 01~04 는 `2026-10-24T17:4xZ`(KST 10-25 02:4x), 05~13 은 `2026-10-25T04:4x~05xZ` 에 관측했다 — 약 11시간 차이다. 두 구간 사이에 다른 세션이 DB 를 바꿨는지는 확인하지 않았다 |
+| 갱신 지문 | `20-refresh-fingerprint.json` · `2026-10-25T07:55:59Z`(KST 16:55:59) · 단일 SELECT 1회. S3 SQL 이 기대는 항목만 다시 쟀다: `story` 스키마 · `public.story*` 관계 · 함수 0(충돌 없음) · 선행 `user_profiles(user_id uuid, role text, status text)` · `library_books` · `texts` · `auth.uid()` · 코어 `sha256` 존재 · 역할 anon/authenticated/service_role 존재 · 스태프 admin/active 1 · curator 0 · 기본 격리 `read committed` · 마이그레이션 꼬리 `20261024025906` · S3 버전(`20261025140000/140100`) 이력 없음 · `public` 기본 ACL(아래 §6 과 같음: postgres 가 만드는 새 함수는 service_role 실행이 붙는다). 01~04 의 나머지 항목(열 전체 · 수 · 제약)은 다시 재지 않았다 |
 
 원자료 파일: `01-server-extensions.json` · `02-regclass-collision.json` · `03-columns-constraints.json` · `04-counts.json` · `05-rls-policies.json` · `06-grants.json` ·
 `07a-functions-meta.json` · `07b-function-bodies-gates.json` · `07c-function-bodies-bulk-view.json` · `07d-function-bodies-pipeline.json` · `07e-function-scan-content-writers.json` ·
@@ -229,7 +231,7 @@
 - `user_profiles.status`(active/suspended/deleted)는 위 헬퍼 어느 것도 보지 않는다.
 - 역할 상승 차단: authenticated 는 `role` · `status` 열에 INSERT · UPDATE 권한이 없고(06b), `guard_user_profiles_privileged_columns` 트리거가 anon · authenticated 의 `user_id` · `role` · `status` 변경을 거부한다(08b). 프로필 직접 INSERT 는 허용 열만 가능하므로 `role` 은 기본값 `user` 가 된다.
 - JWT `app_metadata` · `auth.jwt()` 로 역할을 정하는 정책 · 함수는 0건이다(07e).
-- 현재 값: admin 1명(active) · curator 0명(04d).
+- 현재 값: admin 1명(active) · curator 0명(04d). 갱신 지문(20, `2026-10-25T07:55:59Z`)에서도 같다.
 
 ## 사실에서 바로 나오는 함의
 
@@ -271,37 +273,78 @@
 
 - 함의 1 · 2 · 4 · 5 · 8 때문에 Story 판본을 `library_books` · `library_chapters_master` · `content_chunks` · `texts` 에 두지 않는다.
   그 표들에는 검수 없는 발행 경로 · 자동 트리거 · 로그인 사용자 전체 본문 SELECT · 상태 무관 본문 RPC 가 이미 있다.
-- 새 스키마 `story`(이름 충돌 0 — §2 · §11)에 표 10개를 두고, `public` 에는 `story_*` RPC 13개만 둔다. `public` 의 기본 권한(새 표 = anon · authenticated 전 권한, §6)이
-  Story 표에 적용되지 않게 하는 것도 스키마 분리의 이유다. 그래도 SQL 은 스키마 · 표 · 시퀀스 · 함수 권한을 명시적으로 모두 회수한다(Supabase 기본값이 바뀌어도 닫혀 있게).
+- 새 스키마 `story`(이름 충돌 0 — §2 · §11, 갱신 지문 20 에서도 0)에 표 12개를 두고, `public` 에는 `story_*` RPC 16개만 둔다. `public` 의 기본 권한(새 표 = anon · authenticated 전 권한,
+  새 함수 = service_role 실행, §6)이 Story 에 적용되지 않게 하는 것도 스키마 분리의 이유다. 그래도 SQL 은 스키마(USAGE · CREATE) · 표 · 시퀀스 · 함수 권한을
+  PUBLIC · anon · authenticated · service_role 에서 명시적으로 모두 회수하고, RPC 16개도 하나씩 회수한 뒤 필요한 역할에만 준다(Supabase 기본값이 바뀌어도 닫혀 있게).
 - 원본 표에 FK 를 걸지 않는다. `library_book` 원천은 등록 RPC 가 `library_books(id, source, source_id)` 를 읽어 대응을 확인하고 그 시점 상태를 기록한다(쓰기 없음).
 
 ### D2. 행위자 · 승인 분리
 
 - 관리 행위자 = `auth.uid()` + `user_profiles.role`(admin · curator) + `status='active'`(§12 의 기존 헬퍼는 status 를 보지 않으므로 Story 는 따로 본다).
-  service_role(사용자 없음)은 RPC 실행 권한부터 없다. 생산자 · 검수자 · 권리 · 출처는 요청 본문의 값을 「주장」으로만 저장하고, 행위자는 DB 가 기록한다.
-- 검수자 계정 ≠ 판본 제출 계정 · 발행자 계정 ≠ 판본 제출 계정 · 발행 · 철회 · 권리 결정은 admin 만. 현재 운영 계정은 admin 1 · curator 0(§12) —
-  실제 발행에는 **서로 다른 인증 계정 최소 2개**(판본 제출 curator/admin 1 + 검수 curator/admin 1, 발행 admin 은 제출자가 아니어야 함)가 필요하다. 배포 전제다.
+  service_role(사용자 없음)은 관리 RPC 실행 권한이 없다. 생산자 · 검수자 · 권리 · 출처는 요청 본문의 값을 「주장」으로만 저장하고, 행위자는 DB 가 기록한다.
+- DB 가 강제하는 분리는 정확히 이것이다: 검수 계정 ≠ 판본 제출 계정(검수자 세션 주장 ≠ 생산자 세션 주장도) · 발행자 = admin 이고 판본 제출 계정이 아니다 ·
+  권리 결정 · 철회 = admin. **검수자와 발행 admin 은 같은 계정이어도 된다** — 정본은 생산과 검수만 나누며, 세 사람(생산 · 검수 · 발행 모두 다름)을 요구하지 않는다.
+  그래서 실제 발행에 필요한 인증 계정은 **최소 2개**다(예: curator 제출 + admin 검수 · 발행).
+- 현재 운영 계정은 admin 1 · curator 0(§12 · 갱신 지문 20)이라 이 조건을 지금은 채울 수 없다. 두 번째 인증 스태프 계정은 **실제 발행 · 운영의 전제**이며
+  빈 스키마 설치(적용)의 전제는 아니다(SQL · preflight 는 계정 수를 검사하지 않는다). T-0169 는 역할을 만들거나 부여하지 않았고 그런 승인도 없다.
+  로컬 AI 세션 id 를 스태프 계정으로 쓰지 않는다(세션 id 는 주장일 뿐이다).
+- **검증 증인(service_role)** 은 행위자가 아니다: 검증 증명 RPC 2개만 실행할 수 있고, `action_log` 에 `actor_kind='service_validator'` · `actor` 없음으로 남는다.
+  생산자 · 검수자 · 권리 결정자 · 발행자로 기록되지 않는다.
 
 ### D3. 결속 · 발행 · 철회 · 진도
 
 - DB 가 본문 해시 · 원천 판본 정체 · 기준 · 목표 · 판본 · 활동 · 검수 · release_key 를 S2 와 같은 정본 직렬화로 다시 계산한다(호출자 해시를 믿지 않는다). 함의 9 의 `sha256(UTF-8)` 식과 같다.
-- 발행 조건: 최신 판 · 그 판의 검수 전부 적격(승인 · 필수 항목 pass · 열린 critical/major 없음) · 원문(+번역) 권리 결정 최신값 confirmed · 자산 없음 · 합성 아님 · 같은 자리 살아 있는 발행본 없음.
+- **S2 구조 검증은 SQL 로 다시 구현하지 않는다**(앵커의 UTF-16 구간 · 인용 · 정렬 누락 · 보존 요소 · 변경 기록 · 진입 장면 · 요청 활동). 제출 RPC 의 일부 검사는 방어용일 뿐 S2 검증이 아니며,
+  초안 · 검수는 검증 없이 저장된다(학습자에게 보이지 않는다). 대신 발행은 **보호된 검증 증명**(`story.validation_attestations`)을 요구한다:
+  백엔드 서비스 주체가 `story_service_validation_input` 으로 저장값 그대로를 받아 S2 어댑터(`packages/library-pipeline/src/story/attest.ts` — `validateSnapshot` ·
+  `validatePolicy` · `validateEdition` · 모든 검수 `validateReview`)로 검사하고 `story_service_attest_validation` 으로 쓴다. DB 는 결속(원천 · 정체 · 기준 · 목표 · 판본 · 활동 ·
+  그 판의 검수 해시 전부)을 저장값에서 다시 계산해 대조한다. 클라이언트가 보낸 `validated=true` 같은 값은 어디에서도 믿지 않는다. 증명 뒤 검수가 더해지면 결속이 바뀌어 다시 증명해야 한다.
+  authenticated · curator · admin 은 증명을 쓸 수 없고(실행 권한 없음 · 표 권한 없음), 증인 RPC 는 JWT 역할 주장이 실제로 `service_role` 이어야 해서
+  주장 없는 소유자 · SQL 편집기 · MCP SQL 세션(감사 도구가 쓰는 postgres 세션 포함)도 증명을 쓸 수 없다. 백엔드 어댑터가 배포되지 않은 환경에서는 발행이 막힌다(fail closed).
+  증명은 「service_role 자격을 가진 백엔드가 S2 통과를 주장했다」는 신뢰 기록이지 S2 실행의 암호학적 증거가 아니다. 발행은 현재 검증기 계약판
+  (`story.current_validator()`)의 증명만 인정하므로, S2 규칙을 올리면 그 함수와 어댑터를 함께 올리는 새 승인 마이그레이션으로 옛 증명을 무효로 만든다.
+  `validated_at` 은 DB 시계보다 30초 넘게 앞서면 거부한다(백엔드 시계 동기화 계약).
+- 발행 조건: 최신 판(판본 자리 잠금을 쥔 채 계산한 max(seq)) · 그 판의 검수 전부 적격(승인 · 필수 항목 pass · 열린 critical/major 없음) · 발행 admin ≠ 판본 제출자 ·
+  원문(+번역) 권리 결정 최신값 confirmed · 자산 없음 · 합성 아님 · **같은 원천 · 같은 판본 키**에 살아 있는 발행본 없음(편집 기준을 다시 등록해 자리가 새로 생겨도) ·
+  현재 결속 · 현재 계약판의 검증 증명 있음.
   보류 · 수정 요청 검수가 하나라도 있으면 발행되지 않는다(관리자 초안으로만 남는다).
+- **잠금 순서**(관리 · 증인 변경 RPC): `story.sources` → `story.edition_slots` → `story.releases`(FOR UPDATE). 판 제출 · 검수 · 검증 증명 · 발행은 원천 → 자리, 권리 결정은 원천,
+  철회는 원천 → 자리 → 발행본. 원천 등록은 잠글 행이 없어 고유 키 충돌을 기존 행 반환으로 처리하고(동시 등록 멱등), 학습자 위치 · 완료 RPC 는 외래 키 KEY SHARE 만 잡는다. 그래서 권리 결정 · 새 판 · 새 검수와 발행이 한 줄로 서고, 발행 · 증명은 READ COMMITTED 에서만 실행돼(`story:read_committed_required`)
+  잠금을 얻은 뒤 최신 판 · 검수 · 권리를 새 스냅숏으로 읽는다.
+- **권리는 열람 때마다 본다**: 「이용 가능」 = `withdrawn_at is null AND story.source_rights_ok(source_id)` — 필요 권리(source_text, 그리고 원작 언어 ≠ 본문 언어이거나 스냅숏이
+  translation 권리를 주장하면 translation)의 최신 인증 결정이 모두 confirmed. 서가 · 본문 · 위치 · 완료 · 내 진도(`release_available`) · 발행이 모두 이 판정을 쓴다.
+  나중의 hold · rejected 는 발행본 행을 바꾸지 않고 즉시 열람을 닫으며(이력 · 진도 보존) 다시 confirmed 면 열린다. 쓰지 않는 오디오 · 삽화 결정은 본문을 막지 않는다.
+  로컬 plan 의 권리 `hold` 는 스냅숏 주장에서 나온 별개 판정이다 — DB 권리 결정이 그 주장을 고쳐 쓰거나 원천 정체를 바꾸지 않는다(정체 해시는 스냅숏 그대로).
 - 철회는 철회 칸만 한 번 채운다(내용 불변). 서가 · 본문 · 진도 기록은 막히고 진도 행 · 기록은 남는다. 같은 내용을 다시 내려면 새 검수가 필요하다(같은 release_key 재사용 불가).
-- 진도는 `(user_id, release_id)` 로만 쌓이고 원본 `texts` · 숙달 · FSRS 표를 건드리지 않는다. 완료 이름은 각색 전권/각색 일부이며 원문 완독이 아니다.
+- **위치 ≠ 완료**: `story_record_position` 은 이동(last · furthest)만 기록하고 단위 완료 · 발행본 완료를 만들지 않는다. `story_complete_unit` 은 학습자가 단위 하나를
+  명시적으로 「읽었다」고 표시한다(중복 무해, 위치도 그 단위로 옮긴다). 발행본 완료(`completed_at`)는 0..unit_count-1 모든 단위에 완료 기록이 있을 때 한 번만 찍힌다 —
+  마지막 단위로 건너뛰거나 중간이 빠지면 완료가 아니다. 진도는 `(user_id, release_id)` 로만 쌓이고 원본 `texts` · 숙달 · FSRS 표를 건드리지 않으며 다른 판본 · 발행본으로 승계하지 않는다.
+  완료 이름은 각색 전권/각색 일부이며 원문 완독이 아니다(`counts_as_original_text_completion=false`).
 
 ### D4. 영향 · 권한 · 복구 · 적용 전제
 
-- 영향: 원본 행 0 · 원본 객체 변경 0. 새 객체 = 스키마 1 · 표 10 · 함수 23(내부 10 + RPC 13) · 트리거 20 · 색인 5 · identity 시퀀스 3. 적용 러너가 트랜잭션 안에서 원본 지문
-  (`library_books` · `user_profiles` · `texts` · `content_chunks` · `reading_sessions`)을 본문 전후로 재고 다르면 전체 롤백한다.
-- 권한 행렬: 관리 RPC 9 = authenticated(내부 역할 검사) · 서가 1 = anon + authenticated · 학습 RPC 3 = authenticated · service_role 실행 0 · `story.*` 표/시퀀스/함수 = 클라이언트 역할 0.
+- 영향: 원본 행 0 · 원본 객체 변경 0. 새 객체 = 스키마 1 · 표 12 · 함수 32(내부 16 + RPC 16) · 트리거 24 · 명시 색인 5 · identity 시퀀스 3. 적용 러너가 트랜잭션 안에서 원본 지문
+  (`library_books` · `user_profiles` · `texts` · `content_chunks` · `reading_sessions`)을 본문 전후로 재고 다르면 전체 롤백한다. 재는 범위는 러너 `FINGERPRINT_SCOPE` 가 정본이다:
+  표마다 행 수 + 정렬한 행별 `md5(row::text)` 의 md5(모든 사용자 열 — 행 추가 · 삭제 · 값 변경을 잡지만 같은 값으로 다시 쓰는 UPDATE 는 못 잡는다)와
+  카탈로그 원 열 정의(pg_class · pg_attribute · 기본값 · 제약 · 트리거 · 정책 · 색인 · 규칙 · 권한). 복구 단계는 여기에 `story` 표 12개와 Story 함수 정의를 더한다.
+  전 · 후 지문은 쓰기 트랜잭션 안의 한 REPEATABLE READ 스냅숏에서 읽는다(무관한 동시 커밋은 보이지 않는다). 그보다 넓게 주장하지 않는다.
+- 적용 경로: 단계 SQL 본문과 원장(`supabase_migrations.schema_migrations`) 행을 한 트랜잭션으로 적용하고 실패하면 전부 되돌린다. 1회용 승인 티켓은 TTY 여부와 관계없이 항상 필요하며
+  (위치 · 해시 · 정적 SQL 정책 · 커밋 상태 검사와 읽기 전용 preflight 를 통과한 뒤에만 소비), main-serving(`dev-mode.json` 의 `main_worktree` realpath) 밖에서는 적용을 거절한다.
+- 권한 행렬: 관리 RPC 9 = authenticated(내부 역할 검사) · 검증 증인 RPC 2 = service_role 만 · 서가 1 = anon + authenticated · 학습 RPC 4 = authenticated ·
+  service_role 은 증인 RPC 2개 외 실행 0 · `story` 스키마/표/시퀀스/함수 = 클라이언트 역할(PUBLIC · anon · authenticated · service_role) 0.
 - 복구: `_pending_lcp_story_s3_quarantine.sql` — 모든 `public.story_*` 실행 회수(표 · 이력 보존, DROP 없음). 완전 제거(DROP SCHEMA)는 이력 삭제라 별도 명시 승인 대상.
-- 적용 전제: 사용자 대화 승인(SQL 전문 · 전체 SHA-256 · 영향 · 복구) → 러너가 main 에 통합된 뒤 main-serving 에서 `scripts/db/lcp-story-s3/deploy.mjs preflight|apply|verify`
-  (`VF_DEPLOY_DB_URL` · `--deps <pg 폴더>`) · 스태프 계정 2개 이상 · S4 에서 anon 실행 기준선(`pnpm db:anon-grants:update`, `story_catalog` 1개 증가)을 같은 커밋에 갱신.
+  다시 열기는 러너에 단계가 없다 — 새 SQL 파일 · 새 러너 단계 · 새 사용자 승인이 필요하다.
+- 적용 전제: 사용자 대화 승인(SQL 전문 · 전체 SHA-256 · 영향 · 복구) → 러너 · SQL 이 main 에 통합된 뒤 main-serving(`main` 브랜치)에서
+  `scripts/db/lcp-story-s3/deploy.mjs preflight|apply|verify`(`VF_DEPLOY_DB_URL` · `--deps <pg 폴더>` · 필요하면 `--ca <Supabase 루트 PEM>` — 인증서 검증은 끌 수 없다) ·
+  승인 전 실제 TLS preflight(아직 미실행) · S4 에서 anon 실행 기준선(`pnpm db:anon-grants:update`, `story_catalog` 1개 증가)을 같은 커밋에 갱신.
+  (두 번째 스태프 계정은 적용이 아니라 실제 발행의 전제다 — D2.)
 
 ### D5. 이 결정이 고치지 않는 것
 
 - 함의 1 · 2 · 4(원본 `content_chunks` 전체 SELECT · `get_chapter_content` 상태 무관 · 철회 뒤 기존 등록자 열람)는 **원본 LCP 의 기존 노출**이다. Story 는 그 경로를 쓰지 않아 영향을 받지 않지만,
   원본 쪽 결함 자체는 남는다. 고치려면 원본 정책 · 함수 변경(기존 학습 이력 · 리더 동작 영향)이 필요해 별도 작업 · 승인 대상이다.
-- DB 는 원문 앵커의 UTF-16 오프셋 · 인용을 다시 검증하지 않는다(Postgres 문자 단위와 JS UTF-16 단위가 다르다). S4 서버가 DB 에서 읽은 스냅숏 · 기준으로 S2 `validateEdition` 을 다시 돌린 뒤 RPC 를 부르는 것을 계약으로 둔다.
+- DB 는 원문 앵커의 UTF-16 오프셋 · 인용을 다시 검증하지 않는다(Postgres 문자 단위와 JS UTF-16 단위가 다르다). 그 검사는 S2 어댑터가 하고 DB 는 증명을 요구한다(D3).
+  **어댑터를 실제로 돌리는 백엔드 런타임(service_role 로 두 증인 RPC 를 부르는 서버 경로)은 아직 없다** — S4 범위이며, 그 전까지 공유 DB 에 적용돼도 발행은 막힌다.
 - 계정이 사람인지 에이전트인지는 DB 가 구분하지 않는다(`human_review` 는 여전히 주장). 사람 검수 여부를 근거로 쓰려면 계정 분류 기록이 따로 필요하다.
+- Story 위치 · 단위 완료 기록을 지우는 경로가 없다(불변 트리거 · `auth.users` FK 없음). 계정 삭제 때의 처리는 정하지 않았다 — 별도 승인 설계 대상이다.
+- 단위 완료는 학습자의 명시 표시다(`story_read_unit` 호출과 묶지 않는다). `completed_at` 을 「실제로 읽었다」의 증거로 S7 측정에 쓰지 않는다.
