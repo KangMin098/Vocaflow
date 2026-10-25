@@ -92,3 +92,13 @@
 알려진 보수적 동작: 같은 계정이 다른 탭에서 로그아웃 후 재로그인해도 세대가 올라가, 그 전에 읽은 기록의 저장은 거부된다(화면은 「이 기기에만」 표시, 다시 읽으면 정상).
 
 실행(최종 커밋, apps/web): `vitest run src/lib/srs src/lib/dictation/__tests__/{persist-owner,adaptation,audio-control,hint,targets-graded}.test.ts src/app/api/csat/state src/lib/csat/session src/lib/csat/__tests__/state-push-retry.test.ts src/components/csat/home` — 30 files · 251 passed · skip 0. `tsc --noEmit -p .` 오류 0. eslint(94fe3561a 이후 변경 ts/tsx 전부) 오류 0.
+
+## 8. run 4 — Codex r3 리뷰 P1 반영(같은 계정 재로그인 저장 거부 → 유실)
+
+재현 테스트 커밋 `af5a2f99d`: CSAT 2건 실패(`saveDissectionRecord` → `false`). SRS 확인 테스트 1건은 수정 전에도 통과했다.
+
+- 수정: `lib/csat/session/store.ts:115-132`. 저장 허가는 **주인 동일성**으로만 판단한다(결속 주인 == 지금 계정). 인증 세대는 진행 중인 비동기 응답을 버리는 데만 쓴다: 읽는 도중 전환(`loadFor:98-110`), GET 대기 중 전환(`loadSyncedDissectionRecord` `switched()`), 늦게 온 세션 조회(`currentOwner`). `updateFor`(`:159-172`)도 주인 동일성만 본다. 읽는 사이에 전환되면 `loadFor` 가 결속 없는 빈 기록을 주므로 그대로 거부된다.
+- A→B→A 판단: **허용.** 화면의 A 기록은 읽힌 순간 A 에 결속돼 있다. B 동안의 저장은 거부되고(B 키 · B PUT 에 안 들어감), A 로 돌아오면 A 키에만, owner=A 로 저장된다. B 의 쓰기는 B 키에만 있으므로 섞이지 않는다. B 동안 막혔던 화면 변경은 화면 기록에 누적돼 있다가 A 복귀 후 첫 저장에 함께 실린다. 테스트(`shared-device-stale.test.ts`)는 A 키 `['A-OWN','A-MID','A-NEW']` · B 키 `['B-OWN']` 불변 · 모든 PUT 의 owner=A 로 고정했다.
+- SRS 확인: 주인 판(version)은 늦게 온 세션 조회 응답을 버리는 데만 쓴다. 평가의 주인은 평가하는 순간 이벤트로 갱신된 계정이다. 같은 계정이 로그아웃했다가 다시 로그인하면 그 뒤 평가는 owner=A 이고, 이전 A 평가와 함께 A 의 확인 전송에 실린다(테스트 통과, 코드 변경 없음). 로그아웃과 재로그인 사이에 생긴 평가만 주인 없이 보류된다. 그 순간 로그인한 계정이 없으므로 증명할 주인이 없다. 삭제되지는 않는다.
+- 남은 위험: 같은 계정의 두 탭이 서로 다른 화면 기록을 저장하면 늦게 쓴 쪽이 기기 사본을 덮는다. 이는 이번 범위 이전부터 있던 다중 탭 동작이며, 서버 쪽은 항목 단위로 병합한다.
+- 실행(최종 커밋): vitest 30 files · 254 passed · skip 0(§7 과 같은 범위). tsc 오류 0. eslint(변경 ts/tsx 전부) 오류 0.

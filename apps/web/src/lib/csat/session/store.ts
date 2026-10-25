@@ -113,8 +113,10 @@ function freshRecord(): DissectionRecord {
 }
 
 /**
- * 화면이 쥐고 있던 기록을 저장한다. 기록이 읽힌 주인 · 인증 세대가 지금과 다르면 **거부**한다(false — 화면은 「이 기기에만」).
+ * 화면이 쥐고 있던 기록을 저장한다. 기록이 읽힌 주인이 지금 계정과 다르면 **거부**한다(false — 화면은 「이 기기에만」).
  * 원 소유자 키의 기록은 건드리지 않으므로 그 계정이 다시 로그인하면 그대로 있다(T-0172 r2 P1-1).
+ * 같은 주인이 돌아오면(다른 탭 로그아웃 → 재로그인, A→B→A) 다시 저장된다 — 기록은 A 키에만 가고 B 의 쓰기는 B 키에 있다(r3 P1).
+ * 인증 세대는 저장 허가가 아니라 **진행 중인 비동기 응답의 폐기**(읽기 · GET · 세션 조회)에만 쓴다.
  */
 export async function saveDissectionRecord(record: DissectionRecord): Promise<boolean> {
   const owner = await ownedMemory()
@@ -122,11 +124,11 @@ export async function saveDissectionRecord(record: DissectionRecord): Promise<bo
   return saveFor(owner, record)
 }
 
-/** 기록이 지금 주인 · 지금 세대에 결속돼 있는가. 결속 없는 기록은 주인을 모를 때(메모리 전용)만 받는다 */
+/** 기록이 지금 주인에게 결속돼 있는가(주인 동일성). 결속 없는 기록은 주인을 모를 때(메모리 전용)만 받는다 */
 function boundTo(record: DissectionRecord, owner: string | null): boolean {
   const b = bindingOf(record)
   if (!b) return owner === null
-  return b.owner === owner && b.generation === authGeneration
+  return b.owner === owner
 }
 
 /** 주인을 고정해 쓴다 — 그 사이 계정이 바뀌었으면 쓰지도 · 보내지도 않는다(기록은 호출부 손에 남는다) */
@@ -159,12 +161,10 @@ function updateFor(fixed: string | null, fn: (record: DissectionRecord) => Disse
     const owner = await ownedMemory()
     if (fixed !== null && owner !== fixed) return { record: await loadFor(owner), saved: false }
     const current = await loadFor(owner)
-    // 읽은 기록이 지금 주인 · 세대에 결속되지 않았으면(읽는 사이 전환) 고치지 않는다
+    // 읽은 기록이 지금 주인에게 결속되지 않았으면(읽는 사이 전환 — loadFor 가 결속 없는 빈 기록을 준다) 고치지 않는다
     if (owner !== null && !boundTo(current, owner)) return { record: current, saved: false }
     const changed = fn(current)
     if (changed === current) return { record: current, saved: true }
-    // fn 이 기록을 쓰는 사이(동기) 세대가 바뀔 수는 없지만, 저장 직전 한 번 더 같은 규칙으로 본다
-    if (owner !== null && authGeneration !== bindingOf(current)?.generation) return { record: current, saved: false }
     const saved = await saveFor(owner, bind(changed, owner))
     return { record: dissectionMemory ?? changed, saved }
   })
