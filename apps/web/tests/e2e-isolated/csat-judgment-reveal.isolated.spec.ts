@@ -92,11 +92,12 @@ test.beforeAll(async () => {
     plugins: [{
       name: 'next-shims',
       setup(b) {
-        // 하네스 경계: Next 링크 → 일반 a, 브라우저 Supabase → 로그인 없는 빈 클라이언트(쓰기 · 조회 0)
+        // 하네스 경계: Next 링크 → 일반 a, 브라우저 Supabase → 쓰기 · 조회 0 인 빈 클라이언트.
+        // /csat/item 은 보호 라우트라 학습자는 항상 로그인 상태다 — 세션은 고정 합성 학습자(T-0172 소유자 결속 저장의 전제, T-0177)
         b.onResolve({ filter: /^next\/link$/ }, () => ({ path: 'link', namespace: 'shim' }))
         b.onResolve({ filter: /^@\/lib\/supabase\/client$/ }, () => ({ path: 'supabase', namespace: 'shim' }))
         b.onLoad({ filter: /^link$/, namespace: 'shim' }, () => ({ loader: 'tsx', resolveDir: ROOT, contents: "export default function Link({ href, children, prefetch: _p, ...r }: any) { return <a href={typeof href === 'string' ? href : '#'} {...r}>{children}</a> }" }))
-        b.onLoad({ filter: /^supabase$/, namespace: 'shim' }, () => ({ loader: 'ts', resolveDir: ROOT, contents: "const q: any = new Proxy(function () {}, { get: (_t, k) => (k === 'then' ? undefined : () => q), apply: () => q }); export function createClient() { return { auth: { getUser: async () => ({ data: { user: null }, error: null }), getSession: async () => ({ data: { session: null }, error: null }), onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } }) }, from: () => q, rpc: async () => ({ data: null, error: null }) } }" }))
+        b.onLoad({ filter: /^supabase$/, namespace: 'shim' }, () => ({ loader: 'ts', resolveDir: ROOT, contents: "const q: any = new Proxy(function () {}, { get: (_t, k) => (k === 'then' ? undefined : () => q), apply: () => q }); const user = { id: 'harness-learner' }; export function createClient() { return { auth: { getUser: async () => ({ data: { user }, error: null }), getSession: async () => ({ data: { session: { user } }, error: null }), onAuthStateChange: () => ({ data: { subscription: { unsubscribe() {} } } }) }, from: () => q, rpc: async () => ({ data: null, error: null }) } }" }))
       },
     }],
   })
