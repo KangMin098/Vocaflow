@@ -295,7 +295,46 @@ test.describe('판단 도구 34 × 해설 화면', () => {
       }
       preReveal = false
 
-      // 공개(키보드) — 판단 요청 1회
+      // D7 공개 실패 종단(r3 P2) — 비공개 화면에서 AnalysisTheater 의 실제 요청이 서버 원장 기록 실패(503)를 받으면 정답 · 도구는 계속 숨고, 다시 누르면 공개된다.
+      // 실패는 진짜 서버에서 만든다: 같은 노출 id 를 다른 출처로 먼저 기록해 두고, 화면 요청의 노출 id 만 그 id 로 바꿔 보낸다(제품 코드 무변경 · 503 을 가짜로 꾸미지 않음)
+      const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } })
+      const ledger = async (id: string) => {
+        const { data, error } = await admin.from('learning_exposures').select('id, source').eq('client_exposure_id', id)
+        if (error) throw new Error(`원장 조회 실패: ${error.message}`)
+        return data ?? []
+      }
+      const seedId = crypto.randomUUID()
+      let uiOriginalId = ''
+      let failStatus = 0
+      await page.route(`**/api/csat/item/${SLUG}/judgment`, async (route) => {
+        const sent = (route.request().postDataJSON() ?? {}) as Record<string, unknown>
+        uiOriginalId = String(sent.clientExposureId)
+        const seed = await page.request.post(`/api/csat/item/${SLUG}/judgment`, { data: { ...sent, clientExposureId: seedId, source: 'lecture_full' } })
+        expect(seed.status(), '실패 주입용 선기록이 실패했다').toBe(200)
+        const res = await route.fetch({ postData: JSON.stringify({ ...sent, clientExposureId: seedId }) })
+        failStatus = res.status()
+        await route.fulfill({ response: res })
+      })
+      const firstBtn = page.getByRole('button', { name: '정답 보기' }).locator('visible=true').first()
+      await firstBtn.focus()
+      await page.keyboard.press('Enter')
+      await expect(page.getByTestId('answer-reveal-failed').first(), '기록 실패 안내가 없다').toBeVisible({ timeout: 90_000 })
+      expect(failStatus, '서버가 원장 충돌을 실패로 돌려주지 않았다').toBe(503)
+      await page.unroute(`**/api/csat/item/${SLUG}/judgment`)
+      await page.waitForTimeout(1_500)
+      // 이 시점은 강의 경계 skip 뒤라 숨김은 「정답 직접 안내 전까지」 패널(data-withheld)이다
+      await expect(page.locator('[data-withheld="true"]:visible').first(), '기록 실패 뒤 정답 숨김이 풀렸다').toContainText('감춰 두었어요')
+      await expect(page.locator('[data-tool-scene="judgment"]').getByTestId('s2b-compare'), '기록 실패 뒤 판단 도구가 열렸다').toHaveCount(0)
+      expect(await page.content(), '기록 실패 뒤 화면에 v3 본문').not.toContain(V3_TEXT[0])
+      expect(await ledger(seedId), '실패한 요청이 선기록 행을 바꿨다').toEqual([expect.objectContaining({ source: 'lecture_full' })])
+      expect(await ledger(uiOriginalId), '실패한 화면 요청이 원장 행을 만들었다').toHaveLength(0)
+      // 실패 단계의 요청 · 응답은 이후 단정(공개 1회)에서 뺀다
+      judgments.length = 0
+      exposureBodies.length = 0
+      // 브라우저가 실패 응답에 남기는 자원 로드 오류 1건은 주입한 실패 그 자체다 — 그 문구만 뺀다(다른 오류는 그대로 남아 아래에서 실패한다)
+      for (let i = consoleErrors.length - 1; i >= 0; i--) if (/^Failed to load resource: the server responded with a status of 503/.test(consoleErrors[i])) consoleErrors.splice(i, 1)
+
+      // 공개(키보드) — 다시 누르면 판단 요청 1회로 공개된다
       const btn = page.getByRole('button', { name: '정답 보기' }).locator('visible=true').first()
       await expect(async () => {
         if (judgments.length === 0 && (await btn.count())) { await btn.focus(); await page.keyboard.press('Enter') }
@@ -384,13 +423,14 @@ test.describe('판단 도구 34 × 해설 화면', () => {
       await expect(page.getByTestId('workspace-frame')).toHaveAttribute('data-scene', 'judgment')
       for (const [k, sel] of Object.entries(PANES)) await expect.poll(() => paneScroll(sel), { timeout: 5_000, message: `장면 왕복 뒤 ${k} 스크롤이 바뀌었다` }).toBe(targets[k])
       await expect(ifBtn, '장면 왕복 뒤 도구 선택이 사라졌다').toHaveAttribute('aria-pressed', 'true')
-      expect(await page.evaluate(() => { const a = document.activeElement; return Boolean(a && a !== document.body) }), '돌아온 뒤 포커스가 문서 맨 위로 떨어졌다').toBe(true)
+      // 포커스 복귀 대상(C7) = 장면 전환을 일으킨 판단 도크 단추 — 키보드로 누른 그 단추에 포커스가 정확히 남아 있어야 한다(문서 맨 위 · 다른 요소로 새지 않음)
+      expect(await back.evaluate((el) => el === document.activeElement), '돌아온 뒤 포커스가 복귀 대상(누른 판단 도크 단추)이 아니다').toBe(true)
+      await expect(back).toHaveAttribute('aria-current', 'page')
       expect(await page.getByTestId('workspace-paper').locator('input[type="range"], [aria-label*="확대"], [aria-label*="쪽"], [aria-label*="페이지"]').count(), 'PDF 페이지 · 확대 조작이 생겼다면 C7 보존 대상을 다시 정해야 한다').toBe(0)
 
       // D7 — 원장: 노출 id 마다 정확히 1행 · 같은 id 재전송은 멱등(같은 노출 id) · 같은 id 에 다른 출처는 503 · 정답 없음 · 원장 그대로
       const body0 = exposureBodies[0]
       expect(typeof body0?.clientExposureId, '노출 요청에 clientExposureId 가 없다').toBe('string')
-      const admin = createClient(process.env.NEXT_PUBLIC_SUPABASE_URL!, process.env.SUPABASE_SERVICE_ROLE_KEY!, { auth: { persistSession: false } })
       const rows = async () => {
         const { data, error } = await admin.from('learning_exposures').select('id, kind, source, item_ref, synthetic').eq('client_exposure_id', body0.clientExposureId as string)
         if (error) throw new Error(`원장 조회 실패: ${error.message}`)
