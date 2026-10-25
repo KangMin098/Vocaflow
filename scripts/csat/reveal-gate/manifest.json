@@ -1347,6 +1347,10 @@
       "class": "OPS_META",
       "gate": "본인 노출 유무만(item_id · 출처) — 정오 · 정답 · 선택지 칸을 읽지 않는다(#281 E01 노출 원장). 결과는 평가 공급을 줄이는 방향으로만 쓴다"
     },
+    "lib/csat/map/v62/factory-bridge/dcp-request.ts": {
+      "class": "OPS_META",
+      "gate": "공장 DCP 공급 후보 판정 — csat_dcp_items 에서 id · type · ref_id 메타데이터만 읽는다(정답 · 해설 · 선택지 칸 없음). 학습자 응답은 납품 상태만, 정답은 채점 RPC(grade_dcp_item) 안에만 있다"
+    },
     "lib/csat/my-traps.ts": {
       "class": "ADMIN_ONLY",
       "gate": "앱 구현 확인(2026-10-06): app/admin/kice · TrapAtlas(관리자 kice 페이지만) 에서만 — 학습자 경로 없음(호출부 → 라우트 인증 근거). 학습자 경로가 생기면 embargo-gate 를 거쳐 다시 분류"
@@ -1386,6 +1390,10 @@
     "lib/knowledge/product-server.ts": {
       "class": "PUBLIC_CONTENT",
       "gate": "원문 결속 대조(anchorGate)만 — 원문 · 정답을 학습자에게 내지 않는다"
+    },
+    "lib/csat/bridge/exposure-reader.ts": {
+      "class": "OPS_META",
+      "gate": "H4 — 본인 P6 노출 행(item_ref · kind · 시각) · 독립 판정 문자열 · 문항 지문의 정규화 해시만 읽는다(정답 · 정오 · 선택지 · 해설 칸 없음, 본문은 해시로만 쓰고 내보내지 않는다). 결과는 독립 증거 공급을 줄이는 방향(보류)으로만 쓴다"
     }
   }
 }

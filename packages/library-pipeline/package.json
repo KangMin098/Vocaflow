@@ -27,7 +27,8 @@
     "./vocab-typeset": "./src/vocab/typeset.ts",
     "./vocab-brand-canvas": "./src/vocab/brand-canvas.ts",
     "./vocab-cover-art": "./src/vocab/cover-art.ts",
-    "./vocab-book-guide": "./src/vocab/book-guide.ts"
+    "./vocab-book-guide": "./src/vocab/book-guide.ts",
+    "./story": "./src/story/server.ts"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

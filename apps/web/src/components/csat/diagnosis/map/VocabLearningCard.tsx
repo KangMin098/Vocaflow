@@ -30,7 +30,7 @@ export function VocabLearningCard({ kind, taskName, ctx }: { kind: 'core' | 'sup
         복습 · 뜻 보기 · 스스로 매긴 기억 정도는 학습 활동이에요. 지도의 확인 · 해소 근거로 세지 않고, 기본 의미를 따로 재는 확인 도구는 아직 없어요.
       </p>
       <p className={p.cardDesc}>
-        복습할 단어가 없으면 <Link href="/wordvault/browse" data-testid="ws-vocab-browse">내 단어장</Link>에서 먼저 단어를 모아 주세요.
+        복습할 단어가 없으면 <Link href={withMapReturn('/wordvault/browse', { ...ctx, mapItem: null, mapAttempt: null })} data-testid="ws-vocab-browse">내 단어장</Link>에서 먼저 단어를 모아 주세요.
       </p>
     </section>
   )

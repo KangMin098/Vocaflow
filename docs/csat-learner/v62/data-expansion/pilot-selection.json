@@ -1,0 +1,408 @@
+{
+ "version": "map-data-pilot-1",
+ "rule": "2026 수능 독해 18–45 전 28 + M2706 핵심 유형 12 (고정 · 무작위 없음)",
+ "frame_note": "최근 완료 평가원·수능(우선순위 1). 786문항 전체의 대표 표본이 아니다 — 정확도 · 누락률을 전체로 일반화하지 않는다.",
+ "items": [
+  {
+   "item_id": "2026#18",
+   "type_id": "R-PURPOSE",
+   "body_ok": true,
+   "source_sha256": "e158ab696e367d75f3c3177996bd710b15053f6cfeaf00962ae4bba659d2c90d",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "465d378ee1599eebb924060b61d7139870eabc28ac019b40202e8cbafd6f40d2",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#19",
+   "type_id": "R-MOOD",
+   "body_ok": true,
+   "source_sha256": "b966b567a941282f842f006ccc1fefc29d854b4f48ba4d4b5d29f33158fd17bc",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "61f1e1ece65a1c333f728e2d0f740137e4176a401742cf009d2f2f6c69a89ca4",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#20",
+   "type_id": "R-CLAIM",
+   "body_ok": true,
+   "source_sha256": "d1f89d7fbea745fdf997e64db3f9fc142689f0433ca306fb3d94d8377104a100",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "fb064e85555f9e6bd5e5dd0ceaed270ae371844c7a8b046818884c3b45c8b4c9",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#21",
+   "type_id": "R-IMPLY",
+   "body_ok": true,
+   "source_sha256": "c6fd8e59e31f61c50a5ed815565ff6fb74a164321b2eb9edadda8dd51e241079",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "ad16a245267007dda1fe4e19254b9a4769ee78d40f77809519dd5b5296d6f332",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#22",
+   "type_id": "R-GIST",
+   "body_ok": true,
+   "source_sha256": "97996bc57b7f752d86127c1fd7cf118864aa6ae9c97568b913540c8391380e5d",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "42de5cc30b5dcda4094b84e6b15c1a6242bc8e5c3e728a6a7af3824e8e8dc93d",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#23",
+   "type_id": "R-TOPIC",
+   "body_ok": true,
+   "source_sha256": "e07cba7774ddbb486cbd6fa6d62291f13576364507f32955f60a005ba6e67ff9",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "4eb1c96ac3bf7ecaca6ec478a2d2dc932466066ee9a797866790f35b7c4ee1e5",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#24",
+   "type_id": "R-TITLE",
+   "body_ok": true,
+   "source_sha256": "1c214225a15ea397c50b49c66427389eac98a22f992bd43a831be4d50faed0b1",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "9c3c7ac9bc2c059e86d242f1dbddfb832bdef26c86c5c5b077a5634304fda0f3",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#25",
+   "type_id": "R-CHART",
+   "body_ok": true,
+   "source_sha256": "cabebf765c5e7ac276255327951f9d0a877578802fba29a207dedf1a0d85653c",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "ce9b75252a72eaf0d3a604cc6087ee855ae277e32448e162aaf04e92f61f7b08",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#26",
+   "type_id": "R-FACT",
+   "body_ok": true,
+   "source_sha256": "a389e1f45d6d12fd1471922c10a1caaccdea8f2c29f81f9ff7ba08c2a7e7b1a8",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "b88022008c9cc5fa04fbc70b9fcc7dec093c6e9f8c14d86e7d39f20ee73a1ee0",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#27",
+   "type_id": "R-NOTICE",
+   "body_ok": true,
+   "source_sha256": "fb73f76a641a9e1738989bea0c355ef79518e26cd903fb662ae7dfb60ab62a7d",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "d063e9e11cd77f5d0feeafe24c0eab5c40156e82e4f384db69681d4769272b49",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#28",
+   "type_id": "R-NOTICE",
+   "body_ok": true,
+   "source_sha256": "ee3eedaf92d47e09c061fafacc55356c4a7f079ce09b8c8c3fab285ff78fdb16",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "5f943f05e3ae0e8e163e2b5f343717b732292dc78a27eb3e23f365f7e34e7555",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#29",
+   "type_id": "R-GRAMMAR",
+   "body_ok": true,
+   "source_sha256": "ff99df328f9b68a7110c5228de95fe79c767ba629cc853a2beeb45d0d07ecce9",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "568d8d7ee3ac0d2acb626c23a2da575831834975f77e160b74c0ec581a464e84",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#30",
+   "type_id": "R-VOCAB",
+   "body_ok": true,
+   "source_sha256": "eb7fbc2daa90bb1c55a00ea5266f18c6633758a547fff2aa13f0eb505a787eef",
+   "analysis_version": 8,
+   "analysis_status": "published",
+   "analysis_sha256": "9cf7ad1deb510c2c6d18249628032c95c3d3aeb3b5c5af3fe466940d4d3b0b97",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#31",
+   "type_id": "R-BLANK",
+   "body_ok": true,
+   "source_sha256": "7b130ba33042fbc7de7954304514d40151b8c8f6d38e82643a018635a6f30fa7",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "c19376f93ff0fee2da0e9885a50c3c3c6d6bd7dceb4d2fe5b192eb92a577900d",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#32",
+   "type_id": "R-BLANK",
+   "body_ok": true,
+   "source_sha256": "4f1c3b4c6268b26560208d55f77782379c3c436886da544c05be192074ff685a",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "91fc0fc9d7132223d59470730c737252ecabfd9d00fcf4953b9cc1673abebc12",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#33",
+   "type_id": "R-BLANK",
+   "body_ok": true,
+   "source_sha256": "904de6bb62815e7ffc63cab8f3b0bdb61b17dc8a2fb204d035f3ddf582c617f3",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "67c81a7d6970599f3d06a02f6b0b3bc6d0fb820c8b2dbc90fa22bc39ff5e121a",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#34",
+   "type_id": "R-BLANK",
+   "body_ok": true,
+   "source_sha256": "2a5148efe40a7aab7abdadedc335b97e6a5455b0bde89faad1745f72876e4d8b",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "2cec4c914b02b1044edd97c5826edcef79f3570d2163aa306b5b7b0072ceb388",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#35",
+   "type_id": "R-IRRELEVANT",
+   "body_ok": true,
+   "source_sha256": "791eef82191bc373a93cdca5f0577f78f2e152b560936f5826f1e8bf93b71e5c",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "58c293955cc537337611b464aa5a962aae285f0433f33832acbd0f1d8e025432",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#36",
+   "type_id": "R-ORDER",
+   "body_ok": true,
+   "source_sha256": "7d7cf3ec536fe633e03a5d256fa75a1766fa3c106ed0d5766badded0bf70dfe6",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "a90b5643922c526f479402b2ae22a1c787381c0da006e2a3605de9b226455410",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#37",
+   "type_id": "R-ORDER",
+   "body_ok": true,
+   "source_sha256": "d5b154a203be5d8a1fbfdd4ced8256a6a9c2b4636b29a8bf1b55c84fad76448c",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "887bbc357d95b149e75059481cf30eaa9f30c488b9ab5171d68eb5e47f9c8219",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#38",
+   "type_id": "R-INSERT",
+   "body_ok": true,
+   "source_sha256": "115210240de5a39a564770629b770dd5879c321c880deea0d1ce642b978105d5",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "f8e544c02db6c566ab37c4739fd9cf1c34c6bbb6b7157aea9bd42c6f32bf3363",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#39",
+   "type_id": "R-INSERT",
+   "body_ok": true,
+   "source_sha256": "3766632f732d88ad2bdaa94f2ccbe3225ab487536438af328f07ca1695c98ac4",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "05426a22e9dec4c708fb4f31d4c2e3a0aefe86861f07f86634613f10adff8ab1",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#40",
+   "type_id": "R-SUMMARY",
+   "body_ok": true,
+   "source_sha256": "cbaf7263e10a1e24296b78b574201cd4919d43b4d7fe79becc67b92f1003d7aa",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "623bea1facd430216a695e265f42b2b25b7fa948d478b61b75ba421614cf5522",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#41",
+   "type_id": "X-TITLE",
+   "body_ok": true,
+   "source_sha256": "2d23cd8ee4cd5b95b7d0176cd5d60d3ce7ad43daad5583eb052cbddf863b5179",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "aabd85684c1cb5bf88281de23627ee982063dd688e320badc178da73038c21fb",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#42",
+   "type_id": "X-VOCAB",
+   "body_ok": true,
+   "source_sha256": "cb490ed97388f3ac69d402ff4c978fb284091c413e87eaca763e914071ca0f7a",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "2acf68ee4d87582f997f2905d47c7176d87f2e409501ab034ab74656173933ec",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#43",
+   "type_id": "X-ORDER",
+   "body_ok": true,
+   "source_sha256": "141890eb8196763c4c36fd78cccf652323355fe565f17015876c4715c4665c76",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "9656115188802edb9c3ffdd4de6b828d9d7f8cc94e529a5321a7a1070f7fbb20",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#44",
+   "type_id": "X-REFER",
+   "body_ok": true,
+   "source_sha256": "a6f6ea842fc5289c30b19e072865cff4989a4bd18c17dbad48834fb2fdcd91b2",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "19ac27c5920e8e66c99858b5b2a0dcd9670350a99503e8b47b550f045b0294dc",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "2026#45",
+   "type_id": "X-FACT",
+   "body_ok": true,
+   "source_sha256": "be631782a7b8235644e967dab69cee12c67689a76f0997068df23dfc81fc6cab",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "551eac9825dad20bdffdc72328f7528ac42684ff90873452224294b487a3a8ac",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#22",
+   "type_id": "R-GIST",
+   "body_ok": true,
+   "source_sha256": "545f2c2933bde9567461b95e6e4c1789ea99100d74f6e73d6344fb80e68e1c72",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "995fdca18f42de759c017aef621d12a2352892461b7ec9b6549170320d08bea8",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#23",
+   "type_id": "R-TOPIC",
+   "body_ok": true,
+   "source_sha256": "a1b16426d73bc345faa5ca431f7d4c61c3b11656f804cd107168040826885c99",
+   "analysis_version": 6,
+   "analysis_status": "published",
+   "analysis_sha256": "657b1026aa64d255486f248f4a0bdc5070efef9c7295bd782502c1c95b648f73",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#29",
+   "type_id": "R-GRAMMAR",
+   "body_ok": true,
+   "source_sha256": "a25cd8c27c3ee8d347ccaa78997692e7e32b4d0b9c3998bf4e81fdbaa46763e2",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "1539ec858c92815149c9f9f0059ed752bc0d160b6fa4e22c2279500753c4176b",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#31",
+   "type_id": "R-BLANK",
+   "body_ok": true,
+   "source_sha256": "27930be3c022ba7fa5f6e06af301eac38b80862f5db68dc0d7ccf43c5c443bc8",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "0d57b2250765799e2ef506dc7ae8630c2ead9255a73b1dfa1d50667488e324b1",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#32",
+   "type_id": "R-BLANK",
+   "body_ok": true,
+   "source_sha256": "538e7c47de68b2f562d7b997688c2138d85b56ccca0da50c21df3c772421d0a3",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "9459e94764757fc1e49617c56cd399f6b7a69be8d52493c3038f921adf5d8c1b",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#33",
+   "type_id": "R-BLANK",
+   "body_ok": true,
+   "source_sha256": "c71da71e6845ef6ac3c9afb65823bc83eb0e25a762687dc8b203bb5879719fff",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "d27f8bd61f395d0c8d13fcbe73cdbbad6c67a35d1208cc854887b788a24789af",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#34",
+   "type_id": "R-BLANK",
+   "body_ok": true,
+   "source_sha256": "6ea7c28903ac25193438cb860fc34d34b014ed17f7d02b1dbda1957a5585805f",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "881d12e063559f1e33d0ba4ff7711ed04f37aef89c0e9310d7c1f7a67caff0c2",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#36",
+   "type_id": "R-ORDER",
+   "body_ok": true,
+   "source_sha256": "4cee7f00f49cfd41420eb755ac9e8e94d084fa33bd5a35ea7c219e97a5dabe83",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "5a246531de85c8f0da445f41863a81ade1420760bdafee94da7bb2b5a2c69055",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#37",
+   "type_id": "R-ORDER",
+   "body_ok": true,
+   "source_sha256": "4dbe7961291e9ae0fe566bd7bcebe5c860b45b459eabd9670682ec14435a4c43",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "17c7cf7f2e05977cb52d9553e25ab564b1bea754dcc9b968d03bacc8c1db516e",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#38",
+   "type_id": "R-INSERT",
+   "body_ok": true,
+   "source_sha256": "ca7a5ecc9d718d8ed9754a473638c5464ce6568c784b8aae50299c368769b82b",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "8d02fafbf5e61fb316c3e82acf793482c2e1b5c26275559d36683096c9f0ce6b",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#39",
+   "type_id": "R-INSERT",
+   "body_ok": true,
+   "source_sha256": "5f04669c8d294dd0c058b2fa697a2d0054eb5c2b5d1301eb3c58b670bf149bf4",
+   "analysis_version": 4,
+   "analysis_status": "published",
+   "analysis_sha256": "802cd99b620692e8f2ec82bf28f1c058281b6cd5c3421db7a6f85d19df779c62",
+   "trap_rows": 4
+  },
+  {
+   "item_id": "M2706#40",
+   "type_id": "R-SUMMARY",
+   "body_ok": true,
+   "source_sha256": "b845233be6c701e7777f295c2fe2158d67049f9e91f4390d36d09ce5d48a8807",
+   "analysis_version": 5,
+   "analysis_status": "published",
+   "analysis_sha256": "2a6cd90ca8c32c36b0e3220cb28e5f0493d495a6198cd1c951d1dbd64cbf8996",
+   "trap_rows": 4
+  }
+ ],
+ "selection_sha256": "e0f30745a53f6b7a95ed43936afad04fcd3d1b8685a4717fc59731a8ddd1cf03"
+}

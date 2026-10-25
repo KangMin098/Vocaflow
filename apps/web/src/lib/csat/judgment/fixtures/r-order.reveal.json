@@ -1,0 +1,131 @@
+{
+  "source": "csat_item_analyses status=published",
+  "reveal": [
+    {
+      "id": "H2609G2#36",
+      "unitsHash": "138a1c06dad25b467641b80a2dfaaa62f040be95f4bd08abf70ad39595b54a28",
+      "analysisVersion": 1,
+      "unitsVersion": 1,
+      "answer": 4,
+      "designIntent": "(A)·(B) 둘 다 red spruce 를 말해 어느 쪽이 먼저인지 낱말로는 갈리지 않게 했다. 판별은 시간 표지 'early in the summer' 와 'Later, though' 의 대비, 그리고 예시 표지 'For example' 이 받을 일반 주장이 (C)에 있다는 점이다.",
+      "answerLocus": {
+        "quote": "Later, though, when nests are built and hungry baby birds need nourishment, it is the red spruce forest that offers the easier pickings.",
+        "reasoning": "[u5]가 주어진 글 [u1]의 장소 선택 능력을 'anticipate ... future needs' 로 넓혀 (C)가 첫머리다. [u2]의 'For example' 이 이 주장을 휘파람새 사례로 받는다. [u3]의 'Later, though' 는 [u2]의 'early in the summer months' 와 'less food' 를 뒤집어 받으므로 (A) 뒤에 (B).",
+        "sentence_index": [
+          3,
+          2,
+          5,
+          1
+        ]
+      },
+      "choices": [
+        {
+          "n": 1,
+          "trap": "총론-각론 역전",
+          "verdict": "distractor",
+          "why_tempting": "주어진 글이 장소 선택 능력을 말하므로 곧바로 휘파람새 사례 (A)를 붙인다.",
+          "how_to_reject": "[u2]의 'For example' 이 받을 주장은 '미래 필요의 예측'인데, 주어진 글 [u1]에는 예측 이야기가 없고 [u5]에만 있다. 사례가 주장보다 앞설 수 없다."
+        },
+        {
+          "n": 2,
+          "trap": "시간·인과 순서 역전",
+          "verdict": "distractor",
+          "why_tempting": "(B)의 'red spruce forest' 가 장소 선택을 말해 주어진 글 뒤에 바로 붙을 듯하다.",
+          "how_to_reject": "[u3]의 'Later, though' 는 앞선 시점을 전제하는데 그 시점 'early in the summer months' 는 [u2]에 있다. (B)를 (A) 앞에 두면 'Later' 가 기준 시점을 잃는다."
+        },
+        {
+          "n": 3,
+          "trap": "첫 등장 위반",
+          "verdict": "distractor",
+          "why_tempting": "(B)를 주어진 글 뒤, (C)의 일반 주장을 그다음에 두면 사례-정리처럼 보인다.",
+          "how_to_reject": "[u3]의 'the red spruce forest' 는 정관사로 이미 소개된 숲을 가리키는데, red spruce 가 처음 소개되는 곳은 [u2]다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "[u2]의 'For example' 이 [u5]의 'anticipate how a setting will serve their future needs' 를 받고, [u3]의 'Later, though' 가 [u2]의 'early in the summer months ... less food' 와 시간·평가를 동시에 대비시킨다. (C)-(A)-(B) 에서만 두 이음매가 닫힌다.",
+          "confirmed_at": {
+            "note": "[u4]는 (B) 안의 결론이라 순서 확정력은 [u2]·[u3] 이음매에 있다",
+            "sentence_index": [
+              5,
+              2,
+              3
+            ]
+          }
+        },
+        {
+          "n": 5,
+          "trap": "연결사 방향 충돌",
+          "verdict": "distractor",
+          "why_tempting": "(C)의 일반 주장 뒤 'future needs' 를 'Later' 가 받는 듯해 (B)를 바로 붙인다.",
+          "how_to_reject": "[u3]의 'though' 는 앞 내용과 반대되는 사실을 잇는데, [u5]는 반대될 것이 없는 일반 주장이다. 뒤집힐 대상('less food')은 [u2]에만 있다."
+        }
+      ]
+    },
+    {
+      "id": "H2609G2#37",
+      "unitsHash": "b9ab20e3a2814cb63d9bf037f8d37ca1fea258a106e6fc56619db0b23eca7844",
+      "analysisVersion": 1,
+      "unitsVersion": 1,
+      "answer": 5,
+      "designIntent": "(A)의 'individualism' 이 (C)의 'individualistic' 과 겹쳐 (C)-(A)를 잇고 싶게 만들었다. 실제로 (A)의 'This phenomenon' 은 (B) 끝 [u7]의 대문자 I 를 받아야 하므로, 겹치는 낱말은 단서가 아니라 미끼다.",
+      "answerLocus": {
+        "quote": "By contrast, the cultural assumptions of interdependence and harmony require that collectivists limit themselves to implicit and even ambiguous use of words",
+        "reasoning": "[u8]의 'They' 가 주어진 글 [u2]의 children 을 받아 (C)가 첫머리다. [u9]의 직접 화법 어휘(absolutely, certainly)를 [u6]의 'By contrast' 가 집단주의의 간접 어휘(maybe, perhaps)로 대비하므로 (C) 뒤에 (B). [u3]의 'This phenomenon' 은 [u7]의 대문자 I 표기를 받으므로 (B) 뒤에 (A).",
+        "sentence_index": [
+          6,
+          9,
+          3,
+          7,
+          8,
+          2
+        ]
+      },
+      "choices": [
+        {
+          "n": 1,
+          "trap": "지시어 선행사 절단",
+          "verdict": "distractor",
+          "why_tempting": "(A)의 Japanese/English 비교가 주어진 글의 'language is a manifestation of culture' 사례처럼 보여 맨 앞에 둔다.",
+          "how_to_reject": "[u3]의 'This phenomenon' 은 앞서 서술된 구체 현상을 받아야 하는데 주어진 글 [u2]는 일반 진술이다. 받을 현상(대문자 I)은 [u7]에만 있다."
+        },
+        {
+          "n": 2,
+          "trap": "연결사 방향 충돌",
+          "verdict": "distractor",
+          "why_tempting": "(B)의 'cultural assumptions' 가 주어진 글의 culture 와 이어지는 듯해 첫머리에 둔다.",
+          "how_to_reject": "[u6]의 'By contrast' 는 반대 쪽 서술이 먼저 있어야 하는데, 주어진 글에는 직접·간접 화법의 한쪽이 없다. 대비 대상(직접 화법 어휘)은 [u9]에 있다."
+        },
+        {
+          "n": 3,
+          "trap": "총론-각론 역전",
+          "verdict": "distractor",
+          "why_tempting": "(B)를 먼저 두고 (C)의 개인주의·집단주의 구분을 정리로 뒤에 두면 될 듯하다.",
+          "how_to_reject": "[u8]은 직접/간접 화법을 처음 나누는 총론이고, [u6]의 집단주의 간접 어휘는 그 각론이다. 또 [u8]의 'They' 는 [u2]의 children 바로 뒤에서만 선행사를 얻는다."
+        },
+        {
+          "n": 4,
+          "trap": "어휘 반복 유인",
+          "verdict": "distractor",
+          "why_tempting": "(C)의 'individualistic cultures' 와 (A)의 'individualism' 이 겹쳐 (C)-(A)를 잇는다.",
+          "how_to_reject": "[u3]의 'This phenomenon' 은 현상을 받아야 하는데 (C) 끝 [u9]는 어휘 예시 목록이다. 대문자 I 현상은 (B) 끝 [u7]에 있다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "[u8] 'They' ↔ [u2] children, [u6] 'By contrast ... implicit' ↔ [u9] 'direct style ... absolutely', [u3] 'This phenomenon ... individualism are in England' ↔ [u7] 'spells I with a capital letter'. 세 이음매가 (C)-(B)-(A) 에서만 닫힌다.",
+          "confirmed_at": {
+            "note": "(B)→(A) 이음매의 근거는 (B) 마지막 단위 [u7]에 숨어 있다",
+            "sentence_index": [
+              8,
+              9,
+              6,
+              7,
+              3
+            ]
+          }
+        }
+      ]
+    }
+  ]
+}

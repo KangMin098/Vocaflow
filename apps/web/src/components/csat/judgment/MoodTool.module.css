@@ -1,0 +1,26 @@
+/* apps/web/src/components/csat/judgment/MoodTool.module.css */
+/* R-MOOD 판단면 — 전환점 · 두 칸 신호표 · 선지 두 칸 비교 */
+.lead { margin: 0 0 12px; font-size: 15px; line-height: 1.6; word-break: keep-all; }
+.editor { padding: 12px 0; }
+.quote { margin: 0 0 10px; font-size: 15px; line-height: 1.6; color: var(--t1); word-break: keep-all; }
+.row { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 6px 0; }
+.rowLabel { min-width: 64px; font-size: 13px; color: var(--t2); }
+.cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.col { min-width: 0; }
+.col > h4 { margin: 0 0 6px; font-size: 14px; font-weight: 600; }
+.sum { margin: 0 0 6px; font-size: 14px; color: var(--t2); }
+.sigList { margin: 0; padding: 0; list-style: none; display: grid; gap: 4px; }
+.sig { justify-content: flex-start; width: 100%; text-align: left; font-size: 14px; }
+.warn { margin: 8px 0 0; padding-left: 18px; font-size: 14px; line-height: 1.6; color: var(--t1); word-break: keep-all; }
+.choices { display: grid; gap: 10px; }
+.choice { display: grid; grid-template-columns: 28px 1fr 20px 1fr; align-items: start; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--bd); }
+.choiceN { font-weight: 600; padding-top: 10px; }
+.arrow { padding-top: 10px; color: var(--t2); text-align: center; }
+.half { display: grid; gap: 4px; }
+.word { font-size: 15px; font-weight: 600; }
+.pol { display: flex; gap: 6px; }
+.verdict { font-size: 13px; color: var(--t2); word-break: keep-all; }
+.verdict[data-v='conflict'] { color: var(--error-ink, var(--error)); font-weight: 600; }
+.verdict[data-v='consistent'] { color: var(--t1); }
+.revealChoice { padding: 8px 0; border-bottom: 1px solid var(--bd); font-size: 14px; line-height: 1.65; word-break: keep-all; }
+.revealChoice > strong { margin-right: 6px; }

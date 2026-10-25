@@ -35,7 +35,9 @@ for (const line of fs.readFileSync(path.resolve('apps/web/.env.local'), 'utf8').
 const { createClient } = await import('@supabase/supabase-js')
 
 const COMMIT = process.argv.includes('--commit')
-const DIR = path.resolve('scripts/vocab/example-ko-drain')
+const dirArg = process.argv.indexOf('--dir')
+/** `--dir` — export 와 같은 실행별 폴더(기본은 옛 고정 경로). */
+const DIR = path.resolve(dirArg >= 0 ? process.argv[dirArg + 1] : 'scripts/vocab/example-ko-drain')
 
 /** 이보다 짧으면 번역으로 보지 않는다. 한국어 한 문장의 하한. */
 const MIN_KO_CHARS = 4
@@ -55,7 +57,7 @@ if (outFiles.length === 0) {
   process.exit(1)
 }
 
-const stats = { items: 0, ok: 0, skipEmpty: 0, skipLen: 0, skipDrift: 0, skipMissing: 0, wrote: 0 }
+const stats = { items: 0, ok: 0, skipEmpty: 0, skipLen: 0, skipDrift: 0, skipMissing: 0, skipFilled: 0, wrote: 0 }
 /** 한 낱말의 여러 뜻을 모아 **한 번에** 쓴다 — 뜻마다 쓰면 마지막 것만 남는다. */
 const byWord = new Map()
 
@@ -102,7 +104,7 @@ for (let i = 0; i < words.length; i += 200) {
   const batch = words.slice(i, i + 200)
   const { data, error } = await supabase
     .from('shared_dictionary')
-    .select('word, senses, example_en')
+    .select('word, senses, example_en, example_ko')
     .in('word', batch)
   if (error) throw new Error(`읽기 실패: ${error.message}`)
 
@@ -126,6 +128,11 @@ for (let i = 0; i < words.length; i += 200) {
           stats.skipDrift += 1
           continue
         }
+        // ⑤ 이미 채워진 번역은 덮지 않는다 — export 뒤 다른 세션이 채웠을 수 있다.
+        if (typeof row.example_ko === 'string' && row.example_ko.trim().length > 0) {
+          stats.skipFilled += 1
+          continue
+        }
         topKo = patch.examples_ko[0]
         touched += 1
         continue
@@ -145,6 +152,11 @@ for (let i = 0; i < words.length; i += 200) {
       if (nowEx.length !== patch.examples.length
         || nowEx.some((s, k) => s !== patch.examples[k])) {
         stats.skipDrift += 1
+        continue
+      }
+      const nowKo = Array.isArray(senses[idx].examples_ko) ? senses[idx].examples_ko : []
+      if (nowKo.filter((s) => typeof s === 'string' && s.trim().length > 0).length >= nowEx.length) {
+        stats.skipFilled += 1
         continue
       }
       // ② 키 **하나만** 더한다 — 뜻 객체를 통째로 바꾸지 않는다.
@@ -167,7 +179,7 @@ for (let i = 0; i < words.length; i += 200) {
   }
 }
 
-console.log(`  건너뜀 — 사전에 없는 낱말 ${stats.skipMissing} · 읽은 뒤 바뀜 ${stats.skipDrift}`)
+console.log(`  건너뜀 — 사전에 없는 낱말 ${stats.skipMissing} · 읽은 뒤 바뀜 ${stats.skipDrift} · 이미 채워짐 ${stats.skipFilled}`)
 console.log(COMMIT ? `적재 완료 — 뜻 ${stats.wrote}개에 번역을 더했다.` : `드라이런 — ${stats.wrote}개가 들어갈 예정. 실제 적재는 --commit.`)
 
 /**

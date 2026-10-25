@@ -1,5 +1,100 @@
 # CHANGELOG
 
+- feat(lcp): Story S4(T-0174, Codex 독립 수용 · 로컬 main 통합 완료) — `/admin/curation` 작업 라인(원본 도서 / 이야기 판본 `line=story`), 후보 파일 S2 재검사 → 원천 · 편집 기준 · 판본 등록(원자적 아님 · 같은 파일로 재개) → 다른 스태프 검수 → admin 권리 → 명시적 검증 증인(service_role) → 발행 · 철회, 원문 · 판본 · 변경 기록 비교, 도움말 「이야기 판본」, `@vocaflow/library-pipeline/story` exports, 격리 브라우저 하네스(실제 컴포넌트 · 실제 서버 로직 + 가짜 DB, 7 통과). 두 번째 스태프 계정 · 실제 발행 · live 쿠키/RPC E2E 는 없다.
+
+- feat(lcp): 사용자 승인 후 Story 격리 스키마를 dev DB에 MCP로 적용했다(원장 `20261025094450`, 저장 SQL SHA 승인본 일치). 사후 검사 15/15·원본 5표 행/정의 지문 10/10 불변을 확인하고 실제 버전으로 러너·격리 하네스를 결속했다. 관리자/학습자 화면·증인 런타임·사람 파일럿은 남아 있다.
+
+- chore(agents): 사용자 요청으로 dev Supabase MCP 쓰기 연결을 복구했다. SQL 사전 승인·전후 검증은 유지하고 Claude 쓰기는 표준 확인 창을 사용한다. 기존 연결은 재연결이 필요하다.
+
+- feat(lcp): Story S3(T-0169) — live DB 읽기 감사, 격리 `story` 스키마 미적용 SQL(표 12 · RPC 16)·복구 SQL·승인형 러너·격리 하네스, 파일럿 3편 원천·편집 기준 준비. 독립 재현 결함 3건(직접 RPC 의 S2 우회 발행 · 마지막 단위만으로 완독 · 권리 보류 뒤 열람)과 독립 검토 지적(소유자 세션 증명 · 판본 중복 발행 등)을 고쳤다: 발행은 service_role 이 S2 어댑터(`src/story/attest.ts`)로 쓴 현재 결속 증명이 필요하고, 위치와 단위 완료를 나누며, 권리는 열람 때마다 본다. 작성자 검증: PGlite · PostgreSQL 17 격리 실행과 러너 시험 통과. 공유 DB 미적용 · 백엔드 증명 런타임(S4) · 두 번째 스태프 계정 · 사람 파일럿(S7)은 없다. Codex 독립 수용을 완료했다.
+
+- fix(csat): D 공개 자료 품질 가드(T-0171) — 정답 키 별칭 4종(is_correct·answer_no·correctIndex·correct_choice) 중첩 검출, RevealData unitsHash 필수·불일치 거절, answer/answers[]와 verdict=correct 정답 집합 일치 검사. 서버 loader·exporter·reveal 픽스처 7개 갱신, K2-a·K3-a·K4-a fixed(목표 10건 실행), K6-a open 유지. G 도구 복수답 차단은 그대로.
+
+- feat(csat): 듣기 18유형 근거 추적 도구 `/csat/listening`(2023 수능 7·10번 실제 대본, 원음 없음·서버/DB 미검증·합성 표 표기)과 데이터 계약·노출 단계·오답 부분일치 도구·18유형 교수설계·준비도 감사(`docs/csat-listening/`)를 추가했다. 선지·원음·DB 적재는 전 유형 0건이라 BLOCKED_EVIDENCE 로 남긴다.
+
+- docs: 기술정보 목록에 유튜브 제작·운영용 Claude 스킬 11개 자료를 등록했다. 영상·제작자·원본 저장소·MIT 출처와 기능 목록, 설치/실행 미검증 범위를 함께 기록한다.
+
+- feat(csat): 학습 정리를 선택지별 근거 추적과 원리의 적용/반례 분기 비교로 교체했다. 텍스트 덤프 금지와 인지 행동을 유발하는 학습 화면 원칙을 AGENTS·DESIGN·학습 모델에 명시했다. 탐색은 채점/숙달로 집계하지 않는다.
+
+- fix(csat): 사용자 별도 승인한 PT409 보정 SQL을 개발 DB에 적용했다(서버 이력 `20261023061401`, 승인 SHA 일치). 실제 HTTP/RPC 동시성·0분/NULL·RLS·이력 보존, 공용3000의 Workspace PLAN v2 재확정과1440/1280의 수량 있는 주간 일정을 검증했다. 상단의 점수→등급 참고 표시와 부적격 최근 기록의 목표 차이 문구를 제거하고 평가 후 재계획 제안을 기존 확정 경로에 연결했다. 관련194검사·격리 Chromium4검사 후 최신 main에 LOCAL_FAST 통합했다(`1f9ee6709`, 공식 원격 CI는 별도).
+
+- fix(csat): 실제 목표 충돌의40001/PostgREST 재시도를 발견하고 PT409 보정 SQL을 별도 승인 대상으로 준비했다(미적용). HTTP 모듈 재로딩 시409 분류와 오류 오인 방지, 보정 SQL 재실행/정의 변조 거절 등36개 검사를 통과했다. 실환경 목표 저장·PLAN v1까지만 확인했고 전체 종단/최종 통합은 미수용이다.
+
+- feat(db): 사용자 승인 원문 SHA와 동일한 목표 예산 rev2를 개발 DB에 적용했다(서버 이력 `20261023043453`). 명시적 경로·승인·SHA가 하나로 결속된 경우만 허용하는 훅 수정19검사, 기존 목표/PLAN·RLS/트리거 보존과 실제 validator12검사를 통과했다. 전체 제품 수용과 구분한다.
+
+- docs(db): 목표 예산 rev2 사용자 승인과 적용 전·후 점검을 기록했다. 동일 SQL의 복수 워크트리를 구별하지 못한 PreToolUse가 실행을 거절해 DB는 미적용이며, 기존 목표·PLAN·권한/트리거 정의 보존을 재확인했다.
+
+- feat(csat): Claude 후속 네 상태 평가·저장 PLAN 대비 수정안 비교를 단일 목표 계약에 연결했다. 이전 목표별 예산·단계별 실제 링크·동일 날짜 새 시험·달력 변경을 구별하며 확정은 기존 Workspace PLAN 경로를 재사용한다.
+
+- fix(csat): 목표 성과 판정의 재풀이·문항/공유 지문 노출·서울 날짜·미래 기록·등급 미충족 처리를 보완하고 시험 기준 충족과 최종 목표 미확인을 분리했다. 단일 목표/PLAN/일정 계약과 평가 후 재계획 제안을 연결했으며 D-day 카운트다운을 제거했다. 예산 SQL rev2는 미적용 승인 대기다.
+
+- feat(csat): 목표 버전별 주간·요일 예산과 현재 PLAN의 오늘·주간 기간 배분 제안을 추가했다. 예산 저장 SQL은 승인 대기이며 미설치 실패·미배정 사유·기존 실행/재확정 관문을 구별한다. 전체 목표 달성 시스템 완료나 공유 DB 종단 통과를 뜻하지 않는다.
+- feat(csat): 기출 문항 「내 설명」을 시스템 제공 「학습 정리」(핵심 관계·제공 근거·원리/조건/반례·확인 과제 준비 상태·다음 활동)로 바꾸고, 자기 설명·원리 노트·「내 말로」·안내 연습의 서술 작성·대조 관문을 걷었다. 과거 기록은 읽기 전용으로 보존하며 사용자별 콘텐츠 평가는 지원하지 않는다(DECISIONS CL-SL-1 · T-0091).
+
+- fix(csat): 잘 보이지 않던 TASK 연결선을 먹색3px로 강조하고 중간 카드에 가려지지 않게 우회했다. 「아직 확인 전」에 합쳐졌던 시험 분석 대기·근거 부족·기록 없음을 구별하고 「추가 확인」은 다음 활동인 「직접 확인 필요」로 명확히 했다.
+
+- fix(csat): 학습지도 TASK를 개요에서도 높이46px·최대206px로 축소하고, 카드 근접/키보드 포커스에서 연결선을 미리 강조한다. 이탈 시 선택 연결로 복귀하며 주소·Workspace·단일 상세 동작을 보존한다.
+
+- fix(csat): 홈에만 있던 개인 메뉴·기출 찾기를 공통 CsatRail로 옮겨 모든 화면의 메뉴 항목·순서·폭·접힘을 통일했다. 현재 목적지 선택 표시와 옛 유형 화면의 탐구 메뉴 표시를 바로잡았다.
+
+- fix(dev): 3000 서버가 이전 워크트리를 가리켜 CSAT가 구버전으로 보이던 실행 경로를 정본 main으로 복구했다. `dev:check`가 정본 cwd·소유 PID·실제 리스너를 함께 검증한다.
+
+- fix(csat): 첫 진입을 배너와 Workspace 목록 한 작업면으로 정리했다. 목표/기록/지도는 별도 탭, 개인 자료는 왼쪽 메뉴로 옮기고 명시적 학습 복귀와 단일 상세 동선을 보존했다.
+
+- style(csat): 첨부 Recents 기준의 패턴 배너와 중앙 학습 카드를 적용하고 메인에서 간결한 Workspace 목록을 먼저 보여 준다. 행별 박스·중복 범례를 줄이고 단일 상세·실제 실행 동선을 유지한다.
+
+- fix(csat): 학습단위 Workspace를 리스트형으로 고정하고 보드 전환을 제거했다. 행의 단계·수행량·실행·단일 상세 동선은 유지한다.
+
+- fix(csat): PC 중앙 팝업을 참조680×760·머리/바닥56으로 통일하고 기출 찾기 요약을 아래로 배치했다. 지도·Workspace의 반복 설명은 단계 아이콘·자료 수 카드·접힌 안내로, 첫 학습은 흐름 도식으로 줄였다.
+
+- fix(csat): 보라색 일괄 스킨을 중립색으로 복원하고 첨부의 지도·카드 보드·비교 목록·작업면 구획을 적용했다. TASK 상세·근거·Workspace·학습계획은 한 팝업에서 전환하며 단계 근거도 같은 창에 표시한다.
+
+- style(csat): 사용자 첨부 3B 화면 기준의 PC 공통 스킨을 추가해 학습지도·TASK 팝업·기출 찾기 포털·Workspace 목록/모달/작업면을 라벤더/흰 패널과 보라 UI로 통일했다. 선택 밖 노드 블러를 없애고 CSAT 디자인 정본을 갱신했다.
+
+- feat(db): 사용자 직접 승인 후 학습성과 연결 7단계 SQL을 개발 DB에 적용했다(`20261021175340`, 승인/이력 SHA e84a9607). 원장9개·함수35개 권한·기존 이벤트89개/주문/납품/시도 보존 및 해설2건 검토안 일치를 사후 확인했다. 콘텐츠 등록·발행·실제 공급은 0건이다.
+
+- test(learning): 최신 로컬 main과 공장→교수→미노출 평가→실제 재계획·FAST·기존 문항 재사용을 결합 검증했다. 관련1,356개·PC 격리8개·웹/스크립트 타입·전체 빌드 통과. AI 비교 우위는 천장으로 판정 불가이며 7단계 DB 적용 SQL은 승인 대기다.
+
+- fix(admin): FAST는 종합 pass 외에 내용 B/C/D를 각각 통과해야 문제지·해설지를 출력한다. 실제 CLI 편집본 신규 AI 검수/HTML 브라우저 확인, 관련19·격리1 통과. 하네스 타입 경계를 정리해 scripts 타입 검사도 통과했다.
+
+- feat(csat): 3 FAST 빠른 학습지 — `/admin/csat/new/fast` + `POST /api/admin/csat/fast-worksheet`(preview/export, DB 쓰기 없음) + CLI `scripts/textbook/fast-worksheet.mts`(bundle/verify/export). 기존 1B 팩 전체의 순서·발문·선지 편집 → 새 바이트 신규 AI 검수 → 학생용 문제지/교사용 해설지/manifest. 원천은 has_items 만 다를 때만 재사용, FQ·출시 주장 없음.
+- feat(csat): 기존 DCP 두 행을 id·본문·검수 해시에 묶어 영수증만 입고하는 재사용 API/CLI를 구현했다. 내용 B/C/D 미통과는 모든 입고 RPC 전에 차단한다. 두 해설 보완안과 조건부 정방향/복구 DATA SQL은 독립 AI 검수·격리 검증을 마쳤으며 실제 DB 적용은 승인 대기다.
+
+- fix(learning): 실제 AI 응답·독립 반례 검토에 따라 모호한 관계 질문을 보충 세트 v2로 바꾸고 과도한 ‘무관한 문장’ 피드백을 수정했다. 역사적 판본/응답은 보존하며 활성 v2의 두 AI 검토를 해시로 검증한다.
+
+- fix(csat): 공장 자료 재수령과 승인 재응답에 현재 납품·원천 적격·제품주문을 재확인하고 교수 원문 판본의 3활동만 공급한다. 변경 본문/부적격 승인 반례 수정 후 관련41 통과.
+
+- feat(csat): 2F 공장 연습 자료 실제 공급 호출부 — Workspace `FactoryDcpCard` 요청 단추 → `POST /api/csat/factory/request`(서버 수요 재계산 · 학습자 세션 쓰기 · 기존 D3 링크 읽기 확인 · 링크 없으면 주문 보존 대기) → `receiveForLearner`. 관리자 `dcp-admission` `approve` 동작이 등록 공장 후보 결속 확인 뒤 `approveForGuidedPractice` 호출. 계측 `csat_factory_dcp_requested`(보류 SQL CHECK 확장 · 미적용). 격리 PGlite 실제 API→서비스→SQL 확인.
+
+- test(csat): 2E의 복제 계획 저장 코드를 실제 plan POST·composeV4·nextActionOf 호출로 대체했다. 신규 Codex 응답으로 전이·미노출 재확인 후 실제 MAINTAIN 계획 저장, 관련97 통과. 근거/관계 하위 판정 불일치는 원시 AI 증거에 보존했다.
+
+- feat(csat): 2D 원문 안내 연습 수행 영수증(`_pending_source_lesson_repair_receipt.sql` · 보류 SQL) → `loadMapPage` 바로잡기 자료·수행 연결. 같은 목표의 다음 계획 뒤에도 끝난 바로잡기 사실 보존(구계획 신규 열기는 계속 차단) · 안내 연습 기본 수량 = 교수 청사진 3활동. 격리 PGlite 로 check→repair(실제 buildDemand)→원문 교수→transfer 계획 저장 확인. 2E: 영수증 성공 = 세 단계 완료 시각(과거 asOf 재생 반례 수정) · RPC `source_lesson_repair_receipts(p_user, p_as_of)` 본인/service_role 전용 · 권한/DB 오류는 던짐 · 보충 세트 `r5-central-meaning-cycle.v1`(등록 부분집합 정책) 실제 AI 검토 등록 → transfer 2지문 → recheck 새 2 → 다음 계획 저장(격리 PGlite).
+
+- docs(csat): 2C 설명 복원/격리 계획 저장25개 재확인. 목적 검토에서 source 안내 기록의 canonical repair 진행 연결과 실제 compose/route 검증이 빠져 있음을 확인해 2D로 명시했다.
+
+- fix(csat): 교수 설명 저장에 기대 납품을 DB에서 선검사하고 잘못된200을 완료로 처리하지 않게 했다. 제출 답 비교·시범 재시도와 사람 대기 문구도 정리했다(관련79·브라우저4 통과). 독립 평가→재계획은 2C로 이어진다.
+
+- feat(csat): 2C 저장한 원문 설명 재진입 복원(새 채점·INSERT 없음) + 결합 설치 PGlite 종단 — 설명 → AI 검토 5문항 → 같은 Workspace 미노출 혼자 확인 2 → 실제 채점·G2 → 기존 계획 계산 → `learner_workspace_plan_commit` 으로 `check_result` plan_version 2 저장 확인. 새 SQL 없음.
+- feat(csat): 2B 원문 교수 — 요지 전략→저장된 첫 답 뒤 시범→첫 답과 시범 비교 설명 저장→제목 cue→주제 단서 없음·자기 절차를 기존 공장 DCP 화면에 붙였다(`source_lesson_reflection` 추가 전용·evidence=false · `GET/POST /api/csat/factory/[deliveryId]/lesson` · SQL 미적용). 독립 평가→재계획 저장 종단 시험은 남은 일.
+
+- docs(learning): Claude·Codex A/B 역할 요청24회와 사전2회, 두 독립 채점·반례 검토의 원본 증거를 보존했다. 모든 전이 응답 만점으로 교수 우위는 판정 불가이며, 실제 학생 효과·지연 기억·제품 종단 검증으로 사용하지 않는다. 비교 설명 미수집 한계를 2B 설계에 반영했다.
+
+- feat(admin): AI 검수 등록 서비스에 원본 입력·응답·완료 세션을 요구하는 실제 preview/register API를 연결했다. 미리보기 쓰기0·등록은 관리자 본인 세션·관련42 통과. 공유 DB 적용은 미실행.
+
+- feat(csat): 2A 두 AI(Claude·Codex) 검토 영수증으로 창작 R5 v3 중 5문항만 등록→AI 결정→자격·승인→공급→채점→G2 결속하는 경로(`ai-review.ts` · 미적용 `_pending_authored_ai_review.sql`). 사람 결정 0 · 권리 부여 아님 · 결합 설치에서 1C/1D 회귀 통과.
+
+- fix(factory): DCP 미리보기를 실제 중첩 메타데이터 투영과 현재 문항 조회에 맞추고, 납품이 목표·계획 writer와 같은 잠금을 쓰게 했다. 실제 Supabase 기본 권한에서 발견한 영수증 직접 쓰기도 차단했다. 최종 관련 회귀 139 통과·공유 DB 변경 없음.
+
+- feat(factory): 1D 납품된 공장 DCP 지도 연습을 학습자가 Workspace 카드 → `/csat/factory/[deliveryId]`(기존 DcpPlayer) → 서버 제출(실제 `grade_dcp_item`+결속 영수증, 멱등) → Workspace 복귀로 푼다. 보류 SQL `_pending_factory_dcp_learning.sql`(**미적용**). 연습은 근거 아님(evidence=false). 완료 주문의 받은 자료 열기 · 채점 시도 FK/일치 확인 · writer 가드 · 1C 잠금 순서 · 계측 3종 포함. 검증 결과는 `01D-LEARNER-RESULT.md`.
+- feat(factory): 1C 원문 파생 DCP 후보 등록 계획(`dcp-admission.ts`)·관리자/학습자 세션 분리 공급 경계(`dcp-supply.ts`)·CLI `admission-plan`(dry-run)과 보류 SQL `_pending_factory_dcp_admission.sql`(**미적용**)을 추가했다. 격리 PGlite에서 등록→AI 검수 자격→별도 승인→학습자 본인 공급→원문 변경 시 무효까지 확인(신규 16·관련 회귀 258 통과). 공유 DB 쓰기·권리 발급·납품은 없다. Codex 반례 수정: 멱등 자격 RPC `factory_dcp_qualify`(실패·응답 유실 복구)·공급 시 현재 개인 계보+D3 제품주문 링크 원자 검사·관리자 `POST /api/admin/csat/dcp-admission`(preview/admit)·CLI `admission-preview`(관련 315·CLI 20 통과).
+
+- feat(factory): 주문·원문에 결속된 로컬 소량 제작 패킷/검증/HTML·manifest CLI를 추가했다. 실제 문항 3개 제작과 파일 충돌·오류 주입 복구를 확인했다(웹167·CLI18·타입 포함 검사6). 결과는 합성 수요 기반 검토 후보이며 DB 등록·발행·납품은 미실행이다.
+
+- feat(admin): 저장된 Workspace 수요·현재 목표/계획을 검증한 뒤 실제 공장 설계기로 주문 초안을 계산하는 `POST /api/admin/csat/factory-order-draft`와 관리자용 읽기 전용 CLI 추가. 비영속 초안·미검증 대응·생산/납품 미실행을 구분한다. 웹 205·공장 설계 5·Codex 반례 6·CLI 9·호출부 5 통과, DB 변경 없음.
+- docs(audit): 3회차 정기 플랫폼 진단(2026-10-21) — 실가입 1(계정 65 중 합성 64) · 공급:수요 3,855:1(악화) · DB 6,344MB(Pro 8GB의 79%) · 발행 312권은 PD 고전 서사라 F6 미해소 · AIDT 활용 5.2% · 판정 risk. PLATFORM_AUDIT §7.
+
+- 개발 운영: 일반 작업의 TASK 없는 로컬 main 통합과 일일 원격 PR 경로를 공통 지침에 명시하고, 단계별 등록·AI 리뷰·보고 의무의 모호함을 제거했다.
+
 - docs(dev): 후속 환경 실사에서 현재 PR 11개와 과거/신규 24건, 작업트리 75개를 분류하고 기존 충돌 폴더의 파일·인덱스·Git 이력을 독립 백업·실제 복원 검증했다. 브랜치 생성/전환·원격 쓰기·작업트리 삭제 없이 기존 정리 공간을 재사용했다. 새 화면 검증은 Computer Use의 URL 확인 정책 실패로 BLOCKED이며, DB 권한/관계의 읽기 확인을 기능 정상으로 승격하지 않는다.
 
 - fix(ci): 빈 Supabase의 보안 이력 검증에 누락된 정본 트리거 함수 정의를 CI loopback에만 복구한다. 계보 HTTP 자동화 호출을 라우트 검사에 명시하고, 반복 쓰기 검사의 CRLF·끝난 형제 루프·긴 바깥 루프·500행 삭제 배치 판정을 보완했다. 동일 검사기로 main 150/통합본 151을 전량 대조했으며 새 1건은 상한·간격이 있는 TCP claim 종료다. 운영 SQL/DB 변경 없음.
@@ -101,6 +196,29 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(r0): 공용 기기 계정 전환 시 학습 기록 혼입 차단(T-0172) — CSAT 해부 기록을 계정별 IndexedDB 키로 · 읽기·병합·쓰기와 화면이 쥔 기록을 주인·인증 세대에 결속(전환 뒤 저장 거부), `/api/csat/state` PUT 은 owner 필수(없으면 428 · 다르면 403) · GET 은 owner 동봉. SRS 평가 큐는 평가 시점 인증 주체로 owner 결속(onAuthStateChange · 늦은 세션 응답 폐기), 서버 ACK 항목만 삭제(이탈 전송은 삭제 안 함, 멱등 재전송). Dictation 완주 평가에 검증된 owner. 다른 계정·소유자 불명 옛 기록은 보류(삭제 안 함). 근거 `docs/r0/shared-device/REPORT.md`. DB 무변경.
+- **K6-b 평가용 노출 원장 P6 반영(T-0164)** — `loadExposureLedger` 가 `learning_exposures` 를 7번째 원장으로 읽어, 판단 장면에서 정답을 연 문항(과 같은 지문 문항)이 독립 평가 후보에서 빠진다. 조회 실패·표 없음·잘림은 unknown(fail-closed). DB 무변경.
+- content(csat): 학평 분석 교정 3회차 — 학습자 칸 원문 처리 메모(파서·body_ok·단위 분할) 전량 제거(발행판 포함 0건) · 함정 라벨·지문 밖 근거·근거 번호·정답 노출 교정, 새 버전 35+14+29행 → 독립 3인 재검수 → 게이트 발행. 학평 published 2,728 → 2,792 · in_review 1. 본문 정상·미발행 146 → 111(초안 없음). 2·3회차 DB 적용은 승인형 러너 `scripts/db/csat-content-fix/deploy.mjs`(신규 · 콘텐츠 DML · 마이그레이션 이력 미기록 · --ca). 2026-10-25 사용자 승인.
+- content(csat): 학평 미발행 분석 173문항 독립 검수 509건(블라인드 풀이 불일치 0) → 게이트 발행 +121(학평 published 2,607 → 2,728). 본문 정상·미발행 252 → 146(고1 55 · 고2 50 · 고3 41). 남은 in_review 65 의 주원인은 학습자용 design_intent 에 남은 원문 처리 메모 · 함정 라벨 불일치 · 재분석 미반영. 2026-10-25 사용자 승인·발행.
+- feat(lcp-story): 원본 병행 이야기 판본 라인 S0~S2 — 정본 `docs/LCP_STORY.md` · 단계 지시 `docs/lcp-story/IMPLEMENTATION.md`(S0~S8 상태 · 수용 기준 · 시작 지시) · 도메인 스키마/순수 검증기 `packages/library-pipeline/src/story/`(정본 직렬화 · 원문 앵커 UTF-16 `[start,end)` · 판본/활동/편성 구분 · 원천 판본 정체 해시와 본문 해시 분리 결속 · 번역 권리 · 잘못된 UTF-16 거부 · 불변 release 키) · DB 없는 로컬 CLI `scripts/lcp/story/story.ts`(`export` · `validate` · `plan`) · 합성 fixture. DB · 라우트 · RPC · 화면 변경 없음, 패키지 배럴 미등록. 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 없음(T-0165, 판정은 수용 기록).
+- content(dict·textbook): 뜻별 예문 한국어역 4,706건 적재(잔량 4,798 중 결함·부적절 예문 92 보류, 독립 표본 480 중 실패 1 반영) · 교재 V5(reading) 3인 검수 2회 456행(1회 80문항 3인 통과 31 · 2회 72문항 통과 36, 떨어진 문항은 loadVolume 이 재고로 교체) · V5 해설 35건. 결함 대부분은 원문 추출(소제목 결합 · 약어 마침표 분할 · 인용 잔재 · 없는 그림 참조). 2026-10-25 사용자 승인.
+- content(dict): 발행 단어장 대표 예문 한국어역 9,050건 적재(잔량 9,073 중 원문 예문 결함 23건 보류) · pending_words 반복 출현 후보 4,675 판정 적재(사전 +1,730 · 고유명사 +137 · 노이즈 +529 · 보류 1,888+361). 독립 표본 검수 실패 0·2건 반영. pending export 페이지 중복·누락 수정(lemma 동률 해소) · 예문 import 기존 번역 덮어쓰기 차단 · 실행별 --dir. 2026-10-24 사용자 승인.
+- **학습지도 기출 목록 ↔ H 연결(T-0159)** — `TaskInspector` 「기출 해부로 공부하기」가 `entriesFor` 로 안 푼 확인·전이 문항과 같은 지문인 연구 사례를 막고(기존 결함), 문항별 추천 이유·판단 능력·목표 관련 사실·「해설 열람 ≠ 혼자 판단」을 보인다. 공급·계획 계산 무변경.
+- fix(csat): 평가원(수능·모평) 원문 수리 경로 연결 — build-corpus 가 `scripts/csat/data/kice-source-repairs.json` 을 공식 문제지 해시 결속으로 입히고, source-repair 가 평가원 ID 를 받는다(한 계획 한 집합). corpus-sync 전체 `--commit` 은 DB 원문과 다른 문항이 있으면 쓰기 없이 멈춘다(2026-10-24 실측 재생성 원장 801 중 534 가 DB 와 다름, `--allow-source-overwrite` 로만 진행). 수리 기록 3건(2017#24 · 2018#24 · M2509#25 선지 ⑤ 끝 잔여물)은 같은 날 사용자 승인으로 개발 DB 에 적용한 값과 같다. T-0153 Codex APPROVE.
+- feat(csat): 기출 원문·근거·선지 결속 계층(대량작업 G, `lib/csat/binding`) — 공통 근거 앵커(span·unit·marker·value·condition·footnote, 판본 basis·precision) · 읽기 전용 어댑터(현재 원문 해시 단위 + 결속된 published 분석만) · 복수 정답·추출 결함·누락 각주·그림 전용 도표 값 검출 · 판본 무효화 · 학습자 PDF sha256 대조 탐색 · 유형별 준비도. 전수 감사 `apps/web/scripts/csat-binding-audit.mts`(DB 읽기 전용). DB·화면 변경 없음.
+- fix(db): 원격 동기화 차단 해소 — 마이그레이션 4건을 개발 DB 적용 이력(버전·본문)에 맞춤(`20261023043453` · `20261023020321` · `20261023061401` · `20261023082930`, 실행 SQL 동일) · 학습 정리 이벤트 2종을 `funnel_events_event_check` 에 추가(`20261024025906`, 사용자 승인 · 그동안 조용히 0건)
+- **CSAT 학습지도↔기출분석 연결(대량작업 H)** — `lib/csat/bridge/`: TASK·NeedRank→기출 진입 어댑터·추천 이유, P6 노출 소비자(X0~X3), 독립 수행 증거 공급·승격 검문, 왕복 문맥(분석 판본), 사고 기능↔TASK 매핑, 통합 격리 시나리오. 공유 화면·DB 무변경, 연결 계약 `docs/csat-learner/bridge-h-contract.md`.
+- fix(csat): 코퍼스 지문 의심 판정에서 학평 요약문(R-SUMMARY)은 (A)·(B) 자리가 있으면 빈칸 표시 없이도 정상 — build-corpus 가 학평 `______` 를 지우면서 같은 유형에 빈칸을 요구하던 모순(학평 요약문 101건 중 약 74건이 이 규칙에만 걸림). 판정 함수를 `scripts/csat/lib-body-suspect.mjs` 로 옮기고 회귀 테스트 추가. DB `body_ok` 반영은 코퍼스 재생성 · 동기화(승인) 뒤
+- feat(csat): 최종 평가 결속 — 학습자가 목표 버전마다 「목표 시험 종류 · 응시일」을 최종 평가로 한 번 정하고(추론 금지), 그날 첫 풀이 live 기록만 goalOutcome 적격성으로 판정(met·not_met·not_judgeable·scheduled·awaiting_record). API `POST /api/csat/diagnosis/map/goal/final-assessment`. 제안 SQL `20261023082930_csat_goal_final_assessment`(추가 전용 테이블 + service_role writer) 2026-10-23 사용자 승인 후 개발 DB 적용(이력 20261023082930) · 실제 인증 종단 6/6.
+- feat(csat): 판단 장면 정답 지연 서버 조회 (b) 제한 구현(T-0147) — 문항 페이지 첫 HTML · RSC 에서 정답 번호 · 정답 근거 · 오답 소거 · 지도 정답/오답 앵커 · 이해 확인 · 비교 선지 번호 · v3 선지 판정 · 설계 주장/한계 · 발문 조건 · 정답 가리키는 의미 단위 · 오답 설계 · 원리 제외. 새 `POST /api/csat/item/[slug]/judgment` 가 노출 원장(`learning_exposure_record`) 커밋 뒤에만 반환(실패 503). 「정답 보기」 · 「계속 듣기(정답 공개)」 · 「전체(정답 포함)」 만 요청. 경계 건너뛰기는 「정답 없이 강의 마치기」.
+- fix(csat): 정답 공개 경로 보정(T-0140 · drain D6) — 경계 앞에는 독립 2인 합의 cue 만(불일치 · UNKNOWN · 검수 미완은 그 앞에서 끊음: 2026#34 경계 3→2, 796→661강 · 넓어진 경계 0). 「정답 직접 안내 전까지」 동의 전 정답 칩 · 정답 근거 · 오답 소거 블록 화면 미표시(「정답 보기」 로 동의). ←/→ · 이전/다음 차례도 경계 검사(`lib/csat/lecture/answer-gate.ts`). 경계 안내에 「이 구간 건너뛰기」(동의 아님). 첫 HTML · props 지연 조회는 판단 장면 (b) 별도.
+- feat(csat): 해설 강의 정답 공개 경로(P1~P5) — 재생 전 「원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지」 선택, 검증된 경계(cue 공개 수준 sidecar v2 결속 · `lib/csat/lecture/disclosure-data.json`)에서 정지 후 계속/멈춤/원문. `GET /api/csat/lecture?scope=until` 이 경계 뒤 cue 를 응답에서 뺌(결속 불일치 409). 레일 오답 소거 번호 마스킹. 강의 진행이 학습자 장면 · 스크롤 · 층 · 포커스를 바꾸지 않음. DB 변경 없음 · 기록 4종(P6) 미구현.
+- feat(csat): 목표 대비 · 재처방 카드를 비교 구조로(T-0110) — 점수 축(목표·기록 표식) · 시험 기록 vs TASK 활동 대조, 재처방은 지금 배정·저장 계획대로·수정안 비교표(오늘의 학습과 같은 지금 값). 점수 충족·등급 미기록 다음 안내 record_grade. 판정·DB 변경 없음.
+- fix(csat): 직접 확인 판정이 코드북 조건을 따른다(T-0096) — E3·R2 객관식 정오만으로 학습 요구 확정 금지, R5 서로 다른 지문, R5·E2 다른 날 재확인(D4-DEC-01: t0 뒤 다른 KST 날짜·12시간, 그 전 pending_delayed). 채점 불변 · DB 변경 없음.
+- feat(csat): 목표 대비 판정 네 상태(기록 없음·판정 불가·미달·충족 — 충족은 한 번의 평가) · 재처방 패널(저장 계획 → 수정안 일정을 goalSchedule·scheduleChanges 로 비교, 확정은 Workspace 기존 관문) · 오늘의 학습 「N일 남음」 제거. DB 변경 없음.
+- feat(csat): 메가스터디 정답률 원장 — 수능 · 모평 · 학평(고1~3) 영어 **전 문항** 정답률 · 선지별 선택비율 · 난이도 · 배점을 `csat_item_response_stats` 에 적재(127회 · 5,715행, migration `20261023020321`). EBSi TOP15(30회 · 450행)만 있던 오답률을 `csat_items` 3,528/3,714 문항으로 넓힌다. 수집 `scripts/csat/rates/fetch-megastudy.mjs` → 정답 키로 회차 · 유형(홀/짝) 대응 `import-megastudy.mjs`.
+- feat(csat-map): 학습 지도 데이터 확대 1차 — 시험·원천·분석·공급 전수 감사 스크립트(`scripts/csat/map/v62/data/coverage-audit.mts`)와 문항↔TASK 40문항×21 A/B 독립 AI 표본(일치 0.789 · κ 0.584, R5·R6 만 확대 기준 충족). 원문은 git 제외 local, 결과는 R1 후보(relevance unknown). DB 변경 0. `docs/csat-learner/v62/data-expansion/`
+- feat(csat-map): 데이터 확대 2차 — 판정 규칙 v2 실측(κ .805, E2·V4 미해결 · v2 미확정)과 R5·R6 평가원·수능 762문항 A/B 확대(R5 κ .889 · R6 direct 이분 κ .953). 시험별 관련 배점 `exam-relevance.json`(R1 후보). 원천 결함 7문항(M2306·M2406 발문 오염) 가드 `duplicate_long_stems`. DB 변경 0.
 - chore(dev): 격리 빌드 사본(`.next-*`) 보존 한도 — `next build` 시작 때 살아 있는 서버 표식·2시간 안 사본·`.next`/`.next-dev`/대상을 빼고 최신 2개만 남긴다. `next start` 도 소유권 표식을 남긴다. 워크스페이스 일괄 정리 `apps/web/scripts/prune-dist-dirs.mjs --root D:/workspace [--apply]`. 한 워크트리에 사본 15개 25.8 GB 가 쌓여 D: 98% 가 된 일(2026-10-21) 재발 방지.
 - chore(dev): 최신 main 기반으로 로컬 integration의 관리자 재구성·주문 계보·사용성 수정을 통합하고 브랜치 연속성/포트 운영을 공통화했다. `wt new`는 공간을 재사용하고 `wt remove`는 잠금·미통합 작업을 보존하며 강제 삭제하지 않는다. #244 팝업/원문 폭, #315 선택 라우터, 연구 검토 원장을 보존하고 개발 DB에 이미 적용된 보안 SQL 2개를 이력 해시 그대로 복원했다(DB 재적용 없음).
 - chore(agents): 개발 자동화 정책v1.2와 PR_SCOPE_GUARD를 추가했다. 저위험 개발 재승인은 줄이고 중대 보안/DB 배포/삭제 통제·필수8체크를 유지한다. 범위 계약의 HEAD/base/커밋 수/정확한 경로를 검증하며 향후 프로젝트 Codex 개발 네트워크 설정을 준비했다. 중앙 공식 통합 경로를 재사용하고 관리형 권한 변경·독립 PR 원격 납품은 미완료다.

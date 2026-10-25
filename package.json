@@ -5,6 +5,7 @@
   "description": "Vocaflow — 영어 원문 기반 종합 학습 플랫폼 모노레포",
   "scripts": {
     "dev": "turbo run dev",
+    "dev:check": "node scripts/dev-server-check.mjs",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "typecheck": "turbo run typecheck",
@@ -14,8 +15,8 @@
     "wt": "node scripts/worktree.mjs",
     "prepare": "node scripts/setup-git-hooks.mjs",
     "sync:memory": "node scripts/sync-export-memory.mjs --refresh-context",
-    "docs:db-stats": "node scripts/docs/gen-db-stats.mjs",
-    "docs:db-stats:check": "node scripts/docs/gen-db-stats.mjs --check",
+    "docs:db-stats": "tsx scripts/docs/gen-db-stats.mjs",
+    "docs:db-stats:check": "tsx scripts/docs/gen-db-stats.mjs --check",
     "csat:atlas": "node scripts/csat/build-trap-atlas.mjs --write",
     "csat:atlas:check": "node scripts/csat/build-trap-atlas.mjs --check",
     "csat:drill": "node scripts/csat/build-trap-drill.mjs --write",

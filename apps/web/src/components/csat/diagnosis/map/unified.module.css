@@ -7,6 +7,22 @@
  * Inspector 폭 360(정본 §9.2 의 340~380 안). 페이지 가로 넘침 금지 — 넘치는 것은 캔버스 안에서만 스크롤.
  */
 
+/* Period allocation uses the existing neutral Workspace rows and disclosures. */
+.schedule { margin: 12px 0; padding: 16px 24px; border: 1px solid var(--m-line); border-radius: 8px; background: var(--m-bg); word-break: keep-all; }
+.scheduleHead { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.scheduleHead h2 { display: flex; align-items: center; gap: 8px; }
+.scheduleRows { list-style: none; margin: 8px 0; padding: 0; }
+.scheduleRows > li { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--m-line); }
+.scheduleRows > li > div { display: grid; gap: 4px; min-width: 0; }
+.scheduleRows strong { font-size: max(var(--csat-fs-min), calc(14px * var(--csat-fs-scale))); color: var(--m-ink); }
+.scheduleRows span, .scheduleDetails { font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale))); color: var(--m-ink2); }
+.schedule a, .schedule button, .scheduleDetails > summary { min-height: 44px; }
+.scheduleDetails > summary { display: flex; align-items: center; cursor: pointer; color: var(--m-ink); }
+.scheduleDetails ul { padding-left: 20px; }
+.scheduleDetails li { padding: 4px 0; }
+.scheduleWeek { padding: 10px 0; border-bottom: 1px solid var(--m-line); }
+.schedule :is(a, button, summary):focus-visible { outline: 2px solid var(--m-ink); outline-offset: 3px; }
+
 .wrap {
   --col-gap: 12px;
   container-type: inline-size;
@@ -776,6 +792,10 @@ summary.subH {
 .studyLink:focus-visible {
   outline: 2px solid var(--m-ink);
   outline-offset: 2px;
+}
+/* T-0159 — 링크 아래 추천 이유. 포커스 외곽선(2px + 간격 2px)이 첫 줄을 가리지 않게 띄운다(1440 실화면에서 겹침 확인) */
+.studyWhy {
+  margin-top: 6px;
 }
 
 /* ════════ LM-W1 ③ Workspace 리스트 — 캔버스 바로 아래 · 컴팩트 행 · 최대 높이 안에서만 스크롤 ════════ */
@@ -1687,6 +1707,29 @@ p.dockL {
 .gpFacts dd { margin: 0; word-break: keep-all; }
 .gpActs { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
 .gpBlocked { color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); word-break: keep-all; }
+
+/* T-0110 — 목표 대비 · 재처방: 문단 나열 대신 비교 구조(learning_interaction). 카드 안쪽 여백(14px)에 맞춘다 */
+.gpFoot { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; margin: 0 14px 12px; }
+.rpCaption { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.goScale { position: relative; margin: 30px 14px 30px; height: 2px; background: var(--m-line); }
+.goScaleEnd { position: absolute; top: 8px; color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+.goScaleEnd[data-end='min'] { left: 0; }
+.goScaleEnd[data-end='max'] { right: 0; }
+.goMark { position: absolute; left: calc(var(--at, 0) * 100%); top: -6px; width: 2px; height: 14px; background: var(--m-ink); transform: translateX(-1px); }
+.goMark[data-kind='record'] { width: 10px; height: 10px; top: -4px; border-radius: 50%; transform: translateX(-5px); }
+.goMarkLabel { position: absolute; top: 14px; white-space: nowrap; transform: translateX(-50%); color: var(--m-ink); font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+.goMark[data-kind='target'] .goMarkLabel { top: -18px; }
+.goCols { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin: 0 14px 12px; border: 1px solid var(--m-line); border-radius: 10px; }
+.goCol { min-width: 0; padding: 10px 12px; display: grid; gap: 6px; align-content: start; font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.goCol + .goCol { border-left: 1px solid var(--m-line); }
+.goCol h3 { margin: 0; font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); color: var(--m-ink2); font-weight: 600; }
+.goCol p { margin: 0; word-break: keep-all; }
+.goVerdict { font-weight: 600; color: var(--m-ink); }
+.rpTable { width: calc(100% - 28px); margin: 0 14px 10px; border-collapse: collapse; font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+.rpTable th, .rpTable td { padding: 6px 8px; border-bottom: 1px solid var(--m-line); text-align: left; word-break: keep-all; }
+.rpTable th { color: var(--m-ink2); font-weight: 500; }
+.rpTable td.rpNum, .rpTable th.rpNum { text-align: right; font-variant-numeric: tabular-nums; }
+.rpTable tfoot td { border-bottom: 0; font-weight: 600; }
 /* ════════ 3B Access map 실측 스킨(2026-10-15 · neon-currant.3b.dev/monitoring/access · 로그인 Chrome 계산 스타일) ════════
  * 노드: 흰 면 · 반경 12 · 안쪽 1px #edebe7 + 바깥 3px 캔버스 링 · 여백 8 · 간격 10 · 전환 bg .12s / filter·opacity .16s
  * 타일 32 · 반경 8 · 옅은 색면 + 16px 아이콘 / 제목 10/450 · 보조 9/450 회색(−1%) / 선택 = 안쪽 1px 잉크
@@ -1899,4 +1942,86 @@ p.dockL {
   align-items: center;
   gap: 8px;
   min-width: 0;
+}
+
+/* T-0074 — 요약 행의 근거 범위(지금 확인 · 다른 글 적용 · 시간 지나 다시 확인) */
+.gpScope { display: grid; gap: 4px; }
+.gpScope .gpNote { margin: 0; }
+
+/* Reference Access map: white nodes on a lavender canvas; list rows stay on white. */
+@media (min-width: 900px) {
+  .wrap { --col-gap: 24px; background: var(--csat-panel); }
+  .node[data-faded='true'] { --m-ink2: var(--csat-muted); filter: none; opacity: 1; color: var(--csat-muted); }
+  .node[data-faded='true']:hover, .node[data-faded='true']:focus-visible { color: var(--csat-ink); }
+  .line { stroke: var(--csat-muted); stroke-width: 1.25; opacity: .7; stroke-linecap: round; stroke-linejoin: round; vector-effect: non-scaling-stroke; }
+  .line[data-active='true'] { stroke: var(--csat-ink); stroke-width: 3; opacity: 1; }
+  .canvas[data-lit='true'] .line:not([data-active='true']) { opacity: .4; }
+  .node[data-selected='true'] { border-color: var(--csat-accent); background: var(--csat-hover); }
+  .wsTile { background: var(--csat-teal); color: #006e62; }
+  .wsTile[data-kind='primary'] { background: var(--csat-soft); color: var(--csat-ink); }
+  .wsRow[data-ws='ws.option-match'] .wsTile { background: var(--csat-peach); color: #8b4827; }
+  .wsRow[data-ws='ws.evidence-locate'] .wsTile { background: var(--csat-green); color: #286447; }
+  .wsRow[data-ws='ws.cohesion'] .wsTile { background: var(--csat-pink); color: #98416a; }
+  .wsRow[data-selected='true'] { border-color: var(--csat-accent); background: var(--csat-canvas); }
+  .cta, .wsGo2 { background: var(--csat-control); color: #fff; }
+}
+
+/* 2026-10-22 structure pass: Access map columns + Savings workspace rows. */
+@media (min-width: 900px) {
+  .canvasCard { padding: 0; overflow: hidden; }
+  .canvasHead { min-height: 64px; padding: 10px 16px; border-bottom: 1px solid var(--m-line); background: var(--m-bg); }
+  .h { font-size: max(var(--csat-fs-min), calc(15px * var(--csat-fs-scale))); }
+  .headNote { font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+  .mapStage { margin: 12px; }
+  .inner { padding: 14px; }
+  .colHead { gap: 5px; padding-top: 8px; align-content: center; }
+  .colCode { display: inline-flex; align-items: center; gap: 5px; font-weight: 600; }
+  .colName { font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); font-weight: 500; }
+  .col[data-domain='V'] .colCode { color: #286447; }
+  .col[data-domain='S'] .colCode { color: #267767; }
+  .col[data-domain='R'] .colCode { color: #45687b; }
+  .col[data-domain='E'] .colCode { color: #914361; }
+  .node { border-radius: 9px; gap: 8px; }
+  .nodeName { font-size: max(var(--csat-fs-min), calc(11.5px * var(--csat-fs-scale))); font-weight: 500; }
+  .canvas[data-mode='core'] .col { max-width: var(--g-node-w); }
+  .node { height: var(--g-node-h); }
+  .canvas[data-mode='core'] .node { height: var(--g-core-node-h); min-height: var(--g-core-node-h); padding: 5px 7px; }
+  .canvas[data-mode='core'] .nodeTile { width: 24px; height: 28px; border-radius: 6px; }
+  .canvas[data-mode='core'] .nodeName { white-space: nowrap; display: block; -webkit-line-clamp: unset; }
+  .canvas[data-mode='core'] .nodeState { max-width: 100%; }
+  .node[data-preview='true'] { background: var(--csat-hover); box-shadow: 0 0 0 3px var(--m-canvas), inset 0 0 0 1px var(--m-ink); }
+  .canvas[data-preview]:not([data-preview='']) .line[data-active='false'] { opacity: .4; }
+  .wsList { padding: 0; overflow: hidden; background: var(--m-bg); }
+  .wsHead { padding: 12px 16px; min-height: 64px; border-bottom: 1px solid var(--m-line); flex-wrap: wrap; }
+  .wsFocus { order: 4; width: 100%; }
+  .wsLegend { margin-left: 0; }
+  .wsHead { padding: 12px 24px; min-height: 56px; }
+  .wsHead .h { display: inline-flex; align-items: center; gap: 8px; padding: 6px 10px; border-radius: 999px; background: var(--m-canvas); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+  .wsCount { font-size: max(var(--csat-fs-min), calc(11px * var(--csat-fs-scale))); }
+  .wsScroll { padding: 0; gap: 0; max-height: none; }
+  .wsCols { min-height: 48px; margin: 0; padding: 0 24px; }
+  .wsList[data-view='list'] .wsRows { gap: 0; border: 0; border-radius: 0; overflow: hidden; }
+  .wsList[data-view='list'] .wsRow { border: 0; border-bottom: 1px solid var(--m-line); border-radius: 0; padding: 12px 24px; min-height: 76px; }
+  .wsList[data-view='list'] .wsRow:last-child { border-bottom: 0; }
+  .wsList[data-view='list'] .wsActs { flex-wrap: nowrap; }
+  .wsList[data-view='list'] .wsGo2 { padding: 0 8px; border-radius: 7px; background: var(--m-bg); color: var(--m-ink); box-shadow: none; }
+  .wsTitle { font-size: max(var(--csat-fs-min), calc(13px * var(--csat-fs-scale))); font-weight: 500; white-space: normal; flex-wrap: wrap; }
+  .wsTile { width: 32px; height: 32px; border-radius: 9px; }
+  .wsBadge { padding: 1px 5px; background: var(--m-canvas); color: var(--m-ink2); }
+  .wsTasks { gap: 5px; }
+  .wsTasks .tChip { padding: 0 4px; height: 17px; background: transparent; box-shadow: none; color: var(--m-ink2); font-weight: 400; }
+  .wsTasks .tChip[data-on='true'] { background: var(--m-canvas); color: var(--m-ink); }
+  .wsState { padding: 0; border-radius: 0; white-space: normal; background: transparent; line-height: 1.5; }
+  .wsState[data-state] { background: transparent; }
+  .wsPrep { margin: 0 24px; border-color: var(--m-line); }
+  .homeTabs { display: flex; align-items: center; gap: 8px; min-height: 56px; padding: 0 12px; border-bottom: 1px solid var(--m-line); }
+  .homeTab { display: inline-flex; align-items: center; gap: 7px; min-height: 44px; padding: 0 12px; border-radius: 999px; color: var(--m-ink2); font-size: max(var(--csat-fs-min), calc(12px * var(--csat-fs-scale))); }
+  .homeTab[aria-selected='true'] { background: var(--m-canvas); color: var(--m-ink); }
+  .homeTab:focus-visible { outline: 2px solid var(--m-ink); outline-offset: -2px; }
+  .homeTabCount { display: inline-grid; place-items: center; min-width: 18px; height: 18px; padding: 0 4px; border-radius: 50%; background: var(--m-g200); font-size: max(var(--csat-fs-min), calc(10px * var(--csat-fs-scale))); }
+  .homeWorkspacePanel { min-height: max(420px, calc(100dvh - 308px)); background: var(--m-bg); }
+  .homeWorkspacePanel > .wsList { border: 0; border-radius: 0; }
+  .homeWorkspacePanel .wsHead { display: none; }
+  .homeMapPanel { display: grid; gap: 16px; padding: 16px; min-width: 0; background: var(--m-bg); }
+  .homeWorkspacePanel[hidden], .homeMapPanel[hidden] { display: none; }
 }

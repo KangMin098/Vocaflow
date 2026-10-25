@@ -1,5 +1,22 @@
 # Learning Modules
 
+2026-10-23 학습 정리: SystemLearningSummary는 근거 추적/조건 비교/다음 활동 탐색면이다. 선택지 선택에 따라 검수 해설 하나와 연결 문장을 함께 강조하며, 적용 조건/반례 선택에 따라 원리 분기와 경계 표시가 바뀐다. AnalysisTheater는 v3 문장 수가 현재 지도와 일치할 때만 원문 근거 연결을 제공한다. 탐색 이벤트에는 행동 종류·숫자 인덱스만 보내며 탐색 상태를 숙달·학습 기록으로 저장하지 않는다. 키보드 조작·읽기 전용 과거 기록·준비된 확인 과제 이동을 보존한다.
+2026-10-23 목표 계획·평가 통합 후보: `goalLearning`이 현재 목표/PLAN 버전·TASK 근거·시간·일정·시험 관찰·수정 이유를 한 번 공급한다. 기존 `replanOf`·`planDrift`·`scheduleChanges`와 PLAN 재확정을 재사용한다. 재풀이/기존 노출·선후 미확인은 독립 후속 시험에서 제외하고, 점수 기준 충족과 최종 목표 미확인을 구분한다. 화면은 목표일·주간 계획·다음 점검 제안일을 표시한다. [독립 수용·미적용 SQL](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
+
+2026-10-23 목표 시간 배분(공유 DB 승인 대기): GoalEditor의 주간·선택 요일·단위 시간과 GoalSchedule의 현재 TASK PLAN 기반 오늘·주간·목표일까지 배분 제안을 추가했다. 기존 단계·수량·실행 링크·목표 변경 재확정 관문을 재사용하고 시간·자료·조회·관련성 제약을 미배정으로 구분한다. 달력은 자동 확정·전체 필요 학습량·목표 달성률이 아니다. 예산 저장 SQL은 미적용이며 설치 전503을 저장 성공으로 표시하지 않는다. [수용 범위](csat-learner/GOAL_ACHIEVEMENT.md).
+
+2026-10-23 TASK 상태 표시: taskInspector는 AsIs의 analysis_pending/insufficient/unmeasured를 각각 시험 분석 대기/관찰 근거 부족/확인 기록 없음으로 구분한다. NEED_V62_LABEL의 CONFIRM은 다음 활동 「직접 확인 필요」다. 원본 학습 판정·기록·완료 조건은 그대로이며 unmeasurable은 플랫폼 측정 도구 준비 중으로 표시한다. 여러 열을 건너는 관계선은 빈 행으로 우회하고 활성선 대비·다른 카드 교차를 격리 검증한다.
+
+2026-10-23 학습지도 TASK: UnifiedLearningMap은 카드 주변12px의 포인터·키보드 포커스를 임시 연결 미리보기로 처리한다. 클릭 선택·Workspace·복귀 주소와 독립적이며 이탈하면 기존 연결을 복원한다. 개요 카드는 높이46px·최대206px이고 상세는 기존 단일 창을 유지한다.
+
+2026-10-23 CSAT 공통 메뉴: CsatRail이 공간/탐구·개인 자료5종·첫3문항·기출 찾기를 모든 화면에 동일하게 제공한다. PERSONAL_LINKS가 개인 메뉴의 단일 출처이고 활성 항목은 RailPlace로 정한다. HomeLanding의 children 메뉴 주입과 별도 Finder 인스턴스는 제거했다. 홈/탐구/기록/진단 격리 화면에서 접힘 유지·폭·Finder 복귀를 검증하며 실제 DB 조회/학습 쓰기는 실행하지 않는다.
+
+2026-10-22 CSAT 홈 구성: HomeLanding 첫 진입은 패턴 배너 아래 Workspace 탭의 목록만 표시한다. 학습지도 탭으로 목표/기록/지도를 전환하며 기록·복습·진단·공식·연습·기출 찾기는 왼쪽 메뉴로 이동했다. 학습 복귀 문맥이 있으면 지도 탭에서 시작한다. MapScreen의 workspaceFirst 표시 옵션은 UnifiedLearningMap의 같은 상태/행/상세를 재사용하며 다른 진입의 지도 우선 순서는 유지한다. 지도 아이콘의 노드 이동·행 클릭 상세·복귀 문맥·실행 링크는 동일하다.
+
+2026-10-22 CSAT 팝업·설명: PC 중앙 팝업은 참조680×760·머리/바닥56 공통 치수를 사용한다. 목표 편집도 MapDialog에 통합하며 저장/API 계약은 유지한다. Workspace는 단계 아이콘·자료 수 카드·접힌 안내, 홈 첫 시작은 계획→자료→확인 도식으로 표시한다.
+
+2026-10-22 CSAT 지도 상세: 노드 한 번 클릭으로 LearningDetailDialog를 열고 개요·근거/학습 경로·학습계획을 같은 창 안에서 전환한다. 연결 TASK/Workspace 전환과 단계 근거 펼치기도 창을 겹치지 않는다. WorkspaceList는 리스트형으로 고정하며(보드 전환 없음) 지도 강조는 별도 지도 아이콘이다. 기존 계획 저장·활동 복귀·판정 출처는 유지한다. 디자인 정본은 [DESIGN.md](../DESIGN.md).
+
 도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.
 
 관리자 사용성 점검(2026-10-20): 도서 검수 제목·상태 표시·어휘 필터 이름·VRL 구간 링크와 중첩 Dialog의 포커스/Back/스크롤 복원을 보완했다. 작업 중 닫기 거부는 `closeDisabled`/`canClose`로 이력까지 보존한다. 지도 셀과 진단 팝업 컨트롤은 44px, 선택 체크박스는 그림 대신 레이블의 클릭 영역을 보장한다. 만화 실행 시각은 KST 고정 표시를 사용한다. 관리자 경로·학습자 판정 규칙·DB 계약은 바꾸지 않는다. [범위와 실제 실행 결과](admin-restructure/usability-audit.md).
@@ -78,6 +95,8 @@ PC 학습자 본문 재배치(2026-10-19): `/library/books`의 검색·분류를
 기존 `SourceEligibilityClient`의 7축·등급·학령·결함·문항 계획은 판정/처리 보기에 유지한다.
 학습 모듈·판정 정본·DB 스키마는 바꾸지 않는다.
 <!-- csat-sources-workspace:end -->
+
+FAST 빠른 학습지(`/admin/csat/new/fast`, 2026-10-21): 원문 파생 지도 연습 DCP 팩(중심 의미 3유형) 하나를 고쳐 교사가 내려받는 **로컬 검수 초안**이다. 학습자 화면·DB 공급 판본과 별개이며 authored 세트나 DEEP 교수 순서를 바꾸지 않는다. 학생용 문제지에는 정답·해설·Gold 가 없고 교사용 해설지는 관리자 응답에서만 만든다.
 
 | # | 모듈 | 계층 | 인지 유형 | 라우트 | 구현 상태 |
 |---|---|---|---|---|---|
@@ -1139,6 +1158,26 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 - 상세 · 수용 기준 대응은 [PRACTICE_PORT](./csat-learner/PRACTICE_PORT.md).
 - 2026-10-17 연습 ↔ 독립 확인 경계(#281 E01): 지도가 독립 확인 문항으로 쓰는 문항(과제 키 무관)은 그 학습자가 어떤 경로로도 아직 안 봤으면 연습에서 뺀다(`practiceReservation` — 노출 원장 `lib/csat/map/v62/exposure-ledger.ts`: G2 시도 · 세션(삭제 포함) · 함정 · 문제지 · 복습 큐 · 진단 응답 + 정규화 지문). 제출 · 해설 열람 · 복습 예약 API 도 409로 막는다. 원장을 못 읽으면 전부 예약(fail-closed). 남는 문항이 없으면 404 대신 `PracticeReservedNotice`(학습 지도 확인 과제 안내). 전이(주제 · 제목) 문항은 이 화면이 전이 수행 경로라 예약하지 않는다.
 - 같은 날 공급 판정(`supply.ts`): 독립 확인 · 전이 · 지연 줄은 정식 자격(FQ) reader 가 적격이라 한 미노출 문항만 `available`. 기존 출시 경로로 열 수 있을 뿐이면 `open_unqualified`(「기존 과제로 풀 수 있어요 · 정식 자격 확인 전」 · 7필드 true 없음 · 공급 수 0). FQ 표가 없으면 `not_installed`, 조회 실패는 `error`로 구별한다(`loadFqReader`).
+
+## 원문 교수 자기 설명 — `/csat/factory/[deliveryId]` 안 (2B · 2026-10-21)
+
+- **T-0091(2026-10-23) 학습 정리 전환**: 관계 · 절차 서술 칸 대신 시스템 카드(`lib/csat/system-learning.ts` `RELATION_CARDS` · `TITLE_RELATION_CARDS` · `PROCEDURE_CARDS`)를 고르고, 요지의 「시범과의 대조」 는 고른 문장과 시범 문장을 센 자동 사실 문장이다(학습자 글 · 자기 평가 아님). 저장 계약 · 서버 형성 피드백 · 다음 단계 연결은 그대로, 2C 재진입 때 예전에 직접 쓴 설명은 「저장된 기록 · 읽기 전용」. 같은 날 기출 문항 `scene=explain` 은 「학습 정리」(SystemLearningSummary)로 바뀌었다 — 사용자별 콘텐츠 평가는 지원하지 않는다([DECISIONS CL-SL-1](./csat-learner/DECISIONS.md)).
+
+- 교수 자료 원문의 납품이면 `page.tsx`가 단계별 답변 전 지원(`beforeAnswerSupport`)만 `FactoryDcpRunner`에 넘긴다. 풀이 저장(영수증 id) 뒤 `SourceLessonPanel`이 열린다: 번호 붙은 문장 목록 · 주장/근거 선택 · 관계 · (요지) 시범 + 비교 · (주제) 절차 → `POST …/lesson`. 같은 본문 재시도 = 같은 키, 실패해도 글 유지, 저장 확인 뒤 「다음: 같은 글의 제목/주제」 또는 Workspace 복귀.
+- 2C 재진입: `page.tsx` 가 `savedReflection`(본인 · 납품 · Workspace · 교수 자료 SHA 로 좁힌 닫힌 값)을 읽어 `lesson.restored` 로 넘기면 Runner 는 풀이 칸을 그리지 않고 패널을 저장값으로 잠가 보여 주며 다음 단계/Workspace 링크를 낸다. 읽기 실패는 `restoreFailed` 안내(새 풀이로 덮지 않음).
+- 코드: `lib/csat/map/v62/factory-bridge/source-lesson.ts` · `components/csat/factory/SourceLessonPanel.tsx` · `app/api/csat/factory/[deliveryId]/lesson/route.ts`. `FactoryDcpCard` 목록 응답은 `readFactoryList`로 닫힌 모양만 받는다(미상 수치를 0으로 바꾸지 않음).
+
+## 공장 DCP 안내 연습 — `/csat/factory/[deliveryId]` (1D · 2026-10-21)
+
+- 2F 요청: 같은 카드가 미설치가 아니면 「공장 연습 자료 요청」 단추를 보인다(`POST /api/csat/factory/request` · 서비스 `factory-bridge/dcp-request.ts`). 결과는 받음(첫 「요지 고르기부터 시작」 링크 + 목록 새로고침) · 제작 연결 대기 · 승인 대기 · 지금 단계 아님 · 계획 먼저 · 실패(「다시 요청」, 같은 키라 중복 없음)로 나뉘고 0건/완료로 삼키지 않는다. 응답은 `readFactoryRequest`가 닫힌 모양만 받는다. 학습자 화면에 내부 id는 보이지 않는다.
+- 진입: 학습 지도 Workspace 팝업 `FactoryDcpCard`(r.central_meaning · 납품이 있을 때만). 화면 `components/csat/factory/FactoryDcpRunner.tsx` 가 기존 `DcpPlayer` 를 쓰고, 채점만 `POST /api/csat/factory/[id]/attempt`(실제 `grade_dcp_item` + 납품 결속 영수증, 같은 응답 = 같은 UUID 키로 멱등) 로 바꾼다. 서비스 `lib/csat/map/v62/factory-bridge/dcp-learning.ts`.
+- 저장 실패 · 모양이 다른 200(영수증 · 실제 채점 시도 id 없음)은 「채점을 못 했어요」(오답 · 완료 아님 · 고른 답 유지). 완료 문구는 `DcpPlayer` 의 `doneCopy` 로 연습 기록 경계를 말하고, 돌아가기는 같은 Workspace 의 기존 다음 행동으로 간다. 근거 경계는 [LEARNING_MODEL](./LEARNING_MODEL.md) §공장 DCP 안내 연습.
+- 계측 `csat_factory_dcp_opened`(type · attempts) · `_submitted`(type · correct · replayed) · `_returned`(finished). DB 허용 목록은 보류 SQL 에 있어 적용 전에는 0건이다.
+
+## 창작 평가 자료의 AI 검토 공급 (2A · 2026-10-21)
+
+- 관리자 세션 서비스 `lib/csat/authored/ai-review.ts`(`verifyAiReviewReceipt` → `recordAiReviewedSupply`: 등록 → `content_ai_decision_record` → `authored_ai_qualify` → 승인). 영수증 원본 `docs/implementation/learning-outcomes-20261021/evidence/2a-ai-review/`. 학습자 화면 · 라우트는 기존 창작 경로(`/api/csat/authored/*`) 그대로이며, `server.ts` 재고 선택은 `authored_supply_decision_state` 가 `human`·`ai` 인 자격만 후보로 둔다(함수 미설치 시 기존 동작).
+- 관리자 API 라우트는 아직 없다(2B 이후). SQL 미적용 상태에서는 아무 행도 만들지 않는다.
 
 ---
 
