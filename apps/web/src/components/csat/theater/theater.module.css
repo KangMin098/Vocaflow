@@ -17,6 +17,8 @@
   --t3: var(--csat-muted, #6c6c72);
   --p: var(--csat-accent, #7c5cfa);
   --p-light: #f1edfe;
+  /* --p(#7c5cfa) 글자는 --p-light 위 3.83:1 · 흰 바탕 4.4:1 — AA 미달(axe 2026-10-26 · T-0181). 작은 강조 글자는 한 단계 진하게(5.8 · 6.7:1) */
+  --p-ink: #5b3fd6;
   --on-p: #ffffff;
   --ju: #16a34a;
   --ju-light: #e8f5ec;
@@ -299,7 +301,7 @@
 .kv > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); align-items: center; gap: 12px; }
 .kv dt { font-size: 12px; color: var(--t3); }
 .kv dd { margin: 0; font-size: 13.5px; line-height: 1.7; }
-.kv a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; color: var(--p); text-decoration: underline; text-underline-offset: 4px; }
+.kv a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; color: var(--p-ink); text-decoration: underline; text-underline-offset: 4px; }
 
 .siblings { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 6px; list-style: none; margin: 0; padding: 0; }
 .siblings a {
@@ -732,13 +734,14 @@
 .panes[data-collapsed='true'] { grid-template-columns: minmax(0, 1fr); }
 .paneHead { min-height: var(--csat-workspace-head); padding: 0 6px 0 12px; font-family: var(--font-sans), system-ui, sans-serif; font-size: var(--csat-workspace-pane-title); flex-shrink: 0; }
 .paneBody { padding: 14px var(--csat-workspace-pad); font-size: 13.5px; line-height: 1.72; }
+.paneBody:focus-visible { outline: 2px solid var(--p); outline-offset: -2px; }
 .blockPane .sceneQuestion { margin: 0 0 12px; font-size: var(--csat-workspace-question); line-height: 1.45; font-weight: 600; }
 .viewSwitch { display: inline-flex; gap: 2px; margin-left: 6px; }
 .viewSwitch button {
   min-height: var(--csat-workspace-target); min-width: var(--csat-workspace-target); padding: 0 8px; border-radius: 7px;
   font-size: 12px; color: var(--t2); border: 1px solid transparent;
 }
-.viewSwitch button[aria-pressed='true'] { color: var(--p); border-color: var(--p); background: var(--p-light); font-weight: 500; }
+.viewSwitch button[aria-pressed='true'] { color: var(--p-ink);border-color: var(--p); background: var(--p-light); font-weight: 500; }
 .paneBack { margin-left: auto; min-height: var(--csat-workspace-target); padding: 0 10px; border-radius: 8px; font-size: 12px; color: var(--t2); }
 .paneBack:hover { background: var(--bg2); color: var(--t1); }
 .pane .legend { margin: 12px 0 6px; }

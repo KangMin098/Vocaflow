@@ -16,6 +16,7 @@
 
 import fs from 'node:fs'
 
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type Page } from '@playwright/test'
 
 import { leakedAnswerKeys } from '../../src/lib/csat/judgment/evidence'
@@ -59,6 +60,12 @@ const UNITS_HASH_FAKE = '0'.repeat(64)
 const NO_TOOL = ['2025-35', 'M2506-35', 'H1804G3-28', '2015-25']
 
 const tool = (page: Page) => page.getByTestId('judgment-tool-d')
+
+/** 해설 화면 axe serious · critical(T-0181) — 판단 도구 스크롤 판 포커스 · 보라 강조 글자 대비가 다시 깨지지 않게 */
+async function axeSerious(page: Page) {
+  const r = await new AxeBuilder({ page }).include('[data-testid="analysis-theater"]').analyze()
+  return r.violations.filter((v) => v.impact === 'serious' || v.impact === 'critical').map((v) => `${v.id}(${v.impact}) ${v.nodes.map((n) => n.target.join(' ')).join(' | ')}`)
+}
 
 async function openJudgment(page: Page, slug: string) {
   await page.goto(`/csat/item/${slug}?scene=judgment`, { waitUntil: 'domcontentloaded', timeout: 180_000 })
@@ -162,6 +169,7 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
       expect(geo.jd[0]).toBeGreaterThanOrEqual(geo.ev[1] - 1)
       expect(posts, '도구 렌더 · 탐색은 판단 요청 0').toHaveLength(0)
       await page.screenshot({ path: test.info().outputPath(`a0-${width}.png`) })
+      expect(await axeSerious(page), `axe 공개 전 ${width}`).toEqual([])
 
       // ── A4 · 학습자 선택 · 스크롤 → 장면 왕복 · 근거 판 접기 뒤 유지 ──
       const tab2 = shell.locator('[role="tablist"] [data-slot="2"]')
@@ -222,6 +230,7 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
       await page.keyboard.press('Enter')
       expect(await page.evaluate(() => Boolean(document.activeElement?.closest('[data-judgment-shell]')))).toBe(true)
       await page.screenshot({ path: test.info().outputPath(`a3-revealed-${width}.png`) })
+      expect(await axeSerious(page), `axe 공개 후 ${width}`).toEqual([])
 
       // ── A1 · 늦은 응답 + 문항 이동 — 다른 문항 B 에 A 의 상태 · 해설 없음 ──
       await openJudgment(page, B.slug)
@@ -268,6 +277,7 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
       }
       await openJudgment(page, NO_TOOL[0])
       await expect(tool(page)).toHaveCount(0)
+      expect(await axeSerious(page), `axe 강의 문항 ${NO_TOOL[0]} ${width}`).toEqual([])
 
       console.log('4xx/5xx', JSON.stringify(bad))
       // 허용: 이 스펙이 일부러 만든 503 · 423(가로챈 응답) · 학평 회차 로컬 문제지 없음(dev-paper 404, 기존 동작)
