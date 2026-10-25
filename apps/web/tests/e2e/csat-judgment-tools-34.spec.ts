@@ -276,6 +276,14 @@ test.describe('판단 도구 34 × 해설 화면', () => {
         await play.click()
         await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
       }).toPass({ timeout: 60_000 })
+      // Escape 는 「닫기」와 같다 — 강의를 시작하지 않고 선택만 접는다(r3 관찰 결함 수정). 다시 열어 이어 간다
+      await page.getByTestId('lecture-chooser').locator('button').first().focus()
+      await page.keyboard.press('Escape')
+      await expect(page.getByTestId('lecture-chooser'), 'Escape 로 강의 선택이 닫히지 않는다').toHaveCount(0)
+      await expect(async () => {
+        await play.click()
+        await expect(page.getByTestId('lecture-chooser')).toBeVisible({ timeout: 2_000 })
+      }).toPass({ timeout: 60_000 })
       await page.getByTestId('lecture-path-until').click()
       await expect(page.getByTestId('lecture-boundary')).toBeVisible({ timeout: 180_000 })
       await page.getByTestId('lecture-boundary-skip').click()

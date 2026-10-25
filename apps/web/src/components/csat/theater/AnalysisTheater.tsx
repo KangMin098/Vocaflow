@@ -1231,7 +1231,17 @@ export function AnalysisTheater({
         </div>
       </header>
       {chooser && lec ? (
-        <section className={styles.lectureChooser} aria-labelledby="lecture-chooser-h" data-testid="lecture-chooser">
+        <section
+          className={styles.lectureChooser}
+          aria-labelledby="lecture-chooser-h"
+          data-testid="lecture-chooser"
+          onKeyDown={(e) => {
+            // Escape = 「닫기」(강의를 시작하지 않고 선택만 접는다) — 극장 전역 단축키로 새지 않게 여기서 멈춘다
+            if (e.key !== 'Escape') return
+            e.stopPropagation()
+            setChooser(null)
+          }}
+        >
           <h2 id="lecture-chooser-h" ref={chooserRef} tabIndex={-1} className={styles.chooserTitle}>
             강의를 어떻게 볼까요?
           </h2>
