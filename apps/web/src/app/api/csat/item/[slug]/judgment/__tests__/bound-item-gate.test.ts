@@ -44,7 +44,7 @@ function db(gate: Gate = {}) {
 }
 
 describe('loadBoundJudgmentItem — Reveal Gate', () => {
-  beforeEach(() => vi.restoreAllMocks())
+  beforeEach(() => { vi.restoreAllMocks() })
 
   it('보류가 아니면 관문을 거친 뒤 같은 결속 문항(정답 별칭 없음)', async () => {
     const d = db()
