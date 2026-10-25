@@ -64,6 +64,7 @@ for (const type of TYPES) {
     id: it.id,
     analysisVersion: a.version,
     unitsVersion: a.units_version,
+    unitsHash: a.units_hash,
     answer: it.answer,
     designIntent: a.design_intent,
     answerLocus: a.answer_locus,

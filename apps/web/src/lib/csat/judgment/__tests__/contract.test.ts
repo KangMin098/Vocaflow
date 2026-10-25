@@ -81,3 +81,40 @@ describe('근거 참조 도우미', () => {
     expect(checkReveal(item, null)).toEqual({ ok: false, reason: 'shape' })
   })
 })
+
+describe('공개 자료 품질 가드(K2 · K3 · K4)', () => {
+  const item = itemsOf('R-ORDER')[0]
+  const base = { id: item.id, analysisVersion: item.version.analysisVersion, unitsVersion: item.version.unitsVersion, unitsHash: item.version.unitsHash }
+  const choices = (correct: number[]) => [1, 2, 3, 4, 5].map((n) => (correct.includes(n) ? { n, verdict: 'correct', why_correct: 'x' } : { n, verdict: 'distractor' }))
+  const rev = (o: Record<string, unknown> = {}): Record<string, unknown> => ({ ...base, answer: 4, choices: choices([4]), ...o })
+
+  it('K2: 별칭 4종을 중첩 객체 · 배열에서 잡고, 정상 키는 잡지 않는다', () => {
+    for (const k of ['is_correct', 'answer_no', 'correctIndex', 'correct_choice']) {
+      expect(leakedAnswerKeys({ a: { b: [{ [k]: true }] } }), k).toEqual([`.a.b[0].${k}`])
+      expect(leakedAnswerKeys([[{ x: { [k]: 1 } }]]), k).toEqual([`[0][0].x.${k}`])
+    }
+    expect(leakedAnswerKeys({ id: 'x', choices: ['a'], units: [{ id: 'u1', n: 1, kind: 's', text: 't' }], correctness_note: 1, answered: true, choice: 2 })).toEqual([])
+  })
+  it('K3: unitsHash 누락 · 빈값 · 불일치는 version 으로 거절하고 일치는 받는다', () => {
+    const noHash = rev()
+    delete noHash.unitsHash
+    expect(checkReveal(item, noHash)).toEqual({ ok: false, reason: 'version' })
+    expect(checkReveal(item, rev({ unitsHash: '' }))).toEqual({ ok: false, reason: 'version' })
+    expect(checkReveal(item, rev({ unitsHash: 'f'.repeat(64) }))).toEqual({ ok: false, reason: 'version' })
+    expect(checkReveal(item, rev()).ok).toBe(true)
+  })
+  it('K4: answer · answers[] · choices 번호 · verdict 의 유효성과 정답 집합 일치를 본다', () => {
+    const bad = [
+      rev({ answer: 0 }), rev({ answer: 4.5 }), rev({ answer: 6 }),
+      rev({ choices: choices([2]) }), rev({ choices: choices([4, 5]) }), rev({ choices: choices([]) }),
+      rev({ answers: [] }), rev({ answers: [4, 4] }), rev({ answers: [4, 6] }), rev({ answers: [5], choices: choices([5]) }),
+      rev({ answers: [4, 5] }), rev({ answers: [4, 5], choices: choices([4, 5, 1]) }), rev({ answers: '4,5' }),
+      rev({ choices: [1, 2, 3, 4, 4].map((n) => ({ n, verdict: n === 4 ? 'correct' : 'distractor' })) }),
+      rev({ choices: choices([4]).map((c) => (c.n === 1 ? { n: 1, verdict: 'maybe' } : c)) }),
+    ]
+    for (const d of bad) expect(checkReveal(item, d), JSON.stringify(d.answers ?? d.answer)).toEqual({ ok: false, reason: 'shape' })
+    expect(checkReveal(item, rev()).ok).toBe(true)
+    expect(checkReveal(item, rev({ answers: [4] })).ok).toBe(true)
+    expect(checkReveal(item, rev({ answers: [5, 4], choices: choices([4, 5]) })).ok).toBe(true)
+  })
+})

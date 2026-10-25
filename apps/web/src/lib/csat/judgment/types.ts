@@ -38,7 +38,11 @@ export type RevealData = {
   id: string
   analysisVersion: number
   unitsVersion: number
+  /** 분석이 결속된 원문 단위 해시 — 같은 판본 번호 · 다른 본문을 가른다(K3) */
+  unitsHash: string
   answer: number
+  /** 공식 복수 정답 집합(있을 때만) — answer 를 포함해야 한다 */
+  answers?: number[]
   designIntent?: string
   answerLocus?: { quote?: string; reasoning?: string; sentence_index?: number[] }
   choices: ChoiceAnalysis[]

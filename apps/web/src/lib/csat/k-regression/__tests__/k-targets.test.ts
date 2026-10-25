@@ -24,8 +24,8 @@ export const NOT_IMPLEMENTED: readonly GapId[] = ['K6-a']
 
 export const TARGETS: Partial<Record<GapId, Target[]>> = {
   'K2-a': ['is_correct', 'answer_no', 'correctIndex', 'correct_choice'].map((k) => ({
-    name: `${k} 를 잡는다`,
-    fn: () => { expect(leakedAnswerKeys({ [k]: 4 })).not.toEqual([]) },
+    name: `${k} 를 중첩 객체 · 배열 안에서도 잡는다`,
+    fn: () => { expect(leakedAnswerKeys({ item: { choices: [{ n: 1 }, { n: 2, [k]: 4 }] } })).toEqual([`.item.choices[1].${k}`]) },
   })),
   'K3-a': [
     { name: '해시가 다른 공개 자료는 version 으로 거절한다', fn: () => {

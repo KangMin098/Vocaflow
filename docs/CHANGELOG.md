@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- fix(csat): D 공개 자료 품질 가드(T-0171) — 정답 키 별칭 4종(is_correct·answer_no·correctIndex·correct_choice) 중첩 검출, RevealData unitsHash 필수·불일치 거절, answer/answers[]와 verdict=correct 정답 집합 일치 검사. 서버 loader·exporter·reveal 픽스처 7개 갱신, K2-a·K3-a·K4-a fixed(목표 10건 실행), K6-a open 유지. G 도구 복수답 차단은 그대로.
+
 - feat(csat): 듣기 18유형 근거 추적 도구 `/csat/listening`(2023 수능 7·10번 실제 대본, 원음 없음·서버/DB 미검증·합성 표 표기)과 데이터 계약·노출 단계·오답 부분일치 도구·18유형 교수설계·준비도 감사(`docs/csat-listening/`)를 추가했다. 선지·원음·DB 적재는 전 유형 0건이라 BLOCKED_EVIDENCE 로 남긴다.
 
 - docs: 기술정보 목록에 유튜브 제작·운영용 Claude 스킬 11개 자료를 등록했다. 영상·제작자·원본 저장소·MIT 출처와 기능 목록, 설치/실행 미검증 범위를 함께 기록한다.
