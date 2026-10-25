@@ -862,3 +862,15 @@
   .dockGroup[data-tint='peach'] { --dock-tint: var(--csat-peach); --dock-ink: #8b4827; }
   .play { background: var(--csat-control); }
 }
+
+/* D 판단 도구 자리(T-0161) — 판단 장면 위쪽을 통째로 쓴다. 도구의 두 면(원문 · 판단)은 각자 스크롤한다.
+   도구 기본 격자는 최소 폭(600 + 480)이 있어 레일 옆 1280 에서 넘친다 — 이 자리에서만 0 최소 폭 · 자리 높이로 맞춘다 */
+.judgmentTool {
+  flex: 1.7 1 0; display: flex; min-width: 0; min-height: 300px;
+  margin: var(--csat-workspace-gap) var(--csat-workspace-gap) 0; border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; background: var(--bg);
+}
+.judgmentTool > * { flex: 1; min-width: 0; }
+.judgmentTool [data-judgment-shell] { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); height: 100%; padding: 12px 16px; gap: 16px; }
+.judgmentTool[hidden] { display: none; }
+/* 도구가 보일 때 아래 장면 판(정답 확인 · 오답 설계)이 눌려 사라지지 않게 남은 높이를 나눈다 */
+.judgmentTool:not([hidden]) + .panes { flex: 1 1 0; min-height: 190px; }

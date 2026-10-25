@@ -45,6 +45,9 @@ import { parseScene } from '@/lib/csat/inquiry/scenes'
 import { browseReturn } from '@/lib/csat/browse-url'
 import { mapReturnQuery, parseMapReturn, returnQueryOf } from '@/lib/csat/map-return'
 import { parseMeaningParams, relationsOfUnit } from '@/lib/csat/meaning-support/model'
+import type { SupabaseClient } from '@supabase/supabase-js'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { loadBoundJudgmentItem } from '@/app/api/csat/item/[slug]/judgment/bound-item'
 
 export const dynamic = 'force-dynamic'
 
@@ -156,6 +159,11 @@ export default async function CsatItemTheaterPage({
     )
   }
 
+  // D 판단 도구(T-0161) — G 현재 판본 결속이 해설 판본과 같고 block 이유가 없을 때만. 정답 없는 JudgmentItem 만 싣는다.
+  // 수능 · 모평(단위 결속 0) · 다중 정답 · 결속 깨짐 · 도구 없는 유형은 null(도구 미노출). 실패는 도구만 빠진다
+  const judgmentBound = await loadBoundJudgmentItem(createAdminClient() as unknown as SupabaseClient, item.id, item.analysis_version ?? null)
+    .catch((e) => { console.error('[csat-item judgment]', e); return { item: null, reason: 'error' } as const })
+
   const theater = (
     <AnalysisTheater
       title={`${item.exam_label} ${item.no}번`}
@@ -210,6 +218,7 @@ export default async function CsatItemTheaterPage({
       paper={{ catalog: paperCatalog, examId, no: item.no }}
       gate={initial.gate}
       analysisVersion={item.analysis_version ?? null}
+      judgmentItem={judgmentBound.item}
       sourceUnitsHash={loaded.boundUnitsHash}
       typeId={item.type_id ?? ''}
       source={{ url: paperUrl, direct: paper.paperUrl != null, reason: paper.reason }}

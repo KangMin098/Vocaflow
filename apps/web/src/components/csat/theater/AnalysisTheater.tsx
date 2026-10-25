@@ -105,6 +105,9 @@ import { V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './In
 import { DesignSelection, DistractorDesign, PrincipleDesign, TransformDiagram } from './SceneDiagrams'
 import { StructurePredict } from './StructurePredict'
 import type { InquiryRecord, PairAbsence, V3PairView } from '@/lib/csat/inquiry/labels'
+import { TypeJudgment } from '@/components/csat/judgment/TypeJudgment'
+import { judgmentRouteProvider } from '@/lib/csat/judgment/provider'
+import type { JudgmentItem } from '@/lib/csat/judgment/types'
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
 import { MeaningSupportPanel } from './MeaningSupportPanel'
 import type { MeaningSupportView, MsDepth } from '@/lib/csat/meaning-support/labels'
@@ -228,6 +231,7 @@ export function AnalysisTheater({
   sourceUnitsHash = null,
   typeId,
   meaningSupport: initialMeaningSupport = null,
+  judgmentItem = null,
   initialMeaning = null,
   initialDepth = 'brief',
   initialRelation = null,
@@ -308,6 +312,8 @@ export function AnalysisTheater({
   /** 기출 찾기(문항 머리 · 비교 없음 안내). null = 숨김(독립 확인 중). mapCtxQuery = 서버가 검증한 지도 복귀 조각 */
   finder?: { fromMap: boolean; mapCtxQuery: string } | null
   /** 검증된 「직접 정답 공개」 경계 — 서버가 대본 결속을 확인한 것만. 없으면 「정답 직접 안내 전까지」 경로를 내주지 않는다 */
+  /** D 판단 도구(T-0161) — 페이지가 G 현재 판본 결속으로 만든 정답 없는 문항. 없으면 도구 없음 */
+  judgmentItem?: JudgmentItem | null
   lectureDisclosure?: { verified: true; stopBefore: number; preStopRisk: PreStopRiskCode } | { verified: false } | null
 }) {
   const lec = useLecture()
@@ -530,6 +536,8 @@ export function AnalysisTheater({
   }
   const [tab, setTab] = useState<TabId>('analysis')
   const [scene, setScene] = useState<SceneId>(initialScene)
+  // 판단 도구 공개 provider — 문항(slug)마다 새로 만든다(멱등 키가 다른 문항으로 넘어가지 않게)
+  const judgmentReveal = useMemo(() => judgmentRouteProvider(toItemSlug(itemId)), [itemId])
   // v3 근거 연결 — 패널에서 고른 근거 문장(1-기반). 장면을 옮기면 비운다(다른 장면의 근거가 남아 비추지 않게)
   // 처음 근거 선택 — 이 문항 · 장면을 전에 봤으면 탭 메모리에서(문항을 다녀와도 남는다 · item-tab-memory)
   const [evidence, setEvidence] = useState<{ sentences: number[]; key: string } | null>(() => tabMemory.scene.get(sceneKey(itemId, initialScene))?.evidence ?? null)
@@ -908,7 +916,8 @@ export function AnalysisTheater({
         method: 'POST',
         headers: { 'content-type': 'application/json' },
         cache: 'no-store',
-        body: JSON.stringify({ analysisVersion, clientExposureId: crypto.randomUUID(), source }),
+        // tool — 화면에 D 판단 도구가 있으면 그 결속(라우트가 지금 결속과 대조), 없으면 null(도구 없는 정상 공개 · T-0161 r2)
+        body: JSON.stringify({ analysisVersion, clientExposureId: crypto.randomUUID(), source, tool: judgmentItem ? { analysisVersion: judgmentItem.version.analysisVersion, unitsHash: judgmentItem.version.unitsHash } : null }),
       })
       const body = (await res.json().catch(() => null)) as { ok?: boolean; reveal?: AnswerReveal } | null
       if (!res.ok || !body?.ok || !body.reveal) throw new Error(String(res.status))
@@ -1464,6 +1473,13 @@ export function AnalysisTheater({
             </button>
           </div>
 
+          {judgmentItem ? (
+            // 판단 장면 하나를 통째로 — 도구 자체가 원문 증거면 + 판단면을 가진다. key = 문항 · 판본(이전 선택 · 해설이 넘어가지 않게).
+            // 다른 장면에서는 숨긴 채 유지한다 — 장면 왕복이 학습자 선택 · 스크롤을 지우지 않게(T-0140 학습자 제어)
+            <section className={styles.judgmentTool} hidden={scene !== 'judgment'} aria-label="유형 판단 도구" data-testid="judgment-tool-d" data-item={judgmentItem.id} data-analysis-version={judgmentItem.version.analysisVersion}>
+              <TypeJudgment key={`${judgmentItem.id}@${judgmentItem.version.analysisVersion}:${judgmentItem.version.unitsHash}`} item={judgmentItem} reveal={judgmentReveal} stages={['first']} />
+            </section>
+          ) : null}
           <div className={styles.panes} data-collapsed={evidenceCollapsed}>
             {/* ── 근거·관계 판: 선택한 근거의 위치 · 관계 ── */}
             {!evidenceCollapsed ? (
