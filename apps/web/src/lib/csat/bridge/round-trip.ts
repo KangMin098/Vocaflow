@@ -11,32 +11,25 @@ import { returnNotes, type ReturnNote } from '../map/v62/return-ctx'
 import type { SavedPlans } from '../map/v4/plan-store'
 
 export interface BridgeCtx extends MapReturnCtx {
-  /** 떠날 때 본 분석 판본(1 이상 정수 문자열) */
+  /** 떠날 때 본 분석 판본(1 이상 정수 문자열) — map-return 의 mapAv(map_av)와 같은 값. 형식 검증 · 직렬화는 map-return 한 곳(T-0167) */
   analysisVersion?: string | null
 }
 
-const parseAv = (v: string | undefined | null): string | null => (v && /^[1-9][0-9]{0,8}$/.test(v) ? v : null)
-
 /** 문항 id(`2026-34` · `2026#34`) → 지도 문맥을 실은 문항 주소 */
 export function bridgeItemHref(itemRef: string, ctx: BridgeCtx): string {
-  const href = withMapReturn(`/csat/item/${toItemSlug(itemRef)}`, ctx)
-  const av = parseAv(ctx.analysisVersion)
-  return av ? `${href}${href.includes('?') ? '&' : '?'}map_av=${av}` : href
+  return withMapReturn(`/csat/item/${toItemSlug(itemRef)}`, { ...ctx, mapAv: ctx.mapAv ?? ctx.analysisVersion })
 }
 
 /** 문항 화면의 「학습지도로」 복귀 주소 — 받은 문맥 그대로(검증값만) */
 export function bridgeReturnHref(sp: Record<string, string | string[] | undefined>): string {
-  const q = mapReturnQuery(parseMapReturn(returnQueryOf(sp)))
-  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)
-  const av = parseAv(one(sp.map_av))
-  const tail = `${q}${av ? `&map_av=${av}` : ''}`
+  const tail = mapReturnQuery(parseMapReturn(returnQueryOf(sp)))
   return tail ? `/csat?from=item${tail}` : '/csat'
 }
 
 /** 받은 주소 검색값 → 검증된 왕복 문맥 */
 export function parseBridgeCtx(sp: Record<string, string | string[] | undefined>): BridgeCtx {
-  const one = (v: string | string[] | undefined) => (Array.isArray(v) ? v[0] : v)
-  return { ...parseMapReturn(returnQueryOf(sp)), analysisVersion: parseAv(one(sp.map_av)) }
+  const c = parseMapReturn(returnQueryOf(sp))
+  return { ...c, analysisVersion: c.mapAv }
 }
 
 export type BridgeNote = ReturnNote | { kind: 'analysis_changed'; from: number; to: number }

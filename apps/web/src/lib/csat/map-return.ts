@@ -4,6 +4,7 @@
 // 문항의 「학습 지도로」 가 그 문맥을 홈(/csat)으로 돌려준다. 홈은 그 학습 묶음 · 단계 시트 · 과제 칸을 다시 연다.
 //   task = 과제 id(지도의 data-task) · ws = 학습 묶음 id(data-ws, `ws.<slug>`) · step = 단계 키(data-step)
 //   map_task = 영구 TASK id(v6.2 §9.3 — 활동 id `task` 와 구별 · r.central_meaning 같은 slug). 지도 정의에 없는 id 는 화면이 무시한다
+//   map_av = 떠날 때 본 기출 분석 판본(H6 · T-0167) — 문항 화면의 「학습 지도로」 가 KEYS 로 그대로 싣는다
 //   map_ws = 학습자 Workspace UUID(템플릿 slug `ws` 와 구별) · map_plan = 떠날 때 계획 버전 · map_goal = 떠날 때 목표 이력 id
 //     — 돌아온 화면은 이 값으로 「떠날 때와 지금이 같은가」만 비교한다. 이 값으로 조회하지 않는다(다른 사람 UUID 를 넣어도 읽히는 것이 없다)
 // 받는 쪽은 모두 형식만 검증한다 — 자유 문자열 · 주소를 받지 않는다(열린 리디렉트 방지). 없는 값은 화면이 조용히 무시한다.
@@ -23,6 +24,8 @@ export interface MapReturnCtx {
   mapItem?: string | null
   /** T-0062 — 이 화면에서 **실제로 제출 · 저장된** 수행 id(서버 응답). 새 답 없는 재열기에는 붙지 않는다 */
   mapAttempt?: string | null
+  /** T-0167 — 떠날 때 본 기출 분석 판본(H6 map_av). 돌아온 화면은 「지금 판본과 같은가」만 비교한다(조회 키 아님) */
+  mapAv?: string | null
 }
 
 const STEPS: readonly StepKey[] = ['vocab', 'sentence', 'relation', 'structure', 'option', 'evidence', 'integrate', 'l-sound', 'l-sentence', 'l-retain', 'l-respond']
@@ -60,7 +63,7 @@ export function parseMapVersion(v: string | undefined | null): string | null {
   return v && /^[1-9][0-9]{0,8}$/.test(v) ? v : null
 }
 
-type ReturnQuery = { task?: string; ws?: string; step?: string; map_task?: string; map_ws?: string; map_plan?: string; map_goal?: string; map_item?: string; map_attempt?: string }
+type ReturnQuery = { task?: string; ws?: string; step?: string; map_task?: string; map_ws?: string; map_plan?: string; map_goal?: string; map_item?: string; map_attempt?: string; map_av?: string }
 
 /** 검증한 문맥만 남긴다 */
 export function parseMapReturn(q: ReturnQuery): Required<MapReturnCtx> {
@@ -74,10 +77,11 @@ export function parseMapReturn(q: ReturnQuery): Required<MapReturnCtx> {
     mapGoal: parseMapVersion(q.map_goal),
     mapItem: parseMapItem(q.map_item),
     mapAttempt: parseMapAttempt(q.map_attempt),
+    mapAv: parseMapVersion(q.map_av),
   }
 }
 
-const KEYS = [['task', 'task'], ['mapTask', 'map_task'], ['ws', 'ws'], ['step', 'step'], ['mapWs', 'map_ws'], ['mapPlan', 'map_plan'], ['mapGoal', 'map_goal'], ['mapItem', 'map_item'], ['mapAttempt', 'map_attempt']] as const
+const KEYS = [['task', 'task'], ['mapTask', 'map_task'], ['ws', 'ws'], ['step', 'step'], ['mapWs', 'map_ws'], ['mapPlan', 'map_plan'], ['mapGoal', 'map_goal'], ['mapItem', 'map_item'], ['mapAttempt', 'map_attempt'], ['mapAv', 'map_av']] as const
 const parseCtx = (ctx: MapReturnCtx) => parseMapReturn({
   task: ctx.task ?? undefined,
   map_task: ctx.mapTask ?? undefined,
@@ -88,6 +92,7 @@ const parseCtx = (ctx: MapReturnCtx) => parseMapReturn({
   map_goal: ctx.mapGoal ?? undefined,
   map_item: ctx.mapItem ?? undefined,
   map_attempt: ctx.mapAttempt ?? undefined,
+  map_av: ctx.mapAv ?? undefined,
 })
 
 /** 주소 검색값(searchParams · 배열 허용)에서 복귀 문맥 쿼리 키만 뽑는다 — 페이지마다 같은 키 목록을 다시 쓰지 않게 */
@@ -137,7 +142,7 @@ export function vocabMapReturnHref(sp: Record<string, string | string[] | undefi
   const from = Array.isArray(sp.from) ? sp.from[0] : sp.from
   if (from !== 'map') return null
   const q = returnQueryOf(sp)
-  return MAP_HOME_HREF + mapReturnQuery(parseMapReturn({ ...q, map_item: undefined, map_attempt: undefined }))
+  return MAP_HOME_HREF + mapReturnQuery(parseMapReturn({ ...q, map_item: undefined, map_attempt: undefined, map_av: undefined }))
 }
 
 /**
@@ -147,6 +152,6 @@ export function vocabMapReturnHref(sp: Record<string, string | string[] | undefi
 export function vocabMapLink(path: (typeof VOCAB_PATHS)[number], mapBack: string | null | undefined): string {
   if (!mapBack) return path
   const u = new URL(mapBack, 'http://x')
-  const ctx = parseMapReturn({ ...returnQueryOf(Object.fromEntries(u.searchParams)), map_item: undefined, map_attempt: undefined })
+  const ctx = parseMapReturn({ ...returnQueryOf(Object.fromEntries(u.searchParams)), map_item: undefined, map_attempt: undefined, map_av: undefined })
   return withMapReturn(path, ctx)
 }
