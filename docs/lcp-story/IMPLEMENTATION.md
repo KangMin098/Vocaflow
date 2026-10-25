@@ -27,7 +27,7 @@
 | S1 | 도메인 스키마 · 해시 · 원문 대응 · 검수 결속 | `VERIFIED` | 위와 같음. F1~F5 수정 확인 |
 | S2 | 로컬 export/validate/plan + 합성 fixture | `VERIFIED` | 위와 같음. 실제 파일 기반 제작 흐름 확인 |
 | S3 | live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 | `VERIFIED` | T-0169 작성자 검증: SELECT 감사 · 미적용 SQL(표 12 · RPC 16) · 러너 시험 · 격리 PGlite/PostgreSQL 17 하네스 통과 · 독립 검토 지적 반영. T-0169 Codex 별도 수용 완료(검증 커밋 `6dfa0c0c6`). 승인 뒤 공유 DB는 MCP 원장 `20261025094450`로 적용 완료(승인 SHA 일치 · 사후 15/15 · 원본 지문 10/10 불변). 러너 TLS preflight는 미실행 |
-| S4 | 승인된 DB 적용 + 관리자 후보/제작/검수/발행 + 도움말 | `IN_PROGRESS` | DB 적용·검증 완료. 관리자 UI · 증명 런타임 · 도움말은 남음 |
+| S4 | 승인된 DB 적용 + 관리자 후보/제작/검수/발행 + 도움말 | `IN_PROGRESS` | DB 적용·검증 완료. T-0174 작성자 구현: 관리자 이야기 라인 · 검증 증인 런타임 · 도움말 · 격리 브라우저 하네스(아래 S4 「작성자 구현 현황」). 남음: 열린 UI 결함 처리 · 최종 HEAD 재검증 · 독립 수용(VERIFIED 아님) · 두 번째 인증 스태프 계정 · 실제 발행(미실행) |
 | S5 | 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 | `PENDING` | S4 · 새 이벤트 허용 목록 SQL 승인 |
 | S6 | 선택적 Deep/Bridge · 실제 표현 어휘 연결 · 추천 다양성 | `PENDING` | S5 |
 | S7 | 권리 확인된 서로 다른 장르 3편 제작 · 파일럿 | `PILOT_NOT_RUN` | 기본 독서 경로는 S4·S5 후 검증. 심화 활동 회차는 S6 후 · 실제 참가자 |
@@ -229,6 +229,44 @@ S3 의 감사 대상 1~9 를 실제 DB 읽기 질의(SELECT)와 저장소 코드
 - **복구**: S3 의 복구 SQL(승인 포함). 학습 이력은 지우지 않는다.
 - **완료 증거**: 승인한 실행 경로의 기록 · 적용 이력 해시 · 통합 · E2E 결과 · 관리자 화면 확인 · 해당하는 독립 검토 계약이 있으면 그 판정.
 - **다음**: S5.
+
+### 작성자 구현 현황 (T-0174, 2026-10-25, 커밋 전 작업 트리 · base `b09f63a0c`)
+
+> 독립 수용 전이다. 아래 「구현」은 작성자가 코드를 쓰고 실제 시험을 돌렸다는 뜻이며 `VERIFIED` 가 아니다. 실제 발행 · 두 번째 스태프 · live 쿠키/RPC E2E 는 검증되지 않았다.
+
+| 범위 | 파일 | 작성자 상태 |
+|---|---|---|
+| 서버 로직 · 권한 · 증인 | `apps/web/src/lib/library/story/{admin,witness,messages,types}.ts` · `app/admin/curation/story-actions.ts` · 패키지 exports `@vocaflow/library-pipeline/story`(`src/story/server.ts`) | 구현 · 가짜 클라이언트 단위 시험(아래 기록) |
+| 관리자 화면 · URL · 도움말 | `app/admin/curation/StoryCurationClient.tsx` · `story-curation.module.css` · `story-view.ts` · `lib/admin/curation-view.ts`(라인 헬퍼 추가) · `AdminCurationClient.tsx`(라인 전환) · `lib/admin/help/curation.ts`(「이야기 판본」) | 구현 · 단위 · 격리 브라우저 하네스 |
+| 격리 브라우저 하네스 | `apps/web/scripts/build-lcp-story-harness.mts` · `apps/web/tests/e2e-isolated/lcp-story.isolated.spec.ts` · `apps/web/tests/fixtures/lcp-story/original-curation.ts` · `scripts/lcp/story/s4-harness-{fixtures,eval}.ts` | 구현 · 실행(아래 기록) |
+
+- 하네스 구성: 실제 클라이언트 컴포넌트(AdminShell 시각 틀 · AdminCurationClient · 원본 탭 · AdminScreenHelp · StoryCurationClient)와 실제 앱 CSS(admin 스킨 · CSS module)를 가짜 origin 에 올리고, 알려진 하네스 요청만 응답 · 그 밖은 abort 한다.
+  이야기 줄 Server Action 9개는 대역이 요청을 보내고, tsx 자식 프로세스가 **실제** 서버 로직(`lib/library/story/*` · 실제 S2 검증기 · plan · `buildValidationAttestation`)을 가짜 쿠키/서비스 클라이언트 + S3 SQL 규칙을 흉내 낸 메모리 가짜 DB 로 돌린다.
+  가짜 DB 의 해시(원천 정체 · 판본 · 결속)는 SQL 정의대로 계산하며, 실제 S2 검증기가 낸 값과 일치해야 등록 · 증인이 통과하므로 두 계산이 맞는지도 함께 확인된다.
+- 표현하지 않는 것: `app/admin/layout.tsx` requireAdmin · middleware · `page.tsx` RSC 로딩 · 실제 쿠키 인증 · PostgREST/RPC · RLS · 잠금 · 실제 Server Action 전송. 컴포넌트 수준 브라우저 증거이며 live E2E 가 아니다.
+- 하네스가 단언하는 경계: 목록 · 번들 읽기 · 화면 진입만으로는 권리 · 증인 · 발행 요청 0, 증인은 「검증 실행」 클릭 때만 / 판본 제출 단계 실패 시 앞 단계 결과가 화면에 남고 같은 파일 재시도로 이어짐(롤백 주장 문구 없음) /
+  source_url(쿼리 · 프래그먼트 http URL · null · ftp)을 바꾸지 않고 http/https 만 링크 / localStorage · sessionStorage · URL 에 원문 · 판본 본문 없음 / 원본 줄 view · q · status · page · selected 복원 · 이야기 줄 뒤로/앞으로 복원 / 1440 · 1280 가로 넘침 없음.
+
+### 작성자 실행 기록 — T-0174 S4 (2026-10-25, 커밋 전 작업 트리 · base `b09f63a0c`)
+
+W3(브라우저 하네스 · 문서)가 직접 돌린 것:
+- `pnpm.cmd --dir apps/web exec tsx scripts/build-lcp-story-harness.mts` → 하네스 HTML(gitignored `work/lcp-story-s4/harness/`) · 번들 소스 sha256 목록(`build-manifest.json`).
+- `pnpm.cmd --dir apps/web exec playwright test -c playwright.isolated.config.ts tests/e2e-isolated/lcp-story.isolated.spec.ts --reporter=list` → 코디네이터 제품 동결(`work/lcp-story-s4/product-freeze.sha256`) 바이트로 **7 passed · 0 failed · 0 skipped (2.2m)**
+  (원본 줄 4: 1440 · 1280 × 목록/수집/검토 · URL 복원/상세/도움말 / 이야기 줄 3: 1440 · 1280 전체 흐름 · source_url 보존). 외부 요청 시도 0 · 미지 하네스 경로 0 · pageerror 0 · admin 글꼴(Inter Variable · JetBrains Mono) 로드 단언.
+  하네스 빌드 manifest 의 소스 해시 74개가 실행 뒤 실제 파일과 같고, 동결 목록과 겹치는 파일은 동결 해시와 같다. 원시 로그 `work/lcp-story-s4/run-final2.log` · `network-log.jsonl` · 캡처 `work/lcp-story-s4/shots/`.
+  이 실행이 잡아 고친 화면 결함: 합성 검사 판정 문구 · 결과 알림 뷰포트(2회) · 철회 뒤 같은 키 재발행 안내 · 같은 작품 · 판본 키 자리 구분(`work/lcp-story-s4/ui-defects.md`).
+  한계: 하네스에 Pretendard(한글 CDN 글꼴)가 없어 한글은 시스템 대체 글꼴로 그려진다. 변경 전 원본 줄 기준선 캡처는 연결 뒤 실행에 덮어써져 픽셀 비교를 하지 않았다(기능 회귀는 단언으로 통과).
+- `pnpm.cmd --dir apps/web exec eslint tests/e2e-isolated/lcp-story.isolated.spec.ts tests/fixtures/lcp-story/original-curation.ts scripts/build-lcp-story-harness.mts` → 0 오류. 스코프 `tsc --noEmit`(하네스 · 스펙 · 평가 스크립트 5파일, next 전역 타입 포함) → 0 오류.
+
+서버 담당(W1)이 보고한 결과: web vitest `src/lib/library/story` 2파일 107 통과 · 0 실패 · 0 skip(이후 예상 발행 키 시험이 더해져 아래 코디네이터 실행에 포함), 패키지 story vitest 228 통과, 패키지 tsc 통과, eslint 0.
+
+코디네이터 실행(제품 동결 바이트 · 커밋 전 작업 트리 · base `b09f63a0c` — 최종 커밋 HEAD 의 증거가 아니다):
+- 범위 지정 web vitest 9파일(`lib/library/story/__tests__/{story-server,story-actions}` · `app/admin/curation/__tests__/{story-view,story-curation-client}` ·
+  `lib/admin/__tests__/{curation-view-line,curation-return,navigation,help-registry,help-diagram}`) → **235 통과 · 0 실패 · 0 skip**.
+  (그 전 넓은 실행 `src/lib/admin/__tests__` 전체는 469 통과 · 4 skip — skip 4는 이 작업과 무관한 `*.integration.test.ts` 가 서비스 키 없는 환경에서 건너뛴 것이다.)
+- web 전체 `tsc --noEmit` → exit 0. 변경 제품 · 시험 파일 eslint → 0.
+- `next build --experimental-build-mode compile`(별도 `NEXT_DIST_DIR`, 네트워크 전면 차단 preload — 루프백 포함) → exit 0, 네트워크 시도 0. 페이지 생성 · SSG 는 하지 않았다.
+- 최종 커밋 HEAD 에서의 하네스 재실행 · 정식 UI 증거는 아직 없다 — 커밋 뒤 루트가 기록한다(하네스 manifest 는 빌드 시점의 실제 HEAD · dirty 여부를 적는다).
 
 ```text
 [S4 시작 지시]

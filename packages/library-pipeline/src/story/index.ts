@@ -1,8 +1,8 @@
 // packages/library-pipeline/src/story/index.ts
 //
 // LCP Story(이야기 중심 판본 라인) 모듈 배럴. 계약: docs/LCP_STORY.md.
-// 패키지 루트 배럴(src/index.ts)에는 아직 싣지 않는다 — 소비자는 scripts/lcp/story 하나뿐이다.
-// S4 에서 관리자 화면이 쓰게 되면 그때 패키지 exports 에 경로를 더한다.
+// 패키지 루트 배럴(src/index.ts)에는 싣지 않는다. 이 전체 배럴(작업 폴더 · CLI 포함, node:fs)의 소비자는 scripts/lcp/story 다.
+// 관리자 서버 코드(S4)는 패키지 exports `@vocaflow/library-pipeline/story` = ./server.ts(workdir · cli 제외)를 쓴다.
 
 export { CanonicalError, canonicalJson, canonicalPrettyJson, sha256Canonical, sha256Hex } from './canonical'
 export {

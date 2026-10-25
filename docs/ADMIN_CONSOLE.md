@@ -290,6 +290,28 @@ manifest(파일) · `storage.objects` · `funnel_events` 셋으로 전부 답한
 
 URL: view=library|collect|review, method=sources|bulk|seed|id|wikibooks|wikisource|openstax|storyweaver. 목록의 q/source/level/status/page/selected도 URL에서 복원한다. 25행씩 표시하고 전체 선택은 현재 페이지만 대상으로 한다. 명시적으로 고른 다른 페이지의 항목은 일괄 선택 수에 남는다. 필터 변경 시 페이지를 초기화하고, 큐 추가 성공 후에는 검색 조건을 해제한 전체 목록으로 돌아간다.
 
+### 작업 라인 — 원본 도서 / 이야기 판본 (LCP Story S4 · T-0174, 작성자 구현 · 독립 수용 전)
+
+화면 맨 위 「작업 라인」에서 **원본 도서**(위의 도서 목록 · 수집 · 검토 대기 그대로)와 **이야기 판본**을 고른다. 라인 전환은 URL 의 `line` 하나만 넣거나 뺀다(`line=story`, 없거나 모르는 값은 원본) —
+원본 라인의 view/method/q/source/level/status/page/selected 는 그대로 남아 이야기 판본에 다녀와도 원본 화면이 정확히 되살아난다. 이야기 라인 상태는 `story_slot`(판본 자리 uuid) · `story_panel=files`(후보 파일 패널) 식별자만 URL 에 둔다 —
+원문 · 파일 내용은 URL · 브라우저 저장소에 넣지 않는다. 도움말 키는 라인 라벨 「이야기 판본」(`help/curation.ts` 의 `tabs`).
+
+이야기 판본 흐름: 후보 파일 검사(원천 스냅숏 · 편집 기준 · 판본 결과물 JSON — 서버가 실제 S2 검증기 · plan 으로 다시 검사, DB 쓰기 없음) → 원천 등록 → 편집 기준 등록(판본 자리 생성) → 판본 제출 →
+다른 스태프의 검수 파일 제출 → admin 권리 결정(원문 · 필요하면 번역) → 검증 증인 실행 → admin 발행 → 철회(사유 필수). 판본 자리를 고르면 원문 · 판본 단위 · 변경 기록을 나란히 비교하고 현재 판 · 검수 · 권리 · 증명 · 발행본 상태와 다음 할 일 하나를 보여 준다.
+
+| 경계 | 동작 |
+|---|---|
+| 권한 | 매 액션 쿠키 세션의 실제 uid · `user_profiles.role`(admin\|curator) · `status` 정확히 `active` 로 서버가 판정하고, DB RPC 가 `auth.uid()` 로 다시 강제한다. 관리 RPC 9개는 쿠키 클라이언트로만 부른다. curator 는 권리 결정 · 발행 · 철회 RPC 를 부르지 않는다. `DEV_ADMIN_BYPASS` 는 이 라인에 아무 권한도 주지 않는다. 화면의 생산자 · 검수자 표기는 안내용이다 |
+| 두 사람 | 판을 제출한 계정은 그 판을 검수할 수 없고(`story:self_review`), 발행 admin 도 제출 계정이 아니어야 한다(`story:publisher_is_producer`). 검수자와 발행 admin 은 같아도 된다 — 실제 발행에는 인증 스태프 계정이 **최소 2개** 필요하다. live 감사(2026-10-25)는 active admin 1 · curator 0 이었고, 계정 추가 · 역할 부여는 이 작업에서 하지 않았다 |
+| 검증 증인 | 활성 스태프(curator 이상)가 버튼을 눌렀을 때만 서버가 쿠키 세션 스태프 확인 → service_role 클라이언트 생성 → `story_service_validation_input` → `buildValidationAttestation` → 통과 시에만 `story_service_attest_validation`. 목록 · 번들 읽기 · 화면 진입은 증인 · 권리 · 발행 요청을 보내지 않는다. 증명 뒤 검수가 더해지면 결속이 바뀌어 다시 실행해야 한다 |
+| 업로드 | 합계 900,000 바이트(Server Action 기본 1 MB 안 — 전역 Next 설정은 바꾸지 않았다). 엄격 UTF-8 · JSON. 매 등록 단계마다 올린 파일 전부를 첫 RPC 전에 다시 검증한다. `fixture_only`(합성) 사유가 있으면 hold 여도 등록하지 않는다. 자산(오디오 · 삽화)을 선언한 판본은 등록을 거부한다. 최신 판이 아닌 판의 검수는 거부한다 |
+| 부분 성공 · 재개 | 원천 → 편집 기준 → 판본은 RPC 여러 번이다 — **원자적 롤백이 아니다**. 뒤 단계가 실패하면 이미 저장된 앞 단계 결과를 그대로 보여 주고, 같은 파일로 다시 등록하면 기존 행을 돌려받아(`created=false`) 이어 간다 |
+| 원천 URL | 스냅숏의 `source_url` 은 다듬지 않고 그대로 RPC 에 넘긴다(정체 해시에 들어간다). 화면은 값을 바꾸지 않고 보여 주며 http/https 만 링크로 만든다 |
+| 텔레메트리 | 이 라인은 계측 이벤트를 보내지 않고 서버 로그에 본문 · id · URL 을 남기지 않는다 |
+
+검증 경계: 격리 브라우저 하네스(`apps/web/scripts/build-lcp-story-harness.mts` + `tests/e2e-isolated/lcp-story.isolated.spec.ts`)는 실제 클라이언트 컴포넌트 · 실제 앱 CSS 와, Server Action 대역 뒤의 실제 서버 로직(`lib/library/story/*`) + 메모리 가짜 DB 를 쓴다.
+AdminShell 레이아웃의 requireAdmin · middleware · page.tsx RSC 로딩 · 실제 쿠키 인증 · PostgREST/RPC 실행 · 실제 Server Action 전송은 그 하네스에 없다 — 전체 live cookie/RPC E2E 가 아니다. DB 규칙 자체는 S3 격리 PostgreSQL 17 시험이 검증했다.
+
 ### Curated Books — 테이블 + 일괄 액션 (v06.34)
 
 13 컬럼: 제목 · 저자 · 소스 · 상태 · CEFR · V·Cent · CEFR-J · F-K · 추출 · 단어장 · 단어 · 갱신 · 상세.
@@ -1061,6 +1083,20 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 | `bulkSetBooksToInProgressAction(bookIds)` | ready → curating · draft 단어장 삭제 |
 | `bulkRequeueBooksAction(bookIds)` | library_books DELETE · seed unlock (v06.34) |
 | `fetchCurationJobsAction()` | 큐 상태 뷰 |
+
+### `/app/admin/curation/story-actions.ts` (LCP Story S4)
+
+얇은 배선 — 로직 · 권한은 `lib/library/story/{admin,witness}.ts`. 실패는 throw 하지 않고 `StoryFailure`(code · message · recovery · stage · issues · retryable · 선택 `partial`)로 돌려준다.
+
+| Action | 최소 역할 | 효과 |
+|---|---|---|
+| `listStorySlotsAction()` · `loadStoryBundleAction(id)` | curator | 읽기(`story_admin_list_slots` · `story_admin_get_bundle`) |
+| `checkStoryCandidateAction(form)` | curator | 후보 파일 S2 재검사 · plan. DB 쓰기 없음 |
+| `registerStoryCandidateAction(form)` | curator | step=source\|policy\|edition — 원천 → 편집 기준 → 판본 RPC 순서. 원자적 아님(`partial`) |
+| `submitStoryReviewAction(form)` | curator | 검수 파일 제출(제출 계정 ≠ 검수 계정) |
+| `recordStoryRightsAction(input)` | admin | 권리 결정 추가(confirmed 는 근거 위치 필수) |
+| `attestStoryValidationAction(id)` | curator | 검증 증인 — 스태프 확인 뒤에만 service_role 로 저장값 검증 · 통과 시 증명 기록 |
+| `publishStoryAction(id)` · `withdrawStoryAction(key, reason)` | admin | 발행 · 철회(쿠키 세션 RPC) |
 
 ### `/app/(main)/text/actions.ts`
 

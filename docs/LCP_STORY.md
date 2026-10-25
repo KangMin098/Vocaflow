@@ -16,11 +16,13 @@
 | 합성 fixture | `packages/library-pipeline/src/story/fixtures/gull-rock.*.json` — 직접 쓴 짧은 완결 이야기 | 합성 · 실제 도서 아님 |
 | live DB 읽기 감사 · 코드 경로 감사 | `docs/lcp-story/S3_DB_AUDIT.md`(SELECT 전용 실측 · 결정) · `docs/lcp-story/S3_CODE_PATHS.md` | 작성됨(T-0169) |
 | DB 테이블 · RPC · RLS · 발행 게이트 | `supabase/migrations/20261025094450_lcp_story_s3_schema.sql` · 복구 `_pending_lcp_story_s3_quarantine.sql` · 러너 `scripts/db/lcp-story-s3/deploy.mjs` · 격리 시험 `verify-isolated.ts` | **공유 DB 적용 완료** — 사용자 승인 뒤 MCP 원장 `20261025094450` · 승인 SHA 일치 · 사후 검사 15/15. 관리자/학습자 런타임은 별도(S4/S5) |
-| S2 검증 증명 어댑터 | `packages/library-pipeline/src/story/attest.ts`(`buildValidationAttestation`) — DB 가 돌려준 저장값을 S2 검증기로 검사해 발행에 필요한 결속 증명을 만든다(§15) | 순수 함수 구현 · 작성자 테스트. 이를 service_role 로 실제 호출하는 백엔드 런타임은 없음(S4) |
-| 관리자 화면 · 학습자 화면 · 이벤트 · 추천 | 없음 | 제안(S4~S6) |
+| S2 검증 증명 어댑터 | `packages/library-pipeline/src/story/attest.ts`(`buildValidationAttestation`) — DB 가 돌려준 저장값을 S2 검증기로 검사해 발행에 필요한 결속 증명을 만든다(§15) | 순수 함수 구현 · 작성자 테스트 |
+| 검증 증인 런타임(S4) | `apps/web/src/lib/library/story/witness.ts` · 서버 액션 `attestStoryValidationAction` — 쿠키 세션 스태프 확인 뒤에만 service_role 로 §15 의 1~3 을 실행(§15) | 작성자 구현 · 가짜 클라이언트 단위 시험 · 격리 브라우저 하네스(T-0174). 공유 DB 에서 실제 실행 · 실제 발행은 하지 않음 · 독립 수용 전 |
+| 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 작성자 구현 · 단위 · 격리 브라우저 하네스(T-0174). 두 번째 인증 스태프 계정 없음 · 실제 발행 미실행 · 독립 수용 전 |
+| 학습자 화면 · 이벤트 · 추천 | 없음 | 제안(S5~S6) |
 | 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 | 없음 | 미실행(S7) |
 
-- 패키지 루트 배럴(`src/index.ts`)과 `package.json` exports 에는 아직 싣지 않았다. 소비자는 CLI 하나다.
+- 패키지 루트 배럴(`src/index.ts`)에는 싣지 않는다. S4 부터 `package.json` exports `@vocaflow/library-pipeline/story`(= `src/story/server.ts` — 작업 폴더 · CLI 제외)를 관리자 서버 코드가 쓴다. 전체 배럴(`src/story/index.ts`)의 소비자는 `scripts/lcp/story` 다.
 - 이 라인이 학습 효과를 낸다는 근거는 없다. 원문 · 흥미 진입 · 각색 효과를 섞어 교육 효과를 주장하지 않는다(§19).
 - **로컬 파일의 메타데이터는 주장이다.** 스냅숏의 권리 기록 · 대응 도서 id, 판본의 생산자, 검수의 검수자 · 출처는 입력 파일이 적은 값이며
   인증된 DB 권한 · 신원이 아니다. 로컬 검증은 그 값들의 일관성과 해시 결속만 본다. 실제 권한 · 발행 허가는 S3/S4 의 DB(RLS · RPC)가 맡는다.
@@ -244,7 +246,7 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
 - 사이트 단위 PD 표지(`claimed_by_source`)로 판본 · 번역 · 삽화 · 오디오 권리를 확정하지 않는다. 근거가 없으면 보류다.
 - 이 알고리즘은 법적 적법성을 판정하지 않는다. 권리 확인은 사람이 근거와 함께 기록한다. 로컬 파일의 권리 기록은 주장일 뿐이다(§0).
 
-## 15. 노출 게이트 (S3 결정 · 미적용 SQL 준비됨)
+## 15. 노출 게이트 (S3 결정 · 공유 DB 적용 완료 · S4 증인 런타임)
 
 live DB 실측(2026-10-25, [S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md))과 코드 경로 감사([S3_CODE_PATHS](./lcp-story/S3_CODE_PATHS.md))로 원본 경로의 실제 동작을 확인했다:
 
@@ -290,7 +292,10 @@ live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번
 - **신뢰 경계**: 증명은 「service_role 자격을 가진 백엔드가 S2 통과를 주장했다」는 기록이다. S2 가 실제로 돌았다는 암호학적 증거가 아니다 —
   service_role 키를 가진 주체는 결속을 맞춘 증명을 손으로 쓸 수 있다. 보호 수단은 그 키의 보관과 백엔드 어댑터 경로다.
 - **S2 규칙을 강화하면** 어댑터의 `ATTESTATION_VALIDATOR.contract` 와 DB `story.current_validator()` 를 함께 올리는 새 승인 마이그레이션이 필요하다 — 그러면 옛 계약판 증명은 발행을 허가하지 못한다.
-- **이 어댑터를 service_role 로 실제 호출하는 백엔드 런타임은 아직 없다(S4).** 그 전에 적용되면 발행은 막힌다(fail closed).
+- **증인 런타임(S4, 작성자 구현 · 독립 수용 전)**: `lib/library/story/witness.ts` 가 위 1~3 을 이 순서로만 한다 — 쿠키 세션의 활성 스태프(admin · curator) 확인이 실패하면 service_role 클라이언트를 만들지도, 어떤 RPC 도 부르지 않는다.
+  `story_service_validation_input` 응답을 복사 · 정규화 없이 어댑터에 넘기고, 통과했을 때만 `story_service_attest_validation` 을 부른다. 클라이언트가 보낸 증명 · 검증 결과는 받지 않는다(입력은 판 id 하나).
+  증인은 관리자 화면의 「검증 실행」 버튼(명시적 액션)으로만 돈다 — 목록 · 번들 읽기 · 화면 진입은 증인 · 권리 · 발행 요청을 보내지 않는다(격리 브라우저 하네스가 요청 기록으로 단언). 증인 뒤 발행은 별개의 쿠키 세션 `story_admin_publish` 다.
+  이 런타임은 공유 DB 에서 실제로 실행되지 않았다 — 검증은 가짜 클라이언트 시험과 격리 하네스(실제 서버 로직 + 메모리 가짜 DB)까지다. 증인이 배포되지 않은 환경에서는 여전히 발행이 막힌다(fail closed).
 
 **발행본 유일성.** 같은 원천 판본(`source_id` = 원천 정체) · 같은 판본 키에 살아 있는 발행본은 하나다(편집 기준을 다시 등록해 판본 자리가 새로 생겨도 같다) —
 두 번째 발행은 `story:live_release_exists`. 철회하면 그 자리를 새 발행본이 이어받을 수 있다. 원천 판본이 다르면(다른 스냅숏 · 정체) 같은 작품이라도 각자 발행본을 가질 수 있다.
@@ -330,11 +335,20 @@ live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번
 본문 · 원문 · 자유 텍스트 · UUID · URL 을 넣지 않는다. 세부 식별자는 서버 쪽 데이터 계약에서 다룬다.
 이벤트 이름은 `apps/web/src/lib/analytics/events.ts` 와 DB `funnel_events_event_check` 허용 목록 **둘 다**에 있어야 한다(후자는 마이그레이션 = DB 승인).
 
-## 18. 관리자 화면 (S4 제안)
+## 18. 관리자 화면 (S4 — 작성자 구현 · 독립 수용 전, T-0174)
 
-`/admin/curation` 안에서 원본 라인과 이야기 라인을 구분한다. 흐름: 후보 → 분석 → 제작 → 검수 → 발행 → 반응.
-원문 · 각색 · 변경 내역을 나란히 비교한다. 화면을 바꾸는 같은 커밋에 `apps/web/src/lib/admin/help/curation.ts` 도움말을 고친다.
-관리자는 3B 스킨, 학습자는 Tines 계열, PC 웹만.
+`/admin/curation` 맨 위 「작업 라인」에서 **원본 도서**와 **이야기 판본**(`line=story`)을 고른다. 라인 전환은 `line` 하나만 바꿔 원본 라인의 보기 · 검색 · 필터 · 쪽 · 선택 URL 이 그대로 남는다.
+이야기 라인 URL 에는 식별자만 둔다(`story_slot` · `story_panel=files`) — 원문 · 파일 내용은 URL · 브라우저 저장소에 넣지 않는다. 화면 · 경계 표는 [ADMIN_CONSOLE §/admin/curation](./ADMIN_CONSOLE.md).
+
+- 흐름(구현됨): 후보 파일 검사(서버가 S2 검증기 · plan 으로 재검사, DB 쓰기 없음) → 원천 등록 → 편집 기준 등록(판본 자리) → 판본 제출 → 다른 스태프 검수 → admin 권리 결정 → 검증 증인(버튼) → admin 발행 → 철회.
+  §18 초안의 「반응」 단계(학습자 반응 관찰)는 S5 이후다.
+- 판본 자리를 고르면 판본 단위를 고르는 대로 그 단위의 원문 구간이 강조되고 그 단위의 변경 기록만 남는다(원문 · 각색 · 변경 내역 비교). 현재 판 · 검수 · 권리 · 증명 · 발행본 상태와 다음 행동 하나를 보인다.
+- **부분 성공 · 재개**: 등록은 원천 → 편집 기준 → 판본 RPC 여러 번이며 **원자적이 아니다**. 뒤 단계가 실패하면 앞 단계 저장 결과를 그대로 보이고, 같은 파일로 다시 등록하면 기존 행(`created=false`)을 돌려받아 이어 간다. 롤백을 주장하지 않는다.
+- **source_url**: 스냅숏 값은 다듬지 않고 RPC 에 넘긴다(정체 해시에 포함). 화면은 저장값을 바꾸지 않고 보이며 http/https 만 링크로 만든다.
+- **두 사람**: 제출 계정은 같은 판을 검수 · 발행할 수 없다. 실제 발행에는 인증 스태프 계정이 최소 2개 필요하고(§15 행위자), 이 작업에서 계정 추가 · 실제 발행은 하지 않았다.
+- 도움말: `apps/web/src/lib/admin/help/curation.ts` 의 `tabs['이야기 판본']`(라인 라벨 문자열이 키). 관리자는 3B 스킨, PC 웹만. 이 라인은 계측 이벤트를 보내지 않는다.
+- 검증 경계: 컴포넌트 수준 격리 브라우저 하네스(실제 클라이언트 컴포넌트 · 앱 CSS + Server Action 대역 뒤 실제 서버 로직 · 메모리 가짜 DB)와 가짜 클라이언트 서버 시험까지다.
+  AdminShell 레이아웃의 requireAdmin · middleware · RSC 로딩 · 실제 쿠키 인증 · PostgREST/RPC · 실제 Server Action 전송을 포함한 live E2E 는 하지 않았다. DB 규칙은 S3 격리 PostgreSQL 17 시험이 검증했다.
 
 ## 19. 효과 검증 경계 (S7)
 

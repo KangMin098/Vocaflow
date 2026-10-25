@@ -73,7 +73,10 @@ revision · 대응 도서 · 권리 기록이면 다름) · 기준 · 목표 · 
 `export` · `validate` · `plan`) · 합성 fixture, 그리고 S3 산출물이다: live DB 읽기 감사 · 코드 경로 감사, **공유 DB 적용 완료** 격리 스키마 SQL
 (`supabase/migrations/20261025094450_lcp_story_s3_schema.sql` — 원본 표 · 함수 · 정책을 쓰지 않는 `story` 스키마 + `public.story_*` RPC 16개.
 발행은 service_role 이 S2 어댑터 `src/story/attest.ts` 로 저장값을 검증해 쓴 증명이 있어야 하고, 권리 보류는 열람 때마다 닫히며, 위치와 단위 완료를 나눈다),
-복구 SQL · 승인형 러너(`scripts/db/lcp-story-s3/`) · 격리 PGlite/PostgreSQL 17 검증. 사용자 승인 뒤 MCP 원장 `20261025094450`로 적용했고, 저장 SQL SHA가 승인본과 일치하며 사후 검사 15개·원본 5표의 행/정의 지문 10개를 통과했다. 증명 백엔드 런타임 · 관리자/학습자 화면은 없다.
+복구 SQL · 승인형 러너(`scripts/db/lcp-story-s3/`) · 격리 PGlite/PostgreSQL 17 검증. 사용자 승인 뒤 MCP 원장 `20261025094450`로 적용했고, 저장 SQL SHA가 승인본과 일치하며 사후 검사 15개·원본 5표의 행/정의 지문 10개를 통과했다.
+S4(T-0174, 작성자 구현 · 독립 수용 전): 관리자 이야기 라인 `/admin/curation?line=story`(화면 `app/admin/curation/StoryCurationClient.tsx` · 서버 액션 `story-actions.ts` ·
+서버 로직 `lib/library/story/{admin,witness}.ts` · 패키지 exports `@vocaflow/library-pipeline/story`). 검증 증인은 활성 스태프(admin · curator)가 그 버튼을 눌렀을 때만, 쿠키 세션의 스태프 확인을 통과한 뒤 서버가 service_role 로 실행한다(목록 · 번들 · 화면 진입은 읽기만).
+실제 발행에는 제출 계정과 다른 두 번째 인증 스태프가 필요하며, 이 작업에서 실제 발행 · 계정 추가는 하지 않았다. 학습자 화면(S5)은 없다. 화면 · 경계는 [ADMIN_CONSOLE §/admin/curation](./ADMIN_CONSOLE.md) · [LCP_STORY §18](./LCP_STORY.md).
 원본 `auto_curate_book` · force-publish · `content_chunks` · `get_chapter_content` 경로는 `story` 를 읽지도 쓰지도 않으므로 Story 판본이 그 길로 새지 않는다.
 원본 쪽의 기존 노출(로그인 사용자의 `content_chunks` 전체 조회 등)은 원본 LCP 결함으로 남아 있다([S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md) D5).
 정본 [LCP_STORY](./LCP_STORY.md) · 단계 지시 [lcp-story/IMPLEMENTATION](./lcp-story/IMPLEMENTATION.md).
