@@ -19,8 +19,8 @@
 | S2 검증 증명 어댑터 | `packages/library-pipeline/src/story/attest.ts`(`buildValidationAttestation`) — DB 가 돌려준 저장값을 S2 검증기로 검사해 발행에 필요한 결속 증명을 만든다(§15) | 순수 함수 구현 · 작성자 테스트 |
 | 검증 증인 런타임(S4) | `apps/web/src/lib/library/story/witness.ts` · 서버 액션 `attestStoryValidationAction` — 쿠키 세션 스태프 확인 뒤에만 service_role 로 §15 의 1~3 을 실행(§15) | 작성자 구현 · 가짜 클라이언트 단위 시험 · 격리 브라우저 하네스(T-0174). 공유 DB 에서 실제 실행 · 실제 발행은 하지 않음 · 독립 수용 완료(T-0174 `fcf57c225e2a`) |
 | 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 작성자 구현 · 단위 · 격리 브라우저 하네스(T-0174). 두 번째 인증 스태프 계정 없음 · 실제 발행 미실행 · 독립 수용 완료(T-0174 `fcf57c225e2a`) |
-| 학습자 화면(S5) | `/library/stories` · `/library/stories/[releaseKey]?unit=` — `lib/library/story/learner.ts` · `app/(main)/library/stories/**` · `components/library/story/**`(§12) | 작성자 구현 · 격리 브라우저 하네스 working-tree dev 실행(T-0176). 읽기 문맥 RPC 는 SQL r3 **미승인 · 미적용** — 공유 DB 에서는 「준비 중」. committed-HEAD 정식 실행 · 독립 수용 · live E2E 없음 |
-| 이벤트(S5) | `events.ts` `story_catalog_viewed` · `story_reader_action`(§17) | 코드만 — DB 허용 목록은 같은 SQL r3 §C(미적용) |
+| 학습자 화면(S5) | `/library/stories` · `/library/stories/[releaseKey]?unit=` — `lib/library/story/learner.ts` · `app/(main)/library/stories/**` · `components/library/story/**`(§12) | 코드 독립 수용 완료(T-0176 `9b39634c5` · 격리 브라우저 1440/1280). 읽기 문맥 RPC 는 SQL r3 승인 · **공유 DB 적용 완료**(원장 `20261025143031`, §12). 공유 DB 에 발행된 Story 가 0 이라 인증 학습자의 live 본문 · 진도 여정은 **NOT_RUN** |
+| 이벤트(S5) | `events.ts` `story_catalog_viewed` · `story_reader_action`(§17) | 코드 + DB 허용 목록 적용(같은 SQL §C · 실제 CHECK SELECT 평가 62/62). 쓰기형 `db-allowlist` 시험은 NOT_RUN |
 | 추천 | 없음 | 제안(S6) |
 | 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 | 없음 | 미실행(S7) |
 
@@ -208,7 +208,7 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
 (S4 제안) candidate ─사람 승인 + DB 게이트▶ published ─철회▶ withdrawn(노출 · 열람 차단, 학습 이력 보존)
 ```
 
-## 12. 학습자 진도 · 완료 계약 (DB 는 S3 적용 완료 · 화면 S5 작성자 구현 · 읽기 문맥 RPC 는 SQL 승인 대기)
+## 12. 학습자 진도 · 완료 계약 (DB 는 S3 · S5 적용 완료 · 화면 S5 코드 수용 · 실제 작품 · live 여정 미실행)
 
 - 기존 runtime 은 `library_book_id` 중심이다: `enroll_library_book(p_book_id)` 가 챕터별 `texts` 를 만들고,
   `completeChapter` 는 같은 `library_book_id` 의 모든 `texts` 가 completed 면 도서 완료로 본다(`apps/web/src/lib/library/complete-chapter.ts`).
@@ -227,8 +227,17 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
   화면 렌더 · 새로 고침은 기록하지 않는다. 위치는 시작 · 이어 읽기 · 이동 클릭, 완료는 「이 단위 읽음 표시」로만 기록한다. 모든 저장은 서버에서 쿠키 세션 학습자 판정 →
   화면 주인(`expectedViewerId`)과 다르면 `viewer_changed`(RPC 0) → 읽기 문맥 확인 뒤에만 쓴다. 개인 내용(본문 · 앵커 · 진도 · 이력)은 브라우저 신원이 서버 viewerId 와 같다고 확인된 뒤에만 보이며
   이는 표시 · 요청 보호다(이미 받은 응답 바이트는 회수하지 않는다). 완료 문구는 전 단위 표시 뒤에만: `adapted_full_work` = 「각색 완독」, 그 밖 = 「이 부분 읽기 완료」 — 원문 완독 · 숙달 · FSRS 를 말하지 않는다.
-- **읽기 문맥 RPC**: `public.story_reader_context(p_release_key, p_unit_index) returns jsonb`(목차 · 내 진도 · 고른 단위 앵커 인용 · 원천 메타)는 S5 SQL r3(AI-Control `runtime/lcp-story-20261025/s5-proposal-forward.sql`,
-  SHA-256 `a57ef729cedddc9f6271370fa5f93595a1dca6e273230b741bdfffc535f161ab`)의 **제안 · 미승인 · 미적용**이다. 없으면(PGRST202) 독서 화면은 「준비 중」(꾸민 목차 · 앵커 · 진도 없음)이고 저장은 쓰기 RPC 에 닿지 않는다.
+- **읽기 문맥 RPC**: `public.story_reader_context(p_release_key, p_unit_index) returns jsonb`(목차 · 내 진도 · 고른 단위 앵커 인용 · 원천 메타 · authenticated 만 · 읽기 전용)는
+  사용자 승인 SQL r3(SHA-256 `a57ef729cedddc9f6271370fa5f93595a1dca6e273230b741bdfffc535f161ab`)로 **공유 dev DB 에 적용됐다**(2026-10-25 · 원장 `20261025143031` ·
+  `supabase/migrations/20261025143031_lcp_story_s5_reader_context.sql` — 머리말의 「제안 · 미적용」은 승인 당시 문구). 이 RPC 가 없는 환경(PGRST202)에서는 여전히 독서 화면이 「준비 중」이고 저장은 쓰기 RPC 에 닿지 않는다.
+- **S5 현재 상태(2026-10-25 적용 뒤)**:
+
+  | 항목 | 상태 · 증거 | 남은 한계 |
+  |---|---|---|
+  | 코드 | T-0176 `9b39634c5` 독립 수용 · 로컬 main 코드 통합 `1a5253561` — 범위 vitest 35파일 769 · 격리 브라우저 34(1440/1280) · tsc · eslint 0 · skip 0 | 전역 `learner-routes` 의 `/csat/listening` 1 실패는 깨끗한 기준선에도 있는 기존 실패(전체 통과 아님) |
+  | DB | r3 적용 · 새 RPC 1(authenticated 만) · 이벤트 2 · 기존 Story RPC 16 정의 · ACL 불변 · 원본/Story 15표 행 · 정의 지문 불변 | 복구 SQL 실행 승인 없음 |
+  | live 확인 | 익명 PostgREST: 서가 200 · 빈 배열 · 읽기 문맥 401/`42501`(노출 · anon 거부) · 실제 로컬 main Next/RSC PC1440/1280 빈 서가 · 비로그인 진입(개인 DOM · 넘침 · 페이지 오류 0) | 공유 DB Story 발행 0 → 인증 RSC · 쿠키 · Server Action HTTP · 본문/진도 여정 **NOT_RUN** |
+  | 콘텐츠 · 교육 | 편집 목표는 목표일 뿐 진단 적합이 아니다 | 권리 확인 실제 작품 0 · 콘텐츠 적합 **NOT_RUN** · `PILOT_NOT_RUN` · 학습 효과 근거 없음 |
 
 ## 13. 학습 근거 정책 (`EVIDENCE_POLICY`)
 
@@ -336,14 +345,15 @@ live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번
 검수된 판본 중 **제공 가능 → 언어 적합 → 관심 · 목표 → 분량 · 반응 → 다양성 조정** 순서로 고른다. 개인별 즉석 생성은 초기 제외.
 미진단은 `unknown` 이며 점수 0 이 아니다. 미평가도 0 이 아니다. 도움 요청만으로 수준을 내리거나 취향을 고정하지 않는다.
 
-## 17. 이벤트 (S5 — 코드 구현 · DB 허용 목록 SQL 승인 대기)
+## 17. 이벤트 (S5 — 코드 구현 · DB 허용 목록 적용 완료)
 
 새 공개 화면은 진입 + 내부 상호작용 이벤트를 같은 커밋에 둔다(AGENTS D2). 속성은 숫자 · 불리언 · 닫힌 열거형만(D3) —
 본문 · 원문 · 자유 텍스트 · UUID · URL 을 넣지 않는다. 세부 식별자는 서버 쪽 데이터 계약에서 다룬다.
 이벤트 이름은 `apps/web/src/lib/analytics/events.ts` 와 DB `funnel_events_event_check` 허용 목록 **둘 다**에 있어야 한다(후자는 마이그레이션 = DB 승인).
 - `story_catalog_viewed {works, editions, signed_in}` — 서가 데이터를 받은 뒤 한 번(조회 실패 때는 보내지 않는다).
 - `story_reader_action {action: start|resume|navigate|unit_complete|source_open|edition_switch, kind, coverage, unit_index, completed}` — 저장 행동은 RPC 성공 뒤에만(실패 · 버린 응답은 보내지 않는다). 발행 키 · 제목 · URL · 인용 · 사용자 id · 고른 낱말은 싣지 않는다.
-- 코드에는 있다. DB 허용 목록 확장은 SQL r3 §C(미승인 · 미적용)라 지금 DB 는 이 두 이름을 받지 않는다 — 코드 ⊆ DB 시험(`db-allowlist.integration.test.ts`)은 **NOT_RUN**.
+- 코드와 DB 둘 다에 있다. DB 허용 목록은 승인 SQL r3 §C 로 적용됐다(원장 `20261025143031` · 기존 식 보존 + 두 이름 추가). 적용 뒤 실제 CHECK 식을 SELECT 로 평가해
+  현재 `EVENT_REGISTRY` 62개 이름이 모두 허용됨을 확인했다. 행을 쓰는 코드 ⊆ DB 시험(`db-allowlist.integration.test.ts`)은 공유 DB INSERT/DELETE 승인이 없어 **NOT_RUN** 이다.
 
 ## 18. 관리자 화면 (S4 — 독립 수용 완료 · T-0174 `fcf57c225e2a`, T-0174)
 
