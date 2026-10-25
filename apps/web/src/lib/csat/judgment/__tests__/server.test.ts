@@ -9,7 +9,7 @@ import { loadJudgmentItem, loadJudgmentReveal } from '../server'
 
 type Rows = Record<string, Record<string, unknown>[]>
 /** gate: 보류 판정 RPC(csat_ec_embargoed_items · csat_ec_embargoed_exams) — held 에 든 id 는 보류, 'fail' 이면 판정 실패 */
-function fakeDb(rows: Rows, failTable?: string, gate: { held?: string[]; fail?: boolean } = {}) {
+function fakeDb(rows: Rows, failTable?: string, gate: { held?: readonly string[]; fail?: boolean } = {}) {
   const selects: { table: string; cols: string }[] = []
   const rpcs: string[] = []
   const rpc = (fn: string, args: { p_items?: string[]; p_exams?: string[] }) => {
