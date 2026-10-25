@@ -475,6 +475,29 @@ export type PublicEvent =
    * (닫힌 목록 · 동적 세그먼트는 `text-workspace` 처럼 접힌 이름)이고, 목록 밖이면 `'other'`.
    * 경로 원문·id·쿼리는 실리지 않는다. 회귀가 모든 id 가 `isSafeProps` 를 넘는지 검사한다.
    */
+  /**
+   * **LCP Story 서가(`/library/stories`) 진입 · 실제 수 — docs/LCP_STORY.md §17.** 진입 화면 자체는 `screen_viewed`(library-stories)가
+   * 세고, 이것은 서가 데이터를 실제로 받은 **뒤** 한 번 보낸다(조회 실패 때는 보내지 않는다 — 실패를 「0편」으로 세지 않는다).
+   * 작품 · 판본 수는 서버가 받은 실제 행 수다. 작품 키 · 발행 키 · 제목은 싣지 않는다.
+   * ⚠️ DB `funnel_events_event_check` 허용 목록은 S5 SQL 승인 · 적용 전이라 아직 이 이름을 받지 않는다(코드만 먼저 · 대기).
+   */
+  | { name: 'story_catalog_viewed'; props: { works: number; editions: number; signed_in: boolean } }
+  /**
+   * **LCP Story 독서 행동 — 닫힌 목록.** start · resume · navigate 는 위치 기록 RPC 가 성공한 뒤, unit_complete 는 단위 완료 RPC 가
+   * 성공한 뒤에만 보낸다(저장 실패를 성공으로 세지 않는다). source_open 은 원문 대응을 연 때, edition_switch 는 같은 작품의
+   * 다른 판본으로 가는 링크를 누른 때다. `completed` = 그 행동 뒤 이 발행본의 전 단위 완료 여부(각색 완료 · 원문 완독 · 숙달 · FSRS 아님).
+   * 발행 키 · 제목 · 원문 URL · 인용 · 사용자 id 는 싣지 않는다. DB 허용 목록은 위와 같이 대기.
+   */
+  | {
+      name: 'story_reader_action'
+      props: {
+        action: 'start' | 'resume' | 'navigate' | 'unit_complete' | 'source_open' | 'edition_switch'
+        kind: 'story_edition' | 'easy_reader'
+        coverage: 'complete_work' | 'episode' | 'excerpt'
+        unit_index: number
+        completed: boolean
+      }
+    }
   | {
       name: 'screen_viewed'
       props: {
@@ -634,6 +657,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_factory_dcp_returned: true,
   csat_factory_dcp_requested: true,
   csat_source_lesson_reflected: true,
+  story_catalog_viewed: true,
+  story_reader_action: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

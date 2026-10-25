@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(lcp): Story S5(T-0176, 작성자 구현 · 커밋 전) — 학습자 서가 `/library/stories` · 판본 독서 `/library/stories/[releaseKey]?unit=`(명시적 위치 · 단위 완료 · 각색 완독 ≠ 원문 완독 · 판본별 진도 · 요청 시 원문 대응 · 단어 뜻), 이벤트 2종(코드), 격리 브라우저 하네스(working-tree dev 34 통과). 읽기 문맥 RPC · 이벤트 허용 목록 SQL r3 은 미승인 · 미적용이며 committed-HEAD 정식 실행 · live E2E · 실제 학습자 파일럿은 없다.
+
 - feat(lcp): Story S4(T-0174, Codex 독립 수용 · 로컬 main 통합 완료) — `/admin/curation` 작업 라인(원본 도서 / 이야기 판본 `line=story`), 후보 파일 S2 재검사 → 원천 · 편집 기준 · 판본 등록(원자적 아님 · 같은 파일로 재개) → 다른 스태프 검수 → admin 권리 → 명시적 검증 증인(service_role) → 발행 · 철회, 원문 · 판본 · 변경 기록 비교, 도움말 「이야기 판본」, `@vocaflow/library-pipeline/story` exports, 격리 브라우저 하네스(실제 컴포넌트 · 실제 서버 로직 + 가짜 DB, 7 통과). 두 번째 스태프 계정 · 실제 발행 · live 쿠키/RPC E2E 는 없다.
 
 - feat(lcp): 사용자 승인 후 Story 격리 스키마를 dev DB에 MCP로 적용했다(원장 `20261025094450`, 저장 SQL SHA 승인본 일치). 사후 검사 15/15·원본 5표 행/정의 지문 10/10 불변을 확인하고 실제 버전으로 러너·격리 하네스를 결속했다. 관리자/학습자 화면·증인 런타임·사람 파일럿은 남아 있다.
