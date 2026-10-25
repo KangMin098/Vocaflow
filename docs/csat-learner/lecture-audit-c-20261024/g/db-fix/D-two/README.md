@@ -24,3 +24,12 @@
   `node scripts/db/csat-content-fix/deploy.mjs apply --stage c-src2 --sql <D-two/forward.sql 절대경로> --deps D:/workspace/Vocaflow-ec-smoke/scripts/csat/error-evidence/isolated-pg --ca D:/workspace/Vocaflow-factory-order-lineage-20261020/.agent-logs/d3-approved-supabase-ca.crt --confirm-sha a358a7d717a7d3d14dbfcc6d3c231bb3b089c1c989bcf292077443393a762e9a`
 - **막힌 곳:** 러너는 Postgres 접속 문자열 `VF_DEPLOY_DB_URL`(셸 환경 또는 worktree 루트 `.env.local`)이 필요한데 이 환경에 없다(`apps/web/.env.local` 키 목록은 API 키뿐). preflight 단계에서 「접속 문자열 … 가 없다」로 멈췄다 — DB 에는 접속하지 않았다.
 - 적용 뒤: check.sql(after 2) · 수리 기록 `recipe-D-two.json` 을 `kice-source-repairs.json` 에 mergeSourceRepair · 결속 감사 2문항 · 원장 재생성 대조.
+
+## 적용 기록 (2026-10-25)
+
+- 1차 apply(sha `a358a7d7…`, 티켓 3b09ea29a03a): 빈 문자열 `$q$$q$` 의 `$$` 가 바깥 `DO $$` 를 닫아 구문 오류 → 러너 롤백 · DB 무변경(SELECT 확인).
+- 생성기 수정(빈 문자열 = `''`) → forward sha **`9e68f0ec32e82eefb2398920a3f19aa3da745ba6b557c3aff7e1e8a56d1708aa`** · 러너 단계 갱신(로컬 main 2690618d6).
+- 2차 apply(티켓 bfac52eb32f5): 적용 · 러너 검증 ok(2014B#36 0b6a803c · 2017#42 ac52fa4a) · choices 불변.
+- 수리 기록 2건 병합(로컬 main 0ce09ed6d) · 재생성 원장 지문 = DB 2/2 · 수리 테스트 16/16.
+- G 결속 감사: 두 문항 결함 0(이전 지문 끝 표 머리 잔여 없음) · 차단 이유는 수능·모평 공통(no_current_units · analysis_unbound)만.
+- 접속: 러너가 `VF_DEPLOY_ENV_FILE`(D:/workspace/Vocaflow-db1-apply/apps/web/.env.local) · `--db-url-env SUPABASE_DB_URL` 로 실행 프로세스에만 읽음. 값은 출력·기록하지 않음.

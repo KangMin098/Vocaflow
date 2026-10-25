@@ -41,7 +41,8 @@ for (const [id, file, from, to, beforeMd5, basis] of FIX) {
   rows.push({ id, file, pdf_sha256: sourceDigest(bytes), from, to, before_md5: beforeMd5, after_md5: md5(after), before_len: before.length, after_len: after.length, ledger_equals_after: !recipe, basis, recipe })
 }
 
-const lit = (s) => { if (s.includes('$q$')) throw new Error('인용 충돌'); return `$q$${s}$q$` }
+// 빈 문자열은 ''. $q$$q$ 는 안의 $$ 가 바깥 DO $$ 블록을 닫는다(c-src2 1차 apply 롤백 원인)
+const lit = (s) => { if (s === '') return "''"; if (s.includes('$q$') || s.includes('$$')) throw new Error('인용 충돌'); return `$q$${s}$q$` }
 const block = (title, pairs) => `do $$
 declare n int; total int := 0;
 begin
