@@ -24,6 +24,45 @@ export interface PendingSrsResult {
   reviewedAt: string;
   /** 어떤 모듈에서 평가됐는지 — learning_records.module */
   module: string;
+  /**
+   * 평가한 계정 id(T-0172 공용 기기). 큐에 넣을 때 붙이고, flush 는 지금 계정 것만 보내고 지운다.
+   * 없는 항목(옛 큐 · 계정을 끝내 모른 평가)은 누구에게도 보내지 않고 지우지도 않는다(보류).
+   */
+  owner?: string;
+}
+
+// ── 큐 주인(T-0172) ──────────────────────────────────────────────────────
+// 같은 브라우저를 두 계정이 쓰면 공용 키의 큐가 다음 계정의 flush 로 그 계정 카드에 적용됐다.
+// 주인은 flush-session 이 브라우저 세션에서 읽고 **계정 전환을 구독해**(다른 탭 로그인 · 로그아웃 포함) 늘 지금 값으로 둔다.
+// 평가는 큐에 넣는 순간의 주인으로 표시한다. 주인을 모르면(세션 읽기 실패 · 로그아웃) 주인 없이 보류 — 이전 주인을 쓰지 않는다.
+let queueOwner: string | null = null;
+
+/** 서버 ACK 와 같은 자 — `flush-actions.ts` 가 같은 모양으로 돌려준다 */
+export const pendingKey = (p: { word: string; reviewedAt: string; module: string }) => `${p.word}@${p.reviewedAt}@${p.module}`;
+
+export function getSrsQueueOwner(): string | null {
+  return queueOwner;
+}
+
+/** 주인 판(版) — 주인을 바꿀 때마다 는다. 늦게 온 세션 조회 응답이 그 사이의 인증 이벤트를 덮지 않게 비교한다(T-0172 r2 P1-2) */
+let ownerVersion = 0;
+
+export function getSrsOwnerVersion(): number {
+  return ownerVersion;
+}
+
+export function setSrsQueueOwner(owner: string | null): void {
+  queueOwner = owner;
+  ownerVersion += 1;
+}
+
+function writeSafe(items: PendingSrsResult[]): void {
+  try {
+    if (items.length === 0) localStorage.removeItem(KEY);
+    else localStorage.setItem(KEY, JSON.stringify(items));
+  } catch {
+    /* quota 등 — 학습 흐름은 유지 */
+  }
 }
 
 /**
@@ -77,7 +116,9 @@ function readSafe(): PendingSrsResult[] {
 export function pushPendingResult(item: PendingSrsResult): void {
   if (typeof window === 'undefined') return;
   const existing = readSafe();
-  existing.push(item);
+  const { owner: _ignored, ...rest } = item;
+  void _ignored;
+  existing.push(queueOwner ? { ...rest, owner: queueOwner } : rest);
   try {
     localStorage.setItem(KEY, JSON.stringify(existing));
   } catch {
@@ -85,13 +126,30 @@ export function pushPendingResult(item: PendingSrsResult): void {
   }
 }
 
+/** **지금 계정의** 대기 평가만 — 다른 계정 · 주인 없는 항목은 보류라 돌려주지 않는다 */
 export function getPendingResults(): PendingSrsResult[] {
-  return readSafe();
+  if (!queueOwner) return [];
+  return readSafe().filter((p) => p.owner === queueOwner);
 }
 
+/**
+ * **서버가 확인한(ACK) 항목만** 지운다 — `owner` 의 항목 중 `acked` 키에 든 것. 그 밖(미확인 · 거절 · 다른 계정 ·
+ * 주인 없는 항목)은 남긴다. 원 소유자가 다시 로그인하면 그때 전송된다(T-0172).
+ */
+export function removeAckedResults(owner: string, acked: string[]): void {
+  if (typeof window === 'undefined' || acked.length === 0) return;
+  const drop = new Set(acked);
+  writeSafe(readSafe().filter((p) => p.owner !== owner || !drop.has(pendingKey(p))));
+}
+
+/**
+ * **지금 계정의** 대기 평가를 모두 지운다. 다른 계정 · 주인 없는 항목은 남긴다(T-0172).
+ * flush 는 이 함수를 쓰지 않는다 — 서버 확인 없이 지우면 유실이다(`removeAckedResults`).
+ */
 export function clearPendingResults(): void {
   if (typeof window === 'undefined') return;
-  localStorage.removeItem(KEY);
+  const owner = queueOwner;
+  if (owner) writeSafe(readSafe().filter((p) => p.owner !== owner));
   try {
     sessionStorage.removeItem(KEY);
   } catch {
