@@ -50,6 +50,13 @@ export const STAGES = {
     verify: `select count(*) = 2, string_agg(id || ':' || left(md5(passage), 8), ',' order by id) from public.csat_items
       where (id = '2014B#36' and md5(passage) = '0b6a803ce0d702594d3d85705013be45') or (id = '2017#42' and md5(passage) = 'ac52fa4ae3dae03384dc2983a4fb6430')`,
   },
+  // 2015#25 분석 v6(in_review) — ⑤ 공식 정답 반영. 본문은 feat/csat-content-review-f-20261024
+  //   docs/csat-learner/content-review/2015-25/sql/analysis-v6.draft.sql. 사용자 승인 2026-10-25(「적용승인」)
+  'cr-2015-25-v6': {
+    sha256: '12e3e89fa7f4a18bafae32ddc4eb6a2fe5537532582dbc240eff7129a7445d6b',
+    verify: `select count(*) = 1, count(*)::text from public.csat_item_analyses a, jsonb_array_elements(a.choice_analysis) e
+      where a.item_id = '2015#25' and a.version = 6 and a.status = 'in_review' and (e->>'n')::int = 5 and e->>'verdict' = 'correct'`,
+  },
 }
 
 const sha256 = (b) => crypto.createHash('sha256').update(b).digest('hex')
