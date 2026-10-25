@@ -1,0 +1,3251 @@
+{
+ "total": 576,
+ "summary": {
+  "read-only": {
+   "n": 267,
+   "top_dirs": [
+    [
+     "scripts/csat",
+     68
+    ],
+    [
+     "scripts/textbook",
+     49
+    ],
+    [
+     "scripts/dict",
+     48
+    ],
+    [
+     "scripts/research",
+     24
+    ],
+    [
+     "scripts/audit",
+     13
+    ],
+    [
+     "scripts/compose",
+     13
+    ],
+    [
+     "scripts/knowledge",
+     6
+    ],
+    [
+     "apps/web/scripts",
+     5
+    ]
+   ]
+  },
+  "admin-write-gated": {
+   "n": 134,
+   "top_dirs": [
+    [
+     "scripts/dict",
+     31
+    ],
+    [
+     "scripts/csat",
+     30
+    ],
+    [
+     "scripts/textbook",
+     17
+    ],
+    [
+     "scripts/lcp",
+     12
+    ],
+    [
+     "scripts/acp",
+     11
+    ],
+    [
+     "scripts/compose",
+     8
+    ],
+    [
+     "scripts/vocab",
+     6
+    ],
+    [
+     "scripts/vcb",
+     5
+    ]
+   ]
+  },
+  "admin-write-ungated": {
+   "n": 56,
+   "top_dirs": [
+    [
+     "scripts/csat",
+     23
+    ],
+    [
+     "scripts/comic",
+     7
+    ],
+    [
+     "scripts/lcp",
+     7
+    ],
+    [
+     "scripts/research",
+     6
+    ],
+    [
+     "scripts/knowledge",
+     3
+    ],
+    [
+     "apps/web/scripts",
+     2
+    ],
+    [
+     "scripts/compose",
+     2
+    ],
+    [
+     "scripts/backfill-context-pos.mts",
+     1
+    ]
+   ]
+  },
+  "product-read": {
+   "n": 17,
+   "top_dirs": [
+    [
+     "apps/web/src",
+     17
+    ]
+   ]
+  },
+  "product-write": {
+   "n": 19,
+   "top_dirs": [
+    [
+     "apps/web/src",
+     19
+    ]
+   ]
+  },
+  "test-read": {
+   "n": 64,
+   "top_dirs": [
+    [
+     "apps/web/src",
+     28
+    ],
+    [
+     "apps/web/tests",
+     23
+    ],
+    [
+     "scripts/csat",
+     13
+    ]
+   ]
+  },
+  "test-write": {
+   "n": 19,
+   "top_dirs": [
+    [
+     "apps/web/src",
+     13
+    ],
+    [
+     "apps/web/tests",
+     4
+    ],
+    [
+     "scripts/csat",
+     2
+    ]
+   ]
+  }
+ },
+ "files": [
+  {
+   "f": "apps/web/scripts/csat-binding-audit.mts",
+   "cls": "read-only",
+   "rpcs": [
+    "csat_current_units_many",
+    "csat_item_input_hash"
+   ]
+  },
+  {
+   "f": "apps/web/scripts/csat-learner/remap-lecture-circled-split.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/scripts/csat-lecture/env.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/scripts/tcp-diag.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/scripts/tcp-drain.mts",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "enqueue_topic_corpus_docs",
+    "claim_topic_corpus_batch",
+    "release_topic_corpus_claim",
+    "ingest_topic_corpus_doc",
+    "apply_topic_categories"
+   ]
+  },
+  {
+   "f": "apps/web/scripts/tcp-triage-gaps.mts",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "unresolved_dict_words"
+   ]
+  },
+  {
+   "f": "apps/web/scripts/verify-final-assessment-live.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "csat_map_goal_final_assessment_bind"
+   ]
+  },
+  {
+   "f": "apps/web/scripts/verify-goal-budget-live.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "csat_goal_budget_valid",
+    "csat_map_goal_budget_set"
+   ]
+  },
+  {
+   "f": "apps/web/scripts/video-source.mts",
+   "cls": "read-only",
+   "rpcs": [
+    "textbook_shelf_inventory"
+   ]
+  },
+  {
+   "f": "apps/web/src/app/admin/articles/preview/[id]/page.tsx",
+   "cls": "product-read",
+   "rpcs": [
+    "select_article_vocab"
+   ]
+  },
+  {
+   "f": "apps/web/src/app/admin/compose/page.tsx",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/acp/dev-drain-queue/route.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/acp/dev-enqueue/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/acp/dev-process/route.ts",
+   "cls": "product-write",
+   "rpcs": [
+    "compute_article_vrl",
+    "compute_article_syntax"
+   ]
+  },
+  {
+   "f": "apps/web/src/app/api/acp/set-audio/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/articles/bulk-requeue/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/articles/delete/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/articles/force-publish/route.ts",
+   "cls": "product-write",
+   "rpcs": [
+    "admin_force_publish_article"
+   ]
+  },
+  {
+   "f": "apps/web/src/app/api/admin/articles/revert/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/articles/seed/delete/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/library/backfill-covers/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/library/convert-to-se/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/library/delete-seed-catalog/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/library/enrich-seed-batch/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/library/fetch-seed-batch/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/library/force-publish-book/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/admin/library/save-librivox-audio/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/analytics/event/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/lcp/dev-enqueue-book/route.ts",
+   "cls": "product-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/lcp/dev-process/route.ts",
+   "cls": "product-write",
+   "rpcs": [
+    "backfill_book_lemmas",
+    "collect_archaic_candidates",
+    "archive_book_pipeline_messages"
+   ]
+  },
+  {
+   "f": "apps/web/src/app/api/lcp/dev-validate/route.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/lcp/process/route.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/app/api/lcp/process/route.ts",
+   "cls": "product-write",
+   "rpcs": [
+    "backfill_book_lemmas",
+    "collect_archaic_candidates",
+    "auto_curate_book",
+    "pgmq_archive"
+   ]
+  },
+  {
+   "f": "apps/web/src/components/admin/RetentionPanel.tsx",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/components/admin/__tests__/RetentionPanel.test.tsx",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/__tests__/dashboard-stats.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/__tests__/video-drift.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "textbook_shelf_inventory"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/admin/db-health/__tests__/advisor-hygiene.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/db-health/__tests__/queries.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "db_health_anomalies"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/admin/db-health/__tests__/silent-noop.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/help/articles.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/help/comic.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/help/csat.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/help/curation.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/help/textbook.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/help/topic-corpus.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/help/video.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/admin/help/vocab.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/analytics/__tests__/db-allowlist.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/analytics/__tests__/funnel-contract.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "exec_sql_readonly",
+    "record_funnel_event"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/auth/__tests__/privilege-escalation.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/auth/__tests__/rls-surface.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "join_class_by_code"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/csat/__tests__/choice-polarity-fresh.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/csat/__tests__/copyright-boundary.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/csat/__tests__/evidence-scope.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/csat/__tests__/factory.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "textbook_shelf_inventory",
+    "textbook_shelf_refreshed_at"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/csat/__tests__/guide-source.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "csat_published_item_count",
+    "unresolved_dict_words"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/csat/__tests__/report-markup.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/csat/__tests__/trap-atlas-fresh.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/csat/__tests__/trap-drill-fresh.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/csat/judgment/__tests__/server.live.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/dictation/__tests__/session-rls.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/echo/__tests__/sound-signal.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/learner/__tests__/dcp-grade-records.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "csat_source_is_gradeable",
+    "grade_dcp_item",
+    "textbook_practice_items_for",
+    "textbook_practice_items"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/learner/__tests__/dcp-playable-types.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/learner/__tests__/grade-band-is-fit.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "csat_source_is_gradeable",
+    "grade_dcp_item"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/learner/__tests__/plan-material-queries.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/closed-class-resolve.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "resolve_dict_headword"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/content-quality-gate.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "run_content_quality_gates",
+    "content_gate_publishable"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/content-storage.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/extraction-rpc.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "select_book_chapter_vocab",
+    "select_article_vocab"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/published-books-enrollable.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/recommend-blueprint.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "recommend_word_sets_for_user"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/slur-not-published.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "resolve_dict_headword"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/unpublished-book-sets.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/library/__tests__/word-set-rls.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "deliver_chapter_vocab",
+    "_enroll_book_subscribe_word_sets"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/marketing/trust-signals.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/supabase/admin.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/supabase/client.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/supabase/server.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/teacher/__tests__/assignment-rls.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/text-extract/__tests__/resolve-headword.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "resolve_dict_headword",
+    "unresolved_dict_words"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/topic-corpus/__tests__/language-gate.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "ingest_topic_corpus_doc"
+   ]
+  },
+  {
+   "f": "apps/web/src/lib/vcb/compose/__tests__/compose-eval.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/vcb/compose/__tests__/compose-sweep.integration.test.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/vcb/compose/__tests__/confusion-log.integration.test.ts",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/src/lib/vcb/server/production.ts",
+   "cls": "product-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated-fault/csat-v31-meaning.fault.spec.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "csat_ec_embargoed_items"
+   ]
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/attachment-instructional.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/authored-format-cycle.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/authored-formats.isolated.spec.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "workspace_demand_record",
+    "workspace_delivery_record",
+    "content_human_decision_revoke"
+   ]
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/authored-supply.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/authored-support.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/csat-v31-meaning.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "csat_ec_embargoed_exams",
+    "csat_ec_embargoed_items",
+    "csat_ec_my_capture_state",
+    "csat_ec_record_session_held",
+    "csat_ec_capture_open",
+    "csat_ec_capture_finish"
+   ]
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/csat-v32-mywords-sync.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/goal-plan-summary.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/goal-plan-version.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/home-map-evidence.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/journey-evidence.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/journey.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": [
+    "workspace_demand_record",
+    "workspace_delivery_record"
+   ]
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/map-goal.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/map-next-action.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/map-no-record-start.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/map-read-recovery.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/map-return-recap.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/map-study-entry.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/map-supply-outcome.isolated.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e-isolated/vocab-core-roundtrip.isolated.spec.ts",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e/05-learner-loop.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e/24-wordvault-real-stats.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e/25-practice-pool.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e/36-student-arrival.spec.ts",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e/39-library-scale.spec.ts",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "apps/web/tests/e2e/utils/db.ts",
+   "cls": "test-write",
+   "rpcs": [
+    "unresolved_dict_words"
+   ]
+  },
+  {
+   "f": "apps/web/vitest.config.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "docs/research/r5-e2e-20261018/capture-r5.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "packages/library-pipeline/src/client.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "packages/library-pipeline/src/env.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "packages/vcb-core/src/supabase-admin.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "packages/video-factory/src/jobs/client.ts",
+   "cls": "read-only",
+   "rpcs": [
+    "video_job_advance",
+    "video_job_evaluate",
+    "video_jobs_overview"
+   ]
+  },
+  {
+   "f": "packages/video-factory/src/render/publish.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/acp/backfill-feed-id.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/acp/backfill-source-ids.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/acp/collect-daily.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/acp/harvest-voa-sitemap.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/acp/plos-abstract-repair.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/acp/process-queue.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "compute_article_vrl",
+    "compute_article_syntax"
+   ]
+  },
+  {
+   "f": "scripts/acp/prune-vocab-sentences.mjs",
+   "cls": "read-only",
+   "rpcs": [
+    "count_article_vocab_prunable",
+    "prune_article_vocab_sentences"
+   ]
+  },
+  {
+   "f": "scripts/acp/publish-article-seeds.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "compute_article_vrl"
+   ]
+  },
+  {
+   "f": "scripts/acp/publish-voa-seeds.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "compute_article_vrl"
+   ]
+  },
+  {
+   "f": "scripts/acp/release-ready-vocab.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/acp/reprocess.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "compute_article_vrl",
+    "compute_article_syntax"
+   ]
+  },
+  {
+   "f": "scripts/acp/title-entity-repair.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/analytics/check-instrumentation.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit-dict-pos-mismatch.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/blank-exposure.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/csat-sources-audit.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/dict-render-path.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/factory-sources.mts",
+   "cls": "read-only",
+   "rpcs": [
+    "textbook_shelf_inventory",
+    "csat_coverage"
+   ]
+  },
+  {
+   "f": "scripts/audit/progress-surface.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/reader-articles.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/reader-pp-probe.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/reader-surface.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/scriptquiz-surface.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/scriptquiz-surface2.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/scriptquiz-surface3.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/scriptquiz-surface4.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/audit/wordset-surface.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/backfill-context-pos.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/ci/authored-isolated-seed.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "authored_item_revision",
+    "authored_item_gold_hash"
+   ]
+  },
+  {
+   "f": "scripts/comic/pd/build-wordlist.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/comic/pd/curate.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/comic/pd/drain-batch.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/comic/pd/ingest-bulk.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/comic/pd/load-panels.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/comic/pd/pd-record.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/comic/pd/publish-kind.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/comic/pd/publish-upload.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/bench-text.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/ceiling-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/collect-daily.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/contribution-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/discover-sweep.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/drain-activities.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/drain-adapt.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "compute_article_vrl"
+   ]
+  },
+  {
+   "f": "scripts/compose/drain-coverage.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/drain-gates.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/drain-process.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "compute_article_vrl"
+   ]
+  },
+  {
+   "f": "scripts/compose/drain-review.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/feed-fitness.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/near-miss-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/necessity-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/pairing-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/probe-body-access.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/queue-job.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/refresh-fingerprints.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/refresh-job-specs.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/register-feed.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/ripen-eta.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/source-overlap-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/compose/spine-report.mjs",
+   "cls": "read-only",
+   "rpcs": [
+    "exec_sql_readonly"
+   ]
+  },
+  {
+   "f": "scripts/csat/__tests__/analysis-export-source.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/drain-chunk-select.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/gate-scoped-import.test.mjs",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/meaning-support-isolated-gate-fault.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/meaning-support-isolated-seed.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/pdf-blank-lines.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/review-blind-protocol.test.mjs",
+   "cls": "test-read",
+   "rpcs": [
+    "csat_valid_review_personas_many"
+   ]
+  },
+  {
+   "f": "scripts/csat/__tests__/review-ledger-import.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/review-publish-precheck.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/review-run-resume.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/review-visual-cli.test.mjs",
+   "cls": "test-write",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/source-repair-cli.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/source-repair-kice.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/trap-atlas-scope.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/__tests__/units-build.test.mjs",
+   "cls": "test-read",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/analysis-drain-export.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/analysis-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "csat_chart_analysis_bindable",
+    "csat_review_visual_bind_analysis"
+   ]
+  },
+  {
+   "f": "scripts/csat/anchor-inventory.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/backfill-topic.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/build-choice-polarity.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/build-scoped-type-reports.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/build-skeleton-data.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/build-trap-atlas.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/build-trap-drill.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/check-clean.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/compare-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/compose-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/content-review/build-snapshot.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/continuity-metrics.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/corpus-sync.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/corpus-window-yield.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/db-source-values.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/demand-model.mjs",
+   "cls": "read-only",
+   "rpcs": [
+    "exec_sql_readonly"
+   ]
+  },
+  {
+   "f": "scripts/csat/design-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/design-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/diagnosis/canon-apply-ui.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "record_db_health_checkpoint"
+   ]
+  },
+  {
+   "f": "scripts/csat/diagnosis/canon-e2e.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/diagnosis/canon-prepare.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/diagnosis/kice-items-export.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/diagnosis/load-answer-keys.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/diagnosis/pilot-export.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/diagnosis/pilot-items-export.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/diagnosis/pilot-run.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "csat_dx_save_item_tagging"
+   ]
+  },
+  {
+   "f": "scripts/csat/diagnosis/readiness-report.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/diagnosis/readiness-smoke.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "csat_dx_save_item_tagging"
+   ]
+  },
+  {
+   "f": "scripts/csat/diagnosis/review-export.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/discourse-band.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/export-hss-chunk.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/f08-paper-marks-audit.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/f08-paper-marks-pilot.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/gate-article-export.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/gate-book-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/gate-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/gate-make.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/gate-mixed-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/gate-mixed-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/gate-screen.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/harvest-plos.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/harvest-worldbank.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/inquiry-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/judgment-fixtures-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/learner-integrity-check.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/locus-refold-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/locus-refold-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/lure-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/lure-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/anchor-bind.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/capture-goal-states.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-cleanup.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-evidence-live.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-learning-loop-real.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-lifecycle-open.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-map-goal.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-map-practice-feedback.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-map-states.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-map-v4-save.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-map-v4.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-map-v5-path.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/e2e-skill-gate.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/role-learners-export.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/seed.mjs",
+   "cls": "read-only",
+   "rpcs": [
+    "csat_map_seed"
+   ]
+  },
+  {
+   "f": "scripts/csat/map/v4/content-candidates.mts",
+   "cls": "read-only",
+   "rpcs": [
+    "csat_ec_embargoed_exams"
+   ]
+  },
+  {
+   "f": "scripts/csat/map/v4/exam-readiness-report.mts",
+   "cls": "read-only",
+   "rpcs": [
+    "csat_ec_embargoed_exams"
+   ]
+  },
+  {
+   "f": "scripts/csat/map/v4/exam-review-packet.mts",
+   "cls": "read-only",
+   "rpcs": [
+    "csat_ec_embargoed_exams"
+   ]
+  },
+  {
+   "f": "scripts/csat/map/v4/export-asis.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v4/perf-map-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v4/plan-db-smoke.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "learner_workspace_plan_commit",
+    "csat_map_goal_set"
+   ]
+  },
+  {
+   "f": "scripts/csat/map/v62/b7-audit.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/data/coverage-audit.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "csat_ec_embargoed_exams"
+   ]
+  },
+  {
+   "f": "scripts/csat/map/v62/data/expand-export.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/data/fix-export.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/data/pilot-export.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-learner-focus.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-lm-g1-1.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-lm-g1-2-timing.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-lm-g1-2.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-lm-g1-3a.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-lm-g1-4.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-lm-g1-5a.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-map-return.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-map-study.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-map-supply.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-map-workspace.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-plan-atomicity.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/e2e-pm4b-acceptance.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/product-availability.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/shot-rail-zoom.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/map/v62/shot-unified-map.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/meaning-support-isolated-gate-fault.mjs",
+   "cls": "read-only",
+   "rpcs": [
+    "csat_ec_embargoed_items"
+   ]
+  },
+  {
+   "f": "scripts/csat/meaning-support-isolated-seed.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "csat_ec_embargoed_items",
+    "csat_ec_embargoed_exams",
+    "csat_ec_reveal_state"
+   ]
+  },
+  {
+   "f": "scripts/csat/measure-anchor-coverage.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/measure-band-rulers.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/measure-difficulty.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/measure-hss-abstracts.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/measure-passage-cefr-consensus.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/measure-span-cefr.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/orphan-items-snapshot.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/plos-extract-recheck.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/plos-extract.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/rates/import-megastudy.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/retire-source-snapshot.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/review-drain.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "csat_current_chart_asset",
+    "csat_chart_analysis_ready",
+    "csat_item_input_hash",
+    "csat_current_units_hash",
+    "csat_item_answer_hash",
+    "csat_item_text_input_hash"
+   ]
+  },
+  {
+   "f": "scripts/csat/score-articles.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/source-candidate-sample.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/source-doc-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/source-get/import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/source-get/precheck-backfill.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/source-repair.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/source-scorecard-export.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "csat_source_rollup"
+   ]
+  },
+  {
+   "f": "scripts/csat/topic-accuracy.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/topic-gap.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/trim-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/trim-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/units-build.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "csat_units_build_input"
+   ]
+  },
+  {
+   "f": "scripts/csat/v2-annotation-pilot/build.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/csat/verify-quote-anchors.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/db/check-anon-rpc-grants.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/db/factory-i1/d3-live-check.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "learner_workspace_plan_commit",
+    "workspace_demand_record",
+    "factory_order_open",
+    "factory_product_order_register",
+    "factory_product_order_withdraw",
+    "factory_order_transition"
+   ]
+  },
+  {
+   "f": "scripts/design/ours-text-metrics.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/design/seed-empty-account.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-common.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-fill/01-export-job.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-fill/03-import-enriched.ts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-fill/p4-extract-targets.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-fill/p4-import-to-db.ts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-fill/p5-extract-targets.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-fill/p5-import-to-db.ts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-quality/apply-pending-dict-migrations.ts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-quality/example-quality.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict-quality/frequency-gap.ts",
+   "cls": "read-only",
+   "rpcs": [
+    "resolve_dict_headword"
+   ]
+  },
+  {
+   "f": "scripts/dict-quality/probe.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/anchor-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/anchor-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/antonym-gate-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/backfill-lemma-frequent.mts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/backfill-pronunciation.mts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/build-test-corpus-gutenberg.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/build-test-corpus-seedlist.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/build-test-corpus.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/clean-inflected-forms.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/cmudict-enrich.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/coverage-bulk-load.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/coverage-translate-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/coverage-translate-chunk.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/csat-corpus-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/csat-corpus-diff.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/csat-dict-drain.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "unresolved_dict_words"
+   ]
+  },
+  {
+   "f": "scripts/dict/csat-dict-health.mjs",
+   "cls": "read-only",
+   "rpcs": [
+    "calc_v_level"
+   ]
+  },
+  {
+   "f": "scripts/dict/ctx-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/derived-adjudicate.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/derived-from-base.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/dict-selfheal-drain.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/dict-selfheal-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/drain-article-lemmas.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "unresolved_dict_words"
+   ]
+  },
+  {
+   "f": "scripts/dict/drain-pending-words.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "unresolved_dict_words"
+   ]
+  },
+  {
+   "f": "scripts/dict/ebs-deck-compare.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/example-fill.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "sync_published_set_examples"
+   ]
+  },
+  {
+   "f": "scripts/dict/example-match-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/example-match-chunk.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/extract-baseline.mjs",
+   "cls": "read-only",
+   "rpcs": [
+    "select_book_chapter_vocab",
+    "select_article_vocab"
+   ]
+  },
+  {
+   "f": "scripts/dict/foreign-dict-build.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/fresh-dump-resid.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/fresh-recover-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/fresh-residual-build.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/gap-fill2-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/gap-fill2.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/gap-fill3.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/gap3-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/ipa-compose-hyphen.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/kaikki-enrich.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/kaikki-extra-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/kaikki-sense-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/kaikki-sense-chunk.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/latin-build.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/lexicon-build.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/measure-surface-books.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/measure-surface-fixes.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/measure-surface-match.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/mnemonic-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/mnemonic-chunk.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/mnemonic-etym-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/mnemonic-etym-chunk.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/mnemonic-expand-chunk.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/plural-lane-eval.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/probe-first-sentence.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/r8-recover-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/repair-first-sentence.mts",
+   "cls": "read-only",
+   "rpcs": [
+    "repair_vocab_first_sentences"
+   ]
+  },
+  {
+   "f": "scripts/dict/republish-auto-vlevel.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/roots-map.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/roots-publish-set.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/roots-seed.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/sense-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/sense-chunk.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/sense-fix-single.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/sense-progress.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/sense-vlevel-apply.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/sense-vlevel-chunk.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/spelling-norm-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/topics-publish-set.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/vrl-rule-recompute.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "calc_v_level"
+   ]
+  },
+  {
+   "f": "scripts/dict/w0815-pubvocab.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/webster-build.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/webster-comp-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/webster-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/wikt-classify.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/wikt-en-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/wikt-foreign-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/wikt-reclass.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/wiktionary-dialect-load.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/wordnet-enrich.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/dict/wordset-inflection-audit.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/docs/gen-db-stats.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/extract-coverage/export-corpus.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/extract-coverage/measure.ts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "unresolved_dict_words"
+   ]
+  },
+  {
+   "f": "scripts/freq-corpus/02-match-analysis.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/freq-corpus/03-import-to-db.ts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/generate-article-dcp.mts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/generate-book-dcp.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/essence-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/loop-screen-e2e.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/real-db-concurrency.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "learning_attempt_record"
+   ]
+  },
+  {
+   "f": "scripts/knowledge/review-hold.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/synthetic-cohort-run.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/vertical-claim-support-build.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/vertical-claim-support-e2e.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/vertical-cohesion-link-build.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/vertical-cohesion-link-gate-e2e.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/vertical-evidence-tasks-build.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/knowledge/vnext-admin-e2e.mts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/audit-vocab.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/backfill-se-chapter-hrefs.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/build-librivox-map.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/dict-mine-batch.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": [
+    "select_book_chapter_vocab"
+   ]
+  },
+  {
+   "f": "scripts/lcp/drain.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/enrich-unmatched-words.ts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/generate-chapter-quiz.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/generate-comic.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/import-ngsl-frequency.ts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/import-ngsl-list.ts",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/librivox-align.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/librivox-dump.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/librivox-title-align.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/publish-list-word-set.ts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/quiz-distractor-drain.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/reprocess-all-se.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/reprocess-book.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/review-book.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/seed-enqueue.ts",
+   "cls": "admin-write-ungated",
+   "rpcs": [
+    "admin_enqueue_book"
+   ]
+  },
+  {
+   "f": "scripts/lcp/test-comic-model.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lcp/w0815-booktags.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lexicon-v2.2/kice-csat-seed.ts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lexicon/oov-orphan-extract.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lexicon/oov-orphan-import.ts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lib/supabase-client.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/lib/supabase-env.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/factory-i0-277-independent/checks.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/factory-i2-r5-qualification/verify.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-1-independent/browser.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-1-independent/workspace-boundary.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-2-independent/audit-db.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-2-independent/checks.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-2-independent/late-remount.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-2-independent/save-unchanged.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-2-independent/security.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-2-independent/vertical.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-2/prior-help-impact.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/catalog.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/checks.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/cleanup.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/fallback-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/independent-browser.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/keyboard-browser.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/live-race.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/lost-response-browser.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/plan-goal-race.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/plan-key-race.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/snapshot-race.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-3a-independent/stale-goal-browser.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-4-independent/browser.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-4-independent/checks.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-4-independent/cleanup.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-5a-independent/checks.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-g1-5a-independent/v2-browser.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/lm-w1/acceptance.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/research/v2-f1/acceptance-browser.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/security/rotate-runtime-password.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/seed-dictionary.config.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/srs/replay-stability.mts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/adapt-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/adapt-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/bias-review-report.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/build-unit.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/build-volume.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/caption-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/contents-snapshot.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/cue-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/drain-extract-analysis.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/elementary-audit.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/elementary-yield-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/epmc-ingest.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/explain-discriminate.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/explain-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/explain-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/explain-fill.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/explain-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/extraction-defect-scan.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/grammar-yield-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/item-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/item-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/item-health-report.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/item-review-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/item-review-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/item-state-sync.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/lib/db.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/market-benchmark.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/media-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/mediawiki-lead-ingest.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/middle-short-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/narrative-band-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/nasa-date-backfill.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/new-types-health.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/orphan-items-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/passage-axis-bench.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/press-candidates.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/proofread-report.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/prune-article-chrome.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/prune-kid-excerpts.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/refresh-dcp-items.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/regen-underlines.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/register-measure-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/render-volume.mjs",
+   "cls": "admin-write-ungated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/review-causes.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/review-freshness.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/review-staleness.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/sentence-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/series-report.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/source-eligibility-scan.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/source-inventory-scan.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/source-policy-refresh.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/source-yield-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/source-yield-scan.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/space-place-ingest.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/stock-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/store-new-types.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/storyweaver-ingest.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/type-gap.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/type-inventory-scan.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/type-yield-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/vlevel-estimate-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/vocab-yield-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/volume-reuse-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/window-narrow-probe.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/write-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/write-drain-tailwords.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/textbook/write-drain-verify.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vcb/05e-promote-to-dictionary.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vcb/07b-bulk-approve.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vcb/99-cefr-relabel.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vcb/compose-batch.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vcb/compose-publish.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vcb/editions/edition-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vcb/editions/edition-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vcb/fetch-covers.mts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/verify-dcp-health.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/verify-health-score.ts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/brand-drain-export.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/brand-drain-import.mts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/choice-benchmark.mts",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/example-ko-drain-export.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/example-ko-drain-import.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/market-benchmark.mjs",
+   "cls": "read-only",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/reconcile-ladder.mts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/refresh-published-words.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/retire-sets.mjs",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  },
+  {
+   "f": "scripts/vocab/stamp-imprint.mts",
+   "cls": "admin-write-gated",
+   "rpcs": []
+  }
+ ]
+}

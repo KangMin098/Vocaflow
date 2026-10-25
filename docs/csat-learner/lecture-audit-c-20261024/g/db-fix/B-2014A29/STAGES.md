@@ -53,3 +53,9 @@ AI 검수 행은 발행 게이트(`csat_guard_published`: 페르소나 3 pass)�
 - 실행 경로: 단계 2 는 MCP 가 아니라 승인형 러너 단계로만(dev-mode `db_apply` 2026-10-25) — 러너 단계는 사람 승인 뒤 만든다.
 - 판본 충돌(published v5 · 강의 v2 「보류」 ↔ DB 지문 각주)은 **미해결**. 혼합 방지: v6 발행과 강의 v3 통합은 한 잠금 구간(단계 5)에서만.
 - digest 재생성: owner `csat-lecture-disclosure` 에 요청(AI-Control `runtime/c-2014a29-review/DELIVERY-digest.md`). HTML/RSC 검증은 digest · 사람 승인 뒤 단계 5 에서.
+
+## T-0170 Codex R1(수정 요청) 반영 — 2026-10-25
+
+- **T3** 콘텐츠 브랜치 커밋: 탐구 ③ truth/content_truth = false · operation scope · analysis_version 6(발행 전 stale → v6 와 동시에 보임).
+- **T1** v6 draft `difficulty.drivers[2]` 「휴관 각주가 짧게만 보여 ③ 판정이 보류된다」 가 v5 에서 그대로 남았다 → 발행 SQL(승인 러너 단계)에서 publish 직전 같은 트랜잭션으로 「휴관 각주에서 ‘매월 첫째’와 ‘매주’를 가려야 ③을 지울 수 있다」 로 바꾼다(그 밖 v6 필드에 보류 전제 0 — SELECT 확인).
+- **T2** 골격(skeleton-data)은 DB 지문 + **published** 분석으로 굽는다 → 지금 구우면 v5 기준. 발행 단계에서 v6 published 직후 `node scripts/csat/build-skeleton-data.mjs --write` 로 2014A#29 를 다시 굽고(reject:3 앵커 · 각주 문장 길이), 다른 문항 변경분은 버린다. c5 의 정답 선공개는 기존 강의 설계 — owner `csat-lecture-disclosure` 판단(이번 수정 범위 밖).

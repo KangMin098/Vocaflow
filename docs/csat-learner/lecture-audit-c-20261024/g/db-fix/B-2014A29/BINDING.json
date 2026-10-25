@@ -1,13 +1,13 @@
 {
  "item_id": "2014A#29",
- "content_commit": "b449561b3",
+ "content_commit": "568147cd0",
  "content_branch": "content/2014a29-footnote",
  "lecture": {
   "version": 3,
   "sha256": "68707d777346d357f0873ad9beee47f287b97a2871504949e592d5e35b3cf96c"
  },
  "inquiry": {
-  "sha256": "ffbe86d9c71414141ff429a8c0906004c1610553cd99923d1b921c9feb1955c7"
+  "sha256": "21852dd5d9be464e8397303575d7cfb16b99ca9043be125f262287073d8e0b7d"
  },
  "analysis_v6_expected_md5": {
   "choice_analysis": "6d6966e66eb95316d42d3937532b58cb",
@@ -26,5 +26,17 @@
   "analyst=Claude pass",
   "tutor=Claude pass(재판정)"
  ],
- "human_content_approval": null
+ "human_content_approval": null,
+ "analysis_v6_pending_change": {
+  "difficulty.drivers[2]": {
+   "from": "휴관 각주가 짧게만 보여 ③ 판정이 보류된다",
+   "to": "휴관 각주에서 ‘매월 첫째’와 ‘매주’를 가려야 ③을 지울 수 있다"
+  }
+ },
+ "skeleton": {
+  "status": "v6 published 직후 재생성(발행 단계)"
+ },
+ "ai_track_review": {
+  "T-0170 R1": "REJECT(수정 요청 3) — 반영 중"
+ }
 }

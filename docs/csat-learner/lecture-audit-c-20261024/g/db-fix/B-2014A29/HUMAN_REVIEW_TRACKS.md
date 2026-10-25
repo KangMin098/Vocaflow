@@ -128,3 +128,38 @@
 | T3 탐구 6곳 | | | | | |
 
 세 트랙이 모두 승인되고 공개 경계 digest 가 이 판본으로 재생성된 뒤에만 단계 2(발행 SQL · 별도 SHA · 승인 티켓)를 만든다.
+
+## R2 추가 변경 (T-0170 Codex R1 수정 요청 반영 · 2026-10-25)
+
+### T1-4 difficulty.drivers[2] (발행 SQL 에서 적용)
+
+기존(v5 · v6 draft)
+
+> 휴관 각주가 짧게만 보여 ③ 판정이 보류된다
+
+수정
+
+> 휴관 각주에서 ‘매월 첫째’와 ‘매주’를 가려야 ③을 지울 수 있다
+
+### T3-7 탐구 ③ 구조화 판정(콘텐츠 커밋 568147cd0)
+
+- `distractors[2]`: truth unknown → **false** · operation none → **scope** · altered 「매월 첫째 월요일(한 달에 한 번) → 매주 월요일」
+- `v3.choices[2].content_truth`: unknown → **false**
+- `analysis_version`: 5 → **6**(v6 발행 전에는 stale 로 숨는다)
+
+### T2 골격
+
+- skeleton-data 2014A#29 는 v6 published 직후 재생성(문장 [4] 길이 · reject:3 앵커) — 발행 단계 절차.
+
+## 검수 기록 — AI 역할 검수(정책 PR_AUTOMATION_POLICY §2 · 두 번째 승인자 = 에이전트) · 실제 사람 서명 아님
+
+사용자 지시 2026-10-25 「사람 검수 → 정책 확인하여 진행」. AI-Control T-0170 COMPLETED(Codex owner `csat-lecture-content-review`, 작성 미참여). R1 수정 요청 → 반영 → R2 승인.
+
+| 트랙 | 판정 | 검수자 | 시각(UTC) | 결속 판본 |
+|---|---|---|---|---|
+| T1 분석 v6 | 승인(R2) — difficulty.drivers[2] 발행 SQL 반영 조건 | Codex · csat-lecture-content-review | 2026-10-25T03:57Z | BINDING `2a591952ec83834fb6e0a9c2fc895e76dac8afda53aadf2f020963238ff24fd8` · v6 draft 3필드 md5 |
+| T2 강의 c9 v3 | 승인(R2) — 골격 발행 직후 재생성 조건 | 〃 | 〃 | 콘텐츠 `568147cd0` · 강의 `68707d77…` |
+| T3 탐구 7곳 | 승인(R2) | 〃 | 〃 | 콘텐츠 `568147cd0` · 탐구 `21852dd5…` |
+
+리뷰 원문: AI-Control `verification/reviews/T-0170-codex-track-review-r1.md`(수정 요청) · `-r2.md`(승인). 위 표 위쪽의 옛 해시(BINDING `69096845…` · 탐구 `ffbe86d9…`)는 R1 시점 값이다 — 이 표가 최신 결속이다.
+발행 전 남은 조건: owner digest 재생성 · 발행 SQL(승인 러너 단계 · 별도 SHA · 티켓 — difficulty 수정 포함) · 골격 재생성 · HTML/RSC 검증.
