@@ -51,7 +51,7 @@ export async function flushPendingSrsResults(
   items: FlushItem[],
 ): Promise<FlushResult> {
   if (!Array.isArray(items) || items.length === 0) {
-    return { ok: true, persisted: 0, skipped: 0, duplicated: 0 };
+    return { ok: true, persisted: 0, skipped: 0, duplicated: 0, acked: [] };
   }
 
   const client = (await createClient()) as unknown as SupabaseClient;
@@ -70,8 +70,11 @@ export async function flushPendingSrsResults(
       items.map((i) => i.word?.toLowerCase()).filter((w): w is string => !!w),
     ),
   ];
+  // ACK — 이 계정 소유로 확인하고 처리를 끝낸 항목의 키(적용 · 중복 · 단어 없음 · 빈 단어). 남의 항목은 넣지 않는다:
+  //   클라이언트는 ACK 된 항목만 큐에서 지우므로, 남의 평가는 원 소유자를 위해 기기에 남는다(T-0172 r1 P1-4)
+  const acked = items.map((i) => `${i.word}@${i.reviewedAt}@${i.module}`);
   if (words.length === 0)
-    return { ok: true, persisted: 0, skipped: foreign, duplicated: 0 };
+    return { ok: true, persisted: 0, skipped: foreign + items.length, duplicated: 0, acked };
 
   const { data: rowData, error: fetchErr } = await client
     .from('vocabularies')
@@ -183,5 +186,6 @@ export async function flushPendingSrsResults(
     }
   }
 
-  return { ok: true, persisted, skipped, duplicated };
+  // 모든 쓰기가 성공한 뒤에만 ACK 를 돌려준다(위의 실패는 ok:false 로 먼저 나간다)
+  return { ok: true, persisted, skipped, duplicated, acked };
 }

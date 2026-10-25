@@ -327,12 +327,24 @@ export async function completeDictationSession(
   })
 
   // 타깃 단어 → FSRS
-  const items: FlushItem[] = [...input.targetRatings.entries()].map(([word, rating]) => ({
-    word,
-    rating,
-    reviewedAt: new Date().toISOString(),
-    module: 'dictation',
-  }))
+  // 평가의 주인 = 완주 순간 검증된 로그인 계정(auth.getUser — 서버 확인). SRS 서버 액션은 주인이 로그인 계정과 같은 평가만
+  // 적용한다(T-0172 공용 기기) — 주인 없이 보내면 전부 걸러진다. 로그인이 없으면 보내지 않는다(서버도 거절한다).
+  let owner: string | null = null
+  try {
+    const { data } = await client.auth.getUser()
+    owner = data.user?.id ?? null
+  } catch {
+    owner = null
+  }
+  const items: FlushItem[] = owner
+    ? [...input.targetRatings.entries()].map(([word, rating]) => ({
+        word,
+        rating,
+        reviewedAt: new Date().toISOString(),
+        module: 'dictation',
+        owner,
+      }))
+    : []
   if (items.length > 0) {
     try {
       const res = await flushPendingSrsResults(items)

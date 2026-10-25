@@ -26,7 +26,10 @@ class MemoryStorage {
 
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
-    auth: { getSession: async () => ({ data: { session: h.user ? { user: { id: h.user } } : null }, error: null }) },
+    auth: {
+      getSession: async () => ({ data: { session: h.user ? { user: { id: h.user } } : null }, error: null }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+    },
   }),
 }))
 
@@ -62,7 +65,12 @@ async function reload(user: string | null) {
   vi.resetModules()
   vi.doMock('../flush-actions', () => ({
     // B 에게 같은 단어가 없으면 서버는 skip 하고 ok 를 돌려준다(flush-actions.ts:126)
-    flushPendingSrsResults: async (items: { word: string; owner?: string }[]) => { h.actionCalls.push({ items }); return { ok: true, persisted: 0, skipped: items.length, duplicated: 0 } },
+    // 서버처럼 로그인 계정 소유 항목만 ACK 한다(flush-actions.ts acked)
+    flushPendingSrsResults: async (items: { word: string; owner?: string; reviewedAt: string; module: string }[]) => {
+      h.actionCalls.push({ items })
+      const acked = items.filter((i) => i.owner === h.user).map((i) => `${i.word}@${i.reviewedAt}@${i.module}`)
+      return { ok: true, persisted: 0, skipped: items.length, duplicated: 0, acked }
+    },
   }))
   const storage = await import('../session-storage')
   const flush = await import('../flush-session')
@@ -92,7 +100,8 @@ describe('공용 기기 — SRS 평가 큐 계정 분리(T-0172) · 클라이언
     const sent = h.beacons.flatMap((x) => (JSON.parse(x) as { items: { word: string }[] }).items.map((i) => i.word))
     expect(sent).toEqual(['banana'])
     expect(local.getItem('srs_pending') ?? '').toContain('apple')
-    expect(local.getItem('srs_pending') ?? '').not.toContain('banana')
+    // 이탈 전송은 확인이 아니라 B 의 평가도 남는다 — 다음 확인 전송의 서버 ACK 로 지운다(r1 P1-4)
+    expect((JSON.parse(local.getItem('srs_pending') ?? '[]') as { word: string; owner?: string }[]).map((p) => [p.word, p.owner])).toEqual([['apple', 'user-A'], ['banana', 'user-B']])
   })
 
   it('A 가 다시 로그인하면 보류된 A 의 평가가 A 로 전송되고 그때 비워진다', async () => {

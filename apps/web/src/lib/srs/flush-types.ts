@@ -27,5 +27,10 @@ export type FlushResult =
        * 같은 큐가 다시 올 수 있다). 이 값이 계속 크면 큐를 비우는 쪽이 고장 난 것이다.
        */
       duplicated: number;
+      /**
+       * 서버가 이 계정 소유로 확인하고 처리를 끝낸 항목 키(`word@reviewedAt@module`) — 클라이언트는 이것만 큐에서 지운다(T-0172).
+       * 다른 계정 · 주인 없는 항목은 들어가지 않는다.
+       */
+      acked: string[];
     }
   | { ok: false; error: string };

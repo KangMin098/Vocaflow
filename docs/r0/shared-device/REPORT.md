@@ -51,3 +51,25 @@
 - `pnpm exec vitest related --run <변경 파일>` — 19 files · 125 passed · skip 0
 - `pnpm exec tsc --noEmit -p .` — 오류 0
 - `pnpm exec eslint <변경 파일 10개>` — 오류 0
+
+## 6. run 2 — Codex r1 리뷰(REQUEST_CHANGES) P1 5건 반영
+
+이 절이 위 §2~§4 의 해당 서술(owner 없는 PUT 수용 · 이탈 전송 뒤 큐 비우기 · 마지막 flush 의 주인으로 표시)을 **대체**한다.
+재현 테스트 커밋 `1f78bd01e`: 수정 전 **11 failed / 20 passed**(`vitest run` 대상: dictation/persist-owner · srs/shared-device-ack · srs/shared-device · csat/session/shared-device-race · api/csat/state).
+
+| # | 지적 | 재현 테스트(수정 전 실패 요지) | 수정 |
+|---|---|---|---|
+| 1 | PUT owner 생략 수용 | `route.test.ts` owner 필수 — `expected 200 to be 428`, GET owner `expected undefined to be 'u1'` | `app/api/csat/state/route.ts:106-115` owner 없으면 **428 `owner-required`**, 다르면 403. 둘 다 4xx 라 클라이언트는 재전송하지 않고 기록은 기기에 남는다(유실 없음). GET 은 `owner: user.id` 동봉(`:78-91`) |
+| 2 | GET 대기 중 A→B 전환 병합 | `shared-device-race.test.ts` — B 기기 키가 `['A-SERVER','B-OWN']` | `lib/csat/session/store.ts:30-60` onAuthStateChange 구독 · 인증 세대, `:76-135` `loadFor/saveFor/updateFor` 가 주인 고정(지금 계정과 다르면 읽기 · 쓰기 · 전송 안 함), `:209-250` GET 응답 owner 불일치 · 세대 변경 · 주인 변경이면 응답 폐기 |
+| 3 | 평가 주인 = 마지막 flush 의 값 | `shared-device-ack.test.ts` P1-3 — `['banana','user-A']`, 로그아웃 · getSession 실패 뒤 `'user-A'` | `lib/srs/flush-session.ts:21-38` onAuthStateChange 구독으로 주인을 늘 지금 값으로, getSession 실패 시 null(보류). `lib/srs/session-storage.ts:36-48 · :110-114` 평가 시점 주인으로 표시(호출부 owner 무시), 주인 없으면 보류 |
+| 4 | ACK 없이 삭제 | P1-4 — beacon 뒤 큐 `[]`, ok=true foreign skip 뒤 큐 `[]` | `flush-actions.ts:73-77 · :188-190` 모든 쓰기 성공 뒤 **본인 소유 처리 항목 키(acked)** 반환(적용 · 중복 · 단어 없음). `flush-types.ts` `acked`. `session-storage.ts:126-135` `removeAckedResults(owner, acked)` 만 삭제. `flush-session.ts:60-72` 확인 전송은 ACK 만 지우고, `flushOnLeave`(`:78-115`)는 **지우지 않는다** — 다음 진입 확인 전송이 재전송하고, 이미 적재된 항목은 서버 멱등 가드((vocabulary_id, attempted_at), `flush-actions.ts` 기존)로 duplicated → ACK 되어 이중 적용 없이 정리된다 |
+| 5 | Dictation 회귀 | `dictation/__tests__/persist-owner.test.ts` — `[['harbor', undefined]]`, 비로그인도 전송 | `lib/dictation/persist.ts:329-347` 완주 시점 `client.auth.getUser()`(서버 검증) 계정을 owner 로 붙임, 비로그인이면 FSRS 전송 안 함 |
+
+서버가 보장하는 범위(정확히): owner 는 클라이언트가 보낸 문자열이라 **기록 출처의 증명이 아니다.** 서버가 보장하는 것은 (1) 쓰기는 언제나 쿠키로 인증된 계정의 행 · 카드에만, (2) 정상 클라이언트가 계정별 키 · 평가 시점 인증으로 붙인 owner 가 로그인 계정과 다르거나 없으면 적용하지 않음이다. 위조 · 변조된 클라이언트가 이미 손에 쥔 남의 기록을 자기 owner 로 붙여 자기 행에 넣는 것은 막지 못한다(그 사람은 이미 기록을 읽은 상태다). A 의 서버 행 · 카드 직접 수정은 기존처럼 불가.
+
+남은 위험(추가): 이탈 전송 뒤 큐는 다음 확인 전송까지 남는다(재전송은 멱등). 주인이 정해지기 전(진입 직후 getSession 대기 ms) 평가는 주인 없이 보류된다. 배포 전 열린 옛 탭의 CSAT PUT 은 428 로 거절되어 그 탭의 기록은 기기 공용 키에 보류로 남는다.
+
+실행(최종 커밋, apps/web):
+- `pnpm exec vitest run src/lib/srs src/lib/dictation/__tests__/{persist-owner,adaptation,audio-control,hint,targets-graded}.test.ts src/app/api/csat/state src/lib/csat/session src/lib/csat/__tests__/state-push-retry.test.ts` — 24 files · 211 passed · skip 0
+- `session-rls.integration.test.ts`(dictation) 는 DB 환경 변수가 없으면 3건 skip 되는 기존 통합 시험이라 위 실행에서 제외했다(이 변경과 무관).
+- `pnpm exec tsc --noEmit -p .` — 오류 0 · `pnpm exec eslint <94fe3561a 이후 변경 ts/tsx 전부>` — 오류 0

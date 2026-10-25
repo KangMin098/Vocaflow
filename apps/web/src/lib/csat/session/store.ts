@@ -27,15 +27,35 @@ let dissectionMemory: DissectionRecord | null = null
 /** dissectionMemory 의 주인 — 계정이 바뀌면 메모리 사본만 버린다(기기 저장소는 그대로) */
 let memoryOwner: string | null = null
 
+/**
+ * 인증 세대 — 계정이 바뀔 때마다(다른 탭 로그인 · 로그아웃 포함, onAuthStateChange) 1 씩 는다.
+ * 서버 응답을 기다리는 사이 세대가 바뀌면 그 응답은 버린다(T-0172 r1 P1-2).
+ */
+let authGeneration = 0
+let authUser: string | null | undefined
+let subscribed = false
+
 /** 지금 로그인한 계정 id — 브라우저 세션(쿠키)에서 읽는다(네트워크 없음). 모르면 null */
 async function currentOwner(): Promise<string | null> {
   try {
     const { createClient } = await import('@/lib/supabase/client')
-    const { data } = await createClient().auth.getSession()
-    return data.session?.user?.id ?? null
+    const auth = createClient().auth
+    if (!subscribed) {
+      subscribed = true
+      auth.onAuthStateChange((_event, session) => noteAuthUser(session?.user?.id ?? null))
+    }
+    const { data } = await auth.getSession()
+    const id = data.session?.user?.id ?? null
+    noteAuthUser(id)
+    return id
   } catch {
     return null
   }
+}
+
+function noteAuthUser(id: string | null) {
+  if (authUser !== undefined && authUser !== id) authGeneration += 1
+  authUser = id
 }
 
 async function ownedMemory(): Promise<string | null> {
@@ -49,19 +69,31 @@ async function ownedMemory(): Promise<string | null> {
 
 /** Separate key: old answer accuracy is never relabeled as prediction accuracy. */
 export async function loadDissectionRecord(): Promise<DissectionRecord> {
-  const owner = await ownedMemory()
+  return loadFor(await ownedMemory())
+}
+
+/** 주인을 고정해 읽는다 — 읽는 도중 계정이 바뀌어도 다른 계정 키를 읽지 않는다 */
+async function loadFor(owner: string | null): Promise<DissectionRecord> {
+  if (owner !== memoryOwner) return freshRecord()
   // 계정을 모르면 기기 저장소를 읽지 않는다 — 다른 계정의 기록일 수 있다
   const stored = owner ? await run<DissectionRecord | undefined>(S_RECORD, 'readonly', s => s.get(DISSECTION_KEY_PREFIX + owner)) : null
   if (stored?.version === 1) return stored
-  if (!dissectionMemory) {
-    const seed = globalThis.crypto?.getRandomValues(new Uint32Array(1))[0] ?? Math.floor(Math.random() * 4294967296)
-    dissectionMemory = emptyDissectionRecord(seed)
-  }
+  if (!dissectionMemory) dissectionMemory = freshRecord()
   return dissectionMemory
 }
 
+function freshRecord(): DissectionRecord {
+  const seed = globalThis.crypto?.getRandomValues(new Uint32Array(1))[0] ?? Math.floor(Math.random() * 4294967296)
+  return emptyDissectionRecord(seed)
+}
+
 export async function saveDissectionRecord(record: DissectionRecord): Promise<boolean> {
-  const owner = await ownedMemory()
+  return saveFor(await ownedMemory(), record)
+}
+
+/** 주인을 고정해 쓴다 — 그 사이 계정이 바뀌었으면 쓰지도 · 보내지도 않는다(기록은 호출부 손에 남는다) */
+async function saveFor(owner: string | null, record: DissectionRecord): Promise<boolean> {
+  if (owner !== memoryOwner) return false
   const stamped = { ...record, updatedAt: Date.now() }
   dissectionMemory = stamped
   // 계정을 모르면 메모리에만 둔다(저장 실패로 알린다) — 공용 키에 쓰면 다음 계정이 읽는다
@@ -80,11 +112,18 @@ let writeChain: Promise<unknown> = Promise.resolve()
  * 돌려주는 값은 고친 뒤의 기록과 저장 성공 여부.
  */
 export function updateDissectionRecord(fn: (record: DissectionRecord) => DissectionRecord): Promise<{ record: DissectionRecord; saved: boolean }> {
+  return updateFor(null, fn)
+}
+
+/** `owner` 를 주면 그 주인에 고정한다(지금 계정이 다르면 고치지 않는다). null 이면 지금 계정 */
+function updateFor(fixed: string | null, fn: (record: DissectionRecord) => DissectionRecord): Promise<{ record: DissectionRecord; saved: boolean }> {
   const next = writeChain.then(async () => {
-    const current = await loadDissectionRecord()
+    const owner = await ownedMemory()
+    if (fixed !== null && owner !== fixed) return { record: await loadFor(owner), saved: false }
+    const current = await loadFor(owner)
     const changed = fn(current)
     if (changed === current) return { record: current, saved: true }
-    const saved = await saveDissectionRecord(changed)
+    const saved = await saveFor(owner, changed)
     return { record: dissectionMemory ?? changed, saved }
   })
   writeChain = next.catch(() => undefined)
@@ -166,12 +205,13 @@ if (typeof window !== 'undefined') {
   })
 }
 
-async function fetchServerState(): Promise<DissectionRecord | null | 'unavailable'> {
+/** `owner` 의 서버 사본 — 응답의 주인이 다르면(그 사이 계정 전환) 못 읽은 것으로 친다 */
+async function fetchServerState(owner: string | null): Promise<DissectionRecord | null | 'unavailable'> {
   try {
     const res = await fetch('/api/csat/state', { cache: 'no-store' })
     if (!res.ok) return 'unavailable'
-    const json = (await res.json()) as { ok: boolean; record?: DissectionRecord | null }
-    if (!json.ok) return 'unavailable'
+    const json = (await res.json()) as { ok: boolean; owner?: string; record?: DissectionRecord | null }
+    if (!json.ok || !owner || json.owner !== owner) return 'unavailable'
     return json.record && json.record.version === 1 ? json.record : null
   } catch {
     return 'unavailable'
@@ -183,9 +223,13 @@ async function fetchServerState(): Promise<DissectionRecord | null | 'unavailabl
  * 서버와 다르면 서버에 올린다. 서버가 막혀 있으면 기기 기록을 그대로 돌려준다.
  */
 export async function loadSyncedDissectionRecord(): Promise<{ record: DissectionRecord; synced: boolean }> {
-  const local = await loadDissectionRecord()
-  const owner = memoryOwner
-  const server = await fetchServerState()
+  // 읽기 · 병합 · 쓰기 전체를 시작 때의 주인과 인증 세대에 고정한다(T-0172 r1 P1-2)
+  const owner = await ownedMemory()
+  const generation = authGeneration
+  const local = await loadFor(owner)
+  const server = await fetchServerState(owner)
+  const switched = async () => authGeneration !== generation || (await currentOwner()) !== owner
+  if (await switched()) return { record: await loadDissectionRecord(), synced: false }
   if (server === 'unavailable') return { record: local, synced: false }
   if (!server) {
     if (local.predictions.length || local.completed.length || local.formulas.length || local.queue.length || (local.views ?? []).length || local.active || (local.sessions ?? []).length) void putServer(local, owner)
@@ -193,10 +237,12 @@ export async function loadSyncedDissectionRecord(): Promise<{ record: Dissection
   }
   // 기기 쪽 쓰기도 직렬화 큐로 — 서버 응답을 기다리는 사이 저장된 세션·예측을 덮지 않게, 쓰는 순간의
   // **최신 기기 기록**과 다시 합친다(Codex 리뷰 P1 · G0 계약 §4)
-  const { record: merged } = await updateDissectionRecord((current) => {
+  if (!owner) return { record: local, synced: false }
+  const { record: merged, saved } = await updateFor(owner, (current) => {
     const m = mergeDissection(current, server)
     return sameRecord(m, current) ? current : m
   })
+  if (!saved || (await switched())) return { record: await loadDissectionRecord(), synced: false }
   if (!sameRecord(merged, server)) void putServer(merged, owner)
   return { record: merged, synced: true }
 }

@@ -33,11 +33,12 @@ export interface PendingSrsResult {
 
 // ── 큐 주인(T-0172) ──────────────────────────────────────────────────────
 // 같은 브라우저를 두 계정이 쓰면 공용 키의 큐가 다음 계정의 flush 로 그 계정 카드에 적용됐다.
-// 주인은 flush-session 이 브라우저 세션에서 읽어 넣는다. 그 전에 쌓인 이 페이지의 평가는
-// 주인이 정해지는 순간 그 주인으로 표시한다 — 로그아웃은 hard reload 라 한 모듈 수명 = 한 계정이다.
+// 주인은 flush-session 이 브라우저 세션에서 읽고 **계정 전환을 구독해**(다른 탭 로그인 · 로그아웃 포함) 늘 지금 값으로 둔다.
+// 평가는 큐에 넣는 순간의 주인으로 표시한다. 주인을 모르면(세션 읽기 실패 · 로그아웃) 주인 없이 보류 — 이전 주인을 쓰지 않는다.
 let queueOwner: string | null = null;
-const unboundThisPage = new Set<string>();
-const itemKey = (p: PendingSrsResult) => `${p.word}@${p.reviewedAt}@${p.module}`;
+
+/** 서버 ACK 와 같은 자 — `flush-actions.ts` 가 같은 모양으로 돌려준다 */
+export const pendingKey = (p: { word: string; reviewedAt: string; module: string }) => `${p.word}@${p.reviewedAt}@${p.module}`;
 
 export function getSrsQueueOwner(): string | null {
   return queueOwner;
@@ -45,12 +46,6 @@ export function getSrsQueueOwner(): string | null {
 
 export function setSrsQueueOwner(owner: string | null): void {
   queueOwner = owner;
-  if (!owner || unboundThisPage.size === 0 || typeof window === 'undefined') return;
-  const all = readSafe().map((p) =>
-    !p.owner && unboundThisPage.has(itemKey(p)) ? { ...p, owner } : p,
-  );
-  unboundThisPage.clear();
-  writeSafe(all);
 }
 
 function writeSafe(items: PendingSrsResult[]): void {
@@ -113,9 +108,9 @@ function readSafe(): PendingSrsResult[] {
 export function pushPendingResult(item: PendingSrsResult): void {
   if (typeof window === 'undefined') return;
   const existing = readSafe();
-  const stamped = queueOwner ? { ...item, owner: queueOwner } : item;
-  if (!stamped.owner) unboundThisPage.add(itemKey(stamped));
-  existing.push(stamped);
+  const { owner: _ignored, ...rest } = item;
+  void _ignored;
+  existing.push(queueOwner ? { ...rest, owner: queueOwner } : rest);
   try {
     localStorage.setItem(KEY, JSON.stringify(existing));
   } catch {
@@ -130,16 +125,23 @@ export function getPendingResults(): PendingSrsResult[] {
 }
 
 /**
- * **지금 계정의** 대기 평가를 지운다(`sent` 를 주면 그 항목만). 다른 계정 · 주인 없는 항목은 남긴다 —
- * 원 소유자가 다시 로그인하면 그때 전송된다(T-0172).
+ * **서버가 확인한(ACK) 항목만** 지운다 — `owner` 의 항목 중 `acked` 키에 든 것. 그 밖(미확인 · 거절 · 다른 계정 ·
+ * 주인 없는 항목)은 남긴다. 원 소유자가 다시 로그인하면 그때 전송된다(T-0172).
  */
-export function clearPendingResults(sent?: PendingSrsResult[]): void {
+export function removeAckedResults(owner: string, acked: string[]): void {
+  if (typeof window === 'undefined' || acked.length === 0) return;
+  const drop = new Set(acked);
+  writeSafe(readSafe().filter((p) => p.owner !== owner || !drop.has(pendingKey(p))));
+}
+
+/**
+ * **지금 계정의** 대기 평가를 모두 지운다. 다른 계정 · 주인 없는 항목은 남긴다(T-0172).
+ * flush 는 이 함수를 쓰지 않는다 — 서버 확인 없이 지우면 유실이다(`removeAckedResults`).
+ */
+export function clearPendingResults(): void {
   if (typeof window === 'undefined') return;
   const owner = queueOwner;
-  if (owner) {
-    const drop = sent ? new Set(sent.map(itemKey)) : null;
-    writeSafe(readSafe().filter((p) => p.owner !== owner || (drop !== null && !drop.has(itemKey(p)))));
-  }
+  if (owner) writeSafe(readSafe().filter((p) => p.owner !== owner));
   try {
     sessionStorage.removeItem(KEY);
   } catch {

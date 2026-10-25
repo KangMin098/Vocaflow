@@ -136,7 +136,7 @@ describe('평가 대기열은 탭보다 오래 산다', () => {
 })
 
 describe('떠나는 순간 전송', () => {
-  it('큐가 있으면 beacon 으로 보내고 큐를 비운다', async () => {
+  it('큐가 있으면 beacon 으로 보내되 큐는 서버 확인 전까지 남긴다', async () => {
     const store = await import('../session-storage')
     store.setSrsQueueOwner('user-1') // T-0172 — 큐는 계정별이다
     store.pushPendingResult(item('develop', '2026-09-05T02:00:00.000Z'))
@@ -149,9 +149,9 @@ describe('떠나는 순간 전송', () => {
     expect(beaconCalls[0].url).toBe('/api/srs/flush')
     const sent = JSON.parse(beaconCalls[0].body) as { items: { word: string }[] }
     expect(sent.items.map((i) => i.word)).toEqual(['develop', 'achieve'])
-    // 응답을 못 받는 전송이므로 "성공 후 비우기" 가 불가능하다 — 보낸 즉시 비운다.
-    // 이중 적용은 서버가 (vocabulary_id, attempted_at) 로 막는다.
-    expect(store.getPendingResults()).toEqual([])
+    // beacon 의 true 는 저장 확인이 아니다 — 큐는 남기고 다음 진입의 확인 전송이 서버 ACK 로 지운다(T-0172 r1 P1-4).
+    // 그 재전송의 이중 적용은 서버가 (vocabulary_id, attempted_at) 로 막는다.
+    expect(store.getPendingResults().map((p) => p.word)).toEqual(['develop', 'achieve'])
   })
 
   it('빈 큐면 아무것도 보내지 않는다', async () => {

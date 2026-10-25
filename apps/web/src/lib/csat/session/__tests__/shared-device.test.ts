@@ -17,7 +17,10 @@ const h = vi.hoisted(() => ({
 
 vi.mock('@/lib/supabase/client', () => ({
   createClient: () => ({
-    auth: { getSession: async () => ({ data: { session: h.user ? { user: { id: h.user } } : null }, error: null }) },
+    auth: {
+      getSession: async () => ({ data: { session: h.user ? { user: { id: h.user } } : null }, error: null }),
+      onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => {} } } }),
+    },
   }),
 }))
 
@@ -79,7 +82,8 @@ beforeEach(() => {
       h.puts.push(JSON.parse(String(init?.body)))
       return new Response(JSON.stringify({ ok: true }), { status: 200 })
     }
-    return new Response(JSON.stringify({ ok: true, record: h.serverRecord }), { status: 200 })
+    // 서버는 응답에 주인(로그인 계정)을 싣는다(route.ts GET · T-0172 r1)
+    return new Response(JSON.stringify({ ok: true, owner: h.user, record: h.serverRecord }), { status: 200 })
   }))
 })
 afterEach(() => { vi.useRealTimers(); vi.unstubAllGlobals() })
