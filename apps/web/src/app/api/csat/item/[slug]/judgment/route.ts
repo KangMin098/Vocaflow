@@ -9,6 +9,12 @@
 // 같은 clientExposureId 재전송은 같은 원장 행(멱등) — 다시 공개 자료를 받는다. 다른 내용으로 같은 id 를 쓰면 RPC 가 거부 → 503.
 
 import { NextResponse } from 'next/server'
+import type { SupabaseClient } from '@supabase/supabase-js'
+
+import { loadJudgmentReveal } from '@/lib/csat/judgment/server'
+import type { RevealData } from '@/lib/csat/judgment/types'
+import { createAdminClient } from '@/lib/supabase/admin'
+import { loadBoundJudgmentItem } from './bound-item'
 
 import { learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
 import { canRevealItem, revealHeldResponse } from '@/lib/csat/embargo-gate'
@@ -70,5 +76,14 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   // 커밋 뒤 마지막 관문 — 기록 사이에 보류가 시작됐으면 내지 않는다
   if (!(await canRevealItem(itemId))) return revealHeldResponse()
   const { reveal } = await loadTheaterAnswer(item)
-  return NextResponse.json({ ok: true, exposureId: data, reveal }, { headers: NO_STORE })
+  // D 판단 도구 공개 자료(T-0161) — 원장 커밋 · 마지막 관문 뒤에만. 페이지와 같은 G 현재 판본 결속이 같은 analysisVersion 으로
+  // 성립할 때만 loadJudgmentReveal 을 부른다. 결속이 깨졌거나 도구 없는 문항이면 null(도구 provider 는 형식 오류로 닫는다)
+  let judgment: RevealData | null = null
+  if (analysisVersion != null) {
+    const admin = createAdminClient() as unknown as SupabaseClient
+    const bound = await loadBoundJudgmentItem(admin, itemId, analysisVersion)
+    if (bound.item) judgment = await loadJudgmentReveal(admin, itemId, bound.item.version.analysisVersion)
+    if (judgment && judgment.unitsHash !== bound.item?.version.unitsHash) judgment = null
+  }
+  return NextResponse.json({ ok: true, exposureId: data, reveal, judgment }, { headers: NO_STORE })
 }

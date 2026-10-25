@@ -9,6 +9,8 @@ const st = vi.hoisted(() => ({
   version: 4 as number | null,
   rpc: { data: 77 as unknown, error: null as null | { code: string } },
   calls: [] as string[],
+  bound: { id: '2014A#23', version: { unitsVersion: 1, unitsHash: 'h1', analysisVersion: 4 } } as null | { id: string; version: { unitsVersion: number; unitsHash: string; analysisVersion: number } },
+  revealHash: 'h1',
 }))
 
 vi.mock('@/lib/csat/diagnosis/route-helpers', async () => {
@@ -44,6 +46,20 @@ vi.mock('@/lib/csat/judgment-reveal', () => ({
   },
 }))
 
+vi.mock('@/lib/supabase/admin', () => ({ createAdminClient: () => ({}) }))
+vi.mock('./bound-item', () => ({
+  loadBoundJudgmentItem: async (_db: unknown, id: string, v: number | null) => {
+    st.calls.push(`bound:${id}:${v}`)
+    return st.bound ? { item: st.bound } : { item: null, reason: 'no_tool' }
+  },
+}))
+vi.mock('@/lib/csat/judgment/server', () => ({
+  loadJudgmentReveal: async (_db: unknown, id: string, v: number) => {
+    st.calls.push(`judgment-reveal:${v}`)
+    return { id, analysisVersion: v, unitsVersion: 1, unitsHash: st.revealHash, answer: 3, choices: [] }
+  },
+}))
+
 import { POST } from './route'
 
 const body = (o: Record<string, unknown> = {}) => ({ analysisVersion: 4, clientExposureId: '0b0c8f0e-1b2a-4c3d-8e9f-0a1b2c3d4e5f', source: 'judgment_scene', ...o })
@@ -57,6 +73,8 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     st.version = 4
     st.rpc = { data: 77, error: null }
     st.calls = []
+    st.bound = { id: '2014A#23', version: { unitsVersion: 1, unitsHash: 'h1', analysisVersion: 4 } }
+    st.revealHash = 'h1'
   })
 
   it('성공 — answer_direct · judgment_scene 기록이 공개 자료보다 먼저, no-store', async () => {
@@ -65,7 +83,8 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     expect(res.headers.get('cache-control')).toBe('no-store')
     const j = await res.json()
     expect(j).toMatchObject({ ok: true, exposureId: 77, reveal: { gate: { answer: 5 } } })
-    expect(st.calls).toEqual(['rpc:learning_exposure_record:answer_direct:judgment_scene:2014A#23:4', 'load-reveal'])
+    expect(st.calls).toEqual(['rpc:learning_exposure_record:answer_direct:judgment_scene:2014A#23:4', 'load-reveal', 'bound:2014A#23:4', 'judgment-reveal:4'])
+    expect(j.judgment).toMatchObject({ answer: 3, analysisVersion: 4, unitsHash: 'h1' })
   })
 
   it('기록 실패 → 503 · 정답 자료 없음 · 공개 자료를 만들지도 않는다', async () => {
@@ -75,7 +94,7 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     expect(res.headers.get('cache-control')).toBe('no-store')
     const text = await res.text()
     expect(text).not.toMatch(/reveal|answer|정답 근거/)
-    expect(st.calls).not.toContain('load-reveal')
+    expect(st.calls.some((c) => c.startsWith('judgment-reveal'))).toBe(false)
   })
 
   it('기록 id 가 없으면(커밋 확인 실패) 503', async () => {
@@ -108,6 +127,29 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     expect((await call({ source: 'item_page_render' })).status).toBe(400)
     expect((await call({}, '../etc')).status).toBe(404)
     expect(st.calls).toEqual([])
+  })
+
+  it('판단 도구 결속이 없으면(도구 없는 유형 · 차단 · 판본 다름) judgment 는 null — 해설 자료를 읽지 않는다', async () => {
+    st.bound = null
+    const j = await (await call()).json()
+    expect(j.judgment).toBeNull()
+    expect(st.calls.some((c) => c.startsWith('judgment-reveal'))).toBe(false)
+  })
+
+  it('공개 자료의 단위 해시가 결속과 다르면 judgment null', async () => {
+    st.revealHash = 'other'
+    expect((await (await call()).json()).judgment).toBeNull()
+  })
+
+  it('원장 커밋 뒤 보류가 시작되면 423 · judgment 없음', async () => {
+    let n = 0
+    const gate = await import('@/lib/csat/embargo-gate')
+    vi.spyOn(gate, 'canRevealItem').mockImplementation(async () => (n++ === 0))
+    const res = await call()
+    expect(res.status).toBe(423)
+    expect(await res.text()).not.toMatch(/judgment|answer/)
+    expect(st.calls.some((c) => c.startsWith('bound') || c.startsWith('judgment-reveal'))).toBe(false)
+    vi.restoreAllMocks()
   })
 
   it('강의 전체 · 경계 계속도 같은 원장(source 만 다름)', async () => {
