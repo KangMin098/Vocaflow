@@ -34,6 +34,25 @@ let memoryOwner: string | null = null
 let authGeneration = 0
 let authUser: string | null | undefined
 let subscribed = false
+/** 인증 이벤트 순번 — getSession 을 기다리는 사이 이벤트가 오면 늦게 온 응답 대신 이벤트 값을 쓴다(T-0172 r2 P1-2) */
+let authEventSeq = 0
+
+/**
+ * 기록 결속(T-0172 r2 P1-1) — 이 모듈이 내준 기록에 「읽힌 순간의 주인 · 인증 세대」를 심볼 키로 붙인다.
+ * 심볼 키는 화면의 `{ ...record }` 복사에는 따라가고, IndexedDB(structured clone) · JSON 전송에는 실리지 않는다.
+ * 저장 때 지금 주인 · 세대와 다르면 저장 · 전송을 거부한다 — 다른 계정이 쥐고 있던 기록이 새 계정 키로 재결속되지 않는다.
+ */
+const BINDING = Symbol('csat-dissection-owner')
+type Binding = { owner: string | null; generation: number }
+
+function bind<T extends DissectionRecord>(record: T, owner: string | null): T {
+  Object.defineProperty(record, BINDING, { value: { owner, generation: authGeneration } satisfies Binding, enumerable: true, configurable: true, writable: true })
+  return record
+}
+
+function bindingOf(record: DissectionRecord): Binding | undefined {
+  return (record as unknown as Record<symbol, Binding | undefined>)[BINDING]
+}
 
 /** 지금 로그인한 계정 id — 브라우저 세션(쿠키)에서 읽는다(네트워크 없음). 모르면 null */
 async function currentOwner(): Promise<string | null> {
@@ -42,9 +61,12 @@ async function currentOwner(): Promise<string | null> {
     const auth = createClient().auth
     if (!subscribed) {
       subscribed = true
-      auth.onAuthStateChange((_event, session) => noteAuthUser(session?.user?.id ?? null))
+      auth.onAuthStateChange((_event, session) => { authEventSeq += 1; noteAuthUser(session?.user?.id ?? null) })
     }
+    const seq = authEventSeq
     const { data } = await auth.getSession()
+    // 기다리는 사이 인증 이벤트가 왔으면 이 응답은 낡았다 — 이벤트가 남긴 최신 값을 쓴다
+    if (authEventSeq !== seq) return authUser ?? null
     const id = data.session?.user?.id ?? null
     noteAuthUser(id)
     return id
@@ -74,12 +96,15 @@ export async function loadDissectionRecord(): Promise<DissectionRecord> {
 
 /** 주인을 고정해 읽는다 — 읽는 도중 계정이 바뀌어도 다른 계정 키를 읽지 않는다 */
 async function loadFor(owner: string | null): Promise<DissectionRecord> {
-  if (owner !== memoryOwner) return freshRecord()
+  const generation = authGeneration
+  if (owner !== memoryOwner) return bind(freshRecord(), null)
   // 계정을 모르면 기기 저장소를 읽지 않는다 — 다른 계정의 기록일 수 있다
   const stored = owner ? await run<DissectionRecord | undefined>(S_RECORD, 'readonly', s => s.get(DISSECTION_KEY_PREFIX + owner)) : null
-  if (stored?.version === 1) return stored
+  // 읽는 사이 계정이 바뀌었으면 읽은 기록을 내주지 않는다(빈 기록 · 결속 없음 → 저장 거부)
+  if (authGeneration !== generation) return bind(freshRecord(), null)
+  if (stored?.version === 1) return bind(stored, owner)
   if (!dissectionMemory) dissectionMemory = freshRecord()
-  return dissectionMemory
+  return bind(dissectionMemory, owner)
 }
 
 function freshRecord(): DissectionRecord {
@@ -87,14 +112,27 @@ function freshRecord(): DissectionRecord {
   return emptyDissectionRecord(seed)
 }
 
+/**
+ * 화면이 쥐고 있던 기록을 저장한다. 기록이 읽힌 주인 · 인증 세대가 지금과 다르면 **거부**한다(false — 화면은 「이 기기에만」).
+ * 원 소유자 키의 기록은 건드리지 않으므로 그 계정이 다시 로그인하면 그대로 있다(T-0172 r2 P1-1).
+ */
 export async function saveDissectionRecord(record: DissectionRecord): Promise<boolean> {
-  return saveFor(await ownedMemory(), record)
+  const owner = await ownedMemory()
+  if (!boundTo(record, owner)) return false
+  return saveFor(owner, record)
+}
+
+/** 기록이 지금 주인 · 지금 세대에 결속돼 있는가. 결속 없는 기록은 주인을 모를 때(메모리 전용)만 받는다 */
+function boundTo(record: DissectionRecord, owner: string | null): boolean {
+  const b = bindingOf(record)
+  if (!b) return owner === null
+  return b.owner === owner && b.generation === authGeneration
 }
 
 /** 주인을 고정해 쓴다 — 그 사이 계정이 바뀌었으면 쓰지도 · 보내지도 않는다(기록은 호출부 손에 남는다) */
 async function saveFor(owner: string | null, record: DissectionRecord): Promise<boolean> {
   if (owner !== memoryOwner) return false
-  const stamped = { ...record, updatedAt: Date.now() }
+  const stamped = bind({ ...record, updatedAt: Date.now() }, owner)
   dissectionMemory = stamped
   // 계정을 모르면 메모리에만 둔다(저장 실패로 알린다) — 공용 키에 쓰면 다음 계정이 읽는다
   const result = owner ? await run(S_RECORD, 'readwrite', s => s.put(stamped, DISSECTION_KEY_PREFIX + owner)) : null
@@ -121,9 +159,13 @@ function updateFor(fixed: string | null, fn: (record: DissectionRecord) => Disse
     const owner = await ownedMemory()
     if (fixed !== null && owner !== fixed) return { record: await loadFor(owner), saved: false }
     const current = await loadFor(owner)
+    // 읽은 기록이 지금 주인 · 세대에 결속되지 않았으면(읽는 사이 전환) 고치지 않는다
+    if (owner !== null && !boundTo(current, owner)) return { record: current, saved: false }
     const changed = fn(current)
     if (changed === current) return { record: current, saved: true }
-    const saved = await saveFor(owner, changed)
+    // fn 이 기록을 쓰는 사이(동기) 세대가 바뀔 수는 없지만, 저장 직전 한 번 더 같은 규칙으로 본다
+    if (owner !== null && authGeneration !== bindingOf(current)?.generation) return { record: current, saved: false }
+    const saved = await saveFor(owner, bind(changed, owner))
     return { record: dissectionMemory ?? changed, saved }
   })
   writeChain = next.catch(() => undefined)

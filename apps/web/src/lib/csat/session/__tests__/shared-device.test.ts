@@ -93,7 +93,8 @@ async function aStudiesThenSignsOut() {
   h.user = 'user-A'
   vi.resetModules()
   const storeA = await import('../store')
-  await storeA.saveDissectionRecord(rec([A_ITEM]) as never)
+  // 화면처럼 이 모듈이 내준(계정 결속된) 기록을 고쳐 저장한다(r2 P1-1 — 결속 없는 기록은 저장 거부)
+  await storeA.saveDissectionRecord({ ...(await storeA.loadDissectionRecord()), ...rec([A_ITEM]) } as never)
   // A 의 전송이 실패해 서버에 못 갔다고 친다(미전송 기록) — 예약 PUT 을 버린다
   vi.clearAllTimers()
   h.puts = []
@@ -126,7 +127,7 @@ describe('공용 기기 — CSAT 해부 기록 계정 분리(T-0172)', () => {
     const storeB = await aStudiesThenSignsOut()
     h.serverRecord = null
     await storeB.loadSyncedDissectionRecord()
-    await storeB.saveDissectionRecord(rec([B_ITEM], 2) as never)
+    await storeB.saveDissectionRecord({ ...(await storeB.loadDissectionRecord()), ...rec([B_ITEM], 2) } as never)
     await vi.advanceTimersByTimeAsync(5000)
     h.puts = []
     // A 재로그인

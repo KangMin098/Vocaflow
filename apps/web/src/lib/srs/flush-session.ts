@@ -12,6 +12,7 @@ import {
   removeAckedResults,
   setSrsQueueOwner,
   getSrsQueueOwner,
+  getSrsOwnerVersion,
   type PendingSrsResult,
 } from './session-storage';
 import { flushPendingSrsResults } from './flush-actions';
@@ -24,6 +25,7 @@ let subscribed = false;
  * 늘 지금 값으로 유지한다. 읽지 못하면 주인을 비운다(보류) — 이전 주인을 쓰지 않는다(T-0172 r1 P1-3).
  */
 export async function resolveSrsQueueOwner(): Promise<string | null> {
+  const version = getSrsOwnerVersion();
   try {
     const { createClient } = await import('@/lib/supabase/client');
     const auth = createClient().auth;
@@ -32,9 +34,10 @@ export async function resolveSrsQueueOwner(): Promise<string | null> {
       auth.onAuthStateChange((_event, session) => setSrsQueueOwner(session?.user?.id ?? null));
     }
     const { data } = await auth.getSession();
-    setSrsQueueOwner(data.session?.user?.id ?? null);
+    // 기다리는 사이 인증 이벤트가 주인을 바꿨으면 이 응답은 낡았다 — 버린다(T-0172 r2 P1-2)
+    if (getSrsOwnerVersion() === version) setSrsQueueOwner(data.session?.user?.id ?? null);
   } catch {
-    setSrsQueueOwner(null);
+    if (getSrsOwnerVersion() === version) setSrsQueueOwner(null);
   }
   return getSrsQueueOwner();
 }

@@ -73,3 +73,22 @@
 - `pnpm exec vitest run src/lib/srs src/lib/dictation/__tests__/{persist-owner,adaptation,audio-control,hint,targets-graded}.test.ts src/app/api/csat/state src/lib/csat/session src/lib/csat/__tests__/state-push-retry.test.ts` — 24 files · 211 passed · skip 0
 - `session-rls.integration.test.ts`(dictation) 는 DB 환경 변수가 없으면 3건 skip 되는 기존 통합 시험이라 위 실행에서 제외했다(이 변경과 무관).
 - `pnpm exec tsc --noEmit -p .` — 오류 0 · `pnpm exec eslint <94fe3561a 이후 변경 ts/tsx 전부>` — 오류 0
+
+## 7. run 3 — Codex r2 리뷰 P1 2건 반영
+
+재현 테스트 커밋 `5c5b6e91e`: 수정 전 **3 failed / 1 passed**.
+
+| # | 지적 | 재현 테스트(수정 전 실패 요지) | 수정 |
+|---|---|---|---|
+| 1 | 화면이 쥔 A 기록을 B 전환 뒤 저장 → B 키 · owner=B PUT | `csat/session/__tests__/shared-device-stale.test.ts` — `saveDissectionRecord` 가 `true`(B 키에 A 기록) | `lib/csat/session/store.ts:38-56` 기록에 심볼 키로 「읽힌 주인 · 인증 세대」 결속(화면의 `{...record}` 복사에 따라가고 IndexedDB · JSON 에는 안 실림). `:98-110` `loadFor` 가 결속해 내주고 읽는 사이 세대가 바뀌면 빈 기록. `:119-130` `saveDissectionRecord` 는 결속이 지금 주인 · 세대와 다르면 **거부(false)** — 원 소유자 키는 그대로(보류). 결속 없는 기록은 주인을 모를 때(메모리 전용)만 받는다 |
+| 2 | getSession 대기 중 B 이벤트를 늦은 A 응답이 덮음 | `srs/__tests__/shared-device-stale.test.ts` — 실제 `pushPendingResult` 평가가 `owner: 'user-A'` · CSAT 같은 순서에서 A 기록 반환 | `lib/srs/session-storage.ts:46-57` 주인 판(version), `lib/srs/flush-session.ts:28-41` 조회 시작 판과 다르면 응답 폐기(실패 경로도 같음). CSAT `store.ts:60-73` 이벤트 순번 — 대기 중 이벤트가 오면 응답 대신 이벤트 값 |
+
+같은 세대 규칙을 점검한 다른 지점:
+- CSAT `updateFor`(`store.ts:155-172`): 읽은 기록의 결속이 지금 주인 · 세대와 다르면 고치지 않고, 저장 직전 세대를 다시 본다.
+- CSAT `loadSyncedDissectionRecord`: `currentOwner()`를 쓰는 `switched()`가 이제 늦은 응답에도 안전하다. GET 응답 owner 대조는 r1에서 넣은 그대로 둔다.
+- SRS `flushOnLeave`·`pushPendingResult`: 이벤트로 갱신되는 동기 주인만 읽는다. 늦은 조회는 폐기된다.
+- Dictation `persist.ts`: 완주 순간 `auth.getUser`로 서버 검증하며 캐시하지 않는다. 해당 없음.
+
+알려진 보수적 동작: 같은 계정이 다른 탭에서 로그아웃 후 재로그인해도 세대가 올라가, 그 전에 읽은 기록의 저장은 거부된다(화면은 「이 기기에만」 표시, 다시 읽으면 정상).
+
+실행(최종 커밋, apps/web): `vitest run src/lib/srs src/lib/dictation/__tests__/{persist-owner,adaptation,audio-control,hint,targets-graded}.test.ts src/app/api/csat/state src/lib/csat/session src/lib/csat/__tests__/state-push-retry.test.ts src/components/csat/home` — 30 files · 251 passed · skip 0. `tsc --noEmit -p .` 오류 0. eslint(94fe3561a 이후 변경 ts/tsx 전부) 오류 0.

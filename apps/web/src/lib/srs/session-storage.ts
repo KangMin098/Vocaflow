@@ -44,8 +44,16 @@ export function getSrsQueueOwner(): string | null {
   return queueOwner;
 }
 
+/** 주인 판(版) — 주인을 바꿀 때마다 는다. 늦게 온 세션 조회 응답이 그 사이의 인증 이벤트를 덮지 않게 비교한다(T-0172 r2 P1-2) */
+let ownerVersion = 0;
+
+export function getSrsOwnerVersion(): number {
+  return ownerVersion;
+}
+
 export function setSrsQueueOwner(owner: string | null): void {
   queueOwner = owner;
+  ownerVersion += 1;
 }
 
 function writeSafe(items: PendingSrsResult[]): void {
