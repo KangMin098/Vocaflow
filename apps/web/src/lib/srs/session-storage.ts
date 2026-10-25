@@ -24,6 +24,42 @@ export interface PendingSrsResult {
   reviewedAt: string;
   /** 어떤 모듈에서 평가됐는지 — learning_records.module */
   module: string;
+  /**
+   * 평가한 계정 id(T-0172 공용 기기). 큐에 넣을 때 붙이고, flush 는 지금 계정 것만 보내고 지운다.
+   * 없는 항목(옛 큐 · 계정을 끝내 모른 평가)은 누구에게도 보내지 않고 지우지도 않는다(보류).
+   */
+  owner?: string;
+}
+
+// ── 큐 주인(T-0172) ──────────────────────────────────────────────────────
+// 같은 브라우저를 두 계정이 쓰면 공용 키의 큐가 다음 계정의 flush 로 그 계정 카드에 적용됐다.
+// 주인은 flush-session 이 브라우저 세션에서 읽어 넣는다. 그 전에 쌓인 이 페이지의 평가는
+// 주인이 정해지는 순간 그 주인으로 표시한다 — 로그아웃은 hard reload 라 한 모듈 수명 = 한 계정이다.
+let queueOwner: string | null = null;
+const unboundThisPage = new Set<string>();
+const itemKey = (p: PendingSrsResult) => `${p.word}@${p.reviewedAt}@${p.module}`;
+
+export function getSrsQueueOwner(): string | null {
+  return queueOwner;
+}
+
+export function setSrsQueueOwner(owner: string | null): void {
+  queueOwner = owner;
+  if (!owner || unboundThisPage.size === 0 || typeof window === 'undefined') return;
+  const all = readSafe().map((p) =>
+    !p.owner && unboundThisPage.has(itemKey(p)) ? { ...p, owner } : p,
+  );
+  unboundThisPage.clear();
+  writeSafe(all);
+}
+
+function writeSafe(items: PendingSrsResult[]): void {
+  try {
+    if (items.length === 0) localStorage.removeItem(KEY);
+    else localStorage.setItem(KEY, JSON.stringify(items));
+  } catch {
+    /* quota 등 — 학습 흐름은 유지 */
+  }
 }
 
 /**
@@ -77,7 +113,9 @@ function readSafe(): PendingSrsResult[] {
 export function pushPendingResult(item: PendingSrsResult): void {
   if (typeof window === 'undefined') return;
   const existing = readSafe();
-  existing.push(item);
+  const stamped = queueOwner ? { ...item, owner: queueOwner } : item;
+  if (!stamped.owner) unboundThisPage.add(itemKey(stamped));
+  existing.push(stamped);
   try {
     localStorage.setItem(KEY, JSON.stringify(existing));
   } catch {
@@ -85,13 +123,23 @@ export function pushPendingResult(item: PendingSrsResult): void {
   }
 }
 
+/** **지금 계정의** 대기 평가만 — 다른 계정 · 주인 없는 항목은 보류라 돌려주지 않는다 */
 export function getPendingResults(): PendingSrsResult[] {
-  return readSafe();
+  if (!queueOwner) return [];
+  return readSafe().filter((p) => p.owner === queueOwner);
 }
 
-export function clearPendingResults(): void {
+/**
+ * **지금 계정의** 대기 평가를 지운다(`sent` 를 주면 그 항목만). 다른 계정 · 주인 없는 항목은 남긴다 —
+ * 원 소유자가 다시 로그인하면 그때 전송된다(T-0172).
+ */
+export function clearPendingResults(sent?: PendingSrsResult[]): void {
   if (typeof window === 'undefined') return;
-  localStorage.removeItem(KEY);
+  const owner = queueOwner;
+  if (owner) {
+    const drop = sent ? new Set(sent.map(itemKey)) : null;
+    writeSafe(readSafe().filter((p) => p.owner !== owner || (drop !== null && !drop.has(itemKey(p)))));
+  }
   try {
     sessionStorage.removeItem(KEY);
   } catch {

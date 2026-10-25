@@ -190,6 +190,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(r0): 공용 기기 계정 전환 시 학습 기록 혼입 차단(T-0172) — CSAT 해부 기록을 계정별 IndexedDB 키로, `/api/csat/state` PUT 은 다른 owner 403. SRS 평가 큐 항목에 owner, flush·서버 액션은 현재 계정 항목만 적용·삭제. 다른 계정·소유자 불명 옛 기록은 보류(삭제 안 함). 근거 `docs/r0/shared-device/REPORT.md`. DB 무변경.
 - **K6-b 평가용 노출 원장 P6 반영(T-0164)** — `loadExposureLedger` 가 `learning_exposures` 를 7번째 원장으로 읽어, 판단 장면에서 정답을 연 문항(과 같은 지문 문항)이 독립 평가 후보에서 빠진다. 조회 실패·표 없음·잘림은 unknown(fail-closed). DB 무변경.
 - content(csat): 학평 분석 교정 3회차 — 학습자 칸 원문 처리 메모(파서·body_ok·단위 분할) 전량 제거(발행판 포함 0건) · 함정 라벨·지문 밖 근거·근거 번호·정답 노출 교정, 새 버전 35+14+29행 → 독립 3인 재검수 → 게이트 발행. 학평 published 2,728 → 2,792 · in_review 1. 본문 정상·미발행 146 → 111(초안 없음). 2·3회차 DB 적용은 승인형 러너 `scripts/db/csat-content-fix/deploy.mjs`(신규 · 콘텐츠 DML · 마이그레이션 이력 미기록 · --ca). 2026-10-25 사용자 승인.
 - content(csat): 학평 미발행 분석 173문항 독립 검수 509건(블라인드 풀이 불일치 0) → 게이트 발행 +121(학평 published 2,607 → 2,728). 본문 정상·미발행 252 → 146(고1 55 · 고2 50 · 고3 41). 남은 in_review 65 의 주원인은 학습자용 design_intent 에 남은 원문 처리 메모 · 함정 라벨 불일치 · 재분석 미반영. 2026-10-25 사용자 승인·발행.

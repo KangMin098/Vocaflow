@@ -12,6 +12,8 @@ export interface FlushItem {
   reviewedAt: string;
   /** learning_records.module enum 값. */
   module: string;
+  /** 평가한 계정 id(T-0172). 서버는 로그인한 계정과 같은 항목만 적용한다 — 없거나 다르면 보류(적용 안 함). */
+  owner?: string;
 }
 
 export type FlushResult =

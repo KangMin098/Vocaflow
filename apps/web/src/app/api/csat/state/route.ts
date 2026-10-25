@@ -96,11 +96,17 @@ export async function PUT(req: Request) {
   const text = await req.text()
   if (text.length > MAX_BYTES) return NextResponse.json({ ok: false, error: 'too-large' }, { status: 413 })
   let record: unknown
+  let owner: unknown
   try {
-    record = (JSON.parse(text) as { record?: unknown }).record
+    const body = JSON.parse(text) as { record?: unknown; owner?: unknown }
+    record = body.record
+    owner = body.owner
   } catch {
     return NextResponse.json({ ok: false, error: 'bad-json' }, { status: 400 })
   }
+  // T-0172 공용 기기 — 기기 기록이 다른 계정 소유로 표시돼 있으면 이 계정 행에 합치지 않는다(재전송 안 하는 403).
+  //   소유자 표시가 없는 요청(배포 전 열린 탭)은 기존대로 받는다 — 새 클라이언트는 계정별 키의 기록만 소유자와 함께 보낸다
+  if (owner !== undefined && owner !== user.id) return NextResponse.json({ ok: false, error: 'owner-mismatch' }, { status: 403 })
   if (!looksLikeRecord(record)) return NextResponse.json({ ok: false, error: 'bad-record' }, { status: 400 })
   // FI-015(#308) — 읽기 → 병합 → 쓰기를 비교 갱신(updated_at CAS) 한 번으로 묶는다. 두 기기가 같은 옛 사본을 읽고 각자 덮으면 한쪽 노트가 사라졌다.
   //   쓰기 직전 행이 바뀌었으면(다른 요청이 먼저 씀) 쓰지 않고 409 — 성공 응답은 「합친 결과가 서버에 남았다」는 뜻이다.
