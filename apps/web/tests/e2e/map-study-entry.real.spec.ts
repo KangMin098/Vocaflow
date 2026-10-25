@@ -105,7 +105,7 @@ test('왕복 · 목표 변경 알림 · 재로그인 — 1440', async ({ page, c
   const first = study.locator('[data-testid="inspector-study-link"]').first()
   test.skip((await first.count()) === 0, '열 수 있는 연구 사례 없음 — 왕복 NOT_RUN')
   await first.click()
-  await page.waitForURL(/\/csat\/item\//)
+  await page.waitForURL(/\/csat\/item\//, { timeout: 240_000 }) // 콜드 서버 첫 문항 화면 컴파일
   const back = page.locator('[data-testid="item-back-map"]')
   await expect(back).toBeVisible({ timeout: 120_000 })
   const backHref = (await back.getAttribute('href')) ?? ''
