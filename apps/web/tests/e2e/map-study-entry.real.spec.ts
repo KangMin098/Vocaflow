@@ -138,8 +138,11 @@ test('정답 공개 — 서버 오류(503 모의)면 정답 · 결정적 근거 
   await expect(answerBlock).toHaveCount(0)
   await expect(evidenceChips).toHaveCount(0)
   let fail = true
-  await page.route('**/api/csat/item/*/judgment', (route) => (fail ? route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ ok: false, error: '지금은 정답을 열 수 없어요' }) }) : route.continue()))
-  await reveal.getByRole('button', { name: '정답 보기' }).click()
+  let mocked = 0
+  await page.route('**/api/csat/item/*/judgment', (route) => (fail ? (mocked++, route.fulfill({ status: 503, contentType: 'application/json', body: JSON.stringify({ ok: false, error: '지금은 정답을 열 수 없어요' }) })) : route.continue()))
+  // 콜드 개발 서버는 하이드레이션 전 클릭을 버린다 — 요청이 실제로 나갈 때까지만 다시 누른다(응답 · 판정은 건드리지 않는다)
+  await expect.poll(async () => { if (mocked === 0) await reveal.getByRole('button', { name: '정답 보기' }).click(); return mocked }, { timeout: 120_000, intervals: [3_000] }).toBeGreaterThan(0)
+  expect(mocked, '503 장면은 요청 1회').toBe(1)
   // 503 — 실패 안내 · 정답 근거 블록 0 · 근거 칩 0 · 다시 누를 수 있다
   await expect(page.getByTestId('answer-reveal-failed').first()).toBeVisible({ timeout: 60_000 })
   await expect(answerBlock).toHaveCount(0)
