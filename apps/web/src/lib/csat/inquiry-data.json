@@ -1333,7 +1333,7 @@
    }
   },
   "2014A#29": {
-   "analysis_version": 5,
+   "analysis_version": 6,
    "review": "verified",
    "distractors": [
     {
@@ -1376,10 +1376,21 @@
     },
     {
      "n": 3,
-     "truth": "unknown",
-     "operation": "none",
-     "preserved": [],
-     "altered": [],
+     "truth": "false",
+     "operation": "scope",
+     "preserved": [
+      {
+       "component": "대상·요일",
+       "text": "박물관 · 월요일 휴관"
+      }
+     ],
+     "altered": [
+      {
+       "component": "범위",
+       "from": "매월 첫째 월요일(한 달에 한 번)",
+       "to": "매주 월요일"
+      }
+     ],
      "note": "휴관 정보는 Hours 별표 각주에 있다. 매월 첫째 월요일에 휴관하므로, 매주 월요일에 휴관한다는 ③은 안내문과 일치하지 않는다."
     },
     {
@@ -1520,7 +1531,7 @@
      {
       "n": 3,
       "selected_as_answer": false,
-      "content_truth": "unknown",
+      "content_truth": "false",
       "requirement_fit": "fails",
       "decisive": "Hours 별표 각주는 매월 첫째 월요일에 휴관한다고 안내한다. ③의 ‘매주 월요일’은 휴관 범위가 달라 불일치한다.",
       "sentences": [
