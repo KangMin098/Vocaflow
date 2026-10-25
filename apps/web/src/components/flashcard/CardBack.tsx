@@ -60,7 +60,16 @@ export function CardBack({ word, isExampleAudioPlaying, desktopLearner = false }
       </p>
 
       <p className="mb-6 mt-4 text-center font-english text-[26px] font-[500] leading-[1.3] text-[var(--t1)]">
-        {word.meaning}
+        {/* 키보드·보조기기의 「앞면 다시 보기」 컨트롤(앞면 낱말 버튼과 대칭). onClick 을 두지 않는다 — 클릭이
+            카드(Card.tsx)로 올라가 카드 면 클릭과 같은 경로로 뒤집는다. 내부 텍스트는 뜻 그대로다. */}
+        <button
+          type="button"
+          data-card-unflip
+          aria-label={`${word.meaning} — 카드 앞면 보기`}
+          className="-my-[5.1px] inline-flex min-h-[44px] items-center break-keep rounded-[var(--r-sm)] px-1 align-middle"
+        >
+          {word.meaning}
+        </button>
       </p>
 
       {/* 품사별 여러 뜻 — 다의어일 때만(≥2 sense). 시중 단어장 대비 다의어 한눈에.

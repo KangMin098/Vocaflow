@@ -26,7 +26,8 @@ export function RecallPhase({ visible, progress, label }: RecallPhaseProps) {
           className="absolute left-0 top-0 h-full rounded-[var(--r-full)] bg-gradient-to-r from-[var(--p)] to-[var(--p-dark)] transition-[width] duration-[var(--dur-fast)] ease-linear"
           style={{ width: `${progress}%` }}
           role="progressbar"
-          aria-valuenow={progress}
+          aria-label="회상 시간"
+          aria-valuenow={Math.round(progress)}
           aria-valuemin={0}
           aria-valuemax={100}
         />
