@@ -111,7 +111,7 @@ describe('공용 기기 — SRS 평가 큐 계정 분리(T-0172) · 클라이언
 })
 
 describe('공용 기기 — SRS 서버 액션 소유자 검증(T-0172)', () => {
-  it('다른 계정 소유로 표시된 평가는 B 의 같은 단어 카드에 적용하지 않는다', async () => {
+  it('다른 계정 소유로 표시된 평가는 B 카드에 적용 · ACK 하지 않고, 본인 항목만 적용 · ACK 한다', async () => {
     vi.resetModules()
     h.vocab = [
       { id: 'vocab-A-apple', user_id: 'user-A', word: 'apple', difficulty: 5, stability: 1, last_review_at: null, next_review_at: null, module_history: [], review_count: 0, created_at: '2026-10-01T00:00:00.000Z' },
@@ -141,10 +141,17 @@ describe('공용 기기 — SRS 서버 액션 소유자 검증(T-0172)', () => {
       },
     }))
     const { flushPendingSrsResults } = await import('../flush-actions')
-    const res = await flushPendingSrsResults([{ word: 'apple', rating: 4, reviewedAt: '2026-10-25T01:00:00.000Z', module: 'flashcard', owner: 'user-A' }] as never)
+    const res = await flushPendingSrsResults([
+      { word: 'apple', rating: 4, reviewedAt: '2026-10-25T01:00:00.000Z', module: 'flashcard', owner: 'user-A' },
+      { word: 'apple', rating: 3, reviewedAt: '2026-10-25T03:00:00.000Z', module: 'flashcard', owner: 'user-B' },
+      { word: 'zebra', rating: 3, reviewedAt: '2026-10-25T04:00:00.000Z', module: 'flashcard', owner: 'user-B' },
+    ] as never)
     vi.doUnmock('@/lib/supabase/server')
     expect(res.ok).toBe(true)
-    expect(h.updates).toEqual([])
-    expect(h.inserts).toEqual([])
+    // A 소유 평가는 적용하지 않고 ACK 하지도 않는다 — 클라이언트가 A 를 위해 남긴다(r1 P1-4)
+    expect(h.updates).toEqual([{ id: 'vocab-B-apple' }])
+    expect((h.inserts[0] as { attempted_at: string }[]).map((r) => r.attempted_at)).toEqual(['2026-10-25T03:00:00.000Z'])
+    // 본인 항목은 적용(apple) · 단어 없음(zebra) 모두 확인한 것으로 돌려준다
+    expect((res as { acked?: string[] }).acked?.sort()).toEqual(['apple@2026-10-25T03:00:00.000Z@flashcard', 'zebra@2026-10-25T04:00:00.000Z@flashcard'])
   })
 })
