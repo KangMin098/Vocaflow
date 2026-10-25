@@ -448,11 +448,12 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | `POST /api/acp/dev-process` | article 단권 처리 |
 | `POST /api/acp/enqueue` | article 큐 등록 |
 
-### `/api/admin/library/*` (14)
+### `/api/admin/library/*` (15)
 
 | 경로 | 비고 |
 |---|---|
 | `GET /api/admin/library/curation-jobs?kind=voice\|quiz\|review` | 관리자·큐레이터 세션/RLS로 기존 큐 상태 조회. 캐시 없음. 화면 초기 조회·8초 폴링에 Server Action을 사용하지 않아 상세 선택과 경합하는 화면 재갱신 방지 |
+| `GET /api/admin/library/story?kind=slots\|bundle&edition_version_id=` | Story 목록·번들 조회 전용. 실제 쿠키 사용자·active admin/curator 및 기존 Story RPC 권한 검사, 캐시 없음·DEV 우회 없음. `bundle`은 판 UUID 필수. 초기 조회와 파일 패널 URL 변경을 Server Action 대기열에서 분리 |
 | `POST /api/admin/library/preview-storyweaver` | StoryWeaver 사전 검사 |
 | `POST /api/admin/library/enrich-seed-batch` | seed 후보 보강 |
 | `POST /api/admin/library/force-publish-book` | 관리자 수동 발행 |

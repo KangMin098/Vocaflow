@@ -15,6 +15,8 @@
 //   · 'use server' 모듈(Server Action) → 같은 이름의 브라우저 대역. 인자를 JSON(FormData 의 File 은 이름·형식·크기·본문 텍스트)으로
 //     http://harness.local/__action/<name>(원본 줄) 또는 /__story/<name>(Story 줄)에 POST 하고, Playwright 스펙이 응답한다.
 //     목록에 없는 'use server' 모듈이 번들에 들어오면 빌드를 멈춘다(대역 없이 서버 코드가 섞이는 것을 막는다).
+//   · Story admin-reader 의 실제 GET 해석 코드는 유지하고, fetch 전송만 기존 /__story/listStorySlotsAction ·
+//     loadStoryBundleAction 메모리 서버로 연결한다. 실제 Next GET 라우트 · 인증은 별도 검사 대상이다.
 //   · @/lib/supabase/client → 네트워크를 쓰지 않는 체인 대역. 모든 호출은 window.__vfSupabase 에 기록되고
 //     { data: null, error: { message: 'harness: Supabase 미연결(대역)' } } 로 끝난다.
 //   · @/lib/analytics/client → window.__vfEvents 에 쌓는 대역(전송 없음). 스펙은 그 밖의 모든 외부 요청을 abort 한다.
@@ -210,6 +212,23 @@ createRoot(document.getElementById('root')).render(
 `
 
 const unknownServer: string[] = []
+const storyReadTransport = `
+const fetch = async (input: string) => {
+  const url = new URL(input, 'http://harness.local')
+  if (url.pathname !== '/api/admin/library/story') throw new Error('Unknown Story read transport')
+  const kind = url.searchParams.get('kind')
+  const name = kind === 'slots' ? 'listStorySlotsAction' : kind === 'bundle' ? 'loadStoryBundleAction' : null
+  if (!name) throw new Error('Unknown Story read kind')
+  const args = kind === 'bundle' ? [url.searchParams.get('edition_version_id')] : []
+  ;(window.__vfActions ||= []).push({ prefix: '__story', name, at: performance.now() })
+  const response = await globalThis.fetch('http://harness.local/__story/' + name, {
+    method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ args }),
+  })
+  const out = await response.json()
+  if (out && out.__throw) throw new Error(out.__throw)
+  return new Response(JSON.stringify(out?.value), { status: response.status, headers: { 'content-type': 'application/json' } })
+}
+`
 const r = await build({
   stdin: { contents: entry, resolveDir: ROOT, loader: 'tsx' },
   bundle: true, write: false, metafile: true, format: 'iife', platform: 'browser', jsx: 'automatic', target: 'es2020',
@@ -225,8 +244,9 @@ const r = await build({
       b.onResolve({ filter: /^@\// }, async (a) => b.resolve('./src/' + a.path.slice(2), { kind: a.kind, resolveDir: ROOT }))
       b.onLoad({ filter: /[\\/]src[\\/].*\.(ts|tsx)$/ }, (a) => {
         const text = fs.readFileSync(a.path, 'utf8')
-        if (!USE_SERVER.test(text)) return {} // contents 없음 = 다음 로더(esbuild 기본)로 넘김
         const rel = path.relative(ROOT, a.path).replace(/\\/g, '/')
+        if (rel === 'src/lib/library/story/admin-reader.ts') return { contents: `${storyReadTransport}\n${text}`, loader: 'ts', resolveDir: path.dirname(a.path) }
+        if (!USE_SERVER.test(text)) return {} // contents 없음 = 다음 로더(esbuild 기본)로 넘김
         const prefix = SERVER_ACTION_MODULES[rel]
         if (!prefix) { unknownServer.push(rel); return { contents: 'export {}', loader: 'js' } }
         return { contents: actionShim(a.path, prefix), loader: 'js', resolveDir: ROOT }
@@ -266,6 +286,7 @@ const manifest = {
   head,
   worktree_dirty: worktreeDirty,
   story_actions_present: stories,
+  story_read_transport: 'real admin-reader GET parsing; fetch mapped to existing memory-server story actions',
   html: path.relative(REPO, out).replace(/\\/g, '/'),
   html_sha256: createHash('sha256').update(fs.readFileSync(out)).digest('hex'),
   css_bytes: appCss.length,
