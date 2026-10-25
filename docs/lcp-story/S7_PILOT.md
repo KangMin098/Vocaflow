@@ -21,6 +21,30 @@
 
 검수 AI 배정은 중앙 `development_policy.ai_work_roles`에 따라 자동 수행한다. 현재 SQL은 AI 검수를 이미 허용하며 서로 다른 활성 스태프 UID와 제작·검수 세션을 요구한다. 이는 별도 실제 사람의 콘텐츠 검수를 요구한다는 뜻이 아니다. 기존 정본 §14의 사람 권리 확인 조건은 별도로 미충족이며 AI 조사나 개발 로그인으로 충족했다고 기록하지 않는다.
 
+### 2026-10-26 후속 — 승인된 개발 인증 계정 구성
+
+사용자가 AI 제작 curator · AI 검수 admin · 일반 학습자 A/B의 신규 4개 계정과 정확한 역할 SQL 적용을 승인했다. 정상 Auth Admin API 생성 후 승인 SHA `0fe31cfd2ee1643be5cab0dcc666fab8c2d196ffb4d968560cd0f1643b18a0f4`(2,308바이트)를 MCP로 적용했다. [SQL 원문·복구안·경계](../../scripts/db/lcp-story-s3/dev-accounts/README.md)를 보존하며 복구는 실행하지 않았다.
+
+- 서로 다른 신규 UID 4개, 요청한 역할·active 상태, 보호된 `app_metadata`의 개발 AI 표기와 `human_review:false`를 확인했다. 비밀값은 Git 제외 `.env*`에만 보관한다.
+- 원래 86개 Auth·프로필 지문은 적용 전후 및 독립 사후 SELECT에서 일치했다. 적용 직후 총계 90/90 뒤 다른 cohort 계정 1개가 추가된 91/91 관찰은 이번 4개 생성과 분리한다.
+- 정상 비밀번호 로그인 → 새 SSR 쿠키 `getUser()` → 실제 사용자/프로필 일치 → 스태프 RPC 허용·일반 사용자/익명 거부 → A 로그아웃 후 B 로그인, 23/23 통과. 서비스 키·가짜 JWT로 로그인하지 않았다.
+- 실제 브라우저 UI는 기존 Claude 세션에서 별도로 검증 중이다. 위 API/SSR 검사만으로 UI 로그인·발행본의 개인 진도·지연 응답 격리를 통과 처리하지 않는다. 발행본이 없어 실제 독서·완독·이어하기와 교육 효과는 계속 미검증이다.
+
+학습자 가치의 현재 증거는 다음과 같이 나눈다. 코드 경로는 `apps/web/src/` 기준이며, 편집 목표 난도를 실제 검증된 학습자 수준으로 해석하지 않는다.
+
+| 영역 | 구현 · 코드 근거 | 실제 콘텐츠/dev 증거 · 남은 상태 |
+|---|---|---|
+| Discover | 구현됨 — `components/library/story/StoryCatalog.tsx`: 작품 묶음 · 첫 장면 · HOOK · 편집 목표 · 빈/실패 상태 | 실제 1440/1280 로그인 서가는 발행 0의 빈 상태. 작품의 자발적 선택은 미검증; 추천 다양성은 S6 후속 |
+| Start | 구현됨 — `lib/library/story/learner.ts`: 판본 입구 · 명시적 시작 · 실제 사용자 확인 뒤 위치 저장 | 발행된 실제 작품 시작 · 저장 미검증 |
+| Read | 구현됨 — `components/library/story/{StoryReader,StorySourcePanel,StoryUnitText}.tsx`: 본문 · 요청형 원문/단어 도움 | 기존 격리 검증 보존. 실제 발행본 독서·도움 미검증; Deep/Bridge는 S6 후속 |
+| Continue | 구현됨 — `components/library/story/story-reader-session.ts`: 위치와 완료 분리 · 판본별 이어하기 · 다음 이야기 이동 | 실제 진도 · 재로그인 복원 · 완독 · 다른 계정 개인 상태 격리 미검증. 빈 서가의 A→B 전환으로 대체하지 않음 |
+| Quality | 구현됨 — `components/library/story/use-story-auth-guard.ts`와 서버/RPC의 실제 사용자·권한·판본 결속 검사 | 정상 Auth/SSR 23검사 통과. 대표 판본은 AI 독립 검수 완료; §14 사람 권리 결정과 발행 콘텐츠 적합성/학습자 난도는 미충족·미검증 |
+| Integration | 구현됨 — 기존 `components/library/reader/WordLookupPopover.tsx`의 읽기 전용 뜻 조회 | 듣기·어휘 저장·교재 생성 연결은 후속. 기존 TTS·추출·인쇄 자산은 재사용 후보이며 Story→VCB/FAST 콘텐츠 계약은 미설계 |
+
+최상위 목표의 기반 기능은 구현됐지만, 실제 작품을 고르고 이해하며 독서를 지속하는 경험의 종단 수용은 아직 완료가 아니다. 우선 실제 관리자 파일 흐름 결함을 보완하고, 정본의 권리 조건을 충족한 대표 1편으로 발행·독서·저장·철회 여정을 검증한다. 이어 실제 참가자의 흥미·지속·이해를 관찰하며 새 글 독해 성장은 독립 평가로 확인한다. 새 TTS 엔진·전면 개인화·교재공장 재설계는 이번 필수 범위에 추가하지 않는다.
+
+아래 표는 2026-10-25 준비 당시 이력이다.
+
 | 구분 | 내용 |
 |---|---|
 | 한 일 | 서로 다른 장르의 영어 원작 단편 3편 선정 · Standard Ebooks 원천 내려받기(원천 파일 sha256 기록) · 스냅숏 작성기로 `lcp-story/source-snapshot@1` 생성 · 작품별 편집 기준(`lcp-story/editorial-policy@1`) 작성 · S2 CLI `export` · `validate` · `plan` 실제 실행 |
