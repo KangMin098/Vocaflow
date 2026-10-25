@@ -15,6 +15,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { bindItem, toJudgmentItem, type AnalysisRow, type ItemRow, type UnitsRow } from '@/lib/csat/binding/adapter'
 import { judgmentItemValidity } from '@/lib/csat/binding/invalidate'
+import { canRevealItem, type GateDeps } from '@/lib/csat/embargo-gate'
 import type { PdfAnchorFile } from '@/lib/csat/binding/pdf'
 import { isBlocking } from '@/lib/csat/binding/readiness'
 import type { JudgmentItem } from '@/lib/csat/judgment/types'
@@ -42,9 +43,14 @@ function pdfAnchored(examId: string, no: number): boolean {
 /**
  * @param db service-role 클라이언트(csat_item_units · csat_current_units_many 는 authenticated 권한이 없다)
  * @param expectedVersion 해설 극장이 읽은 분석 판본(CsatItemExplain.analysis_version)
+ * @param gate Reveal Gate 판정 클라이언트(기본: 넘겨받은 service-role db)
+ *
+ * Reveal Gate(T-0179): 페이지 · 판단 라우트의 관문과 별개로, 정답 민감 표(csat_items.answer · csat_item_analyses)를 읽기 전에
+ * canRevealItem 으로 보류 문항 · 시험을 거른다(이중 방어 · T-0178 server.ts 와 같은 판정). 보류 · 판정 실패(fail-closed)면 'held'.
  */
-export async function loadBoundJudgmentItem(db: SupabaseClient, itemId: string, expectedVersion: number | null): Promise<BoundJudgment> {
+export async function loadBoundJudgmentItem(db: SupabaseClient, itemId: string, expectedVersion: number | null, gate: GateDeps = { db }): Promise<BoundJudgment> {
   if (expectedVersion == null) return { item: null, reason: 'no_analysis' }
+  if (!itemId || !(await canRevealItem(itemId, gate))) return { item: null, reason: 'held' }
   const it = await db.from('csat_items').select('id,exam_id,no,type_id,stem,passage,choices,answer,answers,body_ok').eq('id', itemId).limit(1)
   if (it.error) return { item: null, reason: 'db' }
   const row = (it.data?.[0] ?? null) as ItemRow | null
