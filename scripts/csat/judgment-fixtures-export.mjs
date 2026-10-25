@@ -2,10 +2,14 @@
 // 유형 전용 판단 도구(대량작업 D)의 실제 기출 픽스처를 DB 에서 읽기 전용으로 뽑는다.
 // 문항(원문 단위·선지)과 공개 뒤 자료(정답·분석)를 서로 다른 파일로 나눠, 공개 전 화면이
 // 정답 파일을 import 하지 않아도 되게 한다. 분석은 published 이고 units_version 이 일치하는 것만 쓴다.
-// 실행: node --tls-max-v1.2 scripts/csat/judgment-fixtures-export.mjs   (재실행 안전 — 파일을 덮어쓴다)
+// 실행: node --tls-max-v1.2 scripts/csat/judgment-fixtures-export.mjs [--set all|kice|hakpyeong] [--out <dir>]   (재실행 안전 — 파일을 덮어쓴다)
+// 집합: 기본 all = 평가원(수능·모평) + 학평. 판단 도구 픽스처는 검증용이라 학평을 일부러 포함한다(현 픽스처 14개 전부 학평).
+// 회차 판정은 공용 lib-exam-id.mjs 만 쓴다 — exam_id 를 직접 파싱하지 않는다(exam-id 가드).
 import fs from 'node:fs'
 import path from 'node:path'
 import { createRequire } from 'node:module'
+
+import { examKindOf, isKiceExam, parseExamId } from './lib-exam-id.mjs'
 
 const require = createRequire(path.resolve('apps/web/package.json'))
 const { createClient } = require('@supabase/supabase-js')
@@ -26,17 +30,30 @@ const db = createClient(url, key, { auth: { persistSession: false } })
 
 const TYPES = ['R-IRRELEVANT', 'R-ORDER', 'R-NOTICE', 'R-FACT', 'R-GRAMMAR', 'R-SUMMARY', 'R-MOOD']
 const PER_TYPE = 2
-const OUT = 'apps/web/src/lib/csat/judgment/fixtures'
+const argOf = (flag) => {
+  const i = process.argv.indexOf(flag)
+  return i >= 0 ? process.argv[i + 1] : undefined
+}
+const SET = argOf('--set') ?? 'all'
+if (!['all', 'kice', 'hakpyeong'].includes(SET)) throw new Error(`--set 은 all|kice|hakpyeong — 받은 값: ${SET}`)
+const OUT = argOf('--out') ?? 'apps/web/src/lib/csat/judgment/fixtures'
 fs.mkdirSync(OUT, { recursive: true })
 
-// 수능(exam_id 4자리) → 모평(M) → 학평(H) 순으로 고른다
-const rank = (examId) => (/^\d{4}$/.test(examId) ? 0 : examId.startsWith('M') ? 1 : 2)
+/** 집합 판정 — 문법 밖 exam_id 는 어느 집합에도 넣지 않는다(추측하지 않는다) */
+const inSet = (examId) => {
+  if (!parseExamId(examId)) return false
+  if (SET === 'kice') return isKiceExam(examId)
+  if (SET === 'hakpyeong') return !isKiceExam(examId)
+  return true
+}
+// 수능 → 모평 → 학평 순으로 고른다
+const rank = (examId) => ({ suneung: 0, mock: 1 })[examKindOf(examId)] ?? 2
 
 const report = []
 for (const type of TYPES) {
   const { data: items, error } = await db.from('csat_items').select('id, exam_id, no, type_id, stem, choices, answer, body_ok').eq('type_id', type).eq('body_ok', true)
   if (error) throw error
-  const sorted = items.sort((a, b) => rank(a.exam_id) - rank(b.exam_id) || b.exam_id.localeCompare(a.exam_id))
+  const sorted = items.filter((it) => inSet(it.exam_id)).sort((a, b) => rank(a.exam_id) - rank(b.exam_id) || b.exam_id.localeCompare(a.exam_id))
   const picked = []
   for (const it of sorted) {
     if (picked.length >= PER_TYPE) break
