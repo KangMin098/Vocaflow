@@ -36,6 +36,13 @@ export const STAGES = {
     sha256: '9583f2a551102eee5520354bec8d9e0610bcede15fdd4aca209244a0cc2c49ce',
     verify: `select count(*) = 29, count(*)::text from public.csat_item_analyses where analyst_run = 'vf-20261025-fix-round3' and status = 'in_review'`,
   },
+  // 학평 유형 미지정 6문항 type_id(R-GRAMMAR 3 · R-FACT 1 · R-SUMMARY 2) — 사용자 승인 2026-10-25(「제안 방안으로 진행」)
+  'hk-type6': {
+    sha256: 'b9ae765ef16ad02f2179bc2c6e295ee5fd91ad7e697400f41f689b945880df33',
+    verify: `select count(*) = 6, string_agg(id || ':' || type_id, ',' order by id) from public.csat_items
+      where (id in ('H1803G1#29','H1803G3#29','H1806G2#28') and type_id = 'R-GRAMMAR') or (id = 'H1806G2#27' and type_id = 'R-FACT')
+         or (id in ('H2503G1#40','H2603G1#40') and type_id = 'R-SUMMARY')`,
+  },
   // C 원문 정정 2건(2014B#36 · 2017#42 csat_items.passage 끝 배점·선지 표 머리 꼬리) — 본문은 research/csat-lecture-audit-c-20261024
   //   docs/csat-learner/lecture-audit-c-20261024/g/db-fix/D-two/forward.sql. 사용자 승인 2026-10-25(「2014B#36·2017#42 우선 DB 정정 승인」)
   'c-src2': {
