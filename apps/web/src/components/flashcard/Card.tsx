@@ -61,11 +61,11 @@ export function Card({
   const isLocked = phase === 'recall' || phase === 'evaluated'
 
   return (
+    // 카드 면 전체는 마우스 클릭 면이다. 역할(role="button")은 주지 않는다 — 안에 북마크·발음·삽화 버튼이 있어
+    // 상호작용 안의 상호작용(axe nested-interactive)이 된다. 키보드·보조기기의 뒤집기 컨트롤은 앞면 낱말
+    // 버튼(CardFront `data-card-flip`)이고, 그 클릭이 여기로 올라와 같은 onClick 을 탄다.
     <div
       onClick={isLocked ? undefined : onClick}
-      role="button"
-      tabIndex={isLocked ? -1 : 0}
-      aria-label={isFlipped ? '카드 앞면 보기' : '카드 뒤집어 정답 확인'}
       data-learner-flashcard
       className={`group/card relative h-[380px] w-full ${isLocked ? 'cursor-default' : 'cursor-pointer'} ${swipeDirection === 'left' ? 'animate-[card-out-left_var(--dur-slow)_var(--ease)_forwards]' : ''} ${swipeDirection === 'right' ? 'animate-[card-out-right_var(--dur-slow)_var(--ease)_forwards]' : ''} ${entering ? 'animate-[card-in_var(--dur-slow)_var(--ease-spring)]' : ''} `}
       style={{
@@ -89,6 +89,7 @@ export function Card({
           word={word}
           hintVisible={hintVisible}
           showFlipHint={phase === 'flippable'}
+          flipLocked={isLocked}
           isAudioPlaying={isAudioPlaying}
           canPlayAudio={canPlayAudio}
           onPlayAudio={onPlayAudio}
