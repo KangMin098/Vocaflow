@@ -37,12 +37,12 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 | K1 | 문항·원문·분석·강의·앵커·노출·지도 계약 통합 | NOT_IN_BASELINE | — | 강의·정답 지연은 공식 완료(T-0140·0147)지만 main 에 없다. 34번 연결 T-0152 는 READY(리뷰 반려 뒤) |
 | K2 | 초기 props 정답 키(D 픽스처 13건) | PASS | U | `leakedAnswerKeys` = [] |
 | K2 | 정답 근거·소거 문장이 초기 자료에 값으로 없다 | PASS | U | 이름 목록이 아니라 값 대조로 확인 |
-| K2-a | 정답 키 검사가 이름 목록에만 의존한다 | KNOWN_GAP | U | `is_correct` · `answer_no` · `correctIndex` · `correct_choice` 를 놓친다 |
+| K2-a | 정답 키 검사가 이름 목록에만 의존한다 | PASS | U | T-0171(2026-10-25) 수정 — `is_correct` · `answer_no` · `correctIndex` · `correct_choice` 를 중첩 객체 · 배열에서도 잡는다. 목표 4건 실행 |
 | K2 | 첫 HTML·RSC 정답 분리, cue·강조 누출 | NOT_IN_BASELINE | U(브랜치) | 참조 브랜치 테스트 86/86. 실제 HTML·RSC 응답 대조는 NOT_RUN |
 | K3 | 판본(analysis/units)·id·형식 불일치 거절 | PASS | U | `checkReveal` |
-| K3-a | units 해시가 달라도 판본 번호만 같으면 통과 | KNOWN_GAP | U | `RevealData` 에 해시 칸이 없다 |
+| K3-a | units 해시가 달라도 판본 번호만 같으면 통과 | PASS | U | T-0171 수정 — `RevealData.unitsHash` 필수, 누락 · 빈값 · 불일치는 version 거절. 서버 loader · exporter · reveal 픽스처 7개가 같은 해시를 싣는다. 목표 2건 실행 |
 | K3 | 픽스처 13건과 개발 DB 현재 판본·해시 | PASS | L | 13/13 일치 |
-| K4-a | 정답 번호와 선지 판정이 어긋나도 거절하지 않는다 | KNOWN_GAP | U·L | 아래 「K4-a 상세」 |
+| K4-a | 정답 번호와 선지 판정이 어긋나도 거절하지 않는다 | PASS | U | T-0171 수정 · 목표 4건 실행. 아래 「K4-a 상세」 |
 | K5 | D 6종 판단 도구 근거 데이터 결속 | PASS | U·L | D 테스트 145/145, 픽스처 DB 결속 |
 | K5 | D 도구 제품 화면 연결 | NOT_IMPLEMENTED | — | 어느 제품 라우트에도 마운트가 없다 |
 | K5 | 34번 판단 도구 제품 연결, c3 UNKNOWN 경계 | NOT_IN_BASELINE | — | T-0145 BLOCKED, T-0152 READY. 검증된 통합 커밋이 없어 격리 통합 검사는 NOT_RUN |
@@ -57,8 +57,9 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 
 ### K4-a 상세
 - 2015#25 의 DB 값은 `answer=4`, `answers={4,5}` 이다. 개발 DB 에서 복수 정답 문항은 이것 하나다.
-- `checkReveal` 은 정답 번호와 어긋나는 `verdict=correct` 선지가 있어도 거절하지 않는다.
-- 정답 하나만 비교하는 코드:
+- **수정됨(T-0171 · 2026-10-25)**: `checkReveal` 은 `answer` · 선택적 `answers[]`(정수 · 범위 · 중복 · answer 포함) · 선지 번호 · verdict 를 검사하고, 공식 정답 집합과 `verdict=correct` 집합이 정확히 같아야 받는다. 정상 복수 정답(`answer=4` · `answers=[4,5]` · correct 4·5)은 검증 가능하지만 G adapter 의 `multi_answer_unsupported_by_tool` 차단은 그대로다.
+- 수정 전 기록: 정답 번호와 어긋나는 `verdict=correct` 선지가 있어도 거절하지 않았다.
+- 아래 정답 하나만 비교하는 화면 코드는 이 작업 범위 밖이라 그대로다:
   - `session/ItemScreen.tsx:100`
   - `authored/AuthoredRunner.tsx:466`
   - `lib/csat/evidence.ts:323`
@@ -87,13 +88,13 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 |---|---|---|
 | 34번 c3 UNKNOWN 경계 | K5 | NOT_IN_BASELINE |
 | cue 이동·강조로 정답 누출 / 초기 HTML·RSC 간접 공개 | K2 | NOT_IN_BASELINE (브랜치 단위 PASS) |
-| 2015#25 복수 정답 | K4-a | KNOWN_GAP |
+| 2015#25 복수 정답 | K4-a | 공개 자료 정답 집합 검사 PASS(T-0171) · G 도구 복수답 차단 유지 |
 | 35번 근거 강조 불일치 | K3·K5 | 픽스처 결속 PASS(H2609G1/G2#35) · 강조 화면 NOT_IN_BASELINE |
 | 문항 조건·한정의 과도한 일반화 | — | NOT_RUN (탐지기 T-0148 BLOCKED) |
 | 원문 누락·도표 수치·각주 | — | NOT_RUN |
 | P6 기록 실패 이후 정답 전달 | K6 | NOT_IN_BASELINE (브랜치 단위 PASS) |
 | 도움 받은 학습의 독립 수행 오판 | K6·K6-a·K6-b | 실측 NOT_RUN · 기준 불일치 KNOWN_GAP · P6 원장 반영 PASS(T-0164) |
-| 분석 판본 변경 후 근거 앵커 불일치 | K3·K3-a | 판본 번호 PASS · 해시 KNOWN_GAP |
+| 분석 판본 변경 후 근거 앵커 불일치 | K3·K3-a | 판본 번호 · 해시 PASS(T-0171) |
 
 ## 결론
 - 수용 대상은 K 회귀 하네스뿐이다.
@@ -125,8 +126,8 @@ r3 의 「skip 12건 처리」 를 대체한다. 테스트를 빼거나 게이�
 
 | 구분 | 수 | 처리 |
 |---|---|---|
-| 실제 실행 PASS | 39 | 계약 13 · 재현 9(K6-b 재현 1 은 fixed 로 제외) · 목표 1(K6-b) · 기준 부재 사실 1 · 목표 보관/결속 4 · 등록부 11 |
-| 조건부 미실행 목표(open 결함) | 10 | K2-a 4 · K3-a 2 · K4-a 4(K6-b 1 은 T-0164 로 fixed — 실제 단언으로 전환). `k-targets` 의 `TARGETS` 표에 보관하고 테스트로 등록하지 않는다. PASS 아님. 결함을 fixed 로 바꾸면 자동 등록되어 실제 단언으로 돈다 |
+| 실제 실행 PASS | 41 | 계약 13 · 재현 1(K6-a 앱. K2-a · K3-a · K4-a · K6-b 재현은 fixed 로 제외) · 목표 11(K2-a 4 · K3-a 2 · K4-a 4 · K6-b 1) · 기준 부재 사실 1 · 목표 보관/결속 4 · 등록부 11 |
+| 조건부 미실행 목표(open 결함) | 0 | K2-a · K3-a · K4-a 는 T-0171(2026-10-25)로 fixed — 보관 목표 10건이 실제 단언으로 등록되어 돈다. K6-a 는 NOT_IMPLEMENTED(아래) |
 | DB 재현 NOT_RUN | 1 | P6 마이그레이션이 기준에 없어 등록하지 않는다. 대신 「기준에 없다」를 단언하는 테스트 1건(위 39 중 1)이 돈다. 이것은 재현 PASS 가 아니다 |
 | 목표 NOT_IMPLEMENTED | 1 | K6-a. `NOT_IMPLEMENTED` 목록에 있는 동안 fixed 전환은 실패한다 |
 

@@ -20,6 +20,9 @@
 // 서버 전용 (import 'server-only') — apps/web/src/lib/csat/judgment/server.ts
 loadJudgmentItem(db, itemId, analysisVersion): Promise<{ state: 'ready'; item: JudgmentItem } | { state: 'unavailable'; reason }>
 loadJudgmentReveal(db, itemId, analysisVersion): Promise<RevealData | null>
+// RevealData 는 unitsHash(필수 · 결속된 csat_item_units.units_hash)를 싣고, 선택적 answers[](공식 복수 정답)를 가질 수 있다.
+// checkReveal 은 unitsHash 누락 · 빈값 · 불일치를 'version' 으로, answer/answers/선지 번호/verdict 무효나
+// 「공식 정답 집합 ≠ verdict=correct 집합」을 'shape' 로 거절한다(T-0171 · K3/K4). 서버 loader · exporter · reveal 픽스처가 같은 계약이다.
 
 // 클라이언트 — apps/web/src/lib/csat/judgment/provider.ts
 judgmentRouteProvider(slug, deps?): RevealProvider   // POST /api/csat/item/[slug]/judgment, source 'judgment_scene'

@@ -17,6 +17,7 @@ export const reveal = (item: JudgmentItem, o: Partial<RevealData> = {}): RevealD
   id: item.id,
   analysisVersion: item.version.analysisVersion,
   unitsVersion: item.version.unitsVersion,
+  unitsHash: item.version.unitsHash,
   answer: 1,
   choices: item.choices.map((_, i) => (i === 0 ? { n: 1, verdict: 'correct' as const, why_correct: 'x' } : { n: i + 1, verdict: 'distractor' as const })),
   ...o,

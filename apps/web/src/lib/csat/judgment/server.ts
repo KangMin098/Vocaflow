@@ -94,6 +94,7 @@ export async function loadJudgmentReveal(db: SupabaseClient, itemId: string, ana
     id: itemId,
     analysisVersion: bound.a.version,
     unitsVersion: bound.units.units_version,
+    unitsHash: bound.units.units_hash,
     answer,
     designIntent: content.design_intent ?? undefined,
     answerLocus: (content.answer_locus ?? undefined) as RevealData['answerLocus'],
