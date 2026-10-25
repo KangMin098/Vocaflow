@@ -50,7 +50,7 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 | K6 | 기록 실패 시 정답 미전달(503) | NOT_IN_BASELINE | U(브랜치) | 참조 브랜치 judgment route 테스트 |
 | K6 | 노출·도움 뒤 시도의 독립 판정 실측 | NOT_RUN | L | 추적 시작 뒤 시도 0건. 노출은 71행, 3문항 |
 | K6-a | DB·앱 노출 기준 불일치 | KNOWN_GAP | U·L | 아래 「K6-a 상세」 |
-| K6-b | 앱 평가용 노출 원장이 P6 정답 노출을 읽지 않는다 | KNOWN_GAP | U | 아래 「K6-b 상세」 |
+| K6-b | 앱 평가용 노출 원장이 P6 정답 노출을 읽지 않는다 | PASS | U | T-0164(2026-10-25) 수정 — `loadExposureLedger` 가 `learning_exposures` 를 7번째 원장으로 읽는다. 목표 테스트 `k-targets` K6-b 가 실제 단언으로 돈다. 아래 「K6-b 상세」 |
 | K7 | PDF·강의·근거 동시 사용 성능·장애 | NOT_RUN | — | 통합 화면이 기준에 없다 |
 | K7 | 1280/1440 통합 화면 | NOT_RUN | — | 같은 이유 |
 | K8 | 검증 상태 구별 | PASS | U | `k-registry.test.ts` 가 이 표와 등록부를 맞춘다 |
@@ -76,10 +76,10 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 - 목표 테스트는 아직 없다(NOT_IMPLEMENTED). DB·앱 행동 비교는 P6 스키마를 PGlite 에 올려야 해서, 고치는 owner 가 `target('K6-a', …)` 로 작성한다. 그 전에 fixed 로 바꾸면 `k-targets` 끝의 결속 테스트가 실패한다. SQL 문자열 검사는 목표가 될 수 없다(T-0155 K-R1).
 
 ### K6-b 상세
-- `loadExposureLedger` 는 원장 6종만 읽는다: G2 시도·세션, 함정, 문제지, 복습 큐, 진단.
-- P6 `learning_exposures` 는 읽지 않는다. main · 강의 브랜치 · P6 브랜치 모두 0건이다.
-- 그래서 판단 장면에서 정답을 직접 연 문항(answer_direct)도 독립 평가 후보 선정에서는 `unseen` 이다.
-- 재현은 가짜 DB 로 행동을 단언한다. 실계정 오판 재현은 NOT_RUN 이다.
+- **수정됨(T-0164 · 2026-10-25 · Codex APPROVE)**: `loadExposureLedger` 가 원장 7종을 읽는다 — 기존 6종(G2 시도·세션, 함정, 문제지, 복습 큐, 진단) + P6 `learning_exposures`(source `p6`).
+- 정답 직접 · 결정적 단서 노출이 있는 문항과 같은 지문 문항은 `exposed`. 조회 실패 · 표 없음 · 잘림은 `error` → `unknown`(unseen 아님). 이력 모드는 `received_at` 을 다른 원장과 같은 창(시험일 전 노출 · 당일 불명 · 뒤 제외)으로 본다.
+- 수정 전 기록: 6종만 읽어 판단 장면에서 정답을 연 문항이 `unseen` 이었다(가짜 DB 재현). 실계정 오판 재현은 NOT_RUN 이었다.
+- 등록부 `fixed` 전환으로 재현 테스트는 빠지고 `k-targets` 목표 테스트가 실제 reader 호출 · `exposed` 단언으로 돈다.
 
 ## 재발 사례 대응
 
@@ -92,7 +92,7 @@ U=단위 · I=격리 · L=실계정/개발 DB · C=콘텐츠 승인 · E=학습 
 | 문항 조건·한정의 과도한 일반화 | — | NOT_RUN (탐지기 T-0148 BLOCKED) |
 | 원문 누락·도표 수치·각주 | — | NOT_RUN |
 | P6 기록 실패 이후 정답 전달 | K6 | NOT_IN_BASELINE (브랜치 단위 PASS) |
-| 도움 받은 학습의 독립 수행 오판 | K6·K6-a·K6-b | 실측 NOT_RUN · 기준 불일치 KNOWN_GAP · P6 원장 미반영 KNOWN_GAP |
+| 도움 받은 학습의 독립 수행 오판 | K6·K6-a·K6-b | 실측 NOT_RUN · 기준 불일치 KNOWN_GAP · P6 원장 반영 PASS(T-0164) |
 | 분석 판본 변경 후 근거 앵커 불일치 | K3·K3-a | 판본 번호 PASS · 해시 KNOWN_GAP |
 
 ## 결론
@@ -125,8 +125,8 @@ r3 의 「skip 12건 처리」 를 대체한다. 테스트를 빼거나 게이�
 
 | 구분 | 수 | 처리 |
 |---|---|---|
-| 실제 실행 PASS | 39 | 계약 13 · 재현 10 · 기준 부재 사실 1 · 목표 보관/결속 4 · 등록부 11 |
-| 조건부 미실행 목표(open 결함) | 11 | K2-a 4 · K3-a 2 · K4-a 4 · K6-b 1. `k-targets` 의 `TARGETS` 표에 보관하고 테스트로 등록하지 않는다. PASS 아님. 결함을 fixed 로 바꾸면 자동 등록되어 실제 단언으로 돈다 |
+| 실제 실행 PASS | 39 | 계약 13 · 재현 9(K6-b 재현 1 은 fixed 로 제외) · 목표 1(K6-b) · 기준 부재 사실 1 · 목표 보관/결속 4 · 등록부 11 |
+| 조건부 미실행 목표(open 결함) | 10 | K2-a 4 · K3-a 2 · K4-a 4(K6-b 1 은 T-0164 로 fixed — 실제 단언으로 전환). `k-targets` 의 `TARGETS` 표에 보관하고 테스트로 등록하지 않는다. PASS 아님. 결함을 fixed 로 바꾸면 자동 등록되어 실제 단언으로 돈다 |
 | DB 재현 NOT_RUN | 1 | P6 마이그레이션이 기준에 없어 등록하지 않는다. 대신 「기준에 없다」를 단언하는 테스트 1건(위 39 중 1)이 돈다. 이것은 재현 PASS 가 아니다 |
 | 목표 NOT_IMPLEMENTED | 1 | K6-a. `NOT_IMPLEMENTED` 목록에 있는 동안 fixed 전환은 실패한다 |
 
