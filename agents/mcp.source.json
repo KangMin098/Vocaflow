@@ -5,14 +5,13 @@
       "command": "node",
       "args": [
         "node_modules/@supabase/mcp-server-supabase/dist/transports/stdio.js",
-        "--project-ref=jajenrevcbmrpaliomxv",
-        "--read-only"
+        "--project-ref=jajenrevcbmrpaliomxv"
       ],
       "env": {},
       "envFromShell": [
         "SUPABASE_ACCESS_TOKEN"
       ],
-      "$comment_read_only": "2026-10-25 사용자 결정: Claude Code · Codex 모두 읽기 전용. DB 쓰기는 승인형 러너(scripts/db 의 단계별 러너, db-approval 티켓)로만"
+      "$comment_write_approval": "2026-10-25 후속 사용자 지시: Supabase MCP 쓰기 연결 허용. SQL 전문·SHA-256·영향·복구의 대화 승인은 유지. Claude 쓰기는 표준 ask 훅, 실제 연결은 재시작/재연결 후 반영."
     }
   }
 }

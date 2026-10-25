@@ -8,7 +8,7 @@
 //
 // 1) Supabase 와 비슷한 바탕(역할 anon · authenticated · service_role, auth.uid(), JWT 주장 설정, public 기본 권한, 원본 도서 · 프로필 ·
 //    texts · content_chunks · reading_sessions 표, supabase_migrations.schema_migrations)을 만들고
-// 2) supabase/migrations/_pending_lcp_story_s3_schema.sql 파일 바이트를 그대로 적용한다(pg17 은 승인형 러너의 applyStage 로)
+// 2) supabase/migrations/20261025094450_lcp_story_s3_schema.sql(개발 DB 에 실제 적용된 파일) 바이트를 그대로 임시 DB 에만 적용한다(pg17 은 승인형 러너의 applyStage 로)
 // 3) S2 TypeScript(packages/library-pipeline/src/story)가 계산한 해시 · release_key · 검증 결속과 DB 가 다시 계산한 값을 대조하고
 // 4) 권한 · 행위자 위조 · 결속 변조 · 자기 승인 · 보류 발행 · 직접 행 조작 · 철회 · 불변 · 격리(quarantine) · 원본 무변경을 시험한다.
 // 5) 검증 증인(T-0169 보강): 정상 경로 = service_role 이 story_service_validation_input 을 읽고 → S2 어댑터(attest.ts)가 증명을 만들고 →
@@ -41,7 +41,7 @@ import { sourceIdentity } from '../../../packages/library-pipeline/src/story/val
 
 const HERE = dirname(fileURLToPath(import.meta.url))
 const REPO = resolve(HERE, '..', '..', '..')
-const SCHEMA_SQL = join(REPO, 'supabase', 'migrations', '_pending_lcp_story_s3_schema.sql')
+const SCHEMA_SQL = join(REPO, 'supabase', 'migrations', '20261025094450_lcp_story_s3_schema.sql')
 const QUARANTINE_SQL = join(REPO, 'supabase', 'migrations', '_pending_lcp_story_s3_quarantine.sql')
 const FIXTURES = join(REPO, 'packages', 'library-pipeline', 'src', 'story', 'fixtures')
 
@@ -1859,7 +1859,7 @@ async function main(): Promise<void> {
 
     const summary = {
       schema_sql: schemaPath === SCHEMA_SQL
-        ? { path: 'supabase/migrations/_pending_lcp_story_s3_schema.sql', sha256: sha256File(SCHEMA_SQL) }
+        ? { path: runner.STAGES.schema!.path, sha256: sha256File(SCHEMA_SQL) }
         : { path: schemaPath, sha256: sha256File(schemaPath), mutation_override: true },
       quarantine_sql: { path: 'supabase/migrations/_pending_lcp_story_s3_quarantine.sql', sha256: sha256File(QUARANTINE_SQL) },
       runner_stage_sha256: { schema: runner.STAGES.schema!.sha256, quarantine: runner.STAGES.quarantine!.sha256 },

@@ -3,6 +3,7 @@
 // 승인형 러너가 DB 에 닿기 전에 닫히는지(fail closed), 트랜잭션 순서가 맞는지 — 순수 함수 · 가짜 클라이언트 · 실제 프로세스 실행으로 본다.
 // DB 접속 · 티켓 발급 · 티켓 파일 작성 없음. 프로세스 시험은 빈 임시 승인 폴더(VF_DB_APPROVAL_DIR)와 없는 env 파일(VF_DEPLOY_ENV_FILE)을
 // 넘겨 실제 승인 기록 · 접속 문자열을 읽지 않는다.
+// 단계 경로: schema = 실제 적용된 20261025094450_lcp_story_s3_schema.sql · quarantine = 보류(_pending_, 미적용) SQL.
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
 import crypto from 'node:crypto'
@@ -32,9 +33,15 @@ const checkNames = (list) => list.map((q) => q.match(/^select '([a-z0-9_]+)'/)[1
 
 // ── 고정값 · 본문 ───────────────────────────────────────────────────────────────────────────────
 
-test('단계 SHA = 저장소 SQL 파일 바이트 sha256(부모가 최종 고정) · 본문 경로는 보류 SQL 두 파일뿐', () => {
+test('단계 SHA = 저장소 SQL 파일 바이트 sha256(부모가 최종 고정) · 본문 경로는 적용된 schema + 보류 quarantine 두 파일뿐', () => {
+  const expectedPaths = {
+    schema: `supabase/migrations/${STAGES.schema.version}_lcp_story_s3_schema.sql`,
+    quarantine: 'supabase/migrations/_pending_lcp_story_s3_quarantine.sql',
+  }
+  assert.equal(STAGES.schema.version, '20261025094450')
+  assert.deepEqual(Object.keys(STAGES).sort(), Object.keys(expectedPaths).sort())
   for (const [stage, st] of Object.entries(STAGES)) {
-    assert.match(st.path, /^supabase\/migrations\/_pending_lcp_story_s3_(schema|quarantine)\.sql$/)
+    assert.equal(st.path, expectedPaths[stage], `${stage} 경로`)
     assert.match(st.sha256, /^[0-9a-f]{64}$/)
     const buf = fs.readFileSync(path.join(ROOT, st.path))
     assert.equal(crypto.createHash('sha256').update(buf).digest('hex'), st.sha256, `${stage} 파일 sha256 ≠ STAGES — 고정 갱신 필요`)

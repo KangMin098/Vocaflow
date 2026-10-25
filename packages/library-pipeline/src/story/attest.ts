@@ -1,6 +1,6 @@
 // packages/library-pipeline/src/story/attest.ts
 //
-// S2 검증 증명(attestation) 어댑터 — 계약: docs/LCP_STORY.md §15 · DB 쪽 정본 supabase/migrations/_pending_lcp_story_s3_schema.sql.
+// S2 검증 증명(attestation) 어댑터 — 계약: docs/LCP_STORY.md §15 · DB 쪽 정본 supabase/migrations/20261025094450_lcp_story_s3_schema.sql.
 //
 // 공개 관리 RPC 는 초안을 검증 없이 보관할 수 있다. 발행만은 「백엔드 서비스 주체가 DB 에 저장된 바로 그 원천 · 기준 ·
 // 판본 · 검수를 S2 검증기로 통과시켰다」는 증명이 있어야 한다. 이 함수가 그 증명을 만든다:

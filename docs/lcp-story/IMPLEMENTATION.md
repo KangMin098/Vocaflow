@@ -11,6 +11,7 @@
 | 상태 | 뜻 |
 |---|---|
 | `PENDING` | 시작하지 않음 |
+| `IN_PROGRESS` | 일부 구현·적용은 끝났지만 해당 단계의 나머지 수용 기준은 진행 중 |
 | `IMPLEMENTED` | 코드 · 문서가 있고 작성자가 실제 테스트를 돌려 통과했다(작성자 검증). 독립 수용 판정은 이 표가 아니라 수용 기록이 말한다 |
 | `VERIFIED` | 별도 owner 의 수용 판정(증거 결속)까지 끝났다 — 판정한 owner 가 실제 판정 뒤에 고친다 |
 | `DB_APPROVAL_REQUIRED` | 진행에 사용자의 대화 승인(DB 구조 · 데이터 변경)이 먼저 필요하다 |
@@ -25,8 +26,8 @@
 | S0 | 정본 · 편집 기준 · 단계 지시 | `VERIFIED` | Codex 별도 검증: 패키지 2,940 통과 · 추가 검증 33 통과 · skip 0. 최종 커밋·통합 여부는 AI-Control T-0165 수용 기록(`verification/reviews/T-0165-*`)을 따른다 |
 | S1 | 도메인 스키마 · 해시 · 원문 대응 · 검수 결속 | `VERIFIED` | 위와 같음. F1~F5 수정 확인 |
 | S2 | 로컬 export/validate/plan + 합성 fixture | `VERIFIED` | 위와 같음. 실제 파일 기반 제작 흐름 확인 |
-| S3 | live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 | `VERIFIED` | T-0169 작성자 검증: SELECT 감사 · 미적용 SQL(표 12 · RPC 16) · 러너 시험 · 격리 PGlite/PostgreSQL 17 하네스 통과 · 독립 검토 지적 반영. T-0169 Codex 별도 수용 완료(검증 커밋 `6dfa0c0c6`). 실제 TLS preflight · 공유 DB 적용은 미실행 |
-| S4 | 승인된 DB 적용 + 관리자 후보/제작/검수/발행 + 도움말 | `DB_APPROVAL_REQUIRED` | S3 SQL 의 사용자 대화 승인 |
+| S3 | live DB 읽기 감사 + 최소 스키마/RPC SQL 초안 | `VERIFIED` | T-0169 작성자 검증: SELECT 감사 · 미적용 SQL(표 12 · RPC 16) · 러너 시험 · 격리 PGlite/PostgreSQL 17 하네스 통과 · 독립 검토 지적 반영. T-0169 Codex 별도 수용 완료(검증 커밋 `6dfa0c0c6`). 승인 뒤 공유 DB는 MCP 원장 `20261025094450`로 적용 완료(승인 SHA 일치 · 사후 15/15 · 원본 지문 10/10 불변). 러너 TLS preflight는 미실행 |
+| S4 | 승인된 DB 적용 + 관리자 후보/제작/검수/발행 + 도움말 | `IN_PROGRESS` | DB 적용·검증 완료. 관리자 UI · 증명 런타임 · 도움말은 남음 |
 | S5 | 학습자 탐색 · 판본별 독서 · 이어하기 · 원문 연결 | `PENDING` | S4 · 새 이벤트 허용 목록 SQL 승인 |
 | S6 | 선택적 Deep/Bridge · 실제 표현 어휘 연결 · 추천 다양성 | `PENDING` | S5 |
 | S7 | 권리 확인된 서로 다른 장르 3편 제작 · 파일럿 | `PILOT_NOT_RUN` | 기본 독서 경로는 S4·S5 후 검증. 심화 활동 회차는 S6 후 · 실제 참가자 |
@@ -36,9 +37,10 @@
 
 - 개발 절차는 중앙 `development_policy`(dev-minimal-20261020)를 따른다. 위험도 L1~L4 로 검증 범위를 정한다.
 - **DB 구조 · 데이터 변경**: SQL 전문 · 전체 SHA-256 · 영향 범위 · 복구 SQL 을 대화에서 보이고 사용자가 승인한 뒤, 승인형 배포 러너
-  (`scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>`, 1회용 티켓 · 실행 기록)로만 적용한다. MCP SQL 도구는 읽기 전용 SELECT 에만 쓴다
-  (중앙 정책 2026-10-25). 데이터 삭제 · DROP · TRUNCATE 는 내용을 따로 밝혀 별도 명시 승인.
-- `.env*` 를 읽거나 출력하지 않는다. 권한 · 훅 · MCP 설정을 바꾸지 않는다. 권한 거부를 우회하지 않고 그대로 보고한다.
+  (`scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>`, 1회용 티켓 · 실행 기록) 또는 Supabase MCP 로 적용한다.
+  2026-10-25 후속 사용자 지시로 MCP 쓰기 연결을 허용했다. 적용 본문의 해시 · 실행 결과 · 전후 검증을 보관하며,
+  Claude Code 의 MCP 쓰기는 표준 확인 창을 유지한다. 데이터 삭제 · DROP · TRUNCATE 는 내용을 따로 밝혀 별도 명시 승인.
+- `.env*` 를 읽거나 출력하지 않는다. 별도 사용자 지시 없이 권한 · 훅 · MCP 설정을 바꾸지 않는다. 권한 거부를 우회하지 않고 그대로 보고한다.
 - 다른 작업자의 변경을 되돌리지 않는다. 커밋은 `git commit --only <자기 파일>`. 새 파일은 `git add -N` 뒤 커밋하고 `git show --stat` 으로 확인한다.
 - 원문 전문이 들어가는 작업 폴더(`work/lcp-story`)는 커밋하지 않는다(`/work/` 는 gitignore).
 - **독립 검토**: 일반 단계마다 새 Codex 검토를 강제하지 않는다. L1~L4 검증을 하고, 실제로 적용되는 독립 검토 계약(등록 TASK 의 `require_review_pass` ·
@@ -194,7 +196,7 @@ S3 의 감사 대상 1~9 를 실제 DB 읽기 질의(SELECT)와 저장소 코드
 끝낼 때 실제 질의 결과 · 미확인 항목 · 승인 대기 SQL 만 보고한다.
 ```
 
-## S4 — 승인된 DB 적용 + 관리자 후보/제작/검수/발행 · `DB_APPROVAL_REQUIRED`
+## S4 — 승인된 DB 적용 + 관리자 후보/제작/검수/발행 · `IN_PROGRESS`
 
 - **목적**: 사용자가 승인한 SQL 만 적용하고, 관리자가 후보 → 분석 → 제작(S2 드레인) → 검수 → 발행 → 철회를 할 수 있게 한다.
 - **선행**: S3 SQL 의 사용자 대화 승인(승인 SQL SHA-256 · 범위를 `.agent-goal.md` 에 먼저 기록).
@@ -211,7 +213,7 @@ S3 의 감사 대상 1~9 를 실제 DB 읽기 질의(SELECT)와 저장소 코드
   적재는 S2 `plan` 의 `candidate` 를 서버에서 다시 검증한 뒤에만. `fixture_only` 는 적재하지 않는다. `hold` 판본은 관리자 초안 저장소에만 두고 학습자에게 열지 않는다.
   원본 도서의 `auto_curate_book` · force-publish 경로로 파생 판본이 발행되지 않는다. 철회는 노출 · 열람 차단, 이력 보존.
 - **수용 기준**
-  - `LS-S4-AC1` 적용 SQL 이 승인본과 같고, 승인형 러너의 실행 기록 · 적용 이력 해시가 남는다.
+  - `LS-S4-AC1` 적용 SQL 이 승인본과 같고, 승인한 실행 경로(MCP 또는 승인형 러너)의 실행 기록 · 적용 이력 해시가 남는다. MCP 원장 `20261025094450`와 승인 SHA 일치를 확인했다.
   - `LS-S4-AC2` 미승인 · 낡은 검수 · 권리 미확정 판본은 서버 · RPC · RLS 어디서도 학습자에게 발행되지 않는다(직접 호출 포함).
   - `LS-S4-AC3` 동시 발행 · 철회 경합에서 상태가 하나로 수렴한다.
   - `LS-S4-AC4` 관리자 화면에서 원문 · 각색 · 변경 내역을 비교하고, 도움말이 같은 커밋에 있다.
@@ -222,17 +224,17 @@ S3 의 감사 대상 1~9 를 실제 DB 읽기 질의(SELECT)와 저장소 코드
   pnpm --filter web exec playwright test -c playwright.isolated.config.ts
   pnpm --filter @vocaflow/library-pipeline exec vitest run src/story
   ```
-- **DB 승인**: 필요(L4).
+- **DB 승인**: 현재 스키마는 승인·적용 완료(L4). 추가 SQL은 별도 승인.
 - **중단 조건**: 승인 범위 밖 변경이 필요해지면 적용을 멈추고 새 SQL 을 보인다. 적용 후 검증 실패 시 복구 SQL 도 승인 범위 안에서만.
 - **복구**: S3 의 복구 SQL(승인 포함). 학습 이력은 지우지 않는다.
-- **완료 증거**: 러너 실행 기록 · 적용 이력 해시 · 통합 · E2E 결과 · 관리자 화면 확인 · 해당하는 독립 검토 계약이 있으면 그 판정.
+- **완료 증거**: 승인한 실행 경로의 기록 · 적용 이력 해시 · 통합 · E2E 결과 · 관리자 화면 확인 · 해당하는 독립 검토 계약이 있으면 그 판정.
 - **다음**: S5.
 
 ```text
 [S4 시작 지시]
 LCP Story S4 를 진행한다. docs/LCP_STORY.md, docs/lcp-story/IMPLEMENTATION.md S3·S4 절, docs/lcp-story/S3_DB_AUDIT.md 를 읽는다.
-사용자가 대화에서 승인한 SQL 의 SHA-256 과 범위를 .agent-goal.md 에 먼저 적고, 승인본과 같은지 확인한 뒤 승인형 배포 러너
-(scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>)로만 적용한다. MCP SQL 도구로 쓰지 않는다(SELECT 만).
+스키마는 사용자 승인 뒤 MCP 원장 20261025094450로 적용됐고 SQL SHA가 승인본과 같다. 재적용하지 않는다.
+새 SQL이 필요한 경우 전문·SHA·영향·복구를 먼저 보여 승인을 받고, MCP 또는 승인형 러너의 실행 기록과 전후 검증을 남긴다.
 관리자 /admin/curation 에 이야기 라인(후보 → 분석 → 제작 → 검수 → 발행 → 철회)을 만들고 같은 커밋에 help/curation.ts 를 고친다.
 발행은 S2 plan 의 candidate 를 서버에서 다시 검증한 판본만, 자기 승인 · 합성 · 낡은 검수 · 권리 미확정은 RPC/RLS 단에서 막는다. 보류 판본은 관리자 초안 저장소에만 둔다.
 원본 도서 경로(auto_curate_book · force-publish)로 파생 판본이 발행되지 않는 것을 통합 테스트로 고정한다. 인증 · RLS · 경합 통합 테스트와 격리 E2E 를 실제로 돌리고

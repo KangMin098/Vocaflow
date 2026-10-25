@@ -15,7 +15,7 @@
 | 독립 수용 | T-0165 두 owner 수용 계약(작성 `lcp-story-claude` · 검증 `lcp-story-codex`) | 현재 판정은 AI-Control 의 T-0165 수용 기록(`verification/reviews/T-0165-*`)이 정본 — 이 문서가 미리 적지 않는다 |
 | 합성 fixture | `packages/library-pipeline/src/story/fixtures/gull-rock.*.json` — 직접 쓴 짧은 완결 이야기 | 합성 · 실제 도서 아님 |
 | live DB 읽기 감사 · 코드 경로 감사 | `docs/lcp-story/S3_DB_AUDIT.md`(SELECT 전용 실측 · 결정) · `docs/lcp-story/S3_CODE_PATHS.md` | 작성됨(T-0169) |
-| DB 테이블 · RPC · RLS · 발행 게이트 | `supabase/migrations/_pending_lcp_story_s3_schema.sql` · 복구 `_pending_lcp_story_s3_quarantine.sql` · 러너 `scripts/db/lcp-story-s3/deploy.mjs` · 격리 시험 `verify-isolated.ts` | **미적용** — 격리 PGlite · PostgreSQL 17 에서만 실행. 공유 DB 적용은 사용자 대화 승인 뒤 러너로(S4) |
+| DB 테이블 · RPC · RLS · 발행 게이트 | `supabase/migrations/20261025094450_lcp_story_s3_schema.sql` · 복구 `_pending_lcp_story_s3_quarantine.sql` · 러너 `scripts/db/lcp-story-s3/deploy.mjs` · 격리 시험 `verify-isolated.ts` | **공유 DB 적용 완료** — 사용자 승인 뒤 MCP 원장 `20261025094450` · 승인 SHA 일치 · 사후 검사 15/15. 관리자/학습자 런타임은 별도(S4/S5) |
 | S2 검증 증명 어댑터 | `packages/library-pipeline/src/story/attest.ts`(`buildValidationAttestation`) — DB 가 돌려준 저장값을 S2 검증기로 검사해 발행에 필요한 결속 증명을 만든다(§15) | 순수 함수 구현 · 작성자 테스트. 이를 service_role 로 실제 호출하는 백엔드 런타임은 없음(S4) |
 | 관리자 화면 · 학습자 화면 · 이벤트 · 추천 | 없음 | 제안(S4~S6) |
 | 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 | 없음 | 미실행(S7) |
@@ -316,7 +316,8 @@ live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번
 - 로컬 드레인의 권리 · 대응 도서 · 생산자 · 검수자 기록은 입력이 주장하는 값이다(§0). DB 로 옮길 때 인증된 관리자 신원 · 권한으로 다시 기록하고,
   로컬 값을 권한 근거로 쓰지 않는다.
 - DB 구조 · 데이터 변경은 SQL 전문 · 전체 SHA-256 · 영향 범위 · 복구 SQL 을 대화에서 보이고 사용자가 승인한 뒤 **승인형 배포 러너**
-  (`scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>`)로만 적용한다. MCP SQL 도구는 읽기 전용 SELECT 에만 쓴다(중앙 정책 2026-10-25).
+  (`scripts/db/<id>/deploy.mjs apply --stage <s> --confirm-sha <sha>`) 또는 Supabase MCP로 적용한다. 후속 사용자 지시(2026-10-25)로 MCP 쓰기 연결을 허용했으며,
+  SQL 원본 해시·실행 결과·전후 검증과 도구의 승인 확인을 유지한다. 데이터 삭제·DROP·TRUNCATE는 별도 명시 승인이다.
 
 ## 16. 추천 (S6 제안)
 

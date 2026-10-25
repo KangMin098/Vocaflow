@@ -1,8 +1,11 @@
 // scripts/db/lcp-story-s3/deploy.mjs
 //
 // LCP Story S3 SQL 의 승인형 배포 러너(T-0169 hardening). 정책: 중앙 development_policy.db_apply(2026-10-25) — 공유 DB 쓰기는
-// 사용자 대화 승인 뒤 main_worktree(main-serving)의 이 러너 apply 로만, db-approval 훅의 1회용 티켓을 소비하고 실행 기록을 남긴다.
-// MCP SQL 도구로 쓰지 않는다. 사용자 입력으로 SQL 을 받지 않는다(본문은 저장소 파일 바이트뿐).
+// 이 러너 경로는 사용자 대화 승인 뒤 main_worktree(main-serving)의 apply 로 db-approval 훅의 1회용 티켓을 소비하고 실행 기록을 남긴다.
+// 이 러너는 사용자 입력으로 SQL 을 받지 않는다(본문은 저장소 파일 바이트뿐).
+// 후속 사용자 지시로 MCP 쓰기 경로도 허용됐다. 이 러너 자체의 티켓·위치·해시 검사는 그대로 유지한다.
+// 단계 결속(2026-10-25): schema 는 MCP 로 실제 적용된 이력 버전 · 경로(20261025094450 · supabase/migrations/20261025094450_lcp_story_s3_schema.sql,
+// sha256 동일)에 묶인다. quarantine 은 보류(미적용) 그대로다. 이 러너는 적용된 단계를 일괄 재적용하는 도구가 아니다.
 //
 //   node scripts/db/lcp-story-s3/deploy.mjs preflight --stage schema|quarantine --deps <dir> [--db-url-env KEY] [--ca <PEM>]   # 읽기 전용
 //   node scripts/db/lcp-story-s3/deploy.mjs apply     --stage schema|quarantine --deps <dir> [--db-url-env KEY] [--ca <PEM>] --confirm-sha <sha>
@@ -86,8 +89,8 @@ const ALLOWED_NODE_FLAGS = /^--tls-(max|min)-v1\.[23]$/
 
 export const STAGES = {
   schema: {
-    version: '20261025140000', name: 'lcp_story_s3_schema',
-    path: 'supabase/migrations/_pending_lcp_story_s3_schema.sql',
+    version: '20261025094450', name: 'lcp_story_s3_schema',
+    path: 'supabase/migrations/20261025094450_lcp_story_s3_schema.sql',
     sha256: '09fb0dc48e49530c50f8fbe0cb1f06ef128fc5be9be103b1bdc6e8b3d85b560c',
     after: null,
   },
@@ -102,7 +105,7 @@ export const STAGES = {
 const sha256 = (b) => crypto.createHash('sha256').update(b).digest('hex')
 const same = (a, b, platform = process.platform) => a != null && b != null && (platform === 'win32' ? a.toLowerCase() === b.toLowerCase() : a === b)
 
-// ── 계약(docs/LCP_STORY.md §15 · supabase/migrations/_pending_lcp_story_s3_schema.sql) ──────────────────────
+// ── 계약(docs/LCP_STORY.md §15 · supabase/migrations/20261025094450_lcp_story_s3_schema.sql) ──────────────────────
 
 export const STORY_TABLES = ['sources', 'policies', 'edition_slots', 'edition_versions', 'reviews', 'validation_attestations',
   'rights_decisions', 'releases', 'release_units', 'reading_progress', 'reading_unit_completions', 'action_log']

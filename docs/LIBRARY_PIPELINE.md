@@ -70,10 +70,10 @@ Easy Reader) · 선택적 의미 탐구(Original Bridge · Deep Reading)를 만�
 본문 해시 · 문단/문자 구간 · 정확 인용으로 원문에 결속하며, 판본 · 검수 · 발행 키는 **원천 판본 정체 해시**(본문이 같아도 다른 원천 판본 ·
 revision · 대응 도서 · 권리 기록이면 다름) · 기준 · 목표 · 본문 · 활동 해시에 묶인다.
 지금 있는 것은 정본 · 도메인 검증기(`packages/library-pipeline/src/story/`) · DB 없는 로컬 드레인(`scripts/lcp/story/story.ts`
-`export` · `validate` · `plan`) · 합성 fixture, 그리고 S3 산출물이다: live DB 읽기 감사 · 코드 경로 감사, **미적용** 격리 스키마 SQL
-(`supabase/migrations/_pending_lcp_story_s3_schema.sql` — 원본 표 · 함수 · 정책을 쓰지 않는 `story` 스키마 + `public.story_*` RPC 16개.
+`export` · `validate` · `plan`) · 합성 fixture, 그리고 S3 산출물이다: live DB 읽기 감사 · 코드 경로 감사, **공유 DB 적용 완료** 격리 스키마 SQL
+(`supabase/migrations/20261025094450_lcp_story_s3_schema.sql` — 원본 표 · 함수 · 정책을 쓰지 않는 `story` 스키마 + `public.story_*` RPC 16개.
 발행은 service_role 이 S2 어댑터 `src/story/attest.ts` 로 저장값을 검증해 쓴 증명이 있어야 하고, 권리 보류는 열람 때마다 닫히며, 위치와 단위 완료를 나눈다),
-복구 SQL · 승인형 러너(`scripts/db/lcp-story-s3/`) · 격리 PGlite/PostgreSQL 17 검증. 공유 DB 적용 · 증명 백엔드 런타임 · 관리자/학습자 화면은 없다.
+복구 SQL · 승인형 러너(`scripts/db/lcp-story-s3/`) · 격리 PGlite/PostgreSQL 17 검증. 사용자 승인 뒤 MCP 원장 `20261025094450`로 적용했고, 저장 SQL SHA가 승인본과 일치하며 사후 검사 15개·원본 5표의 행/정의 지문 10개를 통과했다. 증명 백엔드 런타임 · 관리자/학습자 화면은 없다.
 원본 `auto_curate_book` · force-publish · `content_chunks` · `get_chapter_content` 경로는 `story` 를 읽지도 쓰지도 않으므로 Story 판본이 그 길로 새지 않는다.
 원본 쪽의 기존 노출(로그인 사용자의 `content_chunks` 전체 조회 등)은 원본 LCP 결함으로 남아 있다([S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md) D5).
 정본 [LCP_STORY](./LCP_STORY.md) · 단계 지시 [lcp-story/IMPLEMENTATION](./lcp-story/IMPLEMENTATION.md).

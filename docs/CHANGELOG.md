@@ -1,5 +1,9 @@
 # CHANGELOG
 
+- feat(lcp): 사용자 승인 후 Story 격리 스키마를 dev DB에 MCP로 적용했다(원장 `20261025094450`, 저장 SQL SHA 승인본 일치). 사후 검사 15/15·원본 5표 행/정의 지문 10/10 불변을 확인하고 실제 버전으로 러너·격리 하네스를 결속했다. 관리자/학습자 화면·증인 런타임·사람 파일럿은 남아 있다.
+
+- chore(agents): 사용자 요청으로 dev Supabase MCP 쓰기 연결을 복구했다. SQL 사전 승인·전후 검증은 유지하고 Claude 쓰기는 표준 확인 창을 사용한다. 기존 연결은 재연결이 필요하다.
+
 - feat(lcp): Story S3(T-0169) — live DB 읽기 감사, 격리 `story` 스키마 미적용 SQL(표 12 · RPC 16)·복구 SQL·승인형 러너·격리 하네스, 파일럿 3편 원천·편집 기준 준비. 독립 재현 결함 3건(직접 RPC 의 S2 우회 발행 · 마지막 단위만으로 완독 · 권리 보류 뒤 열람)과 독립 검토 지적(소유자 세션 증명 · 판본 중복 발행 등)을 고쳤다: 발행은 service_role 이 S2 어댑터(`src/story/attest.ts`)로 쓴 현재 결속 증명이 필요하고, 위치와 단위 완료를 나누며, 권리는 열람 때마다 본다. 작성자 검증: PGlite · PostgreSQL 17 격리 실행과 러너 시험 통과. 공유 DB 미적용 · 백엔드 증명 런타임(S4) · 두 번째 스태프 계정 · 사람 파일럿(S7)은 없다. Codex 독립 수용을 완료했다.
 
 - fix(csat): D 공개 자료 품질 가드(T-0171) — 정답 키 별칭 4종(is_correct·answer_no·correctIndex·correct_choice) 중첩 검출, RevealData unitsHash 필수·불일치 거절, answer/answers[]와 verdict=correct 정답 집합 일치 검사. 서버 loader·exporter·reveal 픽스처 7개 갱신, K2-a·K3-a·K4-a fixed(목표 10건 실행), K6-a open 유지. G 도구 복수답 차단은 그대로.

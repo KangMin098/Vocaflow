@@ -2,16 +2,16 @@
 
 > **LCP Story S3 검토 상태(2026-10-25 · T-0169)**: 독립 재현 결함 3건(직접 RPC 의 S2 우회 발행 · 마지막 단위만으로 완독 · 권리 보류 뒤 열람)과
 > 독립 검토 지적(소유자 세션 증명 · 판본 중복 발행 · 시계 · 계약판 · 동시 등록)을 아래 SQL 에서 고쳤고 격리 PGlite · PostgreSQL 17 실행으로 확인했다(작성자 검증 —
-> Codex 별도 수용 완료). **공유 DB 미적용.** 남은 경계: 실제 TLS preflight 미실행 · 사용자 적용 승인 전 · 백엔드 검증 증인 런타임(S4) 없음 ·
+> Codex 별도 수용 완료). **공유 DB 적용 완료**(사용자 승인 · MCP 원장 `20261025094450` · 승인 SHA 일치). 남은 경계: 러너 TLS preflight 미실행 · 백엔드 검증 증인 런타임(S4) 없음 ·
 > 두 번째 인증 스태프 계정 없음(발행 · 운영 전제) — [S3_DB_AUDIT](lcp-story/S3_DB_AUDIT.md) D2~D5.
 
-> **미적용 승인안 LCP Story S3**(2026-10-25 · T-0169): `supabase/migrations/_pending_lcp_story_s3_schema.sql`(SHA-256 `09fb0dc48e49530c50f8fbe0cb1f06ef128fc5be9be103b1bdc6e8b3d85b560c`) — 새 스키마 `story`(PostgREST 비노출)에
+> **승인·적용 완료 LCP Story S3**(2026-10-25 · T-0169): `supabase/migrations/20261025094450_lcp_story_s3_schema.sql`(SHA-256 `09fb0dc48e49530c50f8fbe0cb1f06ef128fc5be9be103b1bdc6e8b3d85b560c`) — 새 스키마 `story`(PostgREST 비노출)에
 > 원천 스냅숏 · 편집 기준 · 판본 자리 · 판본 판 · 검수 · 검증 증명 · 권리 결정 · 발행본 · 발행 단위 본문 · 발행본별 위치 · 단위 완료 · 작업 기록 표 12개(전부 RLS · 정책 없음 ·
 > PUBLIC/anon/authenticated/service_role 권한 0 · 불변/철회/진도 가드 트리거)와 `public.story_*` SECURITY DEFINER RPC 16개(관리 9 = authenticated + `user_profiles` 역할 · active 확인 ·
 > 검증 증인 2 = service_role 만 · 서가 `story_catalog` = anon + authenticated · 학습 4 = authenticated). 발행은 service_role 이 S2 어댑터로 쓴 검증 증명이 현재 결속과 맞아야 하고,
 > 권리 보류 · 거부는 열람 때마다 닫힌다. 해시 · 원천 판본 정체 · 검증 결속 · release_key 를 S2 와 같은 정본 직렬화로 DB 가 다시 계산한다. 원본 도서 객체 · 행 변경 0, 원본 표 FK 없음.
-> 복구 `_pending_lcp_story_s3_quarantine.sql`(SHA-256 `a9e7258907f6c0afeb564b8d2bc312f7ad7398588fa7a11357cd1be0ac74f016` · RPC 16개 실행 회수 · 이력 보존). 적용은 사용자 대화 승인 뒤 main-serving 의 `scripts/db/lcp-story-s3/deploy.mjs` 로만.
-> **공유 DB 미적용** — 격리 PGlite · PostgreSQL 17 에서만 실행. 결정 · 실측: [S3_DB_AUDIT](lcp-story/S3_DB_AUDIT.md) · 계약: [LCP_STORY §15](LCP_STORY.md).
+> 복구 `_pending_lcp_story_s3_quarantine.sql`(SHA-256 `a9e7258907f6c0afeb564b8d2bc312f7ad7398588fa7a11357cd1be0ac74f016` · RPC 16개 실행 회수 · 이력 보존). 복구 적용도 SQL 전문·SHA·영향·복구의 사용자 승인을 지킨다. MCP 쓰기 또는 main-serving 의 승인형 러너를 쓸 수 있다.
+> **공유 DB 적용 완료** — 2026-10-25 09:44:50 UTC, MCP 원장 `20261025094450`, 저장된 SQL SHA-256이 승인본과 동일하다. 사후 검사 15/15 · 원본 5표 행/정의 지문 10/10 불변 · Story 표 12개 초기 행 0. 러너의 고정 버전도 실제 원장에 맞췄다. SQL 머리말의 보류 표시는 승인 당시 바이트를 보존한 역사적 표기다. 결정 · 실측: [S3_DB_AUDIT](lcp-story/S3_DB_AUDIT.md) · 계약: [LCP_STORY §15](LCP_STORY.md).
 
 > **2026-10-23 목표 예산 rev2·보정 승인 적용 완료:** 실제 DB 이력 **`20261023043453`**은 승인 원본 `20261023043453_csat_goal_budget.sql` SHA `fbd370ac…181ae`와 일치한다. 이후 별도 승인한 `20261023061401_csat_goal_budget_conflict.sql`은 **`20261023061401`**로 적용됐으며 SHA `29fe9154…77b4c`가 정확히 같다. 설치 정의 MD5를 검사하고 목표 충돌 SQLSTATE만40001→PT409로 바꿨다. 함수의 나머지 정의·ACL·RLS와 적용 전후 목표12행/PLAN4행 전체 해시가 동일하다. 실제 인증 HTTP/RPC 동시성·0분/NULL·본인 읽기·직접 실행 거절·이력 보존도 통과했다. **두 SQL을 재적용하지 않는다.** 아래 미적용/차단 표기는 당시 이력이다. [전체 원문·SHA·checkpoint·검증 경계](csat-learner/GOAL_ACHIEVEMENT_ACCEPTANCE.md).
 
