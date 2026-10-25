@@ -51,8 +51,9 @@ export const STAGES = {
   },
   // C 원문 정정 2건(2014B#36 · 2017#42 csat_items.passage 끝 배점·선지 표 머리 꼬리) — 본문은 research/csat-lecture-audit-c-20261024
   //   docs/csat-learner/lecture-audit-c-20261024/g/db-fix/D-two/forward.sql. 사용자 승인 2026-10-25(「2014B#36·2017#42 우선 DB 정정 승인」)
+  //   1차 sha a358a7d7… 는 빈 문자열 $q$$q$ 가 DO 블록을 닫아 구문 오류 → 롤백(DB 무변경). 빈 문자열을 '' 로 고친 본문
   'c-src2': {
-    sha256: 'a358a7d717a7d3d14dbfcc6d3c231bb3b089c1c989bcf292077443393a762e9a',
+    sha256: '9e68f0ec32e82eefb2398920a3f19aa3da745ba6b557c3aff7e1e8a56d1708aa',
     verify: `select count(*) = 2, string_agg(id || ':' || left(md5(passage), 8), ',' order by id) from public.csat_items
       where (id = '2014B#36' and md5(passage) = '0b6a803ce0d702594d3d85705013be45') or (id = '2017#42' and md5(passage) = 'ac52fa4ae3dae03384dc2983a4fb6430')`,
   },
