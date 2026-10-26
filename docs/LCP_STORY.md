@@ -17,13 +17,13 @@
 | live DB 읽기 감사 · 코드 경로 감사 | `docs/lcp-story/S3_DB_AUDIT.md`(SELECT 전용 실측 · 결정) · `docs/lcp-story/S3_CODE_PATHS.md` | 작성됨(T-0169) |
 | DB 테이블 · RPC · RLS · 발행 게이트 | `supabase/migrations/20261025094450_lcp_story_s3_schema.sql` · 복구 `_pending_lcp_story_s3_quarantine.sql` · 러너 `scripts/db/lcp-story-s3/deploy.mjs` · 격리 시험 `verify-isolated.ts` | **공유 DB 적용 완료** — 사용자 승인 뒤 MCP 원장 `20261025094450` · 승인 SHA 일치 · 사후 검사 15/15. 관리자/학습자 런타임은 별도(S4/S5) |
 | S2 검증 증명 어댑터 | `packages/library-pipeline/src/story/attest.ts`(`buildValidationAttestation`) — DB 가 돌려준 저장값을 S2 검증기로 검사해 발행에 필요한 결속 증명을 만든다(§15) | 순수 함수 구현 · 작성자 테스트 |
-| 검증 증인 런타임(S4) | `apps/web/src/lib/library/story/witness.ts` · 서버 액션 `attestStoryValidationAction` — 쿠키 세션 스태프 확인 뒤에만 service_role 로 §15 의 1~3 을 실행(§15) | 작성자 구현 · 가짜 클라이언트 단위 시험 · 격리 브라우저 하네스(T-0174). 공유 DB 에서 실제 실행 · 실제 발행은 하지 않음 · 독립 수용 완료(T-0174 `fcf57c225e2a`) |
-| 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 단위 · 격리 브라우저 하네스 및 독립 수용 완료(T-0174 `fcf57c225e2a`). 2026-10-26 승인된 개발 curator/admin 계정 준비 · 실제 발행 미실행 |
-| 학습자 화면(S5) | `/library/stories` · `/library/stories/[releaseKey]?unit=` — `lib/library/story/learner.ts` · `app/(main)/library/stories/**` · `components/library/story/**`(§12) | 코드 독립 수용 완료(T-0176 `9b39634c5` · 격리 브라우저 1440/1280). 읽기 문맥 RPC 는 SQL r3 승인 · **공유 DB 적용 완료**(원장 `20261025143031`, §12). 공유 DB 에 발행된 Story 가 0 이라 인증 학습자의 live 본문 · 진도 여정은 **NOT_RUN** |
+| 검증 증인 런타임(S4) | `apps/web/src/lib/library/story/witness.ts` · 서버 액션 `attestStoryValidationAction` — 쿠키 세션 스태프 확인 뒤에만 service_role 로 §15 의 1~3 을 실행(§15) | 기존 독립 수용(T-0174 `fcf57c225e2a`) 유지. 2026-10-26 정상 admin 화면에서 실제 저장값·검수 집합의 증인을 생성해 dev R1·R2를 발행했다. [실행 증거](./lcp-story/S7_PILOT.md) |
+| 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 기존 수용 유지. 서로 다른 정상 dev 제작/검수 계정으로 대표 1편 등록·AI 검수·위임 권리 기록·발행·철회·새 검수 결속의 재발행을 실제 검증했다. 권한·SQL 조건을 우회하지 않음 |
+| 학습자 화면(S5) | `/library/stories` · `/library/stories/[releaseKey]?unit=` — `lib/library/story/learner.ts` · `app/(main)/library/stories/**` · `components/library/story/**`(§12) | 기존 코드 독립 수용과 SQL r3 적용 유지. 대표 실제 발행본에서 개발 학습자 A1440/B1280의 독서·도움·저장·재로그인·완료 구분·이어하기·계정 격리·철회 접근을 검증했다. 원본 실패와 표적 재개를 분리한 [종단 증거](./lcp-story/S7_PILOT.md)를 따른다. 사람 학습 효과 아님 |
 | 이벤트(S5) | `events.ts` `story_catalog_viewed` · `story_reader_action`(§17) | 코드 + DB 허용 목록 적용(같은 SQL §C · 실제 CHECK SELECT 평가 62/62). 쓰기형 `db-allowlist` 시험은 NOT_RUN |
 | 추천 | 없음 | 제안(S6) |
-| 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 16단위 · AI 독립 검수 1건을 dev 초안으로 등록 | 원천 1 · 편집 기준 1 · 판본 자리 2(미제작 Easy 자리 포함) · 실제 판 1 · 검수 1. 정상 인증 제작/검수 계정 분리 · 현재 해시 결속 확인. [후속 증거](./lcp-story/S7_PILOT.md) |
-| 권리 확인 · 사람 검수 · 학습자 파일럿 | 권리 결정 · 발행 0, 실제 참가자 없음 | 미충족·미실행(S7). AI 검수를 사람 검수로 바꾸지 않음 |
+| 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 보완 r3·16단위·독립 AI 검수 2건 | R1 철회 이력과 이전 초안·검수를 보존하고 R2 1편을 공개했다. B2는 편집 목표. 정책의 동물 위해 안내는 정정했으나 학습자 화면 노출은 후속 |
+| 권리 확인 · 사람 검수 · 학습자 파일럿 | 사용자의 특정 source 권리 결정·AI admin 위임 기록, 정상 DB source_text confirmed | §14의 승인 범위 충족. AI 콘텐츠 검수는 AI로 기록하며 실제 사람 콘텐츠 검수·학습자 파일럿·독해 성장 실증은 없다(S7) |
 
 - 패키지 루트 배럴(`src/index.ts`)에는 싣지 않는다. S4 부터 `package.json` exports `@vocaflow/library-pipeline/story`(= `src/story/server.ts` — 작업 폴더 · CLI 제외)를 관리자 서버 코드가 쓴다. 전체 배럴(`src/story/index.ts`)의 소비자는 `scripts/lcp/story` 다.
 - 이 라인이 학습 효과를 낸다는 근거는 없다. 원문 · 흥미 진입 · 각색 효과를 섞어 교육 효과를 주장하지 않는다(§19).
@@ -238,7 +238,8 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
   |---|---|---|
   | 코드 | T-0176 `9b39634c5` 독립 수용 · 로컬 main 코드 통합 `1a5253561` — 범위 vitest 35파일 769 · 격리 브라우저 34(1440/1280) · tsc · eslint 0 · skip 0 | 전역 `learner-routes` 의 `/csat/listening` 1 실패는 깨끗한 기준선에도 있는 기존 실패(전체 통과 아님) |
   | DB | r3 적용 · 새 RPC 1(authenticated 만) · 이벤트 2 · 기존 Story RPC 16 정의 · ACL 불변 · 원본/Story 15표 행 · 정의 지문 불변 | 복구 SQL 실행 승인 없음 |
-  | live 확인 | 익명 PostgREST: 서가 200 · 빈 배열 · 읽기 문맥 401/`42501`(노출 · anon 거부) · 실제 로컬 main Next/RSC PC1440/1280 빈 서가 · 비로그인 진입(개인 DOM · 넘침 · 페이지 오류 0) | 공유 DB Story 발행 0 → 인증 RSC · 쿠키 · Server Action HTTP · 본문/진도 여정 **NOT_RUN** |
+  | 최초 live 확인(2026-10-25) | 익명 PostgREST: 서가 200 · 빈 배열 · 읽기 문맥 401/`42501`(노출 · anon 거부) · 실제 로컬 main Next/RSC PC1440/1280 빈 서가 · 비로그인 진입(개인 DOM · 넘침 · 페이지 오류 0) | 당시 Story 발행0으로 인증 본문/진도 여정 NOT_RUN. 아래 후속 결과와 구분 |
+  | S7 실제 작품 후속(2026-10-26) | 정상 개발 학습자 A1440/B1280의 실제 본문·뜻/원문 도움·위치/완료 분리·새 정상 세션 복원·계정 전환/지연 응답 격리·철회 저장 거부를 확인. R1 이력 보존 및 R2 공개·진도 비상속도 검증 | 첫 실행 실패를 보존하고 진도를 초기화하지 않은 표적 재개로 수용했다. 실제 사람 흥미·이해·성장 및 별도 다음 작품 선택은 미검증. [단계별 결과](./lcp-story/S7_PILOT.md) |
   | 콘텐츠 · 교육 | 편집 목표는 목표일 뿐 진단 적합이 아니다 | 권리 확인 실제 작품 0 · 콘텐츠 적합 **NOT_RUN** · `PILOT_NOT_RUN` · 학습 효과 근거 없음 |
 
 ## 13. 학습 근거 정책 (`EVIDENCE_POLICY`)
