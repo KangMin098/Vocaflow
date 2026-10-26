@@ -60,4 +60,14 @@ describe('focusRevealedAnswer', () => {
     expect(w.active()).toBe('options')
     expect(w.pending()).toBe(0)
   })
+  it('취소하면 화면이 사라진 뒤 다음 화면의 제목으로 포커스를 옮기지 않는다(Codex P1)', () => {
+    const w = world()
+    const cancel = focusRevealedAnswer(w.doc, { schedule: w.schedule })
+    w.tick() // 정답 블록이 그려지기 전 — 이 화면이 언마운트된다
+    cancel()
+    w.mount(ANSWER, 'next-item-heading') // 다음 화면의 같은 선택자 제목
+    for (let i = 0; i < 70 && w.pending(); i++) w.tick()
+    expect(w.active()).toBeNull()
+    expect(w.pending()).toBe(0)
+  })
 })

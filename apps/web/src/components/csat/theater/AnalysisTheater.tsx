@@ -176,9 +176,14 @@ function predictionOf(record: DissectionRecord, s: LearningSession): Prediction 
  * 판단 장면 「정답 보기」 뒤 포커스 — 정답 근거 제목([data-block="analysis:answer"] h2)으로 옮긴다(T-0188).
  * 공개 상태가 커밋된 뒤에도 정답 블록이 한두 프레임 늦게 그려질 수 있어, 제목이 나타날 때까지 프레임마다 다시 찾는다.
  * maxFrames 안에 끝내 나타나지 않을 때만 판단 선택지로 대체한다(문서 밖으로 빠지지 않게).
+ * 돌려주는 함수로 남은 시도를 취소한다 — 화면이 사라진 뒤 다음 화면의 제목으로 옮기지 않게 effect 정리에서 부른다.
  */
-export function focusRevealedAnswer(doc: Pick<Document, 'querySelector'>, opts: { maxFrames?: number; schedule?: (cb: () => void) => unknown } = {}): void {
-  const schedule = opts.schedule ?? ((cb: () => void) => requestAnimationFrame(cb))
+export function focusRevealedAnswer(doc: Pick<Document, 'querySelector'>, opts: { maxFrames?: number; schedule?: (cb: () => void) => unknown } = {}): () => void {
+  let cancelled = false
+  const raw = opts.schedule ?? ((cb: () => void) => requestAnimationFrame(cb))
+  const schedule = (cb: () => void) => raw(() => {
+    if (!cancelled) cb()
+  })
   const maxFrames = Math.max(1, opts.maxFrames ?? 60)
   const place = (h: HTMLElement) => {
     h.tabIndex = -1
@@ -195,6 +200,9 @@ export function focusRevealedAnswer(doc: Pick<Document, 'querySelector'>, opts: 
     if (fallback) place(fallback)
   }
   schedule(() => attempt(0))
+  return () => {
+    cancelled = true
+  }
 }
 
 export interface TheaterMap {
@@ -350,7 +358,7 @@ export function AnalysisTheater({
   useLayoutEffect(() => {
     if (!revealed || !pendingRevealFocus.current) return
     pendingRevealFocus.current = false
-    focusRevealedAnswer(document)
+    return focusRevealedAnswer(document)
   }, [revealed])
   const [revealState, setRevealState] = useState<'idle' | 'pending' | 'failed'>('idle')
   const merged = useMemo(

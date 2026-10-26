@@ -260,6 +260,7 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
         // 테스트가 대신 보내는 재요청만 재시도한다 — next start 가 닫은 keep-alive 연결을 재사용하면 ECONNRESET(제품 요청은 브라우저가 보낸 것)
         const real = await r.fetch().catch((err: Error) => {
           if (!/ECONNRESET|socket hang up/.test(String(err?.message))) throw err
+          test.info().annotations.push({ type: 'refetch-retry', description: String(err?.message).slice(0, 80) })
           return r.fetch()
         })
         lateBody = (await real.json().catch(() => null)) as Record<string, unknown> | null
