@@ -18,7 +18,7 @@
   --p: var(--csat-accent, #7c5cfa);
   --p-light: #f1edfe;
   /* --p(#7c5cfa) 글자는 --p-light 위 3.83:1 · 흰 바탕 4.4:1 — AA 미달(axe 2026-10-26 · T-0181). 작은 강조 글자는 한 단계 진하게(5.8 · 6.7:1) */
-  --p-ink: #5b3fd6;
+  --p-ink: var(--csat-accent-ink, #5b3fd6);
   --on-p: #ffffff;
   --ju: #16a34a;
   --ju-light: #e8f5ec;
