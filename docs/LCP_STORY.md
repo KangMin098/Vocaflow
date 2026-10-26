@@ -22,7 +22,8 @@
 | 학습자 화면(S5) | `/library/stories` · `/library/stories/[releaseKey]?unit=` — `lib/library/story/learner.ts` · `app/(main)/library/stories/**` · `components/library/story/**`(§12) | 코드 독립 수용 완료(T-0176 `9b39634c5` · 격리 브라우저 1440/1280). 읽기 문맥 RPC 는 SQL r3 승인 · **공유 DB 적용 완료**(원장 `20261025143031`, §12). 공유 DB 에 발행된 Story 가 0 이라 인증 학습자의 live 본문 · 진도 여정은 **NOT_RUN** |
 | 이벤트(S5) | `events.ts` `story_catalog_viewed` · `story_reader_action`(§17) | 코드 + DB 허용 목록 적용(같은 SQL §C · 실제 CHECK SELECT 평가 62/62). 쓰기형 `db-allowlist` 시험은 NOT_RUN |
 | 추천 | 없음 | 제안(S6) |
-| 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 | 없음 | 미실행(S7) |
+| 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 16단위 · AI 독립 검수 1건을 dev 초안으로 등록 | 원천 1 · 편집 기준 1 · 판본 자리 2(미제작 Easy 자리 포함) · 실제 판 1 · 검수 1. 정상 인증 제작/검수 계정 분리 · 현재 해시 결속 확인. [후속 증거](./lcp-story/S7_PILOT.md) |
+| 권리 확인 · 사람 검수 · 학습자 파일럿 | 권리 결정 · 발행 0, 실제 참가자 없음 | 미충족·미실행(S7). AI 검수를 사람 검수로 바꾸지 않음 |
 
 - 패키지 루트 배럴(`src/index.ts`)에는 싣지 않는다. S4 부터 `package.json` exports `@vocaflow/library-pipeline/story`(= `src/story/server.ts` — 작업 폴더 · CLI 제외)를 관리자 서버 코드가 쓴다. 전체 배럴(`src/story/index.ts`)의 소비자는 `scripts/lcp/story` 다.
 - 이 라인이 학습 효과를 낸다는 근거는 없다. 원문 · 흥미 진입 · 각색 효과를 섞어 교육 효과를 주장하지 않는다(§19).
