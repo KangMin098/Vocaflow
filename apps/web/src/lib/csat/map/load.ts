@@ -130,6 +130,8 @@ export interface MapV4Input {
   transferReserved?: Record<string, string[]>
   /** T-0159 — 지도 기출 목록(연구 사례 포함) 같은 지문 보호 전용 원장. 평가 · 공급 계산에는 쓰지 않는다 */
   studyExposure?: ExposureLedger
+  /** T-0186 — 기출 해부 후보 문항(ref)별 현재 분석 판본(최신 published version · 문항 화면 · 판단 결속과 같은 값). 보류 · 판정 실패 · 모름은 키 없음 */
+  studyAnalysisVersions?: Record<string, number>
   /** #281 E04 — 정식 자격(I1) reader 상태. 설치 전이면 not_installed */
   fqReader?: FqReader
   /** LM-G1.3a — 계산에 쓴 저장 목표(최신 이력 행 · 없으면 null)와 목표 시험 범위 · 지원 상태 · 실제 기준 시험 */
@@ -657,6 +659,8 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
     loadExposureLedger(db, userId, studyCandidates).catch((e): ExposureLedger => { console.error('[csat-map study exposure ledger]', e); return { status: 'error', failed: [] } }),
   ])
   const assessmentExposure = compactLedger(assessLedger, assessCandidates)
+  // T-0186 — 기출 해부 링크에 실을 현재 분석 판본(판본 번호만 · 보류 문항 제외 · 한 번에 읽기)
+  const studyAnalysisVersions = await loadStudyAnalysisVersions(db, studyCandidates).catch((e): Record<string, number> => { console.error('[csat-map study analysis versions]', e); return {} })
   const studyExposure = compactLedger(studyLedger, studyCandidates)
   // 정식 자격 — 원장은 관리자 전용 RLS 라 서버 전용 클라이언트로만 판정한다(없으면 적격 0건). 현재 주석 해시는 TASK 의 확인 과제 키가 하나일 때만 대 본다
   let fqAdmin: SupabaseClient | null = null
@@ -698,6 +702,7 @@ export async function loadMapPage(db: Db, userId: string, now: Date): Promise<Ma
       assessmentExposure,
       transferReserved,
       studyExposure,
+      studyAnalysisVersions,
       fqReader,
       // LM-G1.3a — 계산에 쓴 목표(저장 이력 그대로) · 목표 시험 범위와 지원 상태(미지원은 다른 시험으로 대신하지 않는다)
       target: { goal: goalVersion, scope: { exam: scope.exam, status: scope.status, reason: scope.reason, exams: selection.exams.map((e) => ({ id: e.id, label: e.label })) } },
@@ -900,6 +905,31 @@ async function logMapDecisions(userId: string, links: Record<string, MapPractice
 }
 
 /** No schema change: exact canonical source JSON; unknown/empty passages cannot prove distinct progress. */
+/**
+ * T-0186 — 기출 해부 후보 문항별 「현재 분석 판본」. 문항 화면(loadCsatItemExplain · lib/csat/learner.ts 의 csat_item_analyses
+ *   published 최신 version)과 판단 결속(bound-item 의 expectedVersion)이 쓰는 같은 값이다 — 새 규칙이 아니다.
+ * Reveal Gate: itemRevealDecision 으로 보류 문항을 먼저 빼고(판정 실패면 전부 모름) 남은 문항의 version 만 읽는다.
+ *   정답 · 해설 컬럼은 읽지 않는다. 조회 1회(.in) — 문항 수와 무관(N+1 없음). 형식 밖 값(1 이상 9자리 정수 아님)은 싣지 않는다.
+ */
+export async function loadStudyAnalysisVersions(db: Db, refs: readonly string[], gate: (ids: readonly string[]) => Promise<{ held: Set<string>; failed: boolean }> = (ids) => itemRevealDecision(ids)): Promise<Record<string, number>> {
+  const ids = [...new Set(refs.filter(Boolean))]
+  if (ids.length === 0) return {}
+  const g = await gate(ids)
+  if (g.failed) return {}
+  const open = ids.filter((id) => !g.held.has(id))
+  if (open.length === 0) return {}
+  const { data, error } = await db.from('csat_item_analyses').select('item_id,version').eq('status', 'published').in('item_id', open)
+  // 응답 1,000행 벽에 닿으면 잘렸을 수 있다 — 최신 판을 놓친 값을 싣느니 모름으로 둔다
+  if (error || !data || data.length >= 1000) return {}
+  const out: Record<string, number> = {}
+  for (const r of data as { item_id: string; version: number | null }[]) {
+    const v = r.version
+    if (typeof v !== 'number' || !Number.isInteger(v) || v < 1 || v > 999_999_999 || !open.includes(r.item_id)) continue
+    if (!(out[r.item_id] >= v)) out[r.item_id] = v
+  }
+  return out
+}
+
 export async function loadPassageKeys(db: Db, refs: readonly string[]): Promise<Record<string, string>> {
   const out: Record<string, string> = {}
   // FI-011 — 창작 자료의 지문 정체성 = DB 가 계산한 정규화 본문 해시(passage_key). 클라이언트 ref · 그룹 이름을 지문으로 보지 않는다
