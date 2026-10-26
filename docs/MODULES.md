@@ -96,7 +96,7 @@ PC 학습자 본문 재배치(2026-10-19): `/library/books`의 검색·분류를
 학습 모듈·판정 정본·DB 스키마는 바꾸지 않는다.
 <!-- csat-sources-workspace:end -->
 
-이야기 서가 · 판본 독서(LCP Story S5, 2026-10-25 · T-0176 코드 `9b39634c5` 독립 수용): `/library/stories` 는 작품별 HOOK · 편집 목표 · 판본을 보이고, `/library/stories/[releaseKey]` 는 입구 → 명시적 시작 → 단위 본문 → 단위마다 읽음 표시 → 이어 읽기를 판본별로 기록한다(`components/library/story/**` · `lib/library/story/learner.ts`). 원문 대응 · 단어 뜻(기존 `WordLookupPopover`)은 요청할 때만 열고 기록하지 않는다. 원본 Books · `texts` · 단어장 · FSRS 를 쓰지 않는다. 읽기 문맥 RPC · 이벤트 허용 목록 SQL r3 은 공유 dev DB 에 적용됐다(원장 `20261025143031`) — 그 RPC 가 없는 환경에서는 「준비 중」. 공유 DB 발행 Story 가 0 이라 실제 작품의 인증 독서 여정 · 콘텐츠 적합 · 파일럿은 미실행. 정본 [LCP_STORY §12](./LCP_STORY.md).
+이야기 서가 · 판본 독서(LCP Story S5, 기존 코드 `9b39634c5` 독립 수용): `/library/stories`는 작품별 HOOK·편집 목표·판본을 보이고, `/library/stories/[releaseKey]`는 입구 → 명시적 시작 → 본문 → 단위별 읽음 표시 → 이어 읽기를 기록한다(`components/library/story/**`·`lib/library/story/learner.ts`). 원문 대응·기존 `WordLookupPopover` 뜻은 요청 시에만 열고 독서 완료로 세지 않는다. 원본 Books·`texts`·단어장·FSRS를 쓰지 않는다. 승인 SQL r3(원장 `20261025143031`)이 없는 환경은 「준비 중」이다. 2026-10-26 대표 실제 dev 발행본과 정상 학습자 A1440/B1280에서 독서·도움·저장·재로그인·완료 구분·계정 격리·철회 접근을 검증했다. 진도는 release key별이며 새 발행본에 자동 이전하지 않는다. B2는 편집 목표이고 사전 주의의 학습자 노출·실제 수준 적합성·파일럿 효과는 후속이다. [S7 실제 증거](./lcp-story/S7_PILOT.md)·[정본 §12](./LCP_STORY.md).
 
 FAST 빠른 학습지(`/admin/csat/new/fast`, 2026-10-21): 원문 파생 지도 연습 DCP 팩(중심 의미 3유형) 하나를 고쳐 교사가 내려받는 **로컬 검수 초안**이다. 학습자 화면·DB 공급 판본과 별개이며 authored 세트나 DEEP 교수 순서를 바꾸지 않는다. 학생용 문제지에는 정답·해설·Gold 가 없고 교사용 해설지는 관리자 응답에서만 만든다.
 

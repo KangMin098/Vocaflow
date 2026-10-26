@@ -314,6 +314,8 @@ URL: view=library|collect|review, method=sources|bulk|seed|id|wikibooks|wikisour
 검증 경계: 격리 브라우저 하네스(`apps/web/scripts/build-lcp-story-harness.mts` + `tests/e2e-isolated/lcp-story.isolated.spec.ts`)는 실제 클라이언트 컴포넌트 · 실제 앱 CSS 와, Server Action 대역 뒤의 실제 서버 로직(`lib/library/story/*`) + 메모리 가짜 DB 를 쓴다.
 AdminShell 레이아웃의 requireAdmin · middleware · page.tsx RSC 로딩 · 실제 쿠키 인증 · PostgREST/RPC 실행 · 실제 Server Action 전송은 그 하네스에 없다 — 전체 live cookie/RPC E2E 가 아니다. DB 규칙 자체는 S3 격리 PostgreSQL 17 시험이 검증했다.
 
+2026-10-26 실제 후속: 승인된 정상 제작/AI 검수 계정으로 대표1편의 등록·독립 AI 검수 제출·특정 사용자 권리 결정의 AI admin 위임 기록·서버 증인·발행·철회·새 검수 결속의 재발행을 기존 화면에서 실행했다. 실제 학습자 A1440/B1280의 본문·진도·재로그인·완료·계정 격리와 철회 접근을 별도로 검증했다. 격리 하네스와 혼동하지 않으며 실패 이력·현재 공개본·화면·실제 종료는 [S7 결과](./lcp-story/S7_PILOT.md)에 있다. 위임 기록은 원래 사람 권리 결정과 AI 업로더를 구분하고, AI 콘텐츠 검수를 사람 검수로 바꾸지 않는다(정본 §14).
+
 ### Curated Books — 테이블 + 일괄 액션 (v06.34)
 
 13 컬럼: 제목 · 저자 · 소스 · 상태 · CEFR · V·Cent · CEFR-J · F-K · 추출 · 단어장 · 단어 · 갱신 · 상세.
