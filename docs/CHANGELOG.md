@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- chore(lcp): 대표 story-b2 1편의 원천·정책·초안과 기존 AI 독립 검수 결과를 서로 다른 정상 dev 인증 계정으로 등록했다(실제 브라우저 14 PASS·0 FAIL, 실행 exit0). 별도 SELECT에서 원천1·정책1·자리2·판1·AI검수1 및 계정 분리·현재 해시 결속을 확인했다. 권리 결정·발행은0이며 실제 발행본 독서·개인 진도 격리·교육 효과는 미검증이다.
+
 - fix(lcp): Story 관리자 초기 목록·번들 읽기를 인증된 `GET /api/admin/library/story`로 분리해 History URL 변경과 읽기 Server Action의 경합을 보완한다. 기존 실제 사용자·활성 스태프·RPC 권한과 등록·검수·발행 경계는 유지한다.
 
 - chore(lcp): 사용자 승인 후 AI 제작 curator·AI 검수 admin·학습자 A/B 개발 계정 4개를 정상 Auth로 생성하고 정확한 역할 DML(SHA `0fe31cfd…a0f4`)을 적용했다. 기존 86개 계정/프로필 지문 불변, 정상 비밀번호·새 SSR 쿠키·권한 검사 23/23을 확인했다. 비밀값은 비공개 `.env*`에 보관하며 권리 confirmed·사람 검수·콘텐츠 발행·교육 효과를 만들지 않았다.
