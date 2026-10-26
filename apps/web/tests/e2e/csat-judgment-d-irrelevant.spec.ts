@@ -70,6 +70,18 @@ async function axeSerious(page: Page) {
 async function openJudgment(page: Page, slug: string) {
   await page.goto(`/csat/item/${slug}?scene=judgment`, { waitUntil: 'domcontentloaded', timeout: 180_000 })
   await expect(page.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
+  // SSR 로 보이는 화면은 수화 전이라 Enter 가 무시된다(DL-0225 ② 15%) — React 가 해설 화면과 (있으면) 판단 도구의
+  // 공개 단추에 이벤트 속성을 붙일 때까지 기다린다(제품 코드에 별도 신호 없음: React DOM 의 __reactProps$ 키가 수화 완료 신호)
+  await page.waitForFunction(
+    () => {
+      const hydrated = (el: Element | null) => !!el && Object.keys(el).some((k) => k.startsWith('__reactProps$'))
+      if (!hydrated(document.querySelector('[data-testid="analysis-theater"]'))) return false
+      const btn = document.querySelector('[data-testid="judgment-tool-d"] [data-reveal-btn]')
+      return btn == null || hydrated(btn)
+    },
+    undefined,
+    { timeout: 120_000 },
+  )
 }
 
 test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
@@ -245,7 +257,12 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
       const gate = new Promise<void>((r) => { release = r })
       let lateBody: Record<string, unknown> | null = null
       await page.route(`**/api/csat/item/${B.slug}/judgment`, async (r) => {
-        const real = await r.fetch()
+        // 테스트가 대신 보내는 재요청만 재시도한다 — next start 가 닫은 keep-alive 연결을 재사용하면 ECONNRESET(제품 요청은 브라우저가 보낸 것)
+        const real = await r.fetch().catch((err: Error) => {
+          if (!/ECONNRESET|socket hang up/.test(String(err?.message))) throw err
+          test.info().annotations.push({ type: 'refetch-retry', description: String(err?.message).slice(0, 80) })
+          return r.fetch()
+        })
         lateBody = (await real.json().catch(() => null)) as Record<string, unknown> | null
         await gate
         await r.fulfill({ response: real, json: lateBody ?? undefined }).catch(() => {})

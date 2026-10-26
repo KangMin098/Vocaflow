@@ -172,7 +172,7 @@
   border: 1px solid var(--bd); background: var(--bg); font-size: 12px; color: var(--t2);
   transition: border-color var(--dur-normal) var(--ease), color var(--dur-normal) var(--ease);
 }
-.composerActions :is(button, a):hover { border-color: var(--p); color: var(--p); }
+.composerActions :is(button, a):hover { border-color: var(--p); color: var(--p-ink); }
 .composerActions button:disabled { opacity: .4; cursor: not-allowed; }
 .composerFoot { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--bd); }
 .pill { flex: 1; min-width: 0; font-family: var(--font-mono), monospace; font-size: 10.5px; color: var(--t3); }
@@ -180,7 +180,7 @@
   display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px;
   border-radius: 50%; border: 1px solid var(--bd); color: var(--t2);
 }
-.round:hover { border-color: var(--p); color: var(--p); }
+.round:hover { border-color: var(--p); color: var(--p-ink); }
 .round:disabled { opacity: .35; cursor: not-allowed; }
 
 /* ② 본문 */
@@ -425,7 +425,7 @@
 .doneActions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .doneActions .gatePrimary { display: inline-flex; align-items: center; }
 .doneQuiet { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--bd); background: var(--bg); font-size: 12.5px; color: var(--t2); }
-.doneQuiet:hover { border-color: var(--p); color: var(--p); }
+.doneQuiet:hover { border-color: var(--p); color: var(--p-ink); }
 .doneNote { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; font-size: 12.5px; color: var(--t2); }
 .composerActions .finishBtn { border-color: var(--t1); background: var(--t1); color: #fff; }
 .composerActions .finishBtn:hover { color: #fff; opacity: .9; }
@@ -714,7 +714,7 @@
   display: inline-flex; align-items: center; min-height: var(--csat-workspace-target); padding: 0 12px;
   border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); font-size: 12px; color: var(--t1);
 }
-.itemActionRow :is(button, a):hover { border-color: var(--p); color: var(--p); }
+.itemActionRow :is(button, a):hover { border-color: var(--p); color: var(--p-ink); }
 
 /* 메인 프레임 — 머리 44 · 두 판(독립 스크롤) · 도크 65 */
 .main { margin: 0 var(--csat-workspace-gap) var(--csat-workspace-gap) var(--csat-workspace-gap); }
