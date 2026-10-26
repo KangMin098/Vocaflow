@@ -3,7 +3,7 @@
 // 지도 활동 복귀 문맥 — 형식 검증 · 문항 링크에만 싣기 · 해시 유지 · 임의 문자열 거부
 import { describe, expect, it } from 'vitest'
 
-import { mapReturnQuery, parseMapReturn, parseMapStep, parseMapWs, withMapReturn } from '../map-return'
+import { MAP_HOME_HREF, mapReturnQuery, parseMapReturn, parseMapStep, parseMapWs, returnQueryOf, vocabMapReturnHref, withMapReturn } from '../map-return'
 
 describe('parseMapWs · parseMapStep', () => {
   it('학습 묶음 id 는 ws.<소문자 · 하이픈> 만', () => {
@@ -21,7 +21,7 @@ describe('parseMapWs · parseMapStep', () => {
     expect(parseMapStep('')).toBeNull()
   })
   it('과제 키는 홈 과제 형식 그대로(공백 · 주소 거부)', () => {
-    const none = { mapWs: null, mapPlan: null, mapGoal: null, mapItem: null, mapAttempt: null }
+    const none = { mapWs: null, mapPlan: null, mapGoal: null, mapItem: null, mapAttempt: null, mapAv: null }
     expect(parseMapReturn({ task: 'B6-FIND-1', ws: 'ws.cohesion', step: 'relation' })).toEqual({ task: 'B6-FIND-1', mapTask: null, ws: 'ws.cohesion', step: 'relation', ...none })
     expect(parseMapReturn({ task: 'a b', ws: 'x', step: 'y' })).toEqual({ task: null, mapTask: null, ws: null, step: null, ...none })
   })
@@ -53,5 +53,25 @@ describe('withMapReturn', () => {
   it('문항 화면이 아니면 그대로(연습 · 기록 · 외부)', () => {
     expect(withMapReturn('/csat/practice/claim-support?item=x', { task: 'T1' })).toBe('/csat/practice/claim-support?item=x')
     expect(withMapReturn('https://evil.example/csat/item/x', { task: 'T1' })).toBe('https://evil.example/csat/item/x')
+  })
+})
+
+describe('T-0167 map_av — 문항 화면 「학습 지도로」 가 떠날 때 분석 판본을 그대로 싣는다', () => {
+  it('형식 맞는 map_av 는 mapReturnQuery · withMapReturn 에 실리고 기존 키와 함께 간다', () => {
+    const q = returnQueryOf({ map_av: '4', map_task: 'r.central_meaning', map_goal: '7', map_ws: '0e6a2f9c-1d2b-4c3d-8e4f-5a6b7c8d9e0f', map_plan: '3', step: 'evidence', task: undefined })
+    const c = parseMapReturn(q)
+    expect(c.mapAv).toBe('4')
+    const tail = mapReturnQuery(c)
+    for (const part of ['map_task=r.central_meaning', 'map_goal=7', 'map_plan=3', 'step=evidence', 'map_ws=0e6a2f9c-1d2b-4c3d-8e4f-5a6b7c8d9e0f', 'map_av=4']) expect(tail).toContain(part)
+    expect(withMapReturn('/csat/item/2026-34', c)).toContain('map_av=4')
+  })
+  it('형식 밖 map_av(0 · 음수 · 10자리 · 문자 · 주입)는 버린다', () => {
+    for (const bad of ['0', '-1', '1234567890', 'x', '1;drop', '1&from=evil', '']) {
+      expect(parseMapReturn({ map_av: bad }).mapAv).toBeNull()
+      expect(mapReturnQuery(parseMapReturn({ map_av: bad, map_goal: '7' }))).toBe('&map_goal=7')
+    }
+  })
+  it('어휘 화면 복귀에는 map_av 를 싣지 않는다(기존 동작 그대로)', () => {
+    expect(vocabMapReturnHref({ from: 'map', map_av: '4', map_goal: '7' })).toBe(`${MAP_HOME_HREF}&map_goal=7`)
   })
 })

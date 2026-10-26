@@ -97,9 +97,9 @@ for (const [width, height] of [[1440, 900], [1280, 800]] as const) {
   })
 }
 
-test('왕복 · 목표 변경 알림 · 재로그인 — 1440', async ({ page, context }) => {
-  test.setTimeout(300_000)
-  await page.setViewportSize({ width: 1440, height: 900 })
+for (const width of [1280, 1440] as const) test(`왕복 · map_av · 목표 변경 알림 · 재로그인 — ${width}`, async ({ page, context }) => {
+  test.setTimeout(420_000)
+  await page.setViewportSize({ width, height: 900 })
   await login(page)
   const { study } = await openStudy(page)
   const first = study.locator('[data-testid="inspector-study-link"]').first()
@@ -110,15 +110,34 @@ test('왕복 · 목표 변경 알림 · 재로그인 — 1440', async ({ page, c
   await expect(back).toBeVisible({ timeout: 120_000 })
   const backHref = (await back.getAttribute('href')) ?? ''
   expect(backHref).toContain(`map_task=${TASK}`); expect(backHref).toContain('map_goal=')
-  expect(backHref, '분석 판본(map_av)은 문항 화면이 아직 싣지 않는다 — owner 인계').not.toContain('map_av=')
-  await test.info().attach('item-1440', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
+  // T-0167 — 지도 링크가 map_av 를 실었으면 「학습 지도로」 가 같은 값을 싣는다. 지도가 아직 싣지 않는 경우를 위해
+  //   같은 문항 주소에 map_av 를 실어 다시 연다(지도에서 판본을 싣고 들어온 경우). 형식 밖 값은 버린다
+  const itemUrl = new URL(page.url())
+  const linkAv = itemUrl.searchParams.get('map_av')
+  test.info().annotations.push({ type: 'study-link-map_av', description: linkAv ?? '(지도 링크에 없음)' })
+  // T-0186 — 지도 링크를 그대로 눌러 들어왔다: 링크가 결속 분석 판본(1 이상 정수)을 싣고, 「학습 지도로」 가 같은 값을 싣는다
+  expect(linkAv, '지도 링크가 결속 분석 판본 map_av 를 싣는다').toMatch(/^[1-9][0-9]{0,8}$/)
+  expect(new URL(backHref, 'http://x').searchParams.getAll('map_av'), '지도 링크의 map_av 를 그대로').toEqual([linkAv])
+  for (const [given, want] of [['7', '7'], ['0', null], ['12x', null], ['1234567890', null]] as const) {
+    const u = new URL(itemUrl); u.searchParams.set('map_av', given)
+    await page.goto(u.pathname + u.search, { waitUntil: 'domcontentloaded', timeout: 240_000 })
+    await expect(back).toBeVisible({ timeout: 120_000 })
+    const h = new URL((await back.getAttribute('href')) ?? '', 'http://x')
+    expect(h.searchParams.getAll('map_av'), `map_av=${given}`).toEqual(want ? [want] : [])
+    // 기존 복귀 문맥은 그대로
+    expect(h.searchParams.get('map_task')).toBe(TASK); expect(h.searchParams.get('map_goal')).toBe(new URL(backHref, 'http://x').searchParams.get('map_goal'))
+    for (const k of ['map_ws', 'map_plan', 'step', 'ws', 'task']) expect(h.searchParams.get(k), k).toBe(new URL(backHref, 'http://x').searchParams.get(k))
+  }
+  await back.scrollIntoViewIfNeeded(); await back.focus()
+  await page.screenshot({ path: test.info().outputPath(`item-back-map-${width}.png`) })
+  await test.info().attach(`item-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
   // 떠난 뒤 목표 변경 → 돌아오면 「목표가 바뀌었어요」
   const r = await page.request.put('/api/csat/diagnosis/map/goal', { data: { target: 85, clientKey: crypto.randomUUID() }, timeout: 180_000 })
   expect(r.status(), await r.text()).toBe(200)
   await back.click()
   await expect(page.locator('[data-testid="unified-map"]')).toBeVisible({ timeout: 120_000 })
   await expect(page.getByText('떠난 뒤 목표가 바뀌었어요').first()).toBeVisible({ timeout: 60_000 })
-  await test.info().attach('return-goal-changed-1440', { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
+  await test.info().attach(`return-goal-changed-${width}`, { body: await page.screenshot({ fullPage: true }), contentType: 'image/png' })
   // 재로그인 — 쿠키를 지우고 다시 로그인해도 같은 지도 · 목록
   await context.clearCookies()
   await login(page)

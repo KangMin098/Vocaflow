@@ -15,6 +15,7 @@ import { track } from '@/lib/analytics/client'
 import { learnerPath, type StepView } from '@/lib/csat/map/learner-path'
 import type { MapPageData } from '@/lib/csat/map/load'
 import { withMapReturn } from '@/lib/csat/map-return'
+import { studyHref, studyVersionsOf } from './study-av'
 import { outgoingCtx } from '@/lib/csat/map/v62/return-ctx'
 import { BEHAVIORS, BEHAVIOR_STATUS_LABEL, researchFor } from '@/lib/csat/map/v62/research'
 import { studyItemsFor } from '@/lib/csat/map/v62/study-items'
@@ -198,6 +199,8 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
   // 보호 입력은 실행 가능 여부로 거르기 전의 전이 예약 전체(T-0159 Codex P1) — 없으면 원장 오류로 보고 연구 사례를 보류한다
   const reserved = data.v4?.transferReserved
   const transferProtect = reserved ? keys.flatMap((k) => reserved[k] ?? []).map((target) => ({ target, href: '', label: '' })) : transferMine
+  // T-0186 — 기출 해부 링크에 실을 결속 분석 판본(지도 자료가 실어 줄 때만 · 모르면 싣지 않는다)
+  const studyAv = studyVersionsOf(data.v4)
   const entry = entriesFor({
     task: t.id,
     need: ranksOf(view).needRank.find((r) => r.task === t.id) ?? null,
@@ -402,7 +405,7 @@ export function TaskInspector({ ins, view, data, past, restoreWs, planOpen, onTo
                     return (
                       <li key={e.item} data-basis={r.why.basis} data-fit={r.fit}>
                         <Link
-                          href={past ? `/csat/item/${toItemSlug(e.item)}` : e.href}
+                          href={past ? `/csat/item/${toItemSlug(e.item)}` : studyHref(e.href, e.item, studyAv)}
                           className={u.studyLink}
                           data-testid="inspector-study-link"
                         >

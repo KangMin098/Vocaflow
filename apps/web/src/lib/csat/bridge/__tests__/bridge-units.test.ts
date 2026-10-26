@@ -181,3 +181,20 @@ describe('T-0156 P1 회귀 — 지문 집계는 노출 판정과 같은 정규�
     expect(skillClaimOf(f, 'central_generalize')).toMatchObject({ claim: 'single_independent_success', passages: 1 })
   })
 })
+
+describe('T-0167 — map_av 는 map-return 한 곳에서', () => {
+  it('bridgeItemHref 는 map_av 를 한 번만 싣는다(중복 없음) · mapAv 와 analysisVersion 둘 다 받는다', () => {
+    const a = bridgeItemHref('2024#21', { analysisVersion: '2' })
+    const b = bridgeItemHref('2024#21', { mapAv: '2' })
+    expect(a).toBe(b)
+    expect(new URL(a, 'http://x').searchParams.getAll('map_av')).toEqual(['2'])
+  })
+  it('parseBridgeCtx 의 analysisVersion 은 mapAv 와 같다 · 형식 밖이면 둘 다 null', () => {
+    expect(parseBridgeCtx({ map_av: '5' })).toMatchObject({ mapAv: '5', analysisVersion: '5' })
+    expect(parseBridgeCtx({ map_av: '012' })).toMatchObject({ mapAv: null, analysisVersion: null })
+  })
+  it('bridgeReturnHref 는 map_av 를 한 번만', () => {
+    const h = bridgeReturnHref({ map_av: '3', map_goal: '7' })
+    expect(new URL(h, 'http://x').searchParams.getAll('map_av')).toEqual(['3'])
+  })
+})
