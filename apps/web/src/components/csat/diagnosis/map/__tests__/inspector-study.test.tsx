@@ -29,7 +29,7 @@ describe('TaskInspector 기출 목록 가드', () => {
     expect(src).toContain('약점으로 확정하지 않았어요')
   })
   it('과거 보기는 지도 복귀 문맥을 싣지 않는다', () => {
-    expect(block).toContain('href={past ? `/csat/item/${toItemSlug(e.item)}` : e.href}')
+    expect(block).toContain('href={past ? `/csat/item/${toItemSlug(e.item)}` : studyHref(e.href, e.item, studyAv)}')
   })
 })
 

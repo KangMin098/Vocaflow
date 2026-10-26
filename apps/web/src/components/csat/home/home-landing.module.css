@@ -58,7 +58,8 @@
   .bannerArt { display: block; position: absolute; inset: 0; width: 100%; height: 100%; }
   .suggestCard { position: relative; z-index: 1; width: min(600px, 100%); padding: 12px; border: 1px solid #dededc; border-radius: 16px; background: #fffffff0; box-shadow: 0 3px 0 #18181b08; }
   .suggestHeading { display: flex; align-items: center; gap: 7px; width: 100%; margin: 0 0 8px; color: var(--csat-muted); font-size: 11px; }
-  .suggestBadge { margin-left: auto; padding: 3px 8px; border-radius: 999px; background: var(--csat-soft); font-size: 10px; }
+  /* T-0186 — 옅은 면(--csat-soft) 위 10px 글자는 --csat-muted 로 4.36:1(axe color-contrast) → --csat-ink2(약 6.3:1) */
+  .suggestBadge { margin-left: auto; padding: 3px 8px; border-radius: 999px; background: var(--csat-soft); color: var(--csat-ink2); font-size: 10px; }
   .suggestCard > .lead { padding: 10px 12px; border: 1px solid var(--csat-line); border-radius: 11px; background: var(--csat-panel); font-size: 12px; }
   .suggestCard > :global([role='alert']), .suggestCard > :global([role='status']) { margin: 0; }
   .map { position: relative; margin-top: -14px; border-radius: 16px; background: var(--csat-panel); }

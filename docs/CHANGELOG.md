@@ -207,6 +207,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(csat): 지도 기출 해부 링크에 결속 분석 판본 map_av 를 싣는 연결(`components/csat/diagnosis/map/study-av.ts` · 판본 모르면 싣지 않음 — 지도 자료 `studyAnalysisVersions` 공급은 후속) · /csat 홈 「내 학습 공간」 배지 대비 4.36→`--csat-ink2`(T-0186)
 - fix(r0): 공용 기기 계정 전환 시 학습 기록 혼입 차단(T-0172) — CSAT 해부 기록을 계정별 IndexedDB 키로 · 읽기·병합·쓰기와 화면이 쥔 기록을 주인·인증 세대에 결속(전환 뒤 저장 거부), `/api/csat/state` PUT 은 owner 필수(없으면 428 · 다르면 403) · GET 은 owner 동봉. SRS 평가 큐는 평가 시점 인증 주체로 owner 결속(onAuthStateChange · 늦은 세션 응답 폐기), 서버 ACK 항목만 삭제(이탈 전송은 삭제 안 함, 멱등 재전송). Dictation 완주 평가에 검증된 owner. 다른 계정·소유자 불명 옛 기록은 보류(삭제 안 함). 근거 `docs/r0/shared-device/REPORT.md`. DB 무변경.
 - **K6-b 평가용 노출 원장 P6 반영(T-0164)** — `loadExposureLedger` 가 `learning_exposures` 를 7번째 원장으로 읽어, 판단 장면에서 정답을 연 문항(과 같은 지문 문항)이 독립 평가 후보에서 빠진다. 조회 실패·표 없음·잘림은 unknown(fail-closed). DB 무변경.
 - content(csat): 학평 분석 교정 3회차 — 학습자 칸 원문 처리 메모(파서·body_ok·단위 분할) 전량 제거(발행판 포함 0건) · 함정 라벨·지문 밖 근거·근거 번호·정답 노출 교정, 새 버전 35+14+29행 → 독립 3인 재검수 → 게이트 발행. 학평 published 2,728 → 2,792 · in_review 1. 본문 정상·미발행 146 → 111(초안 없음). 2·3회차 DB 적용은 승인형 러너 `scripts/db/csat-content-fix/deploy.mjs`(신규 · 콘텐츠 DML · 마이그레이션 이력 미기록 · --ca). 2026-10-25 사용자 승인.

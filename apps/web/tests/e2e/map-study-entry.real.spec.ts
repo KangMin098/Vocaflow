@@ -115,8 +115,9 @@ for (const width of [1280, 1440] as const) test(`왕복 · map_av · 목표 변�
   const itemUrl = new URL(page.url())
   const linkAv = itemUrl.searchParams.get('map_av')
   test.info().annotations.push({ type: 'study-link-map_av', description: linkAv ?? '(지도 링크에 없음)' })
-  if (linkAv) expect(new URL(backHref, 'http://x').searchParams.get('map_av'), '지도 링크의 map_av 를 그대로').toBe(linkAv)
-  else expect(backHref).not.toContain('map_av=')
+  // T-0186 — 지도 링크를 그대로 눌러 들어왔다: 링크가 결속 분석 판본(1 이상 정수)을 싣고, 「학습 지도로」 가 같은 값을 싣는다
+  expect(linkAv, '지도 링크가 결속 분석 판본 map_av 를 싣는다').toMatch(/^[1-9][0-9]{0,8}$/)
+  expect(new URL(backHref, 'http://x').searchParams.getAll('map_av'), '지도 링크의 map_av 를 그대로').toEqual([linkAv])
   for (const [given, want] of [['7', '7'], ['0', null], ['12x', null], ['1234567890', null]] as const) {
     const u = new URL(itemUrl); u.searchParams.set('map_av', given)
     await page.goto(u.pathname + u.search, { waitUntil: 'domcontentloaded', timeout: 240_000 })
