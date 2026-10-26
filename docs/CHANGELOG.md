@@ -1,5 +1,13 @@
 # CHANGELOG
 
+- chore(lcp): 대표 story-b2 1편의 원천·정책·초안과 기존 AI 독립 검수 결과를 서로 다른 정상 dev 인증 계정으로 등록했다(실제 브라우저 14 PASS·0 FAIL, 실행 exit0). 별도 SELECT에서 원천1·정책1·자리2·판1·AI검수1 및 계정 분리·현재 해시 결속을 확인했다. 권리 결정·발행은0이며 실제 발행본 독서·개인 진도 격리·교육 효과는 미검증이다.
+
+- fix(lcp): Story 관리자 초기 목록·번들 읽기를 인증된 `GET /api/admin/library/story`로 분리해 History URL 변경과 읽기 Server Action의 경합을 보완한다. 기존 실제 사용자·활성 스태프·RPC 권한과 등록·검수·발행 경계는 유지한다.
+
+- chore(lcp): 사용자 승인 후 AI 제작 curator·AI 검수 admin·학습자 A/B 개발 계정 4개를 정상 Auth로 생성하고 정확한 역할 DML(SHA `0fe31cfd…a0f4`)을 적용했다. 기존 86개 계정/프로필 지문 불변, 정상 비밀번호·새 SSR 쿠키·권한 검사 23/23을 확인했다. 비밀값은 비공개 `.env*`에 보관하며 권리 confirmed·사람 검수·콘텐츠 발행·교육 효과를 만들지 않았다.
+
+- docs(lcp): 대표 《푸른 석류석》 story-b2 1편을 기존 Claude Code 세션에서 제작하고 별도 Codex 세션이 원문 전체·16단위·활동3개를 AI 독립 검수했다(최종 valid/current approve). AI 콘텐츠 검수가 가능한 기존 계약과 인증 UID 분리·사람 권리 확인 조건을 구분했다. 실제 DB 발행·인증 학습자 전체 여정·교육 효과는 미검증이며 권리 보류를 유지한다.
+
 - feat(lcp): Story S5 SQL r3 사용자 승인 · 적용(2026-10-25) — dev DB 원장 `20261025143031` `lcp_story_s5_reader_context`(승인 SHA `a57ef729…161ab` · 34,577바이트 그대로 · `supabase/migrations/20261025143031_lcp_story_s5_reader_context.sql`). 새 `public.story_reader_context`(읽기 전용 · authenticated 만) · 이벤트 `story_catalog_viewed` · `story_reader_action` 허용(기존 식 보존). 기존 Story RPC 16 · 원본/Story 15표 행 · 정의 지문 불변, 익명 PostgREST 서가 200 · 읽기 문맥 401/42501, CHECK SELECT 평가 62/62. T-0176 코드 `9b39634c5` 독립 수용 · 로컬 main 코드 통합 `1a5253561` · 실제 로컬 Next/RSC PC1440/1280 빈 서가/비로그인 진입 확인. 공유 DB 발행 Story 0 → 인증 live 본문/진도 여정 · 쓰기형 allowlist 시험 · 콘텐츠 적합 · 학습자 파일럿은 미실행이며 학습 효과를 주장하지 않는다.
 - feat(lcp): Story S5(T-0176, 작성자 구현 · 커밋 전) — 학습자 서가 `/library/stories` · 판본 독서 `/library/stories/[releaseKey]?unit=`(명시적 위치 · 단위 완료 · 각색 완독 ≠ 원문 완독 · 판본별 진도 · 요청 시 원문 대응 · 단어 뜻), 이벤트 2종(코드), 격리 브라우저 하네스(working-tree dev 34 통과). 읽기 문맥 RPC · 이벤트 허용 목록 SQL r3 은 미승인 · 미적용이며 committed-HEAD 정식 실행 · live E2E · 실제 학습자 파일럿은 없다.
 

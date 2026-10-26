@@ -19,6 +19,8 @@
     --csat-ink2: #56565c;
     --csat-muted: #6e6e74;
     --csat-accent: #7c5cfa;
+    /* 강조색을 글자로 쓸 때(링크 · 눌린 보기 전환) — 흰·연한 면에서 4.5:1 이상(T-0181 axe color-contrast) */
+    --csat-accent-ink: #5b3fd6;
     --csat-control: #18181b;
     --csat-edge: #dedbd6;
     --csat-overlay: #0d0d1729;

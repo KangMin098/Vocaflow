@@ -1331,6 +1331,14 @@
       "class": "ADMIN_ONLY",
       "gate": "앱 구현 확인(2026-10-06): api/admin/csat/items · admin EvidenceInspector(type) 에서만 — 학습자 경로 없음(호출부 → 라우트 인증 근거). 학습자 경로가 생기면 embargo-gate 를 거쳐 다시 분류"
     },
+    "app/api/csat/item/[slug]/judgment/bound-item.ts": {
+      "class": "ANSWER_SENSITIVE",
+      "gate": "app 구현(2026-10-26 · T-0179): 서버 전용(server-only) — loadBoundJudgmentItem 이 csat_items(answer · answers) · csat_item_analyses 를 읽기 전에 canRevealItem 으로 보류 문항 · 시험을 거름(판정 실패 = 보류 · reason 'held'). 문항 페이지 · 판단 라우트 관문과 이중 방어. 반환 JudgmentItem 에는 정답 · 선지 분석을 싣지 않는다"
+    },
+    "lib/csat/judgment/server.ts": {
+      "class": "ANSWER_SENSITIVE",
+      "gate": "app 구현(2026-10-26 · T-0178): 서버 전용(server-only) — loadJudgmentReveal 이 정답 · 해설(csat_items.answer · csat_item_analyses 해설 컬럼)을 읽기 전에 canRevealItem 으로 보류 문항 · 시험을 거름(판정 실패 = 보류 · null). 판단 라우트의 관문과 이중 방어. loadJudgmentItem 은 결속 메타(BINDING_COLUMNS)만 읽고 정답 컬럼을 select 하지 않는다"
+    },
     "lib/csat/learner.ts": {
       "class": "ANSWER_SENSITIVE",
       "gate": "app 구현(2026-10-06): loadCsatItemExplain — canRevealItem 먼저(held) · loadCsatTypeItems — 보류 문항 정답 · 해설 유무 제거"

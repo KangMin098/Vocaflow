@@ -24,8 +24,6 @@ import { useSearchParams } from 'next/navigation'
 import {
   attestStoryValidationAction,
   checkStoryCandidateAction,
-  listStorySlotsAction,
-  loadStoryBundleAction,
   publishStoryAction,
   recordStoryRightsAction,
   registerStoryCandidateAction,
@@ -34,6 +32,7 @@ import {
 } from '@/app/admin/curation/story-actions'
 import { storyHref, storyLocation, type StoryPanel } from '@/lib/admin/curation-view'
 import { updateAdminUrl } from '@/lib/admin/navigation'
+import { readStoryBundle, readStorySlots } from '@/lib/library/story/admin-reader'
 import { describeStoryCode } from '@/lib/library/story/messages'
 import {
   STORY_UPLOAD_MAX_BYTES,
@@ -1604,7 +1603,7 @@ export function StoryCurationClient() {
   const loadSlots = useCallback(async (): Promise<StorySlotRow[] | null> => {
     setSlotsStatus('loading')
     setSlotsFailure(null)
-    const result = await callStory(() => listStorySlotsAction())
+    const result = await callStory(() => readStorySlots())
     if (result.ok) {
       setViewer(result.viewer)
       setSlots(result.data.slots)
@@ -1624,7 +1623,7 @@ export function StoryCurationClient() {
       versionId,
       bundle: previous.status === 'ready' && previous.versionId === versionId ? previous.bundle : null,
     }))
-    const result = await callStory(() => loadStoryBundleAction(versionId))
+    const result = await callStory(() => readStoryBundle(versionId))
     if (ticket !== bundleTicket.current) return
     if (result.ok) {
       setViewer(result.viewer)

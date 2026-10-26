@@ -6,9 +6,32 @@
 // 즉 key 로 재마운트하지 않아도 이전 문항의 정답 · 해설이 새 원문 옆에 남지 않는다.
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import { checkReveal } from '@/lib/csat/judgment/evidence'
 import { RevealError, type JudgmentItem, type RevealFailure, type RevealProvider, type RevealState } from '@/lib/csat/judgment/types'
+
+// 서버 렌더에는 레이아웃 단계가 없다 — 경고 없이 같은 자리에서 아무것도 하지 않는다
+const useIsoLayoutEffect = typeof window === 'undefined' ? useEffect : useLayoutEffect
+
+type FocusTarget = { hasAttribute(name: string): boolean; setAttribute(name: string, value: string): void; focus(options?: FocusOptions): void }
+type FocusRoot = { isConnected?: boolean; querySelector(selector: string): unknown }
+type FocusDoc = { activeElement: unknown; body: unknown }
+
+/**
+ * 공개 상태 영역으로 포커스를 옮긴다(T-0183). 해설 버튼이 사라진 바로 그 커밋에서 부르면 body 에 머무는 프레임이 없다.
+ * 학습자가 다른 곳으로 옮긴 포커스(연결된 body 아닌 요소)는 빼앗지 않는다. 옮겼으면 true.
+ */
+export function placeRevealFocus(root: FocusRoot | null, status: RevealState['status'], doc: FocusDoc): boolean {
+  if (status === 'hidden' || !root || root.isConnected === false) return false
+  const active = doc.activeElement as { isConnected?: boolean } | null
+  if (active && active !== doc.body && active.isConnected !== false) return false
+  const order = status === 'shown' ? ['[data-revealed]', '[data-reveal-choice]'] : status === 'error' ? ['[data-reveal-error]', '[data-reveal-status]'] : ['[data-reveal-loading]', '[data-reveal-status]']
+  const target = order.map((s) => root.querySelector(s) as FocusTarget | null).find(Boolean)
+  if (!target) return false
+  if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
+  target.focus({ preventScroll: true })
+  return true
+}
 
 /** 공개 상태의 결속 키 — 이것이 바뀌면 다른 문항이다 */
 export function revealBinding(item: Pick<JudgmentItem, 'id' | 'version'>): string {
@@ -62,21 +85,10 @@ export function useReveal(item: JudgmentItem, provider: RevealProvider) {
 
   // 포커스 보존(T-0151 디자인 수용 측정에서 발견) — 해설 버튼이 로딩 · 공개 · 오류에서 사라지면 포커스가 body 로 떨어진다.
   // 학습자가 다른 곳으로 옮기지 않았다면 지금 상태의 영역(로딩 문구 · 해설 · 오류)으로 옮긴다. 스크롤은 옮기지 않는다(preventScroll).
+  // 레이아웃 단계(그리기 전)에서 옮긴다 — 이전의 다음 프레임 이동은 1~2프레임 body 포커스를 남겼다(T-0182 실측, T-0183).
   const status = state.status
-  useEffect(() => {
-    if (status === 'hidden') return
-    const root = origin.current
-    if (!root || !root.isConnected) return
-    const id = requestAnimationFrame(() => {
-      const active = document.activeElement
-      if (active && active !== document.body && active.isConnected) return
-      const order = status === 'shown' ? ['[data-revealed]', '[data-reveal-choice]'] : status === 'error' ? ['[data-reveal-error]', '[data-reveal-status]'] : ['[data-reveal-loading]', '[data-reveal-status]']
-      const target = order.map((s) => root.querySelector<HTMLElement>(s)).find(Boolean)
-      if (!target) return
-      if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1')
-      target.focus({ preventScroll: true })
-    })
-    return () => cancelAnimationFrame(id)
+  useIsoLayoutEffect(() => {
+    placeRevealFocus(origin.current, status, document)
   }, [status])
 
   return { state, request }

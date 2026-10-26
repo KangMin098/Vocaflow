@@ -8,8 +8,16 @@ import { leakedAnswerKeys } from '../evidence'
 import { loadJudgmentItem, loadJudgmentReveal } from '../server'
 
 type Rows = Record<string, Record<string, unknown>[]>
-function fakeDb(rows: Rows, failTable?: string) {
+/** gate: 보류 판정 RPC(csat_ec_embargoed_items · csat_ec_embargoed_exams) — held 에 든 id 는 보류, 'fail' 이면 판정 실패 */
+function fakeDb(rows: Rows, failTable?: string, gate: { held?: readonly string[]; fail?: boolean } = {}) {
   const selects: { table: string; cols: string }[] = []
+  const rpcs: string[] = []
+  const rpc = (fn: string, args: { p_items?: string[]; p_exams?: string[] }) => {
+    rpcs.push(fn)
+    if (gate.fail) return Promise.resolve({ data: null, error: { message: 'gate boom' } })
+    const ids = args.p_items ?? args.p_exams ?? []
+    return Promise.resolve({ data: ids.filter((x) => (gate.held ?? []).includes(x)), error: null })
+  }
   const from = (table: string) => {
     const filters: [string, unknown][] = []
     let cols = ''
@@ -24,7 +32,7 @@ function fakeDb(rows: Rows, failTable?: string) {
     }
     return q
   }
-  return { db: { from } as never, selects }
+  return { db: { from, rpc } as never, selects, rpcs }
 }
 
 const UNITS = [{ id: 'u1', n: 1, kind: 'sentence', text: 'A.', start: 0, end: 2 }, { id: 'u2', n: 2, kind: 'sentence', text: 'B.', start: 3, end: 5 }]
@@ -94,5 +102,27 @@ describe('loadJudgmentReveal', () => {
     expect(await loadJudgmentReveal(fakeDb(base()).db, 'H1#35', 3)).toBeNull()
     const rows = base(); rows.csat_item_analyses[0].choice_analysis = [{ n: 1 }]
     expect(await loadJudgmentReveal(fakeDb(rows).db, 'H1#35', 2)).toBeNull()
+  })
+  it('공개 가능 문항은 로더 안에서 Reveal Gate 판정을 거친다', async () => {
+    const f = fakeDb(base())
+    expect(await loadJudgmentReveal(f.db, 'H1#35', 2)).not.toBeNull()
+    expect(f.rpcs.sort()).toEqual(['csat_ec_embargoed_exams', 'csat_ec_embargoed_items'])
+  })
+  it.each([
+    ['보류 문항', { held: ['H1#35'] }],
+    ['보류 시험', { held: ['H1'] }],
+    ['판정 실패(fail-closed)', { fail: true }],
+  ] as const)('%s → 정답 자료를 내지 않고 정답 · 해설 컬럼을 select 하지도 않는다(T-0178)', async (_n, gate) => {
+    const f = fakeDb(base(), undefined, gate)
+    expect(await loadJudgmentReveal(f.db, 'H1#35', 2)).toBeNull()
+    const allCols = f.selects.map((s) => s.cols).join(',')
+    for (const col of ['answer', 'design_intent', 'answer_locus', 'choice_analysis']) expect(allCols, col).not.toContain(col)
+  })
+  it('판정 클라이언트를 따로 넘기면 그쪽으로 판정한다', async () => {
+    const data = fakeDb(base())
+    const gateDb = fakeDb({}, undefined, { held: ['H1#35'] })
+    expect(await loadJudgmentReveal(data.db, 'H1#35', 2, { db: gateDb.db })).toBeNull()
+    expect(data.rpcs).toEqual([])
+    expect(gateDb.rpcs.length).toBeGreaterThan(0)
   })
 })

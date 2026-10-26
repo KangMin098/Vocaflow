@@ -5,7 +5,7 @@
 > 기존 LCP(원본 도서 큐레이션)는 그대로 유지한다: [LIBRARY_PIPELINE §LCP](./LIBRARY_PIPELINE.md).
 > 설계를 바꿀 때는 이 문서를 고친다. 채팅 사본을 정본으로 쓰지 않는다.
 
-## 0. 현재 상태와 경계 (2026-10-25)
+## 0. 현재 상태와 경계 (2026-10-26)
 
 | 구분 | 내용 | 상태 |
 |---|---|---|
@@ -18,11 +18,12 @@
 | DB 테이블 · RPC · RLS · 발행 게이트 | `supabase/migrations/20261025094450_lcp_story_s3_schema.sql` · 복구 `_pending_lcp_story_s3_quarantine.sql` · 러너 `scripts/db/lcp-story-s3/deploy.mjs` · 격리 시험 `verify-isolated.ts` | **공유 DB 적용 완료** — 사용자 승인 뒤 MCP 원장 `20261025094450` · 승인 SHA 일치 · 사후 검사 15/15. 관리자/학습자 런타임은 별도(S4/S5) |
 | S2 검증 증명 어댑터 | `packages/library-pipeline/src/story/attest.ts`(`buildValidationAttestation`) — DB 가 돌려준 저장값을 S2 검증기로 검사해 발행에 필요한 결속 증명을 만든다(§15) | 순수 함수 구현 · 작성자 테스트 |
 | 검증 증인 런타임(S4) | `apps/web/src/lib/library/story/witness.ts` · 서버 액션 `attestStoryValidationAction` — 쿠키 세션 스태프 확인 뒤에만 service_role 로 §15 의 1~3 을 실행(§15) | 작성자 구현 · 가짜 클라이언트 단위 시험 · 격리 브라우저 하네스(T-0174). 공유 DB 에서 실제 실행 · 실제 발행은 하지 않음 · 독립 수용 완료(T-0174 `fcf57c225e2a`) |
-| 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 작성자 구현 · 단위 · 격리 브라우저 하네스(T-0174). 두 번째 인증 스태프 계정 없음 · 실제 발행 미실행 · 독립 수용 완료(T-0174 `fcf57c225e2a`) |
+| 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 단위 · 격리 브라우저 하네스 및 독립 수용 완료(T-0174 `fcf57c225e2a`). 2026-10-26 승인된 개발 curator/admin 계정 준비 · 실제 발행 미실행 |
 | 학습자 화면(S5) | `/library/stories` · `/library/stories/[releaseKey]?unit=` — `lib/library/story/learner.ts` · `app/(main)/library/stories/**` · `components/library/story/**`(§12) | 코드 독립 수용 완료(T-0176 `9b39634c5` · 격리 브라우저 1440/1280). 읽기 문맥 RPC 는 SQL r3 승인 · **공유 DB 적용 완료**(원장 `20261025143031`, §12). 공유 DB 에 발행된 Story 가 0 이라 인증 학습자의 live 본문 · 진도 여정은 **NOT_RUN** |
 | 이벤트(S5) | `events.ts` `story_catalog_viewed` · `story_reader_action`(§17) | 코드 + DB 허용 목록 적용(같은 SQL §C · 실제 CHECK SELECT 평가 62/62). 쓰기형 `db-allowlist` 시험은 NOT_RUN |
 | 추천 | 없음 | 제안(S6) |
-| 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 | 없음 | 미실행(S7) |
+| 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 16단위 · AI 독립 검수 1건을 dev 초안으로 등록 | 원천 1 · 편집 기준 1 · 판본 자리 2(미제작 Easy 자리 포함) · 실제 판 1 · 검수 1. 정상 인증 제작/검수 계정 분리 · 현재 해시 결속 확인. [후속 증거](./lcp-story/S7_PILOT.md) |
+| 권리 확인 · 사람 검수 · 학습자 파일럿 | 권리 결정 · 발행 0, 실제 참가자 없음 | 미충족·미실행(S7). AI 검수를 사람 검수로 바꾸지 않음 |
 
 - 패키지 루트 배럴(`src/index.ts`)에는 싣지 않는다. S4 부터 `package.json` exports `@vocaflow/library-pipeline/story`(= `src/story/server.ts` — 작업 폴더 · CLI 제외)를 관리자 서버 코드가 쓴다. 전체 배럴(`src/story/index.ts`)의 소비자는 `scripts/lcp/story` 다.
 - 이 라인이 학습 효과를 낸다는 근거는 없다. 원문 · 흥미 진입 · 각색 효과를 섞어 교육 효과를 주장하지 않는다(§19).
@@ -174,6 +175,7 @@ UNDERSTAND(요청 시 의미 탐구) → GROW(원문 연결 · 어휘 · 추론�
 - 모순은 무효: 승인인데 항목 fail/hold 또는 열린 critical · critical 의 `accepted_risk` · 사람 검수가 아닌데 `human_review` · 현재보다 뒤의 시각.
 - 현재 검수 둘 이상이 엇갈리면(승인 + 보류 등) 보류다. 열린 major 도 보류다.
 - AI 검수는 교사 · 전문가 검수가 아니다. 사람 검수가 없으면 미리보기에 `human_review_not_performed` 가 붙는다.
+- 개발 단계의 제작·편집·독립 콘텐츠 검수는 중앙 `development_policy.ai_work_roles`에 따라 Claude Code/Codex에 배정한다. 제작에 참여하지 않은 실제 세션이 원문·최종 판본을 직접 대조하고 제작 판단을 복제하지 않았는지 확인한다. `ai_model/ai_review`는 AI 검수로 기록하며 사람 검수로 바꾸지 않는다. 이 역할 배정과 §15의 인증 UID·활성 상태·권한 검사는 서로 다른 요건이다. §14의 사람 권리 확인 조건과 §19의 실사용 교육 효과 검증은 별도로 유지한다.
 
 ## 10. 발행(Release) 계약
 
@@ -288,6 +290,8 @@ live DB 실측(2026-10-25, [S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md))과 코드 
 **행위자.** DB 가 강제하는 분리는 「검수 계정 ≠ 판본 제출 계정」(검수자 세션 주장 ≠ 생산자 세션 주장도) · 「발행자 = admin 이고 제출 계정이 아님」 · 「권리 결정 · 철회 = admin」이다.
 검수자와 발행 admin 은 같은 계정이어도 된다 — 실제 발행에 필요한 인증 계정은 최소 2개(예: curator 제출 + admin 검수 · 발행)이며, 세 사람을 요구하지 않는다.
 live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번째 인증 스태프 계정은 **실제 발행 · 운영의 전제**다(빈 스키마 설치의 전제는 아니다 — SQL · preflight 는 계정 수를 검사하지 않는다).
+
+2026-10-26 사용자 승인으로 기존 관리자를 유지하면서 개발용 AI 제작 curator · AI 검수 admin · 학습자 2개를 정상 Auth로 생성했다. 승인된 역할 DML 원문과 적용 기록은 [dev-accounts](../scripts/db/lcp-story-s3/dev-accounts/README.md)에 있다. 정상 비밀번호 로그인·새 SSR 쿠키의 `getUser()`·역할/권한 23검사를 통과했다. 계정은 개발용이며 실제 사람 검수·권리 결정·실사용 학습자 증거가 아니다.
 계정 추가 · 역할 부여는 이 작업에서 승인되지도 실행되지도 않았다. 로컬 AI 세션 id 는 스태프 계정이 아니다.
 
 **검증 증명(발행의 마지막 문).** 초안 · 검수는 검증 없이 저장된다(학습자에게 보이지 않는다). 발행은 백엔드 서비스 주체가 쓴 증명이 **지금 저장된 결속**과 맞을 때만 된다:
@@ -365,7 +369,7 @@ live 감사(2026-10-25)는 active admin 1 · curator 0 을 보았다 — 두 번
 - 판본 자리를 고르면 판본 단위를 고르는 대로 그 단위의 원문 구간이 강조되고 그 단위의 변경 기록만 남는다(원문 · 각색 · 변경 내역 비교). 현재 판 · 검수 · 권리 · 증명 · 발행본 상태와 다음 행동 하나를 보인다.
 - **부분 성공 · 재개**: 등록은 원천 → 편집 기준 → 판본 RPC 여러 번이며 **원자적이 아니다**. 뒤 단계가 실패하면 앞 단계 저장 결과를 그대로 보이고, 같은 파일로 다시 등록하면 기존 행(`created=false`)을 돌려받아 이어 간다. 롤백을 주장하지 않는다.
 - **source_url**: 스냅숏 값은 다듬지 않고 RPC 에 넘긴다(정체 해시에 포함). 화면은 저장값을 바꾸지 않고 보이며 http/https 만 링크로 만든다.
-- **두 사람**: 제출 계정은 같은 판을 검수 · 발행할 수 없다. 실제 발행에는 인증 스태프 계정이 최소 2개 필요하고(§15 행위자), 이 작업에서 계정 추가 · 실제 발행은 하지 않았다.
+- **인증 계정 분리**: 제출 계정은 같은 판을 검수 · 발행할 수 없다. 실제 발행에는 인증 스태프 계정이 최소 2개 필요하다(§15 행위자). 이 조건을 물리적 사람 콘텐츠 검수자 2명으로 해석하지 않는다. AI 검수와 개발 계정 사용은 출처를 그대로 기록한다. 2026-10-26 승인된 개발 계정 4개를 구성했으며, 실제 발행은 아직 하지 않았다.
 - 도움말: `apps/web/src/lib/admin/help/curation.ts` 의 `tabs['이야기 판본']`(라인 라벨 문자열이 키). 관리자는 3B 스킨, PC 웹만. 이 라인은 계측 이벤트를 보내지 않는다.
 - 검증 경계: 컴포넌트 수준 격리 브라우저 하네스(실제 클라이언트 컴포넌트 · 앱 CSS + Server Action 대역 뒤 실제 서버 로직 · 메모리 가짜 DB)와 가짜 클라이언트 서버 시험까지다.
   AdminShell 레이아웃의 requireAdmin · middleware · RSC 로딩 · 실제 쿠키 인증 · PostgREST/RPC · 실제 Server Action 전송을 포함한 live E2E 는 하지 않았다. DB 규칙은 S3 격리 PostgreSQL 17 시험이 검증했다.

@@ -9,6 +9,8 @@ import 'server-only'
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { canRevealItem, type GateDeps } from '@/lib/csat/embargo-gate'
+
 import type { ChoiceAnalysis, EvidenceUnit, JudgmentItem, RevealData } from './types'
 
 export type JudgmentUnavailable = { state: 'unavailable'; reason: 'no-item' | 'no-analysis' | 'version-mismatch' | 'no-units' | 'shape' | 'db' }
@@ -77,8 +79,11 @@ export async function loadJudgmentItem(db: SupabaseClient, itemId: string, analy
 /**
  * 공개 자료 — 판단 라우트가 노출 원장(answer_direct) 커밋에 성공한 **뒤에만** 부른다.
  * 요청 판본과 다르면 null(라우트는 409 를 이미 냈어야 한다). 선지 분석이 5개가 아니면 null.
+ * Reveal Gate(T-0178): 라우트의 관문과 별개로 이 로더도 정답 자료를 읽기 전에 embargo-gate 로 보류 문항 · 시험을 거른다(이중 방어).
+ * 보류이거나 판정이 실패하면(fail-closed) 정답 · 해설 컬럼을 select 하지도 않고 null. 판정 클라이언트 기본값은 넘겨받은 service-role db.
  */
-export async function loadJudgmentReveal(db: SupabaseClient, itemId: string, analysisVersion: number): Promise<RevealData | null> {
+export async function loadJudgmentReveal(db: SupabaseClient, itemId: string, analysisVersion: number, gate: GateDeps = { db }): Promise<RevealData | null> {
+  if (!itemId || !(await canRevealItem(itemId, gate))) return null
   const it = await db.from('csat_items').select('answer').eq('id', itemId).limit(1)
   const answer = (it.data?.[0] as { answer: number | null } | undefined)?.answer
   if (it.error || answer == null) return null

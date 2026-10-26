@@ -1499,7 +1499,8 @@ export function AnalysisTheater({
                   ) : null}
                   <em>{map ? `${map.sentences.length}문장` : '지도 없음'}</em>
                 </div>
-                <div className={styles.paneBody} ref={evidencePaneRef}>
+                {/* 스크롤 판은 키보드로도 닿아야 한다(axe scrollable-region-focusable · T-0181) — 지도가 감춰져 포커스할 것이 없을 때도 */}
+                <div className={styles.paneBody} ref={evidencePaneRef} tabIndex={0} role="region" aria-label="근거·관계 내용">
                   {session === undefined ? <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p> : null}
                   {done}
                   {diff}
