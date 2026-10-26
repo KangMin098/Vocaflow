@@ -81,7 +81,15 @@ describe('catalogViewedEvent', () => {
   it('ready 일 때만 실제 수로 만든다 · error 에는 만들지 않는다', () => {
     const releases = [release(), release({ releaseKey: KEY_B, kind: 'easy_reader' })]
     expect(
-      catalogViewedEvent({ status: 'ready', signedIn: true, viewerId: 'v', releases, progress: [], progressError: null }),
+      catalogViewedEvent({
+        status: 'ready',
+        signedIn: true,
+        viewerId: 'v',
+        releases,
+        progress: [],
+        progressError: null,
+        guidance: { status: 'ready', byRelease: {} },
+      }),
     ).toEqual({ name: 'story_catalog_viewed', props: { works: 1, editions: 2, signed_in: true } })
     expect(
       catalogViewedEvent({ status: 'error', failure: { ok: false, code: 'temporary', message: 'x', retryable: true } }),

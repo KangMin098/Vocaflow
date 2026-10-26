@@ -18,7 +18,22 @@ import { StoryReader } from '../StoryReader'
 import { StorySourcePanel } from '../StorySourcePanel'
 import { StoryUnitText } from '../StoryUnitText'
 import type { StoryAuthSource } from '../use-story-auth-guard'
-import { KEY_A, KEY_B, KEY_C, OTHER, UNIT_TEXT, VIEWER, context, progressRow, readyState, release } from './fixtures'
+import {
+  CAUTION_A,
+  CAUTION_B,
+  KEY_A,
+  KEY_B,
+  KEY_C,
+  OTHER,
+  UNIT_TEXT,
+  VIEWER,
+  catalogGuidance,
+  context,
+  guidanceView,
+  progressRow,
+  readyState,
+  release,
+} from './fixtures'
 
 /** 시험 전용 — 브라우저 신원을 동기적으로 아는 원천(undefined = 확인 전). 실제 브라우저 원천은 이것을 구현하지 않는다. */
 const knownAuth = (userId: string | null | undefined): StoryAuthSource => ({
@@ -58,6 +73,7 @@ const ready = (over: Partial<Extract<StoryCatalogPageState, { status: 'ready' }>
   ],
   progress: [progressRow()],
   progressError: null,
+  guidance: catalogGuidance(),
   ...over,
 })
 
@@ -146,7 +162,7 @@ describe('StoryCatalog', () => {
 
 describe('StoryReader', () => {
   it('로그인 전: 로그인 CTA · 메타 · HOOK 만 — 본문 · 목차 없음', () => {
-    const html = reader({ status: 'signed_out', loginHref: '/login?next=x', release: release() })
+    const html = reader({ status: 'signed_out', loginHref: '/login?next=x', release: release(), guidance: guidanceView() })
     expect(html).toContain('href="/login?next=x"')
     expect(html).toContain('data-story-hook')
     expect(html).not.toContain('data-story-body')
@@ -453,7 +469,7 @@ describe('개인 내용이 없는 서버 상태 — 브라우저가 로그인돼
   })
 
   it('signed_out + 브라우저 로그인: 로그인 안내 그대로(개인 내용 없음 · 바뀜 화면 아님)', () => {
-    const html = reader({ status: 'signed_out', loginHref: '/login?next=x', release: release() }, knownAuth(VIEWER))
+    const html = reader({ status: 'signed_out', loginHref: '/login?next=x', release: release(), guidance: guidanceView() }, knownAuth(VIEWER))
     expect(html).toContain('data-story-reader="signed_out"')
     expect(html).not.toContain('data-story-body')
     expect(html).not.toContain('auth_changed')
@@ -474,3 +490,77 @@ describe('읽은 뒤 서버 거부 → refresh → blocked 화면', () => {
     expect(after).not.toContain('로그인 상태가 바뀌었어요')
   })
 })
+
+describe('시작 전 선택 안내(U1) — 편집 판단 · 접힌 주의 · 「없음」과 「못 불러옴」 구분', () => {
+  const summaryOf = (html: string) => /<summary>([^<]*)<\/summary>/.exec(html)?.[1] ?? null
+
+  it('작품 입구: 부담 한 줄(편집 판단 · 측정 아님)과 접힌 주의가 시작 행동보다 먼저 · 요약에 장면 없음 · 문장은 저장 순서 그대로', () => {
+    const html = reader(readyState({ unit: null }))
+    const at = html.indexOf('data-story-guidance="ready"')
+    expect(at).toBeGreaterThan(-1)
+    expect(at).toBeLessThan(html.indexOf('data-story-go='))
+    expect(html).toContain('편집 판단 · 추론 부담 높음 · 배경지식 부담 보통 (측정한 값이 아니에요)')
+    expect(html).toMatch(/<details[^>]*data-story-cautions/)
+    expect(html).not.toMatch(/<details[^>]*\sopen/)
+    expect(summaryOf(html)).toBe('읽기 전 주의 2가지 · 펼치면 장면 내용이 조금 드러나요')
+    expect(summaryOf(html)).not.toContain('범인')
+    expect(html.indexOf(`<li>${CAUTION_A}</li>`)).toBeGreaterThan(at)
+    expect(html.indexOf(`<li>${CAUTION_A}</li>`)).toBeLessThan(html.indexOf(`<li>${CAUTION_B}</li>`))
+  })
+
+  it('주의가 없으면 경고 요소 · 주의 문구를 만들지 않는다(부담 줄만)', () => {
+    const html = reader(readyState({ unit: null, guidance: guidanceView({ cautions: [] }) }))
+    expect(html).toContain('data-story-guidance-load')
+    expect(html).not.toContain('data-story-cautions')
+    expect(html).not.toContain('주의')
+  })
+
+  it('불러오지 못함 · 확인하지 못함은 「주의 없음」이 아니라고 말한다(주의 요소 없음 · 독서 행동은 그대로)', () => {
+    for (const reason of ['not_ready', 'temporary', 'invalid'] as const) {
+      const html = reader(readyState({ unit: null, guidance: { status: 'unavailable', reason } }))
+      expect(html, reason).toContain(`data-story-guidance-reason="${reason}"`)
+      expect(html, reason).toContain('주의할 내용이 없다는 뜻은 아니에요')
+      expect(html, reason).toContain(reason === 'invalid' ? '확인하지 못해 보여 드리지 않아요' : '지금 불러오지 못했어요')
+      expect(html, reason).not.toContain('data-story-cautions')
+      expect(html, reason).toContain('data-story-go="resume"')
+    }
+  })
+
+  it('단위 화면에는 안내를 그리지 않는다', () => {
+    expect(reader(readyState())).not.toContain('data-story-guidance')
+  })
+
+  it('로그인 전 판본 화면: HOOK 뒤 · 로그인 행동 앞에 같은 안내', () => {
+    const html = reader({ status: 'signed_out', loginHref: '/login?next=x', release: release(), guidance: guidanceView() })
+    const at = html.indexOf('data-story-guidance="ready"')
+    expect(at).toBeGreaterThan(html.indexOf('data-story-hook'))
+    expect(at).toBeLessThan(html.indexOf('data-story-login'))
+    expect(summaryOf(html)).toBe('읽기 전 주의 2가지 · 펼치면 장면 내용이 조금 드러나요')
+  })
+
+  it('서가: 로그인 전에도 판본마다 안내 · 주의 있는 판본만 접힌 주의 · 없는 판본은 경고 없음', () => {
+    const { html } = catalog(ready({ signedIn: false, viewerId: null, progress: null }))
+    expect((html.match(/data-story-guidance="ready"/g) ?? []).length).toBe(2)
+    expect((html.match(/data-story-cautions/g) ?? []).length).toBe(1)
+    expect(html).toContain('편집 판단 · 추론 부담 낮음 · 배경지식 부담 낮음')
+  })
+
+  it('서가: 안내 조회 실패는 판본마다 「불러오지 못함」 · 서가와 시작 행동은 그대로', () => {
+    const { html } = catalog(ready({ guidance: { status: 'unavailable', reason: 'not_ready' } }))
+    expect((html.match(/data-story-guidance="unavailable"/g) ?? []).length).toBe(2)
+    expect((html.match(/data-story-open=/g) ?? []).length).toBe(2)
+    expect(html).not.toContain('data-story-cautions')
+  })
+
+  it('서가: 조회는 됐는데 그 판본 행이 없으면 「불러오지 못함」(주의 없음으로 바꾸지 않는다)', () => {
+    const { html } = catalog(ready({ guidance: { status: 'ready', byRelease: { [KEY_A]: catalogGuidanceRow() } } }))
+    expect((html.match(/data-story-guidance="ready"/g) ?? []).length).toBe(1)
+    expect((html.match(/data-story-guidance="unavailable"/g) ?? []).length).toBe(1)
+  })
+})
+
+function catalogGuidanceRow() {
+  const g = catalogGuidance()
+  if (g.status !== 'ready') throw new Error('ready expected')
+  return g.byRelease[KEY_A]
+}

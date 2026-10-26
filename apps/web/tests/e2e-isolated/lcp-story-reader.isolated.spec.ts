@@ -21,6 +21,7 @@ import { createHash } from 'node:crypto'
 import fs from 'node:fs'
 import path from 'node:path'
 
+import AxeBuilder from '@axe-core/playwright'
 import { expect, test, type BrowserContext, type Page, type Route } from '@playwright/test'
 
 const REPO = path.resolve(__dirname, '../../../..')
@@ -282,6 +283,10 @@ interface DbState {
   progress: { user_id: string; release_key: string; last_unit_index: number; furthest_unit_index: number; completed_units: number[]; completed_at: string | null }[]
   faults: Record<string, { kind: 'network' | 'error'; times: number; message?: string }>
   reader_context_missing: boolean
+  /** U1 안내 RPC 없음(제안 SQL 미적용 — 공유 DB 의 지금 상태) */
+  guidance_missing: boolean
+  /** 안내 결속이 깨진 발행 키(이용 가능하면 안내 호출 전체가 story:guidance_mismatch) */
+  guidance_corrupt: string[]
   catalog_hide: string[]
   profiles: Record<string, { status: string }>
 }
@@ -539,7 +544,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-open="reader"]')).toHaveCount(0)
           expect(await page.locator('#root').innerText()).not.toContain(probeOf(FM.release_keys.B1, 0))
           expect(run.payloads.join('\n')).not.toContain(probeOf(FM.release_keys.B1, 0))
-          expect(run.rpc.map((c) => c.fn)).toEqual(['story_catalog'])
+          expect(run.rpc.map((c) => c.fn)).toEqual(['story_catalog', 'story_release_guidance'])
           await noOverflow(page)
           await fontEvidence(page, `catalog-anon@${width}`, [
             { selector: 'h1', expectCustom: 'Petrona' },
@@ -560,7 +565,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-toc]')).toHaveCount(0)
           expect(await page.locator('#root').innerText()).not.toContain(probeOf(FM.release_keys.B1, 1))
           expect(run.payloads.join('\n')).not.toContain(probeOf(FM.release_keys.B1, 1))
-          expect(run.rpc.map((c) => c.fn)).toEqual(['story_catalog', 'story_catalog'])
+          expect(run.rpc.map((c) => c.fn)).toEqual(['story_catalog', 'story_release_guidance', 'story_catalog', 'story_release_guidance'])
           expect(writes(run)).toEqual([])
           await noOverflow(page)
           await shot(page, `current-reader-signed-out-${width}`)
@@ -1129,7 +1134,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await shot(page, `current-reader-blocked-${width}`)
           await openStories(page, '/library/stories')
           await sx(page.locator('[data-story-progress="error"]')).toContainText('이 계정은 지금 이야기를 읽을 수 없어요')
-          expect(run.rpc.map((c) => c.fn)).toEqual(['story_catalog'])
+          expect(run.rpc.map((c) => c.fn)).toEqual(['story_catalog', 'story_release_guidance'])
           await noOverflow(page)
           await closedTelemetry(page)
         } finally {
@@ -1377,6 +1382,127 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           const events = await closedTelemetry(page)
           expect(JSON.stringify(events)).not.toMatch(/lighthouse/i)
           await noIdentityLeak(page, ['lighthouse', surface])
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
+      test('시작 전 선택 안내(U1 · 합성 fixture) — 부담 한 줄 · 접힌 주의(키보드로 펼침) · 주의 없으면 경고 없음 · 못 불러옴/확인 못함 구분 · 쓰기 0 · axe', async ({ page, context }) => {
+        test.setTimeout(240_000)
+        const run = newRun(`guidance-${width}`)
+        run.actor = null
+        const { B1: b1, A2: a2 } = FM.release_keys
+        const cautionsOf = (key: string) => (DB0.releases.find((r) => r.release_key === key) as unknown as { guidance: { cautions: string[] } }).guidance.cautions
+        const log = await readerHarness(context, `guidance@${width}`, run)
+        /** 키보드만으로 이 요소에 닿는가(Tab 반복) · 닿았을 때 보이는 초점 테두리. */
+        const tabTo = async (selector: string) => {
+          await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+          for (let i = 0; i < 80; i += 1) {
+            await page.keyboard.press('Tab')
+            const hit = await page.evaluate((sel) => {
+              const el = document.activeElement
+              if (!el || !el.matches(sel)) return null
+              const cs = getComputedStyle(el)
+              const r = el.getBoundingClientRect()
+              return { outline: cs.outlineStyle, outlineWidth: cs.outlineWidth, h: r.height }
+            }, selector)
+            if (hit) return hit
+          }
+          return null
+        }
+        const axeGuidance = async () => {
+          const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).include('[data-story-guidance]').analyze()
+          return res.violations.map((v) => `${v.impact}/${v.id} ×${v.nodes.length}`)
+        }
+        try {
+          // 1) 익명 서가 — 판본마다 안내 · 주의 있는 판본(B1)만 접힌 주의 · 요약에 장면 없음
+          await openStories(page, '/library/stories')
+          await sx(page.locator('[data-story-guidance="ready"]')).toHaveCount(3)
+          const det = page.locator('details[data-story-cautions]')
+          await sx(det).toHaveCount(1)
+          await sx(det.locator('summary')).toHaveText(`읽기 전 주의 ${cautionsOf(b1).length}가지 · 펼치면 장면 내용이 조금 드러나요`)
+          expect(await det.evaluate((d) => (d as HTMLDetailsElement).open)).toBe(false)
+          await sx(det.locator('li').first()).toBeHidden()
+          await sx(page.locator('[data-story-guidance-load]').first()).toContainText('편집 판단 · 추론 부담')
+          const reach = await tabTo('details[data-story-cautions] > summary')
+          expect(reach, 'caution summary reachable by Tab').not.toBeNull()
+          expect(reach!.outline).not.toBe('none')
+          expect(reach!.h).toBeGreaterThanOrEqual(44)
+          await page.keyboard.press('Enter')
+          await sx(det.locator('li')).toHaveText(cautionsOf(b1))
+          expect(await axeGuidance()).toEqual([])
+          await noOverflow(page)
+          await shot(page, `u1-catalog-guidance-anon-open-${width}`)
+          await page.keyboard.press('Enter')
+          expect(await det.evaluate((d) => (d as HTMLDetailsElement).open)).toBe(false)
+          expect(run.rpc.map((c) => c.fn)).toEqual(['story_catalog', 'story_release_guidance'])
+
+          // 2) 로그인 전 판본 화면 — HOOK 뒤 · 로그인 행동 앞에 같은 안내(자동으로 열리지 않음)
+          await openStories(page, `/library/stories/${b1}`)
+          await sx(page.locator('[data-story-reader="signed_out"]')).toBeVisible()
+          const order = await page.evaluate(() => {
+            const g = document.querySelector('[data-story-guidance="ready"]')
+            const hook = document.querySelector('[data-story-hook]')
+            const login = document.querySelector('[data-story-login]')
+            if (!g || !hook || !login) return null
+            return { afterHook: !!(hook.compareDocumentPosition(g) & Node.DOCUMENT_POSITION_FOLLOWING), beforeLogin: !!(g.compareDocumentPosition(login) & Node.DOCUMENT_POSITION_FOLLOWING) }
+          })
+          expect(order).toEqual({ afterHook: true, beforeLogin: true })
+          expect(await page.locator('details[data-story-cautions]').evaluate((d) => (d as HTMLDetailsElement).open)).toBe(false)
+          await shot(page, `u1-reader-signed-out-guidance-${width}`)
+
+          // 3) 로그인한 학습자 A — 작품 입구: 안내가 시작 행동보다 먼저 · 키보드로 펼침 · 시작 행동 하나 그대로 · 쓰기 0
+          run.actor = FM.users.A
+          await openStories(page, `/library/stories/${b1}`)
+          await sx(page.locator('[data-story-private="shown"]')).toBeVisible()
+          await sx(page.locator('[data-story-entry-public] [data-story-guidance="ready"]')).toBeVisible()
+          const entryOrder = await page.evaluate(() => {
+            const g = document.querySelector('[data-story-guidance="ready"]')!
+            const go = document.querySelector('[data-story-go]')!
+            return !!(g.compareDocumentPosition(go) & Node.DOCUMENT_POSITION_FOLLOWING)
+          })
+          expect(entryOrder).toBe(true)
+          const reach2 = await tabTo('details[data-story-cautions] > summary')
+          expect(reach2, 'entry caution summary reachable by Tab').not.toBeNull()
+          await page.keyboard.press('Space')
+          await sx(page.locator('details[data-story-cautions] li')).toHaveText(cautionsOf(b1))
+          expect(await axeGuidance()).toEqual([])
+          await noOverflow(page)
+          await shot(page, `u1-entry-guidance-open-${width}`)
+
+          // 4) 주의 없는 판본(A2) — 부담 줄만 · 경고 요소 · 「주의」 문구 없음
+          await openStories(page, `/library/stories/${a2}`)
+          await sx(page.locator('[data-story-entry-public] [data-story-guidance-load]')).toBeVisible()
+          await sx(page.locator('[data-story-cautions]')).toHaveCount(0)
+          expect(await page.locator('[data-story-entry-public]').innerText()).not.toContain('주의')
+          await shot(page, `u1-entry-no-cautions-${width}`)
+
+          // 5) 안내 RPC 없음(공유 DB 의 지금 상태 · SQL 미적용) — 「불러오지 못함」 · 주의 없음이 아니라고 말함 · 독서 행동 그대로
+          editDb(run, (db) => {
+            db.guidance_missing = true
+          })
+          await openStories(page, `/library/stories/${b1}`)
+          await sx(page.locator('[data-story-guidance="unavailable"][data-story-guidance-reason="not_ready"]')).toContainText('주의할 내용이 없다는 뜻은 아니에요')
+          await sx(page.locator('[data-story-cautions]')).toHaveCount(0)
+          await sx(page.locator('[data-story-go="start"], [data-story-go="resume"]')).toHaveCount(1)
+          await shot(page, `u1-entry-guidance-missing-${width}`)
+
+          // 6) 결속 불일치 — 서가 전체 「확인하지 못함」(주의 없음으로 바꾸지 않음) · 서가와 시작 행동은 그대로
+          editDb(run, (db) => {
+            db.guidance_missing = false
+            db.guidance_corrupt = [b1]
+          })
+          await openStories(page, '/library/stories')
+          await sx(page.locator('[data-story-guidance="unavailable"][data-story-guidance-reason="invalid"]')).toHaveCount(3)
+          await sx(page.locator('[data-story-open]')).toHaveCount(3)
+          await sx(page.locator('[data-story-cautions]')).toHaveCount(0)
+          await shot(page, `u1-catalog-guidance-invalid-${width}`)
+
+          expect(writes(run)).toEqual([])
+          const events = await closedTelemetry(page)
+          expect(events.every((e) => e.name === 'story_catalog_viewed')).toBe(true)
+          await noIdentityLeak(page)
         } finally {
           finishRun(run, log)
         }

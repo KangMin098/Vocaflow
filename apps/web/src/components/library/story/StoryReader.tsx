@@ -12,6 +12,7 @@
 // - 서버가 저장을 거부하면(차단 · 닫힘 · 단위 없음 · 계정 바뀜 · 로그인 필요) 개인 내용을 지우고 이유를 말한 뒤 서버 상태를 다시 받는다.
 // - 본문은 텍스트 노드로만 그린다(HTML 해석 없음). 원문 대응 · 단어 뜻은 요청할 때만 연다.
 // - 학습자 행동 구조: 단위 고르기 → 읽기 → 읽음 표시 → (원하면) 원문 인용 추적 · 단어 뜻.
+// - 작품 입구 · 로그인 전 화면은 시작 전 선택 안내(편집 판단 부담 · 접힌 주의 — U1)를 공개 정보로 보인다(필수 확인 · 자동 열림 없음).
 
 'use client'
 
@@ -36,8 +37,10 @@ import type {
   StoryPositionReason,
   StoryReaderPageState,
   StoryReaderSource,
+  StoryReleaseGuidanceView,
 } from '@/lib/library/story/learner-types'
 
+import { StoryGuidance } from './StoryGuidance'
 import { StorySourcePanel } from './StorySourcePanel'
 import { StoryUnitText, type StoryWordLookupProps } from './StoryUnitText'
 import styles from './story.module.css'
@@ -129,7 +132,7 @@ export function StoryReader(props: StoryReaderProps) {
     )
   }
 
-  if (state.status === 'signed_out') return <SignedOut loginHref={state.loginHref} release={state.release} />
+  if (state.status === 'signed_out') return <SignedOut loginHref={state.loginHref} release={state.release} guidance={state.guidance} />
 
   if (state.status === 'blocked') {
     return (
@@ -339,7 +342,7 @@ function ReadyReader({
     return (
       <div className={styles.page} data-story-reader={unit ? 'unit' : 'entry'} data-story-private="hidden">
         {header}
-        <EntryPublic release={state.release} source={context.source} />
+        <EntryPublic release={state.release} source={context.source} guidance={state.guidance} />
         <div className={styles.notice} role="status" aria-live="polite" data-story-identity="checking">
           <p className={styles.statusText}>로그인 상태를 확인하고 있어요 — 확인되면 본문과 내 진도가 보여요.</p>
         </div>
@@ -433,7 +436,7 @@ function ReadyReader({
             </>
           ) : (
             <>
-              <EntryPublic release={state.release} source={context.source} />
+              <EntryPublic release={state.release} source={context.source} guidance={state.guidance} />
               <EntryMain view={view} next={next} releaseKey={releaseKey} navLocked={navLocked} onGo={go} />
             </>
           )}
@@ -569,8 +572,16 @@ function deriveView(state: ReadyState, snap: StoryReaderSnapshot): ReaderView {
 
 // ── 조각 ───────────────────────────────────────────────────────────────────
 
-/** 시작 전에 보이는 공개 정보 — HOOK · 편집 목표 난이도 · 원천 줄(원작 언어 · 본문 언어 · 번역자 · 원천 판본). */
-function EntryPublic({ release, source }: { release: StoryCatalogRelease | null; source: StoryReaderSource }) {
+/** 시작 전에 보이는 공개 정보 — HOOK · 편집 목표 난이도 · 선택 안내(부담 · 접힌 주의) · 원천 줄(원작 언어 · 본문 언어 · 번역자 · 원천 판본). */
+function EntryPublic({
+  release,
+  source,
+  guidance,
+}: {
+  release: StoryCatalogRelease | null
+  source: StoryReaderSource
+  guidance: StoryReleaseGuidanceView
+}) {
   return (
     <section className={styles.entryPublic} aria-label="작품 정보" data-story-entry-public>
       {release ? (
@@ -582,6 +593,7 @@ function EntryPublic({ release, source }: { release: StoryCatalogRelease | null;
             {editorialTargetLabel(release.targetCefr)}
             {release.targetCefr ? ' · 판본을 만들 때 겨냥한 수준이에요(진단 결과가 아니에요)' : ''}
           </p>
+          <StoryGuidance view={guidance} />
         </>
       ) : (
         <p className={styles.meta} data-story-release-missing>
@@ -808,7 +820,15 @@ function Siblings({ siblings, onSwitch }: { siblings: StoryCatalogRelease[] | nu
   )
 }
 
-function SignedOut({ loginHref, release }: { loginHref: string; release: StoryCatalogRelease | null }) {
+function SignedOut({
+  loginHref,
+  release,
+  guidance,
+}: {
+  loginHref: string
+  release: StoryCatalogRelease | null
+  guidance: StoryReleaseGuidanceView
+}) {
   return (
     <div className={styles.page} data-story-reader="signed_out">
       <header className={styles.head}>
@@ -826,9 +846,12 @@ function SignedOut({ loginHref, release }: { loginHref: string; release: StoryCa
         ) : null}
       </header>
       {release ? (
-        <blockquote className={styles.hook} lang="en" aria-label="진입 장면" data-story-hook>
-          {release.hookText}
-        </blockquote>
+        <>
+          <blockquote className={styles.hook} lang="en" aria-label="진입 장면" data-story-hook>
+            {release.hookText}
+          </blockquote>
+          <StoryGuidance view={guidance} />
+        </>
       ) : null}
       <div className={styles.state}>
         <p className={styles.lede}>본문은 로그인한 뒤 읽을 수 있어요. 읽은 위치와 읽음 표시는 내 계정에만 기록돼요.</p>

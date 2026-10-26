@@ -35,6 +35,41 @@ export interface StoryCatalogRelease {
   publishedAt: string
 }
 
+/** 편집 판단 등급(실측 아님). */
+export type StoryGuidanceLevel = 'low' | 'moderate' | 'high'
+
+/**
+ * `story_release_guidance` 한 행 — 발행본이 가리키는 불변 판본 자리의 편집 목표(production.target)에서 시작 전 선택에 필요한 것만.
+ * 모두 편집 판단 · 목표이며 실측 · 진단이 아니다. 줄거리 설명(note) · 목표(goals) · 배경 지원 의도(supports)는 싣지 않는다.
+ */
+export interface StoryReleaseGuidance {
+  releaseKey: string
+  /** 편집 목표 CEFR — 서가 행의 targetCefr 와 같아야 한다(다르면 결속 불일치로 버린다). */
+  targetCefr: string
+  /** 사고 · 추론 요구(편집 판단). */
+  cognitiveDemand: StoryGuidanceLevel
+  /** 배경지식 부담(편집 판단). */
+  backgroundLoad: StoryGuidanceLevel
+  /** 검수된 저장 주의 문장 그대로(순서 보존). 빈 배열 = 저장된 주의 없음 — 화면은 경고를 만들지 않는다. */
+  cautions: string[]
+}
+
+/**
+ * 선택 안내 조회 결과. 「불러오지 못함」(함수 없음 · 일시 오류 · 결속/모양 불일치)은 「주의 없음」이 아니다.
+ * ready 의 byRelease 에 없는 발행본도 「불러오지 못함」으로 다룬다(조회 사이 철회 등).
+ */
+export type StoryGuidanceState =
+  | { status: 'ready'; byRelease: Readonly<Record<string, StoryReleaseGuidance>> }
+  | { status: 'unavailable'; reason: StoryGuidanceUnavailableReason }
+
+/** not_ready = 이 환경에 안내 RPC 가 없다(SQL 미적용) · invalid = 결속 · 모양 불일치 · temporary = 일시 오류. */
+export type StoryGuidanceUnavailableReason = 'not_ready' | 'invalid' | 'temporary'
+
+/** 발행본 하나의 안내(화면 입력). */
+export type StoryReleaseGuidanceView =
+  | { status: 'ready'; guidance: StoryReleaseGuidance }
+  | { status: 'unavailable'; reason: StoryGuidanceUnavailableReason }
+
 /** `story_my_progress()` 한 행 — 이 학습자 것만. 철회 · 권리 보류된 발행본도 이력으로 남는다(releaseAvailable=false). */
 export interface StoryProgressRow {
   releaseKey: string
@@ -200,6 +235,8 @@ export type StoryCatalogPageState =
       /** 로그인했을 때만 · 이 학습자 것만. 진도 조회가 실패하면 null + progressError(서가는 그대로). */
       progress: StoryProgressRow[] | null
       progressError: StoryLearnerFailure | null
+      /** 시작 전 선택 안내(공개 · 로그인과 무관). 실패해도 서가는 그대로다. */
+      guidance: StoryGuidanceState
     }
   | { status: 'error'; failure: StoryLearnerFailure }
 
@@ -211,6 +248,8 @@ export type StoryReaderPageState =
       loginHref: string
       /** 공개 서가 메타(있으면) — 본문 없음. */
       release: StoryCatalogRelease | null
+      /** 이 발행본의 시작 전 선택 안내(release 가 null 이면 unavailable). */
+      guidance: StoryReleaseGuidanceView
     }
   | { status: 'blocked' }
   | { status: 'unavailable'; failure: StoryLearnerFailure }
@@ -230,4 +269,6 @@ export type StoryReaderPageState =
       /** 같은 작품의 다른 발행본(이용 가능한 것만 · 서가 메타 · 자기 자신 제외). 진도는 각자 따로다.
        *  서가 조회가 실패하면 null(「다른 판본 없음」과 구분한다 — 실패를 빈 목록으로 바꾸지 않는다). */
       siblings: StoryCatalogRelease[] | null
+      /** 이 발행본의 시작 전 선택 안내(입구에서 보인다). 실패해도 독서는 그대로다. */
+      guidance: StoryReleaseGuidanceView
     }

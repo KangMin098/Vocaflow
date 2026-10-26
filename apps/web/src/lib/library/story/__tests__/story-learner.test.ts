@@ -19,6 +19,7 @@ import {
   loadStoryReaderPage,
   mapStoryLearnerRpcError,
   parseStoryCatalog,
+  parseStoryGuidance,
   parseStoryProgress,
   parseStoryReaderContext,
   parseStoryUnitBody,
@@ -64,6 +65,14 @@ function catalogRow(releaseKey: string, workKey = WORK, editionKey = 'b1'): Json
 }
 
 const CATALOG = [catalogRow(RK), catalogRow(RK_SIB, WORK, 'a2'), catalogRow(RK_OTHER, 'other-work', 'b1')]
+
+const CAUTIONS = ['동물을 해치는 장면이 짧게 나온다(합성)', '인물이 우는 장면(합성)']
+
+function guidanceRow(releaseKey: string, overrides: Json = {}): Json {
+  return { release_key: releaseKey, target_cefr: 'B1', cognitive_demand: 'high', background_load: 'moderate', cautions: releaseKey === RK ? CAUTIONS : [], ...overrides }
+}
+
+const GUIDANCE = CATALOG.map((r) => guidanceRow(r.release_key))
 
 function progressRow(overrides: Json = {}): Json {
   return {
@@ -161,6 +170,7 @@ function dbError(message: string, code?: string): StoryLearnerRpcResponse {
 
 const DEFAULT_RPC: Record<string, RpcHandler> = {
   story_catalog: () => ok(CATALOG),
+  story_release_guidance: (args) => ok(args?.p_release_key ? GUIDANCE.filter((g) => g.release_key === args.p_release_key) : GUIDANCE),
   story_my_progress: () => ok([progressRow()]),
   story_reader_context: (args) => ok(contextData(Number(args?.p_unit_index ?? 0))),
   story_read_unit: (args) => ok(unitRow(Number(args?.p_unit_index))),
@@ -293,7 +303,7 @@ describe('loadStoryCatalogPage', () => {
     expect(s).toMatchObject({ status: 'ready', signedIn: false, viewerId: null, progress: null, progressError: null })
     if (s.status !== 'ready') throw new Error('ready expected')
     expect(s.releases.map((r) => r.releaseKey)).toEqual([RK, RK_SIB, RK_OTHER])
-    expect(rpcNames(f)).toEqual(['story_catalog'])
+    expect(rpcNames(f)).toEqual(['story_catalog', 'story_release_guidance'])
   })
 
   it('로그인: 본인 진도 · viewerId = 쿠키 세션 uid · 위치 · 완료 RPC 없음', async () => {
@@ -317,7 +327,7 @@ describe('loadStoryCatalogPage', () => {
         releaseAvailable: true,
       },
     ])
-    expect(rpcNames(f)).toEqual(['story_catalog', 'story_my_progress'])
+    expect(rpcNames(f)).toEqual(['story_catalog', 'story_release_guidance', 'story_my_progress'])
     expect(f.rpcCalls.every((c) => !c.args || !Object.values(c.args).includes(UID))).toBe(true)
   })
 
@@ -357,13 +367,13 @@ describe('loadStoryCatalogPage', () => {
       progress: null,
       progressError: { code: 'account_blocked' },
     })
-    expect(rpcNames(f)).toEqual(['story_catalog'])
+    expect(rpcNames(f)).toEqual(['story_catalog', 'story_release_guidance'])
   })
 
   it('프로필 오류: 진도 RPC 없음 · progressError=temporary', async () => {
     const f = fake({ profileError: { message: 'x' } })
     expect(await loadStoryCatalogPage({ client: f.client })).toMatchObject({ status: 'ready', progress: null, progressError: { code: 'temporary' } })
-    expect(rpcNames(f)).toEqual(['story_catalog'])
+    expect(rpcNames(f)).toEqual(['story_catalog', 'story_release_guidance'])
   })
 })
 
@@ -373,7 +383,7 @@ describe('loadStoryReaderPage', () => {
   it('입구(?unit 없음): 읽기 문맥(unit 0)만 · 본문 RPC 없음 · 다른 판본은 같은 작품 · 자기 제외', async () => {
     const f = fake()
     const s = await reader(f)
-    expect(rpcNames(f)).toEqual(['story_reader_context', 'story_catalog'])
+    expect(rpcNames(f)).toEqual(['story_reader_context', 'story_catalog', 'story_release_guidance'])
     expect(f.rpcCalls[0].args).toEqual({ p_release_key: RK, p_unit_index: 0 })
     expect(s).toMatchObject({ status: 'ready', viewerId: UID, unit: null })
     if (s.status !== 'ready') throw new Error('ready expected')
@@ -431,8 +441,9 @@ describe('loadStoryReaderPage', () => {
       status: 'signed_out',
       loginHref: `/login?next=${encodeURIComponent(`/library/stories/${RK}?unit=2`)}`,
       release: expect.objectContaining({ releaseKey: RK, hookText: 'A gull waits for something.' }),
+      guidance: { status: 'ready', guidance: { releaseKey: RK, targetCefr: 'B1', cognitiveDemand: 'high', backgroundLoad: 'moderate', cautions: CAUTIONS } },
     })
-    expect(rpcNames(f)).toEqual(['story_catalog'])
+    expect(rpcNames(f)).toEqual(['story_catalog', 'story_release_guidance'])
     expect(JSON.stringify(s)).not.toContain(BODY)
   })
 
@@ -1041,5 +1052,142 @@ describe('정적 경계', () => {
     expect(actionsSrc).toMatch(/^'use server'$/m)
     expect(actionsSrc).toMatch(/from '@\/lib\/supabase\/server'/)
     expect(actionsSrc.match(/^export /gm)).toHaveLength(2)
+  })
+})
+
+// ── 시작 전 선택 안내(U1 · story_release_guidance — 제안 SQL 미적용 환경 포함) ─────────
+
+describe('선택 안내 — 공개 읽기 · 실패는 「주의 없음」이 아니다', () => {
+  const READY_A = { releaseKey: RK, targetCefr: 'B1', cognitiveDemand: 'high', backgroundLoad: 'moderate', cautions: CAUTIONS }
+
+  it('서가: 이용 가능한 전부를 인자 없이 한 번(N+1 없음) · 비로그인 · 정지 계정에도 · 쓰기 RPC 없음', async () => {
+    for (const opts of [{ user: null }, {}, { profile: { status: 'suspended' } }] as FakeOptions[]) {
+      const f = fake(opts)
+      const s = await loadStoryCatalogPage({ client: f.client })
+      expect(f.rpcCalls.filter((c) => c.fn === 'story_release_guidance')).toEqual([{ fn: 'story_release_guidance', args: {} }])
+      if (s.status !== 'ready' || s.guidance.status !== 'ready') throw new Error('ready expected')
+      expect(Object.keys(s.guidance.byRelease).sort()).toEqual([RK, RK_SIB, RK_OTHER].sort())
+      expect(s.guidance.byRelease[RK]).toEqual(READY_A)
+      expect(s.guidance.byRelease[RK_SIB].cautions).toEqual([])
+      expect(rpcNames(f).filter((n) => WRITE_RPCS.includes(n))).toEqual([])
+    }
+  })
+
+  it('빈 서가는 안내를 부르지 않는다(ready · 빈 목록)', async () => {
+    const f = fake({ user: null, rpc: { story_catalog: () => ok([]) } })
+    expect(await loadStoryCatalogPage({ client: f.client })).toMatchObject({ guidance: { status: 'ready', byRelease: {} } })
+    expect(rpcNames(f)).toEqual(['story_catalog'])
+  })
+
+  it('함수 없음(SQL 미적용 · PGRST202 · 42883) → not_ready · 결속 거부 → invalid · 일시 오류 → temporary — 서가 · 진도는 그대로', async () => {
+    const cases: Array<[RpcHandler, string]> = [
+      [() => dbError('Could not find the function public.story_release_guidance without parameters in the schema cache', 'PGRST202'), 'not_ready'],
+      [() => dbError('function public.story_release_guidance() does not exist', '42883'), 'not_ready'],
+      [() => dbError('story:guidance_mismatch'), 'invalid'],
+      [() => dbError('timeout'), 'temporary'],
+      [
+        () => {
+          throw new Error('socket hang up')
+        },
+        'temporary',
+      ],
+    ]
+    for (const [handler, reason] of cases) {
+      const f = fake({ rpc: { story_release_guidance: handler } })
+      const s = await loadStoryCatalogPage({ client: f.client })
+      expect(s, reason).toMatchObject({ status: 'ready', progressError: null, guidance: { status: 'unavailable', reason } })
+      if (s.status === 'ready') expect(s.releases).toHaveLength(3)
+    }
+  })
+
+  it('응답 모양 · 범위가 하나라도 틀리면 invalid(주의 없음으로 바꾸지 않는다) · 서가 CEFR 와 다르면 invalid', async () => {
+    const bad: Json[][] = [
+      [guidanceRow(RK, { cognitive_demand: 'extreme' })],
+      [guidanceRow(RK, { background_load: null })],
+      [guidanceRow(RK, { target_cefr: 'B3' })],
+      [guidanceRow(RK, { cautions: 'x' })],
+      [guidanceRow(RK, { cautions: [1] })],
+      [guidanceRow(RK, { cautions: ['   '] })],
+      [guidanceRow(RK, { cautions: ['가'.repeat(501)] })],
+      [guidanceRow(RK, { cautions: Array.from({ length: 21 }, (_, i) => `주의 ${i}`) })],
+      [guidanceRow(RK), guidanceRow(RK)],
+      [guidanceRow(RK, { release_key: 'lsr_x' })],
+      [guidanceRow(RK, { target_cefr: 'B2' })],
+    ]
+    for (const rows of bad) {
+      const f = fake({ rpc: { story_release_guidance: () => ok(rows) } })
+      expect(await loadStoryCatalogPage({ client: f.client }), JSON.stringify(rows).slice(0, 80)).toMatchObject({
+        status: 'ready',
+        guidance: { status: 'unavailable', reason: 'invalid' },
+      })
+    }
+    const g = fake({ rpc: { story_release_guidance: () => ok(null) } })
+    expect(await loadStoryCatalogPage({ client: g.client })).toMatchObject({ guidance: { status: 'unavailable', reason: 'invalid' } })
+  })
+
+  it('허용 목록만 새로 만든다 — 여분 키(줄거리 설명 · 목표 · 지원 의도 · 해시 · id)는 버린다 · 경계값(20개 · 500자)은 통과', () => {
+    const long = '가'.repeat(500)
+    const rows = parseStoryGuidance([
+      guidanceRow(RK, {
+        cautions: [...Array.from({ length: 19 }, (_, i) => `주의 ${i}`), long],
+        note: 'PLOT-SPOILER',
+        goals: ['GOAL'],
+        supports: ['SUPPORT'],
+        target_sha256: SHA_A,
+        slot_id: UID,
+      }),
+    ])
+    expect(rows).toHaveLength(1)
+    expect(Object.keys(rows![0]).sort()).toEqual(['backgroundLoad', 'cautions', 'cognitiveDemand', 'releaseKey', 'targetCefr'])
+    expect(rows![0].cautions).toHaveLength(20)
+    const text = JSON.stringify(rows)
+    expect(text).not.toMatch(/PLOT-SPOILER|GOAL|SUPPORT/)
+    expect(text).not.toContain(SHA_A)
+    expect(text).not.toContain(UID)
+  })
+
+  it('서가에 없는 행(두 조회 사이 바뀜)은 버린다', async () => {
+    const f = fake({ rpc: { story_release_guidance: () => ok([guidanceRow(RK), guidanceRow(`lsr_${'d'.repeat(32)}`)]) } })
+    const s = await loadStoryCatalogPage({ client: f.client })
+    if (s.status !== 'ready' || s.guidance.status !== 'ready') throw new Error('ready expected')
+    expect(Object.keys(s.guidance.byRelease)).toEqual([RK])
+  })
+
+  it('독서 입구: 이 발행본 키로만 조회 · 결과는 그 판본 안내 · 단위 화면은 부르지 않는다', async () => {
+    const f = fake()
+    const s = await reader(f)
+    expect(f.rpcCalls.at(-1)).toEqual({ fn: 'story_release_guidance', args: { p_release_key: RK } })
+    expect(s).toMatchObject({ status: 'ready', guidance: { status: 'ready', guidance: READY_A } })
+    const u = fake()
+    await reader(u, '1')
+    expect(rpcNames(u)).not.toContain('story_release_guidance')
+  })
+
+  it('독서 입구: 안내 실패 · 다른 키 응답 · 빈 응답에도 독서는 ready · 안내만 unavailable', async () => {
+    const cases: Array<[RpcHandler, string]> = [
+      [() => dbError('Could not find the function', 'PGRST202'), 'not_ready'],
+      [() => ok([guidanceRow(RK_SIB)]), 'invalid'],
+      [() => ok([]), 'temporary'],
+    ]
+    for (const [handler, reason] of cases) {
+      const f = fake({ rpc: { story_release_guidance: handler } })
+      expect(await reader(f), reason).toMatchObject({ status: 'ready', viewerId: UID, guidance: { status: 'unavailable', reason } })
+    }
+  })
+
+  it('비로그인 판본 화면: 서가에 없는 키 · 서가 실패면 안내를 부르지 않는다', async () => {
+    const f = fake({ user: null, rpc: { story_catalog: () => ok([catalogRow(RK_SIB)]) } })
+    expect(await reader(f)).toMatchObject({ status: 'signed_out', release: null, guidance: { status: 'unavailable' } })
+    expect(rpcNames(f)).toEqual(['story_catalog'])
+    const g = fake({ user: null, rpc: { story_catalog: () => dbError('down') } })
+    await reader(g)
+    expect(rpcNames(g)).toEqual(['story_catalog'])
+  })
+
+  it('함수 없음은 안내 RPC 도 reader_not_ready(읽기 문맥과 같은 대응) · 다른 RPC 는 temporary 그대로', () => {
+    const missing = { message: 'Could not find the function', code: 'PGRST202' }
+    expect(mapStoryLearnerRpcError(missing, 'story_release_guidance')).toMatchObject({ code: 'reader_not_ready' })
+    expect(mapStoryLearnerRpcError(missing, 'story_catalog')).toMatchObject({ code: 'temporary' })
+    expect(mapStoryLearnerRpcError({ message: 'story:guidance_mismatch' }, 'story_release_guidance')).toMatchObject({ code: 'reader_data_invalid' })
   })
 })

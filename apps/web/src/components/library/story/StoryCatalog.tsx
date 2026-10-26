@@ -5,6 +5,7 @@
 // - 수는 받은 행 그대로(작품 = 서로 다른 workKey · 판본 = 발행본). 빈 서가 · 조회 실패를 구분한다.
 // - 로그인 전: 메타 + HOOK 만, 시작은 로그인으로. 로그인 후: 발행본마다 내 위치 · 완료 표시(완료는 모든 단위 명시 표시 뒤에만).
 // - 열 수 없는 판본의 기록은 기록으로만 보인다(링크 · 본문 없음).
+// - 판본마다 시작 전 선택 안내(편집 판단 부담 · 접힌 주의 — U1)를 로그인과 무관하게 보인다. 불러오지 못하면 그렇다고 말한다.
 // - 서가를 실제로 받은 뒤 `story_catalog_viewed` 를 한 번만 보낸다(실패 때는 보내지 않는다).
 // - 브라우저 인증이 서버가 그린 사람(viewerId)과 달라지면 개인 진도를 지우고 다시 불러오기를 권한다.
 
@@ -17,8 +18,9 @@ import { useEffect, useRef } from 'react'
 import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
 import { track } from '@/lib/analytics/client'
 import type { PublicEvent } from '@/lib/analytics/events'
-import type { StoryCatalogPageState, StoryProgressRow } from '@/lib/library/story/learner-types'
+import type { StoryCatalogPageState, StoryGuidanceState, StoryProgressRow } from '@/lib/library/story/learner-types'
 
+import { StoryGuidance } from './StoryGuidance'
 import styles from './story.module.css'
 import {
   COVERAGE_LABEL,
@@ -28,6 +30,7 @@ import {
   countWorksAndEditions,
   editorialTargetLabel,
   groupCatalogByWork,
+  guidanceViewFor,
   positionWording,
   readerHref,
   rowCounts,
@@ -146,7 +149,14 @@ export function StoryCatalog({ state, loginHref, onEvent, onRetry, authSource, o
       ) : (
         <ul className={styles.works} aria-label="작품">
           {grouping.works.map((work) => (
-            <WorkRow key={work.workKey} work={work} signedIn={signedIn} authChanged={authChanged} loginHref={loginHref} />
+            <WorkRow
+              key={work.workKey}
+              work={work}
+              signedIn={signedIn}
+              authChanged={authChanged}
+              loginHref={loginHref}
+              guidance={state.guidance}
+            />
           ))}
         </ul>
       )}
@@ -186,11 +196,13 @@ function WorkRow({
   signedIn,
   authChanged,
   loginHref,
+  guidance,
 }: {
   work: CatalogWorkGroup
   signedIn: boolean
   authChanged: boolean
   loginHref: string
+  guidance: StoryGuidanceState
 }) {
   const headingId = `story-work-${work.workKey}`
   return (
@@ -219,6 +231,7 @@ function WorkRow({
                   signedIn={signedIn}
                   authChanged={authChanged}
                   loginHref={loginHref}
+                  guidance={guidance}
                 />
               ))}
             </ul>
@@ -245,12 +258,14 @@ function EditionRow({
   signedIn,
   authChanged,
   loginHref,
+  guidance,
 }: {
   entry: CatalogEditionEntry
   workTitle: string
   signedIn: boolean
   authChanged: boolean
   loginHref: string
+  guidance: StoryGuidanceState
 }) {
   const { release, progress } = entry
   const kind = KIND_LABEL[release.kind]
@@ -269,6 +284,7 @@ function EditionRow({
           {COVERAGE_LABEL[release.coverage]} · {release.unitCount}단위
         </span>
         <span>{kind.gist}</span>
+        <StoryGuidance view={guidanceViewFor(guidance, release.releaseKey)} />
         {progress && wording ? (
           <span className={styles.progressLine} data-story-progress-line>
             {positionWording(progress.lastUnitIndex, progress.unitCount)} ·{' '}

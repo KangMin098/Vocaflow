@@ -11,7 +11,9 @@
 //   supabase/migrations/20261025094450_lcp_story_s3_schema.sql 의 학습자 RPC 5개(story_catalog · story_read_unit · story_record_position ·
 //   story_complete_unit · story_my_progress)와 story.require_learner, 그리고 **미적용 제안** story_reader_context
 //   (AI-Control runtime/lcp-story-20261025/s5-proposal-forward.sql r3 §B — 반환 jsonb 키 그대로)를 메모리에서 흉내 낸다.
-//   reader_context_missing=true 면 story_reader_context 는 PostgREST PGRST202(스키마 캐시에 함수 없음)로 끝난다 — 지금 공유 DB 의 실제 상태다.
+//   reader_context_missing=true 면 story_reader_context 는 PostgREST PGRST202(스키마 캐시에 함수 없음)로 끝난다(S5 적용 전 상태).
+//   U1(T-0187): 미적용 제안 story_release_guidance(supabase/migrations/_pending_lcp_story_u1_guidance.sql)도 흉내 낸다 —
+//   guidance_missing=true 면 PGRST202(지금 공유 DB 의 실제 상태) · guidance_corrupt 의 발행 키가 이용 가능하면 story:guidance_mismatch.
 //   PostgREST · RLS · 잠금 · 트랜잭션 · JWT 는 흉내 내지 않는다. 시각을 읽지 않는다(갱신 순서는 seq 로).
 // 'server-only' 는 NODE_OPTIONS=--conditions=react-server 로 빈 모듈이 되게 실행한다(스펙이 그렇게 띄운다).
 
@@ -155,6 +157,26 @@ export class FakeLearnerDb {
           source: { ...r.source },
         }
       }
+      case 'story_release_guidance': {
+        // 미적용 제안 _pending_lcp_story_u1_guidance.sql 의 규칙: anon 포함 · 서가와 같은 이용 가능 범위 · 키 형식 오류 / 불가는 0행 ·
+        // 결속 불일치(여기서는 guidance_corrupt 표시 · 발행본 CEFR null)가 하나라도 있으면 호출 전체가 story:guidance_mismatch.
+        if (this.state.guidance_missing) throw new Raise('__PGRST202__')
+        const key = args.p_release_key ?? null
+        if (key !== null && !/^lsr_[0-9a-f]{32}$/.test(String(key))) return []
+        const rows = this.state.releases
+          .filter((r) => this.available(r) && (key === null || r.release_key === key))
+          .sort((a, b) => (a.work_key + '\u0000' + a.edition_key < b.work_key + '\u0000' + b.edition_key ? -1 : 1))
+        if (rows.some((r) => (this.state.guidance_corrupt ?? []).includes(r.release_key) || r.target_cefr === null)) {
+          throw new Raise('story:guidance_mismatch')
+        }
+        return rows.map((r) => ({
+          release_key: r.release_key,
+          target_cefr: r.target_cefr,
+          cognitive_demand: r.guidance.cognitive_demand,
+          background_load: r.guidance.background_load,
+          cautions: [...r.guidance.cautions],
+        }))
+      }
       default:
         throw new Raise(`permission denied for function ${fn}`, '42501')
     }
@@ -181,8 +203,8 @@ export class FakeLearnerDb {
           data: null,
           error: {
             code: 'PGRST202',
-            message: 'Could not find the function public.story_reader_context(p_release_key, p_unit_index) in the schema cache',
-            details: 'Searched for the function public.story_reader_context with parameters p_release_key, p_unit_index or with a single unnamed json/jsonb parameter, but no matches were found in the schema cache.',
+            message: `Could not find the function public.${fn} in the schema cache`,
+            details: `Searched for the function public.${fn} with the given parameters or with a single unnamed json/jsonb parameter, but no matches were found in the schema cache.`,
             hint: null,
           },
         }
