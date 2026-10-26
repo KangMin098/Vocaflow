@@ -4,6 +4,7 @@
 > 단계별 실행 순서와 시작 지시: [lcp-story/IMPLEMENTATION.md](./lcp-story/IMPLEMENTATION.md).
 > 기존 LCP(원본 도서 큐레이션)는 그대로 유지한다: [LIBRARY_PIPELINE §LCP](./LIBRARY_PIPELINE.md).
 > 설계를 바꿀 때는 이 문서를 고친다. 채팅 사본을 정본으로 쓰지 않는다.
+> D3 편집 판단의 구체화·기존 시스템 대응·대표 구간 비교 계획: [LCP_D3_EDITIONS](./lcp-story/LCP_D3_EDITIONS.md)(2026-10-27). 기존 스키마·검수·권리/발행 계약을 유지하며 새 제품 구현·각색/발행 승인을 뜻하지 않는다.
 
 ## 0. 현재 상태와 경계 (2026-10-26)
 
@@ -23,7 +24,7 @@
 | 시작 전 선택 안내(U1 · T-0187) | `public.story_release_guidance`·원장`20261026110732`·`StoryGuidance.tsx`·`learner.ts`(§12) | 최신 사용자 승인 v2 SHA`8648c24c…f22eac` 원문 적용. 기존12표/함수 지문 불변·권한/RLS 확인. 실제 화면·통합의 최종 결과는 [D2 후속](./lcp-story/D2_S7_FOLLOWUP.md) |
 | 이벤트(S5) | `events.ts` `story_catalog_viewed` · `story_reader_action`(§17) | 코드 + DB 허용 목록 적용(같은 SQL §C · 실제 CHECK SELECT 평가 62/62). 쓰기형 `db-allowlist` 시험은 NOT_RUN |
 | 추천 | 없음 | 제안(S6) |
-| 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 보완 r3·16단위·독립 AI 검수 2건 | R1 철회 이력과 이전 초안·검수를 보존하고 R2 1편을 공개했다. B2는 편집 목표. 정책의 동물 위해 안내는 정정했으나 학습자 화면 노출은 후속 |
+| 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 보완 r3·16단위·독립 AI 검수 2건 | R1 철회 이력과 이전 초안·검수를 보존하고 R2 1편을 공개했다. B2는 편집 목표. 동물 위해 등 사전 주의는 T-0187에서 노출·실제 검증했다. 시대적 편견의 단위별 learner_note 전달은 [D3 W2](./lcp-story/LCP_D3_EDITIONS.md)의 별도 후속 |
 | 권리 확인 · 사람 검수 · 학습자 파일럿 | 사용자의 특정 source 권리 결정·AI admin 위임 기록, 정상 DB source_text confirmed | §14의 승인 범위 충족. AI 콘텐츠 검수는 AI로 기록하며 실제 사람 콘텐츠 검수·학습자 파일럿·독해 성장 실증은 없다(S7) |
 
 - 패키지 루트 배럴(`src/index.ts`)에는 싣지 않는다. S4 부터 `package.json` exports `@vocaflow/library-pipeline/story`(= `src/story/server.ts` — 작업 폴더 · CLI 제외)를 관리자 서버 코드가 쓴다. 전체 배럴(`src/story/index.ts`)의 소비자는 `scripts/lcp/story` 다.
@@ -53,6 +54,8 @@ UNDERSTAND(요청 시 의미 탐구) → GROW(원문 연결 · 어휘 · 추론�
 | Theme Collection | **편성** — 여러 작품의 발행본을 잇는 목록 | `ThemeCollection` — `release_key` 만 담고 본문은 담지 않음 · 서로 다른 작품 2개 이상 |
 
 ## 3. 변환 유형과 변경 기록
+
+D3는 아래 enum을 늘리지 않는다. 원작 보존은 특정 SourceSnapshot의 보존이고, 에피소드화는 `coverage/scope`, 판본 비교는 대응/선택 활동이다. 상세화는 근거 있는 한정 명시화나 기존 `editorial_note`로 구분하며 사건·동기·반전의 창작을 허용하지 않는다. 전략별 적용/중단 기준은 [D3 §3~5](./lcp-story/LCP_D3_EDITIONS.md)를 따른다. 민감 표현의 `learner_note`가 저장·관리자 표시된 것과 학습자에게 전달된 것은 별도로 확인한다.
 
 | 변경 유형(`change_log[].type`) | 뜻 | story_edition | easy_reader |
 |---|---|:-:|:-:|
@@ -211,7 +214,7 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
 (S4 제안) candidate ─사람 승인 + DB 게이트▶ published ─철회▶ withdrawn(노출 · 열람 차단, 학습 이력 보존)
 ```
 
-## 12. 학습자 진도 · 완료 계약 (DB 는 S3 · S5 적용 완료 · 화면 S5 코드 수용 · 실제 작품 · live 여정 미실행)
+## 12. 학습자 진도 · 완료 계약 (S5 수용 · S7 대표본 실제 종단 검증 · U1 사전 안내 적용 완료)
 
 - 기존 runtime 은 `library_book_id` 중심이다: `enroll_library_book(p_book_id)` 가 챕터별 `texts` 를 만들고,
   `completeChapter` 는 같은 `library_book_id` 의 모든 `texts` 가 completed 면 도서 완료로 본다(`apps/web/src/lib/library/complete-chapter.ts`).
