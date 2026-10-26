@@ -277,6 +277,7 @@ interface DbRelease {
   source: { source_url: string | null; edition_label: string; title: string }
   withdrawn_at: string | null
   rights_ok: boolean
+  context_notes: { id: string; unit_ids: string[]; text: string }[]
 }
 interface DbState {
   releases: DbRelease[]
@@ -287,6 +288,12 @@ interface DbState {
   guidance_missing: boolean
   /** 안내 결속이 깨진 발행 키(이용 가능하면 안내 호출 전체가 story:guidance_mismatch) */
   guidance_corrupt: string[]
+  /** W2 맥락 설명 RPC 없음(제안 SQL 미적용 — 공유 DB 의 지금 상태) */
+  context_notes_missing: boolean
+  /** 맥락 설명 결속이 깨진 발행 키(story:context_notes_mismatch) */
+  context_notes_corrupt: string[]
+  /** 맥락 설명 응답이 다른 단위 번호를 말하는 발행 키(어긋난 · 늦은 응답 흉내) */
+  context_notes_wrong_unit: string[]
   catalog_hide: string[]
   profiles: Record<string, { status: string }>
 }
@@ -393,7 +400,13 @@ async function readerHarness(context: BrowserContext, name: string, run: Run) {
       return template.replace('<!--VF_PAGE-->', `<script>window.__VF_PAGE__=${esc(page)};window.__VF_AUTH_USER__=${esc(browser ? { id: browser } : null)};window.__VF_AUTH_DELAY__=${run.authManual ? '"manual"' : '0'};</script>`)
     },
     onPost: async (pathname, body) => {
-      if (pathname === '/__page') return pageState(run, (body as { url: string }).url)
+      if (pathname === '/__page') {
+        // 이동 · refresh 응답 지연(holdNext(run, '__page')) — 서버 판정은 끝났고 응답이 오는 중이다
+        const value = await pageState(run, (body as { url: string }).url)
+        const gate = run.hold.get('__page')
+        if (gate) await gate
+        return value
+      }
       const m = /^\/__story\/([A-Za-z0-9_$]+)$/.exec(pathname)
       if (!m) return { value: { ok: false, error: 'harness: not wired' } }
       const name = m[1]!
@@ -1550,6 +1563,206 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           const events = await closedTelemetry(page)
           expect(events.every((e) => ['story_catalog_viewed', 'story_reader_action'].includes(e.name))).toBe(true)
           await noIdentityLeak(page)
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
+      test('W2 단위 화면 캡처(합성 fixture) — 맥락이 붙을 단위(3·4번째)와 없는 단위(1번째)의 직접 진입 · 쓰기 0', async ({ page, context }) => {
+        test.setTimeout(120_000)
+        const run = newRun(`w2-capture-${width}`)
+        const b1 = FM.release_keys.B1
+        const log = await readerHarness(context, `w2-capture@${width}`, run)
+        try {
+          for (const unit of [2, 3, 0]) {
+            await openStories(page, `/library/stories/${b1}?unit=${unit}`)
+            await sx(B(page)).toBeVisible()
+            await sx(heading(page)).toContainText(`${unit + 1}번째 단위`)
+            await noOverflow(page)
+            await shot(page, `w2-unit${unit}-${width}`)
+          }
+          expect(writes(run)).toEqual([])
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
+      test('W2 시대적 맥락 설명(합성 fixture) — 본문 뒤 접힘(키보드 · 실측 44px) · 3번째 둘 · 4번째 하나 · 없는 단위 무표시 · 못 불러옴/확인 못함/어긋난 응답 구분 · 늦은 응답 · 계정 전환 · 위치 · 완료 그대로 · axe', async ({ page, context }) => {
+        test.setTimeout(300_000)
+        const run = newRun(`w2-notes-${width}`)
+        const b1 = FM.release_keys.B1
+        const notesOf = (unitId: string) => DB0.releases.find((r) => r.release_key === b1)!.context_notes.filter((n) => n.unit_ids.includes(unitId))
+        const textsOf = (unitId: string) => notesOf(unitId).map((n) => n.text)
+        const ALL_TEXTS = DB0.releases.find((r) => r.release_key === b1)!.context_notes.map((n) => n.text)
+        expect(notesOf('u3')).toHaveLength(2)
+        expect(notesOf('u4')).toHaveLength(1)
+        const det = page.locator('details[data-story-context-notes]')
+        const unavailable = page.locator('[data-story-context-notes="unavailable"]')
+        const emit = (event: string, id: string | null) =>
+          page.evaluate(([e, u]) => (window as unknown as { __vfAuthEmit: (e: string, u: unknown) => void }).__vfAuthEmit(e as string, u ? { id: u } : null), [event, id] as const)
+        const rootText = () => page.locator('#root').innerText()
+        const tabToSummary = async () => {
+          await page.evaluate(() => (document.activeElement as HTMLElement | null)?.blur())
+          for (let i = 0; i < 80; i += 1) {
+            await page.keyboard.press('Tab')
+            const hit = await page.evaluate(() => {
+              const el = document.activeElement
+              if (!el || !el.matches('details[data-story-context-notes] > summary')) return null
+              const cs = getComputedStyle(el)
+              const r = el.getBoundingClientRect()
+              return {
+                outline: cs.outlineStyle,
+                outlineWidth: cs.outlineWidth,
+                h: r.height,
+                w: r.width,
+                minHeight: cs.minHeight,
+                display: cs.display,
+                nativeSummaryInDetails: el.tagName === 'SUMMARY' && el.parentElement?.tagName === 'DETAILS' && el.parentElement.firstElementChild === el,
+              }
+            })
+            if (hit) return hit
+          }
+          return null
+        }
+        const order = () =>
+          page.evaluate(() => {
+            const body = document.querySelector('[data-story-body]')
+            const notes = document.querySelector('[data-story-context-notes]')
+            const done = document.querySelector('[data-story-complete]')
+            if (!body || !notes || !done) return null
+            const after = (a: Element, b: Element) => !!(a.compareDocumentPosition(b) & Node.DOCUMENT_POSITION_FOLLOWING)
+            return { afterBody: after(body, notes), beforeComplete: after(notes, done), insideMain: !!notes.closest('#story-content') }
+          })
+        const log = await readerHarness(context, `w2-notes@${width}`, run)
+        try {
+          // 1) 3번째 단위(u3) 직접 진입 — 본문 뒤 · 읽음 표시 앞 · 접힘 · 요약은 개수만 · 키보드로 닿고 44px · Enter 열고 닫기 · Space 열기
+          await openStories(page, `/library/stories/${b1}?unit=2`)
+          await sx(B(page)).toBeVisible()
+          await sx(det).toHaveCount(1)
+          await sx(det).toHaveAttribute('data-story-context-notes', '2')
+          expect(await order()).toEqual({ afterBody: true, beforeComplete: true, insideMain: true })
+          await sx(det.locator('summary')).toHaveText('시대적 맥락 2가지 · 원할 때 펼쳐 보세요')
+          expect(await det.evaluate((d) => (d as HTMLDetailsElement).open)).toBe(false)
+          await sx(det.locator('li').first()).toBeHidden()
+          await noOverflow(page)
+          await shot(page, `w2-notes-closed-${width}`)
+          const reach = await tabToSummary()
+          expect(reach, 'context-notes summary reachable by Tab').not.toBeNull()
+          expect(reach!.outline).not.toBe('none')
+          expect(reach!.h).toBeGreaterThanOrEqual(44)
+          expect(reach!.minHeight).toBe('44px')
+          expect(reach!.display).toBe('list-item')
+          expect(reach!.nativeSummaryInDetails).toBe(true)
+          fs.mkdirSync(SHOTS, { recursive: true })
+          fs.appendFileSync(path.join(SHOTS, 'w2-summary-metrics.jsonl'), `${JSON.stringify({ width, where: 'unit-2', ...reach, at: new Date().toISOString() })}\n`)
+          await page.keyboard.press('Enter')
+          await sx(det.locator('li')).toHaveText(textsOf('u3'))
+          await noOverflow(page)
+          await shot(page, `w2-notes-open-${width}`)
+          const axe = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).include('[data-story-context-notes]').analyze()
+          expect(axe.violations.map((v) => `${v.impact}/${v.id} ×${v.nodes.length}`)).toEqual([])
+          await page.keyboard.press('Enter')
+          expect(await det.evaluate((d) => (d as HTMLDetailsElement).open)).toBe(false)
+          await page.keyboard.press('Space')
+          expect(await det.evaluate((d) => (d as HTMLDetailsElement).open)).toBe(true)
+          expect(writes(run)).toEqual([])
+          expect(run.rpc.filter((c) => c.fn === 'story_unit_context_notes').map((c) => c.args)).toEqual([{ p_release_key: b1, p_unit_index: 2 }])
+
+          // 2) 단위 이동 + 늦은 응답 — 응답이 오기 전에는 지금 단위(3번째)와 그 설명 둘 그대로 · 도착하면 4번째 단위와 그 단위 설명 하나(접힌 채)
+          const releasePage = holdNext(run, '__page')
+          await page.locator('[data-story-go="next"], [data-story-go="forward"]').first().click()
+          await sx.poll(() => run.pages.some((u) => u.endsWith('?unit=3'))).toBe(true)
+          await sx(heading(page)).toContainText('3번째 단위')
+          await sx(det).toHaveAttribute('data-story-context-notes', '2')
+          releasePage()
+          await sx(heading(page)).toContainText('4번째 단위')
+          await sx(det).toHaveAttribute('data-story-context-notes', '1')
+          await sx(det.locator('summary')).toHaveText('시대적 맥락 1가지 · 원할 때 펼쳐 보세요')
+          expect(await det.evaluate((d) => (d as HTMLDetailsElement).open)).toBe(false)
+          await det.locator('summary').click()
+          await sx(det.locator('li')).toHaveText(textsOf('u4'))
+          expect(await rootText()).not.toContain(notesOf('u3')[0]!.text)
+          await shot(page, `w2-unit3-one-note-${width}`)
+
+          // 3) 설명 없는 단위(5번째) — 요소 · 「불러오지 못함」 줄 모두 없음 · 이동은 위치 기록만
+          await goUnit(page, page.locator('[data-story-go="next"], [data-story-go="forward"]').first(), 4)
+          await sx(det).toHaveCount(0)
+          await sx(unavailable).toHaveCount(0)
+          expect(await rootText()).not.toContain('시대적 맥락')
+          await noOverflow(page)
+          await shot(page, `w2-no-note-${width}`)
+          expect(writes(run).map((c) => c.fn)).toEqual(['story_record_position', 'story_record_position'])
+
+          // 4) 맥락 설명 RPC 없음(공유 DB 의 지금 상태 · SQL 미적용) — 「불러오지 못함 · 없다는 뜻 아님」 · 본문 · 읽음 표시 · 완료 기록 그대로
+          editDb(run, (db) => {
+            db.context_notes_missing = true
+          })
+          await openStories(page, `/library/stories/${b1}?unit=2`)
+          await sx(B(page)).toBeVisible()
+          await sx(unavailable).toHaveAttribute('data-story-context-notes-reason', 'not_ready')
+          await sx(unavailable).toContainText('설명이 없다는 뜻은 아니에요')
+          await sx(det).toHaveCount(0)
+          await markUnit(page, 2)
+          expect(progressOf(run, FM.users.A, b1)!.completed_units).toEqual([2])
+          await noOverflow(page)
+          await shot(page, `w2-notes-missing-${width}`)
+
+          // 5) 결속 거부(story:context_notes_mismatch) — 「확인하지 못함」 · 본문 그대로
+          editDb(run, (db) => {
+            db.context_notes_missing = false
+            db.context_notes_corrupt = [b1]
+          })
+          await openStories(page, `/library/stories/${b1}?unit=2`)
+          await sx(B(page)).toBeVisible()
+          await sx(unavailable).toHaveAttribute('data-story-context-notes-reason', 'invalid')
+          await sx(unavailable).toContainText('확인하지 못해 보여 드리지 않아요')
+          await sx(det).toHaveCount(0)
+          await shot(page, `w2-notes-invalid-${width}`)
+
+          // 6) 다른 단위를 말하는 응답(어긋난 · 늦은 응답) — 그 설명을 싣지 않고 「확인하지 못함」
+          editDb(run, (db) => {
+            db.context_notes_corrupt = []
+            db.context_notes_wrong_unit = [b1]
+          })
+          await openStories(page, `/library/stories/${b1}?unit=2`)
+          await sx(B(page)).toBeVisible()
+          await sx(unavailable).toHaveAttribute('data-story-context-notes-reason', 'invalid')
+          for (const t of ALL_TEXTS) expect(await rootText()).not.toContain(t)
+          await shot(page, `w2-notes-wrong-unit-${width}`)
+
+          // 7) 계정 전환 — 설명이 보이던 중 B 로 바뀌면 설명 · 본문 없음 · 이동 응답이 늦게 도착해도 다시 그리지 않는다
+          editDb(run, (db) => {
+            db.context_notes_wrong_unit = []
+          })
+          await openStories(page, `/library/stories/${b1}?unit=2`)
+          await sx(det).toHaveAttribute('data-story-context-notes', '2')
+          const releaseLate = holdNext(run, '__page')
+          await page.locator('[data-story-go="next"], [data-story-go="forward"]').first().click()
+          await sx.poll(() => run.pages.filter((u) => u.endsWith('?unit=3')).length).toBeGreaterThan(1)
+          await emit('SIGNED_IN', FM.users.B)
+          await sx(page.locator('[data-story-state="auth_changed"]')).toBeVisible()
+          releaseLate()
+          await page.waitForTimeout(1000)
+          await sx(page.locator('[data-story-state="auth_changed"]')).toBeVisible()
+          await sx(page.locator('[data-story-context-notes]')).toHaveCount(0)
+          for (const t of ALL_TEXTS) expect(await rootText()).not.toContain(t)
+          await shot(page, `w2-notes-account-switch-${width}`)
+
+          // 8) 다른 학습자(B · 쿠키 · 브라우저 모두 B) — 같은 공개 설명 · 자기 진도(A 의 완료가 보이지 않음)
+          run.actor = FM.users.B
+          run.browserUser = undefined
+          await openStories(page, `/library/stories/${b1}?unit=3`)
+          await sx(det).toHaveAttribute('data-story-context-notes', '1')
+          await sx(page.locator('[data-story-complete="marked"]')).toHaveCount(0)
+
+          expect(writes(run).filter((c) => c.fn === 'story_complete_unit')).toHaveLength(1)
+          expect(progressOf(run, FM.users.B, b1)).toBeNull()
+          const events = await closedTelemetry(page)
+          expect(events.every((e) => ['story_catalog_viewed', 'story_reader_action'].includes(e.name))).toBe(true)
+          for (const e of events) expect(JSON.stringify(e)).not.toMatch(/note-|시대적/)
+          await noIdentityLeak(page, ALL_TEXTS.map((t) => t.slice(0, 20)))
         } finally {
           finishRun(run, log)
         }

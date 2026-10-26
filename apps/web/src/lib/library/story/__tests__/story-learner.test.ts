@@ -19,6 +19,7 @@ import {
   loadStoryReaderPage,
   mapStoryLearnerRpcError,
   parseStoryCatalog,
+  parseStoryContextNotes,
   parseStoryGuidance,
   parseStoryProgress,
   parseStoryReaderContext,
@@ -174,6 +175,7 @@ const DEFAULT_RPC: Record<string, RpcHandler> = {
   story_my_progress: () => ok([progressRow()]),
   story_reader_context: (args) => ok(contextData(Number(args?.p_unit_index ?? 0))),
   story_read_unit: (args) => ok(unitRow(Number(args?.p_unit_index))),
+  story_unit_context_notes: (args) => ok({ release_key: args?.p_release_key, unit_index: args?.p_unit_index, notes: [] }),
   story_record_position: (args) =>
     ok([
       {
@@ -407,9 +409,10 @@ describe('loadStoryReaderPage', () => {
   it('?unit=1: 문맥 · 본문 모두 같은 발행 키 · 단위 · 본문은 저장값 그대로', async () => {
     const f = fake()
     const s = await reader(f, '1')
-    expect(rpcNames(f)).toEqual(['story_reader_context', 'story_read_unit', 'story_catalog'])
+    expect(rpcNames(f)).toEqual(['story_reader_context', 'story_read_unit', 'story_unit_context_notes', 'story_catalog'])
     expect(f.rpcCalls[0].args).toEqual({ p_release_key: RK, p_unit_index: 1 })
     expect(f.rpcCalls[1].args).toEqual({ p_release_key: RK, p_unit_index: 1 })
+    expect(f.rpcCalls[2].args).toEqual({ p_release_key: RK, p_unit_index: 1 })
     if (s.status !== 'ready') throw new Error('ready expected')
     expect(s.unit).toEqual({ releaseKey: RK, unitIndex: 1, unitCount: 3, unitTitle: null, text: BODY })
     expect(s.context.unit.unitIndex).toBe(1)
@@ -1201,5 +1204,94 @@ describe('선택 안내 — 공개 읽기 · 실패는 「주의 없음」이 �
     expect(mapStoryLearnerRpcError(missing, 'story_release_guidance')).toMatchObject({ code: 'reader_not_ready' })
     expect(mapStoryLearnerRpcError(missing, 'story_catalog')).toMatchObject({ code: 'temporary' })
     expect(mapStoryLearnerRpcError({ message: 'story:guidance_mismatch' }, 'story_release_guidance')).toMatchObject({ code: 'reader_data_invalid' })
+  })
+})
+
+// ── 단위 시대적 맥락 설명(T-0189 W2 · story_unit_context_notes — 제안 SQL 미적용 환경 포함) ─────────
+
+describe('맥락 설명 — 단위 화면 · 본문 뒤 · 실패는 「설명 없음」이 아니다', () => {
+  const NOTES = [
+    { id: 'note-head-size', text: '머리 크기로 지능을 짐작하는 것은 이 시대의 생각이에요.' },
+    { id: 'note-wife-affection', text: '이 시대 소설의 부부 묘사예요.' },
+  ]
+  const notesData = (unitIndex: number, notes: unknown = NOTES, over: Json = {}) => ({ release_key: RK, unit_index: unitIndex, notes, ...over })
+
+  it('?unit=N: 본문 RPC 뒤에 같은 발행 키 · 단위로 한 번 · 결과는 저장값 그대로 · 입구에서는 부르지 않는다(null)', async () => {
+    const f = fake({ rpc: { story_unit_context_notes: (args) => ok(notesData(Number(args?.p_unit_index))) } })
+    const s = await reader(f, '2')
+    expect(rpcNames(f).indexOf('story_unit_context_notes')).toBe(rpcNames(f).indexOf('story_read_unit') + 1)
+    expect(f.rpcCalls.find((c) => c.fn === 'story_unit_context_notes')?.args).toEqual({ p_release_key: RK, p_unit_index: 2 })
+    expect(s).toMatchObject({ status: 'ready', contextNotes: { status: 'ready', releaseKey: RK, unitIndex: 2, notes: NOTES } })
+    const e = fake()
+    expect(await reader(e)).toMatchObject({ status: 'ready', unit: null, contextNotes: null })
+    expect(rpcNames(e)).not.toContain('story_unit_context_notes')
+  })
+
+  it('빈 배열 = 이 단위 설명 없음(ready · notes [])', async () => {
+    const s = await reader(fake(), '0')
+    expect(s).toMatchObject({ status: 'ready', contextNotes: { status: 'ready', unitIndex: 0, notes: [] } })
+  })
+
+  it('함수 없음 → not_ready · 결속 거부 → invalid · 일시 오류 · 세션 만료 · 예외 → temporary — 본문 · 진도 · 서가는 그대로', async () => {
+    const cases: Array<[RpcHandler, string]> = [
+      [() => dbError('Could not find the function public.story_unit_context_notes(p_release_key, p_unit_index) in the schema cache', 'PGRST202'), 'not_ready'],
+      [() => dbError('function public.story_unit_context_notes(text, integer) does not exist', '42883'), 'not_ready'],
+      [() => dbError('story:context_notes_mismatch'), 'invalid'],
+      [() => dbError('canceling statement due to statement timeout', '57014'), 'temporary'],
+      [() => dbError('story:auth_required'), 'temporary'],
+      [() => dbError('story:release_unavailable'), 'temporary'],
+      [() => Promise.reject(new Error('fetch failed')), 'temporary'],
+    ]
+    for (const [handler, reason] of cases) {
+      const f = fake({ rpc: { story_unit_context_notes: handler } })
+      const s = await reader(f, '1')
+      expect(s, reason).toMatchObject({ status: 'ready', viewerId: UID, unit: { unitIndex: 1, text: BODY }, contextNotes: { status: 'unavailable', reason } })
+      expect(rpcNames(f).filter((n) => WRITE_RPCS.includes(n))).toEqual([])
+    }
+  })
+
+  it('본문 실패면 맥락 설명을 부르지 않는다', async () => {
+    const f = fake({ rpc: { story_read_unit: () => dbError('story:unit_not_found') } })
+    expect(await reader(f, '1')).toMatchObject({ status: 'unavailable', failure: { code: 'unit_not_found' } })
+    expect(rpcNames(f)).not.toContain('story_unit_context_notes')
+  })
+
+  it('다른 발행 키 · 다른 단위(늦은 응답 · 결속 어긋남) · 모양 불일치 → invalid(다른 단위 설명을 싣지 않는다)', async () => {
+    const bad: unknown[] = [
+      null,
+      [],
+      notesData(2),
+      { ...notesData(1), release_key: RK_SIB },
+      { ...notesData(1), unit_index: '1' },
+      notesData(1, null),
+      notesData(1, {}),
+      notesData(1, [{ id: '', text: 'x' }]),
+      notesData(1, [{ id: 'a', text: '   \n\t' }]),
+      notesData(1, [{ id: 'a', text: 'x' }, { id: 'a', text: 'y' }]),
+      notesData(1, [{ id: 7, text: 'x' }]),
+      notesData(1, [{ id: 'a', text: null }]),
+      notesData(1, ['text only']),
+    ]
+    for (const data of bad) {
+      const f = fake({ rpc: { story_unit_context_notes: () => ok(data) } })
+      const s = await reader(f, '1')
+      expect(s, JSON.stringify(data)).toMatchObject({ status: 'ready', contextNotes: { status: 'unavailable', reason: 'invalid' } })
+    }
+  })
+
+  it('S2 Text 계약에 없는 상한을 두지 않는다 — 긴 문장 · 많은 개수 · 유니코드를 그대로 받고 허용 목록(id · text)만 만든다', () => {
+    const long = `${'가'.repeat(2000)} 👩‍👩‍👧 é "q"\n끝`
+    const many = Array.from({ length: 25 }, (_, i) => ({ id: `n-${i}`, text: `설명 ${i}`, sensitive_ref: 'leak', rationale: 'leak' }))
+    const parsed = parseStoryContextNotes(notesData(3, [{ id: 'n-long', text: long }, ...many], { change_log: 'leak' }), { releaseKey: RK, unitIndex: 3 })
+    expect(parsed?.notes).toHaveLength(26)
+    expect(parsed?.notes[0]).toEqual({ id: 'n-long', text: long })
+    expect(Object.keys(parsed?.notes[1] ?? {})).toEqual(['id', 'text'])
+    expect(Object.keys(parsed ?? {})).toEqual(['releaseKey', 'unitIndex', 'notes'])
+  })
+
+  it('함수 없음 · 결속 거부 대응은 읽기 문맥 · 안내와 같다', () => {
+    const missing = { message: 'Could not find the function', code: 'PGRST202' }
+    expect(mapStoryLearnerRpcError(missing, 'story_unit_context_notes')).toMatchObject({ code: 'reader_not_ready' })
+    expect(mapStoryLearnerRpcError({ message: 'story:context_notes_mismatch' }, 'story_unit_context_notes')).toMatchObject({ code: 'reader_data_invalid' })
   })
 })

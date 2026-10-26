@@ -13,6 +13,7 @@
 // - 본문은 텍스트 노드로만 그린다(HTML 해석 없음). 원문 대응 · 단어 뜻은 요청할 때만 연다.
 // - 학습자 행동 구조: 단위 고르기 → 읽기 → 읽음 표시 → (원하면) 원문 인용 추적 · 단어 뜻.
 // - 작품 입구 · 로그인 전 화면은 시작 전 선택 안내(편집 판단 부담 · 접힌 주의 — U1)를 공개 정보로 보인다(필수 확인 · 자동 열림 없음).
+// - 단위 화면은 본문 뒤에 그 단위의 시대적 맥락 설명(접힌 <details> — W2)을 긍정 확인(same) 뒤에만 보인다(필수 확인 · 자동 열림 없음).
 
 'use client'
 
@@ -40,6 +41,7 @@ import type {
   StoryReleaseGuidanceView,
 } from '@/lib/library/story/learner-types'
 
+import { StoryContextNotes } from './StoryContextNotes'
 import { StoryGuidance } from './StoryGuidance'
 import { StorySourcePanel } from './StorySourcePanel'
 import { StoryUnitText, type StoryWordLookupProps } from './StoryUnitText'
@@ -373,6 +375,12 @@ function ReadyReader({
                 text={unit.text}
                 tracing={sourceOpen && selectedAnchor !== null}
                 lookup={wordLookup}
+              />
+              <StoryContextNotes
+                key={`notes:${releaseKey}:${unit.unitIndex}`}
+                view={state.contextNotes}
+                releaseKey={releaseKey}
+                unitIndex={unit.unitIndex}
               />
               <div className={styles.actionZone}>
                 <div className={styles.actionRow}>

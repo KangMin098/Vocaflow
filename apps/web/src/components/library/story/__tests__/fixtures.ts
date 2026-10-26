@@ -130,6 +130,7 @@ export function readyState(
     unit: unitBody(),
     siblings: [release({ releaseKey: KEY_B, editionKey: 'gull-rock-easy', kind: 'easy_reader', targetCefr: 'A2' })],
     guidance: guidanceView(),
+    contextNotes: null,
     ...over,
   }
 }
