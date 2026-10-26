@@ -29,6 +29,7 @@
 .focusable:focus-visible,
 .page a:focus-visible,
 .page button:focus-visible,
+.page summary:focus-visible,
 .page [tabindex='-1']:focus-visible {
   outline: 2px solid var(--p);
   outline-offset: 3px;
@@ -406,6 +407,43 @@
   flex-direction: column;
   gap: 10px;
   max-width: 68ch;
+}
+
+/* ── 시작 전 선택 안내(U1) — 본문 흐름 안의 작은 정보 · 접힌 주의 ─────────────── */
+
+.guidance {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+}
+
+.cautions {
+  font-family: var(--font-display);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--t1);
+}
+
+/* 네이티브 펼침 표시를 지킨다(list-item) · 조작 높이는 여백 계산(14px × 1.55 + 22px ≈ 43.7px)에 기대지 않고 min-height 로 44px 를 보장한다. */
+.cautions summary {
+  display: list-item;
+  box-sizing: border-box;
+  min-height: 44px;
+  padding-block: 11px;
+  cursor: pointer;
+  font-weight: 600;
+  color: var(--t1);
+}
+
+/* 위 여백 = 요약의 초점 테두리(오프셋 3px + 두께 2px)가 첫 문장을 가리지 않게. */
+.cautions ul {
+  margin: 8px 0 4px;
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--t1);
 }
 
 .wordTools {

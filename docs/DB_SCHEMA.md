@@ -1,5 +1,7 @@
 # DB Schema
 
+> **D2 U1 승인 v2 적용 완료(2026-10-26 · T-0187)**: 실제 원장 `20261026110732`·저장소 `20261026110732_lcp_story_u1_guidance.sql`·SHA `8648c24cd4e58237be8fdf736a2cf7aee8fcd22f2b01407dab1d90fc17f22eac`. 새 RPC `public.story_release_guidance(p_release_key text default null)`는 공개·권리 확인 발행본의 불변 자리/정책/판/원천·재해시를 확인하고 `release_key / target_cefr / cognitive_demand / background_load / cautions`만 반환한다. STABLE·SECURITY DEFINER·고정 search_path, EXECUTE anon/authenticated=true·PUBLIC/service_role=false, Story12표 RLS=true·직접 SELECT=false를 확인했다. 기존12표 전체 행과 기존 Story 함수 지문은 불변이다. PostgREST 재적재 NOTIFY를 같은 트랜잭션에 포함했다. **최신 사용자 지시대로 v2만 적용했으며 v3의3초/60초 설정·복구는 적용하지 않았다.** 숫자 파일과 `_pending_` 제안 사본의 머리말은 승인 당시 바이트다. 정확한 검증/회복 경계는 [후속 결과](lcp-story/D2_S7_FOLLOWUP.md)를 따른다.
+
 > **LCP Story S3 검토 상태(2026-10-25 · T-0169)**: 독립 재현 결함 3건(직접 RPC 의 S2 우회 발행 · 마지막 단위만으로 완독 · 권리 보류 뒤 열람)과
 > 독립 검토 지적(소유자 세션 증명 · 판본 중복 발행 · 시계 · 계약판 · 동시 등록)을 아래 SQL 에서 고쳤고 격리 PGlite · PostgreSQL 17 실행으로 확인했다(작성자 검증 —
 > Codex 별도 수용 완료). **공유 DB 적용 완료**(사용자 승인 · MCP 원장 `20261025094450` · 승인 SHA 일치). 남은 경계: 러너 TLS preflight 미실행 · 백엔드 검증 증인 런타임(S4) 없음 ·

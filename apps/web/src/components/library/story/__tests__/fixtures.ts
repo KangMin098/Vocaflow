@@ -3,9 +3,12 @@
 
 import type {
   StoryCatalogRelease,
+  StoryGuidanceState,
   StoryProgressRow,
   StoryReaderContext,
   StoryReaderPageState,
+  StoryReleaseGuidance,
+  StoryReleaseGuidanceView,
   StoryUnitBody,
 } from '@/lib/library/story/learner-types'
 
@@ -29,6 +32,33 @@ export function release(over: Partial<StoryCatalogRelease> = {}): StoryCatalogRe
     targetCefr: 'B1',
     publishedAt: '2026-10-25T00:00:00Z',
     ...over,
+  }
+}
+
+/** 합성 주의 문장(시험 전용) — 두 번째는 장면을 말하는 문장이다(접힌 영역 안에만 있어야 한다). */
+export const CAUTION_A = '거리 시비: 낯선 사람이 문을 세게 두드리는 장면(합성)'
+export const CAUTION_B = '범인이 무릎 꿇고 우는 장면(합성)'
+
+export function guidance(over: Partial<StoryReleaseGuidance> = {}): StoryReleaseGuidance {
+  return {
+    releaseKey: KEY_A,
+    targetCefr: 'B1',
+    cognitiveDemand: 'high',
+    backgroundLoad: 'moderate',
+    cautions: [CAUTION_A, CAUTION_B],
+    ...over,
+  }
+}
+
+export function guidanceView(over: Partial<StoryReleaseGuidance> = {}): StoryReleaseGuidanceView {
+  return { status: 'ready', guidance: guidance(over) }
+}
+
+/** 서가 안내 — A 는 주의 둘, B 는 주의 없음. */
+export function catalogGuidance(): StoryGuidanceState {
+  return {
+    status: 'ready',
+    byRelease: { [KEY_A]: guidance(), [KEY_B]: guidance({ releaseKey: KEY_B, targetCefr: 'A2', cognitiveDemand: 'low', backgroundLoad: 'low', cautions: [] }) },
   }
 }
 
@@ -99,6 +129,7 @@ export function readyState(
     release: release(),
     unit: unitBody(),
     siblings: [release({ releaseKey: KEY_B, editionKey: 'gull-rock-easy', kind: 'easy_reader', targetCefr: 'A2' })],
+    guidance: guidanceView(),
     ...over,
   }
 }

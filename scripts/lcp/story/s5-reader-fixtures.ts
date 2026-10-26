@@ -74,6 +74,8 @@ export interface ReaderRelease {
   unit_count: number
   units: ReaderUnit[]
   source: ReaderSource
+  /** 판본 자리 production.target 중 U1 공개 안내 필드(합성). 주의 문장은 시험용 합성 문장이다. */
+  guidance: { cognitive_demand: 'low' | 'moderate' | 'high'; background_load: 'low' | 'moderate' | 'high'; cautions: string[] }
 }
 export interface ReaderProgress {
   user_id: string
@@ -88,6 +90,10 @@ export interface ReaderDbState {
   synthetic: string
   seq: number
   reader_context_missing: boolean
+  /** U1 안내 RPC 가 없는 환경(제안 SQL 미적용 — 공유 DB 의 지금 상태)을 흉내 낸다. */
+  guidance_missing: boolean
+  /** 안내 결속이 깨진 발행 키(이용 가능하면 안내 호출 전체가 story:guidance_mismatch). */
+  guidance_corrupt: string[]
   catalog_hide: string[]
   releases: ReaderRelease[]
   profiles: Record<string, { status: string }>
@@ -96,8 +102,18 @@ export interface ReaderDbState {
   rpc_log: Json[]
 }
 
-type ReleaseInput = Omit<ReaderRelease, 'release_key' | 'label' | 'published_at' | 'counts_as_work_completion' | 'completion_label' | 'unit_count' | 'withdrawn_at' | 'rights_ok'> &
-  Partial<Pick<ReaderRelease, 'withdrawn_at' | 'rights_ok'>>
+type ReleaseInput = Omit<
+  ReaderRelease,
+  'release_key' | 'label' | 'published_at' | 'counts_as_work_completion' | 'completion_label' | 'unit_count' | 'withdrawn_at' | 'rights_ok' | 'guidance'
+> &
+  Partial<Pick<ReaderRelease, 'withdrawn_at' | 'rights_ok' | 'guidance'>>
+
+/** 합성 주의 문장(시험 전용 · 실제 검수 콘텐츠 아님). 두 번째 문장은 장면을 말한다 — 접힌 영역 안에만 있어야 한다. */
+export const SYNTHETIC_CAUTIONS = [
+  '폭풍 장면: 배가 바위로 다가오고 사람이 다칠 뻔한다(합성 시험 문장)',
+  '등대지기가 넘어져 다치는 장면(합성 시험 문장)',
+]
+const NO_CAUTION_GUIDANCE: ReaderRelease['guidance'] = { cognitive_demand: 'low', background_load: 'low', cautions: [] }
 
 function build(): ReaderDbState {
   const snapshot = read('snapshot')
@@ -131,6 +147,7 @@ function build(): ReaderDbState {
     published_at: '2026-10-25T03:00:00.000Z',
     counts_as_work_completion: o.coverage === 'complete_work',
     completion_label: o.coverage === 'complete_work' ? 'adapted_full_work' : 'adapted_partial',
+    guidance: NO_CAUTION_GUIDANCE,
     ...o,
     unit_count: o.units.length,
   })
@@ -138,6 +155,7 @@ function build(): ReaderDbState {
     release('B1', {
       work_key: 'synthetic-gull-rock', edition_key: 'story-b1', kind: 'story_edition', coverage: 'complete_work',
       title: `${b1.title} (synthetic)`, hook_text: b1.hook.text, target_cefr: 'B1', units: units(b1),
+      guidance: { cognitive_demand: 'high', background_load: 'moderate', cautions: SYNTHETIC_CAUTIONS },
       // URL.href 라면 바뀌었을 값(대문자 스킴 · 호스트 · 퍼센트 인코딩 · 쿼리 · 프래그먼트) — 화면은 저장값 그대로 링크해야 한다
       source: sourceBase('HTTPS://Example.ORG/harness/Gull%2DRock?edition=r1&lang=en&q=a%20b#para-3'),
     }),
@@ -148,7 +166,9 @@ function build(): ReaderDbState {
     }),
     release('EP', {
       work_key: 'synthetic-gull-rock-storm', edition_key: 'storm-episode', kind: 'story_edition', coverage: 'episode',
-      title: 'The Storm Night (synthetic episode)', hook_text: 'The lamp is dark, and a ship is coming toward the rocks. (synthetic)', target_cefr: null,
+      // 발행은 production target 의 CEFR 를 복사한다(S2 스키마상 필수) — null 이면 U1 안내 RPC 가 결속 불일치로 닫는다. 실제 발행 경로처럼 값을 두되
+      // 다른 작품(B1 발행본)의 목표를 물려받지 않는다는 기존 단언이 뜻을 갖도록 B1 과 다른 값을 둔다. 「편집 목표 없음」 표시는 단위 렌더 시험이 다룬다.
+      title: 'The Storm Night (synthetic episode)', hook_text: 'The lamp is dark, and a ship is coming toward the rocks. (synthetic)', target_cefr: 'A2',
       units: units(b1, 4, 7, ['Storm', 'The fall', 'The brig']),
       source: sourceBase('data:text/html,<b>synthetic</b>'),
     }),
@@ -167,6 +187,8 @@ function build(): ReaderDbState {
     synthetic: SYNTHETIC,
     seq: 10,
     reader_context_missing: false,
+    guidance_missing: false,
+    guidance_corrupt: [] as string[],
     /** 하네스 전용 경합 흉내 — 이 발행 키는 story_catalog 에서만 빠진다(다른 RPC 는 그대로). */
     catalog_hide: [] as string[],
     releases,

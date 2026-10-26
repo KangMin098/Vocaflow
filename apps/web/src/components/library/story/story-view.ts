@@ -11,9 +11,14 @@ import type {
   StoryCatalogRelease,
   StoryCompletionLabel,
   StoryCoverage,
+  StoryGuidanceLevel,
+  StoryGuidanceState,
+  StoryGuidanceUnavailableReason,
   StoryKind,
   StoryProgressRow,
   StoryReaderSource,
+  StoryReleaseGuidance,
+  StoryReleaseGuidanceView,
   StorySourceCoverage,
 } from '@/lib/library/story/learner-types'
 
@@ -41,6 +46,41 @@ export const SOURCE_COVERAGE_LABEL: Record<StorySourceCoverage, string> = {
 /** 편집 목표 CEFR — 판본을 만들 때 겨냥한 난이도일 뿐 실측 진단이 아니다. */
 export function editorialTargetLabel(targetCefr: string | null): string {
   return targetCefr ? `편집 목표 난이도 ${targetCefr}` : '편집 목표 없음'
+}
+
+// ── 시작 전 선택 안내(U1) ─────────────────────────────────────────────────
+
+const GUIDANCE_LEVEL_LABEL: Record<StoryGuidanceLevel, string> = { low: '낮음', moderate: '보통', high: '높음' }
+
+/** 부담 등급 한 줄 — 편집 판단임을 문장 안에서 말한다(측정 · 진단이 아니다). */
+export function guidanceLoadLine(g: StoryReleaseGuidance): string {
+  return `편집 판단 · 추론 부담 ${GUIDANCE_LEVEL_LABEL[g.cognitiveDemand]} · 배경지식 부담 ${GUIDANCE_LEVEL_LABEL[g.backgroundLoad]} (측정한 값이 아니에요)`
+}
+
+/** 펼치기 전 요약 — 장면을 쓰지 않는다. 주의 문장은 펼쳐야 보인다. */
+export function cautionSummary(count: number): string {
+  return `읽기 전 주의 ${count}가지 · 펼치면 장면 내용이 조금 드러나요`
+}
+
+/**
+ * 작품 입구의 도움 안내 한 줄 — 지금 실제로 동작하는 요청형 도움만 말한다(StoryUnitText 의 「단어 뜻 보기」 ·
+ * 앵커가 결속된 단위의 「원문 대응 보기」). 편집 기준의 background_knowledge.supports(편집 의도)를 기능처럼 말하지 않는다.
+ */
+export const READING_HELP_LINE =
+  '읽는 중 도움은 원할 때만 열려요 — 단위 화면에서 「단어 뜻 보기」를 켜면 본문 낱말을 눌러 뜻을 찾아볼 수 있고, 원문 인용이 연결된 단위는 「원문 대응 보기」로 원작의 해당 문장을 볼 수 있어요.'
+
+/** 안내를 보일 수 없을 때 — 「주의 없음」으로 읽히지 않게 그렇다고 말한다. */
+export function guidanceUnavailableText(reason: StoryGuidanceUnavailableReason): string {
+  return reason === 'invalid'
+    ? '읽기 전 안내(주의 · 부담)를 확인하지 못해 보여 드리지 않아요. 주의할 내용이 없다는 뜻은 아니에요.'
+    : '읽기 전 안내(주의 · 부담)를 지금 불러오지 못했어요. 주의할 내용이 없다는 뜻은 아니에요.'
+}
+
+/** 서가 안내 상태에서 발행본 하나의 안내. 조회는 됐는데 그 행이 없으면 「불러오지 못함」(주의 없음이 아니다). */
+export function guidanceViewFor(state: StoryGuidanceState, releaseKey: string): StoryReleaseGuidanceView {
+  if (state.status === 'unavailable') return state
+  const guidance = state.byRelease[releaseKey]
+  return guidance ? { status: 'ready', guidance } : { status: 'unavailable', reason: 'temporary' }
 }
 
 export function unitLabel(unitIndex: number, unitTitle: string | null): string {

@@ -3,12 +3,14 @@
 // LCP Story S5 — 학습자 서가 · 판본 독서 서버 로직(서버 전용). 페이지(RSC)와 서버 액션(app/(main)/library/stories/actions.ts)이
 // 쿠키 세션 클라이언트를 좁은 모양(StoryLearnerClient)으로 넣어 부른다. 계약: docs/LCP_STORY.md §12 · §13 · §15 · §17 ·
 // 공유 타입 ./learner-types.ts · DB 정본 S3 `20261025094450_lcp_story_s3_schema.sql` 학습자 RPC 5개 +
-// S5 제안(미적용) `public.story_reader_context(p_release_key text, p_unit_index integer) returns jsonb`.
+// S5 `public.story_reader_context(p_release_key text, p_unit_index integer) returns jsonb` ·
+// U1(T-0187 · dev 원장20261026110732) `public.story_release_guidance(p_release_key text default null)`(supabase/migrations/20261026110732_lcp_story_u1_guidance.sql).
 //
 // 학습자 판정 = DB story.require_learner 와 같다: 쿠키 세션의 auth.getUser() 사용자가 있어야 하고, user_profiles.status 가
 //   'suspended' · 'deleted' 면 막는다(프로필 행이 없으면 막지 않는다 — isUsableAccount). 프로필 조회가 실패하면 닫는다(학습자 RPC 를 부르지 않는다).
 //   스태프 판정(active · 역할)은 쓰지 않는다. DEV_ADMIN_BYPASS · 서비스 주체 클라이언트를 import 하지 않는다. 호출자가 보낸 사용자 id 는 받지 않는다
 //   (DB 가 auth.uid() 로 다시 강제한다).
+// 선택 안내(story_release_guidance)는 공개 읽기다 — anon/사용자 쿠키 클라이언트로만 부르고, 실패는 「불러오지 못함」(주의 없음이 아니다)으로 돌려준다.
 // 화면 렌더(GET) 경로(loadStoryCatalogPage · loadStoryReaderPage)는 위치 기록 · 단위 완료를 부르지 않는다 — 그 둘은 명시적 행동의 서버 액션에서만 부른다.
 // 모든 RPC 응답은 런타임으로 검사해 허용 목록 필드만 새로 만든다(해시 · 내부 id 는 버린다). 본문은 저장값 그대로 돌려준다(다듬지 않는다).
 // viewerId = 그 요청에서 쿠키 세션 getUser 로 확인한 본인 uid(개인 상태 결속용). RPC 인자 · 권한 근거로 쓰지 않는다.
@@ -21,6 +23,11 @@ import { isUsableAccount } from '../../auth/account'
 import { loginUrlWithReturn } from '../../auth/redirect'
 import type {
   StoryCatalogPageState,
+  StoryGuidanceLevel,
+  StoryGuidanceState,
+  StoryGuidanceUnavailableReason,
+  StoryReleaseGuidance,
+  StoryReleaseGuidanceView,
   StoryCatalogRelease,
   StoryCompleteInput,
   StoryCompletionLabel,
@@ -71,6 +78,7 @@ export type StoryLearnerRpcName =
   | 'story_read_unit'
   | 'story_record_position'
   | 'story_complete_unit'
+  | 'story_release_guidance'
 
 /** 쿠키 세션 클라이언트(anon 키 + 사용자 JWT · 비로그인이면 anon). */
 export interface StoryLearnerClient {
@@ -179,6 +187,7 @@ const STORY_CODE_MAP: Readonly<Record<string, StoryLearnerFailureCode>> = {
   'story:release_unavailable': 'release_unavailable',
   'story:unit_not_found': 'unit_not_found',
   'story:reader_context_mismatch': 'reader_data_invalid',
+  'story:guidance_mismatch': 'reader_data_invalid',
 }
 
 function isMissingFunction(error: StoryLearnerDbError, text: string): boolean {
@@ -187,15 +196,18 @@ function isMissingFunction(error: StoryLearnerDbError, text: string): boolean {
   return /\bfunction\b[\s\S]*\bdoes not exist\b/i.test(text)
 }
 
+/** 이 환경에 아직 없을 수 있는(제안 SQL 미적용) 읽기 RPC — 함수가 없으면 reader_not_ready 다. */
+const MAY_BE_MISSING: readonly StoryLearnerRpcName[] = ['story_reader_context', 'story_release_guidance']
+
 /**
- * DB 오류 → 학습자 실패. story:* 코드가 먼저다. 함수가 없으면(PGRST202 · 42883) 읽기 문맥 RPC 만 reader_not_ready(S5 SQL 미적용 —
- * 꾸민 목차 · 앵커 · 진도로 대신하지 않는다)이고, 나머지는 일시 오류다. DB 원문은 싣지 않는다.
+ * DB 오류 → 학습자 실패. story:* 코드가 먼저다. 함수가 없으면(PGRST202 · 42883) 읽기 문맥 · 선택 안내 RPC 만 reader_not_ready
+ * (SQL 미적용 — 꾸민 목차 · 앵커 · 진도 · 안내로 대신하지 않는다)이고, 나머지는 일시 오류다. DB 원문은 싣지 않는다.
  */
 export function mapStoryLearnerRpcError(error: StoryLearnerDbError, fn: StoryLearnerRpcName): StoryLearnerFailure {
   const text = [error.message, error.details, error.hint].filter((s): s is string => typeof s === 'string').join(' ')
   const found = STORY_CODE_RE.exec(text)
   if (found) return fail(STORY_CODE_MAP[found[0]] ?? 'temporary')
-  if (isMissingFunction(error, text)) return fail(fn === 'story_reader_context' ? 'reader_not_ready' : 'temporary')
+  if (isMissingFunction(error, text)) return fail(MAY_BE_MISSING.includes(fn) ? 'reader_not_ready' : 'temporary')
   return fail('temporary')
 }
 
@@ -318,6 +330,93 @@ export function parseStoryCatalog(data: unknown): StoryCatalogRelease[] | null {
   }
   return out
 }
+
+const CEFRS: readonly string[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
+const GUIDANCE_LEVELS: readonly StoryGuidanceLevel[] = ['low', 'moderate', 'high']
+/**
+ * 주의 문장 하나 — S2 Text 계약(packages/library-pipeline/src/story/schema.ts)과 같은 「JS trim 뒤 비어 있지 않은 문자열」.
+ * 개수 · 길이 상한은 S2 에 없으므로 두지 않는다(유효한 발행 데이터를 거부하지 않는다). 값은 다듬지 않고 그대로 넘긴다.
+ */
+function isCaution(v: unknown): v is string {
+  return typeof v === 'string' && v.trim() !== ''
+}
+
+/**
+ * `story_release_guidance` 응답. 열거한 다섯 필드만 새로 만들고(다른 키는 읽지 않는다) 형식 · 범위가 하나라도 어긋나거나
+ * 발행 키가 겹치면 null(호출자는 「확인하지 못함」으로 다룬다 — 「주의 없음」으로 바꾸지 않는다).
+ */
+export function parseStoryGuidance(data: unknown): StoryReleaseGuidance[] | null {
+  if (!Array.isArray(data)) return null
+  const out: StoryReleaseGuidance[] = []
+  const seen = new Set<string>()
+  for (const raw of data) {
+    if (!isRecord(raw)) return null
+    const { release_key, target_cefr, cognitive_demand, background_load, cautions } = raw
+    if (
+      !isStoryReleaseKey(release_key) ||
+      seen.has(release_key) ||
+      typeof target_cefr !== 'string' ||
+      !CEFRS.includes(target_cefr) ||
+      !oneOf(GUIDANCE_LEVELS, cognitive_demand) ||
+      !oneOf(GUIDANCE_LEVELS, background_load) ||
+      !Array.isArray(cautions) ||
+      !cautions.every(isCaution)
+    ) {
+      return null
+    }
+    seen.add(release_key)
+    out.push({
+      releaseKey: release_key,
+      targetCefr: target_cefr,
+      cognitiveDemand: cognitive_demand,
+      backgroundLoad: background_load,
+      cautions: [...cautions],
+    })
+  }
+  return out
+}
+
+function guidanceReason(failure: StoryLearnerFailure): StoryGuidanceUnavailableReason {
+  if (failure.code === 'reader_not_ready') return 'not_ready'
+  if (failure.code === 'reader_data_invalid') return 'invalid'
+  return 'temporary'
+}
+
+/**
+ * 선택 안내 조회(공개 · 쓰기 없음). releaseKey 가 null 이면 이용 가능한 전부를 한 번에(서가 — N+1 없음), 있으면 그 하나.
+ * 받은 행은 같은 요청의 서가 행과 대조한다 — 서가에 있는 발행본의 편집 목표 CEFR 가 다르면 결속 불일치로 전체를 invalid 로 닫는다.
+ * 서가에 없는 행(두 조회 사이 발행 · 권리 변화)은 버린다.
+ */
+async function loadGuidance(
+  client: StoryLearnerClient,
+  catalog: readonly StoryCatalogRelease[],
+  releaseKey: string | null,
+): Promise<StoryGuidanceState> {
+  const res = await callRpc(client, 'story_release_guidance', releaseKey === null ? {} : { p_release_key: releaseKey })
+  if (!res.ok) return { status: 'unavailable', reason: guidanceReason(res) }
+  const rows = parseStoryGuidance(res.data)
+  if (!rows) return { status: 'unavailable', reason: 'invalid' }
+  if (releaseKey !== null && rows.some((r) => r.releaseKey !== releaseKey)) return { status: 'unavailable', reason: 'invalid' }
+  const byKey = new Map(catalog.map((r) => [r.releaseKey, r]))
+  const byRelease: Record<string, StoryReleaseGuidance> = {}
+  for (const row of rows) {
+    const rel = byKey.get(row.releaseKey)
+    if (!rel) continue
+    if (rel.targetCefr !== row.targetCefr) return { status: 'unavailable', reason: 'invalid' }
+    byRelease[row.releaseKey] = row
+  }
+  return { status: 'ready', byRelease }
+}
+
+/** 발행본 하나의 안내. 안내 조회는 됐는데 그 발행본 행이 없으면 「불러오지 못함」이다(주의 없음이 아니다). */
+export function releaseGuidanceView(state: StoryGuidanceState, releaseKey: string): StoryReleaseGuidanceView {
+  if (state.status === 'unavailable') return state
+  const guidance = state.byRelease[releaseKey]
+  return guidance ? { status: 'ready', guidance } : { status: 'unavailable', reason: 'temporary' }
+}
+
+/** 서가 메타가 없어(조회 실패 · 없는 키) 안내를 부르지 않은 경우. */
+const GUIDANCE_NOT_LOADED: StoryReleaseGuidanceView = { status: 'unavailable', reason: 'temporary' }
 
 /** `story_my_progress()` 전체. */
 export function parseStoryProgress(data: unknown): StoryProgressRow[] | null {
@@ -634,6 +733,9 @@ export async function loadStoryCatalogPage(deps: StoryLearnerDeps): Promise<Stor
     if (!cat.ok) return { status: 'error', failure: cat }
     const releases = parseStoryCatalog(cat.data)
     if (!releases) return { status: 'error', failure: fail('reader_data_invalid') }
+    // 선택 안내는 서가 전체에 한 번. 빈 서가면 부르지 않는다. 실패해도 서가는 그대로다.
+    const guidance: StoryGuidanceState =
+      releases.length === 0 ? { status: 'ready', byRelease: {} } : await loadGuidance(client, releases, null)
 
     const learner = await checkLearner(client)
     if (!learner.ok) {
@@ -645,15 +747,18 @@ export async function loadStoryCatalogPage(deps: StoryLearnerDeps): Promise<Stor
         releases,
         progress: null,
         progressError: signedOut ? null : learner.failure,
+        guidance,
       }
     }
 
     const viewerId = learner.userId
     const prog = await callRpc(client, 'story_my_progress', {})
-    if (!prog.ok) return { status: 'ready', signedIn: true, viewerId, releases, progress: null, progressError: prog }
+    if (!prog.ok) return { status: 'ready', signedIn: true, viewerId, releases, progress: null, progressError: prog, guidance }
     const progress = parseStoryProgress(prog.data)
-    if (!progress) return { status: 'ready', signedIn: true, viewerId, releases, progress: null, progressError: fail('reader_data_invalid') }
-    return { status: 'ready', signedIn: true, viewerId, releases, progress, progressError: null }
+    if (!progress) {
+      return { status: 'ready', signedIn: true, viewerId, releases, progress: null, progressError: fail('reader_data_invalid'), guidance }
+    }
+    return { status: 'ready', signedIn: true, viewerId, releases, progress, progressError: null, guidance }
   } catch {
     return { status: 'error', failure: fail('temporary') }
   }
@@ -673,11 +778,21 @@ async function catalogRows(client: StoryLearnerClient): Promise<StoryCatalogRele
   return cat.ok ? parseStoryCatalog(cat.data) : null
 }
 
-/** 비로그인: 공개 서가 메타만(본문 · 목차 · 앵커 없음). 서가 조회 실패 · 없는 키는 release=null. */
+/** 이 발행본 하나의 선택 안내(같은 요청의 서가 행으로 대조). */
+async function guidanceForRelease(
+  client: StoryLearnerClient,
+  rows: readonly StoryCatalogRelease[],
+  releaseKey: string,
+): Promise<StoryReleaseGuidanceView> {
+  return releaseGuidanceView(await loadGuidance(client, rows, releaseKey), releaseKey)
+}
+
+/** 비로그인: 공개 서가 메타 + 시작 전 선택 안내만(본문 · 목차 · 앵커 없음). 서가 조회 실패 · 없는 키는 release=null(안내도 부르지 않는다). */
 async function signedOutState(client: StoryLearnerClient, releaseKey: string, returnPath: string): Promise<StoryReaderPageState> {
   const rows = await catalogRows(client)
   const release = rows?.find((r) => r.releaseKey === releaseKey) ?? null
-  return { status: 'signed_out', loginHref: loginUrlWithReturn(returnPath), release }
+  const guidance = rows && release ? await guidanceForRelease(client, rows, releaseKey) : GUIDANCE_NOT_LOADED
+  return { status: 'signed_out', loginHref: loginUrlWithReturn(returnPath), release, guidance }
 }
 
 async function readerFailureState(
@@ -748,12 +863,16 @@ export async function loadStoryReaderPage(deps: StoryLearnerDeps, req: StoryRead
     // 마지막 서가 조회 = 이용 가능 재관찰. 조회는 됐는데 이 발행본이 없으면(읽는 사이 철회 · 권리 보류) 앞서 읽은 본문을 보이지 않고 닫는다.
     // 조회 실패는 「정보를 불러오지 못함」(release · siblings 모두 null)이다.
     const rows = await catalogRows(client)
-    if (!rows) return { status: 'ready', viewerId: learner.userId, context, release: null, unit: body, siblings: null }
+    if (!rows) {
+      return { status: 'ready', viewerId: learner.userId, context, release: null, unit: body, siblings: null, guidance: GUIDANCE_NOT_LOADED }
+    }
     const release = rows.find((r) => r.releaseKey === context.releaseKey)
     if (!release) return { status: 'unavailable', failure: fail('release_unavailable') }
     if (!catalogMatchesContext(release, context)) return { status: 'unavailable', failure: fail('reader_data_invalid') }
     const siblings = rows.filter((r) => r.workKey === context.workKey && r.releaseKey !== context.releaseKey)
-    return { status: 'ready', viewerId: learner.userId, context, release, unit: body, siblings }
+    // 선택 안내는 작품 입구(?unit 없음)에서만 보인다 — 단위 화면에서는 부르지 않는다. 실패해도 독서는 그대로다.
+    const guidance = unit === null ? await guidanceForRelease(client, rows, releaseKey) : GUIDANCE_NOT_LOADED
+    return { status: 'ready', viewerId: learner.userId, context, release, unit: body, siblings, guidance }
   } catch {
     return { status: 'unavailable', failure: fail('temporary') }
   }
