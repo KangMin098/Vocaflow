@@ -257,7 +257,11 @@ test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
       const gate = new Promise<void>((r) => { release = r })
       let lateBody: Record<string, unknown> | null = null
       await page.route(`**/api/csat/item/${B.slug}/judgment`, async (r) => {
-        const real = await r.fetch()
+        // 테스트가 대신 보내는 재요청만 재시도한다 — next start 가 닫은 keep-alive 연결을 재사용하면 ECONNRESET(제품 요청은 브라우저가 보낸 것)
+        const real = await r.fetch().catch((err: Error) => {
+          if (!/ECONNRESET|socket hang up/.test(String(err?.message))) throw err
+          return r.fetch()
+        })
         lateBody = (await real.json().catch(() => null)) as Record<string, unknown> | null
         await gate
         await r.fulfill({ response: real, json: lateBody ?? undefined }).catch(() => {})
