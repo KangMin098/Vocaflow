@@ -42,7 +42,7 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react'
 
 import { PassageMap, type MapAnchor, type MapPlacement } from '@/components/csat/PassageMap'
 import { useLecture } from '@/components/csat/lecture/LectureStage'
@@ -170,6 +170,31 @@ function predictionOf(record: DissectionRecord, s: LearningSession): Prediction 
   if (s.stage === 'open') return null
   const legacy = mine.filter((p) => !p.session)
   return legacy.length ? legacy[legacy.length - 1] : null
+}
+
+/**
+ * 판단 장면 「정답 보기」 뒤 포커스 — 정답 근거 제목([data-block="analysis:answer"] h2)으로 옮긴다(T-0188).
+ * 공개 상태가 커밋된 뒤에도 정답 블록이 한두 프레임 늦게 그려질 수 있어, 제목이 나타날 때까지 프레임마다 다시 찾는다.
+ * maxFrames 안에 끝내 나타나지 않을 때만 판단 선택지로 대체한다(문서 밖으로 빠지지 않게).
+ */
+export function focusRevealedAnswer(doc: Pick<Document, 'querySelector'>, opts: { maxFrames?: number; schedule?: (cb: () => void) => unknown } = {}): void {
+  const schedule = opts.schedule ?? ((cb: () => void) => requestAnimationFrame(cb))
+  const maxFrames = Math.max(1, opts.maxFrames ?? 60)
+  const place = (h: HTMLElement) => {
+    h.tabIndex = -1
+    h.focus()
+  }
+  const attempt = (frame: number) => {
+    const h = doc.querySelector<HTMLElement>('[data-block="analysis:answer"] h2')
+    if (h) return place(h)
+    if (frame + 1 < maxFrames) {
+      schedule(() => attempt(frame + 1))
+      return
+    }
+    const fallback = doc.querySelector<HTMLElement>('[data-testid="judgment-options"]')
+    if (fallback) place(fallback)
+  }
+  schedule(() => attempt(0))
 }
 
 export interface TheaterMap {
@@ -320,6 +345,13 @@ export function AnalysisTheater({
   // ── 판단 장면 정답 지연 조회 (b) — 첫 응답에는 정답 · 확정 해설이 없다. 학습자가 요청하면 서버가 노출 원장을 먼저 커밋하고
   // 공개 자료를 돌려준다. 받은 자료는 이 컴포넌트 상태에만 둔다(저장소 · 캐시 없음). 마운트 · prefetch 로는 요청하지 않는다
   const [revealed, setRevealed] = useState<AnswerReveal | null>(null)
+  // 판단 장면 「정답 보기」 가 남긴 포커스 요청 — 공개 상태가 커밋된 뒤(useLayoutEffect)에만 옮긴다(T-0188 경합)
+  const pendingRevealFocus = useRef(false)
+  useLayoutEffect(() => {
+    if (!revealed || !pendingRevealFocus.current) return
+    pendingRevealFocus.current = false
+    focusRevealedAnswer(document)
+  }, [revealed])
   const [revealState, setRevealState] = useState<'idle' | 'pending' | 'failed'>('idle')
   const merged = useMemo(
     () =>
@@ -921,20 +953,13 @@ export function AnalysisTheater({
       })
       const body = (await res.json().catch(() => null)) as { ok?: boolean; reveal?: AnswerReveal } | null
       if (!res.ok || !body?.ok || !body.reveal) throw new Error(String(res.status))
+      // 강의(전체 · 경계 계속)로 연 경우는 포커스 요청을 남기지 않는다(T-0140)
+      pendingRevealFocus.current = source === 'judgment_scene'
       setRevealed(body.reveal)
       setAnswerConsent(true)
       setRevealState('idle')
       // 판단 장면에서 학습자가 누른 「정답 보기」 — 누른 단추가 사라지므로 포커스를 공개된 정답 근거 제목으로 옮긴다(문서 밖으로 빠지지 않게).
-      // 강의(전체 · 경계 계속)로 연 경우는 포커스를 옮기지 않는다(강의 진행이 포커스를 가져가지 않는 계약)
-      if (source === 'judgment_scene') {
-        requestAnimationFrame(() => {
-          const h = document.querySelector<HTMLElement>('[data-block="analysis:answer"] h2') ?? document.querySelector<HTMLElement>('[data-testid="judgment-options"]')
-          if (h) {
-            h.tabIndex = -1
-            h.focus()
-          }
-        })
-      }
+      // 실제 이동은 revealed 커밋 뒤 useLayoutEffect 가 한다. 강의(전체 · 경계 계속)로 연 경우는 옮기지 않는다(강의 진행이 포커스를 가져가지 않는 계약)
       return true
     } catch {
       // 기록 실패 · 판본 변경 · 보류 — 정답을 보이지 않는다(서버도 보내지 않았다)

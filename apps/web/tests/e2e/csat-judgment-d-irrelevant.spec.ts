@@ -70,6 +70,18 @@ async function axeSerious(page: Page) {
 async function openJudgment(page: Page, slug: string) {
   await page.goto(`/csat/item/${slug}?scene=judgment`, { waitUntil: 'domcontentloaded', timeout: 180_000 })
   await expect(page.getByTestId('analysis-theater')).toBeVisible({ timeout: 120_000 })
+  // SSR 로 보이는 화면은 수화 전이라 Enter 가 무시된다(DL-0225 ② 15%) — React 가 해설 화면과 (있으면) 판단 도구의
+  // 공개 단추에 이벤트 속성을 붙일 때까지 기다린다(제품 코드에 별도 신호 없음: React DOM 의 __reactProps$ 키가 수화 완료 신호)
+  await page.waitForFunction(
+    () => {
+      const hydrated = (el: Element | null) => !!el && Object.keys(el).some((k) => k.startsWith('__reactProps$'))
+      if (!hydrated(document.querySelector('[data-testid="analysis-theater"]'))) return false
+      const btn = document.querySelector('[data-testid="judgment-tool-d"] [data-reveal-btn]')
+      return btn == null || hydrated(btn)
+    },
+    undefined,
+    { timeout: 120_000 },
+  )
 }
 
 test.describe('D 판단 도구 R-IRRELEVANT × 해설 화면', () => {
