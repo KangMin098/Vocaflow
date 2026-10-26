@@ -26,7 +26,8 @@ function db(over: { analyses?: unknown[]; units?: unknown } = {}) {
   }
   return {
     from: (t: string) => q(t === 'csat_items' ? [row] : over.analyses ?? src.analyses),
-    rpc: async (fn: string) => (fn === 'csat_current_units_many' ? { data: over.units === undefined ? [{ ...src.units, item_id: row.id }] : over.units, error: null } : { data: src.inputHash, error: null }),
+    // Reveal Gate 판정 RPC(embargo-gate heldBy) — 이 파일은 비보류 경로만 본다(보류 · 실패는 __tests__/bound-item-gate.test.ts)
+    rpc: async (fn: string) => (fn === 'csat_ec_embargoed_items' || fn === 'csat_ec_embargoed_exams' ? { data: [], error: null } : fn === 'csat_current_units_many' ? { data: over.units === undefined ? [{ ...src.units, item_id: row.id }] : over.units, error: null } : { data: src.inputHash, error: null }),
   } as never
 }
 
