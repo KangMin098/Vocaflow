@@ -98,6 +98,7 @@ const item = (word: string, at: string) => ({
 describe('평가 대기열은 탭보다 오래 산다', () => {
   it('평가는 localStorage 에 쌓인다 — sessionStorage 가 아니다', async () => {
     const store = await import('../session-storage')
+    store.setSrsQueueOwner('user-1') // T-0172 — 큐는 계정별이다
     store.pushPendingResult(item('science', '2026-09-05T01:00:00.000Z'))
 
     expect(local.getItem('srs_pending')).not.toBeNull()
@@ -108,29 +109,36 @@ describe('평가 대기열은 탭보다 오래 산다', () => {
   it('옛 sessionStorage 큐를 버리지 않고 옮긴다', async () => {
     session.setItem('srs_pending', JSON.stringify([item('study', '2026-09-05T01:00:00.000Z')]))
     const store = await import('../session-storage')
+    store.setSrsQueueOwner('user-1') // T-0172 — 큐는 계정별이다
     store.pushPendingResult(item('create', '2026-09-05T01:01:00.000Z'))
 
-    const words = store.getPendingResults().map((p) => p.word).sort()
+    // 옛 큐 항목은 주인을 증명할 수 없어 보류(T-0172) — 옮기되 이 계정 몫으로 세지 않는다
+    const words = (JSON.parse(local.getItem('srs_pending') ?? '[]') as { word: string }[]).map((p) => p.word).sort()
     expect(words).toEqual(['create', 'study'])
+    expect(store.getPendingResults().map((p) => p.word)).toEqual(['create'])
     // 옮긴 뒤에는 옛 자리를 비운다 — 안 비우면 다음 읽기에서 또 합쳐져 두 번 올라간다.
     expect(session.getItem('srs_pending')).toBeNull()
   })
 
-  it('비우면 두 저장소 모두 비운다', async () => {
+  it('비우면 이 계정 항목과 옛 sessionStorage 자리를 비운다', async () => {
     session.setItem('srs_pending', JSON.stringify([item('abandon', '2026-09-05T01:00:00.000Z')]))
     const store = await import('../session-storage')
+    store.setSrsQueueOwner('user-1') // T-0172 — 큐는 계정별이다
     store.pushPendingResult(item('effective', '2026-09-05T01:02:00.000Z'))
     store.clearPendingResults()
 
     expect(store.getPendingResults()).toEqual([])
-    expect(local.getItem('srs_pending')).toBeNull()
+    // 주인 없는 옛 항목은 지우지 않고 보류로 남긴다(T-0172) — 이 계정 항목만 비운다
+    expect(local.getItem('srs_pending')).toContain('abandon')
+    expect(local.getItem('srs_pending')).not.toContain('effective')
     expect(session.getItem('srs_pending')).toBeNull()
   })
 })
 
 describe('떠나는 순간 전송', () => {
-  it('큐가 있으면 beacon 으로 보내고 큐를 비운다', async () => {
+  it('큐가 있으면 beacon 으로 보내되 큐는 서버 확인 전까지 남긴다', async () => {
     const store = await import('../session-storage')
+    store.setSrsQueueOwner('user-1') // T-0172 — 큐는 계정별이다
     store.pushPendingResult(item('develop', '2026-09-05T02:00:00.000Z'))
     store.pushPendingResult(item('achieve', '2026-09-05T02:00:01.000Z'))
 
@@ -141,9 +149,9 @@ describe('떠나는 순간 전송', () => {
     expect(beaconCalls[0].url).toBe('/api/srs/flush')
     const sent = JSON.parse(beaconCalls[0].body) as { items: { word: string }[] }
     expect(sent.items.map((i) => i.word)).toEqual(['develop', 'achieve'])
-    // 응답을 못 받는 전송이므로 "성공 후 비우기" 가 불가능하다 — 보낸 즉시 비운다.
-    // 이중 적용은 서버가 (vocabulary_id, attempted_at) 로 막는다.
-    expect(store.getPendingResults()).toEqual([])
+    // beacon 의 true 는 저장 확인이 아니다 — 큐는 남기고 다음 진입의 확인 전송이 서버 ACK 로 지운다(T-0172 r1 P1-4).
+    // 그 재전송의 이중 적용은 서버가 (vocabulary_id, attempted_at) 로 막는다.
+    expect(store.getPendingResults().map((p) => p.word)).toEqual(['develop', 'achieve'])
   })
 
   it('빈 큐면 아무것도 보내지 않는다', async () => {
@@ -159,6 +167,7 @@ describe('떠나는 순간 전송', () => {
       throw new Error('offline')
     }
     const store = await import('../session-storage')
+    store.setSrsQueueOwner('user-1') // T-0172 — 큐는 계정별이다
     store.pushPendingResult(item('fundamental', '2026-09-05T03:00:00.000Z'))
 
     const { flushOnLeave } = await import('../flush-session')

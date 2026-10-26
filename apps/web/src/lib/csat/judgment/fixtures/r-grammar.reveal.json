@@ -1,0 +1,117 @@
+{
+  "source": "csat_item_analyses status=published",
+  "reveal": [
+    {
+      "id": "H2609G2#29",
+      "unitsHash": "0c7f7a68d7d3b8a67304f6f745ec5f6bb80e9f730e78bacfff64a682981ef5bc",
+      "analysisVersion": 1,
+      "unitsVersion": 1,
+      "answer": 5,
+      "designIntent": "places 뒤 관계절이 수동태 'the new cheap things can be seized' 로 이미 완전한데 관계대명사 which 를 두어, 수동태라 목적어가 빈 것처럼 보이는 착시를 노린다.",
+      "answerLocus": {
+        "quote": "they offer places ⑤ which the new cheap things can be seized",
+        "reasoning": "관계절은 주어 the new cheap things + 수동 동사 can be seized 로 빈 명사 자리가 없다. 선행사 places 는 장소 부사 자리에 들어가므로 where(in which)여야 한다.",
+        "sentence_index": [
+          7
+        ]
+      },
+      "choices": [
+        {
+          "n": 1,
+          "trap": "대명사 지시 오인",
+          "verdict": "distractor",
+          "why_tempting": "one 이 무엇을 받는지 몰라 a system 을 다시 써야 한다고 느낀다.",
+          "how_to_reject": "[u1] 'not a system ... but rather one in which' 에서 one 은 앞의 a system 을 받는 대명사이고, in which 뒤 절(islands ... exist)이 완전하므로 맞다."
+        },
+        {
+          "n": 2,
+          "trap": "동명사 주어 오인",
+          "verdict": "distractor",
+          "why_tempting": "문장 첫 -ing 를 분사구문으로 보고 주어가 없다고 느낀다.",
+          "how_to_reject": "[u2] Reproducing life 뒤에 정동사 is 가 있고 그 앞에 다른 주어가 없으므로 Reproducing 은 동명사 주어다."
+        },
+        {
+          "n": 3,
+          "trap": "지각동사 보어 오인",
+          "verdict": "distractor",
+          "why_tempting": "seen 뒤라 to bring 이나 brought 여야 한다고 본다.",
+          "how_to_reject": "[u3] 'the kind we've recently seen ③ bring about' 은 see + 목적어(the kind 가 관계절로 빠짐) + 원형부정사 구조이고, 위기가 시위를 일으키는 능동이므로 원형 bring 이 맞다."
+        },
+        {
+          "n": 4,
+          "trap": "보어 품사 오인",
+          "verdict": "distractor",
+          "why_tempting": "grow 뒤라 형용사 abundant 가 보어로 와야 한다고 본다.",
+          "how_to_reject": "[u6] crops can grow 의 grow 는 '자라다' 자동사이고 as ~ as 사이 낱말은 동사를 수식하므로 부사 abundantly 가 맞다."
+        },
+        {
+          "n": 5,
+          "verdict": "correct",
+          "why_correct": "인용의 'the new cheap things can be seized' 가 주어·수동 동사로 완전한 절이라 선행사 places 가 들어갈 명사 자리가 없다 — ⑤ which 는 where 로 고쳐야 한다.",
+          "confirmed_at": {
+            "note": "[u7] 관계절 성분 세기만으로 닫힌다",
+            "sentence_index": [
+              7
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "H2609G1#29",
+      "unitsHash": "2725e9d1129b276826f0a063b94291f1cf3c98b346ded6054d86bca61208c38f",
+      "analysisVersion": 1,
+      "unitsVersion": 1,
+      "answer": 4,
+      "designIntent": "why 절의 주어 the first few minutes(복수)와 동사 사이에 of an intense workout(단수)을 끼워 최근접 명사 workout 으로 단수 동사 is 를 정당화하게 만든다.",
+      "answerLocus": {
+        "quote": "the first few minutes of an intense workout ④ is often so miserable",
+        "reasoning": "why 절의 주어는 the first few minutes(복수)이고 of an intense workout 은 수식구다. 복수 주어이므로 정동사는 are 여야 한다.",
+        "sentence_index": [
+          7
+        ]
+      },
+      "choices": [
+        {
+          "n": 1,
+          "trap": "관계사 선행사 오인",
+          "verdict": "distractor",
+          "why_tempting": "which 앞에 사람·사물 명사가 바로 없어 what 이나 that 이어야 한다고 느낀다.",
+          "how_to_reject": "[u2] 의 콤마 뒤 which 는 앞 구절 without it(산소 없는 방식)을 받는 계속적 용법이고 뒤 절에 주어가 비어 있어 which is called 가 맞다."
+        },
+        {
+          "n": 2,
+          "trap": "to부정사 용법 오인",
+          "verdict": "distractor",
+          "why_tempting": "access 앞에 to 가 붙어 accessing 이나 access 원형이어야 한다고 본다.",
+          "how_to_reject": "[u3] 의 'quicker and easier ... to access' 는 형용사 easy 를 수식하는 to부정사(접근하기 쉬운)이고 for our bodies 는 의미상 주어다. to access 가 맞다."
+        },
+        {
+          "n": 3,
+          "trap": "분사구문 주어 오인",
+          "verdict": "distractor",
+          "why_tempting": "콤마 뒤 creating 에 정동사가 없어 creates 여야 한다고 본다.",
+          "how_to_reject": "[u5] 주절 'anaerobic energy is inefficient and can be toxic' 에 정동사가 이미 있고, creating 은 주절 주어가 젖산을 '만드는' 능동 분사구문이다."
+        },
+        {
+          "n": 4,
+          "verdict": "correct",
+          "why_correct": "인용의 주어 'the first few minutes'(복수)가 선지 ④ 'is' 의 주어이므로 단수 'is' 는 'are' 로 고쳐야 한다. 바로 왼쪽 workout 은 of 구의 목적어라 주어가 아니다.",
+          "confirmed_at": {
+            "note": "[u7] 한 문장 안에서 닫힌다",
+            "sentence_index": [
+              7
+            ]
+          }
+        },
+        {
+          "n": 5,
+          "trap": "능동·수동 오인",
+          "verdict": "distractor",
+          "why_tempting": "we 가 몸을 데우는 주체라 warming 이어야 한다고 느낀다.",
+          "how_to_reject": "[u9] 'after we're warmed up' 은 be + p.p. 로 '몸이 풀린' 상태를 나타낸다. warm up 은 '몸을 풀게 되다' 의 수동 상태로 쓰이므로 warmed 가 맞다."
+        }
+      ]
+    }
+  ]
+}

@@ -67,7 +67,7 @@ describe('/api/csat/state — 서버 경로(#182)', () => {
     expect(await res.text()).not.toContain('2026#31')
   })
   it('저장도 본인 행으로', async () => {
-    const res = await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: h.stored }) }))
+    const res = await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'u1', record: h.stored }) }))
     expect(res.status).toBeLessThan(300)
     expect(h.eqs.every(([k, v]) => k !== 'user_id' || v === 'u1')).toBe(true)
     expect(h.upserts).toHaveLength(1)
@@ -81,7 +81,7 @@ describe('/api/csat/state PUT — 보류로 빠진 진행 세트를 지키기(Co
     h.stored = { ...(h.stored as object), active, updatedAt: 1 }
     h.gate = 'error'
     const incoming = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], updatedAt: 5 }
-    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: incoming }) }))
+    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'u1', record: incoming }) }))
     expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(active)
   })
 })
@@ -92,7 +92,7 @@ describe('/api/csat/state PUT — 새 세트가 와도 보류 세트를 덮지 �
     h.stored = { ...(h.stored as object), active: held, updatedAt: 1 }
     h.gate = 'error'
     const incoming = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], updatedAt: 9, active: { items: ['2025#40'], index: 0, startedAt: 9, loci: {} } }
-    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: incoming }) }))
+    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'u1', record: incoming }) }))
     expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(held)
   })
 })
@@ -104,7 +104,7 @@ describe('/api/csat/state — 보류 중 진행 세트 P2', () => {
     h.gate = 'error'
     const moved = { ...held, index: 1, loci: { '2026#31': [3] } }
     const incoming = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], updatedAt: 9, active: moved }
-    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: incoming }) }))
+    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'u1', record: incoming }) }))
     expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(moved)
   })
 })
@@ -116,7 +116,33 @@ describe('/api/csat/state — 같은 자리 근거 손실 방지(Codex P2)', () 
     h.gate = 'error'
     const stale = { ...held, pairSeen: false, loci: {} }
     const incoming = { version: 1, seed: 1, onboarded: true, predictions: [], formulas: [], queue: [], completed: [], updatedAt: 9, active: stale }
-    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: incoming }) }))
+    await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'u1', record: incoming }) }))
     expect((h.upserts[0] as { record: { active?: unknown } }).record.active).toEqual(held)
+  })
+})
+
+describe('/api/csat/state PUT — 기기 기록의 소유자 결속(T-0172 공용 기기)', () => {
+  it('다른 계정 소유로 표시된 기록은 403 으로 거절하고 아무 행도 쓰지 않는다', async () => {
+    const res = await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'someone-else', record: h.stored }) }))
+    expect(res.status).toBe(403)
+    expect(h.upserts).toEqual([])
+  })
+  it('본인 소유로 표시된 기록은 그대로 저장한다', async () => {
+    const res = await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ owner: 'u1', record: h.stored }) }))
+    expect(res.status).toBe(200)
+    expect(h.upserts).toHaveLength(1)
+  })
+})
+
+describe('/api/csat/state PUT — owner 필수(T-0172 r1 P1-1)', () => {
+  it('owner 없는 요청(구버전 탭)은 428 로 거절하고 아무 행도 쓰지 않는다 — 클라이언트는 4xx 를 재전송하지 않고 기기 기록을 남긴다', async () => {
+    const res = await PUT(new Request('http://x/api/csat/state', { method: 'PUT', body: JSON.stringify({ record: h.stored }) }))
+    expect(res.status).toBe(428)
+    expect(((await res.json()) as { error: string }).error).toBe('owner-required')
+    expect(h.upserts).toEqual([])
+  })
+  it('GET 응답은 이 기록의 주인(로그인 계정)을 함께 싣는다', async () => {
+    const json = (await (await GET()).json()) as { owner?: string }
+    expect(json.owner).toBe('u1')
   })
 })

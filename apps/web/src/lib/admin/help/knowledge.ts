@@ -36,7 +36,7 @@ const CYCLE_FLOW = {
     { label: '근거', actor: 'claude' as const, says: '강사 · 연구 · 기출 — 세 축으로' },
     { label: '채택', actor: 'claude' as const, says: '두 모델 독립 판정 + 합성 규칙' },
     { label: '제품 적용', actor: 'user' as const, says: '채택 + 검증 계획이 있어야' },
-    { label: '효과 검증', actor: 'user' as const, says: '실제 학습자 사전 · 사후' },
+    { label: '효과 검증', actor: 'user' as const, says: '비합성 표시 사전 · 사후(효과 입증은 별도)' },
   ],
 }
 
@@ -53,7 +53,7 @@ export const KNOWLEDGE_HELP: HelpRegistry = {
       fields: [
         { label: '단계 카드', detail: '앞 단계가 있는데 그 단계가 0 이면 「병목」으로 표시된다. 뒤 단계는 병목이 풀리기 전에는 움직일 수 없다(예: 연구 근거 0 → 효과를 말할 채택이 나오지 않는다).' },
         { label: '연구 근거 / 전체', detail: '근거 중 연구 서지에서 온 것. 강사 영상 근거는 「실무자 주장」이라 연구 근거에 세지 않는다. 「효과 판단 가능」은 준실험 이상 · 적용 적합성 높음/부분.' },
-        { label: '효과 검증', detail: '실제 학습자 기록으로 분석 완료된 검증만 센다 — 합성 학습자 실행은 경로 확인용이라 0 에 들어간다.' },
+        { label: '효과 검증', detail: '명시 비합성 · 분석 완료 · 재계산 필요 아님인 trial 만 「현재 분석」으로 센다. 재계산 필요 · 합성 · 확인 불가는 따로 표시한다. 분석 건수는 효과 지지가 아니고, 비합성 표시는 실제 참가자 확인이 아니다.' },
         { label: '우선 처리', detail: '1 = 학습자 노출 · 근거 결손처럼 먼저 막아야 할 것, 3 = 쌓여 있는 일. 항목을 누르면 그 일을 하는 화면.' },
       ],
       cautions: [

@@ -57,15 +57,23 @@ export function Card({
     setIsBookmarked(false)
   }, [word.id])
 
-  const isFlipped = phase === 'flipped' || phase === 'evaluated'
+  // 정답면을 본 뒤 앞면을 다시 들여다보기(평가 단계는 그대로) — 카드가 바뀌거나 단계가 넘어가면 정답면으로 돌아간다.
+  const [peekFront, setPeekFront] = useState(false)
+  useEffect(() => {
+    setPeekFront(false)
+  }, [word.id, phase])
+
+  const isFlipped = (phase === 'flipped' && !peekFront) || phase === 'evaluated'
   const isLocked = phase === 'recall' || phase === 'evaluated'
+  const handleClick = phase === 'flipped' ? () => setPeekFront((p) => !p) : onClick
 
   return (
+    // 카드 면 전체는 마우스 클릭 면이다. 역할(role="button")은 주지 않는다 — 안에 북마크·발음·삽화 버튼이 있어
+    // 상호작용 안의 상호작용(axe nested-interactive)이 된다. 키보드·보조기기의 뒤집기 컨트롤은 앞면 낱말
+    // 버튼(CardFront `data-card-flip`)과 뒷면 뜻 버튼(CardBack 「카드 앞면 보기」)이고, 그 클릭이 여기로
+    // 올라와 같은 handleClick 을 탄다.
     <div
-      onClick={isLocked ? undefined : onClick}
-      role="button"
-      tabIndex={isLocked ? -1 : 0}
-      aria-label={isFlipped ? '카드 앞면 보기' : '카드 뒤집어 정답 확인'}
+      onClick={isLocked ? undefined : handleClick}
       data-learner-flashcard
       className={`group/card relative h-[380px] w-full ${isLocked ? 'cursor-default' : 'cursor-pointer'} ${swipeDirection === 'left' ? 'animate-[card-out-left_var(--dur-slow)_var(--ease)_forwards]' : ''} ${swipeDirection === 'right' ? 'animate-[card-out-right_var(--dur-slow)_var(--ease)_forwards]' : ''} ${entering ? 'animate-[card-in_var(--dur-slow)_var(--ease-spring)]' : ''} `}
       style={{
@@ -89,6 +97,7 @@ export function Card({
           word={word}
           hintVisible={hintVisible}
           showFlipHint={phase === 'flippable'}
+          flipLocked={isLocked}
           isAudioPlaying={isAudioPlaying}
           canPlayAudio={canPlayAudio}
           onPlayAudio={onPlayAudio}

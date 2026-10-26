@@ -852,3 +852,7 @@
   color: var(--m-ink2);
   word-break: keep-all;
 }
+
+@media (min-width: 900px) {
+  .sheet[role="dialog"] { height: min(var(--csat-modal-h), calc(100dvh - var(--csat-modal-inset))); max-height: none; }
+}

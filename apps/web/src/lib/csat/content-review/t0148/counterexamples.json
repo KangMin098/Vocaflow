@@ -1,0 +1,750 @@
+{
+  "source": "lecture-audit-c-20261024/g/CE1~3.jsonl",
+  "note": "AI 사전 반례 점검 — 판정 아님. 2단계에서만 본다.",
+  "items": [
+    {
+      "blind": "W01",
+      "item_id": "M2206#41",
+      "type_id": "X-TITLE",
+      "rule_ko": "글이 옛 방식에서 지금의 재해석으로 끝나면 변화 축을 담은 제목을 고른다.",
+      "probes": [
+        {
+          "item_id": "2020#41",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "선지 ②·① / 첫 문장 For quite some time→We now know",
+          "why": "옛→지금 구조가 성립하지만 정답 ①은 처방형 제목이고, 변화 축(Enters)을 담은 ②가 오답. 규칙대로면 ②로 끌린다."
+        },
+        {
+          "item_id": "M2309#41",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "지문 끝 before and after photographs",
+          "why": "옛 방식→재해석 결말이 아님. 변화 축 오답 ②·⑤가 있어 규칙을 잘못 적용하면 오답 위험."
+        },
+        {
+          "item_id": "M2509#41",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "지문 전체",
+          "why": "오해→바른 이해 반박 구조이나 시대 변화 결말은 아님."
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W02",
+      "item_id": "2021#24",
+      "type_id": "R-TITLE",
+      "rule_ko": "두 개념이 나오면 어느 쪽이 어느 쪽을 설명하는지 방향으로 선지를 가른다.",
+      "probes": [
+        {
+          "item_id": "M2306#24",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "human-machine team 문장",
+          "why": "인간·로봇 두 개념, 협력 방향 → ① Better Together. ③ conflict는 방향 반대."
+        },
+        {
+          "item_id": "M2409#24",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "extended the shelf life of journalism",
+          "why": "웹·인쇄 두 개념, 웹 아카이브가 수명·맥락 확장 → ①. ② latest content는 방향 어긋남."
+        },
+        {
+          "item_id": "2026#24",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "However, such commercialization risks",
+          "why": "문화·오락 결합의 득실 → ② Cash or Soul. ③은 방향 반대(오락이 문화가 되려 함)."
+        }
+      ],
+      "summary": "HOLDS_ALL"
+    },
+    {
+      "blind": "W03",
+      "item_id": "2019#29",
+      "type_id": "R-GRAMMAR",
+      "rule_ko": "대동사는 앞 동사 형태를 이어받아 수동이면 be동사, 일반동사면 do동사를 쓴다.",
+      "probes": [
+        {
+          "item_id": "2022#29",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "② as large as the mother cell ② was",
+          "why": "앞 동사 becomes(일반동사)인데 정답 형태는 was(정답 ④, ②는 바른 어법). 규칙대로면 did로 판정해 오답. 보어 비교는 be를 받는다."
+        },
+        {
+          "item_id": "2017#28",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "⑤ what the aged once was",
+          "why": "대동사가 아니라 본동사 be의 수 일치 문제."
+        },
+        {
+          "item_id": "2024#29",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "③ When they do succeed",
+          "why": "강조 do로 대동사 아님."
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W04",
+      "item_id": "2019#38",
+      "type_id": "R-INSERT",
+      "rule_ko": "새 매체 도입 문장은 앞 매체의 한계 뒤, 그 매체를 이미 아는 말투 앞에 넣는다.",
+      "probes": [
+        {
+          "item_id": "2022#39",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "주어진 문장 silent black and white film",
+          "why": "주어진 문장이 새 매체 도입이 아님(정답 ④는 illusion 지시 연결)."
+        },
+        {
+          "item_id": "2020#39",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "주어진 문장 other media has always been fragmented",
+          "why": "새 매체 도입 아님, 반론 전환 문장."
+        },
+        {
+          "item_id": "M1809#38",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "주어진 문장 accuracy of information",
+          "why": "인터넷 한계 논의로 새 매체 도입 조건 없음."
+        }
+      ],
+      "summary": "UNTESTED"
+    },
+    {
+      "blind": "W05",
+      "item_id": "2014A#25",
+      "type_id": "R-TOPIC",
+      "rule_ko": "선지가 한국어면 명령문의 목적어와 조건을 함께 담은 선지가 주제다.",
+      "probes": [
+        {
+          "item_id": "2014B#24",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "선지 전체 영어",
+          "why": "DB 실기출 R-TOPIC 중 한국어 선지는 2014A#25 하나뿐."
+        },
+        {
+          "item_id": "2015#20",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "선지 영어",
+          "why": "한국어 선지 조건 없음."
+        },
+        {
+          "item_id": "2015#21",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "선지 영어",
+          "why": "한국어 선지 조건 없음."
+        }
+      ],
+      "summary": "UNTESTED"
+    },
+    {
+      "blind": "W06",
+      "item_id": "M2609#45",
+      "type_id": "X-FACT",
+      "rule_ko": "부정문 선지는 긍정으로 바꿔 대조하고 그 긍정이 지문에 있으면(불일치) 답이다.",
+      "probes": [
+        {
+          "item_id": "2022#45",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "② 놀라지 않았다 / Surprised, Anna and Jane",
+          "why": "긍정(놀랐다)이 지문에 있어 ②가 답. ④ 참여하지 않았다는 긍정이 없어 비답, 일치."
+        },
+        {
+          "item_id": "M2206#45",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "③ 부딪치지 않았다 / avoid hitting any rocks",
+          "why": "긍정(부딪쳤다)이 지문에 없어 비답 처리, 정답 ⑤와 충돌 없음."
+        },
+        {
+          "item_id": "M2309#45",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "④ 없었다 / Sunflowers isn't here!",
+          "why": "긍정(있었다)이 지문에 없어 비답, 정답 ③과 충돌 없음."
+        }
+      ],
+      "summary": "HOLDS_ALL"
+    },
+    {
+      "blind": "W07",
+      "item_id": "2014A#23",
+      "type_id": "R-PURPOSE",
+      "rule_ko": "서술어가 비슷한 목적 선지는 회사·기관 이름이 나온 문장의 목적어로 고른다.",
+      "probes": [
+        {
+          "item_id": "2020#18",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "1문장 newly opened Vuenna Dog Park",
+          "why": "이름이 나온 첫 문장 목적어(새로 연 공원)로 고르면 ④ 홍보. 정답 ③은 다른 이름 문장의 measures to prevent the noise. 이름 문장이 둘이라 전제가 깨진다."
+        },
+        {
+          "item_id": "2021#18",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "we are starting the campus food drive",
+          "why": "알려/공지/안내 서술어 겹침, 기부 행사 문장 목적어 → ③."
+        },
+        {
+          "item_id": "M2106#18",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "선지 서술어 요청/홍보/신청/문의/안내",
+          "why": "기관 고유명 문장 없음."
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W08",
+      "item_id": "2019#25",
+      "type_id": "R-CHART",
+      "rule_ko": "접속어로 묶인 선지는 절마다 따로 판정하고 배수는 곱셈, 순위는 줄 순서로 본다.",
+      "probes": [
+        {
+          "item_id": "M2109#25",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "② third place, and ... more than $150",
+          "why": "순위 3 맞고 $142<150 틀림 → ② 정답. 수치는 분석 기록 confirmed_at 판독값(이미지 직접 미확인)."
+        },
+        {
+          "item_id": "2022#25",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "② more than three times",
+          "why": "16×3=48<60 성립 → ② 비답, 정답 ④. 수치는 분석 기록 판독값."
+        },
+        {
+          "item_id": "2025#25",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "③ by 4 ... and by 1",
+          "why": "12→16→17 절별 판정 모두 참 → 비답, 정답 ④. 수치는 분석 기록 판독값."
+        }
+      ],
+      "summary": "HOLDS_ALL"
+    },
+    {
+      "blind": "W09",
+      "item_id": "M2306#19",
+      "type_id": "R-MOOD",
+      "rule_ko": "앞 감정과 뒤 감정은 따로 확정하고 하강이 여러 번 와도 뒤 감정은 마지막 말로 정한다.",
+      "probes": [
+        {
+          "item_id": "2022#19",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "What a waste of time!",
+          "why": "앞 anticipation, 마지막 말로 disappointed → ①."
+        },
+        {
+          "item_id": "2025#19",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "I thought that I had found the right place.",
+          "why": "앞 certain/absolutely sure, 마지막 말 실망 → ③."
+        },
+        {
+          "item_id": "M2509#19",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "she finally felt at ease",
+          "why": "하강 대신 상승 구조, 앞 Worried·뒤 마지막 서술로 relieved → ③. 이중 하강 조건은 미검증."
+        }
+      ],
+      "summary": "HOLDS_ALL"
+    },
+    {
+      "blind": "W10",
+      "item_id": "M2509#36",
+      "type_id": "R-ORDER",
+      "rule_ko": "조동사 문장은 가정 뒤, 정관사 명사는 첫 등장 뒤, 비교급은 비교 기준 뒤에 온다.",
+      "probes": [
+        {
+          "item_id": "M2206#36",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "(C) The remarkable finding / (B) This asymmetry",
+          "why": "정관사 finding이 (A) 실험 뒤에 와 A-C-B(정답①). would는 단락 내부 결과 서술이라 순서 단서 아님. 조동사·비교급이 함께 든 문항이라 선택"
+        },
+        {
+          "item_id": "M2706#36",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "(A) The back-and-forth",
+          "why": "정관사가 (B)의 신호·방어 교환을 받아 A가 마지막, C-B-A(정답⑤). 비교급 more like는 기준 없는 표현이라 무관"
+        },
+        {
+          "item_id": "M2609#37",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "(A) 첫 문장 The complicated notations that might spring to mind",
+          "why": "would는 가정(주어진 글) 뒤 (B)에 와 성립. 그러나 notations는 앞에 등장한 적 없고 관계절로 한정된 정관사라 '정관사=첫 등장 뒤' 전제가 거짓. 정답 B-A-C(②)는 다른 단서로 나옴"
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W11",
+      "item_id": "M2409#39",
+      "type_id": "R-INSERT",
+      "rule_ko": "이유(because) 문장은 바로 앞 주장을 설명하므로, 그 이유에 맞는 주장 뒤에 넣는다.",
+      "probes": [
+        {
+          "item_id": "2017#38",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "주어진 문장 ...because they are interested in / ② 자리",
+          "why": "이유 문장이 Usually, this is tactically weak 주장을 설명해 ② 정답. 주어진 문장에 because가 있어 선택"
+        },
+        {
+          "item_id": "M2409#38",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "주어진 문장 Because the manipulation...; ③ 문장 programming digital messages",
+          "why": "Because 절 내용은 ③ 문장과 맞아 규칙대로면 ③ 뒤(④)인데 정답은 ⑤. 결정 단서는 뒤 문장 This microlevel access이며, 이 because는 앞 주장 설명이 아니라 새 주장(millisecond precision)의 전제"
+        },
+        {
+          "item_id": "M2406#39",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "주어진 문장 As a result, ...",
+          "why": "주어진 문장이 이유 문장이 아님(지문 속 This is because가 오히려 주어진 문장을 설명). 같은 문항의 다음 해 유형이라 선택"
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W12",
+      "item_id": "M2606#18",
+      "type_id": "R-PURPOSE",
+      "rule_ko": "문의 편지는 '궁금하다' 표현 뒤의 목적어가 글의 목적이다.",
+      "probes": [
+        {
+          "item_id": "2023#18",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "I would like to know how to sign up",
+          "why": "궁금 표현 뒤 목적어=가입 방법, 정답① 가입 방법 문의. 궁금 표현이 있는 문의 편지라 선택"
+        },
+        {
+          "item_id": "2014A#23",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "Are you wondering how we ensure...",
+          "why": "wonder가 있으나 독자에게 던지는 수사 의문인 광고문(정답⑤ 배송 서비스 광고). 묻는 편지 조건 불충족 — wonder만 보고 적용하면 '문의'로 오인할 위험"
+        },
+        {
+          "item_id": "M2306#18",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "Please let me know if an additional rental",
+          "why": "문의 편지지만 궁금 표현 없이 let me know if로 묻는다. 규칙의 표지가 없어 적용 불가(정답④는 let me know 목적어로는 나옴)"
+        }
+      ],
+      "summary": "HOLDS_ALL"
+    },
+    {
+      "blind": "W13",
+      "item_id": "M2309#42",
+      "type_id": "X-VOCAB",
+      "rule_ko": "세미콜론 뒤 밑줄은 앞 절의 따옴표 낱말을 풀어 쓴 것이므로 같은 방향이어야 한다.",
+      "probes": [
+        {
+          "item_id": "M2609#42",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "the “richness” of the media, or the (a) number",
+          "why": "따옴표 낱말을 밑줄이 풀어 쓰나 세미콜론이 아닌 or. 같은 방향으로 (a) 적절, 정답④와 일치(유사 조건이라 선택)"
+        },
+        {
+          "item_id": "M2509#42",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "sound “poetic.” But those who regard ... (b) different",
+          "why": "따옴표 뒤 But 대조이며 세미콜론·풀어쓰기 관계 없음"
+        },
+        {
+          "item_id": "M2006#42",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "ethics ― or moral philosophy ― so it is (c) unsurprising",
+          "why": "구두점 뒤 밑줄이 있는 유일한 다른 문항이지만 대시이고 따옴표 낱말 없음. DB 검색상 세미콜론 직후 밑줄 X-VOCAB은 원 문항 외 0건"
+        }
+      ],
+      "summary": "UNTESTED"
+    },
+    {
+      "blind": "W14",
+      "item_id": "2024#35",
+      "type_id": "R-IRRELEVANT",
+      "rule_ko": "첫 문장의 화제와 방향을 적고, 같은 낱말을 쓰면서 방향을 뒤집은 문장을 고른 뒤 빼고 흐름을 확인한다.",
+      "probes": [
+        {
+          "item_id": "M2609#35",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "④ Mentoring has been typically required",
+          "why": "정답④는 같은 낱말(mentoring)이지만 방향을 뒤집지 않고 화제를 '다양한 멘토'에서 '멘토링 일반'으로 옮긴 문장. '방향 뒤집기' 전제 거짓, 빼고 확인 단계로만 정답"
+        },
+        {
+          "item_id": "M2606#35",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "④ The various rocks and minerals contained in glaciers",
+          "why": "glaciers 공유, 방향 반전 아닌 화제 이탈(빙하 감소→암석). 반전 문장을 찾으면 후보 없음"
+        },
+        {
+          "item_id": "M2509#35",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "④ The main advantage of buying from a dealer",
+          "why": "dealer 공유, 방향은 오히려 긍정으로 같고 초점만 '개인 서비스'로 이동. 반전 기준으론 정답④를 못 고름"
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W15",
+      "item_id": "2016#36",
+      "type_id": "R-ORDER",
+      "rule_ko": "이름 없는 현상 → 이름 붙이는 단락 → 이름 쓰는 단락 순이고, 인물은 a(부정관사)에서 the로 이어진다.",
+      "probes": [
+        {
+          "item_id": "M2209#37",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "(B) Personal robotic assistants are devices / (A) They might be motorized",
+          "why": "주어진 글의 social robots as home assistants를 (B)가 정의·명명하고 (A)가 이어 써 B-A-C(정답②). 명명 표현 검색으로 선택"
+        },
+        {
+          "item_id": "M2606#37",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "(A) what is called a nonlinear system",
+          "why": "현상(chaos)은 주어진 글에서 이미 명명. (A)의 새 용어는 뒤에서 다시 쓰이지 않아 규칙 제약 없음(정답 B-C-A ③)"
+        },
+        {
+          "item_id": "M2306#37",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "주어진 글 a principle known as the sunk cost fallacy",
+          "why": "명명이 주어진 글 안에서 끝나 단락 순서 단서가 되지 않음; this human tendency 지시어로 결정(정답②)"
+        }
+      ],
+      "summary": "HOLDS_ALL"
+    },
+    {
+      "blind": "W16",
+      "item_id": "M1809#28",
+      "type_id": "R-GRAMMAR",
+      "rule_ko": "정동사가 이미 있는데 연결어 없이 동사가 또 오면 그 자리는 분사다.",
+      "probes": [
+        {
+          "item_id": "M2406#29",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "the emotions the Tin Man dreams of ③ being",
+          "why": "dreams of를 정동사로 보면 being(분사)이 맞다고 판정하나, dreams of는 관계사 생략절 동사이고 주절 정동사 are가 필요(정답③). 절 경계 확인 없이 쓰면 오답. 정동사 판별이 걸린 문항이라 선택"
+        },
+        {
+          "item_id": "M2409#29",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "When you feel ..., ③ realizing that",
+          "why": "부사절 동사 feel을 정동사로 세면 realizing을 적절로 판정하나 주절에 정동사가 없어 realize여야 함(정답③)"
+        },
+        {
+          "item_id": "M2206#29",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "to see ... and ⑤ discovers",
+          "why": "연결어 and가 있어 규칙 조건 불충족(병렬로 discover, 정답⑤)"
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W17",
+      "item_id": "M1809#44",
+      "type_id": "X-REFER",
+      "rule_ko": "밑줄이 문장 속 인물의 상대 자리(대화 상대·목적어)에 있으면 그 인물은 후보에서 지운다.",
+      "probes": [
+        {
+          "item_id": "M2609#44",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "Mike ... waved hoping to get (d) his attention",
+          "why": "(d)가 Mike 문장의 목적어 자리 → Mike 제외 → Chavez, 나머지는 Mike라 정답④. 목적어 자리 밑줄이 있어 선택"
+        },
+        {
+          "item_id": "M2606#44",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "Cathy said, “While (c) you’re buying jam",
+          "why": "Cathy의 대화 상대 자리 → Cathy 제외 → Laura, 정답③"
+        },
+        {
+          "item_id": "M2509#44",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "(b) She said, “You must be Julia!”",
+          "why": "정답 (b)는 주어 자리라 규칙이 판정에 쓰이지 않음. (d) your plant는 상대 자리로 Julia 제외에 일관되나 정답 결정에 무관"
+        }
+      ],
+      "summary": "HOLDS_ALL"
+    },
+    {
+      "blind": "W18",
+      "item_id": "2019#42",
+      "type_id": "X-VOCAB",
+      "rule_ko": "비교 구조(rather than 등)의 뒤쪽은 피하려는 쪽이고, 비교 구조가 없으면 앞뒤 문장의 이어받기로 판정한다.",
+      "probes": [
+        {
+          "item_id": "M2106#42",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "(b) favours those who can pay, rather than ensuring access",
+          "why": "뒤쪽(모두의 접근)은 배제된 쪽이고 (b) 적절, 정답④(d)와 일치. 밑줄 문장에 rather than이 있어 선택"
+        },
+        {
+          "item_id": "M2506#42",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "(a) essential that students learn ... rather than follow",
+          "why": "뒤쪽(정해진 규칙 따르기)이 피하는 쪽, (a) 적절. 정답⑤와 일치"
+        },
+        {
+          "item_id": "M2606#42",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "(b) hidden on the inside so that we wear clothing rather than pieces of fabric",
+          "why": "뒤쪽(천 조각)이 피하는 쪽, (b) hidden 적절. 정답⑤와 일치"
+        }
+      ],
+      "summary": "HOLDS_ALL"
+    },
+    {
+      "blind": "W19",
+      "item_id": "M2006#31",
+      "type_id": "R-BLANK",
+      "rule_ko": "빈칸이 without 바로 뒤에 오면 그 빈칸에는 피해야 할 일이 들어가고, 무엇을 피할지는 당사자의 신분이 정한다.",
+      "probes": [
+        {
+          "item_id": "M2606#34",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "without some awareness of ______",
+          "why": "without 뒤 빈칸이지만 정답 ②(지표 현상이 어떻게 배열되는가)는 피해야 할 일이 아니라 꼭 필요한 인식이다. 규칙의 전제가 거짓이다."
+        },
+        {
+          "item_id": "M2306#32",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "achieves an understanding of it by ______",
+          "why": "빈칸 앞 전치사가 by다. without 규칙의 조건이 없다. 전치사부터 보는 단계만 쓸 수 있다."
+        },
+        {
+          "item_id": "2016#32",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "the direction of ______",
+          "why": "빈칸 앞 전치사가 of다. 피할 일이라는 조건이 없다."
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W20",
+      "item_id": "M2509#32",
+      "type_id": "R-BLANK",
+      "rule_ko": "부정문 안의 빈칸에는 지문이 부정한 쪽, 곧 대조 표현의 뒤 항이 들어간다.",
+      "probes": [
+        {
+          "item_id": "2023#34",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "it is not that ______ . It is that",
+          "why": "not that X. It is that Y 구조다. 빈칸(정답 ⑤)은 부정되는 앞 항이며 대조의 뒤 항이 아니다. 「뒤 항」이라는 위치 규정이 틀렸다."
+        },
+        {
+          "item_id": "2024#31",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "Reading is not simply ______.",
+          "why": "정답 ② word recognition은 지문이 부정하는 쪽(says vs means의 says)이다. 부정된 쪽을 고르면 정답이 나온다. 뒤 항인지는 판정하지 않았다(NOT_VERIFIED)."
+        },
+        {
+          "item_id": "M2109#31",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "Natural objects ... are not ______ .",
+          "why": "다음 문장 not taken as vehicles of meanings와 정답 ⑤ interpreted가 맞는다. 부정된 쪽을 고르면 정답이 나온다."
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W21",
+      "item_id": "2024#42",
+      "type_id": "X-VOCAB",
+      "rule_ko": "결과를 잇는 말 아래의 두 결과는 같은 원인에서 나오므로 의미 방향이 같아야 한다.",
+      "probes": [
+        {
+          "item_id": "2019#42",
+          "applies": true,
+          "verdict": "NOT_VERIFIED",
+          "where": "was a result of the disciplined",
+          "why": "결과 표지는 있다. 밑줄 (a)~(e) 전체와 정답 ②의 위치를 대조하지 못했다."
+        },
+        {
+          "item_id": "M2106#42",
+          "applies": false,
+          "verdict": "NOT_VERIFIED",
+          "where": "However, through state land reforms",
+          "why": "후보 창에서는 역접만 보였다. 결과 표지와 밑줄의 관계를 확인하지 못했다."
+        },
+        {
+          "item_id": "2022#42",
+          "applies": false,
+          "verdict": "NOT_VERIFIED",
+          "where": "passage 앞부분만 확인",
+          "why": "결과 표지의 위치를 읽지 못했다."
+        }
+      ],
+      "summary": "UNTESTED"
+    },
+    {
+      "blind": "W22",
+      "item_id": "M2106#45",
+      "type_id": "X-FACT",
+      "rule_ko": "감정 선지는 먼저 시점을 맞추고, 그 시점의 감정 낱말로 판정한다.",
+      "probes": [
+        {
+          "item_id": "2017#45",
+          "applies": true,
+          "verdict": "NOT_VERIFIED",
+          "where": "② 관객들은 감동을 받았다",
+          "why": "감정 선지가 있지만 지문의 해당 시점을 대조하지 못했다. 정답은 ④로, 감정 선지가 아니다."
+        },
+        {
+          "item_id": "M1809#45",
+          "applies": true,
+          "verdict": "NOT_VERIFIED",
+          "where": "② 아버지가 자랑스러워하지 않았다",
+          "why": "정답 ②가 감정 선지다. 지문의 시점을 대조하지 못했다."
+        },
+        {
+          "item_id": "2016#45",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "choices 전체",
+          "why": "감정 낱말로 판정할 선지가 사실상 없다(④ 집중 못함은 행동이다)."
+        }
+      ],
+      "summary": "UNTESTED"
+    },
+    {
+      "blind": "W23",
+      "item_id": "M1809#33",
+      "type_id": "R-BLANK",
+      "rule_ko": "지시어가 이끄는 빈칸에는 바로 앞 문장의 목적어와 거기 붙은 부정어를 담은 선지를 고른다.",
+      "probes": [
+        {
+          "item_id": "M2206#34",
+          "applies": true,
+          "verdict": "COUNTEREXAMPLE",
+          "where": "Not only does this result demonstrate that ______",
+          "why": "지시어 this 뒤의 빈칸이다. 정답 ④에는 부정어가 없고 앞 문장의 목적어를 담고 있지도 않다. 앞 문장의 내용을 추론으로 일반화한 것이다."
+        },
+        {
+          "item_id": "2024#33",
+          "applies": true,
+          "verdict": "HOLDS",
+          "where": "What is striking about them is that ______",
+          "why": "them은 앞의 a series of faces를 가리키고, 정답 ⑤는 them과 without loss를 담는다. 규칙대로 하면 정답이 나온다. 다만 지시어의 품사는 대명사다."
+        },
+        {
+          "item_id": "2014B#34",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "with brains that ______",
+          "why": "관계사 that이다. 지시어 조건이 없다."
+        }
+      ],
+      "summary": "HAS_COUNTEREXAMPLE"
+    },
+    {
+      "blind": "W24",
+      "item_id": "2017#38",
+      "type_id": "R-INSERT",
+      "rule_ko": "표지가 없는 주어진 문장은 지문 쪽의 빈 고리(논리 공백)를 찾아 넣는다.",
+      "probes": [],
+      "summary": "UNTESTED"
+    },
+    {
+      "blind": "W25",
+      "item_id": "M2109#23",
+      "type_id": "R-TOPIC",
+      "rule_ko": "통념이 길게 이어진 글은 역접이 없어도 인정하라는 동사 뒤가 주장이다.",
+      "probes": [
+        {
+          "item_id": "M2606#23",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "Admittedly, it is considerably more",
+          "why": "인정 표지가 부사 Admittedly다. 그 뒤는 양보(반론 인정)이고 주장이 아니다. 「인정하라는 동사」 조건과는 다르지만, 낱말만 보고 규칙을 확장하면 오답으로 갈 위험이 있다."
+        }
+      ],
+      "summary": "UNTESTED"
+    },
+    {
+      "blind": "W26",
+      "item_id": "M2606#45",
+      "type_id": "X-FACT",
+      "rule_ko": "평가 선지는 따옴표 안의 형용사로만 판정한다.",
+      "probes": [
+        {
+          "item_id": "2017#45",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "choices 전체",
+          "why": "따옴표 안 평가 형용사 선지가 없다."
+        },
+        {
+          "item_id": "M2209#45",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "choices 전체",
+          "why": "따옴표 평가 선지가 없다."
+        },
+        {
+          "item_id": "2016#45",
+          "applies": false,
+          "verdict": "NOT_APPLICABLE",
+          "where": "choices 전체",
+          "why": "따옴표 평가 선지가 없다."
+        }
+      ],
+      "summary": "UNTESTED"
+    }
+  ]
+}

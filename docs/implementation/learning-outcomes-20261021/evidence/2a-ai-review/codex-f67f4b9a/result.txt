@@ -1,0 +1,53 @@
+{
+  "verdict": "accept",
+  "source_file_sha256": "682dfbd97fa8c2317315f3458d11d24033364afee980d78331c03da5563e2846",
+  "items": [
+    {
+      "id": "r5-cm-guided-1",
+      "verdict": "accept",
+      "choice_0based": 2,
+      "claim_alternatives_0based": [6],
+      "gold_issues": [],
+      "why": "Choice 2 captures the cooling rationale and infrastructure conclusion. The other choices isolate supporting details, introduce energy savings, or reverse the conclusion. The claim, support and disputed-support sets are defensible; sentence 2 supplies a reason. All three hints and the explanations match the passage."
+    },
+    {
+      "id": "r5-cm-ind-2",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "claim_alternatives_0based": [],
+      "gold_issues": [],
+      "why": "Choice 1 preserves the qualified warning about spatial understanding. The other choices introduce safety or map-drawing advice, overstate device unreliability, or adopt the opposed view. Sentence 3 voices that opposed view; the support set is defensible, with sentence 4 rebutting the objection. The revised map-drawing explanation accurately addresses the actual distractor."
+    },
+    {
+      "id": "r5-cm-ind-3",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "claim_alternatives_0based": [],
+      "gold_issues": [],
+      "why": "Choice 1 captures task-relevant selection. The baker example neither presupposes that incidental details previously supplied procedural knowledge nor requires forgetting those details. Sentence 3 is appropriately probed as an example; its simultaneous supporting function does not invalidate that label. The support, disputed-support and opposed sets are defensible. All distractor explanations address the supplied choices."
+    },
+    {
+      "id": "r5-cm-transfer-1",
+      "verdict": "accept",
+      "choice_0based": 1,
+      "claim_alternatives_0based": [],
+      "gold_issues": [],
+      "why": "Choice 1 best captures the label's limited informational value. The remaining titles introduce avoidance, an explanatory process, a broader healthy-eating prescription, or a safety comparison. Sentence 4 states the claim, sentence 1 presents the challenged belief, and sentence 3 provides a hypothetical example. The support classifications and explanations are defensible. No universal legal claim or empirical shopper finding is asserted."
+    },
+    {
+      "id": "r5-cm-delayed-1",
+      "verdict": "accept",
+      "choice_0based": 4,
+      "claim_alternatives_0based": [3],
+      "gold_issues": [],
+      "why": "Choice 4 preserves the conditional benefit of a brief activity change. Sentence 3 is correctly accepted as an alternative claim formulation, and sentence 4 is explicitly illustrative rather than a reported experiment. The remaining choices reverse, exaggerate or leave the passage. The support, disputed-support and opposed sets, example probe and explanations are defensible."
+    }
+  ],
+  "limitations": [
+    "Reviewed only the five supplied items, including every choice, Gold classification, relation probe, explanation and supplied hint.",
+    "The SHA-256 value is reproduced from the submission; no file or hash was independently checked.",
+    "No tools, browsing, files or other sessions were consulted. External factual accuracy and provenance were not independently verified; hypothetical examples were assessed as illustrations.",
+    "Acceptance is a first-party AI content and Gold judgment, not human Gold confirmation, authorship verification, a rights grant or release approval."
+  ],
+  "required_changes": []
+}

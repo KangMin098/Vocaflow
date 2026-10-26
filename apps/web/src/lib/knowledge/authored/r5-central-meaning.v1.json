@@ -1,5 +1,5 @@
 {
-  "set": "r5-central-meaning.v2",
+  "set": "r5-central-meaning.v3",
   "taskId": "r.central_meaning",
   "taskKey": "authored-central-meaning",
   "provenance": {
@@ -9,7 +9,14 @@
     "createdAt": "2026-10-18",
     "humanGold": "pending — 사람 Gold 확정 전(검수 패킷 docs/final/review/r5-authored-gold-packet.md)",
     "rights": "pending — 사람 원저작 확인 전(같은 패킷)",
-    "revisionNote": "v2(2026-10-18): 정답 선택지 3건 바꿔 쓰기(ind-2 · transfer-2 · delayed-1, 맹검 C 단서 노출 지적) · transfer-1 약한 오답 2건 강화. 사람 Gold 전. · 오답 근거 감사 반영(guided-1 요지 과장 수정 · guided-2 오답① 유형 · 설명 문구 4건) · delayed-1 정답 재표현. · FI-005(#297): ind-1 5번 문장을 원논문(성인 · 응답 수 증가 · 독창성 차이 비유의)에 맞게 수정 — 아동 · 독창성 서술 제거."
+    "revisionNote": "v2(2026-10-18): 정답 선택지 3건 바꿔 쓰기(ind-2 · transfer-2 · delayed-1, 맹검 C 단서 노출 지적) · transfer-1 약한 오답 2건 강화. 사람 Gold 전. · 오답 근거 감사 반영(guided-1 요지 과장 수정 · guided-2 오답① 유형 · 설명 문구 4건) · delayed-1 정답 재표현. · FI-005(#297): ind-1 5번 문장을 원논문(성인 · 응답 수 증가 · 독창성 차이 비유의)에 맞게 수정 — 아동 · 독창성 서술 제거. · v3 candidate 2026-10-21 Codex: independent AI reviews c0b6f657/fde8422c identified logical/distractor defects. Correct selected five items; remove untraced statistics, global legal assertion and invented office-worker experiment. ind-3 is an explicitly hypothetical baker example about selecting task-relevant memory, not a claim that detailed memory prevents recognition. Only these five are submitted for current AI review; all other items remain outside this review scope. · candidate R2: independent Claude/Codex both found stale GPS distractor explanation; remove it. Accept delayed sentence 3 as a restated claim and probe its explicitly hypothetical example at sentence 4. Remove baker no-longer presupposition and use example relation for its concrete case. Earlier candidate and both dissenting reviews preserved.",
+    "aiReviewScope": [
+      "r5-cm-guided-1",
+      "r5-cm-ind-2",
+      "r5-cm-ind-3",
+      "r5-cm-transfer-1",
+      "r5-cm-delayed-1"
+    ]
   },
   "items": [
     {
@@ -146,23 +153,23 @@
           "On a hot summer afternoon, the air above a parking lot can be several degrees warmer than the air in a nearby park.",
           "This difference is not simply a matter of shade.",
           "Trees also release water vapor through their leaves, and this process uses heat from the surrounding air.",
-          "A single large tree can move hundreds of liters of water into the air on a sunny day.",
-          "For this reason, planting trees is one of the most effective and least expensive ways for cities to cool themselves.",
+          "This cooling can therefore come from the use of heat to evaporate water as well as from blocked sunlight.",
+          "For this reason, planting trees can be a useful way for cities to cool outdoor spaces.",
           "Air conditioners, by contrast, cool the inside of buildings while pushing even more heat into the streets.",
           "A city that wants cooler summers should therefore think of its trees as part of its infrastructure, not as decoration."
         ],
         "stem": "다음 글의 요지로 가장 적절한 것은?",
         "choices": [
           "도시의 주차장은 공원보다 기온이 높다.",
-          "나무는 잎을 통해 많은 양의 물을 공기 중으로 내보낸다.",
-          "나무를 심는 것은 도시의 기온을 낮추는 효과적이고 저렴한 방법이다.",
+          "나뭇잎에서 물이 증발할 때 주위 공기의 열이 쓰인다.",
+          "도시의 나무는 도심 공간의 열을 줄이는 기반 시설로 다룰 필요가 있다.",
           "에어컨 사용을 줄이면 도시 전체의 에너지를 아낄 수 있다.",
           "도시의 아름다움을 위해 나무를 장식으로 활용해야 한다."
         ],
         "hints": [
-          "'For this reason'처럼 앞 내용을 묶어 결론을 내는 연결어를 찾아보세요. 그 뒤에 필자의 판단이 나올 때가 많아요.",
-          "숫자(수백 리터)나 장소(주차장 · 공원)처럼 구체적인 정보는 대개 주장을 떠받치는 쪽이에요.",
-          "마지막 문장이 주장을 다른 말로 다시 하고 있는지 확인해 보세요."
+          "For this reason이 앞의 설명을 어떤 판단으로 잇는지 살펴보세요.",
+          "증발과 그늘은 냉각 방법이 유용하다는 판단을 뒷받침하는 기제예요.",
+          "마지막 문장이 앞의 판단을 도시의 선택으로 다시 말하는지 확인하세요."
         ]
       },
       "gold": {
@@ -185,7 +192,7 @@
           "sentence": 2,
           "relation": "reason"
         },
-        "gist": "나무 심기는 도시를 식히는 매우 효과적이고 값싼 방법이니, 나무를 도시의 기반 시설로 여겨야 한다.",
+        "gist": "도시의 나무는 그늘과 증발에 의한 냉각을 제공하므로 장식 이상의 기반 시설로 볼 필요가 있다.",
         "distractors": [
           {
             "choice": 0,
@@ -195,7 +202,7 @@
           {
             "choice": 1,
             "design": "too_narrow",
-            "why": "근거 세부(3·4번)만 옮겼다."
+            "why": "증발에 열이 쓰인다는 설명은 나무의 냉각 기능을 뒷받침하는 기제 하나이며, 도시가 나무를 어떻게 다룰지에 대한 중심 판단 전체가 아니다."
           },
           {
             "choice": 3,
@@ -355,10 +362,10 @@
         "sentences": [
           "Relying on turn-by-turn directions may be weakening our ability to understand the places we live in.",
           "When a device tells us where to turn, we no longer need to build a mental picture of how streets connect.",
-          "Drivers who navigate this way often cannot draw even a rough map of a route they have taken many times.",
+          "Following these instructions can leave a driver with less knowledge of how the parts of a route fit together.",
           "Some people argue that this hardly matters, since the device is always available.",
           "But devices fail, batteries die, and signals disappear, and a person with no sense of direction is then truly lost.",
-          "Moreover, the effort of finding our way seems to keep the brain's memory system active."
+          "Moreover, finding our own way requires us to attend to landmarks and their connections."
         ],
         "stem": "다음 글의 요지로 가장 적절한 것은?",
         "choices": [
@@ -401,8 +408,8 @@
           },
           {
             "choice": 3,
-            "design": "distorted",
-            "why": "3번(지도를 못 그린다)과 6번(기억 체계)의 소재를 섞어 글에 없는 처방으로 바꿨다."
+            "design": "off_text",
+            "why": "글은 지도를 직접 그리라는 방법이나 일반 기억력 향상이라는 목표를 제시하지 않는다. 길 안내 의존과 공간 이해에 관한 논의를 글에 없는 처방으로 바꿨다."
           },
           {
             "choice": 4,
@@ -418,10 +425,10 @@
       "passageGroup": "r5cm-x1",
       "body": {
         "sentences": [
-          "Shoppers tend to trust products labeled \"natural\" more than those without such a label.",
-          "Many assume the word guarantees that the food is healthier or safer.",
-          "In most countries, however, there is no legal definition of \"natural\" for food.",
-          "A sugary drink full of additives can carry the label as easily as fresh fruit.",
+          "Imagine a group of shoppers who trust a drink more after seeing the word \"natural\" on its label.",
+          "They treat the word as if it guaranteed that the drink were healthier or safer.",
+          "The word alone, however, does not describe which ingredients are inside the drink.",
+          "The imagined drink could still contain a long list of sweeteners and additives.",
           "The word, in short, tells buyers far less than they believe it does.",
           "Reading the list of ingredients is a much more reliable way to judge what is inside the package."
         ],
@@ -462,13 +469,13 @@
           },
           {
             "choice": 2,
-            "design": "too_narrow",
-            "why": "예시(4번)의 세부를 제목으로 삼았다."
+            "design": "off_text",
+            "why": "글은 가상의 음료에 감미료와 첨가물이 들어갈 수 있다고 예를 들지만, 첨가물이 음료를 달게 만드는 과정은 설명하지 않는다."
           },
           {
             "choice": 3,
             "design": "too_narrow",
-            "why": "마지막 문장(6번)의 조언을 글 전체의 주제로 키웠다 — 필자의 중심은 성분표 읽기가 아니라 ‘natural’ 표시가 알려 주는 것이 적다는 것이다."
+            "why": "성분표 읽기는 마지막의 후속 조언이며 글 전체의 중심인 표시의 정보 한계를 대신하지 못한다. 건강한 식사 전반의 열쇠라는 제목은 본문의 범위도 넘어선다."
           },
           {
             "choice": 4,
@@ -551,11 +558,11 @@
       "body": {
         "sentences": [
           "It seems logical that working longer hours without stopping should get more done.",
-          "Yet the mind does not work like a machine that runs at the same speed all day.",
-          "Attention fades after a period of focused effort, and mistakes begin to increase.",
-          "Short breaks allow that attention to recover, so the work that follows is faster and more accurate.",
-          "Office workers who took a few minutes off every hour, for instance, finished tasks with fewer errors than those who worked straight through.",
-          "Regular breaks are thus not a loss of working time but a way to make that time count."
+          "Yet uninterrupted work does not guarantee an unchanging degree of attention.",
+          "During a long repetitive task, attention can drift and errors can become easier to miss.",
+          "A short change of activity can sometimes help a person return to a repetitive task with renewed focus.",
+          "Consider a worker who pauses to check a different simple task, then returns and notices an error that was previously overlooked.",
+          "Used in this way, a brief break can support the work rather than simply take time away from it."
         ],
         "stem": "다음 글의 요지로 가장 적절한 것은?",
         "choices": [
@@ -563,16 +570,17 @@
           "집중력은 하루 중 아침 시간에 가장 높다.",
           "짧은 휴식만으로도 떨어진 집중력이 완전히 회복된다.",
           "사무실 환경이 업무 성과를 좌우한다.",
-          "잠시 멈추는 시간이 오히려 일하는 시간을 헛되지 않게 만든다."
+          "짧게 활동을 바꾸는 휴식은 뒤이은 작업에 집중하는 데 도움이 될 수 있다."
         ]
       },
       "gold": {
         "answer": 4,
         "claim": 5,
-        "claimRestated": [],
+        "claimRestated": [
+          3
+        ],
         "support": [
           2,
-          3,
           4
         ],
         "supportDisputed": [
@@ -582,10 +590,10 @@
           0
         ],
         "relationProbe": {
-          "sentence": 3,
-          "relation": "reason"
+          "sentence": 4,
+          "relation": "example"
         },
-        "gist": "규칙적인 휴식은 일하는 시간을 잃는 것이 아니라 살리는 방법이다.",
+        "gist": "적절한 짧은 활동 전환은 작업을 방해하기보다 다시 집중하는 데 도움이 될 수 있다.",
         "distractors": [
           {
             "choice": 0,
@@ -600,12 +608,12 @@
           {
             "choice": 2,
             "design": "distorted",
-            "why": "4번의 ‘회복할 수 있게 해 준다(allow ... to recover)’를 ‘짧은 휴식만으로 완전히 회복된다’로 과장했다."
+            "why": "집중에 도움이 될 수 있다는 한정된 진술을 짧은 휴식만으로 완전히 회복된다는 보장으로 부풀린다."
           },
           {
             "choice": 3,
             "design": "off_text",
-            "why": "사무실 환경은 글에 없다."
+            "why": "가상의 작업자 사례는 활동 전환을 설명할 뿐 사무실 환경이 집중력의 원인이라는 주장을 하지 않는다."
           }
         ]
       }
@@ -682,17 +690,17 @@
       "passageGroup": "r5cm-i3",
       "body": {
         "sentences": [
-          "Many people believe that a good memory means being able to recall everything exactly as it happened.",
-          "Yet the brain is not built to store a perfect copy of the past.",
-          "It keeps the general meaning of an event and lets most of the small details fade.",
-          "Forgetting these details frees the mind from clutter and makes it easier to notice what is common across many experiences.",
-          "Someone who remembered every face in every crowd would struggle to recognize a friend whose hairstyle had changed.",
-          "In this sense, forgetting is not a failure of memory but part of what makes memory useful."
+          "Some people judge a good memory by how many exact details a person can reproduce.",
+          "Imagine a baker who memorizes the color of every bowl and the position of every spoon used to make a cake.",
+          "When the kitchen is rearranged, those incidental details do not tell her which mixing and baking steps to follow.",
+          "Remembering the order of the mixing and baking steps would still help her make the cake in the new kitchen.",
+          "She need not forget the bowls and spoons; she can set them aside in thought while recalling the steps that matter.",
+          "Useful remembering, then, involves selecting information for the present task rather than reproducing every detail of a past scene."
         ],
         "stem": "다음 글의 요지로 가장 적절한 것은?",
         "choices": [
           "좋은 기억력은 모든 일을 정확하게 떠올리는 능력이다.",
-          "세부 사항을 잊는 것은 기억을 유용하게 만드는 과정의 일부이다.",
+          "기억은 현재 과제에 필요한 정보를 골라 쓸 때 더 유용해질 수 있다.",
           "사람의 얼굴을 잘 기억하려면 반복해서 보아야 한다.",
           "나이가 들수록 기억력이 떨어지는 것은 자연스럽다.",
           "기억을 정확하게 하려면 세부 사항에 집중해야 한다."
@@ -714,10 +722,10 @@
           0
         ],
         "relationProbe": {
-          "sentence": 4,
+          "sentence": 3,
           "relation": "example"
         },
-        "gist": "세부 사항을 잊는 것은 실패가 아니라 기억을 유용하게 만드는 과정의 일부이다.",
+        "gist": "유용한 기억은 과거의 모든 세부를 그대로 재현하기보다 현재 과제에 맞는 정보를 선택해 쓰는 데 달려 있다.",
         "distractors": [
           {
             "choice": 0,
@@ -726,8 +734,8 @@
           },
           {
             "choice": 2,
-            "design": "too_narrow",
-            "why": "예시(5번)의 얼굴 알아보기만 떼어 내 방법으로 바꿨다."
+            "design": "off_text",
+            "why": "같은 얼굴을 반복해서 보라는 방법은 글에 없다. 글은 제빵사의 가상 사례로 과제에 필요한 기억을 선택하는 일을 설명한다."
           },
           {
             "choice": 3,
@@ -736,8 +744,8 @@
           },
           {
             "choice": 4,
-            "design": "reversed",
-            "why": "세부 사항을 잊는 것이 유용하다는 글의 방향(4·6번)을 뒤집었다."
+            "design": "distorted",
+            "why": "세부에 주의를 기울여 정확한 회상을 높이라는 처방은 현재 과제에 맞춰 정보를 고르는 유용성의 논점을 다른 목표로 바꾼다."
           }
         ]
       }

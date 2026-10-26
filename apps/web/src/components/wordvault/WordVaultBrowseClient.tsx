@@ -30,6 +30,8 @@ import {
   normalizeQuery,
   parseLevelParam,
 } from '@/lib/wordvault/list-params'
+import { VOCAB_MAP_QUERY_KEYS, vocabMapLink } from '@/lib/csat/map-return'
+import { MapReturnBar } from '@/components/wordvault/WordVaultStudyClient'
 import {
   filterByMemoryState,
   parseStateFilter,
@@ -65,6 +67,8 @@ interface Props {
   setChips: BrowseChip[]
   /** v06.34 — workspace "단어" pill 에서 ?book&chapter 진입 시 컨텍스트 */
   bookContext?: BookContext | null
+  /** T-0086 — 지도에서 온 목록이면 검증된 복귀 주소(없으면 일반 진입 — 지도 안내 없음) */
+  mapBack?: string | null
 }
 
 const SET_ACCENT = 'var(--p)' // 보라 — 라이브러리 단어장 정합
@@ -75,6 +79,7 @@ export function WordVaultBrowseClient({
   textChips,
   setChips,
   bookContext,
+  mapBack = null,
 }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -95,9 +100,11 @@ export function WordVaultBrowseClient({
       // 세션 복귀(?from) 유지 — 챕터 이동 후 reload/bookmark 시에도 닫기 대상 보존.
       const from = searchParams?.get('from')
       if (from) qs.set('from', from)
+      // 지도 문맥도 챕터를 옮겨도 남긴다(T-0086 · 수행 · 문항 ID 는 옮기지 않는다)
+      if (mapBack) for (const k of VOCAB_MAP_QUERY_KEYS) { const v = searchParams?.get(k); if (v) qs.set(k, v) }
       router.push(`/wordvault/browse?${qs.toString()}`)
     },
-    [bookContext, router, searchParams],
+    [bookContext, mapBack, router, searchParams],
   )
 
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
@@ -257,6 +264,14 @@ export function WordVaultBrowseClient({
 
   return (
     <>
+      {mapBack && (
+        <MapReturnBar
+          href={mapBack}
+          note="학습 지도 · 기본 의미(V1) 준비 — 여기서 모은 단어가 복습 대상이에요. 모으기 · 복습은 학습 기록이고 지도의 확인 · 해소 근거가 아니에요."
+          next={{ href: vocabMapLink('/wordvault/review', mapBack), label: '모은 단어 복습하기 →' }}
+        />
+      )}
+    <>
       <ResourceContext
         resource={
           bookContext
@@ -405,6 +420,7 @@ export function WordVaultBrowseClient({
           </>
         )}
       </div>
+    </>
     </>
   )
 }

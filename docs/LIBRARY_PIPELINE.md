@@ -1,5 +1,7 @@
 # Library Pipeline
 
+LCP-D2 큐레이션 감사·설계(2026-10-26): 실제 코드·dev SELECT·공개1440/1280 화면을 대조해 [학습자 가치 중심 원천 선정·15후보·우선 비교5·최소 구현 계획](lcp-story/LCP_D2_CURATION.md)을 정리했다. 기존 Books·Story 제작/검수/발행 경로를 보존한다. 일반 `copyright_safe_in_kr`의 현재 의미는 소스 라이선스 휴리스틱이며 Story의 개별 source 권리 확인과 다르다. 인기 값 단위·선택 정보·실제 독서 반응의 공백은 후속 변경으로 분리했고 이번 감사에서 DB·발행·계정은 변경하지 않았다. 실제 흥미·수준 적합성·교육 효과는 미검증이다.
+
 PDCP 단계 연결 보완(2026-10-21): hOCR CLI의 기본 출력 `bubbles.manifest.json`을 정제 CLI가 받지 못하던 단절을 수정했다. 자체 OCR 결과가 있으면 우선하고, 없으면 기본 hOCR 결과를 사용한다. intake·정제 manifest는 실제 입력 파일명을 보존한다. 격리 원본 이미지의 복원·3컷 분할과 직접 작성한 hOCR의 좌표 배분 후 정제·현대화 CLI를 검증한다. 외부 OCR 엔진의 인식 정확도를 검증했다는 뜻은 아니다.
 
 기사 재분석 저장 보완(2026-10-21): 기존 어휘를 선삭제하지 않고 새 분석을 `(library_article_id, word)` upsert로 모두 저장한 뒤 이전 불필요 어휘만 정리한다. 실제 INSERT/UPDATE 실패를 주입해 기존 50행 보존과 오류 제거 후 동일 입력 재실행을 확인했다. 조회·정리 오류도 실패로 전달한다. 여러 HTTP 요청 전체의 원자성이나 동시 재분석 직렬화를 보장하는 변경은 아니다. 같은 글의 병렬 재분석은 피하고 실패 후 동일 입력으로 재처리한다. DB 스키마 변경 없음.
@@ -64,6 +66,24 @@ VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검�
 ---
 
 ## LCP — Library Curation Pipeline v2.0
+
+**추가 라인 — LCP Story(2026-10-25, 원본 라인은 그대로).** 검증된 원천에서 읽고 싶은 이야기 · 읽을 수 있는 판본(Story Edition ·
+Easy Reader) · 선택적 의미 탐구(Original Bridge · Deep Reading)를 만드는 이야기 중심 판본 라인이다. 원본 도서를 복제하지 않고,
+본문 해시 · 문단/문자 구간 · 정확 인용으로 원문에 결속하며, 판본 · 검수 · 발행 키는 **원천 판본 정체 해시**(본문이 같아도 다른 원천 판본 ·
+revision · 대응 도서 · 권리 기록이면 다름) · 기준 · 목표 · 본문 · 활동 해시에 묶인다.
+지금 있는 것은 정본 · 도메인 검증기(`packages/library-pipeline/src/story/`) · DB 없는 로컬 드레인(`scripts/lcp/story/story.ts`
+`export` · `validate` · `plan`) · 합성 fixture, 그리고 S3 산출물이다: live DB 읽기 감사 · 코드 경로 감사, **공유 DB 적용 완료** 격리 스키마 SQL
+(`supabase/migrations/20261025094450_lcp_story_s3_schema.sql` — 원본 표 · 함수 · 정책을 쓰지 않는 `story` 스키마 + `public.story_*` RPC 16개.
+발행은 service_role 이 S2 어댑터 `src/story/attest.ts` 로 저장값을 검증해 쓴 증명이 있어야 하고, 권리 보류는 열람 때마다 닫히며, 위치와 단위 완료를 나눈다),
+복구 SQL · 승인형 러너(`scripts/db/lcp-story-s3/`) · 격리 PGlite/PostgreSQL 17 검증. 사용자 승인 뒤 MCP 원장 `20261025094450`로 적용했고, 저장 SQL SHA가 승인본과 일치하며 사후 검사 15개·원본 5표의 행/정의 지문 10개를 통과했다.
+S4(T-0174, 독립 수용 · 로컬 main 통합 완료): 관리자 이야기 라인 `/admin/curation?line=story`(화면 `app/admin/curation/StoryCurationClient.tsx` · 서버 액션 `story-actions.ts` ·
+서버 로직 `lib/library/story/{admin,witness}.ts` · 패키지 exports `@vocaflow/library-pipeline/story`). 검증 증인은 활성 스태프(admin · curator)가 그 버튼을 눌렀을 때만, 쿠키 세션의 스태프 확인을 통과한 뒤 서버가 service_role 로 실행한다(목록 · 번들 · 화면 진입은 읽기만).
+실제 발행에는 제출 계정과 다른 두 번째 인증 스태프가 필요하다. 2026-10-26 승인된 기존 AI 제작 curator·AI 검수 admin·학습자 A/B를 재사용해 대표1편의 정상 등록·검수·증인·정식 dev 발행·철회·새 검수 결속의 재발행을 검증했다. 사용자의 고정 source 권리 결정과 AI admin 위임 기록을 분리하며 AI 콘텐츠 검수는 사람 검수로 표시하지 않는다. 학습자 화면(S5)은 `/library/stories`이며 승인 SQL r3(원장 `20261025143031`)을 유지한다. 실제 Auth·DB 기반 A1440/B1280의 독서·도움·진도·완료·재로그인·계정 격리·철회 차단까지 확인했다. 최초 실패·표적 재개·현재 R2 발행본과 실제 효과 미검증은 [S7 결과](./lcp-story/S7_PILOT.md)를 따른다. 화면·경계는 [ADMIN_CONSOLE §/admin/curation](./ADMIN_CONSOLE.md)·[LCP_STORY §18](./LCP_STORY.md).
+원본 `auto_curate_book` · force-publish · `content_chunks` · `get_chapter_content` 경로는 `story` 를 읽지도 쓰지도 않으므로 Story 판본이 그 길로 새지 않는다.
+원본 쪽의 기존 노출(로그인 사용자의 `content_chunks` 전체 조회 등)은 원본 LCP 결함으로 남아 있다([S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md) D5).
+정본 [LCP_STORY](./LCP_STORY.md) · 단계 지시 [lcp-story/IMPLEMENTATION](./lcp-story/IMPLEMENTATION.md).
+
+D2 U1 후속(T-0187): 기존 Story 서가·입구에 편집 판단 부담과 선택적으로 펼치는 저장된 콘텐츠 주의를 연결했다. 새 읽기 RPC는 **승인 v2 적용 완료(원장20261026110732)**이며 없는 환경에서는 안내 조회 실패를 주의 없음과 구분한다. 실제 단어 뜻·원문 대응 도움만 시작 전에 설명하며 제작 기준의 지원 계획을 기능으로 광고하지 않는다. [C06 원천 준비](lcp-story/C06_SOURCE_PREPARATION.md)는 PG269의 특정 전사 바이트 조사까지이고, production snapshot·각색·권리 confirmed·신규 발행은 하지 않았다. [관찰 준비](lcp-story/LEARNER_OBSERVATION.md)는 기존 계측/진도를 재사용하며 실제 사람 자료·새 테이블/이벤트는 없다. [실행 결과](lcp-story/D2_S7_FOLLOWUP.md).
 
 ### Status 흐름
 

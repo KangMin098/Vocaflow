@@ -1,0 +1,1032 @@
+{
+  "kind": "ACTUAL_FAST_EDIT_REVIEW_EXPORT_EVIDENCE",
+  "database_writes": 0,
+  "teacher": {
+    "metadata": {
+      "agent": "codex",
+      "label": "fast-teacher-selection",
+      "request_id": "d02ca010-24d0-40a6-9daa-357e1dca65af",
+      "prompt_sha256": "08cfaff6b2310b8bbcae9796f190f32929382e43ea7a01bfae67ee97c2b6ed87",
+      "status": "exited",
+      "started_at": "2026-10-21T09:53:21.339Z",
+      "session_id": "01a15de1-34d4-7250-8dbe-2132827d1b7b",
+      "exit_code": 0,
+      "elapsed_ms": 24861,
+      "ended_at": "2026-10-21T09:53:46.492Z"
+    },
+    "input": "You are a fresh AI teacher/operator preparing a short central-meaning worksheet from an existing validated local production candidate. No tools/files/other sessions. This is AI workflow validation, not actual human time. Select all three existing items in your intended lesson order; do not change quantity, keys, source or explanations. Make exactly one student-friendly wording edit to one stem while preserving its question type and unique answer. Return JSON {selected_item_ids:[],edit:{item_id,field:\"stem\",old_value,new_value},purpose:\"...\",quality_checks:[],limits:[]}. You are choosing an edit to test an actual FAST editing flow, not asserting the original is wrong. No rights grant or release approval. SOURCE {\n  \"snapshot_kind\": \"read_only_database_export\",\n  \"current_time\": \"2026-10-21 05:50:28 UTC\",\n  \"row\": {\n    \"id\": \"003946dd-f5e6-4efe-9254-b7a69ca39e61\",\n    \"title\": \"What a Name Does to a Picture\",\n    \"status\": \"ready\",\n    \"article_v_level\": 2,\n    \"word_count\": 164,\n    \"register\": \"news\",\n    \"cefr_level\": \"B1\",\n    \"syntax_score\": {\n      \"score\": 70,\n      \"sent_p90\": 25,\n      \"clause_depth_p90\": 3.2\n    },\n    \"display_only\": false,\n    \"license_class\": \"cc0\",\n    \"copyright_safe_in_kr\": true,\n    \"gate\": {\n      \"v\": 2,\n      \"at\": \"2026-09-06T10:43:04.704Z\",\n      \"by\": \"book-llm+rule\",\n      \"cv\": 1,\n      \"rv\": 3,\n      \"why\": \"그림 제목이 시선의 출발점을 정한다는 논지를 편다\",\n      \"codes\": [],\n      \"genre\": \"art\",\n      \"purpose\": \"library\",\n      \"verdict\": \"use\",\n      \"blockedBy\": null,\n      \"publishable\": true\n    },\n    \"windows\": null,\n    \"source\": \"original\",\n    \"source_url\": \"\",\n    \"license\": \"CC0-1.0 (Vocaflow Original)\",\n    \"content\": \"Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background.\\n\\nThe same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.\",\n    \"has_items\": true\n  },\n  \"limitation\": \"Stored provenance/license fields are observations; no release, registry approval or live import-time requery performed.\"\n}\n PRODUCTION OUTPUT {\n  \"schema\": \"vf.local-production-output/1\",\n  \"task_id\": \"LP-0ab61720e15eba1220c7cca1\",\n  \"packet_hash\": \"0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11\",\n  \"request_id\": \"e3a046996b89661d4445739dbf09a11c\",\n  \"order_hash\": \"98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9\",\n  \"order_revision\": 1,\n  \"source_digest\": \"3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3\",\n  \"role\": \"guided_practice\",\n  \"task\": \"r.central_meaning\",\n  \"quantity\": 3,\n  \"author\": {\n    \"agent\": \"claude-code\",\n    \"model\": \"claude-opus-5-5\",\n    \"method\": \"written_directly_by_running_session_2026-10-21_no_api_no_generator; hypothetical-example wording corrected by Codex independent editor\"\n  },\n  \"items\": [\n    {\n      \"id\": \"cm-main-point-01\",\n      \"type\": \"main_point\",\n      \"stem\": \"다음 글의 요지로 가장 적절한 것은?\",\n      \"choices\": [\n        {\n          \"key\": \"1\",\n          \"text\": \"그림을 감상할 때는 세부보다 전체 구도를 먼저 보아야 한다.\"\n        },\n        {\n          \"key\": \"2\",\n          \"text\": \"제목은 감상자가 무엇에 주목할지를 정하므로 작품의 일부이다.\"\n        },\n        {\n          \"key\": \"3\",\n          \"text\": \"사람마다 취향이 달라 같은 그림도 서로 다르게 묘사한다.\"\n        },\n        {\n          \"key\": \"4\",\n          \"text\": \"예술가는 감상자의 자유를 위해 작품에 제목을 붙이지 말아야 한다.\"\n        },\n        {\n          \"key\": \"5\",\n          \"text\": \"노래와 이야기의 제목은 그림의 제목보다 감상에 더 큰 영향을 준다.\"\n        }\n      ],\n      \"answer\": \"2\",\n      \"evidence_quotes\": [\n        \"a title tells the eye where to begin\",\n        \"It belongs to the work, and choosing it is a real decision.\"\n      ],\n      \"explanation\": {\n        \"observation\": \"[관찰] 글은 두 집단에 서로 다른 제목을 붙여 보는 가정 사례를 제시한 뒤 'a title tells the eye where to begin'이라고 원인을 설명하고, 마지막 문단에서 'It belongs to the work, and choosing it is a real decision.'이라고 결론을 맺는다.\",\n        \"interpretation\": \"[해석] 사례 → 원인 → 결론이 모두 '제목이 주목할 곳을 정한다, 그래서 제목은 작품의 일부다'로 모이므로 2번이 요지다. 1번은 글에 없는 감상법이고, 3번은 집단 차이를 취향 탓으로 돌려 제목의 역할을 지운다. 4번은 '제목을 거부하는 것도 선택'이라는 관찰을 권고로 바꿨고, 5번은 노래·이야기를 '같은 원리가 적용되는 예'에서 '더 큰 영향'으로 비교를 지어냈다.\"\n      }\n    },\n    {\n      \"id\": \"cm-title-01\",\n      \"type\": \"title\",\n      \"stem\": \"윗글의 제목으로 가장 적절한 것은?\",\n      \"choices\": [\n        {\n          \"key\": \"1\",\n          \"text\": \"Why Painters Prefer Untitled Works\"\n        },\n        {\n          \"key\": \"2\",\n          \"text\": \"How Two Groups Disagree About Art\"\n        },\n        {\n          \"key\": \"3\",\n          \"text\": \"Labels Added After the Work Is Done\"\n        },\n        {\n          \"key\": \"4\",\n          \"text\": \"A Title Draws the Route for the Viewer's Eye\"\n        },\n        {\n          \"key\": \"5\",\n          \"text\": \"The Sky and the Corner: Two Ways to Paint\"\n        }\n      ],\n      \"answer\": \"4\",\n      \"evidence_quotes\": [\n        \"the first words attached to it become a kind of route through the frame\",\n        \"that refusal is a choice too, because it hands the route back to the viewer\"\n      ],\n      \"explanation\": {\n        \"observation\": \"[관찰] 글은 'route'라는 비유를 세 번 쓴다 — 첫 단어가 'a kind of route through the frame'이 되고, 길이 정해지면 그 길 위의 세부가 중요해지며, 제목을 거부하면 'hands the route back to the viewer'라고 한다.\",\n        \"interpretation\": \"[해석] 글 전체를 묶는 축은 '제목이 시선이 지나갈 길을 그린다'이므로 4번이 제목이다. 1번은 일부 작가의 경우를 전체로 키웠고, 2번·5번은 도입 사례의 장치(두 집단, 하늘과 구석)만 가져왔다. 3번은 글이 'not a label stuck on after the work is done'이라며 부정한 견해다.\"\n      }\n    },\n    {\n      \"id\": \"cm-topic-01\",\n      \"type\": \"topic\",\n      \"stem\": \"윗글의 주제로 가장 적절한 것은?\",\n      \"choices\": [\n        {\n          \"key\": \"1\",\n          \"text\": \"the influence of a title on what viewers notice in a work\"\n        },\n        {\n          \"key\": \"2\",\n          \"text\": \"the history of naming paintings in art museums\"\n        },\n        {\n          \"key\": \"3\",\n          \"text\": \"the difficulty of describing a painting in words\"\n        },\n        {\n          \"key\": \"4\",\n          \"text\": \"reasons artists disagree about the meaning of their work\"\n        },\n        {\n          \"key\": \"5\",\n          \"text\": \"differences between group and individual art viewing\"\n        }\n      ],\n      \"answer\": \"1\",\n      \"evidence_quotes\": [\n        \"One group notices the sky; the other notices the small figure in the corner.\",\n        \"a name at the top decides what counts as the subject\"\n      ],\n      \"explanation\": {\n        \"observation\": \"[관찰] 글의 가정 사례에서는 같은 그림에 다른 제목을 붙이면 'One group notices the sky; the other notices the small figure in the corner.'처럼 주목하는 세부가 달라진다고 설명하고, 뒤 문단은 노래·이야기에서도 'a name at the top decides what counts as the subject'라고 넓힌다.\",\n        \"interpretation\": \"[해석] 사례와 일반화가 모두 '제목이 무엇을 보게 하는가'에 관한 것이므로 1번이 주제다. 2번(박물관의 역사)과 4번(작가 간 의견 차)은 글에 없다. 3번은 묘사가 달라진 결과를 '말로 표현하기 어렵다'로 잘못 읽은 것이고, 5번은 도입 가정 사례의 '두 집단'이라는 장치를 주제로 착각한 것이다.\"\n      }\n    }\n  ]\n}\n",
+    "response": "{\n  \"selected_item_ids\": [\n    \"cm-topic-01\",\n    \"cm-main-point-01\",\n    \"cm-title-01\"\n  ],\n  \"edit\": {\n    \"item_id\": \"cm-main-point-01\",\n    \"field\": \"stem\",\n    \"old_value\": \"다음 글의 요지로 가장 적절한 것은?\",\n    \"new_value\": \"다음 글의 중심 생각으로 가장 적절한 것은?\"\n  },\n  \"purpose\": \"주제 파악 → 요지 이해 → 제목 선택 순서로 연습한다. '요지'를 학생에게 친숙한 '중심 생각'으로 바꾸어 FAST 편집 흐름을 시험하며, 원문에 오류가 있다고 판단하는 것은 아니다.\",\n  \"quality_checks\": [\n    \"기존 문항 3개를 모두 선택했다.\",\n    \"한 문항의 stem에만 표현 수정 1건을 제안했다.\",\n    \"요지 문항 유형과 유일한 정답 2번을 유지했다.\",\n    \"전체 정답 키, 선택지, 출처, 근거 인용 및 해설을 변경하지 않았다.\"\n  ],\n  \"limits\": [\n    \"제공된 자료만 검토했으며 도구, 파일 또는 다른 세션을 사용하지 않았다.\",\n    \"실제 FAST 편집 실행이나 저장을 검증한 결과는 아니다.\",\n    \"실제 사람의 소요 시간을 측정하지 않았다.\",\n    \"권리 부여, 배포 승인 또는 실시간 출처·라이선스 재확인을 수행하지 않았다.\"\n  ]\n}\n",
+    "response_sha256": "4d538ed0c082d8545162275b12a1bd18fbf4bdade8863473eb0b8831d6244296"
+  },
+  "bundle": {
+    "schema": "vf.fast-worksheet-bundle/1",
+    "packet": {
+      "schema": "vf.local-production-packet/1",
+      "task_id": "LP-0ab61720e15eba1220c7cca1",
+      "packet_hash": "0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11",
+      "body": {
+        "synthetic_demand": true,
+        "request_id": "e3a046996b89661d4445739dbf09a11c",
+        "order": {
+          "product_order_id": "TPO-1a-main-idea",
+          "order_revision": 1,
+          "product_family": "P07",
+          "item_types": [
+            "topic",
+            "title",
+            "main_point"
+          ],
+          "planning_hash": "40b2437e715fed8abb6bd40846426450139a93e025539419272c18000120e259",
+          "order_hash": "98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9"
+        },
+        "demand": {
+          "demand_id": "33333333-3333-4333-8333-333333333333",
+          "line_id": "44444444-4444-4444-8444-444444444444",
+          "line_no": 2,
+          "signature": "805529651ecd8565e2c678ffffddca3b241d760f587ff41c6da384e6dcf3b3a5",
+          "definition_version": "rev4.0-draft-1",
+          "goal_version_id": 7,
+          "plan_version": 3,
+          "role": "guided_practice",
+          "task": "r.central_meaning",
+          "quantity": 3
+        },
+        "spec": {
+          "schema": "vf.factory-lineage-spec/1",
+          "definition": "rev4.0-draft-1",
+          "task": "r.central_meaning",
+          "role": "guided_practice",
+          "types": [
+            "R-CLAIM",
+            "R-GIST",
+            "R-TITLE",
+            "R-TOPIC"
+          ],
+          "keys": [],
+          "requires": {
+            "gold": false,
+            "noExplanationBefore": false,
+            "rightsUsable": true,
+            "unseenByLearner": false
+          }
+        },
+        "request": {
+          "schema": "vf.local-production-request/1",
+          "role": "guided_practice",
+          "task": "r.central_meaning",
+          "quantity": 3,
+          "item_types": [
+            "topic",
+            "title",
+            "main_point"
+          ]
+        },
+        "source": {
+          "id": "003946dd-f5e6-4efe-9254-b7a69ca39e61",
+          "title": "What a Name Does to a Picture",
+          "content": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background.\n\nThe same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.",
+          "display_content": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background.\n\nThe same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.",
+          "content_sha256": "33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f",
+          "display_sha256": "33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f",
+          "normalization": [],
+          "source_digest": "3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3",
+          "observed_at": "2026-10-21 05:50:28 UTC",
+          "eligibility": {
+            "status": "eligible",
+            "grade": "usable",
+            "reasons": [
+              "source_pass"
+            ],
+            "warnings": [
+              "source_quality_unreviewed",
+              "vocabulary_unmeasured"
+            ],
+            "spec_version": 4,
+            "source_quality": "unreviewed"
+          },
+          "limits": [
+            "source_metadata_is_observation_not_rights_grant",
+            "no_import_time_live_requery",
+            "snapshot:Stored provenance/license fields are observations; no release, registry approval or live import-time requery performed."
+          ]
+        },
+        "instructions": [
+          "역할은 guided_practice(지도 연습) — 힌트 · 해설 허용, 독립 수행 · 평가로 세지 않는다.",
+          "TASK r.central_meaning: 글 전체의 중심 의미(주제 · 제목 · 요지)를 고르는 문항.",
+          "request.quantity 만큼 서로 다른 문항을 쓴다. type 은 request.item_types 중에서, id 는 소문자 · 숫자 · 하이픈 3~64자, 서로 달라야 한다.",
+          "발문(stem)은 한국어, 선지 5개(key 1~5)는 서로 다른 문장. answer 는 그 key 중 하나.",
+          "evidence_quotes 는 source.content 에 글자 그대로 있는 구절(8자 이상)만. 지어낸 인용은 거절된다.",
+          "explanation.observation 은 근거 구절과 그 구절이 글에서 하는 일(관찰), explanation.interpretation 은 그래서 정답이 되는 이유와 오답 이유(해석). 둘을 섞지 않는다.",
+          "빈 값 · 추측 채움 · TODO · placeholder 금지. 문항을 쓰지 못하면 출력 파일을 만들지 않는다."
+        ],
+        "limits": [
+          "review_pending_internal_candidate",
+          "not_registered_not_published_not_delivered",
+          "policy_authenticity_unverified",
+          "rights_unverified",
+          "crosswalk_candidate_unvalidated",
+          "synthetic_policy_hash_not_policy_approval",
+          "synthetic_demand_smoke",
+          "source_metadata_is_observation_not_rights_grant",
+          "no_import_time_live_requery",
+          "snapshot:Stored provenance/license fields are observations; no release, registry approval or live import-time requery performed."
+        ]
+      },
+      "meta": {
+        "run_id": "b821757b-7e4b-4f51-b66c-4a99f7eb3faa",
+        "exported_at": "2026-10-21T06:03:06.756Z"
+      }
+    },
+    "base_output": {
+      "schema": "vf.local-production-output/1",
+      "task_id": "LP-0ab61720e15eba1220c7cca1",
+      "packet_hash": "0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11",
+      "request_id": "e3a046996b89661d4445739dbf09a11c",
+      "order_hash": "98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9",
+      "order_revision": 1,
+      "source_digest": "3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3",
+      "role": "guided_practice",
+      "task": "r.central_meaning",
+      "quantity": 3,
+      "author": {
+        "agent": "claude-code",
+        "model": "claude-opus-5-5",
+        "method": "written_directly_by_running_session_2026-10-21_no_api_no_generator; hypothetical-example wording corrected by Codex independent editor"
+      },
+      "items": [
+        {
+          "id": "cm-main-point-01",
+          "type": "main_point",
+          "stem": "다음 글의 요지로 가장 적절한 것은?",
+          "choices": [
+            {
+              "key": "1",
+              "text": "그림을 감상할 때는 세부보다 전체 구도를 먼저 보아야 한다."
+            },
+            {
+              "key": "2",
+              "text": "제목은 감상자가 무엇에 주목할지를 정하므로 작품의 일부이다."
+            },
+            {
+              "key": "3",
+              "text": "사람마다 취향이 달라 같은 그림도 서로 다르게 묘사한다."
+            },
+            {
+              "key": "4",
+              "text": "예술가는 감상자의 자유를 위해 작품에 제목을 붙이지 말아야 한다."
+            },
+            {
+              "key": "5",
+              "text": "노래와 이야기의 제목은 그림의 제목보다 감상에 더 큰 영향을 준다."
+            }
+          ],
+          "answer": "2",
+          "evidence_quotes": [
+            "a title tells the eye where to begin",
+            "It belongs to the work, and choosing it is a real decision."
+          ],
+          "explanation": {
+            "observation": "[관찰] 글은 두 집단에 서로 다른 제목을 붙여 보는 가정 사례를 제시한 뒤 'a title tells the eye where to begin'이라고 원인을 설명하고, 마지막 문단에서 'It belongs to the work, and choosing it is a real decision.'이라고 결론을 맺는다.",
+            "interpretation": "[해석] 사례 → 원인 → 결론이 모두 '제목이 주목할 곳을 정한다, 그래서 제목은 작품의 일부다'로 모이므로 2번이 요지다. 1번은 글에 없는 감상법이고, 3번은 집단 차이를 취향 탓으로 돌려 제목의 역할을 지운다. 4번은 '제목을 거부하는 것도 선택'이라는 관찰을 권고로 바꿨고, 5번은 노래·이야기를 '같은 원리가 적용되는 예'에서 '더 큰 영향'으로 비교를 지어냈다."
+          }
+        },
+        {
+          "id": "cm-title-01",
+          "type": "title",
+          "stem": "윗글의 제목으로 가장 적절한 것은?",
+          "choices": [
+            {
+              "key": "1",
+              "text": "Why Painters Prefer Untitled Works"
+            },
+            {
+              "key": "2",
+              "text": "How Two Groups Disagree About Art"
+            },
+            {
+              "key": "3",
+              "text": "Labels Added After the Work Is Done"
+            },
+            {
+              "key": "4",
+              "text": "A Title Draws the Route for the Viewer's Eye"
+            },
+            {
+              "key": "5",
+              "text": "The Sky and the Corner: Two Ways to Paint"
+            }
+          ],
+          "answer": "4",
+          "evidence_quotes": [
+            "the first words attached to it become a kind of route through the frame",
+            "that refusal is a choice too, because it hands the route back to the viewer"
+          ],
+          "explanation": {
+            "observation": "[관찰] 글은 'route'라는 비유를 세 번 쓴다 — 첫 단어가 'a kind of route through the frame'이 되고, 길이 정해지면 그 길 위의 세부가 중요해지며, 제목을 거부하면 'hands the route back to the viewer'라고 한다.",
+            "interpretation": "[해석] 글 전체를 묶는 축은 '제목이 시선이 지나갈 길을 그린다'이므로 4번이 제목이다. 1번은 일부 작가의 경우를 전체로 키웠고, 2번·5번은 도입 사례의 장치(두 집단, 하늘과 구석)만 가져왔다. 3번은 글이 'not a label stuck on after the work is done'이라며 부정한 견해다."
+          }
+        },
+        {
+          "id": "cm-topic-01",
+          "type": "topic",
+          "stem": "윗글의 주제로 가장 적절한 것은?",
+          "choices": [
+            {
+              "key": "1",
+              "text": "the influence of a title on what viewers notice in a work"
+            },
+            {
+              "key": "2",
+              "text": "the history of naming paintings in art museums"
+            },
+            {
+              "key": "3",
+              "text": "the difficulty of describing a painting in words"
+            },
+            {
+              "key": "4",
+              "text": "reasons artists disagree about the meaning of their work"
+            },
+            {
+              "key": "5",
+              "text": "differences between group and individual art viewing"
+            }
+          ],
+          "answer": "1",
+          "evidence_quotes": [
+            "One group notices the sky; the other notices the small figure in the corner.",
+            "a name at the top decides what counts as the subject"
+          ],
+          "explanation": {
+            "observation": "[관찰] 글의 가정 사례에서는 같은 그림에 다른 제목을 붙이면 'One group notices the sky; the other notices the small figure in the corner.'처럼 주목하는 세부가 달라진다고 설명하고, 뒤 문단은 노래·이야기에서도 'a name at the top decides what counts as the subject'라고 넓힌다.",
+            "interpretation": "[해석] 사례와 일반화가 모두 '제목이 무엇을 보게 하는가'에 관한 것이므로 1번이 주제다. 2번(박물관의 역사)과 4번(작가 간 의견 차)은 글에 없다. 3번은 묘사가 달라진 결과를 '말로 표현하기 어렵다'로 잘못 읽은 것이고, 5번은 도입 가정 사례의 '두 집단'이라는 장치를 주제로 착각한 것이다."
+          }
+        }
+      ]
+    },
+    "source_snapshot": {
+      "snapshot_kind": "read_only_database_export",
+      "current_time": "2026-10-21 05:50:28 UTC",
+      "row": {
+        "id": "003946dd-f5e6-4efe-9254-b7a69ca39e61",
+        "title": "What a Name Does to a Picture",
+        "status": "ready",
+        "article_v_level": 2,
+        "word_count": 164,
+        "register": "news",
+        "cefr_level": "B1",
+        "syntax_score": {
+          "score": 70,
+          "sent_p90": 25,
+          "clause_depth_p90": 3.2
+        },
+        "display_only": false,
+        "license_class": "cc0",
+        "copyright_safe_in_kr": true,
+        "gate": {
+          "v": 2,
+          "at": "2026-09-06T10:43:04.704Z",
+          "by": "book-llm+rule",
+          "cv": 1,
+          "rv": 3,
+          "why": "그림 제목이 시선의 출발점을 정한다는 논지를 편다",
+          "codes": [],
+          "genre": "art",
+          "purpose": "library",
+          "verdict": "use",
+          "blockedBy": null,
+          "publishable": true
+        },
+        "windows": null,
+        "source": "original",
+        "source_url": "",
+        "license": "CC0-1.0 (Vocaflow Original)",
+        "content": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background.\n\nThe same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.",
+        "has_items": true
+      },
+      "limitation": "Stored provenance/license fields are observations; no release, registry approval or live import-time requery performed."
+    },
+    "edit": {
+      "order": [
+        "cm-topic-01",
+        "cm-main-point-01",
+        "cm-title-01"
+      ],
+      "items": {
+        "cm-main-point-01": {
+          "stem": "다음 글의 중심 생각으로 가장 적절한 것은?"
+        }
+      },
+      "editor": {
+        "kind": "ai",
+        "agent": "codex",
+        "session": "01a15de1-34d4-7250-8dbe-2132827d1b7b",
+        "note": "Actual independent AI teacher selection: topic → main point → title, with the main-point stem reworded to 중심 생각. This edit is now executed through the real FAST CLI; original teacher role transcript is preserved separately."
+      }
+    },
+    "review": {
+      "schema": "vf.dcp-ai-review/1",
+      "kind": "ai",
+      "reviewer": {
+        "model": "claude",
+        "session": "40aee72b-32f0-4011-9335-65ca83ea630c",
+        "role": "independent_fast_content_reviewer"
+      },
+      "target": {
+        "source_digest": "3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3",
+        "output_sha256": "b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc",
+        "order_hash": "98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9",
+        "packet_hash": "0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11",
+        "role": "guided_practice",
+        "task": "r.central_meaning",
+        "items": [
+          {
+            "item_id": "cm-topic-01",
+            "item_sha256": "511a237b97b1631e640888a922e101745405803b22174302e627b9af1b5c56be"
+          },
+          {
+            "item_id": "cm-main-point-01",
+            "item_sha256": "5af62e812cb907fef8d7425b0bc2bcd2150bb745ff833bd0183ff532b2f95c38"
+          },
+          {
+            "item_id": "cm-title-01",
+            "item_sha256": "c8a836fee30c9cd86990baf9b070e89f3ca77c3734bf4363e5035948d4370fd0"
+          }
+        ]
+      },
+      "conclusion": "pass",
+      "axes": {
+        "A": {
+          "state": "unknown",
+          "evidence": [
+            "source_digest, output_sha256, order_hash, packet_hash and item_sha256 values are supplied by the collector; this content-only review did not recompute them and has no independent basis to confirm byte binding.",
+            "Internal consistency observed: output.packet_hash, order_hash and source_digest equal the target values, and edit.diff.to_order matches output item order (topic → main_point → title)."
+          ]
+        },
+        "B": {
+          "state": "pass",
+          "evidence": [
+            "All six evidence_quotes appear verbatim in source.display_content: 'One group notices the sky; the other notices the small figure in the corner.' / 'a name at the top decides what counts as the subject' / 'a title tells the eye where to begin' / 'It belongs to the work, and choosing it is a real decision.' / 'the first words attached to it become a kind of route through the frame' / 'that refusal is a choice too, because it hands the route back to the viewer'.",
+            "The quote 'not a label stuck on after the work is done' in the title explanation is verbatim in the source.",
+            "The title explanation's claim that 'route' occurs three times is accurate: 'a kind of route through the frame', 'Once that route is set', 'hands the route back to the viewer'.",
+            "The painting opening is consistently framed as '가정 사례' (hypothetical case) in the topic and main-point explanations. No item or explanation asserts real study or experimental findings."
+          ]
+        },
+        "C": {
+          "state": "pass",
+          "evidence": [
+            "Each item has unique keys 1–5 with a single answer (topic=1, main_point=2, title=4).",
+            "Topic: key 1 matches the passage's thesis that a title steers what viewers notice. Keys 2 (museum history) and 4 (artists disagreeing) are absent from the text. Key 3 (difficulty of describing) and key 5 (group vs individual viewing) misread the hypothetical setup.",
+            "Main point: key 2 combines 'a title tells the eye where to begin' with 'It belongs to the work'. Key 1 is an unsupported viewing method. Key 3 attributes the difference to taste, but the text attributes it to the title. Key 4 turns the observation 'that refusal is a choice too' into a prescription. Key 5 invents a comparison where the text says only 'The same is true'.",
+            "Title: key 4 matches the route metaphor. Key 1 overgeneralizes 'Some artists refuse'. Keys 2 and 5 take only the setup device. Key 3 is the view the text explicitly rejects ('not a label stuck on after the work is done')."
+          ]
+        },
+        "D": {
+          "state": "pass",
+          "evidence": [
+            "The reorder from [main_point, title, topic] to [topic, main_point, title] changes no answer keys. Every explanation refers only to its own item's choices, so the reorder breaks no cross-references.",
+            "The main-point stem change '요지' → '중심 생각' keeps the main_point type, and the answer (key 2) still fits the reworded stem.",
+            "Each explanation keeps the guided-practice [관찰]/[해석] structure and gives a reason for every distractor."
+          ]
+        },
+        "E": {
+          "state": "not_applicable",
+          "evidence": [
+            "The scope is exposure=local_review_draft_not_release for a guided local export, so this axis does not apply to this review."
+          ]
+        },
+        "F": {
+          "state": "unknown",
+          "evidence": [
+            "An AI reviewer cannot issue or confirm rights. No human rights grant is present in the supplied material, and none is assumed."
+          ]
+        },
+        "G": {
+          "state": "not_applicable",
+          "evidence": [
+            "This is a guided local export draft, not a release or FQ exposure, so this axis does not apply."
+          ]
+        },
+        "H": {
+          "state": "unknown",
+          "evidence": [
+            "This is a content-only review. Technical runtime compatibility was not examined: no rendering or schema execution was performed."
+          ]
+        }
+      },
+      "evidence": [
+        "The collector reported source_drift=none on re-read. The reviewer relied on the supplied display_content as the current source."
+      ],
+      "limitations": [
+        "Minor wording note: the cm-main-point-01 interpretation still says '2번이 요지다' after the stem was reworded to '중심 생각'. The two terms are near-synonymous and this is not judged a material defect, but aligning the term would improve consistency.",
+        "This review does not validate efficacy, learning outcomes, or commercial or time targets.",
+        "Hashes were not recomputed. Rights (F) and runtime compatibility (H) remain unresolved."
+      ]
+    }
+  },
+  "content_review": {
+    "kind": "ACTUAL_FAST_CLI_EDIT_AND_FRESH_REVIEW",
+    "output_sha256": "b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc",
+    "reviewer": {
+      "metadata": {
+        "agent": "claude",
+        "label": "fast-stage3-actual-review",
+        "request_id": "40aee72b-32f0-4011-9335-65ca83ea630c",
+        "prompt_sha256": "1a7d5159cd6233d6047a0da8793cddf8f04abe9fb74f12d87acfd5a0911c648b",
+        "status": "exited",
+        "started_at": "2026-10-21T12:16:41.799Z",
+        "pid": 26384,
+        "exit_code": 0,
+        "signal": null,
+        "ended_at": "2026-10-21T12:17:26.501Z",
+        "session_id": "40aee72b-32f0-4011-9335-65ca83ea630c",
+        "is_error": false,
+        "cost_usd": 0.19218280000000001
+      },
+      "input": "You are a fresh independent AI content reviewer for the actual implemented FAST workflow, not its teacher/editor or code author. No tools/files/other sessions. Review all3items against the actual supplied source and edit. Return only completed JSON matching response_template, copy target exactly. Leave reviewer.session=collector_binding_required; collector will replace ONLY that field with this actual native session UUID. Never invent a human review or rights grant. A covers system/source binding: hashes are supplied by collector, not recomputed by you, so keep unknown unless independently justified. B checks faithful meaning/quotes; C checks unique MC keys and distractor correctness; D checks edit consistency and guided-practice explanation. E/G not_applicable for guided local export. F must be unknown (AI cannot issue rights). H technical runtime compatibility unknown in this content-only review. B/C/D may pass only with concrete textual evidence and no material defect. The current source was separately re-read by collector and CLI reported source_drift=none; this does not grant rights or FQ release. Actual output bytes SHA is in target; do not use an earlier prepared review SHA. Important: the painting opening is a hypothetical setup, not a factual empirical experiment. Any claim of real study findings would be a defect. This review is not efficacy or commercial-time validation.\nACTUAL CLI REVIEW REQUEST\n{\n  \"schema\": \"vf.fast-review-request/1\",\n  \"target\": {\n    \"source_digest\": \"3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3\",\n    \"output_sha256\": \"b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc\",\n    \"order_hash\": \"98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9\",\n    \"packet_hash\": \"0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11\",\n    \"role\": \"guided_practice\",\n    \"task\": \"r.central_meaning\",\n    \"items\": [\n      {\n        \"item_id\": \"cm-topic-01\",\n        \"item_sha256\": \"511a237b97b1631e640888a922e101745405803b22174302e627b9af1b5c56be\"\n      },\n      {\n        \"item_id\": \"cm-main-point-01\",\n        \"item_sha256\": \"5af62e812cb907fef8d7425b0bc2bcd2150bb745ff833bd0183ff532b2f95c38\"\n      },\n      {\n        \"item_id\": \"cm-title-01\",\n        \"item_sha256\": \"c8a836fee30c9cd86990baf9b070e89f3ca77c3734bf4363e5035948d4370fd0\"\n      }\n    ]\n  },\n  \"instructions\": [\n    \"이 요청은 새 세션에서 처음 읽는다. 이전 검수 · 편집 대화를 이어받지 않는다.\",\n    \"target 블록을 그대로 복사해 응답 target 에 넣는다(바이트 결속). 문항 하나라도 바뀌면 이 검수는 무효다.\",\n    \"축 A~H 마다 state(pass|fail|unknown|not_applicable)와 근거(8자 이상)를 쓴다. 근거 없는 pass 는 거절된다.\",\n    \"F(권리)는 AI 가 pass 로 만들 수 없다 — unknown 으로 둔다. 원천 라이선스 표시는 관측이지 권리 부여가 아니다.\",\n    \"B·C: 정답이 원문으로 유일하게 지지되는지, 오답이 원문과 실제로 어긋나는지, 근거 인용이 원문에 글자 그대로 있는지 확인한다.\",\n    \"D: 편집(순서 · 발문 · 선지)이 유형 · 정답 · 해설과 여전히 맞는지 확인한다. 해설 문구가 바뀐 발문과 어긋나면 적는다.\",\n    \"conclusion 은 내용 결함이 없을 때만 pass. 응답은 response_template 모양의 JSON 하나만.\"\n  ],\n  \"scope\": {\n    \"role\": \"guided_practice\",\n    \"task\": \"r.central_meaning\",\n    \"types\": [\n      \"topic\",\n      \"title\",\n      \"main_point\"\n    ],\n    \"unit\": \"full_pack\",\n    \"quantity\": 3,\n    \"exposure\": \"local_review_draft_not_release\"\n  },\n  \"source\": {\n    \"id\": \"003946dd-f5e6-4efe-9254-b7a69ca39e61\",\n    \"title\": \"What a Name Does to a Picture\",\n    \"display_content\": \"Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background.\\n\\nThe same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.\",\n    \"display_sha256\": \"33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f\"\n  },\n  \"edit\": {\n    \"editor\": {\n      \"kind\": \"ai\",\n      \"agent\": \"codex\",\n      \"session\": \"01a15de1-34d4-7250-8dbe-2132827d1b7b\",\n      \"note\": \"Actual independent AI teacher selection: topic → main point → title, with the main-point stem reworded to 중심 생각. This edit is now executed through the real FAST CLI; original teacher role transcript is preserved separately.\"\n    },\n    \"diff\": {\n      \"reordered\": true,\n      \"from_order\": [\n        \"cm-main-point-01\",\n        \"cm-title-01\",\n        \"cm-topic-01\"\n      ],\n      \"to_order\": [\n        \"cm-topic-01\",\n        \"cm-main-point-01\",\n        \"cm-title-01\"\n      ],\n      \"fields\": [\n        {\n          \"item_id\": \"cm-main-point-01\",\n          \"field\": \"stem\",\n          \"before\": \"다음 글의 요지로 가장 적절한 것은?\",\n          \"after\": \"다음 글의 중심 생각으로 가장 적절한 것은?\"\n        }\n      ]\n    },\n    \"base_output_sha256\": \"fe72cecf474728d23c5efac93c4ece5a6cd5a538f9e68fa30ff0afb72dffbf98\"\n  },\n  \"output\": {\n    \"schema\": \"vf.local-production-output/1\",\n    \"task_id\": \"LP-0ab61720e15eba1220c7cca1\",\n    \"packet_hash\": \"0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11\",\n    \"request_id\": \"e3a046996b89661d4445739dbf09a11c\",\n    \"order_hash\": \"98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9\",\n    \"order_revision\": 1,\n    \"source_digest\": \"3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3\",\n    \"role\": \"guided_practice\",\n    \"task\": \"r.central_meaning\",\n    \"quantity\": 3,\n    \"author\": {\n      \"agent\": \"claude-code\",\n      \"model\": \"claude-opus-5-5\",\n      \"method\": \"written_directly_by_running_session_2026-10-21_no_api_no_generator; hypothetical-example wording corrected by Codex independent editor\"\n    },\n    \"items\": [\n      {\n        \"id\": \"cm-topic-01\",\n        \"type\": \"topic\",\n        \"stem\": \"윗글의 주제로 가장 적절한 것은?\",\n        \"choices\": [\n          {\n            \"key\": \"1\",\n            \"text\": \"the influence of a title on what viewers notice in a work\"\n          },\n          {\n            \"key\": \"2\",\n            \"text\": \"the history of naming paintings in art museums\"\n          },\n          {\n            \"key\": \"3\",\n            \"text\": \"the difficulty of describing a painting in words\"\n          },\n          {\n            \"key\": \"4\",\n            \"text\": \"reasons artists disagree about the meaning of their work\"\n          },\n          {\n            \"key\": \"5\",\n            \"text\": \"differences between group and individual art viewing\"\n          }\n        ],\n        \"answer\": \"1\",\n        \"evidence_quotes\": [\n          \"One group notices the sky; the other notices the small figure in the corner.\",\n          \"a name at the top decides what counts as the subject\"\n        ],\n        \"explanation\": {\n          \"observation\": \"[관찰] 글의 가정 사례에서는 같은 그림에 다른 제목을 붙이면 'One group notices the sky; the other notices the small figure in the corner.'처럼 주목하는 세부가 달라진다고 설명하고, 뒤 문단은 노래·이야기에서도 'a name at the top decides what counts as the subject'라고 넓힌다.\",\n          \"interpretation\": \"[해석] 사례와 일반화가 모두 '제목이 무엇을 보게 하는가'에 관한 것이므로 1번이 주제다. 2번(박물관의 역사)과 4번(작가 간 의견 차)은 글에 없다. 3번은 묘사가 달라진 결과를 '말로 표현하기 어렵다'로 잘못 읽은 것이고, 5번은 도입 가정 사례의 '두 집단'이라는 장치를 주제로 착각한 것이다.\"\n        }\n      },\n      {\n        \"id\": \"cm-main-point-01\",\n        \"type\": \"main_point\",\n        \"stem\": \"다음 글의 중심 생각으로 가장 적절한 것은?\",\n        \"choices\": [\n          {\n            \"key\": \"1\",\n            \"text\": \"그림을 감상할 때는 세부보다 전체 구도를 먼저 보아야 한다.\"\n          },\n          {\n            \"key\": \"2\",\n            \"text\": \"제목은 감상자가 무엇에 주목할지를 정하므로 작품의 일부이다.\"\n          },\n          {\n            \"key\": \"3\",\n            \"text\": \"사람마다 취향이 달라 같은 그림도 서로 다르게 묘사한다.\"\n          },\n          {\n            \"key\": \"4\",\n            \"text\": \"예술가는 감상자의 자유를 위해 작품에 제목을 붙이지 말아야 한다.\"\n          },\n          {\n            \"key\": \"5\",\n            \"text\": \"노래와 이야기의 제목은 그림의 제목보다 감상에 더 큰 영향을 준다.\"\n          }\n        ],\n        \"answer\": \"2\",\n        \"evidence_quotes\": [\n          \"a title tells the eye where to begin\",\n          \"It belongs to the work, and choosing it is a real decision.\"\n        ],\n        \"explanation\": {\n          \"observation\": \"[관찰] 글은 두 집단에 서로 다른 제목을 붙여 보는 가정 사례를 제시한 뒤 'a title tells the eye where to begin'이라고 원인을 설명하고, 마지막 문단에서 'It belongs to the work, and choosing it is a real decision.'이라고 결론을 맺는다.\",\n          \"interpretation\": \"[해석] 사례 → 원인 → 결론이 모두 '제목이 주목할 곳을 정한다, 그래서 제목은 작품의 일부다'로 모이므로 2번이 요지다. 1번은 글에 없는 감상법이고, 3번은 집단 차이를 취향 탓으로 돌려 제목의 역할을 지운다. 4번은 '제목을 거부하는 것도 선택'이라는 관찰을 권고로 바꿨고, 5번은 노래·이야기를 '같은 원리가 적용되는 예'에서 '더 큰 영향'으로 비교를 지어냈다.\"\n        }\n      },\n      {\n        \"id\": \"cm-title-01\",\n        \"type\": \"title\",\n        \"stem\": \"윗글의 제목으로 가장 적절한 것은?\",\n        \"choices\": [\n          {\n            \"key\": \"1\",\n            \"text\": \"Why Painters Prefer Untitled Works\"\n          },\n          {\n            \"key\": \"2\",\n            \"text\": \"How Two Groups Disagree About Art\"\n          },\n          {\n            \"key\": \"3\",\n            \"text\": \"Labels Added After the Work Is Done\"\n          },\n          {\n            \"key\": \"4\",\n            \"text\": \"A Title Draws the Route for the Viewer's Eye\"\n          },\n          {\n            \"key\": \"5\",\n            \"text\": \"The Sky and the Corner: Two Ways to Paint\"\n          }\n        ],\n        \"answer\": \"4\",\n        \"evidence_quotes\": [\n          \"the first words attached to it become a kind of route through the frame\",\n          \"that refusal is a choice too, because it hands the route back to the viewer\"\n        ],\n        \"explanation\": {\n          \"observation\": \"[관찰] 글은 'route'라는 비유를 세 번 쓴다 — 첫 단어가 'a kind of route through the frame'이 되고, 길이 정해지면 그 길 위의 세부가 중요해지며, 제목을 거부하면 'hands the route back to the viewer'라고 한다.\",\n          \"interpretation\": \"[해석] 글 전체를 묶는 축은 '제목이 시선이 지나갈 길을 그린다'이므로 4번이 제목이다. 1번은 일부 작가의 경우를 전체로 키웠고, 2번·5번은 도입 사례의 장치(두 집단, 하늘과 구석)만 가져왔다. 3번은 글이 'not a label stuck on after the work is done'이라며 부정한 견해다.\"\n        }\n      }\n    ]\n  },\n  \"response_template\": {\n    \"schema\": \"vf.dcp-ai-review/1\",\n    \"kind\": \"ai\",\n    \"reviewer\": {\n      \"model\": \"claude\",\n      \"session\": \"collector_binding_required\",\n      \"role\": \"independent_fast_content_reviewer\"\n    },\n    \"target\": {\n      \"source_digest\": \"3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3\",\n      \"output_sha256\": \"b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc\",\n      \"order_hash\": \"98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9\",\n      \"packet_hash\": \"0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11\",\n      \"role\": \"guided_practice\",\n      \"task\": \"r.central_meaning\",\n      \"items\": [\n        {\n          \"item_id\": \"cm-topic-01\",\n          \"item_sha256\": \"511a237b97b1631e640888a922e101745405803b22174302e627b9af1b5c56be\"\n        },\n        {\n          \"item_id\": \"cm-main-point-01\",\n          \"item_sha256\": \"5af62e812cb907fef8d7425b0bc2bcd2150bb745ff833bd0183ff532b2f95c38\"\n        },\n        {\n          \"item_id\": \"cm-title-01\",\n          \"item_sha256\": \"c8a836fee30c9cd86990baf9b070e89f3ca77c3734bf4363e5035948d4370fd0\"\n        }\n      ]\n    },\n    \"conclusion\": \"pass|fail|unknown\",\n    \"axes\": {\n      \"A\": {\n        \"state\": \"pass|fail|unknown|not_applicable\",\n        \"evidence\": [\n          \"...\"\n        ]\n      },\n      \"B\": {\n        \"state\": \"pass|fail|unknown|not_applicable\",\n        \"evidence\": [\n          \"...\"\n        ]\n      },\n      \"C\": {\n        \"state\": \"pass|fail|unknown|not_applicable\",\n        \"evidence\": [\n          \"...\"\n        ]\n      },\n      \"D\": {\n        \"state\": \"pass|fail|unknown|not_applicable\",\n        \"evidence\": [\n          \"...\"\n        ]\n      },\n      \"E\": {\n        \"state\": \"pass|fail|unknown|not_applicable\",\n        \"evidence\": [\n          \"...\"\n        ]\n      },\n      \"F\": {\n        \"state\": \"pass|fail|unknown|not_applicable\",\n        \"evidence\": [\n          \"...\"\n        ]\n      },\n      \"G\": {\n        \"state\": \"pass|fail|unknown|not_applicable\",\n        \"evidence\": [\n          \"...\"\n        ]\n      },\n      \"H\": {\n        \"state\": \"pass|fail|unknown|not_applicable\",\n        \"evidence\": [\n          \"...\"\n        ]\n      }\n    },\n    \"evidence\": [],\n    \"limitations\": []\n  }\n}",
+      "response": "```json\n{\n  \"schema\": \"vf.dcp-ai-review/1\",\n  \"kind\": \"ai\",\n  \"reviewer\": {\n    \"model\": \"claude\",\n    \"session\": \"collector_binding_required\",\n    \"role\": \"independent_fast_content_reviewer\"\n  },\n  \"target\": {\n    \"source_digest\": \"3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3\",\n    \"output_sha256\": \"b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc\",\n    \"order_hash\": \"98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9\",\n    \"packet_hash\": \"0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11\",\n    \"role\": \"guided_practice\",\n    \"task\": \"r.central_meaning\",\n    \"items\": [\n      {\n        \"item_id\": \"cm-topic-01\",\n        \"item_sha256\": \"511a237b97b1631e640888a922e101745405803b22174302e627b9af1b5c56be\"\n      },\n      {\n        \"item_id\": \"cm-main-point-01\",\n        \"item_sha256\": \"5af62e812cb907fef8d7425b0bc2bcd2150bb745ff833bd0183ff532b2f95c38\"\n      },\n      {\n        \"item_id\": \"cm-title-01\",\n        \"item_sha256\": \"c8a836fee30c9cd86990baf9b070e89f3ca77c3734bf4363e5035948d4370fd0\"\n      }\n    ]\n  },\n  \"conclusion\": \"pass\",\n  \"axes\": {\n    \"A\": {\n      \"state\": \"unknown\",\n      \"evidence\": [\n        \"source_digest, output_sha256, order_hash, packet_hash and item_sha256 values are supplied by the collector; this content-only review did not recompute them and has no independent basis to confirm byte binding.\",\n        \"Internal consistency observed: output.packet_hash, order_hash and source_digest equal the target values, and edit.diff.to_order matches output item order (topic → main_point → title).\"\n      ]\n    },\n    \"B\": {\n      \"state\": \"pass\",\n      \"evidence\": [\n        \"All six evidence_quotes appear verbatim in source.display_content: 'One group notices the sky; the other notices the small figure in the corner.' / 'a name at the top decides what counts as the subject' / 'a title tells the eye where to begin' / 'It belongs to the work, and choosing it is a real decision.' / 'the first words attached to it become a kind of route through the frame' / 'that refusal is a choice too, because it hands the route back to the viewer'.\",\n        \"The quote 'not a label stuck on after the work is done' in the title explanation is verbatim in the source.\",\n        \"The title explanation's claim that 'route' occurs three times is accurate: 'a kind of route through the frame', 'Once that route is set', 'hands the route back to the viewer'.\",\n        \"The painting opening is consistently framed as '가정 사례' (hypothetical case) in the topic and main-point explanations. No item or explanation asserts real study or experimental findings.\"\n      ]\n    },\n    \"C\": {\n      \"state\": \"pass\",\n      \"evidence\": [\n        \"Each item has unique keys 1–5 with a single answer (topic=1, main_point=2, title=4).\",\n        \"Topic: key 1 matches the passage's thesis that a title steers what viewers notice. Keys 2 (museum history) and 4 (artists disagreeing) are absent from the text. Key 3 (difficulty of describing) and key 5 (group vs individual viewing) misread the hypothetical setup.\",\n        \"Main point: key 2 combines 'a title tells the eye where to begin' with 'It belongs to the work'. Key 1 is an unsupported viewing method. Key 3 attributes the difference to taste, but the text attributes it to the title. Key 4 turns the observation 'that refusal is a choice too' into a prescription. Key 5 invents a comparison where the text says only 'The same is true'.\",\n        \"Title: key 4 matches the route metaphor. Key 1 overgeneralizes 'Some artists refuse'. Keys 2 and 5 take only the setup device. Key 3 is the view the text explicitly rejects ('not a label stuck on after the work is done').\"\n      ]\n    },\n    \"D\": {\n      \"state\": \"pass\",\n      \"evidence\": [\n        \"The reorder from [main_point, title, topic] to [topic, main_point, title] changes no answer keys. Every explanation refers only to its own item's choices, so the reorder breaks no cross-references.\",\n        \"The main-point stem change '요지' → '중심 생각' keeps the main_point type, and the answer (key 2) still fits the reworded stem.\",\n        \"Each explanation keeps the guided-practice [관찰]/[해석] structure and gives a reason for every distractor.\"\n      ]\n    },\n    \"E\": {\n      \"state\": \"not_applicable\",\n      \"evidence\": [\n        \"The scope is exposure=local_review_draft_not_release for a guided local export, so this axis does not apply to this review.\"\n      ]\n    },\n    \"F\": {\n      \"state\": \"unknown\",\n      \"evidence\": [\n        \"An AI reviewer cannot issue or confirm rights. No human rights grant is present in the supplied material, and none is assumed.\"\n      ]\n    },\n    \"G\": {\n      \"state\": \"not_applicable\",\n      \"evidence\": [\n        \"This is a guided local export draft, not a release or FQ exposure, so this axis does not apply.\"\n      ]\n    },\n    \"H\": {\n      \"state\": \"unknown\",\n      \"evidence\": [\n        \"This is a content-only review. Technical runtime compatibility was not examined: no rendering or schema execution was performed.\"\n      ]\n    }\n  },\n  \"evidence\": [\n    \"The collector reported source_drift=none on re-read. The reviewer relied on the supplied display_content as the current source.\"\n  ],\n  \"limitations\": [\n    \"Minor wording note: the cm-main-point-01 interpretation still says '2번이 요지다' after the stem was reworded to '중심 생각'. The two terms are near-synonymous and this is not judged a material defect, but aligning the term would improve consistency.\",\n    \"This review does not validate efficacy, learning outcomes, or commercial or time targets.\",\n    \"Hashes were not recomputed. Rights (F) and runtime compatibility (H) remain unresolved.\"\n  ]\n}\n```",
+      "response_sha256": "69e56bd97df57e4f8d66414ebf396aa05cd50f55223e6101bbd60a2c85e26d80"
+    },
+    "collector_change": "Only reviewer.session bound to actual native UUID.",
+    "bound_review_sha256": "5bdf2e6df8d6092cd0e183d955ed9346175e743cc24af94d0bf3ab9cd3e1a3d0",
+    "bundle_sha256": "05dfebd3d258719a322deb328d71758c7a1827cd63fc98f5fb0e59a0e98a0a28",
+    "state": {
+      "source": {
+        "drift": "none",
+        "original_digest": "3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3",
+        "current_digest": "3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3",
+        "observations": {
+          "original": {
+            "observed_at": "2026-10-21 05:50:28 UTC",
+            "has_items": true
+          },
+          "current": {
+            "observed_at": "2026-10-21T12:04:44.747345+00:00",
+            "has_items": true
+          }
+        },
+        "eligibility": "eligible"
+      },
+      "review": {
+        "status": "reviewed",
+        "review": {
+          "sha256": "fefe7d3cfca0805268f6dfb6f5c62f2291a702e24f537eb54074c173a576431b",
+          "model": "claude",
+          "session": "40aee72b-32f0-4011-9335-65ca83ea630c",
+          "legacy": false,
+          "conclusion": "pass",
+          "axes": {
+            "A": {
+              "state": "unknown",
+              "evidence": [
+                "source_digest, output_sha256, order_hash, packet_hash and item_sha256 values are supplied by the collector; this content-only review did not recompute them and has no independent basis to confirm byte binding.",
+                "Internal consistency observed: output.packet_hash, order_hash and source_digest equal the target values, and edit.diff.to_order matches output item order (topic → main_point → title)."
+              ]
+            },
+            "B": {
+              "state": "pass",
+              "evidence": [
+                "All six evidence_quotes appear verbatim in source.display_content: 'One group notices the sky; the other notices the small figure in the corner.' / 'a name at the top decides what counts as the subject' / 'a title tells the eye where to begin' / 'It belongs to the work, and choosing it is a real decision.' / 'the first words attached to it become a kind of route through the frame' / 'that refusal is a choice too, because it hands the route back to the viewer'.",
+                "The quote 'not a label stuck on after the work is done' in the title explanation is verbatim in the source.",
+                "The title explanation's claim that 'route' occurs three times is accurate: 'a kind of route through the frame', 'Once that route is set', 'hands the route back to the viewer'.",
+                "The painting opening is consistently framed as '가정 사례' (hypothetical case) in the topic and main-point explanations. No item or explanation asserts real study or experimental findings."
+              ]
+            },
+            "C": {
+              "state": "pass",
+              "evidence": [
+                "Each item has unique keys 1–5 with a single answer (topic=1, main_point=2, title=4).",
+                "Topic: key 1 matches the passage's thesis that a title steers what viewers notice. Keys 2 (museum history) and 4 (artists disagreeing) are absent from the text. Key 3 (difficulty of describing) and key 5 (group vs individual viewing) misread the hypothetical setup.",
+                "Main point: key 2 combines 'a title tells the eye where to begin' with 'It belongs to the work'. Key 1 is an unsupported viewing method. Key 3 attributes the difference to taste, but the text attributes it to the title. Key 4 turns the observation 'that refusal is a choice too' into a prescription. Key 5 invents a comparison where the text says only 'The same is true'.",
+                "Title: key 4 matches the route metaphor. Key 1 overgeneralizes 'Some artists refuse'. Keys 2 and 5 take only the setup device. Key 3 is the view the text explicitly rejects ('not a label stuck on after the work is done')."
+              ]
+            },
+            "D": {
+              "state": "pass",
+              "evidence": [
+                "The reorder from [main_point, title, topic] to [topic, main_point, title] changes no answer keys. Every explanation refers only to its own item's choices, so the reorder breaks no cross-references.",
+                "The main-point stem change '요지' → '중심 생각' keeps the main_point type, and the answer (key 2) still fits the reworded stem.",
+                "Each explanation keeps the guided-practice [관찰]/[해석] structure and gives a reason for every distractor."
+              ]
+            },
+            "E": {
+              "state": "not_applicable",
+              "evidence": [
+                "The scope is exposure=local_review_draft_not_release for a guided local export, so this axis does not apply to this review."
+              ]
+            },
+            "F": {
+              "state": "unknown",
+              "evidence": [
+                "An AI reviewer cannot issue or confirm rights. No human rights grant is present in the supplied material, and none is assumed."
+              ]
+            },
+            "G": {
+              "state": "not_applicable",
+              "evidence": [
+                "This is a guided local export draft, not a release or FQ exposure, so this axis does not apply."
+              ]
+            },
+            "H": {
+              "state": "unknown",
+              "evidence": [
+                "This is a content-only review. Technical runtime compatibility was not examined: no rendering or schema execution was performed."
+              ]
+            }
+          },
+          "items": {},
+          "limitations": [
+            "Minor wording note: the cm-main-point-01 interpretation still says '2번이 요지다' after the stem was reworded to '중심 생각'. The two terms are near-synonymous and this is not judged a material defect, but aligning the term would improve consistency.",
+            "This review does not validate efficacy, learning outcomes, or commercial or time targets.",
+            "Hashes were not recomputed. Rights (F) and runtime compatibility (H) remain unresolved."
+          ]
+        },
+        "held_axes": [
+          "A",
+          "F",
+          "H"
+        ]
+      },
+      "diff": {
+        "reordered": true,
+        "from_order": [
+          "cm-main-point-01",
+          "cm-title-01",
+          "cm-topic-01"
+        ],
+        "to_order": [
+          "cm-topic-01",
+          "cm-main-point-01",
+          "cm-title-01"
+        ],
+        "fields": [
+          {
+            "item_id": "cm-main-point-01",
+            "field": "stem",
+            "before": "다음 글의 요지로 가장 적절한 것은?",
+            "after": "다음 글의 중심 생각으로 가장 적절한 것은?"
+          }
+        ]
+      }
+    },
+    "database_writes": 0,
+    "local_export_only": true,
+    "full_FQ_qualification": false,
+    "rights_grant": false,
+    "released": false,
+    "commercial_comparison": "NOT_RUN"
+  },
+  "content_axis_counterexample": {
+    "before": {
+      "scenario": "review conclusion pass but content/Gold axis C fail",
+      "expected_student_export": false,
+      "actual_student_export": true,
+      "review_state": "reviewed",
+      "filenames": [
+        "edited-output.json",
+        "review-request.json",
+        "student.html",
+        "teacher.html",
+        "review-binding.json",
+        "manifest.json"
+      ],
+      "database_writes": 0
+    },
+    "after": {
+      "scenario": "review conclusion pass but content/Gold axis C fail",
+      "expected_student_export": false,
+      "actual_student_export": false,
+      "review_state": "review_rejected",
+      "filenames": [
+        "edited-output.json",
+        "review-request.json"
+      ],
+      "database_writes": 0
+    }
+  },
+  "source_readonly": {
+    "row": {
+      "id": "003946dd-f5e6-4efe-9254-b7a69ca39e61",
+      "gate": {
+        "v": 2,
+        "at": "2026-09-06T10:43:04.704Z",
+        "by": "book-llm+rule",
+        "cv": 1,
+        "rv": 3,
+        "why": "그림 제목이 시선의 출발점을 정한다는 논지를 편다",
+        "codes": [],
+        "genre": "art",
+        "purpose": "library",
+        "verdict": "use",
+        "blockedBy": null,
+        "publishable": true
+      },
+      "title": "What a Name Does to a Picture",
+      "source": "original",
+      "status": "ready",
+      "content": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background.\n\nThe same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.",
+      "license": "CC0-1.0 (Vocaflow Original)",
+      "windows": null,
+      "register": "news",
+      "has_items": true,
+      "cefr_level": "B1",
+      "source_url": "",
+      "word_count": 164,
+      "display_only": false,
+      "syntax_score": {
+        "score": 70,
+        "sent_p90": 25,
+        "clause_depth_p90": 3.2
+      },
+      "license_class": "cc0",
+      "article_v_level": 2,
+      "copyright_safe_in_kr": true
+    },
+    "current_time": "2026-10-21T12:04:44.747345+00:00",
+    "snapshot_kind": "read_only_database_export"
+  },
+  "export_receipt": {
+    "schema": "vf.fast-worksheet-receipt/1",
+    "kind": "local_cli_execution",
+    "run_id": "f3d902c9-2bf0-41c5-8f9b-eb99cdcafff4",
+    "started_at": "2026-10-21T12:19:41.475Z",
+    "finished_at": "2026-10-21T12:19:41.515Z",
+    "command": [
+      "fast-worksheet.mts",
+      "export",
+      "--bundle",
+      "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-reviewed.bundle.json",
+      "--current-source",
+      "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/source-snapshot-fast-current.json",
+      "--out",
+      "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final"
+    ],
+    "node": "v24.15.0",
+    "inputs": {
+      "bundle": "05dfebd3d258719a322deb328d71758c7a1827cd63fc98f5fb0e59a0e98a0a28",
+      "current_source": "a51d92984dda3508b46efdf56d028bce208f20f7c609b2cfc17862221183ac98"
+    },
+    "review": "reviewed",
+    "outputs": [
+      {
+        "name": "edited-output.json",
+        "bytes": 6023,
+        "sha256": "b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc"
+      },
+      {
+        "name": "review-request.json",
+        "bytes": 12803,
+        "sha256": "377b1903da166d8bc724c4562abb6d8cec281f69fe3edbcabd0eafb6c01114e0"
+      },
+      {
+        "name": "student.html",
+        "bytes": 3284,
+        "sha256": "573087c50a9dac0d2c6e30279e22a8efdb5aff198e623a96202507c3683db4f6"
+      },
+      {
+        "name": "teacher.html",
+        "bytes": 5485,
+        "sha256": "4773dd1be5b9d6e3cb57463778e5ec1340c79f2fa46fae8b5429b3772c7874af"
+      },
+      {
+        "name": "review-binding.json",
+        "bytes": 1158,
+        "sha256": "588e6b5aa7370bba6a48a3698d490ccaa0d17e0e39100cecfbf97600c04bf5ad"
+      },
+      {
+        "name": "manifest.json",
+        "bytes": 8730,
+        "sha256": "7ad14567ff71c708e8f9f207074a775918e97c1164ca76979132d95b5a7ae71f"
+      }
+    ],
+    "not": [
+      "db_write",
+      "registration",
+      "publication",
+      "release",
+      "rights_grant",
+      "fq_qualification"
+    ]
+  },
+  "manifest": {
+    "schema": "vf.fast-worksheet-manifest/1",
+    "scope": {
+      "role": "guided_practice",
+      "task": "r.central_meaning",
+      "types": [
+        "topic",
+        "title",
+        "main_point"
+      ],
+      "unit": "full_pack",
+      "quantity": 3
+    },
+    "base_output_sha256": "fe72cecf474728d23c5efac93c4ece5a6cd5a538f9e68fa30ff0afb72dffbf98",
+    "edited_output_sha256": "b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc",
+    "author": {
+      "agent": "claude-code",
+      "model": "claude-opus-5-5",
+      "method": "written_directly_by_running_session_2026-10-21_no_api_no_generator; hypothetical-example wording corrected by Codex independent editor"
+    },
+    "editor": {
+      "kind": "ai",
+      "agent": "codex",
+      "session": "01a15de1-34d4-7250-8dbe-2132827d1b7b",
+      "note": "Actual independent AI teacher selection: topic → main point → title, with the main-point stem reworded to 중심 생각. This edit is now executed through the real FAST CLI; original teacher role transcript is preserved separately."
+    },
+    "diff": {
+      "reordered": true,
+      "from_order": [
+        "cm-main-point-01",
+        "cm-title-01",
+        "cm-topic-01"
+      ],
+      "to_order": [
+        "cm-topic-01",
+        "cm-main-point-01",
+        "cm-title-01"
+      ],
+      "fields": [
+        {
+          "item_id": "cm-main-point-01",
+          "field": "stem",
+          "before": "다음 글의 요지로 가장 적절한 것은?",
+          "after": "다음 글의 중심 생각으로 가장 적절한 것은?"
+        }
+      ]
+    },
+    "review": {
+      "model": "claude",
+      "session": "40aee72b-32f0-4011-9335-65ca83ea630c",
+      "sha256": "fefe7d3cfca0805268f6dfb6f5c62f2291a702e24f537eb54074c173a576431b",
+      "conclusion": "pass",
+      "axes": {
+        "A": "unknown",
+        "B": "pass",
+        "C": "pass",
+        "D": "pass",
+        "E": "not_applicable",
+        "F": "unknown",
+        "G": "not_applicable",
+        "H": "unknown"
+      },
+      "limitations": [
+        "Minor wording note: the cm-main-point-01 interpretation still says '2번이 요지다' after the stem was reworded to '중심 생각'. The two terms are near-synonymous and this is not judged a material defect, but aligning the term would improve consistency.",
+        "This review does not validate efficacy, learning outcomes, or commercial or time targets.",
+        "Hashes were not recomputed. Rights (F) and runtime compatibility (H) remain unresolved."
+      ]
+    },
+    "source": {
+      "drift": "none",
+      "original_digest": "3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3",
+      "current_digest": "3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3",
+      "observations": {
+        "original": {
+          "observed_at": "2026-10-21 05:50:28 UTC",
+          "has_items": true
+        },
+        "current": {
+          "observed_at": "2026-10-21T12:04:44.747345+00:00",
+          "has_items": true
+        }
+      },
+      "eligibility": "eligible"
+    },
+    "fq": {
+      "status": "held",
+      "held_axes": [
+        "A",
+        "F",
+        "H"
+      ],
+      "limits": [
+        "ai_content_review_is_not_full_fq_qualification",
+        "rights_axis_F_not_grantable_by_ai",
+        "source_license_is_observation_not_rights_grant"
+      ]
+    },
+    "claims": {
+      "status": "local_reviewed_draft_candidate",
+      "fq_qualified": false,
+      "registered": false,
+      "released": false,
+      "delivered": false,
+      "db_writes": 0
+    },
+    "production_record": {
+      "schema": "vf.local-production-manifest-record/1",
+      "manifest": {
+        "schema": "vf.factory-manifest/1",
+        "requestId": "e3a046996b89661d4445739dbf09a11c",
+        "mode": "REAL",
+        "status": "review_pending",
+        "runId": "f3d902c9-2bf0-41c5-8f9b-eb99cdcafff4",
+        "producedCount": 3,
+        "artifacts": [
+          {
+            "id": "LP-0ab61720e15eba1220c7cca1:cm-topic-01",
+            "kind": "textbook_activity",
+            "revision": "sha256:511a237b97b1631e640888a922e101745405803b22174302e627b9af1b5c56be",
+            "sha256": "511a237b97b1631e640888a922e101745405803b22174302e627b9af1b5c56be",
+            "refs": {
+              "source": "library_articles:003946dd-f5e6-4efe-9254-b7a69ca39e61@33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f",
+              "analysis": null,
+              "gold": null
+            },
+            "contentType": "topic",
+            "tasks": [
+              "r.central_meaning"
+            ],
+            "roleCandidates": [
+              "guided_practice"
+            ],
+            "access": "local:LP-0ab61720e15eba1220c7cca1/materials.json#cm-topic-01",
+            "rights": "unknown",
+            "quality": "unreviewed",
+            "provenance": {
+              "runId": "f3d902c9-2bf0-41c5-8f9b-eb99cdcafff4",
+              "mock": false
+            },
+            "lifecycle": "test_fixture"
+          },
+          {
+            "id": "LP-0ab61720e15eba1220c7cca1:cm-main-point-01",
+            "kind": "textbook_activity",
+            "revision": "sha256:5af62e812cb907fef8d7425b0bc2bcd2150bb745ff833bd0183ff532b2f95c38",
+            "sha256": "5af62e812cb907fef8d7425b0bc2bcd2150bb745ff833bd0183ff532b2f95c38",
+            "refs": {
+              "source": "library_articles:003946dd-f5e6-4efe-9254-b7a69ca39e61@33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f",
+              "analysis": null,
+              "gold": null
+            },
+            "contentType": "main_point",
+            "tasks": [
+              "r.central_meaning"
+            ],
+            "roleCandidates": [
+              "guided_practice"
+            ],
+            "access": "local:LP-0ab61720e15eba1220c7cca1/materials.json#cm-main-point-01",
+            "rights": "unknown",
+            "quality": "unreviewed",
+            "provenance": {
+              "runId": "f3d902c9-2bf0-41c5-8f9b-eb99cdcafff4",
+              "mock": false
+            },
+            "lifecycle": "test_fixture"
+          },
+          {
+            "id": "LP-0ab61720e15eba1220c7cca1:cm-title-01",
+            "kind": "textbook_activity",
+            "revision": "sha256:c8a836fee30c9cd86990baf9b070e89f3ca77c3734bf4363e5035948d4370fd0",
+            "sha256": "c8a836fee30c9cd86990baf9b070e89f3ca77c3734bf4363e5035948d4370fd0",
+            "refs": {
+              "source": "library_articles:003946dd-f5e6-4efe-9254-b7a69ca39e61@33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f",
+              "analysis": null,
+              "gold": null
+            },
+            "contentType": "title",
+            "tasks": [
+              "r.central_meaning"
+            ],
+            "roleCandidates": [
+              "guided_practice"
+            ],
+            "access": "local:LP-0ab61720e15eba1220c7cca1/materials.json#cm-title-01",
+            "rights": "unknown",
+            "quality": "unreviewed",
+            "provenance": {
+              "runId": "f3d902c9-2bf0-41c5-8f9b-eb99cdcafff4",
+              "mock": false
+            },
+            "lifecycle": "test_fixture"
+          }
+        ],
+        "failure": null,
+        "factory": {
+          "name": "vocaflow-local-production",
+          "version": "1b"
+        }
+      },
+      "files": [
+        {
+          "name": "student.html",
+          "bytes": 3284,
+          "sha256": "573087c50a9dac0d2c6e30279e22a8efdb5aff198e623a96202507c3683db4f6"
+        },
+        {
+          "name": "teacher.html",
+          "bytes": 5485,
+          "sha256": "4773dd1be5b9d6e3cb57463778e5ec1340c79f2fa46fae8b5429b3772c7874af"
+        },
+        {
+          "name": "edited-output.json",
+          "bytes": 6023,
+          "sha256": "b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc"
+        }
+      ],
+      "lineage": {
+        "task_id": "LP-0ab61720e15eba1220c7cca1",
+        "packet_hash": "0ab61720e15eba1220c7cca18d9a9493cfa7a9eaf75a70aa54e0ce894aa4aa11",
+        "order_hash": "98900c99d5db36c878130796b21f3c66e57b4b1f23c011ca2d6bf6e53eed9cb9",
+        "planning_hash": "40b2437e715fed8abb6bd40846426450139a93e025539419272c18000120e259",
+        "source_digest": "3673457032532aad54b65174e1546039049019d3962a10ea58b3268a449d62d3",
+        "demand_signature": "805529651ecd8565e2c678ffffddca3b241d760f587ff41c6da384e6dcf3b3a5"
+      },
+      "claims": {
+        "public_fit": "not_claimed",
+        "registrable": false,
+        "production_ready": false,
+        "released": false,
+        "delivered": false,
+        "synthetic_demand": true,
+        "receipt_is_not_db_run_ledger": true
+      },
+      "limits": [
+        "review_pending_internal_candidate",
+        "not_registered_not_published_not_delivered",
+        "policy_authenticity_unverified",
+        "rights_unverified",
+        "crosswalk_candidate_unvalidated",
+        "synthetic_policy_hash_not_policy_approval",
+        "synthetic_demand_smoke",
+        "source_metadata_is_observation_not_rights_grant",
+        "no_import_time_live_requery",
+        "snapshot:Stored provenance/license fields are observations; no release, registry approval or live import-time requery performed."
+      ]
+    }
+  },
+  "artifacts": [
+    {
+      "name": "student.html",
+      "bytes": 3284,
+      "sha256": "573087c50a9dac0d2c6e30279e22a8efdb5aff198e623a96202507c3683db4f6",
+      "local_path": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final/student.html"
+    },
+    {
+      "name": "teacher.html",
+      "bytes": 5485,
+      "sha256": "4773dd1be5b9d6e3cb57463778e5ec1340c79f2fa46fae8b5429b3772c7874af",
+      "local_path": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final/teacher.html"
+    },
+    {
+      "name": "manifest.json",
+      "bytes": 8730,
+      "sha256": "7ad14567ff71c708e8f9f207074a775918e97c1164ca76979132d95b5a7ae71f",
+      "local_path": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final/manifest.json"
+    },
+    {
+      "name": "edited-output.json",
+      "bytes": 6023,
+      "sha256": "b6af5630bd1f321a99c8cc21b06231ddd9e95a8eae14de6b458bcf05df8221bc",
+      "local_path": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final/edited-output.json"
+    },
+    {
+      "name": "review-binding.json",
+      "bytes": 1158,
+      "sha256": "588e6b5aa7370bba6a48a3698d490ccaa0d17e0e39100cecfbf97600c04bf5ad",
+      "local_path": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final/review-binding.json"
+    },
+    {
+      "name": "review-request.json",
+      "bytes": 12803,
+      "sha256": "377b1903da166d8bc724c4562abb6d8cec281f69fe3edbcabd0eafb6c01114e0",
+      "local_path": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final/review-request.json"
+    }
+  ],
+  "browser": {
+    "kind": "ACTUAL_EXPORTED_HTML_BROWSER_CHECK",
+    "results": [
+      {
+        "kind": "student",
+        "viewport": "PC1440x900",
+        "page_errors": [],
+        "horizontal_overflow": false,
+        "contains_explanations": false,
+        "script_tags": false,
+        "screenshot": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final/student.png"
+      },
+      {
+        "kind": "teacher",
+        "viewport": "PC1440x900",
+        "page_errors": [],
+        "horizontal_overflow": false,
+        "contains_explanations": true,
+        "script_tags": false,
+        "screenshot": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/fast-stage3-root-final/teacher.png"
+      }
+    ],
+    "database_writes": 0
+  },
+  "observed_CLI_ms": {
+    "bundle": 6672,
+    "request_export": 3550,
+    "reviewed_export": 3541
+  },
+  "limits": [
+    "CLI process wall time is not teacher working time.",
+    "Matched commercial comparison NOT_RUN.",
+    "Local reviewed draft only; no FQ release or rights grant.",
+    "Synthetic demand lineage remains unchanged."
+  ]
+}

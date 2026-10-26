@@ -1,5 +1,7 @@
 # Admin Console
 
+2026-10-22: 공장 DCP/창작 AI 검토·원문 교수의 승인된 7단계 DB 설치가 완료됐다(migration `20261021175340`). 아래 관련 SQL 미적용 안내는 설치 전 기록이다. 실제 입고·콘텐츠 출시·학습자 공급은 하지 않았으며 관리자 액션에서 현재 행/계보·검수·자격·별도 출시 승인을 계속 확인한다. [실제 적용 결과](implementation/learning-outcomes-20261021/06-DB-ACTIVATION-RESULT.md).
+
 파이프라인 전체 단계 점검(2026-10-21, 진행 중): 앞선 조회·팝업 검증에 이어 격리 DB에서 생성·발행·실패·복구를 실행한다. TCP의 실패 시 자동 반복 중지와 이미 처리한 문서의 claim 종료, VCB의 보강 저장 실패·발행 시작·재발행 복구를 보완한다. [단계별 실제 실행 범위와 잔여](admin-restructure/pipeline-depth-audit.md). 공유 DB 쓰기·유료 외부 생성·실서비스 발행은 실행하지 않는다.
 
 도서 큐의 초기 상태 조회와 폴링은 관리자 GET `/api/admin/library/curation-jobs?kind=voice|quiz|review`를 사용한다. 기존 세션/RLS·큐 조회 함수·응답 형식을 유지하며, 읽기 Server Action과 URL 선택이 겹쳐 목록·상세가 재마운트되던 경합을 제거한다. 적재·삭제 등 변경 액션은 그대로다.
@@ -9,6 +11,11 @@
 최종 수용(2026-10-20): 실제 프로덕션 실행·Supabase 인증/DB에서 소유가 분리된 합성 계정으로 주문 등록/연결/개정/철회/개인 변경과 네 상태 화면을 검증했다. 메뉴 목적지 23 URL도 실제 관리자 인증으로 모두 200이었다. 검증 계정은 권한 제거·정지했고 Workspace/주문은 종료했으며 합성 이력만 보존했다. [최종 구성·기존 대비·실행 결과](admin-restructure/final-acceptance.md).
 
 Product Order 계보 후속(2026-10-20): 기존 개인 수요·공급 패널에 공용 주문의 현재/이전 판/철회/개인 변경 조회를 연결했다. 새 메뉴는 만들지 않는다. 등록·연결·철회는 admin 전용 서버 API, curator는 조회만 허용한다. 계보는 비소모성 계획 연결이며 생산·납품 판정이 아니다. D3는 사용자 승인 후 개발 DB에 적용했고 실제 합성 기록이 채워진 화면도 후속 검증했다. [기존 대비·계약·검증](admin-restructure/product-order-lineage.md) · [실제 적용 기록](admin-restructure/product-order-lineage-deployment.md).
+
+공장 연습 공급 경계(2026-10-21, 2F): 학습자 요청이 연 안내 연습 주문은 위 계보 패널에 링크 없음으로 보이고, 실제 admin 이 기존 link 동작으로 잇는다(학습자 요청은 관리자 actor 를 고르지 않는다). 후보 출시 승인은 화면 없이 `POST /api/admin/csat/dcp-admission` `action:'approve'` 로만 — 자격이 등록 공장 후보와 정확히 같은지 service SELECT 로 확인한 뒤 관리자·큐레이터 세션으로 기존 `content_release_approve`(권한 계약 그대로). 미리보기·입고는 승인하지 않는다. 도움말 `csat-learner-plans` steps.
+기존 DCP 재사용(2026-10-21, 04 · SQL pending): 같은 자리에 기존 practice 행이 있으면 원래 입고는 계속 거절되고, `action:'preview_reuse'|'admit_reuse'` + `reuse:[{item_id,dcp_item_id}]` 로만 재사용한다. 서버가 기존 행을 service SELECT 로 읽고(클라이언트 행 본문 거절), 검수 target 의 `existing_rows` row sha 결속이 없으면 거절. B/C/D·결론·대상을 전체 묶음에서 먼저 확인해 내용 미통과 입고 RPC는 0회다. 기존 행은 수정하지 않고 영수증만 더하며 문항마다 별도 RPC(묶음 전체 원자 아님 — 같은 본문 재요청은 replayed). 결함 있는 기존 해설 수정은 별도 SQL 승인 후 현재 행·검수 해시를 재확인한다. 미적용 수정안 검수는 현재 행에 사용할 수 없다. 준비 CLI `scripts/textbook/factory-dcp-reuse.mts`. 정본 `docs/implementation/learning-outcomes-20261021/04-EXISTING-DCP-REUSE-SPEC.md`.
+
+FAST 빠른 학습지(2026-10-21, 3): `/admin/csat/new/fast`(새 교재 만들기에서 링크) — 1B 팩 묶음(`vf.fast-worksheet-bundle/1`)을 열어 순서·발문·선지만 편집한다(정답·근거·해설·원문·수량·주문 불가, 수량 변경은 `quantity_change_requires_new_order`). 편집은 새 출력 바이트를 만들어 옛 검수를 무효로 하고, 검수 요청을 새 AI 세션이 채운 `vf.dcp-ai-review/1` 을 가져와야 문제지·해설지·manifest 가 열린다. 원천은 API 가 현재 행을 읽어 재판정하며 has_items 만 다를 때만 재사용(두 관측 기록), 다른 결속 값이 바뀌면 거절. 1C 입고 규칙은 그대로. 출력은 로컬 검수 초안 — F(권리) unknown 이라 FQ held, 등록·출시 아님. CLI `scripts/textbook/fast-worksheet.mts --help`. 도움말 `csat-fast`.
 
 2026-10-20 후속: 같은 학습자 ID의 수행·명시적 Workspace/계획 결속·개인 공급·저장 진단을 읽고, 제품 추적은 적용 버전별 원장을 구분한다. 수행 정오는 문항별 Reveal Gate 뒤 허용된 사용자·시도·문항에 한해 읽는다. 개인 공급의 Workspace 소유 조회는 관리자 클라이언트로, 기존 충족도 RPC는 실제 관리자 인증 세션으로 실행한다. 기출 다음 문항·도서 본문 검수의 화면 복귀에도 검증된 목록 조건을 유지한다. [최종 인계·미설치 주문 계보 조건](admin-restructure/final-delivery.md).
 
@@ -282,6 +289,32 @@ manifest(파일) · `storage.objects` · `funnel_events` 셋으로 전부 답한
 도서 목록 / 수집 / 검토 대기. 수집 안에서 소스 카탈로그·대량·추천 시드·Gutenberg ID·Wikibooks·Wikisource·OpenStax·StoryWeaver를 선택한다. 기존 소스별 입력과 EnqueueModal을 재사용한다.
 
 URL: view=library|collect|review, method=sources|bulk|seed|id|wikibooks|wikisource|openstax|storyweaver. 목록의 q/source/level/status/page/selected도 URL에서 복원한다. 25행씩 표시하고 전체 선택은 현재 페이지만 대상으로 한다. 명시적으로 고른 다른 페이지의 항목은 일괄 선택 수에 남는다. 필터 변경 시 페이지를 초기화하고, 큐 추가 성공 후에는 검색 조건을 해제한 전체 목록으로 돌아간다.
+
+### 작업 라인 — 원본 도서 / 이야기 판본 (LCP Story S4 · T-0174 코드 독립 수용 완료)
+
+화면 맨 위 「작업 라인」에서 **원본 도서**(위의 도서 목록 · 수집 · 검토 대기 그대로)와 **이야기 판본**을 고른다. 라인 전환은 URL 의 `line` 하나만 넣거나 뺀다(`line=story`, 없거나 모르는 값은 원본) —
+원본 라인의 view/method/q/source/level/status/page/selected 는 그대로 남아 이야기 판본에 다녀와도 원본 화면이 정확히 되살아난다. 이야기 라인 상태는 `story_slot`(판본 자리 uuid) · `story_panel=files`(후보 파일 패널) 식별자만 URL 에 둔다 —
+원문 · 파일 내용은 URL · 브라우저 저장소에 넣지 않는다. 도움말 키는 라인 라벨 「이야기 판본」(`help/curation.ts` 의 `tabs`).
+
+목록·번들 초기 조회와 새로고침은 `GET /api/admin/library/story`를 사용한다. Next 14 읽기 Server Action과 History URL 변경의 경합으로 파일 패널·선택한 파일 상태가 초기화되는 경로를 분리한다. 실제 쿠키 `getUser()`·활성 스태프 검사와 기존 RPC는 유지하며 개발 우회나 서비스 키를 사용하지 않는다. 파일 검사·등록·검수·권리·증인·발행·철회 액션은 기존 계약을 따른다.
+
+이야기 판본 흐름: 후보 파일 검사(원천 스냅숏 · 편집 기준 · 판본 결과물 JSON — 서버가 실제 S2 검증기 · plan 으로 다시 검사, DB 쓰기 없음) → 원천 등록 → 편집 기준 등록(판본 자리 생성) → 판본 제출 →
+다른 스태프의 검수 파일 제출 → admin 권리 결정(원문 · 필요하면 번역) → 검증 증인 실행 → admin 발행 → 철회(사유 필수). 판본 자리를 고르면 원문 · 판본 단위 · 변경 기록을 나란히 비교하고 현재 판 · 검수 · 권리 · 증명 · 발행본 상태와 다음 할 일 하나를 보여 준다.
+
+| 경계 | 동작 |
+|---|---|
+| 권한 | 매 액션 쿠키 세션의 실제 uid · `user_profiles.role`(admin\|curator) · `status` 정확히 `active` 로 서버가 판정하고, DB RPC 가 `auth.uid()` 로 다시 강제한다. 관리 RPC 9개는 쿠키 클라이언트로만 부른다. curator 는 권리 결정 · 발행 · 철회 RPC 를 부르지 않는다. `DEV_ADMIN_BYPASS` 는 이 라인에 아무 권한도 주지 않는다. 화면의 생산자 · 검수자 표기는 안내용이다 |
+| 인증 계정 분리 | 판을 제출한 계정은 그 판을 검수할 수 없고(`story:self_review`), 발행 admin 도 제출 계정이 아니어야 한다(`story:publisher_is_producer`). 검수자와 발행 admin 은 같아도 된다 — 실제 발행에는 인증 스태프 계정이 **최소 2개** 필요하다. 2026-10-26 승인된 dev AI 제작 curator · 검수 admin 및 학습자 A/B를 정상 Auth로 구성했다. AI 독립 검수와 실제 사람 검수는 구분한다. [적용 기록](../scripts/db/lcp-story-s3/dev-accounts/README.md) |
+| 검증 증인 | 활성 스태프(curator 이상)가 버튼을 눌렀을 때만 서버가 쿠키 세션 스태프 확인 → service_role 클라이언트 생성 → `story_service_validation_input` → `buildValidationAttestation` → 통과 시에만 `story_service_attest_validation`. 목록 · 번들 읽기 · 화면 진입은 증인 · 권리 · 발행 요청을 보내지 않는다. 증명 뒤 검수가 더해지면 결속이 바뀌어 다시 실행해야 한다 |
+| 업로드 | 합계 900,000 바이트(Server Action 기본 1 MB 안 — 전역 Next 설정은 바꾸지 않았다). 엄격 UTF-8 · JSON. 매 등록 단계마다 올린 파일 전부를 첫 RPC 전에 다시 검증한다. `fixture_only`(합성) 사유가 있으면 hold 여도 등록하지 않는다. 자산(오디오 · 삽화)을 선언한 판본은 등록을 거부한다. 최신 판이 아닌 판의 검수는 거부한다 |
+| 부분 성공 · 재개 | 원천 → 편집 기준 → 판본은 RPC 여러 번이다 — **원자적 롤백이 아니다**. 뒤 단계가 실패하면 이미 저장된 앞 단계 결과를 그대로 보여 주고, 같은 파일로 다시 등록하면 기존 행을 돌려받아(`created=false`) 이어 간다 |
+| 원천 URL | 스냅숏의 `source_url` 은 다듬지 않고 그대로 RPC 에 넘긴다(정체 해시에 들어간다). 화면은 값을 바꾸지 않고 보여 주며 http/https 만 링크로 만든다 |
+| 텔레메트리 | 이 라인은 계측 이벤트를 보내지 않고 서버 로그에 본문 · id · URL 을 남기지 않는다 |
+
+검증 경계: 격리 브라우저 하네스(`apps/web/scripts/build-lcp-story-harness.mts` + `tests/e2e-isolated/lcp-story.isolated.spec.ts`)는 실제 클라이언트 컴포넌트 · 실제 앱 CSS 와, Server Action 대역 뒤의 실제 서버 로직(`lib/library/story/*`) + 메모리 가짜 DB 를 쓴다.
+AdminShell 레이아웃의 requireAdmin · middleware · page.tsx RSC 로딩 · 실제 쿠키 인증 · PostgREST/RPC 실행 · 실제 Server Action 전송은 그 하네스에 없다 — 전체 live cookie/RPC E2E 가 아니다. DB 규칙 자체는 S3 격리 PostgreSQL 17 시험이 검증했다.
+
+2026-10-26 실제 후속: 승인된 정상 제작/AI 검수 계정으로 대표1편의 등록·독립 AI 검수 제출·특정 사용자 권리 결정의 AI admin 위임 기록·서버 증인·발행·철회·새 검수 결속의 재발행을 기존 화면에서 실행했다. 실제 학습자 A1440/B1280의 본문·진도·재로그인·완료·계정 격리와 철회 접근을 별도로 검증했다. 격리 하네스와 혼동하지 않으며 실패 이력·현재 공개본·화면·실제 종료는 [S7 결과](./lcp-story/S7_PILOT.md)에 있다. 위임 기록은 원래 사람 권리 결정과 AI 업로더를 구분하고, AI 콘텐츠 검수를 사람 검수로 바꾸지 않는다(정본 §14).
 
 ### Curated Books — 테이블 + 일괄 액션 (v06.34)
 
@@ -1054,6 +1087,20 @@ RLS read=admin — dev-bypass 브라우징은 「지금 상태를 읽지 못함�
 | `bulkSetBooksToInProgressAction(bookIds)` | ready → curating · draft 단어장 삭제 |
 | `bulkRequeueBooksAction(bookIds)` | library_books DELETE · seed unlock (v06.34) |
 | `fetchCurationJobsAction()` | 큐 상태 뷰 |
+
+### `/app/admin/curation/story-actions.ts` (LCP Story S4)
+
+얇은 배선 — 로직 · 권한은 `lib/library/story/{admin,witness}.ts`. 실패는 throw 하지 않고 `StoryFailure`(code · message · recovery · stage · issues · retryable · 선택 `partial`)로 돌려준다.
+
+| Action | 최소 역할 | 효과 |
+|---|---|---|
+| `listStorySlotsAction()` · `loadStoryBundleAction(id)` | curator | 기존 읽기 배선 유지. 실제 클라이언트 초기 조회는 동일 서버 로직·RPC를 사용하는 `GET /api/admin/library/story`로 분리(`story_admin_list_slots` · `story_admin_get_bundle`) |
+| `checkStoryCandidateAction(form)` | curator | 후보 파일 S2 재검사 · plan. DB 쓰기 없음 |
+| `registerStoryCandidateAction(form)` | curator | step=source\|policy\|edition — 원천 → 편집 기준 → 판본 RPC 순서. 원자적 아님(`partial`) |
+| `submitStoryReviewAction(form)` | curator | 검수 파일 제출(제출 계정 ≠ 검수 계정) |
+| `recordStoryRightsAction(input)` | admin | 권리 결정 추가(confirmed 는 근거 위치 필수) |
+| `attestStoryValidationAction(id)` | curator | 검증 증인 — 스태프 확인 뒤에만 service_role 로 저장값 검증 · 통과 시 증명 기록 |
+| `publishStoryAction(id)` · `withdrawStoryAction(key, reason)` | admin | 발행 · 철회(쿠키 세션 RPC) |
 
 ### `/app/(main)/text/actions.ts`
 

@@ -1,0 +1,125 @@
+{
+  "source": "csat_items+csat_item_units (published analysis units_version)",
+  "items": [
+    {
+      "id": "H2609G2#35",
+      "examId": "H2609G2",
+      "no": 35,
+      "typeId": "R-IRRELEVANT",
+      "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+      "choices": [
+        "However, faster wireless networks and the resulting availability of realtime data enable much more detailed and dynamic digital representations.",
+        "When sensors collect data from a connected device, the sensor data can be used to continuously update the digital twin.",
+        "The digital twin becomes a realtime accurate copy of a physical object’s properties and states.",
+        "Similarly, the twin fails to capture emotional or cultural factors, limiting discussions beyond strictly technical contexts.",
+        "For instance, digital twins of physical assets such as powergeneration turbines, jet engines, and train engines are becoming common when the assets are very valuable and when downtime would be very costly. * replica: 복제본 ** downtime: 비가동 시간"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "Digital twins are digital replicas of assets or activities using modeling and sensors to create digital representations."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "Digital twins are not new; engineering teams in various industries have used 3D renderings of computeraided design models, asset models, and process simulations for years."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "① However, faster wireless networks and the resulting availability of realtime data enable much more detailed and dynamic digital representations."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "② When sensors collect data from a connected device, the sensor data can be used to continuously update the digital twin."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "③ The digital twin becomes a realtime accurate copy of a physical object’s properties and states."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "④ Similarly, the twin fails to capture emotional or cultural factors, limiting discussions beyond strictly technical contexts."
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "⑤ For instance, digital twins of physical assets such as powergeneration turbines, jet engines, and train engines are becoming common when the assets are very valuable and when downtime would be very costly."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "71a4840dfa77894f25f2f0fed748b43663800452e8a117898ae08d506b2fba41",
+        "analysisVersion": 1
+      }
+    },
+    {
+      "id": "H2609G1#35",
+      "examId": "H2609G1",
+      "no": 35,
+      "typeId": "R-IRRELEVANT",
+      "stem": "다음 글에서 전체 흐름과 관계 없는 문장은?",
+      "choices": [
+        "For example, we have encountered many dog owners who bathe their dogs religiously multiple times a week because they want to avoid the ‘doggy’ smell, but veterinary dermatologists warn against such practices, as they are not good for a dog’s skin.",
+        "If someone is really concerned about their dog’s smell they can use waterless shampoo and thoroughly brush their dog every day but keep the baths down to once or twice a week at most.",
+        "Unless they have a skin condition for which a vet has prescribed medicated baths, most dogs don’t need to be bathed on a regular basis.",
+        "Regular pet checkups can help identify health problems before they become severe, making it easier to treat and manage them.",
+        "Even dogs with thick, heavy coats generally only need baths every 6 to 8 weeks. * veterinary dermatologist: 수의 피부과 전문의"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "Our number one criterion for how we care for our pets should be, “Is this what they actually need? How is it impacting them?” rather than, “What do I want?”"
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "① For example, we have encountered many dog owners who bathe their dogs religiously multiple times a week because they want to avoid the ‘doggy’ smell, but veterinary dermatologists warn against such practices, as they are not good for a dog’s skin."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "② If someone is really concerned about their dog’s smell they can use waterless shampoo and thoroughly brush their dog every day but keep the baths down to once or twice a week at most."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "③ Unless they have a skin condition for which a vet has prescribed medicated baths, most dogs don’t need to be bathed on a regular basis."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "④ Regular pet checkups can help identify health problems before they become severe, making it easier to treat and manage them."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "⑤ Even dogs with thick, heavy coats generally only need baths every 6 to 8 weeks."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "5d1379e42b4350065a51957c2744154400b48281585b640822b906c1f534b675",
+        "analysisVersion": 1
+      }
+    }
+  ]
+}
