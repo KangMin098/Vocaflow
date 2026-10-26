@@ -23,9 +23,13 @@
 --              기준 production 배열에 이 자리의 production 이 그대로 들어 있다.
 --        판:   발행본 edition_version_id 행의 slot_id · edition_sha256 = 발행본.
 --        원천: 본문 해시 · 정체 해시 = 발행본.
---        target 모양(S2 ReadingTargetSchema 와 같은 의미의 방어 검사): language.basis = 'editorial_target' · language.cefr = 발행본 target_cefr ·
---              cognitive.basis = 'editorial_judgment' · cognitive.demand ∈ {low, moderate, high} · background_knowledge.load ∈ {low, moderate, high} ·
---              emotional_suitability.cautions = 문자열 배열(0..20개 · 각 1..500자 · 앞뒤 공백만인 것 없음).
+--        target 모양(공개하는 필드만 · S2 ReadingTargetSchema 보다 엄격하지 않은 방어 검사 — S2 가 받은 발행 데이터를 거부하지 않는다):
+--              language.basis = 'editorial_target' · language.cefr = 발행본 target_cefr(문자열) · cognitive.basis = 'editorial_judgment' ·
+--              cognitive.demand ∈ {low, moderate, high} · background_knowledge.load ∈ {low, moderate, high}(S2 Load 열거와 같다) ·
+--              emotional_suitability.cautions = 문자열 배열(S2 z.array(Text): 개수 · 길이 상한 없음 — 이 함수도 상한을 두지 않는다).
+--              원소 검사는 「문자열이고 공백(U+0020)만으로 된 것이 아님」뿐이다. S2 Text 는 JS trim(모든 유니코드 공백) 뒤 비어 있지 않음 +
+--              자리표시 금지라 더 엄격하다 — PostgreSQL btrim 은 U+0020 만 지우므로 S2 가 받은 값을 여기서 거부할 일이 없다(그 반대만 가능).
+--              문자열은 바이트 그대로 돌려준다(정규화 · 자르기 없음).
 --      돌려주는 것(명시 허용 목록): release_key · target_cefr(편집 목표 — 실측 아님) · cognitive_demand(편집 판단 등급) ·
 --        background_load(편집 판단 등급) · cautions(저장된 주의 문장 배열 그대로 · 빈 배열 가능 — 빈 배열은 「검수된 주의 없음」이다).
 --      돌려주지 않는 것: cognitive.note · background_knowledge.supports(편집 의도이지 동작하는 도움 기능이 아니다) ·
@@ -34,11 +38,14 @@
 --      공개 노출(알림): cautions 문장은 검수된 콘텐츠지만 장면 내용(사건 · 인물 행동)을 일부 말한다. 화면은 접힌 영역 안에 두고
 --        펼치기 전 요약에 장면을 쓰지 않는다(U1 UI 수용 기준). 같은 문장이 이미 공개 대상이 아니던 값이라는 점은 사용자 승인 범위다.
 --      비용: 이용 가능한 발행본마다 production(수 KB) 정본 직렬화 1회 + 기준 production 배열 포함 검사 1회. 서가 규모에 비례 — 측정은 격리 시험만.
---      노출: 새 public 함수는 PostgREST 스키마 캐시 갱신 뒤 RPC 로 보인다. 보이지 않으면 별도 단계로 `notify pgrst, 'reload schema'`
---        (이 파일에는 넣지 않는다 — 승인 범위).
+--      노출: 새 public 함수는 PostgREST 스키마 캐시가 다시 읽혀야 RPC 로 보인다. 그래서 파일 끝(D)에 `notify pgrst, 'reload schema'` 를
+--        같은 트랜잭션 안에 둔다 — 별도 승인 없는 캐시 조작 단계가 필요 없다. NOTIFY 는 트랜잭션이 커밋될 때만 전달된다(실패 · 롤백이면
+--        전달되지 않는다). 효과: 채널 pgrst 를 듣는 PostgREST 가 스키마 캐시를 다시 읽는다(데이터 · 권한 · 설정 변경 없음 · 다시 읽는 동안
+--        잠깐 요청이 기다릴 수 있다). Supabase 의 DDL 이벤트 트리거가 같은 알림을 이미 보내는 환경이면 한 번 더 읽을 뿐이다.
+--        실제 PostgREST 노출은 승인 적용 뒤 읽기 전용으로 확인한다(격리 시험은 알림 전달까지만 본다).
 --
--- 영향: 기존 행 0 · 기존 함수 · 표 · 정책 · 권한 변경 0 · 새 함수 1. story 표는 읽기만 한다. 진도 · 완료 · 이벤트 쓰기 없음. 잠금은 함수 생성의
---   카탈로그 잠금뿐(사용자 표 잠금 없음).
+-- 영향: 기존 행 0 · 기존 함수 · 표 · 정책 · 권한 변경 0 · 새 함수 1 · 커밋 때 PostgREST 스키마 다시 읽기 알림 1. story 표는 읽기만 한다.
+--   진도 · 완료 · 이벤트 쓰기 없음. 잠금은 함수 생성의 카탈로그 잠금뿐(사용자 표 잠금 없음).
 -- 멱등: 함수가 이미 있으면 preflight 가 실패한다(조용한 재적용 없음).
 -- 전제: 적용된 S3(20261025094450_lcp_story_s3_schema.sql)의 story 표 · story.canonical_sha256(jsonb) · story.source_rights_ok(uuid) ·
 --   public.story_catalog() 가 anon 에 열려 있음(S3 quarantine 뒤에는 새 공개 문을 열지 않는다). 역할 anon · authenticated · service_role.
@@ -210,11 +217,9 @@ begin
        or pg_catalog.jsonb_typeof(v_target #> '{background_knowledge,load}') is distinct from 'string'
        or (v_target #>> '{background_knowledge,load}') not in ('low', 'moderate', 'high')
        or pg_catalog.jsonb_typeof(v_cautions) is distinct from 'array'
-       or pg_catalog.jsonb_array_length(v_cautions) > 20
        or exists (
          select 1 from pg_catalog.jsonb_array_elements(v_cautions) as c(x)
           where pg_catalog.jsonb_typeof(c.x) is distinct from 'string'
-             or pg_catalog.char_length(c.x #>> '{}') not between 1 and 500
              or pg_catalog.btrim(c.x #>> '{}') = '') then
       raise exception 'story:guidance_mismatch' using detail = 'target_shape';
     end if;
@@ -270,3 +275,7 @@ begin
   end if;
 end
 $$;
+
+-- ── D. PostgREST 스키마 다시 읽기 알림(커밋 때만 전달 · 롤백이면 전달 안 됨) ─────────────────
+
+notify pgrst, 'reload schema';

@@ -20,7 +20,7 @@
 | 검증 증인 런타임(S4) | `apps/web/src/lib/library/story/witness.ts` · 서버 액션 `attestStoryValidationAction` — 쿠키 세션 스태프 확인 뒤에만 service_role 로 §15 의 1~3 을 실행(§15) | 기존 독립 수용(T-0174 `fcf57c225e2a`) 유지. 2026-10-26 정상 admin 화면에서 실제 저장값·검수 집합의 증인을 생성해 dev R1·R2를 발행했다. [실행 증거](./lcp-story/S7_PILOT.md) |
 | 관리자 화면(S4) | `/admin/curation?line=story` — `app/admin/curation/StoryCurationClient.tsx` · `story-actions.ts` · `lib/library/story/{admin,witness,messages,types}.ts` · 도움말 `help/curation.ts` 「이야기 판본」(§18) | 기존 수용 유지. 서로 다른 정상 dev 제작/검수 계정으로 대표 1편 등록·AI 검수·위임 권리 기록·발행·철회·새 검수 결속의 재발행을 실제 검증했다. 권한·SQL 조건을 우회하지 않음 |
 | 학습자 화면(S5) | `/library/stories` · `/library/stories/[releaseKey]?unit=` — `lib/library/story/learner.ts` · `app/(main)/library/stories/**` · `components/library/story/**`(§12) | 기존 코드 독립 수용과 SQL r3 적용 유지. 대표 실제 발행본에서 개발 학습자 A1440/B1280의 독서·도움·저장·재로그인·완료 구분·이어하기·계정 격리·철회 접근을 검증했다. 원본 실패와 표적 재개를 분리한 [종단 증거](./lcp-story/S7_PILOT.md)를 따른다. 사람 학습 효과 아님 |
-| 시작 전 선택 안내(U1 · T-0187) | 공개 RPC 제안 `_pending_lcp_story_u1_guidance.sql`(+ 복구) · 화면 `components/library/story/StoryGuidance.tsx` · `learner.ts`(§12) | 코드 · 격리 PG17 · 격리 브라우저(합성 fixture) 검증. **SQL 공유 DB 미적용 · 개별 승인 대기** — 그 전 dev 화면은 「안내를 불러오지 못함」. 실제 dev 양성 표시 NOT_RUN |
+| 시작 전 선택 안내(U1 · T-0187) | `public.story_release_guidance`·원장`20261026110732`·`StoryGuidance.tsx`·`learner.ts`(§12) | 최신 사용자 승인 v2 SHA`8648c24c…f22eac` 원문 적용. 기존12표/함수 지문 불변·권한/RLS 확인. 실제 화면·통합의 최종 결과는 [D2 후속](./lcp-story/D2_S7_FOLLOWUP.md) |
 | 이벤트(S5) | `events.ts` `story_catalog_viewed` · `story_reader_action`(§17) | 코드 + DB 허용 목록 적용(같은 SQL §C · 실제 CHECK SELECT 평가 62/62). 쓰기형 `db-allowlist` 시험은 NOT_RUN |
 | 추천 | 없음 | 제안(S6) |
 | 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 보완 r3·16단위·독립 AI 검수 2건 | R1 철회 이력과 이전 초안·검수를 보존하고 R2 1편을 공개했다. B2는 편집 목표. 정책의 동물 위해 안내는 정정했으나 학습자 화면 노출은 후속 |
@@ -238,9 +238,12 @@ plan ─▶ candidate | fixture_only | hold | pending        (여기까지 구�
     `public.story_release_guidance(p_release_key text default null)`(anon + authenticated · 서가와 같은 이용 가능 범위 · 읽기 전용)가 자리 · 기준 · 판 · 원천을 발행본 행과 대조하고
     production 을 다시 해시해 발행 `target_sha256` 와 같을 때만 허용 목록을 돌려준다 — `target_cefr` · `cognitive.demand` · `background_knowledge.load`(등급) · `emotional_suitability.cautions`(저장 문장 그대로).
     `cognitive.note` · `background_knowledge.supports`(편집 의도 — 동작하는 도움 기능이 아니다) · `emotional_suitability.note`(줄거리 상세) · `goals` 는 싣지 않는다.
+    주의 문장은 S2 Text 계약을 따른다 — 개수 · 길이 상한이 없으므로 RPC · 화면 검사도 상한을 두지 않는다(유효한 발행 데이터를 거부하지 않는다 · 문자열 그대로).
+    SQL 은 커밋 때 `notify pgrst, 'reload schema'` 를 같은 트랜잭션에서 보낸다(별도 캐시 조작 단계 없음).
   - 화면: 「편집 판단 · 추론 부담 … · 배경지식 부담 … (측정한 값이 아니에요)」 한 줄 + 주의가 있으면 접힌 `<details>`(요약은 개수와 「펼치면 장면 내용이 조금 드러나요」만 — 장면을 쓰지 않는다).
-    주의가 빈 배열이면 경고 요소를 만들지 않는다. RPC 없음(PGRST202) · 일시 오류 · 결속/모양 불일치(`story:guidance_mismatch` · 서가 CEFR 불일치)는 「주의할 내용이 없다는 뜻은 아니에요」라고 말하는 한 줄이며 서가 · 독서 · 진도는 그대로다.
-  - 상태: SQL 은 **미적용 · 개별 사용자 승인 대기**(격리 PG17 시험 · 변이 시험 · 복구 = 권한 회수만). 적용 전 실제 dev 화면은 「불러오지 못함」이 정상이며 양성 표시는 합성 fixture 격리 브라우저로만 확인했다.
+    주의가 빈 배열이면 경고 요소를 만들지 않는다. 작품 입구에는 시작 행동 바로 위에 지금 실제로 동작하는 요청형 도움 한 줄(단위 화면의 「단어 뜻 보기」 ·
+    원문 인용이 연결된 단위의 「원문 대응 보기」)을 둔다 — 편집 기준의 지원 의도를 기능처럼 말하지 않는다. RPC 없음(PGRST202) · 일시 오류 · 결속/모양 불일치(`story:guidance_mismatch` · 서가 CEFR 불일치)는 「주의할 내용이 없다는 뜻은 아니에요」라고 말하는 한 줄이며 서가 · 독서 · 진도는 그대로다.
+  - 상태: 승인 v2 원문은 **공유 dev 적용 완료**(원장`20261026110732`, SHA`8648c24c…f22eac`). 적용 전/없는 환경은 여전히 「불러오지 못함」으로 구분한다. 복구는 권한 회수만의 별도 미실행안이다. 실제 새 안내·통합 검증은 [후속 결과](./lcp-story/D2_S7_FOLLOWUP.md)를 따른다.
 - **S5 현재 상태(2026-10-25 적용 뒤)**:
 
   | 항목 | 상태 · 증거 | 남은 한계 |

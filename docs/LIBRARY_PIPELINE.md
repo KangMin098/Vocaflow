@@ -83,6 +83,8 @@ S4(T-0174, 독립 수용 · 로컬 main 통합 완료): 관리자 이야기 라�
 원본 쪽의 기존 노출(로그인 사용자의 `content_chunks` 전체 조회 등)은 원본 LCP 결함으로 남아 있다([S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md) D5).
 정본 [LCP_STORY](./LCP_STORY.md) · 단계 지시 [lcp-story/IMPLEMENTATION](./lcp-story/IMPLEMENTATION.md).
 
+D2 U1 후속(T-0187): 기존 Story 서가·입구에 편집 판단 부담과 선택적으로 펼치는 저장된 콘텐츠 주의를 연결했다. 새 읽기 RPC는 **승인 v2 적용 완료(원장20261026110732)**이며 없는 환경에서는 안내 조회 실패를 주의 없음과 구분한다. 실제 단어 뜻·원문 대응 도움만 시작 전에 설명하며 제작 기준의 지원 계획을 기능으로 광고하지 않는다. [C06 원천 준비](lcp-story/C06_SOURCE_PREPARATION.md)는 PG269의 특정 전사 바이트 조사까지이고, production snapshot·각색·권리 confirmed·신규 발행은 하지 않았다. [관찰 준비](lcp-story/LEARNER_OBSERVATION.md)는 기존 계측/진도를 재사용하며 실제 사람 자료·새 테이블/이벤트는 없다. [실행 결과](lcp-story/D2_S7_FOLLOWUP.md).
+
 ### Status 흐름
 
 ```

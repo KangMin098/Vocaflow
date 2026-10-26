@@ -425,9 +425,11 @@
   color: var(--t1);
 }
 
-/* 네이티브 펼침 표시를 지킨다(list-item) · 위아래 여백으로 44px 조작 높이. */
+/* 네이티브 펼침 표시를 지킨다(list-item) · 조작 높이는 여백 계산(14px × 1.55 + 22px ≈ 43.7px)에 기대지 않고 min-height 로 44px 를 보장한다. */
 .cautions summary {
   display: list-item;
+  box-sizing: border-box;
+  min-height: 44px;
   padding-block: 11px;
   cursor: pointer;
   font-weight: 600;

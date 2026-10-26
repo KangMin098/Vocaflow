@@ -13,6 +13,8 @@
 //   결속 변조 시험은 롤백되는 트랜잭션 안에서 superuser 가 session_replication_role=replica 로 불변 트리거를 끄고 저장값을 바꾼다
 //   (= 정본 §15 의 「service_role 키로 트리거를 우회한 변조」 모형 — 그 트랜잭션은 언제나 롤백된다).
 //
+//   r2(독립 검토 보정): 주의 개수 · 길이 상한을 두지 않는다는 양성 회귀(G13 — 501자 · 2,000자 · 21개 · 유니코드)와 forward D 의
+//   `notify pgrst, 'reload schema'` 가 커밋된 적용에서만 한 번 전달되는지(G00n · G00 · G12 · R01 — 다른 연결의 LISTEN pgrst)를 본다.
 // 경계: 이 시험은 격리 PostgreSQL 위에서 BEGIN/COMMIT 으로 감싼 SQL 동작만 증명한다. 승인 러너 · 원장 · Supabase apply_migration 원자성 ·
 //   PostgREST(스키마 캐시 · 기본 인자 호출 · 오류 모양) · 공유 DB 동작은 증명하지 않는다(not_run 으로 남긴다).
 // 안전: 띄운 루프백 클러스터 외 네트워크 없음 · PG*/DATABASE_URL/SUPABASE_* 환경 변수 이름을 이 프로세스에서 지운다(값을 읽지 않는다) ·
@@ -646,6 +648,12 @@ async function main() {
   // ── forward 적용 전: 가드 ──
   const objBefore = await objSnapshot(db)
   const dataBefore = await dataSnapshot(db)
+  // forward D 의 NOTIFY 관찰 — 다른 연결이 LISTEN pgrst(PostgREST 가 듣는 채널). 커밋된 적용에서만 한 번 와야 한다.
+  const listener = await cluster.connect('u1_main')
+  const pgrst = []
+  listener.on('notification', (n) => pgrst.push({ channel: n.channel, payload: n.payload }))
+  await listener.query('listen pgrst')
+  const settle = () => new Promise((r) => setTimeout(r, 400))
   await check('G00a', 'guard: statement-by-statement autocommit application fails at the tripwire and creates nothing', async () => {
     let failedAt = null
     for (const [i, s] of F.forward.stmts.entries()) {
@@ -685,11 +693,17 @@ async function main() {
   })
 
   // ── forward 적용 ──
-  await check('G00', 'forward applied once inside BEGIN/COMMIT (simulated runner, owner = superuser)', async () => {
+  await check('G00n', 'NOTIFY: refused/guarded applications (autocommit · repeatable read · quarantine · non-exempt applier) delivered no pgrst notification', async () => {
+    await settle()
+    deepEq(pgrst, [], 'notifications before a committed apply')
+  })
+  await check('G00', 'forward applied once inside BEGIN/COMMIT (simulated runner, owner = superuser); exactly one pgrst "reload schema" delivered on commit', async () => {
     const r = await applySql(db.client, F.forward)
     if (!r.ok) throw new Error(r.text)
     gate.forward = true
-    return { notices: r.notices }
+    await settle()
+    deepEq(pgrst, [{ channel: 'pgrst', payload: 'reload schema' }], 'notification on commit')
+    return { notices: r.notices, notifications: [...pgrst] }
   })
   await gated('G01', 'attributes: SECURITY DEFINER · STABLE · search_path pinned · EXECUTE = anon + authenticated only (effective)', async () => {
     const p = (await db.q(`select p.prosecdef, p.provolatile::text as vol, p.proconfig, pg_get_function_result(p.oid) as res,
@@ -789,8 +803,6 @@ async function main() {
   const SHAPES = [
     ['caution element is a number', `jsonb_set(es.production, '{target,emotional_suitability,cautions}', '[1]'::jsonb)`],
     ['caution element blank', `jsonb_set(es.production, '{target,emotional_suitability,cautions}', '["   "]'::jsonb)`],
-    ['caution element over 500 chars', `jsonb_set(es.production, '{target,emotional_suitability,cautions}', jsonb_build_array(repeat('가', 501)))`],
-    ['21 cautions', `jsonb_set(es.production, '{target,emotional_suitability,cautions}', (select jsonb_agg('주의 ' || g) from generate_series(1, 21) g))`],
     ['cautions not an array', `jsonb_set(es.production, '{target,emotional_suitability,cautions}', '"주의"'::jsonb)`],
     ['cautions missing', `es.production #- '{target,emotional_suitability,cautions}'`],
     ['cognitive.demand out of enum', `jsonb_set(es.production, '{target,cognitive,demand}', '"extreme"'::jsonb)`],
@@ -821,6 +833,31 @@ async function main() {
     deepEq(empty.rows[0].cautions, [], 'empty cautions control')
     return { shapes: out.length + 1, positive_control: true, empty_control: true }
   })
+  // S2 Text 계약(개수 · 길이 상한 없음)을 받는가 — 이 함수가 임의 상한으로 유효한 발행 데이터를 거부하지 않는다(양성 회귀).
+  await gated('G13', 'no invented limits: 501-char caution · 21 cautions · 2,000-char caution · unicode (surrogate pairs · combining · ZWJ · NBSP · tab · quotes · newline) returned byte-identical in order', async () => {
+    const cases = [
+      ['501-char caution', ['가'.repeat(501)]],
+      ['2000-char caution ending in an emoji', [`${'A'.repeat(1999)}🌊`]],
+      ['21 cautions', Array.from({ length: 21 }, (_, i) => `주의 문장 ${i + 1}`)],
+      ['unicode', ['이모지 🌊👋🏽 합자', 'é 결합 문자', '앞 탭\t· NBSP 포함', 'ZWJ 👩‍💻', '따옴표 " 역슬래시 \\ 줄바꿈\n있음']],
+    ]
+    const out = {}
+    for (const [label, cautions] of cases) {
+      for (const [who, sql, params] of [[A.anon, GUIDE_ONE, [REL.story]], [A.learner, GUIDE_ALL, []]]) {
+        const r = await db.txAs(who, retargetSetup(REL.story, `jsonb_set(es.production, '{target,emotional_suitability,cautions}', ${lit(JSON.stringify(cautions))}::jsonb)`), sql, params)
+        need(r.ok, `${label} (${who.role}): ${r.text}`)
+        const row = r.rows.find((x) => x.release_key === REL.story)
+        need(row, `${label}: release row missing`)
+        deepEq(row.cautions, cautions, `${label} (${who.role})`)
+      }
+      out[label] = { count: cautions.length, max_code_points: Math.max(...cautions.map((c) => [...c].length)) }
+    }
+    // S2 Text 는 JS trim 뒤 비어 있지 않아야 한다 — 유니코드 공백만인 문장은 S2 가 이미 거부한다. 이 함수는 U+0020 만 지워 보므로 그런 값을 거부하지 않는다
+    // (S2 보다 엄격하지 않다는 기록 · 실제 발행 데이터에는 올 수 없다).
+    const ideo = await db.txAs(A.anon, retargetSetup(REL.story, `jsonb_set(es.production, '{target,emotional_suitability,cautions}', ${lit(JSON.stringify(['　']))}::jsonb)`), GUIDE_ONE, [REL.story])
+    need(ideo.ok && ideo.rows.length === 1, `ideographic-space-only caution: ${ideo.ok ? ideo.rows.length : ideo.text}`)
+    return { ...out, sql_accepts_unicode_space_only_value_that_s2_rejects: true }
+  })
   await gated('G10', 'read-only: calling the RPC (anon · learner · each key) changes no story row; existing functions/ACL unchanged by forward', async () => {
     for (const who of [A.anon, A.learner]) {
       await db.as(who, GUIDE_ALL)
@@ -838,6 +875,8 @@ async function main() {
     const r = await applySql(db.client, F.forward)
     need(!r.ok && /already exists/.test(r.text), `re-apply not refused: ${r.ok ? 'applied' : r.text}`)
     deepEq(await dataSnapshot(db), dataBefore, 'story data')
+    await settle()
+    eq(pgrst.length, 1, 'refused re-apply delivered no extra notification')
   })
 
   // ── recovery ──
@@ -856,6 +895,8 @@ async function main() {
     deepEq(await dataSnapshot(db), dataBefore, 'story data after recovery')
     const again = await applySql(db.client, F.recovery)
     need(again.ok, `recovery not idempotent: ${again.text}`)
+    await settle()
+    eq(pgrst.length, 1, 'recovery sends no pgrst notification')
   })
   await check('R02', 'recovery before forward fails without changing anything (fresh database)', async () => {
     await admin.q(`create database u1_recovery_only`)

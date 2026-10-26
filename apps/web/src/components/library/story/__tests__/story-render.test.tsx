@@ -530,6 +530,22 @@ describe('시작 전 선택 안내(U1) — 편집 판단 · 접힌 주의 · 「
     expect(reader(readyState())).not.toContain('data-story-guidance')
   })
 
+  it('작품 입구: 실제로 동작하는 요청형 도움(단어 뜻 · 원문 대응)을 시작 행동 바로 위 한 줄로 말한다 · 안내를 못 불러와도 그대로 · 단위 화면에는 없다', () => {
+    for (const guidance of [guidanceView(), { status: 'unavailable', reason: 'not_ready' } as const]) {
+      const html = reader(readyState({ unit: null, guidance }))
+      const at = html.indexOf('data-story-help-line')
+      expect(at).toBeGreaterThan(-1)
+      expect(at).toBeLessThan(html.indexOf('data-story-go='))
+      expect(html).toContain('「단어 뜻 보기」를 켜면 본문 낱말을 눌러 뜻을 찾아볼 수 있고')
+      expect(html).toContain('원문 인용이 연결된 단위는 「원문 대응 보기」로')
+    }
+    const unitPage = reader(readyState())
+    expect(unitPage).not.toContain('data-story-help-line')
+    // 단위 화면에는 그 한 줄이 말한 실제 조작이 있다
+    expect(unitPage).toContain('단어 뜻 보기')
+    expect(unitPage).toContain('원문 대응 보기')
+  })
+
   it('로그인 전 판본 화면: HOOK 뒤 · 로그인 행동 앞에 같은 안내', () => {
     const html = reader({ status: 'signed_out', loginHref: '/login?next=x', release: release(), guidance: guidanceView() })
     const at = html.indexOf('data-story-guidance="ready"')

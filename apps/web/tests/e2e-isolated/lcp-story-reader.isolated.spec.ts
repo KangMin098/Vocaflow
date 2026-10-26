@@ -1388,7 +1388,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
         assertQuietNetwork(log)
       })
 
-      test('시작 전 선택 안내(U1 · 합성 fixture) — 부담 한 줄 · 접힌 주의(키보드로 펼침) · 주의 없으면 경고 없음 · 못 불러옴/확인 못함 구분 · 쓰기 0 · axe', async ({ page, context }) => {
+      test('시작 전 선택 안내(U1 · 합성 fixture) — 부담 한 줄 · 접힌 주의(키보드 · 실측 44px) · 도움 한 줄 · 주의 없으면 경고 없음 · 못 불러옴/확인 못함 구분 · 안내 중 쓰기 0 · 읽기 시작 · axe', async ({ page, context }) => {
         test.setTimeout(240_000)
         const run = newRun(`guidance-${width}`)
         run.actor = null
@@ -1405,11 +1405,26 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
               if (!el || !el.matches(sel)) return null
               const cs = getComputedStyle(el)
               const r = el.getBoundingClientRect()
-              return { outline: cs.outlineStyle, outlineWidth: cs.outlineWidth, h: r.height }
+              return {
+                outline: cs.outlineStyle,
+                outlineWidth: cs.outlineWidth,
+                h: r.height,
+                w: r.width,
+                minHeight: cs.minHeight,
+                display: cs.display,
+                lineHeight: cs.lineHeight,
+                fontSize: cs.fontSize,
+                nativeSummaryInDetails: el.tagName === 'SUMMARY' && el.parentElement?.tagName === 'DETAILS' && el.parentElement.firstElementChild === el,
+              }
             }, selector)
             if (hit) return hit
           }
           return null
+        }
+        /** 실제 측정값 기록(여백 계산이 아니라 브라우저 bounding box). */
+        const recordMetric = (where: string, m: unknown) => {
+          fs.mkdirSync(SHOTS, { recursive: true })
+          fs.appendFileSync(path.join(SHOTS, 'u1-summary-metrics.jsonl'), `${JSON.stringify({ width, where, ...(m as object), at: new Date().toISOString() })}\n`)
         }
         const axeGuidance = async () => {
           const res = await new AxeBuilder({ page }).withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa']).include('[data-story-guidance]').analyze()
@@ -1429,6 +1444,10 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           expect(reach, 'caution summary reachable by Tab').not.toBeNull()
           expect(reach!.outline).not.toBe('none')
           expect(reach!.h).toBeGreaterThanOrEqual(44)
+          expect(reach!.minHeight).toBe('44px')
+          expect(reach!.display).toBe('list-item')
+          expect(reach!.nativeSummaryInDetails).toBe(true)
+          recordMetric('catalog-edition-column', reach)
           await page.keyboard.press('Enter')
           await sx(det.locator('li')).toHaveText(cautionsOf(b1))
           expect(await axeGuidance()).toEqual([])
@@ -1463,8 +1482,20 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
             return !!(g.compareDocumentPosition(go) & Node.DOCUMENT_POSITION_FOLLOWING)
           })
           expect(entryOrder).toBe(true)
+          // 실제로 동작하는 요청형 도움 한 줄 — 시작 행동 바로 위
+          const help = page.locator('[data-story-help-line]')
+          await sx(help).toContainText('「단어 뜻 보기」')
+          await sx(help).toContainText('「원문 대응 보기」')
+          expect(await page.evaluate(() => {
+            const h = document.querySelector('[data-story-help-line]')!
+            const go = document.querySelector('[data-story-go="start"], [data-story-go="resume"]')!
+            return !!(h.compareDocumentPosition(go) & Node.DOCUMENT_POSITION_FOLLOWING)
+          })).toBe(true)
           const reach2 = await tabTo('details[data-story-cautions] > summary')
           expect(reach2, 'entry caution summary reachable by Tab').not.toBeNull()
+          expect(reach2!.h).toBeGreaterThanOrEqual(44)
+          expect(reach2!.outline).not.toBe('none')
+          recordMetric('entry', reach2)
           await page.keyboard.press('Space')
           await sx(page.locator('details[data-story-cautions] li')).toHaveText(cautionsOf(b1))
           expect(await axeGuidance()).toEqual([])
@@ -1476,6 +1507,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-entry-public] [data-story-guidance-load]')).toBeVisible()
           await sx(page.locator('[data-story-cautions]')).toHaveCount(0)
           expect(await page.locator('[data-story-entry-public]').innerText()).not.toContain('주의')
+          await sx(page.locator('[data-story-help-line]')).toBeVisible()
           await shot(page, `u1-entry-no-cautions-${width}`)
 
           // 5) 안내 RPC 없음(공유 DB 의 지금 상태 · SQL 미적용) — 「불러오지 못함」 · 주의 없음이 아니라고 말함 · 독서 행동 그대로
@@ -1486,6 +1518,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-guidance="unavailable"][data-story-guidance-reason="not_ready"]')).toContainText('주의할 내용이 없다는 뜻은 아니에요')
           await sx(page.locator('[data-story-cautions]')).toHaveCount(0)
           await sx(page.locator('[data-story-go="start"], [data-story-go="resume"]')).toHaveCount(1)
+          await sx(page.locator('[data-story-help-line]')).toBeVisible()
           await shot(page, `u1-entry-guidance-missing-${width}`)
 
           // 6) 결속 불일치 — 서가 전체 「확인하지 못함」(주의 없음으로 바꾸지 않음) · 서가와 시작 행동은 그대로
@@ -1498,10 +1531,24 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-open]')).toHaveCount(3)
           await sx(page.locator('[data-story-cautions]')).toHaveCount(0)
           await shot(page, `u1-catalog-guidance-invalid-${width}`)
-
           expect(writes(run)).toEqual([])
+
+          // 7) 읽기 시작 — 안내 화면에서 명시적 시작 → 단위 0(위치 기록 1회뿐) · 그 한 줄이 말한 도움 조작이 실제로 있다
+          editDb(run, (db) => {
+            db.guidance_corrupt = []
+          })
+          await openStories(page, `/library/stories/${b1}`)
+          await sx(page.locator('[data-story-entry-public] [data-story-guidance="ready"]')).toBeVisible()
+          await goUnit(page, page.locator('[data-story-go="start"]'), 0)
+          await sx(B(page)).toBeVisible()
+          await sx(page.locator('[data-story-word-mode]')).toHaveText('단어 뜻 보기')
+          await sx(page.locator('[data-story-source-toggle]')).toHaveText('원문 대응 보기')
+          await sx(page.locator('[data-story-guidance]')).toHaveCount(0)
+          await sx(page.locator('[data-story-help-line]')).toHaveCount(0)
+          await shot(page, `u1-read-start-unit0-${width}`)
+          expect(writes(run).map((c) => c.fn)).toEqual(['story_record_position'])
           const events = await closedTelemetry(page)
-          expect(events.every((e) => e.name === 'story_catalog_viewed')).toBe(true)
+          expect(events.every((e) => ['story_catalog_viewed', 'story_reader_action'].includes(e.name))).toBe(true)
           await noIdentityLeak(page)
         } finally {
           finishRun(run, log)

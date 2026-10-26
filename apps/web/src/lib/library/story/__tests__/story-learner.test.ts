@@ -1108,8 +1108,8 @@ describe('선택 안내 — 공개 읽기 · 실패는 「주의 없음」이 �
       [guidanceRow(RK, { cautions: 'x' })],
       [guidanceRow(RK, { cautions: [1] })],
       [guidanceRow(RK, { cautions: ['   '] })],
-      [guidanceRow(RK, { cautions: ['가'.repeat(501)] })],
-      [guidanceRow(RK, { cautions: Array.from({ length: 21 }, (_, i) => `주의 ${i}`) })],
+      [guidanceRow(RK, { cautions: ['　\t'] })],
+      [guidanceRow(RK, { cautions: [''] })],
       [guidanceRow(RK), guidanceRow(RK)],
       [guidanceRow(RK, { release_key: 'lsr_x' })],
       [guidanceRow(RK, { target_cefr: 'B2' })],
@@ -1125,11 +1125,23 @@ describe('선택 안내 — 공개 읽기 · 실패는 「주의 없음」이 �
     expect(await loadStoryCatalogPage({ client: g.client })).toMatchObject({ guidance: { status: 'unavailable', reason: 'invalid' } })
   })
 
-  it('허용 목록만 새로 만든다 — 여분 키(줄거리 설명 · 목표 · 지원 의도 · 해시 · id)는 버린다 · 경계값(20개 · 500자)은 통과', () => {
-    const long = '가'.repeat(500)
+  it('S2 Text 계약에 없는 상한을 두지 않는다 — 501자 · 2,000자 · 21개 · 유니코드(서로게이트 쌍 · 결합 · ZWJ · NBSP · 탭 · 따옴표 · 줄바꿈)를 그대로 받는다', () => {
+    const cautions = [
+      '가'.repeat(501),
+      `${'A'.repeat(1999)}🌊`,
+      ...Array.from({ length: 19 }, (_, i) => `주의 문장 ${i + 1}`),
+      '이모지 🌊👋🏽 · é 결합 · ZWJ 👩‍💻 · NBSP  · 탭\t · 따옴표 " 역슬래시 \\ 줄바꿈\n있음',
+    ]
+    expect(cautions.length).toBe(22)
+    const rows = parseStoryGuidance([guidanceRow(RK, { cautions })])
+    expect(rows).toHaveLength(1)
+    expect(rows![0].cautions).toEqual(cautions)
+    expect([...rows![0].cautions[0]].length).toBe(501)
+  })
+
+  it('허용 목록만 새로 만든다 — 여분 키(줄거리 설명 · 목표 · 지원 의도 · 해시 · id)는 버린다', () => {
     const rows = parseStoryGuidance([
       guidanceRow(RK, {
-        cautions: [...Array.from({ length: 19 }, (_, i) => `주의 ${i}`), long],
         note: 'PLOT-SPOILER',
         goals: ['GOAL'],
         supports: ['SUPPORT'],
@@ -1139,7 +1151,7 @@ describe('선택 안내 — 공개 읽기 · 실패는 「주의 없음」이 �
     ])
     expect(rows).toHaveLength(1)
     expect(Object.keys(rows![0]).sort()).toEqual(['backgroundLoad', 'cautions', 'cognitiveDemand', 'releaseKey', 'targetCefr'])
-    expect(rows![0].cautions).toHaveLength(20)
+    expect(rows![0].cautions).toEqual(CAUTIONS)
     const text = JSON.stringify(rows)
     expect(text).not.toMatch(/PLOT-SPOILER|GOAL|SUPPORT/)
     expect(text).not.toContain(SHA_A)

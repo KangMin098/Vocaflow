@@ -62,6 +62,13 @@ export function cautionSummary(count: number): string {
   return `읽기 전 주의 ${count}가지 · 펼치면 장면 내용이 조금 드러나요`
 }
 
+/**
+ * 작품 입구의 도움 안내 한 줄 — 지금 실제로 동작하는 요청형 도움만 말한다(StoryUnitText 의 「단어 뜻 보기」 ·
+ * 앵커가 결속된 단위의 「원문 대응 보기」). 편집 기준의 background_knowledge.supports(편집 의도)를 기능처럼 말하지 않는다.
+ */
+export const READING_HELP_LINE =
+  '읽는 중 도움은 원할 때만 열려요 — 단위 화면에서 「단어 뜻 보기」를 켜면 본문 낱말을 눌러 뜻을 찾아볼 수 있고, 원문 인용이 연결된 단위는 「원문 대응 보기」로 원작의 해당 문장을 볼 수 있어요.'
+
 /** 안내를 보일 수 없을 때 — 「주의 없음」으로 읽히지 않게 그렇다고 말한다. */
 export function guidanceUnavailableText(reason: StoryGuidanceUnavailableReason): string {
   return reason === 'invalid'

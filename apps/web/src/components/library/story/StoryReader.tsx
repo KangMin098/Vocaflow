@@ -55,6 +55,7 @@ import {
 import {
   COVERAGE_LABEL,
   KIND_LABEL,
+  READING_HELP_LINE,
   completionWording,
   editorialTargetLabel,
   isFullyMarked,
@@ -636,6 +637,9 @@ function EntryMain({
         {action.type === 'resume'
           ? `마지막으로 연 곳은 ${unitLabel(action.unitIndex, target?.unitTitle ?? null)}이에요.`
           : '첫 단위부터 읽기 시작해요. 단위를 다 읽으면 직접 읽음으로 표시해요.'}
+      </p>
+      <p className={styles.meta} data-story-help-line>
+        {READING_HELP_LINE}
       </p>
       <div className={styles.actionRow}>
         <PositionLink

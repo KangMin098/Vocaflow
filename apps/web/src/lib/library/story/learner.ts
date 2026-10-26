@@ -4,7 +4,7 @@
 // 쿠키 세션 클라이언트를 좁은 모양(StoryLearnerClient)으로 넣어 부른다. 계약: docs/LCP_STORY.md §12 · §13 · §15 · §17 ·
 // 공유 타입 ./learner-types.ts · DB 정본 S3 `20261025094450_lcp_story_s3_schema.sql` 학습자 RPC 5개 +
 // S5 `public.story_reader_context(p_release_key text, p_unit_index integer) returns jsonb` ·
-// U1 제안(T-0187 · 미적용) `public.story_release_guidance(p_release_key text default null)`(supabase/migrations/_pending_lcp_story_u1_guidance.sql).
+// U1(T-0187 · dev 원장20261026110732) `public.story_release_guidance(p_release_key text default null)`(supabase/migrations/20261026110732_lcp_story_u1_guidance.sql).
 //
 // 학습자 판정 = DB story.require_learner 와 같다: 쿠키 세션의 auth.getUser() 사용자가 있어야 하고, user_profiles.status 가
 //   'suspended' · 'deleted' 면 막는다(프로필 행이 없으면 막지 않는다 — isUsableAccount). 프로필 조회가 실패하면 닫는다(학습자 RPC 를 부르지 않는다).
@@ -333,12 +333,12 @@ export function parseStoryCatalog(data: unknown): StoryCatalogRelease[] | null {
 
 const CEFRS: readonly string[] = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2']
 const GUIDANCE_LEVELS: readonly StoryGuidanceLevel[] = ['low', 'moderate', 'high']
-/** 주의 문장 한도(DB 와 같다) — 0..20개, 각 1..500자(코드 포인트), 공백만인 것 없음. */
-export const STORY_MAX_CAUTIONS = 20
-export const STORY_MAX_CAUTION_CHARS = 500
-
+/**
+ * 주의 문장 하나 — S2 Text 계약(packages/library-pipeline/src/story/schema.ts)과 같은 「JS trim 뒤 비어 있지 않은 문자열」.
+ * 개수 · 길이 상한은 S2 에 없으므로 두지 않는다(유효한 발행 데이터를 거부하지 않는다). 값은 다듬지 않고 그대로 넘긴다.
+ */
 function isCaution(v: unknown): v is string {
-  return typeof v === 'string' && v.trim() !== '' && [...v].length <= STORY_MAX_CAUTION_CHARS
+  return typeof v === 'string' && v.trim() !== ''
 }
 
 /**
@@ -360,7 +360,6 @@ export function parseStoryGuidance(data: unknown): StoryReleaseGuidance[] | null
       !oneOf(GUIDANCE_LEVELS, cognitive_demand) ||
       !oneOf(GUIDANCE_LEVELS, background_load) ||
       !Array.isArray(cautions) ||
-      cautions.length > STORY_MAX_CAUTIONS ||
       !cautions.every(isCaution)
     ) {
       return null
