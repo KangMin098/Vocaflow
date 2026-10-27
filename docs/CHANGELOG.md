@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(security): SpellForge 계정 경계 — `/spellforge/play` 의 자료 제목 · 단어 · 입력을 서버가 단어를 읽은 사용자에 결속(`GameViewerGate` 신설 · `GameIdentityNotice`). `SpellForge` 는 정답 · 확인 · 건너뛰기 · 키보드 · 발음(예약 발음 포함)을 실행 시점에 같은 사람이고 대기열 주인이 다른 사람이 아닐 때만 하고, 바뀜 · 확인 중 · 언마운트 때 자기 발화만 멈춘다. 완주 점수는 `expectedUserId`. 개발 하네스 `/dev/spellforge-identity`. DB 무변경.
 - fix(security): PairFlip 결과 화면이 같은 브라우저의 이전 계정 결과(학습한 단어 · 뜻)를 보이던 결함 — 결과에 판 주인(`owner`)을 함께 저장하고, `/pairflip/results` 는 `PairFlipResultsGate` 로 저장 주인과 브라우저 신원이 긍정 확인으로 같을 때만 보인다(바뀜 · 로그아웃 · 재확인 중 감춤). 주인 미상 예전 결과는 지우지도 채택하지도 않고 보류 + 새 판 시작. 결과를 다시 읽어도 기록하지 않는다. 개발 하네스 `/dev/pairflip-results`. DB 무변경.
 - fix(security): WordVault 학습 · 복습 계정 경계 — `/wordvault/study` · `/wordvault/review` 를 서버가 단어를 읽은 사용자에 결속(`WordVaultViewerGate`). `StudyMode` 는 평가 · 키보드 · 발음을 실행 시점에 같은 사람이고 대기열 주인이 다른 사람이 아닐 때만 하고(화면이 내린 뒤 남은 옛 콜백도 막음), 확인 중 · 바뀜 · 언마운트 때 이미 시작한 발화를 멈춘다. 기존 대기열 항목은 건드리지 않는다. 개발 하네스 `/dev/study-identity`. DB 무변경.
 - fix(security): PairFlip 판 계정 경계 — 짝 단어를 읽은 사용자(`viewerId`)에 판을 결속(`useStoryAuthGuard`). same 이 아니면 카드 대신 `GameIdentityNotice`, 카드 클릭 · 힌트는 실행 시점에 경계를 읽어 막고, 타이머는 멈춘다(`usePairFlipSession` `paused`). 완료 · 중도 점수는 `expectedUserId` 를 싣고, 대기열 주인이 판 주인과 다르면 평가를 넣지 않는다. 확인 중에 끝난 판은 같은 사람으로 재확인되면 처리 · 바뀌면 버린다. 개발 하네스 `/dev/pairflip-identity`. DB 무변경.

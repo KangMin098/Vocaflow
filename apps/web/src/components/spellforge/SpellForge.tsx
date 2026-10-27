@@ -3,6 +3,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { X } from 'lucide-react'
@@ -36,6 +37,7 @@ import {
   cacheCard,
   getCachedCard,
   pushPendingResult,
+  getSrsQueueOwner,
 } from '@/lib/srs/session-storage'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { blankSurface } from '@/lib/text/surface-match'
@@ -77,6 +79,14 @@ interface SpellForgeProps {
    * (props 의 `textId` 는 'vocab'|'script'|'all' 같은 세션 키라 콘텐츠 식별에 쓸 수 없다.)
    */
   content?: ContentRef
+  /**
+   * 이 연습의 주인 — 서버가 단어를 읽은 사용자(로그인 없음 = null). 주면 정답 · 건너뛰기 · 확인 · 키보드 · 발음을 **실행 시점**에
+   * 그 사람으로 긍정 확인될 때만 하고(화면 경계 GameViewerGate 가 내린 뒤 남은 옛 콜백 · 예약 발화도 막는다), 완주 점수에 싣는다.
+   * 없으면 기존 동작.
+   */
+  viewerId?: string | null
+  /** 시험 · 하네스 주입(없으면 StoryAuthSourceContext → 실제 브라우저 세션) */
+  authSource?: StoryAuthSource
 }
 
 const SUCCESS_MESSAGES = [
@@ -87,8 +97,30 @@ const SUCCESS_MESSAGES = [
   { icon: '🏆', message: '스펠링 마스터.' },
 ]
 
-export function SpellForge({ textId, textTitle, words, backHref, content }: SpellForgeProps) {
+export function SpellForge({ textId, textTitle, words, backHref, content, viewerId, authSource }: SpellForgeProps) {
   const inputRef = useRef<HTMLInputElement>(null)
+  // ── 연습 주인 결속 ── 전역 대기열 주인은 계정 전환을 따라간다. 옛 A 화면의 새 평가가 B 전환 뒤 들어오면 B 의 큐가 되므로,
+  //   지금 같은 사람으로 확인됐고 대기열 주인이 다른 사람이 아닐 때만 평가 · 발음을 한다(주인 미상 = 보류 항목, T-0172).
+  const { guard, status: authStatus } = useStoryAuthGuard(viewerId ?? null, authSource)
+  const guardRef = useRef(guard)
+  guardRef.current = guard
+  const ownsSession = useCallback(() => {
+    if (viewerId === undefined) return true
+    if (guardRef.current.status !== 'same') return false
+    const q = getSrsQueueOwner()
+    return q === null || q === viewerId
+  }, [viewerId])
+  // 이 연습이 시작해 아직 끝나지 않은 발화 — 바뀜 · 확인 중 · 언마운트 때 그것만 멈춘다(전역 cancel 은 자기 발화가 있을 때만)
+  const ownUtteranceRef = useRef(0)
+  const cancelOwnSpeech = useCallback(() => {
+    if (ownUtteranceRef.current === 0 || typeof window === 'undefined' || !('speechSynthesis' in window)) return
+    ownUtteranceRef.current = 0
+    window.speechSynthesis.cancel()
+  }, [])
+  useEffect(() => {
+    if (viewerId !== undefined && authStatus !== 'same') cancelOwnSpeech()
+  }, [viewerId, authStatus, cancelOwnSpeech])
+  useEffect(() => () => cancelOwnSpeech(), [cancelOwnSpeech])
   // 세션 틀(SessionFrame)이 위에 있으면 나가기는 틀이 맡는다 — 아래 닫기 단추 주석 참조
   const inSessionFrame = isFullScreenRoute(usePathname())
 
@@ -178,7 +210,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
    * 정답 처리
    */
   const handleSuccess = useCallback(() => {
-    if (!currentWord) return
+    if (!currentWord || !ownsSession()) return
 
     setPhase('success')
 
@@ -225,13 +257,13 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
       setPauseInfo(msg)
       setPhase('paused')
     }, 800)
-  }, [currentWord, hintCount, recordRating, result?.errorPositions.length, session.startedAt])
+  }, [currentWord, hintCount, recordRating, result?.errorPositions.length, session.startedAt, ownsSession])
 
   /**
    * Confirm Answer (Delayed/Blind 모드)
    */
   const handleConfirm = useCallback(() => {
-    if (!currentWord || userInput.length === 0) return
+    if (!currentWord || userInput.length === 0 || !ownsSession()) return
     if (mode === 'realtime') return
 
     const evalResult = confirm(userInput, currentWord.text)
@@ -241,7 +273,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
     } else {
       handleError(evalResult)
     }
-  }, [currentWord, userInput, mode, confirm, handleSuccess])
+  }, [currentWord, userInput, mode, confirm, handleSuccess, ownsSession])
 
   /**
    * 오답 처리 + Reflection
@@ -287,22 +319,28 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
     (word: string) => {
       if (isAudioPlaying || typeof window === 'undefined') return
       if (!('speechSynthesis' in window)) return
+      // 예약된 발음(정답 200ms 뒤)도 이 시점에 다시 본다 — 그 사이 계정이 바뀌었으면 읽지 않는다
+      if (!ownsSession()) return
 
       setIsAudioPlaying(true)
       const utterance = new SpeechSynthesisUtterance(word)
       utterance.lang = 'en-US'
       utterance.rate = 0.85
-      utterance.onend = () => setIsAudioPlaying(false)
+      ownUtteranceRef.current += 1
+      utterance.onend = () => {
+        ownUtteranceRef.current = Math.max(0, ownUtteranceRef.current - 1)
+        setIsAudioPlaying(false)
+      }
       window.speechSynthesis.speak(utterance)
     },
-    [isAudioPlaying]
+    [isAudioPlaying, ownsSession]
   )
 
   /**
    * 단어 건너뛰기
    */
   const handleSkip = useCallback(() => {
-    if (!currentWord) return
+    if (!currentWord || !ownsSession()) return
     if (window.confirm('이 단어를 건너뛸까요? 다음에 다시 만나게 됩니다.')) {
       // §17 [4] 기억 축 — FSRS applyReview (오답 처리, Again rating)
       const existingCard = getCachedCard(currentWord.id) ?? createNewCard(currentWord.id)
@@ -336,7 +374,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
       })
       skipWord()
     }
-  }, [currentWord, hintCount, recordRating, skipWord])
+  }, [currentWord, hintCount, recordRating, skipWord, ownsSession])
 
   // Esc = 건너뛰기 — 화면이 그렇게 광고한다. 셸도 같은 키로 세션을 닫고 있어서,
   // 예전에는 한 번의 Esc 가 단어를 건너뛰는 **동시에** 세션 밖으로 내보냈다(v08.7 [B1]).
@@ -355,6 +393,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
       const target = e.target as HTMLElement
       const isTextInput = target.tagName === 'TEXTAREA'
       if (isTextInput) return
+      if (!ownsSession()) return
 
       // Tab — 힌트. **다만 Tab 은 이 앱에서 유일한 이동 수단이기도 하다.**
       //
@@ -389,7 +428,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
 
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [mode, currentWord, triggerHint, handleConfirm, handleSkip, playWordAudio])
+  }, [mode, currentWord, triggerHint, handleConfirm, handleSkip, playWordAudio, ownsSession])
 
   // 자동 포커스
   useEffect(() => {
@@ -416,6 +455,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         backHref={backHref}
         content={content}
         recommendation={recommendation}
+        viewerId={viewerId}
       />
     )
   }
