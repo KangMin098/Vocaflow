@@ -129,7 +129,8 @@ export function PairFlipGameScreen({ config, pairs, content, viewerId, authSourc
     })
 
     try {
-      sessionStorage.setItem(STORAGE_KEYS.result, JSON.stringify(result))
+      // 결과(학습한 단어 · 뜻 포함)에 판의 주인을 붙인다 — 결과 화면은 지금 브라우저 신원이 이 주인일 때만 보인다
+      sessionStorage.setItem(STORAGE_KEYS.result, JSON.stringify({ ...result, owner: viewerId }))
     } catch {
       /* noop */
     }
