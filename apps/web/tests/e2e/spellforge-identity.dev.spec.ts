@@ -152,3 +152,17 @@ for (const width of WIDTHS) {
     })
   })
 }
+
+test.describe('멈춤 화면 Enter — 이중 기록 결함', () => {
+  test.use({ viewport: { width: 1280, height: 900 } })
+  test('정답 뒤 멈춤 화면에서 Enter 로 넘어가도 같은 단어 평가는 1건', async ({ page }) => {
+    await open(page)
+    await expect(input(page)).toBeVisible()
+    const w = await answer(page)
+    await page.waitForTimeout(1200)
+    await page.keyboard.press('Enter')
+    await expect(input(page)).toBeVisible()
+    await page.waitForTimeout(400)
+    await expect(queue(page)).toHaveText(`${A}:${w}`)
+  })
+})
