@@ -193,6 +193,16 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
     section: '연습과 세션',
   },
+  // 듣기 근거 추적 도구(로컬 픽스처 · T-0157) — 파일은 있었으나 매니페스트에 빠져 있었다(2026-10-28 회귀가 잡음).
+  {
+    path: '/csat/listening',
+    screen: 'csat-listening',
+    label: '듣기 근거 추적',
+    says: '들은 대화에서 답의 근거가 된 말을 짚어 본다.',
+    group: 'main',
+    kind: 'screen',
+    section: '연습과 세션',
+  },
   { path: '/csat/practice', screen: 'csat-practice-index', label: '연습 색인(유일 과제로)', group: 'main', kind: 'redirect' },
   {
     path: '/csat/practice/[slug]',
@@ -470,6 +480,17 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     says: '오늘 풀 구문 연습이 있는지 알려 준다.',
     group: 'main',
     kind: 'screen',
+    section: '연습과 세션',
+  },
+  // 2026-10-28 — R0 같은 기사 발췌 연습(본인이 연 글에서 진입 · 검수 후보가 있을 때만).
+  {
+    path: '/practice/article/[articleId]',
+    screen: 'practice-article',
+    label: '글 중심 의미 연습',
+    says: '읽은 글의 발췌문으로 제목 · 주제를 골라 본다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
     section: '연습과 세션',
   },
   {
