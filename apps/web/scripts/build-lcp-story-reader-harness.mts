@@ -131,7 +131,7 @@ const SERVER_ACTION_MODULES: Record<string, string> = {
   'src/app/(main)/library/stories/actions.ts': '__story',
 }
 /** 기준선 Books 면이 끌어오는 원본 도서 액션(등록 해제 등) · 단어장 화면(T-0191)이 끌어오는 SRS 결과 전송 — 호출되면 스펙이 기록만 하고 { ok:false } 를 준다. */
-const BASELINE_ACTION_MODULES = new Set(['src/lib/library/complete-chapter.ts', 'src/lib/library/mark-progress.ts', 'src/lib/srs/flush-actions.ts'])
+const BASELINE_ACTION_MODULES = new Set(['src/lib/library/complete-chapter.ts', 'src/lib/library/mark-progress.ts', 'src/lib/srs/flush-actions.ts', 'src/lib/wordvault/set-membership-actions.ts'])
 const USE_SERVER = /^(?:\s|\/\/[^\n]*\n|\/\*[\s\S]*?\*\/)*['"]use server['"]/
 
 function actionShim(text: string, prefix: string): string {

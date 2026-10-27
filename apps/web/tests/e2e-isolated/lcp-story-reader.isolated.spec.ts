@@ -2292,6 +2292,120 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
         assertQuietNetwork(log)
       })
 
+      test('U03 독서 후 「내 단어장 살펴보기」(합성 fixture · 실제 save-word.ts) — 저장 없음/실패는 없음 · 저장→계속→완료 뒤 마지막 보조 링크(검증 왕복 주소) · 이미 있음 · 재마운트 · 계정 전환 · Tab/focus/44px', async ({ page, context }) => {
+        test.setTimeout(180_000)
+        await page.setViewportSize({ width, height: 1000 })
+        const b1 = FM.release_keys.B1
+        const last = 7
+        const words = [...new Set((unitText(b1, last).match(/\b[a-z]{4,}\b/g) ?? []))]
+        expect(words.length).toBeGreaterThanOrEqual(3)
+        const [wNew, wOld, wFail] = words as [string, string, string]
+        const entry = (w: string) => ({ found: true, resolved_word: w, meaning_ko: `${w} (서버 합성)`, pos: 'noun', cefr_level: 'A2', example_en: null, match_via: 'direct', lang: 'en' })
+        const run = newRun(`u03-vault-after-${width}`, (db) => {
+          ;(db as unknown as { dictionary: unknown }).dictionary = { [wNew]: entry(wNew), [wOld]: entry(wOld), [wFail]: entry(wFail) }
+          ;(db as unknown as { vocab: unknown[] }).vocab = [{ id: 'vocab-old', user_id: FM.users.A, word: wOld, meaning: '예전 뜻', example_sentence: '', pos: 'noun', cefr_level: 'A2', origin: 'library', text_id: null }]
+          ;(db.progress as unknown as Record<string, unknown>[]).push({ user_id: FM.users.A, release_key: b1, last_unit_index: last, furthest_unit_index: last, completed_units: [0, 1, 2, 3, 4, 5, 6], completed_at: null, updated_seq: 90 })
+        })
+        run.actor = FM.users.A
+        await context.addInitScript((ws) => {
+          ;(window as unknown as { __VF_LOOKUP__: unknown }).__VF_LOOKUP__ = Object.fromEntries(ws.map((w) => [w, { word: w, meaning_ko: `${w} (브라우저 합성)`, pos: 'noun' }]))
+        }, [wNew, wOld, wFail])
+        const log = await readerHarness(context, `u03-vault-after@${width}`, run)
+        const dialog = () => page.getByRole('dialog')
+        const saveBtn = () => dialog().locator('[data-story-word-save-button]')
+        const vaultAfter = () => page.locator('[data-story-vault-after]')
+        const expectedHref = `/wordvault/browse?story_release=${b1}&story_unit=${last}`
+        const openWord = async (text: string) => {
+          await page.locator('[data-word-index]').filter({ hasText: new RegExp(`^${text}$`) }).first().click()
+          await sx(dialog()).toBeVisible()
+          await sx(dialog()).not.toHaveAttribute('aria-busy', 'true')
+        }
+        const emit = (event: string, id: string | null) =>
+          page.evaluate(([e, u]) => (window as unknown as { __vfAuthEmit: (e: string, u: unknown) => void }).__vfAuthEmit(e as string, u ? { id: u } : null), [event, id] as const)
+        const evidence: Record<string, unknown> = { width }
+        try {
+          await openStories(page, `/library/stories/${b1}?unit=${last}`)
+          await sx(B(page)).toBeVisible()
+          await page.locator('[data-story-word-mode]').click()
+
+          // 1) 저장 실패만 → 완료 전이므로 독서 후 영역 없음 · 링크 없음
+          editDb(run, (db) => { db.faults.vocab_insert = { kind: 'error', times: 1 } })
+          await openWord(wFail)
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="error"]')).toBeVisible()
+          await page.keyboard.press('Escape')
+          await sx(page.locator('[data-story-after-completion]')).toHaveCount(0)
+
+          // 2) 저장 → 계속 읽기(창 닫음 · 자동 이동 없음) → 명시 완료 → 서가 · 다시 읽기 다음 마지막 보조 링크
+          await openWord(wNew)
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="saved"]')).toBeVisible()
+          await page.keyboard.press('Escape')
+          await sx(dialog()).toHaveCount(0)
+          expect(search(page).get('unit')).toBe(String(last))
+          await sx(vaultAfter()).toHaveCount(0) // 완료 전에는 독서 후 선택이 없다
+          await markUnit(page, last)
+          await sx(page.locator('[data-story-after-completion]')).toBeVisible()
+          await sx(vaultAfter()).toHaveCount(1)
+          await sx(vaultAfter()).toHaveText('내 단어장 살펴보기')
+          await sx(vaultAfter()).toHaveAttribute('href', expectedHref)
+          const order = await page.locator('[data-story-after-completion] a').evaluateAll((els) => els.map((e) => (e as HTMLElement).dataset.storyGo ?? ((e as HTMLElement).hasAttribute('data-story-next-story') ? 'next-story' : (e as HTMLElement).hasAttribute('data-story-vault-after') ? 'vault' : '?')))
+          expect(order).toEqual(['next-story', 'reread', 'vault'])
+          await sx(page.locator('[data-story-next-story]')).toHaveCount(1)
+          expect(await page.locator('[data-story-after-completion]').innerText()).not.toMatch(/\d+\s*개|이 Story에서/)
+          // 키보드: 다시 읽기 → Tab → 보조 링크 · 보이는 초점 · 44px
+          await page.locator('[data-story-after-completion] [data-story-go="reread"]').focus()
+          await page.keyboard.press('Tab')
+          await sx(vaultAfter()).toBeFocused()
+          const m = await vaultAfter().evaluate((el) => {
+            const cs = getComputedStyle(el)
+            const r = el.getBoundingClientRect()
+            return { h: r.height, w: r.width, focusVisible: el.matches(':focus-visible'), visibleFocus: (cs.outlineStyle !== 'none' && parseFloat(cs.outlineWidth) > 0) || cs.boxShadow !== 'none' }
+          })
+          evidence.vault_after = m
+          expect(m.focusVisible && m.visibleFocus, JSON.stringify(m)).toBe(true)
+          expect(m.h, JSON.stringify(m)).toBeGreaterThanOrEqual(44)
+          expect(m.w).toBeGreaterThanOrEqual(44)
+          await shot(page, `u03-vault-after-${width}`)
+
+          // 3) 재마운트(새 문서) → 메모리 문맥 없음 → 완료 영역은 그대로 · 링크 없음
+          await openStories(page, `/library/stories/${b1}?unit=${last}`)
+          await sx(page.locator('[data-story-after-completion]')).toBeVisible()
+          await sx(vaultAfter()).toHaveCount(0)
+
+          // 4) 이미 있는 낱말(already) → 링크
+          await page.locator('[data-story-word-mode]').click()
+          await openWord(wOld)
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="already"]')).toBeVisible()
+          await page.keyboard.press('Escape')
+          await sx(vaultAfter()).toHaveAttribute('href', expectedHref)
+
+          // 5) 계정 전환 → 개인 내용과 함께 링크도 사라짐
+          await emit('SIGNED_IN', FM.users.B)
+          await sx(page.locator('[data-story-state="auth_changed"]')).toBeVisible()
+          await sx(vaultAfter()).toHaveCount(0)
+
+          // 6) 늦은 응답 — 응답 전에 로그아웃되면 성공을 관측하지 않는다
+          run.browserUser = undefined
+          await openStories(page, `/library/stories/${b1}?unit=${last}`)
+          await page.locator('[data-story-word-mode]').click()
+          await openWord(wNew)
+          const releaseSave = holdNext(run, 'saveStoryWordAction')
+          await saveBtn().click()
+          await emit('SIGNED_OUT', null)
+          releaseSave()
+          await page.waitForTimeout(800)
+          await sx(vaultAfter()).toHaveCount(0)
+
+          fs.mkdirSync(SHOTS, { recursive: true })
+          fs.appendFileSync(path.join(SHOTS, 'u03-fixture-evidence.jsonl'), `${JSON.stringify({ ...evidence, at: new Date().toISOString() })}\n`)
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
       test('Codex authoritative saved headword (합성 사전 재확정 · 실제 save-word.ts + 저장 UI) — saved/already 모두 서버 표제어 표시 · 중복 전필드 보존', async ({ page, context }) => {
         test.setTimeout(120_000)
         await page.setViewportSize({ width, height: 1000 })
