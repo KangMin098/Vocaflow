@@ -74,7 +74,8 @@ for (const width of WIDTHS) {
       }
       expect(reached).toBe(true)
       expect(await reopen.evaluate((el) => el.matches(':focus-visible') && getComputedStyle(el).boxShadow !== 'none')).toBe(true)
-      // 실제 세션의 이탈 flush(서버 Action = 이 페이지로의 POST)만 나타나고 전송 전에 막혔다 — Supabase · API · analytics 로 간 것은 없다
+      // 막힌 쓰기성 요청은 이 페이지로의 Server Action POST 뿐(이탈 flush 로 보이지만 pathname 만으로는 어떤 Action 인지 확정하지 않는다 ·
+      // 실제 저장은 실행되지 않았다) — Supabase · API · analytics 로 간 것은 없다
       expect(writes.every((w) => w === 'POST /dev/flashcard-identity')).toBe(true)
     })
 
@@ -96,3 +97,25 @@ for (const width of WIDTHS) {
     })
   })
 }
+
+test.describe('하네스 표시 범위', () => {
+  test.use({ viewport: { width: 1280, height: 900 } })
+
+  test('주인 미상 · 다른 주인의 기존 대기 행은 보이지 않고 그대로 남는다', async ({ page }) => {
+    const seed = JSON.stringify([
+      { cardId: 'x1', word: 'harvest', cardUpdate: {}, rating: 3, reviewedAt: '2026-01-01T00:00:00.000Z', module: 'flashcard' },
+      { cardId: 'x2', word: 'harvest', cardUpdate: {}, rating: 3, reviewedAt: '2026-01-02T00:00:00.000Z', module: 'flashcard', owner: 'someone-real' },
+    ])
+    await page.addInitScript((s) => {
+      if (!sessionStorage.getItem('seeded')) {
+        localStorage.setItem('srs_pending', s)
+        sessionStorage.setItem('seeded', '1')
+      }
+    }, seed)
+    await open(page, '1')
+    await page.waitForTimeout(600)
+    await expect(queue(page)).toHaveText('')
+    const kept = await page.evaluate(() => JSON.parse(localStorage.getItem('srs_pending') ?? '[]') as { cardId: string; owner?: string }[])
+    expect(kept.map((k) => `${k.cardId}:${k.owner ?? '-'}`)).toEqual(['x1:-', 'x2:someone-real'])
+  })
+})
