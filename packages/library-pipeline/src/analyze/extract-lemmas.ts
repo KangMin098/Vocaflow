@@ -220,6 +220,40 @@ function chapterTokenSet(content: string): Set<string> {
   return new Set(content.toLowerCase().match(/[a-z][a-z'-]*/g) ?? [])
 }
 
+// 2026-10-28 — 대문자 고유명사 가드 (PROPN 보완).
+//   winkNLP 는 "Ford's Theatre" 의 Ford 를 NOUN 으로 태깅해 일반어 `ford` 가 학습 어휘로 들어갔다.
+//   판정(occurrence 단위 — 이 등장만 건너뛰고, 같은 글의 일반어 용례는 그대로 센다):
+//     ① 문장 첫 단어가 아닌데 Title-case (Theatre · Cottage)
+//     ② 바로 뒤에 소유격 's 가 붙고 그 다음 단어가 Title-case (문장 첫머리 "Ford's Theatre")
+//   모든 등장이 고유명사면 그 lemma 는 결과에 남지 않는다 (PROPN 과 같은 방식 — 출력 형태 불변).
+//   제목형 문장(단어 60% 이상 대문자 시작 — 헤드라인)과 ALL-CAPS 는 ① 을 적용하지 않는다.
+const TITLE_CASE = /^[A-Z][a-z]/
+function isPossessive(t: WlpToken | undefined): boolean {
+  return !!t && /^['’]s$/i.test(t.surface)
+}
+function isCapitalizedNameOccurrence(
+  toks: readonly WlpToken[],
+  ti: number,
+  firstWordIdx: number,
+  headline: boolean,
+): boolean {
+  const token = toks[ti]
+  if (!token || !TITLE_CASE.test(token.surface)) return false
+  // 문장 중간 Title-case 는 **여러 단어 이름** 안에 있을 때만 (단독 강조 대문자는 일반어로 남긴다).
+  //   이웃 단어(소유격 's 는 건너뜀)가 Title-case 면 이름의 일부다: President Lincoln · Ford's Theatre.
+  if (ti !== firstWordIdx && !headline) {
+    const prevIdx = isPossessive(toks[ti - 1]) ? ti - 2 : ti - 1
+    const nextIdx = isPossessive(toks[ti + 1]) ? ti + 2 : ti + 1
+    const cap = (t: WlpToken | undefined) => !!t && !t.isPunctuation && TITLE_CASE.test(t.surface)
+    if (cap(toks[prevIdx]) || cap(toks[nextIdx])) return true
+  }
+  if (isPossessive(toks[ti + 1])) {
+    const after = toks[ti + 2]
+    if (after && !after.isPunctuation && TITLE_CASE.test(after.surface)) return true
+  }
+  return false
+}
+
 /** 저장하는 예문의 최대 길이. DB 용량 때문에 두는 상한이지 문장의 성질이 아니다. */
 export const SENTENCE_CAP = 300
 
@@ -286,11 +320,22 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
       string,
       // firstSurface — 그 문장 안에서 **실제로 쓰인 형태**. 표제어(lemma)로는 문장에서 못 찾는
       // 경우가 흔해(ran/run · geese/goose · travellers/traveler) 창을 어디에 둘지 정할 수 없다.
-      { count: number; firstSentenceIdx: number; firstSurface: string; posCounts: Map<string, number> }
+      // posFirst — POS별 첫 등장 (문장·표면형). 저장 예문은 고른 context_pos 의 첫 등장에서 뽑는다.
+      {
+        count: number
+        firstSentenceIdx: number
+        firstSurface: string
+        posCounts: Map<string, number>
+        posFirst: Map<string, { sentenceIdx: number; surface: string }>
+      }
     >()
 
     for (const sentence of result.sentences) {
       const toks = sentence.tokens
+      const firstWordIdx = toks.findIndex((t) => !t.isPunctuation)
+      const words = toks.filter((t) => !t.isPunctuation && /^[A-Za-z]/.test(t.surface))
+      const headline =
+        words.length >= 3 && words.filter((t) => /^[A-Z]/.test(t.surface)).length / words.length >= 0.6
       for (let ti = 0; ti < toks.length; ti++) {
         const token = toks[ti]
         // 인덱스 접근은 타입상 undefined 가능(noUncheckedIndexedAccess) — 루프 범위상
@@ -302,6 +347,8 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
         //   캐릭터명·지명 (Elizabeth/Darcy/Jim/London/Hispaniola) 학습 vocab 에서 제외.
         //   winkNLP universal POS tag 기준 — 측정상 6권 noise 4~12% 모두 PROPN 패턴.
         if (token.pos === 'PROPN') continue
+        // 2026-10-28 — 대문자 이름 등장 (Ford's Theatre · Lincoln's Cottage) — isCapitalizedNameOccurrence 주석
+        if (isCapitalizedNameOccurrence(toks, ti, firstWordIdx, headline)) continue
         // v06.35 — winkNLP 무가드 폴백 되돌리기 (아래 두 헬퍼 주석)
         //   ① -men→-man 특정 규칙  ② 본문에 없는 표제어 일반 차단
         const lemma = keepLemmaOnlyIfInText(
@@ -324,15 +371,25 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
         const existing = chapterCounts.get(lemma)
         if (existing) {
           existing.count += 1
-          if (mapped) existing.posCounts.set(mapped, (existing.posCounts.get(mapped) ?? 0) + 1)
+          if (mapped) {
+            existing.posCounts.set(mapped, (existing.posCounts.get(mapped) ?? 0) + 1)
+            if (!existing.posFirst.has(mapped)) {
+              existing.posFirst.set(mapped, { sentenceIdx: token.sentenceIndex, surface: token.surface })
+            }
+          }
         } else {
           const posCounts = new Map<string, number>()
-          if (mapped) posCounts.set(mapped, 1)
+          const posFirst = new Map<string, { sentenceIdx: number; surface: string }>()
+          if (mapped) {
+            posCounts.set(mapped, 1)
+            posFirst.set(mapped, { sentenceIdx: token.sentenceIndex, surface: token.surface })
+          }
           chapterCounts.set(lemma, {
             count: 1,
             firstSentenceIdx: token.sentenceIndex,
             firstSurface: token.surface,
             posCounts,
+            posFirst,
           })
         }
       }
@@ -343,17 +400,22 @@ export function extractBookLemmas(chapters: ChapterSegment[]): BookLemmaIndex {
       // 책 전체 빈도 누적
       bookFrequency.set(lemma, (bookFrequency.get(lemma) ?? 0) + info.count)
 
-      // chapter별 등장 기록 — **낱말이 든 자리**를 잘라 낸다 (아래 clipAroundWord 주석)
-      const firstSentence = clipAroundWord(
-        result.sentences[info.firstSentenceIdx]?.text.trim() ?? '',
-        info.firstSurface,
-        SENTENCE_CAP,
-      )
-
       // Phase 3 — chapter 지배 POS (최다 등장 POS)
       let context_pos: string | null = null
       let maxPos = 0
       for (const [p, n] of info.posCounts) if (n > maxPos) { maxPos = n; context_pos = p }
+
+      // chapter별 등장 기록 — **낱말이 든 자리**를 잘라 낸다 (위 clipAroundWord 주석)
+      // 2026-10-28 — 예문은 context_pos 로 쓰인 첫 등장에서 뽑는다 (예문 품사 ≠ sense 매칭 품사 방지)
+      const chosen = (context_pos ? info.posFirst.get(context_pos) : undefined) ?? {
+        sentenceIdx: info.firstSentenceIdx,
+        surface: info.firstSurface,
+      }
+      const firstSentence = clipAroundWord(
+        result.sentences[chosen.sentenceIdx]?.text.trim() ?? '',
+        chosen.surface,
+        SENTENCE_CAP,
+      )
 
       const list = occurrences.get(lemma) ?? []
       list.push({
