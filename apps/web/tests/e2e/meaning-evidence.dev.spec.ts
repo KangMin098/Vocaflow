@@ -78,6 +78,52 @@ for (const width of WIDTHS) {
       await expect(page.getByTestId('meaning-evidence-skipped')).toHaveCount(0)
     })
 
+    test('원래 다른 선택지 하나와 견주기: 질문 유지 · 대상 바꾸면 근거 초기화 · 다음 문항 초기화 · 기록 호출 없음', async ({ page }) => {
+      const writes = await open(page)
+      await answer(page, 1)
+      await expect(page.getByTestId('meaning-evidence-stem')).toContainText('글의 제목으로 가장 알맞은 것은?')
+      const toggle = page.getByTestId('meaning-compare-toggle')
+      await expect(toggle).toHaveAttribute('aria-expanded', 'false')
+      await expect(page.getByRole('group', { name: '견줄 선택지' })).toHaveCount(0) // 기본 흐름에 선택지를 펼치지 않는다
+      await toggle.focus()
+      await page.keyboard.press('Enter')
+      await expect(toggle).toHaveAttribute('aria-expanded', 'true')
+      const targets = page.getByRole('group', { name: '견줄 선택지' }).getByRole('button')
+      await expect(targets).toHaveCount(4) // 내 답(①) 제외
+      await expect(targets.first()).toContainText('② How to Build a Town')
+      expect((await targets.first().boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(44)
+      await targets.nth(0).focus()
+      await page.keyboard.press('Enter')
+      await expect(targets.nth(0)).toHaveAttribute('aria-pressed', 'true')
+      const cands = page.getByRole('group', { name: '견주기 근거 문장 후보' }).getByRole('button')
+      await cands.nth(2).click()
+      const result = page.getByTestId('meaning-compare-result')
+      await expect(result).toContainText('내 답 ① A Bakery Loved for Its Slow Bread')
+      await expect(result).toContainText('견준 선택지 ② How to Build a Town')
+      await expect(result).toContainText('People line up before sunrise')
+      await expect(result).not.toContainText(/맞았|틀렸|정답 근거/)
+      // 원래 채점 결과는 그대로
+      await expect(page.getByTestId('meaning-evidence-chosen')).toContainText('(정답)')
+      // 대상을 바꾸면 앞 대상의 근거를 쓰지 않는다
+      await targets.nth(1).click()
+      await expect(result).toHaveCount(0)
+      await expect(cands.nth(2)).toHaveAttribute('aria-pressed', 'false')
+      await page.screenshot({ path: `test-results/meaning-compare-${width}.png`, fullPage: true })
+      // 다음 문항은 새로
+      await page.getByRole('button', { name: /다음/ }).click()
+      await answer(page, 3)
+      await expect(page.getByTestId('meaning-compare-toggle')).toHaveAttribute('aria-expanded', 'false')
+      await expect(page.getByTestId('meaning-compare-result')).toHaveCount(0)
+      await page.getByTestId('meaning-compare-toggle').click()
+      await expect(page.getByRole('group', { name: '견줄 선택지' }).getByRole('button')).toHaveCount(4)
+      await expect(page.getByRole('group', { name: '견줄 선택지' })).not.toContainText('opening hours of shops') // 내 답(③) 제외
+      // 빈칸 유형에는 없다
+      await page.getByRole('button', { name: /다음/ }).click()
+      await answer(page, 1)
+      await expect(page.getByTestId('meaning-compare')).toHaveCount(0)
+      expect(writes).toEqual([])
+    })
+
     test('해설이 없는 문항은 없다고 말한다 · 키보드로 짚고 보이는 focus', async ({ page }) => {
       await open(page)
       for (const n of [1, 1, 1]) {
