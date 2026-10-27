@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(reports): 주간 리포트 코멘트가 활동량만으로 「기억을 단단하게」「실력이 돼요」를 단정하던 문구 제거 — `lib/learner/report-note.ts` `composeActivityNote` 가 분·단어·복습 횟수만 말하고 기억·실력 변화는 알 수 없다고 밝힌다. 화면은 저장된 옛 note 대신 저장 합계로 다시 만든다(DB·과거 행 무변경).
 - feat(r0): 퀴즈 채점 뒤 「근거 문장 짚기」(T-0193) — 읽기 화면 Quiz 가 그 챕터·글 퀴즈로(도서 챕터는 `?book&ch&text`), 채점 뒤 본문 문장 4개(등록 근거 1 + 같은 본문 3) 중 근거를 고르고 등록 근거와 대조(오답 판정 아님 · 기록·점수 미반영). 근거가 여러 문장에 걸치거나 본문에 없으면 피커 없이 근거만. 본문은 본인 texts 행·같은 도서·챕터일 때만(`lib/scriptquiz/own-passage.ts`). 범위를 주었는데 문항이 없으면 데모 대신 빈 상태. DB 무변경.
 - fix(r0): 읽기 완료 버튼 저장 중·실패·재시도(T-0192) — `CompleteChapterButton` 이 reject·ok=false 에 role=alert 안내(읽기 위치 보존)와 「다시 시도」, 저장 중 aria-busy·중복 호출 차단, 장이 바뀐 뒤 늦은 응답 무시, 완료 뒤 포커스를 다음 장/BookVault 로, 조작 44px. 저장 액션·RLS·다음 장 로직 무변경. 실측 하네스 `/dev/complete-chapter`(fake 응답 · 프로덕션 404). DB 무변경.
 - fix(e2e): Playwright 산출물 인증 세션 흔적 가림 — `tests/e2e/utils/secret-redact-reporter.ts` 를 모든 설정 reporter 맨 앞에(r5 는 상속). 결과 오류·단계·stdout/stderr·첨부(error-context · trace.zip 항목)를 다른 reporter 가 읽기 전에 `[REDACTED]`, 콘솔 출력·출력 폴더 재점검. trace·스크린샷·비디오·html 리포트는 유지. 로직 `src/lib/utils/secret-redact.ts`(zlib 만, 새 의존성 없음). 2026-10-26 QA 세션 쿠키가 실패 call log 로 노출된 사고 후속.
