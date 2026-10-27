@@ -16,6 +16,14 @@ describe('받아쓰기 복귀 from', () => {
     }
   })
 
+  it('받아쓰기 자신은 from 이 아니다 — 안을 맴돌지 않는다', () => {
+    for (const self of ['/dictate', '/dictate/setup?text=t1', '/dictate/session?sessionId=s1', '/dictate?x=1']) {
+      expect(dictationFrom(self)).toBeNull()
+      expect(withDictationFrom('/dictate/results?sessionId=s1', self)).toBe('/dictate/results?sessionId=s1')
+    }
+    expect(dictationFrom('/dictated-notes')).toBe('/dictated-notes')
+  })
+
   it('같은 자료 재시도 — 글 · 묶음(장) 에 from, 붙여넣기 · 오늘은 허브(from 없음)', () => {
     expect(dictationRetryHref({ textId: 't1' }, '/text/t1')).toBe('/dictate/setup?text=t1&from=%2Ftext%2Ft1')
     expect(dictationRetryHref({ sharedSetId: 'w1', chapterIdx: 3 }, '/library/books/b1')).toBe('/dictate/setup?set=w1&chapter=3&from=%2Flibrary%2Fbooks%2Fb1')

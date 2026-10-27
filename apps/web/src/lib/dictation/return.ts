@@ -8,14 +8,19 @@
 
 import { sanitizeInternalPath } from '@/lib/layout/session-return'
 
-/** 안전한 내부 from 만 — 아니면 null(링크 · 쿼리에 쓰지 않는다). */
+/**
+ * 안전한 내부 from 만 — 아니면 null(링크 · 쿼리에 쓰지 않는다).
+ * 받아쓰기 자신(/dictate · /dictate/…)도 버린다 — 「하던 학습으로」가 받아쓰기 안을 맴돌고, 홈은 따로 버튼이 있다(리뷰 P3).
+ */
 export function dictationFrom(raw: string | null | undefined): string | null {
-  return sanitizeInternalPath(raw)
+  const safe = sanitizeInternalPath(raw)
+  if (!safe || /^\/dictate(?:[/?#]|$)/.test(safe)) return null
+  return safe
 }
 
 /** href 에 안전한 from 을 덧붙인다. from 이 없거나 불량이면 href 그대로. */
 export function withDictationFrom(href: string, from: string | null | undefined): string {
-  const safe = sanitizeInternalPath(from)
+  const safe = dictationFrom(from)
   if (!safe) return href
   return `${href}${href.includes('?') ? '&' : '?'}from=${encodeURIComponent(safe)}`
 }
