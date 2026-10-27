@@ -2,6 +2,8 @@
 // 합성 자료 — 개인 데이터 아님 · 기록 없음. 글 A(2) · 글 B(1) · 세트 A(origin 1 + 다른 세트에서 먼저 가진 정본 낱말 1) · 세트 B(2).
 'use client'
 
+import { useEffect } from 'react'
+import { consumeSessionEscape } from '@/components/layout/session-escape'
 import { WordVaultBrowseClient } from '@/components/wordvault/WordVaultBrowseClient'
 import { WordVaultStudyClient } from '@/components/wordvault/WordVaultStudyClient'
 import type { BrowseWord } from '@/lib/wordvault/browse-queries'
@@ -26,12 +28,25 @@ const WORDS: BrowseWord[] = [
 ]
 const MEMBERSHIP: Record<string, string[]> = { [SA]: ['flooding', 'harvest'], [SB]: ['harvest', 'drought'] }
 
+/** 개발 전용 얇은 Esc 호스트 — 실제 SessionFrame 과 같은 디스패처(consumeSessionEscape)만 부른다. 헤더 · 닫기 이동은 흉내 내지 않는다. */
+function EscapeKeyHost() {
+  useEffect(() => {
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') consumeSessionEscape()
+    }
+    window.addEventListener('keydown', onKey)
+    return () => window.removeEventListener('keydown', onKey)
+  }, [])
+  return null
+}
+
 export function WordVaultSourceRecallHarness({ searchParams }: { searchParams: Record<string, string | string[] | undefined> }) {
   const banner = <div className="border-b border-[var(--bd)] bg-[var(--bg)] px-6 py-3 font-display text-[13px] text-[var(--t2)]">합성 자료 · 개인 데이터 아님 · 기록 없음</div>
   if (searchParams.view === 'study') {
+    const host = <EscapeKeyHost />
     const parsed = parseStudyFilter(searchParams.filter, searchParams.q, searchParams.level)
     if (parsed.kind !== 'source') {
-      return (<>{banner}<WordVaultStudyClient words={[]} backHref={sourceStudyReturnHref(searchParams.from, '')} source={{ total: 0, conditions: '', error: 'invalid' }} /></>)
+      return (<>{banner}{host}<WordVaultStudyClient words={[]} backHref={sourceStudyReturnHref(searchParams.from, '')} source={{ total: 0, conditions: '', error: 'invalid' }} /></>)
     }
     const id = parsed.filter.slice(4)
     const membership: SetMembership | null = parsed.filter.startsWith('set:') && MEMBERSHIP[id] ? { setId: id, words: new Set(MEMBERSHIP[id]) } : null
@@ -40,6 +55,7 @@ export function WordVaultSourceRecallHarness({ searchParams }: { searchParams: R
     return (
       <>
         {banner}
+        {host}
         <WordVaultStudyClient
           words={scoped.status === 'ok' ? scoped.words : []}
           backHref={back}
