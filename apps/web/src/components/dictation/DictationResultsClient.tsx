@@ -18,6 +18,7 @@ import { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
+  ArrowLeft,
   ArrowRight,
   BarChart3,
   Check,
@@ -35,6 +36,7 @@ import { fetchDictationSessionDetail, type SessionDetail } from '@/lib/dictation
 import { createClient } from '@/lib/supabase/client'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import type { WordResult } from '@/lib/dictation/types'
+import { dictationFrom, dictationRetryHref, type DictationRetrySource } from '@/lib/dictation/return'
 
 const DICTATION_ACCENT = '#0EA5E9'
 
@@ -42,6 +44,7 @@ export function DictationResultsClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('sessionId')
+  const from = dictationFrom(searchParams.get('from'))
 
   const [detail, setDetail] = useState<SessionDetail | null>(null)
   const [state, setState] = useState<'loading' | 'ready' | 'missing'>('loading')
@@ -349,11 +352,31 @@ export function DictationResultsClient() {
       </section>
 
       {/* ─── CTA ─── */}
+      <DictationResultActions retry={s} from={from} />
+    </div>
+  )
+}
+
+/** 결과 화면 행동 — 들어온 자리(있을 때만) · 같은 자료로 한 번 더 · 받아쓰기 홈 · 통계. */
+export function DictationResultActions({ retry, from }: { retry: DictationRetrySource; from: string | null }) {
+  return (
+    <>
+      {/* 들어온 자리로 — 읽던 글일 수도 다른 학습 화면일 수도 있어 제목 · 소속을 지어 말하지 않는다 */}
+      {from && (
+        <Link
+          href={from}
+          data-testid="dictation-return-from"
+          className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        >
+          <ArrowLeft size={14} aria-hidden />
+          하던 학습으로 돌아가기
+        </Link>
+      )}
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
         {/* "한 번 더" 는 **같은 자료로** 돌아가야 한다 — 허브로 보내면 자료를 다시 찾아야 하고,
             그 마찰이 재도전을 막는다. 출처 좌표가 없으면(붙여넣기·오늘) 허브로 폴백. */}
         <Link
-          href={retryHref(s)}
+          href={dictationRetryHref(retry, from)}
           className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           <RotateCw size={14} />
@@ -376,22 +399,8 @@ export function DictationResultsClient() {
           <ArrowRight size={14} />
         </Link>
       </div>
-    </div>
+    </>
   )
-}
-
-/**
- * 같은 자료로 되돌아가는 링크.
- * 붙여넣은 글(custom)은 저장하지 않으므로 되돌아갈 자료가 없고,
- * 오늘의 받아쓰기(daily)는 내일 다시 조립되는 것이라 허브가 옳은 목적지다.
- */
-function retryHref(s: SessionDetail['session']): string {
-  if (s.textId) return `/dictate/setup?text=${s.textId}`
-  if (s.sharedSetId) {
-    const ch = s.chapterIdx ? `&chapter=${s.chapterIdx}` : ''
-    return `/dictate/setup?set=${s.sharedSetId}${ch}`
-  }
-  return '/dictate'
 }
 
 function HeroStat({ label, value }: { label: string; value: string }) {

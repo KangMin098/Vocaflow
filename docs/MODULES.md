@@ -599,6 +599,7 @@ const QUIZ_GENERATION_PROMPT = `
 - `/dictate/setup?text=|set=|custom=1` — Setup (미리보기 3지표 + 분량/문항수/순서/채점/듣기)
 - `/dictate/session?sessionId=` — 세션 (TTS · 단어별 채점 · 4단계 힌트 · Focus Mode)
 - `/dictate/results?sessionId=` — 결과 (**DB 조회** · 복습 반영 단어 · 청취 폭 · 반복된 태그)
+- 들어온 자리 `?from=`(읽던 글 등)은 설정 → 세션 → 결과 → 같은 자료 재시도로 이어진다(`lib/dictation/return.ts` · 기존 `sanitizeInternalPath` 만 통과). 세션 틀의 닫기/Esc 는 그 from 으로, 결과에는 from 이 있을 때만 「하던 학습으로 돌아가기」(`DictationResultActions`). 붙여넣기 · 오늘의 받아쓰기 재시도는 허브(from 없음).
 
 ### 자료 4소스 (v07)
 | 소스 | 스코프 | 문장 출처 | 타깃 단어 |

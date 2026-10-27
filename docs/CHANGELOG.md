@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(dictation): 읽던 글에서 시작한 받아쓰기가 세션 · 결과로 넘어가며 `?from=` 을 잃던 것 — 설정 → 세션 → 결과(완료 자동 이동 · 이미 완료 「결과 보기」) → 같은 자료 재시도에 안전한 from 을 잇고, 결과에 「하던 학습으로 돌아가기」(from 있을 때만). 세션 닫기/Esc 는 기존 SessionFrame 이 같은 from 을 읽는다. 「받아쓰기 홈」 · 「통계」 그대로. 개발 확인 화면 `/dev/dictation-return`. DB 무변경.
 - feat(practice): 삽입 문항 정답 공개에서 해설의 후보 번호(①~⑤ — 인쇄 후보 `pickSlots` 또는 짧은 문항 1..n)를 실제 이음매에 표시(`해설 ②` 표지 · 정답 자리 배지). 채점 뒤 key 로만, 저장 해설의 정답 이음매 문구 · 오답 조각이 현재 본문 · 삽입 문장과 모두 맞을 때만 대응(`library-pipeline/insert-coordinates`) — 다른 writer · 옛 형식 · 범위 밖은 표시 없음. `tail`·`head`·`CIRCLED` 를 `seam-fragments.ts` 로 옮겨 해설 생성기와 공유. 제출 position · 채점 · 저장 해설 · 인쇄 무변경. 개발 확인 화면 `/dev/insert-feedback`. DB 무변경.
 - feat(reader): 따라읽기 패널(`ShadowReadAlong`) 시작 전 · 완료 화면에 같은 글 EchoMatch(`/text/[id]/echo`)로 가는 「내 녹음과 억양 비교」 링크(진행 중 없음 · 자동 이동 · 마이크 요청 없음). 완료 문구를 「N개 문장 따라읽기 연습이 끝났어요」로 — 인식 미지원 · 침묵으로도 완료되므로 발화 · 기억 향상을 말하지 않는다. 개발 확인 화면 `/dev/shadow-echo`. DB 무변경.
 - fix(textbook): 교재 연습(`/library/textbooks/[series]/[step]/practice`)을 마치면 기본값 /hub 대신 같은 교재(권) 화면으로 돌아온다(`DcpPlayer backHref · backCta`). 안내 문구 「순서·삽입 문항」을 실제 공급(선택형 포함)에 맞게 「연습 문항」으로. DB 무변경.
