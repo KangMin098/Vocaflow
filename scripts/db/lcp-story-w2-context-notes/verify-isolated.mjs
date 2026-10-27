@@ -11,6 +11,11 @@
 //   발행본은 실제 S3 RPC 경로(원천 등록 → 권리 confirmed → 기준 등록 → 판 제출 → 다른 스태프 검수 → service_role 증명 → admin 발행)로만 만든다.
 //   그다음 forward · recovery 파일 바이트를 각각 한 BEGIN/COMMIT 안에서(러너 흉내) 적용하고 W00.. 을 시험한다.
 //   결속 · 모양 변조 시험은 롤백되는 트랜잭션 안에서 superuser 가 session_replication_role=replica 로 불변 트리거를 끄고 저장값을 바꾼다.
+//   v2(독립 검토 P1 · P2 반영 — v1 하네스 552b405e… 와 그 결과 run1~4 는 이력으로 보존):
+//     · no-rehash 변조(내용만 바꾸고 저장 해시 · 결속 그대로) → edition_content / policy_content 불일치를 기대(v1 은 일부를 PASS 로 기대했다).
+//     · re-commit 변조(S3 정의로 해시 · 결속을 일관되게 다시 맞춤) → 뒤의 모양 · artifact_binding · handling 열거 검사를 따로 시험.
+//     · 양성(긴 · 유니코드 설명 · revise/omit 처리)과 P2 음성(모르는/없는 handling)은 실제 S3 등록 · 검수 · 증명 · 발행 경로 fixture.
+//     · W11 은 C01 규모 합성 판(~230KB)에서 호출 시간을 잰다(로컬 격리 · 정보용).
 //   재사용: 엔진 · 부트스트랩 · S3 발행 경로 · 문장 분리기는 U1 격리 시험(scripts/db/lcp-story-u1-guidance/verify-isolated.mjs)의 같은 부분을 옮겨 적었다.
 //
 // 경계: 격리 PostgreSQL 위에서 BEGIN/COMMIT 으로 감싼 SQL 동작만 증명한다. 승인 러너 · 원장 · Supabase apply_migration 원자성 ·
@@ -193,6 +198,8 @@ const Q = {
 // 공개되어야 할 값 = 시험용 맥락 문장(NOTE-A · NOTE-B). 공개되면 안 되는 값에는 LEAKMARK.
 const NOTE_A = '시대 맥락 A(시험): 당시에는 이런 추론이 흔했지만 오늘날의 근거와는 다르다는 설명.'
 const NOTE_B = '시대 맥락 B(시험): 당시의 역할 관념에 기댄 짐작이라 증거로 확인된 사실이 아니라는 설명.'
+/** S2 Text 에 상한이 없으므로 긴 · 유니코드 설명도 그대로 나와야 한다(v2 에서는 실제 등록 경로로 발행한 일관된 fixture). */
+const LONG_NOTE = `${'가'.repeat(2000)} 🌊👋🏽 é ZWJ 👩‍💻 NBSP  탭\t 따옴표 " 역슬래시 \\ 줄바꿈\n끝`
 function target(cefr) {
   return {
     language: { cefr, v_level_min: 3, v_level_max: 7, basis: 'editorial_target' },
@@ -219,12 +226,18 @@ function makeSnapshot(snapshotId) {
     rights: [{ asset: 'source_text', status: 'claimed_by_source', basis: 'LEAKMARK-RIGHTS', evidence_ref: 'LEAKMARK-RIGHTS-EVIDENCE', checked_by: null, checked_at: null }],
   }
 }
-function makePolicy(policyId = 'w2-lantern-policy', storyCefr = 'B2') {
+/** sensitive 를 바꾼 기준(실제 S3 등록 경로로 넣어 해시가 일관된 fixture 를 만든다 — S3 는 handling 열거를 검사하지 않는다). */
+const withHandling = (i, handling) => SENSITIVE.map((s, k) => {
+  if (k !== i) return s
+  const { handling: _h, ...rest } = s
+  return handling === undefined ? rest : { ...rest, handling }
+})
+function makePolicy(policyId = 'w2-lantern-policy', storyCefr = 'B2', sensitive = SENSITIVE) {
   return {
     schema: 'lcp-story/editorial-policy@1', policy_id: policyId, policy_version: 1, work_key: WORK_KEY, source_sha256: TEXT_SHA,
     reason_to_read: 'LEAKMARK-POLICY-REASON',
     preserve: { events: [], motivations: [], causality: [], foreshadowing: [], tone_devices: [] },
-    changeable: [], sensitive_content: SENSITIVE,
+    changeable: [], sensitive_content: sensitive,
     entry_scene: { anchors: [anchor(Q.hook)], spoiler_free: true, rationale: 'LEAKMARK-ENTRY' },
     review_concerns: ['LEAKMARK-REVIEW-CONCERN'],
     production: [
@@ -239,12 +252,21 @@ const UNITS = [
   { title: 'Boot prints', text: 'LEAKMARK-UNIT-2 The notebook was gone.', quotes: [Q.u2] },
   { title: 'The market', text: 'LEAKMARK-UNIT-3 Mira went to the market.', quotes: [Q.u3] },
 ]
-function changeLog(variant) {
+/** 규모 fixture(W11): 실제 C01 r3 판(activities 제외 ~233KB · 단위 16 · 변경 91 · JSON 노드 ~4,150)과 비슷한 크기 · 노드 수의 합성 덩어리. */
+const SCALE_QUOTE = 'Scale fixture quote — synthetic text for cost measurement only. '.repeat(5)
+const scaleAnchors = (n) => Array.from({ length: n }, (_, i) => ({ source_sha256: TEXT_SHA, paragraph: 0, start: i, end: i + 1, quote: SCALE_QUOTE }))
+const scaleChanges = () => Array.from({ length: 91 }, (_, i) => ({ change_id: `scale-${i}`, type: 'language_modernization', operation: 'rewrite',
+  unit_ids: ['u1'], source_anchors: scaleAnchors(3), sensitive_ref: null, rationale: `LEAKMARK-SCALE-RATIONALE ${i}`, learner_note: null }))
+function changeLog(variant, noteAText = null, scale = false) {
+  const base = changeLogBase(variant, noteAText)
+  return scale ? [...base, ...scaleChanges()] : base
+}
+function changeLogBase(variant, noteAText) {
   return [
     { change_id: 'c-1', type: 'language_modernization', operation: 'rewrite', unit_ids: ['u1'], source_anchors: [anchor(Q.p4)],
       sensitive_ref: null, rationale: 'LEAKMARK-CHANGE-RATIONALE', learner_note: null },
     { change_id: 'note-a', type: 'editorial_note', operation: 'context_note', unit_ids: ['u2'], source_anchors: [anchor(Q.u1)],
-      sensitive_ref: 'se-period-a', rationale: 'LEAKMARK-NOTE-A-RATIONALE', learner_note: variant ? `LEAKMARK-REVISED-${NOTE_A}` : NOTE_A },
+      sensitive_ref: 'se-period-a', rationale: 'LEAKMARK-NOTE-A-RATIONALE', learner_note: noteAText ?? (variant ? `LEAKMARK-REVISED-${NOTE_A}` : NOTE_A) },
     { change_id: 'note-plain', type: 'editorial_note', operation: 'context_note', unit_ids: ['u2'], source_anchors: [anchor(Q.u1)],
       sensitive_ref: null, rationale: 'LEAKMARK-PLAIN-RATIONALE', learner_note: 'LEAKMARK-PLAIN-NOTE-SPOILER 범인은 시장 상인이다' },
     { change_id: 'note-b', type: 'editorial_note', operation: 'context_note', unit_ids: ['u2', 'u3'], source_anchors: [anchor(Q.u2)],
@@ -255,15 +277,17 @@ function changeLog(variant) {
       sensitive_ref: 'se-period-a', rationale: 'LEAKMARK-GLOSS-RATIONALE', learner_note: 'LEAKMARK-GLOSS-NOTE' },
   ]
 }
-function makeEdition(binding, variant = 0) {
+function makeEdition(binding, variant = 0, opts = {}) {
+  const scale = opts.scale === true
   return {
     schema: 'lcp-story/edition@1', task_id: `${WORK_KEY}:w2-story`, binding, edition_key: 'w2-story', kind: 'story_edition',
     produced_by: { agent: 'claude-code', session_id: 'LEAKMARK-PRODUCER-SESSION', provenance: 'ai_generated' },
     title: variant ? `The Lantern Keeper (draft ${variant})` : 'The Lantern Keeper',
     hook: { text: 'Who took the notebook from the pier?', source_anchors: [anchor(Q.hook)], spoiler_free: true },
-    units: UNITS.map((u, i) => ({ unit_id: `u${i + 1}`, order: i + 1, title: u.title, text: variant ? `${u.text} v${variant}` : u.text,
-      source_anchors: u.quotes.map(anchor), preserves: [] })),
-    change_log: changeLog(variant),
+    units: UNITS.map((u, i) => ({ unit_id: `u${i + 1}`, order: i + 1, title: u.title,
+      text: `${variant ? `${u.text} v${variant}` : u.text}${scale ? ` ${'Scale body sentence for the cost fixture. '.repeat(240)}` : ''}`,
+      source_anchors: [...u.quotes.map(anchor), ...(scale ? scaleAnchors(53) : [])], preserves: [] })),
+    change_log: changeLog(variant, opts.noteAText ?? null, scale),
     activities: [], assets: [],
   }
 }
@@ -475,8 +499,8 @@ function storyApi(db) {
   }
   const bindingFor = (l) => ({ source_sha256: l.textSha, source_identity_sha256: l.identity,
     policy_sha256: l.slots['w2-story'].policy_sha256, target_sha256: l.slots['w2-story'].target_sha256 })
-  async function submitReviewed(l, variant = 0) {
-    const art = makeEdition(bindingFor(l), variant)
+  async function submitReviewed(l, variant = 0, opts = {}) {
+    const art = makeEdition(bindingFor(l), variant, opts)
     const sub = await submit(l.slots['w2-story'].slot_id, art)
     const rv = {
       schema: 'lcp-story/review@1', review_id: `review-w2-${sub.edition_sha256.slice(0, 8)}`,
@@ -490,8 +514,8 @@ function storyApi(db) {
     need(r.qualifies === true, 'review does not qualify')
     return { versionId: sub.edition_version_id }
   }
-  async function publishLane(l) {
-    const v = await submitReviewed(l)
+  async function publishLane(l, opts = {}) {
+    const v = await submitReviewed(l, 0, opts)
     await attest(v.versionId)
     const rel = await publish(v.versionId)
     return { versionId: v.versionId, releaseKey: rel.release_key }
@@ -502,7 +526,10 @@ function storyApi(db) {
 
 const REPLICA = { sql: `set local session_replication_role = replica` }
 const lit = (s) => `'${String(s).replace(/'/g, "''")}'`
-/** 발행본이 가리키는 판의 artifact 를 바꾼다(edition_sha256 는 그대로 — 해시 결속 대신 모양 방어만 시험). */
+/**
+ * 발행본이 가리키는 판의 artifact 를 바꾸고 **저장 해시는 그대로 둔다**(no-rehash 변조). v1 하네스는 이것으로 모양 방어를 시험하며
+ * 바뀐 설명이 그대로 나오는 것을 PASS 로 기대했다(독립 검토 P1). v2 에서는 이 변조가 edition_content 불일치여야 한다.
+ */
 const editArtifact = (releaseKey, expr) => {
   need(/^lsr_[0-9a-f]{32}$/.test(releaseKey), 'release key format')
   return [REPLICA, { sql: `update story.edition_versions ev set artifact = ${expr} from story.releases rl where rl.edition_version_id = ev.id and rl.release_key = ${lit(releaseKey)}` }]
@@ -510,6 +537,34 @@ const editArtifact = (releaseKey, expr) => {
 const editPolicy = (releaseKey, expr) => {
   need(/^lsr_[0-9a-f]{32}$/.test(releaseKey), 'release key format')
   return [REPLICA, { sql: `update story.policies p set policy = ${expr} from story.releases rl join story.edition_slots es on es.id = rl.slot_id where p.id = es.policy_id and rl.release_key = ${lit(releaseKey)}` }]
+}
+/**
+ * 해시가 일관된 변조(re-commit): 바꾼 내용에 맞춰 S3 정의 그대로 정본 해시를 다시 계산하고 그 해시를 가리키는 결속을 모두 따라 고친다.
+ * 앞 단계의 내용 해시 검사를 통과시키고 뒤의 특정 검사(모양 · 결속 · 열거)만 따로 시험하기 위한 것이다 — 실제 발행 경로가 만든 값이 아니다.
+ *   policy: policies.policy → policy_sha256 = canonical(policy - production) · policy_full_sha256 = canonical(policy) →
+ *           releases.policy_sha256 → artifact.binding.policy_sha256
+ *   artifact(+ 위 binding 변경): edition_versions.edition_sha256 = canonical(artifact - activities) → releases.edition_sha256
+ */
+const recommit = (releaseKey, { artifact = null, policy = null } = {}) => {
+  need(/^lsr_[0-9a-f]{32}$/.test(releaseKey), 'release key format')
+  const k = lit(releaseKey)
+  const steps = [REPLICA]
+  if (policy) {
+    steps.push(
+      { sql: `update story.policies p set policy = ${policy} from story.releases rl join story.edition_slots es on es.id = rl.slot_id where p.id = es.policy_id and rl.release_key = ${k}` },
+      { sql: `update story.policies p set policy_sha256 = story.canonical_sha256(p.policy - 'production'), policy_full_sha256 = story.canonical_sha256(p.policy) from story.releases rl join story.edition_slots es on es.id = rl.slot_id where p.id = es.policy_id and rl.release_key = ${k}` },
+      { sql: `update story.releases rl set policy_sha256 = p.policy_sha256 from story.edition_slots es join story.policies p on p.id = es.policy_id where es.id = rl.slot_id and rl.release_key = ${k}` },
+      { sql: `update story.edition_versions ev set artifact = jsonb_set(ev.artifact, '{binding,policy_sha256}', to_jsonb(rl.policy_sha256)) from story.releases rl where rl.edition_version_id = ev.id and rl.release_key = ${k}` },
+    )
+  }
+  if (artifact) {
+    steps.push({ sql: `update story.edition_versions ev set artifact = ${artifact} from story.releases rl where rl.edition_version_id = ev.id and rl.release_key = ${k}` })
+  }
+  steps.push(
+    { sql: `update story.edition_versions ev set edition_sha256 = story.canonical_sha256(ev.artifact - 'activities') from story.releases rl where rl.edition_version_id = ev.id and rl.release_key = ${k}` },
+    { sql: `update story.releases rl set edition_sha256 = ev.edition_sha256 from story.edition_versions ev where ev.id = rl.edition_version_id and rl.release_key = ${k}` },
+  )
+  return steps
 }
 /** change_log 에서 change_id 로 원소 하나를 바꾸는 식(artifact 에 대해). */
 const setChange = (id, setExpr) => `jsonb_set(ev.artifact, '{change_log}', (select jsonb_agg(case when e ->> 'change_id' = ${lit(id)} then ${setExpr} else e end order by o) from jsonb_array_elements(ev.artifact -> 'change_log') with ordinality as x(e, o)))`
@@ -581,9 +636,18 @@ async function main() {
     REL.held = (await api.publishLane(held)).releaseKey
     await api.rights(held.sourceId, 'hold')
     IDS.held = held
+    // v2: 실제 S3 등록 · 검수 · 증명 · 발행 경로로 만든 **해시가 일관된** 추가 발행본(변조 아님).
+    REL.long = (await api.publishLane(await api.lane('w2-long-r1'), { noteAText: LONG_NOTE })).releaseKey
+    REL.omit = (await api.publishLane(await api.lane('w2-omit-r1', makePolicy('w2-lantern-policy-omit', 'B2', withHandling(0, 'omit_with_note'))))).releaseKey
+    REL.revise = (await api.publishLane(await api.lane('w2-revise-r1', makePolicy('w2-lantern-policy-revise', 'B2', withHandling(0, 'revise_with_note'))))).releaseKey
+    REL.unknownHandling = (await api.publishLane(await api.lane('w2-unknown-handling-r1', makePolicy('w2-lantern-policy-unknown', 'B2', withHandling(1, 'retain_with_contexts'))))).releaseKey
+    REL.missingHandling = (await api.publishLane(await api.lane('w2-missing-handling-r1', makePolicy('w2-lantern-policy-missing', 'B2', withHandling(2, undefined))))).releaseKey
+    REL.scale = (await api.publishLane(await api.lane('w2-scale-r1'), { scale: true })).releaseKey
     return { releases: REL }
   })
-  if (!(REL.live && REL.withdrawn && REL.held)) { notRun('ALL', 'database checks', 'seed failed (H03)'); return }
+  if (!(REL.live && REL.withdrawn && REL.held && REL.long && REL.omit && REL.revise && REL.unknownHandling && REL.missingHandling && REL.scale)) {
+    notRun('ALL', 'database checks', 'seed failed (H03)'); return
+  }
 
   const objBefore = await objSnapshot(db)
   const dataBefore = await dataSnapshot(db)
@@ -704,17 +768,34 @@ async function main() {
     ['edition version edition_sha256 changed', [REPLICA, { sql: `update story.edition_versions ev set edition_sha256 = repeat('e', 64) from story.releases rl where ev.id = rl.edition_version_id and rl.release_key = $1` }], /edition_version/],
     ['release points to the unpublished draft version', [REPLICA, { sql: `update story.releases rl set edition_version_id = $2 where rl.release_key = $1`, extra: 'DRAFT' }], /edition_version/],
     ['artifact edition_key changed', (k) => editArtifact(k, `jsonb_set(ev.artifact, '{edition_key}', '"w2-other"'::jsonb)`), /edition_version/],
-    ['artifact units shortened', (k) => editArtifact(k, `jsonb_set(ev.artifact, '{units}', (ev.artifact -> 'units') - 3)`), /unit_count/],
+    // v2: 해시를 다시 맞춘 단위 축소 → 단위 수 검사가 따로 잡는다(v1 은 저장 해시 그대로 두고 unit_count 를 기대했다).
+    ['artifact units shortened (re-committed hashes)', (k) => recommit(k, { artifact: `jsonb_set(ev.artifact, '{units}', (ev.artifact -> 'units') - 3)` }), /unit_count/],
     ['release unit_id differs from artifact unit_id', [REPLICA, { sql: `update story.release_units ru set unit_id = 'u9' from story.releases rl where ru.release_id = rl.id and rl.release_key = $1 and ru.unit_index = 1` }], /unit_id/],
     ['slot target_sha256 changed', [REPLICA, { sql: `update story.edition_slots es set target_sha256 = repeat('b', 64) from story.releases rl where rl.slot_id = es.id and rl.release_key = $1` }], /binding/],
     ['policy policy_sha256 changed', [REPLICA, { sql: `update story.policies p set policy_sha256 = repeat('c', 64) from story.releases rl join story.edition_slots es on es.id = rl.slot_id where p.id = es.policy_id and rl.release_key = $1` }], /binding/],
     ['policy source_sha256 changed', (k) => editPolicy(k, `jsonb_set(p.policy, '{source_sha256}', to_jsonb(repeat('d', 64)))`), /binding/],
     ['source text_sha256 changed', [REPLICA, { sql: `update story.sources s set text_sha256 = repeat('f', 64) from story.releases rl where s.id = rl.source_id and rl.release_key = $1` }], /binding/],
-    ['release source identity changed', [REPLICA, { sql: `update story.releases set source_identity_sha256 = repeat('1', 64) where release_key = $1` }], /binding/],
+    // v2: 발행본의 정체 해시가 artifact.binding 과 달라지므로 판 결속 검사가 먼저 잡는다(v1 은 /binding/).
+    ['release source identity changed', [REPLICA, { sql: `update story.releases set source_identity_sha256 = repeat('1', 64) where release_key = $1` }], /artifact_binding/],
     ['slot policy moved to another source policy', [REPLICA, { sql: `update story.edition_slots es set source_id = gen_random_uuid() from story.releases rl where rl.slot_id = es.id and rl.release_key = $1` }], /binding/],
+    // ── v2 독립 검토 P1: 실제 내용을 바꾸고 저장 해시(결속)는 그대로 둔 변조 → 내보내기 전에 불일치 ──
+    ['no-rehash: selected note learner_note changed', (k) => editArtifact(k, setChange('note-a', `jsonb_set(e, '{learner_note}', '"LEAKMARK-UNREVIEWED-NOTE"')`)), /edition_content/],
+    ['no-rehash: selected note learner_note made long/unicode', (k) => editArtifact(k, setChange('note-a', `jsonb_set(e, '{learner_note}', to_jsonb(${lit(LONG_NOTE)}::text))`)), /edition_content/],
+    ['no-rehash: plain note gains a sensitive_ref (would newly expose it)', (k) => editArtifact(k, setChange('note-plain', `jsonb_set(e, '{sensitive_ref}', '"se-period-a"')`)), /edition_content/],
+    ['no-rehash: artifact binding policy_sha256 changed', (k) => editArtifact(k, `jsonb_set(ev.artifact, '{binding,policy_sha256}', to_jsonb(repeat('c', 64)))`), /edition_content/],
+    ['no-rehash: policy handling changed to another valid value (would hide a required context)', (k) => editPolicy(k, `jsonb_set(p.policy, '{sensitive_content,0,handling}', '"omit_with_note"')`), /policy_content/],
+    ['no-rehash: policy handling changed to an unknown value', (k) => editPolicy(k, `jsonb_set(p.policy, '{sensitive_content,0,handling}', '"unknown"')`), /policy_content/],
+    ['no-rehash: policy sensitive item removed', (k) => editPolicy(k, `jsonb_set(p.policy, '{sensitive_content}', (p.policy -> 'sensitive_content') - 1)`), /policy_content/],
+    // ── 해시는 다시 맞췄지만 artifact.binding 만 발행 결속과 다름 → artifact_binding(앞의 내용 해시 검사와 분리) ──
+    ['re-committed: artifact binding policy_sha256 differs from release', (k) => recommit(k, { artifact: `jsonb_set(ev.artifact, '{binding,policy_sha256}', to_jsonb(repeat('c', 64)))` }), /artifact_binding/],
+    ['re-committed: artifact binding target_sha256 differs from release', (k) => recommit(k, { artifact: `jsonb_set(ev.artifact, '{binding,target_sha256}', to_jsonb(repeat('b', 64)))` }), /artifact_binding/],
+    ['re-committed: artifact binding source_sha256 differs from release', (k) => recommit(k, { artifact: `jsonb_set(ev.artifact, '{binding,source_sha256}', to_jsonb(repeat('d', 64)))` }), /artifact_binding/],
+    ['re-committed: artifact binding has an extra key', (k) => recommit(k, { artifact: `jsonb_set(ev.artifact, '{binding,extra}', '"x"')` }), /artifact_binding/],
+    ['re-committed: artifact binding missing', (k) => recommit(k, { artifact: `ev.artifact - 'binding'` }), /artifact_binding/],
   ]
-  await gated('W08', 'binding tamper (rolled back, triggers bypassed): every mismatch fails the call with story:context_notes_mismatch (never an empty list)', async () => {
+  await gated('W08', 'binding · content tamper (rolled back, triggers bypassed): stored-column, no-rehash content and re-committed binding mismatches all fail with story:context_notes_mismatch + the specific detail (never an empty list)', async () => {
     const out = []
+    const bad = []
     for (const [label, setup, re] of TAMPER) {
       const steps = typeof setup === 'function' ? setup(REL.live) : setup
       const s = steps.map((x) => {
@@ -723,9 +804,11 @@ async function main() {
         return { sql: x.sql, params }
       })
       const r = await db.txAs(A.learner, s, NOTES, [REL.live, 1])
-      need(!r.ok && /story:context_notes_mismatch/.test(r.text) && re.test(r.text), `${label}: ${r.ok ? `returned ${JSON.stringify(r.rows[0].c)}` : r.text}`)
-      out.push(label)
+      if (!r.ok && /story:context_notes_mismatch/.test(r.text) && re.test(r.text)) out.push(label)
+      else bad.push(`${label}: ${r.ok ? `returned ${JSON.stringify(r.rows[0].c)}` : r.text}`)
     }
+    // 모든 경우를 끝까지 돌리고 실패를 전부 남긴다(변이 시험이 어떤 기대가 깨졌는지 이름으로 보이게).
+    need(bad.length === 0, `${bad.length}/${TAMPER.length} tamper expectations failed: ${bad.join(' || ')}`)
     return { tampers: out.length }
   })
   const SHAPES = [
@@ -740,35 +823,68 @@ async function main() {
     ['selected note unit_ids not an array', setChange('note-a', `jsonb_set(e, '{unit_ids}', '"u2"')`), 'artifact', /context_note/],
     ['policy sensitive_content not an array', `jsonb_set(p.policy, '{sensitive_content}', '{}'::jsonb)`, 'policy', /shape/],
     ['policy sensitive_content duplicate id', `jsonb_set(p.policy, '{sensitive_content}', (p.policy -> 'sensitive_content') || jsonb_build_array((p.policy -> 'sensitive_content') -> 0))`, 'policy', /sensitive_content/],
+    // v2 독립 검토 P2: handling 은 S2 SensitiveItemSchema 의 세 값만.
+    ['policy handling unknown value (P2)', `jsonb_set(p.policy, '{sensitive_content,0,handling}', '"retain"')`, 'policy', /sensitive_content/],
+    ['policy handling not a string', `jsonb_set(p.policy, '{sensitive_content,1,handling}', '1')`, 'policy', /sensitive_content/],
   ]
-  await gated('W09', 'shape tamper consistent with S2 (duplicate · unknown ref · blank/null/non-string note · wrong unit) fails closed; valid long/unicode notes and a non-retain handling are positive controls', async () => {
+  // v2: 모양 시험은 해시를 다시 맞춘 변조(recommit)로 한다 — 앞의 내용 해시 검사가 아니라 그 모양 검사 자체가 잡는지 본다.
+  // v1(run4)은 저장 해시를 그대로 둔 변조로 같은 시험을 했고, 바뀐 긴 설명 · 다른 handling 이 그대로 통과하는 것을 PASS 로 기대했다(P1 증거).
+  // 그 두 양성 기대는 W08 의 no-rehash 음성으로 뒤집었고, 양성은 W13 의 실제 등록 경로 fixture 로 옮겼다.
+  await gated('W09', 'shape tamper with re-committed (consistent) hashes, consistent with S2 (duplicate · unknown ref · blank/null/non-string note · wrong unit · handling outside the three values) fails closed with the specific detail', async () => {
     const out = []
+    const bad = []
     for (const [label, expr, where, re] of SHAPES) {
-      const setup = where === 'artifact' ? editArtifact(REL.live, expr) : editPolicy(REL.live, expr)
+      const setup = where === 'artifact' ? recommit(REL.live, { artifact: expr }) : recommit(REL.live, { policy: expr })
       const r = await db.txAs(A.learner, setup, NOTES, [REL.live, 1])
-      need(!r.ok && /story:context_notes_mismatch/.test(r.text) && re.test(r.text), `${label}: ${r.ok ? `returned ${JSON.stringify(r.rows[0].c)}` : r.text}`)
-      out.push(label)
+      if (!r.ok && /story:context_notes_mismatch/.test(r.text) && re.test(r.text)) out.push(label)
+      else bad.push(`${label}: ${r.ok ? `returned ${JSON.stringify(r.rows[0].c)}` : r.text}`)
     }
-    // 양성 대조: S2 Text 에 상한이 없으므로 긴 · 유니코드 설명도 그대로.
-    const long = `${'가'.repeat(2000)} 🌊👋🏽 é ZWJ 👩‍💻 NBSP  탭\t 따옴표 " 역슬래시 \\ 줄바꿈\n끝`
-    const p1 = await db.txAs(A.learner, editArtifact(REL.live, setChange('note-a', `jsonb_set(e, '{learner_note}', to_jsonb(${lit(long)}::text))`)), NOTES, [REL.live, 1])
-    need(p1.ok, `long note: ${p1.text}`)
-    deepEq(p1.rows[0].c.notes, [{ id: 'note-a', text: long }, { id: 'note-b', text: NOTE_B }], 'long/unicode note verbatim')
-    // 처리 방침이 retain_with_context 가 아니면(omit_with_note) 그 설명은 고르지 않는다(오류 아님).
-    const p2 = await db.txAs(A.learner, editPolicy(REL.live, `jsonb_set(p.policy, '{sensitive_content,0,handling}', '"omit_with_note"')`), NOTES, [REL.live, 1])
-    need(p2.ok, `non-retain handling: ${p2.text}`)
-    deepEq(p2.rows[0].c.notes, [{ id: 'note-b', text: NOTE_B }], 'non-retain excluded')
-    return { shapes: out.length, positive_long_unicode: true, positive_non_retain_excluded: true }
+    need(bad.length === 0, `${bad.length}/${SHAPES.length} shape expectations failed: ${bad.join(' || ')}`)
+    // 대조: 같은 re-commit 도구로 내용을 바꾸지 않으면 그대로 통과한다(도구가 결속을 깨뜨려 생긴 거짓 음성이 아님).
+    const same = await db.txAs(A.learner, recommit(REL.live, { artifact: 'ev.artifact', policy: 'p.policy' }), NOTES, [REL.live, 1])
+    need(same.ok, `identity re-commit should pass: ${same.text}`)
+    deepEq(same.rows[0].c.notes, [{ id: 'note-a', text: NOTE_A }, { id: 'note-b', text: NOTE_B }], 'identity re-commit result')
+    return { shapes: out.length, identity_recommit_control: 'pass' }
+  })
+  await gated('W13', 'positives on legitimately registered/reviewed/attested/published fixtures (real S3 path, consistent hashes): long/unicode note verbatim (no cap) · revise_with_note and omit_with_note handling excluded without error', async () => {
+    const long = await notesOf(A.learner, REL.long, 1)
+    deepEq(long.notes, [{ id: 'note-a', text: LONG_NOTE }, { id: 'note-b', text: NOTE_B }], 'long/unicode note verbatim')
+    for (const [k, label] of [[REL.omit, 'omit_with_note'], [REL.revise, 'revise_with_note']]) {
+      deepEq((await notesOf(A.learner, k, 1)).notes, [{ id: 'note-b', text: NOTE_B }], `${label}: note-a excluded`)
+      deepEq((await notesOf(A.learner, k, 2)).notes, [{ id: 'note-b', text: NOTE_B }], `${label}: unit 3`)
+    }
+    return { long_note_chars: LONG_NOTE.length, excluded_handlings: ['omit_with_note', 'revise_with_note'] }
+  })
+  await gated('W14', 'P2 on legitimately registered fixtures (real S3 path accepts any handling string; hashes consistent): unknown handling value and missing handling → story:context_notes_mismatch (sensitive_content), not a silent empty/partial list', async () => {
+    const out = {}
+    for (const [k, label] of [[REL.unknownHandling, 'unknown value "retain_with_contexts"'], [REL.missingHandling, 'missing handling']]) {
+      for (const u of [0, 1, 2]) {
+        const r = await db.txAs(A.learner, [], NOTES, [k, u])
+        need(!r.ok && /story:context_notes_mismatch/.test(r.text) && /sensitive_content/.test(r.text), `${label} unit ${u}: ${r.ok ? `returned ${JSON.stringify(r.rows[0].c)}` : r.text}`)
+      }
+      out[label] = 'mismatch'
+    }
+    return out
   })
   await gated('W10', 'read-only: calls change no story row; existing functions/ACL unchanged by forward', async () => {
     for (let u = 0; u < 4; u++) await notesOf(A.learner, REL.live, u)
     deepEq(await dataSnapshot(db), dataBefore, 'story data')
     deepEq(await objSnapshot(db), objBefore, 'existing functions/ACL')
   })
-  await gated('W11', 'cost (informative): unit-call timing on the fixture scale', async () => {
-    const t = Date.now()
-    for (let i = 0; i < 20; i++) await notesOf(A.learner, REL.live, 1)
-    return { calls: 20, avg_ms: (Date.now() - t) / 20, note: 'fixture scale only — live artifact (~300 KB) not measured' }
+  await gated('W11', 'cost (informative, local isolated timings): unit calls on the small fixture and on a C01-scale synthetic artifact (canonical rehash of artifact + policy per call)', async () => {
+    const time = async (key) => {
+      await notesOf(A.learner, key, 1)
+      const ms = []
+      for (let i = 0; i < 20; i++) { const t = process.hrtime.bigint(); await notesOf(A.learner, key, 1); ms.push(Number(process.hrtime.bigint() - t) / 1e6) }
+      ms.sort((a, b) => a - b)
+      return { calls: 20, avg_ms: Math.round((ms.reduce((s, x) => s + x, 0) / ms.length) * 100) / 100, p50_ms: Math.round(ms[9] * 100) / 100, max_ms: Math.round(ms[19] * 100) / 100 }
+    }
+    const size = async (key) => (await db.q(`select length((ev.artifact - 'activities')::text) as chars, pg_column_size(ev.artifact) as stored_bytes,
+        jsonb_array_length(ev.artifact -> 'change_log') as changes from story.edition_versions ev join story.releases rl on rl.edition_version_id = ev.id where rl.release_key = $1`, [key]))[0]
+    const small = { ...(await size(REL.live)), ...(await time(REL.live)) }
+    const scale = { ...(await size(REL.scale)), ...(await time(REL.scale)) }
+    need(scale.chars > 150000, `scale fixture too small: ${scale.chars}`)
+    return { small_fixture: small, c01_scale_fixture: scale, reference: 'local C01 r3 story-b2 artifact minus activities = 233,382 JSON chars · 91 changes (file, not DB)', boundary: 'isolated embedded PostgreSQL on this machine; not a shared-DB or production latency measurement' }
   })
   await gated('W12', 're-application is refused (already exists), changes nothing and sends no extra notification', async () => {
     const r = await applySql(db.client, F.forward)

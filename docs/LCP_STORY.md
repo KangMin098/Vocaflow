@@ -1,5 +1,7 @@
 # LCP Story — 이야기 중심 판본 라인 (Story-First Adaptive Reading)
 
+> **D3 후속 실행(2026-10-27 · T-0189)**: W2 단위별 시대적 맥락 전달을 실제 dev/API/1440·1280 화면에서 확인했다. 승인 원장20261026235109의 `story_unit_context_notes(text,integer)`는 authenticated만 실행하며 미철회·권리·불변 결속과 실제 판/정책 재해시 후 해당 단위의 민감 맥락 id/text만 제공한다. 본문 뒤 선택형 접힘, 인증 표시 보호, 없음/오류 구분을 유지한다. C01 로컬 비교/AI 독립 검수와 C06 준비·제작 HOLD, 실제 사람 효과 미검증은 [D3_FOLLOWUP](./lcp-story/D3_FOLLOWUP.md)을 따른다. 아래 설계·S7·U1 시점 기록을 보존한다.
+
 > **정본(계약)** · 작성 2026-10-25 · 등록 작업 T-0165(owner `lcp-story-claude`, 검증 owner `lcp-story-codex`).
 > 단계별 실행 순서와 시작 지시: [lcp-story/IMPLEMENTATION.md](./lcp-story/IMPLEMENTATION.md).
 > 기존 LCP(원본 도서 큐레이션)는 그대로 유지한다: [LIBRARY_PIPELINE §LCP](./LIBRARY_PIPELINE.md).
@@ -24,7 +26,7 @@
 | 시작 전 선택 안내(U1 · T-0187) | `public.story_release_guidance`·원장`20261026110732`·`StoryGuidance.tsx`·`learner.ts`(§12) | 최신 사용자 승인 v2 SHA`8648c24c…f22eac` 원문 적용. 기존12표/함수 지문 불변·권한/RLS 확인. 실제 화면·통합의 최종 결과는 [D2 후속](./lcp-story/D2_S7_FOLLOWUP.md) |
 | 이벤트(S5) | `events.ts` `story_catalog_viewed` · `story_reader_action`(§17) | 코드 + DB 허용 목록 적용(같은 SQL §C · 실제 CHECK SELECT 평가 62/62). 쓰기형 `db-allowlist` 시험은 NOT_RUN |
 | 추천 | 없음 | 제안(S6) |
-| 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 보완 r3·16단위·독립 AI 검수 2건 | R1 철회 이력과 이전 초안·검수를 보존하고 R2 1편을 공개했다. B2는 편집 목표. 동물 위해 등 사전 주의는 T-0187에서 노출·실제 검증했다. 시대적 편견의 단위별 learner_note 전달은 [D3 W2](./lcp-story/LCP_D3_EDITIONS.md)의 별도 후속 |
+| 실제 대표 도서 판본 · AI 독립 검수 | 《The Adventure of the Blue Carbuncle》 story-b2, 보완 r3·16단위·독립 AI 검수 2건 | R1 철회 이력과 이전 초안·검수를 보존하고 R2 1편을 공개했다. B2는 편집 목표. 동물 위해 등 사전 주의는 T-0187에서 노출·실제 검증했다. 시대적 편견의 단위별 learner_note는 [T-0189 W2](./lcp-story/D3_FOLLOWUP.md)에서 승인 dev/API/화면으로 전달 확인 |
 | 권리 확인 · 사람 검수 · 학습자 파일럿 | 사용자의 특정 source 권리 결정·AI admin 위임 기록, 정상 DB source_text confirmed | §14의 승인 범위 충족. AI 콘텐츠 검수는 AI로 기록하며 실제 사람 콘텐츠 검수·학습자 파일럿·독해 성장 실증은 없다(S7) |
 
 - 패키지 루트 배럴(`src/index.ts`)에는 싣지 않는다. S4 부터 `package.json` exports `@vocaflow/library-pipeline/story`(= `src/story/server.ts` — 작업 폴더 · CLI 제외)를 관리자 서버 코드가 쓴다. 전체 배럴(`src/story/index.ts`)의 소비자는 `scripts/lcp/story` 다.

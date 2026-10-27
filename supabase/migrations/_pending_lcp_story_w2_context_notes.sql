@@ -1,4 +1,6 @@
 -- supabase/migrations/_pending_lcp_story_w2_context_notes.sql
+-- 판 v2(2026-10-27): v1(SHA 06970f9f…, 독립 검토 CHANGES_REQUESTED — P1 내용 해시 · 결속 재계산 없음 · P2 handling 열거 없음)을 고친 판.
+--   v1 바이트는 승인 요청에 쓰지 않는다(이력으로만 보존).
 -- ⚠️ 보류(적용 안 함) — LCP Story D3 W2(T-0189) forward SQL 제안. 공유 DB 적용은 SQL 전문 · 전체 SHA-256 · 영향 범위 ·
 --    복구 SQL(_pending_lcp_story_w2_context_notes_recovery.sql)을 대화에서 보이고 사용자가 개별 승인한 뒤
 --    승인형 배포 러너 또는 Supabase MCP apply_migration 으로만 한다. 저장소 마이그레이션 파일 이름(타임스탬프)은 반영 때 정한다.
@@ -20,30 +22,40 @@
 --      결속(어긋나면 story:context_notes_mismatch — 빈 목록 · 「설명 없음」으로 바꾸지 않는다):
 --        판:   id = 발행본 edition_version_id · slot_id · edition_sha256 · unit_count = 발행본 · artifact 의 edition_key · kind = 발행본 ·
 --              units 배열 길이 = unit_count · 고른 단위의 unit_id = 발행 단위 행의 unit_id(story_reader_context 와 같은 검사).
+--        판 내용(v2): 저장 artifact 에서 지금 다시 계산한 story.canonical_sha256(artifact - 'activities')(S3 submit_edition 의 edition_sha256
+--              정의 그대로) = 발행본 edition_sha256(detail edition_content) · artifact.binding = 발행본의
+--              { source_sha256: source_text_sha256 · source_identity_sha256 · policy_sha256 · target_sha256 }(S3 submit_edition 의 기대값과 같은
+--              키 · detail artifact_binding). 저장 해시 열끼리만 비교하지 않는다 — 내보내는 learner_note 가 검수 · 발행된 바이트인지 확인한다.
 --        자리: id = 발행본 slot_id · 원천 · 판본 키 · 저장 target_sha256 = 발행본.
 --        기준: 자리의 policy_id 행 · 원천이 같고 policy_sha256 = 발행본 policy_sha256 · 기준의 source_sha256 = 원천 본문 해시.
+--        기준 내용(v2): 저장 policy 에서 지금 다시 계산한 story.canonical_sha256(policy - 'production')(S3 register_policy 의 policy_sha256 정의
+--              그대로) = 발행본 policy_sha256(detail policy_content) — 고르는 데 쓰는 sensitive_content 가 발행 결속 바이트인지 확인한다.
 --        원천: 본문 해시 · 정체 해시 = 발행본.
+--        저장된 행 · 해시는 바꾸지 않는다(읽기 · 다시 계산 · 비교만).
 --      고르는 설명(S2 validate.ts 의 변경 기록 · 민감 표현 규칙과 같은 의미):
 --        change_log 원소 c 중 type = 'editorial_note' AND operation = 'context_note' AND sensitive_ref 가 기준 sensitive_content 의 handling =
 --        'retain_with_context' 항목 id AND unit_ids 가 고른 단위의 unit_id 를 포함. 결과 = 그 원소의 change_id · learner_note(저장 그대로 · 순서 보존).
 --        sensitive_ref 가 없는 일반 주석(줄거리 · 정답에 가까운 설명이 있을 수 있다) · 다른 단위 · rewrite/omit 처리는 내보내지 않는다.
 --      모양 방어(S2 가 받지 않았을 저장값이면 닫는다 — S2 보다 엄격한 상한은 두지 않는다):
---        change_log 가 배열이 아니거나 change_id 가 문자열이 아니거나 겹침(S2 duplicate_id) · sensitive_content 가 배열이 아니거나 id 가 겹침 ·
+--        change_log 가 배열이 아니거나 change_id 가 문자열이 아니거나 겹침(S2 duplicate_id) · sensitive_content 가 배열이 아니거나 id 가 겹치거나
+--        handling 이 S2 SensitiveItemSchema 의 세 값(retain_with_context · revise_with_note · omit_with_note)이 아님(v2 — 모르는 값을 「맥락 없음」으로 바꾸지 않는다) ·
 --        민감 표현을 가리키는 원소의 sensitive_ref 가 기준에 없음(S2 sensitive_unknown) · 고른 원소의 unit_ids 가 문자열 배열이 아니거나
 --        판의 단위에 없는 id 를 가리킴(S2 change_unit_missing) · 고른 원소의 learner_note 가 문자열이 아니거나 공백(U+0020)만(S2 sensitive_note_missing ·
 --        Text — S2 는 JS trim 이라 더 엄격하므로 S2 가 받은 값을 여기서 거부하지 않는다). 개수 · 길이 상한 없음(S2 에 없다).
 --      돌려주는 jsonb(키 고정 · 명시 허용 목록): { release_key, unit_index, notes: [ { id, text } ] } — notes 는 빈 배열일 수 있다(그 단위에 해당 설명 없음).
 --      돌려주지 않는 것: change_log 의 다른 원소 · rationale · source_anchors · type/operation · sensitive_ref · 기준의 issue/rationale/anchors ·
 --        본문 · 활동 · 정답 · 검수 · 증명 · 권리 · 진도 · UUID · 해시.
---      비용: 호출마다 그 판 artifact jsonb 전체와 기준 policy jsonb 를 detoast 한다(반환은 안 함 · story_reader_context 와 같은 성격). 측정은 격리 시험만.
+--      비용: 호출마다 그 판 artifact jsonb 전체와 기준 policy jsonb 를 detoast 하고 둘의 정본 해시(story.canonical_json — plpgsql 재귀)를
+--        다시 계산한다(반환은 안 함). 측정은 격리 시험만(공유 DB 규모 측정 없음).
 --      노출: 파일 끝(D)의 `notify pgrst, 'reload schema'` 가 같은 트랜잭션 안에서 커밋 때만 PostgREST 에 스키마 다시 읽기를 알린다(롤백이면 전달 안 됨 ·
 --        데이터 · 권한 변경 없음 · 다시 읽는 동안 요청이 잠깐 기다릴 수 있음). 실제 PostgREST 노출은 승인 적용 뒤 읽기 전용으로 확인한다.
 --
 -- 영향: 기존 행 0 · 기존 함수 · 표 · 정책 · 권한 변경 0 · 새 함수 1 · 커밋 시 PostgREST 알림 1. story 표는 읽기만 한다. 진도 · 완료 · 이벤트 쓰기 없음.
 -- 멱등: 함수가 이미 있으면 preflight 가 실패한다(조용한 재적용 없음).
 -- 전제: 적용된 S3(20261025094450) · S5(20261025143031)의 story 표 · story.require_learner() · story.source_rights_ok(uuid) ·
+--   story.canonical_sha256(jsonb)(과 그것이 부르는 story.canonical_json(jsonb) · story.sha256_hex(text)) ·
 --   public.story_reader_context(text,integer) 가 authenticated 에 열려 있음(격리 상태면 새 학습자 문을 열지 않는다). 역할 anon · authenticated · service_role.
---   적용 역할(= 함수 소유자)은 story 스키마 USAGE · 읽는 story 표 6개 SELECT · 두 story 함수 EXECUTE 가 있고 그 표들의 RLS 를 면제받아야 한다
+--   적용 역할(= 함수 소유자)은 story 스키마 USAGE · 읽는 story 표 6개 SELECT · 위 story 함수 5개 EXECUTE 가 있고 그 표들의 RLS 를 면제받아야 한다
 --   (FORCE RLS 없음 + 표 소유자(멤버 포함) · BYPASSRLS · superuser 중 하나).
 -- 되돌리기: 파괴 없이 _pending_lcp_story_w2_context_notes_recovery.sql(새 RPC 실행 권한만 회수 — 함수 정의 · 데이터 보존).
 --   화면은 RPC 가 없거나 권한이 없으면 「시대적 맥락 설명을 불러오지 못함」으로 보이고 본문 · 진도 · 완료는 그대로다.
@@ -115,10 +127,21 @@ begin
         is distinct from 'pg_catalog.bool'::pg_catalog.regtype::oid then
     raise exception 'lcp story w2: story.require_learner() uuid / story.source_rights_ok(uuid) boolean missing';
   end if;
+  -- 내용 결속에 쓰는 S3 정본 해시 함수(v2). canonical_sha256 은 SECURITY INVOKER 라 DEFINER 소유자가 안쪽 두 함수도 실행할 수 있어야 한다.
+  if pg_catalog.to_regprocedure('story.canonical_sha256(jsonb)') is null
+     or pg_catalog.to_regprocedure('story.canonical_json(jsonb)') is null
+     or pg_catalog.to_regprocedure('story.sha256_hex(text)') is null
+     or (select p.prorettype from pg_catalog.pg_proc p where p.oid = pg_catalog.to_regprocedure('story.canonical_sha256(jsonb)'))
+        is distinct from 'pg_catalog.text'::pg_catalog.regtype::oid then
+    raise exception 'lcp story w2: story.canonical_sha256(jsonb) text / story.canonical_json(jsonb) / story.sha256_hex(text) missing';
+  end if;
   if not pg_catalog.has_schema_privilege('story', 'USAGE')
      or not pg_catalog.has_function_privilege(pg_catalog.to_regprocedure('story.require_learner()'), 'EXECUTE')
-     or not pg_catalog.has_function_privilege(pg_catalog.to_regprocedure('story.source_rights_ok(uuid)'), 'EXECUTE') then
-    raise exception 'lcp story w2: 적용 역할에 story USAGE / require_learner · source_rights_ok EXECUTE 가 없다';
+     or not pg_catalog.has_function_privilege(pg_catalog.to_regprocedure('story.source_rights_ok(uuid)'), 'EXECUTE')
+     or not pg_catalog.has_function_privilege(pg_catalog.to_regprocedure('story.canonical_sha256(jsonb)'), 'EXECUTE')
+     or not pg_catalog.has_function_privilege(pg_catalog.to_regprocedure('story.canonical_json(jsonb)'), 'EXECUTE')
+     or not pg_catalog.has_function_privilege(pg_catalog.to_regprocedure('story.sha256_hex(text)'), 'EXECUTE') then
+    raise exception 'lcp story w2: 적용 역할에 story USAGE / require_learner · source_rights_ok · canonical_sha256 · canonical_json · sha256_hex EXECUTE 가 없다';
   end if;
   -- 학습자 읽기 문(S5)이 격리(quarantine)돼 있으면 새 학습자 문을 열지 않는다.
   if pg_catalog.to_regprocedure('public.story_reader_context(text,integer)') is null
@@ -175,6 +198,18 @@ begin
      or v_artifact ->> 'kind' is distinct from v_release.kind then
     raise exception 'story:context_notes_mismatch' using detail = 'edition_version';
   end if;
+  -- 판 내용: 저장 artifact 의 정본 해시를 지금 다시 계산(S3 submit_edition 정의 — activities 제외) = 발행 결속. 내용을 읽기 전에.
+  if story.canonical_sha256(v_artifact - 'activities') is distinct from v_release.edition_sha256 then
+    raise exception 'story:context_notes_mismatch' using detail = 'edition_content';
+  end if;
+  -- artifact.binding = 발행본 결속(S3 submit_edition 의 기대값과 같은 키 · 같은 값).
+  if (v_artifact -> 'binding') is distinct from pg_catalog.jsonb_build_object(
+       'source_sha256', v_release.source_text_sha256,
+       'source_identity_sha256', v_release.source_identity_sha256,
+       'policy_sha256', v_release.policy_sha256,
+       'target_sha256', v_release.target_sha256) then
+    raise exception 'story:context_notes_mismatch' using detail = 'artifact_binding';
+  end if;
   if pg_catalog.jsonb_typeof(v_artifact -> 'units') is distinct from 'array'
      or pg_catalog.jsonb_array_length(v_artifact -> 'units') <> v_release.unit_count then
     raise exception 'story:context_notes_mismatch' using detail = 'unit_count';
@@ -197,6 +232,10 @@ begin
   if not found then
     raise exception 'story:context_notes_mismatch' using detail = 'binding';
   end if;
+  -- 기준 내용: 저장 policy 의 정본 해시를 지금 다시 계산(S3 register_policy 정의 — production 제외) = 발행 결속. sensitive_content 를 읽기 전에.
+  if story.canonical_sha256(v_policy - 'production') is distinct from v_release.policy_sha256 then
+    raise exception 'story:context_notes_mismatch' using detail = 'policy_content';
+  end if;
 
   -- 모양 방어(S2 변경 기록 · 민감 표현 규칙).
   v_changes := v_artifact -> 'change_log';
@@ -212,7 +251,8 @@ begin
   end if;
   if exists (select 1 from pg_catalog.jsonb_array_elements(v_sensitive) as s(x)
               where pg_catalog.jsonb_typeof(s.x) is distinct from 'object' or pg_catalog.jsonb_typeof(s.x -> 'id') is distinct from 'string'
-                 or pg_catalog.jsonb_typeof(s.x -> 'handling') is distinct from 'string')
+                 or pg_catalog.jsonb_typeof(s.x -> 'handling') is distinct from 'string'
+                 or (s.x ->> 'handling') not in ('retain_with_context', 'revise_with_note', 'omit_with_note'))
      or (select pg_catalog.count(*) from pg_catalog.jsonb_array_elements(v_sensitive) as s(x))
         <> (select pg_catalog.count(distinct s.x ->> 'id') from pg_catalog.jsonb_array_elements(v_sensitive) as s(x)) then
     raise exception 'story:context_notes_mismatch' using detail = 'sensitive_content';
