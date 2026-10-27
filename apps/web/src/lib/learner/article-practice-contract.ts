@@ -1,8 +1,8 @@
 // apps/web/src/lib/learner/article-practice-contract.ts
-// R0 — 「읽은 같은 기사」 의 중심 의미 안내 연습(준비 단계 · 화면·라우트 미연결).
+// R0 — 「읽은 같은 기사」 의 중심 의미 안내 연습(/practice/article/[articleId]).
 //
-// 조회는 제안 RPC `article_practice_items(p_article_id)`(scripts/db/r0-article-practice/apply.proposal.sql,
-// 미적용)가 정답 없이 title·topic 만 준다. 채점은 기존 `grade_dcp_item`(서버 answer_key · 시도 기록)을 재사용한다.
+// 조회는 RPC `article_practice_items(p_article_id)`(migration 20261027201035 · 2026-10-28 사용자 승인 적용 · 검수한 VOA Lincoln
+// 2문항만)가 정답 없이 title·topic 만 준다. 제출은 `submit_article_practice`(20261027201103). 채점은 기존 `grade_dcp_item`(서버 answer_key · 시도 기록)을 재사용한다.
 // 이 모듈은 그 앞의 앱 쪽 관문이다:
 //   1. 학습자가 이 기사를 **본인 글로 열었는지**(texts.source_url = 'article:<id>', start-learning.ts 마커) — 다른 기사·남의 글로 대신하지 않는다.
 //   2. 선택값은 1~5 정수만 — 학습자에게 분명한 입력 경계(UX). 기존 grade_dcp_item 은 choice 누락 시 is_correct NOT NULL
