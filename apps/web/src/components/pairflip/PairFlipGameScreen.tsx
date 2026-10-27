@@ -13,7 +13,9 @@ import type { ContentRef } from '@/lib/content/content-ref'
 import { recordGameScore } from '@/lib/scores/record-score'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
-import { pushPendingResult } from '@/lib/srs/session-storage'
+import { getSrsQueueOwner, pushPendingResult } from '@/lib/srs/session-storage'
+import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
+import { GameIdentityNotice } from '@/components/game/GameIdentityNotice'
 
 import type { PairFlipMockWord } from './mock-data'
 import { PAIRFLIP_LEVELS, STORAGE_KEYS } from './constants'
@@ -36,10 +38,26 @@ interface GameScreenProps {
    * mock 폴백 판에는 실리지 않는다(아래 onComplete 참조).
    */
   content?: ContentRef
+  /**
+   * 이 판의 주인 — 짝 단어를 **실제로 읽은** 사용자(로그인 없음 = null). 화면 · 기록 경계가 여기에 결속한다
+   * (게임 판과 같은 규칙: lib/game/use-session-recorder). 권한 증명이 아니다(서버 getUser · RLS 유지).
+   */
+  viewerId: string | null
+  /** 시험 · 하네스 주입(없으면 실제 브라우저 세션) */
+  authSource?: StoryAuthSource
+  /** 시험 · 하네스 주입 — 점수 기록 대역(없으면 실제 recordGameScore) */
+  recordScoreImpl?: typeof recordGameScore
 }
 
-export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) {
+export function PairFlipGameScreen({ config, pairs, content, viewerId, authSource, recordScoreImpl }: GameScreenProps) {
+  const writeScore = recordScoreImpl ?? recordGameScore
   const router = useRouter()
+  // ── 판 주인 결속 ── 다른 탭 로그인 · 로그아웃 · 재확인 중(checking)에는 카드 · 힌트 · 완료 기록 · 이동 · 중도 점수를 하지 않는다.
+  //   전역 대기열 주인(queueOwner)은 계정 전환을 따라가므로, 주인이 바뀐 뒤 push 하면 A 의 평가가 B 의 큐가 된다 — 그래서 push 전에도 본다.
+  const { guard, status: authStatus } = useStoryAuthGuard(viewerId, authSource)
+  const guardRef = useRef(guard)
+  guardRef.current = guard
+  const usable = () => guardRef.current.status === 'same'
   const [feedback, setFeedback] = useState<{ type: 'success' | 'fail' | null; combo: number }>({
     type: null,
     combo: 0,
@@ -51,13 +69,21 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
   /** 완주로 점수를 남겼는가 — 아래 언마운트 기록이 같은 판을 두 번 적지 않게 한다. */
   const completedRef = useRef(false)
 
+  // 확인 중에 끝난 판(이미 진행 중이던 짝 전이 등)은 붙잡아 두었다가 같은 사람으로 다시 확인되면 처리한다 · 바뀌면 버린다
+  const pendingCompleteRef = useRef<PairFlipResultData | null>(null)
   const onComplete = useRef((result: PairFlipResultData) => {
+    // 바뀐 · 확인 중인 판의 완료는 기록하지 않고 결과 화면으로도 옮기지 않는다(저장 성공으로 치지 않는다)
+    if (!usable()) {
+      if (guardRef.current.status === 'checking') pendingCompleteRef.current = result
+      return
+    }
     completedRef.current = true
     // 실 페어(레벨 pairCount 이상) 사용 시에만 매칭 결과를 FSRS 큐에 적재 → flush(서버 권위 재계산).
     // mock 폴백이면 word lookup 이 사용자 vocab 과 매칭되지 않아 skip 되므로 push 자체를 생략.
     const levelPairCount = PAIRFLIP_LEVELS.find((l) => l.id === config.level)?.pairCount ?? 0
     const usingReal = !!pairs && pairs.length >= levelPairCount
-    if (usingReal) {
+    // 대기열 주인이 이 판의 주인과 같을 때만 넣는다 — 다르면 넣는 순간 다른 계정 몫이 된다(이미 쌓인 항목은 건드리지 않는다)
+    if (usingReal && getSrsQueueOwner() === viewerId) {
       for (const pr of result.pairResults) {
         pushPendingResult({
           cardId: pr.pairId, // = vocabularies.id
@@ -77,7 +103,8 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
     // content_ref 3컬럼을 못 받았고, PairFlip 세션은 "어떤 자료로 했는지 모르는 기록" 으로만
     // 남았다(실측: pairflip 2행 모두 content_type NULL). 다른 6개 경로가 다 중앙 헬퍼를
     // 쓰는데 이 하나만 우회하고 있었다 — 새 컬럼이 생길 때 조용히 빠지는 건 언제나 이 경로다.
-    void recordGameScore({
+    void writeScore({
+      expectedUserId: viewerId,
       module: 'pairflip',
       score: result.score,
       totalQuestions: result.totalPairs,
@@ -108,17 +135,33 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
     }
     // 약간의 지연으로 마지막 매칭 애니메이션 완료 후 이동
     setTimeout(() => {
-      router.replace('/pairflip/results')
+      // 그 사이 계정이 바뀌었으면 옮기지 않는다(안내 화면이 남는다)
+      if (usable()) router.replace('/pairflip/results')
     }, 1400)
   }).current
 
-  const { session, config: levelConfig, remainingTime, handleCardClick, useHint } =
+  const { session, config: levelConfig, remainingTime, handleCardClick: rawCardClick, useHint: rawUseHint } =
     usePairFlipSession({
       level: config.level,
       mode: config.mode,
       pairs,
       onComplete,
+      // 같은 사람으로 확인되지 않은 동안(checking · changed) 시간을 쓰지 않는다
+      paused: authStatus !== 'same',
     })
+  // 입력은 **실행 시점**에 경계를 읽는다 — 화면이 안내로 바뀐 뒤 남은 옛 콜백(이미 잡힌 이벤트)이 판을 바꾸지 않게
+  //   (Codex 반례 2026-10-27: checking 중 옛 카드 콜백 두 번 → 같은 A 확인 뒤 매칭 0→2)
+  const handleCardClick: typeof rawCardClick = (...args) => {
+    if (usable()) rawCardClick(...args)
+  }
+  const useHint: typeof rawUseHint = (...args) => (usable() ? rawUseHint(...args) : undefined) as ReturnType<typeof rawUseHint>
+  useEffect(() => {
+    if (authStatus === 'same' && pendingCompleteRef.current) {
+      const r = pendingCompleteRef.current
+      pendingCompleteRef.current = null
+      onComplete(r)
+    } else if (authStatus === 'changed') pendingCompleteRef.current = null
+  }, [authStatus, onComplete])
 
   // ── 리소스 컨텍스트 + 진행도를 SessionFrame 셸에 주입 ─────────
   // Phase 2: WordVault 컬렉션 연동 시 resource label/position 동적 반영
@@ -133,10 +176,11 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
   useEffect(
     () => () => {
       const s = sessionRef.current
-      if (completedRef.current || s.matchedPairs === 0) return
+      if (completedRef.current || s.matchedPairs === 0 || !usable()) return
       const levelPairCount = PAIRFLIP_LEVELS.find((l) => l.id === config.level)?.pairCount ?? 0
       const usingReal = !!pairs && pairs.length >= levelPairCount
-      void recordGameScore({
+      void writeScore({
+        expectedUserId: viewerId,
         module: 'pairflip',
         score: s.score,
         totalQuestions: levelPairCount,
@@ -201,6 +245,9 @@ export function PairFlipGameScreen({ config, pairs, content }: GameScreenProps) 
     if (session.phase === 'matched') return 'happy' as const
     return 'idle' as const
   }, [session.phase, session.combo])
+
+  // 계정 경계 — 같은 사람으로 긍정 확인될 때만 카드 · 힌트 · 입력을 그린다
+  if (authStatus !== 'same') return <GameIdentityNotice status={authStatus} />
 
   return (
     <div
