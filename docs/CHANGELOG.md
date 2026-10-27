@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(r0): WordVault 기사 단어장 membership 이 첫 서버 값에만 묶이던 결함 — 같은 URL 재검증으로 서버가 새 정본·오류를 주면 반영한다. 조회 함수는 ref 로 들어 부른 쪽이 매 렌더 새 함수를 넘겨도 조회 루프가 생기지 않는다. 개발 전용 하네스 `/dev/wordvault-membership`(합성 자료 · DB·Auth 없음 · 프로덕션 404)으로 실제 컴포넌트를 PC 1280/1440 실측. DB 무변경.
 - chore(agents): `agents/scripts/local-merge.mjs` — 잠금 결과를 코드에서 확인한 뒤에만 검증 SHA 를 main 에 `--no-ff` merge(잠금 실패·dirty·HEAD 바뀜은 merge 0회, 충돌은 abort 없이 상태·잠금 보존, 이미 포함은 no-op). pipe 로 잇던 옛 절차가 잠금 실패를 삼킨 2026-10-27 사고 재발 방지. 회귀 `local-merge.test.mjs`.
 - fix(r0): 기사 단어장에서 이미 다른 세트·글로 가진 낱말이 빠지던 결함 — 구독은 UNIQUE(user_id, word) 충돌을 건너뛰어 origin 이 남는다. 발행 기사 세트를 고르면 서버가 그 세트 정본 낱말(`shared_words`, 본인 세션)을 읽어 정확히 같은 본인 단어를 함께 보인다(행 복제·뜻 치환 없음, 다른 세트·text: 에는 적용 안 함, 조회 실패는 안내). DB 무변경.
 - fix(r0): 기사로 연 글의 「단어」·카드·게임이 이미 받은 발행 기사 단어장(set:)으로 — 예전엔 도서가 없으면 text: 로 보내 기사 단어장 구독(text_id 없음)이 0 으로 보였다. `readerSource`·`readerScopeQuery` 로 단어 목적지와 게임 범위가 같은 결정을 쓴다. 도서 장·일반 글 의미 유지 · DB 무변경.
