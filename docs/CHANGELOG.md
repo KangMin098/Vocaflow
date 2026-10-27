@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(r0): 기사 단어장에서 이미 다른 세트·글로 가진 낱말이 빠지던 결함 — 구독은 UNIQUE(user_id, word) 충돌을 건너뛰어 origin 이 남는다. 발행 기사 세트를 고르면 서버가 그 세트 정본 낱말(`shared_words`, 본인 세션)을 읽어 정확히 같은 본인 단어를 함께 보인다(행 복제·뜻 치환 없음, 다른 세트·text: 에는 적용 안 함, 조회 실패는 안내). DB 무변경.
 - fix(r0): 기사로 연 글의 「단어」·카드·게임이 이미 받은 발행 기사 단어장(set:)으로 — 예전엔 도서가 없으면 text: 로 보내 기사 단어장 구독(text_id 없음)이 0 으로 보였다. `readerSource`·`readerScopeQuery` 로 단어 목적지와 게임 범위가 같은 결정을 쓴다. 도서 장·일반 글 의미 유지 · DB 무변경.
 - fix(r0): WordVault 「도서 › N장」 안내·본문 복귀가 보이는 단어의 세트와 다를 수 있던 결함 — `lib/wordvault/book-context.ts` `resolveBookChapter` 가 `filter=set:` 세트의 도서·장 소속과 장 번호 일치를 확인하고, 형식 오류 장 번호(`1junk`)는 절삭 대신 안내 없음. 도서만 진입은 기존 동작. DB 무변경.
 - fix(r0): 읽던 글의 「단어」 가 전체 단어장으로 새던 결함 — Reader 가 `filter=<textId>`(접두어 없음)를 만들고 WordVault 는 그 값을 몰라 전체 목록을 보였다. `lib/wordvault/source-filter.ts` 로 만드는 쪽(`readerWordsHref` → `text:<id>`)과 읽는 쪽(`normalizeSourceFilter`·`applySourceFilter`)을 묶고, 예전 링크(접두어 없는 uuid)도 그 글 범위로 읽는다. DB 무변경.
