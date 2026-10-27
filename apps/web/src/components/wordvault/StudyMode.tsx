@@ -9,7 +9,8 @@ import { Eye, FileText, Settings as SettingsIcon, Volume2 } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { applyReview, createNewCard } from '@/lib/srs'
 import { studyRatingToFsrs } from '@/lib/srs/rating-mapper'
-import { cacheCard, getCachedCard, getSrsQueueOwner, pushPendingResult } from '@/lib/srs/session-storage'
+import { cacheCard, getCachedCard, getSrsQueueOwner } from '@/lib/srs/session-storage'
+import { pushOwnedResult } from '@/lib/srs/push-owned'
 import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { flushPendingSession } from '@/lib/srs/flush-session'
@@ -154,14 +155,14 @@ export function StudyMode({ words, onExit, viewerId, authSource }: StudyModeProp
           module: 'wordvault',
         })
         cacheCard(reviewResult.card)
-        pushPendingResult({
+        pushOwnedResult({
           cardId: reviewResult.card.id,
           word: w.word,
           cardUpdate: cardToUpdatePayload(reviewResult.card),
           rating: reviewResult.log.rating,
           reviewedAt: reviewResult.log.reviewedAt.toISOString(),
           module: 'wordvault',
-        })
+        }, viewerId, () => guardRef.current.status === 'same')
       }
 
       const next = studyIndex + 1

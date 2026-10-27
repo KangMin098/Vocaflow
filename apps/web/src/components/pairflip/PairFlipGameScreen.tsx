@@ -13,7 +13,7 @@ import type { ContentRef } from '@/lib/content/content-ref'
 import { recordGameScore } from '@/lib/scores/record-score'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
-import { getSrsQueueOwner, pushPendingResult } from '@/lib/srs/session-storage'
+import { pushOwnedResult } from '@/lib/srs/push-owned'
 import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import { GameIdentityNotice } from '@/components/game/GameIdentityNotice'
 
@@ -82,17 +82,17 @@ export function PairFlipGameScreen({ config, pairs, content, viewerId, authSourc
     // mock 폴백이면 word lookup 이 사용자 vocab 과 매칭되지 않아 skip 되므로 push 자체를 생략.
     const levelPairCount = PAIRFLIP_LEVELS.find((l) => l.id === config.level)?.pairCount ?? 0
     const usingReal = !!pairs && pairs.length >= levelPairCount
-    // 대기열 주인이 이 판의 주인과 같을 때만 넣는다 — 다르면 넣는 순간 다른 계정 몫이 된다(이미 쌓인 항목은 건드리지 않는다)
-    if (usingReal && getSrsQueueOwner() === viewerId) {
+    // 대기열 주인이 판 주인과 같을 때만 넣는다 · 아직 미정이면 정해진 뒤 같을 때(push-owned) — 다르면 넣지 않는다
+    if (usingReal) {
       for (const pr of result.pairResults) {
-        pushPendingResult({
+        pushOwnedResult({
           cardId: pr.pairId, // = vocabularies.id
           word: pr.word,
           cardUpdate: {}, // flush 가 서버에서 재계산 — cardUpdate 미사용
           rating: pr.fsrsRating,
           reviewedAt: new Date(pr.matchedAt).toISOString(),
           module: 'pairflip',
-        })
+        }, viewerId, () => guardRef.current.status === 'same')
       }
       void flushPendingSession()
     }

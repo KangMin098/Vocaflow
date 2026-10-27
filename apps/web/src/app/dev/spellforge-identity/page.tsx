@@ -6,7 +6,7 @@ import { SpellForgeIdentityHarness } from './harness'
 
 export const dynamic = 'force-dynamic'
 
-export default function Page({ searchParams }: { searchParams: { browser?: string; slow?: string } }) {
+export default function Page({ searchParams }: { searchParams: { browser?: string; slow?: string; ownerDelay?: string } }) {
   if (process.env.NODE_ENV === 'production') notFound()
-  return <SpellForgeIdentityHarness browserB={searchParams.browser === 'b'} slowMs={Number(searchParams.slow ?? 0)} />
+  return <SpellForgeIdentityHarness browserB={searchParams.browser === 'b'} slowMs={Number(searchParams.slow ?? 0)} ownerDelayMs={Number(searchParams.ownerDelay ?? 0)} />
 }

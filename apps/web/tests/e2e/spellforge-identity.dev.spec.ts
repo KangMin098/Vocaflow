@@ -50,6 +50,12 @@ const speech = (page: Page) => page.evaluate(() => ({ ...(window as unknown as {
 /** 지금 화면의 단어(뜻을 보고 철자) — 하네스 단어 순서는 섞일 수 있어 뜻으로 고른다 */
 async function answer(page: Page) {
   const map: Record<string, string> = { 수확: 'harvest', 가뭄: 'drought', 홍수: 'flooding' }
+  // 입력 칸과 지금 단어의 뜻이 그려진 뒤에 답한다(준비 전에 답하면 undefined 를 적는다 — Codex 지적)
+  await expect(input(page)).toBeVisible()
+  await expect.poll(async () => {
+    const h = await page.content()
+    return Object.keys(map).some((k) => h.includes(k))
+  }).toBe(true)
   const html = await page.content()
   const key = Object.keys(map).find((k) => html.includes(k))!
   await input(page).fill(map[key])
@@ -164,5 +170,16 @@ test.describe('멈춤 화면 Enter — 이중 기록 결함', () => {
     await expect(input(page)).toBeVisible()
     await page.waitForTimeout(400)
     await expect(queue(page)).toHaveText(`${A}:${w}`)
+  })
+})
+
+test.describe('대기열 주인 해석이 늦을 때 — Codex 반례', () => {
+  test.use({ viewport: { width: 1280, height: 900 } })
+  test('첫 평가 때 주인이 아직 null 이어도 A 몫으로 남는다(주인 없는 보류 · 유실 없음)', async ({ page }) => {
+    await open(page, '?ownerDelay=4000')
+    const w = await answer(page)
+    await expect(queue(page)).toHaveText(`${A}:${w}`)
+    const raw = await page.evaluate(() => JSON.parse(localStorage.getItem('srs_pending') ?? '[]') as { word: string; owner?: string }[])
+    expect(raw.filter((r) => r.word === w).map((r) => r.owner ?? null)).toEqual([A])
   })
 })

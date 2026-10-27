@@ -126,6 +126,25 @@ export function pushPendingResult(item: PendingSrsResult): void {
   }
 }
 
+/**
+ * 주인을 **명시해** 넣는다 — 대기열 주인이 아직 정해지지 않았지만(null), 화면이 그 사람을 계정 경계로 **긍정 확인한** 새 평가 하나에만 쓴다
+ * (lib/srs/push-owned). 전역 주인을 바꾸지 않고, 이미 쌓인 주인 없는 항목을 인수하지도 않는다 — 이 항목만 그 사람 몫으로 남는다.
+ * 주인이 이미 다른 사람이면 넣지 않는다(그 사람의 큐가 되면 안 된다).
+ */
+export function pushPendingResultAs(item: PendingSrsResult, owner: string): void {
+  if (typeof window === 'undefined') return;
+  if (queueOwner !== null && queueOwner !== owner) return;
+  const existing = readSafe();
+  const { owner: _ignored, ...rest } = item;
+  void _ignored;
+  existing.push({ ...rest, owner });
+  try {
+    localStorage.setItem(KEY, JSON.stringify(existing));
+  } catch {
+    // quota 초과 등 — 학습 흐름은 유지, 결과만 누락
+  }
+}
+
 /** **지금 계정의** 대기 평가만 — 다른 계정 · 주인 없는 항목은 보류라 돌려주지 않는다 */
 export function getPendingResults(): PendingSrsResult[] {
   if (!queueOwner) return [];

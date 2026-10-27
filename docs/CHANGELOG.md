@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(srs): 연습 화면의 첫 평가가 대기열 주인 해석 전(null)이면 주인 없이 보류돼 영영 반영되지 않던 결함 — `pushOwnedResult`(lib/srs/push-owned): 주인 = 판 주인이면 그대로, 미정이면 계정 경계가 긍정 확인한 이 새 평가만 판 주인 몫으로 명시(`pushPendingResultAs` · 전역 주인 · 예전 주인 없는 항목은 그대로), 다른 사람이면 넣지 않는다. SpellForge · StudyMode · PairFlip 적용. DB 무변경.
 - fix(security): 읽기 화면(/text/[id] 모든 모드 · echo · comic) 계정 경계 — 레이아웃이 실제로 읽은 글의 주인(v_text_content.user_id)과 브라우저 신원이 긍정 확인으로 같을 때만 그린다(`ReaderViewerGate` · `useStoryAuthGuard`). 바뀜 · 재확인 중이면 감추고, 모듈 싱글턴이라 화면이 내려가도 계속 읽던 읽기 음성(tts-controller)을 멈춘다. 개발 하네스 `/dev/reader-identity`. DB 무변경.
 - fix(spellforge): 정답 뒤 멈춤 화면에서 Enter 로 넘어가면 같은 단어의 정답이 한 번 더 확인돼 평가 대기열에 2건이 쌓이던 결함 — success · paused 단계에서는 확인하지 않는다(MicroPause 의 Enter 와 전역 Enter 처리가 함께 받던 것). DB 무변경.
 - fix(security): 글 안의 철자 연습(`/text/[id]?mode=spellforge`)도 같은 계정 경계 — 레이아웃이 실제로 읽은 글의 주인(`v_text_content.user_id`)을 문맥 `ownerId` 로 넘기고, 그 분기를 `GameViewerGate` + `SpellForge viewerId` 로 감싼다(주인을 모르면 로그인한 브라우저에 그리지 않는다). DB 무변경.
