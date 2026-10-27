@@ -29,6 +29,7 @@ import { gradeDcpItem, recordDcpErrorCause } from '@/lib/learner/dcp-actions'
 
 import { DcpChoiceItem, DcpInsertItem, DcpOrderItem, DcpUnderlineChoiceItem } from './DcpItems'
 import { MeaningEvidence } from './MeaningEvidence'
+import { insertSeamCandidates } from '@vocaflow/library-pipeline/insert-coordinates'
 import { meaningEvidenceSentences, isMeaningEvidenceType } from '@/lib/learner/meaning-evidence'
 
 type Phase = 'answering' | 'grading' | 'graded' | 'done'
@@ -479,17 +480,47 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
   const position = answerKey.position
   const p = item.payload as DcpInsertPayload
   if (typeof position !== 'number') return null
-  const withInsert = [...p.remaining]
-  withInsert.splice(position, 0, `〔${p.insert_sentence}〕`)
+  // 해설의 ①~⑤ 는 **해설 후보 번호**다(화면 자리 순번이 아니다). 채점 뒤 key 로만, 해설 조각이 실제 앞뒤 문장과
+  //   모두 맞을 때만 이음매에 붙인다 — 증명 못 하면 null 이고 예전처럼 해설 문장만 보인다(lib insert-coordinates).
+  const candidates = insertSeamCandidates({
+    remaining: p.remaining,
+    insertSentence: p.insert_sentence,
+    position,
+    explanation: pickExplanationText(answerKey),
+    writer: answerKey.explanation_writer,
+  })
+  const labelAt = new Map((candidates ?? []).map((c) => [c.seam, c.label]))
+  const rows: { kind: 'sentence' | 'inserted' | 'seam'; text: string; label?: string }[] = []
+  for (let g = 0; g <= p.remaining.length; g++) {
+    if (g === position) rows.push({ kind: 'inserted', text: p.insert_sentence, label: labelAt.get(g) })
+    else if (labelAt.has(g)) rows.push({ kind: 'seam', text: '', label: labelAt.get(g) })
+    if (g < p.remaining.length) rows.push({ kind: 'sentence', text: p.remaining[g] })
+  }
   return (
     <div className="flex flex-col gap-2">
       <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답 위치</p>
+      {candidates && (
+        <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]" data-testid="insert-seam-legend">
+          해설의 {candidates.map((c) => c.label).join('')} 는 화면의 자리 순번이 아니라 해설이 고른 후보 번호예요 — 아래에 그 자리를 표시했어요.
+        </p>
+      )}
       <ol className="flex flex-col gap-2">
-        {withInsert.map((sentence, i) => {
-          const isInserted = i === position
+        {rows.map((r, i) => {
+          if (r.kind === 'seam') {
+            return (
+              <li key={i} className="flex items-center gap-2" data-testid="insert-seam-mark" aria-label={`해설 ${r.label} 자리 — 위아래 두 문장 사이`}>
+                <span className="inline-flex h-6 min-w-[44px] items-center justify-center rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11.5px] font-[700] text-[var(--t2)]">
+                  해설 {r.label}
+                </span>
+                <span className="h-px flex-1 border-t border-dashed border-[var(--bd)]" aria-hidden />
+              </li>
+            )
+          }
+          const isInserted = r.kind === 'inserted'
           return (
             <li
               key={i}
+              data-testid={isInserted ? 'insert-seam-answer' : undefined}
               className="rounded-[var(--r-sm)] border p-3 font-body text-[13px] leading-relaxed"
               style={{
                 borderColor: isInserted ? 'var(--success)' : 'var(--bd)',
@@ -498,7 +529,12 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
                 fontWeight: isInserted ? 700 : 400,
               }}
             >
-              {sentence}
+              {isInserted && r.label && (
+                <span className="mr-2 inline-flex items-center rounded-[var(--r-full)] bg-[var(--success)] px-2 font-display text-[11.5px] font-[700] text-[var(--bg)]">
+                  해설 {r.label} · 정답 자리
+                </span>
+              )}
+              {isInserted ? `〔${r.text}〕` : r.text}
             </li>
           )
         })}
