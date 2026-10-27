@@ -581,6 +581,7 @@ export default function WorkspacePage({ params }: PageProps) {
         onSentencePlay={isShadow ? shadow.controls.jumpTo : handleSentencePlay}
         playingSentenceId={playingSentenceId}
         chapterMeta={chapterMeta}
+        articleSourceHref={ctx?.articleSourceHref ?? null}
         onSupportTap={handleSupportTap}
         onWordLookup={handleWordLookup}
       />

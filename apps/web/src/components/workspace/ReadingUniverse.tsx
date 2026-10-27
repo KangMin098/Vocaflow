@@ -9,6 +9,7 @@ import { Pause, Play } from 'lucide-react'
 import { Fragment, useEffect, useRef, useState } from 'react'
 
 import { ZoomableImage } from '@/components/ui/ZoomableImage'
+import { publicSourceHref } from '@/lib/reader/public-source-href'
 
 interface SentencePart {
   text: string
@@ -42,7 +43,7 @@ function SourceLink({ href }: { href: string }) {
       target="_blank"
       rel="noopener noreferrer"
       aria-label={`원문 출처 ${host} — 새 탭에서 열림`}
-      className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-[var(--r-md)] px-1 font-body text-[11.5px] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+      className="inline-flex min-h-11 shrink-0 items-center gap-1 break-keep rounded-[var(--r-md)] px-1 font-body text-[11.5px] text-[var(--t2)] underline decoration-[var(--bd)] underline-offset-4 transition-colors hover:text-[var(--p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
     >
       원문 출처 · {host} ↗
     </a>
@@ -73,6 +74,8 @@ interface ReadingUniverseProps {
   onWordLookup?: (surface: string, anchorRect: DOMRect) => void
   /** 지원 토큰 표시 여부 (레벨 적응형 — 기본 표시) */
   showSupport?: boolean
+  /** 기사 글의 공개 원문 주소 — 장 표식 출처가 있으면 그쪽이 우선(중복 표시 없음) */
+  articleSourceHref?: string | null
 }
 
 // 평범한 단어(학습 대상·노이즈 아님)를 data-lookup 스팬으로 토큰화.
@@ -114,6 +117,7 @@ export function ReadingUniverse({
   onSupportTap,
   onWordLookup,
   showSupport = true,
+  articleSourceHref = null,
 }: ReadingUniverseProps) {
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null)
   const [activeWordId, setActiveWordId] = useState<string | null>(null)
@@ -172,7 +176,9 @@ export function ReadingUniverse({
   // 첫 문단이 장 표식(문장 없음)이면 그다음 실제 문단이 첫 문단이다.
   const firstTextIdx = paragraphs.findIndex((p) => p.sentences.length > 0)
   // 장 표식에서 분리한 원문 출처(원본 본문 · DB 는 그대로 — lib/reader/chapter-marker)
-  const sourceHref = paragraphs[0]?.chapterMarker?.sourceHref ?? null
+  // 장 표식 출처가 없으면 기사 원문 주소(공개 http(s) 만 — 한 번 더 확인)
+  const sourceHref =
+    paragraphs[0]?.chapterMarker?.sourceHref ?? publicSourceHref(articleSourceHref)
   return (
     <article className="relative mx-auto max-w-[680px] px-6 py-4 md:px-8 md:py-6">
       {/* Chapter Meta — kicker line */}
