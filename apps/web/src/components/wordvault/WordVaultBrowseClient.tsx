@@ -39,7 +39,8 @@ import {
   parseStateFilter,
   stateFilterLabel,
 } from '@/lib/wordvault/state-filter'
-import { applySourceFilter, normalizeSourceFilter, type SetMembership } from '@/lib/wordvault/source-filter'
+import { applySourceFilter, membershipFetchTarget, normalizeSourceFilter, type SetMembership } from '@/lib/wordvault/source-filter'
+import { fetchArticleSetMembership } from '@/lib/wordvault/set-membership-actions'
 import type { SetMembershipPayload } from '@/lib/wordvault/set-membership-query'
 
 import { BrowseSourceBar } from './BrowseSourceBar'
@@ -91,9 +92,11 @@ export function WordVaultBrowseClient({
   storyReturn = null,
   setMembership = null,
 }: Props) {
+  // 서버가 첫 URL 로 읽어 온 값에서 시작하고, 칩으로 다른 세트를 고르면 그 세트 것을 다시 읽는다(URL 은 그대로).
+  const [membershipPayload, setMembershipPayload] = useState<SetMembershipPayload | null>(setMembership)
   const membership: SetMembership | null = useMemo(
-    () => (!setMembership ? null : 'error' in setMembership ? { setId: setMembership.setId, error: true } : { setId: setMembership.setId, words: new Set(setMembership.words) }),
-    [setMembership],
+    () => (!membershipPayload ? null : 'error' in membershipPayload ? { setId: membershipPayload.setId, error: true } : { setId: membershipPayload.setId, words: new Set(membershipPayload.words) }),
+    [membershipPayload],
   )
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -251,6 +254,17 @@ export function WordVaultBrowseClient({
   useEffect(() => {
     setScriptFilter(initialFilter)
   }, [initialFilter])
+
+  // 칩으로 기사 단어장을 바꾸면 그 세트의 정본 낱말을 읽는다 — 늦게 온 이전 세트 응답은 버린다.
+  useEffect(() => {
+    const target = membershipFetchTarget(scriptFilter, membershipPayload)
+    if (!target) return
+    let alive = true
+    void fetchArticleSetMembership(`set:${target}`)
+      .then((r) => { if (alive) setMembershipPayload(r ?? { setId: target, words: [] }) })
+      .catch(() => { if (alive) setMembershipPayload({ setId: target, error: true }) })
+    return () => { alive = false }
+  }, [scriptFilter, membershipPayload])
 
   // 필터 변경 시 선택 초기화
   useEffect(() => {

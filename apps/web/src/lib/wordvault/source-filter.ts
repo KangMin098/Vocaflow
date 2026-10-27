@@ -99,3 +99,10 @@ export function readerScopeQuery(ctx: ReaderSourceCtx | null | undefined): strin
   if (src.kind === 'text') return `?text=${encodeURIComponent(src.textId)}`
   return null
 }
+
+/** 지금 고른 필터에 맞는 membership 을 새로 읽어야 하는가 — set: 이고, 가진 것이 다른 세트(또는 없음)일 때만. */
+export function membershipFetchTarget(filter: string, current: { setId: string } | null | undefined): string | null {
+  if (!filter.startsWith('set:')) return null
+  const id = filter.slice(4)
+  return current?.setId === id ? null : id
+}
