@@ -46,6 +46,8 @@ import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { useSessionProgress, type SessionResourceType } from '@/components/layout/SessionFrame'
 import { useAudioControl } from '@/hooks/dictation/useAudioControl'
 import { useDictationSession, type SubmitOutcome } from '@/hooks/dictation/useDictationSession'
+import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
+import { GameIdentityNotice } from '@/components/game/GameIdentityNotice'
 import { HINT_STAGES, type HintLevel } from '@/lib/dictation/hint'
 import type { WordResult } from '@/lib/dictation/types'
 
@@ -90,6 +92,28 @@ export function DictationSessionClient() {
 
   const audio = useAudioControl()
 
+  // ── 세션 주인 결속 ── 세션 주인(시작 · DB 복원 때 확인된 사용자)과 브라우저 신원이 긍정 확인(same)으로 같을 때만
+  //   문장 · 입력 · 음성 · 제출을 쓴다. 주인 정보가 없는 예전 캐시(owner undefined)는 채택하지도 지우지도 않고 보류한다
+  //   (다른 계정에서 만든 캐시가 같은 URL 로 보였다 — Codex 실측 2026-10-28).
+  const legacyCache = !!session && session.owner === undefined
+  const { guard, status: authStatus } = useStoryAuthGuard(session?.owner ?? null)
+  const guardRef = useRef(guard)
+  guardRef.current = guard
+  const sessionRef = useRef(session)
+  sessionRef.current = session
+  /** 실행 시점 판정 — 화면이 내려간 뒤 남은 옛 콜백(제출 · 힌트 · 다음 · 재생)도 막는다 */
+  const usable = useCallback(() => {
+    const s = sessionRef.current
+    return !!s && s.owner !== undefined && guardRef.current.status === 'same'
+  }, [])
+  const viewable = !!session && !legacyCache && authStatus === 'same'
+  const stopRef = useRef(audio.stop)
+  stopRef.current = audio.stop
+  useEffect(() => {
+    // 보이던 세션이 바뀜 · 재확인 중이 되면 읽던 음성을 멈춘다
+    if (session && !viewable) stopRef.current()
+  }, [session, viewable])
+
   const [userInput, setUserInput] = useState('')
   const [activeHint, setActiveHint] = useState<HintLevel | null>(null)
   const [usedHints, setUsedHints] = useState<HintLevel[]>([])
@@ -131,7 +155,8 @@ export function DictationSessionClient() {
   // ─── SessionFrame 셸에 리소스 컨텍스트 + 진행도 주입 ───
   const { setProgress } = useSessionProgress()
   useEffect(() => {
-    if (!session) return
+    // 자료 제목은 같은 사람으로 확인된 세션만 셸에 올린다
+    if (!session || !viewable) return
     setProgress({
       current: session.currentIndex + 1,
       total: session.items.length,
@@ -142,27 +167,27 @@ export function DictationSessionClient() {
       },
     })
     return () => setProgress(null)
-  }, [session, setProgress])
+  }, [session, viewable, setProgress])
 
   // 완료 시 결과 페이지로
   useEffect(() => {
-    if (isComplete && session) {
+    if (isComplete && session && usable()) {
       router.replace(`/dictate/results?sessionId=${session.id}`)
     }
-  }, [isComplete, session, router])
+  }, [isComplete, session, router, usable])
 
   // ─── 오디오 (재생 횟수는 난이도 판정 입력이라 세션에 기록한다) ───
   const playAudio = useCallback(() => {
-    if (!currentItem) return
+    if (!currentItem || !usable()) return
     noteReplay()
     audio.repeat(currentItem.expectedText, autoRepeat, speed, 1500)
-  }, [audio, currentItem, autoRepeat, speed, noteReplay])
+  }, [audio, currentItem, autoRepeat, speed, noteReplay, usable])
 
   const playOnce = useCallback(() => {
-    if (!currentItem) return
+    if (!currentItem || !usable()) return
     noteReplay()
     audio.play(currentItem.expectedText, speed)
-  }, [audio, currentItem, speed, noteReplay])
+  }, [audio, currentItem, speed, noteReplay, usable])
 
   const stopAudio = useCallback(() => {
     audio.stop()
@@ -180,7 +205,7 @@ export function DictationSessionClient() {
   }, [currentItem?.index])
 
   const handleSubmit = useCallback(() => {
-    if (!currentItem || outcome || submittedRef.current) return
+    if (!currentItem || outcome || submittedRef.current || !usable()) return
     if (userInput.trim().length === 0) return
     submittedRef.current = true
     const elapsed = Date.now() - itemStartedAtRef.current
@@ -192,25 +217,26 @@ export function DictationSessionClient() {
       // 채점이 안 됐으면 잠금을 되돌린다 — 아니면 이 문항을 영영 제출할 수 없다
       submittedRef.current = false
     }
-  }, [currentItem, outcome, userInput, submitAnswer, audio])
+  }, [currentItem, outcome, userInput, submitAnswer, audio, usable])
 
   const handleNext = useCallback(() => {
     audio.stop()
+    if (!usable()) return
     next()
-  }, [audio, next])
+  }, [audio, next, usable])
 
   const handleSkip = useCallback(() => {
     // 건너뛰기도 문항 하나를 소모하고 적재한다 — 같은 이유로 한 번만 통과시킨다
-    if (submittedRef.current) return
+    if (submittedRef.current || !usable()) return
     submittedRef.current = true
     audio.stop()
     skip()
-  }, [audio, skip])
+  }, [audio, skip, usable])
 
   // ─── 힌트 ───
   const handleHint = useCallback(
     (level: HintLevel) => {
-      if (!session?.config.hintsAllowed) return
+      if (!session?.config.hintsAllowed || !usable()) return
       const stage = HINT_STAGES.find((s) => s.level === level)
       if (!stage) return
       if (!usedHints.includes(level)) {
@@ -219,7 +245,7 @@ export function DictationSessionClient() {
       }
       setActiveHint(level)
     },
-    [session, usedHints, consumeHint],
+    [session, usedHints, consumeHint, usable],
   )
 
   // ─── 키보드 단축키 ───
@@ -294,6 +320,25 @@ export function DictationSessionClient() {
       </div>
     )
   }
+
+  // 주인 정보 없는 예전 캐시 — 지금 계정 것으로 채택하지 않는다(지우지도 않는다)
+  if (legacyCache) {
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center" data-game-private="unowned" role="status">
+        <h2 className="break-keep font-display text-[16px] font-[700] text-[var(--t1)]">이 받아쓰기는 누구의 세션인지 확인할 수 없어요</h2>
+        <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">지금 계정으로 새 받아쓰기를 시작해 주세요.</p>
+        <a
+          href="/dictate"
+          data-game-reopen
+          className={`inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t1)] hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+        >
+          받아쓰기로
+        </a>
+      </div>
+    )
+  }
+  // 세션 주인과 브라우저 신원이 같다고 확인되기 전 · 바뀐 뒤에는 문장 · 입력을 그리지 않는다
+  if (session && authStatus !== 'same') return <GameIdentityNotice status={authStatus} />
 
   // 세션 미발견 — DB 에도 문항이 없는 경우다(이 컬럼 이전 세션 · 비로그인 로컬 세션)
   if (status === 'not-found') {

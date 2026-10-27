@@ -45,6 +45,8 @@ import type {
   ScoringMode,
 } from '@/lib/dictation/types'
 import { Illustration } from '@/components/illustrations/Illustration'
+import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
+import { GameIdentityNotice } from '@/components/game/GameIdentityNotice'
 import { ILLO_04_DICTATION_CHOOSE } from '@/components/illustrations/generated/illo-04-dictation-choose'
 
 const DICTATION_ACCENT = '#0EA5E9'
@@ -72,6 +74,8 @@ export function DictationSetupClient() {
   const chapter = Number.isInteger(chapterRaw) && chapterRaw > 0 ? chapterRaw : null
 
   const [source, setSource] = useState<DictationSource | null>(null)
+  // 자료를 읽은 사람 — 시작 때 같은 사람인지 확인한다(다른 탭에서 계정이 바뀌면 A 의 자료로 B 의 세션을 만들지 않는다)
+  const [loaderId, setLoaderId] = useState<string | null | undefined>(undefined)
   // 자료 좌표가 아예 없으면 **불러올 것이 없다** — 허브로 돌아가는 중일 뿐이다.
   // 그 상태에 "자료를 불러오는 중" 을 띄우면 화면이 거짓말을 하고, 전환이 느린 순간에는
   // 학습자가 멈춘 화면을 본다(회귀가 이걸 "로딩이 최종 상태" 로 잡았다).
@@ -129,6 +133,7 @@ export function DictationSetupClient() {
           setLoadState('missing')
           return
         }
+        setLoaderId(user?.id ?? null)
         setSource(resolved)
         setLoadState('ready')
 
@@ -201,18 +206,23 @@ export function DictationSetupClient() {
     // 실패는 반드시 화면에 남긴다 — 조용히 스피너만 끄면 "아무 반응 없음" 이 된다.
     let session
     try {
-      session = await createDictationSession(source, config, span)
+      session = await createDictationSession(source, config, span, loaderId)
     } catch (e) {
       setStarting(false)
       setStartError(
-        e instanceof DictationStartError && e.reason === 'cache-failed'
+        e instanceof DictationStartError && e.reason === 'identity-changed'
+          ? '로그인 상태가 바뀌었어요. 이 화면을 지금 계정으로 다시 열어 자료를 불러온 뒤 시작해 주세요.'
+          : e instanceof DictationStartError && e.reason === 'cache-failed'
           ? '이 브라우저의 저장 공간이 가득 차 세션을 이어받지 못했어요. 사이트 데이터를 정리하거나 다른 브라우저에서 다시 시도해 주세요.'
           : '이 설정으로 만들 문항이 없었어요. 문항 수나 묶음 크기를 줄여서 다시 시도해 주세요.',
       )
       return
     }
     router.push(`/dictate/session?sessionId=${session.id}`)
-  }, [source, starting, chunkSize, count, order, scoring, cefr, speed, autoRepeat, hintsAllowed, span, router])
+  }, [source, starting, chunkSize, count, order, scoring, cefr, speed, autoRepeat, hintsAllowed, span, router, loaderId])
+
+  // 불러온 자료(개인 글 제목 · 문장 미리보기)는 그것을 읽은 사람의 것 — 브라우저 신원이 같을 때만 그린다(바뀌면 감춘다)
+  const { status: loaderStatus } = useStoryAuthGuard(loaderId ?? null)
 
   // 좌표 없이 들어온 경우 — 허브로 돌아가는 중이다.
   // `null` 을 그리지 않는다: 전환이 느리면 **빈 화면**이 되고, 그건 틀린 문구보다 나쁘다.
@@ -233,6 +243,8 @@ export function DictationSetupClient() {
       </div>
     )
   }
+
+  if (source && loaderId !== undefined && loaderStatus !== 'same') return <GameIdentityNotice status={loaderStatus} />
 
   if (loadState === 'loading') {
     return (
