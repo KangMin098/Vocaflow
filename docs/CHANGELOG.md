@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- db(r0): 사용자 승인으로 `article_practice_items`(VOA Lincoln 267ef969 title · topic 검수 2문항, 정답 없이) · `submit_article_practice`(본인 글 · 현재 판본 · 후보 확인 → grade_dcp_item) 적용 — migration 20261027201035 · 20261027201103. 함수만, 테이블 · 데이터 변경 없음. 화면 진입점 미구현.
 - feat(recommend): 추천 P2 연결 — 본인이 열어 둔 개인 글(`texts` in_progress · 도서/묶음/출처 표지 없음 · updated_at 최신)을 「<제목> 이어 보기」로(`lib/recommend/own-reading.ts`, SELECT 만). 라벨 「이어 듣기」→「이어 보기」. 개인 글 추천은 그 응답의 계정과 브라우저 신원이 같다고 확인된 때만 그리고(`useStoryAuthGuard`), 확인 중 · 계정 전환 · 로그아웃 · 늦게 온 앞 계정 응답은 개인 글 없는 추천으로. 라이브러리 도서 · 기사 · 묶음 재개는 아직 아님. 개발 확인 화면 `/dev/next-action-identity`. DB 무변경.
 - feat(practice): 의미 선택 근거 짚기(`MeaningEvidence`)에 원래 발문 표시와 「다른 선택지 하나와 견주어 보기」(선택 · 접힘 기본) — 원래 선택지 하나를 고르고 두 선택지가 갈리는 본문 문장을 짚어 해설과 나란히. 판정 · 기록 · 조회 없음, 대상을 바꾸면 짚은 문장 초기화, 문항마다 새로. 제목 · 주제 등 중심 의미 유형만. DB 무변경.
 - fix(dictation): 읽던 글에서 시작한 받아쓰기가 세션 · 결과로 넘어가며 `?from=` 을 잃던 것 — 설정 → 세션 → 결과(완료 자동 이동 · 이미 완료 「결과 보기」) → 같은 자료 재시도에 안전한 from 을 잇고, 결과에 「하던 학습으로 돌아가기」(from 있을 때만). 세션 닫기/Esc 는 기존 SessionFrame 이 같은 from 을 읽는다. 「받아쓰기 홈」 · 「통계」 그대로. 개발 확인 화면 `/dev/dictation-return`. DB 무변경.
