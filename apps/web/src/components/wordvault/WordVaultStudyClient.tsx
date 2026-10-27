@@ -36,6 +36,11 @@ interface WordVaultStudyClientProps {
   loadFailed?: boolean
   /** 서버가 단어를 읽은 사용자 — 평가 · 키보드 · 발음의 실행 시점 경계(StudyMode). 화면 경계는 페이지의 WordVaultViewerGate. */
   viewerId?: string | null
+  /**
+   * 출처 목록(text:/set:)에서 온 세션 — 페이지가 범위를 고른 결과. 있으면 빈 상태 · 실패 · 끝 · 중단이 모두 backHref(그 목록)로 돌아간다.
+   * error: invalid(잘못된 주소) · load(단어 조회 실패) · membership(기사 단어장 낱말 확인 실패) — 「0개」 와 구별한다.
+   */
+  source?: { total: number; conditions: string; error?: 'invalid' | 'load' | 'membership' } | null
 }
 
 /** 지도에서 온 어휘 학습의 위치 안내 — 이 복습은 학습 활동이지 지도 근거가 아니다(V1 직접 확인 도구 없음) */
@@ -84,11 +89,40 @@ function StudyBody({
   mapBack = null,
   loadFailed = false,
   viewerId,
+  source = null,
 }: WordVaultStudyClientProps) {
   const router = useRouter()
   const [done, setDone] = useState(false)
 
   const screenName = mode === 'review' ? '복습' : '학습'
+
+  if (source?.error) {
+    const msg =
+      source.error === 'invalid'
+        ? { title: '이 목록 주소를 읽지 못했어요', body: '다른 단어로 대신 시작하지 않았어요. 목록으로 돌아가 다시 시작해 주세요.' }
+        : source.error === 'membership'
+          ? { title: '이 단어장의 낱말을 확인하지 못했어요', body: '연습할 단어가 없다는 뜻이 아니에요. 범위를 확인할 수 없어 시작하지 않았어요 — 잠시 뒤 다시 열어 주세요.' }
+          : { title: '단어를 불러오지 못했어요', body: '연습할 단어가 없다는 뜻이 아니에요. 잠시 뒤 다시 열어 주세요.' }
+    return (
+      <div className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center" data-testid="vocab-source-study-failed" data-reason={source.error}>
+        <h1 className="sr-only">{screenName}</h1>
+        <h2 role="alert" className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">{msg.title}</h2>
+        <p className="mb-s-6 break-keep font-body text-sm text-t2">{msg.body}</p>
+        <SourceBackLink href={backHref} />
+      </div>
+    )
+  }
+
+  if (source && words.length === 0) {
+    return (
+      <div className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center" data-testid="vocab-source-study-empty">
+        <h1 className="sr-only">{screenName}</h1>
+        <h2 className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">이 목록에 떠올릴 내 단어가 없어요</h2>
+        <p className="mb-s-6 break-keep font-body text-sm text-t2">{source.conditions} 조건에 맞는 내 단어가 0개예요.</p>
+        <SourceBackLink href={backHref} />
+      </div>
+    )
+  }
 
   if (loadFailed) {
     return (
@@ -177,7 +211,7 @@ function StudyBody({
             href={backHref}
             className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-bg2 px-s-5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
           >
-            {mapBack ? '학습 지도로 돌아가기' : '돌아가기'}
+            {mapBack ? '학습 지도로 돌아가기' : source ? '이 목록으로 돌아가기' : '돌아가기'}
           </Link>
           {/* 복습 화면은 "지금 복습할 것" 만 담으므로, 방금 학습한 뒤에도 비어 있을 수 있다.
               그래서 목록을 두 번째 길로 함께 둔다 — 막다른 화면을 만들지 않는다. */}
@@ -196,6 +230,11 @@ function StudyBody({
     <>
       {/* 위와 같은 이유 — 보이는 제목 없이도 화면에는 이름이 있어야 한다. */}
       <h1 className="sr-only">{screenName}</h1>
+      {source && (
+        <p data-testid="vocab-source-study-scope" className="mx-auto mt-s-4 max-w-[680px] break-keep px-s-4 text-center font-body text-[13px] text-t2">
+          {source.conditions} · 내 단어 {source.total.toLocaleString()}개{source.total > words.length ? ` 중 복습이 급한 앞 ${words.length}개` : ''} — 기본 뜻을 떠올리고 스스로 매기는 연습이에요. 정답 · 숙달 · 혼자 푼 기록으로 세지 않아요.
+        </p>
+      )}
       <StudyMode
         words={words}
         viewerId={viewerId}
@@ -208,5 +247,18 @@ function StudyBody({
         }}
       />
     </>
+  )
+}
+
+/** 출처 세션의 「목록으로」 — 끝 · 빈 상태 · 실패에서 같은 목록으로 */
+function SourceBackLink({ href }: { href: string }) {
+  return (
+    <Link
+      href={href}
+      data-testid="vocab-source-study-back"
+      className="inline-flex min-h-[44px] items-center rounded-md bg-bg2 px-s-5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+    >
+      이 목록으로 돌아가기
+    </Link>
   )
 }

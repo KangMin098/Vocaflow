@@ -96,3 +96,27 @@ export function filterRowsByState(
     ),
   )
 }
+
+/**
+ * 출처(text:/set:) 세션용 — 본인 단어 **전량**을 학습 세션과 같은 순서(due 우선)로 받는다.
+ * 범위 · 검색 · 난이도 · 상한은 호출부가 `source-study.scopeSourceStudyWords` 로 건다(범위를 고른 **뒤** 상한).
+ * 앞 50개만 받으면 다른 출처의 단어가 그 자리를 채워 이 출처의 단어가 빠진다.
+ */
+export async function fetchAllStudyVocabulariesOrdered(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+): Promise<VocabRow[]> {
+  return pagedSelect<VocabRow>(
+    (from, to) =>
+      supabase
+        .from('vocabularies')
+        .select(
+          'id, word, meaning, example_sentence, pronunciation, pos, cefr_level, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
+        )
+        .eq('user_id', userId)
+        .order('next_review_at', { ascending: true, nullsFirst: true })
+        .order('created_at', { ascending: true })
+        .range(from, to),
+    'wordvault source study vocabularies',
+  )
+}

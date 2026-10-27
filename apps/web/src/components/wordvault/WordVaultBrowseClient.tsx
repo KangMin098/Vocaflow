@@ -41,6 +41,7 @@ import {
 } from '@/lib/wordvault/state-filter'
 import { applySourceFilter, membershipFetchTarget, normalizeSourceFilter, type SetMembership } from '@/lib/wordvault/source-filter'
 import { fetchArticleSetMembership } from '@/lib/wordvault/set-membership-actions'
+import { currentBrowseHref, sourceStudyHref } from '@/lib/wordvault/source-study'
 import type { SetMembershipPayload } from '@/lib/wordvault/set-membership-query'
 
 import { BrowseSourceBar } from './BrowseSourceBar'
@@ -402,6 +403,19 @@ export function WordVaultBrowseClient({
                 </div>
               )}
 
+              {/* ── 출처 목록 → 뜻 떠올리기(자기 평가) — 이 출처 · 검색 · 난이도 그대로, 끝나면 이 목록으로 ── */}
+              {(scriptFilter.startsWith('set:') || scriptFilter.startsWith('text:')) && (
+                <SourceRecallEntry
+                  href={sourceStudyHref({
+                    filter: scriptFilter,
+                    query: searchQuery,
+                    level: levelFilter,
+                    from: currentBrowseHref(new URLSearchParams(searchParams?.toString() ?? ''), { filter: scriptFilter, query: searchQuery, level: levelFilter }),
+                  })}
+                  count={words.length}
+                />
+              )}
+
               {/* ── 듣기 옵션 ── */}
               <ListenPanel
               allWords={words}
@@ -548,5 +562,24 @@ function EmptyAll() {
       primary={{ href: '/library/vocab', label: '공용 단어장 둘러보기' }}
       secondary={{ href: '/text', label: '내 스크립트' }}
     />
+  )
+}
+
+/** 출처 목록의 작은 학습 진입 — 체크 선택이 아니라 지금 목록(출처 · 검색 · 난이도) 전체가 범위다. */
+function SourceRecallEntry({ href, count }: { href: string; count: number }) {
+  if (count === 0) return null
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2" data-testid="vocab-source-recall">
+      <p className="break-keep font-body text-[12px] text-[var(--t2)]">
+        지금 목록의 내 단어 {count.toLocaleString()}개{count > 50 ? ' 중 복습이 급한 50개' : ''}로 기본 뜻을 떠올리고 스스로 매겨요. 체크한 단어만 고르지는 않아요.
+      </p>
+      <Link
+        href={href}
+        data-testid="vocab-source-recall-start"
+        className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+      >
+        이 목록으로 뜻 떠올리기 →
+      </Link>
+    </div>
   )
 }
