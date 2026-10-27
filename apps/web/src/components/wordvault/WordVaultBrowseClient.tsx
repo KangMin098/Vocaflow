@@ -15,7 +15,7 @@ import { SpotState } from '@/components/ui/SpotState'
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { FileText } from 'lucide-react'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
@@ -78,6 +78,8 @@ interface Props {
   storyReturn?: ReactNode
   /** 선택한 발행 기사 단어장의 정본 낱말(서버가 본인 세션으로 읽음) — 다른 출처에서 이미 가진 낱말도 그 단어장에 보이게 */
   setMembership?: SetMembershipPayload | null
+  /** 칩으로 고른 세트의 정본 낱말 조회 — 기본은 서버 Action. 개발 하네스만 합성 응답을 주입한다(프로덕션 화면은 넘기지 않는다). */
+  fetchMembership?: (filter: string) => Promise<SetMembershipPayload | null>
 }
 
 const SET_ACCENT = 'var(--p)' // 보라 — 라이브러리 단어장 정합
@@ -91,9 +93,14 @@ export function WordVaultBrowseClient({
   mapBack = null,
   storyReturn = null,
   setMembership = null,
+  fetchMembership = fetchArticleSetMembership,
 }: Props) {
   // 서버가 첫 URL 로 읽어 온 값에서 시작하고, 칩으로 다른 세트를 고르면 그 세트 것을 다시 읽는다(URL 은 그대로).
   const [membershipPayload, setMembershipPayload] = useState<SetMembershipPayload | null>(setMembership)
+  // 같은 URL 이 다시 검증돼 서버가 새 값을 주면 그것으로 바꾼다(초기값만 쓰면 낡은 정본이 남는다) — 지금 칩이 다른 세트면 아래 조회가 다시 읽는다.
+  useEffect(() => {
+    setMembershipPayload(setMembership)
+  }, [setMembership])
   const membership: SetMembership | null = useMemo(
     () => (!membershipPayload ? null : 'error' in membershipPayload ? { setId: membershipPayload.setId, error: true } : { setId: membershipPayload.setId, words: new Set(membershipPayload.words) }),
     [membershipPayload],
@@ -255,12 +262,15 @@ export function WordVaultBrowseClient({
     setScriptFilter(initialFilter)
   }, [initialFilter])
 
+  // 조회 함수는 ref 로 — 부른 쪽이 매 렌더 새 함수를 넘겨도 진행 중 조회를 끊고 다시 부르는 루프가 생기지 않게
+  const fetchMembershipRef = useRef(fetchMembership)
+  fetchMembershipRef.current = fetchMembership
   // 칩으로 기사 단어장을 바꾸면 그 세트의 정본 낱말을 읽는다 — 늦게 온 이전 세트 응답은 버린다.
   useEffect(() => {
     const target = membershipFetchTarget(scriptFilter, membershipPayload)
     if (!target) return
     let alive = true
-    void fetchArticleSetMembership(`set:${target}`)
+    void fetchMembershipRef.current(`set:${target}`)
       .then((r) => { if (alive) setMembershipPayload(r ?? { setId: target, words: [] }) })
       .catch(() => { if (alive) setMembershipPayload({ setId: target, error: true }) })
     return () => { alive = false }
