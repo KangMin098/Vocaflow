@@ -39,7 +39,8 @@ import {
   parseStateFilter,
   stateFilterLabel,
 } from '@/lib/wordvault/state-filter'
-import { applySourceFilter, normalizeSourceFilter } from '@/lib/wordvault/source-filter'
+import { applySourceFilter, normalizeSourceFilter, type SetMembership } from '@/lib/wordvault/source-filter'
+import type { SetMembershipPayload } from '@/lib/wordvault/set-membership-query'
 
 import { BrowseSourceBar } from './BrowseSourceBar'
 import { HideToggleBar } from './HideToggleBar'
@@ -74,6 +75,8 @@ interface Props {
   mapBack?: string | null
   /** D5-I02 — Story 에서 명시 이동했을 때만 서버가 만든 작은 복귀 줄(없으면 null · 출처를 지어내지 않는다). 지도 복귀와 함께 오지 않는다. */
   storyReturn?: ReactNode
+  /** 선택한 발행 기사 단어장의 정본 낱말(서버가 본인 세션으로 읽음) — 다른 출처에서 이미 가진 낱말도 그 단어장에 보이게 */
+  setMembership?: SetMembershipPayload | null
 }
 
 const SET_ACCENT = 'var(--p)' // 보라 — 라이브러리 단어장 정합
@@ -86,7 +89,12 @@ export function WordVaultBrowseClient({
   bookContext,
   mapBack = null,
   storyReturn = null,
+  setMembership = null,
 }: Props) {
+  const membership: SetMembership | null = useMemo(
+    () => (!setMembership ? null : 'error' in setMembership ? { setId: setMembership.setId, error: true } : { setId: setMembership.setId, words: new Set(setMembership.words) }),
+    [setMembership],
+  )
   const router = useRouter()
   const searchParams = useSearchParams()
   // 접두어 없는 uuid(예전 Reader 링크)는 그 글의 text: 범위로 — 전체 목록으로 흘리지 않는다.
@@ -165,7 +173,7 @@ export function WordVaultBrowseClient({
     let list = allWords
     // 1) 소스 필터 (set / text / 기억 상태)
     if (scriptFilter.startsWith('set:') || scriptFilter.startsWith('text:')) {
-      list = applySourceFilter(list, scriptFilter)
+      list = applySourceFilter(list, scriptFilter, membership)
     } else if (stateKey) {
       // 기억 상태 필터 — 리본 칩·허브 CTA 가 보내는 `state:*`.
       // 2026-08-29 이전에는 이 분기가 없어 **조용히 전체가 떴다**(state-filter.ts 머리말).
@@ -187,7 +195,7 @@ export function WordVaultBrowseClient({
       list = [...list].sort((a, b) => a.mastery - b.mastery)
     }
     return list
-  }, [allWords, scriptFilter, stateKey, searchQuery, levelFilter, sortBy])
+  }, [allWords, scriptFilter, stateKey, searchQuery, levelFilter, sortBy, membership])
 
   // ── 핸들러 ──
   const handleToggleSelect = useCallback((id: number) => {
@@ -278,6 +286,11 @@ export function WordVaultBrowseClient({
         />
       )}
       {!mapBack && storyReturn}
+      {membership && 'error' in membership && scriptFilter === `set:${membership.setId}` && (
+        <p role="status" data-testid="vocab-set-membership-failed" className="mx-auto max-w-[960px] break-keep px-s-4 pt-s-3 font-body text-[13px] text-t2">
+          이 단어장의 낱말 목록을 확인하지 못해, 이 단어장에서 저장한 단어만 보여요. 다른 곳에서 먼저 모은 같은 낱말은 빠졌을 수 있어요.
+        </p>
+      )}
     <>
       <ResourceContext
         resource={

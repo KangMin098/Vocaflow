@@ -15,8 +15,11 @@ import { loadStoryReturnTarget, type StoryLearnerClient } from '@/lib/library/st
 import { resolveVaultReturnContexts, vaultPathWithStoryContext } from '@/lib/library/story/return-context'
 import { MapReturnBar } from '@/components/wordvault/WordVaultStudyClient'
 import { vocabMapLink } from '@/lib/csat/map-return'
+import type { SupabaseClient } from '@supabase/supabase-js'
+
 import { createClient } from '@/lib/supabase/server'
 import { resolveBookChapter } from '@/lib/wordvault/book-context'
+import { loadArticleSetMembership } from '@/lib/wordvault/set-membership-query'
 import {
   fetchUserSetChips,
   fetchUserTextChips,
@@ -88,6 +91,8 @@ export default async function WordVaultBrowsePage({ searchParams }: PageProps) {
   }
 
   const words: BrowseWord[] = rows.map((r, i) => vocabRowToWord(r, i))
+  // 발행 기사 단어장을 고른 경우만 — 그 세트의 정본 낱말(본인 세션 RLS). 실패는 error 로 넘겨 0 으로 숨기지 않는다
+  const setMembership = await loadArticleSetMembership(supabase as unknown as SupabaseClient, searchParams.filter)
 
   // v06.34 — book/chapter query 가 있으면 그 도서의 chapter context fetch
   //   currentTextId: 사용자가 enroll 한 책이면 현재 chapter 의 texts.id (본문 복귀용)
@@ -168,6 +173,7 @@ export default async function WordVaultBrowsePage({ searchParams }: PageProps) {
         bookContext={bookContext}
         mapBack={mapBack}
         storyReturn={storyBar}
+        setMembership={setMembership}
       />
     </WordVaultViewerGate>
   )

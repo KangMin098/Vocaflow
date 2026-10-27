@@ -25,14 +25,27 @@ export function normalizeSourceFilter(raw: unknown): string {
   return v
 }
 
-/** 출처 필터(set·text)만 적용한다. 기억 상태(state:)·검색·난이도는 호출부가 따로 건다. */
-export function applySourceFilter<W extends { setId?: string | null; textId?: string | null }>(
+/**
+ * 기사 단어장(set) 의 정본 낱말 목록 — 서버가 그 세트와 **이 사용자**에 대해 읽어 넘긴다.
+ * 기사 단어장 구독은 UNIQUE(user_id, word) 충돌을 건너뛰므로, 이미 다른 세트·직접 글에서 가진 낱말은
+ * shared_set_id 가 원래 출처로 남는다 — origin 만 보면 그 기사 단어장에서 빠진다(2026-10-27 실측 19쌍).
+ */
+export type SetMembership = { setId: string; words: ReadonlySet<string> } | { setId: string; error: true }
+
+/**
+ * 출처 필터(set·text)만 적용한다. 기억 상태(state:)·검색·난이도는 호출부가 따로 건다.
+ * set: 는 origin 이 그 세트인 본인 단어 + (그 세트의 membership 이 있으면) 정본 낱말과 **정확히 같은** 본인 단어.
+ * membership 은 setId 가 같을 때만 쓴다 — 다른 세트·text: 로 옮기면 적용되지 않는다. 행은 복제하지 않는다.
+ */
+export function applySourceFilter<W extends { setId?: string | null; textId?: string | null; word?: string }>(
   list: readonly W[],
   filter: string,
+  membership?: SetMembership | null,
 ): W[] {
   if (filter.startsWith('set:')) {
     const id = filter.slice(4)
-    return list.filter((w) => w.setId === id)
+    const words = membership && membership.setId === id && 'words' in membership ? membership.words : null
+    return list.filter((w) => w.setId === id || (words !== null && typeof w.word === 'string' && words.has(w.word)))
   }
   if (filter.startsWith('text:')) {
     const id = filter.slice(5)
