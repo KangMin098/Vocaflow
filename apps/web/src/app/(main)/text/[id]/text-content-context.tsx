@@ -54,6 +54,8 @@ export interface TextContentData {
   bookWordSetStats: { subscribed: number; total: number } | null;
   /** v06.34 — 현재 챕터의 단어장 set (워크스페이스 "단어" pill → /wordvault/browse?filter=set:{id}) */
   currentChapterWordSet: { id: string; title: string } | null;
+  /** R0 — 이 기사(본인이 연 글)에 검수한 발췌 연습이 있으면 그 주소(/practice/article/[articleId]). 없으면 null */
+  articlePracticeHref?: string | null;
   /** v06.34 — 도서의 모든 챕터 단어장 (Browse 안에서 prev/next chapter nav) */
   allChapterWordSets: Array<{ id: string; chapterIdx: number; title: string }>;
   /** v06.x — 현재 챕터의 LibriVox 원어민 보이스 (큐레이터 연결 + 챕터 정합 시만 non-null) */

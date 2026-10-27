@@ -134,6 +134,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   let bookAuthor: string | null = null;
   // v06.x — 현재 챕터의 LibriVox 보이스 (큐레이터가 "챕터 일치" 확인 후 저장한 경우만)
   let chapterAudio: ChapterAudio | null = null;
+  let articlePracticeHref: string | null = null;
   // v06.53 — 그림책 페이지별 삽화 (StoryWeaver 등) — 현재 챕터에 노출
   let illustrations: BookIllustration[] | null = null;
 
@@ -301,7 +302,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
     const m = marker.match(/^article:([0-9a-fA-F-]{36})$/);
     if (m) {
       const articleId = m[1];
-      const [{ data: artRow }, { data: setRow }] = await Promise.all([
+      const [{ data: artRow }, { data: setRow }, { data: practiceRows }] = await Promise.all([
         client
           .from('library_articles')
           .select('audio_url, title, source_url')
@@ -314,7 +315,10 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
           .eq('category', 'library_article')
           .eq('curation_query->>article_id', articleId)
           .maybeSingle(),
+        // R0 — 검수한 발췌 연습이 있는가(정답 없는 조회 함수 · 읽기만). 없거나 실패면 링크를 두지 않는다
+        client.rpc('article_practice_items', { p_article_id: articleId }),
       ]);
+      if (Array.isArray(practiceRows) && practiceRows.length > 0) articlePracticeHref = `/practice/article/${articleId}`;
       const art = artRow as {
         audio_url: string | null;
         title: string | null;
@@ -432,6 +436,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       currentChapterStatus: text.status ?? 'not_started',
       bookWordSetStats,
       currentChapterWordSet,
+      articlePracticeHref,
       allChapterWordSets,
       chapterAudio,
       illustrations,

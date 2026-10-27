@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(r0): 같은 기사 발췌 연습 화면 `/practice/article/[articleId]` — 준비 모듈(contract · actions · ArticlePracticeBridge) 연결, 본인 글 화면에 검수 후보가 있을 때만 진입 링크. 제출은 loader 가 확인한 계정 · 본인 글 문맥과 지금이 같을 때만 RPC(계정 전환 뒤 B 의 같은 기사 글로 갈아타던 준비 코드 결함 수정), 화면은 신원이 같을 때만 문항 · 결과를 그리고 늦은 응답은 버린다. 실패 사유(설치 대기 · 안 연 글 · 판본 다름 · 문항 없음 · 조회 실패 · 인증 · 정지) 구별. 개발 확인 화면 `/dev/article-practice`.
 - fix(practice): DcpPlayer 오답 원인 1-tap 칩과 원인별 안내 링크 높이 36px → 44px(접근성 터치 대상). 채점 · 기록 무변경.
 - feat(story): 독서 후 선택 「내 단어장 살펴보기」 — 이 화면에서 같은 본인 · 판본 세션으로 낱말을 담았거나(이미 있음 포함) 확인된 때만, 전 단위 표시 뒤 서가 · 다시 읽기 다음 마지막 링크(기존 Story 왕복 주소). 메모리 문맥뿐 · 서버 쓰기 · DB 무변경(LCP_D5_INTEGRATION §12.4).
 - db(r0): 사용자 승인으로 `article_practice_items`(VOA Lincoln 267ef969 title · topic 검수 2문항, 정답 없이) · `submit_article_practice`(본인 글 · 현재 판본 · 후보 확인 → grade_dcp_item) 적용 — migration 20261027201035 · 20261027201103. 함수만, 테이블 · 데이터 변경 없음. 화면 진입점 미구현.

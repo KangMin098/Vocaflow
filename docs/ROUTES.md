@@ -160,6 +160,7 @@ POST `{ id, action: "revalidate" }`: 원문을 보존하고 한 행의 판정 �
 | **Game Lab 랭킹** (v08.6) | `(main)/arcade/ranking` (`?period=week|month|all`) | — | — | 게임별 리더보드 + 내 랭크. RPC `game_leaderboard` · `game_rank_summary`(SECURITY DEFINER — `scores` RLS 는 자기 행뿐이라 집계 함수 없이는 순위가 불가). **원점수를 게임 사이로 합산하지 않는다**(단위가 다르고 풀 크기에 비례) — 종합은 게임별 백분위 평균. 표시 이름은 결정론적 별칭 기본, 실명은 `user_profiles.leaderboard_visibility` 로 opt-in |
 | **Practice — 연습 단일 진입면** (v06.201) | `(main)/practice` | — | — | 사이드바 PRACTICE 5형제(Flashcard·WordBlitz·PairFlip·SpellForge·Game Lab) → 2개로 통폐합. **면(facet)으로 고른다** — `FACETS` 6개 카드 + 가장 무른 면 강조. 도구 = 모듈 4 + Game Lab 게임 17(`lib/learner/practice-map.ts` 가 `GAME_CATALOG.layer` 에서 파생) + 활성 시 `Syntax`. 게임 링크는 `from=/practice` 필수(없으면 종료가 `/arcade` 로 튕김) |
 | **DCP 구문 연습** (CTP ⑥) | — | `(main)/practice/dcp` | — | hub 처방 ④ + **`/practice` Use 면**(v06.201 — 그전엔 처방이 유일 진입). order(순서 배열)/insert(위치 삽입) · `grade_dcp_item` 서버 채점 · 오답 error_cause 1-tap |
+| **같은 기사 발췌 연습** (R0) | — | `(main)/practice/article/[articleId]` | — | 그 기사를 연 본인 글(`/text/[id]`)의 「다 읽었다면 · 발췌문으로 제목 · 주제 골라 보기」(검수 후보가 있을 때만). `article_practice_items` 정답 없는 조회 → `submit_article_practice` 제출 · 계정/본인 글 문맥 고정 · 실패 사유별 문구 · 복귀 「읽던 글로」 |
 
 #### 평가원 기출 — 학습자 루프 (`(app)/csat/*` · 보호 라우트 · 2026-09-17 재설계 · 2026-10-10 모든 학습자 화면이 기출분석공간 셸 `CsatShell`(레일 + 상단 바) 안 · `/csat/practice` → `/csat/practice/claim-support` redirect · `/csat/dissect` 풀스크린 해제)
 
