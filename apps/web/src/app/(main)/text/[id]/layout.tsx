@@ -17,6 +17,7 @@ import type {
 } from '@/components/workspace/WorkspaceBookContext';
 import type { CEFRLevel, LibraryText } from '@/types/library';
 import { TextContentProvider, type TextContentData } from './text-content-context';
+import { ReaderViewerGate } from './reader-viewer-gate';
 import { buildParagraphsFromContent } from './text-content-helpers';
 import {
   getChapterWords,
@@ -441,7 +442,12 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
 
   // Phase 11.16 — WorkspaceBookContext 호출 제거. UnifiedHeader가 page.tsx에서
   // TextContentProvider 데이터 + 페이지 인터랙티브 state를 합쳐 단일 sticky header로 렌더.
+  // 계정 경계 — 이 글을 읽은 주인(text.user_id)과 브라우저 신원이 같을 때만 모든 모드를 그린다(reader-viewer-gate)
   return (
-    <TextContentProvider value={textContentValue}>{children}</TextContentProvider>
+    <TextContentProvider value={textContentValue}>
+      <ReaderViewerGate ownerId={text.user_id} textId={text.id}>
+        {children}
+      </ReaderViewerGate>
+    </TextContentProvider>
   );
 }
