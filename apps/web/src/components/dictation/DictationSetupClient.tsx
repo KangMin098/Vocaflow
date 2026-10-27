@@ -45,6 +45,7 @@ import type {
   ScoringMode,
 } from '@/lib/dictation/types'
 import { Illustration } from '@/components/illustrations/Illustration'
+import { dictationFrom, withDictationFrom } from '@/lib/dictation/return'
 import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
 import { GameIdentityNotice } from '@/components/game/GameIdentityNotice'
 import { ILLO_04_DICTATION_CHOOSE } from '@/components/illustrations/generated/illo-04-dictation-choose'
@@ -70,6 +71,8 @@ export function DictationSetupClient() {
   const textId = searchParams.get('text') ?? ''
   const setId = searchParams.get('set') ?? ''
   const custom = searchParams.get('custom') === '1'
+  // 들어온 자리(읽던 글 등) — 세션 · 결과로 이어 넘겨 닫기/Esc · 결과에서 돌아갈 수 있게(lib/dictation/return)
+  const from = dictationFrom(searchParams.get('from'))
   const chapterRaw = Number(searchParams.get('chapter'))
   const chapter = Number.isInteger(chapterRaw) && chapterRaw > 0 ? chapterRaw : null
 
@@ -218,8 +221,8 @@ export function DictationSetupClient() {
       )
       return
     }
-    router.push(`/dictate/session?sessionId=${session.id}`)
-  }, [source, starting, chunkSize, count, order, scoring, cefr, speed, autoRepeat, hintsAllowed, span, router, loaderId])
+    router.push(withDictationFrom(`/dictate/session?sessionId=${session.id}`, from))
+  }, [source, starting, chunkSize, count, order, scoring, cefr, speed, autoRepeat, hintsAllowed, span, router, loaderId, from])
 
   // 불러온 자료(개인 글 제목 · 문장 미리보기)는 그것을 읽은 사람의 것 — 브라우저 신원이 같을 때만 그린다(바뀌면 감춘다)
   const { status: loaderStatus } = useStoryAuthGuard(loaderId ?? null)

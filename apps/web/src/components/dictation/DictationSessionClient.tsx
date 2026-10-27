@@ -44,6 +44,7 @@ import {
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { useSessionProgress, type SessionResourceType } from '@/components/layout/SessionFrame'
+import { dictationFrom, withDictationFrom } from '@/lib/dictation/return'
 import { useAudioControl } from '@/hooks/dictation/useAudioControl'
 import { useDictationSession, type SubmitOutcome } from '@/hooks/dictation/useDictationSession'
 import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
@@ -76,6 +77,8 @@ export function DictationSessionClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('sessionId')
+  // 설정이 넘긴 들어온 자리 — 결과로 그대로 잇는다(세션 틀의 닫기/Esc 는 같은 ?from= 을 스스로 읽는다)
+  const from = dictationFrom(searchParams.get('from'))
 
   const {
     session,
@@ -172,9 +175,9 @@ export function DictationSessionClient() {
   // 완료 시 결과 페이지로
   useEffect(() => {
     if (isComplete && session && usable()) {
-      router.replace(`/dictate/results?sessionId=${session.id}`)
+      router.replace(withDictationFrom(`/dictate/results?sessionId=${session.id}`, from))
     }
-  }, [isComplete, session, router, usable])
+  }, [isComplete, session, router, usable, from])
 
   // ─── 오디오 (재생 횟수는 난이도 판정 입력이라 세션에 기록한다) ───
   const playAudio = useCallback(() => {
@@ -310,7 +313,7 @@ export function DictationSessionClient() {
         </div>
         <button
           type="button"
-          onClick={() => router.replace(`/dictate/results?sessionId=${sessionId}`)}
+          onClick={() => router.replace(withDictationFrom(`/dictate/results?sessionId=${sessionId}`, from))}
           className={`inline-flex h-11 items-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--ti)] shadow-[var(--sh-sm)] transition-transform hover:-translate-y-0.5 ${FOCUS_RING}`}
           style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
         >
