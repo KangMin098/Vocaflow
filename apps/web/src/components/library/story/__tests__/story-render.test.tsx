@@ -33,6 +33,7 @@ import {
   progressRow,
   readyState,
   release,
+  unitBody,
 } from './fixtures'
 
 /** 시험 전용 — 브라우저 신원을 동기적으로 아는 원천(undefined = 확인 전). 실제 브라우저 원천은 이것을 구현하지 않는다. */
@@ -45,7 +46,7 @@ const LOGIN = '/login?next=%2Flibrary%2Fstories'
 
 function catalog(state: StoryCatalogPageState, onEvent = vi.fn(), auth?: StoryAuthSource) {
   const source = auth ?? knownAuth(state.status === 'ready' ? state.viewerId : null)
-  return { html: renderToString(<StoryCatalog state={state} loginHref={LOGIN} onEvent={onEvent} authSource={source} />), onEvent }
+  return { html: renderToString(<StoryCatalog state={state} onEvent={onEvent} authSource={source} />), onEvent }
 }
 
 function reader(state: StoryReaderPageState, auth: StoryAuthSource = knownAuth(state.status === 'ready' ? state.viewerId : null)) {
@@ -92,7 +93,7 @@ describe('StoryCatalog', () => {
     expect(html).toContain('에피소드')
     expect(html).not.toMatch(/원문 완독|진단 결과|내 수준|mastery/i)
     // 내 진도 — 위치와 완료 표시를 나눠 말한다
-    expect(html).toContain('2/3 단위 위치')
+    expect(html).toContain('마지막으로 연 단위 2/3')
     expect(html).toContain('완료 표시 1/3')
     expect(onEvent).not.toHaveBeenCalled() // 이벤트는 effect(마운트 뒤)에서만
   })
@@ -115,10 +116,13 @@ describe('StoryCatalog', () => {
     expect(pending).not.toContain('각색 완독')
   })
 
-  it('로그인 전: 메타 + HOOK 만 · 시작은 로그인으로 · 진도 없음', () => {
+  it('로그인 전: 메타 + HOOK 만 · 시작은 로그인으로(복귀 = 고른 판본 입구 · D4-UX01) · 진도 없음', () => {
     const { html } = catalog(ready({ signedIn: false, viewerId: null, progress: null }))
     expect(html).toContain('data-story-hook')
-    expect(html).toContain(`href="${LOGIN.replace(/&/g, '&amp;')}"`)
+    // 판본마다 자기 입구로 돌아오는 공용 복귀 주소(next) — 서가 일반 복귀가 아니다
+    for (const key of [KEY_A, KEY_B]) expect(html).toContain(`href="/login?next=${encodeURIComponent(`/library/stories/${key}`)}"`)
+    expect(html).not.toContain(`href="${LOGIN}"`)
+    expect((html.match(/data-story-open="login"/g) ?? []).length).toBe(2)
     expect(html).toContain('로그인하고 읽기')
     expect(html).not.toContain(`/library/stories/${KEY_A}`)
     expect(html).not.toContain('data-story-progress-line')
@@ -189,7 +193,7 @@ describe('StoryReader', () => {
     expect(html).toContain('data-story-reader="entry"')
     expect(html).not.toContain('data-story-body')
     expect((html.match(/data-story-go="resume"/g) ?? []).length).toBe(1)
-    expect(html).toContain('2/3 단위 위치')
+    expect(html).toContain('마지막으로 연 단위 2/3')
     expect(html).toContain('완료 표시 1/3')
     expect(html).not.toContain('data-story-source-panel')
   })
@@ -530,12 +534,14 @@ describe('시작 전 선택 안내(U1) — 편집 판단 · 접힌 주의 · 「
     expect(reader(readyState())).not.toContain('data-story-guidance')
   })
 
-  it('작품 입구: 실제로 동작하는 요청형 도움(단어 뜻 · 원문 대응)을 시작 행동 바로 위 한 줄로 말한다 · 안내를 못 불러와도 그대로 · 단위 화면에는 없다', () => {
+  it('작품 입구: 실제로 동작하는 요청형 도움(단어 뜻 · 원문 대응) 한 줄은 시작 행동 뒤의 선택 펼침 안에 있다(D4-UX01) · 안내를 못 불러와도 그대로 · 단위 화면에는 없다', () => {
     for (const guidance of [guidanceView(), { status: 'unavailable', reason: 'not_ready' } as const]) {
       const html = reader(readyState({ unit: null, guidance }))
       const at = html.indexOf('data-story-help-line')
       expect(at).toBeGreaterThan(-1)
-      expect(at).toBeLessThan(html.indexOf('data-story-go='))
+      expect(at).toBeGreaterThan(html.indexOf('data-story-go='))
+      expect(at).toBeGreaterThan(html.indexOf('data-story-entry-details'))
+      expect(html).not.toMatch(/<details[^>]*data-story-entry-details[^>]*sopen/)
       expect(html).toContain('「단어 뜻 보기」를 켜면 본문 낱말을 눌러 뜻을 찾아볼 수 있고')
       expect(html).toContain('원문 인용이 연결된 단위는 「원문 대응 보기」로')
     }
@@ -632,5 +638,108 @@ describe('단위 시대적 맥락 설명(W2) — 본문 뒤 · 접힘 · 「없�
       expect(html).not.toContain('data-story-context-notes')
       expect(html).not.toContain(NOTE_1.text)
     }
+  })
+})
+
+describe('D4 — 시작 정보 순서 · 단위 머리 · 맥락 진입 · 완료 뒤 공급 인지', () => {
+  const LONG_HOOK = 'Two days after Christmas, Dr. Watson finds Holmes on the sofa. He hands Watson the lens.'
+  const FULL = (k = 1) => context({ progress: { lastUnitIndex: k, furthestUnitIndex: 2, completedUnitCount: 3, completed: true }, toc: context().toc.map((t) => ({ ...t, completed: true })) })
+
+  it('입구(UX01): 첫 문장 → 편집 목표 → 부담 · 접힌 주의 → 시작 행동 → 선택 펼침(첫 장면 전체 · 원천 · 도움) · 전문은 저장값 그대로', () => {
+    const html = reader(readyState({ unit: null, release: release({ hookText: LONG_HOOK }) }))
+    const at = (m: string) => html.indexOf(m)
+    expect(at('data-story-hook-preview')).toBeGreaterThan(-1)
+    expect(html).toContain('Two days after Christmas, Dr. Watson finds Holmes on the sofa.')
+    expect(at('data-story-hook-preview')).toBeLessThan(at('data-story-target'))
+    expect(at('data-story-target')).toBeLessThan(at('data-story-cautions'))
+    expect(at('data-story-cautions')).toBeLessThan(at('data-story-go='))
+    expect(at('data-story-go=')).toBeLessThan(at('data-story-entry-details'))
+    expect(at('data-story-entry-details')).toBeLessThan(at('data-story-hook='))
+    expect(html).toContain(`>${LONG_HOOK}</blockquote>`)
+    expect(at('data-story-source-line')).toBeGreaterThan(at('data-story-entry-details'))
+    expect(html).not.toMatch(/<details[^>]*data-story-entry-details[^>]*\sopen/)
+    // 지어낸 장르 · 소개 · 적합 판정 · 예상 시간 없음
+    expect(html).not.toMatch(/장르|추천|적합해요|분 걸려요|당신에게/)
+  })
+
+  it('입구 · 로그인 전: 한 문장 HOOK 은 전문을 그대로(잘라 보일 것 없음) · 로그인 전 화면도 첫 문장 → 주의 → 로그인 → 첫 장면 전체', () => {
+    const one = reader(readyState({ unit: null }))
+    expect(one).toContain('data-story-hook="true"')
+    expect(one).not.toContain('data-story-hook-preview')
+    const anon = reader({ status: 'signed_out', loginHref: '/login?next=x', release: release({ hookText: LONG_HOOK }), guidance: guidanceView() })
+    expect(anon.indexOf('data-story-hook-preview')).toBeLessThan(anon.indexOf('data-story-cautions'))
+    expect(anon.indexOf('data-story-cautions')).toBeLessThan(anon.indexOf('data-story-login'))
+    expect(anon.indexOf('data-story-login')).toBeLessThan(anon.indexOf('data-story-hook='))
+    expect(anon).not.toContain('data-story-body')
+  })
+
+  it('단위 머리(UX02): 단위 제목이 h1(#story-unit-heading) · 작품 이름은 작은 맥락 · 큰 작품 제목 반복 없음 · 본문 그대로', () => {
+    const html = reader(readyState())
+    expect(html).toMatch(/<h1 id="story-unit-heading"[^>]*>2번째 단위 · Gull<\/h1>/)
+    expect((html.match(/<h1/g) ?? []).length).toBe(1)
+    expect(html).toContain('data-story-head="unit"')
+    expect(html).toContain('The tide came in fast.')
+    expect(html).not.toContain('<h2 id="story-unit-heading"')
+  })
+
+  it('맥락 진입(UX02): 결속된 ready 설명이 있을 때만 도구 줄에 수와 함께 · 접힌 상태 · 오류/미적용/어긋남/0개/확인 중/바뀜에는 없다', () => {
+    const notes = [{ id: 'n1', text: '설명 하나' }, { id: 'n2', text: '설명 둘' }]
+    const ok = reader(readyState({ contextNotes: { status: 'ready', releaseKey: KEY_A, unitIndex: 1, notes } }))
+    expect(ok).toContain('data-story-context-entry="2"')
+    expect(ok).toContain('이 단위의 시대적 맥락 2가지')
+    expect(ok).toMatch(/data-story-context-entry="2"[^>]*>|aria-expanded="false"/)
+    expect(ok.indexOf('data-story-context-entry')).toBeLessThan(ok.indexOf('data-story-body'))
+    expect(ok).not.toMatch(/<details[^>]*data-story-context-notes[^>]*\sopen/)
+    const none: Array<Parameters<typeof readyState>[0]> = [
+      { contextNotes: null },
+      { contextNotes: { status: 'ready', releaseKey: KEY_A, unitIndex: 1, notes: [] } },
+      { contextNotes: { status: 'ready', releaseKey: KEY_A, unitIndex: 2, notes } },
+      { contextNotes: { status: 'ready', releaseKey: KEY_B, unitIndex: 1, notes } },
+      { contextNotes: { status: 'unavailable', reason: 'not_ready' } },
+      { contextNotes: { status: 'unavailable', reason: 'invalid' } },
+      { contextNotes: { status: 'unavailable', reason: 'temporary' } },
+    ]
+    for (const over of none) expect(reader(readyState(over)), JSON.stringify(over)).not.toContain('data-story-context-entry')
+    for (const auth of [knownAuth(undefined), knownAuth(OTHER), knownAuth(null)]) {
+      expect(reader(readyState({ contextNotes: { status: 'ready', releaseKey: KEY_A, unitIndex: 1, notes } }), auth)).not.toContain('data-story-context-entry')
+    }
+  })
+
+  it('완료 뒤(UX04): 다음 행동은 본문 한 곳(레일에 같은 링크 없음) · 다른 작품 0 → 「Stories 둘러보기」+ 없다는 사실 · 있으면 「다른 이야기 고르기」 · 서가 실패 → 중립', () => {
+    for (const [otherWorks, label, kind] of [
+      [0, 'Stories 둘러보기', 'only-work'],
+      [3, '다른 이야기 고르기', 'other-works'],
+      [null, 'Stories 서가로', 'unknown'],
+    ] as const) {
+      for (const unit of [null, unitBody({ unitIndex: 2, unitTitle: 'Rock' })]) {
+        const html = reader(readyState({ unit, context: FULL(unit ? 2 : 1), otherWorks }))
+        expect((html.match(/data-story-next-story/g) ?? []).length, `${otherWorks}/${unit ? 'unit' : 'entry'}`).toBe(1)
+        expect(html).toContain(label)
+        expect(html).toContain(`data-story-after-completion="${kind}"`)
+        const aside = html.slice(html.indexOf('<aside'))
+        expect(aside).not.toContain('data-story-next-story')
+        expect(html).not.toMatch(/추천|다음 에피소드/)
+      }
+    }
+    expect(reader(readyState({ unit: unitBody({ unitIndex: 2, unitTitle: 'Rock' }), context: FULL(2), otherWorks: 0 }))).toContain('지금 공개된 다른 이야기는 없어요')
+    // 완료 전에는 완료 뒤 행동이 없다
+    expect(reader(readyState({ otherWorks: 0 }))).not.toContain('data-story-after-completion')
+  })
+
+  it('이어 읽기(UX04): 「마지막으로 연 단위」 · 그 단위 첫머리에서 시작(문장 위치 저장 없음) — 완료와 구분', () => {
+    const html = reader(readyState({ unit: null }))
+    expect(html).toContain('마지막으로 연 단위는 2번째 단위 · Gull예요')
+    expect(html).toContain('문장 위치는 저장하지 않아요')
+    expect(html).toContain('완료 표시 1/3')
+  })
+
+  it('단어 도구(UX03): 낱말 모드에서 고른 낱말을 여는 44px 대체 단추(본문 낱말 간격은 그대로) · 기본은 꺼짐', () => {
+    const on = renderToString(<StoryUnitText text={UNIT_TEXT} tracing={false} defaultWordMode />)
+    expect(on).toMatch(/data-story-word-picker[^>]*>뜻 보기 · <span lang="en">The<\/span>/)
+    expect((on.match(/tabindex="0"/g) ?? []).length).toBe(1)
+    expect(on).toContain('화살표 · Home · End')
+    const off = renderToString(<StoryUnitText text={UNIT_TEXT} tracing={false} />)
+    expect(off).not.toContain('data-story-word-picker')
+    expect(off).toContain('data-story-word-mode="off"')
   })
 })

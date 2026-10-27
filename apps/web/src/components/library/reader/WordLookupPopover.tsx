@@ -6,23 +6,32 @@
 //
 // 위치: anchorRect(클릭한 단어의 viewport 좌표) 아래에 fixed 배치, 뷰포트 클램프.
 // 닫기: 바깥 클릭 · Esc · 스크롤.
+// 초점(선택 · nonmodalFocus): 호출자가 켤 때만(지금은 Stories 독서 — StoryUnitText) 열리면 창 자체에 초점을 옮긴다(preventScroll ·
+//   이름 있는 role=dialog · 뜻 영역을 aria-describedby 로 · 불러오는 동안 aria-busy). 초점이 창 밖으로 나가면 닫는다(다시 옮기지 않는다).
+//   모달이 아니다 — 초점 가두기 · aria-modal 없음. 닫힌 이유(onClose(reason))로 호출자가 초점을 되돌릴지 정한다.
+//   끄면(기본) 기존 화면들의 동작 그대로다(초점은 누른 낱말에 남는다).
 
 'use client'
 
 import { lookupWord, type WordLookup } from '@/lib/library/reader-queries'
 import { createClient } from '@/lib/supabase/client'
 import { CircleAlert, RotateCw, Volume2, X } from 'lucide-react'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import { RegisterBadge } from '@/components/library/RegisterBadge'
 import { PosBadge } from '@/components/library/PosBadge'
 import { POPOVER_CARD } from '@/components/ui/tines-kit'
 
+/** 닫힌 이유 — escape · button(닫기 단추) · outside(바깥 누름) · scroll · blur(초점이 창 밖으로 — nonmodalFocus 때만). */
+export type WordLookupCloseReason = 'escape' | 'button' | 'outside' | 'scroll' | 'blur'
+
 interface WordLookupPopoverProps {
   surface: string
   anchorRect: DOMRect
-  onClose: () => void
+  onClose: (reason?: WordLookupCloseReason) => void
   /** Learner PC surfaces only; admin and small-screen dimensions are preserved. */
   desktopLearner?: boolean
+  /** 열릴 때 창에 초점 · 창 밖으로 초점이 나가면 닫기(비모달). 기본 false — 기존 화면 동작 유지. */
+  nonmodalFocus?: boolean
 }
 
 const POPOVER_W = 288
@@ -60,12 +69,21 @@ const LANG_META: Record<string, { label: string; flag: string; locale: string }>
   xx: { label: '외국어', flag: '🌐', locale: 'en' },
 }
 
-export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner = false }: WordLookupPopoverProps) {
+export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner = false, nonmodalFocus = false }: WordLookupPopoverProps) {
   const [result, setResult] = useState<WordLookup | null>(null)
   const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
   const [attempt, setAttempt] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
+  const bodyId = useId()
+  const onCloseRef = useRef(onClose)
+  onCloseRef.current = onClose
+
+  // 비모달 초점(선택) — 열린 창으로 초점(스크롤 없이). 낱말이 바뀌어 다시 열려도(같은 창 · 다른 surface) 창으로 옮긴다.
+  useEffect(() => {
+    if (!nonmodalFocus) return
+    ref.current?.focus({ preventScroll: true })
+  }, [nonmodalFocus, surface])
 
   // fetch
   useEffect(() => {
@@ -95,11 +113,11 @@ export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner
   // close on Esc / scroll / outside click
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose()
+      if (e.key === 'Escape') onClose('escape')
     }
-    const onScroll = () => onClose()
+    const onScroll = () => onClose('scroll')
     const onDown = (e: MouseEvent) => {
-      if (ref.current && !ref.current.contains(e.target as Node)) onClose()
+      if (ref.current && !ref.current.contains(e.target as Node)) onClose('outside')
     }
     document.addEventListener('keydown', onKey)
     window.addEventListener('scroll', onScroll, true)
@@ -137,8 +155,21 @@ export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner
       ref={ref}
       role="dialog"
       aria-label={`${surface} 뜻`}
-      className={`fixed z-[120] ${POPOVER_CARD}`}
+      aria-describedby={nonmodalFocus ? bodyId : undefined}
+      aria-busy={nonmodalFocus ? loading : undefined}
+      tabIndex={nonmodalFocus ? -1 : undefined}
+      onBlur={
+        nonmodalFocus
+          ? (e) => {
+              // 창 안의 다른 조작으로 옮기는 것은 닫지 않는다. 창 밖(다음 조작 · 본문 낱말)으로 나가면 닫는다 — 초점은 사용자가 옮긴 곳에 둔다.
+              const next = e.relatedTarget as Node | null
+              if (next && !e.currentTarget.contains(next)) onCloseRef.current('blur')
+            }
+          : undefined
+      }
+      className={`fixed z-[120] ${POPOVER_CARD} ${nonmodalFocus ? 'outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]' : ''}`}
       style={{ left, top, bottom, width: POPOVER_W }}
+      data-word-lookup={nonmodalFocus ? 'nonmodal' : undefined}
     >
       {/* header — 단어 + 발음 + 닫기 */}
       <div className="flex items-center gap-2 border-b border-[var(--bd)] px-4 py-3">
@@ -155,7 +186,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner
         </button>
         <button
           type="button"
-          onClick={onClose}
+          onClick={() => onClose('button')}
           aria-label="닫기"
           className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${desktopLearner ? 'lg:h-11 lg:w-11' : ''}`}
         >
@@ -164,7 +195,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner
       </div>
 
       {/* body */}
-      <div className="px-4 py-3">
+      <div id={bodyId} className="px-4 py-3" aria-live={nonmodalFocus ? 'polite' : undefined}>
         {loading ? (
           <div className="flex items-center gap-2 py-1">
             <span className="h-3.5 w-3.5 animate-pulse rounded-full bg-[var(--bg3)]" />

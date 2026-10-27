@@ -10,7 +10,6 @@
 
 import { StoryCatalog } from '@/components/library/story/StoryCatalog'
 import { LibraryBrowseFrame } from '@/components/library/LibraryBrowseFrame'
-import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { loadStoryCatalogPage, type StoryLearnerClient } from '@/lib/library/story/learner'
 import { createClient } from '@/lib/supabase/server'
 
@@ -27,7 +26,8 @@ export default async function LibraryStoriesPage() {
 
   return (
     <LibraryBrowseFrame>
-      <StoryCatalog state={state} loginHref={loginUrlWithReturn('/library/stories')} />
+      {/* 로그인 복귀는 판본마다 그 판본 입구로(StoryCatalog 가 loginUrlWithReturn 으로 만든다 — D4-UX01). */}
+      <StoryCatalog state={state} />
     </LibraryBrowseFrame>
   )
 }

@@ -10,6 +10,7 @@ import type {
   StoryCatalogPageState,
   StoryCatalogRelease,
   StoryCompletionLabel,
+  StoryContextNotesView,
   StoryCoverage,
   StoryGuidanceLevel,
   StoryGuidanceState,
@@ -254,10 +255,58 @@ export function completionWording(
   return { done: false, text: `완료 표시 ${Math.min(progress.completedUnitCount, progress.unitCount)}/${progress.unitCount}` }
 }
 
-/** 마지막 위치 — 이동 기록일 뿐 완료가 아니다. */
+/**
+ * 마지막 위치 — 마지막으로 **연 단위**일 뿐 완료가 아니다(D4-UX04). 문장 · 스크롤 위치를 저장하지 않으므로
+ * 「읽던 곳」 · 「북마크」 같은 말을 쓰지 않는다. 이어 읽기는 그 단위의 첫머리에서 시작한다.
+ */
 export function positionWording(lastUnitIndex: number, unitCount: number): string {
   const n = Math.min(Math.max(lastUnitIndex, 0) + 1, unitCount)
-  return `${n}/${unitCount} 단위 위치`
+  return `마지막으로 연 단위 ${n}/${unitCount}`
+}
+
+/**
+ * 전 단위 표시 뒤 다음 행동(D4-UX04 · 공급 인지). otherWorks = 같은 요청의 서가에서 이 작품 말고 열 수 있는 작품 수
+ * (서가 조회 실패면 null). 실제로 다른 작품이 없으면 「다음 이야기」를 약속하지 않는다 — 추천 · 시리즈 · 다음 에피소드를 지어내지 않는다.
+ */
+export function afterCompletionWording(otherWorks: number | null): { label: string; note: string | null } {
+  if (otherWorks === null) return { label: 'Stories 서가로', note: null }
+  if (otherWorks > 0) return { label: '다른 이야기 고르기', note: `서가에 다른 작품 ${otherWorks}편이 있어요.` }
+  return { label: 'Stories 둘러보기', note: '지금 공개된 다른 이야기는 없어요. 처음부터 다시 보거나 서가를 둘러볼 수 있어요.' }
+}
+
+// ── 시작 화면 정보 순서(D4-UX01) ───────────────────────────────────────────
+
+/**
+ * HOOK 첫 문장 미리보기 — 저장된 HOOK 앞부분을 그대로 자른다(바꿔 쓰지 않는다). 전문은 호출자가 펼침 영역에 그대로 둔다.
+ * 문장 끝(. ! ? 뒤 닫는 따옴표 포함 + 공백)을 찾지 못하거나 HOOK 이 한 문장이면 truncated=false(전문을 그대로 보인다).
+ */
+export function hookPreview(text: string): { preview: string; truncated: boolean } {
+  // 문장 끝 후보: . ! ? (+ 닫는 따옴표 · 괄호) 뒤 공백 다음에 대문자 · 여는 따옴표가 온다. 호칭 약어(Dr. Mr. …) 뒤는 문장 끝이 아니다.
+  const END = /[.!?]["'”’)]*(?=\s+["'“‘(]?\p{Lu})/gu
+  const ABBREV = /\b(?:Mr|Mrs|Ms|Dr|St|Jr|Sr|Mt|Prof|Rev|Capt|Col|Gen|Lt|No|vs)\.$/
+  const whole = text.trim()
+  for (const m of whole.matchAll(END)) {
+    const end = (m.index ?? 0) + m[0].length
+    const preview = whole.slice(0, end)
+    if (ABBREV.test(whole.slice(0, (m.index ?? 0) + 1))) continue
+    return preview.length < whole.length ? { preview, truncated: true } : { preview: text, truncated: false }
+  }
+  return { preview: text, truncated: false }
+}
+
+/** 단위 화면의 맥락 설명 진입(D4-UX02) — 지금 단위 · 발행본에 결속된 ready 설명이 있을 때만 그 수, 아니면 0(진입을 그리지 않는다). */
+export function boundContextNoteCount(
+  view: StoryContextNotesView | null,
+  releaseKey: string,
+  unitIndex: number,
+): number {
+  if (!view || view.status !== 'ready') return 0
+  if (view.releaseKey !== releaseKey || view.unitIndex !== unitIndex) return 0
+  return view.notes.length
+}
+
+export function contextNotesEntryLabel(count: number): string {
+  return `이 단위의 시대적 맥락 ${count}가지`
 }
 
 // ── 원문 링크 · 본문 ───────────────────────────────────────────────────────

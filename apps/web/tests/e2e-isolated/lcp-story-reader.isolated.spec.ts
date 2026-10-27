@@ -553,7 +553,14 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           expect(hookFirst).toBe(true)
           const logins = page.locator('[data-story-open="login"]')
           await sx(logins).toHaveCount(3)
-          for (const href of await logins.evaluateAll((els) => els.map((e) => e.getAttribute('href')))) expect(href).toBe('/login?next=%2Flibrary%2Fstories')
+          // D4-UX01: 판본마다 그 판본 입구로 돌아오는 공용 복귀 주소(next) — 서가 일반 복귀가 아니다 · 진도 · 계정 값 없음
+          const nexts = (await logins.evaluateAll((els) => els.map((e) => e.getAttribute('href')))).map((h) => {
+            const u = new URL(h!, ORIGIN)
+            expect(u.pathname).toBe('/login')
+            expect([...u.searchParams.keys()]).toEqual(['next'])
+            return u.searchParams.get('next')
+          })
+          expect(nexts.sort()).toEqual([FM.release_keys.B1, FM.release_keys.A2, FM.release_keys.EP].map((k) => `/library/stories/${k}`).sort())
           await sx(page.locator('[data-story-open="reader"]')).toHaveCount(0)
           expect(await page.locator('#root').innerText()).not.toContain(probeOf(FM.release_keys.B1, 0))
           expect(run.payloads.join('\n')).not.toContain(probeOf(FM.release_keys.B1, 0))
@@ -573,6 +580,8 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await openStories(page, `/library/stories/${FM.release_keys.B1}?unit=1`)
           await sx(page.locator('[data-story-reader="signed_out"]')).toBeVisible()
           await sx(page.locator('[data-story-login]')).toHaveAttribute('href', `/login?next=${encodeURIComponent(`/library/stories/${FM.release_keys.B1}?unit=1`)}`)
+          // D4-UX01: 첫 문장(저장값 앞부분 그대로)이 먼저 · 전문은 「첫 장면 전체」 펼침에 그대로
+          await sx(page.locator('[data-story-hook-preview]')).toContainText('Every evening, Mara counts the steps of the lighthouse: one hundred and nine.')
           await sx(page.locator('[data-story-hook]')).toHaveText(DB0.releases.find((r) => r.release_key === FM.release_keys.B1)!.hook_text)
           await sx(B(page)).toHaveCount(0)
           await sx(page.locator('[data-story-toc]')).toHaveCount(0)
@@ -654,13 +663,14 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-toc] li')).toHaveCount(8)
           await sx(page.locator('[data-story-go="start"]')).toHaveText('처음부터 읽기')
           await sx(B(page)).toHaveCount(0)
-          // 시작 전: HOOK · 편집 목표(진단 아님) · 원천 줄(원작 언어 · 본문 언어 · 원천 판본)이 시작 행동보다 앞에
-          await sx(page.locator('[data-story-entry-public] [data-story-hook]')).toHaveText(DB0.releases.find((r) => r.release_key === key)!.hook_text)
+          // 시작 전(D4-UX01): 첫 문장 · 편집 목표(진단 아님) · 부담 · 주의가 시작 행동보다 앞에, 첫 장면 전체 · 원천 줄은 시작 뒤 선택 펼침
+          await sx(page.locator('[data-story-entry-public] [data-story-hook-preview]')).toContainText('Every evening, Mara counts the steps of the lighthouse: one hundred and nine.')
+          await sx(page.locator('[data-story-entry-details] [data-story-hook]')).toHaveText(DB0.releases.find((r) => r.release_key === key)!.hook_text)
           await sx(page.locator('[data-story-target]')).toContainText(/편집 목표.*B1/)
           await sx(page.locator('[data-story-target]')).toContainText('진단 결과가 아니에요')
           await sx(page.locator('[data-story-source-line]')).toContainText(/원작 언어 영어 · 본문 언어 영어 · 원천 판본/)
           expect(await page.evaluate(() => {
-            const order = ['[data-story-hook]', '[data-story-target]', '[data-story-source-line]', '[data-story-go="start"]'].map((q) => document.querySelector(q)!)
+            const order = ['[data-story-hook-preview]', '[data-story-target]', '[data-story-go="start"]', '[data-story-entry-details]', '[data-story-source-line]'].map((q) => document.querySelector(q)!)
             return order.every((el, i) => i === 0 || !!(order[i - 1]!.compareDocumentPosition(el) & Node.DOCUMENT_POSITION_FOLLOWING))
           })).toBe(true)
           await noOverflow(page)
@@ -706,12 +716,13 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await page.locator('header a', { hasText: '← Stories' }).click()
           await sx(page.locator('[data-story-catalog="ready"]')).toBeVisible()
           const b1Row = page.locator('[data-story-release]').filter({ hasText: '8단위' })
-          await sx(b1Row.locator('[data-story-progress-line]')).toContainText('2/8 단위 위치')
+          await sx(b1Row.locator('[data-story-progress-line]')).toContainText('마지막으로 연 단위 2/8')
           await sx(b1Row.locator('[data-story-progress-line]')).toContainText('완료 표시 1/8')
           await sx(b1Row.locator('[data-story-open="reader"]')).toHaveText('이어 읽기')
           await shot(page, `current-catalog-resume-${width}`)
           await b1Row.locator('[data-story-open="reader"]').click()
-          await sx(page.locator('[data-story-entry]')).toContainText('마지막으로 연 곳은 2번째 단위')
+          await sx(page.locator('[data-story-entry]')).toContainText('마지막으로 연 단위는 2번째 단위')
+          await sx(page.locator('[data-story-entry]')).toContainText('문장 위치는 저장하지 않아요')
           await goUnit(page, page.locator('[data-story-go="resume"]'), 1)
           expect(run.actions.at(-1)).toEqual({ name: 'recordStoryPositionAction', args: { releaseKey: key, unitIndex: 1, reason: 'resume', expectedViewerId: FM.users.A } })
           expect(progressOf(run, FM.users.A, key)!.completed_units).toEqual([0])
@@ -733,15 +744,19 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           }
           await sx(page.locator('[data-story-done]')).toContainText('각색 완독 — 모든 단위를 읽음으로 표시했어요')
           await sx(page.locator('[data-story-completion]')).toHaveText('각색 완독')
-          await sx(page.locator('[data-story-next-story]').first()).toHaveText('다음 이야기 고르기')
-          await sx(page.locator('[data-story-next-story]').first()).toHaveAttribute('href', '/library/stories')
+          // D4-UX04: 서가에 다른 작품(Storm)이 실제로 있으니 「다른 이야기 고르기」 — 다음 행동은 본문 한 곳(레일에 겹치지 않음)
+          await sx(page.locator('[data-story-next-story]')).toHaveCount(1)
+          await sx(page.locator('[data-story-next-story]')).toHaveText('다른 이야기 고르기')
+          await sx(page.locator('[data-story-next-story]')).toHaveAttribute('href', '/library/stories')
+          await sx(page.locator('aside [data-story-next-story]')).toHaveCount(0)
+          await sx(page.locator('[data-story-after-completion]')).toHaveAttribute('data-story-after-completion', 'other-works')
           expect(await page.locator('#root').innerText()).not.toContain('원문 완독')
           p = progressOf(run, FM.users.A, key)!
           expect(p.completed_units).toEqual([0, 1, 2, 3, 4, 5, 6, 7])
           expect(p.completed_at).not.toBeNull()
           await noOverflow(page)
           await shot(page, `current-reader-done-${width}`)
-          // 다음 이야기 고르기 → 서가(이 판본 줄은 각색 완독 · 다시 보기)
+          // 다른 이야기 고르기 → 서가(이 판본 줄은 각색 완독 · 다시 보기)
           await page.locator('[data-story-next-story]').first().click()
           await sx(page.locator('[data-story-catalog="ready"]')).toBeVisible()
           const doneRow = page.locator('[data-story-release]').filter({ hasText: '8단위' })
@@ -1171,7 +1186,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-go], button[data-story-complete], [data-story-retry]')).toHaveCount(0)
           const text = await page.locator('#root').innerText()
           expect(text).not.toContain(probeOf(key, 0))
-          expect(text).not.toMatch(/✓ 읽음|완료 표시|단위 위치/)
+          expect(text).not.toMatch(/✓ 읽음|완료 표시|단위 위치|마지막으로 연 단위/)
         }
         try {
           run.authManual = true
@@ -1181,8 +1196,9 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
             await openStories(page, `/library/stories/${key}?unit=0`)
             await sx(page.locator('[data-story-identity="checking"]')).toBeVisible()
             await privateAbsent()
-            // 공개 정보(HOOK · 편집 목표 · 원천 줄)는 보인다
-            await sx(page.locator('[data-story-hook]')).toBeVisible()
+            // 공개 정보(HOOK 첫 문장 · 편집 목표 · 원천 줄 펼침)는 보인다
+            await sx(page.locator('[data-story-hook-preview]')).toBeVisible()
+            await sx(page.locator('[data-story-entry-details] [data-story-source-line]')).toHaveCount(1)
             // 키보드 · 클릭 시도: 모든 초점 정지에서 Enter · Space(링크 이동은 막고 버튼만) — 액션 요청 0
             await page.evaluate(() => {
               for (const el of Array.from(document.querySelectorAll<HTMLElement>('#root button'))) el.click()
@@ -1475,7 +1491,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-reader="signed_out"]')).toBeVisible()
           const order = await page.evaluate(() => {
             const g = document.querySelector('[data-story-guidance="ready"]')
-            const hook = document.querySelector('[data-story-hook]')
+            const hook = document.querySelector('[data-story-hook-preview]')
             const login = document.querySelector('[data-story-login]')
             if (!g || !hook || !login) return null
             return { afterHook: !!(hook.compareDocumentPosition(g) & Node.DOCUMENT_POSITION_FOLLOWING), beforeLogin: !!(g.compareDocumentPosition(login) & Node.DOCUMENT_POSITION_FOLLOWING) }
@@ -1495,15 +1511,19 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
             return !!(g.compareDocumentPosition(go) & Node.DOCUMENT_POSITION_FOLLOWING)
           })
           expect(entryOrder).toBe(true)
-          // 실제로 동작하는 요청형 도움 한 줄 — 시작 행동 바로 위
+          // 실제로 동작하는 요청형 도움 한 줄 — D4-UX01: 시작 행동 뒤 선택 펼침 안(접힌 채 · 펼치면 보인다)
           const help = page.locator('[data-story-help-line]')
           await sx(help).toContainText('「단어 뜻 보기」')
           await sx(help).toContainText('「원문 대응 보기」')
           expect(await page.evaluate(() => {
             const h = document.querySelector('[data-story-help-line]')!
             const go = document.querySelector('[data-story-go="start"], [data-story-go="resume"]')!
-            return !!(h.compareDocumentPosition(go) & Node.DOCUMENT_POSITION_FOLLOWING)
+            return !!(go.compareDocumentPosition(h) & Node.DOCUMENT_POSITION_FOLLOWING) && !!h.closest('details[data-story-entry-details]')
           })).toBe(true)
+          await sx(help).toBeHidden()
+          await page.locator('[data-story-entry-details] summary').click()
+          await sx(help).toBeVisible()
+          await page.locator('[data-story-entry-details] summary').click()
           const reach2 = await tabTo('details[data-story-cautions] > summary')
           expect(reach2, 'entry caution summary reachable by Tab').not.toBeNull()
           expect(reach2!.h).toBeGreaterThanOrEqual(44)
@@ -1520,7 +1540,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-entry-public] [data-story-guidance-load]')).toBeVisible()
           await sx(page.locator('[data-story-cautions]')).toHaveCount(0)
           expect(await page.locator('[data-story-entry-public]').innerText()).not.toContain('주의')
-          await sx(page.locator('[data-story-help-line]')).toBeVisible()
+          await sx(page.locator('[data-story-entry-details] [data-story-help-line]')).toHaveCount(1)
           await shot(page, `u1-entry-no-cautions-${width}`)
 
           // 5) 안내 RPC 없음(공유 DB 의 지금 상태 · SQL 미적용) — 「불러오지 못함」 · 주의 없음이 아니라고 말함 · 독서 행동 그대로
@@ -1531,7 +1551,7 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await sx(page.locator('[data-story-guidance="unavailable"][data-story-guidance-reason="not_ready"]')).toContainText('주의할 내용이 없다는 뜻은 아니에요')
           await sx(page.locator('[data-story-cautions]')).toHaveCount(0)
           await sx(page.locator('[data-story-go="start"], [data-story-go="resume"]')).toHaveCount(1)
-          await sx(page.locator('[data-story-help-line]')).toBeVisible()
+          await sx(page.locator('[data-story-entry-details] [data-story-help-line]')).toHaveCount(1)
           await shot(page, `u1-entry-guidance-missing-${width}`)
 
           // 6) 결속 불일치 — 서가 전체 「확인하지 못함」(주의 없음으로 바꾸지 않음) · 서가와 시작 행동은 그대로
@@ -1763,6 +1783,193 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           expect(events.every((e) => ['story_catalog_viewed', 'story_reader_action'].includes(e.name))).toBe(true)
           for (const e of events) expect(JSON.stringify(e)).not.toMatch(/note-|시대적/)
           await noIdentityLeak(page, ALL_TEXTS.map((t) => t.slice(0, 20)))
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
+      test('D4 UX01~04(합성 fixture) — 판본별 로그인 복귀 · 시작 정보 순서 · 단위 머리 · 맥락 진입 키보드(열기 · 초점 · Esc 복귀) · 실제 사전 창 비모달 초점(Tab · Esc · 같은 낱말 · 스크롤 그대로) · 44px 대체 조작 · 공급 인지 완료(1편 · 여러 편) · 계정 전환 · 쓰기 0', async ({ page, context }) => {
+        test.setTimeout(300_000)
+        await page.setViewportSize({ width, height: 1000 })
+        const run = newRun(`d4-${width}`)
+        run.actor = null
+        const b1 = FM.release_keys.B1
+        await context.addInitScript(() => {
+          ;(window as unknown as { __VF_LOOKUP__: unknown }).__VF_LOOKUP__ = { lighthouse: { word: 'lighthouse', meaning_ko: '등대 (합성 사전)', pos: 'noun' } }
+        })
+        const log = await readerHarness(context, `d4@${width}`, run)
+        const dialog = () => page.getByRole('dialog')
+        const emit = (event: string, id: string | null) =>
+          page.evaluate(([e, u]) => (window as unknown as { __vfAuthEmit: (e: string, u: unknown) => void }).__vfAuthEmit(e as string, u ? { id: u } : null), [event, id] as const)
+        const metrics: Record<string, unknown> = { width, fixture: 'synthetic harness (no AppHeader/CompassRibbon RSC shell — absolute y differs from the real app)' }
+        try {
+          // UX01 — 익명 서가 → 그 판본 로그인 복귀 주소 · 익명 판본 입구: 첫 문장 → 주의 → 로그인
+          await openStories(page, '/library/stories')
+          const b1Login = page.locator('[data-story-release]').filter({ hasText: '8단위' }).locator('[data-story-open="login"]')
+          await sx(b1Login).toHaveAttribute('href', `/login?next=${encodeURIComponent(`/library/stories/${b1}`)}`)
+          await openStories(page, `/library/stories/${b1}`)
+          await sx(page.locator('[data-story-reader="signed_out"]')).toBeVisible()
+          const anonOrder = await page.evaluate(() => {
+            const at = (s: string) => document.querySelector(s)?.getBoundingClientRect().top ?? null
+            return { preview: at('[data-story-hook-preview]'), cautions: at('[data-story-cautions]'), login: at('[data-story-login]'), full: at('[data-story-entry-details]') }
+          })
+          expect(anonOrder.preview! < anonOrder.cautions! && anonOrder.cautions! < anonOrder.login! && anonOrder.login! < anonOrder.full!).toBe(true)
+          await shot(page, `d4-entry-anon-${width}`)
+
+          // UX01 — 로그인 후 입구: 고르는 정보 → 시작 → 선택 펼침(접힘) · 주의는 시작 전에 열 수 있다
+          run.actor = FM.users.A
+          await openStories(page, `/library/stories/${b1}`)
+          await sx(page.locator('[data-story-private="shown"]')).toBeVisible()
+          const entry = await page.evaluate(() => {
+            const at = (s: string) => document.querySelector(s)?.getBoundingClientRect().top ?? null
+            return { preview: at('[data-story-hook-preview]'), target: at('[data-story-target]'), cautions: at('[data-story-cautions]'), cta: at('[data-story-entry] [data-story-go]'), details: at('[data-story-entry-details]'), detailsOpen: document.querySelector('[data-story-entry-details]')!.hasAttribute('open') }
+          })
+          metrics.entry = entry
+          expect(entry.preview! < entry.target! && entry.target! < entry.cautions! && entry.cautions! < entry.cta! && entry.cta! < entry.details!).toBe(true)
+          expect(entry.detailsOpen).toBe(false)
+          await page.locator('[data-story-cautions] summary').focus()
+          await page.keyboard.press('Enter')
+          await sx(page.locator('[data-story-cautions] li').first()).toBeVisible()
+          await page.keyboard.press('Enter')
+          await shot(page, `d4-entry-auth-${width}`)
+
+          // UX02 — 단위 3(u3 · 설명 2): 작은 작품 맥락 + 단위 제목 h1 · 도구 줄 진입 · 접힘
+          await openStories(page, `/library/stories/${b1}?unit=2`)
+          await sx(B(page)).toBeVisible()
+          await sx(page.locator('h1#story-unit-heading')).toContainText('3번째 단위')
+          await sx(page.locator('h1')).toHaveCount(1)
+          const entryBtn = page.locator('[data-story-context-entry]')
+          await sx(entryBtn).toHaveAttribute('data-story-context-entry', '2')
+          await sx(entryBtn).toHaveAttribute('aria-expanded', 'false')
+          metrics.unit = await page.evaluate(() => {
+            const p = document.querySelector('[data-story-body] p')!
+            const s = getComputedStyle(p)
+            return { first_body_y: p.getBoundingClientRect().top, font_size: s.fontSize, line_height: s.lineHeight, body_width: document.querySelector('[data-story-body]')!.getBoundingClientRect().width, entry_h: document.querySelector('[data-story-context-entry]')!.getBoundingClientRect().height }
+          })
+          expect((metrics.unit as { entry_h: number }).entry_h).toBeGreaterThanOrEqual(44)
+          // 키보드로 열기 → 요약 초점 → 「도구로 돌아가기」 → 진입 초점 → 다시 열고 Esc → 닫힘 + 진입 초점 · 쓰기 0 · 주소 그대로
+          const writesBefore = writes(run).length
+          const urlBefore = page.url()
+          await entryBtn.focus()
+          await page.keyboard.press('Enter')
+          await sx(page.locator('details[data-story-context-notes]')).toHaveAttribute('open', '')
+          await sx(page.locator('details[data-story-context-notes] > summary')).toBeFocused()
+          await sx(entryBtn).toHaveAttribute('aria-expanded', 'true')
+          await sx(page.locator('[data-story-context-note]')).toHaveCount(2)
+          await shot(page, `d4-context-open-${width}`)
+          await page.locator('[data-story-context-return]').focus()
+          await page.keyboard.press('Enter')
+          await sx(entryBtn).toBeFocused()
+          await page.keyboard.press('Enter') // 열려 있으면 닫는다(토글)
+          await sx(page.locator('details[data-story-context-notes]')).not.toHaveAttribute('open', '')
+          await page.keyboard.press('Enter')
+          await sx(page.locator('details[data-story-context-notes] > summary')).toBeFocused()
+          await page.keyboard.press('Escape')
+          await sx(page.locator('details[data-story-context-notes]')).not.toHaveAttribute('open', '')
+          await sx(entryBtn).toBeFocused()
+          expect(writes(run).length).toBe(writesBefore)
+          expect(page.url()).toBe(urlBefore)
+          // 직접 요약을 열면(진입 없이) 돌아가기 단추는 없다 — 네이티브 동작 그대로
+          await page.locator('details[data-story-context-notes] > summary').click()
+          await sx(page.locator('[data-story-context-return]')).toHaveCount(0)
+
+          // UX03 — 실제 WordLookupPopover(합성 lookup 대역): 낱말 Enter → 창에 초점(이름 · 비모달) → Tab 은 창 안 → Esc → 같은 낱말 · 스크롤 그대로
+          await openStories(page, `/library/stories/${b1}?unit=0`)
+          await sx(B(page)).toBeVisible()
+          await page.locator('[data-story-word-mode]').click()
+          const word = page.locator('[data-word-index]').filter({ hasText: /^lighthouse$/ }).first()
+          await word.focus()
+          const idx = await word.getAttribute('data-word-index')
+          const y0 = await page.evaluate(() => window.scrollY)
+          await page.keyboard.press('Enter')
+          await sx(dialog()).toBeVisible()
+          await sx(dialog()).toContainText('등대 (합성 사전)')
+          await sx(dialog()).toBeFocused()
+          expect(await dialog().getAttribute('aria-label')).toBe('lighthouse 뜻')
+          expect(await dialog().getAttribute('aria-modal')).toBeNull()
+          expect(await dialog().getAttribute('aria-describedby')).toBeTruthy()
+          await page.keyboard.press('Tab')
+          expect(await page.evaluate(() => !!document.querySelector('[role=dialog]')?.contains(document.activeElement))).toBe(true)
+          await shot(page, `d4-word-dialog-${width}`)
+          await page.keyboard.press('Escape')
+          await sx(dialog()).toHaveCount(0)
+          await sx(page.locator(`[data-word-index="${idx}"]`)).toBeFocused()
+          expect(Math.abs((await page.evaluate(() => window.scrollY)) - y0)).toBeLessThan(2)
+          // 닫기 단추 → 같은 낱말
+          await page.keyboard.press('Enter')
+          await sx(dialog()).toBeVisible()
+          await dialog().getByRole('button', { name: '닫기' }).click()
+          await sx(dialog()).toHaveCount(0)
+          await sx(page.locator(`[data-word-index="${idx}"]`)).toBeFocused()
+          // 로빙 초점: 본문 탭 정지는 하나 · 화살표 · Home · End
+          expect(await page.locator('[data-story-body] [tabindex="0"]').count()).toBe(1)
+          await page.keyboard.press('End')
+          const lastIdx = await page.locator('[data-word-index]:focus').getAttribute('data-word-index')
+          await page.keyboard.press('Home')
+          await sx(page.locator('[data-word-index="0"]')).toBeFocused()
+          expect(Number(lastIdx)).toBeGreaterThan(0)
+          // 44px 대체 조작: 고른 낱말 단추 → 창 → Esc → 그 단추로 · 창 밖 Tab 이탈은 닫히고 초점은 옮긴 곳
+          const picker = page.locator('[data-story-word-picker]')
+          await sx(picker).toContainText((await page.locator('[data-word-index="0"]').innerText()).trim())
+          const pickerBox = (await picker.boundingBox())!
+          metrics.picker_h = pickerBox.height
+          expect(pickerBox.height).toBeGreaterThanOrEqual(44)
+          await picker.focus()
+          await page.keyboard.press('Enter')
+          await sx(dialog()).toBeFocused()
+          await page.keyboard.press('Escape')
+          await sx(picker).toBeFocused()
+          await page.keyboard.press('Enter')
+          await sx(dialog()).toBeFocused()
+          for (let i = 0; i < 4 && (await dialog().count()) > 0; i += 1) await page.keyboard.press('Tab')
+          await sx(dialog()).toHaveCount(0)
+          expect(await page.evaluate(() => document.activeElement?.closest('[role=dialog]') ?? null)).toBeNull()
+          // 다른 Stories 밖 독서 화면 기본값은 그대로(이 창의 비모달 초점은 StoryUnitText 만 켠다) — 소스 정적 확인은 단위 시험 · 문서에 기록
+          await shot(page, `d4-word-picker-${width}`)
+
+          // 계정 전환 — 진입 · 창 · 설명 모두 사라짐
+          await openStories(page, `/library/stories/${b1}?unit=2`)
+          await sx(page.locator('[data-story-context-entry]')).toBeVisible()
+          await emit('SIGNED_IN', FM.users.B)
+          await sx(page.locator('[data-story-state="auth_changed"]')).toBeVisible()
+          await sx(page.locator('[data-story-context-entry], [data-story-context-notes], [role=dialog]')).toHaveCount(0)
+
+          // UX04 — 공급 인지 완료: 합성 진도(전 단위 표시 · 완료 기록)를 가짜 DB 에 직접 둔다(공유 DB 아님)
+          editDb(run, (db) => {
+            const units = Array.from({ length: 8 }, (_, i) => i)
+            ;(db.progress as unknown as Record<string, unknown>[]).push({ user_id: FM.users.A, release_key: b1, last_unit_index: 7, furthest_unit_index: 7, completed_units: units, completed_at: 'seq:99', updated_seq: 99 })
+          })
+          run.actor = FM.users.A
+          run.browserUser = undefined
+          for (const [hidden, kind, label] of [[[] as string[], 'other-works', '다른 이야기 고르기'], [[FM.release_keys.EP], 'only-work', 'Stories 둘러보기']] as const) {
+            editDb(run, (db) => {
+              db.catalog_hide = [...hidden]
+            })
+            for (const url of [`/library/stories/${b1}`, `/library/stories/${b1}?unit=7`]) {
+              await openStories(page, url)
+              await sx(page.locator('[data-story-private="shown"]')).toBeVisible()
+              await sx(page.locator('[data-story-after-completion]')).toHaveAttribute('data-story-after-completion', kind)
+              await sx(page.locator('[data-story-next-story]')).toHaveCount(1)
+              await sx(page.locator('[data-story-next-story]')).toHaveText(label)
+              await sx(page.locator('aside [data-story-next-story]')).toHaveCount(0)
+              expect(await page.locator('#root').innerText()).not.toMatch(/추천|다음 에피소드/)
+            }
+            if (kind === 'only-work') {
+              await sx(page.locator('[data-story-after-completion]')).toContainText('지금 공개된 다른 이야기는 없어요')
+              await sx(page.locator('[data-story-go="reread"]')).toHaveText('처음부터 다시 보기')
+              await shot(page, `d4-done-only-work-${width}`)
+            }
+          }
+          // 이어 읽기 문구 — 마지막으로 연 단위(문장 위치 저장 없음)
+          await openStories(page, `/library/stories/${b1}`)
+          await sx(page.locator('[data-story-last-unit]')).toHaveText('마지막으로 연 단위 8/8')
+          expect(writes(run)).toEqual([])
+          fs.mkdirSync(SHOTS, { recursive: true })
+          fs.appendFileSync(path.join(SHOTS, 'd4-fixture-metrics.jsonl'), `${JSON.stringify({ ...metrics, at: new Date().toISOString() })}\n`)
+          const events = await closedTelemetry(page)
+          expect(events.every((e) => ['story_catalog_viewed', 'story_reader_action'].includes(e.name))).toBe(true)
+          await noIdentityLeak(page)
         } finally {
           finishRun(run, log)
         }
