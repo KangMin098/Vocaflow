@@ -17,8 +17,9 @@ export function textSourceFilter(textId: string): string {
  * URL 의 filter 값을 정규화한다. 접두어 없는 uuid(예전 Reader 링크)는 그 글의 `text:` 범위로 읽는다 —
  * 전체 목록으로 바꿔 보여 주지 않는다. 그 밖의 값은 그대로(set:·text:·state:·all).
  */
-export function normalizeSourceFilter(raw: string | null | undefined): string {
-  const v = (raw ?? '').trim()
+export function normalizeSourceFilter(raw: unknown): string {
+  if (typeof raw !== 'string') return 'all' // 반복 파라미터(배열) 등 — 출처를 추정하지 않는다
+  const v = raw.trim()
   if (!v) return 'all'
   if (UUID.test(v)) return textSourceFilter(v)
   return v

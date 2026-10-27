@@ -36,6 +36,13 @@ describe('resolveBookChapter — 보이는 단어의 출처와 안내가 같을 
   })
 })
 
+describe('반복 파라미터(배열)', () => {
+  it('filter·chapter 가 배열이면 안내 없음(500 아님)', () => {
+    expect(resolveBookChapter(['set:set-a1', 'set:set-a2'], '1', CH)).toBeNull()
+    expect(resolveBookChapter('set:set-a1', ['1', '2'], CH)).toBeNull()
+  })
+})
+
 describe('parseChapterParam', () => {
   it('없음 → undefined · 정수 → 숫자 · 형식 오류 → null', () => {
     expect(parseChapterParam(undefined)).toBeUndefined()
