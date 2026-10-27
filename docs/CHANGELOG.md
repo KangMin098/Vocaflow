@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(security): 읽기 화면(/text/[id] 모든 모드 · echo · comic) 계정 경계 — 레이아웃이 실제로 읽은 글의 주인(v_text_content.user_id)과 브라우저 신원이 긍정 확인으로 같을 때만 그린다(`ReaderViewerGate` · `useStoryAuthGuard`). 바뀜 · 재확인 중이면 감추고, 모듈 싱글턴이라 화면이 내려가도 계속 읽던 읽기 음성(tts-controller)을 멈춘다. 개발 하네스 `/dev/reader-identity`. DB 무변경.
 - fix(spellforge): 정답 뒤 멈춤 화면에서 Enter 로 넘어가면 같은 단어의 정답이 한 번 더 확인돼 평가 대기열에 2건이 쌓이던 결함 — success · paused 단계에서는 확인하지 않는다(MicroPause 의 Enter 와 전역 Enter 처리가 함께 받던 것). DB 무변경.
 - fix(security): 글 안의 철자 연습(`/text/[id]?mode=spellforge`)도 같은 계정 경계 — 레이아웃이 실제로 읽은 글의 주인(`v_text_content.user_id`)을 문맥 `ownerId` 로 넘기고, 그 분기를 `GameViewerGate` + `SpellForge viewerId` 로 감싼다(주인을 모르면 로그인한 브라우저에 그리지 않는다). DB 무변경.
 - fix(security): SpellForge 계정 경계 — `/spellforge/play` 의 자료 제목 · 단어 · 입력을 서버가 단어를 읽은 사용자에 결속(`GameViewerGate` 신설 · `GameIdentityNotice`). `SpellForge` 는 정답 · 확인 · 건너뛰기 · 키보드 · 발음(예약 발음 포함)을 실행 시점에 같은 사람이고 대기열 주인이 다른 사람이 아닐 때만 하고, 바뀜 · 확인 중 · 언마운트 때 자기 발화만 멈춘다. 완주 점수는 `expectedUserId`. 개발 하네스 `/dev/spellforge-identity`. DB 무변경.
