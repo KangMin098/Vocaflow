@@ -103,3 +103,32 @@ describe('buildEvidenceChoice', () => {
     expect(buildEvidenceChoice('Only one sentence here is long enough. And another one is here.', 'only one sentence here', 'q')).toBeNull()
   })
 })
+
+describe('장 표식(수집 메타데이터)은 근거 후보가 아니다', () => {
+  const RS = String.fromCharCode(0x1e)
+  const marker = (n: string, t: string) => `CHAPTER ${n}. ${t}${RS}https://standardebooks.org/ebooks/aesop/fables/v-s-vernon-jones/text/single-page#fable-${n}`
+  const body = [
+    marker('29', 'The Fox and the Grapes'),
+    'A hungry Fox saw some fine bunches of Grapes hanging from a vine. He did his best to reach them by jumping as high as he could into the air. But it was all in vain, for they were just out of reach. So he gave up trying and walked away with an air of dignity. He said he thought the Grapes were sour after all.',
+    marker('30', 'The Mice in Council'),
+    'Once upon a time all the Mice met together in Council to plan their escape.',
+  ].join('\n\n')
+
+  it('RS 표식 단락의 제목·URL 조각은 문장으로 나오지 않는다', () => {
+    const s = splitSentences(body)
+    expect(s.some((x) => /standardebooks|org\/ebooks|CHAPTER/.test(x))).toBe(false)
+    expect(s).toContain('He said he thought the Grapes were sour after all.')
+  })
+  it('피커 후보에도 메타데이터가 섞이지 않고 등록 근거 대조는 그대로', () => {
+    const c = buildEvidenceChoice(body, 'he thought the Grapes were sour after all', 'q-fox')!
+    expect(c).not.toBeNull()
+    expect(c.sentences.some((x) => /http|org\/|CHAPTER/.test(x))).toBe(false)
+    expect(c.sentences[c.evidenceIndex]).toContain('sour after all')
+  })
+  it('RS 없는 정상 CHAPTER 제목 줄·URL 이 든 보통 문장은 남는다', () => {
+    const plain = ['CHAPTER I. A Plain Title Line', 'Visit https://example.org for more, she said.'].join('\n')
+    const s = splitSentences(plain)
+    expect(s.some((x) => x.startsWith('CHAPTER I'))).toBe(true)
+    expect(s.some((x) => x.includes('example'))).toBe(true)
+  })
+})

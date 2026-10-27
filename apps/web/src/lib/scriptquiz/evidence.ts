@@ -6,6 +6,8 @@
 //    이 함수가 채점 전에 불리면 근거 위치가 화면에 먼저 드러난다.
 // ⚠️ 근거를 본문에서 못 찾으면 null 이다. 억지로 가장 비슷한 문장을 정답으로 세우지 않는다.
 
+import { parseChapterMarker } from '@/lib/reader/chapter-marker'
+
 export interface EvidenceChoice {
   /** 화면 순서대로의 후보 문장 */
   sentences: string[]
@@ -13,10 +15,15 @@ export interface EvidenceChoice {
   evidenceIndex: number
 }
 
-/** 본문 → 문장. 줄바꿈 단락과 문장부호(따옴표가 뒤따르는 경우 포함)에서 자른다. */
+/**
+ * 본문 → 문장. 줄바꿈 단락과 문장부호(따옴표가 뒤따르는 경우 포함)에서 자른다.
+ * 장 표식 단락(`CHAPTER n. 제목<RS>원문 URL` — 수집 메타데이터)은 문장 후보에서 뺀다. 판정은 리더와 같은
+ * `parseChapterMarker`(RS 필수 · 한 줄 전체) — RS 없는 정상 제목 줄·URL 이 든 보통 문장은 그대로 남는다.
+ */
 export function splitSentences(passage: string): string[] {
   const out: string[] = []
   for (const para of passage.split(/\n+/)) {
+    if (parseChapterMarker(para)) continue
     const parts = para.match(/[^.!?]+(?:[.!?]+["'”’)\]]*|$)/g) ?? []
     for (const p of parts) {
       const s = p.trim()
