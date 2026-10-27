@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(spellforge): 오답 뒤 3초 자동 입력 삭제 제거 — 고쳐 쓰던 입력 · 안내를 학습자가 「다시 입력하기」(44px · 키보드 Tab 도달 · 입력 복귀)를 누를 때까지 유지. 재시도는 그 오답 인스턴스(세대 · 주인)에만 묶여 단어 · 모드 · 계정 전환 뒤 옛 콜백은 무동작, 평가 · 대기열 무변경.
 - feat(reader): 본인이 연 기사 글(`article:<uuid>`)에 보이스가 없어도 「원문 출처 · 도메인」 링크(새 탭 · noopener · 44px) — 기존 기사 조회의 `source_url` 을 공개 http(s) 만 통과(`lib/reader/public-source-href`), 장 표식 출처가 있으면 그쪽 하나만. 신원 경계 안 · DB · 이벤트 무변경. 개발 확인 화면 `/dev/article-source`.
 - fix(lcp): `extractBookLemmas` 대문자 고유명사 가드(문장 중간 Title-case · `Ford's Theatre` 소유격 이름 등장 제외, 헤드라인 문장 예외) + 예문을 고른 `context_pos` 의 첫 등장 문장으로. 출력 형태 불변, 코드만 — 이미 발행된 단어 세트는 재발행(DB 쓰기, 별도 승인) 전까지 그대로.
 - feat(r0): 같은 기사 발췌 연습 화면 `/practice/article/[articleId]` — 준비 모듈(contract · actions · ArticlePracticeBridge) 연결, 본인 글 화면에 검수 후보가 있을 때만 진입 링크. 제출은 loader 가 확인한 계정 · 본인 글 문맥과 지금이 같을 때만 RPC(계정 전환 뒤 B 의 같은 기사 글로 갈아타던 준비 코드 결함 수정), 화면은 신원이 같을 때만 문항 · 결과를 그리고 늦은 응답은 버린다. 실패 사유(설치 대기 · 안 연 글 · 판본 다름 · 문항 없음 · 조회 실패 · 인증 · 정지) 구별. 개발 확인 화면 `/dev/article-practice`.

@@ -15,6 +15,7 @@ import { MeaningDisplay } from './MeaningDisplay'
 import { MicroPause } from './MicroPause'
 import { ModeSelector } from './ModeSelector'
 import { ReflectionHint } from './ReflectionHint'
+import { bumpRetryEpoch, makeRetry, type RetryEpoch } from './error-retry'
 import { SingleBox } from './SingleBox'
 
 import { useActiveHint } from '@/hooks/useActiveHint'
@@ -139,7 +140,18 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
   const [pauseInfo, setPauseInfo] = useState<{ icon: string; message: string } | null>(null)
   const [reflectionMsg, setReflectionMsg] = useState('')
   const [showCompletion, setShowCompletion] = useState(false)
-  const errorTimerRef = useRef<NodeJS.Timeout | null>(null)
+  // 오답 뒤 「다시 입력하기」 — 세대가 바뀌면(단어 · 모드 · 계정 · 언마운트) 보관된 재시도는 아무것도 하지 않는다
+  const retryEpochRef = useRef<RetryEpoch>({ current: 0 })
+  // 이 오답 한 번에 묶인 재시도 — 단추의 onClick 이 곧 그 인스턴스라, 옛 단어의 보관된 onClick 은 새 단어의 재시도를 부르지 못한다
+  const [retryAction, setRetryAction] = useState<(() => boolean) | null>(null)
+  useEffect(() => {
+    bumpRetryEpoch(retryEpochRef.current)
+    setRetryAction(null)
+  }, [viewerId, authStatus])
+  useEffect(() => {
+    const epoch = retryEpochRef.current
+    return () => bumpRetryEpoch(epoch)
+  }, [])
 
   // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
   const recommendation = useNextAction()
@@ -164,6 +176,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
 
   // 모드 변경 시 reset
   useEffect(() => {
+    bumpRetryEpoch(retryEpochRef.current)
+    setRetryAction(null)
     setUserInput('')
     if (inputRef.current) inputRef.current.value = ''
     resetFeedback()
@@ -175,6 +189,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
 
   // 단어 변경 시 reset
   useEffect(() => {
+    bumpRetryEpoch(retryEpochRef.current)
+    setRetryAction(null)
     setUserInput('')
     if (inputRef.current) inputRef.current.value = ''
     resetFeedback()
@@ -282,18 +298,19 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       setPhase('error')
       setReflectionMsg(generateReflectionMessage(evalResult))
 
-      // 3초 후 reset
-      if (errorTimerRef.current) clearTimeout(errorTimerRef.current)
-      errorTimerRef.current = setTimeout(() => {
+      // 입력 · 안내는 학습자가 「다시 입력하기」를 누르거나 직접 고칠 때까지 남긴다(예전 3초 자동 삭제는 고쳐 쓰던 입력까지 지웠다).
+      //   재시도는 화면만 정리한다 — 평가 · 대기열 · 기록을 만들지 않는다.
+      const retry = makeRetry(retryEpochRef.current, ownsSession, () => {
         setUserInput('')
         if (inputRef.current) inputRef.current.value = ''
         resetFeedback()
         setReflectionMsg('')
         setPhase('typing')
         inputRef.current?.focus()
-      }, 3000)
+      })
+      setRetryAction(() => retry)
     },
-    [resetFeedback]
+    [resetFeedback, ownsSession]
   )
 
   /**
@@ -408,6 +425,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       if (e.key === 'Tab') {
         if (e.shiftKey) return
         if (target !== inputRef.current) return
+        // 오답 안내 중에는 Tab 이 「다시 입력하기」로 가는 길이다 — 힌트로 삼키지 않는다
+        if (phase === 'error') return
         e.preventDefault()
         triggerHint()
         playWordAudio(currentWord?.text ?? '')
@@ -416,6 +435,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
 
       // Enter — Confirm
       if (e.key === 'Enter' && !e.shiftKey) {
+        // 「다시 입력하기」 단추의 Enter 는 단추 자신의 일이다 — 같은 오답을 다시 확인하지 않는다
+        if (target.closest?.('[data-sf-retry]')) return
         e.preventDefault()
         if (mode === 'delayed' || mode === 'blind') {
           handleConfirm()
@@ -427,7 +448,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
 
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [mode, currentWord, triggerHint, handleConfirm, handleSkip, playWordAudio, ownsSession])
+  }, [mode, currentWord, triggerHint, handleConfirm, handleSkip, playWordAudio, ownsSession, phase])
 
   // 자동 포커스
   useEffect(() => {
@@ -554,6 +575,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
           <ReflectionHint
             visible={phase === 'error' && reflectionMsg.length > 0}
             message={reflectionMsg}
+            onRetry={retryAction ? () => void retryAction() : undefined}
           />
 
           {/* Example — 타이핑 중에는 정답 철자를 가린다 (maskSpelling 주석 참조) */}
