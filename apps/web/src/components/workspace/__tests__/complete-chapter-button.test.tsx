@@ -1,36 +1,7 @@
 // apps/web/src/components/workspace/__tests__/complete-chapter-button.test.tsx
 import { renderToString } from 'react-dom/server'
-import { describe, expect, it, vi } from 'vitest'
-import { attemptCompletion, ChapterCompleteAction } from '../CompleteChapterButton'
-import type { CompleteChapterResult } from '@/lib/library/complete-chapter'
-
-const ok = (over: Partial<CompleteChapterResult> = {}): CompleteChapterResult => ({
-  ok: true, alreadyCompleted: false, nextChapterTextId: 'next-1', bookCompleted: false, ...over,
-})
-
-describe('attemptCompletion', () => {
-  it('성공·이미 완료는 ok 로 결과를 그대로 넘긴다', async () => {
-    expect(await attemptCompletion('t1', async () => ok(), () => true)).toEqual({ kind: 'ok', result: ok() })
-    const again = ok({ alreadyCompleted: true })
-    expect(await attemptCompletion('t1', async () => again, () => true)).toEqual({ kind: 'ok', result: again })
-  })
-  it('ok=false 와 reject 는 실패', async () => {
-    expect(await attemptCompletion('t1', async () => ({ ...ok(), ok: false }), () => true)).toEqual({ kind: 'failed' })
-    expect(await attemptCompletion('t1', async () => { throw new Error('network') }, () => true)).toEqual({ kind: 'failed' })
-  })
-  it('실패 뒤 다시 시도하면 같은 textId 로 다시 호출해 성공한다', async () => {
-    const complete = vi.fn<[string], Promise<CompleteChapterResult>>()
-      .mockRejectedValueOnce(new Error('network'))
-      .mockResolvedValueOnce(ok())
-    expect((await attemptCompletion('t1', complete, () => true)).kind).toBe('failed')
-    expect((await attemptCompletion('t1', complete, () => true)).kind).toBe('ok')
-    expect(complete.mock.calls).toEqual([['t1'], ['t1']])
-  })
-  it('응답 전에 장이 바뀌면 성공·실패 모두 stale — 다른 장에 표시하지 않는다', async () => {
-    expect(await attemptCompletion('t1', async () => ok(), () => false)).toEqual({ kind: 'stale' })
-    expect(await attemptCompletion('t1', async () => { throw new Error('x') }, () => false)).toEqual({ kind: 'stale' })
-  })
-})
+import { describe, expect, it } from 'vitest'
+import { ChapterCompleteAction } from '../CompleteChapterButton'
 
 describe('ChapterCompleteAction 마크업', () => {
   it('기본: 44px 완료 버튼 · 보이는 focus · 오류 없음', () => {

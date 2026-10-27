@@ -1,5 +1,5 @@
-// apps/web/tests/e2e-isolated/complete-chapter-button.isolated.spec.ts
-// T-0192 — 읽기 완료 버튼 저장 중·실패·재시도·44px·키보드. /dev/complete-chapter 하네스(fake 응답, DB·Auth 없음).
+// apps/web/tests/e2e/complete-chapter-button.dev.spec.ts
+// T-0192 — 읽기 완료 버튼 저장 중·실패·재시도·44px·키보드. /dev/complete-chapter 하네스(fake 응답, DB·Auth 없음). 개발 서버 전용 — CI(next start) 대상 아님.
 // 실제 Auth+DB 저장 경로는 r0-reading-completion(T-0005, 로컬 Supabase 필요)이 맡는다.
 import { expect, test, type Page } from '@playwright/test'
 

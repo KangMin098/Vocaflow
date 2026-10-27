@@ -14,6 +14,11 @@ import {
   completeChapter,
   type CompleteChapterResult,
 } from '@/lib/library/complete-chapter';
+import {
+  createCompletionController,
+  type CompletionController,
+  type CompletionPhase,
+} from '@/lib/library/complete-chapter-controller';
 
 export type ChapterDisplayStatus =
   | 'not_started'
@@ -35,27 +40,6 @@ const FAILURE_MESSAGE = '완료 표시를 저장하지 못했어요. 읽던 곳�
 const ACTION_BASE =
   'inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] px-3 font-display text-[12px] font-[600] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2';
 
-export type CompletionOutcome =
-  | { kind: 'ok'; result: CompleteChapterResult }
-  | { kind: 'failed' }
-  | { kind: 'stale' };
-
-/** 저장 한 번 — reject·ok=false 는 실패, 응답 전에 장이 바뀌었으면 stale(표시하지 않음). */
-export async function attemptCompletion(
-  textId: string,
-  complete: (textId: string) => Promise<CompleteChapterResult>,
-  isCurrent: () => boolean,
-): Promise<CompletionOutcome> {
-  let res: CompleteChapterResult | null = null;
-  try {
-    res = await complete(textId);
-  } catch {
-    res = null;
-  }
-  if (!isCurrent()) return { kind: 'stale' };
-  return res?.ok ? { kind: 'ok', result: res } : { kind: 'failed' };
-}
-
 export function CompleteChapterButton({
   textId,
   currentStatus,
@@ -63,46 +47,28 @@ export function CompleteChapterButton({
 }: CompleteChapterButtonProps) {
   const router = useRouter();
   const [, startTransition] = useTransition();
-  const [submitting, setSubmitting] = useState(false);
-  const [failed, setFailed] = useState(false);
-  const [result, setResult] = useState<CompleteChapterResult | null>(null);
-  // 진행 중 요청이 어느 textId 의 것인지 — 장이 바뀐 뒤 도착한 응답은 버린다.
-  const inflight = useRef<string | null>(null);
-  const currentTextId = useRef(textId);
+  const [phase, setPhase] = useState<CompletionPhase>({ kind: 'idle' });
+  const completeRef = useRef(complete);
+  completeRef.current = complete;
+  // 요청 세대 관리(중복 조작 차단 · 장 변경 뒤 옛 응답 폐기)는 컨트롤러가 맡는다.
+  const controller = useRef<CompletionController | null>(null);
+  if (!controller.current) {
+    controller.current = createCompletionController(
+      textId,
+      (id) => completeRef.current(id),
+      (next) => {
+        setPhase(next);
+        if (next.kind === 'done') startTransition(() => router.refresh());
+      },
+    );
+  }
 
   useEffect(() => {
-    currentTextId.current = textId;
-    inflight.current = null;
-    setSubmitting(false);
-    setFailed(false);
-    setResult(null);
+    controller.current?.setTextId(textId);
   }, [textId]);
 
   const isAlreadyCompleted = currentStatus === 'completed';
-
-  async function handleComplete() {
-    if (inflight.current) return;
-    const requestId = textId;
-    inflight.current = requestId;
-    setSubmitting(true);
-    setFailed(false);
-    const outcome = await attemptCompletion(
-      requestId,
-      complete,
-      () => currentTextId.current === requestId && inflight.current === requestId,
-    );
-    if (outcome.kind === 'stale') return;
-    inflight.current = null;
-    setSubmitting(false);
-    if (outcome.kind === 'ok') {
-      setResult(outcome.result);
-      startTransition(() => {
-        router.refresh();
-      });
-    } else {
-      setFailed(true);
-    }
-  }
+  const result = phase.kind === 'done' ? phase.result : null;
 
   if (result?.ok) {
     return <CompletionResult result={result} router={router} />;
@@ -122,8 +88,8 @@ export function CompleteChapterButton({
 
   return (
     <ChapterCompleteAction
-      phase={submitting ? 'submitting' : failed ? 'failed' : 'idle'}
-      onComplete={handleComplete}
+      phase={phase.kind === 'submitting' ? 'submitting' : phase.kind === 'failed' ? 'failed' : 'idle'}
+      onComplete={() => controller.current?.start()}
     />
   );
 }
