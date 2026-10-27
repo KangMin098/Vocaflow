@@ -70,6 +70,8 @@ export function ArticlePracticeBridge({
   }
   return (
     <DcpPlayer
+      key={articleId}
+      revisit
       items={items}
       grade={makeArticleGrade({ articleId, textId, ownerId }, guard, submit)}
       backHref={`/text/${textId}`}

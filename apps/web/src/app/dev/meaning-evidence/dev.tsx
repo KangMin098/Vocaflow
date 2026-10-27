@@ -30,5 +30,5 @@ async function grade(itemId: string, answer: Record<string, unknown>): Promise<D
 }
 
 export function MeaningEvidenceDev() {
-  return <DcpPlayer items={ITEMS} backHref="/dev" backCta="개발 목록으로" grade={grade} recordCause={async () => ({ ok: true })} />
+  return <DcpPlayer revisit items={ITEMS} backHref="/dev" backCta="개발 목록으로" grade={grade} recordCause={async () => ({ ok: true })} />
 }

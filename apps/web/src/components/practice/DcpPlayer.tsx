@@ -6,7 +6,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState, type Ref } from 'react'
 import Link from 'next/link'
 import { AlertTriangle, ArrowRight, Check, Home, RefreshCw, X } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
@@ -43,6 +43,7 @@ export function DcpPlayer({
   doneCopy,
   onGraded,
   onBack,
+  revisit = false,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -62,6 +63,11 @@ export function DcpPlayer({
   onGraded?: (item: DcpItem, result: DcpGradeOk) => void
   /** 완료 화면의 돌아가기를 눌렀다(계측용) */
   onBack?: () => void
+  /**
+   * 완료 화면의 「이미 본 해설 다시 보기」(opt-in). 세션 · 자료 경계를 확인한 호출자(기사 연습 다리 · 합성 dev)만 켠다.
+   * 끄면 피드백 기록을 아예 모으지 않는다(예전 동작).
+   */
+  revisit?: boolean
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -75,6 +81,19 @@ export function DcpPlayer({
   /** 이 문항에 실제로 제출한 답 — 근거 짚기가 「무엇의 근거」인지 되짚는다(다음 문항 · 재시도 때 지운다) */
   const [submitted, setSubmitted] = useState<Record<string, unknown> | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
+  /**
+   * 이번 세션에서 **채점에 성공해 공개된** 피드백(당시 선택 · 당시 서버 결과) — 완료 화면의 「이미 본 해설 다시 보기」.
+   * 메모리에만 둔다(저장 · 새 조회 없음). 채점 실패는 넣지 않는다. 현재 items 의 같은 문항 객체에 묶인 것만 보인다.
+   */
+  const [seen, setSeen] = useState<SeenFeedback[]>([])
+  const [reviewAt, setReviewAt] = useState<number | null>(null)
+  const lastReviewed = useRef<number | null>(null)
+  const listRef = useRef<HTMLUListElement | null>(null)
+  const reviewHeadRef = useRef<HTMLHeadingElement | null>(null)
+  useEffect(() => {
+    if (reviewAt !== null) reviewHeadRef.current?.focus()
+    else if (lastReviewed.current !== null) listRef.current?.querySelectorAll('button')[lastReviewed.current]?.focus()
+  }, [reviewAt])
 
   const item = items[idx]
   const total = items.length
@@ -104,6 +123,7 @@ export function DcpPlayer({
       return
     }
     setResult(res)
+    if (revisit) setSeen((s) => [...s, { item, result: res, submitted: answer }])
     onGraded?.(item, res)
     if (res.correct) setCorrectCount((c) => c + 1)
     setPhase('graded')
@@ -130,6 +150,13 @@ export function DcpPlayer({
   // ── 완료 요약 ──
   if (phase === 'done') {
     const custom = doneCopy?.({ total, correct: correctCount })
+    const revisit = revisitable(seen, items)
+    const open = reviewAt !== null ? revisit[reviewAt] : undefined
+    if (open) {
+      return (
+        <DcpRevisitView entry={open} items={items} headRef={reviewHeadRef} onBack={() => setReviewAt(null)} />
+      )
+    }
     return (
       <section
         aria-label="구문 연습 완료"
@@ -157,6 +184,25 @@ export function DcpPlayer({
           <Home size={16} strokeWidth={2} aria-hidden />
           {backCta}
         </Link>
+        {revisit.length > 0 && (
+          <div className="flex w-full flex-col gap-2 border-t border-[var(--bd)] pt-4 text-left" data-testid="dcp-revisit">
+            <p className="break-keep font-display text-[12px] font-[700] text-[var(--t2)]">이미 본 해설 다시 보기 · 안내 복습</p>
+            <ul ref={listRef} className="m-0 flex list-none flex-wrap gap-2 p-0">
+              {revisit.map((e, i) => (
+                <li key={`${e.item.id}-${i}`}>
+                  <button
+                    type="button"
+                    onClick={() => { lastReviewed.current = i; setReviewAt(i) }}
+                    className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  >
+                    {e.result.correct ? <Check size={13} strokeWidth={2.5} aria-hidden /> : <X size={13} strokeWidth={2.5} aria-hidden />}
+                    {items.indexOf(e.item) + 1}번 {e.result.correct ? '맞힘' : '틀림'} · 해설 보기
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
     )
   }
@@ -239,6 +285,33 @@ export function DcpPlayer({
   )
 }
 
+/** 이번 세션에서 채점에 성공해 공개된 피드백 한 건 — 당시 제출 · 당시 서버 결과 그대로 */
+export interface SeenFeedback { item: DcpItem; result: DcpGradeOk; submitted: Record<string, unknown> }
+
+/** 다시 볼 수 있는 것 — 지금 items 에 있는 **같은 문항 객체**에 묶인 기록만(자료가 바뀌면 옛 피드백은 사라진다) */
+export function revisitable(seen: SeenFeedback[], items: DcpItem[]): SeenFeedback[] {
+  return seen.filter((e) => items.includes(e.item))
+}
+
+/** 완료 뒤 「이미 본 해설 다시 보기 · 안내 복습」 — 새 채점 · 기록 없음, 원인 칩 없음, 「요약으로」 로 돌아간다 */
+export function DcpRevisitView({ entry, items, headRef, onBack }: { entry: SeenFeedback; items: DcpItem[]; headRef?: Ref<HTMLHeadingElement>; onBack: () => void }) {
+  return (
+    <section aria-label="이미 본 해설 다시 보기" className="flex flex-col gap-3">
+      <h2
+        ref={headRef}
+        tabIndex={-1}
+        className="break-keep font-display text-[14px] font-[700] text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        data-testid="dcp-revisit-label"
+      >
+        이미 본 해설 다시 보기 · 안내 복습 — {items.indexOf(entry.item) + 1}번 문항, 그때 고른 답과 받은 해설 그대로예요.
+      </h2>
+      <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
+        <Feedback item={entry.item} result={entry.result} submitted={entry.submitted} cause={null} onCause={() => {}} onNext={onBack} isLast review />
+      </div>
+    </section>
+  )
+}
+
 // ────────────────────────────────────────────────────────────
 // 채점 피드백 — 정답/오답 + 정답 공개 + (오답) error_cause 1-tap
 // ────────────────────────────────────────────────────────────
@@ -250,6 +323,7 @@ function Feedback({
   onCause,
   onNext,
   isLast,
+  review = false,
 }: {
   item: DcpItem
   result: DcpGradeOk
@@ -258,6 +332,8 @@ function Feedback({
   onCause: (c: DcpErrorCause) => void
   onNext: () => void
   isLast: boolean
+  /** 완료 뒤 다시 보기 — 원인 기록 조작부를 두지 않고(가짜 저장 금지) 「요약으로」 만 */
+  review?: boolean
 }) {
   const correct = result.correct
   return (
@@ -326,7 +402,7 @@ function Feedback({
       })()}
 
       {/* 오답이면 error_cause 1-tap */}
-      {!correct && (
+      {!correct && !review && (
         <div className="flex flex-col gap-2">
           <p className="font-display text-[12px] font-[700] text-[var(--t2)]">어떤 점이 어려웠나요? (선택)</p>
           <div className="flex flex-wrap gap-2">
@@ -356,7 +432,7 @@ function Feedback({
         onClick={onNext}
         className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
       >
-        {isLast ? '마치기' : '다음'}
+        {review ? '요약으로' : isLast ? '마치기' : '다음'}
         <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
       </button>
     </div>
