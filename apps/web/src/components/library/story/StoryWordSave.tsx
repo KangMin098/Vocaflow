@@ -74,7 +74,9 @@ export function StoryWordSave({
     )
   }
 
-  const headword = lookup.resolvedWord.trim().toLowerCase()
+  // 저장 뒤에는 서버가 실제로 담은 표제어(StoryWordSaveResult.headword — 서버가 사전을 다시 해소한 값)가 정본이다.
+  // 창의 조회와 서버의 재조회가 같은 사전 스냅샷이라는 보장이 없으므로 저장 전 조회 값으로 덮지 않는다.
+  const headword = state.kind === 'saved' || state.kind === 'already' ? state.headword : lookup.resolvedWord.trim().toLowerCase()
   const differs = headword !== surface.toLowerCase()
   const busy = state.kind === 'saving'
   const done = state.kind === 'saved' || state.kind === 'already'

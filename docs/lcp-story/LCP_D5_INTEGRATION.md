@@ -195,3 +195,15 @@ I01+I02가 다음 구현 묶음의 최소 범위다. P03 결과가 없어도 저
 실제 dev(소유 미리보기 3015 · 정상 Auth A1440/B1280 · 읽기 전용 · **저장 단추는 누르지 않음**) 32 검사 PASS ×2: 로그인 복귀가 Story 문맥 보존 · 단어장 복귀 줄 ok/범위 밖/철회/형식 오류/섞임/일반 · 돌아가기 → 같은 단위 · 실제 사전 `hat` 저장 조작(44px) · 창 전체 뷰포트 안 · 화면 밖 낱말 단추 경로 · Esc 복귀. **실제 dev 저장(쓰기)은 NOT_RUN** — 루트용 `live/root-app-save.mjs --confirm-root-save` 를 준비만 했다.
 
 남은 한계: 실제 SR 낭독 NOT_RUN(NVDA 없음) · 사람 효과 UNVERIFIED · 영구 출처 · Story 전용 목록 · 문장 위치 없음 · 「독서 후 모은 단어」 보조 링크는 넣지 않았다(같은 창의 보기 링크만). D6 경계: 담은 수 · 저장 성공은 회상 · 이해 · 성장의 증거가 아니다.
+
+### 12.1 독립 검토 교정(같은 세션 · 2026-10-27)
+
+독립 AI 검토(Codex · AI_INDEPENDENT_REVIEWED, 사람 검토 아님)가 재현한 결함만 고쳤다. 첫 교정 실행은 API 오류(ENOTFOUND)로 **종료 코드 1** — 성공 완료가 아니며, 루트가 그 작업을 커밋 `158bfd8f1` 로 보존한 뒤 같은 세션이 좁게 마무리했다.
+
+- **단어장 계정 경계** — `WordVaultViewerGate`(WordVaultBrowseClient.tsx)가 성공 · 실패 화면 전체(목록 · 칩 · 도서 문맥 · 듣기 · Story/지도 복귀 줄)를 서버 `getUser` 주인(`user.id`)에 묶는다. Story 화면과 같은 `useStoryAuthGuard` 로 긍정 확인(same)일 때만 그리고, 확인 전 · 기준선 실패는 숨김(same 로 치지 않음), 다른 계정 · 로그아웃은 즉시 지우고 「다시 열기」(검증한 문맥만) · 「로그인 화면으로」만 둔다(전역 로그아웃 없음). 목록이 내려가면 흘려듣기를 멈추고, 멈춘 뒤 예문을 읽지 않는다(useListenQueue). 경계는 BFCache 복원(`pageshow` persisted) 때 다시 확인한다(`StoryAuthGuard.recheck` — 바뀜은 되살리지 않음 · 늦은 기준선은 버림).
+- **섞인 주소** — Story 키가 하나라도(형식 오류 · 여러 값 · 짝 없음 포함) 지도 표지와 오면 형식 검사보다 먼저 conflict · 지도 복귀도 null(`resolveVaultReturnContexts`). 일반 지도 · 일반 단어장 의미는 그대로.
+- **저장 거부 전이** — 저장은 `StoryReaderSession.saveWord` 로 위치 · 완료와 같은 문을 쓴다: 신원 · 접근 거부(viewer_changed · auth_required · account_blocked · release_unavailable · unit_not_found)는 같은 거부 전이(개인 내용 폐기 + refresh), 다른 주인의 성공은 인증 경계 무효, 늦은 응답은 stale. 일시 오류 · 사전에 없음 · 낱말 불일치는 창에만 보이고 본문을 숨기지 않는다.
+- **저장된 표제어 표시** — 담은/이미 있음 상태에서 「담을 낱말」은 서버가 실제로 담은 표제어(`StoryWordSaveResult.headword`)를 보인다. 창의 조회와 서버 재조회가 같은 사전 스냅샷이라는 보장이 없기 때문이다(Codex 회귀 「authoritative saved headword」 — 수정 전 실패 2 · 수정 후 통과).
+- **창 경계** — 상한 길이 합성 사전 내용 + 저장 줄에서도 1440/1280×1000 에서 창 · 저장 · 상태 · 단어장 링크가 뷰포트 안이고 키보드로 모두 닿으며 창 안 넘침이 없다(높이 약 706px) → **재현되지 않아 제품 변경 없음**(회귀 시험만 추가). 뷰포트 높이 약 720px 미만은 측정하지 않았다.
+
+검증(실제 종료): 격리 브라우저 — 단어장 경계 2 · 창 경계 2 · D5 2 · 서버 표제어 2 통과(앞선 실패 시도 로그 보존) · 단위 89파일 1307 통과/50 건너뜀(건너뜀은 통과가 아님) · 렌더 68 · 타입 0 · lint 0. 실제 dev 쓰기 · 실제 A/B 화면 · 로컬 main 통합은 **루트 소관 NOT_RUN**.
