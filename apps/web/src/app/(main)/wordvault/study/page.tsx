@@ -7,6 +7,8 @@
 import { redirect } from 'next/navigation'
 
 import { WordVaultStudyClient } from '@/components/wordvault/WordVaultStudyClient'
+import { WordVaultViewerGate } from '@/components/wordvault/WordVaultBrowseClient'
+import { sanitizeInternalPath } from '@/lib/layout/session-return'
 import { createClient } from '@/lib/supabase/server'
 import { vocabRowToWord, type BrowseWord } from '@/lib/wordvault/browse-queries'
 import { parseStateFilter } from '@/lib/wordvault/state-filter'
@@ -45,10 +47,19 @@ export default async function WordVaultStudyPage({ searchParams }: PageProps) {
   const rows = await fetchStudyVocabularies(supabase, user.id, parseStateFilter(searchParams.filter))
   const words: BrowseWord[] = rows.map((r, i) => vocabRowToWord(r, i))
 
+  // 개인 단어 · 뜻 · 평가는 서버가 읽은 사람(user.id)의 것 — 브라우저 신원이 그 사람으로 긍정 확인될 때만 그린다.
+  //   다시 열기 주소는 검증한 필터 · 복귀만 싣는다(uid 없음).
+  const reopen = new URLSearchParams()
+  if (searchParams.filter) reopen.set('filter', searchParams.filter)
+  const safeFrom = sanitizeInternalPath(searchParams.from)
+  if (safeFrom) reopen.set('from', safeFrom)
   return (
-    <WordVaultStudyClient
-      words={words}
-      backHref={resolveSessionReturnHref(searchParams.from, null, '/wordvault')}
-    />
+    <WordVaultViewerGate viewerId={user.id} reopenHref={reopen.size ? `/wordvault/study?${reopen.toString()}` : '/wordvault/study'}>
+      <WordVaultStudyClient
+        words={words}
+        viewerId={user.id}
+        backHref={resolveSessionReturnHref(searchParams.from, null, '/wordvault')}
+      />
+    </WordVaultViewerGate>
   )
 }

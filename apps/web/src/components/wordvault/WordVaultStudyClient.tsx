@@ -34,6 +34,8 @@ interface WordVaultStudyClientProps {
   mapBack?: string | null
   /** 지도에서 온 화면에서 단어 조회가 실패했다 — 「0개」 로 보이지 않게 따로 알린다 */
   loadFailed?: boolean
+  /** 서버가 단어를 읽은 사용자 — 평가 · 키보드 · 발음의 실행 시점 경계(StudyMode). 화면 경계는 페이지의 WordVaultViewerGate. */
+  viewerId?: string | null
 }
 
 /** 지도에서 온 어휘 학습의 위치 안내 — 이 복습은 학습 활동이지 지도 근거가 아니다(V1 직접 확인 도구 없음) */
@@ -81,6 +83,7 @@ function StudyBody({
   backHref = '/wordvault',
   mapBack = null,
   loadFailed = false,
+  viewerId,
 }: WordVaultStudyClientProps) {
   const router = useRouter()
   const [done, setDone] = useState(false)
@@ -195,6 +198,7 @@ function StudyBody({
       <h1 className="sr-only">{screenName}</h1>
       <StudyMode
         words={words}
+        viewerId={viewerId}
         onExit={(reason) => {
           if (reason === 'completed') {
             setDone(true)
