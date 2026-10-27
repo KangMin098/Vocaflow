@@ -70,7 +70,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
     }
 
     // 스코프는 유효하나 단어 0개 — mock 대신 빈 상태 안내
-    return <ScopedEmpty title={scoped?.title ?? null} />
+    return <ScopedEmpty title={scoped?.title ?? null} backHref={backHref} />
   }
 
   // 일반 진입 (hub) — 사용자 SRS 큐의 due 단어 (실데이터)
@@ -109,10 +109,10 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
       <div className="select-none text-4xl" aria-hidden>
         🃏
       </div>
-      <h1 className="font-editorial text-[16px] font-[700] text-[var(--t1)]">
+      <h1 className="break-keep font-editorial text-[16px] font-[700] text-[var(--t1)]">
         {reason === 'auth' ? '로그인이 필요해요' : '복습할 단어가 아직 없어요'}
       </h1>
-      <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
+      <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
         {reason === 'auth'
           ? '로그인하면 내 단어장의 복습 카드를 학습할 수 있어요.'
           : '단어장에 단어를 추가하면 SRS 큐에서 복습 카드가 채워져요. 본문에서 단어를 모으거나 단어장을 살펴보세요.'}
@@ -127,21 +127,34 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
   )
 }
 
-function ScopedEmpty({ title }: { title: string | null }) {
+// 읽던 글 등 출처(?from · ?text)가 있으면 그곳으로 먼저 돌려보낸다 — 비어 있다고 hub·단어장으로만 내보내지 않는다(검증은 resolveSessionReturnHref).
+function ScopedEmpty({ title, backHref = '/flashcard' }: { title: string | null; backHref?: string }) {
+  const hasReturn = backHref !== '/flashcard'
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-24 text-center">
       <div className="select-none text-4xl" aria-hidden>
         🃏
       </div>
-      <h1 className="font-editorial text-[16px] font-[700] text-[var(--t1)]">
+      <h1 className="break-keep font-editorial text-[16px] font-[700] text-[var(--t1)]">
         {title ? `"${title}" 에 학습할 단어가 아직 없어요` : '학습할 단어가 없어요'}
       </h1>
-      <p className="font-body text-[13px] leading-relaxed text-[var(--t2)]">
+      <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
         이 자료의 단어장이 비어 있어요. 본문에서 단어를 추가하거나 단어장을 먼저 살펴보세요.
       </p>
+      {hasReturn && (
+        <a
+          href={backHref}
+          data-testid="flashcard-empty-return"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-colors hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
+        >
+          읽던 곳으로 돌아가기
+        </a>
+      )}
       <a
         href="/wordvault"
-        className="rounded-[var(--r-md)] bg-[var(--ju)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-colors hover:bg-[var(--ju-ink)]"
+        className={hasReturn
+          ? 'inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2'
+          : 'inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-colors hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2'}
       >
         내 단어장으로
       </a>
