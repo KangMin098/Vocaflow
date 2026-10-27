@@ -762,7 +762,7 @@ forward(오늘 할 일·조치)는 `/hub` 와 셸 나침반 띠 소관 — 이 �
 Shadow Reading — 원어민 발화 따라하기. 음운+발화 쌍둥이.
 
 ### 라우트
-- `/text/[id]/echo` — 별도 라우트 (ModePills 'shadow' → 이 라우트)
+- `/text/[id]/echo` — 별도 라우트. ModePills 'shadow' 는 같은 글의 인라인 따라읽기(`?mode=shadow` · `ShadowReadAlong`)를 열고, 그 패널의 시작 전 · 완료 화면에 「내 녹음과 억양 비교」 링크(`echoHref` = 같은 `text.id` 의 echo)가 있다. 진행 중에는 링크가 없다.
 
 ### 4-Phase Cycle
 1. **idle** — 대기
