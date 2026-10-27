@@ -56,7 +56,7 @@ export function EvidencePicker({
                   isEvidence
                     ? 'border-[var(--success)] bg-[var(--bg)]'
                     : isMine
-                      ? 'border-[var(--error)] bg-[var(--bg)]'
+                      ? 'border-[var(--p)] border-dashed bg-[var(--bg)]'
                       : 'border-[var(--bd)] bg-[var(--bg)]',
                   decided ? 'cursor-default' : 'hover:border-[var(--p)]',
                 ].join(' ')}
@@ -73,7 +73,7 @@ export function EvidencePicker({
                         등록된 근거
                       </span>
                     )}
-                    {isMine && !isEvidence && <span className="text-[var(--error-ink)]">내가 고른 문장</span>}
+                    {isMine && !isEvidence && <span className="text-[var(--t2)]">내가 고른 문장</span>}
                     {isMine && isEvidence && <span className="ml-1 text-[var(--t2)]">· 내가 고른 문장</span>}
                   </span>
                 )}

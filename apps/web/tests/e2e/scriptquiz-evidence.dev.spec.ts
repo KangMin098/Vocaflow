@@ -78,6 +78,15 @@ for (const width of [1280, 1440]) {
       await expect(page.getByText('스크립트 근거')).toBeVisible()
     })
 
+    test('잘못된·부분 범위(R03)는 데모·절삭 장 대신 「확인할 수 없어요」', async ({ page }) => {
+      const B = '00000000-0000-4000-8000-000000000001'
+      for (const q of [`book=${B}`, `book=${B}&ch=bad`, `book=${B}&ch=1junk`, `book=${B}&ch=1.5`]) {
+        await page.goto(`/scriptquiz/play?${q}`)
+        await expect(page.getByRole('heading', { name: '어느 글의 퀴즈인지 확인할 수 없어요' })).toBeVisible()
+        await expect(page.getByText('The Great Gatsby')).toHaveCount(0)
+      }
+    })
+
     test('범위를 주었는데 문항이 없으면 데모 대신 빈 상태', async ({ page }) => {
       await page.goto('/scriptquiz/play?text=00000000-0000-4000-8000-000000000000')
       await expect(page.getByRole('heading', { name: '이 글에는 아직 퀴즈가 없어요' })).toBeVisible()

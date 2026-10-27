@@ -1,6 +1,6 @@
 // apps/web/src/lib/scriptquiz/__tests__/own-passage.test.ts
 import { describe, expect, it, vi } from 'vitest'
-import { quizPageMode, readOwnPassage, type OwnPassageDeps } from '../own-passage'
+import { parseQuizScope, quizPageMode, readOwnPassage, type OwnPassageDeps } from '../own-passage'
 
 const ME = 'user-me'
 const BOOK = { bookId: 'book-1', chapterIdx: 3 }
@@ -50,5 +50,37 @@ describe('quizPageMode', () => {
     expect(quizPageMode(false, false)).toBe('demo')
     expect(quizPageMode(true, true)).toBe('quiz')
     expect(quizPageMode(false, true)).toBe('quiz')
+  })
+})
+
+describe('parseQuizScope — 범위 있음과 유효함을 나눈다 (R03)', () => {
+  const B = '11111111-1111-4111-8111-111111111111'
+  const T = '22222222-2222-4222-8222-222222222222'
+  it('범위 없음 → none(데모)', () => {
+    expect(parseQuizScope({})).toEqual({ kind: 'none' })
+  })
+  it('정상 book·ch·text / book·ch / text', () => {
+    expect(parseQuizScope({ book: B, ch: '3', text: T })).toEqual({ kind: 'book', bookId: B, chapterIdx: 3, textId: T })
+    expect(parseQuizScope({ book: B, ch: '0' })).toEqual({ kind: 'book', bookId: B, chapterIdx: 0 })
+    expect(parseQuizScope({ text: T })).toEqual({ kind: 'text', textId: T })
+  })
+  it('book 만 · book+bad ch · ch 만 → invalid (데모로 바꾸지 않는다)', () => {
+    expect(parseQuizScope({ book: B })).toEqual({ kind: 'invalid' })
+    expect(parseQuizScope({ book: B, ch: 'bad' })).toEqual({ kind: 'invalid' })
+    expect(parseQuizScope({ book: B, ch: '' })).toEqual({ kind: 'invalid' })
+    expect(parseQuizScope({ ch: '1' })).toEqual({ kind: 'invalid' })
+  })
+  it('ch=1junk · 1.5 · -1 · 01 · 거대수 → invalid (1로 절삭하지 않는다)', () => {
+    for (const ch of ['1junk', '1.5', '-1', '01', ' 1', '1e2', '99999999999999999999']) {
+      expect(parseQuizScope({ book: B, ch })).toEqual({ kind: 'invalid' })
+    }
+  })
+  it('uuid 가 아닌 book·text → invalid', () => {
+    expect(parseQuizScope({ book: 'nope', ch: '1' })).toEqual({ kind: 'invalid' })
+    expect(parseQuizScope({ text: 'nope' })).toEqual({ kind: 'invalid' })
+    expect(parseQuizScope({ book: B, ch: '1', text: 'nope' })).toEqual({ kind: 'invalid' })
+  })
+  it('invalid 는 문항이 없으므로 빈 상태', () => {
+    expect(quizPageMode(true, false)).toBe('empty')
   })
 })

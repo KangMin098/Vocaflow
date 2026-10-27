@@ -16,7 +16,7 @@ import Link from 'next/link'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { getChapterContent } from '@/lib/library/content-storage'
-import { quizPageMode, readOwnPassage, type OwnPassageDeps } from '@/lib/scriptquiz/own-passage'
+import { parseQuizScope, quizPageMode, readOwnPassage, type OwnPassageDeps } from '@/lib/scriptquiz/own-passage'
 import { fetchChapterQuizSession, fetchQuizSession } from '@/lib/scriptquiz/questions'
 import { createClient } from '@/lib/supabase/server'
 
@@ -30,44 +30,53 @@ export default async function ScriptQuizPlayPage({
   searchParams?: { ko?: string; text?: string; book?: string; ch?: string }
 }) {
   const showKorean = searchParams?.ko === '1'
-  const textId = searchParams?.text
-  const bookId = searchParams?.book
-  const chapterIdx = searchParams?.ch ? Number.parseInt(searchParams.ch, 10) : NaN
+  const scope = parseQuizScope({ book: searchParams?.book, ch: searchParams?.ch, text: searchParams?.text })
+  const textId = scope.kind === 'text' ? scope.textId : scope.kind === 'book' ? scope.textId : undefined
+  const bookId = scope.kind === 'book' ? scope.bookId : undefined
+  const chapterIdx = scope.kind === 'book' ? scope.chapterIdx : NaN
 
   let session: QuizSession | null = null
   let passageText: string | undefined
-  const isBookPath = Boolean(bookId && Number.isFinite(chapterIdx))
+  const isBookPath = scope.kind === 'book'
 
-  if (bookId && Number.isFinite(chapterIdx)) {
+  if (scope.kind === 'book') {
     // 큐레이션 챕터 퀴즈 — 공유(비로그인 게이트는 미들웨어). RPC 는 SECURITY DEFINER.
     const client = (await createClient()) as unknown as SupabaseClient<Database>
-    session = await fetchChapterQuizSession(client, bookId!, chapterIdx)
-    if (session && textId) passageText = await readOwnPassage(ownPassageDeps(client), textId, { bookId: bookId!, chapterIdx })
-  } else if (textId) {
+    session = await fetchChapterQuizSession(client, scope.bookId, scope.chapterIdx)
+    if (session && scope.textId)
+      passageText = await readOwnPassage(ownPassageDeps(client), scope.textId, { bookId: scope.bookId, chapterIdx: scope.chapterIdx })
+  } else if (scope.kind === 'text') {
     // 개인 스크립트 퀴즈 (quiz_questions · per user+text)
     const client = (await createClient()) as unknown as SupabaseClient<Database>
     const {
       data: { user },
     } = await client.auth.getUser()
     if (user) {
-      session = await fetchQuizSession(client, user.id, textId)
-      if (session) passageText = await readOwnPassage(ownPassageDeps(client), textId, null)
+      session = await fetchQuizSession(client, user.id, scope.textId)
+      if (session) passageText = await readOwnPassage(ownPassageDeps(client), scope.textId, null)
     }
   }
 
-  const scoped = isBookPath || Boolean(textId)
+  const scoped = scope.kind !== 'none'
+  const invalidScope = scope.kind === 'invalid'
   const backHref = textId ? `/text/${textId}` : isBookPath ? `/library/books/${bookId}` : '/scriptquiz'
   if (quizPageMode(scoped, session !== null) === 'empty') {
     return (
       <main className="mx-auto flex min-h-[60vh] max-w-xl flex-col items-start justify-center gap-4 px-6 py-16">
-        <h1 className="break-keep font-display text-[20px] font-[700] text-[var(--t1)]">이 글에는 아직 퀴즈가 없어요</h1>
+        <h1 className="break-keep font-display text-[20px] font-[700] text-[var(--t1)]">
+          {invalidScope ? '어느 글의 퀴즈인지 확인할 수 없어요' : '이 글에는 아직 퀴즈가 없어요'}
+        </h1>
         <p className="break-keep font-body text-[14px] leading-relaxed text-[var(--t2)]">
-          만들어진 문항이 없어서 문제를 보여 줄 수 없어요. 다른 글로 바꿔 보여 주지 않아요.
+          {invalidScope
+            ? '주소의 글·장 정보가 올바르지 않아요. 다른 글이나 다른 장으로 바꿔 보여 주지 않아요.'
+            : '만들어진 문항이 없어서 문제를 보여 줄 수 없어요. 다른 글로 바꿔 보여 주지 않아요.'}
         </p>
         <div className="flex gap-3">
-          <Link href={backHref} className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--on-p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
-            읽던 곳으로
-          </Link>
+          {backHref !== '/scriptquiz' && (
+            <Link href={backHref} className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--p)] px-4 font-display text-[13px] font-[600] text-[var(--on-p)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
+              읽던 곳으로
+            </Link>
+          )}
           <Link href="/scriptquiz" className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[600] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
             다른 퀴즈 고르기
           </Link>

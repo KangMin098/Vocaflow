@@ -537,6 +537,7 @@ flush 는 원래 `isComplete` 에만 걸려 있었다. ✕ · Esc · 뒤로가�
 스크립트 맥락 4지선다. Recognition + Transfer — 텍스트 단위 의미 통합 검증.
 
 ### 라우트
+- `/scriptquiz/play` 범위(T-0193): 읽기 화면 Quiz 는 그 챕터(`?book&ch&text`)·글(`?text`) 퀴즈로 연다. 채점 뒤 본문 문장 4개 중 근거를 고르면 **등록 근거와 대조만** 한다(정오 판정·기록·점수 아님). 본문은 본인 texts·같은 도서/챕터일 때만, 근거가 한 문장에 유일하게 대응할 때만 피커. 범위가 잘못됐거나(`ch=1junk` 등) 문항이 없으면 데모 대신 빈 상태. 범위 없음만 데모.
 - `/scriptquiz` — **확인 대기열** (v08.6 재설계) — server `page.tsx` → `lib/scriptquiz/queue.ts`(카탈로그 × `texts.status` × `scores`) → client `ScriptQuizQueue`.
   **읽은 챕터만** 내준다: 이전 `ScriptQuizHub`(삭제)는 카탈로그 129챕터를 전부 나열해 **미열람 41챕터의 줄거리를 스포일러**했다.
   구성 = 다음 한 걸음 1개(읽은 지 가장 오래된 미확인 챕터 · 간격 인출) + 책 카드(기본 접힘, 펼치면 읽은 챕터 칩) + 한영 토글

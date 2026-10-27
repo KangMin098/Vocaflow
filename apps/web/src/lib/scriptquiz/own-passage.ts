@@ -41,3 +41,31 @@ export function quizPageMode(scoped: boolean, hasSession: boolean): QuizPageMode
   if (hasSession) return 'quiz'
   return scoped ? 'empty' : 'demo'
 }
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+const INT_RE = /^(0|[1-9][0-9]*)$/
+
+export type QuizScope =
+  | { kind: 'none' }
+  | { kind: 'book'; bookId: string; chapterIdx: number; textId?: string }
+  | { kind: 'text'; textId: string }
+  /** 범위를 주었지만 확인할 수 없다 — 데모·다른 장·개인 퀴즈로 바꿔 해석하지 않는다 */
+  | { kind: 'invalid' }
+
+/**
+ * 퀴즈 범위 파라미터. **있음과 유효함을 나눈다** — book 만 있거나 ch 가 `bad`·`1junk`·`1.5` 이면
+ * 무범위(데모)나 절삭된 장(1)이 아니라 invalid. 숫자는 원문 전체가 안전 정수일 때만.
+ */
+export function parseQuizScope(params: { book?: string; ch?: string; text?: string }): QuizScope {
+  const has = (v: string | undefined) => v !== undefined
+  const { book, ch, text } = params
+  if (!has(book) && !has(ch) && !has(text)) return { kind: 'none' }
+  if (has(text) && !UUID_RE.test(text!)) return { kind: 'invalid' }
+  if (has(book) || has(ch)) {
+    if (!has(book) || !has(ch) || !UUID_RE.test(book!) || !INT_RE.test(ch!)) return { kind: 'invalid' }
+    const chapterIdx = Number(ch)
+    if (!Number.isSafeInteger(chapterIdx)) return { kind: 'invalid' }
+    return { kind: 'book', bookId: book!, chapterIdx, ...(has(text) ? { textId: text } : {}) }
+  }
+  return { kind: 'text', textId: text! }
+}
