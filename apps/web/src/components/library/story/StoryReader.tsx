@@ -78,6 +78,7 @@ import {
   unitLabel,
   type StoryNextAction,
 } from './story-view'
+import { markAfterSave, visibleVaultAfterHref, type StoryVaultAfterMark } from './story-vault-after'
 import { useStoryAuthGuard, type StoryAuthGuard, type StoryAuthSource, type StoryAuthStatus } from './use-story-auth-guard'
 
 export interface StoryReaderProps {
@@ -283,6 +284,10 @@ function ReadyReader({
     previousUnit.current = unitIndex
   }, [unitIndex])
 
+  // U03 — 이 화면에서 관측한 유효 저장(같은 세션)이 있을 때만 독서 후 「내 단어장 살펴보기」. 메모리 문맥뿐이다.
+  const [vaultMark, setVaultMark] = useState<StoryVaultAfterMark | null>(null)
+  const vaultAfterHref = visibleVaultAfterHref(vaultMark, { owner: session, verified, denied: snap.denied !== null })
+
   const [sourceOpen, setSourceOpen] = useState(false)
   const [selectedAnchor, setSelectedAnchor] = useState<number | null>(null)
   // 맥락 설명 열림(D4-UX02) — 진입 단추로 연 경우에만 돌아가기를 제공한다. 단위가 바뀌면 닫힌 채로 시작한다.
@@ -363,7 +368,13 @@ function ReadyReader({
     unit && actions.saveWord
       ? {
           vaultHref: storyVaultHref({ releaseKey, unitIndex: unit.unitIndex }),
-          call: ({ wordIndex, surface }: { wordIndex: number; surface: string }) => session.saveWord({ unitIndex: unit.unitIndex, wordIndex, surface }),
+          call: async ({ wordIndex, surface }: { wordIndex: number; surface: string }) => {
+            const href = storyVaultHref({ releaseKey, unitIndex: unit.unitIndex })
+            const out = await session.saveWord({ unitIndex: unit.unitIndex, wordIndex, surface })
+            // 세션이 이미 늦은 응답 · 거부 · 다른 주인을 stale 로 걸렀다 — 그 판정만 재사용한다(저장 · 멱등 재구현 없음).
+            setVaultMark((prev) => markAfterSave(prev, session, out, href))
+            return out
+          },
         }
       : null
 
@@ -495,7 +506,13 @@ function ReadyReader({
                   ) : null}
                 </div>
                 {view.fullyCompleted ? (
-                  <AfterCompletion otherWorks={state.otherWorks} releaseKey={releaseKey} navLocked={navLocked} onGo={go} />
+                  <AfterCompletion
+                    otherWorks={state.otherWorks}
+                    releaseKey={releaseKey}
+                    navLocked={navLocked}
+                    onGo={go}
+                    vaultHref={vaultAfterHref}
+                  />
                 ) : null}
                 <nav className={styles.navRow} aria-label="단위 이동">
                   {unit.unitIndex > 0 ? (
@@ -751,18 +768,21 @@ function EntryDetails({ release, source, withHelp = false }: { release: StoryCat
  * 전 단위 표시 뒤 다음 행동(D4-UX04) — 실제 공급에 맞춘다: 다른 작품이 있으면 서가에서 고르기, 없으면 그렇다고 말하고
  * 서가 둘러보기 · 처음부터 다시 보기(명시적 이동 — 기존 위치 기록 경로). 추천 · 다음 에피소드 · 다른 판본 승계를 만들지 않는다.
  */
-function AfterCompletion({
+export function AfterCompletion({
   otherWorks,
   releaseKey,
   navLocked,
   onGo,
   showRestart = true,
+  vaultHref = null,
 }: {
   otherWorks: number | null
   releaseKey: string
   navLocked: boolean
   onGo: (unitIndex: number, reason: StoryPositionReason) => void
   showRestart?: boolean
+  /** U03 — 이 화면에서 유효 저장을 관측했을 때만(기존 검증 왕복 주소). 서가 · 다시 읽기 뒤 마지막 보조 선택. */
+  vaultHref?: string | null
 }) {
   const wording = afterCompletionWording(otherWorks)
   return (
@@ -784,6 +804,11 @@ function AfterCompletion({
           >
             처음부터 다시 보기
           </PositionLink>
+        ) : null}
+        {vaultHref ? (
+          <Link href={vaultHref} className={styles.ctaQuiet} data-story-vault-after>
+            내 단어장 살펴보기
+          </Link>
         ) : null}
       </div>
     </div>

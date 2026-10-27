@@ -230,6 +230,8 @@
 ---
 ## Unreleased (v06.34 → next)
 - feat(r0): 같은 기사 발췌 연습 화면 `/practice/article/[articleId]` — 준비 모듈(contract · actions · ArticlePracticeBridge) 연결, 본인 글 화면에 검수 후보가 있을 때만 진입 링크. 제출은 loader 가 확인한 계정 · 본인 글 문맥과 지금이 같을 때만 RPC(계정 전환 뒤 B 의 같은 기사 글로 갈아타던 준비 코드 결함 수정), 화면은 신원이 같을 때만 문항 · 결과를 그리고 늦은 응답은 버린다. 실패 사유(설치 대기 · 안 연 글 · 판본 다름 · 문항 없음 · 조회 실패 · 인증 · 정지) 구별. 개발 확인 화면 `/dev/article-practice`.
+- fix(practice): DcpPlayer 오답 원인 1-tap 칩과 원인별 안내 링크 높이 36px → 44px(접근성 터치 대상). 채점 · 기록 무변경.
+- feat(story): 독서 후 선택 「내 단어장 살펴보기」 — 이 화면에서 같은 본인 · 판본 세션으로 낱말을 담았거나(이미 있음 포함) 확인된 때만, 전 단위 표시 뒤 서가 · 다시 읽기 다음 마지막 링크(기존 Story 왕복 주소). 메모리 문맥뿐 · 서버 쓰기 · DB 무변경(LCP_D5_INTEGRATION §12.4).
 - db(r0): 사용자 승인으로 `article_practice_items`(VOA Lincoln 267ef969 title · topic 검수 2문항, 정답 없이) · `submit_article_practice`(본인 글 · 현재 판본 · 후보 확인 → grade_dcp_item) 적용 — migration 20261027201035 · 20261027201103. 함수만, 테이블 · 데이터 변경 없음. 화면 진입점 미구현.
 - feat(recommend): 추천 P2 연결 — 본인이 열어 둔 개인 글(`texts` in_progress · 도서/묶음/출처 표지 없음 · updated_at 최신)을 「<제목> 이어 보기」로(`lib/recommend/own-reading.ts`, SELECT 만). 라벨 「이어 듣기」→「이어 보기」. 개인 글 추천은 그 응답의 계정과 브라우저 신원이 같다고 확인된 때만 그리고(`useStoryAuthGuard`), 확인 중 · 계정 전환 · 로그아웃 · 늦게 온 앞 계정 응답은 개인 글 없는 추천으로. 라이브러리 도서 · 기사 · 묶음 재개는 아직 아님. 개발 확인 화면 `/dev/next-action-identity`. DB 무변경.
 - feat(practice): 의미 선택 근거 짚기(`MeaningEvidence`)에 원래 발문 표시와 「다른 선택지 하나와 견주어 보기」(선택 · 접힘 기본) — 원래 선택지 하나를 고르고 두 선택지가 갈리는 본문 문장을 짚어 해설과 나란히. 판정 · 기록 · 조회 없음, 대상을 바꾸면 짚은 문장 초기화, 문항마다 새로. 제목 · 주제 등 중심 의미 유형만. DB 무변경.
