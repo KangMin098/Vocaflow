@@ -6,7 +6,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 const CIRCLED = ['①', '②', '③', '④', '⑤']
 
@@ -25,12 +25,18 @@ export function MeaningEvidence({
 }) {
   const [picked, setPicked] = useState<number | null>(null)
   const [skipped, setSkipped] = useState(false)
+  // 건너뛴 **그 순간 한 번만** 안내로 포커스를 옮긴다 — 매 렌더 ref 콜백으로 옮기면 부모가 다시 그릴 때마다
+  //   학습자가 Tab 으로 옮긴 포커스(다음 단추 등)를 빼앗았다(리뷰 P3)
+  const skippedRef = useRef<HTMLParagraphElement>(null)
+  useEffect(() => {
+    if (skipped) skippedRef.current?.focus()
+  }, [skipped])
 
   if (skipped) {
     return (
       // 건너뛰기 단추가 사라지며 포커스가 BODY 로 떨어졌다(Codex PC 실측) — 안내 문장이 포커스를 이어받는다
       <p
-        ref={(el) => el?.focus()}
+        ref={skippedRef}
         tabIndex={-1}
         className="break-keep rounded-[var(--r-md)] font-body text-[12.5px] leading-relaxed text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         data-testid="meaning-evidence-skipped"

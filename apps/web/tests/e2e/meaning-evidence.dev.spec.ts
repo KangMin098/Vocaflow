@@ -65,6 +65,12 @@ for (const width of WIDTHS) {
       await page.keyboard.press('Enter')
       await expect(page.getByTestId('meaning-evidence-skipped')).toBeVisible()
       expect(await page.evaluate(() => document.activeElement?.getAttribute('data-testid'))).toBe('meaning-evidence-skipped')
+      // 그 뒤 Tab 으로 옮긴 포커스는 다시 빼앗기지 않는다(재렌더 뒤에도)
+      await page.keyboard.press('Tab')
+      const moved = await page.evaluate(() => document.activeElement?.textContent ?? '')
+      await page.waitForTimeout(500)
+      expect(await page.evaluate(() => document.activeElement?.getAttribute('data-testid'))).not.toBe('meaning-evidence-skipped')
+      expect(await page.evaluate(() => document.activeElement?.textContent ?? '')).toBe(moved)
       await page.getByRole('button', { name: /다음/ }).click()
       // 빈칸 유형에는 근거 짚기가 없다
       await answer(page, 1)
