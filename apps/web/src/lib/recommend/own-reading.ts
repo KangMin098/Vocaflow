@@ -43,7 +43,7 @@ export function pickOwnInProgressText(rows: ReadonlyArray<OwnTextRow> | null | u
     const t = typeof r.updated_at === 'string' ? Date.parse(r.updated_at) : NaN
     return Number.isFinite(t) ? t : -Infinity
   }
-  ok.sort((a, b) => time(b) - time(a) || String(a.id).localeCompare(String(b.id)))
+  ok.sort((a, b) => time(b) - time(a) || (String(a.id) < String(b.id) ? -1 : String(a.id) > String(b.id) ? 1 : 0))
   const top = ok[0]
   return top ? { id: String(top.id), title: String(top.title).trim() } : null
 }
