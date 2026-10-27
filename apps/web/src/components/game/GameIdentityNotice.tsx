@@ -7,11 +7,17 @@
  * - changed: 다른 계정 로그인 · 로그아웃 — 게임을 내렸다(그 판은 기록하지 않는다 · 되살리지 않는다).
  * 다시 열기는 전체 이동(<a>) — 서버 · 브라우저가 지금 계정으로 단어를 다시 읽는다. uid 는 DOM · URL 에 싣지 않는다.
  */
+import { usePathname, useSearchParams } from 'next/navigation'
+
 import type { StoryAuthStatus } from '@/components/library/story/use-story-auth-guard'
 import { loginUrlWithReturn } from '@/lib/auth/redirect'
 
-export function GameIdentityNotice({ status, reopenHref }: { status: Exclude<StoryAuthStatus, 'same'>; reopenHref: string }) {
+export function GameIdentityNotice({ status, reopenHref: given }: { status: Exclude<StoryAuthStatus, 'same'>; reopenHref?: string }) {
   const changed = status === 'changed'
+  // 다시 열기 = 지금 이 판 주소. 서버 · 클라이언트가 같은 값을 그리도록 라우터 훅으로 만든다(window 를 읽으면 수화 불일치).
+  const pathname = usePathname()
+  const qs = useSearchParams()?.toString()
+  const reopenHref = given ?? (qs ? `${pathname}?${qs}` : pathname)
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-24 text-center" data-game-private={status} role="status" aria-live="polite">
       <h1 className="break-keep font-editorial text-[16px] font-[700] text-[var(--t1)]">
