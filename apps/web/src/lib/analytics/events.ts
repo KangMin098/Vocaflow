@@ -24,6 +24,8 @@ type LevelValue = 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10 | null
  * "지문이 샐 수 없다" 의 구조적 근거다.
  */
 export type PublicEvent =
+  | { name: 'csat_summary_opened'; props: { evidence_count: number; conditions_count: number } }
+  | { name: 'csat_summary_explored'; props: { action: 'stage' | 'evidence' | 'condition'; index: number } }
   /** `/fit` 진입 — 퍼널의 분모 */
   | { name: 'fit_viewed'; props: { shared: boolean } }
   /** 분석 1회 완료 — "실제로 써 봤다" */
@@ -235,7 +237,7 @@ export type PublicEvent =
   | {
       name: 'csat_resume_clicked'
       /** map_check · map_plan = 지도 홈 첫 제안의 「지도에서 하던 일」(v3 M1 후속) */
-      props: { kind: 'set' | 'review' | 'comeback' | 'start' | 'map_check' | 'map_plan'; from: 'home' | 'today' | 'record' }
+      props: { kind: 'set' | 'review' | 'comeback' | 'start' | 'map_check' | 'map_plan'; from: 'home' | 'today' | 'record' | 'rail' }
     }
   /** 복습 세션을 시작했다 / 끝냈다. `substituted` = 같은 공식의 **다른 문항**으로 냈는가(외운 답 차단). */
   | {
@@ -272,14 +274,18 @@ export type PublicEvent =
   | {
       name: 'csat_path_chosen'
       props: {
-        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder'
+        axis: 'need' | 'type' | 'exam' | 'menu' | 'purpose' | 'finder' | 'map_detail' | 'workspace_view' | 'home_panel'
         need: 'start' | 'killer' | 'trap' | 'evidence' | 'recent' | 'none'
         /** axis=menu 일 때만 — 어느 상시 메뉴 */
-        menu?: 'map' | 'browse'
+        menu?: 'map' | 'browse' | 'continue' | 'record' | 'diagnosis' | 'formulas' | 'practice'
         /** axis=finder 일 때만 — 연 자리 */
         origin?: 'item' | 'compare' | 'browse' | 'home'
         /** axis=finder 일 때만 — open(열기) · cancel(취소/닫기/뒤로) · same(지금 문항) · go(다른 문항 탐구) · apply(서가에 적용) · browse(전체 서가로) */
         action?: 'open' | 'cancel' | 'same' | 'go' | 'apply' | 'browse'
+        /** Existing DB event name; map/workspace UI selections use closed properties only. */
+        source?: 'task' | 'workspace'
+        tab?: 'overview' | 'evidence' | 'plan'
+        view?: 'board' | 'list' | 'workspace' | 'map'
       }
     }
   /** 문항 해설에서 목록으로 돌아갔다(막다른 길 해소). */
@@ -306,7 +312,6 @@ export type PublicEvent =
   | { name: 'csat_meaning_depth_changed'; props: { depth: 'brief' | 'why' | 'deep' } }
   | { name: 'csat_meaning_relation_opened'; props: { kind: 'add' | 'example' | 'contrast' | 'concession' | 'cause' | 'condition' | 'reference' | 'temporal' | 'purpose' | 'other'; from: 'unit' | 'trace' } }
   | { name: 'csat_meaning_whole_traced'; props: { target: 'step' | 'link' | 'boundary' } }
-  | { name: 'csat_meaning_draft_compared'; props: { length: 'lt50' | 'lt200' | 'gte200' } }
   | { name: 'csat_meaning_bridge_followed'; props: { scene: 'judgment' | 'design' } }
   | { name: 'csat_map_node_opened'; props: { kind: 'goal' | 'axis' | 'line' | 'principle' | 'track' | 'task' } }
   | { name: 'csat_map_goal_set'; props: { goal: number } }
@@ -317,6 +322,18 @@ export type PublicEvent =
    */
   | { name: 'csat_workspace_opened'; props: { workspace: 'central-meaning' | 'option-match' | 'evidence-locate' | 'cohesion' | 'none'; reason: 'goal_need' | 'verified_need' | 'checking' | 'axis_check_first' | 'available' | 'none'; goal_set: boolean } }
   | { name: 'csat_workspace_suggestion_applied'; props: { workspace: 'central-meaning' | 'option-match' | 'evidence-locate' | 'cohesion'; stage: 'check' | 'recheck' } }
+  /**
+   * 단계 1D — Workspace 로 납품된 공장 DCP 안내 연습(중심 의미). 질문: 받은 자료를 실제로 열고 · 풀고 · Workspace 로 돌아가는가.
+   * 납품 · 문항 · 응답 id 와 본문은 보내지 않는다(D3). 연습 정오는 목표 달성 · 향상 근거가 아니다(evidence=false).
+   * DB 허용 목록은 `_pending_factory_dcp_learning.sql`(미적용 — 적용 전에는 서버가 거절해 0건이다).
+   */
+  | { name: 'csat_factory_dcp_opened'; props: { type: 'topic' | 'title' | 'main_point'; attempts: number } }
+  | { name: 'csat_factory_dcp_submitted'; props: { type: 'topic' | 'title' | 'main_point'; correct: boolean; replayed: boolean } }
+  | { name: 'csat_factory_dcp_returned'; props: { finished: boolean } }
+  /** 2F — Workspace 카드의 공장 연습 자료 요청 결과. id · 자유 문자열 없음. 허용 목록 `_pending_factory_dcp_learning.sql`(미적용) */
+  | { name: 'csat_factory_dcp_requested'; props: { outcome: 'delivered' | 'waiting_link' | 'waiting_approval' | 'not_in_stage' | 'failed' } }
+  /** 2B — 한 원문 안내 연습의 자기 설명이 저장됐다(형성 피드백 근거 충분/함께 검토). DB 허용 목록 `_pending_source_lesson_reflection.sql`(미적용) */
+  | { name: 'csat_source_lesson_reflected'; props: { step: 'main_point' | 'title' | 'topic'; support: 'sufficient' | 'discussable'; replayed: boolean } }
   /**
    * 기출 해설에서 근거 하나를 열었다 — **「클릭/클릭/클릭」이 실제로 일어나는가.**
    *
@@ -458,6 +475,29 @@ export type PublicEvent =
    * (닫힌 목록 · 동적 세그먼트는 `text-workspace` 처럼 접힌 이름)이고, 목록 밖이면 `'other'`.
    * 경로 원문·id·쿼리는 실리지 않는다. 회귀가 모든 id 가 `isSafeProps` 를 넘는지 검사한다.
    */
+  /**
+   * **LCP Story 서가(`/library/stories`) 진입 · 실제 수 — docs/LCP_STORY.md §17.** 진입 화면 자체는 `screen_viewed`(library-stories)가
+   * 세고, 이것은 서가 데이터를 실제로 받은 **뒤** 한 번 보낸다(조회 실패 때는 보내지 않는다 — 실패를 「0편」으로 세지 않는다).
+   * 작품 · 판본 수는 서버가 받은 실제 행 수다. 작품 키 · 발행 키 · 제목은 싣지 않는다.
+   * ⚠️ DB `funnel_events_event_check` 허용 목록은 S5 SQL 승인 · 적용 전이라 아직 이 이름을 받지 않는다(코드만 먼저 · 대기).
+   */
+  | { name: 'story_catalog_viewed'; props: { works: number; editions: number; signed_in: boolean } }
+  /**
+   * **LCP Story 독서 행동 — 닫힌 목록.** start · resume · navigate 는 위치 기록 RPC 가 성공한 뒤, unit_complete 는 단위 완료 RPC 가
+   * 성공한 뒤에만 보낸다(저장 실패를 성공으로 세지 않는다). source_open 은 원문 대응을 연 때, edition_switch 는 같은 작품의
+   * 다른 판본으로 가는 링크를 누른 때다. `completed` = 그 행동 뒤 이 발행본의 전 단위 완료 여부(각색 완료 · 원문 완독 · 숙달 · FSRS 아님).
+   * 발행 키 · 제목 · 원문 URL · 인용 · 사용자 id 는 싣지 않는다. DB 허용 목록은 위와 같이 대기.
+   */
+  | {
+      name: 'story_reader_action'
+      props: {
+        action: 'start' | 'resume' | 'navigate' | 'unit_complete' | 'source_open' | 'edition_switch'
+        kind: 'story_edition' | 'easy_reader'
+        coverage: 'complete_work' | 'episode' | 'excerpt'
+        unit_index: number
+        completed: boolean
+      }
+    }
   | {
       name: 'screen_viewed'
       props: {
@@ -560,6 +600,8 @@ export type PublicEventName = PublicEvent['name']
  *    Record 로 적으면 이름을 하나라도 빠뜨렸을 때 **타입 검사가 막는다.**
  */
 const EVENT_REGISTRY: Record<PublicEventName, true> = {
+  csat_summary_opened: true,
+  csat_summary_explored: true,
   fit_viewed: true,
   fit_analyzed: true,
   fit_shared: true,
@@ -604,13 +646,19 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   csat_meaning_depth_changed: true,
   csat_meaning_relation_opened: true,
   csat_meaning_whole_traced: true,
-  csat_meaning_draft_compared: true,
   csat_meaning_bridge_followed: true,
   csat_map_node_opened: true,
   csat_map_goal_set: true,
   csat_map_task_toggled: true,
   csat_workspace_opened: true,
   csat_workspace_suggestion_applied: true,
+  csat_factory_dcp_opened: true,
+  csat_factory_dcp_submitted: true,
+  csat_factory_dcp_returned: true,
+  csat_factory_dcp_requested: true,
+  csat_source_lesson_reflected: true,
+  story_catalog_viewed: true,
+  story_reader_action: true,
   screen_viewed: true,
   video_started: true,
   video_completed: true,

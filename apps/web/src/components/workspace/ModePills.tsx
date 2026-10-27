@@ -83,6 +83,8 @@ interface ModePillsProps {
    * 허브가 ?set/?text 를 받아 모든 카드에 실어주므로(v07.8) 이 자료의 단어가 게임 19종 전부에 연결된다.
    */
   arcadeHref: string
+  /** "Quiz" 목적지 — 이 글·챕터의 퀴즈(근거 문장 짚기 포함). 없으면 ScriptQuiz 허브 */
+  quizHref?: string
 }
 
 /** 상태 점 — 현재(흰 점 · 그룹색 바탕 위) · 완료(그룹색 채움) · 미시작(그룹색 테두리) */
@@ -108,6 +110,7 @@ export function ModePills({
   flashcardHref,
   wordblitzHref,
   arcadeHref,
+  quizHref,
 }: ModePillsProps) {
   const [openGroup, setOpenGroup] = useState<GroupKey | null>(null)
   const navRef = useRef<HTMLElement>(null)
@@ -131,7 +134,9 @@ export function ModePills({
               ? withReturn(wordblitzHref)
               : key === 'arcade'
                 ? withReturn(arcadeHref)
-                : TEXT_SCOPED_ROUTES[key]
+                : key === 'quiz' && quizHref
+                  ? withReturn(quizHref)
+                  : TEXT_SCOPED_ROUTES[key]
                   ? withReturn(TEXT_SCOPED_ROUTES[key]!(textId))
                   : (MODULE_ROUTES[key] ?? `/text/${textId}?mode=${key}`)
 

@@ -1,0 +1,143 @@
+{
+  "source": "csat_items+csat_item_units (published analysis units_version)",
+  "items": [
+    {
+      "id": "H2609G2#26",
+      "examId": "H2609G2",
+      "no": 26,
+      "typeId": "R-FACT",
+      "stem": "Frederick Law Olmsted에 관한 다음 글의 내용과 일치하지 않는 것은?",
+      "choices": [
+        "어렸을 때 아버지와 시골로 여행을 다녔다.",
+        "14세에 Yale College에 입학했다.",
+        "1858년에 뉴욕시 Central Park 설계 공모전에서 당선되었다.",
+        "Civil War 기간 중 미국 Sanitary Commission에서 일했다.",
+        "Brookline에 있는 집과 사무실이 National Historic Site로 지정되었다."
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "Frederick Law Olmsted, known as the father of American landscape architecture, was born in 1822."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "When Olmsted was young, he often went on trips to the countryside with his father, who loved scenery."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "At age 14, he was preparing himself to study at Yale College, but he could not enter due to a severe sumac poisoning that damaged his eyesight."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "Instead of attending a college, he gained experience working as a clerk, a sailor, and a farmer."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "In 1858, he worked with Calvert Vaux and won the design competition for New York City’s Central Park with the “Greensward Plan.”"
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "During the Civil War, Olmsted served as General Secretary of the United States Sanitary Commission."
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "Although he passed away in 1903, his sons and successors continued his design philosophy."
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "sentence",
+          "text": "In 1979, the National Park Service designated his home and office in Brookline, Massachusetts, as a National Historic Site to honor his legacy."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "021f7caa1c7c36d4b13249eeb817863392f78190c1b904215e4e26079b6e6e9e",
+        "analysisVersion": 2
+      }
+    },
+    {
+      "id": "H2609G1#26",
+      "examId": "H2609G1",
+      "no": 26,
+      "typeId": "R-FACT",
+      "stem": "Paul Farmer에 관한 다음 글의 내용과 일치하지 않는 것은?",
+      "choices": [
+        "Duke University에 다니는 동안 반년간 파리에 살았다.",
+        "Cangé에 있는 병원에서 자원봉사 활동을 했다.",
+        "1987년에 Partners In Health를 공동 설립했다.",
+        "생애 동안 10권이 넘는 책과 100편이 넘는 학술 논문을 저술했다.",
+        "WHO DirectorGeneral’s Global Health Leaders Award를 생전에 수상했다."
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "Paul Farmer was an American medical anthropologist and physician."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "He was born in 1959 in Massachusetts and grew up with an early awareness of social inequality."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "During his time at Duke University, he lived in Paris for half a year and became fluent in French, which benefited him in his future work in Haiti."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "After graduating from Duke University, he began volunteer work at a hospital in Cangé, Haiti."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "He later returned to the United States and earned both a master’s degree and a PhD in medical anthropology at Harvard University."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "In 1987, he co founded Partners In Health, an organization that works in countries like Haiti, Rwanda, and Peru to provide medical treatment and strengthen public health systems."
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "Throughout his life, he wrote more than ten books and over a hundred academic papers."
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "sentence",
+          "text": "He received many major awards during his career, and after his death, he was also honored with the WHO Director General’s Global Health Leaders Award for his lifelong work to improve health for the poor."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "9398f1354091974e1ab5ee2377a0eee25b730aa6b36ebeb46d75fae57d904e5a",
+        "analysisVersion": 2
+      }
+    }
+  ]
+}

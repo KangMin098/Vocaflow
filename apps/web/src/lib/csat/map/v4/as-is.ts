@@ -13,7 +13,7 @@
 
 import { isEligible } from '@/lib/knowledge/effect-signals'
 import type { FindAttemptRow } from '@/lib/knowledge/find-outcome'
-import { skillDiagnosis, type SkillStatus } from '../skill-diagnosis'
+import { reachPolicyOf, skillDiagnosis, type SkillStatus } from '../skill-diagnosis'
 
 import { CANON_EFFECTIVE_FROM, CANON_VERSION, DOMAINS, RULE_VERSION, evidenceKeysOfTask, tasks, type Domain, type TaskId } from './definition'
 import type { DirectCheck } from './types'
@@ -35,6 +35,10 @@ export interface AsIsSession {
   diagnosable: boolean
   /** 시험의 문항 진단 입력이 사람 검수를 마쳤나(csat_exams.diagnosis_ready) */
   examReady: boolean
+  /** GOAL-ACHIEVEMENT 3차 — 목표 시험 종류(v62/goal-outcome examScopeOf). As-Is 판정은 읽지 않는다 */
+  examScope?: 'suneung' | 'kice6' | 'kice9' | 'hakpyeong' | null
+  mode?: 'live' | 'retake' | 'app' | 'diagnostic' | null
+  firstExposure?: 'unseen' | 'exposed' | 'unknown'
 }
 
 export interface AsIsCheck {
@@ -42,6 +46,8 @@ export interface AsIsCheck {
   taskKey: string
   /** 그 키의 확인 문항(보류 문항은 이미 빠진 목록) */
   items: string[]
+  /** 문항 → 지문 정체(알 때만) — 서로 다른 지문 조건에 쓴다 */
+  passages?: Record<string, string | null>
 }
 
 export interface AsIsInput {
@@ -137,6 +143,8 @@ const SKILL_TO_TASK: Record<SkillStatus, TaskEvidence | null> = {
   verified: 'verified_need',
   still_needed: 'verified_need',
   resolved: 'resolved',
+  // D4-DEC-01 — 초기 확인 통과 · 다른 날 재확인 전: 학습 요구(처방)는 닫고 확인 진행 중으로(도달 아님)
+  pending_delayed: 'checking',
   expired: 'expired',
 }
 
@@ -208,11 +216,12 @@ export function asIsMap(input: AsIsInput): AsIsMap {
     }
     // 직접 확인 — 이 TASK 를 중심으로 겨누는 확인 과제 키가 있고, 확인 문항이 실제로 연결돼 있을 때만
     const keys = new Set(evidenceKeysOfTask(t.id))
-    const targets = input.checks.filter((c) => keys.has(c.taskKey)).flatMap((c) => c.items.map((itemRef) => ({ itemRef, taskKey: c.taskKey })))
+    const targets = input.checks.filter((c) => keys.has(c.taskKey)).flatMap((c) => c.items.map((itemRef) => ({ itemRef, taskKey: c.taskKey, passageKey: c.passages?.[itemRef] ?? null })))
     let check: AsIsTask['check'] = null
     let fromCheck: TaskEvidence | null = null
     if (targets.length > 0) {
-      const d = skillDiagnosis(targets, attempts, at)
+      // T-0096 — 코드북 도달 조건(서로 다른 지문 · 다른 날) · 관찰 제한(E3 · R2)을 판정에 반영(정본 문장에서 도출)
+      const d = skillDiagnosis(targets, attempts, at, reachPolicyOf(t.criterion))
       const mine = attempts.filter((a) => targets.some((x) => x.itemRef === a.itemRef && x.taskKey === a.taskKey))
       // skill-diagnosis 와 같은 자격(확인 과제 · 독립 첫 시도 · 정오 있음) — 연습 화면 기록 · 합성 · 도움 받은 시도는 세지 않는다
       const independent = new Set(mine.filter((a) => a.activity !== 'practice' && a.phase === 'practice' && isEligible(a) && a.isCorrect !== null && !!a.answeredAt).map((a) => a.itemRef))

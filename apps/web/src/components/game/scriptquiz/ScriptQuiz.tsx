@@ -12,7 +12,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
-import { MOCK_SESSION } from './mock-data'
+import { MOCK_PASSAGE, MOCK_SESSION } from './mock-data'
 import type { AnswerState, QuizAnswer, QuizQuestion, QuizScreen, QuizSession } from './types'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
@@ -21,6 +21,8 @@ import type { RecommendedAction } from '@/lib/recommend/types'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import { recordGameScore } from '@/lib/scores/record-score'
 import { gradeScriptQuizAnswer, type ScriptQuizGrade } from '@/lib/scriptquiz/grade-actions'
+import { buildEvidenceChoice, type EvidenceChoice } from '@/lib/scriptquiz/evidence'
+import { EvidencePicker, type EvidencePick } from './EvidencePicker'
 import { pushPendingTextResult } from '@/lib/srs/session-storage'
 
 // ══════════════════════════════════════════════════════════════
@@ -64,10 +66,15 @@ export interface ScriptQuizProps {
   textId?: string
   /** 실 퀴즈 세션 (quiz_questions). 미지정 시 MOCK_SESSION 폴백(데모/문제 미생성). */
   session?: QuizSession
+  /** 이 퀴즈의 본문(본인이 읽는 글·챕터). 있으면 채점 뒤 근거 문장 짚기를 띄운다 — 정답·근거는 들어 있지 않다. */
+  passageText?: string
+  /** 결과 화면의 「돌아갈 곳」 — 서버(play/page)가 본인 글·범위를 확인했을 때만 */
+  returnTo?: QuizReturnTarget
 }
 
-export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }: ScriptQuizProps = {}) {
+export function ScriptQuiz({ showKorean = false, textId, session: sessionProp, passageText, returnTo }: ScriptQuizProps = {}) {
   const session = sessionProp ?? MOCK_SESSION
+  const passage = sessionProp ? passageText : MOCK_PASSAGE
 
   // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
   const recommendation = useNextAction()
@@ -84,9 +91,21 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
   const [graded, setGraded] = useState<{ correctIndex: number; sourceSnippet: string } | null>(null)
   /** 채점을 **못 한** 이유. 오답이 아니다 — 같은 값으로 뭉개면 맞힌 사람에게 틀렸다고 말한다. */
   const [gradeError, setGradeError] = useState<string | null>(null)
+  /** 채점 뒤 근거 문장 짚기 — 문항마다 새로. 기록·점수에 넣지 않는다. */
+  const [evidencePick, setEvidencePick] = useState<EvidencePick>(null)
 
   const currentQ = session.questions[currentIdx]
   const totalQ = session.questions.length
+
+  // 근거 후보는 **채점 뒤에만** 만든다 — 근거는 그때 서버가 이 문항 하나에 대해서만 준다.
+  const evidenceChoice = useMemo<EvidenceChoice | null>(
+    () =>
+      answerState === 'answered' && graded && passage
+        ? buildEvidenceChoice(passage, graded.sourceSnippet, currentQ.id)
+        : null,
+    [answerState, graded, passage, currentQ?.id],
+  )
+  const pickingEvidence = evidenceChoice !== null && evidencePick === null
 
   // ── 타이머 ──
   // 채점을 기다리는 동안(`grading`)과 채점 실패 뒤에는 멈춘다 — 안 그러면 네트워크가
@@ -108,6 +127,15 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
   useEffect(() => {
     if (screen !== 'question' || answerState !== 'answered') return
     const handler = (e: KeyboardEvent) => {
+      // 근거를 고르는 동안에는 Enter/Space 가 포커스된 문장 버튼을 누른다 — 다음으로 넘기지 않는다.
+      if (pickingEvidence && evidenceChoice) {
+        const num = parseInt(e.key, 10)
+        if (!isNaN(num) && num >= 1 && num <= evidenceChoice.sentences.length) {
+          e.preventDefault()
+          setEvidencePick(num - 1)
+        }
+        return
+      }
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault()
         goNext()
@@ -116,7 +144,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screen, answerState, currentIdx, answers])
+  }, [screen, answerState, currentIdx, answers, pickingEvidence, evidenceChoice])
 
   // ── 키보드 단축키 (1~4 / O,X) ──
   useEffect(() => {
@@ -159,6 +187,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
     setAnswers([])
     setGraded(null)
     setGradeError(null)
+    setEvidencePick(null)
     setFeedback(null)
     setSecondsLeft(QUESTION_TIME_LIMIT)
     setQuestionStartedAt(Date.now())
@@ -227,6 +256,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
     setAnswerState('idle')
     setGraded(null)
     setGradeError(null)
+    setEvidencePick(null)
     setFeedback(null)
     setSecondsLeft(QUESTION_TIME_LIMIT)
     setQuestionStartedAt(Date.now())
@@ -295,6 +325,9 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
           onSelect={handleAnswer}
           onNext={goNext}
           showKorean={showKorean}
+          evidenceChoice={evidenceChoice}
+          evidencePick={evidencePick}
+          onEvidencePick={setEvidencePick}
         />
       )}
 
@@ -307,6 +340,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
           answers={answers}
           onRetry={startQuiz}
           recommendation={recommendation}
+          returnTo={sessionProp ? returnTo : undefined}
         />
       )}
 
@@ -459,6 +493,9 @@ function QuestionScreen({
   onSelect,
   onNext,
   showKorean = false,
+  evidenceChoice = null,
+  evidencePick = null,
+  onEvidencePick,
 }: {
   questionIdx: number
   totalQ: number
@@ -474,6 +511,9 @@ function QuestionScreen({
   onSelect: (idx: number) => void
   onNext: () => void
   showKorean?: boolean
+  evidenceChoice?: EvidenceChoice | null
+  evidencePick?: EvidencePick
+  onEvidencePick?: (pick: number | 'skip') => void
 }) {
   const progressPct = ((questionIdx + 1) / totalQ) * 100
   const timeColor =
@@ -596,7 +636,10 @@ function QuestionScreen({
                 </span>
               </p>
             )}
-            {graded?.sourceSnippet && (
+            {evidenceChoice && onEvidencePick && (
+              <EvidencePicker choice={evidenceChoice} pick={evidencePick} onPick={onEvidencePick} />
+            )}
+            {graded?.sourceSnippet && (!evidenceChoice || evidencePick !== null) && (
               <div>
                 <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                   스크립트 근거
@@ -804,13 +847,27 @@ function QuestionScreen({
 // ══════════════════════════════════════════════════════════════
 // Result Screen
 // ══════════════════════════════════════════════════════════════
-function ResultScreen({
+/** 결과 한 줄 — 맞힌 수와 다시 볼 문항만. 이해·기억 향상을 말하지 않는다. */
+export function resultFeedback(correct: number, total: number): string {
+  if (total <= 0) return '이번 퀴즈에는 채점된 문항이 없어요.'
+  if (correct >= total) return `${total}문제 모두 맞혔어요. 이번 퀴즈의 결과예요.`
+  if (correct <= 0) return '이번에는 맞힌 문항이 없어요. 아래에서 정답과 근거를 다시 확인해 보세요.'
+  return `${total}문제 중 ${correct}문제를 맞혔어요. 아래 ${total - correct}문제의 정답과 근거를 다시 확인해 보세요.`
+}
+
+export interface QuizReturnTarget {
+  href: string
+  label: string
+}
+
+export function ResultScreen({
   totalQ,
   stats,
   questions,
   answers,
   onRetry,
   recommendation,
+  returnTo,
 }: {
   totalQ: number
   stats: { correct: number; wrong: number; accuracy: number; avgTimeSec: number }
@@ -818,6 +875,8 @@ function ResultScreen({
   answers: QuizAnswer[]
   onRetry: () => void
   recommendation?: RecommendedAction
+  /** 서버가 확인한 돌아갈 곳(본인 글·같은 장이면 그 글, 도서만이면 도서 입구). 없으면 버튼 없음 */
+  returnTo?: QuizReturnTarget
 }) {
   // ⚠️ **문항이 아니라 답에서 만든다.** 예전에는 틀린 문항의 `question` 과 `sourceSnippet`
   //   만 그리고 **정답도, 내가 고른 것도 안 보여 줬다** — 즉 틀린 문항의 정답을 알 경로가
@@ -827,13 +886,9 @@ function ResultScreen({
     .map((a) => ({ answer: a, question: questions.find((q) => q.id === a.questionId) }))
     .filter((x): x is { answer: QuizAnswer; question: QuizQuestion } => x.question !== undefined)
 
-  // 격려 메시지 — 공감 피드백
-  const encouragement =
-    stats.accuracy >= 90
-      ? '훌륭한 흐름이에요. 스크립트를 깊이 이해하셨네요.'
-      : stats.accuracy >= 70
-        ? '탄탄한 회상이었어요. 오답은 곧 익숙해질 거예요.'
-        : '괜찮아요, 인지적 분투는 기억을 단단하게 만들어요.'
+  // 결과 문구 — 이번 퀴즈에서 실제로 일어난 것만 말한다(T-0193 후속).
+  //   예전 문구(「깊이 이해하셨네요」「인지적 분투는 기억을 단단하게」)는 한 번의 점수로 이해·장기 기억을 단정했다.
+  const encouragement = resultFeedback(stats.correct, totalQ)
 
   // SVG 점수 링 — strokeDashoffset 애니메이션
   const radius = 70
@@ -985,7 +1040,7 @@ function ResultScreen({
           <div className="mt-8">
             <NextActionCard
               recommendation={recommendation}
-              prelude="이 스크립트를 잘 다뤘어요. 다음으로 어떤 학습을 해볼까요?"
+              prelude="다음으로 어떤 학습을 해볼까요?"
             />
           </div>
         )}
@@ -999,11 +1054,23 @@ function ResultScreen({
             <RefreshCw size={14} aria-hidden />
             다시 풀기
           </button>
+          {returnTo && (
+            <Link
+              href={returnTo.href}
+              data-testid="result-return"
+              className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] sm:w-auto"
+            >
+              {returnTo.label}
+              <ArrowRight size={14} aria-hidden />
+            </Link>
+          )}
+          {/* 이 퀴즈의 오답과 연결된 단어 묶음은 없다 — 목적지를 사실대로 「전체 단어장」 이라 부른다. */}
           <Link
             href="/wordvault"
-            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--p)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--on-p)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--p-hover)] sm:w-auto"
+            data-testid="result-wordvault"
+            className="inline-flex w-full items-center justify-center gap-2 rounded-[var(--r-md)] border-2 border-[var(--bd)] bg-[var(--bg)] px-6 py-3 font-display text-[14px] font-[700] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] sm:w-auto"
           >
-            오답 단어 학습으로
+            전체 단어장으로
             <ArrowRight size={14} aria-hidden />
           </Link>
         </footer>

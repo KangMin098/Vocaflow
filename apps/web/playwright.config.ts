@@ -15,6 +15,8 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 0,
   workers: 1,
   reporter: [
+    // 맨 앞 — 다른 reporter 가 읽기 전에 인증 세션 흔적을 가린다(2026-10-26 쿠키 노출)
+    ['./tests/e2e/utils/secret-redact-reporter.ts'],
     ['list'],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
     ['json', { outputFile: 'playwright-report/results.json' }],

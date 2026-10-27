@@ -7,16 +7,18 @@
 /* 참조(3B) 색·서체 — 극장 안에서만 토큰을 덮는다. 앱의 크림·세리프·보라 대신
    흰 면 + 쿨 그레이 + Inter + 검정 글자, 코드 칩은 주황, 카드는 블루그레이·민트·라벤더. */
 .workspace {
-  --bg: #ffffff;
-  --bg2: #f7f6f3;
-  --bg3: #efeee9;
-  --bd: #e6e4df;
-  --t1: #18181b;
-  --t2: #52525b;
+  --bg: var(--csat-panel, #ffffff);
+  --bg2: var(--csat-canvas, #f7f6f3);
+  --bg3: var(--csat-soft, #efeee9);
+  --bd: var(--csat-line, #e6e4df);
+  --t1: var(--csat-ink, #18181b);
+  --t2: var(--csat-ink2, #52525b);
   /* 참조값 #8e8e96 은 #f7f6f3 위 3.0:1 — 11px 시간 · 알약 · 범례가 WCAG AA 미달(axe 2026-10-10). 접근성이 참조보다 앞선다 */
-  --t3: #6c6c72;
-  --p: #7c5cfa;
+  --t3: var(--csat-muted, #6c6c72);
+  --p: var(--csat-accent, #7c5cfa);
   --p-light: #f1edfe;
+  /* --p(#7c5cfa) 글자는 --p-light 위 3.83:1 · 흰 바탕 4.4:1 — AA 미달(axe 2026-10-26 · T-0181). 작은 강조 글자는 한 단계 진하게(5.8 · 6.7:1) */
+  --p-ink: var(--csat-accent-ink, #5b3fd6);
   --on-p: #ffffff;
   --ju: #16a34a;
   --ju-light: #e8f5ec;
@@ -90,8 +92,28 @@
 }
 .play:hover { opacity: .88; }
 
+/* 강의 안내 줄 — 강의를 시작한 뒤로 고정 높이로 남는다(따라가기 토글 · 강의가 설명 중인 장면으로 가기). 옮길지는 학습자가 고른다 */
+.lectureOffer { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; min-height: 56px; padding: 6px 16px; background: var(--bg2); border-top: 1px solid var(--bd); }
+.lectureOffer:focus-visible { outline: 2px solid var(--p); outline-offset: -2px; }
+.lectureOfferBtn[aria-pressed='true'] { border-color: var(--p); }
+/* 정답 공개 경로 고르기 · 경계 정지 — 학습자가 고를 때까지 어떤 강의도 틀지 않는다 */
+.lectureChooser { display: grid; gap: 8px; padding: 12px 16px; background: var(--bg); border-top: 1px solid var(--bd); border-bottom: 1px solid var(--bd); }
+.chooserTitle { margin: 0; font-size: 14px; font-weight: 600; color: var(--t1); }
+.chooserTitle:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
+.chooserNote { margin: 0; font-size: 12.5px; line-height: 1.6; color: var(--t2); word-break: keep-all; }
+.chooserRow { display: flex; flex-wrap: wrap; gap: 8px; }
+.srOnly { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+.lectureOfferBtn {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); color: var(--t1); font-size: 12.5px; cursor: pointer;
+  transition: border-color var(--dur-fast, 120ms) var(--ease);
+}
+.lectureOfferBtn:hover { border-color: var(--p); }
+.lectureOfferBtn:focus-visible { outline: 2px solid var(--p); outline-offset: 2px; }
+
 /* ── 본문 2열 ─────────────────────────────────────────── */
-.body { display: grid; grid-template-columns: var(--paper-w, clamp(304px, 24.45vw, 360px)) minmax(0, 1fr); flex: 1; min-height: 0; }
+/* 원문 열 기본 폭(--paper-w 가 걸리기 전 첫 그림)도 JS shownPaperWidth 와 같은 제한: max(PAPER_MIN, min(기본 폭, 본문 − MAIN_MIN)) — 1280 첫 그림이 313px 로 메인 열을 703px 로 밀던 결함(T-0152 r3) */
+.body { display: grid; grid-template-columns: var(--paper-w, max(256px, min(clamp(304px, 24.45vw, 360px), calc(100% - 712px)))) minmax(0, 1fr); flex: 1; min-height: 0; }
 
 /* ① 레일 */
 .rail { position: relative; display: flex; flex-direction: column; min-width: 0; min-height: 0; background: var(--bg2); border-right: 1px solid var(--bd); }
@@ -150,7 +172,7 @@
   border: 1px solid var(--bd); background: var(--bg); font-size: 12px; color: var(--t2);
   transition: border-color var(--dur-normal) var(--ease), color var(--dur-normal) var(--ease);
 }
-.composerActions :is(button, a):hover { border-color: var(--p); color: var(--p); }
+.composerActions :is(button, a):hover { border-color: var(--p); color: var(--p-ink); }
 .composerActions button:disabled { opacity: .4; cursor: not-allowed; }
 .composerFoot { display: flex; align-items: center; gap: 6px; padding: 8px 12px; border-top: 1px solid var(--bd); }
 .pill { flex: 1; min-width: 0; font-family: var(--font-mono), monospace; font-size: 10.5px; color: var(--t3); }
@@ -158,7 +180,7 @@
   display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px;
   border-radius: 50%; border: 1px solid var(--bd); color: var(--t2);
 }
-.round:hover { border-color: var(--p); color: var(--p); }
+.round:hover { border-color: var(--p); color: var(--p-ink); }
 .round:disabled { opacity: .35; cursor: not-allowed; }
 
 /* ② 본문 */
@@ -279,7 +301,7 @@
 .kv > div { display: grid; grid-template-columns: 6rem minmax(0, 1fr); align-items: center; gap: 12px; }
 .kv dt { font-size: 12px; color: var(--t3); }
 .kv dd { margin: 0; font-size: 13.5px; line-height: 1.7; }
-.kv a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; color: var(--p); text-decoration: underline; text-underline-offset: 4px; }
+.kv a { display: inline-flex; align-items: center; gap: 6px; min-height: 36px; color: var(--p-ink); text-decoration: underline; text-underline-offset: 4px; }
 
 .siblings { display: grid; grid-template-columns: repeat(auto-fill, minmax(11rem, 1fr)); gap: 6px; list-style: none; margin: 0; padding: 0; }
 .siblings a {
@@ -403,7 +425,7 @@
 .doneActions { display: flex; flex-wrap: wrap; align-items: center; gap: 6px; }
 .doneActions .gatePrimary { display: inline-flex; align-items: center; }
 .doneQuiet { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; border-radius: 8px; border: 1px solid var(--bd); background: var(--bg); font-size: 12.5px; color: var(--t2); }
-.doneQuiet:hover { border-color: var(--p); color: var(--p); }
+.doneQuiet:hover { border-color: var(--p); color: var(--p-ink); }
 .doneNote { display: inline-flex; align-items: center; min-height: 44px; padding: 0 12px; font-size: 12.5px; color: var(--t2); }
 .composerActions .finishBtn { border-color: var(--t1); background: var(--t1); color: #fff; }
 .composerActions .finishBtn:hover { color: #fff; opacity: .9; }
@@ -443,6 +465,68 @@
 .explainField span { font-size: 0.8125rem; }
 .explainField textarea { width: 100%; padding: 8px 10px; border: 1px solid currentColor; border-radius: 8px; background: transparent; color: inherit; font: inherit; resize: vertical; }
 .explainActions { display: flex; gap: 8px; }
+/* 학습 정리(T-0091)의 조작 — .back 의 작업 공간 높이 규칙보다 구체적으로 44px 를 보장한다 */
+.explain .summaryControl, .explain details > summary.summaryControl { display: inline-flex; align-items: center; min-height: 44px; min-width: 44px; }
+.explain details > summary.summaryControl { cursor: pointer; }
+.explain .summaryControl:focus-visible { outline: 2px solid currentColor; outline-offset: 2px; }
+/* 학습 정리: 선택 → 원문 근거 연결 → 조건 분기. 텍스트는 현재 조작을 설명한다. */
+.learningSummary { display: grid; gap: 18px; color: var(--t1); line-height: 1.65; word-break: keep-all; overflow-wrap: anywhere; }
+.learningSummary h2, .learningSummary h3, .learningSummary h4, .learningSummary p { margin: 0; }
+.learningSummary h2 { font-size: 21px; line-height: 1.35; font-weight: 650; }
+.learningSummary h3 { font-size: 17px; font-weight: 600; }
+.learningSummary h4 { font-size: 13px; font-weight: 600; }
+.learningSummary button, .summaryHistory > summary { min-height: 44px; min-width: 44px; padding: 9px 13px; border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); color: inherit; font: inherit; font-size: 13px; line-height: 1.65; text-align: left; cursor: pointer; word-break: keep-all; }
+.learningSummary button:hover { border-color: var(--p); }
+.learningSummary button:focus-visible, .summaryHistory > summary:focus-visible { outline: 2px solid var(--p); outline-offset: 3px; }
+.learningSummary button:disabled { opacity: .6; cursor: default; }
+.summaryHeading { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
+.summaryEyebrow { display: block; color: var(--t2); font-size: 11px; font-weight: 500; letter-spacing: .03em; }
+.summaryMode { flex: none; color: var(--t2); font-size: 11px; }
+.summaryStages { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 4px; padding-bottom: 12px; border-bottom: 1px solid var(--bd); }
+.summaryStages button { display: flex; align-items: center; justify-content: center; gap: 8px; padding: 8px 6px; border-color: transparent; background: transparent; color: var(--t2); }
+.summaryStages button > span { display: inline-grid; place-items: center; width: 23px; height: 23px; border: 1px solid var(--bd); border-radius: 50%; font-size: 11px; }
+.summaryStages button[aria-current='step'] { color: var(--t1); background: var(--bg2); font-weight: 600; }
+.summaryStages button[aria-current='step'] > span { background: var(--t1); color: var(--bg); border-color: var(--t1); }
+.summaryRelation { display: flex; align-items: flex-start; gap: 12px; padding: 14px 16px; border-left: 3px solid var(--p); background: var(--bg2); border-radius: 0 8px 8px 0; }
+.summaryRelation > svg { flex: none; margin-top: 4px; color: var(--p); }
+.summaryRelation p { font-size: 14px; font-weight: 500; }
+.summaryRelation small { font-size: 11px; color: var(--t2); }
+.summaryWorkbench { min-width: 0; }
+.summaryWorkbench > div { display: grid; gap: 14px; }
+.summaryHint { color: var(--t2); font-size: 12px; }
+.summaryChoices { display: flex; flex-wrap: wrap; gap: 8px; }
+.summaryChoices button[aria-pressed='true'], .summaryBranch button[aria-pressed='true'] { border-color: var(--p); background: color-mix(in srgb, var(--p) 7%, var(--bg)); box-shadow: inset 0 0 0 1px var(--p); font-weight: 600; }
+.summaryTrace { display: grid; grid-template-columns: minmax(115px, .7fr) 28px minmax(0, 1.6fr); align-items: stretch; gap: 12px; padding: 18px 0; border-block: 1px solid var(--bd); }
+.summaryTraceOrigin { display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px; padding: 12px; background: var(--bg2); border: 1px solid var(--bd); border-radius: 8px; }
+.summaryTraceOrigin b { font-size: 13px; }
+.summaryTraceOrigin span { font-size: 12px; color: var(--t2); }
+.summaryTraceArrow { align-self: center; color: var(--t3); }
+.summaryTrace[data-active='true'] .summaryTraceArrow { color: var(--p); stroke-width: 2.5; }
+.summaryTraceReason { display: grid; align-content: center; gap: 8px; min-height: 145px; padding: 8px 0; font-size: 14px; }
+.summaryTraceReason > svg { color: var(--t3); }
+.summaryPrincipleNode { display: flex; align-items: center; gap: 12px; padding: 16px; border: 1px solid var(--bd); border-radius: 10px; background: var(--bg2); font-size: 14px; font-weight: 500; }
+.summaryPrincipleNode > svg { flex: none; color: var(--p); }
+.summaryBranches { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.summaryBranch { position: relative; display: grid; align-content: start; gap: 9px; padding-top: 18px; }
+.summaryBranchLine { position: absolute; top: -14px; left: 50%; height: 26px; border-left: 2px solid var(--bd); }
+.summaryBranch[data-active='true'] .summaryBranchLine { border-color: var(--p); border-left-width: 3px; }
+.summaryBranch button { width: 100%; }
+.summaryBoundary { display: grid; gap: 4px; padding: 12px 14px; border-left: 3px solid var(--bd); background: var(--bg2); font-size: 13px; }
+.summaryBoundary[data-boundary='applies'] { border-color: var(--p); }
+.summaryBoundary[data-boundary='limit'] { border-color: var(--t1); }
+.summaryBoundary span { font-size: 11px; color: var(--t2); }
+.summaryFooter { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; padding-top: 8px; }
+.summaryFooter > button, .learningSummary .summaryContinue { display: inline-flex; align-items: center; gap: 8px; }
+.learningSummary .summaryContinue { justify-self: end; border-color: var(--t1); }
+.summaryReadiness { display: grid; gap: 8px; padding: 16px; background: var(--bg2); border-radius: 8px; font-size: 14px; }
+.summaryReadiness small { color: var(--t2); font-size: 11px; }
+.summaryActivities { display: grid; gap: 8px; }
+.summaryActivities button { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.summaryActivities svg { flex: none; }
+.summaryEmpty { color: var(--t2); padding: 20px 0; font-size: 13px; }
+.summaryHistory { border-top: 1px solid var(--bd); padding-top: 12px; }
+.summaryHistory > summary { border-color: transparent; background: transparent; font-size: 12px; }
+.summaryHistory > p { font-size: 12px; color: var(--t2); }
 .explainCompare { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
 .explainCompare > div { display: grid; gap: 4px; align-content: start; }
 .explainCompare > p { grid-column: 1 / -1; margin: 0; }
@@ -630,7 +714,7 @@
   display: inline-flex; align-items: center; min-height: var(--csat-workspace-target); padding: 0 12px;
   border: 1px solid var(--bd); border-radius: 8px; background: var(--bg); font-size: 12px; color: var(--t1);
 }
-.itemActionRow :is(button, a):hover { border-color: var(--p); color: var(--p); }
+.itemActionRow :is(button, a):hover { border-color: var(--p); color: var(--p-ink); }
 
 /* 메인 프레임 — 머리 44 · 두 판(독립 스크롤) · 도크 65 */
 .main { margin: 0 var(--csat-workspace-gap) var(--csat-workspace-gap) var(--csat-workspace-gap); }
@@ -650,13 +734,14 @@
 .panes[data-collapsed='true'] { grid-template-columns: minmax(0, 1fr); }
 .paneHead { min-height: var(--csat-workspace-head); padding: 0 6px 0 12px; font-family: var(--font-sans), system-ui, sans-serif; font-size: var(--csat-workspace-pane-title); flex-shrink: 0; }
 .paneBody { padding: 14px var(--csat-workspace-pad); font-size: 13.5px; line-height: 1.72; }
+.paneBody:focus-visible { outline: 2px solid var(--p); outline-offset: -2px; }
 .blockPane .sceneQuestion { margin: 0 0 12px; font-size: var(--csat-workspace-question); line-height: 1.45; font-weight: 600; }
 .viewSwitch { display: inline-flex; gap: 2px; margin-left: 6px; }
 .viewSwitch button {
   min-height: var(--csat-workspace-target); min-width: var(--csat-workspace-target); padding: 0 8px; border-radius: 7px;
   font-size: 12px; color: var(--t2); border: 1px solid transparent;
 }
-.viewSwitch button[aria-pressed='true'] { color: var(--p); border-color: var(--p); background: var(--p-light); font-weight: 500; }
+.viewSwitch button[aria-pressed='true'] { color: var(--p-ink);border-color: var(--p); background: var(--p-light); font-weight: 500; }
 .paneBack { margin-left: auto; min-height: var(--csat-workspace-target); padding: 0 10px; border-radius: 8px; font-size: 12px; color: var(--t2); }
 .paneBack:hover { background: var(--bg2); color: var(--t1); }
 .pane .legend { margin: 12px 0 6px; }
@@ -671,7 +756,7 @@
   height: var(--csat-workspace-dock); padding: 0 var(--csat-workspace-gap); border-top: 1px solid var(--bd); flex-shrink: 0;
 }
 .dockGroup {
-  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 4px; min-width: 0;
+  position: relative; display: flex; align-items: center; justify-content: space-between; gap: 2px; min-width: 0;
   height: var(--csat-workspace-dock-item); padding: 0 0 0 3px; border: 1px solid transparent; border-radius: 10px;
   background: var(--dock-tint); box-shadow: inset 3px 0 0 var(--dock-ink);
 }
@@ -681,7 +766,7 @@
 .dockGroup[data-tint='peach'] { --dock-tint: #f3ece4; --dock-ink: #8a5a2b; }
 .dockGroup[data-active='true'] { border-color: var(--dock-ink); background: var(--bg); }
 .dockTitle {
-  flex: 1; min-width: var(--csat-workspace-target); min-height: var(--csat-workspace-target); padding: 0 2px 0 7px; text-align: left;
+  flex: 1; min-width: var(--csat-workspace-target); min-height: var(--csat-workspace-target); padding: 0 0 0 7px; text-align: left; /* 오른쪽 여백 · 그룹 간격 각 2px → 제목 4px: 메인 최소 폭 712 에서 「비교와 원리」 가 1px 잘리던 결함(T-0152 r3) */
   font-size: var(--csat-workspace-name); font-weight: 500; color: var(--t1); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; border-radius: 8px;
 }
 .dockTitle[aria-pressed='true'] { font-weight: 600; }
@@ -704,6 +789,8 @@
   opacity: 0; pointer-events: none; transition: opacity var(--dur-fast, 120ms) var(--ease);
 }
 .dockIcon:hover .dockTip, .dockIcon:focus-visible .dockTip { opacity: 1; }
+/* 끝 아이콘의 툴팁도 작업공간 안에 남겨 가로 넘침을 만들지 않는다. */
+.dockGroup:last-child .dockIcon:last-child .dockTip { left: auto; right: 0; transform: none; }
 
 /* 초안 · 노트 근거 연결 */
 .draftNote { margin-top: 6px; font-size: 12px; color: var(--t2); }
@@ -764,3 +851,29 @@
 .msKeep { grid-column: 1 / -1; display: grid; gap: 4px; padding: 8px 10px; border: 1px dashed var(--bd); border-radius: 8px; }
 .msKeep ul { margin: 0; padding-left: 16px; display: grid; gap: 4px; font-size: 13px; }
 .msNext { display: grid; gap: 4px; padding-top: 6px; border-top: 1px solid var(--bd); }
+
+/* Workspace reference: one white frame, lavender reading surface, colored activity cards. */
+@media (min-width: 900px) {
+  .workspace { border: 1px solid var(--csat-line); border-radius: 14px; overflow: hidden; }
+  .msCard { background: var(--csat-canvas); border-color: var(--csat-line); }
+  .msPhrase { border-color: var(--csat-line); }
+  .msPhrase:hover, .msPhrase[aria-pressed='true'], .msPanel .cmpFilters button[aria-pressed='true'] { background: var(--csat-hover); }
+  .msPanel .back { background: var(--csat-soft); }
+  .dockGroup[data-tint='blue'] { --dock-tint: var(--csat-blue); --dock-ink: #45687b; }
+  .dockGroup[data-tint='lavender'] { --dock-tint: var(--csat-soft); --dock-ink: var(--csat-ink); }
+  .dockGroup[data-tint='mint'] { --dock-tint: var(--csat-green); --dock-ink: #286447; }
+  .dockGroup[data-tint='peach'] { --dock-tint: var(--csat-peach); --dock-ink: #8b4827; }
+  .play { background: var(--csat-control); }
+}
+
+/* D 판단 도구 자리(T-0161) — 판단 장면 위쪽을 통째로 쓴다. 도구의 두 면(원문 · 판단)은 각자 스크롤한다.
+   도구 기본 격자는 최소 폭(600 + 480)이 있어 레일 옆 1280 에서 넘친다 — 이 자리에서만 0 최소 폭 · 자리 높이로 맞춘다 */
+.judgmentTool {
+  flex: 1.7 1 0; display: flex; min-width: 0; min-height: 300px;
+  margin: var(--csat-workspace-gap) var(--csat-workspace-gap) 0; border: 1px solid var(--bd); border-radius: 10px; overflow: hidden; background: var(--bg);
+}
+.judgmentTool > * { flex: 1; min-width: 0; }
+.judgmentTool [data-judgment-shell] { grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); height: 100%; padding: 12px 16px; gap: 16px; }
+.judgmentTool[hidden] { display: none; }
+/* 도구가 보일 때 아래 장면 판(정답 확인 · 오답 설계)이 눌려 사라지지 않게 남은 높이를 나눈다 */
+.judgmentTool:not([hidden]) + .panes { flex: 1 1 0; min-height: 190px; }

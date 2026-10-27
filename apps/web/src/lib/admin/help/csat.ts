@@ -187,6 +187,33 @@ export const CSAT_HELP: HelpRegistry = {
 
   // ── 카탈로그 ────────────────────────────────────────────────────
   // 공장에 없던 답 — 「뭘 만드나」. 공정 8칸은 전부 "공장이 어떤 상태인가" 였다.
+  'csat-fast': {
+    title: '빠른 학습지(FAST) — 기존 제작 팩을 고쳐 검수 초안으로',
+    screen: {
+      summary:
+        '1B 로컬 제작 팩 하나(패킷 + 출력 + 원천 snapshot)를 열어 문항 순서 · 발문 · 선지를 고치고, **새 바이트에 대한 신규 AI 검수**를 가져온 뒤 학생용 문제지 · 교사용 해설지 · manifest 를 내려받는다. 지원 범위는 지도 연습 × 중심 의미(주제 · 요지 · 제목) 팩 전체 — 문항 수를 바꾸지 않는다.',
+      when: '이미 검증된 제작 팩을 수업용으로 조금 고쳐 쓰고 싶을 때. 새 수량 · 새 원천은 새 주문(새 교재 만들기 ①~④)이다.',
+      steps: [
+        { title: '묶음 만들기', detail: 'CLI `fast-worksheet.mts bundle --packet --output --source-snapshot [--edit] [--review] --out <새 파일>`. 기존 파일이 있으면 덮어쓰지 않고 거절한다.' },
+        { title: '묶음 열기', detail: '「묶음 열기」로 파일을 고르면 서버가 원천 현재 행을 다시 읽어 판정한다(쓰기 없음).' },
+        { title: '편집', detail: '↑↓로 순서, 발문 · 선지 칸에서 글자를 고친다(칸을 떠나면 다시 판정). 정답 번호 · 근거 · 해설 · 원문 · 수량은 고칠 수 없다.' },
+        { title: '검수 요청 내려받기', detail: '검수 전에는 edited-output.json · review-request.json 만 나온다. 요청을 **새 Claude/Codex 세션**에 넣어 vf.dcp-ai-review/1 JSON 을 받는다.' },
+        { title: '검수 결과 가져오기', detail: '가져온 검수가 지금 출력 sha256 · 문항 hash 에 묶여 있고 결론이 pass 면 미리보기와 내려받기가 열린다.', done: '학생용 · 교사용 미리보기가 보이면 끝' },
+        { title: '내려받기', detail: 'student.html · teacher.html · edited-output.json · review-request.json · review-binding.json · manifest.json.' },
+      ],
+      fields: [
+        { label: '원천 차이', detail: '「없음」 또는 「재고 사실(has_items)만」. 본문 · 라이선스 · 게이트 · 분석 값이 바뀌면 source_changed 로 거절한다.' },
+        { label: '검수 상태', detail: '검수 필요 · 검수 거절(옛 바이트 · 다른 문항 · 변조) · pass 아님 · 통과. 통과해도 F(권리)는 AI 가 줄 수 없어 FQ 는 held 다.' },
+        { label: '묶음 저장', detail: '현재 편집이 든 묶음 JSON 을 내려받는다. 다시 열면 같은 판정이 나온다(재실행 안전).' },
+      ],
+      cautions: [
+        '편집하면 이전 검수는 무효다 — 화면이 「검수 거절」을 보이면 정상이다. 새 요청을 새 세션에서 다시 검수한다.',
+        '결과물은 로컬 검수 초안이다. FQ 자격 · 등록 · 출시 · 납품이 아니며 승인 배지를 붙이지 않는다. 실제 공급은 기존 입고 · 승인 경로로.',
+        '원천 조회 실패(503)는 쓰기가 없었으므로 같은 묶음으로 다시 시도해도 안전하다. 원천 행이 없으면 거절한다.',
+        'CLI export 는 새 디렉터리에만 쓰고, 중간 실패 시 이번 실행이 만든 파일만 지운다.',
+      ],
+    },
+  },
   'csat-catalog': {
     title: '품목·운영 ⑨ — 무엇을 더 낼 것인가, 낸 것을 어떻게 할 것인가',
     screen: {

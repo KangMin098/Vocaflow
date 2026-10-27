@@ -4,6 +4,7 @@
 'use client'
 
 import Link from 'next/link'
+import { readerScopeQuery, readerWordsHref } from '@/lib/wordvault/source-filter'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
@@ -145,35 +146,36 @@ export default function WorkspacePage({ params }: PageProps) {
   //   · 라이브러리 도서 chapter (단어장 발행됨) → filter=set:{setId} + book/chapter query
   //     - ScriptsChipNav 자동 활성 + SessionFrame resource (book › Chapter N)
   //     - Browse 안에서 prev/next chapter nav 가능 (allChapterWordSets 전달)
-  //   · 라이브러리 도서 chapter (단어장 없음)   → filter={textId}
-  //   · 사용자 스크립트                        → filter={textId}
+  //   · 라이브러리 도서 chapter (단어장 없음)   → filter=text:{textId}
+  //   · 사용자 스크립트                        → filter=text:{textId}  (접두어 없으면 Browse 가 전체를 보였다)
   //   · ctx 없음                               → 전체
-  const wordsHref = useMemo(() => {
-    if (ctx?.currentChapterWordSet && ctx?.libraryBookId && ctx?.chapterIdx != null) {
-      const qs = new URLSearchParams({
-        filter: `set:${ctx.currentChapterWordSet.id}`,
-        book: ctx.libraryBookId,
-        chapter: String(ctx.chapterIdx),
-      })
-      return `/wordvault/browse?${qs.toString()}`
-    }
-    if (ctx?.textId) return `/wordvault/browse?filter=${encodeURIComponent(ctx.textId)}`
-    return `/wordvault/browse`
-  }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
+  const wordsHref = useMemo(
+    () => readerWordsHref(ctx),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId],
+  )
 
   // 게임 모드(카드·블리츠) 자료 스코프 — wordsHref 와 동일 규칙.
   //   · 도서 챕터(단어장 발행됨) → ?set={setId}  (shared_words)
   //   · 사용자 스크립트          → ?text={textId} (vocabularies)
   //   · ctx 없음(스코프 X)       → null → 각 모듈 일반 허브로
-  const scopeQuery = useMemo(() => {
-    if (ctx?.currentChapterWordSet && ctx?.libraryBookId && ctx?.chapterIdx != null) {
-      return `?set=${ctx.currentChapterWordSet.id}`
-    }
-    if (ctx?.textId) return `?text=${encodeURIComponent(ctx.textId)}`
-    return null
-  }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
+  const scopeQuery = useMemo(
+    () => readerScopeQuery(ctx),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId],
+  )
 
   const flashcardHref = scopeQuery ? `/flashcard/play${scopeQuery}` : '/flashcard'
+  // 퀴즈는 단어 스코프가 아니라 **이 글**로 연다 — 도서 챕터면 그 챕터 퀴즈 + 본문(text), 사용자 글이면 그 글의 퀴즈.
+  //   본문은 퀴즈 화면이 본인 texts 행을 다시 확인한 뒤에만 읽는다(채점 뒤 근거 문장 짚기, T-0193).
+  const quizHref = useMemo(() => {
+    if (!ctx?.textId) return undefined
+    if (ctx.libraryBookId && ctx.chapterIdx != null) {
+      const qs = new URLSearchParams({ book: ctx.libraryBookId, ch: String(ctx.chapterIdx), text: ctx.textId })
+      return `/scriptquiz/play?${qs.toString()}`
+    }
+    return `/scriptquiz/play?text=${encodeURIComponent(ctx.textId)}`
+  }, [ctx?.textId, ctx?.libraryBookId, ctx?.chapterIdx])
   const wordblitzHref = scopeQuery ? `/play/wordblitz${scopeQuery}` : '/wordblitz'
   // 아케이드 허브로 같은 스코프를 넘긴다 — 허브가 ?set/?text 를 받아 19종 카드 전부에
   // 실어주므로(v07.8), 이 pill 하나로 이 자료의 단어가 모든 게임에 연결된다.
@@ -549,6 +551,7 @@ export default function WorkspacePage({ params }: PageProps) {
         modeStatus={MODE_STATUS}
         wordsHref={wordsHref}
         flashcardHref={flashcardHref}
+        quizHref={quizHref}
         wordblitzHref={wordblitzHref}
         arcadeHref={arcadeHref}
       />

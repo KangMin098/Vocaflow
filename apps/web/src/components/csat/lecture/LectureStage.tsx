@@ -27,6 +27,8 @@ import type { Lecture, LectureRole } from '@/lib/csat/lecture/types'
 
 export type LectureMode = 'unknown' | 'voice' | 'silent'
 export type StageStatus = 'idle' | 'loading' | 'playing' | 'paused' | 'ended' | 'error'
+/** 강의를 어디까지 받을까 — full: 전체(정답 포함) · until: 검증된 「직접 정답 공개」 경계 직전까지(서버가 잘라 준다) */
+export type LectureScope = 'full' | 'until'
 
 export interface CueStub {
   id: string
@@ -51,16 +53,26 @@ interface LectureCtx {
   rate: number
   /** 불러온 뒤에만 채워진다 — 역할 · 타깃 키 · 읽기 대본 */
   cues: CueStub[]
-  /** 소리 없이 대본만 불러온다(읽기 강의) — 재생하지 않는다 */
-  load: () => void
+  /** 소리 없이 대본만 불러온다(읽기 강의) — 재생하지 않는다. 범위를 주지 않으면 지금 범위(없으면 full) */
+  load: (scope?: LectureScope) => void
   activeKey: string | null
   /** 지금 큐가 말한 문장 번호 — 지도가 켤 막대를 말과 맞춘다(`focus.ts`) */
   activeFocus: number[] | null
-  start: (from?: number, via?: 'start' | 'cue' | 'block') => void
+  start: (from?: number, via?: 'start' | 'cue' | 'block', scope?: LectureScope) => void
   toggle: () => void
   prev: () => void
   next: () => void
   setRate: (r: number) => void
+  /** 설명 위치를 화면이 따라가는가 — 학습자가 스스로 스크롤하면 꺼지고, 재생 시작 · 「지금 설명 위치로」 로만 켜진다 */
+  following: boolean
+  /** 학습자가 명시적으로 고른 「지금 설명 위치로」 — 따라가기를 켜고 지금 큐로 한 번 옮긴다 */
+  follow: () => void
+  /** 학습자가 명시적으로 따라가기를 끈다 */
+  unfollow: () => void
+  /** 지금 받아 둔 범위 — 아직 아무것도 받지 않았으면 null */
+  scope: LectureScope | null
+  /** until 로 받았을 때 서버가 알려 준 경계(전체 강의에서 이 번째 cue 부터가 직접 정답 공개) */
+  stopBefore: number | null
 }
 
 const Ctx = createContext<LectureCtx | null>(null)
@@ -142,16 +154,30 @@ export function LectureStage({
 
   useEffect(() => () => playerRef.current?.destroy(), [])
 
-  const ensure = useCallback(async (): Promise<LecturePlayer | null> => {
-    if (playerRef.current) return playerRef.current
+  const scopeRef = useRef<LectureScope | null>(null)
+  const [scope, setScope] = useState<LectureScope | null>(null)
+  const [stopBefore, setStopBefore] = useState<number | null>(null)
+  const ensure = useCallback(async (want: LectureScope = 'full'): Promise<LecturePlayer | null> => {
+    // 받은 범위가 다르면 새로 받는다 — until 로 받은 플레이어는 경계 뒤 cue 를 모른다
+    if (playerRef.current && scopeRef.current === want) return playerRef.current
+    if (playerRef.current && scopeRef.current !== want) {
+      playerRef.current.destroy()
+      playerRef.current = null
+      loading.current = null
+      setCues([])
+      setPs(null)
+    }
     if (loading.current) return loading.current
     loading.current = (async () => {
       setStatus('loading')
       setError(null)
       try {
-        const res = await fetch(`/api/csat/lecture?item=${encodeURIComponent(slug)}`, { cache: 'no-store' })
-        const json = (await res.json()) as { ok: boolean; lecture?: Lecture; error?: string }
+        const res = await fetch(`/api/csat/lecture?item=${encodeURIComponent(slug)}${want === 'until' ? '&scope=until' : ''}`, { cache: 'no-store' })
+        const json = (await res.json()) as { ok: boolean; lecture?: Lecture; error?: string; disclosure?: { scope: LectureScope; stopBefore: number } }
         if (!json.ok || !json.lecture) throw new Error(json.error ?? '강의를 불러오지 못했어요')
+        scopeRef.current = want
+        setScope(want)
+        setStopBefore(json.disclosure?.stopBefore ?? null)
         const lecture = json.lecture
         const forced = new URLSearchParams(window.location.search).get('lecture-silent') === '1'
         const voices = forced ? [] : await loadVoices()
@@ -191,11 +217,14 @@ export function LectureStage({
     return loading.current
   }, [slug])
 
+  // 화면 위치의 주인은 학습자다 — 재생을 고르면 따라가고, 스스로 스크롤하면 그 자리에 둔다
+  const [following, setFollowing] = useState(true)
   const start = useCallback(
-    (from = 0, via: 'start' | 'cue' | 'block' = 'start') => {
+    (from = 0, via: 'start' | 'cue' | 'block' = 'start', want?: LectureScope) => {
+      setFollowing(true)
       void (async () => {
         const first = !playerRef.current
-        const p = await ensure()
+        const p = await ensure(want ?? scopeRef.current ?? 'full')
         if (!p) return
         if (!first) jumps.current += 1
         if (first) {
@@ -210,9 +239,9 @@ export function LectureStage({
     [ensure],
   )
 
-  const load = useCallback(() => {
+  const load = useCallback((want?: LectureScope) => {
     // 불러오기만 했으면 「여는 중」에 머물지 않게 대기 상태로 돌린다
-    void ensure().then((p) => {
+    void ensure(want ?? scopeRef.current ?? 'full').then((p) => {
       if (p) setStatus((st) => (st === 'loading' ? 'idle' : st))
     })
   }, [ensure])
@@ -274,12 +303,13 @@ export function LectureStage({
             : 'dim'
       el.setAttribute('data-lecture-state', state)
     }
-    if (active) {
-      // 접힌 층 안의 블록이면 편다 — 닫힌 채로 빛나면 학습자는 아무것도 못 본다
+    if (active && following) {
+      // 접힌 층 안의 블록이면 편다 — 닫힌 채로 빛나면 학습자는 아무것도 못 본다.
+      // 단 따라가기 중일 때만 — 학습자가 스스로 움직이는 동안 닫아 둔 층을 강의가 다시 열지 않는다
       const det = active.tagName === 'DETAILS' ? (active as HTMLDetailsElement) : active.closest('details')
       if (det && !det.open) det.open = true
     }
-  }, [activeKey, activeFocus, sessionOn])
+  }, [activeKey, activeFocus, sessionOn, following])
 
   // 큐가 바뀔 때만 한 번 움직인다(붙들기·멈춤으로는 움직이지 않는다) — 지시문 [D] 「스크롤 1회」
   const lastScrolled = useRef<number>(-1)
@@ -298,10 +328,65 @@ export function LectureStage({
         got: active?.getAttribute('data-lecture-state') === 'active' ? (active.dataset.lectureTarget ?? null) : null,
       })
     }
-    if (!active) return
+    if (!active || !following) return
     const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
     active.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
-  }, [ps, sessionOn, activeKey, cues])
+  }, [ps, sessionOn, activeKey, cues, following])
+
+  // 학습자가 직접 스크롤하면(휠 · 터치 · 스크롤 키 · 스크롤바 끌기) 따라가기를 끈다 — 강의가 읽던 자리를 빼앗지 않는다
+  useEffect(() => {
+    if (!sessionOn || !following) return
+    // Tab = 포커스를 옮겨 스스로 읽는 중 — 스크롤 키와 같이 본다
+    const SCROLL_KEYS = new Set(['ArrowUp', 'ArrowDown', 'PageUp', 'PageDown', 'Home', 'End', 'Tab'])
+    const stop = () => setFollowing(false)
+    const onKey = (e: KeyboardEvent) => {
+      if (SCROLL_KEYS.has(e.key)) return stop()
+      // Space 는 다른 처리기(재생 토글 · 단추 누름)가 가져가지 않았을 때만 페이지를 내린다 — 그때만 학습자 스크롤로 본다.
+      // 처리기들이 모두 돈 뒤에 defaultPrevented 를 읽는다(같은 window 처리기의 등록 순서에 기대지 않는다)
+      if (e.key === ' ') {
+        const tag = (e.target as HTMLElement | null)?.tagName
+        if (tag === 'BUTTON' || tag === 'A' || tag === 'SUMMARY' || tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
+        setTimeout(() => {
+          if (!e.defaultPrevented) stop()
+        }, 0)
+      }
+    }
+    // 스크롤바 끌기 — 누른 점이 요소의 내용 영역(clientWidth/Height) 밖, 곧 스크롤바 위일 때
+    const onPointer = (e: PointerEvent) => {
+      const el = e.target instanceof Element ? e.target : null
+      if (!el) return
+      const box = el.getBoundingClientRect()
+      const x = e.clientX - box.left - el.clientLeft
+      const y = e.clientY - box.top - el.clientTop
+      const onBar = (el.scrollHeight > el.clientHeight && x >= el.clientWidth) || (el.scrollWidth > el.clientWidth && y >= el.clientHeight)
+      if (onBar) stop()
+    }
+    window.addEventListener('wheel', stop, { passive: true })
+    window.addEventListener('touchmove', stop, { passive: true })
+    window.addEventListener('keydown', onKey)
+    window.addEventListener('pointerdown', onPointer, { capture: true })
+    return () => {
+      window.removeEventListener('wheel', stop)
+      window.removeEventListener('touchmove', stop)
+      window.removeEventListener('keydown', onKey)
+      window.removeEventListener('pointerdown', onPointer, { capture: true })
+    }
+  }, [sessionOn, following])
+
+  const unfollow = useCallback(() => setFollowing(false), [])
+  const follow = useCallback(() => {
+    setFollowing(true)
+    if (!activeKey) return
+    const all = Array.from(rootRef.current?.querySelectorAll<HTMLElement>(`[data-lecture-target="${CSS.escape(activeKey)}"]`) ?? [])
+    // 학습자가 「지금 설명 위치로」 를 골랐다 — 설명 블록이 접힌 층 안이면 그 층을 펴서 보여 준다
+    const block = all.find((el) => el.dataset.block != null) ?? null
+    const det = block?.closest('details')
+    if (det && !det.open) det.open = true
+    const found = all.filter((el) => el.offsetParent !== null)
+    const active = found.find((el) => el.dataset.block != null) ?? found[0] ?? null
+    const reduce = window.matchMedia?.('(prefers-reduced-motion: reduce)').matches
+    active?.scrollIntoView({ behavior: reduce ? 'auto' : 'smooth', block: 'center' })
+  }, [activeKey])
 
   // 재생 중에 지난 큐만 「들은 큐」로 센다 — 건너뛴 큐는 들은 것이 아니다
   useEffect(() => {
@@ -394,8 +479,13 @@ export function LectureStage({
       prev,
       next,
       setRate,
+      following,
+      follow,
+      unfollow,
+      scope,
+      stopBefore,
     }),
-    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate],
+    [meta, mode, status, error, ps, rate, cues, activeKey, activeFocus, load, start, toggle, prev, next, setRate, following, follow, unfollow, scope, stopBefore],
   )
 
   return (

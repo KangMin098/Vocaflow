@@ -214,6 +214,9 @@ export function FlashcardSession({
       if (target.tagName === 'INPUT' || target.tagName === 'TEXTAREA' || target.isContentEditable) {
         return
       }
+      // 포커스된 버튼·링크의 Enter/Space 는 그 요소의 몫이다(「아직이에요/떠올랐어요」·북마크·발음·뒤집기 버튼).
+      // 전역 단축키가 가로채면 키보드 학습자가 첫 판정을 누를 수 없다. 숫자 1~4 평가 단축키는 그대로다.
+      if ((e.code === 'Space' || e.key === 'Enter') && target.closest('button, a, [role="button"]')) return
 
       if (phase === 'flippable') {
         if (e.code === 'Space' || e.key === 'Enter') {

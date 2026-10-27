@@ -35,6 +35,17 @@ const ALLOWED_DYNAMIC = new Set([
   'app/api/lcp/dev-process/route.ts',
 ])
 
+/**
+ * 전달(pass-through) 어댑터 · 테스트 대역 — 함수 이름을 정하지 않고 받은 (fn, args) 를 그대로 넘기기만 한다.
+ * 실제 이름은 호출부(예: factory-bridge/dcp-supply.ts 의 call(client, '<리터럴>', …))에 있다. 이유 필수.
+ */
+const PASS_THROUGH: ReadonlyArray<{ file: string; why: string }> = [
+  { file: 'lib/admin/dcp-admission.ts', why: '관리자 세션을 SupplyClient 로 감싸는 어댑터 — 이름은 dcp-supply.ts 의 리터럴 호출부가 정한다(미설치 PGRST202 표시만 더함)' },
+  { file: 'app/api/csat/factory/__tests__/factory-routes.test.ts', why: '테스트 대역 — 세션 클라이언트 rpc 를 테스트 상태로 넘긴다' },
+  { file: 'lib/csat/map/v62/factory-bridge/__tests__/reassess-plan.pglite.test.ts', why: '테스트 대역 — 계획 저장 RPC 외 호출을 PGlite 가짜 클라이언트로 넘긴다' },
+]
+const PASS_THROUGH_FILES = new Set(PASS_THROUGH.map((p) => p.file))
+
 function walk(dir: string, out: string[] = []): string[] {
   for (const entry of readdirSync(dir)) {
     if (entry === 'node_modules' || entry === '.next') continue
@@ -88,13 +99,21 @@ describe('RPC 호출 이름은 정적으로 수집 가능해야 한다', () => {
 
   it('rpc() 에 변수를 넘기지 않는다 (예외는 리터럴 배열 순회뿐)', () => {
     const offenders = sites
-      .filter((s) => s.name === null && !ALLOWED_DYNAMIC.has(s.file))
+      .filter((s) => s.name === null && !ALLOWED_DYNAMIC.has(s.file) && !PASS_THROUGH_FILES.has(s.file))
       .map((s) => `${s.file}:${s.line}  ${s.raw}`)
 
     expect(
       offenders,
       `rpc() 에 변수를 넘긴 곳이 있다. 리터럴로 펴야 권한 감사가 이 함수를 "사용 중" 으로 인식한다:\n${offenders.join('\n')}`,
     ).toEqual([])
+  })
+
+  it('전달 예외는 실제 파일 · 실제 (fn, args) 전달만 가리키고 이유가 있다', () => {
+    for (const { file, why } of PASS_THROUGH) {
+      expect(why.trim().length, `${file} 예외에 이유가 없다`).toBeGreaterThan(10)
+      const src = readFileSync(join(SRC_ROOT, file), 'utf8')
+      expect(src, `${file} 에 (fn, args) 전달이 없다 — 낡은 예외는 지울 것`).toContain(['.rpc', '(fn, args)'].join(''))
+    }
   })
 
   it('예외로 허용한 파일은 실제로 리터럴 as const 배열을 순회한다', () => {

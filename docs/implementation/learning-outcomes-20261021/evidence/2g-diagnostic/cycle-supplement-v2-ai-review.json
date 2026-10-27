@@ -1,0 +1,137 @@
+{
+  "schema": "vocaflow.ai-authored-review-receipt/1",
+  "set": "r5-central-meaning-cycle.v2",
+  "source_file_sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+  "scope": [
+    "r5-cycle-ind-1",
+    "r5-cycle-ind-2",
+    "r5-cycle-transfer-2"
+  ],
+  "items": [
+    {
+      "id": "r5-cycle-ind-1",
+      "role": "independent_check",
+      "item_canonical_sha256": "069a6d728a0dcb0e693b6945dff6c04d4cd4069f1076af692b413ce0b2cc0a40",
+      "body_canonical_sha256": "068ec059ab3af3aeb083d3b3f8d9739674167ea480ecf0989a112d0ca57c18b1",
+      "gold_canonical_sha256": "538cfb52e6c9e2d67d596cc86398c81d5495cea783950210445185c79db47f7c"
+    },
+    {
+      "id": "r5-cycle-ind-2",
+      "role": "independent_check",
+      "item_canonical_sha256": "3c3d186eb1191cc2bbf898ef1a68e8fd3277c1c88eafc8d0602abe53ee06e1e3",
+      "body_canonical_sha256": "66c1bcd95ddc2652b28405f90b102cfaea0af755e5b332c6e7a766a55c180ea4",
+      "gold_canonical_sha256": "1f73ce43f8462f0a281403ae2a4d1bd0f5b5bff4e5b8ba37415d6f4c2517b07a"
+    },
+    {
+      "id": "r5-cycle-transfer-2",
+      "role": "transfer",
+      "item_canonical_sha256": "3c79c1c9290d11a3f53acdbff4d2b010461e6f892792ec831bf4ee42c51983b2",
+      "body_canonical_sha256": "27990bd08724448e757b548e5531d3531da7f1921015f73ca39b3d67774c7960",
+      "gold_canonical_sha256": "73830d2234c9ff008504504b268f1979e1a45379bdb6f690ba80f84273037321"
+    }
+  ],
+  "reviews": [
+    {
+      "agent": "codex",
+      "session_id": "01a15e47-751e-7f70-a531-1738b8fcaf60",
+      "request_id": "02071b2b-fc09-41f1-97dc-7f55774a620b",
+      "prompt_sha256": "7e2a250eb64ac7ade57dc6eaf027d62bb3be48210794cbac526f5e1c883ace35",
+      "response_sha256": "284c12f2f451d44d8f49e318622880063da4533004a6fa0afd650057f63478cc",
+      "source_file_sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "r5-cycle-ind-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "claim_alternatives_0based": [
+            4
+          ],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "Sentence 5 is also a defensible central-claim selection; its claimRestated annotation already recognizes this.",
+            "Sentence 2 supplies background detail rather than a sufficient supporting reason, making supportDisputed appropriate."
+          ],
+          "why": "Choice 2 uniquely preserves the club-specific judgment about using records for improvement rather than blame. Sentences 3 and 4 supply contrasting conditional reasons. Probing sentence 5 resolves the prior reason/example ambiguity: its general conclusion restates the claim through the consequences of record use, without introducing a particular illustrative case. The central meaning remains unchanged. All distractor rationales accurately identify their departures from the passage."
+        },
+        {
+          "id": "r5-cycle-ind-2",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "Sentence 5 is a concrete remedy supporting the claim, rather than a full restatement of its paired priorities."
+          ],
+          "why": "Choice 0 uniquely captures both room improvement and clear access information within this club. Sentence 2 states that central judgment; the other sentences establish the access problem and explain why further seat replacement cannot solve it. The sentence 4 probe functions as reason by identifying that mismatch, rather than presenting an additional illustrative case. Support annotations and distractor rationales are defensible."
+        },
+        {
+          "id": "r5-cycle-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "Choice 0 also overgeneralizes the handoff requirement to all records; too_narrow remains defensible because it excludes the analyst's information needs."
+          ],
+          "why": "Choice 3 uniquely expresses organizing this team's records around different information needs. Sentence 5 supplies the concluding claim, supported by the two roles and their incompatible information requirements. Sentence 4 explicitly explains why one format cannot adequately serve both jobs, supporting reason. Distractor rationales are accurate. This transfer item requires distinguishing complementary record formats, which is substantively distinct from improvement versus blame and facilities versus access."
+        }
+      ]
+    },
+    {
+      "agent": "claude",
+      "session_id": "b1b9994b-adcf-4ab0-9695-0e60ec895908",
+      "request_id": "b1b9994b-adcf-4ab0-9695-0e60ec895908",
+      "prompt_sha256": "7e2a250eb64ac7ade57dc6eaf027d62bb3be48210794cbac526f5e1c883ace35",
+      "response_sha256": "96b93ea0623d3ae65d2d05f9a5ad2055e340a286333f57ed00a7650899530190",
+      "source_file_sha256": "408d40fdd5a1e24ec9bf5ce2b5e398e09c86a4dbf9aa16523bb305d41268c08c",
+      "verdict": "accept",
+      "items": [
+        {
+          "id": "r5-cycle-ind-1",
+          "verdict": "accept",
+          "choice_0based": 2,
+          "claim_alternatives_0based": [
+            4
+          ],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "문장5는 'therefore'로 시작해 결론처럼 보입니다. 하지만 '사용 방식에 따라 개선에 쓰이거나 보고를 위축시킨다'는 내용은 문장1의 주장(비난이 아닌 개선에 쓸 때 가치)을 다르게 표현한 것입니다. 그래서 공개 라벨 restatement('주장을 다른 말로 다시 한다')가 가장 잘 맞습니다. reason이나 example로 읽을 근거는 약합니다. v1에서 지적된 문장3의 reason/example 이중성은 이번 탐침 이동으로 해소되었습니다.",
+            "문장5는 '가치'라는 평가어를 직접 쓰지 않습니다. 해설에서 '조건부 양면 서술 → 주장의 재진술'로 연결되는 과정을 한 줄 덧붙이면 학습자의 오해를 줄일 수 있습니다.",
+            "supportDisputed [1](문장2)은 배경 서술이라 받침 여부에 이견이 생길 수 있습니다. disputed로 둔 판단은 적절합니다."
+          ],
+          "why": "정답은 보기 3번(0-based 2) 하나뿐입니다. 이 보기는 '이 동아리'로 범위를 한정해 글의 범위를 충실히 지킵니다. 오답 0·1·3은 각각 기록 폐지, 도구 목록으로의 치환, 순위 권고로 글을 왜곡했고, 오답 4는 글 밖의 내용입니다. 오답 해설은 모두 정확합니다. 주장(문장1), 받침(문장3·4), 재진술(문장5)의 역할이 서로 겹치지 않습니다. 지문·보기·정답 변경 없이 탐침만 문장5 restatement로 옮겼고, 중심 의미는 바뀌지 않았습니다."
+        },
+        {
+          "id": "r5-cycle-ind-2",
+          "verdict": "accept",
+          "choice_0based": 0,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "보기 1번(0-based 1)의 오답 유형은 off_text보다 '새 의자' 소재를 끌어온 distorted/overgeneralized로 보는 편이 더 자연스럽습니다. 분류 표기만의 문제입니다.",
+            "탐침 문장4(좌석 재교체로는 이용 시간을 알 수 없다)를 reason으로 본 판단은 타당합니다. 문장3은 example로 읽힐 수 있으므로 이후에도 문장3을 탐침으로 쓰지 않도록 유지하는 것이 좋습니다."
+          ],
+          "why": "문장2가 유일한 명시적 주장이고, 보기 0이 이를 'alongside'의 범위 그대로 옮겼습니다. 보기 3은 alongside를 '필요 없다'로 뒤집었고, 보기 1·2·4는 각각 단정, 행동 전환, 비용 비교로 근거가 없습니다. 따라서 정답은 하나뿐입니다. 받침 2·3·4와 배경 문장1(disputed)은 역할이 서로 겹치지 않습니다. 문장4는 주장을 떠받치는 이유이므로 reason 탐침에 모호성이 없습니다."
+        },
+        {
+          "id": "r5-cycle-transfer-2",
+          "verdict": "accept",
+          "choice_0based": 3,
+          "claim_alternatives_0based": [],
+          "gold_issues": [],
+          "nonblocking_notes": [
+            "지문은 '이 팀은 두 기록을 둔다'는 서술형이고, 보기 3은 '해야 한다'는 당위형입니다. 수능식 요지 문항에서 허용되는 정도의 차이이므로 차단 사유는 아닙니다. 다만 gist(서술형)와 보기(당위형)의 어조를 맞추면 더 깔끔합니다.",
+            "보기 4(0-based 4)는 문장4와 정면으로 모순됩니다. contradicted 같은 세분 라벨이 있다면 distorted 대신 그 라벨을 써도 됩니다."
+          ],
+          "why": "문장5(therefore)가 결론형 주장이고, 보기 3은 '작업별 필요 정보에 맞춘 기록'으로 이를 일반화 없이 '이 팀' 범위에서 진술합니다. 보기 0은 한쪽 필요만 다뤄 너무 좁고, 보기 1은 과도하게 확대했으며, 보기 2는 글 밖의 내용이고, 보기 4는 글과 반대입니다. 따라서 정답은 하나뿐입니다. 문장4는 양쪽 형식이 각각 실패하는 이유를 대며 결론을 직접 떠받치므로 reason 탐침이 분명합니다. 받침 1·2·3과 도입 문장0(disputed)은 역할이 서로 겹치지 않습니다. 앞 두 문항과 표면 소재가 다른 '기록 용도 적합성' 원리를 다루므로 transfer 역할에 부합합니다."
+        }
+      ]
+    }
+  ],
+  "judgment": "accepted_candidate_content_and_gold",
+  "rights_basis": "first_party_original_declaration_only",
+  "rights_grant": false,
+  "human_review_claimed": false,
+  "not_reviewed": []
+}

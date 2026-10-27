@@ -51,7 +51,7 @@ export async function flushPendingSrsResults(
   items: FlushItem[],
 ): Promise<FlushResult> {
   if (!Array.isArray(items) || items.length === 0) {
-    return { ok: true, persisted: 0, skipped: 0, duplicated: 0 };
+    return { ok: true, persisted: 0, skipped: 0, duplicated: 0, acked: [] };
   }
 
   const client = (await createClient()) as unknown as SupabaseClient;
@@ -60,13 +60,21 @@ export async function flushPendingSrsResults(
   } = await client.auth.getUser();
   if (!user) return { ok: false, error: '로그인이 필요합니다.' };
 
+  // T-0172 공용 기기 — 다른 계정이 남긴(또는 주인을 모르는) 평가를 이 계정의 같은 단어 카드에 적용하지 않는다.
+  //   카드는 단어로 찾으므로(아래) 주인을 확인하지 않으면 A 의 평가가 B 카드의 D/S 와 B 의 학습 기록이 된다.
+  const foreign = items.filter((i) => i.owner !== user.id).length;
+  items = items.filter((i) => i.owner === user.id);
+
   const words = [
     ...new Set(
       items.map((i) => i.word?.toLowerCase()).filter((w): w is string => !!w),
     ),
   ];
+  // ACK — 이 계정 소유로 확인하고 처리를 끝낸 항목의 키(적용 · 중복 · 단어 없음 · 빈 단어). 남의 항목은 넣지 않는다:
+  //   클라이언트는 ACK 된 항목만 큐에서 지우므로, 남의 평가는 원 소유자를 위해 기기에 남는다(T-0172 r1 P1-4)
+  const acked = items.map((i) => `${i.word}@${i.reviewedAt}@${i.module}`);
   if (words.length === 0)
-    return { ok: true, persisted: 0, skipped: 0, duplicated: 0 };
+    return { ok: true, persisted: 0, skipped: foreign + items.length, duplicated: 0, acked };
 
   const { data: rowData, error: fetchErr } = await client
     .from('vocabularies')
@@ -114,7 +122,7 @@ export async function flushPendingSrsResults(
   const running = new Map<string, SrsCard>();
   const records: LearningRecordPayload[] = [];
   let persisted = 0;
-  let skipped = 0;
+  let skipped = foreign;
   let duplicated = 0;
 
   for (const it of sorted) {
@@ -178,5 +186,6 @@ export async function flushPendingSrsResults(
     }
   }
 
-  return { ok: true, persisted, skipped, duplicated };
+  // 모든 쓰기가 성공한 뒤에만 ACK 를 돌려준다(위의 실패는 ok:false 로 먼저 나간다)
+  return { ok: true, persisted, skipped, duplicated, acked };
 }

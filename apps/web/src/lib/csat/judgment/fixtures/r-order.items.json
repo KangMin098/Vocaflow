@@ -1,0 +1,131 @@
+{
+  "source": "csat_items+csat_item_units (published analysis units_version)",
+  "items": [
+    {
+      "id": "H2609G2#36",
+      "examId": "H2609G2",
+      "no": 36,
+      "typeId": "R-ORDER",
+      "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+      "choices": [
+        "(A) - (C) - (B)",
+        "(B) - (A) - (C)",
+        "(B) - (C) - (A)",
+        "(C) - (A) - (B)",
+        "(C) - (B) - (A)"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "The ability to select a set of surroundings suitable for foraging, shelter from predators, and the availability of mates is one of the most important determinants of biological success ― measured as survival to reproductive age and the production of offspring."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "(A) For example, the blackthroated green warbler, a small songbird that nests in spruce forests of eastern North America, establishes territories preferentially among the red spruce trees early in the summer months, even though these trees offer less food than the neighboring white spruce trees."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "(B) Later, though, when nests are built and hungry baby birds need nourishment, it is the red spruce forest that offers the easier pickings."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "Somehow, the warbler has been guided to settle in locations that will suit its future parenting needs better than its present ones."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "(C) Many studies have shown that not only do animals have a remarkable ability to seek out the best available locations for the necessities of life, but that they are able to anticipate how a setting will serve their future needs."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "138a1c06dad25b467641b80a2dfaaa62f040be95f4bd08abf70ad39595b54a28",
+        "analysisVersion": 1
+      }
+    },
+    {
+      "id": "H2609G2#37",
+      "examId": "H2609G2",
+      "no": 37,
+      "typeId": "R-ORDER",
+      "stem": "주어진 글 다음에 이어질 글의 순서로 가장 적절한 것을 고르시오.",
+      "choices": [
+        "(A) - (C) - (B)",
+        "(B) - (A) - (C)",
+        "(B) - (C) - (A)",
+        "(C) - (A) - (B)",
+        "(C) - (B) - (A)"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "Language is a manifestation of culture."
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "At different language acquisition stages, children do not learn language per se; rather they learn the various patterns and styles of language interaction that enable them to function as competent communicators in different situational contexts."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "(A) This phenomenon may reflect the fact that the roots of individualism are in England."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "There is no Japanese equivalent for the English I."
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "Different words are used to refer to the self, depending on the social situation, the speaker’s gender, age, and the other social attributes relative to the listener."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "(B) By contrast, the cultural assumptions of interdependence and harmony require that collectivists limit themselves to implicit and even ambiguous use of words, using terms like maybe, perhaps, or probably."
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "The English language is the only language in the world that spells I with a capital letter."
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "sentence",
+          "text": "(C) They develop a culturespecific communication style that is, for example, direct and explicit in individualistic cultures or indirect and implicit in collectivistic cultures."
+        },
+        {
+          "id": "u9",
+          "n": 9,
+          "kind": "sentence",
+          "text": "Examples of words linked with the direct style are categorical words like absolutely, certainly, or positively."
+        }
+      ],
+      "version": {
+        "unitsVersion": 1,
+        "unitsHash": "b9ab20e3a2814cb63d9bf037f8d37ca1fea258a106e6fc56619db0b23eca7844",
+        "analysisVersion": 1
+      }
+    }
+  ]
+}

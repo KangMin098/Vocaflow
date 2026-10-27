@@ -16,6 +16,7 @@ import { anchorGate, findTargetsOf, itemTaskRef, loadChainGraph, loadLiveApplica
 import { loadApplicationAttempts, summarizeApplicationAttempts } from '@/lib/admin/application-attempts'
 import { itemRevealDecision } from '@/lib/csat/embargo-gate'
 import { APP_STATUS_LABEL, APP_SURFACE_LABEL, EVIDENCE_LEVEL_LABEL, TRIAL_STATUS_LABEL, type AppStatus, type AppSurface, type TrialStatus } from '@/lib/knowledge/vnext-labels'
+import { trialOriginLabel, trialResultText } from '@/lib/knowledge/vnext-rules'
 import { createAdminClient } from '@/lib/supabase/admin'
 
 export const dynamic = 'force-dynamic'
@@ -121,7 +122,7 @@ export default async function ApplicationTracePage({ params }: { params: { id: s
           <h3 className="font-semibold text-[var(--t1)]">효과 검증</h3>
           {(attempts.heldCount > 0 ? [] : tr).map((t) => {
             const d = (t.design ?? {}) as Row
-            return <p key={String(t.id)} className="mt-1">{t.synthetic ? '합성' : '실제'} · {TRIAL_STATUS_LABEL[t.status as TrialStatus]} · 최소 표본 {String(d.min_n ?? '—')} · 지연 {d.delayed_days ? `${String(d.delayed_days)}일` : '없음'} · 전이 {d.transfer ? '있음' : '없음'}{t.review_required_at ? ' · 재계산 필요(결과를 근거로 쓰지 않음)' : t.result ? ` · 결과 ${String(t.result)}` : ''}</p>
+            return <p key={String(t.id)} className="mt-1">{trialOriginLabel({ synthetic: typeof t.synthetic === 'boolean' ? t.synthetic : null })} · {TRIAL_STATUS_LABEL[t.status as TrialStatus]} · 최소 표본 {String(d.min_n ?? '—')} · 지연 {d.delayed_days ? `${String(d.delayed_days)}일` : '없음'} · 전이 {d.transfer ? '있음' : '없음'}{((r) => (r ? ` · ${r}` : ''))(trialResultText({ status: t.status as string, synthetic: typeof t.synthetic === 'boolean' ? t.synthetic : null, reviewRequiredAt: t.review_required_at === undefined ? undefined : ((t.review_required_at as string | null) ?? null), result: t.result == null ? null : String(t.result) }, (r) => `결과 ${r}`))}</p>
           })}
           <p className="mt-1" data-testid="trace-efficacy">{attempts.heldCount > 0 ? '보류 원장과의 결속 확인 전에는 이 적용의 효과 결과를 표시하지 않습니다.' : <>연결 원리 항목의 전역 효과 상태: {task?.efficacy ?? '미상'}. 이 적용·버전의 효과 판정과 다릅니다. 위 trial의 분석 상태·합성 여부·재계산 요구를 개별 확인하세요.</>}</p>
         </li>

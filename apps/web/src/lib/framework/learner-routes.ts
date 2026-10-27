@@ -214,6 +214,17 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
     section: '연습과 세션',
   },
+  // 학습 지도에서 납품된 공장 DCP 연습 한 문항(명시적 납품 id 만, 본인 세션 factory_dcp_open 판정).
+  {
+    path: '/csat/factory/[deliveryId]',
+    screen: 'csat-factory-dcp',
+    label: '납품 연습 풀기',
+    says: '학습 지도에서 받은 연습 한 문항으로 글의 중심 의미 · 주제 · 요지를 고르고 지도로 돌아간다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+    section: '연습과 세션',
+  },
   {
     path: '/csat/dissect',
     screen: 'csat-dissect',
@@ -332,6 +343,23 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     path: '/library/scripts/[bookId]',
     screen: 'library-script',
     label: '짧은 글 한 편',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+  },
+  {
+    // LCP Story S5 — 작품 단위 이야기 서가(원본 Books 와 별개 라인 · docs/LCP_STORY.md).
+    path: '/library/stories',
+    screen: 'library-stories',
+    label: 'Stories',
+    group: 'main',
+    kind: 'screen',
+  },
+  {
+    // 발행 키는 계측에 싣지 않는다 — 동적 세그먼트는 이 닫힌 id 하나로 접힌다.
+    path: '/library/stories/[releaseKey]',
+    screen: 'library-story',
+    label: '이야기 판본 한 편',
     group: 'main',
     kind: 'screen',
     dynamic: true,
