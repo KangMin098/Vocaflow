@@ -85,10 +85,15 @@ export default async function ScriptQuizPlayPage({
     )
   }
 
-  // 도서 챕터 퀴즈의 "본문으로"는 library_books.id → 도서 리더(enroll 시 자동 resume, 미enroll 시 미리보기).
-  //   기존 `/text/${bookId}` 는 texts.id 가 아니라 book id 를 넘겨 조회 실패→mock 폴백이던 버그(v06.215).
-  const chapterHref =
-    bookId && Number.isFinite(chapterIdx) ? `/library/books/${bookId}` : '/text'
+  // 돌아갈 곳 — **본문을 실제로 읽어 온 경우(본인 texts·같은 도서·챕터 확인)만** 그 글로. 파라미터 모양만으로는
+  // 소유·범위를 믿지 않는다. 도서 경로인데 확인된 글이 없으면 보장 가능한 곳은 도서 입구뿐이라 그렇게 부른다.
+  const returnTo =
+    session && passageText && textId
+      ? { href: `/text/${textId}`, label: '읽던 글로' }
+      : session && isBookPath
+        ? { href: `/library/books/${bookId}`, label: '이 도서 입구로' }
+        : undefined
+  const chapterHref = returnTo?.href ?? '/text'
 
   return (
     <>
@@ -110,6 +115,7 @@ export default async function ScriptQuizPlayPage({
         textId={isBookPath ? undefined : textId}
         session={session ?? undefined}
         passageText={passageText}
+        returnTo={returnTo}
       />
     </>
   )
