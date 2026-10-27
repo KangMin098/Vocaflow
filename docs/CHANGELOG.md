@@ -217,6 +217,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(e2e): Playwright 산출물 인증 세션 흔적 가림 — `tests/e2e/utils/secret-redact-reporter.ts` 를 모든 설정 reporter 맨 앞에(r5 는 상속). 결과 오류·단계·stdout/stderr·첨부(error-context · trace.zip 항목)를 다른 reporter 가 읽기 전에 `[REDACTED]`, 콘솔 출력·출력 폴더 재점검. trace·스크린샷·비디오·html 리포트는 유지. 로직 `src/lib/utils/secret-redact.ts`(zlib 만, 새 의존성 없음). 2026-10-26 QA 세션 쿠키가 실패 call log 로 노출된 사고 후속.
 - fix(csat): 지도 기출 해부 링크에 결속 분석 판본 map_av 를 싣는 연결(`components/csat/diagnosis/map/study-av.ts` · 판본 모르면 싣지 않음 · `loadMapPage` 가 `v4.studyAnalysisVersions` 를 최신 published 분석 version 으로 공급 — 보류 문항 제외 · 조회 1회) · /csat 홈 「내 학습 공간」 배지 대비 4.36→`--csat-ink2`(T-0186)
 - fix(r0): 공용 기기 계정 전환 시 학습 기록 혼입 차단(T-0172) — CSAT 해부 기록을 계정별 IndexedDB 키로 · 읽기·병합·쓰기와 화면이 쥔 기록을 주인·인증 세대에 결속(전환 뒤 저장 거부), `/api/csat/state` PUT 은 owner 필수(없으면 428 · 다르면 403) · GET 은 owner 동봉. SRS 평가 큐는 평가 시점 인증 주체로 owner 결속(onAuthStateChange · 늦은 세션 응답 폐기), 서버 ACK 항목만 삭제(이탈 전송은 삭제 안 함, 멱등 재전송). Dictation 완주 평가에 검증된 owner. 다른 계정·소유자 불명 옛 기록은 보류(삭제 안 함). 근거 `docs/r0/shared-device/REPORT.md`. DB 무변경.
 - **K6-b 평가용 노출 원장 P6 반영(T-0164)** — `loadExposureLedger` 가 `learning_exposures` 를 7번째 원장으로 읽어, 판단 장면에서 정답을 연 문항(과 같은 지문 문항)이 독립 평가 후보에서 빠진다. 조회 실패·표 없음·잘림은 unknown(fail-closed). DB 무변경.
