@@ -25,6 +25,7 @@ import {
 } from '@/lib/library/chapter-words-queries';
 import { fetchBookWordSetSubscriptionStats } from '@/lib/library/books/queries';
 import { pickChapterAudio, type ChapterAudio } from '@/lib/workspace/chapter-audio';
+import { publicSourceHref } from '@/lib/reader/public-source-href';
 
 interface LayoutProps {
   children: ReactNode;
@@ -135,6 +136,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   // v06.x — 현재 챕터의 LibriVox 보이스 (큐레이터가 "챕터 일치" 확인 후 저장한 경우만)
   let chapterAudio: ChapterAudio | null = null;
   let articlePracticeHref: string | null = null;
+  let articleSourceHref: string | null = null;
   // v06.53 — 그림책 페이지별 삽화 (StoryWeaver 등) — 현재 챕터에 노출
   let illustrations: BookIllustration[] | null = null;
 
@@ -324,6 +326,8 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
         title: string | null;
         source_url: string | null;
       } | null;
+      // 원문 출처: 보이스 유무와 무관하게 공개 http(s) 주소만 (내부 마커·javascript: 등은 null)
+      articleSourceHref = publicSourceHref(art?.source_url);
       // 보이스: 단일 스트림 ChapterAudio (FloatingAudioPlayer '원어민 성우' 소스로 노출)
       if (art?.audio_url && /^https?:\/\//i.test(art.audio_url)) {
         chapterAudio = {
@@ -437,6 +441,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       bookWordSetStats,
       currentChapterWordSet,
       articlePracticeHref,
+      articleSourceHref,
       allChapterWordSets,
       chapterAudio,
       illustrations,

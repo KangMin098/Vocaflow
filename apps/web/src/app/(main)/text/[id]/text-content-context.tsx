@@ -56,6 +56,8 @@ export interface TextContentData {
   currentChapterWordSet: { id: string; title: string } | null;
   /** R0 — 이 기사(본인이 연 글)에 검수한 발췌 연습이 있으면 그 주소(/practice/article/[articleId]). 없으면 null */
   articlePracticeHref?: string | null;
+  /** 본인이 연 기사 글(article:<uuid>)의 공개 원문 주소 — 보이스 유무와 무관. 개인 글·부적합 주소는 null */
+  articleSourceHref?: string | null;
   /** v06.34 — 도서의 모든 챕터 단어장 (Browse 안에서 prev/next chapter nav) */
   allChapterWordSets: Array<{ id: string; chapterIdx: number; title: string }>;
   /** v06.x — 현재 챕터의 LibriVox 원어민 보이스 (큐레이터 연결 + 챕터 정합 시만 non-null) */
