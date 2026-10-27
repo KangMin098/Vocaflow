@@ -13,8 +13,9 @@ export interface ChapterSet {
 }
 
 /** 장 번호 — 원문 전체가 0 이상 안전 정수일 때만. 없으면 undefined, 형식이 틀리면 null. */
-export function parseChapterParam(raw: string | null | undefined): number | null | undefined {
+export function parseChapterParam(raw: unknown): number | null | undefined {
   if (raw === undefined || raw === null || raw === '') return undefined
+  if (typeof raw !== 'string') return null // ?chapter=1&chapter=2 → 배열: 하나를 고르지 않는다
   if (!INT.test(raw)) return null
   const n = Number(raw)
   return Number.isSafeInteger(n) ? n : null
@@ -27,14 +28,14 @@ export function parseChapterParam(raw: string | null | undefined): number | null
  * 아니므로 안내하지 않는다 — 현재 링크를 만드는 곳(Reader·허브·장 이동)은 모두 set: 를 싣는다(2026-10-27 grep).
  */
 export function resolveBookChapter(
-  filter: string | null | undefined,
-  chapterParam: string | null | undefined,
+  filter: unknown,
+  chapterParam: unknown,
   chapters: readonly ChapterSet[],
 ): number | null {
   const ch = parseChapterParam(chapterParam)
   if (ch === null) return null
-  const f = filter ?? ''
-  if (!f.startsWith('set:')) return null
+  if (typeof filter !== 'string' || !filter.startsWith('set:')) return null // 반복 파라미터(배열)도 안내 없음
+  const f = filter
   const set = chapters.find((c) => c.id === f.slice(4))
   if (!set) return null
   if (ch !== undefined && ch !== set.chapterIdx) return null
