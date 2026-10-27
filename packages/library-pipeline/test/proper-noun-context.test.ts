@@ -78,3 +78,11 @@ describe('예문은 context_pos 등장에서 뽑는다', () => {
     expect(o?.first_sentence_in_chapter).toBe('The ground was wet after the rain.')
   })
 })
+
+describe('일반 명사 소유격은 이름이 아니다(Codex 반례)', () => {
+  it("the bridge's span — bridge · span 둘 다 남는다", () => {
+    const text = "The bridge's span was the longest in the world. Workers painted the bridge every year."
+    expect(occ(text, 'bridge')).toBeDefined()
+    expect(occ(text, 'span')).toBeDefined()
+  })
+})

@@ -239,7 +239,14 @@ function isCapitalizedNameOccurrence(
 ): boolean {
   const token = toks[ti]
   if (!token || !TITLE_CASE.test(token.surface)) return false
-  if (ti !== firstWordIdx && !headline) return true
+  // 문장 중간 Title-case 는 **여러 단어 이름** 안에 있을 때만 (단독 강조 대문자는 일반어로 남긴다).
+  //   이웃 단어(소유격 's 는 건너뜀)가 Title-case 면 이름의 일부다: President Lincoln · Ford's Theatre.
+  if (ti !== firstWordIdx && !headline) {
+    const prevIdx = isPossessive(toks[ti - 1]) ? ti - 2 : ti - 1
+    const nextIdx = isPossessive(toks[ti + 1]) ? ti + 2 : ti + 1
+    const cap = (t: WlpToken | undefined) => !!t && !t.isPunctuation && TITLE_CASE.test(t.surface)
+    if (cap(toks[prevIdx]) || cap(toks[nextIdx])) return true
+  }
   if (isPossessive(toks[ti + 1])) {
     const after = toks[ti + 2]
     if (after && !after.isPunctuation && TITLE_CASE.test(after.surface)) return true
