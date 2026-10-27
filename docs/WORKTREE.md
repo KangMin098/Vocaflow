@@ -24,7 +24,7 @@
 
 LOCAL_FAST는 요청→목표 확인→기획·설계→구현→영향 범위 테스트→제품 검증→커밋→로컬 통합을 한 작업으로 이어 간다. 기존 등록 작업만 중앙 `bin/local-integrate.mjs --task <ID>`를 재사용하며 임시 integration의 유효 변경을 main으로 수렴한다. 일반 작업에 등록·큐·새 공간·AI 교차 리뷰를 의무화하지 않는다.
 
-TASK 없는 로컬 통합은 기존 Git·잠금 기능으로 수행한다. 먼저 소스 공간에서 영향 범위 검증을 마친 커밋 SHA를 고정한다. `D:/workspace/Vocaflow-main-serving`에서 브랜치가 main인지, 미커밋 변경·진행 중 merge/rebase/cherry-pick이 없는지, 다른 세션이 소유하지 않는지 확인한다. 그 공간의 `node agents/scripts/lock.mjs acquire <agent>`에 성공한 뒤 상태를 다시 확인하고 `git merge --no-ff <검증한-SHA>`로 통합한다. 완료 후 자기 잠금만 release한다. main에서 직접 완료한 작업은 그 자리 커밋으로 통합된다. TASK 등록·새 브랜치·새 워크트리·원격 연결은 필요 없다. 충돌은 자동 폐기하지 않고 소유 작업 범위에서 해결·관련 재검증한다. 다른 세션이 대상 공간을 쓰면 그 통합만 보류하며 독립적인 개발은 계속한다.
+TASK 없는 로컬 통합은 기존 Git·잠금 기능으로 수행한다. 먼저 소스 공간에서 영향 범위 검증을 마친 커밋 SHA를 고정한다. `D:/workspace/Vocaflow-main-serving`에서 브랜치가 main인지, 미커밋 변경·진행 중 merge/rebase/cherry-pick이 없는지, 다른 세션이 소유하지 않는지 확인한다. 그 공간에서 `node agents/scripts/local-merge.mjs <검증한-전체-SHA> --agent <agent> --pid <살아 있는 에이전트 pid>`로 통합한다 — 잠금 획득을 코드에서 확인한 뒤에만 `git merge --no-ff`하고, 잠금 뒤 상태·HEAD를 다시 확인하며, 자기 잠금만 놓는다(충돌 시 상태·잠금 보존). `lock.mjs acquire … | tail && git merge`처럼 pipe로 잇지 않는다(실패가 삼켜진다). main에서 직접 완료한 작업은 그 자리 커밋으로 통합된다. TASK 등록·새 브랜치·새 워크트리·원격 연결은 필요 없다. 충돌은 자동 폐기하지 않고 소유 작업 범위에서 해결·관련 재검증한다. 다른 세션이 대상 공간을 쓰면 그 통합만 보류하며 독립적인 개발은 계속한다.
 
 원격은 기존 `VocaflowMainSync` 예약 작업(매일 22시)이 중앙 `bin/main-sync.mjs`를 실행해 미반영 변경만 하루 PR 하나로 모은다. GITHUB 모드의 `safe-merge.mjs --scope-file <계약.json>` 범위·HEAD·필수 CI·DB 적용 이력 보호와 중앙 백업은 유지한다. main 직접 push·force push·`--no-verify`는 금지다. 원격 실패는 로컬 통합을 막지 않는다. 코드 병합·DB 적용·서버 반영은 각각 확인한다. 실제 DB 구조·데이터 변경과 삭제는 명시적 사용자 승인 후에만 실행한다. `_pending_` SQL은 제안 상태다.
 
