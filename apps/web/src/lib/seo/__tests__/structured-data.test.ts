@@ -101,8 +101,13 @@ describe('ComicIssue 구조화 데이터', () => {
   it('퍼블릭 도메인 표기는 그 호의 확인된 근거(pdBasis)가 있을 때만 — 근거 없는 호에 지어내지 않는다', () => {
     expect(JSON.parse(full).license).toBeUndefined()
     expect(full).not.toContain('publicdomain')
-    const checked = JSON.parse(comicIssueJsonLd({ slug: 's', title: 'T', pdBasis: 'Published 1940 without notice' }))
-    expect(checked.license).toBe('https://creativecommons.org/publicdomain/mark/1.0/')
+    for (const pdBasis of ['term-expired', 'pre-1929', 'no-renewal']) {
+      expect(JSON.parse(comicIssueJsonLd({ slug: 's', title: 'T', pdBasis })).license).toBe('https://creativecommons.org/publicdomain/mark/1.0/')
+    }
+    // 다른 라이선스 · 모르는 값은 PD 가 아니다
+    for (const pdBasis of ['explicit-license', 'Published 1940 without notice']) {
+      expect(JSON.parse(comicIssueJsonLd({ slug: 's', title: 'T', pdBasis })).license).toBeUndefined()
+    }
     const blank = JSON.parse(comicIssueJsonLd({ slug: 's', title: 'T', pdBasis: '  ' }))
     expect(blank.license).toBeUndefined()
   })

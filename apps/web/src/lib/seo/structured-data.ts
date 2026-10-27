@@ -160,11 +160,15 @@ export interface ComicFacts {
   sourceArchive?: string | null
   sourceUrl?: string | null
   /**
-   * 이 호의 퍼블릭 도메인 판정 근거(pd_comic_issues.pd_basis — 사람이 확인해 적은 것). 있을 때만 Public Domain Mark 를 단다.
-   * 예전에는 모든 호에 박았다 — 969호 중 근거가 적힌 것은 131호뿐이다(2026-10-28 읽기 전용 집계).
+   * 이 호의 퍼블릭 도메인 판정 근거 토큰(pd_comic_issues.pd_basis — 수집 연도 힌트(pre-1929 · ingest-bulk 가 연도로 자동 기입) 또는 확인 기록).
+   * PD 토큰(PD_BASIS)일 때만 Public Domain Mark 를 단다 — 'explicit-license' 는 PD 가 아니라 다른 라이선스라 키를 넣지 않는다.
+   * 예전에는 모든 호에 박았다 — 969호 중 근거가 적힌 것은 131호, 전부 no-renewal · explicit-license 0(2026-10-28 읽기 전용 집계).
    */
   pdBasis?: string | null
 }
+
+/** 퍼블릭 도메인을 뜻하는 pd_basis 토큰(DB CHECK 와 같은 이름). 'explicit-license' 는 뺀다. */
+const PD_BASIS: ReadonlySet<string> = new Set(['term-expired', 'pre-1929', 'no-renewal'])
 
 /**
  * 복원 만화 상세 — `ComicIssue`.
@@ -184,7 +188,7 @@ export function comicIssueJsonLd(c: ComicFacts): JsonLdString {
       url: absoluteUrl(`/comics/restored/${c.slug}`),
       inLanguage: 'en',
       isAccessibleForFree: true,
-      ...(c.pdBasis && c.pdBasis.trim() ? { license: 'https://creativecommons.org/publicdomain/mark/1.0/' } : {}),
+      ...(c.pdBasis && PD_BASIS.has(c.pdBasis.trim()) ? { license: 'https://creativecommons.org/publicdomain/mark/1.0/' } : {}),
       ...(typeof c.issueNo === 'number' ? { issueNumber: c.issueNo } : {}),
       ...(typeof c.publishedYear === 'number'
         ? { datePublished: String(c.publishedYear) }
