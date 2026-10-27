@@ -156,3 +156,38 @@ test('잠금 이름과 같은 다른 경로의 파일은 dirty 로 남는다', (
   assert.equal(r.code, 2, r.msg)
   assert.equal(g(repo, 'rev-parse', 'HEAD'), head)
 })
+
+test('하위 디렉터리를 대상으로 주면 거부(상위 루트 merge 우회 차단)', () => {
+  const { repo, head } = fixture()
+  const r = localMerge({ repo: path.join(repo, '.git'), sha: head, ...me })
+  assert.equal(r.code, 64, r.msg)
+  assert.equal(g(repo, 'rev-parse', 'HEAD'), head)
+})
+
+test('획득 뒤 잠금 소유가 바뀌면 merge 0회 · 그 잠금은 놓지 않는다', () => {
+  const { repo, sha, head } = fixture()
+  const held = JSON.stringify({ agent: 'codex', pid: holder.pid, host: os.hostname(), branch: 'x', started_at: 't' })
+  const r = localMerge({ repo, sha, ...me, afterAcquire: () => fs.writeFileSync(LOCK, held) })
+  assert.equal(r.code, 3, r.msg)
+  assert.equal(g(repo, 'rev-parse', 'HEAD'), head)
+  assert.equal(fs.readFileSync(LOCK, 'utf8'), held)
+  fs.rmSync(LOCK, { force: true })
+})
+
+test('CLI: AGENT_LOCK_FILE 이 있거나 main_worktree 가 아니면 merge 0회', () => {
+  const { sha } = fixture()
+  const cli = path.resolve(import.meta.dirname, '../local-merge.mjs')
+  const run = (env) => {
+    try {
+      execFileSync(process.execPath, [cli, sha, '--agent', 'claude', '--pid', String(process.pid)], { env: { ...process.env, ...env }, stdio: 'pipe' })
+      return 0
+    } catch (e) {
+      return e.status
+    }
+  }
+  const cfg = path.join(tmp, 'dev-mode.json')
+  fs.writeFileSync(cfg, JSON.stringify({ mode: 'LOCAL_FAST', main_worktree: path.join(tmp, 'nowhere') }))
+  assert.equal(run({ VFC_DEV_MODE_FILE: cfg }), 64)
+  fs.writeFileSync(cfg, JSON.stringify({ mode: 'GITHUB', main_worktree: path.resolve(import.meta.dirname, '../../..') }))
+  assert.equal(run({ VFC_DEV_MODE_FILE: cfg, AGENT_LOCK_FILE: '' }), 64)
+})
