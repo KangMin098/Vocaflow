@@ -35,10 +35,15 @@ describe('Book 구조화 데이터', () => {
     expect(o.author).toEqual({ '@type': 'Person', name: 'Lewis Carroll' })
   })
 
-  it('무료·퍼블릭 도메인을 명시한다 — 검색하는 사람이 알고 싶어 하는 것', () => {
+  it('무료는 명시하되 라이선스는 지어내지 않는다 — copyright_safe_in_kr 는 퍼블릭 도메인이 아니다(CC BY 도서가 있다)', () => {
     const o = JSON.parse(full)
     expect(o.isAccessibleForFree).toBe(true)
-    expect(o.license).toContain('publicdomain')
+    expect(o.license).toBeUndefined()
+    expect(full).not.toContain('publicdomain')
+    // 권리 입력이 없는 최소 도서도 같다
+    const bare = JSON.parse(bookJsonLd({ id: 'x', title: 'Tell Me, What is a Drone?' }))
+    expect(bare.license).toBeUndefined()
+    expect(bare.isAccessibleForFree).toBe(true)
   })
 
   it('평점·리뷰를 지어내지 않는다', () => {
