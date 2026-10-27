@@ -17,7 +17,8 @@ import { GamePauseControl } from '@/components/game/_shared/PauseControl';
 import { useGameWordScope } from '@/lib/game/use-word-scope';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
 import { gameResourceContext } from '@/lib/game/scope-resource';
-import { recordGameResult } from '@/lib/game/record-result';
+import type { recordGameResult } from '@/lib/game/record-result';
+import { GameIdentityNotice } from '@/components/game/GameIdentityNotice';
 import { contentRefFromScope } from '@/lib/content/content-ref';
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
@@ -93,6 +94,12 @@ export function GamePlayScaffold({
     );
   }
 
+  // 판의 계정 경계 — 단어를 읽은 사람과 브라우저 신원이 같을 때만 게임(개인 단어 · 정답 · 입력 · 음성)을 그린다.
+  //   바뀌면 게임을 내린다(언마운트 flush 는 recorder 가 그 판을 무효로 보고 적재하지 않는다).
+  if (session.status !== 'same') {
+    return <GameIdentityNotice status={session.status} reopenHref={typeof window === 'undefined' ? '/arcade' : `${window.location.pathname}${window.location.search}`} />;
+  }
+
   const onExit = () => {
     session.flush();
     router.push(resolveSessionReturnHref(scope.from, scope.text, '/arcade'));
@@ -126,14 +133,14 @@ export function GamePlayScaffold({
     session.countCorrect();
     void track(
       word.en,
-      recordGameResult({ word: word.en, isCorrect: true, module, assisted: opts?.assisted, content }),
+      session.result({ word: word.en, isCorrect: true, module, assisted: opts?.assisted, content }),
     );
   };
   const onWrong = (word: Word, opts?: ResultOpts) => {
     session.countWrong();
     void track(
       word.en,
-      recordGameResult({ word: word.en, isCorrect: false, module, assisted: opts?.assisted, content }),
+      session.result({ word: word.en, isCorrect: false, module, assisted: opts?.assisted, content }),
     );
   };
 
