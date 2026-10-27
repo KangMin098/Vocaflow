@@ -22,6 +22,8 @@ interface SpellForgeCompletionProps {
   content?: ContentRef
   /** §17.3 추천 축 — 부모가 주입 */
   recommendation?: RecommendedAction
+  /** 이 연습의 주인(서버가 단어를 읽은 사용자) — 주면 저장 시점의 사용자와 다를 때 점수를 적재하지 않는다(record-score expectedUserId) */
+  viewerId?: string | null
 }
 
 export function SpellForgeCompletion({
@@ -31,6 +33,7 @@ export function SpellForgeCompletion({
   backHref,
   content,
   recommendation,
+  viewerId,
 }: SpellForgeCompletionProps) {
   // 마운트 시점에 durationMs 1회 캡처 — 이후 리렌더에 영향 없음
   const [durationMs] = useState(() => Date.now() - startedAt.getTime())
@@ -48,6 +51,7 @@ export function SpellForgeCompletion({
     durationSeconds: Math.round(durationMs / 1000),
     content,
     metadata: { totalWords, correctCount },
+    ...(viewerId !== undefined ? { expectedUserId: viewerId } : {}),
   })
 
   return (
