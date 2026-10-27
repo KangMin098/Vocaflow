@@ -24,13 +24,15 @@ describe('resolveBookChapter — 보이는 단어의 출처와 안내가 같을 
       expect(resolveBookChapter(null, ch, CH)).toBeNull()
     }
   })
-  it('도서만 진입(세트 필터 없음): 장 번호가 있으면 그 번호, 없으면 첫 장 — 기존 동작', () => {
-    expect(resolveBookChapter(null, '2', CH)).toBe(2)
-    expect(resolveBookChapter('all', undefined, CH)).toBe(1)
-    expect(resolveBookChapter('text:abc', undefined, [])).toBe(0)
+  it('세트가 아닌 필터(text:·state:·all·없음)는 장 안내를 만들지 않는다', () => {
+    for (const f of ['text:글B', 'state:new', 'all', null, undefined]) {
+      expect(resolveBookChapter(f, '1', CH)).toBeNull()
+      expect(resolveBookChapter(f, undefined, CH)).toBeNull()
+    }
   })
-  it('미존재 장 번호(도서만 진입)는 그 번호로 — 세트 안내는 isCurrent 일치가 없어 표시되지 않는다', () => {
-    expect(resolveBookChapter(null, '7', CH)).toBe(7)
+  it('없는 장 번호는 그 세트와 안 맞으니 안내 없음', () => {
+    expect(resolveBookChapter('set:set-a1', '999', CH)).toBeNull()
+    expect(resolveBookChapter(undefined, '999', CH)).toBeNull()
   })
 })
 

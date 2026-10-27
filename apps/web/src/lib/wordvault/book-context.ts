@@ -22,8 +22,9 @@ export function parseChapterParam(raw: string | null | undefined): number | null
 
 /**
  * 안내할 현재 장 번호, 또는 null(안내 없음).
- * - filter 가 `set:<id>` 이면 그 세트가 이 도서의 장 세트여야 하고, chapter 가 주어졌으면 그 세트의 장과 같아야 한다.
- * - filter 가 세트가 아니면(도서만 진입) chapter 가 주어졌으면 그 번호, 없으면 첫 장(기존 동작). 형식이 틀리면 null.
+ * 안내는 **보이는 단어가 이 도서의 그 장 세트일 때만** 만든다: filter 가 `set:<id>` 이고 그 세트가 이 도서의 장 세트이며,
+ * chapter 가 주어졌으면 그 세트의 장과 같아야 한다. 세트가 아닌 필터(text:·state:·all·없음)는 목록이 그 장의 단어가
+ * 아니므로 안내하지 않는다 — 현재 링크를 만드는 곳(Reader·허브·장 이동)은 모두 set: 를 싣는다(2026-10-27 grep).
  */
 export function resolveBookChapter(
   filter: string | null | undefined,
@@ -33,12 +34,9 @@ export function resolveBookChapter(
   const ch = parseChapterParam(chapterParam)
   if (ch === null) return null
   const f = filter ?? ''
-  if (f.startsWith('set:')) {
-    const set = chapters.find((c) => c.id === f.slice(4))
-    if (!set) return null
-    if (ch !== undefined && ch !== set.chapterIdx) return null
-    return set.chapterIdx
-  }
-  if (ch !== undefined) return ch
-  return chapters[0]?.chapterIdx ?? 0
+  if (!f.startsWith('set:')) return null
+  const set = chapters.find((c) => c.id === f.slice(4))
+  if (!set) return null
+  if (ch !== undefined && ch !== set.chapterIdx) return null
+  return set.chapterIdx
 }
