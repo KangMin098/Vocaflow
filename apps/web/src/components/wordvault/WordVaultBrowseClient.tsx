@@ -19,6 +19,8 @@ import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react
 import { FileText } from 'lucide-react'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
+import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
+import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { Rule } from '@/components/ui/press'
 import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
 import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
@@ -141,6 +143,9 @@ export function WordVaultBrowseClient({
 
   const queue = useListenQueue(listenSettings)
   const { speak } = useSpeech()
+  // 목록이 내려가면(계정 경계 무효 · 화면 이동) 흘려듣기 · 낱말 읽기를 멈춘다 — 지운 목록의 낱말을 계속 읽지 않는다.
+  const stopListening = queue.stopQueue
+  useEffect(() => stopListening, [stopListening])
 
   // ── 통합 chip: 전체 + 구독 세트 + 스크립트 ──
   const chips: ScriptChip[] = useMemo(() => {
@@ -426,6 +431,74 @@ export function WordVaultBrowseClient({
       </div>
     </>
     </>
+  )
+}
+
+/**
+ * D5-I02 · T-0191 — 단어장 개인 화면의 계정 경계. 서버가 쿠키 세션(getUser)으로 확인해 그린 목록 · 칩 · 도서 문맥 · 듣기 ·
+ * 복귀 줄은 `viewerId` 의 것이다. 브라우저 신원이 그 사람으로 **긍정 확인(same)** 될 때만 children 을 그린다.
+ * - checking(확인 전 · 기준선 실패 · BFCache 복원 뒤 다시 확인 중): 개인 내용을 그리지 않는다 — 확인 실패를 같은 사람으로 치지 않는다.
+ * - changed(다른 계정 · 로그아웃): children 을 내려 목록을 지우고(듣기도 멈춘다) 다시 열기 · 로그인 길만 둔다. 전역 로그아웃은 하지 않는다.
+ * 판정 기계는 Story 화면과 같은 useStoryAuthGuard(구독 먼저 → 기준선 · 바뀜은 되살리지 않음). uid 는 비교에만 쓴다(DOM · URL 없음).
+ * reopenHref 는 서버가 검증한 문맥만 담은 단어장 주소(Story 복귀 문맥 · 지도 문맥) — 쿼리 uid 같은 것은 없다.
+ */
+export function WordVaultViewerGate({
+  viewerId,
+  reopenHref,
+  authSource,
+  children,
+}: {
+  viewerId: string
+  reopenHref: string
+  /** 시험 · 하네스 주입(없으면 StoryAuthSourceContext → 실제 브라우저 세션). */
+  authSource?: StoryAuthSource
+  children: ReactNode
+}) {
+  const { status } = useStoryAuthGuard(viewerId, authSource)
+  if (status === 'same') {
+    return (
+      <div data-vault-private="shown" className="contents">
+        {children}
+      </div>
+    )
+  }
+  const changed = status === 'changed'
+  return (
+    <div
+      className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center"
+      data-vault-private={status}
+      role="status"
+      aria-live="polite"
+    >
+      <h1 className="sr-only">내 단어장</h1>
+      <h2 className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">
+        {changed ? '로그인 상태가 바뀌었어요' : '로그인한 계정을 확인하고 있어요'}
+      </h2>
+      <p className="break-keep font-body text-sm text-t2">
+        {changed
+          ? '이 화면의 단어 목록과 듣기를 지웠어요. 지금 로그인한 계정으로 다시 열어 주세요.'
+          : '확인이 끝나면 내 단어 목록을 보여 드려요.'}
+      </p>
+      {/* 서버가 지금 쿠키로 다시 그리도록 전체 이동(<a>) — 낡은 화면 상태를 재사용하지 않는다. */}
+      <div className="mt-s-4 flex flex-wrap justify-center gap-2">
+        <a
+          href={reopenHref}
+          data-vault-reopen
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-t1 hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+        >
+          내 단어장 다시 열기
+        </a>
+        {changed && (
+          <a
+            href={loginUrlWithReturn(reopenHref)}
+            data-vault-login
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-t2 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          >
+            로그인 화면으로
+          </a>
+        )}
+      </div>
+    </div>
   )
 }
 

@@ -4,10 +4,10 @@
 // 렌더만으로는 위치 · 완료 · 이벤트가 하나도 나가지 않는다는 것(화면 진입이 기록하지 않는다)을 함께 잠근다.
 // 클릭 · 응답 순서 · 인증 전환은 story-reader-session.test.ts 가, 실제 브라우저 상호작용은 격리 하네스가 검증한다.
 
-import { renderToString } from 'react-dom/server'
+import { renderToStaticMarkup, renderToString } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 
-vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn() }) }))
+vi.mock('next/navigation', () => ({ useRouter: () => ({ push: vi.fn(), refresh: vi.fn(), replace: vi.fn() }), useSearchParams: () => new URLSearchParams() }))
 vi.mock('@/lib/analytics/client', () => ({ track: vi.fn() }))
 
 import { track } from '@/lib/analytics/client'
@@ -19,6 +19,9 @@ import { StorySourcePanel } from '../StorySourcePanel'
 import { StoryUnitText } from '../StoryUnitText'
 import { StoryVaultReturnBar } from '../StoryVaultReturn'
 import { StoryWordSave } from '../StoryWordSave'
+import { WordVaultBrowseClient, WordVaultViewerGate } from '@/components/wordvault/WordVaultBrowseClient'
+import { vocabRowToWord } from '@/lib/wordvault/browse-queries'
+import { storyVaultHref } from '@/lib/library/story/return-context'
 import type { WordLookup } from '@/lib/library/reader-queries'
 import type { StoryAuthSource } from '../use-story-auth-guard'
 import {
@@ -813,4 +816,68 @@ describe('D5 — 선택 낱말 저장 조작 · 단어장 Story 복귀 줄', () 
     expect(html).toContain('data-story-body')
     expect(saveWord).not.toHaveBeenCalled()
   })
+})
+
+// Same D5 integration: full private WordVault subtree, not only its Story return bar.
+describe('D5 WordVault authenticated renderer integration', () => {
+  const A = '11111111-1111-4111-8111-111111111111'
+  const B = '22222222-2222-4222-8222-222222222222'
+  const RK = `lsr_${'a'.repeat(32)}`
+  const row = (id: string, word: string, meaning: string) =>
+    ({ id, word, meaning, example_sentence: `The ${word} example.`, pronunciation: '', pos: 'noun', cefr_level: 'B1', difficulty: null, stability: null, last_review_at: null, next_review_at: null, module_history: [], review_count: 0, text_id: null, shared_set_id: 'set-1', created_at: '2026-10-27T00:00:00Z' }) as unknown as Parameters<typeof vocabRowToWord>[0]
+  const words = [row('v1', 'privateword', '사적인뜻'), row('v2', 'secondword', '두번째뜻')].map((r, i) => vocabRowToWord(r, i))
+  const known = (userId: string | null): StoryAuthSource => ({ subscribe: () => () => {}, currentUserId: async () => userId, testOnlyKnownUserId: () => userId })
+  const pending: StoryAuthSource = { subscribe: () => () => {}, currentUserId: () => new Promise(() => {}) }
+  const reopen = storyVaultHref({ releaseKey: RK, unitIndex: 2 })
+
+  function render(source: StoryAuthSource) {
+    return renderToStaticMarkup(
+      <WordVaultViewerGate viewerId={A} reopenHref={reopen} authSource={source}>
+        <WordVaultBrowseClient
+          words={words}
+          textChips={[{ id: 'text:t1', label: '사적인 본문 칩', count: 1 }]}
+          setChips={[{ id: 'set:set-1', label: '사적인 세트 칩', count: 2 }]}
+          storyReturn={<StoryVaultReturnBar state={{ status: 'ok', releaseKey: RK, unitIndex: 2, title: 'Gull Rock', unitCount: 3 }} />}
+        />
+      </WordVaultViewerGate>,
+    )
+  }
+  const PRIVATE = ['privateword', '사적인뜻', 'secondword', '사적인 본문 칩', '사적인 세트 칩', 'data-story-vault-return', '단어장 도구']
+
+  describe('WordVaultViewerGate — 서버 주인으로 긍정 확인될 때만 개인 내용', () => {
+    it('브라우저 = 서버 주인(A): 실제 목록 · 칩 · 듣기 · Story 복귀 줄', () => {
+      const html = render(known(A))
+      expect(html).toContain('data-vault-private="shown"')
+      for (const s of PRIVATE) expect(html, s).toContain(s)
+      expect(html).not.toContain(A) // uid 는 비교에만
+    })
+
+    for (const [name, source, state] of [
+      ['다른 계정(B)', known(B), 'changed'],
+      ['로그아웃', known(null), 'changed'],
+      ['확인 전(기준선 대기)', pending, 'checking'],
+    ] as const) {
+      it(`${name}: 목록 · 칩 · 듣기 · 복귀 줄 0 · ${state}`, () => {
+        const html = render(source)
+        expect(html).toContain(`data-vault-private="${state}"`)
+        for (const s of PRIVATE) expect(html, s).not.toContain(s)
+        expect(html).not.toContain(A)
+        expect(html).not.toContain(B)
+        expect(html).toContain('data-vault-reopen')
+        expect(html.replaceAll('&amp;', '&')).toContain(`href="${reopen}"`)
+        if (state === 'changed') {
+          const login = [...html.matchAll(/href="([^"]+)"/g)].map((m) => m[1].replaceAll('&amp;', '&')).find((h) => h.startsWith('/login'))
+          expect(new URL(login!, 'http://x').searchParams.get('next')).toBe(reopen)
+        } else {
+          expect(html).not.toContain('data-vault-login')
+        }
+      })
+    }
+
+    it('기준선을 못 읽으면 same 으로 치지 않는다(checking 그대로)', () => {
+      const failing: StoryAuthSource = { subscribe: () => () => {}, currentUserId: () => Promise.reject(new Error('storage')) }
+      expect(render(failing)).toContain('data-vault-private="checking"')
+    })
+  })
+
 })

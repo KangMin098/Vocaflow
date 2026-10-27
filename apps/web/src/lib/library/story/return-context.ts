@@ -8,6 +8,8 @@
 // - 지도 복귀(lib/csat/map-return)와 섞이면 어느 쪽도 고르지 않고 중립(conflict)으로 돌려준다 — 지도 의미를 덮지 않는다.
 // 순수 함수 — 네트워크 · 시계 없음.
 
+import { vocabMapReturnHref } from '../../csat/map-return'
+
 // learner.ts(server-only)와 같은 형식 — 이 모듈은 클라이언트에서도 쓰므로 값을 옮겨 적는다(시험이 두 값이 같은지 확인한다).
 export const RETURN_RELEASE_KEY_RE = /^lsr_[0-9a-f]{32}$/
 export const RETURN_MAX_UNIT_INDEX = 9999
@@ -33,7 +35,8 @@ type Params = Record<string, string | string[] | undefined>
  *  - none: Story 문맥 매개변수가 하나도 없다(일반 진입 — 출처를 지어내지 않는다)
  *  - ok: 두 값이 모두 하나씩 · 엄격한 형식
  *  - invalid: 하나만 · 여러 값 · 형식 오류 · 범위 초과
- *  - conflict: 형식은 맞지만 지도 복귀 매개변수가 함께 왔다(어느 쪽도 적용하지 않는다)
+ *  - conflict: Story 키가 **하나라도**(형식 오류 · 여러 값 · 짝 없음 포함) 지도 복귀 표지와 함께 왔다 — 형식 검사보다 먼저 판정한다.
+ *    어느 쪽도 적용하지 않는다(형식이 틀린 Story 값이 「invalid」 로 빠지면서 지도 복귀만 조용히 이기던 순서를 막는다).
  */
 export function parseStoryReturnParams(
   params: Params,
@@ -42,13 +45,25 @@ export function parseStoryReturnParams(
   const rel = params[STORY_RETURN_RELEASE_PARAM]
   const unit = params[STORY_RETURN_UNIT_PARAM]
   if (rel === undefined && unit === undefined) return { status: 'none' }
+  const mapPresent = opts.mapReturnPresent ?? params[MAP_RETURN_MARKER] !== undefined
+  if (mapPresent) return { status: 'conflict' }
   if (typeof rel !== 'string' || typeof unit !== 'string') return { status: 'invalid' }
   if (!RETURN_RELEASE_KEY_RE.test(rel) || !UNIT_RE.test(unit)) return { status: 'invalid' }
   const unitIndex = Number(unit)
   if (!Number.isSafeInteger(unitIndex) || unitIndex < 0 || unitIndex > RETURN_MAX_UNIT_INDEX) return { status: 'invalid' }
-  const mapPresent = opts.mapReturnPresent ?? params[MAP_RETURN_MARKER] !== undefined
-  if (mapPresent) return { status: 'conflict' }
   return { status: 'ok', context: { releaseKey: rel, unitIndex } }
+}
+
+/**
+ * 단어장 화면의 두 복귀 문맥을 한 곳에서 정한다 — Story 판정이 conflict 이면 지도 복귀도 null(어느 쪽도 이기지 않는다).
+ * 그 밖에는 지도 복귀 계약(vocabMapReturnHref) 그대로 · Story 문맥이 없으면 일반 단어장 그대로.
+ */
+export function resolveVaultReturnContexts(params: Params): {
+  story: ReturnType<typeof parseStoryReturnParams>
+  mapBack: string | null
+} {
+  const story = parseStoryReturnParams(params)
+  return { story, mapBack: story.status === 'conflict' ? null : vocabMapReturnHref(params) }
 }
 
 /** Story → 일반 단어장(명시 이동). 단어장은 본인 전체 목록이며 Story 전용 목록이 아니다. */

@@ -11,6 +11,9 @@ import type {
   StoryLearnerResult,
   StoryPositionResult,
   StoryUnitCompletionResult,
+  StoryWordSaveFailureCode,
+  StoryWordSaveOutcome,
+  StoryWordSaveResult,
 } from '@/lib/library/story/learner-types'
 
 import {
@@ -88,7 +91,7 @@ function setup(
     coverage: opts.completionLabel === 'adapted_partial' ? 'episode' : 'complete_work',
     completionLabel: opts.completionLabel ?? 'adapted_full_work',
     unitTitles: ['Tide', 'Gull', 'Rock'],
-    actions: { recordPosition, completeUnit },
+    actions: { recordPosition, completeUnit, ...(opts.actions?.saveWord ? { saveWord: opts.actions.saveWord } : {}) },
     auth: guard,
     navigate,
     emit: (e) => {
@@ -408,7 +411,140 @@ describe('완료 — 버튼으로만 · 재호출 안전', () => {
   })
 })
 
+describe('낱말 저장(D5-I01) — 위치 · 완료와 같은 문 · 같은 거부 전이', () => {
+  const saved = (over: Partial<StoryWordSaveResult> = {}): StoryWordSaveOutcome => ({
+    ok: true,
+    data: { viewerId: VIEWER, status: 'saved', headword: 'gull', surface: 'gull', ...over },
+  })
+  const saveFail = (code: StoryWordSaveFailureCode, retryable = false): StoryWordSaveOutcome => ({ ok: false, code, message: `거부: ${code}`, retryable })
+  const withSave = (saveWord: StoryReaderActions['saveWord'], browser?: string | null | 'unverified', extra: Partial<StoryReaderActions> = {}) =>
+    setup({ actions: { ...extra, saveWord }, browser })
+  const input = { unitIndex: 1, wordIndex: 4, surface: 'gull' }
+
+  it('성공: 결과를 그대로 · expectedViewerId = 서버 viewerId · 개인 내용 유지', async () => {
+    const saveWord = vi.fn(async () => saved())
+    const { session, guard } = withSave(saveWord)
+    expect(await session.saveWord(input)).toEqual(saved())
+    expect(saveWord).toHaveBeenCalledWith({ releaseKey: KEY_A, unitIndex: 1, wordIndex: 4, surface: 'gull', expectedViewerId: VIEWER })
+    expect(guard.status).toBe('same')
+    expect(session.getSnapshot().denied).toBeNull()
+  })
+
+  it('확인 전(checking) · 바뀜 · 거부 뒤에는 보내지 않는다(stale)', async () => {
+    const saveWord = vi.fn(async () => saved())
+    expect(await withSave(saveWord, 'unverified').session.saveWord(input)).toEqual({ stale: true })
+    expect(await withSave(saveWord, OTHER).session.saveWord(input)).toEqual({ stale: true })
+    expect(saveWord).not.toHaveBeenCalled()
+  })
+
+  for (const code of DENIAL_CODES) {
+    it(`서버 거부 ${code}: 위치 · 완료와 같은 denied + refresh 1회 · 성공 없음 · 이후 액션 0번`, async () => {
+      const saveWord = vi.fn(async () => saveFail(code))
+      const { session, refresh, recordPosition, completeUnit } = withSave(saveWord)
+      await session.complete(0)
+      expect(session.getSnapshot().completedLocal).toEqual([0])
+      expect(await session.saveWord(input)).toEqual({ stale: true })
+      const snap = session.getSnapshot()
+      expect(snap.denied).toEqual({ code, message: `거부: ${code}` })
+      expect(snap.completedLocal).toEqual([]) // 앞서 받은 개인 진도 표시도 지운다
+      expect(snap.counts).toBeNull()
+      expect(refresh).toHaveBeenCalledTimes(1)
+      expect(await session.saveWord(input)).toEqual({ stale: true })
+      await session.go(2, 'navigate')
+      expect(saveWord).toHaveBeenCalledTimes(1)
+      expect(recordPosition).not.toHaveBeenCalled()
+      expect(completeUnit).toHaveBeenCalledTimes(1)
+    })
+  }
+
+  it('성공인데 결과 주인이 다르면: 인증 경계를 바뀜으로 고정 · stale(성공을 보이지 않는다)', async () => {
+    const { session, guard, refresh } = withSave(async () => saved({ viewerId: OTHER }))
+    expect(await session.saveWord(input)).toEqual({ stale: true })
+    expect(guard.status).toBe('changed')
+    expect(readerVisibility(guard.status, session.getSnapshot().denied)).toBe('auth_changed')
+    expect(refresh).not.toHaveBeenCalled() // 바뀜 화면의 자동 새로 고침은 StoryReader(readerAuthDecision)가 한 번 한다
+  })
+
+  it('일시 오류 · 사전에 없음 · 낱말 불일치 · 던진 오류는 창에만 — 본문 · 진도를 숨기지 않는다', async () => {
+    for (const out of [saveFail('temporary', true), saveFail('not_saveable'), saveFail('selection_mismatch'), saveFail('reader_data_invalid')]) {
+      const { session, guard, refresh } = withSave(async () => out)
+      await session.complete(0)
+      expect(await session.saveWord(input)).toEqual(out)
+      expect(session.getSnapshot().denied).toBeNull()
+      expect(session.getSnapshot().completedLocal).toEqual([0])
+      expect(guard.status).toBe('same')
+      expect(refresh).not.toHaveBeenCalled()
+    }
+    const thrown = withSave(async () => {
+      throw new Error('net')
+    })
+    expect(await thrown.session.saveWord(input)).toMatchObject({ ok: false, code: 'temporary' })
+    expect(thrown.session.getSnapshot().denied).toBeNull()
+  })
+
+  it('늦은 응답: 그 사이 계정 전환 · 화면 떠남 · 다른 거부가 있으면 stale(성공 · 거부 둘 다 반영 안 함)', async () => {
+    for (const between of ['invalidate', 'detach', 'deny'] as const) {
+      const d = deferred<StoryWordSaveOutcome>()
+      const { session, guard, refresh } = withSave(() => d.promise, undefined, { recordPosition: async () => fail('account_blocked', false) })
+      const p = session.saveWord(input)
+      if (between === 'invalidate') guard.invalidate()
+      else if (between === 'detach') session.detach()
+      else await session.go(1, 'navigate')
+      d.resolve(saveFail('viewer_changed'))
+      expect(await p).toEqual({ stale: true })
+      expect(refresh).toHaveBeenCalledTimes(between === 'deny' ? 1 : 0)
+      if (between !== 'deny') expect(session.getSnapshot().denied).toBeNull()
+    }
+  })
+})
+
 describe('StoryAuthGuard', () => {
+  it('recheck(BFCache 복원): same → checking(세대 오름) → 같은 사람이면 same · 다른 사람 · 로그아웃이면 changed', async () => {
+    for (const [now, expected] of [[VIEWER, 'same'], [OTHER, 'changed'], [null, 'changed']] as const) {
+      const guard = new StoryAuthGuard(VIEWER)
+      guard.observe({ event: 'BASELINE', userId: VIEWER })
+      const token = guard.token()
+      const baseline = deferred<string | null>()
+      guard.recheck({ currentUserId: () => baseline.promise })
+      expect(guard.status).toBe('checking')
+      expect(guard.isCurrent(token)).toBe(false) // 복원 전에 출발한 결과는 낡았다
+      baseline.resolve(now)
+      await flush()
+      expect(guard.status).toBe(expected)
+    }
+  })
+
+  it('recheck: 기준선을 못 읽으면 checking 유지(same 으로 치지 않는다) · 바뀜은 되살리지 않는다 · 늦은 기준선은 더 새 확인 · 이벤트에 진다', async () => {
+    const guard = new StoryAuthGuard(VIEWER)
+    guard.observe({ event: 'BASELINE', userId: VIEWER })
+    guard.recheck({ currentUserId: () => Promise.reject(new Error('storage')) })
+    await flush()
+    expect(guard.status).toBe('checking')
+
+    const old = deferred<string | null>()
+    const fresh = deferred<string | null>()
+    guard.recheck({ currentUserId: () => old.promise })
+    guard.recheck({ currentUserId: () => fresh.promise })
+    fresh.resolve(OTHER)
+    await flush()
+    expect(guard.status).toBe('changed')
+    old.resolve(VIEWER) // 늦은 같은 사람 기준선이 바뀜을 되돌리지 않는다
+    await flush()
+    expect(guard.status).toBe('changed')
+    guard.recheck({ currentUserId: async () => VIEWER })
+    await flush()
+    expect(guard.status).toBe('changed')
+
+    const g2 = new StoryAuthGuard(VIEWER)
+    g2.observe({ event: 'BASELINE', userId: VIEWER })
+    const slow = deferred<string | null>()
+    g2.recheck({ currentUserId: () => slow.promise })
+    g2.observe({ event: 'SIGNED_OUT', userId: null })
+    slow.resolve(VIEWER)
+    await flush()
+    expect(g2.status).toBe('changed')
+  })
+
   it('구독을 먼저 걸고 기준선을 읽는다 · 기준선 전에 온 이벤트가 이긴다', async () => {
     const order: string[] = []
     let listener: ((c: StoryAuthChange) => void) | null = null

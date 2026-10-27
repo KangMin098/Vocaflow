@@ -241,6 +241,10 @@ function ReadyReader({
         actions: {
           recordPosition: (input) => latest.current.actions.recordPosition(input),
           completeUnit: (input) => latest.current.actions.completeUnit(input),
+          saveWord: (input) => {
+            const save = latest.current.actions.saveWord
+            return save ? save(input) : Promise.resolve({ ok: false as const, code: 'temporary' as const, message: '지금은 저장할 수 없어요.', retryable: false })
+          },
         },
         navigate: (href) => latest.current.navigate(href),
         emit: (event) => latest.current.emit(event),
@@ -353,21 +357,13 @@ function ReadyReader({
   const next = view.next
   const anchorsBound = unit !== null && context.unit.unitIndex === unit.unitIndex
 
-  // D5-I01 선택 낱말 저장 — 긍정 확인(same)된 본인 화면 · 단위 화면에서만. 보낼 때의 인증 세대를 잡아 두고, 응답은 세대가 같고
-  // 결과의 주인이 이 화면의 주인일 때만 적용한다(늦은 응답 · 계정 전환이면 stale — 성공을 보이지 않는다).
-  const saveAction = actions.saveWord
+  // D5-I01 선택 낱말 저장 — 위치 · 완료와 같은 세션 문을 쓴다(session.saveWord): 긍정 확인(same)된 본인 화면에서만 보내고,
+  // 신원 · 접근 거부는 같은 거부 전이(개인 내용 폐기 + 서버 상태 다시 받기) · 다른 주인의 성공은 인증 경계 무효 · 늦은 응답은 stale.
   const wordSave =
-    unit && saveAction
+    unit && actions.saveWord
       ? {
           vaultHref: storyVaultHref({ releaseKey, unitIndex: unit.unitIndex }),
-          call: async ({ wordIndex, surface }: { wordIndex: number; surface: string }) => {
-            const token = guard.token()
-            if (!guard.isCurrent(token)) return { stale: true as const }
-            const out = await saveAction({ releaseKey, unitIndex: unit.unitIndex, wordIndex, surface, expectedViewerId: state.viewerId })
-            if (out.ok && !guard.accepts(token, out.data.viewerId)) return { stale: true as const }
-            if (!out.ok && !guard.isCurrent(token)) return { stale: true as const }
-            return out
-          },
+          call: ({ wordIndex, surface }: { wordIndex: number; surface: string }) => session.saveWord({ unitIndex: unit.unitIndex, wordIndex, surface }),
         }
       : null
 

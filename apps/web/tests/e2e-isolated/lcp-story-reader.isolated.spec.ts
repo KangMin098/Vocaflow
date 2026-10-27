@@ -103,7 +103,8 @@ export async function harness(context: BrowserContext, name: string, opts: { htm
         return route.fulfill({ contentType: ext === 'svg' ? 'image/svg+xml' : `image/${ext}`, body: fs.readFileSync(file) })
       }
     }
-    if (req.method() === 'GET' && (url.pathname === '/library' || url.pathname.startsWith('/library/')) && req.resourceType() === 'document') {
+    // /wordvault/browse = T-0191 단어장 계정 경계 시험(같은 하네스 · 합성 행)
+    if (req.method() === 'GET' && (url.pathname === '/library' || url.pathname.startsWith('/library/') || url.pathname === '/wordvault/browse') && req.resourceType() === 'document') {
       log.fulfilled.push(`GET ${url.pathname}${url.search}`)
       return route.fulfill({ contentType: 'text/html; charset=utf-8', body: await opts.html(url) })
     }
@@ -2176,6 +2177,9 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await saveBtn().click()
           await sx(dialog().locator('[data-story-word-save="error"]')).toBeVisible()
           await sx(status()).toContainText('잠시 연결이 불안정해요')
+          // 일시 오류는 창에만 — 정상 본문 · 목차 · 개인 진도는 그대로(거부 전이 아님)
+          await sx(B(page)).toBeVisible()
+          await sx(page.locator('[data-story-reader="denied"]')).toHaveCount(0)
           expect(await dialog().innerText()).not.toMatch(/synthetic|XX000|vocabularies|insert failed/)
           await sx(saveBtn()).toHaveText('다시 시도')
           await sx(saveBtn()).toBeFocused()
@@ -2260,8 +2264,20 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           await page.locator('[data-story-word-mode]').click()
           await openWord('twelve')
           run.actor = FM.users.B
+          const pagesBefore = run.pages.length
           await saveBtn().click()
-          await sx(status()).toContainText('로그인 계정이 바뀌어')
+          // T-0191: 창의 오류 문구만이 아니라 — 위치 · 완료와 같은 거부 전이(denied → refresh). refresh 가 B 의 서버 판정을 그리면
+          // 브라우저(A)와 달라 바뀜 화면이 된다. 어느 쪽이든 A 의 본문 · 목차 · 진도 · 완료 단추는 남지 않는다.
+          await sx(page.locator('[data-story-reader="denied"][data-story-state="viewer_changed"], [data-story-state="auth_changed"]').first()).toBeVisible()
+          await sx(dialog()).toHaveCount(0)
+          await sx(B(page)).toHaveCount(0)
+          await sx(page.locator('[data-story-toc]')).toHaveCount(0)
+          await sx(completeBtn(page)).toHaveCount(0)
+          await sx(page.locator('[data-story-progress], [data-story-private="shown"]')).toHaveCount(0)
+          await sx.poll(() => run.pages.length).toBeGreaterThan(pagesBefore) // 서버 상태 다시 받기(refresh)
+          const afterDenial = await page.locator('#root').innerText()
+          expect(afterDenial).not.toContain('담았어요')
+          expect(afterDenial).not.toContain(probeOf(b1, 0))
           expect(vocabOf(FM.users.B)).toEqual([])
           await shot(page, `d5-save-viewer-changed-${width}`)
 
@@ -2270,6 +2286,340 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
           fs.appendFileSync(path.join(SHOTS, 'd5-fixture-evidence.jsonl'), `${JSON.stringify({ ...evidence, vocab_a: vocabOf(FM.users.A).map((r) => r.word), at: new Date().toISOString() })}\n`)
           const events = await closedTelemetry(page)
           expect(events.every((e) => ['story_catalog_viewed', 'story_reader_action'].includes(e.name))).toBe(true)
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
+      test('Codex authoritative saved headword (합성 사전 재확정 · 실제 save-word.ts + 저장 UI) — saved/already 모두 서버 표제어 표시 · 중복 전필드 보존', async ({ page, context }) => {
+        test.setTimeout(120_000)
+        await page.setViewportSize({ width, height: 1000 })
+        const run = newRun(`authoritative-headword-${width}`, (db) => {
+          ;(db as unknown as { dictionary: unknown }).dictionary = {
+            lived: { found: true, resolved_word: 'reside', meaning_ko: '거주하다 (합성 서버 재확정)', pos: 'verb', cefr_level: 'B1', example_en: null, match_via: 'inflection', lang: 'en' },
+          }
+        })
+        run.actor = FM.users.A
+        await context.addInitScript(() => {
+          // Earlier client lookup and later server re-resolution deliberately differ. This is a UI contract fixture, not lexicographic evidence.
+          ;(window as unknown as { __VF_LOOKUP__: unknown }).__VF_LOOKUP__ = { lived: { word: 'live', meaning_ko: '살다 (앞선 브라우저 조회)', pos: 'verb' } }
+        })
+        const log = await readerHarness(context, `authoritative-headword@${width}`, run)
+        try {
+          await openStories(page, `/library/stories/${FM.release_keys.B1}?unit=0`)
+          await sx(B(page)).toBeVisible()
+          await page.locator('[data-story-word-mode]').click()
+          const word = page.locator('[data-word-index]').filter({ hasText: /^lived$/ }).first()
+          let inserted: unknown
+          for (const state of ['saved', 'already'] as const) {
+            await word.click()
+            const dialog = page.getByRole('dialog')
+            await sx(dialog).toBeVisible()
+            await sx(dialog).not.toHaveAttribute('aria-busy', 'true')
+            await sx(dialog.locator('[data-story-word-save="idle"] strong')).toHaveText('live')
+            await dialog.locator('[data-story-word-save-button]').click()
+            const box = dialog.locator(`[data-story-word-save="${state}"]`)
+            await sx(box).toBeVisible()
+            await sx(box.locator('strong')).toHaveText('reside')
+            await sx(box).toContainText('본문 lived의 사전 원형')
+            const rows = (readDb(run) as unknown as { vocab: unknown[] }).vocab
+            expect(rows).toHaveLength(1)
+            expect(rows[0]).toMatchObject({ user_id: FM.users.A, word: 'reside', text_id: null, origin: 'manual' })
+            if (state === 'saved') inserted = structuredClone(rows)
+            else expect(rows).toEqual(inserted)
+            await shot(page, `codex-authoritative-headword-${state}-${width}`)
+            await page.keyboard.press('Escape')
+            await sx(dialog).not.toBeVisible()
+          }
+          expect(writes(run)).toEqual([])
+        } finally { finishRun(run, log) }
+        assertQuietNetwork(log)
+      })
+
+      test('T-0191 낱말 창 경계(합성 긴 사전 내용 · 실제 WordLookupPopover + 저장 줄) — 화면 아래 낱말 · 화면 밖 낱말 단추 · 저장 뒤 줄 늘어남에도 창 · 저장 · 상태 · 단어장 링크가 뷰포트 안 · 키보드로 모두 도달 · 창 안 스크롤이 창을 닫지 않음', async ({ page, context }) => {
+        test.setTimeout(180_000)
+        await page.setViewportSize({ width, height: 1000 })
+        const b1 = FM.release_keys.B1
+        const run = newRun(`popover-bounds-${width}`)
+        run.actor = FM.users.A
+        const LONG_MEANING = '해안 가장자리의 바위 위에 세워져 밤에 불빛을 돌려 배에게 위험한 암초와 항로를 알려 주는 높은 탑, 또는 그 탑을 지키는 일을 맡은 곳 (합성 · 긴 뜻 상한 시험)'
+        const LONG_EXAMPLE = 'Every night for twelve years the keeper climbed the narrow stairs, trimmed the wick and watched the beam sweep across the black water until the morning boats came home.'
+        const WEB = {
+          collocations: ['keep watch', 'narrow stairs', 'black water', 'sweep across', 'morning boats', 'trim the wick', 'climb the stairs', 'come home'],
+          meanings_ko: [{ example: LONG_EXAMPLE, example_ko: '열두 해 동안 매일 밤 등대지기는 좁은 계단을 올라 심지를 다듬고, 아침 배들이 돌아올 때까지 불빛이 검은 물 위를 쓸고 지나가는 것을 지켜보았다. (합성)' }],
+          derived_forms: ['keeper', 'keeping', 'kept', 'keeps', 'keepsake', 'upkeep'],
+          synonyms: ['guardian', 'warden', 'custodian', 'watchman', 'caretaker', 'steward', 'sentinel', 'protector'],
+          antonyms: ['neglecter', 'abandoner', 'deserter', 'intruder'],
+        }
+        await context.addInitScript(({ meaning, example, web }) => {
+          const w = window as unknown as { __VF_LOOKUP__: Record<string, unknown>; __VF_LOOKUP_WEB__: Record<string, unknown>; __vfLongFill: (words: string[]) => void }
+          w.__VF_LOOKUP__ = {}
+          w.__VF_LOOKUP_WEB__ = {}
+          w.__vfLongFill = (words) => {
+            for (const x of words) {
+              const k = x.toLowerCase()
+              w.__VF_LOOKUP__[k] = { word: k, meaning_ko: meaning, pos: 'noun', cefr_level: 'B2', example_en: example }
+              w.__VF_LOOKUP_WEB__[k] = web
+            }
+          }
+        }, { meaning: LONG_MEANING, example: LONG_EXAMPLE, web: WEB })
+        const log = await readerHarness(context, `popover-bounds@${width}`, run)
+        const dialog = () => page.getByRole('dialog')
+        const evidence: Record<string, unknown> = { width, synthetic: 'long dictionary upper-bound fixture (not real dictionary rows)' }
+        // 창이 열린 채 찍는다 — shot() 은 맨 위로 스크롤해 전체를 찍으므로(창은 바깥 스크롤에 닫힌다) 여기서는 뷰포트만 · 덮어쓰지 않음.
+        const vshot = async (name: string) => {
+          fs.mkdirSync(SHOTS, { recursive: true })
+          let n = 1
+          const fileOf = () => path.join(SHOTS, `${name}${n > 1 ? `.r${n}` : ''}.viewport.png`)
+          while (fs.existsSync(fileOf())) n += 1
+          await page.screenshot({ path: fileOf() })
+          fs.appendFileSync(path.join(WORK, 'shots-index.jsonl'), `${JSON.stringify({ file: path.relative(REPO, fileOf()).replace(/\\/g, '/'), sha256: createHash('sha256').update(fs.readFileSync(fileOf())).digest('hex'), at: new Date().toISOString() })}
+`)
+        }
+        const inViewport = async (label: string) => {
+          const vp = page.viewportSize()!
+          const rects = await page.evaluate(() => {
+            const d = document.querySelector('[role="dialog"]') as HTMLElement
+            const pick = (sel: string) => { const el = d.querySelector(sel) as HTMLElement | null; if (!el) return null; const r = el.getBoundingClientRect(); return { top: r.top, bottom: r.bottom, left: r.left, right: r.right } }
+            const r = d.getBoundingClientRect()
+            return { dialog: { top: r.top, bottom: r.bottom, left: r.left, right: r.right, scrollH: d.scrollHeight, clientH: d.clientHeight }, save: pick('[data-story-word-save-button]'), status: pick('[data-story-word-save-status]'), vault: pick('[data-story-word-save-vault]') }
+          })
+          evidence[label] = rects
+          // 창 자체가 뷰포트 안이고, 저장 줄의 조작 · 상태 · 링크는 창 안에서 보이는 자리에 있다(창 안 스크롤로 닿는 것 포함 — 아래 키보드 단계가 확인)
+          expect(rects.dialog.top >= 0 && rects.dialog.bottom <= vp.height && rects.dialog.left >= 0 && rects.dialog.right <= vp.width, `${label} ${JSON.stringify(rects.dialog)}`).toBe(true)
+          return rects
+        }
+        const tabToEach = async (label: string) => {
+          // 창 안 조작을 Tab 으로 차례로 지나며, 초점이 간 조작은 그 순간 뷰포트 안에 보인다(창 안 스크롤이 따라온다) · 창은 열린 채
+          const seen: string[] = []
+          for (let i = 0; i < 12; i++) {
+            await page.keyboard.press('Tab')
+            const info = await page.evaluate(() => {
+              const a = document.activeElement as HTMLElement
+              const d = document.querySelector('[role="dialog"]')
+              if (!d || !a || !d.contains(a)) return null
+              const r = a.getBoundingClientRect()
+              return { key: a.getAttribute('data-story-word-save-button') !== null ? 'save' : a.getAttribute('data-story-word-save-vault') !== null ? 'vault' : (a.getAttribute('aria-label') || a.textContent || '').trim().slice(0, 20), top: r.top, bottom: r.bottom, vh: window.innerHeight }
+            })
+            if (!info) break
+            seen.push(info.key)
+            expect(info.top >= 0 && info.bottom <= info.vh, `${label} focus ${JSON.stringify(info)}`).toBe(true)
+            await sx(dialog()).toBeVisible()
+          }
+          evidence[`${label}_tab`] = seen
+          return seen
+        }
+        try {
+          await openStories(page, `/library/stories/${b1}?unit=0`)
+          await sx(B(page)).toBeVisible()
+          await page.locator('[data-story-word-mode]').click()
+          const words = await page.locator('[data-word-index]').allInnerTexts()
+          expect(words.length).toBeGreaterThan(10)
+          await page.evaluate((ws) => (window as unknown as { __vfLongFill: (w: string[]) => void }).__vfLongFill(ws), words)
+          editDb(run, (db) => {
+            const dict: Record<string, unknown> = {}
+            for (const x of words) dict[x.toLowerCase()] = { found: true, resolved_word: x.toLowerCase(), meaning_ko: LONG_MEANING, pos: 'noun', cefr_level: 'B2', example_en: LONG_EXAMPLE, match_via: 'direct', lang: 'en' }
+            ;(db as unknown as { dictionary: unknown }).dictionary = dict
+          })
+
+          // 1) 화면 아래쪽 낱말 — 합성 단위가 짧아 실제 긴 단위의 「아래쪽 낱말」 위치를 만들려고 시험에서만 본문 위에 여백을 둔다(제품 CSS 아님).
+          //    본문 마지막 낱말을 뷰포트 맨 아래 근처로 → 창 · 저장 → 저장 뒤 줄이 늘어도 뷰포트 안
+          await page.addStyleTag({ content: '[data-story-body]{margin-top:900px !important}' })
+          const last = page.locator('[data-word-index]').last()
+          await last.scrollIntoViewIfNeeded()
+          await page.evaluate(() => {
+            const els = document.querySelectorAll('[data-word-index]')
+            const el = els[els.length - 1] as HTMLElement
+            const r = el.getBoundingClientRect()
+            window.scrollBy(0, r.bottom - (window.innerHeight - 24))
+          })
+          await last.click()
+          await sx(dialog()).toBeVisible()
+          await sx(dialog()).not.toHaveAttribute('aria-busy', 'true')
+          await sx(dialog().locator('[data-story-word-save="idle"]')).toBeVisible()
+          await inViewport('inline_before_save')
+          await vshot(`popover-bounds-inline-${width}`)
+          await dialog().locator('[data-story-word-save-button]').click()
+          await sx(dialog().locator('[data-story-word-save="saved"]')).toBeVisible()
+          await page.waitForTimeout(200)
+          await inViewport('inline_after_save')
+          await vshot(`popover-bounds-inline-saved-${width}`)
+          // 상한 내용 + 저장 줄에서도 창 안이 넘치지 않는다 — 창 안 스크롤 영역이 없으므로 「창 안 스크롤이 창을 닫는」 경로가 없다.
+          // (창 밖 · 창 위 휠은 페이지 스크롤이고, 기준 위치가 움직이므로 기존 계약대로 닫힌다 — 바꾸지 않는다.)
+          const after = evidence.inline_after_save as { dialog: { scrollH: number; clientH: number; top: number; bottom: number } }
+          expect(after.dialog.scrollH <= after.dialog.clientH + 1, JSON.stringify(after.dialog)).toBe(true)
+          evidence.inline_dialog_height = after.dialog.bottom - after.dialog.top
+          await dialog().focus()
+          const tabs1 = await tabToEach('inline')
+          expect(tabs1).toContain('vault')
+          await page.keyboard.press('Escape')
+          await sx(dialog()).toHaveCount(0)
+
+          // 2) 화면 밖 낱말 단추(D4 경로) — 같은 상한 내용 · 저장 뒤에도 뷰포트 안 · 키보드 도달
+          await page.locator('[data-word-index="0"]').focus()
+          await page.keyboard.press('End')
+          await page.keyboard.press('ArrowLeft')
+          await page.evaluate(() => window.scrollTo(0, 0))
+          const picker = page.locator('[data-story-word-picker]')
+          await picker.focus()
+          await page.keyboard.press('Enter')
+          await sx(dialog()).toBeFocused()
+          await sx(dialog()).not.toHaveAttribute('aria-busy', 'true')
+          await inViewport('picker_before_save')
+          await dialog().locator('[data-story-word-save-button]').click()
+          await sx(dialog().locator('[data-story-word-save="saved"]')).toBeVisible()
+          await page.waitForTimeout(200)
+          await inViewport('picker_after_save')
+          await vshot(`popover-bounds-picker-saved-${width}`)
+          await dialog().focus()
+          const tabs2 = await tabToEach('picker')
+          expect(tabs2).toContain('vault')
+          // 마지막 조작 뒤 Tab 은 창 밖으로 — 비모달 창의 기존 계약대로 닫힌다(blur). Esc 복귀는 D5 8) 이 같은 경로로 확인한다.
+          await sx(dialog()).toHaveCount(0)
+
+          fs.mkdirSync(SHOTS, { recursive: true })
+          fs.appendFileSync(path.join(SHOTS, 'popover-bounds-evidence.jsonl'), `${JSON.stringify({ ...evidence, at: new Date().toISOString() })}\n`)
+          expect(writes(run)).toEqual([])
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
+      test('T-0191 단어장 계정 경계(합성 fixture · 실제 WordVaultViewerGate + WordVaultBrowseClient) — A 목록 · 칩 · 듣기 · 복귀 줄은 A 확인 뒤에만 · B 전환 · 로그아웃 즉시 지움 + 듣기 멈춤 · 확인 전 숨김 · 늦은 기준선 · BFCache 다시 확인 · 실패 화면 복귀 줄 · 섞인 주소 중립', async ({ page, context }) => {
+        test.setTimeout(240_000)
+        await page.setViewportSize({ width, height: 1000 })
+        const b1 = FM.release_keys.B1
+        const row = (id: string, user: string, word: string, meaning: string) => ({ id, user_id: user, word, meaning, example_sentence: `The ${word} waits.`, pos: 'noun', cefr_level: 'B1', origin: 'manual', text_id: null })
+        const run = newRun(`vault-boundary-${width}`, (db) => {
+          ;(db as unknown as { vocab: unknown[] }).vocab = [row('va1', FM.users.A, 'harbourward', '항구쪽 (A 합성)'), row('va2', FM.users.A, 'saltglass', '소금유리 (A 합성)'), row('vb1', FM.users.B, 'otherword', '남의 뜻 (B 합성)')]
+        })
+        run.actor = FM.users.A
+        await context.addInitScript(() => {
+          // 음성 합성 대역 — speak · cancel 을 기록하고, 실제 브라우저처럼 cancel 은 진행 중 낱말의 끝(onend)을 낸다.
+          const calls: { op: string; text?: string }[] = []
+          let current: SpeechSynthesisUtterance | null = null
+          let timer: ReturnType<typeof setTimeout> | undefined
+          const end = () => { const c = current; current = null; c?.onend?.call(c, {} as SpeechSynthesisEvent) }
+          const fake = {
+            speak(u: SpeechSynthesisUtterance) { calls.push({ op: 'speak', text: u.text }); current = u; timer = setTimeout(end, 300) },
+            cancel() { calls.push({ op: 'cancel' }); clearTimeout(timer); end() },
+            pause() {}, resume() {}, getVoices: () => [], addEventListener() {}, removeEventListener() {}, speaking: false, pending: false, paused: false,
+          }
+          Object.defineProperty(window, 'speechSynthesis', { value: fake, configurable: true })
+          ;(window as unknown as { __vfSpeech: unknown }).__vfSpeech = calls
+        })
+        const log = await readerHarness(context, `vault-boundary@${width}`, run)
+        const gate = () => page.locator('[data-vault-private]')
+        const emit = (event: string, id: string | null) =>
+          page.evaluate(([e, u]) => (window as unknown as { __vfAuthEmit: (e: string, u: unknown) => void }).__vfAuthEmit(e as string, u ? { id: u } : null), [event, id] as const)
+        const speech = () => page.evaluate(() => (window as unknown as { __vfSpeech: { op: string; text?: string }[] }).__vfSpeech.slice())
+        const PRIVATE_A = ['harbourward', '항구쪽', 'saltglass', '소금유리']
+        const rootText = () => page.locator('#root').innerText()
+        const noPrivateA = async () => {
+          const t = await rootText()
+          for (const p of PRIVATE_A) expect(t, p).not.toContain(p)
+          await sx(page.locator('[data-story-vault-return], [data-testid="vocab-map-return"], section[aria-label="단어장 도구"]')).toHaveCount(0)
+        }
+        const storyVault = `/wordvault/browse?story_release=${b1}&story_unit=0`
+        const evidence: Record<string, unknown> = { width }
+        try {
+          // 1) A = A: 실제 목록 · Story 복귀 줄 · B 행 없음
+          await openStories(page, storyVault)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'shown')
+          await sx(page.locator('[data-story-vault-return="ok"]')).toBeVisible()
+          for (const p of PRIVATE_A) await sx(page.locator('#root')).toContainText(p)
+          expect(await rootText()).not.toContain('otherword')
+          await shot(page, `vault-a-shown-${width}`)
+
+          // 2) 흘려듣기(예문 포함) 중 B 로 전환 → 즉시 바뀜 · 목록 · 듣기 · 복귀 줄 0 · cancel · 그 뒤 읽기 0(예문 포함)
+          await page.getByRole('button', { name: 'Word + example' }).click()
+          await page.locator('body').click({ position: { x: 2, y: 2 } })
+          await page.keyboard.press('Space')
+          await sx.poll(async () => (await speech()).filter((c) => c.op === 'speak').length).toBeGreaterThan(0)
+          await emit('SIGNED_IN', FM.users.B)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'changed')
+          await noPrivateA()
+          const atSwitch = (await speech()).length
+          await page.waitForTimeout(2500) // 간격(1초) + 예문 지연(0.4초)을 넘겨도 지운 목록을 읽지 않는다
+          const afterSwitch = (await speech()).slice(atSwitch)
+          expect(afterSwitch.filter((c) => c.op === 'speak'), JSON.stringify(afterSwitch)).toEqual([])
+          expect((await speech()).some((c) => c.op === 'cancel')).toBe(true)
+          // 다시 열기 · 로그인 — 검증한 Story 문맥만 · 전역 로그아웃 없음
+          await sx(page.locator('[data-vault-reopen]')).toHaveAttribute('href', storyVault)
+          const login = await page.locator('[data-vault-login]').getAttribute('href')
+          expect(new URL(login!, ORIGIN).searchParams.get('next')).toBe(storyVault)
+          expect(await page.evaluate(() => (window as unknown as { __vfAuth: { calls: string[] } }).__vfAuth.calls.filter((c) => /signOut/i.test(c)))).toEqual([])
+          await noIdentityLeak(page)
+          await shot(page, `vault-a-to-b-${width}`)
+
+          // 3) 로그아웃 → 즉시 바뀜
+          await openStories(page, storyVault)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'shown')
+          await emit('SIGNED_OUT', null)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'changed')
+          await noPrivateA()
+
+          // 4) 확인 전(기준선 늦음): 개인 내용 0 → A 로 확인되면 보임
+          run.authManual = true
+          await openStories(page, storyVault)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'checking')
+          await noPrivateA()
+          await shot(page, `vault-checking-${width}`)
+          await page.evaluate((u) => (window as unknown as { __vfAuthResolve: (u: unknown) => void }).__vfAuthResolve({ id: u }), FM.users.A)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'shown')
+          // 5) 확인 전에 B 로 바뀌면 늦게 온 A 기준선이 되살리지 않는다
+          await openStories(page, storyVault)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'checking')
+          await emit('SIGNED_IN', FM.users.B)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'changed')
+          await page.evaluate((u) => (window as unknown as { __vfAuthResolve: (u: unknown) => void }).__vfAuthResolve({ id: u }), FM.users.A)
+          await page.waitForTimeout(300)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'changed')
+          await noPrivateA()
+          run.authManual = false
+
+          // 6) BFCache 복원(pageshow persisted) — 그 사이 다른 탭에서 B 로 바뀌었으면(이벤트 없이) 다시 확인해 지운다 · 같은 사람이면 다시 보인다
+          await openStories(page, storyVault)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'shown')
+          await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })))
+          await sx(gate()).toHaveAttribute('data-vault-private', 'shown')
+          await page.evaluate((u) => {
+            ;(window as unknown as { __vfAuth: { user: unknown } }).__vfAuth.user = { id: u }
+            window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true }))
+          }, FM.users.B)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'changed')
+          await noPrivateA()
+
+          // 7) 목록 실패 화면 — Story 복귀 줄도 계정 경계 안(A 확인 뒤에만) · B 전환이면 지움
+          editDb(run, (db) => { db.faults.vault_list = { kind: 'error', times: 1 } })
+          await openStories(page, storyVault)
+          await sx(page.locator('[data-testid="vocab-browse-load-failed"]')).toBeVisible()
+          await sx(page.locator('[data-story-vault-return="ok"]')).toBeVisible()
+          await emit('SIGNED_IN', FM.users.B)
+          await sx(gate()).toHaveAttribute('data-vault-private', 'changed')
+          await sx(page.locator('[data-testid="vocab-browse-load-failed"], [data-story-vault-return]')).toHaveCount(0)
+
+          // 8) 섞인 주소(형식 오류 · 짝 없음 Story 값 + 지도 표지) — 지도 · Story 어느 쪽도 이기지 않는다(중립 conflict) · 일반 지도는 그대로
+          for (const q of [`from=map&story_release=lsr_bad&story_unit=1`, `from=map&story_unit=1`, `from=map&ws=ws.vocab&story_release=${b1}&story_release=${b1}`]) {
+            await openStories(page, `/wordvault/browse?${q}`)
+            await sx(gate()).toHaveAttribute('data-vault-private', 'shown')
+            await sx(page.locator('[data-story-vault-return="conflict"]')).toBeVisible()
+            await sx(page.locator('[data-testid="vocab-map-return"], [data-story-vault-return-link]')).toHaveCount(0)
+          }
+          await shot(page, `vault-mixed-conflict-${width}`)
+          await openStories(page, '/wordvault/browse?from=map&ws=ws.vocab')
+          await sx(page.locator('[data-testid="vocab-map-return"]')).toBeVisible()
+          await sx(page.locator('[data-story-vault-return]')).toHaveCount(0)
+          await openStories(page, '/wordvault/browse')
+          await sx(page.locator('[data-testid="vocab-map-return"], [data-story-vault-return]')).toHaveCount(0)
+          for (const p of PRIVATE_A) await sx(page.locator('#root')).toContainText(p)
+
+          evidence.pages = run.pages.length
+          fs.mkdirSync(SHOTS, { recursive: true })
+          fs.appendFileSync(path.join(SHOTS, 'vault-boundary-evidence.jsonl'), `${JSON.stringify({ ...evidence, at: new Date().toISOString() })}\n`)
+          expect(writes(run)).toEqual([])
         } finally {
           finishRun(run, log)
         }

@@ -26,12 +26,15 @@ import {
   completeStoryUnit,
   loadStoryCatalogPage,
   loadStoryReaderPage,
+  loadStoryReturnTarget,
   recordStoryPosition,
   type StoryLearnerClient,
   type StoryLearnerRpcResponse,
 } from '../../../apps/web/src/lib/library/story/learner'
 import { loginUrlWithReturn } from '../../../apps/web/src/lib/auth/redirect'
 import { saveStoryWord, type StoryWordSaveClient } from '../../../apps/web/src/lib/library/story/save-word'
+import { resolveVaultReturnContexts, vaultPathWithStoryContext } from '../../../apps/web/src/lib/library/story/return-context'
+import { vocabMapLink } from '../../../apps/web/src/lib/csat/map-return'
 import type { ReaderDbState } from './s5-reader-fixtures'
 
 type Json = Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -351,6 +354,34 @@ export async function runPage(url: string, db: FakeLearnerDb, uid: string | null
     const unitParam = all.length === 0 ? undefined : all.length === 1 ? all[0] : all
     const state = await loadStoryReaderPage({ client }, { releaseKey, unitParam, returnPath: returnPathOf(releaseKey, unitParam) })
     return { kind: 'reader', url: u.pathname + u.search, state, releaseKey }
+  }
+  if (u.pathname === '/wordvault/browse') {
+    // app/(main)/wordvault/browse/page.tsx(T-0191 계정 경계 시험용) — 같은 순서: 서버 getUser → 없으면 로그인 주소(검증된 Story 문맥만) →
+    // resolveVaultReturnContexts(섞이면 둘 다 없음) → Story 공개 메타 → 본인 행만 목록. 화면은 viewerId(= getUser 주인)에 묶인다.
+    const sp: Record<string, string | string[]> = {}
+    for (const k of new Set(u.searchParams.keys())) {
+      const all = u.searchParams.getAll(k)
+      sp[k] = all.length === 1 ? all[0]! : all
+    }
+    const { story, mapBack } = resolveVaultReturnContexts(sp)
+    if (!uid) return { kind: 'redirect', url: u.pathname + u.search, to: loginUrlWithReturn(vaultPathWithStoryContext(story.status === 'ok' ? story.context : null)) }
+    const storyReturn = story.status === 'conflict' ? { status: 'conflict' } : story.status === 'ok' ? await loadStoryReturnTarget({ client }, story.context) : null
+    const reopenHref = story.status === 'ok' ? vaultPathWithStoryContext(story.context) : mapBack ? vocabMapLink('/wordvault/browse', mapBack) : '/wordvault/browse'
+    const st = db.state as ReaderDbState
+    const fault = st.faults.vault_list
+    if (fault && fault.times > 0) {
+      fault.times -= 1
+      return { kind: 'vault', url: u.pathname + u.search, viewerId: uid, failed: true, words: [], mapBack, storyReturn, reopenHref }
+    }
+    // 본인 행만(RLS 흉내) → BrowseWord 모양(lib/wordvault/browse-queries vocabRowToWord 의 필드 — 그 모듈은 server-only · @/ 별칭이라 여기서 import 하지 않는다).
+    // 합성 행은 복습 기록이 없어 srs 를 싣지 않는다(= new) · 시각을 읽지 않는다.
+    const words = st.vocab
+      .filter((r) => r.user_id === uid)
+      .map((r, i) => {
+        const cefr = typeof r.cefr_level === 'string' && /^[ABC][12]$/.test(r.cefr_level) ? r.cefr_level : 'B1'
+        return { id: i + 1, dbId: r.id, textId: r.text_id ?? null, setId: null, word: r.word, pos: r.pos ?? '', meaning: r.meaning, exampleEn: r.example_sentence ?? '', level: cefr, levelClass: cefr[0]!.toLowerCase(), mastery: 1, lastDays: 0, nextDays: 0 }
+      })
+    return { kind: 'vault', url: u.pathname + u.search, viewerId: uid, failed: false, words, mapBack, storyReturn, reopenHref }
   }
   return { kind: 'unknown', url: u.pathname }
 }

@@ -9,11 +9,13 @@ import {
   RETURN_MAX_UNIT_INDEX,
   RETURN_RELEASE_KEY_RE,
   parseStoryReturnParams,
+  resolveVaultReturnContexts,
   storyReturnHref,
   storyVaultHref,
   vaultPathWithStoryContext,
 } from '../return-context'
 import { loginUrlWithReturn } from '../../../auth/redirect'
+import { vocabMapReturnHref } from '../../../csat/map-return'
 
 const RK = `lsr_${'a'.repeat(32)}`
 
@@ -43,6 +45,43 @@ describe('parseStoryReturnParams', () => {
   it('지도 복귀(from=…)와 함께 오면 conflict — 어느 쪽도 적용하지 않는다', () => {
     expect(parseStoryReturnParams({ story_release: RK, story_unit: '1', from: 'map' })).toEqual({ status: 'conflict' })
     expect(parseStoryReturnParams({ story_release: RK, story_unit: '1' }, { mapReturnPresent: true })).toEqual({ status: 'conflict' })
+  })
+
+  it('형식 검사보다 먼저 — 형식 오류 · 짝 없음 · 여러 값 · 음수 Story 값도 지도 표지와 함께면 conflict', () => {
+    for (const p of [
+      { from: 'map', story_release: 'lsr_bad', story_unit: '1' }, { from: 'map', story_unit: '1' }, { from: 'map', story_release: RK },
+      { from: 'map', story_release: [RK, RK], story_unit: '1' }, { from: 'map', story_release: RK, story_unit: '-1' },
+      { from: ['map', 'map'], story_release: RK, story_unit: '1' }, { from: 'map', story_release: '', story_unit: '' },
+    ]) {
+      expect(parseStoryReturnParams(p), JSON.stringify(p)).toEqual({ status: 'conflict' })
+    }
+  })
+})
+
+describe('resolveVaultReturnContexts — 단어장 화면의 두 복귀 문맥', () => {
+  it('섞인 주소는 지도 · Story 어느 쪽도 이기지 않는다(형식 오류 · 짝 없음 포함)', () => {
+    for (const p of [
+      { from: 'map', story_release: RK, story_unit: '1' }, { from: 'map', story_release: 'lsr_bad', story_unit: '1' }, { from: 'map', story_unit: '1' },
+      { from: 'map', ws: 'ws.vocab', story_release: [RK, RK] },
+    ]) {
+      expect(resolveVaultReturnContexts(p), JSON.stringify(p)).toEqual({ story: { status: 'conflict' }, mapBack: null })
+    }
+  })
+  it('일반 지도 복귀 · 일반 단어장 · 단독 Story 의미는 그대로', () => {
+    const map = resolveVaultReturnContexts({ from: 'map', ws: 'ws.vocab' })
+    expect(map.story).toEqual({ status: 'none' })
+    expect(map.mapBack).toBe(vocabMapReturnHref({ from: 'map', ws: 'ws.vocab' }))
+    expect(map.mapBack).toMatch(/^\/csat/)
+    expect(resolveVaultReturnContexts({})).toEqual({ story: { status: 'none' }, mapBack: null })
+    expect(resolveVaultReturnContexts({ filter: 'all' })).toEqual({ story: { status: 'none' }, mapBack: null })
+    expect(resolveVaultReturnContexts({ story_release: RK, story_unit: '1' })).toEqual({ story: { status: 'ok', context: { releaseKey: RK, unitIndex: 1 } }, mapBack: null })
+    expect(resolveVaultReturnContexts({ story_release: 'lsr_bad', story_unit: '1' })).toEqual({ story: { status: 'invalid' }, mapBack: null })
+  })
+})
+
+describe('resolveVaultReturnContexts — 지도 아닌 from', () => {
+  it('지도 아닌 from 은 지도 복귀를 만들지 않는다(기존 계약)', () => {
+    expect(resolveVaultReturnContexts({ from: '/library/vocab' }).mapBack).toBeNull()
   })
 
   it('형식 상수는 learner.ts 와 같다', () => {
