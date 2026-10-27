@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(r0): 카드 자료를 불러오지 못한 경우(`fetchScopedFlashcardWords` null — 안 보이거나 조회 실패)를 「단어장이 비어 있어요」로 보이던 결함 — 원인을 단정하지 않는 중립 안내 + 같은 범위 「다시 열기」(검증한 from 만 싣는다) + 읽던 곳. 확인된 0개는 기존 빈 상태 그대로. 다른 단어·SRS 큐로 바꾸지 않는다. DB 무변경.
 - fix(security): 세션 복귀 `?from` open redirect — `sanitizeInternalPath` 가 `/\evil.example`(브라우저가 외부 출처로 읽음)·제어문자·공백·`://` 를 거부하고 URL 해석 출처를 확인한다. SessionFrame 닫기·Esc 도 같은 함수를 쓴다(따로 쓰던 `//` 검사 제거). 카드 빈 상태는 from 이 카드 자신이면 복귀 단추를 보이지 않는다.
 - fix(r0): 읽던 글에서 연 카드의 단어장이 비어 있을 때 빈 상태가 단어장으로만 내보내던 결함 — `/flashcard/play` 빈 상태가 검증된 복귀 주소(`?from` 내부 경로 · `?text`)가 있으면 「읽던 곳으로 돌아가기」를 주 행동으로 보인다(외부·`//` 주소는 버림). Reader 카드 링크의 `from`(ModePills)과 SessionFrame 닫기는 기존 계약 그대로. 빈 상태 글에 `break-keep`. DB 무변경.
 - fix(r0): WordVault 기사 단어장 membership 이 첫 서버 값에만 묶이던 결함 — 같은 URL 재검증으로 서버가 새 정본·오류를 주면 반영한다. 조회 함수는 ref 로 들어 부른 쪽이 매 렌더 새 함수를 넘겨도 조회 루프가 생기지 않는다. 개발 전용 하네스 `/dev/wordvault-membership`(합성 자료 · DB·Auth 없음 · 프로덕션 404)으로 실제 컴포넌트를 PC 1280/1440 실측. DB 무변경.

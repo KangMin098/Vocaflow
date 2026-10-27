@@ -12,7 +12,7 @@ import { contentRefFromScope } from '@/lib/content/content-ref'
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { fetchDueFlashcardWords } from '@/lib/flashcard/hub-words'
 import { fetchScopedFlashcardWords } from '@/lib/flashcard/scoped-words'
-import { resolveSessionReturnHref } from '@/lib/layout/session-return'
+import { resolveSessionReturnHref, sanitizeInternalPath } from '@/lib/layout/session-return'
 import { createClient } from '@/lib/supabase/server'
 
 export const metadata = {
@@ -69,8 +69,21 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
       )
     }
 
+    // null = 자료를 불러오지 못함(안 보이거나 조회 실패 — 원인은 단정하지 않는다). 성공한 0개(확인된 빈 목록)와 구분해
+    // 「비어 있다」고 말하지 않고, 같은 범위를 다시 여는 길을 준다(다른 단어·SRS 큐로 바꾸지 않는다).
+    if (!scoped) {
+      const retry = new URLSearchParams()
+      for (const k of ['set', 'text', 'chapter', 'limit'] as const) {
+        const v = searchParams?.[k]
+        if (v) retry.set(k, v)
+      }
+      const safeFrom = sanitizeInternalPath(searchParams?.from)
+      if (safeFrom) retry.set('from', safeFrom)
+      return <ScopedUnavailable retryHref={`/flashcard/play?${retry.toString()}`} backHref={backHref} />
+    }
+
     // 스코프는 유효하나 단어 0개 — mock 대신 빈 상태 안내
-    return <ScopedEmpty title={scoped?.title ?? null} backHref={backHref} />
+    return <ScopedEmpty title={scoped.title} backHref={backHref} />
   }
 
   // 일반 진입 (hub) — 사용자 SRS 큐의 due 단어 (실데이터)
@@ -127,10 +140,39 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
   )
 }
 
+const PRIMARY_BTN =
+  'inline-flex min-h-[44px] items-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--on-ju)] transition-colors hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2'
+const SECONDARY_BTN =
+  'inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2'
+
+/** hub 거나 카드 자신(/flashcard…)이면 같은 화면으로 되돌아오는 단추가 되므로 복귀 단추를 보이지 않는다 */
+const returnable = (backHref: string) => !/^\/flashcard(?:[/?#]|$)/.test(backHref)
+
+/** 자료를 불러오지 못함 — 비공개·없는 자료의 존재를 드러내지 않는 중립 안내 + 같은 범위 다시 열기 · 읽던 곳 */
+function ScopedUnavailable({ retryHref, backHref }: { retryHref: string; backHref: string }) {
+  return (
+    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-24 text-center" data-testid="flashcard-scope-unavailable">
+      <h1 role="alert" className="break-keep font-editorial text-[16px] font-[700] text-[var(--t1)]">
+        이 자료의 단어를 지금 불러오지 못했어요
+      </h1>
+      <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+        단어가 없다는 뜻은 아니에요. 같은 자료로 다시 열어 보거나 읽던 곳으로 돌아가세요.
+      </p>
+      <a href={retryHref} data-testid="flashcard-scope-retry" className={PRIMARY_BTN}>
+        다시 열기
+      </a>
+      {returnable(backHref) && (
+        <a href={backHref} data-testid="flashcard-empty-return" className={SECONDARY_BTN}>
+          읽던 곳으로 돌아가기
+        </a>
+      )}
+    </div>
+  )
+}
+
 // 읽던 글 등 출처(?from · ?text)가 있으면 그곳으로 먼저 돌려보낸다 — 비어 있다고 hub·단어장으로만 내보내지 않는다(검증은 resolveSessionReturnHref).
 function ScopedEmpty({ title, backHref = '/flashcard' }: { title: string | null; backHref?: string }) {
-  // hub 거나 카드 자신(/flashcard…)이면 같은 빈 화면으로 되돌아오는 단추가 되므로 보이지 않는다
-  const hasReturn = !/^\/flashcard(?:[/?#]|$)/.test(backHref)
+  const hasReturn = returnable(backHref)
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-24 text-center">
       <div className="select-none text-4xl" aria-hidden>

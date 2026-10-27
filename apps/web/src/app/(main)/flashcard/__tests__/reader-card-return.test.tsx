@@ -71,3 +71,35 @@ describe('카드 쪽 복귀', () => {
     }
   })
 })
+
+describe('불러오지 못함(null) ≠ 확인된 빈 목록(0개)', () => {
+  it('null 이면 「비어 있다」고 하지 않고 같은 범위 다시 열기 + 읽던 곳', async () => {
+    scoped.value = null
+    const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { set: SET, chapter: '2', from: `/text/${TEXT}` } }))
+    expect(html).toContain('data-testid="flashcard-scope-unavailable"')
+    expect(html).not.toContain('비어 있어요')
+    expect(html).not.toContain('href="/wordvault"')
+    const retry = html.match(/data-testid="flashcard-scope-retry"[^>]*href="([^"]+)"|href="([^"]+)"[^>]*data-testid="flashcard-scope-retry"/)
+    const href = (retry?.[1] ?? retry?.[2] ?? '').replace(/&amp;/g, '&')
+    const u = new URL(href, 'http://x')
+    expect(u.pathname).toBe('/flashcard/play')
+    expect([u.searchParams.get('set'), u.searchParams.get('chapter'), u.searchParams.get('from')]).toEqual([SET, '2', `/text/${TEXT}`])
+    expect(html).toContain(`href="/text/${TEXT}"`)
+  })
+
+  it('null + 외부 from: 다시 열기만, 외부 복귀 단추 없음', async () => {
+    scoped.value = null
+    const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { text: TEXT, from: '/\\evil.example' } }))
+    expect(html).toContain('flashcard-scope-retry')
+    // text 범위는 그 글로 돌아간다(from 이 버려지면 ?text 로)
+    expect(html).toContain(`href="/text/${TEXT}?mode=read"`)
+    expect(html).not.toContain('evil.example"')
+  })
+
+  it('성공 0개는 기존 빈 상태(불러오기 실패 안내 아님)', async () => {
+    scoped.value = { title: '기사 A', subtitle: '', words: [] }
+    const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { set: SET } }))
+    expect(html).toContain('비어 있어요')
+    expect(html).not.toContain('flashcard-scope-unavailable')
+  })
+})
