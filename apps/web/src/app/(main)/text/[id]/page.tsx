@@ -4,6 +4,7 @@
 'use client'
 
 import Link from 'next/link'
+import { readerWordsHref } from '@/lib/wordvault/source-filter'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
@@ -145,21 +146,14 @@ export default function WorkspacePage({ params }: PageProps) {
   //   · 라이브러리 도서 chapter (단어장 발행됨) → filter=set:{setId} + book/chapter query
   //     - ScriptsChipNav 자동 활성 + SessionFrame resource (book › Chapter N)
   //     - Browse 안에서 prev/next chapter nav 가능 (allChapterWordSets 전달)
-  //   · 라이브러리 도서 chapter (단어장 없음)   → filter={textId}
-  //   · 사용자 스크립트                        → filter={textId}
+  //   · 라이브러리 도서 chapter (단어장 없음)   → filter=text:{textId}
+  //   · 사용자 스크립트                        → filter=text:{textId}  (접두어 없으면 Browse 가 전체를 보였다)
   //   · ctx 없음                               → 전체
-  const wordsHref = useMemo(() => {
-    if (ctx?.currentChapterWordSet && ctx?.libraryBookId && ctx?.chapterIdx != null) {
-      const qs = new URLSearchParams({
-        filter: `set:${ctx.currentChapterWordSet.id}`,
-        book: ctx.libraryBookId,
-        chapter: String(ctx.chapterIdx),
-      })
-      return `/wordvault/browse?${qs.toString()}`
-    }
-    if (ctx?.textId) return `/wordvault/browse?filter=${encodeURIComponent(ctx.textId)}`
-    return `/wordvault/browse`
-  }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
+  const wordsHref = useMemo(
+    () => readerWordsHref(ctx),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId],
+  )
 
   // 게임 모드(카드·블리츠) 자료 스코프 — wordsHref 와 동일 규칙.
   //   · 도서 챕터(단어장 발행됨) → ?set={setId}  (shared_words)

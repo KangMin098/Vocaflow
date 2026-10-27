@@ -39,6 +39,7 @@ import {
   parseStateFilter,
   stateFilterLabel,
 } from '@/lib/wordvault/state-filter'
+import { applySourceFilter, normalizeSourceFilter } from '@/lib/wordvault/source-filter'
 
 import { BrowseSourceBar } from './BrowseSourceBar'
 import { HideToggleBar } from './HideToggleBar'
@@ -88,7 +89,8 @@ export function WordVaultBrowseClient({
 }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
-  const initialFilter = searchParams?.get('filter') ?? 'all'
+  // 접두어 없는 uuid(예전 Reader 링크)는 그 글의 text: 범위로 — 전체 목록으로 흘리지 않는다.
+  const initialFilter = normalizeSourceFilter(searchParams?.get('filter'))
   // 허브가 걸어 보내는 목록 파라미터 — 판정은 `lib/wordvault/list-params` 가 소유한다.
   // 2026-08-30 이전에는 읽는 코드가 없어 `?q=`·`?level=` 이 조용히 버려졌다.
   const initialQuery = normalizeQuery(searchParams?.get('q'))
@@ -162,12 +164,8 @@ export function WordVaultBrowseClient({
   const words = useMemo(() => {
     let list = allWords
     // 1) 소스 필터 (set / text / 기억 상태)
-    if (scriptFilter.startsWith('set:')) {
-      const id = scriptFilter.slice(4)
-      list = list.filter((w) => w.setId === id)
-    } else if (scriptFilter.startsWith('text:')) {
-      const id = scriptFilter.slice(5)
-      list = list.filter((w) => w.textId === id)
+    if (scriptFilter.startsWith('set:') || scriptFilter.startsWith('text:')) {
+      list = applySourceFilter(list, scriptFilter)
     } else if (stateKey) {
       // 기억 상태 필터 — 리본 칩·허브 CTA 가 보내는 `state:*`.
       // 2026-08-29 이전에는 이 분기가 없어 **조용히 전체가 떴다**(state-filter.ts 머리말).
