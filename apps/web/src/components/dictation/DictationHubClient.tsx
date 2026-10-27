@@ -65,7 +65,8 @@ const SOURCE_KIND_LABEL: Record<string, string> = {
   custom: '직접 입력',
 }
 
-export function DictationHubClient({ data }: { data: DictationHubData }) {
+/** viewerId = 서버가 허브 자료(오늘의 문장 등)를 읽은 사용자 — 시작 때 같은 사람인지 확인한다 */
+export function DictationHubClient({ data, viewerId }: { data: DictationHubData; viewerId?: string }) {
   const router = useRouter()
   const { overview, catalog, weakness, recent, daily } = data
   const [starting, setStarting] = useState(false)
@@ -91,18 +92,20 @@ export function DictationHubClient({ data }: { data: DictationHubData }) {
     // 스피너가 영원히 돌고 학습자에겐 "아무 반응 없음" 이 된다(설정 화면에서 겪은 그것).
     let session
     try {
-      session = await createDictationSession(daily, DAILY_CONFIG)
+      session = await createDictationSession(daily, DAILY_CONFIG, undefined, viewerId)
     } catch (e) {
       setStarting(false)
       setStartError(
-        e instanceof DictationStartError && e.reason === 'cache-failed'
+        e instanceof DictationStartError && e.reason === 'identity-changed'
+          ? '로그인 상태가 바뀌었어요. 받아쓰기 화면을 지금 계정으로 다시 열어 주세요.'
+          : e instanceof DictationStartError && e.reason === 'cache-failed'
           ? '이 브라우저의 저장 공간이 가득 차 세션을 이어받지 못했어요. 사이트 데이터를 정리하고 다시 시도해 주세요.'
           : '오늘의 문장을 만들지 못했어요. 잠시 뒤 다시 시도해 주세요.',
       )
       return
     }
     router.push(`/dictate/session?sessionId=${session.id}`)
-  }, [daily, starting, router])
+  }, [daily, starting, router, viewerId])
 
   const hasAnything = catalog.books.length + catalog.scripts.length + catalog.sets.length > 0
 

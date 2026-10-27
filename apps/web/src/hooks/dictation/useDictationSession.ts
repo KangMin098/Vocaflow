@@ -112,7 +112,7 @@ function buildItems(
 }
 
 /** 시작이 왜 안 됐는가 — 화면이 학습자에게 그대로 말할 수 있어야 한다. */
-export type DictationStartFailure = 'no-items' | 'cache-failed'
+export type DictationStartFailure = 'no-items' | 'cache-failed' | 'identity-changed'
 
 export class DictationStartError extends Error {
   constructor(readonly reason: DictationStartFailure) {
@@ -133,12 +133,15 @@ export async function createDictationSession(
   config: DictationConfig,
   /** 학습자 청취 폭(`dictation_overview().span`). 문항 길이 적응에 쓴다. */
   span?: number | null,
+  /** 자료를 읽은 사람(로그인 없음 = null) — 주면 시작 시점 사용자와 다를 때 시작하지 않는다(identity-changed) */
+  expectedOwner?: string | null,
 ): Promise<DictationSession> {
   const items = buildItems(source, config, span)
   if (items.length === 0) throw new DictationStartError('no-items')
 
   const client = createClient()
-  const started = await startDictationSession(client, source, config, items.length, items)
+  const started = await startDictationSession(client, source, config, items.length, items, expectedOwner)
+  if (started.identityChanged) throw new DictationStartError('identity-changed')
 
   const session: DictationSession = {
     id: started.id,
@@ -155,6 +158,7 @@ export async function createDictationSession(
     currentIndex: 0,
     startedAt: Date.now(),
     totalHintsUsed: 0,
+    owner: started.owner ?? null,
   }
   // 인계가 이 캐시를 지난다 — 여기서 실패하면 **다음 화면이 세션을 못 찾는다.**
   // 조용히 넘기면 학습자는 시작 버튼을 눌렀는데 아무 일도 안 일어난 것처럼 겪는다.
@@ -208,6 +212,8 @@ export function useDictationSession(sessionId: string | null) {
         setStatus(reason === 'done' ? 'completed' : 'not-found')
         return
       }
+      // 주인 = 실제로 읽힌 행의 user_id(restore 가 돌려준다). 응답 뒤에 다시 조회한 신원을 붙이면, 그 사이 다른 탭에서
+      //   바뀐 B 가 A 의 문항 캐시 주인이 된다(Codex 반례 2026-10-28).
       const revived: DictationSession = {
         ...restored,
         persisted: true,
@@ -286,6 +292,7 @@ export function useDictationSession(sessionId: string | null) {
       })
 
       void saveDictationAttempt(createClient(), {
+        expectedOwner: session.owner,
         sessionId: session.id,
         itemIdx: item.index,
         expected: item.expectedText,
@@ -378,6 +385,7 @@ export function useDictationSession(sessionId: string | null) {
       )
 
       const res = await completeDictationSession(createClient(), {
+        expectedOwner: final.owner,
         sessionId: final.id,
         source: {
           kind: final.sourceKind as DictationSource['kind'],
@@ -430,6 +438,7 @@ export function useDictationSession(sessionId: string | null) {
     persist(nextSession)
 
     void saveDictationAttempt(createClient(), {
+      expectedOwner: session.owner,
       sessionId: session.id,
       itemIdx: item.index,
       expected: item.expectedText,
