@@ -1976,6 +1976,82 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
         assertQuietNetwork(log)
       })
 
+      test('D4 UX03 교정(합성 fixture · 독립 검토 D4-UX03-PICKER-OFFSCREEN) — 화면 밖 마지막 낱말(End)을 고른 뒤 보이는 44px 단추로 열면 창이 단추 옆에 완전히 보이고 초점 · Esc 복귀 · 스크롤 그대로 · 본문 낱말 직접 열기는 그 낱말 옆', async ({ page, context }) => {
+        test.setTimeout(180_000)
+        await page.setViewportSize({ width, height: 1000 })
+        const run = newRun(`d4-picker-offscreen-${width}`, (db) => {
+          // 합성 fixture 의 첫 단위 본문을 길게(가짜 DB 만 — 공유 DB 아님) — 마지막 낱말이 첫 화면 밖에 있도록.
+          const r = db.releases.find((x) => x.release_key === FM.release_keys.B1)!
+          const filler = Array.from({ length: 14 }, (_, i) => `Synthetic filler paragraph ${i + 1} keeps the harness body long enough to push the final word below the fold.`).join('\n\n')
+          r.units[0]!.body = `${r.units[0]!.body}\n\n${filler}\n\nFinalword.`
+        })
+        run.actor = FM.users.A
+        await context.addInitScript(() => {
+          ;(window as unknown as { __VF_LOOKUP__: unknown }).__VF_LOOKUP__ = { finalword: { word: 'finalword', meaning_ko: '마지막 낱말 (합성 사전)', pos: 'noun' }, every: { word: 'every', meaning_ko: '모든 (합성 사전)', pos: 'determiner' } }
+        })
+        const log = await readerHarness(context, `d4-picker-offscreen@${width}`, run)
+        const dialog = () => page.getByRole('dialog')
+        const rectOf = (sel: string) => page.locator(sel).first().evaluate((el) => (({ top, bottom, left, right }) => ({ top, bottom, left, right }))(el.getBoundingClientRect()))
+        const visible = (r: { top: number; bottom: number; left: number; right: number }, vw: number, vh: number) => r.top >= 0 && r.left >= 0 && r.bottom <= vh && r.right <= vw
+        const evidence: Record<string, unknown> = { width }
+        try {
+          await openStories(page, `/library/stories/${FM.release_keys.B1}?unit=0`)
+          await sx(B(page)).toBeVisible()
+          await page.locator('[data-story-word-mode]').click()
+          await page.locator('[data-word-index="0"]').focus()
+          await page.keyboard.press('End')
+          const lastIdx = await page.locator('[data-word-index]:focus').getAttribute('data-word-index')
+          await sx(page.locator('[data-word-index]:focus')).toHaveText('Finalword')
+          // 사용자가 맨 위 도구 줄로 돌아간다(스크롤) — 고른 낱말은 화면 밖에 남는다
+          await page.evaluate(() => window.scrollTo(0, 0))
+          await page.waitForTimeout(150)
+          const vp = page.viewportSize()!
+          const wordRect = await rectOf(`[data-word-index="${lastIdx}"]`)
+          evidence.active_word_rect = wordRect
+          expect(wordRect.top, 'active word must be below the fold for this regression').toBeGreaterThan(vp.height)
+          const picker = page.locator('[data-story-word-picker]')
+          await sx(picker).toContainText('Finalword')
+          const pickerRect = await rectOf('[data-story-word-picker]')
+          evidence.picker_rect = pickerRect
+          expect(visible(pickerRect, vp.width, vp.height)).toBe(true)
+          await picker.focus()
+          const y0 = await page.evaluate(() => window.scrollY)
+          await page.keyboard.press('Enter')
+          await sx(dialog()).toBeVisible()
+          await sx(dialog()).toContainText('마지막 낱말 (합성 사전)')
+          await sx(dialog()).toBeFocused()
+          const dRect = await rectOf('[role=dialog]')
+          evidence.dialog_rect = dRect
+          expect(visible(dRect, vp.width, vp.height), `dialog fully visible ${JSON.stringify(dRect)}`).toBe(true)
+          expect(dRect.top).toBeGreaterThanOrEqual(pickerRect.bottom)
+          expect(dRect.top - pickerRect.bottom).toBeLessThan(40)
+          expect(await page.evaluate(() => window.scrollY)).toBe(y0)
+          await shot(page, `d4-picker-offscreen-open-${width}`)
+          await page.keyboard.press('Escape')
+          await sx(dialog()).toHaveCount(0)
+          await sx(picker).toBeFocused()
+          expect(await page.evaluate(() => window.scrollY)).toBe(y0)
+          // 본문 낱말을 직접 열면 창은 그 낱말 옆(기존 동작 그대로)
+          const first = page.locator('[data-word-index="0"]')
+          await first.click()
+          await sx(dialog()).toBeVisible()
+          const fRect = await rectOf('[data-word-index="0"]')
+          const d2 = await rectOf('[role=dialog]')
+          evidence.inline = { word: fRect, dialog: d2 }
+          expect(Math.abs(d2.left - Math.max(8, fRect.left))).toBeLessThan(1)
+          expect(d2.top - fRect.bottom).toBeGreaterThanOrEqual(0)
+          expect(d2.top - fRect.bottom).toBeLessThan(10)
+          await page.keyboard.press('Escape')
+          await sx(first).toBeFocused()
+          expect(writes(run)).toEqual([])
+          fs.mkdirSync(SHOTS, { recursive: true })
+          fs.appendFileSync(path.join(SHOTS, 'd4-picker-offscreen-metrics.jsonl'), `${JSON.stringify({ ...evidence, at: new Date().toISOString() })}\n`)
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
       test('키보드 — 건너뛰기 링크 · 탭 순서 · 보이는 초점 · 이동 뒤 단위 제목 초점 · 상태 알림 뷰포트', async ({ page, context }) => {
         test.setTimeout(180_000)
         const run = newRun(`keyboard-${width}`)

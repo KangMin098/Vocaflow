@@ -89,10 +89,11 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
   }
 
   const openPicker = () => {
-    if (activeWord === null) return
-    const el = wordEl(active)
-    if (!el) return
-    setOpen({ surface: activeWord, rect: el.getBoundingClientRect(), index: active, opener: 'picker' })
+    const picker = pickerRef.current
+    if (activeWord === null || !picker) return
+    // 창의 기준 위치는 **누른 단추**다(D4 독립 검토 D4-UX03-PICKER-OFFSCREEN) — 고른 낱말은 화면 밖(본문 끝 · End)일 수 있어
+    // 그 낱말 옆에 띄우면 보이지 않는 창으로 초점이 간다. 본문 낱말을 직접 누른 경우는 그대로 그 낱말 옆에 띄운다.
+    setOpen({ surface: activeWord, rect: picker.getBoundingClientRect(), index: active, opener: 'picker' })
   }
 
   return (
