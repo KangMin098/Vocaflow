@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(csat): 받은 창작 자료(`/csat/learn/[id]`)의 열 수 없음 · 열기 기록 실패 안내 · 로그인 복귀 · 묶음 선택 링크도 지도 복귀 문맥(FI-011 C)을 유지(`lib/csat/authored/learn-return`). FI-010 fail-closed · 권한 · DB 무변경.
 - fix(wordvault): 기억 상태 목록(state:)의 「이 단어로 학습 시작」이 지금 검색 · 난이도와 돌아올 목록을 싣고, `/wordvault/study` 가 상태(요청당 한 시각) → 검색 · 난이도 → 상한 50 순으로 고른다(`scopeStateStudyRows`). 반복 · 모르는 조건은 invalid(로그인 · 다시 열기 포함), 0개 ≠ 조회 실패, 끝 · 중단 · 빈 상태 · 실패에서 같은 조건 목록 복귀. 목록 주소 없는 예전 state: · 출처 · 허브 · 지도 경로 · 계정 guard 무변경.
 - feat(wordvault): 출처 목록(text:/set:)에서 「이 목록으로 뜻 떠올리기」(44px) — `/wordvault/study` 가 Browse 와 같은 범위(applySourceFilter · 기사 membership) → 검색 · 난이도 → 상한 50 순으로 본인 단어만 고르고(`lib/wordvault/source-study`), 잘못된 · 반복 필터는 로그인 · 다시 열기 뒤에도 실패 화면(전체 앞 50 아님) · membership 실패 ≠ 0개 · 끝 · 빈 상태 · 실패에서 같은 목록 복귀. 자기 평가 연습 안내, DB · 채점 · 계정 guard 무변경. 개발 확인 화면 `/dev/wordvault-source-recall`.
 - fix(textfit): 공개 `/fit` 결과 문구를 어휘 커버리지 추정으로 한정 — `fitLevel` null 은 「기준에 닿는 학년을 확인하지 못함(레벨 미확인 낱말 가능)」, 값이 있으면 「어휘 기준 검토 학년(추정)」. 페이지·빈 상태·공유 OG 의 「읽힌다·처음 만나는」 표현 정리. 수치 · 임계 · 공유 payload 무변경.
