@@ -1,6 +1,6 @@
 # CHANGELOG
 
-- feat(lcp): D5 I01/I02(T-0191) — Story 단어 창의 명시 「내 단어장에 담기」(서버 액션 `saveStoryWordAction` · 본문/사전 재확인 · manual/text_id null · 중복 보존 · 멱등)와 단어장의 Story 복귀 줄(`story_release`/`story_unit` 엄격 해석 · 로그인 보존 · 지도와 섞이면 중립). 단위 440 · 격리 46 통과 · 실제 dev 읽기 전용 1440/1280. 실제 dev 저장은 루트 확인 대기 · SQL/이벤트 없음. [D5 §12](./lcp-story/LCP_D5_INTEGRATION.md)
+- feat(lcp): D5 I01/I02(T-0191) — Story 선택 낱말의 명시 저장(본문·사전 재확인 · manual/text_id null · 기존 FSRS/중복 보존)과 엄격한 판본·단위 단어장 왕복, 전체 단어장 계정 경계·서버 저장 거절·표제어 표시를 수용했다. 실제 dev A1440/B1280 저장·중복·응답 손실 재시도·왕복·계정 전환·철회 안내와 기존 데이터 보존을 확인했다. CLI DNS 실패·건너뛴 검사는 보존하며 SQL·새 이벤트·실제 교육 효과 주장은 없다. [D5 §12.2](./lcp-story/LCP_D5_INTEGRATION.md)
 
 - feat(lcp): D4 UX01~04(T-0190) — Stories 서가 로그인을 고른 판본 입구로 복귀, 입구 정보 순서(첫 문장 · 목표 · 주의 → 시작 → 선택 펼침), 단위 머리 압축 · 맥락 설명 진입, 단어 창 Stories 전용 비모달 초점 · 44px 대체 단추, 「마지막으로 연 단위」 · 공급 인지 완료 행동. 단위 447 · 격리 42 통과, 실제 dev 1440/1280 시작 y826→575.9 · 첫 본문 y453→318. SQL · 이벤트 변경 없음 · SR · 사람 효과 미검증. [D4 구현](./lcp-story/D4_IMPLEMENTATION.md)
 
