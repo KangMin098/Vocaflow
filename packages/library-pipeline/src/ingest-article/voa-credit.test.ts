@@ -84,3 +84,13 @@ describe('크레딧이 두 줄로 갈린 형태(리뷰 후속-B)', () => {
     expect(voaThirdPartySources(body)).toEqual(['Associated Press'])
   })
 })
+
+describe('약어 뒤에서 문장을 나누지 않는다(리뷰 P2)', () => {
+  it.each([
+    ['AP reporter Jane Doe Jr. reported this story. Hai Do adapted it for Learning English.', ['Associated Press']],
+    ['Reuters correspondent Mr. Smith wrote this story for VOA Learning English.', ['Reuters']],
+    ['The AFP bureau in the U.S. reported this story. Hai Do adapted it.', ['Agence France-Presse']],
+  ])('%s', (credit, expected) => {
+    expect(voaThirdPartySources(`Text.\n${credit}`)).toEqual(expected)
+  })
+})

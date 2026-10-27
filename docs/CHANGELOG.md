@@ -229,7 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
-- fix(acp): VOA 적재기가 통신사(AP · Reuters · AFP) 기반 각색 글까지 `PD-Government` 로 표시하던 결함 — 본문 끝 작성 크레딧 문장(통신사와 「이 글」 대상이 같은 문장)을 읽어 원문 단위 표기(evidence `page` · rightsTag `unknown` · 트리거 `restricted`)로 남긴다(`voa-credit.ts`). 원문 보존 · 기존 행 백필 없음(전량 실측 3,544/10,663행 해당 · published 10). DB 무변경.
+- fix(acp): VOA 적재기가 통신사(AP · Reuters · AFP) 기반 각색 글까지 `PD-Government` 로 표시하던 결함 — 본문 끝 작성 크레딧 문장(통신사와 「이 글」 대상이 같은 문장)을 읽어 원문 단위 표기(evidence `page` · rightsTag `unknown` · 트리거 `restricted`)로 남긴다(`voa-credit.ts`). 원문 보존 · 기존 행 백필 없음(전량 실측 3,547/10,663행 해당 · published 10). DB 무변경.
 - fix(security): 카드 세션 계정 경계 — 다른 탭 로그인 · 로그아웃 뒤에도 옛 카드가 살아 있어 새 평가가 그 사이 바뀐 전역 대기열 주인(`queueOwner`)으로 들어갈 수 있던 경로. `FlashcardViewerGate`(T-0191 과 같은 `useStoryAuthGuard`)가 서버 사용자와 브라우저 신원이 같을 때만 카드 · 본인 글 제목 빈 상태를 그리고, 바뀌면 세션을 내린다(음성 cancel · 키보드 평가 없음 · 되살리지 않음 · 기존 대기 평가 보존). 개발 하네스 `/dev/flashcard-identity`(합성 · 반례 gate=0). DB 무변경.
 - fix(r0): 카드 자료를 불러오지 못한 경우(`fetchScopedFlashcardWords` null — 안 보이거나 조회 실패)를 「단어장이 비어 있어요」로 보이던 결함 — 원인을 단정하지 않는 중립 안내 + 같은 범위 「다시 열기」(검증한 from 만 싣는다) + 읽던 곳. 확인된 0개는 기존 빈 상태 그대로. 다른 단어·SRS 큐로 바꾸지 않는다. DB 무변경.
 - fix(security): 세션 복귀 `?from` open redirect — `sanitizeInternalPath` 가 `/\evil.example`(브라우저가 외부 출처로 읽음)·제어문자·공백·`://` 를 거부하고 URL 해석 출처를 확인한다. SessionFrame 닫기·Esc 도 같은 함수를 쓴다(따로 쓰던 `//` 검사 제거). 카드 빈 상태는 from 이 카드 자신이면 복귀 단추를 보이지 않는다.
