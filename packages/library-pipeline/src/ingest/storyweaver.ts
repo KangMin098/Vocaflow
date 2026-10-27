@@ -1,7 +1,8 @@
 // packages/library-pipeline/src/ingest/storyweaver.ts
 // LCP — StoryWeaver (Pratham Books) ingester
 //
-// CC BY 4.0 다국어 그림책. API: /api/v1/stories/{id|slug}/read (server-side fetch 가능).
+// 다국어 그림책(책마다 라이선스가 뒷장에 있다 — 대개 CC BY 4.0 이지만 **책마다 읽는다**).
+// API: /api/v1/stories/{id|slug}/read (server-side fetch 가능).
 // 그림책 구조: FrontCoverPage | StoryPage×N | BackCoverPage.
 //   - StoryPage = 1 페이지 = 1 문단(짧은 문장) + 1 삽화(coverImage.sizes 최대).
 //   - 본문 = StoryPage 텍스트 '\n\n' join → 문단 인덱스 == 페이지 순서.
@@ -10,6 +11,7 @@
 // UA 필수 (빈 UA → 403). 텍스트는 content div 만 (삽화 div·스크립트·페이지번호 제거).
 
 import type { RawBook, BookIllustration } from '../types'
+import { storyweaverLicense, storyweaverPageText } from '../ingest-article/storyweaver'
 
 // StoryWeaver 는 Cloudflare 가 Node TLS(JA3) 핑거프린트를 403 차단 — 브라우저 UA 사용.
 const UA =
@@ -98,6 +100,33 @@ function decodeEntities(s: string): string {
     if (hex?.[1]) return String.fromCodePoint(parseInt(hex[1], 16))
     return ' '
   })
+}
+
+/**
+ * 책 한 권의 라이선스 — 본문(StoryPage)이 아닌 페이지(뒤표지·크레딧)의 「Released under …」 문장에서만 읽는다.
+ *
+ * ⚠️ 2026-06-14 도입 때부터 이 적재기는 모든 책을 'CC BY 4.0' 으로 **하드코딩**했다 — 책별 근거 없이
+ *    발행 20권이 전부 CC BY 4.0 표시를 받았다(2026-10-27 감사). ACP 기사 적재기의 파서를 그대로 쓴다.
+ * 못 읽거나(뒷장 없음·문장 없음) 서로 다른 라이선스 문장이 둘 이상이면(예: 삽화만 다른 조건) null —
+ * 짐작해서 허용 라이선스를 붙이지 않는다. 형식은 기존 도서 표기('CC BY 4.0', 'CC BY-NC 4.0')로 맞춘다.
+ */
+export function storyweaverBookLicense(pages: ReadonlyArray<{ pageType: string; html?: string | null }>): string | null {
+  const back = pages
+    .filter((p) => p.pageType !== 'StoryPage')
+    .map((p) => storyweaverPageText(p.html ?? ''))
+    .join(' ')
+  if (!back.trim()) return null
+  const found = new Set<string>()
+  for (const m of back.matchAll(/Released under.{0,40}?licen[cs]e/gi)) {
+    const one = storyweaverLicense(m[0])
+    if (!one) return null
+    found.add(one)
+  }
+  if (found.size !== 1) return null
+  const [label] = [...found] // 'CC-BY-4.0' · 'CC-BY-NC-SA-4.0'
+  const v = label!.match(/-(\d[\d.]*)$/)?.[1]
+  const kind = label!.replace(/-\d[\d.]*$/, '').replace(/^CC-BY/, 'CC BY')
+  return v ? `${kind} ${v}` : kind
 }
 
 /** StoryWeaver 페이지 html → 순수 본문 텍스트 (삽화 div·스크립트·페이지번호 제거). */
@@ -203,6 +232,12 @@ export async function ingestFromStoryWeaver(sourceId: string): Promise<RawBook> 
 
   const slug = typeof d.slug === 'string' && d.slug ? d.slug : key
 
+  // 라이선스를 책에서 못 읽으면 적재하지 않는다 — 수집 오류로 멈춰 검수로 넘긴다(허용으로 채우지 않는다).
+  const license = storyweaverBookLicense(d.pages)
+  if (!license) {
+    throw new Error(`StoryWeaver: 라이선스를 책에서 읽지 못했다(뒷장 문장 없음·상충) — 검수 필요: ${key}`)
+  }
+
   return {
     source: 'storyweaver',
     source_id: key,
@@ -210,7 +245,7 @@ export async function ingestFromStoryWeaver(sourceId: string): Promise<RawBook> 
     title,
     author,
     language: 'en',
-    license: 'CC BY 4.0',
+    license,
     raw_content,
     fetched_at: new Date(),
     illustrations,
