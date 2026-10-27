@@ -309,7 +309,8 @@ function Feedback({
 
       {/* 중심 의미 유형 — 채점 뒤 본문 근거 짚기 → 해설과 나란히(판정 없음 · 건너뛰기 가능 · 문항마다 새로) */}
       {(() => {
-        const sentences = meaningEvidenceSentences(item.type, (item.payload as DcpChoicePayload | undefined)?.passage)
+        const choicePayload = item.payload as DcpChoicePayload | undefined
+        const sentences = meaningEvidenceSentences(item.type, choicePayload?.passage)
         return sentences ? (
           <MeaningEvidence
             key={item.id}
@@ -317,6 +318,9 @@ function Feedback({
             explanation={pickExplanationText(result.answerKey ?? null)}
             chosen={submittedChoice(item, submitted)}
             correct={result.correct}
+            // 원래 발문 · 선택지 그대로(채점 전에도 보던 것) — 다른 선택지 하나와 견주기. 새 정답 · 조회 없음
+            stem={choicePayload?.stemKo ?? null}
+            choices={choicePayload?.choices ?? null}
           />
         ) : null
       })()}
