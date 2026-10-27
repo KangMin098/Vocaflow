@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(practice): 의미 선택 뒤 「본문 근거 짚기 → 해설과 나란히」 — DcpPlayer 의 중심 의미 유형(title · topic · main_point · summary · purpose · claim · long_title)은 채점 뒤 제출한 답(정답/정답과 다름)을 되짚고, 지문 문장 하나를 짚어 해설과 나란히 본다(`MeaningEvidence` · `lib/learner/meaning-evidence`). 짚은 문장은 판정하지 않고 점수 · 숙달 · SRS 기록을 만들지 않으며 건너뛸 수 있다. 약어(D.C. · Mr.)는 원문 글자를 바꾸지 않고 보호해 나눈다. 맞힌 배너의 「근거를 잘 찾았어요」는 관찰 사실에 맞게 「고른 답이 맞았어요」로. 교재 연습 경로(textbook_practice_items)에 적용 · 오늘 처방(prescribe_today)은 순서/삽입만이라 해당 없음. DB 무변경.
 - fix(security): 받아쓰기 세션 계정 경계 — 세션에 주인(`owner`: 시작 때 확인된 사용자 · DB 복원은 읽힌 행의 user_id)을 저장하고, 세션 화면은 주인과 브라우저 신원이 긍정 확인으로 같을 때만 문장 · 제목 · 입력 · 음성을 쓴다(제출 · 힌트 · 다음 · 재생은 실행 시점 판정). 주인 정보 없는 예전 캐시는 채택 · 삭제 없이 보류 안내. 시작은 자료를 읽은 사람과 시작 시점 사용자가 다르면 하지 않고, 시도 · 완주(세션 통계 · 점수 expectedUserId · FSRS)는 세션 주인과 지금 사용자가 다르면 남기지 않는다. 설정 화면의 자료 미리보기도 같은 경계. DB 무변경.
 - fix(security): 읽기 화면의 「AI 추출 → 내 단어장에 담기」가 저장 시점의 브라우저 사용자로 upsert 해, 계정이 바뀐 뒤 옛 화면에서 A 의 글 단어 · 원문 예문 · text_id 가 B 의 단어장에 들어갈 수 있던 경로 — `ExtractionPanel ownerId`: 저장 시점 사용자와 글 주인이 다르면 담지 않는다(vocabularies RLS 는 user_id 만 본다 · text_id 소유는 DB 가 묶지 않는다 — DB 강제 결속은 별도 승인 후보). 다른 호출부(ownerId 없음)는 그대로. DB 무변경.
 - fix(srs): 연습 화면의 첫 평가가 대기열 주인 해석 전(null)이면 주인 없이 보류돼 영영 반영되지 않던 결함 — `pushOwnedResult`(lib/srs/push-owned): 주인 = 판 주인이면 그대로, 미정이면 계정 경계가 긍정 확인한 이 새 평가만 판 주인 몫으로 명시(`pushPendingResultAs` · 전역 주인 · 예전 주인 없는 항목은 그대로), 다른 사람이면 넣지 않는다. SpellForge · StudyMode · PairFlip 적용. DB 무변경.
