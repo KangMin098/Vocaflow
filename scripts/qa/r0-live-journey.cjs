@@ -29,7 +29,7 @@
 //   node scripts/qa/r0-live-journey.cjs --evaluate=<write-proof.json> --row-counts=<json>
 //        → 오프라인 최종 판정(파일만 읽는다). 행수는 출력된 읽기 전용 SELECT 결과를 운영자가 옮긴 것.
 //
-// WRITE_CONFIRM_TOKEN = R0-LIVE-WRITE-dcf55c35f-LINCOLN-267ef969-A1280-B1440-NOCLEANUP
+// WRITE_CONFIRM_TOKEN = R0-LIVE-WRITE-main134af57f8-LINCOLN-267ef969-A1280-B1440-NOCLEANUP
 //
 // 정리(DELETE)는 하지 않는다. 결과 행은 user_id 로 A/B 를 가른다(출력은 A/B 라벨만, id 값 미출력).
 'use strict'
@@ -40,13 +40,16 @@ const crypto = require('node:crypto')
 const { execFileSync } = require('node:child_process')
 const { createRequire } = require('node:module')
 
-const WRITE_CONFIRM_TOKEN = 'R0-LIVE-WRITE-dcf55c35f-LINCOLN-267ef969-A1280-B1440-NOCLEANUP'
+const WRITE_CONFIRM_TOKEN = 'R0-LIVE-WRITE-main134af57f8-LINCOLN-267ef969-A1280-B1440-NOCLEANUP'
 
 const PIN = {
   code: {
-    repo_worktree: 'D:/workspace/vocaflow-r0-complete',
-    branch: 'feat/r0-article-bridge',
-    head: 'dcf55c35ffb03f4ca35ec02e846708eb8f3b3c08',
+    // r3: R0 는 로컬 main 134af57f8 에 통합됐다. 서빙 소스 = main-serving 의 main@134af57f8(깨끗한 트리).
+    //     R0 커밋 4개는 그 HEAD 의 조상인지로 확인한다(원 dcf55c35f exact HEAD 고정은 폐기 — 역사로만 남긴다).
+    repo_worktree: 'D:/workspace/Vocaflow-main-serving',
+    branch: 'main',
+    head: '134af57f8842a1b8d67df8ed0111236dd8f2d02b',
+    superseded_head: 'dcf55c35ffb03f4ca35ec02e846708eb8f3b3c08',
     commits: [
       '312f5079f3158657f00d39098d395eb193e4a15d',
       '56241cee02f7c64f10ced55269cb38e0d75d0054',
@@ -88,6 +91,13 @@ const PIN = {
       // r0-lincoln-wordset-fix.v2.proposal.sql(sha 4a6be46c…) 적용 뒤 기대. 행 해시는 적용 후 verify.sql 로 다시 고정한다.
       words: ['bullet', 'ground', 'historian', 'proclamation', 'rebellious', 'slave', 'unguarded'],
       fix_sql_sha256: '4a6be46c143176f2c6e5996c805fc89a9e1348570ccc83f0914028829b19cb02',
+      // 검토 수용된 v2 보정값(R0_WORDSET_V2_APPROVAL_READINESS). 이 값과 정확히 같아야 한다 — POS 만 noun 인 오답 뜻은 거부.
+      reviewed_rows: {
+        ground: { meaning_ko: '땅, 지대; (복수 grounds) 구내, 부지', part_of_speech: 'noun', example_en: 'The house stood on much higher ground than the White House, so the wind kept it cooler.' },
+        slave: { meaning_ko: '노예', part_of_speech: 'noun', example_en: 'In ancient times, slaves built many of the great structures.' },
+      },
+      // 나머지 5행은 보정 대상이 아니므로 pre-fix 행 해시(to_jsonb(w)::text sha256)와 같아야 한다
+      unchanged_rows: ['bullet', 'historian', 'proclamation', 'rebellious', 'unguarded'],
       expect: { word_count: 7, actual_rows: 7, ground_pos: 'noun', slave_pos: 'noun', ford_present: false },
     },
   },
@@ -97,21 +107,25 @@ const ENV_FILE = 'D:/workspace/Vocaflow-AI-Control/.env.lcp-story-dev-e2e.local'
 const ACCOUNTS = { A: { prefix: 'VFC_STORY_DEV_LEARNER_A', width: 1280 }, B: { prefix: 'VFC_STORY_DEV_LEARNER_B', width: 1440 } }
 const KEY_SUFFIXES = ['_EMAIL', '_PASSWORD', '_USER_ID']
 const SUPABASE_HOST = 'jajenrevcbmrpaliomxv.supabase.co'
-const WEB_REQUIRE_ROOT = 'D:/workspace/vocaflow-r0-complete/apps/web/package.json'
-const DEFAULT_SERVER_ROOT = 'D:/workspace/vocaflow-r0-complete/apps/web'
+const WEB_REQUIRE_ROOT = 'D:/workspace/Vocaflow-main-serving/apps/web/package.json'
+const DEFAULT_SERVER_ROOT = 'D:/workspace/Vocaflow-main-serving/apps/web'
 const OUT_DIR = path.join(__dirname, 'out')
 const UUID = '[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}'
 
 // 계정당 첫 실행 상한(post-fix). --evaluate 가 실제 행수와 대조한다. exact 는 정확히 그 값이어야 한다.
 const MAX_ROWS_PER_ACCOUNT = {
   texts_insert: 1, texts_status_in_progress: 1, user_word_set_subscriptions_insert: 1,
-  vocabularies_insert: 8, csat_item_attempts_insert: 2, vocabularies_fsrs_update: 8, learning_records_insert: 8,
+  vocabularies_insert: 7, csat_item_attempts_insert: 2,
+  srs_set_vocab_created_in_run: 7, srs_fsrs_updated_set_vocab: 7, srs_learning_records_set_vocab: 7, srs_learning_records_distinct_vocab: 7,
   daily_activity_rows: 1, user_stats_rows: 1, funnel_events_insert: 12,
 }
-const EXACT_ROWS_PER_ACCOUNT = { texts_insert: 1, user_word_set_subscriptions_insert: 1, csat_item_attempts_insert: 2 }
+const EXACT_ROWS_PER_ACCOUNT = { texts_insert: 1, user_word_set_subscriptions_insert: 1, csat_item_attempts_insert: 2, vocabularies_insert: 7,
+  srs_set_vocab_created_in_run: 7, srs_fsrs_updated_set_vocab: 7, srs_learning_records_set_vocab: 7, srs_learning_records_distinct_vocab: 7 }
+// 첫 실행 전제: 이 세트 어휘의 실행 전 SRS 이력 0. 0 이 아니면 NON_FIRST_RUN(통과 아님).
+const FIRST_RUN_ZERO_KEYS = ['srs_prior_learning_records_set_vocab', 'srs_set_vocab_created_before_run']
 const MAX_SHARED = { shared_word_sets_subscriber_count_delta: 2 }
 
-// ── Server Action 허용 목록(dcf55c35f 실제 경로에서 호출되는 것만) ──────────────────────
+// ── Server Action 허용 목록(main@134af57f8 실제 경로에서 호출되는 것만) ──────────────────────
 // Next 14.2.35 id = sha1(<webpack 모듈 절대경로> + ':' + <export 이름>) — next/dist/build/webpack/loaders/utils.js generateActionId.
 // 경로 표기(역슬래시/슬래시·드라이브 대소문자)를 바꿔 후보를 모두 계산한다. 서버 루트가 다르면 id 가 달라져 전부 abort 된다(안전 쪽).
 const ACTION_ALLOWLIST = [
@@ -185,12 +199,14 @@ function git(cwd, args) {
   try { return execFileSync('git', ['-C', cwd, ...args], { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] }).trim() } catch { return null }
 }
 const gitHas = (sha) => git(PIN.code.repo_worktree, ['cat-file', '-e', sha + '^{commit}']) !== null
+const isAncestor = (sha, head) => git(PIN.code.repo_worktree, ['merge-base', '--is-ancestor', sha, head]) !== null
 
 // 실행 직전 읽기 전용 SELECT — 운영자가 SQL 도구에서 실행하고 결과를 binding-evidence JSON 으로 옮긴다(:uid 치환은 도구 안에서만).
 const BINDING_SQL_READONLY = [
   `SELECT id, encode(sha256(convert_to(content,'UTF8')),'hex') AS body_sha256 FROM public.library_articles WHERE id='${PIN.article.id}';`,
   `SELECT id, type, encode(sha256(convert_to(payload::text,'UTF8')),'hex') AS payload_pg_sha256, encode(sha256(convert_to(answer_key::text,'UTF8')),'hex') AS key_pg_sha256 FROM public.csat_dcp_items WHERE id IN (${PIN.items.map((i) => `'${i.id}'`).join(',')}) ORDER BY id;`,
   `SELECT proname FROM pg_proc p JOIN pg_namespace n ON n.oid=p.pronamespace WHERE n.nspname='public' AND proname IN (${PIN.rpcs.map((r) => `'${r}'`).join(',')});`,
+  `SELECT w.word, w.meaning_ko, w.part_of_speech, w.example_en, encode(sha256(convert_to(to_jsonb(w)::text,'UTF8')),'hex') AS row_pg_sha256 FROM public.shared_words w WHERE w.set_id='${PIN.wordset.id}' ORDER BY w.word;  -- → wordset.rows`,
   `SELECT s.word_count, s.subscriber_count, (SELECT count(*) FROM public.shared_words x WHERE x.set_id=s.id) AS actual_rows, EXISTS (SELECT 1 FROM public.shared_words WHERE id='${PIN.wordset.ford_row_id}') AS ford_present, (SELECT part_of_speech FROM public.shared_words WHERE set_id=s.id AND word='ground') AS ground_pos, (SELECT part_of_speech FROM public.shared_words WHERE set_id=s.id AND word='slave') AS slave_pos, (SELECT array_agg(word ORDER BY word) FROM public.shared_words WHERE set_id=s.id) AS words FROM public.shared_word_sets s WHERE s.id='${PIN.wordset.id}';`,
   `-- 계정 A·B 각각(:uid): 사전 상태는 모두 0 이어야 첫 실행 상한이 맞는다`,
   `SELECT (SELECT count(*) FROM public.texts WHERE user_id=:uid AND source_url='article:${PIN.article.id}') AS existing_lincoln_texts, (SELECT count(*) FROM public.user_word_set_subscriptions WHERE user_id=:uid AND set_id='${PIN.wordset.id}') AS existing_set_subscriptions, (SELECT count(*) FROM public.vocabularies WHERE user_id=:uid AND shared_set_id='${PIN.wordset.id}') AS existing_set_vocab;`,
@@ -200,7 +216,7 @@ const BINDING_EVIDENCE_SHAPE = {
   article: { id: PIN.article.id, body_sha256: '…' },
   items: [{ id: '…', payload_pg_sha256: '…', key_pg_sha256: '…' }],
   rpcs_present: ['article_practice_items', 'submit_article_practice'],
-  wordset: { word_count: 7, actual_rows: 7, subscriber_count: 0, ford_present: false, ground_pos: 'noun', slave_pos: 'noun', words: ['…'] },
+  wordset: { word_count: 7, actual_rows: 7, subscriber_count: 0, ford_present: false, ground_pos: 'noun', slave_pos: 'noun', words: ['…'], rows: [{ word: '…', meaning_ko: '…', part_of_speech: '…', example_en: '…', row_pg_sha256: '…' }] },
   accounts: { A: { existing_lincoln_texts: 0, existing_set_subscriptions: 0, existing_set_vocab: 0 }, B: { '…': 0 } },
 }
 
@@ -224,6 +240,21 @@ function checkBinding(file, wordsetMode) {
     for (const k of Object.keys(exp.expect)) c(`wordset_${k}`, ws[k] === exp.expect[k])
     if (Array.isArray(ws.words)) c('wordset_words', JSON.stringify([...ws.words].sort()) === JSON.stringify([...exp.words].sort())); else m('wordset_words')
     if (typeof ws.subscriber_count === 'number') c('wordset_subscriber_count_captured', true); else m('wordset_subscriber_count_captured')
+    if (wordsetMode === 'post-fix') {
+      const rows = Array.isArray(ws.rows) ? ws.rows : null
+      if (!rows) { m('wordset_rows_captured') } else {
+        c('wordset_rows_count_7', rows.length === 7)
+        c('wordset_rows_no_ford', !rows.some((r) => r && r.word === 'ford'))
+        for (const [w, want] of Object.entries(exp.reviewed_rows)) {
+          const got = rows.find((r) => r && r.word === w)
+          for (const f of Object.keys(want)) if (got && typeof got[f] === 'string') c(`wordset_${w}_${f}_reviewed`, got[f] === want[f]); else m(`wordset_${w}_${f}_reviewed`)
+        }
+        for (const w of exp.unchanged_rows) {
+          const got = rows.find((r) => r && r.word === w)
+          if (got && typeof got.row_pg_sha256 === 'string') c(`wordset_${w}_row_unchanged`, got.row_pg_sha256 === PIN.wordset.pre_fix.row_pg_sha256[w]); else m(`wordset_${w}_row_unchanged`)
+        }
+      }
+    }
   } else { for (const k of Object.keys(exp.expect)) m(`wordset_${k}`); m('wordset_words') }
   for (const label of Object.keys(ACCOUNTS)) {
     const a = ev.accounts && ev.accounts[label]
@@ -264,7 +295,7 @@ function preflight(args) {
   for (const [label, { prefix }] of Object.entries(ACCOUNTS)) keyCheck[label] = KEY_SUFFIXES.every((s) => env.keys.includes(prefix + s))
   let playwright = false
   try { createRequire(WEB_REQUIRE_ROOT).resolve('@playwright/test'); playwright = true } catch { playwright = false }
-  const commits = Object.fromEntries(PIN.code.commits.map((c) => [c.slice(0, 9), gitHas(c)]))
+  const commits = Object.fromEntries(PIN.code.commits.map((c) => [c.slice(0, 9), gitHas(c) && isAncestor(c, PIN.code.head)]))
   const branchHead = git(PIN.code.repo_worktree, ['rev-parse', PIN.code.branch])
   const serverRoot = args.serverRoot || DEFAULT_SERVER_ROOT
   const wordsetMode = args.wordset || 'post-fix'
@@ -276,7 +307,7 @@ function preflight(args) {
   const out = {
     mode: 'preflight',
     db_access: false, network: false, browser: false, dev_server: false, writes: 0,
-    config: { env_file_exists: env.exists, account_keys_present: keyCheck, playwright_resolvable_from: WEB_REQUIRE_ROOT, playwright_resolvable: playwright, pinned_commits_present: commits, branch_head_matches_pin: branchHead === PIN.code.head },
+    config: { env_file_exists: env.exists, account_keys_present: keyCheck, playwright_resolvable_from: WEB_REQUIRE_ROOT, playwright_resolvable: playwright, r0_commits_ancestor_of_pinned_main: commits, branch_head_matches_pin: branchHead === PIN.code.head },
     config_ok,
     server_source: server,
     db_binding: binding,
@@ -284,7 +315,7 @@ function preflight(args) {
     wordset_acceptance: wordsetMode === 'post-fix' ? 'ACCEPTANCE_ELIGIBLE' : 'NON_ACCEPTANCE_PRE_FIX',
     pre_fix_refused: preFixBlocked,
     ready_for_write: config_ok && server.ok && binding.ok && !preFixBlocked,
-    ready_for_write_requires: ['config_ok', 'server_source.ok (서버 작업 트리 HEAD=dcf55c35f · tracked clean)', 'db_binding.ok (--binding-evidence 가 PIN 과 전부 일치)', 'post-fix 세트(또는 --allow-pre-fix-nonacceptance — 이 경우도 수용 근거 아님)'],
+    ready_for_write_requires: ['config_ok', 'server_source.ok (서버 작업 트리 main HEAD=134af57f8 · tracked clean · R0 커밋 4개 조상)', 'db_binding.ok (--binding-evidence 가 PIN 과 전부 일치)', 'post-fix 세트(또는 --allow-pre-fix-nonacceptance — 이 경우도 수용 근거 아님)'],
     pin: { article: PIN.article, items: PIN.items.map((i) => ({ id: i.id, type: i.type })), wordset: { id: PIN.wordset.id, pre_fix: PIN.wordset.pre_fix.expect, post_fix: PIN.wordset.post_fix.expect, post_fix_sql_sha256: PIN.wordset.post_fix.fix_sql_sha256 } },
     server_action_allowlist: ACTION_ALLOWLIST.map((a) => ({ name: a.name, file: a.file, page: String(a.page), max_per_account: a.max_per_account, writes: a.writes, id_candidates: actionIdCandidates(serverRoot, a.file, a.name).length })),
     server_action_denylist: ACTION_DENYLIST.map((a) => a.name),
@@ -313,11 +344,17 @@ function rowCountSql() {
     + ` (SELECT count(*) FROM public.user_word_set_subscriptions WHERE user_id=:uid AND set_id='${PIN.wordset.id}') AS user_word_set_subscriptions_insert,`
     + ` (SELECT count(*) FROM public.vocabularies WHERE user_id=:uid AND shared_set_id='${PIN.wordset.id}') AS vocabularies_insert,`
     + ` (SELECT count(*) FROM public.csat_item_attempts WHERE user_id=:uid AND dcp_item_id IN (${PIN.items.map((i) => `'${i.id}'`).join(',')}) AND responded_at BETWEEN :t0 AND :t1) AS csat_item_attempts_insert,`
-    + ` (SELECT count(*) FROM public.vocabularies WHERE user_id=:uid AND shared_set_id='${PIN.wordset.id}' AND last_review_at BETWEEN :t0 AND :t1) AS vocabularies_fsrs_update,`
-    + ` (SELECT count(*) FROM public.learning_records WHERE user_id=:uid AND attempted_at BETWEEN :t0 AND :t1) AS learning_records_insert,`
     + ' (SELECT count(*) FROM public.daily_activity WHERE user_id=:uid AND date BETWEEN (:t0)::date AND (:t1)::date) AS daily_activity_rows,'
     + ' (SELECT count(*) FROM public.user_stats WHERE user_id=:uid) AS user_stats_rows,'
     + ' (SELECT count(*) FROM public.funnel_events WHERE user_id=:uid AND occurred_at BETWEEN :t0 AND :t1) AS funnel_events_insert;',
+    '-- SRS 범위: 이 실행에서 만든 이 세트 단어의 vocabulary_id 로만 센다(세트 밖·전역 learning_records 는 쓰지 않는다)',
+    `WITH sv AS (SELECT v.id, v.created_at, v.last_review_at FROM public.vocabularies v WHERE v.user_id=:uid AND v.shared_set_id='${PIN.wordset.id}' AND v.word IN (${PIN.wordset.post_fix.words.map((w) => `'${w}'`).join(',')})) SELECT`
+    + ' (SELECT count(*) FROM sv WHERE created_at BETWEEN :t0 AND :t1) AS srs_set_vocab_created_in_run,'
+    + ' (SELECT count(*) FROM sv WHERE created_at < :t0) AS srs_set_vocab_created_before_run,'
+    + ' (SELECT count(*) FROM sv WHERE created_at BETWEEN :t0 AND :t1 AND last_review_at BETWEEN :t0 AND :t1) AS srs_fsrs_updated_set_vocab,'
+    + ' (SELECT count(*) FROM public.learning_records lr JOIN sv ON sv.id=lr.vocabulary_id WHERE lr.user_id=:uid AND sv.created_at BETWEEN :t0 AND :t1 AND lr.attempted_at BETWEEN :t0 AND :t1) AS srs_learning_records_set_vocab,'
+    + ' (SELECT count(DISTINCT lr.vocabulary_id) FROM public.learning_records lr JOIN sv ON sv.id=lr.vocabulary_id WHERE lr.user_id=:uid AND sv.created_at BETWEEN :t0 AND :t1 AND lr.attempted_at BETWEEN :t0 AND :t1) AS srs_learning_records_distinct_vocab,'
+    + ' (SELECT count(*) FROM public.learning_records lr JOIN sv ON sv.id=lr.vocabulary_id WHERE lr.user_id=:uid AND lr.attempted_at < :t0) AS srs_prior_learning_records_set_vocab;',
     `SELECT subscriber_count FROM public.shared_word_sets WHERE id='${PIN.wordset.id}';  -- delta = 이 값 - binding 의 subscriber_count`,
     `SELECT word, part_of_speech FROM public.vocabularies WHERE user_id=:uid AND shared_set_id='${PIN.wordset.id}' ORDER BY word;  -- ford 없음 · ground/slave noun 확인용(행수 판정과 별개로 눈으로)`,
   ]
@@ -368,8 +405,11 @@ async function writeMode(args) {
       const log = []
       Object.defineProperty(window, '__r0SrsLog', { value: log, configurable: false })
       const len = (v) => { try { const a = JSON.parse(v ?? '[]'); return Array.isArray(a) ? a.length : -1 } catch { return -1 } }
+      const words = new Set()
+      Object.defineProperty(window, '__r0SrsWords', { value: words, configurable: false })
+      const addWords = (v) => { try { for (const it of JSON.parse(v ?? '[]')) if (it && typeof it.word === 'string') words.add(it.word.toLowerCase()) } catch { /* 길이 -1 로 이미 드러난다 */ } }
       const set = Storage.prototype.setItem; const rem = Storage.prototype.removeItem
-      Storage.prototype.setItem = function (k, v) { if (this === window.localStorage && k === KEY) log.push({ op: 'set', len: len(v), t: Date.now() }); return set.call(this, k, v) }
+      Storage.prototype.setItem = function (k, v) { if (this === window.localStorage && k === KEY) { log.push({ op: 'set', len: len(v), t: Date.now() }); addWords(v) } return set.call(this, k, v) }
       Storage.prototype.removeItem = function (k) { if (this === window.localStorage && k === KEY) log.push({ op: 'remove', len: 0, t: Date.now() }); return rem.call(this, k) }
     })
     await ctx.route('**/*', async (route) => {
@@ -603,13 +643,15 @@ async function writeMode(args) {
       // 저장 확인: 대기열이 0 으로 비워질 때까지(ACK 된 항목만 지워진다) 최대 20s
       const drained = await page.waitForFunction(() => { try { return JSON.parse(localStorage.getItem('srs_pending') ?? '[]').length === 0 } catch { return false } }, null, { timeout: 20000 }).then(() => true).catch(() => false)
       const log = await page.evaluate(() => window.__r0SrsLog.slice())
+      const ratedWords = await page.evaluate(() => [...window.__r0SrsWords])
+      const uniqueInSet = ratedWords.filter((w) => wsExpect.words.includes(w)).length
       page.off('response', onResp)
       let rated = 0; let prev = startLen < 0 ? 0 : startLen; let peak = prev
       for (const e of log) { if (e.op === 'set' && e.len > prev) rated += e.len - prev; if (e.len >= 0) { prev = e.len; peak = Math.max(peak, e.len) } }
-      run.steps.flashcard = { key_presses: keyPresses, queue_start_len: startLen, ratings_enqueued: rated, queue_peak: peak, queue_drained: drained, flush_action_responses: flushResp.map((r) => r.status) }
+      run.steps.flashcard = { key_presses: keyPresses, queue_start_len: startLen, ratings_enqueued: rated, unique_rated_words_in_set: uniqueInSet, rated_words_outside_set: ratedWords.length - uniqueInSet, queue_peak: peak, queue_drained: drained, flush_action_responses: flushResp.map((r) => r.status) }
       check('flashcard_queue_observed_before_rating', label, startLen >= 0, startLen === 0, { start_len: startLen })
       check('flashcard_ratings_enqueued', label, true, rated >= 1, { rated, key_presses: keyPresses })
-      check('flashcard_ratings_match_set', label, true, rated === wsExpect.words.length, { rated, expected: wsExpect.words.length })
+      check('flashcard_unique_rated_cards_equal_set', label, true, uniqueInSet === wsExpect.words.length && ratedWords.length === uniqueInSet, { unique_in_set: uniqueInSet, outside_set: ratedWords.length - uniqueInSet, expected: wsExpect.words.length })
       check('srs_flush_action_ok', label, flushResp.length > 0, flushResp.some((r) => r.status === 200))
       check('srs_save_acknowledged_queue_drained', label, true, drained && rated >= 1)
       // 7) 다음 글 고르기 — 목록 표시만, 클릭 없음
@@ -660,6 +702,7 @@ function evaluate(args) {
   const proof = JSON.parse(fs.readFileSync(args.evaluate, 'utf8'))
   const rc = JSON.parse(fs.readFileSync(args.rowCounts, 'utf8'))
   const checks = []
+  const nonFirstRun = []
   const c = (id, measured, ok, detail) => checks.push({ id, measured: !!measured, ok: !!(measured && ok), ...(detail ? { detail } : {}) })
   c('proof_is_write_mode', true, proof.mode === 'write')
   c('proof_ui_pass', true, proof.ui_status === 'UI_PASS' && proof.status === 'UI_PASS_DB_VERIFICATION_PENDING')
@@ -673,9 +716,15 @@ function evaluate(args) {
       c(`${label}_${k}`, measured, ok, measured ? { value: v, cap, exact: EXACT_ROWS_PER_ACCOUNT[k] } : { why: 'NOT_MEASURED' })
     }
     const run = (proof.runs || []).find((r) => r.account === label)
-    const rated = run && run.steps && run.steps.flashcard ? run.steps.flashcard.ratings_enqueued : null
-    c(`${label}_learning_records_cover_ratings`, typeof a.learning_records_insert === 'number' && typeof rated === 'number', a.learning_records_insert >= rated && rated >= 1, { learning_records: a.learning_records_insert, rated })
-    c(`${label}_fsrs_updates_cover_ratings`, typeof a.vocabularies_fsrs_update === 'number' && typeof rated === 'number', a.vocabularies_fsrs_update >= 1 && a.vocabularies_fsrs_update <= rated, { fsrs_updates: a.vocabularies_fsrs_update, rated })
+    const fc = run && run.steps && run.steps.flashcard ? run.steps.flashcard : null
+    const uniq = fc && typeof fc.unique_rated_words_in_set === 'number' ? fc.unique_rated_words_in_set : null
+    const setN = PIN.wordset.post_fix.words.length
+    c(`${label}_unique_rated_cards_equal_set`, uniq !== null, uniq === setN && fc.rated_words_outside_set === 0, { unique_rated: uniq, expected: setN })
+    for (const k of FIRST_RUN_ZERO_KEYS) {
+      const v = a[k]
+      if (typeof v !== 'number') c(`${label}_${k}_zero`, false, false, { why: 'NOT_MEASURED' })
+      else { c(`${label}_${k}_zero`, true, v === 0, { value: v }); if (v !== 0) nonFirstRun.push(`${label}:${k}`) }
+    }
   }
   const before = proof.db_binding ? proof.db_binding.subscriber_count_before : null
   const after = rc.shared ? rc.shared.subscriber_count_after : undefined
@@ -685,7 +734,9 @@ function evaluate(args) {
   return {
     mode: 'evaluate', db_access: false, writes: 0, row_counts_source: rc.measured_by ?? null, row_counts_captured_at: rc.captured_at ?? null,
     checks, failed: checks.filter((x) => !x.ok).map((x) => x.id),
-    status: !allOk ? 'FAIL' : acceptance === 'ACCEPTANCE_ELIGIBLE' ? 'PASS' : 'PASS_NON_ACCEPTANCE_PRE_FIX',
+    first_run_assumption: '이 세트 어휘의 실행 전 SRS 이력 0 · 이번 실행에서 vocab 7행 생성 · 고유 7카드 각 1회 평가',
+    non_first_run: nonFirstRun,
+    status: nonFirstRun.length ? 'NON_FIRST_RUN' : !allOk ? 'FAIL' : acceptance === 'ACCEPTANCE_ELIGIBLE' ? 'PASS' : 'PASS_NON_ACCEPTANCE_PRE_FIX',
     pass: allOk && acceptance === 'ACCEPTANCE_ELIGIBLE',
     row_counts_shape: { measured_by: '…', captured_at: '…', A: Object.fromEntries(Object.keys(MAX_ROWS_PER_ACCOUNT).map((k) => [k, 0])), B: '같은 키', shared: { subscriber_count_after: 0 } },
   }
