@@ -64,6 +64,8 @@ interface UnifiedHeaderProps {
   wordsHref: string
   /** "카드" 모드 클릭 시 이동할 Flashcard href — 자료 스코프(?set/?text) 포함 */
   flashcardHref: string
+  /** ModePills "Quiz" 목적지(이 글·챕터 퀴즈) */
+  quizHref?: string
   /** "블리츠" 모드 클릭 시 이동할 WordBlitz href — 자료 스코프(?set/?text) 포함 */
   wordblitzHref: string
   arcadeHref: string
@@ -86,6 +88,7 @@ export function UnifiedHeader({
   modeStatus,
   wordsHref,
   flashcardHref,
+  quizHref,
   wordblitzHref,
   arcadeHref,
 }: UnifiedHeaderProps) {
@@ -326,6 +329,7 @@ export function UnifiedHeader({
         isFocusMode={isFocusMode}
         wordsHref={wordsHref}
         flashcardHref={flashcardHref}
+        quizHref={quizHref}
         wordblitzHref={wordblitzHref}
         arcadeHref={arcadeHref}
       />
