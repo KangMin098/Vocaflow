@@ -13,7 +13,9 @@ import type { ModuleId } from '@/lib/srs/types'
 
 import { pagedSelect } from '@/lib/supabase/paged-select'
 
-import type { VocabRow } from './browse-queries'
+import { vocabRowToWord, type BrowseWord, type VocabRow } from './browse-queries'
+import type { LevelParam } from './list-params'
+import { applyConditionsThenCap } from './source-study'
 import { matchesStateFilter, type StateFilterKey } from './state-filter'
 
 /** 한 학습 세션에서 제시할 단어 상한 (Cognitive Load — 한 세션 과부하 방지). */
@@ -119,4 +121,19 @@ export async function fetchAllStudyVocabulariesOrdered(
         .range(from, to),
     'wordvault source study vocabularies',
   )
+}
+
+/**
+ * 기억 상태 목록 + 검색 · 난이도 세션 — 상태(한 시각 `now`) → 검색 → 난이도 → 상한 순. 정렬(due 우선)은 그대로.
+ * 상태 앞 50개를 자른 뒤 검색하면 뒤의 적격 단어가 빠진다 — 상한은 맨 마지막.
+ */
+export function scopeStateStudyRows(
+  rows: readonly VocabRow[],
+  stateKey: StateFilterKey,
+  scope: { query: string; level: LevelParam | null },
+  cap: number,
+  now: Date,
+): { words: BrowseWord[]; total: number } {
+  const words = filterRowsByState(rows, stateKey, now).map((r, i) => vocabRowToWord(r, i))
+  return applyConditionsThenCap(words, scope, cap)
 }

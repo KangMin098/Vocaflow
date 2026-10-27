@@ -374,6 +374,12 @@ export function WordVaultBrowseClient({
                   filterKey={stateKey}
                   count={words.length}
                   onClear={clearStateFilter}
+                  studyHref={sourceStudyHref({
+                    filter: scriptFilter,
+                    query: searchQuery,
+                    level: levelFilter,
+                    from: currentBrowseHref(new URLSearchParams(searchParams?.toString() ?? ''), { filter: scriptFilter, query: searchQuery, level: levelFilter }),
+                  })}
                 />
               )}
 

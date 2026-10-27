@@ -20,8 +20,8 @@ vi.mock('next/navigation', () => ({
   usePathname: () => '/wordvault/study',
 }))
 vi.mock('@/lib/supabase/server', () => ({ createClient: async () => ({ auth: { getUser: async () => ({ data: { user: h.signedOut ? null : { id: 'u1' } } }) } }) }))
-vi.mock('@/lib/wordvault/study-queries', () => ({
-  STUDY_SESSION_CAP: 50,
+vi.mock('@/lib/wordvault/study-queries', async (orig) => ({
+  ...(await orig<typeof import('@/lib/wordvault/study-queries')>()),
   fetchAllStudyVocabulariesOrdered: async () => { if (h.fail) throw new Error('read failed'); return h.rows },
   fetchStudyVocabularies: async (_s: unknown, _u: unknown, key: unknown) => { h.stateCalls.push(key); return [] },
 }))
@@ -143,6 +143,55 @@ describe('로그인 전 · 다시 열기: 잘못된 요청은 잘못된 채로',
   })
 })
 
+describe('기억 상태 목록 + 검색 · 난이도 세션', () => {
+  const stateBack = '/wordvault/browse?filter=state%3Anew&q=orb&level=b'
+  const withLevel = (r: Record<string, unknown>, cefr: string) => ({ ...r, cefr_level: cefr })
+  it('state:new · q=orb · level=b → orbit 만 · 실제 조건 안내 · 같은 목록 복귀', async () => {
+    h.rows = [row('r1', 'canyon', null, null), row('r2', 'orbit', null, null), withLevel(row('r3', 'orbiter', null, null), 'C1')]
+    const html = await render({ filter: 'state:new', q: 'orb', level: 'b', from: stateBack })
+    expect(html).toContain('orbit')
+    expect(html).not.toContain('canyon')
+    expect(html).not.toContain('orbiter')
+    expect(html).toContain('지금 기준')
+    expect(html).toContain('내 단어 1개')
+    expect(h.stateCalls).toEqual([])
+  })
+  it('0개 = 빈 안내 + 같은 목록 · 조회 실패 = load(0개 아님)', async () => {
+    const empty = await render({ filter: 'state:new', q: 'zzz', from: stateBack })
+    expect(empty).toContain('vocab-source-study-empty')
+    expect(empty).toContain(`href="${stateBack.replaceAll('&', '&amp;')}"`)
+    h.fail = true
+    const failed = await render({ filter: 'state:new', q: 'orb', from: stateBack })
+    expect(failed).toContain('data-reason="load"')
+    expect(failed).toContain(`href="${stateBack.replaceAll('&', '&amp;')}"`)
+  })
+  it('반복 q/level = invalid · 전체 조회 안 함', async () => {
+    const html = await render({ filter: 'state:new', q: ['orb', 'x'] })
+    expect(html).toContain('data-reason="invalid"')
+    expect(h.stateCalls).toEqual([])
+  })
+  it('로그인 전: 조건 · 목록 주소 보존 · 반복 조건은 invalid', async () => {
+    h.signedOut = true
+    const next = async (sp: Record<string, string | string[]>) => {
+      const m = await StudyPage({ searchParams: sp }).then(() => '', (e: Error) => e.message)
+      return new URL(decodeURIComponent(m.slice('redirect:/login?next='.length)), 'http://x')
+    }
+    const ok = await next({ filter: 'state:new', q: 'orb', level: 'b', from: stateBack })
+    expect([ok.searchParams.get('filter'), ok.searchParams.get('q'), ok.searchParams.get('level'), ok.searchParams.get('from')]).toEqual(['state:new', 'orb', 'b', stateBack])
+    expect((await next({ filter: 'state:new', level: ['b', 'c'] })).searchParams.get('filter')).toBe('invalid')
+    h.signedOut = false
+  })
+  it('계정이 바뀐 브라우저에서는 그리지 않는다(기존 guard)', async () => {
+    const html = renderToString(<StoryAuthSourceContext.Provider value={knownAs('u2')}>{await StudyPage({ searchParams: { filter: 'state:new', q: 'orb', from: stateBack } })}</StoryAuthSourceContext.Provider>)
+    expect(html).not.toContain('orbit')
+  })
+  it('목록 주소 없는 예전 state: 링크 · 필터 없음은 기존 경로', async () => {
+    await render({ filter: 'state:new' })
+    await render({})
+    expect(h.stateCalls).toEqual(['new', null])
+  })
+})
+
 describe('Browse 출처 목록의 진입', () => {
   const words = () => h.rows.map((r, i) => vocabRowToWord(r as never, i))
   const browse = () => renderToStaticMarkup(<WordVaultBrowseClient words={words()} textChips={[{ id: `text:${TA}`, label: '글 A', count: 1 }]} setChips={[]} />)
@@ -160,7 +209,17 @@ describe('Browse 출처 목록의 진입', () => {
     expect(u.searchParams.get('level')).toBe('b')
     expect(u.searchParams.get('from')).toBe(`/wordvault/browse?filter=text%3A${TA}&q=orb&level=b`)
   })
-  it('전체 · state: 목록에는 진입 없음(기존 MemoryFilterBar 경로 보존)', () => {
+  it('state: 목록의 「이 단어로 학습 시작」 = 상태 · 검색 · 난이도 · 같은 목록 주소', () => {
+    h.search = 'filter=state:new&q=orb&level=b'
+    const html = browse()
+    const start = html.lastIndexOf('<a', html.indexOf('data-testid="vocab-state-study-start"'))
+    const tag = html.slice(start, html.indexOf('>', start))
+    expect(tag).toContain('min-h-[44px]')
+    const u = new URL(tag.match(/href="([^"]+)"/)![1].replaceAll('&amp;', '&'), 'http://x')
+    expect([u.pathname, u.searchParams.get('filter'), u.searchParams.get('q'), u.searchParams.get('level')]).toEqual(['/wordvault/study', 'state:new', 'orb', 'b'])
+    expect(u.searchParams.get('from')).toBe('/wordvault/browse?filter=state%3Anew&q=orb&level=b')
+  })
+  it('전체 · state: 목록에는 출처 진입 없음', () => {
     h.search = ''
     expect(browse()).not.toContain('vocab-source-recall')
     h.search = 'filter=state:new'

@@ -18,8 +18,9 @@ import { createClient } from '@/lib/supabase/server'
 import { vocabRowToWord, type BrowseWord } from '@/lib/wordvault/browse-queries'
 import { loadArticleSetMembership } from '@/lib/wordvault/set-membership-query'
 import type { SetMembership } from '@/lib/wordvault/source-filter'
-import { parseStudyFilter, scopeSourceStudyWords, sourceStudyReturnHref, studyReopenHref } from '@/lib/wordvault/source-study'
-import { fetchAllStudyVocabulariesOrdered, fetchStudyVocabularies, STUDY_SESSION_CAP } from '@/lib/wordvault/study-queries'
+import { conditionParts, parseStudyFilter, scopeSourceStudyWords, sourceStudyReturnHref, studyReopenHref } from '@/lib/wordvault/source-study'
+import { stateFilterLabel, toStateFilterValue } from '@/lib/wordvault/state-filter'
+import { fetchAllStudyVocabulariesOrdered, fetchStudyVocabularies, scopeStateStudyRows, STUDY_SESSION_CAP } from '@/lib/wordvault/study-queries'
 
 export const metadata = {
   title: 'WordVault — 학습',
@@ -68,9 +69,7 @@ export default async function WordVaultStudyPage({ searchParams }: PageProps) {
 
   if (parsed.kind === 'source') {
     const backHref = sourceStudyReturnHref(safeFrom, parsed.filter)
-    const conditions = ['이 목록', parsed.level ? (parsed.level.kind === 'cefr' ? parsed.level.value : `${parsed.level.value.toUpperCase()} 등급`) : null, parsed.query ? `"${parsed.query}"` : null]
-      .filter(Boolean)
-      .join(' · ')
+    const conditions = ['이 목록', ...conditionParts(parsed)].join(' · ')
     let words: BrowseWord[] = []
     let total = 0
     let error: 'load' | 'membership' | undefined
@@ -86,6 +85,31 @@ export default async function WordVaultStudyPage({ searchParams }: PageProps) {
         words = scoped.words
         total = scoped.total
       }
+    } catch {
+      error = 'load'
+    }
+    return (
+      <WordVaultViewerGate viewerId={user.id} reopenHref={reopenHref}>
+        <WordVaultStudyClient words={words} viewerId={user.id} backHref={backHref} source={{ total, conditions, error }} />
+      </WordVaultViewerGate>
+    )
+  }
+
+  // 목록(MemoryFilterBar)에서 온 기억 상태 세션 — 검색 · 난이도 그대로, 끝 · 빈 상태 · 실패에서 그 목록으로.
+  //   목록 주소 없는 예전 state: 링크는 아래 기존 경로 그대로(같은 판정 · 상한 — 이 분기도 판정 · 상한은 같다).
+  if (parsed.kind === 'state-scoped' || (parsed.kind === 'state' && safeFrom)) {
+    const stateScope = parsed.kind === 'state-scoped' ? parsed : { kind: 'state-scoped' as const, key: parsed.key, query: '', level: null }
+    // 상태는 이 요청의 한 시각으로 다시 계산한다(목록을 본 시점과 다를 수 있다).
+    const now = new Date()
+    const backHref = sourceStudyReturnHref(safeFrom, toStateFilterValue(stateScope.key))
+    const conditions = [`지금 기준 ${stateFilterLabel(stateScope.key)}`, ...conditionParts(stateScope)].join(' · ')
+    let words: BrowseWord[] = []
+    let total = 0
+    let error: 'load' | undefined
+    try {
+      const scoped = scopeStateStudyRows(await fetchAllStudyVocabulariesOrdered(supabase, user.id), stateScope.key, stateScope, STUDY_SESSION_CAP, now)
+      words = scoped.words
+      total = scoped.total
     } catch {
       error = 'load'
     }
