@@ -174,6 +174,16 @@ export default function WorkspacePage({ params }: PageProps) {
   }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
 
   const flashcardHref = scopeQuery ? `/flashcard/play${scopeQuery}` : '/flashcard'
+  // 퀴즈는 단어 스코프가 아니라 **이 글**로 연다 — 도서 챕터면 그 챕터 퀴즈 + 본문(text), 사용자 글이면 그 글의 퀴즈.
+  //   본문은 퀴즈 화면이 본인 texts 행을 다시 확인한 뒤에만 읽는다(채점 뒤 근거 문장 짚기, T-0193).
+  const quizHref = useMemo(() => {
+    if (!ctx?.textId) return undefined
+    if (ctx.libraryBookId && ctx.chapterIdx != null) {
+      const qs = new URLSearchParams({ book: ctx.libraryBookId, ch: String(ctx.chapterIdx), text: ctx.textId })
+      return `/scriptquiz/play?${qs.toString()}`
+    }
+    return `/scriptquiz/play?text=${encodeURIComponent(ctx.textId)}`
+  }, [ctx?.textId, ctx?.libraryBookId, ctx?.chapterIdx])
   const wordblitzHref = scopeQuery ? `/play/wordblitz${scopeQuery}` : '/wordblitz'
   // 아케이드 허브로 같은 스코프를 넘긴다 — 허브가 ?set/?text 를 받아 19종 카드 전부에
   // 실어주므로(v07.8), 이 pill 하나로 이 자료의 단어가 모든 게임에 연결된다.
@@ -549,6 +559,7 @@ export default function WorkspacePage({ params }: PageProps) {
         modeStatus={MODE_STATUS}
         wordsHref={wordsHref}
         flashcardHref={flashcardHref}
+        quizHref={quizHref}
         wordblitzHref={wordblitzHref}
         arcadeHref={arcadeHref}
       />

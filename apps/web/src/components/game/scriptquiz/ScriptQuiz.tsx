@@ -12,7 +12,7 @@ import Link from 'next/link'
 import { useSearchParams } from 'next/navigation'
 import { useEffect, useMemo, useState } from 'react'
 
-import { MOCK_SESSION } from './mock-data'
+import { MOCK_PASSAGE, MOCK_SESSION } from './mock-data'
 import type { AnswerState, QuizAnswer, QuizQuestion, QuizScreen, QuizSession } from './types'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
@@ -21,6 +21,8 @@ import type { RecommendedAction } from '@/lib/recommend/types'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import { recordGameScore } from '@/lib/scores/record-score'
 import { gradeScriptQuizAnswer, type ScriptQuizGrade } from '@/lib/scriptquiz/grade-actions'
+import { buildEvidenceChoice, type EvidenceChoice } from '@/lib/scriptquiz/evidence'
+import { EvidencePicker, type EvidencePick } from './EvidencePicker'
 import { pushPendingTextResult } from '@/lib/srs/session-storage'
 
 // ══════════════════════════════════════════════════════════════
@@ -64,10 +66,13 @@ export interface ScriptQuizProps {
   textId?: string
   /** 실 퀴즈 세션 (quiz_questions). 미지정 시 MOCK_SESSION 폴백(데모/문제 미생성). */
   session?: QuizSession
+  /** 이 퀴즈의 본문(본인이 읽는 글·챕터). 있으면 채점 뒤 근거 문장 짚기를 띄운다 — 정답·근거는 들어 있지 않다. */
+  passageText?: string
 }
 
-export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }: ScriptQuizProps = {}) {
+export function ScriptQuiz({ showKorean = false, textId, session: sessionProp, passageText }: ScriptQuizProps = {}) {
   const session = sessionProp ?? MOCK_SESSION
+  const passage = sessionProp ? passageText : MOCK_PASSAGE
 
   // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
   const recommendation = useNextAction()
@@ -84,9 +89,21 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
   const [graded, setGraded] = useState<{ correctIndex: number; sourceSnippet: string } | null>(null)
   /** 채점을 **못 한** 이유. 오답이 아니다 — 같은 값으로 뭉개면 맞힌 사람에게 틀렸다고 말한다. */
   const [gradeError, setGradeError] = useState<string | null>(null)
+  /** 채점 뒤 근거 문장 짚기 — 문항마다 새로. 기록·점수에 넣지 않는다. */
+  const [evidencePick, setEvidencePick] = useState<EvidencePick>(null)
 
   const currentQ = session.questions[currentIdx]
   const totalQ = session.questions.length
+
+  // 근거 후보는 **채점 뒤에만** 만든다 — 근거는 그때 서버가 이 문항 하나에 대해서만 준다.
+  const evidenceChoice = useMemo<EvidenceChoice | null>(
+    () =>
+      answerState === 'answered' && graded && passage
+        ? buildEvidenceChoice(passage, graded.sourceSnippet, currentQ.id)
+        : null,
+    [answerState, graded, passage, currentQ?.id],
+  )
+  const pickingEvidence = evidenceChoice !== null && evidencePick === null
 
   // ── 타이머 ──
   // 채점을 기다리는 동안(`grading`)과 채점 실패 뒤에는 멈춘다 — 안 그러면 네트워크가
@@ -108,6 +125,15 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
   useEffect(() => {
     if (screen !== 'question' || answerState !== 'answered') return
     const handler = (e: KeyboardEvent) => {
+      // 근거를 고르는 동안에는 Enter/Space 가 포커스된 문장 버튼을 누른다 — 다음으로 넘기지 않는다.
+      if (pickingEvidence && evidenceChoice) {
+        const num = parseInt(e.key, 10)
+        if (!isNaN(num) && num >= 1 && num <= evidenceChoice.sentences.length) {
+          e.preventDefault()
+          setEvidencePick(num - 1)
+        }
+        return
+      }
       if (e.key === 'Enter' || e.key === ' ') {
         e.preventDefault()
         goNext()
@@ -116,7 +142,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [screen, answerState, currentIdx, answers])
+  }, [screen, answerState, currentIdx, answers, pickingEvidence, evidenceChoice])
 
   // ── 키보드 단축키 (1~4 / O,X) ──
   useEffect(() => {
@@ -159,6 +185,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
     setAnswers([])
     setGraded(null)
     setGradeError(null)
+    setEvidencePick(null)
     setFeedback(null)
     setSecondsLeft(QUESTION_TIME_LIMIT)
     setQuestionStartedAt(Date.now())
@@ -227,6 +254,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
     setAnswerState('idle')
     setGraded(null)
     setGradeError(null)
+    setEvidencePick(null)
     setFeedback(null)
     setSecondsLeft(QUESTION_TIME_LIMIT)
     setQuestionStartedAt(Date.now())
@@ -295,6 +323,9 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp }:
           onSelect={handleAnswer}
           onNext={goNext}
           showKorean={showKorean}
+          evidenceChoice={evidenceChoice}
+          evidencePick={evidencePick}
+          onEvidencePick={setEvidencePick}
         />
       )}
 
@@ -459,6 +490,9 @@ function QuestionScreen({
   onSelect,
   onNext,
   showKorean = false,
+  evidenceChoice = null,
+  evidencePick = null,
+  onEvidencePick,
 }: {
   questionIdx: number
   totalQ: number
@@ -474,6 +508,9 @@ function QuestionScreen({
   onSelect: (idx: number) => void
   onNext: () => void
   showKorean?: boolean
+  evidenceChoice?: EvidenceChoice | null
+  evidencePick?: EvidencePick
+  onEvidencePick?: (pick: number | 'skip') => void
 }) {
   const progressPct = ((questionIdx + 1) / totalQ) * 100
   const timeColor =
@@ -596,7 +633,10 @@ function QuestionScreen({
                 </span>
               </p>
             )}
-            {graded?.sourceSnippet && (
+            {evidenceChoice && onEvidencePick && (
+              <EvidencePicker choice={evidenceChoice} pick={evidencePick} onPick={onEvidencePick} />
+            )}
+            {graded?.sourceSnippet && (!evidenceChoice || evidencePick !== null) && (
               <div>
                 <p className="font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--t2)]">
                   스크립트 근거
