@@ -156,8 +156,8 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
           이 지문, 우리 반에 맞을까?
         </h1>
         <p className="mt-6 max-w-[52ch] break-keep font-serif text-[20px] leading-[1.45] text-[var(--ju)] md:text-[24px]">
-          <span className="lg:hidden">영어 지문을 붙여넣으면 <b>중1부터 학술 원서까지 학년별 어휘 커버리지 추정을</b> 바로
-          나옵니다. 가입 없이, 저장하지 않고.</span>
+          <span className="lg:hidden">영어 지문을 붙여넣으면 <b>중1부터 학술 원서까지 학년별 어휘 커버리지 추정이</b> 바로
+          나와요. 가입 없이, 저장하지 않고.</span>
           <span className="hidden lg:block">지문을 넣고 학년을 고르면, 어휘 커버리지와 짚을 낱말이 보입니다.</span>
         </p>
         </div>
