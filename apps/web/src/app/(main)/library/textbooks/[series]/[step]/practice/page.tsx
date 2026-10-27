@@ -89,12 +89,13 @@ export default async function TextbookPracticePage({
           </Link>
           <h1 className="font-editorial text-[20px] font-[800] text-[var(--t1)]">연습</h1>
           <p className="font-body text-[13px] text-[var(--t2)]">
-            {rung.schoolBand} 계단의 순서·삽입 문항이에요. 푼 기록은 다음 문항을 고르는 데 쓰여요.
+            {rung.schoolBand} 계단의 연습 문항이에요. 푼 기록은 다음 문항을 고르는 데 쓰여요.
           </p>
         </header>
 
         {items.length > 0 ? (
-          <DcpPlayer items={items} />
+          // 마치면 이 교재(권)로 돌아온다 — 기본값 /hub 로 보내면 방금 고른 교재 맥락을 잃었다(복습 · 다음 선택은 교재 화면에서)
+          <DcpPlayer items={items} backHref={`/library/textbooks/${series}/${step}`} backCta="이 교재로 돌아가기" />
         ) : (
           <section
             aria-label={

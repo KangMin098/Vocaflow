@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(textbook): 교재 연습(`/library/textbooks/[series]/[step]/practice`)을 마치면 기본값 /hub 대신 같은 교재(권) 화면으로 돌아온다(`DcpPlayer backHref · backCta`). 안내 문구 「순서·삽입 문항」을 실제 공급(선택형 포함)에 맞게 「연습 문항」으로. DB 무변경.
 - fix(seo): 복원 만화 구조화 데이터(`comicIssueJsonLd`)가 모든 호에 Public Domain Mark 를 박던 것을, 그 호의 확인된 판정 근거(`pd_comic_issues.pd_basis`)가 있을 때만 달도록(969호 중 근거 있는 호 131). DB 무변경.
 - fix(seo): 도서 구조화 데이터(`bookJsonLd`)가 모든 책에 Public Domain Mark 를 박던 근거 없는 라이선스 주장 제거 — `copyright_safe_in_kr` 는 국내 이용 가능 판정이지 퍼블릭 도메인이 아니다(발행 312권 중 CC BY 4.0 21권 · Drone 62772 책별 CC BY 고지). 무료 · 저자 · 제목은 그대로. 기사 · 만화 출력은 범위 밖. DB 무변경.
 - feat(practice): 의미 선택 뒤 「본문 근거 짚기 → 해설과 나란히」 — DcpPlayer 의 중심 의미 유형(title · topic · main_point · summary · purpose · claim · long_title)은 채점 뒤 제출한 답(정답/정답과 다름)을 되짚고, 지문 문장 하나를 짚어 해설과 나란히 본다(`MeaningEvidence` · `lib/learner/meaning-evidence`). 짚은 문장은 판정하지 않고 점수 · 숙달 · SRS 기록을 만들지 않으며 건너뛸 수 있다. 약어(D.C. · Mr.)는 원문 글자를 바꾸지 않고 보호해 나눈다. 맞힌 배너의 「근거를 잘 찾았어요」는 관찰 사실에 맞게 「고른 답이 맞았어요」로. 교재 연습 경로(textbook_practice_items)에 적용 · 오늘 처방(prescribe_today)은 순서/삽입만이라 해당 없음. DB 무변경.
