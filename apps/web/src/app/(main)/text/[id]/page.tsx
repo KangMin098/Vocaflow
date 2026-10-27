@@ -569,6 +569,7 @@ export default function WorkspacePage({ params }: PageProps) {
           state={shadow.state}
           controls={shadow.controls}
           onExit={() => router.push(`/text/${text.id}?mode=read`)}
+          echoHref={`/text/${text.id}/echo`}
         />
       )}
 
