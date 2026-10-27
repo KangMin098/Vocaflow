@@ -108,6 +108,8 @@ export function GamePlayScaffold({
   const track = async (word: string, p: Promise<Awaited<ReturnType<typeof recordGameResult>>>) => {
     const res = await p;
     if (!res.ok) return;
+    // 늦게 끝난 결과 — 그 사이 판이 무효 · 확인 중이면 지금 화면의 고지로 반영하지 않는다(서버에 이미 A 로 남은 기록은 그대로)
+    if (!session.active()) return;
     const key = word.toLowerCase();
     // 승격은 학습자 단어장에 **쓰는** 일이라 조용히 하지 않는다(설계안 "A + 승격 알림").
     if (res.promoted && !promotedRef.current.has(key)) {

@@ -93,11 +93,15 @@ export function useGameSessionRecorder({
     if (ownerId !== undefined && guardStatus === 'changed') voidRef.current = true
   }, [ownerId, guardStatus])
 
-  /** 지금 이 판이 기록 가능한가 — 주인을 알고, 바뀜을 보지 않았다(동기 판정: guard.status 를 직접 읽는다) */
+  /**
+   * 지금 이 판이 기록 가능한가 — 주인을 알고, 바뀜을 보지 않았고, **지금 긍정 확인(same)** 이다(동기 판정: guard.status 를 직접 읽는다).
+   * checking(첫 확인 전 · BFCache 복원 뒤 재확인 중)은 기록하지 않는다 — 확인 중을 같은 사람으로 치지 않는다(Codex 반례 2026-10-27:
+   * pageshow 재확인 중 붙잡힌 옛 onClick · 언마운트 flush 가 기록됐다). checking 은 영구 무효가 아니다 — 같은 A 로 다시 확인되면 이어 간다.
+   */
   const usable = () => {
     if (ownerId === undefined) return false
     if (guard.status === 'changed') voidRef.current = true
-    return !voidRef.current
+    return !voidRef.current && guard.status === 'same'
   }
 
   // 최신 값을 보는 flush — 언마운트 cleanup 이 stale closure 를 잡지 않도록 ref 로 유지.

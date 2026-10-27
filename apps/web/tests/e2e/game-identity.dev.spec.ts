@@ -124,3 +124,33 @@ test.describe('로그아웃', () => {
     await expect(log(page)).toHaveText(`result:${A}:harvest`)
   })
 })
+
+test.describe('재확인 중(checking) — Codex 반례', () => {
+  test.use({ viewport: { width: 1280, height: 900 } })
+
+  test('BFCache 복원 재확인 중 옛 콜백 · 떠나기는 기록하지 않는다', async ({ page }) => {
+    await open(page, '?slow=1500')
+    await expect(page.getByTestId('game')).toBeVisible({ timeout: 5000 })
+    await page.getByTestId('answer-correct').click()
+    await expect(log(page)).toHaveText(`result:${A}:harvest`)
+    // BFCache 복원 → guard.recheck → checking(기준선 1.5초)
+    await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })))
+    await expect(notice(page, 'checking')).toBeVisible()
+    await page.evaluate(() => (window as unknown as { __harnessLateAnswer: (c: boolean) => void }).__harnessLateAnswer(true))
+    await page.getByTestId('leave').click()
+    await page.waitForTimeout(400)
+    await expect(log(page)).toHaveText(`result:${A}:harvest,blocked:identity-changed`)
+  })
+
+  test('같은 A 로 재확인되면 이어 가고 그 판을 A 몫으로 적재', async ({ page }) => {
+    await open(page, '?slow=800')
+    await expect(page.getByTestId('game')).toBeVisible({ timeout: 5000 })
+    await page.getByTestId('answer-correct').click()
+    await page.evaluate(() => window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })))
+    await expect(notice(page, 'checking')).toBeVisible()
+    await expect(page.getByTestId('game')).toBeVisible({ timeout: 5000 })
+    await page.getByTestId('answer-correct').click()
+    await page.getByTestId('leave').click()
+    await expect(log(page)).toHaveText(`result:${A}:harvest,result:${A}:harvest,score:${A}:2/2`)
+  })
+})
