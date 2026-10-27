@@ -1,10 +1,14 @@
 # T-0002 migration reconciliation table (generated)
 
-DB rows: 741 · main files: 535 (distinct versions 504)
+DB rows: 741 · main files: 535 (distinct versions 515)
 
-MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_ONLY 259 · MAIN_ONLY 37 · versions with >1 main file 22
+MATCH 167 · DB_ONLY_SHIFTED 333 · MAIN_ONLY_SHIFTED 318 · NAME_DIFF 1 · DB_ONLY 240 · MAIN_ONLY 29 · versions with >1 main file 17
 
-| version | DB name | main file name(s) | status | source branch (DB_ONLY) |
+MAIN_ONLY object check: present 19 · absent 0 · partial 1 · no-create 9
+
+Skipped non-version files (23): _pending_authored_ai_review.sql, _pending_authored_supply.sql, _pending_factory_dcp_admission.sql, _pending_factory_dcp_learning.sql, _pending_grade_dcp_underline_choice.sql, _pending_lcp_story_s3_quarantine.sql, _pending_lcp_story_u1_guidance.sql, _pending_lcp_story_u1_guidance_recovery.sql, _pending_lcp_story_w2_context_notes.sql, _pending_lcp_story_w2_context_notes_recovery.sql, _pending_pd_comic_pick_stable.sql, _pending_reindex_lav_word_key.sql, _pending_source_lesson_reflection.sql, _pending_source_lesson_repair_receipt.sql, _pending_spelling_canonical.sql, _pending_textbook_practice_publish_gate.sql, _pending_workspace_supply_b_delta_i0.sql, _pending_workspace_supply_b_orders.sql, _pending_workspace_supply_c_qualification.sql, _pending_workspace_supply_i1_d3_lineage.sql, _pending_workspace_supply_i1_partial.sql, _pending_workspace_supply_i1_rollback.sql, _pending_workspace_supply_i1_safety.sql
+
+| version | DB name | main file name(s) | status | source branch (DB_ONLY) / object check (MAIN_ONLY) |
 |---|---|---|---|---|
 | 20251101000001 | init_module_id_enum | init_module_id_enum | MATCH |  |
 | 20251101000002 | init_core_tables | init_core_tables | MATCH |  |
@@ -46,7 +50,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260516212321 | shared_dictionary_extension |  | DB_ONLY_SHIFTED | same name on main as 20260516210000 |
 | 20260517150027 | freq_corpus_columns |  | DB_ONLY_SHIFTED | same name on main as 20260517235907 |
 | 20260517235907 |  | freq_corpus_columns | MAIN_ONLY_SHIFTED |  |
-| 20260518120000 |  | wikibooks_activation | MAIN_ONLY |  |
+| 20260518120000 |  | wikibooks_activation | MAIN_ONLY | object present (likely applied under other version/name): function:public.lb_compute_kr_safe |
 | 20260518130000 |  | shared_word_sets_category_bridge | MAIN_ONLY_SHIFTED |  |
 | 20260519155302 | lexicon_v2_1_init |  | DB_ONLY_SHIFTED | same name on main as 20260520000000 |
 | 20260519155333 | kice_csat_seed_update |  | DB_ONLY_SHIFTED | same name on main as 20260520000100 |
@@ -54,24 +58,24 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260519155411 | kice_csat_load_history |  | DB_ONLY_SHIFTED | same name on main as 20260520000300 |
 | 20260519160302 | curation_regenerate_fn |  | DB_ONLY_SHIFTED | same name on main as 20260520000400 |
 | 20260519160408 | kice_curation_seeds_v2 |  | DB_ONLY | none (no file in any git ref) |
-| 20260520 |  | 120000_lexicon_phase1_expand | MAIN_ONLY |  |
 | 20260520000000 |  | lexicon_v2_1_init | MAIN_ONLY_SHIFTED |  |
 | 20260520000100 |  | kice_csat_seed_update | MAIN_ONLY_SHIFTED |  |
 | 20260520000200 |  | shared_word_sets_curation_cols | MAIN_ONLY_SHIFTED |  |
 | 20260520000300 |  | kice_csat_load_history | MAIN_ONLY_SHIFTED |  |
 | 20260520000400 |  | curation_regenerate_fn | MAIN_ONLY_SHIFTED |  |
-| 20260520000500 |  | kice_curation_seeds | MAIN_ONLY |  |
-| 20260521 |  | 140000_lexicon_phase2_backfill / 200000_pos_normalize_cleanup | MAIN_ONLY |  |
-| 20260521143051 | pos_normalize_cleanup |  | DB_ONLY | none (no file in any git ref) |
-| 20260521153559 | lexicon_phase2_backfill |  | DB_ONLY | none (no file in any git ref) |
-| 20260521154526 | lexicon_phase2_step2b_remediate |  | DB_ONLY | none (no file in any git ref) |
-| 20260522 |  | 010000_lexicon_phase2_step2b_remediate | MAIN_ONLY |  |
-| 20260523101452 | vrl_v3_infrastructure |  | DB_ONLY | none (no file in any git ref) |
-| 20260523102201 | vrl_v3_functions |  | DB_ONLY | none (no file in any git ref) |
+| 20260520000500 |  | kice_curation_seeds | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
+| 20260520120000 |  | lexicon_phase1_expand | MAIN_ONLY | partial — present: relation:public.lexicon_frequencies; absent: function:public.reject_word_lexicon_insert |
+| 20260521140000 |  | lexicon_phase2_backfill | MAIN_ONLY_SHIFTED |  |
+| 20260521143051 | pos_normalize_cleanup |  | DB_ONLY_SHIFTED | same name on main as 20260521200000 |
+| 20260521153559 | lexicon_phase2_backfill |  | DB_ONLY_SHIFTED | same name on main as 20260521140000 |
+| 20260521154526 | lexicon_phase2_step2b_remediate |  | DB_ONLY_SHIFTED | same name on main as 20260522010000 |
+| 20260521200000 |  | pos_normalize_cleanup | MAIN_ONLY_SHIFTED |  |
+| 20260522010000 |  | lexicon_phase2_step2b_remediate | MAIN_ONLY_SHIFTED |  |
+| 20260523101452 | vrl_v3_infrastructure |  | DB_ONLY_SHIFTED | same name on main as 20260524100000 |
+| 20260523102201 | vrl_v3_functions |  | DB_ONLY_SHIFTED | same name on main as 20260525100000 |
 | 20260523102552 | vrl_v3_calc_v_level_overtagging_patch |  | DB_ONLY | none (no file in any git ref) |
-| 20260523103149 | vrl_v3_classify |  | DB_ONLY | none (no file in any git ref) |
-| 20260523110817 | vrl_claude_classify_prep |  | DB_ONLY | none (no file in any git ref) |
-| 20260524 |  | 100000_vrl_v3_infrastructure | MAIN_ONLY |  |
+| 20260523103149 | vrl_v3_classify |  | DB_ONLY_SHIFTED | same name on main as 20260526100000 |
+| 20260523110817 | vrl_claude_classify_prep |  | DB_ONLY_SHIFTED | same name on main as 20260527100000 |
 | 20260524012046 | vocaflow_levels_classification_meta |  | DB_ONLY | none (no file in any git ref) |
 | 20260524012956 | user_profile_v2 |  | DB_ONLY | none (no file in any git ref) |
 | 20260524013257 | user_level_snapshots_v2 |  | DB_ONLY | none (no file in any git ref) |
@@ -79,6 +83,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260524014420 | user_level_functions_v2 |  | DB_ONLY | none (no file in any git ref) |
 | 20260524015709 | user_level_snapshots_phase15 |  | DB_ONLY | none (no file in any git ref) |
 | 20260524015948 | user_level_functions_phase15 |  | DB_ONLY | none (no file in any git ref) |
+| 20260524100000 |  | vrl_v3_infrastructure | MAIN_ONLY_SHIFTED |  |
 | 20260524115911 | dict_polysemy_count |  | DB_ONLY | none (no file in any git ref) |
 | 20260524120930 | dict_inflections_by_pos |  | DB_ONLY | none (no file in any git ref) |
 | 20260524121817 | dict_categorical_distributions |  | DB_ONLY | none (no file in any git ref) |
@@ -111,7 +116,6 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260524174414 | vrl_phase2i_comprehensive_diagnostic |  | DB_ONLY | none (no file in any git ref) |
 | 20260524174915 | vrl_phase2j_admin_dashboard_rpcs |  | DB_ONLY | none (no file in any git ref) |
 | 20260524175904 | vrl_phase2k_cron_alert_track_dist |  | DB_ONLY | none (no file in any git ref) |
-| 20260525 |  | 100000_vrl_v3_functions | MAIN_ONLY |  |
 | 20260525015812 | vrl_phase3a_extract_vocabulary_for_user |  | DB_ONLY | none (no file in any git ref) |
 | 20260525021235 | vrl_phase3a_v2_text_level_auto_n |  | DB_ONLY | none (no file in any git ref) |
 | 20260525021336 | vrl_phase3a_v2_fix_ambiguous |  | DB_ONLY | none (no file in any git ref) |
@@ -140,6 +144,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260525092529 | phase_12a_bis_meaning_audit_p1 |  | DB_ONLY | none (no file in any git ref) |
 | 20260525092834 | phase_12a_bis_meaning_audit_p2 |  | DB_ONLY | none (no file in any git ref) |
 | 20260525093122 | phase_12a_bis_meaning_audit_p3 |  | DB_ONLY | none (no file in any git ref) |
+| 20260525100000 |  | vrl_v3_functions | MAIN_ONLY_SHIFTED |  |
 | 20260525101334 | phase3_cefrj_multi_source_v1 |  | DB_ONLY | none (no file in any git ref) |
 | 20260525103532 | phase3_four_axis_difficulty_v1 |  | DB_ONLY | none (no file in any git ref) |
 | 20260525114412 | phase3_compute_book_vrl_function |  | DB_ONLY | none (no file in any git ref) |
@@ -149,23 +154,26 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260525133615 | trigger_publish_book_word_sets |  | DB_ONLY | none (no file in any git ref) |
 | 20260525133745 | user_word_set_subscriptions_source_tracking |  | DB_ONLY | none (no file in any git ref) |
 | 20260525133801 | shared_word_sets_curation_query_gin |  | DB_ONLY | none (no file in any git ref) |
-| 20260526 |  | 100000_vrl_v3_classify | MAIN_ONLY |  |
+| 20260526100000 |  | vrl_v3_classify | MAIN_ONLY_SHIFTED |  |
 | 20260526160913 | echo_match_sessions |  | DB_ONLY | none (no file in any git ref) |
 | 20260526160932 | echo_match_attempts |  | DB_ONLY | none (no file in any git ref) |
-| 20260527 |  | 100000_vrl_claude_classify_prep / 120000_admin_revert_published_book | MAIN_ONLY |  |
-| 20260527150152 | admin_revert_published_book |  | DB_ONLY | none (no file in any git ref) |
-| 20260527154443 | extract_book_vocabulary_admin |  | DB_ONLY | none (no file in any git ref) |
-| 20260527161619 | find_unbound_book_lemmas |  | DB_ONLY | none (no file in any git ref) |
-| 20260528 |  | 120000_extract_book_vocabulary_admin / 130000_find_unbound_book_lemmas / 140000_book_extract_spelling_variants | MAIN_ONLY |  |
-| 20260528143706 | book_extract_spelling_variants |  | DB_ONLY | none (no file in any git ref) |
+| 20260527100000 |  | vrl_claude_classify_prep | MAIN_ONLY_SHIFTED |  |
+| 20260527120000 |  | admin_revert_published_book | MAIN_ONLY_SHIFTED |  |
+| 20260527150152 | admin_revert_published_book |  | DB_ONLY_SHIFTED | same name on main as 20260527120000 |
+| 20260527154443 | extract_book_vocabulary_admin |  | DB_ONLY_SHIFTED | same name on main as 20260528120000 |
+| 20260527161619 | find_unbound_book_lemmas |  | DB_ONLY_SHIFTED | same name on main as 20260528130000 |
+| 20260528120000 |  | extract_book_vocabulary_admin | MAIN_ONLY_SHIFTED |  |
+| 20260528130000 |  | find_unbound_book_lemmas | MAIN_ONLY_SHIFTED |  |
+| 20260528140000 |  | book_extract_spelling_variants | MAIN_ONLY_SHIFTED |  |
+| 20260528143706 | book_extract_spelling_variants |  | DB_ONLY_SHIFTED | same name on main as 20260528140000 |
 | 20260528144320 | find_unbound_book_lemmas_perf |  | DB_ONLY | none (no file in any git ref) |
 | 20260528215902 | archaic_dictionary_schema |  | DB_ONLY | none (no file in any git ref) |
 | 20260528215924 | collect_archaic_candidates |  | DB_ONLY | none (no file in any git ref) |
 | 20260528220302 | find_unbound_skip_archaic |  | DB_ONLY | none (no file in any git ref) |
 | 20260528220954 | find_unbound_use_candidates |  | DB_ONLY | none (no file in any git ref) |
-| 20260529 |  | 120000_admin_delete_book | MAIN_ONLY |  |
+| 20260529120000 |  | admin_delete_book | MAIN_ONLY_SHIFTED |  |
 | 20260530003115 | library_seed_catalog |  | DB_ONLY | none (no file in any git ref) |
-| 20260530004130 | admin_delete_book |  | DB_ONLY | none (no file in any git ref) |
+| 20260530004130 | admin_delete_book |  | DB_ONLY_SHIFTED | same name on main as 20260529120000 |
 | 20260530010117 | library_seed_dedup |  | DB_ONLY | none (no file in any git ref) |
 | 20260530010158 | library_seed_catalog_view |  | DB_ONLY | none (no file in any git ref) |
 | 20260530012315 | library_seed_catalog_enrich_cols |  | DB_ONLY | none (no file in any git ref) |
@@ -187,32 +195,39 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260530142312 | en_inflection_bases_irregular_v2 |  | DB_ONLY | none (no file in any git ref) |
 | 20260530145602 | phase25_rescue_first_noise |  | DB_ONLY | none (no file in any git ref) |
 | 20260530164045 | en_derivational_bases_v3 |  | DB_ONLY | none (no file in any git ref) |
-| 20260531 |  | 120000_unbound_cluster_base / 140000_classify_archaic_candidates / 160000_classify_archaic_candidates_unguard / 170000_classify_archaic_candidates_cron / 180000_find_unbound_morphology_columns / 190000_backfill_book_lemmas_fn | MAIN_ONLY |  |
-| 20260531025501 | unbound_cluster_base |  | DB_ONLY | none (no file in any git ref) |
-| 20260531031329 | classify_archaic_candidates |  | DB_ONLY | none (no file in any git ref) |
+| 20260531025501 | unbound_cluster_base |  | DB_ONLY_SHIFTED | same name on main as 20260531120000 |
+| 20260531031329 | classify_archaic_candidates |  | DB_ONLY_SHIFTED | same name on main as 20260531140000 |
 | 20260531050515 | vcb_filter_rpcs_count_sample_distribution |  | DB_ONLY | none (no file in any git ref) |
 | 20260531050612 | vcb_filter_rpcs_fix_pos_ambiguity |  | DB_ONLY | none (no file in any git ref) |
-| 20260531052619 | classify_archaic_candidates_unguard |  | DB_ONLY | none (no file in any git ref) |
-| 20260531052737 | classify_archaic_candidates_cron |  | DB_ONLY | none (no file in any git ref) |
-| 20260531064353 | backfill_book_lemmas_fn |  | DB_ONLY | none (no file in any git ref) |
+| 20260531052619 | classify_archaic_candidates_unguard |  | DB_ONLY_SHIFTED | same name on main as 20260531160000 |
+| 20260531052737 | classify_archaic_candidates_cron |  | DB_ONLY_SHIFTED | same name on main as 20260531170000 |
+| 20260531064353 | backfill_book_lemmas_fn |  | DB_ONLY_SHIFTED | same name on main as 20260531190000 |
 | 20260531064539 | noise_blacklist_add_corrupt_token |  | DB_ONLY | none (no file in any git ref) |
 | 20260531073035 | lookup_word_meaning_fn |  | DB_ONLY | none (no file in any git ref) |
 | 20260531094352 | stage_book_dict_candidates_fn |  | DB_ONLY | none (no file in any git ref) |
 | 20260531104840 | add_word_register |  | DB_ONLY | none (no file in any git ref) |
 | 20260531105641 | lookup_word_meaning_add_register |  | DB_ONLY | none (no file in any git ref) |
 | 20260531113319 | extract_book_vocab_register_aware |  | DB_ONLY | none (no file in any git ref) |
+| 20260531120000 |  | unbound_cluster_base | MAIN_ONLY_SHIFTED |  |
+| 20260531140000 |  | classify_archaic_candidates | MAIN_ONLY_SHIFTED |  |
 | 20260531155218 | library_book_curation_metadata |  | DB_ONLY | none (no file in any git ref) |
 | 20260531155552 | seed_catalog_curation_metadata |  | DB_ONLY | none (no file in any git ref) |
 | 20260531155651 | seed_catalog_view_curation_cols |  | DB_ONLY | none (no file in any git ref) |
-| 20260603 |  | 120000_library_chapters_group_label / 130000_find_unbound_perf_prefilter / 140000_extract_book_vocab_cache_fastpath | MAIN_ONLY |  |
+| 20260531160000 |  | classify_archaic_candidates_unguard | MAIN_ONLY_SHIFTED |  |
+| 20260531170000 |  | classify_archaic_candidates_cron | MAIN_ONLY_SHIFTED |  |
+| 20260531180000 |  | find_unbound_morphology_columns | MAIN_ONLY | object present (likely applied under other version/name): function:public.find_unbound_book_lemmas |
+| 20260531190000 |  | backfill_book_lemmas_fn | MAIN_ONLY_SHIFTED |  |
 | 20260603032813 | derivation_rescue_path_universal |  | DB_ONLY | none (no file in any git ref) |
 | 20260603034910 | admin_delete_book_allow_failed_statuses |  | DB_ONLY | none (no file in any git ref) |
 | 20260603043731 | v_book_extraction_stats |  | DB_ONLY | none (no file in any git ref) |
 | 20260603062141 | compute_book_vrl_type_based_p75 |  | DB_ONLY | none (no file in any git ref) |
 | 20260603080414 | archive_book_pipeline_messages |  | DB_ONLY | none (no file in any git ref) |
+| 20260603120000 |  | library_chapters_group_label | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
+| 20260603130000 |  | find_unbound_perf_prefilter | MAIN_ONLY_SHIFTED |  |
 | 20260603135805 | library_chapters_group_label_comment |  | DB_ONLY | none (no file in any git ref) |
-| 20260603143502 | find_unbound_perf_prefilter |  | DB_ONLY | none (no file in any git ref) |
-| 20260603145827 | extract_book_vocab_cache_fastpath |  | DB_ONLY | none (no file in any git ref) |
+| 20260603140000 |  | extract_book_vocab_cache_fastpath | MAIN_ONLY_SHIFTED |  |
+| 20260603143502 | find_unbound_perf_prefilter |  | DB_ONLY_SHIFTED | same name on main as 20260603130000 |
+| 20260603145827 | extract_book_vocab_cache_fastpath |  | DB_ONLY_SHIFTED | same name on main as 20260603140000 |
 | 20260603154813 | drop_unused_and_duplicate_indexes_v06_34 |  | DB_ONLY | none (no file in any git ref) |
 | 20260604142316 | add_simple_wikipedia_source |  | DB_ONLY | none (no file in any git ref) |
 | 20260604221512 | copyright_gate_us_license |  | DB_ONLY_SHIFTED | same name on main as 20260605120000 |
@@ -238,7 +253,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260607170000 |  | admin_bulk_return_to_source | MAIN_ONLY_SHIFTED |  |
 | 20260607180000 |  | archaic_candidates_first_seen_book_set_null | MAIN_ONLY_SHIFTED |  |
 | 20260608120000 |  | acp_license_register_gate / book_curation_jobs / texts_user_book_group_id | MAIN_ONLY_SHIFTED |  |
-| 20260608121000 |  | v_text_content_user_book_group | MAIN_ONLY |  |
+| 20260608121000 |  | v_text_content_user_book_group | MAIN_ONLY | object present (likely applied under other version/name): relation:public.v_text_content |
 | 20260608123000 |  | acp_nd_display_only_gate | MAIN_ONLY_SHIFTED |  |
 | 20260608126000 |  | acp_lexical_noise_gate | MAIN_ONLY_SHIFTED |  |
 | 20260608221508 | book_curation_jobs |  | DB_ONLY_SHIFTED | same name on main as 20260608120000 |
@@ -300,7 +315,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260620064254 | p3b_drop_old_publish_overload |  | DB_ONLY_SHIFTED | same name on main as 20260620061000 |
 | 20260620064855 | p4_unify_composite_core |  | DB_ONLY_SHIFTED | same name on main as 20260620070000 |
 | 20260620070000 |  | p4_unify_composite_core | MAIN_ONLY_SHIFTED |  |
-| 20260620080000 |  | republish_library_books_with_p1_p4 | MAIN_ONLY |  |
+| 20260620080000 |  | republish_library_books_with_p1_p4 | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
 | 20260621033412 | voa_publish_require_audio_gate |  | DB_ONLY_SHIFTED | same name on main as 20260621120000 |
 | 20260621120000 |  | voa_publish_require_audio_gate | MAIN_ONLY_SHIFTED |  |
 | 20260628032242 | p6_enroll_subscribe_i_plus_one |  | DB_ONLY_SHIFTED | same name on main as 20260628120000 |
@@ -388,9 +403,9 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260710150000 |  | acp_seed_catalog_source_add_new | MAIN_ONLY_SHIFTED |  |
 | 20260710160000 |  | lcp_seed_catalog_source_add_pressbooks | MAIN_ONLY_SHIFTED |  |
 | 20260710170000 |  | ctp_dcp_items_table | MAIN_ONLY_SHIFTED |  |
-| 20260710180000 |  | ctp_derive_learner_stage | MAIN_ONLY |  |
-| 20260710190000 |  | ctp_prescribe_today | MAIN_ONLY |  |
-| 20260710200000 |  | ctp_grade_dcp_item | MAIN_ONLY |  |
+| 20260710180000 |  | ctp_derive_learner_stage | MAIN_ONLY | object present (likely applied under other version/name): function:public.derive_learner_stage |
+| 20260710190000 |  | ctp_prescribe_today | MAIN_ONLY | object present (likely applied under other version/name): function:public.prescribe_today |
+| 20260710200000 |  | ctp_grade_dcp_item | MAIN_ONLY | object present (likely applied under other version/name): function:public.grade_dcp_item |
 | 20260710210000 |  | acp_source_add_wikipedia | MAIN_ONLY_SHIFTED |  |
 | 20260710220000 |  | acp_source_add_plos | MAIN_ONLY_SHIFTED |  |
 | 20260710230000 |  | acp_source_add_wikivoyage | MAIN_ONLY_SHIFTED |  |
@@ -407,17 +422,17 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260712100000 |  | ctp_dcp_items_kind_allow_book | MAIN_ONLY_SHIFTED |  |
 | 20260712114138 | add_arcade_newconcept_module_ids |  | DB_ONLY_SHIFTED | same name on main as 20260712180000 |
 | 20260712115223 | lcp_book_word_set_label_v6_floor |  | DB_ONLY_SHIFTED | same name on main as 20260712180000 |
-| 20260712120000 |  | ctp_syntax_score_recalibrate | MAIN_ONLY |  |
+| 20260712120000 |  | ctp_syntax_score_recalibrate | MAIN_ONLY | object present (likely applied under other version/name): function:public.compute_syntax_score |
 | 20260712121244 | vocab_context_pos |  | DB_ONLY_SHIFTED | same name on main as 20260712160000 |
-| 20260712140000 |  | compute_book_difficulty_v24 | MAIN_ONLY |  |
+| 20260712140000 |  | compute_book_difficulty_v24 | MAIN_ONLY | object present (likely applied under other version/name): function:public.compute_book_difficulty |
 | 20260712142750 | ctp_prescribe_today_dcp_band_cumulative |  | DB_ONLY_SHIFTED | same name on main as 20260712190000 |
-| 20260712150000 |  | lcp_book_difficulty_functions_record | MAIN_ONLY |  |
+| 20260712150000 |  | lcp_book_difficulty_functions_record | MAIN_ONLY | object present (likely applied under other version/name): function:public.compute_book_vrl, function:public.compute_book_cefrj, function:public.compute_book_coverage |
 | 20260712155138 | ctp_stage_catalog_band_recalibrate |  | DB_ONLY_SHIFTED | same name on main as 20260713090000 |
 | 20260712160000 |  | vcb_publish_commit_record / vocab_context_pos | MAIN_ONLY_SHIFTED |  |
 | 20260712161051 | add_lexicon_estate_module_id |  | DB_ONLY_SHIFTED | same name on main as 20260713100000 |
 | 20260712162044 | sd_word_register_add_noise_categories |  | DB_ONLY | none (no file in any git ref) |
-| 20260712165000 |  | vocab_context_sense_matching / vrl_phase2_tables_columns_record | MAIN_ONLY |  |
-| 20260712170000 |  | insert_book_analysis_context_pos / vrl_phase2_runtime_functions_record | MAIN_ONLY |  |
+| 20260712165000 |  | vocab_context_sense_matching / vrl_phase2_tables_columns_record | MAIN_ONLY | object present (likely applied under other version/name): function:public.select_book_chapter_vocab, function:public.select_article_vocab, relation:public.user_level_snapshots, relation:public.vrl_data_integrity_concerns |
+| 20260712170000 |  | insert_book_analysis_context_pos / vrl_phase2_runtime_functions_record | MAIN_ONLY | object present (likely applied under other version/name): function:public.insert_book_analysis, function:public.effective_confidence, function:public.calculate_next_review_due, function:public.update_user_v_level, function:public.analyze_diagnostic_result, function:public.analyze_track_diagnostic_result, function:public.apply_diagnostic_result, function:public.analyze_and_apply_diagnostic_result, function:public.analyze_and_apply_track_diagnostic_result, function:public.analyze_and_apply_comprehensive_diagnostic_result, function:public.auto_promote_v_level_for_user, function:public.auto_promote_track_level_for_user, function:public.cron_auto_promote_all_users |
 | 20260712170553 | add_word_orrery_module_id |  | DB_ONLY_SHIFTED | same name on main as 20260713110000 |
 | 20260712180000 |  | add_arcade_newconcept_module_ids / lcp_book_word_set_label_v6_floor | MAIN_ONLY_SHIFTED |  |
 | 20260712190000 |  | ctp_prescribe_today_dcp_band_cumulative | MAIN_ONLY_SHIFTED |  |
@@ -429,7 +444,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260713014758 | book_extract_infer_form_pos |  | DB_ONLY_SHIFTED | same name on main as 20260713161500 |
 | 20260713090000 |  | ctp_stage_catalog_band_recalibrate | MAIN_ONLY_SHIFTED |  |
 | 20260713100000 |  | add_lexicon_estate_module_id / sd_word_register_noise_categories | MAIN_ONLY_SHIFTED |  |
-| 20260713100500 |  | vocab_exclude_noise_registers | MAIN_ONLY |  |
+| 20260713100500 |  | vocab_exclude_noise_registers | MAIN_ONLY | object present (likely applied under other version/name): function:public.select_book_chapter_vocab, function:public.select_article_vocab |
 | 20260713110000 |  | add_word_orrery_module_id | MAIN_ONLY_SHIFTED |  |
 | 20260713150000 |  | lookup_derivation_tier | MAIN_ONLY_SHIFTED |  |
 | 20260713160000 |  | resolve_dict_headword | MAIN_ONLY_SHIFTED |  |
@@ -516,9 +531,9 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260722145410 | create_proper_noun_gazetteer |  | DB_ONLY | none (no file in any git ref) |
 | 20260722150000 |  | lookup_word_meaning_drop_kaikki_tiers | MAIN_ONLY_SHIFTED |  |
 | 20260722160000 |  | coverage_functions_repoint_lexicon_clean | MAIN_ONLY_SHIFTED |  |
-| 20260722170000 |  | drop_coverage_lexicon | MAIN_ONLY |  |
-| 20260722180000 |  | surface_variants_and_normalized_tier | MAIN_ONLY |  |
-| 20260722190000 |  | surface_variants_derivational_suffixes | MAIN_ONLY |  |
+| 20260722170000 |  | drop_coverage_lexicon | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
+| 20260722180000 |  | surface_variants_and_normalized_tier | MAIN_ONLY | object present (likely applied under other version/name): function:public.surface_variants |
+| 20260722190000 |  | surface_variants_derivational_suffixes | MAIN_ONLY | object present (likely applied under other version/name): function:public.surface_variants |
 | 20260722233329 | lexicon_clean_lang_column |  | DB_ONLY | none (no file in any git ref) |
 | 20260723014751 | lookup_word_meaning_lang |  | DB_ONLY_SHIFTED | same name on main as 20260723120000 |
 | 20260723041050 | surface_variants_in_to_ing |  | DB_ONLY_SHIFTED | same name on main as 20260723130000 |
@@ -557,15 +572,15 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260724170000 |  | spelling_norm_curated_highfreq | MAIN_ONLY_SHIFTED |  |
 | 20260804022022 | module_id_add_wordsmith_vigil_morphmerge |  | DB_ONLY | none (no file in any git ref) |
 | 20260804022545 | module_id_add_wordfall_cadence |  | DB_ONLY | none (no file in any git ref) |
-| 20260808120000 |  | comic_pipeline | MAIN_ONLY |  |
-| 20260808140000 |  | comic_pipeline_fixes | MAIN_ONLY |  |
+| 20260808120000 |  | comic_pipeline | MAIN_ONLY | object present (likely applied under other version/name): relation:public.comic_books, relation:public.comic_pages, function:public.enqueue_comic_jobs, function:public.admin_set_comic_published, function:public.select_book_comic, function:public.list_book_comic_catalog, function:public.book_comic_available |
+| 20260808140000 |  | comic_pipeline_fixes | MAIN_ONLY | object present (likely applied under other version/name): function:public.select_book_comic_all, function:public.enqueue_comic_jobs, function:public.admin_delete_comic |
 | 20260808154027 | comic_catalog_p1 |  | DB_ONLY_SHIFTED | same name on main as 20260808240000 |
-| 20260808160000 |  | comic_read_progress | MAIN_ONLY |  |
+| 20260808160000 |  | comic_read_progress | MAIN_ONLY | object present (likely applied under other version/name): relation:public.comic_read_progress, function:public.save_comic_progress |
 | 20260808161400 | pdcp_public_domain_comics | pdcp_public_domain_comics | MATCH |  |
 | 20260808162601 | pdcp_queue_states_and_monitoring | pdcp_queue_states_and_monitoring | MATCH |  |
-| 20260808180000 |  | comic_gen_observability | MAIN_ONLY |  |
-| 20260808200000 |  | comic_gen_models | MAIN_ONLY |  |
-| 20260808220000 |  | comic_gen_models_run_envs | MAIN_ONLY |  |
+| 20260808180000 |  | comic_gen_observability | MAIN_ONLY | object present (likely applied under other version/name): relation:public.comic_gen_runs, relation:public.comic_panel_events, relation:public.comic_gen_tests |
+| 20260808200000 |  | comic_gen_models | MAIN_ONLY | object present (likely applied under other version/name): relation:public.comic_gen_models |
+| 20260808220000 |  | comic_gen_models_run_envs | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
 | 20260808240000 |  | comic_catalog_p1 / comic_styles | MAIN_ONLY_SHIFTED |  |
 | 20260809015208 | comic_reader_format |  | DB_ONLY_SHIFTED | same name on main as 20260809120000 |
 | 20260809015730 | pdcp_adapter_browser_assist_and_term_expired_basis |  | DB_ONLY_SHIFTED | same name on main as 20260809030000 |
@@ -652,7 +667,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260814015130 | quality_metrics_ssot_drift | quality_metrics_ssot_drift | MATCH |  |
 | 20260814024656 | rpc_inherit_book_gate | rpc_inherit_book_gate | MATCH |  |
 | 20260814030510 | inflection_ves_and_ish_derivation |  | DB_ONLY_SHIFTED | same name on main as 20260814113000 |
-| 20260814090000 |  | module_id_echo | MAIN_ONLY |  |
+| 20260814090000 |  | module_id_echo | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
 | 20260814113000 |  | inflection_ves_and_ish_derivation | MAIN_ONLY_SHIFTED |  |
 | 20260814115338 | user_profiles_privilege_escalation_guard |  | DB_ONLY_SHIFTED | same name on main as 20260814150000 |
 | 20260814120132 | 20260814090000_module_id_echo |  | DB_ONLY | none (no file in any git ref) |
@@ -660,7 +675,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260815000509 | close_client_writable_gaps |  | DB_ONLY_SHIFTED | same name on main as 20260815020000 |
 | 20260815020000 |  | close_client_writable_gaps | MAIN_ONLY_SHIFTED |  |
 | 20260815021834 | i7_phrase_unit_carveout |  | DB_ONLY_SHIFTED | same name on main as 20260815120000 |
-| 20260815060000 |  | dictation_session_items | MAIN_ONLY |  |
+| 20260815060000 |  | dictation_session_items | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
 | 20260815060341 | remove_pdcp_vintage_comic_content |  | DB_ONLY | none (no file in any git ref) |
 | 20260815062032 | recommend_by_blueprint |  | DB_ONLY_SHIFTED | same name on main as 20260815150000 |
 | 20260815082529 | ngsl_top2000_basic_gaps |  | DB_ONLY_SHIFTED | same name on main as 20260815090000 |
@@ -677,7 +692,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260815170000 |  | word_set_cover_image | MAIN_ONLY_SHIFTED |  |
 | 20260815174455 | 20260816030000_dictation_attempt_unique |  | DB_ONLY | none (no file in any git ref) |
 | 20260816003000 |  | daily_activity_total_seconds | MAIN_ONLY_SHIFTED |  |
-| 20260816030000 |  | dictation_attempt_unique | MAIN_ONLY |  |
+| 20260816030000 |  | dictation_attempt_unique | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
 | 20260816045450 | publish_lookup_prefers_registered_inflections | publish_lookup_prefers_registered_inflections | MATCH |  |
 | 20260816045733 | backfill_published_word_lemma_rebind | backfill_published_word_lemma_rebind | MATCH |  |
 | 20260816050001 | daily_activity_total_seconds |  | DB_ONLY_SHIFTED | same name on main as 20260816003000 |
@@ -978,7 +993,7 @@ MATCH 167 · DB_ONLY_SHIFTED 314 · MAIN_ONLY_SHIFTED 299 · NAME_DIFF 1 · DB_O
 | 20260925093000 |  | csat_learner_state | MAIN_ONLY_SHIFTED |  |
 | 20260925093100 |  | funnel_allow_csat_continuity | MAIN_ONLY_SHIFTED |  |
 | 20260925100000 |  | csat_source_pipeline_live_fix_pending | MAIN_ONLY_SHIFTED |  |
-| 20260925120000 |  | csat_items_public_hide_stem | MAIN_ONLY |  |
+| 20260925120000 |  | csat_items_public_hide_stem | MAIN_ONLY | no CREATE TABLE/FUNCTION/VIEW (unchecked) |
 | 20260926014105 | spelling_canonical |  | DB_ONLY | none (no file in any git ref) |
 | 20260926035521 | video_request_supersede_restore |  | DB_ONLY_SHIFTED | same name on main as 20260926130000 |
 | 20260926130000 |  | video_request_supersede_restore | MAIN_ONLY_SHIFTED |  |
