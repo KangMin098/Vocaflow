@@ -28,6 +28,8 @@ import { isUnderlineChoiceDcpType, type DcpUnderlinePayload } from '@/lib/learne
 import { gradeDcpItem, recordDcpErrorCause } from '@/lib/learner/dcp-actions'
 
 import { DcpChoiceItem, DcpInsertItem, DcpOrderItem, DcpUnderlineChoiceItem } from './DcpItems'
+import { MeaningEvidence } from './MeaningEvidence'
+import { meaningEvidenceSentences, isMeaningEvidenceType } from '@/lib/learner/meaning-evidence'
 
 type Phase = 'answering' | 'grading' | 'graded' | 'done'
 
@@ -69,6 +71,8 @@ export function DcpPlayer({
    */
   const [gradeError, setGradeError] = useState<string | null>(null)
   const [cause, setCause] = useState<DcpErrorCause | null>(null)
+  /** 이 문항에 실제로 제출한 답 — 근거 짚기가 「무엇의 근거」인지 되짚는다(다음 문항 · 재시도 때 지운다) */
+  const [submitted, setSubmitted] = useState<Record<string, unknown> | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
 
   const item = items[idx]
@@ -78,6 +82,7 @@ export function DcpPlayer({
   async function handleSubmit(answer: Record<string, unknown>) {
     if (!item) return
     setGradeError(null)
+    setSubmitted(answer)
     setPhase('grading')
     // ⚠️ **reject 도 잡는다.** try/catch 가 없던 동안 세션 만료·네트워크 끊김이
     //   `setPhase('graded')` 에 못 닿아 제출 버튼이 회색으로 잠긴 채 영영 멈췄다.
@@ -115,6 +120,7 @@ export function DcpPlayer({
     }
     setIdx((i) => i + 1)
     setResult(null)
+    setSubmitted(null)
     setCause(null)
     setGradeError(null)
     setPhase('answering')
@@ -201,7 +207,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -238,6 +244,7 @@ export function DcpPlayer({
 function Feedback({
   item,
   result,
+  submitted,
   cause,
   onCause,
   onNext,
@@ -245,6 +252,7 @@ function Feedback({
 }: {
   item: DcpItem
   result: DcpGradeOk
+  submitted: Record<string, unknown> | null
   cause: DcpErrorCause | null
   onCause: (c: DcpErrorCause) => void
   onNext: () => void
@@ -270,6 +278,8 @@ function Feedback({
           {correct
             ? isUnderlineChoiceDcpType(item.type)
               ? '정확해요! 문맥에 맞지 않는 낱말을 찾았어요.'
+              : isMeaningEvidenceType(item.type)
+              ? '정확해요! 고른 답이 맞았어요.'
               : isChoiceDcpType(item.type)
               ? '정확해요! 근거를 잘 찾았어요.'
               : '정확해요! 문장 흐름을 잘 잡았어요.'
@@ -295,6 +305,20 @@ function Feedback({
         ) : (
           <Reveal item={item} answerKey={result.answerKey} />
         ))}
+
+      {/* 중심 의미 유형 — 채점 뒤 본문 근거 짚기 → 해설과 나란히(판정 없음 · 건너뛰기 가능 · 문항마다 새로) */}
+      {(() => {
+        const sentences = meaningEvidenceSentences(item.type, (item.payload as DcpChoicePayload | undefined)?.passage)
+        return sentences ? (
+          <MeaningEvidence
+            key={item.id}
+            sentences={sentences}
+            explanation={pickExplanationText(result.answerKey ?? null)}
+            chosen={submittedChoice(item, submitted)}
+            correct={result.correct}
+          />
+        ) : null
+      })()}
 
       {/* 오답이면 error_cause 1-tap */}
       {!correct && (
@@ -332,6 +356,14 @@ function Feedback({
       </button>
     </div>
   )
+}
+
+/** 제출한 선택지(번호 · 문구) — 의미 선택 유형의 근거 짚기가 되짚는다. 못 읽으면 null */
+function submittedChoice(item: DcpItem, submitted: Record<string, unknown> | null): { n: number; text: string } | null {
+  const n = Number(submitted?.choice)
+  const choices = (item.payload as DcpChoicePayload | undefined)?.choices
+  if (!Number.isInteger(n) || !Array.isArray(choices) || n < 1 || n > choices.length) return null
+  return { n, text: choices[n - 1] }
 }
 
 function CauseTip({ cause }: { cause: DcpErrorCause }) {
