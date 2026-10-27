@@ -57,7 +57,7 @@ const CREDIT_SENTENCE = new RegExp(
 )
 
 /** 문장 나누기 — 마침표 · 줄바꿈. 「Jr.」 · 「Mr.」 · 「U.S.」 뒤에서는 나누지 않는다(「Mario Ritter Jr. adapted …」가 동사와 대상으로 갈렸다). */
-const sentencesOf = (text: string) => text.split(/(?<!\b(?:Jr|Sr|Mr|Mrs|Ms|Dr|St|U\.S|U\.N))(?<=[.!?])\s+|\n+/)
+const sentencesOf = (text: string) => text.split(/(?<!\b(?:Jr|Sr|Mr|Mrs|Ms|Dr|St|U\.S|U\.N)\.)(?<=[.!?])\s+|\n+/)
 
 /** 작성 크레딧 문장의 통신사(정규 이름). 그런 문장이 없거나 통신사가 없으면 null. */
 export function voaThirdPartySources(content: string | null | undefined): string[] | null {
