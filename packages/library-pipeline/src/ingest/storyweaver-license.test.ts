@@ -85,6 +85,14 @@ describe('ingestFromStoryWeaver — 라이선스를 못 읽으면 적재 거부'
     expect(b.author).toBe('Shabnam Minwalla')
     expect(b.source_url).toBe('https://storyweaver.org.in/stories/62772-tell-me-what-is-a-drone')
   })
+  it('본문 CC BY-NC 책은 원 표기를 남긴 채 적재 거부 — 성공 RawBook 으로 넘기지 않는다', async () => {
+    stub(payload(`${STORY} Released under CC BY-NC 4.0 license.`))
+    await expect(ingestFromStoryWeaver('62772-tell-me-what-is-a-drone')).rejects.toThrow('적재할 수 없는 라이선스(CC BY-NC 4.0 · restricted)')
+  })
+  it('본문 CC BY-ND 책도 거부', async () => {
+    stub(payload(`${STORY} Released under CC BY-ND 4.0 license.`))
+    await expect(ingestFromStoryWeaver('62772-tell-me-what-is-a-drone')).rejects.toThrow(/적재할 수 없는 라이선스/)
+  })
   it('삽화만 CC 이면 성공 반환 없이 throw(검수 필요)', async () => {
     stub(payload('Illustration Attribution: Cover page by X. Released under CC BY 4.0 license.'))
     await expect(ingestFromStoryWeaver('62772-tell-me-what-is-a-drone')).rejects.toThrow(/라이선스를 책에서 읽지 못했다/)
