@@ -33,12 +33,8 @@ import { applyReview, createNewCard } from '@/lib/srs'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { spellforgeResultToRating } from '@/lib/srs/rating-mapper'
-import {
-  cacheCard,
-  getCachedCard,
-  pushPendingResult,
-  getSrsQueueOwner,
-} from '@/lib/srs/session-storage'
+import { cacheCard, getCachedCard, getSrsQueueOwner } from '@/lib/srs/session-storage'
+import { pushOwnedResult } from '@/lib/srs/push-owned'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { blankSurface } from '@/lib/text/surface-match'
 import type { ContentRef } from '@/lib/content/content-ref'
@@ -232,14 +228,14 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       module: 'spellforge',
     })
     cacheCard(reviewResult.card)
-    pushPendingResult({
+    pushOwnedResult({
       cardId: reviewResult.card.id,
       word: currentWord.text,
       cardUpdate: cardToUpdatePayload(reviewResult.card),
       rating: reviewResult.log.rating,
       reviewedAt: reviewResult.log.reviewedAt.toISOString(),
       module: 'spellforge',
-    })
+    }, viewerId, () => guardRef.current.status === 'same')
 
     // Rating 기록 (UI 통계용 — 그대로 유지)
     recordRating({
@@ -358,14 +354,14 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
         module: 'spellforge',
       })
       cacheCard(reviewResult.card)
-      pushPendingResult({
+      pushOwnedResult({
         cardId: reviewResult.card.id,
         word: currentWord.text,
         cardUpdate: cardToUpdatePayload(reviewResult.card),
         rating: reviewResult.log.rating,
         reviewedAt: reviewResult.log.reviewedAt.toISOString(),
         module: 'spellforge',
-      })
+      }, viewerId, () => guardRef.current.status === 'same')
 
       recordRating({
         wordId: currentWord.id,

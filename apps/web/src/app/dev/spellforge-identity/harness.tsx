@@ -54,16 +54,20 @@ function readQueue(): string {
   }
 }
 
-export function SpellForgeIdentityHarness({ browserB, slowMs }: { browserB: boolean; slowMs: number }) {
+export function SpellForgeIdentityHarness({ browserB, slowMs, ownerDelayMs = 0 }: { browserB: boolean; slowMs: number; ownerDelayMs?: number }) {
   const { source, emit, current } = useMemo(() => makeSource(browserB ? B : A, slowMs), [browserB, slowMs])
   const [queue, setQueue] = useState('')
   useEffect(() => {
+    // ownerDelayMs — 대기열 주인 해석이 늦는 경우(첫 평가 때 아직 null)를 흉내 낸다
+    const since = Date.now()
     const t = window.setInterval(() => {
-      if (getSrsQueueOwner() !== current()) setSrsQueueOwner(current())
+      if (Date.now() - since < ownerDelayMs) {
+        if (getSrsQueueOwner() !== null) setSrsQueueOwner(null)
+      } else if (getSrsQueueOwner() !== current()) setSrsQueueOwner(current())
       setQueue(readQueue())
     }, 150)
     return () => window.clearInterval(t)
-  }, [current])
+  }, [current, ownerDelayMs])
 
   return (
     <div>
