@@ -38,6 +38,11 @@ export function normalizeForMatch(s: string): string {
 
 const MIN_FRAGMENT = 12
 
+/** 정규화한 문장이 조각을 **낱말 경계째** 품는가 — `men` 이 `women` 에 맞지 않게. */
+function containsTokens(sentence: string, fragment: string): boolean {
+  return ` ${sentence} `.includes(` ${fragment} `)
+}
+
 /**
  * 근거 snippet 이 걸치는 본문 문장 인덱스들. snippet 은 `...` 로 일부를 생략하거나
  * 여러 문장에 걸칠 수 있다 — 생략부호로 쪼갠 조각마다 그 조각을 품은 문장을 모은다.
@@ -52,7 +57,7 @@ export function locateEvidence(sentences: string[], snippet: string): number[] {
   for (const frag of fragments) {
     normSentences.forEach((s, i) => {
       if (s.length === 0) return
-      if (s.includes(frag) || (s.length >= MIN_FRAGMENT && frag.includes(s))) hits.add(i)
+      if (containsTokens(s, frag) || (s.length >= MIN_FRAGMENT && containsTokens(frag, s))) hits.add(i)
     })
   }
   return Array.from(hits).sort((a, b) => a - b)
@@ -75,7 +80,7 @@ export function locateSingleEvidence(sentences: string[], snippet: string): numb
   for (const frag of fragments) {
     const matches: number[] = []
     normSentences.forEach((s, i) => {
-      if (s.includes(frag)) matches.push(i)
+      if (containsTokens(s, frag)) matches.push(i)
     })
     if (matches.length !== 1) return null
     if (found !== null && found !== matches[0]) return null

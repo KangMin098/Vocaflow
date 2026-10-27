@@ -52,6 +52,13 @@ describe('locateSingleEvidence — 근거 전체가 한 문장에 유일하게 �
   it('조각 하나라도 본문에 없으면 null (Codex 반례 3)', () => {
     expect(locateSingleEvidence(body, 'nobody talked there...the museum opened late on Sundays')).toBeNull()
   })
+  it('낱말 일부는 맞지 않는다 — men 이 women 문장을 근거로 세우지 않는다 (Codex 반례 4)', () => {
+    const passage =
+      'The women were waiting outside the station. The bus came late that rainy morning. Her friend waited near the gate for an hour. They both laughed at the old joke again.'
+    expect(locateSingleEvidence(splitSentences(passage), 'men were waiting outside')).toBeNull()
+    expect(buildEvidenceChoice(passage, 'men were waiting outside', 'q')).toBeNull()
+    expect(locateSingleEvidence(splitSentences(passage), 'women were waiting outside')).toBe(0)
+  })
   it('한 조각이 여러 문장에 맞으면 null', () => {
     const rep = splitSentences('The quiet room was open today. The quiet room was open today again.')
     expect(locateSingleEvidence(rep, 'the quiet room was open today')).toBeNull()
