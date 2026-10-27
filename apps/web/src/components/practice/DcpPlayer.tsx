@@ -336,7 +336,7 @@ function Feedback({
                 type="button"
                 onClick={() => onCause(ec.cause)}
                 aria-pressed={cause === ec.cause}
-                className="inline-flex min-h-[36px] items-center rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                 style={
                   cause === ec.cause
                     ? { borderColor: 'var(--p)', background: 'var(--p-light)', color: 'var(--p)' }
@@ -380,7 +380,7 @@ function CauseTip({ cause }: { cause: DcpErrorCause }) {
       {def.href && (
         <Link
           href={def.href}
-          className="inline-flex min-h-[36px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--on-p-tint)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--on-p-tint)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           복습하기
           <ArrowRight size={12} strokeWidth={2.25} aria-hidden />

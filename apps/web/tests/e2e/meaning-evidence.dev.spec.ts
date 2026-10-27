@@ -58,6 +58,13 @@ for (const width of WIDTHS) {
       await answer(page, 3)
       await expect(page.getByTestId('meaning-evidence-chosen')).toContainText('(정답과 다름)')
       await expect(page.getByTestId('meaning-evidence-chosen')).toContainText('opening hours of shops')
+      // 오답 원인 1-tap 칩 — 44px 이상 · 키보드 focus 가 보인다(누르지 않는다 — 원인 기록은 별도)
+      const cause = page.getByRole('button', { name: '단어를 몰랐어요' })
+      expect((await cause.boundingBox())?.height ?? 0).toBeGreaterThanOrEqual(44)
+      await cause.focus()
+      await page.keyboard.press('Shift+Tab')
+      await page.keyboard.press('Tab')
+      expect(await cause.evaluate((el) => el.matches(':focus-visible') && getComputedStyle(el).boxShadow !== 'none')).toBe(true)
       await expect(box(page)).toContainText('정답을 받치는')
       await expect(page.getByTestId('meaning-evidence-compare')).toHaveCount(0) // 이전 문항 상태가 넘어오지 않았다
       // 키보드로 건너뛰기 — 포커스가 BODY 로 떨어지지 않고 안내로 이어진다

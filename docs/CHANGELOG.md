@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(practice): DcpPlayer 오답 원인 1-tap 칩과 원인별 안내 링크 높이 36px → 44px(접근성 터치 대상). 채점 · 기록 무변경.
 - feat(story): 독서 후 선택 「내 단어장 살펴보기」 — 이 화면에서 같은 본인 · 판본 세션으로 낱말을 담았거나(이미 있음 포함) 확인된 때만, 전 단위 표시 뒤 서가 · 다시 읽기 다음 마지막 링크(기존 Story 왕복 주소). 메모리 문맥뿐 · 서버 쓰기 · DB 무변경(LCP_D5_INTEGRATION §12.4).
 - db(r0): 사용자 승인으로 `article_practice_items`(VOA Lincoln 267ef969 title · topic 검수 2문항, 정답 없이) · `submit_article_practice`(본인 글 · 현재 판본 · 후보 확인 → grade_dcp_item) 적용 — migration 20261027201035 · 20261027201103. 함수만, 테이블 · 데이터 변경 없음. 화면 진입점 미구현.
 - feat(recommend): 추천 P2 연결 — 본인이 열어 둔 개인 글(`texts` in_progress · 도서/묶음/출처 표지 없음 · updated_at 최신)을 「<제목> 이어 보기」로(`lib/recommend/own-reading.ts`, SELECT 만). 라벨 「이어 듣기」→「이어 보기」. 개인 글 추천은 그 응답의 계정과 브라우저 신원이 같다고 확인된 때만 그리고(`useStoryAuthGuard`), 확인 중 · 계정 전환 · 로그아웃 · 늦게 온 앞 계정 응답은 개인 글 없는 추천으로. 라이브러리 도서 · 기사 · 묶음 재개는 아직 아님. 개발 확인 화면 `/dev/next-action-identity`. DB 무변경.
