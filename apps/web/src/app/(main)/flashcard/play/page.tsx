@@ -129,7 +129,8 @@ function HubEmpty({ reason }: { reason: 'auth' | 'empty' }) {
 
 // 읽던 글 등 출처(?from · ?text)가 있으면 그곳으로 먼저 돌려보낸다 — 비어 있다고 hub·단어장으로만 내보내지 않는다(검증은 resolveSessionReturnHref).
 function ScopedEmpty({ title, backHref = '/flashcard' }: { title: string | null; backHref?: string }) {
-  const hasReturn = backHref !== '/flashcard'
+  // hub 거나 카드 자신(/flashcard…)이면 같은 빈 화면으로 되돌아오는 단추가 되므로 보이지 않는다
+  const hasReturn = !/^\/flashcard(?:[/?#]|$)/.test(backHref)
   return (
     <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-24 text-center">
       <div className="select-none text-4xl" aria-hidden>

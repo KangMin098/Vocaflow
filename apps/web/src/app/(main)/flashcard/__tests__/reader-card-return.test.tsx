@@ -47,6 +47,11 @@ describe('카드 쪽 복귀', () => {
     expect(resolveSessionReturnHref('//evil.example', null, '/flashcard')).toBe('/flashcard')
     expect(resolveSessionReturnHref('https://evil.example', null, '/flashcard')).toBe('/flashcard')
     expect(resolveSessionReturnHref(null, null, '/flashcard')).toBe('/flashcard')
+    // 브라우저가 외부 출처로 읽는 형태(역슬래시·탭·개행·스킴 포함) — 리뷰 P1
+    for (const bad of ['/\\evil.example', '/\\\\evil.example', '/\t/evil.example', '/\n/evil.example', '/x/http://evil.example', ' /text/a'])
+      expect(resolveSessionReturnHref(bad, null, '/flashcard')).toBe('/flashcard')
+    for (const bad of ['/\\evil.example', '/\t/evil.example']) expect(new URL(bad, 'http://x').origin).not.toBe('http://x')
+    expect(resolveSessionReturnHref(`/text/${TEXT}?mode=read#p2`, null, '/flashcard')).toBe(`/text/${TEXT}?mode=read#p2`)
   })
 
   it('기사 set 이 비어 있으면 빈 상태가 읽던 글로 돌려보낸다(단어장은 보조)', async () => {
@@ -59,7 +64,7 @@ describe('카드 쪽 복귀', () => {
 
   it('출처가 없거나 외부면 복귀 단추를 꾸미지 않는다', async () => {
     scoped.value = { title: '기사 A', subtitle: '', words: [] }
-    for (const from of [undefined, '//evil.example']) {
+    for (const from of [undefined, '//evil.example', '/\\evil.example', `/flashcard/play?set=${SET}`]) {
       const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { set: SET, from } }))
       expect(html).not.toContain('flashcard-empty-return')
       expect(html).toContain('href="/wordvault"')

@@ -30,6 +30,7 @@ import {
 
 import { GAME_CATALOG } from '@/lib/game/catalog'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
+import { sanitizeInternalPath } from '@/lib/layout/session-return'
 import { consumeSessionEscape, useSessionEscapeClaimed } from '@/components/layout/session-escape'
 
 // ── Session metadata ─────────────────────────────────────────────
@@ -166,8 +167,8 @@ export function SessionFrame({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (typeof window === 'undefined') return
     const f = new URLSearchParams(window.location.search).get('from')
-    // 내부 절대경로만 허용 (open-redirect 차단)
-    setFromHref(f && f.startsWith('/') && !f.startsWith('//') ? f : null)
+    // 내부 절대경로만 허용 (open-redirect 차단 — `/\evil` 등은 공용 검사가 거부)
+    setFromHref(sanitizeInternalPath(f))
   }, [pathname])
 
   // 닫기 목적지 — 출처가 있으면 그곳, 없으면 모듈 hub.
