@@ -411,6 +411,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
 
     return {
       textId: text.id,
+      ownerId: text.user_id,
       libraryBookId: text.library_book_id,
       chapterIdx: text.chapter_idx,
       chapters: bookContext?.chapters.map((c) => ({
