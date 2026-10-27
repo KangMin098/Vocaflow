@@ -222,7 +222,7 @@ function percentile75(words: PublicWord[]): number | null {
 export function profileHeadline(p: LevelProfile): string {
   if (p.uniqueContentWords === 0) return '분석할 영어 단어가 아직 없어요.'
   if (p.fitLevel === null) {
-    return '이 지문은 학술 원서 수준이에요 — 고등 교육과정 범위를 넘어섭니다.'
+    return '학년 기준표로는 어휘 커버리지가 기준에 닿는 학년을 확인하지 못했어요 — 레벨을 확인하지 못한 낱말이 많아도 이렇게 나와요.'
   }
-  return `이 지문은 ${LEVEL_LABEL[p.fitLevel]} 수준이면 편하게 읽혀요.`
+  return `어휘 기준으로 보면 ${LEVEL_LABEL[p.fitLevel]} 수준에서 검토해 볼 만한 지문이에요(추정).`
 }
