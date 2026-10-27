@@ -10,13 +10,15 @@
 //   이름 있는 role=dialog · 뜻 영역을 aria-describedby 로 · 불러오는 동안 aria-busy). 초점이 창 밖으로 나가면 닫는다(다시 옮기지 않는다).
 //   모달이 아니다 — 초점 가두기 · aria-modal 없음. 닫힌 이유(onClose(reason))로 호출자가 초점을 되돌릴지 정한다.
 //   끄면(기본) 기존 화면들의 동작 그대로다(초점은 누른 낱말에 남는다).
+// 덧붙임(선택 · footer): 호출자가 넘길 때만(지금은 Stories — D5-I01 「내 단어장에 담기」) 조회가 끝난 뒤 뜻 아래에 그린다. 결과 객체를
+//   읽기 전용으로 넘길 뿐 저장 권위는 서버에 있다. 넘기지 않으면(기본 · 다른 독서 화면 · Comic) 아무것도 바뀌지 않는다.
 
 'use client'
 
 import { lookupWord, type WordLookup } from '@/lib/library/reader-queries'
 import { createClient } from '@/lib/supabase/client'
 import { CircleAlert, RotateCw, Volume2, X } from 'lucide-react'
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useLayoutEffect, useRef, useState, type ReactNode } from 'react'
 import { RegisterBadge } from '@/components/library/RegisterBadge'
 import { PosBadge } from '@/components/library/PosBadge'
 import { POPOVER_CARD } from '@/components/ui/tines-kit'
@@ -32,6 +34,8 @@ interface WordLookupPopoverProps {
   desktopLearner?: boolean
   /** 열릴 때 창에 초점 · 창 밖으로 초점이 나가면 닫기(비모달). 기본 false — 기존 화면 동작 유지. */
   nonmodalFocus?: boolean
+  /** 조회가 끝난 뒤(성공 · 없음) 뜻 아래에 덧붙일 조작(선택). 불러오는 중 · 연결 실패에는 그리지 않는다. 기본 없음. */
+  footer?: (lookup: WordLookup | null) => ReactNode
 }
 
 const POPOVER_W = 288
@@ -69,7 +73,7 @@ const LANG_META: Record<string, { label: string; flag: string; locale: string }>
   xx: { label: '외국어', flag: '🌐', locale: 'en' },
 }
 
-export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner = false, nonmodalFocus = false }: WordLookupPopoverProps) {
+export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner = false, nonmodalFocus = false, footer }: WordLookupPopoverProps) {
   const [result, setResult] = useState<WordLookup | null>(null)
   const [loading, setLoading] = useState(true)
   const [failed, setFailed] = useState(false)
@@ -133,8 +137,33 @@ export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner
   const left = Math.min(Math.max(8, anchorRect.left), window.innerWidth - POPOVER_W - 8)
   const below = anchorRect.bottom + 6
   const placeAbove = below + 220 > window.innerHeight && anchorRect.top > 240
-  const top = placeAbove ? undefined : below
-  const bottom = placeAbove ? window.innerHeight - anchorRect.top + 6 : undefined
+  const estTop = placeAbove ? undefined : below
+  const estBottom = placeAbove ? window.innerHeight - anchorRect.top + 6 : undefined
+  // 비모달(Stories opt-in)만: 실제로 그려진 높이로 위 · 아래를 다시 정한다 — 뜻 · 덧붙임이 길어도 창 전체가 뷰포트 안(위아래 8px)에 남게.
+  // 다른 화면(기본)은 위의 어림 위치 그대로다.
+  const [measuredTop, setMeasuredTop] = useState<number | null>(null)
+  const anchorTop = anchorRect.top
+  const anchorBottom = anchorRect.bottom
+  useLayoutEffect(() => {
+    const el = ref.current
+    if (!nonmodalFocus || !el) return
+    const place = () => {
+      const h = el.getBoundingClientRect().height
+      const vh = window.innerHeight
+      const below = anchorBottom + 6
+      const above = anchorTop - 6 - h
+      const next = below + h <= vh - 8 ? below : above >= 8 ? above : Math.max(8, vh - 8 - h)
+      setMeasuredTop((prev) => (prev === next ? prev : next))
+    }
+    place()
+    // 뜻을 불러온 뒤 · 덧붙임 상태(저장 중 · 완료 문구)가 바뀌어 높이가 달라지면 다시 정한다.
+    if (typeof ResizeObserver === 'undefined') return
+    const ro = new ResizeObserver(place)
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [nonmodalFocus, anchorTop, anchorBottom])
+  const top = nonmodalFocus && measuredTop !== null ? measuredTop : estTop
+  const bottom = nonmodalFocus && measuredTop !== null ? undefined : estBottom
 
   const speak = (text: string): void => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return
@@ -232,6 +261,7 @@ export function WordLookupPopover({ surface, anchorRect, onClose, desktopLearner
           <NotFoundBody />
         )}
       </div>
+      {footer && !loading && !failed ? <div className="border-t border-[var(--bd)] px-4 py-3">{footer(result)}</div> : null}
     </div>
   )
 }

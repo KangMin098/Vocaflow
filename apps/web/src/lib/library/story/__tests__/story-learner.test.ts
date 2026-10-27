@@ -1040,9 +1040,10 @@ describe('기타 응답 검사기', () => {
 describe('정적 경계', () => {
   const learnerSrc = readFileSync(resolve(HERE, '../learner.ts'), 'utf8')
   const actionsSrc = readFileSync(resolve(HERE, '../../../../app/(main)/library/stories/actions.ts'), 'utf8')
+  const saveWordSrc = readFileSync(resolve(HERE, '../save-word.ts'), 'utf8')
 
   it('서비스 주체 · DEV 우회 · 관리 RPC 를 쓰지 않는다', () => {
-    for (const src of [learnerSrc, actionsSrc]) {
+    for (const src of [learnerSrc, actionsSrc, saveWordSrc]) {
       expect(src).not.toMatch(/createAdminClient|supabase\/admin|service_role_key|SERVICE_ROLE|devAdminBypass|dev-bypass/i)
       expect(src).not.toMatch(/story_admin_|story_service_/)
       expect(src).not.toMatch(/console\.|funnel|track\(|analytics/)
@@ -1054,7 +1055,10 @@ describe('정적 경계', () => {
     expect(learnerSrc).not.toMatch(/Date\.now\(|new Date\(/)
     expect(actionsSrc).toMatch(/^'use server'$/m)
     expect(actionsSrc).toMatch(/from '@\/lib\/supabase\/server'/)
-    expect(actionsSrc.match(/^export /gm)).toHaveLength(2)
+    // 위치 기록 · 단위 완료 · (D5-I01) 선택 낱말 저장 — 세 액션뿐
+    expect(actionsSrc.match(/^export /gm)).toHaveLength(3)
+    expect(saveWordSrc).toMatch(/^import 'server-only'$/m)
+    expect(saveWordSrc).not.toMatch(/Date\.now\(|new Date\(/)
   })
 })
 

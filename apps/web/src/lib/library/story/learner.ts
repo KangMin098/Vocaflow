@@ -1006,3 +1006,34 @@ export async function completeStoryUnit(deps: StoryLearnerDeps, input: unknown):
     return fail('temporary')
   }
 }
+
+// ── D5-I02 단어장의 Story 복귀 대상(공개 서가 메타만) ─────────────────────────
+
+/**
+ * 단어장에 붙은 Story 복귀 문맥(이미 형식 검사됨)을 **공개 서가 메타**로만 확인한다 — 본문 · 목차 · 진도 · 다른 사람 기록을 읽지 않는다.
+ * ok = 지금 열 수 있는 발행본 · 단위 범위 안(제목 · 단위 수 · 돌아갈 주소) · bad_unit = 발행본은 있지만 단위 범위 밖(판본 입구로) ·
+ * unavailable = 서가에 없음(미발행 · 철회 · 권리 보류 · 없는 키 — 구분하지 않는다) · error = 서가 조회 실패(없음으로 바꾸지 않는다).
+ * 실제로 돌아가면 Story 화면 서버가 로그인 · 계정 · 발행 · 권리를 다시 확인한다.
+ */
+export type StoryReturnTarget =
+  | { status: 'ok'; releaseKey: string; unitIndex: number; title: string; unitCount: number }
+  | { status: 'bad_unit'; releaseKey: string; title: string; unitCount: number }
+  | { status: 'unavailable' }
+  | { status: 'error'; releaseKey: string; unitIndex: number }
+
+export async function loadStoryReturnTarget(
+  deps: StoryLearnerDeps,
+  ctx: { releaseKey: string; unitIndex: number },
+): Promise<StoryReturnTarget> {
+  try {
+    if (!isStoryReleaseKey(ctx.releaseKey) || !isUnitIndex(ctx.unitIndex)) return { status: 'unavailable' }
+    const rows = await catalogRows(deps.client)
+    if (!rows) return { status: 'error', releaseKey: ctx.releaseKey, unitIndex: ctx.unitIndex }
+    const row = rows.find((r) => r.releaseKey === ctx.releaseKey)
+    if (!row) return { status: 'unavailable' }
+    if (ctx.unitIndex >= row.unitCount) return { status: 'bad_unit', releaseKey: row.releaseKey, title: row.title, unitCount: row.unitCount }
+    return { status: 'ok', releaseKey: row.releaseKey, unitIndex: ctx.unitIndex, title: row.title, unitCount: row.unitCount }
+  } catch {
+    return { status: 'error', releaseKey: ctx.releaseKey, unitIndex: ctx.unitIndex }
+  }
+}

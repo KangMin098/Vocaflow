@@ -110,6 +110,25 @@ export class StoryAuthGuard {
     }
   }
 
+  /**
+   * 다시 확인 — 페이지가 뒤로 · 앞으로 캐시(BFCache)에서 되살아나면 그 사이 다른 탭 로그인 · 로그아웃이 있었을 수 있다.
+   * 긍정 확인(same)을 거두고 checking 으로 돌린 뒤(세대도 올려 그 전에 출발한 결과를 낡게 만든다) 기준선을 다시 읽는다.
+   * 바뀜(changed)은 그대로 — 되살리지 않는다. 다시 읽는 사이 온 이벤트 · 더 새 확인이 늦은 기준선을 이긴다. 못 읽으면 checking 유지.
+   */
+  recheck(source: Pick<StoryAuthSource, 'currentUserId'>): void {
+    if (this.st === 'changed') return
+    this.eventSeq += 1
+    const seq = this.eventSeq
+    this.gen += 1
+    this.set('checking')
+    source.currentUserId().then(
+      (userId) => {
+        if (this.eventSeq === seq) this.observe({ event: 'BASELINE', userId })
+      },
+      () => {},
+    )
+  }
+
   private set(next: StoryAuthStatus): void {
     this.st = next
     for (const listener of [...this.listeners]) listener()
@@ -155,7 +174,19 @@ export function useStoryAuthGuard(
   }
   const guard = ref.current
 
-  useEffect(() => guard.connect(injected ?? browserStoryAuthSource()), [guard, injected])
+  useEffect(() => {
+    const src = injected ?? browserStoryAuthSource()
+    const off = guard.connect(src)
+    // BFCache 복원(뒤로 · 앞으로) — 같은 JS 상태가 되살아나므로 신원을 다시 확인한다(새로 고침 · 새 진입은 새 경계가 확인한다).
+    const onPageShow = (e: PageTransitionEvent) => {
+      if (e.persisted) guard.recheck(src)
+    }
+    window.addEventListener('pageshow', onPageShow)
+    return () => {
+      off()
+      window.removeEventListener('pageshow', onPageShow)
+    }
+  }, [guard, injected])
 
   // 서버 렌더 · 첫 수화도 같은 경계 값을 읽는다(브라우저 원천이면 둘 다 checking).
   const status = useSyncExternalStore(guard.subscribe, guard.getStatus, guard.getStatus)

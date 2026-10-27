@@ -296,3 +296,41 @@ export type StoryReaderPageState =
       /** 단위 화면(`?unit=`)의 시대적 맥락 설명. 작품 입구에서는 부르지 않아 null 이다. 실패해도 본문 · 진도는 그대로다. */
       contextNotes: StoryContextNotesView | null
     }
+
+// ── D5-I01 선택 낱말 저장(Story 단어 도움 → 내 단어장) ──────────────────────────────
+
+/**
+ * 저장 요청 — 클라이언트는 **무엇을 골랐는지**만 말한다(발행 키 · 0-based 단위 · 단위 안 낱말 번호 · 그 낱말 글자 · 화면의 본인).
+ * 뜻 · 예문 · 원형 · 사용자 id · texts id 는 받지 않는다 — 서버가 지금 본문을 다시 읽어 같은 토큰화로 낱말을 확인하고 사전을 다시 조회한다.
+ */
+export interface StoryWordSaveInput {
+  releaseKey: string
+  unitIndex: number
+  wordIndex: number
+  surface: string
+  expectedViewerId: string
+}
+
+/** 저장 결과. headword = 실제로 담은 사전 표제어(본문 낱말과 다를 수 있다 — 화면이 둘을 구분해 보인다). */
+export interface StoryWordSaveResult {
+  viewerId: string
+  status: 'saved' | 'already_exists'
+  headword: string
+  surface: string
+}
+
+/**
+ * 저장 실패 — 학습자 공통 실패 + 저장 전용 두 가지.
+ * selection_mismatch = 고른 낱말이 지금 본문의 그 자리 낱말과 다르다(오래된 화면 · 조작된 요청) · 아무것도 쓰지 않았다.
+ * not_saveable = 사전에 확정된 영어 표제어가 없다(없음 · 유사어 추정 · 이름 · 외국어) · 임의 뜻을 만들지 않는다.
+ */
+export type StoryWordSaveFailureCode = StoryLearnerFailureCode | 'selection_mismatch' | 'not_saveable'
+
+export interface StoryWordSaveFailure {
+  ok: false
+  code: StoryWordSaveFailureCode
+  message: string
+  retryable: boolean
+}
+
+export type StoryWordSaveOutcome = { ok: true; data: StoryWordSaveResult } | StoryWordSaveFailure

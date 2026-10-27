@@ -105,6 +105,10 @@ export interface ReaderDbState {
   context_notes_corrupt: string[]
   /** 하네스 전용 — 이 발행 키는 맥락 설명 응답이 요청과 다른 단위 번호를 말한다(어긋난 · 늦은 응답 흉내). */
   context_notes_wrong_unit: string[]
+  /** D5-I01 서버 쪽 사전 재조회(lookup_word_meaning)의 합성 사전 — 소문자 표면 → 행. 없으면 found=false. */
+  dictionary: Record<string, { found: boolean; resolved_word: string | null; meaning_ko: string | null; pos: string | null; cefr_level: string | null; example_en: string | null; match_via: string; lang: string | null }>
+  /** D5-I01 메모리 vocabularies(합성 · 공유 DB 아님). */
+  vocab: Array<Record<string, unknown>>
   catalog_hide: string[]
   releases: ReaderRelease[]
   profiles: Record<string, { status: string }>
@@ -211,6 +215,8 @@ function build(): ReaderDbState {
     context_notes_missing: false,
     context_notes_corrupt: [] as string[],
     context_notes_wrong_unit: [] as string[],
+    dictionary: {},
+    vocab: [],
     /** 하네스 전용 경합 흉내 — 이 발행 키는 story_catalog 에서만 빠진다(다른 RPC 는 그대로). */
     catalog_hide: [] as string[],
     releases,

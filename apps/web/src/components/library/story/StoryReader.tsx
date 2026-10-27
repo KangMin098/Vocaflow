@@ -44,6 +44,8 @@ import type {
   StoryReleaseGuidanceView,
 } from '@/lib/library/story/learner-types'
 
+import { storyVaultHref } from '@/lib/library/story/return-context'
+
 import { CONTEXT_NOTES_ID, StoryContextNotes } from './StoryContextNotes'
 import { StoryGuidance } from './StoryGuidance'
 import { StorySourcePanel } from './StorySourcePanel'
@@ -239,6 +241,10 @@ function ReadyReader({
         actions: {
           recordPosition: (input) => latest.current.actions.recordPosition(input),
           completeUnit: (input) => latest.current.actions.completeUnit(input),
+          saveWord: (input) => {
+            const save = latest.current.actions.saveWord
+            return save ? save(input) : Promise.resolve({ ok: false as const, code: 'temporary' as const, message: '지금은 저장할 수 없어요.', retryable: false })
+          },
         },
         navigate: (href) => latest.current.navigate(href),
         emit: (event) => latest.current.emit(event),
@@ -351,6 +357,16 @@ function ReadyReader({
   const next = view.next
   const anchorsBound = unit !== null && context.unit.unitIndex === unit.unitIndex
 
+  // D5-I01 선택 낱말 저장 — 위치 · 완료와 같은 세션 문을 쓴다(session.saveWord): 긍정 확인(same)된 본인 화면에서만 보내고,
+  // 신원 · 접근 거부는 같은 거부 전이(개인 내용 폐기 + 서버 상태 다시 받기) · 다른 주인의 성공은 인증 경계 무효 · 늦은 응답은 stale.
+  const wordSave =
+    unit && actions.saveWord
+      ? {
+          vaultHref: storyVaultHref({ releaseKey, unitIndex: unit.unitIndex }),
+          call: ({ wordIndex, surface }: { wordIndex: number; surface: string }) => session.saveWord({ unitIndex: unit.unitIndex, wordIndex, surface }),
+        }
+      : null
+
   // 맥락 설명 진입(D4-UX02): 긍정 확인(same) 뒤 · 지금 발행본 · 단위에 결속된 ready 설명이 있을 때만. 오류 · 미적용 · 어긋남 · 0개면 없다.
   const noteCount = unit ? boundContextNoteCount(state.contextNotes, releaseKey, unit.unitIndex) : 0
   const notesState = notesOpen.unit === unitIndex ? notesOpen : { unit: unitIndex, open: false, viaEntry: false }
@@ -439,6 +455,7 @@ function ReadyReader({
                 tracing={sourceOpen && selectedAnchor !== null}
                 lookup={wordLookup}
                 tools={notesEntry}
+                save={wordSave ?? undefined}
               />
               <StoryContextNotes
                 key={`notes:${releaseKey}:${unit.unitIndex}`}

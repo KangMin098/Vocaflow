@@ -9,7 +9,7 @@
 // - 이 화면의 렌더(GET · 새로 고침 · 프리페치)는 위치 · 완료를 기록하지 않는다. 기록은 화면 안 명시적 행동의 서버 액션뿐이다.
 // - 원본 `/text/[id]` 레이아웃(원본 texts · 독서 · 어휘를 자동 활성화)을 쓰지 않는다.
 
-import { recordStoryPositionAction, completeStoryUnitAction } from '../actions'
+import { recordStoryPositionAction, completeStoryUnitAction, saveStoryWordAction } from '../actions'
 import { StoryReader } from '@/components/library/story/StoryReader'
 import { Screen } from '@/components/ui/ios'
 import { loadStoryReaderPage, type StoryLearnerClient } from '@/lib/library/story/learner'
@@ -51,7 +51,7 @@ export default async function LibraryStoryReaderPage({
         key={releaseKey}
         state={state}
         releaseKey={releaseKey}
-        actions={{ recordPosition: recordStoryPositionAction, completeUnit: completeStoryUnitAction }}
+        actions={{ recordPosition: recordStoryPositionAction, completeUnit: completeStoryUnitAction, saveWord: saveStoryWordAction }}
       />
     </Screen>
   )

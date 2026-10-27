@@ -130,8 +130,8 @@ if (/url\(\.\//.test(allFontCss)) throw new Error('relative font url left in har
 const SERVER_ACTION_MODULES: Record<string, string> = {
   'src/app/(main)/library/stories/actions.ts': '__story',
 }
-/** 기준선 Books 면이 끌어오는 원본 도서 액션(등록 해제 등) — 호출되면 스펙이 기록만 하고 { ok:false } 를 준다. */
-const BASELINE_ACTION_MODULES = new Set(['src/lib/library/complete-chapter.ts', 'src/lib/library/mark-progress.ts'])
+/** 기준선 Books 면이 끌어오는 원본 도서 액션(등록 해제 등) · 단어장 화면(T-0191)이 끌어오는 SRS 결과 전송 — 호출되면 스펙이 기록만 하고 { ok:false } 를 준다. */
+const BASELINE_ACTION_MODULES = new Set(['src/lib/library/complete-chapter.ts', 'src/lib/library/mark-progress.ts', 'src/lib/srs/flush-actions.ts'])
 const USE_SERVER = /^(?:\s|\/\/[^\n]*\n|\/\*[\s\S]*?\*\/)*['"]use server['"]/
 
 function actionShim(text: string, prefix: string): string {
@@ -273,16 +273,17 @@ async function rpc(fn, args) {
   const hit = (window.__VF_LOOKUP__ || {})[surface.toLowerCase()]
   const base = { surface, cefr_level: null, v_level: null, example_en: null, word_register: null }
   if (!hit) return { data: [{ ...base, found: false, resolved_word: null, meaning_ko: null, pos: null, match_via: 'none', lang: null }], error: null }
-  return { data: [{ ...base, found: true, resolved_word: hit.word, meaning_ko: hit.meaning_ko, pos: hit.pos ?? null, match_via: 'exact', lang: 'en' }], error: null }
+  return { data: [{ ...base, found: true, resolved_word: hit.word, meaning_ko: hit.meaning_ko, pos: hit.pos ?? null, cefr_level: hit.cefr_level ?? null, example_en: hit.example_en ?? null, match_via: 'exact', lang: 'en' }], error: null }
 }
 function from(table) {
   const q = { table, ops: [] }
   const b = {
     select(c) { q.ops.push('select'); return b },
-    eq() { q.ops.push('eq'); return b },
+    eq(_c, v) { q.ops.push('eq'); q.word = v; return b },
     async maybeSingle() {
       rec({ kind: 'from', table, ops: q.ops.join('.') })
-      if (table === 'shared_dictionary' && q.ops[0] === 'select') return { data: { collocations: null, meanings_ko: null, derived_forms: null, synonyms: null, antonyms: null }, error: null }
+      // 긴 사전 내용(T-0191 창 경계 시험) — window.__VF_LOOKUP_WEB__[표제어] 가 있으면 그 연어 · 예문 해석 · 낱말 그물을 준다(합성).
+      if (table === 'shared_dictionary' && q.ops[0] === 'select') return { data: { collocations: null, meanings_ko: null, derived_forms: null, synonyms: null, antonyms: null, ...((window.__VF_LOOKUP_WEB__ || {})[q.word] || {}) }, error: null }
       return { data: null, error: { message: 'harness: table not wired (대역)' } }
     },
   }
@@ -383,7 +384,10 @@ import { MATERIAL_TONE } from '@/lib/design/tone'
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 import { StoryCatalog } from '@/components/library/story/StoryCatalog'
 import { StoryReader } from '@/components/library/story/StoryReader'
-import { recordStoryPositionAction, completeStoryUnitAction } from '@/app/(main)/library/stories/actions'
+import { recordStoryPositionAction, completeStoryUnitAction, saveStoryWordAction } from '@/app/(main)/library/stories/actions'
+import { StoryVaultReturnBar } from '@/components/library/story/StoryVaultReturn'
+import { WordVaultBrowseClient, WordVaultViewerGate } from '@/components/wordvault/WordVaultBrowseClient'
+import { MapReturnBar } from '@/components/wordvault/WordVaultStudyClient'
 ${LIBRARY_LAYOUT}
 ${BOOKS_PAGE_SRC}
 // 서버 판정(loader 결과) — 스펙이 HTML 에 window.__VF_PAGE__ 로 넣는다(= RSC 가 직렬화해 보내는 props). 이동 · refresh 때는
@@ -399,7 +403,18 @@ function CatalogPage({ page }) {
 // app/(main)/library/stories/[releaseKey]/page.tsx
 function ReaderPage({ page }) {
   return h(Screen, { width: 'wide', background: 'bg2', padX: 'md' },
-    h(StoryReader, { key: page.releaseKey, state: page.state, releaseKey: page.releaseKey, actions: { recordPosition: recordStoryPositionAction, completeUnit: completeStoryUnitAction } }))
+    h(StoryReader, { key: page.releaseKey, state: page.state, releaseKey: page.releaseKey, actions: { recordPosition: recordStoryPositionAction, completeUnit: completeStoryUnitAction, saveWord: saveStoryWordAction } }))
+}
+// app/(main)/wordvault/browse/page.tsx(T-0191) — 같은 조립: 성공 · 실패 화면 모두 서버 getUser 주인(viewerId)의 계정 경계 안.
+function VaultPage({ page }) {
+  const storyBar = page.storyReturn ? h(StoryVaultReturnBar, { state: page.storyReturn }) : null
+  const gate = { viewerId: page.viewerId, reopenHref: page.reopenHref }
+  if (page.failed) {
+    return h(WordVaultViewerGate, gate,
+      page.mapBack ? h(MapReturnBar, { href: page.mapBack, note: '학습 지도 · 기본 의미(V1) 준비' }) : storyBar,
+      h('div', { 'data-testid': 'vocab-browse-load-failed' }, h('h2', { role: 'alert' }, '단어를 불러오지 못했어요')))
+  }
+  return h(WordVaultViewerGate, gate, h(WordVaultBrowseClient, { words: page.words, textChips: [], setChips: [], bookContext: null, mapBack: page.mapBack, storyReturn: storyBar }))
 }
 function App() {
   const [page, setPage] = useState(window.__VF_PAGE__)
@@ -415,7 +430,7 @@ function App() {
     return () => { window.__vfOnNavigate = undefined; window.__vfOnRefresh = undefined }
   }, [])
   // /library/books = 기준선과 같은 합성 Books 면(현재 작업 트리 코드 — 탭 줄 변화 비교용)
-  const body = page.kind === 'catalog' ? h(CatalogPage, { page }) : page.kind === 'reader' ? h(ReaderPage, { page }) : page.kind === 'books' ? h(BooksPage) : h('p', null, 'harness: unknown page')
+  const body = page.kind === 'catalog' ? h(CatalogPage, { page }) : page.kind === 'reader' ? h(ReaderPage, { page }) : page.kind === 'books' ? h(BooksPage) : page.kind === 'vault' ? h(VaultPage, { page }) : page.kind === 'redirect' ? h('p', { 'data-harness-redirect': page.to }, 'harness: redirect') : h('p', null, 'harness: unknown page')
   return h('div', { 'data-reader-harness-ready': page.kind, 'data-harness-url': page.url }, h(LearnerColorScope, null), h(MainShell, null, body))
 }
 createRoot(document.getElementById('root')).render(h(App))

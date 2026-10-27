@@ -8,6 +8,8 @@
 // 사용자가 옮긴 곳에 둔다. 초점 가두기 · aria-modal 없음.
 // 44px 대체 조작: 낱말 모드에서 도구 줄에 「지금 고른 낱말」 단추(44px)를 둔다 — 화살표로 고른 낱말의 뜻을 큰 단추로도 연다.
 // 본문 낱말 간격 · 줄 높이는 넓히지 않는다(문장을 흩지 않는다).
+// D5-I01: save 를 넘기면 뜻 창 아래에 「내 단어장에 담기」(StoryWordSave)가 붙는다 — 고른 낱말 번호 · 글자만 서버로 보낸다. 창을 다른 낱말로
+//   다시 열면(key) 저장 상태도 새로 시작한다(다른 낱말의 결과를 적용하지 않는다).
 // - 고른 낱말은 기록하지 않는다: 이벤트 · URL · 저장소 · 로그 없음. 단어장 등록 · FSRS · 완료 · 숙달 근거를 만들지 않는다.
 // - 단위 · 발행본이 바뀌거나 인증이 무효 · 서버 거부가 되면 이 조각이 내려가므로 도움 상태도 함께 사라진다(부모가 key 로 묶는다).
 
@@ -16,8 +18,10 @@
 import { useRef, useState, type ComponentType, type KeyboardEvent, type ReactNode } from 'react'
 
 import { WordLookupPopover, type WordLookupCloseReason } from '@/components/library/reader/WordLookupPopover'
+import type { WordLookup } from '@/lib/library/reader-queries'
 
 import styles from './story.module.css'
+import { StoryWordSave, type StoryWordSaveCall } from './StoryWordSave'
 import { nextWordIndex, splitUnitParagraphs, tokenizeWords, type StoryTextPiece } from './story-view'
 
 export interface StoryWordLookupProps {
@@ -26,6 +30,7 @@ export interface StoryWordLookupProps {
   onClose: (reason?: WordLookupCloseReason) => void
   desktopLearner?: boolean
   nonmodalFocus?: boolean
+  footer?: (lookup: WordLookup | null) => ReactNode
 }
 
 export interface StoryUnitTextProps {
@@ -38,11 +43,13 @@ export interface StoryUnitTextProps {
   defaultWordMode?: boolean
   /** 같은 도구 줄에 함께 둘 조작(예: 이 단위의 맥락 설명 진입 — D4-UX02). */
   tools?: ReactNode
+  /** D5-I01 — 뜻 창 아래 「내 단어장에 담기」(긍정 확인된 본인 화면에서만 넘긴다 · 없으면 저장 조작 없음). */
+  save?: { call: StoryWordSaveCall; vaultHref: string }
 }
 
 type Opener = 'word' | 'picker'
 
-export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools }: StoryUnitTextProps) {
+export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools, save }: StoryUnitTextProps) {
   const [wordMode, setWordMode] = useState(defaultWordMode)
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<{ surface: string; rect: DOMRect; index: number; opener: Opener } | null>(null)
@@ -171,7 +178,21 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
           </p>
         ))}
       </div>
-      {open ? <Lookup surface={open.surface} anchorRect={open.rect} onClose={close} desktopLearner nonmodalFocus /> : null}
+      {open ? (
+        <Lookup
+          key={`${open.index}:${open.opener}`}
+          surface={open.surface}
+          anchorRect={open.rect}
+          onClose={close}
+          desktopLearner
+          nonmodalFocus
+          footer={
+            save
+              ? (lookup) => <StoryWordSave lookup={lookup} surface={open.surface} wordIndex={open.index} onSave={save.call} vaultHref={save.vaultHref} />
+              : undefined
+          }
+        />
+      ) : null}
     </>
   )
 }

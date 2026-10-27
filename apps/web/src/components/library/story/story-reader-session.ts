@@ -28,6 +28,9 @@ import type {
   StoryPositionReason,
   StoryPositionResult,
   StoryUnitCompletionResult,
+  StoryWordSaveFailure,
+  StoryWordSaveInput,
+  StoryWordSaveOutcome,
 } from '@/lib/library/story/learner-types'
 
 import { completionWording, readerHref, unitLabel } from './story-view'
@@ -37,6 +40,8 @@ export type { StoryCompleteInput, StoryPositionInput }
 export interface StoryReaderActions {
   recordPosition(input: StoryPositionInput): Promise<StoryLearnerResult<StoryPositionResult>>
   completeUnit(input: StoryCompleteInput): Promise<StoryLearnerResult<StoryUnitCompletionResult>>
+  /** D5-I01 선택 낱말 저장(선택 — 없으면 저장 조작을 그리지 않는다). 위치 · 완료 세션과 무관하다. */
+  saveWord?(input: StoryWordSaveInput): Promise<StoryWordSaveOutcome>
 }
 
 /** 세션이 쓰는 인증 경계의 부분(StoryAuthGuard 가 만족한다). */
@@ -117,7 +122,7 @@ function temporaryFailure(): StoryLearnerFailure {
   return { ok: false, code: 'temporary', message: '서버에 연결하지 못했어요.', retryable: true }
 }
 
-function isDenial(code: StoryLearnerFailureCode): code is StoryReaderDenialCode {
+function isDenial(code: StoryLearnerFailureCode | StoryWordSaveFailure['code']): code is StoryReaderDenialCode {
   return (DENIAL_CODES as readonly string[]).includes(code)
 }
 
@@ -193,6 +198,40 @@ export class StoryReaderSession {
 
   dismissStatus(): void {
     if (this.snap.status && !this.snap.denied) this.update({ ...this.snap, status: null })
+  }
+
+  /**
+   * D5-I01 선택 낱말 저장 — 위치 · 완료와 같은 문 · 같은 결과 판정을 쓴다(결과 문구는 낱말 창이 그린다).
+   * - 보내기 전: 긍정 확인(same) · 거부 없음일 때만. 아니면 액션 0번 · stale.
+   * - 낡은 결과(화면 떠남 · 인증 세대 바뀜 · 이미 거부됨)는 stale — 성공 문구를 만들지 않는다.
+   * - 신원 · 접근 거부(DENIAL_CODES): 위치 · 완료와 똑같이 deny() — 개인 내용을 지우고 서버 상태를 다시 받는다.
+   * - 성공인데 결과 주인이 화면 주인과 다르면: 인증 경계를 무효로 만든다(바뀜 화면) · stale.
+   * - 그 밖의 실패(일시 오류 · 사전에 없음 · 낱말 불일치)는 그대로 돌려준다 — 정상 본문을 숨기지 않는다.
+   */
+  async saveWord(input: { unitIndex: number; wordIndex: number; surface: string }): Promise<StoryWordSaveOutcome | { stale: true }> {
+    const save = this.opts.actions.saveWord
+    if (!save || !this.canSend()) return { stale: true }
+    const epoch = this.epoch
+    const token = this.opts.auth.token()
+    let out: StoryWordSaveOutcome
+    try {
+      out = await save({ releaseKey: this.opts.releaseKey, unitIndex: input.unitIndex, wordIndex: input.wordIndex, surface: input.surface, expectedViewerId: this.opts.viewerId })
+    } catch {
+      out = temporaryFailure()
+    }
+    if (epoch !== this.epoch || this.snap.denied || !this.opts.auth.isCurrent(token)) return { stale: true }
+    if (!out.ok) {
+      if (isDenial(out.code)) {
+        this.deny({ ...out, code: out.code })
+        return { stale: true }
+      }
+      return out
+    }
+    if (!this.opts.auth.accepts(token, out.data.viewerId)) {
+      this.opts.auth.invalidate()
+      return { stale: true }
+    }
+    return out
   }
 
   /**
