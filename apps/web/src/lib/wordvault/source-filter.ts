@@ -41,21 +41,48 @@ export function applySourceFilter<W extends { setId?: string | null; textId?: st
   return [...list]
 }
 
-/** Reader(/text/[id]) 의 「단어」 목적지 — 발행 챕터 단어장이면 set:, 아니면 그 글의 text:, 맥락 없으면 전체. */
-export function readerWordsHref(ctx: {
+interface ReaderSourceCtx {
   textId?: string | null
   libraryBookId?: string | null
   chapterIdx?: number | null
   currentChapterWordSet?: { id: string } | null
-} | null | undefined): string {
-  if (ctx?.currentChapterWordSet && ctx.libraryBookId && ctx.chapterIdx != null) {
-    const qs = new URLSearchParams({
-      filter: `set:${ctx.currentChapterWordSet.id}`,
-      book: ctx.libraryBookId,
-      chapter: String(ctx.chapterIdx),
-    })
+}
+
+/**
+ * Reader 의 단어 출처 하나를 정한다 — 「단어」 목적지와 카드·게임 범위가 **같은 결정**을 쓴다.
+ * - 도서 장: 발행 장 단어장(set) + 도서·장 문맥
+ * - 기사(source_url=article:<id>, layout §4.7): 발행 기사 단어장(set) — 도서·장으로 꾸미지 않는다.
+ *   기사 단어장 구독(subscribe_article_word_set)은 vocabularies.text_id 를 비워 두므로 text: 로 거르면 0 이 된다.
+ * - 그 밖의 글: 그 글(text)
+ */
+export function readerSource(ctx: ReaderSourceCtx | null | undefined):
+  | { kind: 'book-set'; setId: string; bookId: string; chapterIdx: number }
+  | { kind: 'article-set'; setId: string }
+  | { kind: 'text'; textId: string }
+  | { kind: 'none' } {
+  const set = ctx?.currentChapterWordSet
+  if (set && ctx?.libraryBookId && ctx.chapterIdx != null) return { kind: 'book-set', setId: set.id, bookId: ctx.libraryBookId, chapterIdx: ctx.chapterIdx }
+  if (set && !ctx?.libraryBookId) return { kind: 'article-set', setId: set.id }
+  if (ctx?.textId) return { kind: 'text', textId: ctx.textId }
+  return { kind: 'none' }
+}
+
+/** Reader(/text/[id]) 의 「단어」 목적지 */
+export function readerWordsHref(ctx: ReaderSourceCtx | null | undefined): string {
+  const src = readerSource(ctx)
+  if (src.kind === 'book-set') {
+    const qs = new URLSearchParams({ filter: `set:${src.setId}`, book: src.bookId, chapter: String(src.chapterIdx) })
     return `/wordvault/browse?${qs.toString()}`
   }
-  if (ctx?.textId) return `/wordvault/browse?filter=${encodeURIComponent(textSourceFilter(ctx.textId))}`
+  if (src.kind === 'article-set') return `/wordvault/browse?filter=${encodeURIComponent(`set:${src.setId}`)}`
+  if (src.kind === 'text') return `/wordvault/browse?filter=${encodeURIComponent(textSourceFilter(src.textId))}`
   return '/wordvault/browse'
+}
+
+/** 카드·게임 범위 쿼리(?set= · ?text=) — 「단어」 목적지와 같은 출처. 없으면 null(각 모듈 허브) */
+export function readerScopeQuery(ctx: ReaderSourceCtx | null | undefined): string | null {
+  const src = readerSource(ctx)
+  if (src.kind === 'book-set' || src.kind === 'article-set') return `?set=${src.setId}`
+  if (src.kind === 'text') return `?text=${encodeURIComponent(src.textId)}`
+  return null
 }

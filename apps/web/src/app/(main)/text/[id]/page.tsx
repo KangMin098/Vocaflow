@@ -4,7 +4,7 @@
 'use client'
 
 import Link from 'next/link'
-import { readerWordsHref } from '@/lib/wordvault/source-filter'
+import { readerScopeQuery, readerWordsHref } from '@/lib/wordvault/source-filter'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
@@ -159,13 +159,11 @@ export default function WorkspacePage({ params }: PageProps) {
   //   · 도서 챕터(단어장 발행됨) → ?set={setId}  (shared_words)
   //   · 사용자 스크립트          → ?text={textId} (vocabularies)
   //   · ctx 없음(스코프 X)       → null → 각 모듈 일반 허브로
-  const scopeQuery = useMemo(() => {
-    if (ctx?.currentChapterWordSet && ctx?.libraryBookId && ctx?.chapterIdx != null) {
-      return `?set=${ctx.currentChapterWordSet.id}`
-    }
-    if (ctx?.textId) return `?text=${encodeURIComponent(ctx.textId)}`
-    return null
-  }, [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId])
+  const scopeQuery = useMemo(
+    () => readerScopeQuery(ctx),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [ctx?.currentChapterWordSet, ctx?.libraryBookId, ctx?.chapterIdx, ctx?.textId],
+  )
 
   const flashcardHref = scopeQuery ? `/flashcard/play${scopeQuery}` : '/flashcard'
   // 퀴즈는 단어 스코프가 아니라 **이 글**로 연다 — 도서 챕터면 그 챕터 퀴즈 + 본문(text), 사용자 글이면 그 글의 퀴즈.
