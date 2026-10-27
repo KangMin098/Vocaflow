@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(lcp): StoryWeaver 도서 적재가 NC·ND·모르는 라이선스를 성공으로 넘기지 않는다 — `licenseClassOf` 가 public_domain·cc0·cc_by·cc_by_sa 일 때만 적재(DB `lb_compute_kr_safe` 가 `CC%` 를 모두 안전으로 계산하는 문제의 앱 쪽 차단 · 트리거·기존 행 무변경).
 - fix(r0): 퀴즈 근거 문장 후보에서 장 표식(`CHAPTER n. 제목<RS>원문 URL`) 단락 제외 — 리더와 같은 `parseChapterMarker` 재사용(RS 필수). Fables 실데이터 3장·15문항: 후보 속 메타데이터 0, 피커 12 유지. 본문·DB 무변경.
 - fix(lcp): StoryWeaver 도서 적재기의 라이선스 하드코딩(`CC BY 4.0`) 제거 — `storyweaverBookLicense` 가 뒷장(StoryPage 밖)의 「Released under …」 문장을 ACP 파서(`storyweaverLicense`)로 읽고, 없음·상충(삽화만 다른 조건 등)·알 수 없는 문구면 적재를 멈춘다(검수 필요). 이미 발행된 20권의 권리를 복구하지 않는다 · DB·수집 재실행 없음.
 - fix(reports): 주간 리포트 코멘트가 활동량만으로 「기억을 단단하게」「실력이 돼요」를 단정하던 문구 제거 — `lib/learner/report-note.ts` `composeActivityNote` 가 분·단어·복습 횟수만 말하고 기억·실력 변화는 알 수 없다고 밝힌다. 화면은 저장된 옛 note 대신 저장 합계로 다시 만든다(DB·과거 행 무변경).

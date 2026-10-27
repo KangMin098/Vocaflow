@@ -12,6 +12,14 @@
 
 import type { RawBook, BookIllustration } from '../types'
 import { storyweaverLicense, storyweaverPageText } from '../ingest-article/storyweaver'
+import { licenseClassOf, type LicenseClass } from '../ingest-article/_curation-spec'
+
+/**
+ * 도서로 적재해도 되는 라이선스 분류. NC(restricted)·ND·모르는 조건은 성공 RawBook 으로 넘기지 않는다 —
+ * DB 의 lb_compute_kr_safe() 는 'CC%' 를 모두 안전으로 계산하므로(2026-10-27 실측) 여기서 막지 않으면
+ * 제한 CC 책이 「한국 안전」 으로 승격된다. 원 라이선스 표기는 덮지 않는다(오류 메시지에 그대로 남긴다).
+ */
+const BOOK_LOADABLE: ReadonlySet<LicenseClass> = new Set(['public_domain', 'cc0', 'cc_by', 'cc_by_sa'])
 
 // StoryWeaver 는 Cloudflare 가 Node TLS(JA3) 핑거프린트를 403 차단 — 브라우저 UA 사용.
 const UA =
@@ -256,6 +264,9 @@ export async function ingestFromStoryWeaver(sourceId: string): Promise<RawBook> 
   const license = storyweaverBookLicense(d.pages)
   if (!license) {
     throw new Error(`StoryWeaver: 라이선스를 책에서 읽지 못했다(뒷장 문장 없음·상충) — 검수 필요: ${key}`)
+  }
+  if (!BOOK_LOADABLE.has(licenseClassOf(license))) {
+    throw new Error(`StoryWeaver: 도서로 적재할 수 없는 라이선스(${license} · ${licenseClassOf(license)}) — 검수 필요: ${key}`)
   }
 
   return {
