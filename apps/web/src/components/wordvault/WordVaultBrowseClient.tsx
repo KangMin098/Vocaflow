@@ -15,7 +15,7 @@ import { SpotState } from '@/components/ui/SpotState'
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState, type ReactNode } from 'react'
 import { FileText } from 'lucide-react'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
@@ -69,6 +69,8 @@ interface Props {
   bookContext?: BookContext | null
   /** T-0086 — 지도에서 온 목록이면 검증된 복귀 주소(없으면 일반 진입 — 지도 안내 없음) */
   mapBack?: string | null
+  /** D5-I02 — Story 에서 명시 이동했을 때만 서버가 만든 작은 복귀 줄(없으면 null · 출처를 지어내지 않는다). 지도 복귀와 함께 오지 않는다. */
+  storyReturn?: ReactNode
 }
 
 const SET_ACCENT = 'var(--p)' // 보라 — 라이브러리 단어장 정합
@@ -80,6 +82,7 @@ export function WordVaultBrowseClient({
   setChips,
   bookContext,
   mapBack = null,
+  storyReturn = null,
 }: Props) {
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -271,6 +274,7 @@ export function WordVaultBrowseClient({
           next={{ href: vocabMapLink('/wordvault/review', mapBack), label: '모은 단어 복습하기 →' }}
         />
       )}
+      {!mapBack && storyReturn}
     <>
       <ResourceContext
         resource={

@@ -28,6 +28,8 @@ import type {
   StoryPositionReason,
   StoryPositionResult,
   StoryUnitCompletionResult,
+  StoryWordSaveInput,
+  StoryWordSaveOutcome,
 } from '@/lib/library/story/learner-types'
 
 import { completionWording, readerHref, unitLabel } from './story-view'
@@ -37,6 +39,8 @@ export type { StoryCompleteInput, StoryPositionInput }
 export interface StoryReaderActions {
   recordPosition(input: StoryPositionInput): Promise<StoryLearnerResult<StoryPositionResult>>
   completeUnit(input: StoryCompleteInput): Promise<StoryLearnerResult<StoryUnitCompletionResult>>
+  /** D5-I01 선택 낱말 저장(선택 — 없으면 저장 조작을 그리지 않는다). 위치 · 완료 세션과 무관하다. */
+  saveWord?(input: StoryWordSaveInput): Promise<StoryWordSaveOutcome>
 }
 
 /** 세션이 쓰는 인증 경계의 부분(StoryAuthGuard 가 만족한다). */

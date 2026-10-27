@@ -791,3 +791,71 @@
     transition: opacity var(--dur-quick) linear;
   }
 }
+
+/* ── D5-I01 뜻 창의 「내 단어장에 담기」 — 창 폭(288px) 안 · 조작 44px · 상태는 같은 자리 aria-live ─────────── */
+
+.wordSave {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 6px;
+  font-family: var(--font-display);
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--t1);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+}
+
+.saveTarget {
+  margin: 0;
+}
+.saveTarget strong {
+  font-family: var(--font-serif);
+  font-weight: 600;
+}
+
+.saveSurface {
+  color: var(--t2);
+}
+
+.saveStatus {
+  margin: 0;
+  min-height: 0;
+  color: var(--t2);
+}
+.saveStatus:empty {
+  display: none;
+}
+
+.saveNote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--t2);
+  word-break: keep-all;
+}
+
+.saveVaultLink {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding-inline: 4px;
+  color: var(--ju);
+  font-weight: 700;
+  text-decoration: none;
+}
+.saveVaultLink:hover {
+  text-decoration: underline;
+}
+
+.wordSave .toolButton[aria-disabled='true'] {
+  cursor: default;
+  opacity: 0.85;
+}
+.wordSave :focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 3px;
+  border-radius: 6px;
+}

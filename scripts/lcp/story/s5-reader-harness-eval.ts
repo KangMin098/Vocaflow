@@ -31,6 +31,7 @@ import {
   type StoryLearnerRpcResponse,
 } from '../../../apps/web/src/lib/library/story/learner'
 import { loginUrlWithReturn } from '../../../apps/web/src/lib/auth/redirect'
+import { saveStoryWord, type StoryWordSaveClient } from '../../../apps/web/src/lib/library/story/save-word'
 import type { ReaderDbState } from './s5-reader-fixtures'
 
 type Json = Record<string, any> // eslint-disable-line @typescript-eslint/no-explicit-any
@@ -199,6 +200,13 @@ export class FakeLearnerDb {
           notes: (r.context_notes ?? []).filter((n) => n.unit_ids.includes(u.unit_id)).map((n) => ({ id: n.id, text: n.text })),
         }
       }
+      case 'lookup_word_meaning': {
+        // D5-I01 서버 쪽 사전 재조회 대역(합성 사전). 공유 사전 · DB 없음.
+        const surface = String(args.p_surface ?? '')
+        const hit = (this.state.dictionary ?? {})[surface.toLowerCase()]
+        const base = { surface, v_level: null, word_register: null }
+        return [hit ? { ...base, ...hit } : { ...base, found: false, resolved_word: null, meaning_ko: null, pos: null, cefr_level: null, example_en: null, match_via: 'not_found', lang: null }]
+      }
       default:
         throw new Raise(`permission denied for function ${fn}`, '42501')
     }
@@ -237,6 +245,54 @@ export class FakeLearnerDb {
   }
 }
 
+/**
+ * D5-I01 vocabularies 대역(메모리 · 합성). RLS 흉내: 본인(uid) 행만 읽고 본인 user_id 로만 쓴다. UNIQUE(user_id, word) → 23505.
+ * faults.vocab_select · vocab_insert 로 조회 실패 · 삽입 실패를 흉내 낸다. 모든 호출은 rpc_log 에 table 로 남는다.
+ */
+function vocabTable(db: FakeLearnerDb, uid: string | null) {
+  const st = db.state as ReaderDbState
+  return {
+    select: (_cols: string) => {
+      const eqs: Array<[string, string]> = []
+      const q = {
+        eq: (c: string, v: string) => (eqs.push([c, v]), q),
+        maybeSingle: async () => {
+          const fault = st.faults.vocab_select
+          if (fault && fault.times > 0) {
+            fault.times -= 1
+            st.rpc_log.push({ fn: 'vocabularies.select', actor: uid, result: 'error' })
+            return { data: null, error: { message: 'permission denied for table vocabularies', code: '42501' } }
+          }
+          st.rpc_log.push({ fn: 'vocabularies.select', actor: uid, result: 'ok' })
+          const hit = st.vocab.find((r) => r.user_id === uid && eqs.every(([c, v]) => r[c] === v))
+          return { data: hit ? { id: hit.id } : null, error: null }
+        },
+      }
+      return q
+    },
+    insert: async (row: Record<string, unknown>) => {
+      const fault = st.faults.vocab_insert
+      if (fault && fault.times > 0) {
+        fault.times -= 1
+        st.rpc_log.push({ fn: 'vocabularies.insert', actor: uid, result: 'error' })
+        return { error: { message: 'insert failed (synthetic)', code: 'XX000' } }
+      }
+      if (!uid || row.user_id !== uid) {
+        st.rpc_log.push({ fn: 'vocabularies.insert', actor: uid, result: 'error', code: '42501' })
+        return { error: { message: 'new row violates row-level security policy', code: '42501' } }
+      }
+      if (st.vocab.some((r) => r.user_id === uid && r.word === row.word)) {
+        st.rpc_log.push({ fn: 'vocabularies.insert', actor: uid, result: 'error', code: '23505' })
+        return { error: { message: 'duplicate key value violates unique constraint', code: '23505' } }
+      }
+      st.seq += 1
+      st.vocab.push({ id: `vocab-${st.seq}`, ...row })
+      st.rpc_log.push({ fn: 'vocabularies.insert', actor: uid, result: 'ok' })
+      return { error: null }
+    },
+  }
+}
+
 /** 쿠키 세션 클라이언트 대역 — 그 요청의 「로그인 계정」 uid(null = 익명). */
 function cookieClient(db: FakeLearnerDb, uid: string | null): StoryLearnerClient {
   return {
@@ -244,21 +300,24 @@ function cookieClient(db: FakeLearnerDb, uid: string | null): StoryLearnerClient
       getUser: async () =>
         uid ? { data: { user: { id: uid } }, error: null } : { data: { user: null }, error: { name: 'AuthSessionMissingError', message: 'Auth session missing!', status: 400 } },
     },
-    from: () => ({
-      select: () => ({
-        eq: (_c: string, id: string) => ({
-          maybeSingle: async () => {
-            const fault = db.state.faults.user_profiles
-            if (fault && fault.times > 0) {
-              fault.times -= 1
-              return { data: null, error: { message: 'TypeError: fetch failed' } }
-            }
-            const row = db.state.profiles[id]
-            return { data: row ? { status: row.status } : null, error: null }
-          },
+    from: (table: string) => {
+      if (table === 'vocabularies') return vocabTable(db, uid)
+      return {
+        select: () => ({
+          eq: (_c: string, id: string) => ({
+            maybeSingle: async () => {
+              const fault = db.state.faults.user_profiles
+              if (fault && fault.times > 0) {
+                fault.times -= 1
+                return { data: null, error: { message: 'TypeError: fetch failed' } }
+              }
+              const row = db.state.profiles[id]
+              return { data: row ? { status: row.status } : null, error: null }
+            },
+          }),
         }),
-      }),
-    }),
+      }
+    },
     rpc: async (fn, args) => db.rpc(fn, (args ?? {}) as Json, uid),
   }
 }
@@ -302,6 +361,7 @@ export async function runAction(name: string, args: unknown[], db: FakeLearnerDb
   switch (name) {
     case 'recordStoryPositionAction': return recordStoryPosition({ client }, args[0])
     case 'completeStoryUnitAction': return completeStoryUnit({ client }, args[0])
+    case 'saveStoryWordAction': return saveStoryWord({ client: client as unknown as StoryWordSaveClient }, args[0])
     default: throw new Error(`unknown story action ${name}`)
   }
 }

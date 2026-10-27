@@ -14,7 +14,8 @@ import {
   storyLearnerFailure,
   type StoryLearnerClient,
 } from '@/lib/library/story/learner'
-import type { StoryLearnerResult, StoryPositionResult, StoryUnitCompletionResult } from '@/lib/library/story/learner-types'
+import type { StoryLearnerResult, StoryPositionResult, StoryUnitCompletionResult, StoryWordSaveOutcome } from '@/lib/library/story/learner-types'
+import { saveStoryWord, storyWordSaveFailure, type StoryWordSaveClient } from '@/lib/library/story/save-word'
 import { createClient } from '@/lib/supabase/server'
 
 /** 위치 기록(이동만 · 완료 아님). 입력 StoryPositionInput { releaseKey, unitIndex, reason, expectedViewerId(전제일 뿐 권한 아님) }. */
@@ -34,5 +35,19 @@ export async function completeStoryUnitAction(input: unknown): Promise<StoryLear
     return await completeStoryUnit({ client }, input)
   } catch {
     return storyLearnerFailure('temporary')
+  }
+}
+
+/**
+ * D5-I01 고른 낱말 하나를 내 단어장에 담기(명시 행동 · 재호출 안전). 입력 StoryWordSaveInput
+ * { releaseKey, unitIndex, wordIndex, surface, expectedViewerId } — 뜻 · 예문 · 원형 · 사용자/텍스트 id 는 받지 않는다.
+ * 본문 · 사전 재확인과 저장은 lib/library/story/save-word.ts. 위치 · 완료 · FSRS 를 바꾸지 않는다.
+ */
+export async function saveStoryWordAction(input: unknown): Promise<StoryWordSaveOutcome> {
+  try {
+    const client = (await createClient()) as unknown as StoryWordSaveClient
+    return await saveStoryWord({ client }, input)
+  } catch {
+    return storyWordSaveFailure('temporary')
   }
 }

@@ -44,6 +44,8 @@ import type {
   StoryReleaseGuidanceView,
 } from '@/lib/library/story/learner-types'
 
+import { storyVaultHref } from '@/lib/library/story/return-context'
+
 import { CONTEXT_NOTES_ID, StoryContextNotes } from './StoryContextNotes'
 import { StoryGuidance } from './StoryGuidance'
 import { StorySourcePanel } from './StorySourcePanel'
@@ -351,6 +353,24 @@ function ReadyReader({
   const next = view.next
   const anchorsBound = unit !== null && context.unit.unitIndex === unit.unitIndex
 
+  // D5-I01 선택 낱말 저장 — 긍정 확인(same)된 본인 화면 · 단위 화면에서만. 보낼 때의 인증 세대를 잡아 두고, 응답은 세대가 같고
+  // 결과의 주인이 이 화면의 주인일 때만 적용한다(늦은 응답 · 계정 전환이면 stale — 성공을 보이지 않는다).
+  const saveAction = actions.saveWord
+  const wordSave =
+    unit && saveAction
+      ? {
+          vaultHref: storyVaultHref({ releaseKey, unitIndex: unit.unitIndex }),
+          call: async ({ wordIndex, surface }: { wordIndex: number; surface: string }) => {
+            const token = guard.token()
+            if (!guard.isCurrent(token)) return { stale: true as const }
+            const out = await saveAction({ releaseKey, unitIndex: unit.unitIndex, wordIndex, surface, expectedViewerId: state.viewerId })
+            if (out.ok && !guard.accepts(token, out.data.viewerId)) return { stale: true as const }
+            if (!out.ok && !guard.isCurrent(token)) return { stale: true as const }
+            return out
+          },
+        }
+      : null
+
   // 맥락 설명 진입(D4-UX02): 긍정 확인(same) 뒤 · 지금 발행본 · 단위에 결속된 ready 설명이 있을 때만. 오류 · 미적용 · 어긋남 · 0개면 없다.
   const noteCount = unit ? boundContextNoteCount(state.contextNotes, releaseKey, unit.unitIndex) : 0
   const notesState = notesOpen.unit === unitIndex ? notesOpen : { unit: unitIndex, open: false, viaEntry: false }
@@ -439,6 +459,7 @@ function ReadyReader({
                 tracing={sourceOpen && selectedAnchor !== null}
                 lookup={wordLookup}
                 tools={notesEntry}
+                save={wordSave ?? undefined}
               />
               <StoryContextNotes
                 key={`notes:${releaseKey}:${unit.unitIndex}`}

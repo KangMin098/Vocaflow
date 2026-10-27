@@ -2052,6 +2052,230 @@ test.describe('현재 · 이야기 서가 · 독서', () => {
         assertQuietNetwork(log)
       })
 
+      test('D5 I01/I02(합성 fixture · 실제 WordLookupPopover · 실제 save-word.ts) — 명시 저장 · 서버 사전 권위 · 원형 구분 · 이미 있음 보존 · 실패/재시도/응답 유실 멱등 · 조회 실패 ≠ 없음 · 사전 불확정 거부 · 위조/철회/범위 · 늦은 응답 · 계정 전환 · 화면 밖 낱말 단추 경로 · Esc 복귀 · 스크롤 · 위치/완료 쓰기 0 · 단어장 복귀 주소', async ({ page, context }) => {
+        test.setTimeout(300_000)
+        await page.setViewportSize({ width, height: 1000 })
+        const b1 = FM.release_keys.B1
+        const SERVER_DICT = {
+          lighthouse: { found: true, resolved_word: 'lighthouse', meaning_ko: '등대 (서버 합성 사전)', pos: 'noun', cefr_level: 'B1', example_en: 'The lighthouse is tall.', match_via: 'direct', lang: 'en' },
+          lived: { found: true, resolved_word: 'live', meaning_ko: '살다 (서버 합성 사전)', pos: 'verb', cefr_level: 'A1', example_en: null, match_via: 'inflection', lang: 'en' },
+          old: { found: true, resolved_word: 'old', meaning_ko: '늙은 (서버 합성 사전)', pos: 'adjective', cefr_level: 'A1', example_en: null, match_via: 'direct', lang: 'en' },
+          years: { found: true, resolved_word: 'year', meaning_ko: '해 (서버 합성 사전)', pos: 'noun', cefr_level: 'A1', example_en: null, match_via: 'inflection', lang: 'en' },
+          twelve: { found: true, resolved_word: 'twelve', meaning_ko: '열둘 (서버 합성 사전)', pos: 'number', cefr_level: 'A1', example_en: null, match_via: 'direct', lang: 'en' },
+          edge: { found: true, resolved_word: 'edge', meaning_ko: '가장자리 (서버 합성 사전)', pos: 'noun', cefr_level: 'B1', example_en: null, match_via: 'direct', lang: 'en' },
+        }
+        const EXISTING = { id: 'vocab-existing', user_id: FM.users.A, word: 'old', meaning: '내가 전에 적은 뜻', example_sentence: '', pos: 'adj', cefr_level: 'A1', origin: 'library', text_id: '11111111-1111-4111-8111-111111111111', stability: 4.2, difficulty: 5.1, review_count: 3, next_review_at: '2026-11-02T00:00:00Z' }
+        const run = newRun(`d5-save-${width}`, (db) => {
+          ;(db as unknown as { dictionary: unknown }).dictionary = SERVER_DICT
+          ;(db as unknown as { vocab: unknown[] }).vocab = [{ ...EXISTING }]
+        })
+        run.actor = FM.users.A
+        await context.addInitScript(() => {
+          // 브라우저 쪽 뜻 표시용 합성 사전(서버 사전과 일부러 다른 뜻 — 저장 권위가 서버임을 보이려고). stood 는 브라우저에만 있다.
+          ;(window as unknown as { __VF_LOOKUP__: unknown }).__VF_LOOKUP__ = {
+            lighthouse: { word: 'lighthouse', meaning_ko: '등대 (브라우저 합성)', pos: 'noun' },
+            lived: { word: 'live', meaning_ko: '살다 (브라우저 합성)', pos: 'verb' },
+            old: { word: 'old', meaning_ko: '늙은 (브라우저 합성)', pos: 'adjective' },
+            years: { word: 'year', meaning_ko: '해 (브라우저 합성)', pos: 'noun' },
+            twelve: { word: 'twelve', meaning_ko: '열둘 (브라우저 합성)', pos: 'number' },
+            edge: { word: 'edge', meaning_ko: '가장자리 (브라우저 합성)', pos: 'noun' },
+            stood: { word: 'stand', meaning_ko: '서다 (브라우저만)', pos: 'verb' },
+          }
+        })
+        const log = await readerHarness(context, `d5-save@${width}`, run)
+        const dialog = () => page.getByRole('dialog')
+        const saveBtn = () => dialog().locator('[data-story-word-save-button]')
+        const status = () => dialog().locator('[data-story-word-save-status]')
+        const vocabOf = (uid: string) => ((readDb(run) as unknown as { vocab: Array<Record<string, unknown>> }).vocab).filter((r) => r.user_id === uid)
+        const emit = (event: string, id: string | null) =>
+          page.evaluate(([e, u]) => (window as unknown as { __vfAuthEmit: (e: string, u: unknown) => void }).__vfAuthEmit(e as string, u ? { id: u } : null), [event, id] as const)
+        const openWord = async (text: string) => {
+          const w = page.locator('[data-word-index]').filter({ hasText: new RegExp(`^${text}$`) }).first()
+          await w.click()
+          await sx(dialog()).toBeVisible()
+          await sx(dialog()).not.toHaveAttribute('aria-busy', 'true')
+          return w
+        }
+        const directSave = (input: Record<string, unknown>) =>
+          page.evaluate(async (args) => {
+            const r = await fetch('http://harness.local/__story/saveStoryWordAction', { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ args: [args] }) })
+            return (await r.json()).value
+          }, input)
+        const evidence: Record<string, unknown> = { width }
+        try {
+          await openStories(page, `/library/stories/${b1}?unit=0`)
+          await sx(B(page)).toBeVisible()
+          await page.locator('[data-story-word-mode]').click()
+
+          // 1) 정상 저장 — 서버 사전 값 · text_id null · manual · 위치/완료 쓰기 0 · 초점은 같은 단추 · 같은 창에서 단어장 주소(Story 문맥 두 값)
+          const lighthouse = await openWord('lighthouse')
+          await sx(dialog().locator('[data-story-word-save="idle"]')).toContainText('담을 낱말 lighthouse')
+          await sx(dialog()).not.toContainText('사전 원형')
+          const y0 = await page.evaluate(() => window.scrollY)
+          await saveBtn().focus()
+          await page.keyboard.press('Enter')
+          await sx(dialog().locator('[data-story-word-save="saved"]')).toBeVisible()
+          await sx(saveBtn()).toBeFocused()
+          await sx(saveBtn()).toHaveAttribute('aria-disabled', 'true')
+          await sx(status()).toContainText('담았어요')
+          await sx(dialog().locator('[data-story-word-save-vault]')).toHaveAttribute('href', `/wordvault/browse?story_release=${b1}&story_unit=0`)
+          const mine = vocabOf(FM.users.A)
+          const saved = mine.find((r) => r.word === 'lighthouse')!
+          expect(saved).toMatchObject({ text_id: null, origin: 'manual', meaning: '등대 (서버 합성 사전)', example_sentence: 'The lighthouse is tall.', cefr_level: 'B1' })
+          expect(Object.keys(saved).sort()).toEqual(['cefr_level', 'example_sentence', 'id', 'meaning', 'origin', 'pos', 'pronunciation', 'text_id', 'user_id', 'word'])
+          expect(page.url()).toContain('?unit=0')
+          expect(await page.evaluate(() => window.scrollY)).toBe(y0)
+          await shot(page, `d5-save-saved-${width}`)
+          await page.keyboard.press('Escape')
+          await sx(dialog()).toHaveCount(0)
+          await sx(lighthouse).toBeFocused()
+
+          // 2) 원형이 다른 낱말 — 본문 lived · 담을 표제어 live 를 함께 보이고 live 로 저장
+          await openWord('lived')
+          await sx(dialog().locator('[data-story-word-save]')).toContainText('담을 낱말 live')
+          await sx(dialog().locator('[data-story-word-save]')).toContainText('본문 lived의 사전 원형')
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="saved"]')).toBeVisible()
+          expect(vocabOf(FM.users.A).some((r) => r.word === 'live' && r.meaning === '살다 (서버 합성 사전)')).toBe(true)
+          expect(vocabOf(FM.users.A).some((r) => r.word === 'lived')).toBe(false)
+          await shot(page, `d5-save-lemma-${width}`)
+          await page.keyboard.press('Escape')
+
+          // 3) 이미 있는 낱말 — 기존 뜻 · 출처 · text_id · FSRS 그대로 · 이미 담음
+          await openWord('Old')
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="already"]')).toBeVisible()
+          await sx(status()).toContainText('기존 뜻 · 복습 기록은 그대로')
+          expect(vocabOf(FM.users.A).filter((r) => r.word === 'old')).toEqual([EXISTING])
+          await page.keyboard.press('Escape')
+          // 같은 낱말 다시 저장 → already · 행 1개
+          await openWord('lighthouse')
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="already"]')).toBeVisible()
+          expect(vocabOf(FM.users.A).filter((r) => r.word === 'lighthouse')).toHaveLength(1)
+          await page.keyboard.press('Escape')
+
+          // 4) 사전 불확정 — 없음/이름은 단추 없음 · 브라우저만 아는 낱말은 서버가 거부(not_saveable · 쓰기 0)
+          for (const w of ['windswept', 'Mara']) {
+            await openWord(w)
+            await sx(dialog().locator('[data-story-word-save="unavailable"]')).toBeVisible()
+            await sx(saveBtn()).toHaveCount(0)
+            await page.keyboard.press('Escape')
+          }
+          await openWord('stood')
+          const beforeStood = vocabOf(FM.users.A).length
+          await saveBtn().click()
+          await sx(status()).toContainText('사전에서 확정된 낱말만')
+          await sx(saveBtn()).toHaveText('담을 수 없어요')
+          expect(vocabOf(FM.users.A)).toHaveLength(beforeStood)
+          await page.keyboard.press('Escape')
+
+          // 5) 삽입 실패 → 사용자 문구(원문 없음) · 다시 시도 → 저장 1행
+          editDb(run, (db) => { db.faults.vocab_insert = { kind: 'error', times: 1 } })
+          await openWord('years')
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="error"]')).toBeVisible()
+          await sx(status()).toContainText('잠시 연결이 불안정해요')
+          expect(await dialog().innerText()).not.toMatch(/synthetic|XX000|vocabularies|insert failed/)
+          await sx(saveBtn()).toHaveText('다시 시도')
+          await sx(saveBtn()).toBeFocused()
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="saved"]')).toBeVisible()
+          expect(vocabOf(FM.users.A).filter((r) => r.word === 'year')).toHaveLength(1)
+          await page.keyboard.press('Escape')
+
+          // 6) 조회 실패 ≠ 없음 — 확인 조회가 실패하면 삽입하지 않는다
+          editDb(run, (db) => { db.faults.vocab_select = { kind: 'error', times: 1 } })
+          await openWord('twelve')
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="error"]')).toBeVisible()
+          expect(vocabOf(FM.users.A).filter((r) => r.word === 'twelve')).toHaveLength(0)
+          // 7) 응답 유실(서버는 저장) → 다시 시도는 멱등(already) · 행 1개
+          run.lose.set('saveStoryWordAction', 1)
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="error"]')).toBeVisible()
+          expect(vocabOf(FM.users.A).filter((r) => r.word === 'twelve')).toHaveLength(1)
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="already"]')).toBeVisible()
+          expect(vocabOf(FM.users.A).filter((r) => r.word === 'twelve')).toHaveLength(1)
+          await page.keyboard.press('Escape')
+
+          // 8) 화면 밖 마지막 낱말 → 위로 돌아와 44px 단추로 열기 → 창 + 저장 단추 모두 보임 → 저장 → Esc → 단추 · 스크롤 그대로
+          await page.locator('[data-word-index="0"]').focus()
+          await page.keyboard.press('End')
+          await page.evaluate(() => window.scrollTo(0, 0))
+          const picker = page.locator('[data-story-word-picker]')
+          await picker.focus()
+          const y1 = await page.evaluate(() => window.scrollY)
+          await page.keyboard.press('Enter')
+          await sx(dialog()).toBeFocused()
+          await sx(dialog()).not.toHaveAttribute('aria-busy', 'true')
+          const vp = page.viewportSize()!
+          const rect = await dialog().evaluate((el) => (({ top, bottom, left, right }) => ({ top, bottom, left, right }))(el.getBoundingClientRect()))
+          evidence.picker_dialog = rect
+          expect(rect.top >= 0 && rect.bottom <= vp.height && rect.left >= 0 && rect.right <= vp.width, JSON.stringify(rect)).toBe(true)
+          await page.keyboard.press('Escape')
+          await sx(picker).toBeFocused()
+          expect(await page.evaluate(() => window.scrollY)).toBe(y1)
+
+          // 9) 위조 · 오래된 요청(서버가 직접 판정 — 하네스 POST 로 실제 save-word.ts) · 쓰기 0
+          const before = (readDb(run) as unknown as { vocab: unknown[] }).vocab.length
+          const forged = [
+            [{ releaseKey: b1, unitIndex: 0, wordIndex: 6, surface: 'lighthouse', expectedViewerId: FM.users.A }, 'selection_mismatch'],
+            [{ releaseKey: b1, unitIndex: 0, wordIndex: 9999, surface: 'edge', expectedViewerId: FM.users.A }, 'selection_mismatch'],
+            [{ releaseKey: b1, unitIndex: 99, wordIndex: 0, surface: 'On', expectedViewerId: FM.users.A }, 'unit_not_found'],
+            [{ releaseKey: FM.release_keys.WD, unitIndex: 0, wordIndex: 0, surface: 'On', expectedViewerId: FM.users.A }, 'release_unavailable'],
+            [{ releaseKey: FM.release_keys.RH, unitIndex: 0, wordIndex: 0, surface: 'On', expectedViewerId: FM.users.A }, 'release_unavailable'],
+            [{ releaseKey: b1, unitIndex: 0, wordIndex: 3, surface: 'edge', expectedViewerId: FM.users.B }, 'viewer_changed'],
+            [{ releaseKey: b1, unitIndex: 0, wordIndex: 3, surface: 'edge two', expectedViewerId: FM.users.A, meaning: '조작', userId: FM.users.B }, 'invalid_input'],
+          ] as const
+          for (const [input, code] of forged) {
+            expect(await directSave(input as unknown as Record<string, unknown>), JSON.stringify(input)).toMatchObject({ ok: false, code })
+          }
+          // 조작 필드(뜻 · userId)는 무시하고 서버 사전 값으로 본인에게만
+          const ok = await directSave({ releaseKey: b1, unitIndex: 0, wordIndex: 3, surface: 'edge', expectedViewerId: FM.users.A, meaning: '조작된 뜻', userId: FM.users.B, textId: 'x' })
+          expect(ok).toMatchObject({ ok: true, data: { status: 'saved', headword: 'edge' } })
+          expect(vocabOf(FM.users.B)).toEqual([])
+          expect(vocabOf(FM.users.A).find((r) => r.word === 'edge')).toMatchObject({ meaning: '가장자리 (서버 합성 사전)', text_id: null })
+          expect((readDb(run) as unknown as { vocab: unknown[] }).vocab.length).toBe(before + 1)
+
+          // 10) 늦은 응답 + 계정 전환 — 응답이 오기 전에 B 로 바뀌면 성공을 보이지 않는다(창 · 본문 모두 내려감)
+          editDb(run, (db) => { (db as unknown as { vocab: Array<Record<string, unknown>> }).vocab = (db as unknown as { vocab: Array<Record<string, unknown>> }).vocab.filter((r) => r.word !== 'edge') })
+          await openStories(page, `/library/stories/${b1}?unit=0`)
+          await page.locator('[data-story-word-mode]').click()
+          await openWord('edge')
+          const releaseSave = holdNext(run, 'saveStoryWordAction')
+          await saveBtn().click()
+          await sx(dialog().locator('[data-story-word-save="saving"]')).toBeVisible()
+          await emit('SIGNED_IN', FM.users.B)
+          await sx(page.locator('[data-story-state="auth_changed"]')).toBeVisible()
+          releaseSave()
+          await page.waitForTimeout(800)
+          await sx(dialog()).toHaveCount(0)
+          expect(await page.locator('#root').innerText()).not.toContain('담았어요')
+          // 11) 쿠키 계정이 B 로 바뀐 뒤(화면은 A) 저장 → viewer_changed · B 쓰기 0
+          run.actor = FM.users.A
+          run.browserUser = undefined
+          await openStories(page, `/library/stories/${b1}?unit=0`)
+          await page.locator('[data-story-word-mode]').click()
+          await openWord('twelve')
+          run.actor = FM.users.B
+          await saveBtn().click()
+          await sx(status()).toContainText('로그인 계정이 바뀌어')
+          expect(vocabOf(FM.users.B)).toEqual([])
+          await shot(page, `d5-save-viewer-changed-${width}`)
+
+          expect(writes(run)).toEqual([])
+          fs.mkdirSync(SHOTS, { recursive: true })
+          fs.appendFileSync(path.join(SHOTS, 'd5-fixture-evidence.jsonl'), `${JSON.stringify({ ...evidence, vocab_a: vocabOf(FM.users.A).map((r) => r.word), at: new Date().toISOString() })}\n`)
+          const events = await closedTelemetry(page)
+          expect(events.every((e) => ['story_catalog_viewed', 'story_reader_action'].includes(e.name))).toBe(true)
+        } finally {
+          finishRun(run, log)
+        }
+        assertQuietNetwork(log)
+      })
+
       test('키보드 — 건너뛰기 링크 · 탭 순서 · 보이는 초점 · 이동 뒤 단위 제목 초점 · 상태 알림 뷰포트', async ({ page, context }) => {
         test.setTimeout(180_000)
         const run = newRun(`keyboard-${width}`)

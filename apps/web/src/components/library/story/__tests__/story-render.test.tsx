@@ -17,6 +17,9 @@ import { StoryCatalog } from '../StoryCatalog'
 import { StoryReader } from '../StoryReader'
 import { StorySourcePanel } from '../StorySourcePanel'
 import { StoryUnitText } from '../StoryUnitText'
+import { StoryVaultReturnBar } from '../StoryVaultReturn'
+import { StoryWordSave } from '../StoryWordSave'
+import type { WordLookup } from '@/lib/library/reader-queries'
 import type { StoryAuthSource } from '../use-story-auth-guard'
 import {
   CAUTION_A,
@@ -741,5 +744,73 @@ describe('D4 — 시작 정보 순서 · 단위 머리 · 맥락 진입 · 완�
     const off = renderToString(<StoryUnitText text={UNIT_TEXT} tracing={false} />)
     expect(off).not.toContain('data-story-word-picker')
     expect(off).toContain('data-story-word-mode="off"')
+  })
+})
+
+describe('D5 — 선택 낱말 저장 조작 · 단어장 Story 복귀 줄', () => {
+  const lookup = (over: Partial<WordLookup> = {}): WordLookup => ({
+    found: true, surface: 'looked', resolvedWord: 'look', meaningKo: '보다', pos: 'verb', cefrLevel: 'A1', vLevel: 1, exampleEn: 'Look at this.',
+    matchVia: 'inflection', wordRegister: null, collocations: null, exampleKo: null, derived: null, synonyms: null, antonyms: null, lang: 'en', ...over,
+  })
+  const noop = async () => ({ stale: true as const })
+  const save = (l: WordLookup | null, surface = 'looked') =>
+    renderToString(<StoryWordSave lookup={l} surface={surface} wordIndex={7} onSave={noop} vaultHref={`/wordvault/browse?story_release=${KEY_A}&story_unit=1`} />)
+
+  it('확정 영어 표제어: 담을 표제어와 본문 낱말을 구분해 보이고 단추 하나 · 담기 전에는 단어장 링크 없음 · 상태 자리는 aria-live', () => {
+    const html = save(lookup())
+    expect(html).toContain('data-story-word-save="idle"')
+    expect(html).toMatch(/담을 낱말 <strong lang="en">look<\/strong>/)
+    expect(html).toContain('본문 <span lang="en">looked</span>의 사전 원형')
+    expect(html).toMatch(/<button[^>]*data-story-word-save-button[^>]*>내 단어장에 담기<\/button>/)
+    expect(html).toMatch(/role="status" aria-live="polite"[^>]*data-story-word-save-status/)
+    expect(html).not.toContain('data-story-word-save-vault')
+    // 같은 낱말이면 원형 안내 없음
+    expect(save(lookup({ resolvedWord: 'looked' }))).not.toContain('사전 원형')
+  })
+
+  it('없음 · 유사어 추정 · 이름 · 외국어 · 뜻 없음 · 조회 결과 없음 → 단추 없이 「확정된 낱말만」 한 줄', () => {
+    for (const l of [
+      lookup({ found: false, resolvedWord: null, meaningKo: null, matchVia: 'not_found' }),
+      lookup({ matchVia: 'suggestion' }),
+      lookup({ found: false, matchVia: 'proper_noun', resolvedWord: null }),
+      lookup({ lang: 'fr' }),
+      lookup({ meaningKo: '' }),
+      null,
+    ]) {
+      const html = save(l)
+      expect(html, JSON.stringify(l)).toContain('data-story-word-save="unavailable"')
+      expect(html).not.toContain('data-story-word-save-button')
+      expect(html).toContain('사전에서 확정된 낱말만')
+    }
+  })
+
+  it('복귀 줄: ok = 제목 · n번째 단위(0-based+1) · 단위 첫머리 안내 · 같은 발행본 단위로 · 다른 상태는 각각 안전한 한 줄', () => {
+    const ok = renderToString(<StoryVaultReturnBar state={{ status: 'ok', releaseKey: KEY_A, unitIndex: 2, title: 'The Gull', unitCount: 3 }} />)
+    expect(ok).toContain('data-story-vault-return="ok"')
+    expect(ok).toContain('3<!-- -->번째 단위')
+    expect(ok).toContain('단위 첫머리로 돌아가요')
+    expect(ok).toContain(`href="/library/stories/${KEY_A}?unit=2"`)
+    expect(ok).not.toMatch(/이 이야기 단어|Story 단어 목록/)
+    const bad = renderToString(<StoryVaultReturnBar state={{ status: 'bad_unit', releaseKey: KEY_A, title: 'The Gull', unitCount: 3 }} />)
+    expect(bad).toContain(`href="/library/stories/${KEY_A}"`)
+    expect(bad).toContain('그 단위를 찾을 수 없어요')
+    const gone = renderToString(<StoryVaultReturnBar state={{ status: 'unavailable' }} />)
+    expect(gone).toContain('href="/library/stories"')
+    expect(gone).not.toContain(KEY_A)
+    const err = renderToString(<StoryVaultReturnBar state={{ status: 'error', releaseKey: KEY_A, unitIndex: 1 }} />)
+    expect(err).toContain('확인하지 못했어요')
+    expect(err).toContain(`href="/library/stories/${KEY_A}?unit=1"`)
+    const mix = renderToString(<StoryVaultReturnBar state={{ status: 'conflict' }} />)
+    expect(mix).toContain('data-story-vault-return="conflict"')
+    expect(mix).not.toContain('href=')
+  })
+
+  it('단위 화면: 저장 액션이 있어도 렌더 자체는 아무것도 기록하지 않는다 · 액션이 없으면 저장 조작을 넘기지 않는다', () => {
+    const saveWord = vi.fn()
+    const html = renderToString(
+      <StoryReader state={readyState()} releaseKey={KEY_A} actions={{ recordPosition: vi.fn(), completeUnit: vi.fn(), saveWord }} authGuard={knownAuth(VIEWER)} />,
+    )
+    expect(html).toContain('data-story-body')
+    expect(saveWord).not.toHaveBeenCalled()
   })
 })

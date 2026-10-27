@@ -383,7 +383,7 @@ import { MATERIAL_TONE } from '@/lib/design/tone'
 import { MATERIAL_LABEL } from '@/lib/learner/plan-activities'
 import { StoryCatalog } from '@/components/library/story/StoryCatalog'
 import { StoryReader } from '@/components/library/story/StoryReader'
-import { recordStoryPositionAction, completeStoryUnitAction } from '@/app/(main)/library/stories/actions'
+import { recordStoryPositionAction, completeStoryUnitAction, saveStoryWordAction } from '@/app/(main)/library/stories/actions'
 ${LIBRARY_LAYOUT}
 ${BOOKS_PAGE_SRC}
 // 서버 판정(loader 결과) — 스펙이 HTML 에 window.__VF_PAGE__ 로 넣는다(= RSC 가 직렬화해 보내는 props). 이동 · refresh 때는
@@ -399,7 +399,7 @@ function CatalogPage({ page }) {
 // app/(main)/library/stories/[releaseKey]/page.tsx
 function ReaderPage({ page }) {
   return h(Screen, { width: 'wide', background: 'bg2', padX: 'md' },
-    h(StoryReader, { key: page.releaseKey, state: page.state, releaseKey: page.releaseKey, actions: { recordPosition: recordStoryPositionAction, completeUnit: completeStoryUnitAction } }))
+    h(StoryReader, { key: page.releaseKey, state: page.state, releaseKey: page.releaseKey, actions: { recordPosition: recordStoryPositionAction, completeUnit: completeStoryUnitAction, saveWord: saveStoryWordAction } }))
 }
 function App() {
   const [page, setPage] = useState(window.__VF_PAGE__)
