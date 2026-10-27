@@ -8,6 +8,7 @@
   "types": "./src/index.ts",
   "exports": {
     "./order-lineage": "./src/textbook/order-lineage.ts",
+    "./insert-coordinates": "./src/textbook/insert-coordinates.ts",
     "./factory-order": "./src/textbook/factory-order.ts",
     "./product-planning": "./src/textbook/product-planning.ts",
     "./factory-order-stage": "./src/textbook/factory-order-stage.ts",

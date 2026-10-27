@@ -29,26 +29,7 @@
 
 import { type CsatInsertItem, type CsatOrderItem, hasCitationResidue } from './csat-format'
 import { EXPLANATION_CHARS, type ItemExplanation } from './explain-items'
-
-const CIRCLED = ['①', '②', '③', '④', '⑤'] as const
-
-/** 문장 끝 조각 — 이음매의 왼쪽. 너무 길면 뒤에서 자른다. */
-function tail(sentence: string, limit = 60): string {
-  const s = sentence.replace(/\s+/g, ' ').trim()
-  if (s.length <= limit) return s
-  const cut = s.slice(s.length - limit)
-  const sp = cut.indexOf(' ')
-  return `…${sp > 0 ? cut.slice(sp + 1) : cut}`
-}
-
-/** 문장 앞 조각 — 이음매의 오른쪽. */
-function head(sentence: string, limit = 60): string {
-  const s = sentence.replace(/\s+/g, ' ').trim()
-  if (s.length <= limit) return s
-  const cut = s.slice(0, limit)
-  const sp = cut.lastIndexOf(' ')
-  return `${sp > 0 ? cut.slice(0, sp) : cut}…`
-}
+import { CIRCLED, head, tail } from './seam-fragments'
 
 /**
  * 길이 예산 안에서 조립한다 — **꼭 들어갈 것 먼저.**
