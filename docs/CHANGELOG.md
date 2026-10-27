@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(r0): 읽던 글의 「단어」 가 전체 단어장으로 새던 결함 — Reader 가 `filter=<textId>`(접두어 없음)를 만들고 WordVault 는 그 값을 몰라 전체 목록을 보였다. `lib/wordvault/source-filter.ts` 로 만드는 쪽(`readerWordsHref` → `text:<id>`)과 읽는 쪽(`normalizeSourceFilter`·`applySourceFilter`)을 묶고, 예전 링크(접두어 없는 uuid)도 그 글 범위로 읽는다. DB 무변경.
 - fix(lcp): StoryWeaver 도서 적재가 NC·ND·모르는 라이선스를 성공으로 넘기지 않는다 — `licenseClassOf` 가 public_domain·cc0·cc_by·cc_by_sa 일 때만 적재(DB `lb_compute_kr_safe` 가 `CC%` 를 모두 안전으로 계산하는 문제의 앱 쪽 차단 · 트리거·기존 행 무변경).
 - fix(r0): 퀴즈 결과 화면이 관측한 결과만 말한다 — 「깊이 이해」「인지적 분투는 기억을 단단하게」 제거, 오답 0개에도 뜨던 「오답 단어 학습으로」 → 「전체 단어장으로」, 본인 글·같은 장이 확인된 경우만 「읽던 글로」(도서만이면 「이 도서 입구로」). DB·점수 무변경.
 - fix(r0): 퀴즈 근거 문장 후보에서 장 표식(`CHAPTER n. 제목<RS>원문 URL`) 단락 제외 — 리더와 같은 `parseChapterMarker` 재사용(RS 필수). Fables 실데이터 3장·15문항: 후보 속 메타데이터 0, 피커 12 유지. 본문·DB 무변경.
