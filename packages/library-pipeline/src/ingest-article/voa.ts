@@ -23,6 +23,7 @@ import { applyArticleCurationSpec, type ArticleScore } from './_curation-spec'
 import { safeDate, safeDateISO } from './_helpers'
 import { sourceKey } from './source-key'
 import { stripVoaBoilerplate } from './voa-boilerplate'
+import { voaCreditLicense } from './voa-credit'
 
 // VOA WAF 는 비브라우저 UA (curl/bot) 를 403 차단 → 일반 브라우저 UA 로 fetch.
 const USER_AGENT =
@@ -606,6 +607,8 @@ export function parseVoaArticle(
 
   // 짧아도 버리지 않는다 — 기사를 다 만든 뒤 `ShortBodyError` 로 들고 나간다(short-body.ts).
   const shortBody = content.length < 200
+  // 제3자 기반 각색 크레딧(본문 끝의 작성 크레딧 문장)이 있으면 원문 단위 권리 표기 — 없으면 null(컬렉션 기본값)
+  const thirdPartyLicense = voaCreditLicense(content)
 
   // source_id — **목록기와 같은 함수**. 여기서 유도 못 하면 던진다(해시 대체 없음):
   //   해시는 오류 없이 통과한 뒤 중복 검사를 영구 무력화한다. 못 넣는 편이 싸다.
@@ -630,9 +633,16 @@ export function parseVoaArticle(
     //     `VOA Learning English` 상수 폴백은 값이 아예 없을 때만이다.
     author: voaAuthorName(ld) ?? 'VOA Learning English',
     language: 'en',
-    license: 'PD-Government',
-    // 소스 단위 표기다 — 글 페이지에서 읽은 값이 아니다(권리 표지 evidence, DD-75).
-    license_evidence: 'collection-default',
+    // 본문 크레딧이 제3자(AP · Reuters · AFP …) 기반 각색이라고 적으면 PD 기본값을 붙이지 않는다 —
+    //   공식 정책상 VOA 단독 제작물만 PD(voa-credit.ts). 이때는 글 페이지에서 읽은 원문 단위 표기(evidence 'page')이고
+    //   분류기는 'unknown' 으로 읽어 해소가 필요하다고 남긴다. 원문은 그대로 보존한다(DD-75 — 표지일 뿐 버리지 않는다).
+    ...(thirdPartyLicense
+      ? { license: thirdPartyLicense, license_evidence: 'page' as const }
+      : {
+          license: 'PD-Government',
+          // 소스 단위 표기다 — 글 페이지에서 읽은 값이 아니다(권리 표지 evidence, DD-75).
+          license_evidence: 'collection-default' as const,
+        }),
     published_at: safeDate(publishedAt),
     content,
     estimated_cefr: hintLevel ? VOA_LEVEL_TO_CEFR[hintLevel] : null,
