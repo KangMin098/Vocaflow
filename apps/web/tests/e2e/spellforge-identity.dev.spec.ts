@@ -7,10 +7,10 @@ import { expect, test, type Page } from '@playwright/test'
 const A = 'harness-sf-a'
 const WIDTHS = [1280, 1440]
 
-async function open(page: Page, qs = '') {
+async function open(page: Page, qs = '', mode: 'delayed' | 'blind' = 'delayed') {
   const writes: string[] = []
-  await page.addInitScript(() => {
-    localStorage.setItem('spellforge:mode', 'delayed')
+  await page.addInitScript((m) => {
+    localStorage.setItem('spellforge:mode', m)
     window.confirm = () => true
     const st = { speak: 0, cancel: 0, active: false }
     ;(window as unknown as { __speech: typeof st }).__speech = st
@@ -30,7 +30,7 @@ async function open(page: Page, qs = '') {
       removeEventListener: () => {},
     }
     Object.defineProperty(window, 'speechSynthesis', { value: fake, configurable: true })
-  })
+  }, mode)
   await page.route('**/*', (route) => {
     const r = route.request()
     if (r.method() !== 'GET' || /supabase|analytics|funnel|\/api\//.test(r.url())) {
@@ -182,4 +182,52 @@ test.describe('대기열 주인 해석이 늦을 때 — Codex 반례', () => {
     const raw = await page.evaluate(() => JSON.parse(localStorage.getItem('srs_pending') ?? '[]') as { word: string; owner?: string }[])
     expect(raw.filter((r) => r.word === w).map((r) => r.owner ?? null)).toEqual([A])
   })
+})
+
+test.describe('오답 뒤 학습자 주도 재시도 — 3초 자동 삭제 제거', () => {
+  for (const width of WIDTHS) {
+    for (const mode of ['delayed', 'blind'] as const) {
+      test(`${width}px ${mode}: 고친 입력 유지 · 「다시 입력하기」 44px · 키보드 · 입력 복귀 · 대기열 0→1`, async ({ page }) => {
+        await page.setViewportSize({ width, height: 900 })
+        const writes = await open(page, '', mode)
+        await expect(input(page)).toBeVisible()
+        await input(page).fill('zzzz')
+        await page.keyboard.press('Enter')
+        const retry = page.getByRole('button', { name: '다시 입력하기' })
+        await expect(retry).toBeVisible()
+        // 3초 직전에 고쳐 쓰기 시작 → 3초를 넘겨도 지워지지 않는다
+        await page.waitForTimeout(2700)
+        await input(page).fill('river')
+        await page.waitForTimeout(2600)
+        await expect(input(page)).toHaveValue('river')
+        await expect(retry).toBeVisible()
+        // 단추: 44px · 키보드 포커스 표시 · Enter 는 단추만(같은 오답 재확인 없음) · 입력 칸으로 복귀
+        const box = await retry.boundingBox()
+        expect(box!.height).toBeGreaterThanOrEqual(44)
+        // 실제 키보드 길: 입력 칸에서 Tab 으로 단추까지(오답 중 Tab 은 힌트로 삼키지 않는다)
+        await input(page).focus()
+        for (let i = 0; i < 4 && !(await retry.evaluate((el) => el === document.activeElement)); i++) await page.keyboard.press('Tab')
+        await expect(retry).toBeFocused()
+        expect(await retry.evaluate((el) => el.matches(':focus-visible'))).toBe(true)
+        const outline = await retry.evaluate((el) => getComputedStyle(el).outlineStyle)
+        expect(outline).not.toBe('none')
+        await page.keyboard.press('Enter')
+        await expect(retry).toHaveCount(0)
+        await expect(input(page)).toHaveValue('')
+        await expect(input(page)).toBeFocused()
+        await expect(queue(page)).toHaveText('')
+        // 반복 오답 → Space 재시도도 대기열 0
+        await input(page).fill('qqqq')
+        await page.keyboard.press('Enter')
+        await retry.focus()
+        await page.keyboard.press('Space')
+        await expect(input(page)).toBeFocused()
+        await expect(queue(page)).toHaveText('')
+        // 정답 1회 → 1건
+        const w = await answer(page)
+        await expect(queue(page)).toHaveText(`${A}:${w}`)
+        expect(writes.filter((x) => !/^POST \/(dev\/spellforge-identity|api\/srs\/flush)$/.test(x))).toEqual([])
+      })
+    }
+  }
 })
