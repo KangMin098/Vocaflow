@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(security): WordVault 학습 · 복습 계정 경계 — `/wordvault/study` · `/wordvault/review` 를 서버가 단어를 읽은 사용자에 결속(`WordVaultViewerGate`). `StudyMode` 는 평가 · 키보드 · 발음을 실행 시점에 같은 사람이고 대기열 주인이 다른 사람이 아닐 때만 하고(화면이 내린 뒤 남은 옛 콜백도 막음), 확인 중 · 바뀜 · 언마운트 때 이미 시작한 발화를 멈춘다. 기존 대기열 항목은 건드리지 않는다. 개발 하네스 `/dev/study-identity`. DB 무변경.
 - fix(security): PairFlip 판 계정 경계 — 짝 단어를 읽은 사용자(`viewerId`)에 판을 결속(`useStoryAuthGuard`). same 이 아니면 카드 대신 `GameIdentityNotice`, 카드 클릭 · 힌트는 실행 시점에 경계를 읽어 막고, 타이머는 멈춘다(`usePairFlipSession` `paused`). 완료 · 중도 점수는 `expectedUserId` 를 싣고, 대기열 주인이 판 주인과 다르면 평가를 넣지 않는다. 확인 중에 끝난 판은 같은 사람으로 재확인되면 처리 · 바뀌면 버린다. 개발 하네스 `/dev/pairflip-identity`. DB 무변경.
 - fix(security): 게임 판 계정 경계 — 저장 함수가 저장 **시점**의 사용자로 써서, 다른 탭 로그인 뒤 언마운트 flush · 옛 입력이 A 의 판을 B 의 scores · 카드로 적재할 수 있던 경로. 판의 주인을 단어를 읽은 사람(`useGameWordScope` `viewerId`)으로 고정하고 `useStoryAuthGuard` 로 바뀜을 보면 판을 무효(되살리지 않음)로, 화면은 `GameIdentityNotice` 로 게임을 내린다(play-scaffold · WordBlitz). `recordGameScore` · `recordGameResult` 는 `expectedUserId` 가 지금 사용자와 다르면 쓰지 않는다(권한 증명 아님 · 서버 getUser 유지). 개발 하네스 `/dev/game-identity`. DB 무변경.
 - fix(acp): VOA 적재기가 통신사(AP · Reuters · AFP) 기반 각색 글까지 `PD-Government` 로 표시하던 결함 — 본문 끝 작성 크레딧 문장(통신사와 「이 글」 대상이 같은 문장)을 읽어 원문 단위 표기(evidence `page` · rightsTag `unknown` · 트리거 `restricted`)로 남긴다(`voa-credit.ts`). 원문 보존 · 기존 행 백필 없음(전량 실측 3,547/10,663행 해당 · published 10). DB 무변경.
