@@ -74,6 +74,12 @@ interface ExtractionPanelProps {
   text: string
   /** 저장 시 vocabularies.text_id 로 연결 — 워크스페이스 스크립트에서 추출 시 provenance */
   textId?: string
+  /**
+   * 이 글을 읽은 주인(`textId` 를 주면 함께 준다). 주면 저장 **시점**의 사용자와 다를 때 담지 않는다 —
+   * 다른 탭에서 계정이 바뀐 뒤 옛 화면의 「담기」가 A 의 글 단어를 B 의 단어장에(A 의 text_id 와 함께) 넣던 경로를 막는다
+   * (vocabularies RLS 는 user_id 만 본다). 권한 증명이 아니다 — 쓰는 주인은 getUser · RLS.
+   */
+  ownerId?: string | null
   /** 기본 레벨 기준 — 미진단 사용자 많은 워크스페이스에선 'text' 권장 (기본 'user') */
   defaultStrategy?: LevelStrategy
   onSaved?: (count: number) => void
@@ -159,7 +165,7 @@ function buildReasons(r: ExtractedWord): Reason[] {
   return reasons
 }
 
-export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSaved, assignmentTitle = '' }: ExtractionPanelProps) {
+export function ExtractionPanel({ text, textId, ownerId, defaultStrategy = 'user', onSaved, assignmentTitle = '' }: ExtractionPanelProps) {
   const [strategy, setStrategy] = useState<LevelStrategy>(defaultStrategy)
   const [displayPct, setDisplayPct] = useState<DisplayPct>(25)
   const [loading, setLoading] = useState(false)
@@ -444,6 +450,11 @@ export function ExtractionPanel({ text, textId, defaultStrategy = 'user', onSave
     const { data: userData } = await supabase.auth.getUser()
     if (!userData.user?.id) {
       setError('로그인이 필요해요')
+      setSaving(false)
+      return
+    }
+    if (ownerId !== undefined && userData.user.id !== ownerId) {
+      setError('로그인 상태가 바뀌었어요 — 이 글을 지금 계정으로 다시 열어 주세요')
       setSaving(false)
       return
     }

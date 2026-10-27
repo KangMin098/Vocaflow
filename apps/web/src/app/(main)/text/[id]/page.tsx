@@ -533,7 +533,7 @@ export default function WorkspacePage({ params }: PageProps) {
           <p className="mt-1.5 font-body text-[13px] leading-relaxed text-[var(--t2)]">
             이 스크립트의 단어를 AI로 추출해 내 단어장에 담아보세요.
           </p>
-          <ExtractionPanel text={scriptContent} textId={text.id} defaultStrategy="text" />
+          <ExtractionPanel text={scriptContent} textId={text.id} ownerId={ctx.ownerId ?? null} defaultStrategy="text" />
         </div>
       </div>
     )
