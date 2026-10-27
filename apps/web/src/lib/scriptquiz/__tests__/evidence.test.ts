@@ -1,6 +1,6 @@
 // apps/web/src/lib/scriptquiz/__tests__/evidence.test.ts
 import { describe, expect, it } from 'vitest'
-import { buildEvidenceChoice, locateEvidence, normalizeForMatch, splitSentences } from '../evidence'
+import { buildEvidenceChoice, locateEvidence, locateSingleEvidence, normalizeForMatch, splitSentences } from '../evidence'
 
 const PASSAGE = [
   'Mina walked to the library after school every Tuesday.',
@@ -33,6 +33,36 @@ describe('locateEvidence', () => {
   })
   it('너무 짧은 조각은 쓰지 않는다', () => {
     expect(locateEvidence(sentences, 'the ... she')).toEqual([])
+  })
+})
+
+describe('locateSingleEvidence — 근거 전체가 한 문장에 유일하게 대응할 때만', () => {
+  const body = splitSentences(
+    'She liked the quiet room because nobody talked there. He left. The bus came late that rainy morning. Her friend waited near the gate for an hour. They both laughed at the old joke again.',
+  )
+  it('한 문장 안의 조각들이면 그 문장', () => {
+    expect(locateSingleEvidence(body, 'she liked the quiet room ... nobody talked there')).toBe(0)
+  })
+  it('snippet 이 두 문장 전체에 걸치면 null (Codex 반례 1)', () => {
+    expect(locateSingleEvidence(body, 'She liked the quiet room because nobody talked there. He left.')).toBeNull()
+  })
+  it('짧은 조각이 섞이면 null (Codex 반례 2)', () => {
+    expect(locateSingleEvidence(body, 'nobody talked there...He left.')).toBeNull()
+  })
+  it('조각 하나라도 본문에 없으면 null (Codex 반례 3)', () => {
+    expect(locateSingleEvidence(body, 'nobody talked there...the museum opened late on Sundays')).toBeNull()
+  })
+  it('한 조각이 여러 문장에 맞으면 null', () => {
+    const rep = splitSentences('The quiet room was open today. The quiet room was open today again.')
+    expect(locateSingleEvidence(rep, 'the quiet room was open today')).toBeNull()
+  })
+  it('그 세 반례에서 피커도 생기지 않는다', () => {
+    const passage = body.join(' ')
+    for (const s of [
+      'She liked the quiet room because nobody talked there. He left.',
+      'nobody talked there...He left.',
+      'nobody talked there...the museum opened late on Sundays',
+    ]) expect(buildEvidenceChoice(passage, s, 'q')).toBeNull()
   })
 })
 

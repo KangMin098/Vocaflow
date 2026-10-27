@@ -58,6 +58,32 @@ export function locateEvidence(sentences: string[], snippet: string): number[] {
   return Array.from(hits).sort((a, b) => a - b)
 }
 
+/**
+ * 근거 snippet **전체**가 본문의 **한 문장**에만 대응하면 그 인덱스, 아니면 null.
+ * 생략부호로 나뉜 조각이 하나라도 너무 짧거나(모호) 본문에 없거나, 조각들이 서로 다른 문장에 있거나,
+ * 한 조각이 여러 문장에 맞으면 null — 「어느 한 문장」을 물을 수 없다.
+ * 문장 하나가 snippet 의 일부일 뿐인 경우(snippet 이 그 문장보다 길다)도 맞다고 보지 않는다.
+ */
+export function locateSingleEvidence(sentences: string[], snippet: string): number | null {
+  const fragments = snippet
+    .split(/\.{3}|…/)
+    .map(normalizeForMatch)
+    .filter((f) => f.length > 0)
+  if (fragments.length === 0 || fragments.some((f) => f.length < MIN_FRAGMENT)) return null
+  const normSentences = sentences.map(normalizeForMatch)
+  let found: number | null = null
+  for (const frag of fragments) {
+    const matches: number[] = []
+    normSentences.forEach((s, i) => {
+      if (s.includes(frag)) matches.push(i)
+    })
+    if (matches.length !== 1) return null
+    if (found !== null && found !== matches[0]) return null
+    found = matches[0]
+  }
+  return found
+}
+
 function hash(s: string): number {
   let h = 2166136261
   for (let i = 0; i < s.length; i++) {
@@ -83,13 +109,13 @@ export function buildEvidenceChoice(
 ): EvidenceChoice | null {
   if (!passage.trim() || !snippet.trim()) return null
   const sentences = splitSentences(passage)
-  const hits = locateEvidence(sentences, snippet)
-  if (hits.length !== 1) return null
-  const evidence = sentences[hits[0]]
-  const hitSet = new Set(hits)
+  const at = locateSingleEvidence(sentences, snippet)
+  if (at === null) return null
+  const evidence = sentences[at]
+  // 근거와 겹치는 문장(snippet 조각을 품은 문장)은 방해 문장으로 쓰지 않는다
+  const hitSet = new Set(locateEvidence(sentences, snippet))
+  hitSet.add(at)
   const evidenceNorm = normalizeForMatch(evidence)
-  // 같은 문장이 본문에 두 번 있으면 위치가 하나로 정해지지 않는다
-  if (sentences.filter((s) => normalizeForMatch(s) === evidenceNorm).length > 1) return null
   const seen = new Set<string>([evidenceNorm])
   const pool: string[] = []
   sentences.forEach((s, i) => {

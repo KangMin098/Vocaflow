@@ -64,6 +64,8 @@ for (const width of [1280, 1440]) {
       expect((await skip.boundingBox())!.height).toBeGreaterThanOrEqual(MIN)
       await skip.click()
       await expect(page.getByTestId('evidence-picker').getByRole('status')).toContainText('표시된 문장이 등록된 근거예요')
+      // 건너뛰기 버튼이 사라져도 포커스는 등록 근거 문장으로 — body 로 떨어지지 않는다
+      await expect(page.getByTestId('evidence-picker').locator('[data-evidence-option]:focus')).toContainText('등록된 근거')
       for (const n of ['03', '04', '05']) {
         await page.keyboard.press('Enter')
         await expect(page.getByText(`${n} / 05`)).toBeVisible()

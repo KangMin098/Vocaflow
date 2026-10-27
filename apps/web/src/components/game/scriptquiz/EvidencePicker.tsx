@@ -5,6 +5,7 @@
 
 'use client'
 
+import { useEffect, useRef } from 'react'
 import { Check } from 'lucide-react'
 import type { EvidenceChoice } from '@/lib/scriptquiz/evidence'
 
@@ -21,6 +22,11 @@ export function EvidencePicker({
 }) {
   const decided = pick !== null
   const hit = typeof pick === 'number' && pick === choice.evidenceIndex
+  // 건너뛰기 버튼은 누르면 사라진다 — 포커스를 등록 근거 문장으로 옮겨 body 로 떨어지지 않게
+  const evidenceRef = useRef<HTMLButtonElement>(null)
+  useEffect(() => {
+    if (pick === 'skip') evidenceRef.current?.focus()
+  }, [pick])
 
   return (
     <section aria-labelledby="evidence-q" className="flex flex-col gap-2" data-testid="evidence-picker">
@@ -38,6 +44,7 @@ export function EvidencePicker({
             <li key={i}>
               <button
                 type="button"
+                ref={i === choice.evidenceIndex ? evidenceRef : undefined}
                 data-evidence-option={i}
                 aria-disabled={decided || undefined}
                 onClick={() => {
