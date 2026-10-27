@@ -8,6 +8,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
 import { FlashcardSession } from '@/components/flashcard/FlashcardSession'
+import { FlashcardViewerGate } from '@/components/flashcard/FlashcardViewerGate'
 import { contentRefFromScope } from '@/lib/content/content-ref'
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { fetchDueFlashcardWords } from '@/lib/flashcard/hub-words'
@@ -37,6 +38,15 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
   const applyLimit = <T,>(words: T[]): T[] => (limit == null ? words : words.slice(0, limit))
   // 닫기 복귀: ?from 우선 → 스코프 텍스트 → hub (스코프 단어 id 오용 방지)
   const backHref = resolveSessionReturnHref(searchParams?.from, text, '/flashcard')
+  // 같은 범위로 다시 여는 주소 — 원 쿼리를 통째로 반사하지 않고 범위 값과 검증한 from 만 싣는다(조회 불가 · 계정 바뀜 공용)
+  const reopenQs = new URLSearchParams()
+  for (const k of ['set', 'text', 'chapter', 'limit'] as const) {
+    const v = searchParams?.[k]
+    if (v) reopenQs.set(k, v)
+  }
+  const safeFrom = sanitizeInternalPath(searchParams?.from)
+  if (safeFrom) reopenQs.set('from', safeFrom)
+  const reopenHref = reopenQs.size ? `/flashcard/play?${reopenQs.toString()}` : '/flashcard/play'
 
   // 스코프 진입 (워크스페이스 "카드" pill) — 자료의 실제 단어 fetch
   if (set || text) {
@@ -53,8 +63,9 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
 
     if (scoped && scoped.words.length > 0) {
       const words = applyLimit(scoped.words)
+      // 카드·평가는 서버가 확인한 사람(로그인 전이면 null)의 것 — 브라우저 신원이 같을 때만 그린다(FlashcardViewerGate)
       return (
-        <>
+        <FlashcardViewerGate viewerId={user?.id ?? null} reopenHref={reopenHref}>
           <ResourceContext
             resource={{
               type: set ? 'vocab' : 'script',
@@ -65,25 +76,21 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
             total={words.length}
           />
           <FlashcardSession initialWords={words} backHref={backHref} content={contentRefFromScope({ set, text, chapter })} />
-        </>
+        </FlashcardViewerGate>
       )
     }
 
     // null = 자료를 불러오지 못함(안 보이거나 조회 실패 — 원인은 단정하지 않는다). 성공한 0개(확인된 빈 목록)와 구분해
     // 「비어 있다」고 말하지 않고, 같은 범위를 다시 여는 길을 준다(다른 단어·SRS 큐로 바꾸지 않는다).
-    if (!scoped) {
-      const retry = new URLSearchParams()
-      for (const k of ['set', 'text', 'chapter', 'limit'] as const) {
-        const v = searchParams?.[k]
-        if (v) retry.set(k, v)
-      }
-      const safeFrom = sanitizeInternalPath(searchParams?.from)
-      if (safeFrom) retry.set('from', safeFrom)
-      return <ScopedUnavailable retryHref={`/flashcard/play?${retry.toString()}`} backHref={backHref} />
-    }
+    if (!scoped) return <ScopedUnavailable retryHref={reopenHref} backHref={backHref} />
 
     // 스코프는 유효하나 단어 0개 — mock 대신 빈 상태 안내
-    return <ScopedEmpty title={scoped.title} backHref={backHref} />
+    // 빈 상태도 본인 글 제목을 보일 수 있다(fetchByText) — 같은 계정 경계 안에 둔다. 조회 불가 안내는 개인 내용이 없어 경계 밖.
+    return (
+      <FlashcardViewerGate viewerId={user?.id ?? null} reopenHref={reopenHref}>
+        <ScopedEmpty title={scoped.title} backHref={backHref} />
+      </FlashcardViewerGate>
+    )
   }
 
   // 일반 진입 (hub) — 사용자 SRS 큐의 due 단어 (실데이터)
@@ -99,7 +106,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
   const words = applyLimit(all)
 
   return (
-    <>
+    <FlashcardViewerGate viewerId={user.id} reopenHref={reopenHref}>
       <ResourceContext
         resource={{
           type: 'vocab',
@@ -112,7 +119,7 @@ export default async function FlashcardPlayPage({ searchParams }: PageProps) {
         total={words.length}
       />
       <FlashcardSession initialWords={words} backHref={backHref} content={contentRefFromScope({ set, text, chapter })} />
-    </>
+    </FlashcardViewerGate>
   )
 }
 

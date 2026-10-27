@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(security): 카드 세션 계정 경계 — 다른 탭 로그인 · 로그아웃 뒤에도 옛 카드가 살아 있어 새 평가가 그 사이 바뀐 전역 대기열 주인(`queueOwner`)으로 들어갈 수 있던 경로. `FlashcardViewerGate`(T-0191 과 같은 `useStoryAuthGuard`)가 서버 사용자와 브라우저 신원이 같을 때만 카드 · 본인 글 제목 빈 상태를 그리고, 바뀌면 세션을 내린다(음성 cancel · 키보드 평가 없음 · 되살리지 않음 · 기존 대기 평가 보존). 개발 하네스 `/dev/flashcard-identity`(합성 · 반례 gate=0). DB 무변경.
 - fix(r0): 카드 자료를 불러오지 못한 경우(`fetchScopedFlashcardWords` null — 안 보이거나 조회 실패)를 「단어장이 비어 있어요」로 보이던 결함 — 원인을 단정하지 않는 중립 안내 + 같은 범위 「다시 열기」(검증한 from 만 싣는다) + 읽던 곳. 확인된 0개는 기존 빈 상태 그대로. 다른 단어·SRS 큐로 바꾸지 않는다. DB 무변경.
 - fix(security): 세션 복귀 `?from` open redirect — `sanitizeInternalPath` 가 `/\evil.example`(브라우저가 외부 출처로 읽음)·제어문자·공백·`://` 를 거부하고 URL 해석 출처를 확인한다. SessionFrame 닫기·Esc 도 같은 함수를 쓴다(따로 쓰던 `//` 검사 제거). 카드 빈 상태는 from 이 카드 자신이면 복귀 단추를 보이지 않는다.
 - fix(r0): 읽던 글에서 연 카드의 단어장이 비어 있을 때 빈 상태가 단어장으로만 내보내던 결함 — `/flashcard/play` 빈 상태가 검증된 복귀 주소(`?from` 내부 경로 · `?text`)가 있으면 「읽던 곳으로 돌아가기」를 주 행동으로 보인다(외부·`//` 주소는 버림). Reader 카드 링크의 `from`(ModePills)과 SessionFrame 닫기는 기존 계약 그대로. 빈 상태 글에 `break-keep`. DB 무변경.
