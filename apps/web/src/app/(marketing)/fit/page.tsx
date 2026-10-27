@@ -26,7 +26,7 @@ import { SHARE_PARAM, SHARE_PATH, decodeProfile } from '@/lib/textfit/share'
 
 const BASE_TITLE = '지문 난이도 진단 · Vocaflow'
 const BASE_DESC =
-  '영어 지문을 붙여넣으면 중1부터 학술 원서까지 학년별로 몇 %가 읽히는지 바로 보여드립니다. 로그인 없이, 저장하지 않고.'
+  '영어 지문을 붙여넣으면 중1부터 학술 원서까지 학년별 어휘 커버리지 추정을 바로 보여드립니다. 로그인 없이, 저장하지 않고.'
 
 type SearchParams = { [key: string]: string | string[] | undefined }
 
@@ -72,18 +72,18 @@ export const metadata: Metadata = {
 const FIT_STEPS = [
   { spot: 'spot-empty-page', label: '지문 붙여넣기', body: '교과서든 프린트든 영어 글이면 됩니다' },
   { spot: 'spot-teacher', label: '학년 고르기', body: '우리 반 학년으로 슬라이더를 옮깁니다' },
-  { spot: 'spot-dashboard', label: '한 장 받기', body: '읽히는 비율과 짚을 낱말이 나옵니다' },
+  { spot: 'spot-dashboard', label: '한 장 받기', body: '어휘 커버리지와 짚을 낱말이 나옵니다' },
 ] as const
 
 /** 이 화면이 답하는 질문들 — 교사가 실제로 쓰는 말로 적는다. */
 const QUESTIONS = [
   {
     q: '이 지문, 우리 반에 맞나요?',
-    a: '학년별로 몇 %가 읽히는지 한 번에 나옵니다. 하나의 숫자가 아니라 학년축 전체 곡선이라, 반 편성이 섞여 있어도 판단할 수 있어요.',
+    a: '학년별 어휘 커버리지 추정이 한 번에 나옵니다. 하나의 숫자가 아니라 학년축 전체 곡선이라, 반 편성이 섞여 있어도 판단할 수 있어요.',
   },
   {
     q: '몇 학년용 지문인가요?',
-    a: '어휘 커버리지가 95%(편하게 읽히는 기준)에 처음 닿는 학년을 적정 레벨로 표시합니다.',
+    a: '어휘 커버리지가 95%(이 도구의 기준값)에 처음 닿는 학년을 적정 레벨로 표시합니다.',
   },
   {
     q: '어떤 단어를 미리 짚어야 하나요?',
@@ -156,9 +156,9 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
           이 지문, 우리 반에 맞을까?
         </h1>
         <p className="mt-6 max-w-[52ch] break-keep font-serif text-[20px] leading-[1.45] text-[var(--ju)] md:text-[24px]">
-          <span className="lg:hidden">영어 지문을 붙여넣으면 <b>중1부터 학술 원서까지 학년별로 몇 %가 읽히는지</b> 바로
+          <span className="lg:hidden">영어 지문을 붙여넣으면 <b>중1부터 학술 원서까지 학년별 어휘 커버리지 추정을</b> 바로
           나옵니다. 가입 없이, 저장하지 않고.</span>
-          <span className="hidden lg:block">지문을 넣고 학년을 고르면, 읽히는 비율과 짚을 낱말이 보입니다.</span>
+          <span className="hidden lg:block">지문을 넣고 학년을 고르면, 어휘 커버리지와 짚을 낱말이 보입니다.</span>
         </p>
         </div>
         <Image src="/illustrations/tines/scene-journey-v5.png" alt="" width={1200} height={800} sizes="(min-width: 1024px) 440px, 50vw" className="reference-scene hidden lg:block" />

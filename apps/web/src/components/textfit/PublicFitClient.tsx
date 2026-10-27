@@ -389,8 +389,8 @@ export function PublicFitClient({
               붙여 넣으면 이 자리에서 바로 칠해져요.
             </p>
             <p className="m-0 break-keep font-body text-[13px] leading-[1.65] text-[var(--t2)]">
-              학년을 고르면 그 반 학생이 처음 만나는 낱말에 면이 칠해지고, 아래 눈금에 학년마다 몇 %가
-              읽히는지가 나옵니다.
+              학년을 고르면 그 학년 어휘 기준을 넘는 낱말에 면이 칠해지고, 아래 눈금에 학년마다 어휘 커버리지
+              추정이 나옵니다.
             </p>
             <div>
               <button type="button" onClick={loadSample} className={PRIMARY_BUTTON}>
