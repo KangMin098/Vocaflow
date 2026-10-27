@@ -1295,3 +1295,25 @@ describe('맥락 설명 — 단위 화면 · 본문 뒤 · 실패는 「설명 �
     expect(mapStoryLearnerRpcError({ message: 'story:context_notes_mismatch' }, 'story_unit_context_notes')).toMatchObject({ code: 'reader_data_invalid' })
   })
 })
+
+// ── D4-UX04 완료 뒤 다음 행동의 공급(같은 서가 행에서 센 다른 작품 수 — 새 조회 · 추천 없음) ─────────
+
+describe('otherWorks — 같은 요청의 서가 행에서 이 작품 말고 열 수 있는 작품 수', () => {
+  it('서로 다른 workKey 만 센다(같은 작품의 다른 판본 · 자기 자신 제외) · 입구 · 단위 화면 모두 · 새 RPC 없음', async () => {
+    for (const unit of [undefined, '1']) {
+      const f = fake()
+      const s = await reader(f, unit)
+      expect(s).toMatchObject({ status: 'ready', otherWorks: 1 })
+      expect(rpcNames(f).filter((n) => n === 'story_catalog')).toHaveLength(1)
+    }
+    const only = fake({ rpc: { story_catalog: () => ok([catalogRow(RK), catalogRow(RK_SIB, WORK, 'a2')]) } })
+    expect(await reader(only)).toMatchObject({ status: 'ready', otherWorks: 0 })
+    const many = fake({ rpc: { story_catalog: () => ok([...CATALOG, catalogRow(`lsr_${'d'.repeat(32)}`, 'third-work'), catalogRow(`lsr_${'e'.repeat(32)}`, 'third-work', 'a2')]) } })
+    expect(await reader(many)).toMatchObject({ status: 'ready', otherWorks: 2 })
+  })
+
+  it('서가 조회 실패면 null(「다른 작품 없음」과 구분)', async () => {
+    const f = fake({ rpc: { story_catalog: () => dbError('down') } })
+    expect(await reader(f, '1')).toMatchObject({ status: 'ready', siblings: null, otherWorks: null })
+  })
+})

@@ -286,6 +286,11 @@ export type StoryReaderPageState =
       /** 같은 작품의 다른 발행본(이용 가능한 것만 · 서가 메타 · 자기 자신 제외). 진도는 각자 따로다.
        *  서가 조회가 실패하면 null(「다른 판본 없음」과 구분한다 — 실패를 빈 목록으로 바꾸지 않는다). */
       siblings: StoryCatalogRelease[] | null
+      /**
+       * 같은 요청의 서가에서 이 작품 말고 열 수 있는 작품(서로 다른 workKey) 수 — 전 단위 표시 뒤 다음 행동을 실제 공급에 맞춘다(D4-UX04).
+       * 서가 조회가 실패하면 null(「다른 작품 없음」과 구분한다). 추천 · 개인화 값이 아니다.
+       */
+      otherWorks: number | null
       /** 이 발행본의 시작 전 선택 안내(입구에서 보인다). 실패해도 독서는 그대로다. */
       guidance: StoryReleaseGuidanceView
       /** 단위 화면(`?unit=`)의 시대적 맥락 설명. 작품 입구에서는 부르지 않아 null 이다. 실패해도 본문 · 진도는 그대로다. */

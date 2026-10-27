@@ -4,10 +4,13 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  afterCompletionWording,
+  boundContextNoteCount,
   catalogViewedEvent,
   completionWording,
   countWorksAndEditions,
   groupCatalogByWork,
+  hookPreview,
   nextActionFor,
   positionWording,
   safeSourceHref,
@@ -119,9 +122,10 @@ describe('completionWording', () => {
     expect(completionWording(null, 'adapted_full_work', 'complete_work')).toBeNull()
   })
 
-  it('위치 문구는 이동 기록일 뿐이다', () => {
-    expect(positionWording(1, 3)).toBe('2/3 단위 위치')
-    expect(positionWording(9, 3)).toBe('3/3 단위 위치')
+  it('위치 문구는 마지막으로 연 단위일 뿐이다(D4-UX04 — 문장 · 스크롤 위치 · 완료가 아니다)', () => {
+    expect(positionWording(1, 3)).toBe('마지막으로 연 단위 2/3')
+    expect(positionWording(9, 3)).toBe('마지막으로 연 단위 3/3')
+    expect(positionWording(1, 3)).not.toMatch(/읽던 곳|북마크|완료/)
   })
 })
 
@@ -237,5 +241,35 @@ describe('shouldFocusUnitHeading', () => {
     expect(shouldFocusUnitHeading(1, 2)).toBe(true)
     expect(shouldFocusUnitHeading(null, 0)).toBe(true)
     expect(shouldFocusUnitHeading(2, null)).toBe(false)
+  })
+})
+
+describe('D4 — 시작 · 도움 · 완료 뒤 보조 함수', () => {
+  it('hookPreview: 저장된 HOOK 의 첫 문장을 그대로 자른다 · 호칭 약어(Dr. Mr.)에서 자르지 않는다 · 한 문장이면 전문', () => {
+    const c01 =
+      'Two days after Christmas, Dr. Watson finds Sherlock Holmes stretched out on the sofa. On the chair beside him hangs a shabby, cracked old hat.'
+    expect(hookPreview(c01)).toEqual({ preview: 'Two days after Christmas, Dr. Watson finds Sherlock Holmes stretched out on the sofa.', truncated: true })
+    expect(c01.startsWith(hookPreview(c01).preview)).toBe(true)
+    expect(hookPreview('Mr. Baker lost his hat.')).toEqual({ preview: 'Mr. Baker lost his hat.', truncated: false })
+    expect(hookPreview('“Who took it?” she asked. Nobody knew.').preview).toBe('“Who took it?” she asked.')
+    expect(hookPreview('no sentence end here')).toEqual({ preview: 'no sentence end here', truncated: false })
+    expect(hookPreview('One. two lower case')).toEqual({ preview: 'One. two lower case', truncated: false })
+  })
+
+  it('afterCompletionWording: 실제 다른 작품 수에 맞춘다 — 없으면 다음 이야기를 약속하지 않는다 · 서가 실패는 중립', () => {
+    expect(afterCompletionWording(0)).toEqual({ label: 'Stories 둘러보기', note: expect.stringContaining('다른 이야기는 없어요') })
+    expect(afterCompletionWording(2)).toEqual({ label: '다른 이야기 고르기', note: '서가에 다른 작품 2편이 있어요.' })
+    expect(afterCompletionWording(null)).toEqual({ label: 'Stories 서가로', note: null })
+    for (const n of [0, null]) expect(JSON.stringify(afterCompletionWording(n))).not.toMatch(/추천|다음 에피소드|다음 이야기 고르기/)
+  })
+
+  it('boundContextNoteCount: ready · 같은 발행 키 · 같은 단위일 때만 수 · 그 밖(null · unavailable · 어긋남)은 0', () => {
+    const notes = [{ id: 'a', text: 'x' }, { id: 'b', text: 'y' }]
+    expect(boundContextNoteCount({ status: 'ready', releaseKey: KEY_A, unitIndex: 2, notes }, KEY_A, 2)).toBe(2)
+    expect(boundContextNoteCount({ status: 'ready', releaseKey: KEY_A, unitIndex: 3, notes }, KEY_A, 2)).toBe(0)
+    expect(boundContextNoteCount({ status: 'ready', releaseKey: KEY_B, unitIndex: 2, notes }, KEY_A, 2)).toBe(0)
+    expect(boundContextNoteCount({ status: 'ready', releaseKey: KEY_A, unitIndex: 2, notes: [] }, KEY_A, 2)).toBe(0)
+    for (const reason of ['not_ready', 'invalid', 'temporary'] as const) expect(boundContextNoteCount({ status: 'unavailable', reason }, KEY_A, 2)).toBe(0)
+    expect(boundContextNoteCount(null, KEY_A, 2)).toBe(0)
   })
 })

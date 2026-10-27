@@ -394,7 +394,7 @@ async function fetchPage(url) {
 }
 // app/(main)/library/stories/page.tsx
 function CatalogPage({ page }) {
-  return h(LibraryBrowseFrame, null, h(StoryCatalog, { state: page.state, loginHref: page.loginHref }))
+  return h(LibraryBrowseFrame, null, h(StoryCatalog, { state: page.state }))
 }
 // app/(main)/library/stories/[releaseKey]/page.tsx
 function ReaderPage({ page }) {

@@ -14,6 +14,9 @@
 // - 학습자 행동 구조: 단위 고르기 → 읽기 → 읽음 표시 → (원하면) 원문 인용 추적 · 단어 뜻.
 // - 작품 입구 · 로그인 전 화면은 시작 전 선택 안내(편집 판단 부담 · 접힌 주의 — U1)를 공개 정보로 보인다(필수 확인 · 자동 열림 없음).
 // - 단위 화면은 본문 뒤에 그 단위의 시대적 맥락 설명(접힌 <details> — W2)을 긍정 확인(same) 뒤에만 보인다(필수 확인 · 자동 열림 없음).
+// - D4(UX01~04 · docs/lcp-story/D4_IMPLEMENTATION.md): 입구는 고르는 정보(첫 장면 첫 문장 · 편집 목표 · 부담 · 접힌 주의) → 시작 행동 →
+//   선택 펼침(첫 장면 전체 · 원천 · 도움 사용법) 순서. 단위 화면은 작은 작품 맥락 + 단위 제목(h1) · 도구 줄의 맥락 설명 진입(결속된
+//   ready 설명이 있을 때만). 이어 읽기는 「마지막으로 연 단위」의 첫머리. 전 단위 표시 뒤 다음 행동은 실제 서가 공급에 맞춰 본문 한 곳에만.
 
 'use client'
 
@@ -41,7 +44,7 @@ import type {
   StoryReleaseGuidanceView,
 } from '@/lib/library/story/learner-types'
 
-import { StoryContextNotes } from './StoryContextNotes'
+import { CONTEXT_NOTES_ID, StoryContextNotes } from './StoryContextNotes'
 import { StoryGuidance } from './StoryGuidance'
 import { StorySourcePanel } from './StorySourcePanel'
 import { StoryUnitText, type StoryWordLookupProps } from './StoryUnitText'
@@ -58,8 +61,12 @@ import {
   COVERAGE_LABEL,
   KIND_LABEL,
   READING_HELP_LINE,
+  afterCompletionWording,
+  boundContextNoteCount,
   completionWording,
+  contextNotesEntryLabel,
   editorialTargetLabel,
+  hookPreview,
   isFullyMarked,
   nextActionFor,
   positionWording,
@@ -272,8 +279,12 @@ function ReadyReader({
 
   const [sourceOpen, setSourceOpen] = useState(false)
   const [selectedAnchor, setSelectedAnchor] = useState<number | null>(null)
+  // 맥락 설명 열림(D4-UX02) — 진입 단추로 연 경우에만 돌아가기를 제공한다. 단위가 바뀌면 닫힌 채로 시작한다.
+  const [notesOpen, setNotesOpen] = useState<{ unit: number | null; open: boolean; viaEntry: boolean }>({ unit: null, open: false, viaEntry: false })
+  const notesEntryRef = useRef<HTMLButtonElement>(null)
   useEffect(() => {
     setSelectedAnchor(null)
+    setNotesOpen({ unit: unitIndex, open: false, viaEntry: false })
   }, [unitIndex])
 
   const kind = KIND_LABEL[context.kind]
@@ -340,47 +351,103 @@ function ReadyReader({
   const next = view.next
   const anchorsBound = unit !== null && context.unit.unitIndex === unit.unitIndex
 
+  // 맥락 설명 진입(D4-UX02): 긍정 확인(same) 뒤 · 지금 발행본 · 단위에 결속된 ready 설명이 있을 때만. 오류 · 미적용 · 어긋남 · 0개면 없다.
+  const noteCount = unit ? boundContextNoteCount(state.contextNotes, releaseKey, unit.unitIndex) : 0
+  const notesState = notesOpen.unit === unitIndex ? notesOpen : { unit: unitIndex, open: false, viaEntry: false }
+  const openNotesFromEntry = () => {
+    setNotesOpen({ unit: unitIndex, open: true, viaEntry: true })
+    // 펼친 뒤 요약으로 초점(스크롤은 그 자리가 보이도록만) — 진도 · 완료 기록 없음.
+    requestAnimationFrame(() => {
+      const details = document.getElementById(CONTEXT_NOTES_ID)
+      const summary = details?.querySelector<HTMLElement>('summary')
+      summary?.focus({ preventScroll: true })
+      // 설명의 첫머리가 보이도록(고정 머리 아래 · scroll-margin) — 끝에 걸치지 않게.
+      details?.scrollIntoView({ block: 'start' })
+    })
+  }
+  const returnToNotesEntry = () => {
+    notesEntryRef.current?.focus({ preventScroll: true })
+    notesEntryRef.current?.scrollIntoView({ block: 'center' })
+  }
+  const notesEntry =
+    noteCount > 0 ? (
+      <button
+        ref={notesEntryRef}
+        type="button"
+        className={styles.toolButton}
+        aria-controls={CONTEXT_NOTES_ID}
+        aria-expanded={notesState.open}
+        onClick={() => (notesState.open ? setNotesOpen({ unit: unitIndex, open: false, viaEntry: false }) : openNotesFromEntry())}
+        data-story-context-entry={noteCount}
+      >
+        {contextNotesEntryLabel(noteCount)}
+      </button>
+    ) : null
+
+  // 단위 화면 머리(D4-UX02) — 작품 이름은 작은 복귀 맥락, 단위 제목이 주 제목(h1). 확인 중 · 거부 화면은 위 공통 머리를 쓴다.
+  const unitHeader = unit ? (
+    <header className={`${styles.head} ${styles.headCompact}`} data-story-head="unit">
+      <p className={styles.contextLine}>
+        <Link href={readerHref(releaseKey, null)} className={styles.crumb}>
+          ← 목차로
+        </Link>
+        <span className={styles.workContext}>
+          <span lang="en">{context.title}</span> · {kind.name} · {context.unitCount}단위
+        </span>
+      </p>
+      <h1 id={HEADING_ID} ref={headingRef} tabIndex={-1} className={styles.unitHeading}>
+        {unitLabel(unit.unitIndex, unit.unitTitle)}
+      </h1>
+    </header>
+  ) : null
+
   // ── 확인 중: 공개 메타만 ──
   if (!verified) {
     return (
       <div className={styles.page} data-story-reader={unit ? 'unit' : 'entry'} data-story-private="hidden">
         {header}
-        <EntryPublic release={state.release} source={context.source} guidance={state.guidance} />
+        <EntrySelection release={state.release} guidance={state.guidance} />
         <div className={styles.notice} role="status" aria-live="polite" data-story-identity="checking">
           <p className={styles.statusText}>로그인 상태를 확인하고 있어요 — 확인되면 본문과 내 진도가 보여요.</p>
         </div>
+        <EntryDetails release={state.release} source={context.source} />
         <Siblings siblings={siblings} onSwitch={switchEdition} />
       </div>
     )
   }
 
   return (
-    <div className={styles.page} data-story-reader={unit ? 'unit' : 'entry'} data-story-private="shown">
+    <div
+      className={`${styles.page} ${unit ? styles.pageUnit : ''}`}
+      data-story-reader={unit ? 'unit' : 'entry'}
+      data-story-private="shown"
+    >
       {/* 셸에 이미 「본문으로 건너뛰기」(#main)가 있다 — 목적지가 다른 링크가 같은 이름이면 스크린리더에서 구별되지 않는다. */}
       <a href={`#${CONTENT_ID}`} className={`${styles.skip} ${styles.ctaSecondary}`}>
         이야기 본문으로 건너뛰기
       </a>
 
-      {header}
+      {unit ? unitHeader : header}
 
       <div className={styles.reader}>
         <div id={CONTENT_ID} className={styles.readerMain} tabIndex={-1} role="region" aria-label="본문">
           {unit ? (
             <>
-              <h2 id={HEADING_ID} ref={headingRef} tabIndex={-1} className={styles.unitHeading}>
-                {unitLabel(unit.unitIndex, unit.unitTitle)}
-              </h2>
               <StoryUnitText
                 key={`${releaseKey}:${unit.unitIndex}`}
                 text={unit.text}
                 tracing={sourceOpen && selectedAnchor !== null}
                 lookup={wordLookup}
+                tools={notesEntry}
               />
               <StoryContextNotes
                 key={`notes:${releaseKey}:${unit.unitIndex}`}
                 view={state.contextNotes}
                 releaseKey={releaseKey}
                 unitIndex={unit.unitIndex}
+                open={notesState.open}
+                onOpenChange={(open) => setNotesOpen((s) => ({ unit: unitIndex, open, viaEntry: open ? s.viaEntry && s.unit === unitIndex : false }))}
+                onReturn={notesState.viaEntry && notesEntry ? returnToNotesEntry : undefined}
               />
               <div className={styles.actionZone}>
                 <div className={styles.actionRow}>
@@ -409,8 +476,10 @@ function ReadyReader({
                       {view.wording?.text} — 모든 단위를 읽음으로 표시했어요
                     </p>
                   ) : null}
-                  {view.fullyCompleted ? <NextStoryLink /> : null}
                 </div>
+                {view.fullyCompleted ? (
+                  <AfterCompletion otherWorks={state.otherWorks} releaseKey={releaseKey} navLocked={navLocked} onGo={go} />
+                ) : null}
                 <nav className={styles.navRow} aria-label="단위 이동">
                   {unit.unitIndex > 0 ? (
                     <PositionLink
@@ -445,8 +514,10 @@ function ReadyReader({
             </>
           ) : (
             <>
-              <EntryPublic release={state.release} source={context.source} guidance={state.guidance} />
-              <EntryMain view={view} next={next} releaseKey={releaseKey} navLocked={navLocked} onGo={go} />
+              {/* D4-UX01 정보 순서: 고르는 데 필요한 것(첫 장면 · 편집 목표 · 부담 · 접힌 주의) → 시작 행동 → 선택해서 펼치는 상세(첫 장면 전체 · 원천 · 도움 사용법). */}
+              <EntrySelection release={state.release} guidance={state.guidance} />
+              <EntryMain view={view} next={next} releaseKey={releaseKey} navLocked={navLocked} onGo={go} otherWorks={state.otherWorks} />
+              <EntryDetails release={state.release} source={context.source} withHelp />
             </>
           )}
 
@@ -466,11 +537,11 @@ function ReadyReader({
             </h2>
             {view.hasRecord ? (
               <>
-                {view.lastUnitIndex !== null ? <span>{positionWording(view.lastUnitIndex, context.unitCount)}</span> : null}
+                {view.lastUnitIndex !== null ? <span data-story-last-unit>{positionWording(view.lastUnitIndex, context.unitCount)}</span> : null}
                 <span className={view.wording?.done ? styles.doneMark : undefined} data-story-completion>
                   {view.wording?.text}
                 </span>
-                {view.fullyCompleted ? <NextStoryLink /> : null}
+                {/* 다음 행동은 본문 쪽 한 곳에만 둔다(D4-UX04 — 같은 링크를 레일에 겹쳐 두지 않는다). */}
               </>
             ) : (
               <span>아직 읽은 기록이 없어요.</span>
@@ -581,46 +652,124 @@ function deriveView(state: ReadyState, snap: StoryReaderSnapshot): ReaderView {
 
 // ── 조각 ───────────────────────────────────────────────────────────────────
 
-/** 시작 전에 보이는 공개 정보 — HOOK · 편집 목표 난이도 · 선택 안내(부담 · 접힌 주의) · 원천 줄(원작 언어 · 본문 언어 · 번역자 · 원천 판본). */
-function EntryPublic({
-  release,
-  source,
-  guidance,
-}: {
-  release: StoryCatalogRelease | null
-  source: StoryReaderSource
-  guidance: StoryReleaseGuidanceView
-}) {
+/**
+ * HOOK 앞머리(D4-UX01) — 여러 문장이면 저장된 첫 문장만 앞에 보이고 전문은 펼침(EntryDetails · 로그인 전 「첫 장면 전체」)에 그대로 둔다.
+ * 한 문장이면 전문을 그대로 보인다(잘라 보일 것이 없다).
+ */
+function HookLead({ hookText }: { hookText: string }) {
+  const hook = hookPreview(hookText)
+  if (!hook.truncated) {
+    return (
+      <blockquote className={styles.hook} lang="en" aria-label="진입 장면" data-story-hook>
+        {hookText}
+      </blockquote>
+    )
+  }
   return (
-    <section className={styles.entryPublic} aria-label="작품 정보" data-story-entry-public>
-      {release ? (
-        <>
-          <blockquote className={styles.hook} lang="en" aria-label="진입 장면" data-story-hook>
-            {release.hookText}
-          </blockquote>
-          <p className={styles.meta} data-story-target>
-            {editorialTargetLabel(release.targetCefr)}
-            {release.targetCefr ? ' · 판본을 만들 때 겨냥한 수준이에요(진단 결과가 아니에요)' : ''}
-          </p>
-          <StoryGuidance view={guidance} />
-        </>
-      ) : (
+    <p className={styles.hookPreview} lang="en" data-story-hook-preview>
+      {hook.preview}
+      <span className={styles.srOnly} lang="ko">
+        {' '}
+        (첫 장면의 첫 문장이에요 — 전체는 아래 펼침에 있어요)
+      </span>
+    </p>
+  )
+}
+
+/**
+ * 시작 전에 고르는 데 필요한 공개 정보(D4-UX01 — 시작 행동보다 앞) — HOOK 첫 문장 · 편집 목표 난이도(진단 아님) · 선택 안내(부담 · 접힌 주의).
+ * HOOK 을 줄여 보일 때 전문은 바로 아래 EntryDetails 의 펼침에 저장값 그대로 있다. 주의는 시작 전에 펼쳐 볼 수 있다.
+ */
+function EntrySelection({ release, guidance }: { release: StoryCatalogRelease | null; guidance: StoryReleaseGuidanceView }) {
+  if (!release) {
+    return (
+      <section className={styles.entryPublic} aria-label="작품 정보" data-story-entry-public>
         <p className={styles.meta} data-story-release-missing>
           작품 정보를 불러오지 못했어요.
         </p>
-      )}
-      <p className={styles.meta} data-story-source-line>
-        {sourceLine(source)}
+      </section>
+    )
+  }
+  return (
+    <section className={styles.entryPublic} aria-label="작품 정보" data-story-entry-public>
+      <HookLead hookText={release.hookText} />
+      <p className={styles.meta} data-story-target>
+        {editorialTargetLabel(release.targetCefr)}
+        {release.targetCefr ? ' · 판본을 만들 때 겨냥한 수준이에요(진단 결과가 아니에요)' : ''}
       </p>
+      <StoryGuidance view={guidance} />
     </section>
   )
 }
 
-function NextStoryLink() {
+/**
+ * 선택해서 펼치는 상세(D4-UX01) — 첫 장면 전체(저장된 HOOK 그대로) · 원천 줄(원작 언어 · 본문 언어 · 번역자 · 원천 판본) ·
+ * (입구에서만) 읽는 중 도움 사용법. 접어 두어도 지우거나 요약해 바꾸지 않는다.
+ */
+function EntryDetails({ release, source, withHelp = false }: { release: StoryCatalogRelease | null; source: StoryReaderSource; withHelp?: boolean }) {
+  const hookInDetails = release !== null && hookPreview(release.hookText).truncated
   return (
-    <Link href={CATALOG_HREF} className={styles.ctaQuiet} data-story-next-story>
-      다음 이야기 고르기
-    </Link>
+    <details className={`${styles.cautions} ${styles.entryDetails}`} data-story-entry-details>
+      <summary>{hookInDetails ? '첫 장면 전체 · 원천 판본 정보' : '원천 판본 정보'}{withHelp ? ' · 읽는 중 도움' : ''}</summary>
+      <div className={styles.entryDetailsBody}>
+        {release && hookInDetails ? (
+          <blockquote className={styles.hook} lang="en" aria-label="진입 장면" data-story-hook>
+            {release.hookText}
+          </blockquote>
+        ) : null}
+        <p className={styles.meta} data-story-source-line>
+          {sourceLine(source)}
+        </p>
+        {withHelp ? (
+          <p className={styles.meta} data-story-help-line>
+            {READING_HELP_LINE}
+          </p>
+        ) : null}
+      </div>
+    </details>
+  )
+}
+
+/**
+ * 전 단위 표시 뒤 다음 행동(D4-UX04) — 실제 공급에 맞춘다: 다른 작품이 있으면 서가에서 고르기, 없으면 그렇다고 말하고
+ * 서가 둘러보기 · 처음부터 다시 보기(명시적 이동 — 기존 위치 기록 경로). 추천 · 다음 에피소드 · 다른 판본 승계를 만들지 않는다.
+ */
+function AfterCompletion({
+  otherWorks,
+  releaseKey,
+  navLocked,
+  onGo,
+  showRestart = true,
+}: {
+  otherWorks: number | null
+  releaseKey: string
+  navLocked: boolean
+  onGo: (unitIndex: number, reason: StoryPositionReason) => void
+  showRestart?: boolean
+}) {
+  const wording = afterCompletionWording(otherWorks)
+  return (
+    <div className={styles.afterCompletion} data-story-after-completion={otherWorks === null ? 'unknown' : otherWorks > 0 ? 'other-works' : 'only-work'}>
+      {wording.note ? <p className={styles.meta}>{wording.note}</p> : null}
+      <div className={styles.actionRow}>
+        <Link href={CATALOG_HREF} className={styles.ctaSecondary} data-story-next-story>
+          {wording.label}
+        </Link>
+        {showRestart ? (
+          <PositionLink
+            releaseKey={releaseKey}
+            unitIndex={0}
+            reason="start"
+            disabled={navLocked}
+            className={styles.ctaQuiet}
+            onGo={onGo}
+            dataAction="reread"
+          >
+            처음부터 다시 보기
+          </PositionLink>
+        ) : null}
+      </div>
+    </div>
   )
 }
 
@@ -630,24 +779,23 @@ function EntryMain({
   releaseKey,
   navLocked,
   onGo,
+  otherWorks,
 }: {
   view: ReaderView
   next: StoryNextAction
   releaseKey: string
   navLocked: boolean
   onGo: (unitIndex: number, reason: StoryPositionReason) => void
+  otherWorks: number | null
 }) {
   const action = next.type === 'start' || next.type === 'resume' ? next : ({ type: 'start', unitIndex: 0 } as const)
   const target = view.toc.find((e) => e.unitIndex === action.unitIndex)
   return (
     <div className={styles.actionZone} data-story-entry>
-      <p className={styles.lede}>
+      <p className={styles.lede} data-story-entry-lede>
         {action.type === 'resume'
-          ? `마지막으로 연 곳은 ${unitLabel(action.unitIndex, target?.unitTitle ?? null)}이에요.`
+          ? `마지막으로 연 단위는 ${unitLabel(action.unitIndex, target?.unitTitle ?? null)}예요. 그 단위 첫머리부터 이어 읽어요(문장 위치는 저장하지 않아요).`
           : '첫 단위부터 읽기 시작해요. 단위를 다 읽으면 직접 읽음으로 표시해요.'}
-      </p>
-      <p className={styles.meta} data-story-help-line>
-        {READING_HELP_LINE}
       </p>
       <div className={styles.actionRow}>
         <PositionLink
@@ -674,8 +822,10 @@ function EntryMain({
             처음부터
           </PositionLink>
         ) : null}
-        {view.fullyCompleted ? <NextStoryLink /> : null}
       </div>
+      {view.fullyCompleted ? (
+        <AfterCompletion otherWorks={otherWorks} releaseKey={releaseKey} navLocked={navLocked} onGo={onGo} showRestart={false} />
+      ) : null}
     </div>
   )
 }
@@ -841,6 +991,7 @@ function SignedOut({
   release: StoryCatalogRelease | null
   guidance: StoryReleaseGuidanceView
 }) {
+  const preview = release ? hookPreview(release.hookText) : null
   return (
     <div className={styles.page} data-story-reader="signed_out">
       <header className={styles.head}>
@@ -859,14 +1010,12 @@ function SignedOut({
       </header>
       {release ? (
         <>
-          <blockquote className={styles.hook} lang="en" aria-label="진입 장면" data-story-hook>
-            {release.hookText}
-          </blockquote>
+          <HookLead hookText={release.hookText} />
           <StoryGuidance view={guidance} />
         </>
       ) : null}
       <div className={styles.state}>
-        <p className={styles.lede}>본문은 로그인한 뒤 읽을 수 있어요. 읽은 위치와 읽음 표시는 내 계정에만 기록돼요.</p>
+        <p className={styles.lede}>본문은 로그인한 뒤 읽을 수 있어요. 로그인하면 이 판본 입구로 돌아와요. 읽은 위치와 읽음 표시는 내 계정에만 기록돼요.</p>
         <div className={styles.actionRow}>
           <Link href={loginHref} className={styles.cta} data-story-login>
             로그인하고 읽기
@@ -876,6 +1025,16 @@ function SignedOut({
           </Link>
         </div>
       </div>
+      {release && preview?.truncated ? (
+        <details className={`${styles.cautions} ${styles.entryDetails}`} data-story-entry-details>
+          <summary>첫 장면 전체</summary>
+          <div className={styles.entryDetailsBody}>
+            <blockquote className={styles.hook} lang="en" aria-label="진입 장면" data-story-hook>
+              {release.hookText}
+            </blockquote>
+          </div>
+        </details>
+      ) : null}
     </div>
   )
 }

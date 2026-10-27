@@ -3,7 +3,7 @@
 // LCP Story 서가(`/library/stories`) — 작품(workKey)별로 묶고, 작품마다 진입 장면(HOOK)을 시작 행동보다 먼저 보인다.
 // 그 아래 판본을 편집 목표(판본 종류 + 목표 CEFR · 실측 진단 아님)별로 나눈다. 계약: docs/LCP_STORY.md §2 · §12 · §17.
 // - 수는 받은 행 그대로(작품 = 서로 다른 workKey · 판본 = 발행본). 빈 서가 · 조회 실패를 구분한다.
-// - 로그인 전: 메타 + HOOK 만, 시작은 로그인으로. 로그인 후: 발행본마다 내 위치 · 완료 표시(완료는 모든 단위 명시 표시 뒤에만).
+// - 로그인 전: 메타 + HOOK 만, 시작은 로그인으로(복귀 = 고른 판본 입구 · D4-UX01). 로그인 후: 발행본마다 내 위치 · 완료 표시(완료는 모든 단위 명시 표시 뒤에만).
 // - 열 수 없는 판본의 기록은 기록으로만 보인다(링크 · 본문 없음).
 // - 판본마다 시작 전 선택 안내(편집 판단 부담 · 접힌 주의 — U1)를 로그인과 무관하게 보인다. 불러오지 못하면 그렇다고 말한다.
 // - 서가를 실제로 받은 뒤 `story_catalog_viewed` 를 한 번만 보낸다(실패 때는 보내지 않는다).
@@ -17,6 +17,7 @@ import { useEffect, useRef } from 'react'
 
 import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
 import { track } from '@/lib/analytics/client'
+import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import type { PublicEvent } from '@/lib/analytics/events'
 import type { StoryCatalogPageState, StoryGuidanceState, StoryProgressRow } from '@/lib/library/story/learner-types'
 
@@ -41,7 +42,6 @@ import { useStoryAuthGuard, type StoryAuthSource } from './use-story-auth-guard'
 
 export interface StoryCatalogProps {
   state: StoryCatalogPageState
-  loginHref: string
   /** 계측 주입(기본 track). */
   onEvent?: (e: PublicEvent) => void
   /** 다시 시도(기본 router.refresh). */
@@ -54,7 +54,7 @@ export interface StoryCatalogProps {
   onRefresh?: () => void
 }
 
-export function StoryCatalog({ state, loginHref, onEvent, onRetry, authSource, onReload, onRefresh }: StoryCatalogProps) {
+export function StoryCatalog({ state, onEvent, onRetry, authSource, onReload, onRefresh }: StoryCatalogProps) {
   const router = useRouter()
   const emit = onEvent ?? track
   const retry = onRetry ?? (() => router.refresh())
@@ -154,7 +154,6 @@ export function StoryCatalog({ state, loginHref, onEvent, onRetry, authSource, o
               work={work}
               signedIn={signedIn}
               authChanged={authChanged}
-              loginHref={loginHref}
               guidance={state.guidance}
             />
           ))}
@@ -195,13 +194,11 @@ function WorkRow({
   work,
   signedIn,
   authChanged,
-  loginHref,
   guidance,
 }: {
   work: CatalogWorkGroup
   signedIn: boolean
   authChanged: boolean
-  loginHref: string
   guidance: StoryGuidanceState
 }) {
   const headingId = `story-work-${work.workKey}`
@@ -230,7 +227,6 @@ function WorkRow({
                   workTitle={work.title}
                   signedIn={signedIn}
                   authChanged={authChanged}
-                  loginHref={loginHref}
                   guidance={guidance}
                 />
               ))}
@@ -257,20 +253,20 @@ function EditionRow({
   workTitle,
   signedIn,
   authChanged,
-  loginHref,
   guidance,
 }: {
   entry: CatalogEditionEntry
   workTitle: string
   signedIn: boolean
   authChanged: boolean
-  loginHref: string
   guidance: StoryGuidanceState
 }) {
   const { release, progress } = entry
   const kind = KIND_LABEL[release.kind]
   const wording = progress ? completionWording(rowCounts(progress), release.completionLabel, release.coverage) : null
-  const href = signedIn || authChanged ? readerHref(release.releaseKey, null) : loginHref
+  // 로그인 전: 공용 로그인 복귀 도우미(loginUrlWithReturn — 내부 경로만 허용)로 **고른 판본 입구**에 돌아온다(D4-UX01).
+  // 진도 · 계정 정보는 주소에 싣지 않는다. 돌아온 뒤 판본 입구의 서버 판정(로그인 · 계정 · 발행 · 권리)이 다시 확인한다.
+  const href = signedIn || authChanged ? readerHref(release.releaseKey, null) : loginUrlWithReturn(readerHref(release.releaseKey, null))
   const label = !signedIn && !authChanged ? '로그인하고 읽기' : progress ? (wording?.done ? '다시 보기' : '이어 읽기') : '판본 열기'
   return (
     <li className={styles.edition} data-story-release>

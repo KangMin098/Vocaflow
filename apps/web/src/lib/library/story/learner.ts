@@ -911,15 +911,17 @@ export async function loadStoryReaderPage(deps: StoryLearnerDeps, req: StoryRead
     // 조회 실패는 「정보를 불러오지 못함」(release · siblings 모두 null)이다.
     const rows = await catalogRows(client)
     if (!rows) {
-      return { status: 'ready', viewerId: learner.userId, context, release: null, unit: body, siblings: null, guidance: GUIDANCE_NOT_LOADED, contextNotes }
+      return { status: 'ready', viewerId: learner.userId, context, release: null, unit: body, siblings: null, otherWorks: null, guidance: GUIDANCE_NOT_LOADED, contextNotes }
     }
     const release = rows.find((r) => r.releaseKey === context.releaseKey)
     if (!release) return { status: 'unavailable', failure: fail('release_unavailable') }
     if (!catalogMatchesContext(release, context)) return { status: 'unavailable', failure: fail('reader_data_invalid') }
     const siblings = rows.filter((r) => r.workKey === context.workKey && r.releaseKey !== context.releaseKey)
+    // 다른 작품 수(D4-UX04) — 같은 서가 행에서 센다. 새 조회 · 추천 API 없음.
+    const otherWorks = new Set(rows.filter((r) => r.workKey !== context.workKey).map((r) => r.workKey)).size
     // 선택 안내는 작품 입구(?unit 없음)에서만 보인다 — 단위 화면에서는 부르지 않는다. 실패해도 독서는 그대로다.
     const guidance = unit === null ? await guidanceForRelease(client, rows, releaseKey) : GUIDANCE_NOT_LOADED
-    return { status: 'ready', viewerId: learner.userId, context, release, unit: body, siblings, guidance, contextNotes }
+    return { status: 'ready', viewerId: learner.userId, context, release, unit: body, siblings, otherWorks, guidance, contextNotes }
   } catch {
     return { status: 'unavailable', failure: fail('temporary') }
   }

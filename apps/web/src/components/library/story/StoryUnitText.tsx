@@ -1,16 +1,21 @@
 // apps/web/src/components/library/story/StoryUnitText.tsx
 //
 // 단위 본문 + 요청형 단어 뜻. 기본은 본문만(문단 = 텍스트 노드 · HTML 해석 없음).
-// 「단어 뜻 보기」를 켜면 지금 단위 본문의 영어 낱말이 버튼이 되고(로빙 초점 — 본문에 탭 정지 하나 · 화살표로 이동),
-// 고른 낱말 하나에 대해서만 기존 사전 툴팁(WordLookupPopover — 읽기 전용 조회)을 연다. Esc · 닫기 뒤 초점은 그 낱말로 돌아간다.
+// 「단어 뜻 보기」를 켜면 지금 단위 본문의 영어 낱말이 버튼이 되고(로빙 초점 — 본문에 탭 정지 하나 · 화살표 · Home · End 로 이동),
+// 고른 낱말 하나에 대해서만 기존 사전 툴팁(WordLookupPopover — 읽기 전용 조회)을 연다.
+// D4-UX03(Stories 만 켜는 비모달 초점): 창이 열리면 창으로 초점이 가고(스크롤 없이), Esc · 닫기 단추로 닫으면 창을 연 조작
+// (그 낱말 또는 아래 44px 「뜻 보기」 단추)으로 초점이 돌아온다(preventScroll). 바깥을 누르거나 Tab 으로 창 밖에 나가면 초점은
+// 사용자가 옮긴 곳에 둔다. 초점 가두기 · aria-modal 없음.
+// 44px 대체 조작: 낱말 모드에서 도구 줄에 「지금 고른 낱말」 단추(44px)를 둔다 — 화살표로 고른 낱말의 뜻을 큰 단추로도 연다.
+// 본문 낱말 간격 · 줄 높이는 넓히지 않는다(문장을 흩지 않는다).
 // - 고른 낱말은 기록하지 않는다: 이벤트 · URL · 저장소 · 로그 없음. 단어장 등록 · FSRS · 완료 · 숙달 근거를 만들지 않는다.
 // - 단위 · 발행본이 바뀌거나 인증이 무효 · 서버 거부가 되면 이 조각이 내려가므로 도움 상태도 함께 사라진다(부모가 key 로 묶는다).
 
 'use client'
 
-import { useRef, useState, type ComponentType, type KeyboardEvent } from 'react'
+import { useRef, useState, type ComponentType, type KeyboardEvent, type ReactNode } from 'react'
 
-import { WordLookupPopover } from '@/components/library/reader/WordLookupPopover'
+import { WordLookupPopover, type WordLookupCloseReason } from '@/components/library/reader/WordLookupPopover'
 
 import styles from './story.module.css'
 import { nextWordIndex, splitUnitParagraphs, tokenizeWords, type StoryTextPiece } from './story-view'
@@ -18,8 +23,9 @@ import { nextWordIndex, splitUnitParagraphs, tokenizeWords, type StoryTextPiece 
 export interface StoryWordLookupProps {
   surface: string
   anchorRect: DOMRect
-  onClose: () => void
+  onClose: (reason?: WordLookupCloseReason) => void
   desktopLearner?: boolean
+  nonmodalFocus?: boolean
 }
 
 export interface StoryUnitTextProps {
@@ -30,24 +36,33 @@ export interface StoryUnitTextProps {
   lookup?: ComponentType<StoryWordLookupProps>
   /** 처음부터 낱말 고르기를 켠 채로(시험용 · 기본 false). */
   defaultWordMode?: boolean
+  /** 같은 도구 줄에 함께 둘 조작(예: 이 단위의 맥락 설명 진입 — D4-UX02). */
+  tools?: ReactNode
 }
 
-export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false }: StoryUnitTextProps) {
+type Opener = 'word' | 'picker'
+
+export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools }: StoryUnitTextProps) {
   const [wordMode, setWordMode] = useState(defaultWordMode)
   const [active, setActive] = useState(0)
-  const [open, setOpen] = useState<{ surface: string; rect: DOMRect; index: number } | null>(null)
+  const [open, setOpen] = useState<{ surface: string; rect: DOMRect; index: number; opener: Opener } | null>(null)
   const bodyRef = useRef<HTMLDivElement>(null)
+  const pickerRef = useRef<HTMLButtonElement>(null)
 
   const paragraphs: StoryTextPiece[][] = []
+  const words: string[] = []
   let count = 0
   for (const paragraph of splitUnitParagraphs(text)) {
     const { pieces, next } = tokenizeWords(paragraph, count)
     paragraphs.push(pieces)
+    for (const piece of pieces) if (piece.type === 'word') words.push(piece.text)
     count = next
   }
+  const activeWord = words[Math.min(active, Math.max(words.length - 1, 0))] ?? null
 
-  const focusWord = (index: number) => {
-    bodyRef.current?.querySelector<HTMLButtonElement>(`[data-word-index="${index}"]`)?.focus()
+  const wordEl = (index: number) => bodyRef.current?.querySelector<HTMLButtonElement>(`[data-word-index="${index}"]`) ?? null
+  const focusWord = (index: number, preventScroll = false) => {
+    wordEl(index)?.focus({ preventScroll })
   }
 
   const onKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -62,29 +77,62 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
     focusWord(next)
   }
 
-  const close = () => {
-    const index = open?.index
+  const close = (reason?: WordLookupCloseReason) => {
+    const was = open
     setOpen(null)
-    if (index !== undefined) requestAnimationFrame(() => focusWord(index))
+    // Esc · 닫기 단추로 닫았을 때만 창을 연 조작으로 초점을 돌린다(스크롤 없이). 바깥 누름 · Tab 이탈 · 스크롤은 사용자가 옮긴 곳에 둔다.
+    if (!was || (reason !== undefined && reason !== 'escape' && reason !== 'button')) return
+    requestAnimationFrame(() => {
+      if (was.opener === 'picker') pickerRef.current?.focus({ preventScroll: true })
+      else focusWord(was.index, true)
+    })
+  }
+
+  const openPicker = () => {
+    const picker = pickerRef.current
+    if (activeWord === null || !picker) return
+    // 창의 기준 위치는 **누른 단추**다(D4 독립 검토 D4-UX03-PICKER-OFFSCREEN) — 고른 낱말은 화면 밖(본문 끝 · End)일 수 있어
+    // 그 낱말 옆에 띄우면 보이지 않는 창으로 초점이 간다. 본문 낱말을 직접 누른 경우는 그대로 그 낱말 옆에 띄운다.
+    setOpen({ surface: activeWord, rect: picker.getBoundingClientRect(), index: active, opener: 'picker' })
   }
 
   return (
     <>
-      {count > 0 ? (
-        <div className={styles.wordTools}>
-          <button
-            type="button"
-            className={styles.ctaQuiet}
-            aria-pressed={wordMode}
-            onClick={() => {
-              setWordMode((on) => !on)
-              setOpen(null)
-            }}
-            data-story-word-mode={wordMode ? 'on' : 'off'}
-          >
-            {wordMode ? '단어 뜻 보기 끄기' : '단어 뜻 보기'}
-          </button>
-          {wordMode ? <span className={styles.meta}>낱말을 누르거나 화살표로 옮겨 Enter 를 누르세요.</span> : null}
+      {count > 0 || tools ? (
+        <div className={styles.wordTools} data-story-tools>
+          {count > 0 ? (
+            <button
+              type="button"
+              className={styles.toolButton}
+              aria-pressed={wordMode}
+              onClick={() => {
+                setWordMode((on) => !on)
+                setOpen(null)
+              }}
+              data-story-word-mode={wordMode ? 'on' : 'off'}
+            >
+              {wordMode ? '단어 뜻 보기 끄기' : '단어 뜻 보기'}
+            </button>
+          ) : null}
+          {wordMode && activeWord !== null ? (
+            <button
+              ref={pickerRef}
+              type="button"
+              className={styles.toolButton}
+              aria-haspopup="dialog"
+              aria-expanded={open?.opener === 'picker'}
+              onClick={openPicker}
+              data-story-word-picker
+            >
+              뜻 보기 · <span lang="en">{activeWord}</span>
+            </button>
+          ) : null}
+          {tools}
+          {wordMode ? (
+            <span className={styles.meta} data-story-word-hint>
+              낱말을 누르거나, 본문에서 화살표 · Home · End 로 고른 뒤 Enter 를 누르세요.
+            </span>
+          ) : null}
         </div>
       ) : null}
       <div
@@ -108,11 +156,11 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
                       className={styles.wordButton}
                       tabIndex={piece.index === active ? 0 : -1}
                       aria-haspopup="dialog"
-                      aria-expanded={open?.index === piece.index}
+                      aria-expanded={open?.opener === 'word' && open.index === piece.index}
                       data-word-index={piece.index}
                       onFocus={() => setActive(piece.index)}
                       onClick={(event) =>
-                        setOpen({ surface: piece.text, rect: event.currentTarget.getBoundingClientRect(), index: piece.index })
+                        setOpen({ surface: piece.text, rect: event.currentTarget.getBoundingClientRect(), index: piece.index, opener: 'word' })
                       }
                     >
                       {piece.text}
@@ -123,7 +171,7 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
           </p>
         ))}
       </div>
-      {open ? <Lookup surface={open.surface} anchorRect={open.rect} onClose={close} desktopLearner /> : null}
+      {open ? <Lookup surface={open.surface} anchorRect={open.rect} onClose={close} desktopLearner nonmodalFocus /> : null}
     </>
   )
 }
