@@ -230,6 +230,7 @@
 ---
 ## Unreleased (v06.34 → next)
 - feat(reader): 본인이 연 기사 글(`article:<uuid>`)에 보이스가 없어도 「원문 출처 · 도메인」 링크(새 탭 · noopener · 44px) — 기존 기사 조회의 `source_url` 을 공개 http(s) 만 통과(`lib/reader/public-source-href`), 장 표식 출처가 있으면 그쪽 하나만. 신원 경계 안 · DB · 이벤트 무변경. 개발 확인 화면 `/dev/article-source`.
+- fix(lcp): `extractBookLemmas` 대문자 고유명사 가드(문장 중간 Title-case · `Ford's Theatre` 소유격 이름 등장 제외, 헤드라인 문장 예외) + 예문을 고른 `context_pos` 의 첫 등장 문장으로. 출력 형태 불변, 코드만 — 이미 발행된 단어 세트는 재발행(DB 쓰기, 별도 승인) 전까지 그대로.
 - feat(r0): 같은 기사 발췌 연습 화면 `/practice/article/[articleId]` — 준비 모듈(contract · actions · ArticlePracticeBridge) 연결, 본인 글 화면에 검수 후보가 있을 때만 진입 링크. 제출은 loader 가 확인한 계정 · 본인 글 문맥과 지금이 같을 때만 RPC(계정 전환 뒤 B 의 같은 기사 글로 갈아타던 준비 코드 결함 수정), 화면은 신원이 같을 때만 문항 · 결과를 그리고 늦은 응답은 버린다. 실패 사유(설치 대기 · 안 연 글 · 판본 다름 · 문항 없음 · 조회 실패 · 인증 · 정지) 구별. 개발 확인 화면 `/dev/article-practice`.
 - fix(practice): DcpPlayer 오답 원인 1-tap 칩과 원인별 안내 링크 높이 36px → 44px(접근성 터치 대상). 채점 · 기록 무변경.
 - feat(story): 독서 후 선택 「내 단어장 살펴보기」 — 이 화면에서 같은 본인 · 판본 세션으로 낱말을 담았거나(이미 있음 포함) 확인된 때만, 전 단위 표시 뒤 서가 · 다시 읽기 다음 마지막 링크(기존 Story 왕복 주소). 메모리 문맥뿐 · 서버 쓰기 · DB 무변경(LCP_D5_INTEGRATION §12.4).
