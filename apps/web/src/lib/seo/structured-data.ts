@@ -159,6 +159,11 @@ export interface ComicFacts {
   publishedYear?: number | null
   sourceArchive?: string | null
   sourceUrl?: string | null
+  /**
+   * 이 호의 퍼블릭 도메인 판정 근거(pd_comic_issues.pd_basis — 사람이 확인해 적은 것). 있을 때만 Public Domain Mark 를 단다.
+   * 예전에는 모든 호에 박았다 — 969호 중 근거가 적힌 것은 131호뿐이다(2026-10-28 읽기 전용 집계).
+   */
+  pdBasis?: string | null
 }
 
 /**
@@ -179,7 +184,7 @@ export function comicIssueJsonLd(c: ComicFacts): JsonLdString {
       url: absoluteUrl(`/comics/restored/${c.slug}`),
       inLanguage: 'en',
       isAccessibleForFree: true,
-      license: 'https://creativecommons.org/publicdomain/mark/1.0/',
+      ...(c.pdBasis && c.pdBasis.trim() ? { license: 'https://creativecommons.org/publicdomain/mark/1.0/' } : {}),
       ...(typeof c.issueNo === 'number' ? { issueNumber: c.issueNo } : {}),
       ...(typeof c.publishedYear === 'number'
         ? { datePublished: String(c.publishedYear) }
