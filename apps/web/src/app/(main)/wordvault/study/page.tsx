@@ -18,7 +18,7 @@ import { createClient } from '@/lib/supabase/server'
 import { vocabRowToWord, type BrowseWord } from '@/lib/wordvault/browse-queries'
 import { loadArticleSetMembership } from '@/lib/wordvault/set-membership-query'
 import type { SetMembership } from '@/lib/wordvault/source-filter'
-import { parseStudyFilter, scopeSourceStudyWords, sourceStudyReturnHref } from '@/lib/wordvault/source-study'
+import { parseStudyFilter, scopeSourceStudyWords, sourceStudyReturnHref, studyReopenHref } from '@/lib/wordvault/source-study'
 import { fetchAllStudyVocabulariesOrdered, fetchStudyVocabularies, STUDY_SESSION_CAP } from '@/lib/wordvault/study-queries'
 
 export const metadata = {
@@ -50,19 +50,7 @@ export default async function WordVaultStudyPage({ searchParams }: PageProps) {
   const safeFrom = sanitizeInternalPath(rawFrom)
 
   // 다시 열기 · 로그인 복귀 주소 — 검증한 값만 싣는다(uid 없음).
-  const reopen = new URLSearchParams()
-  if (parsed.kind === 'invalid') {
-    // 잘못된 요청은 로그인 · 다시 열기 뒤에도 잘못된 채로 — 반복 값을 버려 전체/더 넓은 범위로 바꾸지 않는다(fail-closed 표식).
-    reopen.set('filter', 'invalid')
-  } else if (parsed.kind === 'source') {
-    reopen.set('filter', parsed.filter)
-    if (parsed.query) reopen.set('q', parsed.query)
-    if (typeof searchParams.level === 'string' && parsed.level) reopen.set('level', searchParams.level.trim())
-  } else if (typeof searchParams.filter === 'string' && searchParams.filter) {
-    reopen.set('filter', searchParams.filter)
-  }
-  if (safeFrom) reopen.set('from', safeFrom)
-  const reopenHref = reopen.size ? `/wordvault/study?${reopen.toString()}` : '/wordvault/study'
+  const reopenHref = studyReopenHref(parsed, searchParams.filter, searchParams.level, safeFrom)
 
   if (!user) {
     // 로그인 후에도 같은 묶음으로 돌아오게 — 필터를 잃으면 전체 세션이 열린다.

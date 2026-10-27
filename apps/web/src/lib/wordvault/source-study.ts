@@ -102,3 +102,19 @@ export function currentBrowseHref(params: URLSearchParams, state: { filter: stri
   else p.delete('level')
   return `/wordvault/browse?${p.toString()}`
 }
+
+/**
+ * 로그인 next · 다시 열기(WordVaultViewerGate reopenHref) 주소 — 검증한 값만 싣는다(uid 없음).
+ * invalid 는 fail-closed 표식(filter=invalid)으로 남긴다: 반복 값을 버리면 로그인 뒤 전체 · 더 넓은 범위가 열린다.
+ */
+export function studyReopenHref(parsed: StudyFilter, rawFilter: unknown, rawLevel: unknown, safeFrom: string | null): string {
+  const reopen = new URLSearchParams()
+  if (parsed.kind === 'invalid') reopen.set('filter', 'invalid')
+  else if (parsed.kind === 'source') {
+    reopen.set('filter', parsed.filter)
+    if (parsed.query) reopen.set('q', parsed.query)
+    if (typeof rawLevel === 'string' && parsed.level) reopen.set('level', rawLevel.trim())
+  } else if (typeof rawFilter === 'string' && rawFilter) reopen.set('filter', rawFilter)
+  if (safeFrom) reopen.set('from', safeFrom)
+  return reopen.size ? `/wordvault/study?${reopen.toString()}` : '/wordvault/study'
+}

@@ -32,7 +32,7 @@ import StudyPage from '../study/page'
 import { StoryAuthSourceContext, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import { WordVaultBrowseClient } from '@/components/wordvault/WordVaultBrowseClient'
 import { vocabRowToWord } from '@/lib/wordvault/browse-queries'
-import { parseStudyFilter } from '@/lib/wordvault/source-study'
+import { parseStudyFilter, studyReopenHref } from '@/lib/wordvault/source-study'
 
 const knownAs = (uid: string | null): StoryAuthSource => ({ subscribe: () => () => {}, currentUserId: async () => uid, testOnlyKnownUserId: () => uid })
 const render = async (sp: Record<string, string | string[]>, uid: string | null = 'u1') =>
@@ -127,10 +127,19 @@ describe('로그인 전 · 다시 열기: 잘못된 요청은 잘못된 채로',
     expect((await nextOf({ filter: 'state:new' })).searchParams.get('filter')).toBe('state:new')
     expect((await nextOf({})).search).toBe('')
   })
-  it('다시 열기 주소(계정 guard)도 invalid 를 유지한다', async () => {
-    const html = renderToString(<StoryAuthSourceContext.Provider value={knownAs('u2')}>{await StudyPage({ searchParams: { filter: [`text:${TA}`, `text:${SA}`] } })}</StoryAuthSourceContext.Provider>)
-    const hrefs = [...html.matchAll(/href="([^"]*wordvault\/study[^"]*)"/g)].map((m) => new URL(m[1].replaceAll('&amp;', '&'), 'http://x'))
-    for (const u of hrefs) expect(parseStudyFilter(u.searchParams.get('filter')).kind).toBe('invalid')
+  it('다시 열기 주소(계정 guard reopenHref) 빌더도 invalid 를 유지한다 — 직접 검사', () => {
+    const cases: Array<[unknown, unknown, unknown]> = [[[`text:${TA}`, `text:${SA}`], undefined, undefined], [`text:${TA}`, ['a', 'b'], undefined], [`text:${TA}`, undefined, ['a', 'b']], ['garbage', undefined, undefined]]
+    for (const [f, q, l] of cases) {
+      const href = studyReopenHref(parseStudyFilter(f, q, l), f, l, '/wordvault/browse')
+      const u = new URL(href, 'http://x')
+      expect(u.pathname).toBe('/wordvault/study')
+      expect(u.searchParams.get('filter')).toBe('invalid')
+      expect(parseStudyFilter(u.searchParams.get('filter')).kind).toBe('invalid')
+    }
+    const ok = new URL(studyReopenHref(parseStudyFilter(`text:${TA}`, 'orb', 'b'), `text:${TA}`, 'b', null), 'http://x')
+    expect([ok.searchParams.get('filter'), ok.searchParams.get('q'), ok.searchParams.get('level')]).toEqual([`text:${TA}`, 'orb', 'b'])
+    expect(studyReopenHref(parseStudyFilter('state:new'), 'state:new', undefined, null)).toBe('/wordvault/study?filter=state%3Anew')
+    expect(studyReopenHref(parseStudyFilter(undefined), undefined, undefined, null)).toBe('/wordvault/study')
   })
 })
 
