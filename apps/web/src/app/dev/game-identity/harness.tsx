@@ -3,7 +3,7 @@
 // 기록 대역은 실제 함수 대신 「무엇을 · 누구 몫으로(expectedUserId)」 보내려 했는지만 적는다.
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import type { StoryAuthChange, StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import type { WordScope } from '@/lib/game/use-word-scope'
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder'
@@ -46,8 +46,6 @@ function Game({ source, log }: { source: StoryAuthSource; log: (s: string) => vo
     return { ok: true, updated: true } as const
   }) as typeof recordGameResult
   const session = useGameSessionRecorder({ module: 'wordblitz', scope: SCOPE, authSource: source, recordScoreImpl, recordResultImpl })
-  // 실제 화면(play-scaffold · WordBlitz)과 같은 경계 — same 이 아니면 게임 대신 안내
-  if (session.status !== 'same') return <GameIdentityNotice status={session.status} reopenHref="/dev/game-identity" />
   const answer = (correct: boolean) => {
     if (correct) session.countCorrect()
     else session.countWrong()
@@ -55,6 +53,12 @@ function Game({ source, log }: { source: StoryAuthSource; log: (s: string) => vo
       if (!r.ok) log(`blocked:${r.error}`)
     })
   }
+  // 시험 전용 — 화면이 내려간 뒤에도 남은 옛 콜백(이미 잡힌 타이머 · 이벤트)을 흉내 내려고 마지막 answer 를 붙잡아 둔다
+  useEffect(() => {
+    if (session.status === 'same') (window as unknown as { __harnessLateAnswer?: (c: boolean) => void }).__harnessLateAnswer = answer
+  })
+  // 실제 화면(play-scaffold · WordBlitz)과 같은 경계 — same 이 아니면 게임 대신 안내
+  if (session.status !== 'same') return <GameIdentityNotice status={session.status} reopenHref="/dev/game-identity" />
   return (
     <div className="flex gap-3 p-6" data-testid="game">
       <button type="button" data-testid="answer-correct" className="min-h-[44px] rounded border border-[var(--bd)] px-4" onClick={() => answer(true)}>

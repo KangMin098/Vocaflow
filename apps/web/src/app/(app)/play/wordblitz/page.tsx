@@ -122,7 +122,7 @@ export default function WordBlitzPage() {
 
   return (
     <main style={{ position: 'relative', width: '100vw', height: '100dvh', overflow: 'hidden' }}>
-      <ResourceContext resource={gameResourceContext(scope)} />
+      {/* 자료 제목(본인 글 제목일 수 있다)은 판의 계정 경계 안(WordBlitzRound)에서만 셸에 올린다 */}
       <InGameBrief slug="wordblitz" gate={brief} name="WordBlitz" />
       {/* 첫 판에는 라운드를 마운트하지 않는다 — 마운트가 곧 세션 레코더 시작이라,
           브리핑을 읽는 동안 빈 판이 scores 에 적재된다. */}
@@ -170,40 +170,43 @@ function WordBlitzRound({
   }
 
   return (
-    <WordBlitzGame
-      wordPool={wordPool}
-      onExit={() => {
-        session.flush();
-        // 닫기 복귀: ?from 우선 → 스코프 텍스트 → 모듈 hub
-        router.push(resolveSessionReturnHref(scope.from, scope.text, '/wordblitz'));
-      }}
-      // opts.assisted = 정답을 이미 보여준 뒤의 입력(재출제 · 좁은 창 시간 초과 · 방치).
-      // 세션 정확도에는 정직하게 반영하되 FSRS 카드는 중앙에서 건너뛴다.
-      onCorrect={(word, opts) => {
-        session.countCorrect();
-        // 판 시작자 결속 — 계정이 바뀐 옛 판의 입력은 보내지 않는다(use-session-recorder)
-        void session.result({
-          word: word.en,
-          isCorrect: true,
-          module: 'wordblitz',
-          assisted: opts?.assisted,
-        });
-      }}
-      onWrong={(word, opts) => {
-        session.countWrong();
-        void session.result({
-          word: word.en,
-          isCorrect: false,
-          module: 'wordblitz',
-          assisted: opts?.assisted,
-          // 무엇과 헷갈렸는지 — 컴포저의 `confusion-log` 유형이 이 신호로 짝을 만든다.
-          chosen: opts?.chosen,
-        });
-      }}
-      onRestart={() => {
-        session.flush();
-        onNextRound();
-      }}
-    />
+    <>
+      <ResourceContext resource={gameResourceContext(scope)} />
+      <WordBlitzGame
+        wordPool={wordPool}
+        onExit={() => {
+          session.flush();
+          // 닫기 복귀: ?from 우선 → 스코프 텍스트 → 모듈 hub
+          router.push(resolveSessionReturnHref(scope.from, scope.text, '/wordblitz'));
+        }}
+        // opts.assisted = 정답을 이미 보여준 뒤의 입력(재출제 · 좁은 창 시간 초과 · 방치).
+        // 세션 정확도에는 정직하게 반영하되 FSRS 카드는 중앙에서 건너뛴다.
+        onCorrect={(word, opts) => {
+          session.countCorrect();
+          // 판 시작자 결속 — 계정이 바뀐 옛 판의 입력은 보내지 않는다(use-session-recorder)
+          void session.result({
+            word: word.en,
+            isCorrect: true,
+            module: 'wordblitz',
+            assisted: opts?.assisted,
+          });
+        }}
+        onWrong={(word, opts) => {
+          session.countWrong();
+          void session.result({
+            word: word.en,
+            isCorrect: false,
+            module: 'wordblitz',
+            assisted: opts?.assisted,
+            // 무엇과 헷갈렸는지 — 컴포저의 `confusion-log` 유형이 이 신호로 짝을 만든다.
+            chosen: opts?.chosen,
+          });
+        }}
+        onRestart={() => {
+          session.flush();
+          onNextRound();
+        }}
+      />
+    </>
   );
 }
