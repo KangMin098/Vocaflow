@@ -16,6 +16,7 @@ import { resolveVaultReturnContexts, vaultPathWithStoryContext } from '@/lib/lib
 import { MapReturnBar } from '@/components/wordvault/WordVaultStudyClient'
 import { vocabMapLink } from '@/lib/csat/map-return'
 import { createClient } from '@/lib/supabase/server'
+import { resolveBookChapter } from '@/lib/wordvault/book-context'
 import {
   fetchUserSetChips,
   fetchUserTextChips,
@@ -131,12 +132,11 @@ export default async function WordVaultBrowsePage({ searchParams }: PageProps) {
         }))
         .sort((a, b) => a.chapterIdx - b.chapterIdx)
 
-      const currentIdx = searchParams.chapter
-        ? parseInt(searchParams.chapter, 10)
-        : (sortedChapters[0]?.chapterIdx ?? 0)
+      // 보이는 단어(filter=set:)가 이 도서·장의 세트일 때만 안내한다 — 다른 세트·장 번호 형식 오류면 안내 없음.
+      const currentIdx = resolveBookChapter(searchParams.filter, searchParams.chapter, sortedChapters)
 
       // 사용자 enrolled book 이면 현재 chapter 의 textId fetch — ResourceContext 본문 복귀용
-      const { data: textRow } = await supabase
+      const { data: textRow } = currentIdx === null ? { data: null } : await supabase
         .from('texts')
         .select('id')
         .eq('user_id', user.id)
@@ -144,7 +144,7 @@ export default async function WordVaultBrowsePage({ searchParams }: PageProps) {
         .eq('chapter_idx', currentIdx)
         .maybeSingle()
 
-      bookContext = {
+      if (currentIdx !== null) bookContext = {
         bookId: searchParams.book,
         bookTitle: (book as { title: string }).title,
         chapterIdx: currentIdx,
