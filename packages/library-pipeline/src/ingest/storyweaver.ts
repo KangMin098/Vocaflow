@@ -103,12 +103,19 @@ function decodeEntities(s: string): string {
 }
 
 /**
- * 책 한 권의 라이선스 — 본문(StoryPage)이 아닌 페이지(뒤표지·크레딧)의 「Released under …」 문장에서만 읽는다.
+ * 책 한 권의 라이선스 — **본문(이야기)에 귀속된** 명시 라이선스만 인정한다.
  *
  * ⚠️ 2026-06-14 도입 때부터 이 적재기는 모든 책을 'CC BY 4.0' 으로 **하드코딩**했다 — 책별 근거 없이
  *    발행 20권이 전부 CC BY 4.0 표시를 받았다(2026-10-27 감사). ACP 기사 적재기의 파서를 그대로 쓴다.
- * 못 읽거나(뒷장 없음·문장 없음) 서로 다른 라이선스 문장이 둘 이상이면(예: 삽화만 다른 조건) null —
- * 짐작해서 허용 라이선스를 붙이지 않는다. 형식은 기존 도서 표기('CC BY 4.0', 'CC BY-NC 4.0')로 맞춘다.
+ *
+ * 근거 구조(StoryWeaver 뒷장 실측): "Story Attribution: … Released under CC BY 4.0 license." 뒤에
+ * "Illustration Attribution: …" 처럼 기여자별 구간이 이어진다. 판정:
+ *   1. StoryPage 밖 글에 「Story Attribution:」 구간이 있어야 하고, 그 구간 안에 해석되는 라이선스가 **정확히 하나**.
+ *      삽화·표지·홍보 문구에만 CC 가 있으면 본문 권리 근거가 아니다 → null.
+ *   2. 뒷장 어디든 「All rights reserved」 가 있으면 null(저작권 유보와 CC 공존을 허용으로 보지 않는다).
+ *   3. 뒷장의 다른 모든 라이선스 언급(released/licensed under …)도 같은 값으로 해석돼야 한다 —
+ *      해석 못 하는 조건·다른 조건이 하나라도 있으면 null(모르는 조건을 「조건 없음」 으로 읽지 않는다).
+ * 형식은 기존 도서 표기('CC BY 4.0', 'CC BY-NC 4.0')로 맞춘다. 실제 원문 구조가 이와 다르면 멈추고 검수한다.
  */
 export function storyweaverBookLicense(pages: ReadonlyArray<{ pageType: string; html?: string | null }>): string | null {
   const back = pages
@@ -116,13 +123,21 @@ export function storyweaverBookLicense(pages: ReadonlyArray<{ pageType: string; 
     .map((p) => storyweaverPageText(p.html ?? ''))
     .join(' ')
   if (!back.trim()) return null
-  const found = new Set<string>()
-  for (const m of back.matchAll(/Released under.{0,40}?licen[cs]e/gi)) {
-    const one = storyweaverLicense(m[0])
-    if (!one) return null
-    found.add(one)
-  }
+  if (/all rights reserved/i.test(back)) return null
+  const story = back.match(/Story Attribution:([\s\S]*?)(?=\b[A-Z][a-z]+ Attribution:|$)/)?.[1]
+  if (!story) return null
+  // 라이선스를 말하는 문장 단위로 본다 — "4.0" 의 점에서 자르지 않도록 「점 + 공백」 에서만 끊는다
+  const mentions = (text: string) =>
+    text.split(/(?<=\.)\s+/).filter((s) => /\b(?:released|licen[cs]ed)\s+under\b/i.test(s))
+  const read = (sentence: string) => storyweaverLicense(sentence)
+  const storyLicenses = mentions(story).map(read)
+  if (storyLicenses.length === 0 || storyLicenses.some((l) => !l)) return null
+  const found = new Set(storyLicenses as string[])
   if (found.size !== 1) return null
+  for (const s of mentions(back)) {
+    const l = read(s)
+    if (!l || !found.has(l)) return null
+  }
   const [label] = [...found] // 'CC-BY-4.0' · 'CC-BY-NC-SA-4.0'
   const v = label!.match(/-(\d[\d.]*)$/)?.[1]
   const kind = label!.replace(/-\d[\d.]*$/, '').replace(/^CC-BY/, 'CC BY')
