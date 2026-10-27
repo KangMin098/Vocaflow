@@ -27,12 +27,12 @@ import type { Word } from '@/components/game/_shared/gamekit';
 import { GamePauseControl } from '@/components/game/_shared/PauseControl';
 import { gameResourceContext } from '@/lib/game/scope-resource';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
+import { GameIdentityNotice } from '@/components/game/GameIdentityNotice';
 import { useGameWordScope, type WordScope } from '@/lib/game/use-word-scope';
 import { POINTS } from '@/lib/wordblitz/data';
 // v08.1 — 전용 recordWordBlitzResult 대신 공용 recordGameResult 를 쓴다.
 // 전용 레코더에는 FSRS 무결성 가드(assisted 무시 · 같은 카드 10분 재채점 금지)가 없어서
 // 게임이 assisted 를 붙여도 그대로 카드가 갱신됐다. 판정은 중앙 한 곳(record-result.ts).
-import { recordGameResult } from '@/lib/game/record-result';
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
 const WordBlitzGame = dynamic(
@@ -163,6 +163,12 @@ function WordBlitzRound({
     computeScore: (correct, wrong) => Math.max(0, correct * POINTS.CORRECT - wrong * POINTS.WRONG),
   });
 
+  // 판의 계정 경계 — 단어를 읽은 사람과 브라우저 신원이 같을 때만 게임(개인 단어 · 정답 · 입력 · 음성)을 그린다.
+  //   바뀌면 게임을 내린다(언마운트 flush 는 recorder 가 그 판을 무효로 보고 적재하지 않는다).
+  if (session.status !== 'same') {
+    return <GameIdentityNotice status={session.status} reopenHref={typeof window === 'undefined' ? '/arcade' : `${window.location.pathname}${window.location.search}`} />;
+  }
+
   return (
     <WordBlitzGame
       wordPool={wordPool}
@@ -175,7 +181,8 @@ function WordBlitzRound({
       // 세션 정확도에는 정직하게 반영하되 FSRS 카드는 중앙에서 건너뛴다.
       onCorrect={(word, opts) => {
         session.countCorrect();
-        void recordGameResult({
+        // 판 시작자 결속 — 계정이 바뀐 옛 판의 입력은 보내지 않는다(use-session-recorder)
+        void session.result({
           word: word.en,
           isCorrect: true,
           module: 'wordblitz',
@@ -184,7 +191,7 @@ function WordBlitzRound({
       }}
       onWrong={(word, opts) => {
         session.countWrong();
-        void recordGameResult({
+        void session.result({
           word: word.en,
           isCorrect: false,
           module: 'wordblitz',

@@ -51,6 +51,12 @@ export interface RecordGameResultInput {
    * 갖지 못한다(오답은 인쇄 뒤에 생긴다).
    */
   chosen?: string;
+  /**
+   * 이 판을 **시작한 사람**(브라우저가 판 시작 때 본 uid). 주면 서버의 지금 사용자와 다를 때 쓰지 않는다.
+   * 옛 판의 늦은 입력 · 콜백이 그 사이 바뀐 계정(다른 탭 로그인)의 카드 · 단어장에 들어가지 않게 하는 멈춤 장치다.
+   * 권한 증명이 아니다 — 쓰는 사용자는 언제나 서버 getUser(쿠키)다. null = 시작 때 로그인 없음(그 판은 아무에게도 쓰지 않는다).
+   */
+  expectedUserId?: string | null;
 }
 
 /**
@@ -176,6 +182,7 @@ export async function recordGameResult(
     data: { user },
   } = await client.auth.getUser();
   if (!user) return { ok: false, error: '로그인이 필요합니다.' };
+  if (input.expectedUserId !== undefined && input.expectedUserId !== user.id) return { ok: false, error: 'identity-changed' };
 
   const normalizedWord = input.word.toLowerCase();
 
