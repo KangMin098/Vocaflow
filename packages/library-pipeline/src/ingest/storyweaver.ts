@@ -127,8 +127,13 @@ export function storyweaverBookLicense(pages: ReadonlyArray<{ pageType: string; 
   const story = back.match(/Story Attribution:([\s\S]*?)(?=\b[A-Z][a-z]+ Attribution:|$)/)?.[1]
   if (!story) return null
   // 라이선스를 말하는 문장 단위로 본다 — "4.0" 의 점에서 자르지 않도록 「점 + 공백」 에서만 끊는다
+  // 한 문장에 언급이 여럿이면(「…CC BY 4.0 license; illustrations released under CC BY-NC…」) 언급마다 따로 본다 —
+  // 파서는 첫 일치만 돌려주므로 문장째 넘기면 뒤 조건이 묻힌다.
   const mentions = (text: string) =>
-    text.split(/(?<=\.)\s+/).filter((s) => /\b(?:released|licen[cs]ed)\s+under\b/i.test(s))
+    text
+      .split(/(?<=\.)\s+/)
+      .flatMap((s) => s.split(/(?=\b(?:released|licen[cs]ed)\s+under\b)/i))
+      .filter((s) => /^(?:released|licen[cs]ed)\s+under\b/i.test(s.trim()))
   const read = (sentence: string) => storyweaverLicense(sentence)
   const storyLicenses = mentions(story).map(read)
   if (storyLicenses.length === 0 || storyLicenses.some((l) => !l)) return null

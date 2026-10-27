@@ -44,6 +44,11 @@ describe('storyweaverBookLicense — 멈춘다(null)', () => {
       storyweaverBookLicense([back(`${STORY} Released under CC BY 4.0 license. Released under a special agreement requiring prior written permission license.`)]),
     ).toBeNull()
   })
+  it('한 문장 안의 두 조건 상충(세미콜론) — 첫 CC 로 성공하지 않는다', () => {
+    expect(
+      storyweaverBookLicense([back('Story Attribution: This story is written by X. Released under CC BY 4.0 license; illustrations released under CC BY-NC 4.0 license.')]),
+    ).toBeNull()
+  })
   it('본문 CC BY · 삽화 CC BY-NC 상충', () => {
     expect(storyweaverBookLicense([back(`${STORY} Released under CC BY 4.0 license. ${ILLU} Released under CC BY-NC 4.0 license.`)])).toBeNull()
   })
