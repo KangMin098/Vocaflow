@@ -149,6 +149,16 @@ test.describe('이미 재생 중인 발화 — Codex 반례', () => {
   }
   const speech = (page: Page) => page.evaluate(() => ({ ...(window as unknown as { __speech: { speak: number; cancel: number; active: boolean } }).__speech }))
 
+  test('이 세션이 재생하지 않았으면 계정이 바뀌어도 전역 cancel 을 부르지 않는다(다른 화면 발화 보존 · 리뷰 P3)', async ({ page }) => {
+    await stubSpeech(page)
+    await open(page)
+    await expect(shown(page)).toBeVisible()
+    const s0 = await speech(page)
+    await page.getByTestId('st-to-b').click()
+    await expect(gate(page, 'changed')).toBeVisible()
+    expect((await speech(page)).cancel).toBe(s0.cancel)
+  })
+
   test('재생 중 B 로그인 · 재확인 중이면 그 발화를 멈춘다 · 같은 A 는 정상 재생', async ({ page }) => {
     await stubSpeech(page)
     await open(page)

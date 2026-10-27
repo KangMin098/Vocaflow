@@ -72,13 +72,33 @@ export function StudyMode({ words, onExit, viewerId, authSource }: StudyModeProp
   const [state, setState] = useState<StudyState>('hidden')
   const [isPlayingMain, setIsPlayingMain] = useState(false)
 
-  const { speak, cancel: cancelSpeech } = useSpeech()
+  const { speak: rawSpeak, cancel: cancelSpeech } = useSpeech()
   // 이미 시작한 발화도 멈춘다 — 새 재생 요청만 막으면 계정이 바뀐 뒤에도 A 의 단어가 끝까지 읽힌다(Codex 반례 2026-10-27).
-  //   확인 중 · 바뀜이면 그 자리에서, 세션이 내려가면(언마운트) 정리 때. 이 세션과 무관한 전역 오디오는 건드리지 않는다.
+  //   cancel 은 브라우저 전역(speechSynthesis.cancel)이라, **이 세션이 시작해 아직 끝나지 않은 발화가 있을 때만** 부른다 —
+  //   학습 화면을 떠나며 다른 화면이 막 시작한 발화까지 끊지 않게(리뷰 P3).
+  const ownUtteranceRef = useRef(0)
+  const speak = useCallback(
+    (text: string, opts: Parameters<typeof rawSpeak>[1] = {}) => {
+      ownUtteranceRef.current += 1
+      rawSpeak(text, {
+        ...opts,
+        onEnd: () => {
+          ownUtteranceRef.current = Math.max(0, ownUtteranceRef.current - 1)
+          opts.onEnd?.()
+        },
+      })
+    },
+    [rawSpeak],
+  )
+  const cancelOwnSpeech = useCallback(() => {
+    if (ownUtteranceRef.current === 0) return
+    ownUtteranceRef.current = 0
+    cancelSpeech()
+  }, [cancelSpeech])
   useEffect(() => {
-    if (viewerId !== undefined && authStatus !== 'same') cancelSpeech()
-  }, [viewerId, authStatus, cancelSpeech])
-  useEffect(() => () => cancelSpeech(), [cancelSpeech])
+    if (viewerId !== undefined && authStatus !== 'same') cancelOwnSpeech()
+  }, [viewerId, authStatus, cancelOwnSpeech])
+  useEffect(() => () => cancelOwnSpeech(), [cancelOwnSpeech])
   const w = words[studyIndex]
   const progress = words.length > 0 ? Math.round((studyIndex / words.length) * 100) : 0
 
