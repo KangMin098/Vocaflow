@@ -42,11 +42,11 @@ function makeSource() {
 
 const SYNTHETIC_WORDS = new Set(WORDS.map((w) => w.text))
 
-/** 합성 단어만 보인다 — 이 브라우저에 다른 계정의 대기 평가가 있어도 그 uid · 단어를 화면에 옮기지 않는다(읽기만 · 지우지 않음) */
+/** 합성 주인(A/B) · 합성 단어만 보인다(주인 미상 행도 숨김) — 이 브라우저에 다른 계정의 대기 평가가 있어도 그 uid · 단어를 화면에 옮기지 않는다(읽기만 · 지우지 않음) */
 function readQueue(): { owner: string | null; word: string }[] {
   try {
     return (JSON.parse(localStorage.getItem('srs_pending') ?? '[]') as { owner?: string; word: string }[])
-      .filter((p) => SYNTHETIC_WORDS.has(p.word) && (p.owner === undefined || p.owner === A || p.owner === B))
+      .filter((p) => SYNTHETIC_WORDS.has(p.word) && (p.owner === A || p.owner === B))
       .map((p) => ({ owner: p.owner ?? null, word: p.word }))
   } catch {
     return []
