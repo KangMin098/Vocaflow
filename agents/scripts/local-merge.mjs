@@ -5,8 +5,8 @@
 // pipe 가 acquire 실패를 삼켜 잠금 없이 merge 했다(2026-10-27 실측). 셸·pipe 없이 execFile argv 로만 git 을 부른다.
 //
 // 사용: node agents/scripts/local-merge.mjs <full-sha> --agent <name> --pid <live agent pid> [-m <message>]
-//   대상은 이 스크립트가 있는 워크트리(main-serving)다. --repo 는 회귀용이며 AGENT_LOCK_FILE 을 함께 줘야 한다
-//   (잠금 파일은 대상 워크트리의 것이어야 한다 — 다른 워크트리의 잠금으로 main 을 쓰지 않는다).
+//   대상은 이 스크립트가 있는 워크트리(main-serving)다. --repo 는 회귀용이며 잠금 파일(AGENT_LOCK_FILE)이
+//   그 워크트리의 .agent-lock 이 아니면 거부한다(다른 워크트리의 잠금으로 main 을 쓰지 않는다).
 // 종료: 0 통합됨/이미 포함 · 2 사전 조건 실패(merge 0회) · 3 잠금 실패(merge 0회) · 4 merge 실패(상태 보존·잠금 유지) · 64 사용법
 
 import { execFileSync } from 'node:child_process'
@@ -15,6 +15,7 @@ import path from 'node:path'
 import * as lock from './lock.mjs'
 import { ROOT, isMain } from './lib.mjs'
 
+const LOCK_NAME = '.agent-lock'
 const IN_PROGRESS = ['MERGE_HEAD', 'CHERRY_PICK_HEAD', 'REVERT_HEAD', 'rebase-merge', 'rebase-apply', 'BISECT_LOG']
 
 function gitIn(repo, args) {
@@ -36,9 +37,8 @@ export function snapshot(repo) {
   const status = tryGit(repo, ['status', '--porcelain', '--untracked-files=normal'])
   const gitDir = tryGit(repo, ['rev-parse', '--absolute-git-dir'])
   const busy = gitDir.ok ? IN_PROGRESS.filter((f) => fs.existsSync(path.join(gitDir.out, f))) : ['git-dir?']
-  // 잠금 파일은 워크트리 안에 있다 — 그 한 파일은 dirty 로 세지 않는다(.gitignore 에 없을 수도 있다)
-  const lockName = path.basename(lock.LOCK_FILE)
-  const dirty = status.ok ? status.out.split('\n').filter((l) => l && !l.endsWith(` ${lockName}`)) : ['status?']
+  // 대상 루트의 **미추적** 잠금 파일 한 줄만 dirty 에서 뺀다(.gitignore 에 없을 수도 있다) — 같은 이름의 추적 파일 수정은 빼지 않는다
+  const dirty = status.ok ? status.out.split('\n').filter((l) => l && l !== `?? ${LOCK_NAME}`) : ['status?']
   return { branch: branch.ok ? branch.out : null, head: head.ok ? head.out : null, dirty, busy }
 }
 
@@ -58,6 +58,10 @@ export function localMerge({ repo = ROOT, sha, agent, pid, message, afterAcquire
   if (!/^[0-9a-f]{40}$/.test(sha ?? '')) return { code: 64, msg: `전체 40자 SHA 를 준다(받은 값: ${sha ?? '없음'})` }
   if (!agent) return { code: 64, msg: '--agent 가 필요하다' }
   if (!Number.isInteger(pid) || pid <= 0) return { code: 64, msg: '--pid 에 살아 있는 에이전트 pid 를 준다' }
+
+  // 잠금은 대상 워크트리의 것이어야 한다 — 다른 워크트리의 잠금을 쥐고 이 main 을 쓰지 않는다
+  if (path.resolve(lock.LOCK_FILE).toLowerCase() !== path.join(path.resolve(repo), LOCK_NAME).toLowerCase())
+    return { code: 64, msg: `잠금 파일(${lock.LOCK_FILE})이 대상 워크트리(${repo})의 ${LOCK_NAME} 가 아니다 — merge 0회` }
 
   const commit = tryGit(repo, ['cat-file', '-t', sha])
   if (!commit.ok || commit.out !== 'commit') return { code: 2, msg: `대상 저장소에 커밋 ${sha} 가 없다` }
@@ -104,10 +108,6 @@ function main() {
   }
   const sha = argv.find((a, i) => !a.startsWith('-') && !['--agent', '--pid', '-m', '--repo'].includes(argv[i - 1]))
   const repoArg = flag('--repo')
-  if (repoArg && path.resolve(repoArg) !== path.resolve(ROOT) && !process.env.AGENT_LOCK_FILE) {
-    console.error('--repo 를 다른 워크트리로 줄 때는 그 워크트리의 AGENT_LOCK_FILE 을 함께 준다')
-    process.exit(64)
-  }
   const pidArg = flag('--pid')
   const r = localMerge({
     repo: repoArg ? path.resolve(repoArg) : ROOT,

@@ -8,16 +8,18 @@ import os from 'node:os'
 import path from 'node:path'
 
 const tmp = fs.mkdtempSync(path.join(os.tmpdir(), 'local-merge-'))
-const LOCK = path.join(tmp, 'lockfile')
+// 잠금은 대상 워크트리 루트의 .agent-lock 이어야 한다 — 모든 fixture 를 같은 경로에 다시 만든다
+const REPO = path.join(tmp, 'repo')
+const LOCK = path.join(REPO, '.agent-lock')
 process.env.AGENT_LOCK_FILE = LOCK
 const { localMerge } = await import('../local-merge.mjs')
 
-let n = 0
 const g = (repo, ...args) => execFileSync('git', args, { cwd: repo, encoding: 'utf8', stdio: ['ignore', 'pipe', 'pipe'] }).trim()
 
 /** main 에 커밋 하나, feature 에 커밋 하나인 저장소 — feature SHA 를 돌려준다. */
 function fixture({ conflict = false } = {}) {
-  const repo = path.join(tmp, `r${n++}`)
+  const repo = REPO
+  fs.rmSync(repo, { recursive: true, force: true })
   fs.mkdirSync(repo)
   g(repo, 'init', '-q', '-b', 'main')
   g(repo, 'config', 'user.email', 't@t')
@@ -129,4 +131,28 @@ test('merge 충돌: abort/reset 하지 않고 상태·잠금을 보존한다', (
   assert.equal(JSON.parse(fs.readFileSync(LOCK, 'utf8')).pid, process.pid)
   g(repo, 'merge', '--abort')
   fs.rmSync(LOCK, { force: true })
+})
+
+test('다른 워크트리의 잠금: 대상이 잠금 파일의 워크트리가 아니면 merge 0회 · 기존 잠금 보존', () => {
+  const { sha } = fixture()
+  const other = path.join(tmp, 'other')
+  fs.rmSync(other, { recursive: true, force: true })
+  fs.cpSync(REPO, other, { recursive: true })
+  const held = JSON.stringify({ agent: 'codex', pid: holder.pid, host: os.hostname(), branch: 'x', started_at: 't' })
+  fs.writeFileSync(path.join(other, '.agent-lock'), held)
+  const otherHead = g(other, 'rev-parse', 'HEAD')
+  const r = localMerge({ repo: other, sha, ...me })
+  assert.equal(r.code, 64, r.msg)
+  assert.equal(g(other, 'rev-parse', 'HEAD'), otherHead)
+  assert.equal(fs.readFileSync(path.join(other, '.agent-lock'), 'utf8'), held)
+  assert.equal(fs.existsSync(LOCK), false)
+})
+
+test('잠금 이름과 같은 다른 경로의 파일은 dirty 로 남는다', () => {
+  const { repo, sha, head } = fixture()
+  fs.mkdirSync(path.join(repo, 'sub'))
+  fs.writeFileSync(path.join(repo, 'sub', '.agent-lock'), 'x\n')
+  const r = localMerge({ repo, sha, ...me })
+  assert.equal(r.code, 2, r.msg)
+  assert.equal(g(repo, 'rev-parse', 'HEAD'), head)
 })
