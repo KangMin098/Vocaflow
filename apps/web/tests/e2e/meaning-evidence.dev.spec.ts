@@ -60,8 +60,11 @@ for (const width of WIDTHS) {
       await expect(page.getByTestId('meaning-evidence-chosen')).toContainText('opening hours of shops')
       await expect(box(page)).toContainText('정답을 받치는')
       await expect(page.getByTestId('meaning-evidence-compare')).toHaveCount(0) // 이전 문항 상태가 넘어오지 않았다
-      await page.getByTestId('meaning-evidence-skip').click()
+      // 키보드로 건너뛰기 — 포커스가 BODY 로 떨어지지 않고 안내로 이어진다
+      await page.getByTestId('meaning-evidence-skip').focus()
+      await page.keyboard.press('Enter')
       await expect(page.getByTestId('meaning-evidence-skipped')).toBeVisible()
+      expect(await page.evaluate(() => document.activeElement?.getAttribute('data-testid'))).toBe('meaning-evidence-skipped')
       await page.getByRole('button', { name: /다음/ }).click()
       // 빈칸 유형에는 근거 짚기가 없다
       await answer(page, 1)

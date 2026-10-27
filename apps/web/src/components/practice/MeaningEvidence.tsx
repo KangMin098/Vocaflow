@@ -28,7 +28,13 @@ export function MeaningEvidence({
 
   if (skipped) {
     return (
-      <p className="break-keep font-body text-[12.5px] leading-relaxed text-[var(--t2)]" data-testid="meaning-evidence-skipped">
+      // 건너뛰기 단추가 사라지며 포커스가 BODY 로 떨어졌다(Codex PC 실측) — 안내 문장이 포커스를 이어받는다
+      <p
+        ref={(el) => el?.focus()}
+        tabIndex={-1}
+        className="break-keep rounded-[var(--r-md)] font-body text-[12.5px] leading-relaxed text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        data-testid="meaning-evidence-skipped"
+      >
         근거 짚기는 건너뛰었어요. 다음 문항에서 다시 해 볼 수 있어요.
       </p>
     )

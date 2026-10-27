@@ -19,17 +19,18 @@ export function isMeaningEvidenceType(type: unknown): boolean {
 }
 
 /** 약어 안의 마침표를 잠시 바꿔 둘 문자 — 본문에 나오지 않는 사용자 영역 문자. 나눈 뒤 마침표로 되돌린다. */
-const DOT = ''
+// 보이지 않는 문자를 리터럴로 두면 편집 중 빈 문자열로 사라질 수 있다(그러면 split('') 이 글자마다 쪼갠다) — 코드 값으로 만든다
+export const DOT = String.fromCharCode(0xe000)
 
 /**
  * 약어 보호 — 「Washington, D.C., stands …」 가 splitSentences 의 마침표 기준에서 「D.」 · 「C.」 로 갈렸다(Codex 실측 · Lincoln 원문).
  * 나누기 전에 약어 안의 마침표만 DOT 로 바꾸고, 나눈 뒤 되돌린다 — **원문 글자는 하나도 바꾸지 않는다**(잇기 방식은
- * 공백 · 글자를 다시 만들다 원문을 바꿨다). 대상: 이니셜이 둘 이상 이어진 것(D.C. · U.S.) · 호칭(Mr. Mrs. Ms. Dr. St. Jr. Sr.).
+ * 공백 · 글자를 다시 만들다 원문을 바꿨다). 대상: 이니셜이 둘 이상 이어진 것(D.C. · U.S.) · 호칭(Mr. Mrs. Ms. Dr. Jr. Sr.). 「St.」는 문장 끝(Main St.)일 때 두 문장을 붙이므로 뺀다.
  */
 function protectAbbreviations(text: string): string {
   return text
     .replace(/\b(?:[A-Z]\.){2,}/g, (m) => m.replace(/\./g, DOT))
-    .replace(/\b(Mr|Mrs|Ms|Dr|St|Jr|Sr)\./g, `$1${DOT}`)
+    .replace(/\b(Mr|Mrs|Ms|Dr|Jr|Sr)\./g, `$1${DOT}`)
 }
 
 /** 짚을 후보 문장 — 지문을 문장으로 나눈 것. 두 문장이 안 되면 짚을 것이 없어 null(화면이 그리지 않는다). */

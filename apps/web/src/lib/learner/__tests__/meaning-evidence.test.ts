@@ -48,3 +48,14 @@ describe('원문 글자 보존(Codex 반례)', () => {
     expect(out.some((s) => s.includes('birds'))).toBe(true)
   })
 })
+
+describe('보호 문자 · St. (리뷰 P3)', () => {
+  it('보호 문자는 한 글자(빈 문자열이 되면 split 이 글자마다 쪼갠다)', async () => {
+    const { DOT } = await import('../meaning-evidence')
+    expect(DOT.length).toBe(1)
+    expect(DOT.charCodeAt(0)).toBe(0xe000)
+  })
+  it('문장 끝 「St.」 에서는 두 문장으로 나뉜다', () => {
+    expect(meaningEvidenceSentences('title', 'The bakery is on Main St. The owner bakes by hand.')).toEqual(['The bakery is on Main St.', 'The owner bakes by hand.'])
+  })
+})
