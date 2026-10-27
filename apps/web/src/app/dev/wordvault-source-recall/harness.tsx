@@ -8,7 +8,8 @@ import { WordVaultBrowseClient } from '@/components/wordvault/WordVaultBrowseCli
 import { WordVaultStudyClient } from '@/components/wordvault/WordVaultStudyClient'
 import type { BrowseWord } from '@/lib/wordvault/browse-queries'
 import type { SetMembership } from '@/lib/wordvault/source-filter'
-import { parseStudyFilter, scopeSourceStudyWords, sourceStudyReturnHref } from '@/lib/wordvault/source-study'
+import { applyConditionsThenCap, conditionParts, parseStudyFilter, scopeSourceStudyWords, sourceStudyReturnHref } from '@/lib/wordvault/source-study'
+import { filterByMemoryState, stateFilterLabel, toStateFilterValue } from '@/lib/wordvault/state-filter'
 
 const TA = '00000000-0000-4000-8000-0000000000a1'
 const TB = '00000000-0000-4000-8000-0000000000b1'
@@ -45,6 +46,12 @@ export function WordVaultSourceRecallHarness({ searchParams }: { searchParams: R
   if (searchParams.view === 'study') {
     const host = <EscapeKeyHost />
     const parsed = parseStudyFilter(searchParams.filter, searchParams.q, searchParams.level)
+    if (parsed.kind === 'state-scoped' || parsed.kind === 'state') {
+      // 서버 scopeStateStudyRows 와 같은 순서(상태 → 검색 · 난이도 → 상한) — 합성 단어는 srs 가 없어 모두 new
+      const cond = parsed.kind === 'state-scoped' ? parsed : { query: '', level: null }
+      const r = applyConditionsThenCap(filterByMemoryState(WORDS, parsed.key), cond, 50)
+      return (<>{banner}{host}<WordVaultStudyClient words={r.words} backHref={sourceStudyReturnHref(searchParams.from, toStateFilterValue(parsed.key))} source={{ total: r.total, conditions: [`지금 기준 ${stateFilterLabel(parsed.key)}`, ...conditionParts(cond)].join(' · ') }} /></>)
+    }
     if (parsed.kind !== 'source') {
       return (<>{banner}{host}<WordVaultStudyClient words={[]} backHref={sourceStudyReturnHref(searchParams.from, '')} source={{ total: 0, conditions: '', error: 'invalid' }} /></>)
     }

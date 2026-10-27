@@ -8,7 +8,7 @@
 
 import { matchesLevel, matchesQuery, normalizeQuery, parseLevelParam, type LevelParam } from './list-params'
 import { applySourceFilter, normalizeSourceFilter, type SetMembership } from './source-filter'
-import { parseStateFilter, type StateFilterKey } from './state-filter'
+import { parseStateFilter, toStateFilterValue, type StateFilterKey } from './state-filter'
 import { sanitizeInternalPath } from '@/lib/layout/session-return'
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
@@ -16,6 +16,8 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 export type StudyFilter =
   | { kind: 'none' }
   | { kind: 'state'; key: StateFilterKey }
+  /** 기억 상태 목록에 검색 · 난이도가 함께 걸린 경우 — 상태 → 검색 → 난이도 → 상한 순(2026-10-28) */
+  | { kind: 'state-scoped'; key: StateFilterKey; query: string; level: LevelParam | null }
   | { kind: 'source'; filter: string; query: string; level: LevelParam | null }
   | { kind: 'invalid' }
 
@@ -36,19 +38,50 @@ export function parseStudyFilter(raw: unknown, rawQuery?: unknown, rawLevel?: un
   if (!isText && !isSet) {
     const key = parseStateFilter(v)
     // 명시했지만 모르는 값(text · set · garbage · state:모름)은 전체 앞 50개로 흘리지 않는다.
-    return key ? { kind: 'state', key } : { kind: 'invalid' }
+    if (!key) return { kind: 'invalid' }
+    const cond = parseConditions(rawQuery, rawLevel)
+    if (!cond) return { kind: 'invalid' } // 반복 · 모르는 q/level — 조건을 버려 넓은 세션으로 바꾸지 않는다
+    // 조건이 없으면 기존 state: 경로 그대로(같은 판정 · 상한)
+    return cond.query || cond.level ? { kind: 'state-scoped', key, ...cond } : { kind: 'state', key }
   }
   const id = v.slice(isText ? 5 : 4)
   if (!UUID.test(id)) return { kind: 'invalid' }
-  if (Array.isArray(rawQuery) || Array.isArray(rawLevel)) return { kind: 'invalid' }
-  if (rawQuery !== undefined && typeof rawQuery !== 'string') return { kind: 'invalid' }
-  if (rawLevel !== undefined && typeof rawLevel !== 'string') return { kind: 'invalid' }
+  const cond = parseConditions(rawQuery, rawLevel)
+  if (!cond) return { kind: 'invalid' }
+  return { kind: 'source', filter: `${isText ? 'text' : 'set'}:${id.toLowerCase()}`, ...cond }
+}
+
+/** 목록 조건(q · level) — 반복 · 문자열 아님 · 모르는 level 은 null(invalid). 빈 값 · all 은 조건 없음. */
+function parseConditions(rawQuery: unknown, rawLevel: unknown): { query: string; level: LevelParam | null } | null {
+  if (Array.isArray(rawQuery) || Array.isArray(rawLevel)) return null
+  if (rawQuery !== undefined && rawQuery !== null && typeof rawQuery !== 'string') return null
+  if (rawLevel !== undefined && rawLevel !== null && typeof rawLevel !== 'string') return null
   let level: LevelParam | null = null
   if (typeof rawLevel === 'string' && rawLevel.trim() && rawLevel.trim() !== 'all') {
     level = parseLevelParam(rawLevel)
-    if (!level) return { kind: 'invalid' }
+    if (!level) return null
   }
-  return { kind: 'source', filter: `${isText ? 'text' : 'set'}:${id.toLowerCase()}`, query: normalizeQuery(rawQuery as string | undefined), level }
+  return { query: normalizeQuery(typeof rawQuery === 'string' ? rawQuery : undefined), level }
+}
+
+/** 화면 안내용 조건 한 줄 — 난이도 · 검색어 */
+export function conditionParts(scope: { query: string; level: LevelParam | null }): string[] {
+  const parts: string[] = []
+  if (scope.level) parts.push(scope.level.kind === 'cefr' ? scope.level.value : `${scope.level.value.toUpperCase()} 등급`)
+  if (scope.query) parts.push(`"${scope.query}"`)
+  return parts
+}
+
+/** 이미 범위를 고른(정렬 유지) 단어에 검색 · 난이도를 걸고 그 **뒤에** 상한을 자른다. */
+export function applyConditionsThenCap<W extends { word: string; meaning: string } & Parameters<typeof matchesLevel>[0]>(
+  words: readonly W[],
+  scope: { query: string; level: LevelParam | null },
+  cap: number,
+): { words: W[]; total: number } {
+  let list = [...words]
+  if (scope.query) list = list.filter((w) => matchesQuery(w, scope.query))
+  if (scope.level) list = list.filter((w) => matchesLevel(w, scope.level))
+  return { words: list.slice(0, cap), total: list.length }
 }
 
 export type SourceStudyScope<W> =
@@ -69,10 +102,7 @@ export function scopeSourceStudyWords<W extends { setId?: string | null; textId?
   if (scope.filter.startsWith('set:') && membership && membership.setId === scope.filter.slice(4) && 'error' in membership) {
     return { status: 'membership-error' }
   }
-  let list = applySourceFilter(words, scope.filter, membership)
-  if (scope.query) list = list.filter((w) => matchesQuery(w, scope.query))
-  if (scope.level) list = list.filter((w) => matchesLevel(w, scope.level))
-  return { status: 'ok', words: list.slice(0, cap), total: list.length }
+  return { status: 'ok', ...applyConditionsThenCap(applySourceFilter(words, scope.filter, membership), scope, cap) }
 }
 
 /** 출처 세션이 끝나면 돌아갈 목록 — 검증된 내부 Browse 주소만. 없거나 다른 곳이면 그 출처의 목록. */
@@ -112,6 +142,10 @@ export function studyReopenHref(parsed: StudyFilter, rawFilter: unknown, rawLeve
   if (parsed.kind === 'invalid') reopen.set('filter', 'invalid')
   else if (parsed.kind === 'source') {
     reopen.set('filter', parsed.filter)
+    if (parsed.query) reopen.set('q', parsed.query)
+    if (typeof rawLevel === 'string' && parsed.level) reopen.set('level', rawLevel.trim())
+  } else if (parsed.kind === 'state-scoped') {
+    reopen.set('filter', toStateFilterValue(parsed.key))
     if (parsed.query) reopen.set('q', parsed.query)
     if (typeof rawLevel === 'string' && parsed.level) reopen.set('level', rawLevel.trim())
   } else if (typeof rawFilter === 'string' && rawFilter) reopen.set('filter', rawFilter)
