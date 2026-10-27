@@ -47,3 +47,16 @@ export interface MockUserContext {
   /** 진행 중 텍스트 ID (workspace 라우팅용) */
   inProgressTextId?: string;
 }
+
+/**
+ * 서버 추천 + 그 추천을 만든 계정 — 개인 글(P2)은 화면의 브라우저 신원이 이 계정과 **긍정 확인된** 때만 그린다(use-next-action).
+ * `ownerId` 는 비교용이다 — DOM · URL · 이벤트 · 저장소에 넣지 않는다.
+ */
+export interface OwnedNextAction {
+  action: RecommendedAction
+  /** 개인 글 없이 결정한 추천 — 신원이 확인되지 않았을 때 대신 쓴다 */
+  fallback: RecommendedAction
+  /** action 에 개인 글(제목 · textId)이 들어 있나 */
+  personal: boolean
+  ownerId: string | null
+}
