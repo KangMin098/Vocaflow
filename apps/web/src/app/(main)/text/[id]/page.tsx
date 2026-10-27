@@ -10,6 +10,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react'
 import { ArrowLeft, ArrowRight } from 'lucide-react'
 
 import { SpellForge } from '@/components/spellforge/SpellForge'
+import { GameViewerGate } from '@/components/game/GameViewerGate'
 import { ExtractionPanel } from '@/components/text-extract/ExtractionPanel'
 import { ChapterBottomNav } from '@/components/workspace/ChapterBottomNav'
 import { FloatingAudioPlayer } from '@/components/workspace/FloatingAudioPlayer'
@@ -489,14 +490,20 @@ export default function WorkspacePage({ params }: PageProps) {
   )
 
   // SpellForge 모드 — 워크스페이스 레이아웃 우회, 전용 화면 단독 렌더
+  // 개인 글 제목 · 단어 · 철자 평가는 이 글을 읽은 주인(ctx.ownerId)의 것 — 같은 사람으로 긍정 확인될 때만(/spellforge/play 와 같은 경계).
+  //   주인을 모르면(문맥 없음) null 주인으로 경계를 걸어 로그인한 브라우저에는 그리지 않는다 — 개인 자료를 추측으로 열지 않는다.
   if (currentMode === 'spellforge') {
+    const owner = ctx?.ownerId ?? null
     return (
-      <SpellForge
-        textId={text.id}
-        textTitle={text.title}
-        words={spellforgeWords}
-        backHref={`/text/${text.id}?mode=read`}
-      />
+      <GameViewerGate viewerId={owner} reopenHref={`/text/${text.id}?mode=spellforge`}>
+        <SpellForge
+          textId={text.id}
+          textTitle={text.title}
+          words={spellforgeWords}
+          backHref={`/text/${text.id}?mode=read`}
+          viewerId={owner}
+        />
+      </GameViewerGate>
     )
   }
 

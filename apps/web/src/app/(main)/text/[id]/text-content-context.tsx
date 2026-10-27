@@ -35,6 +35,12 @@ export interface BookInfo {
 export interface TextContentData {
   /** texts.id — Phase 11.7 WordVault 추가 시 provenance */
   textId: string;
+  /**
+   * 이 글을 **실제로 읽은** 자료의 주인(v_text_content.user_id · 서버 쿠키 세션의 RLS 로 읽힌 행).
+   * 개인 연습(철자 등)의 화면 · 평가 경계가 여기에 결속한다 — 나중에 따로 읽은 브라우저 신원으로 주인을 정하지 않는다.
+   * 권한 증명이 아니다(쓰기 권한은 서버 getUser · RLS). 없으면 null(예: 시험 대역).
+   */
+  ownerId?: string | null;
   /** Phase 11.9 — WordBlitz 등 game mode가 chapter 단어 풀 fetch 시 사용 */
   libraryBookId: string | null;
   chapterIdx: number | null;
