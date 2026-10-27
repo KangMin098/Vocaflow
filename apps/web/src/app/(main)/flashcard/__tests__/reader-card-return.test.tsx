@@ -13,6 +13,13 @@ import FlashcardPlayPage from '../play/page'
 import { ModePills } from '@/components/workspace/ModePills'
 import { readerScopeQuery } from '@/lib/wordvault/source-filter'
 import { resolveSessionReturnHref } from '@/lib/layout/session-return'
+import { StoryAuthSourceContext, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
+import type { ReactElement } from 'react'
+
+/** 브라우저 신원(주입) — 서버 mock 사용자 u1 과 같으면 개인 화면이 보인다(FlashcardViewerGate) */
+const knownAs = (uid: string | null): StoryAuthSource => ({ subscribe: () => () => {}, currentUserId: async () => uid, testOnlyKnownUserId: () => uid })
+const renderAs = (el: ReactElement, uid: string | null = 'u1') =>
+  renderToStaticMarkup(<StoryAuthSourceContext.Provider value={knownAs(uid)}>{el}</StoryAuthSourceContext.Provider>)
 
 const TEXT = '11111111-1111-4111-8111-111111111111'
 const SET = '22222222-2222-4222-8222-222222222222'
@@ -56,7 +63,7 @@ describe('카드 쪽 복귀', () => {
 
   it('기사 set 이 비어 있으면 빈 상태가 읽던 글로 돌려보낸다(단어장은 보조)', async () => {
     scoped.value = { title: '기사 A', subtitle: '', words: [] }
-    const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { set: SET, from: `/text/${TEXT}` } }))
+    const html = renderAs(await FlashcardPlayPage({ searchParams: { set: SET, from: `/text/${TEXT}` } }))
     expect(html).toContain('data-testid="flashcard-empty-return"')
     expect(html).toContain(`href="/text/${TEXT}"`)
     expect(html).toContain('href="/wordvault"')
@@ -65,7 +72,7 @@ describe('카드 쪽 복귀', () => {
   it('출처가 없거나 외부면 복귀 단추를 꾸미지 않는다', async () => {
     scoped.value = { title: '기사 A', subtitle: '', words: [] }
     for (const from of [undefined, '//evil.example', '/\\evil.example', `/flashcard/play?set=${SET}`]) {
-      const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { set: SET, from } }))
+      const html = renderAs(await FlashcardPlayPage({ searchParams: { set: SET, from } }))
       expect(html).not.toContain('flashcard-empty-return')
       expect(html).toContain('href="/wordvault"')
     }
@@ -75,7 +82,7 @@ describe('카드 쪽 복귀', () => {
 describe('불러오지 못함(null) ≠ 확인된 빈 목록(0개)', () => {
   it('null 이면 「비어 있다」고 하지 않고 같은 범위 다시 열기 + 읽던 곳', async () => {
     scoped.value = null
-    const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { set: SET, chapter: '2', from: `/text/${TEXT}` } }))
+    const html = renderAs(await FlashcardPlayPage({ searchParams: { set: SET, chapter: '2', from: `/text/${TEXT}` } }))
     expect(html).toContain('data-testid="flashcard-scope-unavailable"')
     expect(html).not.toContain('비어 있어요')
     expect(html).not.toContain('href="/wordvault"')
@@ -89,7 +96,7 @@ describe('불러오지 못함(null) ≠ 확인된 빈 목록(0개)', () => {
 
   it('null + 외부 from: 다시 열기만, 외부 복귀 단추 없음', async () => {
     scoped.value = null
-    const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { text: TEXT, from: '/\\evil.example' } }))
+    const html = renderAs(await FlashcardPlayPage({ searchParams: { text: TEXT, from: '/\\evil.example' } }))
     expect(html).toContain('flashcard-scope-retry')
     // text 범위는 그 글로 돌아간다(from 이 버려지면 ?text 로)
     expect(html).toContain(`href="/text/${TEXT}?mode=read"`)
@@ -98,8 +105,26 @@ describe('불러오지 못함(null) ≠ 확인된 빈 목록(0개)', () => {
 
   it('성공 0개는 기존 빈 상태(불러오기 실패 안내 아님)', async () => {
     scoped.value = { title: '기사 A', subtitle: '', words: [] }
-    const html = renderToStaticMarkup(await FlashcardPlayPage({ searchParams: { set: SET } }))
+    const html = renderAs(await FlashcardPlayPage({ searchParams: { set: SET } }))
     expect(html).toContain('비어 있어요')
     expect(html).not.toContain('flashcard-scope-unavailable')
+  })
+})
+
+describe('카드 화면 계정 경계(FlashcardViewerGate)', () => {
+  it('빈 상태의 본인 글 제목은 브라우저 신원이 다른 사람이면 그리지 않는다', async () => {
+    scoped.value = { title: '내 일기 제목', subtitle: '', words: [] }
+    const same = renderAs(await FlashcardPlayPage({ searchParams: { text: TEXT } }))
+    expect(same).toContain('내 일기 제목')
+    const other = renderAs(await FlashcardPlayPage({ searchParams: { text: TEXT } }), 'someone-else')
+    expect(other).not.toContain('내 일기 제목')
+    expect(other).toContain('data-card-private="changed"')
+    expect(other).toContain(`href="/flashcard/play?text=${TEXT}"`)
+  })
+
+  it('조회 불가 안내는 개인 내용이 없어 경계 밖(확인 중에도 보인다)', async () => {
+    scoped.value = null
+    const html = renderAs(await FlashcardPlayPage({ searchParams: { set: SET } }), 'someone-else')
+    expect(html).toContain('flashcard-scope-unavailable')
   })
 })
