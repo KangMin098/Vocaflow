@@ -14,6 +14,8 @@
 //   reader_context_missing=true 면 story_reader_context 는 PostgREST PGRST202(스키마 캐시에 함수 없음)로 끝난다(S5 적용 전 상태).
 //   U1(T-0187): 미적용 제안 story_release_guidance(supabase/migrations/_pending_lcp_story_u1_guidance.sql)도 흉내 낸다 —
 //   guidance_missing=true 면 PGRST202(지금 공유 DB 의 실제 상태) · guidance_corrupt 의 발행 키가 이용 가능하면 story:guidance_mismatch.
+//   W2(T-0189): 미적용 제안 story_unit_context_notes(supabase/migrations/_pending_lcp_story_w2_context_notes.sql)도 흉내 낸다 —
+//   context_notes_missing=true 면 PGRST202 · context_notes_corrupt 는 story:context_notes_mismatch · context_notes_wrong_unit 은 다른 단위 번호 응답.
 //   PostgREST · RLS · 잠금 · 트랜잭션 · JWT 는 흉내 내지 않는다. 시각을 읽지 않는다(갱신 순서는 seq 로).
 // 'server-only' 는 NODE_OPTIONS=--conditions=react-server 로 빈 모듈이 되게 실행한다(스펙이 그렇게 띄운다).
 
@@ -176,6 +178,26 @@ export class FakeLearnerDb {
           background_load: r.guidance.background_load,
           cautions: [...r.guidance.cautions],
         }))
+      }
+      case 'story_unit_context_notes': {
+        // 미적용 제안 _pending_lcp_story_w2_context_notes.sql 의 규칙: authenticated 만 · 학습자 판정 · 철회 · 권리 보류 → release_unavailable ·
+        // 단위 범위 → unit_not_found · 결속 불일치(여기서는 context_notes_corrupt 표시) → story:context_notes_mismatch ·
+        // 반환 { release_key, unit_index, notes:[{id,text}] } = 그 단위 id 를 unit_ids 에 가진 설명만(저장 순서 · 문장 그대로).
+        if (this.state.context_notes_missing) throw new Raise('__PGRST202__')
+        if (!uid) throw new Raise('permission denied for function story_unit_context_notes', '42501')
+        this.requireLearner(uid)
+        const r = this.openRelease(args.p_release_key)
+        const idx = args.p_unit_index
+        if (typeof idx !== 'number' || idx < 0 || idx >= r.unit_count) throw new Raise('story:unit_not_found')
+        const u = r.units.find((x) => x.unit_index === idx)
+        if (!u) throw new Raise('story:unit_not_found')
+        if ((this.state.context_notes_corrupt ?? []).includes(r.release_key)) throw new Raise('story:context_notes_mismatch')
+        const wrong = (this.state.context_notes_wrong_unit ?? []).includes(r.release_key)
+        return {
+          release_key: r.release_key,
+          unit_index: wrong ? (idx + 1) % r.unit_count : idx,
+          notes: (r.context_notes ?? []).filter((n) => n.unit_ids.includes(u.unit_id)).map((n) => ({ id: n.id, text: n.text })),
+        }
       }
       default:
         throw new Raise(`permission denied for function ${fn}`, '42501')

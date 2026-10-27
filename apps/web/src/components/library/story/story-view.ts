@@ -76,6 +76,18 @@ export function guidanceUnavailableText(reason: StoryGuidanceUnavailableReason):
     : '읽기 전 안내(주의 · 부담)를 지금 불러오지 못했어요. 주의할 내용이 없다는 뜻은 아니에요.'
 }
 
+/** 단위 본문 뒤 접힌 시대적 맥락 설명의 요약(펼치기 전). 설명 문장 자체는 접힌 영역 안에만 둔다. */
+export function contextNotesSummary(count: number): string {
+  return `시대적 맥락 ${count}가지 · 원할 때 펼쳐 보세요`
+}
+
+/** 맥락 설명을 보일 수 없을 때 — 「이 단위에 설명 없음」으로 읽히지 않게 그렇다고 말한다. 본문 · 진도와는 무관하다. */
+export function contextNotesUnavailableText(reason: StoryGuidanceUnavailableReason): string {
+  return reason === 'invalid'
+    ? '이 단위의 시대적 맥락 설명을 확인하지 못해 보여 드리지 않아요. 설명이 없다는 뜻은 아니에요.'
+    : '이 단위의 시대적 맥락 설명을 지금 불러오지 못했어요. 설명이 없다는 뜻은 아니에요.'
+}
+
 /** 서가 안내 상태에서 발행본 하나의 안내. 조회는 됐는데 그 행이 없으면 「불러오지 못함」(주의 없음이 아니다). */
 export function guidanceViewFor(state: StoryGuidanceState, releaseKey: string): StoryReleaseGuidanceView {
   if (state.status === 'unavailable') return state

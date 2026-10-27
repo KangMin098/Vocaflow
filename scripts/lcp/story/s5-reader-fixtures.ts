@@ -76,6 +76,11 @@ export interface ReaderRelease {
   source: ReaderSource
   /** 판본 자리 production.target 중 U1 공개 안내 필드(합성). 주의 문장은 시험용 합성 문장이다. */
   guidance: { cognitive_demand: 'low' | 'moderate' | 'high'; background_load: 'low' | 'moderate' | 'high'; cautions: string[] }
+  /**
+   * W2 단위 시대적 맥락 설명(합성) — 판본 change_log 중 retain_with_context 민감 표현에 붙은 context_note 만 흉내 낸다(unit_ids = 판본 단위 id).
+   * 시험용 합성 문장이다(실제 검수 콘텐츠 아님).
+   */
+  context_notes: { id: string; unit_ids: string[]; text: string }[]
 }
 export interface ReaderProgress {
   user_id: string
@@ -94,6 +99,12 @@ export interface ReaderDbState {
   guidance_missing: boolean
   /** 안내 결속이 깨진 발행 키(이용 가능하면 안내 호출 전체가 story:guidance_mismatch). */
   guidance_corrupt: string[]
+  /** W2 맥락 설명 RPC 가 없는 환경(제안 SQL 미적용 — 공유 DB 의 지금 상태)을 흉내 낸다. */
+  context_notes_missing: boolean
+  /** 맥락 설명 결속이 깨진 발행 키(그 발행본의 맥락 설명 호출이 story:context_notes_mismatch). */
+  context_notes_corrupt: string[]
+  /** 하네스 전용 — 이 발행 키는 맥락 설명 응답이 요청과 다른 단위 번호를 말한다(어긋난 · 늦은 응답 흉내). */
+  context_notes_wrong_unit: string[]
   catalog_hide: string[]
   releases: ReaderRelease[]
   profiles: Record<string, { status: string }>
@@ -104,9 +115,9 @@ export interface ReaderDbState {
 
 type ReleaseInput = Omit<
   ReaderRelease,
-  'release_key' | 'label' | 'published_at' | 'counts_as_work_completion' | 'completion_label' | 'unit_count' | 'withdrawn_at' | 'rights_ok' | 'guidance'
+  'release_key' | 'label' | 'published_at' | 'counts_as_work_completion' | 'completion_label' | 'unit_count' | 'withdrawn_at' | 'rights_ok' | 'guidance' | 'context_notes'
 > &
-  Partial<Pick<ReaderRelease, 'withdrawn_at' | 'rights_ok' | 'guidance'>>
+  Partial<Pick<ReaderRelease, 'withdrawn_at' | 'rights_ok' | 'guidance' | 'context_notes'>>
 
 /** 합성 주의 문장(시험 전용 · 실제 검수 콘텐츠 아님). 두 번째 문장은 장면을 말한다 — 접힌 영역 안에만 있어야 한다. */
 export const SYNTHETIC_CAUTIONS = [
@@ -114,6 +125,12 @@ export const SYNTHETIC_CAUTIONS = [
   '등대지기가 넘어져 다치는 장면(합성 시험 문장)',
 ]
 const NO_CAUTION_GUIDANCE: ReaderRelease['guidance'] = { cognitive_demand: 'low', background_load: 'low', cautions: [] }
+
+/** 합성 맥락 설명(시험 전용) — B1 의 u3(3번째 단위)에 둘, u4(4번째 단위)에 하나. 두 번째는 두 단위에 걸친다(C01 r3 의 u03 · u04 모양). */
+export const SYNTHETIC_CONTEXT_NOTES: ReaderRelease['context_notes'] = [
+  { id: 'note-synthetic-keeper-skill', unit_ids: ['u3'], text: '이 시대 이야기는 등대지기의 솜씨를 타고난 성품처럼 묘사하곤 해요. 작가 시대의 표현 관습이에요(합성 시험 문장).' },
+  { id: 'note-synthetic-sea-folk', unit_ids: ['u3', 'u4'], text: '바닷가 사람들을 한 덩어리로 부르는 말투는 그 시대의 표현이에요. 지금은 사람마다 다르게 봐요(합성 시험 문장).' },
+]
 
 function build(): ReaderDbState {
   const snapshot = read('snapshot')
@@ -148,6 +165,7 @@ function build(): ReaderDbState {
     counts_as_work_completion: o.coverage === 'complete_work',
     completion_label: o.coverage === 'complete_work' ? 'adapted_full_work' : 'adapted_partial',
     guidance: NO_CAUTION_GUIDANCE,
+    context_notes: [],
     ...o,
     unit_count: o.units.length,
   })
@@ -156,6 +174,7 @@ function build(): ReaderDbState {
       work_key: 'synthetic-gull-rock', edition_key: 'story-b1', kind: 'story_edition', coverage: 'complete_work',
       title: `${b1.title} (synthetic)`, hook_text: b1.hook.text, target_cefr: 'B1', units: units(b1),
       guidance: { cognitive_demand: 'high', background_load: 'moderate', cautions: SYNTHETIC_CAUTIONS },
+      context_notes: SYNTHETIC_CONTEXT_NOTES,
       // URL.href 라면 바뀌었을 값(대문자 스킴 · 호스트 · 퍼센트 인코딩 · 쿼리 · 프래그먼트) — 화면은 저장값 그대로 링크해야 한다
       source: sourceBase('HTTPS://Example.ORG/harness/Gull%2DRock?edition=r1&lang=en&q=a%20b#para-3'),
     }),
@@ -189,6 +208,9 @@ function build(): ReaderDbState {
     reader_context_missing: false,
     guidance_missing: false,
     guidance_corrupt: [] as string[],
+    context_notes_missing: false,
+    context_notes_corrupt: [] as string[],
+    context_notes_wrong_unit: [] as string[],
     /** 하네스 전용 경합 흉내 — 이 발행 키는 story_catalog 에서만 빠진다(다른 RPC 는 그대로). */
     catalog_hide: [] as string[],
     releases,

@@ -580,3 +580,57 @@ function catalogGuidanceRow() {
   if (g.status !== 'ready') throw new Error('ready expected')
   return g.byRelease[KEY_A]
 }
+
+describe('단위 시대적 맥락 설명(W2) — 본문 뒤 · 접힘 · 「없음」과 「못 불러옴」 구분 · 지금 단위에만', () => {
+  const NOTE_1 = { id: 'note-head-size', text: '머리 크기로 지능을 짐작하는 묘사는 이 시대의 생각이에요(시험 문장).' }
+  const NOTE_2 = { id: 'note-wife-affection', text: '부부 사이 묘사는 이 시대 소설의 관습이에요(시험 문장).' }
+  const notes = (list = [NOTE_1, NOTE_2], over: { releaseKey?: string; unitIndex?: number } = {}) =>
+    ({ status: 'ready', releaseKey: KEY_A, unitIndex: 1, notes: list, ...over }) as const
+
+  it('본문 뒤 · 읽음 표시 앞에 접힌 <details> 하나 · 요약은 개수만 · 문장은 저장 순서 그대로', () => {
+    const html = reader(readyState({ contextNotes: notes() }))
+    const at = html.indexOf('data-story-context-notes="2"')
+    expect(at).toBeGreaterThan(html.indexOf('data-story-body'))
+    expect(at).toBeLessThan(html.indexOf('data-story-complete'))
+    expect(html).toMatch(/<details[^>]*data-story-context-notes="2"/)
+    expect(html).not.toMatch(/<details[^>]*data-story-context-notes[^>]*\sopen/)
+    expect(html).toContain('<summary>시대적 맥락 2가지 · 원할 때 펼쳐 보세요</summary>')
+    expect(html.indexOf(NOTE_1.text)).toBeGreaterThan(at)
+    expect(html.indexOf(NOTE_1.text)).toBeLessThan(html.indexOf(NOTE_2.text))
+    expect(html).toContain(`data-story-context-note="${NOTE_1.id}"`)
+  })
+
+  it('설명 없음(빈 배열) · 입구(null)는 아무것도 그리지 않는다', () => {
+    for (const html of [reader(readyState({ contextNotes: notes([]) })), reader(readyState({ unit: null, contextNotes: null }))]) {
+      expect(html).not.toContain('data-story-context-notes')
+      expect(html).not.toContain('시대적 맥락')
+    }
+  })
+
+  it('불러오지 못함 · 확인하지 못함은 「설명 없음」이 아니라고 말한다 · 본문 · 읽음 표시는 그대로', () => {
+    for (const reason of ['not_ready', 'temporary', 'invalid'] as const) {
+      const html = reader(readyState({ contextNotes: { status: 'unavailable', reason } }))
+      expect(html, reason).toContain(`data-story-context-notes-reason="${reason}"`)
+      expect(html, reason).toContain('설명이 없다는 뜻은 아니에요')
+      expect(html, reason).not.toContain('<details')
+      expect(html, reason).toContain('data-story-body')
+      expect(html, reason).toContain('data-story-complete')
+    }
+  })
+
+  it('지금 화면과 다른 발행 키 · 단위의 결과(늦은 응답)는 설명을 보이지 않고 「확인하지 못함」', () => {
+    for (const over of [{ unitIndex: 2 }, { releaseKey: KEY_B }]) {
+      const html = reader(readyState({ contextNotes: notes(undefined, over) }))
+      expect(html).not.toContain(NOTE_1.text)
+      expect(html).toContain('data-story-context-notes-reason="invalid"')
+    }
+  })
+
+  it('개인 내용 문 — 확인 중 · 다른 사람 · 로그아웃이면 설명도 없다', () => {
+    for (const auth of [knownAuth(undefined), knownAuth(OTHER), knownAuth(null)]) {
+      const html = reader(readyState({ contextNotes: notes() }), auth)
+      expect(html).not.toContain('data-story-context-notes')
+      expect(html).not.toContain(NOTE_1.text)
+    }
+  })
+})

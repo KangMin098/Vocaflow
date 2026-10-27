@@ -70,6 +70,23 @@ export type StoryReleaseGuidanceView =
   | { status: 'ready'; guidance: StoryReleaseGuidance }
   | { status: 'unavailable'; reason: StoryGuidanceUnavailableReason }
 
+/**
+ * 단위 하나의 시대적 맥락 설명(T-0189 W2 · `story_unit_context_notes`) — 편집 기준이 「맥락과 함께 남김」으로 정한 민감 표현에 붙인
+ * 검수된 설명만. id = 판본 change_id · text = 저장된 learner_note 그대로(다듬지 않는다).
+ */
+export interface StoryContextNote {
+  id: string
+  text: string
+}
+
+/**
+ * 단위 화면의 맥락 설명 조회 결과. ready 는 어느 발행 키 · 단위의 결과인지 함께 가진다(화면이 지금 단위와 다시 대조한다).
+ * notes 가 빈 배열 = 이 단위에 설명 없음. 「불러오지 못함 · 확인하지 못함」(unavailable)은 「설명 없음」이 아니다.
+ */
+export type StoryContextNotesView =
+  | { status: 'ready'; releaseKey: string; unitIndex: number; notes: StoryContextNote[] }
+  | { status: 'unavailable'; reason: StoryGuidanceUnavailableReason }
+
 /** `story_my_progress()` 한 행 — 이 학습자 것만. 철회 · 권리 보류된 발행본도 이력으로 남는다(releaseAvailable=false). */
 export interface StoryProgressRow {
   releaseKey: string
@@ -271,4 +288,6 @@ export type StoryReaderPageState =
       siblings: StoryCatalogRelease[] | null
       /** 이 발행본의 시작 전 선택 안내(입구에서 보인다). 실패해도 독서는 그대로다. */
       guidance: StoryReleaseGuidanceView
+      /** 단위 화면(`?unit=`)의 시대적 맥락 설명. 작품 입구에서는 부르지 않아 null 이다. 실패해도 본문 · 진도는 그대로다. */
+      contextNotes: StoryContextNotesView | null
     }
