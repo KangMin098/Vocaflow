@@ -33,7 +33,6 @@ export default async function ScriptQuizPlayPage({
   const scope = parseQuizScope({ book: searchParams?.book, ch: searchParams?.ch, text: searchParams?.text })
   const textId = scope.kind === 'text' ? scope.textId : scope.kind === 'book' ? scope.textId : undefined
   const bookId = scope.kind === 'book' ? scope.bookId : undefined
-  const chapterIdx = scope.kind === 'book' ? scope.chapterIdx : NaN
 
   let session: QuizSession | null = null
   let passageText: string | undefined
