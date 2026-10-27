@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(textfit): 공개 `/fit` 결과 문구를 어휘 커버리지 추정으로 한정 — `fitLevel` null 은 「기준에 닿는 학년을 확인하지 못함(레벨 미확인 낱말 가능)」, 값이 있으면 「어휘 기준 검토 학년(추정)」. 페이지·빈 상태·공유 OG 의 「읽힌다·처음 만나는」 표현 정리. 수치 · 임계 · 공유 payload 무변경.
 - fix(spellforge): 오답 뒤 3초 자동 입력 삭제 제거 — 고쳐 쓰던 입력 · 안내를 학습자가 「다시 입력하기」(44px · 키보드 Tab 도달 · 입력 복귀)를 누를 때까지 유지. 재시도는 그 오답 인스턴스(세대 · 주인)에만 묶여 단어 · 모드 · 계정 전환 뒤 옛 콜백은 무동작, 평가 · 대기열 무변경.
 - feat(reader): 본인이 연 기사 글(`article:<uuid>`)에 보이스가 없어도 「원문 출처 · 도메인」 링크(새 탭 · noopener · 44px) — 기존 기사 조회의 `source_url` 을 공개 http(s) 만 통과(`lib/reader/public-source-href`), 장 표식 출처가 있으면 그쪽 하나만. 신원 경계 안 · DB · 이벤트 무변경. 개발 확인 화면 `/dev/article-source`.
 - fix(lcp): `extractBookLemmas` 대문자 고유명사 가드(문장 중간 Title-case · `Ford's Theatre` 소유격 이름 등장 제외, 헤드라인 문장 예외) + 예문을 고른 `context_pos` 의 첫 등장 문장으로. 출력 형태 불변, 코드만 — 이미 발행된 단어 세트는 재발행(DB 쓰기, 별도 승인) 전까지 그대로.
