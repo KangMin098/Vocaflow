@@ -230,6 +230,7 @@
 ---
 ## Unreleased (v06.34 → next)
 - fix(r0): 퀴즈 근거 문장 후보에서 장 표식(`CHAPTER n. 제목<RS>원문 URL`) 단락 제외 — 리더와 같은 `parseChapterMarker` 재사용(RS 필수). Fables 실데이터 3장·15문항: 후보 속 메타데이터 0, 피커 12 유지. 본문·DB 무변경.
+- fix(lcp): StoryWeaver 도서 적재기의 라이선스 하드코딩(`CC BY 4.0`) 제거 — `storyweaverBookLicense` 가 뒷장(StoryPage 밖)의 「Released under …」 문장을 ACP 파서(`storyweaverLicense`)로 읽고, 없음·상충(삽화만 다른 조건 등)·알 수 없는 문구면 적재를 멈춘다(검수 필요). 이미 발행된 20권의 권리를 복구하지 않는다 · DB·수집 재실행 없음.
 - fix(reports): 주간 리포트 코멘트가 활동량만으로 「기억을 단단하게」「실력이 돼요」를 단정하던 문구 제거 — `lib/learner/report-note.ts` `composeActivityNote` 가 분·단어·복습 횟수만 말하고 기억·실력 변화는 알 수 없다고 밝힌다. 화면은 저장된 옛 note 대신 저장 합계로 다시 만든다(DB·과거 행 무변경).
 - feat(r0): 퀴즈 채점 뒤 「근거 문장 짚기」(T-0193) — 읽기 화면 Quiz 가 그 챕터·글 퀴즈로(도서 챕터는 `?book&ch&text`), 채점 뒤 본문 문장 4개(등록 근거 1 + 같은 본문 3) 중 근거를 고르고 등록 근거와 대조(오답 판정 아님 · 기록·점수 미반영). 근거가 여러 문장에 걸치거나 본문에 없으면 피커 없이 근거만. 본문은 본인 texts 행·같은 도서·챕터일 때만(`lib/scriptquiz/own-passage.ts`). 범위를 주었는데 문항이 없으면 데모 대신 빈 상태. DB 무변경.
 - fix(r0): 읽기 완료 버튼 저장 중·실패·재시도(T-0192) — `CompleteChapterButton` 이 reject·ok=false 에 role=alert 안내(읽기 위치 보존)와 「다시 시도」, 저장 중 aria-busy·중복 호출 차단, 장이 바뀐 뒤 늦은 응답 무시, 완료 뒤 포커스를 다음 장/BookVault 로, 조작 44px. 저장 액션·RLS·다음 장 로직 무변경. 실측 하네스 `/dev/complete-chapter`(fake 응답 · 프로덕션 404). DB 무변경.
