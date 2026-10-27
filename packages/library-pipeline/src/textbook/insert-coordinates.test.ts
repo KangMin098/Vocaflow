@@ -63,6 +63,9 @@ describe('insertSeamCandidates', () => {
     expect(map(r, 0, text)).toBeNull() // 첫 문장 앞(인쇄 좌표에 없다)
     expect(map(r, 99, text)).toBeNull() // 범위 밖
     expect(map(S(7).map((s) => s.replace('in town.', 'in the city.')), 6, text)).toBeNull() // 옛 본문/다른 판본 — 이음매 조각 불일치(조각은 문장 끝 · 앞만 본다)
+    const dup = text.replace(/(① 는 "[^"]*" 와 "[^"]*" 사이를 가른다)/, '$1; $1')
+    expect(dup).not.toBe(text)
+    expect(map(r, 6, dup)).toBeNull() // 같은 번호를 두 번 — 표지가 겹친다
     expect(map(S(12), 3, '정답은 ③ 다.')).toBeNull() // 다섯 넘는 1..n — ①~⑤ 로 부를 수 없다
   })
 

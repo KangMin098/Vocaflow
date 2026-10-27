@@ -64,7 +64,8 @@ export function insertSeamCandidates(input: {
   for (const m of text.matchAll(WRONG_CLAUSE)) {
     const label = m[1] as (typeof CIRCLED)[number]
     const seam = slots[CIRCLED.indexOf(label)]
-    if (seam == null || label === answerLabel) return null
+    // 생성기는 번호마다 한 번만 쓴다 — 같은 번호가 또 나오면 이 형식이 아니다(표지가 겹친다 · 리뷰 P3)
+    if (seam == null || out.some((c) => c.label === label)) return null
     const before = remaining[seam - 1]
     const after = remaining[seam]
     // 조각이 하나라도 그 자리의 앞뒤 문장과 다르면 이 해설은 이 좌표로 쓰인 것이 아니다 — 통째로 대응하지 않는다
