@@ -6,18 +6,17 @@ import { useRouter } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
 import { STORAGE_KEYS } from '@/components/pairflip/constants'
-import { PairFlipResultScreen } from '@/components/pairflip/PairFlipResultScreen'
-import type { PairFlipResultData } from '@/components/pairflip/types'
+import { PairFlipResultsGate, type StoredResult } from '@/components/pairflip/PairFlipResultsGate'
 
 export default function PairFlipResultsPage() {
   const router = useRouter()
-  const [result, setResult] = useState<PairFlipResultData | null>(null)
+  const [result, setResult] = useState<StoredResult | null>(null)
 
   useEffect(() => {
-    let parsed: PairFlipResultData | null = null
+    let parsed: StoredResult | null = null
     try {
       const raw = sessionStorage.getItem(STORAGE_KEYS.result)
-      if (raw) parsed = JSON.parse(raw) as PairFlipResultData
+      if (raw) parsed = JSON.parse(raw) as StoredResult
     } catch {
       parsed = null
     }
@@ -36,5 +35,5 @@ export default function PairFlipResultsPage() {
     )
   }
 
-  return <PairFlipResultScreen result={result} />
+  return <PairFlipResultsGate stored={result} />
 }
