@@ -34,7 +34,8 @@ export function decideNextAction(ctx: NextActionContext): RecommendedAction {
   if (ctx.inProgressTextTitle) {
     return {
       module: 'workspace',
-      label: `${ctx.inProgressTextTitle} 이어 듣기`,
+      // 열어 둔 글로 돌아가기 — 실제 청취 · 완주를 확인한 것이 아니므로 「이어 듣기」라고 하지 않는다
+      label: `${ctx.inProgressTextTitle} 이어 보기`,
       textId: ctx.inProgressTextId,
     }
   }
