@@ -117,3 +117,11 @@ S2의 짧은 문장은 읽기 쉬움의 실증이 아니고 S3는 설명을 얻�
 - **실제 학습자 적합성·교육 효과**: `PILOT_NOT_RUN / EDUCATION_EFFECT_UNVERIFIED`. 선택/이해/지속·성장을 확인한 실제 참가자 자료가 없다.
 
 이 문서의 입력 코드·SQL·콘텐츠 해시와 실제 종료/검증은 `R/final-closeout.json`, 최종 feature/main SHA·깨끗한 상태·통합 방법은 `R/integration.json`에 결속한다. 통합 뒤 실제 main 화면 확인도 해당 기록에 추가하며 검증 전 단계를 완료로 바꾸지 않는다.
+
+### 로컬 main 통합 완료(2026-10-27)
+
+검증 feature `41cb6bbf96c2b61b1269914e95e51d2612bf9671`을 기존 main `e0e834fb2`에 병합해 `ba81f4c02779993fe9a8a3c04e7524fd0158460d`로 통합했다. main의 Playwright 인증 흔적 가림 변경도 보존했다. 중앙 통합 검사의 타입·린트·관련 테스트233건이 통과했고, 오래된 `local/integration`은 다른 owner의 상태를 보존하여 변경하지 않았다. 도구가 안내한 exact-task 경로로 잠금·깨끗한 main·진행 Git 작업 없음 확인 후 검증 SHA만 병합했다.
+
+기존 실제 3000 서버에서 정상 A1440/B1280 로그인으로 비로그인 본문/설명 차단, u03 두 항목/u04 한 항목/그 외 없음, 접기·펼치기·단위 이동 초기화·키보드·44px/focus·가로 넘침 없음을 확인했다. 실제 exit0이며 Codex가 두 크기의 열린 설명 화면을 직접 확인했다(`R/live-after-apply-2026-10-27T001641674Z/result.json`). 이 검사도 읽기 전용이며 기존 S7 진도 쓰기 검증을 새로 실행했다고 표시하지 않는다. 검사 후 Story12표 전체 행 지문은 적용 전과 동일했다.
+
+이미 적용된 정확 SQL은 dev 원장 버전과 같은 [번호 migration](../../supabase/migrations/20261026235109_lcp_story_w2_context_notes.sql)에 바이트 그대로 반영했다(SHA `0fee756e6a50a0c57a37d2a3400ed4bb7a1ca420bf6dee31b96f2581094da319`). 저장소 반영만 수행했으며 DB 재적용·추가 SQL·복구 실행은 없었다. 등록 작업의 검증/수용 커밋과 이후 main의 문서·migration 반영 커밋은 구분하여 `R/integration.json`에 기록한다. 원격 main 직접 push는 하지 않았으며 기존 일일 동기화 경로를 유지한다.
