@@ -69,6 +69,11 @@ export interface TextContentData {
   illustrations: Array<{ idx: number; url: string; alt?: string }> | null;
   text: Partial<LibraryText>;
   paragraphs: TextParagraph[];
+  /**
+   * T-0209 — ScriptQuiz 복기의 「글에서 이 문장 보기」 결속: 본문 해시(contentHash)와 본문 문장 번호 → Reader 문장 id 표(-1 = 하나에 맞지 않음).
+   * 본문은 다시 보내지 않는다. 없으면 근거 이동 없음.
+   */
+  evidenceAnchor?: { hash: string; map: number[] } | null;
 }
 
 const TextContentContext = createContext<TextContentData | null>(null);
