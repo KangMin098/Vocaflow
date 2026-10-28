@@ -13,12 +13,17 @@
 //   - 영단어/뜻/예문 시각 위계 명확화 — 영단어(t1 600 16px) > 뜻(t1 500 13px) > 예문(t3 italic 12.5px)
 //   - hover 시 행 미세 hover-lift bg2/60 + 좌측 엣지 풀 opacity
 //   - 예문 우측 정렬 → 영어 본문 line-end가 시각 흐름 안정 (좌→우→완결)
+//
+// T-0208 — 한 행은 뜻 · 예문을 한 줄로 자른다(truncate). 끝까지 읽을 길이 없었다(실측 pb-t0198-vault-1280.png 의 ground 뜻).
+//   행 끝 「전체 보기」(aria-expanded) 가 그 행 아래에 **이미 있는** 뜻 · 예문 전체를 줄바꿈해 보인다. 행 밀도 · 열 · 선택 · 발음은 그대로.
+//   숨김(Active Recall)이 켜진 칸은 펼쳐도 보이지 않는다 — 숨김을 켜면 열린 칸도 같이 가린다. 예문이 없으면 만들지 않는다. 기록 · 조회 · 이벤트 없음.
 
 'use client'
 
 import { MemoryBadge } from '@/components/ui/MemoryBadge'
 import { cn } from '@/lib/utils/cn'
-import { Play } from 'lucide-react'
+import { ChevronDown, Play } from 'lucide-react'
+import { useId, useState } from 'react'
 import { getMemoryState, type MemoryState } from '@/lib/srs'
 import type { HideStates, WordItem } from './types'
 
@@ -47,6 +52,11 @@ export function WordRow({
   onPlayWord,
 }: WordRowProps) {
   const stopBubble = (e: React.MouseEvent) => e.stopPropagation()
+  const [open, setOpen] = useState(false)
+  const panelId = useId()
+  const hasMeaning = word.meaning.trim().length > 0
+  const hasExample = !!word.exampleEn && word.exampleEn.trim().length > 0
+  const canExpand = hasMeaning || hasExample
 
   const memoryState = word.srs ? getMemoryState(word.srs) : 'new'
   const edgeColor = MEMORY_EDGE_COLOR[memoryState]
@@ -85,7 +95,7 @@ export function WordRow({
         className={cn('grid cursor-pointer items-center gap-3 px-4 py-3 md:gap-4')}
         style={{
           gridTemplateColumns:
-            'auto auto minmax(0, 200px) minmax(0, 130px) minmax(0, 1fr) auto auto',
+            'auto auto minmax(0, 200px) minmax(0, 130px) minmax(0, 1fr) auto auto auto',
         }}
       >
         {/* 1. 체크박스 */}
@@ -243,7 +253,58 @@ export function WordRow({
         >
           {word.level}
         </span>
+
+        {/* 8. 전체 보기 — 잘린 뜻 · 예문을 이 행 아래에서 끝까지(보이는 20px · 누르는 자리 44px · 차지하는 자리는 음수 마진으로 20px) */}
+        {canExpand ? (
+          <button
+            type="button"
+            onClick={(e) => {
+              stopBubble(e)
+              setOpen((v) => !v)
+            }}
+            aria-expanded={open}
+            aria-controls={panelId}
+            aria-label={`${word.word} 뜻 · 예문 ${open ? '접기' : '전체 보기'}`}
+            data-testid="word-row-expand"
+            className="group/expand -m-3 flex h-11 w-11 shrink-0 items-center justify-center focus-visible:outline-none"
+          >
+            <span
+              aria-hidden
+              className={cn(
+                'flex h-5 w-5 items-center justify-center rounded-md text-t3 transition-colors duration-fast',
+                'group-hover/expand:bg-bg2 group-hover/expand:text-t1 group-focus-visible/expand:ring-2 group-focus-visible/expand:ring-learn-fresh'
+              )}
+            >
+              <ChevronDown size={14} className={cn('transition-transform duration-fast', open && 'rotate-180')} />
+            </span>
+          </button>
+        ) : (
+          <span aria-hidden className="w-5" />
+        )}
       </div>
+
+      {open && canExpand && <WordRowFull id={panelId} word={word} hideStates={hideStates} />}
+    </div>
+  )
+}
+
+/** 펼친 행 — 이미 있는 뜻 · 예문 전체(줄바꿈). 숨김 중인 칸은 펼쳐도 가린다. 값이 빈 칸은 그리지 않는다(만들지 않는다). */
+export function WordRowFull({ id, word, hideStates }: { id: string; word: WordItem; hideStates: HideStates }) {
+  const hasMeaning = word.meaning.trim().length > 0
+  const hasExample = !!word.exampleEn && word.exampleEn.trim().length > 0
+  return (
+    <div id={id} data-testid="word-row-full" className="flex flex-col gap-1.5 px-4 pb-3 pl-[76px] md:pl-[84px]">
+      {hasMeaning && (
+        <p className="break-keep font-body text-[13px] leading-relaxed text-t1" data-testid="word-row-full-meaning">
+          {hideStates.meaning ? <span className="text-t3">뜻 숨김 중이에요</span> : word.meaning}
+        </p>
+      )}
+      {hasExample && (
+        <p className="font-serif text-[12.5px] italic leading-[1.6] text-t2" data-testid="word-row-full-example">
+          {/* 예문에는 그 낱말이 들어 있다 — 단어 숨김 중에는 펼쳐도 보이지 않는다 */}
+          {hideStates.word ? <span className="font-body not-italic text-t3">단어 숨김 중에는 예문 전체를 가려요</span> : <>“{word.exampleEn}”</>}
+        </p>
+      )}
     </div>
   )
 }
