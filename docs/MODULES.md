@@ -296,6 +296,7 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 - `layout.tsx` — RSC 진입, `v_text_content` 1쿼리 + `library_book_id` / `user_book_group_id` 분기
 - `page.tsx` — `'use client'` ReadingUniverse
 - `text-content-context.tsx` — TextContentProvider
+- `article-practice-entry.tsx` — 기사 발췌 연습 진입. layout 이 `article_practice_items` 응답을 `lib/learner/reader-article-practice.ts` 로 failed(오류·배열 아님)/none(빈 배열)/available 로 나눈다. available 은 기존 연습 링크, none 은 표시 없음, failed 는 「연습 여부를 확인하지 못했어요」 + 같은 글 `/practice/article/<id>` 링크(그 페이지 loader 가 본인 글·계정·판본을 다시 확인 — 화면 안 재호출·자동 재시도 없음). 기사가 아닌 글·책·Story 는 상태 없음(T-0204, 2026-10-28)
 - `text-content-helpers.ts` — buildParagraphsFromContent
 - `echo/page.tsx` — EchoMatch 라우트
   - 결과 화면 다시 듣기(2026-10-28): `components/echo/ReplayPanel.tsx` + `lib/echo/replay-controller.ts`. 예시는 문장 내용 키 캐시, 내 발화는 현재 문장·화면 수명 동안 메모리에만 두고 다음 녹음·이동·계정 변경·이탈에 놓는다. 앱은 녹음을 저장·업로드하지 않으며, 단어 인식(브라우저 SpeechRecognition)은 브라우저에 따라 원격 처리될 수 있다. 재생은 저장·점수·SRS 를 부르지 않는다.
