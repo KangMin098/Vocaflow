@@ -1,7 +1,7 @@
 // apps/web/src/components/practice/ArticlePracticeBridge.tsx
 // R0 — 읽은 같은 기사의 중심 의미 안내 연습을 기존 DcpPlayer 로 그린다(/practice/article/[articleId]).
 // 채점은 서버 제출(submitArticlePractice → submit_article_practice)로만, 복귀는 그 본인 글로.
-// DcpPlayer 자체는 바꾸지 않는다 — grade·doneCopy·backHref prop 만 쓴다.
+// DcpPlayer 의 기존 prop 만 쓴다 — grade·doneCopy·backHref·nextChoice(완료 뒤 「다른 글 살펴보기」, opt-in).
 //
 // ⚠️ 계정 경계: loader 가 확인한 계정(ownerId)과 브라우저 신원이 **같다고 확인된 때만** 문항을 그리고 제출한다(useStoryAuthGuard).
 //   확인 중 · 바뀜이면 문항 · 결과를 숨긴다. 그려 둔 채점 콜백을 나중에 불러도, 응답이 늦게 와도 그 사이 신원이 바뀌었으면 결과를 버린다.
@@ -47,6 +47,9 @@ export function articlePracticeDoneCopy({ total, correct }: { total: number; cor
   }
 }
 
+/** 완료 뒤 자율 선택 — 기존 내부 서가로 고정. 특정 글 · 샘플로 자동 전환하지 않는다(다른 글에 연습이 있다고 말하지 않는다). */
+export const ARTICLE_NEXT_CHOICE = { href: '/library/scripts', label: '다른 글 살펴보기' } as const
+
 export function ArticlePracticeBridge({
   articleId,
   textId,
@@ -89,6 +92,7 @@ export function ArticlePracticeBridge({
       backCta="읽던 글로"
       causeHref={{ vocab: articleVocabHref(textId) }}
       doneCopy={articlePracticeDoneCopy}
+      nextChoice={ARTICLE_NEXT_CHOICE}
     />
   )
 }
