@@ -8,7 +8,6 @@
 //   문맥이 하나도 없어도 words(목록 판정)는 그대로다.
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { normalizeForMatch, splitSentences } from '@/lib/scriptquiz/evidence'
 import { buildEvidenceSentenceMap, contentHash } from '@/lib/scriptquiz/reader-anchor'
 import { buildParagraphsFromContent } from '@/app/(main)/text/[id]/text-content-helpers'
 
@@ -28,50 +27,36 @@ export function readerSentencesOf(content: string, offsets: unknown): Array<{ id
   return buildParagraphsFromContent(content, Array.isArray(offsets) ? (offsets as number[]) : []).flatMap((p) => p.sentences.map((s) => ({ id: s.id, text: s.parts.map((pt) => pt.text).join('') })))
 }
 
-const ABBREV_END = /(?:^|[\s(“"'])(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|vs|etc|e\.g|i\.e)\.$/i
-
-/**
- * 원문 문장 — 기존 splitSentences 위에 작은 보호만: 앞 조각이 알려진 약어로 끝나거나(「Dr.」) 숫자+「.」 로 끝나고 다음이 숫자로
- * 시작하면(「3.」+「5 percent.」) 두 조각을 다시 붙인다. 새 분리기 엔진이 아니다. 규칙표: runtime/team-pilot-20261028/pb-t0214-boundary-rules.md
- */
-export function originalSentences(text: string): string[] {
-  const out: string[] = []
-  for (const piece of splitSentences(text)) {
-    const prev = out[out.length - 1]
-    // 소수점은 원문에서 **붙어 있을 때만**(「3.5」) — 「3. 5」 는 두 문장으로 둔다
-    const decimal = prev !== undefined && /\d\.$/.test(prev) && /^\d/.test(piece) && text.includes(`${prev}${piece}`)
-    if (prev !== undefined && (decimal || ABBREV_END.test(prev))) out[out.length - 1] = `${prev}${decimal ? '' : ' '}${piece}`
-    else out.push(piece)
-  }
-  return out
+/** 겹치는 출현까지 센다(대소문자 무시 · 문장부호 보존 · 공백은 호출부가 정규화) */
+function countOccurrences(haystack: string, needle: string): number {
+  if (!needle) return 0
+  let n = 0
+  for (let i = haystack.indexOf(needle); i !== -1; i = haystack.indexOf(needle, i + 1)) n += 1
+  return n
 }
 
 /**
- * T-0214 — 「글에서 이 문장 보기」 번호. 규칙표(pb-t0214-boundary-rules.md)의 두 조건이 **모두** 참일 때만, 아니면 null(보수적):
- *  1) 원문 유일 — 문맥 문장이 원문 분리로 한 문장이고, 본문 원문 문장 중 공백 정규화 전체 일치가 1개이면서 normalizeForMatch 일치도 1개
- *     (중복 · 줄바꿈 다른 단락의 중복 · 대소문자만 다른 문장 · 다문장 출처는 여기서 탈락)
- *  2) Reader 단일 해소 — Reader 문장 중 공백 정규화 전체 일치가 1개이고, 앵커 번호(splitSentences 체계) 하나가 buildEvidenceSentenceMap 으로
- *     바로 그 Reader 문장에 풀린다(Reader 가 두 원문 문장을 한 문장으로 합친 경우는 전체 일치 0 이라 탈락)
- * (T-0209 의 evidenceSentenceIndex — 근거 스니펫 12자 하한 — 는 그대로 둔다.)
+ * T-0214 — 「글에서 이 부분 보기」 번호. 경계 결정 T0214_BOUNDARY_DECISION_20261029.md(Rev 1.0, sha e20f3208…)의 공식 — **모두** 참일 때만, 아니면 null:
+ *  (2) 공백만 정규화한 출처 S 가 비어 있지 않고 **Reader 표시 단위 하나 전체**와 정확히 같다(문장부호 · 대소문자 보존). 두 단위에 걸치거나
+ *      병합된 단위의 일부만 맞으면 없음. 정본 경계는 Reader 단위(buildParagraphsFromContent)뿐 — 두 번째 영어 분리기 · 약어 목록 없음.
+ *  (3) 공백 정규화한 원문 본문에서 S 가 **정확히 1회**(대소문자 무시 · 문장부호 보존 · 단락 경계 넘어 셈). 더 긴 표현 안에도 있으면 보수적으로 없음.
+ *  (4) 기존 buildEvidenceSentenceMap 으로 바로 그 단위에 풀리는 기존 앵커 번호. 비슷한 · 처음 맞은 다른 단위는 고르지 않는다.
+ * (1)·(5) 게이트 · 저장 형식은 호출부(loadOwnArticleReader · rememberEvidenceAnchor) 그대로. T-0209 의 evidenceSentenceIndex 는 바꾸지 않는다.
  */
 export function readerAnchorIndex(content: string, readerSentences: ReadonlyArray<{ id: number; text: string }>, sentence: string): number | null {
   const norm = (s: string) => s.replace(/\s+/g, ' ').trim()
   const target = norm(sentence)
   if (!target) return null
-  if (originalSentences(target).length !== 1) return null
-  const orig = originalSentences(content)
-  const nt = normalizeForMatch(target)
-  if (orig.filter((o) => norm(o) === target).length !== 1) return null
-  if (orig.filter((o) => normalizeForMatch(o) === nt).length !== 1) return null
   const hits = readerSentences.filter((r) => norm(r.text) === target)
   if (hits.length !== 1) return null
+  if (countOccurrences(norm(content).toLowerCase(), target.toLowerCase()) !== 1) return null
   const map = buildEvidenceSentenceMap(content, readerSentences)
   const at = map.indexOf(hits[0]!.id)
   return at >= 0 ? at : null
 }
 
 /**
- * T-0214 — 「글에서 이 문장 보기」 근거. 세트당 한 번: 본인 글 1행(texts id · article-practice-actions 와 같은 조건) +
+ * T-0214 — 「글에서 이 부분 보기」 근거. 세트당 한 번: 본인 글 1행(texts id · article-practice-actions 와 같은 조건) +
  * Reader 와 같은 출처(v_text_content)의 본문 · 단락 오프셋 1행. 본문이 지금 기사 본문과 같을 때만.
  * 본인 글 없음 · 다른 판본 · 조회 실패 · 로그아웃이면 null — 목록 · 문장은 그대로 둔다.
  */

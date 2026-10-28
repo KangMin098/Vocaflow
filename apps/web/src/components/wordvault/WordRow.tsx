@@ -45,7 +45,7 @@ export interface WordRowProps {
   onPlayWord: (id: number) => void
   /** T-0210 — 선택한 기사 단어장에서 본문 확인된 원문 문장(사전 예문과 다르다). 없으면 null */
   sourceSentence?: string | null
-  /** T-0214 — 그 문장이 본인 글에서 유일한 한 문장일 때만 — 「글에서 이 문장 보기」 앵커. 없으면 null */
+  /** T-0214 — 그 문장이 본인 글 Reader 표시 단위 하나와 같고 본문에서 1회일 때만 — 「글에서 이 부분 보기」 앵커(경계 결정 Rev1.0). 없으면 null */
   sourceAnchor?: EvidenceAnchor | null
 }
 
@@ -332,7 +332,7 @@ export function WordRowFull({ id, word, hideStates, sourceSentence = null, sourc
               data-testid="word-row-reader-anchor"
               className="mt-1 inline-flex min-h-[44px] items-center self-start rounded-md border border-bd bg-bg px-3 font-display text-[12px] font-[700] text-t1 no-underline hover:border-learn-fresh focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-learn-fresh"
             >
-              글에서 이 문장 보기
+              글에서 이 부분 보기
             </Link>
           )}
         </div>

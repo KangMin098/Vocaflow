@@ -1,5 +1,5 @@
 // apps/web/src/components/wordvault/__tests__/word-row-reader-anchor.test.tsx
-// T-0214 — 단어 행 「선택한 기사에서 쓰인 문장」 아래 「글에서 이 문장 보기」: 앵커가 있을 때만 · 숨김 중 없음 · URL 에 해시 · 번호 없음.
+// T-0214 — 단어 행 「선택한 기사에서 쓰인 문장」 아래 「글에서 이 부분 보기」: 앵커가 있을 때만 · 숨김 중 없음 · URL 에 해시 · 번호 없음.
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it } from 'vitest'
 
@@ -14,10 +14,10 @@ const full = (hide = SHOWN, anchor: typeof ANCHOR | null = ANCHOR) =>
   renderToString(<WordRowFull id="p1" word={W} hideStates={hide} sourceSentence={SRC} sourceAnchor={anchor} />)
 const linkOf = (html: string) => /<a[^>]*data-testid="word-row-reader-anchor"[^>]*>([^<]*)<\/a>/.exec(html)
 
-describe('WordRowFull 글에서 이 문장 보기', () => {
+describe('WordRowFull 글에서 이 부분 보기', () => {
   it('앵커가 있으면 같은 탭 /text/<id> 링크 · 44px · focus-visible', () => {
     const a = linkOf(full())
-    expect(a?.[1]).toBe('글에서 이 문장 보기')
+    expect(a?.[1]).toBe('글에서 이 부분 보기')
     expect(a?.[0]).toContain('href="/text/text-a"')
     expect(a?.[0]).toContain('min-h-[44px]')
     expect(a?.[0]).toContain('focus-visible:ring-2')
