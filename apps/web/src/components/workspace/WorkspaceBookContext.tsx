@@ -72,7 +72,7 @@ export function WorkspaceBookContext({
       >
         <Link
           href="/my/books"
-          className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           aria-label="책 목록으로 돌아가기"
         >
           <ArrowLeft size={10} aria-hidden />
@@ -145,7 +145,7 @@ function ChapterNavButton({
         type="button"
         disabled
         aria-label={label}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t5)] opacity-40"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-sm)] text-[var(--t5)] opacity-40"
       >
         <Icon size={14} aria-hidden />
       </button>
