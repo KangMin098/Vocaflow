@@ -9,7 +9,8 @@
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { splitSentences } from '@/lib/scriptquiz/evidence'
-import { contentHash } from '@/lib/scriptquiz/reader-anchor'
+import { buildEvidenceSentenceMap, contentHash } from '@/lib/scriptquiz/reader-anchor'
+import { buildParagraphsFromContent } from '@/app/(main)/text/[id]/text-content-helpers'
 
 import { normalizeSourceFilter } from './source-filter'
 
@@ -47,16 +48,20 @@ export async function loadOwnArticleReader(client: SupabaseClient, articleId: st
   try {
     const uid = (await client.auth.getUser()).data.user?.id
     if (!uid) return null
-    const { data: row, error } = await client.from('texts').select('id').eq('user_id', uid).eq('source_url', `article:${articleId}`).maybeSingle()
+    const { data: row, error } = await client.from('texts').select('id, paragraph_offsets').eq('user_id', uid).eq('source_url', `article:${articleId}`).maybeSingle()
     if (error || !row) return null
     const textId = (row as { id?: unknown }).id
+    const offsets = (row as { paragraph_offsets?: unknown }).paragraph_offsets
     if (typeof textId !== 'string') return null
     const { data: content, error: cErr } = await client.rpc('get_chapter_content', { p_text_id: textId })
     if (cErr || typeof content !== 'string' || content !== articleBody) return null
+    // Reader(layout)와 **같은 함수**로 문장 번호 → Reader 문장 id 표를 만든다. 링크는 그 표에서 정확히 한 문장으로 풀릴 때만(T-0214 Codex P2 2차).
+    const paragraphs = buildParagraphsFromContent(content, Array.isArray(offsets) ? (offsets as number[]) : [])
+    const readerMap = buildEvidenceSentenceMap(content, paragraphs.flatMap((p) => p.sentences.map((s) => ({ id: s.id, text: s.parts.map((pt) => pt.text).join('') }))))
     const anchors: Record<string, number> = {}
     for (const [word, sentence] of Object.entries(contexts)) {
       const at = exactSentenceIndex(content, sentence)
-      if (at !== null) anchors[word] = at
+      if (at !== null && (readerMap[at] ?? -1) >= 0) anchors[word] = at
     }
     return Object.keys(anchors).length > 0 ? { textId, hash: contentHash(content), anchors } : null
   } catch {
