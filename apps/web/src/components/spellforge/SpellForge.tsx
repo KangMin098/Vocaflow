@@ -412,6 +412,10 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
    * Keyboard
    */
   useEffect(() => {
+    // 완료 화면에서는 게임 단축키를 걸지 않는다 — 마지막 단어·입력이 상태에 남아 있어, 「철자 확인」·「전체 단어장으로」의
+    //   Enter 가 preventDefault 된 채 handleConfirm 으로 가서 마지막 단어를 **다시 채점**했다(srs_pending 3→4 · 링크 click 없음,
+    //   2026-10-28 Codex 반례). 버튼·링크의 Enter/Space 는 브라우저 기본 동작에 맡긴다.
+    if (showCompletion) return
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement
       const isTextInput = target.tagName === 'TEXTAREA'
@@ -455,7 +459,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
 
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [mode, currentWord, triggerHint, handleConfirm, handleSkip, playWordAudio, ownsSession, phase])
+  }, [mode, currentWord, triggerHint, handleConfirm, handleSkip, playWordAudio, ownsSession, phase, showCompletion])
 
   // 자동 포커스
   useEffect(() => {
