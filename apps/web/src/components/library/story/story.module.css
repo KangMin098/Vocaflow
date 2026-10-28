@@ -859,3 +859,16 @@
   outline-offset: 3px;
   border-radius: 6px;
 }
+
+/* U03 — 단어장에서 돌아온 문장(조용한 강조 · 초점 표시). */
+.returnSentence {
+  border-radius: 3px;
+  background: var(--p-light);
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+}
+
+.returnSentence:focus-visible {
+  outline: 2px solid var(--p);
+  outline-offset: 2px;
+}

@@ -49,12 +49,15 @@ export function StoryWordSave({
   wordIndex,
   onSave,
   vaultHref,
+  onLeave,
 }: {
   lookup: WordLookup | null
   surface: string
   wordIndex: number
   onSave: StoryWordSaveCall
   vaultHref: string
+  /** U03 — 단어장으로 떠날 때(같은 탭 복귀 문장 표지). */
+  onLeave?: () => void
 }) {
   const [state, setState] = useState<SaveState>({ kind: 'idle' })
   const live = useRef(true)
@@ -137,7 +140,7 @@ export function StoryWordSave({
               : ''}
       </p>
       {done ? (
-        <Link href={vaultHref} className={styles.saveVaultLink} data-story-word-save-vault>
+        <Link href={vaultHref} className={styles.saveVaultLink} data-story-word-save-vault onClick={onLeave}>
           내 단어장에서 보기
         </Link>
       ) : null}
