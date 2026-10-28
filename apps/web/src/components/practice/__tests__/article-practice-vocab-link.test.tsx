@@ -10,6 +10,7 @@ vi.mock('@/lib/learner/dcp-actions', () => ({ gradeDcpItem: vi.fn(), recordDcpEr
 
 import type { StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import { CauseTip } from '../DcpPlayer'
+import { sanitizeInternalPath } from '@/lib/layout/session-return'
 
 const hrefs = (html: string) => [...html.matchAll(/href="([^"]*)"/g)].map((m) => m[1].replace(/&amp;/g, '&'))
 
@@ -45,8 +46,15 @@ describe('ArticlePracticeBridge → DcpPlayer causeHref', () => {
         <ArticlePracticeBridge articleId="267ef969-2a3a-4dc9-b6b7-a85246df543f" textId="text-a" ownerId="user-a" items={[item]} />
       </Ctx.Provider>,
     )
-    expect(articleVocabHref('text-a')).toBe('/wordvault/browse?filter=text%3Atext-a')
-    expect(captured.props?.causeHref).toEqual({ vocab: '/wordvault/browse?filter=text%3Atext-a' })
+    const h = articleVocabHref('text-a')
+    expect(h).toBe('/wordvault/browse?filter=text%3Atext-a&from=%2Ftext%2Ftext-a')
+    const u = new URL(h, 'http://x')
+    expect(u.pathname).toBe('/wordvault/browse')
+    expect(u.searchParams.get('filter')).toBe('text:text-a')
+    expect(u.searchParams.get('from')).toBe('/text/text-a')
+    // SessionFrame 의 닫기 · Esc 복귀가 받아들이는 내부 경로다
+    expect(sanitizeInternalPath(u.searchParams.get('from'))).toBe('/text/text-a')
+    expect(captured.props?.causeHref).toEqual({ vocab: h })
     expect(captured.props?.backHref).toBe('/text/text-a')
     vi.doUnmock('@/components/practice/DcpPlayer')
   })
