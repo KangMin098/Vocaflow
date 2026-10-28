@@ -57,13 +57,13 @@ describe('TextbookPracticeScope', () => {
     expect(html).toContain('href="/library/textbooks/vocab/5"')
     expect(h.dcp).toHaveLength(0)
   })
-  it('공통 풀 · 선택 뒤: 같은 문항 · 기본 서버 채점 · revisit 없음, 안내는 남는다', () => {
+  it('공통 풀 · 선택 뒤: 같은 문항 · 기본 서버 채점 · revisit 기본 끔, 안내는 남는다', () => {
     const html = render('legacy_v_level', true)
     expect(html).toContain(COMMON_POOL_LIMIT)
     expect(h.dcp).toHaveLength(1)
     expect(h.dcp[0]!.items).toBe(ITEMS)
     expect(h.dcp[0]!.grade).toBeUndefined()
-    expect(h.dcp[0]!.revisit).toBeUndefined()
+    expect(h.dcp[0]!.revisit).toBe(false)
     expect(h.dcp[0]!.backHref).toBe('/library/textbooks/vocab/5')
   })
   it('경로 미확인(null)은 권 전용으로 낙관하지 않는다 — 공통 풀처럼 선택 먼저', () => {
@@ -90,10 +90,12 @@ describe('TextbookPracticeScope', () => {
 
 describe('교재 연습 페이지 배선 · 낡은 문구', () => {
   const page = fs.readFileSync(path.resolve(__dirname, '../../../app/(main)/library/textbooks/[series]/[step]/practice/page.tsx'), 'utf8')
-  it('loader 의 scope 를 그대로 넘기고 DcpPlayer 를 직접 그리지 않는다(revisit 끔)', () => {
-    expect(page).toContain('const { items, unavailable, signedOut, scope } = await fetchTextbookPracticeItems')
-    expect(page).toMatch(/<TextbookPracticeScope items=\{items\} scope=\{scope\}/)
+  it('loader 의 scope · ownerId 를 계정 경계(TextbookPracticeBridge)로 넘기고 DcpPlayer · revisit 을 직접 쓰지 않는다', () => {
+    expect(page).toContain('const { items, unavailable, signedOut, scope, ownerId } = await fetchTextbookPracticeItems')
+    expect(page).toContain('items.length > 0 && ownerId ?')
+    expect(page).toMatch(/<TextbookPracticeBridge\s+items=\{items\}\s+scope=\{scope\}\s+ownerId=\{ownerId\}/)
     expect(page).not.toContain('<DcpPlayer')
+    expect(page).not.toContain('<TextbookPracticeScope')
     expect(page).not.toMatch(/revisit/)
   })
   it('「순서·삽입만」 안내가 남지 않는다', () => {

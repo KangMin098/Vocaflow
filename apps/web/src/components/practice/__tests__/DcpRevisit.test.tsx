@@ -56,13 +56,16 @@ describe('DcpRevisitView — 틀린 문항 다시 보기', () => {
 })
 
 describe('opt-in 경계 — 세션 경계를 확인한 호출자만 켠다', () => {
-  it('기록은 revisit 일 때만 모으고, 켜는 곳은 기사 연습 다리와 합성 dev 뿐', async () => {
+  it('기록은 revisit 일 때만 모으고, 켜는 곳은 기사 · 교재 연습 다리(계정 경계)와 합성 dev 뿐', async () => {
     const fs = await import('node:fs')
     const path = await import('node:path')
     const src = (p: string) => fs.readFileSync(path.resolve(__dirname, p), 'utf8')
     expect(src('../DcpPlayer.tsx')).toMatch(/if \(revisit\) setSeen\(/)
     expect(src('../DcpPlayer.tsx')).toContain('revisit = false')
     expect(src('../ArticlePracticeBridge.tsx')).toMatch(/<DcpPlayer\s+key=\{articleId\}\s+revisit/)
+    // 교재: 범위 컴포넌트는 기본 끔 · 넘겨받을 때만, 넘기는 곳은 status === 'same' 확인 뒤의 계정 경계뿐
+    expect(src('../TextbookPracticeScope.tsx')).toContain('revisit = false')
+    expect(src('../TextbookPracticeBridge.tsx')).toMatch(/if \(status !== 'same'\) \{[\s\S]*<TextbookPracticeScope[\s\S]*revisit\s*\/>/)
     for (const p of ['../../../app/(main)/practice/dcp/session/page.tsx', '../../../app/(main)/library/textbooks/[series]/[step]/practice/page.tsx', '../../csat/factory/FactoryDcpRunner.tsx']) {
       expect(src(p)).not.toMatch(/<DcpPlayer[^>]*revisit/)
     }

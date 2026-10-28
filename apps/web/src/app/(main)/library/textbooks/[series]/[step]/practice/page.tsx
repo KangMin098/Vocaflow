@@ -24,7 +24,7 @@ import { notFound } from 'next/navigation'
 import { ArrowLeft, LogIn } from 'lucide-react'
 
 
-import { TextbookPracticeScope } from '@/components/practice/TextbookPracticeScope'
+import { TextbookPracticeBridge } from '@/components/practice/TextbookPracticeBridge'
 import { RETURN_PARAM } from '@/lib/auth/redirect'
 import { Screen } from '@/components/ui/ios'
 import { fetchTextbookPracticeItems } from '@/lib/learner/dcp-actions'
@@ -72,7 +72,7 @@ export default async function TextbookPracticePage({
 
   // 한 계단이 여러 V-Level 을 덮을 수 있다 — 첫 밴드를 쓴다(권의 대표 난이도).
   const vLevel = rung.vLevels[0] ?? 0
-  const { items, unavailable, signedOut, scope } = await fetchTextbookPracticeItems({ series, step, vLevel }, ITEM_LIMIT)
+  const { items, unavailable, signedOut, scope, ownerId } = await fetchTextbookPracticeItems({ series, step, vLevel }, ITEM_LIMIT)
 
   // 로그인 뒤 **여기로 돌아온다.** 복귀 경로가 없으면 로그인하고 나서 다시 길을 찾아야 하고,
   // 그 지점에서 사람이 빠져나간다(`library/scripts` 가 이미 쓰는 규약을 그대로 따른다).
@@ -95,9 +95,17 @@ export default async function TextbookPracticePage({
           </p>
         </header>
 
-        {items.length > 0 ? (
+        {items.length > 0 && ownerId ? (
           // 마치면 이 교재(권)로 돌아온다 — 기본값 /hub 로 보내면 방금 고른 교재 맥락을 잃었다(복습 · 다음 선택은 교재 화면에서)
-          <TextbookPracticeScope items={items} scope={scope} backHref={`/library/textbooks/${series}/${step}`} backCta="이 교재로 돌아가기" />
+          // 계정 경계(TextbookPracticeBridge)가 같은 계정을 확인한 동안에만 문항 · 이미 본 해설 다시 보기를 그린다
+          <TextbookPracticeBridge
+            items={items}
+            scope={scope}
+            ownerId={ownerId}
+            backHref={`/library/textbooks/${series}/${step}`}
+            backCta="이 교재로 돌아가기"
+            reopenHref={`/library/textbooks/${series}/${step}/practice`}
+          />
         ) : (
           <section
             aria-label={

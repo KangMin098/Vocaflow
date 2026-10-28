@@ -214,7 +214,7 @@ export async function fetchDcpPracticeItems(): Promise<{
 export async function fetchTextbookPracticeItems(
   volume: { series: string; step: number; vLevel: number },
   limit = 10,
-): Promise<{ items: DcpItem[]; unavailable: boolean; signedOut: boolean; scope: VolumePracticePath | null }> {
+): Promise<{ items: DcpItem[]; unavailable: boolean; signedOut: boolean; scope: VolumePracticePath | null; ownerId: string | null }> {
   const client = await createClient()
   const {
     data: { user },
@@ -233,7 +233,7 @@ export async function fetchTextbookPracticeItems(
   //       attempt 를 user_id 에 묶어 기록하기 때문이다. 그래서 문항 조회 RPC 자체는
   //       anon 에도 열려 있지만(실측: 8문항·정답 계열 키 유출 없음) 로그인 없이 연습을
   //       시작시키면 **채점 순간에 막힌다.** 지금은 들어오기 전에 말해 주는 편을 택한다.
-  if (!user) return { items: [], unavailable: true, signedOut: true, scope: null }
+  if (!user) return { items: [], unavailable: true, signedOut: true, scope: null, ownerId: null }
 
   const loose = client as unknown as SupabaseClient
   // ⚠️ **넉넉히 받아서 거른다.** RPC 는 유형 화이트리스트와 `v_level`·발행 상태만 본다 —
@@ -258,7 +258,7 @@ export async function fetchTextbookPracticeItems(
   )
   // 조회 실패를 빈 목록으로 뭉개지 않는다 — 화면이 "아직 문항이 없어요" 로 거짓말하게 된다.
   // 조회 경로(scope)는 성공한 조회에만 붙인다 — 실패 · 로그인 필요에서 권 전용으로 낙관하지 않는다.
-  if (error) return { items: [], unavailable: true, signedOut: false, scope: null }
+  if (error) return { items: [], unavailable: true, signedOut: false, scope: null, ownerId: null }
 
   const rows = Array.isArray(data) ? (data as Array<Record<string, unknown>>) : []
   const clean = rows.filter(
@@ -282,7 +282,8 @@ export async function fetchTextbookPracticeItems(
     .map((r) => parseItem({ ...r, payload: cleanItemPayload((r.payload ?? {}) as Record<string, unknown>) }))
     .filter((x): x is DcpItem => x !== null)
     .slice(0, limit)
-  return { items, unavailable: false, signedOut: false, scope: path }
+  // ownerId = 이 문항을 받은 계정(서버 getUser) — 화면의 신원 경계 비교 · 채점 래퍼의 예상 주인으로만 쓴다(DOM · URL 에 싣지 않는다).
+  return { items, unavailable: false, signedOut: false, scope: path, ownerId: user.id }
 }
 
 /**
@@ -296,8 +297,28 @@ export async function gradeDcpItem(
   itemId: string,
   answer: Record<string, unknown>,
 ): Promise<DcpGradeResult> {
+  return gradeWith((await createClient()) as unknown as SupabaseClient, itemId, answer)
+}
+
+/**
+ * 교재 연습 채점 — loader 가 문항을 내준 계정(expectedOwner)과 **지금 요청의 실제 계정(getUser)** 이 같을 때만
+ * 기존 grade_dcp_item 을 부른다. 다르거나 로그아웃이면 RPC 전에 거부한다(실패이지 오답이 아니다).
+ * ⚠️ expectedOwner 는 비교 대상일 뿐 인증이 아니다 — 인증은 쿠키 세션의 getUser 다.
+ */
+export async function gradeTextbookPracticeItem(
+  expectedOwner: string,
+  itemId: string,
+  answer: Record<string, unknown>,
+): Promise<DcpGradeResult> {
   const client = await createClient()
-  const loose = client as unknown as SupabaseClient
+  const {
+    data: { user },
+  } = await client.auth.getUser()
+  if (!user || user.id !== expectedOwner) return { ok: false, error: '로그인 상태가 바뀌었어요. 연습을 다시 열어 주세요.' }
+  return gradeWith(client as unknown as SupabaseClient, itemId, answer)
+}
+
+async function gradeWith(loose: SupabaseClient, itemId: string, answer: Record<string, unknown>): Promise<DcpGradeResult> {
   const { data, error } = await loose.rpc('grade_dcp_item', { p_item_id: itemId, p_answer: answer })
   if (error) return { ok: false, error: error.message }
   if (!data) return { ok: false, error: '채점 결과가 비어 있어요.' }
