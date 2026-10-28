@@ -324,10 +324,10 @@ export function ComicReader({ textId, bookTitle, pages, libraryBookId = null, in
                       </button>
                       {shown && (
                         <div className="flex items-center gap-2 pl-1">
-                          <button type="button" data-no-nav onClick={() => toggleRecall(key)} aria-pressed={recalled.has(key)} className="inline-flex min-h-9 items-center gap-1 rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[700] transition-colors motion-reduce:transition-none" style={recalled.has(key) ? { background: 'color-mix(in srgb, var(--memory-stable) 16%, transparent)', color: 'var(--memory-stable)' } : { border: '1px solid var(--bd)', color: 'var(--t3)' }}>
+                          <button type="button" data-no-nav onClick={() => toggleRecall(key)} aria-pressed={recalled.has(key)} className="inline-flex min-h-11 items-center gap-1 rounded-[var(--r-full)] px-3 py-1 font-display text-[11px] font-[700] transition-colors motion-reduce:transition-none" style={recalled.has(key) ? { background: 'color-mix(in srgb, var(--memory-stable) 16%, transparent)', color: 'var(--memory-stable)' } : { border: '1px solid var(--bd)', color: 'var(--t3)' }}>
                             {recalled.has(key) ? <><Check size={12} /> 기억함</> : '기억했어요'}
                           </button>
-                          <button type="button" data-no-nav onClick={() => reblur(key)} className="min-h-9 font-body text-[11px] text-[var(--t2)] underline underline-offset-2 hover:text-[var(--t1)]">다시 볼게요</button>
+                          <button type="button" data-no-nav onClick={() => reblur(key)} className="min-h-11 px-1 font-body text-[11px] text-[var(--t2)] underline underline-offset-2 hover:text-[var(--t1)]">다시 볼게요</button>
                         </div>
                       )}
                     </div>
