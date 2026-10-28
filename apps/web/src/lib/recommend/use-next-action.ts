@@ -17,7 +17,8 @@ import { decideNextAction } from './decide'
 import { getNextActionForUser } from './get-next-action'
 import type { OwnedNextAction, RecommendedAction } from './types'
 
-const INITIAL: RecommendedAction = decideNextAction({ masteryLevel: 'cold', urgentWordCount: 0 })
+// 서버 응답 전 · 응답 실패 — 기존 cold 결정(같은 목적지 · 라벨)이되 근거는 확인 전이다
+const INITIAL: RecommendedAction = { ...decideNextAction({ masteryLevel: 'cold', urgentWordCount: 0 }), reason: 'unconfirmed' }
 
 /** 화면에 그릴 추천 — 개인 글은 신원이 같을 때만(순수 · 테스트가 잠근다). */
 export function visibleNextAction(res: OwnedNextAction | null, identity: StoryAuthStatus): RecommendedAction {
