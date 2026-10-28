@@ -37,6 +37,7 @@ import {
   type TrackStat,
 } from '@/lib/articles/source-map'
 import type { PublishedArticle } from '@/lib/articles/types'
+import type { ArticlePracticeAvailability } from '@/lib/learner/article-practice-availability'
 
 import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
 
@@ -77,12 +78,15 @@ export function ScriptsBrowser({
   articles,
   series,
   loadError = false,
+  practice = null,
 }: {
   articles: PublishedArticle[]
   /** `?series=` — 서버가 읽어 넘긴다. 상태가 아니라 주소가 이 화면의 단일 출처다. */
   series: string | null
   /** 카탈로그 **조회 자체가 실패**했는가 — 빈 목록의 두 원인을 가른다. */
   loadError?: boolean
+  /** T-0215 — 연습이 설치된 기사(서버 1회 조회). 없거나 실패 · 로그아웃이면 카드에 표시 없음 */
+  practice?: ArticlePracticeAvailability | null
 }) {
   const userV = useUserVLevel()
   const router = useRouter()
@@ -122,6 +126,7 @@ export function ScriptsBrowser({
       <SeriesDetail
         stat={selectedStat}
         userV={userV}
+        practice={practice}
         // ⚠️ `push` 였다. 그러면 히스토리가 index → series → index 로 **쌓여서**,
         //    그다음 브라우저 뒤로가기가 방금 나온 시리즈로 되돌아간다(2026-09-05).
         //    시리즈 목록으로 나가는 것은 앞으로 가는 이동이 아니라 되돌아가는 것이므로
