@@ -3,7 +3,8 @@
 //   legacy_v_level(V레벨 공통 풀): 안내를 먼저 보이고 「공통 문항으로 연습하기」를 명시 선택한 뒤에만 문항을 그린다.
 //   volume(권 단위 함수): 「교재의 수준 · 유형 기준」 한 줄 — 인쇄본 수록 문제와 같다고 약속하지 않는다.
 //   경로를 모르면(null) 공통 풀처럼 다룬다 — 권 전용으로 낙관하지 않는다.
-// 선택 · 접기는 상태만 바꾼다 — 채점 · 시도 기록 · 이벤트를 만들지 않는다. DcpPlayer 는 그대로 쓴다(revisit 끔).
+// 선택 · 접기는 상태만 바꾼다 — 채점 · 시도 기록 · 이벤트를 만들지 않는다. DcpPlayer 는 그대로 쓴다.
+// revisit 은 호출자가 넘길 때만 — 신원 경계(TextbookPracticeBridge)가 같은 계정을 확인한 동안에만 켠다.
 
 'use client'
 
@@ -25,6 +26,7 @@ export function TextbookPracticeScope({
   backHref,
   backCta,
   grade,
+  revisit = false,
 }: {
   items: DcpItem[]
   scope: VolumePracticePath | null
@@ -32,9 +34,11 @@ export function TextbookPracticeScope({
   backCta: string
   /** 격리 dev 화면만 합성 채점을 넣는다(기본 = 서버 채점) */
   grade?: Parameters<typeof DcpPlayer>[0]['grade']
+  /** 완료 뒤 이미 본 해설 다시 보기(opt-in) — 신원 경계를 확인한 호출자만 */
+  revisit?: boolean
 }) {
   const [chosen, setChosen] = useState(false)
-  const player = <DcpPlayer items={items} backHref={backHref} backCta={backCta} grade={grade} />
+  const player = <DcpPlayer items={items} backHref={backHref} backCta={backCta} grade={grade} revisit={revisit} />
 
   if (scope === 'volume') {
     return (

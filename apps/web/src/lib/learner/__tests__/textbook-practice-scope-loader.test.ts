@@ -21,7 +21,7 @@ vi.mock('@/lib/supabase/server', () => ({
   }),
 }))
 
-import { fetchTextbookPracticeItems } from '../dcp-actions'
+import { fetchTextbookPracticeItems, gradeTextbookPracticeItem } from '../dcp-actions'
 
 const VOL = { series: 'vocab', step: 5, vLevel: 5 }
 const ROW = {
@@ -80,5 +80,33 @@ describe('fetchTextbookPracticeItems scope', () => {
     h.legacy = { data: null, error: { code: '42501', message: 'x' } }
     const r = await fetchTextbookPracticeItems(VOL, 8)
     expect(r).toMatchObject({ unavailable: true, scope: null })
+  })
+})
+
+describe('fetchTextbookPracticeItems ownerId', () => {
+  it('성공한 조회에만 서버 getUser 계정을 싣는다 — 로그인 필요 · 실패는 null', async () => {
+    expect((await fetchTextbookPracticeItems(VOL, 8)).ownerId).toBe('u1')
+    h.volume = { data: null, error: { code: '42501', message: 'x' } }
+    expect((await fetchTextbookPracticeItems(VOL, 8)).ownerId).toBeNull()
+    h.user = null
+    expect((await fetchTextbookPracticeItems(VOL, 8)).ownerId).toBeNull()
+  })
+})
+
+describe('gradeTextbookPracticeItem — 요청 계정 ≠ 예상 주인이면 RPC 전에 거부', () => {
+  it('다른 계정 · 로그아웃: grade_dcp_item 호출 0, 실패(오답 아님)', async () => {
+    for (const user of [{ id: 'u2' }, null]) {
+      h.rpc.mockClear()
+      h.user = user
+      const r = await gradeTextbookPracticeItem('u1', 'o1', { order: [0, 1, 2, 3] })
+      expect(r.ok).toBe(false)
+      expect(h.rpc).not.toHaveBeenCalled()
+    }
+  })
+  it('같은 계정: 기존 grade_dcp_item 에 문항 · 답만 넘기고 결과 형식은 그대로', async () => {
+    h.legacy = { data: { correct: true, attempt_id: 'att', answer_key: null }, error: null }
+    const r = await gradeTextbookPracticeItem('u1', 'o1', { order: [0, 1, 2, 3] })
+    expect(h.rpc).toHaveBeenCalledWith('grade_dcp_item', { p_item_id: 'o1', p_answer: { order: [0, 1, 2, 3] } })
+    expect(r).toEqual({ ok: true, correct: true, attemptId: 'att', answerKey: null })
   })
 })
