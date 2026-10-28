@@ -17,6 +17,8 @@ const state = {
   submit: { data: { correct: true, attempt_id: '99999999-9999-4999-8999-999999999999', answer_key: null } as unknown, error: null as null | { message: string } },
   submitCalls: [] as unknown[],
   textId: 'text-1',
+  /** getUser 가 차례로 돌려줄 값(비면 user) — 관문 통과 뒤 계정 확인 실패를 만든다 */
+  userSeq: [] as Array<string | null>,
   set: null as unknown,
   setError: null as null | { message: string },
   setQueries: [] as Array<[string, unknown]>,
@@ -42,7 +44,7 @@ function setQuery() {
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
-    auth: { getUser: async () => ({ data: { user: state.user ? { id: state.user } : null } }) },
+    auth: { getUser: async () => { const u = state.userSeq.length ? state.userSeq.shift()! : state.user; return { data: { user: u ? { id: u } : null } } } },
     from: (t: string) =>
       t === 'user_profiles' ? queryWithError({ status: state.status }, state.profileError)
         : t === 'texts' ? query({ id: state.textId })
@@ -61,7 +63,7 @@ import { loadArticlePractice, submitArticlePractice } from '../article-practice-
 const CTX = { articleId: ART, textId: 'text-1', ownerId: 'user-me' }
 
 beforeEach(() => {
-  Object.assign(state, { user: 'user-me', status: 'active', textContent: BODY, articleBody: BODY, rpc: { data: [row], error: null }, profileError: null, submit: { data: { correct: true, attempt_id: '99999999-9999-4999-8999-999999999999', answer_key: null }, error: null }, submitCalls: [], textId: 'text-1', set: null, setError: null, setQueries: [] })
+  Object.assign(state, { user: 'user-me', status: 'active', textContent: BODY, articleBody: BODY, rpc: { data: [row], error: null }, profileError: null, submit: { data: { correct: true, attempt_id: '99999999-9999-4999-8999-999999999999', answer_key: null }, error: null }, submitCalls: [], textId: 'text-1', userSeq: [], set: null, setError: null, setQueries: [] })
 })
 
 describe('loadArticlePractice', () => {
@@ -71,11 +73,11 @@ describe('loadArticlePractice', () => {
   })
   it('함수 미설치(PGRST202)는 not_installed, 다른 오류는 query_failed, 후보 0 은 no_items', async () => {
     state.rpc = { data: null, error: { code: 'PGRST202', message: 'x' } }
-    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'not_installed' })
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'not_installed', returnTextId: 'text-1' })
     state.rpc = { data: null, error: { code: '500', message: 'x' } }
-    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'query_failed' })
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'query_failed', returnTextId: 'text-1' })
     state.rpc = { data: [], error: null }
-    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'no_items' })
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'no_items', returnTextId: 'text-1' })
   })
   it('판본 불일치·정지 계정·미인증은 RPC 전에 막는다', async () => {
     state.textContent = 'old body'
@@ -86,6 +88,46 @@ describe('loadArticlePractice', () => {
     state.status = 'active'
     state.user = null
     expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'signed_out' })
+  })
+})
+
+describe('loadArticlePractice 읽던 글 복귀(T-0206)', () => {
+  it('관문 통과 뒤 세 후보 실패는 각각 서버가 확인한 본인 글로 — 사유 · 문구 키는 그대로', async () => {
+    state.textId = 'text-own-9'
+    for (const [rpc, reason] of [
+      [{ data: null, error: { code: '42883', message: 'x' } }, 'not_installed'],
+      [{ data: null, error: { code: 'XX000', message: 'x' } }, 'query_failed'],
+      [{ data: [{ ...row, type: 'blank' }], error: null }, 'no_items'],
+    ] as const) {
+      state.rpc = rpc as typeof state.rpc
+      expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason, returnTextId: 'text-own-9' })
+    }
+  })
+  it('관문 실패에는 복귀 정보가 없다(기존 글 목록)', async () => {
+    state.user = null
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'signed_out' })
+    state.user = 'user-me'; state.status = 'blocked'
+    expect((await loadArticlePractice(ART)).ok === false && 'returnTextId' in (await loadArticlePractice(ART))).toBe(false)
+    state.status = 'active'; state.articleBody = 'changed body'
+    const stale = await loadArticlePractice(ART)
+    expect(stale.ok).toBe(false)
+    expect('returnTextId' in stale).toBe(false)
+    state.articleBody = BODY; state.profileError = { message: 'x' }
+    const lf = await loadArticlePractice(ART)
+    expect(lf).toEqual({ ok: false, reason: 'lookup_failed' })
+    state.profileError = null
+    expect(await loadArticlePractice('not-a-uuid')).toEqual({ ok: false, reason: 'bad_article' })
+  })
+  it('후보 실패 뒤 지금 계정을 확인하지 못하면 복귀 정보를 만들지 않는다', async () => {
+    state.rpc = { data: [], error: null }
+    // 관문이 부르는 getUser 는 통과(user-me), 복귀 전 재확인은 미확인(null)
+    state.userSeq = ['user-me', null]
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'no_items' })
+  })
+  it('성공 계약은 그대로(복귀 키 없음)', async () => {
+    const r = await loadArticlePractice(ART)
+    expect(r.ok).toBe(true)
+    expect('returnTextId' in r).toBe(false)
   })
 })
 

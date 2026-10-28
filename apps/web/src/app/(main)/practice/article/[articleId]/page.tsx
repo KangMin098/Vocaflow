@@ -50,6 +50,17 @@ export default async function ArticlePracticePage({ params }: { params: { articl
             {ARTICLE_PRACTICE_REASON[res.reason]}
           </p>
         )}
+        {/* 관문을 통과한 뒤 후보 조회만 실패했으면 서버가 확인한 그 본인 글로 — 그 밖의 실패는 위 글 목록만(T-0206) */}
+        {!res.ok && res.returnTextId ? (
+          <Link
+            href={`/text/${res.returnTextId}`}
+            data-testid="article-practice-return"
+            className="inline-flex min-h-[44px] w-fit items-center gap-1 self-start rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] no-underline transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            <ArrowLeft size={13} strokeWidth={2} aria-hidden />
+            읽던 글로 돌아가기
+          </Link>
+        ) : null}
       </div>
     </Screen>
   )

@@ -34,7 +34,15 @@ export type ArticleVocabSource = { kind: 'set'; setId: string } | { kind: 'text'
 
 export type ArticlePracticeLoad =
   | { ok: true; textId: string; ownerId: string; items: ReturnType<typeof toDcpChoiceItem>[]; vocab: ArticleVocabSource }
-  | { ok: false; reason: Exclude<ArticlePracticeAccess, { ok: true }>['reason'] | 'not_installed' | 'query_failed' | 'no_items' }
+  | {
+      ok: false
+      reason: Exclude<ArticlePracticeAccess, { ok: true }>['reason'] | 'not_installed' | 'query_failed' | 'no_items'
+      /**
+       * 읽던 글 복귀(T-0206) — 본인 글 · 현재 판본 · 계정 관문을 **통과한 뒤** 후보 조회만 실패했을 때(not_installed · query_failed · no_items)
+       * 서버가 확인한 그 본인 글 id. 관문 실패 · 지금 계정 미확인에는 없다(주소 · referer 로 추정하지 않는다).
+       */
+      returnTextId?: string
+    }
 
 function depsFor(client: SupabaseClient): ArticlePracticeDeps {
   return {
@@ -82,7 +90,11 @@ export async function loadArticlePractice(articleId: string): Promise<ArticlePra
   const access = await checkArticlePracticeAccess(articleId, deps)
   if (!access.ok) return { ok: false, reason: access.reason }
   const c = await candidates(client, access.articleId)
-  if (!c.ok) return c
+  if (!c.ok) {
+    // 관문을 통과한 본인 글로만 돌려보낸다 — 지금 계정을 다시 확인하지 못하면 복귀 정보를 만들지 않는다(기존 글 목록)
+    const uid = await deps.currentUserId()
+    return uid ? { ...c, returnTextId: access.textId } : c
+  }
   // 소유자는 화면의 신원 비교용으로만 싣는다(DOM · URL 에 넣지 않는다)
   const ownerId = await deps.currentUserId()
   if (!ownerId) return { ok: false, reason: 'signed_out' }
