@@ -8,6 +8,7 @@
 //   문맥이 하나도 없어도 words(목록 판정)는 그대로다.
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { normalizeForMatch, splitSentences } from '@/lib/scriptquiz/evidence'
 import { buildEvidenceSentenceMap, contentHash } from '@/lib/scriptquiz/reader-anchor'
 import { buildParagraphsFromContent } from '@/app/(main)/text/[id]/text-content-helpers'
 
@@ -27,16 +28,41 @@ export function readerSentencesOf(content: string, offsets: unknown): Array<{ id
   return buildParagraphsFromContent(content, Array.isArray(offsets) ? (offsets as number[]) : []).flatMap((p) => p.sentences.map((s) => ({ id: s.id, text: s.parts.map((pt) => pt.text).join('') })))
 }
 
+const ABBREV_END = /(?:^|[\s(“"'])(?:Mr|Mrs|Ms|Dr|Prof|St|Jr|Sr|vs|etc|e\.g|i\.e)\.$/i
+
 /**
- * T-0214 Codex P2 3차 — 낱말 문맥 문장을 **Reader 문장 단위**로 찾는다. 공백만 정규화해 전체가 같은 Reader 문장이 정확히 하나일 때,
- * 앵커 번호(splitSentences 체계) 중 Reader 표(buildEvidenceSentenceMap)가 바로 그 Reader 문장으로 푸는 첫 번호를 돌려준다. 아니면 null.
- * 「Dr. Smith …」 · 「3.5 percent」 처럼 splitSentences 가 끊어도 Reader 가 한 문장으로 보면 그 문장으로 간다. 길이 하한 없음.
+ * 원문 문장 — 기존 splitSentences 위에 작은 보호만: 앞 조각이 알려진 약어로 끝나거나(「Dr.」) 숫자+「.」 로 끝나고 다음이 숫자로
+ * 시작하면(「3.」+「5 percent.」) 두 조각을 다시 붙인다. 새 분리기 엔진이 아니다. 규칙표: runtime/team-pilot-20261028/pb-t0214-boundary-rules.md
+ */
+export function originalSentences(text: string): string[] {
+  const out: string[] = []
+  for (const piece of splitSentences(text)) {
+    const prev = out[out.length - 1]
+    // 소수점은 원문에서 **붙어 있을 때만**(「3.5」) — 「3. 5」 는 두 문장으로 둔다
+    const decimal = prev !== undefined && /\d\.$/.test(prev) && /^\d/.test(piece) && text.includes(`${prev}${piece}`)
+    if (prev !== undefined && (decimal || ABBREV_END.test(prev))) out[out.length - 1] = `${prev}${decimal ? '' : ' '}${piece}`
+    else out.push(piece)
+  }
+  return out
+}
+
+/**
+ * T-0214 — 「글에서 이 문장 보기」 번호. 규칙표(pb-t0214-boundary-rules.md)의 두 조건이 **모두** 참일 때만, 아니면 null(보수적):
+ *  1) 원문 유일 — 문맥 문장이 원문 분리로 한 문장이고, 본문 원문 문장 중 공백 정규화 전체 일치가 1개이면서 normalizeForMatch 일치도 1개
+ *     (중복 · 줄바꿈 다른 단락의 중복 · 대소문자만 다른 문장 · 다문장 출처는 여기서 탈락)
+ *  2) Reader 단일 해소 — Reader 문장 중 공백 정규화 전체 일치가 1개이고, 앵커 번호(splitSentences 체계) 하나가 buildEvidenceSentenceMap 으로
+ *     바로 그 Reader 문장에 풀린다(Reader 가 두 원문 문장을 한 문장으로 합친 경우는 전체 일치 0 이라 탈락)
  * (T-0209 의 evidenceSentenceIndex — 근거 스니펫 12자 하한 — 는 그대로 둔다.)
  */
 export function readerAnchorIndex(content: string, readerSentences: ReadonlyArray<{ id: number; text: string }>, sentence: string): number | null {
   const norm = (s: string) => s.replace(/\s+/g, ' ').trim()
   const target = norm(sentence)
   if (!target) return null
+  if (originalSentences(target).length !== 1) return null
+  const orig = originalSentences(content)
+  const nt = normalizeForMatch(target)
+  if (orig.filter((o) => norm(o) === target).length !== 1) return null
+  if (orig.filter((o) => normalizeForMatch(o) === nt).length !== 1) return null
   const hits = readerSentences.filter((r) => norm(r.text) === target)
   if (hits.length !== 1) return null
   const map = buildEvidenceSentenceMap(content, readerSentences)
