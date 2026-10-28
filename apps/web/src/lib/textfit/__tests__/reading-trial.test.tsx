@@ -68,7 +68,9 @@ describe('화면 · 경계', () => {
     const page = fs.readFileSync(path.resolve(__dirname, '../../../app/(marketing)/fit/page.tsx'), 'utf8')
     expect(page).toMatch(/\{READING_TRIAL_ENABLED && \(/)
     const comp = fs.readFileSync(path.resolve(__dirname, '../../../components/textfit/ReadingTrial.tsx'), 'utf8').replace(/^\s*\/\/.*$/gm, '')
-    expect(comp).not.toMatch(/PublicFitClient|analyze|localStorage|sessionStorage|fetch\(|track\(|dcp-actions|supabase/)
+    expect(comp).not.toMatch(/PublicFitClient|analyze|localStorage|sessionStorage|fetch\(|dcp-actions|supabase/)
+    // 계측은 두 이름 · 속성 {} 만(fit_trial_opened · fit_trial_answered)
+    expect([...comp.matchAll(/track\((\{[^)]*\})\)/g)].map((m) => m[1])).toEqual(["{ name: 'fit_trial_opened', props: {} }", "{ name: 'fit_trial_answered', props: {} }"])
   })
 })
 

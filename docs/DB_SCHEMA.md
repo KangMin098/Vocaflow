@@ -19,6 +19,8 @@
 > 복구 `_pending_lcp_story_s3_quarantine.sql`(SHA-256 `a9e7258907f6c0afeb564b8d2bc312f7ad7398588fa7a11357cd1be0ac74f016` · RPC 16개 실행 회수 · 이력 보존). 복구 적용도 SQL 전문·SHA·영향·복구의 사용자 승인을 지킨다. MCP 쓰기 또는 main-serving 의 승인형 러너를 쓸 수 있다.
 > **공유 DB 적용 완료** — 2026-10-25 09:44:50 UTC, MCP 원장 `20261025094450`, 저장된 SQL SHA-256이 승인본과 동일하다. 사후 검사 15/15 · 원본 5표 행/정의 지문 10/10 불변 · Story 표 12개 초기 행 0. 러너의 고정 버전도 실제 원장에 맞췄다. SQL 머리말의 보류 표시는 승인 당시 바이트를 보존한 역사적 표기다. 결정 · 실측: [S3_DB_AUDIT](lcp-story/S3_DB_AUDIT.md) · 계약: [LCP_STORY §15](LCP_STORY.md).
 
+> **승인·적용 완료 `/fit` 체험 계측 2종**(2026-10-28): 사용자 승인 SQL v2 를 MCP `apply_migration` 으로 dev 적용 — 원장 **`20261028015035`** `fit_trial_telemetry_events`(저장 사본 `supabase/migrations/20261028015035_fit_trial_telemetry_events.sql`, 적용 원문 sha256 `9ce0d2fd…`, 다시 실행 금지). `funnel_events_event_check` 를 스냅숏 허용 목록 ∪ {`fit_trial_opened`, `fit_trial_answered`} 로 다시 걸었다(기존 행 무변경 · VALID · 사후 정의 sha256 `3a5bf338…231d`). 두 이벤트는 속성 `{}` 만 — 수신구가 비어 있지 않은 속성을 넣기 전에 버린다.
+
 > **승인·적용 완료 LCP Story S5 읽기 문맥 · 이벤트 허용**(2026-10-25 · T-0176 후속): 사용자 명시 승인 SQL r3(SHA-256 `a57ef729cedddc9f6271370fa5f93595a1dca6e273230b741bdfffc535f161ab` · 34,577바이트)를
 > MCP 로 dev `jajenrevcbmrpaliomxv` 에 적용 — 원장 **`20261025143031`** `lcp_story_s5_reader_context`(원장 statements 배열의 단일 원문 항목 · 승인 바이트 그대로). 저장소 파일 `supabase/migrations/20261025143031_lcp_story_s5_reader_context.sql` 은 승인 원본 바이트이며 머리말의 「제안 · 미적용」 문구는 승인 당시 기록이다. **재적용하지 않는다.**
 > - 새 RPC `public.story_reader_context(text, integer) returns jsonb` — 읽기 전용 · STABLE · SECURITY DEFINER · `search_path = pg_catalog, pg_temp` · 클라이언트 실행 권한 authenticated 만(anon · service_role · PUBLIC false).

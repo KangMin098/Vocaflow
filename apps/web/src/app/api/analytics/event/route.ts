@@ -52,6 +52,13 @@ const limiter = new TokenBucketLimiter({
 
 const ALLOWED = new Set<string>(ALLOWED_EVENTS)
 
+/** 속성 없이만 받는 이벤트 — 일반 isSafeProps(짧은 열거형 허용)보다 좁다 */
+const EMPTY_PROPS_EVENTS = new Set<string>(['fit_trial_opened', 'fit_trial_answered'] satisfies PublicEventName[])
+
+function isEmptyPlainObject(v: unknown): boolean {
+  return typeof v === 'object' && v !== null && !Array.isArray(v) && Object.keys(v).length === 0
+}
+
 /** 계측 한 건의 본문 상한 — 실제 이벤트는 수백 바이트다. 4KB 면 넉넉하고도 남는다. */
 const MAX_BODY_BYTES = 4096
 
@@ -75,6 +82,8 @@ export async function POST(req: Request): Promise<NextResponse> {
 
     const props = body.props ?? {}
     if (!isSafeProps(props)) return ok()
+    // 체험 두 이벤트는 속성이 정확히 비어 있어야 한다 — 답 · 정오 · 목표 · 글이 실려 오면 넣기 전에 버린다.
+    if (EMPTY_PROPS_EVENTS.has(name) && !isEmptyPlainObject(props)) return ok()
 
     // 표면 이름도 열거형 취급 — 자유 문자열을 허용하면 URL 이 새어 들어온다.
     const surface =
