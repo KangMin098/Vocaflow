@@ -61,6 +61,13 @@ export function articlePracticeDoneCopy({ total, correct }: { total: number; cor
   }
 }
 
+/** T-0212 — 완료 뒤 같은 글의 단어 목록(선택). 출처는 「단어를 몰랐어요」 와 같은 결정(articleVocabHref · from=/text/<검증 textId>).
+ *  set → 그 세트 · text → 본인 글 필터 · unknown(조회 실패) → 생략(전체 단어장 · 추정 출처로 보내지 않는다 — 「읽던 글로」 가 이미 있다). 정오와 무관. */
+export const ARTICLE_VOCAB_DONE_LABEL = '이 글의 단어 살펴보기'
+export function articleVocabDoneChoice(textId: string, vocab: ArticleVocabSource): { href: string; label: string } | undefined {
+  return vocab.kind === 'unknown' ? undefined : { href: articleVocabHref(textId, vocab), label: ARTICLE_VOCAB_DONE_LABEL }
+}
+
 /** 완료 뒤 자율 선택 — 기존 내부 서가로 고정. 특정 글 · 샘플로 자동 전환하지 않는다(다른 글에 연습이 있다고 말하지 않는다). */
 export const ARTICLE_NEXT_CHOICE = NEXT_READING_CHOICE
 
@@ -114,6 +121,7 @@ export function ArticlePracticeBridge({
       causeLabel={articleVocabLabel(vocab)}
       doneCopy={articlePracticeDoneCopy}
       nextChoice={ARTICLE_NEXT_CHOICE}
+      doneChoice={articleVocabDoneChoice(textId, vocab)}
       afterFeedback={readingText ? <ArticleReadingReference text={readingText} /> : undefined}
     />
   )
