@@ -51,6 +51,8 @@ function mount(mode: Mode, owns = { v: true }) {
     mode,
     currentWord: { id: 'w1', text: 'rivet' },
     handleSuccess: vi.fn(),
+    // 완료 화면 복기용 놓친 낱말 표시 — 화면 상태일 뿐 기록 · 평가가 아니다(P-4)
+    markMissed: vi.fn(),
     pushOwnedResult,
     setTimeout,
     clearTimeout,
