@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(practice): 근거 짚기를 건너뛴 뒤 같은 문항에서 「다시 짚어 보기」로 기존 문장 후보에 복귀(초점 1회, 채점·기록 불변). Codex review.mjs 독립 리뷰 NO_FINDINGS, 실제 연습 route NOT_RUN (T-0211 f04846f07)
 - feat(wordvault): 기사 단어장 필터에서 그 기사 본문에 실제로 있는 원문 문장을 「선택한 기사에서 쓰인 문장」으로 사전 예문과 구별해 표시(기존 3조회에 필드만, 숨김 존중, 쓰기 0). Codex review.mjs 독립 리뷰 P2 보정 후 NO_FINDINGS, 실제 Auth/DB·RLS NOT_RUN (T-0210 2bbd82bfc)
 - feat(practice): 기사 연습 채점 뒤 이미 읽은 같은 글 전체를 접힘 「읽은 글 참고」로 확인(관문 검증 본문 재사용·계정 동일성 필수, 여닫기 결과·기록 불변) · feat(wordvault): 단어 행 「전체 보기」로 잘린 뜻·예문 끝까지(숨김 존중, 숨김 중 이름에 낱말 없음). Codex APPROVE, PC 1280/1440 통제 하네스, 실제 로그인 NOT_RUN (T-0207 797bc210b · T-0208 7e7f82f74)
 - fix(wordvault): 단어장 출처 칩의 발행 제목에 남은 HTML 엔티티(`Lincoln&#x27;s`)를 표시할 때 한 번만 해석 — 표시 전용(id·필터·URL·DB 제목 불변), React 텍스트. PC 1280/1440 통제 하네스 확인, 실제 화면 NOT_RUN (ffe634592)
