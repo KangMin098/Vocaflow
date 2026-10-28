@@ -84,3 +84,26 @@ describe('전체 보기 이름 — 단어 숨김 중 낱말 미노출(Codex F01)
     expect(hidden).not.toBe(shown)
   })
 })
+
+describe('선택한 기사 원문 문장(T-0210)', () => {
+  const SRC = 'The drought ruined the harvest in many villages.'
+  const full = (hide: { word: boolean; meaning: boolean }, src: string | null = SRC) => renderToString(<WordRowFull id="p1" word={W()} hideStates={hide} sourceSentence={src} />)
+  it('사전 예문과 다른 줄 · 표제 「선택한 기사에서 쓰인 문장」', () => {
+    const html = full({ word: false, meaning: false })
+    expect(html).toContain('선택한 기사에서 쓰인 문장')
+    expect(html).toContain(SRC)
+    expect(html).toContain('data-testid="word-row-full-example"')
+    expect(html).toContain('data-testid="word-row-full-source"')
+  })
+  it('단어 · 뜻 어느 쪽을 숨겨도 문장을 가린다', () => {
+    expect(full({ word: true, meaning: false })).not.toContain(SRC)
+    expect(full({ word: false, meaning: true })).not.toContain(SRC)
+  })
+  it('문장이 없으면 줄을 만들지 않는다', () => {
+    expect(full({ word: false, meaning: false }, null)).not.toContain('word-row-full-source')
+  })
+  it('뜻 · 예문이 비어도 원문 문장만 있으면 펼침 버튼이 있다', () => {
+    const html = renderToString(<WordRow word={W({ meaning: '', exampleEn: '' })} isSelected={false} isPlaying={false} hideStates={SHOWN} onToggleSelect={() => {}} onPlayWord={() => {}} sourceSentence={SRC} />)
+    expect(html).toContain('word-row-expand')
+  })
+})

@@ -285,6 +285,8 @@ export function WordVaultBrowseClient({
   }, [scriptFilter])
 
   const activeChip = chips.find((c) => c.id === scriptFilter)
+  // T-0210 — 「선택한 기사에서 쓰인 문장」은 **지금 고른 기사 단어장(set:) 의 정본 응답**일 때만 — 다른 필터 · 다른 세트 · 조회 실패면 없음
+  const sourceContexts = membershipPayload && !('error' in membershipPayload) && scriptFilter === `set:${membershipPayload.setId}` ? membershipPayload.contexts ?? null : null
 
   /**
    * 지금 목록에 걸려 있는 조건을 사람이 읽는 한 줄로.
@@ -481,6 +483,7 @@ export function WordVaultBrowseClient({
                 playingId={queue.currentWord?.id ?? null}
                 hideStates={hideStates}
                 onPlayWord={handlePlayWord}
+                sourceContexts={sourceContexts}
               />
             )}
           </>

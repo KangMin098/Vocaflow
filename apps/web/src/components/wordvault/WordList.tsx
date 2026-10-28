@@ -19,6 +19,8 @@ export interface WordListProps {
   playingId: number | null
   hideStates: HideStates
   onPlayWord: (id: number) => void
+  /** T-0210 — 지금 고른 기사 단어장에서 본문 확인된 원문 문장(낱말 → 문장). 없으면 null */
+  sourceContexts?: Record<string, string> | null
 }
 
 export function WordList({
@@ -29,6 +31,7 @@ export function WordList({
   playingId,
   hideStates,
   onPlayWord,
+  sourceContexts = null,
 }: WordListProps) {
   /**
    * **한 번에 다 그리지 않는다.**
@@ -131,6 +134,7 @@ export function WordList({
             hideStates={hideStates}
             onToggleSelect={onToggleSelect}
             onPlayWord={onPlayWord}
+            sourceSentence={sourceContexts && Object.prototype.hasOwnProperty.call(sourceContexts, w.word) ? sourceContexts[w.word] : null}
           />
         ))}
         {visibleCount < words.length && (
