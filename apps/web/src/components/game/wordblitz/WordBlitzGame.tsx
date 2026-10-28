@@ -122,6 +122,8 @@ import {
   type Word,
 } from '@/components/game/_shared/gamekit';
 
+import { MISTAKE_STYLES, MistakeCompare, addMiss, type MissEntry } from './WordBlitzMistakes';
+
 /**
  * 정답을 이미 보여준 뒤의 입력인가(재출제 · 리빌 후 재조우 · 좁은 창의 시간 초과 · 방치).
  * 게임 점수·콤보·세션 정확도에는 반영하되 **FSRS 카드는 갱신하지 않는다**(record-result 판정).
@@ -914,7 +916,7 @@ export function WordBlitzGame({
   const [answered, setAnswered] = useState(0);
   const [correctCount, setCorrectCount] = useState(0);
   const [perfectStages, setPerfectStages] = useState(0);
-  const [missed, setMissed] = useState<Word[]>([]);
+  const [missed, setMissed] = useState<MissEntry[]>([]);
   const [flash, setFlash] = useState<{ kind: 'combo' | 'stage'; text: string } | null>(null);
   const [srMsg, setSrMsg] = useState('');
   const [cleared, setCleared] = useState(false);
@@ -1340,7 +1342,15 @@ export function WordBlitzGame({
         setOutcome(timedOut ? 'timeout' : 'wrong');
         setRating(null);
         setGained(0);
-        setMissed((prev) => (prev.some((w) => w.en === q.target.en) ? prev : [...prev, q.target]));
+        // 끝화면 대조용 — 처음 놓친 순간(질문·내 선택)을 보존한다. 시간 초과는 고른 것이 없다.
+        setMissed((prev) =>
+          addMiss(prev, {
+            target: q.target,
+            chosen: chosen && chosen.en !== q.target.en ? chosen : null,
+            form: q.form,
+            prompt: q.promptText,
+          }),
+        );
         const tail = practice ? '연습 사격이라 목숨은 그대로예요.' : `남은 목숨 ${nextLives}.`;
         setSrMsg(
           timedOut
@@ -1566,7 +1576,7 @@ export function WordBlitzGame({
 
   return (
     <div className="wbz-root" data-tight={tight ? '1' : '0'} data-low={lives <= 1 ? '1' : '0'}>
-      <style dangerouslySetInnerHTML={{ __html: STYLES }} />
+      <style dangerouslySetInnerHTML={{ __html: STYLES + MISTAKE_STYLES }} />
       <GameKitStyles />
       <AmbientBackground center="#F3EEFF" mid="#CDBBF2" edge="#2A1B45" glow="rgba(190,160,255,.5)" />
       <GameMusic gameId="wordblitz" />
@@ -1625,20 +1635,7 @@ export function WordBlitzGame({
           restartLabel="한 판 더"
           restartHint={restartHint}
           reveal={
-            missed.length > 0 ? (
-              <div className="wbz-recap">
-                <p className="wbz-recap-title">이번 판에서 놓친 단어</p>
-                <ul className="wbz-recap-list">
-                  {missed.slice(0, 8).map((w) => (
-                    <li key={w.en}>
-                      <b className="wbz-recap-en">{w.en}</b>
-                      <span className="wbz-recap-ko">{w.ko}</span>
-                      {w.pron && <span className="wbz-recap-pron">{w.pron}</span>}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : undefined
+            missed.length > 0 ? <MistakeCompare misses={missed} /> : undefined
           }
           footer={
             pickedCards.length > 0 ? (
