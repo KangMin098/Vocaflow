@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(scriptquiz): 오답 복기 「글에서 이 문장 보기」로 Reader 의 유일한 근거 문장에 1회 이동·강조·초점(같은 탭 textId·본문 해시·문장 번호만, 다른 글·판본은 첫머리). Codex review.mjs 독립 리뷰 P2 3회 보정 후 NO_FINDINGS, 실제 본문 GET NOT_RUN (T-0209 da173c4c3)
 - feat(practice): 기사 연습 완료 화면에 「이 글의 단어 살펴보기」(기존 articleVocabHref 재사용, set/text 만·unknown 생략, 전부 정답이어도 표시). Codex review.mjs 독립 리뷰 NO_FINDINGS, 실제 Auth/DB NOT_RUN (T-0212 a8c555ae4)
 - feat(practice): 근거 짚기를 건너뛴 뒤 같은 문항에서 「다시 짚어 보기」로 기존 문장 후보에 복귀(초점 1회, 채점·기록 불변). Codex review.mjs 독립 리뷰 NO_FINDINGS, 실제 연습 route NOT_RUN (T-0211 f04846f07)
 - feat(wordvault): 기사 단어장 필터에서 그 기사 본문에 실제로 있는 원문 문장을 「선택한 기사에서 쓰인 문장」으로 사전 예문과 구별해 표시(기존 3조회에 필드만, 숨김 존중, 쓰기 0). Codex review.mjs 독립 리뷰 P2 보정 후 NO_FINDINGS, 실제 Auth/DB·RLS NOT_RUN (T-0210 2bbd82bfc)
