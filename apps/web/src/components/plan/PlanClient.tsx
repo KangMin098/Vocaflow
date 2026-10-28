@@ -1037,7 +1037,7 @@ function ItemConfig({
         right={
           <Link
             href={item.href}
-            className="relative inline-flex h-8 shrink-0 items-center gap-1 after:absolute after:-inset-[6px] after:content-[''] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
+            className="relative inline-flex h-8 shrink-0 items-center gap-1 after:absolute after:-inset-x-[3px] after:-inset-y-[7px] after:content-[''] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
           >
             열기 <ExternalLink size={12} strokeWidth={2} aria-hidden />
           </Link>
