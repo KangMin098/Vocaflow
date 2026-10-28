@@ -30,6 +30,7 @@ describe('verifiedSourceSentence', () => {
     expect(verifiedSourceSentence('The drought ruined the crops.', BODY)).toBeNull()
     expect(verifiedSourceSentence('the drought ruined the harvest in many villages.', BODY)).toBeNull() // 대소문자 바꾸지 않음
     expect(verifiedSourceSentence('', BODY)).toBeNull()
+    expect(verifiedSourceSentence('   \n ', BODY)).toBeNull()
     expect(verifiedSourceSentence(null, BODY)).toBeNull()
     expect(verifiedSourceSentence('The drought ruined the harvest in many villages.', null)).toBeNull()
   })
@@ -77,5 +78,17 @@ describe('계정 경계 — 서버 action', () => {
     expect(await fetchArticleSetMembership(`set:${A}`)).toBeNull()
     expect(from).not.toHaveBeenCalled()
     vi.doUnmock('@/lib/supabase/server')
+  })
+})
+
+describe('짧은 원문 문장(Codex P2 회귀)', () => {
+  const SHORT_BODY = 'The crowd shouted. Resist! Then silence fell.'
+  it('본문과 일치하는 짧은 문장도 싣는다 · 본문에 없는 짧은 문장은 싣지 않는다', () => {
+    expect(verifiedSourceSentence('Resist!', SHORT_BODY)).toBe('Resist!')
+    expect(verifiedSourceSentence('Run!', SHORT_BODY)).toBeNull()
+  })
+  it('loadArticleSetMembership 에서도 짧은 문장이 contexts 로', async () => {
+    const { client } = fake({ article: { status: 'published', copyright_safe_in_kr: true, content: SHORT_BODY }, rows: [{ word: 'resist', source_sentence: 'Resist!' }] })
+    expect(await loadArticleSetMembership(client, `set:${A}`)).toEqual({ setId: A, words: ['resist'], contexts: { resist: 'Resist!' } })
   })
 })

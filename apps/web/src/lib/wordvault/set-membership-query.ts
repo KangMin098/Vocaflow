@@ -17,7 +17,8 @@ export type SetMembershipPayload = { setId: string; words: string[]; contexts?: 
 export function verifiedSourceSentence(sentence: unknown, body: string | null): string | null {
   if (typeof sentence !== 'string' || !body) return null
   const s = sentence.replace(/\s+/g, ' ').trim()
-  if (s.length < 8) return null
+  // 길이 하한을 두지 않는다 — 본문과 일치하는 짧은 문장(「Resist!」)도 유효하다(Codex P2). 빈 값만 거른다.
+  if (s.length === 0) return null
   return body.replace(/\s+/g, ' ').includes(s) ? s : null
 }
 
