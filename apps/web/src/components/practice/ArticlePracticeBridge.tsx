@@ -14,6 +14,7 @@ import { DcpPlayer } from '@/components/practice/DcpPlayer'
 import { useStoryAuthGuard, type StoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
 import type { DcpGradeResult, DcpItem } from '@/lib/learner/dcp'
 import { submitArticlePractice, type ArticlePracticeContext, type ArticleVocabSource } from '@/lib/learner/article-practice-actions'
+import { NEXT_READING_CHOICE } from '@/lib/learner/next-reading-choice'
 import { readerSource, textSourceFilter } from '@/lib/wordvault/source-filter'
 
 /**
@@ -60,7 +61,7 @@ export function articlePracticeDoneCopy({ total, correct }: { total: number; cor
 }
 
 /** 완료 뒤 자율 선택 — 기존 내부 서가로 고정. 특정 글 · 샘플로 자동 전환하지 않는다(다른 글에 연습이 있다고 말하지 않는다). */
-export const ARTICLE_NEXT_CHOICE = { href: '/library/scripts', label: '다른 글 살펴보기' } as const
+export const ARTICLE_NEXT_CHOICE = NEXT_READING_CHOICE
 
 export function ArticlePracticeBridge({
   articleId,

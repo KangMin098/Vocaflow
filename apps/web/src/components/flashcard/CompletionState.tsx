@@ -5,6 +5,8 @@
 import { Clock, RefreshCw } from 'lucide-react'
 import Link from 'next/link'
 
+import { NEXT_READING_CHOICE } from '@/lib/learner/next-reading-choice'
+
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import type { ContentRef } from '@/lib/content/content-ref'
 import type { RecommendedAction } from '@/lib/recommend/types'
@@ -167,6 +169,17 @@ export function CompletionState({
           >
             <span>Workspace 돌아가기</span>
             <span aria-hidden="true">→</span>
+          </Link>
+        </div>
+
+        {/* R0 — 복습 뒤 다음에 읽을 글을 스스로 고르는 보조 선택(기사 연습 완료와 같은 서가 · 같은 문구). 추천 카드와 별개 · 처방이 아니다. */}
+        <div className="mt-3 flex justify-center">
+          <Link
+            href={NEXT_READING_CHOICE.href}
+            data-testid="flashcard-done-next-reading"
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-[var(--t2)] no-underline transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
+            {NEXT_READING_CHOICE.label}
           </Link>
         </div>
       </div>

@@ -15,6 +15,7 @@ import { ILLO_30_NO_REVIEW_TODAY } from '@/components/illustrations/generated/il
 import { StudyMode } from '@/components/wordvault/StudyMode'
 import type { WordItem } from '@/components/wordvault/types'
 import { vocabMapLink } from '@/lib/csat/map-return'
+import { NEXT_READING_CHOICE } from '@/lib/learner/next-reading-choice'
 
 interface WordVaultStudyClientProps {
   words: WordItem[]
@@ -280,6 +281,13 @@ export function StudyDoneScreen({
             내 단어 보기 →
           </Link>
           </>
+          )}
+          {/* R0 — 어휘 복습 뒤 다음에 읽을 글을 스스로 고르는 보조 선택(기사 연습 완료와 같은 서가 · 같은 문구).
+              지도에서 온 복습은 지도가 다음 단계를 정하므로 넣지 않는다. 처방 · 평가 · 기록이 아니다. */}
+          {!mapBack && (
+          <Link href={NEXT_READING_CHOICE.href} data-testid="study-done-next-reading" className="inline-flex min-h-[44px] items-center justify-center rounded-md px-s-5 font-display text-[13px] font-semibold text-t2 no-underline transition-colors duration-normal hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
+            {NEXT_READING_CHOICE.label}
+          </Link>
           )}
         </div>
       </div>
