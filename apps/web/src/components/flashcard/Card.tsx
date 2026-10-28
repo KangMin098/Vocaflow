@@ -15,6 +15,8 @@ interface CardProps {
   canPlayAudio: boolean
   isExampleAudioPlaying: boolean
   onPlayAudio: () => void
+  /** 예문 듣기 — 없으면 뒷면에 예문 듣기 버튼을 그리지 않는다. */
+  onPlayExample?: () => void
   onClick: () => void
   swipeDirection: 'left' | 'right' | null
   cardChangeKey: number
@@ -27,6 +29,7 @@ export function Card({
   isAudioPlaying,
   isExampleAudioPlaying,
   onPlayAudio,
+  onPlayExample,
   canPlayAudio,
   onClick,
   swipeDirection,
@@ -118,7 +121,13 @@ export function Card({
           transform: 'rotateY(180deg)',
         }}
       >
-        <CardBack word={word} isExampleAudioPlaying={isExampleAudioPlaying} desktopLearner={desktopLearner} />
+        <CardBack
+          word={word}
+          isExampleAudioPlaying={isExampleAudioPlaying}
+          canPlayExample={canPlayAudio}
+          onPlayExample={onPlayExample}
+          desktopLearner={desktopLearner}
+        />
       </div>
     </div>
   )

@@ -83,12 +83,18 @@ export function FlashcardSession({
   const [pauseVisible, setPauseVisible] = useState(false)
   const [pauseMessage, setPauseMessage] = useState<PauseMessage>(PAUSE_MESSAGES[0])
   // 발음은 브라우저 음성 합성이다 — 재생 상태도 훅이 갖는다(로컬 타이머로 흉내 내지 않는다).
+  // 단어 발음과 예문 듣기는 같은 합성 채널 하나를 쓴다 — 무엇을 읽고 있는지만 따로 들고, 재생 여부는 훅 상태를 그대로 따른다.
   const {
     speak,
-    isPlaying: isAudioPlaying,
+    cancel: cancelSpeech,
+    isPlaying: speechPlaying,
     supported: speechSupported,
   } = useSpeechSynthesis()
-  const [isExampleAudioPlaying] = useState(false)
+  const [speechKind, setSpeechKind] = useState<'word' | 'example' | null>(null)
+  const isAudioPlaying = speechPlaying && speechKind === 'word'
+  const isExampleAudioPlaying = speechPlaying && speechKind === 'example'
+  const speechKindRef = useRef(speechKind)
+  speechKindRef.current = speechKind
 
   // 학습 모드 — 사이드바 dim
   useEffect(() => {
@@ -202,8 +208,25 @@ export function FlashcardSession({
    */
   const handlePlayAudio = () => {
     if (!currentWord || !speechSupported) return
+    setSpeechKind('word')
     speak(currentWord.text)
   }
+
+  /** 예문 듣기 — 현재 카드의 영어 예문 전체. 지원하지 않거나 예문이 비면 아무것도 하지 않는다(버튼도 그리지 않는다). */
+  const handlePlayExample = () => {
+    const sentence = currentWord?.exampleSentence.trim()
+    if (!sentence || !speechSupported) return
+    setSpeechKind('example')
+    speak(sentence)
+  }
+
+  // 카드가 바뀌거나 단계가 넘어가면(평가 포함) 이전 예문을 끊는다 — 단어 발음은 기존 동작 그대로 둔다.
+  useEffect(
+    () => () => {
+      if (speechKindRef.current === 'example') cancelSpeech()
+    },
+    [currentWord?.id, phase, cancelSpeech],
+  )
 
   // 키보드 단축키
   useEffect(() => {
@@ -272,6 +295,7 @@ export function FlashcardSession({
           canPlayAudio={speechSupported}
           isExampleAudioPlaying={isExampleAudioPlaying}
           onPlayAudio={handlePlayAudio}
+          onPlayExample={handlePlayExample}
           onClick={flipCard}
           swipeDirection={swipeDirection}
           cardChangeKey={cardChangeKey}

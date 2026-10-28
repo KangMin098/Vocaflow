@@ -13,11 +13,16 @@ import { Dialog } from '@/components/ui/Dialog'
 interface CardBackProps {
   word: FlashcardWord
   isExampleAudioPlaying: boolean
+  /** 이 브라우저가 음성 합성을 지원하는가 — 아니면 예문 듣기 버튼을 그리지 않는다(눌러도 안 되는 버튼을 두지 않는다). */
+  canPlayExample?: boolean
+  /** 현재 영어 예문 전체를 읽는다. 카드 뒤집기·판정으로 전파하지 않는다. */
+  onPlayExample?: () => void
   desktopLearner?: boolean
 }
 
-export function CardBack({ word, isExampleAudioPlaying, desktopLearner = false }: CardBackProps) {
+export function CardBack({ word, isExampleAudioPlaying, canPlayExample = false, onPlayExample, desktopLearner = false }: CardBackProps) {
   const [zoomed, setZoomed] = useState(false)
+  const showExampleAudio = canPlayExample && !!onPlayExample && word.exampleSentence.trim().length > 0
   const closeZoom = useCallback(() => setZoomed(false), [])
   return (
     <>
@@ -109,22 +114,31 @@ export function CardBack({ word, isExampleAudioPlaying, desktopLearner = false }
         </div>
       )}
 
-      {/* Example with audio indicator */}
-      <div className="relative mt-auto rounded-[0_var(--r-md)_var(--r-md)_0] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)]">
-        <span
-          data-example-audio
-          className={`absolute right-3 top-3 inline-flex items-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-2 py-[4px] font-display text-[11px] font-[600] tracking-[0.04em] text-[var(--on-p)] transition-opacity duration-[var(--dur-normal)] ${isExampleAudioPlaying ? 'opacity-100' : 'opacity-70'} `}
-        >
-          <Volume2
-            size={9}
-            strokeWidth={2}
-            className={
-              isExampleAudioPlaying ? 'animate-[audio-pulse_0.8s_ease-in-out_infinite]' : ''
-            }
-            aria-hidden="true"
-          />
-          <span>듣기</span>
-        </span>
+      {/* 예문 — 듣기는 브라우저 음성 합성으로 현재 영어 예문 전체를 읽는다(원어민 녹음 아님).
+          지원하고 예문이 있을 때만 버튼을 둔다. 겹쳐 띄울 때(PC 스킨 밖)만 버튼 자리만큼 오른쪽을 비운다 —
+          PC 스킨(learner-pc.css [data-example-audio])은 버튼을 예문 위 흐름에 둔다. */}
+      <div className={`relative mt-auto rounded-[0_var(--r-md)_var(--r-md)_0] border-l-[3px] border-[var(--p)] bg-gradient-to-br from-[var(--p-light)] to-[var(--bg2)] p-4 font-english text-[14px] italic leading-relaxed text-[var(--t1)] ${showExampleAudio && !desktopLearner ? 'pr-[92px]' : ''}`}>
+        {showExampleAudio && (
+          <button
+            type="button"
+            data-example-audio
+            aria-label={isExampleAudioPlaying ? '예문 읽는 중' : '예문 듣기'}
+            aria-pressed={isExampleAudioPlaying}
+            onClick={(e) => {
+              e.stopPropagation()
+              onPlayExample?.()
+            }}
+            className="absolute right-2 top-2 inline-flex min-h-[44px] min-w-[44px] items-center justify-center gap-1 rounded-[var(--r-full)] bg-[var(--p)] px-3 font-display text-[12px] font-[600] not-italic tracking-[0.04em] text-[var(--on-p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
+          >
+            <Volume2
+              size={12}
+              strokeWidth={2}
+              className={isExampleAudioPlaying ? 'animate-[audio-pulse_0.8s_ease-in-out_infinite]' : ''}
+              aria-hidden="true"
+            />
+            <span>{isExampleAudioPlaying ? '읽는 중' : '듣기'}</span>
+          </button>
+        )}
 
         <ExampleWithMark
           text={word.exampleSentence}
