@@ -134,6 +134,9 @@ export function MistakeCompare({ misses }: { misses: MissEntry[] }) {
 }
 
 export const MISTAKE_STYLES = `
+  /* 대조를 펼치면 끝화면이 화면보다 길어진다 — .wbz-root 는 100dvh·overflow:hidden 이라
+     WordBlitz 의 끝화면만 자체 스크롤로 통계·한 판 더·나가기에 닿게 한다(공용 GameDone 불변). */
+  .wbz-root > .gk-done { min-height: 0; overflow-y: auto; justify-content: safe center; }
   .wbz-mx-lead { margin: 0 0 8px; font-size: 12.5px; color: var(--t3); word-break: keep-all; }
   .wbz-mx-list { margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; gap: 2px; max-height: 236px; overflow-y: auto; }
   .wbz-mx-item {
