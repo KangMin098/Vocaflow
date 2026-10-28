@@ -76,6 +76,15 @@ interface ReadingUniverseProps {
   showSupport?: boolean
   /** 기사 글의 공개 원문 주소 — 장 표식 출처가 있으면 그쪽이 우선(중복 표시 없음) */
   articleSourceHref?: string | null
+  /**
+   * T-0209 — ScriptQuiz 복기에서 「글에서 이 문장 보기」 로 온 근거 문장 id(opt-in). 그 문장만 조용히 강조하고 한 번만 가운데로 옮겨
+   * 초점을 준다(스크롤 없이 초점 · 순간 이동). 없으면 예전과 같은 마크업 · 동작이다. TTS · 낱말 · 선택 핸들러는 그대로.
+   */
+  anchorSentenceId?: number | null
+  /** 근거 문장으로 스크롤 · 초점을 옮겨도 되는가(기본 true). 부모가 이미 옮겼다고 기록했으면 false — 다시 마운트돼도 반복하지 않는다 */
+  anchorAutoMove?: boolean
+  /** 근거 문장으로 옮긴 직후 한 번(부모가 「옮김」 을 기억한다) */
+  onAnchorMoved?: () => void
 }
 
 // 평범한 단어(학습 대상·노이즈 아님)를 data-lookup 스팬으로 토큰화.
@@ -118,6 +127,9 @@ export function ReadingUniverse({
   onWordLookup,
   showSupport = true,
   articleSourceHref = null,
+  anchorSentenceId = null,
+  anchorAutoMove = true,
+  onAnchorMoved,
 }: ReadingUniverseProps) {
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null)
   const [activeWordId, setActiveWordId] = useState<string | null>(null)
@@ -136,6 +148,21 @@ export function ReadingUniverse({
       el.scrollIntoView({ behavior: 'smooth', block: 'center' })
     }
   }, [playingSentenceId])
+
+  // T-0209 — 근거 문장으로 한 번만(같은 id 재렌더에서는 다시 옮기지 않는다)
+  const anchorRef = useRef<HTMLSpanElement | null>(null)
+  const anchorMovedFor = useRef<number | null>(null)
+  useEffect(() => {
+    if (anchorSentenceId == null || !anchorAutoMove || anchorMovedFor.current === anchorSentenceId) return
+    const el = anchorRef.current
+    if (!el) return
+    anchorMovedFor.current = anchorSentenceId
+    el.scrollIntoView?.({ block: 'center' })
+    el.focus({ preventScroll: true })
+    onAnchorMoved?.()
+    // 콜백 정체가 바뀌어도 다시 옮기지 않는다 — id · 허용 여부만 본다
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [anchorSentenceId, anchorAutoMove])
 
   const handleWordEnter = (
     word: Word,
@@ -249,14 +276,24 @@ export function ReadingUniverse({
           >
             {p.sentences.map((s, sIdx) => {
               const isPlaying = playingSentenceId === s.id
+              const isAnchor = anchorSentenceId != null && anchorSentenceId === s.id
               return (
                 <span
                   key={s.id}
-                  ref={isPlaying ? playingRef : undefined}
-                  className="group/sentence relative inline rounded-[5px] [-webkit-box-decoration-break:clone] [box-decoration-break:clone] transition-colors duration-[var(--dur-slow)] ease-[var(--ease)]"
-                  style={
-                    isPlaying ? { backgroundColor: 'rgba(99,102,241,0.14)' } : undefined
+                  // 재생 중 문장이 곧 근거 문장일 수 있다 — 두 ref 모두에 같은 요소를 건다(재생 추적 · 근거 이동 둘 다 · Codex P2)
+                  ref={
+                    isPlaying || isAnchor
+                      ? (el: HTMLSpanElement | null) => {
+                          if (isPlaying) playingRef.current = el
+                          if (isAnchor) anchorRef.current = el
+                        }
+                      : undefined
                   }
+                  className={`group/sentence relative inline rounded-[5px] [-webkit-box-decoration-break:clone] [box-decoration-break:clone] transition-colors duration-[var(--dur-slow)] ease-[var(--ease)]${isAnchor ? ' outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]' : ''}`}
+                  style={
+                    isPlaying ? { backgroundColor: 'rgba(99,102,241,0.14)' } : isAnchor ? { backgroundColor: 'var(--p-light)' } : undefined
+                  }
+                  {...(isAnchor ? { tabIndex: -1, 'data-evidence-anchor': '' } : {})}
                 >
                   {/* Play affordance — 항상 보이는 4px 도트, hover/playing 시 풀 버튼으로 확장.
                       평소 도트는 가운데 원형 그라디언트로 그린다(2026-10-18) — 예전 클래스(변수 색 `--bd` 에 투명도 55 를 슬래시로 붙인 것)는 Tailwind 가 CSS 를 만들지 않아

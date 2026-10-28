@@ -3,13 +3,18 @@
 // 근거를 읽은 뒤 선지를 다시 고르게 한다. 정답은 다시 고르거나 「정답 보기」를 누른 뒤에만 펼친다.
 // ⚠️ 다시 고르기는 기록·점수·숙달 어디에도 넣지 않는다 — 이미 채점된 답(QuizAnswer)만 쓴다.
 // ⚠️ 등록된 근거(sourceSnippet)가 없는 문항은 다시 고르기를 막고 이유를 말한다 — 근거 없이 다시 묻지 않는다.
+// T-0209: 정답이 공개된 뒤, 퀴즈 페이지가 확인한 읽던 글이 있고 근거가 본문의 한 문장에만 맞으면 「글에서 이 문장 보기」 —
+//   같은 탭 보조 기억(lib/scriptquiz/reader-anchor)으로 Reader 가 그 문장을 한 번 보여 준다. 주소에는 글 id 뿐 · 기록 없음.
 
 'use client'
 
 import { useEffect, useId, useRef, useState } from 'react'
+import Link from 'next/link'
 import { Check, ChevronDown, X } from 'lucide-react'
 import type { QuizAnswer, QuizQuestion } from './types'
 import { locateEvidence, splitSentences } from '@/lib/scriptquiz/evidence'
+import { contentHash, evidenceSentenceIndex, rememberEvidenceAnchor } from '@/lib/scriptquiz/reader-anchor'
+import { useEvidenceReader } from '@/lib/scriptquiz/reader-anchor-context'
 
 export interface EvidenceContext {
   /** 화면 순서대로의 문장 — 근거 앞 1문장 · 근거 · 근거 뒤 1문장 */
@@ -62,6 +67,8 @@ export function MissReviewItem({
     if (repick === 'reveal') correctRef.current?.focus()
   }, [repick])
   const context = buildEvidenceContext(passage, answer.sourceSnippet)
+  const reader = useEvidenceReader()
+  const anchorIndex = reader ? evidenceSentenceIndex(passage, answer.sourceSnippet) : null
   const decided = repick !== null || context === null
   const correctText = question.options[answer.correctIndex]?.text ?? '—'
   const mine = answer.selectedIndex >= 0 ? question.options[answer.selectedIndex]?.text ?? '—' : '시간이 지나 못 골랐어요'
@@ -179,6 +186,16 @@ export function MissReviewItem({
                 <p role="status" className="break-keep font-body text-[12.5px] leading-relaxed text-[var(--t2)]" data-testid="miss-status">
                   {repickMessage(repick, answer.correctIndex)}
                 </p>
+              )}
+              {repick !== null && reader && passage && anchorIndex !== null && (
+                <Link
+                  href={`/text/${encodeURIComponent(reader.textId)}`}
+                  onClick={() => rememberEvidenceAnchor({ textId: reader.textId, hash: contentHash(passage), sentenceIndex: anchorIndex })}
+                  data-testid="miss-reader-anchor"
+                  className={`inline-flex min-h-[44px] items-center self-start rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t1)] no-underline hover:border-[var(--p)] ${FOCUS}`}
+                >
+                  글에서 이 문장 보기
+                </Link>
               )}
             </div>
           )}

@@ -15,6 +15,7 @@ import { ExtractionPanel } from '@/components/text-extract/ExtractionPanel'
 import { ChapterBottomNav } from '@/components/workspace/ChapterBottomNav'
 import { FloatingAudioPlayer } from '@/components/workspace/FloatingAudioPlayer'
 import { useTTS, type SentenceItem } from '@/lib/workspace/tts-controller'
+import { useReaderEvidenceAnchor } from '@/lib/scriptquiz/reader-anchor-context'
 import { useShadowSession } from '@/lib/workspace/use-shadow-session'
 import { FloatingSparkle } from '@/components/workspace/FloatingSparkle'
 import { InsightPanel } from '@/components/workspace/InsightPanel'
@@ -128,6 +129,11 @@ export default function WorkspacePage({ params }: PageProps) {
     () => annotateSupport(ctx.paragraphs),
     [ctx],
   )
+
+  // T-0209 — ScriptQuiz 복기 「글에서 이 문장 보기」 로 왔으면(같은 탭 · 같은 글 · 같은 본문 해시) 그 근거 문장 id 를 한 번 꺼낸다.
+  //   표에서 하나에 맞지 않으면(-1) 없음 — 지금처럼 첫머리. 꺼낸 뒤 지우므로 새로 고침 · 다른 글에서는 다시 쓰지 않는다.
+  //   「옮김」 은 이 페이지가 기억한다 — 읽기 ↔ Spell 등 모드 전환으로 Reader 가 다시 마운트돼도 스크롤 · 초점은 한 번만(Codex P2).
+  const { anchorSentenceId, anchorAutoMove, onAnchorMoved } = useReaderEvidenceAnchor(ctx.textId, ctx.evidenceAnchor)
 
   // Chapter 내 학습 단어 카운트 (참고 풋터용)
   const wordsOnPage = useMemo(() => {
@@ -583,6 +589,9 @@ export default function WorkspacePage({ params }: PageProps) {
         playingSentenceId={playingSentenceId}
         chapterMeta={chapterMeta}
         articleSourceHref={ctx?.articleSourceHref ?? null}
+        anchorSentenceId={anchorSentenceId}
+        anchorAutoMove={anchorAutoMove}
+        onAnchorMoved={onAnchorMoved}
         onSupportTap={handleSupportTap}
         onWordLookup={handleWordLookup}
       />

@@ -16,6 +16,7 @@ import Link from 'next/link'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
 import { getChapterContent } from '@/lib/library/content-storage'
+import { EvidenceReaderProvider } from '@/lib/scriptquiz/reader-anchor-context'
 import { parseQuizScope, quizPageMode, readOwnPassage, type OwnPassageDeps } from '@/lib/scriptquiz/own-passage'
 import { fetchChapterQuizSession, fetchQuizSession } from '@/lib/scriptquiz/questions'
 import { createClient } from '@/lib/supabase/server'
@@ -93,6 +94,8 @@ export default async function ScriptQuizPlayPage({
         ? { href: `/library/books/${bookId}`, label: '이 도서 입구로' }
         : undefined
   const chapterHref = returnTo?.href ?? '/text'
+  // T-0209 — 오답 복기의 「글에서 이 문장 보기」 는 위와 같은 확인(본인 글 · 범위 · 본문 읽음)을 통과한 글에만
+  const readerContext = session && passageText && textId ? { textId } : null
 
   return (
     <>
@@ -109,13 +112,15 @@ export default async function ScriptQuizPlayPage({
         }}
       />
       {/* textId 는 점수 기록의 texts FK 로도 쓰인다 — 도서 챕터 경로는 예전처럼 비워 둔다(content_ref 로 귀속). */}
-      <ScriptQuiz
-        showKorean={showKorean}
-        textId={isBookPath ? undefined : textId}
-        session={session ?? undefined}
-        passageText={passageText}
-        returnTo={returnTo}
-      />
+      <EvidenceReaderProvider value={readerContext}>
+        <ScriptQuiz
+          showKorean={showKorean}
+          textId={isBookPath ? undefined : textId}
+          session={session ?? undefined}
+          passageText={passageText}
+          returnTo={returnTo}
+        />
+      </EvidenceReaderProvider>
     </>
   )
 }

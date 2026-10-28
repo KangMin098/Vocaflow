@@ -20,6 +20,7 @@ import type { CEFRLevel, LibraryText } from '@/types/library';
 import { TextContentProvider, type TextContentData } from './text-content-context';
 import { ReaderViewerGate } from './reader-viewer-gate';
 import { buildParagraphsFromContent } from './text-content-helpers';
+import { buildEvidenceSentenceMap, contentHash } from '@/lib/scriptquiz/reader-anchor';
 import {
   getChapterWords,
   type ChapterWord,
@@ -420,6 +421,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       wordCount: text.chapter_word_count ?? 0,
       totalPages: 1,
     };
+    const paragraphs = buildParagraphsFromContent(content, paragraphOffsets, chapterWords);
 
     return {
       textId: text.id,
@@ -450,7 +452,17 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       chapterAudio,
       illustrations,
       text: partial,
-      paragraphs: buildParagraphsFromContent(content, paragraphOffsets, chapterWords),
+      paragraphs,
+      // T-0209 — 복기 근거 문장 결속용 해시 · 번호 표(본문 자체는 다시 싣지 않는다)
+      evidenceAnchor: content
+        ? {
+            hash: contentHash(content),
+            map: buildEvidenceSentenceMap(
+              content,
+              paragraphs.flatMap((p) => p.sentences.map((s) => ({ id: s.id, text: s.parts.map((pt) => pt.text).join('') }))),
+            ),
+          }
+        : null,
     };
   })();
 
