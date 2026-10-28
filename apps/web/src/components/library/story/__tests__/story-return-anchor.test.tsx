@@ -14,6 +14,9 @@ import {
   ownerTag,
   rememberSaveAnchor,
   sentenceRange,
+  needsReturnPick,
+  returnContextKey,
+  returnWordFor,
   shouldMoveToReturn,
   takeReturnAnchor,
 } from '../story-return-anchor'
@@ -132,6 +135,42 @@ describe('shouldMoveToReturn', () => {
   it('단순 재렌더(같은 번호)는 다시 옮기지 않는다 · 다른 번호면 옮긴다', () => {
     expect(shouldMoveToReturn(5, 5, true)).toBe(false)
     expect(shouldMoveToReturn(5, 8, true)).toBe(true)
+  })
+})
+
+describe('returnWordFor · needsReturnPick (화면 메모리 문맥 결속)', () => {
+  const ctxA = returnContextKey(A, KEY, 2)
+  const pick = { context: ctxA, word: 7 }
+
+  it('같은 문맥이면 꺼낸 번호를 쓰고 다시 꺼내지 않는다(재렌더)', () => {
+    expect(returnWordFor(pick, ctxA)).toBe(7)
+    expect(needsReturnPick(pick, ctxA)).toBe(false)
+  })
+
+  it('같은 단위 번호인데 발행본이 다르면 쓰지 않고 새로 판정한다', () => {
+    const other = returnContextKey(A, 'lsr_' + 'b'.repeat(32), 2)
+    expect(returnWordFor(pick, other)).toBeNull()
+    expect(needsReturnPick(pick, other)).toBe(true)
+  })
+
+  it('같은 단위 번호인데 사용자가 다르면 쓰지 않고 새로 판정한다', () => {
+    const other = returnContextKey(B, KEY, 2)
+    expect(returnWordFor(pick, other)).toBeNull()
+    expect(needsReturnPick(pick, other)).toBe(true)
+  })
+
+  it('다른 단위 · 확인 전(문맥 없음)이면 쓰지 않는다 · 확인 전에는 꺼내지 않는다', () => {
+    expect(returnWordFor(pick, returnContextKey(A, KEY, 3))).toBeNull()
+    expect(returnWordFor(pick, null)).toBeNull()
+    expect(needsReturnPick(null, null)).toBe(false)
+    expect(needsReturnPick(null, ctxA)).toBe(true)
+  })
+
+  it('다른 사용자로 바뀐 뒤 새 판정은 A 의 표식을 쓰지 않는다', () => {
+    const s = memory()
+    rememberSaveAnchor({ owner: A, releaseKey: KEY, unitIndex: 2, wordIndex: 7 }, s)
+    markAnchorLeft(A, s)
+    expect(takeReturnAnchor(B, KEY, 2, s)).toBeNull()
   })
 })
 
