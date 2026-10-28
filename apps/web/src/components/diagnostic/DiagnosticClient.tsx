@@ -1193,7 +1193,7 @@ function InfoModal({
           <button
             onClick={onClose}
             aria-label="닫기"
-            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="relative after:absolute after:-inset-[6px] after:content-[''] -mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={18} />
           </button>
@@ -1325,7 +1325,7 @@ function LevelGuideModal({
           <button
             onClick={onClose}
             aria-label="닫기"
-            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="relative after:absolute after:-inset-[6px] after:content-[''] -mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={18} />
           </button>

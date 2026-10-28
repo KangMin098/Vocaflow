@@ -102,7 +102,7 @@ export function FileUploadArea({
           <button
             type="button"
             onClick={handleClear}
-            className="flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-t3 transition-colors duration-normal hover:bg-bg hover:text-error"
+            className="relative after:absolute after:-inset-[6px] after:content-[''] flex h-8 w-8 shrink-0 items-center justify-center rounded-md text-t3 transition-colors duration-normal hover:bg-bg hover:text-error"
             aria-label="파일 제거"
           >
             <X size={16} />
