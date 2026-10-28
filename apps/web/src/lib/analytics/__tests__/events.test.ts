@@ -103,6 +103,8 @@ describe('허용 이벤트 목록', () => {
     // 속성은 레벨(닫힌 열거형)과 낱말 수(숫자)뿐이다.
     'fit_level_moved',
     'fit_sheet_opened',
+    'fit_trial_opened',
+    'fit_trial_answered',
     'landing_viewed',
     'landing_cta_clicked',
     'catalog_viewed',

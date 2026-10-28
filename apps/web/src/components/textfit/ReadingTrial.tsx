@@ -2,13 +2,15 @@
 //
 // `/fit` 고정 예시 읽기 체험 — 기존 DcpPlayer(MeaningEvidence 포함)에 로컬 채점 한 문항만 준다.
 //   진단(PublicFitClient)과 형제 자리라 열고 닫아도 붙여 넣은 글 · 분석 상태가 그대로다.
-//   기본 꺼짐(READING_TRIAL_ENABLED). analytics 없음 — 기존 닫힌 이벤트에 맞는 값이 없고, 새 이벤트는 DB allowlist 마이그레이션이 필요하다.
+//   기본 꺼짐(READING_TRIAL_ENABLED). 계측은 두 건뿐 — 직접 열기(fit_trial_opened) · 채점 성공(fit_trial_answered), 속성 {}.
+//   DB 허용 목록은 20261028015035_fit_trial_telemetry_events 로 이미 적용됐다. 목표 토글 · 닫기 · 다시 보기 · 채점 실패는 보내지 않는다.
 'use client'
 
 import { useId, useRef, useState } from 'react'
 import { BookOpenCheck, X } from 'lucide-react'
 
 import { DcpPlayer } from '@/components/practice/DcpPlayer'
+import { track } from '@/lib/analytics/client'
 import { BTN, CARD } from '@/components/ui/tines-kit'
 import { TRIAL_ITEM, TRIAL_WORD_HELP, gradeTrial, inertCause, trialDoneCopy } from '@/lib/textfit/reading-trial'
 
@@ -25,6 +27,13 @@ export function ReadingTrial() {
   const [goal, setGoal] = useState(false)
   const panelId = useId()
   const openerRef = useRef<HTMLButtonElement | null>(null)
+  /** 닫힌 → 열린 사용자 동작에서만 센다 */
+  const openByUser = () => {
+    setOpen(true)
+    track({ name: 'fit_trial_opened', props: {} })
+  }
+  /** 로컬 채점 성공에서만(DcpPlayer onGraded 는 실패 때 부르지 않는다) — 결과는 싣지 않는다 */
+  const onGraded = () => track({ name: 'fit_trial_answered', props: {} })
   const close = () => {
     setOpen(false)
     requestAnimationFrame(() => openerRef.current?.focus())
@@ -44,7 +53,7 @@ export function ReadingTrial() {
             닫기
           </button>
         ) : (
-          <button ref={openerRef} type="button" onClick={() => setOpen(true)} className={BTN.soft} aria-controls={panelId} aria-expanded={false} data-testid="fit-trial-open">
+          <button ref={openerRef} type="button" onClick={openByUser} className={BTN.soft} aria-controls={panelId} aria-expanded={false} data-testid="fit-trial-open">
             <BookOpenCheck size={15} strokeWidth={2} aria-hidden />
             {goal ? '이 목표로 첫 연습 열기' : '예시로 해 보기'}
           </button>
@@ -93,6 +102,7 @@ export function ReadingTrial() {
             backHref="#fit-reading-trial"
             backCta="체험 닫기"
             onBack={close}
+            onGraded={onGraded}
           />
         </div>
       )}

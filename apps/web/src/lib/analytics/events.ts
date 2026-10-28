@@ -65,6 +65,15 @@ export type PublicEvent =
    */
   | { name: 'fit_sheet_opened'; props: { words: number } }
   /**
+   * `/fit` 고정 예시 읽기 체험 — 닫힌 패널을 학습자가 **직접 열었다**(마운트 · 목표 토글 · 닫기는 아님).
+   * 다시 열면 한 번 더 센다 — 사람 수 · 수요 · 이해가 아니라 활동 횟수다. 속성 없음(서버가 비어 있지 않으면 버린다).
+   */
+  | { name: 'fit_trial_opened'; props: Record<string, never> }
+  /**
+   * 체험 문항을 제출해 **로컬 채점이 성공했다**(DcpPlayer onGraded). 선택 · 정오 · 목표 · 글은 싣지 않는다.
+   */
+  | { name: 'fit_trial_answered'; props: Record<string, never> }
+  /**
    * 랜딩 진입 — 검색·공유가 도착하는 지점의 분모.
    *
    * 2026-08-26 이전 이 자리는 개발용 화면 인덱스였고 랜딩 자체가 없었다. 이제 sitemap 의
@@ -610,6 +619,8 @@ const EVENT_REGISTRY: Record<PublicEventName, true> = {
   fit_worksheet_printed: true,
   fit_level_moved: true,
   fit_sheet_opened: true,
+  fit_trial_opened: true,
+  fit_trial_answered: true,
   landing_viewed: true,
   landing_cta_clicked: true,
   catalog_viewed: true,
