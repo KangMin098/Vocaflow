@@ -6,7 +6,7 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState, type Ref } from 'react'
 import Link from 'next/link'
 import { AlertTriangle, ArrowRight, Check, Home, RefreshCw, X } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
@@ -28,6 +28,9 @@ import { isUnderlineChoiceDcpType, type DcpUnderlinePayload } from '@/lib/learne
 import { gradeDcpItem, recordDcpErrorCause } from '@/lib/learner/dcp-actions'
 
 import { DcpChoiceItem, DcpInsertItem, DcpOrderItem, DcpUnderlineChoiceItem } from './DcpItems'
+import { MeaningEvidence } from './MeaningEvidence'
+import { insertSeamCandidates } from '@vocaflow/library-pipeline/insert-coordinates'
+import { meaningEvidenceSentences, isMeaningEvidenceType } from '@/lib/learner/meaning-evidence'
 
 type Phase = 'answering' | 'grading' | 'graded' | 'done'
 
@@ -37,6 +40,14 @@ export function DcpPlayer({
   backCta = '홈으로',
   grade = gradeDcpItem,
   recordCause = recordDcpErrorCause,
+  doneCopy,
+  onGraded,
+  onBack,
+  revisit = false,
+  causeChips = true,
+  causeHref,
+  causeLabel,
+  nextChoice,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -48,6 +59,35 @@ export function DcpPlayer({
    */
   grade?: typeof gradeDcpItem
   recordCause?: typeof recordDcpErrorCause
+  /**
+   * 완료 문구 교체 — 기본 격려(「꾸준함이 실력이 돼요」)가 향상 근거처럼 읽히면 안 되는 화면(공장 안내 연습 · 1D)이 넣는다.
+   */
+  doneCopy?: (s: { total: number; correct: number }) => { title: string; body: string }
+  /** 채점 성공 직후(계측용) — 실패는 부르지 않는다 */
+  onGraded?: (item: DcpItem, result: DcpGradeOk) => void
+  /** 완료 화면의 돌아가기를 눌렀다(계측용) */
+  onBack?: () => void
+  /**
+   * 완료 화면의 「이미 본 해설 다시 보기」(opt-in). 세션 · 자료 경계를 확인한 호출자(기사 연습 다리 · 합성 dev)만 켠다.
+   * 끄면 피드백 기록을 아예 모으지 않는다(예전 동작).
+   */
+  revisit?: boolean
+  /**
+   * 오답 원인 칩(+ 그 팁의 복습 링크) — 기본 켬. 기록할 곳이 없는 체험(공개 예시)만 끈다.
+   */
+  causeChips?: boolean
+  /**
+   * 오답 원인별 「복습하기」 목적지 교체(opt-in). 없으면 ERROR_CAUSES 기본(예: vocab → /flashcard/play).
+   * 자료 문맥을 아는 호출자(기사 연습 다리)가 그 자료 범위의 목록을 넣는다.
+   */
+  causeHref?: Partial<Record<DcpErrorCause, string>>
+  /** 오답 원인별 링크 문구 교체(opt-in) — 목적지가 복습 목록이 아닐 때만. 없으면 「복습하기」. */
+  causeLabel?: Partial<Record<DcpErrorCause, string>>
+  /**
+   * 완료 화면의 보조 다음 선택(opt-in) — 돌아가기 아래 링크 하나. 없으면 그리지 않는다(예전 동작).
+   * 기사 연습 다리만 「다른 글 살펴보기」 를 넣는다. 처방 · 평가가 아니라 자율 선택이다.
+   */
+  nextChoice?: { href: string; label: string }
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -58,7 +98,22 @@ export function DcpPlayer({
    */
   const [gradeError, setGradeError] = useState<string | null>(null)
   const [cause, setCause] = useState<DcpErrorCause | null>(null)
+  /** 이 문항에 실제로 제출한 답 — 근거 짚기가 「무엇의 근거」인지 되짚는다(다음 문항 · 재시도 때 지운다) */
+  const [submitted, setSubmitted] = useState<Record<string, unknown> | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
+  /**
+   * 이번 세션에서 **채점에 성공해 공개된** 피드백(당시 선택 · 당시 서버 결과) — 완료 화면의 「이미 본 해설 다시 보기」.
+   * 메모리에만 둔다(저장 · 새 조회 없음). 채점 실패는 넣지 않는다. 현재 items 의 같은 문항 객체에 묶인 것만 보인다.
+   */
+  const [seen, setSeen] = useState<SeenFeedback[]>([])
+  const [reviewAt, setReviewAt] = useState<number | null>(null)
+  const lastReviewed = useRef<number | null>(null)
+  const listRef = useRef<HTMLUListElement | null>(null)
+  const reviewHeadRef = useRef<HTMLHeadingElement | null>(null)
+  useEffect(() => {
+    if (reviewAt !== null) reviewHeadRef.current?.focus()
+    else if (lastReviewed.current !== null) listRef.current?.querySelectorAll('button')[lastReviewed.current]?.focus()
+  }, [reviewAt])
 
   const item = items[idx]
   const total = items.length
@@ -67,6 +122,7 @@ export function DcpPlayer({
   async function handleSubmit(answer: Record<string, unknown>) {
     if (!item) return
     setGradeError(null)
+    setSubmitted(answer)
     setPhase('grading')
     // ⚠️ **reject 도 잡는다.** try/catch 가 없던 동안 세션 만료·네트워크 끊김이
     //   `setPhase('graded')` 에 못 닿아 제출 버튼이 회색으로 잠긴 채 영영 멈췄다.
@@ -87,6 +143,8 @@ export function DcpPlayer({
       return
     }
     setResult(res)
+    if (revisit) setSeen((s) => [...s, { item, result: res, submitted: answer }])
+    onGraded?.(item, res)
     if (res.correct) setCorrectCount((c) => c + 1)
     setPhase('graded')
   }
@@ -103,6 +161,7 @@ export function DcpPlayer({
     }
     setIdx((i) => i + 1)
     setResult(null)
+    setSubmitted(null)
     setCause(null)
     setGradeError(null)
     setPhase('answering')
@@ -110,6 +169,14 @@ export function DcpPlayer({
 
   // ── 완료 요약 ──
   if (phase === 'done') {
+    const custom = doneCopy?.({ total, correct: correctCount })
+    const revisit = revisitable(seen, items)
+    const open = reviewAt !== null ? revisit[reviewAt] : undefined
+    if (open) {
+      return (
+        <DcpRevisitView entry={open} items={items} headRef={reviewHeadRef} onBack={() => setReviewAt(null)} />
+      )
+    }
     return (
       <section
         aria-label="구문 연습 완료"
@@ -123,19 +190,48 @@ export function DcpPlayer({
         </span>
         <div>
           <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">
-            {items.every((x) => isUnderlineChoiceDcpType(x.type)) ? '어휘 연습을 마쳤어요' : '오늘 구문 연습을 마쳤어요'}
+            {custom ? custom.title : items.every((x) => isUnderlineChoiceDcpType(x.type)) ? '어휘 연습을 마쳤어요' : '오늘 구문 연습을 마쳤어요'}
           </h2>
-          <p className="mt-1 font-body text-[13px] text-[var(--t2)]">
-            {total}문항 중 {correctCount}문항을 맞혔어요. 꾸준함이 실력이 돼요.
+          <p className="mt-1 break-keep font-body text-[13px] text-[var(--t2)]" data-testid="dcp-done-body">
+            {custom ? custom.body : `${total}문항 중 ${correctCount}문항을 맞혔어요. 꾸준함이 실력이 돼요.`}
           </p>
         </div>
         <Link
           href={backHref}
+          onClick={onBack}
           className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] no-underline shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:bg-[var(--p-hover)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
         >
           <Home size={16} strokeWidth={2} aria-hidden />
           {backCta}
         </Link>
+        {nextChoice && (
+          <Link
+            href={nextChoice.href}
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            data-testid="dcp-next-choice"
+          >
+            {nextChoice.label}
+          </Link>
+        )}
+        {revisit.length > 0 && (
+          <div className="flex w-full flex-col gap-2 border-t border-[var(--bd)] pt-4 text-left" data-testid="dcp-revisit">
+            <p className="break-keep font-display text-[12px] font-[700] text-[var(--t2)]">이미 본 해설 다시 보기 · 안내 복습</p>
+            <ul ref={listRef} className="m-0 flex list-none flex-wrap gap-2 p-0">
+              {revisit.map((e, i) => (
+                <li key={`${e.item.id}-${i}`}>
+                  <button
+                    type="button"
+                    onClick={() => { lastReviewed.current = i; setReviewAt(i) }}
+                    className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                  >
+                    {e.result.correct ? <Check size={13} strokeWidth={2.5} aria-hidden /> : <X size={13} strokeWidth={2.5} aria-hidden />}
+                    {items.indexOf(e.item) + 1}번 {e.result.correct ? '맞힘' : '틀림'} · 해설 보기
+                  </button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
       </section>
     )
   }
@@ -187,7 +283,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -218,23 +314,59 @@ export function DcpPlayer({
   )
 }
 
+/** 이번 세션에서 채점에 성공해 공개된 피드백 한 건 — 당시 제출 · 당시 서버 결과 그대로 */
+export interface SeenFeedback { item: DcpItem; result: DcpGradeOk; submitted: Record<string, unknown> }
+
+/** 다시 볼 수 있는 것 — 지금 items 에 있는 **같은 문항 객체**에 묶인 기록만(자료가 바뀌면 옛 피드백은 사라진다) */
+export function revisitable(seen: SeenFeedback[], items: DcpItem[]): SeenFeedback[] {
+  return seen.filter((e) => items.includes(e.item))
+}
+
+/** 완료 뒤 「이미 본 해설 다시 보기 · 안내 복습」 — 새 채점 · 기록 없음, 원인 칩 없음, 「요약으로」 로 돌아간다 */
+export function DcpRevisitView({ entry, items, headRef, onBack }: { entry: SeenFeedback; items: DcpItem[]; headRef?: Ref<HTMLHeadingElement>; onBack: () => void }) {
+  return (
+    <section aria-label="이미 본 해설 다시 보기" className="flex flex-col gap-3">
+      <h2
+        ref={headRef}
+        tabIndex={-1}
+        className="break-keep font-display text-[14px] font-[700] text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        data-testid="dcp-revisit-label"
+      >
+        이미 본 해설 다시 보기 · 안내 복습 — {items.indexOf(entry.item) + 1}번 문항, 그때 고른 답과 받은 해설 그대로예요.
+      </h2>
+      <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
+        <Feedback item={entry.item} result={entry.result} submitted={entry.submitted} cause={null} onCause={() => {}} onNext={onBack} isLast review />
+      </div>
+    </section>
+  )
+}
+
 // ────────────────────────────────────────────────────────────
 // 채점 피드백 — 정답/오답 + 정답 공개 + (오답) error_cause 1-tap
 // ────────────────────────────────────────────────────────────
 function Feedback({
   item,
   result,
+  submitted,
   cause,
   onCause,
   onNext,
   isLast,
+  review = false,
+  causeHref,
+  causeLabel,
 }: {
   item: DcpItem
   result: DcpGradeOk
+  submitted: Record<string, unknown> | null
   cause: DcpErrorCause | null
   onCause: (c: DcpErrorCause) => void
   onNext: () => void
   isLast: boolean
+  /** true = 완료 뒤 다시 보기(원인 칩 없음 · 「요약으로」) · 'noCause' = 진행 중이지만 원인 칩만 숨김 */
+  review?: boolean | 'noCause'
+  causeHref?: Partial<Record<DcpErrorCause, string>>
+  causeLabel?: Partial<Record<DcpErrorCause, string>>
 }) {
   const correct = result.correct
   return (
@@ -256,6 +388,8 @@ function Feedback({
           {correct
             ? isUnderlineChoiceDcpType(item.type)
               ? '정확해요! 문맥에 맞지 않는 낱말을 찾았어요.'
+              : isMeaningEvidenceType(item.type)
+              ? '정확해요! 고른 답이 맞았어요.'
               : isChoiceDcpType(item.type)
               ? '정확해요! 근거를 잘 찾았어요.'
               : '정확해요! 문장 흐름을 잘 잡았어요.'
@@ -282,8 +416,26 @@ function Feedback({
           <Reveal item={item} answerKey={result.answerKey} />
         ))}
 
+      {/* 중심 의미 유형 — 채점 뒤 본문 근거 짚기 → 해설과 나란히(판정 없음 · 건너뛰기 가능 · 문항마다 새로) */}
+      {(() => {
+        const choicePayload = item.payload as DcpChoicePayload | undefined
+        const sentences = meaningEvidenceSentences(item.type, choicePayload?.passage)
+        return sentences ? (
+          <MeaningEvidence
+            key={item.id}
+            sentences={sentences}
+            explanation={pickExplanationText(result.answerKey ?? null)}
+            chosen={submittedChoice(item, submitted)}
+            correct={result.correct}
+            // 원래 발문 · 선택지 그대로(채점 전에도 보던 것) — 다른 선택지 하나와 견주기. 새 정답 · 조회 없음
+            stem={choicePayload?.stemKo ?? null}
+            choices={choicePayload?.choices ?? null}
+          />
+        ) : null
+      })()}
+
       {/* 오답이면 error_cause 1-tap */}
-      {!correct && (
+      {!correct && review === false && (
         <div className="flex flex-col gap-2">
           <p className="font-display text-[12px] font-[700] text-[var(--t2)]">어떤 점이 어려웠나요? (선택)</p>
           <div className="flex flex-wrap gap-2">
@@ -293,7 +445,7 @@ function Feedback({
                 type="button"
                 onClick={() => onCause(ec.cause)}
                 aria-pressed={cause === ec.cause}
-                className="inline-flex min-h-[36px] items-center rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                 style={
                   cause === ec.cause
                     ? { borderColor: 'var(--p)', background: 'var(--p-light)', color: 'var(--p)' }
@@ -304,7 +456,7 @@ function Feedback({
               </button>
             ))}
           </div>
-          {cause && <CauseTip cause={cause} />}
+          {cause && <CauseTip cause={cause} href={causeHref?.[cause]} label={causeLabel?.[cause]} />}
         </div>
       )}
 
@@ -313,25 +465,34 @@ function Feedback({
         onClick={onNext}
         className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
       >
-        {isLast ? '마치기' : '다음'}
+        {review === true ? '요약으로' : isLast ? '마치기' : '다음'}
         <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
       </button>
     </div>
   )
 }
 
-function CauseTip({ cause }: { cause: DcpErrorCause }) {
+/** 제출한 선택지(번호 · 문구) — 의미 선택 유형의 근거 짚기가 되짚는다. 못 읽으면 null */
+function submittedChoice(item: DcpItem, submitted: Record<string, unknown> | null): { n: number; text: string } | null {
+  const n = Number(submitted?.choice)
+  const choices = (item.payload as DcpChoicePayload | undefined)?.choices
+  if (!Number.isInteger(n) || !Array.isArray(choices) || n < 1 || n > choices.length) return null
+  return { n, text: choices[n - 1] }
+}
+
+export function CauseTip({ cause, href: override, label = '복습하기' }: { cause: DcpErrorCause; href?: string; label?: string }) {
   const def = ERROR_CAUSES.find((e) => e.cause === cause)
   if (!def) return null
+  const href = override ?? def.href
   return (
     <div className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--bg)] p-3">
       <p className="min-w-0 flex-1 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">{def.tip}</p>
-      {def.href && (
+      {href && (
         <Link
-          href={def.href}
-          className="inline-flex min-h-[36px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--on-p-tint)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          href={href}
+          className="inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--on-p-tint)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
-          복습하기
+          {label}
           <ArrowRight size={12} strokeWidth={2.25} aria-hidden />
         </Link>
       )}
@@ -433,17 +594,47 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
   const position = answerKey.position
   const p = item.payload as DcpInsertPayload
   if (typeof position !== 'number') return null
-  const withInsert = [...p.remaining]
-  withInsert.splice(position, 0, `〔${p.insert_sentence}〕`)
+  // 해설의 ①~⑤ 는 **해설 후보 번호**다(화면 자리 순번이 아니다). 채점 뒤 key 로만, 해설 조각이 실제 앞뒤 문장과
+  //   모두 맞을 때만 이음매에 붙인다 — 증명 못 하면 null 이고 예전처럼 해설 문장만 보인다(lib insert-coordinates).
+  const candidates = insertSeamCandidates({
+    remaining: p.remaining,
+    insertSentence: p.insert_sentence,
+    position,
+    explanation: pickExplanationText(answerKey),
+    writer: answerKey.explanation_writer,
+  })
+  const labelAt = new Map((candidates ?? []).map((c) => [c.seam, c.label]))
+  const rows: { kind: 'sentence' | 'inserted' | 'seam'; text: string; label?: string }[] = []
+  for (let g = 0; g <= p.remaining.length; g++) {
+    if (g === position) rows.push({ kind: 'inserted', text: p.insert_sentence, label: labelAt.get(g) })
+    else if (labelAt.has(g)) rows.push({ kind: 'seam', text: '', label: labelAt.get(g) })
+    if (g < p.remaining.length) rows.push({ kind: 'sentence', text: p.remaining[g] })
+  }
   return (
     <div className="flex flex-col gap-2">
       <p className="font-display text-[12px] font-[700] text-[var(--t2)]">정답 위치</p>
+      {candidates && (
+        <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]" data-testid="insert-seam-legend">
+          해설의 {candidates.map((c) => c.label).join('')} 는 화면의 자리 순번이 아니라 해설이 고른 후보 번호예요 — 아래에 그 자리를 표시했어요.
+        </p>
+      )}
       <ol className="flex flex-col gap-2">
-        {withInsert.map((sentence, i) => {
-          const isInserted = i === position
+        {rows.map((r, i) => {
+          if (r.kind === 'seam') {
+            return (
+              <li key={i} className="flex items-center gap-2" data-testid="insert-seam-mark" aria-label={`해설 ${r.label} 자리 — 위아래 두 문장 사이`}>
+                <span className="inline-flex h-6 min-w-[44px] items-center justify-center rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11.5px] font-[700] text-[var(--t2)]">
+                  해설 {r.label}
+                </span>
+                <span className="h-px flex-1 border-t border-dashed border-[var(--bd)]" aria-hidden />
+              </li>
+            )
+          }
+          const isInserted = r.kind === 'inserted'
           return (
             <li
               key={i}
+              data-testid={isInserted ? 'insert-seam-answer' : undefined}
               className="rounded-[var(--r-sm)] border p-3 font-body text-[13px] leading-relaxed"
               style={{
                 borderColor: isInserted ? 'var(--success)' : 'var(--bd)',
@@ -452,7 +643,12 @@ function Reveal({ item, answerKey }: { item: DcpItem; answerKey: Record<string, 
                 fontWeight: isInserted ? 700 : 400,
               }}
             >
-              {sentence}
+              {isInserted && r.label && (
+                <span className="mr-2 inline-flex items-center rounded-[var(--r-full)] bg-[var(--success)] px-2 font-display text-[11.5px] font-[700] text-[var(--bg)]">
+                  해설 {r.label} · 정답 자리
+                </span>
+              )}
+              {isInserted ? `〔${r.text}〕` : r.text}
             </li>
           )
         })}

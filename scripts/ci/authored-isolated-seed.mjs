@@ -19,7 +19,29 @@ import { fileURLToPath } from 'node:url'
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..', '..')
 // 저장소의 창작 세트 전부(R5 + 확장) — 형식별 브라우저 e2e 가 각 TASK 의 자료를 받는다
 const SET_DIR = path.join(ROOT, 'apps/web/src/lib/knowledge/authored')
-const SETS = fs.readdirSync(SET_DIR).filter((x) => x.endsWith('.json')).sort().map((x) => JSON.parse(fs.readFileSync(path.join(SET_DIR, x), 'utf8')))
+// 같은 디렉터리에 세트가 아닌 자산(예: schema 'vf.source-central-meaning-lesson/1' 수업 모델)도 산다 — `set` 키가 없으면 세트가 아니다.
+// 세트인데 items 가 배열이 아니거나 세트가 0개면 조용히 넘기지 않고 실패한다
+// 정본 목록은 제품 레지스트리(authored-items.ts 의 json import)다 — 폴더에는 대체된 옛 판(r5-cycle-supplement.v1)이 남아 있고,
+// 그 판이 같은 문항 id 를 다른 본문으로 가져 `authored_item_register` 가 「ref exists with a different body」 로 거부했다(2026-10-24 CI).
+export function loadSets(dir = SET_DIR) {
+  const registry = fs.readFileSync(path.join(dir, 'authored-items.ts'), 'utf8')
+  const names = [...new Set([...registry.matchAll(/from '\.\/([^']+\.json)'/g)].map((m) => m[1]))].sort()
+  const sets = []
+  for (const name of names) {
+    const doc = JSON.parse(fs.readFileSync(path.join(dir, name), 'utf8'))
+    if (typeof doc?.set !== 'string') continue
+    if (!Array.isArray(doc.items) || doc.items.length === 0) throw new Error(`창작 세트 ${name} 에 items 배열이 없다`)
+    sets.push(doc)
+  }
+  if (sets.length === 0) throw new Error(`창작 세트가 없다: ${dir}`)
+  const owner = new Map()
+  for (const s of sets) for (const it of s.items) {
+    if (owner.has(it.id)) throw new Error(`문항 id ${it.id} 가 ${owner.get(it.id)} 와 ${s.set} 에 모두 있다 — ref 가 겹친다`)
+    owner.set(it.id, s.set)
+  }
+  return sets
+}
+const SETS = loadSets()
 const ASSESS = new Set(['independent_check', 'transfer', 'delayed_check'])
 const AXES = Object.fromEntries(['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H'].map((k) => [k, { state: 'pass' }]))
 export const FIXTURE_NOTE = 'CI 격리 fixture — 사람 결정 아님'

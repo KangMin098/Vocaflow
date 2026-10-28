@@ -9,7 +9,9 @@ import { Eye, FileText, Settings as SettingsIcon, Volume2 } from 'lucide-react'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { applyReview, createNewCard } from '@/lib/srs'
 import { studyRatingToFsrs } from '@/lib/srs/rating-mapper'
-import { cacheCard, getCachedCard, pushPendingResult } from '@/lib/srs/session-storage'
+import { cacheCard, getCachedCard, getSrsQueueOwner } from '@/lib/srs/session-storage'
+import { pushOwnedResult } from '@/lib/srs/push-owned'
+import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
@@ -28,6 +30,13 @@ export interface StudyModeProps {
    * 확인할 자리도, 다음 한 걸음도 없이(실측 2026-09-05).
    */
   onExit: (reason: 'completed' | 'aborted') => void
+  /**
+   * 이 학습의 주인 — 서버가 단어를 읽은 사용자(쿠키 getUser). 주면 평가 · 키보드 · 발음을 **실행 시점**에 그 사람으로
+   * 긍정 확인될 때만 한다(화면 경계 WordVaultViewerGate 가 내린 뒤 남은 옛 콜백도 막는다). 없으면 기존 동작(개발 화면 등).
+   */
+  viewerId?: string | null
+  /** 시험 · 하네스 주입(없으면 StoryAuthSourceContext → 실제 브라우저 세션) */
+  authSource?: StoryAuthSource
 }
 
 interface RatingConfig {
@@ -48,12 +57,49 @@ const RATINGS: RatingConfig[] = [
   { rate: 5, label: 'Perfect', srs: '14 days', className: 'rate-5' },
 ]
 
-export function StudyMode({ words, onExit }: StudyModeProps) {
+export function StudyMode({ words, onExit, viewerId, authSource }: StudyModeProps) {
+  // ── 학습 주인 결속 ── 전역 대기열 주인(queueOwner)은 계정 전환을 따라간다. A 화면의 평가가 B 전환 뒤 들어오면
+  //   B 의 큐가 되므로, 지금 같은 사람으로 확인됐고 대기열 주인이 다른 사람이 아닐 때만 평가를 넣는다(주인 미상 = 보류 항목, T-0172).
+  const { guard, status: authStatus } = useStoryAuthGuard(viewerId ?? null, authSource)
+  const guardRef = useRef(guard)
+  guardRef.current = guard
+  const ownsSession = useCallback(() => {
+    if (viewerId === undefined) return true
+    if (guardRef.current.status !== 'same') return false
+    const q = getSrsQueueOwner()
+    return q === null || q === viewerId
+  }, [viewerId])
   const [studyIndex, setStudyIndex] = useState(0)
   const [state, setState] = useState<StudyState>('hidden')
   const [isPlayingMain, setIsPlayingMain] = useState(false)
 
-  const { speak } = useSpeech()
+  const { speak: rawSpeak, cancel: cancelSpeech } = useSpeech()
+  // 이미 시작한 발화도 멈춘다 — 새 재생 요청만 막으면 계정이 바뀐 뒤에도 A 의 단어가 끝까지 읽힌다(Codex 반례 2026-10-27).
+  //   cancel 은 브라우저 전역(speechSynthesis.cancel)이라, **이 세션이 시작해 아직 끝나지 않은 발화가 있을 때만** 부른다 —
+  //   학습 화면을 떠나며 다른 화면이 막 시작한 발화까지 끊지 않게(리뷰 P3).
+  const ownUtteranceRef = useRef(0)
+  const speak = useCallback(
+    (text: string, opts: Parameters<typeof rawSpeak>[1] = {}) => {
+      ownUtteranceRef.current += 1
+      rawSpeak(text, {
+        ...opts,
+        onEnd: () => {
+          ownUtteranceRef.current = Math.max(0, ownUtteranceRef.current - 1)
+          opts.onEnd?.()
+        },
+      })
+    },
+    [rawSpeak],
+  )
+  const cancelOwnSpeech = useCallback(() => {
+    if (ownUtteranceRef.current === 0) return
+    ownUtteranceRef.current = 0
+    cancelSpeech()
+  }, [cancelSpeech])
+  useEffect(() => {
+    if (viewerId !== undefined && authStatus !== 'same') cancelOwnSpeech()
+  }, [viewerId, authStatus, cancelOwnSpeech])
+  useEffect(() => () => cancelOwnSpeech(), [cancelOwnSpeech])
   const w = words[studyIndex]
   const progress = words.length > 0 ? Math.round((studyIndex / words.length) * 100) : 0
 
@@ -97,6 +143,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
 
   const rateWord = useCallback(
     (rate: 1 | 2 | 3 | 4 | 5) => {
+      if (!ownsSession()) return
       if (w) {
         // §17 [4] 기억 축 — FSRS applyReview (자가평가 1~5 → Rating). 세션 캐시는 단어 텍스트 키.
         const key = w.word.toLowerCase()
@@ -108,14 +155,14 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
           module: 'wordvault',
         })
         cacheCard(reviewResult.card)
-        pushPendingResult({
+        pushOwnedResult({
           cardId: reviewResult.card.id,
           word: w.word,
           cardUpdate: cardToUpdatePayload(reviewResult.card),
           rating: reviewResult.log.rating,
           reviewedAt: reviewResult.log.reviewedAt.toISOString(),
           module: 'wordvault',
-        })
+        }, viewerId, () => guardRef.current.status === 'same')
       }
 
       const next = studyIndex + 1
@@ -126,22 +173,22 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
       setStudyIndex(next)
       setState('hidden')
     },
-    [w, studyIndex, words.length, finish]
+    [w, studyIndex, words.length, finish, ownsSession]
   )
 
   const playMain = useCallback(() => {
-    if (!w) return
+    if (!w || !ownsSession()) return
     setIsPlayingMain(true)
     speak(w.word, {
       rate: 1.0,
       onEnd: () => setIsPlayingMain(false),
     })
-  }, [w, speak])
+  }, [w, speak, ownsSession])
 
   const playSlow = useCallback(() => {
-    if (!w) return
+    if (!w || !ownsSession()) return
     speak(w.word, { rate: 0.6 })
-  }, [w, speak])
+  }, [w, speak, ownsSession])
 
   /*
     ⚠️ 「따라말하기」 마이크 버튼이 여기 있었다 — **아무것도 녹음하지 않았다.**
@@ -159,6 +206,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
       if ((e.target as HTMLElement)?.tagName === 'INPUT') return
+      if (!ownsSession()) return
 
       if (e.code === 'Space') {
         e.preventDefault()
@@ -171,7 +219,7 @@ export function StudyMode({ words, onExit }: StudyModeProps) {
     }
     window.addEventListener('keydown', handler)
     return () => window.removeEventListener('keydown', handler)
-  }, [state, revealMeaning, revealExample, playMain, rateWord])
+  }, [state, revealMeaning, revealExample, playMain, rateWord, ownsSession])
 
   // Esc = 세션 종료. 이 화면은 이제 전체화면 세션 틀(SessionFrame) 안이라, 틀도 Esc 로 닫으려 한다 —
   // 둘이 함께 들으면 이동이 두 번 일어난다. 세션 Esc 로 등록해 저장(flush) 후 종료를 이쪽이 맡는다.

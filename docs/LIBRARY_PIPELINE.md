@@ -1,5 +1,9 @@
 # Library Pipeline
 
+> D3 W1~W4(T-0189, 2026-10-27): 기존 Story 제작·검수·발행 체계를 재사용했다. C01 R2 u08의 로컬 S2/S3 비교와 비제작 Codex 검수, W2 기존 민감 맥락 전달(승인 dev 원장20261026235109)을 수용했다. C06은 특정 권리 결정이 제작용 정규화/snapshot/앵커/policy/export/각색보다 선행하며, 현재는 기존 원문 조사 위치표와 비실행 편집·검수 계획까지만 완료했다. 새 Story·권리 결정·발행·개인 진도 변경은 없다. [D3 결과·D4 인계](lcp-story/D3_FOLLOWUP.md).
+
+LCP-D2 큐레이션 감사·설계(2026-10-26): 실제 코드·dev SELECT·공개1440/1280 화면을 대조해 [학습자 가치 중심 원천 선정·15후보·우선 비교5·최소 구현 계획](lcp-story/LCP_D2_CURATION.md)을 정리했다. 기존 Books·Story 제작/검수/발행 경로를 보존한다. 일반 `copyright_safe_in_kr`의 현재 의미는 소스 라이선스 휴리스틱이며 Story의 개별 source 권리 확인과 다르다. 인기 값 단위·선택 정보·실제 독서 반응의 공백은 후속 변경으로 분리했고 이번 감사에서 DB·발행·계정은 변경하지 않았다. 실제 흥미·수준 적합성·교육 효과는 미검증이다.
+
 PDCP 단계 연결 보완(2026-10-21): hOCR CLI의 기본 출력 `bubbles.manifest.json`을 정제 CLI가 받지 못하던 단절을 수정했다. 자체 OCR 결과가 있으면 우선하고, 없으면 기본 hOCR 결과를 사용한다. intake·정제 manifest는 실제 입력 파일명을 보존한다. 격리 원본 이미지의 복원·3컷 분할과 직접 작성한 hOCR의 좌표 배분 후 정제·현대화 CLI를 검증한다. 외부 OCR 엔진의 인식 정확도를 검증했다는 뜻은 아니다.
 
 기사 재분석 저장 보완(2026-10-21): 기존 어휘를 선삭제하지 않고 새 분석을 `(library_article_id, word)` upsert로 모두 저장한 뒤 이전 불필요 어휘만 정리한다. 실제 INSERT/UPDATE 실패를 주입해 기존 50행 보존과 오류 제거 후 동일 입력 재실행을 확인했다. 조회·정리 오류도 실패로 전달한다. 여러 HTTP 요청 전체의 원자성이나 동시 재분석 직렬화를 보장하는 변경은 아니다. 같은 글의 병렬 재분석은 피하고 실패 후 동일 입력으로 재처리한다. DB 스키마 변경 없음.
@@ -39,6 +43,8 @@ VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검�
 
 **권리 표지 · PLOS 일괄 표기(DD-75 · 2026-09-24).** 라이선스로 원문을 버리지 않는다 — 적재기는 찾은 표기를 `license` 에 그대로 적고(없으면 `unknown`), 원문마다 `csat_fit.rights`(`rights-tag.ts`: class · evidence · attribution · needsResolution)를 붙인다. 서비스 차단은 여전히 `acp_classify_license` 트리거 → `copyright_safe_in_kr` 와 발행 적격 법적 축이 맡는다. ⚠️ 기존 PLOS 원본 **47,938행**은 수확기가 글마다 확인하지 않고 `CC BY 4.0` 을 일괄로 박은 것이다 — Solr `copyright` 필드로 보면 공유저작물 선언 글이 섞여 있다(`q=copyright:"public domain"` 18,185편). 이 행들은 원문 단위 확인이 필요하며 백필하지 않았다. 새 수확(`harvest-plos`)은 `copyright` 문장에서 license 를 읽고(evidence `api`), 발췌(`plos-extract`)는 원본 표지를 물려받되 없으면 `collection-default` 로 적는다.
 
+**VOA 통신사 기반 각색(2026-10-27).** 공식 정책(voanews.com/p/5338)상 VOA 단독 제작물만 PD 다. 적재기(`voa.ts` → `voa-credit.ts`)는 본문 끝 작성 크레딧 **문장**(작성·보도·각색 동사가 이 글 — this story · the report · it — 을 대상으로 함)에 닫힌 통신사 목록(AP · Reuters · AFP)이 같은 문장으로 있으면 `PD-Government`·`collection-default` 대신 원문 단위 표기(`Third-party-based VOA adaptation (credit: …) — reuse not verified`, evidence `page`)를 적는다 → `rightsTag` 는 `unknown`·해소 필요, 트리거는 `restricted`. 원문(본문·저자·날짜·오디오·source_id)은 그대로 보존한다. 같은 줄에 함께 있는 것만으로는 세지 않는다 — 본문 속 통신사 보도(「Reuters reported that …」)·사진 크레딧(「Photo: Associated Press.」)은 출처가 아니다. 한계: 목록 밖 매체(BBC 등)만 출처인 글, 「This report combines two stories from the AP」·「… contributed to this report」 같은 드문 형태는 잡지 않는다. 전량 실측(읽기 전용) VOA 10,663행 중 3,547행이 이 표기에 해당한다(ready 3,530 · published 10 · queued 3 · archived 4). **기존 행은 백필하지 않았다** — published 10편은 후속 권리 검수 대상이다.
+
 일일 읽기 전용 workflow `csat-source-audit.yml`은 DB/cache/snapshot drift와 모순을 exit 1로 알린다.
 기본 브랜치 반영 및 기존 Supabase secrets 설정 후 일정 실행이 활성화된다. 자동 데이터 수정은 없다.
 상세: [Gate 기록](./reports/csat-sources-normalization-20260918.md).
@@ -64,6 +70,24 @@ VOA ingestion은 관측된 댓글 안내 문단 제거 후 최소 길이를 검�
 ---
 
 ## LCP — Library Curation Pipeline v2.0
+
+**추가 라인 — LCP Story(2026-10-25, 원본 라인은 그대로).** 검증된 원천에서 읽고 싶은 이야기 · 읽을 수 있는 판본(Story Edition ·
+Easy Reader) · 선택적 의미 탐구(Original Bridge · Deep Reading)를 만드는 이야기 중심 판본 라인이다. 원본 도서를 복제하지 않고,
+본문 해시 · 문단/문자 구간 · 정확 인용으로 원문에 결속하며, 판본 · 검수 · 발행 키는 **원천 판본 정체 해시**(본문이 같아도 다른 원천 판본 ·
+revision · 대응 도서 · 권리 기록이면 다름) · 기준 · 목표 · 본문 · 활동 해시에 묶인다.
+지금 있는 것은 정본 · 도메인 검증기(`packages/library-pipeline/src/story/`) · DB 없는 로컬 드레인(`scripts/lcp/story/story.ts`
+`export` · `validate` · `plan`) · 합성 fixture, 그리고 S3 산출물이다: live DB 읽기 감사 · 코드 경로 감사, **공유 DB 적용 완료** 격리 스키마 SQL
+(`supabase/migrations/20261025094450_lcp_story_s3_schema.sql` — 원본 표 · 함수 · 정책을 쓰지 않는 `story` 스키마 + `public.story_*` RPC 16개.
+발행은 service_role 이 S2 어댑터 `src/story/attest.ts` 로 저장값을 검증해 쓴 증명이 있어야 하고, 권리 보류는 열람 때마다 닫히며, 위치와 단위 완료를 나눈다),
+복구 SQL · 승인형 러너(`scripts/db/lcp-story-s3/`) · 격리 PGlite/PostgreSQL 17 검증. 사용자 승인 뒤 MCP 원장 `20261025094450`로 적용했고, 저장 SQL SHA가 승인본과 일치하며 사후 검사 15개·원본 5표의 행/정의 지문 10개를 통과했다.
+S4(T-0174, 독립 수용 · 로컬 main 통합 완료): 관리자 이야기 라인 `/admin/curation?line=story`(화면 `app/admin/curation/StoryCurationClient.tsx` · 서버 액션 `story-actions.ts` ·
+서버 로직 `lib/library/story/{admin,witness}.ts` · 패키지 exports `@vocaflow/library-pipeline/story`). 검증 증인은 활성 스태프(admin · curator)가 그 버튼을 눌렀을 때만, 쿠키 세션의 스태프 확인을 통과한 뒤 서버가 service_role 로 실행한다(목록 · 번들 · 화면 진입은 읽기만).
+실제 발행에는 제출 계정과 다른 두 번째 인증 스태프가 필요하다. 2026-10-26 승인된 기존 AI 제작 curator·AI 검수 admin·학습자 A/B를 재사용해 대표1편의 정상 등록·검수·증인·정식 dev 발행·철회·새 검수 결속의 재발행을 검증했다. 사용자의 고정 source 권리 결정과 AI admin 위임 기록을 분리하며 AI 콘텐츠 검수는 사람 검수로 표시하지 않는다. 학습자 화면(S5)은 `/library/stories`이며 승인 SQL r3(원장 `20261025143031`)을 유지한다. 실제 Auth·DB 기반 A1440/B1280의 독서·도움·진도·완료·재로그인·계정 격리·철회 차단까지 확인했다. 최초 실패·표적 재개·현재 R2 발행본과 실제 효과 미검증은 [S7 결과](./lcp-story/S7_PILOT.md)를 따른다. 화면·경계는 [ADMIN_CONSOLE §/admin/curation](./ADMIN_CONSOLE.md)·[LCP_STORY §18](./LCP_STORY.md).
+원본 `auto_curate_book` · force-publish · `content_chunks` · `get_chapter_content` 경로는 `story` 를 읽지도 쓰지도 않으므로 Story 판본이 그 길로 새지 않는다.
+원본 쪽의 기존 노출(로그인 사용자의 `content_chunks` 전체 조회 등)은 원본 LCP 결함으로 남아 있다([S3_DB_AUDIT](./lcp-story/S3_DB_AUDIT.md) D5).
+정본 [LCP_STORY](./LCP_STORY.md) · 단계 지시 [lcp-story/IMPLEMENTATION](./lcp-story/IMPLEMENTATION.md).
+
+D2 U1 후속(T-0187): 기존 Story 서가·입구에 편집 판단 부담과 선택적으로 펼치는 저장된 콘텐츠 주의를 연결했다. 새 읽기 RPC는 **승인 v2 적용 완료(원장20261026110732)**이며 없는 환경에서는 안내 조회 실패를 주의 없음과 구분한다. 실제 단어 뜻·원문 대응 도움만 시작 전에 설명하며 제작 기준의 지원 계획을 기능으로 광고하지 않는다. [C06 원천 준비](lcp-story/C06_SOURCE_PREPARATION.md)는 PG269의 특정 전사 바이트 조사까지이고, production snapshot·각색·권리 confirmed·신규 발행은 하지 않았다. [관찰 준비](lcp-story/LEARNER_OBSERVATION.md)는 기존 계측/진도를 재사용하며 실제 사람 자료·새 테이블/이벤트는 없다. [실행 결과](lcp-story/D2_S7_FOLLOWUP.md).
 
 ### Status 흐름
 

@@ -86,6 +86,73 @@ export function curationPage<T>(rows: readonly T[], requested: string | null, pa
   return { page, totalPages, rows: rows.slice((page - 1) * pageSize, page * pageSize) }
 }
 
+// ── 작업 라인: 원본 도서 ↔ 이야기 판본 (LCP Story S4) ─────────────────────────
+// 라인 전환은 `line` 하나만 넣거나 뺀다. 원본 라인의 보기·수집 방식·검색·필터·쪽·선택은 그대로 남아
+// 이야기 판본에 다녀와도 원본 화면이 정확히 되살아난다. 이야기 라인 상태(`story_*`)도 원본 쪽에서
+// 지우지 않는다 — 원본 라인과 adminCurationReturn 은 그 키를 읽지 않는다.
+
+export const CURATION_LINES = [
+  { key: 'original', label: '원본 도서' },
+  { key: 'story', label: '이야기 판본' },
+] as const
+export type CurationLine = (typeof CURATION_LINES)[number]['key']
+
+/** 없거나 모르는 값은 원본 라인이다(기존 URL 은 전부 원본 라인으로 읽힌다). */
+export function curationLine(params: Pick<URLSearchParams, 'get'>): CurationLine {
+  return params.get('line') === 'story' ? 'story' : 'original'
+}
+
+function curationQueryHref(next: URLSearchParams) {
+  const query = next.toString()
+  return query ? `/admin/curation?${query}` : '/admin/curation'
+}
+
+export function curationLineHref(params: { toString(): string }, line: CurationLine) {
+  const next = new URLSearchParams(params.toString())
+  if (line === 'story') next.set('line', 'story')
+  else next.delete('line')
+  return curationQueryHref(next)
+}
+
+const STORY_UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+
+/** 이야기 라인의 보조 패널 — 지금은 후보 파일 패널 하나다. 원문 · 파일 내용은 URL 에 넣지 않는다(식별자만). */
+export const STORY_PANELS = ['files'] as const
+export type StoryPanel = (typeof STORY_PANELS)[number]
+
+export interface StoryLocation {
+  /** 선택한 판본 자리(story_admin_list_slots 의 slot_id). uuid 가 아니면 무시한다. */
+  slot: string | null
+  panel: StoryPanel | null
+}
+
+export function storyLocation(params: Pick<URLSearchParams, 'get'>): StoryLocation {
+  const slot = params.get('story_slot')
+  const panel = params.get('story_panel')
+  return {
+    slot: slot && STORY_UUID_RE.test(slot) ? slot : null,
+    panel: STORY_PANELS.find((item) => item === panel) ?? null,
+  }
+}
+
+/** 이야기 라인 안의 이동. `line=story` 를 보장하고, patch 에 적은 키만 바꾼다(원본 라인 키는 보존). */
+export function storyHref(
+  params: { toString(): string },
+  patch: { slot?: string | null; panel?: StoryPanel | null }
+) {
+  const next = new URLSearchParams(params.toString())
+  next.set('line', 'story')
+  if ('slot' in patch) {
+    if (patch.slot && STORY_UUID_RE.test(patch.slot)) next.set('story_slot', patch.slot)
+    else next.delete('story_slot')
+  }
+  if ('panel' in patch) {
+    if (patch.panel && STORY_PANELS.includes(patch.panel)) next.set('story_panel', patch.panel)
+    else next.delete('story_panel')
+  }
+  return curationQueryHref(next)
+}
+
 /** Batched imports can share a timestamp; an ID tie-breaker stabilizes reloads. */
 export function sortCurationRows<T extends { id: string; updated_at: string }>(
   rows: readonly T[]

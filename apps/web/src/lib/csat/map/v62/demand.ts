@@ -7,9 +7,11 @@
 
 import type { V4View } from '../v4/compose'
 import { CANON_VERSION, checkKeysOfTask, taskOf, templateOf, type TaskId } from '../v4/definition'
+import { supplementOf } from './instructional-supplement'
 import type { StageKey } from '../v4/workspace'
 import { TRANSFER_PASSAGES } from '../v4/workspace'
 import { CHECK_ITEMS, VERIFY_ITEMS } from '../skill-diagnosis'
+import { SOURCE_LESSON_STEPS } from '../source-repair-receipt'
 
 export type MaterialRole = 'source_analysis' | 'model_explanation' | 'guided_practice' | 'independent_check' | 'transfer' | 'delayed_check'
 
@@ -77,11 +79,22 @@ const REQUIRES: Record<MaterialRole, DemandLine['requires']> = {
   delayed_check: { rightsUsable: true, gold: true, unseenByLearner: true, noExplanationBefore: true },
 }
 
-/** 역할별 기본 수량 — 계획량이 있으면 그것, 없으면 정본 규칙의 최소(확정 2 · 재확인 2 · 전이 2지문). 목표 달성 총량이 아니다 */
-function quantityOf(role: MaterialRole, planned: number | null): number {
+/**
+ * 2D — 안내 연습 기본 문항 수 = 실제 교수 청사진의 활동 수. source-lesson v3(`title-route-central-meaning.v3`)의 LESSON_STEPS
+ * 요지 · 제목 · 주제 = **한 지문의 3문항**(3지문이 아니다 · 전이 2지문 · 재확인 2 와 섞지 않는다). 청사진이 없는 TASK 는 1.
+ * 이전 기본 1 로는 DB 가 3활동 주문을 거절했다(factory_order_open: quantity 3 exceeds remaining shortfall 1).
+ * 결과: 창작 안내 연습 재고도 이 줄에서 최대 3까지 납품된다(authored-flow 시험이 2 재고 → 2 납품 + 생산 1 로 고정).
+ * 2E — 수는 공개 단계 이름 목록(SOURCE_LESSON_STEPS · Gold · 모범 답 없음)의 길이다. 교수 JSON 은 import 하지 않는다(브라우저 번들 가드) —
+ * 청사진 LESSON_STEPS 와 같은지는 source-repair-receipt 시험이 확인한다. 단위는 문항이다(지문 · 숙달이 아니다).
+ */
+export const GUIDED_LESSON_ITEMS: Readonly<Partial<Record<TaskId, number>>> = { 'r.central_meaning': SOURCE_LESSON_STEPS.length }
+
+/** 역할별 기본 수량 — 계획량이 있으면 그것, 없으면 정본 규칙의 최소(확정 2 · 재확인 2 · 전이 2지문 · 안내 연습 = 청사진 활동 수). 목표 달성 총량이 아니다 */
+function quantityOf(role: MaterialRole, planned: number | null, task: TaskId): number {
   if (planned !== null && planned > 0) return planned
   if (role === 'independent_check') return Math.max(VERIFY_ITEMS, CHECK_ITEMS)
   if (role === 'transfer') return TRANSFER_PASSAGES
+  if (role === 'guided_practice') return GUIDED_LESSON_ITEMS[task] ?? 1
   return 1
 }
 
@@ -115,13 +128,16 @@ export function buildDemand(view: V4View, task: TaskId, template: string | null,
     task,
     taskKeys: keys,
     csatTypes,
-    quantity: { n: quantityOf(role, role === 'independent_check' || role === 'transfer' ? plan?.quantity.planned ?? null : null), unit: '문항' },
+    quantity: { n: quantityOf(role, role === 'independent_check' || role === 'transfer' ? plan?.quantity.planned ?? null : null, task), unit: '문항' },
     requires: REQUIRES[role],
     reuse: true,
     reason,
   })
   const lines: DemandLine[] = []
-  if (def.status !== 'hold') {
+  // T-0083 — 학습 전용 보조 진입(닫힌 표): 교수 2역할만 · 평가 역할 없음 · 단계/REPAIR 판정을 만들지 않는다(기존 이유 need_without_stage)
+  const supplement = supplementOf(template, task)
+  if (supplement && def.status !== 'hold') for (const r of supplement.roles) lines.push(base(r, 'need_without_stage'))
+  else if (def.status !== 'hold') {
     if (stage) for (const s of STAGE_ROLES[stage]) lines.push(base(s.role, s.reason))
     else if (plan?.need === 'MAINTAIN') lines.push(base('delayed_check', 'maintain'))
     // 단계가 없어도(콘텐츠 없음 · 목표 없음) 교육적 필요가 있으면 확인 수요를 남긴다 — 재고 0 을 「무관」으로 바꾸지 않는다

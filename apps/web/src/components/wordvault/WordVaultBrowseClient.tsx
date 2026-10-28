@@ -15,10 +15,12 @@ import { SpotState } from '@/components/ui/SpotState'
 
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, type ReactNode } from 'react'
 import { FileText } from 'lucide-react'
 
 import { ResourceContext } from '@/components/layout/ResourceContext'
+import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
+import { loginUrlWithReturn } from '@/lib/auth/redirect'
 import { Rule } from '@/components/ui/press'
 import { useListenQueue } from '@/components/wordvault/hooks/useListenQueue'
 import { useSpeech } from '@/components/wordvault/hooks/useSpeech'
@@ -30,11 +32,18 @@ import {
   normalizeQuery,
   parseLevelParam,
 } from '@/lib/wordvault/list-params'
+import { VOCAB_MAP_QUERY_KEYS, vocabMapLink } from '@/lib/csat/map-return'
+import { MapReturnBar } from '@/components/wordvault/WordVaultStudyClient'
 import {
   filterByMemoryState,
   parseStateFilter,
   stateFilterLabel,
 } from '@/lib/wordvault/state-filter'
+import { applySourceFilter, membershipFetchTarget, normalizeSourceFilter, type SetMembership } from '@/lib/wordvault/source-filter'
+import { fetchArticleSetMembership } from '@/lib/wordvault/set-membership-actions'
+import { learnerModalOwnsKeyboard, nativeControlOwnsKey } from '@/lib/ui/learner-keyboard-scope'
+import { currentBrowseHref, sourceStudyHref } from '@/lib/wordvault/source-study'
+import type { SetMembershipPayload } from '@/lib/wordvault/set-membership-query'
 
 import { BrowseSourceBar } from './BrowseSourceBar'
 import { HideToggleBar } from './HideToggleBar'
@@ -65,6 +74,14 @@ interface Props {
   setChips: BrowseChip[]
   /** v06.34 — workspace "단어" pill 에서 ?book&chapter 진입 시 컨텍스트 */
   bookContext?: BookContext | null
+  /** T-0086 — 지도에서 온 목록이면 검증된 복귀 주소(없으면 일반 진입 — 지도 안내 없음) */
+  mapBack?: string | null
+  /** D5-I02 — Story 에서 명시 이동했을 때만 서버가 만든 작은 복귀 줄(없으면 null · 출처를 지어내지 않는다). 지도 복귀와 함께 오지 않는다. */
+  storyReturn?: ReactNode
+  /** 선택한 발행 기사 단어장의 정본 낱말(서버가 본인 세션으로 읽음) — 다른 출처에서 이미 가진 낱말도 그 단어장에 보이게 */
+  setMembership?: SetMembershipPayload | null
+  /** 칩으로 고른 세트의 정본 낱말 조회 — 기본은 서버 Action. 개발 하네스만 합성 응답을 주입한다(프로덕션 화면은 넘기지 않는다). */
+  fetchMembership?: (filter: string) => Promise<SetMembershipPayload | null>
 }
 
 const SET_ACCENT = 'var(--p)' // 보라 — 라이브러리 단어장 정합
@@ -75,10 +92,25 @@ export function WordVaultBrowseClient({
   textChips,
   setChips,
   bookContext,
+  mapBack = null,
+  storyReturn = null,
+  setMembership = null,
+  fetchMembership = fetchArticleSetMembership,
 }: Props) {
+  // 서버가 첫 URL 로 읽어 온 값에서 시작하고, 칩으로 다른 세트를 고르면 그 세트 것을 다시 읽는다(URL 은 그대로).
+  const [membershipPayload, setMembershipPayload] = useState<SetMembershipPayload | null>(setMembership)
+  // 같은 URL 이 다시 검증돼 서버가 새 값을 주면 그것으로 바꾼다(초기값만 쓰면 낡은 정본이 남는다) — 지금 칩이 다른 세트면 아래 조회가 다시 읽는다.
+  useEffect(() => {
+    setMembershipPayload(setMembership)
+  }, [setMembership])
+  const membership: SetMembership | null = useMemo(
+    () => (!membershipPayload ? null : 'error' in membershipPayload ? { setId: membershipPayload.setId, error: true } : { setId: membershipPayload.setId, words: new Set(membershipPayload.words) }),
+    [membershipPayload],
+  )
   const router = useRouter()
   const searchParams = useSearchParams()
-  const initialFilter = searchParams?.get('filter') ?? 'all'
+  // 접두어 없는 uuid(예전 Reader 링크)는 그 글의 text: 범위로 — 전체 목록으로 흘리지 않는다.
+  const initialFilter = normalizeSourceFilter(searchParams?.get('filter'))
   // 허브가 걸어 보내는 목록 파라미터 — 판정은 `lib/wordvault/list-params` 가 소유한다.
   // 2026-08-30 이전에는 읽는 코드가 없어 `?q=`·`?level=` 이 조용히 버려졌다.
   const initialQuery = normalizeQuery(searchParams?.get('q'))
@@ -95,9 +127,11 @@ export function WordVaultBrowseClient({
       // 세션 복귀(?from) 유지 — 챕터 이동 후 reload/bookmark 시에도 닫기 대상 보존.
       const from = searchParams?.get('from')
       if (from) qs.set('from', from)
+      // 지도 문맥도 챕터를 옮겨도 남긴다(T-0086 · 수행 · 문항 ID 는 옮기지 않는다)
+      if (mapBack) for (const k of VOCAB_MAP_QUERY_KEYS) { const v = searchParams?.get(k); if (v) qs.set(k, v) }
       router.push(`/wordvault/browse?${qs.toString()}`)
     },
-    [bookContext, router, searchParams],
+    [bookContext, mapBack, router, searchParams],
   )
 
   const [selectedIds, setSelectedIds] = useState<Set<number>>(new Set())
@@ -131,6 +165,9 @@ export function WordVaultBrowseClient({
 
   const queue = useListenQueue(listenSettings)
   const { speak } = useSpeech()
+  // 목록이 내려가면(계정 경계 무효 · 화면 이동) 흘려듣기 · 낱말 읽기를 멈춘다 — 지운 목록의 낱말을 계속 읽지 않는다.
+  const stopListening = queue.stopQueue
+  useEffect(() => stopListening, [stopListening])
 
   // ── 통합 chip: 전체 + 구독 세트 + 스크립트 ──
   const chips: ScriptChip[] = useMemo(() => {
@@ -147,12 +184,8 @@ export function WordVaultBrowseClient({
   const words = useMemo(() => {
     let list = allWords
     // 1) 소스 필터 (set / text / 기억 상태)
-    if (scriptFilter.startsWith('set:')) {
-      const id = scriptFilter.slice(4)
-      list = list.filter((w) => w.setId === id)
-    } else if (scriptFilter.startsWith('text:')) {
-      const id = scriptFilter.slice(5)
-      list = list.filter((w) => w.textId === id)
+    if (scriptFilter.startsWith('set:') || scriptFilter.startsWith('text:')) {
+      list = applySourceFilter(list, scriptFilter, membership)
     } else if (stateKey) {
       // 기억 상태 필터 — 리본 칩·허브 CTA 가 보내는 `state:*`.
       // 2026-08-29 이전에는 이 분기가 없어 **조용히 전체가 떴다**(state-filter.ts 머리말).
@@ -174,7 +207,7 @@ export function WordVaultBrowseClient({
       list = [...list].sort((a, b) => a.mastery - b.mastery)
     }
     return list
-  }, [allWords, scriptFilter, stateKey, searchQuery, levelFilter, sortBy])
+  }, [allWords, scriptFilter, stateKey, searchQuery, levelFilter, sortBy, membership])
 
   // ── 핸들러 ──
   const handleToggleSelect = useCallback((id: number) => {
@@ -208,7 +241,8 @@ export function WordVaultBrowseClient({
   // ── 키보드 단축키 ──
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.tagName === 'INPUT') return
+      // 입력 · 선택 · 단추 · 링크 · 편집 영역에 포커스가 있거나 PC 모달이 키를 가진 동안은 먹지 않는다(단추의 Space 는 단추를 누른다).
+      if (nativeControlOwnsKey(e.target) || learnerModalOwnsKeyboard()) return
       if (e.code === 'Space') {
         e.preventDefault()
         if (queue.isPlaying) queue.togglePause()
@@ -230,6 +264,20 @@ export function WordVaultBrowseClient({
   useEffect(() => {
     setScriptFilter(initialFilter)
   }, [initialFilter])
+
+  // 조회 함수는 ref 로 — 부른 쪽이 매 렌더 새 함수를 넘겨도 진행 중 조회를 끊고 다시 부르는 루프가 생기지 않게
+  const fetchMembershipRef = useRef(fetchMembership)
+  fetchMembershipRef.current = fetchMembership
+  // 칩으로 기사 단어장을 바꾸면 그 세트의 정본 낱말을 읽는다 — 늦게 온 이전 세트 응답은 버린다.
+  useEffect(() => {
+    const target = membershipFetchTarget(scriptFilter, membershipPayload)
+    if (!target) return
+    let alive = true
+    void fetchMembershipRef.current(`set:${target}`)
+      .then((r) => { if (alive) setMembershipPayload(r ?? { setId: target, words: [] }) })
+      .catch(() => { if (alive) setMembershipPayload({ setId: target, error: true }) })
+    return () => { alive = false }
+  }, [scriptFilter, membershipPayload])
 
   // 필터 변경 시 선택 초기화
   useEffect(() => {
@@ -256,6 +304,20 @@ export function WordVaultBrowseClient({
   }, [stateKey, scriptFilter, activeChip, levelFilter, searchQuery])
 
   return (
+    <>
+      {mapBack && (
+        <MapReturnBar
+          href={mapBack}
+          note="학습 지도 · 기본 의미(V1) 준비 — 여기서 모은 단어가 복습 대상이에요. 모으기 · 복습은 학습 기록이고 지도의 확인 · 해소 근거가 아니에요."
+          next={{ href: vocabMapLink('/wordvault/review', mapBack), label: '모은 단어 복습하기 →' }}
+        />
+      )}
+      {!mapBack && storyReturn}
+      {membership && 'error' in membership && scriptFilter === `set:${membership.setId}` && (
+        <p role="status" data-testid="vocab-set-membership-failed" className="mx-auto max-w-[960px] break-keep px-s-4 pt-s-3 font-body text-[13px] text-t2">
+          이 단어장의 낱말 목록을 확인하지 못해, 이 단어장에서 저장한 단어만 보여요. 다른 곳에서 먼저 모은 같은 낱말은 빠졌을 수 있어요.
+        </p>
+      )}
     <>
       <ResourceContext
         resource={
@@ -314,6 +376,12 @@ export function WordVaultBrowseClient({
                   filterKey={stateKey}
                   count={words.length}
                   onClear={clearStateFilter}
+                  studyHref={sourceStudyHref({
+                    filter: scriptFilter,
+                    query: searchQuery,
+                    level: levelFilter,
+                    from: currentBrowseHref(new URLSearchParams(searchParams?.toString() ?? ''), { filter: scriptFilter, query: searchQuery, level: levelFilter }),
+                  })}
                 />
               )}
 
@@ -341,6 +409,19 @@ export function WordVaultBrowseClient({
                     </Link>
                   )}
                 </div>
+              )}
+
+              {/* ── 출처 목록 → 뜻 떠올리기(자기 평가) — 이 출처 · 검색 · 난이도 그대로, 끝나면 이 목록으로 ── */}
+              {(scriptFilter.startsWith('set:') || scriptFilter.startsWith('text:')) && (
+                <SourceRecallEntry
+                  href={sourceStudyHref({
+                    filter: scriptFilter,
+                    query: searchQuery,
+                    level: levelFilter,
+                    from: currentBrowseHref(new URLSearchParams(searchParams?.toString() ?? ''), { filter: scriptFilter, query: searchQuery, level: levelFilter }),
+                  })}
+                  count={words.length}
+                />
               )}
 
               {/* ── 듣기 옵션 ── */}
@@ -406,6 +487,75 @@ export function WordVaultBrowseClient({
         )}
       </div>
     </>
+    </>
+  )
+}
+
+/**
+ * D5-I02 · T-0191 — 단어장 개인 화면의 계정 경계. 서버가 쿠키 세션(getUser)으로 확인해 그린 목록 · 칩 · 도서 문맥 · 듣기 ·
+ * 복귀 줄은 `viewerId` 의 것이다. 브라우저 신원이 그 사람으로 **긍정 확인(same)** 될 때만 children 을 그린다.
+ * - checking(확인 전 · 기준선 실패 · BFCache 복원 뒤 다시 확인 중): 개인 내용을 그리지 않는다 — 확인 실패를 같은 사람으로 치지 않는다.
+ * - changed(다른 계정 · 로그아웃): children 을 내려 목록을 지우고(듣기도 멈춘다) 다시 열기 · 로그인 길만 둔다. 전역 로그아웃은 하지 않는다.
+ * 판정 기계는 Story 화면과 같은 useStoryAuthGuard(구독 먼저 → 기준선 · 바뀜은 되살리지 않음). uid 는 비교에만 쓴다(DOM · URL 없음).
+ * reopenHref 는 서버가 검증한 문맥만 담은 단어장 주소(Story 복귀 문맥 · 지도 문맥) — 쿼리 uid 같은 것은 없다.
+ */
+export function WordVaultViewerGate({
+  viewerId,
+  reopenHref,
+  authSource,
+  children,
+}: {
+  viewerId: string
+  reopenHref: string
+  /** 시험 · 하네스 주입(없으면 StoryAuthSourceContext → 실제 브라우저 세션). */
+  authSource?: StoryAuthSource
+  children: ReactNode
+}) {
+  const { status } = useStoryAuthGuard(viewerId, authSource)
+  if (status === 'same') {
+    return (
+      <div data-vault-private="shown" className="contents">
+        {children}
+      </div>
+    )
+  }
+  const changed = status === 'changed'
+  return (
+    <div
+      className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center"
+      data-vault-private={status}
+      role="status"
+      aria-live="polite"
+    >
+      <h1 className="sr-only">내 단어장</h1>
+      <h2 className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">
+        {changed ? '로그인 상태가 바뀌었어요' : '로그인한 계정을 확인하고 있어요'}
+      </h2>
+      <p className="break-keep font-body text-sm text-t2">
+        {changed
+          ? '이 화면의 단어 목록과 듣기를 지웠어요. 지금 로그인한 계정으로 다시 열어 주세요.'
+          : '확인이 끝나면 내 단어 목록을 보여 드려요.'}
+      </p>
+      {/* 서버가 지금 쿠키로 다시 그리도록 전체 이동(<a>) — 낡은 화면 상태를 재사용하지 않는다. */}
+      <div className="mt-s-4 flex flex-wrap justify-center gap-2">
+        <a
+          href={reopenHref}
+          data-vault-reopen
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-t1 hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+        >
+          내 단어장 다시 열기
+        </a>
+        {changed && (
+          <a
+            href={loginUrlWithReturn(reopenHref)}
+            data-vault-login
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] px-4 font-display text-[13px] font-[700] text-t2 underline-offset-2 hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          >
+            로그인 화면으로
+          </a>
+        )}
+      </div>
+    </div>
   )
 }
 
@@ -420,5 +570,24 @@ function EmptyAll() {
       primary={{ href: '/library/vocab', label: '공용 단어장 둘러보기' }}
       secondary={{ href: '/text', label: '내 스크립트' }}
     />
+  )
+}
+
+/** 출처 목록의 작은 학습 진입 — 체크 선택이 아니라 지금 목록(출처 · 검색 · 난이도) 전체가 범위다. */
+function SourceRecallEntry({ href, count }: { href: string; count: number }) {
+  if (count === 0) return null
+  return (
+    <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-2" data-testid="vocab-source-recall">
+      <p className="break-keep font-body text-[12px] text-[var(--t2)]">
+        지금 목록의 내 단어 {count.toLocaleString()}개{count > 50 ? ' 중 복습이 급한 50개' : ''}로 기본 뜻을 떠올리고 스스로 매겨요. 체크한 단어만 고르지는 않아요.
+      </p>
+      <Link
+        href={href}
+        data-testid="vocab-source-recall-start"
+        className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+      >
+        이 목록으로 뜻 떠올리기 →
+      </Link>
+    </div>
   )
 }

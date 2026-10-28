@@ -12,40 +12,31 @@
 import { readdirSync, readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 
+import ts from 'typescript'
 import { describe, expect, it } from 'vitest'
 
 const SRC = path.resolve(__dirname, '../../..')
 const RE = /\[var\(--[a-z0-9-]+\)\]\/\d{1,3}(?![\d%])/g
 
-/** 2026-10-19 기준선 — 파일(apps/web/src 기준) → 허용 상한 */
-const BASELINE: Record<string, number> = {
-  'app/(main)/my/books/page.tsx': 1,
-  'app/(marketing)/about/page.tsx': 1,
-  'app/dev/page.tsx': 1,
-  'components/comic/ComicFormatChoice.tsx': 1,
-  'components/diagnostic/DiagnosticClient.tsx': 2,
-  'components/dictation/DictationHubClient.tsx': 1,
-  'components/dictation/DictationResultsClient.tsx': 1,
-  'components/dictation/DictationSessionClient.tsx': 6,
-  'components/dictation/SourcePicker.tsx': 1,
-  'components/echo/EchoMatchPlayer.tsx': 8,
-  'components/game/scriptquiz/ScriptQuiz.tsx': 4,
-  'components/layout/SessionFrame.tsx': 1,
-  'components/library/books/BookDetailClient.tsx': 6,
-  'components/library/browse/ArticleCard.tsx': 1,
-  'components/library/browse/ComicsBrowser.tsx': 1,
-  'components/library/textbooks/SeriesTabs.tsx': 2,
-  'components/pairflip/PairFlipHUD.tsx': 1,
-  'components/recommend/NextActionCard.tsx': 1,
-  'components/text-extract/ExtractionPanel.tsx': 6,
-  'components/text-extract/TokenizationSummary.tsx': 1,
-  'components/textviewer/DiscoveryFooter.tsx': 1,
-  'components/textviewer/MyLibraryCarousel.tsx': 3,
-  'components/textviewer/TextHubContent.tsx': 6,
-  'components/ui/Badge.tsx': 1,
-  'components/ui/ios/GlassBar.tsx': 1,
-  'components/ui/ios/InsetGroup.tsx': 1,
+/**
+ * 설명 주석을 뺀 코드에서만 센다 — 주석은 클래스가 아니다(규칙이 정당한 코드를 걸면 규칙을 고친다 · T-0203).
+ * TypeScript 구문 트리의 잎 토큰(문자열 · 템플릿 조각 · JSX 텍스트 · 식별자 등)만 모은다. 토큰의 getText 는 앞쪽 주석(trivia)을
+ * 포함하지 않으므로 주석만 빠지고 className 문자열 · 템플릿 · cn(...) 인자 · hover: 변형은 그대로 남는다.
+ */
+export function varOpacityHits(source: string, fileName = 'x.tsx'): string[] {
+  const sf = ts.createSourceFile(fileName, source, ts.ScriptTarget.Latest, false, fileName.endsWith('x') ? ts.ScriptKind.TSX : ts.ScriptKind.TS)
+  const parts: string[] = []
+  const visit = (node: ts.Node) => {
+    const kids = node.getChildren(sf)
+    if (kids.length === 0) parts.push(node.getText(sf))
+    else kids.forEach(visit)
+  }
+  visit(sf)
+  return parts.join(' ').match(RE) ?? []
 }
+
+/** 기준선 — 파일(apps/web/src 기준) → 허용 상한. 2026-10-28 T-0203 에서 남은 58곳 · 25파일을 모두 color-mix 로 바꿔 0 이다. */
+const BASELINE: Record<string, number> = {}
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {
@@ -61,8 +52,8 @@ function walk(dir: string, out: string[] = []): string[] {
 describe('변수 색 /N 클래스(칠해지지 않음) — 파일별 상한', () => {
   const counts = new Map<string, string[]>()
   for (const f of walk(SRC)) {
-    const hits = readFileSync(f, 'utf8').match(RE)
-    if (hits) counts.set(path.relative(SRC, f).split(path.sep).join('/'), hits)
+    const hits = varOpacityHits(readFileSync(f, 'utf8'), f)
+    if (hits.length) counts.set(path.relative(SRC, f).split(path.sep).join('/'), hits)
   }
 
   it('기준선에 없는 파일에는 하나도 없다(새 결함)', () => {
@@ -78,5 +69,27 @@ describe('변수 색 /N 클래스(칠해지지 않음) — 파일별 상한', ()
   it('고친 화면 묶음(읽기 · 서가 · 단어장 허브)에는 없다', () => {
     const fixed = [...counts.keys()].filter((f) => /^components\/(workspace|wordvault\/hub)\//.test(f) || /^components\/library\/(LibraryGrid|shared\/NetflixDetailSheet|browse\/(BookFilterBar|BooksExplorer|BookGridCard))\.tsx$/.test(f))
     expect(fixed).toEqual([])
+  })
+})
+
+describe('varOpacityHits — 주석은 세지 않고 코드는 센다', () => {
+  const P = 'bg-[var(--x)]/40'
+  it('한 줄 · 여러 줄 · JSX 주석 안의 패턴은 세지 않는다', () => {
+    expect(varOpacityHits(`// ${P}\n/* ${P} */\nconst a = 1\nexport const C = () => <div>{/* ${P} */}</div>`)).toEqual([])
+  })
+  it('className 문자열 · 템플릿 리터럴 · cn(...) 인자 · hover: 변형은 센다', () => {
+    const src = [
+      `export const A = () => <div className="p-2 ${P}" />`,
+      'export const B = (on: boolean) => <div className={`p-2 ${on ? "' + P + '" : ""} hover:' + P + '`} />',
+      `declare function cn(...a: string[]): string`,
+      `export const C = () => <div className={cn('p-2', 'hover:border-[var(--p)]/30')} />`,
+    ].join('\n')
+    expect(varOpacityHits(src)).toEqual(['[var(--x)]/40', '[var(--x)]/40', '[var(--x)]/40', '[var(--p)]/30'])
+  })
+  it('주석과 코드가 섞여도 코드 쪽만 센다', () => {
+    expect(varOpacityHits(`// ${P}\nconst s = '${P}'`)).toEqual(['[var(--x)]/40'])
+  })
+  it('바꾼 color-mix 표기는 세지 않는다', () => {
+    expect(varOpacityHits(`const s = 'bg-[color-mix(in_srgb,var(--x)_40%,transparent)]'`)).toEqual([])
   })
 })

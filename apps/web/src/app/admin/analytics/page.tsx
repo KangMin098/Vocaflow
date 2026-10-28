@@ -32,19 +32,19 @@ export default async function AdminAnalyticsPage() {
         kpis={[
           {
             label: '오늘 활성',
-            value: fmt(stats.learners.activeToday),
+            value: fmt(stats.learners.verifiedActiveToday),
             icon: Activity,
             accent: 'var(--p)',
             bg: 'var(--bg3)',
-            hint: 'KST 오늘 일별 활동 기록',
+            hint: `검증된 실사용 학습자만 · 전체 계정 오늘 ${fmt(stats.learners.activeToday)}(내부·미분류 포함)`,
           },
           {
-            label: '누적 가입',
-            value: fmt(stats.learners.total),
+            label: '실사용 학습자',
+            value: fmt(stats.learners.verified),
             icon: Users,
             accent: 'var(--p)',
             bg: 'var(--bg3)',
-            hint: '프로필 조회 결과',
+            hint: `검증된 외부 계정만 · 전체 계정 ${fmt(stats.learners.total)}(내부·미분류 포함)`,
           },
         ]}
       />

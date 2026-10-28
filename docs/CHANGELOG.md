@@ -1,5 +1,152 @@
 # CHANGELOG
 
+- fix(practice): 기사 연습 페이지에서 본인 글·판본 검증 통과 뒤 문항 조회가 실패·없음이면 같은 계정 확인 시에만 「읽던 글로 돌아가기」 — 다른 계정·미확인·관문 실패는 기존 글 목록만. DB·채점·기록 불변, 실제 Auth/DB NOT_RUN. T-0206 (bdb4d1db9)
+- feat(practice): MeaningEvidence 견주기 결과 안에서 짚은 문장이 「내 답·견준 선택지·둘 다·어느 쪽도 아님·아직 어려움」 중 무엇을 받치는지 학습자가 직접 판단·수정(채점·기록 없음, 대상·문장 변경 시 초기화, 눌린 버튼 체크 표지). PC 1280/1440 통제 하네스 15·4검사 PASS, 실제 서버·사람 효과 NOT_RUN. T-0205 (b4e4e0188)
+- fix(reader): 기사 읽기 화면에서 연습 조회 실패를 「연습 없음」과 구분 — 「연습 여부를 확인하지 못했어요」 + 같은 글 연습 페이지 링크(화면 안 재호출 없음), 연습 0 은 그대로 표시 없음, 정답·해설 비노출. DB 불변, 실제 Reader route·서버 실행 NOT_RUN. T-0204 (11ee11f58)
+- fix(design): 학습자 화면 무효 투명도 클래스 58곳(25파일)을 color-mix 로 — Tailwind 가 var() 색의 /N 을 생성하지 않아 떠 있는 면 투명(PairFlip 헤더 비침 726→0px)·초점 링 기본 파랑·테두리 기본 회색·그라데이션 미표시였음. ratchet 이 주석을 세지 않도록 TS 파서 기반으로, BASELINE 0. 드러난 대비 저하 2곳(ExtractionPanel 칩·Badge purple)은 기존 토큰으로. 기존 Badge yellow 3.81 은 범위 밖. T-0203 (8c0ea2800)
+- fix(spellforge): 완료 화면 「철자 확인」을 같은 화면 CTA 와 같은 알약 모양으로(inline-flex) — tines 스킨 규칙 일관성. T-0201 보충 (1089c9193)
+- fix(scriptquiz): 결과 화면 오답 항목의 옅은 금색 면이 실제로 그려지게 함(var() 색에 안 먹던 Tailwind 불투명도 → color-mix) — 근거 인용 블록과 면 구분. 원문 바이트 Codex 수용. T-0199 보충 (37bad8a13)
+- fix(spellforge): 완료 화면에서 게임 Enter 단축키를 등록하지 않음 — 「철자 확인」·단어장 링크 Enter 가 마지막 단어를 다시 채점하고 복습 대기를 늘리던 결함(Codex 반례) 해소, 부모 경로 PC 1280/1440 srs_pending 불변. T-0201 보정 (0a04c95e1)
+- fix(a11y): WordBlitz 끝화면 「이 자료의 단어 보기」 초점 링 대비 1.46:1→5.53:1 — 전역 outline 을 덮던 규칙 제거(PC 1280/1440 실측). T-0202 보정 (782d37e5f)
+- feat(wordblitz): 끝화면에 「이 자료의 단어 보기」(범위 set/text 출처 목록) 또는 「내 단어장으로」 — 공용 GameDone 선택 link prop(미지정 시 다른 게임 불변). 기록·DB 없음, 실화면 미확인. T-0202 (0ee7cf2d5)
+- fix(a11y): 학습 계획 「열기」 링크 히트 영역 76×42→70×44 — 1px 테두리 보정(세로 7px·가로 3px), 「구성 닫기」와 겹침 제거. PC 하네스 1280/1440 실측 PASS. T-0196 보정 (c73b80df1)
+- feat(spellforge): 완료 화면에 이 판에서 놓친 낱말(건너뜀·재시도) 다시 떠올리기 — 뜻·유형 먼저, 철자는 「철자 확인」 뒤 공개, 「전체 단어장으로」 연결, 복귀 라벨을 목적지에 맞춤. 기록·평가 불변, 실화면 미확인. T-0201 (36ae7dde0)
+- fix(story): 단어장 복귀 문장 — 낱말 번호가 늦게 와도 한 번만 이동·초점, 복귀 표식과 화면 상태를 현재 계정·판본·단위에 묶음(옛·다른 계정 표식 무시). Codex 반례 해소(PC 하네스 6/6). T-0198 보정 (2c94594e1)
+- feat(r0): WordVault 학습 완료·Flashcard 완료 화면에 「다른 글 살펴보기」(서가) 보조 선택 — 복습 뒤 새 글 고르기, 지도 출처 복습 제외, 기록·DB 없음. 관련 테스트 통과·tsc·lint 0, 실화면 미확인. T-0200 (086a45496)
+- feat(story): 단어장에 다녀오면 담은 낱말이 든 문장을 강조·초점으로 다시 보여 줌(같은 탭 sessionStorage 보조 기억, URL·서버·DB 불변) · feat(scriptquiz): 결과 화면 오답을 근거 문장(앞뒤 맥락 강조)과 대조해 다시 고르기 — 기록·점수·숙달 미산입, 근거 없는 문항은 비활성+이유. 관련 테스트 통과·tsc·lint 0, 실화면 미확인. T-0198·T-0199 (a4255a590 · 8b2276f24)
+- fix(a11y): 학습 계획(열기·구성 닫기)·받아쓰기 결과 링크·단어장 미리보기 발음·구독 토스트 닫기·시리즈 뒤로 터치 영역 44px(보이는 크기 유지, 히트 영역만 확대). 타입·lint 0, 관련 테스트 파일 없음(미실행), 화면 렌더 미확인. Agent Teams 파일럿 T-0196·T-0197 (da3781a50 · 7167de27e)
+- fix(reader): 읽기 화면 단추 터치 영역 44px — 오디오 플레이어 5곳(보이는 크기 유지·히트 영역 확장), 따라 읽기 속도·장 번호·목차·이전/다음 장. 본문 속 문장 재생 단추는 낱말 클릭을 가리지 않도록 제외. 타입·lint 0 · 관련 테스트 통과, 화면 렌더 미확인.
+
+- fix(practice): 기사 연습 칩 단추 최소 높이 36→44px(터치 영역 규칙). 타입·lint 0 · 관련 12파일 88테스트 통과, 화면 렌더 확인 미실행.
+
+- docs(lcp): D7에서 D1~D6/기본 독서 파이프라인과 기존 D4·D5 수용 증거를 대조하고 P0/P1/P2/DEFER를 구분했다. T-0194는 기존 Claude 세션에서 C01 R2 파일럿8문항·면담10·근거18·빈 양식을 준비해 비제작 AI 검토/구조105검사를 수용했다. 본문·열쇠는 Git 밖, 실제 모집·평가·제품/SQL·발행 변경 없음. 내레이터 사용자 SKIP과 사람 효과 미검증을 유지한다. [D7 감사](./lcp-story/LCP_D7_AUDIT.md)
+
+- docs(lcp): D6에서 기술·콘텐츠 AI 검수와 실제 사람/독립 독해 증거를 분리하고, 여섯 유형의 반증 기준·자유 독서 파일럿·D5 왕복 관찰·미노출 병렬형/지연·비교 평가·실제 SR·개인정보 최소화 및 D7 인계를 설계했다. 기존 기술 검증은 재사용했으며 참가자 모집·평가·SQL·발행·제품 변경과 효과 주장은 없다. [D6 평가](./lcp-story/LCP_D6_EVALUATION.md)
+
+- feat(lcp): D5 I01/I02(T-0191) — Story 선택 낱말의 명시 저장(본문·사전 재확인 · manual/text_id null · 기존 FSRS/중복 보존)과 엄격한 판본·단위 단어장 왕복, 전체 단어장 계정 경계·서버 저장 거절·표제어 표시를 수용했다. 실제 dev A1440/B1280 저장·중복·응답 손실 재시도·왕복·계정 전환·철회 안내와 기존 데이터 보존을 확인했다. CLI DNS 실패·건너뛴 검사는 보존하며 SQL·새 이벤트·실제 교육 효과 주장은 없다. [D5 §12.2](./lcp-story/LCP_D5_INTEGRATION.md)
+
+- feat(lcp): D4 UX01~04(T-0190) — Stories 서가 로그인을 고른 판본 입구로 복귀, 입구 정보 순서(첫 문장 · 목표 · 주의 → 시작 → 선택 펼침), 단위 머리 압축 · 맥락 설명 진입, 단어 창 Stories 전용 비모달 초점 · 44px 대체 단추, 「마지막으로 연 단위」 · 공급 인지 완료 행동. 단위 447 · 격리 42 통과, 실제 dev 1440/1280 시작 y826→575.9 · 첫 본문 y453→318. SQL · 이벤트 변경 없음 · SR · 사람 효과 미검증. [D4 구현](./lcp-story/D4_IMPLEMENTATION.md)
+
+- docs(lcp): D4에서 현재 Story 전체 경로와 실제 dev 공개1편·정상 인증1440/1280 화면을 감사하고, 시작 복귀·정보 순서·도움 접근·이어읽기 최소4단위와 클릭 가능한 비교 시안을 설계했다. 기존 S4~S7/T-0187/T-0189를 유지했으며 제품 코드·DB·발행 변경이나 실제 학습자 효과 검증은 없다.
+
+- feat(lcp): D3 W1~W4(T-0189)를 기존 Claude 세션에서 실행해 단위별 접힌 시대적 맥락과 승인 읽기 API v2(dev 원장20261026235109)를 연결했다. 실제 Auth/REST13건·1440/1280·기존 데이터/권한 불변, 352단위/40격리 및 SQL25/0/2 이력을 구분해 기록했다. C01 로컬 비교 표본은 비제작 AI 검수를 수용했고 C06은 권리 선행의 비실행 준비만 수용했다. 신규 발행·사람 파일럿·교육 효과 증명은 없다.
+
+- docs(lcp): D3 여섯 계약·전략별 한계·언어/서사 난도·의미 보존·독립 검수/사람 실증 기준을 코드·dev SELECT·고정 원문에 대조했다. C01 u08 재사용 비교 계획·C06 단일 판본 전략·시대적 맥락 주석 전달 공백과 최소 후속을 정리했으며 새 TASK·SQL·각색 제작·발행·효과 검증은 실행하지 않았다.
+
+- feat(lcp): D2 U1의 시작 전 부담·접힌 콘텐츠 주의·실제 도움 안내와 공개 읽기 RPC 제안을 준비했다(T-0187). 기존 계약에 없던 개수/길이 제한을 제거하고 단위340건·격리 브라우저36건·실제44px 조작 높이를 확인했다. 최신 사용자 승인 v2를 dev 원장20261026110732에 적용해 기존12표/함수 지문 불변과 권한/RLS를 확인했다. C06 원천 바이트·권리 미충족과 기존 계측을 재사용하는 관찰 준비를 기록했으며 신규 발행·사람 학습 효과는 없다.
+
+- docs(lcp): D2 원천·Story 큐레이션을 코드·dev SELECT·공개1440/1280 화면으로 감사하고, 학습자6유형·전략7개·후보15개/우선비교5개·선정 루브릭·최소 구현/실증 계획을 정리했다. 기존 S4~S7 수용과 권리 경계를 보존하며 인기 단위·사전 주의 전달·실독서 증거의 공백을 구분한다. 신규 코드·SQL 적용·콘텐츠 발행·교육 효과 실증은 없다.
+
+- docs(lcp): 대표 Story 1편의 실제 dev 발행·A1440/B1280 인증 독서·진도/완료 분리·재로그인·계정/지연 응답 격리·철회 저장 거부·R2 공개 복구를 수용했다. 원본 자동 검사 실패2건과 진도 무초기화 표적 재개를 보존하고, 옛 불완전 초안의 실제 수정 요청 검수도 기록했다. S5 기술 수용과 사람 학습자 파일럿/교육 효과 미검증·사전 주의 미노출을 분리한다.
+
+- fix(lcp): S7 대표 원천의 고정 본문214문단·권리 근거10개와 사용자 특정 source 권리 결정/AI admin 위임 기록을 분리했다. 독립 재검수가 발견한 동물 위해·도축 안내를 기존 Claude 세션의 r3에서 최소 보완하고 새 독립 AI 검수·실제 validator를 통과했다. 기존 판본·검수 이력을 보존하며 DB 발행·실제 독서 여정과 교육 효과는 별도로 검증한다.
+
+- chore(lcp): 대표 story-b2 1편의 원천·정책·초안과 기존 AI 독립 검수 결과를 서로 다른 정상 dev 인증 계정으로 등록했다(실제 브라우저 14 PASS·0 FAIL, 실행 exit0). 별도 SELECT에서 원천1·정책1·자리2·판1·AI검수1 및 계정 분리·현재 해시 결속을 확인했다. 권리 결정·발행은0이며 실제 발행본 독서·개인 진도 격리·교육 효과는 미검증이다.
+
+- fix(lcp): Story 관리자 초기 목록·번들 읽기를 인증된 `GET /api/admin/library/story`로 분리해 History URL 변경과 읽기 Server Action의 경합을 보완한다. 기존 실제 사용자·활성 스태프·RPC 권한과 등록·검수·발행 경계는 유지한다.
+
+- chore(lcp): 사용자 승인 후 AI 제작 curator·AI 검수 admin·학습자 A/B 개발 계정 4개를 정상 Auth로 생성하고 정확한 역할 DML(SHA `0fe31cfd…a0f4`)을 적용했다. 기존 86개 계정/프로필 지문 불변, 정상 비밀번호·새 SSR 쿠키·권한 검사 23/23을 확인했다. 비밀값은 비공개 `.env*`에 보관하며 권리 confirmed·사람 검수·콘텐츠 발행·교육 효과를 만들지 않았다.
+
+- docs(lcp): 대표 《푸른 석류석》 story-b2 1편을 기존 Claude Code 세션에서 제작하고 별도 Codex 세션이 원문 전체·16단위·활동3개를 AI 독립 검수했다(최종 valid/current approve). AI 콘텐츠 검수가 가능한 기존 계약과 인증 UID 분리·사람 권리 확인 조건을 구분했다. 실제 DB 발행·인증 학습자 전체 여정·교육 효과는 미검증이며 권리 보류를 유지한다.
+
+- feat(lcp): Story S5 SQL r3 사용자 승인 · 적용(2026-10-25) — dev DB 원장 `20261025143031` `lcp_story_s5_reader_context`(승인 SHA `a57ef729…161ab` · 34,577바이트 그대로 · `supabase/migrations/20261025143031_lcp_story_s5_reader_context.sql`). 새 `public.story_reader_context`(읽기 전용 · authenticated 만) · 이벤트 `story_catalog_viewed` · `story_reader_action` 허용(기존 식 보존). 기존 Story RPC 16 · 원본/Story 15표 행 · 정의 지문 불변, 익명 PostgREST 서가 200 · 읽기 문맥 401/42501, CHECK SELECT 평가 62/62. T-0176 코드 `9b39634c5` 독립 수용 · 로컬 main 코드 통합 `1a5253561` · 실제 로컬 Next/RSC PC1440/1280 빈 서가/비로그인 진입 확인. 공유 DB 발행 Story 0 → 인증 live 본문/진도 여정 · 쓰기형 allowlist 시험 · 콘텐츠 적합 · 학습자 파일럿은 미실행이며 학습 효과를 주장하지 않는다.
+- feat(lcp): Story S5(T-0176, 작성자 구현 · 커밋 전) — 학습자 서가 `/library/stories` · 판본 독서 `/library/stories/[releaseKey]?unit=`(명시적 위치 · 단위 완료 · 각색 완독 ≠ 원문 완독 · 판본별 진도 · 요청 시 원문 대응 · 단어 뜻), 이벤트 2종(코드), 격리 브라우저 하네스(working-tree dev 34 통과). 읽기 문맥 RPC · 이벤트 허용 목록 SQL r3 은 미승인 · 미적용이며 committed-HEAD 정식 실행 · live E2E · 실제 학습자 파일럿은 없다.
+
+- feat(lcp): Story S4(T-0174, Codex 독립 수용 · 로컬 main 통합 완료) — `/admin/curation` 작업 라인(원본 도서 / 이야기 판본 `line=story`), 후보 파일 S2 재검사 → 원천 · 편집 기준 · 판본 등록(원자적 아님 · 같은 파일로 재개) → 다른 스태프 검수 → admin 권리 → 명시적 검증 증인(service_role) → 발행 · 철회, 원문 · 판본 · 변경 기록 비교, 도움말 「이야기 판본」, `@vocaflow/library-pipeline/story` exports, 격리 브라우저 하네스(실제 컴포넌트 · 실제 서버 로직 + 가짜 DB, 7 통과). 두 번째 스태프 계정 · 실제 발행 · live 쿠키/RPC E2E 는 없다.
+
+- feat(lcp): 사용자 승인 후 Story 격리 스키마를 dev DB에 MCP로 적용했다(원장 `20261025094450`, 저장 SQL SHA 승인본 일치). 사후 검사 15/15·원본 5표 행/정의 지문 10/10 불변을 확인하고 실제 버전으로 러너·격리 하네스를 결속했다. 관리자/학습자 화면·증인 런타임·사람 파일럿은 남아 있다.
+
+- chore(agents): 사용자 요청으로 dev Supabase MCP 쓰기 연결을 복구했다. SQL 사전 승인·전후 검증은 유지하고 Claude 쓰기는 표준 확인 창을 사용한다. 기존 연결은 재연결이 필요하다.
+
+- feat(lcp): Story S3(T-0169) — live DB 읽기 감사, 격리 `story` 스키마 미적용 SQL(표 12 · RPC 16)·복구 SQL·승인형 러너·격리 하네스, 파일럿 3편 원천·편집 기준 준비. 독립 재현 결함 3건(직접 RPC 의 S2 우회 발행 · 마지막 단위만으로 완독 · 권리 보류 뒤 열람)과 독립 검토 지적(소유자 세션 증명 · 판본 중복 발행 등)을 고쳤다: 발행은 service_role 이 S2 어댑터(`src/story/attest.ts`)로 쓴 현재 결속 증명이 필요하고, 위치와 단위 완료를 나누며, 권리는 열람 때마다 본다. 작성자 검증: PGlite · PostgreSQL 17 격리 실행과 러너 시험 통과. 공유 DB 미적용 · 백엔드 증명 런타임(S4) · 두 번째 스태프 계정 · 사람 파일럿(S7)은 없다. Codex 독립 수용을 완료했다.
+
+- fix(csat): D 공개 자료 품질 가드(T-0171) — 정답 키 별칭 4종(is_correct·answer_no·correctIndex·correct_choice) 중첩 검출, RevealData unitsHash 필수·불일치 거절, answer/answers[]와 verdict=correct 정답 집합 일치 검사. 서버 loader·exporter·reveal 픽스처 7개 갱신, K2-a·K3-a·K4-a fixed(목표 10건 실행), K6-a open 유지. G 도구 복수답 차단은 그대로.
+
+- feat(csat): 듣기 18유형 근거 추적 도구 `/csat/listening`(2023 수능 7·10번 실제 대본, 원음 없음·서버/DB 미검증·합성 표 표기)과 데이터 계약·노출 단계·오답 부분일치 도구·18유형 교수설계·준비도 감사(`docs/csat-listening/`)를 추가했다. 선지·원음·DB 적재는 전 유형 0건이라 BLOCKED_EVIDENCE 로 남긴다.
+
+- docs: 기술정보 목록에 유튜브 제작·운영용 Claude 스킬 11개 자료를 등록했다. 영상·제작자·원본 저장소·MIT 출처와 기능 목록, 설치/실행 미검증 범위를 함께 기록한다.
+
+- feat(csat): 학습 정리를 선택지별 근거 추적과 원리의 적용/반례 분기 비교로 교체했다. 텍스트 덤프 금지와 인지 행동을 유발하는 학습 화면 원칙을 AGENTS·DESIGN·학습 모델에 명시했다. 탐색은 채점/숙달로 집계하지 않는다.
+
+- fix(csat): 사용자 별도 승인한 PT409 보정 SQL을 개발 DB에 적용했다(서버 이력 `20261023061401`, 승인 SHA 일치). 실제 HTTP/RPC 동시성·0분/NULL·RLS·이력 보존, 공용3000의 Workspace PLAN v2 재확정과1440/1280의 수량 있는 주간 일정을 검증했다. 상단의 점수→등급 참고 표시와 부적격 최근 기록의 목표 차이 문구를 제거하고 평가 후 재계획 제안을 기존 확정 경로에 연결했다. 관련194검사·격리 Chromium4검사 후 최신 main에 LOCAL_FAST 통합했다(`1f9ee6709`, 공식 원격 CI는 별도).
+
+- fix(csat): 실제 목표 충돌의40001/PostgREST 재시도를 발견하고 PT409 보정 SQL을 별도 승인 대상으로 준비했다(미적용). HTTP 모듈 재로딩 시409 분류와 오류 오인 방지, 보정 SQL 재실행/정의 변조 거절 등36개 검사를 통과했다. 실환경 목표 저장·PLAN v1까지만 확인했고 전체 종단/최종 통합은 미수용이다.
+
+- feat(db): 사용자 승인 원문 SHA와 동일한 목표 예산 rev2를 개발 DB에 적용했다(서버 이력 `20261023043453`). 명시적 경로·승인·SHA가 하나로 결속된 경우만 허용하는 훅 수정19검사, 기존 목표/PLAN·RLS/트리거 보존과 실제 validator12검사를 통과했다. 전체 제품 수용과 구분한다.
+
+- docs(db): 목표 예산 rev2 사용자 승인과 적용 전·후 점검을 기록했다. 동일 SQL의 복수 워크트리를 구별하지 못한 PreToolUse가 실행을 거절해 DB는 미적용이며, 기존 목표·PLAN·권한/트리거 정의 보존을 재확인했다.
+
+- feat(csat): Claude 후속 네 상태 평가·저장 PLAN 대비 수정안 비교를 단일 목표 계약에 연결했다. 이전 목표별 예산·단계별 실제 링크·동일 날짜 새 시험·달력 변경을 구별하며 확정은 기존 Workspace PLAN 경로를 재사용한다.
+
+- fix(csat): 목표 성과 판정의 재풀이·문항/공유 지문 노출·서울 날짜·미래 기록·등급 미충족 처리를 보완하고 시험 기준 충족과 최종 목표 미확인을 분리했다. 단일 목표/PLAN/일정 계약과 평가 후 재계획 제안을 연결했으며 D-day 카운트다운을 제거했다. 예산 SQL rev2는 미적용 승인 대기다.
+
+- feat(csat): 목표 버전별 주간·요일 예산과 현재 PLAN의 오늘·주간 기간 배분 제안을 추가했다. 예산 저장 SQL은 승인 대기이며 미설치 실패·미배정 사유·기존 실행/재확정 관문을 구별한다. 전체 목표 달성 시스템 완료나 공유 DB 종단 통과를 뜻하지 않는다.
+- feat(csat): 기출 문항 「내 설명」을 시스템 제공 「학습 정리」(핵심 관계·제공 근거·원리/조건/반례·확인 과제 준비 상태·다음 활동)로 바꾸고, 자기 설명·원리 노트·「내 말로」·안내 연습의 서술 작성·대조 관문을 걷었다. 과거 기록은 읽기 전용으로 보존하며 사용자별 콘텐츠 평가는 지원하지 않는다(DECISIONS CL-SL-1 · T-0091).
+
+- fix(csat): 잘 보이지 않던 TASK 연결선을 먹색3px로 강조하고 중간 카드에 가려지지 않게 우회했다. 「아직 확인 전」에 합쳐졌던 시험 분석 대기·근거 부족·기록 없음을 구별하고 「추가 확인」은 다음 활동인 「직접 확인 필요」로 명확히 했다.
+
+- fix(csat): 학습지도 TASK를 개요에서도 높이46px·최대206px로 축소하고, 카드 근접/키보드 포커스에서 연결선을 미리 강조한다. 이탈 시 선택 연결로 복귀하며 주소·Workspace·단일 상세 동작을 보존한다.
+
+- fix(csat): 홈에만 있던 개인 메뉴·기출 찾기를 공통 CsatRail로 옮겨 모든 화면의 메뉴 항목·순서·폭·접힘을 통일했다. 현재 목적지 선택 표시와 옛 유형 화면의 탐구 메뉴 표시를 바로잡았다.
+
+- fix(dev): 3000 서버가 이전 워크트리를 가리켜 CSAT가 구버전으로 보이던 실행 경로를 정본 main으로 복구했다. `dev:check`가 정본 cwd·소유 PID·실제 리스너를 함께 검증한다.
+
+- fix(csat): 첫 진입을 배너와 Workspace 목록 한 작업면으로 정리했다. 목표/기록/지도는 별도 탭, 개인 자료는 왼쪽 메뉴로 옮기고 명시적 학습 복귀와 단일 상세 동선을 보존했다.
+
+- style(csat): 첨부 Recents 기준의 패턴 배너와 중앙 학습 카드를 적용하고 메인에서 간결한 Workspace 목록을 먼저 보여 준다. 행별 박스·중복 범례를 줄이고 단일 상세·실제 실행 동선을 유지한다.
+
+- fix(csat): 학습단위 Workspace를 리스트형으로 고정하고 보드 전환을 제거했다. 행의 단계·수행량·실행·단일 상세 동선은 유지한다.
+
+- fix(csat): PC 중앙 팝업을 참조680×760·머리/바닥56으로 통일하고 기출 찾기 요약을 아래로 배치했다. 지도·Workspace의 반복 설명은 단계 아이콘·자료 수 카드·접힌 안내로, 첫 학습은 흐름 도식으로 줄였다.
+
+- fix(csat): 보라색 일괄 스킨을 중립색으로 복원하고 첨부의 지도·카드 보드·비교 목록·작업면 구획을 적용했다. TASK 상세·근거·Workspace·학습계획은 한 팝업에서 전환하며 단계 근거도 같은 창에 표시한다.
+
+- style(csat): 사용자 첨부 3B 화면 기준의 PC 공통 스킨을 추가해 학습지도·TASK 팝업·기출 찾기 포털·Workspace 목록/모달/작업면을 라벤더/흰 패널과 보라 UI로 통일했다. 선택 밖 노드 블러를 없애고 CSAT 디자인 정본을 갱신했다.
+
+- feat(db): 사용자 직접 승인 후 학습성과 연결 7단계 SQL을 개발 DB에 적용했다(`20261021175340`, 승인/이력 SHA e84a9607). 원장9개·함수35개 권한·기존 이벤트89개/주문/납품/시도 보존 및 해설2건 검토안 일치를 사후 확인했다. 콘텐츠 등록·발행·실제 공급은 0건이다.
+
+- test(learning): 최신 로컬 main과 공장→교수→미노출 평가→실제 재계획·FAST·기존 문항 재사용을 결합 검증했다. 관련1,356개·PC 격리8개·웹/스크립트 타입·전체 빌드 통과. AI 비교 우위는 천장으로 판정 불가이며 7단계 DB 적용 SQL은 승인 대기다.
+
+- fix(admin): FAST는 종합 pass 외에 내용 B/C/D를 각각 통과해야 문제지·해설지를 출력한다. 실제 CLI 편집본 신규 AI 검수/HTML 브라우저 확인, 관련19·격리1 통과. 하네스 타입 경계를 정리해 scripts 타입 검사도 통과했다.
+
+- feat(csat): 3 FAST 빠른 학습지 — `/admin/csat/new/fast` + `POST /api/admin/csat/fast-worksheet`(preview/export, DB 쓰기 없음) + CLI `scripts/textbook/fast-worksheet.mts`(bundle/verify/export). 기존 1B 팩 전체의 순서·발문·선지 편집 → 새 바이트 신규 AI 검수 → 학생용 문제지/교사용 해설지/manifest. 원천은 has_items 만 다를 때만 재사용, FQ·출시 주장 없음.
+- feat(csat): 기존 DCP 두 행을 id·본문·검수 해시에 묶어 영수증만 입고하는 재사용 API/CLI를 구현했다. 내용 B/C/D 미통과는 모든 입고 RPC 전에 차단한다. 두 해설 보완안과 조건부 정방향/복구 DATA SQL은 독립 AI 검수·격리 검증을 마쳤으며 실제 DB 적용은 승인 대기다.
+
+- fix(learning): 실제 AI 응답·독립 반례 검토에 따라 모호한 관계 질문을 보충 세트 v2로 바꾸고 과도한 ‘무관한 문장’ 피드백을 수정했다. 역사적 판본/응답은 보존하며 활성 v2의 두 AI 검토를 해시로 검증한다.
+
+- fix(csat): 공장 자료 재수령과 승인 재응답에 현재 납품·원천 적격·제품주문을 재확인하고 교수 원문 판본의 3활동만 공급한다. 변경 본문/부적격 승인 반례 수정 후 관련41 통과.
+
+- feat(csat): 2F 공장 연습 자료 실제 공급 호출부 — Workspace `FactoryDcpCard` 요청 단추 → `POST /api/csat/factory/request`(서버 수요 재계산 · 학습자 세션 쓰기 · 기존 D3 링크 읽기 확인 · 링크 없으면 주문 보존 대기) → `receiveForLearner`. 관리자 `dcp-admission` `approve` 동작이 등록 공장 후보 결속 확인 뒤 `approveForGuidedPractice` 호출. 계측 `csat_factory_dcp_requested`(보류 SQL CHECK 확장 · 미적용). 격리 PGlite 실제 API→서비스→SQL 확인.
+
+- test(csat): 2E의 복제 계획 저장 코드를 실제 plan POST·composeV4·nextActionOf 호출로 대체했다. 신규 Codex 응답으로 전이·미노출 재확인 후 실제 MAINTAIN 계획 저장, 관련97 통과. 근거/관계 하위 판정 불일치는 원시 AI 증거에 보존했다.
+
+- feat(csat): 2D 원문 안내 연습 수행 영수증(`_pending_source_lesson_repair_receipt.sql` · 보류 SQL) → `loadMapPage` 바로잡기 자료·수행 연결. 같은 목표의 다음 계획 뒤에도 끝난 바로잡기 사실 보존(구계획 신규 열기는 계속 차단) · 안내 연습 기본 수량 = 교수 청사진 3활동. 격리 PGlite 로 check→repair(실제 buildDemand)→원문 교수→transfer 계획 저장 확인. 2E: 영수증 성공 = 세 단계 완료 시각(과거 asOf 재생 반례 수정) · RPC `source_lesson_repair_receipts(p_user, p_as_of)` 본인/service_role 전용 · 권한/DB 오류는 던짐 · 보충 세트 `r5-central-meaning-cycle.v1`(등록 부분집합 정책) 실제 AI 검토 등록 → transfer 2지문 → recheck 새 2 → 다음 계획 저장(격리 PGlite).
+
+- docs(csat): 2C 설명 복원/격리 계획 저장25개 재확인. 목적 검토에서 source 안내 기록의 canonical repair 진행 연결과 실제 compose/route 검증이 빠져 있음을 확인해 2D로 명시했다.
+
+- fix(csat): 교수 설명 저장에 기대 납품을 DB에서 선검사하고 잘못된200을 완료로 처리하지 않게 했다. 제출 답 비교·시범 재시도와 사람 대기 문구도 정리했다(관련79·브라우저4 통과). 독립 평가→재계획은 2C로 이어진다.
+
+- feat(csat): 2C 저장한 원문 설명 재진입 복원(새 채점·INSERT 없음) + 결합 설치 PGlite 종단 — 설명 → AI 검토 5문항 → 같은 Workspace 미노출 혼자 확인 2 → 실제 채점·G2 → 기존 계획 계산 → `learner_workspace_plan_commit` 으로 `check_result` plan_version 2 저장 확인. 새 SQL 없음.
+- feat(csat): 2B 원문 교수 — 요지 전략→저장된 첫 답 뒤 시범→첫 답과 시범 비교 설명 저장→제목 cue→주제 단서 없음·자기 절차를 기존 공장 DCP 화면에 붙였다(`source_lesson_reflection` 추가 전용·evidence=false · `GET/POST /api/csat/factory/[deliveryId]/lesson` · SQL 미적용). 독립 평가→재계획 저장 종단 시험은 남은 일.
+
+- docs(learning): Claude·Codex A/B 역할 요청24회와 사전2회, 두 독립 채점·반례 검토의 원본 증거를 보존했다. 모든 전이 응답 만점으로 교수 우위는 판정 불가이며, 실제 학생 효과·지연 기억·제품 종단 검증으로 사용하지 않는다. 비교 설명 미수집 한계를 2B 설계에 반영했다.
+
+- feat(admin): AI 검수 등록 서비스에 원본 입력·응답·완료 세션을 요구하는 실제 preview/register API를 연결했다. 미리보기 쓰기0·등록은 관리자 본인 세션·관련42 통과. 공유 DB 적용은 미실행.
+
+- feat(csat): 2A 두 AI(Claude·Codex) 검토 영수증으로 창작 R5 v3 중 5문항만 등록→AI 결정→자격·승인→공급→채점→G2 결속하는 경로(`ai-review.ts` · 미적용 `_pending_authored_ai_review.sql`). 사람 결정 0 · 권리 부여 아님 · 결합 설치에서 1C/1D 회귀 통과.
+
+- fix(factory): DCP 미리보기를 실제 중첩 메타데이터 투영과 현재 문항 조회에 맞추고, 납품이 목표·계획 writer와 같은 잠금을 쓰게 했다. 실제 Supabase 기본 권한에서 발견한 영수증 직접 쓰기도 차단했다. 최종 관련 회귀 139 통과·공유 DB 변경 없음.
+
+- feat(factory): 1D 납품된 공장 DCP 지도 연습을 학습자가 Workspace 카드 → `/csat/factory/[deliveryId]`(기존 DcpPlayer) → 서버 제출(실제 `grade_dcp_item`+결속 영수증, 멱등) → Workspace 복귀로 푼다. 보류 SQL `_pending_factory_dcp_learning.sql`(**미적용**). 연습은 근거 아님(evidence=false). 완료 주문의 받은 자료 열기 · 채점 시도 FK/일치 확인 · writer 가드 · 1C 잠금 순서 · 계측 3종 포함. 검증 결과는 `01D-LEARNER-RESULT.md`.
+- feat(factory): 1C 원문 파생 DCP 후보 등록 계획(`dcp-admission.ts`)·관리자/학습자 세션 분리 공급 경계(`dcp-supply.ts`)·CLI `admission-plan`(dry-run)과 보류 SQL `_pending_factory_dcp_admission.sql`(**미적용**)을 추가했다. 격리 PGlite에서 등록→AI 검수 자격→별도 승인→학습자 본인 공급→원문 변경 시 무효까지 확인(신규 16·관련 회귀 258 통과). 공유 DB 쓰기·권리 발급·납품은 없다. Codex 반례 수정: 멱등 자격 RPC `factory_dcp_qualify`(실패·응답 유실 복구)·공급 시 현재 개인 계보+D3 제품주문 링크 원자 검사·관리자 `POST /api/admin/csat/dcp-admission`(preview/admit)·CLI `admission-preview`(관련 315·CLI 20 통과).
+
+- feat(factory): 주문·원문에 결속된 로컬 소량 제작 패킷/검증/HTML·manifest CLI를 추가했다. 실제 문항 3개 제작과 파일 충돌·오류 주입 복구를 확인했다(웹167·CLI18·타입 포함 검사6). 결과는 합성 수요 기반 검토 후보이며 DB 등록·발행·납품은 미실행이다.
+
+- feat(admin): 저장된 Workspace 수요·현재 목표/계획을 검증한 뒤 실제 공장 설계기로 주문 초안을 계산하는 `POST /api/admin/csat/factory-order-draft`와 관리자용 읽기 전용 CLI 추가. 비영속 초안·미검증 대응·생산/납품 미실행을 구분한다. 웹 205·공장 설계 5·Codex 반례 6·CLI 9·호출부 5 통과, DB 변경 없음.
+- docs(audit): 3회차 정기 플랫폼 진단(2026-10-21) — 실가입 1(계정 65 중 합성 64) · 공급:수요 3,855:1(악화) · DB 6,344MB(Pro 8GB의 79%) · 발행 312권은 PD 고전 서사라 F6 미해소 · AIDT 활용 5.2% · 판정 risk. PLATFORM_AUDIT §7.
+
+- 개발 운영: 일반 작업의 TASK 없는 로컬 main 통합과 일일 원격 PR 경로를 공통 지침에 명시하고, 단계별 등록·AI 리뷰·보고 의무의 모호함을 제거했다.
+
 - docs(dev): 후속 환경 실사에서 현재 PR 11개와 과거/신규 24건, 작업트리 75개를 분류하고 기존 충돌 폴더의 파일·인덱스·Git 이력을 독립 백업·실제 복원 검증했다. 브랜치 생성/전환·원격 쓰기·작업트리 삭제 없이 기존 정리 공간을 재사용했다. 새 화면 검증은 Computer Use의 URL 확인 정책 실패로 BLOCKED이며, DB 권한/관계의 읽기 확인을 기능 정상으로 승격하지 않는다.
 
 - fix(ci): 빈 Supabase의 보안 이력 검증에 누락된 정본 트리거 함수 정의를 CI loopback에만 복구한다. 계보 HTTP 자동화 호출을 라우트 검사에 명시하고, 반복 쓰기 검사의 CRLF·끝난 형제 루프·긴 바깥 루프·500행 삭제 배치 판정을 보완했다. 동일 검사기로 main 150/통합본 151을 전량 대조했으며 새 1건은 상한·간격이 있는 TCP claim 종료다. 운영 SQL/DB 변경 없음.
@@ -101,6 +248,101 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(a11y): WordVault 출처 바·PairFlip HUD·진단 닫기·텍스트 분석 발음/업로드/챕터 입력 버튼 히트 영역 44px(보이는 크기 유지, after 의사요소 확장) (d95433b2f)
+- fix(a11y): 학습자 화면 터치 영역 44px — 읽기(RecallCard 발음·BookContext 링크/이전다음·Pagination·VoicePicker) · 만화 리더 기억/다시 볼게요 · 기사 카드 원문 링크(보이는 원 28px 유지, 히트 영역만 확대). ChapterSidebar 링크는 행 밀도 때문에 보류 (b0927f64f · 67efebe5c)
+- fix(practice): 기사 단어 세트 조회 실패(unknown)로 「단어를 몰랐어요」 링크가 읽던 글로 갈 때 문구를 「읽던 글에서 단어 다시 보기」로 — DcpPlayer 선택 prop causeLabel(기본 「복습하기」 불변) (047efe724)
+- feat(flashcard): 카드 뒷면 예문 「듣기」가 현재 영어 예문을 실제로 읽음(useSpeechSynthesis) — 예문·지원 시에만 44px 버튼, 실제 재생 상태, 뒤집기·평가·FSRS 로 전파 없음, 카드/단계 전환·평가·언마운트 시 재생 중·대기 중 음성 모두 취소 (93a6639c6)
+- fix(ui): 공용 Button sm·ButtonGroup sm/md·Input sm 높이를 44px 로(터치 영역 하한) — 실사용 caller(로그인·가입·재설정 Input md)는 높이 불변, 바뀌는 곳은 /dev/components 쇼케이스 (1772436a7)
+- fix(practice): 기사 연습 「단어를 몰랐어요」 복습을 발행 기사 단어장 범위로 — loader 가 Reader §4.7 과 같은 RLS 조회로 발행 library_article 세트를 찾고 Bridge 가 readerSource 로 set: / text: / 조회 오류 시 본문(/text/<id>) 결정 · 신원·채점·복귀 불변 (f1557fb9c)
+- fix(textbook): 교재 연습 완료 문구에서 실력 향상 암시 제거 — 「N문항 중 M문항을 맞혔어요」 + 「교재 수준에 맞춰 고른 안내 연습… 실력이 달라졌는지를 잰 것은 아니에요」(다시 보기 켜짐일 때만 해설 다시 보기 안내) · DcpPlayer·다른 caller 불변 (eba4b0041)
+- fix(practice): 근거 문장이 8개를 넘으면 MeaningEvidence 두 목록을 높이 360px + 내부 스크롤로(「본문 문장 N개 — 목록 안에서 스크롤해 끝까지 볼 수 있어요.」) · 문장·순서·선택·비교·건너뛰기 불변 (7212ae4e9)
+- feat(wordblitz): 끝화면에서 놓친 단어를 당시 질문·내 선택·정답(+단어 예문)으로 대조 — 8개 제한 제거, 처음 놓친 순간 보존, 시간 초과 구분, 끝화면 자체 스크롤 · 점수·기록·FSRS 불변 (f312a1b35 · 406bd6fd7)
+- fix(echo): 계정이 바뀐 뒤 도착한 녹음 결과를 기록하지 않음 — 시도 시작에 계정 세대·글 주인을 고정하고 결과 수신 전에 확인, saveEchoAttempt·recordEchoSound 에 선택 expectedUserId(실제 getUser 와 다르면 쓰기 0) · SQL·공용 guard 불변 (d0559e786)
+- feat(echo): EchoMatch 결과 화면에서 같은 문장의 예시·이번 발화 다시 듣기(ReplayPanel · EchoReplay) — 재생 하나만, 정지·다시·이동·숨김·이탈에서 중단, 늦은 완료 폐기, 호출 시점 계정(useStoryAuthGuard)·문장 내용 키 확인 · 녹음은 이 문장·화면 동안만 메모리에 두고 앱이 저장·업로드하지 않음 · 마이크 안내에서 「즉시 삭제」 제거, 단어 인식은 브라우저에 따라 인식 서비스에서 처리될 수 있음을 명시 · 저장·인식·점수 추가 호출 0 (bcf309f13 · 26a302322)
+- feat(textbook): 교재 연습 계정 경계 + 이미 본 답·해설 다시 보기 — loader 가 서버 getUser owner 를 결속, TextbookPracticeBridge(useStoryAuthGuard)가 checking/changed 에 문항·답·해설을 숨기고 「연습 다시 열기」, 같은 계정에서만 revisit · 서버 gradeTextbookPracticeItem 은 요청 사용자 ≠ 예상 owner 면 grade_dcp_item 전 거부 · DcpPlayer·SQL 불변 (f7edec813)
+- feat(textbook): 교재 연습이 실제 조회 경로(volume | legacy_v_level)를 알린다 — 공통 문항(V레벨 풀)·미확인은 「선택한 교재의 기준 수준으로 고른 공통 문항 · 수록 문제와 같다는 뜻 아님」 안내 뒤 「공통 문항으로 연습하기」 명시 선택, volume 도 인쇄본 일치 약속 없음 · 낡은 「순서·삽입만」 문구 정정 · 채점/RPC/DB 불변, revisit 미적용 (fd947bb9b)
+- fix(recommend): 다음 추천 카드 「시작하기」 포커스 링을 불투명 링 + 배경 간격으로 대비 보강(AppHeader 패턴 재사용) (690a74c4c)
+- feat(practice): 기사 연습 완료 화면에 보조 선택 「다른 글 살펴보기」(→ /library/scripts). DcpPlayer opt-in `nextChoice`(기본 없음), ArticlePracticeBridge 만 켬 · 채점·기록·이벤트 불변 (b2ff21181)
+- fix(wordvault): 목록 전역 단축키(Space 듣기 · H/M 가리기)가 포커스된 입력 · 선택 · 단추 · 링크 · 편집 영역과 PC 모달의 키를 가로채지 않음(`lib/ui/learner-keyboard-scope` `nativeControlOwnsKey`) — 단추 위 Space/Enter 는 단추를 누른다.
+- feat(fit): 예시 읽기 체험 계측 2종 `fit_trial_opened`(직접 열기) · `fit_trial_answered`(로컬 채점 성공) — 속성 `{}` 만, 수신구가 비어 있지 않은 속성을 버림. DB 허용 목록은 이미 적용된 `20261028015035_fit_trial_telemetry_events`(사본만 기록 · 재실행 금지). 체험 기본 꺼짐 유지.
+- feat(recommend): 다음 추천에 설명용 근거 코드(`reason` — due_review · resume_text · practice_flow · explore · unconfirmed, TS 전용 · DB 무변경)와 카드의 짧은 이유 · 「이번 추천은 독해 실력을 측정한 결과가 아니에요.」 · 「다른 자료 고르기」(/library, 주 목적지가 /library 면 생략). 우선순위 · 라벨 · 목적지 불변, 조회 오류 · 예외 · 응답 전은 unconfirmed, 개인 글 근거는 기존 신원 확인 안에서만.
+- feat(fit): 고정 예시 읽기 체험(HERO_PASSAGE 첫 두 문장 · topic 1문항 · 로컬 채점 · attemptId null) — 기본 꺼짐(`NEXT_PUBLIC_FIT_READING_TRIAL=1` 일 때만), 공개 활성화 결정 전 브랜치 준비. 기록 · 이벤트 · 서버 채점 없음.
+- feat(dictation): 결과 화면 문항마다 「다시 듣기」(저장된 정답 문장을 현재 기기 시스템 음성으로 · 행 전환/정지/숨김/이탈 취소 · 영어 음성 없음 안내)와 「당시 피드백」(단어 상태 글자 라벨 + 오류 태그 · 기록 없음/건너뜀 구분). 세션 `user_id` 주인 결속(useStoryAuthGuard) 확인 때만 노출 · 기록 · FSRS · DB 무변경(`lib/dictation/results-relisten` · dev 하네스 `/dev/dictation-results-relisten`).
+- feat(practice): DcpPlayer 완료 화면에 「이미 본 해설 다시 보기 · 안내 복습」(opt-in `revisit` — 기사 연습 다리 · 합성 dev 만). 이번 세션의 채점 성공 문항만 당시 선택 · 해설 · 근거 짚기 그대로, 원인 칩 · 새 채점 · 기록 없음, 점수 불변.
+- fix(csat): 받은 창작 자료(`/csat/learn/[id]`)의 열 수 없음 · 열기 기록 실패 안내 · 로그인 복귀 · 묶음 선택 링크도 지도 복귀 문맥(FI-011 C)을 유지(`lib/csat/authored/learn-return`). FI-010 fail-closed · 권한 · DB 무변경.
+- fix(wordvault): 기억 상태 목록(state:)의 「이 단어로 학습 시작」이 지금 검색 · 난이도와 돌아올 목록을 싣고, `/wordvault/study` 가 상태(요청당 한 시각) → 검색 · 난이도 → 상한 50 순으로 고른다(`scopeStateStudyRows`). 반복 · 모르는 조건은 invalid(로그인 · 다시 열기 포함), 0개 ≠ 조회 실패, 끝 · 중단 · 빈 상태 · 실패에서 같은 조건 목록 복귀. 목록 주소 없는 예전 state: · 출처 · 허브 · 지도 경로 · 계정 guard 무변경.
+- feat(wordvault): 출처 목록(text:/set:)에서 「이 목록으로 뜻 떠올리기」(44px) — `/wordvault/study` 가 Browse 와 같은 범위(applySourceFilter · 기사 membership) → 검색 · 난이도 → 상한 50 순으로 본인 단어만 고르고(`lib/wordvault/source-study`), 잘못된 · 반복 필터는 로그인 · 다시 열기 뒤에도 실패 화면(전체 앞 50 아님) · membership 실패 ≠ 0개 · 끝 · 빈 상태 · 실패에서 같은 목록 복귀. 자기 평가 연습 안내, DB · 채점 · 계정 guard 무변경. 개발 확인 화면 `/dev/wordvault-source-recall`.
+- fix(textfit): 공개 `/fit` 결과 문구를 어휘 커버리지 추정으로 한정 — `fitLevel` null 은 「기준에 닿는 학년을 확인하지 못함(레벨 미확인 낱말 가능)」, 값이 있으면 「어휘 기준 검토 학년(추정)」. 페이지·빈 상태·공유 OG 의 「읽힌다·처음 만나는」 표현 정리. 수치 · 임계 · 공유 payload 무변경.
+- fix(spellforge): 오답 뒤 3초 자동 입력 삭제 제거 — 고쳐 쓰던 입력 · 안내를 학습자가 「다시 입력하기」(44px · 키보드 Tab 도달 · 입력 복귀)를 누를 때까지 유지. 재시도는 그 오답 인스턴스(세대 · 주인)에만 묶여 단어 · 모드 · 계정 전환 뒤 옛 콜백은 무동작, 평가 · 대기열 무변경.
+- feat(reader): 본인이 연 기사 글(`article:<uuid>`)에 보이스가 없어도 「원문 출처 · 도메인」 링크(새 탭 · noopener · 44px) — 기존 기사 조회의 `source_url` 을 공개 http(s) 만 통과(`lib/reader/public-source-href`), 장 표식 출처가 있으면 그쪽 하나만. 신원 경계 안 · DB · 이벤트 무변경. 개발 확인 화면 `/dev/article-source`.
+- fix(lcp): `extractBookLemmas` 대문자 고유명사 가드(문장 중간 Title-case · `Ford's Theatre` 소유격 이름 등장 제외, 헤드라인 문장 예외) + 예문을 고른 `context_pos` 의 첫 등장 문장으로. 출력 형태 불변, 코드만 — 이미 발행된 단어 세트는 재발행(DB 쓰기, 별도 승인) 전까지 그대로.
+- feat(r0): 같은 기사 발췌 연습 화면 `/practice/article/[articleId]` — 준비 모듈(contract · actions · ArticlePracticeBridge) 연결, 본인 글 화면에 검수 후보가 있을 때만 진입 링크. 제출은 loader 가 확인한 계정 · 본인 글 문맥과 지금이 같을 때만 RPC(계정 전환 뒤 B 의 같은 기사 글로 갈아타던 준비 코드 결함 수정), 화면은 신원이 같을 때만 문항 · 결과를 그리고 늦은 응답은 버린다. 실패 사유(설치 대기 · 안 연 글 · 판본 다름 · 문항 없음 · 조회 실패 · 인증 · 정지) 구별. 개발 확인 화면 `/dev/article-practice`.
+- fix(practice): DcpPlayer 오답 원인 1-tap 칩과 원인별 안내 링크 높이 36px → 44px(접근성 터치 대상). 채점 · 기록 무변경.
+- feat(story): 독서 후 선택 「내 단어장 살펴보기」 — 이 화면에서 같은 본인 · 판본 세션으로 낱말을 담았거나(이미 있음 포함) 확인된 때만, 전 단위 표시 뒤 서가 · 다시 읽기 다음 마지막 링크(기존 Story 왕복 주소). 메모리 문맥뿐 · 서버 쓰기 · DB 무변경(LCP_D5_INTEGRATION §12.4).
+- db(r0): 사용자 승인으로 `article_practice_items`(VOA Lincoln 267ef969 title · topic 검수 2문항, 정답 없이) · `submit_article_practice`(본인 글 · 현재 판본 · 후보 확인 → grade_dcp_item) 적용 — migration 20261027201035 · 20261027201103. 함수만, 테이블 · 데이터 변경 없음. 화면 진입점 미구현.
+- feat(recommend): 추천 P2 연결 — 본인이 열어 둔 개인 글(`texts` in_progress · 도서/묶음/출처 표지 없음 · updated_at 최신)을 「<제목> 이어 보기」로(`lib/recommend/own-reading.ts`, SELECT 만). 라벨 「이어 듣기」→「이어 보기」. 개인 글 추천은 그 응답의 계정과 브라우저 신원이 같다고 확인된 때만 그리고(`useStoryAuthGuard`), 확인 중 · 계정 전환 · 로그아웃 · 늦게 온 앞 계정 응답은 개인 글 없는 추천으로. 라이브러리 도서 · 기사 · 묶음 재개는 아직 아님. 개발 확인 화면 `/dev/next-action-identity`. DB 무변경.
+- feat(practice): 의미 선택 근거 짚기(`MeaningEvidence`)에 원래 발문 표시와 「다른 선택지 하나와 견주어 보기」(선택 · 접힘 기본) — 원래 선택지 하나를 고르고 두 선택지가 갈리는 본문 문장을 짚어 해설과 나란히. 판정 · 기록 · 조회 없음, 대상을 바꾸면 짚은 문장 초기화, 문항마다 새로. 제목 · 주제 등 중심 의미 유형만. DB 무변경.
+- fix(dictation): 읽던 글에서 시작한 받아쓰기가 세션 · 결과로 넘어가며 `?from=` 을 잃던 것 — 설정 → 세션 → 결과(완료 자동 이동 · 이미 완료 「결과 보기」) → 같은 자료 재시도에 안전한 from 을 잇고, 결과에 「하던 학습으로 돌아가기」(from 있을 때만). 세션 닫기/Esc 는 기존 SessionFrame 이 같은 from 을 읽는다. 「받아쓰기 홈」 · 「통계」 그대로. 개발 확인 화면 `/dev/dictation-return`. DB 무변경.
+- feat(practice): 삽입 문항 정답 공개에서 해설의 후보 번호(①~⑤ — 인쇄 후보 `pickSlots` 또는 짧은 문항 1..n)를 실제 이음매에 표시(`해설 ②` 표지 · 정답 자리 배지). 채점 뒤 key 로만, 저장 해설의 정답 이음매 문구 · 오답 조각이 현재 본문 · 삽입 문장과 모두 맞을 때만 대응(`library-pipeline/insert-coordinates`) — 다른 writer · 옛 형식 · 범위 밖은 표시 없음. `tail`·`head`·`CIRCLED` 를 `seam-fragments.ts` 로 옮겨 해설 생성기와 공유. 제출 position · 채점 · 저장 해설 · 인쇄 무변경. 개발 확인 화면 `/dev/insert-feedback`. DB 무변경.
+- feat(reader): 따라읽기 패널(`ShadowReadAlong`) 시작 전 · 완료 화면에 같은 글 EchoMatch(`/text/[id]/echo`)로 가는 「내 녹음과 억양 비교」 링크(진행 중 없음 · 자동 이동 · 마이크 요청 없음). 완료 문구를 「N개 문장 따라읽기 연습이 끝났어요」로 — 인식 미지원 · 침묵으로도 완료되므로 발화 · 기억 향상을 말하지 않는다. 개발 확인 화면 `/dev/shadow-echo`. DB 무변경.
+- fix(textbook): 교재 연습(`/library/textbooks/[series]/[step]/practice`)을 마치면 기본값 /hub 대신 같은 교재(권) 화면으로 돌아온다(`DcpPlayer backHref · backCta`). 안내 문구 「순서·삽입 문항」을 실제 공급(선택형 포함)에 맞게 「연습 문항」으로. DB 무변경.
+- fix(seo): 복원 만화 구조화 데이터(`comicIssueJsonLd`)가 모든 호에 Public Domain Mark 를 박던 것을, 그 호의 확인된 판정 근거(`pd_comic_issues.pd_basis`)가 PD 토큰(term-expired · pre-1929 · no-renewal)일 때만 달도록 — explicit-license 는 제외(969호 중 근거 있는 호 131, 전부 no-renewal). DB 무변경.
+- fix(seo): 도서 구조화 데이터(`bookJsonLd`)가 모든 책에 Public Domain Mark 를 박던 근거 없는 라이선스 주장 제거 — `copyright_safe_in_kr` 는 국내 이용 가능 판정이지 퍼블릭 도메인이 아니다(발행 312권 중 CC BY 4.0 21권 · Drone 62772 책별 CC BY 고지). 무료 · 저자 · 제목은 그대로. 기사 · 만화 출력은 범위 밖. DB 무변경.
+- feat(practice): 의미 선택 뒤 「본문 근거 짚기 → 해설과 나란히」 — DcpPlayer 의 중심 의미 유형(title · topic · main_point · summary · purpose · claim · long_title)은 채점 뒤 제출한 답(정답/정답과 다름)을 되짚고, 지문 문장 하나를 짚어 해설과 나란히 본다(`MeaningEvidence` · `lib/learner/meaning-evidence`). 짚은 문장은 판정하지 않고 점수 · 숙달 · SRS 기록을 만들지 않으며 건너뛸 수 있다. 약어(D.C. · Mr.)는 원문 글자를 바꾸지 않고 보호해 나눈다. 맞힌 배너의 「근거를 잘 찾았어요」는 관찰 사실에 맞게 「고른 답이 맞았어요」로. 교재 연습 경로(textbook_practice_items)에 적용 · 오늘 처방(prescribe_today)은 순서/삽입만이라 해당 없음. DB 무변경.
+- fix(security): 받아쓰기 세션 계정 경계 — 세션에 주인(`owner`: 시작 때 확인된 사용자 · DB 복원은 읽힌 행의 user_id)을 저장하고, 세션 화면은 주인과 브라우저 신원이 긍정 확인으로 같을 때만 문장 · 제목 · 입력 · 음성을 쓴다(제출 · 힌트 · 다음 · 재생은 실행 시점 판정). 주인 정보 없는 예전 캐시는 채택 · 삭제 없이 보류 안내. 시작은 자료를 읽은 사람과 시작 시점 사용자가 다르면 하지 않고, 시도 · 완주(세션 통계 · 점수 expectedUserId · FSRS)는 세션 주인과 지금 사용자가 다르면 남기지 않는다. 설정 화면의 자료 미리보기도 같은 경계. DB 무변경.
+- fix(security): 읽기 화면의 「AI 추출 → 내 단어장에 담기」가 저장 시점의 브라우저 사용자로 upsert 해, 계정이 바뀐 뒤 옛 화면에서 A 의 글 단어 · 원문 예문 · text_id 가 B 의 단어장에 들어갈 수 있던 경로 — `ExtractionPanel ownerId`: 저장 시점 사용자와 글 주인이 다르면 담지 않는다(vocabularies RLS 는 user_id 만 본다 · text_id 소유는 DB 가 묶지 않는다 — DB 강제 결속은 별도 승인 후보). 다른 호출부(ownerId 없음)는 그대로. DB 무변경.
+- fix(srs): 연습 화면의 첫 평가가 대기열 주인 해석 전(null)이면 주인 없이 보류돼 영영 반영되지 않던 결함 — `pushOwnedResult`(lib/srs/push-owned): 주인 = 판 주인이면 그대로, 미정이면 계정 경계가 긍정 확인한 이 새 평가만 판 주인 몫으로 명시(`pushPendingResultAs` · 전역 주인 · 예전 주인 없는 항목은 그대로), 다른 사람이면 넣지 않는다. SpellForge · StudyMode · PairFlip 적용. DB 무변경.
+- fix(security): 읽기 화면(/text/[id] 모든 모드 · echo · comic) 계정 경계 — 레이아웃이 실제로 읽은 글의 주인(v_text_content.user_id)과 브라우저 신원이 긍정 확인으로 같을 때만 그린다(`ReaderViewerGate` · `useStoryAuthGuard`). 바뀜 · 재확인 중이면 감추고, 모듈 싱글턴이라 화면이 내려가도 계속 읽던 읽기 음성(tts-controller)을 멈춘다. 개발 하네스 `/dev/reader-identity`. DB 무변경.
+- fix(spellforge): 정답 뒤 멈춤 화면에서 Enter 로 넘어가면 같은 단어의 정답이 한 번 더 확인돼 평가 대기열에 2건이 쌓이던 결함 — success · paused 단계에서는 확인하지 않는다(MicroPause 의 Enter 와 전역 Enter 처리가 함께 받던 것). DB 무변경.
+- fix(security): 글 안의 철자 연습(`/text/[id]?mode=spellforge`)도 같은 계정 경계 — 레이아웃이 실제로 읽은 글의 주인(`v_text_content.user_id`)을 문맥 `ownerId` 로 넘기고, 그 분기를 `GameViewerGate` + `SpellForge viewerId` 로 감싼다(주인을 모르면 로그인한 브라우저에 그리지 않는다). DB 무변경.
+- fix(security): SpellForge 계정 경계 — `/spellforge/play` 의 자료 제목 · 단어 · 입력을 서버가 단어를 읽은 사용자에 결속(`GameViewerGate` 신설 · `GameIdentityNotice`). `SpellForge` 는 정답 · 확인 · 건너뛰기 · 키보드 · 발음(예약 발음 포함)을 실행 시점에 같은 사람이고 대기열 주인이 다른 사람이 아닐 때만 하고, 바뀜 · 확인 중 · 언마운트 때 자기 발화만 멈춘다. 완주 점수는 `expectedUserId`. 개발 하네스 `/dev/spellforge-identity`. DB 무변경.
+- fix(security): PairFlip 결과 화면이 같은 브라우저의 이전 계정 결과(학습한 단어 · 뜻)를 보이던 결함 — 결과에 판 주인(`owner`)을 함께 저장하고, `/pairflip/results` 는 `PairFlipResultsGate` 로 저장 주인과 브라우저 신원이 긍정 확인으로 같을 때만 보인다(바뀜 · 로그아웃 · 재확인 중 감춤). 주인 미상 예전 결과는 지우지도 채택하지도 않고 보류 + 새 판 시작. 결과를 다시 읽어도 기록하지 않는다. 개발 하네스 `/dev/pairflip-results`. DB 무변경.
+- fix(security): WordVault 학습 · 복습 계정 경계 — `/wordvault/study` · `/wordvault/review` 를 서버가 단어를 읽은 사용자에 결속(`WordVaultViewerGate`). `StudyMode` 는 평가 · 키보드 · 발음을 실행 시점에 같은 사람이고 대기열 주인이 다른 사람이 아닐 때만 하고(화면이 내린 뒤 남은 옛 콜백도 막음), 확인 중 · 바뀜 · 언마운트 때 이미 시작한 발화를 멈춘다. 기존 대기열 항목은 건드리지 않는다. 개발 하네스 `/dev/study-identity`. DB 무변경.
+- fix(security): PairFlip 판 계정 경계 — 짝 단어를 읽은 사용자(`viewerId`)에 판을 결속(`useStoryAuthGuard`). same 이 아니면 카드 대신 `GameIdentityNotice`, 카드 클릭 · 힌트는 실행 시점에 경계를 읽어 막고, 타이머는 멈춘다(`usePairFlipSession` `paused`). 완료 · 중도 점수는 `expectedUserId` 를 싣고, 대기열 주인이 판 주인과 다르면 평가를 넣지 않는다. 확인 중에 끝난 판은 같은 사람으로 재확인되면 처리 · 바뀌면 버린다. 개발 하네스 `/dev/pairflip-identity`. DB 무변경.
+- fix(security): 게임 판 계정 경계 — 저장 함수가 저장 **시점**의 사용자로 써서, 다른 탭 로그인 뒤 언마운트 flush · 옛 입력이 A 의 판을 B 의 scores · 카드로 적재할 수 있던 경로. 판의 주인을 단어를 읽은 사람(`useGameWordScope` `viewerId`)으로 고정하고 `useStoryAuthGuard` 로 바뀜을 보면 판을 무효(되살리지 않음)로, 화면은 `GameIdentityNotice` 로 게임을 내린다(play-scaffold · WordBlitz). `recordGameScore` · `recordGameResult` 는 `expectedUserId` 가 지금 사용자와 다르면 쓰지 않는다(권한 증명 아님 · 서버 getUser 유지). 개발 하네스 `/dev/game-identity`. DB 무변경.
+- fix(acp): VOA 적재기가 통신사(AP · Reuters · AFP) 기반 각색 글까지 `PD-Government` 로 표시하던 결함 — 본문 끝 작성 크레딧 문장(통신사와 「이 글」 대상이 같은 문장)을 읽어 원문 단위 표기(evidence `page` · rightsTag `unknown` · 트리거 `restricted`)로 남긴다(`voa-credit.ts`). 원문 보존 · 기존 행 백필 없음(전량 실측 3,547/10,663행 해당 · published 10). DB 무변경.
+- fix(security): 카드 세션 계정 경계 — 다른 탭 로그인 · 로그아웃 뒤에도 옛 카드가 살아 있어 새 평가가 그 사이 바뀐 전역 대기열 주인(`queueOwner`)으로 들어갈 수 있던 경로. `FlashcardViewerGate`(T-0191 과 같은 `useStoryAuthGuard`)가 서버 사용자와 브라우저 신원이 같을 때만 카드 · 본인 글 제목 빈 상태를 그리고, 바뀌면 세션을 내린다(음성 cancel · 키보드 평가 없음 · 되살리지 않음 · 기존 대기 평가 보존). 개발 하네스 `/dev/flashcard-identity`(합성 · 반례 gate=0). DB 무변경.
+- fix(r0): 카드 자료를 불러오지 못한 경우(`fetchScopedFlashcardWords` null — 안 보이거나 조회 실패)를 「단어장이 비어 있어요」로 보이던 결함 — 원인을 단정하지 않는 중립 안내 + 같은 범위 「다시 열기」(검증한 from 만 싣는다) + 읽던 곳. 확인된 0개는 기존 빈 상태 그대로. 다른 단어·SRS 큐로 바꾸지 않는다. DB 무변경.
+- fix(security): 세션 복귀 `?from` open redirect — `sanitizeInternalPath` 가 `/\evil.example`(브라우저가 외부 출처로 읽음)·제어문자·공백·`://` 를 거부하고 URL 해석 출처를 확인한다. SessionFrame 닫기·Esc 도 같은 함수를 쓴다(따로 쓰던 `//` 검사 제거). 카드 빈 상태는 from 이 카드 자신이면 복귀 단추를 보이지 않는다.
+- fix(r0): 읽던 글에서 연 카드의 단어장이 비어 있을 때 빈 상태가 단어장으로만 내보내던 결함 — `/flashcard/play` 빈 상태가 검증된 복귀 주소(`?from` 내부 경로 · `?text`)가 있으면 「읽던 곳으로 돌아가기」를 주 행동으로 보인다(외부·`//` 주소는 버림). Reader 카드 링크의 `from`(ModePills)과 SessionFrame 닫기는 기존 계약 그대로. 빈 상태 글에 `break-keep`. DB 무변경.
+- fix(r0): WordVault 기사 단어장 membership 이 첫 서버 값에만 묶이던 결함 — 같은 URL 재검증으로 서버가 새 정본·오류를 주면 반영한다. 조회 함수는 ref 로 들어 부른 쪽이 매 렌더 새 함수를 넘겨도 조회 루프가 생기지 않는다. 개발 전용 하네스 `/dev/wordvault-membership`(합성 자료 · DB·Auth 없음 · 프로덕션 404)으로 실제 컴포넌트를 PC 1280/1440 실측. DB 무변경.
+- chore(agents): `agents/scripts/local-merge.mjs` — 잠금 결과를 코드에서 확인한 뒤에만 검증 SHA 를 main 에 `--no-ff` merge(잠금 실패·dirty·HEAD 바뀜은 merge 0회, 충돌은 abort 없이 상태·잠금 보존, 이미 포함은 no-op). pipe 로 잇던 옛 절차가 잠금 실패를 삼킨 2026-10-27 사고 재발 방지. 회귀 `local-merge.test.mjs`.
+- fix(r0): 기사 단어장에서 이미 다른 세트·글로 가진 낱말이 빠지던 결함 — 구독은 UNIQUE(user_id, word) 충돌을 건너뛰어 origin 이 남는다. 발행 기사 세트를 고르면 서버가 그 세트 정본 낱말(`shared_words`, 본인 세션)을 읽어 정확히 같은 본인 단어를 함께 보인다(행 복제·뜻 치환 없음, 다른 세트·text: 에는 적용 안 함, 조회 실패는 안내). DB 무변경.
+- fix(r0): 기사로 연 글의 「단어」·카드·게임이 이미 받은 발행 기사 단어장(set:)으로 — 예전엔 도서가 없으면 text: 로 보내 기사 단어장 구독(text_id 없음)이 0 으로 보였다. `readerSource`·`readerScopeQuery` 로 단어 목적지와 게임 범위가 같은 결정을 쓴다. 도서 장·일반 글 의미 유지 · DB 무변경.
+- fix(r0): WordVault 「도서 › N장」 안내·본문 복귀가 보이는 단어의 세트와 다를 수 있던 결함 — `lib/wordvault/book-context.ts` `resolveBookChapter` 가 `filter=set:` 세트의 도서·장 소속과 장 번호 일치를 확인하고, 형식 오류 장 번호(`1junk`)는 절삭 대신 안내 없음. 도서만 진입은 기존 동작. DB 무변경.
+- fix(r0): 읽던 글의 「단어」 가 전체 단어장으로 새던 결함 — Reader 가 `filter=<textId>`(접두어 없음)를 만들고 WordVault 는 그 값을 몰라 전체 목록을 보였다. `lib/wordvault/source-filter.ts` 로 만드는 쪽(`readerWordsHref` → `text:<id>`)과 읽는 쪽(`normalizeSourceFilter`·`applySourceFilter`)을 묶고, 예전 링크(접두어 없는 uuid)도 그 글 범위로 읽는다. DB 무변경.
+- fix(lcp): StoryWeaver 도서 적재가 NC·ND·모르는 라이선스를 성공으로 넘기지 않는다 — `licenseClassOf` 가 public_domain·cc0·cc_by·cc_by_sa 일 때만 적재(DB `lb_compute_kr_safe` 가 `CC%` 를 모두 안전으로 계산하는 문제의 앱 쪽 차단 · 트리거·기존 행 무변경).
+- fix(r0): 퀴즈 결과 화면이 관측한 결과만 말한다 — 「깊이 이해」「인지적 분투는 기억을 단단하게」 제거, 오답 0개에도 뜨던 「오답 단어 학습으로」 → 「전체 단어장으로」, 본인 글·같은 장이 확인된 경우만 「읽던 글로」(도서만이면 「이 도서 입구로」). DB·점수 무변경.
+- fix(r0): 퀴즈 근거 문장 후보에서 장 표식(`CHAPTER n. 제목<RS>원문 URL`) 단락 제외 — 리더와 같은 `parseChapterMarker` 재사용(RS 필수). Fables 실데이터 3장·15문항: 후보 속 메타데이터 0, 피커 12 유지. 본문·DB 무변경.
+- fix(lcp): StoryWeaver 도서 적재기의 라이선스 하드코딩(`CC BY 4.0`) 제거 — `storyweaverBookLicense` 가 뒷장(StoryPage 밖)의 「Released under …」 문장을 ACP 파서(`storyweaverLicense`)로 읽고, 없음·상충(삽화만 다른 조건 등)·알 수 없는 문구면 적재를 멈춘다(검수 필요). 이미 발행된 20권의 권리를 복구하지 않는다 · DB·수집 재실행 없음.
+- fix(reports): 주간 리포트 코멘트가 활동량만으로 「기억을 단단하게」「실력이 돼요」를 단정하던 문구 제거 — `lib/learner/report-note.ts` `composeActivityNote` 가 분·단어·복습 횟수만 말하고 기억·실력 변화는 알 수 없다고 밝힌다. 화면은 저장된 옛 note 대신 저장 합계로 다시 만든다(DB·과거 행 무변경).
+- feat(r0): 퀴즈 채점 뒤 「근거 문장 짚기」(T-0193) — 읽기 화면 Quiz 가 그 챕터·글 퀴즈로(도서 챕터는 `?book&ch&text`), 채점 뒤 본문 문장 4개(등록 근거 1 + 같은 본문 3) 중 근거를 고르고 등록 근거와 대조(오답 판정 아님 · 기록·점수 미반영). 근거가 여러 문장에 걸치거나 본문에 없으면 피커 없이 근거만. 본문은 본인 texts 행·같은 도서·챕터일 때만(`lib/scriptquiz/own-passage.ts`). 범위를 주었는데 문항이 없으면 데모 대신 빈 상태. DB 무변경.
+- fix(r0): 읽기 완료 버튼 저장 중·실패·재시도(T-0192) — `CompleteChapterButton` 이 reject·ok=false 에 role=alert 안내(읽기 위치 보존)와 「다시 시도」, 저장 중 aria-busy·중복 호출 차단, 장이 바뀐 뒤 늦은 응답 무시, 완료 뒤 포커스를 다음 장/BookVault 로, 조작 44px. 저장 액션·RLS·다음 장 로직 무변경. 실측 하네스 `/dev/complete-chapter`(fake 응답 · 프로덕션 404). DB 무변경.
+- fix(e2e): Playwright 산출물 인증 세션 흔적 가림 — `tests/e2e/utils/secret-redact-reporter.ts` 를 모든 설정 reporter 맨 앞에(r5 는 상속). 결과 오류·단계·stdout/stderr·첨부(error-context · trace.zip 항목)를 다른 reporter 가 읽기 전에 `[REDACTED]`, 콘솔 출력·출력 폴더 재점검. trace·스크린샷·비디오·html 리포트는 유지. 로직 `src/lib/utils/secret-redact.ts`(zlib 만, 새 의존성 없음). 2026-10-26 QA 세션 쿠키가 실패 call log 로 노출된 사고 후속.
+- fix(csat): 지도 기출 해부 링크에 결속 분석 판본 map_av 를 싣는 연결(`components/csat/diagnosis/map/study-av.ts` · 판본 모르면 싣지 않음 · `loadMapPage` 가 `v4.studyAnalysisVersions` 를 최신 published 분석 version 으로 공급 — 보류 문항 제외 · 조회 1회) · /csat 홈 「내 학습 공간」 배지 대비 4.36→`--csat-ink2`(T-0186)
+- fix(r0): 공용 기기 계정 전환 시 학습 기록 혼입 차단(T-0172) — CSAT 해부 기록을 계정별 IndexedDB 키로 · 읽기·병합·쓰기와 화면이 쥔 기록을 주인·인증 세대에 결속(전환 뒤 저장 거부), `/api/csat/state` PUT 은 owner 필수(없으면 428 · 다르면 403) · GET 은 owner 동봉. SRS 평가 큐는 평가 시점 인증 주체로 owner 결속(onAuthStateChange · 늦은 세션 응답 폐기), 서버 ACK 항목만 삭제(이탈 전송은 삭제 안 함, 멱등 재전송). Dictation 완주 평가에 검증된 owner. 다른 계정·소유자 불명 옛 기록은 보류(삭제 안 함). 근거 `docs/r0/shared-device/REPORT.md`. DB 무변경.
+- **K6-b 평가용 노출 원장 P6 반영(T-0164)** — `loadExposureLedger` 가 `learning_exposures` 를 7번째 원장으로 읽어, 판단 장면에서 정답을 연 문항(과 같은 지문 문항)이 독립 평가 후보에서 빠진다. 조회 실패·표 없음·잘림은 unknown(fail-closed). DB 무변경.
+- content(csat): 학평 분석 교정 3회차 — 학습자 칸 원문 처리 메모(파서·body_ok·단위 분할) 전량 제거(발행판 포함 0건) · 함정 라벨·지문 밖 근거·근거 번호·정답 노출 교정, 새 버전 35+14+29행 → 독립 3인 재검수 → 게이트 발행. 학평 published 2,728 → 2,792 · in_review 1. 본문 정상·미발행 146 → 111(초안 없음). 2·3회차 DB 적용은 승인형 러너 `scripts/db/csat-content-fix/deploy.mjs`(신규 · 콘텐츠 DML · 마이그레이션 이력 미기록 · --ca). 2026-10-25 사용자 승인.
+- content(csat): 학평 미발행 분석 173문항 독립 검수 509건(블라인드 풀이 불일치 0) → 게이트 발행 +121(학평 published 2,607 → 2,728). 본문 정상·미발행 252 → 146(고1 55 · 고2 50 · 고3 41). 남은 in_review 65 의 주원인은 학습자용 design_intent 에 남은 원문 처리 메모 · 함정 라벨 불일치 · 재분석 미반영. 2026-10-25 사용자 승인·발행.
+- feat(lcp-story): 원본 병행 이야기 판본 라인 S0~S2 — 정본 `docs/LCP_STORY.md` · 단계 지시 `docs/lcp-story/IMPLEMENTATION.md`(S0~S8 상태 · 수용 기준 · 시작 지시) · 도메인 스키마/순수 검증기 `packages/library-pipeline/src/story/`(정본 직렬화 · 원문 앵커 UTF-16 `[start,end)` · 판본/활동/편성 구분 · 원천 판본 정체 해시와 본문 해시 분리 결속 · 번역 권리 · 잘못된 UTF-16 거부 · 불변 release 키) · DB 없는 로컬 CLI `scripts/lcp/story/story.ts`(`export` · `validate` · `plan`) · 합성 fixture. DB · 라우트 · RPC · 화면 변경 없음, 패키지 배럴 미등록. 실제 도서 판본 · 권리 확인 · 사람 검수 · 학습자 파일럿 없음(T-0165, 판정은 수용 기록).
+- content(dict·textbook): 뜻별 예문 한국어역 4,706건 적재(잔량 4,798 중 결함·부적절 예문 92 보류, 독립 표본 480 중 실패 1 반영) · 교재 V5(reading) 3인 검수 2회 456행(1회 80문항 3인 통과 31 · 2회 72문항 통과 36, 떨어진 문항은 loadVolume 이 재고로 교체) · V5 해설 35건. 결함 대부분은 원문 추출(소제목 결합 · 약어 마침표 분할 · 인용 잔재 · 없는 그림 참조). 2026-10-25 사용자 승인.
+- content(dict): 발행 단어장 대표 예문 한국어역 9,050건 적재(잔량 9,073 중 원문 예문 결함 23건 보류) · pending_words 반복 출현 후보 4,675 판정 적재(사전 +1,730 · 고유명사 +137 · 노이즈 +529 · 보류 1,888+361). 독립 표본 검수 실패 0·2건 반영. pending export 페이지 중복·누락 수정(lemma 동률 해소) · 예문 import 기존 번역 덮어쓰기 차단 · 실행별 --dir. 2026-10-24 사용자 승인.
+- **학습지도 기출 목록 ↔ H 연결(T-0159)** — `TaskInspector` 「기출 해부로 공부하기」가 `entriesFor` 로 안 푼 확인·전이 문항과 같은 지문인 연구 사례를 막고(기존 결함), 문항별 추천 이유·판단 능력·목표 관련 사실·「해설 열람 ≠ 혼자 판단」을 보인다. 공급·계획 계산 무변경.
+- fix(csat): 평가원(수능·모평) 원문 수리 경로 연결 — build-corpus 가 `scripts/csat/data/kice-source-repairs.json` 을 공식 문제지 해시 결속으로 입히고, source-repair 가 평가원 ID 를 받는다(한 계획 한 집합). corpus-sync 전체 `--commit` 은 DB 원문과 다른 문항이 있으면 쓰기 없이 멈춘다(2026-10-24 실측 재생성 원장 801 중 534 가 DB 와 다름, `--allow-source-overwrite` 로만 진행). 수리 기록 3건(2017#24 · 2018#24 · M2509#25 선지 ⑤ 끝 잔여물)은 같은 날 사용자 승인으로 개발 DB 에 적용한 값과 같다. T-0153 Codex APPROVE.
+- feat(csat): 기출 원문·근거·선지 결속 계층(대량작업 G, `lib/csat/binding`) — 공통 근거 앵커(span·unit·marker·value·condition·footnote, 판본 basis·precision) · 읽기 전용 어댑터(현재 원문 해시 단위 + 결속된 published 분석만) · 복수 정답·추출 결함·누락 각주·그림 전용 도표 값 검출 · 판본 무효화 · 학습자 PDF sha256 대조 탐색 · 유형별 준비도. 전수 감사 `apps/web/scripts/csat-binding-audit.mts`(DB 읽기 전용). DB·화면 변경 없음.
+- fix(db): 원격 동기화 차단 해소 — 마이그레이션 4건을 개발 DB 적용 이력(버전·본문)에 맞춤(`20261023043453` · `20261023020321` · `20261023061401` · `20261023082930`, 실행 SQL 동일) · 학습 정리 이벤트 2종을 `funnel_events_event_check` 에 추가(`20261024025906`, 사용자 승인 · 그동안 조용히 0건)
+- **CSAT 학습지도↔기출분석 연결(대량작업 H)** — `lib/csat/bridge/`: TASK·NeedRank→기출 진입 어댑터·추천 이유, P6 노출 소비자(X0~X3), 독립 수행 증거 공급·승격 검문, 왕복 문맥(분석 판본), 사고 기능↔TASK 매핑, 통합 격리 시나리오. 공유 화면·DB 무변경, 연결 계약 `docs/csat-learner/bridge-h-contract.md`.
+- fix(csat): 코퍼스 지문 의심 판정에서 학평 요약문(R-SUMMARY)은 (A)·(B) 자리가 있으면 빈칸 표시 없이도 정상 — build-corpus 가 학평 `______` 를 지우면서 같은 유형에 빈칸을 요구하던 모순(학평 요약문 101건 중 약 74건이 이 규칙에만 걸림). 판정 함수를 `scripts/csat/lib-body-suspect.mjs` 로 옮기고 회귀 테스트 추가. DB `body_ok` 반영은 코퍼스 재생성 · 동기화(승인) 뒤
+- feat(csat): 최종 평가 결속 — 학습자가 목표 버전마다 「목표 시험 종류 · 응시일」을 최종 평가로 한 번 정하고(추론 금지), 그날 첫 풀이 live 기록만 goalOutcome 적격성으로 판정(met·not_met·not_judgeable·scheduled·awaiting_record). API `POST /api/csat/diagnosis/map/goal/final-assessment`. 제안 SQL `20261023082930_csat_goal_final_assessment`(추가 전용 테이블 + service_role writer) 2026-10-23 사용자 승인 후 개발 DB 적용(이력 20261023082930) · 실제 인증 종단 6/6.
+- feat(csat): 판단 장면 정답 지연 서버 조회 (b) 제한 구현(T-0147) — 문항 페이지 첫 HTML · RSC 에서 정답 번호 · 정답 근거 · 오답 소거 · 지도 정답/오답 앵커 · 이해 확인 · 비교 선지 번호 · v3 선지 판정 · 설계 주장/한계 · 발문 조건 · 정답 가리키는 의미 단위 · 오답 설계 · 원리 제외. 새 `POST /api/csat/item/[slug]/judgment` 가 노출 원장(`learning_exposure_record`) 커밋 뒤에만 반환(실패 503). 「정답 보기」 · 「계속 듣기(정답 공개)」 · 「전체(정답 포함)」 만 요청. 경계 건너뛰기는 「정답 없이 강의 마치기」.
+- fix(csat): 정답 공개 경로 보정(T-0140 · drain D6) — 경계 앞에는 독립 2인 합의 cue 만(불일치 · UNKNOWN · 검수 미완은 그 앞에서 끊음: 2026#34 경계 3→2, 796→661강 · 넓어진 경계 0). 「정답 직접 안내 전까지」 동의 전 정답 칩 · 정답 근거 · 오답 소거 블록 화면 미표시(「정답 보기」 로 동의). ←/→ · 이전/다음 차례도 경계 검사(`lib/csat/lecture/answer-gate.ts`). 경계 안내에 「이 구간 건너뛰기」(동의 아님). 첫 HTML · props 지연 조회는 판단 장면 (b) 별도.
+- feat(csat): 해설 강의 정답 공개 경로(P1~P5) — 재생 전 「원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지」 선택, 검증된 경계(cue 공개 수준 sidecar v2 결속 · `lib/csat/lecture/disclosure-data.json`)에서 정지 후 계속/멈춤/원문. `GET /api/csat/lecture?scope=until` 이 경계 뒤 cue 를 응답에서 뺌(결속 불일치 409). 레일 오답 소거 번호 마스킹. 강의 진행이 학습자 장면 · 스크롤 · 층 · 포커스를 바꾸지 않음. DB 변경 없음 · 기록 4종(P6) 미구현.
+- feat(csat): 목표 대비 · 재처방 카드를 비교 구조로(T-0110) — 점수 축(목표·기록 표식) · 시험 기록 vs TASK 활동 대조, 재처방은 지금 배정·저장 계획대로·수정안 비교표(오늘의 학습과 같은 지금 값). 점수 충족·등급 미기록 다음 안내 record_grade. 판정·DB 변경 없음.
+- fix(csat): 직접 확인 판정이 코드북 조건을 따른다(T-0096) — E3·R2 객관식 정오만으로 학습 요구 확정 금지, R5 서로 다른 지문, R5·E2 다른 날 재확인(D4-DEC-01: t0 뒤 다른 KST 날짜·12시간, 그 전 pending_delayed). 채점 불변 · DB 변경 없음.
+- feat(csat): 목표 대비 판정 네 상태(기록 없음·판정 불가·미달·충족 — 충족은 한 번의 평가) · 재처방 패널(저장 계획 → 수정안 일정을 goalSchedule·scheduleChanges 로 비교, 확정은 Workspace 기존 관문) · 오늘의 학습 「N일 남음」 제거. DB 변경 없음.
+- feat(csat): 메가스터디 정답률 원장 — 수능 · 모평 · 학평(고1~3) 영어 **전 문항** 정답률 · 선지별 선택비율 · 난이도 · 배점을 `csat_item_response_stats` 에 적재(127회 · 5,715행, migration `20261023020321`). EBSi TOP15(30회 · 450행)만 있던 오답률을 `csat_items` 3,528/3,714 문항으로 넓힌다. 수집 `scripts/csat/rates/fetch-megastudy.mjs` → 정답 키로 회차 · 유형(홀/짝) 대응 `import-megastudy.mjs`.
+- feat(csat-map): 학습 지도 데이터 확대 1차 — 시험·원천·분석·공급 전수 감사 스크립트(`scripts/csat/map/v62/data/coverage-audit.mts`)와 문항↔TASK 40문항×21 A/B 독립 AI 표본(일치 0.789 · κ 0.584, R5·R6 만 확대 기준 충족). 원문은 git 제외 local, 결과는 R1 후보(relevance unknown). DB 변경 0. `docs/csat-learner/v62/data-expansion/`
+- feat(csat-map): 데이터 확대 2차 — 판정 규칙 v2 실측(κ .805, E2·V4 미해결 · v2 미확정)과 R5·R6 평가원·수능 762문항 A/B 확대(R5 κ .889 · R6 direct 이분 κ .953). 시험별 관련 배점 `exam-relevance.json`(R1 후보). 원천 결함 7문항(M2306·M2406 발문 오염) 가드 `duplicate_long_stems`. DB 변경 0.
 - chore(dev): 격리 빌드 사본(`.next-*`) 보존 한도 — `next build` 시작 때 살아 있는 서버 표식·2시간 안 사본·`.next`/`.next-dev`/대상을 빼고 최신 2개만 남긴다. `next start` 도 소유권 표식을 남긴다. 워크스페이스 일괄 정리 `apps/web/scripts/prune-dist-dirs.mjs --root D:/workspace [--apply]`. 한 워크트리에 사본 15개 25.8 GB 가 쌓여 D: 98% 가 된 일(2026-10-21) 재발 방지.
 - chore(dev): 최신 main 기반으로 로컬 integration의 관리자 재구성·주문 계보·사용성 수정을 통합하고 브랜치 연속성/포트 운영을 공통화했다. `wt new`는 공간을 재사용하고 `wt remove`는 잠금·미통합 작업을 보존하며 강제 삭제하지 않는다. #244 팝업/원문 폭, #315 선택 라우터, 연구 검토 원장을 보존하고 개발 DB에 이미 적용된 보안 SQL 2개를 이력 해시 그대로 복원했다(DB 재적용 없음).
 - chore(agents): 개발 자동화 정책v1.2와 PR_SCOPE_GUARD를 추가했다. 저위험 개발 재승인은 줄이고 중대 보안/DB 배포/삭제 통제·필수8체크를 유지한다. 범위 계약의 HEAD/base/커밋 수/정확한 경로를 검증하며 향후 프로젝트 Codex 개발 네트워크 설정을 준비했다. 중앙 공식 통합 경로를 재사용하고 관리형 권한 변경·독립 PR 원격 납품은 미완료다.

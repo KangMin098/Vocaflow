@@ -3,6 +3,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
+import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { X } from 'lucide-react'
@@ -14,6 +15,7 @@ import { MeaningDisplay } from './MeaningDisplay'
 import { MicroPause } from './MicroPause'
 import { ModeSelector } from './ModeSelector'
 import { ReflectionHint } from './ReflectionHint'
+import { bumpRetryEpoch, makeRetry, type RetryEpoch } from './error-retry'
 import { SingleBox } from './SingleBox'
 
 import { useActiveHint } from '@/hooks/useActiveHint'
@@ -22,7 +24,7 @@ import { useIMEDetection } from '@/hooks/useIMEDetection'
 import { useSpellForgeSession } from '@/hooks/useSpellForgeSession'
 import { useTypingMode } from '@/hooks/useTypingMode'
 
-import { SpellForgeCompletion } from './SpellForgeCompletion'
+import { SpellForgeCompletion, type MissKind } from './SpellForgeCompletion'
 
 import { useSessionEscape } from '@/components/layout/session-escape'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
@@ -32,11 +34,8 @@ import { applyReview, createNewCard } from '@/lib/srs'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { spellforgeResultToRating } from '@/lib/srs/rating-mapper'
-import {
-  cacheCard,
-  getCachedCard,
-  pushPendingResult,
-} from '@/lib/srs/session-storage'
+import { cacheCard, getCachedCard, getSrsQueueOwner } from '@/lib/srs/session-storage'
+import { pushOwnedResult } from '@/lib/srs/push-owned'
 import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { blankSurface } from '@/lib/text/surface-match'
 import type { ContentRef } from '@/lib/content/content-ref'
@@ -77,6 +76,14 @@ interface SpellForgeProps {
    * (props 의 `textId` 는 'vocab'|'script'|'all' 같은 세션 키라 콘텐츠 식별에 쓸 수 없다.)
    */
   content?: ContentRef
+  /**
+   * 이 연습의 주인 — 서버가 단어를 읽은 사용자(로그인 없음 = null). 주면 정답 · 건너뛰기 · 확인 · 키보드 · 발음을 **실행 시점**에
+   * 그 사람으로 긍정 확인될 때만 하고(화면 경계 GameViewerGate 가 내린 뒤 남은 옛 콜백 · 예약 발화도 막는다), 완주 점수에 싣는다.
+   * 없으면 기존 동작.
+   */
+  viewerId?: string | null
+  /** 시험 · 하네스 주입(없으면 StoryAuthSourceContext → 실제 브라우저 세션) */
+  authSource?: StoryAuthSource
 }
 
 const SUCCESS_MESSAGES = [
@@ -87,8 +94,30 @@ const SUCCESS_MESSAGES = [
   { icon: '🏆', message: '스펠링 마스터.' },
 ]
 
-export function SpellForge({ textId, textTitle, words, backHref, content }: SpellForgeProps) {
+export function SpellForge({ textId, textTitle, words, backHref, content, viewerId, authSource }: SpellForgeProps) {
   const inputRef = useRef<HTMLInputElement>(null)
+  // ── 연습 주인 결속 ── 전역 대기열 주인은 계정 전환을 따라간다. 옛 A 화면의 새 평가가 B 전환 뒤 들어오면 B 의 큐가 되므로,
+  //   지금 같은 사람으로 확인됐고 대기열 주인이 다른 사람이 아닐 때만 평가 · 발음을 한다(주인 미상 = 보류 항목, T-0172).
+  const { guard, status: authStatus } = useStoryAuthGuard(viewerId ?? null, authSource)
+  const guardRef = useRef(guard)
+  guardRef.current = guard
+  const ownsSession = useCallback(() => {
+    if (viewerId === undefined) return true
+    if (guardRef.current.status !== 'same') return false
+    const q = getSrsQueueOwner()
+    return q === null || q === viewerId
+  }, [viewerId])
+  // 이 연습이 시작해 아직 끝나지 않은 발화 — 바뀜 · 확인 중 · 언마운트 때 그것만 멈춘다(전역 cancel 은 자기 발화가 있을 때만)
+  const ownUtteranceRef = useRef(0)
+  const cancelOwnSpeech = useCallback(() => {
+    if (ownUtteranceRef.current === 0 || typeof window === 'undefined' || !('speechSynthesis' in window)) return
+    ownUtteranceRef.current = 0
+    window.speechSynthesis.cancel()
+  }, [])
+  useEffect(() => {
+    if (viewerId !== undefined && authStatus !== 'same') cancelOwnSpeech()
+  }, [viewerId, authStatus, cancelOwnSpeech])
+  useEffect(() => () => cancelOwnSpeech(), [cancelOwnSpeech])
   // 세션 틀(SessionFrame)이 위에 있으면 나가기는 틀이 맡는다 — 아래 닫기 단추 주석 참조
   const inSessionFrame = isFullScreenRoute(usePathname())
 
@@ -111,7 +140,23 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
   const [pauseInfo, setPauseInfo] = useState<{ icon: string; message: string } | null>(null)
   const [reflectionMsg, setReflectionMsg] = useState('')
   const [showCompletion, setShowCompletion] = useState(false)
-  const errorTimerRef = useRef<NodeJS.Timeout | null>(null)
+  /** 이 판에서 놓친 낱말 — 완료 화면 복기용. 화면 상태일 뿐 기록·평가에 쓰지 않는다. */
+  const [missed, setMissed] = useState<Record<string, MissKind>>({})
+  const markMissed = useCallback((id: string, kind: MissKind) => {
+    setMissed((prev) => (prev[id] === 'skipped' || prev[id] === kind ? prev : { ...prev, [id]: kind }))
+  }, [])
+  // 오답 뒤 「다시 입력하기」 — 세대가 바뀌면(단어 · 모드 · 계정 · 언마운트) 보관된 재시도는 아무것도 하지 않는다
+  const retryEpochRef = useRef<RetryEpoch>({ current: 0 })
+  // 이 오답 한 번에 묶인 재시도 — 단추의 onClick 이 곧 그 인스턴스라, 옛 단어의 보관된 onClick 은 새 단어의 재시도를 부르지 못한다
+  const [retryAction, setRetryAction] = useState<(() => boolean) | null>(null)
+  useEffect(() => {
+    bumpRetryEpoch(retryEpochRef.current)
+    setRetryAction(null)
+  }, [viewerId, authStatus])
+  useEffect(() => {
+    const epoch = retryEpochRef.current
+    return () => bumpRetryEpoch(epoch)
+  }, [])
 
   // §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) — 실 사용자 상태 기반 (decide P1~P4)
   const recommendation = useNextAction()
@@ -136,6 +181,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
 
   // 모드 변경 시 reset
   useEffect(() => {
+    bumpRetryEpoch(retryEpochRef.current)
+    setRetryAction(null)
     setUserInput('')
     if (inputRef.current) inputRef.current.value = ''
     resetFeedback()
@@ -147,6 +194,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
 
   // 단어 변경 시 reset
   useEffect(() => {
+    bumpRetryEpoch(retryEpochRef.current)
+    setRetryAction(null)
     setUserInput('')
     if (inputRef.current) inputRef.current.value = ''
     resetFeedback()
@@ -178,7 +227,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
    * 정답 처리
    */
   const handleSuccess = useCallback(() => {
-    if (!currentWord) return
+    if (!currentWord || !ownsSession()) return
 
     setPhase('success')
 
@@ -200,14 +249,14 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
       module: 'spellforge',
     })
     cacheCard(reviewResult.card)
-    pushPendingResult({
+    pushOwnedResult({
       cardId: reviewResult.card.id,
       word: currentWord.text,
       cardUpdate: cardToUpdatePayload(reviewResult.card),
       rating: reviewResult.log.rating,
       reviewedAt: reviewResult.log.reviewedAt.toISOString(),
       module: 'spellforge',
-    })
+    }, viewerId, () => guardRef.current.status === 'same')
 
     // Rating 기록 (UI 통계용 — 그대로 유지)
     recordRating({
@@ -225,13 +274,16 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
       setPauseInfo(msg)
       setPhase('paused')
     }, 800)
-  }, [currentWord, hintCount, recordRating, result?.errorPositions.length, session.startedAt])
+  }, [currentWord, hintCount, recordRating, result?.errorPositions.length, session.startedAt, ownsSession])
 
   /**
    * Confirm Answer (Delayed/Blind 모드)
    */
   const handleConfirm = useCallback(() => {
-    if (!currentWord || userInput.length === 0) return
+    if (!currentWord || userInput.length === 0 || !ownsSession()) return
+    // 정답 처리 뒤(success → paused)에는 다시 확인하지 않는다 — 멈춤 화면의 Enter(MicroPause 의 「다음으로」)를
+    //   이 문서 전역 Enter 처리도 함께 받아 **같은 단어의 정답을 한 번 더** 기록했다(평가 대기열 2건 · 2026-10-28 실측).
+    if (phase === 'success' || phase === 'paused') return
     if (mode === 'realtime') return
 
     const evalResult = confirm(userInput, currentWord.text)
@@ -241,7 +293,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
     } else {
       handleError(evalResult)
     }
-  }, [currentWord, userInput, mode, confirm, handleSuccess])
+  }, [currentWord, userInput, mode, confirm, handleSuccess, ownsSession, phase])
 
   /**
    * 오답 처리 + Reflection
@@ -249,20 +301,22 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
   const handleError = useCallback(
     (evalResult: ReturnType<typeof evaluateInput>) => {
       setPhase('error')
+      if (currentWord) markMissed(currentWord.id, 'retried')
       setReflectionMsg(generateReflectionMessage(evalResult))
 
-      // 3초 후 reset
-      if (errorTimerRef.current) clearTimeout(errorTimerRef.current)
-      errorTimerRef.current = setTimeout(() => {
+      // 입력 · 안내는 학습자가 「다시 입력하기」를 누르거나 직접 고칠 때까지 남긴다(예전 3초 자동 삭제는 고쳐 쓰던 입력까지 지웠다).
+      //   재시도는 화면만 정리한다 — 평가 · 대기열 · 기록을 만들지 않는다.
+      const retry = makeRetry(retryEpochRef.current, ownsSession, () => {
         setUserInput('')
         if (inputRef.current) inputRef.current.value = ''
         resetFeedback()
         setReflectionMsg('')
         setPhase('typing')
         inputRef.current?.focus()
-      }, 3000)
+      })
+      setRetryAction(() => retry)
     },
-    [resetFeedback]
+    [resetFeedback, ownsSession, currentWord, markMissed]
   )
 
   /**
@@ -287,24 +341,31 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
     (word: string) => {
       if (isAudioPlaying || typeof window === 'undefined') return
       if (!('speechSynthesis' in window)) return
+      // 예약된 발음(정답 200ms 뒤)도 이 시점에 다시 본다 — 그 사이 계정이 바뀌었으면 읽지 않는다
+      if (!ownsSession()) return
 
       setIsAudioPlaying(true)
       const utterance = new SpeechSynthesisUtterance(word)
       utterance.lang = 'en-US'
       utterance.rate = 0.85
-      utterance.onend = () => setIsAudioPlaying(false)
+      ownUtteranceRef.current += 1
+      utterance.onend = () => {
+        ownUtteranceRef.current = Math.max(0, ownUtteranceRef.current - 1)
+        setIsAudioPlaying(false)
+      }
       window.speechSynthesis.speak(utterance)
     },
-    [isAudioPlaying]
+    [isAudioPlaying, ownsSession]
   )
 
   /**
    * 단어 건너뛰기
    */
   const handleSkip = useCallback(() => {
-    if (!currentWord) return
+    if (!currentWord || !ownsSession()) return
     if (window.confirm('이 단어를 건너뛸까요? 다음에 다시 만나게 됩니다.')) {
       // §17 [4] 기억 축 — FSRS applyReview (오답 처리, Again rating)
+      markMissed(currentWord.id, 'skipped')
       const existingCard = getCachedCard(currentWord.id) ?? createNewCard(currentWord.id)
       const reviewResult = applyReview({
         card: existingCard,
@@ -317,14 +378,14 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         module: 'spellforge',
       })
       cacheCard(reviewResult.card)
-      pushPendingResult({
+      pushOwnedResult({
         cardId: reviewResult.card.id,
         word: currentWord.text,
         cardUpdate: cardToUpdatePayload(reviewResult.card),
         rating: reviewResult.log.rating,
         reviewedAt: reviewResult.log.reviewedAt.toISOString(),
         module: 'spellforge',
-      })
+      }, viewerId, () => guardRef.current.status === 'same')
 
       recordRating({
         wordId: currentWord.id,
@@ -336,7 +397,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
       })
       skipWord()
     }
-  }, [currentWord, hintCount, recordRating, skipWord])
+  }, [currentWord, hintCount, recordRating, skipWord, ownsSession, markMissed])
 
   // Esc = 건너뛰기 — 화면이 그렇게 광고한다. 셸도 같은 키로 세션을 닫고 있어서,
   // 예전에는 한 번의 Esc 가 단어를 건너뛰는 **동시에** 세션 밖으로 내보냈다(v08.7 [B1]).
@@ -351,10 +412,15 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
    * Keyboard
    */
   useEffect(() => {
+    // 완료 화면에서는 게임 단축키를 걸지 않는다 — 마지막 단어·입력이 상태에 남아 있어, 「철자 확인」·「전체 단어장으로」의
+    //   Enter 가 preventDefault 된 채 handleConfirm 으로 가서 마지막 단어를 **다시 채점**했다(srs_pending 3→4 · 링크 click 없음,
+    //   2026-10-28 Codex 반례). 버튼·링크의 Enter/Space 는 브라우저 기본 동작에 맡긴다.
+    if (showCompletion) return
     const handler = (e: KeyboardEvent) => {
       const target = e.target as HTMLElement
       const isTextInput = target.tagName === 'TEXTAREA'
       if (isTextInput) return
+      if (!ownsSession()) return
 
       // Tab — 힌트. **다만 Tab 은 이 앱에서 유일한 이동 수단이기도 하다.**
       //
@@ -370,6 +436,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
       if (e.key === 'Tab') {
         if (e.shiftKey) return
         if (target !== inputRef.current) return
+        // 오답 안내 중에는 Tab 이 「다시 입력하기」로 가는 길이다 — 힌트로 삼키지 않는다
+        if (phase === 'error') return
         e.preventDefault()
         triggerHint()
         playWordAudio(currentWord?.text ?? '')
@@ -378,6 +446,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
 
       // Enter — Confirm
       if (e.key === 'Enter' && !e.shiftKey) {
+        // 「다시 입력하기」 단추의 Enter 는 단추 자신의 일이다 — 같은 오답을 다시 확인하지 않는다
+        if (target.closest?.('[data-sf-retry]')) return
         e.preventDefault()
         if (mode === 'delayed' || mode === 'blind') {
           handleConfirm()
@@ -389,7 +459,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
 
     document.addEventListener('keydown', handler)
     return () => document.removeEventListener('keydown', handler)
-  }, [mode, currentWord, triggerHint, handleConfirm, handleSkip, playWordAudio])
+  }, [mode, currentWord, triggerHint, handleConfirm, handleSkip, playWordAudio, ownsSession, phase, showCompletion])
 
   // 자동 포커스
   useEffect(() => {
@@ -416,6 +486,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
         backHref={backHref}
         content={content}
         recommendation={recommendation}
+        viewerId={viewerId}
+        missedWords={session.words.filter((w) => missed[w.id]).map((w) => ({ word: w, kind: missed[w.id] }))}
       />
     )
   }
@@ -515,6 +587,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content }: Spel
           <ReflectionHint
             visible={phase === 'error' && reflectionMsg.length > 0}
             message={reflectionMsg}
+            onRetry={retryAction ? () => void retryAction() : undefined}
           />
 
           {/* Example — 타이핑 중에는 정답 철자를 가린다 (maskSpelling 주석 참조) */}

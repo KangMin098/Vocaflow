@@ -7,6 +7,12 @@
 // ⚠️ RPC 이름은 호출부에서 리터럴로 쓴다(`rpc-call-sites.test.ts` — 권한 감사가 이름을 정적으로 모은다).
 //    그래서 이름을 받는 범용 함수가 아니라 두 호출을 따로 받는다.
 
+/**
+ * 실제로 문항을 고른 경로 — volume = 권 단위 함수(교재의 수준 · 유형 기준), legacy_v_level = V레벨 공통 풀.
+ * 둘 다 인쇄본 수록 문항 목록과의 결속이 아니다(화면이 그렇게 말하지 않는다).
+ */
+export type VolumePracticePath = 'volume' | 'legacy_v_level'
+
 export interface RpcResult {
   data: unknown
   error: { code?: string; message?: string } | null
@@ -28,7 +34,7 @@ export async function fetchVolumePracticeRows(
   calls: VolumePracticeCalls,
   volume: { series: string; step: number; vLevel: number },
   limit: number,
-): Promise<RpcResult & { path: 'volume' | 'legacy_v_level' }> {
+): Promise<RpcResult & { path: VolumePracticePath }> {
   const scoped = await calls.volume(volume.series, volume.step, limit)
   if (!isMissingFunction(scoped.error)) return { ...scoped, path: 'volume' }
   const legacy = await calls.legacy(volume.vLevel, limit)

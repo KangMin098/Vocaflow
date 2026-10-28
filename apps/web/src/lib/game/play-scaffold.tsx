@@ -17,7 +17,8 @@ import { GamePauseControl } from '@/components/game/_shared/PauseControl';
 import { useGameWordScope } from '@/lib/game/use-word-scope';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
 import { gameResourceContext } from '@/lib/game/scope-resource';
-import { recordGameResult } from '@/lib/game/record-result';
+import type { recordGameResult } from '@/lib/game/record-result';
+import { GameIdentityNotice } from '@/components/game/GameIdentityNotice';
 import { contentRefFromScope } from '@/lib/content/content-ref';
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
 
@@ -93,6 +94,12 @@ export function GamePlayScaffold({
     );
   }
 
+  // 판의 계정 경계 — 단어를 읽은 사람과 브라우저 신원이 같을 때만 게임(개인 단어 · 정답 · 입력 · 음성)을 그린다.
+  //   바뀌면 게임을 내린다(언마운트 flush 는 recorder 가 그 판을 무효로 보고 적재하지 않는다).
+  if (session.status !== 'same') {
+    return <GameIdentityNotice status={session.status} />;
+  }
+
   const onExit = () => {
     session.flush();
     router.push(resolveSessionReturnHref(scope.from, scope.text, '/arcade'));
@@ -101,6 +108,8 @@ export function GamePlayScaffold({
   const track = async (word: string, p: Promise<Awaited<ReturnType<typeof recordGameResult>>>) => {
     const res = await p;
     if (!res.ok) return;
+    // 늦게 끝난 결과 — 그 사이 판이 무효 · 확인 중이면 지금 화면의 고지로 반영하지 않는다(서버에 이미 A 로 남은 기록은 그대로)
+    if (!session.active()) return;
     const key = word.toLowerCase();
     // 승격은 학습자 단어장에 **쓰는** 일이라 조용히 하지 않는다(설계안 "A + 승격 알림").
     if (res.promoted && !promotedRef.current.has(key)) {
@@ -126,14 +135,14 @@ export function GamePlayScaffold({
     session.countCorrect();
     void track(
       word.en,
-      recordGameResult({ word: word.en, isCorrect: true, module, assisted: opts?.assisted, content }),
+      session.result({ word: word.en, isCorrect: true, module, assisted: opts?.assisted, content }),
     );
   };
   const onWrong = (word: Word, opts?: ResultOpts) => {
     session.countWrong();
     void track(
       word.en,
-      recordGameResult({ word: word.en, isCorrect: false, module, assisted: opts?.assisted, content }),
+      session.result({ word: word.en, isCorrect: false, module, assisted: opts?.assisted, content }),
     );
   };
 

@@ -1,0 +1,1400 @@
+{
+  "kind": "APPROVED_SHARED_DB_ACTIVATION_VERIFIED",
+  "approved_at_client_date": "2026-10-22",
+  "approval_source": "Current conversation user directly replied 승인 to exact seven-stage SQL and two rationale corrections.",
+  "migration": {
+    "name": "learning_outcomes_ai_factory_activation_approved_20261022",
+    "version": "20261021175340",
+    "sql_sha256": "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d",
+    "statements": 1
+  },
+  "before": {
+    "counts": {
+      "factory_order": 1,
+      "content_qualification": 0,
+      "factory_product_order": 3,
+      "content_release_approval": 0,
+      "workspace_content_demand": 1,
+      "factory_order_product_link": 3,
+      "workspace_content_delivery": 0,
+      "workspace_delivery_attempt": 0
+    },
+    "tables": [
+      {
+        "name": "authored_item",
+        "exists_now": false
+      },
+      {
+        "name": "content_human_decision",
+        "exists_now": false
+      },
+      {
+        "name": "content_human_decision_revocation",
+        "exists_now": false
+      },
+      {
+        "name": "content_ai_decision",
+        "exists_now": false
+      },
+      {
+        "name": "content_ai_decision_revocation",
+        "exists_now": false
+      },
+      {
+        "name": "factory_dcp_admission",
+        "exists_now": false
+      },
+      {
+        "name": "factory_dcp_qualification",
+        "exists_now": false
+      },
+      {
+        "name": "factory_dcp_attempt",
+        "exists_now": false
+      },
+      {
+        "name": "source_lesson_reflection",
+        "exists_now": false
+      }
+    ],
+    "activity": {
+      "active": 1,
+      "active_over_30s": 0
+    },
+    "functions": [
+      {
+        "name": "csat_source_is_eligible",
+        "arguments": "p_article_id uuid",
+        "body_sha256": "25b66dcd32ad783fabd4a0a48690f5c589cefeef8c1cb562b783485bcc8c72e4"
+      },
+      {
+        "name": "factory_lineage_personal_current",
+        "arguments": "p_order uuid",
+        "body_sha256": "5c8f195da8f91446cd7d7b139f4509bace5120ecba48b5a6b9a66d66c85fb8f1"
+      },
+      {
+        "name": "learner_workspace_plan_commit",
+        "arguments": "p_user uuid, p_template text, p_template_tasks text[], p_canon text, p_plan jsonb, p_reason text, p_note text, p_as_of timestamp with time zone, p_goal_version bigint, p_expected_version integer, p_client_key uuid, p_restore_of integer",
+        "body_sha256": "ab825ba7c816c80169306a7d0b5071d0dd320a2c58eaf05148efdcb3934c803b"
+      },
+      {
+        "name": "supply_artifact_revision",
+        "arguments": "p_kind text, p_ref text",
+        "body_sha256": "3bf007e893ee7a3b5b85e3bece0547e7caa0d2be376de61667bce1170f0c8501"
+      },
+      {
+        "name": "workspace_delivery_attempt_record",
+        "arguments": "p_delivery uuid, p_attempt bigint, p_request_key uuid",
+        "body_sha256": "48f45877db328d9fd4a6c9f0b02d924d0b0ef76962bb0232b7ab7f4b24b8aa70"
+      },
+      {
+        "name": "workspace_delivery_record",
+        "arguments": "p_line uuid, p_order uuid, p_qualification uuid, p_approval uuid, p_request_key uuid",
+        "body_sha256": "57f7794aa426ce17c63f2a46482232979deae8cbb27d7c5ec62b0c04ace7d1aa"
+      }
+    ],
+    "observed_at": "2026-10-21T17:49:08.860077+00:00",
+    "rationale_rows": [
+      {
+        "id": "33ee70d0-d812-49b1-9098-d97f7aaee5af",
+        "type": "topic",
+        "attempts": 0,
+        "item_role": "practice",
+        "answer_sha256": "2fdabbd16a92b763f28b858d62cd53ed29ecc02cac1dde78a91684eab58fbb4e",
+        "paragraph_idx": 0,
+        "payload_sha256": "a23f3d0c8f7b92f910ebf4a1fb316b9b3ebc0ac40d9490c1b91baa1b597d8269",
+        "qualifications": 0
+      },
+      {
+        "id": "4dbcca67-2e17-4e96-a2d1-9d513b4b87b6",
+        "type": "title",
+        "attempts": 0,
+        "item_role": "practice",
+        "answer_sha256": "22f9c79b4d320496f425741b7224271b577d8a5c92c46de50ced448af96d5362",
+        "paragraph_idx": 0,
+        "payload_sha256": "21bb9ea4c343560ccbe1a880c3020d1f22f89454d8d41693270daba4b0391ca1",
+        "qualifications": 0
+      }
+    ],
+    "latest_migrations": [
+      {
+        "name": "factory_product_order_lineage_v1",
+        "version": "20261020063000"
+      },
+      {
+        "name": "r5_delivery_g2_binding",
+        "version": "20261018120100"
+      },
+      {
+        "name": "workspace_supply_c_annotation_binding",
+        "version": "20261018120000"
+      },
+      {
+        "name": "factory_i1_db2_partial",
+        "version": "20261017200100"
+      },
+      {
+        "name": "factory_i1_db1_supply_foundation",
+        "version": "20261017200000"
+      },
+      {
+        "name": "funnel_allow_csat_meaning",
+        "version": "20261014091841"
+      },
+      {
+        "name": "reading_production_agent_reviewer",
+        "version": "20261011094405"
+      },
+      {
+        "name": "csat_dcp_items_specialized_types",
+        "version": "20261011075550"
+      }
+    ],
+    "checkpoint_functions": [
+      "db_health_checkpoint_diff",
+      "record_db_health_checkpoint"
+    ],
+    "source_content_sha256": "33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f"
+  },
+  "after": {
+    "counts": {
+      "factory_order": 1,
+      "content_qualification": 0,
+      "factory_product_order": 3,
+      "content_release_approval": 0,
+      "workspace_content_demand": 1,
+      "factory_order_product_link": 3,
+      "workspace_content_delivery": 0,
+      "workspace_delivery_attempt": 0
+    },
+    "migration": {
+      "name": "learning_outcomes_ai_factory_activation_approved_20261022",
+      "version": "20261021175340",
+      "sql_sha256": "e84a960723766efc6c798ae09307d8a9e776e46b4d3e7d6f937966a54b312d8d",
+      "statements": 1
+    },
+    "new_tables": [
+      {
+        "rls": true,
+        "name": "authored_item",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      },
+      {
+        "rls": true,
+        "name": "content_human_decision",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      },
+      {
+        "rls": true,
+        "name": "content_human_decision_revocation",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      },
+      {
+        "rls": true,
+        "name": "content_ai_decision",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      },
+      {
+        "rls": true,
+        "name": "content_ai_decision_revocation",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      },
+      {
+        "rls": true,
+        "name": "factory_dcp_admission",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      },
+      {
+        "rls": true,
+        "name": "factory_dcp_qualification",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      },
+      {
+        "rls": true,
+        "name": "factory_dcp_attempt",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      },
+      {
+        "rls": true,
+        "name": "source_lesson_reflection",
+        "exists": true,
+        "anon_select": false,
+        "service_mutation": false,
+        "authenticated_direct_write": false
+      }
+    ],
+    "observed_at": "2026-10-21T17:54:18.470518+00:00",
+    "rationale_rows": [
+      {
+        "id": "33ee70d0-d812-49b1-9098-d97f7aaee5af",
+        "type": "topic",
+        "payload": {
+          "choices": [
+            "why songs and stories are harder to name than paintings are",
+            "the way a title sets a route for the eye and shapes the work",
+            "why gallery visitors tend to notice the sky in a painting first",
+            "the need to attach a title only after the work is fully finished",
+            "the modern habit of leaving a finished piece without any name"
+          ],
+          "passage": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background. The same is true of a song or a story, since a name at the top decides what counts as the subject. For this reason a title is not a label stuck on after the work is done. It belongs to the work, and choosing it is a real decision. Some artists refuse to name a piece at all, and that refusal is a choice too, because it hands the route back to the viewer.",
+          "stem_ko": "다음 글의 주제로 가장 적절한 것은?",
+          "underline": null,
+          "choice_language": "en",
+          "summary_sentence": null
+        },
+        "attempts": 0,
+        "answer_key": {
+          "answer": 2,
+          "rationale_ko": "글은 같은 그림에 다른 제목을 붙이는 가정 사례로 시선의 차이를 보여 준 뒤 \"a title tells the eye where to begin\"이라고 설명하고, 제목에 대해 \"It belongs to the work, and choosing it is a real decision.\"이라고 판단한다. 중심은 제목이 감상의 경로를 정하고 작품의 일부로 작용한다는 것이므로 ②가 주제다. ①의 노래·이야기와 그림 사이 명명 난도 비교는 글에 없다. ③의 관람객 전반이 하늘을 먼저 보는 경향도 글의 주장이 아니다. 원문은 제목에 따라 한 집단은 하늘, 다른 집단은 구석 인물을 본다는 사례를 든다. ④는 제목을 완성 뒤에만 붙여야 한다는 권고로, 제목을 사후에 붙는 표지로 보지 않는 글의 판단과 어긋난다. ⑤는 일부 작가의 무제 선택이라는 마지막 사례를 현대의 일반 습관으로 넓히며 글 전체의 중심을 대신한다."
+        },
+        "answer_sha256": "2d645efc60d70054f96ecce4089f589d71c3af489198bf46dd6115e3c92180c7",
+        "payload_sha256": "a23f3d0c8f7b92f910ebf4a1fb316b9b3ebc0ac40d9490c1b91baa1b597d8269"
+      },
+      {
+        "id": "4dbcca67-2e17-4e96-a2d1-9d513b4b87b6",
+        "type": "title",
+        "payload": {
+          "choices": [
+            "How a Title Guides What We See",
+            "Why Paintings Should Have No Names",
+            "The Artist’s Right to Name a Work",
+            "Choosing Colours That Draw the Eye",
+            "Why Two Groups Rarely Agree on Art"
+          ],
+          "passage": "Show one painting to two groups, give each group a different title for it, and they will describe two different scenes. One group notices the sky; the other notices the small figure in the corner. This happens because a title tells the eye where to begin. A viewer facing a new image has no order to follow, so the first words attached to it become a kind of route through the frame. Once that route is set, the details along it feel important and the rest fades into background. The same is true of a song or a story, since a name at the top decides what counts as the subject.",
+          "stem_ko": "글의 제목으로 가장 알맞은 것은?",
+          "underline": null,
+          "choice_language": "en",
+          "summary_sentence": null
+        },
+        "attempts": 0,
+        "answer_key": {
+          "answer": 1,
+          "rationale_ko": "이 발췌는 같은 그림에 서로 다른 제목을 붙이는 가정 사례를 든 뒤 \"a title tells the eye where to begin\"이라고 이유를 밝힌다. 이어 \"the first words attached to it become a kind of route through the frame\"이라고 설명하며, 마지막 문장은 노래와 이야기로 같은 원리를 확장한다. 따라서 제목이 보는 방향을 이끈다는 ①이 발췌 전체를 묶는다. ②의 이름을 없애야 한다는 권고와 ③의 작품 명명 권리는 발췌에 없다. ④는 시선을 이끄는 원인을 색 선택으로 바꾸지만 글은 제목의 언어를 다룬다. ⑤는 제목이 다르기 때문에 두 집단의 관찰이 달라진 사례를 집단들이 좀처럼 의견을 같이하지 않는 일반적인 현상으로 넓힌다."
+        },
+        "answer_sha256": "3bc72d6ee228a4c38a848357c8ca94c00899d673d6e608cb9c3c9587a4d73951",
+        "payload_sha256": "21bb9ea4c343560ccbe1a880c3020d1f22f89454d8d41693270daba4b0391ca1"
+      }
+    ],
+    "checkpoint_diff": [
+      {
+        "pct": null,
+        "axis": "capacity",
+        "delta": null,
+        "metric": "bloat_sampled_pct",
+        "status": "appeared",
+        "subject": "library_chapter_quiz",
+        "after_value": 2.2,
+        "before_value": null
+      },
+      {
+        "pct": null,
+        "axis": "capacity",
+        "delta": null,
+        "metric": "bloat_sampled_pct",
+        "status": "disappeared",
+        "subject": "vocab_enrichment_queue",
+        "after_value": null,
+        "before_value": 0.4
+      },
+      {
+        "pct": -28.57,
+        "axis": "connections",
+        "delta": -10,
+        "metric": "conn_used_pct",
+        "status": "changed",
+        "subject": null,
+        "after_value": 25,
+        "before_value": 35
+      },
+      {
+        "pct": 11.03,
+        "axis": "advisor",
+        "delta": 16,
+        "metric": "exposed_secdef_funcs",
+        "status": "changed",
+        "subject": null,
+        "after_value": 161,
+        "before_value": 145
+      },
+      {
+        "pct": 0.05,
+        "axis": "cron",
+        "delta": 0.05,
+        "metric": "cron_stale_max_hours",
+        "status": "changed",
+        "subject": null,
+        "after_value": 96.9,
+        "before_value": 96.85
+      },
+      {
+        "pct": 0.04,
+        "axis": "capacity",
+        "delta": 4,
+        "metric": "stats_counter_age_min",
+        "status": "changed",
+        "subject": null,
+        "after_value": 10201,
+        "before_value": 10197
+      },
+      {
+        "pct": 0.01,
+        "axis": "capacity",
+        "delta": 0.7,
+        "metric": "db_size_mb",
+        "status": "changed",
+        "subject": null,
+        "after_value": 6345.2,
+        "before_value": 6344.5
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "shared_words",
+        "after_value": 649.4,
+        "before_value": 649.4
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "csat_source_eligibility_history",
+        "after_value": 267.8,
+        "before_value": 267.8
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "library_article_vocabularies",
+        "after_value": 257.2,
+        "before_value": 257.2
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "shared_dictionary",
+        "after_value": 238.4,
+        "before_value": 238.4
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "csat_source_eligibility",
+        "after_value": 228.3,
+        "before_value": 228.3
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "content_chunks",
+        "after_value": 132.1,
+        "before_value": 132.1
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "lexicon_clean",
+        "after_value": 86.9,
+        "before_value": 86.9
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "topic_corpus_queue",
+        "after_value": 51.9,
+        "before_value": 51.9
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "csat_item_analyses",
+        "after_value": 36.5,
+        "before_value": 36.5
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "spelling_norm",
+        "after_value": 35.6,
+        "before_value": 35.6
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "topic_word_stats",
+        "after_value": 19.4,
+        "before_value": 19.4
+      },
+      {
+        "pct": 0,
+        "axis": "advisor",
+        "delta": 0,
+        "metric": "anon_exposed_tables",
+        "status": "same",
+        "subject": null,
+        "after_value": 139,
+        "before_value": 139
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "dictionary_word_categories",
+        "after_value": 15.9,
+        "before_value": 15.9
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "funnel_events",
+        "after_value": 15.7,
+        "before_value": 15.7
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "csat_independent_reviews",
+        "after_value": 13,
+        "before_value": 13
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "archaic_candidates",
+        "after_value": 12.5,
+        "before_value": 12.5
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "shared_word_sets",
+        "after_value": 12,
+        "before_value": 12
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "csat_items",
+        "after_value": 11.3,
+        "before_value": 11.3
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "csat_analysis_reviews",
+        "after_value": 9.8,
+        "before_value": 9.8
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "csat_review_runs",
+        "after_value": 9.7,
+        "before_value": 9.7
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "pending_words",
+        "after_value": 8,
+        "before_value": 8
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "db_health_metrics",
+        "after_value": 7.4,
+        "before_value": 7.4
+      },
+      {
+        "pct": null,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "stats_stale_tables",
+        "status": "same",
+        "subject": null,
+        "after_value": 0,
+        "before_value": 0
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "unused_index_mb",
+        "status": "same",
+        "subject": null,
+        "after_value": 154.3,
+        "before_value": 154.3
+      },
+      {
+        "pct": null,
+        "axis": "cron",
+        "delta": 0,
+        "metric": "cron_fail_24h",
+        "status": "same",
+        "subject": null,
+        "after_value": 0,
+        "before_value": 0
+      },
+      {
+        "pct": 0,
+        "axis": "latency",
+        "delta": 0,
+        "metric": "slow_stmt_count",
+        "status": "same",
+        "subject": null,
+        "after_value": 23,
+        "before_value": 23
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "library_chapters_master",
+        "after_value": 16.4,
+        "before_value": 16.4
+      },
+      {
+        "pct": null,
+        "axis": "advisor",
+        "delta": 0,
+        "metric": "anon_exposed_without_rls",
+        "status": "same",
+        "subject": null,
+        "after_value": 0,
+        "before_value": 0
+      },
+      {
+        "pct": 0,
+        "axis": "advisor",
+        "delta": 0,
+        "metric": "rls_missing_tables",
+        "status": "same",
+        "subject": null,
+        "after_value": 69,
+        "before_value": 69
+      },
+      {
+        "pct": null,
+        "axis": "advisor",
+        "delta": 0,
+        "metric": "mutable_search_path_funcs",
+        "status": "same",
+        "subject": null,
+        "after_value": 0,
+        "before_value": 0
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "csat_dcp_items",
+        "after_value": 1578.6,
+        "before_value": 1578.6
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "library_articles",
+        "after_value": 1309.3,
+        "before_value": 1309.3
+      },
+      {
+        "pct": 0,
+        "axis": "capacity",
+        "delta": 0,
+        "metric": "table_size_mb",
+        "status": "same",
+        "subject": "library_book_vocabularies",
+        "after_value": 1173.3,
+        "before_value": 1173.3
+      }
+    ],
+    "new_ledger_counts": {
+      "authored_item": 0,
+      "content_ai_decision": 0,
+      "factory_dcp_attempt": 0,
+      "factory_dcp_admission": 0,
+      "content_human_decision": 0,
+      "source_lesson_reflection": 0,
+      "factory_dcp_qualification": 0,
+      "content_ai_decision_revocation": 0,
+      "content_human_decision_revocation": 0
+    },
+    "source_content_sha256": "33dc4880f42b6b5815b93da059beb2dae640b138371e0cb1992ad46ba6452b0f"
+  },
+  "permissions": {
+    "functions": [
+      {
+        "args": "p_ref text, p_role text, p_axes jsonb, p_annotation_ref text, p_evidence_ids text[]",
+        "name": "authored_ai_qualify",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "8c084ffe575a149451b566460be743496326c26bd8d300c9db08b63d8126e2ea"
+      },
+      {
+        "args": "p_ref text",
+        "name": "authored_group_refs",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "619a43126126049e554a0ba8a42ce515131e4b65f5b6448d688b4c74623f3279"
+      },
+      {
+        "args": "p_ref text",
+        "name": "authored_item_gold_hash",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "00c9b14033030f28eb75164ec131e99fba217c5f080f08cce689ac67fc0673af"
+      },
+      {
+        "args": "p_ref text, p_task text, p_task_key text, p_role_class text, p_intended_role text, p_group text, p_body jsonb, p_gold jsonb, p_annotation_ref text, p_provenance jsonb",
+        "name": "authored_item_register",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "7cd87e9e03367a0df5da30acb71a34f8742240a66c86e47f7fd66527311b31f7"
+      },
+      {
+        "args": "p_ref text",
+        "name": "authored_item_revision",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "9e5d12e23e73e4369fb2085ada28b071c93518d87e7c4d501993dee24572d717"
+      },
+      {
+        "args": "p_qualification uuid",
+        "name": "authored_supply_decision_state",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "a8dbd000be7ab709e0b2171147e0bbdab6751469895c9293dcb5ada6748cd267"
+      },
+      {
+        "args": "p_ref text, p_revision text, p_gold_hash text",
+        "name": "content_ai_decision_ok",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "171141f6e9245ac720ae4d03005badc62a99986c7f12c1cb8ed57ff684e1c92c"
+      },
+      {
+        "args": "p_ref text, p_receipt jsonb",
+        "name": "content_ai_decision_record",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "da8068565ab950f09f2a2d7beb6e3772e23d158ae2591e3dc18ddd271eb188a0"
+      },
+      {
+        "args": "p_decision uuid, p_reason text",
+        "name": "content_ai_decision_revoke",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "59e134ee19f07dcbc097720d45697fc278a54b718797031186aff8d8ceb001fd"
+      },
+      {
+        "args": "p_kind text, p_artifact_kind text, p_ref text, p_revision text, p_subject_hash text, p_scope text[]",
+        "name": "content_human_decision_ok",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "d54ff28da9476a85b44911407542409f2c42dbf366a7aabcdbead88f89c7a0b3"
+      },
+      {
+        "args": "p_kind text, p_artifact_kind text, p_ref text, p_revision text, p_subject_hash text, p_basis text, p_scope text[], p_evidence_ref text, p_attest text, p_note text",
+        "name": "content_human_decision_record",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "feba6f5605655b35ab0d521dac06a88e13cd9a97510898e6d45aea3745d8a53b"
+      },
+      {
+        "args": "p_decision uuid, p_reason text",
+        "name": "content_human_decision_revoke",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "fdbd7afb00e970538c26e20730a2ccc5267583f3289dbd1fb630c01c964e449b"
+      },
+      {
+        "args": "p_request_key uuid, p_body jsonb",
+        "name": "factory_dcp_admit",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "150a60149777fad9aabc2b99a7d879a35a3f167df83efa91b39f3a2a8219a58a"
+      },
+      {
+        "args": "p_delivery uuid, p_answer jsonb, p_mutation uuid",
+        "name": "factory_dcp_attempt",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "4e9d391ac80410de6edf09bb3a7a2dcfa7e15dd2cd18b0a8486e76cc24278302"
+      },
+      {
+        "args": "p_template text",
+        "name": "factory_dcp_deliveries",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "85f9899e31b0ac25d02267d6a6e3aa32d4a46017a6604718d6333971899ac935"
+      },
+      {
+        "args": "p_delivery uuid",
+        "name": "factory_dcp_delivery_state",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "681d01cf9d1eb357c35326bc81b23154339f97a416f5f51076b139e09bcff692"
+      },
+      {
+        "args": "p_order uuid",
+        "name": "factory_dcp_learning_current",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "7bac9860e55ec6b9fdd42c99d1328615a9fa8433e3beb80fbcfd32a047a258f4"
+      },
+      {
+        "args": "p_delivery uuid",
+        "name": "factory_dcp_open",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "c07bc5e68e515000beafb0628996b9f6ac990bff88891f23771adb67f215db44"
+      },
+      {
+        "args": "p_dcp_item uuid, p_args jsonb",
+        "name": "factory_dcp_qualify",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "756d1c213ce3496a218a5cc9320b406cd8d779aaa1173104a6de3ac0073b4ad3"
+      },
+      {
+        "args": "p jsonb",
+        "name": "js_canonical_json",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": false,
+        "authenticated_execute": false,
+        "definition_sha256": "07e7a2791bbb3a336229af508426fe7a6ae5fa3863d40525ec77b54567e31def"
+      },
+      {
+        "args": "p_kind text, p_ref text",
+        "name": "r5_exposure_key",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "f0d926f4ff5220dbe0313c145fffeee702a550297e26544720b3bcdfd695f707"
+      },
+      {
+        "args": "p_delivery uuid",
+        "name": "source_lesson_check",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "86a641abe98b73c48d02949f41f8edcce12c8041e73e3ae5273250fa8bf72dbd"
+      },
+      {
+        "args": "p_delivery uuid, p_user uuid",
+        "name": "source_lesson_fact_state",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "33b930eb417a9a2a13f2ad18a7a2bc2d1d5bfcc11ce576f57f27422443f3b5e6"
+      },
+      {
+        "args": "p_delivery uuid, p_lesson_sha text",
+        "name": "source_lesson_progress",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "5268ae12790368d9be76fbd6c03ee1d72b0f8455e5f564b95f42f0a821d43bf7"
+      },
+      {
+        "args": "p_attempt uuid, p_lesson_sha text, p_body jsonb, p_mutation uuid, p_delivery uuid",
+        "name": "source_lesson_reflect",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "a58e69ce85115412f73acc45a4bb5c2092a60b047fb26393fb0d4b398df92ad6"
+      },
+      {
+        "args": "p_user uuid, p_as_of timestamp with time zone",
+        "name": "source_lesson_repair_receipts",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "f27bad3011004ad5858067b9b4c6ba124f2dc42efaf1d5d96fabe9bb4e40447b"
+      },
+      {
+        "args": "p_qualification uuid",
+        "name": "supply_annotation_matches",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "f3e64b4c8e668f9ea9ce6aec98eff2c3d30c3c5b88d948bd9c75981abade8614"
+      },
+      {
+        "args": "p_kind text, p_ref text",
+        "name": "supply_artifact_revision",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "af5e9dd4b9c745398ae418e4dddd47e7a1d744168f0e48f3e5dbf18d96eb0259"
+      },
+      {
+        "args": "p_qualification uuid",
+        "name": "supply_dcp_source_policy_ok",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": false,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "bd0f01d92ef35b196936d6fdb057763f4d5692ddcdde762f27b3b6678e811520"
+      },
+      {
+        "args": "p_delivery uuid",
+        "name": "supply_delivery_valid",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "f7141f9ecb688c6b094b255e3e3736a2ea5a45eeee14cdccf2e56cbb26d3e8df"
+      },
+      {
+        "args": "p_qualification uuid",
+        "name": "supply_human_decisions_ok",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "332e10f8fec834c89da00f93a0ba2484482b9ad35a704ef1b48a3b85e5680029"
+      },
+      {
+        "args": "p_kind text, p_ref text, p_uid uuid",
+        "name": "supply_learner_exposure",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": false,
+        "definition_sha256": "abf2d00149a7a91ebb00456cfcf79d9df24142cbe5360e72869672e3fdbf0076"
+      },
+      {
+        "args": "p_delivery uuid, p_attempt bigint, p_request_key uuid",
+        "name": "workspace_delivery_attempt_record",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "9ef86f2790d59a8727309f6501856cd0cffb30d2266e786468946ab92e377611"
+      },
+      {
+        "args": "p_delivery uuid",
+        "name": "workspace_delivery_current",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "c6115df748ef886766fb1dc90735b4b3a6659ea496dc22c8ee09624faef81a8d"
+      },
+      {
+        "args": "p_line uuid, p_order uuid, p_qualification uuid, p_approval uuid, p_request_key uuid",
+        "name": "workspace_delivery_record",
+        "config": [
+          "search_path=public, pg_temp"
+        ],
+        "anon_execute": false,
+        "service_execute": true,
+        "security_definer": true,
+        "authenticated_execute": true,
+        "definition_sha256": "7a2ad79107cc84154f963d8778b1af0086d0cfd41571ff88e2650ccf7a173743"
+      }
+    ],
+    "constraints": [
+      {
+        "name": "funnel_events_event_check",
+        "table": "funnel_events",
+        "definition": "CHECK ((event = ANY ('{catalog_viewed,csat_atlas_scoped,csat_browse_filtered,csat_drill_answered,csat_drill_finished,csat_dx_attempt_saved,csat_dx_habit_answered,csat_dx_history_compared,csat_dx_profile_saved,csat_dx_test_submitted,csat_dx_viewed,csat_ec_capture_closed,csat_ec_capture_finished,csat_ec_capture_opened,csat_evidence_opened,csat_factory_dcp_opened,csat_factory_dcp_requested,csat_factory_dcp_returned,csat_factory_dcp_submitted,csat_home_viewed,csat_item_back,csat_item_opened,csat_learning_error,csat_lecture_ended,csat_lecture_played,csat_map_goal_set,csat_map_node_opened,csat_map_task_toggled,csat_map_viewed,csat_meaning_bridge_followed,csat_meaning_depth_changed,csat_meaning_draft_compared,csat_meaning_relation_opened,csat_meaning_unit_selected,csat_meaning_whole_traced,csat_overlay_answered,csat_overlay_loaded,csat_overlay_located,csat_overlay_revealed,csat_paper_failed,csat_paper_read,csat_path_chosen,csat_plan_ordered,csat_plan_speed_set,csat_prediction_skipped,csat_prediction_submitted,csat_principle_saved,csat_resume_clicked,csat_review_completed,csat_review_done,csat_review_scheduled,csat_review_started,csat_session_answered,csat_session_completed,csat_session_explained,csat_session_finished,csat_session_marked,csat_session_started,csat_source_lesson_reflected,csat_source_ready,csat_space_opened,csat_space_scoped,csat_step_advanced,csat_transfer_submitted,csat_trap_opened,csat_workspace_created,csat_workspace_edited,csat_workspace_opened,csat_workspace_session_started,csat_workspace_suggestion_applied,fit_analyzed,fit_level_moved,fit_share_opened,fit_shared,fit_sheet_opened,fit_signup_clicked,fit_viewed,fit_worksheet_printed,hub_hero_moved,hub_promo_clicked,invite_shared,knowledge_task_submitted,knowledge_task_viewed,landing_cta_clicked,landing_demo_moved,landing_section_reached,landing_viewed,screen_viewed,teacher_hub_view,video_completed,video_started,volume_previewed,wayfinder_cta_clicked,wayfinder_opened}'::text[])))"
+      },
+      {
+        "name": "content_qualification_annotation_bound",
+        "table": "content_qualification",
+        "definition": "CHECK (((artifact_kind <> 'csat_item'::text) OR (NOT ((((axes -> 'B'::text) ->> 'state'::text) = 'pass'::text) OR (((axes -> 'C'::text) ->> 'state'::text) = 'pass'::text) OR (((axes -> 'E'::text) ->> 'state'::text) = 'pass'::text))) OR ((annotation_ref IS NOT NULL) AND (annotation_hash IS NOT NULL))))"
+      },
+      {
+        "name": "content_qualification_annotation_hash_check",
+        "table": "content_qualification",
+        "definition": "CHECK (((annotation_hash IS NULL) OR (annotation_hash ~ '^[0-9a-f]{64}$'::text)))"
+      },
+      {
+        "name": "content_qualification_annotation_ref_check",
+        "table": "content_qualification",
+        "definition": "CHECK (((annotation_ref IS NULL) OR ((length(btrim(annotation_ref)) >= 1) AND (length(btrim(annotation_ref)) <= 200))))"
+      },
+      {
+        "name": "content_qualification_artifact_kind_check",
+        "table": "content_qualification",
+        "definition": "CHECK ((artifact_kind = ANY (ARRAY['dcp_item'::text, 'csat_item'::text, 'textbook_activity'::text, 'workspace_bundle'::text, 'authored_item'::text])))"
+      },
+      {
+        "name": "content_qualification_artifact_ref_check",
+        "table": "content_qualification",
+        "definition": "CHECK (((length(artifact_ref) >= 1) AND (length(artifact_ref) <= 200)))"
+      },
+      {
+        "name": "content_qualification_artifact_revision_check",
+        "table": "content_qualification",
+        "definition": "CHECK (((length(artifact_revision) >= 1) AND (length(artifact_revision) <= 128)))"
+      },
+      {
+        "name": "content_qualification_authored_bound",
+        "table": "content_qualification",
+        "definition": "CHECK (((artifact_kind <> 'authored_item'::text) OR ((annotation_ref IS NOT NULL) AND (annotation_hash IS NOT NULL))))"
+      },
+      {
+        "name": "content_qualification_axes_check",
+        "table": "content_qualification",
+        "definition": "CHECK (fq_axes_valid(axes))"
+      },
+      {
+        "name": "content_qualification_check",
+        "table": "content_qualification",
+        "definition": "CHECK (((((axes -> 'A'::text) ->> 'state'::text) <> 'pass'::text) OR ((source_revision IS NOT NULL) AND (source_hash IS NOT NULL))))"
+      },
+      {
+        "name": "content_qualification_check1",
+        "table": "content_qualification",
+        "definition": "CHECK (((((axes -> 'E'::text) ->> 'state'::text) <> 'pass'::text) OR ((gold_revision IS NOT NULL) AND (gold_hash IS NOT NULL))))"
+      },
+      {
+        "name": "content_qualification_gold_hash_check",
+        "table": "content_qualification",
+        "definition": "CHECK (((gold_hash IS NULL) OR (gold_hash ~ '^[0-9a-f]{64}$'::text)))"
+      },
+      {
+        "name": "content_qualification_method_check",
+        "table": "content_qualification",
+        "definition": "CHECK (((length(method) >= 1) AND (length(method) <= 200)))"
+      },
+      {
+        "name": "content_qualification_role_check",
+        "table": "content_qualification",
+        "definition": "CHECK ((role = ANY (ARRAY['source_analysis'::text, 'model_explanation'::text, 'guided_practice'::text, 'independent_check'::text, 'transfer'::text, 'delayed_check'::text])))"
+      },
+      {
+        "name": "content_qualification_rules_version_check",
+        "table": "content_qualification",
+        "definition": "CHECK ((rules_version ~ '^FQ[0-9]+\\.[0-9]+$'::text))"
+      },
+      {
+        "name": "content_qualification_source_hash_check",
+        "table": "content_qualification",
+        "definition": "CHECK (((source_hash IS NULL) OR (source_hash ~ '^[0-9a-f]{64}$'::text)))"
+      },
+      {
+        "name": "content_qualification_task_id_check",
+        "table": "content_qualification",
+        "definition": "CHECK ((task_id ~ '^[a-z]\\.[a-z_]{2,60}$'::text))"
+      }
+    ],
+    "table_guards": [
+      {
+        "table": "authored_item",
+        "triggers": [
+          "authored_item_append_only",
+          "authored_item_writer"
+        ],
+        "unvalidated_constraints": 0
+      },
+      {
+        "table": "content_ai_decision",
+        "triggers": [
+          "content_ai_decision_append_only",
+          "content_ai_decision_writer"
+        ],
+        "unvalidated_constraints": 0
+      },
+      {
+        "table": "content_ai_decision_revocation",
+        "triggers": [
+          "content_ai_decision_revocation_append_only",
+          "content_ai_decision_revocation_writer"
+        ],
+        "unvalidated_constraints": 0
+      },
+      {
+        "table": "content_human_decision",
+        "triggers": [
+          "content_human_decision_append_only",
+          "content_human_decision_writer"
+        ],
+        "unvalidated_constraints": 0
+      },
+      {
+        "table": "content_human_decision_revocation",
+        "triggers": [
+          "content_human_decision_revocation_append_only",
+          "content_human_decision_revocation_writer"
+        ],
+        "unvalidated_constraints": 0
+      },
+      {
+        "table": "factory_dcp_admission",
+        "triggers": [
+          "factory_dcp_admission_append_only",
+          "factory_dcp_admission_writer"
+        ],
+        "unvalidated_constraints": 0
+      },
+      {
+        "table": "factory_dcp_attempt",
+        "triggers": [
+          "factory_dcp_attempt_append_only",
+          "factory_dcp_attempt_writer"
+        ],
+        "unvalidated_constraints": 0
+      },
+      {
+        "table": "factory_dcp_qualification",
+        "triggers": [
+          "factory_dcp_qualification_append_only",
+          "factory_dcp_qualification_writer"
+        ],
+        "unvalidated_constraints": 0
+      },
+      {
+        "table": "source_lesson_reflection",
+        "triggers": [
+          "source_lesson_reflection_append_only",
+          "source_lesson_reflection_writer"
+        ],
+        "unvalidated_constraints": 0
+      }
+    ],
+    "unchanged_functions": [
+      {
+        "name": "csat_source_is_eligible",
+        "sha256": "25b66dcd32ad783fabd4a0a48690f5c589cefeef8c1cb562b783485bcc8c72e4"
+      },
+      {
+        "name": "factory_lineage_personal_current",
+        "sha256": "5c8f195da8f91446cd7d7b139f4509bace5120ecba48b5a6b9a66d66c85fb8f1"
+      },
+      {
+        "name": "learner_workspace_plan_commit",
+        "sha256": "ab825ba7c816c80169306a7d0b5071d0dd320a2c58eaf05148efdcb3934c803b"
+      }
+    ]
+  },
+  "exact_current_rows_equal_independently_reviewed_proposal": true,
+  "only_changed_existing_field": "two answer_key.rationale_ko strings",
+  "prior_event_names_preserved": 89,
+  "current_rows_reuse_preview": [
+    {
+      "session_id": "8547b6f4-2dd5-40be-9988-895ffa7bab82",
+      "real_admissible": false,
+      "blockers": [
+        "synthetic_demand_isolated_only",
+        "synthetic_policy_hash"
+      ],
+      "item_rows": [
+        {
+          "id": "cm-main-point-01",
+          "held": [
+            "axis_F_unknown",
+            "axis_H_unknown"
+          ]
+        },
+        {
+          "id": "cm-title-01",
+          "held": [
+            "axis_F_unknown",
+            "axis_H_unknown"
+          ]
+        },
+        {
+          "id": "cm-topic-01",
+          "held": [
+            "axis_F_unknown",
+            "axis_H_unknown"
+          ]
+        }
+      ]
+    },
+    {
+      "session_id": "01a15e81-0369-75d2-bcd4-769c56bcba98",
+      "real_admissible": false,
+      "blockers": [
+        "synthetic_demand_isolated_only",
+        "synthetic_policy_hash"
+      ],
+      "item_rows": [
+        {
+          "id": "cm-main-point-01",
+          "held": [
+            "axis_F_unknown",
+            "axis_H_unknown"
+          ]
+        },
+        {
+          "id": "cm-title-01",
+          "held": [
+            "axis_F_unknown",
+            "axis_H_unknown"
+          ]
+        },
+        {
+          "id": "cm-topic-01",
+          "held": [
+            "axis_F_unknown",
+            "axis_H_unknown"
+          ]
+        }
+      ]
+    }
+  ],
+  "checkpoint_label": "learning-outcomes-20261022-e84a9607",
+  "backup_directory": "D:/workspace/Vocaflow-AI-Control/runtime/learning-outcomes-20261021/activation-20261022",
+  "deployment_scope": {
+    "schema_tables_created": 9,
+    "existing_data_rows_updated": 2,
+    "content_registration": 0,
+    "content_release": 0,
+    "learner_account_changes": 0,
+    "delivery_rows": 0
+  },
+  "not_run": [
+    "Authenticated real-user HTTP delivery/grading cycle",
+    "Real two-connection concurrency",
+    "Any content registration/release outside approved SQL"
+  ],
+  "transport_gate": "First attempt blocked before DB execution because no matching migration file. Exact approved SQL copied to owned migration file with goal approval SHA, then normal hook passed. No gate disabled."
+}

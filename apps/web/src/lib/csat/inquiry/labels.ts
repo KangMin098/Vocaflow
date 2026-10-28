@@ -64,6 +64,8 @@ export type ScopeKind = 'negation' | 'condition' | 'agent' | 'time' | 'quantity'
 export type ClaimBasis = 'official' | 'source_observation' | 'design_hypothesis'
 
 export interface InquiryV3 {
+  /** 서버가 고정 이관본과 결속한 34 전용 표시. 공개/콘텐츠 승인을 부여하지 않는다. */
+  interaction34?: { state: 'ready' | 'VERIFICATION_FAILED'; analysisVersion: number }
   /** 작성 때의 문장 수 — 지문 지도 문장 수와 같을 때만 근거 연결을 켠다 */
   sentence_count: number
   units_hash: string

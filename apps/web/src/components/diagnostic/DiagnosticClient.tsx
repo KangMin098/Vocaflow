@@ -632,7 +632,7 @@ export function DiagnosticClient() {
             </button>
             <button
               onClick={() => setInfoTest(t)}
-              className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--on-p)]/40 px-4 py-3 font-display text-[14px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
+              className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--on-p)_40%,transparent)] px-4 py-3 font-display text-[14px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
             >
               <Info size={14} aria-hidden /> 안내
             </button>
@@ -929,7 +929,7 @@ export function DiagnosticClient() {
         )}
         <button
           onClick={() => setLevelGuideOpen(true)}
-          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--on-p)]/40 px-3 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
+          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[color-mix(in_srgb,var(--on-p)_40%,transparent)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
         >
           <Info size={13} aria-hidden /> 이 레벨이 뭔가요?
         </button>
@@ -1193,7 +1193,7 @@ function InfoModal({
           <button
             onClick={onClose}
             aria-label="닫기"
-            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="relative after:absolute after:-inset-[6px] after:content-[''] -mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={18} />
           </button>
@@ -1325,7 +1325,7 @@ function LevelGuideModal({
           <button
             onClick={onClose}
             aria-label="닫기"
-            className="-mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            className="relative after:absolute after:-inset-[6px] after:content-[''] -mr-1 flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           >
             <X size={18} />
           </button>

@@ -1,0 +1,47 @@
+/* apps/web/src/components/csat/judgment/OrderTool.module.css */
+/* R-ORDER 판단면 — 배열 사슬(단락 ↔ 이음매) · 단서 고르기 · 선지 대조. PC 1280/1440 */
+.tool { font-size: 15px; line-height: 1.6; word-break: keep-all; }
+.h { margin: 0 0 6px; font-size: 15px; font-weight: 600; }
+.chain { margin: 12px 0 0; padding: 0; list-style: none; }
+.slot { margin: 0; }
+.para { display: grid; grid-template-columns: 76px 1fr auto; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--bd); border-radius: var(--r-md, 10px); background: var(--bg); }
+.para[data-para='G'] { grid-template-columns: 76px 1fr; background: var(--bg2); }
+.paraLabel { font-weight: 600; }
+.paraEdge { font-size: 14px; color: var(--t2); overflow-wrap: anywhere; }
+.moves { display: flex; gap: 6px; }
+.moves button[aria-disabled='true'] { opacity: .4; }
+.junction { margin: 0 0 0 38px; padding: 8px 0 8px 18px; border-left: 2px dashed var(--bd); }
+.jTitle { display: block; font-size: 13px; color: var(--t2); }
+.jNone { font-size: 14px; color: var(--t2); }
+.jList { margin: 4px 0 0; padding: 0; list-style: none; }
+.jItem { font-size: 14px; }
+.jItem[data-status='closed'] { color: var(--t1); }
+.jItem[data-status='broken'] { color: var(--error-ink, var(--error)); font-weight: 600; }
+.jItem[data-status='distant'] { color: var(--t2); }
+.weak { display: block; font-size: 13px; font-style: normal; color: var(--t2); }
+.jItem .weak { display: inline; }
+.cueGroup { display: grid; grid-template-columns: 44px 1fr; gap: 6px 10px; align-items: start; margin-top: 12px; }
+.cueRow { grid-column: 2; display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.cueGroup > .paraLabel { padding-top: 10px; }
+.cueGroup > :not(.paraLabel) { grid-column: 2; }
+.cueRowLabel { font-size: 13px; color: var(--t2); margin-right: 4px; }
+.cue { font-size: 14px; padding: 6px 12px; }
+.cueKind { font-size: 12px; color: var(--t2); }
+.cue[aria-pressed='true'] .cueKind { color: var(--t1); }
+.cueLinked { font-size: 13px; color: var(--info-ink, var(--info)); font-weight: 600; }
+.links { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.links li { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; }
+.linkGo { justify-content: flex-start; }
+.table { width: 100%; border-collapse: collapse; font-size: 14px; }
+.table th, .table td { padding: 8px 10px; border-bottom: 1px solid var(--bd); text-align: left; vertical-align: top; }
+.table thead th { font-size: 13px; font-weight: 500; color: var(--t2); }
+.table tbody th { font-weight: 500; white-space: nowrap; }
+.table tr[data-broken]:not([data-broken='0']) td { color: var(--error-ink, var(--error)); }
+.mine { font-size: 13px; color: var(--t2); }
+.conds, .warns { margin: 0; padding: 0 0 0 18px; display: grid; gap: 4px; font-size: 14px; }
+.warns { margin-top: 10px; padding: 10px 12px 10px 28px; border-left: 3px solid var(--bd); }
+.reason { font-size: 14px; }
+.choices { margin: 12px 0 0; padding: 0; list-style: none; display: grid; gap: 12px; }
+.choices li { padding-top: 10px; border-top: 1px solid var(--bd); }
+.choices p { margin: 4px 0 0; font-size: 14px; }
+.choiceHead { font-weight: 600; }

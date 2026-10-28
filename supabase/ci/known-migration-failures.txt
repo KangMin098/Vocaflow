@@ -165,3 +165,7 @@
 20260925100000_csat_source_pipeline_live_fix_pending.sql
 20260928140054_csat_hakpyeong_hold_self_reviewed.sql
 20261004030412_csat_drain_runs_search_path.sql
+# 2026-10-22 approved target-bound deployment: exact live function/source/two-row preimages are mandatory.
+# Applied successfully to the approved dev DB (SHA e84a9607); empty DB refusal/rollback is tested in approved-activation.pglite.test.ts.
+# CI continues to install its existing isolated authored schema fixture separately; this entry does not mean the full deployment passed empty-DB replay.
+20261021175340_learning_outcomes_ai_factory_activation_approved_20261022.sql

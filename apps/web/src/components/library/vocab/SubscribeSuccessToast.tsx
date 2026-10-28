@@ -91,7 +91,7 @@ export function SubscribeSuccessToast({ data, onClose }: Props) {
       <button
         type="button"
         onClick={onClose}
-        className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--success-ink)] transition-colors hover:bg-[color-mix(in_srgb,var(--success)_15%,transparent)] hover:text-[var(--success-ink)]"
+        className="relative inline-flex h-7 w-7 after:absolute after:-inset-[8px] after:content-[''] shrink-0 items-center justify-center rounded-[var(--r-full)] text-[var(--success-ink)] transition-colors hover:bg-[color-mix(in_srgb,var(--success)_15%,transparent)] hover:text-[var(--success-ink)]"
         aria-label="알림 닫기"
       >
         <X size={14} aria-hidden />

@@ -16,6 +16,11 @@ interface SaveContext {
   attemptNumber: number
   score: ComparisonScore
   durationMs?: number
+  /**
+   * 이 시도를 한 사람(화면이 잡은 글의 주인). 주면 지금 로그인 사용자와 같을 때만 쓴다 —
+   * 녹음이 끝나는 사이 계정이 바뀌어도 A 의 시도가 B 의 행으로 들어가지 않는다.
+   */
+  expectedUserId?: string | null
 }
 
 /** 진행 중 세션 id (per-텍스트 한 세션). null 이면 다음 호출에서 생성. */
@@ -30,6 +35,7 @@ export async function saveEchoAttempt(ctx: SaveContext): Promise<{ ok: boolean; 
   const { data: userData } = await supabase.auth.getUser()
   const userId = userData.user?.id
   if (!userId) return { ok: false, reason: 'unauthenticated' }
+  if (ctx.expectedUserId !== undefined && ctx.expectedUserId !== userId) return { ok: false, reason: 'owner-mismatch' }
 
   // 세션 ensure
   let sessionId = sessionCache.get(ctx.textId)

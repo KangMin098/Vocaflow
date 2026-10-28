@@ -5,6 +5,7 @@
 // layout.tsx가 RSC로 실 데이터 fetch + status 자동 변경 + BookContext 띠 주입
 // + TextContentProvider로 본문 데이터 client에 전달 (Phase 11.6).
 
+import { classifyPracticeLookup, type ReaderArticlePractice } from '@/lib/learner/reader-article-practice';
 import { notFound } from 'next/navigation';
 import type { ReactNode } from 'react';
 import type { SupabaseClient } from '@supabase/supabase-js';
@@ -17,6 +18,7 @@ import type {
 } from '@/components/workspace/WorkspaceBookContext';
 import type { CEFRLevel, LibraryText } from '@/types/library';
 import { TextContentProvider, type TextContentData } from './text-content-context';
+import { ReaderViewerGate } from './reader-viewer-gate';
 import { buildParagraphsFromContent } from './text-content-helpers';
 import {
   getChapterWords,
@@ -24,6 +26,7 @@ import {
 } from '@/lib/library/chapter-words-queries';
 import { fetchBookWordSetSubscriptionStats } from '@/lib/library/books/queries';
 import { pickChapterAudio, type ChapterAudio } from '@/lib/workspace/chapter-audio';
+import { publicSourceHref } from '@/lib/reader/public-source-href';
 
 interface LayoutProps {
   children: ReactNode;
@@ -133,6 +136,9 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
   let bookAuthor: string | null = null;
   // v06.x — 현재 챕터의 LibriVox 보이스 (큐레이터가 "챕터 일치" 확인 후 저장한 경우만)
   let chapterAudio: ChapterAudio | null = null;
+  let articlePracticeHref: string | null = null;
+  let articlePractice: ReaderArticlePractice | null = null;
+  let articleSourceHref: string | null = null;
   // v06.53 — 그림책 페이지별 삽화 (StoryWeaver 등) — 현재 챕터에 노출
   let illustrations: BookIllustration[] | null = null;
 
@@ -300,7 +306,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
     const m = marker.match(/^article:([0-9a-fA-F-]{36})$/);
     if (m) {
       const articleId = m[1];
-      const [{ data: artRow }, { data: setRow }] = await Promise.all([
+      const [{ data: artRow }, { data: setRow }, practiceRes] = await Promise.all([
         client
           .from('library_articles')
           .select('audio_url, title, source_url')
@@ -313,12 +319,18 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
           .eq('category', 'library_article')
           .eq('curation_query->>article_id', articleId)
           .maybeSingle(),
+        // R0 — 검수한 발췌 연습이 있는가(정답 없는 조회 함수 · 읽기만). 실패는 「없음」 이 아니다 — 세 상태로 나눈다(T-0204)
+        client.rpc('article_practice_items', { p_article_id: articleId }),
       ]);
+      articlePractice = classifyPracticeLookup(articleId, practiceRes);
+      if (articlePractice.state === 'available') articlePracticeHref = articlePractice.href;
       const art = artRow as {
         audio_url: string | null;
         title: string | null;
         source_url: string | null;
       } | null;
+      // 원문 출처: 보이스 유무와 무관하게 공개 http(s) 주소만 (내부 마커·javascript: 등은 null)
+      articleSourceHref = publicSourceHref(art?.source_url);
       // 보이스: 단일 스트림 ChapterAudio (FloatingAudioPlayer '원어민 성우' 소스로 노출)
       if (art?.audio_url && /^https?:\/\//i.test(art.audio_url)) {
         chapterAudio = {
@@ -411,6 +423,7 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
 
     return {
       textId: text.id,
+      ownerId: text.user_id,
       libraryBookId: text.library_book_id,
       chapterIdx: text.chapter_idx,
       chapters: bookContext?.chapters.map((c) => ({
@@ -430,6 +443,9 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
       currentChapterStatus: text.status ?? 'not_started',
       bookWordSetStats,
       currentChapterWordSet,
+      articlePracticeHref,
+      articlePractice,
+      articleSourceHref,
       allChapterWordSets,
       chapterAudio,
       illustrations,
@@ -440,7 +456,12 @@ export default async function TextWorkspaceLayout({ children, params }: LayoutPr
 
   // Phase 11.16 — WorkspaceBookContext 호출 제거. UnifiedHeader가 page.tsx에서
   // TextContentProvider 데이터 + 페이지 인터랙티브 state를 합쳐 단일 sticky header로 렌더.
+  // 계정 경계 — 이 글을 읽은 주인(text.user_id)과 브라우저 신원이 같을 때만 모든 모드를 그린다(reader-viewer-gate)
   return (
-    <TextContentProvider value={textContentValue}>{children}</TextContentProvider>
+    <TextContentProvider value={textContentValue}>
+      <ReaderViewerGate ownerId={text.user_id} textId={text.id}>
+        {children}
+      </ReaderViewerGate>
+    </TextContentProvider>
   );
 }

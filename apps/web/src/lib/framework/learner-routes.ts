@@ -193,6 +193,16 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
     section: '연습과 세션',
   },
+  // 듣기 근거 추적 도구(로컬 픽스처 · T-0157) — 파일은 있었으나 매니페스트에 빠져 있었다(2026-10-28 회귀가 잡음).
+  {
+    path: '/csat/listening',
+    screen: 'csat-listening',
+    label: '듣기 근거 추적',
+    says: '수능 듣기 예시 두 문항(2023 7 · 10번)에서 답의 근거가 된 말을 짚어 본다.',
+    group: 'app',
+    kind: 'screen',
+    section: '연습과 세션',
+  },
   { path: '/csat/practice', screen: 'csat-practice-index', label: '연습 색인(유일 과제로)', group: 'main', kind: 'redirect' },
   {
     path: '/csat/practice/[slug]',
@@ -209,6 +219,17 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     screen: 'csat-learn',
     label: '받은 자료 풀기',
     says: '학습 지도에서 받은 자체 창작 글로 중심 문장 · 근거 · 한 줄 요지를 고르고, 결과를 지도로 가져간다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+    section: '연습과 세션',
+  },
+  // 학습 지도에서 납품된 공장 DCP 연습 한 문항(명시적 납품 id 만, 본인 세션 factory_dcp_open 판정).
+  {
+    path: '/csat/factory/[deliveryId]',
+    screen: 'csat-factory-dcp',
+    label: '납품 연습 풀기',
+    says: '학습 지도에서 받은 연습 한 문항으로 글의 중심 의미 · 주제 · 요지를 고르고 지도로 돌아간다.',
     group: 'main',
     kind: 'screen',
     dynamic: true,
@@ -337,6 +358,23 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     dynamic: true,
   },
   {
+    // LCP Story S5 — 작품 단위 이야기 서가(원본 Books 와 별개 라인 · docs/LCP_STORY.md).
+    path: '/library/stories',
+    screen: 'library-stories',
+    label: 'Stories',
+    group: 'main',
+    kind: 'screen',
+  },
+  {
+    // 발행 키는 계측에 싣지 않는다 — 동적 세그먼트는 이 닫힌 id 하나로 접힌다.
+    path: '/library/stories/[releaseKey]',
+    screen: 'library-story',
+    label: '이야기 판본 한 편',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
+  },
+  {
     path: '/library/textbooks',
     screen: 'library-textbooks',
     label: 'Textbooks',
@@ -442,6 +480,17 @@ export const LEARNER_ROUTES: LearnerRoute[] = [
     says: '오늘 풀 구문 연습이 있는지 알려 준다.',
     group: 'main',
     kind: 'screen',
+    section: '연습과 세션',
+  },
+  // 2026-10-28 — R0 같은 기사 발췌 연습(본인이 연 글에서 진입 · 검수 후보가 있을 때만).
+  {
+    path: '/practice/article/[articleId]',
+    screen: 'practice-article',
+    label: '글 중심 의미 연습',
+    says: '읽은 글의 발췌문으로 제목 · 주제를 골라 본다.',
+    group: 'main',
+    kind: 'screen',
+    dynamic: true,
     section: '연습과 세션',
   },
   {

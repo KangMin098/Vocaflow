@@ -14,10 +14,11 @@
 
 'use client'
 
-import { useEffect, useMemo, useState } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
+  ArrowLeft,
   ArrowRight,
   BarChart3,
   Check,
@@ -26,8 +27,13 @@ import {
   Loader2,
   RotateCw,
   Sprout,
+  Square,
+  Volume2,
 } from 'lucide-react'
 
+import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
+import { AudioController, hasEnglishVoice } from '@/lib/dictation/audio-control'
+import { ResultsRelisten, type RelistenSpeaker } from '@/lib/dictation/results-relisten'
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import { analyzeErrorPatterns } from '@/lib/dictation/analyzer'
 import { tagCoach, tagLabel } from '@/lib/dictation/error-tags'
@@ -35,6 +41,7 @@ import { fetchDictationSessionDetail, type SessionDetail } from '@/lib/dictation
 import { createClient } from '@/lib/supabase/client'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import type { WordResult } from '@/lib/dictation/types'
+import { dictationFrom, dictationRetryHref, type DictationRetrySource } from '@/lib/dictation/return'
 
 const DICTATION_ACCENT = '#0EA5E9'
 
@@ -42,11 +49,30 @@ export function DictationResultsClient() {
   const router = useRouter()
   const searchParams = useSearchParams()
   const sessionId = searchParams.get('sessionId')
+  const from = dictationFrom(searchParams.get('from'))
 
-  const [detail, setDetail] = useState<SessionDetail | null>(null)
+  const [stored, setDetail] = useState<SessionDetail | null>(null)
   const [state, setState] = useState<'loading' | 'ready' | 'missing'>('loading')
 
+  // 요청 결속 — 보관된 결과가 지금 URL 이 요청한 세션일 때만 쓴다(effect 가 돌기 전 렌더에서도 옛 결과를 붙이지 않는다).
+  const detail = currentSnapshot(stored, sessionId)
+  // 세션 주인 결속 — 읽힌 세션 행의 user_id 와 브라우저 신원이 같다고 확인될 때만 결과와 복습을 그린다.
+  const ownerId = detail?.session.userId ?? null
+  const { guard, status: authStatus } = useStoryAuthGuard(ownerId)
+  // 실행 시점 판정 — 보관된 재생 콜백은 렌더 플래그가 아니라 지금의 guard 상태와 지금의 유효 snapshot 을 다시 본다.
+  const liveRef = useRef<{ guard: typeof guard; detail: SessionDetail | null }>({ guard, detail })
+  liveRef.current = { guard, detail }
+  const snapshotForAllow = detail
+  const allowReplay = useCallback(
+    () => replayAllowed(liveRef.current, snapshotForAllow),
+    [snapshotForAllow],
+  )
+  const reviewEnabled = !!ownerId && authStatus === 'same'
+
   useEffect(() => {
+    // sessionId 가 바뀌면 옛 결과를 먼저 내린다 — 늦은 응답은 아래 mounted 판정이 버린다.
+    setDetail(null)
+    setState('loading')
     if (!sessionId) {
       router.replace('/dictate')
       return
@@ -60,7 +86,7 @@ export function DictationResultsClient() {
     void (async () => {
       const d = await fetchDictationSessionDetail(createClient(), sessionId)
       if (!mounted) return
-      if (!d) {
+      if (!d || !acceptLoaded(sessionId, d)) {
         setState('missing')
         return
       }
@@ -101,7 +127,7 @@ export function DictationResultsClient() {
 
   const recommendation = useNextAction()
 
-  if (state === 'loading') {
+  if (state === 'loading' || (state === 'ready' && !detail) || (state === 'ready' && !!ownerId && authStatus === 'checking')) {
     return (
       // 맨 스피너는 **화면 판독기에 아무것도 아니다** — "불러오는 중" 과 "아무것도 없음" 이
       // 구분되지 않는다(회귀 스펙도 이 둘을 구별하지 못해 로딩 중을 빈 화면으로 읽었다).
@@ -120,7 +146,7 @@ export function DictationResultsClient() {
     )
   }
 
-  if (state === 'missing' || !detail || !agg) {
+  if (state === 'missing' || !detail || !agg || (!!ownerId && authStatus === 'changed')) {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
         <div>
@@ -173,7 +199,7 @@ export function DictationResultsClient() {
         style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
       >
         <div className="flex flex-col items-center text-center">
-          <span className="mb-2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--ti)]/15">
+          <span className="mb-2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--ti)_15%,transparent)]">
             <BandIcon size={22} strokeWidth={2} aria-hidden="true" />
           </span>
           {/* 히어로 최상단이 이 화면의 이름이다 — `p` 로 두면 결과 화면 전체에 h1 이 없다
@@ -311,8 +337,170 @@ export function DictationResultsClient() {
         <header className="border-b border-[var(--bd)] px-5 py-3">
           <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">문항별 결과</h3>
         </header>
-        <ul className="divide-y divide-[var(--bg3)]">
-          {detail.attempts.map((a) => {
+        <DictationAttemptRows
+          attempts={detail.attempts}
+          reviewEnabled={reviewEnabled}
+          allowReplay={allowReplay}
+          subscribeAllow={guard.subscribe}
+        />
+      </section>
+
+      {/* ─── CTA ─── */}
+      <DictationResultActions retry={s} from={from} />
+    </div>
+  )
+}
+
+const FOCUS_RING =
+  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2'
+
+// 단어 채점 상태 — 세션 피드백(DictationSessionClient WordChip)과 같은 표기.
+// 색만으로 전달하지 않도록 밑줄/취소선/테두리 + 글자 라벨을 함께 쓴다.
+const WORD_STATUS_STYLES: Record<WordResult['status'], string> = {
+  correct: 'text-[var(--success)] bg-[var(--success-light)]',
+  misspelled: 'text-[var(--warning)] bg-[var(--warning-light)] underline decoration-wavy',
+  wrong: 'text-[var(--error-ink)] bg-[var(--error-light)] line-through',
+  missing: 'text-[var(--error-ink)] border border-dashed border-[var(--error)]',
+  extra: 'text-[var(--warning)] line-through opacity-60',
+}
+
+const WORD_STATUS_LABELS: Record<WordResult['status'], string> = {
+  correct: '정답',
+  misspelled: '철자',
+  wrong: '오답',
+  missing: '누락',
+  extra: '불필요',
+}
+
+type Attempt = SessionDetail['attempts'][number]
+
+/** 요청 결속 — 보관된 결과가 지금 요청한 세션일 때만 돌려준다(요청 없음 · 다른 id 면 null). */
+export function currentSnapshot(
+  stored: SessionDetail | null,
+  requestedId: string | null,
+): SessionDetail | null {
+  if (!stored || !requestedId) return null
+  return stored.session.id === requestedId ? stored : null
+}
+
+/** 응답 결속 — 받은 결과가 그 요청의 세션인가. */
+export function acceptLoaded(requestedId: string | null, d: SessionDetail): boolean {
+  return !!requestedId && d.session.id === requestedId
+}
+
+/**
+ * 다시 듣기 실행 시점 허용 — 렌더 플래그가 아니라 **지금** guard 상태와 **지금** 유효 snapshot 을 본다.
+ * 콜백이 들고 있는 snapshot(mine) 이 현재 snapshot 과 같은 객체이고, 그 주인이 있으며, guard 가 same 일 때만 참.
+ */
+export function replayAllowed(
+  live: { guard: { status: string }; detail: SessionDetail | null },
+  mine: SessionDetail | null,
+): boolean {
+  return (
+    !!mine &&
+    live.detail === mine &&
+    !!mine.session.userId &&
+    live.guard.status === 'same'
+  )
+}
+
+/** 결과 화면 전용 발화 — 기존 AudioController 의 시스템 음성만 쓴다(신경망 준비 · 다운로드 · 음성 선호 변경 없음). */
+function systemSpeaker(): RelistenSpeaker {
+  const ctl = new AudioController()
+  return { speak: (text) => ctl.speak({ text, rate: 1 }), cancel: () => ctl.cancel() }
+}
+
+/**
+ * 문항별 결과 — 어려웠던 문장을 골라 저장된 정답 문장을 현재 기기 음성으로 다시 듣고, 그때 받은 피드백을 다시 본다.
+ * 결과 화면은 채점 입력이 아니므로 재생 횟수 · 힌트 · 정답률 · FSRS 를 기록하지 않는다.
+ * reviewEnabled 는 세션 주인과 브라우저 신원이 같다고 확인됐을 때만 참이다 — 아니면 복습 조작을 그리지 않는다.
+ */
+export function DictationAttemptRows({
+  attempts,
+  reviewEnabled,
+  speaker,
+  voiceAvailable,
+  allowReplay,
+  subscribeAllow,
+}: {
+  attempts: Attempt[]
+  reviewEnabled: boolean
+  /** 시험 주입용 — 없으면 시스템 음성 */
+  speaker?: RelistenSpeaker
+  /** 시험 주입용 — 없으면 hasEnglishVoice() 로 판정 */
+  voiceAvailable?: boolean | null
+  /** 실행 시점 허용 판정 — 지금 guard 가 same 이고 이 행들의 snapshot 이 지금 유효한가. 없으면 reviewEnabled 만 본다(하네스). */
+  allowReplay?: () => boolean
+  /** 허용 판정이 바뀔 수 있는 신호(guard 상태 변경) — 바뀌는 즉시 동기로 다시 판정해 재생을 끊는다 */
+  subscribeAllow?: (fn: () => void) => () => void
+}) {
+  const allow = allowReplay ?? (() => reviewEnabled)
+  // 플레이어는 이 snapshot(attempts) 에 묶인다 — snapshot 이 바뀌거나 화면이 내려가면 폐기(dispose)되어
+  // 보관된 옛 콜백이 다시 불려도 발화하지 않는다.
+  const player = useMemo(
+    // allow 는 이 snapshot 의 판정 함수로 생성 시점에 묶는다 — 뒤 렌더(다른 요청)의 판정을 빌려 쓰지 않는다.
+    () => new ResultsRelisten(speaker ?? systemSpeaker(), allow),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- attempts 가 snapshot 경계다
+    [speaker, attempts, allowReplay],
+  )
+  // 개발 StrictMode 의 mount→cleanup→mount 도 견디도록 effect 가 활성화하고 cleanup 이 폐기한다.
+  useEffect(() => {
+    player.activate()
+    return () => player.dispose()
+  }, [player])
+  useEffect(() => {
+    if (!subscribeAllow) return
+    return subscribeAllow(() => {
+      player.revalidate()
+    })
+  }, [subscribeAllow, player])
+  const playingIdx = useSyncExternalStore(player.subscribe, player.getPlaying, player.getPlaying)
+  const [openIdx, setOpenIdx] = useState<number | null>(null)
+  const [voiceOk, setVoiceOk] = useState<boolean | null>(voiceAvailable ?? null)
+
+  useEffect(() => {
+    if (voiceAvailable !== undefined) return
+    let alive = true
+    void hasEnglishVoice().then((ok) => {
+      if (alive) setVoiceOk(ok)
+    })
+    return () => {
+      alive = false
+    }
+  }, [voiceAvailable])
+
+  // 화면 이탈 · 숨김 · 주인 확인 해제 때 발화를 끊는다.
+  useEffect(() => {
+    if (!reviewEnabled) player.stop()
+  }, [reviewEnabled, player])
+  useEffect(() => {
+    const onHide = () => {
+      if (document.visibilityState === 'hidden') player.stop()
+    }
+    document.addEventListener('visibilitychange', onHide)
+    return () => {
+      document.removeEventListener('visibilitychange', onHide)
+      player.stop()
+    }
+  }, [player])
+
+  const activeIdx = reviewEnabled ? playingIdx : null
+  const canPlay = reviewEnabled && voiceOk !== false
+
+  return (
+    <>
+    {reviewEnabled && voiceOk === false && (
+      <p data-testid="relisten-no-voice" className="px-5 pt-3 font-body text-[12px] text-[var(--t2)]">
+        이 기기에서 영어 음성을 찾지 못해 다시 듣기를 쓸 수 없어요. 당시 피드백은 그대로 볼 수 있어요.
+      </p>
+    )}
+    {reviewEnabled && voiceOk !== false && (
+      <p className="px-5 pt-3 font-body text-[11px] text-[var(--t3)]">
+        다시 듣기는 저장된 정답 문장을 이 기기 음성으로 읽어요. 당시 음성·속도와 다를 수 있고, 기록에는 남지 않아요.
+      </p>
+    )}
+    <ul className="divide-y divide-[var(--bg3)]">
+          {attempts.map((a) => {
             const c =
               a.accuracy >= 90
                 ? 'var(--success)'
@@ -335,6 +523,33 @@ export function DictationResultsClient() {
                   ) : (
                     <p className="mt-1 font-body text-[12px] text-[var(--t3)]">건너뜀</p>
                   )}
+                  {reviewEnabled && (
+                  <div className="mt-2 flex flex-wrap items-center gap-2">
+                    {canPlay && (
+                    <button
+                      type="button"
+                      data-testid="attempt-relisten"
+                      onClick={() => player.toggle(a.itemIdx, a.expected)}
+                      aria-label={`${a.itemIdx + 1}번 문장 ${activeIdx === a.itemIdx ? '정지' : '다시 듣기'}`}
+                      className={`inline-flex min-h-[44px] min-w-[44px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+                    >
+                      {activeIdx === a.itemIdx ? <Square size={12} aria-hidden="true" /> : <Volume2 size={12} aria-hidden="true" />}
+                      {activeIdx === a.itemIdx ? '정지' : '다시 듣기'}
+                    </button>
+                    )}
+                    <button
+                      type="button"
+                      data-testid="attempt-feedback-toggle"
+                      aria-expanded={openIdx === a.itemIdx}
+                      aria-controls={`attempt-feedback-${a.itemIdx}`}
+                      onClick={() => setOpenIdx(openIdx === a.itemIdx ? null : a.itemIdx)}
+                      className={`inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] ${FOCUS_RING}`}
+                    >
+                      {openIdx === a.itemIdx ? '당시 피드백 접기' : '당시 피드백'}
+                    </button>
+                  </div>
+                  )}
+                  {reviewEnabled && openIdx === a.itemIdx && <AttemptFeedback attempt={a} />}
                 </div>
                 <span
                   className="font-mono text-[14px] font-[700] tabular-nums"
@@ -345,15 +560,79 @@ export function DictationResultsClient() {
               </li>
             )
           })}
-        </ul>
-      </section>
+    </ul>
+    </>
+  )
+}
 
-      {/* ─── CTA ─── */}
+export function AttemptFeedback({ attempt }: { attempt: Attempt }) {
+  const words = attempt.wordResults ?? []
+  const tags = attempt.errorTags ?? []
+  return (
+    <div
+      id={`attempt-feedback-${attempt.itemIdx}`}
+      data-testid="attempt-feedback"
+      className="mt-2 rounded-[var(--r-md)] bg-[var(--bg2)] p-3"
+    >
+      {words.length > 0 ? (
+        <ul className="flex flex-wrap gap-1.5" aria-label="단어별 결과">
+          {words.map((w, i) => (
+            <li key={i} className="inline-flex items-center gap-1">
+              <span
+                className={`inline-block rounded px-2 py-1 font-english text-[13px] ${WORD_STATUS_STYLES[w.status]}`}
+              >
+                {(w.status === 'missing' ? w.expected : w.actual) || '—'}
+              </span>
+              <span className="font-body text-[11px] text-[var(--t2)]">
+                {WORD_STATUS_LABELS[w.status]}
+                {(w.status === 'misspelled' || w.status === 'wrong') && w.expected
+                  ? ` · 정답 ${w.expected}`
+                  : ''}
+              </span>
+            </li>
+          ))}
+        </ul>
+      ) : (
+        <p className="font-body text-[12px] text-[var(--t3)]">
+          {attempt.skipped
+            ? '건너뛴 문항이라 채점 피드백이 없어요.'
+            : '피드백 없음 — 이 문항에는 당시 단어별 기록이 남아 있지 않아요.'}
+        </p>
+      )}
+      {tags.length > 0 && (
+        <ul className="mt-2 space-y-1">
+          {tags.map((t) => (
+            <li key={t} className="font-body text-[12px] text-[var(--t1)]">
+              <span className="font-[700]">{tagLabel(t)}</span>
+              {tagCoach(t) && <span className="text-[var(--t2)]"> — {tagCoach(t)}</span>}
+            </li>
+          ))}
+        </ul>
+      )}
+    </div>
+  )
+}
+
+/** 결과 화면 행동 — 들어온 자리(있을 때만) · 같은 자료로 한 번 더 · 받아쓰기 홈 · 통계. */
+export function DictationResultActions({ retry, from }: { retry: DictationRetrySource; from: string | null }) {
+  return (
+    <>
+      {/* 들어온 자리로 — 읽던 글일 수도 다른 학습 화면일 수도 있어 제목 · 소속을 지어 말하지 않는다 */}
+      {from && (
+        <Link
+          href={from}
+          data-testid="dictation-return-from"
+          className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        >
+          <ArrowLeft size={14} aria-hidden />
+          하던 학습으로 돌아가기
+        </Link>
+      )}
       <div className="grid grid-cols-2 gap-2 md:grid-cols-3">
         {/* "한 번 더" 는 **같은 자료로** 돌아가야 한다 — 허브로 보내면 자료를 다시 찾아야 하고,
             그 마찰이 재도전을 막는다. 출처 좌표가 없으면(붙여넣기·오늘) 허브로 폴백. */}
         <Link
-          href={retryHref(s)}
+          href={dictationRetryHref(retry, from)}
           className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] py-3 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           <RotateCw size={14} />
@@ -376,22 +655,8 @@ export function DictationResultsClient() {
           <ArrowRight size={14} />
         </Link>
       </div>
-    </div>
+    </>
   )
-}
-
-/**
- * 같은 자료로 되돌아가는 링크.
- * 붙여넣은 글(custom)은 저장하지 않으므로 되돌아갈 자료가 없고,
- * 오늘의 받아쓰기(daily)는 내일 다시 조립되는 것이라 허브가 옳은 목적지다.
- */
-function retryHref(s: SessionDetail['session']): string {
-  if (s.textId) return `/dictate/setup?text=${s.textId}`
-  if (s.sharedSetId) {
-    const ch = s.chapterIdx ? `&chapter=${s.chapterIdx}` : ''
-    return `/dictate/setup?set=${s.sharedSetId}${ch}`
-  }
-  return '/dictate'
 }
 
 function HeroStat({ label, value }: { label: string; value: string }) {

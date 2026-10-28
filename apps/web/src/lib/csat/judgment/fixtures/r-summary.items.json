@@ -1,0 +1,86 @@
+{
+  "source": "csat_items+csat_item_units (published analysis units_version)",
+  "items": [
+    {
+      "id": "H1906G1#40",
+      "examId": "H1906G1",
+      "no": 40,
+      "typeId": "R-SUMMARY",
+      "stem": "다음 글의 내용을 한 문장으로 요약하고자 한다. 빈칸 (A), (B)에 들어갈 말로 가장 적절한 것은?",
+      "choices": [
+        "effective …… frustration",
+        "effective …… success",
+        "discouraging …… cooperation",
+        "discouraging …… failure",
+        "common …… difficulty"
+      ],
+      "units": [
+        {
+          "id": "u1",
+          "n": 1,
+          "kind": "sentence",
+          "text": "What really works to motivate people to achieve their goals?"
+        },
+        {
+          "id": "u2",
+          "n": 2,
+          "kind": "sentence",
+          "text": "In one study, researchers looked at how people respond to life challenges including getting a job, taking an exam, or undergoing surgery."
+        },
+        {
+          "id": "u3",
+          "n": 3,
+          "kind": "sentence",
+          "text": "For each of these conditions, the researchers also measured how much these participants fantasized about positive outcomes and how much they actually expected a positive outcome."
+        },
+        {
+          "id": "u4",
+          "n": 4,
+          "kind": "sentence",
+          "text": "What’s the difference really between fantasy and expectation?"
+        },
+        {
+          "id": "u5",
+          "n": 5,
+          "kind": "sentence",
+          "text": "While fantasy involves imagining an idealized future, expectation is actually based on a person’s past experiences."
+        },
+        {
+          "id": "u6",
+          "n": 6,
+          "kind": "sentence",
+          "text": "So what did the researchers find?"
+        },
+        {
+          "id": "u7",
+          "n": 7,
+          "kind": "sentence",
+          "text": "The results revealed that those who had engaged in fantasizing about the desired future did worse in all three conditions."
+        },
+        {
+          "id": "u8",
+          "n": 8,
+          "kind": "sentence",
+          "text": "Those who had more positive expectations for success did better in the following weeks, months, and years."
+        },
+        {
+          "id": "u9",
+          "n": 9,
+          "kind": "sentence",
+          "text": "These individuals were more likely to have found jobs, passed their exams, or successfully recovered from their surgery.  Positive expectations are more (A) than fantasizing about a desired future, and they are likely to increase your chances of (B) in achieving goals."
+        },
+        {
+          "id": "u10",
+          "n": 10,
+          "kind": "sentence",
+          "text": "(A) (B)"
+        }
+      ],
+      "version": {
+        "unitsVersion": 3,
+        "unitsHash": "b327bacbc55987542a4d54f4079b2450bc87f20f6667944a2b51a995d9ef8c72",
+        "analysisVersion": 3
+      }
+    }
+  ]
+}

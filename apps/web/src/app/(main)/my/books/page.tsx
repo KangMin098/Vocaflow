@@ -287,7 +287,7 @@ function BookCard({ book }: { book: BookSummary }) {
     <Link
       href={`/my/books/${book.id}`}
       aria-label={`${book.title} 이어 읽기 · ${progress}% 진행`}
-      className="group flex h-full flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="group flex h-full flex-col overflow-hidden rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_40%,transparent)] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <div className="flex flex-1 flex-col gap-2 p-5 pb-4">
         <div className="flex items-start justify-between gap-2">

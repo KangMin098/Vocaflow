@@ -3,8 +3,9 @@
 
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import Link from 'next/link'
+import type { SpellForgeWord } from '@/types/spellforge'
 
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import type { ContentRef } from '@/lib/content/content-ref'
@@ -22,6 +23,51 @@ interface SpellForgeCompletionProps {
   content?: ContentRef
   /** §17.3 추천 축 — 부모가 주입 */
   recommendation?: RecommendedAction
+  /** 이 연습의 주인(서버가 단어를 읽은 사용자) — 주면 저장 시점의 사용자와 다를 때 점수를 적재하지 않는다(record-score expectedUserId) */
+  viewerId?: string | null
+  /** 이 판에서 놓친 낱말 — 건너뛴 것 · 한 번 이상 틀린 것. 화면 복기용(기록하지 않는다). */
+  missedWords?: MissedWord[]
+}
+
+/** skipped = 건너뜀 · retried = 틀린 뒤 다시 입력 */
+export type MissKind = 'skipped' | 'retried'
+export interface MissedWord {
+  word: Pick<SpellForgeWord, 'id' | 'text' | 'meaning'>
+  kind: MissKind
+}
+
+const MISS_LABEL: Record<MissKind, string> = { skipped: '건너뜀', retried: '틀린 뒤 다시 씀' }
+const FOCUS = 'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]'
+
+/** 놓친 낱말 한 줄 — 뜻을 보고 철자를 먼저 떠올린 뒤 「철자 확인」으로 대조한다. 확인은 기록하지 않는다. */
+export function MissedWordRow({ miss }: { miss: MissedWord }) {
+  const [shown, setShown] = useState(false)
+  const id = useId()
+  return (
+    <li className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 text-left" data-testid="sf-miss">
+      <div className="flex items-center gap-3">
+        <span className="min-w-0 flex-1 break-keep font-body text-[14px] text-[var(--t1)]">{miss.word.meaning}</span>
+        <span className="shrink-0 break-keep font-display text-[11px] font-[700] text-[var(--t2)]">{MISS_LABEL[miss.kind]}</span>
+        <button
+          type="button"
+          aria-expanded={shown}
+          aria-controls={id}
+          onClick={() => setShown((v) => !v)}
+          className={`inline-flex min-h-[44px] shrink-0 items-center rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t1)] hover:border-[var(--p)] ${FOCUS}`}
+        >
+          {shown ? '철자 가리기' : '철자 확인'}
+        </button>
+      </div>
+      <p id={id} className="font-english text-[16px] font-[600] tracking-[0.02em] text-[var(--t1)]" data-testid="sf-miss-spelling">
+        {shown ? miss.word.text : <span className="text-[13px] font-[500] text-[var(--t2)] font-body">뜻을 보고 철자를 먼저 떠올려 보세요</span>}
+      </p>
+    </li>
+  )
+}
+
+/** 돌아갈 곳의 이름 — 경로가 실제로 무엇인지에 맞춘다(글이 아니면 「스크립트」라고 부르지 않는다). */
+export function backLabel(href: string): string {
+  return href.startsWith('/text/') ? '읽던 글로 돌아가기' : '돌아가기'
 }
 
 export function SpellForgeCompletion({
@@ -31,6 +77,8 @@ export function SpellForgeCompletion({
   backHref,
   content,
   recommendation,
+  viewerId,
+  missedWords = [],
 }: SpellForgeCompletionProps) {
   // 마운트 시점에 durationMs 1회 캡처 — 이후 리렌더에 영향 없음
   const [durationMs] = useState(() => Date.now() - startedAt.getTime())
@@ -48,6 +96,7 @@ export function SpellForgeCompletion({
     durationSeconds: Math.round(durationMs / 1000),
     content,
     metadata: { totalWords, correctCount },
+    ...(viewerId !== undefined ? { expectedUserId: viewerId } : {}),
   })
 
   return (
@@ -73,6 +122,20 @@ export function SpellForgeCompletion({
           <Stat value={`${accuracy}%`} label="정확도" />
         </div>
 
+        {missedWords.length > 0 && (
+          <section className="mb-8 text-left" aria-labelledby="sf-miss-h">
+            <h2 id="sf-miss-h" className="mb-3 break-keep font-display text-[14px] font-[700] text-[var(--t1)]">
+              놓친 낱말 다시 떠올리기
+              <span className="ml-2 font-mono text-[11px] font-[500] text-[var(--t2)]">{missedWords.length}개</span>
+            </h2>
+            <ul className="flex flex-col gap-2">
+              {missedWords.map((m) => (
+                <MissedWordRow key={m.word.id} miss={m} />
+              ))}
+            </ul>
+          </section>
+        )}
+
         {/* §17.3 추천 축 (3곳 중 1곳: 세션 종료 직후) */}
         {recommendation && (
           <div className="mb-8 text-left">
@@ -83,12 +146,23 @@ export function SpellForgeCompletion({
           </div>
         )}
 
-        <Link
-          href={backHref}
-          className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
-        >
-          스크립트로 돌아가기
-        </Link>
+        <div className="flex flex-col items-center justify-center gap-3 sm:flex-row">
+          <Link
+            href={backHref}
+            data-testid="sf-back"
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)] ${FOCUS}`}
+          >
+            {backLabel(backHref)}
+          </Link>
+          {/* 놓친 낱말만 모은 묶음은 없다 — 목적지를 사실대로 「전체 단어장」이라 부른다. */}
+          <Link
+            href="/wordvault"
+            data-testid="sf-wordvault"
+            className={`inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)] ${FOCUS}`}
+          >
+            전체 단어장으로
+          </Link>
+        </div>
       </div>
     </section>
   )

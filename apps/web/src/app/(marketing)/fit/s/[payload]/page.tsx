@@ -35,9 +35,10 @@ export function generateMetadata({ params }: Params): Metadata {
   }
 
   const headline = profileHeadline(shared)
-  const fitPart =
-    shared.fitLevel !== null ? `${LEVEL_LABEL[shared.fitLevel]} 수준` : '고등 교육과정 이상'
-  const title = `이 지문은 ${fitPart} · Vocaflow`
+  const title =
+    shared.fitLevel !== null
+      ? `어휘 기준 ${LEVEL_LABEL[shared.fitLevel]} 수준 추정 · Vocaflow`
+      : `어휘 기준 학년 미확인 · Vocaflow`
   const detail = shared.readings
     .filter((r) => [6, 7, 8].includes(r.level))
     .map((r) => `${LEVEL_LABEL[r.level]} ${(r.coverage * 100).toFixed(0)}%`)

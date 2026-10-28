@@ -26,12 +26,13 @@ describe('목표 · 현재 위치', () => {
     const g = goalSummary({ goal: 80, goalSet: true }, [])
     expect(g.latest).toBeNull()
     expect(g.gap).toBeNull()
-    expect(g.goalGrade).toBe(2)
+    expect(g).not.toHaveProperty('goalGrade')
+    expect(g).not.toHaveProperty('goalBand')
   })
   it('최근 기록 · 이전 기록 · 거리는 실제 원점수로만', () => {
     const g = goalSummary({ goal: 80, goalSet: true }, [rec('2026-09-06', 63), rec('2026-09-27', 74)])
-    expect(g.latest).toMatchObject({ raw: 74, grade: 3 })
-    expect(g.previous).toMatchObject({ raw: 63, grade: 4 })
+    expect(g.latest).toMatchObject({ raw: 74, grade: null })
+    expect(g.previous).toMatchObject({ raw: 63, grade: null })
     expect(g.gap).toBe(6)
   })
   it('기록에 저장된 등급이 있으면 그것을 쓴다 · 원점수 없는 기록은 세지 않는다', () => {
@@ -41,6 +42,9 @@ describe('목표 · 현재 위치', () => {
     expect(g.previous).toBeNull()
   })
   it('목표를 넘으면 거리 0', () => expect(goalSummary({ goal: 70, goalSet: true }, [rec('2026-09-27', 88)]).gap).toBe(0))
+  it.each([0, 10, 1.5, NaN])('invalid stored grade %s remains unknown, never derived from raw score', grade => {
+    expect(goalSummary({ goal: 90, goalSet: true }, [rec('2026-09-27', 85, grade)]).latest?.grade).toBeNull()
+  })
 })
 
 describe('단계와 목표의 관계(기준 시험 사실)', () => {

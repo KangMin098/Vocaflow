@@ -151,7 +151,7 @@ function SlotButton({
       disabled={disabled}
       aria-label={`${index + 1}번째 위치에 삽입`}
       aria-pressed={selected}
-      className="inline-flex min-h-[36px] items-center justify-center gap-2 rounded-[var(--r-sm)] border border-dashed px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
+      className="inline-flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-sm)] border border-dashed px-3 font-display text-[12px] font-[700] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] disabled:opacity-50"
       style={
         selected
           ? { borderColor: 'var(--p)', background: 'var(--p-light)', color: 'var(--p)', borderStyle: 'solid' }

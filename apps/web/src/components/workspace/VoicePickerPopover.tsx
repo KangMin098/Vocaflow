@@ -77,11 +77,13 @@ export function VoicePickerPopover() {
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
         aria-label="음성 선택"
-        className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-white/10 px-3 py-1 font-display text-[11px] font-[600] text-white/95 transition-colors hover:bg-white/20"
+        className="group -my-2.5 inline-flex min-h-11 items-center rounded-[var(--r-full)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/80"
       >
-        <Volume2 size={11} aria-hidden />
-        <span className="hidden sm:inline">{label}</span>
-        <ChevronDown size={11} aria-hidden className={open ? 'rotate-180 transition-transform' : 'transition-transform'} />
+        <span className="inline-flex items-center gap-2 rounded-[var(--r-full)] bg-white/10 px-3 py-1 font-display text-[11px] font-[600] text-white/95 transition-colors group-hover:bg-white/20">
+          <Volume2 size={11} aria-hidden />
+          <span className="hidden sm:inline">{label}</span>
+          <ChevronDown size={11} aria-hidden className={open ? 'rotate-180 transition-transform' : 'transition-transform'} />
+        </span>
       </button>
 
       {open && (
@@ -147,9 +149,14 @@ export function VoicePickerPopover() {
                         tts.previewVoice(v)
                       }}
                       aria-label={`${v.name} 미리듣기`}
-                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t2)] transition-colors hover:bg-[var(--p)] hover:text-white"
+                      className="group -m-2 flex h-11 w-11 shrink-0 items-center justify-center rounded-full focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                     >
-                      {isPreviewing ? <Pause size={11} /> : <Play size={11} />}
+                      <span
+                        aria-hidden="true"
+                        className="flex h-7 w-7 items-center justify-center rounded-full bg-[var(--bg3)] text-[var(--t2)] transition-colors group-hover:bg-[var(--p)] group-hover:text-white"
+                      >
+                        {isPreviewing ? <Pause size={11} /> : <Play size={11} />}
+                      </span>
                     </button>
                     <button
                       type="button"
