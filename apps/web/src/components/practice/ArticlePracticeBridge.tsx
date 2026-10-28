@@ -13,16 +13,21 @@ import Link from 'next/link'
 import { DcpPlayer } from '@/components/practice/DcpPlayer'
 import { useStoryAuthGuard, type StoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
 import type { DcpGradeResult, DcpItem } from '@/lib/learner/dcp'
-import { submitArticlePractice, type ArticlePracticeContext } from '@/lib/learner/article-practice-actions'
-import { textSourceFilter } from '@/lib/wordvault/source-filter'
+import { submitArticlePractice, type ArticlePracticeContext, type ArticleVocabSource } from '@/lib/learner/article-practice-actions'
+import { readerSource, textSourceFilter } from '@/lib/wordvault/source-filter'
 
 /**
- * 「단어를 몰랐어요」 → 이 기사의 내 단어 목록(Reader 「단어」 와 같은 text: 범위 · readerWordsHref 규칙).
+ * 「단어를 몰랐어요」 → 이 기사의 내 단어 목록. 출처는 서버 loader 가 정한 것(vocab)으로 Reader 「단어」 와 **같은 결정**(readerSource)을 쓴다:
+ *   발행 기사 세트가 있으면 set: (구독 단어는 text_id 가 비어 있어 text: 로는 0 이었다) · 실제로 없으면 본인 글 text:.
+ *   조회 실패(unknown)면 단어 목록을 짐작하지 않고 읽던 글로 보낸다 — 그 화면의 「단어」 가 같은 결정으로 다시 고른다.
  * `from` = 이 글 본문 — SessionFrame 이 sanitizeInternalPath 로 검증해 닫기 · Esc 복귀에 쓴다.
- * 복귀 대상은 읽던 글이지 연습 진행 상태가 아니다(이어 풀기 아님). 전체 Flashcard 로 보내지 않는다.
+ * 복귀 대상은 읽던 글이지 연습 진행 상태가 아니다(이어 풀기 아님). 전체 Flashcard · 전체 단어장으로 보내지 않는다.
  */
-export function articleVocabHref(textId: string): string {
-  const qs = new URLSearchParams({ filter: textSourceFilter(textId), from: `/text/${textId}` })
+export function articleVocabHref(textId: string, vocab: ArticleVocabSource): string {
+  if (vocab.kind === 'unknown') return `/text/${textId}`
+  const src = readerSource({ textId, libraryBookId: null, currentChapterWordSet: vocab.kind === 'set' ? { id: vocab.setId } : null })
+  const filter = src.kind === 'article-set' ? `set:${src.setId}` : textSourceFilter(textId)
+  const qs = new URLSearchParams({ filter, from: `/text/${textId}` })
   return `/wordvault/browse?${qs.toString()}`
 }
 
@@ -55,12 +60,15 @@ export function ArticlePracticeBridge({
   textId,
   ownerId,
   items,
+  vocab,
   submit,
 }: {
   articleId: string
   textId: string
   ownerId: string
   items: DcpItem[]
+  /** 단어 출처 — 서버 loader 가 정한 값만(set · text · unknown) */
+  vocab: ArticleVocabSource
   /** 개발 확인 화면만 바꾼다(기본 = 실제 서버 제출) */
   submit?: Submit
 }) {
@@ -90,7 +98,7 @@ export function ArticlePracticeBridge({
       grade={makeArticleGrade({ articleId, textId, ownerId }, guard, submit)}
       backHref={`/text/${textId}`}
       backCta="읽던 글로"
-      causeHref={{ vocab: articleVocabHref(textId) }}
+      causeHref={{ vocab: articleVocabHref(textId, vocab) }}
       doneCopy={articlePracticeDoneCopy}
       nextChoice={ARTICLE_NEXT_CHOICE}
     />

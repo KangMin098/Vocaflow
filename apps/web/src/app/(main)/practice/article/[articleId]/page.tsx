@@ -39,7 +39,7 @@ export default async function ArticlePracticePage({ params }: { params: { articl
           </p>
         </header>
         {res.ok ? (
-          <ArticlePracticeBridge articleId={params.articleId} textId={res.textId} ownerId={res.ownerId} items={res.items} />
+          <ArticlePracticeBridge articleId={params.articleId} textId={res.textId} ownerId={res.ownerId} items={res.items} vocab={res.vocab} />
         ) : (
           <p
             role="status"

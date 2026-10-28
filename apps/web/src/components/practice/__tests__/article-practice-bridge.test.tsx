@@ -45,7 +45,7 @@ describe('ArticlePracticeBridge', () => {
   const render = (uid: string | null) =>
     renderToString(
       <StoryAuthSourceContext.Provider value={as(uid)}>
-        <ArticlePracticeBridge articleId={ART} textId="text-a" ownerId="user-a" items={[item]} />
+        <ArticlePracticeBridge articleId={ART} textId="text-a" ownerId="user-a" items={[item]} vocab={{ kind: 'text' }} />
       </StoryAuthSourceContext.Provider>,
     )
   it('같은 계정: 첫 문항을 기존 플레이어로(정답 없음) · 소유자 uid 는 마크업에 없다', () => {
