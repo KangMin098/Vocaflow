@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(scriptquiz): 결과 화면 오답 항목의 옅은 금색 면이 실제로 그려지게 함(var() 색에 안 먹던 Tailwind 불투명도 → color-mix) — 근거 인용 블록과 면 구분. 원문 바이트 Codex 수용. T-0199 보충 (37bad8a13)
 - fix(spellforge): 완료 화면에서 게임 Enter 단축키를 등록하지 않음 — 「철자 확인」·단어장 링크 Enter 가 마지막 단어를 다시 채점하고 복습 대기를 늘리던 결함(Codex 반례) 해소, 부모 경로 PC 1280/1440 srs_pending 불변. T-0201 보정 (0a04c95e1)
 - fix(a11y): WordBlitz 끝화면 「이 자료의 단어 보기」 초점 링 대비 1.46:1→5.53:1 — 전역 outline 을 덮던 규칙 제거(PC 1280/1440 실측). T-0202 보정 (782d37e5f)
 - feat(wordblitz): 끝화면에 「이 자료의 단어 보기」(범위 set/text 출처 목록) 또는 「내 단어장으로」 — 공용 GameDone 선택 link prop(미지정 시 다른 게임 불변). 기록·DB 없음, 실화면 미확인. T-0202 (0ee7cf2d5)
