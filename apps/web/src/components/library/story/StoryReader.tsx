@@ -78,7 +78,16 @@ import {
   unitLabel,
   type StoryNextAction,
 } from './story-view'
-import { markAnchorLeft, ownerTag, rememberSaveAnchor, takeReturnAnchor } from './story-return-anchor'
+import {
+  markAnchorLeft,
+  needsReturnPick,
+  ownerTag,
+  rememberSaveAnchor,
+  returnContextKey,
+  returnWordFor,
+  takeReturnAnchor,
+  type StoryReturnPick,
+} from './story-return-anchor'
 import { markAfterSave, visibleVaultAfterHref, type StoryVaultAfterMark } from './story-vault-after'
 import { useStoryAuthGuard, type StoryAuthGuard, type StoryAuthSource, type StoryAuthStatus } from './use-story-auth-guard'
 
@@ -293,11 +302,14 @@ function ReadyReader({
   // 긍정 확인(same)된 본인 화면에서만 꺼낸다 — 확인 전에는 기다리고, 단위마다 한 번만 판정한다.
   // 표식 주인 = 서버가 그리고 인증 경계가 긍정 확인한 viewer(짧은 해시) — 같은 탭의 다른 계정 표식을 쓰지 않는다.
   const anchorOwner = ownerTag(state.viewerId)
-  const [returnWord, setReturnWord] = useState<{ unit: number; word: number | null } | null>(null)
+  // 꺼낸 결과는 꺼낸 문맥(주인 · 발행본 · 단위)에 묶는다 — 같은 단위 번호라도 다른 사용자 · 발행본이면 쓰지 않고 새로 판정한다.
+  const returnContext = verified && unitIndex !== null ? returnContextKey(anchorOwner, releaseKey, unitIndex) : null
+  const [returnPick, setReturnPick] = useState<StoryReturnPick | null>(null)
   useEffect(() => {
-    if (!verified || unitIndex === null || returnWord?.unit === unitIndex) return
-    setReturnWord({ unit: unitIndex, word: takeReturnAnchor(anchorOwner, releaseKey, unitIndex) })
-  }, [verified, unitIndex, releaseKey, returnWord, anchorOwner])
+    if (!needsReturnPick(returnPick, returnContext) || unitIndex === null || returnContext === null) return
+    setReturnPick({ context: returnContext, word: takeReturnAnchor(anchorOwner, releaseKey, unitIndex) })
+  }, [returnPick, returnContext, anchorOwner, releaseKey, unitIndex])
+  const returnWordIndex = returnWordFor(returnPick, returnContext)
 
   const [sourceOpen, setSourceOpen] = useState(false)
   const [selectedAnchor, setSelectedAnchor] = useState<number | null>(null)
@@ -484,7 +496,7 @@ function ReadyReader({
                 lookup={wordLookup}
                 tools={notesEntry}
                 save={wordSave ?? undefined}
-                returnWordIndex={returnWord?.unit === unit.unitIndex ? returnWord.word : null}
+                returnWordIndex={returnWordIndex}
               />
               <StoryContextNotes
                 key={`notes:${releaseKey}:${unit.unitIndex}`}

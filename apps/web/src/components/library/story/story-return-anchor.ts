@@ -148,3 +148,24 @@ export function sentenceRange(pieces: readonly StoryTextPiece[], wordIndex: numb
 export function shouldMoveToReturn(movedFor: number | null, returnWordIndex: number | null, mounted: boolean): boolean {
   return returnWordIndex !== null && mounted && movedFor !== returnWordIndex
 }
+
+/** 화면이 꺼낸 복귀 결과 — 꺼낸 문맥(주인 · 발행본 · 단위)과 함께 둔다. */
+export interface StoryReturnPick {
+  context: string
+  word: number | null
+}
+
+/** 복귀 문맥 열쇠 — 주인 · 발행본 · 단위가 하나라도 다르면 다른 문맥이다. */
+export function returnContextKey(owner: string, releaseKey: string, unitIndex: number): string {
+  return `${owner}|${releaseKey}|${unitIndex}`
+}
+
+/** 지금 문맥에서 쓸 낱말 번호 — 다른 문맥(다른 사용자 · 발행본 · 단위)에서 꺼낸 결과는 쓰지 않는다(단위 첫머리). */
+export function returnWordFor(pick: StoryReturnPick | null, context: string | null): number | null {
+  return pick && context !== null && pick.context === context ? pick.word : null
+}
+
+/** 지금 문맥으로 아직 꺼내지 않았는가 — 같은 문맥의 재렌더는 다시 꺼내지 않는다. */
+export function needsReturnPick(pick: StoryReturnPick | null, context: string | null): boolean {
+  return context !== null && pick?.context !== context
+}
