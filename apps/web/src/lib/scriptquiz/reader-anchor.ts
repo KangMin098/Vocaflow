@@ -87,10 +87,12 @@ export function readerSentenceFor(
   if (!target) return null
   const t = normalizeForMatch(target)
   if (t.length === 0) return null
-  const hits = readerSentences.filter((s) => {
-    const n = normalizeForMatch(s.text)
-    return n === t || ` ${n} `.includes(` ${t} `)
-  })
+  // T-0214 — 전체가 같은 Reader 문장이 정확히 하나면 그것을 먼저(짧은 문장이 다른 문장 안에 들어 있어도). 같은 문장이 여럿이면 null.
+  //   전체 일치가 없을 때만 기존 규칙(낱말 경계째 품은 문장이 하나뿐).
+  const exact = readerSentences.filter((s) => normalizeForMatch(s.text) === t)
+  if (exact.length === 1) return exact[0]!.id
+  if (exact.length > 1) return null
+  const hits = readerSentences.filter((s) => ` ${normalizeForMatch(s.text)} `.includes(` ${t} `))
   return hits.length === 1 ? hits[0]!.id : null
 }
 
@@ -109,9 +111,16 @@ export function buildEvidenceSentenceMap(content: string, readerSentences: Reado
   return splitSentences(content).map((sentence) => {
     const t = normalizeForMatch(sentence)
     if (!t) return -1
+    // T-0214 — readerSentenceFor 와 같은 판정: 전체 일치가 하나면 그것, 여럿이면 -1, 없을 때만 「품은 문장이 하나뿐」
+    const whole = ` ${t} `
+    let exact = -1
+    let exactCount = 0
+    for (const r of readerNorm) if (r.n === whole) { exact = r.id; exactCount += 1 }
+    if (exactCount === 1) return exact
+    if (exactCount > 1) return -1
     let found = -1
     for (const r of readerNorm) {
-      if (r.n === ` ${t} ` || r.n.includes(` ${t} `)) {
+      if (r.n.includes(whole)) {
         if (found !== -1) return -1
         found = r.id
       }

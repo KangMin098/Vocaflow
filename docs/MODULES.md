@@ -399,6 +399,7 @@ R < 0.70              → risk     #EF4444 (빨강)
 - `ScriptsChipNav.tsx` — 스크립트 칩 nav (전체+스크립트별 단어 수)
 - `WordRow.tsx` v4 — 16px 컴팩트 · 행 끝 「전체 보기」(aria-expanded)로 잘린 뜻·예문을 행 아래에 줄바꿈 표시 — 숨김 중인 칸은 펼쳐도 가림, 예문 없으면 만들지 않음(T-0208)
   - T-0210: 발행 기사 단어장(set:) 필터에서만 정본 shared_words.source_sentence 가 **지금 기사 본문에 있을 때** 펼침에 「선택한 기사에서 쓰인 문장」으로 사전 예문과 따로 보인다(loadArticleSetMembership 같은 조회에 필드만 · 쓰기 0 · 단어/뜻 숨김 시 가림 · 없음/불일치/빈 값은 표시 안 함)
+  - T-0214: 그 문장 아래 「글에서 이 부분 보기」 — 세트당 한 번 본인 글(texts id · source_url article:<id>)과 Reader 와 같은 v_text_content(content · paragraph_offsets)를 읽어 지금 기사 본문과 같을 때, 경계 결정 Rev1.0 공식(공백만 정규화한 출처 = Reader 표시 단위 하나 전체 · 본문에서 대소문자 무시 1회 · 기존 buildEvidenceSentenceMap 으로 그 단위에 풀리는 번호)을 모두 만족할 때만. 누르면 같은 탭 앵커(reader-anchor · textId · 본문 hash · sentenceIndex 만)를 남기고 그 글로 1회 이동. 본인 글 없음 · 다른 판본 · 중복 · 조회 실패 · 숨김 중에는 링크 없음(문장 · 목록 그대로)
 - `HideToggleBar.tsx` — Active Recall 토글
 - `ListenPanel.tsx` — 듣기 패널 (설정 항상 노출)
 

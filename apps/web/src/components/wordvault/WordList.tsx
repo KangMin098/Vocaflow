@@ -9,6 +9,7 @@ import { useEffect, useMemo, useRef, useState } from 'react'
 
 import { cn } from '@/lib/utils/cn'
 import { WordRow } from './WordRow'
+import type { SetMembershipReader } from '@/lib/wordvault/set-membership-query'
 import type { HideStates, WordItem } from './types'
 
 export interface WordListProps {
@@ -21,6 +22,8 @@ export interface WordListProps {
   onPlayWord: (id: number) => void
   /** T-0210 — 지금 고른 기사 단어장에서 본문 확인된 원문 문장(낱말 → 문장). 없으면 null */
   sourceContexts?: Record<string, string> | null
+  /** T-0214 — 본인 글 결속(textId · 본문 해시 · 낱말 → 유일 문장 번호). 없으면 null */
+  sourceReader?: SetMembershipReader | null
 }
 
 export function WordList({
@@ -32,6 +35,7 @@ export function WordList({
   hideStates,
   onPlayWord,
   sourceContexts = null,
+  sourceReader = null,
 }: WordListProps) {
   /**
    * **한 번에 다 그리지 않는다.**
@@ -135,6 +139,7 @@ export function WordList({
             onToggleSelect={onToggleSelect}
             onPlayWord={onPlayWord}
             sourceSentence={sourceContexts && Object.prototype.hasOwnProperty.call(sourceContexts, w.word) ? sourceContexts[w.word] : null}
+            sourceAnchor={sourceReader && Object.prototype.hasOwnProperty.call(sourceReader.anchors, w.word) ? { textId: sourceReader.textId, hash: sourceReader.hash, sentenceIndex: sourceReader.anchors[w.word] } : null}
           />
         ))}
         {visibleCount < words.length && (
