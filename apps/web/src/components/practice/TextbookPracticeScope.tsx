@@ -19,6 +19,16 @@ export const COMMON_POOL_NOTICE = '선택한 교재의 기준 수준으로 고�
 export const COMMON_POOL_LIMIT = '교재에 실린 문제나 어휘 · 구문 영역 구성과 같다는 뜻은 아니에요.'
 export const COMMON_POOL_CTA = '공통 문항으로 연습하기'
 export const VOLUME_SCOPE_NOTE = '이 교재의 수준 · 유형 기준으로 고른 연습 문항이에요. 인쇄본에 실린 문제와 같지 않을 수 있어요.'
+export const TEXTBOOK_DONE_BODY = '교재 수준에 맞춰 고른 안내 연습이었어요. 이번 문항의 결과일 뿐 실력이 달라졌는지를 잰 것은 아니에요.'
+export const TEXTBOOK_DONE_REVISIT = '이미 본 해설로 다시 살펴볼 수 있어요.'
+
+/** 완료 문구 — DcpPlayer 기본 격려(「꾸준함이 실력이 돼요」)는 안내 연습 결과를 실력 향상처럼 읽히게 한다. 다시 보기는 켜졌을 때만 말한다. */
+export function textbookPracticeDoneCopy({ total, correct }: { total: number; correct: number }, revisit = false) {
+  return {
+    title: `${total}문항 중 ${correct}문항을 맞혔어요`,
+    body: revisit ? `${TEXTBOOK_DONE_BODY} ${TEXTBOOK_DONE_REVISIT}` : TEXTBOOK_DONE_BODY,
+  }
+}
 
 export function TextbookPracticeScope({
   items,
@@ -38,7 +48,7 @@ export function TextbookPracticeScope({
   revisit?: boolean
 }) {
   const [chosen, setChosen] = useState(false)
-  const player = <DcpPlayer items={items} backHref={backHref} backCta={backCta} grade={grade} revisit={revisit} />
+  const player = <DcpPlayer items={items} backHref={backHref} backCta={backCta} grade={grade} revisit={revisit} doneCopy={(s) => textbookPracticeDoneCopy(s, revisit)} />
 
   if (scope === 'volume') {
     return (
