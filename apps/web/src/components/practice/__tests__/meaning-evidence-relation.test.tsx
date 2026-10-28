@@ -34,12 +34,16 @@ describe('MeaningEvidence 관계 판단', () => {
     expect(html.match(/data-relation="/g)).toHaveLength(5)
     expect(html.match(/aria-pressed="true"[^>]*data-relation/g)).toBeNull()
     expect(html).not.toContain('data-testid="meaning-relation-note"')
+    expect(html).not.toContain('data-relation-mark')
   })
 
   it('고른 관계는 aria-pressed 하나 · 중립 안내만, 원래 정답이어도 판단을 정답으로 표시하지 않는다', () => {
     const html = render([null, false, true, 3, 1, 'target'])
     expect(html.match(/aria-pressed="true" data-relation="([a-z]+)"/)?.[1]).toBe('target')
     expect(html).toContain(RELATION_NOTE)
+    // 색만으로 구분하지 않는다 — 고른 단추에만 장식 체크 표지 하나
+    expect(html.match(/data-relation-mark/g)).toHaveLength(1)
+    expect(html).toMatch(/aria-pressed="true" data-relation="target"[^>]*>(<!-- -->)?<svg[^>]*aria-hidden="true"/)
     const rel = html.slice(html.indexOf('data-testid="meaning-relation"'))
     expect(rel).not.toMatch(/정답|맞았|틀렸|점수/)
   })
