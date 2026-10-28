@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(wordvault): 단어 숨김 중 발음 버튼 이름에서 낱말을 빼 보조기기가 답을 읽지 않게(해제 시 원래 이름, 재생·선택 불변). Codex review.mjs 독립 리뷰 NO_FINDINGS (T-0213 f4e1fc155)
 - feat(scriptquiz): 오답 복기 「글에서 이 문장 보기」로 Reader 의 유일한 근거 문장에 1회 이동·강조·초점(같은 탭 textId·본문 해시·문장 번호만, 다른 글·판본은 첫머리). Codex review.mjs 독립 리뷰 P2 3회 보정 후 NO_FINDINGS, 실제 본문 GET NOT_RUN (T-0209 da173c4c3)
 - feat(practice): 기사 연습 완료 화면에 「이 글의 단어 살펴보기」(기존 articleVocabHref 재사용, set/text 만·unknown 생략, 전부 정답이어도 표시). Codex review.mjs 독립 리뷰 NO_FINDINGS, 실제 Auth/DB NOT_RUN (T-0212 a8c555ae4)
 - feat(practice): 근거 짚기를 건너뛴 뒤 같은 문항에서 「다시 짚어 보기」로 기존 문장 후보에 복귀(초점 1회, 채점·기록 불변). Codex review.mjs 독립 리뷰 NO_FINDINGS, 실제 연습 route NOT_RUN (T-0211 f04846f07)
