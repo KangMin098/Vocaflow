@@ -3,11 +3,23 @@
 // 발행된 기사 단어장(category library_article)이고 **부모 기사도 발행·한국 권리 안전**일 때만(관리자 세션이 RLS 로
 // 더 읽을 수 있어도 공개 학습 관계로 내주지 않는다). 도서 장 세트·기타 필터는 null(기존 origin 판정 그대로).
 // 조회 실패는 error 로 돌려준다 — 「단어 0」 이나 전체 목록으로 숨기지 않는다.
+// T-0210 — 같은 조회에서 정본 shared_words.source_sentence 와 부모 기사 본문(content)을 함께 읽어, 그 문장이 **지금 기사 본문에 실제로 있는**
+//   낱말만 contexts 에 싣는다(추가 왕복 · 쓰기 0). 빈 값 · 불일치 · 본문 없음은 싣지 않는다 — 만들거나 유추하지 않는다.
+//   문맥이 하나도 없어도 words(목록 판정)는 그대로다.
 import type { SupabaseClient } from '@supabase/supabase-js'
 
 import { normalizeSourceFilter } from './source-filter'
 
-export type SetMembershipPayload = { setId: string; words: string[] } | { setId: string; error: true }
+/** contexts: 낱말(정본 word) → 이 기사 본문에서 확인된 원문 문장. 확인된 것만 있다. */
+export type SetMembershipPayload = { setId: string; words: string[]; contexts?: Record<string, string> } | { setId: string; error: true }
+
+/** 공백만 정규화해 본문에 그대로 들어 있는지 — 따옴표 · 대소문자 등은 바꾸지 않는다(다르면 싣지 않는다). */
+export function verifiedSourceSentence(sentence: unknown, body: string | null): string | null {
+  if (typeof sentence !== 'string' || !body) return null
+  const s = sentence.replace(/\s+/g, ' ').trim()
+  if (s.length < 8) return null
+  return body.replace(/\s+/g, ' ').includes(s) ? s : null
+}
 
 const PAGE = 1000
 
@@ -28,21 +40,28 @@ export async function loadArticleSetMembership(client: SupabaseClient, rawFilter
     if (typeof articleId !== 'string') return null
     const { data: art, error: artErr } = await client
       .from('library_articles')
-      .select('status, copyright_safe_in_kr')
+      .select('status, copyright_safe_in_kr, content')
       .eq('id', articleId)
       .maybeSingle()
     if (artErr) throw artErr
-    const a = art as { status?: string; copyright_safe_in_kr?: boolean } | null
+    const a = art as { status?: string; copyright_safe_in_kr?: boolean; content?: string | null } | null
     if (!a || a.status !== 'published' || a.copyright_safe_in_kr !== true) return null
     const words: string[] = []
+    const contexts: Record<string, string> = {}
+    const body = typeof a.content === 'string' ? a.content : null
     for (let from = 0; ; from += PAGE) {
-      const { data, error } = await client.from('shared_words').select('id, word').eq('set_id', setId).order('id').range(from, from + PAGE - 1)
+      const { data, error } = await client.from('shared_words').select('id, word, source_sentence').eq('set_id', setId).order('id').range(from, from + PAGE - 1)
       if (error) throw error
-      const rows = (data ?? []) as Array<{ word?: unknown }>
-      for (const r of rows) if (typeof r.word === 'string') words.push(r.word)
+      const rows = (data ?? []) as Array<{ word?: unknown; source_sentence?: unknown }>
+      for (const r of rows) {
+        if (typeof r.word !== 'string') continue
+        words.push(r.word)
+        const ctx = verifiedSourceSentence(r.source_sentence, body)
+        if (ctx && !Object.prototype.hasOwnProperty.call(contexts, r.word)) contexts[r.word] = ctx
+      }
       if (rows.length < PAGE) break
     }
-    return { setId, words }
+    return Object.keys(contexts).length > 0 ? { setId, words, contexts } : { setId, words }
   } catch {
     return { setId, error: true }
   }

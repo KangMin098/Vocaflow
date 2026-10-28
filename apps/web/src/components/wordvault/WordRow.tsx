@@ -41,6 +41,8 @@ export interface WordRowProps {
   hideStates: HideStates
   onToggleSelect: (id: number) => void
   onPlayWord: (id: number) => void
+  /** T-0210 — 선택한 기사 단어장에서 본문 확인된 원문 문장(사전 예문과 다르다). 없으면 null */
+  sourceSentence?: string | null
 }
 
 export function WordRow({
@@ -50,13 +52,15 @@ export function WordRow({
   hideStates,
   onToggleSelect,
   onPlayWord,
+  sourceSentence = null,
 }: WordRowProps) {
   const stopBubble = (e: React.MouseEvent) => e.stopPropagation()
   const [open, setOpen] = useState(false)
   const panelId = useId()
   const hasMeaning = word.meaning.trim().length > 0
   const hasExample = !!word.exampleEn && word.exampleEn.trim().length > 0
-  const canExpand = hasMeaning || hasExample
+  const hasSource = !!sourceSentence && sourceSentence.trim().length > 0
+  const canExpand = hasMeaning || hasExample || hasSource
 
   const memoryState = word.srs ? getMemoryState(word.srs) : 'new'
   const edgeColor = MEMORY_EDGE_COLOR[memoryState]
@@ -284,15 +288,16 @@ export function WordRow({
         )}
       </div>
 
-      {open && canExpand && <WordRowFull id={panelId} word={word} hideStates={hideStates} />}
+      {open && canExpand && <WordRowFull id={panelId} word={word} hideStates={hideStates} sourceSentence={sourceSentence} />}
     </div>
   )
 }
 
 /** 펼친 행 — 이미 있는 뜻 · 예문 전체(줄바꿈). 숨김 중인 칸은 펼쳐도 가린다. 값이 빈 칸은 그리지 않는다(만들지 않는다). */
-export function WordRowFull({ id, word, hideStates }: { id: string; word: WordItem; hideStates: HideStates }) {
+export function WordRowFull({ id, word, hideStates, sourceSentence = null }: { id: string; word: WordItem; hideStates: HideStates; sourceSentence?: string | null }) {
   const hasMeaning = word.meaning.trim().length > 0
   const hasExample = !!word.exampleEn && word.exampleEn.trim().length > 0
+  const hasSource = !!sourceSentence && sourceSentence.trim().length > 0
   return (
     <div id={id} data-testid="word-row-full" className="flex flex-col gap-1.5 px-4 pb-3 pl-[76px] md:pl-[84px]">
       {hasMeaning && (
@@ -305,6 +310,15 @@ export function WordRowFull({ id, word, hideStates }: { id: string; word: WordIt
           {/* 예문에는 그 낱말이 들어 있다 — 단어 숨김 중에는 펼쳐도 보이지 않는다 */}
           {hideStates.word ? <span className="font-body not-italic text-t3">단어 숨김 중에는 예문 전체를 가려요</span> : <>“{word.exampleEn}”</>}
         </p>
+      )}
+      {hasSource && (
+        // T-0210 — 사전 예문과 다른 줄: 선택한 기사 본문에서 확인된 문장. 낱말이 들어 있고 뜻을 짐작하게 하므로 단어 · 뜻 어느 쪽을 숨겨도 가린다
+        <div className="flex flex-col gap-0.5" data-testid="word-row-full-source">
+          <span className="break-keep font-display text-[11px] font-[700] text-t3">선택한 기사에서 쓰인 문장</span>
+          <p className="font-serif text-[12.5px] leading-[1.6] text-t2">
+            {hideStates.word || hideStates.meaning ? <span className="font-body text-t3">숨김 중에는 기사 문장을 가려요</span> : sourceSentence}
+          </p>
+        </div>
       )}
     </div>
   )
