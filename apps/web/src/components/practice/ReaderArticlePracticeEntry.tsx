@@ -1,6 +1,7 @@
 // apps/web/src/components/practice/ReaderArticlePracticeEntry.tsx
 // R0 — Reader 본문 아래 「발췌문으로 제목 · 주제 골라 보기」 진입. 세 상태(T-0204):
 //   available → 연습 링크 · none → 아무것도 그리지 않음(예전과 같다) · failed → 「연습 정보를 확인하지 못했어요」 + 다시 시도(같은 단일 호출 1회).
+//   다시 시도 결과가 none 이면 그때만 「이 글에는 발췌 연습이 없어요」 한 줄로 알리고 포커스를 둔다 — 버튼이 사라져 포커스가 body 로 떨어지지 않게(pb-t0204 실측).
 // 다시 시도는 기록 · 이벤트 · 채점을 만들지 않는다. 결과가 오기 전 버튼은 사라지지 않는다(포커스가 body 로 떨어지지 않게).
 
 'use client'
@@ -23,14 +24,25 @@ export function ReaderArticlePracticeEntry({
   const [state, setState] = useState<ReaderArticlePractice>(initial)
   const [pending, setPending] = useState(false)
   const linkRef = useRef<HTMLAnchorElement>(null)
+  const noneRef = useRef<HTMLParagraphElement>(null)
   const retried = useRef(false)
   useEffect(() => setState(initial), [initial])
   // 다시 시도로 링크가 생기면 포커스를 그 링크로 — 버튼이 사라져 body 로 떨어지지 않게
   useEffect(() => {
     if (retried.current && state.state === 'available') linkRef.current?.focus()
+    if (retried.current && state.state === 'none') noneRef.current?.focus()
   }, [state])
 
-  if (state.state === 'none') return null
+  if (state.state === 'none') {
+    if (!retried.current) return null
+    return (
+      <div className="mx-auto max-w-[680px] px-6 pb-6 md:px-8" data-testid="reader-article-practice-entry" data-state="none">
+        <p ref={noneRef} tabIndex={-1} role="status" className="break-keep font-body text-[13px] text-[var(--t2)] focus-visible:outline-none" data-testid="reader-article-practice-none">
+          이 글에는 발췌 연습이 없어요
+        </p>
+      </div>
+    )
+  }
   return (
     <div className="mx-auto max-w-[680px] px-6 pb-6 md:px-8" data-testid="reader-article-practice-entry" data-state={state.state}>
       {state.state === 'available' ? (
