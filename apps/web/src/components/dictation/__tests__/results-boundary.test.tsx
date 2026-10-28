@@ -209,3 +209,60 @@ describe('R2 재생 실행 시점 판정 — guard · 유효 snapshot 연결', (
     expect(c.sp.speak).toHaveBeenCalledWith('Alpha sentence here.')
   })
 })
+
+describe('R2 폐기된 view 의 콜백은 공용 음성 엔진을 건드리지 않는다', () => {
+  /** 기기 전역 음성 엔진처럼 cancel 이 누구의 발화든 끊는 공용 상태 */
+  function sharedEngine() {
+    const state = { speaking: null as string | null, cancels: 0 }
+    const speaker = {
+      speak: vi.fn((text: string) => {
+        state.speaking = text
+        return new Promise<void>(() => {})
+      }),
+      cancel: vi.fn(() => {
+        state.cancels++
+        state.speaking = null
+      }),
+    }
+    return { state, speaker }
+  }
+
+  it('A 폐기 → B 재생 중 → 옛 A 콜백(toggle · stop · revalidate)은 B 를 끊지 않고 cancel 도 늘지 않는다', () => {
+    const eng = sharedEngine()
+    const a = new ResultsRelisten(eng.speaker, () => true)
+    a.activate()
+    a.dispose()
+    const b = new ResultsRelisten(eng.speaker, () => true)
+    b.activate()
+    b.toggle(0, 'Bravo sentence here.')
+    expect(eng.state.speaking).toBe('Bravo sentence here.')
+    const cancels = eng.state.cancels
+    a.toggle(0, 'Alpha sentence here.')
+    a.stop()
+    a.revalidate()
+    a.dispose()
+    expect(eng.state.speaking).toBe('Bravo sentence here.')
+    expect(eng.state.cancels).toBe(cancels)
+    expect(b.playingIdx).toBe(0)
+    expect(eng.speaker.speak).toHaveBeenCalledTimes(1)
+  })
+
+  it('재생하지 않던 view 의 폐기는 cancel 을 부르지 않는다', () => {
+    const eng = sharedEngine()
+    const a = new ResultsRelisten(eng.speaker, () => true)
+    a.dispose()
+    expect(eng.state.cancels).toBe(0)
+  })
+
+  it('같은 살아 있는 view 에서는 정지 → 다시 재생이 정상', () => {
+    const eng = sharedEngine()
+    const b = new ResultsRelisten(eng.speaker, () => true)
+    b.activate()
+    b.toggle(0, 'Bravo sentence here.')
+    b.stop()
+    expect(eng.state.speaking).toBeNull()
+    b.toggle(0, 'Bravo sentence here.')
+    expect(eng.state.speaking).toBe('Bravo sentence here.')
+    expect(b.playingIdx).toBe(0)
+  })
+})
