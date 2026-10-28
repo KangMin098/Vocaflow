@@ -23,6 +23,8 @@
 import { MemoryBadge } from '@/components/ui/MemoryBadge'
 import { cn } from '@/lib/utils/cn'
 import { ChevronDown, Play } from 'lucide-react'
+import Link from 'next/link'
+import { rememberEvidenceAnchor, type EvidenceAnchor } from '@/lib/scriptquiz/reader-anchor'
 import { useId, useState } from 'react'
 import { getMemoryState, type MemoryState } from '@/lib/srs'
 import type { HideStates, WordItem } from './types'
@@ -43,6 +45,8 @@ export interface WordRowProps {
   onPlayWord: (id: number) => void
   /** T-0210 — 선택한 기사 단어장에서 본문 확인된 원문 문장(사전 예문과 다르다). 없으면 null */
   sourceSentence?: string | null
+  /** T-0214 — 그 문장이 본인 글에서 유일한 한 문장일 때만 — 「글에서 이 문장 보기」 앵커. 없으면 null */
+  sourceAnchor?: EvidenceAnchor | null
 }
 
 export function WordRow({
@@ -53,6 +57,7 @@ export function WordRow({
   onToggleSelect,
   onPlayWord,
   sourceSentence = null,
+  sourceAnchor = null,
 }: WordRowProps) {
   const stopBubble = (e: React.MouseEvent) => e.stopPropagation()
   const [open, setOpen] = useState(false)
@@ -289,13 +294,13 @@ export function WordRow({
         )}
       </div>
 
-      {open && canExpand && <WordRowFull id={panelId} word={word} hideStates={hideStates} sourceSentence={sourceSentence} />}
+      {open && canExpand && <WordRowFull id={panelId} word={word} hideStates={hideStates} sourceSentence={sourceSentence} sourceAnchor={sourceAnchor} />}
     </div>
   )
 }
 
 /** 펼친 행 — 이미 있는 뜻 · 예문 전체(줄바꿈). 숨김 중인 칸은 펼쳐도 가린다. 값이 빈 칸은 그리지 않는다(만들지 않는다). */
-export function WordRowFull({ id, word, hideStates, sourceSentence = null }: { id: string; word: WordItem; hideStates: HideStates; sourceSentence?: string | null }) {
+export function WordRowFull({ id, word, hideStates, sourceSentence = null, sourceAnchor = null }: { id: string; word: WordItem; hideStates: HideStates; sourceSentence?: string | null; sourceAnchor?: EvidenceAnchor | null }) {
   const hasMeaning = word.meaning.trim().length > 0
   const hasExample = !!word.exampleEn && word.exampleEn.trim().length > 0
   const hasSource = !!sourceSentence && sourceSentence.trim().length > 0
@@ -319,6 +324,17 @@ export function WordRowFull({ id, word, hideStates, sourceSentence = null }: { i
           <p className="font-serif text-[12.5px] leading-[1.6] text-t2">
             {hideStates.word || hideStates.meaning ? <span className="font-body text-t3">숨김 중에는 기사 문장을 가려요</span> : sourceSentence}
           </p>
+          {/* T-0214 — 같은 탭 앵커(textId · 본문 해시 · 문장 번호)만 남기고 그 글로. 숨김 중에는 두지 않는다(문장을 가렸으므로) */}
+          {sourceAnchor && !hideStates.word && !hideStates.meaning && (
+            <Link
+              href={`/text/${encodeURIComponent(sourceAnchor.textId)}`}
+              onClick={() => rememberEvidenceAnchor(sourceAnchor)}
+              data-testid="word-row-reader-anchor"
+              className="mt-1 inline-flex min-h-[44px] items-center self-start rounded-md border border-bd bg-bg px-3 font-display text-[12px] font-[700] text-t1 no-underline hover:border-learn-fresh focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-learn-fresh"
+            >
+              글에서 이 문장 보기
+            </Link>
+          )}
         </div>
       )}
     </div>

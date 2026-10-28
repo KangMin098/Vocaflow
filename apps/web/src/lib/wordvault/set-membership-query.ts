@@ -8,10 +8,41 @@
 //   문맥이 하나도 없어도 words(목록 판정)는 그대로다.
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { contentHash, evidenceSentenceIndex } from '@/lib/scriptquiz/reader-anchor'
+
 import { normalizeSourceFilter } from './source-filter'
 
 /** contexts: 낱말(정본 word) → 이 기사 본문에서 확인된 원문 문장. 확인된 것만 있다. */
-export type SetMembershipPayload = { setId: string; words: string[]; contexts?: Record<string, string> } | { setId: string; error: true }
+/** reader(T-0214): 본인이 연 같은 기사 글(texts · source_url article:<id>)의 본문이 지금 기사 본문과 같을 때만 —
+ *  textId · 본문 해시(Reader 와 같은 contentHash) · 낱말 → 그 글 본문에서 **유일한 한 문장** 번호. 없거나 실패면 reader 자체가 없다. */
+export type SetMembershipReader = { textId: string; hash: string; anchors: Record<string, number> }
+export type SetMembershipPayload = { setId: string; words: string[]; contexts?: Record<string, string>; reader?: SetMembershipReader } | { setId: string; error: true }
+
+/**
+ * T-0214 — 「글에서 이 문장 보기」 근거. 세트당 한 번: 본인 글 1행(article-practice-actions 와 같은 조회) + 기존 get_chapter_content.
+ * 본인 글이 없거나 · 본문이 지금 기사 본문과 다르거나(다른 판본) · 조회가 실패하면 null — 목록 · 문장은 그대로 둔다.
+ */
+export async function loadOwnArticleReader(client: SupabaseClient, articleId: string, articleBody: string | null, contexts: Record<string, string>): Promise<SetMembershipReader | null> {
+  if (!articleBody || Object.keys(contexts).length === 0) return null
+  try {
+    const uid = (await client.auth.getUser()).data.user?.id
+    if (!uid) return null
+    const { data: row, error } = await client.from('texts').select('id').eq('user_id', uid).eq('source_url', `article:${articleId}`).maybeSingle()
+    if (error || !row) return null
+    const textId = (row as { id?: unknown }).id
+    if (typeof textId !== 'string') return null
+    const { data: content, error: cErr } = await client.rpc('get_chapter_content', { p_text_id: textId })
+    if (cErr || typeof content !== 'string' || content !== articleBody) return null
+    const anchors: Record<string, number> = {}
+    for (const [word, sentence] of Object.entries(contexts)) {
+      const at = evidenceSentenceIndex(content, sentence)
+      if (at !== null) anchors[word] = at
+    }
+    return Object.keys(anchors).length > 0 ? { textId, hash: contentHash(content), anchors } : null
+  } catch {
+    return null
+  }
+}
 
 /** 공백만 정규화해 본문에 그대로 들어 있는지 — 따옴표 · 대소문자 등은 바꾸지 않는다(다르면 싣지 않는다). */
 export function verifiedSourceSentence(sentence: unknown, body: string | null): string | null {
@@ -62,7 +93,9 @@ export async function loadArticleSetMembership(client: SupabaseClient, rawFilter
       }
       if (rows.length < PAGE) break
     }
-    return Object.keys(contexts).length > 0 ? { setId, words, contexts } : { setId, words }
+    if (Object.keys(contexts).length === 0) return { setId, words }
+    const reader = await loadOwnArticleReader(client, articleId, body, contexts)
+    return reader ? { setId, words, contexts, reader } : { setId, words, contexts }
   } catch {
     return { setId, error: true }
   }

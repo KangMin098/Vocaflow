@@ -287,6 +287,8 @@ export function WordVaultBrowseClient({
   const activeChip = chips.find((c) => c.id === scriptFilter)
   // T-0210 — 「선택한 기사에서 쓰인 문장」은 **지금 고른 기사 단어장(set:) 의 정본 응답**일 때만 — 다른 필터 · 다른 세트 · 조회 실패면 없음
   const sourceContexts = membershipPayload && !('error' in membershipPayload) && scriptFilter === `set:${membershipPayload.setId}` ? membershipPayload.contexts ?? null : null
+  // T-0214 — 같은 정본 응답에 실린 본인 글 결속(없으면 링크 없음). 다른 세트 · 실패 · 늦은 응답은 위와 같은 조건으로 걸러진다
+  const sourceReader = sourceContexts && membershipPayload && !('error' in membershipPayload) ? membershipPayload.reader ?? null : null
 
   /**
    * 지금 목록에 걸려 있는 조건을 사람이 읽는 한 줄로.
@@ -484,6 +486,7 @@ export function WordVaultBrowseClient({
                 hideStates={hideStates}
                 onPlayWord={handlePlayWord}
                 sourceContexts={sourceContexts}
+                sourceReader={sourceReader}
               />
             )}
           </>
