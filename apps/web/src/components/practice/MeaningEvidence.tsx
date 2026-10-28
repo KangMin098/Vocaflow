@@ -262,7 +262,7 @@ export function MeaningEvidence({
                               aria-pressed={relation === r.key}
                               data-relation={r.key}
                               onClick={() => setRelation(r.key)}
-                              className="inline-flex min-h-[44px] items-center gap-1.5 rounded-[var(--r-md)] border px-3 py-2 text-left font-body text-[12.5px] leading-snug transition-colors break-keep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                              className="min-h-[44px] rounded-[var(--r-md)] border px-3 py-2 text-left font-body text-[12.5px] leading-snug transition-colors break-keep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                               style={
                                 relation === r.key
                                   ? { borderColor: 'var(--p)', background: 'var(--p-light)', color: 'var(--t1)' }
@@ -270,7 +270,7 @@ export function MeaningEvidence({
                               }
                             >
                               {/* 고른 판단은 색만이 아니라 체크 표지로도 보인다(aria-pressed 가 읽기 상태를 맡는다) */}
-                              {relation === r.key && <Check size={13} strokeWidth={2.5} aria-hidden className="shrink-0" data-relation-mark />}
+                              {relation === r.key && <Check size={13} strokeWidth={2.5} aria-hidden className="mr-1.5 inline-block align-[-2px]" data-relation-mark />}
                               {r.label}
                             </button>
                           ))}
