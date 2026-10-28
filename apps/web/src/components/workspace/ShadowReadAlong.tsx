@@ -258,7 +258,7 @@ export function ShadowReadAlong({ sentences, state, controls, onExit, echoHref }
               type="button"
               onClick={() => controls.setRate(r.value)}
               aria-pressed={state.rate === r.value}
-              className={`h-7 rounded-[var(--r-full)] px-3 font-mono text-[11px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
+              className={`h-11 rounded-[var(--r-full)] px-3 font-mono text-[11px] font-[600] transition-all duration-[var(--dur-normal)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] ${
                 state.rate === r.value
                   ? 'bg-[var(--p)] text-white'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)]'
