@@ -107,3 +107,27 @@ describe('선택한 기사 원문 문장(T-0210)', () => {
     expect(html).toContain('word-row-expand')
   })
 })
+
+describe('발음 버튼 이름 — 단어 숨김 중 낱말 미노출(T-0213)', () => {
+  const playLabel = (w: WordItem, hide: { word: boolean; meaning: boolean }) =>
+    /<button[^>]*aria-label="([^"]*발음 듣기)"/.exec(row(w, hide).html)?.[1]
+  it('보일 때 「ground 발음 듣기」 · 뜻만 숨김이어도 그대로', () => {
+    expect(playLabel(W(), { word: false, meaning: false })).toBe('ground 발음 듣기')
+    expect(playLabel(W(), { word: false, meaning: true })).toBe('ground 발음 듣기')
+  })
+  it('단어 숨김이면 「발음 듣기」 — 낱말 없음, 해제하면 다시 낱말 포함', () => {
+    const hidden = playLabel(W(), { word: true, meaning: false })
+    expect(hidden).toBe('발음 듣기')
+    expect(row(W(), { word: true, meaning: false }).html).not.toMatch(/aria-label="[^"]*ground/)
+    expect(playLabel(W(), { word: false, meaning: false })).not.toBe(hidden)
+  })
+  it('행이 바뀌면 그 행 낱말로(다른 행 이름이 남지 않는다)', () => {
+    expect(playLabel(W({ id: 2, word: 'stone' }), SHOWN)).toBe('stone 발음 듣기')
+    expect(playLabel(W({ id: 2, word: 'stone' }), { word: true, meaning: false })).toBe('발음 듣기')
+  })
+  it('렌더만으로 발음 · 선택 호출 0', () => {
+    const { onPlay, onSel } = row(W(), { word: true, meaning: false })
+    expect(onPlay).not.toHaveBeenCalled()
+    expect(onSel).not.toHaveBeenCalled()
+  })
+})
