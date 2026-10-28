@@ -106,3 +106,15 @@ export function membershipFetchTarget(filter: string, current: { setId: string }
   const id = filter.slice(4)
   return current?.setId === id ? null : id
 }
+
+/**
+ * 게임 범위(?set= · ?text=)에서 단어 목록으로 — readerScopeQuery 의 반대 방향. 같은 filter 값(set:·text:)을 쓴다.
+ * set 이 text 보다 앞선다(readerSource 와 같은 우선순위). 범위가 없으면 단어장 허브.
+ */
+export function scopeWordsHref(scope: { set?: string | null; text?: string | null }): string {
+  const set = scope.set?.trim()
+  if (set) return `/wordvault/browse?filter=${encodeURIComponent(`set:${set}`)}`
+  const text = scope.text?.trim()
+  if (text) return `/wordvault/browse?filter=${encodeURIComponent(textSourceFilter(text))}`
+  return '/wordvault'
+}
