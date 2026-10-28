@@ -46,6 +46,7 @@ export function DcpPlayer({
   revisit = false,
   causeChips = true,
   causeHref,
+  nextChoice,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -79,6 +80,11 @@ export function DcpPlayer({
    * 자료 문맥을 아는 호출자(기사 연습 다리)가 그 자료 범위의 목록을 넣는다.
    */
   causeHref?: Partial<Record<DcpErrorCause, string>>
+  /**
+   * 완료 화면의 보조 다음 선택(opt-in) — 돌아가기 아래 링크 하나. 없으면 그리지 않는다(예전 동작).
+   * 기사 연습 다리만 「다른 글 살펴보기」 를 넣는다. 처방 · 평가가 아니라 자율 선택이다.
+   */
+  nextChoice?: { href: string; label: string }
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -195,6 +201,15 @@ export function DcpPlayer({
           <Home size={16} strokeWidth={2} aria-hidden />
           {backCta}
         </Link>
+        {nextChoice && (
+          <Link
+            href={nextChoice.href}
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            data-testid="dcp-next-choice"
+          >
+            {nextChoice.label}
+          </Link>
+        )}
         {revisit.length > 0 && (
           <div className="flex w-full flex-col gap-2 border-t border-[var(--bd)] pt-4 text-left" data-testid="dcp-revisit">
             <p className="break-keep font-display text-[12px] font-[700] text-[var(--t2)]">이미 본 해설 다시 보기 · 안내 복습</p>
