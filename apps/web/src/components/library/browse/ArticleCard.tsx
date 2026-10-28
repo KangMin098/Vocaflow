@@ -24,7 +24,7 @@
 import { useTransition } from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { ArrowRight, Clock, ExternalLink, Loader2, Target, Volume2 } from 'lucide-react'
+import { ArrowRight, ClipboardCheck, Clock, ExternalLink, Loader2, Target, Volume2 } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 
 import { sourceMeta } from '@/lib/articles/source-meta'
@@ -54,10 +54,13 @@ export function ArticleCard({
   article,
   userVLevel,
   featured = false,
+  practiceCount = null,
 }: {
   article: PublishedArticle
   userVLevel: number
   featured?: boolean
+  /** T-0215 — 이 글에 설치된 안내 연습 문항 수(서버 1회 조회). null 이면 표시 없음(없음 · 로그아웃 · 조회 실패) */
+  practiceCount?: number | null
 }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
@@ -139,6 +142,11 @@ export function ArticleCard({
       {hasAudio && (
         <span className="inline-flex items-center gap-1" title="원어민 음성 포함">
           <Volume2 size={11} aria-hidden /> 음성
+        </span>
+      )}
+      {practiceCount != null && practiceCount > 0 && (
+        <span className="inline-flex items-center gap-1 text-[var(--p)]" data-testid="article-practice-available" title="읽은 뒤 이 글로 안내 연습을 할 수 있어요">
+          <ClipboardCheck size={11} aria-hidden /> 연습 있음 · {practiceCount}문항
         </span>
       )}
       {isEasier && (
