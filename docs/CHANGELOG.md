@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(dictation): 결과 화면 문항마다 「다시 듣기」(저장된 정답 문장을 현재 기기 시스템 음성으로 · 행 전환/정지/숨김/이탈 취소 · 영어 음성 없음 안내)와 「당시 피드백」(단어 상태 글자 라벨 + 오류 태그 · 기록 없음/건너뜀 구분). 세션 `user_id` 주인 결속(useStoryAuthGuard) 확인 때만 노출 · 기록 · FSRS · DB 무변경(`lib/dictation/results-relisten` · dev 하네스 `/dev/dictation-results-relisten`).
 - feat(practice): DcpPlayer 완료 화면에 「이미 본 해설 다시 보기 · 안내 복습」(opt-in `revisit` — 기사 연습 다리 · 합성 dev 만). 이번 세션의 채점 성공 문항만 당시 선택 · 해설 · 근거 짚기 그대로, 원인 칩 · 새 채점 · 기록 없음, 점수 불변.
 - fix(csat): 받은 창작 자료(`/csat/learn/[id]`)의 열 수 없음 · 열기 기록 실패 안내 · 로그인 복귀 · 묶음 선택 링크도 지도 복귀 문맥(FI-011 C)을 유지(`lib/csat/authored/learn-return`). FI-010 fail-closed · 권한 · DB 무변경.
 - fix(wordvault): 기억 상태 목록(state:)의 「이 단어로 학습 시작」이 지금 검색 · 난이도와 돌아올 목록을 싣고, `/wordvault/study` 가 상태(요청당 한 시각) → 검색 · 난이도 → 상한 50 순으로 고른다(`scopeStateStudyRows`). 반복 · 모르는 조건은 invalid(로그인 · 다시 열기 포함), 0개 ≠ 조회 실패, 끝 · 중단 · 빈 상태 · 실패에서 같은 조건 목록 복귀. 목록 주소 없는 예전 state: · 출처 · 허브 · 지도 경로 · 계정 guard 무변경.

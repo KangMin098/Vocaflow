@@ -398,6 +398,8 @@ export interface SessionDetail {
     textId: string | null
     sharedSetId: string | null
     chapterIdx: number | null
+    /** 읽힌 세션 행의 user_id — 결과 복습(다시 듣기 · 당시 피드백)의 주인 결속 */
+    userId: string | null
   }
   attempts: Array<{
     itemIdx: number
@@ -423,7 +425,7 @@ export async function fetchDictationSessionDetail(
     const { data: sData } = await client
       .from('dictation_sessions')
       .select(
-        'id, title, source_kind, avg_accuracy, completed_items, total_items, completed_at, started_at, total_hints, duration_ms, longest_perfect_words, text_id, shared_set_id, chapter_idx',
+        'id, user_id, title, source_kind, avg_accuracy, completed_items, total_items, completed_at, started_at, total_hints, duration_ms, longest_perfect_words, text_id, shared_set_id, chapter_idx',
       )
       .eq('id', sessionId)
       .maybeSingle()
@@ -455,6 +457,7 @@ export async function fetchDictationSessionDetail(
         textId: (s.text_id as string | null) ?? null,
         sharedSetId: (s.shared_set_id as string | null) ?? null,
         chapterIdx: s.chapter_idx == null ? null : Number(s.chapter_idx),
+        userId: (s.user_id as string | null) ?? null,
       },
       attempts: ((aData ?? []) as Array<Record<string, unknown>>).map((r) => ({
         itemIdx: Number(r.item_idx ?? 0),
