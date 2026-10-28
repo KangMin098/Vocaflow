@@ -6,6 +6,7 @@
 
 'use client';
 
+import type { ReaderArticlePractice } from '@/lib/learner/reader-article-practice';
 import { createContext, useContext, type ReactNode } from 'react';
 import type { LibraryText } from '@/types/library';
 import type { ChapterAudio } from '@/lib/workspace/chapter-audio';
@@ -56,6 +57,8 @@ export interface TextContentData {
   currentChapterWordSet: { id: string; title: string } | null;
   /** R0 — 이 기사(본인이 연 글)에 검수한 발췌 연습이 있으면 그 주소(/practice/article/[articleId]). 없으면 null */
   articlePracticeHref?: string | null;
+  /** R0 — 연습 조회 세 상태(있음 · 없음 · 조회 실패). 기사 글이 아니면 null (T-0204) */
+  articlePractice?: ReaderArticlePractice | null;
   /** 본인이 연 기사 글(article:<uuid>)의 공개 원문 주소 — 보이스 유무와 무관. 개인 글·부적합 주소는 null */
   articleSourceHref?: string | null;
   /** v06.34 — 도서의 모든 챕터 단어장 (Browse 안에서 prev/next chapter nav) */

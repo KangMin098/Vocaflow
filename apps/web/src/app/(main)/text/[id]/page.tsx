@@ -25,6 +25,8 @@ import { RecallCard } from '@/components/workspace/RecallCard'
 import { ShadowReadAlong } from '@/components/workspace/ShadowReadAlong'
 import { SupportGloss } from '@/components/workspace/SupportGloss'
 import { WordLookupPopover } from '@/components/library/reader/WordLookupPopover'
+import { ReaderArticlePracticeEntry } from '@/components/practice/ReaderArticlePracticeEntry'
+import { recheckReaderArticlePractice } from '@/lib/learner/reader-article-practice-actions'
 import { UnifiedHeader } from '@/components/workspace/UnifiedHeader'
 import type { ChapterDisplayStatus } from '@/components/workspace/CompleteChapterButton'
 
@@ -586,18 +588,8 @@ export default function WorkspacePage({ params }: PageProps) {
         onWordLookup={handleWordLookup}
       />
 
-      {/* R0 — 이 기사에 검수한 발췌 연습이 있을 때만: 다 읽은 뒤 중심 의미를 골라 보는 안내 연습으로 */}
-      {ctx?.articlePracticeHref && (
-        <div className="mx-auto max-w-[680px] px-6 pb-6 md:px-8">
-          <Link
-            href={ctx.articlePracticeHref}
-            data-testid="reader-article-practice"
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            다 읽었다면 · 발췌문으로 제목 · 주제 골라 보기
-          </Link>
-        </div>
-      )}
+      {/* R0 — 이 기사의 발췌 연습: 있음 → 링크 · 없음 → 없음 · 조회 실패 → 알림 + 다시 시도(T-0204) */}
+      {ctx?.articlePractice && <ReaderArticlePracticeEntry initial={ctx.articlePractice} recheck={recheckReaderArticlePractice} />}
 
       {/* Chapter bottom nav — 책 chapter context 만 (사용자 직접 입력 텍스트는 Pagination) */}
       {ctx?.libraryBookId && ctx.chapterIdx != null && ctx.chapters.length > 1 && (
