@@ -298,6 +298,7 @@ Lexile·ATOS 는 글만 재고 LingQ 의 known-word 카운트는 이진값이라
 - `text-content-context.tsx` — TextContentProvider
 - `text-content-helpers.ts` — buildParagraphsFromContent
 - `echo/page.tsx` — EchoMatch 라우트
+  - 결과 화면 다시 듣기(2026-10-28): `components/echo/ReplayPanel.tsx` + `lib/echo/replay-controller.ts`. 예시는 문장 내용 키 캐시, 내 발화는 현재 문장·화면 수명 동안 메모리에만 두고 다음 녹음·이동·계정 변경·이탈에 놓는다. 앱은 녹음을 저장·업로드하지 않으며, 단어 인식(브라우저 SpeechRecognition)은 브라우저에 따라 원격 처리될 수 있다. 재생은 저장·점수·SRS 를 부르지 않는다.
 
 ### 컴포넌트 (`components/workspace/`)
 - `ContextBar.tsx` (sticky · 북마크·타이포·인사이트·집중)
