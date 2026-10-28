@@ -264,7 +264,8 @@ export function WordRow({
             }}
             aria-expanded={open}
             aria-controls={panelId}
-            aria-label={`${word.word} 뜻 · 예문 ${open ? '접기' : '전체 보기'}`}
+            // 단어 숨김 중에는 이름에 낱말을 넣지 않는다 — 보조기기가 숨긴 낱말을 읽어 버린다(Codex F01)
+            aria-label={`${hideStates.word ? '' : `${word.word} `}뜻 · 예문 ${open ? '접기' : '전체 보기'}`}
             data-testid="word-row-expand"
             className="group/expand -m-3 flex h-11 w-11 shrink-0 items-center justify-center focus-visible:outline-none"
           >

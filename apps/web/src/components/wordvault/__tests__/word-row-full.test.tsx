@@ -69,3 +69,18 @@ describe('WordRowFull', () => {
     expect(b).toContain('둘째 뜻'); expect(b).not.toContain('첫째 뜻')
   })
 })
+
+describe('전체 보기 이름 — 단어 숨김 중 낱말 미노출(Codex F01)', () => {
+  const label = (hide: { word: boolean; meaning: boolean }) =>
+    /<button[^>]*data-testid="word-row-expand"[^>]*>/.exec(row(W(), hide).html)?.[0].match(/aria-label="([^"]*)"/)?.[1]
+  it('보일 때는 낱말 포함', () => {
+    expect(label({ word: false, meaning: false })).toBe('ground 뜻 · 예문 전체 보기')
+    expect(label({ word: false, meaning: true })).toBe('ground 뜻 · 예문 전체 보기')
+  })
+  it('단어 숨김이면 낱말 없는 이름 — 숨김으로 바꾸면 이름이 바뀐다', () => {
+    const shown = label({ word: false, meaning: false }), hidden = label({ word: true, meaning: false })
+    expect(hidden).toBe('뜻 · 예문 전체 보기')
+    expect(hidden).not.toContain('ground')
+    expect(hidden).not.toBe(shown)
+  })
+})
