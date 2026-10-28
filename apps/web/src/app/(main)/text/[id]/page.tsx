@@ -45,6 +45,7 @@ import {
 import { fetchBookmarked, setBookmarked } from '@/lib/text-viewer/bookmark'
 import { useToast } from '@/components/ui/Toast'
 import { annotateSupport } from './text-content-helpers'
+import { ArticlePracticeEntry } from './article-practice-entry'
 
 const MODE_STATUS: Record<ModeKey, ModeStatus> = {
   listen: 'done',
@@ -586,18 +587,8 @@ export default function WorkspacePage({ params }: PageProps) {
         onWordLookup={handleWordLookup}
       />
 
-      {/* R0 — 이 기사에 검수한 발췌 연습이 있을 때만: 다 읽은 뒤 중심 의미를 골라 보는 안내 연습으로 */}
-      {ctx?.articlePracticeHref && (
-        <div className="mx-auto max-w-[680px] px-6 pb-6 md:px-8">
-          <Link
-            href={ctx.articlePracticeHref}
-            data-testid="reader-article-practice"
-            className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-          >
-            다 읽었다면 · 발췌문으로 제목 · 주제 골라 보기
-          </Link>
-        </div>
-      )}
+      {/* R0 — 이 기사의 발췌 연습: 있음 → 링크 · 없음 → 없음 · 조회 실패 → 안내 + 연습 페이지 링크(T-0204) */}
+      <ArticlePracticeEntry practice={ctx?.articlePractice} />
 
       {/* Chapter bottom nav — 책 chapter context 만 (사용자 직접 입력 텍스트는 Pagination) */}
       {ctx?.libraryBookId && ctx.chapterIdx != null && ctx.chapters.length > 1 && (
