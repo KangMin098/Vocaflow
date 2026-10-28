@@ -79,7 +79,7 @@ export function PairFlipHUD({
           onClick={onUseHint}
           disabled={hintsUsed >= hintLimit}
           aria-label={`힌트 사용 — 남은 ${hintLimit - hintsUsed}회`}
-          className="inline-flex h-9 min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--warning-light)] hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] disabled:cursor-not-allowed disabled:opacity-40"
+          className="relative after:absolute after:-inset-[4px] after:content-[''] inline-flex h-9 min-h-[36px] items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12px] font-[600] text-[var(--t1)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--warning-light)] hover:text-[#92400E] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#F59E0B] disabled:cursor-not-allowed disabled:opacity-40"
         >
           <Lightbulb size={14} aria-hidden />
           <span className="font-mono tabular-nums">{hintLimit - hintsUsed}</span>

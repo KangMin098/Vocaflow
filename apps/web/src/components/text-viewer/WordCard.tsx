@@ -72,7 +72,7 @@ export function WordCard({ word, selected, onToggle, onHover, onPlayAudio }: Wor
               onPlayAudio(word.word)
             }}
             aria-label={`${word.word} 발음 듣기`}
-            className="flex h-7 w-7 items-center justify-center rounded-md text-t3 opacity-0 transition-colors duration-normal hover:bg-bg hover:text-p group-hover:opacity-100"
+            className="relative after:absolute after:-inset-[8px] after:content-[''] flex h-7 w-7 items-center justify-center rounded-md text-t3 opacity-0 transition-colors duration-normal hover:bg-bg hover:text-p group-hover:opacity-100"
           >
             <Volume2 size={13} />
           </button>
