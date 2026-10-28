@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(wordvault): 목록 전역 단축키(Space 듣기 · H/M 가리기)가 포커스된 입력 · 선택 · 단추 · 링크 · 편집 영역과 PC 모달의 키를 가로채지 않음(`lib/ui/learner-keyboard-scope` `nativeControlOwnsKey`) — 단추 위 Space/Enter 는 단추를 누른다.
 - feat(fit): 예시 읽기 체험 계측 2종 `fit_trial_opened`(직접 열기) · `fit_trial_answered`(로컬 채점 성공) — 속성 `{}` 만, 수신구가 비어 있지 않은 속성을 버림. DB 허용 목록은 이미 적용된 `20261028015035_fit_trial_telemetry_events`(사본만 기록 · 재실행 금지). 체험 기본 꺼짐 유지.
 - feat(recommend): 다음 추천에 설명용 근거 코드(`reason` — due_review · resume_text · practice_flow · explore · unconfirmed, TS 전용 · DB 무변경)와 카드의 짧은 이유 · 「이번 추천은 독해 실력을 측정한 결과가 아니에요.」 · 「다른 자료 고르기」(/library, 주 목적지가 /library 면 생략). 우선순위 · 라벨 · 목적지 불변, 조회 오류 · 예외 · 응답 전은 unconfirmed, 개인 글 근거는 기존 신원 확인 안에서만.
 - feat(fit): 고정 예시 읽기 체험(HERO_PASSAGE 첫 두 문장 · topic 1문항 · 로컬 채점 · attemptId null) — 기본 꺼짐(`NEXT_PUBLIC_FIT_READING_TRIAL=1` 일 때만), 공개 활성화 결정 전 브랜치 준비. 기록 · 이벤트 · 서버 채점 없음.
