@@ -1037,7 +1037,7 @@ function ItemConfig({
         right={
           <Link
             href={item.href}
-            className="inline-flex h-8 shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
+            className="relative inline-flex h-8 shrink-0 items-center gap-1 after:absolute after:-inset-[6px] after:content-[''] rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--p)]"
           >
             열기 <ExternalLink size={12} strokeWidth={2} aria-hidden />
           </Link>
@@ -1106,7 +1106,7 @@ function ConfigHeader({
         type="button"
         onClick={onClose}
         aria-label="구성 닫기"
-        className="inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="relative inline-flex h-8 w-8 shrink-0 items-center justify-center after:absolute after:-inset-[6px] after:content-[''] rounded-[var(--r-md)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <X size={15} strokeWidth={2} aria-hidden />
       </button>
