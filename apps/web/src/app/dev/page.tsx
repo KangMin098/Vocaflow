@@ -289,7 +289,7 @@ function ScreenCard({ screen }: { screen: Screen }) {
     <div
       className={`group flex h-full items-start gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] ${
         isInteractive
-          ? 'hover:-translate-y-0.5 hover:border-[var(--p)]/40 hover:shadow-[var(--sh-md)]'
+          ? 'hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_40%,transparent)] hover:shadow-[var(--sh-md)]'
           : 'cursor-not-allowed opacity-70'
       }`}
     >

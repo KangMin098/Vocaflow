@@ -238,7 +238,7 @@ export function ArticleCard({
           {Tags}
         </div>
         {pending && (
-          <span aria-hidden className="absolute inset-0 flex items-center justify-center rounded-[var(--r-lg)] bg-[var(--bg)]/60">
+          <span aria-hidden className="absolute inset-0 flex items-center justify-center rounded-[var(--r-lg)] bg-[color-mix(in_srgb,var(--bg)_60%,transparent)]">
             <Loader2 size={16} className="animate-spin text-[var(--p)]" />
           </span>
         )}

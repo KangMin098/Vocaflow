@@ -199,7 +199,7 @@ export function DictationResultsClient() {
         style={{ background: `linear-gradient(135deg, ${DICTATION_ACCENT}, #1D4ED8)` }}
       >
         <div className="flex flex-col items-center text-center">
-          <span className="mb-2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[var(--ti)]/15">
+          <span className="mb-2 inline-flex h-11 w-11 items-center justify-center rounded-full bg-[color-mix(in_srgb,var(--ti)_15%,transparent)]">
             <BandIcon size={22} strokeWidth={2} aria-hidden="true" />
           </span>
           {/* 히어로 최상단이 이 화면의 이름이다 — `p` 로 두면 결과 화면 전체에 h1 이 없다

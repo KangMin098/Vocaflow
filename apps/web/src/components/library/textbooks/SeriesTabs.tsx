@@ -63,7 +63,7 @@ export function SeriesTabs({ current }: { current: string }) {
             <span
               className={[
                 'truncate font-body text-[11px] leading-[1.5] [word-break:keep-all]',
-                active ? 'text-[var(--on-p)]/80' : 'text-[var(--t2)]',
+                active ? 'text-[color-mix(in_srgb,var(--on-p)_80%,transparent)]' : 'text-[var(--t2)]',
               ].join(' ')}
             >
               {s.question}
@@ -73,7 +73,7 @@ export function SeriesTabs({ current }: { current: string }) {
               <span
                 className={[
                   'truncate font-mono text-[10px]',
-                  active ? 'text-[var(--on-p)]/70' : 'text-[var(--t3)]',
+                  active ? 'text-[color-mix(in_srgb,var(--on-p)_70%,transparent)]' : 'text-[var(--t3)]',
                 ].join(' ')}
               >
                 인쇄본 준비 중
