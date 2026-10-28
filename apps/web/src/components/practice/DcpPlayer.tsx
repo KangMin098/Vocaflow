@@ -48,6 +48,7 @@ export function DcpPlayer({
   causeHref,
   causeLabel,
   nextChoice,
+  doneChoice,
   afterFeedback,
 }: {
   items: DcpItem[]
@@ -89,6 +90,8 @@ export function DcpPlayer({
    * 기사 연습 다리만 「다른 글 살펴보기」 를 넣는다. 처방 · 평가가 아니라 자율 선택이다.
    */
   nextChoice?: { href: string; label: string }
+  /** T-0212 — 완료 화면 보조 선택(opt-in) 하나 더 — 돌아가기와 nextChoice 사이. 없으면 그리지 않는다(예전 출력 그대로). 정오와 무관하게 완료에서만. */
+  doneChoice?: { href: string; label: string }
   /**
    * 채점 뒤 피드백 안의 보조 영역(opt-in, T-0207) — 기사 연습 다리만 「읽은 글 참고」 를 넣는다. 없으면 그리지 않는다(예전 동작).
    * 문항마다 새로 그린다(key) · 완료 뒤 다시 보기에는 넣지 않는다.
@@ -210,6 +213,15 @@ export function DcpPlayer({
           <Home size={16} strokeWidth={2} aria-hidden />
           {backCta}
         </Link>
+        {doneChoice && (
+          <Link
+            href={doneChoice.href}
+            className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+            data-testid="dcp-done-choice"
+          >
+            {doneChoice.label}
+          </Link>
+        )}
         {nextChoice && (
           <Link
             href={nextChoice.href}
