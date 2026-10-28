@@ -3,12 +3,26 @@
 // 의미 선택 채점 뒤 「본문 근거 짚기 → 해설과 나란히」(lib/learner/meaning-evidence).
 // 짚은 문장은 판정하지 않는다 — 학습자가 자기 근거와 해설을 비교해 스스로 본다. 건너뛰어도 다음으로 갈 수 있다.
 // 문항이 바뀌면 부모가 key 로 새로 그린다(상태가 다음 문항으로 새지 않는다).
+// T-0205: 견주기 결과 안에서 「이 문장과 두 선택지의 관계 · 내 판단」을 하나 고르고 고칠 수 있다 — 학습자 자기 판단이며 채점 · 기록하지 않는다
+//   (이 컴포넌트 메모리뿐 — 저장소 · 네트워크 · 채점 · 기록 · 이벤트 없음). 견줄 대상이나 짚은 문장을 다르게 바꾸면 판단만 비운다.
 
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { Check } from 'lucide-react'
 
 const CIRCLED = ['①', '②', '③', '④', '⑤']
+
+/** 짚은 문장과 두 선택지의 관계 — 학습자가 스스로 고르는 판단. 정답이 아니며 자동으로 맞고 틀림을 매기지 않는다 */
+export const RELATIONS = [
+  { key: 'mine', label: '내 답을 뒷받침해요' },
+  { key: 'target', label: '견준 선택지를 뒷받침해요' },
+  { key: 'both', label: '두 선택지 모두를 뒷받침해요' },
+  { key: 'neither', label: '어느 쪽도 뒷받침하지 않아요' },
+  { key: 'unsure', label: '아직 판단하기 어려워요' },
+] as const
+export type RelationKey = (typeof RELATIONS)[number]['key']
+export const RELATION_NOTE = '내 판단을 표시했어요. 등록된 해설과 다시 견주어 볼 수 있어요. 이 판단은 채점하지 않아요.'
 
 /**
  * 근거 후보가 이보다 많으면 목록 높이를 묶고 안에서 스크롤한다 — 긴 발췌(예: 274어 → 28문장)에서 목록만 1,400px 가 되어
@@ -56,6 +70,8 @@ export function MeaningEvidence({
   const [compareOpen, setCompareOpen] = useState(false)
   const [target, setTarget] = useState<number | null>(null)
   const [comparePicked, setComparePicked] = useState<number | null>(null)
+  // 관계 판단 — 견줄 대상 · 짚은 문장이 다르게 바뀌면 비운다(같은 값을 다시 눌러도 그대로)
+  const [relation, setRelation] = useState<RelationKey | null>(null)
   const others = chosen && choices ? choices.map((text, i) => ({ n: i + 1, text })).filter((c) => c.n !== chosen.n && c.text.trim()) : []
   const targetText = target != null ? choices?.[target - 1] ?? null : null
   // 건너뛴 **그 순간 한 번만** 안내로 포커스를 옮긴다 — 매 렌더 ref 콜백으로 옮기면 부모가 다시 그릴 때마다
@@ -166,7 +182,10 @@ export function MeaningEvidence({
                     type="button"
                     aria-pressed={target === c.n}
                     onClick={() => {
-                      if (target !== c.n) setComparePicked(null)
+                      if (target !== c.n) {
+                        setComparePicked(null)
+                        setRelation(null)
+                      }
                       setTarget(c.n)
                     }}
                     className="min-h-[44px] rounded-[var(--r-md)] border px-3 py-2 text-left font-english text-[13px] leading-relaxed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
@@ -192,7 +211,10 @@ export function MeaningEvidence({
                         key={i}
                         type="button"
                         aria-pressed={comparePicked === i}
-                        onClick={() => setComparePicked(i)}
+                        onClick={() => {
+                          if (comparePicked !== i) setRelation(null)
+                          setComparePicked(i)
+                        }}
                         className="min-h-[44px] rounded-[var(--r-md)] border px-3 py-2 text-left font-english text-[13.5px] leading-relaxed transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
                         style={
                           comparePicked === i
@@ -228,6 +250,37 @@ export function MeaningEvidence({
                       <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)] md:col-span-2">
                         짚은 문장이 두 선택지 중 어느 쪽을 받치는지, 해설과 견주어 스스로 보세요. 판정하지 않아요 — 다른 선택지를 골라 다시 견주어도 돼요.
                       </p>
+                      <div className="flex flex-col gap-2 md:col-span-2" data-testid="meaning-relation">
+                        <p id="meaning-relation-label" className="break-keep font-display text-[12.5px] font-[700] text-[var(--t1)]">
+                          이 문장과 두 선택지의 관계 · 내 판단 <span className="font-body text-[12px] font-[500] text-[var(--t2)]">(선택 — 고르지 않아도 다음으로 갈 수 있어요)</span>
+                        </p>
+                        <div role="group" aria-labelledby="meaning-relation-label" className="flex flex-wrap gap-1.5">
+                          {RELATIONS.map((r) => (
+                            <button
+                              key={r.key}
+                              type="button"
+                              aria-pressed={relation === r.key}
+                              data-relation={r.key}
+                              onClick={() => setRelation(r.key)}
+                              className="min-h-[44px] rounded-[var(--r-md)] border px-3 py-2 text-left font-body text-[12.5px] leading-snug transition-colors break-keep focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+                              style={
+                                relation === r.key
+                                  ? { borderColor: 'var(--p)', background: 'var(--p-light)', color: 'var(--t1)' }
+                                  : { borderColor: 'var(--bd)', background: 'var(--bg)', color: 'var(--t2)' }
+                              }
+                            >
+                              {/* 고른 판단은 색만이 아니라 체크 표지로도 보인다(aria-pressed 가 읽기 상태를 맡는다) */}
+                              {relation === r.key && <Check size={13} strokeWidth={2.5} aria-hidden className="mr-1.5 inline-block align-[-2px]" data-relation-mark />}
+                              {r.label}
+                            </button>
+                          ))}
+                        </div>
+                        {relation && (
+                          <p role="status" className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]" data-testid="meaning-relation-note">
+                            {RELATION_NOTE}
+                          </p>
+                        )}
+                      </div>
                     </div>
                   )}
                 </div>
