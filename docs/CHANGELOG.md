@@ -233,6 +233,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(ui): 공용 Button sm·ButtonGroup sm/md·Input sm 높이를 44px 로(터치 영역 하한) — 실사용 caller(로그인·가입·재설정 Input md)는 높이 불변, 바뀌는 곳은 /dev/components 쇼케이스 (1772436a7)
 - fix(practice): 기사 연습 「단어를 몰랐어요」 복습을 발행 기사 단어장 범위로 — loader 가 Reader §4.7 과 같은 RLS 조회로 발행 library_article 세트를 찾고 Bridge 가 readerSource 로 set: / text: / 조회 오류 시 본문(/text/<id>) 결정 · 신원·채점·복귀 불변 (f1557fb9c)
 - fix(textbook): 교재 연습 완료 문구에서 실력 향상 암시 제거 — 「N문항 중 M문항을 맞혔어요」 + 「교재 수준에 맞춰 고른 안내 연습… 실력이 달라졌는지를 잰 것은 아니에요」(다시 보기 켜짐일 때만 해설 다시 보기 안내) · DcpPlayer·다른 caller 불변 (eba4b0041)
 - fix(practice): 근거 문장이 8개를 넘으면 MeaningEvidence 두 목록을 높이 360px + 내부 스크롤로(「본문 문장 N개 — 목록 안에서 스크롤해 끝까지 볼 수 있어요.」) · 문장·순서·선택·비교·건너뛰기 불변 (7212ae4e9)
