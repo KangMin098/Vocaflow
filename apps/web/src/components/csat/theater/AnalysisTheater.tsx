@@ -553,11 +553,13 @@ export function AnalysisTheater({
       requestAnimationFrame(() => document.querySelector('[data-testid="session-done"]')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
     })
   }
+  // 간격은 이해 확인 결과로 — 다 첫 시도에 맞혔으면 7일, 다시 골랐으면 3일, 답을 열었거나 안 했으면 1일(M4).
+  //   완료 화면의 「N일 뒤 다시 보기」 표시와 클릭 예약이 **같은 값**을 쓴다(T-0216 — 예전 표시는 늘 3일이었다)
+  const doneReviewDays = reviewDays(checked.filter((x) => !x.review))
   const review = () => {
     if (!session) return
     const id = session.id
-    // 간격은 이해 확인 결과로 — 다 첫 시도에 맞혔으면 7일, 다시 골랐으면 3일, 답을 열었거나 안 했으면 1일(M4)
-    const days = reviewDays(checked.filter((x) => !x.review))
+    const days = doneReviewDays
     track({ name: 'csat_review_scheduled', props: { days } })
     void persist((r) => scheduleReview(r, id, Date.now(), days)).then(({ record }) => sync(record, id))
   }
@@ -929,6 +931,7 @@ export function AnalysisTheater({
         next={nextLive}
         typeHref={typeHref}
         now={Date.now()}
+        reviewDays={doneReviewDays}
         onReview={review}
         onRestart={restart}
       />
