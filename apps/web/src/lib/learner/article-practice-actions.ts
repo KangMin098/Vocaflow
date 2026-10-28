@@ -26,8 +26,14 @@ import {
   type ArticlePracticeDeps,
 } from './article-practice-contract'
 
+/**
+ * 「단어를 몰랐어요」 의 단어 출처 — 서버가 정한다(클라이언트가 기사 · 세트를 지정하지 않는다).
+ * set = 그 기사의 발행 library_article 세트(Reader layout §4.7 과 같은 조회) · text = 실제로 세트 없음 · unknown = 조회 실패.
+ */
+export type ArticleVocabSource = { kind: 'set'; setId: string } | { kind: 'text' } | { kind: 'unknown' }
+
 export type ArticlePracticeLoad =
-  | { ok: true; textId: string; ownerId: string; items: ReturnType<typeof toDcpChoiceItem>[] }
+  | { ok: true; textId: string; ownerId: string; items: ReturnType<typeof toDcpChoiceItem>[]; vocab: ArticleVocabSource }
   | { ok: false; reason: Exclude<ArticlePracticeAccess, { ok: true }>['reason'] | 'not_installed' | 'query_failed' | 'no_items' }
 
 function depsFor(client: SupabaseClient): ArticlePracticeDeps {
@@ -67,7 +73,7 @@ async function candidates(client: SupabaseClient, articleId: string): Promise<Ar
   }
   const items = keepCentralMeaningRows(data).map(toDcpChoiceItem)
   if (items.length === 0) return { ok: false, reason: 'no_items' }
-  return { ok: true, textId: '', ownerId: '', items }
+  return { ok: true, textId: '', ownerId: '', items, vocab: { kind: 'unknown' } }
 }
 
 export async function loadArticlePractice(articleId: string): Promise<ArticlePracticeLoad> {
@@ -79,7 +85,27 @@ export async function loadArticlePractice(articleId: string): Promise<ArticlePra
   if (!c.ok) return c
   // 소유자는 화면의 신원 비교용으로만 싣는다(DOM · URL 에 넣지 않는다)
   const ownerId = await deps.currentUserId()
-  return ownerId ? { ...c, textId: access.textId, ownerId } : { ok: false, reason: 'signed_out' }
+  if (!ownerId) return { ok: false, reason: 'signed_out' }
+  return { ...c, textId: access.textId, ownerId, vocab: await articleVocabSource(client, access.articleId) }
+}
+
+/**
+ * 그 기사의 발행 단어장 — Reader(/text/[id] layout §4.7)와 같은 조회 계약(RLS 서버 client · 발행 · library_article · 기사 id).
+ * 구독 기사 단어(vocabularies)는 shared_set_id 만 있고 text_id 가 비어 있어 text: 로 거르면 0 이 된다(source-filter 반례).
+ * ⚠️ 조회 실패를 「없음」(text) 으로 바꾸지 않는다 — unknown 으로 돌려 화면이 엉뚱한 범위로 보내지 않게 한다. 연습 자체는 막지 않는다.
+ */
+async function articleVocabSource(client: SupabaseClient, articleId: string): Promise<ArticleVocabSource> {
+  const { data, error } = await client
+    .from('shared_word_sets')
+    .select('id')
+    .eq('is_published', true)
+    .eq('category', 'library_article')
+    .eq('curation_query->>article_id', articleId)
+    .maybeSingle()
+  if (error) return { kind: 'unknown' }
+  const id = (data as { id?: unknown } | null)?.id
+  if (data == null) return { kind: 'text' }
+  return typeof id === 'string' && UUID_RE.test(id) ? { kind: 'set', setId: id } : { kind: 'unknown' }
 }
 
 /** loader 가 확인한 문맥 — 제출 때 그대로 돌려준다. */

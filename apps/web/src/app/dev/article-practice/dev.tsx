@@ -6,9 +6,10 @@ import { useMemo, useRef, useState } from 'react'
 import { ArticlePracticeBridge } from '@/components/practice/ArticlePracticeBridge'
 import { StoryAuthSourceContext, type StoryAuthChange, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import type { DcpGradeResult, DcpItem } from '@/lib/learner/dcp'
-import type { ArticlePracticeContext } from '@/lib/learner/article-practice-actions'
+import type { ArticlePracticeContext, ArticleVocabSource } from '@/lib/learner/article-practice-actions'
 
 const A = 'dev-user-a'
+const DEV_SET = '00000000-0000-4000-8000-00000000a5e7'
 const B = 'dev-user-b'
 
 const PASSAGE =
@@ -47,6 +48,9 @@ export function ArticlePracticeDev() {
   // ?fail=ap-topic — 그 문항의 첫 제출만 합성 채점 실패(재시도는 성공). 실패는 다시 보기에 들어가면 안 된다.
   const failId = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('fail')
   const failed = useRef(false)
+  // ?vocab=set|text|unknown — 서버 loader 가 정했을 단어 출처(합성). 기본 text(세트 없는 기사)
+  const vq = typeof window === 'undefined' ? null : new URLSearchParams(window.location.search).get('vocab')
+  const vocab: ArticleVocabSource = vq === 'set' ? { kind: 'set', setId: DEV_SET } : vq === 'unknown' ? { kind: 'unknown' } : { kind: 'text' }
   const ctl = useMemo(() => controllableSource(A), [])
   // 합성 제출 호출 수 — 다시 보기가 새 채점을 부르지 않는지 PC 실측이 읽는다(dev 전용 표시)
   const [calls, setCalls] = useState(0)
@@ -72,7 +76,7 @@ export function ArticlePracticeDev() {
         </button>
         <span className="self-center font-mono text-[12px] text-[var(--t2)]" data-testid="dev-submit-calls">제출 호출 {calls}</span>
       </div>
-      <ArticlePracticeBridge articleId="dev-article" textId="dev-text-a" ownerId={A} items={ITEMS} submit={submit} />
+      <ArticlePracticeBridge articleId="dev-article" textId="dev-text-a" ownerId={A} items={ITEMS} vocab={vocab} submit={submit} />
     </StoryAuthSourceContext.Provider>
   )
 }

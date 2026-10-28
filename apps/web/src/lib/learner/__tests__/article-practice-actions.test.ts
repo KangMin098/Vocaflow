@@ -17,6 +17,9 @@ const state = {
   submit: { data: { correct: true, attempt_id: '99999999-9999-4999-8999-999999999999', answer_key: null } as unknown, error: null as null | { message: string } },
   submitCalls: [] as unknown[],
   textId: 'text-1',
+  set: null as unknown,
+  setError: null as null | { message: string },
+  setQueries: [] as Array<[string, unknown]>,
 }
 
 function queryWithError(result: unknown, error: unknown) {
@@ -28,12 +31,22 @@ function query(result: unknown) {
   return q
 }
 
+function setQuery() {
+  const q = {
+    select: () => q,
+    eq: (col: string, v: unknown) => (state.setQueries.push([col, v]), q),
+    maybeSingle: async () => ({ data: state.setError ? null : state.set, error: state.setError }),
+  }
+  return q
+}
+
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
     auth: { getUser: async () => ({ data: { user: state.user ? { id: state.user } : null } }) },
     from: (t: string) =>
       t === 'user_profiles' ? queryWithError({ status: state.status }, state.profileError)
         : t === 'texts' ? query({ id: state.textId })
+          : t === 'shared_word_sets' ? setQuery()
           : query({ content: state.articleBody }),
     rpc: async (fn: string, args: unknown) =>
       fn === 'get_chapter_content' ? { data: state.textContent, error: null }
@@ -48,13 +61,13 @@ import { loadArticlePractice, submitArticlePractice } from '../article-practice-
 const CTX = { articleId: ART, textId: 'text-1', ownerId: 'user-me' }
 
 beforeEach(() => {
-  Object.assign(state, { user: 'user-me', status: 'active', textContent: BODY, articleBody: BODY, rpc: { data: [row], error: null }, profileError: null, submit: { data: { correct: true, attempt_id: '99999999-9999-4999-8999-999999999999', answer_key: null }, error: null }, submitCalls: [], textId: 'text-1' })
+  Object.assign(state, { user: 'user-me', status: 'active', textContent: BODY, articleBody: BODY, rpc: { data: [row], error: null }, profileError: null, submit: { data: { correct: true, attempt_id: '99999999-9999-4999-8999-999999999999', answer_key: null }, error: null }, submitCalls: [], textId: 'text-1', set: null, setError: null, setQueries: [] })
 })
 
 describe('loadArticlePractice', () => {
   it('정상 → 그 기사의 현재 후보만 DcpPlayer 문항으로(정답 없음)', async () => {
     const r = await loadArticlePractice(ART)
-    expect(r).toEqual({ ok: true, textId: 'text-1', ownerId: 'user-me', items: [{ id: ITEM, type: 'title', paragraphIdx: 0, payload: { passage: 'P', choices: ['a', 'b', 'c', 'd', 'e'], stemKo: 'S', underline: null, summarySentence: null } }] })
+    expect(r).toEqual({ ok: true, textId: 'text-1', ownerId: 'user-me', vocab: { kind: 'text' }, items: [{ id: ITEM, type: 'title', paragraphIdx: 0, payload: { passage: 'P', choices: ['a', 'b', 'c', 'd', 'e'], stemKo: 'S', underline: null, summarySentence: null } }] })
   })
   it('함수 미설치(PGRST202)는 not_installed, 다른 오류는 query_failed, 후보 0 은 no_items', async () => {
     state.rpc = { data: null, error: { code: 'PGRST202', message: 'x' } }
@@ -137,5 +150,40 @@ describe('제출 문맥 고정 — loader 의 계정 · 본인 글', () => {
       expect((await submitArticlePractice(bad as never, ITEM, { choice: 1 })).ok).toBe(false)
     }
     expect(state.submitCalls).toEqual([])
+  })
+})
+
+describe('loadArticlePractice 단어 출처(vocab) — Reader §4.7 과 같은 조회', () => {
+  const SET = '5e7a0000-0000-4000-8000-000000000001'
+  it('발행 library_article 세트 → set, 조회 조건은 발행 · 카테고리 · 이 기사 id', async () => {
+    state.set = { id: SET }
+    const r = await loadArticlePractice(ART)
+    expect(r.ok && r.vocab).toEqual({ kind: 'set', setId: SET })
+    expect(state.setQueries).toEqual([['is_published', true], ['category', 'library_article'], ['curation_query->>article_id', ART]])
+  })
+  it('세트 없음 → text(본인 글)', async () => {
+    const r = await loadArticlePractice(ART)
+    expect(r.ok && r.vocab).toEqual({ kind: 'text' })
+  })
+  it('조회 오류 → unknown(「없음」 으로 바꾸지 않는다) · 연습 자체는 열린다', async () => {
+    state.setError = { message: 'permission denied' }
+    const r = await loadArticlePractice(ART)
+    expect(r.ok).toBe(true)
+    expect(r.ok && r.vocab).toEqual({ kind: 'unknown' })
+  })
+  it('이상한 행(id 없음 · uuid 아님) → unknown', async () => {
+    for (const bad of [{}, { id: 'not-a-uuid' }, { id: 42 }]) {
+      state.set = bad
+      const r = await loadArticlePractice(ART)
+      expect(r.ok && r.vocab).toEqual({ kind: 'unknown' })
+    }
+  })
+  it('loader 가 실패하면 세트를 조회하지 않는다(로그아웃 · 후보 없음)', async () => {
+    state.user = null
+    expect((await loadArticlePractice(ART)).ok).toBe(false)
+    state.user = 'user-me'
+    state.rpc = { data: [], error: null }
+    expect((await loadArticlePractice(ART)).ok).toBe(false)
+    expect(state.setQueries).toEqual([])
   })
 })
