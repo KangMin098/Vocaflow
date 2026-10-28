@@ -71,3 +71,13 @@ describe('화면 · 경계', () => {
     expect(comp).not.toMatch(/PublicFitClient|analyze|localStorage|sessionStorage|fetch\(|track\(|dcp-actions|supabase/)
   })
 })
+
+describe('원인 칩 숨김(opt-out)', () => {
+  it('체험은 causeChips={false} · DcpPlayer 기본은 켬(다른 호출자 불변)', () => {
+    const comp = fs.readFileSync(path.resolve(__dirname, '../../../components/textfit/ReadingTrial.tsx'), 'utf8')
+    expect(comp).toContain('causeChips={false}')
+    const player = fs.readFileSync(path.resolve(__dirname, '../../../components/practice/DcpPlayer.tsx'), 'utf8')
+    expect(player).toContain('causeChips = true,')
+    expect(player).toContain("{!correct && review === false && (")
+  })
+})

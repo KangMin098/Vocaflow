@@ -62,6 +62,7 @@ export function ReadingTrial() {
             grade={gradeTrial}
             recordCause={inertCause}
             revisit
+            causeChips={false}
             doneCopy={trialDoneCopy}
             backHref="#fit-reading-trial"
             backCta="체험 닫기"

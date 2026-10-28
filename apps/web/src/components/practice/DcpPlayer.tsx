@@ -44,6 +44,7 @@ export function DcpPlayer({
   onGraded,
   onBack,
   revisit = false,
+  causeChips = true,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -68,6 +69,10 @@ export function DcpPlayer({
    * 끄면 피드백 기록을 아예 모으지 않는다(예전 동작).
    */
   revisit?: boolean
+  /**
+   * 오답 원인 칩(+ 그 팁의 복습 링크) — 기본 켬. 기록할 곳이 없는 체험(공개 예시)만 끈다.
+   */
+  causeChips?: boolean
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -254,7 +259,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -332,8 +337,8 @@ function Feedback({
   onCause: (c: DcpErrorCause) => void
   onNext: () => void
   isLast: boolean
-  /** 완료 뒤 다시 보기 — 원인 기록 조작부를 두지 않고(가짜 저장 금지) 「요약으로」 만 */
-  review?: boolean
+  /** true = 완료 뒤 다시 보기(원인 칩 없음 · 「요약으로」) · 'noCause' = 진행 중이지만 원인 칩만 숨김 */
+  review?: boolean | 'noCause'
 }) {
   const correct = result.correct
   return (
@@ -402,7 +407,7 @@ function Feedback({
       })()}
 
       {/* 오답이면 error_cause 1-tap */}
-      {!correct && !review && (
+      {!correct && review === false && (
         <div className="flex flex-col gap-2">
           <p className="font-display text-[12px] font-[700] text-[var(--t2)]">어떤 점이 어려웠나요? (선택)</p>
           <div className="flex flex-wrap gap-2">
@@ -432,7 +437,7 @@ function Feedback({
         onClick={onNext}
         className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
       >
-        {review ? '요약으로' : isLast ? '마치기' : '다음'}
+        {review === true ? '요약으로' : isLast ? '마치기' : '다음'}
         <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
       </button>
     </div>
