@@ -674,7 +674,7 @@ export function ExtractionPanel({ text, textId, ownerId, defaultStrategy = 'user
                 }`}
               >
                 {c.label}
-                <span className={`font-mono text-[10px] ${active ? 'text-[color-mix(in_srgb,var(--p)_70%,transparent)]' : 'text-[var(--t2)]'}`}>
+                <span className={`font-mono text-[10px] ${active ? 'text-[var(--on-p-tint)]' : 'text-[var(--t2)]'}`}>
                   {count}
                 </span>
               </button>
