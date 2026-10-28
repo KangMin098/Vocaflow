@@ -105,6 +105,14 @@ describe('getNextActionForUser — 조회 오류 · 예외의 한계 표시', ()
       expect(r.personal).toBe(false)
     })
   }
+  for (const key of ['vocabularies:total', 'vocabularies:due'] as const) {
+    it(`${key} count 가 null(오류 없음) → 확인된 0 이 아니다 · 근거 unconfirmed`, async () => {
+      db.results[key] = { data: null, count: null, error: null }
+      const r = await getNextActionForUser()
+      expect(r.action.reason).toBe('unconfirmed')
+      expect(r.fallback.reason).toBe('unconfirmed')
+    })
+  }
   it('예외 → 기존 cold 목적지 · 라벨 그대로, 근거 unconfirmed, 계정 정보 없음', async () => {
     db.throwOn = 'user_stats'
     const r = await getNextActionForUser()

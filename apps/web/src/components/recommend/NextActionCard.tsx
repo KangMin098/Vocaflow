@@ -21,9 +21,9 @@ import type { RecommendationReason, RecommendedAction } from '@/lib/recommend/ty
 export const REASON_COPY: Record<RecommendationReason, string> = {
   due_review: '복습할 때가 된 단어가 있어 권해요.',
   resume_text: '열어 둔 글이 있어 그 글로 돌아가 보길 권해요.',
-  practice_flow: '지금까지의 단어 연습 흐름을 이어 가도록 권해요.',
+  practice_flow: '보유 어휘·활동 단서를 바탕으로 다음 연습을 제안해요.',
   explore: '새 자료를 골라 시작해 보도록 권해요.',
-  unconfirmed: '학습 기록을 확인하지 못해 일반적인 활동을 제안해요.',
+  unconfirmed: '일부 추천 근거를 확인하지 못해 잠정적으로 제안해요.',
 }
 /** 근거 코드가 없는 기존 객체 — 구체 근거를 지어내지 않는다 */
 export const GENERIC_REASON = '다음에 해 볼 만한 활동을 제안해요.'

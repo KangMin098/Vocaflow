@@ -82,7 +82,9 @@ export async function getNextActionForUser(): Promise<OwnedNextAction> {
     // 조회 실패면 P2 없이 — 「진행 중 글 없음」으로 바꿔 말하지 않고 그냥 다른 추천으로 간다
     const own = ownRes === 'error' ? null : ownRes
     // 근거 조회 중 하나라도 실패했으면 그 추천의 근거를 확인했다고 말하지 않는다(낮은 능력으로 바꾸지도 않는다)
-    const failed = !!totalRes.error || !!dueRes.error || !!statsRes.error || ownRes === 'error'
+    // count 가 null/undefined 이면 오류가 없어도 확인된 0 이 아니다(AGENTS: count ?? 0 로 삼키지 않는다)
+    const countMissing = typeof totalRes.count !== 'number' || typeof dueRes.count !== 'number'
+    const failed = countMissing || !!totalRes.error || !!dueRes.error || !!statsRes.error || ownRes === 'error'
     const fallback = markUnconfirmed(decideNextAction(base), failed)
     const action = own
       ? markUnconfirmed(decideNextAction({ ...base, inProgressTextTitle: own.title, inProgressTextId: own.id }), failed)
