@@ -64,7 +64,7 @@ describe('decideNextAction P2', () => {
   it('P1 이 우선 · P2 는 「이어 보기」(청취를 말하지 않는다)', () => {
     expect(decideNextAction({ masteryLevel: 'warm', urgentWordCount: 5, inProgressTextTitle: 'X', inProgressTextId: 't1' }).module).toBe('flashcard')
     const a = decideNextAction({ masteryLevel: 'warm', urgentWordCount: 0, inProgressTextTitle: 'X', inProgressTextId: 't1' })
-    expect(a).toEqual({ module: 'workspace', label: 'X 이어 보기', textId: 't1' })
+    expect(a).toEqual({ module: 'workspace', label: 'X 이어 보기', textId: 't1', reason: 'resume_text' })
     expect(a.label).not.toContain('듣기')
   })
 })

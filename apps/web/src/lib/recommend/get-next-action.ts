@@ -9,13 +9,17 @@
 import type { MasteryLevel } from '@/lib/srs'
 import { createClient } from '@/lib/supabase/server'
 
-import { decideNextAction } from './decide'
+import { decideNextAction, markUnconfirmed } from './decide'
 import { pickOwnInProgressText, type OwnTextRow } from './own-reading'
 import type { OwnedNextAction, RecommendedAction } from './types'
 
-const COLD_START: RecommendedAction = { module: 'library', label: '새 스크립트를 만나보세요' }
+const COLD_START: RecommendedAction = { module: 'library', label: '새 스크립트를 만나보세요', reason: 'explore' }
 
 const COLD: OwnedNextAction = { action: COLD_START, fallback: COLD_START, personal: false, ownerId: null }
+
+/** 예외 — 기존 cold 추천(같은 목적지 · 라벨)이되 근거를 확인했다고 말하지 않는다 */
+const COLD_UNCONFIRMED_START: RecommendedAction = { ...COLD_START, reason: 'unconfirmed' }
+const COLD_UNCONFIRMED: OwnedNextAction = { action: COLD_UNCONFIRMED_START, fallback: COLD_UNCONFIRMED_START, personal: false, ownerId: null }
 
 type ServerClient = Awaited<ReturnType<typeof createClient>>
 
@@ -77,10 +81,14 @@ export async function getNextActionForUser(): Promise<OwnedNextAction> {
     const base = { masteryLevel: mastery, urgentWordCount: dueRes.count ?? 0 }
     // 조회 실패면 P2 없이 — 「진행 중 글 없음」으로 바꿔 말하지 않고 그냥 다른 추천으로 간다
     const own = ownRes === 'error' ? null : ownRes
-    const fallback = decideNextAction(base)
-    const action = own ? decideNextAction({ ...base, inProgressTextTitle: own.title, inProgressTextId: own.id }) : fallback
+    // 근거 조회 중 하나라도 실패했으면 그 추천의 근거를 확인했다고 말하지 않는다(낮은 능력으로 바꾸지도 않는다)
+    const failed = !!totalRes.error || !!dueRes.error || !!statsRes.error || ownRes === 'error'
+    const fallback = markUnconfirmed(decideNextAction(base), failed)
+    const action = own
+      ? markUnconfirmed(decideNextAction({ ...base, inProgressTextTitle: own.title, inProgressTextId: own.id }), failed)
+      : fallback
     return { action, fallback, personal: action.module === 'workspace' && !!action.textId, ownerId: user.id }
   } catch {
-    return COLD
+    return COLD_UNCONFIRMED
   }
 }

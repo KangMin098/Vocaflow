@@ -10,6 +10,14 @@
 import type { MasteryLevel, ModuleId } from '@/lib/srs';
 
 /**
+ * 추천 근거(설명용 닫힌 코드) — TS 전송 속성일 뿐 DB enum · 스키마가 아니다.
+ * due_review = 복습 시점이 된 단어 · resume_text = 열어 둔 본인 글 · practice_flow = 어휘 연습 흐름 단서
+ * explore = 단서 없이 새 자료 · unconfirmed = 조회 실패 · 예외 · 아직 확인 전(근거를 확인했다고 말하지 않는다).
+ * 어느 것도 독해 실력 측정이 아니다.
+ */
+export type RecommendationReason = 'due_review' | 'resume_text' | 'practice_flow' | 'explore' | 'unconfirmed';
+
+/**
  * 추천 결과 — UI에 그대로 렌더되는 격려형 라벨 + 라우팅 정보
  *
  * 라벨은 항상 격려형. 정확도/실패 카운트 노출 금지 (§17 안티패턴 5).
@@ -33,6 +41,9 @@ export interface RecommendedAction {
 
   /** Dictation 단위 */
   unit?: 'sentence' | 'paragraph' | 'full';
+
+  /** 추천 근거(선택) — 없으면 카드가 구체 근거를 지어내지 않는 일반 문구를 쓴다 */
+  reason?: RecommendationReason;
 }
 
 /** Mock 데모용 — 실제 DB 연동 후 user_stats 조회로 대체 */

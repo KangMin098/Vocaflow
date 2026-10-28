@@ -13,8 +13,8 @@ const B = 'dev-user-b'
 
 /** 합성 서버 응답 — 계정 A 의 개인 글 추천(개인 글이 없을 때의 추천을 함께 싣는다). */
 const A_RESULT: OwnedNextAction = {
-  action: { module: 'workspace', label: 'My Garden Essay 이어 보기', textId: 'dev-text-a' },
-  fallback: { module: 'spellforge', strategy: 'hybrid', label: '단어를 정확하게 — 철자로 다지기' },
+  action: { module: 'workspace', label: 'My Garden Essay 이어 보기', textId: 'dev-text-a', reason: 'resume_text' },
+  fallback: { module: 'spellforge', strategy: 'hybrid', label: '단어를 정확하게 — 철자로 다지기', reason: 'practice_flow' },
   personal: true,
   ownerId: A,
 }
