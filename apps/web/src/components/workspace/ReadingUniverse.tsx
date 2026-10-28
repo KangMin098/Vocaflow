@@ -280,7 +280,15 @@ export function ReadingUniverse({
               return (
                 <span
                   key={s.id}
-                  ref={isPlaying ? playingRef : isAnchor ? anchorRef : undefined}
+                  // 재생 중 문장이 곧 근거 문장일 수 있다 — 두 ref 모두에 같은 요소를 건다(재생 추적 · 근거 이동 둘 다 · Codex P2)
+                  ref={
+                    isPlaying || isAnchor
+                      ? (el: HTMLSpanElement | null) => {
+                          if (isPlaying) playingRef.current = el
+                          if (isAnchor) anchorRef.current = el
+                        }
+                      : undefined
+                  }
                   className={`group/sentence relative inline rounded-[5px] [-webkit-box-decoration-break:clone] [box-decoration-break:clone] transition-colors duration-[var(--dur-slow)] ease-[var(--ease)]${isAnchor ? ' outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]' : ''}`}
                   style={
                     isPlaying ? { backgroundColor: 'rgba(99,102,241,0.14)' } : isAnchor ? { backgroundColor: 'var(--p-light)' } : undefined
