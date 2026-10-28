@@ -14,8 +14,15 @@ import { TRIAL_ITEM, TRIAL_WORD_HELP, gradeTrial, inertCause, trialDoneCopy } fr
 
 const ITEMS = [TRIAL_ITEM]
 
+/** 이번 체험의 잠정 목표(D2 §9 무강제 첫 목표) — 브라우저 메모리에만. profile · 저장소 · cookie · DB 에 쓰지 않는다. */
+export const TRIAL_GOAL_LABEL = '짧은 영어 글을 읽고 핵심 내용을 확인해 보기'
+export const TRIAL_GOAL_REASON = '핵심 내용을 확인하는 목표라서, 짧은 글의 중심 내용을 고르고 본문 문장 근거와 해설을 비교하는 안내 연습을 먼저 권해요.'
+export const TRIAL_GOAL_NOTES = ['이번 체험에서만 선택하며 저장하지 않아요', '독해 실력을 측정한 추천이 아니에요'] as const
+
 export function ReadingTrial() {
   const [open, setOpen] = useState(false)
+  // 잠정 목표 — 토글해도 아래 DcpPlayer 의 자리 · key · items · grade 는 그대로다(답 · 근거 · 제출 수 보존)
+  const [goal, setGoal] = useState(false)
   const panelId = useId()
   const openerRef = useRef<HTMLButtonElement | null>(null)
   const close = () => {
@@ -39,9 +46,28 @@ export function ReadingTrial() {
         ) : (
           <button ref={openerRef} type="button" onClick={() => setOpen(true)} className={BTN.soft} aria-controls={panelId} aria-expanded={false} data-testid="fit-trial-open">
             <BookOpenCheck size={15} strokeWidth={2} aria-hidden />
-            예시로 해 보기
+            {goal ? '이 목표로 첫 연습 열기' : '예시로 해 보기'}
           </button>
         )}
+      </div>
+      <div className="flex flex-col gap-2" data-testid="fit-trial-goal">
+        <button
+          type="button"
+          aria-pressed={goal}
+          onClick={() => setGoal((g) => !g)}
+          className={`${goal ? BTN.soft : BTN.secondary} self-start`}
+          data-testid="fit-trial-goal-toggle"
+        >
+          {TRIAL_GOAL_LABEL}
+        </button>
+        {goal && (
+          <p className="m-0 break-keep font-body text-[12.5px] text-[var(--t1)]" data-testid="fit-trial-goal-reason">
+            {TRIAL_GOAL_REASON}
+          </p>
+        )}
+        <p className="m-0 break-keep font-body text-[12px] text-[var(--t2)]" data-testid="fit-trial-goal-notes">
+          {TRIAL_GOAL_NOTES.join(' · ')}
+        </p>
       </div>
       {open && (
         <div id={panelId} className="flex flex-col gap-3">
