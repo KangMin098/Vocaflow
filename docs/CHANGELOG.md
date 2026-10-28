@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(recommend): 다음 추천 카드 「시작하기」 포커스 링을 불투명 링 + 배경 간격으로 대비 보강(AppHeader 패턴 재사용) (690a74c4c)
 - feat(practice): 기사 연습 완료 화면에 보조 선택 「다른 글 살펴보기」(→ /library/scripts). DcpPlayer opt-in `nextChoice`(기본 없음), ArticlePracticeBridge 만 켬 · 채점·기록·이벤트 불변 (b2ff21181)
 - fix(wordvault): 목록 전역 단축키(Space 듣기 · H/M 가리기)가 포커스된 입력 · 선택 · 단추 · 링크 · 편집 영역과 PC 모달의 키를 가로채지 않음(`lib/ui/learner-keyboard-scope` `nativeControlOwnsKey`) — 단추 위 Space/Enter 는 단추를 누른다.
 - feat(fit): 예시 읽기 체험 계측 2종 `fit_trial_opened`(직접 열기) · `fit_trial_answered`(로컬 채점 성공) — 속성 `{}` 만, 수신구가 비어 있지 않은 속성을 버림. DB 허용 목록은 이미 적용된 `20261028015035_fit_trial_telemetry_events`(사본만 기록 · 재실행 금지). 체험 기본 꺼짐 유지.
