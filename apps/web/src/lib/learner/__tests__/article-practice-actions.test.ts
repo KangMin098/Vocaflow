@@ -69,7 +69,7 @@ beforeEach(() => {
 describe('loadArticlePractice', () => {
   it('정상 → 그 기사의 현재 후보만 DcpPlayer 문항으로(정답 없음)', async () => {
     const r = await loadArticlePractice(ART)
-    expect(r).toEqual({ ok: true, textId: 'text-1', ownerId: 'user-me', vocab: { kind: 'text' }, items: [{ id: ITEM, type: 'title', paragraphIdx: 0, payload: { passage: 'P', choices: ['a', 'b', 'c', 'd', 'e'], stemKo: 'S', underline: null, summarySentence: null } }] })
+    expect(r).toEqual({ ok: true, textId: 'text-1', ownerId: 'user-me', vocab: { kind: 'text' }, readingText: BODY, items: [{ id: ITEM, type: 'title', paragraphIdx: 0, payload: { passage: 'P', choices: ['a', 'b', 'c', 'd', 'e'], stemKo: 'S', underline: null, summarySentence: null } }] })
   })
   it('함수 미설치(PGRST202)는 not_installed, 다른 오류는 query_failed, 후보 0 은 no_items', async () => {
     state.rpc = { data: null, error: { code: 'PGRST202', message: 'x' } }
@@ -138,6 +138,42 @@ describe('loadArticlePractice 읽던 글 복귀(T-0206)', () => {
     const r = await loadArticlePractice(ART)
     expect(r.ok).toBe(true)
     expect('returnTextId' in r).toBe(false)
+  })
+})
+
+describe('loadArticlePractice 읽은 글 참고(T-0207) — loader + 실제 관문(contract) 통합, DB 대역', () => {
+  it('A→A: 관문이 해시로 검증한 그 본인 글 본문을 그대로 싣는다(새 조회 없음)', async () => {
+    state.userSeq = ['user-me', 'user-me']
+    const r = await loadArticlePractice(ART)
+    expect(r.ok && r.readingText).toBe(BODY)
+    expect(r.ok && r.textId).toBe('text-1')
+  })
+  it('A→B · A→null: 문항 · 본문 모두 내보내지 않는다(signed_out)', async () => {
+    state.userSeq = ['user-me', 'user-other']
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'signed_out' })
+    state.userSeq = ['user-me', null]
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'signed_out' })
+  })
+  it('관문 실패(판본 불일치 · 본문 없음 · 미인증 · 조회 오류)에는 본문이 없다', async () => {
+    state.articleBody = 'changed'
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'stale_copy' })
+    state.articleBody = BODY; state.textContent = null
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'stale_copy' })
+    state.textContent = BODY; state.user = null
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'signed_out' })
+    state.user = 'user-me'; state.profileError = { message: 'x' }
+    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'lookup_failed' })
+  })
+  it('후보 실패에는 본문을 싣지 않는다(복귀 정보만)', async () => {
+    state.rpc = { data: [], error: null }
+    const r = await loadArticlePractice(ART)
+    expect(r).toEqual({ ok: false, reason: 'no_items', returnTextId: 'text-1' })
+  })
+  it('공백뿐인 본문은 null(참고 없음) — 해시가 같아도', async () => {
+    state.textContent = '   '; state.articleBody = '   '
+    const r = await loadArticlePractice(ART)
+    expect(r.ok).toBe(true)
+    expect(r.ok && r.readingText).toBeNull()
   })
 })
 

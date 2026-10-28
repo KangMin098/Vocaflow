@@ -6,7 +6,7 @@
 
 'use client'
 
-import { useEffect, useRef, useState, type Ref } from 'react'
+import { useEffect, useRef, useState, type ReactNode, type Ref } from 'react'
 import Link from 'next/link'
 import { AlertTriangle, ArrowRight, Check, Home, RefreshCw, X } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
@@ -48,6 +48,7 @@ export function DcpPlayer({
   causeHref,
   causeLabel,
   nextChoice,
+  afterFeedback,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -88,6 +89,11 @@ export function DcpPlayer({
    * 기사 연습 다리만 「다른 글 살펴보기」 를 넣는다. 처방 · 평가가 아니라 자율 선택이다.
    */
   nextChoice?: { href: string; label: string }
+  /**
+   * 채점 뒤 피드백 안의 보조 영역(opt-in, T-0207) — 기사 연습 다리만 「읽은 글 참고」 를 넣는다. 없으면 그리지 않는다(예전 동작).
+   * 문항마다 새로 그린다(key) · 완료 뒤 다시 보기에는 넣지 않는다.
+   */
+  afterFeedback?: ReactNode
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -283,7 +289,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} extra={afterFeedback ? <div key={item.id}>{afterFeedback}</div> : null} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -355,6 +361,7 @@ function Feedback({
   review = false,
   causeHref,
   causeLabel,
+  extra = null,
 }: {
   item: DcpItem
   result: DcpGradeOk
@@ -367,6 +374,8 @@ function Feedback({
   review?: boolean | 'noCause'
   causeHref?: Partial<Record<DcpErrorCause, string>>
   causeLabel?: Partial<Record<DcpErrorCause, string>>
+  /** 호출자가 넣은 보조 영역(afterFeedback) — 진행 중 피드백에서만 */
+  extra?: ReactNode
 }) {
   const correct = result.correct
   return (
@@ -433,6 +442,8 @@ function Feedback({
           />
         ) : null
       })()}
+
+      {extra}
 
       {/* 오답이면 error_cause 1-tap */}
       {!correct && review === false && (

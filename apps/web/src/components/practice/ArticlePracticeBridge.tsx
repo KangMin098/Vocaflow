@@ -10,6 +10,7 @@
 
 import Link from 'next/link'
 
+import { ArticleReadingReference } from '@/components/practice/ArticleReadingReference'
 import { DcpPlayer } from '@/components/practice/DcpPlayer'
 import { useStoryAuthGuard, type StoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
 import type { DcpGradeResult, DcpItem } from '@/lib/learner/dcp'
@@ -70,6 +71,7 @@ export function ArticlePracticeBridge({
   items,
   vocab,
   submit,
+  readingText = null,
 }: {
   articleId: string
   textId: string
@@ -79,6 +81,8 @@ export function ArticlePracticeBridge({
   vocab: ArticleVocabSource
   /** 개발 확인 화면만 바꾼다(기본 = 실제 서버 제출) */
   submit?: Submit
+  /** 「읽은 글 참고」 본문 — loader 가 관문에서 검증한 본인 글만(없으면 참고 영역 없음) */
+  readingText?: string | null
 }) {
   const { guard, status } = useStoryAuthGuard(ownerId)
   if (status !== 'same') {
@@ -110,6 +114,7 @@ export function ArticlePracticeBridge({
       causeLabel={articleVocabLabel(vocab)}
       doneCopy={articlePracticeDoneCopy}
       nextChoice={ARTICLE_NEXT_CHOICE}
+      afterFeedback={readingText ? <ArticleReadingReference text={readingText} /> : undefined}
     />
   )
 }
