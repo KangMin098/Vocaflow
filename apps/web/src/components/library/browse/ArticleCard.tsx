@@ -260,9 +260,13 @@ function OriginalLink({ href }: { href: string }) {
       onClick={(e) => e.stopPropagation()}
       title="원문 보기"
       aria-label="원문 보기"
-      className="absolute right-2.5 top-2.5 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      // 누름 영역 44px(h-11) — 보이는 원은 안쪽 28px 그대로. 카드 우상단 모서리에 붙여
+      // 제목 줄(헤더 행 아래, pr-9 안쪽)과 겹치지 않게 한다.
+      className="group/orig absolute right-0 top-0 inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] focus-visible:outline-none"
     >
-      <ExternalLink size={13} aria-hidden />
+      <span className="inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] transition-colors group-hover/orig:bg-[var(--bg2)] group-focus-visible/orig:ring-2 group-focus-visible/orig:ring-[var(--p)]">
+        <ExternalLink size={13} aria-hidden />
+      </span>
     </a>
   )
 }
