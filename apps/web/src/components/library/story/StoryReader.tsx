@@ -78,7 +78,7 @@ import {
   unitLabel,
   type StoryNextAction,
 } from './story-view'
-import { markAnchorLeft, rememberSaveAnchor, takeReturnAnchor } from './story-return-anchor'
+import { markAnchorLeft, ownerTag, rememberSaveAnchor, takeReturnAnchor } from './story-return-anchor'
 import { markAfterSave, visibleVaultAfterHref, type StoryVaultAfterMark } from './story-vault-after'
 import { useStoryAuthGuard, type StoryAuthGuard, type StoryAuthSource, type StoryAuthStatus } from './use-story-auth-guard'
 
@@ -291,11 +291,13 @@ function ReadyReader({
 
   // U03 — 같은 탭에서 단어장에 다녀왔으면 담은 낱말이 든 문장을 한 번 보여 준다(story-return-anchor.ts · 진도 계약은 단위 그대로).
   // 긍정 확인(same)된 본인 화면에서만 꺼낸다 — 확인 전에는 기다리고, 단위마다 한 번만 판정한다.
+  // 표식 주인 = 서버가 그리고 인증 경계가 긍정 확인한 viewer(짧은 해시) — 같은 탭의 다른 계정 표식을 쓰지 않는다.
+  const anchorOwner = ownerTag(state.viewerId)
   const [returnWord, setReturnWord] = useState<{ unit: number; word: number | null } | null>(null)
   useEffect(() => {
     if (!verified || unitIndex === null || returnWord?.unit === unitIndex) return
-    setReturnWord({ unit: unitIndex, word: takeReturnAnchor(releaseKey, unitIndex) })
-  }, [verified, unitIndex, releaseKey, returnWord])
+    setReturnWord({ unit: unitIndex, word: takeReturnAnchor(anchorOwner, releaseKey, unitIndex) })
+  }, [verified, unitIndex, releaseKey, returnWord, anchorOwner])
 
   const [sourceOpen, setSourceOpen] = useState(false)
   const [selectedAnchor, setSelectedAnchor] = useState<number | null>(null)
@@ -377,14 +379,16 @@ function ReadyReader({
     unit && actions.saveWord
       ? {
           vaultHref: storyVaultHref({ releaseKey, unitIndex: unit.unitIndex }),
-          onLeave: () => markAnchorLeft(),
+          onLeave: () => {
+            markAnchorLeft(anchorOwner)
+          },
           call: async ({ wordIndex, surface }: { wordIndex: number; surface: string }) => {
             const href = storyVaultHref({ releaseKey, unitIndex: unit.unitIndex })
             const out = await session.saveWord({ unitIndex: unit.unitIndex, wordIndex, surface })
             // 세션이 이미 늦은 응답 · 거부 · 다른 주인을 stale 로 걸렀다 — 그 판정만 재사용한다(저장 · 멱등 재구현 없음).
             setVaultMark((prev) => markAfterSave(prev, session, out, href))
             if (!('stale' in out) && out.ok && (out.data.status === 'saved' || out.data.status === 'already_exists')) {
-              rememberSaveAnchor({ releaseKey, unitIndex: unit.unitIndex, wordIndex })
+              rememberSaveAnchor({ owner: anchorOwner, releaseKey, unitIndex: unit.unitIndex, wordIndex })
             }
             return out
           },
@@ -526,6 +530,7 @@ function ReadyReader({
                     navLocked={navLocked}
                     onGo={go}
                     vaultHref={vaultAfterHref}
+                    onVaultLeave={() => markAnchorLeft(anchorOwner)}
                   />
                 ) : null}
                 <nav className={styles.navRow} aria-label="단위 이동">
@@ -789,6 +794,7 @@ export function AfterCompletion({
   onGo,
   showRestart = true,
   vaultHref = null,
+  onVaultLeave,
 }: {
   otherWorks: number | null
   releaseKey: string
@@ -797,6 +803,8 @@ export function AfterCompletion({
   showRestart?: boolean
   /** U03 — 이 화면에서 유효 저장을 관측했을 때만(기존 검증 왕복 주소). 서가 · 다시 읽기 뒤 마지막 보조 선택. */
   vaultHref?: string | null
+  /** U03 — 단어장으로 떠날 때(같은 탭 복귀 문장 표지 · 지금 주인의 표식만). */
+  onVaultLeave?: () => void
 }) {
   const wording = afterCompletionWording(otherWorks)
   return (
@@ -820,7 +828,7 @@ export function AfterCompletion({
           </PositionLink>
         ) : null}
         {vaultHref ? (
-          <Link href={vaultHref} className={styles.ctaQuiet} data-story-vault-after onClick={() => markAnchorLeft()}>
+          <Link href={vaultHref} className={styles.ctaQuiet} data-story-vault-after onClick={onVaultLeave}>
             내 단어장 살펴보기
           </Link>
         ) : null}

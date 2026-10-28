@@ -24,7 +24,7 @@ import type { WordLookup } from '@/lib/library/reader-queries'
 
 import styles from './story.module.css'
 import { StoryWordSave, type StoryWordSaveCall } from './StoryWordSave'
-import { sentenceRange } from './story-return-anchor'
+import { sentenceRange, shouldMoveToReturn } from './story-return-anchor'
 import { nextWordIndex, splitUnitParagraphs, tokenizeWords, type StoryTextPiece } from './story-view'
 
 export interface StoryWordLookupProps {
@@ -71,14 +71,16 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
     count = next
   }
   const returnRef = useRef<HTMLSpanElement>(null)
+  // 복귀 번호는 부모가 effect 에서 늦게 줄 수 있다 — 번호가 생기고 문장 span 이 붙은 뒤 한 번만 옮긴다.
+  // 같은 번호의 단순 재렌더에서는 다시 옮기지 않는다(사용자가 옮긴 초점 · 스크롤을 빼앗지 않는다).
+  const movedFor = useRef<number | null>(null)
   useEffect(() => {
     const el = returnRef.current
-    if (!el) return
+    if (!el || !shouldMoveToReturn(movedFor.current, returnWordIndex, true)) return
+    movedFor.current = returnWordIndex
     el.scrollIntoView?.({ block: 'center' })
     el.focus({ preventScroll: true })
-    // 처음 한 번만 — 본문이 다시 그려져도 다시 옮기지 않는다.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [returnWordIndex])
 
   const activeWord = words[Math.min(active, Math.max(words.length - 1, 0))] ?? null
 
