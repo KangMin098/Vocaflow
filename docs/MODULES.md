@@ -392,7 +392,7 @@ R < 0.70              → risk     #EF4444 (빨강)
 ### Browse (`/wordvault/browse`)
 - `WordVaultBrowseClient.tsx` — 풀스크린 클라이언트
 - `ScriptsChipNav.tsx` — 스크립트 칩 nav (전체+스크립트별 단어 수)
-- `WordRow.tsx` v4 — 16px 컴팩트
+- `WordRow.tsx` v4 — 16px 컴팩트 · 행 끝 「전체 보기」(aria-expanded)로 잘린 뜻·예문을 행 아래에 줄바꿈 표시 — 숨김 중인 칸은 펼쳐도 가림, 예문 없으면 만들지 않음(T-0208)
 - `HideToggleBar.tsx` — Active Recall 토글
 - `ListenPanel.tsx` — 듣기 패널 (설정 항상 노출)
 
