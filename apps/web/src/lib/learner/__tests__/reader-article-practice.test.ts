@@ -1,46 +1,30 @@
 // apps/web/src/lib/learner/__tests__/reader-article-practice.test.ts
-// T-0204 — Reader 연습 조회 세 상태: 조회 실패 ≠ 연습 0. 다시 시도는 같은 단일 RPC 1회, payload 를 넘기지 않는다.
-import { beforeEach, describe, expect, it, vi } from 'vitest'
-
-const rpc = vi.fn()
-vi.mock('@/lib/supabase/server', () => ({ createClient: async () => ({ rpc }) }))
+// T-0204 — Reader 연습 조회 세 상태: 조회 실패 ≠ 연습 0. 실패도 연습 페이지 링크만(화면 안 재호출 없음).
+import { describe, expect, it } from 'vitest'
 
 import { classifyPracticeLookup } from '../reader-article-practice'
-import { recheckReaderArticlePractice } from '../reader-article-practice-actions'
 
 const ID = '267ef969-2a3a-4dc9-b6b7-a85246df543f'
+const HREF = `/practice/article/${ID}`
+const ROW = { id: 'b69f287f-7d20-4770-8b88-8dfe0050ad0f', type: 'title', paragraph_idx: 0, payload: { passage: 'p', stem_ko: '제목은?', choices: ['a', 'b', 'c', 'd', 'e'] } }
 
 describe('classifyPracticeLookup', () => {
-  it('행이 있으면 available + 연습 주소', () => {
-    expect(classifyPracticeLookup(ID, { data: [{ id: 'x' }], error: null })).toEqual({ state: 'available', href: `/practice/article/${ID}` })
+  it('정상 행 → available + 기존 연습 주소', () => {
+    expect(classifyPracticeLookup(ID, { data: [ROW], error: null })).toEqual({ state: 'available', href: HREF })
   })
-  it('빈 배열이면 none', () => {
+  it('정상 빈 배열 → none(링크 없음)', () => {
     expect(classifyPracticeLookup(ID, { data: [], error: null })).toEqual({ state: 'none' })
   })
-  it('error 나 배열 아닌 data 는 failed — none 으로 뭉개지 않는다', () => {
-    expect(classifyPracticeLookup(ID, { data: null, error: { code: '57014' } })).toEqual({ state: 'failed', articleId: ID })
-    expect(classifyPracticeLookup(ID, { data: null, error: null })).toEqual({ state: 'failed', articleId: ID })
+  it('RPC error → failed, 링크는 연습 페이지', () => {
+    expect(classifyPracticeLookup(ID, { data: null, error: { code: '57014', message: 'timeout' } })).toEqual({ state: 'failed', href: HREF })
   })
-})
-
-describe('recheckReaderArticlePractice', () => {
-  beforeEach(() => rpc.mockReset())
-  it('같은 RPC 를 1회 부르고 상태만 돌려준다(payload 없음)', async () => {
-    rpc.mockResolvedValue({ data: [{ id: 'x', payload: { passage: 'p', choices: ['a'] } }], error: null })
-    const r = await recheckReaderArticlePractice(ID)
-    expect(rpc).toHaveBeenCalledTimes(1)
-    expect(rpc).toHaveBeenCalledWith('article_practice_items', { p_article_id: ID })
-    expect(r).toEqual({ state: 'available', href: `/practice/article/${ID}` })
-    expect(JSON.stringify(r)).not.toContain('passage')
+  it('반환 모양이 맞지 않음(null · 객체 · 알 수 없는 행만) → failed — none 으로 뭉개지 않는다', () => {
+    expect(classifyPracticeLookup(ID, { data: null, error: null })).toEqual({ state: 'failed', href: HREF })
+    expect(classifyPracticeLookup(ID, { data: { rows: [] }, error: null })).toEqual({ state: 'failed', href: HREF })
+    expect(classifyPracticeLookup(ID, { data: [{ id: 'x', type: 'summary' }], error: null })).toEqual({ state: 'failed', href: HREF })
   })
-  it('다시 실패하면 failed, 예외도 failed', async () => {
-    rpc.mockResolvedValueOnce({ data: null, error: { code: 'x' } })
-    expect(await recheckReaderArticlePractice(ID)).toEqual({ state: 'failed', articleId: ID })
-    rpc.mockRejectedValueOnce(new Error('net'))
-    expect(await recheckReaderArticlePractice(ID)).toEqual({ state: 'failed', articleId: ID })
-  })
-  it('id 가 uuid 가 아니면 호출하지 않는다', async () => {
-    expect(await recheckReaderArticlePractice('../x')).toEqual({ state: 'none' })
-    expect(rpc).not.toHaveBeenCalled()
+  it('상태에 payload · 오류 원문이 실리지 않는다', () => {
+    const s = JSON.stringify([classifyPracticeLookup(ID, { data: [ROW], error: null }), classifyPracticeLookup(ID, { data: null, error: { message: 'secret sql' } })])
+    expect(s).not.toMatch(/passage|choices|secret|sql/)
   })
 })

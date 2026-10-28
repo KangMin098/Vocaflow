@@ -25,8 +25,6 @@ import { RecallCard } from '@/components/workspace/RecallCard'
 import { ShadowReadAlong } from '@/components/workspace/ShadowReadAlong'
 import { SupportGloss } from '@/components/workspace/SupportGloss'
 import { WordLookupPopover } from '@/components/library/reader/WordLookupPopover'
-import { ReaderArticlePracticeEntry } from '@/components/practice/ReaderArticlePracticeEntry'
-import { recheckReaderArticlePractice } from '@/lib/learner/reader-article-practice-actions'
 import { UnifiedHeader } from '@/components/workspace/UnifiedHeader'
 import type { ChapterDisplayStatus } from '@/components/workspace/CompleteChapterButton'
 
@@ -47,6 +45,7 @@ import {
 import { fetchBookmarked, setBookmarked } from '@/lib/text-viewer/bookmark'
 import { useToast } from '@/components/ui/Toast'
 import { annotateSupport } from './text-content-helpers'
+import { ArticlePracticeEntry } from './article-practice-entry'
 
 const MODE_STATUS: Record<ModeKey, ModeStatus> = {
   listen: 'done',
@@ -588,8 +587,8 @@ export default function WorkspacePage({ params }: PageProps) {
         onWordLookup={handleWordLookup}
       />
 
-      {/* R0 — 이 기사의 발췌 연습: 있음 → 링크 · 없음 → 없음 · 조회 실패 → 알림 + 다시 시도(T-0204) */}
-      {ctx?.articlePractice && <ReaderArticlePracticeEntry initial={ctx.articlePractice} recheck={recheckReaderArticlePractice} />}
+      {/* R0 — 이 기사의 발췌 연습: 있음 → 링크 · 없음 → 없음 · 조회 실패 → 안내 + 연습 페이지 링크(T-0204) */}
+      <ArticlePracticeEntry practice={ctx?.articlePractice} />
 
       {/* Chapter bottom nav — 책 chapter context 만 (사용자 직접 입력 텍스트는 Pagination) */}
       {ctx?.libraryBookId && ctx.chapterIdx != null && ctx.chapters.length > 1 && (
