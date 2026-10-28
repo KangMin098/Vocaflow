@@ -84,7 +84,7 @@ export function SeriesDetail({
       <button
         type="button"
         onClick={onBack}
-        className="inline-flex w-fit items-center gap-2 rounded-[var(--r-md)] px-1 py-1 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="relative inline-flex w-fit after:absolute after:-inset-x-1 after:-inset-y-[10px] after:content-[''] items-center gap-2 rounded-[var(--r-md)] px-1 py-1 font-display text-[13px] font-[600] text-[var(--t2)] transition-colors hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         <ArrowLeft size={15} aria-hidden /> 시리즈 목록
       </button>

@@ -308,7 +308,7 @@ export function VocabSetPreviewModal({
       <button
         type="button"
         onClick={() => speak(w.word)}
-        className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--p-light)] text-[var(--on-p-tint)] transition-colors hover:bg-[color-mix(in_srgb,var(--p)_28%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        className="relative inline-flex h-9 w-9 after:absolute after:-inset-[4px] after:content-[''] shrink-0 items-center justify-center rounded-[var(--r-full)] bg-[var(--p-light)] text-[var(--on-p-tint)] transition-colors hover:bg-[color-mix(in_srgb,var(--p)_28%,transparent)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         aria-label={`${w.word} 발음 듣기`}
       >
         <Volume2 size={16} aria-hidden />
