@@ -44,6 +44,7 @@ export function DcpPlayer({
   onGraded,
   onBack,
   revisit = false,
+  causeChips = true,
   causeHref,
 }: {
   items: DcpItem[]
@@ -69,6 +70,10 @@ export function DcpPlayer({
    * 끄면 피드백 기록을 아예 모으지 않는다(예전 동작).
    */
   revisit?: boolean
+  /**
+   * 오답 원인 칩(+ 그 팁의 복습 링크) — 기본 켬. 기록할 곳이 없는 체험(공개 예시)만 끈다.
+   */
+  causeChips?: boolean
   /**
    * 오답 원인별 「복습하기」 목적지 교체(opt-in). 없으면 ERROR_CAUSES 기본(예: vocab → /flashcard/play).
    * 자료 문맥을 아는 호출자(기사 연습 다리)가 그 자료 범위의 목록을 넣는다.
@@ -260,7 +265,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} causeHref={causeHref} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -339,8 +344,8 @@ function Feedback({
   onCause: (c: DcpErrorCause) => void
   onNext: () => void
   isLast: boolean
-  /** 완료 뒤 다시 보기 — 원인 기록 조작부를 두지 않고(가짜 저장 금지) 「요약으로」 만 */
-  review?: boolean
+  /** true = 완료 뒤 다시 보기(원인 칩 없음 · 「요약으로」) · 'noCause' = 진행 중이지만 원인 칩만 숨김 */
+  review?: boolean | 'noCause'
   causeHref?: Partial<Record<DcpErrorCause, string>>
 }) {
   const correct = result.correct
@@ -410,7 +415,7 @@ function Feedback({
       })()}
 
       {/* 오답이면 error_cause 1-tap */}
-      {!correct && !review && (
+      {!correct && review === false && (
         <div className="flex flex-col gap-2">
           <p className="font-display text-[12px] font-[700] text-[var(--t2)]">어떤 점이 어려웠나요? (선택)</p>
           <div className="flex flex-wrap gap-2">
@@ -440,7 +445,7 @@ function Feedback({
         onClick={onNext}
         className="inline-flex min-h-[44px] items-center justify-center gap-2 self-start rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)]"
       >
-        {review ? '요약으로' : isLast ? '마치기' : '다음'}
+        {review === true ? '요약으로' : isLast ? '마치기' : '다음'}
         <ArrowRight size={15} strokeWidth={2.25} aria-hidden />
       </button>
     </div>
