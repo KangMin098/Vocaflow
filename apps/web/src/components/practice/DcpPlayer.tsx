@@ -45,6 +45,7 @@ export function DcpPlayer({
   onBack,
   revisit = false,
   causeChips = true,
+  causeHref,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -73,6 +74,11 @@ export function DcpPlayer({
    * 오답 원인 칩(+ 그 팁의 복습 링크) — 기본 켬. 기록할 곳이 없는 체험(공개 예시)만 끈다.
    */
   causeChips?: boolean
+  /**
+   * 오답 원인별 「복습하기」 목적지 교체(opt-in). 없으면 ERROR_CAUSES 기본(예: vocab → /flashcard/play).
+   * 자료 문맥을 아는 호출자(기사 연습 다리)가 그 자료 범위의 목록을 넣는다.
+   */
+  causeHref?: Partial<Record<DcpErrorCause, string>>
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -259,7 +265,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -329,6 +335,7 @@ function Feedback({
   onNext,
   isLast,
   review = false,
+  causeHref,
 }: {
   item: DcpItem
   result: DcpGradeOk
@@ -339,6 +346,7 @@ function Feedback({
   isLast: boolean
   /** true = 완료 뒤 다시 보기(원인 칩 없음 · 「요약으로」) · 'noCause' = 진행 중이지만 원인 칩만 숨김 */
   review?: boolean | 'noCause'
+  causeHref?: Partial<Record<DcpErrorCause, string>>
 }) {
   const correct = result.correct
   return (
@@ -428,7 +436,7 @@ function Feedback({
               </button>
             ))}
           </div>
-          {cause && <CauseTip cause={cause} />}
+          {cause && <CauseTip cause={cause} href={causeHref?.[cause]} />}
         </div>
       )}
 
@@ -452,15 +460,16 @@ function submittedChoice(item: DcpItem, submitted: Record<string, unknown> | nul
   return { n, text: choices[n - 1] }
 }
 
-function CauseTip({ cause }: { cause: DcpErrorCause }) {
+export function CauseTip({ cause, href: override }: { cause: DcpErrorCause; href?: string }) {
   const def = ERROR_CAUSES.find((e) => e.cause === cause)
   if (!def) return null
+  const href = override ?? def.href
   return (
     <div className="flex items-center gap-2 rounded-[var(--r-md)] bg-[var(--bg)] p-3">
       <p className="min-w-0 flex-1 font-body text-[12.5px] leading-relaxed text-[var(--t2)]">{def.tip}</p>
-      {def.href && (
+      {href && (
         <Link
-          href={def.href}
+          href={href}
           className="inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--on-p-tint)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           복습하기

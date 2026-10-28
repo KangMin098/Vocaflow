@@ -14,6 +14,17 @@ import { DcpPlayer } from '@/components/practice/DcpPlayer'
 import { useStoryAuthGuard, type StoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
 import type { DcpGradeResult, DcpItem } from '@/lib/learner/dcp'
 import { submitArticlePractice, type ArticlePracticeContext } from '@/lib/learner/article-practice-actions'
+import { textSourceFilter } from '@/lib/wordvault/source-filter'
+
+/**
+ * 「단어를 몰랐어요」 → 이 기사의 내 단어 목록(Reader 「단어」 와 같은 text: 범위 · readerWordsHref 규칙).
+ * `from` = 이 글 본문 — SessionFrame 이 sanitizeInternalPath 로 검증해 닫기 · Esc 복귀에 쓴다.
+ * 복귀 대상은 읽던 글이지 연습 진행 상태가 아니다(이어 풀기 아님). 전체 Flashcard 로 보내지 않는다.
+ */
+export function articleVocabHref(textId: string): string {
+  const qs = new URLSearchParams({ filter: textSourceFilter(textId), from: `/text/${textId}` })
+  return `/wordvault/browse?${qs.toString()}`
+}
 
 type Submit = (context: ArticlePracticeContext, itemId: string, answer: { choice?: unknown }) => Promise<DcpGradeResult>
 
@@ -76,6 +87,7 @@ export function ArticlePracticeBridge({
       grade={makeArticleGrade({ articleId, textId, ownerId }, guard, submit)}
       backHref={`/text/${textId}`}
       backCta="읽던 글로"
+      causeHref={{ vocab: articleVocabHref(textId) }}
       doneCopy={articlePracticeDoneCopy}
     />
   )

@@ -14,7 +14,7 @@
 
 'use client'
 
-import { useEffect, useMemo, useState, useSyncExternalStore } from 'react'
+import { useCallback, useEffect, useMemo, useRef, useState, useSyncExternalStore } from 'react'
 import Link from 'next/link'
 import { useRouter, useSearchParams } from 'next/navigation'
 import {
@@ -51,12 +51,22 @@ export function DictationResultsClient() {
   const sessionId = searchParams.get('sessionId')
   const from = dictationFrom(searchParams.get('from'))
 
-  const [detail, setDetail] = useState<SessionDetail | null>(null)
+  const [stored, setDetail] = useState<SessionDetail | null>(null)
   const [state, setState] = useState<'loading' | 'ready' | 'missing'>('loading')
 
+  // 요청 결속 — 보관된 결과가 지금 URL 이 요청한 세션일 때만 쓴다(effect 가 돌기 전 렌더에서도 옛 결과를 붙이지 않는다).
+  const detail = currentSnapshot(stored, sessionId)
   // 세션 주인 결속 — 읽힌 세션 행의 user_id 와 브라우저 신원이 같다고 확인될 때만 결과와 복습을 그린다.
   const ownerId = detail?.session.userId ?? null
-  const { status: authStatus } = useStoryAuthGuard(ownerId)
+  const { guard, status: authStatus } = useStoryAuthGuard(ownerId)
+  // 실행 시점 판정 — 보관된 재생 콜백은 렌더 플래그가 아니라 지금의 guard 상태와 지금의 유효 snapshot 을 다시 본다.
+  const liveRef = useRef<{ guard: typeof guard; detail: SessionDetail | null }>({ guard, detail })
+  liveRef.current = { guard, detail }
+  const snapshotForAllow = detail
+  const allowReplay = useCallback(
+    () => replayAllowed(liveRef.current, snapshotForAllow),
+    [snapshotForAllow],
+  )
   const reviewEnabled = !!ownerId && authStatus === 'same'
 
   useEffect(() => {
@@ -76,7 +86,7 @@ export function DictationResultsClient() {
     void (async () => {
       const d = await fetchDictationSessionDetail(createClient(), sessionId)
       if (!mounted) return
-      if (!d) {
+      if (!d || !acceptLoaded(sessionId, d)) {
         setState('missing')
         return
       }
@@ -117,7 +127,7 @@ export function DictationResultsClient() {
 
   const recommendation = useNextAction()
 
-  if (state === 'loading' || (state === 'ready' && !!ownerId && authStatus === 'checking')) {
+  if (state === 'loading' || (state === 'ready' && !detail) || (state === 'ready' && !!ownerId && authStatus === 'checking')) {
     return (
       // 맨 스피너는 **화면 판독기에 아무것도 아니다** — "불러오는 중" 과 "아무것도 없음" 이
       // 구분되지 않는다(회귀 스펙도 이 둘을 구별하지 못해 로딩 중을 빈 화면으로 읽었다).
@@ -327,7 +337,12 @@ export function DictationResultsClient() {
         <header className="border-b border-[var(--bd)] px-5 py-3">
           <h3 className="font-display text-[14px] font-[700] text-[var(--t1)]">문항별 결과</h3>
         </header>
-        <DictationAttemptRows attempts={detail.attempts} reviewEnabled={reviewEnabled} />
+        <DictationAttemptRows
+          attempts={detail.attempts}
+          reviewEnabled={reviewEnabled}
+          allowReplay={allowReplay}
+          subscribeAllow={guard.subscribe}
+        />
       </section>
 
       {/* ─── CTA ─── */}
@@ -359,6 +374,36 @@ const WORD_STATUS_LABELS: Record<WordResult['status'], string> = {
 
 type Attempt = SessionDetail['attempts'][number]
 
+/** 요청 결속 — 보관된 결과가 지금 요청한 세션일 때만 돌려준다(요청 없음 · 다른 id 면 null). */
+export function currentSnapshot(
+  stored: SessionDetail | null,
+  requestedId: string | null,
+): SessionDetail | null {
+  if (!stored || !requestedId) return null
+  return stored.session.id === requestedId ? stored : null
+}
+
+/** 응답 결속 — 받은 결과가 그 요청의 세션인가. */
+export function acceptLoaded(requestedId: string | null, d: SessionDetail): boolean {
+  return !!requestedId && d.session.id === requestedId
+}
+
+/**
+ * 다시 듣기 실행 시점 허용 — 렌더 플래그가 아니라 **지금** guard 상태와 **지금** 유효 snapshot 을 본다.
+ * 콜백이 들고 있는 snapshot(mine) 이 현재 snapshot 과 같은 객체이고, 그 주인이 있으며, guard 가 same 일 때만 참.
+ */
+export function replayAllowed(
+  live: { guard: { status: string }; detail: SessionDetail | null },
+  mine: SessionDetail | null,
+): boolean {
+  return (
+    !!mine &&
+    live.detail === mine &&
+    !!mine.session.userId &&
+    live.guard.status === 'same'
+  )
+}
+
 /** 결과 화면 전용 발화 — 기존 AudioController 의 시스템 음성만 쓴다(신경망 준비 · 다운로드 · 음성 선호 변경 없음). */
 function systemSpeaker(): RelistenSpeaker {
   const ctl = new AudioController()
@@ -375,6 +420,8 @@ export function DictationAttemptRows({
   reviewEnabled,
   speaker,
   voiceAvailable,
+  allowReplay,
+  subscribeAllow,
 }: {
   attempts: Attempt[]
   reviewEnabled: boolean
@@ -382,8 +429,31 @@ export function DictationAttemptRows({
   speaker?: RelistenSpeaker
   /** 시험 주입용 — 없으면 hasEnglishVoice() 로 판정 */
   voiceAvailable?: boolean | null
+  /** 실행 시점 허용 판정 — 지금 guard 가 same 이고 이 행들의 snapshot 이 지금 유효한가. 없으면 reviewEnabled 만 본다(하네스). */
+  allowReplay?: () => boolean
+  /** 허용 판정이 바뀔 수 있는 신호(guard 상태 변경) — 바뀌는 즉시 동기로 다시 판정해 재생을 끊는다 */
+  subscribeAllow?: (fn: () => void) => () => void
 }) {
-  const player = useMemo(() => new ResultsRelisten(speaker ?? systemSpeaker()), [speaker])
+  const allow = allowReplay ?? (() => reviewEnabled)
+  // 플레이어는 이 snapshot(attempts) 에 묶인다 — snapshot 이 바뀌거나 화면이 내려가면 폐기(dispose)되어
+  // 보관된 옛 콜백이 다시 불려도 발화하지 않는다.
+  const player = useMemo(
+    // allow 는 이 snapshot 의 판정 함수로 생성 시점에 묶는다 — 뒤 렌더(다른 요청)의 판정을 빌려 쓰지 않는다.
+    () => new ResultsRelisten(speaker ?? systemSpeaker(), allow),
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- attempts 가 snapshot 경계다
+    [speaker, attempts, allowReplay],
+  )
+  // 개발 StrictMode 의 mount→cleanup→mount 도 견디도록 effect 가 활성화하고 cleanup 이 폐기한다.
+  useEffect(() => {
+    player.activate()
+    return () => player.dispose()
+  }, [player])
+  useEffect(() => {
+    if (!subscribeAllow) return
+    return subscribeAllow(() => {
+      player.revalidate()
+    })
+  }, [subscribeAllow, player])
   const playingIdx = useSyncExternalStore(player.subscribe, player.getPlaying, player.getPlaying)
   const [openIdx, setOpenIdx] = useState<number | null>(null)
   const [voiceOk, setVoiceOk] = useState<boolean | null>(voiceAvailable ?? null)
