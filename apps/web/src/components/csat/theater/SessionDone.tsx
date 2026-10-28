@@ -29,6 +29,7 @@ export function SessionDone({
   next,
   typeHref,
   now,
+  reviewDays,
   onReview,
   onRestart,
 }: {
@@ -38,6 +39,8 @@ export function SessionDone({
   next: { href: string; label: string } | null
   typeHref: string | null
   now: number
+  /** 이 화면에서 「다시 보기」 를 누르면 예약할 간격(일) — 부모가 예약에 쓰는 바로 그 값(reviewDays). 표시와 예약이 갈리지 않게 */
+  reviewDays: 1 | 3 | 7
   onReview: () => void
   onRestart: () => void
 }) {
@@ -75,8 +78,8 @@ export function SessionDone({
             다시 보기 {dayLabel(session.reviewAt, now)}
           </span>
         ) : (
-          <button type="button" className={styles.doneQuiet} onClick={onReview} data-testid="done-review">
-            3일 뒤 다시 보기
+          <button type="button" className={styles.doneQuiet} onClick={onReview} data-testid="done-review" data-review-days={reviewDays}>
+            {reviewDays === 1 ? '내일' : `${reviewDays}일 뒤`} 다시 보기
           </button>
         )}
         <Link className={styles.doneQuiet} href="/csat?view=continue">
