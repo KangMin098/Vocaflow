@@ -602,7 +602,7 @@ export function ExtractionPanel({ text, textId, ownerId, defaultStrategy = 'user
       )}
 
       {savedCount !== null && (
-        <div className="mb-4 inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--success)]/30 bg-[var(--success-light)] p-3 font-body text-[12px] text-[#065f46]">
+        <div className="mb-4 inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--success)_30%,transparent)] bg-[var(--success-light)] p-3 font-body text-[12px] text-[#065f46]">
           <CheckCircle2 size={14} /> {savedCount}개 단어를 내 단어장에 추가했어요
         </div>
       )}
@@ -674,7 +674,7 @@ export function ExtractionPanel({ text, textId, ownerId, defaultStrategy = 'user
                 }`}
               >
                 {c.label}
-                <span className={`font-mono text-[10px] ${active ? 'text-[var(--p)]/70' : 'text-[var(--t2)]'}`}>
+                <span className={`font-mono text-[10px] ${active ? 'text-[color-mix(in_srgb,var(--p)_70%,transparent)]' : 'text-[var(--t2)]'}`}>
                   {count}
                 </span>
               </button>
@@ -717,7 +717,7 @@ export function ExtractionPanel({ text, textId, ownerId, defaultStrategy = 'user
                 결정 앞에서 한 번 알려 준다 (Empathetic Feedback — 비난 없이 맥락만). */}
             {selected.size > CALM_BATCH && (
               <p className="mt-1 flex items-start gap-2 font-body text-[11px] leading-relaxed text-[var(--t2)]">
-                <Gwonjeom size={11} className="mt-0.5 shrink-0 text-[var(--p)]/70" aria-hidden />
+                <Gwonjeom size={11} className="mt-0.5 shrink-0 text-[color-mix(in_srgb,var(--p)_70%,transparent)]" aria-hidden />
                 <span>
                   한 번에 {selected.size}개를 담으면 며칠 뒤 복습이 몰려요.
                   {displayPct > 10 && (
@@ -792,7 +792,7 @@ export function ExtractionPanel({ text, textId, ownerId, defaultStrategy = 'user
                         <p className="mt-0.5 truncate font-body text-[13px] text-[var(--t2)]">{r.meaning_ko ?? '—'}</p>
                         {inlineReason && (
                           <p className="mt-1 inline-flex max-w-full items-center gap-1 font-body text-[11px] italic text-[var(--t2)]">
-                            <inlineReason.Icon size={11} className="shrink-0 text-[var(--p)]/70" />
+                            <inlineReason.Icon size={11} className="shrink-0 text-[color-mix(in_srgb,var(--p)_70%,transparent)]" />
                             <span className="truncate">{inlineReason.label}</span>
                           </p>
                         )}
@@ -846,7 +846,7 @@ export function ExtractionPanel({ text, textId, ownerId, defaultStrategy = 'user
                         )}
                         {/* 4단계 근거 카드 — 왜 이 단어를 추천했는지 사람 말투로 (기술 breakdown 위에) */}
                         {reasons.length > 0 && (
-                          <div className="mb-3 rounded-[var(--r-md)] border border-[var(--p)]/20 bg-[var(--p-light)]/40 p-3">
+                          <div className="mb-3 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--p)_20%,transparent)] bg-[color-mix(in_srgb,var(--p-light)_40%,transparent)] p-3">
                             <h4 className="mb-1.5 inline-flex items-center gap-1 font-display text-[10px] font-[700] uppercase tracking-wide text-[var(--p)]">
                               <Gwonjeom size={11} /> 왜 추천했어요?
                             </h4>

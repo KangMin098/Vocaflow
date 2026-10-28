@@ -17,35 +17,8 @@ import { describe, expect, it } from 'vitest'
 const SRC = path.resolve(__dirname, '../../..')
 const RE = /\[var\(--[a-z0-9-]+\)\]\/\d{1,3}(?![\d%])/g
 
-/** 2026-10-19 기준선 — 파일(apps/web/src 기준) → 허용 상한 */
-const BASELINE: Record<string, number> = {
-  'app/(main)/my/books/page.tsx': 1,
-  'app/(marketing)/about/page.tsx': 1,
-  'app/dev/page.tsx': 1,
-  'components/comic/ComicFormatChoice.tsx': 1,
-  'components/diagnostic/DiagnosticClient.tsx': 2,
-  'components/dictation/DictationHubClient.tsx': 1,
-  'components/dictation/DictationResultsClient.tsx': 1,
-  'components/dictation/DictationSessionClient.tsx': 6,
-  'components/dictation/SourcePicker.tsx': 1,
-  'components/echo/EchoMatchPlayer.tsx': 8,
-  'components/game/scriptquiz/ScriptQuiz.tsx': 4,
-  'components/layout/SessionFrame.tsx': 1,
-  'components/library/books/BookDetailClient.tsx': 6,
-  'components/library/browse/ArticleCard.tsx': 1,
-  'components/library/browse/ComicsBrowser.tsx': 1,
-  'components/library/textbooks/SeriesTabs.tsx': 2,
-  'components/pairflip/PairFlipHUD.tsx': 1,
-  'components/recommend/NextActionCard.tsx': 1,
-  'components/text-extract/ExtractionPanel.tsx': 6,
-  'components/text-extract/TokenizationSummary.tsx': 1,
-  'components/textviewer/DiscoveryFooter.tsx': 1,
-  'components/textviewer/MyLibraryCarousel.tsx': 3,
-  'components/textviewer/TextHubContent.tsx': 6,
-  'components/ui/Badge.tsx': 1,
-  'components/ui/ios/GlassBar.tsx': 1,
-  'components/ui/ios/InsetGroup.tsx': 1,
-}
+/** 기준선 — 파일(apps/web/src 기준) → 허용 상한. 2026-10-28 T-0203 에서 남은 58곳 · 25파일을 모두 color-mix 로 바꿔 0 이다. */
+const BASELINE: Record<string, number> = {}
 
 function walk(dir: string, out: string[] = []): string[] {
   for (const name of readdirSync(dir)) {

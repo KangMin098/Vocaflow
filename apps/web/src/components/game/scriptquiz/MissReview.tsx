@@ -65,7 +65,7 @@ export function MissReviewItem({
   const decided = repick !== null || context === null
   const correctText = question.options[answer.correctIndex]?.text ?? '—'
   const mine = answer.selectedIndex >= 0 ? question.options[answer.selectedIndex]?.text ?? '—' : '시간이 지나 못 골랐어요'
-  // li 면은 color-mix 로 — Tailwind 불투명도 수식어(`bg-[var(--x)]/40`)는 var() 색에 적용되지 않아 계산값이 투명이었다(T-0199 m7 실측).
+  // li 면은 color-mix 로 — Tailwind 불투명도 수식어(`bg-[var(--x)]` 뒤의 `/40`)는 var() 색에 적용되지 않아 계산값이 투명이었다(T-0199 m7 실측).
 
   return (
     <li className="rounded-[var(--r-md)] border-l-4 border-[var(--active)] bg-[color-mix(in_srgb,var(--active-light)_40%,transparent)] p-3" data-testid="miss-item">

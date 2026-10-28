@@ -175,7 +175,7 @@ export function DictationHubClient({ data, viewerId }: { data: DictationHubData;
             type="button"
             onClick={() => startRetry(() => router.refresh())}
             disabled={retrying}
-            className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+            className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
           >
             <RotateCcw size={13} className={retrying ? 'animate-spin' : undefined} aria-hidden />
             다시 시도

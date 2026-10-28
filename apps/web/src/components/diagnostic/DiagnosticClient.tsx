@@ -632,7 +632,7 @@ export function DiagnosticClient() {
             </button>
             <button
               onClick={() => setInfoTest(t)}
-              className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[var(--on-p)]/40 px-4 py-3 font-display text-[14px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
+              className="inline-flex items-center gap-1 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--on-p)_40%,transparent)] px-4 py-3 font-display text-[14px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
             >
               <Info size={14} aria-hidden /> 안내
             </button>
@@ -929,7 +929,7 @@ export function DiagnosticClient() {
         )}
         <button
           onClick={() => setLevelGuideOpen(true)}
-          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[var(--on-p)]/40 px-3 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
+          className="mt-4 inline-flex items-center gap-1 rounded-[var(--r-full)] border border-[color-mix(in_srgb,var(--on-p)_40%,transparent)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--on-p)] transition-colors hover:bg-white/10"
         >
           <Info size={13} aria-hidden /> 이 레벨이 뭔가요?
         </button>

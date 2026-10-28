@@ -353,7 +353,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp, p
           aria-hidden
         >
           <div
-            className="flex h-[140px] w-[140px] items-center justify-center rounded-[var(--r-2xl)] bg-[var(--bg)]/90 shadow-[var(--sh-xl)] backdrop-blur"
+            className="flex h-[140px] w-[140px] items-center justify-center rounded-[var(--r-2xl)] bg-[color-mix(in_srgb,var(--bg)_90%,transparent)] shadow-[var(--sh-xl)] backdrop-blur"
             style={{ animation: 'feedbackPop 0.3s var(--ease-spring)' }}
           >
             {feedback === 'O' ? (
@@ -533,14 +533,14 @@ function QuestionScreen({
           <span className="font-mono text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
             {String(questionIdx + 1).padStart(2, '0')} / {String(totalQ).padStart(2, '0')}
           </span>
-          <div className="h-1 flex-1 overflow-hidden rounded-full bg-[var(--ti)]/20">
+          <div className="h-1 flex-1 overflow-hidden rounded-full bg-[color-mix(in_srgb,var(--ti)_20%,transparent)]">
             <div
               className="h-full rounded-full bg-[var(--ti)] transition-[width] duration-[var(--dur-slow)]"
               style={{ width: `${progressPct}%` }}
             />
           </div>
           <span
-            className="inline-flex items-center gap-1 rounded-full bg-[var(--ti)]/15 px-3 py-1 font-mono text-[12px] font-[700] tabular-nums"
+            className="inline-flex items-center gap-1 rounded-full bg-[color-mix(in_srgb,var(--ti)_15%,transparent)] px-3 py-1 font-mono text-[12px] font-[700] tabular-nums"
             style={{ color: timeColor === 'var(--error)' ? '#FFD9D9' : 'inherit' }}
           >
             <Clock size={11} aria-hidden />

@@ -46,7 +46,7 @@ export function GlassBar({
         '[backdrop-filter:var(--mat-glass-filter)]',
         '[-webkit-backdrop-filter:var(--mat-glass-filter)]',
         MATERIAL_BG[material],
-        showBorder && 'border-b border-[var(--bd)]/60',
+        showBorder && 'border-b border-[color-mix(in_srgb,var(--bd)_60%,transparent)]',
         className,
       )}
     >

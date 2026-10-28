@@ -528,7 +528,7 @@ export function EchoMatchPlayer({
           className={`rounded-[var(--r-md)] border p-3 ${
             error
               ? 'border-[var(--bde)] bg-[var(--error-light)]'
-              : 'border-[var(--p)]/30 bg-[var(--p-light)]'
+              : 'border-[color-mix(in_srgb,var(--p)_30%,transparent)] bg-[var(--p-light)]'
           }`}
         >
           {error ? (
@@ -549,7 +549,7 @@ export function EchoMatchPlayer({
                     setError(null)
                     setPiperReady(false)
                   }}
-                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
                 >
                   음성 모델 다시 받기
                 </button>
@@ -558,7 +558,7 @@ export function EchoMatchPlayer({
                 <button
                   type="button"
                   onClick={handleRetry}
-                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+                  className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
                 >
                   이 문장 다시 하기
                 </button>
@@ -566,7 +566,7 @@ export function EchoMatchPlayer({
               {error.kind === 'unsupported' && (
                 <Link
                   href="/dictate"
-                  className="mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                  className="mt-2 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
                 >
                   받아쓰기로 연습하기
                 </Link>
@@ -722,7 +722,7 @@ function PhaseController({
   }
   if (phase === 'listening') {
     return (
-      <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[var(--p)]/30 bg-[var(--p-light)] p-5">
+      <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--p)_30%,transparent)] bg-[var(--p-light)] p-5">
         <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--p)]">
           ① Listen — 잘 들어보세요
         </p>
@@ -735,7 +735,7 @@ function PhaseController({
   }
   if (phase === 'recording') {
     return (
-      <div className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[var(--error)]/30 bg-[var(--error-light)] p-5">
+      <div className="flex flex-col items-center gap-3 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--error-light)] p-5">
         <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--error-ink)]">
           ② Repeat — 따라 말하세요
         </p>
@@ -755,7 +755,7 @@ function PhaseController({
   }
   if (phase === 'comparing') {
     return (
-      <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[var(--warning)]/30 bg-[var(--warning-light)] p-5">
+      <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--warning)_30%,transparent)] bg-[var(--warning-light)] p-5">
         <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--warning)]">
           ③ Compare — 비교 중
         </p>
@@ -765,7 +765,7 @@ function PhaseController({
   }
   // scored
   return (
-    <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[var(--success)]/30 bg-[var(--success-light)] p-5">
+    <div className="flex flex-col items-center gap-2 rounded-[var(--r-lg)] border border-[color-mix(in_srgb,var(--success)_30%,transparent)] bg-[var(--success-light)] p-5">
       <p className="font-display text-[11px] font-[700] uppercase tracking-wider text-[var(--success)]">
         ④ Score — 결과
       </p>

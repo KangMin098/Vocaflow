@@ -477,7 +477,7 @@ export function DictationSessionClient() {
               이제 해결책을 한 번 물어본다. 데이터 소모를 숨기지 않고 크기를 밝힌다. */}
           {audio.englishVoiceAvailable === false && audio.engine === 'system' && (
             <div
-              className="mb-3 rounded-[var(--r-md)] border border-[var(--warning)]/30 bg-[var(--warning-light)] px-3 py-3"
+              className="mb-3 rounded-[var(--r-md)] border border-[color-mix(in_srgb,var(--warning)_30%,transparent)] bg-[var(--warning-light)] px-3 py-3"
               role="status"
             >
               <p className="font-body text-[12px] leading-relaxed text-[var(--t2)]">
@@ -638,7 +638,7 @@ export function DictationSessionClient() {
               autoCorrect="off"
               spellCheck={false}
               rows={3}
-              className="w-full resize-none rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-english text-[18px] leading-relaxed text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[var(--p)]/20"
+              className="w-full resize-none rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3 font-english text-[18px] leading-relaxed text-[var(--t1)] focus:border-[var(--bdf)] focus:outline-none focus:ring-2 focus:ring-[color-mix(in_srgb,var(--p)_20%,transparent)]"
               style={{ fontFamily: 'Lora, serif' }}
             />
 
@@ -822,7 +822,7 @@ function FeedbackSection({
 
       <WordStatusLegend statuses={new Set(result.wordResults.map((w) => w.status))} />
 
-      <div className="mb-3 rounded-[var(--r-md)] border border-[var(--success-light)] bg-[var(--success-light)]/30 px-3 py-2">
+      <div className="mb-3 rounded-[var(--r-md)] border border-[var(--success-light)] bg-[color-mix(in_srgb,var(--success-light)_30%,transparent)] px-3 py-2">
         <p className="mb-1 font-display text-[10px] font-[700] uppercase tracking-wider text-[var(--success)]">
           정답
         </p>
@@ -891,9 +891,9 @@ function FeedbackSection({
 
 // 단어 채점 상태별 스타일 — 색 + 밑줄/취소선/테두리로 색맹 대응 (색상 단독 전달 금지)
 const WORD_STATUS_STYLES: Record<WordResult['status'], string> = {
-  correct: 'text-[var(--success)] bg-[var(--success-light)]/40',
-  misspelled: 'text-[var(--warning)] bg-[var(--warning-light)]/40 underline decoration-wavy',
-  wrong: 'text-[var(--error-ink)] bg-[var(--error-light)]/40 line-through',
+  correct: 'text-[var(--success)] bg-[color-mix(in_srgb,var(--success-light)_40%,transparent)]',
+  misspelled: 'text-[var(--warning)] bg-[color-mix(in_srgb,var(--warning-light)_40%,transparent)] underline decoration-wavy',
+  wrong: 'text-[var(--error-ink)] bg-[color-mix(in_srgb,var(--error-light)_40%,transparent)] line-through',
   missing: 'text-[var(--error-ink)] border border-dashed border-[var(--error)]',
   extra: 'text-[var(--warning)] line-through opacity-60',
 }
