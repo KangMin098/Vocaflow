@@ -31,6 +31,13 @@ export function articleVocabHref(textId: string, vocab: ArticleVocabSource): str
   return `/wordvault/browse?${qs.toString()}`
 }
 
+export const ARTICLE_VOCAB_UNKNOWN_LABEL = '읽던 글에서 단어 다시 보기'
+
+/** 조회 실패(unknown)면 목적지가 읽던 글이므로 「복습하기」 대신 그 이동을 말한다. set · text 는 기본 문구. */
+export function articleVocabLabel(vocab: ArticleVocabSource): { vocab: string } | undefined {
+  return vocab.kind === 'unknown' ? { vocab: ARTICLE_VOCAB_UNKNOWN_LABEL } : undefined
+}
+
 type Submit = (context: ArticlePracticeContext, itemId: string, answer: { choice?: unknown }) => Promise<DcpGradeResult>
 
 const CHANGED: DcpGradeResult = { ok: false, error: '로그인 상태가 바뀌었어요. 글을 다시 열어 주세요.' }
@@ -99,6 +106,7 @@ export function ArticlePracticeBridge({
       backHref={`/text/${textId}`}
       backCta="읽던 글로"
       causeHref={{ vocab: articleVocabHref(textId, vocab) }}
+      causeLabel={articleVocabLabel(vocab)}
       doneCopy={articlePracticeDoneCopy}
       nextChoice={ARTICLE_NEXT_CHOICE}
     />

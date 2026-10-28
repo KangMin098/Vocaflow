@@ -46,6 +46,7 @@ export function DcpPlayer({
   revisit = false,
   causeChips = true,
   causeHref,
+  causeLabel,
   nextChoice,
 }: {
   items: DcpItem[]
@@ -80,6 +81,8 @@ export function DcpPlayer({
    * 자료 문맥을 아는 호출자(기사 연습 다리)가 그 자료 범위의 목록을 넣는다.
    */
   causeHref?: Partial<Record<DcpErrorCause, string>>
+  /** 오답 원인별 링크 문구 교체(opt-in) — 목적지가 복습 목록이 아닐 때만. 없으면 「복습하기」. */
+  causeLabel?: Partial<Record<DcpErrorCause, string>>
   /**
    * 완료 화면의 보조 다음 선택(opt-in) — 돌아가기 아래 링크 하나. 없으면 그리지 않는다(예전 동작).
    * 기사 연습 다리만 「다른 글 살펴보기」 를 넣는다. 처방 · 평가가 아니라 자율 선택이다.
@@ -280,7 +283,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -351,6 +354,7 @@ function Feedback({
   isLast,
   review = false,
   causeHref,
+  causeLabel,
 }: {
   item: DcpItem
   result: DcpGradeOk
@@ -362,6 +366,7 @@ function Feedback({
   /** true = 완료 뒤 다시 보기(원인 칩 없음 · 「요약으로」) · 'noCause' = 진행 중이지만 원인 칩만 숨김 */
   review?: boolean | 'noCause'
   causeHref?: Partial<Record<DcpErrorCause, string>>
+  causeLabel?: Partial<Record<DcpErrorCause, string>>
 }) {
   const correct = result.correct
   return (
@@ -451,7 +456,7 @@ function Feedback({
               </button>
             ))}
           </div>
-          {cause && <CauseTip cause={cause} href={causeHref?.[cause]} />}
+          {cause && <CauseTip cause={cause} href={causeHref?.[cause]} label={causeLabel?.[cause]} />}
         </div>
       )}
 
@@ -475,7 +480,7 @@ function submittedChoice(item: DcpItem, submitted: Record<string, unknown> | nul
   return { n, text: choices[n - 1] }
 }
 
-export function CauseTip({ cause, href: override }: { cause: DcpErrorCause; href?: string }) {
+export function CauseTip({ cause, href: override, label = '복습하기' }: { cause: DcpErrorCause; href?: string; label?: string }) {
   const def = ERROR_CAUSES.find((e) => e.cause === cause)
   if (!def) return null
   const href = override ?? def.href
@@ -487,7 +492,7 @@ export function CauseTip({ cause, href: override }: { cause: DcpErrorCause; href
           href={href}
           className="inline-flex min-h-[44px] shrink-0 items-center gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 font-display text-[12px] font-[700] text-[var(--on-p-tint)] no-underline transition-all duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
-          복습하기
+          {label}
           <ArrowRight size={12} strokeWidth={2.25} aria-hidden />
         </Link>
       )}

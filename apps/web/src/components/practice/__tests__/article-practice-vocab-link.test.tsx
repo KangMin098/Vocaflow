@@ -12,7 +12,7 @@ import type { StoryAuthSource } from '@/components/library/story/use-story-auth-
 import { CauseTip } from '../DcpPlayer'
 import { sanitizeInternalPath } from '@/lib/layout/session-return'
 import { applySourceFilter } from '@/lib/wordvault/source-filter'
-import { articleVocabHref } from '../ArticlePracticeBridge'
+import { articleVocabHref, articleVocabLabel } from '../ArticlePracticeBridge'
 
 const hrefs = (html: string) => [...html.matchAll(/href="([^"]*)"/g)].map((m) => m[1].replace(/&amp;/g, '&'))
 
@@ -27,6 +27,25 @@ describe('CauseTip 목적지', () => {
     expect(hrefs(renderToString(<CauseTip cause="vocab" href="/wordvault/browse?filter=text%3Ax" />))).toEqual([
       '/wordvault/browse?filter=text%3Ax',
     ])
+  })
+})
+
+describe('CauseTip 문구', () => {
+  const text = (html: string) => html.replace(/<[^>]+>/g, '')
+  it('교체가 없으면 기본 「복습하기」(다른 DcpPlayer 호출자 그대로)', () => {
+    expect(text(renderToString(<CauseTip cause="vocab" />))).toContain('복습하기')
+  })
+  it('unknown → 읽던 글 링크 + 새 문구, set · text → 「복습하기」', () => {
+    const u = renderToString(
+      <CauseTip cause="vocab" href={articleVocabHref('text-a', { kind: 'unknown' })} label={articleVocabLabel({ kind: 'unknown' })?.vocab} />,
+    )
+    expect(hrefs(u)).toEqual(['/text/text-a'])
+    expect(text(u)).toContain('읽던 글에서 단어 다시 보기')
+    expect(text(u)).not.toContain('복습하기')
+    for (const v of [{ kind: 'set', setId: 'x' }, { kind: 'text' }] as const) {
+      const h = renderToString(<CauseTip cause="vocab" href={articleVocabHref('text-a', v)} label={articleVocabLabel(v)?.vocab} />)
+      expect(text(h)).toContain('복습하기')
+    }
   })
 })
 
@@ -91,6 +110,7 @@ describe('ArticlePracticeBridge → DcpPlayer causeHref — 서버가 정한 단
       )
       const props = captured.props as Record<string, unknown> | null
       expect(props?.causeHref).toEqual({ vocab: hrefOf('text-a', vocab) })
+      expect(props?.causeLabel).toEqual(vocab.kind === 'unknown' ? { vocab: '읽던 글에서 단어 다시 보기' } : undefined)
       expect(props?.backHref).toBe('/text/text-a')
     }
     vi.doUnmock('@/components/practice/DcpPlayer')
