@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(textbook): 교재 연습 계정 경계 + 이미 본 답·해설 다시 보기 — loader 가 서버 getUser owner 를 결속, TextbookPracticeBridge(useStoryAuthGuard)가 checking/changed 에 문항·답·해설을 숨기고 「연습 다시 열기」, 같은 계정에서만 revisit · 서버 gradeTextbookPracticeItem 은 요청 사용자 ≠ 예상 owner 면 grade_dcp_item 전 거부 · DcpPlayer·SQL 불변 (f7edec813)
 - feat(textbook): 교재 연습이 실제 조회 경로(volume | legacy_v_level)를 알린다 — 공통 문항(V레벨 풀)·미확인은 「선택한 교재의 기준 수준으로 고른 공통 문항 · 수록 문제와 같다는 뜻 아님」 안내 뒤 「공통 문항으로 연습하기」 명시 선택, volume 도 인쇄본 일치 약속 없음 · 낡은 「순서·삽입만」 문구 정정 · 채점/RPC/DB 불변, revisit 미적용 (fd947bb9b)
 - fix(recommend): 다음 추천 카드 「시작하기」 포커스 링을 불투명 링 + 배경 간격으로 대비 보강(AppHeader 패턴 재사용) (690a74c4c)
 - feat(practice): 기사 연습 완료 화면에 보조 선택 「다른 글 살펴보기」(→ /library/scripts). DcpPlayer opt-in `nextChoice`(기본 없음), ArticlePracticeBridge 만 켬 · 채점·기록·이벤트 불변 (b2ff21181)

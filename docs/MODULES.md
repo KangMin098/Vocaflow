@@ -1162,6 +1162,13 @@ gamekit 을 쓰지 않는 게임(WordBlitz · Pirate's Bounty)은 `GameKitStyles
 
 ---
 
+## 교재 연습 — `/library/textbooks/[series]/[step]/practice` (2026-10-28)
+
+- 조회 경로를 알린다: `fetchTextbookPracticeItems` 가 `scope`(volume | legacy_v_level)와 서버 `getUser` owner 를 돌려준다. 권 함수 `textbook_practice_items_for` 가 없으면 V레벨 공통 풀로 대체하며, 이때(및 미확인)는 「선택한 교재의 기준 수준으로 고른 공통 문항 · 수록 문제와 같다는 뜻 아님」 안내 뒤 「공통 문항으로 연습하기」를 눌러야 문항이 나온다. volume 도 인쇄본 수록 일치를 약속하지 않는다.
+- `TextbookPracticeBridge` 가 기존 `useStoryAuthGuard` 로 감싼다: checking/changed 에 문항·답·해설을 그리지 않고 「연습 다시 열기」·권 복귀만. 같은 계정일 때만 DcpPlayer `revisit`(이미 본 답·해설, 새 채점·기록 없음).
+- 채점은 `gradeTextbookPracticeItem(expectedOwner, …)`: 요청 사용자가 없거나 다르면 `grade_dcp_item` 호출 전에 실패로 거부. 지원 유형은 `dcp-types.ts` PLAYABLE(순서·삽입 + 선택형).
+- 미완: 인쇄본 수록 문항 ID/판본 결속, 권 전용 단어 복습, 완료 문구.
+
 ## 기출 주장과 근거 연습 — `/csat/practice` (2026-10-08 이식)
 
 - 화면 `components/knowledge/ClaimPractice.tsx`. 규칙(순수) `lib/knowledge/practice.ts` · `protocol.ts`, 서버 `practice-server.ts`, 쓰기 어댑터 `practice-writer.ts`.
