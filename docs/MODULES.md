@@ -493,6 +493,8 @@ flush 는 원래 `isComplete` 에만 걸려 있었다. ✕ · Esc · 뒤로가�
 ### 컴포넌트
 `components/game/wordblitz/WordBlitzGame.tsx`(게임 본체 · 계약 wordPool/onExit/onCorrect/onWrong FSRS) · `WordBlitzUI.tsx`(로딩 폴백) · `lib/wordblitz/data.ts`(Word/SAMPLE_WORDS/POINTS).
 
+- 끝화면 놓친 단어 대조(2026-10-28): `WordBlitzMistakes.tsx` — 이번 판 메모리에 처음 놓친 순간의 target·chosen·form·prompt 를 보관(en 중복 제거·횟수, 시간 초과는 「선택하지 못함」), 전체 목록에서 하나를 골라 당시 질문·내 선택·정답·단어 예문(원문 아님)을 나란히. 점수·콤보·재출제·FSRS·기록 콜백 불변, 끝화면만 자체 스크롤.
+
 ---
 
 ## 6. PairFlip (L4a 공간기억 · v06.21)
