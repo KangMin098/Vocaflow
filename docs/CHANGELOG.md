@@ -233,6 +233,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(practice): 기사 단어 세트 조회 실패(unknown)로 「단어를 몰랐어요」 링크가 읽던 글로 갈 때 문구를 「읽던 글에서 단어 다시 보기」로 — DcpPlayer 선택 prop causeLabel(기본 「복습하기」 불변) (047efe724)
 - feat(flashcard): 카드 뒷면 예문 「듣기」가 현재 영어 예문을 실제로 읽음(useSpeechSynthesis) — 예문·지원 시에만 44px 버튼, 실제 재생 상태, 뒤집기·평가·FSRS 로 전파 없음, 카드/단계 전환·평가·언마운트 시 재생 중·대기 중 음성 모두 취소 (93a6639c6)
 - fix(ui): 공용 Button sm·ButtonGroup sm/md·Input sm 높이를 44px 로(터치 영역 하한) — 실사용 caller(로그인·가입·재설정 Input md)는 높이 불변, 바뀌는 곳은 /dev/components 쇼케이스 (1772436a7)
 - fix(practice): 기사 연습 「단어를 몰랐어요」 복습을 발행 기사 단어장 범위로 — loader 가 Reader §4.7 과 같은 RLS 조회로 발행 library_article 세트를 찾고 Bridge 가 readerSource 로 set: / text: / 조회 오류 시 본문(/text/<id>) 결정 · 신원·채점·복귀 불변 (f1557fb9c)
