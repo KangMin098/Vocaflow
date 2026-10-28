@@ -118,12 +118,22 @@ describe('loadArticlePractice 읽던 글 복귀(T-0206)', () => {
     state.profileError = null
     expect(await loadArticlePractice('not-a-uuid')).toEqual({ ok: false, reason: 'bad_article' })
   })
-  it('후보 실패 뒤 지금 계정을 확인하지 못하면 복귀 정보를 만들지 않는다', async () => {
-    state.rpc = { data: [], error: null }
-    // 관문이 부르는 getUser 는 통과(user-me), 복귀 전 재확인은 미확인(null)
-    state.userSeq = ['user-me', null]
-    expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason: 'no_items' })
-  })
+  // 관문 계정 → 복귀 전 재확인 계정: A→A 만 복귀, A→null · A→B 는 없음(T0206-F01) — 세 후보 실패 각각
+  for (const [rpc, reason] of [
+    [{ data: null, error: { code: 'PGRST202', message: 'x' } }, 'not_installed'],
+    [{ data: null, error: { code: '500', message: 'x' } }, 'query_failed'],
+    [{ data: [], error: null }, 'no_items'],
+  ] as const) {
+    it(`${reason}: A→A 는 본인 글로, A→null · A→B 는 복귀 없음`, async () => {
+      state.rpc = rpc as typeof state.rpc
+      state.userSeq = ['user-me', 'user-me']
+      expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason, returnTextId: 'text-1' })
+      state.userSeq = ['user-me', null]
+      expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason })
+      state.userSeq = ['user-me', 'user-other']
+      expect(await loadArticlePractice(ART)).toEqual({ ok: false, reason })
+    })
+  }
   it('성공 계약은 그대로(복귀 키 없음)', async () => {
     const r = await loadArticlePractice(ART)
     expect(r.ok).toBe(true)

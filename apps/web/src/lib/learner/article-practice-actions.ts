@@ -87,13 +87,18 @@ async function candidates(client: SupabaseClient, articleId: string): Promise<Ar
 export async function loadArticlePractice(articleId: string): Promise<ArticlePracticeLoad> {
   const client = (await createClient()) as unknown as SupabaseClient
   const deps = depsFor(client)
-  const access = await checkArticlePracticeAccess(articleId, deps)
+  // 관문이 본인 글(access.textId)을 찾을 때 쓴 계정 — 복귀 전에 지금 계정이 그 계정인지 비교한다(T0206-F01)
+  let gateUserId: string | null = null
+  const access = await checkArticlePracticeAccess(articleId, {
+    ...deps,
+    currentUserId: async () => (gateUserId = await deps.currentUserId()),
+  })
   if (!access.ok) return { ok: false, reason: access.reason }
   const c = await candidates(client, access.articleId)
   if (!c.ok) {
-    // 관문을 통과한 본인 글로만 돌려보낸다 — 지금 계정을 다시 확인하지 못하면 복귀 정보를 만들지 않는다(기존 글 목록)
+    // 관문을 통과한 그 계정의 본인 글로만 돌려보낸다 — 지금 계정이 없거나 다르면 복귀 정보를 만들지 않는다(기존 글 목록)
     const uid = await deps.currentUserId()
-    return uid ? { ...c, returnTextId: access.textId } : c
+    return uid && uid === gateUserId ? { ...c, returnTextId: access.textId } : c
   }
   // 소유자는 화면의 신원 비교용으로만 싣는다(DOM · URL 에 넣지 않는다)
   const ownerId = await deps.currentUserId()
