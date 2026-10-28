@@ -8,7 +8,6 @@
 //   문맥이 하나도 없어도 words(목록 판정)는 그대로다.
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { splitSentences } from '@/lib/scriptquiz/evidence'
 import { buildEvidenceSentenceMap, contentHash } from '@/lib/scriptquiz/reader-anchor'
 import { buildParagraphsFromContent } from '@/app/(main)/text/[id]/text-content-helpers'
 
@@ -20,48 +19,54 @@ import { normalizeSourceFilter } from './source-filter'
 export type SetMembershipReader = { textId: string; hash: string; anchors: Record<string, number> }
 export type SetMembershipPayload = { setId: string; words: string[]; contexts?: Record<string, string>; reader?: SetMembershipReader } | { setId: string; error: true }
 
+/** Reader(layout)가 읽는 출처와 같은 열 — v_text_content 의 본문 · 단락 오프셋(T-0214 Codex P1: texts 에는 paragraph_offsets 가 없다). */
+export const READER_TEXT_SOURCE = { table: 'v_text_content', columns: 'id, content, paragraph_offsets' } as const
+
+/** Reader 문장(buildParagraphsFromContent — layout 과 같은 함수 · 같은 기본값)의 글자 목록 */
+export function readerSentencesOf(content: string, offsets: unknown): Array<{ id: number; text: string }> {
+  return buildParagraphsFromContent(content, Array.isArray(offsets) ? (offsets as number[]) : []).flatMap((p) => p.sentences.map((s) => ({ id: s.id, text: s.parts.map((pt) => pt.text).join('') })))
+}
+
 /**
- * T-0214 — 「글에서 이 문장 보기」 근거. 세트당 한 번: 본인 글 1행(article-practice-actions 와 같은 조회) + 기존 get_chapter_content.
- * 본인 글이 없거나 · 본문이 지금 기사 본문과 다르거나(다른 판본) · 조회가 실패하면 null — 목록 · 문장은 그대로 둔다.
+ * T-0214 Codex P2 3차 — 낱말 문맥 문장을 **Reader 문장 단위**로 찾는다. 공백만 정규화해 전체가 같은 Reader 문장이 정확히 하나일 때,
+ * 앵커 번호(splitSentences 체계) 중 Reader 표(buildEvidenceSentenceMap)가 바로 그 Reader 문장으로 푸는 첫 번호를 돌려준다. 아니면 null.
+ * 「Dr. Smith …」 · 「3.5 percent」 처럼 splitSentences 가 끊어도 Reader 가 한 문장으로 보면 그 문장으로 간다. 길이 하한 없음.
+ * (T-0209 의 evidenceSentenceIndex — 근거 스니펫 12자 하한 — 는 그대로 둔다.)
  */
-/**
- * T-0214 Codex P2 — 낱말 문맥 문장이 본인 글 본문의 문장(Reader 앵커와 같은 splitSentences 번호 체계) 하나와 **공백 정규화 뒤 전체가 같고**
- * 그런 문장이 정확히 하나일 때 그 번호, 아니면 null. 길이 하한이 없다 — 「Resist!」 같은 짧은 문장도 된다.
- * (T-0209 의 evidenceSentenceIndex 는 근거 스니펫 용도라 12자 하한이 있다 — 그 동작은 그대로 둔다.)
- */
-export function exactSentenceIndex(content: string, sentence: string): number | null {
+export function readerAnchorIndex(content: string, readerSentences: ReadonlyArray<{ id: number; text: string }>, sentence: string): number | null {
   const norm = (s: string) => s.replace(/\s+/g, ' ').trim()
   const target = norm(sentence)
   if (!target) return null
-  let found: number | null = null
-  const sentences = splitSentences(content)
-  for (let i = 0; i < sentences.length; i += 1) {
-    if (norm(sentences[i]!) !== target) continue
-    if (found !== null) return null
-    found = i
-  }
-  return found
+  const hits = readerSentences.filter((r) => norm(r.text) === target)
+  if (hits.length !== 1) return null
+  const map = buildEvidenceSentenceMap(content, readerSentences)
+  const at = map.indexOf(hits[0]!.id)
+  return at >= 0 ? at : null
 }
 
+/**
+ * T-0214 — 「글에서 이 문장 보기」 근거. 세트당 한 번: 본인 글 1행(texts id · article-practice-actions 와 같은 조건) +
+ * Reader 와 같은 출처(v_text_content)의 본문 · 단락 오프셋 1행. 본문이 지금 기사 본문과 같을 때만.
+ * 본인 글 없음 · 다른 판본 · 조회 실패 · 로그아웃이면 null — 목록 · 문장은 그대로 둔다.
+ */
 export async function loadOwnArticleReader(client: SupabaseClient, articleId: string, articleBody: string | null, contexts: Record<string, string>): Promise<SetMembershipReader | null> {
   if (!articleBody || Object.keys(contexts).length === 0) return null
   try {
     const uid = (await client.auth.getUser()).data.user?.id
     if (!uid) return null
-    const { data: row, error } = await client.from('texts').select('id, paragraph_offsets').eq('user_id', uid).eq('source_url', `article:${articleId}`).maybeSingle()
+    const { data: row, error } = await client.from('texts').select('id').eq('user_id', uid).eq('source_url', `article:${articleId}`).maybeSingle()
     if (error || !row) return null
     const textId = (row as { id?: unknown }).id
-    const offsets = (row as { paragraph_offsets?: unknown }).paragraph_offsets
     if (typeof textId !== 'string') return null
-    const { data: content, error: cErr } = await client.rpc('get_chapter_content', { p_text_id: textId })
-    if (cErr || typeof content !== 'string' || content !== articleBody) return null
-    // Reader(layout)와 **같은 함수**로 문장 번호 → Reader 문장 id 표를 만든다. 링크는 그 표에서 정확히 한 문장으로 풀릴 때만(T-0214 Codex P2 2차).
-    const paragraphs = buildParagraphsFromContent(content, Array.isArray(offsets) ? (offsets as number[]) : [])
-    const readerMap = buildEvidenceSentenceMap(content, paragraphs.flatMap((p) => p.sentences.map((s) => ({ id: s.id, text: s.parts.map((pt) => pt.text).join('') }))))
+    const { data: tc, error: tcErr } = await client.from(READER_TEXT_SOURCE.table).select(READER_TEXT_SOURCE.columns).eq('id', textId).maybeSingle()
+    if (tcErr || !tc) return null
+    const content = (tc as { content?: unknown }).content
+    if (typeof content !== 'string' || content !== articleBody) return null
+    const readerSentences = readerSentencesOf(content, (tc as { paragraph_offsets?: unknown }).paragraph_offsets ?? [])
     const anchors: Record<string, number> = {}
     for (const [word, sentence] of Object.entries(contexts)) {
-      const at = exactSentenceIndex(content, sentence)
-      if (at !== null && (readerMap[at] ?? -1) >= 0) anchors[word] = at
+      const at = readerAnchorIndex(content, readerSentences, sentence)
+      if (at !== null) anchors[word] = at
     }
     return Object.keys(anchors).length > 0 ? { textId, hash: contentHash(content), anchors } : null
   } catch {

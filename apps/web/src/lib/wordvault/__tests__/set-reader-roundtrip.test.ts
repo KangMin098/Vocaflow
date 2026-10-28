@@ -27,11 +27,12 @@ function client(body: string, rows: Array<{ word: string; source_sentence: strin
   }
   return {
     auth: { getUser: async () => ({ data: { user: { id: 'user-a' } } }) },
-    rpc: async () => ({ data: body, error: null }),
+    rpc: async () => ({ data: null, error: { message: 'not expected' } }),
     from(t: string) {
       if (t === 'shared_word_sets') return one(set)
       if (t === 'library_articles') return one({ status: 'published', copyright_safe_in_kr: true, content: body })
-      if (t === 'texts') return one({ id: 'text-a', paragraph_offsets: null })
+      if (t === 'texts') return one({ id: 'text-a' })
+      if (t === 'v_text_content') return one({ id: 'text-a', content: body, paragraph_offsets: null })
       const q = { select: () => q, eq: () => q, order: () => q, range: async () => ({ data: rows, error: null }) }
       return q
     },
@@ -103,5 +104,26 @@ describe('생성 → 저장 → Reader 표 → 이동 왕복', () => {
     const reader = await readerOf(body, rows)
     expect(Object.keys(reader?.anchors ?? {}).sort()).toEqual(['drought', 'march', 'resist'])
     for (const w of Object.keys(reader!.anchors)) expect(readerLands(body, reader!, w)).not.toBeNull()
+  })
+})
+
+describe('약어 · 소수점 · 인용부호(Codex P2 3차 회귀) — Reader 가 한 문장으로 보면 그 문장으로', () => {
+  it('약어 「Dr.」 가 든 문장', async () => {
+    const body = 'The lab was quiet. Dr. Smith announced the results. Everyone cheered.'
+    const reader = await readerOf(body, [{ word: 'announce', source_sentence: 'Dr. Smith announced the results.' }])
+    expect(reader?.anchors.announce).toBeDefined()
+    expect(readerLands(body, reader!, 'announce')).toBe('Dr. Smith announced the results.')
+  })
+  it('소수점 「3.5」 가 든 문장', async () => {
+    const body = 'Markets moved fast. The price rose by 3.5 percent. Traders waited.'
+    const reader = await readerOf(body, [{ word: 'rise', source_sentence: 'The price rose by 3.5 percent.' }])
+    expect(reader?.anchors.rise).toBeDefined()
+    expect(readerLands(body, reader!, 'rise')).toBe('The price rose by 3.5 percent.')
+  })
+  it('인용부호로 끝나는 문장', async () => {
+    const body = 'She paused. “We will stay,” she said. They agreed.'
+    const reader = await readerOf(body, [{ word: 'stay', source_sentence: '“We will stay,” she said.' }])
+    expect(reader?.anchors.stay).toBeDefined()
+    expect(readerLands(body, reader!, 'stay')).toBe('“We will stay,” she said.')
   })
 })
