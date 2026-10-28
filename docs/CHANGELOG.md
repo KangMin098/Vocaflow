@@ -233,6 +233,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(a11y): 학습자 화면 터치 영역 44px — 읽기(RecallCard 발음·BookContext 링크/이전다음·Pagination·VoicePicker) · 만화 리더 기억/다시 볼게요 · 기사 카드 원문 링크(보이는 원 28px 유지, 히트 영역만 확대). ChapterSidebar 링크는 행 밀도 때문에 보류 (b0927f64f · 67efebe5c)
 - fix(practice): 기사 단어 세트 조회 실패(unknown)로 「단어를 몰랐어요」 링크가 읽던 글로 갈 때 문구를 「읽던 글에서 단어 다시 보기」로 — DcpPlayer 선택 prop causeLabel(기본 「복습하기」 불변) (047efe724)
 - feat(flashcard): 카드 뒷면 예문 「듣기」가 현재 영어 예문을 실제로 읽음(useSpeechSynthesis) — 예문·지원 시에만 44px 버튼, 실제 재생 상태, 뒤집기·평가·FSRS 로 전파 없음, 카드/단계 전환·평가·언마운트 시 재생 중·대기 중 음성 모두 취소 (93a6639c6)
 - fix(ui): 공용 Button sm·ButtonGroup sm/md·Input sm 높이를 44px 로(터치 영역 하한) — 실사용 caller(로그인·가입·재설정 Input md)는 높이 불변, 바뀌는 곳은 /dev/components 쇼케이스 (1772436a7)
