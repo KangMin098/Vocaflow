@@ -53,7 +53,7 @@ export function MissedWordRow({ miss }: { miss: MissedWord }) {
           aria-expanded={shown}
           aria-controls={id}
           onClick={() => setShown((v) => !v)}
-          className={`min-h-[44px] shrink-0 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t1)] hover:border-[var(--p)] ${FOCUS}`}
+          className={`inline-flex min-h-[44px] shrink-0 items-center rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12px] font-[700] text-[var(--t1)] hover:border-[var(--p)] ${FOCUS}`}
         >
           {shown ? '철자 가리기' : '철자 확인'}
         </button>
