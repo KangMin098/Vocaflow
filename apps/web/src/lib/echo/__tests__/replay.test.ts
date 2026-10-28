@@ -201,14 +201,30 @@ describe('다시 듣기 호출 시점 경계(실제 StoryAuthGuard)', async () =
     expect(play).not.toHaveBeenCalled()
   })
 
-  it('checking(재확인 중)에도 막고, 다시 same 이 돼도 세대가 바뀐 옛 녹음은 주지 않는다', () => {
+  it('invalidate(changed) 뒤에는 막고, 다른 경계 세대의 옛 녹음은 주지 않는다', () => {
     const { guard, base } = setup()
     guard.invalidate()
+    expect(guard.getStatus()).toBe('changed')
     expect(replayBufferAt({ ...base, target: 'self' })).toBeNull()
     const g2 = new StoryAuthGuard('owner-a')
     g2.observe({ event: 'KNOWN', userId: 'owner-a' } as never)
     const old = { ...base.take!, authToken: 99 }
     expect(replayBufferAt({ ...base, guard: g2, take: old, target: 'self' })).toBeNull()
+  })
+
+  it('진짜 checking(recheck · 기준선 대기 중)이면 둘 다 막고, 같은 사람으로 돌아와도 옛 세대 녹음은 주지 않는다', async () => {
+    const { guard, base } = setup()
+    let release!: (uid: string | null) => void
+    guard.recheck({ currentUserId: () => new Promise<string | null>((r) => (release = r)) })
+    expect(guard.getStatus()).toBe('checking')
+    expect(replayBufferAt({ ...base, target: 'reference' })).toBeNull()
+    expect(replayBufferAt({ ...base, target: 'self' })).toBeNull()
+    release('owner-a')
+    await flush()
+    expect(guard.getStatus()).toBe('same')
+    expect(replayBufferAt({ ...base, target: 'reference' })).toBe(REF)
+    // recheck 가 세대를 올렸다 — 그 전에 붙잡은 녹음은 이 계정 문맥의 것으로 쓰지 않는다
+    expect(replayBufferAt({ ...base, target: 'self' })).toBeNull()
   })
 
   it('같은 id · 다른 내용이면 예시 캐시도 녹음도 넘기지 않는다', () => {
