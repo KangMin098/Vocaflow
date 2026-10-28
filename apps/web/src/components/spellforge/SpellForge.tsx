@@ -24,7 +24,7 @@ import { useIMEDetection } from '@/hooks/useIMEDetection'
 import { useSpellForgeSession } from '@/hooks/useSpellForgeSession'
 import { useTypingMode } from '@/hooks/useTypingMode'
 
-import { SpellForgeCompletion } from './SpellForgeCompletion'
+import { SpellForgeCompletion, type MissKind } from './SpellForgeCompletion'
 
 import { useSessionEscape } from '@/components/layout/session-escape'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
@@ -140,6 +140,11 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
   const [pauseInfo, setPauseInfo] = useState<{ icon: string; message: string } | null>(null)
   const [reflectionMsg, setReflectionMsg] = useState('')
   const [showCompletion, setShowCompletion] = useState(false)
+  /** 이 판에서 놓친 낱말 — 완료 화면 복기용. 화면 상태일 뿐 기록·평가에 쓰지 않는다. */
+  const [missed, setMissed] = useState<Record<string, MissKind>>({})
+  const markMissed = useCallback((id: string, kind: MissKind) => {
+    setMissed((prev) => (prev[id] === 'skipped' || prev[id] === kind ? prev : { ...prev, [id]: kind }))
+  }, [])
   // 오답 뒤 「다시 입력하기」 — 세대가 바뀌면(단어 · 모드 · 계정 · 언마운트) 보관된 재시도는 아무것도 하지 않는다
   const retryEpochRef = useRef<RetryEpoch>({ current: 0 })
   // 이 오답 한 번에 묶인 재시도 — 단추의 onClick 이 곧 그 인스턴스라, 옛 단어의 보관된 onClick 은 새 단어의 재시도를 부르지 못한다
@@ -296,6 +301,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
   const handleError = useCallback(
     (evalResult: ReturnType<typeof evaluateInput>) => {
       setPhase('error')
+      if (currentWord) markMissed(currentWord.id, 'retried')
       setReflectionMsg(generateReflectionMessage(evalResult))
 
       // 입력 · 안내는 학습자가 「다시 입력하기」를 누르거나 직접 고칠 때까지 남긴다(예전 3초 자동 삭제는 고쳐 쓰던 입력까지 지웠다).
@@ -310,7 +316,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       })
       setRetryAction(() => retry)
     },
-    [resetFeedback, ownsSession]
+    [resetFeedback, ownsSession, currentWord, markMissed]
   )
 
   /**
@@ -359,6 +365,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
     if (!currentWord || !ownsSession()) return
     if (window.confirm('이 단어를 건너뛸까요? 다음에 다시 만나게 됩니다.')) {
       // §17 [4] 기억 축 — FSRS applyReview (오답 처리, Again rating)
+      markMissed(currentWord.id, 'skipped')
       const existingCard = getCachedCard(currentWord.id) ?? createNewCard(currentWord.id)
       const reviewResult = applyReview({
         card: existingCard,
@@ -390,7 +397,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       })
       skipWord()
     }
-  }, [currentWord, hintCount, recordRating, skipWord, ownsSession])
+  }, [currentWord, hintCount, recordRating, skipWord, ownsSession, markMissed])
 
   // Esc = 건너뛰기 — 화면이 그렇게 광고한다. 셸도 같은 키로 세션을 닫고 있어서,
   // 예전에는 한 번의 Esc 가 단어를 건너뛰는 **동시에** 세션 밖으로 내보냈다(v08.7 [B1]).
@@ -476,6 +483,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
         content={content}
         recommendation={recommendation}
         viewerId={viewerId}
+        missedWords={session.words.filter((w) => missed[w.id]).map((w) => ({ word: w, kind: missed[w.id] }))}
       />
     )
   }
