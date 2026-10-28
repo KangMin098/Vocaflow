@@ -23,6 +23,7 @@ import { recordGameScore } from '@/lib/scores/record-score'
 import { gradeScriptQuizAnswer, type ScriptQuizGrade } from '@/lib/scriptquiz/grade-actions'
 import { buildEvidenceChoice, type EvidenceChoice } from '@/lib/scriptquiz/evidence'
 import { EvidencePicker, type EvidencePick } from './EvidencePicker'
+import { MissReviewItem } from './MissReview'
 import { pushPendingTextResult } from '@/lib/srs/session-storage'
 
 // ══════════════════════════════════════════════════════════════
@@ -341,6 +342,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp, p
           onRetry={startQuiz}
           recommendation={recommendation}
           returnTo={sessionProp ? returnTo : undefined}
+          passage={passage}
         />
       )}
 
@@ -868,6 +870,7 @@ export function ResultScreen({
   onRetry,
   recommendation,
   returnTo,
+  passage,
 }: {
   totalQ: number
   stats: { correct: number; wrong: number; accuracy: number; avgTimeSec: number }
@@ -877,6 +880,8 @@ export function ResultScreen({
   recommendation?: RecommendedAction
   /** 서버가 확인한 돌아갈 곳(본인 글·같은 장이면 그 글, 도서만이면 도서 입구). 없으면 버튼 없음 */
   returnTo?: QuizReturnTarget
+  /** 이 퀴즈의 본문 — 오답 복기에서 근거 문장의 앞뒤 맥락을 보여 준다. 없으면 근거 문장만. */
+  passage?: string
 }) {
   // ⚠️ **문항이 아니라 답에서 만든다.** 예전에는 틀린 문항의 `question` 과 `sourceSnippet`
   //   만 그리고 **정답도, 내가 고른 것도 안 보여 줬다** — 즉 틀린 문항의 정답을 알 경로가
@@ -991,45 +996,7 @@ export function ResultScreen({
             </header>
             <ul className="space-y-2">
               {wrongItems.map(({ answer, question }) => (
-                <li
-                  key={question.id}
-                  className="rounded-[var(--r-md)] border-l-4 border-[var(--active)] bg-[var(--active-light)]/40 p-3"
-                >
-                  {/* 영어 본문은 세션 내내 같은 서체(Lora)로 — 문제 화면과 갈리면 같은 문장이 두 얼굴이 된다. */}
-                  <p className="font-english text-[13px] font-[600] leading-[1.6] text-[var(--t1)]">
-                    {question.question}
-                  </p>
-
-                  {/* 내 답 / 정답 — 색만으로 구분하지 않는다(아이콘 + 라벨 동반). */}
-                  <dl className="mt-2 flex flex-col gap-1.5">
-                    <div className="flex items-start gap-2">
-                      <dt className="inline-flex shrink-0 items-center gap-1 font-display text-[11px] font-[700] text-[var(--error-ink)]">
-                        <X size={12} strokeWidth={3} aria-hidden />
-                        <span className="break-keep">내 답</span>
-                      </dt>
-                      <dd className="min-w-0 flex-1 font-english text-[12.5px] leading-relaxed text-[var(--t2)]">
-                        {answer.selectedIndex >= 0
-                          ? question.options[answer.selectedIndex]?.text ?? '—'
-                          : '시간이 지나 못 골랐어요'}
-                      </dd>
-                    </div>
-                    <div className="flex items-start gap-2">
-                      <dt className="inline-flex shrink-0 items-center gap-1 font-display text-[11px] font-[700] text-[var(--success)]">
-                        <Check size={12} strokeWidth={3} aria-hidden />
-                        <span className="break-keep">정답</span>
-                      </dt>
-                      <dd className="min-w-0 flex-1 font-english text-[12.5px] font-[600] leading-relaxed text-[var(--t1)]">
-                        {question.options[answer.correctIndex]?.text ?? '—'}
-                      </dd>
-                    </div>
-                  </dl>
-
-                  {answer.sourceSnippet && (
-                    <p className="mt-2 font-english text-[12px] italic leading-relaxed text-[var(--t2)]">
-                      “{answer.sourceSnippet}”
-                    </p>
-                  )}
-                </li>
+                <MissReviewItem key={question.id} question={question} answer={answer} passage={passage} />
               ))}
             </ul>
           </section>
