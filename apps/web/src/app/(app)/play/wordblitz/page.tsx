@@ -34,6 +34,7 @@ import { POINTS } from '@/lib/wordblitz/data';
 // 전용 레코더에는 FSRS 무결성 가드(assisted 무시 · 같은 카드 10분 재채점 금지)가 없어서
 // 게임이 assisted 를 붙여도 그대로 카드가 갱신됐다. 판정은 중앙 한 곳(record-result.ts).
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
+import { scopeWordsHref } from '@/lib/wordvault/source-filter';
 
 const WordBlitzGame = dynamic(
   () =>
@@ -174,6 +175,7 @@ function WordBlitzRound({
       <ResourceContext resource={gameResourceContext(scope)} />
       <WordBlitzGame
         wordPool={wordPool}
+        wordsLink={wordBlitzWordsLink(scope)}
         onExit={() => {
           session.flush();
           // 닫기 복귀: ?from 우선 → 스코프 텍스트 → 모듈 hub
@@ -209,4 +211,10 @@ function WordBlitzRound({
       />
     </>
   );
+}
+
+/** 끝화면 「단어 목록」 — 범위(set·text)가 있으면 그 출처의 단어, 없으면 단어장 허브. 목적지를 사실대로 부른다. */
+function wordBlitzWordsLink(scope: Pick<WordScope, 'set' | 'text'>): { href: string; label: string } {
+  const href = scopeWordsHref(scope);
+  return { href, label: href === '/wordvault' ? '내 단어장으로' : '이 자료의 단어 보기' };
 }

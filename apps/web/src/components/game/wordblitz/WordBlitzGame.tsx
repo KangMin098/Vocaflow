@@ -150,6 +150,8 @@ interface WordBlitzGameProps {
    */
   onRestart?: () => void;
   enableSpeech?: boolean;
+  /** 끝화면의 「단어 목록」 — 호출부가 범위(set·text)로 정한다. 없으면 버튼 없음. */
+  wordsLink?: { href: string; label: string };
 }
 
 // ─── 맛보기 뱅크 (wordPool 이 없을 때만) ─────────────────────────────────
@@ -857,6 +859,7 @@ export function WordBlitzGame({
   onWrong,
   onRestart,
   enableSpeech = true,
+  wordsLink,
 }: WordBlitzGameProps) {
   const pool = useMemo(() => {
     const p = wordPool && wordPool.length > 0 ? wordPool : BANK;
@@ -1651,6 +1654,7 @@ export function WordBlitzGame({
           }
           onRestart={handleRestart}
           onExit={handleExit}
+          link={wordsLink}
         />
       ) : phase === 'stage' ? (
         <main className="wbz-cards" aria-label="조임 카드 선택">
