@@ -4,7 +4,7 @@
 import { describe, expect, it } from 'vitest'
 
 import { contentHash } from '@/lib/scriptquiz/reader-anchor'
-import { loadArticleSetMembership } from '../set-membership-query'
+import { exactSentenceIndex, loadArticleSetMembership } from '../set-membership-query'
 
 const A = '404f4977-7d03-4955-8834-833a668f13af'
 const ART = '267ef969-2a3a-4dc9-b6b7-a85246df543f'
@@ -18,7 +18,7 @@ const ROWS: Row[] = [
 ]
 type TextRow = { id: string; user_id: string; source_url: string }
 
-function fake(o: { uid?: string | null; texts?: TextRow[]; textsErr?: boolean; ownContent?: string | null; rpcErr?: boolean; rows?: Row[] }) {
+function fake(o: { uid?: string | null; texts?: TextRow[]; textsErr?: boolean; ownContent?: string | null; rpcErr?: boolean; rows?: Row[]; body?: string }) {
   const log = { from: [] as string[], rpc: [] as string[], writes: 0 }
   const write = () => {
     log.writes++
@@ -29,7 +29,7 @@ function fake(o: { uid?: string | null; texts?: TextRow[]; textsErr?: boolean; o
     auth: { getUser: async () => ({ data: { user: o.uid === null ? null : { id: o.uid ?? 'user-a' } } }) },
     rpc: async (fn: string) => {
       log.rpc.push(fn)
-      return o.rpcErr ? { data: null, error: { message: 'x' } } : { data: o.ownContent === undefined ? BODY : o.ownContent, error: null }
+      return o.rpcErr ? { data: null, error: { message: 'x' } } : { data: o.ownContent === undefined ? (o.body ?? BODY) : o.ownContent, error: null }
     },
     from(t: string) {
       log.from.push(t)
@@ -38,7 +38,7 @@ function fake(o: { uid?: string | null; texts?: TextRow[]; textsErr?: boolean; o
         return q
       }
       if (t === 'library_articles') {
-        const q = { ...base, select: () => q, eq: () => q, maybeSingle: async () => ({ data: { status: 'published', copyright_safe_in_kr: true, content: BODY }, error: null }) }
+        const q = { ...base, select: () => q, eq: () => q, maybeSingle: async () => ({ data: { status: 'published', copyright_safe_in_kr: true, content: o.body ?? BODY }, error: null }) }
         return q
       }
       if (t === 'texts') {
@@ -107,5 +107,22 @@ describe('loadArticleSetMembership — reader 결속', () => {
     ]
     expect((readerOf(await loadArticleSetMembership(fake({ uid: 'user-a', texts }).client, `set:${A}`)) as { textId?: string })?.textId).toBe('text-a')
     expect((readerOf(await loadArticleSetMembership(fake({ uid: 'user-b', texts }).client, `set:${A}`)) as { textId?: string })?.textId).toBe('text-b')
+  })
+})
+
+describe('짧은 문장(Codex T-0214 P2 회귀)', () => {
+  it('exactSentenceIndex: 유일한 짧은 문장은 번호 · 중복 짧은 문장 · 일부만 · 빈 값은 null', () => {
+    const body = 'They marched on. Resist! We waited. We waited. The end came slowly.'
+    expect(exactSentenceIndex(body, 'Resist!')).toBe(1)
+    expect(exactSentenceIndex(body, 'We waited.')).toBeNull()
+    expect(exactSentenceIndex(body, 'end came')).toBeNull()
+    expect(exactSentenceIndex(body, '  ')).toBeNull()
+    expect(exactSentenceIndex(body, 'The end  came slowly.')).toBe(4)
+  })
+  it('loadArticleSetMembership: 유일 짧은 문장 낱말은 링크 결속, 중복 짧은 문장 낱말은 없음', async () => {
+    const body = 'They marched on. Resist! We waited. We waited.'
+    const { client } = fake({ rows: [{ word: 'resist', source_sentence: 'Resist!' }, { word: 'wait', source_sentence: 'We waited.' }], ownContent: body, body })
+    const r = await loadArticleSetMembership(client, `set:${A}`)
+    expect(readerOf(r)).toEqual({ textId: 'text-a', hash: contentHash(body), anchors: { resist: 1 } })
   })
 })

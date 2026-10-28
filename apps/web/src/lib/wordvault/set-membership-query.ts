@@ -8,7 +8,8 @@
 //   문맥이 하나도 없어도 words(목록 판정)는 그대로다.
 import type { SupabaseClient } from '@supabase/supabase-js'
 
-import { contentHash, evidenceSentenceIndex } from '@/lib/scriptquiz/reader-anchor'
+import { splitSentences } from '@/lib/scriptquiz/evidence'
+import { contentHash } from '@/lib/scriptquiz/reader-anchor'
 
 import { normalizeSourceFilter } from './source-filter'
 
@@ -22,6 +23,25 @@ export type SetMembershipPayload = { setId: string; words: string[]; contexts?: 
  * T-0214 — 「글에서 이 문장 보기」 근거. 세트당 한 번: 본인 글 1행(article-practice-actions 와 같은 조회) + 기존 get_chapter_content.
  * 본인 글이 없거나 · 본문이 지금 기사 본문과 다르거나(다른 판본) · 조회가 실패하면 null — 목록 · 문장은 그대로 둔다.
  */
+/**
+ * T-0214 Codex P2 — 낱말 문맥 문장이 본인 글 본문의 문장(Reader 앵커와 같은 splitSentences 번호 체계) 하나와 **공백 정규화 뒤 전체가 같고**
+ * 그런 문장이 정확히 하나일 때 그 번호, 아니면 null. 길이 하한이 없다 — 「Resist!」 같은 짧은 문장도 된다.
+ * (T-0209 의 evidenceSentenceIndex 는 근거 스니펫 용도라 12자 하한이 있다 — 그 동작은 그대로 둔다.)
+ */
+export function exactSentenceIndex(content: string, sentence: string): number | null {
+  const norm = (s: string) => s.replace(/\s+/g, ' ').trim()
+  const target = norm(sentence)
+  if (!target) return null
+  let found: number | null = null
+  const sentences = splitSentences(content)
+  for (let i = 0; i < sentences.length; i += 1) {
+    if (norm(sentences[i]!) !== target) continue
+    if (found !== null) return null
+    found = i
+  }
+  return found
+}
+
 export async function loadOwnArticleReader(client: SupabaseClient, articleId: string, articleBody: string | null, contexts: Record<string, string>): Promise<SetMembershipReader | null> {
   if (!articleBody || Object.keys(contexts).length === 0) return null
   try {
@@ -35,7 +55,7 @@ export async function loadOwnArticleReader(client: SupabaseClient, articleId: st
     if (cErr || typeof content !== 'string' || content !== articleBody) return null
     const anchors: Record<string, number> = {}
     for (const [word, sentence] of Object.entries(contexts)) {
-      const at = evidenceSentenceIndex(content, sentence)
+      const at = exactSentenceIndex(content, sentence)
       if (at !== null) anchors[word] = at
     }
     return Object.keys(anchors).length > 0 ? { textId, hash: contentHash(content), anchors } : null
