@@ -19,6 +19,8 @@ import { redirect } from 'next/navigation'
 import { BookOpen, ChartNoAxesCombined, Database, ScanText } from 'lucide-react'
 
 import { PublicFitClient } from '@/components/textfit/PublicFitClient'
+import { ReadingTrial } from '@/components/textfit/ReadingTrial'
+import { READING_TRIAL_ENABLED } from '@/lib/textfit/reading-trial'
 import { getSampleAnalysis } from '@/lib/textfit/sample-profile'
 import { absoluteUrl } from '@/lib/seo/site'
 
@@ -172,6 +174,12 @@ export default async function FitPage({ searchParams }: { searchParams?: SearchP
               <PublicFitClient initialSample={sample?.profile ?? null} initialSampleSurfaces={sample?.surfaces ?? null} />
             </div>
           </Frame>
+          {/* 고정 예시 읽기 체험 — 기본 꺼짐(공개 결정 전). 진단과 형제 자리라 붙여 넣은 글을 건드리지 않는다 */}
+          {READING_TRIAL_ENABLED && (
+            <div className="mt-4">
+              <ReadingTrial />
+            </div>
+          )}
         </div>
       </section>
 

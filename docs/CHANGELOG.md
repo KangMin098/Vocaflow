@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- feat(fit): 고정 예시 읽기 체험(HERO_PASSAGE 첫 두 문장 · topic 1문항 · 로컬 채점 · attemptId null) — 기본 꺼짐(`NEXT_PUBLIC_FIT_READING_TRIAL=1` 일 때만), 공개 활성화 결정 전 브랜치 준비. 기록 · 이벤트 · 서버 채점 없음.
 - feat(dictation): 결과 화면 문항마다 「다시 듣기」(저장된 정답 문장을 현재 기기 시스템 음성으로 · 행 전환/정지/숨김/이탈 취소 · 영어 음성 없음 안내)와 「당시 피드백」(단어 상태 글자 라벨 + 오류 태그 · 기록 없음/건너뜀 구분). 세션 `user_id` 주인 결속(useStoryAuthGuard) 확인 때만 노출 · 기록 · FSRS · DB 무변경(`lib/dictation/results-relisten` · dev 하네스 `/dev/dictation-results-relisten`).
 - feat(practice): DcpPlayer 완료 화면에 「이미 본 해설 다시 보기 · 안내 복습」(opt-in `revisit` — 기사 연습 다리 · 합성 dev 만). 이번 세션의 채점 성공 문항만 당시 선택 · 해설 · 근거 짚기 그대로, 원인 칩 · 새 채점 · 기록 없음, 점수 불변.
 - fix(csat): 받은 창작 자료(`/csat/learn/[id]`)의 열 수 없음 · 열기 기록 실패 안내 · 로그인 복귀 · 묶음 선택 링크도 지도 복귀 문맥(FI-011 C)을 유지(`lib/csat/authored/learn-return`). FI-010 fail-closed · 권한 · DB 무변경.
