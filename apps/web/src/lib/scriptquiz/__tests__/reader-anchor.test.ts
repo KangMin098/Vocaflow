@@ -4,6 +4,10 @@ import { describe, expect, it } from 'vitest'
 
 import {
   EVIDENCE_ANCHOR_KEY,
+  anchorAfterMoved,
+  anchorAfterTake,
+  anchorKey,
+  visibleReaderAnchor,
   buildEvidenceSentenceMap,
   contentHash,
   evidenceSentenceIndex,
@@ -105,5 +109,56 @@ describe('Reader 문장 표 — 하나에 맞을 때만', () => {
     expect(contentHash(UNIQUE)).toBe(H)
     expect(contentHash(UNIQUE.replace('mill', 'Mill'))).not.toBe(H)
     expect(H).toMatch(/^[0-9a-f]{8}$/)
+  })
+})
+
+describe('Reader 페이지 앵커 상태 — 글 · 본문 해시에 묶임(P2 3차, 경로 전수)', () => {
+  const MAP = [0, 1, 2]
+  const kA = anchorKey('t1', H)!
+  const kA2 = anchorKey('t1', contentHash(UNIQUE + ' Updated.'))!
+  const kB = anchorKey('t2', H)!
+
+  it('진입: 같은 문맥 표식 → 그 문장 · 옮기기 전(autoMove true)', () => {
+    const st = anchorAfterTake(null, kA, 1, MAP)
+    expect(visibleReaderAnchor(st, kA)).toEqual({ anchorSentenceId: 1, anchorAutoMove: true })
+  })
+  it('옮긴 뒤 · 재마운트(모드 전환 읽기→Spell→읽기): 상태는 페이지에 남아 강조만, 이동 없음', () => {
+    let st = anchorAfterTake(null, kA, 1, MAP)
+    st = anchorAfterMoved(st, kA)
+    // Reader 재마운트 — 페이지 상태 그대로 · 효과가 다시 돌아도 표식은 이미 지워져 taken=null
+    st = anchorAfterTake(st, kA, null, MAP)
+    expect(visibleReaderAnchor(st, kA)).toEqual({ anchorSentenceId: 1, anchorAutoMove: false })
+  })
+  it('본문 해시가 바뀌면(router.refresh 새 판본) 강조 · 이동 모두 해제 — 옛 id 를 새 판본에 쓰지 않는다', () => {
+    let st = anchorAfterMoved(anchorAfterTake(null, kA, 1, MAP), kA)
+    expect(visibleReaderAnchor(st, kA2)).toEqual({ anchorSentenceId: null, anchorAutoMove: false })
+    st = anchorAfterTake(st, kA2, null, [5, 6, 7])
+    expect(st).toBeNull()
+    expect(visibleReaderAnchor(st, kA2).anchorSentenceId).toBeNull()
+  })
+  it('글이 바뀌면(textId) 해제 · 옛 글의 「옮김」 기록이 새 글에 적용되지 않는다', () => {
+    const st = anchorAfterTake(null, kA, 1, MAP)
+    expect(visibleReaderAnchor(st, kB).anchorSentenceId).toBeNull()
+    expect(anchorAfterMoved(st, kB)).toEqual(st)
+    expect(anchorAfterTake(st, kB, null, MAP)).toBeNull()
+  })
+  it('같은 문맥에서 표식을 새로 꺼내면 새 문장 · 다시 옮기기 전', () => {
+    const st = anchorAfterTake(anchorAfterMoved(anchorAfterTake(null, kA, 1, MAP), kA), kA, 2, MAP)
+    expect(visibleReaderAnchor(st, kA)).toEqual({ anchorSentenceId: 2, anchorAutoMove: true })
+  })
+  it('페이지를 떠났다 돌아오기: 새 페이지 상태는 비고 표식은 이미 지워졌다 → 없음(첫머리)', () => {
+    const s = memory()
+    rememberEvidenceAnchor({ textId: 't1', hash: H, sentenceIndex: 1 }, s)
+    const first = anchorAfterTake(null, kA, takeEvidenceAnchor('t1', H, s), MAP)
+    expect(visibleReaderAnchor(first, kA).anchorSentenceId).toBe(1)
+    const back = anchorAfterTake(null, kA, takeEvidenceAnchor('t1', H, s), MAP)
+    expect(back).toBeNull()
+  })
+  it('번호 표가 -1(하나에 안 맞음) · 범위 밖 · 문맥 없음(해시 없음)이면 없음', () => {
+    expect(anchorAfterTake(null, kA, 0, [-1, 1])).toBeNull()
+    expect(anchorAfterTake(null, kA, 9, MAP)).toBeNull()
+    expect(anchorKey('t1', null)).toBeNull()
+    expect(anchorAfterTake(anchorAfterTake(null, kA, 1, MAP), null, 1, MAP)).toBeNull()
+    expect(visibleReaderAnchor(anchorAfterTake(null, kA, 1, MAP), null).anchorSentenceId).toBeNull()
   })
 })

@@ -37,8 +37,10 @@ describe('ReadingUniverse 근거 문장 표지', () => {
   it('없는 id 면 표지 없음', () => {
     expect(render({ anchorSentenceId: 9 })).not.toContain('data-evidence-anchor')
   })
-  it('재생 중 강조가 근거 강조보다 앞선다(TTS 그대로)', () => {
+  it('재생 중 문장 = 근거 문장: 재생 강조가 앞서고(TTS 그대로) 근거 표지 · 초점 대상도 그 문장에 붙는다', () => {
     const html = render({ anchorSentenceId: 1, playingSentenceId: 1 })
     expect(html).toContain('rgba(99,102,241,0.14)')
+    expect(html.match(/data-evidence-anchor/g)).toHaveLength(1)
+    expect(html).toMatch(/aria-pressed="true"/)
   })
 })

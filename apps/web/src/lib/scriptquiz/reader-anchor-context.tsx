@@ -7,7 +7,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
 
-import { takeEvidenceAnchor } from './reader-anchor'
+import { anchorAfterMoved, anchorAfterTake, anchorKey, takeEvidenceAnchor, visibleReaderAnchor, type ReaderAnchorState } from './reader-anchor'
 
 export interface EvidenceReaderContext {
   textId: string
@@ -24,24 +24,22 @@ export function useEvidenceReader(): EvidenceReaderContext | null {
 }
 
 /**
- * Reader 페이지(WorkspacePage)용 — 근거 문장 id 를 한 번 꺼내고, **이동했다는 사실을 페이지 쪽에 남긴다**(T-0209 Codex P2).
- * Reader(ReadingUniverse)가 모드 전환(읽기 → Spell → 읽기)으로 다시 마운트돼도 강조는 남기되 스크롤 · 초점은 다시 옮기지 않는다.
+ * Reader 페이지(WorkspacePage)용 — 근거 문장 id 를 한 번 꺼내고, 그 상태(문장 id · 옮김)를 **글 id · 본문 해시에 묶어** 페이지 쪽에 둔다.
+ * - 모드 전환(읽기 → Spell → 읽기)으로 Reader 가 다시 마운트돼도 강조만 남기고 스크롤 · 초점은 다시 옮기지 않는다(P2 1차).
+ * - 본문 갱신(router.refresh 로 새 해시) · 다른 글로 바뀌면 옛 상태를 쓰지 않는다 — 강조 · 이동 모두 해제(P2 3차).
+ * - 페이지를 떠났다 돌아오면 상태가 없고 표식도 이미 지워져 첫머리다.
+ * 판정은 순수 함수(reader-anchor.ts anchorAfterTake · anchorAfterMoved · visibleReaderAnchor)가 한다.
  */
 export function useReaderEvidenceAnchor(
   textId: string,
   evidenceAnchor: { hash: string; map: number[] } | null | undefined,
 ): { anchorSentenceId: number | null; anchorAutoMove: boolean; onAnchorMoved: () => void } {
-  const [anchorSentenceId, setAnchorSentenceId] = useState<number | null>(null)
-  const [moved, setMoved] = useState(false)
+  const key = anchorKey(textId, evidenceAnchor?.hash)
+  const [state, setState] = useState<ReaderAnchorState | null>(null)
   useEffect(() => {
-    if (!evidenceAnchor) return
-    const idx = takeEvidenceAnchor(textId, evidenceAnchor.hash)
-    const id = idx != null ? evidenceAnchor.map[idx] : undefined
-    if (id != null && id >= 0) {
-      setMoved(false)
-      setAnchorSentenceId(id)
-    }
-  }, [textId, evidenceAnchor])
-  const onAnchorMoved = useCallback(() => setMoved(true), [])
-  return { anchorSentenceId, anchorAutoMove: !moved, onAnchorMoved }
+    const taken = key && evidenceAnchor ? takeEvidenceAnchor(textId, evidenceAnchor.hash) : null
+    setState((prev) => anchorAfterTake(prev, key, taken, evidenceAnchor?.map))
+  }, [key, textId, evidenceAnchor])
+  const onAnchorMoved = useCallback(() => setState((prev) => anchorAfterMoved(prev, key)), [key])
+  return { ...visibleReaderAnchor(state, key), onAnchorMoved }
 }

@@ -119,3 +119,43 @@ export function buildEvidenceSentenceMap(content: string, readerSentences: Reado
     return found
   })
 }
+
+// ── Reader 페이지 앵커 상태(순수) — 글 · 본문 해시에 묶는다(T-0209 Codex P2 3차) ─────────────────────────────
+
+/** 앵커 상태 — 꺼낸 문맥(글 id · 본문 해시)과 문장 id · 이미 옮겼는지. 문맥이 바뀌면 쓰지 않는다. */
+export interface ReaderAnchorState {
+  key: string
+  id: number
+  moved: boolean
+}
+
+export function anchorKey(textId: string, hash: string | null | undefined): string | null {
+  return textId && hash ? `${textId}|${hash}` : null
+}
+
+/**
+ * 문맥에 맞춰 표식을 하나 꺼낸 결과. 같은 글 · 같은 해시 표식이고 번호 표에서 하나에 맞으면(id ≥ 0) 새 상태(옮기기 전),
+ * 꺼낼 게 없으면 — 지금 문맥의 기존 상태는 유지, 다른 문맥의 상태는 버린다(새 판본에 옛 문장 id 를 쓰지 않는다).
+ */
+export function anchorAfterTake(
+  prev: ReaderAnchorState | null,
+  key: string | null,
+  taken: number | null,
+  map: readonly number[] | null | undefined,
+): ReaderAnchorState | null {
+  if (key === null) return null
+  const id = taken != null && map ? map[taken] : undefined
+  if (id != null && Number.isInteger(id) && id >= 0) return { key, id, moved: false }
+  return prev && prev.key === key ? prev : null
+}
+
+/** 옮긴 직후 — 같은 문맥일 때만 「옮김」 으로. */
+export function anchorAfterMoved(prev: ReaderAnchorState | null, key: string | null): ReaderAnchorState | null {
+  return prev && key !== null && prev.key === key ? { ...prev, moved: true } : prev
+}
+
+/** 지금 화면에 쓸 값 — 문맥이 다르면 강조도 이동도 없다. */
+export function visibleReaderAnchor(state: ReaderAnchorState | null, key: string | null): { anchorSentenceId: number | null; anchorAutoMove: boolean } {
+  if (!state || key === null || state.key !== key) return { anchorSentenceId: null, anchorAutoMove: false }
+  return { anchorSentenceId: state.id, anchorAutoMove: !state.moved }
+}
