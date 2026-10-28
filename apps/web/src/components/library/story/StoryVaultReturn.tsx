@@ -2,7 +2,7 @@
 //
 // LCP-D5-I02 — WordVault Browse 맨 위의 작은 Story 복귀 줄(서버 렌더 · 상호작용은 링크뿐). Story 에서 **명시적으로** 온 경우에만 그려진다.
 // - 공개 서가 메타로 확인한 것만 말한다(작품 제목 · n번째 단위). 단어장 내용은 본인 전체 목록이며 「이 이야기 단어 목록」이 아니다.
-// - 돌아가기 = 같은 발행본 · 단위의 **첫머리**(문장 · 스크롤 위치가 아니다). 돌아가면 Story 서버가 로그인 · 발행 · 권리를 다시 확인한다.
+// - 돌아가기 = 같은 발행본 · 단위(진도 계약은 단위). 같은 탭에서 담고 왔으면 Story 화면이 그 낱말의 문장을 보조로 보여 준다(story-return-anchor.ts) — 아니면 첫머리. 돌아가면 Story 서버가 로그인 · 발행 · 권리를 다시 확인한다.
 // - 열 수 없는 발행본 · 범위 밖 단위 · 서가 조회 실패 · 지도 복귀와 섞인 주소는 각각 다른 한 줄로 안전하게 말한다(지어낸 제목 · 링크 없음).
 // - 지도 복귀 줄(MapReturnBar)과 같은 자리 · 같은 모양 규칙(44px 링크 · 보이는 초점)을 쓰되 지도처럼 보이게 하지 않는다.
 
@@ -61,7 +61,7 @@ export function StoryVaultReturnBar({ state }: { state: StoryVaultReturnState })
   return (
     <div className={BAR} data-story-vault-return="ok" role="note" aria-label="읽던 이야기로 돌아가기">
       <p className={NOTE}>
-        읽던 이야기 · <span lang="en">{state.title}</span> · {state.unitIndex + 1}번째 단위 <span className="text-t3">(단위 첫머리로 돌아가요)</span>
+        읽던 이야기 · <span lang="en">{state.title}</span> · {state.unitIndex + 1}번째 단위 <span className="text-t3">(이 탭에서 담았다면 그 문장으로, 아니면 단위 첫머리로)</span>
       </p>
       <Link href={storyReturnHref(state)} className={LINK} data-story-vault-return-link="story">
         Story로 돌아가기

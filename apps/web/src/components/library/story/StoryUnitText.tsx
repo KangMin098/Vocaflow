@@ -10,18 +10,21 @@
 // 본문 낱말 간격 · 줄 높이는 넓히지 않는다(문장을 흩지 않는다).
 // D5-I01: save 를 넘기면 뜻 창 아래에 「내 단어장에 담기」(StoryWordSave)가 붙는다 — 고른 낱말 번호 · 글자만 서버로 보낸다. 창을 다른 낱말로
 //   다시 열면(key) 저장 상태도 새로 시작한다(다른 낱말의 결과를 적용하지 않는다).
+// U03: returnWordIndex 를 넘기면(같은 탭에서 단어장에 다녀옴 — story-return-anchor.ts) 그 낱말이 든 문장을 한 번 화면 가운데로 옮기고
+//   초점(tabIndex -1 · 스크롤 없이) · 조용한 강조를 둔다. 순간 이동(부드러운 스크롤 없음)이라 reduced-motion 과 무관하다. 문장 북마크가 아니다.
 // - 고른 낱말은 기록하지 않는다: 이벤트 · URL · 저장소 · 로그 없음. 단어장 등록 · FSRS · 완료 · 숙달 근거를 만들지 않는다.
 // - 단위 · 발행본이 바뀌거나 인증이 무효 · 서버 거부가 되면 이 조각이 내려가므로 도움 상태도 함께 사라진다(부모가 key 로 묶는다).
 
 'use client'
 
-import { useRef, useState, type ComponentType, type KeyboardEvent, type ReactNode } from 'react'
+import { useEffect, useRef, useState, type ComponentType, type KeyboardEvent, type ReactNode } from 'react'
 
 import { WordLookupPopover, type WordLookupCloseReason } from '@/components/library/reader/WordLookupPopover'
 import type { WordLookup } from '@/lib/library/reader-queries'
 
 import styles from './story.module.css'
 import { StoryWordSave, type StoryWordSaveCall } from './StoryWordSave'
+import { sentenceRange } from './story-return-anchor'
 import { nextWordIndex, splitUnitParagraphs, tokenizeWords, type StoryTextPiece } from './story-view'
 
 export interface StoryWordLookupProps {
@@ -44,12 +47,14 @@ export interface StoryUnitTextProps {
   /** 같은 도구 줄에 함께 둘 조작(예: 이 단위의 맥락 설명 진입 — D4-UX02). */
   tools?: ReactNode
   /** D5-I01 — 뜻 창 아래 「내 단어장에 담기」(긍정 확인된 본인 화면에서만 넘긴다 · 없으면 저장 조작 없음). */
-  save?: { call: StoryWordSaveCall; vaultHref: string }
+  save?: { call: StoryWordSaveCall; vaultHref: string; onLeave?: () => void }
+  /** U03 — 단어장에서 돌아온 경우 담은 낱말 번호(그 문장을 보여 준다 · 없으면 단위 첫머리 그대로). */
+  returnWordIndex?: number | null
 }
 
 type Opener = 'word' | 'picker'
 
-export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools, save }: StoryUnitTextProps) {
+export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools, save, returnWordIndex = null }: StoryUnitTextProps) {
   const [wordMode, setWordMode] = useState(defaultWordMode)
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<{ surface: string; rect: DOMRect; index: number; opener: Opener } | null>(null)
@@ -65,6 +70,16 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
     for (const piece of pieces) if (piece.type === 'word') words.push(piece.text)
     count = next
   }
+  const returnRef = useRef<HTMLSpanElement>(null)
+  useEffect(() => {
+    const el = returnRef.current
+    if (!el) return
+    el.scrollIntoView?.({ block: 'center' })
+    el.focus({ preventScroll: true })
+    // 처음 한 번만 — 본문이 다시 그려져도 다시 옮기지 않는다.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   const activeWord = words[Math.min(active, Math.max(words.length - 1, 0))] ?? null
 
   const wordEl = (index: number) => bodyRef.current?.querySelector<HTMLButtonElement>(`[data-word-index="${index}"]`) ?? null
@@ -150,11 +165,12 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
         data-tracing={tracing ? 'true' : 'false'}
         onKeyDown={onKeyDown}
       >
-        {paragraphs.map((pieces, p) => (
-          <p key={p}>
-            {wordMode
-              ? pieces.map((piece, i) =>
-                  piece.type === 'text' ? (
+        {paragraphs.map((pieces, p) => {
+          const render = (part: StoryTextPiece[], offset: number) =>
+            wordMode
+              ? part.map((piece, j) => {
+                  const i = offset + j
+                  return piece.type === 'text' ? (
                     piece.text
                   ) : (
                     <button
@@ -172,11 +188,21 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
                     >
                       {piece.text}
                     </button>
-                  ),
-                )
-              : pieces.map((piece) => piece.text).join('')}
-          </p>
-        ))}
+                  )
+                })
+              : part.map((piece) => piece.text).join('')
+          const range = returnWordIndex === null ? null : sentenceRange(pieces, returnWordIndex)
+          if (!range) return <p key={p}>{render(pieces, 0)}</p>
+          return (
+            <p key={p}>
+              {render(pieces.slice(0, range.start), 0)}
+              <span ref={returnRef} tabIndex={-1} className={styles.returnSentence} data-story-return-sentence>
+                {render(pieces.slice(range.start, range.end), range.start)}
+              </span>
+              {render(pieces.slice(range.end), range.end)}
+            </p>
+          )
+        })}
       </div>
       {open ? (
         <Lookup
@@ -188,7 +214,7 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
           nonmodalFocus
           footer={
             save
-              ? (lookup) => <StoryWordSave lookup={lookup} surface={open.surface} wordIndex={open.index} onSave={save.call} vaultHref={save.vaultHref} />
+              ? (lookup) => <StoryWordSave lookup={lookup} surface={open.surface} wordIndex={open.index} onSave={save.call} vaultHref={save.vaultHref} onLeave={save.onLeave} />
               : undefined
           }
         />

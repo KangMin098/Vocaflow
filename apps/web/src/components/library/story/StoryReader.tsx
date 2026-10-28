@@ -78,6 +78,7 @@ import {
   unitLabel,
   type StoryNextAction,
 } from './story-view'
+import { markAnchorLeft, rememberSaveAnchor, takeReturnAnchor } from './story-return-anchor'
 import { markAfterSave, visibleVaultAfterHref, type StoryVaultAfterMark } from './story-vault-after'
 import { useStoryAuthGuard, type StoryAuthGuard, type StoryAuthSource, type StoryAuthStatus } from './use-story-auth-guard'
 
@@ -288,6 +289,14 @@ function ReadyReader({
   const [vaultMark, setVaultMark] = useState<StoryVaultAfterMark | null>(null)
   const vaultAfterHref = visibleVaultAfterHref(vaultMark, { owner: session, verified, denied: snap.denied !== null })
 
+  // U03 — 같은 탭에서 단어장에 다녀왔으면 담은 낱말이 든 문장을 한 번 보여 준다(story-return-anchor.ts · 진도 계약은 단위 그대로).
+  // 긍정 확인(same)된 본인 화면에서만 꺼낸다 — 확인 전에는 기다리고, 단위마다 한 번만 판정한다.
+  const [returnWord, setReturnWord] = useState<{ unit: number; word: number | null } | null>(null)
+  useEffect(() => {
+    if (!verified || unitIndex === null || returnWord?.unit === unitIndex) return
+    setReturnWord({ unit: unitIndex, word: takeReturnAnchor(releaseKey, unitIndex) })
+  }, [verified, unitIndex, releaseKey, returnWord])
+
   const [sourceOpen, setSourceOpen] = useState(false)
   const [selectedAnchor, setSelectedAnchor] = useState<number | null>(null)
   // 맥락 설명 열림(D4-UX02) — 진입 단추로 연 경우에만 돌아가기를 제공한다. 단위가 바뀌면 닫힌 채로 시작한다.
@@ -368,11 +377,15 @@ function ReadyReader({
     unit && actions.saveWord
       ? {
           vaultHref: storyVaultHref({ releaseKey, unitIndex: unit.unitIndex }),
+          onLeave: () => markAnchorLeft(),
           call: async ({ wordIndex, surface }: { wordIndex: number; surface: string }) => {
             const href = storyVaultHref({ releaseKey, unitIndex: unit.unitIndex })
             const out = await session.saveWord({ unitIndex: unit.unitIndex, wordIndex, surface })
             // 세션이 이미 늦은 응답 · 거부 · 다른 주인을 stale 로 걸렀다 — 그 판정만 재사용한다(저장 · 멱등 재구현 없음).
             setVaultMark((prev) => markAfterSave(prev, session, out, href))
+            if (!('stale' in out) && out.ok && (out.data.status === 'saved' || out.data.status === 'already_exists')) {
+              rememberSaveAnchor({ releaseKey, unitIndex: unit.unitIndex, wordIndex })
+            }
             return out
           },
         }
@@ -467,6 +480,7 @@ function ReadyReader({
                 lookup={wordLookup}
                 tools={notesEntry}
                 save={wordSave ?? undefined}
+                returnWordIndex={returnWord?.unit === unit.unitIndex ? returnWord.word : null}
               />
               <StoryContextNotes
                 key={`notes:${releaseKey}:${unit.unitIndex}`}
@@ -806,7 +820,7 @@ export function AfterCompletion({
           </PositionLink>
         ) : null}
         {vaultHref ? (
-          <Link href={vaultHref} className={styles.ctaQuiet} data-story-vault-after>
+          <Link href={vaultHref} className={styles.ctaQuiet} data-story-vault-after onClick={() => markAnchorLeft()}>
             내 단어장 살펴보기
           </Link>
         ) : null}
