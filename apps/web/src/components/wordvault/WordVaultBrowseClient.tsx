@@ -41,6 +41,7 @@ import {
 } from '@/lib/wordvault/state-filter'
 import { applySourceFilter, membershipFetchTarget, normalizeSourceFilter, type SetMembership } from '@/lib/wordvault/source-filter'
 import { fetchArticleSetMembership } from '@/lib/wordvault/set-membership-actions'
+import { learnerModalOwnsKeyboard, nativeControlOwnsKey } from '@/lib/ui/learner-keyboard-scope'
 import { currentBrowseHref, sourceStudyHref } from '@/lib/wordvault/source-study'
 import type { SetMembershipPayload } from '@/lib/wordvault/set-membership-query'
 
@@ -240,7 +241,8 @@ export function WordVaultBrowseClient({
   // ── 키보드 단축키 ──
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if ((e.target as HTMLElement)?.tagName === 'INPUT') return
+      // 입력 · 선택 · 단추 · 링크 · 편집 영역에 포커스가 있거나 PC 모달이 키를 가진 동안은 먹지 않는다(단추의 Space 는 단추를 누른다).
+      if (nativeControlOwnsKey(e.target) || learnerModalOwnsKeyboard()) return
       if (e.code === 'Space') {
         e.preventDefault()
         if (queue.isPlaying) queue.togglePause()
