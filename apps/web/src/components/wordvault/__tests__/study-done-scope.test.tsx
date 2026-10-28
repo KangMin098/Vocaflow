@@ -1,6 +1,7 @@
 // apps/web/src/components/wordvault/__tests__/study-done-scope.test.tsx
 // @vitest-environment node
 // 학습 완료 화면 — 출처 목록(text:/set:)에서 왔으면 필터 없는 전체 목록 링크를 두지 않고, 지도 · 일반 진입은 그대로
+// R0: 지도가 아니면 마지막에 「다른 글 살펴보기」(/library/scripts) 보조 선택 하나 — 지도 복습에는 없다
 import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 
@@ -18,7 +19,7 @@ describe('StudyDoneScreen', () => {
     const html = renderToStaticMarkup(
       <StudyDoneScreen count={3} screenName="학습" backHref={back} mapBack={null} source={{ total: 3, conditions: '' }} />,
     )
-    expect(hrefs(html)).toEqual([back])
+    expect(hrefs(html)).toEqual([back, '/library/scripts'])
     expect(html).toContain('이 목록으로 돌아가기')
     expect(html).not.toContain('내 단어 보기')
   })
@@ -34,12 +35,13 @@ describe('StudyDoneScreen', () => {
     expect(hs[1].startsWith('/wordvault/browse?')).toBe(true)
     expect(hs[1]).toContain('map_task=v.core_meaning')
     expect(html).toContain('학습 지도로 돌아가기')
+    expect(html).not.toContain('다른 글 살펴보기')
   })
 
   it('일반 진입: 돌아가기 + 내 단어 보기(기존 동작)', () => {
     const html = renderToStaticMarkup(
       <StudyDoneScreen count={1} screenName="학습" backHref="/wordvault" mapBack={null} source={null} />,
     )
-    expect(hrefs(html)).toEqual(['/wordvault', '/wordvault/browse'])
+    expect(hrefs(html)).toEqual(['/wordvault', '/wordvault/browse', '/library/scripts'])
   })
 })
