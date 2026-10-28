@@ -194,36 +194,7 @@ function StudyBody({
    *    폭죽·트로피는 쓰지 않는다(CLAUDE.md: 차분한 "오늘 잘 마쳤어요" 를 선호).
    */
   if (done) {
-    return (
-      <div className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center">
-        <h1 className="sr-only">{screenName} 완료</h1>
-        <div className="mb-s-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-bg2 text-t2">
-          <Check size={22} aria-hidden />
-        </div>
-        <h2 className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">
-          오늘 잘 마쳤어요
-        </h2>
-        <p className="mb-s-6 break-keep font-body text-sm text-t2">
-          {words.length}개를 {screenName}했어요. 방금 평가한 간격에 맞춰 다시 만나게 돼요.
-        </p>
-        <div className="flex flex-col items-stretch gap-s-2 sm:flex-row">
-          <Link
-            href={backHref}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-bg2 px-s-5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-          >
-            {mapBack ? '학습 지도로 돌아가기' : source ? '이 목록으로 돌아가기' : '돌아가기'}
-          </Link>
-          {/* 복습 화면은 "지금 복습할 것" 만 담으므로, 방금 학습한 뒤에도 비어 있을 수 있다.
-              그래서 목록을 두 번째 길로 함께 둔다 — 막다른 화면을 만들지 않는다. */}
-          <Link
-            href={vocabMapLink('/wordvault/browse', mapBack)}
-            className="inline-flex min-h-[44px] items-center justify-center rounded-md px-s-5 font-display text-[13px] font-semibold text-t2 no-underline transition-colors duration-normal hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
-          >
-            내 단어 보기 →
-          </Link>
-        </div>
-      </div>
-    )
+    return <StudyDoneScreen count={words.length} screenName={screenName} backHref={backHref} mapBack={mapBack} source={source} />
   }
 
   return (
@@ -260,5 +231,57 @@ function SourceBackLink({ href }: { href: string }) {
     >
       이 목록으로 돌아가기
     </Link>
+  )
+}
+
+/** 학습 · 복습 완료 화면 — 출처 범위가 있으면 그 목록으로만 돌아간다. */
+export function StudyDoneScreen({
+  count,
+  screenName,
+  backHref,
+  mapBack,
+  source,
+}: {
+  count: number
+  screenName: string
+  backHref: string
+  mapBack: WordVaultStudyClientProps['mapBack']
+  source: WordVaultStudyClientProps['source']
+}) {
+  return (
+      <div className="mx-auto flex max-w-[480px] flex-col items-center px-s-4 py-s-16 text-center">
+        <h1 className="sr-only">{screenName} 완료</h1>
+        <div className="mb-s-4 inline-flex h-12 w-12 items-center justify-center rounded-full bg-bg2 text-t2">
+          <Check size={22} aria-hidden />
+        </div>
+        <h2 className="mb-s-2 break-keep font-editorial text-[24px] font-[500] leading-snug tracking-[-0.015em] text-t1">
+          오늘 잘 마쳤어요
+        </h2>
+        <p className="mb-s-6 break-keep font-body text-sm text-t2">
+          {count}개를 {screenName}했어요. 방금 평가한 간격에 맞춰 다시 만나게 돼요.
+        </p>
+        <div className="flex flex-col items-stretch gap-s-2 sm:flex-row">
+          <Link
+            href={backHref}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-md bg-bg2 px-s-5 font-display text-[13px] font-semibold text-t1 no-underline transition-colors duration-normal hover:bg-bg3 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          >
+            {mapBack ? '학습 지도로 돌아가기' : source ? '이 목록으로 돌아가기' : '돌아가기'}
+          </Link>
+          {/* 출처 목록(text:/set:)에서 왔으면 두 번째 길을 두지 않는다 — 필터 없는 전체 목록은 읽던 자료와의 연결을 끊는다.
+              첫 버튼이 이미 그 목록으로 돌아간다. */}
+          {!source && (
+          <>
+          {/* 복습 화면은 "지금 복습할 것" 만 담으므로, 방금 학습한 뒤에도 비어 있을 수 있다.
+              그래서 목록을 두 번째 길로 함께 둔다 — 막다른 화면을 만들지 않는다. */}
+          <Link
+            href={vocabMapLink('/wordvault/browse', mapBack)}
+            className="inline-flex min-h-[44px] items-center justify-center rounded-md px-s-5 font-display text-[13px] font-semibold text-t2 no-underline transition-colors duration-normal hover:bg-bg2 hover:text-t1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+          >
+            내 단어 보기 →
+          </Link>
+          </>
+          )}
+        </div>
+      </div>
   )
 }
