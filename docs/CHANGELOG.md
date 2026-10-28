@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(design): 학습자 화면 무효 투명도 클래스 58곳(25파일)을 color-mix 로 — Tailwind 가 var() 색의 /N 을 생성하지 않아 떠 있는 면 투명(PairFlip 헤더 비침 726→0px)·초점 링 기본 파랑·테두리 기본 회색·그라데이션 미표시였음. ratchet 이 주석을 세지 않도록 TS 파서 기반으로, BASELINE 0. 드러난 대비 저하 2곳(ExtractionPanel 칩·Badge purple)은 기존 토큰으로. 기존 Badge yellow 3.81 은 범위 밖. T-0203 (8c0ea2800)
 - fix(spellforge): 완료 화면 「철자 확인」을 같은 화면 CTA 와 같은 알약 모양으로(inline-flex) — tines 스킨 규칙 일관성. T-0201 보충 (1089c9193)
 - fix(scriptquiz): 결과 화면 오답 항목의 옅은 금색 면이 실제로 그려지게 함(var() 색에 안 먹던 Tailwind 불투명도 → color-mix) — 근거 인용 블록과 면 구분. 원문 바이트 Codex 수용. T-0199 보충 (37bad8a13)
 - fix(spellforge): 완료 화면에서 게임 Enter 단축키를 등록하지 않음 — 「철자 확인」·단어장 링크 Enter 가 마지막 단어를 다시 채점하고 복습 대기를 늘리던 결함(Codex 반례) 해소, 부모 경로 PC 1280/1440 srs_pending 불변. T-0201 보정 (0a04c95e1)
