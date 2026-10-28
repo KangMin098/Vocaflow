@@ -18,10 +18,12 @@ import { textSourceFilter } from '@/lib/wordvault/source-filter'
 
 /**
  * 「단어를 몰랐어요」 → 이 기사의 내 단어 목록(Reader 「단어」 와 같은 text: 범위 · readerWordsHref 규칙).
- * 그 목록은 이 글 본문으로 돌아가는 기존 링크(「이 스크립트 본문 열기」)를 이미 갖는다. 전체 Flashcard 로 보내지 않는다.
+ * `from` = 이 글 본문 — SessionFrame 이 sanitizeInternalPath 로 검증해 닫기 · Esc 복귀에 쓴다.
+ * 복귀 대상은 읽던 글이지 연습 진행 상태가 아니다(이어 풀기 아님). 전체 Flashcard 로 보내지 않는다.
  */
 export function articleVocabHref(textId: string): string {
-  return `/wordvault/browse?filter=${encodeURIComponent(textSourceFilter(textId))}`
+  const qs = new URLSearchParams({ filter: textSourceFilter(textId), from: `/text/${textId}` })
+  return `/wordvault/browse?${qs.toString()}`
 }
 
 type Submit = (context: ArticlePracticeContext, itemId: string, answer: { choice?: unknown }) => Promise<DcpGradeResult>
