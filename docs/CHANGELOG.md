@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(textbook): 교재 연습 완료 문구에서 실력 향상 암시 제거 — 「N문항 중 M문항을 맞혔어요」 + 「교재 수준에 맞춰 고른 안내 연습… 실력이 달라졌는지를 잰 것은 아니에요」(다시 보기 켜짐일 때만 해설 다시 보기 안내) · DcpPlayer·다른 caller 불변 (eba4b0041)
 - fix(practice): 근거 문장이 8개를 넘으면 MeaningEvidence 두 목록을 높이 360px + 내부 스크롤로(「본문 문장 N개 — 목록 안에서 스크롤해 끝까지 볼 수 있어요.」) · 문장·순서·선택·비교·건너뛰기 불변 (7212ae4e9)
 - feat(wordblitz): 끝화면에서 놓친 단어를 당시 질문·내 선택·정답(+단어 예문)으로 대조 — 8개 제한 제거, 처음 놓친 순간 보존, 시간 초과 구분, 끝화면 자체 스크롤 · 점수·기록·FSRS 불변 (f312a1b35 · 406bd6fd7)
 - fix(echo): 계정이 바뀐 뒤 도착한 녹음 결과를 기록하지 않음 — 시도 시작에 계정 세대·글 주인을 고정하고 결과 수신 전에 확인, saveEchoAttempt·recordEchoSound 에 선택 expectedUserId(실제 getUser 와 다르면 쓰기 0) · SQL·공용 guard 불변 (d0559e786)
