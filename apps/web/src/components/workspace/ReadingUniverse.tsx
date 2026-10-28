@@ -266,7 +266,7 @@ export function ReadingUniverse({
                     onClick={() => onSentencePlay(s.id)}
                     aria-label={`문장 ${s.id + 1} 듣기`}
                     aria-pressed={isPlaying}
-                    className={`mr-1 inline-flex h-[18px] w-[18px] -translate-y-px items-center justify-center rounded-full align-middle transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--reading-bg)] ${
+                    className={`relative mr-1 inline-flex h-[18px] w-[18px] -translate-y-px before:absolute before:left-1/2 before:top-1/2 before:h-11 before:w-11 before:-translate-x-1/2 before:-translate-y-1/2 before:content-[''] items-center justify-center rounded-full align-middle transition-all duration-[var(--dur-normal)] ease-[var(--ease)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1 focus-visible:ring-offset-[var(--reading-bg)] ${
                       isPlaying
                         ? 'animate-[playing-ring_1.6s_ease-in-out_infinite] bg-[var(--p)] text-white'
                         : 'bg-[radial-gradient(circle,color-mix(in_srgb,var(--t3)_75%,transparent)_2.5px,transparent_3.5px)] text-transparent hover:scale-110 hover:bg-[var(--p)] hover:text-white group-hover/sentence:bg-[color-mix(in_srgb,var(--t4)_85%,transparent)] group-hover/paragraph:bg-[color-mix(in_srgb,var(--t4)_55%,transparent)]'
