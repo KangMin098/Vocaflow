@@ -953,7 +953,6 @@ const GK_CSS = `
   .gk-btn--primary:hover { filter: brightness(1.08); border-color: var(--combo); }
   .gk-btn:disabled { opacity: .5; cursor: default; }
   .gk-btn--link { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
-  .gk-btn--link:focus-visible { outline: none; box-shadow: 0 0 0 3px color-mix(in srgb, var(--combo) 30%, transparent); }
 
   .gk-done { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; padding: 24px; }
   .gk-done-burst { position: absolute; top: 34%; left: 50%; width: 0; height: 0; }
