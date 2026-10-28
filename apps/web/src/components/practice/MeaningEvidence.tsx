@@ -80,18 +80,39 @@ export function MeaningEvidence({
   useEffect(() => {
     if (skipped) skippedRef.current?.focus()
   }, [skipped])
+  // T-0211 — 「다시 짚어 보기」로 같은 문항의 후보로 돌아온 **그 순간 한 번만** 근거 제목으로 초점을 옮긴다(재개 횟수가 바뀔 때만 —
+  //   부모가 다시 그려도 옮기지 않는다). 짚은 문장 · 견주기 · 관계 판단은 건너뛰기 전에도 비어 있었으므로(건너뛰기는 picked 없을 때만) 그대로다.
+  const [resumes, setResumes] = useState(0)
+  const promptRef = useRef<HTMLParagraphElement>(null)
+  useEffect(() => {
+    if (resumes > 0) promptRef.current?.focus()
+  }, [resumes])
 
   if (skipped) {
     return (
       // 건너뛰기 단추가 사라지며 포커스가 BODY 로 떨어졌다(Codex PC 실측) — 안내 문장이 포커스를 이어받는다
-      <p
-        ref={skippedRef}
-        tabIndex={-1}
-        className="break-keep rounded-[var(--r-md)] font-body text-[12.5px] leading-relaxed text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
-        data-testid="meaning-evidence-skipped"
-      >
-        근거 짚기는 건너뛰었어요. 다음 문항에서 다시 해 볼 수 있어요.
-      </p>
+      <div className="flex flex-col items-start gap-2" data-testid="meaning-evidence-skipped-block">
+        <p
+          ref={skippedRef}
+          tabIndex={-1}
+          className="break-keep rounded-[var(--r-md)] font-body text-[12.5px] leading-relaxed text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          data-testid="meaning-evidence-skipped"
+        >
+          근거 짚기는 건너뛰었어요. 다음 문항에서 다시 해 볼 수 있어요.
+        </p>
+        {/* T-0211 — 피드백 · 읽은 글을 보고 난 뒤 같은 문항의 후보로 돌아오는 길. 기록 · 채점 · 이벤트 없음 */}
+        <button
+          type="button"
+          onClick={() => {
+            setSkipped(false)
+            setResumes((n) => n + 1)
+          }}
+          data-testid="meaning-evidence-resume"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:border-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
+          다시 짚어 보기
+        </button>
+      </div>
     )
   }
 
@@ -108,7 +129,7 @@ export function MeaningEvidence({
         </p>
       )}
       <div>
-        <p className="break-keep font-display text-[13px] font-[700] text-[var(--t1)]">
+        <p ref={promptRef} tabIndex={-1} className="break-keep rounded-[var(--r-md)] font-display text-[13px] font-[700] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]" data-testid="meaning-evidence-prompt">
           {correct ? '이 답을 받치는 본문 문장을 하나 짚어 보세요' : '정답을 받치는 본문 문장을 하나 짚어 보세요'}
         </p>
         <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">정답 확인이 아니라 연습이에요 — 근거가 되는 문장은 여러 개일 수 있어요.</p>
