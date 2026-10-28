@@ -5,7 +5,9 @@
 
 'use client'
 
-import { createContext, useContext, type ReactNode } from 'react'
+import { createContext, useCallback, useContext, useEffect, useState, type ReactNode } from 'react'
+
+import { takeEvidenceAnchor } from './reader-anchor'
 
 export interface EvidenceReaderContext {
   textId: string
@@ -19,4 +21,27 @@ export function EvidenceReaderProvider({ value, children }: { value: EvidenceRea
 
 export function useEvidenceReader(): EvidenceReaderContext | null {
   return useContext(Ctx)
+}
+
+/**
+ * Reader 페이지(WorkspacePage)용 — 근거 문장 id 를 한 번 꺼내고, **이동했다는 사실을 페이지 쪽에 남긴다**(T-0209 Codex P2).
+ * Reader(ReadingUniverse)가 모드 전환(읽기 → Spell → 읽기)으로 다시 마운트돼도 강조는 남기되 스크롤 · 초점은 다시 옮기지 않는다.
+ */
+export function useReaderEvidenceAnchor(
+  textId: string,
+  evidenceAnchor: { hash: string; map: number[] } | null | undefined,
+): { anchorSentenceId: number | null; anchorAutoMove: boolean; onAnchorMoved: () => void } {
+  const [anchorSentenceId, setAnchorSentenceId] = useState<number | null>(null)
+  const [moved, setMoved] = useState(false)
+  useEffect(() => {
+    if (!evidenceAnchor) return
+    const idx = takeEvidenceAnchor(textId, evidenceAnchor.hash)
+    const id = idx != null ? evidenceAnchor.map[idx] : undefined
+    if (id != null && id >= 0) {
+      setMoved(false)
+      setAnchorSentenceId(id)
+    }
+  }, [textId, evidenceAnchor])
+  const onAnchorMoved = useCallback(() => setMoved(true), [])
+  return { anchorSentenceId, anchorAutoMove: !moved, onAnchorMoved }
 }

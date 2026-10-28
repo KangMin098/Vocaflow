@@ -81,6 +81,10 @@ interface ReadingUniverseProps {
    * 초점을 준다(스크롤 없이 초점 · 순간 이동). 없으면 예전과 같은 마크업 · 동작이다. TTS · 낱말 · 선택 핸들러는 그대로.
    */
   anchorSentenceId?: number | null
+  /** 근거 문장으로 스크롤 · 초점을 옮겨도 되는가(기본 true). 부모가 이미 옮겼다고 기록했으면 false — 다시 마운트돼도 반복하지 않는다 */
+  anchorAutoMove?: boolean
+  /** 근거 문장으로 옮긴 직후 한 번(부모가 「옮김」 을 기억한다) */
+  onAnchorMoved?: () => void
 }
 
 // 평범한 단어(학습 대상·노이즈 아님)를 data-lookup 스팬으로 토큰화.
@@ -124,6 +128,8 @@ export function ReadingUniverse({
   showSupport = true,
   articleSourceHref = null,
   anchorSentenceId = null,
+  anchorAutoMove = true,
+  onAnchorMoved,
 }: ReadingUniverseProps) {
   const hoverTimerRef = useRef<NodeJS.Timeout | null>(null)
   const [activeWordId, setActiveWordId] = useState<string | null>(null)
@@ -147,13 +153,16 @@ export function ReadingUniverse({
   const anchorRef = useRef<HTMLSpanElement | null>(null)
   const anchorMovedFor = useRef<number | null>(null)
   useEffect(() => {
-    if (anchorSentenceId == null || anchorMovedFor.current === anchorSentenceId) return
+    if (anchorSentenceId == null || !anchorAutoMove || anchorMovedFor.current === anchorSentenceId) return
     const el = anchorRef.current
     if (!el) return
     anchorMovedFor.current = anchorSentenceId
     el.scrollIntoView?.({ block: 'center' })
     el.focus({ preventScroll: true })
-  }, [anchorSentenceId])
+    onAnchorMoved?.()
+    // 콜백 정체가 바뀌어도 다시 옮기지 않는다 — id · 허용 여부만 본다
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [anchorSentenceId, anchorAutoMove])
 
   const handleWordEnter = (
     word: Word,

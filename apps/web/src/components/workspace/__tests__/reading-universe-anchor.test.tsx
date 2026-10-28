@@ -29,6 +29,11 @@ describe('ReadingUniverse 근거 문장 표지', () => {
     // 듣기 단추 · 문장 수는 그대로
     expect(html.match(/aria-label="문장 \d+ 듣기"/g)).toHaveLength(3)
   })
+  it('anchorAutoMove=false(이미 옮김)여도 강조 · 표지는 남는다 — 이동만 막는다', () => {
+    const html = render({ anchorSentenceId: 1, anchorAutoMove: false })
+    expect(html.match(/data-evidence-anchor/g)).toHaveLength(1)
+    expect(html).toContain('background-color:var(--p-light)')
+  })
   it('없는 id 면 표지 없음', () => {
     expect(render({ anchorSentenceId: 9 })).not.toContain('data-evidence-anchor')
   })
