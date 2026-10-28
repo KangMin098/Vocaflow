@@ -33,7 +33,18 @@ import {
 export type ArticleVocabSource = { kind: 'set'; setId: string } | { kind: 'text' } | { kind: 'unknown' }
 
 export type ArticlePracticeLoad =
-  | { ok: true; textId: string; ownerId: string; items: ReturnType<typeof toDcpChoiceItem>[]; vocab: ArticleVocabSource }
+  | {
+      ok: true
+      textId: string
+      ownerId: string
+      items: ReturnType<typeof toDcpChoiceItem>[]
+      vocab: ArticleVocabSource
+      /**
+       * 「읽은 글 참고」(T-0207) — 관문이 해시로 현재 판본과 같다고 확인한 **그 본인 글 본문**(새 조회 없음). 비었으면 null.
+       * 관문 계정과 마지막 확인 계정이 같을 때만 성공하므로 다른 계정에게 실리지 않는다.
+       */
+      readingText: string | null
+    }
   | {
       ok: false
       reason: Exclude<ArticlePracticeAccess, { ok: true }>['reason'] | 'not_installed' | 'query_failed' | 'no_items'
@@ -81,7 +92,7 @@ async function candidates(client: SupabaseClient, articleId: string): Promise<Ar
   }
   const items = keepCentralMeaningRows(data).map(toDcpChoiceItem)
   if (items.length === 0) return { ok: false, reason: 'no_items' }
-  return { ok: true, textId: '', ownerId: '', items, vocab: { kind: 'unknown' } }
+  return { ok: true, textId: '', ownerId: '', items, vocab: { kind: 'unknown' }, readingText: null }
 }
 
 export async function loadArticlePractice(articleId: string): Promise<ArticlePracticeLoad> {
@@ -89,9 +100,12 @@ export async function loadArticlePractice(articleId: string): Promise<ArticlePra
   const deps = depsFor(client)
   // 관문이 본인 글(access.textId)을 찾을 때 쓴 계정 — 복귀 전에 지금 계정이 그 계정인지 비교한다(T0206-F01)
   let gateUserId: string | null = null
+  // 관문이 해시로 검증한 본인 글 본문 — 「읽은 글 참고」 에 그대로 쓴다(다시 읽지 않는다 · T-0207)
+  let gateText: { id: string; content: string | null } | null = null
   const access = await checkArticlePracticeAccess(articleId, {
     ...deps,
     currentUserId: async () => (gateUserId = await deps.currentUserId()),
+    findOwnArticleText: async (userId, marker) => (gateText = await deps.findOwnArticleText(userId, marker)),
   })
   if (!access.ok) return { ok: false, reason: access.reason }
   const c = await candidates(client, access.articleId)
@@ -101,9 +115,12 @@ export async function loadArticlePractice(articleId: string): Promise<ArticlePra
     return uid && uid === gateUserId ? { ...c, returnTextId: access.textId } : c
   }
   // 소유자는 화면의 신원 비교용으로만 싣는다(DOM · URL 에 넣지 않는다)
+  // 관문 계정과 다르면 문항 · 본문을 내보내지 않는다 — 다시 로그인해 열게 한다(T-0207 · T0206-F01 과 같은 경계)
   const ownerId = await deps.currentUserId()
-  if (!ownerId) return { ok: false, reason: 'signed_out' }
-  return { ...c, textId: access.textId, ownerId, vocab: await articleVocabSource(client, access.articleId) }
+  if (!ownerId || ownerId !== gateUserId) return { ok: false, reason: 'signed_out' }
+  const verified = gateText as { id: string; content: string | null } | null
+  const readingText = verified && verified.id === access.textId && verified.content && verified.content.trim() ? verified.content : null
+  return { ...c, textId: access.textId, ownerId, vocab: await articleVocabSource(client, access.articleId), readingText }
 }
 
 /**
