@@ -51,8 +51,8 @@ export const ButtonGroup = forwardRef<HTMLDivElement, ButtonGroupProps>(
     ref,
   ) => {
     const buttonSizeStyles = {
-      sm: "px-s-3 py-s-2 text-xs min-h-[32px]",
-      md: "px-s-4 py-s-2 text-sm min-h-[36px]",
+      sm: "px-s-3 py-s-2 text-xs min-h-[44px]",
+      md: "px-s-4 py-s-2 text-sm min-h-[44px]",
       lg: "px-s-5 py-s-3 text-base min-h-[44px]",
     }[size];
 
