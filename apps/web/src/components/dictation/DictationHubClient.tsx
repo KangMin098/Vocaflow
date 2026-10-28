@@ -255,7 +255,7 @@ export function DictationHubClient({ data, viewerId }: { data: DictationHubData;
                   {done && (
                     <Link
                       href={`/dictate/results?sessionId=${s.id}`}
-                      className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                      className="relative shrink-0 after:absolute after:-inset-[10px] after:content-[''] rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
                     >
                       결과
                     </Link>
