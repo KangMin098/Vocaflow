@@ -126,6 +126,9 @@ export function EchoMatchPlayer({
   const phaseRef = useRef<Phase>('idle')
   const materialKeyRef = useRef<string | null>(null)
   const pageHiddenRef = useRef(false)
+  // 이 시도를 시작할 때의 계정 경계 세대 — 녹음 · 비교가 끝난 뒤(await 뒤)에 새로 잡지 않는다.
+  //   그 사이 계정이 바뀌면(부모가 화면을 내리기 전이라도) 결과를 받지도 기록하지도 않는다.
+  const attemptAuthRef = useRef<number | null>(null)
   // 각 sentence 의 시도 횟수 (점수 적재 시 attempt_number)
   const attemptCountRef = useRef<Map<string, number>>(new Map())
   // 이 텍스트에서 담아 둔 내 단어 — 청각 면(F3) 신호의 대상. 없으면 빈 배열로 무해하게 논다.
@@ -223,6 +226,7 @@ export function EchoMatchPlayer({
   const startListen = useCallback(async () => {
     if (!current) return
     const gen = runGenRef.current
+    attemptAuthRef.current = authGuard.token()
     const stale = () => gen !== runGenRef.current
     listenAbortRef.current?.abort()
     const listenAbort = new AbortController()
@@ -275,13 +279,16 @@ export function EchoMatchPlayer({
       setError(playbackError(e))
       setPhase('idle')
     }
-  }, [current])
+  }, [current, authGuard])
 
   // Phase 2 → Phase 3 — Stop recording
   async function stopRecording() {
     if (!stopRecRef.current || !current) return
     const gen = runGenRef.current
     const sentence = current
+    // 시작 때 잡은 세대(없으면 지금 — 아직 await 전이다). 기록의 주인은 서버가 읽은 글의 주인(ownerId)으로 묶는다.
+    const authToken = attemptAuthRef.current ?? authGuard.token()
+    const expectedUserId = ownerId
     setPhase('comparing')
     // 병렬 인식 종료 + transcript 회수 (guard — 실패해도 프로소디 채점 진행)
     let wr: number | null = null
@@ -305,11 +312,13 @@ export function EchoMatchPlayer({
       const { audioBuffer } = await stop()
       // 비교 중에 문장을 옮겼거나 화면이 내려갔다 — 이 발화는 버린다(점수 · 기록 · 다시 듣기 모두)
       if (gen !== runGenRef.current) return
-      // 계정 경계가 같은 사람으로 확인된 동안에만 붙잡는다(그 세대를 함께 둔다)
-      const authToken = authGuard.token()
-      userTakeRef.current = authGuard.isCurrent(authToken)
-        ? { materialKey: sentenceMaterialKey(sentence), buffer: audioBuffer, authToken }
-        : null
+      // 시작 세대가 더는 같은 사람으로 확인되지 않는다 — 실패로 닫는다(점수 · 저장 · 청각 신호 · 다시 듣기 모두 없음)
+      if (!authGuard.isCurrent(authToken) || !expectedUserId) {
+        userTakeRef.current = null
+        setPhase('idle')
+        return
+      }
+      userTakeRef.current = { materialKey: sentenceMaterialKey(sentence), buffer: audioBuffer, authToken }
 
       // 사용자 음성 분석
       const userC = extractPitchContour(audioBuffer)
@@ -336,6 +345,7 @@ export function EchoMatchPlayer({
         attemptNumber,
         score: result,
         durationMs: userC.durationMs,
+        expectedUserId,
       })
 
       // 청각 면(F3) 신호 — 이 발화가 실어 나른 내 단어를 인출 기록으로 남긴다.
@@ -347,7 +357,7 @@ export function EchoMatchPlayer({
         transcriptRatio: wr,
         matchedKeys: heardKeys,
       })
-      void recordEchoSound(soundRecs, { sentenceId, overall: result.overall })
+      void recordEchoSound(soundRecs, { sentenceId, overall: result.overall, expectedUserId })
     } catch (e) {
       if (gen !== runGenRef.current) return
       setError(compareError(e))
