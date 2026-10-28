@@ -152,7 +152,8 @@ export function WordRow({
             stopBubble(e)
             onPlayWord(word.id)
           }}
-          aria-label={`${word.word} 발음 듣기`}
+          // 단어 숨김 중에는 이름에 낱말을 넣지 않는다 — 전체 보기와 같은 조건(T-0213 · Codex T-0208 F01 의 같은 결함)
+          aria-label={`${hideStates.word ? '' : `${word.word} `}발음 듣기`}
           // ⚠️ 보이는 크기는 28px 인데 **누르는 영역이 28px 이면 안 된다**(기준 44px).
           //    실측 2026-08-22: `/wordvault/browse` 한 화면에서만 44px 미만 타깃 **278개**가
           //    나왔고 대부분이 이 버튼이다(단어 252개 × 1). 이 화면은 접근성 스윕의
