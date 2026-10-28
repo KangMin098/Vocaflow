@@ -229,6 +229,7 @@
 
 ---
 ## Unreleased (v06.34 → next)
+- fix(echo): 계정이 바뀐 뒤 도착한 녹음 결과를 기록하지 않음 — 시도 시작에 계정 세대·글 주인을 고정하고 결과 수신 전에 확인, saveEchoAttempt·recordEchoSound 에 선택 expectedUserId(실제 getUser 와 다르면 쓰기 0) · SQL·공용 guard 불변 (d0559e786)
 - feat(echo): EchoMatch 결과 화면에서 같은 문장의 예시·이번 발화 다시 듣기(ReplayPanel · EchoReplay) — 재생 하나만, 정지·다시·이동·숨김·이탈에서 중단, 늦은 완료 폐기, 호출 시점 계정(useStoryAuthGuard)·문장 내용 키 확인 · 녹음은 이 문장·화면 동안만 메모리에 두고 앱이 저장·업로드하지 않음 · 마이크 안내에서 「즉시 삭제」 제거, 단어 인식은 브라우저에 따라 인식 서비스에서 처리될 수 있음을 명시 · 저장·인식·점수 추가 호출 0 (bcf309f13 · 26a302322)
 - feat(textbook): 교재 연습 계정 경계 + 이미 본 답·해설 다시 보기 — loader 가 서버 getUser owner 를 결속, TextbookPracticeBridge(useStoryAuthGuard)가 checking/changed 에 문항·답·해설을 숨기고 「연습 다시 열기」, 같은 계정에서만 revisit · 서버 gradeTextbookPracticeItem 은 요청 사용자 ≠ 예상 owner 면 grade_dcp_item 전 거부 · DcpPlayer·SQL 불변 (f7edec813)
 - feat(textbook): 교재 연습이 실제 조회 경로(volume | legacy_v_level)를 알린다 — 공통 문항(V레벨 풀)·미확인은 「선택한 교재의 기준 수준으로 고른 공통 문항 · 수록 문제와 같다는 뜻 아님」 안내 뒤 「공통 문항으로 연습하기」 명시 선택, volume 도 인쇄본 일치 약속 없음 · 낡은 「순서·삽입만」 문구 정정 · 채점/RPC/DB 불변, revisit 미적용 (fd947bb9b)
