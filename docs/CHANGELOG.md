@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(practice): MeaningEvidence 견주기 결과 안에서 짚은 문장이 「내 답·견준 선택지·둘 다·어느 쪽도 아님·아직 어려움」 중 무엇을 받치는지 학습자가 직접 판단·수정(채점·기록 없음, 대상·문장 변경 시 초기화, 눌린 버튼 체크 표지). PC 1280/1440 통제 하네스 15·4검사 PASS, 실제 서버·사람 효과 NOT_RUN. T-0205 (b4e4e0188)
 - fix(reader): 기사 읽기 화면에서 연습 조회 실패를 「연습 없음」과 구분 — 「연습 여부를 확인하지 못했어요」 + 같은 글 연습 페이지 링크(화면 안 재호출 없음), 연습 0 은 그대로 표시 없음, 정답·해설 비노출. DB 불변, 실제 Reader route·서버 실행 NOT_RUN. T-0204 (11ee11f58)
 - fix(design): 학습자 화면 무효 투명도 클래스 58곳(25파일)을 color-mix 로 — Tailwind 가 var() 색의 /N 을 생성하지 않아 떠 있는 면 투명(PairFlip 헤더 비침 726→0px)·초점 링 기본 파랑·테두리 기본 회색·그라데이션 미표시였음. ratchet 이 주석을 세지 않도록 TS 파서 기반으로, BASELINE 0. 드러난 대비 저하 2곳(ExtractionPanel 칩·Badge purple)은 기존 토큰으로. 기존 Badge yellow 3.81 은 범위 밖. T-0203 (8c0ea2800)
 - fix(spellforge): 완료 화면 「철자 확인」을 같은 화면 CTA 와 같은 알약 모양으로(inline-flex) — tines 스킨 규칙 일관성. T-0201 보충 (1089c9193)
