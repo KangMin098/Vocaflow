@@ -32,9 +32,13 @@ import {
   COMMON_POOL_CTA,
   COMMON_POOL_LIMIT,
   COMMON_POOL_NOTICE,
+  TEXTBOOK_DONE_REVISIT,
   TextbookPracticeScope,
   VOLUME_SCOPE_NOTE,
+  textbookPracticeDoneCopy,
 } from '../TextbookPracticeScope'
+
+type DoneCopy = (s: { total: number; correct: number }) => { title: string; body: string }
 
 const ITEMS: DcpItem[] = [{ id: 'o1', type: 'order', paragraphIdx: 0, payload: { presented: ['A.', 'B.', 'C.'] } }]
 const render = (scope: 'volume' | 'legacy_v_level' | null, chosen = false) => {
@@ -85,6 +89,33 @@ describe('TextbookPracticeScope', () => {
     render('volume')
     expect(h.actions.gradeDcpItem).not.toHaveBeenCalled()
     expect(h.actions.recordDcpErrorCause).not.toHaveBeenCalled()
+  })
+  it('완료 문구: 맞힌 수 + 관측 범위만 — 실력 향상을 말하지 않고, 다시 보기는 켜졌을 때만', () => {
+    for (const scope of ['volume', 'legacy_v_level'] as const) {
+      h.dcp = []
+      h.chosen = true
+      renderToString(<TextbookPracticeScope items={ITEMS} scope={scope} backHref="/b" backCta="돌아가기" revisit />)
+      renderToString(<TextbookPracticeScope items={ITEMS} scope={scope} backHref="/b" backCta="돌아가기" />)
+      const [on, off] = h.dcp.map((p) => (p.doneCopy as DoneCopy)({ total: 5, correct: 3 }))
+      expect(on!.title).toBe('5문항 중 3문항을 맞혔어요')
+      expect(on!.body).toContain(TEXTBOOK_DONE_REVISIT)
+      expect(off!.body).not.toContain(TEXTBOOK_DONE_REVISIT)
+      for (const c of [on!, off!]) {
+        expect(c.body).not.toContain('꾸준함')
+        expect(c.body).not.toMatch(/실력이 (늘|돼|올라)/)
+      }
+    }
+    expect(textbookPracticeDoneCopy({ total: 2, correct: 0 }).body).toBe(
+      '교재 수준에 맞춰 고른 안내 연습이었어요. 이번 문항의 결과일 뿐 실력이 달라졌는지를 잰 것은 아니에요.',
+    )
+  })
+})
+
+describe('DcpPlayer 기본 완료 문구는 다른 caller 를 위해 그대로', () => {
+  it('DcpPlayer 원문의 기본 격려 · doneCopy 분기가 바뀌지 않았다', () => {
+    const src = fs.readFileSync(path.resolve(__dirname, '../DcpPlayer.tsx'), 'utf8')
+    expect(src).toContain('`${total}문항 중 ${correctCount}문항을 맞혔어요. 꾸준함이 실력이 돼요.`')
+    expect(src).toContain('custom ? custom.body :')
   })
 })
 
