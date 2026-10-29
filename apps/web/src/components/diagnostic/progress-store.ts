@@ -71,7 +71,7 @@ const isResponse = (r: unknown): r is DiagResponse =>
 export type ReadResult =
   | { kind: 'none' }
   | { kind: 'ok'; rec: ProgressRecord }
-  | { kind: 'expired' }
+  | { kind: 'expired'; testId: string }
   | { kind: 'invalid' }
   | { kind: 'unavailable' }
 
@@ -102,7 +102,7 @@ export function readProgress(kv: KV | null, owner: string, now: number): ReadRes
   ) {
     return { kind: 'invalid' }
   }
-  if (now - p.savedAt > PROGRESS_TTL_MS || p.savedAt > now + 60_000) return { kind: 'expired' }
+  if (now - p.savedAt > PROGRESS_TTL_MS || p.savedAt > now + 60_000) return { kind: 'expired', testId: p.testId }
   if (p.responses.length === 0) return { kind: 'none' }
   return { kind: 'ok', rec: { v: 2, owner, testId: p.testId, sig: p.sig, responses: p.responses.map((r) => ({ question_id: r.question_id, knew: r.knew })), savedAt: p.savedAt } }
 }
@@ -199,6 +199,17 @@ export function canSubmit(x: {
   if (x.ctxOwner !== x.viewerId) return 'owner'
   if (!x.authOk) return 'auth'
   if (!x.complete) return 'incomplete'
+  return null
+}
+
+/**
+ * 이어서 하기에 쓸 진행 — 이번 화면에서 답한 메모리 응답(지금 owner 것)이 저장소보다 최신이므로 먼저 쓴다.
+ * 저장이 실패했거나 늦게 쓰였어도 최신 답을 잃지 않는다. 메모리가 없을 때만 저장소. 다른 owner 것은 둘 다 쓰지 않는다.
+ */
+export function pickResumeSource(mem: ProgressRecord | null, stored: ProgressRecord | null, owner: string | null): ProgressRecord | null {
+  if (!owner) return null
+  if (mem && mem.owner === owner && mem.responses.length > 0) return mem
+  if (stored && stored.owner === owner) return stored
   return null
 }
 

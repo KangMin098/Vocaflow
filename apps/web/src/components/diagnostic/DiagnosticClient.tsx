@@ -22,6 +22,7 @@ import {
   RESUME_REASON_TEXT,
   acceptFetch,
   canSubmit,
+  pickResumeSource,
   clearProgress,
   submitOwnerOk,
   completeFor,
@@ -272,7 +273,9 @@ export function DiagnosticClient({
   /** 보관된 진행 — 시작 화면에서 "이어서 하기" 로 제시한다. 없으면 null. 본인 · 확인된 신원일 때만 채운다. */
   const [saved, setSaved] = useState<ProgressRecord | null>(null)
   /** 이어서 할 수 없는 이유(문항판이 바뀜 등) — 섞지 않고 말한 뒤 새 시작을 고르게 한다. */
-  const [resumeBlocked, setResumeBlocked] = useState<{ text: string; test: TestInfo | null } | null>(null)
+  const [resumeBlocked, setResumeBlocked] = useState<{ text: string; testId: string | null } | null>(null)
+  /** 이번 화면에서 답한 최신 응답(본인 · 시험 · 문항판 결속) — 저장이 실패했어도 이어서 하기는 이것을 먼저 쓴다 */
+  const memProgress = useRef<ProgressRecord | null>(null)
   /** 옛 형식 보관분이 있다 — 알리기만 한다(이어 받기 · 지우기 없음). */
   const [legacy, setLegacy] = useState(false)
   /** 마지막 보관이 성공했는가 — 실패하면 「보관됨」을 약속하지 않는다. */
@@ -368,9 +371,13 @@ export function DiagnosticClient({
     }
     const store = kv()
     const r = readProgress(store, owner, now())
-    setSaved(r.kind === 'ok' ? r.rec : null)
-    setLegacy(r.kind !== 'ok' && hasLegacyProgress(store, now()))
-    if (r.kind === 'invalid') setResumeBlocked({ text: RESUME_REASON_TEXT.invalid, test: null })
+    // 저장소보다 이번 화면의 메모리 응답이 최신이다(저장 실패 · 늦은 쓰기) — 결속이 맞는 메모리를 먼저 쓴다
+    const pick = pickResumeSource(memProgress.current, r.kind === 'ok' ? r.rec : null, owner)
+    setSaved(pick)
+    setLegacy(!pick && hasLegacyProgress(store, now()))
+    if (!pick && r.kind === 'invalid') setResumeBlocked({ text: RESUME_REASON_TEXT.invalid, testId: null })
+    // 만료도 조용히 숨기지 않는다 — 이유와 「새로 시작」을 보인다
+    if (!pick && r.kind === 'expired') setResumeBlocked({ text: RESUME_REASON_TEXT.expired, testId: r.testId })
     // eslint-disable-next-line react-hooks/exhaustive-deps -- kv · now 는 주입 값(렌더마다 같은 원천)
   }, [phase, owner])
 
@@ -409,6 +416,7 @@ export function DiagnosticClient({
     const data = got.data
     // 새로 시작하면 본인 보관분은 버린다 — 두 진단의 답이 섞이면 안 된다. 옛 형식 · 다른 계정 보관분은 건드리지 않는다.
     if (owner) clearProgress(kv(), owner)
+    memProgress.current = null
     setSaved(null)
     setLastCtx(null)
     setStoreOk(true)
@@ -432,13 +440,13 @@ export function DiagnosticClient({
       // 시작 화면에서 읽은 뒤 시간이 흘렀을 수 있다 — 이어서 하는 순간 주입 시각으로 다시 잰다
       if (now() - progress.savedAt > PROGRESS_TTL_MS) {
         setSaved(null)
-        setResumeBlocked({ text: RESUME_REASON_TEXT.expired, test: null })
+        setResumeBlocked({ text: RESUME_REASON_TEXT.expired, testId: progress.testId })
         return
       }
       const test = tests.find((t) => t.id === progress.testId)
       if (!test) {
         // 진단 자체가 사라졌다(비공개 전환 등) — 보관분은 지우지 않고 이유만 말한다.
-        setResumeBlocked({ text: RESUME_REASON_TEXT.test, test: null })
+        setResumeBlocked({ text: RESUME_REASON_TEXT.test, testId: null })
         return
       }
       setError(null)
@@ -451,7 +459,7 @@ export function DiagnosticClient({
       const data = got.data
       const plan = planResume(progress, test.id, data)
       if (!plan.ok) {
-        setResumeBlocked({ text: RESUME_REASON_TEXT[plan.reason], test })
+        setResumeBlocked({ text: RESUME_REASON_TEXT[plan.reason], testId: test.id })
         return
       }
       setResumeBlocked(null)
@@ -480,7 +488,11 @@ export function DiagnosticClient({
     setResponses(next)
     // ⚠️ **답할 때마다** 보관한다. 마지막에 한 번 저장하면 잃는 경우가 정확히 유실 사례다.
     //   본인 신원이 확인된 경우에만 · 이 문항판 서명과 함께. 실패하면 「보관됨」 문구를 거둔다.
-    if (owner) setStoreOk(writeProgress(kv(), { owner, testId: selectedTest.id, sig: questionSig(questions), responses: next }, now()))
+    if (owner) {
+      const rec = { owner, testId: selectedTest.id, sig: questionSig(questions), responses: next }
+      memProgress.current = { v: 2, ...rec, savedAt: now() }
+      setStoreOk(writeProgress(kv(), rec, now()))
+    }
     if (currentIdx + 1 >= questions.length) void submit({ test: selectedTest, questions, responses: next, token: guard.token(), owner: viewerId, req: req.current })
     else setCurrentIdx(currentIdx + 1)
   }
@@ -607,21 +619,31 @@ export function DiagnosticClient({
     // 결과가 DB 에 남았으므로 본인 보관분은 역할이 끝났다 — 남겨 두면 다음 방문에
     // 이미 끝낸 진단을 "이어서 하기" 로 권하게 된다.
     clearProgress(kv(), ownerTag(userId))
+    memProgress.current = null
     setSaved(null)
 
+    // 추천을 기다리는 사이 다른 진단 시작 · 인증 재확인이 있었으면 이 결과로 새 화면을 덮지 않는다
+    const live = () => acceptFetch(ctx.req, req.current, viewerId === null || guard.isCurrent(ctx.token))
     if (selectedTest.test_type === 'base_v_level' || selectedTest.test_type === 'comprehensive') {
       if (authGone()) return
-      await fetchRecommendations(userId, [])
+      const recs = await loadRecommendations(userId, [])
+      if (!live()) return
+      setRecommendations(recs)
     }
+    if (!live()) return
     setPhase('results')
   }
 
-  async function fetchRecommendations(userId: string, selectedInterests: string[]) {
+  async function loadRecommendations(userId: string, selectedInterests: string[]): Promise<Recommendation[]> {
     const { data } = await supabase.rpc('recommend_word_sets_for_user', {
       p_user_id: userId,
       p_interests: selectedInterests.length > 0 ? selectedInterests : undefined,
     })
-    setRecommendations((data ?? []) as Recommendation[])
+    return (data ?? []) as Recommendation[]
+  }
+
+  async function fetchRecommendations(userId: string, selectedInterests: string[]) {
+    setRecommendations(await loadRecommendations(userId, selectedInterests))
   }
 
   /**
@@ -846,11 +868,14 @@ export function DiagnosticClient({
               {resumeBlocked.text} 보관된 답은 지금 문항과 섞지 않아요.
             </p>
             <div className="mt-3 flex flex-col gap-2 sm:flex-row">
-              {resumeBlocked.test && (
+              {resumeBlocked.testId && tests.some((t) => t.id === resumeBlocked.testId) && (
                 <button
                   type="button"
                   data-testid="diag-restart"
-                  onClick={() => void startTest(resumeBlocked.test!)}
+                  onClick={() => {
+                    const t = tests.find((x) => x.id === resumeBlocked.testId)
+                    if (t) void startTest(t)
+                  }}
                   className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
                 >
                   이 진단 처음부터 새로 시작
@@ -898,6 +923,7 @@ export function DiagnosticClient({
               <button
                 onClick={() => {
                   if (owner) clearProgress(kv(), owner)
+                  memProgress.current = null
                   setSaved(null)
                 }}
                 disabled={resuming}
