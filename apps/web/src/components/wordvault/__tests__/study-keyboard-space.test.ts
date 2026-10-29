@@ -19,11 +19,11 @@ function extractKeyboardEffect(): string {
   }).outputText + '\nreturn __effect'
 }
 
-function mount(state: 'hidden' | 'meaning-shown' | 'example-shown') {
+function mount(state: 'hidden' | 'meaning-shown' | 'example-shown', owns = true) {
   const listeners: ((e: unknown) => void)[] = []
   const deps = {
     state,
-    ownsSession: () => true,
+    ownsSession: () => owns,
     revealMeaning: vi.fn(),
     revealExample: vi.fn(),
     playMain: vi.fn(),
@@ -80,5 +80,13 @@ describe('WordVault 학습 · Space', () => {
     const c = mount('hidden')
     c.press(' ', 'Space', { tagName: 'INPUT', closest: () => null })
     expect(c.deps.revealMeaning).not.toHaveBeenCalled()
+  })
+
+  it('인증 경계: 세션 주인으로 확인되지 않으면 본문 Space · 숫자 평가 모두 0', () => {
+    const c = mount('example-shown', false)
+    c.press(' ', 'Space', body)
+    c.press('2', 'Digit2', body)
+    expect(c.deps.playMain).not.toHaveBeenCalled()
+    expect(c.deps.rateWord).not.toHaveBeenCalled()
   })
 })
