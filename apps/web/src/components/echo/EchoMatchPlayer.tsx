@@ -6,7 +6,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 import {
   ChevronLeft,
   ChevronRight,
@@ -432,6 +432,21 @@ export function EchoMatchPlayer({
     setUserContour(null)
   }
 
+  // 학습자가 「한 번 더」 · 「다시」 · 「이 문장 다시 하기」를 눌렀을 때만 — 새 시도의 「시작」으로 초점을 한 번 넘긴다.
+  //   자료 변경 · 이전/다음 문장 · 부모 갱신도 handleRetry 를 쓰므로 공통 함수에는 초점을 넣지 않는다.
+  //   초점만 옮긴다(클릭 없음) — 재생 · 녹음은 학습자가 「시작」을 눌러야 시작된다.
+  const focusStartOnce = useRef(false)
+  const startBtnRef = useRef<HTMLButtonElement | null>(null)
+  function handleUserRetry() {
+    focusStartOnce.current = true
+    handleRetry()
+  }
+  useLayoutEffect(() => {
+    if (!focusStartOnce.current || phase !== 'idle' || error) return
+    focusStartOnce.current = false
+    startBtnRef.current?.focus()
+  }, [phase, error])
+
   function handleNext() {
     if (currentIdx < last) {
       setCurrentIdx((i) => i + 1)
@@ -601,7 +616,7 @@ export function EchoMatchPlayer({
               {(error.kind === 'playback' || error.kind === 'compare') && (
                 <button
                   type="button"
-                  onClick={handleRetry}
+                  onClick={handleUserRetry}
                   className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
                 >
                   이 문장 다시 하기
@@ -668,7 +683,8 @@ export function EchoMatchPlayer({
         piperReady={piperReady}
         onStart={() => void startListen()}
         onStopRecording={() => void stopRecording()}
-        onRetry={handleRetry}
+        onRetry={handleUserRetry}
+        startRef={startBtnRef}
       />
 
       {/* 시각화 + 점수 */}
@@ -734,7 +750,7 @@ export function EchoMatchPlayer({
         {phase === 'scored' && (
           <button
             type="button"
-            onClick={handleRetry}
+            onClick={handleUserRetry}
             className="inline-flex items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg2)]"
           >
             <RotateCcw size={13} aria-hidden /> 다시
@@ -761,12 +777,15 @@ function PhaseController({
   onStart,
   onStopRecording,
   onRetry,
+  startRef,
 }: {
   phase: Phase
   piperReady: boolean
   onStart: () => void
   onStopRecording: () => void
   onRetry: () => void
+  /** 명시적 재시도 뒤 초점을 받을 「시작」 */
+  startRef?: React.Ref<HTMLButtonElement>
 }) {
   if (phase === 'idle') {
     return (
@@ -775,6 +794,7 @@ function PhaseController({
           ① Listen → ② Repeat → ③ Compare → ④ Score
         </p>
         <button
+          ref={startRef}
           type="button"
           onClick={onStart}
           disabled={!piperReady}
