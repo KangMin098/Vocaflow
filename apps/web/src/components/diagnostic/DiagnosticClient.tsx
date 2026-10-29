@@ -10,12 +10,33 @@
 
 'use client'
 
-import { Fragment, useEffect, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { subscribeSet } from '@/app/(main)/library/vocab/actions'
 import { useToast } from '@/components/ui/Toast'
 import { SealMark } from '@/components/ui/press'
 import { createClient } from '@/lib/supabase/client'
+import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
+import {
+  PROGRESS_TTL_MS,
+  RESUME_REASON_TEXT,
+  acceptFetch,
+  answerLocked,
+  canSubmit,
+  pickResumeSource,
+  clearProgress,
+  submitOwnerOk,
+  completeFor,
+  hasLegacyProgress,
+  ownerTag,
+  planResume,
+  questionSig,
+  readProgress,
+  resumeNextIndex,
+  writeProgress,
+  type KV,
+  type ProgressRecord,
+} from './progress-store'
 import {
   ArrowRight,
   CheckCircle2,
@@ -28,7 +49,7 @@ import {
   XCircle,
 } from 'lucide-react'
 
-type Phase = 'start' | 'question' | 'submitting' | 'results'
+type Phase = 'start' | 'question' | 'review' | 'submitting' | 'results'
 
 interface TestInfo {
   id: string
@@ -188,67 +209,28 @@ interface LevelDef {
 // "나가도 잃지 않는다" 가 "나가지 마세요" 보다 낫다. 그래서 **막지 않고 보관한다.**
 // ══════════════════════════════════════════════════════════════
 
-/** 진행 중 응답 보관 키. 값은 아래 SavedProgress 한 형태만 들어간다. */
-const PROGRESS_KEY = 'vocaflow-diagnostic-progress'
+// 보관 형식 · 결속 판정은 ./progress-store 가 한다(DIAG-RESUME-BIND-01) — 본인 · 같은 진단 · 같은 문항판일 때만 이어 간다.
 
-/**
- * 보관 유효 시간 24시간.
- * 그보다 오래된 진행을 "이어서 하기" 로 권하면 어제의 컨디션으로 잰 절반과 오늘의 절반이
- * 한 결과로 섞인다 — 측정이 아니라 잡음이 된다.
- */
-const PROGRESS_TTL_MS = 24 * 60 * 60 * 1000
-
-interface SavedProgress {
-  testId: string
-  responses: Response[]
-  savedAt: number
-}
-
-/** localStorage 는 사파리 프라이빗 모드 등에서 접근 자체가 던진다 — 실패해도 진단은 계속된다. */
-function readProgress(): SavedProgress | null {
+/** localStorage 는 사파리 프라이빗 모드 등에서 접근 자체가 던진다 — 실패해도 진단은 계속된다(메모리만). */
+function browserKV(): KV | null {
   if (typeof window === 'undefined') return null
   try {
-    const raw = window.localStorage.getItem(PROGRESS_KEY)
-    if (!raw) return null
-    const parsed = JSON.parse(raw) as Partial<SavedProgress>
-    if (
-      typeof parsed?.testId !== 'string' ||
-      !Array.isArray(parsed.responses) ||
-      typeof parsed.savedAt !== 'number'
-    ) {
-      return null
-    }
-    const responses = parsed.responses.filter(
-      (r): r is Response =>
-        typeof (r as Response)?.question_id === 'string' && typeof (r as Response)?.knew === 'boolean',
-    )
-    if (responses.length === 0) return null
-    if (Date.now() - parsed.savedAt > PROGRESS_TTL_MS) return null
-    return { testId: parsed.testId, responses, savedAt: parsed.savedAt }
+    return window.localStorage
   } catch {
     return null
   }
 }
 
-function writeProgress(testId: string, responses: Response[]): void {
-  if (typeof window === 'undefined') return
-  try {
-    window.localStorage.setItem(
-      PROGRESS_KEY,
-      JSON.stringify({ testId, responses, savedAt: Date.now() } satisfies SavedProgress),
-    )
-  } catch {
-    // 저장이 안 되면 예전과 같은 동작(메모리만) — 진단을 막지는 않는다
-  }
-}
-
-function clearProgress(): void {
-  if (typeof window === 'undefined') return
-  try {
-    window.localStorage.removeItem(PROGRESS_KEY)
-  } catch {
-    // 지우지 못해도 TTL 이 24시간 뒤 정리한다
-  }
+/** 제출 · 다시 제출이 쓰는 한 묶음 — 이전 렌더의 selectedTest 를 읽지 않도록 값으로 넘긴다. */
+interface SubmitCtx {
+  test: TestInfo
+  questions: Question[]
+  responses: Response[]
+  token: number
+  /** 이 묶음을 만든 화면의 주인(서버 viewer) — 제출 때 지금 viewer · getUser 와 셋이 같아야 보낸다 */
+  owner: string | null
+  /** 이 묶음을 만든 시작 · 재개 요청 세대 — 그 뒤 새 시작 · 재개가 있었으면 이 제출은 낡았다 */
+  req: number
 }
 
 function relativeTime(iso: string): string {
@@ -261,16 +243,46 @@ function relativeTime(iso: string): string {
   return `${Math.floor(days / 30)}개월 전`
 }
 
-export function DiagnosticClient() {
+export function DiagnosticClient({
+  viewerId = null,
+  authSource,
+  now = Date.now,
+  storage,
+}: {
+  /** 서버가 쿠키 세션으로 확인한 본인 uid — 보관분의 주인. 비교에만 쓰고 DOM · URL 에 싣지 않는다. 비로그인이면 null. */
+  viewerId?: string | null
+  /** 시험 · 하네스용 인증 원천(없으면 브라우저 세션) */
+  authSource?: StoryAuthSource
+  /** 시각 주입(시험 · 하네스) */
+  now?: () => number
+  /** 저장소 주입(시험 · 하네스) — 없으면 localStorage */
+  storage?: KV | null
+} = {}) {
   const router = useRouter()
   const supabase = createClient()
   const toast = useToast()
+  // 기존 Story 인증 경계를 그대로 쓴다 — 확인 전(checking) · 바뀜(changed)에는 개인 보관분을 읽지도 쓰지도 제출하지도 않는다.
+  const { guard, status: authStatus } = useStoryAuthGuard(viewerId, authSource)
+  const owner = viewerId && authStatus === 'same' ? ownerTag(viewerId) : null
+  const kv = (): KV | null => (storage === undefined ? browserKV() : storage)
+  /** 시작 · 이어서 하기 요청 세대 — 늦게 온 문항 조회가 더 새 선택을 덮지 않는다. */
+  const req = useRef(0)
 
   const [phase, setPhase] = useState<Phase>('start')
   /** 결과 화면의 1차 CTA(구독 + 학습 시작)가 진행 중인가 — 이중 제출 방지. */
   const [starting, setStarting] = useState(false)
-  /** 보관된 진행 — 시작 화면에서 "이어서 하기" 로 제시한다. 없으면 null. */
-  const [saved, setSaved] = useState<SavedProgress | null>(null)
+  /** 보관된 진행 — 시작 화면에서 "이어서 하기" 로 제시한다. 없으면 null. 본인 · 확인된 신원일 때만 채운다. */
+  const [saved, setSaved] = useState<ProgressRecord | null>(null)
+  /** 이어서 할 수 없는 이유(문항판이 바뀜 등) — 섞지 않고 말한 뒤 새 시작을 고르게 한다. */
+  const [resumeBlocked, setResumeBlocked] = useState<{ text: string; testId: string | null } | null>(null)
+  /** 이번 화면에서 답한 최신 응답(본인 · 시험 · 문항판 결속) — 저장이 실패했어도 이어서 하기는 이것을 먼저 쓴다 */
+  const memProgress = useRef<ProgressRecord | null>(null)
+  /** 옛 형식 보관분이 있다 — 알리기만 한다(이어 받기 · 지우기 없음). */
+  const [legacy, setLegacy] = useState(false)
+  /** 마지막 보관이 성공했는가 — 실패하면 「보관됨」을 약속하지 않는다. */
+  const [storeOk, setStoreOk] = useState(true)
+  /** 제출 묶음(다시 제출용) */
+  const [lastCtx, setLastCtx] = useState<SubmitCtx | null>(null)
   /** 이어서 하기로 문항을 다시 받는 중 — 버튼 이중 클릭 방지. */
   const [resuming, setResuming] = useState(false)
   const [tests, setTests] = useState<TestInfo[]>([])
@@ -299,6 +311,12 @@ export function DiagnosticClient() {
       if (data) setLevels(data as LevelDef[])
     })()
   }, [supabase])
+
+  // 개인 진행이 가려지는 동안(확인 중 · 바뀜) 레벨 안내 모달을 닫는다 — 모달의 「내 레벨」 강조가 이전 계정 것으로 남지 않게
+  const personalVisible = viewerId === null || authStatus === 'same'
+  useEffect(() => {
+    if (!personalVisible) setLevelGuideOpen(false)
+  }, [personalVisible])
 
   // 팝업 Esc 닫기 (유형 안내 + 레벨 안내 공통)
   useEffect(() => {
@@ -335,9 +353,6 @@ export function DiagnosticClient() {
         return
       }
       setTests((testsData ?? []) as TestInfo[])
-      // 보관된 진행이 있으면 시작 화면에서 "이어서 하기" 로 제시한다(자동으로 끌어다
-      // 이어 붙이지 않는다 — 어제 하다 만 것을 오늘 말없이 계속하면 결과가 뒤섞인다).
-      setSaved(readProgress())
 
       if (userData.user?.id) {
         const { data: snap } = await supabase
@@ -352,87 +367,229 @@ export function DiagnosticClient() {
     })()
   }, [phase, supabase])
 
+  // 보관된 진행 — 본인 신원이 확인된(same) 뒤에만 읽는다. 자동으로 이어 붙이지 않고 "이어서 하기" 로 제시한다.
+  //   신원이 바뀌거나 확인 전이면 보이지 않는다. 옛 형식은 알리기만 한다.
+  useEffect(() => {
+    if (phase !== 'start') return
+    if (!owner) {
+      setSaved(null)
+      setLegacy(false)
+      return
+    }
+    const store = kv()
+    const r = readProgress(store, owner, now())
+    // 저장소보다 이번 화면의 메모리 응답이 최신이다(저장 실패 · 늦은 쓰기) — 결속이 맞는 메모리를 먼저 쓴다
+    const pick = pickResumeSource(memProgress.current, r.kind === 'ok' ? r.rec : null, owner)
+    setSaved(pick)
+    setLegacy(!pick && hasLegacyProgress(store, now()))
+    if (!pick && r.kind === 'invalid') setResumeBlocked({ text: RESUME_REASON_TEXT.invalid, testId: null })
+    // 만료도 조용히 숨기지 않는다 — 이유와 「새로 시작」을 보인다
+    if (!pick && r.kind === 'expired') setResumeBlocked({ text: RESUME_REASON_TEXT.expired, testId: r.testId })
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- kv · now 는 주입 값(렌더마다 같은 원천)
+  }, [phase, owner])
+
   /** 문항 목록 — 시작과 이어서 하기가 같은 쿼리를 쓴다(둘이 갈라지면 이어붙일 수 없다). */
-  async function fetchQuestions(testId: string): Promise<Question[] | null> {
+  async function fetchQuestions(testId: string): Promise<{ data: Question[] } | { err: string }> {
     const { data, error: qErr } = await supabase
       .from('vrl_diagnostic_questions')
       .select('id, word, target_v_level, target_track_level, display_order')
       .eq('test_id', testId)
       .order('display_order', { ascending: true })
-    if (qErr || !data) {
-      setError(qErr?.message ?? '문항을 불러올 수 없어요')
-      return null
-    }
-    return data as Question[]
+    if (qErr || !data) return { err: qErr?.message ?? '문항을 불러올 수 없어요' }
+    return { data: data as Question[] }
   }
 
+  /** 요청이 아직 유효한가 — 더 새 시작 · 이어서 하기가 없었고, 로그인 화면이면 신원이 그대로다. */
+  const stillMine = (my: number, token: number) => acceptFetch(my, req.current, viewerId === null || guard.isCurrent(token))
+  /** 제출 진행 중 — 같은 묶음을 두 번 보내지 않는다 */
+  const submittingReq = useRef<number | null>(null)
+  /** 새 시작의 문항 조회가 진행 중(그 요청 세대) — 그동안 진행 화면의 답 단추를 잠근다(이전 진단 문항에 답해 새 시험으로 보관되지 않게) */
+  const [startPending, setStartPending] = useState<number | null>(null)
+  /** 답 단추 잠김 — 잠근 시작 요청이 **지금 세대**일 때만. 재개 · 다른 시작이 대체하면 저절로 풀린다 */
+  const startLocked = answerLocked(startPending, req.current)
+  /** 완답 확인 화면 잠금 = 새 시작 조회 잠금과 같다(「처음부터 새로 풀기」가 그 조회를 연다). 그 조회가 끝나거나 대체되면 풀린다 */
+  const reviewLocked = startLocked
+
   async function startTest(test: TestInfo) {
+    const my = ++req.current
+    const token = guard.token()
+    // 진행 중이던 이어서 하기는 이 시작이 대체한다 — 그 요청의 finally 는 세대가 달라 resuming 을 풀지 않는다
+    setResuming(false)
     setError(null)
+    setResumeBlocked(null)
+    setStartPending(my)
+    // selectedTest · questions · responses 는 이 요청이 받아들여질 때 **한 묶음으로** 바꾼다 —
+    //   먼저 selectedTest 만 바꾸면, 조회가 버려졌을 때 이전 진단의 문항 · 답이 새 시험 이름으로 보이고 보관된다
+    let got: Awaited<ReturnType<typeof fetchQuestions>>
+    try {
+      got = await fetchQuestions(test.id)
+    } finally {
+      if (my === req.current) setStartPending(null)
+    }
+    if (!stillMine(my, token)) return
+    if ('err' in got) {
+      setError(got.err)
+      return
+    }
+    const data = got.data
     setSelectedTest(test)
-    const data = await fetchQuestions(test.id)
-    if (!data) return
-    // 새로 시작하면 보관된 진행은 버린다 — 두 진단의 답이 섞이면 안 된다.
-    clearProgress()
+    // 새로 시작하면 본인 보관분은 버린다 — 두 진단의 답이 섞이면 안 된다. 옛 형식 · 다른 계정 보관분은 건드리지 않는다.
+    if (owner) clearProgress(kv(), owner)
+    memProgress.current = null
     setSaved(null)
+    setLastCtx(null)
+    setStoreOk(true)
     setQuestions(data)
     setCurrentIdx(0)
     setResponses([])
     setPhase('question')
   }
 
-  /** 보관된 진행을 이어서 푼다 — 답한 수만큼 건너뛰고 그 다음 문항부터. */
-  async function resumeTest(progress: SavedProgress) {
-    if (resuming) return
+  /**
+   * 보관된 진행을 이어서 푼다 — 같은 진단 · 같은 문항판에서 끊김 없이 답한 접두 다음 문항부터.
+   * 문항판이 바뀌었거나 순서 · 중복이 어긋나면 섞지 않고 이유를 말한다(새 시작은 학습자가 고른다).
+   * 모든 문항에 답한 보관분이어도 **저절로 제출하지 않는다** — 확인 화면에서 명시적으로 제출한다.
+   */
+  async function resumeTest(progress: ProgressRecord) {
+    if (resuming || !owner || progress.owner !== owner) return
+    const my = ++req.current
+    const token = guard.token()
+    setStartPending(null)
     setResuming(true)
     try {
+      // 시작 화면에서 읽은 뒤 시간이 흘렀을 수 있다 — 이어서 하는 순간 주입 시각으로 다시 잰다
+      if (now() - progress.savedAt > PROGRESS_TTL_MS) {
+        setSaved(null)
+        setResumeBlocked({ text: RESUME_REASON_TEXT.expired, testId: progress.testId })
+        return
+      }
       const test = tests.find((t) => t.id === progress.testId)
       if (!test) {
-        // 진단 자체가 사라졌다(비공개 전환 등) — 보관분은 쓸 데가 없다.
-        clearProgress()
-        setSaved(null)
+        // 진단 자체가 사라졌다(비공개 전환 등) — 보관분은 지우지 않고 이유만 말한다.
+        setResumeBlocked({ text: RESUME_REASON_TEXT.test, testId: null })
         return
       }
       setError(null)
-      setSelectedTest(test)
-      const data = await fetchQuestions(test.id)
-      if (!data) return
-      // 문항이 바뀌었을 수 있다 — 지금 목록에 있는 답만 남긴다(없는 문항 id 를 제출하면 분석이 틀어진다).
-      const ids = new Set(data.map((q) => q.id))
-      const kept = progress.responses.filter((r) => ids.has(r.question_id))
-      setQuestions(data)
-      setResponses(kept)
-      if (kept.length >= data.length) {
-        setCurrentIdx(Math.max(0, data.length - 1))
-        void submit(kept)
+      const got = await fetchQuestions(test.id)
+      if (!stillMine(my, token)) return
+      if ('err' in got) {
+        setError(got.err)
         return
       }
-      setCurrentIdx(kept.length)
+      const data = got.data
+      const plan = planResume(progress, test.id, data)
+      if (!plan.ok) {
+        setResumeBlocked({ text: RESUME_REASON_TEXT[plan.reason], testId: test.id })
+        return
+      }
+      setResumeBlocked(null)
+      setSelectedTest(test)
+      setQuestions(data)
+      setResponses(plan.responses)
+      memProgress.current = { v: 2, owner, testId: test.id, sig: questionSig(data), responses: plan.responses.map((x) => ({ ...x })), savedAt: progress.savedAt }
+      setLastCtx(null)
+      if (plan.complete) {
+        setCurrentIdx(Math.max(0, data.length - 1))
+        setPhase('review')
+        return
+      }
+      setCurrentIdx(resumeNextIndex(plan) ?? 0)
       setPhase('question')
     } finally {
-      setResuming(false)
+      if (my === req.current) setResuming(false)
     }
   }
 
   function handleAnswer(knew: boolean) {
     const q = questions[currentIdx]
-    if (!q) return
+    if (!q || !selectedTest) return
+    if (startLocked) return
+    if (viewerId !== null && authStatus !== 'same') return
     const next: Response[] = [...responses, { question_id: q.id, knew }]
     setResponses(next)
     // ⚠️ **답할 때마다** 보관한다. 마지막에 한 번 저장하면 잃는 경우가 정확히 유실 사례다.
-    if (selectedTest) writeProgress(selectedTest.id, next)
-    if (currentIdx + 1 >= questions.length) void submit(next)
+    //   본인 신원이 확인된 경우에만 · 이 문항판 서명과 함께. 실패하면 「보관됨」 문구를 거둔다.
+    if (owner) {
+      const rec = { owner, testId: selectedTest.id, sig: questionSig(questions), responses: next }
+      memProgress.current = { v: 2, ...rec, savedAt: now() }
+      setStoreOk(writeProgress(kv(), rec, now()))
+    }
+    if (currentIdx + 1 >= questions.length) void submit({ test: selectedTest, questions, responses: next, token: guard.token(), owner: viewerId, req: req.current })
     else setCurrentIdx(currentIdx + 1)
   }
 
-  async function submit(finalResponses: Response[]) {
-    if (!selectedTest) return
+  async function submit(ctx: SubmitCtx) {
+    const { questions: qs, responses: finalResponses } = ctx
+    // 판정은 순수 함수(canSubmit) — 시작 · 재개 요청 세대 · 묶음 owner · 인증 세대 · 완답 · 진행 중 여부를 한 곳에서 본다
+    const block = canSubmit({
+      ctxReq: ctx.req,
+      curReq: req.current,
+      ctxOwner: ctx.owner,
+      viewerId,
+      authOk: viewerId === null || guard.isCurrent(ctx.token),
+      complete: completeFor(finalResponses, qs),
+      // 같은 세대 안의 진행 중 제출만 막는다 — 이전 세대 제출이 대기 중이어도 새 세대 제출은 막히지 않는다
+      busy: answerLocked(submittingReq.current, req.current),
+    })
+    if (block === 'stale' || block === 'busy') return
+    setLastCtx(ctx)
+    if (block === 'owner' || block === 'auth') {
+      setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
+      return
+    }
+    if (block === 'incomplete') {
+      setError('답이 지금 문항과 맞지 않아 제출하지 않았어요. 처음부터 다시 풀어 주세요.')
+      return
+    }
+    submittingReq.current = ctx.req
+    try {
+      await submitChecked(ctx)
+    } finally {
+      // 화면의 제출 세대(submittingReq)가 아직 이 제출일 때만 정리한다(answerLocked 와 같은 세대 규칙) —
+      //   더 새 세대의 제출이 화면을 맡았으면 이 늦은 finally 는 busy 도 phase 도 건드리지 않는다
+      const mine = answerLocked(submittingReq.current, ctx.req)
+      if (mine) submittingReq.current = null
+      // 새 시작 · 재개가 이 제출을 대체했는데 그 요청이 화면을 아직 못 바꿨으면(예: 신원 확인 중이라 버려짐)
+      //   「결과 분석 중」에 갇히지 않게 시작 화면으로 돌린다
+      if (mine && !acceptFetch(ctx.req, req.current, true)) setPhase((cur) => (cur === 'submitting' ? 'start' : cur))
+    }
+  }
+
+  async function submitChecked(ctx: SubmitCtx) {
+    const { test: selectedTest, questions: qs, responses: finalResponses } = ctx
+    /** 기다린 뒤마다 — 새 시작 · 재개가 이 제출을 대체했으면 조용히 그만둔다(새 화면을 덮지 않는다) */
+    const replaced = () => !acceptFetch(ctx.req, req.current, true)
     setPhase('submitting')
     setError(null)
 
+    // 제출 직전 문항판을 다시 받아 시작 · 재개 때 고정한 판(ctx.questions)의 서명과 맞춘다 —
+    //   그 사이 서버의 본문 · 난도 · 순서가 바뀌었으면 옛 판의 답을 새 판 결과로 보내지 않는다.
+    const fresh = await fetchQuestions(selectedTest.id)
+    if (replaced()) return
+    if (viewerId !== null && !guard.isCurrent(ctx.token)) {
+      setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
+      return
+    }
+    if ('err' in fresh) {
+      setError(fresh.err)
+      return
+    }
+    if (questionSig(fresh.data) !== questionSig(qs)) {
+      setError('그 사이 진단 문항이 바뀌어 제출하지 않았어요. 처음부터 다시 풀어 주세요.')
+      return
+    }
+
     const { data: userData } = await supabase.auth.getUser()
+    if (replaced()) return
     const userId = userData.user?.id
     if (!userId) {
       setError('로그인이 필요해요')
+      return
+    }
+    // 제출 경계 — 지금 요청의 계정이 이 화면의 주인(서버 viewer)과 다르면 거부한다.
+    //   클라이언트가 고른 owner 를 권한 근거로 쓰지 않고, 같은 제출 코드 안에서 getUser 와 맞춘다.
+    if (!submitOwnerOk(ctx.owner, viewerId, userId) || !guard.isCurrent(ctx.token)) {
+      setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
       return
     }
 
@@ -446,6 +603,13 @@ export function DiagnosticClient() {
       .select('id')
       .single()
 
+    const authGone = () => {
+      if (replaced()) return true
+      if (guard.isCurrent(ctx.token)) return false
+      setError('로그인한 계정이 바뀌어 결과 반영을 멈췄어요. 새로 고침해 주세요.')
+      return true
+    }
+    if (authGone()) return
     if (insertErr || !insertData) {
       setError(insertErr?.message ?? '결과 저장 실패')
       return
@@ -457,6 +621,7 @@ export function DiagnosticClient() {
     //   빠졌고, 하마터면 진단 3종의 EXECUTE 를 회수해 이 흐름을 조용히 죽일 뻔했다.
     //   회귀 락: src/lib/auth/__tests__/rpc-call-sites.test.ts
     const p = { p_result_id: insertData.id }
+    if (authGone()) return
     const { data: applyData, error: applyErr } =
       selectedTest.test_type === 'track'
         ? await supabase.rpc('analyze_and_apply_track_diagnostic_result', p)
@@ -464,6 +629,8 @@ export function DiagnosticClient() {
           ? await supabase.rpc('analyze_and_apply_comprehensive_diagnostic_result', p)
           : await supabase.rpc('analyze_and_apply_diagnostic_result', p)
 
+    // 오류도 반영 전에 세대 · 인증을 본다 — 이전 제출의 분석 실패가 새 진단 화면을 덮지 않게
+    if (authGone()) return
     if (applyErr) {
       setError(applyErr.message)
       return
@@ -475,26 +642,38 @@ export function DiagnosticClient() {
       | null
     const lvl =
       selectedTest.test_type === 'track' ? r?.estimated_track_level : r?.estimated_v_level
+    if (authGone()) return
     setEstimatedLevel(lvl ?? null)
     setConfidence(r?.confidence ?? null)
 
-    // 결과가 DB 에 남았으므로 보관분은 역할이 끝났다 — 남겨 두면 다음 방문에
+    // 결과가 DB 에 남았으므로 본인 보관분은 역할이 끝났다 — 남겨 두면 다음 방문에
     // 이미 끝낸 진단을 "이어서 하기" 로 권하게 된다.
-    clearProgress()
+    clearProgress(kv(), ownerTag(userId))
+    memProgress.current = null
     setSaved(null)
 
+    // 추천을 기다리는 사이 다른 진단 시작 · 인증 재확인이 있었으면 이 결과로 새 화면을 덮지 않는다
+    //   authGone = 같은 요청 세대(acceptFetch) · 같은 인증 세대 — 대체됐으면 조용히, 인증이 바뀌었으면 안내하고 멈춘다
     if (selectedTest.test_type === 'base_v_level' || selectedTest.test_type === 'comprehensive') {
-      await fetchRecommendations(userId, [])
+      if (authGone()) return
+      const recs = await loadRecommendations(userId, [])
+      if (authGone()) return
+      setRecommendations(recs)
     }
+    if (authGone()) return
     setPhase('results')
   }
 
-  async function fetchRecommendations(userId: string, selectedInterests: string[]) {
+  async function loadRecommendations(userId: string, selectedInterests: string[]): Promise<Recommendation[]> {
     const { data } = await supabase.rpc('recommend_word_sets_for_user', {
       p_user_id: userId,
       p_interests: selectedInterests.length > 0 ? selectedInterests : undefined,
     })
-    setRecommendations((data ?? []) as Recommendation[])
+    return (data ?? []) as Recommendation[]
+  }
+
+  async function fetchRecommendations(userId: string, selectedInterests: string[]) {
+    setRecommendations(await loadRecommendations(userId, selectedInterests))
   }
 
   /**
@@ -549,22 +728,41 @@ export function DiagnosticClient() {
   }
 
   // ── Render ──
-  if (error) {
+  // 개인 진행(문항 위치 · 응답 · 보관분 · 지난 결과 · 오류 속 응답 수)은 **본인 신원이 확인된(same) 동안만** 그린다.
+  //   확인 중(checking — 첫 진입 · 뒤로/앞으로 캐시 복귀)이나 바뀜(changed)에는 공개 시작 화면(설명 · 목록)만 남기고 안내를 얹는다.
+  //   비로그인(viewer 없음)은 원래대로 메모리 진행만 — 보관분이 없다.
+  const personalOk = viewerId === null || authStatus === 'same'
+  const view: Phase = personalOk ? phase : 'start'
+  const authNotice =
+    authStatus === 'changed' ? (
+      <div role="status" className="mb-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4" data-testid="diag-auth-changed">
+        <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">로그인한 계정이 바뀌어 진단을 멈췄어요</p>
+        <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+          진행 중이던 답은 이전 계정의 것이라 보이거나 제출하지 않아요. 새로 고침하면 지금 계정으로 다시 시작할 수 있어요.
+        </p>
+      </div>
+    ) : viewerId !== null && authStatus === 'checking' && phase !== 'start' ? (
+      <p role="status" className="mb-6 break-keep rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 font-body text-[13px] text-[var(--t2)]" data-testid="diag-auth-checking">
+        로그인 상태를 다시 확인하는 중이에요. 확인되면 진단을 이어서 보여 드려요.
+      </p>
+    ) : null
+
+  if (error && personalOk) {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="rounded-[var(--r-lg)] border border-[var(--bde)] bg-[var(--error-light)] p-6">
           <p className="break-keep font-body text-[var(--error-ink)]">{error}</p>
           {/* ⚠️ 제출이 실패했을 때 유일한 버튼이 「처음으로」였다 — 40문항을 처음부터 다시 풀라는
               말이다. 답은 아직 메모리에도 보관함에도 살아 있으므로 **같은 답으로 다시 제출**한다. */}
-          {selectedTest && responses.length > 0 && (
+          {lastCtx && lastCtx.responses.length > 0 && (viewerId === null || authStatus === 'same') && (
             <>
               <p className="mt-2 break-keep font-body text-[13px] text-[var(--t2)]">
-                답한 {responses.length}문항은 그대로 남아 있어요. 다시 보내볼까요?
+                답한 {lastCtx.responses.length}문항은 그대로 남아 있어요. 다시 보내볼까요?
               </p>
               <button
                 onClick={() => {
                   setError(null)
-                  void submit(responses)
+                  void submit({ ...lastCtx, token: guard.token() })
                 }}
                 className="mt-3 inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
               >
@@ -576,7 +774,6 @@ export function DiagnosticClient() {
             <button
               onClick={() => {
                 setError(null)
-                setSaved(readProgress())
                 setPhase('start')
               }}
               className="inline-flex min-h-[44px] items-center font-display text-[12px] font-[600] text-[var(--p)] underline transition-colors duration-[var(--dur-normal)] hover:text-[var(--p-hover)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
@@ -589,7 +786,7 @@ export function DiagnosticClient() {
     )
   }
 
-  if (phase === 'start') {
+  if (view === 'start') {
     const primary =
       tests.find((t) => presoKey(t) === 'base_v_level') ??
       tests.find((t) => TEST_PRESENTATION[presoKey(t)]?.recommended) ??
@@ -692,7 +889,46 @@ export function DiagnosticClient() {
         </header>
 
         {/* 하다 만 진단 — 보관된 답을 되돌려 준다. 자동으로 이어 붙이지 않고 고르게 한다. */}
-        {saved && tests.some((t) => t.id === saved.testId) && (
+        {authNotice}
+
+        {owner && resumeBlocked && (
+          <div role="status" className="mb-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4" data-testid="diag-resume-blocked">
+            <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">이어서 할 수 없어요</p>
+            <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+              {resumeBlocked.text} 보관된 답은 지금 문항과 섞지 않아요.
+            </p>
+            <div className="mt-3 flex flex-col gap-2 sm:flex-row">
+              {resumeBlocked.testId && tests.some((t) => t.id === resumeBlocked.testId) && (
+                <button
+                  type="button"
+                  data-testid="diag-restart"
+                  onClick={() => {
+                    const t = tests.find((x) => x.id === resumeBlocked.testId)
+                    if (t) void startTest(t)
+                  }}
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+                >
+                  이 진단 처음부터 새로 시작
+                </button>
+              )}
+              <button
+                type="button"
+                onClick={() => setResumeBlocked(null)}
+                className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+              >
+                닫기
+              </button>
+            </div>
+          </div>
+        )}
+
+        {owner && legacy && !saved && (
+          <p role="status" className="mb-6 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[13px] leading-relaxed text-[var(--t2)]" data-testid="diag-legacy">
+            {RESUME_REASON_TEXT.legacy} 아래에서 진단을 새로 시작할 수 있어요.
+          </p>
+        )}
+
+        {owner && saved && saved.owner === owner && !resumeBlocked && tests.some((t) => t.id === saved.testId) && (
           <div className="mb-6 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--p-light)] p-4">
             <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">
               하다 만 진단이 있어요 — {saved.responses.length}문항까지 답했어요
@@ -716,7 +952,8 @@ export function DiagnosticClient() {
               </button>
               <button
                 onClick={() => {
-                  clearProgress()
+                  if (owner) clearProgress(kv(), owner)
+                  memProgress.current = null
                   setSaved(null)
                 }}
                 disabled={resuming}
@@ -729,7 +966,7 @@ export function DiagnosticClient() {
         )}
 
         {/* 지난 결과 — 컴팩트 요약 */}
-        {lastLevel && (
+        {personalOk && lastLevel && (
           <div className="mb-6 flex items-center justify-between rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
             <span className="flex items-center gap-1 font-body text-[13px] text-[var(--t2)]">
               지난 결과{' '}
@@ -787,7 +1024,7 @@ export function DiagnosticClient() {
         {levelGuideOpen && (
           <LevelGuideModal
             levels={levels}
-            currentLevel={lastLevel?.level ?? null}
+            currentLevel={personalOk ? (lastLevel?.level ?? null) : null}
             isTrack={false}
             onClose={() => setLevelGuideOpen(false)}
           />
@@ -796,7 +1033,42 @@ export function DiagnosticClient() {
     )
   }
 
-  if (phase === 'submitting') {
+  if (view === 'review' && selectedTest) {
+    return (
+      <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8" data-testid="diag-review">
+        <div className="rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--p-light)] p-6">
+          <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">모든 문항에 답한 진단이에요 — {responses.length}문항</p>
+          <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+            보관된 답을 그대로 제출할까요? 제출하기 전에는 결과가 저장되지 않아요.
+          </p>
+          <div className="mt-4 flex flex-col gap-2 sm:flex-row">
+            <button
+              type="button"
+              data-testid="diag-review-submit"
+              disabled={reviewLocked}
+              onClick={() => void submit({ test: selectedTest, questions, responses, token: guard.token(), owner: viewerId, req: req.current })}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              이 답으로 제출
+            </button>
+            <button
+              type="button"
+              disabled={reviewLocked}
+              onClick={() => {
+                // startTest 가 세대를 올리며 동기적으로 startPending 을 잠근다 — 두 단추가 즉시 잠기고, 조회가 끝나거나 대체되면 풀린다
+                void startTest(selectedTest)
+              }}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-60"
+            >
+              {reviewLocked ? '새로 불러오는 중…' : '처음부터 새로 풀기'}
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  if (view === 'submitting') {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-6 py-8 text-center">
         <Loader2 size={32} className="mx-auto animate-spin text-[var(--p)]" />
@@ -805,7 +1077,7 @@ export function DiagnosticClient() {
     )
   }
 
-  if (phase === 'question') {
+  if (view === 'question') {
     const q = questions[currentIdx]
     if (!q) return null
     const progress = ((currentIdx + 1) / questions.length) * 100
@@ -817,18 +1089,15 @@ export function DiagnosticClient() {
           <div className="mb-3 flex items-center justify-between gap-2">
             <button
               type="button"
-              onClick={() => {
-                setSaved(readProgress())
-                setPhase('start')
-              }}
-              aria-label="진단 멈추기 — 답한 문항은 보관되고 나중에 이어서 할 수 있어요"
+              onClick={() => setPhase('start')}
+              aria-label={owner && storeOk ? '진단 멈추기 — 답한 문항은 보관되고 나중에 이어서 할 수 있어요' : '진단 멈추기 — 이 브라우저에 답을 보관하지 못해 멈추면 답이 사라져요'}
               className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] px-2 font-display text-[12px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
             >
               ← 멈추기
             </button>
             {responses.length > 0 && (
-              <span className="break-keep font-body text-[11px] text-[var(--t2)]">
-                여기까지 답한 {responses.length}문항은 저장돼요
+              <span className="break-keep font-body text-[11px] text-[var(--t2)]" data-testid="diag-store-note">
+                {owner && storeOk ? `여기까지 답한 ${responses.length}문항은 이 브라우저에 보관돼요` : '이 브라우저에 답을 보관하지 못했어요 — 멈추면 이어서 할 수 없어요'}
               </span>
             )}
           </div>
@@ -855,12 +1124,14 @@ export function DiagnosticClient() {
 
         <div className="grid grid-cols-2 gap-4">
           <button
+            disabled={startLocked}
             onClick={() => handleAnswer(false)}
             className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border-2 border-[var(--bd)] bg-[var(--bg)] px-6 py-4 font-display text-[16px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--t3)] hover:bg-[var(--bg2)] active:scale-[0.97]"
           >
             <XCircle size={20} /> 모릅니다
           </button>
           <button
+            disabled={startLocked}
             onClick={() => handleAnswer(true)}
             className="flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:scale-[0.97]"
           >
