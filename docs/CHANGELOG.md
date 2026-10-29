@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(pairflip): 결과 「학습한 단어」에서 확실히 다시 시도한 짝(실제 훅 attempts≥3)만 뜻을 가린 채 「뜻 확인」으로 떠올린 뒤 확인(기록·점수·SRS 불변). Codex 독립 리뷰 P1 보정 후 root APPROVE (T-0218 6c564e220)
 - fix(csat): 기출 완료 화면 「다시 보기」 예약 뒤 키보드 초점을 예약 결과 표시로 1회 인계(버튼이 끝까지 초점을 가진 경우만, 사용자가 옮긴 초점은 유지, role=status). Codex review.mjs 독립 리뷰 2회 보정 후 NO_FINDINGS (T-0217 f9a2a9f5d)
 - fix(csat): 기출 분석 완료 화면 「다시 보기」 표시를 실제 예약 간격(내일·3일·7일)과 일치 — 한 값으로 표시·예약 결속, 규칙 불변. Codex review.mjs 독립 리뷰 NO_FINDINGS, 실제 route NOT_RUN (T-0216 fe57a0384)
 - feat(library): 서가 기사 카드에 「연습 있음 · N문항」(article_practice_availability() 요청당 1회, 실패·없음 구분, 로그아웃 표시 없음) · 두 함수 허용 목록 동일성 회귀를 저장소 migration 정본으로. Codex review.mjs 독립 리뷰 NO_FINDINGS, 실제 로그인 NOT_RUN (T-0215 dae6713bf)
