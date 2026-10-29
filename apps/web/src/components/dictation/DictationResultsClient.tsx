@@ -26,6 +26,7 @@ import {
   Leaf,
   Loader2,
   RotateCw,
+  Search,
   ListRestart,
   Sprout,
   Square,
@@ -43,6 +44,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import type { WordResult } from '@/lib/dictation/types'
 import { dictationFrom, dictationRetryHref, type DictationRetrySource } from '@/lib/dictation/return'
+import { wordVaultSearchHref } from '@/lib/dictation/word-vault-link'
 import { MISSED_RETRY_HREF, missedRetryPayload, stashMissedRetry } from '@/lib/dictation/retry-missed'
 
 const DICTATION_ACCENT = '#0EA5E9'
@@ -285,6 +287,31 @@ export function DictationResultsClient() {
                 맞힌 {agg.hits.length}개는 복습 간격이 늘었고, 놓친 {agg.misses.length}개는 곧
                 다시 만나게 됩니다.
               </p>
+              {/* 놓친 낱말 → 내 단어장 검색(DIC-VOC-01) — 주인 확인(same)일 때만. 검색일 뿐 저장·복습 기한을 약속하지 않는다. */}
+              {reviewEnabled && agg.misses.length > 0 && (
+                <div data-testid="missed-word-vault">
+                  <p className="font-display text-[11px] font-[600] text-[var(--t2)]">내 단어장에서 이 낱말 찾기</p>
+                  <ul className="mt-1.5 flex flex-wrap gap-2">
+                    {agg.misses.map((w) => {
+                      const href = wordVaultSearchHref(w)
+                      if (!href) return null
+                      return (
+                        <li key={`v-${w}`}>
+                          <Link
+                            href={href}
+                            data-testid="missed-word-vault-link"
+                            aria-label={`내 단어장에서 ${w} 찾기`}
+                            className="inline-flex min-h-[44px] max-w-full items-center gap-1 break-all rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-english text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                          >
+                            <Search size={12} aria-hidden />
+                            {w}
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </div>
+              )}
             </>
           )}
         </article>
