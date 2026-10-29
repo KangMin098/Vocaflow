@@ -213,8 +213,8 @@ function WordBlitzRound({
   );
 }
 
-/** 끝화면 「단어 목록」 — 범위(set·text)가 있으면 그 출처의 단어, 없으면 단어장 허브. 목적지를 사실대로 부른다. */
-function wordBlitzWordsLink(scope: Pick<WordScope, 'set' | 'text'>): { href: string; label: string } {
+/** 끝화면 「단어 목록」 — 범위(set·text)가 있으면 그 출처의 단어(검증된 from 을 이어 닫기/Esc 가 읽던 글로), 없으면 단어장 허브. 목적지를 사실대로 부른다. */
+function wordBlitzWordsLink(scope: Pick<WordScope, 'set' | 'text' | 'from'>): { href: string; label: string } {
   const href = scopeWordsHref(scope);
   return { href, label: href === '/wordvault' ? '내 단어장으로' : '이 자료의 단어 보기' };
 }
