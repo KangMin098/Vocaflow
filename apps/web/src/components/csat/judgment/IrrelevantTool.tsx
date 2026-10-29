@@ -1,6 +1,8 @@
 // apps/web/src/components/csat/judgment/IrrelevantTool.tsx
 // 무관한 문장 판단 도구 — 학습자가 중심 화제를 고정하고, ①~⑤ 각 문장의 앞 이음매·뒤 이음매를 근거 종류와 함께 표시하고,
 // 문장을 빼고 앞뒤를 이어 읽어 다리가 이어지는지 대조한다. 해설은 학습자가 요청할 때만 받는다.
+// U02-COMPARE-01 — 성공한 해설 요청을 보낸 그 순간의 표시를 이 화면 안에만 보존해, 해설 뒤에 고친 지금 표시와 같은 선지 · 이음매로 나란히 본다.
+// 다른 경로의 사전 노출은 모르므로 「정답 보기 전」 · 「독립 수행」이라 부르지 않는다. 저장 · 채점 · 기록 없음.
 'use client'
 
 import { useMemo, useState, type KeyboardEvent } from 'react'
@@ -23,6 +25,7 @@ import {
   type Seam,
   type Slot,
   type ToolState,
+  type SeamMark,
 } from '@/lib/csat/judgment/r-irrelevant'
 import type { EvidenceUnit, JudgmentToolProps, RevealData } from '@/lib/csat/judgment/types'
 import { EvidencePassage } from './EvidencePassage'
@@ -43,6 +46,13 @@ function IrrelevantToolBody({ item, reveal }: JudgmentToolProps) {
   const [seamFocus, setSeamFocus] = useState<Seam | null>(null)
   const [refFocus, setRefFocus] = useState<string[] | null>(null)
   const { state: rv, request } = useReveal(item, reveal)
+  // 해설을 요청한 순간의 표시. 로딩 중 중복 누름은 useReveal 이 버리므로 여기서도 덮지 않는다.
+  // 문항 · 판본이 바뀌면 바깥 key 로 재마운트되어 같이 사라진다. 공개 성공(shown)일 때만 비교에 쓴다.
+  const [asked, setAsked] = useState<ToolState | null>(null)
+  const ask = () => {
+    setAsked((prev) => snapshotOnRequest(prev, state, rv.status))
+    void request()
+  }
 
   const byId = useMemo(() => new Map(item.units.map((u) => [u.id, u])), [item.units])
   const slot = slots.find((x) => x.n === active) ?? slots[0]
@@ -198,7 +208,7 @@ function IrrelevantToolBody({ item, reveal }: JudgmentToolProps) {
             {rv.status !== 'shown' && (
               <>
                 <p className={js.note}>먼저 풀지 않아도 볼 수 있다. 해설을 열면 지금 표시와 해설 근거를 문장별로 나란히 본다.</p>
-                <button type="button" className={`${js.button} ${js.primary}`} onClick={() => void request()} aria-disabled={rv.status === 'loading'} data-reveal-btn>
+                <button type="button" className={`${js.button} ${js.primary}`} onClick={ask} aria-disabled={rv.status === 'loading'} data-reveal-btn>
                   {rv.status === 'error' ? '해설 다시 불러오기' : '해설 보기'}
                 </button>
               </>
@@ -211,6 +221,7 @@ function IrrelevantToolBody({ item, reveal }: JudgmentToolProps) {
               <RevealView
                 data={shown}
                 state={state}
+                asked={asked}
                 slot={slot}
                 units={item.units}
                 active={refFocus ?? []}
@@ -287,13 +298,14 @@ function tail(t: string): string {
 function RevealView(props: {
   data: RevealData
   state: ToolState
+  asked: ToolState | null
   slot: Slot
   units: EvidenceUnit[]
   active: string[]
   onRef: (id: string) => void
   onFocusIndex: (ids: string[]) => void
 }) {
-  const { data, state, slot, units, active, onRef, onFocusIndex } = props
+  const { data, state, asked, slot, units, active, onRef, onFocusIndex } = props
   const cmp = compareWithAnswer(state, data.answer)
   const c = data.choices.find((x) => x.n === slot.n)
   const m = marksOf(state, slot.n)
@@ -316,7 +328,11 @@ function RevealView(props: {
       )}
       <div>
         <h4 className={s.h4}>{CIRCLED[slot.n - 1]} 문장 — 내 표시와 해설</h4>
-        <p className={js.note}>내 표시: 앞 {mine(m.back.verdict)}{slot.nextId ? ` · 뒤 ${mine(m.forward.verdict)} · 빼고 읽기 ${m.bridge.verdict === 'holds' ? '○ 이어짐' : m.bridge.verdict === 'breaks' ? '✕ 빈다' : '표시 없음'}` : ''}</p>
+        {asked ? (
+          <CompareTable asked={asked} now={state} slot={slot} />
+        ) : (
+          <p className={js.note}>내 표시: 앞 {mine(m.back.verdict)}{slot.nextId ? ` · 뒤 ${mine(m.forward.verdict)} · 빼고 읽기 ${m.bridge.verdict === 'holds' ? '○ 이어짐' : m.bridge.verdict === 'breaks' ? '✕ 빈다' : '표시 없음'}` : ''}</p>
+        )}
         {c && c.verdict === 'correct' && (
           <p className={s.body}><strong>왜 무관한가: </strong><RefText text={c.why_correct} units={units} active={active} onRef={onRef} /></p>
         )}
@@ -335,6 +351,61 @@ function RevealView(props: {
       {data.designIntent && (
         <p className={js.hypothesis}><RefText text={data.designIntent} units={units} active={active} onRef={onRef} /></p>
       )}
+    </div>
+  )
+}
+
+/** 해설 요청 순간의 스냅샷 — 이미 요청이 진행 중(loading)이면 그 요청의 스냅샷을 지킨다(중복 누름은 새 요청이 아니다). */
+export function snapshotOnRequest(prev: ToolState | null, current: ToolState, status: 'hidden' | 'loading' | 'shown' | 'error'): ToolState | null {
+  if (status === 'loading' || status === 'shown') return prev
+  return current
+}
+
+export type CompareRow = { key: 'suspect' | Seam; label: string; asked: string; now: string; changed: boolean }
+
+const markText = (seam: Seam, m: SeamMark): string => {
+  const v = m.verdict === 'holds' ? '○ 이어짐' : m.verdict === 'breaks' ? (seam === 'bridge' ? '✕ 빈다' : '✕ 끊김') : '표시 없음'
+  return m.cues.length ? `${v} · ${CUES.filter((c) => m.cues.includes(c)).map((c) => CUE_LABEL[c]).join('·')}` : v
+}
+
+/** 같은 선지의 같은 이음매끼리 「해설 요청 당시」 와 「지금」 을 맞댄다. 문구가 같으면 바뀌지 않은 것이다(꾸미지 않는다). */
+export function compareRows(asked: ToolState, now: ToolState, slot: Pick<Slot, 'n' | 'nextId'>): CompareRow[] {
+  const sus = (st: ToolState) => (st.suspect ? CIRCLED[st.suspect - 1] : '고르지 않음')
+  const rows: CompareRow[] = [{ key: 'suspect', label: '무관 후보', asked: sus(asked), now: sus(now), changed: false }]
+  const seams: Seam[] = slot.nextId ? ['back', 'forward', 'bridge'] : ['back']
+  const label: Record<Seam, string> = { back: `${CIRCLED[slot.n - 1]} 앞 이음매`, forward: `${CIRCLED[slot.n - 1]} 뒤 이음매`, bridge: `${CIRCLED[slot.n - 1]} 빼고 읽기` }
+  for (const seam of seams) rows.push({ key: seam, label: label[seam], asked: markText(seam, marksOf(asked, slot.n)[seam]), now: markText(seam, marksOf(now, slot.n)[seam]), changed: false })
+  for (const r of rows) r.changed = r.asked !== r.now
+  return rows
+}
+
+function CompareTable({ asked, now, slot }: { asked: ToolState; now: ToolState; slot: Slot }) {
+  const rows = compareRows(asked, now, slot)
+  const changed = rows.filter((r) => r.changed).length
+  const cell = { padding: '6px 8px', borderTop: '1px solid var(--bd)', textAlign: 'left' as const, verticalAlign: 'top' as const, overflowWrap: 'anywhere' as const }
+  return (
+    <div data-irr-compare>
+      <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13.5, tableLayout: 'fixed' }}>
+        <caption className={js.note} style={{ textAlign: 'left', captionSide: 'top' }}>
+          해설을 요청할 때의 표시와 지금 표시 — {changed === 0 ? '바꾼 것 없음' : `${changed}곳 바뀜`}
+        </caption>
+        <thead>
+          <tr>
+            <th scope="col" style={cell}>자리</th>
+            <th scope="col" style={cell}>해설 요청 당시</th>
+            <th scope="col" style={cell}>지금</th>
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((r) => (
+            <tr key={r.key} data-compare-row={r.key} data-changed={r.changed || undefined}>
+              <th scope="row" style={{ ...cell, fontWeight: 600 }}>{r.label}</th>
+              <td style={cell}>{r.asked}</td>
+              <td style={{ ...cell, fontWeight: r.changed ? 700 : 400 }}>{r.now}{r.changed ? <span data-changed-tag> · 바뀜</span> : null}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 }
