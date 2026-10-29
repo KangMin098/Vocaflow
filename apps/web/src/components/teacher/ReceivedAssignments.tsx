@@ -10,10 +10,12 @@
 
 'use client'
 
-import { BookOpen, Check, ChevronDown, Loader2 } from 'lucide-react'
+import Link from 'next/link'
+import { BookOpen, Check, ChevronDown, Loader2, Search } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { useId, useState } from 'react'
 
+import { wordVaultSearchHref } from '@/lib/dictation/word-vault-link'
 import type { ClassAssignment } from '@/lib/teacher/assignment-actions'
 import { markAssignmentCollected } from '@/lib/teacher/assignment-actions'
 
@@ -170,6 +172,20 @@ export function readReceivedWords(words: unknown): { ok: true; words: ReceivedWo
   return { ok: true, words: out }
 }
 
+/** 영어 낱말 꼴 — 글자로 시작 · 끝나고 사이에 하이픈 · 아포스트로피만(공백 · 숫자 · 기호 없음). */
+const ENGLISH_WORD = /^[A-Za-z]+(?:['-][A-Za-z]+)*$/
+
+/**
+ * 받은 낱말 → 내 단어장 검색 링크(T-0273). 기존 wordVaultSearchHref 그대로에 `from=/teacher` 복귀만 더한다.
+ * 영어 낱말 꼴이 아니면 null(링크 없음). 검색 링크일 뿐 — 저장됨 · 과제 전용 목록 · 복습 기한을 약속하지 않는다.
+ */
+export function receivedWordVaultHref(word: string): string | null {
+  const w = word.trim()
+  if (!ENGLISH_WORD.test(w)) return null
+  const href = wordVaultSearchHref(w)
+  return href ? `${href}&${new URLSearchParams({ from: '/teacher' }).toString()}` : null
+}
+
 /**
  * 단어 목록의 결속값 — 목록(순서 · 낱말 · 뜻)이 하나라도 바뀌면 달라진다. 펼침 상태를 이 값에 묶는다.
  * 짧은 문자열 해시(FNV-1a 32bit)라 key 가 목록 길이만큼 길어지지 않는다. 읽을 수 없는 값도 JSON 문자열로 구분한다.
@@ -222,6 +238,22 @@ function ReceivedWords({ words }: { words: unknown }) {
           >
             <span className="min-w-0 break-all">{w.w}</span>
             {w.m && <span className="min-w-0 break-keep text-[11.5px] text-[var(--t3)]">{w.m}</span>}
+            {(() => {
+              const href = receivedWordVaultHref(w.w)
+              if (!href) return null
+              return (
+                <Link
+                  href={href}
+                  // 누르기 전에는 아무것도 요청하지 않는다 — 담기 · 조회 호출 0
+                  prefetch={false}
+                  data-testid="received-word-vault-link"
+                  aria-label={`내 단어장에서 ${w.w.trim()} 찾기`}
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+                >
+                  <Search size={14} aria-hidden />
+                </Link>
+              )
+            })()}
           </li>
         ))}
       </ul>
