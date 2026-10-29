@@ -80,6 +80,9 @@ export interface DictationScope {
 
 const MIN_WORDS = 4
 const MAX_WORDS = 34
+/** 받아쓰기 문장 길이 규칙(단어 수) — 재시도 문장 경계 규칙(retry-missed)이 같은 값을 쓴다 */
+export const DICTATION_MIN_WORDS = MIN_WORDS
+export const DICTATION_MAX_WORDS = MAX_WORDS
 
 export function countWords(s: string): number {
   return s.split(/\s+/).filter((w) => w.length > 0).length
@@ -455,9 +458,12 @@ export async function customSourceFromSentences(
   title: string,
   rawSentences: readonly string[],
   userId: string | null,
+  /** keepAll — 이미 규칙대로 나눈 목록(재시도): 빈 문자열만 버리고 길이 필터로 거르지 않는다 */
+  opts: { keepAll?: boolean } = {},
 ): Promise<DictationSource | null> {
   const payload = { title }
-  const sentences0 = rawSentences.map((s) => s.trim()).filter(isUsableSentence)
+  const trimmed = rawSentences.map((s) => s.trim())
+  const sentences0 = opts.keepAll ? trimmed.filter((s) => s.length > 0) : trimmed.filter(isUsableSentence)
   if (sentences0.length === 0) return null
 
   let lemmas: TargetLemma[] = []

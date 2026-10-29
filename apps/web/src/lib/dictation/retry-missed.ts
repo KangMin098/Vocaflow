@@ -10,7 +10,13 @@
 // 문장은 배열 그대로 넘긴다 — 이어 붙였다 다시 쪼개면 닫는 따옴표로 끝나는 문장의 경계를 잃는다.
 
 import type { SupabaseClient } from '@supabase/supabase-js'
-import { customSourceFromSentences, isUsableSentence, type DictationSource } from './source'
+import {
+  countWords,
+  customSourceFromSentences,
+  DICTATION_MAX_WORDS,
+  DICTATION_MIN_WORDS,
+  type DictationSource,
+} from './source'
 import { splitSentences } from './text-splitter'
 
 /** 결과 화면이 이미 가진 문항 결과에서 판정에 쓰는 것만 */
@@ -33,9 +39,11 @@ export function isMissedAttempt(a: MissedAttemptInput): boolean {
 const QUOTED_BOUNDARY = /(?<=[.!?]["'”’)\]]+)\s+(?=[A-Z"'(“‘])/
 
 /**
- * 문항 하나의 정답 → 다시 받아쓸 문장들. 규칙은 하나: **나눈 조각이 모두** 기존 문장 규칙(isUsableSentence)을 통과할 때만 나눈다.
- * 하나라도 걸러지면 나누지 않고 원 문항을 그대로 한 문장으로 둔다 — 원래 시작되던 문항은 재시도에서 사라지지 않는다.
- * (원 문항 자체가 규칙 밖인 경우만 — 묶음이 너무 길어 통째로는 못 쓰는 경우 — 통과하는 조각만 남긴다.)
+ * 문항 하나의 정답 → 다시 받아쓸 문장들. 규칙표 정본: runtime/team-pilot-20261028/pb-t0221-split-rules.md (rev 1).
+ * 원칙은 **제거 0** — 원 문항의 단어를 하나도 버리지 않는다(필터는 나눌지 말지만 정한다).
+ *   ① splitSentences → 닫는 따옴표 경계로 한 번 더 나눈다
+ *   ② MIN 미만 조각은 뒤 조각과 합치고, 마지막이 MIN 미만이면 앞 단위와 합친다
+ *   ③ 합친 단위 하나라도 MAX 를 넘으면 나누지 않고 원 문항 그대로(상한을 넘는 한 문항으로 출제 — buildItems 는 길이로 거르지 않는다)
  */
 export function sentencesOfItem(expected: string): string[] {
   const whole = expected.trim()
@@ -44,14 +52,28 @@ export function sentencesOfItem(expected: string): string[] {
     .flatMap((s) => s.split(QUOTED_BOUNDARY))
     .map((s) => s.trim())
     .filter((s) => s.length > 0)
-  if (pieces.length > 1 && pieces.every(isUsableSentence)) return pieces
-  if (isUsableSentence(whole)) return [whole]
-  return pieces.filter(isUsableSentence)
+  const units: string[] = []
+  let carry = ''
+  for (const p of pieces) {
+    const cur = carry ? `${carry} ${p}` : p
+    if (countWords(cur) < DICTATION_MIN_WORDS) {
+      carry = cur
+      continue
+    }
+    units.push(cur)
+    carry = ''
+  }
+  if (carry) {
+    if (units.length > 0) units[units.length - 1] = `${units[units.length - 1]} ${carry}`
+    else units.push(carry)
+  }
+  if (units.length <= 1 || units.some((u) => countWords(u) > DICTATION_MAX_WORDS)) return [whole]
+  return units
 }
 
 /**
  * 틀림·건너뜀 문항의 정답 문장 — 문항 순서대로, 같은 문장은 한 번만.
- * 묶음 문항은 문장으로 펼친다. 기존 받아쓰기 자료 규칙(isUsableSentence)을 통과하는 것만 남긴다 — 단추의 수가 실제로 시작될 수와 같아야 한다.
+ * 묶음 문항은 sentencesOfItem 규칙으로 펼친다(제거 0). 거르지 않으므로 단추의 수 = 기본(전체·1문장)으로 시작될 수.
  */
 export function missedSentences(attempts: readonly MissedAttemptInput[]): string[] {
   const seen = new Set<string>()
@@ -123,5 +145,6 @@ export async function resolveMissedRetrySource(
 ): Promise<DictationSource | null> {
   const payload = readMissedRetry(userId)
   if (!payload) return null
-  return customSourceFromSentences(client, payload.title, payload.sentences, userId)
+  // 규칙표대로 이미 나눈 문장 — 일반 필터로 다시 거르지 않는다(상한을 넘는 한 문항도 그대로)
+  return customSourceFromSentences(client, payload.title, payload.sentences, userId, { keepAll: true })
 }

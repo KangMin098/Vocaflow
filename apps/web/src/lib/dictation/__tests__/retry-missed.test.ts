@@ -70,6 +70,66 @@ describe('틀림·건너뜀 판정', () => {
   })
 })
 
+// ── 규칙표(runtime/team-pilot-20261028/pb-t0221-split-rules.md rev 1) 전 행 ──
+const words = (s: string) => new Set(s.split(/\s+/).filter(Boolean))
+const sameWords = (input: string[], output: string[]) => {
+  const i = words(input.join(' ')), o = words(output.join(' '))
+  return i.size === o.size && [...i].every((w) => o.has(w))
+}
+const STOP = 'He said "Stop!" Then he walked back to the old house.'
+const L27 = 'After a long and difficult week at the factory the workers finally gathered in the small hall to hear what the new manager wanted to tell them.'
+const L32 = 'When the long winter finally ended and the snow began to melt across the valley the farmers returned to their fields to prepare the soil for planting long before the spring rains.'
+const L40 = 'The committee met every Thursday evening in the back room of the public library to argue about the budget the schedule the new building and the many small problems that nobody else in the whole town wanted to think about.'
+describe('규칙표 rev 1 — 제거 0', () => {
+  const rows: Array<[string, string[], string[]]> = [
+    ['R1 짧은+긴 묶음(r3 반례)', [`${STOP} ${L27}`], [STOP, L27]],
+    ['R2 따옴표 두 유효 문장', [`${Q1} ${Q2}`], [Q1, Q2]],
+    ['R3 약어', ['Mr. Brown walked to the station before the morning train left.'], ['Mr. Brown walked to the station before the morning train left.']],
+    ['R5 Stop 단독', [STOP], [STOP]],
+    ['R6 세 문장 묶음', [`${A} ${B} ${C}`], [A, B, C]],
+    ['R7 상한 초과 단일 문장', [L40], [L40]],
+    // 뒤에 B 가 있어 나눌 수 있는 문항이지만, 3단어 조각을 L32 와 합치면 35단어 → 문항 전체를 나누지 않는다
+    ['R8 합치면 상한 초과 → 나누지 않음', [`He said "Stop!" ${L32} ${B}`], [`He said "Stop!" ${L32} ${B}`]],
+    ['R9 끝 조각이 짧음 → 앞과 합침', ['She looked at the door and finally whispered the word, "Go!"'], ['She looked at the door and finally whispered the word, "Go!"']],
+  ]
+  for (const [name, input, expected] of rows) {
+    it(name, () => {
+      const out = missedSentences(input.map((x, k) => at(k, x, 0, true)))
+      expect(out).toEqual(expected)
+      expect(sameWords(input, out)).toBe(true)
+      expect(missedRetryPayload('t', input.map((x, k) => at(k, x, 0, true)))?.sentences.length).toBe(expected.length)
+    })
+  }
+  it('R1 의 단어 수 전제 — 11 · 27 · 합 34 초과', () => {
+    expect(STOP.split(/\s+/).length).toBe(11)
+    expect(L27.split(/\s+/).length).toBe(27)
+    expect(L32.split(/\s+/).length).toBe(32)
+    expect(L40.split(/\s+/).length).toBe(40)
+  })
+  it('R4 22문장 — 22개 · 단어 집합 같음', () => {
+    const input = Array.from({ length: 22 }, (_, k) => `The garden near the school looked different on day number ${k + 1} of the trip.`)
+    const out = missedSentences(input.map((x, k) => at(k, x, 50)))
+    expect(out).toEqual(input)
+    expect(sameWords(input, out)).toBe(true)
+  })
+  it('R10 같은 문장 반복 — 한 번만(단어 집합은 같음)', () => {
+    const out = missedSentences([at(0, B, 0, true), at(1, B, 30)])
+    expect(out).toEqual([B])
+    expect(sameWords([B, B], out)).toBe(true)
+  })
+  it('상한 초과 문항도 재시도 자료에서 걸러지지 않는다(keepAll) — 일반 붙여넣기 필터는 그대로', async () => {
+    const g = globalThis as unknown as { window?: { sessionStorage: MemoryStorage } }
+    g.window = { sessionStorage: new MemoryStorage() }
+    try {
+      stashMissedRetry('user-a', missedRetryPayload('긴 글', [at(0, L40, 0, true), at(1, `${STOP} ${L27}`, 20)])!)
+      const src = await resolveMissedRetrySource(stubClient().client as never, 'user-a')
+      expect(src?.sentences.map((s) => s.text)).toEqual([L40, STOP, L27])
+    } finally {
+      delete g.window
+    }
+  })
+})
+
 // ── 봉투 · 소비 대역 흐름(integration stub) ──
 class MemoryStorage {
   m = new Map<string, string>()
