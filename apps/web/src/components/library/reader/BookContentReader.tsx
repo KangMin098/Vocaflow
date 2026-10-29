@@ -18,7 +18,7 @@ import { createClient } from '@/lib/supabase/client'
 import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, List } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { ChapterContentView } from './ChapterContent'
 import { ChapterSidebar } from './ChapterSidebar'
 import { WordLookupPopover } from './WordLookupPopover'
@@ -81,7 +81,13 @@ export function BookContentReader({
   )
   const [sampleCache, setSampleCache] = useState<Record<number, SampleWord[]>>({})
   const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
+  // 본문 조회 실패는 그 장에 묶는다 — 다른 장(캐시된 장 포함)에서 옛 오류가 보이지 않게
+  const [failure, setFailure] = useState<{ idx: number; message: string } | null>(null)
+  // 명시적 「다시 불러오기」 — 누를 때마다 같은 책 · 장을 한 번 더 읽는다(자동 재시도 없음)
+  const [retryNonce, setRetryNonce] = useState(0)
+  const contentRef = useRef<HTMLDivElement>(null)
+  // 다시 불러오기 단추로 성공했을 때만 본문으로 초점을 옮긴다(단추가 사라져 초점을 잃은 경우)
+  const retryFocus = useRef(false)
 
   // 본문 단어 클릭 조회 팝오버 (자체 dict+lemma)
   const [lookup, setLookup] = useState<{ word: string; rect: DOMRect } | null>(null)
@@ -124,22 +130,24 @@ export function BookContentReader({
 
   // chapter 변경 시 fetch (캐시된 것은 skip)
   useEffect(() => {
-    if (isLockedChapter) return
-    if (contentCache[activeIdx]) return
+    // 이전 장 요청이 버려진 뒤(장 이동) 잠긴 · 캐시된 장으로 오면 그 대기 표시도 거둔다
+    if (isLockedChapter || contentCache[activeIdx]) { setLoading(false); return }
 
     let cancelled = false
     setLoading(true)
-    setError(null)
 
     const client = createClient()
     getChapterContent(client, libraryBookId, activeIdx)
       .then((content) => {
-        if (cancelled || !content) return
+        if (cancelled) return
+        setFailure(null)
+        if (!content) return
         setContentCache((prev) => ({ ...prev, [activeIdx]: content }))
       })
       .catch((e) => {
         if (cancelled) return
-        setError(e instanceof Error ? e.message : 'unknown')
+        retryFocus.current = false
+        setFailure({ idx: activeIdx, message: e instanceof Error ? e.message : 'unknown' })
       })
       .finally(() => {
         if (!cancelled) setLoading(false)
@@ -148,7 +156,7 @@ export function BookContentReader({
     return () => {
       cancelled = true
     }
-  }, [activeIdx, libraryBookId, contentCache, isLockedChapter])
+  }, [activeIdx, libraryBookId, contentCache, isLockedChapter, retryNonce])
 
   // sample words lazy fetch (admin-review + 토글 ON 시)
   useEffect(() => {
@@ -183,6 +191,17 @@ export function BookContentReader({
   const Heading = mode === 'user-preview' || mode === 'admin-review' ? 'h1' : 'h2'
 
   const activeContent = contentCache[activeIdx] ?? null
+  const error = failure && failure.idx === activeIdx ? failure.message : null
+  const retryChapter = (onButton: boolean) => {
+    if (loading) return
+    retryFocus.current = onButton
+    setRetryNonce((n) => n + 1)
+  }
+  useEffect(() => {
+    if (!activeContent || !retryFocus.current) return
+    retryFocus.current = false
+    if (document.activeElement === document.body || document.activeElement === null) contentRef.current?.focus({ preventScroll: true })
+  }, [activeContent])
   const activeSamples = sampleCache[activeIdx] ?? []
 
   return (
@@ -320,13 +339,14 @@ export function BookContentReader({
           </div>
 
           {/* Content */}
-          <div className="flex-1 overflow-y-auto">
+          <div ref={contentRef} tabIndex={-1} data-reader-content className="flex-1 overflow-y-auto focus:outline-none">
             {isLockedChapter ? (
               <LockedChapterPanel />
+            ) : error ? (
+              // 다시 불러오는 동안에도 같은 안내 · 단추를 둔다(로딩 화면으로 바꾸면 누른 단추와 초점이 사라진다)
+              <ContentError message={error} retrying={loading} onRetry={retryChapter} />
             ) : loading ? (
               <ContentLoading />
-            ) : error ? (
-              <ContentError message={error} />
             ) : activeContent ? (
               <>
                 <ChapterContentView
@@ -419,12 +439,22 @@ function ContentLoading() {
   )
 }
 
-function ContentError({ message }: { message: string }) {
+export function ContentError({ message, retrying, onRetry }: { message: string; retrying: boolean; onRetry: (onButton: boolean) => void }) {
   return (
-    <div className="flex h-full items-center justify-center px-5">
+    <div className="flex h-full flex-col items-center justify-center gap-3 px-5">
       <div className="rounded-[var(--r-sm)] bg-[var(--learn-error-light)] px-4 py-3" role="alert">
         <p className="font-body text-[12px] text-[var(--learn-error)]">{message}</p>
       </div>
+      <button
+        type="button"
+        onClick={(e) => onRetry(document.activeElement === e.currentTarget)}
+        aria-disabled={retrying ? 'true' : undefined}
+        aria-busy={retrying ? 'true' : undefined}
+        data-reader-retry
+        className="inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[12px] font-[600] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] aria-disabled:cursor-progress aria-disabled:opacity-60"
+      >
+        {retrying ? '다시 불러오는 중…' : '이 장 다시 불러오기'}
+      </button>
     </div>
   )
 }
