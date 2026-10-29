@@ -83,6 +83,7 @@ function CheckItem({
   done,
   onRecord,
   onLocate,
+  locateBinding,
 }: {
   check: UnderstandingCheck
   itemId: string
@@ -90,13 +91,18 @@ function CheckItem({
   done: CheckAttempt | null
   onRecord: (x: CheckAttempt) => void
   onLocate?: (sentence: number, sentenceCount: number) => boolean
+  locateBinding: string | null
 }) {
   const [tries, setTries] = useState(0)
   const [wrong, setWrong] = useState<(number | string)[]>([])
   const [result, setResult] = useState<'correct' | 'revealed' | null>(null)
-  // 마지막으로 고른 근거 번호(0-기반) · 지도 확인 결과 — 기록(onRecord)과 무관한 화면 상태
-  const [lastPick, setLastPick] = useState<number | null>(null)
-  const [located, setLocated] = useState<'shown' | 'unavailable' | null>(null)
+  // 마지막으로 고른 근거 번호(0-기반) · 지도 확인 결과 — 기록(onRecord)과 무관한 화면 상태.
+  //   고른 때의 결속값(문항 · 판본 · 분할)에 묶는다: 판본 · 분할이 바뀌면 단추 · 안내를 모두 지운다(지난 번호가 새 지도에 붙지 않게).
+  //   시도 수 · 틀린 번호 · 결과는 결속과 무관하게 그대로 둔다(기록 · 채점 불변)
+  const [pickState, setPickState] = useState<{ k: number; binding: string | null; located: 'shown' | 'unavailable' | null } | null>(null)
+  const current = pickState && pickState.binding === locateBinding ? pickState : null
+  const lastPick = current ? current.k : null
+  const located = current ? current.located : null
   const settled = result ?? (done && !review ? (done.revealed ? 'revealed' : 'correct') : null)
 
   const record = (correct: boolean, n: number, revealed: boolean) =>
@@ -116,10 +122,7 @@ function CheckItem({
     if (settled) return
     const n = tries + 1
     setTries(n)
-    if (typeof v === 'number') {
-      setLastPick(v)
-      setLocated(null)
-    }
+    if (typeof v === 'number') setPickState({ k: v, binding: locateBinding, located: null })
     if (judgeCheck(check, v)) {
       setResult('correct')
       record(true, n, false)
@@ -175,7 +178,10 @@ function CheckItem({
             type="button"
             className={styles.back}
             data-testid="check-locate"
-            onClick={() => setLocated(onLocate(lastPick, check.sentenceCount) ? 'shown' : 'unavailable')}
+            onClick={() => {
+              const shown = onLocate(lastPick, check.sentenceCount)
+              setPickState({ k: lastPick, binding: locateBinding, located: shown ? 'shown' : 'unavailable' })
+            }}
           >
             선택한 {lastPick + 1}번 문장 지도에서 보기
           </button>
@@ -199,6 +205,7 @@ export function UnderstandingChecks({
   review = false,
   onRecord,
   onLocate,
+  locateBinding,
 }: {
   itemId: string
   checks: UnderstandingCheck[]
@@ -209,6 +216,8 @@ export function UnderstandingChecks({
   onRecord: (x: CheckAttempt) => void
   /** 고른 근거 번호(0-기반)를 지도에 비춘다 — 비췄으면 true. 지도가 없으면 넘기지 않는다(버튼이 없다) */
   onLocate?: (sentence: number, sentenceCount: number) => boolean
+  /** 지금 지도의 위치 강조 결속값(`checkLocateBinding`) — 바뀌면 고른 번호 · 위치 안내를 지운다 */
+  locateBinding?: string | null
 }) {
   if (!checks.length) return null
   const last = (kind: CheckAttempt['kind']) => [...saved].reverse().find((x) => x.kind === kind) ?? null
@@ -219,7 +228,7 @@ export function UnderstandingChecks({
       </h2>
       <p className="break-keep">정답 번호가 아니라 근거 자리와 오답이 바꾼 성분을 다시 확인해요. 틀려도 다시 고를 수 있어요.</p>
       {checks.map((c) => (
-        <CheckItem key={c.kind} check={c} itemId={itemId} review={review} done={last(c.kind)} onRecord={onRecord} onLocate={onLocate} />
+        <CheckItem key={c.kind} check={c} itemId={itemId} review={review} done={last(c.kind)} onRecord={onRecord} onLocate={onLocate} locateBinding={locateBinding ?? null} />
       ))}
     </section>
   )

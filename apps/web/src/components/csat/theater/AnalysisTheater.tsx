@@ -1758,7 +1758,7 @@ export function AnalysisTheater({
                   )}
                   {sceneChecks.length && withheld ? withheldPanel('checks', '이해 확인') : null}
                   {sceneChecks.length && !withheld ? (
-                    <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} onLocate={map ? locateCheck : undefined} />
+                    <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} onLocate={map ? locateCheck : undefined} locateBinding={locateBinding} />
                   ) : null}
                   {scene === 'compare' && (withheld || !revealed) ? withheldPanel('compare', '기출 비교') : null}
                   {scene === 'compare' && !withheld && revealed ? (

@@ -122,7 +122,7 @@ describe('AnalysisTheater 결속 — 명시적 callback · 판본 결속 · 스�
   const at = (marker: string, n = 700) => src.slice(src.indexOf(marker), src.indexOf(marker) + n)
 
   it('지도가 있을 때만 onLocate 를 넘긴다', () => {
-    expect(src).toContain('onLocate={map ? locateCheck : undefined}')
+    expect(src).toContain('onLocate={map ? locateCheck : undefined} locateBinding={locateBinding}')
   })
 
   it('결속값은 문항 id · 분석 판본 · 단위 해시 · 지도 문장으로 만들고, 강조는 그 결속값과 대조한다', () => {
@@ -151,5 +151,26 @@ describe('AnalysisTheater 결속 — 명시적 callback · 판본 결속 · 스�
   it('지도 강조는 위치 확인이 먼저이고, 위치 확인 키는 v3 근거로 비추지 않는다', () => {
     expect(src).toContain('const mapFocus = checkFocus ??')
     expect(src).toContain('const v3Evidence = evidence && !isCheckLocateKey(evidence.key) ? evidence : null')
+  })
+
+  it('스크롤은 명시적 클릭(locateCheck 의 tick)으로만 — 선택 · 렌더 · 강의 초점 변화에는 걸리지 않는다', () => {
+    expect(src).toMatch(/li\.scrollIntoView\(\{ block: 'nearest', behavior: reduce \? 'auto' : 'smooth' \}\)\n {2}\}, \[locateTick\]\)/)
+    expect(src.match(/setLocateTick\(/g)?.length).toBe(1)
+    expect(at('const locateCheck')).toContain('setLocateTick((t) => t + 1)')
+  })
+})
+
+describe('UnderstandingChecks 결속 — 판본 · 분할이 바뀌면 고른 번호 · 안내를 지운다(재리뷰 P2)', () => {
+  const src = fs.readFileSync(path.join(__dirname, '../UnderstandingChecks.tsx'), 'utf8')
+
+  it('고른 번호는 고른 때의 결속값과 함께 저장하고, 지금 결속값과 같을 때만 쓴다', () => {
+    expect(src).toContain('const current = pickState && pickState.binding === locateBinding ? pickState : null')
+    expect(src).toContain("if (typeof v === 'number') setPickState({ k: v, binding: locateBinding, located: null })")
+  })
+
+  it('시도 수 · 틀린 번호 · 결과 상태는 결속값과 분리돼 그대로다(기록 · 채점 불변)', () => {
+    expect(src).toContain('const [tries, setTries] = useState(0)')
+    expect(src).toContain('const [wrong, setWrong] = useState<(number | string)[]>([])')
+    expect(src).not.toMatch(/key=\{[^}]*locateBinding/)
   })
 })
