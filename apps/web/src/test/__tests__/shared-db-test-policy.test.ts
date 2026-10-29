@@ -53,3 +53,34 @@ describe('shared DB mutation test boundary', () => {
     expect(f.readFilters).toEqual([['surface', 'selftest'], ['meta->>selftest_run_id', RUN]])
   })
 })
+
+// T-0244 — teacher 실DB 통합 검사 두 개도 같은 승인 gate 를 AND 로 탄다(자격 증명만으로는 실행하지 않는다).
+// 정적 경계: skip 조건에 gate · client 생성 · 로그인 · RPC · INSERT/DELETE · 정리는 모두 그 describe 안(beforeAll/afterAll/it)에만.
+describe('teacher 실DB suite 의 승인 gate(T-0244)', () => {
+  const read = async (rel: string) => (await import('node:fs')).readFileSync((await import('node:path')).resolve(__dirname, rel), 'utf8')
+  const SUITES = [
+    { file: '../../lib/teacher/__tests__/assignment-rls.integration.test.ts', cond: /const skip = !SUPABASE_URL \|\| !ANON_KEY \|\| !SERVICE_KEY \|\| !allowMutatingSharedDbTests\(process\.env\)/, gate: 'describe.skipIf(skip)(' },
+    { file: '../../lib/teacher/__tests__/invite-rpc.integration.test.ts', cond: /const skipIfNoEnv = !URL_BASE \|\| !ANON \|\| !allowMutatingSharedDbTests\(process\.env\)/, gate: 'describe.skipIf(skipIfNoEnv)(' },
+  ]
+  for (const s of SUITES) {
+    it(`${s.file.split('/').pop()}: skip 조건에 gate 를 AND · 부작용 호출은 gate 된 describe 안에만`, async () => {
+      const src = await read(s.file)
+      expect(src).toContain("import { allowMutatingSharedDbTests } from '@/test/shared-db-test-policy'")
+      expect(src).toMatch(s.cond)
+      const at = src.indexOf(s.gate)
+      expect(at).toBeGreaterThan(0)
+      const head = src.slice(0, at)
+      // describe 밖(파일 맨 위)에서는 client 를 만들거나 호출하지 않는다 — 함수 정의 안의 createClient 만 허용
+      const outside = head.replace(/function anonClient\(\)[\s\S]*?\n\}\n/, '')
+      expect(outside).not.toMatch(/createClient\(|\.rpc\(|signInWithPassword|\.insert\(|\.delete\(|beforeAll\(|afterAll\(/)
+      // gate 된 describe 앞(파일 맨 위)에는 다른 describe · it 이 없다 — 안쪽 describe 는 gate 아래라 함께 건너뛴다
+      expect(head).not.toMatch(/\bdescribe\(|\bit\(/)
+    })
+  }
+  it('gate 의미 — credentials 만으로는 거짓 · CI 에서는 opt-in 이어도 거짓 · 승인된 로컬 opt-in 만 참', () => {
+    const creds = { NEXT_PUBLIC_SUPABASE_URL: 'http://x', NEXT_PUBLIC_SUPABASE_ANON_KEY: 'k', SUPABASE_SERVICE_ROLE_KEY: 's' }
+    expect(allowMutatingSharedDbTests(creds)).toBe(false)
+    expect(allowMutatingSharedDbTests({ ...creds, RUN_MUTATING_DB_TESTS: '1', CI: '1' })).toBe(false)
+    expect(allowMutatingSharedDbTests({ ...creds, RUN_MUTATING_DB_TESTS: '1' })).toBe(true)
+  })
+})
