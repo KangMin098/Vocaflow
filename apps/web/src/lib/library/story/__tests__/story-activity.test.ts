@@ -9,7 +9,7 @@ const h = vi.hoisted(() => ({
   log: [] as string[],
   args: [] as Array<Record<string, unknown>>,
   cookie: null as unknown,
-  rpc: null as null | ((args: Record<string, unknown>) => { data: unknown; error: unknown }),
+  respond: null as null | ((args: Record<string, unknown>) => { data: unknown; error: unknown }),
 }))
 
 vi.mock('@/lib/supabase/server', () => ({
@@ -56,8 +56,8 @@ function fakeCookie(user: { id: string } | null, profile: { status: string } | n
     rpc: async (fn: string, args: Record<string, unknown>) => {
       h.log.push(`rpc:${fn}`)
       h.args.push(args)
-      if (fn !== 'story_unit_activity' || !h.rpc) return { data: null, error: { message: 'unexpected' } }
-      return h.rpc(args)
+      if (fn !== 'story_unit_activity' || !h.respond) return { data: null, error: { message: 'unexpected' } }
+      return h.respond(args)
     },
   }
 }
@@ -69,7 +69,7 @@ beforeEach(() => {
   h.log.length = 0
   h.args.length = 0
   h.cookie = fakeCookie({ id: UID })
-  h.rpc = (args) => ({ data: args.p_choice == null ? LOOKUP : result(String(args.p_choice)), error: null })
+  h.respond = (args) => ({ data: args.p_choice == null ? LOOKUP : result(String(args.p_choice)), error: null })
 })
 
 describe('조회', () => {
@@ -86,11 +86,11 @@ describe('조회', () => {
 
   it('조회 응답에 correct · registered_evidence · answer 가 섞이면 reader_data_invalid', async () => {
     for (const extra of [{ correct: true }, { registered_evidence: OPTIONS[0] }, { answer: ['case-collapses'] }]) {
-      h.rpc = () => ({ data: { ...LOOKUP, ...extra }, error: null })
+      h.respond = () => ({ data: { ...LOOKUP, ...extra }, error: null })
       expect(await loadStoryActivityAction(LOAD)).toMatchObject({ ok: false, code: 'reader_data_invalid' })
     }
     // 선택지 안에 정답 키가 섞여도 닫는다
-    h.rpc = () => ({ data: { ...LOOKUP, options: [{ ...OPTIONS[0], correct: true }, ...OPTIONS.slice(1)] }, error: null })
+    h.respond = () => ({ data: { ...LOOKUP, options: [{ ...OPTIONS[0], correct: true }, ...OPTIONS.slice(1)] }, error: null })
     expect(await loadStoryActivityAction(LOAD)).toMatchObject({ ok: false, code: 'reader_data_invalid' })
   })
 
@@ -110,7 +110,7 @@ describe('조회', () => {
       { code: 'PGRST202', message: 'Could not find the function public.story_unit_activity' },
       { code: '42883', message: 'function public.story_unit_activity(text, text, text) does not exist' },
     ]) {
-      h.rpc = () => ({ data: null, error })
+      h.respond = () => ({ data: null, error })
       expect(await loadStoryActivityAction(LOAD)).toMatchObject({ ok: false, code: 'reader_not_ready' })
     }
   })
@@ -182,12 +182,12 @@ describe('제출', () => {
   })
 
   it('잘못된 선택(서버 activity_bad_choice) → invalid_input', async () => {
-    h.rpc = () => ({ data: null, error: { message: 'story:activity_bad_choice' } })
+    h.respond = () => ({ data: null, error: { message: 'story:activity_bad_choice' } })
     expect(await submitStoryActivityAction({ ...LOAD, choice: 'nope' })).toMatchObject({ ok: false, code: 'invalid_input' })
   })
 
   it('RPC 가 던지면 throw 대신 temporary · 서비스 주체 팩토리는 부르지 않는다', async () => {
-    h.rpc = () => {
+    h.respond = () => {
       throw new Error('net')
     }
     expect(await submitStoryActivityAction({ ...LOAD, choice: 'case-collapses' })).toMatchObject({ ok: false, code: 'temporary', retryable: true })

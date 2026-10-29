@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(test): RPC 정적 수집기가 Story 전달 어댑터 호출부(callStoryRpc·callRpc·save-word rpc 의 둘째 인자 리터럴)를 Story 파일 범위에서만 이름으로 수집 — 세 전달부는 이유 붙은 PASS_THROUGH, 변수 RPC명은 여전히 위반. story-activity·교재 연습(f7edec813) 테스트의 가짜 handler h.rpc→h.respond 로 오탐 제거(실제 rpc·인자·단언 불변). 실DB 0 (T-0245)
 - feat(practice): R0 기사 제목·주제 문항에서 답 제출 전 본문 문장 하나를 선택적으로 짚고, 성공한 피드백에 「이번 제출 당시 짚은 문장」으로 대조 — 제출 시작 snapshot, 문항·판본 교체 시 선택 초기화, 서버에는 기존 {choice} 만. 기존 Feedback 형제 key 충돌(T-0207 이후)도 정정. Codex 리뷰 1회 반려 뒤 NO_FINDINGS (T-0230 8c34deefc)
 - fix(teacher): 받은 과제 조회 실패를 「선생님이 단어를 보내면…」 대기 안내와 구별(실패 중 안내 생략·실패 고지만, 학급 실패와 분리, 조회 수 불변). Codex 리뷰 NO_FINDINGS (T-0235 cb65c3a5a)
 - feat(teacher): 학생이 받은 과제 카드에서 24개 뒤 단어까지 「전체 N개 보기」로 확인(최대 200, 목록 교체 시 접힘 재시작, 잘못된 행은 확인 불가, 호출 0). Codex 리뷰 1회 반려 뒤 NO_FINDINGS (T-0234 0cd662590)
