@@ -45,3 +45,6 @@
 .choices li { padding-top: 10px; border-top: 1px solid var(--bd); }
 .choices p { margin: 4px 0 0; font-size: 14px; }
 .choiceHead { font-weight: 600; }
+/* 해설 요청 당시 / 지금 비교(U02-ORDER-COMPARE-01) — 긴 단서가 표를 밀어내지 않게 줄바꿈 */
+.compare { margin: 12px 0; }
+.compare .table tbody th, .compare .table td { white-space: normal; overflow-wrap: anywhere; }
