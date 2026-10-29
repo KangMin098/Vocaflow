@@ -41,6 +41,7 @@ import type { ArticlePracticeAvailability } from '@/lib/learner/article-practice
 
 import { ShelfEmptyState } from '@/components/library/shared/ShelfEmptyState'
 
+import { FirstArticleGoal } from './FirstArticleGoal'
 import { SeriesDetail } from './SeriesDetail'
 import { SeriesInfoModal } from './SeriesInfoModal'
 
@@ -163,6 +164,9 @@ export function ScriptsBrowser({
           </Link>
         )}
       </section>
+
+      {/* R0-C2-01 — 선택적 임시 목표. 열어도 아래 전체 탐색은 그대로 남는다(방문 상태만 · 추가 요청 0). */}
+      <FirstArticleGoal articles={articles} practice={practice} userVLevel={userV} />
 
       {/* ② 추천 시리즈 — 히어로 1개 */}
       {hero && (
