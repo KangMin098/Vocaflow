@@ -19,6 +19,7 @@ import {
   Pencil,
   Play,
   Plus,
+  RotateCw,
   Trash2,
   X,
 } from 'lucide-react'
@@ -26,6 +27,7 @@ import Link from 'next/link'
 import { useEffect, useRef, useState, useTransition } from 'react'
 
 import { ActivityGlyph } from '@/components/plan/ActivityGlyph'
+import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
 import { MATERIAL_ICON } from '@/lib/learner/activity-icons'
 
 import {
@@ -46,6 +48,7 @@ import {
 import { V_BANDS, vBandOf } from '@/lib/library/genres'
 import {
   fetchBookChapters,
+  fetchStudyPlanSnapshot,
   removePlanItem,
   savePlanItem,
   type AvailableMaterials,
@@ -71,11 +74,17 @@ function defaultActivities(type: MaterialType): Set<PlanActivity> {
 
 export function PlanClient({
   initialItems,
+  initialFailed = false,
+  viewerId = null,
   materials,
   todayWeekday,
   weekDates,
 }: {
   initialItems: PlanItem[]
+  /** 계획 읽기 실패(T-0240) — true 면 initialItems 는 완전한 계획이 아니다(빈 계획으로 보이지 않게) */
+  initialFailed?: boolean
+  /** 이 계획을 읽은 서버 Auth 의 id — 화면의 계정 경계(비로그인 null) */
+  viewerId?: string | null
   materials: AvailableMaterials
   todayWeekday: number
   /** 이번 주(월~일) 날짜 'M/D' 7개 — index 0=월 (서버 KST 산출) */
@@ -83,6 +92,39 @@ export function PlanClient({
 }) {
   const [items, setItems] = useState<PlanItem[]>(initialItems)
   const [error, setError] = useState<string | null>(null)
+  // 읽기 상태(T-0240) — confirmed: 이 viewer 의 계획을 한 번이라도 온전히 읽었는가 · readFailed: 마지막 읽기가 실패했는가
+  const [confirmed, setConfirmed] = useState(!initialFailed)
+  const [readFailed, setReadFailed] = useState(initialFailed)
+  const [reloading, setReloading] = useState(false)
+  // 계정 경계 — 이 목록을 읽은 viewer 와 브라우저 신원이 같을 때만 계획을 보이고 조작하게 한다
+  const { guard, status: authStatus } = useStoryAuthGuard(viewerId)
+  const readGen = useRef(0)
+  /** 명시적 읽기 재시도 — 읽기만 한다(저장 · 삭제를 다시 보내지 않는다). 늦은 응답 · 다른 viewer 응답은 버린다 */
+  async function reloadPlan() {
+    const gen = ++readGen.current
+    const token = guard.token()
+    setReloading(true)
+    try {
+      const snap = await fetchStudyPlanSnapshot()
+      if (gen !== readGen.current) return
+      if (viewerId && (!guard.isCurrent(token) || snap.viewerId !== viewerId)) {
+        // 그 사이 계정이 바뀌었거나 다른 계정의 계획이 왔다 — 이 화면에 싣지 않는다
+        if (snap.viewerId !== viewerId) guard.invalidate()
+        return
+      }
+      if (snap.failed) {
+        setReadFailed(true)
+        return
+      }
+      setItems(snap.items)
+      setConfirmed(true)
+      setReadFailed(false)
+    } catch {
+      if (gen === readGen.current) setReadFailed(true)
+    } finally {
+      if (gen === readGen.current) setReloading(false)
+    }
+  }
   const [, startTransition] = useTransition()
 
   // 컴포저 상태 — draft(신규 자료) 또는 editId(담은 자료) 중 하나만 활성
@@ -368,6 +410,9 @@ export function PlanClient({
     })
   }
 
+  // 계정 확인 전 · 바뀜 — 이 viewer 의 계획을 확인한 것처럼 보이거나 저장 조작을 받지 않는다
+  if (viewerId && authStatus !== 'same') return <PlanIdentityNotice status={authStatus} />
+
   return (
     // 폭/가로 패딩은 페이지의 <Screen width="wide" padX> 가 담당 — 내부 이중 제약(max-w-3xl·px) 금지
     <div className="plan-reference flex w-full flex-col gap-5 py-6 md:py-8">
@@ -397,6 +442,29 @@ export function PlanClient({
         </p>
       )}
 
+      {/* 계획 읽기 실패(T-0240) — 빈 계획 · 삭제된 자료로 보이지 않게. 다시 불러오기는 읽기만 한다 */}
+      {readFailed && (
+        <div role="alert" data-testid="plan-read-failed" className="flex flex-wrap items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
+          <p className="m-0 min-w-0 flex-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t1)]">
+            {confirmed
+              ? '계획을 다시 불러오지 못했어요. 아래는 마지막으로 확인한 계획이에요.'
+              : '학습 계획을 불러오지 못했어요. 계획이 비어 있다는 뜻이 아니에요 — 다시 불러와 확인해 주세요.'}
+          </p>
+          <button
+            type="button"
+            onClick={() => void reloadPlan()}
+            aria-disabled={reloading}
+            data-testid="plan-read-retry"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+          >
+            <RotateCw size={13} aria-hidden className={reloading ? 'animate-spin motion-reduce:animate-none' : ''} />
+            {reloading ? '불러오는 중' : '다시 불러오기'}
+          </button>
+        </div>
+      )}
+
+      {/* 한 번도 온전히 읽지 못했으면 보드 · 컴포저를 그리지 않는다 — 빈 계획처럼 보이거나 중복 계획을 만들지 않게 */}
+      {confirmed && (<>
       {/* 오늘의 학습 */}
       {items.length > 0 && <TodayStrip items={items} today={todayWeekday} weekDates={weekDates} />}
 
@@ -605,6 +673,30 @@ export function PlanClient({
           )}
         </div>
       </section>
+      </>)}
+    </div>
+  )
+}
+
+/** 계정 확인 전 · 바뀜(T-0240) — 계획을 보이지도 조작을 받지도 않는다 */
+function PlanIdentityNotice({ status }: { status: 'checking' | 'changed' }) {
+  const changed = status === 'changed'
+  return (
+    <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-6 py-24 text-center" data-plan-private={status} role="status" aria-live="polite">
+      <h1 className="break-keep font-editorial text-[16px] font-[700] text-[var(--t1)]">
+        {changed ? '로그인 상태가 바뀌었어요' : '로그인한 계정을 확인하고 있어요'}
+      </h1>
+      <p className="break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+        {changed ? '이 계획 화면을 멈췄어요. 지금 로그인한 계정으로 다시 열어 주세요.' : '확인이 끝나면 학습 계획을 보여 드려요.'}
+      </p>
+      {changed && (
+        <a
+          href="/plan"
+          className="inline-flex min-h-[44px] items-center rounded-[var(--r-md)] border border-[var(--bd)] px-5 py-3 font-display text-[13px] font-[700] text-[var(--t1)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--ju)] focus-visible:ring-offset-2"
+        >
+          다시 열기
+        </a>
+      )}
     </div>
   )
 }

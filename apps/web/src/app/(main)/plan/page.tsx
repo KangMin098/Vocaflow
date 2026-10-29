@@ -4,7 +4,7 @@
 
 import { PlanClient } from '@/components/plan/PlanClient'
 import { Screen } from '@/components/ui/ios'
-import { fetchAvailableMaterials, fetchStudyPlanItems } from '@/lib/learner/plan-actions'
+import { fetchAvailableMaterials, fetchStudyPlanSnapshot } from '@/lib/learner/plan-actions'
 
 export const metadata = {
   title: '학습 계획',
@@ -28,15 +28,20 @@ function kstWeekDates(): string[] {
 }
 
 export default async function PlanPage() {
-  const [items, materials] = await Promise.all([
-    fetchStudyPlanItems(),
+  // 읽기 facade(T-0240) — 목록 · 실패 · 그 목록을 읽은 viewer 를 한 번의 조회로. 기존 fetchStudyPlanItems 는 부르지 않는다(중복 조회 0)
+  const [plan, materials] = await Promise.all([
+    fetchStudyPlanSnapshot(),
     fetchAvailableMaterials(),
   ])
 
   return (
     <Screen width="wide" background="bg2" padX="md">
+      {/* viewer 가 바뀌면 새 경계로 다시 시작한다(A 의 화면 상태가 B 에게 남지 않게) — 같은 viewer 의 props 교체는 선택을 보존 */}
       <PlanClient
-        initialItems={items}
+        key={plan.viewerId ?? 'anon'}
+        initialItems={plan.items}
+        initialFailed={plan.failed}
+        viewerId={plan.viewerId}
         materials={materials}
         todayWeekday={kstWeekday()}
         weekDates={kstWeekDates()}
