@@ -55,6 +55,15 @@ describe('틀림·건너뜀 판정', () => {
     const s = 'Mr. Brown walked to the station before the morning train left.'
     expect(missedSentences([at(0, s, 0, true)])).toEqual([s])
   })
+  it('조각 하나라도 규칙 밖이면 나누지 않는다 — 짧은 인용 「He said "Stop!"」 이 빠지지 않는다(리뷰 r3 P2)', () => {
+    const s = 'He said "Stop!" Then he walked back to the old house.'
+    expect(missedSentences([at(0, s, 0, true)])).toEqual([s])
+    expect(missedRetryPayload('글', [at(0, s, 0, true)])?.sentences).toEqual([s])
+  })
+  it('22문장 — 모두 그대로 22개', () => {
+    const many = Array.from({ length: 22 }, (_, k) => at(k, `The garden near the school looked different on day number ${k + 1} of the trip.`, 50))
+    expect(missedSentences(many)).toHaveLength(22)
+  })
   it('제목과 문장 배열 — 이어 붙이지 않는다', () => {
     const r = missedRetryPayload('강의', [at(0, B, 50), at(1, C, 0, true)])
     expect(r).toEqual({ title: '강의 · 틀린 문장 다시', sentences: [B, C] })
