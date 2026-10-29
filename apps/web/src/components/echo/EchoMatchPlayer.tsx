@@ -46,7 +46,6 @@ import {
   isSpeechRecognitionSupported,
   type Recognizer,
 } from '@/lib/workspace/speech-recognition'
-import { computeShadowMatch } from '@/lib/workspace/shadow-match'
 // 청각 면(F3) 신호 — 따라 말하기를 어휘 단위 인출 기록으로 잇는다(설계안 §8 빈칸).
 // 적재 실패는 따라 말하기를 막지 않는다: 학습이 본체이고 기록은 부수 효과다.
 import { loadSoundLemmas, recordEchoSound } from '@/lib/echo/record-sound'
@@ -58,6 +57,7 @@ import { PitchVisualizer } from './PitchVisualizer'
 import { ScoreCard } from './ScoreCard'
 import { MicPermissionGate } from './MicPermissionGate'
 import { ReplayPanel } from './ReplayPanel'
+import { HEARD_REASON_TEXT, gateAfterStop, isLiveRecog, measureTranscript, scoredOutcome, visibleHeard, type HeardSnapshot } from './heard-reference'
 import {
   EchoReplay,
   IDLE_REPLAY,
@@ -106,6 +106,13 @@ export function EchoMatchPlayer({
   const [wordRatio, setWordRatio] = useState<number | null>(null)
   const recognizerRef = useRef<Recognizer | null>(null)
   const transcriptRef = useRef('')
+  // T-0227 — 인식 콜백이 묶인 시도 세대(멈추면 null) · 인식 시작 실패 여부. 늦은 콜백이 새 시도의 문자열을 덮지 않게.
+  const recogGenRef = useRef<number | null>(null)
+  const recogStartFailedRef = useRef(false)
+  // 이 세대의 인식 오류(onError)가 왔는가 — 다른 세대의 오류는 넣지 않는다
+  const recogErroredRef = useRef(false)
+  // T-0227 — 이번 비율 계산에 실제로 쓴 인식 문자열(또는 확인 못 한 사유) · 시도 · 자료 · 계정 결속
+  const [heard, setHeard] = useState<HeardSnapshot | null>(null)
   const stopRecRef = useRef<(() => Promise<{ audioBuffer: AudioBuffer; durationMs: number }>) | null>(
     null,
   )
@@ -149,6 +156,8 @@ export function EchoMatchPlayer({
   materialKeyRef.current = materialKey
   // 단어 정확도가 확연히 낮으면(측정됨 && <0.4) 프로소디 점수는 오해 소지 → 재읽기로 부드럽게 유도(게이트).
   //   비난 아님(Calm) + 인식 불완전을 감안한 겸손한 문구("잘 안 들렸어요"). 미측정(null)은 게이트 안 함.
+  // T-0227 — 렌더 때도 시도 · 자료 · 계정 경계가 지금과 같은지 본다
+  const heardView = visibleHeard(heard, { scored: phase === 'scored', gen: runGenRef.current, materialKey, authCurrent: (t) => authGuard.isCurrent(t) })
   const WORD_GATE = 0.4
   const lowWords = wordRatio != null && wordRatio < WORD_GATE
   const fb = !score
@@ -235,6 +244,7 @@ export function EchoMatchPlayer({
     setError(null)
     setScore(null)
     setWordRatio(null)
+    setHeard(null)
     setRefContour(null)
     setUserContour(null)
     try {
@@ -261,18 +271,38 @@ export function EchoMatchPlayer({
       }
       stopRecRef.current = stop
       // 병렬 단어 인식 시작 (완전 additive — 실패/미지원이어도 녹음·채점 무영향)
+      recogStartFailedRef.current = false
+      recogErroredRef.current = false
       try {
         if (isSpeechRecognitionSupported()) {
           if (!recognizerRef.current) recognizerRef.current = createRecognizer('en-US')
           transcriptRef.current = ''
-          recognizerRef.current.start({
+          recogGenRef.current = gen
+          const startedKey = sentenceMaterialKey(current)
+          const startedAuth = attemptAuthRef.current ?? authGuard.token()
+          const live = () =>
+            isLiveRecog(gen, recogGenRef.current, runGenRef.current, {
+              startedKey,
+              currentKey: materialKeyRef.current,
+              authCurrent: authGuard.isCurrent(startedAuth),
+            })
+          const started = recognizerRef.current.start({
             onInterim: (t) => {
+              // 이 시도의 인식이 아직 열려 있을 때만 — 멈춘 뒤 · 다른 시도의 늦은 콜백은 버린다
+              if (!live()) return
               transcriptRef.current = t
             },
+            onError: () => {
+              // 마이크 거부 · 네트워크 등 — 이 시도의 것만 「인식 실패」로 남긴다(이전 시도의 오류는 무시)
+              if (!live()) return
+              recogErroredRef.current = true
+            },
           })
+          if (!started) recogStartFailedRef.current = true
         }
       } catch {
         /* 인식 시작 실패 — 프로소디만 채점 */
+        recogStartFailedRef.current = true
       }
     } catch (e) {
       if (stale()) return
@@ -291,29 +321,36 @@ export function EchoMatchPlayer({
     const expectedUserId = ownerId
     setPhase('comparing')
     // 병렬 인식 종료 + transcript 회수 (guard — 실패해도 프로소디 채점 진행)
-    let wr: number | null = null
-    // 어떤 단어가 실제로 들렸는지 — 청각 면 판정의 **단어 단위 근거**(비율보다 강하다)
-    let heardKeys: Set<string> | null = null
+    // T-0227 — 비율 계산에 넘긴 문자열을 그대로 붙잡는다(이 뒤 늦게 온 인식은 반영하지 않는다). 판정은 heard-reference.ts.
+    const supported = isSpeechRecognitionSupported()
+    let stopThrew = false
     try {
+      recogGenRef.current = null
       recognizerRef.current?.stop()
-      const transcript = transcriptRef.current.trim()
-      if (transcript && current) {
-        const m = computeShadowMatch(current.text, transcript)
-        wr = m.ratio
-        heardKeys = m.matchedKeys
-      }
     } catch {
       /* 인식 실패 — 단어 정확도 미측정(null) → 프로소디 보조 근거로 판정 */
+      stopThrew = true
     }
+    const measured = measureTranscript(sentence.text, {
+      supported,
+      startFailed: recogStartFailedRef.current,
+      errored: recogErroredRef.current,
+      stopThrew,
+      transcript: transcriptRef.current,
+    })
+    const wr = measured.ratio
+    // 어떤 단어가 실제로 들렸는지 — 청각 면 판정의 **단어 단위 근거**(비율보다 강하다)
+    const heardKeys = measured.matchedKeys
     setWordRatio(wr)
     try {
       const stop = stopRecRef.current
       stopRecRef.current = null
       const { audioBuffer } = await stop()
       // 비교 중에 문장을 옮겼거나 화면이 내려갔다 — 이 발화는 버린다(점수 · 기록 · 다시 듣기 모두)
-      if (gen !== runGenRef.current) return
+      const gate = gateAfterStop({ startedGen: gen, currentGen: runGenRef.current, authCurrent: authGuard.isCurrent(authToken), expectedUserId })
+      if (gate === 'stale') return
       // 시작 세대가 더는 같은 사람으로 확인되지 않는다 — 실패로 닫는다(점수 · 저장 · 청각 신호 · 다시 듣기 모두 없음)
-      if (!authGuard.isCurrent(authToken) || !expectedUserId) {
+      if (gate === 'denied' || !expectedUserId) {
         userTakeRef.current = null
         setPhase('idle')
         return
@@ -330,23 +367,26 @@ export function EchoMatchPlayer({
       setRefContour(refC)
 
       const result = compareContours(refC, userC)
-      setScore(result)
-      setPhase('scored')
-
-      // 점수 DB 적재 (비로그인 silent skip)
       const sentenceId = sentence.id
-      const prevAttempts = attemptCountRef.current.get(sentenceId) ?? 0
-      const attemptNumber = prevAttempts + 1
-      attemptCountRef.current.set(sentenceId, attemptNumber)
-      void saveEchoAttempt({
+      const outcome = scoredOutcome({
+        measured,
+        supported,
+        bind: { gen, materialKey: sentenceMaterialKey(sentence), authToken },
         textId,
-        libraryBookId: libraryBookId ?? null,
+        libraryBookId,
         sentenceId,
-        attemptNumber,
+        prevAttempts: attemptCountRef.current.get(sentenceId) ?? 0,
         score: result,
         durationMs: userC.durationMs,
         expectedUserId,
       })
+      setScore(result)
+      setHeard(outcome.heard)
+      setPhase('scored')
+
+      // 점수 DB 적재 (비로그인 silent skip)
+      attemptCountRef.current.set(sentenceId, outcome.attemptNumber)
+      void saveEchoAttempt(outcome.save)
 
       // 청각 면(F3) 신호 — 이 발화가 실어 나른 내 단어를 인출 기록으로 남긴다.
       // 판정 규칙(측정 실패 무기록 · 인식 신뢰 하한 · 근거 등급)은 word-signal.ts 가 갖는다.
@@ -373,6 +413,8 @@ export function EchoMatchPlayer({
     replayRef.current?.stop()
     userTakeRef.current = null
     transcriptRef.current = ''
+    recogGenRef.current = null
+    setHeard(null)
   }
 
   function handleRetry() {
@@ -437,6 +479,7 @@ export function EchoMatchPlayer({
     replayRef.current?.stop()
     userTakeRef.current = null
     refCacheRef.current.clear()
+    setHeard(null)
   }, [authStatus])
 
   // 같은 자리 문장의 내용이 바뀌면(같은 id 재사용 포함) 이전 시도 · 점수 · 녹음을 넘기지 않는다
@@ -479,6 +522,7 @@ export function EchoMatchPlayer({
       listenAbortRef.current?.abort()
       userTakeRef.current = null
       transcriptRef.current = ''
+      recogGenRef.current = null
       if (stopRecRef.current) {
         void stopRecRef.current().catch(() => {})
       }
@@ -651,6 +695,27 @@ export function EchoMatchPlayer({
           이번 발화에서 문장 단어의 <span className="font-mono font-[700] tabular-nums">{Math.round(wordRatio * 100)}%</span>가 인식됐어요
           {lowWords ? ' — 억양 점수는 참고만 하고, 단어부터 또박또박 읽어봐요.' : '.'}
         </p>
+      )}
+
+      {/* T-0227 — 위 비율을 계산할 때 쓴 기기 인식 문자열(참고) · 확인 못 했으면 사유만. 발음 판정이 아니다. */}
+      {heardView && (
+        <section aria-label="기기가 인식한 참고문장" className="flex flex-col gap-1 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-3 py-2" data-testid="echo-heard" data-heard={heardView.kind}>
+          <p className="font-display text-[11.5px] font-[700] text-[var(--t2)]">기기가 인식한 참고문장</p>
+          {heardView.kind === 'text' ? (
+            <>
+              <p lang="en" className="break-words font-english text-[14px] leading-relaxed text-[var(--t1)]" data-testid="echo-heard-text">
+                {heardView.text}
+              </p>
+              <p className="break-keep font-body text-[11.5px] leading-relaxed text-[var(--t2)]">
+                기기 음성 인식 결과라 실제로 말한 것과 다를 수 있어요. 위 비율은 이 문장으로 계산했어요 — 목표 문장과 견주어 보세요.
+              </p>
+            </>
+          ) : (
+            <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]" data-testid="echo-heard-unconfirmed">
+              {HEARD_REASON_TEXT[heardView.reason]}
+            </p>
+          )}
+        </section>
       )}
 
       {/* 에러는 상단 Piper 영역에서 통합 표시 */}
