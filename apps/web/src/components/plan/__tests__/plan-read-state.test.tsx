@@ -160,14 +160,14 @@ describe('리뷰 r5 — props 의 소유자 판정 · 재시도 성공 초점', 
   const eff = () => { const x = src(); return x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite')) }
   it('[P2] 실패 · viewer null props(일시 인증 실패) → 기존 화면 · 선택 유지, 실패 고지만(경계를 닫지 않는다)', () => {
     const e = eff()
-    const t = e.indexOf('if (initialFailed && viewerId === null) {')
+    const t = e.indexOf('const transient = initialFailed && viewerId === null')
     expect(t).toBeGreaterThan(0)
-    expect(e.indexOf('invalidate()')).toBeGreaterThan(t)
+    expect(e).toContain('if (!transient && ownerId !== null && viewerId !== ownerId) {')
     expect(e).toContain('}, [initialItems, initialFailed, viewerId])')
   })
   it('[P2] 확정된 다른 viewer props → 경계를 닫는다 · 소유자 미확정이면 새 viewer 로 세운다', () => {
     const e = eff()
-    expect(e).toMatch(/if \(ownerId !== null && viewerId !== ownerId\) \{\s*\n\s*guardRef\.current\.invalidate\(\)/)
+    expect(e).toMatch(/if \(!transient && ownerId !== null && viewerId !== ownerId\) \{\s*\n\s*readGen\.current\+\+\s*\n\s*guardRef\.current\.invalidate\(\)/)
     expect(e).toContain('if (ownerId === null && viewerId !== null) setOwnerId(viewerId)')
   })
   it('[P2] page 는 viewer key 를 쓰지 않는다', () => {
@@ -176,7 +176,8 @@ describe('리뷰 r5 — props 의 소유자 판정 · 재시도 성공 초점', 
   })
   it('[P2] 키보드 재시도 성공 → 계획 제목(tabIndex -1 · 링)으로 초점', () => {
     const x = src()
-    expect(x).toContain("if (typeof document !== 'undefined' && document.activeElement === retryRef.current) focusAfterReload.current = true")
+    expect(x).toContain("const fromRetry = typeof document !== 'undefined' && document.activeElement === retryRef.current")
+    expect(x).toContain('if (fromRetry) focusAfterReload.current = true')
     // r6 — 표식은 제목이 실제로 초점을 받은 뒤에만 지운다(아래 r6 테스트)
     expect(x).toContain('el.focus()')
     const h1 = /<h1[^>]*data-testid="plan-heading"[^>]*>/.exec(render({ items: [ITEM] }))?.[0] ?? ''
@@ -196,8 +197,8 @@ describe('리뷰 r6 — 읽기 · 쓰기 겹침 금지 · 초점 표식', () => 
   it('[P2] 쓰기 중 재시도 단추 잠금 — disabled + aria-describedby · reloadPlan 도 writing 이면 중단', () => {
     const x = src()
     expect(x).toContain('const writing = adding || pendingWrites > 0')
-    expect(x).toMatch(/disabled=\{writing\}\s*\n\s*aria-describedby=\{writing \? 'plan-writing-note' : undefined\}/)
-    expect(x).toMatch(/async function reloadPlan\(\) \{[\s\S]{0,200}if \(writing\) return/)
+    expect(x).toMatch(/disabled=\{writing \|\| reloading\}\s*\n\s*aria-describedby=\{writing \? 'plan-writing-note' : undefined\}/)
+    expect(x).toMatch(/async function reloadPlan\(\) \{[\s\S]{0,200}if \(writing \|\| reloadInFlight\.current\) return/)
     expect(x).toMatch(/setPendingWrites\(\(n\) => n \+ 1\)[\s\S]*?finally \{\s*\n\s*setPendingWrites\(\(n\) => n - 1\)/)
   })
   it('[P2] 초점 표식은 제목이 실제로 초점을 받은 뒤에만 지운다 — ref 콜백 · 매 렌더 재시도', () => {
@@ -216,16 +217,33 @@ describe('리뷰 r6 — 읽기 · 쓰기 겹침 금지 · 초점 표식', () => 
 
 describe('리뷰 r7 — 쓰기 중 props 보류 → 쓰기 뒤 재조회 1회', () => {
   const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
-  it('[P2] props effect 는 writing 이면 반영하지 않고 보류 표시만 남긴다(판정 · 무효화보다 먼저)', () => {
+  it('[P2] props effect 는 같은 viewer 의 props 만 writing 중 보류한다(r8: viewer 판정 뒤 · 반영보다 앞)', () => {
     const x = src()
     const e = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
     const w = e.indexOf('if (writing) {')
     expect(w).toBeGreaterThan(0)
     expect(e.slice(w, w + 120)).toContain('deferredProps.current = true')
     expect(e.indexOf('setItems(initialItems)')).toBeGreaterThan(w)
-    expect(e.indexOf('readGen.current++')).toBeGreaterThan(w)
+    expect(e.indexOf('guardRef.current.invalidate()')).toBeLessThan(w)
+    expect(e.indexOf('setReloading(false)')).toBeGreaterThan(w)
   })
   it('[P2] 쓰기가 끝나면 보류분은 버리고 reloadPlan 1회(기존 재조회 잠금 경로)', () => {
     expect(src()).toMatch(/if \(writing \|\| !deferredProps\.current\) return\s*\n\s*deferredProps\.current = false\s*\n\s*void reloadPlan\(\)/)
+  })
+})
+
+describe('리뷰 r8 — 다른 viewer 는 쓰기 중에도 즉시 닫기 · 재조회 중복 금지', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  it('[P1] viewer 판정(닫기)이 writing 보류보다 먼저', () => {
+    const x = src()
+    const e = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
+    expect(e.indexOf('guardRef.current.invalidate()')).toBeGreaterThan(0)
+    expect(e.indexOf('guardRef.current.invalidate()')).toBeLessThan(e.indexOf('if (writing) {'))
+  })
+  it('[P2] reloadPlan 진행 중 ref 잠금 · 재조회 중 재시도 단추 disabled', () => {
+    const x = src()
+    expect(x).toMatch(/if \(writing \|\| reloadInFlight\.current\) return\s*\n\s*reloadInFlight\.current = true/)
+    expect(x).toMatch(/finally \{\s*\n\s*reloadInFlight\.current = false/)
+    expect(x).toContain('disabled={writing || reloading}')
   })
 })

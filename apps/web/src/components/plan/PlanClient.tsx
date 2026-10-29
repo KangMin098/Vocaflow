@@ -133,24 +133,28 @@ export function PlanClient({
   //   진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
   const firstProps = useRef(true)
   const deferredProps = useRef(false)
+  const reloadInFlight = useRef(false)
   useEffect(() => {
     if (firstProps.current) {
       firstProps.current = false
       return
     }
-    // 쓰기 중에 온 props(r7) — 낙관적 변경을 덮지 않게 반영을 보류한다. 쓰기가 끝나면 보류분은 버리고 재조회 1회로 다시 확인한다
+    const transient = initialFailed && viewerId === null
+    // ① viewer 판정이 먼저(r8) — 확정된 다른 viewer · 로그아웃이면 쓰기 중이어도 즉시 경계를 닫는다
+    if (!transient && ownerId !== null && viewerId !== ownerId) {
+      readGen.current++
+      guardRef.current.invalidate()
+      return
+    }
+    // ② 같은 viewer(또는 소유자 확인 실패)의 props 만 쓰기 중 보류(r7) — 낙관적 변경을 덮지 않게. 쓰기가 끝나면 보류분은 버리고 재조회 1회
     if (writing) {
       deferredProps.current = true
       return
     }
     readGen.current++
     setReloading(false)
-    if (initialFailed && viewerId === null) {
+    if (transient) {
       setReadFailed(true)
-      return
-    }
-    if (ownerId !== null && viewerId !== ownerId) {
-      guardRef.current.invalidate()
       return
     }
     if (ownerId === null && viewerId !== null) setOwnerId(viewerId)
@@ -170,8 +174,11 @@ export function PlanClient({
   const owner = ownerId ?? undefined
   /** 명시적 읽기 재시도 — 읽기만 한다(저장 · 삭제를 다시 보내지 않는다). 늦은 응답 · 다른 viewer 응답은 버린다 */
   async function reloadPlan() {
-    // 쓰기 중에는 재조회하지 않는다(r6) — 낡은 읽기 결과가 낙관적 변경을 덮지 않게
-    if (writing) return
+    // 쓰기 중에는 재조회하지 않는다(r6) — 낡은 읽기 결과가 낙관적 변경을 덮지 않게 · 이미 재조회 중이면 다시 부르지 않는다(r8)
+    if (writing || reloadInFlight.current) return
+    reloadInFlight.current = true
+    // 누른 순간 재시도 단추에 초점이 있었는가(r8) — 재조회 중 단추가 disabled 되면 초점이 풀리므로 시작할 때 기억한다
+    const fromRetry = typeof document !== 'undefined' && document.activeElement === retryRef.current
     const gen = ++readGen.current
     const startGuard = guard
     const token = guard.token()
@@ -202,13 +209,14 @@ export function PlanClient({
         return
       }
       // 재시도 단추에 초점이 있었으면(누른 단추가 사라진다) 성공 뒤 계획 제목으로 옮긴다(r5)
-      if (typeof document !== 'undefined' && document.activeElement === retryRef.current) focusAfterReload.current = true
+      if (fromRetry) focusAfterReload.current = true
       setItems(snap.items)
       setConfirmed(true)
       setReadFailed(false)
     } catch {
       if (gen === readGen.current) setReadFailed(true)
     } finally {
+      reloadInFlight.current = false
       if (gen === readGen.current) setReloading(false)
     }
   }
@@ -594,7 +602,7 @@ export function PlanClient({
             ref={retryRef}
             onClick={() => void reloadPlan()}
             aria-disabled={reloading}
-            disabled={writing}
+            disabled={writing || reloading}
             aria-describedby={writing ? 'plan-writing-note' : undefined}
             data-testid="plan-read-retry"
             className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
