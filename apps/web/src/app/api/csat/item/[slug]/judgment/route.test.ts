@@ -211,3 +211,40 @@ describe('판단 라우트 — 기록 뒤에만 정답', () => {
     expect(st.calls).toContain('rpc:learning_exposure_record:answer_direct:lecture_continue:2014A#23:4')
   })
 })
+
+// U02-ORDER-PILOT-01 — 도구 provider 요청(tool 키 없음)을 도구 요청으로 볼지는 pilot.ts 의 같은 범위 판정을 쓴다
+describe('판단 라우트 — R-ORDER 파일럿 범위', () => {
+  beforeEach(() => {
+    st.user = 'u1'
+    st.open = true
+    st.version = 1
+    st.rpc = { data: 77, error: null }
+    st.calls = []
+    st.revealHash = 'h1'
+    st.type = 'R-ORDER'
+    st.boundSeq = []
+  })
+  it('파일럿 문항 H2609G2#36 · tool 키 없음 → 도구 요청(기록 전 결속 확인 · 공개 뒤 결속 재확인)', async () => {
+    st.bound = { id: 'H2609G2#36', version: { unitsVersion: 1, unitsHash: 'h1', analysisVersion: 1 } }
+    const res = await call({ analysisVersion: 1 }, 'H2609G2-36')
+    expect(res.status).toBe(200)
+    expect(st.calls[0]).toBe('bound:H2609G2#36:1')
+    expect(st.calls.filter((c) => c.startsWith('bound:'))).toHaveLength(2)
+    expect(st.calls).toContain('judgment-reveal:1')
+  })
+  it('파일럿 밖 R-ORDER 문항 · tool 키 없음 → 도구 요청이 아니다(결속 · 판단 공개 없이 기존 공개만)', async () => {
+    st.bound = { id: 'H2609G2#37', version: { unitsVersion: 1, unitsHash: 'h1', analysisVersion: 1 } }
+    const res = await call({ analysisVersion: 1 }, 'H2609G2-37')
+    expect(res.status).toBe(200)
+    expect(st.calls.some((c) => c.startsWith('bound:'))).toBe(false)
+    expect(st.calls.some((c) => c.startsWith('judgment-reveal'))).toBe(false)
+    expect((await res.json()).judgment).toBeNull()
+  })
+  it('파일럿 문항인데 결속이 닫혔으면(판본 바뀜) 기록 전에 409 — 정답 자료 없음', async () => {
+    st.bound = null
+    const res = await call({ analysisVersion: 1 }, 'H2609G2-36')
+    expect(res.status).toBe(409)
+    expect(st.calls.some((c) => c.startsWith('rpc:'))).toBe(false)
+    await assertNoAnswer(res)
+  })
+})

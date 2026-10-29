@@ -14,7 +14,8 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import { loadJudgmentReveal } from '@/lib/csat/judgment/server'
 import type { RevealData } from '@/lib/csat/judgment/types'
 import { createAdminClient } from '@/lib/supabase/admin'
-import { JUDGMENT_TOOL_TYPES, loadBoundJudgmentItem } from './bound-item'
+import { loadBoundJudgmentItem } from './bound-item'
+import { judgmentToolInScope } from '@/lib/csat/judgment/pilot'
 
 import { learnerContext, readJson } from '@/lib/csat/diagnosis/route-helpers'
 import { canRevealItem, revealHeldResponse } from '@/lib/csat/embargo-gate'
@@ -65,7 +66,7 @@ export async function POST(req: Request, { params }: { params: Promise<{ slug: s
   const toolField = Object.prototype.hasOwnProperty.call(o, 'tool') ? o.tool : undefined
   const toolClaim = toolField && typeof toolField === 'object' ? (toolField as Record<string, unknown>) : null
   if (toolField !== undefined && toolField !== null && (!toolClaim || typeof toolClaim.unitsHash !== 'string' || toolClaim.analysisVersion !== analysisVersion)) return fail(400, '요청 형식이 올바르지 않아요')
-  const toolRequest = toolField === undefined ? Boolean(item.type_id && JUDGMENT_TOOL_TYPES.has(item.type_id)) : toolClaim != null
+  const toolRequest = toolField === undefined ? judgmentToolInScope(item.type_id, itemId) : toolClaim != null
   const admin = toolRequest ? (createAdminClient() as unknown as SupabaseClient) : null
   let bound: Awaited<ReturnType<typeof loadBoundJudgmentItem>> | null = null
   if (admin) {
