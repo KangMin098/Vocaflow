@@ -29,6 +29,9 @@ export default async function TeacherPage() {
   // "화면은 봤는데 만들지 않았다" 를 드러낸다. 지금은 그 구간이 통째로 안 보인다.
   void recordFunnel(await createClient(), 'teacher_hub_view', { surface: '/teacher' })
 
+  const {
+    data: { user },
+  } = await (await createClient()).auth.getUser()
   const [taught, joined, received, sent, collectedIds] = await Promise.all([
     fetchTeacherClasses(),
     fetchMyMemberships(),
@@ -62,6 +65,8 @@ export default async function TeacherPage() {
           assignments={receivedOnly}
           failed={received.failed}
           collectedIds={collectedIds}
+          // 받은 낱말의 단어장 검색 링크는 브라우저 세션이 이 viewer 와 같을 때만(T-0273)
+          viewerId={user?.id ?? null}
         />
 
         {/* 목록 조회 실패를 버리면 "보낸 과제 없음" 과 똑같이 아무것도 안 보인다. */}

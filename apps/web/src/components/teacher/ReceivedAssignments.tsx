@@ -10,10 +10,13 @@
 
 'use client'
 
-import { BookOpen, Check, ChevronDown, Loader2 } from 'lucide-react'
+import Link from 'next/link'
+import { BookOpen, Check, ChevronDown, Loader2, Search } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
 import { useId, useState } from 'react'
 
+import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
+import { wordVaultSearchHref } from '@/lib/dictation/word-vault-link'
 import type { ClassAssignment } from '@/lib/teacher/assignment-actions'
 import { markAssignmentCollected } from '@/lib/teacher/assignment-actions'
 
@@ -23,9 +26,14 @@ interface Props {
   failed?: boolean
   /** 이미 담은 과제 id — 서버가 알려준다. */
   collectedIds?: string[]
+  /** 서버가 확인한 로그인 사용자 id — 브라우저 세션이 같은 사람으로 확인될 때만 단어장 검색 링크를 보인다(T-0273). */
+  viewerId?: string | null
 }
 
-export function ReceivedAssignments({ assignments, failed = false, collectedIds = [] }: Props) {
+export function ReceivedAssignments({ assignments, failed = false, collectedIds = [], viewerId = null }: Props) {
+  // 확인 중(checking) · 계정 바뀜 · 로그아웃(changed) · 서버 viewer 없음이면 링크 0 — 이전 계정의 과제에서 지금 계정의 단어장으로 잇지 않는다
+  const { status: authStatus } = useStoryAuthGuard(viewerId)
+  const linkable = viewerId !== null && authStatus === 'same'
   const [collected, setCollected] = useState<Set<string>>(new Set(collectedIds))
   const [busy, setBusy] = useState<string | null>(null)
   const [error, setError] = useState<string | null>(null)
@@ -135,7 +143,7 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
 
               {/* 단어는 접지 않고 바로 보여준다 — 담기 전에 무엇인지 알아야 담는다. 24개를 넘으면 「전체 보기」로 나머지까지(T-0234) */}
               {/* key = 과제 id + 단어 목록 — 같은 과제라도 목록이 바뀌면 펼침을 처음(닫힘)으로 되돌린다 */}
-              <ReceivedWords key={`${a.id}:${receivedWordsKey(a.words)}`} words={a.words} />
+              <ReceivedWords key={`${a.id}:${receivedWordsKey(a.words)}`} words={a.words} linkable={linkable} />
             </li>
           )
         })}
@@ -170,6 +178,20 @@ export function readReceivedWords(words: unknown): { ok: true; words: ReceivedWo
   return { ok: true, words: out }
 }
 
+/** 영어 낱말 꼴 — 글자로 시작 · 끝나고 사이에 하이픈 · 아포스트로피만(공백 · 숫자 · 기호 없음). */
+const ENGLISH_WORD = /^[A-Za-z]+(?:['-][A-Za-z]+)*$/
+
+/**
+ * 받은 낱말 → 내 단어장 검색 링크(T-0273). 기존 wordVaultSearchHref 그대로에 `from=/teacher` 복귀만 더한다.
+ * 영어 낱말 꼴이 아니면 null(링크 없음). 검색 링크일 뿐 — 저장됨 · 과제 전용 목록 · 복습 기한을 약속하지 않는다.
+ */
+export function receivedWordVaultHref(word: string): string | null {
+  const w = word.trim()
+  if (!ENGLISH_WORD.test(w)) return null
+  const href = wordVaultSearchHref(w)
+  return href ? `${href}&${new URLSearchParams({ from: '/teacher' }).toString()}` : null
+}
+
 /**
  * 단어 목록의 결속값 — 목록(순서 · 낱말 · 뜻)이 하나라도 바뀌면 달라진다. 펼침 상태를 이 값에 묶는다.
  * 짧은 문자열 해시(FNV-1a 32bit)라 key 가 목록 길이만큼 길어지지 않는다. 읽을 수 없는 값도 JSON 문자열로 구분한다.
@@ -190,7 +212,7 @@ export function receivedWordsKey(words: unknown): string {
 }
 
 /** 카드 하나의 단어 — 펼침 상태는 카드마다 따로(과제 id + 목록 결속값으로 key) · 담기 · 기록 · 조회를 부르지 않는다 */
-function ReceivedWords({ words }: { words: unknown }) {
+function ReceivedWords({ words, linkable }: { words: unknown; linkable: boolean }) {
   const [open, setOpen] = useState(false)
   const listId = useId()
   const read = readReceivedWords(words)
@@ -222,6 +244,22 @@ function ReceivedWords({ words }: { words: unknown }) {
           >
             <span className="min-w-0 break-all">{w.w}</span>
             {w.m && <span className="min-w-0 break-keep text-[11.5px] text-[var(--t3)]">{w.m}</span>}
+            {(() => {
+              const href = linkable ? receivedWordVaultHref(w.w) : null
+              if (!href) return null
+              return (
+                <Link
+                  href={href}
+                  // 누르기 전에는 아무것도 요청하지 않는다 — 담기 · 조회 호출 0
+                  prefetch={false}
+                  data-testid="received-word-vault-link"
+                  aria-label={`내 단어장에서 ${w.w.trim()} 찾기`}
+                  className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--r-full)] text-[var(--t2)] hover:bg-[var(--bg)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+                >
+                  <Search size={14} aria-hidden />
+                </Link>
+              )
+            })()}
           </li>
         ))}
       </ul>
