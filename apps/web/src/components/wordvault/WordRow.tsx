@@ -217,7 +217,12 @@ export function WordRow({
 
         {/* 5. 예문 — 우측 정렬 (Lora italic + ❝❞) */}
         <div className="hidden min-w-0 md:block" onClick={stopBubble}>
-          {word.exampleEn ? (
+          {word.exampleEn && hideStates.word ? (
+            // T-0229 — 예문에는 그 낱말이 들어 있다. 단어 숨김 중에는 본행에서도 펼친 행(WordRowFull)과 같은 안내로 가린다
+            <span data-testid="word-row-example-hidden" className="block truncate text-right font-body text-[12px] text-t3">
+              단어 숨김 중에는 예문 전체를 가려요
+            </span>
+          ) : word.exampleEn ? (
             <p
               className={cn(
                 'truncate text-right font-serif text-[12.5px] font-[500] italic leading-[1.55] tracking-[0.005em] text-t3',
