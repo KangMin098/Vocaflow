@@ -45,7 +45,7 @@ describe('PairFlipPairsList 뜻 가리기', () => {
     expect(html).toContain('>뜻 가리기<')
     expect(html).toMatch(/aria-expanded="true"[^>]*aria-controls=/)
     // 연 뜻은 자르지 않는다(가린 안내만 한 줄)
-    expect(html).toMatch(/class="font-body text-[12px] text-[var(--t2)] break-keep" data-testid="pf-recall-meaning"/)
+    expect(html).toContain('class="font-body text-[12px] text-[var(--t2)] break-keep" data-testid="pf-recall-meaning"')
   })
   it('모두 한 번에 맞혔으면 예전 목록 그대로(가림 · 토글 없음)', () => {
     const html = render([pair('a', 1), pair('d', 1)])
