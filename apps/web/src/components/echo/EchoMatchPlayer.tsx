@@ -278,15 +278,23 @@ export function EchoMatchPlayer({
           if (!recognizerRef.current) recognizerRef.current = createRecognizer('en-US')
           transcriptRef.current = ''
           recogGenRef.current = gen
+          const startedKey = sentenceMaterialKey(current)
+          const startedAuth = attemptAuthRef.current ?? authGuard.token()
+          const live = () =>
+            isLiveRecog(gen, recogGenRef.current, runGenRef.current, {
+              startedKey,
+              currentKey: materialKeyRef.current,
+              authCurrent: authGuard.isCurrent(startedAuth),
+            })
           const started = recognizerRef.current.start({
             onInterim: (t) => {
               // 이 시도의 인식이 아직 열려 있을 때만 — 멈춘 뒤 · 다른 시도의 늦은 콜백은 버린다
-              if (!isLiveRecog(gen, recogGenRef.current, runGenRef.current)) return
+              if (!live()) return
               transcriptRef.current = t
             },
             onError: () => {
               // 마이크 거부 · 네트워크 등 — 이 시도의 것만 「인식 실패」로 남긴다(이전 시도의 오류는 무시)
-              if (!isLiveRecog(gen, recogGenRef.current, runGenRef.current)) return
+              if (!live()) return
               recogErroredRef.current = true
             },
           })

@@ -21,9 +21,11 @@ export function snapshotHeard(
   input: { supported: boolean; failed: boolean; usedTranscript: string | null },
   bind: { gen: number; materialKey: string; authToken: number },
 ): HeardSnapshot {
+  // 미지원 · 실패를 문자열보다 먼저 본다 — 일부 인식 뒤 오류가 온 문자열은 참고문장으로 보이지 않는다(채점은 그대로)
+  if (!input.supported) return { kind: 'unconfirmed', reason: 'unsupported', ...bind }
+  if (input.failed) return { kind: 'unconfirmed', reason: 'failed', ...bind }
   if (input.usedTranscript) return { kind: 'text', text: input.usedTranscript, ...bind }
-  const reason: HeardReason = !input.supported ? 'unsupported' : input.failed ? 'failed' : 'empty'
-  return { kind: 'unconfirmed', reason, ...bind }
+  return { kind: 'unconfirmed', reason: 'empty', ...bind }
 }
 
 /** 지금 화면에 보일 것 — 결과 화면이고 시도 · 자료 · 계정 경계가 모두 그대로일 때만. */
@@ -79,8 +81,15 @@ export function measureTranscript(
 }
 
 /** 이 콜백이 아직 이 시도의 것인가 — 인식 세대와 실행 세대가 모두 시작 세대와 같을 때만. */
-export function isLiveRecog(startedGen: number, recogGen: number | null, runGen: number): boolean {
-  return recogGen === startedGen && startedGen === runGen
+export function isLiveRecog(
+  startedGen: number,
+  recogGen: number | null,
+  runGen: number,
+  bound?: { startedKey: string; currentKey: string | null; authCurrent: boolean },
+): boolean {
+  if (recogGen !== startedGen || startedGen !== runGen) return false
+  // 시작 때의 문장 자료 · 계정 경계가 그대로일 때만 — 바뀐 뒤 정리 전에 온 이전 콜백은 버린다
+  return !bound || (bound.startedKey === bound.currentKey && bound.authCurrent)
 }
 
 /** 녹음 정지(await) 뒤 — 그 사이 시도가 바뀌었으면 stale(버림), 같은 사람이 아니면 denied(닫음), 아니면 ok. */

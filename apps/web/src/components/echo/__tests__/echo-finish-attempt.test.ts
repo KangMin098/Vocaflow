@@ -69,6 +69,13 @@ describe('measureTranscript — 비율 입력 = 표시 문자열', () => {
     }
   })
 
+  it('일부 인식 뒤 onError — 참고문장이 아니라 실패 사유(채점 비율은 기존대로 잰다)', () => {
+    const m = measureTranscript(TARGET, recog({ transcript: 'the cat', errored: true }))
+    expect(m.used).toBe('the cat')
+    expect(m.ratio).toBe(computeShadowMatch(TARGET, 'the cat').ratio)
+    expect(scoredOutcome({ ...base, measured: m }).heard).toMatchObject({ kind: 'unconfirmed', reason: 'failed' })
+  })
+
   it('stop() 이 던지면 기존처럼 비율을 재지 않고 실패 사유', () => {
     const m = measureTranscript(TARGET, recog({ transcript: 'the cat', stopThrew: true }))
     expect(m).toMatchObject({ used: null, ratio: null, matchedKeys: null, failed: true })
@@ -88,6 +95,13 @@ describe('isLiveRecog — 늦은 콜백 · 다른 세대 무시', () => {
     expect(isLiveRecog(4, null, 4)).toBe(false) // 정지 뒤 늦은 콜백
     expect(isLiveRecog(3, 4, 4)).toBe(false) // 이전 시도의 콜백 · 오류
     expect(isLiveRecog(4, 4, 5)).toBe(false) // 문장 이동 · 화면 이탈
+  })
+  it('자료 · 계정이 바뀐 뒤 정리 전에 온 이전 콜백도 무시', () => {
+    const ok = { startedKey: 's1|h', currentKey: 's1|h', authCurrent: true }
+    expect(isLiveRecog(4, 4, 4, ok)).toBe(true)
+    expect(isLiveRecog(4, 4, 4, { ...ok, currentKey: 's1|other' })).toBe(false)
+    expect(isLiveRecog(4, 4, 4, { ...ok, currentKey: null })).toBe(false)
+    expect(isLiveRecog(4, 4, 4, { ...ok, authCurrent: false })).toBe(false)
   })
 })
 
@@ -142,7 +156,8 @@ describe('Player 소스 결속 — 위 함수를 실제로 부른다', () => {
     expect(src).toMatch(/const outcome = scoredOutcome\(\{/)
     expect(src).toMatch(/setHeard\(outcome\.heard\)/)
     expect(src).toMatch(/void saveEchoAttempt\(outcome\.save\)/)
-    expect(src.match(/isLiveRecog\(gen, recogGenRef\.current, runGenRef\.current\)/g)?.length).toBe(2)
+    expect(src).toMatch(/isLiveRecog\(gen, recogGenRef\.current, runGenRef\.current, \{\s*startedKey,\s*currentKey: materialKeyRef\.current,\s*authCurrent: authGuard\.isCurrent\(startedAuth\),/)
+    expect(src.match(/if \(!live\(\)\) return/g)?.length).toBe(2)
     expect(src).toMatch(/onError: \(\) =>/)
     expect(src).toMatch(/if \(!started\) recogStartFailedRef\.current = true/)
   })
