@@ -33,6 +33,11 @@ describe('nextFeedbackHandoff — 이벤트 순서별', () => {
     expect(run([{ type: 'submit', focusedOnSubmit: true }, { type: 'focusin', toTitle: true }, { type: 'success' }]).moves).toBe(1)
     expect(run([{ type: 'focusin', toTitle: false }, { type: 'submit', focusedOnSubmit: true }, { type: 'success' }]).moves).toBe(1) // 제출 전 이동은 무관
   })
+  it('대기 중 창 밖(window blur · 탭 숨김)으로 나가면 이동 0 · 제출 전 창 이동은 무관', () => {
+    expect(run([{ type: 'submit', focusedOnSubmit: true }, { type: 'windowAway' }, { type: 'success' }]).moves).toBe(0)
+    expect(run([{ type: 'windowAway' }, { type: 'submit', focusedOnSubmit: true }, { type: 'success' }]).moves).toBe(1)
+    expect(run([{ type: 'submit', focusedOnSubmit: true }, { type: 'windowAway' }, { type: 'fail' }, { type: 'submit', focusedOnSubmit: true }, { type: 'success' }]).moves).toBe(1)
+  })
   it('제출 단추가 아닌 곳에서 제출: 이동 0', () => {
     expect(run([{ type: 'submit', focusedOnSubmit: false }, { type: 'success' }]).moves).toBe(0)
   })
@@ -76,6 +81,8 @@ describe('배선 — 기사 연습만 opt-in · 전이 함수로만 판정', () 
     expect(player).toMatch(/document\.addEventListener\('pointerdown', leave, true\)/)
     expect(player).toMatch(/document\.addEventListener\('focusout', leave, true\)/)
     expect(player).toMatch(/document\.addEventListener\('focusin', enter, true\)/)
+    expect(player).toMatch(/window\.addEventListener\('blur', away\)/)
+    expect(player).toMatch(/if \(document\.visibilityState === 'hidden'\) away\(\)/)
     expect(player).toMatch(/\{ type: 'focusin', toTitle: e\.target === feedbackTitleRef\.current \}/)
     expect(player).toMatch(/if \(e\.type === 'focusout' && !\(e as FocusEvent\)\.relatedTarget\) return/)
     expect(player).toMatch(/nextFeedbackHandoff\(handoff\.current, \{ type: phase === 'graded' \? 'success' : 'fail' \}\)/)
