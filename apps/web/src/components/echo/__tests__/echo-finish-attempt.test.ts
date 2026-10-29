@@ -69,6 +69,12 @@ describe('measureTranscript — 비율 입력 = 표시 문자열', () => {
     }
   })
 
+  it('stop() 이 던지면 기존처럼 비율을 재지 않고 실패 사유', () => {
+    const m = measureTranscript(TARGET, recog({ transcript: 'the cat', stopThrew: true }))
+    expect(m).toMatchObject({ used: null, ratio: null, matchedKeys: null, failed: true })
+    expect(scoredOutcome({ ...base, measured: m }).heard).toMatchObject({ kind: 'unconfirmed', reason: 'failed' })
+  })
+
   it('미지원 브라우저는 실패가 아니라 미지원 사유', () => {
     const m = measureTranscript(TARGET, recog({ supported: false, startFailed: true }))
     expect(m.failed).toBe(false)

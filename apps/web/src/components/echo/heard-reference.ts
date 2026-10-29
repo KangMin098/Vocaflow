@@ -49,8 +49,10 @@ export interface RecogAttemptState {
   supported: boolean
   /** start() 가 false 를 돌려줬거나 던졌다 */
   startFailed: boolean
-  /** 이 세대의 onError(마이크 거부 · 네트워크 등)가 왔거나 stop() 이 던졌다 */
+  /** 이 세대의 onError(마이크 거부 · 네트워크 등)가 왔다 */
   errored: boolean
+  /** 정지 요청(stop())이 던졌다 — 기존처럼 비율을 재지 않는다(단어 정확도 미측정) */
+  stopThrew?: boolean
   /** 이 세대의 마지막 onInterim 문자열(정지 전까지) */
   transcript: string
 }
@@ -69,8 +71,8 @@ export function measureTranscript(
   recog: RecogAttemptState,
   match: (t: string, s: string) => ShadowMatch = computeShadowMatch,
 ): MeasuredTranscript {
-  const failed = recog.supported && (recog.startFailed || recog.errored)
-  const used = recog.transcript.trim()
+  const failed = recog.supported && (recog.startFailed || recog.errored || !!recog.stopThrew)
+  const used = recog.stopThrew ? '' : recog.transcript.trim()
   if (!used) return { used: null, ratio: null, matchedKeys: null, failed }
   const m = match(target, used)
   return { used, ratio: m.ratio, matchedKeys: m.matchedKeys, failed }

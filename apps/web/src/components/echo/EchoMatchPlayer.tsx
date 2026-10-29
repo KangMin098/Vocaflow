@@ -326,7 +326,8 @@ export function EchoMatchPlayer({
     const measured = measureTranscript(sentence.text, {
       supported,
       startFailed: recogStartFailedRef.current,
-      errored: recogErroredRef.current || stopThrew,
+      errored: recogErroredRef.current,
+      stopThrew,
       transcript: transcriptRef.current,
     })
     const wr = measured.ratio
