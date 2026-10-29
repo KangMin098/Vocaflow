@@ -16,6 +16,8 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 
+import { allowMutatingSharedDbTests } from '@/test/shared-db-test-policy'
+
 const SUPABASE_URL = process.env.NEXT_PUBLIC_SUPABASE_URL
 const ANON_KEY = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -23,7 +25,9 @@ const SERVICE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY
 const TEST_EMAIL = 'runtime-test-0705@vocaflow.dev'
 const TEST_PASSWORD = process.env.PLAYWRIGHT_RUNTIME_PASSWORD ?? ''
 
-const skip = !SUPABASE_URL || !ANON_KEY || !SERVICE_KEY
+// 자격 증명만으로는 실행하지 않는다(T-0244) — 공유 DB 를 쓰는 검사는 승인된 명시적 로컬 실행(RUN_MUTATING_DB_TESTS=1, CI 아님)에서만.
+//   skip 이면 client 생성 · 로그인 · INSERT/DELETE · 정리 모두 아래 describe 안(beforeAll/afterAll/it)이라 하나도 돌지 않는다
+const skip = !SUPABASE_URL || !ANON_KEY || !SERVICE_KEY || !allowMutatingSharedDbTests(process.env)
 
 describe.skipIf(skip)('학급 과제 권한 (실 DB)', () => {
   let svc: SupabaseClient
