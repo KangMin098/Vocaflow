@@ -36,6 +36,8 @@ export interface MissedWord {
   kind: MissKind
   /** T-0238 이번 판에서 처음 틀리게 제출한 입력(없으면 없음 — 건너뜀만 · 확인 전 신원 · 다른 판). 철자 확인 뒤에만 보인다. */
   firstError?: string | null
+  /** T-0265 본인 확인된 화면의 내 단어장 검색 경로(없으면 링크 없음). 철자 확인 뒤에만 보인다. */
+  vaultSearchHref?: string | null
 }
 
 const MISS_LABEL: Record<MissKind, string> = { skipped: '건너뜀', retried: '틀린 뒤 다시 씀' }
@@ -72,6 +74,16 @@ export function MissedWordRow({ miss }: { miss: MissedWord }) {
           <dt className="break-keep font-display text-[11px] font-[700] text-[var(--t2)]">정답 철자</dt>
           <dd className="m-0 break-all font-english text-[15px] font-[600] text-[var(--t1)]">{miss.word.text}</dd>
         </dl>
+      ) : null}
+      {shown && miss.vaultSearchHref ? (
+        <Link
+          href={miss.vaultSearchHref}
+          prefetch={false}
+          data-testid="sf-miss-vault-search"
+          className={`inline-flex min-h-[44px] items-center self-start rounded-[var(--r-md)] px-1 font-display text-[12px] font-[700] text-[var(--t2)] underline-offset-2 hover:text-[var(--p)] hover:underline ${FOCUS}`}
+        >
+          내 단어장에서 이 낱말 찾기
+        </Link>
       ) : null}
     </li>
   )
