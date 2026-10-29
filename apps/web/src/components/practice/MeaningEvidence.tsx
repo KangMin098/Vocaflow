@@ -30,13 +30,13 @@ export const RELATION_NOTE = '내 판단을 표시했어요. 등록된 해설과
  * 안쪽 여백(p-1)은 focus 링(ring-2)이 스크롤 상자 가장자리에서 잘리지 않게 하는 자리다.
  */
 const LONG_LIST = 8
-const listClass = (n: number) =>
+export const evidenceListClass = (n: number) =>
   n > LONG_LIST
     ? // [&>*]:shrink-0 — 높이를 묶은 세로 flex 는 자식을 줄여 긴 문장 단추가 44px 로 찌그러지며 글자가 넘친다
       'flex max-h-[360px] flex-col gap-1.5 overflow-y-auto overscroll-contain rounded-[var(--r-md)] border border-[var(--bd)] p-1 [&>*]:shrink-0'
     : 'flex flex-col gap-1.5'
 
-function LongListHint({ n }: { n: number }) {
+export function EvidenceLongListHint({ n }: { n: number }) {
   if (n <= LONG_LIST) return null
   return (
     <p className="break-keep font-body text-[12px] text-[var(--t2)]" data-testid="meaning-evidence-scroll-hint">
@@ -134,8 +134,8 @@ export function MeaningEvidence({
         </p>
         <p className="break-keep font-body text-[12px] leading-relaxed text-[var(--t2)]">정답 확인이 아니라 연습이에요 — 근거가 되는 문장은 여러 개일 수 있어요.</p>
       </div>
-      <LongListHint n={sentences.length} />
-      <div role="group" aria-label="근거 문장 후보" className={listClass(sentences.length)} data-testid="meaning-evidence-list">
+      <EvidenceLongListHint n={sentences.length} />
+      <div role="group" aria-label="근거 문장 후보" className={evidenceListClass(sentences.length)} data-testid="meaning-evidence-list">
         {sentences.map((s, i) => (
           <button
             key={i}
@@ -225,8 +225,8 @@ export function MeaningEvidence({
                   <p className="break-keep font-display text-[13px] font-[700] text-[var(--t1)]">
                     내 답과 이 선택지가 갈리는 본문 문장을 하나 짚어 보세요
                   </p>
-                  <LongListHint n={sentences.length} />
-                  <div role="group" aria-label="견주기 근거 문장 후보" className={listClass(sentences.length)} data-testid="meaning-compare-list">
+                  <EvidenceLongListHint n={sentences.length} />
+                  <div role="group" aria-label="견주기 근거 문장 후보" className={evidenceListClass(sentences.length)} data-testid="meaning-compare-list">
                     {sentences.map((sent, i) => (
                       <button
                         key={i}

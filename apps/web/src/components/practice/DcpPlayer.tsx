@@ -30,7 +30,8 @@ import { gradeDcpItem, recordDcpErrorCause } from '@/lib/learner/dcp-actions'
 import { DcpChoiceItem, DcpInsertItem, DcpOrderItem, DcpUnderlineChoiceItem } from './DcpItems'
 import { MeaningEvidence } from './MeaningEvidence'
 import { insertSeamCandidates } from '@vocaflow/library-pipeline/insert-coordinates'
-import { meaningEvidenceSentences, isMeaningEvidenceType } from '@/lib/learner/meaning-evidence'
+import { meaningEvidenceSentences, isMeaningEvidenceType, preEvidenceSentences } from '@/lib/learner/meaning-evidence'
+import { PreEvidenceNote, preEvidenceFor, type PreEvidenceSnapshot } from './PreEvidence'
 
 type Phase = 'answering' | 'grading' | 'graded' | 'done'
 
@@ -50,6 +51,7 @@ export function DcpPlayer({
   nextChoice,
   doneChoice,
   afterFeedback,
+  preEvidence = false,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -97,6 +99,11 @@ export function DcpPlayer({
    * 문항마다 새로 그린다(key) · 완료 뒤 다시 보기에는 넣지 않는다.
    */
   afterFeedback?: ReactNode
+  /**
+   * R0-PRE-EVIDENCE-01 — 제목 · 주제 문항의 제출 전 선택적 본문 짚기(opt-in). 기사 연습 다리만 켠다.
+   * 짚은 문장은 grade · onGraded · seen 에 넣지 않는다 — 성공한 피드백에 「이번 제출 당시 짚은 문장」 으로만 보인다.
+   */
+  preEvidence?: boolean
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -110,6 +117,8 @@ export function DcpPlayer({
   /** 이 문항에 실제로 제출한 답 — 근거 짚기가 「무엇의 근거」인지 되짚는다(다음 문항 · 재시도 때 지운다) */
   const [submitted, setSubmitted] = useState<Record<string, unknown> | null>(null)
   const [correctCount, setCorrectCount] = useState(0)
+  /** 제출 시작 순간의 짚은 문장 — 같은 문항 객체에 묶는다. 실패하면 피드백이 없어 보이지 않고, 재시도가 덮어쓴다 */
+  const [preSnap, setPreSnap] = useState<PreEvidenceSnapshot<DcpItem> | null>(null)
   /**
    * 이번 세션에서 **채점에 성공해 공개된** 피드백(당시 선택 · 당시 서버 결과) — 완료 화면의 「이미 본 해설 다시 보기」.
    * 메모리에만 둔다(저장 · 새 조회 없음). 채점 실패는 넣지 않는다. 현재 items 의 같은 문항 객체에 묶인 것만 보인다.
@@ -127,11 +136,14 @@ export function DcpPlayer({
   const item = items[idx]
   const total = items.length
   const isLast = idx === total - 1
+  const preSentences = preEvidence && item && isChoiceDcpType(item.type) ? preEvidenceSentences(item.type, (item.payload as DcpChoicePayload | undefined)?.passage) : null
+  const preShown = preEvidenceFor(preSnap, item)
 
-  async function handleSubmit(answer: Record<string, unknown>) {
+  async function handleSubmit(answer: Record<string, unknown>, pre?: { sentence: string | null }) {
     if (!item) return
     setGradeError(null)
     setSubmitted(answer)
+    setPreSnap(preSentences && pre ? { item, sentence: pre.sentence } : null)
     setPhase('grading')
     // ⚠️ **reject 도 잡는다.** try/catch 가 없던 동안 세션 만료·네트워크 끊김이
     //   `setPhase('graded')` 에 못 닿아 제출 버튼이 회색으로 잠긴 채 영영 멈췄다.
@@ -171,6 +183,7 @@ export function DcpPlayer({
     setIdx((i) => i + 1)
     setResult(null)
     setSubmitted(null)
+    setPreSnap(null)
     setCause(null)
     setGradeError(null)
     setPhase('answering')
@@ -301,7 +314,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} extra={afterFeedback ? <div key={item.id}>{afterFeedback}</div> : null} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} pre={preShown ? <PreEvidenceNote key={`pre-${item.id}`} sentence={preShown.sentence} /> : null} extra={afterFeedback ? <div key={`extra-${item.id}`}>{afterFeedback}</div> : null} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -313,6 +326,7 @@ export function DcpPlayer({
             payload={item.payload as DcpChoicePayload}
             submitting={phase === 'grading'}
             onSubmit={handleSubmit}
+            evidenceSentences={preSentences}
           />
         ) : item.type === 'order' ? (
           <DcpOrderItem
@@ -374,6 +388,7 @@ function Feedback({
   causeHref,
   causeLabel,
   extra = null,
+  pre = null,
 }: {
   item: DcpItem
   result: DcpGradeOk
@@ -388,6 +403,8 @@ function Feedback({
   causeLabel?: Partial<Record<DcpErrorCause, string>>
   /** 호출자가 넣은 보조 영역(afterFeedback) — 진행 중 피드백에서만 */
   extra?: ReactNode
+  /** 이번 제출 당시 짚은 문장(R0-PRE-EVIDENCE-01) — 진행 중 성공 피드백에서만 */
+  pre?: ReactNode
 }) {
   const correct = result.correct
   return (
@@ -436,6 +453,8 @@ function Feedback({
         ) : (
           <Reveal item={item} answerKey={result.answerKey} />
         ))}
+
+      {pre}
 
       {/* 중심 의미 유형 — 채점 뒤 본문 근거 짚기 → 해설과 나란히(판정 없음 · 건너뛰기 가능 · 문항마다 새로) */}
       {(() => {
