@@ -16,6 +16,7 @@ import { MicroPause } from './MicroPause'
 import { ModeSelector } from './ModeSelector'
 import { ReflectionHint } from './ReflectionHint'
 import { bumpRetryEpoch, makeRetry, type RetryEpoch } from './error-retry'
+import { missedWordSearchHref } from './vault-search'
 import { NO_FIRST_ERRORS, firstErrorFor, firstErrorMaterial, firstErrorOwner, recordFirstError, type FirstErrors } from './first-error'
 import { SingleBox } from './SingleBox'
 
@@ -514,6 +515,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
               viewerId === undefined || authStatus === 'same'
                 ? firstErrorFor(firstErrors, firstErrorKey, w)
                 : null,
+            // T-0265 — 본인 확인(viewerId + same)일 때만 내 단어장 검색 경로(펼친 뒤에만 그려진다)
+            vaultSearchHref: missedWordSearchHref(w.text, { viewerId, status: authStatus }),
           }))}
       />
     )
