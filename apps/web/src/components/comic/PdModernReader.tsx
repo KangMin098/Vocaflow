@@ -41,6 +41,9 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
   const [vocabInfo, setVocabInfo] = useState<VocabInfo | null>(null)
   const [vocabBusy, setVocabBusy] = useState(false)
   const triggerRef = useRef<HTMLElement | null>(null)
+  // T-0250 — 공개 리더에서 학습자가 낱말을 눌러 시트를 연 그 행동에만 시트 제목으로 초점을 1회 옮긴다(부모 재렌더 · 늦은 사전 응답에는 0)
+  const sheetHeadRef = useRef<HTMLSpanElement>(null)
+  const [openSeq, setOpenSeq] = useState(0)
   const [failedPages, setFailedPages] = useState<string[]>([])
   const [imageAttempts, setImageAttempts] = useState<Record<string, number>>({})
 
@@ -75,6 +78,12 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
     return () => { document.removeEventListener('keydown', onKey, true); triggerRef.current?.focus?.() }
   }, [vocab])
 
+  useEffect(() => {
+    if (openSeq === 0 || !publicPresentation) return
+    sheetHeadRef.current?.focus()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 여는 행동(openSeq)에만 — preview 전환으로는 옮기지 않는다
+  }, [openSeq])
+
   const speak = useCallback((text: string) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return
     window.speechSynthesis.cancel()
@@ -86,6 +95,7 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
   const onWord = useCallback((e: React.MouseEvent, word: string) => {
     triggerRef.current = e.currentTarget as HTMLElement
     setVocab(word.toLowerCase())
+    setOpenSeq((n) => n + 1)
   }, [])
 
   const vocabSearchHref = comicWordSearchHref(vocab)
@@ -168,7 +178,7 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
             <div className="flex items-start gap-2">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-display text-[17px] font-[800] text-[var(--t1)]">{vocabInfo?.resolved_word ?? vocab}</span>
+                  <span ref={sheetHeadRef} tabIndex={-1} data-pd-sheet-head className="rounded-[4px] font-display text-[17px] font-[800] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">{vocabInfo?.resolved_word ?? vocab}</span>
                   {vocabInfo?.pos && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">{vocabInfo.pos}</span>}
                   {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--p)]">{vocabInfo.cefr_level}</span>}
                   <button type="button" onClick={() => speak(vocabInfo?.resolved_word ?? vocab)} aria-label="단어 듣기" className="text-[var(--t3)] transition-colors hover:text-[var(--p)]"><Volume2 size={15} aria-hidden /></button>

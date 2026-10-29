@@ -34,3 +34,16 @@ describe('PdModernReader 소스 결속', () => {
     expect(src.indexOf('pd-word-search')).toBeGreaterThan(src.indexOf('{vocab && ('))
   })
 })
+
+describe('T-0250 뜻 시트 초점 인계(소스 결속)', () => {
+  const src = readFileSync(path.resolve(__dirname, '../PdModernReader.tsx'), 'utf8')
+  it('여는 행동(onWord → openSeq)에만 · 공개 리더에서만 시트 제목(tabIndex -1)으로 1회', () => {
+    expect(src).toMatch(/setVocab\(word\.toLowerCase\(\)\)\n\s*setOpenSeq\(\(n\) => n \+ 1\)/)
+    expect(src.match(/setOpenSeq\(/g)?.length).toBe(1)
+    expect(src).toMatch(/if \(openSeq === 0 \|\| !publicPresentation\) return\n\s*sheetHeadRef\.current\?\.focus\(\)/)
+    expect(src).toMatch(/\}, \[openSeq\]\)/)
+    expect(src).toMatch(/<span ref=\{sheetHeadRef\} tabIndex=\{-1\} data-pd-sheet-head/)
+    // 사전 응답(vocabInfo) · vocab 변경 자체로는 옮기지 않는다 — 초점 effect 의존성은 openSeq 뿐
+    expect(src).not.toMatch(/sheetHeadRef\.current\?\.focus\(\)[\s\S]{0,200}\}, \[[^\]]*vocab/)
+  })
+})
