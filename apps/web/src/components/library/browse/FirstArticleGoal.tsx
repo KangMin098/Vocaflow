@@ -102,7 +102,7 @@ export function FirstArticleGoal({
       {ready.state === 'signed_out' && (
         <p data-testid="first-article-goal-signed-out" className="break-keep font-body text-[13.5px] text-[var(--t1)]">
           연습이 준비된 글은 로그인한 뒤에 볼 수 있어요.{' '}
-          <Link href="/login?next=%2Flibrary%2Fscripts" className={`inline-flex min-h-11 items-center font-[700] text-[var(--p)] underline underline-offset-2 ${FOCUS}`}>
+          <Link href="/login?next=%2Flibrary%2Fscripts" className={`inline-flex min-h-11 min-w-11 items-center justify-center rounded-[var(--r-sm)] px-1 font-[700] text-[var(--p)] underline underline-offset-2 ${FOCUS}`}>
             로그인
           </Link>
         </p>
