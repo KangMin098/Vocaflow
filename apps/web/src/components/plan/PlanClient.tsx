@@ -106,7 +106,20 @@ export function PlanClient({
   const guardRef = useRef(guard)
   guardRef.current = guard
   const readGen = useRef(0)
-  // 같은 viewer 의 props 교체(T-0240 r2) — 새 snapshot 을 반영하고 진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
+  const retryRef = useRef<HTMLButtonElement | null>(null)
+  const headingRef = useRef<HTMLHeadingElement | null>(null)
+  const focusAfterReload = useRef(false)
+  useEffect(() => {
+    if (!readFailed && focusAfterReload.current) {
+      focusAfterReload.current = false
+      headingRef.current?.focus()
+    }
+  }, [readFailed])
+  // props 교체(T-0240 r2 · r5) — page 는 key 로 재마운트하지 않는다. 소유자 판정은 여기서 한다:
+  //   · 실패 · viewer null(일시 인증 실패) → 소유자 확인 실패: 기존 화면 · 선택 유지, 실패 고지만
+  //   · 소유자 미확정 → 이 snapshot 의 viewer 로 경계를 세운다 · 같은 viewer → 새 snapshot 반영
+  //   · 확정된 다른 viewer(로그아웃 확인 포함) → 확정된 변경: 경계를 닫는다(계획 · 선택을 그리지 않는다)
+  //   진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
   const firstProps = useRef(true)
   useEffect(() => {
     if (firstProps.current) {
@@ -115,6 +128,15 @@ export function PlanClient({
     }
     readGen.current++
     setReloading(false)
+    if (initialFailed && viewerId === null) {
+      setReadFailed(true)
+      return
+    }
+    if (ownerId !== null && viewerId !== ownerId) {
+      guardRef.current.invalidate()
+      return
+    }
+    if (ownerId === null && viewerId !== null) setOwnerId(viewerId)
     if (initialFailed) {
       setReadFailed(true)
       return
@@ -122,7 +144,8 @@ export function PlanClient({
     setItems(initialItems)
     setConfirmed(true)
     setReadFailed(false)
-  }, [initialItems, initialFailed])
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- props(snapshot) 교체에만 반응한다. ownerId 는 판정 시점 값이면 된다
+  }, [initialItems, initialFailed, viewerId])
   /** 쓰기 직전 계정 확인(T-0240 r2 P1) — 이 화면의 viewer 와 지금 브라우저 신원이 같고, 시작할 때의 세대 그대로일 때만 */
   //   소유자가 확정되기 전(ownerId null)에는 쓰지 않는다(r4) — 기대 주인 없이 저장하지 않게
   const canWrite = (token: number) => ownerId !== null && guard.isCurrent(token) && guardRef.current === guard
@@ -159,6 +182,8 @@ export function PlanClient({
         setReadFailed(true)
         return
       }
+      // 재시도 단추에 초점이 있었으면(누른 단추가 사라진다) 성공 뒤 계획 제목으로 옮긴다(r5)
+      if (typeof document !== 'undefined' && document.activeElement === retryRef.current) focusAfterReload.current = true
       setItems(snap.items)
       setConfirmed(true)
       setReadFailed(false)
@@ -492,7 +517,7 @@ export function PlanClient({
       <header className="account-reference__intro">
         {/* v07 — 둥근 아이콘 칩 + `Sparkles` 를 주묵 획으로. `Sparkles` 는 지금 AI 생성 UI 의
             공통 표식이라 화면마다 붙이면 출신 표시가 된다(00-inventory C4). */}
-        <h1 className="flex items-center gap-2.5 font-editorial text-[24px] font-[600] text-[var(--t1)] md:text-[28px]">
+        <h1 ref={headingRef} tabIndex={-1} data-testid="plan-heading" className="flex items-center gap-2.5 rounded-[var(--r-sm)] font-editorial text-[24px] font-[600] text-[var(--t1)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:text-[28px]">
           <span aria-hidden className="inline-block h-[22px] w-[3px] shrink-0 bg-[var(--ju)]" />
           나의 학습 계획
         </h1>
@@ -524,6 +549,7 @@ export function PlanClient({
           </p>
           <button
             type="button"
+            ref={retryRef}
             onClick={() => void reloadPlan()}
             aria-disabled={reloading}
             data-testid="plan-read-retry"

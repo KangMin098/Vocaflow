@@ -86,12 +86,12 @@ describe('PlanClient — 읽기 실패와 빈 계획의 구분', () => {
 })
 
 describe('/plan page 배선', () => {
-  it('facade 만 부른다(기존 wrapper 0 · 중복 조회 0) · 실패 · viewer 를 넘기고 viewer 로 key', async () => {
+  it('facade 만 부른다(기존 wrapper 0 · 중복 조회 0) · 실패 · viewer 를 넘기고 key 로 재마운트하지 않는다(r5)', async () => {
     const { default: PlanPage } = await import('@/app/(main)/plan/page')
     const tree = (await PlanPage()) as { props: { children: { key: string; props: Record<string, unknown> } } }
     expect(st.calls.sort()).toEqual(['materials', 'snapshot'])
     const el = tree.props.children
-    expect(el.key).toBe('user-a')
+    expect(el.key).toBeNull()
     expect(el.props).toMatchObject({ initialItems: [], initialFailed: false, viewerId: 'user-a' })
   })
 })
@@ -116,7 +116,7 @@ describe('리뷰 r2 — 쓰기 계정 경계 · props 교체(소스 결속 · �
     const eff = s.slice(s.indexOf('const firstProps = useRef(true)'), s.indexOf('const canWrite'))
     expect(eff).toContain('readGen.current++')
     expect(eff).toContain('setItems(initialItems)')
-    expect(eff).toContain('}, [initialItems, initialFailed])')
+    expect(eff).toContain('}, [initialItems, initialFailed, viewerId])')
     expect(eff).not.toMatch(/setArtSel|setDraft|setEditId/)
   })
 })
@@ -152,5 +152,34 @@ describe('리뷰 r4 — viewer 가 null 인 경로(소유자 미확정 · 일시
   it('비로그인 확인 화면(viewer null · 실패 아님)은 그리되 쓰기는 막힌다', () => {
     const html = render({ viewerId: null })
     expect(html).toContain('aria-label="자료 추가·구성"')
+  })
+})
+
+describe('리뷰 r5 — props 의 소유자 판정 · 재시도 성공 초점', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  const eff = () => { const x = src(); return x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite')) }
+  it('[P2] 실패 · viewer null props(일시 인증 실패) → 기존 화면 · 선택 유지, 실패 고지만(경계를 닫지 않는다)', () => {
+    const e = eff()
+    const t = e.indexOf('if (initialFailed && viewerId === null) {')
+    expect(t).toBeGreaterThan(0)
+    expect(e.indexOf('invalidate()')).toBeGreaterThan(t)
+    expect(e).toContain('}, [initialItems, initialFailed, viewerId])')
+  })
+  it('[P2] 확정된 다른 viewer props → 경계를 닫는다 · 소유자 미확정이면 새 viewer 로 세운다', () => {
+    const e = eff()
+    expect(e).toMatch(/if \(ownerId !== null && viewerId !== ownerId\) \{\s*\n\s*guardRef\.current\.invalidate\(\)/)
+    expect(e).toContain('if (ownerId === null && viewerId !== null) setOwnerId(viewerId)')
+  })
+  it('[P2] page 는 viewer key 를 쓰지 않는다', () => {
+    const page = fs.readFileSync(path.resolve(__dirname, '../../../app/(main)/plan/page.tsx'), 'utf8')
+    expect(page).not.toContain('key={plan.viewerId')
+  })
+  it('[P2] 키보드 재시도 성공 → 계획 제목(tabIndex -1 · 링)으로 초점', () => {
+    const x = src()
+    expect(x).toContain("if (typeof document !== 'undefined' && document.activeElement === retryRef.current) focusAfterReload.current = true")
+    expect(x).toMatch(/if \(!readFailed && focusAfterReload\.current\) \{\s*\n\s*focusAfterReload\.current = false\s*\n\s*headingRef\.current\?\.focus\(\)/)
+    const h1 = /<h1[^>]*data-testid="plan-heading"[^>]*>/.exec(render({ items: [ITEM] }))?.[0] ?? ''
+    expect(h1).toContain('tabindex="-1"')
+    expect(h1).toContain('focus-visible:ring-2')
   })
 })

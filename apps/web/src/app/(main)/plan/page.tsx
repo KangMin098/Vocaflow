@@ -36,9 +36,9 @@ export default async function PlanPage() {
 
   return (
     <Screen width="wide" background="bg2" padX="md">
-      {/* viewer 가 바뀌면 새 경계로 다시 시작한다(A 의 화면 상태가 B 에게 남지 않게) — 같은 viewer 의 props 교체는 선택을 보존 */}
+      {/* key 로 재마운트하지 않는다(r5) — 일시 인증 실패(viewer null)가 마지막 확인 계획 · 미저장 선택을 지우지 않게.
+          소유자 변경 판정(확정된 다른 viewer 면 경계를 닫음)은 PlanClient 안쪽 guard 가 한다 */}
       <PlanClient
-        key={plan.viewerId ?? 'anon'}
         initialItems={plan.items}
         initialFailed={plan.failed}
         viewerId={plan.viewerId}
