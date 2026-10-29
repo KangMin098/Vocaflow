@@ -245,7 +245,7 @@ function OrderToolBody({ item, reveal }: JudgmentToolProps) {
                 })}
               </ul>
             )}
-            {asked && <OrderCompare asked={asked} now={{ arr, links }} unitN={unitN} />}
+            {asked && <OrderCompare asked={asked} now={{ arr, links }} unitN={unitN} onPoint={(id) => setFocus([id])} />}
             {shown.designIntent && <p className={js.hypothesis}>{shown.designIntent}</p>}
             {shown.answerLocus?.reasoning && <p className={s.reason}><RefText text={shown.answerLocus.reasoning} units={item.units} active={focus} onRef={(u) => setFocus([u])} /></p>}
             <ol className={s.choices}>
@@ -316,12 +316,33 @@ export function orderCompareRows(asked: OrderSnapshot, now: OrderSnapshot): Orde
   return rows
 }
 
+/**
+ * T-0264 — 비교표 셀 대상: 연결 없음 · 지금 원문에 있는 문장(가리키기 가능) · 원문에서 찾을 수 없는 id(가리키기 없음).
+ * 당시 · 지금 각각 따로 판정한다 — 지운 연결의 당시 문장도 원문에 있으면 가리킬 수 있다.
+ */
+export type CompareTarget = { kind: 'none' } | { kind: 'unit'; id: string; n: number } | { kind: 'unknown'; id: string }
+export function compareTarget(id: string | null, unitN: (id: string) => number | undefined): CompareTarget {
+  if (id == null) return { kind: 'none' }
+  const n = unitN(id)
+  return typeof n === 'number' ? { kind: 'unit', id, n } : { kind: 'unknown', id }
+}
+
 const CHANGE_TEXT: Record<OrderCompareRow['change'], string> = { same: '그대로', changed: '대상 바꿈', removed: '지움', added: '새로 이음' }
 
-function OrderCompare({ asked, now, unitN }: { asked: OrderSnapshot; now: OrderSnapshot; unitN: (id: string) => number | undefined }) {
+function OrderCompare({ asked, now, unitN, onPoint }: { asked: OrderSnapshot; now: OrderSnapshot; unitN: (id: string) => number | undefined; onPoint: (id: string) => void }) {
   const rows = orderCompareRows(asked, now)
   const arrText = (a: Arrangement) => `주어진 글 – ${a.map((x) => PARA_LABEL[x]).join(' – ')}`
-  const target = (id: string | null) => (id == null ? '연결 없음' : `${unitN(id) ?? '?'}번 문장`)
+  // 원문에 있는 문장만 「원문에서 보기」 단추 — 기존 연결 목록과 같은 setFocus(명시 이동 · 위치 칩)만 쓰고 자동 스크롤은 하지 않는다
+  const target = (id: string | null, when: '해설 요청 당시' | '지금') => {
+    const t = compareTarget(id, unitN)
+    if (t.kind === 'none') return '연결 없음'
+    if (t.kind === 'unknown') return '원문에서 찾을 수 없는 문장'
+    return (
+      <button type="button" className={`${js.button} ${s.linkGo}`} data-compare-point={t.id} aria-label={`${when} 연결 ${t.n}번 문장 원문에서 보기`} onClick={() => onPoint(t.id)}>
+        {t.n}번 문장
+      </button>
+    )
+  }
   const sameArr = asked.arr.join() === now.arr.join()
   return (
     <div className={s.compare} data-order-compare>
@@ -344,8 +365,8 @@ function OrderCompare({ asked, now, unitN }: { asked: OrderSnapshot; now: OrderS
           ) : rows.map((r) => (
             <tr key={r.cueId} data-compare-link={r.cueId} data-change={r.change}>
               <th scope="row">{PARA_LABEL[r.para]} &lsquo;{r.cueText}&rsquo; · {CHANGE_TEXT[r.change]}</th>
-              <td>{target(r.asked)}</td>
-              <td>{target(r.now)}</td>
+              <td>{target(r.asked, '해설 요청 당시')}</td>
+              <td>{target(r.now, '지금')}</td>
             </tr>
           ))}
           {rows.length > 0 && asked.links.length === 0 ? (
