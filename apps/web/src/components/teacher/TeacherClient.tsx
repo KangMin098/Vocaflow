@@ -23,6 +23,7 @@ export function TeacherClient({
   classes,
   memberships,
   hasReceived = false,
+  receivedFailed = false,
   unavailable = false,
 }: {
   classes: TeacherClass[]
@@ -35,6 +36,11 @@ export function TeacherClient({
    * 학생 화면에는 반 이름 하나만 남는다(2026-08-27 실측).
    */
   hasReceived?: boolean
+  /**
+   * 받은 과제 조회가 **실패했는가**(T-0235). true 면 빈 목록은 「아직 과제가 오지 않음」이 아니다 —
+   * 대기 안내를 그리지 않는다(실패 고지는 `ReceivedAssignments` 가 한다). 학급 조회 실패(`unavailable`)와 따로다.
+   */
+  receivedFailed?: boolean
   /**
    * 목록을 **불러오지 못했는가**. true 면 빈 목록은 "클래스가 없다" 가 아니다.
    *
@@ -305,7 +311,7 @@ export function TeacherClient({
             들어온 직후가 정확히 그 상태이고, 그때 아무 말도 없으면 학생은
             잘못 들어온 줄 안다(실측: 반 이름 한 줄 말고는 화면에 아무것도 없었다).
           */}
-          {!hasReceived && (
+          {!hasReceived && !receivedFailed && (
             <p className="m-0 rounded-[var(--r-md)] border border-dashed border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[12.5px] leading-[1.65] text-[var(--t2)]">
               선생님이 단어를 보내면 여기에 <b className="text-[var(--t1)]">받은 단어</b>로
               도착해요. 그때까지는 <b className="text-[var(--t1)]">내 단어장</b>으로 하던 학습을
