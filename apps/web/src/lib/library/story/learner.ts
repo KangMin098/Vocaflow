@@ -84,6 +84,7 @@ export type StoryLearnerRpcName =
   | 'story_complete_unit'
   | 'story_release_guidance'
   | 'story_unit_context_notes'
+  | 'story_unit_activity'
 
 /** 쿠키 세션 클라이언트(anon 키 + 사용자 JWT · 비로그인이면 anon). */
 export interface StoryLearnerClient {
@@ -112,6 +113,8 @@ export const STORY_LEARNER_MESSAGES: Readonly<Record<StoryLearnerFailureCode, st
   invalid_input: '주소나 요청이 올바르지 않아요.',
   viewer_changed: '로그인 계정이 바뀌어 저장하지 않았어요. 화면을 다시 불러와 주세요.',
   temporary: '잠시 연결이 불안정해요. 다시 시도해 주세요.',
+  activity_locked: '이 활동은 그 장면까지 읽은 뒤에 열려요.',
+  activity_unavailable: '이 활동은 지금 열 수 없어요.',
 }
 
 /** 실패 값 — 매번 새 객체. 다시 시도해 볼 만한 것은 일시 오류뿐이다. */
@@ -194,6 +197,11 @@ const STORY_CODE_MAP: Readonly<Record<string, StoryLearnerFailureCode>> = {
   'story:reader_context_mismatch': 'reader_data_invalid',
   'story:guidance_mismatch': 'reader_data_invalid',
   'story:context_notes_mismatch': 'reader_data_invalid',
+  'story:activity_locked': 'activity_locked',
+  'story:activity_unsupported': 'activity_unavailable',
+  'story:activity_not_found': 'activity_unavailable',
+  'story:activity_mismatch': 'reader_data_invalid',
+  'story:activity_bad_choice': 'invalid_input',
 }
 
 function isMissingFunction(error: StoryLearnerDbError, text: string): boolean {
@@ -203,7 +211,13 @@ function isMissingFunction(error: StoryLearnerDbError, text: string): boolean {
 }
 
 /** 이 환경에 아직 없을 수 있는(제안 SQL 미적용) 읽기 RPC — 함수가 없으면 reader_not_ready 다. */
-const MAY_BE_MISSING: readonly StoryLearnerRpcName[] = ['story_reader_context', 'story_release_guidance', 'story_unit_context_notes']
+const MAY_BE_MISSING: readonly StoryLearnerRpcName[] = [
+  'story_reader_context',
+  'story_release_guidance',
+  'story_unit_context_notes',
+  // T-0228 — 근거 선택 활동(사용자 승인 전 · 미적용일 수 있다)
+  'story_unit_activity',
+]
 
 /**
  * DB 오류 → 학습자 실패. story:* 코드가 먼저다. 함수가 없으면(PGRST202 · 42883) 읽기 문맥 · 선택 안내 · 맥락 설명 RPC 만 reader_not_ready
@@ -217,7 +231,7 @@ export function mapStoryLearnerRpcError(error: StoryLearnerDbError, fn: StoryLea
   return fail('temporary')
 }
 
-async function callRpc(
+export async function callRpc(
   client: StoryLearnerClient,
   fn: StoryLearnerRpcName,
   args: Record<string, unknown>,

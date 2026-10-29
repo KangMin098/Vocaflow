@@ -17,6 +17,10 @@
 
 import type { PublicEvent } from '@/lib/analytics/events'
 import type {
+  StoryActivity,
+  StoryActivityFeedback,
+  StoryActivityLoadInput,
+  StoryActivitySubmitInput,
   StoryCompleteInput,
   StoryCompletionLabel,
   StoryCoverage,
@@ -42,6 +46,9 @@ export interface StoryReaderActions {
   completeUnit(input: StoryCompleteInput): Promise<StoryLearnerResult<StoryUnitCompletionResult>>
   /** D5-I01 선택 낱말 저장(선택 — 없으면 저장 조작을 그리지 않는다). 위치 · 완료 세션과 무관하다. */
   saveWord?(input: StoryWordSaveInput): Promise<StoryWordSaveOutcome>
+  /** T-0228 근거 선택 활동 조회 · 제출(선택 — 없으면 활동을 그리지 않는다). 위치 · 완료 세션과 무관하다(기록 없음). */
+  loadActivity?(input: StoryActivityLoadInput): Promise<StoryLearnerResult<StoryActivity>>
+  submitActivity?(input: StoryActivitySubmitInput): Promise<StoryLearnerResult<StoryActivityFeedback>>
 }
 
 /** 세션이 쓰는 인증 경계의 부분(StoryAuthGuard 가 만족한다). */

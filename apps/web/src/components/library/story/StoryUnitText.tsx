@@ -50,11 +50,13 @@ export interface StoryUnitTextProps {
   save?: { call: StoryWordSaveCall; vaultHref: string; onLeave?: () => void }
   /** U03 — 단어장에서 돌아온 경우 담은 낱말 번호(그 문장을 보여 준다 · 없으면 단위 첫머리 그대로). */
   returnWordIndex?: number | null
+  /** T-0228 — 근거 활동의 「본문에서 다시 확인」: 그 낱말이 든 문장을 같은 강조로 보여 주고 누를 때마다(nonce) 그 문장으로 옮긴다. */
+  revisit?: { wordIndex: number; nonce: number } | null
 }
 
 type Opener = 'word' | 'picker'
 
-export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools, save, returnWordIndex = null }: StoryUnitTextProps) {
+export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools, save, returnWordIndex = null, revisit = null }: StoryUnitTextProps) {
   const [wordMode, setWordMode] = useState(defaultWordMode)
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<{ surface: string; rect: DOMRect; index: number; opener: Opener } | null>(null)
@@ -81,6 +83,15 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
     el.scrollIntoView?.({ block: 'center' })
     el.focus({ preventScroll: true })
   }, [returnWordIndex])
+  // 근거 다시 확인 — 누를 때마다 한 번(같은 문장이어도) · 순간 이동 · 초점은 스크롤 없이
+  const revisitNonce = revisit?.nonce ?? null
+  useEffect(() => {
+    const el = returnRef.current
+    if (!el || revisitNonce === null) return
+    el.scrollIntoView?.({ block: 'center' })
+    el.focus({ preventScroll: true })
+  }, [revisitNonce])
+  const markIndex = revisit?.wordIndex ?? returnWordIndex
 
   const activeWord = words[Math.min(active, Math.max(words.length - 1, 0))] ?? null
 
@@ -193,7 +204,7 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
                   )
                 })
               : part.map((piece) => piece.text).join('')
-          const range = returnWordIndex === null ? null : sentenceRange(pieces, returnWordIndex)
+          const range = markIndex === null ? null : sentenceRange(pieces, markIndex)
           if (!range) return <p key={p}>{render(pieces, 0)}</p>
           return (
             <p key={p}>
