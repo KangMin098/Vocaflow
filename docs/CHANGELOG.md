@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(story): 「이 단위 읽음 표시」 저장 중 disabled 로 초점이 사라지던 것을 aria-disabled 로, 그 요청이 성공한 순간에만 완료 안내로 초점 1회 인계(실패·사용자가 옮긴 초점·재반영은 이동 없음). Codex 독립 리뷰 P2 보정 후 NO_FINDINGS (T-0224 aa0b770b8)
 - feat(library): 서가에 선택적 임시 목표 「짧은 글 한 편을 고르고 핵심 내용 확인해 보기」 — 발행 목록 ∩ 연습 문항 있는 글만 기존 카드로(적합 표지·prefetch 끔, 방문 상태만, 추가 요청 0). 리드 범위 판정·Codex 반려 보정 후 root APPROVE (T-0222 a0ba9677e)
 - fix(teacher): 보낸 과제의 목록·멤버·진도 조회 실패(부분 data·잘못된 행 형식 포함)를 학생 0명·미열람으로 보이지 않게 — 과제·학급·단어 수는 보존하고 「지금은 수행 현황을 확인할 수 없어요」. Codex 독립 리뷰 P2 보정 후 NO_FINDINGS, 실DB·실제 로그인 NOT_RUN (T-0223 d99cd750a)
 - feat(pairflip): 결과 「학습한 단어」에서 확실히 다시 시도한 짝(실제 훅 attempts≥3)만 뜻을 가린 채 「뜻 확인」으로 떠올린 뒤 확인(기록·점수·SRS 불변). Codex 독립 리뷰 P1 보정 후 root APPROVE (T-0218 6c564e220)
