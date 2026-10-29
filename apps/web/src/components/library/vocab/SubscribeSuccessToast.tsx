@@ -9,6 +9,11 @@
 //   학습자가 "300개 세트인데 왜 18개?" 로 읽는다. 담은 수가 세트보다 적을 때는
 //   **왜 적은지와 나머지는 어떻게 되는지**를 함께 말한다 — 숫자만 던지면 누락으로 보인다.
 //
+// VOCAB-COPY-01(2026-10-29) — "나머지는 읽으면서 채워집니다" 를 뺐다. 책·챕터가 모두 있는
+//   구독만 챕터 공급을 쓰고 나머지는 시작 분량 경로라, 남은 단어가 저절로 들어온다는 약속은
+//   거짓이었다. 문구는 **서버가 보고한 이번 분량**(importedCount·alreadyOwnedCount)만 말한다 —
+//   세트 전체를 가졌는지는 이 값으로 알 수 없으므로 "모두" · "다 담겨" 라고 하지 않는다.
+//
 // ── 글자색이 왜 상수가 아니라 토큰인가 (실측 2026-09-05) ─────────────────
 // 면(`--success-light`)은 토큰인데 잉크만 라이트 전용 상수 `#065f46` 이었다. 다크에서
 // `--success-light` 는 `rgba(91,164,125,0.18)` 이고 그 아래 `--bg` 가 `#231D17` 이라
@@ -50,7 +55,7 @@ export function SubscribeSuccessToast({ data, onClose }: Props) {
 
   if (!data) return null
 
-  // 담은 수가 세트 전체보다 적으면 = 시작 분량만 담은 것. 나머지는 읽으면서 채워진다.
+  // 담은 수가 세트 전체보다 적으면 = 시작 분량만 담은 것. 나머지가 자동으로 들어온다고 하지 않는다.
   const partial = data.importedCount > 0 && data.totalWords > data.importedCount + data.alreadyOwnedCount
 
   const body =
@@ -58,10 +63,10 @@ export function SubscribeSuccessToast({ data, onClose }: Props) {
       ? '단어가 없는 세트예요'
       : data.importedCount === 0
         ? data.alreadyOwnedCount > 0
-          ? `${data.alreadyOwnedCount.toLocaleString()}개 모두 이미 가지고 있어요`
-          : '이미 다 담겨 있어요'
+          ? `이번 시작 분량 중 ${data.alreadyOwnedCount.toLocaleString()}개는 이미 내 단어장에 있어요`
+          : '이번에 새로 담은 단어가 없어요'
         : partial
-          ? `${data.importedCount.toLocaleString()}개로 시작해요 · 나머지는 읽으면서 채워집니다 (전체 ${data.totalWords.toLocaleString()}개)`
+          ? `${data.importedCount.toLocaleString()}개로 시작해요 · 세트 전체 ${data.totalWords.toLocaleString()}개`
           : data.alreadyOwnedCount === 0
             ? `${data.importedCount.toLocaleString()}개 단어가 추가됐어요`
             : `새 단어 ${data.importedCount.toLocaleString()}개 추가 · 이미 보유 ${data.alreadyOwnedCount.toLocaleString()}개 건너뜀`
@@ -81,7 +86,7 @@ export function SubscribeSuccessToast({ data, onClose }: Props) {
         {data.importedCount > 0 && (
           <Link
             href={browseHref}
-            className="mt-2 inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--success-ink)] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--success)] focus-visible:ring-offset-1"
+            className="mt-1 inline-flex min-h-11 items-center gap-1 font-display text-[12px] font-[700] text-[var(--success-ink)] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--success)] focus-visible:ring-offset-1"
           >
             내 단어장에서 보기
             <ArrowRight size={12} aria-hidden />
