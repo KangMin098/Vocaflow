@@ -45,9 +45,20 @@ export function articleVocabLabel(vocab: ArticleVocabSource): { vocab: string } 
  * 플레이어 결속 키 — 기사 · 본인 글 · 계정 · 본문 세대 중 하나라도 바뀌면 플레이어를 새로 시작한다(R0-REVISIT-READ-01).
  * 그래야 이전 판본에서 모은 다시 보기와 새 본문이 한 화면에 함께 보이지 않는다. 문항 객체 결속은 기존 revisitable 이 맡는다.
  * 본문은 해시로 줄이지 않는다 — 32비트 해시는 다른 본문이 같은 값이 될 수 있다(T-0231 리뷰). 세대(readingGeneration)로 넣는다.
+ * T-0248 — 문항 목록 세대(itemsGeneration)도 넣는다. 순서 · 문항 객체가 바뀌면 이전 답 · 채점 · 집계 없이 새로 푼다.
  */
-export function articlePlayerKey(articleId: string, textId: string, ownerId: string, readingGeneration: number): string {
-  return `${articleId}|${textId}|${ownerId}|r${readingGeneration}`
+export function articlePlayerKey(articleId: string, textId: string, ownerId: string, readingGeneration: number, itemsGeneration = 0): string {
+  return `${articleId}|${textId}|${ownerId}|r${readingGeneration}|i${itemsGeneration}`
+}
+
+/** 같은 문항 목록인가 — 길이 · 순서 · 각 문항 **객체**가 모두 같을 때만(같은 id 의 새 payload 객체는 다른 문항). 배열 포장만 바뀐 것은 같다 */
+export function sameItemList(a: readonly DcpItem[], b: readonly DcpItem[]): boolean {
+  return a.length === b.length && a.every((x, i) => x === b[i])
+}
+
+/** 문항 목록 세대 — 이전 목록과 다르면 다음 세대(같으면 그대로 — 불필요한 재시작 없음) */
+export function nextItemsGeneration(prev: { items: readonly DcpItem[]; gen: number }, items: readonly DcpItem[]): { items: readonly DcpItem[]; gen: number } {
+  return sameItemList(prev.items, items) ? prev : { items, gen: prev.gen + 1 }
 }
 
 /** 본문 세대 — 이전 본문과 **문자열 그대로** 다르면 다음 세대(같으면 그대로). 해시 · 길이 비교 없음 */
@@ -111,6 +122,10 @@ export function ArticlePracticeBridge({
   const [reading, setReading] = useState<{ text: string | null; gen: number }>({ text: readingText, gen: 0 })
   const nextReading = nextReadingGeneration(reading, readingText)
   if (nextReading !== reading) setReading(nextReading)
+  // 문항 목록도 같은 방식 — 순서 · 문항 객체가 달라지면 세대를 올려 플레이어를 새로 시작한다(이전 인스턴스의 늦은 응답은 버려진다)
+  const [itemGen, setItemGen] = useState<{ items: readonly DcpItem[]; gen: number }>({ items, gen: 0 })
+  const nextItems = nextItemsGeneration(itemGen, items)
+  if (nextItems !== itemGen) setItemGen(nextItems)
   if (status !== 'same') {
     return (
       <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5" data-testid="article-practice-identity" role="status">
@@ -130,7 +145,7 @@ export function ArticlePracticeBridge({
   }
   return (
     <DcpPlayer
-      key={articlePlayerKey(articleId, textId, ownerId, nextReading.gen)}
+      key={articlePlayerKey(articleId, textId, ownerId, nextReading.gen, nextItems.gen)}
       revisit
       items={items}
       grade={makeArticleGrade({ articleId, textId, ownerId }, guard, submit)}
