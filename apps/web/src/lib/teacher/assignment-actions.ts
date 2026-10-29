@@ -348,6 +348,10 @@ export async function fetchSentAssignments(): Promise<{
   }
   const assignments = (data ?? []) as Row[]
   if (assignments.length === 0) return { rows: [], failed: false }
+  // 저장된 words 가 배열이 아니면(null · 객체 · 문자열) 아래에서 [] 로 바꾸지 않는다 — 바꾸면 교사 화면이
+  // 「저장된 단어가 없어요」 로 읽는다. 목록 실패(failed)로 돌려 기존 실패 안내를 쓴다. DB CHECK 가 막고 있어
+  // 관측된 적은 없고, 응답 경계의 방어 처리다(TEACHER-WORDS-01 §2). 빈 배열 · 행 단위 형식은 화면이 판정한다.
+  if (assignments.some((a) => !Array.isArray(a.words))) return { rows: [], failed: true }
 
   const classIds = [...new Set(assignments.map((a) => a.class_id))]
   const assignmentIds = assignments.map((a) => a.id)
