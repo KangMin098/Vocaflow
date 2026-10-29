@@ -64,7 +64,7 @@ export function DictationResultsClient() {
   const resultHeadRef = useRef<HTMLHeadingElement>(null)
   // 다시 불러오기로 결과가 열린 그 렌더에만 결과 제목으로 초점을 1회 옮긴다(실패면 단추에 그대로 둔다)
   const focusResultAfterRetry = useRef(false)
-  // 브라우저 인증 세대 — 바뀌면 조회를 새로 시작하고, 시작 때 세대와 다른 응답(A→B→A 포함)은 버린다(리뷰 P1)
+  // 브라우저 인증 세대 — 시작 때 세대와 다른 응답(A→B→A 포함)은 버리고, 바뀌면 결과를 지운다(재조회는 다시 불러오기로만)
   const { epochRef, gen: authGen } = useResultAuthEpoch()
 
   // 요청 결속 — 보관된 결과가 지금 URL 이 요청한 세션일 때만 쓴다(effect 가 돌기 전 렌더에서도 옛 결과를 붙이지 않는다).
@@ -117,7 +117,16 @@ export function DictationResultsClient() {
     return () => {
       mounted = false
     }
-  }, [sessionId, router, reloadSeq, authGen, epochRef])
+  }, [sessionId, router, reloadSeq, epochRef])
+
+  // 인증 세대가 바뀌면(A→B→A 포함) 결과를 지우고 중립 상태(불러오지 못함 + 다시 불러오기)로 — 자동으로 다시 조회하지 않는다.
+  //   진행 중 요청의 응답은 위 acceptsAtEpoch 가 버린다. 첫 진입 조회 1회는 그대로다.
+  useEffect(() => {
+    if (authGen === 0) return
+    focusResultAfterRetry.current = false
+    setDetail(null)
+    setState('failed')
+  }, [authGen])
 
   // 다시 불러오기로 결과가 열린 뒤(주인 확인까지 끝나 제목이 그려진 렌더) 결과 제목으로 1회 — 첫 진입 · 재렌더에는 옮기지 않는다
   useEffect(() => {

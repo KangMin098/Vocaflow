@@ -3,6 +3,7 @@
 // T-0254 리뷰 P1 — 받아쓰기 결과 조회를 「요청을 시작할 때의 브라우저 인증 세대」에 묶는다.
 // 세대는 단조 증가한다: 관측한 신원이 바뀔 때마다 +1(A→B→A 는 +2 — 같은 계정으로 돌아와도 다른 세대다).
 // 응답은 반영 직전에 세대가 시작 때와 정확히 같을 때만 받는다(처음 조회 · 다시 불러오기 모두). 같은 사람의 토큰 갱신은 세대를 바꾸지 않는다.
+// 세대 변경은 진행 중 요청을 무효로 하고 결과를 지우는 데만 쓴다 — 다시 조회하지 않는다(재조회는 학습자의 다시 불러오기로만 · 리뷰 P1).
 
 'use client'
 
@@ -14,8 +15,17 @@ import { StoryAuthSourceContext, browserStoryAuthSource, type StoryAuthChange, t
 export class ResultAuthEpoch {
   gen = 0
   private last: string | null | undefined = undefined
+  private sawEvent = false
+  /** 늦게 온 초기 신원(getSession) — 구독 이벤트를 하나라도 받았으면 버린다(최신 이벤트를 덮지 않는다 · 리뷰 P2). */
+  baseline(userId: string | null): boolean {
+    if (this.sawEvent) return false
+    return this.apply(userId)
+  }
   observe(change: StoryAuthChange): boolean {
-    const userId = change.event === 'SIGNED_OUT' ? null : change.userId
+    this.sawEvent = true
+    return this.apply(change.event === 'SIGNED_OUT' ? null : change.userId)
+  }
+  private apply(userId: string | null): boolean {
     const changed = this.last !== undefined && userId !== this.last
     this.last = userId
     if (changed) this.gen += 1
@@ -42,7 +52,7 @@ export function useResultAuthEpoch(source?: StoryAuthSource): { epochRef: { curr
     })
     void src.currentUserId().then(
       (userId) => {
-        if (epoch.observe({ event: 'BASELINE', userId })) setGen(epoch.gen)
+        if (epoch.baseline(userId)) setGen(epoch.gen)
       },
       () => {},
     )

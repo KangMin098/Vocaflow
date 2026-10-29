@@ -9,8 +9,22 @@ describe('ResultAuthEpoch', () => {
     const e = new ResultAuthEpoch()
     expect(e.observe({ event: 'INITIAL_SESSION', userId: 'A' })).toBe(false)
     expect(e.observe({ event: 'TOKEN_REFRESHED', userId: 'A' })).toBe(false)
-    expect(e.observe({ event: 'BASELINE', userId: 'A' })).toBe(false)
+    expect(e.baseline('A')).toBe(false)
     expect(e.gen).toBe(0)
+  })
+  it('r3 리뷰 P2 — 이벤트를 받은 뒤 늦게 온 초기값(A)은 최신(B)을 덮지 않는다 · 그 뒤 B→A 는 세대 증가', () => {
+    const e = new ResultAuthEpoch()
+    e.observe({ event: 'SIGNED_IN', userId: 'B' })
+    expect(e.baseline('A')).toBe(false)
+    expect(e.gen).toBe(0)
+    expect(e.observe({ event: 'SIGNED_IN', userId: 'A' })).toBe(true)
+    expect(e.gen).toBe(1)
+  })
+  it('이벤트가 아직 없으면 초기값이 기준선 — 그 뒤 다른 계정은 세대 증가', () => {
+    const e = new ResultAuthEpoch()
+    expect(e.baseline('A')).toBe(false)
+    expect(e.observe({ event: 'SIGNED_IN', userId: 'B' })).toBe(true)
+    expect(e.gen).toBe(1)
   })
   it('A→B→A 는 세대 +2 — 같은 계정으로 돌아와도 시작 때 세대(0)의 늦은 응답은 버린다', () => {
     const e = new ResultAuthEpoch()

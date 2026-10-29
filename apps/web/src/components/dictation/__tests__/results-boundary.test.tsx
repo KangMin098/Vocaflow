@@ -277,7 +277,10 @@ describe('T-0254 — 조회 실패는 부재와 다르고, 명시적 다시 불�
     expect(src).toMatch(/if \(read\.status === 'absent' \|\| !acceptLoaded\(sessionId, read\.detail\)\) \{\n\s*setState\('missing'\)/)
     // 리뷰 P1 — 요청을 시작할 때의 인증 세대를 잡고(처음 · 다시 불러오기 같은 effect), 세대가 바뀌면 조회를 새로 시작한다
     expect(src).toMatch(/let mounted = true\n\s*const startedGen = epochRef\.current\.gen\n/)
-    expect(src).toMatch(/\}, \[sessionId, router, reloadSeq, authGen, epochRef\]\)/)
+    // r3 리뷰 P1 — 세대 변경은 조회를 다시 시작하지 않는다(deps 에 authGen 없음). 결과를 지우고 중립 실패 상태로만
+    expect(src).toMatch(/\}, \[sessionId, router, reloadSeq, epochRef\]\)/)
+    expect(src).toMatch(/if \(authGen === 0\) return\n\s*focusResultAfterRetry\.current = false\n\s*setDetail\(null\)\n\s*setState\('failed'\)\n\s*\}, \[authGen\]\)/)
+    expect(src.match(/readDictationSessionDetail\(/g)?.length).toBe(1)
     expect(src).not.toMatch(/fetchDictationSessionDetail/)
   })
   it('다시 불러오기는 누를 때만(자동 재조회 없음) · 진행 중 aria-disabled · 실패 화면 유지 · 성공 뒤 결과 제목 1회 초점', () => {
