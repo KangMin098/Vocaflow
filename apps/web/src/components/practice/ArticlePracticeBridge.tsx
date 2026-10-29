@@ -8,6 +8,7 @@
 
 'use client'
 
+import { useState } from 'react'
 import Link from 'next/link'
 
 import { ArticleReadingReference } from '@/components/practice/ArticleReadingReference'
@@ -41,14 +42,17 @@ export function articleVocabLabel(vocab: ArticleVocabSource): { vocab: string } 
 }
 
 /**
- * 플레이어 결속 키 — 기사 · 본인 글 · 계정 · 넘겨받은 본문 중 하나라도 바뀌면 플레이어를 새로 시작한다(R0-REVISIT-READ-01).
+ * 플레이어 결속 키 — 기사 · 본인 글 · 계정 · 본문 세대 중 하나라도 바뀌면 플레이어를 새로 시작한다(R0-REVISIT-READ-01).
  * 그래야 이전 판본에서 모은 다시 보기와 새 본문이 한 화면에 함께 보이지 않는다. 문항 객체 결속은 기존 revisitable 이 맡는다.
+ * 본문은 해시로 줄이지 않는다 — 32비트 해시는 다른 본문이 같은 값이 될 수 있다(T-0231 리뷰). 세대(readingGeneration)로 넣는다.
  */
-export function articlePlayerKey(articleId: string, textId: string, ownerId: string, readingText: string | null): string {
-  let h = 0
-  const t = readingText ?? ''
-  for (let i = 0; i < t.length; i++) h = (Math.imul(h, 31) + t.charCodeAt(i)) | 0
-  return `${articleId}|${textId}|${ownerId}|${t.length}:${(h >>> 0).toString(36)}`
+export function articlePlayerKey(articleId: string, textId: string, ownerId: string, readingGeneration: number): string {
+  return `${articleId}|${textId}|${ownerId}|r${readingGeneration}`
+}
+
+/** 본문 세대 — 이전 본문과 **문자열 그대로** 다르면 다음 세대(같으면 그대로). 해시 · 길이 비교 없음 */
+export function nextReadingGeneration(prev: { text: string | null; gen: number }, text: string | null): { text: string | null; gen: number } {
+  return prev.text === text ? prev : { text, gen: prev.gen + 1 }
 }
 
 type Submit = (context: ArticlePracticeContext, itemId: string, answer: { choice?: unknown }) => Promise<DcpGradeResult>
@@ -103,6 +107,10 @@ export function ArticlePracticeBridge({
   readingText?: string | null
 }) {
   const { guard, status } = useStoryAuthGuard(ownerId)
+  // 렌더 중 prop 변화 반영(React 권장 패턴) — 본문이 정확히 다르면 세대를 올려 플레이어를 새로 시작한다
+  const [reading, setReading] = useState<{ text: string | null; gen: number }>({ text: readingText, gen: 0 })
+  const nextReading = nextReadingGeneration(reading, readingText)
+  if (nextReading !== reading) setReading(nextReading)
   if (status !== 'same') {
     return (
       <div className="flex flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-5" data-testid="article-practice-identity" role="status">
@@ -122,7 +130,7 @@ export function ArticlePracticeBridge({
   }
   return (
     <DcpPlayer
-      key={articlePlayerKey(articleId, textId, ownerId, readingText)}
+      key={articlePlayerKey(articleId, textId, ownerId, nextReading.gen)}
       revisit
       items={items}
       grade={makeArticleGrade({ articleId, textId, ownerId }, guard, submit)}

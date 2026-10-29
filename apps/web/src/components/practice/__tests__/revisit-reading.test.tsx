@@ -12,7 +12,7 @@ vi.mock('@/lib/learner/article-practice-actions', () => ({ submitArticlePractice
 
 import { DcpRevisitView, type SeenFeedback } from '../DcpPlayer'
 import { ArticleReadingReference } from '../ArticleReadingReference'
-import { articlePlayerKey } from '../ArticlePracticeBridge'
+import { articlePlayerKey, nextReadingGeneration } from '../ArticlePracticeBridge'
 
 const PASSAGE = 'The bakery opens early. People line up because the owner bakes by hand.'
 const A: DcpItem = { id: 'a', type: 'title', paragraphIdx: 0, payload: { passage: PASSAGE, choices: ['Handmade Bread', 'Cold Mornings', 'City Traffic', 'Online Shops', 'Old Corners'], stemKo: '제목은?', underline: null, summarySentence: null } }
@@ -34,16 +34,20 @@ describe('DcpRevisitView extra', () => {
   })
 })
 
-describe('articlePlayerKey — 자료 · 계정 · 본문 결속', () => {
-  const base = articlePlayerKey('art', 'txt', 'own', 'Body one.')
-  it('같은 입력은 같은 키', () => expect(articlePlayerKey('art', 'txt', 'own', 'Body one.')).toBe(base))
-  it('기사 · 본인 글 · 계정 · 본문 하나만 바뀌어도 다른 키', () => {
-    for (const k of [
-      articlePlayerKey('art2', 'txt', 'own', 'Body one.'),
-      articlePlayerKey('art', 'txt2', 'own', 'Body one.'),
-      articlePlayerKey('art', 'txt', 'own2', 'Body one.'),
-      articlePlayerKey('art', 'txt', 'own', 'Body two.'),
-      articlePlayerKey('art', 'txt', 'own', null),
-    ]) expect(k).not.toBe(base)
+describe('articlePlayerKey · nextReadingGeneration — 자료 · 계정 · 본문 결속', () => {
+  const base = articlePlayerKey('art', 'txt', 'own', 0)
+  it('같은 입력은 같은 키 · 기사/본인 글/계정/본문 세대 하나만 바뀌어도 다른 키', () => {
+    expect(articlePlayerKey('art', 'txt', 'own', 0)).toBe(base)
+    for (const k of [articlePlayerKey('art2', 'txt', 'own', 0), articlePlayerKey('art', 'txt2', 'own', 0), articlePlayerKey('art', 'txt', 'own2', 0), articlePlayerKey('art', 'txt', 'own', 1)]) expect(k).not.toBe(base)
+  })
+  it('본문은 문자열 그대로 비교 — 32비트 해시 · 길이가 같은 충돌 쌍도 다른 세대(T-0231 리뷰 반례)', () => {
+    const a = 'The code Aa identifies this sample.', b = 'The code BB identifies this sample.'
+    expect(a.length).toBe(b.length)
+    const g0 = { text: a, gen: 0 }
+    const g1 = nextReadingGeneration(g0, b)
+    expect(g1).toEqual({ text: b, gen: 1 })
+    expect(nextReadingGeneration(g1, b)).toBe(g1) // 같은 본문이면 그대로(불필요한 재시작 없음)
+    expect(nextReadingGeneration(g1, null).gen).toBe(2)
+    expect(nextReadingGeneration(g1, a).gen).toBe(2)
   })
 })
