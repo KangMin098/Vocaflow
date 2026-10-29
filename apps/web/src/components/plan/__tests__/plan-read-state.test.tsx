@@ -262,8 +262,8 @@ describe('리뷰 r10 — 쓰기 상태 반드시 해제 · 재시도 실패 뒤 
   })
   it('[P2] 서버 액션이 던지면 기존 실패 계약(ok:false · 안내)으로 — 저장 · 삭제 모두', () => {
     const x = src()
-    expect(x).toMatch(/const safeSave = async[\s\S]*?try \{\s*\n\s*return await savePlanItem\(input\)\s*\n\s*\} catch \{[\s\S]{0,200}?return \{ ok: false as const/)
-    expect(x).toMatch(/const safeRemove = async[\s\S]*?try \{\s*\n\s*return await removePlanItem\(id, expected\)\s*\n\s*\} catch \{[\s\S]{0,200}?return \{ ok: false as const/)
+    expect(x).toMatch(/const safeSave = async[\s\S]*?try \{\s*\n\s*const res = await savePlanItem\(input\)[\s\S]{0,80}?return res\s*\n\s*\} catch \{[\s\S]{0,200}?return \{ ok: false as const/)
+    expect(x).toMatch(/const safeRemove = async[\s\S]*?try \{\s*\n\s*const res = await removePlanItem\(id, expected\)[\s\S]{0,80}?return res\s*\n\s*\} catch \{[\s\S]{0,200}?return \{ ok: false as const/)
   })
   it('[P2] 키보드 재시도가 다시 실패하면 단추가 다시 활성이 된 뒤 그 단추로 초점(사용자가 옮기지 않았을 때만)', () => {
     const x = src()
@@ -365,5 +365,29 @@ describe('리뷰 r15 — 재조회 진행 표식은 세대에 묶는다', () => 
     expect(x).toMatch(/const gen = \+\+readGen\.current\s*\n\s*reloadInFlight\.current = gen/)
     const eff = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
     expect(eff).toContain('readGen.current++')
+  })
+})
+
+describe('T-0251 — 쓰기보다 먼저 출발한 snapshot 은 반영하지 않음', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  it('성공한 쓰기의 서버 시각(at)을 기록 · 그보다 이른 snapshotAt 의 props 는 버리고 재조회 1회', () => {
+    const x = src()
+    expect(x).toMatch(/if \(res\.ok && typeof res\.at === 'number' && res\.at > lastWriteAt\.current\) lastWriteAt\.current = res\.at/)
+    expect((x.match(/noteWrite\(res\)/g) ?? []).length).toBe(2)
+    const e = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
+    expect(e).toMatch(/if \(snapshotAt !== undefined && snapshotAt < lastWriteAt\.current\) \{\s*\n\s*void reloadPlan\(\)\s*\n\s*return/)
+    // 순서: 다른 viewer 버림 → 쓰기 중 보류 → 오래된 snapshot 버림 → 반영
+    expect(e.indexOf('viewerId !== ownerId) return')).toBeLessThan(e.indexOf('if (writing) {'))
+    expect(e.indexOf('if (writing) {')).toBeLessThan(e.indexOf('snapshotAt < lastWriteAt.current'))
+    expect(e.indexOf('snapshotAt < lastWriteAt.current')).toBeLessThan(e.indexOf('setItems(initialItems)'))
+  })
+  it('page 는 조회 출발 직전 서버 시각을 snapshotAt 으로 넘긴다', async () => {
+    const { default: PlanPage } = await import('@/app/(main)/plan/page')
+    const before = Date.now()
+    const tree = (await PlanPage()) as { props: { children: { props: Record<string, unknown> } } }
+    const at = tree.props.children.props.snapshotAt as number
+    expect(typeof at).toBe('number')
+    expect(at).toBeGreaterThanOrEqual(before)
+    expect(at).toBeLessThanOrEqual(Date.now())
   })
 })
