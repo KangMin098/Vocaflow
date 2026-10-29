@@ -37,7 +37,8 @@ export function RecallPairRow({ pair, badge }: { pair: PairFlipPairResult; badge
       <Check size={14} className="shrink-0 text-[var(--success)]" aria-hidden />
       <div className="min-w-0 flex-1">
         <p className="truncate font-english text-[14px] font-[600] text-[var(--t1)]">{pair.word}</p>
-        <p id={id} className="truncate font-body text-[12px] text-[var(--t2)]" data-testid="pf-recall-meaning">
+        {/* 연 뜻은 자르지 않는다 — 떠올린 것과 끝까지 견줄 수 있게(가린 안내는 한 줄) */}
+        <p id={id} className={`font-body text-[12px] text-[var(--t2)] ${shown ? 'break-keep' : 'truncate'}`} data-testid="pf-recall-meaning">
           {shown ? pair.meaning : '뜻을 먼저 떠올려 보세요'}
         </p>
       </div>
