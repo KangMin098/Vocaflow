@@ -17,17 +17,18 @@ const render = (pairs: ReturnType<typeof pair>[], seed: unknown[] = []) => {
   return renderToStaticMarkup(<PairFlipPairsList pairs={pairs} />)
 }
 
-describe('needsRecall — attempts 경계', () => {
-  it('1 은 아니고 2 · 3 은 다시 떠올리기', () => {
+describe('needsRecall — 실제 훅의 attempts 의미(한 번에 맞혀도 2)', () => {
+  it('1 · 2(한 번에 맞힘) 는 아니고 3 · 4(다시 시도) 는 다시 떠올리기', () => {
     expect(needsRecall(1)).toBe(false)
-    expect(needsRecall(2)).toBe(true)
+    expect(needsRecall(2)).toBe(false)
     expect(needsRecall(3)).toBe(true)
+    expect(needsRecall(4)).toBe(true)
   })
 })
 
 describe('PairFlipPairsList 뜻 가리기', () => {
-  it('attempts 1 은 뜻을 그대로, 2 · 3 은 뜻을 가리고 「뜻 확인」(aria-expanded=false · aria-controls · 44px)', () => {
-    const html = render([pair('a', 1), pair('b', 2), pair('c', 3)])
+  it('attempts 1 · 2 는 뜻을 그대로, 3 · 4 는 뜻을 가리고 「뜻 확인」(aria-expanded=false · aria-controls · 44px)', () => {
+    const html = render([pair('a', 2), pair('b', 3), pair('c', 4)])
     expect(html).toContain('뜻-a')
     expect(html).not.toContain('뜻-b')
     expect(html).not.toContain('뜻-c')
@@ -37,18 +38,19 @@ describe('PairFlipPairsList 뜻 가리기', () => {
     expect(html.match(/>뜻 확인</g)).toHaveLength(2)
     expect(html).toContain('min-h-[44px]')
     expect(html).toContain('word-b')
+    expect(html).toContain('word-c')
   })
   it('토글을 연 상태면 그 짝 뜻 · 「뜻 가리기」 · aria-expanded=true', () => {
     // useState 순서: 목록 open · 행 b shown
-    const html = render([pair('b', 2)], [true, true])
+    const html = render([pair('b', 3)], [true, true])
     expect(html).toContain('뜻-b')
     expect(html).toContain('>뜻 가리기<')
     expect(html).toMatch(/aria-expanded="true"[^>]*aria-controls=/)
     // 연 뜻은 자르지 않는다(가린 안내만 한 줄)
     expect(html).toContain('class="font-body text-[12px] text-[var(--t2)] break-keep" data-testid="pf-recall-meaning"')
   })
-  it('모두 한 번에 맞혔으면 예전 목록 그대로(가림 · 토글 없음)', () => {
-    const html = render([pair('a', 1), pair('d', 1)])
+  it('모두 한 번에 맞혔으면(실제 훅 값 2) 예전 목록 그대로(가림 · 토글 없음)', () => {
+    const html = render([pair('a', 2), pair('d', 2)])
     expect(html).not.toContain('pf-recall-pair')
     expect(html).not.toContain('뜻 확인')
     expect(html).toContain('뜻-a')
@@ -56,7 +58,7 @@ describe('PairFlipPairsList 뜻 가리기', () => {
   })
   it('기록 · 네트워크 호출이 없다(모듈이 서버 액션 · fetch 를 쓰지 않는다)', async () => {
     const fetchSpy = vi.spyOn(globalThis, 'fetch' as never)
-    render([pair('b', 2)], [true, true])
+    render([pair('b', 3)], [true, true])
     expect(fetchSpy).not.toHaveBeenCalled()
     const src = (await import('node:fs')).readFileSync(new URL('../PairFlipPairsList.tsx', import.meta.url), 'utf8')
     expect(src).not.toMatch(/fetch\(|track\(|record|use server|supabase/i)
