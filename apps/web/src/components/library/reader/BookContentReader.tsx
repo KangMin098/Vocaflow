@@ -88,6 +88,8 @@ export function BookContentReader({
   const contentRef = useRef<HTMLDivElement>(null)
   // 다시 불러오기 단추로 성공했을 때만 본문으로 초점을 옮긴다(단추가 사라져 초점을 잃은 경우)
   const retryFocus = useRef(false)
+  // 누른 순간부터 응답까지 — 렌더 전에 한 번 더 눌러도(빠른 두 번 누름) 요청은 한 번
+  const retryInFlight = useRef(false)
 
   // 본문 단어 클릭 조회 팝오버 (자체 dict+lemma)
   const [lookup, setLookup] = useState<{ word: string; rect: DOMRect } | null>(null)
@@ -131,7 +133,11 @@ export function BookContentReader({
   // chapter 변경 시 fetch (캐시된 것은 skip)
   useEffect(() => {
     // 이전 장 요청이 버려진 뒤(장 이동) 잠긴 · 캐시된 장으로 오면 그 대기 표시도 거둔다
-    if (isLockedChapter || contentCache[activeIdx]) { setLoading(false); return }
+    if (isLockedChapter || contentCache[activeIdx]) {
+      retryInFlight.current = false
+      setLoading(false)
+      return
+    }
 
     let cancelled = false
     setLoading(true)
@@ -150,7 +156,9 @@ export function BookContentReader({
         setFailure({ idx: activeIdx, message: e instanceof Error ? e.message : 'unknown' })
       })
       .finally(() => {
-        if (!cancelled) setLoading(false)
+        if (cancelled) return
+        retryInFlight.current = false
+        setLoading(false)
       })
 
     return () => {
@@ -193,7 +201,8 @@ export function BookContentReader({
   const activeContent = contentCache[activeIdx] ?? null
   const error = failure && failure.idx === activeIdx ? failure.message : null
   const retryChapter = (onButton: boolean) => {
-    if (loading) return
+    if (loading || retryInFlight.current) return
+    retryInFlight.current = true
     retryFocus.current = onButton
     setRetryNonce((n) => n + 1)
   }

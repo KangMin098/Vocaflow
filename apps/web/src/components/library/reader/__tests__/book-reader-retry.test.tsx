@@ -31,7 +31,7 @@ describe('본문 조회 실패 — 다시 불러오기', () => {
   it('결선: 재시도 입력은 조회 effect 의존성 · 실패는 그 장에 묶임 · 기다리는 중 재누름 무시 · 자동 재시도 없음', () => {
     expect(SRC).toContain('}, [activeIdx, libraryBookId, contentCache, isLockedChapter, retryNonce])')
     expect(SRC).toContain('const error = failure && failure.idx === activeIdx ? failure.message : null')
-    expect(SRC).toMatch(/const retryChapter = \(onButton: boolean\) => \{\n\s+if \(loading\) return/)
+    expect(SRC).toMatch(/const retryChapter = \(onButton: boolean\) => \{\n\s+if \(loading \|\| retryInFlight\.current\) return\n\s+retryInFlight\.current = true/)
     // 실패 처리에서 다시 부르지 않는다(자동 재시도 0)
     const effect = SRC.slice(SRC.indexOf('getChapterContent(client, libraryBookId, activeIdx)'), SRC.indexOf('}, [activeIdx, libraryBookId, contentCache, isLockedChapter, retryNonce])'))
     expect(effect).not.toMatch(/setRetryNonce|setTimeout|getChapterContent\(client[\s\S]*getChapterContent\(client/)
