@@ -187,8 +187,11 @@ export function DcpChoiceItem({
 }) {
   const { passage, choices, stemKo, underline, summarySentence } = payload
   const [picked, setPicked] = useState<number | null>(null)
-  // 실패 뒤 'answering' 으로 돌아와도 이 컴포넌트는 그대로라 짚은 문장이 남는다(입력 보존)
-  const [evidence, setEvidence] = useState<number | null>(null)
+  // 짚은 문장은 **이 지문(payload 객체)** 에 묶는다 — 컴포넌트가 유지된 채 다른 문항 · 같은 id 의 새 판본이 오면
+  // 이전 위치가 새 지문의 같은 자리 문장을 짚은 것처럼 보이지 않게 비운다. 같은 문항의 제출 실패 뒤에는 payload 가 같아 그대로 남는다(입력 보존).
+  const [evidenceAt, setEvidenceAt] = useState<{ payload: DcpChoicePayload; index: number } | null>(null)
+  const evidence = evidenceAt && evidenceAt.payload === payload ? evidenceAt.index : null
+  const setEvidence = (i: number | null) => setEvidenceAt(i === null ? null : { payload, index: i })
 
   return (
     <div className="flex flex-col gap-3">
