@@ -57,9 +57,12 @@ describe('배선', () => {
     expect(c).toContain('memProgress.current = { v: 2, ...rec, savedAt: now() }')
     expect((c.match(/memProgress\.current = null/g) ?? []).length).toBe(3)
   })
-  it('추천 반영 · 결과 전환 직전 같은 세대 · 인증 검사', () => {
-    expect(c).toContain('const live = () => acceptFetch(ctx.req, req.current, viewerId === null || guard.isCurrent(ctx.token))')
-    expect(c).toMatch(/const recs = await loadRecommendations\(userId, \[\]\)\n\s+if \(!live\(\)\) return\n\s+setRecommendations\(recs\)/)
-    expect(c).toMatch(/if \(!live\(\)\) return\n\s+setPhase\('results'\)/)
+  it('추천 반영 · 결과 전환 직전 같은 세대 · 인증 검사(authGone 은 acceptFetch 대체 여부 + 인증)', () => {
+    expect(c).toMatch(/const recs = await loadRecommendations\(userId, \[\]\)\n\s+if \(authGone\(\)\) return\n\s+setRecommendations\(recs\)/)
+    expect(c).toMatch(/if \(authGone\(\)\) return\n\s+setPhase\('results'\)/)
+    expect(c).toContain('if (replaced()) return true')
+  })
+  it('대체된 제출은 「결과 분석 중」에 갇히지 않는다 — 아직 submitting 이면 시작 화면으로', () => {
+    expect(c).toContain("if (!acceptFetch(ctx.req, req.current, true)) setPhase((cur) => (cur === 'submitting' ? 'start' : cur))")
   })
 })

@@ -524,6 +524,9 @@ export function DiagnosticClient({
       await submitChecked(ctx)
     } finally {
       submitting.current = false
+      // 새 시작 · 재개가 이 제출을 대체했는데 그 요청이 화면을 아직 못 바꿨으면(예: 신원 확인 중이라 버려짐)
+      //   「결과 분석 중」에 갇히지 않게 시작 화면으로 돌린다. 더 새 요청이 이미 화면을 바꿨으면 건드리지 않는다
+      if (!acceptFetch(ctx.req, req.current, true)) setPhase((cur) => (cur === 'submitting' ? 'start' : cur))
     }
   }
 
@@ -623,14 +626,14 @@ export function DiagnosticClient({
     setSaved(null)
 
     // 추천을 기다리는 사이 다른 진단 시작 · 인증 재확인이 있었으면 이 결과로 새 화면을 덮지 않는다
-    const live = () => acceptFetch(ctx.req, req.current, viewerId === null || guard.isCurrent(ctx.token))
+    //   authGone = 같은 요청 세대(acceptFetch) · 같은 인증 세대 — 대체됐으면 조용히, 인증이 바뀌었으면 안내하고 멈춘다
     if (selectedTest.test_type === 'base_v_level' || selectedTest.test_type === 'comprehensive') {
       if (authGone()) return
       const recs = await loadRecommendations(userId, [])
-      if (!live()) return
+      if (authGone()) return
       setRecommendations(recs)
     }
-    if (!live()) return
+    if (authGone()) return
     setPhase('results')
   }
 
