@@ -18,7 +18,7 @@ vi.mock('@/lib/supabase/server', () => ({
     from: (t: string) => {
       st.calls.push(t)
       const chain: Record<string, unknown> = {}
-      for (const k of ['select', 'eq', 'in', 'not', 'order']) chain[k] = () => chain
+      for (const k of ['select', 'eq', 'in', 'not', 'order', 'single']) chain[k] = () => chain
       for (const k of ['insert', 'update', 'delete', 'upsert']) chain[k] = () => { st.writes++; return chain }
       chain.then = (ok: (v: unknown) => unknown) => Promise.resolve(st.res[t] ?? { data: [], error: null }).then(ok)
       return chain
@@ -27,7 +27,7 @@ vi.mock('@/lib/supabase/server', () => ({
 }))
 vi.mock('@/lib/learner/plan-material-queries', () => ({ fetchPlanBooks: vi.fn(), fetchPlanCuratedSets: vi.fn(), fetchPlanChapterSets: vi.fn() }))
 
-import { fetchStudyPlanItems, fetchStudyPlanSnapshot } from '../plan-actions'
+import { fetchStudyPlanItems, fetchStudyPlanSnapshot, removePlanItem, savePlanItem } from '../plan-actions'
 
 const ROW = (id: string, material_type: string, material_id: string) => ({ id, material_type, material_id, modules: ['read'], chapters: [], weekdays: [1] })
 const ok = (data: unknown): Res => ({ data, error: null })
@@ -137,5 +137,32 @@ describe('fetchStudyPlanItems — 기존 배열 wrapper 호환(hub-lab · manage
   it('조회 표 · 횟수는 facade 와 같다(한 번 호출에 목록 1)', async () => {
     await fetchStudyPlanItems()
     expect(st.calls.filter((c) => c === 'study_plan_items')).toHaveLength(1)
+  })
+})
+
+describe('expectedOwner — 화면 viewer 와 서버 getUser 가 다르면 쓰기 전에 거부(T-0240 r3 P1)', () => {
+  it('저장: 서버가 B 인데 expected A → ok:false · INSERT/UPDATE 0', async () => {
+    st.user = 'user-b'
+    const r = await savePlanItem({ materialType: 'book', materialId: 'b1', modules: ['read'], expectedOwner: 'user-a' })
+    expect(r.ok).toBe(false)
+    expect(r.error).toContain('계정이 바뀌어')
+    const u = await savePlanItem({ id: 'p1', materialType: 'book', materialId: 'b1', modules: ['read'], expectedOwner: 'user-a' })
+    expect(u.ok).toBe(false)
+    expect(st.writes).toBe(0)
+    expect(st.calls).toEqual([])
+  })
+  it('삭제: 서버가 B 인데 expected A → ok:false · DELETE 0', async () => {
+    st.user = 'user-b'
+    expect((await removePlanItem('p1', 'user-a')).ok).toBe(false)
+    expect(st.writes).toBe(0)
+  })
+  it('같으면 기존대로 쓴다 · 넘기지 않으면 기존과 같다', async () => {
+    st.res.study_plan_items = ok({ id: 'new-1' })
+    await savePlanItem({ materialType: 'book', materialId: 'b1', modules: ['read'], expectedOwner: 'user-a' })
+    expect(st.writes).toBe(1)
+    await savePlanItem({ materialType: 'book', materialId: 'b1', modules: ['read'] })
+    expect(st.writes).toBe(2)
+    await removePlanItem('p1', 'user-a')
+    expect(st.writes).toBe(3)
   })
 })

@@ -159,6 +159,9 @@ const UNCONFIRMED_TITLE = '(자료를 확인할 수 없음)'
 /** 기존 배열 wrapper 의 표기 — 다른 호출자(hub-lab · manage-overview) 화면은 그대로 둔다 */
 const LEGACY_MISSING_TITLE = '(삭제된 자료)'
 
+/** 화면의 viewer 와 서버 신원이 다를 때 — 쓰기 전에 거부한 결과 */
+const OWNER_CHANGED = '로그인 계정이 바뀌어 저장하지 않았어요. 화면을 새로 열어 주세요.'
+
 const MATERIAL_TYPES = new Set<string>(['book', 'article', 'script', 'word_set'])
 function validRow(r: unknown): r is PlanRow {
   if (!r || typeof r !== 'object') return false
@@ -535,6 +538,11 @@ export async function savePlanItem(input: {
   modules: PlanActivity[]
   chapters?: number[]
   weekdays?: number[]
+  /**
+   * 이 저장을 시작한 화면의 viewer(T-0240 r3) — 서버 getUser 와 다르면 쓰기 전에 거부한다.
+   * 거부용 결속일 뿐 권한 근거가 아니다(권한은 기존 Auth/RLS). 넘기지 않으면 기존과 같다.
+   */
+  expectedOwner?: string
 }): Promise<{ ok: boolean; id?: string; error?: string }> {
   if (!input?.materialId) return { ok: false, error: '자료가 필요합니다.' }
   const client = await createClient()
@@ -542,6 +550,7 @@ export async function savePlanItem(input: {
     data: { user },
   } = await client.auth.getUser()
   if (!user) return { ok: false, error: '로그인이 필요합니다.' }
+  if (input.expectedOwner !== undefined && user.id !== input.expectedOwner) return { ok: false, error: OWNER_CHANGED }
 
   const allowed = new Set(activitiesForType(input.materialType))
   const modules = Array.from(new Set(input.modules)).filter((m) => allowed.has(m))
@@ -581,13 +590,14 @@ export async function savePlanItem(input: {
   return { ok: true, id: (data as { id: string } | null)?.id }
 }
 
-/** 계획 항목 제거. */
-export async function removePlanItem(itemId: string): Promise<{ ok: boolean; error?: string }> {
+/** 계획 항목 제거. expectedOwner(T-0240 r3) — 서버 getUser 와 다르면 지우기 전에 거부(넘기지 않으면 기존과 같다). */
+export async function removePlanItem(itemId: string, expectedOwner?: string): Promise<{ ok: boolean; error?: string }> {
   const client = await createClient()
   const {
     data: { user },
   } = await client.auth.getUser()
   if (!user) return { ok: false, error: '로그인이 필요합니다.' }
+  if (expectedOwner !== undefined && user.id !== expectedOwner) return { ok: false, error: OWNER_CHANGED }
 
   const { error } = await loose(client)
     .from('study_plan_items')

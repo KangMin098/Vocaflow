@@ -118,6 +118,8 @@ export function PlanClient({
   }, [initialItems, initialFailed])
   /** 쓰기 직전 계정 확인(T-0240 r2 P1) — 이 화면의 viewer 와 지금 브라우저 신원이 같고, 시작할 때의 세대 그대로일 때만 */
   const canWrite = (token: number) => !viewerId || guard.isCurrent(token)
+  /** 서버에 넘기는 기대 주인(T-0240 r3) — 서버 getUser 가 다르면 쓰기 전에 거부된다. 비로그인 화면은 넘기지 않는다(기존과 같다) */
+  const owner = viewerId ?? undefined
   /** 명시적 읽기 재시도 — 읽기만 한다(저장 · 삭제를 다시 보내지 않는다). 늦은 응답 · 다른 viewer 응답은 버린다 */
   async function reloadPlan() {
     const gen = ++readGen.current
@@ -282,7 +284,7 @@ export function PlanClient({
     setError(null)
     setAdding(true)
     startTransition(async () => {
-      const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters, weekdays })
+      const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters, weekdays, expectedOwner: owner })
       setAdding(false)
       // 응답 사이 계정이 바뀌었으면 이 화면에 싣지 않는다
       if (!canWrite(token)) return
@@ -365,6 +367,7 @@ export function PlanClient({
           modules,
           chapters: [],
           weekdays,
+          expectedOwner: owner,
         })
         if (res.ok && res.id) {
           added.push({
@@ -415,6 +418,7 @@ export function PlanClient({
         modules,
         chapters,
         weekdays,
+        expectedOwner: owner,
       })
       if (!res.ok) {
         setItems((prev) =>
@@ -436,7 +440,7 @@ export function PlanClient({
     setError(null)
     startTransition(async () => {
       if (!canWrite(token)) return
-      const res = await removePlanItem(item.id)
+      const res = await removePlanItem(item.id, owner)
       if (!res.ok) {
         setItems((prev) => [...prev, item])
         setError(res.error ?? '삭제에 실패했어요.')

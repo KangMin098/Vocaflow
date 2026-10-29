@@ -120,3 +120,13 @@ describe('리뷰 r2 — 쓰기 계정 경계 · props 교체(소스 결속 · �
     expect(eff).not.toMatch(/setArtSel|setDraft|setEditId/)
   })
 })
+
+describe('리뷰 r3 — expectedOwner 배선(서버 getUser 와 다르면 쓰기 전 거부)', () => {
+  it('일괄 · 단건 추가 · 수정 저장과 삭제가 모두 화면 viewer 를 expectedOwner 로 넘긴다', () => {
+    const s = fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+    expect((s.match(/expectedOwner: owner/g) ?? []).length).toBe(3)
+    expect(s).toContain('await removePlanItem(item.id, owner)')
+    expect(s).toContain('const owner = viewerId ?? undefined')
+    expect((s.match(/await savePlanItem\(/g) ?? []).length).toBe(3)
+  })
+})
