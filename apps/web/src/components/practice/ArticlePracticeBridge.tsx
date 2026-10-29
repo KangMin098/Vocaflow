@@ -159,6 +159,8 @@ export function ArticlePracticeBridge({
       afterFeedback={readingText ? <ArticleReadingReference text={readingText} /> : undefined}
       // R0-REVISIT-READ-01 — 완료 뒤 다시 보기에도 같은 검증 본문(새 조회 없음 · 접힌 채 시작)
       revisitExtra={readingText ? <ArticleReadingReference text={readingText} /> : undefined}
+      // T-0259 — 제출 성공 뒤 피드백 제목으로 초점 한 번(기사 연습만 opt-in)
+      feedbackFocus
       // R0-PRE-EVIDENCE-01 — 제목 · 주제 문항만 제출 전 선택적 본문 짚기(서버에는 그대로 {choice} 만)
       preEvidence
     />

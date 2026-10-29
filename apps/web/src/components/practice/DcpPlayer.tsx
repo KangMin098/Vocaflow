@@ -53,6 +53,7 @@ export function DcpPlayer({
   afterFeedback,
   preEvidence = false,
   revisitExtra,
+  feedbackFocus = false,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -110,6 +111,11 @@ export function DcpPlayer({
    * 없으면 다시 보기는 예전 그대로. 다시 보기마다 새로 그린다(key) — 다른 문항 다시 보기는 접힌 채 시작한다.
    */
   revisitExtra?: ReactNode
+  /**
+   * T-0259 — 명시적 제출이 성공하면 피드백 제목으로 초점을 한 번 인계(opt-in, 기사 연습 다리만). 기본 꺼짐 — 다른 호출자는 예전 그대로.
+   * 기다리는 동안 학습자가 다른 곳으로 옮긴 초점은 빼앗지 않는다(초점이 body · 사라진 요소일 때만).
+   */
+  feedbackFocus?: boolean
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -151,6 +157,16 @@ export function DcpPlayer({
     ;(target === 'item' ? itemStartRef.current : doneHeadRef.current)?.focus()
   }, [idx, phase])
 
+  // T-0259 — 제출 → 성공 피드백 전환에만 한 번. 실패 · 다음 문항 · 재렌더에는 의도가 없다
+  const feedbackIntent = useRef(false)
+  const feedbackTitleRef = useRef<HTMLParagraphElement | null>(null)
+  useEffect(() => {
+    if (!feedbackIntent.current || phase === 'grading') return
+    const go = shouldFocusFeedback({ intent: feedbackIntent.current, phase, active: typeof document === 'undefined' ? null : document.activeElement, body: typeof document === 'undefined' ? null : document.body })
+    feedbackIntent.current = false
+    if (go) feedbackTitleRef.current?.focus()
+  }, [phase])
+
   const item = items[idx]
   const total = items.length
   const isLast = idx === total - 1
@@ -162,6 +178,7 @@ export function DcpPlayer({
     setGradeError(null)
     setSubmitted(answer)
     setPreSnap(preSentences && pre ? { item, sentence: pre.sentence } : null)
+    feedbackIntent.current = feedbackFocus
     setPhase('grading')
     // ⚠️ **reject 도 잡는다.** try/catch 가 없던 동안 세션 만료·네트워크 끊김이
     //   `setPhase('graded')` 에 못 닿아 제출 버튼이 회색으로 잠긴 채 영영 멈췄다.
@@ -368,7 +385,7 @@ export function DcpPlayer({
         className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
       >
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} causeFailed={!!causeFailed && causeFailed.item === item && causeFailed.attemptId === result.attemptId && causeFailed.cause === cause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} pre={preShown ? <PreEvidenceNote key={`pre-${item.id}`} sentence={preShown.sentence} /> : null} extra={afterFeedback ? <div key={`extra-${item.id}`}>{afterFeedback}</div> : null} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} titleRef={feedbackFocus ? feedbackTitleRef : undefined} onCause={handleCause} causeFailed={!!causeFailed && causeFailed.item === item && causeFailed.attemptId === result.attemptId && causeFailed.cause === cause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} pre={preShown ? <PreEvidenceNote key={`pre-${item.id}`} sentence={preShown.sentence} /> : null} extra={afterFeedback ? <div key={`extra-${item.id}`}>{afterFeedback}</div> : null} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -398,6 +415,15 @@ export function DcpPlayer({
       </div>
     </section>
   )
+}
+
+// ── T-0259 — 제출 성공 뒤 피드백 제목 초점(순수) ──
+
+/** 성공 피드백으로 초점을 옮길지 — 제출 의도가 있고 · 피드백 단계이고 · 초점이 사라졌거나(body · 연결 끊김) 없을 때만 */
+export function shouldFocusFeedback({ intent, phase, active, body }: { intent: boolean; phase: Phase; active: unknown; body: unknown }): boolean {
+  if (!intent || phase !== 'graded') return false
+  const a = active as { isConnected?: boolean } | null
+  return !a || a === body || a.isConnected === false
 }
 
 // ── T-0249 — 다음 · 마치기 뒤 초점 인계(순수) ──
@@ -486,6 +512,7 @@ function Feedback({
   causeLabel,
   extra = null,
   pre = null,
+  titleRef,
 }: {
   item: DcpItem
   result: DcpGradeOk
@@ -504,6 +531,8 @@ function Feedback({
   extra?: ReactNode
   /** 이번 제출 당시 짚은 문장(R0-PRE-EVIDENCE-01) — 진행 중 성공 피드백에서만 */
   pre?: ReactNode
+  /** T-0259 — 진행 중 피드백 제목(초점 인계 대상, opt-in) */
+  titleRef?: Ref<HTMLParagraphElement>
 }) {
   const correct = result.correct
   return (
@@ -520,7 +549,12 @@ function Feedback({
         <span className="inline-flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[var(--bg)]" aria-hidden>
           {correct ? <Check size={16} strokeWidth={2.5} /> : <X size={16} strokeWidth={2.5} />}
         </span>
-        <p className="font-display text-[14px] font-[700]">
+        <p
+          ref={titleRef}
+          tabIndex={titleRef ? -1 : undefined}
+          data-testid={titleRef ? 'dcp-feedback-title' : undefined}
+          className="rounded-[var(--r-sm)] font-display text-[14px] font-[700] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+        >
           {/* 유형마다 '무엇을 잘했는지' 가 다르다 — 한 문장으로 뭉개면 선택지 유형에서 어색해진다. */}
           {correct
             ? isUnderlineChoiceDcpType(item.type)
