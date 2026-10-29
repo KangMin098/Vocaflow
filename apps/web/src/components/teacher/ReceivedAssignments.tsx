@@ -134,7 +134,8 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
               </div>
 
               {/* 단어는 접지 않고 바로 보여준다 — 담기 전에 무엇인지 알아야 담는다. 24개를 넘으면 「전체 보기」로 나머지까지(T-0234) */}
-              <ReceivedWords key={a.id} words={a.words} />
+              {/* key = 과제 id + 단어 목록 — 같은 과제라도 목록이 바뀌면 펼침을 처음(닫힘)으로 되돌린다 */}
+              <ReceivedWords key={`${a.id}:${receivedWordsKey(a.words)}`} words={a.words} />
             </li>
           )
         })}
@@ -169,7 +170,26 @@ export function readReceivedWords(words: unknown): { ok: true; words: ReceivedWo
   return { ok: true, words: out }
 }
 
-/** 카드 하나의 단어 — 펼침 상태는 카드마다 따로(과제 id 로 key) · 담기 · 기록 · 조회를 부르지 않는다 */
+/**
+ * 단어 목록의 결속값 — 목록(순서 · 낱말 · 뜻)이 하나라도 바뀌면 달라진다. 펼침 상태를 이 값에 묶는다.
+ * 짧은 문자열 해시(FNV-1a 32bit)라 key 가 목록 길이만큼 길어지지 않는다. 읽을 수 없는 값도 JSON 문자열로 구분한다.
+ */
+export function receivedWordsKey(words: unknown): string {
+  let s: string
+  try {
+    s = JSON.stringify(words) ?? String(words)
+  } catch {
+    s = String(words)
+  }
+  let h = 0x811c9dc5
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i)
+    h = Math.imul(h, 0x01000193) >>> 0
+  }
+  return `${s.length.toString(36)}-${h.toString(36)}`
+}
+
+/** 카드 하나의 단어 — 펼침 상태는 카드마다 따로(과제 id + 목록 결속값으로 key) · 담기 · 기록 · 조회를 부르지 않는다 */
 function ReceivedWords({ words }: { words: unknown }) {
   const [open, setOpen] = useState(false)
   const listId = useId()

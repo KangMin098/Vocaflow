@@ -10,7 +10,7 @@ vi.mock('@/lib/teacher/assignment-actions', () => ({
 }))
 
 import type { ClassAssignment } from '@/lib/teacher/assignment-actions'
-import { ReceivedAssignments, readReceivedWords, RECEIVED_PREVIEW } from '@/components/teacher/ReceivedAssignments'
+import { ReceivedAssignments, readReceivedWords, receivedWordsKey, RECEIVED_PREVIEW } from '@/components/teacher/ReceivedAssignments'
 
 const words = (n: number, meaning = (i: number) => `뜻 ${i}`) => Array.from({ length: n }, (_, i) => ({ w: `word${i}`, m: meaning(i) }))
 const card = (id: string, ws: unknown): ClassAssignment => ({ id, classId: 'c', className: '1반', title: `과제 ${id}`, words: ws as ClassAssignment['words'], createdAt: '2026-10-29T00:00:00Z' })
@@ -92,5 +92,22 @@ describe('ReceivedAssignments — 카드 단어', () => {
   it('그리는 데 담기 · 기록 · 조회 호출 0', () => {
     render([card('a', words(200)), card('b', words(25))])
     expect(h.calls).toBe(0)
+  })
+})
+
+describe('receivedWordsKey — 펼침 결속값(리뷰 P2: 같은 과제 id 의 목록이 바뀌면 펼침 초기화)', () => {
+  it('같은 목록이면 같고, 낱말 · 뜻 · 순서 · 길이 하나라도 바뀌면 다르다', () => {
+    const a = words(30)
+    expect(receivedWordsKey(a)).toBe(receivedWordsKey(words(30)))
+    expect(receivedWordsKey(a)).not.toBe(receivedWordsKey(words(31)))
+    expect(receivedWordsKey(a)).not.toBe(receivedWordsKey(words(30, (i) => `다른 뜻 ${i}`)))
+    expect(receivedWordsKey(a)).not.toBe(receivedWordsKey([...a].reverse()))
+    expect(receivedWordsKey([])).not.toBe(receivedWordsKey(null))
+  })
+  it('카드 key 는 과제 id 와 이 결속값을 함께 쓴다', async () => {
+    const fs = await import('node:fs')
+    const path = await import('node:path')
+    const src = fs.readFileSync(path.resolve(__dirname, '../../../../components/teacher/ReceivedAssignments.tsx'), 'utf8')
+    expect(src).toContain('<ReceivedWords key={`${a.id}:${receivedWordsKey(a.words)}`} words={a.words} />')
   })
 })
