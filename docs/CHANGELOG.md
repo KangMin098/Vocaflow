@@ -1,5 +1,7 @@
 # CHANGELOG
 
+- feat(practice): R0 기사 연습 완료 복기에서 같은 글 전체를 「읽은 글 참고」로 펼쳐 대조(opt-in, 재조회 0) — 본문은 문자열 정확 비교로 판본 결속, 글·계정·본문 변경 시 플레이어 재시작. Codex 리뷰 1회 반려 뒤 NO_FINDINGS (T-0231 a2c8916eb)
+- fix(dictation): 「틀린 문항만 다시」 뒤에도 읽던 글 복귀(from) 유지(봉투 저장 성공 뒤 withDictationFrom, 외부·자기 경로는 기존 fallback). Codex 리뷰 NO_FINDINGS (T-0243 caaf7d301)
 - feat(practice): R0 기사 제목·주제 문항에서 답 제출 전 본문 문장 하나를 선택적으로 짚고, 성공한 피드백에 「이번 제출 당시 짚은 문장」으로 대조 — 제출 시작 snapshot, 문항·판본 교체 시 선택 초기화, 서버에는 기존 {choice} 만. 기존 Feedback 형제 key 충돌(T-0207 이후)도 정정. Codex 리뷰 1회 반려 뒤 NO_FINDINGS (T-0230 8c34deefc)
 - fix(teacher): 받은 과제 조회 실패를 「선생님이 단어를 보내면…」 대기 안내와 구별(실패 중 안내 생략·실패 고지만, 학급 실패와 분리, 조회 수 불변). Codex 리뷰 NO_FINDINGS (T-0235 cb65c3a5a)
 - feat(teacher): 학생이 받은 과제 카드에서 24개 뒤 단어까지 「전체 N개 보기」로 확인(최대 200, 목록 교체 시 접힘 재시작, 잘못된 행은 확인 불가, 호출 0). Codex 리뷰 1회 반려 뒤 NO_FINDINGS (T-0234 0cd662590)
