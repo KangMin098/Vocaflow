@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(story): 근거 활동의 「본문에서 다시 확인」으로 온 경우에만 강조 문장 곁 「근거 비교로 돌아가기」 — 출발한 다시 확인 단추로 초점·스크롤 복귀, 단위·계정·release 변경 시 표식 폐기, 활동 상태·호출 불변. Codex 리뷰 NO_FINDINGS, 실 Auth·DB NOT_RUN (T-0246 6816650e7)
 - feat(spellforge): 완료 복기에서 이번 판 첫 오답과 정답을 대조 — 판 키(viewer·글·시작 시각·자료·단어 철자 서명)에 결속, 같은 화면에서 자료·철자 교체 시 즉시 폐기·되살아나지 않음. Codex 리뷰 2회 반려 뒤 NO_FINDINGS, 실 로그인·DB NOT_RUN (T-0238 61ce58d1b)
 - fix(practice): R0 오답 원인 기록이 실패·예외면 「원인 기록을 확인하지 못했어요」와 같은 칩 재선택 안내(자동 재전송·새 저장·성공 배지 없음, 늦은 응답은 문항·attempt·선택·최신 호출 일치 때만) — 판정은 순수 함수로 단위 결속. Codex 리뷰 1회 반려 뒤 NO_FINDINGS, 실 서버 액션 NOT_RUN (T-0247 9f0a12f6b)
 - fix(test): RPC 정적 수집기가 Story 전달 어댑터 호출부(callStoryRpc·callRpc·save-word rpc 의 둘째 인자 리터럴)를 Story 파일 범위에서만 이름으로 수집 — 세 전달부는 이유 붙은 PASS_THROUGH, 변수 RPC명은 여전히 위반. story-activity·교재 연습(f7edec813) 테스트의 가짜 handler h.rpc→h.respond 로 오탐 제거(실제 rpc·인자·단언 불변). 전달 줄 한 줄만 면제·여러 줄·결합식 호출도 위반. Codex 리뷰 2회 반려 뒤 NO_FINDINGS, 실DB 0 (T-0245 5bdb9713b)
