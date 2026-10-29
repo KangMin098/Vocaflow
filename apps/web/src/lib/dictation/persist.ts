@@ -416,31 +416,40 @@ export interface SessionDetail {
   }>
 }
 
-/** 결과 화면 — DB 에서 읽는다(다른 기기·나중에 다시 열어도 보인다). */
-export async function fetchDictationSessionDetail(
-  client: SupabaseClient,
-  sessionId: string,
-): Promise<SessionDetail | null> {
+/**
+ * 결과 조회의 판정(T-0254) — 확인된 부재와 조회 실패를 가른다.
+ * absent = 세션 조회가 오류 없이 행 0(없는 세션 · 다른 계정 · RLS 로 안 보임) ·
+ * failed = 세션 조회 오류(session) · 문항 조회 오류(attempts) · 예외(exception) — 문항이 빠진 불완전 결과는 ok 로 만들지 않는다.
+ */
+export type SessionDetailRead =
+  | { status: 'ok'; detail: SessionDetail }
+  | { status: 'absent' }
+  | { status: 'failed'; reason: 'session' | 'attempts' | 'exception' }
+
+/** 결과 화면 — DB 에서 읽는다(다른 기기·나중에 다시 열어도 보인다). 실패는 부재와 구분한다. */
+export async function readDictationSessionDetail(client: SupabaseClient, sessionId: string): Promise<SessionDetailRead> {
   try {
-    const { data: sData } = await client
+    const { data: sData, error: sErr } = await client
       .from('dictation_sessions')
       .select(
         'id, user_id, title, source_kind, avg_accuracy, completed_items, total_items, completed_at, started_at, total_hints, duration_ms, longest_perfect_words, text_id, shared_set_id, chapter_idx',
       )
       .eq('id', sessionId)
       .maybeSingle()
-    if (!sData) return null
+    if (sErr) return { status: 'failed', reason: 'session' }
+    if (!sData) return { status: 'absent' }
     const s = sData as Record<string, unknown>
 
-    const { data: aData } = await client
+    const { data: aData, error: aErr } = await client
       .from('dictation_attempts')
       .select(
         'item_idx, expected, user_input, accuracy, hints_used, replay_count, skipped, word_results, error_tags, target_words, target_hits',
       )
       .eq('session_id', sessionId)
       .order('item_idx', { ascending: true })
+    if (aErr) return { status: 'failed', reason: 'attempts' }
 
-    return {
+    const detail: SessionDetail = {
       session: {
         id: String(s.id),
         title: String(s.title ?? ''),
@@ -473,7 +482,14 @@ export async function fetchDictationSessionDetail(
         targetHits: (r.target_hits as string[]) ?? [],
       })),
     }
+    return { status: 'ok', detail }
   } catch {
-    return null
+    return { status: 'failed', reason: 'exception' }
   }
+}
+
+/** 기존 호출 호환 — 완전한 결과만, 그 밖(부재 · 실패)은 null. */
+export async function fetchDictationSessionDetail(client: SupabaseClient, sessionId: string): Promise<SessionDetail | null> {
+  const read = await readDictationSessionDetail(client, sessionId)
+  return read.status === 'ok' ? read.detail : null
 }

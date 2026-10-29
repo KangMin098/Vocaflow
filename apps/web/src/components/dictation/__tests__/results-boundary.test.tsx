@@ -1,6 +1,8 @@
 // apps/web/src/components/dictation/__tests__/results-boundary.test.tsx
 // @vitest-environment node
 // 결과 화면 경계 — R1 요청 결속(보관된 A 결과를 B 요청 화면에 붙이지 않음) · R2 재생 실행 시점 판정(guard · 유효 snapshot).
+import fs from 'node:fs'
+import path from 'node:path'
 import { renderToString } from 'react-dom/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -264,5 +266,30 @@ describe('R2 폐기된 view 의 콜백은 공용 음성 엔진을 건드리지 �
     b.toggle(0, 'Bravo sentence here.')
     expect(eng.state.speaking).toBe('Bravo sentence here.')
     expect(b.playingIdx).toBe(0)
+  })
+})
+
+describe('T-0254 — 조회 실패는 부재와 다르고, 명시적 다시 불러오기로만 다시 본다(소스 결속)', () => {
+  const src = fs.readFileSync(path.resolve(__dirname, '../DictationResultsClient.tsx'), 'utf8')
+  it('readDictationSessionDetail 로 실패/부재를 가르고, 늦은 응답은 버린다', () => {
+    expect(src).toContain("const read = await readDictationSessionDetail(createClient(), sessionId)")
+    expect(src).toMatch(/if \(!mounted \|\| !acceptsAtEpoch\(startedGen, epochRef\.current\)\) return\n\s*if \(read\.status === 'failed'\) \{\n\s*setState\('failed'\)/)
+    expect(src).toMatch(/if \(read\.status === 'absent' \|\| !acceptLoaded\(sessionId, read\.detail\)\) \{\n\s*setState\('missing'\)/)
+    // 리뷰 P1 — 요청을 시작할 때의 인증 세대를 잡고(처음 · 다시 불러오기 같은 effect), 세대가 바뀌면 조회를 새로 시작한다
+    expect(src).toMatch(/let mounted = true\n\s*const startedGen = epochRef\.current\.gen\n/)
+    // r3 리뷰 P1 — 세대 변경은 조회를 다시 시작하지 않는다(deps 에 authGen 없음). 결과를 지우고 중립 실패 상태로만
+    expect(src).toMatch(/\}, \[sessionId, router, reloadSeq, epochRef\]\)/)
+    expect(src).toMatch(/if \(authGen === 0\) return\n\s*focusResultAfterRetry\.current = false\n\s*setDetail\(null\)\n\s*setState\('failed'\)\n\s*\}, \[authGen\]\)/)
+    expect(src.match(/readDictationSessionDetail\(/g)?.length).toBe(1)
+    expect(src).not.toMatch(/fetchDictationSessionDetail/)
+  })
+  it('다시 불러오기는 누를 때만(자동 재조회 없음) · 진행 중 aria-disabled · 실패 화면 유지 · 성공 뒤 결과 제목 1회 초점', () => {
+    expect(src.match(/setReloadSeq\(/g)?.length).toBe(1)
+    expect(src).toMatch(/if \(retrying\) return\n\s*setReloadSeq\(\(n\) => n \+ 1\)/)
+    expect(src).toMatch(/aria-disabled=\{retrying \? 'true' : undefined\}/)
+    expect(src).toMatch(/prev === 'failed' \|\| prev === 'retrying'\) \? 'retrying' : 'loading'/)
+    expect(src).toMatch(/focusResultAfterRetry\.current = reloadSeq > 0/)
+    expect(src).toMatch(/<h1 ref=\{resultHeadRef\} tabIndex=\{-1\}/)
+    expect(src).not.toMatch(/setInterval|setTimeout\(\(\) => setReloadSeq/)
   })
 })
