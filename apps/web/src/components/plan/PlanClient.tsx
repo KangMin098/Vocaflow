@@ -109,12 +109,23 @@ export function PlanClient({
   const retryRef = useRef<HTMLButtonElement | null>(null)
   const headingRef = useRef<HTMLHeadingElement | null>(null)
   const focusAfterReload = useRef(false)
+  // 재시도 성공 뒤 초점(r6) — 제목이 **실제로 그려져 초점을 받은 뒤에만** 표식을 지운다.
+  //   새 소유자 경계가 확인 중(checking)이라 제목이 없으면 표식을 남겨 두고, 제목이 붙는 순간(ref 콜백) · 다음 렌더(effect)에 다시 시도한다
+  const tryFocusHeading = () => {
+    const el = headingRef.current
+    if (!focusAfterReload.current || readFailed || !el || !el.isConnected) return
+    el.focus()
+    if (typeof document !== 'undefined' && document.activeElement === el) focusAfterReload.current = false
+  }
+  const setHeading = (el: HTMLHeadingElement | null) => {
+    headingRef.current = el
+    tryFocusHeading()
+  }
   useEffect(() => {
-    if (!readFailed && focusAfterReload.current) {
-      focusAfterReload.current = false
-      headingRef.current?.focus()
-    }
-  }, [readFailed])
+    tryFocusHeading()
+  })
+  // 쓰기 진행 수(r6) — 수정 · 삭제가 응답을 기다리는 동안 재조회를 막는다(읽기와 쓰기가 겹치지 않게)
+  const [pendingWrites, setPendingWrites] = useState(0)
   // props 교체(T-0240 r2 · r5) — page 는 key 로 재마운트하지 않는다. 소유자 판정은 여기서 한다:
   //   · 실패 · viewer null(일시 인증 실패) → 소유자 확인 실패: 기존 화면 · 선택 유지, 실패 고지만
   //   · 소유자 미확정 → 이 snapshot 의 viewer 로 경계를 세운다 · 같은 viewer → 새 snapshot 반영
@@ -153,6 +164,8 @@ export function PlanClient({
   const owner = ownerId ?? undefined
   /** 명시적 읽기 재시도 — 읽기만 한다(저장 · 삭제를 다시 보내지 않는다). 늦은 응답 · 다른 viewer 응답은 버린다 */
   async function reloadPlan() {
+    // 쓰기 중에는 재조회하지 않는다(r6) — 낡은 읽기 결과가 낙관적 변경을 덮지 않게
+    if (writing) return
     const gen = ++readGen.current
     const startGuard = guard
     const token = guard.token()
@@ -199,6 +212,8 @@ export function PlanClient({
   const [draft, setDraft] = useState<Draft | null>(null)
   const [editId, setEditId] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
+  /** 쓰기 진행 중(r6) — 담기 · 수정 · 삭제 중에는 재조회 단추를 잠근다 */
+  const writing = adding || pendingWrites > 0
   /** 구성 패널 — 보드/목록에서 선택하면 화면 밖일 때 스크롤로 데려온다 */
   const composerRef = useRef<HTMLElement | null>(null)
   function revealComposer() {
@@ -331,6 +346,7 @@ export function PlanClient({
       if (ownerId === null) setError(NO_OWNER)
       return
     }
+    if (reloading) return
     setError(null)
     setAdding(true)
     startTransition(async () => {
@@ -407,6 +423,7 @@ export function PlanClient({
       if (ownerId === null) setError(NO_OWNER)
       return
     }
+    if (reloading) return
     setError(null)
     setAdding(true)
     startTransition(async () => {
@@ -463,9 +480,12 @@ export function PlanClient({
       if (ownerId === null) setError(NO_OWNER)
       return
     }
+    if (reloading) return
     setItems((prev) => prev.map((it) => (it.id === item.id ? { ...it, modules, chapters, weekdays } : it)))
     setError(null)
+    setPendingWrites((n) => n + 1)
     startTransition(async () => {
+      try {
       if (!canWrite(token)) return
       const res = await savePlanItem({
         id: item.id,
@@ -486,6 +506,9 @@ export function PlanClient({
         )
         setError(res.error ?? '저장에 실패했어요.')
       }
+      } finally {
+        setPendingWrites((n) => n - 1)
+      }
     })
   }
   function removeItem(item: PlanItem) {
@@ -494,15 +517,21 @@ export function PlanClient({
       if (ownerId === null) setError(NO_OWNER)
       return
     }
+    if (reloading) return
     setItems((prev) => prev.filter((it) => it.id !== item.id))
     if (editId === item.id) setEditId(null)
     setError(null)
+    setPendingWrites((n) => n + 1)
     startTransition(async () => {
-      if (!canWrite(token)) return
-      const res = await removePlanItem(item.id, owner)
-      if (!res.ok) {
-        setItems((prev) => [...prev, item])
-        setError(res.error ?? '삭제에 실패했어요.')
+      try {
+        if (!canWrite(token)) return
+        const res = await removePlanItem(item.id, owner)
+        if (!res.ok) {
+          setItems((prev) => [...prev, item])
+          setError(res.error ?? '삭제에 실패했어요.')
+        }
+      } finally {
+        setPendingWrites((n) => n - 1)
       }
     })
   }
@@ -517,7 +546,7 @@ export function PlanClient({
       <header className="account-reference__intro">
         {/* v07 — 둥근 아이콘 칩 + `Sparkles` 를 주묵 획으로. `Sparkles` 는 지금 AI 생성 UI 의
             공통 표식이라 화면마다 붙이면 출신 표시가 된다(00-inventory C4). */}
-        <h1 ref={headingRef} tabIndex={-1} data-testid="plan-heading" className="flex items-center gap-2.5 rounded-[var(--r-sm)] font-editorial text-[24px] font-[600] text-[var(--t1)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:text-[28px]">
+        <h1 ref={setHeading} tabIndex={-1} data-testid="plan-heading" className="flex items-center gap-2.5 rounded-[var(--r-sm)] font-editorial text-[24px] font-[600] text-[var(--t1)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 md:text-[28px]">
           <span aria-hidden className="inline-block h-[22px] w-[3px] shrink-0 bg-[var(--ju)]" />
           나의 학습 계획
         </h1>
@@ -552,6 +581,8 @@ export function PlanClient({
             ref={retryRef}
             onClick={() => void reloadPlan()}
             aria-disabled={reloading}
+            disabled={writing}
+            aria-describedby={writing ? 'plan-writing-note' : undefined}
             data-testid="plan-read-retry"
             className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
           >
@@ -561,8 +592,20 @@ export function PlanClient({
         </div>
       )}
 
+      {/* 읽기 · 쓰기가 겹치지 않게(r6) — 재조회 중에는 보드 · 구성 조작을 잠그고, 쓰기 중에는 재조회를 잠근다 */}
+      {reloading && confirmed && (
+        <p id="plan-reloading-note" role="status" data-testid="plan-reloading-note" className="m-0 break-keep font-body text-[12.5px] text-[var(--t2)]">
+          계획을 다시 불러오는 동안에는 담기 · 수정 · 삭제를 잠시 멈춰요.
+        </p>
+      )}
+      {writing && readFailed && (
+        <p id="plan-writing-note" role="status" data-testid="plan-writing-note" className="m-0 break-keep font-body text-[12.5px] text-[var(--t2)]">
+          저장 중이에요. 끝나면 다시 불러올 수 있어요.
+        </p>
+      )}
+
       {/* 한 번도 온전히 읽지 못했으면 보드 · 컴포저를 그리지 않는다 — 빈 계획처럼 보이거나 중복 계획을 만들지 않게 */}
-      {confirmed && (<>
+      {confirmed && (<fieldset disabled={reloading} aria-describedby={reloading ? 'plan-reloading-note' : undefined} data-testid="plan-controls" className="m-0 flex min-w-0 flex-col gap-5 border-0 p-0">
       {/* 오늘의 학습 */}
       {items.length > 0 && <TodayStrip items={items} today={todayWeekday} weekDates={weekDates} />}
 
@@ -771,7 +814,7 @@ export function PlanClient({
           )}
         </div>
       </section>
-      </>)}
+      </fieldset>)}
     </div>
   )
 }

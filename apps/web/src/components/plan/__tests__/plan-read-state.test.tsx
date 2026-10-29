@@ -177,9 +177,39 @@ describe('리뷰 r5 — props 의 소유자 판정 · 재시도 성공 초점', 
   it('[P2] 키보드 재시도 성공 → 계획 제목(tabIndex -1 · 링)으로 초점', () => {
     const x = src()
     expect(x).toContain("if (typeof document !== 'undefined' && document.activeElement === retryRef.current) focusAfterReload.current = true")
-    expect(x).toMatch(/if \(!readFailed && focusAfterReload\.current\) \{\s*\n\s*focusAfterReload\.current = false\s*\n\s*headingRef\.current\?\.focus\(\)/)
+    // r6 — 표식은 제목이 실제로 초점을 받은 뒤에만 지운다(아래 r6 테스트)
+    expect(x).toContain('el.focus()')
     const h1 = /<h1[^>]*data-testid="plan-heading"[^>]*>/.exec(render({ items: [ITEM] }))?.[0] ?? ''
     expect(h1).toContain('tabindex="-1"')
     expect(h1).toContain('focus-visible:ring-2')
+  })
+})
+
+describe('리뷰 r6 — 읽기 · 쓰기 겹침 금지 · 초점 표식', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  it('[P2] 재조회 중 보드 · 구성 조작 잠금 — fieldset disabled + aria-describedby 안내, 쓰기 함수 4곳도 reloading 이면 중단', () => {
+    const x = src()
+    expect(x).toContain('<fieldset disabled={reloading} aria-describedby={reloading ? \'plan-reloading-note\' : undefined} data-testid="plan-controls"')
+    expect(x).toContain('id="plan-reloading-note"')
+    expect((x.match(/\n\s*if \(reloading\) return\n/g) ?? []).length).toBe(4)
+  })
+  it('[P2] 쓰기 중 재시도 단추 잠금 — disabled + aria-describedby · reloadPlan 도 writing 이면 중단', () => {
+    const x = src()
+    expect(x).toContain('const writing = adding || pendingWrites > 0')
+    expect(x).toMatch(/disabled=\{writing\}\s*\n\s*aria-describedby=\{writing \? 'plan-writing-note' : undefined\}/)
+    expect(x).toMatch(/async function reloadPlan\(\) \{[\s\S]{0,200}if \(writing\) return/)
+    expect(x).toMatch(/setPendingWrites\(\(n\) => n \+ 1\)[\s\S]*?finally \{\s*\n\s*setPendingWrites\(\(n\) => n - 1\)/)
+  })
+  it('[P2] 초점 표식은 제목이 실제로 초점을 받은 뒤에만 지운다 — ref 콜백 · 매 렌더 재시도', () => {
+    const x = src()
+    expect(x).toMatch(/el\.focus\(\)\s*\n\s*if \(typeof document !== 'undefined' && document\.activeElement === el\) focusAfterReload\.current = false/)
+    expect(x).toContain('<h1 ref={setHeading} tabIndex={-1}')
+    expect(x).toMatch(/useEffect\(\(\) => \{\s*\n\s*tryFocusHeading\(\)\s*\n\s*\}\)/)
+  })
+  it('정상 렌더: 조작 영역은 fieldset 안 · 평소엔 잠기지 않음', () => {
+    const html = render({ items: [ITEM] })
+    const fs0 = /<fieldset[^>]*data-testid="plan-controls"[^>]*>/.exec(html)?.[0] ?? ''
+    expect(fs0).not.toContain('disabled')
+    expect(html).not.toContain('plan-reloading-note')
   })
 })
