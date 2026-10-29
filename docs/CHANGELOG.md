@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(csat): 기출 이해 확인에서 근거 번호를 고른 뒤 「선택한 N번 문장 지도에서 보기」 — 명시 클릭 때만 지문 지도에서 그 문장을 강조·스크롤(초점 유지), 문항·판본·단위·분할 결속이 바뀌면 강조·선택·안내 무효, 기록·채점 불변. Codex 리뷰 2회 반려 뒤 NO_FINDINGS, 전체 극장 마운트·실화면 NOT_RUN (T-0226 69f78230e)
 - fix(wordvault): 단어 가림 중에는 행 본문 예문도 펼친 행과 같은 안내로 가림(해제 시 복원 · 뜻만 가림은 그대로 · 빈 예문 「—」). Codex 리뷰 NO_FINDINGS (T-0229 9dd5a6f78)
 - feat(dictation): 받아쓰기 결과에서 놓친 낱말마다 「내 단어장에서 이 낱말 찾기」(/wordvault/browse?q=, 본인 결과 확인 뒤만 · prefetch 끔 · 저장·기한 약속 없음). Codex 리뷰 1회 반려 뒤 NO_FINDINGS, 실제 browse 도착·로그인 NOT_RUN (T-0219 1d219af7c)
 - feat(echo): EchoMatch 결과에 이번 비율 계산에 쓴 **기기 인식 참고문장**을 표시(0%여도) — 미지원·인식 실패·부분 인식 뒤 오류는 문자열보다 실패 사유 우선, 시작 시 자료·계정 결속으로 늦은 콜백 폐기, 저장 payload 불변. Codex 리뷰 2회 반려 뒤 NO_FINDINGS, 실 마이크·ASR NOT_RUN (T-0227 7cc47e677)
