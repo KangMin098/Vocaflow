@@ -5,6 +5,11 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: () => {}, replace: () => {}, refresh: () => {} }) }))
+// next/link 대역 — prefetch 속성을 마크업에 남겨 패널/일반 카드를 비교한다.
+vi.mock('next/link', async () => {
+  const { createElement } = await import('react')
+  return { default: ({ href, prefetch, children, ...r }: { href: string; prefetch?: boolean; children?: unknown }) => createElement('a', { href, 'data-prefetch': prefetch === undefined ? 'default' : String(prefetch), ...r }, children as never) }
+})
 vi.mock('@/lib/articles/start-learning', () => ({ startArticleLearning: async () => ({ ok: false }) }))
 
 import { classifyPracticeAvailability, practiceReadyArticles } from '@/lib/learner/article-practice-availability'
@@ -72,6 +77,18 @@ describe('FirstArticleGoal — 화면', () => {
     const h = html({ articles: [art(A), art(B)], practice: { state: 'ok', counts: { [A]: 2, [B]: 1 } }, userVLevel: 5, initialOpen: true })
     expect(h).not.toContain('data-testid="article-fit"')
     expect(renderToStaticMarkup(<ArticleCard article={art(A)} userVLevel={5} />)).toContain('data-testid="article-fit"')
+  })
+  it('패널 카드 · 로그인 링크는 prefetch false · 일반 카드는 기본 그대로', async () => {
+    const { ArticleCard } = await import('@/components/library/browse/ArticleCard')
+    const list = html({ articles: [art(A), art(B)], practice: { state: 'ok', counts: { [A]: 2, [B]: 1 } }, userVLevel: 5, initialOpen: true })
+    const links = list.match(/<a [^>]*>/g) ?? []
+    expect(links.length).toBe(2)
+    for (const l of links) expect(l).toContain('data-prefetch="false"')
+    const login = (html({ articles: [art(A)], practice: { state: 'signed_out' }, userVLevel: 5, initialOpen: true }).match(/<a [^>]*>/g) ?? []).filter((l) => l.includes('href="/login'))
+    expect(login).toHaveLength(1)
+    expect(login[0]).toContain('data-prefetch="false"')
+    expect(renderToStaticMarkup(<ArticleCard article={art(A)} userVLevel={5} />)).toContain('data-prefetch="default"')
+    expect(renderToStaticMarkup(<ArticleCard article={art(A)} userVLevel={5} featured />)).toContain('data-prefetch="default"')
   })
   it('진단 · 수준 적합 · 성취 보장 문구 없음', () => {
     const h = html({ articles: [art(A)], practice: { state: 'ok', counts: { [A]: 2 } }, userVLevel: 5, initialOpen: true })

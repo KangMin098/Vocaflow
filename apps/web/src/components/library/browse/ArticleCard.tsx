@@ -56,6 +56,7 @@ export function ArticleCard({
   featured = false,
   practiceCount = null,
   hideFit = false,
+  prefetch,
 }: {
   article: PublishedArticle
   userVLevel: number
@@ -64,6 +65,8 @@ export function ArticleCard({
   practiceCount?: number | null
   /** R0-C2-01 — 임시 목표 패널처럼 수준 적합을 말하지 않아야 하는 자리에서만 켠다(적합 표지 숨김). 기본은 그대로 표시 */
   hideFit?: boolean
+  /** R0-C2-01 — 「추가 요청 0」 자리(임시 목표 패널)에서만 false. 생략하면 Next 기본 prefetch 그대로 */
+  prefetch?: boolean
 }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
@@ -182,6 +185,7 @@ export function ArticleCard({
       <article className="relative">
         <Link
           href={href}
+          prefetch={prefetch}
           onClick={handleLearn}
           // `<a>` 에는 disabled 가 없다 — 진행 중임을 보조기술에 알리고 재클릭만 막는다.
           aria-disabled={pending || undefined}
@@ -226,6 +230,7 @@ export function ArticleCard({
     <article className="relative h-full">
       <Link
         href={href}
+        prefetch={prefetch}
         onClick={handleLearn}
         aria-disabled={pending || undefined}
         className="group flex h-full w-full flex-col gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 pr-9 text-left shadow-[var(--sh-xs)] transition-all duration-[var(--dur-normal)] ease-[var(--ease)] hover:-translate-y-0.5 hover:border-[color-mix(in_srgb,var(--p)_50%,var(--bd))] hover:shadow-[var(--sh-md)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 aria-disabled:pointer-events-none aria-disabled:opacity-60"
