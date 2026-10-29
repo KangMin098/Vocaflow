@@ -75,7 +75,8 @@ describe('배선 — 컴포넌트가 이 판정을 쓴다', () => {
   })
   it('제출 묶음은 만든 시점의 요청 세대를 싣는다 · 재시작은 확인 화면을 즉시 잠근다', () => {
     expect((c.match(/owner: viewerId, req: req\.current \}/g) ?? []).length).toBe(2)
-    expect(c).toContain('setReviewLocked(true)\n                void startTest(selectedTest)')
+    // r8: 확인 화면 잠금은 새 시작 조회 잠금과 같다(세대 파생) — 「처음부터 새로 풀기」는 startTest 만 부른다
+    expect(c).toContain('const reviewLocked = startLocked')
     expect((c.match(/disabled=\{reviewLocked\}/g) ?? []).length).toBe(2)
   })
 })

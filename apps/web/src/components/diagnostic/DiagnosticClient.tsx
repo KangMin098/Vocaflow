@@ -396,13 +396,13 @@ export function DiagnosticClient({
   /** 요청이 아직 유효한가 — 더 새 시작 · 이어서 하기가 없었고, 로그인 화면이면 신원이 그대로다. */
   const stillMine = (my: number, token: number) => acceptFetch(my, req.current, viewerId === null || guard.isCurrent(token))
   /** 제출 진행 중 — 같은 묶음을 두 번 보내지 않는다 */
-  const submitting = useRef(false)
-  /** 완답 확인 화면 잠금 — 「처음부터 새로 풀기」를 누른 순간 이전 답 제출과 새 시작이 겹치지 않게 */
-  const [reviewLocked, setReviewLocked] = useState(false)
+  const submittingReq = useRef<number | null>(null)
   /** 새 시작의 문항 조회가 진행 중(그 요청 세대) — 그동안 진행 화면의 답 단추를 잠근다(이전 진단 문항에 답해 새 시험으로 보관되지 않게) */
   const [startPending, setStartPending] = useState<number | null>(null)
   /** 답 단추 잠김 — 잠근 시작 요청이 **지금 세대**일 때만. 재개 · 다른 시작이 대체하면 저절로 풀린다 */
   const startLocked = answerLocked(startPending, req.current)
+  /** 완답 확인 화면 잠금 = 새 시작 조회 잠금과 같다(「처음부터 새로 풀기」가 그 조회를 연다). 그 조회가 끝나거나 대체되면 풀린다 */
+  const reviewLocked = startLocked
 
   async function startTest(test: TestInfo) {
     const my = ++req.current
@@ -480,10 +480,10 @@ export function DiagnosticClient({
       setSelectedTest(test)
       setQuestions(data)
       setResponses(plan.responses)
+      memProgress.current = { v: 2, owner, testId: test.id, sig: questionSig(data), responses: plan.responses.map((x) => ({ ...x })), savedAt: progress.savedAt }
       setLastCtx(null)
       if (plan.complete) {
         setCurrentIdx(Math.max(0, data.length - 1))
-        setReviewLocked(false)
         setPhase('review')
         return
       }
@@ -522,7 +522,8 @@ export function DiagnosticClient({
       viewerId,
       authOk: viewerId === null || guard.isCurrent(ctx.token),
       complete: completeFor(finalResponses, qs),
-      busy: submitting.current,
+      // 같은 세대 안의 진행 중 제출만 막는다 — 이전 세대 제출이 대기 중이어도 새 세대 제출은 막히지 않는다
+      busy: answerLocked(submittingReq.current, req.current),
     })
     if (block === 'stale' || block === 'busy') return
     setLastCtx(ctx)
@@ -534,11 +535,11 @@ export function DiagnosticClient({
       setError('답이 지금 문항과 맞지 않아 제출하지 않았어요. 처음부터 다시 풀어 주세요.')
       return
     }
-    submitting.current = true
+    submittingReq.current = ctx.req
     try {
       await submitChecked(ctx)
     } finally {
-      submitting.current = false
+      if (submittingReq.current === ctx.req) submittingReq.current = null
       // 새 시작 · 재개가 이 제출을 대체했는데 그 요청이 화면을 아직 못 바꿨으면(예: 신원 확인 중이라 버려짐)
       //   「결과 분석 중」에 갇히지 않게 시작 화면으로 돌린다. 더 새 요청이 이미 화면을 바꿨으면 건드리지 않는다
       if (!acceptFetch(ctx.req, req.current, true)) setPhase((cur) => (cur === 'submitting' ? 'start' : cur))
@@ -1045,8 +1046,7 @@ export function DiagnosticClient({
               type="button"
               disabled={reviewLocked}
               onClick={() => {
-                // 누르는 즉시 확인 화면을 잠근다 — 새 시작이 요청 세대를 올리므로 그 전에 출발한 제출도 낡은 것이 된다
-                setReviewLocked(true)
+                // startTest 가 세대를 올리며 동기적으로 startPending 을 잠근다 — 두 단추가 즉시 잠기고, 조회가 끝나거나 대체되면 풀린다
                 void startTest(selectedTest)
               }}
               className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-60"
