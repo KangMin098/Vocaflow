@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(dictation): 받아쓰기 결과에서 놓친 낱말마다 「내 단어장에서 이 낱말 찾기」(/wordvault/browse?q=, 본인 결과 확인 뒤만 · prefetch 끔 · 저장·기한 약속 없음). Codex 리뷰 1회 반려 뒤 NO_FINDINGS, 실제 browse 도착·로그인 NOT_RUN (T-0219 1d219af7c)
 - feat(echo): EchoMatch 결과에 이번 비율 계산에 쓴 **기기 인식 참고문장**을 표시(0%여도) — 미지원·인식 실패·부분 인식 뒤 오류는 문자열보다 실패 사유 우선, 시작 시 자료·계정 결속으로 늦은 콜백 폐기, 저장 payload 불변. Codex 리뷰 2회 반려 뒤 NO_FINDINGS, 실 마이크·ASR NOT_RUN (T-0227 7cc47e677)
 - feat(dictation): 받아쓰기 결과에서 틀리거나 건너뛴 **원래 문항 그대로** 다시 받아쓰기(「틀린 문항 N개만 다시」, 묶음은 묶음 전체, 재분할 없음) — 계정 결속 봉투·늦은 응답 폐기·원 기록 불변·추가 쓰기 0. Codex 독립 리뷰 4회 반려·root 결정 뒤 NO_FINDINGS, 실제 로그인·DB NOT_RUN (T-0221 b1a05a35a)
 - fix(vocab): 단어장 구독 토스트가 하지 않는 자동 추가 적재를 약속하지 않게(이번 분량만 안내) · 「내 단어장에서 보기」 링크 44px(기존 18px 결함). Codex 독립 리뷰 NO_FINDINGS (T-0220 9bf506fe6)
