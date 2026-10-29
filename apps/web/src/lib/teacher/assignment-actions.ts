@@ -313,9 +313,13 @@ export async function fetchMyCollectedIds(): Promise<string[]> {
  *
  * 과제 하나마다 진도를 따로 조회하면 N+1 이 된다 — 학급 인원과 진도를 각각 **한 번씩**
  * 모아서 메모리에서 합친다.
+ *
+ * 인원·진도 조회 중 하나라도 실패하면 `progress` 는 `null` 이다 — 과제·학급·단어 수는 그대로
+ * 두고 집계만 "확인할 수 없음" 으로 남긴다. `data ?? []` 로 0 을 만들면 조회 장애가
+ * "학생 없음" · "아무도 안 열어 봄" 으로 읽혀 교사가 엉뚱하게 개입한다.
  */
 export async function fetchSentAssignments(): Promise<{
-  rows: { assignment: ClassAssignment; progress: AssignmentProgress }[]
+  rows: { assignment: ClassAssignment; progress: AssignmentProgress | null }[]
   failed: boolean
 }> {
   const client = await createClient()
@@ -356,16 +360,25 @@ export async function fetchSentAssignments(): Promise<{
       .in('assignment_id', assignmentIds),
   ])
 
-  const memberCount = new Map<string, number>()
-  for (const m of (membersRes.data ?? []) as { class_id: string }[]) {
-    memberCount.set(m.class_id, (memberCount.get(m.class_id) ?? 0) + 1)
-  }
+  // 오류와 함께 온 부분 data, 배열이 아닌 응답은 정상 수치로 쓰지 않는다 —
+  // 한쪽만 성공해도 분모·분자가 섞여 틀린 퍼센트가 나온다.
+  const countsKnown =
+    !membersRes.error &&
+    !progressRes.error &&
+    Array.isArray(membersRes.data) &&
+    Array.isArray(progressRes.data)
 
+  const memberCount = new Map<string, number>()
   const opened = new Map<string, number>()
   const collected = new Map<string, number>()
-  for (const p of (progressRes.data ?? []) as { assignment_id: string; collected_at: string | null }[]) {
-    opened.set(p.assignment_id, (opened.get(p.assignment_id) ?? 0) + 1)
-    if (p.collected_at) collected.set(p.assignment_id, (collected.get(p.assignment_id) ?? 0) + 1)
+  if (countsKnown) {
+    for (const m of membersRes.data as { class_id: string }[]) {
+      memberCount.set(m.class_id, (memberCount.get(m.class_id) ?? 0) + 1)
+    }
+    for (const p of progressRes.data as { assignment_id: string; collected_at: string | null }[]) {
+      opened.set(p.assignment_id, (opened.get(p.assignment_id) ?? 0) + 1)
+      if (p.collected_at) collected.set(p.assignment_id, (collected.get(p.assignment_id) ?? 0) + 1)
+    }
   }
 
   return {
@@ -379,11 +392,13 @@ export async function fetchSentAssignments(): Promise<{
         words: Array.isArray(a.words) ? a.words : [],
         createdAt: a.created_at,
       },
-      progress: {
-        memberCount: memberCount.get(a.class_id) ?? 0,
-        openedCount: opened.get(a.id) ?? 0,
-        collectedCount: collected.get(a.id) ?? 0,
-      },
+      progress: countsKnown
+        ? {
+            memberCount: memberCount.get(a.class_id) ?? 0,
+            openedCount: opened.get(a.id) ?? 0,
+            collectedCount: collected.get(a.id) ?? 0,
+          }
+        : null,
     })),
   }
 }
