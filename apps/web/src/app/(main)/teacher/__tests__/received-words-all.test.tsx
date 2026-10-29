@@ -10,6 +10,7 @@ vi.mock('@/lib/teacher/assignment-actions', () => ({
 }))
 
 import type { ClassAssignment } from '@/lib/teacher/assignment-actions'
+import { StoryAuthSourceContext, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import { ReceivedAssignments, readReceivedWords, receivedWordsKey, RECEIVED_PREVIEW } from '@/components/teacher/ReceivedAssignments'
 
 const words = (n: number, meaning = (i: number) => `뜻 ${i}`) => Array.from({ length: n }, (_, i) => ({ w: `word${i}`, m: meaning(i) }))
@@ -69,7 +70,18 @@ describe('ReceivedAssignments — 카드 단어', () => {
   it('뜻 없는 단어는 뜻 없이 그대로 · 긴 뜻은 줄바꿈 클래스', () => {
     const long = '아주 긴 뜻 '.repeat(20)
     const html = render([card('a', [{ w: 'bare', m: '' }, { w: 'long', m: long }])])
+    // 본인 확인 전(서버 viewer 없음 · checking): 뜻 없이 낱말만, 링크 없음
     expect(html).toContain('>bare</span></li>')
+    // 본인 확인됨(same): 뜻 자리 없이 낱말 바로 뒤에 단어장 검색 링크(T-0273)
+    const me: StoryAuthSource = { subscribe: () => () => {}, currentUserId: async () => 'u1', testOnlyKnownUserId: () => 'u1' }
+    const linked = renderToString(
+      <StoryAuthSourceContext.Provider value={me}>
+        <ReceivedAssignments assignments={[card('a', [{ w: 'bare', m: '' }])]} viewerId="u1" />
+      </StoryAuthSourceContext.Provider>,
+    )
+    expect(linked).toContain('>bare</span><a ')
+    expect(linked).toContain('href="/wordvault/browse?q=bare&amp;from=%2Fteacher"')
+    expect(linked).toContain('data-testid="received-word-vault-link"')
     expect(html).toContain(long)
     expect(html).toContain('break-keep')
   })
@@ -108,6 +120,6 @@ describe('receivedWordsKey — 펼침 결속값(리뷰 P2: 같은 과제 id 의 
     const fs = await import('node:fs')
     const path = await import('node:path')
     const src = fs.readFileSync(path.resolve(__dirname, '../../../../components/teacher/ReceivedAssignments.tsx'), 'utf8')
-    expect(src).toContain('<ReceivedWords key={`${a.id}:${receivedWordsKey(a.words)}`} words={a.words} />')
+    expect(src).toContain('<ReceivedWords key={`${a.id}:${receivedWordsKey(a.words)}`} words={a.words} linkable={linkable} />')
   })
 })

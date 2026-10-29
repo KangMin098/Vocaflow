@@ -9,7 +9,7 @@ const sent = vi.hoisted(() => ({ value: { rows: [] as unknown[], failed: false }
 const received = vi.hoisted(() => ({ value: { assignments: [] as { id: string }[], failed: false } }))
 
 vi.mock('@/lib/analytics/funnel', () => ({ recordFunnel: vi.fn(async () => {}) }))
-vi.mock('@/lib/supabase/server', () => ({ createClient: vi.fn(async () => ({})) }))
+vi.mock('@/lib/supabase/server', () => ({ createClient: vi.fn(async () => ({ auth: { getUser: async () => ({ data: { user: { id: 'u1' } } }) } })) }))
 vi.mock('@/lib/teacher/assignment-actions', () => ({
   fetchMyAssignments: vi.fn(async () => received.value),
   fetchMyCollectedIds: vi.fn(async () => []),

@@ -12,7 +12,7 @@ const st = vi.hoisted(() => ({
 const hit = (k: string) => { st.calls[k] = (st.calls[k] ?? 0) + 1 }
 
 vi.mock('@/lib/analytics/funnel', () => ({ recordFunnel: vi.fn(async () => {}) }))
-vi.mock('@/lib/supabase/server', () => ({ createClient: vi.fn(async () => ({})) }))
+vi.mock('@/lib/supabase/server', () => ({ createClient: vi.fn(async () => ({ auth: { getUser: async () => ({ data: { user: { id: 'u1' } } }) } })) }))
 vi.mock('@/lib/teacher/assignment-actions', () => ({
   fetchMyAssignments: vi.fn(async () => { hit('received'); return st.received }),
   fetchMyCollectedIds: vi.fn(async () => { hit('collected'); return [] }),
