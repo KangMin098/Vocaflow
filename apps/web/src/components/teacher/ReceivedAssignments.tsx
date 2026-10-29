@@ -10,9 +10,9 @@
 
 'use client'
 
-import { BookOpen, Check, Loader2 } from 'lucide-react'
+import { BookOpen, Check, ChevronDown, Loader2 } from 'lucide-react'
 import { Gwonjeom } from '@/components/ui/press/Gwonjeom'
-import { useState } from 'react'
+import { useId, useState } from 'react'
 
 import type { ClassAssignment } from '@/lib/teacher/assignment-actions'
 import { markAssignmentCollected } from '@/lib/teacher/assignment-actions'
@@ -109,7 +109,10 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
                     {a.title}
                   </p>
                   <p className="m-0 font-body text-[12px] text-[var(--t3)]">
-                    {a.className} · 단어 {a.words.length}개
+                    {a.className} · {(() => {
+                      const r = readReceivedWords(a.words)
+                      return r.ok ? `단어 ${r.words.length}개` : '단어 목록 확인 불가'
+                    })()}
                   </p>
                 </div>
 
@@ -130,27 +133,111 @@ export function ReceivedAssignments({ assignments, failed = false, collectedIds 
                 </button>
               </div>
 
-              {/* 단어는 접지 않고 바로 보여준다 — 담기 전에 무엇인지 알아야 담는다. */}
-              <ul className="flex flex-wrap gap-2">
-                {a.words.slice(0, 24).map((w) => (
-                  <li
-                    key={w.w}
-                    className="inline-flex items-baseline gap-2 rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] py-1 pl-3 pr-2 font-body text-[12.5px] text-[var(--t1)]"
-                  >
-                    {w.w}
-                    {w.m && <span className="text-[11.5px] text-[var(--t3)]">{w.m}</span>}
-                  </li>
-                ))}
-                {a.words.length > 24 && (
-                  <li className="inline-flex items-center font-body text-[12px] text-[var(--t3)]">
-                    외 {a.words.length - 24}개
-                  </li>
-                )}
-              </ul>
+              {/* 단어는 접지 않고 바로 보여준다 — 담기 전에 무엇인지 알아야 담는다. 24개를 넘으면 「전체 보기」로 나머지까지(T-0234) */}
+              {/* key = 과제 id + 단어 목록 — 같은 과제라도 목록이 바뀌면 펼침을 처음(닫힘)으로 되돌린다 */}
+              <ReceivedWords key={`${a.id}:${receivedWordsKey(a.words)}`} words={a.words} />
             </li>
           )
         })}
       </ul>
     </section>
+  )
+}
+
+/** 받은 단어 한 행 — 화면에 그리는 형태. 뜻이 없으면 null(뜻 없이 받은 그대로 보인다). */
+export interface ReceivedWord {
+  w: string
+  m: string | null
+}
+
+/** 처음에 보이는 수 — 이보다 많으면 「전체 보기」로 펼친다 */
+export const RECEIVED_PREVIEW = 24
+
+/**
+ * 받은 과제의 단어 목록을 읽는다. 배열이 아니거나 행 하나라도 형식이 어긋나면 `ok:false` —
+ * 잘못된 행을 버리고 남은 것을 「전체」라 부르지 않는다. 빈 배열은 형식이 맞는 0개(`ok:true`)다.
+ */
+export function readReceivedWords(words: unknown): { ok: true; words: ReceivedWord[] } | { ok: false } {
+  if (!Array.isArray(words)) return { ok: false }
+  const out: ReceivedWord[] = []
+  for (const r of words as unknown[]) {
+    if (typeof r !== 'object' || r === null) return { ok: false }
+    const { w, m } = r as { w?: unknown; m?: unknown }
+    if (typeof w !== 'string' || w.trim().length === 0) return { ok: false }
+    if (m != null && typeof m !== 'string') return { ok: false }
+    out.push({ w, m: typeof m === 'string' && m.trim().length > 0 ? m : null })
+  }
+  return { ok: true, words: out }
+}
+
+/**
+ * 단어 목록의 결속값 — 목록(순서 · 낱말 · 뜻)이 하나라도 바뀌면 달라진다. 펼침 상태를 이 값에 묶는다.
+ * 짧은 문자열 해시(FNV-1a 32bit)라 key 가 목록 길이만큼 길어지지 않는다. 읽을 수 없는 값도 JSON 문자열로 구분한다.
+ */
+export function receivedWordsKey(words: unknown): string {
+  let s: string
+  try {
+    s = JSON.stringify(words) ?? String(words)
+  } catch {
+    s = String(words)
+  }
+  let h = 0x811c9dc5
+  for (let i = 0; i < s.length; i++) {
+    h ^= s.charCodeAt(i)
+    h = Math.imul(h, 0x01000193) >>> 0
+  }
+  return `${s.length.toString(36)}-${h.toString(36)}`
+}
+
+/** 카드 하나의 단어 — 펼침 상태는 카드마다 따로(과제 id + 목록 결속값으로 key) · 담기 · 기록 · 조회를 부르지 않는다 */
+function ReceivedWords({ words }: { words: unknown }) {
+  const [open, setOpen] = useState(false)
+  const listId = useId()
+  const read = readReceivedWords(words)
+
+  if (!read.ok) {
+    return (
+      <p role="status" className="m-0 break-keep font-body text-[12.5px] leading-[1.6] text-[var(--t2)]" data-testid="received-words-invalid">
+        받은 단어 목록을 확인할 수 없어요 — 저장된 목록의 형식이 맞지 않아요.
+      </p>
+    )
+  }
+  if (read.words.length === 0) {
+    return (
+      <p className="m-0 break-keep font-body text-[12.5px] leading-[1.6] text-[var(--t2)]" data-testid="received-words-empty">
+        받은 단어가 없어요.
+      </p>
+    )
+  }
+  const more = read.words.length > RECEIVED_PREVIEW
+  const shown = open || !more ? read.words : read.words.slice(0, RECEIVED_PREVIEW)
+  return (
+    <div className="flex flex-col gap-2">
+      <ul id={listId} className="flex flex-wrap gap-2" data-testid="received-words">
+        {shown.map((w, i) => (
+          <li
+            key={i}
+            data-testid="received-word"
+            className="inline-flex max-w-full items-baseline gap-2 break-words rounded-[var(--r-full)] border border-[var(--bd)] bg-[var(--bg2)] py-1 pl-3 pr-2 font-body text-[12.5px] text-[var(--t1)]"
+          >
+            <span className="min-w-0 break-all">{w.w}</span>
+            {w.m && <span className="min-w-0 break-keep text-[11.5px] text-[var(--t3)]">{w.m}</span>}
+          </li>
+        ))}
+      </ul>
+      {more && (
+        <button
+          type="button"
+          aria-expanded={open}
+          aria-controls={listId}
+          onClick={() => setOpen((o) => !o)}
+          data-testid="received-words-toggle"
+          className="inline-flex min-h-11 items-center gap-1.5 self-start rounded-[var(--r-md)] px-2 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+        >
+          <ChevronDown size={14} aria-hidden className={open ? 'rotate-180' : ''} />
+          {open ? '단어 접기' : `전체 ${read.words.length}개 보기 · 외 ${read.words.length - RECEIVED_PREVIEW}개`}
+        </button>
+      )}
+    </div>
   )
 }
