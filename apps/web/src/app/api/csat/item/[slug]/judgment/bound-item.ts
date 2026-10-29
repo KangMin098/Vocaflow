@@ -20,11 +20,12 @@ import type { PdfAnchorFile } from '@/lib/csat/binding/pdf'
 import { isBlocking } from '@/lib/csat/binding/readiness'
 import type { JudgmentItem } from '@/lib/csat/judgment/types'
 import { lectureMeta } from '@/lib/csat/lecture/store'
+import { FIRST_JUDGMENT_TYPES, judgmentBindingInScope, judgmentToolInScope } from '@/lib/csat/judgment/pilot'
 
 /** 제품에 연결한 단계 — 첫 연결은 R-IRRELEVANT 만(TypeJudgment 'first') */
 export const JUDGMENT_STAGES = ['first'] as const
-/** 'first' 단계 유형(TypeJudgment.JUDGMENT_TOOLS 와 같다) — 클라이언트 모듈 함수는 서버에서 부를 수 없어 여기 둔다. 화면은 TypeJudgment 가 한 번 더 거른다 */
-export const JUDGMENT_TOOL_TYPES: ReadonlySet<string> = new Set(['R-IRRELEVANT'])
+/** 'first' 단계 유형(TypeJudgment.JUDGMENT_TOOLS 와 같다) — 범위 판정 정본은 lib/csat/judgment/pilot.ts(파일럿 한 문항은 judgmentToolInScope) */
+export const JUDGMENT_TOOL_TYPES: ReadonlySet<string> = FIRST_JUDGMENT_TYPES
 
 export type BoundJudgment = { item: JudgmentItem } | { item: null; reason: string }
 
@@ -55,8 +56,8 @@ export async function loadBoundJudgmentItem(db: SupabaseClient, itemId: string, 
   if (it.error) return { item: null, reason: 'db' }
   const row = (it.data?.[0] ?? null) as ItemRow | null
   if (!row) return { item: null, reason: 'no_item' }
-  // 도구가 없는 유형은 결속을 읽지도 않는다
-  if (!row.type_id || !JUDGMENT_TOOL_TYPES.has(row.type_id)) return { item: null, reason: 'no_tool' }
+  // 도구가 없는 유형 · 파일럿 밖 문항은 결속을 읽지도 않는다(U02-ORDER-PILOT-01 — R-ORDER 는 파일럿 한 문항만)
+  if (!judgmentToolInScope(row.type_id, itemId)) return { item: null, reason: 'no_tool' }
   // 강의가 있는 문항에는 도구를 붙이지 않는다(T-0161 r2 · 강의 진행 × 도구 조작 동시 노출은 실물 검증 전)
   if (lectureMeta(itemId)) return { item: null, reason: 'lecture_present' }
   const [u, an] = await Promise.all([
@@ -85,5 +86,7 @@ export async function loadBoundJudgmentItem(db: SupabaseClient, itemId: string, 
   })
   if (v.status !== 'valid') return { item: null, reason: `stale:${v.reasons.join(',')}` }
   if (out.item.version.analysisVersion !== expectedVersion) return { item: null, reason: 'version_mismatch' }
+  // 파일럿 유형은 고정 판본(원문 해시 · units · 분석)과 정확히 같을 때만 — 판본이 바뀌면 다시 적격 검증 전까지 닫는다
+  if (!judgmentBindingInScope(out.item, inputHash)) return { item: null, reason: 'pilot_version' }
   return { item: out.item }
 }

@@ -5,6 +5,7 @@
 
 import type { ComponentType } from 'react'
 import type { JudgmentToolProps } from '@/lib/csat/judgment/types'
+import { judgmentBindingInScope } from '@/lib/csat/judgment/pilot'
 import { GrammarTool } from './GrammarTool'
 import { InfoMatchTool } from './InfoMatchTool'
 import { IrrelevantTool } from './IrrelevantTool'
@@ -34,7 +35,10 @@ export function hasJudgmentTool(typeId: string | null | undefined, stages: reado
 
 export function TypeJudgment({ item, reveal, stages = ['first'] }: JudgmentToolProps & { stages?: readonly ('first' | 'isolated')[] }) {
   const entry = JUDGMENT_TOOLS[item.typeId]
-  if (!entry || !stages.includes(entry.stage)) return null
+  if (!entry) return null
+  // 'first' 화면에서 격리 단계 도구는 파일럿 한 문항 · 고정 판본일 때만(lib/csat/judgment/pilot — loader · route 와 같은 판정). 유형 전체를 'first' 로 올리지 않는다
+  const pilot = entry.stage === 'isolated' && stages.includes('first') && judgmentBindingInScope(item, null)
+  if (!stages.includes(entry.stage) && !pilot) return null
   const Tool = entry.tool
   return <Tool item={item} reveal={reveal} />
 }
