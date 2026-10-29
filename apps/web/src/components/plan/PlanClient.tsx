@@ -132,9 +132,15 @@ export function PlanClient({
   //   · 확정된 다른 viewer(로그아웃 확인 포함) → 확정된 변경: 경계를 닫는다(계획 · 선택을 그리지 않는다)
   //   진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
   const firstProps = useRef(true)
+  const deferredProps = useRef(false)
   useEffect(() => {
     if (firstProps.current) {
       firstProps.current = false
+      return
+    }
+    // 쓰기 중에 온 props(r7) — 낙관적 변경을 덮지 않게 반영을 보류한다. 쓰기가 끝나면 보류분은 버리고 재조회 1회로 다시 확인한다
+    if (writing) {
+      deferredProps.current = true
       return
     }
     readGen.current++
@@ -214,6 +220,13 @@ export function PlanClient({
   const [adding, setAdding] = useState(false)
   /** 쓰기 진행 중(r6) — 담기 · 수정 · 삭제 중에는 재조회 단추를 잠근다 */
   const writing = adding || pendingWrites > 0
+  // 쓰기 중 보류한 props 가 있으면(r7) 쓰기가 끝난 뒤 그 props 를 버리고 재조회 1회 — 기존 재조회 잠금 경로를 그대로 탄다
+  useEffect(() => {
+    if (writing || !deferredProps.current) return
+    deferredProps.current = false
+    void reloadPlan()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 쓰기 종료 전환에만 반응한다
+  }, [writing])
   /** 구성 패널 — 보드/목록에서 선택하면 화면 밖일 때 스크롤로 데려온다 */
   const composerRef = useRef<HTMLElement | null>(null)
   function revealComposer() {

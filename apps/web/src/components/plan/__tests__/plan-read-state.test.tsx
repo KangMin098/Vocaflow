@@ -213,3 +213,19 @@ describe('리뷰 r6 — 읽기 · 쓰기 겹침 금지 · 초점 표식', () => 
     expect(html).not.toContain('plan-reloading-note')
   })
 })
+
+describe('리뷰 r7 — 쓰기 중 props 보류 → 쓰기 뒤 재조회 1회', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  it('[P2] props effect 는 writing 이면 반영하지 않고 보류 표시만 남긴다(판정 · 무효화보다 먼저)', () => {
+    const x = src()
+    const e = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
+    const w = e.indexOf('if (writing) {')
+    expect(w).toBeGreaterThan(0)
+    expect(e.slice(w, w + 120)).toContain('deferredProps.current = true')
+    expect(e.indexOf('setItems(initialItems)')).toBeGreaterThan(w)
+    expect(e.indexOf('readGen.current++')).toBeGreaterThan(w)
+  })
+  it('[P2] 쓰기가 끝나면 보류분은 버리고 reloadPlan 1회(기존 재조회 잠금 경로)', () => {
+    expect(src()).toMatch(/if \(writing \|\| !deferredProps\.current\) return\s*\n\s*deferredProps\.current = false\s*\n\s*void reloadPlan\(\)/)
+  })
+})

@@ -166,8 +166,8 @@ const MATERIAL_TYPES = new Set<string>(['book', 'article', 'script', 'word_set']
 function validRow(r: unknown): r is PlanRow {
   if (!r || typeof r !== 'object') return false
   const x = r as Record<string, unknown>
-  // 배열 열은 null(미정) 이거나 정확한 원소 형식의 배열이어야 한다 — 문자열 등이 들어오면 뒤의 filter 에서 터진다
-  const arrOf = (v: unknown, el: 'string' | 'number') => v == null || (Array.isArray(v) && v.every((e) => typeof e === el))
+  // 배열 열은 명시적 null(미정) 이거나 정확한 원소 형식의 배열이어야 한다 — 열이 빠진(undefined) 행 · 다른 타입은 조회 실패(r7)
+  const arrOf = (v: unknown, el: 'string' | 'number') => v === null || (Array.isArray(v) && v.every((e) => typeof e === el))
   return (
     typeof x.id === 'string' && x.id.length > 0 &&
     typeof x.material_type === 'string' && MATERIAL_TYPES.has(x.material_type) &&

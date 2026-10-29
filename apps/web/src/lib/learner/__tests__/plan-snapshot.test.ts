@@ -166,3 +166,24 @@ describe('expectedOwner — 화면 viewer 와 서버 getUser 가 다르면 쓰�
     expect(st.writes).toBe(3)
   })
 })
+
+describe('리뷰 r7 — 배열 열은 명시적 null 또는 정상 배열만', () => {
+  it('열이 빠진(undefined) 행 → failed · 명시적 null 은 정상(미정)', async () => {
+    for (const k of ['modules', 'chapters', 'weekdays'] as const) {
+      const row: Record<string, unknown> = { ...ROW('p1', 'book', 'b1') }
+      delete row[k]
+      st.res.study_plan_items = ok([row])
+      expect((await fetchStudyPlanSnapshot()).failed).toBe(true)
+    }
+    st.res.study_plan_items = ok([{ ...ROW('p1', 'book', 'b1'), modules: null, chapters: null, weekdays: null }])
+    const s = await fetchStudyPlanSnapshot()
+    expect(s.failed).toBe(false)
+    expect(s.items[0]).toMatchObject({ modules: [], chapters: [], weekdays: [] })
+  })
+  it('다른 타입(숫자 · 객체) → failed', async () => {
+    for (const bad of [{ modules: 3 }, { weekdays: { 0: 1 } }]) {
+      st.res.study_plan_items = ok([{ ...ROW('p1', 'book', 'b1'), ...bad }])
+      expect((await fetchStudyPlanSnapshot()).failed).toBe(true)
+    }
+  })
+})
