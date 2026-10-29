@@ -176,9 +176,30 @@ export function DcpPlayer({
     setPhase('graded')
   }
 
+  /**
+   * T-0247 — 원인 기록을 확인하지 못했을 때({ok:false} · 예외). 자동 재전송 없음 — 학습자가 같은 칩을 다시 누르면 그때 한 번 더 시도한다.
+   * 늦게 온 응답은 **문항 · attempt · 현재 선택 · 마지막 호출**이 모두 같을 때만 표시한다(선택을 바꿨거나 다음 문항이면 버린다).
+   */
+  const [causeFailed, setCauseFailed] = useState<{ item: DcpItem; attemptId: string; cause: DcpErrorCause } | null>(null)
+  const causeSeq = useRef(0)
+  const live = useRef<{ item: DcpItem | undefined; attemptId: string | null; cause: DcpErrorCause | null }>({ item: undefined, attemptId: null, cause: null })
+  live.current = { item: items[idx], attemptId: result?.attemptId ?? null, cause }
+
   async function handleCause(next: DcpErrorCause) {
     setCause(next)
-    if (result?.attemptId) await recordCause(result.attemptId, next)
+    setCauseFailed(null)
+    const attemptId = result?.attemptId ?? null
+    if (!item || !shouldRecordCause({ attemptId, causeChips, reviewing: false })) return
+    const my = ++causeSeq.current
+    const at = item
+    // 선택을 바로 반영해 늦은 응답 판정이 이번 선택을 본다(렌더 전에도)
+    live.current = { ...live.current, cause: next }
+    const outcome = await causeOutcome(() => recordCause(attemptId as string, next))
+    if (outcome === 'ok') return
+    const now = live.current
+    if (shouldShowCauseFailure({ seq: my, lastSeq: causeSeq.current, item: at, curItem: now.item, attempt: attemptId, curAttempt: now.attemptId, choice: next, curChoice: now.cause })) {
+      setCauseFailed({ item: at, attemptId: attemptId as string, cause: next })
+    }
   }
 
   function handleNext() {
@@ -191,6 +212,8 @@ export function DcpPlayer({
     setSubmitted(null)
     setPreSnap(null)
     setCause(null)
+    setCauseFailed(null)
+    causeSeq.current++
     setGradeError(null)
     setPhase('answering')
   }
@@ -320,7 +343,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} pre={preShown ? <PreEvidenceNote key={`pre-${item.id}`} sentence={preShown.sentence} /> : null} extra={afterFeedback ? <div key={`extra-${item.id}`}>{afterFeedback}</div> : null} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} causeFailed={!!causeFailed && causeFailed.item === item && causeFailed.attemptId === result.attemptId && causeFailed.cause === cause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} pre={preShown ? <PreEvidenceNote key={`pre-${item.id}`} sentence={preShown.sentence} /> : null} extra={afterFeedback ? <div key={`extra-${item.id}`}>{afterFeedback}</div> : null} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
@@ -350,6 +373,37 @@ export function DcpPlayer({
       </div>
     </section>
   )
+}
+
+// ── T-0247 — 오답 원인 기록 판정(순수) ──
+
+/** 원인 기록을 보낼지 — attempt 가 있고 · 원인 칩이 켜져 있고 · 완료 뒤 다시 보기가 아닐 때만 */
+export function shouldRecordCause({ attemptId, causeChips, reviewing }: { attemptId: string | null | undefined; causeChips: boolean; reviewing: boolean }): boolean {
+  return typeof attemptId === 'string' && attemptId.length > 0 && causeChips && !reviewing
+}
+
+/** 기록 호출 결과 → ok | failed. {ok:true} 만 성공 — {ok:false} · 모양이 틀린 응답 · 예외는 모두 failed(자동 재전송은 하지 않는다) */
+export async function causeOutcome(call: () => Promise<unknown>): Promise<'ok' | 'failed'> {
+  try {
+    const res = await call()
+    return (res as { ok?: unknown } | null)?.ok === true ? 'ok' : 'failed'
+  } catch {
+    return 'failed'
+  }
+}
+
+/** 늦게 온 실패를 지금 보여도 되는가 — 마지막 호출 · 같은 문항 객체 · 같은 attempt · 같은 현재 선택일 때만 */
+export function shouldShowCauseFailure(x: {
+  seq: number
+  lastSeq: number
+  item: unknown
+  curItem: unknown
+  attempt: string | null
+  curAttempt: string | null
+  choice: DcpErrorCause
+  curChoice: DcpErrorCause | null
+}): boolean {
+  return x.seq === x.lastSeq && x.item === x.curItem && x.attempt !== null && x.attempt === x.curAttempt && x.choice === x.curChoice
 }
 
 /** 이번 세션에서 채점에 성공해 공개된 피드백 한 건 — 당시 제출 · 당시 서버 결과 그대로 */
@@ -388,6 +442,7 @@ function Feedback({
   submitted,
   cause,
   onCause,
+  causeFailed = false,
   onNext,
   isLast,
   review = false,
@@ -401,6 +456,8 @@ function Feedback({
   submitted: Record<string, unknown> | null
   cause: DcpErrorCause | null
   onCause: (c: DcpErrorCause) => void
+  /** 원인 기록을 확인하지 못함(T-0247) — 진행 중 피드백에서만 */
+  causeFailed?: boolean
   onNext: () => void
   isLast: boolean
   /** true = 완료 뒤 다시 보기(원인 칩 없음 · 「요약으로」) · 'noCause' = 진행 중이지만 원인 칩만 숨김 */
@@ -504,6 +561,11 @@ function Feedback({
               </button>
             ))}
           </div>
+          {causeFailed && (
+            <p role="status" className="break-keep font-body text-[12.5px] leading-relaxed text-[var(--t1)]" data-testid="dcp-cause-failed">
+              원인 기록을 확인하지 못했어요. 고른 칩을 다시 누르면 한 번 더 기록해 볼게요. 답 · 해설 · 다음 이동은 그대로예요.
+            </p>
+          )}
           {cause && <CauseTip cause={cause} href={causeHref?.[cause]} label={causeLabel?.[cause]} />}
         </div>
       )}
