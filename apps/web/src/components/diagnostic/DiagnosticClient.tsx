@@ -20,6 +20,8 @@ import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/st
 import {
   PROGRESS_TTL_MS,
   RESUME_REASON_TEXT,
+  acceptFetch,
+  canSubmit,
   clearProgress,
   submitOwnerOk,
   completeFor,
@@ -28,6 +30,7 @@ import {
   planResume,
   questionSig,
   readProgress,
+  resumeNextIndex,
   writeProgress,
   type KV,
   type ProgressRecord,
@@ -224,6 +227,8 @@ interface SubmitCtx {
   token: number
   /** 이 묶음을 만든 화면의 주인(서버 viewer) — 제출 때 지금 viewer · getUser 와 셋이 같아야 보낸다 */
   owner: string | null
+  /** 이 묶음을 만든 시작 · 재개 요청 세대 — 그 뒤 새 시작 · 재개가 있었으면 이 제출은 낡았다 */
+  req: number
 }
 
 function relativeTime(iso: string): string {
@@ -381,7 +386,11 @@ export function DiagnosticClient({
   }
 
   /** 요청이 아직 유효한가 — 더 새 시작 · 이어서 하기가 없었고, 로그인 화면이면 신원이 그대로다. */
-  const stillMine = (my: number, token: number) => my === req.current && (viewerId === null || guard.isCurrent(token))
+  const stillMine = (my: number, token: number) => acceptFetch(my, req.current, viewerId === null || guard.isCurrent(token))
+  /** 제출 진행 중 — 같은 묶음을 두 번 보내지 않는다 */
+  const submitting = useRef(false)
+  /** 완답 확인 화면 잠금 — 「처음부터 새로 풀기」를 누른 순간 이전 답 제출과 새 시작이 겹치지 않게 */
+  const [reviewLocked, setReviewLocked] = useState(false)
 
   async function startTest(test: TestInfo) {
     const my = ++req.current
@@ -452,10 +461,11 @@ export function DiagnosticClient({
       setLastCtx(null)
       if (plan.complete) {
         setCurrentIdx(Math.max(0, data.length - 1))
+        setReviewLocked(false)
         setPhase('review')
         return
       }
-      setCurrentIdx(plan.nextIdx)
+      setCurrentIdx(resumeNextIndex(plan) ?? 0)
       setPhase('question')
     } finally {
       if (my === req.current) setResuming(false)
@@ -471,32 +481,51 @@ export function DiagnosticClient({
     // ⚠️ **답할 때마다** 보관한다. 마지막에 한 번 저장하면 잃는 경우가 정확히 유실 사례다.
     //   본인 신원이 확인된 경우에만 · 이 문항판 서명과 함께. 실패하면 「보관됨」 문구를 거둔다.
     if (owner) setStoreOk(writeProgress(kv(), { owner, testId: selectedTest.id, sig: questionSig(questions), responses: next }, now()))
-    if (currentIdx + 1 >= questions.length) void submit({ test: selectedTest, questions, responses: next, token: guard.token(), owner: viewerId })
+    if (currentIdx + 1 >= questions.length) void submit({ test: selectedTest, questions, responses: next, token: guard.token(), owner: viewerId, req: req.current })
     else setCurrentIdx(currentIdx + 1)
   }
 
   async function submit(ctx: SubmitCtx) {
-    const { test: selectedTest, questions: qs, responses: finalResponses } = ctx
+    const { questions: qs, responses: finalResponses } = ctx
+    // 판정은 순수 함수(canSubmit) — 시작 · 재개 요청 세대 · 묶음 owner · 인증 세대 · 완답 · 진행 중 여부를 한 곳에서 본다
+    const block = canSubmit({
+      ctxReq: ctx.req,
+      curReq: req.current,
+      ctxOwner: ctx.owner,
+      viewerId,
+      authOk: viewerId === null || guard.isCurrent(ctx.token),
+      complete: completeFor(finalResponses, qs),
+      busy: submitting.current,
+    })
+    if (block === 'stale' || block === 'busy') return
     setLastCtx(ctx)
-    if (ctx.owner !== viewerId) {
+    if (block === 'owner' || block === 'auth') {
       setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
       return
     }
-    // 지금 문항판 전체에 순서대로 답한 묶음만 보낸다
-    if (!completeFor(finalResponses, qs)) {
+    if (block === 'incomplete') {
       setError('답이 지금 문항과 맞지 않아 제출하지 않았어요. 처음부터 다시 풀어 주세요.')
       return
     }
-    if (viewerId !== null && !guard.isCurrent(ctx.token)) {
-      setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
-      return
+    submitting.current = true
+    try {
+      await submitChecked(ctx)
+    } finally {
+      submitting.current = false
     }
+  }
+
+  async function submitChecked(ctx: SubmitCtx) {
+    const { test: selectedTest, questions: qs, responses: finalResponses } = ctx
+    /** 기다린 뒤마다 — 새 시작 · 재개가 이 제출을 대체했으면 조용히 그만둔다(새 화면을 덮지 않는다) */
+    const replaced = () => !acceptFetch(ctx.req, req.current, true)
     setPhase('submitting')
     setError(null)
 
     // 제출 직전 문항판을 다시 받아 시작 · 재개 때 고정한 판(ctx.questions)의 서명과 맞춘다 —
     //   그 사이 서버의 본문 · 난도 · 순서가 바뀌었으면 옛 판의 답을 새 판 결과로 보내지 않는다.
     const fresh = await fetchQuestions(selectedTest.id)
+    if (replaced()) return
     if (viewerId !== null && !guard.isCurrent(ctx.token)) {
       setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
       return
@@ -511,6 +540,7 @@ export function DiagnosticClient({
     }
 
     const { data: userData } = await supabase.auth.getUser()
+    if (replaced()) return
     const userId = userData.user?.id
     if (!userId) {
       setError('로그인이 필요해요')
@@ -534,6 +564,7 @@ export function DiagnosticClient({
       .single()
 
     const authGone = () => {
+      if (replaced()) return true
       if (guard.isCurrent(ctx.token)) return false
       setError('로그인한 계정이 바뀌어 결과 반영을 멈췄어요. 새로 고침해 주세요.')
       return true
@@ -958,17 +989,23 @@ export function DiagnosticClient({
             <button
               type="button"
               data-testid="diag-review-submit"
-              onClick={() => void submit({ test: selectedTest, questions, responses, token: guard.token(), owner: viewerId })}
-              className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
+              disabled={reviewLocked}
+              onClick={() => void submit({ test: selectedTest, questions, responses, token: guard.token(), owner: viewerId, req: req.current })}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97] disabled:cursor-not-allowed disabled:opacity-60"
             >
               이 답으로 제출
             </button>
             <button
               type="button"
-              onClick={() => void startTest(selectedTest)}
-              className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+              disabled={reviewLocked}
+              onClick={() => {
+                // 누르는 즉시 확인 화면을 잠근다 — 새 시작이 요청 세대를 올리므로 그 전에 출발한 제출도 낡은 것이 된다
+                setReviewLocked(true)
+                void startTest(selectedTest)
+              }}
+              className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-5 font-display text-[14px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] disabled:cursor-not-allowed disabled:opacity-60"
             >
-              처음부터 새로 풀기
+              {reviewLocked ? '새로 불러오는 중…' : '처음부터 새로 풀기'}
             </button>
           </div>
         </div>

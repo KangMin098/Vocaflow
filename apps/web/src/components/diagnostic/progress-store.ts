@@ -172,6 +172,41 @@ export function submitOwnerOk(ctxOwner: string | null, viewerId: string | null, 
   return ctxOwner !== null && ctxOwner === viewerId && userId === ctxOwner
 }
 
+/** 비동기 응답을 받아도 되는가 — 출발한 요청 세대가 지금 세대와 같고 인증도 그대로일 때만(늦은 조회 · 대체된 제출을 버린다). */
+export function acceptFetch(my: number, current: number, authOk: boolean): boolean {
+  return my === current && authOk
+}
+
+export type SubmitBlock = 'stale' | 'busy' | 'owner' | 'auth' | 'incomplete'
+
+/**
+ * 제출 판정. null 이면 보낸다.
+ * stale = 묶음을 만든 뒤 새 시작 · 재개가 있었다(조용히 버린다) · busy = 같은 제출이 진행 중(두 번 보내지 않는다)
+ * owner = 묶음 주인 ≠ 지금 viewer · auth = 인증 세대가 바뀜 · incomplete = 지금 문항판 전체에 순서대로 답하지 않음.
+ * getUser 대조(submitOwnerOk)는 요청 계정을 읽은 뒤 따로 한다.
+ */
+export function canSubmit(x: {
+  ctxReq: number
+  curReq: number
+  ctxOwner: string | null
+  viewerId: string | null
+  authOk: boolean
+  complete: boolean
+  busy: boolean
+}): SubmitBlock | null {
+  if (x.ctxReq !== x.curReq) return 'stale'
+  if (x.busy) return 'busy'
+  if (x.ctxOwner !== x.viewerId) return 'owner'
+  if (!x.authOk) return 'auth'
+  if (!x.complete) return 'incomplete'
+  return null
+}
+
+/** 이어서 할 다음 문항 위치 — planResume 이 ok 일 때 그 nextIdx, 아니면 null(이어 가지 않는다). */
+export function resumeNextIndex(plan: ResumePlan): number | null {
+  return plan.ok ? plan.nextIdx : null
+}
+
 export const RESUME_REASON_TEXT: Record<Exclude<ResumePlan, { ok: true }>['reason'] | 'invalid' | 'expired' | 'legacy', string> = {
   test: '보관된 답이 지금 고른 진단과 달라요.',
   changed: '그 사이 진단 문항이 바뀌어 보관된 답을 이어 붙일 수 없어요.',
