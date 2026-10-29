@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(comic): 공개 복원만화 리더에서 낱말을 Enter·클릭으로 연 순간에만 뜻 시트 제목으로 초점 1회 인계(Tab 한 번에 시트 조작), Esc·닫기는 낱말 복귀 유지, 재렌더·늦은 사전 응답·미리보기 초점 이동 0. Codex 리뷰 NO_FINDINGS (T-0250 f6e96e3f2)
 - feat(comic): 공개 복원만화 리더의 뜻 시트에서 탭한 낱말로 「내 단어장에서 찾기」(기존 단어장 검색 ?q=, 영어 낱말 꼴만, 사전 원형 아닌 탭 값, 미리보기 0·prefetch 0) — 시트 닫기·낱말 교체 시 링크 동기. Codex 리뷰 NO_FINDINGS, 실 로그인 검색 NOT_RUN (T-0242 1b0c8d9d5)
 - feat(story): 근거 활동의 「본문에서 다시 확인」으로 온 경우에만 강조 문장 곁 「근거 비교로 돌아가기」 — 출발한 다시 확인 단추로 초점·스크롤 복귀, 단위·계정·release 변경 시 표식 폐기, 활동 상태·호출 불변. Codex 리뷰 NO_FINDINGS, 실 Auth·DB NOT_RUN (T-0246 6816650e7)
 - feat(spellforge): 완료 복기에서 이번 판 첫 오답과 정답을 대조 — 판 키(viewer·글·시작 시각·자료·단어 철자 서명)에 결속, 같은 화면에서 자료·철자 교체 시 즉시 폐기·되살아나지 않음. Codex 리뷰 2회 반려 뒤 NO_FINDINGS, 실 로그인·DB NOT_RUN (T-0238 61ce58d1b)
