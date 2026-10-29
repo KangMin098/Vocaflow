@@ -25,7 +25,9 @@ beforeEach(() => {
   st.user = 'user-a'
   st.err = null
 })
-afterEach(() => vi.useRealTimers())
+afterEach(() => {
+  vi.useRealTimers()
+})
 
 describe('쓰기 서버 시각 at', () => {
   it('추가 · 수정 · 삭제 성공 → at = 쓰기를 마친 서버 시각', async () => {
