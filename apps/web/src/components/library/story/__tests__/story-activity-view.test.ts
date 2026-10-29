@@ -12,11 +12,13 @@ import {
   ACTIVITY_LABELS,
   acceptsActivityResponse,
   activityFailureView,
+  activityNoticeText,
   activitySlotFor,
   feedbackHeadline,
   feedbackMatchesActivity,
   quoteWordIndex,
   reduceActivity,
+  shouldHandOffReloadFocus,
   type StoryActivityState,
 } from '../story-activity-view'
 import { STORY_ACTIVITY_SLOTS } from '../story-activity-slots'
@@ -60,7 +62,7 @@ describe('실패 표시 — 일시 오류만 다시 시도, 그 밖은 그리지
       expect(activityFailureView(failure(code))).toBe('hidden')
       expect(reduceActivity({ phase: 'loading' }, { type: 'loaded', result: failure(code) })).toEqual({ phase: 'hidden' })
     }
-    expect(reduceActivity({ phase: 'loading' }, { type: 'loaded', result: failure('temporary') })).toEqual({ phase: 'retry' })
+    expect(reduceActivity({ phase: 'loading' }, { type: 'loaded', result: failure('temporary') })).toEqual({ phase: 'retry', pending: false })
   })
 })
 
@@ -96,7 +98,7 @@ describe('상태 전이', () => {
   it('제출 대기 중 다른 선택 → 대기 해제 · 다시 제출 안내(늦은 결과는 부르는 쪽이 세대로 버린다)', () => {
     const sending = reduceActivity(reduceActivity(ready(), { type: 'select', optionId: 'opt-c' }), { type: 'submit' })
     const moved = reduceActivity(sending, { type: 'select', optionId: 'too-frightened' })
-    expect(moved).toMatchObject({ selected: 'too-frightened', submitting: false, stale: true })
+    expect(moved).toMatchObject({ selected: 'too-frightened', submitting: false, notice: 'changed' })
     expect(reduceActivity(moved, { type: 'submitted', result: { ok: true, data: fb('opt-c') } })).toBe(moved)
   })
 
@@ -105,7 +107,7 @@ describe('상태 전이', () => {
     expect(reduceActivity(sending, { type: 'submitted', result: { ok: true, data: fb('too-frightened') } })).toEqual({ phase: 'hidden' })
     const moved = { ...fb('opt-c'), registered: { ...OPTIONS[0], quote: 'tampered' } }
     expect(feedbackMatchesActivity(ACTIVITY, 'opt-c', moved)).toBe(false)
-    expect(reduceActivity(sending, { type: 'submitted', result: failure('temporary') })).toMatchObject({ phase: 'ready', submitting: false, stale: true })
+    expect(reduceActivity(sending, { type: 'submitted', result: failure('temporary') })).toMatchObject({ phase: 'ready', submitting: false, notice: 'failed' })
     expect(reduceActivity(sending, { type: 'submitted', result: failure('viewer_changed') })).toEqual({ phase: 'hidden' })
   })
 
@@ -174,5 +176,72 @@ describe('화면 소스 결속', () => {
     expect(reader).toMatch(/const revisitContext = verified && unitIndex !== null \? `\$\{anchorOwner\}\|\$\{releaseKey\}\|\$\{unitIndex\}\|\$\{guard\.token\(\)\}` : null/)
     expect(reader).toMatch(/if \(revisit && revisit\.context !== revisitContext\) setRevisit\(null\)/)
     expect(reader).toMatch(/revisit\.context === revisitContext \?/)
+  })
+})
+
+describe('T-0252 일시 실패 · 선택 변경 구별 · 다시 시도 이어가기', () => {
+  it('제출 실패(failed)와 제출 중 선택 변경(changed)은 다른 안내다', () => {
+    const sending = reduceActivity(reduceActivity(ready(), { type: 'select', optionId: 'opt-c' }), { type: 'submit' })
+    const failed = reduceActivity(sending, { type: 'submitted', result: failure('temporary') })
+    const changed = reduceActivity(sending, { type: 'select', optionId: 'too-frightened' })
+    expect(failed).toMatchObject({ notice: 'failed', selected: 'opt-c' })
+    expect(changed).toMatchObject({ notice: 'changed', selected: 'too-frightened' })
+    const ft = activityNoticeText('failed', 'opt-c')
+    const ct = activityNoticeText('changed', 'too-frightened')
+    expect(ft).toBe(ACTIVITY_LABELS.submitFailed)
+    expect(ct).toBe(ACTIVITY_LABELS.choiceChanged)
+    expect(ft).toContain('결과를 불러오지 못했어요')
+    expect(ft).not.toBe(ct)
+    expect(activityNoticeText(null, 'opt-c')).toBeNull()
+    expect(activityNoticeText('changed', null)).toBeNull()
+  })
+
+  it('실패 뒤 선택은 그대로 · 같은 제출로 여러 번 다시 시도 · 성공하면 결과(비교)로 이어간다', () => {
+    let s = reduceActivity(ready(), { type: 'select', optionId: 'opt-c' })
+    for (let i = 0; i < 3; i += 1) {
+      s = reduceActivity(s, { type: 'submit' })
+      expect(s).toMatchObject({ submitting: true, notice: null, selected: 'opt-c' })
+      s = reduceActivity(s, { type: 'submitted', result: failure('temporary') })
+      expect(s).toMatchObject({ submitting: false, notice: 'failed', selected: 'opt-c', feedback: null })
+    }
+    s = reduceActivity(reduceActivity(s, { type: 'submit' }), { type: 'submitted', result: { ok: true, data: fb('opt-c') } })
+    expect(s).toMatchObject({ notice: null, feedback: { choice: 'opt-c' } })
+  })
+
+  it('실패 뒤 다른 선택은 실패 안내를 거둔다 · 제출 없이 결과가 생기지 않는다(자동 재전송 없음)', () => {
+    let s = reduceActivity(ready(), { type: 'select', optionId: 'opt-c' })
+    s = reduceActivity(reduceActivity(s, { type: 'submit' }), { type: 'submitted', result: failure('temporary') })
+    const moved = reduceActivity(s, { type: 'select', optionId: 'too-frightened' })
+    expect(moved).toMatchObject({ notice: null, submitting: false, selected: 'too-frightened' })
+    // 대기 중이 아니면 늦게 온 결과는 넣지 않는다
+    expect(reduceActivity(moved, { type: 'submitted', result: { ok: true, data: fb('too-frightened') } })).toBe(moved)
+  })
+
+  it('조회 다시 시도: 안내 · 단추를 둔 채 기다리고(pending) · 실패면 다시 · 성공하면 선택지', () => {
+    let s: StoryActivityState = reduceActivity({ phase: 'loading' }, { type: 'loaded', result: failure('temporary') })
+    for (let i = 0; i < 2; i += 1) {
+      s = reduceActivity(s, { type: 'reload' })
+      expect(s).toEqual({ phase: 'retry', pending: true })
+      s = reduceActivity(s, { type: 'loaded', result: failure('temporary') })
+      expect(s).toEqual({ phase: 'retry', pending: false })
+    }
+    // 기다리지 않는 retry 에 늦게 온 응답은 넣지 않는다
+    expect(reduceActivity(s, { type: 'loaded', result: { ok: true, data: ACTIVITY } })).toBe(s)
+    s = reduceActivity(reduceActivity(s, { type: 'reload' }), { type: 'loaded', result: { ok: true, data: ACTIVITY } })
+    expect(s).toMatchObject({ phase: 'ready', selected: null, notice: null })
+    expect(reduceActivity(reduceActivity({ phase: 'retry', pending: true }, { type: 'loaded', result: failure('viewer_changed') }), { type: 'reload' })).toEqual({ phase: 'loading' })
+  })
+
+  it('초점 인계: 다시 시도를 누른 경우에만 · 초점이 문서(body)로 떨어졌거나 활동 안일 때만(사용자가 옮긴 초점은 그대로)', () => {
+    const body = { contains: () => false } as unknown as Element
+    const inside = {} as Element
+    const outside = {} as Element
+    const section = { contains: (el: Element) => el === inside } as unknown as Element
+    expect(shouldHandOffReloadFocus(false, body, body, section)).toBe(false)
+    expect(shouldHandOffReloadFocus(true, body, body, section)).toBe(true)
+    expect(shouldHandOffReloadFocus(true, null, body, section)).toBe(true)
+    expect(shouldHandOffReloadFocus(true, inside, body, section)).toBe(true)
+    expect(shouldHandOffReloadFocus(true, outside, body, section)).toBe(false)
+    expect(shouldHandOffReloadFocus(true, outside, body, null)).toBe(false)
   })
 })

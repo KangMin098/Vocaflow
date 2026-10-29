@@ -80,7 +80,8 @@ export function feedbackMatchesActivity(activity: StoryActivity, choice: string,
 export type StoryActivityState =
   | { phase: 'loading' }
   | { phase: 'hidden' }
-  | { phase: 'retry' }
+  /** 일시 오류 한 줄 · 「다시 시도」 — 다시 조회하는 동안에도 같은 단추를 둔다(pending · 초점이 사라지지 않게). */
+  | { phase: 'retry'; pending: boolean }
   | {
       phase: 'ready'
       activity: StoryActivity
@@ -90,9 +91,14 @@ export type StoryActivityState =
       feedback: StoryActivityFeedback | null
       /** 다른 답 뒤 다시 고른 시도 — 「도움을 받은 연습」 */
       assisted: boolean
-      /** 제출 대기 중 다른 선택지를 골라 결과를 버렸는가(다시 제출 필요 안내) */
-      stale: boolean
+      /**
+       * 제출 안내 — changed: 제출 대기 중 다른 선택지를 골라 결과를 버렸다(고른 근거로 다시 제출) ·
+       * failed: 제출이 일시 오류로 실패했다(고른 것 그대로 · 같은 제출 단추로 다시 시도). 자동 재전송은 없다.
+       */
+      notice: StoryActivityNotice | null
     }
+
+export type StoryActivityNotice = 'changed' | 'failed'
 
 export type StoryActivityEvent =
   | { type: 'loaded'; result: StoryLearnerResult<StoryActivity> }
@@ -112,33 +118,52 @@ export function reduceActivity(state: StoryActivityState, ev: StoryActivityEvent
     case 'reset':
       return { phase: 'hidden' }
     case 'reload':
-      return { phase: 'loading' }
-    case 'loaded':
-      if (state.phase !== 'loading') return state
-      if (!ev.result.ok) return { phase: activityFailureView(ev.result) }
-      return { phase: 'ready', activity: ev.result.data, selected: null, submitting: false, feedback: null, assisted: false, stale: false }
+      // 「다시 시도」로 다시 부를 때는 안내 · 단추를 둔 채 기다린다(로딩 중 사라지지 않는다)
+      return state.phase === 'retry' ? { phase: 'retry', pending: true } : { phase: 'loading' }
+    case 'loaded': {
+      if (state.phase !== 'loading' && !(state.phase === 'retry' && state.pending)) return state
+      if (!ev.result.ok) return activityFailureView(ev.result) === 'retry' ? { phase: 'retry', pending: false } : { phase: 'hidden' }
+      return { phase: 'ready', activity: ev.result.data, selected: null, submitting: false, feedback: null, assisted: false, notice: null }
+    }
     case 'select':
       if (state.phase !== 'ready' || state.feedback) return state
       if (!state.activity.options.some((o) => o.optionId === ev.optionId)) return state
       if (state.selected === ev.optionId) return state
-      return { ...state, selected: ev.optionId, submitting: false, stale: state.submitting }
+      return { ...state, selected: ev.optionId, submitting: false, notice: state.submitting ? 'changed' : null }
     case 'submit':
       if (state.phase !== 'ready' || state.feedback || state.submitting || !state.selected) return state
-      return { ...state, submitting: true, stale: false }
+      return { ...state, submitting: true, notice: null }
     case 'submitted': {
       if (state.phase !== 'ready' || !state.submitting || !state.selected) return state
       if (!ev.result.ok) {
         const view = activityFailureView(ev.result)
         // 일시 오류는 고른 것을 둔 채 다시 제출할 수 있다 · 그 밖(계정 · 권한 · 자료)은 활동을 닫는다
-        return view === 'retry' ? { ...state, submitting: false, stale: true } : { phase: 'hidden' }
+        return view === 'retry' ? { ...state, submitting: false, notice: 'failed' } : { phase: 'hidden' }
       }
       if (!feedbackMatchesActivity(state.activity, state.selected, ev.result.data)) return { phase: 'hidden' }
       return { ...state, submitting: false, feedback: ev.result.data }
     }
     case 'retry_choice':
       if (state.phase !== 'ready' || !state.feedback || state.feedback.correct) return state
-      return { ...state, feedback: null, selected: null, assisted: true, stale: false }
+      return { ...state, feedback: null, selected: null, assisted: true, notice: null }
   }
+}
+
+/** 제출 안내 문구 — 실패와 선택 변경을 다른 문장으로 구별한다. */
+export function activityNoticeText(notice: StoryActivityNotice | null, selected: string | null): string | null {
+  if (notice === 'failed') return ACTIVITY_LABELS.submitFailed
+  if (notice === 'changed') return selected ? ACTIVITY_LABELS.choiceChanged : null
+  return null
+}
+
+/**
+ * 명시적 「다시 시도」 조회가 성공해 선택지가 돌아왔을 때 첫 선택지로 초점을 넘길까 — 누른 단추가 사라져 초점이 문서(body)로 떨어졌거나
+ * 활동 안에 남아 있을 때만. 기다리는 동안 사용자가 다른 곳으로 옮긴 초점은 빼앗지 않는다.
+ */
+export function shouldHandOffReloadFocus(requested: boolean, active: Element | null, body: Element | null, section: Element | null): boolean {
+  if (!requested) return false
+  if (!active || active === body) return true
+  return !!section && section.contains(active)
 }
 
 /** 고른 근거 · 본문에 등록된 근거 — 결과 문구는 기능 안내만(해설 · 번역 · 오답별 설명 없음). */
@@ -152,6 +177,8 @@ export const ACTIVITY_LABELS = {
   revisit: '본문에서 다시 확인',
   returnToCompare: '↑ 근거 비교로 돌아가기',
   retry: '다시 골라 보기',
+  submitFailed: '결과를 불러오지 못했어요. 고른 근거 그대로 제출을 다시 눌러 주세요.',
+  choiceChanged: '고른 근거로 다시 제출해 주세요.',
   assisted: '도움을 받은 연습',
   submit: '제출',
   unavailable: '이 활동을 지금 불러오지 못했어요',
