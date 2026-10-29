@@ -107,13 +107,23 @@ function collectFileSites(rel: string, source: string): CallSite[] {
     const re = /\.rpc\(\s*(['"`]?)([A-Za-z0-9_$]+)\1/g
     let m: RegExpExecArray | null
     while ((m = re.exec(line)) !== null) push(m[1], m[2])
-    for (const helper of helpers) {
-      // 정의(`function helper(` 뒤 줄바꿈)·메서드(`.helper(`)는 걸리지 않는다 — 첫 인자 뒤 둘째 인자만 본다
-      const hre = new RegExp(`(?<![.\\w$])${helper}\\(\\s*[A-Za-z0-9_$.]+\\s*,\\s*(['"\`]?)([A-Za-z0-9_$]+)\\1`, 'g')
-      while ((m = hre.exec(line)) !== null) push(m[1], m[2])
-    }
   })
-  return sites
+  // helper 호출은 파일 전체 텍스트에서 본다 — 여러 줄에 걸친 `helper(\n client,\n 이름,` 도 잡는다.
+  // 정의(`helper(client: …`)·메서드(`.helper(`)는 걸리지 않는다. 둘째 인자 **전체**가 문자열 리터럴 하나이고
+  // 바로 뒤가 `,`/`)` 일 때만 이름이다 — `'story_' + suffix` 같은 결합·변수는 null(위반).
+  const lines = source.split('\n')
+  const lineAt = (index: number) => source.slice(0, index).split('\n').length
+  for (const helper of helpers) {
+    const hre = new RegExp(`(?<![.\\w$])${helper}\\(\\s*[A-Za-z0-9_$.]+\\s*,\\s*`, 'g')
+    let m: RegExpExecArray | null
+    while ((m = hre.exec(source)) !== null) {
+      const line = lineAt(m.index)
+      if (isCommentLine(lines[line - 1])) continue
+      const lit = /^(['"])([A-Za-z0-9_$]+)\1\s*[,)]/.exec(source.slice(hre.lastIndex))
+      sites.push({ file: rel, line, name: lit ? lit[2] : null, raw: lines[line - 1].trim() })
+    }
+  }
+  return sites.sort((a, b) => a.line - b.line)
 }
 
 function collectRpcCallSites(): CallSite[] {
@@ -143,6 +153,32 @@ describe('Story 전달 어댑터 호출부 수집 (fixture)', () => {
       '  res = await client.r' + 'pc(fn, args)',
     ].join('\n')
     expect(collectFileSites('lib/library/story/learner.ts', src).map((s) => s.name)).toEqual(['story_catalog', null, null])
+  })
+
+  it('여러 줄에 걸친 helper 호출도 수집한다 (리터럴은 이름, 변수는 위반)', () => {
+    const src = [
+      'const a = await callRpc(',
+      '  deps.client,',
+      "  'story_catalog',",
+      '  {},',
+      ')',
+      'const b = await callRpc(',
+      '  client,',
+      '  fnName,',
+      '  {})',
+    ].join('\r\n')
+    const sites = collectFileSites('lib/library/story/learner.ts', src)
+    expect(sites.map((s) => [s.line, s.name])).toEqual([[1, 'story_catalog'], [6, null]])
+    expect(offendersOf(sites).map((s) => s.line)).toEqual([6])
+  })
+
+  it('둘째 인자가 리터럴 하나가 아니면(결합·템플릿) 이름으로 읽지 않는다', () => {
+    const src = [
+      "callRpc(client, 'story_' + suffix, {})",
+      'callRpc(client, `story_${x}`, {})',
+      "callRpc(client, 'story_catalog')",
+    ].join('\n')
+    expect(collectFileSites('lib/library/story/learner.ts', src).map((s) => s.name)).toEqual([null, null, 'story_catalog'])
   })
 
   it('범위 밖 파일의 같은 함수 이름은 RPC 로 추정하지 않는다', () => {
