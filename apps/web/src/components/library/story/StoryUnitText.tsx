@@ -24,6 +24,7 @@ import type { WordLookup } from '@/lib/library/reader-queries'
 
 import styles from './story.module.css'
 import { StoryWordSave, type StoryWordSaveCall } from './StoryWordSave'
+import { ACTIVITY_LABELS } from './story-activity-view'
 import { sentenceRange, shouldMoveToReturn } from './story-return-anchor'
 import { nextWordIndex, splitUnitParagraphs, tokenizeWords, type StoryTextPiece } from './story-view'
 
@@ -52,11 +53,13 @@ export interface StoryUnitTextProps {
   returnWordIndex?: number | null
   /** T-0228 — 근거 활동의 「본문에서 다시 확인」: 그 낱말이 든 문장을 같은 강조로 보여 주고 누를 때마다(nonce) 그 문장으로 옮긴다. */
   revisit?: { wordIndex: number; nonce: number } | null
+  /** T-0246 — 활동에서 다시 확인으로 온 경우에만 그 문장 곁 「근거 비교로 돌아가기」(같은 비교 조작으로 초점을 돌린다). */
+  onRevisitReturn?: () => void
 }
 
 type Opener = 'word' | 'picker'
 
-export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools, save, returnWordIndex = null, revisit = null }: StoryUnitTextProps) {
+export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopover, defaultWordMode = false, tools, save, returnWordIndex = null, revisit = null, onRevisitReturn }: StoryUnitTextProps) {
   const [wordMode, setWordMode] = useState(defaultWordMode)
   const [active, setActive] = useState(0)
   const [open, setOpen] = useState<{ surface: string; rect: DOMRect; index: number; opener: Opener } | null>(null)
@@ -212,6 +215,14 @@ export function StoryUnitText({ text, tracing, lookup: Lookup = WordLookupPopove
               <span ref={returnRef} tabIndex={-1} className={styles.returnSentence} data-story-return-sentence>
                 {render(pieces.slice(range.start, range.end), range.start)}
               </span>
+              {revisit && onRevisitReturn ? (
+                <>
+                  {' '}
+                  <button type="button" className={styles.ctaQuiet} onClick={onRevisitReturn} data-story-revisit-return>
+                    {ACTIVITY_LABELS.returnToCompare}
+                  </button>
+                </>
+              ) : null}
               {render(pieces.slice(range.end), range.end)}
             </p>
           )

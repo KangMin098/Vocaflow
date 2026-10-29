@@ -65,7 +65,7 @@ export function StoryActivity({
   unitIndex: number
   unitText: string
   /** 본문의 그 낱말이 든 문장으로 이동 · 강조(StoryUnitText 복귀 강조 재사용). */
-  onRevisit: (wordIndex: number) => void
+  onRevisit: (wordIndex: number, kind: 'chosen' | 'registered') => void
 }) {
   const [state, dispatch] = useReducer(reduceActivity, { phase: 'loading' } as StoryActivityState)
   const genRef = useRef(0)
@@ -239,7 +239,7 @@ function Evidence({
   option: StoryActivityOption
   unitIndex: number
   unitText: string
-  onRevisit: (wordIndex: number) => void
+  onRevisit: (wordIndex: number, kind: 'chosen' | 'registered') => void
   kind: 'chosen' | 'registered'
 }) {
   const word = option.unitIndex === unitIndex ? quoteWordIndex(unitText, option, countWords) : null
@@ -250,7 +250,7 @@ function Evidence({
         {option.quote}
       </blockquote>
       {word !== null ? (
-        <button type="button" className={styles.ctaQuiet} onClick={() => onRevisit(word)} data-story-activity-revisit={kind}>
+        <button type="button" className={styles.ctaQuiet} onClick={() => onRevisit(word, kind)} data-story-activity-revisit={kind}>
           {ACTIVITY_LABELS.revisit}
         </button>
       ) : (
@@ -274,7 +274,7 @@ function Result({
   headRef: RefObject<HTMLParagraphElement>
   unitIndex: number
   unitText: string
-  onRevisit: (wordIndex: number) => void
+  onRevisit: (wordIndex: number, kind: 'chosen' | 'registered') => void
   onRetry: () => void
 }) {
   return (

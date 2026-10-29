@@ -150,6 +150,7 @@ export const ACTIVITY_LABELS = {
   chosen: '내가 고른 근거',
   registered: '본문에 등록된 근거',
   revisit: '본문에서 다시 확인',
+  returnToCompare: '↑ 근거 비교로 돌아가기',
   retry: '다시 골라 보기',
   assisted: '도움을 받은 연습',
   submit: '제출',

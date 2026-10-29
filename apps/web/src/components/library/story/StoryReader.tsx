@@ -322,7 +322,7 @@ function ReadyReader({
   // T-0228 근거 활동 「본문에서 다시 확인」 — 단위 · 낱말 번호 · 누른 차례(nonce)
   // 활동과 같은 결속(본인 · 발행본 · 단위 · 인증 세대)에 묶는다 — 결속이 바뀌면 버린다(돌아와도 이전 근거 강조가 되살아나지 않는다)
   const revisitContext = verified && unitIndex !== null ? `${anchorOwner}|${releaseKey}|${unitIndex}|${guard.token()}` : null
-  const [revisit, setRevisit] = useState<{ context: string; wordIndex: number; nonce: number } | null>(null)
+  const [revisit, setRevisit] = useState<{ context: string; wordIndex: number; nonce: number; kind: 'chosen' | 'registered' } | null>(null)
   useEffect(() => {
     if (revisit && revisit.context !== revisitContext) setRevisit(null)
   }, [revisit, revisitContext])
@@ -438,6 +438,16 @@ function ReadyReader({
       details?.scrollIntoView({ block: 'start' })
     })
   }
+  // T-0246 — 원문 확인에서 출발했던 같은 비교 조작(고른/등록 근거의 「본문에서 다시 확인」)으로 초점을 돌린다.
+  // 활동 상태(선택 · 피드백 · 도움 받은 연습)는 건드리지 않는다 — 조회 · 제출 · 진도 호출 없음. 강조 · 돌아가기 표식은 거둔다.
+  const returnToCompare = () => {
+    const kind = revisit?.kind
+    if (!kind) return
+    const target = document.querySelector<HTMLElement>(`[data-story-activity-revisit="${kind}"]`)
+    setRevisit(null)
+    target?.focus({ preventScroll: true })
+    target?.scrollIntoView?.({ block: 'center' })
+  }
   const returnToNotesEntry = () => {
     notesEntryRef.current?.focus({ preventScroll: true })
     notesEntryRef.current?.scrollIntoView({ block: 'center' })
@@ -515,6 +525,7 @@ function ReadyReader({
                 save={wordSave ?? undefined}
                 returnWordIndex={returnWordIndex}
                 revisit={unitRevisit}
+                onRevisitReturn={unitRevisit ? returnToCompare : undefined}
               />
               <StoryContextNotes
                 key={`notes:${releaseKey}:${unit.unitIndex}`}
@@ -534,8 +545,8 @@ function ReadyReader({
                   calls={{ load: loadActivity, submit: submitActivity }}
                   unitIndex={unit.unitIndex}
                   unitText={unit.text}
-                  onRevisit={(wordIndex) => {
-                    if (revisitContext !== null) setRevisit((r) => ({ context: revisitContext, wordIndex, nonce: (r?.nonce ?? 0) + 1 }))
+                  onRevisit={(wordIndex, kind) => {
+                    if (revisitContext !== null) setRevisit((r) => ({ context: revisitContext, wordIndex, nonce: (r?.nonce ?? 0) + 1, kind }))
                   }}
                 />
               ) : null}
