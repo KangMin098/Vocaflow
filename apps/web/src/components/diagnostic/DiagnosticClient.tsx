@@ -312,6 +312,12 @@ export function DiagnosticClient({
     })()
   }, [supabase])
 
+  // 개인 진행이 가려지는 동안(확인 중 · 바뀜) 레벨 안내 모달을 닫는다 — 모달의 「내 레벨」 강조가 이전 계정 것으로 남지 않게
+  const personalVisible = viewerId === null || authStatus === 'same'
+  useEffect(() => {
+    if (!personalVisible) setLevelGuideOpen(false)
+  }, [personalVisible])
+
   // 팝업 Esc 닫기 (유형 안내 + 레벨 안내 공통)
   useEffect(() => {
     if (!infoTest && !levelGuideOpen) return
@@ -539,10 +545,13 @@ export function DiagnosticClient({
     try {
       await submitChecked(ctx)
     } finally {
-      if (submittingReq.current === ctx.req) submittingReq.current = null
+      // 화면의 제출 세대(submittingReq)가 아직 이 제출일 때만 정리한다(answerLocked 와 같은 세대 규칙) —
+      //   더 새 세대의 제출이 화면을 맡았으면 이 늦은 finally 는 busy 도 phase 도 건드리지 않는다
+      const mine = answerLocked(submittingReq.current, ctx.req)
+      if (mine) submittingReq.current = null
       // 새 시작 · 재개가 이 제출을 대체했는데 그 요청이 화면을 아직 못 바꿨으면(예: 신원 확인 중이라 버려짐)
-      //   「결과 분석 중」에 갇히지 않게 시작 화면으로 돌린다. 더 새 요청이 이미 화면을 바꿨으면 건드리지 않는다
-      if (!acceptFetch(ctx.req, req.current, true)) setPhase((cur) => (cur === 'submitting' ? 'start' : cur))
+      //   「결과 분석 중」에 갇히지 않게 시작 화면으로 돌린다
+      if (mine && !acceptFetch(ctx.req, req.current, true)) setPhase((cur) => (cur === 'submitting' ? 'start' : cur))
     }
   }
 
@@ -1015,7 +1024,7 @@ export function DiagnosticClient({
         {levelGuideOpen && (
           <LevelGuideModal
             levels={levels}
-            currentLevel={lastLevel?.level ?? null}
+            currentLevel={personalOk ? (lastLevel?.level ?? null) : null}
             isTrack={false}
             onClose={() => setLevelGuideOpen(false)}
           />

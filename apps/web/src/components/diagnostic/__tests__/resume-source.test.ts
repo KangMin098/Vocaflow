@@ -63,6 +63,6 @@ describe('배선', () => {
     expect(c).toContain('if (replaced()) return true')
   })
   it('대체된 제출은 「결과 분석 중」에 갇히지 않는다 — 아직 submitting 이면 시작 화면으로', () => {
-    expect(c).toContain("if (!acceptFetch(ctx.req, req.current, true)) setPhase((cur) => (cur === 'submitting' ? 'start' : cur))")
+    expect(c).toContain("if (mine && !acceptFetch(ctx.req, req.current, true)) setPhase((cur) => (cur === 'submitting' ? 'start' : cur))")
   })
 })

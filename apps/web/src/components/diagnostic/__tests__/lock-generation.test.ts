@@ -27,7 +27,8 @@ describe('제출 진행 중(busy)은 같은 세대 안에서만', () => {
   it('배선 — busy 는 answerLocked(submittingReq.current, req.current), 끝날 때 그 세대일 때만 해제', () => {
     expect(c).toContain('busy: answerLocked(submittingReq.current, req.current),')
     expect(c).toContain('submittingReq.current = ctx.req')
-    expect(c).toContain('if (submittingReq.current === ctx.req) submittingReq.current = null')
+    expect(c).toContain('const mine = answerLocked(submittingReq.current, ctx.req)')
+    expect(c).toContain('if (mine) submittingReq.current = null')
     expect(c).not.toMatch(/const submitting = useRef\(false\)/)
   })
 })
