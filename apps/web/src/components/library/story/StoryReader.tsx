@@ -949,7 +949,7 @@ function PositionLink({
   )
 }
 
-function CompleteControl({
+export function CompleteControl({
   unitIndex,
   marked,
   pending,
@@ -962,9 +962,23 @@ function CompleteControl({
   primary: boolean
   onComplete: () => void
 }) {
+  // T-0224 — 읽음 표시가 성공하면 단추가 안내 문장으로 바뀌며 초점이 BODY 로 떨어졌다(pa-t224 before 실측: 기다리는 동안 disabled 로도 떨어짐).
+  //   · 기다리는 동안 disabled 대신 aria-disabled + 클릭 무시 — 단추가 초점을 끝까지 가진다(실패 · 다시 시도도 같은 단추에서).
+  //   · 이 단추로 누른 그 표시가 반영된 **그 순간 한 번만** 안내로 초점을 옮긴다. 기다리는 사이 학습자가 단추를 떠났으면(blur) 취소한다.
+  //     표시가 반영된 렌더에서 단추가 빠지며 나는 blur 는 무시한다(markedRef) — T-0217 SessionDone 과 같은 패턴.
+  //   · 이미 표시된 단위로 들어옴 · 재렌더 · 실패 · 계정 변경(화면이 내려감)에는 옮기지 않는다. 완료 호출 · 이벤트는 그대로.
+  const noteRef = useRef<HTMLSpanElement>(null)
+  const pressedRef = useRef(false)
+  const markedRef = useRef(marked)
+  markedRef.current = marked
+  useEffect(() => {
+    if (!pressedRef.current || !marked) return
+    pressedRef.current = false
+    noteRef.current?.focus()
+  }, [marked])
   if (marked) {
     return (
-      <span className={styles.marked} data-story-complete="marked" data-unit={unitIndex}>
+      <span ref={noteRef} tabIndex={-1} className={styles.marked} data-story-complete="marked" data-unit={unitIndex}>
         ✓ 이 단위는 읽음으로 표시했어요
       </span>
     )
@@ -973,8 +987,15 @@ function CompleteControl({
     <button
       type="button"
       className={primary ? styles.cta : styles.ctaSecondary}
-      onClick={onComplete}
-      disabled={pending}
+      onClick={() => {
+        if (pending) return
+        pressedRef.current = true
+        onComplete()
+      }}
+      onBlur={() => {
+        if (!markedRef.current) pressedRef.current = false
+      }}
+      aria-disabled={pending || undefined}
       aria-busy={pending}
       data-story-complete={pending ? 'pending' : 'ready'}
       data-unit={unitIndex}
