@@ -46,7 +46,6 @@ import {
   isSpeechRecognitionSupported,
   type Recognizer,
 } from '@/lib/workspace/speech-recognition'
-import { computeShadowMatch } from '@/lib/workspace/shadow-match'
 // 청각 면(F3) 신호 — 따라 말하기를 어휘 단위 인출 기록으로 잇는다(설계안 §8 빈칸).
 // 적재 실패는 따라 말하기를 막지 않는다: 학습이 본체이고 기록은 부수 효과다.
 import { loadSoundLemmas, recordEchoSound } from '@/lib/echo/record-sound'
@@ -58,7 +57,7 @@ import { PitchVisualizer } from './PitchVisualizer'
 import { ScoreCard } from './ScoreCard'
 import { MicPermissionGate } from './MicPermissionGate'
 import { ReplayPanel } from './ReplayPanel'
-import { HEARD_REASON_TEXT, snapshotHeard, visibleHeard, type HeardSnapshot } from './heard-reference'
+import { HEARD_REASON_TEXT, gateAfterStop, isLiveRecog, measureTranscript, scoredOutcome, visibleHeard, type HeardSnapshot } from './heard-reference'
 import {
   EchoReplay,
   IDLE_REPLAY,
@@ -110,6 +109,8 @@ export function EchoMatchPlayer({
   // T-0227 — 인식 콜백이 묶인 시도 세대(멈추면 null) · 인식 시작 실패 여부. 늦은 콜백이 새 시도의 문자열을 덮지 않게.
   const recogGenRef = useRef<number | null>(null)
   const recogStartFailedRef = useRef(false)
+  // 이 세대의 인식 오류(onError)가 왔는가 — 다른 세대의 오류는 넣지 않는다
+  const recogErroredRef = useRef(false)
   // T-0227 — 이번 비율 계산에 실제로 쓴 인식 문자열(또는 확인 못 한 사유) · 시도 · 자료 · 계정 결속
   const [heard, setHeard] = useState<HeardSnapshot | null>(null)
   const stopRecRef = useRef<(() => Promise<{ audioBuffer: AudioBuffer; durationMs: number }>) | null>(
@@ -271,18 +272,25 @@ export function EchoMatchPlayer({
       stopRecRef.current = stop
       // 병렬 단어 인식 시작 (완전 additive — 실패/미지원이어도 녹음·채점 무영향)
       recogStartFailedRef.current = false
+      recogErroredRef.current = false
       try {
         if (isSpeechRecognitionSupported()) {
           if (!recognizerRef.current) recognizerRef.current = createRecognizer('en-US')
           transcriptRef.current = ''
           recogGenRef.current = gen
-          recognizerRef.current.start({
+          const started = recognizerRef.current.start({
             onInterim: (t) => {
               // 이 시도의 인식이 아직 열려 있을 때만 — 멈춘 뒤 · 다른 시도의 늦은 콜백은 버린다
-              if (recogGenRef.current !== gen || gen !== runGenRef.current) return
+              if (!isLiveRecog(gen, recogGenRef.current, runGenRef.current)) return
               transcriptRef.current = t
             },
+            onError: () => {
+              // 마이크 거부 · 네트워크 등 — 이 시도의 것만 「인식 실패」로 남긴다(이전 시도의 오류는 무시)
+              if (!isLiveRecog(gen, recogGenRef.current, runGenRef.current)) return
+              recogErroredRef.current = true
+            },
           })
+          if (!started) recogStartFailedRef.current = true
         }
       } catch {
         /* 인식 시작 실패 — 프로소디만 채점 */
@@ -305,36 +313,35 @@ export function EchoMatchPlayer({
     const expectedUserId = ownerId
     setPhase('comparing')
     // 병렬 인식 종료 + transcript 회수 (guard — 실패해도 프로소디 채점 진행)
-    let wr: number | null = null
-    // 어떤 단어가 실제로 들렸는지 — 청각 면 판정의 **단어 단위 근거**(비율보다 강하다)
-    let heardKeys: Set<string> | null = null
-    // T-0227 — 비율 계산에 넘긴 문자열을 그대로 붙잡는다(이 뒤 늦게 온 인식은 반영하지 않는다)
+    // T-0227 — 비율 계산에 넘긴 문자열을 그대로 붙잡는다(이 뒤 늦게 온 인식은 반영하지 않는다). 판정은 heard-reference.ts.
     const supported = isSpeechRecognitionSupported()
-    let recogFailed = recogStartFailedRef.current
-    let usedTranscript: string | null = null
+    let stopThrew = false
     try {
       recogGenRef.current = null
       recognizerRef.current?.stop()
-      const transcript = transcriptRef.current.trim()
-      if (transcript && current) {
-        const m = computeShadowMatch(current.text, transcript)
-        usedTranscript = transcript
-        wr = m.ratio
-        heardKeys = m.matchedKeys
-      }
     } catch {
       /* 인식 실패 — 단어 정확도 미측정(null) → 프로소디 보조 근거로 판정 */
-      recogFailed = true
+      stopThrew = true
     }
+    const measured = measureTranscript(sentence.text, {
+      supported,
+      startFailed: recogStartFailedRef.current,
+      errored: recogErroredRef.current || stopThrew,
+      transcript: transcriptRef.current,
+    })
+    const wr = measured.ratio
+    // 어떤 단어가 실제로 들렸는지 — 청각 면 판정의 **단어 단위 근거**(비율보다 강하다)
+    const heardKeys = measured.matchedKeys
     setWordRatio(wr)
     try {
       const stop = stopRecRef.current
       stopRecRef.current = null
       const { audioBuffer } = await stop()
       // 비교 중에 문장을 옮겼거나 화면이 내려갔다 — 이 발화는 버린다(점수 · 기록 · 다시 듣기 모두)
-      if (gen !== runGenRef.current) return
+      const gate = gateAfterStop({ startedGen: gen, currentGen: runGenRef.current, authCurrent: authGuard.isCurrent(authToken), expectedUserId })
+      if (gate === 'stale') return
       // 시작 세대가 더는 같은 사람으로 확인되지 않는다 — 실패로 닫는다(점수 · 저장 · 청각 신호 · 다시 듣기 모두 없음)
-      if (!authGuard.isCurrent(authToken) || !expectedUserId) {
+      if (gate === 'denied' || !expectedUserId) {
         userTakeRef.current = null
         setPhase('idle')
         return
@@ -351,24 +358,26 @@ export function EchoMatchPlayer({
       setRefContour(refC)
 
       const result = compareContours(refC, userC)
-      setScore(result)
-      setHeard(snapshotHeard({ supported, failed: recogFailed, usedTranscript }, { gen, materialKey: sentenceMaterialKey(sentence), authToken }))
-      setPhase('scored')
-
-      // 점수 DB 적재 (비로그인 silent skip)
       const sentenceId = sentence.id
-      const prevAttempts = attemptCountRef.current.get(sentenceId) ?? 0
-      const attemptNumber = prevAttempts + 1
-      attemptCountRef.current.set(sentenceId, attemptNumber)
-      void saveEchoAttempt({
+      const outcome = scoredOutcome({
+        measured,
+        supported,
+        bind: { gen, materialKey: sentenceMaterialKey(sentence), authToken },
         textId,
-        libraryBookId: libraryBookId ?? null,
+        libraryBookId,
         sentenceId,
-        attemptNumber,
+        prevAttempts: attemptCountRef.current.get(sentenceId) ?? 0,
         score: result,
         durationMs: userC.durationMs,
         expectedUserId,
       })
+      setScore(result)
+      setHeard(outcome.heard)
+      setPhase('scored')
+
+      // 점수 DB 적재 (비로그인 silent skip)
+      attemptCountRef.current.set(sentenceId, outcome.attemptNumber)
+      void saveEchoAttempt(outcome.save)
 
       // 청각 면(F3) 신호 — 이 발화가 실어 나른 내 단어를 인출 기록으로 남긴다.
       // 판정 규칙(측정 실패 무기록 · 인식 신뢰 하한 · 근거 등급)은 word-signal.ts 가 갖는다.
