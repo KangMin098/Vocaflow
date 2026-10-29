@@ -81,7 +81,9 @@ describe('예약 뒤 초점(T-0217)', () => {
   })
   it('초점은 「이 화면에서 누른」 예약이 반영된 순간 한 번만 — reviewAt 이 바뀔 때만 · 누른 표식은 한 번 쓰고 지운다', () => {
     const src = fs.readFileSync(path.resolve(__dirname, '../SessionDone.tsx'), 'utf8')
-    expect(src).toMatch(/if \(!pressedRef\.current \|\| session\.reviewAt == null\) return\s*\n\s*pressedRef\.current = false\s*\n\s*reviewNoteRef\.current\?\.focus\(\)/)
+    expect(src).toMatch(/if \(!pressedRef\.current \|\| session\.reviewAt == null\) return\s*\n\s*pressedRef\.current = false/)
+    // 비동기 응답 사이 학습자가 옮긴 초점은 빼앗지 않는다 — 갈 곳 잃은 초점(BODY · 없음)일 때만(r4 수용 기준)
+    expect(src).toMatch(/if \(active && active !== document\.body\) return\s*\n\s*reviewNoteRef\.current\?\.focus\(\)/)
     expect(src).toMatch(/\}, \[session\.reviewAt\]\)/)
     expect(src).toMatch(/pressedRef\.current = true\s*\n\s*onReview\(\)/)
     // 보이는 초점 — 프로그램 초점에도 링
