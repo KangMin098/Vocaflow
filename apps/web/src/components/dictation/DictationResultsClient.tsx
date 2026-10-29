@@ -43,7 +43,7 @@ import { fetchDictationSessionDetail, type SessionDetail } from '@/lib/dictation
 import { createClient } from '@/lib/supabase/client'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import type { WordResult } from '@/lib/dictation/types'
-import { dictationFrom, dictationRetryHref, type DictationRetrySource } from '@/lib/dictation/return'
+import { dictationFrom, dictationRetryHref, withDictationFrom, type DictationRetrySource } from '@/lib/dictation/return'
 import { wordVaultSearchHref } from '@/lib/dictation/word-vault-link'
 import { MISSED_RETRY_HREF, missedRetryPayload, stashMissedRetry } from '@/lib/dictation/retry-missed'
 
@@ -139,8 +139,9 @@ export function DictationResultsClient() {
     if (!missedRetry || !replayAllowed(liveRef.current, snapshotForAllow)) return
     // 봉투는 확정된 결과 주인에게 묶는다 — 설정 화면은 그때 확정된 계정이 같을 때만 꺼낸다.
     if (!stashMissedRetry(snapshotForAllow?.session.userId ?? null, missedRetry)) return
-    router.push(MISSED_RETRY_HREF)
-  }, [missedRetry, snapshotForAllow, router])
+    // 들어온 자리(?from=)를 잇는다 — 설정 → 세션 → 결과가 같은 from 을 넘겨 닫기 · Esc · 결과 복귀가 읽던 글로 간다(없거나 불량이면 기존 경로 그대로)
+    router.push(withDictationFrom(MISSED_RETRY_HREF, from))
+  }, [missedRetry, snapshotForAllow, router, from])
 
   const recommendation = useNextAction()
 
