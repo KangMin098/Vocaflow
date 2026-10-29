@@ -362,11 +362,21 @@ export async function fetchSentAssignments(): Promise<{
 
   // 오류와 함께 온 부분 data, 배열이 아닌 응답은 정상 수치로 쓰지 않는다 —
   // 한쪽만 성공해도 분모·분자가 섞여 틀린 퍼센트가 나온다.
+  // 행 하나라도 형식이 어긋나면(`{}` · `null` · 타입 오류) 그 행이 어느 과제 것인지도 믿을 수
+  // 없으므로 응답 전체를 집계 불가로 본다 — 빠진 행을 0 으로 세면 "학생 없음" 이 된다.
+  const isObj = (r: unknown): r is Record<string, unknown> => typeof r === 'object' && r !== null
   const countsKnown =
     !membersRes.error &&
     !progressRes.error &&
     Array.isArray(membersRes.data) &&
-    Array.isArray(progressRes.data)
+    Array.isArray(progressRes.data) &&
+    (membersRes.data as unknown[]).every((m) => isObj(m) && typeof m.class_id === 'string') &&
+    (progressRes.data as unknown[]).every(
+      (p) =>
+        isObj(p) &&
+        typeof p.assignment_id === 'string' &&
+        (p.collected_at === null || typeof p.collected_at === 'string'),
+    )
 
   const memberCount = new Map<string, number>()
   const opened = new Map<string, number>()

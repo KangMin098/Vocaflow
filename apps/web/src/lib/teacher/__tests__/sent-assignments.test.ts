@@ -138,6 +138,18 @@ describe('fetchSentAssignments — 집계 실패는 progress:null, 과제는 보
     ['양쪽 실패', { data: null, error: ERR }, { data: null, error: ERR }],
     ['오류와 함께 온 부분 data', { data: [{ class_id: 'c-1' }], error: ERR }, { data: [], error: null }],
     ['배열이 아닌 응답', { data: { class_id: 'c-1' }, error: null }, { data: [], error: null }],
+    ['인원 행 [{}]', { data: [{}], error: null }, { data: [], error: null }],
+    ['인원 행 [null]', { data: [null], error: null }, { data: [], error: null }],
+    ['인원 class_id 타입 오류', { data: [{ class_id: 7 }], error: null }, { data: [], error: null }],
+    ['인원 일부 행만 오류', { data: [{ class_id: 'c-1' }, { user_id: 'u' }], error: null }, { data: [], error: null }],
+    ['진도 행 [{}]', { data: [], error: null }, { data: [{}], error: null }],
+    ['진도 행 [null]', { data: [], error: null }, { data: [null], error: null }],
+    ['진도 collected_at 타입 오류', { data: [], error: null }, { data: [{ assignment_id: 'a-1', collected_at: 1 }], error: null }],
+    [
+      '진도 일부 행만 오류',
+      { data: [{ class_id: 'c-1' }], error: null },
+      { data: [{ assignment_id: 'a-1', collected_at: null }, { assignment_id: 9, collected_at: null }], error: null },
+    ],
   ]
 
   it.each(cases)('%s', async (_name, members, progress) => {
