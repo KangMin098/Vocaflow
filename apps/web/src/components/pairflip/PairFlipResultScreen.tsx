@@ -14,6 +14,7 @@ import { PairFlipMascot } from './PairFlipMascot'
 import { PairFlipNextActionCard } from './PairFlipNextActionCard'
 import { PairFlipPairsList } from './PairFlipPairsList'
 import { PairFlipScoreRing } from './PairFlipScoreRing'
+import { replayConfigFrom } from './replay'
 import type { PairFlipResultData } from './types'
 
 interface ResultScreenProps {
@@ -81,7 +82,7 @@ export function PairFlipResultScreen({ result }: ResultScreenProps) {
         <PairFlipPairsList pairs={result.pairResults} />
 
         {/* 다음 액션 */}
-        <PairFlipNextActionCard accuracy={accuracy} />
+        <PairFlipNextActionCard accuracy={accuracy} replay={replayConfigFrom(result)} />
 
         {levelMeta && (
           <p className="text-center font-body text-[11px] text-[var(--t2)]">
