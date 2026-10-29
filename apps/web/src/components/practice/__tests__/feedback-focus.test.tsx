@@ -28,6 +28,11 @@ describe('nextFeedbackHandoff — 이벤트 순서별', () => {
     expect(run([{ type: 'submit', focusedOnSubmit: true }, { type: 'leave' }, { type: 'success' }])).toEqual({ state: 'idle', moves: 0 })
     expect(run([{ type: 'submit', focusedOnSubmit: true }, { type: 'leave' }, { type: 'leave' }, { type: 'success' }]).moves).toBe(0)
   })
+  it('대기 중 제목이 아닌 곳으로 focusin(잠긴 단추 → body → Shift+Tab): 이동 0 · 제목으로의 focusin 은 취소가 아니다', () => {
+    expect(run([{ type: 'submit', focusedOnSubmit: true }, { type: 'focusin', toTitle: false }, { type: 'success' }]).moves).toBe(0)
+    expect(run([{ type: 'submit', focusedOnSubmit: true }, { type: 'focusin', toTitle: true }, { type: 'success' }]).moves).toBe(1)
+    expect(run([{ type: 'focusin', toTitle: false }, { type: 'submit', focusedOnSubmit: true }, { type: 'success' }]).moves).toBe(1) // 제출 전 이동은 무관
+  })
   it('제출 단추가 아닌 곳에서 제출: 이동 0', () => {
     expect(run([{ type: 'submit', focusedOnSubmit: false }, { type: 'success' }]).moves).toBe(0)
   })
@@ -70,6 +75,8 @@ describe('배선 — 기사 연습만 opt-in · 전이 함수로만 판정', () 
     expect(submit).toMatch(/nextFeedbackHandoff\(handoff\.current, \{ type: 'submit', focusedOnSubmit: onSubmit \}\)/)
     expect(player).toMatch(/document\.addEventListener\('pointerdown', leave, true\)/)
     expect(player).toMatch(/document\.addEventListener\('focusout', leave, true\)/)
+    expect(player).toMatch(/document\.addEventListener\('focusin', enter, true\)/)
+    expect(player).toMatch(/\{ type: 'focusin', toTitle: e\.target === feedbackTitleRef\.current \}/)
     expect(player).toMatch(/if \(e\.type === 'focusout' && !\(e as FocusEvent\)\.relatedTarget\) return/)
     expect(player).toMatch(/nextFeedbackHandoff\(handoff\.current, \{ type: phase === 'graded' \? 'success' : 'fail' \}\)/)
     expect(player).toContain('titleRef={feedbackFocus ? feedbackTitleRef : undefined}')

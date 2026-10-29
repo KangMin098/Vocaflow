@@ -167,11 +167,17 @@ export function DcpPlayer({
       if (e.type === 'focusout' && !(e as FocusEvent).relatedTarget) return // 제출 단추가 잠기며 생긴 blur 는 이탈이 아니다
       handoff.current = nextFeedbackHandoff(handoff.current, { type: 'leave' }).state
     }
+    // 잠긴 단추에서 body 로 빠진 뒤 Shift+Tab 등으로 다른 요소에 들어가면 focusout 없이 focusin 만 온다
+    const enter = (e: Event) => {
+      handoff.current = nextFeedbackHandoff(handoff.current, { type: 'focusin', toTitle: e.target === feedbackTitleRef.current }).state
+    }
     document.addEventListener('pointerdown', leave, true)
     document.addEventListener('focusout', leave, true)
+    document.addEventListener('focusin', enter, true)
     return () => {
       document.removeEventListener('pointerdown', leave, true)
       document.removeEventListener('focusout', leave, true)
+      document.removeEventListener('focusin', enter, true)
     }
   }, [phase])
   useEffect(() => {
@@ -440,13 +446,15 @@ export function DcpPlayer({
 // ── T-0259 — 제출 성공 뒤 피드백 제목 초점(순수) ──
 
 export type FeedbackHandoff = 'idle' | 'armed' | 'cancelled'
-export type FeedbackHandoffEvent = { type: 'submit'; focusedOnSubmit: boolean } | { type: 'leave' } | { type: 'success' } | { type: 'fail' } | { type: 'rerender' }
+export type FeedbackHandoffEvent = { type: 'submit'; focusedOnSubmit: boolean } | { type: 'leave' } | { type: 'focusin'; toTitle: boolean } | { type: 'success' } | { type: 'fail' } | { type: 'rerender' }
 
-/** 인계 상태 전이 — 제출 단추에서 제출하면 armed, 대기 중 이탈이면 cancelled, 성공은 armed 일 때만 이동(focus) 뒤 idle, 실패는 idle, 재렌더는 그대로 */
+/** 인계 상태 전이 — 제출 단추에서 제출하면 armed, 대기 중 이탈(pointerdown · focusout · 제목 아닌 focusin)이면 cancelled, 성공은 armed 일 때만 이동(focus) 뒤 idle, 실패는 idle, 재렌더는 그대로 */
 export function nextFeedbackHandoff(state: FeedbackHandoff, ev: FeedbackHandoffEvent): { state: FeedbackHandoff; focus: boolean } {
   switch (ev.type) {
     case 'submit': return { state: ev.focusedOnSubmit ? 'armed' : 'idle', focus: false }
     case 'leave': return { state: state === 'armed' ? 'cancelled' : state, focus: false }
+    // 대기 중 피드백 제목이 아닌 곳으로 초점이 들어오면 학습자가 옮긴 것 — 취소
+    case 'focusin': return { state: state === 'armed' && !ev.toTitle ? 'cancelled' : state, focus: false }
     case 'success': return { state: 'idle', focus: state === 'armed' }
     case 'fail': return { state: 'idle', focus: false }
     default: return { state, focus: false }
