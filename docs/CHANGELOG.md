@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(teacher): 보낸 과제의 목록·멤버·진도 조회 실패(부분 data·잘못된 행 형식 포함)를 학생 0명·미열람으로 보이지 않게 — 과제·학급·단어 수는 보존하고 「지금은 수행 현황을 확인할 수 없어요」. Codex 독립 리뷰 P2 보정 후 NO_FINDINGS, 실DB·실제 로그인 NOT_RUN (T-0223 d99cd750a)
 - feat(pairflip): 결과 「학습한 단어」에서 확실히 다시 시도한 짝(실제 훅 attempts≥3)만 뜻을 가린 채 「뜻 확인」으로 떠올린 뒤 확인(기록·점수·SRS 불변). Codex 독립 리뷰 P1 보정 후 root APPROVE (T-0218 6c564e220)
 - fix(csat): 기출 완료 화면 「다시 보기」 예약 뒤 키보드 초점을 예약 결과 표시로 1회 인계(버튼이 끝까지 초점을 가진 경우만, 사용자가 옮긴 초점은 유지, role=status). Codex review.mjs 독립 리뷰 2회 보정 후 NO_FINDINGS (T-0217 f9a2a9f5d)
 - fix(csat): 기출 분석 완료 화면 「다시 보기」 표시를 실제 예약 간격(내일·3일·7일)과 일치 — 한 값으로 표시·예약 결속, 규칙 불변. Codex review.mjs 독립 리뷰 NO_FINDINGS, 실제 route NOT_RUN (T-0216 fe57a0384)
