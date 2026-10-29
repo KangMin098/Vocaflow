@@ -34,10 +34,12 @@ describe('CompleteControl 초점 경계', () => {
     expect(html).toContain('tabindex="-1"')
     expect(html).toContain('이 단위는 읽음으로 표시했어요')
   })
-  it('옮기는 조건: 누른 표시 · 반영 순간 한 번 · 떠나면(blur) 취소 · 반영 렌더의 blur 무시 · 기다리는 중 클릭 무시', () => {
+  it('옮기는 조건: 그 요청이 끝나는 렌더에서만(실패면 해제 · 성공이면 한 번) · 떠나면(blur) 취소 · 반영 렌더의 blur 무시 · 기다리는 중 클릭 무시', () => {
     const src = readFileSync(path.resolve(__dirname, '../StoryReader.tsx'), 'utf8')
     const block = src.slice(src.indexOf('export function CompleteControl('), src.indexOf('function StatusDock('))
-    expect(block).toMatch(/if \(!pressedRef\.current \|\| !marked\) return\s+pressedRef\.current = false\s+noteRef\.current\?\.focus\(\)/)
+    expect(block).toMatch(/const finished = wasPendingRef\.current && !pending/)
+    expect(block).toMatch(/if \(!pressedRef\.current \|\| !finished\) return\s+pressedRef\.current = false\s+if \(marked\) noteRef\.current\?\.focus\(\)/)
+    expect(block).toMatch(/\}, \[pending, marked\]\)/)
     expect(block).toMatch(/markedRef\.current = marked/)
     expect(block).toMatch(/onBlur=\{\(\) => \{\s+if \(!markedRef\.current\) pressedRef\.current = false/)
     expect(block).toMatch(/if \(pending\) return\s+pressedRef\.current = true\s+onComplete\(\)/)

@@ -971,11 +971,17 @@ export function CompleteControl({
   const pressedRef = useRef(false)
   const markedRef = useRef(marked)
   markedRef.current = marked
+  //   초점 인계는 **그 요청의 결과**에 묶는다(Codex P2): 이 단추로 보낸 요청이 끝나는 그 렌더(기다림 true → false)에서
+  //   표시가 됐으면 성공 — 옮긴다. 표시가 안 됐으면 실패 — 누름을 바로 해제한다. 그래서 실패 뒤 다른 경로(서버 재반영 등)로
+  //   표시가 생겨도 옮기지 않는다. 다시 누르면 그 새 요청으로 다시 판정한다.
+  const wasPendingRef = useRef(pending)
   useEffect(() => {
-    if (!pressedRef.current || !marked) return
+    const finished = wasPendingRef.current && !pending
+    wasPendingRef.current = pending
+    if (!pressedRef.current || !finished) return
     pressedRef.current = false
-    noteRef.current?.focus()
-  }, [marked])
+    if (marked) noteRef.current?.focus()
+  }, [pending, marked])
   if (marked) {
     return (
       <span ref={noteRef} tabIndex={-1} className={styles.marked} data-story-complete="marked" data-unit={unitIndex}>
