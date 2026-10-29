@@ -43,8 +43,7 @@ import { createClient } from '@/lib/supabase/client'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import type { WordResult } from '@/lib/dictation/types'
 import { dictationFrom, dictationRetryHref, type DictationRetrySource } from '@/lib/dictation/return'
-import { stashCustomScript } from '@/lib/dictation/source'
-import { MISSED_RETRY_HREF, missedRetryScript } from '@/lib/dictation/retry-missed'
+import { MISSED_RETRY_HREF, missedRetryPayload, stashMissedRetry } from '@/lib/dictation/retry-missed'
 
 const DICTATION_ACCENT = '#0EA5E9'
 
@@ -130,13 +129,14 @@ export function DictationResultsClient() {
 
   // 틀림·건너뜀 문장만 다시 — 이 snapshot 의 정답 문장으로만 만든다. 원 세션 기록은 읽기만 한다.
   const missedRetry = useMemo(
-    () => (detail ? missedRetryScript(detail.session.title, detail.attempts) : null),
+    () => (detail ? missedRetryPayload(detail.session.title, detail.attempts) : null),
     [detail],
   )
   const retryMissed = useCallback(() => {
     // 실행 시점 판정 — 누르는 순간에도 주인 확인(same)과 유효 snapshot 이어야 남의 결과 문장을 넘기지 않는다.
     if (!missedRetry || !replayAllowed(liveRef.current, snapshotForAllow)) return
-    stashCustomScript(missedRetry.payload)
+    // 봉투는 확정된 결과 주인에게 묶는다 — 설정 화면은 그때 확정된 계정이 같을 때만 꺼낸다.
+    if (!stashMissedRetry(snapshotForAllow?.session.userId ?? null, missedRetry)) return
     router.push(MISSED_RETRY_HREF)
   }, [missedRetry, snapshotForAllow, router])
 
@@ -364,7 +364,7 @@ export function DictationResultsClient() {
       <DictationResultActions
         retry={s}
         from={from}
-        missedCount={reviewEnabled && missedRetry ? missedRetry.count : 0}
+        missedCount={reviewEnabled && missedRetry ? missedRetry.sentences.length : 0}
         onRetryMissed={retryMissed}
       />
     </div>

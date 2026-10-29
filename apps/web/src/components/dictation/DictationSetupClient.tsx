@@ -47,6 +47,7 @@ import type {
 import { Illustration } from '@/components/illustrations/Illustration'
 import { dictationFrom, withDictationFrom } from '@/lib/dictation/return'
 import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
+import { resolveMissedRetrySource } from '@/lib/dictation/retry-missed'
 import { GameIdentityNotice } from '@/components/game/GameIdentityNotice'
 import { ILLO_04_DICTATION_CHOOSE } from '@/components/illustrations/generated/illo-04-dictation-choose'
 
@@ -71,6 +72,8 @@ export function DictationSetupClient() {
   const textId = searchParams.get('text') ?? ''
   const setId = searchParams.get('set') ?? ''
   const custom = searchParams.get('custom') === '1'
+  // 결과의 「틀린 문장만 다시」 — 계정에 묶인 재시도 봉투(lib/dictation/retry-missed). 지금 확정 계정과 같을 때만 자료가 된다.
+  const retryMissed = searchParams.get('retry') === 'missed'
   // 들어온 자리(읽던 글 등) — 세션 · 결과로 이어 넘겨 닫기/Esc · 결과에서 돌아갈 수 있게(lib/dictation/return)
   const from = dictationFrom(searchParams.get('from'))
   const chapterRaw = Number(searchParams.get('chapter'))
@@ -82,7 +85,7 @@ export function DictationSetupClient() {
   // 자료 좌표가 아예 없으면 **불러올 것이 없다** — 허브로 돌아가는 중일 뿐이다.
   // 그 상태에 "자료를 불러오는 중" 을 띄우면 화면이 거짓말을 하고, 전환이 느린 순간에는
   // 학습자가 멈춘 화면을 본다(회귀가 이걸 "로딩이 최종 상태" 로 잡았다).
-  const hasSourceParam = !!textId || !!setId || custom
+  const hasSourceParam = !!textId || !!setId || custom || retryMissed
   // 'failed' = 조회가 던졌다. 'missing' 과 다르다 — 자료가 없는 것이 아니라 **못 물어본** 것이고,
   //   그래서 답도 다르다(다른 자료 고르기 vs 다시 시도).
   const [loadState, setLoadState] = useState<'loading' | 'ready' | 'missing' | 'failed'>(
@@ -106,7 +109,7 @@ export function DictationSetupClient() {
   const [showAdvanced, setShowAdvanced] = useState(false)
 
   useEffect(() => {
-    if (!textId && !setId && !custom) {
+    if (!textId && !setId && !custom && !retryMissed) {
       router.replace('/dictate')
       return
     }
@@ -121,7 +124,9 @@ export function DictationSetupClient() {
           data: { user },
         } = await client.auth.getUser()
         const [resolved, overview] = await Promise.all([
-          resolveDictationSource(client, {
+          retryMissed && !textId && !setId
+            ? resolveMissedRetrySource(client, user?.id ?? null)
+            : resolveDictationSource(client, {
             text: textId || undefined,
             set: setId || undefined,
             custom,
@@ -156,7 +161,7 @@ export function DictationSetupClient() {
     return () => {
       mounted = false
     }
-  }, [textId, setId, custom, chapter, router, reloadKey])
+  }, [textId, setId, custom, retryMissed, chapter, router, reloadKey])
 
   // 미리보기는 **실제로 시작될 문항**을 그대로 계산한다 —
   // 예상치와 실제가 다르면 그 순간 화면이 거짓말이 된다(앞에서 N개 자르던 시절의 함정).
@@ -297,9 +302,11 @@ export function DictationSetupClient() {
   if (loadState === 'missing' || !source) {
     return (
       <DictationEmptyState
-        title={custom ? '붙여넣은 글이 사라졌어요' : '이 자료로는 받아쓸 수 없어요'}
+        title={retryMissed ? '다시 받아쓸 문장이 없어요' : custom ? '붙여넣은 글이 사라졌어요' : '이 자료로는 받아쓸 수 없어요'}
         body={
-          custom
+          retryMissed
+            ? '틀린 문장 다시 받아쓰기는 그 결과를 연 계정 · 이 탭에서만 이어져요. 결과 화면에서 다시 눌러 주세요.'
+            : custom
             ? '붙여넣은 글은 이 탭에서만 유지돼요. 새로고침하거나 탭을 다시 열면 다시 붙여넣어야 합니다.'
             : '본문이 없거나 접근할 수 없는 자료예요. 다른 자료를 골라 주세요.'
         }
