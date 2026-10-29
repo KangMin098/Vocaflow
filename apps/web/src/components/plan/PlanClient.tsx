@@ -188,7 +188,8 @@ export function PlanClient({
   //   진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
   const firstProps = useRef(true)
   const deferredProps = useRef(false)
-  const reloadInFlight = useRef(false)
+  /** 진행 중인 재조회의 세대(r15) — 현재 세대와 같을 때만 「진행 중」. props 교체로 세대가 바뀌면 자동으로 풀린다 */
+  const reloadInFlight = useRef<number | null>(null)
   const focusRetryAfter = useRef(false)
   useEffect(() => {
     if (firstProps.current) {
@@ -234,12 +235,12 @@ export function PlanClient({
   /** 명시적 읽기 재시도 — 읽기만 한다(저장 · 삭제를 다시 보내지 않는다). 늦은 응답 · 다른 viewer 응답은 버린다 */
   async function reloadPlan() {
     // 쓰기 중에는 재조회하지 않는다(r6) — 낡은 읽기 결과가 낙관적 변경을 덮지 않게 · 이미 재조회 중이면 다시 부르지 않는다(r8)
-    if (writing || reloadInFlight.current) return
-    reloadInFlight.current = true
+    if (writing || (reloadInFlight.current !== null && reloadInFlight.current === readGen.current)) return
     // 누른 순간 재시도 단추에 초점이 있었는가(r8) — 재조회 중 단추가 disabled 되면 초점이 풀리므로 시작할 때 기억한다
     const fromRetry = typeof document !== 'undefined' && document.activeElement === retryRef.current
     let succeeded = false
     const gen = ++readGen.current
+    reloadInFlight.current = gen
     const startGuard = guard
     const token = guard.token()
     setReloading(true)
@@ -281,7 +282,7 @@ export function PlanClient({
     } catch {
       if (gen === readGen.current) setReadFailed(true)
     } finally {
-      reloadInFlight.current = false
+      if (reloadInFlight.current === gen) reloadInFlight.current = null
       if (gen === readGen.current) setReloading(false)
       // 키보드로 재시도했는데 다시 실패 · 예외(r10) — 단추가 다시 활성이 된 뒤 그 단추로 초점을 돌려준다(아래 effect)
       if (fromRetry && !succeeded && gen === readGen.current) focusRetryAfter.current = true

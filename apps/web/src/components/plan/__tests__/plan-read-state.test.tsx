@@ -200,7 +200,7 @@ describe('리뷰 r6 — 읽기 · 쓰기 겹침 금지 · 초점 표식', () => 
     const x = src()
     expect(x).toContain('const writing = adding || pendingWrites > 0')
     expect(x).toMatch(/disabled=\{writing \|\| reloading\}\s*\n\s*aria-describedby=\{writing \? 'plan-writing-note' : undefined\}/)
-    expect(x).toMatch(/async function reloadPlan\(\) \{[\s\S]{0,200}if \(writing \|\| reloadInFlight\.current\) return/)
+    expect(x).toMatch(/async function reloadPlan\(\) \{[\s\S]{0,300}if \(writing \|\| \(reloadInFlight\.current !== null && reloadInFlight\.current === readGen\.current\)\) return/)
     expect(x).toMatch(/setPendingWrites\(\(n\) => n \+ 1\)[\s\S]*?finally \{\s*\n\s*setPendingWrites\(\(n\) => n - 1\)/)
   })
   it('[P2] 초점 표식은 제목이 실제로 초점을 받은 뒤에만 지운다 — ref 콜백 · 매 렌더 재시도', () => {
@@ -244,8 +244,8 @@ describe('리뷰 r8 — 다른 viewer 는 쓰기 중에도 즉시 닫기 · 재�
   })
   it('[P2] reloadPlan 진행 중 ref 잠금 · 재조회 중 재시도 단추 disabled', () => {
     const x = src()
-    expect(x).toMatch(/if \(writing \|\| reloadInFlight\.current\) return\s*\n\s*reloadInFlight\.current = true/)
-    expect(x).toMatch(/finally \{\s*\n\s*reloadInFlight\.current = false/)
+    expect(x).toContain('if (writing || (reloadInFlight.current !== null && reloadInFlight.current === readGen.current)) return')
+    expect(x).toMatch(/finally \{\s*\n\s*if \(reloadInFlight\.current === gen\) reloadInFlight\.current = null/)
     expect(x).toContain('disabled={writing || reloading}')
   })
 })
@@ -355,5 +355,15 @@ describe('리뷰 r14 — 새 소유자는 확인 상태를 물려받지 않음 �
     expect(x).toMatch(/setMats\(initialMaterials\)\s*\n\s*setMatsFailed\(initialMaterialsFailed\)/)
     expect(x).toContain('}, [initialMaterials, initialMaterialsFailed])')
     expect(x).toMatch(/matsRefetched\.current = false\s*\n\s*setMats\(m\)\s*\n\s*setMatsFailed\(false\)/)
+  })
+})
+
+describe('리뷰 r15 — 재조회 진행 표식은 세대에 묶는다', () => {
+  it('[P2] 시작 세대를 기록 · props 교체로 세대가 바뀌면 진행 중으로 보지 않음 · 끝날 때 자기 세대만 해제', () => {
+    const x = fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+    expect(x).toContain('const reloadInFlight = useRef<number | null>(null)')
+    expect(x).toMatch(/const gen = \+\+readGen\.current\s*\n\s*reloadInFlight\.current = gen/)
+    const eff = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
+    expect(eff).toContain('readGen.current++')
   })
 })
