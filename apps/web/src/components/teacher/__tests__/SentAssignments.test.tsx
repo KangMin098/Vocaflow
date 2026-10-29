@@ -41,7 +41,7 @@ describe('SentAssignments', () => {
   it('집계 실패 → 제목·학급·단어 수는 보이고 숫자·막대·학생 행동 단정은 없다', () => {
     const html = renderToString(<SentAssignments rows={[row(null)]} />)
     expect(html).toContain('7과 어휘')
-    expect(html).toContain('1반<!-- --> · 단어 <!-- -->2<!-- -->개')
+    expect(html).toContain('1반<!-- --> · <!-- -->단어 2개')
     expect(html).toContain('수행 현황을 확인할 수 없어요')
     expect(html).not.toContain('role="img"')
     expect(html).not.toMatch(/\d+ \/ \d+/)
