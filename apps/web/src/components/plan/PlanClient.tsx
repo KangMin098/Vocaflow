@@ -99,6 +99,25 @@ export function PlanClient({
   // 계정 경계 — 이 목록을 읽은 viewer 와 브라우저 신원이 같을 때만 계획을 보이고 조작하게 한다
   const { guard, status: authStatus } = useStoryAuthGuard(viewerId)
   const readGen = useRef(0)
+  // 같은 viewer 의 props 교체(T-0240 r2) — 새 snapshot 을 반영하고 진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
+  const firstProps = useRef(true)
+  useEffect(() => {
+    if (firstProps.current) {
+      firstProps.current = false
+      return
+    }
+    readGen.current++
+    setReloading(false)
+    if (initialFailed) {
+      setReadFailed(true)
+      return
+    }
+    setItems(initialItems)
+    setConfirmed(true)
+    setReadFailed(false)
+  }, [initialItems, initialFailed])
+  /** 쓰기 직전 계정 확인(T-0240 r2 P1) — 이 화면의 viewer 와 지금 브라우저 신원이 같고, 시작할 때의 세대 그대로일 때만 */
+  const canWrite = (token: number) => !viewerId || guard.isCurrent(token)
   /** 명시적 읽기 재시도 — 읽기만 한다(저장 · 삭제를 다시 보내지 않는다). 늦은 응답 · 다른 viewer 응답은 버린다 */
   async function reloadPlan() {
     const gen = ++readGen.current
@@ -258,11 +277,15 @@ export function PlanClient({
     const weekdays = Array.from(draft.weekdays).sort((a, b) => a - b)
     const m = draft.option
     const type = draft.type
+    const token = guard.token()
+    if (!canWrite(token)) return
     setError(null)
     setAdding(true)
     startTransition(async () => {
       const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters, weekdays })
       setAdding(false)
+      // 응답 사이 계정이 바뀌었으면 이 화면에 싣지 않는다
+      if (!canWrite(token)) return
       if (!res.ok || !res.id) {
         setError(res.error ?? '추가에 실패했어요.')
         return
@@ -327,11 +350,15 @@ export function PlanClient({
     const pool =
       type === 'script' ? materials.scripts : type === 'word_set' ? materials.wordSets : materials.articles
     const picks = pool.filter((a) => artSel.has(a.id))
+    const token = guard.token()
+    if (!canWrite(token)) return
     setError(null)
     setAdding(true)
     startTransition(async () => {
       const added: PlanItem[] = []
       for (const m of picks) {
+        // 각 쓰기 직전 — 계정이 바뀌었으면 남은 선택을 새 계정에 저장하지 않고 멈춘다
+        if (!canWrite(token)) break
         const res = await savePlanItem({
           materialType: type,
           materialId: m.id,
@@ -360,6 +387,7 @@ export function PlanClient({
         }
       }
       setAdding(false)
+      if (!canWrite(token)) return
       if (added.length === 0) {
         setError('추가에 실패했어요.')
         return
@@ -374,9 +402,12 @@ export function PlanClient({
     const modules = patch.modules ?? item.modules
     const chapters = patch.chapters ?? item.chapters
     const weekdays = patch.weekdays ?? item.weekdays
+    const token = guard.token()
+    if (!canWrite(token)) return
     setItems((prev) => prev.map((it) => (it.id === item.id ? { ...it, modules, chapters, weekdays } : it)))
     setError(null)
     startTransition(async () => {
+      if (!canWrite(token)) return
       const res = await savePlanItem({
         id: item.id,
         materialType: item.materialType,
@@ -398,10 +429,13 @@ export function PlanClient({
     })
   }
   function removeItem(item: PlanItem) {
+    const token = guard.token()
+    if (!canWrite(token)) return
     setItems((prev) => prev.filter((it) => it.id !== item.id))
     if (editId === item.id) setEditId(null)
     setError(null)
     startTransition(async () => {
+      if (!canWrite(token)) return
       const res = await removePlanItem(item.id)
       if (!res.ok) {
         setItems((prev) => [...prev, item])

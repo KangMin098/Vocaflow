@@ -163,7 +163,14 @@ const MATERIAL_TYPES = new Set<string>(['book', 'article', 'script', 'word_set']
 function validRow(r: unknown): r is PlanRow {
   if (!r || typeof r !== 'object') return false
   const x = r as Record<string, unknown>
-  return typeof x.id === 'string' && x.id.length > 0 && typeof x.material_type === 'string' && MATERIAL_TYPES.has(x.material_type) && typeof x.material_id === 'string' && x.material_id.length > 0
+  // 배열 열은 null(미정) 이거나 정확한 원소 형식의 배열이어야 한다 — 문자열 등이 들어오면 뒤의 filter 에서 터진다
+  const arrOf = (v: unknown, el: 'string' | 'number') => v == null || (Array.isArray(v) && v.every((e) => typeof e === el))
+  return (
+    typeof x.id === 'string' && x.id.length > 0 &&
+    typeof x.material_type === 'string' && MATERIAL_TYPES.has(x.material_type) &&
+    typeof x.material_id === 'string' && x.material_id.length > 0 &&
+    arrOf(x.modules, 'string') && arrOf(x.chapters, 'number') && arrOf(x.weekdays, 'number')
+  )
 }
 
 /** 현재 사용자의 학습 계획 — /plan 이 쓰는 읽기 facade. 조회는 한 번(기존 wrapper 와 같은 질의) */
@@ -180,7 +187,10 @@ async function loadStudyPlan(missingTitle: string): Promise<StudyPlanSnapshot> {
   const client = await createClient()
   const {
     data: { user },
+    error: authErr,
   } = await client.auth.getUser()
+  // 인증 조회 오류는 「비로그인 · 빈 계획」이 아니다 — 세션이 없을 뿐인 경우(AuthSessionMissingError)만 비로그인
+  if (authErr && authErr.name !== 'AuthSessionMissingError') return { items: [], failed: true, viewerId: null }
   if (!user) return { items: [], failed: false, viewerId: null }
   const viewerId = user.id
   const lc = loose(client)
@@ -191,8 +201,9 @@ async function loadStudyPlan(missingTitle: string): Promise<StudyPlanSnapshot> {
     .eq('user_id', user.id)
     .order('created_at', { ascending: true })
   // 오류 · 배열 아님은 「빈 계획」이 아니다
-  if (rowsErr || (rowsRaw != null && !Array.isArray(rowsRaw))) return { items: [], failed: true, viewerId }
-  const all = (rowsRaw ?? []) as unknown[]
+  // 실제 배열일 때만 성공 — data:null(오류 없음)도 빈 계획으로 바꾸지 않는다
+  if (rowsErr || !Array.isArray(rowsRaw)) return { items: [], failed: true, viewerId }
+  const all = rowsRaw as unknown[]
   const rows = all.filter(validRow)
   // 형식이 어긋난 행이 있으면 남은 행만 「전체 계획」이라 부르지 않는다
   let failed = rows.length !== all.length
@@ -231,7 +242,9 @@ async function loadStudyPlan(missingTitle: string): Promise<StudyPlanSnapshot> {
 
   // 자료 메타 조회 오류를 기본값 · 「삭제된 자료」로 덮지 않는다
   for (const r of [booksRes, articlesRes, scriptsRes, setsRes] as { error?: unknown; data?: unknown }[]) {
-    if (r.error || (r.data != null && !Array.isArray(r.data))) failed = true
+    if (r.error) failed = true
+    // 배열이 아닌 메타는 조인할 수 없다 — 터지기 전에 실패 결과로 돌려준다
+    if (r.data != null && !Array.isArray(r.data)) return { items: [], failed: true, viewerId }
   }
   const bookMap = new Map(((booksRes.data ?? []) as BookRow[]).map((b) => [b.id, b]))
   const articleMap = new Map(((articlesRes.data ?? []) as ArticleRow[]).map((a) => [a.id, a]))
@@ -249,6 +262,7 @@ async function loadStudyPlan(missingTitle: string): Promise<StudyPlanSnapshot> {
       .not('chapter', 'is', null)
     // 챕터 조회 오류를 「0챕터」로 만들지 않는다
     if (chErr) failed = true
+    if (chRows != null && !Array.isArray(chRows)) return { items: [], failed: true, viewerId }
     for (const r of (chRows ?? []) as { set_id: string; chapter: number | null }[]) {
       if (r.chapter != null) {
         setChapterMax.set(r.set_id, Math.max(setChapterMax.get(r.set_id) ?? 0, r.chapter))

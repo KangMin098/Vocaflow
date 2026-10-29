@@ -6,6 +6,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest'
 type Res = { data: unknown; error: unknown }
 const st = vi.hoisted(() => ({
   user: 'user-a' as string | null,
+  authErr: null as null | { name: string; message: string },
   res: {} as Record<string, Res>,
   calls: [] as string[],
   writes: 0,
@@ -13,7 +14,7 @@ const st = vi.hoisted(() => ({
 
 vi.mock('@/lib/supabase/server', () => ({
   createClient: async () => ({
-    auth: { getUser: async () => ({ data: { user: st.user ? { id: st.user } : null } }) },
+    auth: { getUser: async () => ({ data: { user: st.user ? { id: st.user } : null }, error: st.authErr }) },
     from: (t: string) => {
       st.calls.push(t)
       const chain: Record<string, unknown> = {}
@@ -34,6 +35,7 @@ const err: Res = { data: null, error: { message: 'boom' } }
 
 beforeEach(() => {
   st.user = 'user-a'
+  st.authErr = null
   st.calls = []
   st.writes = 0
   st.res = {
@@ -89,6 +91,35 @@ describe('fetchStudyPlanSnapshot', () => {
     await fetchStudyPlanSnapshot()
     expect(st.writes).toBe(0)
     expect(st.calls).toEqual(['study_plan_items', 'library_books', 'shared_word_sets', 'shared_words'])
+  })
+})
+
+describe('리뷰 r2 반례', () => {
+  it('[P2] 인증 조회 오류 → failed(「비로그인 · 빈 계획」이 아니다) · 세션 없음만 비로그인', async () => {
+    st.user = null
+    st.authErr = { name: 'AuthRetryableFetchError', message: 'fetch failed' }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: true, viewerId: null })
+    st.authErr = { name: 'AuthSessionMissingError', message: 'Auth session missing!' }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: false, viewerId: null })
+  })
+  it('[P2] modules · weekdays · chapters 가 배열이 아니거나 원소 형식이 다르면 → failed · 예외 없음', async () => {
+    for (const bad of [{ modules: 'read' }, { weekdays: '1,2' }, { chapters: [1, '2'] }, { modules: [1] }]) {
+      st.res.study_plan_items = ok([{ ...ROW('p1', 'book', 'b1'), ...bad }])
+      const s = await fetchStudyPlanSnapshot()
+      expect(s.failed).toBe(true)
+      expect(s.items).toEqual([])
+    }
+  })
+  it('[P2] 비배열 메타 → 조인 전에 failed 로 반환 · 예외 없음', async () => {
+    st.res.library_books = ok({ id: 'b1' })
+    await expect(fetchStudyPlanSnapshot()).resolves.toEqual({ items: [], failed: true, viewerId: 'user-a' })
+    st.res.library_books = ok([{ id: 'b1', title: 'Book One' }])
+    st.res.shared_words = ok({ set_id: 's1' })
+    await expect(fetchStudyPlanSnapshot()).resolves.toEqual({ items: [], failed: true, viewerId: 'user-a' })
+  })
+  it('[P2] 목록 data:null · error:null → 빈 계획이 아니라 failed', async () => {
+    st.res.study_plan_items = { data: null, error: null }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: true, viewerId: 'user-a' })
   })
 })
 

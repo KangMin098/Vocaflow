@@ -1,5 +1,7 @@
 // apps/web/src/components/plan/__tests__/plan-read-state.test.tsx
 // T-0240 — /plan 읽기 실패 표시 · 계정 경계(실제 PlanClient 초기 렌더) + page 배선(facade 만 · viewer key).
+import fs from 'node:fs'
+import path from 'node:path'
 import { renderToString } from 'react-dom/server'
 import { beforeEach, describe, expect, it, vi } from 'vitest'
 
@@ -91,5 +93,30 @@ describe('/plan page 배선', () => {
     const el = tree.props.children
     expect(el.key).toBe('user-a')
     expect(el.props).toMatchObject({ initialItems: [], initialFailed: false, viewerId: 'user-a' })
+  })
+})
+
+describe('리뷰 r2 — 쓰기 계정 경계 · props 교체(소스 결속 · 동작은 하네스 pb-t0240-r2)', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  it('[P1] 일괄 담기 — 각 쓰기 직전 guard 토큰 확인, 바뀌면 멈추고 결과를 싣지 않는다', () => {
+    const s = src()
+    const batch = s.slice(s.indexOf('function commitSourceBatch'), s.indexOf('// 담은 항목 즉시 저장'))
+    expect(batch).toMatch(/const token = guard\.token\(\)\s*\n\s*if \(!canWrite\(token\)\) return/)
+    expect(batch).toMatch(/for \(const m of picks\) \{[\s\S]*?if \(!canWrite\(token\)\) break\s*\n[\s\S]*?const res = await savePlanItem\(/)
+    expect(batch).toMatch(/setAdding\(false\)\s*\n\s*if \(!canWrite\(token\)\) return/)
+  })
+  it('[P1] 단건 추가 · 수정 · 삭제도 쓰기 전에 계정 확인', () => {
+    const s = src()
+    const n = (s.match(/if \(!canWrite\(token\)\) return/g) ?? []).length
+    expect(n).toBeGreaterThanOrEqual(7)
+    expect(s).toMatch(/const canWrite = \(token: number\) => !viewerId \|\| guard\.isCurrent\(token\)/)
+  })
+  it('[P2] 같은 viewer props 교체 — 새 snapshot 반영 · 진행 중 읽기 무효 · 선택은 그대로', () => {
+    const s = src()
+    const eff = s.slice(s.indexOf('const firstProps = useRef(true)'), s.indexOf('const canWrite'))
+    expect(eff).toContain('readGen.current++')
+    expect(eff).toContain('setItems(initialItems)')
+    expect(eff).toContain('}, [initialItems, initialFailed])')
+    expect(eff).not.toMatch(/setArtSel|setDraft|setEditId/)
   })
 })
