@@ -28,6 +28,7 @@ import { useTypingMode } from '@/hooks/useTypingMode'
 import { SpellForgeCompletion, type MissKind } from './SpellForgeCompletion'
 
 import { useSessionEscape } from '@/components/layout/session-escape'
+import { nativeControlOwnsKey } from '@/lib/ui/learner-keyboard-scope'
 import { isFullScreenRoute } from '@/lib/layout/full-screen-routes'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import { evaluateInput, generateReflectionMessage } from '@/lib/spellforge/scoring'
@@ -462,6 +463,8 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       if (e.key === 'Enter' && !e.shiftKey) {
         // 「다시 입력하기」 단추의 Enter 는 단추 자신의 일이다 — 같은 오답을 다시 확인하지 않는다
         if (target.closest?.('[data-sf-retry]')) return
+        // 타이핑 칸 밖의 기본 조작부(모드 · 발음 · 확인 단추 · 링크)의 Enter 도 그 조작의 일이다 — 채점하지 않고 브라우저에 맡긴다(T-0261)
+        if (target !== inputRef.current && nativeControlOwnsKey(target)) return
         e.preventDefault()
         if (mode === 'delayed' || mode === 'blind') {
           handleConfirm()
