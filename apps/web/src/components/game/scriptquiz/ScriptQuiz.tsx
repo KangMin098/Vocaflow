@@ -25,6 +25,7 @@ import { buildEvidenceChoice, type EvidenceChoice } from '@/lib/scriptquiz/evide
 import { EvidencePicker, type EvidencePick } from './EvidencePicker'
 import { MissReviewItem } from './MissReview'
 import { pushPendingTextResult } from '@/lib/srs/session-storage'
+import { nativeControlOwnsKey } from '@/lib/ui/learner-keyboard-scope'
 
 // ══════════════════════════════════════════════════════════════
 // Constants
@@ -40,6 +41,14 @@ import { pushPendingTextResult } from '@/lib/srs/session-storage'
  * 처럼 뒤에 설명을 달고 오므로 전체 일치로는 못 잡는다. 못 알아보면 `false` 를 돌려
  * 두 번째 자리(관례상 X)로 두되, 두 선지가 같은 답이 되지는 않게 호출부가 보정한다.
  */
+/**
+ * T-0269 — 답한 뒤 전역 Enter/Space 가 「다음」 으로 넘길지. 키를 받은 곳이 단추 · 링크 · 입력 같은 기본 조작부면
+ * 그 요소가 키를 처리한다(근거 문장 버튼의 Enter/Space 로 다음 문항이 실행되지 않고, 「다음」 단추는 제 클릭으로 한 번만 전진).
+ */
+export function nextKeyAdvances(e: { key: string; target: EventTarget | null }): boolean {
+  return (e.key === 'Enter' || e.key === ' ') && !nativeControlOwnsKey(e.target)
+}
+
 export function isTrueOption(text: string): boolean {
   const t = String(text ?? '').trim().toLowerCase()
   return /^(true|참|o\b|yes)/.test(t)
@@ -137,7 +146,7 @@ export function ScriptQuiz({ showKorean = false, textId, session: sessionProp, p
         }
         return
       }
-      if (e.key === 'Enter' || e.key === ' ') {
+      if (nextKeyAdvances(e)) {
         e.preventDefault()
         goNext()
       }
