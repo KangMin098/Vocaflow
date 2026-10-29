@@ -47,6 +47,7 @@ import {
 } from '@/lib/learner/plan-activities'
 import { V_BANDS, vBandOf } from '@/lib/library/genres'
 import {
+  fetchAvailableMaterials,
   fetchBookChapters,
   fetchStudyPlanSnapshot,
   removePlanItem,
@@ -76,7 +77,7 @@ export function PlanClient({
   initialItems,
   initialFailed = false,
   viewerId = null,
-  materials,
+  materials: initialMaterials,
   todayWeekday,
   weekDates,
 }: {
@@ -105,6 +106,31 @@ export function PlanClient({
   const { guard, status: authStatus } = useStoryAuthGuard(ownerId)
   const guardRef = useRef(guard)
   guardRef.current = guard
+  // 자료 목록의 소유자 경계(r11) — 개인 스크립트 제목이 섞인다. 목록을 읽은 viewer 가 지금 계획 소유자와 같을 때만 쓰고,
+  //   다르면(첫 인증 실패 뒤 다른 계정으로 확립 등) 즉시 비우고 1회만 다시 읽는다. 응답도 소유자가 같을 때만 반영한다
+  const [mats, setMats] = useState<AvailableMaterials>(initialMaterials)
+  const ownerRef = useRef(ownerId)
+  ownerRef.current = ownerId
+  const matsRefetched = useRef(false)
+  const firstMats = useRef(true)
+  useEffect(() => {
+    if (firstMats.current) {
+      firstMats.current = false
+      return
+    }
+    setMats(initialMaterials)
+  }, [initialMaterials])
+  const matsOwner = mats.viewerId ?? null
+  const materials: AvailableMaterials = matsOwner === ownerId ? mats : EMPTY_MATERIALS
+  useEffect(() => {
+    if (ownerId === null || matsOwner === ownerId || matsRefetched.current) return
+    matsRefetched.current = true
+    void fetchAvailableMaterials()
+      .then((m) => {
+        if ((m.viewerId ?? null) === ownerRef.current) setMats(m)
+      })
+      .catch(() => {})
+  }, [ownerId, matsOwner])
   const readGen = useRef(0)
   const retryRef = useRef<HTMLButtonElement | null>(null)
   const headingRef = useRef<HTMLHeadingElement | null>(null)
@@ -877,6 +903,9 @@ export function PlanClient({
     </div>
   )
 }
+
+/** 소유자가 다른 자료 목록 대신 쓰는 빈 목록(r11) */
+const EMPTY_MATERIALS: AvailableMaterials = { viewerId: null, books: [], articles: [], wordSets: [], scripts: [] }
 
 /** 소유자(로그인 계정)를 아직 확인하지 못해 쓰지 않을 때(T-0240 r4) */
 const NO_OWNER = '로그인한 계정을 확인한 뒤에 계획을 저장할 수 있어요. 다시 불러오거나 로그인해 주세요.'

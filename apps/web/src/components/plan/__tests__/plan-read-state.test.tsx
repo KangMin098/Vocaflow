@@ -272,3 +272,28 @@ describe('리뷰 r10 — 쓰기 상태 반드시 해제 · 재시도 실패 뒤 
     expect(x).toContain('if (!a || a === document.body) b.focus()')
   })
 })
+
+describe('리뷰 r11 — 자료 목록의 소유자 경계(개인 스크립트 제목)', () => {
+  const art = (id: string, title: string) => ({ id, title, subtitle: null, slug: null, vLevel: 3, coverUrl: null, coverEmoji: null, source: 'bbc', category: null, chapterCount: 0, bookId: null, chapterIdx: null, feedLabel: null })
+  const mats = (viewerId: string | null) => ({ viewerId, books: [], articles: [], wordSets: [], scripts: [art('s1', 'A Private Script One'), art('s2', 'A Private Script Two')] })
+  const tabCounts = (html: string) => [...html.matchAll(/<button[^>]*role="tab"[\s\S]*?<span class="font-mono text-\[10px\]">(\d+)<\/span>/g)].map((m) => Number(m[1]))
+  const renderM = (m: ReturnType<typeof mats>, viewerId: string | null) =>
+    renderToString(<PlanClient initialItems={[ITEM]} viewerId={viewerId} materials={m} todayWeekday={3} weekDates={WEEK} />)
+  it('[P1] 목록을 읽은 viewer(A)와 계획 소유자(B)가 다르면 A 의 자료를 쓰지 않는다 — 탭 수 0 · 제목 0', () => {
+    const html = renderM(mats('user-a'), 'user-b')
+    expect(tabCounts(html)).toEqual([0, 0, 0, 0])
+    expect(html).not.toContain('A Private Script')
+  })
+  it('대조 — 같은 viewer 면 그대로(내 스크립트 2)', () => {
+    expect(tabCounts(renderM(mats('user-a'), 'user-a'))).toEqual([0, 0, 0, 2])
+  })
+  it('[P1] 소유자 불일치면 1회만 다시 읽고, 응답도 지금 소유자와 같을 때만 반영 · 소유자가 바뀌면 즉시 비움(렌더 시 판정)', () => {
+    const x = fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+    expect(x).toContain('const materials: AvailableMaterials = matsOwner === ownerId ? mats : EMPTY_MATERIALS')
+    expect(x).toMatch(/if \(ownerId === null \|\| matsOwner === ownerId \|\| matsRefetched\.current\) return\s*\n\s*matsRefetched\.current = true\s*\n\s*void fetchAvailableMaterials\(\)/)
+    expect(x).toContain('if ((m.viewerId ?? null) === ownerRef.current) setMats(m)')
+    const a = fs.readFileSync(path.resolve(__dirname, '../../../lib/learner/plan-actions.ts'), 'utf8')
+    expect(a).toMatch(/return \{\s*\n\s*viewerId: user\.id,/)
+    expect(a).toContain("const empty: AvailableMaterials = { viewerId: null,")
+  })
+})

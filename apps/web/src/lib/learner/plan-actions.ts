@@ -83,6 +83,8 @@ export interface MaterialOption {
 }
 
 export interface AvailableMaterials {
+  /** 이 목록을 읽은 서버 Auth 의 id(T-0240 r11) — 개인 스크립트가 섞이므로 화면은 계획 소유자와 같을 때만 쓴다(비로그인 null) */
+  viewerId?: string | null
   books: MaterialOption[]
   articles: MaterialOption[]
   wordSets: MaterialOption[]
@@ -369,7 +371,7 @@ function wordSetVLevel(slug: string | null, cefr: string | null): number | null 
 
 /** 계획에 추가 가능한 자료 — 도서 / 스크립트(article) / 공용단어장 / 내 스크립트. */
 export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
-  const empty: AvailableMaterials = { books: [], articles: [], wordSets: [], scripts: [] }
+  const empty: AvailableMaterials = { viewerId: null, books: [], articles: [], wordSets: [], scripts: [] }
   const client = await createClient()
   const {
     data: { user },
@@ -425,6 +427,7 @@ export async function fetchAvailableMaterials(): Promise<AvailableMaterials> {
   }
 
   return {
+    viewerId: user.id,
     books: ((books ?? []) as BookRow[]).map((b) =>
       mkOption({
         id: b.id,
