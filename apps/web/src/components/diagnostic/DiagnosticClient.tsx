@@ -18,6 +18,7 @@ import { SealMark } from '@/components/ui/press'
 import { createClient } from '@/lib/supabase/client'
 import { useStoryAuthGuard, type StoryAuthSource } from '@/components/library/story/use-story-auth-guard'
 import {
+  PROGRESS_TTL_MS,
   RESUME_REASON_TEXT,
   clearProgress,
   completeFor,
@@ -382,6 +383,8 @@ export function DiagnosticClient({
   async function startTest(test: TestInfo) {
     const my = ++req.current
     const token = guard.token()
+    // 진행 중이던 이어서 하기는 이 시작이 대체한다 — 그 요청의 finally 는 세대가 달라 resuming 을 풀지 않는다
+    setResuming(false)
     setError(null)
     setResumeBlocked(null)
     setSelectedTest(test)
@@ -414,6 +417,12 @@ export function DiagnosticClient({
     const token = guard.token()
     setResuming(true)
     try {
+      // 시작 화면에서 읽은 뒤 시간이 흘렀을 수 있다 — 이어서 하는 순간 주입 시각으로 다시 잰다
+      if (now() - progress.savedAt > PROGRESS_TTL_MS) {
+        setSaved(null)
+        setResumeBlocked({ text: RESUME_REASON_TEXT.expired, test: null })
+        return
+      }
       const test = tests.find((t) => t.id === progress.testId)
       if (!test) {
         // 진단 자체가 사라졌다(비공개 전환 등) — 보관분은 지우지 않고 이유만 말한다.
@@ -478,6 +487,22 @@ export function DiagnosticClient({
     setPhase('submitting')
     setError(null)
 
+    // 제출 직전 문항판을 다시 받아 시작 · 재개 때 고정한 판(ctx.questions)의 서명과 맞춘다 —
+    //   그 사이 서버의 본문 · 난도 · 순서가 바뀌었으면 옛 판의 답을 새 판 결과로 보내지 않는다.
+    const fresh = await fetchQuestions(selectedTest.id)
+    if (viewerId !== null && !guard.isCurrent(ctx.token)) {
+      setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
+      return
+    }
+    if ('err' in fresh) {
+      setError(fresh.err)
+      return
+    }
+    if (questionSig(fresh.data) !== questionSig(qs)) {
+      setError('그 사이 진단 문항이 바뀌어 제출하지 않았어요. 처음부터 다시 풀어 주세요.')
+      return
+    }
+
     const { data: userData } = await supabase.auth.getUser()
     const userId = userData.user?.id
     if (!userId) {
@@ -501,6 +526,12 @@ export function DiagnosticClient({
       .select('id')
       .single()
 
+    const authGone = () => {
+      if (guard.isCurrent(ctx.token)) return false
+      setError('로그인한 계정이 바뀌어 결과 반영을 멈췄어요. 새로 고침해 주세요.')
+      return true
+    }
+    if (authGone()) return
     if (insertErr || !insertData) {
       setError(insertErr?.message ?? '결과 저장 실패')
       return
@@ -512,6 +543,7 @@ export function DiagnosticClient({
     //   빠졌고, 하마터면 진단 3종의 EXECUTE 를 회수해 이 흐름을 조용히 죽일 뻔했다.
     //   회귀 락: src/lib/auth/__tests__/rpc-call-sites.test.ts
     const p = { p_result_id: insertData.id }
+    if (authGone()) return
     const { data: applyData, error: applyErr } =
       selectedTest.test_type === 'track'
         ? await supabase.rpc('analyze_and_apply_track_diagnostic_result', p)
@@ -530,6 +562,7 @@ export function DiagnosticClient({
       | null
     const lvl =
       selectedTest.test_type === 'track' ? r?.estimated_track_level : r?.estimated_v_level
+    if (authGone()) return
     setEstimatedLevel(lvl ?? null)
     setConfidence(r?.confidence ?? null)
 
@@ -539,6 +572,7 @@ export function DiagnosticClient({
     setSaved(null)
 
     if (selectedTest.test_type === 'base_v_level' || selectedTest.test_type === 'comprehensive') {
+      if (authGone()) return
       await fetchRecommendations(userId, [])
     }
     setPhase('results')
@@ -614,6 +648,17 @@ export function DiagnosticClient({
             이 화면의 답은 이전 계정의 것이라 보이거나 제출하지 않아요. 새로 고침하면 지금 계정으로 다시 시작할 수 있어요.
           </p>
         </div>
+      </div>
+    )
+  }
+
+  // 신원 확인 중(checking) — 뒤로 · 앞으로 캐시에서 되살아나면 다시 확인할 때까지 이전 진행 위치 · 응답 수 · 결과를 보이지 않는다.
+  if (viewerId !== null && authStatus === 'checking' && phase !== 'start') {
+    return (
+      <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
+        <p role="status" className="break-keep rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 font-body text-[13px] text-[var(--t2)]" data-testid="diag-auth-checking">
+          로그인 상태를 다시 확인하는 중이에요. 확인되면 진단을 이어서 보여 드려요.
+        </p>
       </div>
     )
   }
