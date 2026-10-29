@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(spellforge): 학습 중 모드·발음·확인 단추와 링크의 Enter 는 그 조작에 맡기고(nativeControlOwnsKey) 채점·SRS 0, 입력칸 Enter 는 기존 확인 1회. Codex 리뷰 NO_FINDINGS, 실 라우트·DB NOT_RUN (T-0261 d36974176)
 - fix(practice): R0 기사 연습에서 제출 단추로 제출해 채점에 성공하면 피드백 제목으로 초점 1회(기사 opt-in) — 대기 중 본문 클릭·Shift+Tab·창/탭 이탈 시 취소, 실패·재렌더·다음 전환 이동 0. Codex 리뷰 3회 반려 뒤 NO_FINDINGS, 실 스크린리더·탭 전환 NOT_RUN (T-0259 5ea4c04cd)
 - fix(diagnostic): 진단 이어서 하기를 본인·시험·문항판·요청 세대에 결속 — 계정 변경 시 viewer별 재생성·보관분/개인 레벨 차단, 진행 잠금(답·제출·확인)은 현재 요청 세대에서 파생, 저장 실패 뒤 메모리 최신 응답으로 재개, 만료 이유 안내, 늦은 조회·제출·오류가 새 화면을 덮지 않음. Codex 리뷰 8회 반려 뒤 NO_FINDINGS, 실DB 제출·실Auth NOT_RUN (T-0239 1d11f076f)
 - fix(pairflip): 결과의 「한 번 더」가 그 결과의 검증된 난이도·모드를 기존 config 계약에 저장한 뒤 시작(저장 실패 시 이동 0·안내·/pairflip 링크). Codex 리뷰 NO_FINDINGS (T-0255 f10780a4d)
