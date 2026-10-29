@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(test): RPC 정적 수집기가 Story 전달 어댑터 호출부(callStoryRpc·callRpc·save-word rpc 의 둘째 인자 리터럴)를 Story 파일 범위에서만 이름으로 수집 — 세 전달부는 이유 붙은 PASS_THROUGH, 변수 RPC명은 여전히 위반. story-activity·교재 연습(f7edec813) 테스트의 가짜 handler h.rpc→h.respond 로 오탐 제거(실제 rpc·인자·단언 불변). 전달 줄 한 줄만 면제·여러 줄·결합식 호출도 위반. Codex 리뷰 2회 반려 뒤 NO_FINDINGS, 실DB 0 (T-0245 5bdb9713b)
 - feat(practice): R0 기사 연습 완료 복기에서 같은 글 전체를 「읽은 글 참고」로 펼쳐 대조(opt-in, 재조회 0) — 본문은 문자열 정확 비교로 판본 결속, 글·계정·본문 변경 시 플레이어 재시작. Codex 리뷰 1회 반려 뒤 NO_FINDINGS (T-0231 a2c8916eb)
 - fix(dictation): 「틀린 문항만 다시」 뒤에도 읽던 글 복귀(from) 유지(봉투 저장 성공 뒤 withDictationFrom, 외부·자기 경로는 기존 fallback). Codex 리뷰 NO_FINDINGS (T-0243 caaf7d301)
 - feat(practice): R0 기사 제목·주제 문항에서 답 제출 전 본문 문장 하나를 선택적으로 짚고, 성공한 피드백에 「이번 제출 당시 짚은 문장」으로 대조 — 제출 시작 snapshot, 문항·판본 교체 시 선택 초기화, 서버에는 기존 {choice} 만. 기존 Feedback 형제 key 충돌(T-0207 이후)도 정정. Codex 리뷰 1회 반려 뒤 NO_FINDINGS (T-0230 8c34deefc)
