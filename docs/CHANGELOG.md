@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(csat): U02 이음매 판단 비교표의 「해설 요청 당시」·「지금」 중심 화제 문장을 「N번」 단추로 원문에서 가리킴(지운 당시 선택도 원문에 있으면 가능, 없는 id·고정 없음은 단추 0, 화제 고정·snapshot·해설 요청 불변). Codex 리뷰 NO_FINDINGS (T-0270 69d7c295b)
 - fix(wordvault): 학습 모드에서 초점된 평가·발음 단추·링크의 Space 는 그 조작에 맡기고(nativeControlOwnsKey) 발음 재생 0, 본문 Space 공개·재생·숫자 평가·세션 주인 경계 유지. Codex 리뷰 NO_FINDINGS, DB SRS 쓰기 NOT_RUN (T-0263 a889a48c2)
 - fix(plan): 저장 전에 출발한 서버 갱신(snapshot)이 저장 뒤 도착하면 반영하지 않고 1회 재조회 — 쓰기 성공의 서버 시각과 조회 출발 시각을 비교(다른 viewer 폐기·쓰기 중 보류 순서 유지). Codex 리뷰 NO_FINDINGS, 실 /plan·DB NOT_RUN (T-0251 fbf97fe93)
 - fix(pairflip): 결과 목록의 시도 표지를 확인 가능한 사실만으로 — 1·2회 「맞힌 짝」, 3회 이상 「다시 시도한 짝」(정확한 횟수 단정 0, 회상·긴 글 보존). Codex 리뷰 NO_FINDINGS (T-0266 d8ffa5cca)
