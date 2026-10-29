@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(plan): 저장 전에 출발한 서버 갱신(snapshot)이 저장 뒤 도착하면 반영하지 않고 1회 재조회 — 쓰기 성공의 서버 시각과 조회 출발 시각을 비교(다른 viewer 폐기·쓰기 중 보류 순서 유지). Codex 리뷰 NO_FINDINGS, 실 /plan·DB NOT_RUN (T-0251 fbf97fe93)
 - fix(pairflip): 결과 목록의 시도 표지를 확인 가능한 사실만으로 — 1·2회 「맞힌 짝」, 3회 이상 「다시 시도한 짝」(정확한 횟수 단정 0, 회상·긴 글 보존). Codex 리뷰 NO_FINDINGS (T-0266 d8ffa5cca)
 - fix(echomatch): 음성 모델 다운로드 실패 뒤 「음성 모델 다시 받기」가 실제로 재다운로드(명시 재시도 세대, 자동 반복 0, 받는 중 중복 무시, 언마운트 뒤 반영 0). Codex 리뷰 NO_FINDINGS, 실 모델·네트워크 NOT_RUN (T-0267 87d0b8697)
 - fix(wordblitz): 완료 화면 「이 자료의 단어 보기」 링크가 검증된 from 을 이어 붙여 단어장에서 읽던 글로 복귀(외부·역슬래시·제어문자 거부, 범위 없는 단어장 링크 불변). Codex 리뷰 NO_FINDINGS (T-0268 7c67a31a3)
