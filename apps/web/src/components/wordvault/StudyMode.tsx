@@ -16,6 +16,7 @@ import { cardToUpdatePayload } from '@/lib/srs/supabase-adapter'
 import { flushPendingSession } from '@/lib/srs/flush-session'
 import { useSrsFlushOnLeave } from '@/hooks/useSrsFlushOnLeave'
 import { useSessionEscape } from '@/components/layout/session-escape'
+import { nativeControlOwnsKey } from '@/lib/ui/learner-keyboard-scope'
 import { useSpeech } from './hooks/useSpeech'
 import type { StudyState, WordItem } from './types'
 
@@ -209,6 +210,8 @@ export function StudyMode({ words, onExit, viewerId, authSource }: StudyModeProp
       if (!ownsSession()) return
 
       if (e.code === 'Space') {
+        // 초점된 단추(평가 · 발음 등) · 링크의 Space 는 그 조작의 일이다 — 공개 · 재생으로 가로채지 않는다(T-0263)
+        if (nativeControlOwnsKey(e.target)) return
         e.preventDefault()
         if (state === 'hidden') revealMeaning()
         else if (state === 'meaning-shown') revealExample()
