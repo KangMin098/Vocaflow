@@ -44,9 +44,10 @@ export function RecallPairRow({ pair, badge }: { pair: PairFlipPairResult; badge
     <li className="flex items-center gap-3 px-4 py-3" data-testid="pf-recall-pair">
       <Check size={14} className="shrink-0 text-[var(--success)]" aria-hidden />
       <div className="min-w-0 flex-1">
-        <p className="truncate font-english text-[14px] font-[600] text-[var(--t1)]">{pair.word}</p>
+        {/* T-0256 — 긴 단어도 자르지 않는다(줄바꿈) */}
+        <p className="font-english text-[14px] font-[600] text-[var(--t1)] [overflow-wrap:anywhere]">{pair.word}</p>
         {/* 연 뜻은 자르지 않는다 — 떠올린 것과 끝까지 견줄 수 있게(가린 안내는 한 줄) */}
-        <p id={id} className={`font-body text-[12px] text-[var(--t2)] ${shown ? 'break-keep' : 'truncate'}`} data-testid="pf-recall-meaning">
+        <p id={id} className={`font-body text-[12px] text-[var(--t2)] ${shown ? 'break-keep [overflow-wrap:anywhere]' : 'truncate'}`} data-testid="pf-recall-meaning">
           {shown ? pair.meaning : '뜻을 먼저 떠올려 보세요'}
         </p>
       </div>
@@ -114,10 +115,11 @@ export function PairFlipPairsList({ pairs }: PairsListProps) {
                   aria-hidden
                 />
                 <div className="min-w-0 flex-1">
-                  <p className="truncate font-english text-[14px] font-[600] text-[var(--t1)]">
+                  {/* T-0256 — 일반 행의 단어 · 뜻은 끝까지(줄바꿈 · 한글 break-keep · 긴 토큰은 어디서든 끊김) */}
+                  <p className="font-english text-[14px] font-[600] text-[var(--t1)] [overflow-wrap:anywhere]" data-testid="pf-pair-word">
                     {p.word}
                   </p>
-                  <p className="truncate font-body text-[12px] text-[var(--t2)]">
+                  <p className="break-keep font-body text-[12px] text-[var(--t2)] [overflow-wrap:anywhere]" data-testid="pf-pair-meaning">
                     {p.meaning}
                   </p>
                 </div>

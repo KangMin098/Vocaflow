@@ -47,7 +47,7 @@ describe('PairFlipPairsList 뜻 가리기', () => {
     expect(html).toContain('>뜻 가리기<')
     expect(html).toMatch(/aria-expanded="true"[^>]*aria-controls=/)
     // 연 뜻은 자르지 않는다(가린 안내만 한 줄)
-    expect(html).toContain('class="font-body text-[12px] text-[var(--t2)] break-keep" data-testid="pf-recall-meaning"')
+    expect(html).toContain('class="font-body text-[12px] text-[var(--t2)] break-keep [overflow-wrap:anywhere]" data-testid="pf-recall-meaning"')
   })
   it('모두 한 번에 맞혔으면(실제 훅 값 2) 예전 목록 그대로(가림 · 토글 없음)', () => {
     const html = render([pair('a', 2), pair('d', 2)])
@@ -62,5 +62,27 @@ describe('PairFlipPairsList 뜻 가리기', () => {
     expect(fetchSpy).not.toHaveBeenCalled()
     const src = (await import('node:fs')).readFileSync(new URL('../PairFlipPairsList.tsx', import.meta.url), 'utf8')
     expect(src).not.toMatch(/fetch\(|track\(|record|use server|supabase/i)
+  })
+})
+
+describe('T-0256 — 긴 단어 · 뜻을 자르지 않는다(회상 가림은 그대로)', () => {
+  const LONG_W = 'antidisestablishmentarianism'
+  const LONG_M = '국가와 교회의 분리에 반대하는 정치적 입장을 가리키는 아주 긴 뜻 설명'
+  it('일반 행 — 단어 · 뜻에 truncate 없음 · 줄바꿈 클래스', () => {
+    const html = renderToStaticMarkup(<PairFlipPairsList pairs={[{ pairId: 'x', word: LONG_W, meaning: LONG_M, attempts: 2, matchedAt: 0, fsrsRating: 3 }]} />)
+    h.seed = [true]
+    const open = renderToStaticMarkup(<PairFlipPairsList pairs={[{ pairId: 'x', word: LONG_W, meaning: LONG_M, attempts: 2, matchedAt: 0, fsrsRating: 3 }]} />)
+    expect(open).toContain('pf-pair-word')
+    for (const out of [html, open].filter((x) => x.includes('pf-pair-word'))) {
+      expect(out).toContain('<p class="font-english text-[14px] font-[600] text-[var(--t1)] [overflow-wrap:anywhere]" data-testid="pf-pair-word">')
+      expect(out).toContain('<p class="break-keep font-body text-[12px] text-[var(--t2)] [overflow-wrap:anywhere]" data-testid="pf-pair-meaning">')
+      expect(out).toContain(LONG_M)
+    }
+  })
+  it('회상 행 — 단어는 줄바꿈, 뜻은 열기 전 가림(안내 한 줄만 truncate)', () => {
+    const html = render([{ pairId: 'y', word: LONG_W, meaning: LONG_M, attempts: 3, matchedAt: 0, fsrsRating: 3 }], [true, false])
+    expect(html).not.toContain(LONG_M)
+    expect(html).toContain('뜻을 먼저 떠올려 보세요')
+    expect(html).not.toMatch(/class="truncate font-english/)
   })
 })
