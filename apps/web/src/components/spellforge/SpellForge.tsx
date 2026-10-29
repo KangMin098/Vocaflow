@@ -16,7 +16,7 @@ import { MicroPause } from './MicroPause'
 import { ModeSelector } from './ModeSelector'
 import { ReflectionHint } from './ReflectionHint'
 import { bumpRetryEpoch, makeRetry, type RetryEpoch } from './error-retry'
-import { NO_FIRST_ERRORS, firstErrorFor, firstErrorOwner, recordFirstError, type FirstErrors } from './first-error'
+import { NO_FIRST_ERRORS, firstErrorFor, firstErrorMaterial, firstErrorOwner, recordFirstError, type FirstErrors } from './first-error'
 import { SingleBox } from './SingleBox'
 
 import { useActiveHint } from '@/hooks/useActiveHint'
@@ -152,6 +152,11 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
   const [retryAction, setRetryAction] = useState<(() => boolean) | null>(null)
   // T-0238 이번 판에서 처음 틀리게 제출한 철자 — 판 주인(본인 · 자료 · 판 시작) · 낱말 id + 철자에 묶인 화면 메모리
   const [firstErrors, setFirstErrors] = useState<FirstErrors>(NO_FIRST_ERRORS)
+  // 판 결속 — 본인 · 자료 id · 판 시작 · 지금 props 의 자료 · 낱말(id + 철자). 같은 인스턴스에서 props 가 바뀌면 키가 달라져 즉시 숨고(렌더) 비운다(effect)
+  const firstErrorKey = firstErrorOwner(viewerId, textId, session.startedAt.getTime(), firstErrorMaterial(content, words))
+  useEffect(() => {
+    setFirstErrors((prev) => (prev.owner === '' || prev.owner === firstErrorKey ? prev : NO_FIRST_ERRORS))
+  }, [firstErrorKey])
   useEffect(() => {
     bumpRetryEpoch(retryEpochRef.current)
     setRetryAction(null)
@@ -309,7 +314,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       // 처음 틀리게 제출한 값 하나만(이후 오답 · 재시도 · 정답은 덮지 않는다) — 주인이 아니면 넣지 않는다
       if (currentWord && ownsSession()) {
         const word = currentWord
-        setFirstErrors((prev) => recordFirstError(prev, firstErrorOwner(viewerId, textId, session.startedAt.getTime()), word, submitted))
+        setFirstErrors((prev) => recordFirstError(prev, firstErrorKey, word, submitted))
       }
       setReflectionMsg(generateReflectionMessage(evalResult))
 
@@ -325,7 +330,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
       })
       setRetryAction(() => retry)
     },
-    [resetFeedback, ownsSession, currentWord, markMissed, viewerId, textId, session.startedAt]
+    [resetFeedback, ownsSession, currentWord, markMissed, firstErrorKey]
   )
 
   /**
@@ -504,7 +509,7 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
             // 긍정 확인(same)된 본인 화면에서만 — checking · changed 에서는 개인 입력을 넘기지 않는다
             firstError:
               viewerId === undefined || authStatus === 'same'
-                ? firstErrorFor(firstErrors, firstErrorOwner(viewerId, textId, session.startedAt.getTime()), w)
+                ? firstErrorFor(firstErrors, firstErrorKey, w)
                 : null,
           }))}
       />

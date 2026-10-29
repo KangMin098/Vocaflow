@@ -12,10 +12,16 @@ export interface FirstErrors {
 
 export const NO_FIRST_ERRORS: FirstErrors = { owner: '', entries: {} }
 
-/** 판 주인 — 본인(로그인 없음 · 주인 미지정 구분) · 자료 · 판 시작 시각. */
-export function firstErrorOwner(viewerId: string | null | undefined, textId: string, startedAtMs: number): string {
+/** 지금 props 의 자료 · 낱말(id + 철자) 서명 — 같은 인스턴스에서 자료나 같은 id 의 철자가 바뀌면 달라진다. */
+export function firstErrorMaterial(content: { type: string; id?: string; chapter?: number } | null | undefined, words: readonly { id: string; text: string }[]): string {
+  const c = content ? `${content.type}:${content.id ?? ''}:${content.chapter ?? ''}` : '-'
+  return `${c}#${words.map((w) => `${w.id}\u0000${w.text}`).join('\u0001')}`
+}
+
+/** 판 주인 — 본인(로그인 없음 · 주인 미지정 구분) · 자료 id · 판 시작 시각 · 지금 props 의 자료 · 낱말 서명(firstErrorMaterial). */
+export function firstErrorOwner(viewerId: string | null | undefined, textId: string, startedAtMs: number, material = ''): string {
   const who = viewerId === undefined ? 'unbound' : viewerId === null ? 'anon' : `u:${viewerId}`
-  return `${who}|${textId}|${startedAtMs}`
+  return `${who}|${textId}|${startedAtMs}|${material}`
 }
 
 /** incorrect 로 처리된 제출 한 번 — 이 판 · 이 낱말의 첫 값이면 넣고, 아니면 그대로. */

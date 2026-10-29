@@ -11,7 +11,30 @@ vi.mock('@/lib/scores/record-score', () => ({ useRecordGameScore: () => {} }))
 vi.mock('next/navigation', () => ({ useRouter: () => ({ push: () => {}, refresh: () => {} }), usePathname: () => '/spellforge/play' }))
 
 import { MissedWordRow } from '../SpellForgeCompletion'
-import { NO_FIRST_ERRORS, firstErrorFor, firstErrorOwner, recordFirstError } from '../first-error'
+import { NO_FIRST_ERRORS, firstErrorFor, firstErrorMaterial, firstErrorOwner, recordFirstError } from '../first-error'
+
+describe('firstErrorMaterial — 같은 인스턴스 props 교체(리뷰 P1)', () => {
+  const WORDS = [{ id: 'w1', text: 'resilient' }, { id: 'w2', text: 'brave' }]
+  const C = { type: 'text', id: 't-1' }
+  const key = (content: typeof C | null, words: typeof WORDS) => firstErrorOwner('u-1', 't1', 1000, firstErrorMaterial(content, words))
+  it('같은 id 의 철자 · 낱말 구성 · 자료가 바뀌면 키가 바뀌어 예전 오입력이 보이지 않는다', () => {
+    const k = key(C, WORDS)
+    const s = recordFirstError(NO_FIRST_ERRORS, k, WORDS[0], 'resilent')
+    expect(firstErrorFor(s, k, WORDS[0])).toBe('resilent')
+    expect(key(C, WORDS)).toBe(k) // 같은 내용의 새 배열 — 그대로
+    for (const other of [
+      key(C, [{ id: 'w1', text: 'resilience' }, WORDS[1]]),
+      key(C, [WORDS[0]]),
+      key(C, [WORDS[1], WORDS[0]]),
+      key({ type: 'text', id: 't-2' }, WORDS),
+      key({ type: 'book', id: 't-1' }, WORDS),
+      key(null, WORDS),
+    ]) {
+      expect(other).not.toBe(k)
+      expect(firstErrorFor(s, other, WORDS[0])).toBeNull()
+    }
+  })
+})
 
 const W = { id: 'w1', text: 'resilient' }
 const OWNER = firstErrorOwner('u-1', 't1', 1000)
@@ -72,7 +95,11 @@ describe('SpellForge 소스 결속', () => {
     expect(src).toMatch(/handleError\(evalResult, userInput\)/)
     expect(src.match(/recordFirstError\(/g)?.length).toBe(1)
     const block = src.slice(src.indexOf('const handleError = useCallback('), src.indexOf('const handlePauseSkip'))
-    expect(block).toMatch(/if \(currentWord && ownsSession\(\)\) \{[\s\S]*recordFirstError\(prev, firstErrorOwner\(viewerId, textId, session\.startedAt\.getTime\(\)\), word, submitted\)/)
+    expect(block).toMatch(/if \(currentWord && ownsSession\(\)\) \{[\s\S]*recordFirstError\(prev, firstErrorKey, word, submitted\)/)
+    // T-0238 리뷰 P1 — 판 키는 지금 props 의 자료 · 낱말 서명까지 묶고, 키가 바뀌면 비운다
+    expect(src).toMatch(/const firstErrorKey = firstErrorOwner\(viewerId, textId, session\.startedAt\.getTime\(\), firstErrorMaterial\(content, words\)\)/)
+    expect(src).toMatch(/prev\.owner === firstErrorKey \? prev : NO_FIRST_ERRORS[\s\S]{0,20}\}, \[firstErrorKey\]\)/)
+    expect(src).toMatch(/firstErrorFor\(firstErrors, firstErrorKey, w\)/)
     expect(src).toMatch(/setFirstErrors\(NO_FIRST_ERRORS\)\n\s*\}, \[viewerId, authStatus\]\)/)
     expect(src).toMatch(/viewerId === undefined \|\| authStatus === 'same'\s*\? firstErrorFor\(/)
     // 입력 문자열을 밖으로 보내지 않는다
