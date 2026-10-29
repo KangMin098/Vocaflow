@@ -39,7 +39,7 @@ import { ResultsRelisten, type RelistenSpeaker } from '@/lib/dictation/results-r
 import { NextActionCard } from '@/components/recommend/NextActionCard'
 import { analyzeErrorPatterns } from '@/lib/dictation/analyzer'
 import { tagCoach, tagLabel } from '@/lib/dictation/error-tags'
-import { fetchDictationSessionDetail, type SessionDetail } from '@/lib/dictation/persist'
+import { readDictationSessionDetail, type SessionDetail } from '@/lib/dictation/persist'
 import { createClient } from '@/lib/supabase/client'
 import { useNextAction } from '@/lib/recommend/use-next-action'
 import type { WordResult } from '@/lib/dictation/types'
@@ -56,7 +56,13 @@ export function DictationResultsClient() {
   const from = dictationFrom(searchParams.get('from'))
 
   const [stored, setDetail] = useState<SessionDetail | null>(null)
-  const [state, setState] = useState<'loading' | 'ready' | 'missing'>('loading')
+  // failed = 조회 실패(세션 · 문항 · 예외) — 확인된 부재(missing)와 다르다. retrying = 학습자가 누른 다시 불러오기 진행 중(실패 화면 유지)
+  const [state, setState] = useState<'loading' | 'ready' | 'missing' | 'failed' | 'retrying'>('loading')
+  // 명시적 다시 불러오기 — 누를 때마다 +1. 자동 재조회는 없다.
+  const [reloadSeq, setReloadSeq] = useState(0)
+  const resultHeadRef = useRef<HTMLHeadingElement>(null)
+  // 다시 불러오기로 결과가 열린 그 렌더에만 결과 제목으로 초점을 1회 옮긴다(실패면 단추에 그대로 둔다)
+  const focusResultAfterRetry = useRef(false)
 
   // 요청 결속 — 보관된 결과가 지금 URL 이 요청한 세션일 때만 쓴다(effect 가 돌기 전 렌더에서도 옛 결과를 붙이지 않는다).
   const detail = currentSnapshot(stored, sessionId)
@@ -76,7 +82,8 @@ export function DictationResultsClient() {
   useEffect(() => {
     // sessionId 가 바뀌면 옛 결과를 먼저 내린다 — 늦은 응답은 아래 mounted 판정이 버린다.
     setDetail(null)
-    setState('loading')
+    // 다시 불러오기는 실패 화면을 그대로 둔 채(단추 초점 유지) 기다린다 — 처음 · 세션 변경만 불러오는 중 화면
+    setState((prev) => (reloadSeq > 0 && (prev === 'failed' || prev === 'retrying') ? 'retrying' : 'loading'))
     if (!sessionId) {
       router.replace('/dictate')
       return
@@ -88,19 +95,32 @@ export function DictationResultsClient() {
     }
     let mounted = true
     void (async () => {
-      const d = await fetchDictationSessionDetail(createClient(), sessionId)
+      const read = await readDictationSessionDetail(createClient(), sessionId)
+      // 늦은 응답(세션 변경 · 다시 불러오기 · 언마운트 뒤)은 버린다
       if (!mounted) return
-      if (!d || !acceptLoaded(sessionId, d)) {
+      if (read.status === 'failed') {
+        setState('failed')
+        return
+      }
+      if (read.status === 'absent' || !acceptLoaded(sessionId, read.detail)) {
         setState('missing')
         return
       }
-      setDetail(d)
+      focusResultAfterRetry.current = reloadSeq > 0
+      setDetail(read.detail)
       setState('ready')
     })()
     return () => {
       mounted = false
     }
-  }, [sessionId, router])
+  }, [sessionId, router, reloadSeq])
+
+  // 다시 불러오기로 결과가 열린 뒤(주인 확인까지 끝나 제목이 그려진 렌더) 결과 제목으로 1회 — 첫 진입 · 재렌더에는 옮기지 않는다
+  useEffect(() => {
+    if (state !== 'ready' || !focusResultAfterRetry.current || !resultHeadRef.current) return
+    focusResultAfterRetry.current = false
+    resultHeadRef.current.focus()
+  }, [state, detail, authStatus])
 
   const agg = useMemo(() => {
     if (!detail) return null
@@ -164,6 +184,45 @@ export function DictationResultsClient() {
     )
   }
 
+  if (state === 'failed' || state === 'retrying') {
+    const retrying = state === 'retrying'
+    return (
+      <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center" data-testid="results-read-failed">
+        <div>
+          <h1 tabIndex={-1} className="rounded-[4px] font-editorial text-[16px] font-[700] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">
+            결과를 불러오지 못했어요
+          </h1>
+          <p className="mt-1.5 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+            연결이 잠시 불안정했을 수 있어요. 기록은 지워지지 않았어요 — 다시 불러와 같은 결과를 확인해 보세요.
+          </p>
+          <p role="status" aria-live="polite" className="mt-1 font-body text-[12px] text-[var(--t2)]">
+            {retrying ? '다시 불러오는 중이에요' : ''}
+          </p>
+        </div>
+        <button
+          type="button"
+          data-testid="results-reload"
+          aria-disabled={retrying ? 'true' : undefined}
+          aria-busy={retrying ? 'true' : undefined}
+          onClick={() => {
+            if (retrying) return
+            setReloadSeq((n) => n + 1)
+          }}
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 font-display text-[13px] font-[700] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 aria-disabled:opacity-60"
+        >
+          {retrying ? <Loader2 size={14} className="animate-spin" aria-hidden="true" /> : <RotateCw size={14} aria-hidden="true" />}
+          다시 불러오기
+        </button>
+        <Link
+          href="/dictate"
+          className="inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-md)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+        >
+          받아쓰기로 돌아가기
+        </Link>
+      </div>
+    )
+  }
+
   if (state === 'missing' || !detail || !agg || (!!ownerId && authStatus === 'changed')) {
     return (
       <div className="mx-auto flex max-w-md flex-col items-center gap-4 px-4 py-16 text-center">
@@ -223,7 +282,7 @@ export function DictationResultsClient() {
           {/* 히어로 최상단이 이 화면의 이름이다 — `p` 로 두면 결과 화면 전체에 h1 이 없다
               (실측 2026-09-06: 전 화면 정체 검사에서 `/dictate/results` 만 h1=0 이었다).
               보이는 모습은 그대로 두고 의미만 바로잡는다. */}
-          <h1 className="font-editorial text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80">
+          <h1 ref={resultHeadRef} tabIndex={-1} className="font-editorial text-[12px] font-[700] uppercase tracking-[0.10em] opacity-80 rounded-[4px] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--ti)]">
             받아쓰기 완료
           </h1>
           <p data-testid="results-accuracy" className="mt-2 font-display text-[60px] font-[800] leading-none tabular-nums">
