@@ -86,7 +86,7 @@ export function SubscribeSuccessToast({ data, onClose }: Props) {
         {data.importedCount > 0 && (
           <Link
             href={browseHref}
-            className="mt-2 inline-flex items-center gap-1 font-display text-[12px] font-[700] text-[var(--success-ink)] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--success)] focus-visible:ring-offset-1"
+            className="mt-1 inline-flex min-h-11 items-center gap-1 font-display text-[12px] font-[700] text-[var(--success-ink)] underline-offset-2 hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--success)] focus-visible:ring-offset-1"
           >
             내 단어장에서 보기
             <ArrowRight size={12} aria-hidden />
