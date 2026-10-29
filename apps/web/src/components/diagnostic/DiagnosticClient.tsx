@@ -21,6 +21,7 @@ import {
   PROGRESS_TTL_MS,
   RESUME_REASON_TEXT,
   acceptFetch,
+  answerLocked,
   canSubmit,
   pickResumeSource,
   clearProgress,
@@ -400,6 +401,8 @@ export function DiagnosticClient({
   const [reviewLocked, setReviewLocked] = useState(false)
   /** 새 시작의 문항 조회가 진행 중(그 요청 세대) — 그동안 진행 화면의 답 단추를 잠근다(이전 진단 문항에 답해 새 시험으로 보관되지 않게) */
   const [startPending, setStartPending] = useState<number | null>(null)
+  /** 답 단추 잠김 — 잠근 시작 요청이 **지금 세대**일 때만. 재개 · 다른 시작이 대체하면 저절로 풀린다 */
+  const startLocked = answerLocked(startPending, req.current)
 
   async function startTest(test: TestInfo) {
     const my = ++req.current
@@ -445,6 +448,7 @@ export function DiagnosticClient({
     if (resuming || !owner || progress.owner !== owner) return
     const my = ++req.current
     const token = guard.token()
+    setStartPending(null)
     setResuming(true)
     try {
       // 시작 화면에서 읽은 뒤 시간이 흘렀을 수 있다 — 이어서 하는 순간 주입 시각으로 다시 잰다
@@ -493,7 +497,7 @@ export function DiagnosticClient({
   function handleAnswer(knew: boolean) {
     const q = questions[currentIdx]
     if (!q || !selectedTest) return
-    if (startPending !== null) return
+    if (startLocked) return
     if (viewerId !== null && authStatus !== 'same') return
     const next: Response[] = [...responses, { question_id: q.id, knew }]
     setResponses(next)
@@ -1111,14 +1115,14 @@ export function DiagnosticClient({
 
         <div className="grid grid-cols-2 gap-4">
           <button
-            disabled={startPending !== null}
+            disabled={startLocked}
             onClick={() => handleAnswer(false)}
             className="flex items-center justify-center gap-2 rounded-[var(--r-md)] border-2 border-[var(--bd)] bg-[var(--bg)] px-6 py-4 font-display text-[16px] font-[600] text-[var(--t2)] transition-all duration-[var(--dur-normal)] hover:border-[var(--t3)] hover:bg-[var(--bg2)] active:scale-[0.97]"
           >
             <XCircle size={20} /> 모릅니다
           </button>
           <button
-            disabled={startPending !== null}
+            disabled={startLocked}
             onClick={() => handleAnswer(true)}
             className="flex items-center justify-center gap-2 rounded-[var(--r-md)] bg-[var(--ju)] px-6 py-4 font-display text-[16px] font-[700] text-[var(--on-ju)] shadow-[var(--sh-sm)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] active:scale-[0.97]"
           >

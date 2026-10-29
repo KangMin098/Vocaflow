@@ -213,6 +213,11 @@ export function pickResumeSource(mem: ProgressRecord | null, stored: ProgressRec
   return null
 }
 
+/** 새 시작 조회 중 답 단추 잠김 — 잠근 요청(pending)이 지금 요청 세대(current)와 같을 때만. 더 새 요청이 대체하면 풀린다. */
+export function answerLocked(pending: number | null, current: number): boolean {
+  return pending !== null && pending === current
+}
+
 /** 이어서 할 다음 문항 위치 — planResume 이 ok 일 때 그 nextIdx, 아니면 null(이어 가지 않는다). */
 export function resumeNextIndex(plan: ResumePlan): number | null {
   return plan.ok ? plan.nextIdx : null

@@ -7,7 +7,7 @@ import fs from 'node:fs'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 
-import { acceptFetch } from '../progress-store'
+import { acceptFetch, answerLocked } from '../progress-store'
 
 const c = fs.readFileSync(path.join(__dirname, '../DiagnosticClient.tsx'), 'utf8')
 const startBody = c.slice(c.indexOf('  async function startTest(test: TestInfo) {'), c.indexOf('  /**\n   * 보관된 진행을 이어서 푼다'))
@@ -35,8 +35,22 @@ describe('새 시작 — 한 묶음 교체', () => {
   it('조회 중에는 진행 화면 답 단추를 잠그고, 그 요청이 최신일 때만 잠금을 푼다', () => {
     expect(startBody).toContain('setStartPending(my)')
     expect(startBody).toContain('if (my === req.current) setStartPending(null)')
-    expect(c).toContain('if (startPending !== null) return')
-    expect((c.match(/disabled=\{startPending !== null\}/g) ?? []).length).toBe(2)
+    expect(c).toContain('if (startLocked) return')
+    expect((c.match(/disabled=\{startLocked\}/g) ?? []).length).toBe(2)
+  })
+})
+
+describe('r6 재리뷰 — 재개 · 다른 시작이 대체하면 잠금이 풀린다', () => {
+  it('answerLocked: 잠근 요청이 지금 세대일 때만 잠김', () => {
+    expect(answerLocked(null, 3)).toBe(false)
+    expect(answerLocked(3, 3)).toBe(true)
+    // 새 진단 조회(3) 중 「이어서 하기」가 세대를 4 로 올림 → 이전 조회가 해제하지 못해도 잠김 아님
+    expect(answerLocked(3, 4)).toBe(false)
+  })
+  it('렌더는 answerLocked(startPending, req.current) 로 계산하고, 재개는 잠금 표식을 지운다', () => {
+    expect(c).toContain('const startLocked = answerLocked(startPending, req.current)')
+    const resume = c.slice(c.indexOf('  async function resumeTest(progress: ProgressRecord) {'))
+    expect(resume.slice(0, 300)).toMatch(/const my = \+\+req\.current\n\s+const token = guard\.token\(\)\n\s+setStartPending\(null\)/)
   })
 })
 
