@@ -1,6 +1,7 @@
 // apps/web/src/components/csat/judgment/EvidencePassage.tsx
 // D7 공통 근거 앵커 — 원문 단위를 고를 수 있는 근거로 그리고, 판단면이 가리킨 단위를 표시한다.
 // 자동 스크롤하지 않는다: 가리킨 단위가 화면 밖이면 「n번 문장 · 위/아래」 칩을 띄우고 학습자가 눌러 이동한다.
+// 가리킨 단위가 여럿(예: 이음매의 두 문장)이면 각각 따로 검사해 화면 밖인 것마다 칩을 띄운다(T-0253).
 'use client'
 
 import { useEffect, useRef, useState, type ReactNode } from 'react'
@@ -8,6 +9,29 @@ import type { EvidenceUnit } from '@/lib/csat/judgment/types'
 import styles from './judgment.module.css'
 
 export type UnitState = 'focus' | 'pinned' | 'dim' | undefined
+
+export type LocateEdge = 'top' | 'bottom'
+export interface LocateTarget { id: string; edge: LocateEdge }
+
+/**
+ * 위치 칩 대상 — 가리킨 단위 각각에서 화면 밖(edgeOf 가 위/아래를 준) 것만, 원문 순서대로 · 중복 없이.
+ * 원문에 없는 id(잘못된 id)는 건너뛴다. 화면 안이면 칩이 없다.
+ */
+export function locateTargets(focus: readonly string[], order: readonly string[], edgeOf: (id: string) => LocateEdge | null): LocateTarget[] {
+  const wanted = new Set(focus)
+  const out: LocateTarget[] = []
+  for (const id of order) {
+    if (!wanted.has(id)) continue
+    const edge = edgeOf(id)
+    if (edge) out.push({ id, edge })
+  }
+  return out
+}
+
+/** 단위 사각형이 보는 창 위 · 아래 밖인가(8px 여유) — 안이면 null. */
+export function edgeOutside(r: { top: number; bottom: number }, pane: { top: number; bottom: number }): LocateEdge | null {
+  return r.bottom < pane.top + 8 ? 'top' : r.top > pane.bottom - 8 ? 'bottom' : null
+}
 
 export function EvidencePassage(props: {
   units: EvidenceUnit[]
@@ -25,23 +49,31 @@ export function EvidencePassage(props: {
   scrollRoot?: React.RefObject<HTMLElement>
 }) {
   const { units, focus = [], pinned = [], dimmed = [], onPick, marks = {}, label = '원문', scrollRoot } = props
-  const [offscreen, setOffscreen] = useState<{ id: string; edge: 'top' | 'bottom' } | null>(null)
+  const [offscreen, setOffscreen] = useState<LocateTarget[]>([])
   const self = useRef<HTMLDivElement>(null)
 
-  const firstFocus = focus[0]
+  // 가리킨 단위 묶음이 바뀔 때만 다시 건다(같은 묶음의 부모 재렌더는 그대로)
+  const focusKey = focus.join('|')
+  const orderKey = units.map((u) => u.id).join('|')
   useEffect(() => {
     const root = scrollRoot?.current ?? self.current?.closest<HTMLElement>('[data-scroll-pane]') ?? null
-    if (!firstFocus || !root) { setOffscreen(null); return }
+    const ids = focusKey ? focusKey.split('|') : []
+    if (ids.length === 0 || !root) { setOffscreen([]); return }
+    const order = orderKey.split('|')
     const check = () => {
-      const el = root.querySelector<HTMLElement>(`[data-unit="${firstFocus}"]`)
-      if (!el) return setOffscreen(null)
-      const r = el.getBoundingClientRect(), p = root.getBoundingClientRect()
-      setOffscreen(r.bottom < p.top + 8 ? { id: firstFocus, edge: 'top' } : r.top > p.bottom - 8 ? { id: firstFocus, edge: 'bottom' } : null)
+      const p = root.getBoundingClientRect()
+      const next = locateTargets(ids, order, (id) => {
+        const el = root.querySelector<HTMLElement>(`[data-unit="${id}"]`)
+        return el ? edgeOutside(el.getBoundingClientRect(), p) : null
+      })
+      setOffscreen((prev) => (prev.length === next.length && prev.every((x, i) => x.id === next[i].id && x.edge === next[i].edge) ? prev : next))
     }
     check()
     root.addEventListener('scroll', check, { passive: true })
     return () => root.removeEventListener('scroll', check)
-  }, [firstFocus, scrollRoot])
+  }, [focusKey, orderKey, scrollRoot])
+  const above = offscreen.filter((x) => x.edge === 'top')
+  const below = offscreen.filter((x) => x.edge === 'bottom')
 
   const stateOf = (id: string): UnitState => (focus.includes(id) ? 'focus' : pinned.includes(id) ? 'pinned' : dimmed.includes(id) ? 'dim' : undefined)
   const go = (id: string) => {
@@ -55,7 +87,7 @@ export function EvidencePassage(props: {
 
   return (
     <div ref={self} aria-label={label} role="group">
-      {offscreen?.edge === 'top' && <Locate edge="top" n={nOf(offscreen.id)} onGo={() => go(offscreen.id)} />}
+      {above.length > 0 && <Locate edge="top" targets={above.map((x) => ({ id: x.id, n: nOf(x.id) }))} onGo={go} />}
       <div className={styles.passage}>
         {units.map((u) => {
           const st = stateOf(u.id)
@@ -83,15 +115,19 @@ export function EvidencePassage(props: {
           )
         })}
       </div>
-      {offscreen?.edge === 'bottom' && <Locate edge="bottom" n={nOf(offscreen.id)} onGo={() => go(offscreen.id)} />}
+      {below.length > 0 && <Locate edge="bottom" targets={below.map((x) => ({ id: x.id, n: nOf(x.id) }))} onGo={go} />}
     </div>
   )
 }
 
-function Locate({ edge, n, onGo }: { edge: 'top' | 'bottom'; n?: number; onGo: () => void }) {
+function Locate({ edge, targets, onGo }: { edge: LocateEdge; targets: { id: string; n?: number }[]; onGo: (id: string) => void }) {
   return (
     <div className={styles.locate} data-edge={edge}>
-      <button type="button" data-locate={edge} onClick={onGo}>{n ? `${n}번 문장` : '가리킨 문장'} · {edge === 'top' ? '위' : '아래'}로 가기</button>
+      {targets.map((t) => (
+        <button key={t.id} type="button" data-locate={edge} data-locate-unit={t.id} onClick={() => onGo(t.id)}>
+          {t.n ? `${t.n}번 문장` : '가리킨 문장'} · {edge === 'top' ? '위' : '아래'}로 가기
+        </button>
+      ))}
     </div>
   )
 }

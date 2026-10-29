@@ -18,7 +18,7 @@
 .unitNo { margin-right: 2px; font-size: 11px; color: var(--t2); vertical-align: super; }
 .unitMark { margin-left: 4px; font-size: 12px; color: var(--info-ink, var(--info)); font-weight: 600; }
 
-.locate { position: sticky; z-index: 2; display: flex; justify-content: center; pointer-events: none; }
+.locate { position: sticky; z-index: 2; display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; pointer-events: none; }
 .locate[data-edge='top'] { top: 0; }
 .locate[data-edge='bottom'] { bottom: 0; }
 .locate button { pointer-events: auto; min-height: 44px; padding: 8px 16px; border: 1px solid var(--bd); border-radius: 999px; background: var(--bg); color: var(--t1); font-size: 14px; box-shadow: 0 2px 8px rgb(0 0 0 / .08); }
