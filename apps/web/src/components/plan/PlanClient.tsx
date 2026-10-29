@@ -121,8 +121,11 @@ export function PlanClient({
       firstMats.current = false
       return
     }
+    // 새 props 마다 그 props 의 자료 결과로 실패 표시를 다시 계산한다(r14) — 실패면 「자료 다시 불러오기」가 보인다
     setMats(initialMaterials)
-  }, [initialMaterials])
+    setMatsFailed(initialMaterialsFailed)
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 자료 props 교체에만 반응한다
+  }, [initialMaterials, initialMaterialsFailed])
   const matsOwner = mats.viewerId ?? null
   const materials: AvailableMaterials = matsOwner === ownerId ? mats : EMPTY_MATERIALS
   // 자료 재조회 실패(r12) — 선택기가 조용히 빈 채로 남지 않게 표시하고, 명시적 「자료 다시 불러오기」로 다시 연다.
@@ -142,6 +145,8 @@ export function PlanClient({
       .then((m) => {
         if (ownerRef.current !== forOwner) return
         if ((m.viewerId ?? null) === forOwner) {
+          // 성공하면 1회 표식을 다시 연다(r14) — 뒤에 같은 소유자의 자료가 다시 어긋나도 다시 읽을 수 있게
+          matsRefetched.current = false
           setMats(m)
           setMatsFailed(false)
         } else setMatsFailed(true)
@@ -206,7 +211,12 @@ export function PlanClient({
       setReadFailed(true)
       return
     }
-    if (ownerId === null && viewerId !== null) setOwnerId(viewerId)
+    if (ownerId === null && viewerId !== null) {
+      // 소유자를 새로 정한다(r14) — 비로그인 때의 확인 상태 · 계획을 물려받지 않는다(첫 조회가 실패하면 「확인한 계획 없음」)
+      setOwnerId(viewerId)
+      setConfirmed(false)
+      setItems([])
+    }
     if (initialFailed) {
       setReadFailed(true)
       return
@@ -253,6 +263,9 @@ export function PlanClient({
         // ② 뒤 재시도 성공 — 그 응답의 viewer 로 소유자 경계를 새로 세운다. 새 경계가 브라우저 신원을 확인하기 전(checking) ·
         //   다르면(changed) 화면은 계획을 그리지 않고 쓰기도 막힌다(canWrite 는 새 경계의 same 에서만)
         setOwnerId(snap.viewerId)
+        // 새 소유자(r14) — 이전(비로그인) 확인 상태 · 계획을 물려받지 않는다
+        setConfirmed(false)
+        setItems([])
       }
       if (snap.failed) {
         setReadFailed(true)

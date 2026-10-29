@@ -170,7 +170,7 @@ describe('리뷰 r5 — props 의 소유자 판정 · 재시도 성공 초점', 
   it('[P2] (r13 로 변경) 다른 viewer props 는 버린다 · 소유자 미확정이면 새 viewer 로 세운다', () => {
     const e = eff()
     expect(e).toMatch(/if \(!transient && ownerId !== null && viewerId !== ownerId\) return/)
-    expect(e).toContain('if (ownerId === null && viewerId !== null) setOwnerId(viewerId)')
+    expect(e).toContain('if (ownerId === null && viewerId !== null) {')
   })
   it('[P2] page 는 viewer key 를 쓰지 않는다', () => {
     const page = fs.readFileSync(path.resolve(__dirname, '../../../app/(main)/plan/page.tsx'), 'utf8')
@@ -340,5 +340,20 @@ describe('리뷰 r13 — 자료 조회 예외가 계획 표시를 막지 않음 
     const e = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
     expect(e).not.toContain('invalidate()')
     expect(e).toMatch(/if \(!transient && ownerId !== null && viewerId !== ownerId\) return/)
+  })
+})
+
+describe('리뷰 r14 — 새 소유자는 확인 상태를 물려받지 않음 · 새 props 의 자료 실패를 다시 계산', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  it('[P2] null → viewer 로 소유자를 정하는 두 곳(props · 재조회) 모두 confirmed · 계획을 초기화', () => {
+    const x = src()
+    expect(x).toMatch(/if \(ownerId === null && viewerId !== null\) \{\s*\n[^\n]*\n\s*setOwnerId\(viewerId\)\s*\n\s*setConfirmed\(false\)\s*\n\s*setItems\(\[\]\)/)
+    expect(x).toMatch(/setOwnerId\(snap\.viewerId\)\s*\n[^\n]*\n\s*setConfirmed\(false\)\s*\n\s*setItems\(\[\]\)/)
+  })
+  it('[P2] 자료 props 교체마다 matsFailed 재계산 · 재조회 성공 시 1회 표식 재개방', () => {
+    const x = src()
+    expect(x).toMatch(/setMats\(initialMaterials\)\s*\n\s*setMatsFailed\(initialMaterialsFailed\)/)
+    expect(x).toContain('}, [initialMaterials, initialMaterialsFailed])')
+    expect(x).toMatch(/matsRefetched\.current = false\s*\n\s*setMats\(m\)\s*\n\s*setMatsFailed\(false\)/)
   })
 })
