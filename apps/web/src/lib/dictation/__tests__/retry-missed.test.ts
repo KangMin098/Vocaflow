@@ -46,6 +46,15 @@ describe('틀림·건너뜀 판정', () => {
   it('묶음 문항(여러 문장)은 문장 단위로 펼친다', () => {
     expect(missedSentences([at(0, `${A} ${B}`, 80)])).toEqual([A, B])
   })
+  it('재시도 뒤 다시 건너뜀 — 따옴표 문장 둘이 한 문항으로 묶여 저장돼도 원래 두 문장으로 되돌린다(리뷰 r2 P2)', () => {
+    const chunk = `${Q1} ${Q2}`
+    expect(missedSentences([at(0, chunk, 0, true)])).toEqual([Q1, Q2])
+    expect(missedRetryPayload('대화 · 틀린 문장 다시', [at(0, chunk, 0, true)])?.sentences).toEqual([Q1, Q2])
+  })
+  it('따옴표 경계 보강은 약어를 쪼개지 않는다', () => {
+    const s = 'Mr. Brown walked to the station before the morning train left.'
+    expect(missedSentences([at(0, s, 0, true)])).toEqual([s])
+  })
   it('제목과 문장 배열 — 이어 붙이지 않는다', () => {
     const r = missedRetryPayload('강의', [at(0, B, 50), at(1, C, 0, true)])
     expect(r).toEqual({ title: '강의 · 틀린 문장 다시', sentences: [B, C] })

@@ -151,8 +151,10 @@ export function DictationSetupClient() {
         setSpeed(level.recommended.speed)
         setAutoRepeat(level.recommended.autoRepeat)
         setHintsAllowed(level.recommended.hintsAllowed)
-        setCount(Math.min(level.recommended.sessionCount, resolved.sentences.length))
-        setChunkSize(allowsChunking(resolved.kind) ? level.recommended.chunkSize : 1)
+        // 틀린 문장 다시(?retry=missed)는 고른 문장 전부를 한 문장씩 — 서로 이어지지 않은 문장이라 묶지 않고, 레벨 기본 문항 수로 자르지 않는다.
+        //   일반 자료(붙여넣기 포함)의 추천값은 그대로다.
+        setCount(retryMissed ? 'all' : Math.min(level.recommended.sessionCount, resolved.sentences.length))
+        setChunkSize(!retryMissed && allowsChunking(resolved.kind) ? level.recommended.chunkSize : 1)
       } catch (e) {
         console.error('[Dictation] 설정 로드 실패:', e)
         if (mounted) setLoadState('failed')

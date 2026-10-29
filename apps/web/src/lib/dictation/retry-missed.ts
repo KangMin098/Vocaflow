@@ -27,6 +27,12 @@ export function isMissedAttempt(a: MissedAttemptInput): boolean {
 }
 
 /**
+ * 닫는 따옴표·괄호 뒤의 문장 경계 — splitSentences 는 부호 바로 뒤 공백만 경계로 보아 `…spring." His …` 를 나누지 못한다.
+ * 묶음 문항(여러 문장을 한 문항으로 받아쓴 것)의 정답을 원래 문장으로 되돌릴 때만 덧쓴다. 닫는 문자가 하나 이상 있어야 해 약어(Mr. 등)는 건드리지 않는다.
+ */
+const QUOTED_BOUNDARY = /(?<=[.!?]["'”’)\]]+)\s+(?=[A-Z"'(“‘])/
+
+/**
  * 틀림·건너뜀 문항의 정답 문장 — 문항 순서대로, 같은 문장은 한 번만.
  * 묶음 문항은 문장으로 펼친다. 기존 받아쓰기 자료 규칙(isUsableSentence)을 통과하는 것만 남긴다 — 단추의 수가 실제로 시작될 수와 같아야 한다.
  */
@@ -36,7 +42,10 @@ export function missedSentences(attempts: readonly MissedAttemptInput[]): string
   for (const a of [...attempts].sort((x, y) => x.itemIdx - y.itemIdx)) {
     if (!isMissedAttempt(a)) continue
     const whole = a.expected.trim()
-    const pieces = splitSentences(whole).map((s) => s.trim()).filter(isUsableSentence)
+    const pieces = splitSentences(whole)
+      .flatMap((s) => s.split(QUOTED_BOUNDARY))
+      .map((s) => s.trim())
+      .filter(isUsableSentence)
     // 쪼개지지 않는 문항(따옴표 경계 등)은 통째로 — 그것도 규칙 밖이면 뺀다
     for (const t of pieces.length > 0 ? pieces : isUsableSentence(whole) ? [whole] : []) {
       if (seen.has(t)) continue

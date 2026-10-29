@@ -46,4 +46,9 @@ describe('DictationResultActions — 틀린 문장만 다시', () => {
     expect(src).not.toMatch(/stashCustomScript/)
     expect(src).toMatch(/missedRetryPayload\(detail\.session\.title, detail\.attempts\)/)
   })
+  it('설정 화면 기본값 — ?retry=missed 는 전체 · 1문장, 다른 자료는 레벨 추천값 그대로(리뷰 r2 P2)', () => {
+    const src = fs.readFileSync(path.resolve(__dirname, '../DictationSetupClient.tsx'), 'utf8')
+    expect(src).toMatch(/setCount\(retryMissed \? 'all' : Math\.min\(level\.recommended\.sessionCount, resolved\.sentences\.length\)\)/)
+    expect(src).toMatch(/setChunkSize\(!retryMissed && allowsChunking\(resolved\.kind\) \? level\.recommended\.chunkSize : 1\)/)
+  })
 })
