@@ -30,6 +30,7 @@ import {
   feedbackHeadline,
   quoteWordIndex,
   reduceActivity,
+  nextReloadHandoff,
   shouldHandOffReloadFocus,
   type StoryActivityRequestKey,
   type StoryActivitySlot,
@@ -79,7 +80,6 @@ export function StoryActivity({
   const optionsRef = useRef<HTMLFieldSetElement>(null)
   const refocusOptions = useRef(false)
   // 「다시 시도」 조회가 성공해 선택지가 돌아오면 첫 radio 로 한 번 넘긴다(사용자가 옮긴 초점은 그대로)
-  const sectionRef = useRef<HTMLElement>(null)
   const reloadHandoff = useRef(false)
 
   const now = () => ({
@@ -162,24 +162,37 @@ export function StoryActivity({
     if (phase === 'retry' || phase === 'loading') return
     const requested = reloadHandoff.current
     reloadHandoff.current = false
-    if (phase !== 'ready' || !shouldHandOffReloadFocus(requested, document.activeElement, document.body, sectionRef.current)) return
+    if (phase !== 'ready' || !shouldHandOffReloadFocus(requested, document.activeElement, document.body)) return
     optionsRef.current?.querySelector<HTMLInputElement>('input[type="radio"]')?.focus()
   }, [phase])
+  // 다시 시도 대기 중 어디든 누르면(본문 클릭으로 초점 해제 포함) 인계를 취소한다
+  const reloadPending = state.phase === 'retry' && state.pending
+  useEffect(() => {
+    if (!reloadPending) return
+    const cancel = () => {
+      reloadHandoff.current = nextReloadHandoff(reloadHandoff.current, { type: 'pointerdown' })
+    }
+    document.addEventListener('pointerdown', cancel, true)
+    return () => document.removeEventListener('pointerdown', cancel, true)
+  }, [reloadPending])
 
   if (state.phase === 'loading' || state.phase === 'hidden') return null
   if (state.phase === 'retry') {
     return (
-      <section ref={sectionRef} className={styles.activity} aria-label="근거 고르기" data-story-activity="retry">
+      <section className={styles.activity} aria-label="근거 고르기" data-story-activity="retry">
         <p className={`${styles.meta} break-keep`} role="status">{ACTIVITY_LABELS.unavailable}</p>
         <button
           type="button"
           className={styles.ctaSecondary}
           aria-disabled={state.pending ? 'true' : undefined}
           aria-busy={state.pending ? 'true' : undefined}
-          onClick={() => {
+          onClick={(event) => {
             if (state.pending) return
-            reloadHandoff.current = true
+            reloadHandoff.current = nextReloadHandoff(false, { type: 'press', onButton: document.activeElement === event.currentTarget })
             load()
+          }}
+          onBlur={(event) => {
+            reloadHandoff.current = nextReloadHandoff(reloadHandoff.current, { type: 'blur', toElement: event.relatedTarget !== null })
           }}
           data-story-activity-reload
         >
@@ -193,7 +206,7 @@ export function StoryActivity({
   const noticeText = activityNoticeText(notice, selected)
   const name = `story-activity-${activity.activityId}`
   return (
-    <section ref={sectionRef} className={styles.activity} aria-labelledby={`${name}-title`} data-story-activity={feedback ? 'result' : 'choose'}>
+    <section className={styles.activity} aria-labelledby={`${name}-title`} data-story-activity={feedback ? 'result' : 'choose'}>
       <h2 id={`${name}-title`} className={`${styles.activityTitle} break-keep`}>
         근거 고르기
       </h2>

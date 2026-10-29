@@ -157,13 +157,25 @@ export function activityNoticeText(notice: StoryActivityNotice | null, selected:
 }
 
 /**
- * 명시적 「다시 시도」 조회가 성공해 선택지가 돌아왔을 때 첫 선택지로 초점을 넘길까 — 누른 단추가 사라져 초점이 문서(body)로 떨어졌거나
- * 활동 안에 남아 있을 때만. 기다리는 동안 사용자가 다른 곳으로 옮긴 초점은 빼앗지 않는다.
+ * 「다시 시도」 초점 인계 요청(T-0240 fromRetry 와 같은 패턴) — 누른 순간 초점이 그 단추에 있었을 때만 요청한다.
+ * 기다리는 동안 사용자가 떠나면(어디든 누름 · 다른 조작으로 초점 이동) 요청을 취소한다. 단추가 사라져 초점을 잃는 것은 취소가 아니다.
  */
-export function shouldHandOffReloadFocus(requested: boolean, active: Element | null, body: Element | null, section: Element | null): boolean {
-  if (!requested) return false
-  if (!active || active === body) return true
-  return !!section && section.contains(active)
+export type ReloadHandoffEvent = { type: 'press'; onButton: boolean } | { type: 'pointerdown' } | { type: 'blur'; toElement: boolean }
+
+export function nextReloadHandoff(requested: boolean, ev: ReloadHandoffEvent): boolean {
+  switch (ev.type) {
+    case 'press':
+      return ev.onButton
+    case 'pointerdown':
+      return false
+    case 'blur':
+      return ev.toElement ? false : requested
+  }
+}
+
+/** 조회가 성공해 선택지가 돌아왔을 때 첫 선택지로 넘길까 — 요청이 살아 있고 · 단추가 사라져 초점이 문서(body)로 떨어졌을 때만. */
+export function shouldHandOffReloadFocus(requested: boolean, active: Element | null, body: Element | null): boolean {
+  return requested && (!active || active === body)
 }
 
 /** 고른 근거 · 본문에 등록된 근거 — 결과 문구는 기능 안내만(해설 · 번역 · 오답별 설명 없음). */

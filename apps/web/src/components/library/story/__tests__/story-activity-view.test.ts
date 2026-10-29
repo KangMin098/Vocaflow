@@ -18,6 +18,7 @@ import {
   feedbackMatchesActivity,
   quoteWordIndex,
   reduceActivity,
+  nextReloadHandoff,
   shouldHandOffReloadFocus,
   type StoryActivityState,
 } from '../story-activity-view'
@@ -232,16 +233,24 @@ describe('T-0252 일시 실패 · 선택 변경 구별 · 다시 시도 이어�
     expect(reduceActivity(reduceActivity({ phase: 'retry', pending: true }, { type: 'loaded', result: failure('viewer_changed') }), { type: 'reload' })).toEqual({ phase: 'loading' })
   })
 
-  it('초점 인계: 다시 시도를 누른 경우에만 · 초점이 문서(body)로 떨어졌거나 활동 안일 때만(사용자가 옮긴 초점은 그대로)', () => {
-    const body = { contains: () => false } as unknown as Element
-    const inside = {} as Element
-    const outside = {} as Element
-    const section = { contains: (el: Element) => el === inside } as unknown as Element
-    expect(shouldHandOffReloadFocus(false, body, body, section)).toBe(false)
-    expect(shouldHandOffReloadFocus(true, body, body, section)).toBe(true)
-    expect(shouldHandOffReloadFocus(true, null, body, section)).toBe(true)
-    expect(shouldHandOffReloadFocus(true, inside, body, section)).toBe(true)
-    expect(shouldHandOffReloadFocus(true, outside, body, section)).toBe(false)
-    expect(shouldHandOffReloadFocus(true, outside, body, null)).toBe(false)
+  it('초점 인계: 요청이 살아 있고 단추가 사라져 초점이 body 로 떨어졌을 때만', () => {
+    const body = {} as Element
+    const other = {} as Element
+    expect(shouldHandOffReloadFocus(false, body, body)).toBe(false)
+    expect(shouldHandOffReloadFocus(true, body, body)).toBe(true)
+    expect(shouldHandOffReloadFocus(true, null, body)).toBe(true)
+    expect(shouldHandOffReloadFocus(true, other, body)).toBe(false)
+  })
+
+  it('인계 요청(fromRetry 패턴): 누른 순간 단추에 초점이 있을 때만 · 대기 중 어디든 누르거나(본문 클릭) 다른 조작으로 옮기면 취소', () => {
+    expect(nextReloadHandoff(false, { type: 'press', onButton: true })).toBe(true)
+    expect(nextReloadHandoff(false, { type: 'press', onButton: false })).toBe(false)
+    // 본문 클릭으로 초점 해제 — 그 뒤 성공해도 body 라서 넘기면 안 된다
+    const clicked = nextReloadHandoff(true, { type: 'pointerdown' })
+    expect(clicked).toBe(false)
+    expect(shouldHandOffReloadFocus(clicked, null, null)).toBe(false)
+    expect(nextReloadHandoff(true, { type: 'blur', toElement: true })).toBe(false)
+    // 단추가 사라져 초점을 잃는 것(옮겨 갈 대상 없음)은 취소가 아니다
+    expect(nextReloadHandoff(true, { type: 'blur', toElement: false })).toBe(true)
   })
 })
