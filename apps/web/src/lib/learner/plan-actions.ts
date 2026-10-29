@@ -246,8 +246,8 @@ async function loadStudyPlan(missingTitle: string): Promise<StudyPlanSnapshot> {
   // 자료 메타 조회 오류를 기본값 · 「삭제된 자료」로 덮지 않는다
   for (const r of [booksRes, articlesRes, scriptsRes, setsRes] as { error?: unknown; data?: unknown }[]) {
     if (r.error) failed = true
-    // 배열이 아닌 메타는 조인할 수 없다 — 터지기 전에 실패 결과로 돌려준다
-    if (r.data != null && !Array.isArray(r.data)) return { items: [], failed: true, viewerId }
+    // 배열이 아닌 메타는 조인할 수 없다 — 터지기 전에 실패 결과로 돌려준다. 오류 없는 data:null 도 비배열과 같다(r9)
+    else if (!Array.isArray(r.data)) return { items: [], failed: true, viewerId }
   }
   const bookMap = new Map(((booksRes.data ?? []) as BookRow[]).map((b) => [b.id, b]))
   const articleMap = new Map(((articlesRes.data ?? []) as ArticleRow[]).map((a) => [a.id, a]))
@@ -265,7 +265,8 @@ async function loadStudyPlan(missingTitle: string): Promise<StudyPlanSnapshot> {
       .not('chapter', 'is', null)
     // 챕터 조회 오류를 「0챕터」로 만들지 않는다
     if (chErr) failed = true
-    if (chRows != null && !Array.isArray(chRows)) return { items: [], failed: true, viewerId }
+    // 오류 없는 data:null 은 「0챕터」가 아니다(r9) — 비배열과 같이 실패
+    else if (!Array.isArray(chRows)) return { items: [], failed: true, viewerId }
     for (const r of (chRows ?? []) as { set_id: string; chapter: number | null }[]) {
       if (r.chapter != null) {
         setChapterMax.set(r.set_id, Math.max(setChapterMax.get(r.set_id) ?? 0, r.chapter))

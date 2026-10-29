@@ -187,3 +187,20 @@ describe('리뷰 r7 — 배열 열은 명시적 null 또는 정상 배열만', (
     }
   })
 })
+
+describe('리뷰 r9 — 메타 · 챕터 응답의 data:null(오류 없음)도 실패', () => {
+  it('메타 data:null · error:null → failed(삭제된 자료 · 완전한 계획처럼 만들지 않는다)', async () => {
+    st.res.library_books = { data: null, error: null }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: true, viewerId: 'user-a' })
+  })
+  it('세트 챕터 data:null · error:null → failed(0챕터로 만들지 않는다)', async () => {
+    st.res.shared_words = { data: null, error: null }
+    expect(await fetchStudyPlanSnapshot()).toEqual({ items: [], failed: true, viewerId: 'user-a' })
+  })
+  it('대조 — 정상 빈 배열 메타 · 챕터는 실패가 아니다', async () => {
+    st.res.shared_words = ok([])
+    const s = await fetchStudyPlanSnapshot()
+    expect(s.failed).toBe(false)
+    expect(s.items.find((i) => i.id === 'p2')?.chapterCount).toBe(0)
+  })
+})
