@@ -91,7 +91,7 @@ import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff } from './PredictGate'
 import { SelfExplain } from './SelfExplain'
-import { UnderstandingChecks } from './UnderstandingChecks'
+import { checkLocateFocus, checkLocateKey, isCheckLocateKey, resolveCheckLocate, UnderstandingChecks } from './UnderstandingChecks'
 import { ComparePairs, type ComparePair } from './ComparePairs'
 import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-check'
 import { hashTag } from '@/lib/csat/dissect'
@@ -1212,9 +1212,23 @@ export function AnalysisTheater({
           : scene === 'design' ? <DesignSelection design={gate.design} />
             : null
   const showRelation = Boolean(relation && evidenceView === 'relation')
-  // 지도에 비출 근거 — 원문 이해는 v3.1 의미 대조, 그 밖은 검수된 v3 근거(분할이 같을 때만)
-  const mapFocus = msActive ? (msMapOk && msSpeak.length ? msSpeak.map((n) => n - 1) : msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
-  const focusSummary = msActive ? (msMapOk && msFocus.length ? msFocus : []) : v3Linkable && evidence ? evidence.sentences : []
+  // 지도에 비출 근거 — 이해 확인에서 학습자가 누른 위치 확인이 먼저(지도 문장 수와 다시 대조), 원문 이해는 v3.1 의미 대조,
+  //   그 밖은 검수된 v3 근거(분할이 같을 때만). 위치 확인 키는 v3 근거로 비추지 않는다(문장 수가 다르면 아무것도 비추지 않는다)
+  const checkFocus = checkLocateFocus(evidence, map ? map.sentences.length : null)
+  const v3Evidence = evidence && !isCheckLocateKey(evidence.key) ? evidence : null
+  const mapFocus = checkFocus ?? (msActive ? (msMapOk && msSpeak.length ? msSpeak.map((n) => n - 1) : msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && v3Evidence ? v3Evidence.sentences.map((n) => n - 1) : null)
+  const focusSummary = checkFocus ? checkFocus.map((n) => n + 1) : msActive ? (msMapOk && msFocus.length ? msFocus : []) : v3Linkable && v3Evidence ? v3Evidence.sentences : []
+  // 이해 확인 「선택한 N번 문장 지도에서 보기」 — 명시적으로 누를 때만. 감춘 지도 · 없는 지도 · 문장 수 불일치 · 범위 밖이면 비추지 않는다.
+  //   관계 보기였거나 판을 접어 뒀으면 지도로 되돌려 연다. 기록(onRecord) · 시도 수는 건드리지 않는다
+  const locateCheck = (sentence: number, sentenceCount: number) => {
+    if (withheld || !map) return false
+    const k = resolveCheckLocate(map.sentences.length, sentenceCount, sentence)
+    if (k == null) return false
+    setEvidence({ sentences: [k + 1], key: checkLocateKey(sentenceCount) })
+    setEvidenceCollapsed(false)
+    setEvidenceView('map')
+    return true
+  }
   const evidenceLabel = focusSummary.length ? `${focusSummary.join(' · ')}번 문장` : '고른 근거 없음'
   // 하단 도크 · 다음 장면 — 학습자의 직접 선택이 강의의 자동 따라가기보다 먼저다(재생 중이면 멈춘다 · 재개는 학습자가)
   const pickScene = (id: SceneId) => {
@@ -1725,7 +1739,7 @@ export function AnalysisTheater({
                   )}
                   {sceneChecks.length && withheld ? withheldPanel('checks', '이해 확인') : null}
                   {sceneChecks.length && !withheld ? (
-                    <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
+                    <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} onLocate={map ? locateCheck : undefined} />
                   ) : null}
                   {scene === 'compare' && (withheld || !revealed) ? withheldPanel('compare', '기출 비교') : null}
                   {scene === 'compare' && !withheld && revealed ? (
