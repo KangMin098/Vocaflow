@@ -1055,8 +1055,8 @@ describe('정적 경계', () => {
     expect(learnerSrc).not.toMatch(/Date\.now\(|new Date\(/)
     expect(actionsSrc).toMatch(/^'use server'$/m)
     expect(actionsSrc).toMatch(/from '@\/lib\/supabase\/server'/)
-    // 위치 기록 · 단위 완료 · (D5-I01) 선택 낱말 저장 — 세 액션뿐
-    expect(actionsSrc.match(/^export /gm)).toHaveLength(3)
+    // 위치 기록 · 단위 완료 · (D5-I01) 선택 낱말 저장 · (T-0228) 근거 활동 조회 · 제출 — 다섯 액션뿐
+    expect(actionsSrc.match(/^export /gm)).toHaveLength(5)
     expect(saveWordSrc).toMatch(/^import 'server-only'$/m)
     expect(saveWordSrc).not.toMatch(/Date\.now\(|new Date\(/)
   })

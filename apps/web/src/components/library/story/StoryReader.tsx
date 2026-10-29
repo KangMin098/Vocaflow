@@ -46,6 +46,9 @@ import type {
 
 import { storyVaultHref } from '@/lib/library/story/return-context'
 
+import { StoryActivity } from './StoryActivity'
+import { activitySlotFor } from './story-activity-view'
+import { STORY_ACTIVITY_SLOTS } from './story-activity-slots'
 import { CONTEXT_NOTES_ID, StoryContextNotes } from './StoryContextNotes'
 import { StoryGuidance } from './StoryGuidance'
 import { StorySourcePanel } from './StorySourcePanel'
@@ -316,6 +319,13 @@ function ReadyReader({
   // 맥락 설명 열림(D4-UX02) — 진입 단추로 연 경우에만 돌아가기를 제공한다. 단위가 바뀌면 닫힌 채로 시작한다.
   const [notesOpen, setNotesOpen] = useState<{ unit: number | null; open: boolean; viaEntry: boolean }>({ unit: null, open: false, viaEntry: false })
   const notesEntryRef = useRef<HTMLButtonElement>(null)
+  // T-0228 근거 활동 「본문에서 다시 확인」 — 단위 · 낱말 번호 · 누른 차례(nonce)
+  // 활동과 같은 결속(본인 · 발행본 · 단위 · 인증 세대)에 묶는다 — 결속이 바뀌면 버린다(돌아와도 이전 근거 강조가 되살아나지 않는다)
+  const revisitContext = verified && unitIndex !== null ? `${anchorOwner}|${releaseKey}|${unitIndex}|${guard.token()}` : null
+  const [revisit, setRevisit] = useState<{ context: string; wordIndex: number; nonce: number } | null>(null)
+  useEffect(() => {
+    if (revisit && revisit.context !== revisitContext) setRevisit(null)
+  }, [revisit, revisitContext])
   useEffect(() => {
     setSelectedAnchor(null)
     setNotesOpen({ unit: unitIndex, open: false, viaEntry: false })
@@ -384,6 +394,13 @@ function ReadyReader({
 
   const next = view.next
   const anchorsBound = unit !== null && context.unit.unitIndex === unit.unitIndex
+
+  // T-0228 근거 선택 활동 — 연결한 활동의 after_unit 단위 · 긍정 확인(same)된 본인 화면 · 조회/제출 액션이 있을 때만.
+  // 「본문에서 다시 확인」은 단위 본문의 복귀 강조를 그대로 쓴다(누를 때마다 nonce). 단위가 바뀌면 그 단위 것만 쓴다.
+  const activitySlot = unit ? activitySlotFor(STORY_ACTIVITY_SLOTS, releaseKey, unit.unitIndex) : null
+  const loadActivity = actions.loadActivity
+  const submitActivity = actions.submitActivity
+  const unitRevisit = revisit && revisitContext !== null && revisit.context === revisitContext ? { wordIndex: revisit.wordIndex, nonce: revisit.nonce } : null
 
   // D5-I01 선택 낱말 저장 — 위치 · 완료와 같은 세션 문을 쓴다(session.saveWord): 긍정 확인(same)된 본인 화면에서만 보내고,
   // 신원 · 접근 거부는 같은 거부 전이(개인 내용 폐기 + 서버 상태 다시 받기) · 다른 주인의 성공은 인증 경계 무효 · 늦은 응답은 stale.
@@ -497,6 +514,7 @@ function ReadyReader({
                 tools={notesEntry}
                 save={wordSave ?? undefined}
                 returnWordIndex={returnWordIndex}
+                revisit={unitRevisit}
               />
               <StoryContextNotes
                 key={`notes:${releaseKey}:${unit.unitIndex}`}
@@ -507,6 +525,20 @@ function ReadyReader({
                 onOpenChange={(open) => setNotesOpen((s) => ({ unit: unitIndex, open, viaEntry: open ? s.viaEntry && s.unit === unitIndex : false }))}
                 onReturn={notesState.viaEntry && notesEntry ? returnToNotesEntry : undefined}
               />
+              {activitySlot && loadActivity && submitActivity && verified ? (
+                <StoryActivity
+                  key={`activity:${releaseKey}:${unit.unitIndex}:${activitySlot.activityId}`}
+                  slot={activitySlot}
+                  viewerId={state.viewerId}
+                  auth={guard}
+                  calls={{ load: loadActivity, submit: submitActivity }}
+                  unitIndex={unit.unitIndex}
+                  unitText={unit.text}
+                  onRevisit={(wordIndex) => {
+                    if (revisitContext !== null) setRevisit((r) => ({ context: revisitContext, wordIndex, nonce: (r?.nonce ?? 0) + 1 }))
+                  }}
+                />
+              ) : null}
               <div className={styles.actionZone}>
                 <div className={styles.actionRow}>
                   <CompleteControl
@@ -1152,6 +1184,8 @@ const UNAVAILABLE_TITLE: Record<StoryLearnerFailure['code'], string> = {
   invalid_input: '주소가 올바르지 않아요',
   viewer_changed: '로그인한 계정이 바뀌었어요',
   temporary: '잠시 불러오지 못했어요',
+  activity_locked: '아직 열리지 않은 활동이에요',
+  activity_unavailable: '이 활동은 지금 열 수 없어요',
 }
 
 function Unavailable({ failure, releaseKey, onRetry }: { failure: StoryLearnerFailure; releaseKey: string; onRetry: () => void }) {

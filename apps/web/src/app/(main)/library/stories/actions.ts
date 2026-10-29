@@ -8,13 +8,14 @@
 
 'use server'
 
+import { loadStoryActivity, submitStoryActivity } from '@/lib/library/story/activity'
 import {
   completeStoryUnit,
   recordStoryPosition,
   storyLearnerFailure,
   type StoryLearnerClient,
 } from '@/lib/library/story/learner'
-import type { StoryLearnerResult, StoryPositionResult, StoryUnitCompletionResult, StoryWordSaveOutcome } from '@/lib/library/story/learner-types'
+import type { StoryActivity, StoryActivityFeedback, StoryLearnerResult, StoryPositionResult, StoryUnitCompletionResult, StoryWordSaveOutcome } from '@/lib/library/story/learner-types'
 import { saveStoryWord, storyWordSaveFailure, type StoryWordSaveClient } from '@/lib/library/story/save-word'
 import { createClient } from '@/lib/supabase/server'
 
@@ -49,5 +50,28 @@ export async function saveStoryWordAction(input: unknown): Promise<StoryWordSave
     return await saveStoryWord({ client }, input)
   } catch {
     return storyWordSaveFailure('temporary')
+  }
+}
+
+/**
+ * T-0228 근거 선택 활동 조회(정답 없음). 입력 StoryActivityLoadInput { releaseKey, activityId, expectedViewerId }.
+ * 판정 · 진도 조건 · 권리는 서버 함수 story_unit_activity — 이 환경에 없으면 reader_not_ready(화면은 그리지 않는다).
+ */
+export async function loadStoryActivityAction(input: unknown): Promise<StoryLearnerResult<StoryActivity>> {
+  try {
+    const client = (await createClient()) as unknown as StoryLearnerClient
+    return await loadStoryActivity({ client }, input)
+  } catch {
+    return storyLearnerFailure('temporary')
+  }
+}
+
+/** T-0228 명시적 제출 1회(고른 근거 · 등록 근거). 입력 StoryActivitySubmitInput { releaseKey, activityId, choice, expectedViewerId }. 기록 없음. */
+export async function submitStoryActivityAction(input: unknown): Promise<StoryLearnerResult<StoryActivityFeedback>> {
+  try {
+    const client = (await createClient()) as unknown as StoryLearnerClient
+    return await submitStoryActivity({ client }, input)
+  } catch {
+    return storyLearnerFailure('temporary')
   }
 }

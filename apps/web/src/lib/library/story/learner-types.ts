@@ -230,6 +230,10 @@ export type StoryLearnerFailureCode =
   | 'viewer_changed'
   /** 일시 오류(네트워크 · DB) — 다시 시도할 수 있다. */
   | 'temporary'
+  /** T-0228 근거 선택 활동 — 본인 진도가 그 활동 위치에 닿지 않았다(오류 안내가 아니라 「없음」으로 다룬다). */
+  | 'activity_locked'
+  /** T-0228 근거 선택 활동 — 이 발행본에 없거나 지원하지 않는 형태다. */
+  | 'activity_unavailable'
 
 export interface StoryLearnerFailure {
   ok: false
@@ -334,3 +338,45 @@ export interface StoryWordSaveFailure {
 }
 
 export type StoryWordSaveOutcome = { ok: true; data: StoryWordSaveResult } | StoryWordSaveFailure
+
+// ── T-0228 근거 선택 활동(story_unit_activity) ──────────────────────────────
+
+/** 선택지 하나 — 이 발행본 한 단위의 본문 구간(UTF-16 offset)과 그 인용문. */
+export interface StoryActivityOption {
+  optionId: string
+  unitIndex: number
+  start: number
+  end: number
+  quote: string
+}
+
+/** 조회 결과 — 정답 · 등록 근거는 없다(제출 뒤에만 온다). */
+export interface StoryActivity {
+  viewerId: string
+  releaseKey: string
+  activityId: string
+  prompt: string
+  claim: string
+  options: StoryActivityOption[]
+}
+
+/** 명시적 제출 결과 — 고른 근거와 본문에 등록된 근거 하나. 점수 · 완료 · 기록이 아니다. */
+export interface StoryActivityFeedback {
+  viewerId: string
+  releaseKey: string
+  activityId: string
+  choice: string
+  correct: boolean
+  chosen: StoryActivityOption
+  registered: StoryActivityOption
+}
+
+export interface StoryActivityLoadInput {
+  releaseKey: string
+  activityId: string
+  expectedViewerId: string
+}
+
+export interface StoryActivitySubmitInput extends StoryActivityLoadInput {
+  choice: string
+}
