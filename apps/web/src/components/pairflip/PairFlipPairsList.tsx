@@ -15,10 +15,11 @@ interface PairsListProps {
   pairs: PairFlipPairResult[]
 }
 
-function attemptsBadge(attempts: number): { label: string; className: string } {
-  if (attempts <= 1) return { label: '한 번에', className: 'bg-[var(--success-light)] text-[#065F46]' }
-  if (attempts <= 2) return { label: '두 번 만에', className: 'bg-[var(--warning-light)] text-[#92400E]' }
-  return { label: '여러 번 시도', className: 'bg-[var(--bg3)] text-[var(--t2)]' }
+// T-0266 — 확인 가능한 사실만 표지로: attempts 1 · 2 는 「맞힌 짝」(한 번에 맞혀도 2 라 횟수를 단정하지 않는다) · 3 이상은 「다시 시도한 짝」(확실한 재시도).
+//   정확한 시도 횟수는 추정하지 않는다(아래 RECALL_MIN_ATTEMPTS 설명 참고).
+export function attemptsBadge(attempts: number): { label: string; className: string } {
+  if (attempts < RECALL_MIN_ATTEMPTS) return { label: '맞힌 짝', className: 'bg-[var(--success-light)] text-[#065F46]' }
+  return { label: '다시 시도한 짝', className: 'bg-[var(--bg3)] text-[var(--t2)]' }
 }
 
 /**

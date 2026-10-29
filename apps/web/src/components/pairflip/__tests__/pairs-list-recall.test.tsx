@@ -86,3 +86,20 @@ describe('T-0256 — 긴 단어 · 뜻을 자르지 않는다(회상 가림은 �
     expect(html).not.toMatch(/class="truncate font-english/)
   })
 })
+
+describe('T-0266 — 확인 가능한 사실만 표지로(정확 횟수 단정 없음)', () => {
+  it('attempts 1 · 2(한 번에 맞혀도 2) → 「맞힌 짝」, 3 이상 → 「다시 시도한 짝」 · 회상 조건 불변', async () => {
+    const { attemptsBadge } = await import('../PairFlipPairsList')
+    expect(attemptsBadge(1).label).toBe('맞힌 짝')
+    expect(attemptsBadge(2).label).toBe('맞힌 짝')
+    expect(attemptsBadge(3).label).toBe('다시 시도한 짝')
+    expect(attemptsBadge(4).label).toBe('다시 시도한 짝')
+    expect([needsRecall(2), needsRecall(3)]).toEqual([false, true])
+  })
+  it('목록에 「두 번 만에」 · 「한 번에」 · 「여러 번 시도」 같은 횟수 단정이 없다', () => {
+    const html = render([pair('a', 2), pair('b', 3)])
+    expect(html).toContain('맞힌 짝')
+    expect(html).toContain('다시 시도한 짝')
+    expect(html).not.toMatch(/두 번 만에|한 번에<|여러 번 시도/)
+  })
+})
