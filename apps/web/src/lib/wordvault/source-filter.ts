@@ -6,6 +6,8 @@
 //    B 의 단어까지 보이고 A 본문으로 돌아가는 링크(text: 전용)도 없었다.
 //    이제 만드는 쪽은 `text:<id>` 를 쓰고, 읽는 쪽은 예전 링크(접두어 없는 uuid)를 `text:` 로 읽는다.
 
+import { sanitizeInternalPath } from '@/lib/layout/session-return'
+
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
 
 /** Reader 가 만드는 글 범위 필터 값 */
@@ -110,11 +112,15 @@ export function membershipFetchTarget(filter: string, current: { setId: string }
 /**
  * 게임 범위(?set= · ?text=)에서 단어 목록으로 — readerScopeQuery 의 반대 방향. 같은 filter 값(set:·text:)을 쓴다.
  * set 이 text 보다 앞선다(readerSource 와 같은 우선순위). 범위가 없으면 단어장 허브.
+ * T-0268 — 범위 목록으로 갈 때 검증된 내부 from(sanitizeInternalPath)만 이어 준다 — 목적지 SessionFrame 의 닫기/Esc 가 읽던 글로 돌아간다.
+ * 누락 · 외부 주소 · 역슬래시 · 제어문자는 from 없이 기존 목적지. 범위 없는 허브는 그대로.
  */
-export function scopeWordsHref(scope: { set?: string | null; text?: string | null }): string {
+export function scopeWordsHref(scope: { set?: string | null; text?: string | null; from?: string | null }): string {
+  const from = sanitizeInternalPath(scope.from)
+  const withFrom = (base: string) => (from ? `${base}&from=${encodeURIComponent(from)}` : base)
   const set = scope.set?.trim()
-  if (set) return `/wordvault/browse?filter=${encodeURIComponent(`set:${set}`)}`
+  if (set) return withFrom(`/wordvault/browse?filter=${encodeURIComponent(`set:${set}`)}`)
   const text = scope.text?.trim()
-  if (text) return `/wordvault/browse?filter=${encodeURIComponent(textSourceFilter(text))}`
+  if (text) return withFrom(`/wordvault/browse?filter=${encodeURIComponent(textSourceFilter(text))}`)
   return '/wordvault'
 }
