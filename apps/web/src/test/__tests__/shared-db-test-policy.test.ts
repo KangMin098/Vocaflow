@@ -57,7 +57,15 @@ describe('shared DB mutation test boundary', () => {
 // T-0244 — teacher 실DB 통합 검사 두 개도 같은 승인 gate 를 AND 로 탄다(자격 증명만으로는 실행하지 않는다).
 // 정적 경계: skip 조건에 gate · client 생성 · 로그인 · RPC · INSERT/DELETE · 정리는 모두 그 describe 안(beforeAll/afterAll/it)에만.
 describe('teacher 실DB suite 의 승인 gate(T-0244)', () => {
-  const read = async (rel: string) => (await import('node:fs')).readFileSync((await import('node:path')).resolve(__dirname, rel), 'utf8')
+  // 읽자마자 줄바꿈을 LF 로 — CRLF 체크아웃에서도 같은 판정(저장소는 CRLF/LF 혼재)
+  const normalize = (src: string) => src.replace(/\r\n/g, '\n')
+  const read = async (rel: string) => normalize((await import('node:fs')).readFileSync((await import('node:path')).resolve(__dirname, rel), 'utf8'))
+  /** gate 된 describe 앞(파일 맨 위)에서 부작용 호출을 찾는다 — anonClient 함수 정의 안의 createClient 만 허용 */
+  const outsideCalls = (raw: string, gate: string) => {
+    const src = normalize(raw)
+    const head = src.slice(0, src.indexOf(gate))
+    return head.replace(/function anonClient\(\)[\s\S]*?\n\}\n/, '').match(/createClient\(|\.rpc\(|signInWithPassword|\.insert\(|\.delete\(|beforeAll\(|afterAll\(/g) ?? []
+  }
   const SUITES = [
     { file: '../../lib/teacher/__tests__/assignment-rls.integration.test.ts', cond: /const skip = !SUPABASE_URL \|\| !ANON_KEY \|\| !SERVICE_KEY \|\| !allowMutatingSharedDbTests\(process\.env\)/, gate: 'describe.skipIf(skip)(' },
     { file: '../../lib/teacher/__tests__/invite-rpc.integration.test.ts', cond: /const skipIfNoEnv = !URL_BASE \|\| !ANON \|\| !allowMutatingSharedDbTests\(process\.env\)/, gate: 'describe.skipIf(skipIfNoEnv)(' },
@@ -71,8 +79,9 @@ describe('teacher 실DB suite 의 승인 gate(T-0244)', () => {
       expect(at).toBeGreaterThan(0)
       const head = src.slice(0, at)
       // describe 밖(파일 맨 위)에서는 client 를 만들거나 호출하지 않는다 — 함수 정의 안의 createClient 만 허용
-      const outside = head.replace(/function anonClient\(\)[\s\S]*?\n\}\n/, '')
-      expect(outside).not.toMatch(/createClient\(|\.rpc\(|signInWithPassword|\.insert\(|\.delete\(|beforeAll\(|afterAll\(/)
+      expect(outsideCalls(src, s.gate)).toEqual([])
+      // CRLF 로 체크아웃돼도 같은 판정(리뷰 P2) — 안전한 anonClient 정의를 외부 호출로 오판하지 않는다
+      expect(outsideCalls(src.replace(/\n/g, '\r\n'), s.gate)).toEqual([])
       // gate 된 describe 앞(파일 맨 위)에는 다른 describe · it 이 없다 — 안쪽 describe 는 gate 아래라 함께 건너뛴다
       expect(head).not.toMatch(/\bdescribe\(|\bit\(/)
     })
@@ -82,5 +91,22 @@ describe('teacher 실DB suite 의 승인 gate(T-0244)', () => {
     expect(allowMutatingSharedDbTests(creds)).toBe(false)
     expect(allowMutatingSharedDbTests({ ...creds, RUN_MUTATING_DB_TESTS: '1', CI: '1' })).toBe(false)
     expect(allowMutatingSharedDbTests({ ...creds, RUN_MUTATING_DB_TESTS: '1' })).toBe(true)
+  })
+})
+
+describe('정적 경계 판정의 CRLF 회귀(T-0244 r2)', () => {
+  const normalize = (src: string) => src.replace(/\r\n/g, '\n')
+  const outsideCalls = (raw: string, gate: string) => {
+    const src = normalize(raw)
+    const head = src.slice(0, src.indexOf(gate))
+    return head.replace(/function anonClient\(\)[\s\S]*?\n\}\n/, '').match(/createClient\(|\.rpc\(|signInWithPassword|\.insert\(|\.delete\(|beforeAll\(|afterAll\(/g) ?? []
+  }
+  const SAFE = "function anonClient(): SupabaseClient {\n  return createClient(URL_BASE as string, ANON as string, {})\n}\n\ndescribe.skipIf(skipIfNoEnv)('x', () => {})\n"
+  const BAD = "const c = createClient(URL_BASE as string, ANON as string)\n\ndescribe.skipIf(skipIfNoEnv)('x', () => {})\n"
+  it('CRLF 픽스처 — 함수 정의 안 createClient 는 허용, 파일 맨 위 호출은 잡는다(LF 와 같은 결과)', () => {
+    for (const eol of ['\n', '\r\n']) {
+      expect(outsideCalls(SAFE.replace(/\n/g, eol), 'describe.skipIf(skipIfNoEnv)(')).toEqual([])
+      expect(outsideCalls(BAD.replace(/\n/g, eol), 'describe.skipIf(skipIfNoEnv)(')).toEqual(['createClient('])
+    }
   })
 })
