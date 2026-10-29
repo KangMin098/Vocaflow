@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(flashcard): 완료 화면의 숫자를 「내일 다시」가 아니라 이번 「몰라요·어려워요」 자기평가 수로 표시하고, 확정되지 않은 내일 오전 일정 약속 문구 제거(0·1·여러 건 문구, FSRS·점수 payload 불변). Codex 리뷰 NO_FINDINGS (T-0260 edab9b82a)
 - fix(pairflip): 결과 목록의 긴 단어·뜻을 잘라내지 않고 줄바꿈(break-keep·overflow-wrap), 회상 행 뜻은 열기 전 가림 유지 — 200% 확대에서도 잘림·넘침 0. Codex 리뷰 NO_FINDINGS (T-0256 173abfcf6)
 - fix(spellforge): 학습 중 모드·발음·확인 단추와 링크의 Enter 는 그 조작에 맡기고(nativeControlOwnsKey) 채점·SRS 0, 입력칸 Enter 는 기존 확인 1회. Codex 리뷰 NO_FINDINGS, 실 라우트·DB NOT_RUN (T-0261 d36974176)
 - fix(practice): R0 기사 연습에서 제출 단추로 제출해 채점에 성공하면 피드백 제목으로 초점 1회(기사 opt-in) — 대기 중 본문 클릭·Shift+Tab·창/탭 이탈 시 취소, 실패·재렌더·다음 전환 이동 0. Codex 리뷰 3회 반려 뒤 NO_FINDINGS, 실 스크린리더·탭 전환 NOT_RUN (T-0259 5ea4c04cd)
