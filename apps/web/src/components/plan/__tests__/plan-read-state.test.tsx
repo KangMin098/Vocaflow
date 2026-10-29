@@ -262,8 +262,8 @@ describe('리뷰 r10 — 쓰기 상태 반드시 해제 · 재시도 실패 뒤 
   })
   it('[P2] 서버 액션이 던지면 기존 실패 계약(ok:false · 안내)으로 — 저장 · 삭제 모두', () => {
     const x = src()
-    expect(x).toMatch(/const safeSave = async[\s\S]*?try \{\s*\n\s*return await savePlanItem\(input\)\s*\n\s*\} catch \{\s*\n\s*return \{ ok: false as const/)
-    expect(x).toMatch(/const safeRemove = async[\s\S]*?try \{\s*\n\s*return await removePlanItem\(id, expected\)\s*\n\s*\} catch \{\s*\n\s*return \{ ok: false as const/)
+    expect(x).toMatch(/const safeSave = async[\s\S]*?try \{\s*\n\s*return await savePlanItem\(input\)\s*\n\s*\} catch \{[\s\S]{0,200}?return \{ ok: false as const/)
+    expect(x).toMatch(/const safeRemove = async[\s\S]*?try \{\s*\n\s*return await removePlanItem\(id, expected\)\s*\n\s*\} catch \{[\s\S]{0,200}?return \{ ok: false as const/)
   })
   it('[P2] 키보드 재시도가 다시 실패하면 단추가 다시 활성이 된 뒤 그 단추로 초점(사용자가 옮기지 않았을 때만)', () => {
     const x = src()
@@ -290,10 +290,31 @@ describe('리뷰 r11 — 자료 목록의 소유자 경계(개인 스크립트 �
   it('[P1] 소유자 불일치면 1회만 다시 읽고, 응답도 지금 소유자와 같을 때만 반영 · 소유자가 바뀌면 즉시 비움(렌더 시 판정)', () => {
     const x = fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
     expect(x).toContain('const materials: AvailableMaterials = matsOwner === ownerId ? mats : EMPTY_MATERIALS')
-    expect(x).toMatch(/if \(ownerId === null \|\| matsOwner === ownerId \|\| matsRefetched\.current\) return\s*\n\s*matsRefetched\.current = true\s*\n\s*void fetchAvailableMaterials\(\)/)
-    expect(x).toContain('if ((m.viewerId ?? null) === ownerRef.current) setMats(m)')
+    expect(x).toMatch(/if \(ownerId === null \|\| matsOwner === ownerId \|\| matsRefetched\.current\) return\s*\n\s*matsRefetched\.current = true\s*\n\s*const forOwner = ownerId\s*\n\s*void fetchAvailableMaterials\(\)/)
+    expect(x).toContain('if (ownerRef.current !== forOwner) return')
+    expect(x).toContain('if ((m.viewerId ?? null) === forOwner) {')
     const a = fs.readFileSync(path.resolve(__dirname, '../../../lib/learner/plan-actions.ts'), 'utf8')
     expect(a).toMatch(/return \{\s*\n\s*viewerId: user\.id,/)
     expect(a).toContain("const empty: AvailableMaterials = { viewerId: null,")
+  })
+})
+
+describe('리뷰 r12 — 자료 재조회 실패 복구 · 쓰기 결과 미확인 시 재조회 단추', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  it('[P2] 자료 재조회 실패(예외 · 다른 viewer 응답) → 실패 표시 · 「자료 다시 불러오기」가 표식을 다시 연다 · 소유자가 바뀌면 다시 연다', () => {
+    const x = src()
+    expect(x).toMatch(/\.catch\(\(\) => \{\s*\n\s*if \(ownerRef\.current === forOwner\) setMatsFailed\(true\)/)
+    expect(x).toMatch(/\} else setMatsFailed\(true\)/)
+    expect(x).toMatch(/const retryMaterials = \(\) => \{\s*\n\s*matsRefetched\.current = false\s*\n\s*setMatsFailed\(false\)\s*\n\s*setMatsTry\(\(n\) => n \+ 1\)/)
+    expect(x).toMatch(/if \(matsFor\.current !== ownerId\) \{\s*\n\s*matsFor\.current = ownerId\s*\n\s*matsRefetched\.current = false/)
+    expect(x).toContain('}, [ownerId, matsOwner, matsTry])')
+    expect(x).toContain('data-testid="plan-materials-retry"')
+  })
+  it('[P2] 쓰기 예외 → writeUnknown 으로 같은 자리에 재조회 단추 · 안내는 지금 할 수 있는 행동 · 재조회 성공 시 해제', () => {
+    const x = src()
+    expect((x.match(/setWriteUnknown\(true\)/g) ?? []).length).toBe(2)
+    expect(x).toContain('{(readFailed || writeUnknown) && (')
+    expect(x).toContain("'저장 결과를 확인하지 못했어요. 다시 불러와 지금 계획을 확인해 주세요.'")
+    expect(x).toMatch(/setReadFailed\(false\)\s*\n\s*setWriteUnknown\(false\)/)
   })
 })

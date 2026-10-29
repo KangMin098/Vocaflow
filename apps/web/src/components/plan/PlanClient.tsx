@@ -122,15 +122,36 @@ export function PlanClient({
   }, [initialMaterials])
   const matsOwner = mats.viewerId ?? null
   const materials: AvailableMaterials = matsOwner === ownerId ? mats : EMPTY_MATERIALS
+  // 자료 재조회 실패(r12) — 선택기가 조용히 빈 채로 남지 않게 표시하고, 명시적 「자료 다시 불러오기」로 다시 연다.
+  //   소유자가 바뀌면 1회 재조회 표식을 다시 연다
+  const [matsFailed, setMatsFailed] = useState(false)
+  const [matsTry, setMatsTry] = useState(0)
+  const matsFor = useRef<string | null>(ownerId)
+  if (matsFor.current !== ownerId) {
+    matsFor.current = ownerId
+    matsRefetched.current = false
+  }
   useEffect(() => {
     if (ownerId === null || matsOwner === ownerId || matsRefetched.current) return
     matsRefetched.current = true
+    const forOwner = ownerId
     void fetchAvailableMaterials()
       .then((m) => {
-        if ((m.viewerId ?? null) === ownerRef.current) setMats(m)
+        if (ownerRef.current !== forOwner) return
+        if ((m.viewerId ?? null) === forOwner) {
+          setMats(m)
+          setMatsFailed(false)
+        } else setMatsFailed(true)
       })
-      .catch(() => {})
-  }, [ownerId, matsOwner])
+      .catch(() => {
+        if (ownerRef.current === forOwner) setMatsFailed(true)
+      })
+  }, [ownerId, matsOwner, matsTry])
+  const retryMaterials = () => {
+    matsRefetched.current = false
+    setMatsFailed(false)
+    setMatsTry((n) => n + 1)
+  }
   const readGen = useRef(0)
   const retryRef = useRef<HTMLButtonElement | null>(null)
   const headingRef = useRef<HTMLHeadingElement | null>(null)
@@ -242,6 +263,7 @@ export function PlanClient({
       setItems(snap.items)
       setConfirmed(true)
       setReadFailed(false)
+      setWriteUnknown(false)
     } catch {
       if (gen === readGen.current) setReadFailed(true)
     } finally {
@@ -257,11 +279,15 @@ export function PlanClient({
   const [draft, setDraft] = useState<Draft | null>(null)
   const [editId, setEditId] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
+  /** 쓰기 결과를 확인하지 못함(r12) — 읽기 실패 고지와 같은 자리에 재조회 단추를 보인다. 재조회 성공 시 해제 */
+  const [writeUnknown, setWriteUnknown] = useState(false)
   /** 서버 액션이 던져도(네트워크 등) 기존 실패 계약으로 — 쓰기 상태(adding · pendingWrites)가 남지 않게(r10) */
   const safeSave = async (input: Parameters<typeof savePlanItem>[0]) => {
     try {
       return await savePlanItem(input)
     } catch {
+      // 저장 여부를 모른다(r12) — 안내가 말하는 「다시 불러와 확인」을 지금 화면에서 할 수 있게 재조회 단추를 띄운다
+      setWriteUnknown(true)
       return { ok: false as const, error: '저장 여부를 확인하지 못했어요. 계획을 다시 불러와 확인해 주세요.' }
     }
   }
@@ -269,6 +295,7 @@ export function PlanClient({
     try {
       return await removePlanItem(id, expected)
     } catch {
+      setWriteUnknown(true)
       return { ok: false as const, error: '삭제 여부를 확인하지 못했어요. 계획을 다시 불러와 확인해 주세요.' }
     }
   }
@@ -654,10 +681,12 @@ export function PlanClient({
       )}
 
       {/* 계획 읽기 실패(T-0240) — 빈 계획 · 삭제된 자료로 보이지 않게. 다시 불러오기는 읽기만 한다 */}
-      {readFailed && (
-        <div role="alert" data-testid="plan-read-failed" className="flex flex-wrap items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
+      {(readFailed || writeUnknown) && (
+        <div role="alert" data-testid="plan-read-failed" data-write-unknown={writeUnknown && !readFailed ? 'true' : undefined} className="flex flex-wrap items-center gap-3 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg)] px-4 py-3">
           <p className="m-0 min-w-0 flex-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t1)]">
-            {confirmed
+            {!readFailed
+              ? '저장 결과를 확인하지 못했어요. 다시 불러와 지금 계획을 확인해 주세요.'
+              : confirmed
               ? '계획을 다시 불러오지 못했어요. 아래는 마지막으로 확인한 계획이에요.'
               : '학습 계획을 불러오지 못했어요. 계획이 비어 있다는 뜻이 아니에요 — 다시 불러와 확인해 주세요.'}
           </p>
@@ -714,6 +743,21 @@ export function PlanClient({
           <h2 className="flex items-center gap-2 font-display text-[14px] font-[800] text-[var(--t1)]">
             <Plus size={15} strokeWidth={2} className="text-[var(--p)]" aria-hidden /> 자료 고르기
           </h2>
+          {/* 자료 목록을 이 계정으로 다시 읽지 못했을 때(r12) — 빈 선택기로 두지 않고 말하고, 다시 읽게 한다 */}
+          {matsFailed && (
+            <div role="alert" data-testid="plan-materials-failed" className="flex flex-wrap items-center gap-2 rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-3 py-2">
+              <p className="m-0 min-w-0 flex-1 break-keep font-body text-[12.5px] text-[var(--t1)]">자료 목록을 불러오지 못했어요.</p>
+              <button
+                type="button"
+                onClick={retryMaterials}
+                data-testid="plan-materials-retry"
+                className="inline-flex min-h-11 items-center gap-1.5 rounded-[var(--r-md)] border border-[var(--bd)] px-3 font-display text-[12.5px] font-[700] text-[var(--t1)] hover:bg-[var(--bg)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-1"
+              >
+                <RotateCw size={13} aria-hidden />
+                자료 다시 불러오기
+              </button>
+            </div>
+          )}
 
           <div role="tablist" aria-label="자료 유형" className="flex flex-wrap gap-2">
             {TYPE_TABS.map((t) => {
