@@ -547,7 +547,7 @@ export async function savePlanItem(input: {
    * 거부용 결속일 뿐 권한 근거가 아니다(권한은 기존 Auth/RLS). 넘기지 않으면 기존과 같다.
    */
   expectedOwner?: string
-}): Promise<{ ok: boolean; id?: string; error?: string }> {
+}): Promise<{ ok: boolean; id?: string; error?: string; at?: number }> {
   if (!input?.materialId) return { ok: false, error: '자료가 필요합니다.' }
   const client = await createClient()
   const {
@@ -575,7 +575,8 @@ export async function savePlanItem(input: {
       .eq('id', input.id)
       .eq('user_id', user.id)
     if (error) return { ok: false, error: error.message }
-    return { ok: true, id: input.id }
+    // at(T-0251) — 쓰기를 마친 서버 시각. 화면은 이보다 먼저 출발한 계획 snapshot(props)을 반영하지 않는다
+    return { ok: true, id: input.id, at: Date.now() }
   }
 
   const { data, error } = await lc
@@ -591,11 +592,11 @@ export async function savePlanItem(input: {
     .select('id')
     .single()
   if (error) return { ok: false, error: error.message }
-  return { ok: true, id: (data as { id: string } | null)?.id }
+  return { ok: true, id: (data as { id: string } | null)?.id, at: Date.now() }
 }
 
 /** 계획 항목 제거. expectedOwner(T-0240 r3) — 서버 getUser 와 다르면 지우기 전에 거부(넘기지 않으면 기존과 같다). */
-export async function removePlanItem(itemId: string, expectedOwner?: string): Promise<{ ok: boolean; error?: string }> {
+export async function removePlanItem(itemId: string, expectedOwner?: string): Promise<{ ok: boolean; error?: string; at?: number }> {
   const client = await createClient()
   const {
     data: { user },
@@ -609,5 +610,5 @@ export async function removePlanItem(itemId: string, expectedOwner?: string): Pr
     .eq('id', itemId)
     .eq('user_id', user.id)
   if (error) return { ok: false, error: error.message }
-  return { ok: true }
+  return { ok: true, at: Date.now() }
 }

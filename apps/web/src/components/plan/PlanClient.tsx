@@ -79,6 +79,7 @@ export function PlanClient({
   viewerId = null,
   materials: initialMaterials,
   initialMaterialsFailed = false,
+  snapshotAt,
   todayWeekday,
   weekDates,
 }: {
@@ -90,6 +91,8 @@ export function PlanClient({
   materials: AvailableMaterials
   /** 서버에서 자료 목록 조회가 던졌는가(r13) — 처음부터 「자료 다시 불러오기」를 보인다 */
   initialMaterialsFailed?: boolean
+  /** 이 props snapshot 이 출발한 서버 시각(T-0251) — 마지막 쓰기(서버 시각)보다 이르면 반영하지 않는다 */
+  snapshotAt?: number
   todayWeekday: number
   /** 이번 주(월~일) 날짜 'M/D' 7개 — index 0=월 (서버 KST 산출) */
   weekDates: string[]
@@ -188,6 +191,11 @@ export function PlanClient({
   //   진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
   const firstProps = useRef(true)
   const deferredProps = useRef(false)
+  /** 마지막으로 성공한 쓰기의 서버 시각(T-0251) — 쓰기 결과의 at 중 가장 늦은 것 */
+  const lastWriteAt = useRef(0)
+  const noteWrite = (res: { ok: boolean; at?: number }) => {
+    if (res.ok && typeof res.at === 'number' && res.at > lastWriteAt.current) lastWriteAt.current = res.at
+  }
   /** 진행 중인 재조회의 세대(r15) — 현재 세대와 같을 때만 「진행 중」. props 교체로 세대가 바뀌면 자동으로 풀린다 */
   const reloadInFlight = useRef<number | null>(null)
   const focusRetryAfter = useRef(false)
@@ -204,6 +212,11 @@ export function PlanClient({
     // ② 같은 viewer(또는 소유자 확인 실패)의 props 만 쓰기 중 보류(r7) — 낙관적 변경을 덮지 않게. 쓰기가 끝나면 보류분은 버리고 재조회 1회
     if (writing) {
       deferredProps.current = true
+      return
+    }
+    // ③ 마지막 쓰기보다 먼저 출발한 snapshot(T-0251) — 저장 전 출발해 저장 뒤 도착한 갱신이 성공한 변경을 덮지 않게 버리고, 재조회 1회로 확인한다
+    if (snapshotAt !== undefined && snapshotAt < lastWriteAt.current) {
+      void reloadPlan()
       return
     }
     readGen.current++
@@ -299,7 +312,9 @@ export function PlanClient({
   /** 서버 액션이 던져도(네트워크 등) 기존 실패 계약으로 — 쓰기 상태(adding · pendingWrites)가 남지 않게(r10) */
   const safeSave = async (input: Parameters<typeof savePlanItem>[0]) => {
     try {
-      return await savePlanItem(input)
+      const res = await savePlanItem(input)
+      noteWrite(res)
+      return res
     } catch {
       // 저장 여부를 모른다(r12) — 안내가 말하는 「다시 불러와 확인」을 지금 화면에서 할 수 있게 재조회 단추를 띄운다
       setWriteUnknown(true)
@@ -308,7 +323,9 @@ export function PlanClient({
   }
   const safeRemove = async (id: string, expected: string | undefined) => {
     try {
-      return await removePlanItem(id, expected)
+      const res = await removePlanItem(id, expected)
+      noteWrite(res)
+      return res
     } catch {
       setWriteUnknown(true)
       return { ok: false as const, error: '삭제 여부를 확인하지 못했어요. 계획을 다시 불러와 확인해 주세요.' }
