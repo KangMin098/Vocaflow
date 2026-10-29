@@ -67,6 +67,12 @@ describe('FirstArticleGoal — 화면', () => {
     expect(fail).toContain('first-article-goal-failed')
     for (const h of [empty, out, fail]) expect(h).not.toContain('first-article-goal-list')
   })
+  it('패널 카드에는 적합 표지 0 · 일반 카드는 그대로', async () => {
+    const { ArticleCard } = await import('@/components/library/browse/ArticleCard')
+    const h = html({ articles: [art(A), art(B)], practice: { state: 'ok', counts: { [A]: 2, [B]: 1 } }, userVLevel: 5, initialOpen: true })
+    expect(h).not.toContain('data-testid="article-fit"')
+    expect(renderToStaticMarkup(<ArticleCard article={art(A)} userVLevel={5} />)).toContain('data-testid="article-fit"')
+  })
   it('진단 · 수준 적합 · 성취 보장 문구 없음', () => {
     const h = html({ articles: [art(A)], practice: { state: 'ok', counts: { [A]: 2 } }, userVLevel: 5, initialOpen: true })
     const goal = h.slice(0, h.indexOf('first-article-goal-list'))

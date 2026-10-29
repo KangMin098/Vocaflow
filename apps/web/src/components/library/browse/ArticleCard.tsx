@@ -55,12 +55,15 @@ export function ArticleCard({
   userVLevel,
   featured = false,
   practiceCount = null,
+  hideFit = false,
 }: {
   article: PublishedArticle
   userVLevel: number
   featured?: boolean
   /** T-0215 — 이 글에 설치된 안내 연습 문항 수(서버 1회 조회). null 이면 표시 없음(없음 · 로그아웃 · 조회 실패) */
   practiceCount?: number | null
+  /** R0-C2-01 — 임시 목표 패널처럼 수준 적합을 말하지 않아야 하는 자리에서만 켠다(적합 표지 숨김). 기본은 그대로 표시 */
+  hideFit?: boolean
 }) {
   const router = useRouter()
   const [pending, startTransition] = useTransition()
@@ -68,7 +71,7 @@ export function ArticleCard({
   const src = sourceMeta(article.source)
   const cefr = article.cefr_level
   const cefrColor = cefr ? CEFR_COLOR[cefr] ?? 'var(--t3)' : null
-  const fit = judgeArticleIPlusOne(article.article_v_level, userVLevel)
+  const fit = hideFit ? null : judgeArticleIPlusOne(article.article_v_level, userVLevel)
   const hasAudio = !!(article.audio_url && article.audio_url.trim())
   // ACP §20 — 쉬운 판은 출처를 원본 그대로 쓰므로 카탈로그에서 원본 옆에 선다.
   //   표시가 없으면 학습자에게는 같은 글이 두 개로 보인다.
@@ -135,7 +138,7 @@ export function ArticleCard({
         </span>
       )}
       {fit && (
-        <span className="inline-flex items-center gap-1" style={{ color: fit.color }}>
+        <span data-testid="article-fit" className="inline-flex items-center gap-1" style={{ color: fit.color }}>
           <Target size={11} aria-hidden /> {fit.label}
         </span>
       )}

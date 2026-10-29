@@ -3,7 +3,7 @@
 // R0-C2-01 — 서가 진입면의 **선택적** 임시 목표: 「짧은 글 한 편을 고르고 핵심 내용 확인해 보기」.
 // - 누르면 지금 받은 발행 목록 ∩ 연습 문항이 있는 글(서버 1회 조회 결과)을 기존 ArticleCard 로 보여 주고, 고르는 것은 학습자다.
 // - 이 방문의 React 상태만 쓴다 — DB · 주소 · 쿠키 · localStorage 저장 없음, 자동 선택 · 학습 기록 없음, 추가 요청 없음.
-// - 진단 · 수준 적합 · 성취를 말하지 않는다. 문항이 있다는 사실만 말한다.
+// - 진단 · 수준 적합 · 성취를 말하지 않는다. 문항이 있다는 사실만 말한다(카드의 적합 표지도 hideFit 으로 숨긴다).
 // - 아래 전체 탐색은 열려 있든 닫혀 있든 그대로 남는다. 닫으면 초점을 여는 단추로 돌려준다.
 
 'use client'
@@ -123,7 +123,7 @@ export function FirstArticleGoal({
           <ul data-testid="first-article-goal-list" className="grid grid-cols-1 gap-3 md:grid-cols-2">
             {ready.items.map(({ article, count }) => (
               <li key={article.id} className="min-w-0">
-                <ArticleCard article={article} userVLevel={userVLevel} practiceCount={count} />
+                <ArticleCard article={article} userVLevel={userVLevel} practiceCount={count} hideFit />
               </li>
             ))}
           </ul>
