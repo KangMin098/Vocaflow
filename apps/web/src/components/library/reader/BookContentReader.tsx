@@ -147,6 +147,13 @@ export function BookContentReader({
       .then((content) => {
         if (cancelled) return
         setFailure(null)
+        // 다시 불러오기로 왔으면 결과가 본문이든 「본문 없음」 · 「로그인 필요」든(null) 단추가 사라지므로 바뀐 영역으로 초점을 1회 옮긴다
+        if (retryFocus.current) {
+          retryFocus.current = false
+          requestAnimationFrame(() => {
+            if (document.activeElement === document.body || document.activeElement === null) contentRef.current?.focus({ preventScroll: true })
+          })
+        }
         if (!content) return
         setContentCache((prev) => ({ ...prev, [activeIdx]: content }))
       })
@@ -206,11 +213,6 @@ export function BookContentReader({
     retryFocus.current = onButton
     setRetryNonce((n) => n + 1)
   }
-  useEffect(() => {
-    if (!activeContent || !retryFocus.current) return
-    retryFocus.current = false
-    if (document.activeElement === document.body || document.activeElement === null) contentRef.current?.focus({ preventScroll: true })
-  }, [activeContent])
   const activeSamples = sampleCache[activeIdx] ?? []
 
   return (

@@ -45,4 +45,10 @@ describe('본문 조회 실패 — 다시 불러오기', () => {
     expect(line).toContain('focus-visible:ring-2')
     expect(line).toContain('focus-visible:ring-[var(--p)]')
   })
+  it('다시 불러오기 결과가 본문 없음(null)이어도 바뀐 영역으로 초점 1회 — 성공 분기에서 null 검사보다 먼저', () => {
+    const then = SRC.slice(SRC.indexOf('setFailure(null)'), SRC.indexOf('setContentCache((prev) => ({ ...prev, [activeIdx]: content }))'))
+    expect(then).toContain('if (retryFocus.current) {')
+    expect(then.indexOf('if (retryFocus.current) {')).toBeLessThan(then.indexOf('if (!content) return'))
+    expect(then).toContain('contentRef.current?.focus({ preventScroll: true })')
+  })
 })
