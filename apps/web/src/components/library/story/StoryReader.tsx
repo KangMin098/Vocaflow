@@ -320,7 +320,12 @@ function ReadyReader({
   const [notesOpen, setNotesOpen] = useState<{ unit: number | null; open: boolean; viaEntry: boolean }>({ unit: null, open: false, viaEntry: false })
   const notesEntryRef = useRef<HTMLButtonElement>(null)
   // T-0228 근거 활동 「본문에서 다시 확인」 — 단위 · 낱말 번호 · 누른 차례(nonce)
-  const [revisit, setRevisit] = useState<{ unit: number; wordIndex: number; nonce: number } | null>(null)
+  // 활동과 같은 결속(본인 · 발행본 · 단위 · 인증 세대)에 묶는다 — 결속이 바뀌면 버린다(돌아와도 이전 근거 강조가 되살아나지 않는다)
+  const revisitContext = verified && unitIndex !== null ? `${anchorOwner}|${releaseKey}|${unitIndex}|${guard.token()}` : null
+  const [revisit, setRevisit] = useState<{ context: string; wordIndex: number; nonce: number } | null>(null)
+  useEffect(() => {
+    if (revisit && revisit.context !== revisitContext) setRevisit(null)
+  }, [revisit, revisitContext])
   useEffect(() => {
     setSelectedAnchor(null)
     setNotesOpen({ unit: unitIndex, open: false, viaEntry: false })
@@ -395,7 +400,7 @@ function ReadyReader({
   const activitySlot = unit ? activitySlotFor(STORY_ACTIVITY_SLOTS, releaseKey, unit.unitIndex) : null
   const loadActivity = actions.loadActivity
   const submitActivity = actions.submitActivity
-  const unitRevisit = revisit && unit && revisit.unit === unit.unitIndex ? { wordIndex: revisit.wordIndex, nonce: revisit.nonce } : null
+  const unitRevisit = revisit && revisitContext !== null && revisit.context === revisitContext ? { wordIndex: revisit.wordIndex, nonce: revisit.nonce } : null
 
   // D5-I01 선택 낱말 저장 — 위치 · 완료와 같은 세션 문을 쓴다(session.saveWord): 긍정 확인(same)된 본인 화면에서만 보내고,
   // 신원 · 접근 거부는 같은 거부 전이(개인 내용 폐기 + 서버 상태 다시 받기) · 다른 주인의 성공은 인증 경계 무효 · 늦은 응답은 stale.
@@ -529,7 +534,9 @@ function ReadyReader({
                   calls={{ load: loadActivity, submit: submitActivity }}
                   unitIndex={unit.unitIndex}
                   unitText={unit.text}
-                  onRevisit={(wordIndex) => setRevisit((r) => ({ unit: unit.unitIndex, wordIndex, nonce: (r?.nonce ?? 0) + 1 }))}
+                  onRevisit={(wordIndex) => {
+                    if (revisitContext !== null) setRevisit((r) => ({ context: revisitContext, wordIndex, nonce: (r?.nonce ?? 0) + 1 }))
+                  }}
                 />
               ) : null}
               <div className={styles.actionZone}>
