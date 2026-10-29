@@ -4,7 +4,7 @@
 import { renderToString } from 'react-dom/server'
 import { describe, expect, it, vi } from 'vitest'
 import { itemsOf } from '@/lib/csat/judgment/fixtures'
-import { initialState, setVerdict, toggleCue, toggleSuspect } from '@/lib/csat/judgment/r-irrelevant'
+import { initialState, setVerdict, toggleCue, toggleSuspect, toggleTopic } from '@/lib/csat/judgment/r-irrelevant'
 import { IrrelevantTool, compareRows, snapshotOnRequest } from '../IrrelevantTool'
 
 const s0 = initialState()
@@ -26,7 +26,7 @@ describe('compareRows', () => {
   const slot = { n: 3, nextId: 'u5' }
   it('변경 없음은 바뀌었다고 하지 않는다 · 표시 없음은 그대로 말한다', () => {
     const rows = compareRows(s1, s1, slot)
-    expect(rows.map((r) => r.key)).toEqual(['suspect', 'back', 'forward', 'bridge'])
+    expect(rows.map((r) => r.key)).toEqual(['topic', 'suspect', 'back', 'forward', 'bridge'])
     expect(rows.every((r) => !r.changed)).toBe(true)
     expect(rows.find((r) => r.key === 'forward')).toMatchObject({ asked: '표시 없음', now: '표시 없음' })
     expect(rows.find((r) => r.key === 'suspect')).toMatchObject({ asked: '③', now: '③' })
@@ -41,7 +41,23 @@ describe('compareRows', () => {
   it('다른 선지 표시는 이 선지 비교에 섞이지 않는다 · 마지막 문장은 앞 이음매만', () => {
     const other = setVerdict(s1, 2, 'back', 'holds')
     expect(compareRows(s1, other, slot).filter((r) => r.changed)).toEqual([])
-    expect(compareRows(s1, s1, { n: 5, nextId: null }).map((r) => r.key)).toEqual(['suspect', 'back'])
+    expect(compareRows(s1, s1, { n: 5, nextId: null }).map((r) => r.key)).toEqual(['topic', 'suspect', 'back'])
+  })
+})
+
+describe('compareRows — 중심 화제', () => {
+  const units = [{ id: 'u1', n: 1 }, { id: 'u2', n: 2 }]
+  const slot = { n: 3, nextId: 'u5' }
+  it('해설 뒤 화제만 바꾸면 그 한 행만 바뀜', () => {
+    const asked = toggleTopic(s1, 'u1')
+    const rows = compareRows(asked, toggleTopic(asked, 'u2'), slot, units)
+    expect(rows.filter((r) => r.changed).map((r) => r.key)).toEqual(['topic'])
+    expect(rows[0]).toMatchObject({ asked: '1번', now: '1번·2번' })
+  })
+  it('고정 순서만 다르면 바뀌지 않음 · 없으면 고정 없음', () => {
+    const a = toggleTopic(toggleTopic(s1, 'u2'), 'u1'), b = toggleTopic(toggleTopic(s1, 'u1'), 'u2')
+    expect(compareRows(a, b, slot, units)[0].changed).toBe(false)
+    expect(compareRows(s1, s1, slot, units)[0]).toMatchObject({ asked: '고정 없음', now: '고정 없음' })
   })
 })
 

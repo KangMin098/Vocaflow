@@ -329,7 +329,7 @@ function RevealView(props: {
       <div>
         <h4 className={s.h4}>{CIRCLED[slot.n - 1]} 문장 — 내 표시와 해설</h4>
         {asked ? (
-          <CompareTable asked={asked} now={state} slot={slot} />
+          <CompareTable asked={asked} now={state} slot={slot} units={units} />
         ) : (
           <p className={js.note}>내 표시: 앞 {mine(m.back.verdict)}{slot.nextId ? ` · 뒤 ${mine(m.forward.verdict)} · 빼고 읽기 ${m.bridge.verdict === 'holds' ? '○ 이어짐' : m.bridge.verdict === 'breaks' ? '✕ 빈다' : '표시 없음'}` : ''}</p>
         )}
@@ -361,7 +361,7 @@ export function snapshotOnRequest(prev: ToolState | null, current: ToolState, st
   return current
 }
 
-export type CompareRow = { key: 'suspect' | Seam; label: string; asked: string; now: string; changed: boolean }
+export type CompareRow = { key: 'topic' | 'suspect' | Seam; label: string; asked: string; now: string; changed: boolean }
 
 const markText = (seam: Seam, m: SeamMark): string => {
   const v = m.verdict === 'holds' ? '○ 이어짐' : m.verdict === 'breaks' ? (seam === 'bridge' ? '✕ 빈다' : '✕ 끊김') : '표시 없음'
@@ -369,9 +369,15 @@ const markText = (seam: Seam, m: SeamMark): string => {
 }
 
 /** 같은 선지의 같은 이음매끼리 「해설 요청 당시」 와 「지금」 을 맞댄다. 문구가 같으면 바뀌지 않은 것이다(꾸미지 않는다). */
-export function compareRows(asked: ToolState, now: ToolState, slot: Pick<Slot, 'n' | 'nextId'>): CompareRow[] {
+export function compareRows(asked: ToolState, now: ToolState, slot: Pick<Slot, 'n' | 'nextId'>, units: readonly Pick<EvidenceUnit, 'id' | 'n'>[] = []): CompareRow[] {
+  // 중심 화제 고정 — 문장 번호 순으로(고정 순서만 다른 것은 바꾼 것이 아니다). 번호를 모르는 단위는 id 로 둔다.
+  const no = new Map(units.map((u) => [u.id, u.n]))
+  const topic = (st: ToolState) => {
+    const ns = [...st.topic].sort((a, b) => (no.get(a) ?? Infinity) - (no.get(b) ?? Infinity) || a.localeCompare(b)).map((id) => (no.has(id) ? `${no.get(id)}번` : id))
+    return ns.length ? ns.join('·') : '고정 없음'
+  }
   const sus = (st: ToolState) => (st.suspect ? CIRCLED[st.suspect - 1] : '고르지 않음')
-  const rows: CompareRow[] = [{ key: 'suspect', label: '무관 후보', asked: sus(asked), now: sus(now), changed: false }]
+  const rows: CompareRow[] = [{ key: 'topic', label: '중심 화제 문장', asked: topic(asked), now: topic(now), changed: false }, { key: 'suspect', label: '무관 후보', asked: sus(asked), now: sus(now), changed: false }]
   const seams: Seam[] = slot.nextId ? ['back', 'forward', 'bridge'] : ['back']
   const label: Record<Seam, string> = { back: `${CIRCLED[slot.n - 1]} 앞 이음매`, forward: `${CIRCLED[slot.n - 1]} 뒤 이음매`, bridge: `${CIRCLED[slot.n - 1]} 빼고 읽기` }
   for (const seam of seams) rows.push({ key: seam, label: label[seam], asked: markText(seam, marksOf(asked, slot.n)[seam]), now: markText(seam, marksOf(now, slot.n)[seam]), changed: false })
@@ -379,8 +385,8 @@ export function compareRows(asked: ToolState, now: ToolState, slot: Pick<Slot, '
   return rows
 }
 
-function CompareTable({ asked, now, slot }: { asked: ToolState; now: ToolState; slot: Slot }) {
-  const rows = compareRows(asked, now, slot)
+function CompareTable({ asked, now, slot, units }: { asked: ToolState; now: ToolState; slot: Slot; units: EvidenceUnit[] }) {
+  const rows = compareRows(asked, now, slot, units)
   const changed = rows.filter((r) => r.changed).length
   const cell = { padding: '6px 8px', borderTop: '1px solid var(--bd)', textAlign: 'left' as const, verticalAlign: 'top' as const, overflowWrap: 'anywhere' as const }
   return (
