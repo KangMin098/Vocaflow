@@ -123,6 +123,8 @@ export function ArticlePracticeBridge({
       nextChoice={ARTICLE_NEXT_CHOICE}
       doneChoice={articleVocabDoneChoice(textId, vocab)}
       afterFeedback={readingText ? <ArticleReadingReference text={readingText} /> : undefined}
+      // R0-PRE-EVIDENCE-01 — 제목 · 주제 문항만 제출 전 선택적 본문 짚기(서버에는 그대로 {choice} 만)
+      preEvidence
     />
   )
 }

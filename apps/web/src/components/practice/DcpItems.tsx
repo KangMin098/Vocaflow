@@ -11,6 +11,7 @@ import { ChevronDown, ChevronUp } from 'lucide-react'
 
 import type { DcpChoicePayload, DcpInsertPayload, DcpOrderPayload } from '@/lib/learner/dcp'
 import { splitSentence, type DcpUnderlinePayload } from '@/lib/learner/dcp-underline'
+import { PreEvidencePicker } from './PreEvidence'
 
 // ────────────────────────────────────────────────────────────
 // order — presented 문장을 원래 순서로 배열 (이동 버튼)
@@ -175,13 +176,19 @@ export function DcpChoiceItem({
   payload,
   submitting,
   onSubmit,
+  evidenceSentences = null,
 }: {
   payload: DcpChoicePayload
   submitting: boolean
-  onSubmit: (answer: { choice: number }) => void
+  /** 답은 그대로 {choice} — 제출 전 짚은 문장은 둘째 인자로 따로(서버로 가지 않는다) */
+  onSubmit: (answer: { choice: number }, pre?: { sentence: string | null }) => void
+  /** R0-PRE-EVIDENCE-01 — 제출 전 짚기 후보(opt-in). null 이면 예전 화면 그대로 */
+  evidenceSentences?: string[] | null
 }) {
   const { passage, choices, stemKo, underline, summarySentence } = payload
   const [picked, setPicked] = useState<number | null>(null)
+  // 실패 뒤 'answering' 으로 돌아와도 이 컴포넌트는 그대로라 짚은 문장이 남는다(입력 보존)
+  const [evidence, setEvidence] = useState<number | null>(null)
 
   return (
     <div className="flex flex-col gap-3">
@@ -233,9 +240,18 @@ export function DcpChoiceItem({
         })}
       </ol>
 
+      {evidenceSentences && (
+        <PreEvidencePicker sentences={evidenceSentences} picked={evidence} onPick={setEvidence} locked={submitting} />
+      )}
+
       <SubmitButton
         disabled={submitting || picked === null}
-        onClick={() => picked !== null && onSubmit({ choice: picked })}
+        onClick={() =>
+          picked !== null &&
+          (evidenceSentences
+            ? onSubmit({ choice: picked }, { sentence: evidence !== null ? evidenceSentences[evidence] ?? null : null })
+            : onSubmit({ choice: picked }))
+        }
       />
     </div>
   )

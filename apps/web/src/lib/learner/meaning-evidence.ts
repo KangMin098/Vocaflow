@@ -6,7 +6,8 @@
 // ⚠️ 안내 연습이다 — 짚은 문장을 맞다 · 틀렸다 판정하지 않는다. 문항마다 정답 근거가 따로 등록돼 있지 않고(채점 응답은
 //    해설 · 정답 키만 돌려준다), 중심 의미는 여러 문장이 함께 받칠 수 있다. 다른 유효한 근거를 틀렸다고 하지 않는다.
 //    점수 · 숙달 · SRS · 평가 기록을 만들지 않는다.
-// ⚠️ 채점 전에는 쓰지 않는다(화면이 채점 뒤에만 부른다).
+// ⚠️ 채점 뒤 근거 짚기(MeaningEvidence)는 채점 뒤에만 부른다. 같은 순수 문장 나누기를 제출 **전** 선택적 짚기(R0-PRE-EVIDENCE-01)가
+//    기사 제목 · 주제 문항에서만 opt-in 으로 다시 쓴다(preEvidenceSentences) — 지문만 나눌 뿐 정답 · 해설 · snippet 을 보지 않는다.
 // 문장 나누기는 ScriptQuiz 근거 짚기(T-0193)와 같은 함수(splitSentences)를 쓴다.
 
 import { splitSentences } from '@/lib/scriptquiz/evidence'
@@ -38,4 +39,16 @@ export function meaningEvidenceSentences(type: unknown, passage: string | null |
   if (!isMeaningEvidenceType(type) || typeof passage !== 'string') return null
   const sentences = splitSentences(protectAbbreviations(passage)).map((s) => s.split(DOT).join('.'))
   return sentences.length >= 2 ? sentences : null
+}
+
+/** 제출 전 선택적 짚기를 붙이는 유형 — 기사 연습의 제목 · 주제만(R0-PRE-EVIDENCE-01). 다른 유형 · 호출자는 그대로 */
+export const PRE_EVIDENCE_TYPES = ['title', 'topic'] as const
+
+export function isPreEvidenceType(type: unknown): boolean {
+  return typeof type === 'string' && (PRE_EVIDENCE_TYPES as readonly string[]).includes(type)
+}
+
+/** 제출 전 짚기 후보 — 제목 · 주제 유형이고 지문이 두 문장 이상일 때만. 아니면 null(화면이 생략, 제출은 그대로) */
+export function preEvidenceSentences(type: unknown, passage: string | null | undefined): string[] | null {
+  return isPreEvidenceType(type) ? meaningEvidenceSentences(type, passage) : null
 }
