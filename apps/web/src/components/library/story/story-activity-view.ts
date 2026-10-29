@@ -13,11 +13,15 @@ import type { StoryActivity, StoryActivityFeedback, StoryActivityOption, StoryLe
 export interface StoryActivitySlot {
   releaseKey: string
   activityId: string
-  /** 이 단위 본문 뒤에만 붙는다(after_unit). */
+  /** 판의 after_unit id(기록용 — 화면 판정은 아래 reader 단위 번호로 한다) */
+  afterUnitId: string
+  /** 이 단위 본문 뒤에만 붙는다(after_unit 의 reader unitIndex). */
   afterUnitIndex: number
 }
 
-export function activitySlotFor(slots: readonly StoryActivitySlot[], releaseKey: string, unitIndex: number): StoryActivitySlot | null {
+export function activitySlotFor(slots: readonly StoryActivitySlot[], releaseKey: string | null | undefined, unitIndex: number | null | undefined): StoryActivitySlot | null {
+  // 식별 불명(발행 키 · 단위 없음)은 조회하지 않는다
+  if (!releaseKey || typeof unitIndex !== 'number') return null
   return slots.find((s) => s.releaseKey === releaseKey && s.afterUnitIndex === unitIndex) ?? null
 }
 

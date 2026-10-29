@@ -117,6 +117,20 @@ describe('상태 전이', () => {
 })
 
 describe('붙일 자리 · 본문 복귀 위치', () => {
+  it('결정 MP-STORY-LOCATION 의 한 항목 그대로 · 정답 · 원문 없음', () => {
+    expect(STORY_ACTIVITY_SLOTS).toStrictEqual([{ releaseKey: 'lsr_58490bbd38131e1b2e536c5fe08179e8', activityId: 'why-horner-is-safe', afterUnitId: 'u16', afterUnitIndex: 15 }])
+  })
+
+  it('같은 활동 id 라도 다른 발행본 · 다른 단위 · 식별 불명이면 없음(조회 0)', () => {
+    const slot = STORY_ACTIVITY_SLOTS[0]
+    expect(activitySlotFor(STORY_ACTIVITY_SLOTS, `lsr_${'c'.repeat(32)}`, 15)).toBeNull()
+    expect(activitySlotFor(STORY_ACTIVITY_SLOTS, slot.releaseKey, 14)).toBeNull()
+    expect(activitySlotFor(STORY_ACTIVITY_SLOTS, slot.releaseKey, 16)).toBeNull()
+    expect(activitySlotFor(STORY_ACTIVITY_SLOTS, null, 15)).toBeNull()
+    expect(activitySlotFor(STORY_ACTIVITY_SLOTS, '', 15)).toBeNull()
+    expect(activitySlotFor(STORY_ACTIVITY_SLOTS, slot.releaseKey, null)).toBeNull()
+  })
+
   it('연결한 활동의 after_unit 단위에서만', () => {
     const slot = STORY_ACTIVITY_SLOTS[0]
     expect(activitySlotFor(STORY_ACTIVITY_SLOTS, slot.releaseKey, slot.afterUnitIndex)).toBe(slot)
