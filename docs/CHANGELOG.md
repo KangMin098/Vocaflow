@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- feat(story): Story why-horner-is-safe 마지막 단위 뒤 근거 고르기 활동(「내가 고른 근거 / 본문에 등록된 근거」·본문에서 다시 확인·다시 고르기는 도움 받은 연습) — DB 함수 story_unit_activity 는 **사용자 승인 전 미적용**이라 없으면 활동을 그리지 않음(학습자 화면 불변). 검증된 1항목 위치 설정, 세대·계정·단위 결속, 기록 0. Codex 리뷰 3회 반려 뒤 NO_FINDINGS, 실 RPC·Auth NOT_RUN (T-0228 ae4121ff4)
 - fix(teacher): 보낸 과제 조회에서 words 가 배열이 아니면 빈 목록 대신 기존 목록 실패로 반환(정상·빈 배열 불변, 방어 처리 — 실제 손상 재현 아님). Codex 리뷰 NO_FINDINGS (T-0236 1ad10d254)
 - feat(teacher): 보낸 과제 카드에서 「보낸 단어 N개 확인」 — 저장된 {w,m} 전체(절단 없음·스크롤), 뜻 없음·확인 불가·빈 목록 구분, 카드별 여닫기 독립, 추가 요청 0. Codex 리뷰 NO_FINDINGS, 실 교사 로그인 NOT_RUN (T-0233 be2dd5a10)
 - feat(csat): U02 순서 판단 도구를 **한 문항(H2609G2#36)·현재 판본에만** 연결 — 1문항 결속 판정 하나를 loader·해설 route·TypeJudgment 가 공유, R-ORDER 전역 미허용, 초기 응답 정답 0·명시 해설만. 학평 검수·적재·발행 없음. Codex 리뷰 NO_FINDINGS, 실 페이지·원장·로그인 NOT_RUN (T-0232 3a0e74c04)
