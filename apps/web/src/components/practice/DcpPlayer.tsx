@@ -157,14 +157,29 @@ export function DcpPlayer({
     ;(target === 'item' ? itemStartRef.current : doneHeadRef.current)?.focus()
   }, [idx, phase])
 
-  // T-0259 — 제출 → 성공 피드백 전환에만 한 번. 실패 · 다음 문항 · 재렌더에는 의도가 없다
-  const feedbackIntent = useRef(false)
+  // T-0259 — 제출 → 성공 피드백 전환에만 한 번. 인계는 상태 전이(nextFeedbackHandoff)로만 판정한다:
+  //   제출 단추에서 제출 → armed · 대기 중 학습자 이탈(pointerdown · 다른 요소로 focusout) → cancelled · 실패 → idle · 성공 → armed 였을 때만 이동
+  const handoff = useRef<FeedbackHandoff>('idle')
   const feedbackTitleRef = useRef<HTMLParagraphElement | null>(null)
   useEffect(() => {
-    if (!feedbackIntent.current || phase === 'grading') return
-    const go = shouldFocusFeedback({ intent: feedbackIntent.current, phase, active: typeof document === 'undefined' ? null : document.activeElement, body: typeof document === 'undefined' ? null : document.body })
-    feedbackIntent.current = false
-    if (go) feedbackTitleRef.current?.focus()
+    if (phase !== 'grading' || handoff.current !== 'armed' || typeof document === 'undefined') return
+    const leave = (e: Event) => {
+      if (e.type === 'focusout' && !(e as FocusEvent).relatedTarget) return // 제출 단추가 잠기며 생긴 blur 는 이탈이 아니다
+      handoff.current = nextFeedbackHandoff(handoff.current, { type: 'leave' }).state
+    }
+    document.addEventListener('pointerdown', leave, true)
+    document.addEventListener('focusout', leave, true)
+    return () => {
+      document.removeEventListener('pointerdown', leave, true)
+      document.removeEventListener('focusout', leave, true)
+    }
+  }, [phase])
+  useEffect(() => {
+    if (phase === 'grading' || handoff.current === 'idle') return
+    const r = nextFeedbackHandoff(handoff.current, { type: phase === 'graded' ? 'success' : 'fail' })
+    handoff.current = r.state
+    const active = typeof document === 'undefined' ? null : document.activeElement
+    if (r.focus && shouldFocusFeedback({ intent: true, phase, active, body: typeof document === 'undefined' ? null : document.body })) feedbackTitleRef.current?.focus()
   }, [phase])
 
   const item = items[idx]
@@ -178,7 +193,12 @@ export function DcpPlayer({
     setGradeError(null)
     setSubmitted(answer)
     setPreSnap(preSentences && pre ? { item, sentence: pre.sentence } : null)
-    feedbackIntent.current = feedbackFocus
+    if (feedbackFocus) {
+      // 제출할 때 초점이 이 문항의 제출 단추에 있었는가 — 아니면 인계하지 않는다
+      const active = typeof document === 'undefined' ? null : (document.activeElement as HTMLElement | null)
+      const onSubmit = !!active && active.tagName === 'BUTTON' && active.textContent?.trim() === '제출' && !!itemStartRef.current?.contains(active)
+      handoff.current = nextFeedbackHandoff(handoff.current, { type: 'submit', focusedOnSubmit: onSubmit }).state
+    }
     setPhase('grading')
     // ⚠️ **reject 도 잡는다.** try/catch 가 없던 동안 세션 만료·네트워크 끊김이
     //   `setPhase('graded')` 에 못 닿아 제출 버튼이 회색으로 잠긴 채 영영 멈췄다.
@@ -418,6 +438,20 @@ export function DcpPlayer({
 }
 
 // ── T-0259 — 제출 성공 뒤 피드백 제목 초점(순수) ──
+
+export type FeedbackHandoff = 'idle' | 'armed' | 'cancelled'
+export type FeedbackHandoffEvent = { type: 'submit'; focusedOnSubmit: boolean } | { type: 'leave' } | { type: 'success' } | { type: 'fail' } | { type: 'rerender' }
+
+/** 인계 상태 전이 — 제출 단추에서 제출하면 armed, 대기 중 이탈이면 cancelled, 성공은 armed 일 때만 이동(focus) 뒤 idle, 실패는 idle, 재렌더는 그대로 */
+export function nextFeedbackHandoff(state: FeedbackHandoff, ev: FeedbackHandoffEvent): { state: FeedbackHandoff; focus: boolean } {
+  switch (ev.type) {
+    case 'submit': return { state: ev.focusedOnSubmit ? 'armed' : 'idle', focus: false }
+    case 'leave': return { state: state === 'armed' ? 'cancelled' : state, focus: false }
+    case 'success': return { state: 'idle', focus: state === 'armed' }
+    case 'fail': return { state: 'idle', focus: false }
+    default: return { state, focus: false }
+  }
+}
 
 /** 성공 피드백으로 초점을 옮길지 — 제출 의도가 있고 · 피드백 단계이고 · 초점이 사라졌거나(body · 연결 끊김) 없을 때만 */
 export function shouldFocusFeedback({ intent, phase, active, body }: { intent: boolean; phase: Phase; active: unknown; body: unknown }): boolean {
