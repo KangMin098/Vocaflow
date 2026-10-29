@@ -273,9 +273,11 @@ describe('T-0254 — 조회 실패는 부재와 다르고, 명시적 다시 불�
   const src = fs.readFileSync(path.resolve(__dirname, '../DictationResultsClient.tsx'), 'utf8')
   it('readDictationSessionDetail 로 실패/부재를 가르고, 늦은 응답은 버린다', () => {
     expect(src).toContain("const read = await readDictationSessionDetail(createClient(), sessionId)")
-    expect(src).toMatch(/if \(!mounted\) return\n\s*if \(read\.status === 'failed'\) \{\n\s*setState\('failed'\)/)
+    expect(src).toMatch(/if \(!mounted \|\| !acceptsAtEpoch\(startedGen, epochRef\.current\)\) return\n\s*if \(read\.status === 'failed'\) \{\n\s*setState\('failed'\)/)
     expect(src).toMatch(/if \(read\.status === 'absent' \|\| !acceptLoaded\(sessionId, read\.detail\)\) \{\n\s*setState\('missing'\)/)
-    expect(src).toMatch(/\}, \[sessionId, router, reloadSeq\]\)/)
+    // 리뷰 P1 — 요청을 시작할 때의 인증 세대를 잡고(처음 · 다시 불러오기 같은 effect), 세대가 바뀌면 조회를 새로 시작한다
+    expect(src).toMatch(/let mounted = true\n\s*const startedGen = epochRef\.current\.gen\n/)
+    expect(src).toMatch(/\}, \[sessionId, router, reloadSeq, authGen, epochRef\]\)/)
     expect(src).not.toMatch(/fetchDictationSessionDetail/)
   })
   it('다시 불러오기는 누를 때만(자동 재조회 없음) · 진행 중 aria-disabled · 실패 화면 유지 · 성공 뒤 결과 제목 1회 초점', () => {

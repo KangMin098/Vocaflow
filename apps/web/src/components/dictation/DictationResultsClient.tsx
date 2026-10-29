@@ -34,6 +34,7 @@ import {
 } from 'lucide-react'
 
 import { useStoryAuthGuard } from '@/components/library/story/use-story-auth-guard'
+import { acceptsAtEpoch, useResultAuthEpoch } from './result-auth-epoch'
 import { AudioController, hasEnglishVoice } from '@/lib/dictation/audio-control'
 import { ResultsRelisten, type RelistenSpeaker } from '@/lib/dictation/results-relisten'
 import { NextActionCard } from '@/components/recommend/NextActionCard'
@@ -63,6 +64,8 @@ export function DictationResultsClient() {
   const resultHeadRef = useRef<HTMLHeadingElement>(null)
   // 다시 불러오기로 결과가 열린 그 렌더에만 결과 제목으로 초점을 1회 옮긴다(실패면 단추에 그대로 둔다)
   const focusResultAfterRetry = useRef(false)
+  // 브라우저 인증 세대 — 바뀌면 조회를 새로 시작하고, 시작 때 세대와 다른 응답(A→B→A 포함)은 버린다(리뷰 P1)
+  const { epochRef, gen: authGen } = useResultAuthEpoch()
 
   // 요청 결속 — 보관된 결과가 지금 URL 이 요청한 세션일 때만 쓴다(effect 가 돌기 전 렌더에서도 옛 결과를 붙이지 않는다).
   const detail = currentSnapshot(stored, sessionId)
@@ -94,10 +97,11 @@ export function DictationResultsClient() {
       return
     }
     let mounted = true
+    const startedGen = epochRef.current.gen
     void (async () => {
       const read = await readDictationSessionDetail(createClient(), sessionId)
-      // 늦은 응답(세션 변경 · 다시 불러오기 · 언마운트 뒤)은 버린다
-      if (!mounted) return
+      // 늦은 응답(세션 변경 · 다시 불러오기 · 언마운트 · 인증 세대 변경 뒤)은 버린다
+      if (!mounted || !acceptsAtEpoch(startedGen, epochRef.current)) return
       if (read.status === 'failed') {
         setState('failed')
         return
@@ -113,7 +117,7 @@ export function DictationResultsClient() {
     return () => {
       mounted = false
     }
-  }, [sessionId, router, reloadSeq])
+  }, [sessionId, router, reloadSeq, authGen, epochRef])
 
   // 다시 불러오기로 결과가 열린 뒤(주인 확인까지 끝나 제목이 그려진 렌더) 결과 제목으로 1회 — 첫 진입 · 재렌더에는 옮기지 않는다
   useEffect(() => {
