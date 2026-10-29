@@ -329,7 +329,7 @@ function RevealView(props: {
       <div>
         <h4 className={s.h4}>{CIRCLED[slot.n - 1]} 문장 — 내 표시와 해설</h4>
         {asked ? (
-          <CompareTable asked={asked} now={state} slot={slot} units={units} />
+          <CompareTable asked={asked} now={state} slot={slot} units={units} onPoint={onRef} />
         ) : (
           <p className={js.note}>내 표시: 앞 {mine(m.back.verdict)}{slot.nextId ? ` · 뒤 ${mine(m.forward.verdict)} · 빼고 읽기 ${m.bridge.verdict === 'holds' ? '○ 이어짐' : m.bridge.verdict === 'breaks' ? '✕ 빈다' : '표시 없음'}` : ''}</p>
         )}
@@ -385,8 +385,37 @@ export function compareRows(asked: ToolState, now: ToolState, slot: Pick<Slot, '
   return rows
 }
 
-function CompareTable({ asked, now, slot, units }: { asked: ToolState; now: ToolState; slot: Slot; units: EvidenceUnit[] }) {
+/**
+ * T-0270 — 비교표 「중심 화제 문장」 칸의 실제 unit id 를 원문 문장으로 푼다(표시 문자열에서 id 를 역추정하지 않는다).
+ * 문장 번호 순 · 지금 원문에 있으면 가리키기 가능(unit), 없으면 unknown. 고정 없음이면 빈 배열.
+ */
+export type TopicTarget = { kind: 'unit'; id: string; n: number } | { kind: 'unknown'; id: string }
+export function topicTargets(ids: readonly string[], units: readonly Pick<EvidenceUnit, 'id' | 'n'>[]): TopicTarget[] {
+  const no = new Map(units.map((u) => [u.id, u.n]))
+  return [...ids]
+    .sort((a, b) => (no.get(a) ?? Infinity) - (no.get(b) ?? Infinity) || a.localeCompare(b))
+    .map((id) => (no.has(id) ? { kind: 'unit' as const, id, n: no.get(id)! } : { kind: 'unknown' as const, id }))
+}
+
+function CompareTable({ asked, now, slot, units, onPoint }: { asked: ToolState; now: ToolState; slot: Slot; units: EvidenceUnit[]; onPoint: (id: string) => void }) {
   const rows = compareRows(asked, now, slot, units)
+  // 화제 칸만 「N번」 단추 — 기존 onRef(원문 초점 · 화면 밖이면 위치 칩)만 쓴다. 화제 고정 · 스냅샷 · 해설 요청은 건드리지 않는다
+  const topicCell = (st: ToolState, when: '해설 요청 당시' | '지금') => {
+    const ts = topicTargets(st.topic, units)
+    if (ts.length === 0) return '고정 없음'
+    return ts.map((t, i) => (
+      <span key={t.id}>
+        {i > 0 ? '·' : null}
+        {t.kind === 'unit' ? (
+          <button type="button" className={js.button} data-topic-point={t.id} aria-label={`${when} 화제 ${t.n}번 문장 원문에서 보기`} onClick={() => onPoint(t.id)}>
+            {t.n}번
+          </button>
+        ) : (
+          <span data-topic-unknown>원문에서 찾을 수 없는 문장</span>
+        )}
+      </span>
+    ))
+  }
   const changed = rows.filter((r) => r.changed).length
   const cell = { padding: '6px 8px', borderTop: '1px solid var(--bd)', textAlign: 'left' as const, verticalAlign: 'top' as const, overflowWrap: 'anywhere' as const }
   return (
@@ -406,8 +435,8 @@ function CompareTable({ asked, now, slot, units }: { asked: ToolState; now: Tool
           {rows.map((r) => (
             <tr key={r.key} data-compare-row={r.key} data-changed={r.changed || undefined}>
               <th scope="row" style={{ ...cell, fontWeight: 600 }}>{r.label}</th>
-              <td style={cell}>{r.asked}</td>
-              <td style={{ ...cell, fontWeight: r.changed ? 700 : 400 }}>{r.now}{r.changed ? <span data-changed-tag> · 바뀜</span> : null}</td>
+              <td style={cell}>{r.key === 'topic' ? topicCell(asked, '해설 요청 당시') : r.asked}</td>
+              <td style={{ ...cell, fontWeight: r.changed ? 700 : 400 }}>{r.key === 'topic' ? topicCell(now, '지금') : r.now}{r.changed ? <span data-changed-tag> · 바뀜</span> : null}</td>
             </tr>
           ))}
         </tbody>
