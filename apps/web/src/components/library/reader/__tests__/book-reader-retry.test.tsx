@@ -38,4 +38,11 @@ describe('본문 조회 실패 — 다시 불러오기', () => {
     // 실패 안내가 로딩보다 먼저 — 다시 불러오는 동안 단추가 사라지지 않는다
     expect(SRC.indexOf(') : error ? (')).toBeLessThan(SRC.indexOf(') : loading ? ('))
   })
+
+  it('재시도 성공 뒤 초점을 받는 본문 영역은 보이는 초점 링(--p 2px)을 가진다', () => {
+    const line = SRC.split('\n').find((l) => l.includes('data-reader-content')) ?? ''
+    expect(line).toContain('tabIndex={-1}')
+    expect(line).toContain('focus-visible:ring-2')
+    expect(line).toContain('focus-visible:ring-[var(--p)]')
+  })
 })

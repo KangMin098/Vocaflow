@@ -348,7 +348,7 @@ export function BookContentReader({
           </div>
 
           {/* Content */}
-          <div ref={contentRef} tabIndex={-1} data-reader-content className="flex-1 overflow-y-auto focus:outline-none">
+          <div ref={contentRef} tabIndex={-1} data-reader-content className="flex-1 overflow-y-auto rounded-[var(--r-sm)] focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[var(--p)]">
             {isLockedChapter ? (
               <LockedChapterPanel />
             ) : error ? (
