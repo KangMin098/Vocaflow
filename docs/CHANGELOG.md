@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(pairflip): 결과의 「한 번 더」가 그 결과의 검증된 난이도·모드를 기존 config 계약에 저장한 뒤 시작(저장 실패 시 이동 0·안내·/pairflip 링크). Codex 리뷰 NO_FINDINGS (T-0255 f10780a4d)
 - fix(dictation): 받아쓰기 결과 조회 실패(세션·문항 오류·예외)를 확인된 부재와 구별해 「결과를 불러오지 못했어요」+명시적 다시 불러오기, 불완전 결과 집계 0, 계정 세대(A→B→A 포함) 변경 시 늦은 응답 폐기·자동 재조회 0. Codex 리뷰 2회 반려 뒤 NO_FINDINGS, 실DB·실Auth NOT_RUN (T-0254 8166b5abb)
 - fix(csat): U02 이음매 판단에서 가리킨 두 근거 문장을 각각 검사해 화면 밖인 문장마다 「n번 문장 · 위/아래로 가기」(원문 순서·중복 0·잘못된 id 무시, 자동 스크롤·판단 변경 0). Codex 리뷰 NO_FINDINGS, 실 /csat 라우트 NOT_RUN (T-0253 b021bb426)
 - fix(practice): R0 기사 연습에서 「다음」은 새 문항 카드(「N번 문항」, 발문부터 읽기)로, 「마치기」는 완료 제목으로 키보드 초점 1회 인계 — 학습자 조작에만, 재렌더·채점·복기 초점 이동 0. Codex 리뷰 NO_FINDINGS, 스크린리더 실측 NOT_RUN (T-0249 6d0acb951)
