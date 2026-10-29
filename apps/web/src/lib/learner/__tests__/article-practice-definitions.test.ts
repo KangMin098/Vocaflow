@@ -124,8 +124,8 @@ const availRows = availR.rows
 
 describe('article_practice_items ↔ article_practice_availability — 같은 검수 허용 목록(migration 정본)', () => {
   it('최신 정의 파일(파일명 순서 마지막 CREATE OR REPLACE)', () => {
-    expect(items.file).toBe('20261028115511_grass_r0_apply_v3.sql')
-    expect(availability.file).toBe('20261028225815_article_practice_availability.sql')
+    expect(items.file).toBe('20261029035740_voa_getter_add_title_item.sql')
+    expect(availability.file).toBe('20261029035740_voa_getter_add_title_item.sql')
   })
   it('reviewed 6열 · 같은 행 수', () => {
     expect(itemsR.cols).toEqual(COLS)
@@ -164,7 +164,9 @@ describe('자기 검사 — 변형을 반드시 잡는다', () => {
     expect(GATES.filter((g) => !norm(removed).includes(norm(g)))).toEqual(['a.copyright_safe_in_kr IS TRUE'])
   })
   it('jsonb 직렬화 규칙이 틀리면 Grass 해시가 어긋난다(공백 없는 JSON.stringify 로는 다르다)', () => {
-    const block = items.sql.match(/'ee5a3e66-ee79-489f-b639-5a74c9b97a71'::uuid, 'title', '((?:[^']|'')*)'::jsonb/)!
+    // Grass 검수 상수(_grass_reviewed)는 Grass 적용 migration 에만 있다 — 최신 정의 파일이 아니라 그 파일을 읽는다.
+    const grassSql = readFileSync(path.join(MIGRATIONS, '20261028115511_grass_r0_apply_v3.sql'), 'utf8').replace(/\r\n/g, '\n')
+    const block = grassSql.match(/'ee5a3e66-ee79-489f-b639-5a74c9b97a71'::uuid, 'title', '((?:[^']|'')*)'::jsonb/)!
     const naive = sha256(JSON.stringify(JSON.parse(block[1]!.replace(/''/g, "'"))))
     expect(naive).not.toBe(availRows.find((r) => r[0] === 'ee5a3e66-ee79-489f-b639-5a74c9b97a71')![4])
   })
