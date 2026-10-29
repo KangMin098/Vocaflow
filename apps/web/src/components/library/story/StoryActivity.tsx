@@ -26,9 +26,12 @@ import styles from './story.module.css'
 import {
   ACTIVITY_LABELS,
   acceptsActivityResponse,
+  activityNoticeText,
   feedbackHeadline,
   quoteWordIndex,
   reduceActivity,
+  nextReloadHandoff,
+  shouldHandOffReloadFocus,
   type StoryActivityRequestKey,
   type StoryActivitySlot,
   type StoryActivityState,
@@ -76,6 +79,8 @@ export function StoryActivity({
   // 「다시 골라 보기」로 누른 단추가 사라진다 — 선택지가 다시 그려진 직후 첫 radio 로 초점을 한 번 옮긴다
   const optionsRef = useRef<HTMLFieldSetElement>(null)
   const refocusOptions = useRef(false)
+  // 「다시 시도」 조회가 성공해 선택지가 돌아오면 첫 radio 로 한 번 넘긴다(사용자가 옮긴 초점은 그대로)
+  const reloadHandoff = useRef(false)
 
   const now = () => ({
     generation: genRef.current,
@@ -152,20 +157,53 @@ export function StoryActivity({
     refocusOptions.current = false
     first.focus()
   }, [feedback])
+  const phase = state.phase
+  useEffect(() => {
+    if (phase === 'retry' || phase === 'loading') return
+    const requested = reloadHandoff.current
+    reloadHandoff.current = false
+    if (phase !== 'ready' || !shouldHandOffReloadFocus(requested, document.activeElement, document.body)) return
+    optionsRef.current?.querySelector<HTMLInputElement>('input[type="radio"]')?.focus()
+  }, [phase])
+  // 다시 시도 대기 중 어디든 누르면(본문 클릭으로 초점 해제 포함) 인계를 취소한다
+  const reloadPending = state.phase === 'retry' && state.pending
+  useEffect(() => {
+    if (!reloadPending) return
+    const cancel = () => {
+      reloadHandoff.current = nextReloadHandoff(reloadHandoff.current, { type: 'pointerdown' })
+    }
+    document.addEventListener('pointerdown', cancel, true)
+    return () => document.removeEventListener('pointerdown', cancel, true)
+  }, [reloadPending])
 
   if (state.phase === 'loading' || state.phase === 'hidden') return null
   if (state.phase === 'retry') {
     return (
       <section className={styles.activity} aria-label="근거 고르기" data-story-activity="retry">
-        <p className={`${styles.meta} break-keep`}>{ACTIVITY_LABELS.unavailable}</p>
-        <button type="button" className={styles.ctaSecondary} onClick={load} data-story-activity-reload>
+        <p className={`${styles.meta} break-keep`} role="status">{ACTIVITY_LABELS.unavailable}</p>
+        <button
+          type="button"
+          className={styles.ctaSecondary}
+          aria-disabled={state.pending ? 'true' : undefined}
+          aria-busy={state.pending ? 'true' : undefined}
+          onClick={(event) => {
+            if (state.pending) return
+            reloadHandoff.current = nextReloadHandoff(false, { type: 'press', onButton: document.activeElement === event.currentTarget })
+            load()
+          }}
+          onBlur={(event) => {
+            reloadHandoff.current = nextReloadHandoff(reloadHandoff.current, { type: 'blur', toElement: event.relatedTarget !== null })
+          }}
+          data-story-activity-reload
+        >
           다시 시도
         </button>
       </section>
     )
   }
 
-  const { activity, selected, submitting, assisted, stale } = state
+  const { activity, selected, submitting, assisted, notice } = state
+  const noticeText = activityNoticeText(notice, selected)
   const name = `story-activity-${activity.activityId}`
   return (
     <section className={styles.activity} aria-labelledby={`${name}-title`} data-story-activity={feedback ? 'result' : 'choose'}>
@@ -200,11 +238,9 @@ export function StoryActivity({
           >
             {ACTIVITY_LABELS.submit}
           </button>
-          {stale ? (
-            <span className={`${styles.meta} break-keep`} role="status" data-story-activity-stale>
-              {selected ? '고른 근거로 다시 제출해 주세요.' : ''}
-            </span>
-          ) : null}
+          <span className={`${styles.meta} break-keep`} role="status" data-story-activity-notice={noticeText ? notice ?? undefined : undefined}>
+            {noticeText ?? ''}
+          </span>
         </div>
       )}
       <div role="status" aria-live="polite" data-story-activity-status>
