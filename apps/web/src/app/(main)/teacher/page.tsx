@@ -62,7 +62,8 @@ export default async function TeacherPage() {
           collectedIds={collectedIds}
         />
 
-        <SentAssignments rows={sent.rows} />
+        {/* 목록 조회 실패를 버리면 "보낸 과제 없음" 과 똑같이 아무것도 안 보인다. */}
+        <SentAssignments rows={sent.rows} failed={sent.failed} />
       </div>
     </Screen>
   )
