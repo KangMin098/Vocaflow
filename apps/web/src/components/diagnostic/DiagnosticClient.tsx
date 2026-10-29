@@ -21,6 +21,7 @@ import {
   PROGRESS_TTL_MS,
   RESUME_REASON_TEXT,
   clearProgress,
+  submitOwnerOk,
   completeFor,
   hasLegacyProgress,
   ownerTag,
@@ -221,6 +222,8 @@ interface SubmitCtx {
   questions: Question[]
   responses: Response[]
   token: number
+  /** 이 묶음을 만든 화면의 주인(서버 viewer) — 제출 때 지금 viewer · getUser 와 셋이 같아야 보낸다 */
+  owner: string | null
 }
 
 function relativeTime(iso: string): string {
@@ -468,13 +471,17 @@ export function DiagnosticClient({
     // ⚠️ **답할 때마다** 보관한다. 마지막에 한 번 저장하면 잃는 경우가 정확히 유실 사례다.
     //   본인 신원이 확인된 경우에만 · 이 문항판 서명과 함께. 실패하면 「보관됨」 문구를 거둔다.
     if (owner) setStoreOk(writeProgress(kv(), { owner, testId: selectedTest.id, sig: questionSig(questions), responses: next }, now()))
-    if (currentIdx + 1 >= questions.length) void submit({ test: selectedTest, questions, responses: next, token: guard.token() })
+    if (currentIdx + 1 >= questions.length) void submit({ test: selectedTest, questions, responses: next, token: guard.token(), owner: viewerId })
     else setCurrentIdx(currentIdx + 1)
   }
 
   async function submit(ctx: SubmitCtx) {
     const { test: selectedTest, questions: qs, responses: finalResponses } = ctx
     setLastCtx(ctx)
+    if (ctx.owner !== viewerId) {
+      setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
+      return
+    }
     // 지금 문항판 전체에 순서대로 답한 묶음만 보낸다
     if (!completeFor(finalResponses, qs)) {
       setError('답이 지금 문항과 맞지 않아 제출하지 않았어요. 처음부터 다시 풀어 주세요.')
@@ -511,7 +518,7 @@ export function DiagnosticClient({
     }
     // 제출 경계 — 지금 요청의 계정이 이 화면의 주인(서버 viewer)과 다르면 거부한다.
     //   클라이언트가 고른 owner 를 권한 근거로 쓰지 않고, 같은 제출 코드 안에서 getUser 와 맞춘다.
-    if (viewerId === null || userId !== viewerId || !guard.isCurrent(ctx.token)) {
+    if (!submitOwnerOk(ctx.owner, viewerId, userId) || !guard.isCurrent(ctx.token)) {
       setError('로그인한 계정이 바뀌어 제출하지 않았어요. 새로 고침해 주세요.')
       return
     }
@@ -568,7 +575,7 @@ export function DiagnosticClient({
 
     // 결과가 DB 에 남았으므로 본인 보관분은 역할이 끝났다 — 남겨 두면 다음 방문에
     // 이미 끝낸 진단을 "이어서 하기" 로 권하게 된다.
-    clearProgress(kv(), ownerTag(viewerId))
+    clearProgress(kv(), ownerTag(userId))
     setSaved(null)
 
     if (selectedTest.test_type === 'base_v_level' || selectedTest.test_type === 'comprehensive') {
@@ -638,32 +645,26 @@ export function DiagnosticClient({
   }
 
   // ── Render ──
-  // 로그인 계정이 바뀌었다 — 이 화면의 진행 · 보관분 · 결과는 더 이상 지금 사용자 것이 아니다.
-  if (authStatus === 'changed') {
-    return (
-      <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
-        <div role="status" className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6" data-testid="diag-auth-changed">
-          <p className="break-keep font-display text-[15px] font-[700] text-[var(--t1)]">로그인한 계정이 바뀌어 진단을 멈췄어요</p>
-          <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
-            이 화면의 답은 이전 계정의 것이라 보이거나 제출하지 않아요. 새로 고침하면 지금 계정으로 다시 시작할 수 있어요.
-          </p>
-        </div>
-      </div>
-    )
-  }
-
-  // 신원 확인 중(checking) — 뒤로 · 앞으로 캐시에서 되살아나면 다시 확인할 때까지 이전 진행 위치 · 응답 수 · 결과를 보이지 않는다.
-  if (viewerId !== null && authStatus === 'checking' && phase !== 'start') {
-    return (
-      <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
-        <p role="status" className="break-keep rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-6 font-body text-[13px] text-[var(--t2)]" data-testid="diag-auth-checking">
-          로그인 상태를 다시 확인하는 중이에요. 확인되면 진단을 이어서 보여 드려요.
+  // 개인 진행(문항 위치 · 응답 · 보관분 · 지난 결과 · 오류 속 응답 수)은 **본인 신원이 확인된(same) 동안만** 그린다.
+  //   확인 중(checking — 첫 진입 · 뒤로/앞으로 캐시 복귀)이나 바뀜(changed)에는 공개 시작 화면(설명 · 목록)만 남기고 안내를 얹는다.
+  //   비로그인(viewer 없음)은 원래대로 메모리 진행만 — 보관분이 없다.
+  const personalOk = viewerId === null || authStatus === 'same'
+  const view: Phase = personalOk ? phase : 'start'
+  const authNotice =
+    authStatus === 'changed' ? (
+      <div role="status" className="mb-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4" data-testid="diag-auth-changed">
+        <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">로그인한 계정이 바뀌어 진단을 멈췄어요</p>
+        <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
+          진행 중이던 답은 이전 계정의 것이라 보이거나 제출하지 않아요. 새로 고침하면 지금 계정으로 다시 시작할 수 있어요.
         </p>
       </div>
-    )
-  }
+    ) : viewerId !== null && authStatus === 'checking' && phase !== 'start' ? (
+      <p role="status" className="mb-6 break-keep rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4 font-body text-[13px] text-[var(--t2)]" data-testid="diag-auth-checking">
+        로그인 상태를 다시 확인하는 중이에요. 확인되면 진단을 이어서 보여 드려요.
+      </p>
+    ) : null
 
-  if (error) {
+  if (error && personalOk) {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8">
         <div className="rounded-[var(--r-lg)] border border-[var(--bde)] bg-[var(--error-light)] p-6">
@@ -702,7 +703,7 @@ export function DiagnosticClient({
     )
   }
 
-  if (phase === 'start') {
+  if (view === 'start') {
     const primary =
       tests.find((t) => presoKey(t) === 'base_v_level') ??
       tests.find((t) => TEST_PRESENTATION[presoKey(t)]?.recommended) ??
@@ -805,7 +806,9 @@ export function DiagnosticClient({
         </header>
 
         {/* 하다 만 진단 — 보관된 답을 되돌려 준다. 자동으로 이어 붙이지 않고 고르게 한다. */}
-        {resumeBlocked && (
+        {authNotice}
+
+        {owner && resumeBlocked && (
           <div role="status" className="mb-6 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg)] p-4" data-testid="diag-resume-blocked">
             <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">이어서 할 수 없어요</p>
             <p className="mt-1 break-keep font-body text-[13px] leading-relaxed text-[var(--t2)]">
@@ -833,13 +836,13 @@ export function DiagnosticClient({
           </div>
         )}
 
-        {legacy && !saved && (
+        {owner && legacy && !saved && (
           <p role="status" className="mb-6 break-keep rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3 font-body text-[13px] leading-relaxed text-[var(--t2)]" data-testid="diag-legacy">
             {RESUME_REASON_TEXT.legacy} 아래에서 진단을 새로 시작할 수 있어요.
           </p>
         )}
 
-        {saved && !resumeBlocked && tests.some((t) => t.id === saved.testId) && (
+        {owner && saved && saved.owner === owner && !resumeBlocked && tests.some((t) => t.id === saved.testId) && (
           <div className="mb-6 rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--p-light)] p-4">
             <p className="break-keep font-display text-[14px] font-[700] text-[var(--t1)]">
               하다 만 진단이 있어요 — {saved.responses.length}문항까지 답했어요
@@ -876,7 +879,7 @@ export function DiagnosticClient({
         )}
 
         {/* 지난 결과 — 컴팩트 요약 */}
-        {lastLevel && (
+        {personalOk && lastLevel && (
           <div className="mb-6 flex items-center justify-between rounded-[var(--r-md)] border border-[var(--bd)] bg-[var(--bg2)] px-4 py-3">
             <span className="flex items-center gap-1 font-body text-[13px] text-[var(--t2)]">
               지난 결과{' '}
@@ -943,7 +946,7 @@ export function DiagnosticClient({
     )
   }
 
-  if (phase === 'review' && selectedTest) {
+  if (view === 'review' && selectedTest) {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-4 py-6 md:px-6 md:py-8" data-testid="diag-review">
         <div className="rounded-[var(--r-lg)] border border-[var(--p)] bg-[var(--p-light)] p-6">
@@ -955,7 +958,7 @@ export function DiagnosticClient({
             <button
               type="button"
               data-testid="diag-review-submit"
-              onClick={() => void submit({ test: selectedTest, questions, responses, token: guard.token() })}
+              onClick={() => void submit({ test: selectedTest, questions, responses, token: guard.token(), owner: viewerId })}
               className="inline-flex min-h-[44px] items-center justify-center rounded-[var(--r-md)] bg-[var(--ju)] px-5 font-display text-[14px] font-[700] text-[var(--on-ju)] transition-all duration-[var(--dur-normal)] hover:bg-[var(--ju-ink)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)] active:scale-[0.97]"
             >
               이 답으로 제출
@@ -973,7 +976,7 @@ export function DiagnosticClient({
     )
   }
 
-  if (phase === 'submitting') {
+  if (view === 'submitting') {
     return (
       <div className="mx-auto max-w-[var(--ios-content-max)] px-6 py-8 text-center">
         <Loader2 size={32} className="mx-auto animate-spin text-[var(--p)]" />
@@ -982,7 +985,7 @@ export function DiagnosticClient({
     )
   }
 
-  if (phase === 'question') {
+  if (view === 'question') {
     const q = questions[currentIdx]
     if (!q) return null
     const progress = ((currentIdx + 1) / questions.length) * 100

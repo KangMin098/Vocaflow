@@ -164,6 +164,14 @@ export function completeFor(responses: readonly DiagResponse[], questions: reado
   return responses.length === questions.length && questions.length > 0 && responses.every((r, i) => r.question_id === questions[i].id)
 }
 
+/**
+ * 제출 owner 확인 — 묶음을 만든 화면의 주인(ctxOwner) · 지금 화면의 주인(viewerId) · 지금 요청 계정(getUser)이 모두 같아야 한다.
+ * 비로그인 묶음(null)은 보내지 않는다. 클라이언트 값은 비교에만 쓰며 권한 근거는 RLS(auth.uid() = user_id)다.
+ */
+export function submitOwnerOk(ctxOwner: string | null, viewerId: string | null, userId: string | null | undefined): boolean {
+  return ctxOwner !== null && ctxOwner === viewerId && userId === ctxOwner
+}
+
 export const RESUME_REASON_TEXT: Record<Exclude<ResumePlan, { ok: true }>['reason'] | 'invalid' | 'expired' | 'legacy', string> = {
   test: '보관된 답이 지금 고른 진단과 달라요.',
   changed: '그 사이 진단 문항이 바뀌어 보관된 답을 이어 붙일 수 없어요.',

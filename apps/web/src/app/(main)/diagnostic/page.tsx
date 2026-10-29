@@ -24,7 +24,8 @@ export default async function DiagnosticPage() {
   } = await (await createClient()).auth.getUser()
   return (
     <Screen width="full" background="bg2" padX="none">
-      <DiagnosticClient viewerId={user?.id ?? null} />
+      {/* viewer 가 바뀌면(RSC 갱신 등) 화면 상태를 통째로 새로 시작한다 — 이전 계정의 응답 · 제출 묶음이 남지 않는다 */}
+      <DiagnosticClient key={user?.id ?? 'anon'} viewerId={user?.id ?? null} />
     </Screen>
   )
 }
