@@ -73,6 +73,9 @@ export function StoryActivity({
   live.current = { viewerId, slot, auth, calls }
   const headRef = useRef<HTMLParagraphElement>(null)
   const focusedFor = useRef<StoryActivityFeedback | null>(null)
+  // 「다시 골라 보기」로 누른 단추가 사라진다 — 선택지가 다시 그려진 직후 첫 radio 로 초점을 한 번 옮긴다
+  const optionsRef = useRef<HTMLFieldSetElement>(null)
+  const refocusOptions = useRef(false)
 
   const now = () => ({
     generation: genRef.current,
@@ -142,6 +145,13 @@ export function StoryActivity({
     focusedFor.current = feedback
     headRef.current?.focus({ preventScroll: false })
   }, [feedback])
+  useEffect(() => {
+    if (!refocusOptions.current || feedback) return
+    const first = optionsRef.current?.querySelector<HTMLInputElement>('input[type="radio"]')
+    if (!first) return
+    refocusOptions.current = false
+    first.focus()
+  }, [feedback])
 
   if (state.phase === 'loading' || state.phase === 'hidden') return null
   if (state.phase === 'retry') {
@@ -166,7 +176,7 @@ export function StoryActivity({
         {activity.claim}
       </p>
       {feedback ? null : (
-        <fieldset className={styles.activityOptions} data-story-activity-options>
+        <fieldset ref={optionsRef} className={styles.activityOptions} data-story-activity-options>
           <legend className={styles.activityPrompt} lang="en">
             {activity.prompt}
           </legend>
@@ -206,7 +216,10 @@ export function StoryActivity({
             unitIndex={unitIndex}
             unitText={unitText}
             onRevisit={onRevisit}
-            onRetry={() => dispatch({ type: 'retry_choice' })}
+            onRetry={() => {
+              refocusOptions.current = true
+              dispatch({ type: 'retry_choice' })
+            }}
           />
         ) : null}
       </div>

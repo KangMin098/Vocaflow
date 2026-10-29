@@ -159,6 +159,10 @@ describe('화면 소스 결속', () => {
     expect(src).toMatch(/role="status"/)
     expect(src).toMatch(/aria-disabled=\{!selected \|\| submitting/)
     expect(src).not.toMatch(/\sdisabled=\{/)
+    // 다시 골라 보기 → 선택지가 다시 그려진 뒤 첫 radio 로 초점(T-0228 리뷰 P2)
+    expect(src).toMatch(/refocusOptions\.current = true\s*dispatch\(\{ type: 'retry_choice' \}\)/)
+    expect(src).toMatch(/querySelector<HTMLInputElement>\('input\[type="radio"\]'\)/)
+    expect(src).toMatch(/<fieldset ref=\{optionsRef\}/)
     expect(src).not.toMatch(/track\(|localStorage|sessionStorage|completeUnit|recordPosition/)
   })
   it('StoryReader 는 연결 단위 · same 확인 · 두 액션이 있을 때만 붙이고 단위 키로 새로 시작한다', () => {
