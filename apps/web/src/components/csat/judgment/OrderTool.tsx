@@ -1,6 +1,9 @@
 // apps/web/src/components/csat/judgment/OrderTool.tsx
 // R-ORDER 판단 도구 — 학습자가 (A)(B)(C) 를 직접 배열하고, 단락 첫머리 단서가 「무엇을 전제하는가」를 원문에서 골라 잇는다.
 // 공개 전에는 정답을 모른다: 배열·선지 대조는 학습자가 만든 연결 기준의 「끊긴 연결」만 보여 준다.
+// 해설을 요청한 순간의 배열 · 연결을 복사해 두고, 공개에 성공하면 「해설 요청 당시 / 지금」을 나란히 보인다(U02-ORDER-COMPARE-01).
+//   로딩 중 중복 누름은 같은 요청이라 덮지 않고, 실패 뒤 재시도는 그 순간 값을 새로 잡는다. 문항 · 판본이 바뀌면 바깥 key 로 같이 사라진다.
+//   당시 값은 「정답 보기 전」 · 「독립」 수행이 아니다 — 다른 경로로 답을 봤는지 알 수 없다. 변화는 채점하지 않는다.
 'use client'
 
 import { useMemo, useRef, useState, type KeyboardEvent } from 'react'
@@ -33,6 +36,11 @@ function OrderToolBody({ item, reveal }: JudgmentToolProps) {
   const [focus, setFocus] = useState<string[]>([])
   const [say, setSay] = useState('')
   const { state, request } = useReveal(item, reveal)
+  const [asked, setAsked] = useState<OrderSnapshot | null>(null)
+  const ask = () => {
+    setAsked((prev) => orderSnapshotOnRequest(prev, { arr, links }, state.status))
+    void request()
+  }
   const rowRefs = useRef<Record<string, HTMLButtonElement | null>>({})
 
   const unitText = (id: string) => item.units.find((u) => u.id === id)?.text ?? ''
@@ -216,12 +224,12 @@ function OrderToolBody({ item, reveal }: JudgmentToolProps) {
       <section aria-labelledby="ord-rev" className={js.section}>
         <h3 id="ord-rev">해설</h3>
         {/* 로딩 중에도 자리를 지킨다 — 지우면 판단면 높이가 줄어 학습자 스크롤이 끌려 올라간다 */}
-        {(state.status === 'hidden' || state.status === 'loading') && <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={request} aria-disabled={state.status === 'loading'}>해설 보기</button>}
+        {(state.status === 'hidden' || state.status === 'loading') && <button type="button" className={`${js.button} ${js.primary}`} data-reveal onClick={ask} aria-disabled={state.status === 'loading'}>해설 보기</button>}
         {state.status === 'loading' && <p className={js.status} data-reveal-loading>해설을 불러오는 중…</p>}
         {state.status === 'error' && (
           <div>
             <p className={js.error} role="alert" data-reveal-error>{REVEAL_ERROR_TEXT[state.reason]}</p>
-            {state.reason === 'fetch' && <button type="button" className={js.button} onClick={request}>다시 시도</button>}
+            {state.reason === 'fetch' && <button type="button" className={js.button} onClick={ask}>다시 시도</button>}
           </div>
         )}
         {shown && notes && (
@@ -237,6 +245,7 @@ function OrderToolBody({ item, reveal }: JudgmentToolProps) {
                 })}
               </ul>
             )}
+            {asked && <OrderCompare asked={asked} now={{ arr, links }} unitN={unitN} />}
             {shown.designIntent && <p className={js.hypothesis}>{shown.designIntent}</p>}
             {shown.answerLocus?.reasoning && <p className={s.reason}><RefText text={shown.answerLocus.reasoning} units={item.units} active={focus} onRef={(u) => setFocus([u])} /></p>}
             <ol className={s.choices}>
@@ -281,6 +290,73 @@ function OrderToolBody({ item, reveal }: JudgmentToolProps) {
       evidence={<EvidencePassage units={item.units} focus={focus} pinned={pinned} onPick={pickUnit} marks={marks} label="원문 — 단서의 전제 대상을 고른다" />}
       judgment={judgment}
     />
+  )
+}
+
+/** 해설 요청 순간의 배열 · 연결 — 복사본(지금 state 와 공유하지 않는다) */
+export type OrderSnapshot = { arr: Arrangement; links: Link[] }
+
+/** 요청 순간 스냅샷 — 이미 진행 중(loading)이거나 공개됨(shown)이면 그 요청의 스냅샷을 지킨다. hidden · error 에서 누르면 지금 값을 새로 복사한다. */
+export function orderSnapshotOnRequest(prev: OrderSnapshot | null, current: OrderSnapshot, status: 'hidden' | 'loading' | 'shown' | 'error'): OrderSnapshot | null {
+  if (status === 'loading' || status === 'shown') return prev
+  return { arr: [...current.arr] as Arrangement, links: current.links.map((l) => ({ ...l })) }
+}
+
+export type OrderCompareRow = { cueId: string; para: Movable; cueText: string; asked: string | null; now: string | null; change: 'same' | 'changed' | 'removed' | 'added' }
+
+/** 같은 단서(cueId)끼리 맞춘 당시 · 지금 연결 — 대상 변경 · 지움 · 새 연결을 빠뜨리지 않는다. 당시 순서 뒤에 새 연결이 온다. */
+export function orderCompareRows(asked: OrderSnapshot, now: OrderSnapshot): OrderCompareRow[] {
+  const nowBy = new Map(now.links.map((l) => [l.cueId, l]))
+  const rows: OrderCompareRow[] = asked.links.map((a) => {
+    const n = nowBy.get(a.cueId)
+    return { cueId: a.cueId, para: a.para, cueText: a.cueText, asked: a.antecedent, now: n?.antecedent ?? null, change: !n ? 'removed' : n.antecedent === a.antecedent ? 'same' : 'changed' }
+  })
+  const seen = new Set(asked.links.map((l) => l.cueId))
+  for (const n of now.links) if (!seen.has(n.cueId)) rows.push({ cueId: n.cueId, para: n.para, cueText: n.cueText, asked: null, now: n.antecedent, change: 'added' })
+  return rows
+}
+
+const CHANGE_TEXT: Record<OrderCompareRow['change'], string> = { same: '그대로', changed: '대상 바꿈', removed: '지움', added: '새로 이음' }
+
+function OrderCompare({ asked, now, unitN }: { asked: OrderSnapshot; now: OrderSnapshot; unitN: (id: string) => number | undefined }) {
+  const rows = orderCompareRows(asked, now)
+  const arrText = (a: Arrangement) => `주어진 글 – ${a.map((x) => PARA_LABEL[x]).join(' – ')}`
+  const target = (id: string | null) => (id == null ? '연결 없음' : `${unitN(id) ?? '?'}번 문장`)
+  const sameArr = asked.arr.join() === now.arr.join()
+  return (
+    <div className={s.compare} data-order-compare>
+      <h4 className={s.h}>해설 요청 당시와 지금</h4>
+      <p className={js.note}>당시 값은 해설을 요청한 순간의 배열 · 연결이며 초기 배열일 수 있다. 바뀐 정도를 채점하지 않는다.</p>
+      <table className={s.table}>
+        <thead><tr><th scope="col">항목</th><th scope="col">해설 요청 당시</th><th scope="col">지금</th></tr></thead>
+        <tbody>
+          <tr data-compare-arr data-changed={!sameArr}>
+            <th scope="row">배열{sameArr ? '' : ' · 바뀜'}</th>
+            <td>{arrText(asked.arr)}</td>
+            <td>{arrText(now.arr)}</td>
+          </tr>
+          {rows.length === 0 ? (
+            <tr data-compare-links-none>
+              <th scope="row">연결</th>
+              <td>표시한 연결 없음</td>
+              <td>표시한 연결 없음</td>
+            </tr>
+          ) : rows.map((r) => (
+            <tr key={r.cueId} data-compare-link={r.cueId} data-change={r.change}>
+              <th scope="row">{PARA_LABEL[r.para]} &lsquo;{r.cueText}&rsquo; · {CHANGE_TEXT[r.change]}</th>
+              <td>{target(r.asked)}</td>
+              <td>{target(r.now)}</td>
+            </tr>
+          ))}
+          {rows.length > 0 && asked.links.length === 0 ? (
+            <tr data-compare-asked-none><th scope="row">당시 연결</th><td>표시한 연결 없음</td><td>—</td></tr>
+          ) : null}
+          {rows.length > 0 && now.links.length === 0 ? (
+            <tr data-compare-now-none><th scope="row">지금 연결</th><td>—</td><td>표시한 연결 없음</td></tr>
+          ) : null}
+        </tbody>
+      </table>
+    </div>
   )
 }
 
