@@ -196,6 +196,9 @@ export function EchoMatchPlayer({
 
   // Piper 모델 lazy preload — 마이크 권한 후 백그라운드 다운로드
   const [piperLoading, setPiperLoading] = useState(false)
+  /** 명시적 「음성 모델 다시 받기」 세대 — 실패 뒤 piperReady 는 이미 false 라 그 값만 다시 세우면 다운로드 효과가 다시 돌지 않는다.
+   *  학습자가 누를 때만 올린다(자동 반복 없음). 받는 중에는 단추가 없으므로 중복 요청도 없다. */
+  const [modelTry, setModelTry] = useState(0)
   useEffect(() => {
     if (!micGranted || piperReady) return
     if (!isPiperSupported()) {
@@ -229,7 +232,7 @@ export function EchoMatchPlayer({
     return () => {
       cancelled = true
     }
-  }, [micGranted, piperReady])
+  }, [micGranted, piperReady, modelTry])
 
   // Phase 1 — Listen (Piper TTS + AudioBuffer 직접 분석)
   const startListen = useCallback(async () => {
@@ -605,8 +608,10 @@ export function EchoMatchPlayer({
                 <button
                   type="button"
                   onClick={() => {
+                    if (piperLoading) return
                     setError(null)
                     setPiperReady(false)
+                    setModelTry((n) => n + 1)
                   }}
                   className="mt-2 inline-flex min-h-[44px] items-center rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[11px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
                 >
