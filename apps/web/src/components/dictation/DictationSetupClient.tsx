@@ -72,7 +72,7 @@ export function DictationSetupClient() {
   const textId = searchParams.get('text') ?? ''
   const setId = searchParams.get('set') ?? ''
   const custom = searchParams.get('custom') === '1'
-  // 결과의 「틀린 문장만 다시」 — 계정에 묶인 재시도 봉투(lib/dictation/retry-missed). 지금 확정 계정과 같을 때만 자료가 된다.
+  // 결과의 「틀린 문항만 다시」 — 계정에 묶인 재시도 봉투(lib/dictation/retry-missed). 지금 확정 계정과 같을 때만 자료가 된다.
   const retryMissed = searchParams.get('retry') === 'missed'
   // 들어온 자리(읽던 글 등) — 세션 · 결과로 이어 넘겨 닫기/Esc · 결과에서 돌아갈 수 있게(lib/dictation/return)
   const from = dictationFrom(searchParams.get('from'))
@@ -151,7 +151,7 @@ export function DictationSetupClient() {
         setSpeed(level.recommended.speed)
         setAutoRepeat(level.recommended.autoRepeat)
         setHintsAllowed(level.recommended.hintsAllowed)
-        // 틀린 문장 다시(?retry=missed)는 고른 문장 전부를 한 문장씩 — 서로 이어지지 않은 문장이라 묶지 않고, 레벨 기본 문항 수로 자르지 않는다.
+        // 틀린 문항 다시(?retry=missed)는 고른 원 문항 전부를 하나씩 — 다시 묶지 않고, 레벨 기본 문항 수로 자르지 않는다.
         //   일반 자료(붙여넣기 포함)의 추천값은 그대로다.
         setCount(retryMissed ? 'all' : Math.min(level.recommended.sessionCount, resolved.sentences.length))
         setChunkSize(!retryMissed && allowsChunking(resolved.kind) ? level.recommended.chunkSize : 1)
@@ -304,10 +304,10 @@ export function DictationSetupClient() {
   if (loadState === 'missing' || !source) {
     return (
       <DictationEmptyState
-        title={retryMissed ? '다시 받아쓸 문장이 없어요' : custom ? '붙여넣은 글이 사라졌어요' : '이 자료로는 받아쓸 수 없어요'}
+        title={retryMissed ? '다시 받아쓸 문항이 없어요' : custom ? '붙여넣은 글이 사라졌어요' : '이 자료로는 받아쓸 수 없어요'}
         body={
           retryMissed
-            ? '틀린 문장 다시 받아쓰기는 그 결과를 연 계정 · 이 탭에서만 이어져요. 결과 화면에서 다시 눌러 주세요.'
+            ? '틀린 문항 다시 받아쓰기는 그 결과를 연 계정 · 이 탭에서만 이어져요. 결과 화면에서 다시 눌러 주세요.'
             : custom
             ? '붙여넣은 글은 이 탭에서만 유지돼요. 새로고침하거나 탭을 다시 열면 다시 붙여넣어야 합니다.'
             : '본문이 없거나 접근할 수 없는 자료예요. 다른 자료를 골라 주세요.'
@@ -331,7 +331,8 @@ export function DictationSetupClient() {
     )
   }
 
-  const canChunk = allowsChunking(source.kind)
+  // 틀린 문항 다시는 원래 문항 하나씩 — 다시 묶는 선택지를 두지 않는다(T0221_RETRY_UNIT_DECISION)
+  const canChunk = !retryMissed && allowsChunking(source.kind)
 
   return (
     <div className="mx-auto flex max-w-3xl flex-col gap-4 px-4 py-8 md:px-6 md:py-10">
@@ -358,6 +359,12 @@ export function DictationSetupClient() {
           </h1>
         </div>
       </header>
+
+      {retryMissed && (
+        <p data-testid="retry-missed-note" className="break-keep font-body text-[12px] text-[var(--t2)]">
+          틀리거나 건너뛴 문항을 원래 문항 그대로 다시 받아써요. 여러 문장을 묶어 받아쓴 문항은 묶음 전체가 나와요.
+        </p>
+      )}
 
       {/* ─── 미리보기 — 무엇을, 얼마나, 무슨 단어를 ─── */}
       <section className="grid grid-cols-3 gap-2 rounded-[var(--r-lg)] border border-[var(--bd)] bg-gradient-to-br from-[var(--bg)] to-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">

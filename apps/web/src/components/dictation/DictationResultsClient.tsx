@@ -127,7 +127,7 @@ export function DictationResultsClient() {
     return { patterns, tags, hits: [...hits], misses: [...misses], solid }
   }, [detail])
 
-  // 틀림·건너뜀 문장만 다시 — 이 snapshot 의 정답 문장으로만 만든다. 원 세션 기록은 읽기만 한다.
+  // 틀림·건너뜀 문항만 다시 — 이 snapshot 의 원 문항 정답 그대로 만든다. 원 세션 기록은 읽기만 한다.
   const missedRetry = useMemo(
     () => (detail ? missedRetryPayload(detail.session.title, detail.attempts) : null),
     [detail],
@@ -364,7 +364,7 @@ export function DictationResultsClient() {
       <DictationResultActions
         retry={s}
         from={from}
-        missedCount={reviewEnabled && missedRetry ? missedRetry.sentences.length : 0}
+        missedCount={reviewEnabled && missedRetry ? missedRetry.items.length : 0}
         onRetryMissed={retryMissed}
       />
     </div>
@@ -633,7 +633,7 @@ export function AttemptFeedback({ attempt }: { attempt: Attempt }) {
   )
 }
 
-/** 결과 화면 행동 — 들어온 자리(있을 때만) · 틀린 문장만 다시(있을 때만) · 같은 자료로 한 번 더 · 받아쓰기 홈 · 통계. */
+/** 결과 화면 행동 — 들어온 자리(있을 때만) · 틀린 문항만 다시(있을 때만) · 같은 자료로 한 번 더 · 받아쓰기 홈 · 통계. */
 export function DictationResultActions({
   retry,
   from,
@@ -642,13 +642,13 @@ export function DictationResultActions({
 }: {
   retry: DictationRetrySource
   from: string | null
-  /** 다시 받아쓸 틀림·건너뜀 문장 수 — 0 이면(모두 맞힘 · 주인 확인 전) 그리지 않는다 */
+  /** 다시 받아쓸 틀림·건너뜀 문항 수 — 0 이면(모두 맞힘 · 주인 확인 전) 그리지 않는다 */
   missedCount?: number
   onRetryMissed?: () => void
 }) {
   return (
     <>
-      {/* 틀린 문장만 다시 — 같은 자료 전체가 아니라 이번에 놓친 문장들로만 새 받아쓰기를 시작한다(원 기록은 그대로) */}
+      {/* 틀린 문항만 다시 — 같은 자료 전체가 아니라 이번에 놓친 원래 문항들로만 새 받아쓰기를 시작한다(원 기록은 그대로) */}
       {missedCount > 0 && onRetryMissed && (
         <button
           type="button"
@@ -658,7 +658,7 @@ export function DictationResultActions({
           className="flex min-h-[44px] items-center justify-center gap-2 rounded-[var(--r-md)] border border-[var(--p)] bg-[var(--p-light)] py-3 font-display text-[13px] font-[700] text-[var(--on-p-tint)] transition-colors hover:bg-[var(--bg2)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
         >
           <ListRestart size={14} aria-hidden />
-          틀린 문장 {missedCount}개만 다시 받아쓰기
+          틀린 문항 {missedCount}개만 다시 받아쓰기
         </button>
       )}
       {/* 들어온 자리로 — 읽던 글일 수도 다른 학습 화면일 수도 있어 제목 · 소속을 지어 말하지 않는다 */}

@@ -80,9 +80,6 @@ export interface DictationScope {
 
 const MIN_WORDS = 4
 const MAX_WORDS = 34
-/** 받아쓰기 문장 길이 규칙(단어 수) — 재시도 문장 경계 규칙(retry-missed)이 같은 값을 쓴다 */
-export const DICTATION_MIN_WORDS = MIN_WORDS
-export const DICTATION_MAX_WORDS = MAX_WORDS
 
 export function countWords(s: string): number {
   return s.split(/\s+/).filter((w) => w.length > 0).length
@@ -450,7 +447,7 @@ export async function resolveCustomSource(
 }
 
 /**
- * 이미 문장으로 나뉜 목록 → custom 자료. 다시 쪼개지 않는다(문장 경계를 보존해 넘기는 경로 — 결과의 「틀린 문장만 다시」).
+ * 이미 문항 단위로 나뉜 목록 → custom 자료. 다시 쪼개지 않는다(결과의 「틀린 문항만 다시」 — 원 문항 그대로).
  * 붙여넣은 글과 같은 규칙(isUsableSentence · 내 단어 타깃)을 쓰고, 기록도 같은 source_kind='custom' 으로 남는다.
  */
 export async function customSourceFromSentences(
@@ -458,7 +455,7 @@ export async function customSourceFromSentences(
   title: string,
   rawSentences: readonly string[],
   userId: string | null,
-  /** keepAll — 이미 규칙대로 나눈 목록(재시도): 빈 문자열만 버리고 길이 필터로 거르지 않는다 */
+  /** keepAll — 이미 받아쓴 원 문항(재시도 입력 정책): 빈 문자열만 버리고 새 원문용 문장 필터(isUsableSentence)로 거르지 않는다 */
   opts: { keepAll?: boolean } = {},
 ): Promise<DictationSource | null> {
   const payload = { title }
