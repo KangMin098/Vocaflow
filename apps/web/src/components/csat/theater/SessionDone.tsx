@@ -49,12 +49,15 @@ export function SessionDone({
   //   이 화면에서 누른 그 예약이 반영된 **그 순간 한 번만** 예약 표시로 초점을 옮긴다 — 부모가 다시 그려도(reviewAt 그대로) 다시 옮기지 않는다.
   const reviewNoteRef = useRef<HTMLSpanElement>(null)
   const pressedRef = useRef(false)
-  //   예약 응답(비동기 저장)을 기다리는 사이 학습자가 다른 곳으로 초점을 옮겼으면 빼앗지 않는다 — 단추가 사라져 초점이 갈 곳을 잃었을 때(BODY · 없음)만 옮긴다.
+  //   예약 응답(비동기 저장)을 기다리는 사이 학습자가 단추를 떠났으면(Tab 이동 · 빈 곳 클릭) 빼앗지 않는다 —
+  //   activeElement 로는 「빈 곳 클릭」과 「단추가 사라져 갈 곳 잃음」이 둘 다 BODY 라 구분되지 않는다.
+  //   그래서 단추의 blur 를 본다: 예약이 아직 없을 때의 blur 는 학습자가 먼저 떠난 것이라 취소하고,
+  //   예약이 반영된 렌더(reviewAtRef 가 이미 채워짐)에서 단추가 빠지며 나는 blur 는 무시한다.
+  const reviewAtRef = useRef(session.reviewAt)
+  reviewAtRef.current = session.reviewAt
   useEffect(() => {
     if (!pressedRef.current || session.reviewAt == null) return
     pressedRef.current = false
-    const active = typeof document === 'undefined' ? null : document.activeElement
-    if (active && active !== document.body) return
     reviewNoteRef.current?.focus()
   }, [session.reviewAt])
   const completion = completionOf(session)
@@ -97,6 +100,9 @@ export function SessionDone({
             onClick={() => {
               pressedRef.current = true
               onReview()
+            }}
+            onBlur={() => {
+              if (reviewAtRef.current == null) pressedRef.current = false
             }}
             data-testid="done-review"
             data-review-days={reviewDays}
