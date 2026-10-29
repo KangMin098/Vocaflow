@@ -14,6 +14,7 @@ import type { SupabaseClient } from '@supabase/supabase-js'
 import type { Database } from '@vocaflow/types'
 
 import { pagedSelect } from '@/lib/supabase/paged-select'
+import { decodeEntitiesOnce } from './display-label'
 import type { ModuleId } from '@/lib/srs/types'
 
 type DB = Database
@@ -115,7 +116,8 @@ export async function fetchUserSetChips(
   return (data ?? [])
     .map((s) => ({
       id: `set:${s.id}`,
-      label: s.cover_emoji ? `${s.cover_emoji} ${s.title}` : s.title,
+      // 발행 출처 제목에 남은 HTML 엔티티는 표시할 때만 한 번 푼다(display-label) — id · count 는 그대로
+      label: s.cover_emoji ? `${s.cover_emoji} ${decodeEntitiesOnce(s.title)}` : decodeEntitiesOnce(s.title),
       count: counts.get(s.id) ?? 0,
     }))
     .filter((c) => c.count > 0)

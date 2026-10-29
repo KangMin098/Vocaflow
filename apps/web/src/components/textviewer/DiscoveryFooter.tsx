@@ -52,7 +52,7 @@ export function DiscoveryFooter({ view }: { view: MyLibraryView }) {
       className="group flex items-center gap-3 rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 transition-colors duration-[var(--dur-normal)] hover:border-[var(--p)] hover:bg-[var(--bg)]"
     >
       <span
-        className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[var(--p)]/10 text-[var(--p)]"
+        className="inline-flex h-9 w-9 items-center justify-center rounded-[var(--r-md)] bg-[color-mix(in_srgb,var(--p)_10%,transparent)] text-[var(--p)]"
         aria-hidden="true"
       >
         <Library size={16} strokeWidth={2} />

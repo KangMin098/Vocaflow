@@ -8,6 +8,7 @@
 
 import type { SupabaseClient } from '@supabase/supabase-js'
 
+import { composeActivityNote } from '@/lib/learner/report-note'
 import { createClient } from '@/lib/supabase/server'
 
 export interface WeeklyReport {
@@ -35,19 +36,6 @@ function mondayOf(d: Date): string {
 }
 
 /** 격려형 코멘트(§철학3 Empathetic · Lora italic 렌더). 압박/비난 금지. */
-function composeNote(total_reviews: number, total_minutes: number, total_words: number): string {
-  if (total_reviews === 0 && total_minutes === 0) {
-    return '이번 주는 잠시 숨을 골랐네요. 다음 주에 다시 가볍게 만나요.'
-  }
-  if (total_reviews < 20) {
-    return `이번 주 ${total_words}개의 단어와 함께했어요. 작은 걸음도 분명한 전진이에요.`
-  }
-  if (total_minutes >= 90) {
-    return `이번 주 ${total_minutes}분, ${total_reviews}번의 복습을 쌓았어요. 꾸준함이 기억을 단단하게 만들고 있어요.`
-  }
-  return `이번 주 ${total_words}개의 단어를 ${total_reviews}번 만났어요. 이 리듬이 실력이 돼요.`
-}
-
 /** 현재(또는 지정) 주의 daily_activity 를 집계 → weekly_reports upsert. 멱등. */
 export async function generateWeeklyReport(
   weekStartIso?: string,
@@ -98,7 +86,7 @@ export async function generateWeeklyReport(
       total_words: words,
       total_reviews: reviews,
       by_module: byModule,
-      empathetic_note: composeNote(reviews, mins, words),
+      empathetic_note: composeActivityNote(reviews, mins, words),
       generated_at: new Date().toISOString(),
     },
     { onConflict: 'user_id,week_start' },

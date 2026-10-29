@@ -141,13 +141,18 @@ export function RecallCard({ word, anchorRect, onClose, illustrationUrl }: Recal
           type="button"
           onClick={() => speak(word.text)}
           aria-label="발음 듣기"
-          className={`shrink-0 inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] transition-colors ${
-            isPlaying
-              ? 'bg-[var(--p)] text-[var(--on-p)]'
-              : 'bg-[var(--p-light)] text-[var(--on-p-tint)] hover:bg-[var(--p)] hover:text-[var(--on-p)]'
-          }`}
+          className="group -m-2 inline-flex h-11 w-11 shrink-0 items-center justify-center rounded-[var(--r-full)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
-          <Volume2 size={13} strokeWidth={2.2} aria-hidden="true" />
+          <span
+            aria-hidden="true"
+            className={`inline-flex h-7 w-7 items-center justify-center rounded-[var(--r-full)] transition-colors ${
+              isPlaying
+                ? 'bg-[var(--p)] text-[var(--on-p)]'
+                : 'bg-[var(--p-light)] text-[var(--on-p-tint)] group-hover:bg-[var(--p)] group-hover:text-[var(--on-p)]'
+            }`}
+          >
+            <Volume2 size={13} strokeWidth={2.2} aria-hidden="true" />
+          </span>
         </button>
       </div>
 

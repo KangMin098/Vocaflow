@@ -9,9 +9,11 @@
 import type { V4View } from '../v4/compose'
 import type { TaskId } from '../v4/definition'
 import type { StageKey, WorkspaceView } from '../v4/workspace'
+import { maintainPassed } from './maintenance-state'
 
 export type WsLink = 'core' | 'support'
-export type WsRowState = 'runnable' | 'in_progress' | 'locked' | 'preparing'
+/** maintain(T-0082) — 중심 TASK 가 지금 확인 통과 + 유지: 다른 날 유지 확인 기준 미정이라 지금 열 활동이 없다(앞 단계 잠김 아님) */
+export type WsRowState = 'runnable' | 'in_progress' | 'locked' | 'preparing' | 'maintain'
 export type WsRowKind = 'primary' | 'other' | 'preparing'
 
 export interface WsRow {
@@ -51,7 +53,9 @@ export function workspaceRows(view: V4View): WsRow[] {
     // LM-G1.1 단일 출처 — 계획이 바로잡기 · 적용 단계인데 링크가 없으면(실제 막힘) Workspace 의 확인 문항으로 바꿔 열지 않는다.
     //   Workspace.next 로 대신하는 것은 계획 단계가 없거나 확인 · 다시 확인 단계(같은 확인 문항 출처)일 때만
     const blockedStage = tp?.stage === 'repair' || tp?.stage === 'transfer'
-    const link = tp?.next ?? (!blockedStage && w.next ? { href: w.next.href, label: w.next.label } : null)
+    // T-0082(P1-1) — 지금 확인 통과 + 유지는 남은 확인 링크가 있어도 다음 행동으로 내밀지 않는다(rank · 상단과 같은 maintainPassed)
+    const maintain = maintainPassed(tp)
+    const link = maintain ? null : tp?.next ?? (!blockedStage && w.next ? { href: w.next.href, label: w.next.label } : null)
     const next = !preparing && link && coreTask ? { ...link, task: coreTask } : null
     const progress = plan?.progress ?? null
     out.push({
@@ -64,7 +68,7 @@ export function workspaceRows(view: V4View): WsRow[] {
       stage: tp?.stage ?? null,
       stages: preparing ? null : w.stages,
       progress,
-      state: preparing ? 'preparing' : next ? (progress && progress.done > 0 ? 'in_progress' : 'runnable') : 'locked',
+      state: preparing ? 'preparing' : next ? (progress && progress.done > 0 ? 'in_progress' : 'runnable') : maintain ? 'maintain' : 'locked',
       next,
       readiness: preparing ? w.readiness : null,
     })

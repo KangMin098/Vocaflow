@@ -72,7 +72,7 @@ export function WorkspaceBookContext({
       >
         <Link
           href="/my/books"
-          className="inline-flex shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 py-1 text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-11 shrink-0 items-center gap-1 rounded-[var(--r-sm)] px-2 text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--p)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
           aria-label="책 목록으로 돌아가기"
         >
           <ArrowLeft size={10} aria-hidden />
@@ -102,7 +102,7 @@ export function WorkspaceBookContext({
           onClick={() => setNavOpen((v) => !v)}
           aria-expanded={navOpen}
           aria-controls="chapter-nav-popover"
-          className="inline-flex min-h-[28px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          className="inline-flex min-h-[44px] items-center gap-1 rounded-[var(--r-sm)] border border-[var(--bd)] bg-[var(--bg)] px-2 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
         >
           <List size={11} aria-hidden />
           목차
@@ -145,7 +145,7 @@ function ChapterNavButton({
         type="button"
         disabled
         aria-label={label}
-        className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t5)] opacity-40"
+        className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-sm)] text-[var(--t5)] opacity-40"
       >
         <Icon size={14} aria-hidden />
       </button>
@@ -156,7 +156,7 @@ function ChapterNavButton({
     <Link
       href={`/text/${chapter.textId}?mode=read`}
       aria-label={`${label} — Chapter ${chapter.chapterIdx}`}
-      className="inline-flex h-8 w-8 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      className="inline-flex h-11 w-11 items-center justify-center rounded-[var(--r-sm)] text-[var(--t2)] transition-colors duration-[var(--dur-normal)] ease-[var(--ease)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
     >
       <Icon size={14} aria-hidden />
     </Link>

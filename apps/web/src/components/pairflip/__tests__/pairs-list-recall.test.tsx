@@ -1,0 +1,105 @@
+// apps/web/src/components/pairflip/__tests__/pairs-list-recall.test.tsx
+// T-0218 — 두 번 이상 걸린 짝은 뜻을 가린 채 「뜻 확인」(aria-expanded), 한 번에 맞힌 짝 · 전부 1회면 예전 목록 그대로. 기록 호출 없음.
+import { renderToStaticMarkup } from 'react-dom/server'
+import { describe, expect, it, vi } from 'vitest'
+
+const h = vi.hoisted(() => ({ seed: [] as unknown[] }))
+vi.mock('react', async () => {
+  const actual = await vi.importActual<typeof import('react')>('react')
+  return { ...actual, useState: (init: unknown) => actual.useState(h.seed.length ? h.seed.shift() : init) }
+})
+
+import { PairFlipPairsList, needsRecall } from '../PairFlipPairsList'
+
+const pair = (id: string, attempts: number) => ({ pairId: id, word: `word-${id}`, meaning: `뜻-${id}`, attempts, matchedAt: 0, fsrsRating: 3 as const })
+const render = (pairs: ReturnType<typeof pair>[], seed: unknown[] = []) => {
+  h.seed = seed
+  return renderToStaticMarkup(<PairFlipPairsList pairs={pairs} />)
+}
+
+describe('needsRecall — 실제 훅의 attempts 의미(한 번에 맞혀도 2)', () => {
+  it('1 · 2(한 번에 맞힘) 는 아니고 3 · 4(다시 시도) 는 다시 떠올리기', () => {
+    expect(needsRecall(1)).toBe(false)
+    expect(needsRecall(2)).toBe(false)
+    expect(needsRecall(3)).toBe(true)
+    expect(needsRecall(4)).toBe(true)
+  })
+})
+
+describe('PairFlipPairsList 뜻 가리기', () => {
+  it('attempts 1 · 2 는 뜻을 그대로, 3 · 4 는 뜻을 가리고 「뜻 확인」(aria-expanded=false · aria-controls · 44px)', () => {
+    const html = render([pair('a', 2), pair('b', 3), pair('c', 4)])
+    expect(html).toContain('뜻-a')
+    expect(html).not.toContain('뜻-b')
+    expect(html).not.toContain('뜻-c')
+    expect(html.match(/data-testid="pf-recall-pair"/g)).toHaveLength(2)
+    expect(html.match(/aria-expanded="false"[^>]*aria-controls=/g)).toHaveLength(2)
+    expect(html.match(/뜻을 먼저 떠올려 보세요/g)).toHaveLength(2)
+    expect(html.match(/>뜻 확인</g)).toHaveLength(2)
+    expect(html).toContain('min-h-[44px]')
+    expect(html).toContain('word-b')
+    expect(html).toContain('word-c')
+  })
+  it('토글을 연 상태면 그 짝 뜻 · 「뜻 가리기」 · aria-expanded=true', () => {
+    // useState 순서: 목록 open · 행 b shown
+    const html = render([pair('b', 3)], [true, true])
+    expect(html).toContain('뜻-b')
+    expect(html).toContain('>뜻 가리기<')
+    expect(html).toMatch(/aria-expanded="true"[^>]*aria-controls=/)
+    // 연 뜻은 자르지 않는다(가린 안내만 한 줄)
+    expect(html).toContain('class="font-body text-[12px] text-[var(--t2)] break-keep [overflow-wrap:anywhere]" data-testid="pf-recall-meaning"')
+  })
+  it('모두 한 번에 맞혔으면(실제 훅 값 2) 예전 목록 그대로(가림 · 토글 없음)', () => {
+    const html = render([pair('a', 2), pair('d', 2)])
+    expect(html).not.toContain('pf-recall-pair')
+    expect(html).not.toContain('뜻 확인')
+    expect(html).toContain('뜻-a')
+    expect(html).toContain('뜻-d')
+  })
+  it('기록 · 네트워크 호출이 없다(모듈이 서버 액션 · fetch 를 쓰지 않는다)', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch' as never)
+    render([pair('b', 3)], [true, true])
+    expect(fetchSpy).not.toHaveBeenCalled()
+    const src = (await import('node:fs')).readFileSync(new URL('../PairFlipPairsList.tsx', import.meta.url), 'utf8')
+    expect(src).not.toMatch(/fetch\(|track\(|record|use server|supabase/i)
+  })
+})
+
+describe('T-0256 — 긴 단어 · 뜻을 자르지 않는다(회상 가림은 그대로)', () => {
+  const LONG_W = 'antidisestablishmentarianism'
+  const LONG_M = '국가와 교회의 분리에 반대하는 정치적 입장을 가리키는 아주 긴 뜻 설명'
+  it('일반 행 — 단어 · 뜻에 truncate 없음 · 줄바꿈 클래스', () => {
+    const html = renderToStaticMarkup(<PairFlipPairsList pairs={[{ pairId: 'x', word: LONG_W, meaning: LONG_M, attempts: 2, matchedAt: 0, fsrsRating: 3 }]} />)
+    h.seed = [true]
+    const open = renderToStaticMarkup(<PairFlipPairsList pairs={[{ pairId: 'x', word: LONG_W, meaning: LONG_M, attempts: 2, matchedAt: 0, fsrsRating: 3 }]} />)
+    expect(open).toContain('pf-pair-word')
+    for (const out of [html, open].filter((x) => x.includes('pf-pair-word'))) {
+      expect(out).toContain('<p class="font-english text-[14px] font-[600] text-[var(--t1)] [overflow-wrap:anywhere]" data-testid="pf-pair-word">')
+      expect(out).toContain('<p class="break-keep font-body text-[12px] text-[var(--t2)] [overflow-wrap:anywhere]" data-testid="pf-pair-meaning">')
+      expect(out).toContain(LONG_M)
+    }
+  })
+  it('회상 행 — 단어는 줄바꿈, 뜻은 열기 전 가림(안내 한 줄만 truncate)', () => {
+    const html = render([{ pairId: 'y', word: LONG_W, meaning: LONG_M, attempts: 3, matchedAt: 0, fsrsRating: 3 }], [true, false])
+    expect(html).not.toContain(LONG_M)
+    expect(html).toContain('뜻을 먼저 떠올려 보세요')
+    expect(html).not.toMatch(/class="truncate font-english/)
+  })
+})
+
+describe('T-0266 — 확인 가능한 사실만 표지로(정확 횟수 단정 없음)', () => {
+  it('attempts 1 · 2(한 번에 맞혀도 2) → 「맞힌 짝」, 3 이상 → 「다시 시도한 짝」 · 회상 조건 불변', async () => {
+    const { attemptsBadge } = await import('../PairFlipPairsList')
+    expect(attemptsBadge(1).label).toBe('맞힌 짝')
+    expect(attemptsBadge(2).label).toBe('맞힌 짝')
+    expect(attemptsBadge(3).label).toBe('다시 시도한 짝')
+    expect(attemptsBadge(4).label).toBe('다시 시도한 짝')
+    expect([needsRecall(2), needsRecall(3)]).toEqual([false, true])
+  })
+  it('목록에 「두 번 만에」 · 「한 번에」 · 「여러 번 시도」 같은 횟수 단정이 없다', () => {
+    const html = render([pair('a', 2), pair('b', 3)])
+    expect(html).toContain('맞힌 짝')
+    expect(html).toContain('다시 시도한 짝')
+    expect(html).not.toMatch(/두 번 만에|한 번에<|여러 번 시도/)
+  })
+})

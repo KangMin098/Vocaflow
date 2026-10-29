@@ -13,7 +13,9 @@ import type { ModuleId } from '@/lib/srs/types'
 
 import { pagedSelect } from '@/lib/supabase/paged-select'
 
-import type { VocabRow } from './browse-queries'
+import { vocabRowToWord, type BrowseWord, type VocabRow } from './browse-queries'
+import type { LevelParam } from './list-params'
+import { applyConditionsThenCap } from './source-study'
 import { matchesStateFilter, type StateFilterKey } from './state-filter'
 
 /** 한 학습 세션에서 제시할 단어 상한 (Cognitive Load — 한 세션 과부하 방지). */
@@ -95,4 +97,43 @@ export function filterRowsByState(
       now,
     ),
   )
+}
+
+/**
+ * 출처(text:/set:) 세션용 — 본인 단어 **전량**을 학습 세션과 같은 순서(due 우선)로 받는다.
+ * 범위 · 검색 · 난이도 · 상한은 호출부가 `source-study.scopeSourceStudyWords` 로 건다(범위를 고른 **뒤** 상한).
+ * 앞 50개만 받으면 다른 출처의 단어가 그 자리를 채워 이 출처의 단어가 빠진다.
+ */
+export async function fetchAllStudyVocabulariesOrdered(
+  supabase: SupabaseClient<Database>,
+  userId: string,
+): Promise<VocabRow[]> {
+  return pagedSelect<VocabRow>(
+    (from, to) =>
+      supabase
+        .from('vocabularies')
+        .select(
+          'id, word, meaning, example_sentence, pronunciation, pos, cefr_level, difficulty, stability, last_review_at, next_review_at, module_history, review_count, text_id, shared_set_id, created_at',
+        )
+        .eq('user_id', userId)
+        .order('next_review_at', { ascending: true, nullsFirst: true })
+        .order('created_at', { ascending: true })
+        .range(from, to),
+    'wordvault source study vocabularies',
+  )
+}
+
+/**
+ * 기억 상태 목록 + 검색 · 난이도 세션 — 상태(한 시각 `now`) → 검색 → 난이도 → 상한 순. 정렬(due 우선)은 그대로.
+ * 상태 앞 50개를 자른 뒤 검색하면 뒤의 적격 단어가 빠진다 — 상한은 맨 마지막.
+ */
+export function scopeStateStudyRows(
+  rows: readonly VocabRow[],
+  stateKey: StateFilterKey,
+  scope: { query: string; level: LevelParam | null },
+  cap: number,
+  now: Date,
+): { words: BrowseWord[]; total: number } {
+  const words = filterRowsByState(rows, stateKey, now).map((r, i) => vocabRowToWord(r, i))
+  return applyConditionsThenCap(words, scope, cap)
 }

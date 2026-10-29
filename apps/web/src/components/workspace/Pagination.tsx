@@ -75,7 +75,7 @@ export function Pagination({ textId, currentPage, totalPages }: PaginationProps)
               key={p}
               onClick={() => goTo(p)}
               aria-current={p === currentPage ? 'page' : undefined}
-              className={`inline-flex h-8 min-w-[32px] items-center justify-center rounded-[var(--r-md)] px-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] ${
+              className={`inline-flex h-11 min-w-11 items-center justify-center rounded-[var(--r-md)] px-2 font-display text-[13px] font-[600] transition-all duration-[var(--dur-normal)] ${
                 p === currentPage
                   ? 'bg-[var(--p)] text-white shadow-[var(--sh-sm)] hover:bg-[var(--p-hover)]'
                   : 'text-[var(--t2)] hover:bg-[var(--bg2)] hover:text-[var(--t1)]'

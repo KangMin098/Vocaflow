@@ -33,6 +33,9 @@ export function stageOf(pathname: string): { label: string; says: string; item: 
 export function ModuleBanner({ slot = 'main' }: { slot?: 'main' | 'library' }) {
   const pathname = usePathname() ?? ''
   if (!wantsBanner(pathname, slot)) return null
+  // D4-UX01(F01): Stories 서가 · 판본 화면에서는 장식 머리띠를 생략한다 — 같은 자료 탭 · 레일이 이미 있고 작품이 시작 행동보다 아래로 밀렸다.
+  // 다른 /library 경로 · 다른 모듈의 머리띠는 그대로다.
+  if (slot === 'library' && (pathname === '/library/stories' || pathname.startsWith('/library/stories/'))) return null
   const art = routeArt(pathname)!
   const stage = stageOf(pathname)
   const desktopArt = getLearnerPalette(pathname) !== null ? editorialModuleArtwork(art.tile) : undefined

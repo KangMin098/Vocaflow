@@ -27,13 +27,14 @@ import type { Word } from '@/components/game/_shared/gamekit';
 import { GamePauseControl } from '@/components/game/_shared/PauseControl';
 import { gameResourceContext } from '@/lib/game/scope-resource';
 import { useGameSessionRecorder } from '@/lib/game/use-session-recorder';
+import { GameIdentityNotice } from '@/components/game/GameIdentityNotice';
 import { useGameWordScope, type WordScope } from '@/lib/game/use-word-scope';
 import { POINTS } from '@/lib/wordblitz/data';
 // v08.1 — 전용 recordWordBlitzResult 대신 공용 recordGameResult 를 쓴다.
 // 전용 레코더에는 FSRS 무결성 가드(assisted 무시 · 같은 카드 10분 재채점 금지)가 없어서
 // 게임이 assisted 를 붙여도 그대로 카드가 갱신됐다. 판정은 중앙 한 곳(record-result.ts).
-import { recordGameResult } from '@/lib/game/record-result';
 import { resolveSessionReturnHref } from '@/lib/layout/session-return';
+import { scopeWordsHref } from '@/lib/wordvault/source-filter';
 
 const WordBlitzGame = dynamic(
   () =>
@@ -122,7 +123,7 @@ export default function WordBlitzPage() {
 
   return (
     <main style={{ position: 'relative', width: '100vw', height: '100dvh', overflow: 'hidden' }}>
-      <ResourceContext resource={gameResourceContext(scope)} />
+      {/* 자료 제목(본인 글 제목일 수 있다)은 판의 계정 경계 안(WordBlitzRound)에서만 셸에 올린다 */}
       <InGameBrief slug="wordblitz" gate={brief} name="WordBlitz" />
       {/* 첫 판에는 라운드를 마운트하지 않는다 — 마운트가 곧 세션 레코더 시작이라,
           브리핑을 읽는 동안 빈 판이 scores 에 적재된다. */}
@@ -163,40 +164,57 @@ function WordBlitzRound({
     computeScore: (correct, wrong) => Math.max(0, correct * POINTS.CORRECT - wrong * POINTS.WRONG),
   });
 
+  // 판의 계정 경계 — 단어를 읽은 사람과 브라우저 신원이 같을 때만 게임(개인 단어 · 정답 · 입력 · 음성)을 그린다.
+  //   바뀌면 게임을 내린다(언마운트 flush 는 recorder 가 그 판을 무효로 보고 적재하지 않는다).
+  if (session.status !== 'same') {
+    return <GameIdentityNotice status={session.status} />;
+  }
+
   return (
-    <WordBlitzGame
-      wordPool={wordPool}
-      onExit={() => {
-        session.flush();
-        // 닫기 복귀: ?from 우선 → 스코프 텍스트 → 모듈 hub
-        router.push(resolveSessionReturnHref(scope.from, scope.text, '/wordblitz'));
-      }}
-      // opts.assisted = 정답을 이미 보여준 뒤의 입력(재출제 · 좁은 창 시간 초과 · 방치).
-      // 세션 정확도에는 정직하게 반영하되 FSRS 카드는 중앙에서 건너뛴다.
-      onCorrect={(word, opts) => {
-        session.countCorrect();
-        void recordGameResult({
-          word: word.en,
-          isCorrect: true,
-          module: 'wordblitz',
-          assisted: opts?.assisted,
-        });
-      }}
-      onWrong={(word, opts) => {
-        session.countWrong();
-        void recordGameResult({
-          word: word.en,
-          isCorrect: false,
-          module: 'wordblitz',
-          assisted: opts?.assisted,
-          // 무엇과 헷갈렸는지 — 컴포저의 `confusion-log` 유형이 이 신호로 짝을 만든다.
-          chosen: opts?.chosen,
-        });
-      }}
-      onRestart={() => {
-        session.flush();
-        onNextRound();
-      }}
-    />
+    <>
+      <ResourceContext resource={gameResourceContext(scope)} />
+      <WordBlitzGame
+        wordPool={wordPool}
+        wordsLink={wordBlitzWordsLink(scope)}
+        onExit={() => {
+          session.flush();
+          // 닫기 복귀: ?from 우선 → 스코프 텍스트 → 모듈 hub
+          router.push(resolveSessionReturnHref(scope.from, scope.text, '/wordblitz'));
+        }}
+        // opts.assisted = 정답을 이미 보여준 뒤의 입력(재출제 · 좁은 창 시간 초과 · 방치).
+        // 세션 정확도에는 정직하게 반영하되 FSRS 카드는 중앙에서 건너뛴다.
+        onCorrect={(word, opts) => {
+          session.countCorrect();
+          // 판 시작자 결속 — 계정이 바뀐 옛 판의 입력은 보내지 않는다(use-session-recorder)
+          void session.result({
+            word: word.en,
+            isCorrect: true,
+            module: 'wordblitz',
+            assisted: opts?.assisted,
+          });
+        }}
+        onWrong={(word, opts) => {
+          session.countWrong();
+          void session.result({
+            word: word.en,
+            isCorrect: false,
+            module: 'wordblitz',
+            assisted: opts?.assisted,
+            // 무엇과 헷갈렸는지 — 컴포저의 `confusion-log` 유형이 이 신호로 짝을 만든다.
+            chosen: opts?.chosen,
+          });
+        }}
+        onRestart={() => {
+          session.flush();
+          onNextRound();
+        }}
+      />
+    </>
   );
+}
+
+/** 끝화면 「단어 목록」 — 범위(set·text)가 있으면 그 출처의 단어(검증된 from 을 이어 닫기/Esc 가 읽던 글로), 없으면 단어장 허브. 목적지를 사실대로 부른다. */
+function wordBlitzWordsLink(scope: Pick<WordScope, 'set' | 'text' | 'from'>): { href: string; label: string } {
+  const href = scopeWordsHref(scope);
+  return { href, label: href === '/wordvault' ? '내 단어장으로' : '이 자료의 단어 보기' };
 }

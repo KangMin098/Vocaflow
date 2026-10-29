@@ -248,7 +248,7 @@ function CloseButton({ onClose }: { onClose: () => void }) {
       type="button"
       onClick={onClose}
       aria-label="닫기"
-      className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
+      className={`relative before:absolute before:content-[''] before:-inset-1.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
     >
       <X size={14} aria-hidden />
     </button>
@@ -368,7 +368,7 @@ function BrowserBody({
               aria-label="다음 문장"
               title="다음 문장"
               disabled={currentIdx + 1 >= total && !isAwaitingRepeat}
-              className={`flex h-9 items-center gap-1 rounded-[var(--r-ios-pill)] bg-[var(--t1)] px-3 font-display text-[12px] font-[700] text-[var(--bg)] transition-all duration-[var(--dur-ios-fast)] hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 ${RING}`}
+              className={`relative before:absolute before:content-[''] before:-inset-y-1 flex h-9 items-center gap-1 rounded-[var(--r-ios-pill)] bg-[var(--t1)] px-3 font-display text-[12px] font-[700] text-[var(--bg)] transition-all duration-[var(--dur-ios-fast)] hover:opacity-90 active:scale-95 disabled:cursor-not-allowed disabled:opacity-40 ${RING}`}
             >
               다음
               <StepForward size={12} aria-hidden />
@@ -440,7 +440,7 @@ function TransportButton({
       disabled={disabled}
       aria-label={label}
       title={label}
-      className={`flex h-9 w-9 items-center justify-center rounded-full text-[var(--t2)] transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:scale-95 disabled:opacity-30 disabled:hover:bg-transparent ${RING}`}
+      className={`relative before:absolute before:content-[''] before:-inset-1 flex h-9 w-9 items-center justify-center rounded-full text-[var(--t2)] transition-all duration-[var(--dur-ios-fast)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] active:scale-95 disabled:opacity-30 disabled:hover:bg-transparent ${RING}`}
     >
       {icon}
     </button>
@@ -455,7 +455,7 @@ function SpeedButton({ rate, onClick }: { rate: number; onClick: () => void }) {
       onClick={onClick}
       aria-label={`재생 속도 ${rate}x`}
       title="재생 속도"
-      className={`inline-flex h-8 min-w-[40px] shrink-0 items-center justify-center rounded-[var(--r-ios-pill)] border border-[var(--bd)] px-2 font-mono text-[10.5px] font-[700] tabular-nums text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:border-[var(--p)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
+      className={`relative before:absolute before:content-[''] before:-inset-1.5 inline-flex h-8 min-w-[40px] shrink-0 items-center justify-center rounded-[var(--r-ios-pill)] border border-[var(--bd)] px-2 font-mono text-[10.5px] font-[700] tabular-nums text-[var(--t2)] transition-colors duration-[var(--dur-ios-fast)] hover:border-[var(--p)] hover:bg-[var(--bg2)] hover:text-[var(--t1)] ${RING}`}
     >
       {rate}x
     </button>
@@ -705,7 +705,7 @@ function LibriVoxBody({
           rel="noreferrer"
           title="LibriVox 출처"
           aria-label="LibriVox 출처 보기"
-          className={`inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)] ${RING}`}
+          className={`relative before:absolute before:content-[''] before:-inset-1.5 inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[var(--t2)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--p)] ${RING}`}
         >
           <ExternalLink size={13} aria-hidden />
         </a>

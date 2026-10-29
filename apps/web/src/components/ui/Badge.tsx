@@ -38,7 +38,7 @@ const variantStyles: Record<BadgeVariant, string> = {
   gray: "bg-bg3 text-t2",
   yellow: "bg-warning-light text-warning",
   red: "bg-error-light text-[var(--error-ink)]",
-  purple: "bg-[var(--combo)]/15 text-[var(--combo)]",
+  purple: "bg-[color-mix(in_srgb,var(--combo)_15%,transparent)] text-[var(--p)]",
 };
 
 const sizeStyles: Record<BadgeSize, string> = {

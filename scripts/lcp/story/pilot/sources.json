@@ -1,0 +1,212 @@
+{
+  "$comment": "LCP Story S7 파일럿 원천 3편의 확보 기록 · 스냅숏 메타데이터. build.ts snapshot 이 raw.sha256 을 먼저 확인한다. 원문 전문은 work/lcp-story-pilot/(커밋 안 함)에만 있다. 권리는 원천의 주장(claimed_by_source)일 뿐 확인(confirmed)이 아니다 — docs/lcp-story/S7_PILOT.md.",
+  "schema": "vocaflow/lcp-story-pilot-sources@1",
+  "extraction_profile": "se-web-xhtml-v1",
+  "retrieved_by": "Claude Code 서브에이전트(T-0169 파일럿 원천 준비) — curl -sL, 2026-10-24T17:45:56Z~17:46:00Z(UTC)",
+  "works": [
+    {
+      "name": "blue-carbuncle",
+      "article_id": "the-adventure-of-the-blue-carbuncle",
+      "raw": {
+        "file": "work/lcp-story-pilot/raw/se-doyle-blue-carbuncle.xhtml",
+        "sha256": "2b2c94c2d525bf451d4d703a37a8bc65b0f4c5969372b38f9ea09b0401abc798",
+        "bytes": 48887,
+        "url": "https://standardebooks.org/ebooks/arthur-conan-doyle/the-adventures-of-sherlock-holmes/text/the-adventure-of-the-blue-carbuncle",
+        "http_date": "2026-10-24T17:45:56Z",
+        "http_last_modified": "2026-08-15T17:51:38Z",
+        "etag": "\"87593-bef7-6591996bda17d-gzip\""
+      },
+      "provenance": {
+        "first_publication": {
+          "venue": "The Strand Magazine, No. 13 (vol. 3), January 1892 — 연재 「Adventures of Sherlock Holmes」 VII",
+          "evidence": "https://archive.org/details/StrandMagazine13",
+          "how_checked": "archive.org 항목 메타데이터(date 1892-01, volume 3)와 OCR 본문의 'VII.— THE ADVENTURE OF THE BLUE CARBUNCLE' 표제를 확인했다(OCR 원문 'THE 3LUE CARBUNCLE')."
+        },
+        "collected_in": "The Adventures of Sherlock Holmes (1892) — SE 판본 간기(colophon) 'published in 1892'",
+        "author": {
+          "name": "Arthur Conan Doyle",
+          "born": "1859-05-22",
+          "died": "1930-07-07",
+          "evidence": "https://id.loc.gov/authorities/names/n79082292"
+        },
+        "edition": {
+          "ebook_page": "https://standardebooks.org/ebooks/arthur-conan-doyle/the-adventures-of-sherlock-holmes",
+          "colophon": "https://standardebooks.org/ebooks/arthur-conan-doyle/the-adventures-of-sherlock-holmes/text/colophon",
+          "uncopyright": "https://standardebooks.org/ebooks/arthur-conan-doyle/the-adventures-of-sherlock-holmes/text/uncopyright",
+          "producer": "David Grigg (Standard Ebooks) — 1999 Project Gutenberg 전사본(An Anonymous Volunteer · Jose Menendez)과 Internet Archive 스캔 기반, SE 초판 2018-05-08",
+          "transcription_sources": ["https://www.gutenberg.org/ebooks/1661", "https://archive.org/details/adventuresofsher001892doyl"],
+          "latest_commit_at_retrieval": "https://github.com/standardebooks/arthur-conan-doyle_the-adventures-of-sherlock-holmes/commit/60f53b2fc44178af326d56f45a5b6d02a8badd68"
+        }
+      },
+      "snapshot": {
+        "snapshot_id": "se-doyle-blue-carbuncle-r1",
+        "work": {
+          "work_key": "doyle-blue-carbuncle",
+          "title": "The Adventure of the Blue Carbuncle",
+          "author": "Arthur Conan Doyle",
+          "original_language": "en"
+        },
+        "edition": {
+          "source_kind": "external_file",
+          "library_book_id": null,
+          "source": "standard_ebooks",
+          "source_id": "arthur-conan-doyle/the-adventures-of-sherlock-holmes/text/the-adventure-of-the-blue-carbuncle",
+          "source_url": "https://standardebooks.org/ebooks/arthur-conan-doyle/the-adventures-of-sherlock-holmes/text/the-adventure-of-the-blue-carbuncle",
+          "edition_label": "Standard Ebooks 판 The Adventures of Sherlock Holmes 의 단편 한 편(웹 XHTML). SE 판은 Project Gutenberg 전사본과 1892년 판 스캔을 바탕으로 철자 · 구두점을 현대화한 편집 판본이며 초출 지면과 글자 단위로 같지 않다.",
+          "revision": "se-git-60f53b2fc441-2026-08-15",
+          "text_language": "en",
+          "translator": null
+        },
+        "captured_at": "2026-10-24T17:45:56Z",
+        "coverage": "complete_work",
+        "coverage_note": "단편 전문. <article> 안의 <p> 문단만 옮겼다 — 작품 제목(h2)은 빼고, 조판용 보이지 않는 문자(U+2060 · U+200A)는 지우고 U+00A0 는 일반 공백으로 바꿨다. 낱말 · 문장부호는 바꾸지 않았다.",
+        "rights": [
+          {
+            "asset": "source_text",
+            "status": "claimed_by_source",
+            "basis": "원천 주장만 기록한다. Standard Ebooks 판본 페이지는 이 전자책이 미국에서 저작권 제한이 없는 것으로 생각된다(thought to be free of copyright restrictions in the United States)고 적고, 미국 밖에서는 이용자가 현지 법을 확인해야 한다고 적는다. SE 기여분(마크업 · 편집)은 CC0 1.0 으로 공유 영역에 바쳤다고 적는다. 초출 1892년 · 저자 사망 1930-07-07(LOC 전거). 한국 상태는 원천이 판단하지 않으며 인증된 사람의 확인 기록이 없다.",
+            "evidence_ref": "https://standardebooks.org/ebooks/arthur-conan-doyle/the-adventures-of-sherlock-holmes",
+            "checked_by": null,
+            "checked_at": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "monkeys-paw",
+      "article_id": "the-monkeys-paw",
+      "raw": {
+        "file": "work/lcp-story-pilot/raw/se-jacobs-monkeys-paw.xhtml",
+        "sha256": "ea9da3f1b82237817f2851079e7dc4c50bffee8bc8b7f3aeabd9bf31d99924ff",
+        "bytes": 27080,
+        "url": "https://standardebooks.org/ebooks/w-w-jacobs/the-lady-of-the-barge/text/the-monkeys-paw",
+        "http_date": "2026-10-24T17:45:58Z",
+        "http_last_modified": "2026-08-15T20:02:10Z",
+        "etag": "\"861ed-69c8-6591b699434d2-gzip\""
+      },
+      "provenance": {
+        "first_publication": {
+          "venue": "Harper's Monthly Magazine, September 1902 (vol. 105)",
+          "evidence": "https://harpers.org/archive/1902/09/the-monkeys-paw/",
+          "how_checked": "Harper's 자체 기록 보관 페이지의 구조화 메타데이터(datePublished 1902-09-01, 'September 1902' 호, 저자 W.W. (William Wymark) Jacobs)를 확인했다. 지면 스캔 본문은 유료 열람이라 보지 못했다."
+        },
+        "collected_in": "The Lady of the Barge (1902) — SE 판본 간기(colophon) 'published in 1902'",
+        "author": {
+          "name": "W. W. Jacobs (William Wymark Jacobs)",
+          "born": "1863-09-08",
+          "died": "1943-09-01",
+          "evidence": "https://id.loc.gov/authorities/names/n50027985"
+        },
+        "edition": {
+          "ebook_page": "https://standardebooks.org/ebooks/w-w-jacobs/the-lady-of-the-barge",
+          "colophon": "https://standardebooks.org/ebooks/w-w-jacobs/the-lady-of-the-barge/text/colophon",
+          "uncopyright": "https://standardebooks.org/ebooks/w-w-jacobs/the-lady-of-the-barge/text/uncopyright",
+          "producer": "Alex Cabal (Standard Ebooks) — 2006 Project Gutenberg 전사본(David Widger)과 Internet Archive 스캔 기반, SE 초판 2014-05-25",
+          "transcription_sources": ["https://www.gutenberg.org/ebooks/12133", "https://archive.org/details/ladyofbarge00jaco"],
+          "latest_commit_at_retrieval": "https://github.com/standardebooks/w-w-jacobs_the-lady-of-the-barge/commit/678dc8e02b08e31a58b1a36d6584ddc52005d549"
+        }
+      },
+      "snapshot": {
+        "snapshot_id": "se-jacobs-monkeys-paw-r1",
+        "work": {
+          "work_key": "jacobs-monkeys-paw",
+          "title": "The Monkey’s Paw",
+          "author": "W. W. Jacobs",
+          "original_language": "en"
+        },
+        "edition": {
+          "source_kind": "external_file",
+          "library_book_id": null,
+          "source": "standard_ebooks",
+          "source_id": "w-w-jacobs/the-lady-of-the-barge/text/the-monkeys-paw",
+          "source_url": "https://standardebooks.org/ebooks/w-w-jacobs/the-lady-of-the-barge/text/the-monkeys-paw",
+          "edition_label": "Standard Ebooks 판 The Lady of the Barge 의 단편 한 편(웹 XHTML). SE 판은 Project Gutenberg 전사본과 1902년 판 스캔을 바탕으로 철자 · 구두점을 현대화한 편집 판본이며 초출 지면과 글자 단위로 같지 않다.",
+          "revision": "se-git-678dc8e02b08-2026-08-15",
+          "text_language": "en",
+          "translator": null
+        },
+        "captured_at": "2026-10-24T17:45:58Z",
+        "coverage": "complete_work",
+        "coverage_note": "단편 전문. <article> 안의 <p> 문단만 옮겼다 — 작품 제목(h2)은 빼고, 조판용 보이지 않는 문자(U+2060 · U+200A)는 지우고 U+00A0 는 일반 공백으로 바꿨다. 낱말 · 문장부호는 바꾸지 않았다.",
+        "rights": [
+          {
+            "asset": "source_text",
+            "status": "claimed_by_source",
+            "basis": "원천 주장만 기록한다. Standard Ebooks 판본 페이지는 이 전자책이 미국에서 저작권 제한이 없는 것으로 생각된다(thought to be free of copyright restrictions in the United States)고 적고, 미국 밖에서는 이용자가 현지 법을 확인해야 한다고 적는다. SE 기여분(마크업 · 편집)은 CC0 1.0 으로 공유 영역에 바쳤다고 적는다. 초출 1902년 · 저자 사망 1943-09-01(LOC 전거). 한국 상태는 원천이 판단하지 않으며 인증된 사람의 확인 기록이 없다.",
+            "evidence_ref": "https://standardebooks.org/ebooks/w-w-jacobs/the-lady-of-the-barge",
+            "checked_by": null,
+            "checked_at": null
+          }
+        ]
+      }
+    },
+    {
+      "name": "red-chief",
+      "article_id": "the-ransom-of-red-chief",
+      "raw": {
+        "file": "work/lcp-story-pilot/raw/se-ohenry-ransom-of-red-chief.xhtml",
+        "sha256": "cf4643333fba4fbdd349cbc59b7df4840dc96e7f48d566f8ed60fc4b7dac71f1",
+        "bytes": 25720,
+        "url": "https://standardebooks.org/ebooks/o-henry/short-fiction/text/the-ransom-of-red-chief",
+        "http_date": "2026-10-24T17:45:59Z",
+        "http_last_modified": "2026-10-22T19:42:20Z",
+        "etag": "\"17fc7e-6478-65e730fe10be2-gzip\""
+      },
+      "provenance": {
+        "first_publication": {
+          "venue": "The Saturday Evening Post, 6 July 1907 (2차 참고 자료 기준 — 지면 스캔 미확인)",
+          "evidence": "https://en.wikipedia.org/wiki/The_Ransom_of_Red_Chief",
+          "how_checked": "초출 지면은 2차 참고 자료로만 확인했다. 1차 근거로는 단행본 Whirligigs(New York: Doubleday, Page & Company, 1910) 스캔에서 목차 · 본문 표제 'THE RANSOM OF RED CHIEF' 와 판권 'COPYRIGHT, 1910, BY DOUBLEDAY, PAGE & COMPANY' 를 OCR 로 확인했다."
+        },
+        "collected_in": "Whirligigs (1910) — https://archive.org/details/whirligigs02henrgoog",
+        "author": {
+          "name": "O. Henry (William Sydney Porter)",
+          "born": "1862-09-11",
+          "died": "1910-06-05",
+          "evidence": "https://id.loc.gov/authorities/names/n79071080"
+        },
+        "edition": {
+          "ebook_page": "https://standardebooks.org/ebooks/o-henry/short-fiction",
+          "colophon": "https://standardebooks.org/ebooks/o-henry/short-fiction/text/colophon",
+          "uncopyright": "https://standardebooks.org/ebooks/o-henry/short-fiction/text/uncopyright",
+          "producer": "Vince Rice (Standard Ebooks) — 여러 Project Gutenberg 전사본(Whirligigs 는 https://www.gutenberg.org/ebooks/1595)과 여러 스캔 기반, SE 초판 2020-03-23",
+          "transcription_sources": ["https://www.gutenberg.org/ebooks/1595", "https://archive.org/details/whirligigs02henrgoog"],
+          "latest_commit_at_retrieval": "https://github.com/standardebooks/o-henry_short-fiction/commit/f8f8fbb58336612ed0d8102ea8ba71d9a64b9089"
+        }
+      },
+      "snapshot": {
+        "snapshot_id": "se-ohenry-ransom-of-red-chief-r1",
+        "work": {
+          "work_key": "ohenry-ransom-of-red-chief",
+          "title": "The Ransom of Red Chief",
+          "author": "O. Henry",
+          "original_language": "en"
+        },
+        "edition": {
+          "source_kind": "external_file",
+          "library_book_id": null,
+          "source": "standard_ebooks",
+          "source_id": "o-henry/short-fiction/text/the-ransom-of-red-chief",
+          "source_url": "https://standardebooks.org/ebooks/o-henry/short-fiction/text/the-ransom-of-red-chief",
+          "edition_label": "Standard Ebooks 판 O. Henry Short Fiction 의 단편 한 편(웹 XHTML). SE 판은 Project Gutenberg 전사본과 스캔을 바탕으로 철자 · 구두점을 현대화한 편집 판본이며 초출 지면과 글자 단위로 같지 않다.",
+          "revision": "se-git-f8f8fbb58336-2026-10-22",
+          "text_language": "en",
+          "translator": null
+        },
+        "captured_at": "2026-10-24T17:45:59Z",
+        "coverage": "complete_work",
+        "coverage_note": "단편 전문. <article> 안의 <p> 문단만 옮겼다 — 작품 제목(h2)은 빼고, 편지 두 통의 머리 · 맺음 줄도 각각 한 문단으로 두었으며, 조판용 보이지 않는 문자(U+2060 · U+200A)는 지우고 U+00A0 는 일반 공백으로 바꿨다. 낱말 · 문장부호는 바꾸지 않았다.",
+        "rights": [
+          {
+            "asset": "source_text",
+            "status": "claimed_by_source",
+            "basis": "원천 주장만 기록한다. Standard Ebooks 판본 페이지는 이 전자책이 미국에서 저작권 제한이 없는 것으로 생각된다(thought to be free of copyright restrictions in the United States)고 적고, 미국 밖에서는 이용자가 현지 법을 확인해야 한다고 적는다. SE 기여분(마크업 · 편집)은 CC0 1.0 으로 공유 영역에 바쳤다고 적는다. 단행본 1910년 · 저자 사망 1910-06-05(LOC 전거). 한국 상태는 원천이 판단하지 않으며 인증된 사람의 확인 기록이 없다.",
+            "evidence_ref": "https://standardebooks.org/ebooks/o-henry/short-fiction",
+            "checked_by": null,
+            "checked_at": null
+          }
+        ]
+      }
+    }
+  ]
+}

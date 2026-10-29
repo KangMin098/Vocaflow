@@ -66,7 +66,7 @@ export const Input = forwardRef<HTMLInputElement, InputProps>(
 
     // 사이즈별 패딩 + 글자 크기 (CLAUDE.md §Form Fields: px-4 py-3 기본)
     const sizeStyles = {
-      sm: "px-s-3 py-s-2 text-sm min-h-[36px]",
+      sm: "px-s-3 py-s-2 text-sm min-h-[44px]",
       md: "px-s-4 py-s-3 text-base min-h-[44px]", // WCAG AA
       lg: "px-s-5 py-s-4 text-lg min-h-[52px]",
     }[size];

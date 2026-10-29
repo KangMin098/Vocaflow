@@ -15,6 +15,7 @@ import {
   type ReactNode,
 } from 'react';
 
+import Link from 'next/link';
 import { getArcadeMeta } from '@/lib/game/arcade-meta';
 import { GAME_BY_SLUG, GAME_MARKS, type GameSlug } from '@/lib/game/catalog';
 import { DEFAULT_MUSIC_ON, readMusicPref, writeMusicPref } from '@/lib/game/music-pref';
@@ -699,6 +700,7 @@ export function GameDone({
   restartHint,
   reveal,
   footer,
+  link,
 }: {
   lead?: string;
   stats: { num: ReactNode; label: string; accent?: boolean }[];
@@ -714,6 +716,8 @@ export function GameDone({
   /** 결과 상단에 얹는 블록 — 주로 패배 시 정답 공개. */
   reveal?: ReactNode;
   footer?: ReactNode;
+  /** 선택 — 끝화면에서 이어 갈 곳(예: 이 판의 단어 목록). 주지 않으면 버튼 3개 그대로. */
+  link?: { href: string; label: string };
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -789,6 +793,11 @@ export function GameDone({
         <button type="button" onClick={onExit} className="gk-btn">
           나가기
         </button>
+        {link && (
+          <Link href={link.href} className="gk-btn gk-btn--link" data-testid="gk-done-link">
+            {link.label}
+          </Link>
+        )}
       </div>
       {restartHint && <p className="gk-done-hint">{restartHint}</p>}
       {footer && <div className="gk-done-footer">{footer}</div>}
@@ -943,6 +952,7 @@ const GK_CSS = `
   .gk-btn--primary { background: var(--combo); border-color: var(--combo); color: var(--ti); }
   .gk-btn--primary:hover { filter: brightness(1.08); border-color: var(--combo); }
   .gk-btn:disabled { opacity: .5; cursor: default; }
+  .gk-btn--link { display: inline-flex; align-items: center; justify-content: center; text-decoration: none; }
 
   .gk-done { position: relative; flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 30px; padding: 24px; }
   .gk-done-burst { position: absolute; top: 34%; left: 50%; width: 0; height: 0; }

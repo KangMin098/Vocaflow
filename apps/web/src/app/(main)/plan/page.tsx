@@ -4,7 +4,7 @@
 
 import { PlanClient } from '@/components/plan/PlanClient'
 import { Screen } from '@/components/ui/ios'
-import { fetchAvailableMaterials, fetchStudyPlanItems } from '@/lib/learner/plan-actions'
+import { fetchAvailableMaterials, fetchStudyPlanSnapshot } from '@/lib/learner/plan-actions'
 
 export const metadata = {
   title: '학습 계획',
@@ -28,16 +28,29 @@ function kstWeekDates(): string[] {
 }
 
 export default async function PlanPage() {
-  const [items, materials] = await Promise.all([
-    fetchStudyPlanItems(),
+  // 읽기 facade(T-0240) — 목록 · 실패 · 그 목록을 읽은 viewer 를 한 번의 조회로. 기존 fetchStudyPlanItems 는 부르지 않는다(중복 조회 0)
+  // 한쪽이 던져도 다른 쪽은 그린다(r13) — 자료 목록 실패는 PlanClient 의 「자료 다시 불러오기」로, 계획 실패는 기존 실패 고지로
+  // 이 snapshot 이 출발한 서버 시각(T-0251) — 화면은 마지막 쓰기보다 먼저 출발한 snapshot 을 반영하지 않는다
+  const snapshotAt = Date.now()
+  const [planRes, matsRes] = await Promise.allSettled([
+    fetchStudyPlanSnapshot(),
     fetchAvailableMaterials(),
   ])
+  const plan = planRes.status === 'fulfilled' ? planRes.value : { items: [], failed: true, viewerId: null }
+  const materialsFailed = matsRes.status !== 'fulfilled'
+  const materials = matsRes.status === 'fulfilled' ? matsRes.value : { viewerId: null, books: [], articles: [], wordSets: [], scripts: [] }
 
   return (
     <Screen width="wide" background="bg2" padX="md">
+      {/* key 로 재마운트하지 않는다(r5) — 일시 인증 실패(viewer null)가 마지막 확인 계획 · 미저장 선택을 지우지 않게.
+          소유자 변경 판정(확정된 다른 viewer 면 경계를 닫음)은 PlanClient 안쪽 guard 가 한다 */}
       <PlanClient
-        initialItems={items}
+        initialItems={plan.items}
+        initialFailed={plan.failed}
+        viewerId={plan.viewerId}
         materials={materials}
+        initialMaterialsFailed={materialsFailed}
+        snapshotAt={snapshotAt}
         todayWeekday={kstWeekday()}
         weekDates={kstWeekDates()}
       />

@@ -148,5 +148,20 @@
     "scale": 0.92,
     "minPx": 10,
     "note": "두 쌍 모두 참조/우리 ≈ 0.92(13→12 · 12→11). /csat 모듈 CSS 의 고정 font-size 는 max(minPx, 원래값 × scale) 로만 쓴다. 탭 · 열 머리는 참조가 라틴 · 우리가 한글이라 직접 비교하지 않고 같은 비율을 따른다."
+  },
+  "detail": {
+    "source": "2026-10-23: core and full TASK cards use the measured node height; core width is capped at the measured width",
+    "w": 680,
+    "h": 760,
+    "coreNodeH": 46,
+    "tabs": [
+      "overview",
+      "evidence",
+      "plan"
+    ]
+  },
+  "interaction": {
+    "hoverReach": 12,
+    "note": "Product adaptation: preview direct connections within 12px of a TASK or on keyboard focus; preserve selection and URL."
   }
 }

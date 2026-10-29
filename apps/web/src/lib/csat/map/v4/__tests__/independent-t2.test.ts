@@ -23,11 +23,13 @@ import { planWorkspaces } from '../workspace'
 const NOW = '2026-10-11T09:00:00.000Z'
 const KEY = 'claim-support'
 const ITEMS = ['i1', 'i2', 'i3', 'i4', 'i5']
+// T-0096 — R5 서로 다른 지문 조건: 문항마다 다른 지문
+const PASSAGES = Object.fromEntries(ITEMS.map((i) => [i, `p-${i}`]))
 const T = 'r.central_meaning'
 const links: Record<string, ConfirmLink[]> = { [KEY]: ITEMS.map((t) => ({ target: t, href: `/csat/item/${t}`, label: t })) }
 const proxy = (s: AxisProxyState) => ({ state: Object.fromEntries(DOMAINS.map((d) => [d, s])) as Record<Domain, AxisProxyState>, contributions: Object.fromEntries(DOMAINS.map((d) => [d, 3])) as Record<Domain, number> })
 const attempt = (itemRef: string, ok: boolean, at: string): FindAttemptRow => ({ userId: 'u', itemRef, taskKey: KEY, phase: 'practice', isCorrect: ok, synthetic: false, helpLevel: 'independent', afterViewedFirst: false, afterExplanation: false, timingUncertain: false, answeredAt: at, activity: 'theater', sessionId: 'fixture-session', contentHash: 'current', expectedContentHash: 'current' })
-const asIs = (o: Partial<AsIsInput> = {}) => asIsMap({ asOf: NOW, sessions: [{ id: 's1', examId: 'E', examLabel: 'E', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: proxy('check_first'), checks: [{ taskKey: KEY, items: ITEMS }], attempts: [], ...o })
+const asIs = (o: Partial<AsIsInput> = {}) => asIsMap({ asOf: NOW, sessions: [{ id: 's1', examId: 'E', examLabel: 'E', takenAt: '2026-09-01', enteredAt: '2026-09-02T00:00:00Z', raw: 70, grade: 3, diagnosable: true, examReady: true }], axisProxy: proxy('check_first'), checks: [{ taskKey: KEY, items: ITEMS, passages: PASSAGES }], attempts: [], ...o })
 const REF: RefItem[] = Array.from({ length: 45 }, (_, i) => ({ examId: 'REF', no: i + 1, points: i < 10 ? 3 : 2, errorRate: 0.1 + i / 100 }))
 const lineRefItems = { B6: REF.slice(17, 24), A5: REF.slice(28, 34) }
 const X = ['x1', 'x2', 'x3']
@@ -73,14 +75,14 @@ describe('Independent T2 boundaries', () => {
   expect(p.achievement).toBe('need_confirmed')
  })
  it('C held items in an expired episode are not attributed to current CHECK', () => {
-  const ids=['old1','old2','held','new1','new2','new3','new4']
-  const checks=[{taskKey:KEY,items:ids}]
+  const ids=['old1','old2','held','new1','new2','new3','new4','new5']
+  const checks=[{taskKey:KEY,items:ids,passages:Object.fromEntries(ids.map(i=>[i,`p-${i}`]))}]
   const attempts=[attempt('old1',false,'2026-01-01T00:00:00Z'),attempt('old2',false,'2026-01-02T00:00:00Z'),
    {...attempt('held',false,'2026-01-03T00:00:00Z'),timingUncertain:true},
    attempt('new1',false,'2026-09-01T00:00:00Z'),attempt('new2',false,'2026-09-02T00:00:00Z')]
   const a=asIs({checks,attempts})
   expect(a.tasks[T].check).toMatchObject({status:'verified',verifiedItems:['new1','new2'],timingHeld:0})
-  expect(asIs({checks,attempts:[...attempts,attempt('new3',true,'2026-09-05T00:00:00Z'),attempt('new4',true,'2026-09-06T00:00:00Z')]}).tasks[T].check).toMatchObject({status:'resolved',timingHeld:0})
+  expect(asIs({checks,attempts:[...attempts,attempt('new3',true,'2026-09-05T00:00:00Z'),attempt('new4',true,'2026-09-06T00:00:00Z'),attempt('new5',true,'2026-09-07T00:00:00Z')]}).tasks[T].check).toMatchObject({status:'resolved',timingHeld:0})
  })
 })
 

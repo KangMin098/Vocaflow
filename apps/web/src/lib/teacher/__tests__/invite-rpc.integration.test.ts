@@ -14,9 +14,13 @@
 import { createClient, type SupabaseClient } from '@supabase/supabase-js'
 import { describe, expect, it } from 'vitest'
 
+import { allowMutatingSharedDbTests } from '@/test/shared-db-test-policy'
+
 const URL_BASE = process.env['NEXT_PUBLIC_SUPABASE_URL']
 const ANON = process.env['NEXT_PUBLIC_SUPABASE_ANON_KEY']
-const skipIfNoEnv = !URL_BASE || !ANON
+// 자격 증명만으로는 실행하지 않는다(T-0244) — join_class_by_code 는 쓰기 가능 경로라 예외 없이 같은 승인 gate 를 탄다.
+//   anonClient() 는 it 안에서만 불린다(skip 이면 client 생성 · RPC 0)
+const skipIfNoEnv = !URL_BASE || !ANON || !allowMutatingSharedDbTests(process.env)
 
 /** 초대 링크를 여는 학생과 **같은 권한** — 로그인 전이다. */
 function anonClient(): SupabaseClient {

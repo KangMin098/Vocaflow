@@ -9,8 +9,9 @@ import { learnerPath, type StepEvidence } from '../learner-path'
 import type { MapPageData } from '../load'
 
 import { asIsMap, ms, type AsIsMap, type AxisProxyState } from './as-is'
-import { DOMAINS, checkKeysOfTask, templateOf, type Domain, type TaskId } from './definition'
+import { DOMAINS, evidenceKeysOfTask, templateOf, type Domain, type TaskId } from './definition'
 import { evidenceView, type EvidenceView } from '../v62/evidence-claims'
+import { evidenceReadOf } from '../v62/evidence-read'
 import { toBeMap, type ConfirmLink, type ToBeGoal, type ToBeMap } from './to-be'
 import { planWorkspaces, type WorkspacePlan } from './workspace'
 import { transferPolicy } from './plan-commit'
@@ -46,7 +47,7 @@ export function confirmLinksOf(data: Pick<MapPageData, 'practiceLinks'>): Record
   const out: Record<string, ConfirmLink[]> = {}
   for (const l of Object.values(data.practiceLinks ?? {})) for (const c of l.confirm) {
     const list = (out[c.taskKey] ??= [])
-    if (!list.some((x) => x.target === c.target)) list.push({ target: c.target, href: c.href, label: c.label })
+    if (!list.some((x) => x.target === c.target)) list.push({ target: c.target, href: c.href, label: c.label, passageKey: (c as { passageKey?: string | null }).passageKey ?? null })
   }
   return out
 }
@@ -115,11 +116,13 @@ export function savedTransferOf(data: Pick<MapPageData, 'v4'>): Partial<Record<s
 
 export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4View | null {
   if (!data.v4 || !data.now) return null
+  // T-0078 — 필수 원장(확인 첫 시도 · 수행 기록)을 읽지 못했으면 개인화 계산을 하지 않는다(0건으로 다시 만든 진단 · 계획 · 공급 금지). 성공한 [] 는 정상
+  if (evidenceReadOf(data) !== 'ok') return null
   const confirmLinks = confirmLinksOf(data)
   const attempts: FindAttemptRow[] = data.findAttempts ?? []
   const at = asOf ?? currentAsOf(data.now, data.v4.sessions, attempts)
   const checks = data.findAttempts
-    ? Object.entries(confirmLinks).map(([taskKey, links]) => ({ taskKey, items: links.map((l) => l.target) }))
+    ? Object.entries(confirmLinks).map(([taskKey, links]) => ({ taskKey, items: links.map((l) => l.target), passages: Object.fromEntries(links.map((l) => [l.target, l.passageKey ?? null])) }))
     : []
   const asIs = asIsMap({ asOf: at, sessions: data.v4.sessions, axisProxy: { ...axisProxyOf(data), covers: data.v4.proxyCovers }, checks, attempts })
   const toBe = toBeMap({ asIs, goal, refItems: data.v4.refItems, lineRefItems: data.model.lineRefItems, confirmLinks, transferredKeys: transferredKeysOf(data) })
@@ -135,7 +138,8 @@ export function composeV4(data: MapPageData, goal: ToBeGoal, asOf?: string): V4V
   const views = [plan.primary, ...plan.others].filter((w): w is NonNullable<typeof w> => !!w)
   const evidence: Partial<Record<TaskId, EvidenceView>> = {}
   for (const id of Object.keys(asIs.tasks) as TaskId[]) {
-    if (checkKeysOfTask(id).length === 0) continue
+    // T-0076 — 정본 확인 키가 없어도 창작 채점 키가 있는 TASK 는 근거 설명을 만든다(PLAN 과 같은 근거 키 · 키가 전혀 없으면 생략)
+    if (evidenceKeysOfTask(id).length === 0) continue
     const t = asIs.tasks[id]
     const home = views.find((w) => w.core.includes(id)) ?? null
     const firsts = data.findAttempts ? data.findAttempts.filter((f) => !f.answeredAt || ms(f.answeredAt) <= cut) : undefined

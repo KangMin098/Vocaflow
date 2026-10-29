@@ -13,6 +13,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { Volume2, X, Loader2, BookOpen, ImageOff, RotateCcw } from 'lucide-react'
 import type { SupabaseClient } from '@supabase/supabase-js'
 import { createClient } from '@/lib/supabase/client'
+import Link from 'next/link'
+
+import { comicWordSearchHref } from './word-search'
 
 type Balloon = { type: 'balloon' | 'caption'; x: number; y: number; w: number; h: number; text: string }
 // imageRel = admin preview(dev artifact 라우트) · imageUrl = 발행(공개 버킷 URL)
@@ -38,6 +41,9 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
   const [vocabInfo, setVocabInfo] = useState<VocabInfo | null>(null)
   const [vocabBusy, setVocabBusy] = useState(false)
   const triggerRef = useRef<HTMLElement | null>(null)
+  // T-0250 — 공개 리더에서 학습자가 낱말을 눌러 시트를 연 그 행동에만 시트 제목으로 초점을 1회 옮긴다(부모 재렌더 · 늦은 사전 응답에는 0)
+  const sheetHeadRef = useRef<HTMLSpanElement>(null)
+  const [openSeq, setOpenSeq] = useState(0)
   const [failedPages, setFailedPages] = useState<string[]>([])
   const [imageAttempts, setImageAttempts] = useState<Record<string, number>>({})
 
@@ -72,6 +78,12 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
     return () => { document.removeEventListener('keydown', onKey, true); triggerRef.current?.focus?.() }
   }, [vocab])
 
+  useEffect(() => {
+    if (openSeq === 0 || !publicPresentation) return
+    sheetHeadRef.current?.focus()
+    // eslint-disable-next-line react-hooks/exhaustive-deps -- 여는 행동(openSeq)에만 — preview 전환으로는 옮기지 않는다
+  }, [openSeq])
+
   const speak = useCallback((text: string) => {
     if (typeof window === 'undefined' || !window.speechSynthesis) return
     window.speechSynthesis.cancel()
@@ -83,7 +95,10 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
   const onWord = useCallback((e: React.MouseEvent, word: string) => {
     triggerRef.current = e.currentTarget as HTMLElement
     setVocab(word.toLowerCase())
+    setOpenSeq((n) => n + 1)
   }, [])
+
+  const vocabSearchHref = comicWordSearchHref(vocab)
 
   if (err) return <div className="mx-auto max-w-[560px] px-4 py-16 text-center font-body text-[13px] text-[var(--t2)]">{err}</div>
   if (!pages) return <div className="flex items-center justify-center py-20 text-[var(--t3)]"><Loader2 className="animate-spin" size={20} aria-hidden /></div>
@@ -163,7 +178,7 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
             <div className="flex items-start gap-2">
               <div className="min-w-0 flex-1">
                 <div className="flex items-center gap-2">
-                  <span className="font-display text-[17px] font-[800] text-[var(--t1)]">{vocabInfo?.resolved_word ?? vocab}</span>
+                  <span ref={sheetHeadRef} tabIndex={-1} data-pd-sheet-head className="rounded-[4px] font-display text-[17px] font-[800] text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]">{vocabInfo?.resolved_word ?? vocab}</span>
                   {vocabInfo?.pos && <span className="rounded-[var(--r-full)] bg-[var(--bg2)] px-2 py-1 font-mono text-[10px] text-[var(--t2)]">{vocabInfo.pos}</span>}
                   {vocabInfo?.cefr_level && <span className="rounded-[var(--r-full)] bg-[var(--p-light)] px-2 py-1 font-mono text-[10px] font-[700] text-[var(--p)]">{vocabInfo.cefr_level}</span>}
                   <button type="button" onClick={() => speak(vocabInfo?.resolved_word ?? vocab)} aria-label="단어 듣기" className="text-[var(--t3)] transition-colors hover:text-[var(--p)]"><Volume2 size={15} aria-hidden /></button>
@@ -178,6 +193,17 @@ export default function PdModernReader({ issueId, pages: pagesProp, title: title
                 ) : (
                   <p className="mt-1.5 font-body text-[12.5px] text-[var(--t2)]">사전에 없는 단어예요. 문맥으로 뜻을 추측해 보세요.</p>
                 )}
+                {/* T-0242 — 공개 리더에서만 · 탭한 낱말 그대로(사전 resolved_word 아님) 내 단어장 검색으로. 저장 · 등록이 아니다 · prefetch 없음 */}
+                {publicPresentation && vocabSearchHref ? (
+                  <Link
+                    href={vocabSearchHref}
+                    prefetch={false}
+                    data-testid="pd-word-search"
+                    className="mt-3 inline-flex min-h-[44px] items-center gap-2 rounded-[var(--r-full)] border border-[var(--bd)] px-4 font-display text-[13px] font-[600] text-[var(--t2)] no-underline transition-colors hover:border-[var(--p)] hover:text-[var(--t1)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--p)]"
+                  >
+                    <BookOpen size={14} aria-hidden /> 내 단어장에서 찾기
+                  </Link>
+                ) : null}
               </div>
               <button type="button" onClick={() => setVocab(null)} aria-label="닫기" className="grid h-11 w-11 shrink-0 place-items-center rounded-[var(--r-full)] text-[var(--t3)] transition-colors hover:bg-[var(--bg2)] hover:text-[var(--t1)]"><X size={18} aria-hidden /></button>
             </div>

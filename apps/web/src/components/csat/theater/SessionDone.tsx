@@ -7,6 +7,7 @@
 // 이해나 실력이 늘었다는 말은 하지 않는다(검증되지 않았다). 다음에 확인할 길만 보인다.
 
 import Link from 'next/link'
+import { useEffect, useRef } from 'react'
 
 import { completionOf, type LearningSession } from '@/lib/csat/learning-session'
 import type { GateResult } from '@/lib/csat/reveal-gate'
@@ -29,6 +30,7 @@ export function SessionDone({
   next,
   typeHref,
   now,
+  reviewDays,
   onReview,
   onRestart,
 }: {
@@ -38,9 +40,26 @@ export function SessionDone({
   next: { href: string; label: string } | null
   typeHref: string | null
   now: number
+  /** 이 화면에서 「다시 보기」 를 누르면 예약할 간격(일) — 부모가 예약에 쓰는 바로 그 값(reviewDays). 표시와 예약이 갈리지 않게 */
+  reviewDays: 1 | 3 | 7
   onReview: () => void
   onRestart: () => void
 }) {
+  // T-0217 — 「다시 보기」를 누른 뒤 단추가 예약 표시로 바뀌면 초점이 BODY 로 떨어졌다(T-0216 하네스 관측).
+  //   이 화면에서 누른 그 예약이 반영된 **그 순간 한 번만** 예약 표시로 초점을 옮긴다 — 부모가 다시 그려도(reviewAt 그대로) 다시 옮기지 않는다.
+  const reviewNoteRef = useRef<HTMLSpanElement>(null)
+  const pressedRef = useRef(false)
+  //   예약 응답(비동기 저장)을 기다리는 사이 학습자가 단추를 떠났으면(Tab 이동 · 빈 곳 클릭) 빼앗지 않는다 —
+  //   activeElement 로는 「빈 곳 클릭」과 「단추가 사라져 갈 곳 잃음」이 둘 다 BODY 라 구분되지 않는다.
+  //   그래서 단추의 blur 를 본다: 예약이 아직 없을 때의 blur 는 학습자가 먼저 떠난 것이라 취소하고,
+  //   예약이 반영된 렌더(reviewAtRef 가 이미 채워짐)에서 단추가 빠지며 나는 blur 는 무시한다.
+  const reviewAtRef = useRef(session.reviewAt)
+  reviewAtRef.current = session.reviewAt
+  useEffect(() => {
+    if (!pressedRef.current || session.reviewAt == null) return
+    pressedRef.current = false
+    reviewNoteRef.current?.focus()
+  }, [session.reviewAt])
   const completion = completionOf(session)
   if (completion !== 'guided' && completion !== 'independent') return null
   const facts: string[] = []
@@ -71,12 +90,24 @@ export function SessionDone({
           </Link>
         ) : null}
         {session.reviewAt != null ? (
-          <span className={styles.doneNote} data-testid="done-review-set">
+          <span ref={reviewNoteRef} tabIndex={-1} role="status" className={styles.doneNote} data-testid="done-review-set">
             다시 보기 {dayLabel(session.reviewAt, now)}
           </span>
         ) : (
-          <button type="button" className={styles.doneQuiet} onClick={onReview} data-testid="done-review">
-            3일 뒤 다시 보기
+          <button
+            type="button"
+            className={styles.doneQuiet}
+            onClick={() => {
+              pressedRef.current = true
+              onReview()
+            }}
+            onBlur={() => {
+              if (reviewAtRef.current == null) pressedRef.current = false
+            }}
+            data-testid="done-review"
+            data-review-days={reviewDays}
+          >
+            {reviewDays === 1 ? '내일' : `${reviewDays}일 뒤`} 다시 보기
           </button>
         )}
         <Link className={styles.doneQuiet} href="/csat?view=continue">

@@ -1,0 +1,38 @@
+{
+  "schema": "lcp-story/source-snapshot@1",
+  "snapshot_id": "synthetic-gull-rock-r1",
+  "synthetic": true,
+  "work": {
+    "work_key": "synthetic-gull-rock",
+    "title": "The Keeper of Gull Rock (synthetic fixture)",
+    "author": null,
+    "original_language": "en"
+  },
+  "edition": {
+    "source_kind": "synthetic_fixture",
+    "library_book_id": null,
+    "source": null,
+    "source_id": null,
+    "source_url": null,
+    "edition_label": "Synthetic authored fixture for LCP Story S2 tests — not a real book",
+    "revision": "r1",
+    "text_language": "en",
+    "translator": null
+  },
+  "captured_at": "2026-10-25T00:00:00+09:00",
+  "normalization": "story-text-v1",
+  "coverage": "complete_work",
+  "coverage_note": "합성 예시용으로 직접 쓴 짧은 완결 이야기 전문(8문단). 실제 도서 · 실제 판본이 아니다.",
+  "text": "Upon the bleak shoulder of Gull Rock there stood a lighthouse, and in the lighthouse dwelt old Tobias Wren and his granddaughter Mara, who was then but twelve years of age.\n\nEach evening Tobias climbed the winding stair to kindle the great lamp, and each evening Mara counted the steps aloud, for she had resolved to know the tower as well as he did. 'One hundred and nine,' she would say, 'and the ninth is cracked.' Her grandfather laughed at this, but he did not forget it.\n\nIn the autumn a gentleman from the harbour board came across in a rowing boat. He looked at the lamp, and he looked at Mara, and he said, 'A lighthouse is no place for a girl. When the old man can no longer climb, the board will send a proper keeper.' Tobias said nothing, but his hand tightened upon the rail.\n\nNot a fortnight later a gale rose out of the west. The sea flung itself against the rock, and the rain came sideways, like grey nails. Upon the ninth step Tobias's foot slipped where the stone was cracked, and he fell, and could not rise again.\n\n'The lamp,' he whispered. 'The ships off the point will be looking for it.' Mara knew that a brig had been sighted at sunset, beating up against the wind. If the light failed, it would strike the reef that the sailors called the Teeth.\n\nShe did not stop to be afraid. She counted the steps as she climbed, stepping wide of the ninth, and at the top she trimmed the wick with hands that shook only a little. The lamp caught, and its beam swung out across the black water.\n\nBelow the point the brig came about, as neatly as a dancer, and slipped past the Teeth into the shelter of the bay.\n\nIn the morning the gentleman from the harbour board returned, for the captain of the brig had gone straight to him. He climbed the stair, counting nothing, and found Mara asleep beside the cold lamp. He stood a long while. Then he went down again and wrote a letter, and the letter said that Gull Rock already had a proper keeper.",
+  "text_sha256": "b314858a538c5f419540cbb87144ebde9aad18727015cd86d4db786632ef88b7",
+  "rights": [
+    {
+      "asset": "source_text",
+      "status": "synthetic_fixture",
+      "basis": "테스트용으로 직접 작성한 합성 본문 — 실제 권리 심사를 하지 않았고 발행 대상이 아니다.",
+      "evidence_ref": null,
+      "checked_by": null,
+      "checked_at": null
+    }
+  ]
+}

@@ -33,7 +33,7 @@ export default async function DictationHubPage() {
 
   return (
     <Screen width="content" background="bg2" padX="md">
-      <DictationHubClient data={data} />
+      <DictationHubClient data={data} viewerId={user.id} />
     </Screen>
   )
 }

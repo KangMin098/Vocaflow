@@ -92,7 +92,7 @@ export function domainTaskGraph(): DomainTaskGraphDTO {
 }
 
 /** 학습자에게 보이는 TASK 근거 상태(v6.2 §5.1) — 퍼센트 · 숙달 막대 없음 */
-export type InspectorEvidence = 'unmeasurable' | 'not_measured' | 'checking' | 'need_confirmed' | 'passed_current_policy' | 'recheck_due' | 'axis_observation'
+export type InspectorEvidence = 'unmeasurable' | 'not_measured' | 'analysis_pending' | 'insufficient' | 'checking' | 'need_confirmed' | 'passed_current_policy' | 'recheck_due' | 'axis_observation'
 
 export interface TaskInspectorDTO {
   task: GraphTask
@@ -122,8 +122,8 @@ export interface TaskInspectorDTO {
 const EVIDENCE: Record<V4View['asIs']['tasks'][string]['status'], InspectorEvidence> = {
   unmeasurable: 'unmeasurable',
   unmeasured: 'not_measured',
-  analysis_pending: 'not_measured',
-  insufficient: 'not_measured',
+  analysis_pending: 'analysis_pending',
+  insufficient: 'insufficient',
   observed: 'axis_observation',
   check_first: 'axis_observation',
   checking: 'checking',

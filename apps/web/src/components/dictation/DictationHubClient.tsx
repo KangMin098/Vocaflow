@@ -65,7 +65,8 @@ const SOURCE_KIND_LABEL: Record<string, string> = {
   custom: '직접 입력',
 }
 
-export function DictationHubClient({ data }: { data: DictationHubData }) {
+/** viewerId = 서버가 허브 자료(오늘의 문장 등)를 읽은 사용자 — 시작 때 같은 사람인지 확인한다 */
+export function DictationHubClient({ data, viewerId }: { data: DictationHubData; viewerId?: string }) {
   const router = useRouter()
   const { overview, catalog, weakness, recent, daily } = data
   const [starting, setStarting] = useState(false)
@@ -91,18 +92,20 @@ export function DictationHubClient({ data }: { data: DictationHubData }) {
     // 스피너가 영원히 돌고 학습자에겐 "아무 반응 없음" 이 된다(설정 화면에서 겪은 그것).
     let session
     try {
-      session = await createDictationSession(daily, DAILY_CONFIG)
+      session = await createDictationSession(daily, DAILY_CONFIG, undefined, viewerId)
     } catch (e) {
       setStarting(false)
       setStartError(
-        e instanceof DictationStartError && e.reason === 'cache-failed'
+        e instanceof DictationStartError && e.reason === 'identity-changed'
+          ? '로그인 상태가 바뀌었어요. 받아쓰기 화면을 지금 계정으로 다시 열어 주세요.'
+          : e instanceof DictationStartError && e.reason === 'cache-failed'
           ? '이 브라우저의 저장 공간이 가득 차 세션을 이어받지 못했어요. 사이트 데이터를 정리하고 다시 시도해 주세요.'
           : '오늘의 문장을 만들지 못했어요. 잠시 뒤 다시 시도해 주세요.',
       )
       return
     }
     router.push(`/dictate/session?sessionId=${session.id}`)
-  }, [daily, starting, router])
+  }, [daily, starting, router, viewerId])
 
   const hasAnything = catalog.books.length + catalog.scripts.length + catalog.sets.length > 0
 
@@ -172,7 +175,7 @@ export function DictationHubClient({ data }: { data: DictationHubData }) {
             type="button"
             onClick={() => startRetry(() => router.refresh())}
             disabled={retrying}
-            className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[var(--error)]/30 bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
+            className="inline-flex min-h-[44px] shrink-0 items-center justify-center gap-2 rounded-[var(--r-sm)] border border-[color-mix(in_srgb,var(--error)_30%,transparent)] bg-[var(--bg)] px-4 font-display text-[12px] font-[700] text-[var(--error-ink)] transition-colors hover:bg-[var(--error-light)] disabled:cursor-not-allowed disabled:opacity-60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2 active:scale-[0.99]"
           >
             <RotateCcw size={13} className={retrying ? 'animate-spin' : undefined} aria-hidden />
             다시 시도
@@ -252,7 +255,7 @@ export function DictationHubClient({ data }: { data: DictationHubData }) {
                   {done && (
                     <Link
                       href={`/dictate/results?sessionId=${s.id}`}
-                      className="shrink-0 rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
+                      className="relative shrink-0 after:absolute after:-inset-[10px] after:content-[''] rounded-[var(--r-sm)] bg-[var(--bg2)] px-2 py-1 font-display text-[11px] font-[600] text-[var(--t2)] transition-colors hover:bg-[var(--bg3)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
                     >
                       결과
                     </Link>

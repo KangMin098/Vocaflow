@@ -27,6 +27,7 @@ export function decideNextAction(ctx: NextActionContext): RecommendedAction {
       module: 'flashcard',
       strategy: 'blocked',
       label: `위급 단어 ${ctx.urgentWordCount}개 다시 만나기`,
+      reason: 'due_review',
     }
   }
 
@@ -34,21 +35,28 @@ export function decideNextAction(ctx: NextActionContext): RecommendedAction {
   if (ctx.inProgressTextTitle) {
     return {
       module: 'workspace',
-      label: `${ctx.inProgressTextTitle} 이어 듣기`,
+      // 열어 둔 글로 돌아가기 — 실제 청취 · 완주를 확인한 것이 아니므로 「이어 듣기」라고 하지 않는다
+      label: `${ctx.inProgressTextTitle} 이어 보기`,
       textId: ctx.inProgressTextId,
+      reason: 'resume_text',
     }
   }
 
   // P3 — 흐름 순 자연 진행
   switch (ctx.masteryLevel) {
     case 'cold':
-      return { module: 'flashcard', strategy: 'blocked', label: '익히기 시작 — 단어 만나보기' }
+      return { module: 'flashcard', strategy: 'blocked', label: '익히기 시작 — 단어 만나보기', reason: 'practice_flow' }
     case 'warm':
-      return { module: 'spellforge', strategy: 'hybrid', label: '단어를 정확하게 — 철자로 다지기' }
+      return { module: 'spellforge', strategy: 'hybrid', label: '단어를 정확하게 — 철자로 다지기', reason: 'practice_flow' }
     case 'hot':
-      return { module: 'scriptquiz', strategy: 'interleaved', label: '정복 도전 — 스크립트 안에서 확인' }
+      return { module: 'scriptquiz', strategy: 'interleaved', label: '정복 도전 — 스크립트 안에서 확인', reason: 'practice_flow' }
   }
 
   // P4 — Cold start fallback
-  return { module: 'library', label: '새 스크립트를 만나보세요' }
+  return { module: 'library', label: '새 스크립트를 만나보세요', reason: 'explore' }
+}
+
+/** 조회 오류가 하나라도 있었으면 근거를 「확인 못 함」으로 — 결정(우선순위 · 모듈 · 목적지 · 라벨)은 그대로 둔다 */
+export function markUnconfirmed(a: RecommendedAction, failed: boolean): RecommendedAction {
+  return failed ? { ...a, reason: 'unconfirmed' } : a
 }

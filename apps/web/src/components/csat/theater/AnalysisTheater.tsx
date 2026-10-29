@@ -42,10 +42,11 @@ import {
   Volume2,
   VolumeX,
 } from 'lucide-react'
-import { useEffect, useMemo, useRef, useState, type RefObject } from 'react'
+import { useEffect, useLayoutEffect, useMemo, useRef, useState, type RefObject } from 'react'
 
 import { PassageMap, type MapAnchor, type MapPlacement } from '@/components/csat/PassageMap'
 import { useLecture } from '@/components/csat/lecture/LectureStage'
+import { preStopNotice, type PreStopRiskCode } from '@/lib/csat/lecture/disclosure-copy'
 import type { SkeletonSentence } from '@/lib/csat/passage-skeleton'
 import {
   blockKeyForTarget,
@@ -77,18 +78,20 @@ import {
 } from '@/lib/csat/learning-session'
 import type { Pattern, Transform } from '@/lib/csat/design'
 import { committedOf, grade, type GateCommit, type GateKey } from '@/lib/csat/reveal-gate'
+import { answerWithheld, boundaryGate, gateBlocks, gatedLiveKey, type AnswerGateState } from '@/lib/csat/lecture/answer-gate'
+import { mergeMeaningSupport, mergeReveal, type AnswerReveal } from '@/lib/csat/lecture/answer-split'
 
 import type { LearnerCatalog } from '@/lib/csat/session/catalog'
 
 import type { CropMarkRequest } from '@/lib/csat/reflow/crop-mark-view'
 import { groupOf, rememberScene, type DockGroupId } from '@/lib/csat/inquiry/dock'
 import { sceneKey, tabMemory } from '@/lib/csat/item-tab-memory'
-import { EMPTY_EXPLAIN, EMPTY_NOTE, linkableEvidence, type ExplainDraft, type NoteDraft } from '@/lib/csat/explain-draft'
+import { buildLearningSummary, hasWrittenHistory } from '@/lib/csat/system-learning'
 import { ItemPaper, type PaperPassage } from './ItemPaper'
 import { EvidenceQuote } from './EvidenceQuote'
 import { GateDiff } from './PredictGate'
 import { SelfExplain } from './SelfExplain'
-import { UnderstandingChecks } from './UnderstandingChecks'
+import { checkLocateBinding, checkLocateFocus, checkLocateKey, isCheckLocateKey, resolveCheckLocate, UnderstandingChecks } from './UnderstandingChecks'
 import { ComparePairs, type ComparePair } from './ComparePairs'
 import { reviewDays, type UnderstandingCheck } from '@/lib/csat/understanding-check'
 import { hashTag } from '@/lib/csat/dissect'
@@ -96,11 +99,15 @@ import { SessionDone } from './SessionDone'
 import { InquiryDock } from './InquiryDock'
 import { PaperResizer } from './PaperResizer'
 import { ReasoningNoteForm } from './ReasoningNoteForm'
+import { SystemLearningSummary } from './SystemLearningSummary'
 import { V3CompareExplorer, type PairWithheldView } from './V3CompareExplorer'
 import { V3Design, V3Judgment, V3Meaning, V3PrincipleLevels, V3Task } from './InquiryV3Panels'
 import { DesignSelection, DistractorDesign, PrincipleDesign, TransformDiagram } from './SceneDiagrams'
 import { StructurePredict } from './StructurePredict'
 import type { InquiryRecord, PairAbsence, V3PairView } from '@/lib/csat/inquiry/labels'
+import { TypeJudgment } from '@/components/csat/judgment/TypeJudgment'
+import { judgmentRouteProvider } from '@/lib/csat/judgment/provider'
+import type { JudgmentItem } from '@/lib/csat/judgment/types'
 import { SCENES, nextScene, parseScene, sceneOfBlock, sceneOfCheck, type JudgmentView, type SceneId } from '@/lib/csat/inquiry/scenes'
 import { MeaningSupportPanel } from './MeaningSupportPanel'
 import type { MeaningSupportView, MsDepth } from '@/lib/csat/meaning-support/labels'
@@ -165,6 +172,39 @@ function predictionOf(record: DissectionRecord, s: LearningSession): Prediction 
   return legacy.length ? legacy[legacy.length - 1] : null
 }
 
+/**
+ * 판단 장면 「정답 보기」 뒤 포커스 — 정답 근거 제목([data-block="analysis:answer"] h2)으로 옮긴다(T-0188).
+ * 공개 상태가 커밋된 뒤에도 정답 블록이 한두 프레임 늦게 그려질 수 있어, 제목이 나타날 때까지 프레임마다 다시 찾는다.
+ * maxFrames 안에 끝내 나타나지 않을 때만 판단 선택지로 대체한다(문서 밖으로 빠지지 않게).
+ * 돌려주는 함수로 남은 시도를 취소한다 — 화면이 사라진 뒤 다음 화면의 제목으로 옮기지 않게 effect 정리에서 부른다.
+ */
+export function focusRevealedAnswer(doc: Pick<Document, 'querySelector'>, opts: { maxFrames?: number; schedule?: (cb: () => void) => unknown } = {}): () => void {
+  let cancelled = false
+  const raw = opts.schedule ?? ((cb: () => void) => requestAnimationFrame(cb))
+  const schedule = (cb: () => void) => raw(() => {
+    if (!cancelled) cb()
+  })
+  const maxFrames = Math.max(1, opts.maxFrames ?? 60)
+  const place = (h: HTMLElement) => {
+    h.tabIndex = -1
+    h.focus()
+  }
+  const attempt = (frame: number) => {
+    const h = doc.querySelector<HTMLElement>('[data-block="analysis:answer"] h2')
+    if (h) return place(h)
+    if (frame + 1 < maxFrames) {
+      schedule(() => attempt(frame + 1))
+      return
+    }
+    const fallback = doc.querySelector<HTMLElement>('[data-testid="judgment-options"]')
+    if (fallback) place(fallback)
+  }
+  schedule(() => attempt(0))
+  return () => {
+    cancelled = true
+  }
+}
+
 export interface TheaterMap {
   sentences: SkeletonSentence[]
   anchors: MapAnchor[]
@@ -193,11 +233,11 @@ export function AnalysisTheater({
   typeName,
   points,
   minutes,
-  steps,
-  blocks,
-  checks = [],
-  comparePairs = [],
-  v3Pairs = [],
+  steps: initialSteps,
+  blocks: initialBlocks,
+  checks: initialChecks = [],
+  comparePairs: initialComparePairs = [],
+  v3Pairs: initialV3Pairs = [],
   pairAbsence = null,
   pairWithheld = { held: 0, missing: 0, changed: 0 },
   initialPairId = null,
@@ -206,8 +246,8 @@ export function AnalysisTheater({
   initialScene = 'task',
   initialJudgmentView = 'answer',
   sceneNormalized = false,
-  inquiry = null,
-  map,
+  inquiry: initialInquiry = null,
+  map: initialMap,
   itemId,
   backHref,
   backTo = 'home',
@@ -219,15 +259,19 @@ export function AnalysisTheater({
   siblings,
   examLabel,
   paper,
-  gate,
+  gate: initialGate,
+  analysisVersion = null,
+  sourceUnitsHash = null,
   typeId,
-  meaningSupport = null,
+  meaningSupport: initialMeaningSupport = null,
+  judgmentItem = null,
   initialMeaning = null,
   initialDepth = 'brief',
   initialRelation = null,
   initialBridge = false,
   meaningNormalized = false,
   finder = null,
+  lectureDisclosure = null,
 }: {
   title: string
   typeName: string | null
@@ -281,6 +325,10 @@ export function AnalysisTheater({
   paper: { catalog: LearnerCatalog; examId: string; no: number }
   /** 지난 예측 기록(2026-10-10 이전 예측 관문)의 차이 카드를 다시 보이는 데만 쓴다 — 새 예측은 받지 않는다 */
   gate: GateKey
+  /** 이 화면이 읽은 분석 버전 — 정답 요청 때 서버가 같은 판본인지 맞춘다(다르면 409) */
+  analysisVersion?: number | null
+  /** 판단 도구 근거 연결의 독립 결속 해시(서버 · 원문 이해 배포 결속 + 지도 분할 일치일 때만) — 없으면 근거 강조를 끈다 */
+  sourceUnitsHash?: string | null
   /** 유형 id — 학습 목표(이 문항에서 설명할 관계)를 유형 교수 계약에서 고른다 */
   typeId?: string
   /** v3.1 원문 이해 교수 설명 — 결속(분석 버전 · units_hash · 배포 레코드 해시)이 맞을 때만 서버가 넘긴다. 없으면 기존 v3 의미 패널 */
@@ -296,8 +344,47 @@ export function AnalysisTheater({
   meaningNormalized?: boolean
   /** 기출 찾기(문항 머리 · 비교 없음 안내). null = 숨김(독립 확인 중). mapCtxQuery = 서버가 검증한 지도 복귀 조각 */
   finder?: { fromMap: boolean; mapCtxQuery: string } | null
+  /** 검증된 「직접 정답 공개」 경계 — 서버가 대본 결속을 확인한 것만. 없으면 「정답 직접 안내 전까지」 경로를 내주지 않는다 */
+  /** D 판단 도구(T-0161) — 페이지가 G 현재 판본 결속으로 만든 정답 없는 문항. 없으면 도구 없음 */
+  judgmentItem?: JudgmentItem | null
+  lectureDisclosure?: { verified: true; stopBefore: number; preStopRisk: PreStopRiskCode } | { verified: false } | null
 }) {
   const lec = useLecture()
+  // ── 판단 장면 정답 지연 조회 (b) — 첫 응답에는 정답 · 확정 해설이 없다. 학습자가 요청하면 서버가 노출 원장을 먼저 커밋하고
+  // 공개 자료를 돌려준다. 받은 자료는 이 컴포넌트 상태에만 둔다(저장소 · 캐시 없음). 마운트 · prefetch 로는 요청하지 않는다
+  const [revealed, setRevealed] = useState<AnswerReveal | null>(null)
+  // 판단 장면 「정답 보기」 가 남긴 포커스 요청 — 공개 상태가 커밋된 뒤(useLayoutEffect)에만 옮긴다(T-0188 경합)
+  const pendingRevealFocus = useRef(false)
+  useLayoutEffect(() => {
+    if (!revealed || !pendingRevealFocus.current) return
+    pendingRevealFocus.current = false
+    return focusRevealedAnswer(document)
+  }, [revealed])
+  const [revealState, setRevealState] = useState<'idle' | 'pending' | 'failed'>('idle')
+  const merged = useMemo(
+    () =>
+      revealed
+        ? mergeReveal(
+            { blocks: initialBlocks, anchors: initialMap?.anchors ?? [], placements: initialMap?.placements ?? [], checks: initialChecks, comparePairs: initialComparePairs, v3Pairs: initialV3Pairs, inquiry: initialInquiry, gate: initialGate },
+            revealed,
+          )
+        : null,
+    [revealed, initialBlocks, initialMap, initialChecks, initialComparePairs, initialV3Pairs, initialInquiry, initialGate],
+  )
+  const steps = revealed?.steps ?? initialSteps
+  const blocks = merged?.blocks ?? initialBlocks
+  const checks = merged?.checks ?? initialChecks
+  const comparePairs = merged?.comparePairs ?? initialComparePairs
+  const v3Pairs = merged?.v3Pairs ?? initialV3Pairs
+  const inquiry = merged?.inquiry ?? initialInquiry
+  const gate = merged?.gate ?? initialGate
+  // T-0145 판단 도구(interaction34)는 선택 상태를 자식 안에 둔다 — 정답 공개 뒤에는 장면을 옮겨도 패널을 마운트한 채 숨겨
+  // 학습자가 고른 범위 · 조건 · 비교 쌍 · 설계 선택을 보존한다(연결 계약 C7 · T-0152 R152-01). 공개 전에는 도구가 안내만 그리므로 유지할 상태가 없다
+  const keepTools = Boolean(revealed && inquiry?.v3?.interaction34)
+  const map = useMemo(
+    () => (initialMap && merged ? { ...initialMap, sentences: revealed?.mapSentences ?? initialMap.sentences, anchors: merged.anchors, placements: merged.placements } : initialMap),
+    [initialMap, merged, revealed],
+  )
   // ── 기출 찾기(FND2 · FND3) — 학습 상태(장면 · 근거 · 초안)와 분리된 팝업 상태 ──────────────
   const [finderOpen, setFinderOpen] = useState<FinderOrigin | null>(null)
   // 「찾기 전 문항으로」 — 찾기로 이 문항에 왔을 때만(탭 메모리 · 첫 렌더 뒤에 읽는다: 서버 렌더와 어긋나지 않게)
@@ -343,14 +430,6 @@ export function AnalysisTheater({
   const [meaningNotes, setMeaningNotes] = useState<MeaningNote[]>([])
   const saveMeaningNote = (x: MeaningNote): Promise<boolean> =>
     persist((r) => ({ ...r, meaningNotes: [...(r.meaningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
-      .then(({ record, saved }) => {
-        if (saved) pickNotes(record)
-        return saved
-      })
-      .catch(() => false)
-  // 실제 저장 결과를 돌려준다 — 실패면 화면이 입력을 지키고 「다시 저장」을 연다(낙관적 완료 표시 금지 · M5)
-  const saveNote = (x: ReasoningNote): Promise<boolean> =>
-    persist((r) => ({ ...r, reasoningNotes: [...(r.reasoningNotes ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
       .then(({ record, saved }) => {
         if (saved) pickNotes(record)
         return saved
@@ -442,14 +521,6 @@ export function AnalysisTheater({
     void persist((r) => stepSession(r, id, cursor, Date.now()))
   }, [cursor, session])
   const finished = session?.stage === 'finished'
-  // 자기 설명 — 같은 id 는 교체(다시 저장이 두 건이 되지 않게) · 실제 기기 저장이 성공했을 때만 목록 · 대조를 갱신한다(낙관적 완료 표시 금지 · 작업공간 W3)
-  const saveExplanation = (x: SelfExplanation): Promise<boolean> =>
-    persist((r) => ({ ...r, explanations: [...(r.explanations ?? []).filter((y) => y.id !== x.id), x], updatedAt: Date.now() }))
-      .then(({ record, saved }) => {
-        if (saved) pickExplained(record)
-        return saved
-      })
-      .catch(() => false)
   // 원리 저장(M4) — 유형 관계 · 적용 조건 · 한계 · 출처 문항을 함께. 같은 유형 원리는 한 줄로 모이고 출처만 늘어난다
   const principleTag = goal ? hashTag(`theater|${typeId}|${goal.relation}`) : null
   const [principleSaved, setPrincipleSaved] = useState(false)
@@ -474,10 +545,6 @@ export function AnalysisTheater({
     setChecked((xs) => [...xs, x])
     void persist((r) => ({ ...r, checks: [...(r.checks ?? []), x], updatedAt: Date.now() })).then(({ record }) => pickChecked(record))
   }
-  const compareExplanation = (id: string) => {
-    setExplained((xs) => xs.map((x) => (x.id === id ? { ...x, compared: true } : x)))
-    void persist((r) => ({ ...r, explanations: (r.explanations ?? []).map((x) => (x.id === id ? { ...x, compared: true } : x)), updatedAt: Date.now() })).then(({ record }) => pickExplained(record))
-  }
   const finish = () => {
     if (!session) return
     const id = session.id
@@ -486,11 +553,13 @@ export function AnalysisTheater({
       requestAnimationFrame(() => document.querySelector('[data-testid="session-done"]')?.scrollIntoView({ block: 'start', behavior: 'smooth' }))
     })
   }
+  // 간격은 이해 확인 결과로 — 다 첫 시도에 맞혔으면 7일, 다시 골랐으면 3일, 답을 열었거나 안 했으면 1일(M4).
+  //   완료 화면의 「N일 뒤 다시 보기」 표시와 클릭 예약이 **같은 값**을 쓴다(T-0216 — 예전 표시는 늘 3일이었다)
+  const doneReviewDays = reviewDays(checked.filter((x) => !x.review))
   const review = () => {
     if (!session) return
     const id = session.id
-    // 간격은 이해 확인 결과로 — 다 첫 시도에 맞혔으면 7일, 다시 골랐으면 3일, 답을 열었거나 안 했으면 1일(M4)
-    const days = reviewDays(checked.filter((x) => !x.review))
+    const days = doneReviewDays
     track({ name: 'csat_review_scheduled', props: { days } })
     void persist((r) => scheduleReview(r, id, Date.now(), days)).then(({ record }) => sync(record, id))
   }
@@ -509,18 +578,16 @@ export function AnalysisTheater({
   }
   const [tab, setTab] = useState<TabId>('analysis')
   const [scene, setScene] = useState<SceneId>(initialScene)
+  // 판단 도구 공개 provider — 문항(slug)마다 새로 만든다(멱등 키가 다른 문항으로 넘어가지 않게)
+  const judgmentReveal = useMemo(() => judgmentRouteProvider(toItemSlug(itemId)), [itemId])
   // v3 근거 연결 — 패널에서 고른 근거 문장(1-기반). 장면을 옮기면 비운다(다른 장면의 근거가 남아 비추지 않게)
   // 처음 근거 선택 — 이 문항 · 장면을 전에 봤으면 탭 메모리에서(문항을 다녀와도 남는다 · item-tab-memory)
   const [evidence, setEvidence] = useState<{ sentences: number[]; key: string } | null>(() => tabMemory.scene.get(sceneKey(itemId, initialScene))?.evidence ?? null)
   const v3 = inquiry?.v3 ?? null
   // 지도 문장 수가 v3 작성 때와 같을 때만 연결한다 — 원문 분할이 다르면 잘못된 문장을 비추지 않는다
   const v3Linkable = Boolean(v3 && map && map.sentences.length === v3.sentence_count)
-  // 마지막으로 고른 근거 — 내 설명 장면의 「이 근거를 노트에 연결」 후보(앞 장면의 선택을 미리 보여 줄 뿐 자동 저장하지 않는다)
-  const [recentEvidence, setRecentEvidence] = useState<number[] | null>(null)
   const onEvidence = (sentences: number[], key: string) => {
-    const off = evidence?.key === key
-    setEvidence(off ? null : { sentences, key })
-    setRecentEvidence(off ? null : sentences)
+    setEvidence(evidence?.key === key ? null : { sentences, key })
   }
   // 작업공간 W2/W3 — 장면별 근거 선택 · 오른쪽 판 스크롤을 이 탭 메모리에 문항별로 기억한다. 주소 · 뒤로가기가 장면을 정하고, 메모리는 그 장면의 선택만 되살린다.
   //   기억이 없으면(미방문) 선택 없음, 학습자가 해제했으면 해제(null) 그대로 — 자동 선택으로 덮지 않는다.
@@ -576,20 +643,10 @@ export function AnalysisTheater({
     pendingScroll.current = null
   }, [evidenceCollapsed])
   const [evidenceView, setEvidenceView] = useState<'map' | 'relation'>('map')
-  // 자기 설명 · 원리 노트 초안 — 문항별 탭 메모리(장면 왕복에도 남고, 새로고침 · 탭 종료면 사라진다)
-  const [explainDrafts, setExplainDrafts] = useState<Record<string, ExplainDraft>>(() => tabMemory.explain)
-  const [noteDrafts, setNoteDrafts] = useState<Record<string, NoteDraft>>(() => tabMemory.note)
-  useEffect(() => {
-    tabMemory.explain = explainDrafts
-  }, [explainDrafts])
-  useEffect(() => {
-    tabMemory.note = noteDrafts
-  }, [noteDrafts])
-  const draftExplain = (fn: (d: ExplainDraft) => ExplainDraft) => setExplainDrafts((m) => ({ ...m, [itemId]: fn(m[itemId] ?? EMPTY_EXPLAIN) }))
-  const draftNote = (fn: (d: NoteDraft) => NoteDraft) => setNoteDrafts((m) => ({ ...m, [itemId]: fn(m[itemId] ?? EMPTY_NOTE) }))
+  // 자기 설명 · 원리 노트 작성 초안은 없다(T-0091 학습 정리 전환) — 탭 메모리의 옛 초안 칸(item-tab-memory)은 손대지 않고 둔다
   // v3.1 원문 이해 — 선택(의미 · 관계 · 깊이 · 구절)과 메모리 초안은 여기서 갖는다. 장면을 옮겨도 남고, 새로 고침 · 문항 이탈엔 사라진다.
   //   주소에는 검증된 meaning · depth · rel · bridge 만 싣는다(초안 · 구절 선택은 싣지 않는다). 뒤로/앞으로는 주소에서 모두 되살린다.
-  const ms = meaningSupport
+  const ms = useMemo(() => mergeMeaningSupport(initialMeaningSupport, revealed?.meaningSupport), [initialMeaningSupport, revealed])
   const [msUnit, setMsUnit] = useState<string | null>(initialMeaning ?? ms?.defaultUnitId ?? null)
   const [msRelation, setMsRelation] = useState<string | null>(initialRelation)
   const [msDepth, setMsDepth] = useState<MsDepth>(initialDepth)
@@ -720,6 +777,18 @@ export function AnalysisTheater({
     ms && msBridge && msUnitObj
       ? { unitLabel: msUnitObj.labelKo, ...bridgeOf(ms, msUnitObj.id), onReturn: () => selectScene('meaning') }
       : null
+  // 판단 도구 인스턴스 결속 — 분석 revision 이 바뀌면 지난 단위 인스턴스를 버린다(선택이 다른 revision 으로 넘어가지 않게)
+  const toolRev = String(inquiry?.analysis_version ?? 'na')
+  const [bridgeSeen, setBridgeSeen] = useState<{ rev: string; units: string[] }>({ rev: toolRev, units: [] })
+  const bridgeUnit = msBridgeFocus ? msUnit : null
+  useEffect(() => {
+    setBridgeSeen((cur) => {
+      const units = cur.rev === toolRev ? cur.units : []
+      if (cur.rev === toolRev && (!bridgeUnit || units.includes(bridgeUnit))) return cur
+      return { rev: toolRev, units: bridgeUnit && !units.includes(bridgeUnit) ? [...units, bridgeUnit] : units }
+    })
+  }, [toolRev, bridgeUnit])
+  const bridgeUnits = (bridgeSeen.rev === toolRev ? bridgeSeen.units : []).concat(bridgeUnit && !(bridgeSeen.rev === toolRev && bridgeSeen.units.includes(bridgeUnit)) ? [bridgeUnit] : [])
   useEffect(() => {
     // 뒤로가기 · 앞으로가기 — 장면 · 의미 · 깊이 · 관계 · 이어 온 맥락을 **주소에서** 되살린다(서버와 같은 파서 · allowlist)
     const onPop = () => {
@@ -830,7 +899,18 @@ export function AnalysisTheater({
         ...(committed.transform ? { transform: committed.transform as Transform } : {}),
       }
     : null
-  const diff = mine ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
+  // ── 정답 공개 경로(2026-10-24 P1~P5) — 강의를 듣기 전에 학습자가 고른다. 고르기 전에는 어떤 cue 도 받지도 틀지도 않는다.
+  // 원문부터 · 전체(정답 포함) · 정답 직접 안내 전까지(검증된 경계가 있을 때만). 강제 퀴즈 · 필수 선지 선택으로 대신하지 않는다
+  const [lecturePath, setLecturePath] = useState<'self' | 'full' | 'until' | null>(null)
+  const stopAt = lectureDisclosure?.verified ? lectureDisclosure.stopBefore : null
+  // 정답 공개 동의 — 경계 안내의 「계속 듣기(정답 공개)」 또는 감춘 블록의 「정답 보기」 만 켠다(건너뛰기 · 멈춤 · 키 이동은 켜지 않는다)
+  const [answerConsent, setAnswerConsent] = useState(false)
+  // 정답 감춤 선택 — 「정답 직접 안내 전까지」 를 고르면 켜지고, 강의 오류로 경로가 풀려도 동의 전까지 꺼지지 않는다(r4 R4-02)
+  const [answerHide, setAnswerHide] = useState(false)
+  const answerGate: AnswerGateState = { path: lecturePath, stopAt, consented: answerConsent, hideAnswer: answerHide }
+  const withheld = answerWithheld(answerGate)
+  // 저장된 예측과 출제자 답의 대조 · 완료 카드의 채점도 정답 공개다 — 동의 전에는 그리지 않는다(T-0140 r6 R6-01)
+  const diff = mine && !withheld && revealed ? <GateDiff commit={mine} result={grade(mine, gate)} gateKey={gate} /> : null
   const nextLive = useMemo(() => {
     if (!seen) return next ? { ...next, revisit: false } : null
     const pick = pickNextItem(
@@ -847,19 +927,84 @@ export function AnalysisTheater({
     finished && session ? (
       <SessionDone
         session={session}
-        result={committed && !isSkipPrediction(committed) && mine ? grade(mine, gate) : null}
+        result={committed && !isSkipPrediction(committed) && mine && !withheld && revealed ? grade(mine, gate) : null}
         next={nextLive}
         typeHref={typeHref}
         now={Date.now()}
+        reviewDays={doneReviewDays}
         onReview={review}
         onRestart={restart}
       />
     ) : null
   const step = steps[cursor] ?? null
-  const liveKey = step ? blockKeyForTarget(step.targetKey, blockKeys) : null
-  const sceneBlocks = blocks.filter((b) => sceneOfBlock(b.kind) === scene)
+  // 레일 차례는 오답 번호를 지운 키를 들고 있다(maskDisclosureSteps) — 재생 중이면 받은 cue 의 실제 대상으로 맞춘다
+  const rawLiveKey = lec?.activeKey && (lec.status === 'playing' || lec.status === 'paused') ? blockKeyForTarget(lec.activeKey, blockKeys) : step ? blockKeyForTarget(step.targetKey, blockKeys) : null
+  // 동의 전에는 경계 뒤 차례 · 정답을 확정하는 블록을 강조하지 않는다(D6-02)
+  const liveKey = withheld && stopAt != null && cursor >= stopAt && !(lec?.status === 'playing' || lec?.status === 'paused') ? null : gatedLiveKey(rawLiveKey, blocks, answerGate)
+  // 동의 전 화면 — 정답 칩 · 정답 근거 · 오답 소거 블록은 자리표시만(D6-01 화면 미표시. 첫 HTML · props 의 지연 조회는 (b))
+  const shownBlocks = gateBlocks(blocks, answerGate)
+  const sceneBlocks = shownBlocks.filter((b) => sceneOfBlock(b.kind) === scene)
   const sceneChecks = checks.filter((c) => sceneOfCheck(c.kind) === scene)
-  const renderBlock = (b: TheaterBlock) => (
+  // 동의 전 정답 · 소거를 다루는 다른 패널(판단 · 오답 설계 · 이해 확인 · 비교)도 같은 자리표시로 — 장면을 여는 것은 동의가 아니다(r4 R4-01 · R4-03)
+  // 성공(서버가 노출 원장을 커밋하고 공개 자료를 돌려줌)이면 true — 정답이 담긴 강의(전체 · 경계 계속)는 true 를 받은 뒤에만 튼다(R147-03)
+  const requestReveal = async (source: 'judgment_scene' | 'lecture_full' | 'lecture_continue'): Promise<boolean> => {
+    if (revealed) {
+      setAnswerConsent(true)
+      return true
+    }
+    if (revealState === 'pending') return false
+    setRevealState('pending')
+    try {
+      const res = await fetch(`/api/csat/item/${toItemSlug(itemId)}/judgment`, {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        cache: 'no-store',
+        // tool — 화면에 D 판단 도구가 있으면 그 결속(라우트가 지금 결속과 대조), 없으면 null(도구 없는 정상 공개 · T-0161 r2)
+        body: JSON.stringify({ analysisVersion, clientExposureId: crypto.randomUUID(), source, tool: judgmentItem ? { analysisVersion: judgmentItem.version.analysisVersion, unitsHash: judgmentItem.version.unitsHash } : null }),
+      })
+      const body = (await res.json().catch(() => null)) as { ok?: boolean; reveal?: AnswerReveal } | null
+      if (!res.ok || !body?.ok || !body.reveal) throw new Error(String(res.status))
+      // 강의(전체 · 경계 계속)로 연 경우는 포커스 요청을 남기지 않는다(T-0140)
+      pendingRevealFocus.current = source === 'judgment_scene'
+      setRevealed(body.reveal)
+      setAnswerConsent(true)
+      setRevealState('idle')
+      // 판단 장면에서 학습자가 누른 「정답 보기」 — 누른 단추가 사라지므로 포커스를 공개된 정답 근거 제목으로 옮긴다(문서 밖으로 빠지지 않게).
+      // 실제 이동은 revealed 커밋 뒤 useLayoutEffect 가 한다. 강의(전체 · 경계 계속)로 연 경우는 옮기지 않는다(강의 진행이 포커스를 가져가지 않는 계약)
+      return true
+    } catch {
+      // 기록 실패 · 판본 변경 · 보류 — 정답을 보이지 않는다(서버도 보내지 않았다)
+      setRevealState('failed')
+      return false
+    }
+  }
+  const revealButton = (
+    <>
+      <button type="button" className={styles.back} onClick={() => void requestReveal('judgment_scene')} disabled={revealState === 'pending'} data-testid="answer-reveal">
+        {revealState === 'pending' ? '정답을 여는 중…' : '정답 보기'}
+      </button>
+      {revealState === 'failed' ? (
+        <p className="break-keep" role="status" data-testid="answer-reveal-failed">
+          지금은 정답을 열 수 없어요. 잠시 뒤 다시 눌러 주세요.
+        </p>
+      ) : null}
+    </>
+  )
+  const withheldPanel = (id: string, title: string) => (
+    <section key={id} className={styles.block} data-withheld="true" data-testid={`withheld-${id}`} aria-label={title}>
+      <h2>{title}</h2>
+      <p className="break-keep">{withheld ? '「정답 직접 안내 전까지」 를 골라 정답 · 오답을 정하는 내용은 아직 감춰 두었어요.' : '정답 · 오답을 정하는 내용이라 정답을 요청한 뒤에 보여요. 열면 「정답을 본 뒤」 로 기록돼요.'}</p>
+      {revealButton}
+    </section>
+  )
+  const renderBlock = (b: TheaterBlock & { withheld?: boolean }) =>
+    b.withheld ? (
+      <article key={b.key} data-block={b.key} data-kind={b.kind} data-withheld="true" data-live={false} className={styles.block}>
+        <h2>{b.title}</h2>
+        <p className="break-keep">「정답 직접 안내 전까지」 를 골라 정답을 정하는 설명은 아직 감춰 두었어요.</p>
+        {revealButton}
+      </article>
+    ) : (
     <article key={b.key} data-block={b.key} data-lecture-target={b.key} data-kind={b.kind} data-live={b.key === liveKey} className={styles.block}>
       <div className={styles.chips}>
         {b.chips.map((c) => (
@@ -876,22 +1021,120 @@ export function AnalysisTheater({
     </article>
   )
 
-  // 강의가 다른 장면의 블록을 설명하기 시작하면 그 장면으로 따라간다(재생 중에만 · history 는 쌓지 않는다)
-  const liveScene = liveKey ? blocks.find((b) => b.key === liveKey)?.kind : undefined
+  // 강의가 다른 장면의 블록을 설명해도 장면을 저절로 바꾸지 않는다 — 장면을 바꾸면 학습자가 고른 의미 · 구절이 지워진다.
+  // 그 장면으로 갈지는 학습자가 고른다(강의는 계속 흐르고, 아래 안내 단추로 옮긴다)
+  const liveBlockKind = liveKey ? blocks.find((b) => b.key === liveKey)?.kind : undefined
+  const lectureScene = lec && (lec.status === 'playing' || lec.status === 'paused') && liveBlockKind ? sceneOfBlock(liveBlockKind) : null
+  const lectureElsewhere = lectureScene && lectureScene !== scene ? SCENES.find((x) => x.id === lectureScene) ?? null : null
+  const offerRef = useRef<HTMLDivElement | null>(null)
+  // 안내 줄은 학습자가 재생을 한 번이라도 시작한 뒤에만 선다 — 읽기 강의 탭의 대본 불러오기(loading → idle)나
+  // 불러오기 실패(error)로는 줄이 끼었다 빠지지 않는다
+  const [lectureStarted, setLectureStarted] = useState(false)
   useEffect(() => {
-    if (lec?.status !== 'playing' || !liveScene || holdLecture.current) return
-    const target = sceneOfBlock(liveScene)
-    if (target !== scene) selectScene(target, 'replace')
+    if (lec?.status === 'playing') setLectureStarted(true)
+  }, [lec?.status])
+
+  const [chooser, setChooser] = useState<{ from: number; byLearner: boolean } | null>(null)
+  const [untilFailed, setUntilFailed] = useState(false)
+  const [atBoundary, setAtBoundary] = useState(false)
+  const chooserRef = useRef<HTMLHeadingElement | null>(null)
+  const boundaryRef = useRef<HTMLHeadingElement | null>(null)
+  // 정답 없이 강의를 마쳤다는 안내(aria-live) — 동의가 아니다
+  const [boundaryNote, setBoundaryNote] = useState<'closed' | null>(null)
+  // 경계가 첫 cue 이면 들을 것이 없다 — 이 경로를 내주지 않는다
+  const untilOk = stopAt != null && stopAt > 0 && !untilFailed
+  const untilFrom = (from: number) => (stopAt != null ? Math.min(from, Math.max(0, stopAt - 1)) : from)
+  const requestPlay = (from: number) => {
+    if (!lec) return
+    if (lecturePath === 'full') return lec.start(from, 'start', 'full')
+    if (lecturePath === 'until' && untilOk) return lec.start(untilFrom(from), 'start', 'until')
+    setChooser({ from, byLearner: true })
+  }
+  const choosePath = (p: 'self' | 'full' | 'until') => {
+    const from = chooser?.from ?? 0
+    setChooser(null)
+    setAtBoundary(false)
+    setBoundaryNote(null)
+    // 「전체(정답 포함)」 는 정답 공개 동의다 — 노출 원장 기록이 성공한 뒤에만 경로를 정하고 강의를 받는다. 실패하면 다시 고르게 둔다(R147-03)
+    if (p === 'full') {
+      void requestReveal('lecture_full').then((ok) => {
+        if (!ok) return setChooser({ from, byLearner: false })
+        setLecturePath('full')
+        lec?.start(from, 'start', 'full')
+      })
+      return
+    }
+    setLecturePath(p)
+    if (p === 'until') setAnswerHide(true)
+    // 경계 뒤에 서 있던 차례는 경계 앞으로 — 고른 순간 정답 블록이 강조되지 않게
+    if (p === 'until' && stopAt != null && cursor >= stopAt && !playing) setCursor(Math.max(0, stopAt - 1))
+    if (!lec || p === 'self') return
+    if (p === 'until') lec.start(untilFrom(from), 'start', 'until')
+  }
+  // 포커스는 학습자가 연 경우에만 옮긴다 — 강의가 경계에 닿거나 서버가 거절해 열린 안내는 aria-live 로만 알린다(T-0140 Codex P2)
+  // 닫힐 때(Escape · 「닫기」 · 경로 선택) 포커스는 선택을 연 단추로 돌아간다. 그 단추가 사라졌으면 머리 줄 재생 단추, 그것도 없으면 극장 자체(T-0152 r3)
+  const chooserOpenerRef = useRef<HTMLElement | null>(null)
+  const chooserWasOpen = useRef(false)
+  const playBtnRef = useRef<HTMLButtonElement | null>(null)
+  const theaterRef = useRef<HTMLDivElement | null>(null)
+  useEffect(() => {
+    if (chooser?.byLearner) {
+      const a = document.activeElement
+      if (a instanceof HTMLElement && a !== document.body && !a.closest('[data-testid="lecture-chooser"]')) chooserOpenerRef.current = a
+      chooserRef.current?.focus()
+    }
+    if (chooser) {
+      chooserWasOpen.current = true
+      return
+    }
+    if (!chooserWasOpen.current) return
+    chooserWasOpen.current = false
+    const opener = chooserOpenerRef.current
+    chooserOpenerRef.current = null
+    // 학습자가 연 선택이 아니었다면(경계 · 서버 거절) 포커스를 옮기지 않는다 — 단, 포커스가 사라진 선택 안에 있었으면 문서 밖으로 빠지지 않게 되돌린다
+    const lost = !document.activeElement || document.activeElement === document.body
+    if (!opener && !lost) return
+    const target = [opener, playBtnRef.current, theaterRef.current].find((el): el is HTMLElement => Boolean(el && el.isConnected && el.getClientRects().length > 0))
+    target?.focus()
+  }, [chooser])
+  useEffect(() => {
+    if (lecturePath !== 'until' || !lec) return
+    // 서버가 경계를 거절했다(결속 불일치 등) — 안전 구간을 추정하지 않고 다시 고르게 한다
+    if (lec.status === 'error') {
+      setUntilFailed(true)
+      setLecturePath(null)
+      setChooser({ from: 0, byLearner: false })
+    }
+    // 받은 범위(경계 직전)까지 다 들었다 — 넘을지는 학습자가 고른다
+    if (lec.status === 'ended') setAtBoundary(true)
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [liveScene, lec?.status])
+  }, [lec?.status, lecturePath])
+  const continuePastBoundary = () => {
+    setAtBoundary(false)
+    setBoundaryNote(null)
+    // 경계 뒤(정답 cue)는 노출 원장 기록이 성공한 뒤에만 받는다 — 실패하면 경계 안내를 다시 연다(R147-03)
+    void requestReveal('lecture_continue').then((ok) => {
+      if (!ok) return setAtBoundary(true)
+      setLecturePath('full')
+      if (lec && stopAt != null) lec.start(stopAt, 'start', 'full')
+    })
+  }
 
   const move = (delta: number) => {
     const to = Math.max(0, Math.min(steps.length - 1, cursor + delta))
     if (to === cursor) return
-    if (playing && lec) void (delta > 0 ? lec.next() : lec.prev())
-    else setCursor(to)
+    // 경계 검사는 goto 한 곳에서 — 시작 전 · 일시정지 · 끝남 상태의 ←/→ · 이전/다음 차례도 경계를 넘지 못한다(D6-02)
+    if (!(playing && lec) || boundaryGate(to, answerGate) === 'boundary') return goto(to)
+    void (delta > 0 ? lec.next() : lec.prev())
   }
   const goto = (index: number) => {
+    // 정답 직접 안내 전까지 고른 동안 — 경계 뒤 차례는 재생 · 일시정지 · 끝남 어느 상태에서도 넘을지 묻는다(건너뛰어 답을 듣게 하지 않는다).
+    // 멈춤은 재생 중일 때만(pauseLecture) — 일시정지에서 toggle 하면 오히려 다시 튼다(T-0140 Codex r2 P2)
+    if (boundaryGate(index, answerGate) === 'boundary') {
+      pauseLecture()
+      setAtBoundary(true)
+      return
+    }
     if (playing && lec) lec.start(index, 'cue')
     else setCursor(index)
   }
@@ -899,11 +1142,15 @@ export function AnalysisTheater({
 
   // 읽기 강의 탭을 열면 대본을 불러온다(재생하지 않는다) — 음성이 없어도 같은 설명을 읽는다
   useEffect(() => {
-    if (tab === 'script' && lec && !lec.cues.length && lec.status === 'idle') lec.load()
-  }, [tab, lec])
+    // 읽기 강의 탭도 같은 공개 경로를 따른다 — 고른 범위만 불러온다. 고르기 전에는 탭 안의 「어떻게 볼지 고르기」 로 묻는다
+    if (tab === 'script' && lec && !lec.cues.length && lec.status === 'idle' && (lecturePath === 'full' || lecturePath === 'until')) lec.load(lecturePath)
+  }, [tab, lec, lecturePath])
 
   useEffect(() => {
+    // 재생 중 학습자가 스스로 스크롤해 따라가기를 껐으면 차례 줄도 화면을 끌고 가지 않는다
+    if (lec?.status === 'playing' && !lec.following) return
     railRef.current?.querySelector('[data-state="live"]')?.scrollIntoView({ block: 'nearest', inline: 'center', behavior: 'smooth' })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [cursor])
 
   useEffect(() => {
@@ -918,7 +1165,7 @@ export function AnalysisTheater({
         // 단추 위의 Space 는 그 단추의 일이다
         if (tag === 'BUTTON' || tag === 'A' || tag === 'SUMMARY' || !lec) return
         e.preventDefault()
-        if (lec.status === 'idle' || lec.status === 'error') lec.start(cursor, 'start')
+        if (lec.status === 'idle' || lec.status === 'error') requestPlay(cursor)
         else lec.toggle()
         return
       }
@@ -965,12 +1212,43 @@ export function AnalysisTheater({
           : scene === 'design' ? <DesignSelection design={gate.design} />
             : null
   const showRelation = Boolean(relation && evidenceView === 'relation')
-  // 지도에 비출 근거 — 원문 이해는 v3.1 의미 대조, 그 밖은 검수된 v3 근거(분할이 같을 때만)
-  const mapFocus = msActive ? (msMapOk && msSpeak.length ? msSpeak.map((n) => n - 1) : msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && evidence ? evidence.sentences.map((n) => n - 1) : null
-  const focusSummary = msActive ? (msMapOk && msFocus.length ? msFocus : []) : v3Linkable && evidence ? evidence.sentences : []
+  // 지도에 비출 근거 — 이해 확인에서 학습자가 누른 위치 확인이 먼저(지도 문장 수와 다시 대조), 원문 이해는 v3.1 의미 대조,
+  //   그 밖은 검수된 v3 근거(분할이 같을 때만). 위치 확인 키는 v3 근거로 비추지 않는다(문장 수가 다르면 아무것도 비추지 않는다)
+  const locateBinding = map
+    ? checkLocateBinding({ itemId, analysisVersion: inquiry?.analysis_version ?? analysisVersion, unitsHash: sourceUnitsHash, sentences: map.sentences })
+    : null
+  const checkFocus = checkLocateFocus(evidence, map ? map.sentences.length : null, locateBinding)
+  const v3Evidence = evidence && !isCheckLocateKey(evidence.key) ? evidence : null
+  const mapFocus = checkFocus ?? (msActive ? (msMapOk && msSpeak.length ? msSpeak.map((n) => n - 1) : msMapOk && !msChip && msFocus.length ? msFocus.map((n) => n - 1) : null) : v3Linkable && v3Evidence ? v3Evidence.sentences.map((n) => n - 1) : null)
+  const focusSummary = checkFocus ? checkFocus.map((n) => n + 1) : msActive ? (msMapOk && msFocus.length ? msFocus : []) : v3Linkable && v3Evidence ? v3Evidence.sentences : []
+  // 이해 확인 「선택한 N번 문장 지도에서 보기」 — 명시적으로 누를 때만. 감춘 지도 · 없는 지도 · 문장 수 불일치 · 범위 밖이면 비추지 않는다.
+  //   관계 보기였거나 판을 접어 뒀으면 지도로 되돌려 연다. 기록(onRecord) · 시도 수는 건드리지 않는다
+  const locateCheck = (sentence: number, sentenceCount: number) => {
+    if (withheld || !map || !locateBinding) return false
+    const k = resolveCheckLocate(map.sentences.length, sentenceCount, sentence)
+    if (k == null) return false
+    setEvidence({ sentences: [k + 1], key: checkLocateKey(sentenceCount, locateBinding) })
+    setEvidenceCollapsed(false)
+    setEvidenceView('map')
+    locateScroll.current = k
+    setLocateTick((t) => t + 1)
+    return true
+  }
+  // 위치 확인 뒤 — 지도가 그려진 다음 그 문장을 근거 판의 보이는 자리로 옮긴다(판을 내려 둔 채 누르면 강조가 화면 밖에 생긴다).
+  //   같은 번호를 다시 눌러도 옮기도록 누를 때마다 tick 을 올린다. reduced-motion 이면 부드러운 스크롤을 쓰지 않는다
+  const locateScroll = useRef<number | null>(null)
+  const [locateTick, setLocateTick] = useState(0)
+  useEffect(() => {
+    const k = locateScroll.current
+    const pane = evidencePaneRef.current
+    if (k == null || !pane) return
+    locateScroll.current = null
+    const li = pane.querySelector(`[data-lecture-target="anchor:sentence:${k}"]`)
+    if (!(li instanceof HTMLElement)) return
+    const reduce = typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    li.scrollIntoView({ block: 'nearest', behavior: reduce ? 'auto' : 'smooth' })
+  }, [locateTick])
   const evidenceLabel = focusSummary.length ? `${focusSummary.join(' · ')}번 문장` : '고른 근거 없음'
-  // 노트에 연결할 수 있는 근거 — 지금 고른 문장 근거 중 이 문항 지도 범위 안(결속 확인된 v3 근거만)
-  const noteCandidate = linkableEvidence(v3Linkable ? evidence?.sentences ?? recentEvidence : null, v3Linkable && map ? map.sentences.length : null)
   // 하단 도크 · 다음 장면 — 학습자의 직접 선택이 강의의 자동 따라가기보다 먼저다(재생 중이면 멈춘다 · 재개는 학습자가)
   const pickScene = (id: SceneId) => {
     setTab('analysis')
@@ -985,7 +1263,7 @@ export function AnalysisTheater({
   }
 
   return (
-    <div className={styles.workspace} data-csat-theater data-testid="analysis-theater">
+    <div className={styles.workspace} data-csat-theater data-testid="analysis-theater" ref={theaterRef} tabIndex={-1}>
       {/* ── 문항 머리: ← · 회차/번호/유형 · 학습 지도/목록 복귀 · 강의 도구 ─────────────── */}
       <header className={styles.bar}>
         <Link className={styles.backIcon} href={backHref} onClick={back(backTo)} data-testid="item-back-home" data-back={backTo} aria-label={backTo === 'browse' ? '기출 탐구 — 고른 조건으로' : '내 학습 지도'}>
@@ -1043,15 +1321,139 @@ export function AnalysisTheater({
           ) : null}
           {lec ? (
             <button
+              ref={playBtnRef}
               type="button"
               className={styles.play}
-              onClick={() => (status === 'idle' || status === 'error' ? lec.start(cursor, 'start') : lec.toggle())}
+              onClick={() => (status === 'idle' || status === 'error' ? requestPlay(cursor) : lec.toggle())}
             >
               <MainIcon size={15} aria-hidden /> {mainLabel}
             </button>
           ) : null}
         </div>
       </header>
+      {chooser && lec ? (
+        <section
+          className={styles.lectureChooser}
+          aria-labelledby="lecture-chooser-h"
+          data-testid="lecture-chooser"
+          onKeyDown={(e) => {
+            // Escape = 「닫기」(강의를 시작하지 않고 선택만 접는다) — 극장 전역 단축키로 새지 않게 여기서 멈춘다
+            if (e.key !== 'Escape') return
+            e.stopPropagation()
+            setChooser(null)
+          }}
+        >
+          <h2 id="lecture-chooser-h" ref={chooserRef} tabIndex={-1} className={styles.chooserTitle}>
+            강의를 어떻게 볼까요?
+          </h2>
+          <p className={styles.chooserNote}>
+            강의는 정답과, 정답을 좁히는 단서를 말해요.{untilFailed ? ' 이 강의는 지금 정답 공개 지점을 확인하지 못해 전체 강의만 들을 수 있어요.' : ''}
+          </p>
+          <div className={styles.chooserRow}>
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => choosePath('self')} data-testid="lecture-path-self">
+              원문부터 직접 분석
+            </button>
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => choosePath('full')} data-testid="lecture-path-full">
+              전체 해설 강의 듣기(정답 포함)
+            </button>
+            {untilOk ? (
+              <button type="button" className={styles.lectureOfferBtn} onClick={() => choosePath('until')} aria-describedby="lecture-until-note" data-testid="lecture-path-until">
+                정답 직접 안내 전까지 듣기
+              </button>
+            ) : null}
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => setChooser(null)} data-testid="lecture-path-cancel">
+              닫기
+            </button>
+          </div>
+          <p id="lecture-until-note" className={styles.chooserNote} data-testid="lecture-until-note">
+            {untilOk && lectureDisclosure?.verified
+              ? preStopNotice(lectureDisclosure.preStopRisk)
+              : '이 강의는 정답 공개 지점이 검증되지 않아 「정답 직접 안내 전까지」 를 고를 수 없어요.'}
+          </p>
+        </section>
+      ) : null}
+      {atBoundary && lec ? (
+        <section className={styles.lectureChooser} aria-labelledby="lecture-boundary-h" data-testid="lecture-boundary">
+          <h2 id="lecture-boundary-h" ref={boundaryRef} tabIndex={-1} className={styles.chooserTitle}>
+            다음 부분에서 정답을 직접 말해요
+          </h2>
+          <div className={styles.chooserRow}>
+            <button type="button" className={styles.lectureOfferBtn} onClick={continuePastBoundary} data-testid="lecture-boundary-continue">
+              계속 듣기(정답 공개)
+            </button>
+            <button type="button" className={styles.lectureOfferBtn} onClick={() => {
+                pauseLecture()
+                setAtBoundary(false)
+              }}
+              data-testid="lecture-boundary-stop">
+              여기서 멈춤
+            </button>
+            <button
+              type="button"
+              className={styles.lectureOfferBtn}
+              onClick={() => {
+                // R3 「건너뛰기」 = 정답 없이 강의를 마친다(2026-10-24 사용자 결정). 정답 구간으로 옮기지 않고, 정답 cue 를 받지도 틀지도 않으며,
+                // 차례 · 강조 · 장면 · 스크롤 · 포커스를 바꾸지 않는다. 공개 동의가 아니다 — 정답을 들으려면 「계속 듣기(정답 공개)」 를 따로 고른다(D6-03)
+                pauseLecture()
+                setAtBoundary(false)
+                setBoundaryNote('closed')
+              }}
+              data-testid="lecture-boundary-skip"
+            >
+              정답 없이 강의 마치기
+            </button>
+            <button
+              type="button"
+              className={styles.lectureOfferBtn}
+              onClick={() => {
+                pauseLecture()
+                setAtBoundary(false)
+                setLecturePath('self')
+                document.querySelector<HTMLElement>('[data-testid="workspace-paper"]')?.focus()
+              }}
+              data-testid="lecture-boundary-self"
+            >
+              원문 분석으로
+            </button>
+          </div>
+        </section>
+      ) : null}
+      {/* 강의 안내 줄 — 학습자가 강의를 한 번 시작한 뒤로는 끝나도 같은 자리 · 같은 높이로 남는다
+          (재생 시작 = 학습자 동작으로 한 번 생기고, 강의 진행 · 종료로는 끼었다 빠지며 본문을 밀지 않는다).
+          따라가기 단추는 사라지지 않고 켜짐/꺼짐만 바뀐다 — 라벨은 고정, 상태는 aria-pressed 하나로 */}
+      {lec && lectureStarted ? (
+        <div className={styles.lectureOffer} data-testid="lecture-offer" ref={offerRef} tabIndex={-1}>
+          <button
+            type="button"
+            className={styles.lectureOfferBtn}
+            aria-pressed={lec.following}
+            onClick={lec.following ? lec.unfollow : lec.follow}
+            data-testid="lecture-offer-follow"
+          >
+            설명 위치 따라가기
+          </button>
+          {lectureElsewhere ? (
+            <button
+              type="button"
+              className={styles.lectureOfferBtn}
+              onClick={() => {
+                selectScene(lectureElsewhere.id)
+                // 누른 단추는 장면이 바뀌면 사라진다 — 포커스를 안내 줄에 남긴다
+                offerRef.current?.focus()
+              }}
+              data-testid="lecture-offer-scene"
+            >
+              강의는 지금 「{lectureElsewhere.label}」 장면을 설명하고 있어요 · 그 장면 보기
+            </button>
+          ) : null}
+        </div>
+      ) : null}
+      {/* 장면이 갈릴 때만 알린다(큐마다 읽지 않는다) — 알림 영역은 처음부터 문서에 있어야 첫 변경도 읽힌다 */}
+      {lec ? (
+        <span className={styles.srOnly} aria-live="polite">
+          {atBoundary ? '정답을 직접 말하기 직전에서 멈췄어요. 계속 들을지 고르세요' : boundaryNote === 'closed' ? '정답을 듣지 않고 강의를 마쳤어요. 정답은 계속 감춰 둡니다' : lectureElsewhere ? `강의가 「${lectureElsewhere.label}」 장면을 설명하고 있어요` : ''}
+        </span>
+      ) : null}
 
       <div className={styles.body} ref={bodyRef}>
         {/* ── 원문 열: 기출문제 원본(기기 문제지) + 문항 행동 줄 ───────────────── */}
@@ -1140,6 +1542,13 @@ export function AnalysisTheater({
             </button>
           </div>
 
+          {judgmentItem ? (
+            // 판단 장면 하나를 통째로 — 도구 자체가 원문 증거면 + 판단면을 가진다. key = 문항 · 판본(이전 선택 · 해설이 넘어가지 않게).
+            // 다른 장면에서는 숨긴 채 유지한다 — 장면 왕복이 학습자 선택 · 스크롤을 지우지 않게(T-0140 학습자 제어)
+            <section className={styles.judgmentTool} hidden={scene !== 'judgment'} aria-label="유형 판단 도구" data-testid="judgment-tool-d" data-item={judgmentItem.id} data-analysis-version={judgmentItem.version.analysisVersion}>
+              <TypeJudgment key={`${judgmentItem.id}@${judgmentItem.version.analysisVersion}:${judgmentItem.version.unitsHash}`} item={judgmentItem} reveal={judgmentReveal} stages={['first']} />
+            </section>
+          ) : null}
           <div className={styles.panes} data-collapsed={evidenceCollapsed}>
             {/* ── 근거·관계 판: 선택한 근거의 위치 · 관계 ── */}
             {!evidenceCollapsed ? (
@@ -1159,11 +1568,16 @@ export function AnalysisTheater({
                   ) : null}
                   <em>{map ? `${map.sentences.length}문장` : '지도 없음'}</em>
                 </div>
-                <div className={styles.paneBody} ref={evidencePaneRef}>
+                {/* 스크롤 판은 키보드로도 닿아야 한다(axe scrollable-region-focusable · T-0181) — 지도가 감춰져 포커스할 것이 없을 때도 */}
+                <div className={styles.paneBody} ref={evidencePaneRef} tabIndex={0} role="region" aria-label="근거·관계 내용">
                   {session === undefined ? <p className={styles.quiet} aria-busy="true">기록을 확인하는 중…</p> : null}
                   {done}
                   {diff}
-                  {showRelation ? (
+                  {withheld ? (
+                    <p className={styles.quiet} data-testid="map-withheld">
+                      지문 지도는 정답 근거 · 오답 위치를 표시해 「정답 직접 안내 전까지」 동안 감춰 두었어요. 오른쪽 「정답 보기」 로 펼칠 수 있어요.
+                    </p>
+                  ) : showRelation ? (
                     relation
                   ) : map ? (
                     <PassageMap
@@ -1228,6 +1642,20 @@ export function AnalysisTheater({
                   <h2 className={styles.sceneQuestion} data-testid="scene-question">
                     {sceneDef?.question}
                   </h2>
+                  {/* 동의 전(「정답 직접 안내 전까지」) — 문항 분석 장면은 허용 목록만 그린다. 판단 · 설계 · 지도 · 원리 · 정리 · 과제 · 비교는
+                      정답 · 소거를 담을 수 있어 장면마다 막는 대신 통째로 감춘다(T-0140 r4 · r5). 유형 단위 탐구 질문만 남긴다 */}
+                  {withheld ? (
+                    <>
+                      {scene === 'task' && goal ? (
+                        <section className={styles.goal} aria-label="이 문항에서 탐구할 질문" data-testid="learning-goal">
+                          <b>이 문항에서 확인할 관계</b>
+                          <p className="break-keep">{goal.relation}</p>
+                        </section>
+                      ) : null}
+                      {withheldPanel('scene', sceneDef?.label ?? '분석')}
+                    </>
+                  ) : (
+                    <>
                   {scene === 'task' && goal ? (
                     <section className={styles.goal} aria-label="이 문항에서 탐구할 질문" data-testid="learning-goal">
                       <b>이 문항에서 확인할 관계</b>
@@ -1242,7 +1670,12 @@ export function AnalysisTheater({
                       ) : null}
                     </section>
                   ) : null}
-                  {scene === 'task' && v3 ? <V3Task v3={v3} /> : null}
+                  {/* T-0145 판단 도구(2026-34 · Interactive34) — 정답 공개(판단 라우트 · 노출 원장 기록 뒤 revealed)일 때만 answerRevealed. 공개 전에는 도구가 안내만 그리고, v3 본문은 첫 응답에 없다(answer-split) */}
+                  {v3 && (scene === 'task' || keepTools) ? (
+                    <div style={{ display: scene === 'task' ? 'contents' : 'none' }} data-tool-scene="task">
+                      <V3Task v3={v3} answerRevealed={Boolean(revealed)} />
+                    </div>
+                  ) : null}
                   {scene === 'meaning' && ms ? (
                     <MeaningSupportPanel
                       view={ms}
@@ -1268,14 +1701,33 @@ export function AnalysisTheater({
                       onSpeaking={setMsSpeak}
                     />
                   ) : null}
-                  {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} /> : null}
-                  {scene === 'judgment' && v3 ? <V3Judgment key={msBridgeFocus ? `bridge-${msUnit}` : 'plain'} v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {scene === 'meaning' && v3 && !ms ? <V3Meaning v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} answerRevealed={Boolean(revealed)} /> : null}
+                  {scene === 'judgment' && v3 && withheld ? withheldPanel('judgment', '정답 판단') : null}
+                  {v3 && !withheld && (scene === 'judgment' || keepTools) ? (
+                    <div style={{ display: scene === 'judgment' ? 'contents' : 'none' }} data-tool-scene="judgment">
+                      {/* 도구 선택은 인스턴스 안에 있다 — bridge 왕복이 지우지 않도록 「분석 revision · 단위」 별 인스턴스를 숨겨 유지한다(R152-01). 문항이 바뀌면 화면째 새로 그려지고, revision 이 바뀌면 키가 달라져 넘어가지 않는다 */}
+                      {[null, ...bridgeUnits].map((u) => {
+                        const active = (msBridgeFocus ? msUnit : null) === u
+                        const unitObj = u && ms ? ms.units.find((x) => x.id === u) ?? null : null
+                        const focus = u === null ? undefined : active ? msBridgeFocus : ms && unitObj ? { unitLabel: unitObj.labelKo, ...bridgeOf(ms, unitObj.id), onReturn: () => selectScene('meaning') } : undefined
+                        return (
+                          <div key={`${toolRev}:${u ?? 'plain'}`} style={{ display: active ? 'contents' : 'none' }} data-tool-instance={u ?? 'plain'}>
+                            <V3Judgment v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={focus} answerRevealed={Boolean(revealed)} sourceUnitsHash={sourceUnitsHash ?? undefined} />
+                          </div>
+                        )
+                      })}
+                    </div>
+                  ) : null}
                   {scene === 'design' ? (
                     <p className={styles.quiet} data-testid="design-epistemic">
                       아래는 관찰된 근거에서 분석자가 재구성한 설계 해석이에요 — 실제 출제 과정의 기록이 아닙니다.
                     </p>
                   ) : null}
-                  {scene === 'design' && v3 ? <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} /> : null}
+                  {v3 && (scene === 'design' || keepTools) ? (
+                    <div style={{ display: scene === 'design' ? 'contents' : 'none' }} data-tool-scene="design">
+                      <V3Design v3={v3} onEvidence={onEvidence} linkable={v3Linkable} selectedKey={evidence?.key ?? null} focus={msBridgeFocus} answerRevealed={Boolean(revealed)} />
+                    </div>
+                  ) : null}
                   {relation && !showRelation && !evidenceCollapsed ? (
                     <p className={styles.quiet} data-testid="relation-hint">
                       이 장면의 설계 도식은 왼쪽 근거 판의 「관계」 보기에 있어요.
@@ -1286,21 +1738,30 @@ export function AnalysisTheater({
                     <span data-on={playing}>{playing ? 'LIVE' : 'READY'}</span>
                     {step ? `${step.kind} · ${Math.round(step.sec)}초` : '분석'}
                   </p>
+                  {scene === 'judgment' && !revealed ? (
+                    <section className={styles.block} data-testid="judgment-reveal" aria-label="정답 확인">
+                      <h2>정답 확인</h2>
+                      <p className="break-keep">정답과 오답을 가르는 설명은 직접 판단해 본 뒤 요청할 때 열려요. 열면 「정답을 본 뒤」 로 기록돼요.</p>
+                      {revealButton}
+                    </section>
+                  ) : null}
                   {scene === 'judgment' ? (
                     <>
                       {sceneBlocks.filter((b) => b.kind !== 'reject').map(renderBlock)}
                       <section aria-label="다른 선택지가 요구를 충족하지 못하는 조건" id="judgment-options" data-testid="judgment-options">
-                        {inquiry ? <DistractorDesign distractors={inquiry.distractors} review={inquiry.review} /> : null}
+                        {inquiry ? withheld ? withheldPanel('distractors', '오답 설계') : <DistractorDesign distractors={inquiry.distractors} review={inquiry.review} /> : null}
                         {sceneBlocks.filter((b) => b.kind === 'reject').map(renderBlock)}
                       </section>
                     </>
                   ) : (
                     sceneBlocks.map(renderBlock)
                   )}
-                  {sceneChecks.length ? (
-                    <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} />
+                  {sceneChecks.length && withheld ? withheldPanel('checks', '이해 확인') : null}
+                  {sceneChecks.length && !withheld ? (
+                    <UnderstandingChecks key={`checks-${itemId}-${scene}`} itemId={itemId} checks={sceneChecks} saved={checked} review={isReviewPhase(session)} onRecord={recordCheck} onLocate={map ? locateCheck : undefined} locateBinding={locateBinding} />
                   ) : null}
-                  {scene === 'compare' ? (
+                  {scene === 'compare' && (withheld || !revealed) ? withheldPanel('compare', '기출 비교') : null}
+                  {scene === 'compare' && !withheld && revealed ? (
                     <V3CompareExplorer
                       key={`cmp-${itemId}`}
                       pairs={v3Pairs}
@@ -1312,16 +1773,13 @@ export function AnalysisTheater({
                       carry={carry}
                       returnTo={compareReturn}
                       onEvidence={onEvidence}
-                      onClearEvidence={() => {
-                        if (evidence && /^(pair|diff)-/.test(evidence.key)) setRecentEvidence(null)
-                        setEvidence((cur) => (cur && /^(pair|diff)-/.test(cur.key) ? null : cur))
-                      }}
+                      onClearEvidence={() => setEvidence((cur) => (cur && /^(pair|diff)-/.test(cur.key) ? null : cur))}
                       linkable={v3Linkable}
                       selectedKey={evidence?.key ?? null}
                       onFindOther={finder ? () => openFinder('compare') : undefined}
                     />
                   ) : null}
-                  {scene === 'compare' ? (
+                  {scene === 'compare' && !withheld && revealed ? (
                     comparePairs.length ? (
                       <section aria-label="검수 전 1차 비교" data-testid="legacy-compare">
                         <p className="break-keep text-[13px] text-[var(--t2)]">아래는 v3 검수 전의 1차 비교 메모예요(문장 근거와 결속되지 않았어요).</p>
@@ -1348,38 +1806,54 @@ export function AnalysisTheater({
                     </section>
                   ) : null}
                   {scene === 'explain' ? (
-                    <SelfExplain
-                      key={itemId}
-                      itemId={itemId}
-                      rejects={blocks.filter((b) => b.kind === 'reject' && b.body.length > 0)}
-                      choiceTruth={distractorsAreTrue(typeId, itemId)}
-                      saved={explained}
-                      draft={explainDrafts[itemId]}
-                      onDraft={draftExplain}
-                      onSave={saveExplanation}
-                      onCompare={compareExplanation}
+                    <SystemLearningSummary
+                      key={`summary-${itemId}`}
+                      summary={buildLearningSummary({
+                        goal,
+                        principle: inquiry?.principle ?? null,
+                        rejects: withheld ? [] : blocks.filter((b) => b.kind === 'reject'),
+                        choiceEvidence: v3Linkable ? v3?.choices : undefined,
+                        checks,
+                        checkScene: sceneOfCheck,
+                        hasCompare: v3Pairs.length > 0,
+                        hasLecture: Boolean(lec && steps.length),
+                      })}
+                      canKeep={Boolean(goal)}
+                      kept={principleSaved}
+                      onKeep={savePrinciple}
+                      onGo={pickScene}
+                      initialEvidenceKey={evidence?.key}
+                      onShowEvidence={(sentences, key) => {
+                        setEvidence(sentences.length ? { sentences, key } : null)
+                        if (sentences.length) { setEvidenceCollapsed(false); setEvidenceView('map') }
+                      }}
+                      onLecture={() => setTab('script')}
+                      historyState={session === undefined ? 'loading' : 'ready'}
+                      history={
+                        hasWrittenHistory({ explanations: explained.length, notes: notes.length }) ? (
+                          <>
+                            <SelfExplain saved={explained} />
+                            <ReasoningNoteForm
+                              analysisVersion={inquiry?.analysis_version ?? null}
+                              principle={inquiry?.principle ?? null}
+                              saved={notes}
+                              showModel={false}
+                              onShowEvidence={v3Linkable ? (sentences) => { setEvidence({ sentences, key: 'note-evidence' }); setEvidenceCollapsed(false); setEvidenceView('map') } : undefined}
+                            />
+                          </>
+                        ) : null
+                      }
                     />
                   ) : null}
-                  {scene === 'explain' ? (
-                    <ReasoningNoteForm
-                      key={`note-${itemId}`}
-                      itemId={itemId}
-                      analysisVersion={inquiry?.analysis_version ?? null}
-                      principle={inquiry?.principle ?? null}
-                      pairs={v3Pairs}
-                      saved={notes}
-                      onSave={saveNote}
-                      draft={noteDrafts[itemId]}
-                      onDraft={draftNote}
-                      candidate={noteCandidate}
-                      onShowEvidence={v3Linkable ? (sentences) => { setEvidence({ sentences, key: 'note-evidence' }); setEvidenceCollapsed(false); setEvidenceView('map') } : undefined}
-                    />
-                  ) : null}
-                  {!sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (
+                  {/* 정답을 받기 전에는 「설명이 없다」 가 아니라 감춘 것이다 — 판단 · 비교 장면 밖에서도 정답 요청 자리를 둔다 */}
+                  {!revealed && !withheld && scene !== 'judgment' && scene !== 'compare' && !sceneBlocks.length && !sceneChecks.length ? withheldPanel('scene-pending', sceneDef?.label ?? '분석') : null}
+                  {revealed && !sceneBlocks.length && !sceneChecks.length && !['compare', 'meaning', 'explain'].includes(scene) && !(scene === 'task' && goal) && !(scene === 'principle' && goal) ? (
                     <p className="break-keep text-[13px] text-[var(--t2)]" data-testid="scene-empty">
                       이 문항은 이 장면에 해당하는 검수된 설명이 아직 없어요. 다른 장면의 분석은 그대로 읽을 수 있어요.
                     </p>
                   ) : null}
+                    </>
+                  )}
                   {nextScene(scene) ? (
                     <button type="button" className={styles.back} onClick={() => pickScene(nextScene(scene)!)} data-testid="scene-next">
                       다음 장면 · {SCENES.find((x) => x.id === nextScene(scene))?.label} →
@@ -1395,8 +1869,16 @@ export function AnalysisTheater({
                   ) : lec.status === 'error' && !lec.cues.length ? (
                     <p className={styles.quiet} role="status">
                       대본을 불러오지 못했어요. 탐구 장면의 설명은 그대로 읽을 수 있어요.{' '}
-                      <button type="button" className={styles.back} onClick={lec.load}>
+                      <button type="button" className={styles.back} onClick={() => (lecturePath === 'full' || lecturePath === 'until' ? lec.load(lecturePath) : setChooser({ from: 0, byLearner: true }))}>
                         다시 불러오기
+                      </button>
+                    </p>
+                  ) : !lec.cues.length && lecturePath !== 'full' && lecturePath !== 'until' ? (
+                    // 공개 경로를 고르기 전에는 대본을 받지 않는다 — 읽기 강의도 정답을 말한다
+                    <p className={styles.quiet}>
+                      대본에는 정답과, 정답을 좁히는 단서가 있어요.{' '}
+                      <button type="button" className={styles.back} onClick={() => setChooser({ from: 0, byLearner: true })} data-testid="script-choose">
+                        어떻게 볼지 고르기
                       </button>
                     </p>
                   ) : !lec.cues.length ? (

@@ -3,10 +3,10 @@
 // T-0073 — 시험 기록 없는 학습자: 목표 → 상단의 실제 다음 행동(계획 확정 → 자료 받기 → 시작) → 첫 직접 확인 1회 → G2 → 같은 Workspace 복귀
 // (격리 · 실제 Next · 실제 Chromium · 공유 개발 DB 무관). 시험 기록은 끝까지 0 — 미측정 안내는 유지되고 부족 · 숙달로 올리지 않는다.
 // 다음 행동의 TASK 는 서버 계산(nextActionOf)이 정한다 — 시험은 그 TASK 를 그대로 따라가고, 풀이는 창작 형식별 정답 응답(authored-format 과 같은 data-* 조작)으로 한다.
-import fs from 'node:fs'
 import path from 'node:path'
 
 import { expect, test, type Locator, type Page } from '@playwright/test'
+import { readAuthoredSets } from './authored-sets'
 import { createClient } from '@supabase/supabase-js'
 
 const URL = process.env.NEXT_PUBLIC_SUPABASE_URL ?? ''
@@ -14,8 +14,7 @@ const SERVICE = process.env.SUPABASE_SERVICE_ROLE_KEY ?? ''
 const SET_DIR = path.resolve(__dirname, '../../src/lib/knowledge/authored')
 type Item = { id: string; gold: Record<string, any>; body: Record<string, any> } // eslint-disable-line @typescript-eslint/no-explicit-any
 const ITEMS = new Map<string, { item: Item; format: string }>()
-for (const f of fs.readdirSync(SET_DIR).filter((x) => x.endsWith('.json'))) {
-  const s = JSON.parse(fs.readFileSync(path.join(SET_DIR, f), 'utf8')) as { format?: string; items: Item[] }
+for (const s of readAuthoredSets<{ format?: string; items: Item[] }>(SET_DIR)) {
   for (const it of s.items) ITEMS.set(it.id, { item: it, format: s.format ?? 'central_meaning' })
 }
 
