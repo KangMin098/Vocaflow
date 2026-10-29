@@ -314,7 +314,7 @@ export function DcpPlayer({
 
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
         {phase === 'graded' && result ? (
-          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} pre={preShown ? <PreEvidenceNote key={item.id} sentence={preShown.sentence} /> : null} extra={afterFeedback ? <div key={item.id}>{afterFeedback}</div> : null} />
+          <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} pre={preShown ? <PreEvidenceNote key={`pre-${item.id}`} sentence={preShown.sentence} /> : null} extra={afterFeedback ? <div key={`extra-${item.id}`}>{afterFeedback}</div> : null} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
           <DcpUnderlineChoiceItem
             payload={item.payload as DcpUnderlinePayload}
