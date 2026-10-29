@@ -34,6 +34,8 @@ export type MissKind = 'skipped' | 'retried'
 export interface MissedWord {
   word: Pick<SpellForgeWord, 'id' | 'text' | 'meaning'>
   kind: MissKind
+  /** T-0238 이번 판에서 처음 틀리게 제출한 입력(없으면 없음 — 건너뜀만 · 확인 전 신원 · 다른 판). 철자 확인 뒤에만 보인다. */
+  firstError?: string | null
 }
 
 const MISS_LABEL: Record<MissKind, string> = { skipped: '건너뜀', retried: '틀린 뒤 다시 씀' }
@@ -61,6 +63,16 @@ export function MissedWordRow({ miss }: { miss: MissedWord }) {
       <p id={id} className="font-english text-[16px] font-[600] tracking-[0.02em] text-[var(--t1)]" data-testid="sf-miss-spelling">
         {shown ? miss.word.text : <span className="text-[13px] font-[500] text-[var(--t2)] font-body">뜻을 보고 철자를 먼저 떠올려 보세요</span>}
       </p>
+      {shown && miss.firstError ? (
+        <dl className="grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-x-3 gap-y-1" data-testid="sf-miss-compare">
+          <dt className="break-keep font-display text-[11px] font-[700] text-[var(--t2)]">처음 틀리게 제출한 입력</dt>
+          <dd className="m-0 break-all font-english text-[15px] text-[var(--t1)]" data-testid="sf-miss-first-error">
+            {miss.firstError}
+          </dd>
+          <dt className="break-keep font-display text-[11px] font-[700] text-[var(--t2)]">정답 철자</dt>
+          <dd className="m-0 break-all font-english text-[15px] font-[600] text-[var(--t1)]">{miss.word.text}</dd>
+        </dl>
+      ) : null}
     </li>
   )
 }
@@ -130,7 +142,7 @@ export function SpellForgeCompletion({
             </h2>
             <ul className="flex flex-col gap-2">
               {missedWords.map((m) => (
-                <MissedWordRow key={m.word.id} miss={m} />
+                <MissedWordRow key={`${m.word.id}|${m.word.text}`} miss={m} />
               ))}
             </ul>
           </section>
