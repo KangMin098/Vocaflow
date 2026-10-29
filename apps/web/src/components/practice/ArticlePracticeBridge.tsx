@@ -40,6 +40,17 @@ export function articleVocabLabel(vocab: ArticleVocabSource): { vocab: string } 
   return vocab.kind === 'unknown' ? { vocab: ARTICLE_VOCAB_UNKNOWN_LABEL } : undefined
 }
 
+/**
+ * 플레이어 결속 키 — 기사 · 본인 글 · 계정 · 넘겨받은 본문 중 하나라도 바뀌면 플레이어를 새로 시작한다(R0-REVISIT-READ-01).
+ * 그래야 이전 판본에서 모은 다시 보기와 새 본문이 한 화면에 함께 보이지 않는다. 문항 객체 결속은 기존 revisitable 이 맡는다.
+ */
+export function articlePlayerKey(articleId: string, textId: string, ownerId: string, readingText: string | null): string {
+  let h = 0
+  const t = readingText ?? ''
+  for (let i = 0; i < t.length; i++) h = (Math.imul(h, 31) + t.charCodeAt(i)) | 0
+  return `${articleId}|${textId}|${ownerId}|${t.length}:${(h >>> 0).toString(36)}`
+}
+
 type Submit = (context: ArticlePracticeContext, itemId: string, answer: { choice?: unknown }) => Promise<DcpGradeResult>
 
 const CHANGED: DcpGradeResult = { ok: false, error: '로그인 상태가 바뀌었어요. 글을 다시 열어 주세요.' }
@@ -111,7 +122,7 @@ export function ArticlePracticeBridge({
   }
   return (
     <DcpPlayer
-      key={articleId}
+      key={articlePlayerKey(articleId, textId, ownerId, readingText)}
       revisit
       items={items}
       grade={makeArticleGrade({ articleId, textId, ownerId }, guard, submit)}
@@ -123,6 +134,8 @@ export function ArticlePracticeBridge({
       nextChoice={ARTICLE_NEXT_CHOICE}
       doneChoice={articleVocabDoneChoice(textId, vocab)}
       afterFeedback={readingText ? <ArticleReadingReference text={readingText} /> : undefined}
+      // R0-REVISIT-READ-01 — 완료 뒤 다시 보기에도 같은 검증 본문(새 조회 없음 · 접힌 채 시작)
+      revisitExtra={readingText ? <ArticleReadingReference text={readingText} /> : undefined}
       // R0-PRE-EVIDENCE-01 — 제목 · 주제 문항만 제출 전 선택적 본문 짚기(서버에는 그대로 {choice} 만)
       preEvidence
     />

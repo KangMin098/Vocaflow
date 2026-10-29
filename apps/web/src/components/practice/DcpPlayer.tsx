@@ -52,6 +52,7 @@ export function DcpPlayer({
   doneChoice,
   afterFeedback,
   preEvidence = false,
+  revisitExtra,
 }: {
   items: DcpItem[]
   /** 온 곳으로 돌아가는 경로 — 페이지가 `?from=` 을 검증해 넘긴다(하드코딩 `/hub` 였다). */
@@ -104,6 +105,11 @@ export function DcpPlayer({
    * 짚은 문장은 grade · onGraded · seen 에 넣지 않는다 — 성공한 피드백에 「이번 제출 당시 짚은 문장」 으로만 보인다.
    */
   preEvidence?: boolean
+  /**
+   * 완료 뒤 다시 보기 안의 보조 영역(opt-in, R0-REVISIT-READ-01) — 기사 연습 다리만 같은 「읽은 글 참고」 를 넣는다.
+   * 없으면 다시 보기는 예전 그대로. 다시 보기마다 새로 그린다(key) — 다른 문항 다시 보기는 접힌 채 시작한다.
+   */
+  revisitExtra?: ReactNode
 }) {
   const [idx, setIdx] = useState(0)
   const [phase, setPhase] = useState<Phase>('answering')
@@ -196,7 +202,7 @@ export function DcpPlayer({
     const open = reviewAt !== null ? revisit[reviewAt] : undefined
     if (open) {
       return (
-        <DcpRevisitView entry={open} items={items} headRef={reviewHeadRef} onBack={() => setReviewAt(null)} />
+        <DcpRevisitView entry={open} items={items} headRef={reviewHeadRef} onBack={() => setReviewAt(null)} extra={revisitExtra ? <div key={`revisit-extra-${reviewAt}-${open.item.id}`}>{revisitExtra}</div> : null} />
       )
     }
     return (
@@ -355,7 +361,7 @@ export function revisitable(seen: SeenFeedback[], items: DcpItem[]): SeenFeedbac
 }
 
 /** 완료 뒤 「이미 본 해설 다시 보기 · 안내 복습」 — 새 채점 · 기록 없음, 원인 칩 없음, 「요약으로」 로 돌아간다 */
-export function DcpRevisitView({ entry, items, headRef, onBack }: { entry: SeenFeedback; items: DcpItem[]; headRef?: Ref<HTMLHeadingElement>; onBack: () => void }) {
+export function DcpRevisitView({ entry, items, headRef, onBack, extra = null }: { entry: SeenFeedback; items: DcpItem[]; headRef?: Ref<HTMLHeadingElement>; onBack: () => void; extra?: ReactNode }) {
   return (
     <section aria-label="이미 본 해설 다시 보기" className="flex flex-col gap-3">
       <h2
@@ -367,7 +373,7 @@ export function DcpRevisitView({ entry, items, headRef, onBack }: { entry: SeenF
         이미 본 해설 다시 보기 · 안내 복습 — {items.indexOf(entry.item) + 1}번 문항, 그때 고른 답과 받은 해설 그대로예요.
       </h2>
       <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
-        <Feedback item={entry.item} result={entry.result} submitted={entry.submitted} cause={null} onCause={() => {}} onNext={onBack} isLast review />
+        <Feedback item={entry.item} result={entry.result} submitted={entry.submitted} cause={null} onCause={() => {}} onNext={onBack} isLast review extra={extra} />
       </div>
     </section>
   )
@@ -401,7 +407,7 @@ function Feedback({
   review?: boolean | 'noCause'
   causeHref?: Partial<Record<DcpErrorCause, string>>
   causeLabel?: Partial<Record<DcpErrorCause, string>>
-  /** 호출자가 넣은 보조 영역(afterFeedback) — 진행 중 피드백에서만 */
+  /** 호출자가 넣은 보조 영역 — 진행 중 피드백(afterFeedback) · 완료 뒤 다시 보기(revisitExtra, opt-in) */
   extra?: ReactNode
   /** 이번 제출 당시 짚은 문장(R0-PRE-EVIDENCE-01) — 진행 중 성공 피드백에서만 */
   pre?: ReactNode
