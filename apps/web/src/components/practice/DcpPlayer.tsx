@@ -188,21 +188,18 @@ export function DcpPlayer({
   async function handleCause(next: DcpErrorCause) {
     setCause(next)
     setCauseFailed(null)
-    const attemptId = result?.attemptId
-    if (!attemptId || !item) return
+    const attemptId = result?.attemptId ?? null
+    if (!item || !shouldRecordCause({ attemptId, causeChips, reviewing: false })) return
     const my = ++causeSeq.current
     const at = item
     // 선택을 바로 반영해 늦은 응답 판정이 이번 선택을 본다(렌더 전에도)
     live.current = { ...live.current, cause: next }
-    let ok = false
-    try {
-      ok = (await recordCause(attemptId, next))?.ok === true
-    } catch {
-      ok = false
-    }
-    if (ok) return
+    const outcome = await causeOutcome(() => recordCause(attemptId as string, next))
+    if (outcome === 'ok') return
     const now = live.current
-    if (my === causeSeq.current && now.item === at && now.attemptId === attemptId && now.cause === next) setCauseFailed({ item: at, attemptId, cause: next })
+    if (shouldShowCauseFailure({ seq: my, lastSeq: causeSeq.current, item: at, curItem: now.item, attempt: attemptId, curAttempt: now.attemptId, choice: next, curChoice: now.cause })) {
+      setCauseFailed({ item: at, attemptId: attemptId as string, cause: next })
+    }
   }
 
   function handleNext() {
@@ -376,6 +373,37 @@ export function DcpPlayer({
       </div>
     </section>
   )
+}
+
+// ── T-0247 — 오답 원인 기록 판정(순수) ──
+
+/** 원인 기록을 보낼지 — attempt 가 있고 · 원인 칩이 켜져 있고 · 완료 뒤 다시 보기가 아닐 때만 */
+export function shouldRecordCause({ attemptId, causeChips, reviewing }: { attemptId: string | null | undefined; causeChips: boolean; reviewing: boolean }): boolean {
+  return typeof attemptId === 'string' && attemptId.length > 0 && causeChips && !reviewing
+}
+
+/** 기록 호출 결과 → ok | failed. {ok:true} 만 성공 — {ok:false} · 모양이 틀린 응답 · 예외는 모두 failed(자동 재전송은 하지 않는다) */
+export async function causeOutcome(call: () => Promise<unknown>): Promise<'ok' | 'failed'> {
+  try {
+    const res = await call()
+    return (res as { ok?: unknown } | null)?.ok === true ? 'ok' : 'failed'
+  } catch {
+    return 'failed'
+  }
+}
+
+/** 늦게 온 실패를 지금 보여도 되는가 — 마지막 호출 · 같은 문항 객체 · 같은 attempt · 같은 현재 선택일 때만 */
+export function shouldShowCauseFailure(x: {
+  seq: number
+  lastSeq: number
+  item: unknown
+  curItem: unknown
+  attempt: string | null
+  curAttempt: string | null
+  choice: DcpErrorCause
+  curChoice: DcpErrorCause | null
+}): boolean {
+  return x.seq === x.lastSeq && x.item === x.curItem && x.attempt !== null && x.attempt === x.curAttempt && x.choice === x.curChoice
 }
 
 /** 이번 세션에서 채점에 성공해 공개된 피드백 한 건 — 당시 제출 · 당시 서버 결과 그대로 */
