@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(teacher): 보낸 과제 조회에서 words 가 배열이 아니면 빈 목록 대신 기존 목록 실패로 반환(정상·빈 배열 불변, 방어 처리 — 실제 손상 재현 아님). Codex 리뷰 NO_FINDINGS (T-0236 1ad10d254)
 - feat(teacher): 보낸 과제 카드에서 「보낸 단어 N개 확인」 — 저장된 {w,m} 전체(절단 없음·스크롤), 뜻 없음·확인 불가·빈 목록 구분, 카드별 여닫기 독립, 추가 요청 0. Codex 리뷰 NO_FINDINGS, 실 교사 로그인 NOT_RUN (T-0233 be2dd5a10)
 - feat(csat): U02 순서 판단 도구를 **한 문항(H2609G2#36)·현재 판본에만** 연결 — 1문항 결속 판정 하나를 loader·해설 route·TypeJudgment 가 공유, R-ORDER 전역 미허용, 초기 응답 정답 0·명시 해설만. 학평 검수·적재·발행 없음. Codex 리뷰 NO_FINDINGS, 실 페이지·원장·로그인 NOT_RUN (T-0232 3a0e74c04)
 - feat(csat): 무관 문장 판단 도구에서 해설 요청 순간의 표시를 기억해 공개 뒤 「자리 / 해설 요청 당시 / 지금」 비교(중심 화제·무관 후보·이음매·빼고 읽기, 바뀐 칸은 글자 표시) — 오류·미공개 때 비교 없음, API·기록 불변. Codex 리뷰 1회 반려 뒤 NO_FINDINGS (T-0225 16ced45f8)
