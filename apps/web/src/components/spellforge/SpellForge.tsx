@@ -286,25 +286,6 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
   }, [currentWord, hintCount, recordRating, result?.errorPositions.length, session.startedAt, ownsSession])
 
   /**
-   * Confirm Answer (Delayed/Blind 모드)
-   */
-  const handleConfirm = useCallback(() => {
-    if (!currentWord || userInput.length === 0 || !ownsSession()) return
-    // 정답 처리 뒤(success → paused)에는 다시 확인하지 않는다 — 멈춤 화면의 Enter(MicroPause 의 「다음으로」)를
-    //   이 문서 전역 Enter 처리도 함께 받아 **같은 단어의 정답을 한 번 더** 기록했다(평가 대기열 2건 · 2026-10-28 실측).
-    if (phase === 'success' || phase === 'paused') return
-    if (mode === 'realtime') return
-
-    const evalResult = confirm(userInput, currentWord.text)
-
-    if (evalResult.correct) {
-      handleSuccess()
-    } else {
-      handleError(evalResult, userInput)
-    }
-  }, [currentWord, userInput, mode, confirm, handleSuccess, ownsSession, phase])
-
-  /**
    * 오답 처리 + Reflection
    */
   const handleError = useCallback(
@@ -332,6 +313,25 @@ export function SpellForge({ textId, textTitle, words, backHref, content, viewer
     },
     [resetFeedback, ownsSession, currentWord, markMissed, firstErrorKey]
   )
+
+  /**
+   * Confirm Answer (Delayed/Blind 모드)
+   */
+  const handleConfirm = useCallback(() => {
+    if (!currentWord || userInput.length === 0 || !ownsSession()) return
+    // 정답 처리 뒤(success → paused)에는 다시 확인하지 않는다 — 멈춤 화면의 Enter(MicroPause 의 「다음으로」)를
+    //   이 문서 전역 Enter 처리도 함께 받아 **같은 단어의 정답을 한 번 더** 기록했다(평가 대기열 2건 · 2026-10-28 실측).
+    if (phase === 'success' || phase === 'paused') return
+    if (mode === 'realtime') return
+
+    const evalResult = confirm(userInput, currentWord.text)
+
+    if (evalResult.correct) {
+      handleSuccess()
+    } else {
+      handleError(evalResult, userInput)
+    }
+  }, [currentWord, userInput, mode, confirm, handleSuccess, handleError, ownsSession, phase])
 
   /**
    * Pause → 다음 단어

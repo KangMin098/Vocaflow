@@ -100,6 +100,9 @@ describe('SpellForge 소스 결속', () => {
     expect(src).toMatch(/const firstErrorKey = firstErrorOwner\(viewerId, textId, session\.startedAt\.getTime\(\), firstErrorMaterial\(content, words\)\)/)
     expect(src).toMatch(/prev\.owner === firstErrorKey \? prev : NO_FIRST_ERRORS[\s\S]{0,20}\}, \[firstErrorKey\]\)/)
     expect(src).toMatch(/firstErrorFor\(firstErrors, firstErrorKey, w\)/)
+    // 리뷰 P2 — handleConfirm 이 옛 handleError(옛 판 키)를 붙들지 않게: 먼저 선언하고 의존성에 넣는다
+    expect(src.indexOf('const handleError = useCallback(')).toBeLessThan(src.indexOf('const handleConfirm = useCallback('))
+    expect(src).toMatch(/\}, \[currentWord, userInput, mode, confirm, handleSuccess, handleError, ownsSession, phase\]\)/)
     expect(src).toMatch(/setFirstErrors\(NO_FIRST_ERRORS\)\n\s*\}, \[viewerId, authStatus\]\)/)
     expect(src).toMatch(/viewerId === undefined \|\| authStatus === 'same'\s*\? firstErrorFor\(/)
     // 입력 문자열을 밖으로 보내지 않는다
