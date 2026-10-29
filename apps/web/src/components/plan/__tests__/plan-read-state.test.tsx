@@ -102,7 +102,7 @@ describe('리뷰 r2 — 쓰기 계정 경계 · props 교체(소스 결속 · �
     const s = src()
     const batch = s.slice(s.indexOf('function commitSourceBatch'), s.indexOf('// 담은 항목 즉시 저장'))
     expect(batch).toMatch(/const token = guard\.token\(\)\s*\n\s*if \(!canWrite\(token\)\) \{/)
-    expect(batch).toMatch(/for \(const m of picks\) \{[\s\S]*?if \(!canWrite\(token\)\) break\s*\n[\s\S]*?const res = await savePlanItem\(/)
+    expect(batch).toMatch(/for \(const m of picks\) \{[\s\S]*?if \(!canWrite\(token\)\) break\s*\n[\s\S]*?const res = await safeSave\(/)
     expect(batch).toMatch(/setAdding\(false\)\s*\n\s*if \(!canWrite\(token\)\) return/)
   })
   it('[P1] 단건 추가 · 수정 · 삭제도 쓰기 전에 계정 확인', () => {
@@ -125,9 +125,11 @@ describe('리뷰 r3 — expectedOwner 배선(서버 getUser 와 다르면 쓰기
   it('일괄 · 단건 추가 · 수정 저장과 삭제가 모두 화면 viewer 를 expectedOwner 로 넘긴다', () => {
     const s = fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
     expect((s.match(/expectedOwner: owner/g) ?? []).length).toBe(3)
-    expect(s).toContain('await removePlanItem(item.id, owner)')
+    expect(s).toContain('await safeRemove(item.id, owner)')
     expect(s).toContain('const owner = ownerId ?? undefined')
-    expect((s.match(/await savePlanItem\(/g) ?? []).length).toBe(3)
+    // r10 — 저장 3곳은 throw 를 실패 계약으로 바꾸는 safeSave 를 거친다(그 안에서 savePlanItem 1회)
+    expect((s.match(/await safeSave\(/g) ?? []).length).toBe(3)
+    expect((s.match(/await savePlanItem\(/g) ?? []).length).toBe(1)
   })
 })
 
@@ -245,5 +247,28 @@ describe('리뷰 r8 — 다른 viewer 는 쓰기 중에도 즉시 닫기 · 재�
     expect(x).toMatch(/if \(writing \|\| reloadInFlight\.current\) return\s*\n\s*reloadInFlight\.current = true/)
     expect(x).toMatch(/finally \{\s*\n\s*reloadInFlight\.current = false/)
     expect(x).toContain('disabled={writing || reloading}')
+  })
+})
+
+describe('리뷰 r10 — 쓰기 상태 반드시 해제 · 재시도 실패 뒤 초점 복구', () => {
+  const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  it('[P2] 단건 · 일괄 추가는 finally 에서 adding 해제 · 수정 · 삭제는 finally 에서 pendingWrites 감소', () => {
+    const x = src()
+    const draft = x.slice(x.indexOf('function commitDraft'), x.indexOf('// ── 스크립트 다건 선택'))
+    expect(draft).toMatch(/try \{\s*\n\s*res = await safeSave\([\s\S]*?\} finally \{\s*\n\s*setAdding\(false\)/)
+    const batch = x.slice(x.indexOf('function commitSourceBatch'), x.indexOf('// 담은 항목 즉시 저장'))
+    expect(batch).toMatch(/\} finally \{\s*\n\s*\/\/[^\n]*\n\s*setAdding\(false\)/)
+    expect((x.match(/finally \{\s*\n\s*setPendingWrites\(\(n\) => n - 1\)/g) ?? []).length).toBe(2)
+  })
+  it('[P2] 서버 액션이 던지면 기존 실패 계약(ok:false · 안내)으로 — 저장 · 삭제 모두', () => {
+    const x = src()
+    expect(x).toMatch(/const safeSave = async[\s\S]*?try \{\s*\n\s*return await savePlanItem\(input\)\s*\n\s*\} catch \{\s*\n\s*return \{ ok: false as const/)
+    expect(x).toMatch(/const safeRemove = async[\s\S]*?try \{\s*\n\s*return await removePlanItem\(id, expected\)\s*\n\s*\} catch \{\s*\n\s*return \{ ok: false as const/)
+  })
+  it('[P2] 키보드 재시도가 다시 실패하면 단추가 다시 활성이 된 뒤 그 단추로 초점(사용자가 옮기지 않았을 때만)', () => {
+    const x = src()
+    expect(x).toContain('if (fromRetry && !succeeded && gen === readGen.current) focusRetryAfter.current = true')
+    expect(x).toMatch(/if \(!focusRetryAfter\.current \|\| reloading\) return\s*\n\s*const b = retryRef\.current\s*\n\s*if \(!b \|\| b\.disabled\) return/)
+    expect(x).toContain('if (!a || a === document.body) b.focus()')
   })
 })

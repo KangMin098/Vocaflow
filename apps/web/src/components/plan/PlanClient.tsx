@@ -134,6 +134,7 @@ export function PlanClient({
   const firstProps = useRef(true)
   const deferredProps = useRef(false)
   const reloadInFlight = useRef(false)
+  const focusRetryAfter = useRef(false)
   useEffect(() => {
     if (firstProps.current) {
       firstProps.current = false
@@ -179,6 +180,7 @@ export function PlanClient({
     reloadInFlight.current = true
     // 누른 순간 재시도 단추에 초점이 있었는가(r8) — 재조회 중 단추가 disabled 되면 초점이 풀리므로 시작할 때 기억한다
     const fromRetry = typeof document !== 'undefined' && document.activeElement === retryRef.current
+    let succeeded = false
     const gen = ++readGen.current
     const startGuard = guard
     const token = guard.token()
@@ -210,6 +212,7 @@ export function PlanClient({
       }
       // 재시도 단추에 초점이 있었으면(누른 단추가 사라진다) 성공 뒤 계획 제목으로 옮긴다(r5)
       if (fromRetry) focusAfterReload.current = true
+      succeeded = true
       setItems(snap.items)
       setConfirmed(true)
       setReadFailed(false)
@@ -218,6 +221,8 @@ export function PlanClient({
     } finally {
       reloadInFlight.current = false
       if (gen === readGen.current) setReloading(false)
+      // 키보드로 재시도했는데 다시 실패 · 예외(r10) — 단추가 다시 활성이 된 뒤 그 단추로 초점을 돌려준다(아래 effect)
+      if (fromRetry && !succeeded && gen === readGen.current) focusRetryAfter.current = true
     }
   }
   const [, startTransition] = useTransition()
@@ -226,8 +231,32 @@ export function PlanClient({
   const [draft, setDraft] = useState<Draft | null>(null)
   const [editId, setEditId] = useState<string | null>(null)
   const [adding, setAdding] = useState(false)
+  /** 서버 액션이 던져도(네트워크 등) 기존 실패 계약으로 — 쓰기 상태(adding · pendingWrites)가 남지 않게(r10) */
+  const safeSave = async (input: Parameters<typeof savePlanItem>[0]) => {
+    try {
+      return await savePlanItem(input)
+    } catch {
+      return { ok: false as const, error: '저장 여부를 확인하지 못했어요. 계획을 다시 불러와 확인해 주세요.' }
+    }
+  }
+  const safeRemove = async (id: string, expected: string | undefined) => {
+    try {
+      return await removePlanItem(id, expected)
+    } catch {
+      return { ok: false as const, error: '삭제 여부를 확인하지 못했어요. 계획을 다시 불러와 확인해 주세요.' }
+    }
+  }
   /** 쓰기 진행 중(r6) — 담기 · 수정 · 삭제 중에는 재조회 단추를 잠근다 */
   const writing = adding || pendingWrites > 0
+  // 재시도 실패 뒤 초점 복구(r10) — 단추가 다시 활성이고, 사용자가 초점을 다른 곳으로 옮기지 않았을 때(body)만
+  useEffect(() => {
+    if (!focusRetryAfter.current || reloading) return
+    const b = retryRef.current
+    if (!b || b.disabled) return
+    focusRetryAfter.current = false
+    const a = typeof document !== 'undefined' ? document.activeElement : null
+    if (!a || a === document.body) b.focus()
+  })
   // 쓰기 중 보류한 props 가 있으면(r7) 쓰기가 끝난 뒤 그 props 를 버리고 재조회 1회 — 기존 재조회 잠금 경로를 그대로 탄다
   useEffect(() => {
     if (writing || !deferredProps.current) return
@@ -371,8 +400,12 @@ export function PlanClient({
     setError(null)
     setAdding(true)
     startTransition(async () => {
-      const res = await savePlanItem({ materialType: type, materialId: m.id, modules, chapters, weekdays, expectedOwner: owner })
-      setAdding(false)
+      let res: Awaited<ReturnType<typeof safeSave>>
+      try {
+        res = await safeSave({ materialType: type, materialId: m.id, modules, chapters, weekdays, expectedOwner: owner })
+      } finally {
+        setAdding(false)
+      }
       // 응답 사이 계정이 바뀌었으면 이 화면에 싣지 않는다
       if (!canWrite(token)) return
       if (!res.ok || !res.id) {
@@ -448,11 +481,12 @@ export function PlanClient({
     setError(null)
     setAdding(true)
     startTransition(async () => {
+      try {
       const added: PlanItem[] = []
       for (const m of picks) {
         // 각 쓰기 직전 — 계정이 바뀌었으면 남은 선택을 새 계정에 저장하지 않고 멈춘다
         if (!canWrite(token)) break
-        const res = await savePlanItem({
+        const res = await safeSave({
           materialType: type,
           materialId: m.id,
           modules,
@@ -488,6 +522,10 @@ export function PlanClient({
       }
       setItems((prev) => [...prev, ...added])
       setArtSel(new Set())
+      } finally {
+        // 어떤 경로로 끝나도 담기 상태를 푼다(r10) — 남으면 읽기 재시도까지 잠긴다
+        setAdding(false)
+      }
     })
   }
 
@@ -508,7 +546,7 @@ export function PlanClient({
     startTransition(async () => {
       try {
       if (!canWrite(token)) return
-      const res = await savePlanItem({
+      const res = await safeSave({
         id: item.id,
         materialType: item.materialType,
         materialId: item.materialId,
@@ -546,7 +584,7 @@ export function PlanClient({
     startTransition(async () => {
       try {
         if (!canWrite(token)) return
-        const res = await removePlanItem(item.id, owner)
+        const res = await safeRemove(item.id, owner)
         if (!res.ok) {
           setItems((prev) => [...prev, item])
           setError(res.error ?? '삭제에 실패했어요.')
