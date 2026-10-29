@@ -1,5 +1,6 @@
 # CHANGELOG
 
+- fix(wordblitz): 오답 대조의 「대조 닫기」 뒤 현재 대조 단어의 목록 단추로 초점 1회 복귀(다음 단어 뒤·재렌더에도 올바른 단어, 목록에서 빠지면 이동 0, 점수·기록 불변). Codex 리뷰 NO_FINDINGS (T-0257 7f5838c40)
 - fix(flashcard): 완료 화면의 숫자를 「내일 다시」가 아니라 이번 「몰라요·어려워요」 자기평가 수로 표시하고, 확정되지 않은 내일 오전 일정 약속 문구 제거(0·1·여러 건 문구, FSRS·점수 payload 불변). Codex 리뷰 NO_FINDINGS (T-0260 edab9b82a)
 - fix(pairflip): 결과 목록의 긴 단어·뜻을 잘라내지 않고 줄바꿈(break-keep·overflow-wrap), 회상 행 뜻은 열기 전 가림 유지 — 200% 확대에서도 잘림·넘침 0. Codex 리뷰 NO_FINDINGS (T-0256 173abfcf6)
 - fix(spellforge): 학습 중 모드·발음·확인 단추와 링크의 Enter 는 그 조작에 맡기고(nativeControlOwnsKey) 채점·SRS 0, 입력칸 Enter 는 기존 확인 1회. Codex 리뷰 NO_FINDINGS, 실 라우트·DB NOT_RUN (T-0261 d36974176)
