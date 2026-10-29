@@ -78,6 +78,7 @@ export function PlanClient({
   initialFailed = false,
   viewerId = null,
   materials: initialMaterials,
+  initialMaterialsFailed = false,
   todayWeekday,
   weekDates,
 }: {
@@ -87,6 +88,8 @@ export function PlanClient({
   /** 이 계획을 읽은 서버 Auth 의 id — 화면의 계정 경계(비로그인 null) */
   viewerId?: string | null
   materials: AvailableMaterials
+  /** 서버에서 자료 목록 조회가 던졌는가(r13) — 처음부터 「자료 다시 불러오기」를 보인다 */
+  initialMaterialsFailed?: boolean
   todayWeekday: number
   /** 이번 주(월~일) 날짜 'M/D' 7개 — index 0=월 (서버 KST 산출) */
   weekDates: string[]
@@ -124,7 +127,7 @@ export function PlanClient({
   const materials: AvailableMaterials = matsOwner === ownerId ? mats : EMPTY_MATERIALS
   // 자료 재조회 실패(r12) — 선택기가 조용히 빈 채로 남지 않게 표시하고, 명시적 「자료 다시 불러오기」로 다시 연다.
   //   소유자가 바뀌면 1회 재조회 표식을 다시 연다
-  const [matsFailed, setMatsFailed] = useState(false)
+  const [matsFailed, setMatsFailed] = useState(initialMaterialsFailed)
   const [matsTry, setMatsTry] = useState(0)
   const matsFor = useRef<string | null>(ownerId)
   if (matsFor.current !== ownerId) {
@@ -189,11 +192,9 @@ export function PlanClient({
     }
     const transient = initialFailed && viewerId === null
     // ① viewer 판정이 먼저(r8) — 확정된 다른 viewer · 로그아웃이면 쓰기 중이어도 즉시 경계를 닫는다
-    if (!transient && ownerId !== null && viewerId !== ownerId) {
-      readGen.current++
-      guardRef.current.invalidate()
-      return
-    }
+    // ① 소유자와 다른 viewer 의 props(늦게 온 이전 계정 · 로그아웃 확인 등) — 그 props 를 버린다(r13).
+    //    경계를 닫는 것은 브라우저 인증 이벤트로 실제 변경이 확인될 때(guard)뿐이다 — 늦은 props 로 같은 계정 화면을 닫지 않게
+    if (!transient && ownerId !== null && viewerId !== ownerId) return
     // ② 같은 viewer(또는 소유자 확인 실패)의 props 만 쓰기 중 보류(r7) — 낙관적 변경을 덮지 않게. 쓰기가 끝나면 보류분은 버리고 재조회 1회
     if (writing) {
       deferredProps.current = true

@@ -29,10 +29,14 @@ function kstWeekDates(): string[] {
 
 export default async function PlanPage() {
   // 읽기 facade(T-0240) — 목록 · 실패 · 그 목록을 읽은 viewer 를 한 번의 조회로. 기존 fetchStudyPlanItems 는 부르지 않는다(중복 조회 0)
-  const [plan, materials] = await Promise.all([
+  // 한쪽이 던져도 다른 쪽은 그린다(r13) — 자료 목록 실패는 PlanClient 의 「자료 다시 불러오기」로, 계획 실패는 기존 실패 고지로
+  const [planRes, matsRes] = await Promise.allSettled([
     fetchStudyPlanSnapshot(),
     fetchAvailableMaterials(),
   ])
+  const plan = planRes.status === 'fulfilled' ? planRes.value : { items: [], failed: true, viewerId: null }
+  const materialsFailed = matsRes.status !== 'fulfilled'
+  const materials = matsRes.status === 'fulfilled' ? matsRes.value : { viewerId: null, books: [], articles: [], wordSets: [], scripts: [] }
 
   return (
     <Screen width="wide" background="bg2" padX="md">
@@ -43,6 +47,7 @@ export default async function PlanPage() {
         initialFailed={plan.failed}
         viewerId={plan.viewerId}
         materials={materials}
+        initialMaterialsFailed={materialsFailed}
         todayWeekday={kstWeekday()}
         weekDates={kstWeekDates()}
       />

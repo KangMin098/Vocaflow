@@ -164,12 +164,12 @@ describe('리뷰 r5 — props 의 소유자 판정 · 재시도 성공 초점', 
     const e = eff()
     const t = e.indexOf('const transient = initialFailed && viewerId === null')
     expect(t).toBeGreaterThan(0)
-    expect(e).toContain('if (!transient && ownerId !== null && viewerId !== ownerId) {')
+    expect(e).toContain('if (!transient && ownerId !== null && viewerId !== ownerId) return')
     expect(e).toContain('}, [initialItems, initialFailed, viewerId])')
   })
-  it('[P2] 확정된 다른 viewer props → 경계를 닫는다 · 소유자 미확정이면 새 viewer 로 세운다', () => {
+  it('[P2] (r13 로 변경) 다른 viewer props 는 버린다 · 소유자 미확정이면 새 viewer 로 세운다', () => {
     const e = eff()
-    expect(e).toMatch(/if \(!transient && ownerId !== null && viewerId !== ownerId\) \{\s*\n\s*readGen\.current\+\+\s*\n\s*guardRef\.current\.invalidate\(\)/)
+    expect(e).toMatch(/if \(!transient && ownerId !== null && viewerId !== ownerId\) return/)
     expect(e).toContain('if (ownerId === null && viewerId !== null) setOwnerId(viewerId)')
   })
   it('[P2] page 는 viewer key 를 쓰지 않는다', () => {
@@ -226,7 +226,7 @@ describe('리뷰 r7 — 쓰기 중 props 보류 → 쓰기 뒤 재조회 1회', 
     expect(w).toBeGreaterThan(0)
     expect(e.slice(w, w + 120)).toContain('deferredProps.current = true')
     expect(e.indexOf('setItems(initialItems)')).toBeGreaterThan(w)
-    expect(e.indexOf('guardRef.current.invalidate()')).toBeLessThan(w)
+    expect(e.indexOf('if (!transient && ownerId !== null && viewerId !== ownerId) return')).toBeLessThan(w)
     expect(e.indexOf('setReloading(false)')).toBeGreaterThan(w)
   })
   it('[P2] 쓰기가 끝나면 보류분은 버리고 reloadPlan 1회(기존 재조회 잠금 경로)', () => {
@@ -236,11 +236,11 @@ describe('리뷰 r7 — 쓰기 중 props 보류 → 쓰기 뒤 재조회 1회', 
 
 describe('리뷰 r8 — 다른 viewer 는 쓰기 중에도 즉시 닫기 · 재조회 중복 금지', () => {
   const src = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
-  it('[P1] viewer 판정(닫기)이 writing 보류보다 먼저', () => {
+  it('[P1→r13] 다른 viewer props 판정(버림)이 writing 보류보다 먼저', () => {
     const x = src()
     const e = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
-    expect(e.indexOf('guardRef.current.invalidate()')).toBeGreaterThan(0)
-    expect(e.indexOf('guardRef.current.invalidate()')).toBeLessThan(e.indexOf('if (writing) {'))
+    expect(e.indexOf('viewerId !== ownerId) return')).toBeGreaterThan(0)
+    expect(e.indexOf('viewerId !== ownerId) return')).toBeLessThan(e.indexOf('if (writing) {'))
   })
   it('[P2] reloadPlan 진행 중 ref 잠금 · 재조회 중 재시도 단추 disabled', () => {
     const x = src()
@@ -316,5 +316,29 @@ describe('리뷰 r12 — 자료 재조회 실패 복구 · 쓰기 결과 미확�
     expect(x).toContain('{(readFailed || writeUnknown) && (')
     expect(x).toContain("'저장 결과를 확인하지 못했어요. 다시 불러와 지금 계획을 확인해 주세요.'")
     expect(x).toMatch(/setReadFailed\(false\)\s*\n\s*setWriteUnknown\(false\)/)
+  })
+})
+
+describe('리뷰 r13 — 자료 조회 예외가 계획 표시를 막지 않음 · 늦은 다른 viewer props 는 버림', () => {
+  it('[P2] fetchAvailableMaterials 가 던져도 page 는 계획 결과를 그대로 넘기고 자료 실패를 표시 경로로', async () => {
+    const pa = await import('@/lib/learner/plan-actions')
+    const spy = vi.mocked(pa.fetchAvailableMaterials).mockImplementationOnce(async () => { throw new Error('network') })
+    const { default: PlanPage } = await import('@/app/(main)/plan/page')
+    const tree = (await PlanPage()) as { props: { children: { props: Record<string, unknown> } } }
+    const p = tree.props.children.props
+    expect(p).toMatchObject({ initialItems: [], initialFailed: false, viewerId: 'user-a', initialMaterialsFailed: true })
+    expect((p.materials as { scripts: unknown[] }).scripts).toEqual([])
+    spy.mockReset()
+  })
+  it('[P2] 실제 PlanClient — 자료 실패 props 면 「자료 다시 불러오기」가 처음부터 보인다', () => {
+    const html = renderToString(<PlanClient initialItems={[ITEM]} viewerId="user-a" materials={{ viewerId: null, books: [], articles: [], wordSets: [], scripts: [] }} initialMaterialsFailed todayWeekday={3} weekDates={WEEK} />)
+    expect(html).toContain('data-testid="plan-materials-retry"')
+    expect(html).toContain('Book One')
+  })
+  it('[P2] props viewer 가 현재 소유자와 다르면 그 props 를 버린다 — guard 를 무효화하지 않는다(닫기는 브라우저 인증 이벤트만)', () => {
+    const x = fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+    const e = x.slice(x.indexOf('const firstProps = useRef(true)'), x.indexOf('const canWrite'))
+    expect(e).not.toContain('invalidate()')
+    expect(e).toMatch(/if \(!transient && ownerId !== null && viewerId !== ownerId\) return/)
   })
 })
