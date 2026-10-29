@@ -139,6 +139,18 @@ export function DcpPlayer({
     else if (lastReviewed.current !== null) listRef.current?.querySelectorAll('button')[lastReviewed.current]?.focus()
   }, [reviewAt])
 
+  // T-0249 — 학습자가 피드백의 「다음 · 마치기」 를 실행한 전환에만 한 번 초점을 인계한다(새 문항 시작 영역 · 완료 제목).
+  // 부모 재렌더 · 일반 갱신에는 의도가 없어 움직이지 않는다. 복기 왕복은 위의 기존 효과가 맡는다.
+  const focusIntent = useRef<FocusIntent>(null)
+  const itemStartRef = useRef<HTMLDivElement | null>(null)
+  const doneHeadRef = useRef<HTMLHeadingElement | null>(null)
+  useEffect(() => {
+    const target = focusTargetAfter(focusIntent.current, phase)
+    if (!target) return
+    focusIntent.current = null
+    ;(target === 'item' ? itemStartRef.current : doneHeadRef.current)?.focus()
+  }, [idx, phase])
+
   const item = items[idx]
   const total = items.length
   const isLast = idx === total - 1
@@ -203,6 +215,7 @@ export function DcpPlayer({
   }
 
   function handleNext() {
+    focusIntent.current = isLast ? 'done' : 'item'
     if (isLast) {
       setPhase('done')
       return
@@ -240,7 +253,12 @@ export function DcpPlayer({
           <Gwonjeom size={26} strokeWidth={2} />
         </span>
         <div>
-          <h2 className="font-display text-[18px] font-[800] text-[var(--t1)]">
+          <h2
+            ref={doneHeadRef}
+            tabIndex={-1}
+            data-testid="dcp-done-title"
+            className="rounded-[var(--r-sm)] font-display text-[18px] font-[800] text-[var(--t1)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+          >
             {custom ? custom.title : items.every((x) => isUnderlineChoiceDcpType(x.type)) ? '어휘 연습을 마쳤어요' : '오늘 구문 연습을 마쳤어요'}
           </h2>
           <p className="mt-1 break-keep font-body text-[13px] text-[var(--t2)]" data-testid="dcp-done-body">
@@ -341,7 +359,14 @@ export function DcpPlayer({
         </div>
       )}
 
-      <div className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)]">
+      <div
+        ref={itemStartRef}
+        tabIndex={-1}
+        role="group"
+        aria-label={`${idx + 1}번 문항`}
+        data-testid="dcp-item-start"
+        className="rounded-[var(--r-lg)] border border-[var(--bd)] bg-[var(--bg2)] p-4 shadow-[var(--sh-sm)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)]"
+      >
         {phase === 'graded' && result ? (
           <Feedback item={item} result={result} submitted={submitted} cause={cause} onCause={handleCause} causeFailed={!!causeFailed && causeFailed.item === item && causeFailed.attemptId === result.attemptId && causeFailed.cause === cause} onNext={handleNext} isLast={isLast} review={!causeChips ? 'noCause' : false} causeHref={causeHref} causeLabel={causeLabel} pre={preShown ? <PreEvidenceNote key={`pre-${item.id}`} sentence={preShown.sentence} /> : null} extra={afterFeedback ? <div key={`extra-${item.id}`}>{afterFeedback}</div> : null} />
         ) : isUnderlineChoiceDcpType(item.type) ? (
@@ -373,6 +398,17 @@ export function DcpPlayer({
       </div>
     </section>
   )
+}
+
+// ── T-0249 — 다음 · 마치기 뒤 초점 인계(순수) ──
+
+export type FocusIntent = 'item' | 'done' | null
+
+/** 학습자가 남긴 전환 의도와 지금 단계로 초점 대상을 고른다 — 의도가 없으면(부모 재렌더 · 일반 갱신) null */
+export function focusTargetAfter(intent: FocusIntent, phase: Phase): 'item' | 'done' | null {
+  if (intent === 'item' && phase === 'answering') return 'item'
+  if (intent === 'done' && phase === 'done') return 'done'
+  return null
 }
 
 // ── T-0247 — 오답 원인 기록 판정(순수) ──
