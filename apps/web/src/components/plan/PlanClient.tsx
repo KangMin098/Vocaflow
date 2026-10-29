@@ -97,7 +97,14 @@ export function PlanClient({
   const [readFailed, setReadFailed] = useState(initialFailed)
   const [reloading, setReloading] = useState(false)
   // 계정 경계 — 이 목록을 읽은 viewer 와 브라우저 신원이 같을 때만 계획을 보이고 조작하게 한다
-  const { guard, status: authStatus } = useStoryAuthGuard(viewerId)
+  // 소유자 경계(T-0240 r4) — 처음엔 서버가 읽은 viewer. 첫 읽기가 인증 실패로 viewer 를 모르면(null) 재시도가 성공했을 때
+  //   그 응답의 viewer 로 새로 세운다(useStoryAuthGuard 가 새 경계를 만들고 브라우저 신원을 다시 확인한다).
+  //   viewer 가 null 인 경로: ① 비로그인 확인(failed false) ② 첫 인증 조회 실패(failed true) ③ 재시도 중 일시 인증 실패(failed true)
+  //   ④ 재시도에서 로그아웃 확인(failed false) — ①②는 소유자 미확정이라 쓰기 금지, ③은 기존 화면·선택·재시도 유지, ④는 확정된 계정 변경.
+  const [ownerId, setOwnerId] = useState<string | null>(viewerId)
+  const { guard, status: authStatus } = useStoryAuthGuard(ownerId)
+  const guardRef = useRef(guard)
+  guardRef.current = guard
   const readGen = useRef(0)
   // 같은 viewer 의 props 교체(T-0240 r2) — 새 snapshot 을 반영하고 진행 중이던 읽기는 무효로 한다. 미저장 선택(draft · artSel 등)은 건드리지 않는다
   const firstProps = useRef(true)
@@ -117,21 +124,36 @@ export function PlanClient({
     setReadFailed(false)
   }, [initialItems, initialFailed])
   /** 쓰기 직전 계정 확인(T-0240 r2 P1) — 이 화면의 viewer 와 지금 브라우저 신원이 같고, 시작할 때의 세대 그대로일 때만 */
-  const canWrite = (token: number) => !viewerId || guard.isCurrent(token)
-  /** 서버에 넘기는 기대 주인(T-0240 r3) — 서버 getUser 가 다르면 쓰기 전에 거부된다. 비로그인 화면은 넘기지 않는다(기존과 같다) */
-  const owner = viewerId ?? undefined
+  //   소유자가 확정되기 전(ownerId null)에는 쓰지 않는다(r4) — 기대 주인 없이 저장하지 않게
+  const canWrite = (token: number) => ownerId !== null && guard.isCurrent(token) && guardRef.current === guard
+  /** 서버에 넘기는 기대 주인(T-0240 r3) — 서버 getUser 가 다르면 쓰기 전에 거부된다 */
+  const owner = ownerId ?? undefined
   /** 명시적 읽기 재시도 — 읽기만 한다(저장 · 삭제를 다시 보내지 않는다). 늦은 응답 · 다른 viewer 응답은 버린다 */
   async function reloadPlan() {
     const gen = ++readGen.current
+    const startGuard = guard
     const token = guard.token()
     setReloading(true)
     try {
       const snap = await fetchStudyPlanSnapshot()
       if (gen !== readGen.current) return
-      if (viewerId && (!guard.isCurrent(token) || snap.viewerId !== viewerId)) {
-        // 그 사이 계정이 바뀌었거나 다른 계정의 계획이 왔다 — 이 화면에 싣지 않는다
-        if (snap.viewerId !== viewerId) guard.invalidate()
+      // ③ 소유자 확인 실패(일시 인증 실패) — 계정 변경으로 확정하지 않는다. 기존 화면 · 선택 · 재시도를 그대로 둔다
+      if (snap.viewerId === null && snap.failed) {
+        setReadFailed(true)
         return
+      }
+      if (ownerId !== null) {
+        // 시작할 때의 경계가 그 사이 바뀌었으면(인증 이벤트) 버린다 — 경계 자신이 상태를 이미 바꿨다
+        if (guardRef.current !== startGuard || !startGuard.isCurrent(token)) return
+        // ④ 로그아웃 확인 · 다른 계정의 계획 — 확정된 계정 변경
+        if (snap.viewerId !== ownerId) {
+          startGuard.invalidate()
+          return
+        }
+      } else if (snap.viewerId !== null) {
+        // ② 뒤 재시도 성공 — 그 응답의 viewer 로 소유자 경계를 새로 세운다. 새 경계가 브라우저 신원을 확인하기 전(checking) ·
+        //   다르면(changed) 화면은 계획을 그리지 않고 쓰기도 막힌다(canWrite 는 새 경계의 same 에서만)
+        setOwnerId(snap.viewerId)
       }
       if (snap.failed) {
         setReadFailed(true)
@@ -280,7 +302,10 @@ export function PlanClient({
     const m = draft.option
     const type = draft.type
     const token = guard.token()
-    if (!canWrite(token)) return
+    if (!canWrite(token)) {
+      if (ownerId === null) setError(NO_OWNER)
+      return
+    }
     setError(null)
     setAdding(true)
     startTransition(async () => {
@@ -353,7 +378,10 @@ export function PlanClient({
       type === 'script' ? materials.scripts : type === 'word_set' ? materials.wordSets : materials.articles
     const picks = pool.filter((a) => artSel.has(a.id))
     const token = guard.token()
-    if (!canWrite(token)) return
+    if (!canWrite(token)) {
+      if (ownerId === null) setError(NO_OWNER)
+      return
+    }
     setError(null)
     setAdding(true)
     startTransition(async () => {
@@ -406,7 +434,10 @@ export function PlanClient({
     const chapters = patch.chapters ?? item.chapters
     const weekdays = patch.weekdays ?? item.weekdays
     const token = guard.token()
-    if (!canWrite(token)) return
+    if (!canWrite(token)) {
+      if (ownerId === null) setError(NO_OWNER)
+      return
+    }
     setItems((prev) => prev.map((it) => (it.id === item.id ? { ...it, modules, chapters, weekdays } : it)))
     setError(null)
     startTransition(async () => {
@@ -434,7 +465,10 @@ export function PlanClient({
   }
   function removeItem(item: PlanItem) {
     const token = guard.token()
-    if (!canWrite(token)) return
+    if (!canWrite(token)) {
+      if (ownerId === null) setError(NO_OWNER)
+      return
+    }
     setItems((prev) => prev.filter((it) => it.id !== item.id))
     if (editId === item.id) setEditId(null)
     setError(null)
@@ -449,7 +483,7 @@ export function PlanClient({
   }
 
   // 계정 확인 전 · 바뀜 — 이 viewer 의 계획을 확인한 것처럼 보이거나 저장 조작을 받지 않는다
-  if (viewerId && authStatus !== 'same') return <PlanIdentityNotice status={authStatus} />
+  if (ownerId && authStatus !== 'same') return <PlanIdentityNotice status={authStatus} />
 
   return (
     // 폭/가로 패딩은 페이지의 <Screen width="wide" padX> 가 담당 — 내부 이중 제약(max-w-3xl·px) 금지
@@ -715,6 +749,9 @@ export function PlanClient({
     </div>
   )
 }
+
+/** 소유자(로그인 계정)를 아직 확인하지 못해 쓰지 않을 때(T-0240 r4) */
+const NO_OWNER = '로그인한 계정을 확인한 뒤에 계획을 저장할 수 있어요. 다시 불러오거나 로그인해 주세요.'
 
 /** 계정 확인 전 · 바뀜(T-0240) — 계획을 보이지도 조작을 받지도 않는다 */
 function PlanIdentityNotice({ status }: { status: 'checking' | 'changed' }) {

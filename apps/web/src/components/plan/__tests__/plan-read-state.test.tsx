@@ -101,15 +101,15 @@ describe('리뷰 r2 — 쓰기 계정 경계 · props 교체(소스 결속 · �
   it('[P1] 일괄 담기 — 각 쓰기 직전 guard 토큰 확인, 바뀌면 멈추고 결과를 싣지 않는다', () => {
     const s = src()
     const batch = s.slice(s.indexOf('function commitSourceBatch'), s.indexOf('// 담은 항목 즉시 저장'))
-    expect(batch).toMatch(/const token = guard\.token\(\)\s*\n\s*if \(!canWrite\(token\)\) return/)
+    expect(batch).toMatch(/const token = guard\.token\(\)\s*\n\s*if \(!canWrite\(token\)\) \{/)
     expect(batch).toMatch(/for \(const m of picks\) \{[\s\S]*?if \(!canWrite\(token\)\) break\s*\n[\s\S]*?const res = await savePlanItem\(/)
     expect(batch).toMatch(/setAdding\(false\)\s*\n\s*if \(!canWrite\(token\)\) return/)
   })
   it('[P1] 단건 추가 · 수정 · 삭제도 쓰기 전에 계정 확인', () => {
     const s = src()
-    const n = (s.match(/if \(!canWrite\(token\)\) return/g) ?? []).length
+    const n = (s.match(/!canWrite\(token\)/g) ?? []).length
     expect(n).toBeGreaterThanOrEqual(7)
-    expect(s).toMatch(/const canWrite = \(token: number\) => !viewerId \|\| guard\.isCurrent\(token\)/)
+    expect(s).toMatch(/const canWrite = \(token: number\) => ownerId !== null && guard\.isCurrent\(token\) && guardRef\.current === guard/)
   })
   it('[P2] 같은 viewer props 교체 — 새 snapshot 반영 · 진행 중 읽기 무효 · 선택은 그대로', () => {
     const s = src()
@@ -126,7 +126,31 @@ describe('리뷰 r3 — expectedOwner 배선(서버 getUser 와 다르면 쓰기
     const s = fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
     expect((s.match(/expectedOwner: owner/g) ?? []).length).toBe(3)
     expect(s).toContain('await removePlanItem(item.id, owner)')
-    expect(s).toContain('const owner = viewerId ?? undefined')
+    expect(s).toContain('const owner = ownerId ?? undefined')
     expect((s.match(/await savePlanItem\(/g) ?? []).length).toBe(3)
+  })
+})
+
+describe('리뷰 r4 — viewer 가 null 인 경로(소유자 미확정 · 일시 인증 실패 · 확정된 변경)', () => {
+  const s = () => fs.readFileSync(path.resolve(__dirname, '../PlanClient.tsx'), 'utf8')
+  const reload = () => { const x = s(); return x.slice(x.indexOf('async function reloadPlan'), x.indexOf('const [, startTransition]')) }
+  it('[P2] 재시도 응답이 failed·viewer null(일시 인증 실패) — 계정 변경으로 확정하지 않고 기존 화면 · 재시도 유지(무효화보다 먼저 판정)', () => {
+    const r = reload()
+    const transient = r.indexOf('if (snap.viewerId === null && snap.failed) {')
+    expect(transient).toBeGreaterThan(0)
+    expect(r.indexOf('invalidate()')).toBeGreaterThan(transient)
+    expect(r.slice(transient, r.indexOf('}', transient))).toContain('setReadFailed(true)')
+  })
+  it('[P1] 첫 인증 실패(viewer null) 뒤 재시도 성공 — 그 응답의 viewer 로 소유자 경계를 새로 세운다', () => {
+    expect(reload()).toMatch(/\} else if \(snap\.viewerId !== null\) \{[\s\S]*?setOwnerId\(snap\.viewerId\)/)
+    expect(s()).toContain('const { guard, status: authStatus } = useStoryAuthGuard(ownerId)')
+    expect(s()).toContain("if (ownerId && authStatus !== 'same') return <PlanIdentityNotice")
+  })
+  it('[P1] 소유자 확정 전에는 쓰지 않는다 — 쓰기 시작 4곳 모두 NO_OWNER 안내 후 중단', () => {
+    expect((s().match(/if \(!canWrite\(token\)\) \{\s*\n\s*if \(ownerId === null\) setError\(NO_OWNER\)\s*\n\s*return/g) ?? []).length).toBe(4)
+  })
+  it('비로그인 확인 화면(viewer null · 실패 아님)은 그리되 쓰기는 막힌다', () => {
+    const html = render({ viewerId: null })
+    expect(html).toContain('aria-label="자료 추가·구성"')
   })
 })
