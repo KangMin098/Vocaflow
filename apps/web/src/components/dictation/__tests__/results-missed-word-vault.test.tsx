@@ -19,6 +19,14 @@ vi.mock('react', async () => {
     useState: (init: unknown) => (h.seeded.length > 0 ? [h.seeded.shift(), () => {}] : actual.useState(init)),
   }
 })
+// next/link 의 prefetch 값을 그대로 드러내는 대역(나머지 속성·href 는 실제 Link 처럼 a 에 넘긴다)
+vi.mock('next/link', async () => {
+  const React = await vi.importActual<typeof import('react')>('react')
+  return {
+    default: ({ href, prefetch, children, ...rest }: { href: string; prefetch?: boolean; children?: React.ReactNode }) =>
+      React.createElement('a', { href, 'data-prefetch': String(prefetch), ...rest }, children),
+  }
+})
 vi.mock('next/navigation', () => ({
   useRouter: () => ({ replace: vi.fn(), push: vi.fn() }),
   useSearchParams: () => h.search,
@@ -134,6 +142,11 @@ describe('결과 화면 — 놓친 낱말 링크', () => {
     h.auth = 'changed'
     const html = render(snap([{ targetWords: ['drought'], targetHits: [] }]))
     expect(html).not.toContain('missed-word-vault-link')
+  })
+  it('놓친 낱말 링크는 prefetch 하지 않는다 — 누르기 전 요청 0(리뷰 P2)', () => {
+    const l = links(render(snap([{ targetWords: ['drought', 'flood'], targetHits: [] }])))
+    expect(l).toHaveLength(2)
+    for (const x of l) expect(x.tag).toContain('data-prefetch="false"')
   })
   it('링크를 그리는 데 추가 조회·클라이언트 생성 0', () => {
     render(snap([{ targetWords: ['drought', 'flood'], targetHits: [] }]))

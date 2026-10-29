@@ -299,6 +299,8 @@ export function DictationResultsClient() {
                         <li key={`v-${w}`}>
                           <Link
                             href={href}
+                            // 누르기 전에는 아무것도 요청하지 않는다(추가 네트워크 0) — 기본 prefetch 는 프로덕션에서 화면에 보이는 순간 RSC 를 미리 받는다
+                            prefetch={false}
                             data-testid="missed-word-vault-link"
                             aria-label={`내 단어장에서 ${w} 찾기`}
                             className="inline-flex min-h-[44px] max-w-full items-center gap-1 break-all rounded-[var(--r-md)] border border-[var(--bd)] px-3 py-2 font-english text-[12px] font-[600] text-[var(--t1)] transition-colors hover:border-[var(--p)] hover:bg-[var(--p-light)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--p)] focus-visible:ring-offset-2"
