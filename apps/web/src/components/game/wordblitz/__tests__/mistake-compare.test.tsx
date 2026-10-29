@@ -1,4 +1,7 @@
 // apps/web/src/components/game/wordblitz/__tests__/mistake-compare.test.tsx
+import { readFileSync } from 'node:fs';
+import { join } from 'node:path';
+
 import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it } from 'vitest';
 
@@ -52,5 +55,24 @@ describe('MistakeCompare', () => {
   it('원문이라 부르지 않는다', () => {
     const s = addMiss([], { target: reveal, chosen: hide, form: 'ko', prompt: '드러내다' });
     expect(renderToStaticMarkup(<MistakeCompare misses={s} />)).not.toContain('원문');
+  });
+});
+
+describe('대조 닫기 → 그 단어 버튼으로 초점 복귀(T-0257 · 배선)', () => {
+  const src = readFileSync(join(__dirname, '../WordBlitzMistakes.tsx'), 'utf8');
+  it('닫기만 복귀 대상을 정하고, 상세가 사라진 커밋에서 한 번 옮긴 뒤 비운다', () => {
+    expect(src).toMatch(/returnTo\.current = cur\.target\.en;\n\s+setOpen\(null\);/);
+    expect(src).toContain('const key = returnTo.current;\n    returnTo.current = null;\n    itemRefs.current.get(key)?.focus();');
+    expect(src).toContain('useLayoutEffect(() => {\n    if (open !== null || returnTo.current === null) return;');
+    expect((src.match(/returnTo\.current = /g) ?? []).length).toBe(2);
+  });
+  it('버튼은 단어(en)로 찾는다 — 부모 재렌더에도 같은 단어, 빠지면 지운다', () => {
+    expect(src).toContain('if (el) itemRefs.current.set(m.target.en, el);');
+    expect(src).toContain('else itemRefs.current.delete(m.target.en);');
+  });
+  it('첫 화면은 그대로다(초점 이동 속성 · 새 콜백 없음)', () => {
+    const html = renderToStaticMarkup(<MistakeCompare misses={addMiss([], { target: reveal, chosen: hide, form: 'ko', prompt: '드러내다' })} />);
+    expect(html).toContain('wbz-mx-item');
+    expect(html).not.toContain('autofocus');
   });
 });
