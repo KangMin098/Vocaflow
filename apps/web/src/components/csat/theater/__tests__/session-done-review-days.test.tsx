@@ -68,3 +68,23 @@ describe('부모 결속 — 표시와 예약이 같은 값', () => {
     expect(fs.readFileSync(path.resolve(__dirname, '../SessionDone.tsx'), 'utf8')).not.toContain('3일 뒤 다시 보기')
   })
 })
+
+describe('예약 뒤 초점(T-0217)', () => {
+  it('예약 표시는 프로그램 초점 자리(tabIndex -1) · role=status — 단추는 사라진다', () => {
+    const { record, id } = finished()
+    const s = latestSession(scheduleReview(record, id, T0 + 3, 3), ITEM)!
+    const html = render(s, 3, T0 + 3)
+    const note = /<span[^>]*data-testid="done-review-set"[^>]*>/.exec(html)?.[0] ?? ''
+    expect(note).toContain('tabindex="-1"')
+    expect(note).toContain('role="status"')
+    expect(html).not.toContain('data-testid="done-review"')
+  })
+  it('초점은 「이 화면에서 누른」 예약이 반영된 순간 한 번만 — reviewAt 이 바뀔 때만 · 누른 표식은 한 번 쓰고 지운다', () => {
+    const src = fs.readFileSync(path.resolve(__dirname, '../SessionDone.tsx'), 'utf8')
+    expect(src).toMatch(/if \(!pressedRef\.current \|\| session\.reviewAt == null\) return\s*\n\s*pressedRef\.current = false\s*\n\s*reviewNoteRef\.current\?\.focus\(\)/)
+    expect(src).toMatch(/\}, \[session\.reviewAt\]\)/)
+    expect(src).toMatch(/pressedRef\.current = true\s*\n\s*onReview\(\)/)
+    // 보이는 초점 — 프로그램 초점에도 링
+    expect(fs.readFileSync(path.resolve(__dirname, '../theater.module.css'), 'utf8')).toMatch(/\.doneNote:focus, \.doneNote:focus-visible \{ outline: 2px solid var\(--p\)/)
+  })
+})

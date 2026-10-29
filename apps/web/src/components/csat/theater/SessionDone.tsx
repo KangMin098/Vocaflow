@@ -7,6 +7,7 @@
 // 이해나 실력이 늘었다는 말은 하지 않는다(검증되지 않았다). 다음에 확인할 길만 보인다.
 
 import Link from 'next/link'
+import { useEffect, useRef } from 'react'
 
 import { completionOf, type LearningSession } from '@/lib/csat/learning-session'
 import type { GateResult } from '@/lib/csat/reveal-gate'
@@ -44,6 +45,15 @@ export function SessionDone({
   onReview: () => void
   onRestart: () => void
 }) {
+  // T-0217 — 「다시 보기」를 누른 뒤 단추가 예약 표시로 바뀌면 초점이 BODY 로 떨어졌다(T-0216 하네스 관측).
+  //   이 화면에서 누른 그 예약이 반영된 **그 순간 한 번만** 예약 표시로 초점을 옮긴다 — 부모가 다시 그려도(reviewAt 그대로) 다시 옮기지 않는다.
+  const reviewNoteRef = useRef<HTMLSpanElement>(null)
+  const pressedRef = useRef(false)
+  useEffect(() => {
+    if (!pressedRef.current || session.reviewAt == null) return
+    pressedRef.current = false
+    reviewNoteRef.current?.focus()
+  }, [session.reviewAt])
   const completion = completionOf(session)
   if (completion !== 'guided' && completion !== 'independent') return null
   const facts: string[] = []
@@ -74,11 +84,20 @@ export function SessionDone({
           </Link>
         ) : null}
         {session.reviewAt != null ? (
-          <span className={styles.doneNote} data-testid="done-review-set">
+          <span ref={reviewNoteRef} tabIndex={-1} role="status" className={styles.doneNote} data-testid="done-review-set">
             다시 보기 {dayLabel(session.reviewAt, now)}
           </span>
         ) : (
-          <button type="button" className={styles.doneQuiet} onClick={onReview} data-testid="done-review" data-review-days={reviewDays}>
+          <button
+            type="button"
+            className={styles.doneQuiet}
+            onClick={() => {
+              pressedRef.current = true
+              onReview()
+            }}
+            data-testid="done-review"
+            data-review-days={reviewDays}
+          >
             {reviewDays === 1 ? '내일' : `${reviewDays}일 뒤`} 다시 보기
           </button>
         )}
